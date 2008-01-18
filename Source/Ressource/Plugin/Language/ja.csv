@@ -1,0 +1,762 @@
+﻿   Junk;x
+  Author_Email;nihongoka@gmail.com
+  Author_Name;だい( http://barca.daa.jp )
+  Author_OldNames;barlog
+  Language_ISO639;ja
+  Language_Name;日本語
+ audio stream1; オーディオストリーム
+ audio stream2; オーディオストリーム
+ audio stream3; オーディオストリーム
+ bit1; ビット
+ bit2; ビット
+ bit3; ビット
+ bps; bps
+ Bps; Bps
+ Byte1; バイト
+ Byte2; バイト
+ Byte3; バイト
+ channel1; チャンネル
+ channel2; チャンネル
+ channel3; チャンネル
+ chapter1; チャプター
+ chapter2; チャプター
+ chapter3; チャプター
+ chapters stream1; チャプターストリーム
+ chapters stream2; チャプターストリーム
+ chapters stream3; チャプターストリーム
+ day1; 日
+ day2; 日
+ day3; 日
+ file1; ファイル
+ file2; ファイル
+ file3; ファイル
+ fps; fps
+ GB; GB
+ Gb; Gb
+ Gbps; Gbps
+ GBps; GBps
+ GHz; GHz
+ GiB; GiB
+ GibiByte1; GibiBytes
+ GibiByte2; GibiBytes
+ GibiByte3; GibiBytes
+ GiBps; GiBps
+ GigaBit1; GigaBit
+ GigaBit2; GigaBits
+ GigaBit3; GigaBits
+ GigaByte1; GigaByte
+ GigaByte2; GigaBytes
+ GigaByte3; GigaBytes
+ hour1; 時間
+ hour2; 時間
+ hour3; 時間
+ Hz; Hz
+ image stream1; イメージストリーム
+ image stream2; イメージストリーム
+ image stream3; イメージストリーム
+ KB; KB
+ Kb; Kb
+ KBps; KBps
+ Kbps; Kbps
+ KHz; KHz
+ KiB; KiB
+ KibiBit1; KibiBit
+ KibiBit2; KibiBits
+ KibiBit3; KibiBits
+ KibiByte1; KibiByte
+ KibiByte2; KibiBytes
+ KibiByte3; KibiBytes
+ KiBps; KiBps
+ KiloBit1; KiloBit
+ KiloBit2; KiloBits
+ KiloBit3; KiloBits
+ KiloByte1; KiloByte
+ KiloByte2; KiloBytes
+ KiloByte3; KiloBytes
+ MB; MB
+ Mb; Mb
+ Mbps; Mbps
+ MBps; MebiBytes
+ MebiBit1; MebiBit
+ MebiBit2; MebiBits
+ MebiBit3; MebiBits
+ MebiByte1; MebiByte
+ MebiByte2; MebiBytes
+ MebiByte3; MebiBytes
+ MegaBit1; MegaBit
+ MegaBit2; MegaBits
+ MegaBit3; MegaBits
+ MegaByte1; MegaByte
+ MegaByte2; MegaBytes
+ MegaByte3; MegaBytes
+ MHz; MHz
+ MiB; MiB
+ Mib; Mib
+ MiBps; MiBps
+ milisecond1; ミリ秒
+ milisecond2; ミリ秒
+ milisecond3; ミリ秒
+ minute1; 分
+ minute2; 分
+ minute3; 分
+ month1; 月
+ month2; 月
+ month3; 月
+ pixel1; ピクセル
+ pixel2; ピクセル
+ pixel3; ピクセル
+ second1; 秒
+ second2; 秒
+ second3; 秒
+ text stream1; テキストストリーム
+ text stream2; テキストストリーム
+ text stream3; テキストストリーム
+ video stream1; ビデオストリーム
+ video stream2; ビデオストリーム
+ video stream3; ビデオストリーム
+ week1; 週
+ week2; 週
+ week3; 週
+ year1; 年
+ year2; 年
+ year3; 年
+, ;, 
+: ;: 
+About;バージョン情報
+About_Hint;連絡方法と最新版チェック
+Accompaniment;演奏者
+Actor;主演
+Actor_Character;出演名
+Address;アドレス
+Advanced;詳細
+Advanced mode;詳細モード
+Album;アルバム
+All;すべて
+Archival_Location;Archival location
+Arranger;編集者
+ArtDirector;アートディレクター
+AspectRatio;解像度
+AssistantDirector;AD
+at;at
+At least one file;（少なくとも一つ以上のファイルを開いてください）
+Audio;オーディオ
+Audio stream(s);音声ストリーム
+Audio_Codec_List;音声コーデック
+Audio_No;音声なし
+Audio1;プライマリ音声
+Audio2;セカンダリ音声
+AudioCount;音声数
+Author;制作者
+BarCode;バーコード
+Basic;基本
+Basic_Note;メモ : ファイルについてのさらなる情報は別のビューで開かねばなりません(シート、ツリー...)
+BitRate;ビットレート
+BitRate_Mode;ビットレートモード
+BitRate_Nominal
+Bits-(Pixel*Frame);ビット/(ピクセル*フレーム)
+Cancel;キャンセル
+Channel(s);チャンネル
+ChannelPositions;チャンネルの位置
+Chapter(s);チャプター
+Chapters;チャプター
+Chapters stream(s);チャプターストリーム
+Chapters_Codec_List;チャプターコーデック
+Chapters_No;チャプターなし
+ChaptersCount;チャプター数
+CheckNewVersion;バージョンチェック
+Choose custom;カスタム選択
+Choose custom sheet;編集するシートを選択してください
+Choose custom text;編集するテキストを選択してください
+Choose export format;出力形式を選択してください
+Choose file(s);開くファイルを選択してください
+Choose filename;ファイル名を選択してください
+Choose language;言語を選択してください
+Choregrapher;コアグラファー
+Chroma;クローマ
+Close;閉じる
+Close all before open;すべて閉じて開く
+Codec;コーデック
+Codec_Info;コーデックの詳細
+Codec_Settings;コーデックの設定
+Codec_Profile;コーデックのプロファイル
+Codec_Url;コーデックの URL
+Collection;コレクション
+Comment;コメント
+CommissionedBy;コミッショナー
+CompleteName;コンプリートネーム
+Composer;コンポーザ
+Conductor;コンダクター
+Container and general information;コンテナと全般情報
+ContentType;コンテンツタイプ
+CoProducer;Co-プロデューサ
+Copyright;著作
+CostumeDesigner;衣装デザイナー
+Count;数
+Country;国
+Cover;カバー
+Cover_Datas;カバーデータ
+Custom;カスタム
+Customize;カスタマイズ
+Date;日付
+Debug;デバッグ
+Decimal point;箇条
+Delay;遅延
+Delete;削除
+Description;詳細説明
+Digitized_Date;デジタル日付
+Director;ディレクター
+DirectorOfPhotography;フォトディレクター
+DisplayAspectRatio;解像度
+DistributedBy;ディストリビュート by
+Donate;寄付
+Edit;編集
+EditedBy;編集者
+EMail;E-Mail
+Encoded_Application;使用したエンコーダ
+Encoded_Date;エンコード日
+Encoded_Library;使用したライブラリ
+Encoded_Library_Settings;エンコードライブラリの設定
+Encoded_Original;オリジナル
+EncodedBy;エンコード者
+Error_File;ファイル読み込みエラー
+ExecutiveProducer;製作総指揮
+Exit;終了
+Exit_Hint;プログラムの終了
+Export;エクスポート
+Export_Hint;カスタム形式でエクスポート
+Family
+Fax;Fax
+File;ファイル
+File size;ファイルサイズ
+File_Append;既存ファイルに上書き (注意 : 同じパラメータは慎重に！)
+File_Hint;このファイルの詳細
+FileExtension;拡張子
+FileName;ファイル名
+FileSize;サイズ
+Folder;フォルダ
+Folder (R);フォルダ(R)
+Folder (R)_Hint;このフォルダの詳細(R)
+Folder (Recursively);フォルダ（サブフォルダ含む）
+Folder_Hint;このフォルダの詳細
+FolderName;フォルダ名
+Format;フォーマット
+Format_Extensions;使用する拡張子
+FrameRate;フレームレート
+FrameRate_Min;最小フレームレート
+FrameRate_Max;最大フレームレート
+General;全般
+Genre;ジャンル
+Genre_000;ブルース
+Genre_001;ロック
+Genre_002;カントリー
+Genre_003;ダンス
+Genre_004;ディスコ
+Genre_005;ファンク
+Genre_006;グランジ
+Genre_007;ヒップホップ
+Genre_008;ジャズ
+Genre_009;メタル
+Genre_010;NewAge
+Genre_011;Oldies
+Genre_012;Other
+Genre_013;Pop
+Genre_014;R&B
+Genre_015;Rap
+Genre_016;Reggae
+Genre_017;Rock
+Genre_018;Techno
+Genre_019;Industrial
+Genre_020;Alternative
+Genre_021;Ska
+Genre_022;Death Metal
+Genre_023;Pranks
+Genre_024;Soundtrack
+Genre_025;Euro-Techno
+Genre_026;Ambient
+Genre_027;Trip-Hop
+Genre_028;Vocal
+Genre_029;Jazz+Funk
+Genre_030;Fusion
+Genre_031;Trance
+Genre_032;Classical
+Genre_033;Instrumental
+Genre_034;Acid
+Genre_035;House
+Genre_036;Game
+Genre_037;Sound Clip
+Genre_038;Gospel
+Genre_039;Noise
+Genre_040;AlternRock
+Genre_041;Bass
+Genre_042;Soul
+Genre_043;Punk
+Genre_044;Space
+Genre_045;Meditative
+Genre_046;Instrumental Pop
+Genre_047;Instrumental Rock
+Genre_048;Ethnic
+Genre_049;Gothic
+Genre_050;Darkwave
+Genre_051;Techno-Industrial
+Genre_052;Electronic
+Genre_053;Pop-Folk
+Genre_054;Eurodance
+Genre_055;Dream
+Genre_056;Southern Rock
+Genre_057;Comedy
+Genre_058;Cult
+Genre_059;Gangsta
+Genre_060;Top 40
+Genre_061;Christian Rap
+Genre_062;Pop/Funk
+Genre_063;Jungle
+Genre_064;Native American
+Genre_065;Cabaret
+Genre_066;New Wave
+Genre_067;Psychadelic
+Genre_068;Rave
+Genre_069;Showtunes
+Genre_070;Trailer
+Genre_071;Lo-Fi
+Genre_072;Tribal
+Genre_073;Acid Punk
+Genre_074;Acid Jazz
+Genre_075;Polka
+Genre_076;Retro
+Genre_077;Musical
+Genre_078;Rock & Roll
+Genre_079;Hard Rock
+Genre_080;Folk
+Genre_081;Folk-Rock
+Genre_082;National Folk
+Genre_083;Swing
+Genre_084;Fast Fusion
+Genre_085;Bebob
+Genre_086;Latin
+Genre_087;Revival
+Genre_088;Celtic
+Genre_089;Bluegrass
+Genre_090;Avantgarde
+Genre_091;Gothic Rock
+Genre_092;Progressive Rock
+Genre_093;Psychedelic Rock
+Genre_094;Symphonic Rock
+Genre_095;Slow Rock
+Genre_096;Big Band
+Genre_097;Chorus
+Genre_098;Easy Listening
+Genre_099;Acoustic
+Genre_100;Humour
+Genre_101;Speech
+Genre_102;Chanson
+Genre_103;Opera
+Genre_104;Chamber Music
+Genre_105;Sonata
+Genre_106;Symphony
+Genre_107;Booty Bass
+Genre_108;Primus
+Genre_109;Porn Groove
+Genre_110;Satire
+Genre_111;Slow Jam
+Genre_112;Club
+Genre_113;Tango
+Genre_114;Samba
+Genre_115;Folklore
+Genre_116;Ballad
+Genre_117;Power Ballad
+Genre_118;Rhythmic Soul
+Genre_119;Freestyle
+Genre_120;Duet
+Genre_121;Punk Rock
+Genre_122;Drum Solo
+Genre_123;A capella
+Genre_124;Euro-House
+Genre_125;Dance Hall
+Genre_126;Goa
+Genre_127;Drum & Bass
+Genre_128;Club-House
+Genre_129;Hardcore
+Genre_130;Terror
+Genre_131;Indie
+Genre_132;Britpop
+Genre_133;Negerpunk
+Genre_134;Polsk Punk
+Genre_135;Beat
+Genre_136;Christian Gangsta Rap
+Genre_137;Heavy Metal
+Genre_138;Black Metal
+Genre_139;Crossover
+Genre_140;Contemporary Christian
+Genre_141;Christian Rock 
+Genre_142;Merengue
+Genre_143;Salsa
+Genre_144;Trash Metal
+Genre_145;Anime
+Genre_146;JPop
+Genre_147;Synthpop
+Go to WebSite;Web サイトへ移動
+h;時
+Header file;ヘッダーファイルを作成
+Height;高さ
+Help;ヘルプ
+How many audio streams?;音声ストリームの数？
+How many chapters streams?;チャプターストリームの数？
+How many text streams?;テキストストリームの数？
+How many video streams?;ビデオストリームの数？
+HTML;HTML
+ID;ID
+Image;イメージ
+Image stream(s);イメージストリーム
+Image_Codec_List;コーデックのイメージ
+ImageCount;イメージストリームの数
+Info
+Instruments;インストゥルメンツ
+Interlacement;インターレスメンツ
+Interlaced;インターレース
+Interlaced_TFF;トップファースト(TFF)
+Interlaced_BFF;ボトムファースト(BFF)
+Interlaced_PPF;プログレシッブ(PPF)
+IRCA;IRCA
+ISBN;ISBN
+ISRC;ISRC
+Keywords;キーワード
+Known codecs;インストール済みコーデック
+Known formats;使用可能なフォーマット
+Known parameters;使用可能なパラメータ
+Label;ラベル
+Language;言語
+Language___;複数言語
+Language_aa;Afar
+Language_ab;Abkhazian
+Language_ae;Avestan
+Language_af;Afrikaans
+Language_ak;Akan
+Language_am;Amharic
+Language_an;Aragonese
+Language_ar;Arabic
+Language_as;Assamese
+Language_av;Avaric
+Language_ay;Aymara
+Language_az;Azerbaijani
+Language_ba;Bashkir
+Language_be;Belarusian
+Language_bg;Bulgarian
+Language_bh;Bihari
+Language_bi;Bislama
+Language_bm;Bambara
+Language_bn;Bengali
+Language_bo;Tibetan
+Language_br;Breton
+Language_bs;Bosnian
+Language_ca;Catalan
+Language_ce;Chechen
+Language_ch;Chamorro
+Language_co;Corsican
+Language_cr;Cree
+Language_cs;Czech
+Language_cu;Slave
+Language_cv;Chuvash
+Language_cy;Welsh
+Language_da;Danish
+Language_de;German
+Language_dv;Divehi
+Language_dz;Dzongkha
+Language_ee;Ewe
+Language_el;Greek
+Language_en;英語
+Language_eo;Esperanto
+Language_es;エスパーニャ
+Language_et;Estonian
+Language_eu;Basque
+Language_fa;Persian
+Language_ff;Fulah
+Language_fi;Finnish
+Language_fj;Fijian
+Language_fo;Faroese
+Language_fr;French
+Language_fy;Frisian
+Language_ga;Irish
+Language_gd;Gaelic
+Language_gl;Galician
+Language_gn;Guarani
+Language_gu;Gujarati
+Language_gv;Manx
+Language_ha;Hausa
+Language_he;Hebrew
+Language_hi;Hindi
+Language_ho;Hiri Motu
+Language_hr;Croatian
+Language_ht;Haitian
+Language_hu;Hungarian
+Language_hy;Armenian
+Language_hz;Herero
+Language_ia;Auxiliary Language Association
+Language_id;Indonesian
+Language_ie;Interlingue
+Language_ig;Igbo
+Language_ii;Sichuan Yi
+Language_ik;Inupiaq
+Language_Info;Language info
+Language_io;Ido
+Language_is;Icelandic
+Language_it;Italian
+Language_iu;Inuktitut
+Language_ja;日本語
+Language_jv;Javanese
+Language_ka;Georgian
+Language_kg;Kongo
+Language_ki;Kikuyu
+Language_kj;Kuanyama
+Language_kk;Kazakh
+Language_kl;Kalaallisut
+Language_km;Khmer
+Language_kn;Kannada
+Language_ko;Korean
+Language_kr;Kanuri
+Language_ks;Kashmiri
+Language_ku;Kurdish
+Language_kv;Komi
+Language_kw;Cornish
+Language_ky;Kirghiz
+Language_la;Latin
+Language_lb;Luxembourgish
+Language_lg;Ganda
+Language_li;Limburgish
+Language_ln;Lingala
+Language_lo;Lao
+Language_lt;Lithuanian
+Language_lu;Luba-Katanga
+Language_lv;Latvian
+Language_mg;Malagasy
+Language_mh;Marshallese
+Language_mi;Maori
+Language_mk;Macedonian
+Language_ml;Malayalam
+Language_mn;Mongolian
+Language_mo;Moldavian
+Language_mr;Marathi
+Language_ms;Malay
+Language_mt;Maltese
+Language_my;Burmese
+Language_na;Nauru
+Language_nb;Norwegian Bokmal
+Language_nd;Ndebele
+Language_ne;Nepali
+Language_ng;Ndonga
+Language_nl;Dutch
+Language_nn;Norwegian Bokmal
+Language_no;Norwegian Nynorsk
+Language_nr;Ndebele
+Language_nv;Navaho
+Language_ny;Nyanja
+Language_oc;Occitan
+Language_oj;Ojibwa
+Language_om;Oromo
+Language_or;Oriya
+Language_os;Ossetic
+Language_pa;Panjabi
+Language_pi;Pali
+Language_pl;Polish
+Language_ps;Pushto
+Language_pt;Portuguese
+Language_qu;Quechua
+Language_rm;Raeto-Romance
+Language_rn;Rundi
+Language_ro;Romanian
+Language_ru;Russian
+Language_rw;Kinyarwanda
+Language_sa;Sanskrit
+Language_sc;Sardinian
+Language_sd;Sindhi
+Language_se;Northern Sami
+Language_sg;Sango
+Language_si;Sinhala
+Language_sk;Slovak
+Language_sl;Slovenian
+Language_sm;Samoan
+Language_sn;Shona
+Language_so;Somali
+Language_sq;Albanian
+Language_sr;Serbian
+Language_ss;Swati
+Language_st;Sotho
+Language_su;Sundanese
+Language_sv;Swedish
+Language_sw;Swahili
+Language_ta;Tamil
+Language_te;Telugu
+Language_tg;Tajik
+Language_th;Thai
+Language_ti;Tigrinya
+Language_tk;Turkmen
+Language_tl;Tagalog
+Language_tn;Tswana
+Language_to;Tonga
+Language_tr;Turkish
+Language_ts;Tsonga
+Language_tt;Tatar
+Language_tw;Twi
+Language_ty;Tahitian
+Language_ug;Uighur
+Language_uk;Ukrainian
+Language_ur;Urdu
+Language_uz;Uzbek
+Language_ve;Venda
+Language_vi;Vietnamese
+Language_vo;Volapuk
+Language_wa;Walloon
+Language_wo;Wolof
+Language_xh;Xhosa
+Language_yi;Yiddish
+Language_yo;Yoruba
+Language_za;Zhuang
+Language_zh;Chinese
+Language_zu;Zulu
+LawRating;レイティング
+LCCN;LCCN
+Library;ライブラリ
+Lyricist;作詞
+Mastered_Date;マスタリング日
+MasteredBy;マスタリング by 
+MediaInfo_About; 詳細情報提供者 \r\n マルチメディア ファイル:\r\n Matroska, OGG ( OGM を含む)\r\n MPEG1 ( VCD を含む)\r\n MPEG2 ( DVD , SVCD を含む)\r\n MPEG4 (iTunes の M4A を含む)\r\n Quicktime\r\n RealMedia\r\n WindowsMedia ( WMV , WMA を含む)\r\n Microsoft RIFF ( AVI , WAV を含む)\r\n 音声のみ (AC3 , DTS , AAC , AU , AIFF ...)
+Menu;メニュー
+Menu stream(s);メニューストリーム
+Menu_Codec_List;メニューコーデック
+Menu_No;メニューなし
+MenuCount;メニューストリーム数
+Menu_Hint;さらに
+mn;分
+Mood;ムード
+More;さらに
+Movie;映画名
+ms;秒
+MSDI;MSDI
+Name;名前
+Nationality;制作国
+New;新規
+Newest version;新バージョンチェック（要インターネット接続）
+No;いいえ
+OK;OK
+One output file per input file;単一ファイルで出力
+Open;開く
+Options;オプション
+Options_Hint;詳細設定
+Original;オリジナル
+Other;その他
+Output;出力
+Output format;出力フォーマット
+OveralBitRate;オーバルビットレート
+Part;パート
+Part_Count;合計
+Performer;パフォーマー
+Period;ピリオド
+Phone;電話
+PixelAspectRatio;ピクセル比
+PlayCounter;再生数
+PlayTime;再生時間
+Position;位置
+Preferences;設定
+Producer;プロデューサー
+ProductionDesigner;プロダクション
+ProductionStudio;スタジオ
+Publisher;発行者
+Purchased_Date;購入日
+Quote character;クオート
+RadioStation;ラジオ局
+Rating;レイティング
+Recorded_Date;録音日
+Recorded_Location;録音した場所
+Released_Date;リリース日
+RemixedBy;リミックス by
+Resolution;解像度
+s;秒
+SamplingRate;サンプルレート
+Save;保存
+ScreenplayBy;監督
+Season;季節
+see below;以下詳細
+Send HeaderFile;ここにヘッダーファイルを送信してください : http://sourceforge.net/projects/mediainfo/ (バグ専用)
+Separator_Columns;列の区切り
+Separator_Lines;区切り線
+Set;セット
+Set_Count;セット回数
+Setup;セットアップ
+Sheet;シート
+Sheet (Complete);シート (完成)
+Shell extension;シェルに統合（右クリックメニューに登録)
+Shell InfoTip;シェルでインフォチップ（対応ファイル上でツールチップを表示）
+Show menu;メニューを表示する
+Show toolbar;ツールバーを表示する
+Sort;並び替え
+SoundEngineer;サウンドエンジニア
+Standard;標準
+Stream;ストリーム
+Stream_MoreInfo;このストリームの詳細情報
+StreamCount;この種類のストリーム数
+StreamID;ストリーム ID
+StreamKind;ストリーム種
+Subject;件名
+SubTrack;サブトラック
+Summary;サマリー
+Supported formats;対応フォーマット
+Supported?;サポート？
+Synopsys;サイノプシス
+SystemId;Id
+Tagged_Date;タグ日
+Technician;テクニシャン
+TermsOfUse;使用許諾
+Text;テキスト
+Text - Custom;テキスト - カスタム
+Text (HTML);テキスト (HTML)
+Text stream(s);テキストストリーム
+Text streams;テキストストリーム
+Text_Codec_List;テキストコーデック
+Text_No;テキストなし
+Text1;プライマリテキストストリーム
+Text2;セカンダリテキストストリーム
+Text3;サードテキストストリーム
+TextCount;テキストストリーム数
+ThanksTo;謝辞
+Thousands separator;区切り
+Title;タイトル
+Title_More;タイトルと詳細情報
+Total;計
+Track;トラック名
+Track_Count;トラック数
+Translator;翻訳者
+Tree;ツリー
+Tree & Text;ツリーとテキスト
+Unknown;不明
+Url;Url
+Video;Video
+Video stream(s);映像ストリーム
+Video_Codec_List;映像コーデック
+Video_No;映像なし
+Video0_Delay;映像0 遅延
+Video1;プライマリ映像ストリーム
+VideoCount;映像ストリーム数
+View;表示
+View_Hint;表示中の情報を変更する
+Warning : more streams in the files;警告 : このファイルにはさらなるストリームが含まれています
+Web;Web
+WebSite_Audio;この音声コーデックについて
+WebSite_Audio_More; (%Url%) へ移動してこの音声コーデックを探す
+WebSite_General;このファイルを再生可能なプレイヤー
+WebSite_General_More;このファイルを再生可能なプレイヤー
+WebSite_Text;このテキストコーデックについて
+WebSite_Text_More; (%Url%) へ移動してこのテキストコーデックを探す
+WebSite_Url;http://mediainfo.sourceforge.net
+WebSite_Video;この映像コーデックについて
+WebSite_Video_More; (%Url%) へ移動してこの映像コーデックを探す
+Width;幅
+WriteMe;メール送信
+WriteToTranslator;翻訳者
+Written_Date;作成日
+Written_Location;作成所
+WrittenBy;著者
+Yes;はい
+Your system;システム情報
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99
+Menu_Codecs_List
+Menu_Codecs_List0k

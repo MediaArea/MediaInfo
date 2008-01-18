@@ -1,0 +1,97 @@
+// GUI_Main_Common_Core - Core GUI for MediaInfo
+// Copyright (C) 2007-2008 Jerome Martinez, Zen@MediaArea.net
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//---------------------------------------------------------------------------
+#include "GUI/Common/GUI_Main_Common_Core.h"
+#include "Common/Core.h"
+//---------------------------------------------------------------------------
+
+//***************************************************************************
+// Constructor/Destructor
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+GUI_Main_Common_Core::GUI_Main_Common_Core(Core* _C)
+{
+    //Internal
+    C=_C;
+    File_Pos=(size_t)-1;
+}
+
+//***************************************************************************
+// Actions - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+size_t GUI_Main_Common_Core::FilesCount_Get()
+{
+    return C->MI->Count_Get();
+}
+
+//---------------------------------------------------------------------------
+size_t GUI_Main_Common_Core::FilesPos_Get()
+{
+    return File_Pos;
+}
+
+//***************************************************************************
+// Actions - Per file
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+String GUI_Main_Common_Core::FileName_Get()
+{
+    return C->MI->Get(File_Pos, Stream_General, 0, _T("CompleteName")).c_str();
+}
+
+//***************************************************************************
+// Actions - Per StreamKind
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+size_t GUI_Main_Common_Core::StreamsCount_Get(stream_t StreamKind)
+{
+    return C->MI->Count_Get(File_Pos, StreamKind);
+}
+
+//***************************************************************************
+// Actions - Per Stream
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+String GUI_Main_Common_Core::Summary_Get(stream_t StreamKind, size_t StreamPos)
+{
+    C->MI->Option(_T("Inform"), _T("Summary"));
+    return C->MI->Get(File_Pos, StreamKind, StreamPos, _T("Inform")).c_str();
+}
+
+//---------------------------------------------------------------------------
+String GUI_Main_Common_Core::Inform_Get(stream_t StreamKind, size_t StreamPos)
+{
+    C->MI->Option(_T("Inform"), _T(""));
+    return C->MI->Get(File_Pos, StreamKind, StreamPos, _T("Inform")).c_str();
+}
+
+//---------------------------------------------------------------------------
+String GUI_Main_Common_Core::CodecUrl_Get(stream_t StreamKind, size_t StreamPos)
+{
+    return C->MI->Get(File_Pos, StreamKind, StreamPos, _T("Codec/Url")).c_str();
+}
+
+

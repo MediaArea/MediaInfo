@@ -1,0 +1,631 @@
+HKCR
+{
+	MediaInfoShellExt.MediaInfoShellExt_.1 = s 'MediaInfoShellExt_ Class'
+	{
+		CLSID = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+	}
+	MediaInfoShellExt.MediaInfoShellExt_ = s 'MediaInfoShellExt_ Class'
+	{
+		CLSID = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+		CurVer = s 'MediaInfoShellExt.MediaInfoShellExt_.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {869C14C8-1830-491F-B575-5F9AB40D2B42} = s 'MediaInfoShellExt_ Class'
+		{
+			ProgID = s 'MediaInfoShellExt.MediaInfoShellExt_.1'
+			VersionIndependentProgID = s 'MediaInfoShellExt.MediaInfoShellExt_'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{BC1AAA9F-D8C5-4EB2-A10A-61B86B7EA77C}'
+		}
+	}
+}
+
+HKCR
+{
+    NoRemove .mkv
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mka
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mks
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .ogg
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .ogm
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .wav
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .avi
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .divx
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mpeg
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mpg
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mpe
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mpgx
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mpm
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .m1s
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .ts
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .tp
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .m1t
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .m2s
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .m2t
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .vob
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .m2s
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mp4
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .m4a
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mpgv
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mpv
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .m1v
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .m2v
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .m4v
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .h264
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mp3
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mpc
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mp+
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .asf
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .wmv
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .wma
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mov
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .qt
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .rm
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .rmvb
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .ra
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .ifo
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .ac3
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .dts
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .aac
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .ape
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mac
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .flac
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .3gp
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .swf
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .flv
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .tta
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .wv
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .wvc
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .m2ts
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .trp
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}

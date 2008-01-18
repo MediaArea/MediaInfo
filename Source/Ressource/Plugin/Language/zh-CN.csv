@@ -1,0 +1,762 @@
+﻿   Junk;x
+  Author_Email;rabbitom@gmail.com
+  Author_Name;erabbit
+  Author_OldNames;Initial translator
+  Language_ISO639;zh-CN
+  Language_Name;Chinese(Simplified)
+ audio stream1;音频
+ audio stream2;音频
+ audio stream3;音频
+ bit1;位
+ bit2;位
+ bit3;位
+ bps
+ Bps
+ Byte1;字节
+ Byte2;字节
+ Byte3;字节
+ channel1;声道
+ channel2;声道
+ channel3;声道
+ chapter1;段落
+ chapter2;段落
+ chapter3;段落
+ chapters stream1; 章节
+ chapters stream2; 章节
+ chapters stream3; 章节
+ day1;天
+ day2;天
+ day3;天
+ file1;文件
+ file2;文件
+ file3;文件
+ fps;帧每秒
+ GB
+ Gb
+ Gbps
+ GBps
+ GHz
+ GiB
+ GibiByte1
+ GibiByte2
+ GibiByte3
+ GiBps
+ GigaBit1
+ GigaBit2
+ GigaBit3
+ GigaByte1
+ GigaByte2
+ GigaByte3
+ hour1; 时
+ hour2; 时
+ hour3; 时
+ Hz; Hz
+ image stream1;图像流
+ image stream2;图像流
+ image stream3;图像流
+ KB
+ Kb
+ KBps
+ Kbps
+ KHz
+ KiB
+ KibiBit1
+ KibiBit2
+ KibiBit3
+ KibiByte1
+ KibiByte2
+ KibiByte3
+ KiBps
+ KiloBit1
+ KiloBit2
+ KiloBit3
+ KiloByte1
+ KiloByte2
+ KiloByte3
+ MB
+ Mb
+ Mbps
+ MBps
+ MebiBit1
+ MebiBit2
+ MebiBit3
+ MebiByte1
+ MebiByte2
+ MebiByte3
+ MegaBit1
+ MegaBit2
+ MegaBit3
+ MegaByte1
+ MegaByte2
+ MegaByte3
+ MHz
+ MiB
+ Mib
+ MiBps
+ milisecond1
+ milisecond2
+ milisecond3
+ minute1; 分
+ minute2; 分
+ minute3; 分
+ month1; 月
+ month2; 月
+ month3; 月
+ pixel1
+ pixel2
+ pixel3
+ second1; 秒
+ second2; 秒
+ second3; 秒
+ text stream1; 字幕
+ text stream2; 字幕
+ text stream3; 字幕
+ video stream1; 视频
+ video stream2; 视频
+ video stream3; 视频
+ week1; 周
+ week2; 周
+ week3; 周
+ year1; 年
+ year2; 年
+ year3; 年
+, ;, 
+: ;: 
+About;关于
+About_Hint;联系作者以及获得最新版
+Accompaniment;伴奏
+Actor;演员
+Actor_Character;角色
+Address;地址
+Advanced;高级
+Advanced mode;高级模式
+Album;唱片
+All;全部
+Archival_Location
+Arranger
+ArtDirector;艺术指导
+AspectRatio;画面比例
+AssistantDirector;副导演
+at;在
+At least one file;至少要有一个文件
+Audio;音频
+Audio stream(s);音频流
+Audio_Codec_List;音频编解码器
+Audio_No;音频号
+Audio1;第一音频
+Audio2;第二音频
+AudioCount;音频数
+Author;作者
+BarCode;条码
+Basic;基本
+Basic_Note;注意: 要了解更多关于此文件的信息, 请选择不同的视图 (表格, 树状图 ...)
+BitRate;比特率
+BitRate_Mode;比特率模式
+BitRate_Nominal
+Bits-(Pixel*Frame);比特数-(像素*帧)
+Cancel;取消
+Channel(s);声道数　
+ChannelPositions;声道位置
+Chapter(s);段落
+Chapters;段落
+Chapters stream(s);段落流
+Chapters_Codec_List;段落编码器列表
+Chapters_No;段落号
+ChaptersCount;章节数
+CheckNewVersion;检查新版本
+Choose custom;自定义
+Choose custom sheet;选择自定义表格
+Choose custom text;选择自定义文字
+Choose export format;选择输出格式
+Choose file(s);选择文件
+Choose filename;选择文件名
+Choose language;选择语言
+Choregrapher
+Chroma
+Close;关闭
+Close all before open;打开新文件前关闭其它文件
+Codec;编码器
+Codec_Info;编码器信息
+Codec_Settings;编码设置
+Codec_Profile
+Codec_Url;编码器网址
+Collection;收集
+Comment;评论
+CommissionedBy;评论人
+CompleteName;完整文件名
+Composer;作曲
+Conductor;指导
+Container and general information;文件格式与一般信息
+ContentType;内容类型
+CoProducer;共同制做人
+Copyright;版权
+CostumeDesigner;服装设计
+Count;所有种类
+Country;国家(地区)
+Cover;封面
+Cover_Datas;封面日期
+Custom;自定义
+Customize;自定义
+Date;日期
+Debug;调试
+Decimal point;小数点
+Delay;延迟
+Delete;删除
+Description;说明
+Digitized_Date;数字化日期
+Director;导演
+DirectorOfPhotography;摄影导演
+DisplayAspectRatio;画面比例
+DistributedBy;发行
+Donate;赞助
+Edit;编辑
+EditedBy;编辑
+EMail;电子邮件
+Encoded_Application;编码程序
+Encoded_Date;编码日期
+Encoded_Library;编码函数库
+Encoded_Library_Settings
+Encoded_Original;编码源
+EncodedBy;编码
+Error_File;文件错误
+ExecutiveProducer;执行制片
+Exit;退出
+Exit_Hint;退出程序
+Export;导出
+Export_Hint;以自定义格式导出
+Family
+Fax;传真
+File;文件
+File size;文件大小
+File_Append;接在现有的文件后面 (警告: 同参数时要小心)
+File_Hint;选择多媒体文件
+FileExtension;扩展名
+FileName;文件名
+FileSize;文件大小
+Folder;文件夹
+Folder (R)
+Folder (R)_Hint
+Folder (Recursively)
+Folder_Hint;选择文件夹
+FolderName;文件夹名　
+Format;文件格式
+Format_Extensions;文件扩展名
+FrameRate;帧频率
+FrameRate_Min
+FrameRate_Max
+General;一般
+Genre;风格
+Genre_000
+Genre_001
+Genre_002
+Genre_003
+Genre_004
+Genre_005
+Genre_006
+Genre_007
+Genre_008
+Genre_009
+Genre_010
+Genre_011
+Genre_012
+Genre_013
+Genre_014
+Genre_015
+Genre_016
+Genre_017
+Genre_018
+Genre_019
+Genre_020
+Genre_021
+Genre_022
+Genre_023
+Genre_024
+Genre_025
+Genre_026
+Genre_027
+Genre_028
+Genre_029
+Genre_030
+Genre_031
+Genre_032
+Genre_033
+Genre_034
+Genre_035
+Genre_036
+Genre_037
+Genre_038
+Genre_039
+Genre_040
+Genre_041
+Genre_042
+Genre_043
+Genre_044
+Genre_045
+Genre_046
+Genre_047
+Genre_048
+Genre_049
+Genre_050
+Genre_051
+Genre_052
+Genre_053
+Genre_054
+Genre_055
+Genre_056
+Genre_057
+Genre_058
+Genre_059
+Genre_060
+Genre_061
+Genre_062
+Genre_063
+Genre_064
+Genre_065
+Genre_066
+Genre_067
+Genre_068
+Genre_069
+Genre_070
+Genre_071
+Genre_072
+Genre_073
+Genre_074
+Genre_075
+Genre_076
+Genre_077
+Genre_078
+Genre_079
+Genre_080
+Genre_081
+Genre_082
+Genre_083
+Genre_084
+Genre_085
+Genre_086
+Genre_087
+Genre_088
+Genre_089
+Genre_090
+Genre_091
+Genre_092
+Genre_093
+Genre_094
+Genre_095
+Genre_096
+Genre_097
+Genre_098
+Genre_099
+Genre_100
+Genre_101
+Genre_102
+Genre_103
+Genre_104
+Genre_105
+Genre_106
+Genre_107
+Genre_108
+Genre_109
+Genre_110
+Genre_111
+Genre_112
+Genre_113
+Genre_114
+Genre_115
+Genre_116
+Genre_117
+Genre_118
+Genre_119
+Genre_120
+Genre_121
+Genre_122
+Genre_123
+Genre_124
+Genre_125
+Genre_126
+Genre_127
+Genre_128
+Genre_129
+Genre_130
+Genre_131
+Genre_132
+Genre_133
+Genre_134
+Genre_135
+Genre_136
+Genre_137
+Genre_138
+Genre_139
+Genre_140
+Genre_141
+Genre_142
+Genre_143
+Genre_144
+Genre_145
+Genre_146
+Genre_147
+Go to WebSite;访问网站
+h
+Header file;建立头文件
+Height;画面高度
+Help;帮助
+How many audio streams?;有多少个音频轨?
+How many chapters streams?;有多少章节?
+How many text streams?;有多少个字幕?
+How many video streams?;有多少视频轨?
+HTML;网页
+ID
+Image;图像
+Image stream(s);图像流
+Image_Codec_List;图像编码器列表
+ImageCount;图像数
+Info
+Instruments;乐器
+Interlacement;交错
+Interlaced;已交错
+Interlaced_TFF
+Interlaced_BFF
+Interlaced_PPF
+IRCA
+ISBN
+ISRC
+Keywords;关键字
+Known codecs;已知编码器
+Known formats;已知格式
+Known parameters;已知参数
+Label;标签
+Language;语言
+Language___;多种语言
+Language_aa
+Language_ab
+Language_ae
+Language_af
+Language_ak
+Language_am
+Language_an
+Language_ar
+Language_as
+Language_av
+Language_ay
+Language_az
+Language_ba
+Language_be
+Language_bg
+Language_bh
+Language_bi
+Language_bm
+Language_bn
+Language_bo
+Language_br
+Language_bs
+Language_ca
+Language_ce
+Language_ch
+Language_co
+Language_cr
+Language_cs
+Language_cu
+Language_cv
+Language_cy
+Language_da
+Language_de
+Language_dv
+Language_dz
+Language_ee
+Language_el
+Language_en
+Language_eo
+Language_es
+Language_et
+Language_eu
+Language_fa
+Language_ff
+Language_fi
+Language_fj
+Language_fo
+Language_fr
+Language_fy
+Language_ga
+Language_gd
+Language_gl
+Language_gn
+Language_gu
+Language_gv
+Language_ha
+Language_he
+Language_hi
+Language_ho
+Language_hr
+Language_ht
+Language_hu
+Language_hy
+Language_hz
+Language_ia
+Language_id
+Language_ie
+Language_ig
+Language_ii
+Language_ik
+Language_Info
+Language_io
+Language_is
+Language_it
+Language_iu
+Language_ja
+Language_jv
+Language_ka
+Language_kg
+Language_ki
+Language_kj
+Language_kk
+Language_kl
+Language_km
+Language_kn
+Language_ko
+Language_kr
+Language_ks
+Language_ku
+Language_kv
+Language_kw
+Language_ky
+Language_la
+Language_lb
+Language_lg
+Language_li
+Language_ln
+Language_lo
+Language_lt
+Language_lu
+Language_lv
+Language_mg
+Language_mh
+Language_mi
+Language_mk
+Language_ml
+Language_mn
+Language_mo
+Language_mr
+Language_ms
+Language_mt
+Language_my
+Language_na
+Language_nb
+Language_nd
+Language_ne
+Language_ng
+Language_nl
+Language_nn
+Language_no
+Language_nr
+Language_nv
+Language_ny
+Language_oc
+Language_oj
+Language_om
+Language_or
+Language_os
+Language_pa
+Language_pi
+Language_pl
+Language_ps
+Language_pt
+Language_qu
+Language_rm
+Language_rn
+Language_ro
+Language_ru
+Language_rw
+Language_sa
+Language_sc
+Language_sd
+Language_se
+Language_sg
+Language_si
+Language_sk
+Language_sl
+Language_sm
+Language_sn
+Language_so
+Language_sq
+Language_sr
+Language_ss
+Language_st
+Language_su
+Language_sv
+Language_sw
+Language_ta
+Language_te
+Language_tg
+Language_th
+Language_ti
+Language_tk
+Language_tl
+Language_tn
+Language_to
+Language_tr
+Language_ts
+Language_tt
+Language_tw
+Language_ty
+Language_ug
+Language_uk
+Language_ur
+Language_uz
+Language_ve
+Language_vi
+Language_vo
+Language_wa
+Language_wo
+Language_xh
+Language_yi
+Language_yo
+Language_za
+Language_zh
+Language_zu
+LawRating
+LCCN
+Library
+Lyricist;作词
+Mastered_Date;复制日期
+MasteredBy;复制人
+MediaInfo_About;支持多种格式的多媒体文件:\r\nMatroska, OGG (包括 OGM)\r\nMPEG-1 (包括 VCD)\r\nMPEG-2 (包括 DVD, SVCD)\r\nMPEG-4 (包括 iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (包括 WMV, WMA)\r\nMicrosoft RIFF (包括 AVI, WAV)\r\n纯声音格式 (AC3, DTS, AAC, AU, AIFF...)
+Menu;菜单
+Menu stream(s)
+Menu_Codec_List
+Menu_No
+MenuCount
+Menu_Hint
+mn
+Mood;情绪
+More;更多
+Movie;电影
+ms
+MSDI
+Name;名
+Nationality;国藉
+New;新建
+Newest version;检查新版本(需要网络连接)
+No;不
+OK;确定
+One output file per input file;一个输入文件对应一个输出文件
+Open;打开
+Options;选项
+Options_Hint;参数设定
+Original;原
+Other;其它
+Output;输出
+Output format;输出格式
+OveralBitRate;平均比特率
+Part
+Part_Count
+Performer;艺术家
+Period
+Phone
+PixelAspectRatio;像素比
+PlayCounter;播放计数
+PlayTime;播放时间
+Position;位置
+Preferences;参数设置
+Producer;制做
+ProductionDesigner;制做设计
+ProductionStudio;制做机构
+Publisher;发布者
+Purchased_Date;购买日期
+Quote character;引号符
+RadioStation;电台
+Rating;分级
+Recorded_Date;录制日期
+Recorded_Location;目录地点
+Released_Date;发布日期
+RemixedBy;重新混合
+Resolution;分辨率
+s
+SamplingRate;采样率　
+Save;保存
+ScreenplayBy;编剧
+Season;季
+see below;请看下面列出的内容
+Send HeaderFile
+Separator_Columns;换列符
+Separator_Lines;换行符
+Set;设置
+Set_Count
+Setup;设置
+Sheet;表格
+Sheet (Complete);表格(完整)
+Shell extension;[资源管理器]右键菜单 (为多媒体文件的右键菜单添加 MediaInfo 选项)
+Shell InfoTip;[资源管理器]气泡提示 (将鼠标移到文件图标上会显示相关信息)
+Show menu;显示菜单
+Show toolbar;显示工具栏
+Sort;排序
+SoundEngineer;音频师
+Standard;标准
+Stream;流
+Stream_MoreInfo;流_更多信息
+StreamCount;此轨数量
+StreamID;流标号
+StreamKind;此轨类型
+Subject;主题
+SubTrack
+Summary;总结
+Supported formats;支持的格式
+Supported?;支持?
+Synopsys
+SystemId;系统标识
+Tagged_Date;标记日期
+Technician;技术员
+TermsOfUse;使用方法
+Text;文字
+Text - Custom;文字-自定义
+Text (HTML);文字(网页)
+Text stream(s);文字流
+Text streams;文字流
+Text_Codec_List;字幕编解码器
+Text_No;文字编号
+Text1;第一字幕
+Text2;第二字幕
+Text3;第三字幕
+TextCount;字幕数
+ThanksTo;感谢
+Thousands separator;数字分隔
+Title;标题
+Title_More;更多标题
+Total;总计
+Track;音轨
+Track_Count;音轨数
+Translator;翻译
+Tree;树状图
+Tree & Text;树状图和文本
+Unknown;不详
+Url;相关网址
+Video;视频
+Video stream(s);视频流
+Video_Codec_List;视频编解码器
+Video_No;没有视频
+Video0_Delay;视频延迟
+Video1;第一视频
+VideoCount;视讯轨数
+View;查看
+View_Hint;改变查看方示
+Warning : more streams in the files;注意：这个文件中还有更多的流
+Web;网页
+WebSite_Audio;访问此音频编解码器的网页
+WebSite_Audio_More;更多音频编解码器的网页
+WebSite_General;访问此播放程序的网页
+WebSite_General_More;更多播放程序的网页
+WebSite_Text;访问此文字编解码器的网页
+WebSite_Text_More;更多文字编解码器的网页
+WebSite_Url;网址
+WebSite_Video;访问此视频编解码器的网页
+WebSite_Video_More;更多视频编解码器的网页
+Width;画面宽度
+WriteMe;给作者写信
+WriteToTranslator;给译者写信
+Written_Date;写入日期
+Written_Location;写入地点
+WrittenBy;作者
+Yes;是
+Your system;您的系统
+ZZ_Automatic_Percent;42
+ZZ_AutomaticLanguage_Percent;66
+Menu_Codecs_List
+Menu_Codecs_List0k

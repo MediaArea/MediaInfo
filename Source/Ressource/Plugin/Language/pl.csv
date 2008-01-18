@@ -1,0 +1,762 @@
+﻿   Junk;x
+  Author_Email;gregg@cdrinfo.pl
+  Author_Name;Gregg
+  Author_OldNames;Gregg
+  Language_ISO639;pl
+  Language_Name;Polski
+ audio stream1; strumień audio
+ audio stream2; strumienie audio
+ audio stream3; strumienie audio
+ bit1
+ bit2; bitów
+ bit3; bitów
+ bps; b/s
+ Bps; B/s
+ Byte1
+ Byte2; Bajtów
+ Byte3; Bajtów
+ channel1; kanał
+ channel2; kanały
+ channel3; kanałów
+ chapter1; rozdział
+ chapter2; rozdziały
+ chapter3; rozdziałów
+ chapters stream1; strumień rozdziałów
+ chapters stream2; strumienie rozdziałów
+ chapters stream3; strumienie rozdziałów
+ day1; dzień
+ day2; dni
+ day3; dni
+ file1; plik
+ file2; pliki
+ file3; pliki
+ fps; r/s
+ GB; GB
+ Gb; Gb
+ Gbps; Gb/s
+ GBps; GB/s
+ GHz; GHz
+ GiB; GB
+ GibiByte1; gigabajtów
+ GibiByte2; gigabajtów
+ GibiByte3; gigabajtów
+ GiBps; GB/s
+ GigaBit1
+ GigaBit2; gigabitów
+ GigaBit3; gigabitów
+ GigaByte1
+ GigaByte2; gigabajtów
+ GigaByte3; gigabajtów
+ hour1
+ hour2; godziny
+ hour3; godziny
+ Hz; Hz
+ image stream1; strumień obrazu
+ image stream2; strumienie obrazu
+ image stream3; strumienie obrazu
+ KB; KB
+ Kb; Kb
+ KBps; KB/s
+ Kbps; Kb/s
+ KHz; KHz
+ KiB; KB
+ KibiBit1
+ KibiBit2; kilobitów
+ KibiBit3; kilobitów
+ KibiByte1
+ KibiByte2; kilobajtów
+ KibiByte3; kilobajtów
+ KiBps; KB/s
+ KiloBit1
+ KiloBit2; kilobitów
+ KiloBit3; kilobitów
+ KiloByte1
+ KiloByte2; kilobajtów
+ KiloByte3; kilobajtów
+ MB; MB
+ Mb; Mb
+ Mbps; Mb/s
+ MBps; megabajtów
+ MebiBit1
+ MebiBit2
+ MebiBit3
+ MebiByte1
+ MebiByte2; magebajtów
+ MebiByte3; magebajtów
+ MegaBit1
+ MegaBit2; megabitów
+ MegaBit3; megabitów
+ MegaByte1
+ MegaByte2; megabajtów
+ MegaByte3; megabajtów
+ MHz; MHz
+ MiB; MB
+ Mib; Mb
+ MiBps; MB/s
+ milisecond1; milisekunda
+ milisecond2; milisekundy
+ milisecond3; milisekundy
+ minute1; minuta
+ minute2; minuty
+ minute3; minuty
+ month1; miesiąc
+ month2; miesiące
+ month3; miesiące
+ pixel1; piksel
+ pixel2; piksele
+ pixel3; piksele
+ second1; drugi
+ second2; drugie
+ second3; drugie
+ text stream1; strumień tekstu
+ text stream2; strumienie tekstu
+ text stream3; strumienie tekstu
+ video stream1; strumień wideo
+ video stream2; strumienie wideo
+ video stream3; strumienie wideo
+ week1; tydzień
+ week2; tygodnie
+ week3; tygodnie
+ year1; rok
+ year2; lata
+ year3; lata
+, ;, 
+: 
+About
+About_Hint;Kontakt i informacje o nowych wersjach
+Accompaniment;Akompaniament
+Actor;Aktor
+Actor_Character;Odtwarzany znak
+Address;Adres
+Advanced;Zaawansowane
+Advanced mode;Tryb zaawansowany
+Album;Album
+All;Wszystkie
+Archival_Location;Lokalizacja archiwalna
+Arranger;Aranżer
+ArtDirector;Dyrektor artystyczny
+AspectRatio;Proporcje
+AssistantDirector;Asystent dyrektora
+at;na
+At least one file;(Musisz otworzyć co najmniej jeden plik)
+Audio;Audio
+Audio stream(s);Strumień audio
+Audio_Codec_List;Kodeki audio
+Audio_No;Brak audio
+Audio1;Pierwszy strumień auudio
+Audio2;Drugi strumień auudio
+AudioCount;Strumieni audio
+Author;Autor
+BarCode;Kod kreskowy
+Basic;Podstawowy
+Basic_Note;Uwaga: Aby uzyskać wiecej informacji musisz wybrać inny widok (Karta, Drzewo...)
+BitRate;Przepływność bitów
+BitRate_Mode;Rodzaj przepływności
+BitRate_Nominal
+Bits-(Pixel*Frame);bity/(piksele*ramki)
+Cancel;Anuluj
+Channel(s);Kanał(y)
+ChannelPositions
+Chapter(s);Rozdział(y)
+Chapters;Rozdziały(ów)
+Chapters stream(s);Strumień(nie) rozdziałów
+Chapters_Codec_List;Kodeki rozdziałów
+Chapters_No;Brak rozdziałów
+ChaptersCount;Strumieni rozdziału
+CheckNewVersion;Sprawdź nowa wersję
+Choose custom;Wybierz własne
+Choose custom sheet;Wybierz preferowaną własną kartę
+Choose custom text;Wybierz preferowany tekst
+Choose export format;Wybierz preferowany format eksportu
+Choose file(s);Wybierz pliki do otwarcia
+Choose filename;Wybierz preferowaną nazwę pliku
+Choose language;Wybierz preferowany język
+Choregrapher;Choreograf
+Chroma
+Close;Zamknij
+Close all before open;Zamknij wszystko przed otwarciem
+Codec;Kodek
+Codec_Info;Szczegóły na temat kodeka
+Codec_Settings
+Codec_Profile
+Codec_Url;Adres sieciowy kodeka
+Collection;Kolekcja
+Comment;Komentarz
+CommissionedBy;Zamówiony przez
+CompleteName;Pełna nazwa
+Composer;Kompozytor
+Conductor;Dyrygent
+Container and general information;Zawartość i informacje ogólne
+ContentType;Typ zawartosci
+CoProducer;Koproducent
+Copyright;Prawa autorskie
+CostumeDesigner;Projektant kostiumów
+Count;Liczba
+Country;Kraj
+Cover;Okładka
+Cover_Datas;Dane okładki
+Custom;Własne
+Customize;Dostosowanie
+Date;Data
+Debug;Usuwanie błędów
+Decimal point;Punkt dziesiętny
+Delay;Opóźnienie
+Delete;Usuń
+Description;Opis
+Digitized_Date;Cyfowa data
+Director;Reżyser
+DirectorOfPhotography;Zdjęcia
+DisplayAspectRatio;Proporcje
+DistributedBy;Rozpowszechniamie
+Donate;Darowizna
+Edit;Edytuj
+EditedBy;Edytowany przez
+EMail;email
+Encoded_Application;Zapisywana aplikacja
+Encoded_Date;Zdekodowana data
+Encoded_Library;Zapisywana biblioteka
+Encoded_Library_Settings;Ustawienia kodowania
+Encoded_Original;Oryginalny
+EncodedBy;Kodowane przez
+Error_File;Błąd przy odczycie pliku
+ExecutiveProducer;Kierownik produkcji
+Exit;Wyjście
+Exit_Hint;Wyjście z programu
+Export;Eksport
+Export_Hint;Eksport we wałsnym  formacie
+Family
+Fax;Fax
+File;Plik
+File size;Rozmiar pliku
+File_Append;Dołącz do istniejacego pliku (Ostrzeżenie: Upewnij się, że ma takie same parametry)
+File_Hint;Wybierz plik multimedialny do przeanalizowania
+FileExtension;Rzoszerzenie pliku
+FileName;Nazwa pliku
+FileSize;Rozmiar pliku
+Folder;Folder
+Folder (R);Folder (R)
+Folder (R)_Hint;Wybierz foldery do przeanalizowania (z wszystkimi  rekurencyjnymi)
+Folder (Recursively);Folder (rekurencyjny)
+Folder_Hint;Wybierz folder do przeanalizowania
+FolderName;Nazwa folderu
+Format;Format
+Format_Extensions;Zwykle używane rozszerzenia
+FrameRate;Przepływność ramek
+FrameRate_Min
+FrameRate_Max
+General;Ogólne
+Genre
+Genre_000
+Genre_001
+Genre_002
+Genre_003
+Genre_004
+Genre_005
+Genre_006
+Genre_007
+Genre_008
+Genre_009
+Genre_010
+Genre_011
+Genre_012
+Genre_013
+Genre_014
+Genre_015
+Genre_016
+Genre_017
+Genre_018
+Genre_019
+Genre_020
+Genre_021
+Genre_022
+Genre_023
+Genre_024
+Genre_025
+Genre_026
+Genre_027
+Genre_028
+Genre_029
+Genre_030
+Genre_031
+Genre_032
+Genre_033
+Genre_034
+Genre_035
+Genre_036
+Genre_037
+Genre_038
+Genre_039
+Genre_040
+Genre_041
+Genre_042
+Genre_043
+Genre_044
+Genre_045
+Genre_046
+Genre_047
+Genre_048
+Genre_049
+Genre_050
+Genre_051
+Genre_052
+Genre_053
+Genre_054
+Genre_055
+Genre_056
+Genre_057
+Genre_058
+Genre_059
+Genre_060
+Genre_061
+Genre_062
+Genre_063
+Genre_064
+Genre_065
+Genre_066
+Genre_067
+Genre_068
+Genre_069
+Genre_070
+Genre_071
+Genre_072
+Genre_073
+Genre_074
+Genre_075
+Genre_076
+Genre_077
+Genre_078
+Genre_079
+Genre_080
+Genre_081
+Genre_082
+Genre_083
+Genre_084
+Genre_085
+Genre_086
+Genre_087
+Genre_088
+Genre_089
+Genre_090
+Genre_091
+Genre_092
+Genre_093
+Genre_094
+Genre_095
+Genre_096
+Genre_097
+Genre_098
+Genre_099
+Genre_100
+Genre_101
+Genre_102
+Genre_103
+Genre_104
+Genre_105
+Genre_106
+Genre_107
+Genre_108
+Genre_109
+Genre_110
+Genre_111
+Genre_112
+Genre_113
+Genre_114
+Genre_115
+Genre_116
+Genre_117
+Genre_118
+Genre_119
+Genre_120
+Genre_121
+Genre_122
+Genre_123
+Genre_124
+Genre_125
+Genre_126
+Genre_127
+Genre_128
+Genre_129
+Genre_130
+Genre_131
+Genre_132
+Genre_133
+Genre_134
+Genre_135
+Genre_136
+Genre_137
+Genre_138
+Genre_139
+Genre_140
+Genre_141
+Genre_142
+Genre_143
+Genre_144
+Genre_145
+Genre_146
+Genre_147
+Go to WebSite;Odwiedź stronę
+h;h
+Header file;Utwórz plik nagłówka
+Height;Wysokość
+Help;Pomoc
+How many audio streams?;Ile strumieni audio?
+How many chapters streams?;Ile strumieni rozdziałów?
+How many text streams?;Ile strumieni tekstu?
+How many video streams?;Ile strumieni wideo?
+HTML;HTML
+ID;ID
+Image;Obraz
+Image stream(s);Strumienie obrazu
+Image_Codec_List;Kodeki obrazowe
+ImageCount;Strumieni obrazu
+Info
+Instruments;Instrumenty
+Interlacement
+Interlaced
+Interlaced_TFF
+Interlaced_BFF
+Interlaced_PPF
+IRCA;IRCA
+ISBN;ISBN
+ISRC;ISRC
+Keywords;Słowa kluczowa
+Known codecs;Znane kodeki
+Known formats;Znane formaty
+Known parameters;Znane parametry
+Label;Wytwórnia
+Language;Język
+Language___;Wielojęzyczny
+Language_aa
+Language_ab
+Language_ae
+Language_af
+Language_ak
+Language_am
+Language_an
+Language_ar
+Language_as
+Language_av
+Language_ay
+Language_az
+Language_ba
+Language_be
+Language_bg
+Language_bh
+Language_bi
+Language_bm
+Language_bn
+Language_bo
+Language_br
+Language_bs
+Language_ca
+Language_ce
+Language_ch
+Language_co
+Language_cr
+Language_cs
+Language_cu
+Language_cv
+Language_cy
+Language_da
+Language_de
+Language_dv
+Language_dz
+Language_ee
+Language_el;Grecki
+Language_en;Angielski
+Language_eo;Esperanto
+Language_es
+Language_et
+Language_eu
+Language_fa
+Language_ff
+Language_fi
+Language_fj
+Language_fo
+Language_fr
+Language_fy
+Language_ga;Irlandzki
+Language_gd
+Language_gl
+Language_gn
+Language_gu
+Language_gv
+Language_ha
+Language_he
+Language_hi
+Language_ho
+Language_hr
+Language_ht
+Language_hu;Węgierski
+Language_hy;Armeński
+Language_hz
+Language_ia
+Language_id
+Language_ie
+Language_ig
+Language_ii
+Language_ik
+Language_Info
+Language_io
+Language_is
+Language_it
+Language_iu
+Language_ja
+Language_jv
+Language_ka
+Language_kg
+Language_ki
+Language_kj
+Language_kk
+Language_kl
+Language_km
+Language_kn
+Language_ko
+Language_kr
+Language_ks
+Language_ku
+Language_kv
+Language_kw
+Language_ky
+Language_la
+Language_lb
+Language_lg
+Language_li
+Language_ln
+Language_lo
+Language_lt
+Language_lu
+Language_lv;Litewski
+Language_mg
+Language_mh
+Language_mi
+Language_mk
+Language_ml
+Language_mn
+Language_mo
+Language_mr
+Language_ms
+Language_mt
+Language_my
+Language_na
+Language_nb
+Language_nd
+Language_ne
+Language_ng
+Language_nl
+Language_nn
+Language_no
+Language_nr
+Language_nv
+Language_ny
+Language_oc
+Language_oj
+Language_om
+Language_or
+Language_os
+Language_pa
+Language_pi
+Language_pl;Polski
+Language_ps
+Language_pt
+Language_qu
+Language_rm
+Language_rn
+Language_ro
+Language_ru
+Language_rw
+Language_sa
+Language_sc
+Language_sd
+Language_se
+Language_sg
+Language_si
+Language_sk
+Language_sl
+Language_sm
+Language_sn
+Language_so
+Language_sq
+Language_sr
+Language_ss
+Language_st
+Language_su
+Language_sv
+Language_sw
+Language_ta
+Language_te
+Language_tg
+Language_th
+Language_ti
+Language_tk
+Language_tl
+Language_tn
+Language_to
+Language_tr
+Language_ts
+Language_tt
+Language_tw
+Language_ty
+Language_ug
+Language_uk
+Language_ur
+Language_uz
+Language_ve
+Language_vi
+Language_vo
+Language_wa
+Language_wo
+Language_xh
+Language_yi
+Language_yo
+Language_za
+Language_zh
+Language_zu
+LawRating
+LCCN;LCCN
+Library;Bibloteka multipleksu
+Lyricist;Słowa
+Mastered_Date;Data nagrania
+MasteredBy;Nagrane przez
+MediaInfo_About;Dostarcza bardzo szczegółowe informacje\r\no pliku multimedialnym:\r\nMatroska, OGG (wraz z OGM)\r\nMPEG1 (wraz z VCD)\r\nMPEG2 (wraz z DVD i SVCD)\r\nMPEG4 (wraz z iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (wraz z  WMV, WMA)\r\nMicrosoft RIFF (wraz z AVI, WAV)\r\nFormaty dźwiekowe (AC3, DTS, AAC, AU, AIFF...)
+Menu;Menu
+Menu stream(s)
+Menu_Codec_List
+Menu_No
+MenuCount
+Menu_Hint;Wiecej możliwosci
+mn;min.
+Mood;Nastrój
+More;Więcej
+Movie;Nazwa filmu
+ms;ms
+MSDI;MSDI
+Name;Nazwa
+Nationality;Narodowość
+New;Nowy
+Newest version;Sprawdź czy są nowe wersje (wmagane jest połączenie z siecią)
+No;Nie
+OK;Ok
+One output file per input file;Jeden plik wyjściowy na wejściowy
+Open;Otwórz
+Options;Opcje
+Options_Hint;Preferencje
+Original;Oryginalny
+Other;Inny
+Output;Wyjście
+Output format;Wyjściowy format
+OveralBitRate;Przepływność bitów
+Part;Część
+Part_Count;Ogółem
+Performer;Wykonawca
+Period;Okres
+Phone;Telefon
+PixelAspectRatio;Proporcje pikseli
+PlayCounter;Licznik odtwarzania
+PlayTime;Czas trwania
+Position;Pozycja
+Preferences;Preferencje
+Producer;Producent
+ProductionDesigner;Dekoracje
+ProductionStudio;Studio
+Publisher;Wydawca
+Purchased_Date;Data wydania
+Quote character;Cudzysłów
+RadioStation;Radiostacja
+Rating;Ocena
+Recorded_Date;Data nagrania
+Recorded_Location;Miejsce nagrania
+Released_Date;Data wydania
+RemixedBy;Remiksowany
+Resolution;Rozdzielczość
+s;s
+SamplingRate;Częstotliwość próbkowania
+Save;Zapisz
+ScreenplayBy;Scenariusz
+Season;Sezon
+see below;zobacz poniżej
+Send HeaderFile;Proszę przesłać mi plik nagłówka pod adres: http://sourceforge.net/projects/mediainfo/ (sekcja błędów)
+Separator_Columns;Separator kolumn
+Separator_Lines;Separator wierszy
+Set;Zestaw
+Set_Count;Liczba zestawu
+Setup;Ustawienia
+Sheet;Karta
+Sheet (Complete);Karta (komplet)
+Shell extension;Rozszerzenie powłoki (menu kontekstowe w eksploratorze)
+Shell InfoTip
+Show menu;Pokaż menu
+Show toolbar;Pokaż pasek narzędzi
+Sort;Sortowane po
+SoundEngineer;Inżynier dźwięku
+Standard
+Stream;Strumień
+Stream_MoreInfo;Wiecej informacji o strumieniu
+StreamCount;Liczba strumieni
+StreamID;ID strumienia
+StreamKind;Rodzaj strumienia
+Subject;Temat
+SubTrack;Podnagranie
+Summary;Podsumowanie
+Supported formats;Obsługiwane formaty
+Supported?;Obsługiwane?
+Synopsys;Streszczenie
+SystemId;Id
+Tagged_Date;Znakowana data
+Technician;Technik
+TermsOfUse;Zasady używania
+Text;Tekst
+Text - Custom;Tekst - własny
+Text (HTML);Tekst (HTML)
+Text stream(s);Strumienie tekstu
+Text streams;Strumienie tekstu
+Text_Codec_List;Kodeki tekstu
+Text_No;Brak tekstu
+Text1;Pierwszy strumień tekstu
+Text2;Drugi strumień tekstu
+Text3;Trzeci strumień tekstu
+TextCount;Strumieni tekstu
+ThanksTo;Podziękowania dla
+Thousands separator;Sepearator tysiecy
+Title;Tytuł
+Title_More;Tytuł, wiecej informacji
+Total;Łącznie
+Track;Nazwa nagrania
+Track_Count;Liczba nagrań
+Translator;Tłumacz
+Tree;Drzewo
+Tree & Text;Drzewo i tekst
+Unknown;Nieznany
+Url;Url
+Video;Wideo
+Video stream(s);Strumień(nie) wideo
+Video_Codec_List;Kodeki wideo
+Video_No;Brak wideo
+Video0_Delay;Opóźnienie wideo0
+Video1;Pierwszy strumień wideo
+VideoCount;Strumieni wideo
+View;Widok
+View_Hint;Zmienia sposób wyświetlania informacji
+Warning : more streams in the files;Ostrzeżenie: Jest więcej strumieni w pliku
+Web;Sieć
+WebSite_Audio;Odwiedź witrynę tego kodeka audio
+WebSite_Audio_More;Odwiedź witrynę (%Url%) aby poszukać kodeka audio
+WebSite_General;Odwiedź witrynę odtwarzacza dla tego pliku
+WebSite_General_More;Odwiedź witrynę odtwarzacza dla tego pliku
+WebSite_Text;Odwiedź witrynę tego kodeka tekstu
+WebSite_Text_More;Odwiedź witrynę (%Url%) aby poszukać kodeka tekstu
+WebSite_Url;http://mediainfo.sourceforge.net
+WebSite_Video;Odwiedź witrynę tego kodeka wideo
+WebSite_Video_More;Odwiedź witrynę (%Url%) aby poszukać kodeka wideo
+Width;Szerokość
+WriteMe;Napisz do mnie
+WriteToTranslator;Napisz do tłumacza
+Written_Date;Data
+Written_Location;Lokalizacja
+WrittenBy;Napisany przez
+Yes;Tak
+Your system;System
+ZZ_Automatic_Percent;51
+ZZ_AutomaticLanguage_Percent;75
+Menu_Codecs_List
+Menu_Codecs_List0k

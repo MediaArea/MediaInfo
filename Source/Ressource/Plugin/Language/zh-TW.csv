@@ -1,0 +1,762 @@
+﻿   Junk;x
+  Author_Email;kenelin@gmail.com
+  Author_Name;Kene Lin
+  Author_OldNames;Initial translator
+  Language_ISO639;zh-TW
+  Language_Name;Chinese (Traditional)
+ audio stream1; 音訊軌
+ audio stream2; 音訊軌
+ audio stream3; 音訊軌
+ bit1
+ bit2
+ bit3
+ bps
+ Bps
+ Byte1
+ Byte2
+ Byte3
+ channel1
+ channel2
+ channel3
+ chapter1
+ chapter2
+ chapter3
+ chapters stream1; 章節軌
+ chapters stream2; 章節軌
+ chapters stream3; 章節軌
+ day1
+ day2
+ day3
+ file1
+ file2
+ file3
+ fps
+ GB
+ Gb
+ Gbps
+ GBps
+ GHz
+ GiB
+ GibiByte1
+ GibiByte2
+ GibiByte3
+ GiBps
+ GigaBit1
+ GigaBit2
+ GigaBit3
+ GigaByte1
+ GigaByte2
+ GigaByte3
+ hour1; 時
+ hour2; 時
+ hour3; 時
+ Hz; Hz
+ image stream1
+ image stream2
+ image stream3
+ KB
+ Kb
+ KBps
+ Kbps
+ KHz
+ KiB
+ KibiBit1
+ KibiBit2
+ KibiBit3
+ KibiByte1
+ KibiByte2
+ KibiByte3
+ KiBps
+ KiloBit1
+ KiloBit2
+ KiloBit3
+ KiloByte1
+ KiloByte2
+ KiloByte3
+ MB
+ Mb
+ Mbps
+ MBps
+ MebiBit1
+ MebiBit2
+ MebiBit3
+ MebiByte1
+ MebiByte2
+ MebiByte3
+ MegaBit1
+ MegaBit2
+ MegaBit3
+ MegaByte1
+ MegaByte2
+ MegaByte3
+ MHz
+ MiB
+ Mib
+ MiBps
+ milisecond1
+ milisecond2
+ milisecond3
+ minute1; 分
+ minute2; 分
+ minute3; 分
+ month1; 月
+ month2; 月
+ month3; 月
+ pixel1
+ pixel2
+ pixel3
+ second1; 秒
+ second2; 秒
+ second3; 秒
+ text stream1; 字幕軌
+ text stream2; 字幕軌
+ text stream3; 字幕軌
+ video stream1; 視訊軌
+ video stream2; 視訊軌
+ video stream3; 視訊軌
+ week1; 周
+ week2; 周
+ week3; 周
+ year1; 年
+ year2; 年
+ year3; 年
+, ;, 
+: ;: 
+About;關於
+About_Hint;如何聯絡作者以及尋找最新版
+Accompaniment
+Actor
+Actor_Character
+Address
+Advanced;進階
+Advanced mode;進階模式
+Album
+All;全部
+Archival_Location
+Arranger
+ArtDirector
+AspectRatio;畫面比例
+AssistantDirector
+at
+At least one file
+Audio;音訊
+Audio stream(s)
+Audio_Codec_List;音訊編解碼器
+Audio_No
+Audio1;第一音訊軌
+Audio2;第二音訊軌
+AudioCount;音訊軌數
+Author
+BarCode;條碼
+Basic;基本
+Basic_Note;注意: 想知道更多關於此檔案的資訊, 您得選擇不同的視點 (表格, 樹狀圖 ...)
+BitRate;視訊流量
+BitRate_Mode
+BitRate_Nominal
+Bits-(Pixel*Frame)
+Cancel;取消
+Channel(s);聲道數　
+ChannelPositions
+Chapter(s)
+Chapters;章節
+Chapters stream(s)
+Chapters_Codec_List
+Chapters_No
+ChaptersCount;章節軌數
+CheckNewVersion;檢查新版本
+Choose custom
+Choose custom sheet;選擇你要的自訂表格
+Choose custom text;選擇你要的自訂文字
+Choose export format;選擇你要的輸出格式
+Choose file(s);選擇你要開啟的檔案
+Choose filename;選擇你要的檔名
+Choose language;選擇你要的語系
+Choregrapher
+Chroma
+Close;關閉
+Close all before open;開啟前關閉其它檔案
+Codec;編解碼器
+Codec_Info
+Codec_Settings
+Codec_Profile
+Codec_Url
+Collection
+Comment
+CommissionedBy
+CompleteName;完整檔名
+Composer
+Conductor
+Container and general information;容器格式與一般訊息
+ContentType
+CoProducer
+Copyright
+CostumeDesigner
+Count;所有種類
+Country
+Cover
+Cover_Datas
+Custom;自訂
+Customize;自訂
+Date
+Debug;偵錯
+Decimal point
+Delay
+Delete;刪除
+Description
+Digitized_Date
+Director
+DirectorOfPhotography
+DisplayAspectRatio;畫面比例
+DistributedBy
+Donate;贊助
+Edit;編輯
+EditedBy
+EMail;電子信箱
+Encoded_Application;使用程式
+Encoded_Date;編碼日期
+Encoded_Library;函式庫　
+Encoded_Library_Settings
+Encoded_Original
+EncodedBy
+Error_File
+ExecutiveProducer
+Exit;離開
+Exit_Hint;退出此程式
+Export;匯出
+Export_Hint;以自訂格式匯出
+Family
+Fax;傳真
+File;檔案
+File size
+File_Append;接在現存的檔案之後 (警告: 同參數時要小心)
+File_Hint;選擇要檢視的多媒體檔案
+FileExtension;副檔名　
+FileName;檔案　　
+FileSize;檔案大小
+Folder;資料夾
+Folder (R)
+Folder (R)_Hint
+Folder (Recursively)
+Folder_Hint;選擇要檢視的資料夾
+FolderName;資料夾　
+Format;檔案格式
+Format_Extensions
+FrameRate;畫面頻率
+FrameRate_Min
+FrameRate_Max
+General;一般
+Genre
+Genre_000
+Genre_001
+Genre_002
+Genre_003
+Genre_004
+Genre_005
+Genre_006
+Genre_007
+Genre_008
+Genre_009
+Genre_010
+Genre_011
+Genre_012
+Genre_013
+Genre_014
+Genre_015
+Genre_016
+Genre_017
+Genre_018
+Genre_019
+Genre_020
+Genre_021
+Genre_022
+Genre_023
+Genre_024
+Genre_025
+Genre_026
+Genre_027
+Genre_028
+Genre_029
+Genre_030
+Genre_031
+Genre_032
+Genre_033
+Genre_034
+Genre_035
+Genre_036
+Genre_037
+Genre_038
+Genre_039
+Genre_040
+Genre_041
+Genre_042
+Genre_043
+Genre_044
+Genre_045
+Genre_046
+Genre_047
+Genre_048
+Genre_049
+Genre_050
+Genre_051
+Genre_052
+Genre_053
+Genre_054
+Genre_055
+Genre_056
+Genre_057
+Genre_058
+Genre_059
+Genre_060
+Genre_061
+Genre_062
+Genre_063
+Genre_064
+Genre_065
+Genre_066
+Genre_067
+Genre_068
+Genre_069
+Genre_070
+Genre_071
+Genre_072
+Genre_073
+Genre_074
+Genre_075
+Genre_076
+Genre_077
+Genre_078
+Genre_079
+Genre_080
+Genre_081
+Genre_082
+Genre_083
+Genre_084
+Genre_085
+Genre_086
+Genre_087
+Genre_088
+Genre_089
+Genre_090
+Genre_091
+Genre_092
+Genre_093
+Genre_094
+Genre_095
+Genre_096
+Genre_097
+Genre_098
+Genre_099
+Genre_100
+Genre_101
+Genre_102
+Genre_103
+Genre_104
+Genre_105
+Genre_106
+Genre_107
+Genre_108
+Genre_109
+Genre_110
+Genre_111
+Genre_112
+Genre_113
+Genre_114
+Genre_115
+Genre_116
+Genre_117
+Genre_118
+Genre_119
+Genre_120
+Genre_121
+Genre_122
+Genre_123
+Genre_124
+Genre_125
+Genre_126
+Genre_127
+Genre_128
+Genre_129
+Genre_130
+Genre_131
+Genre_132
+Genre_133
+Genre_134
+Genre_135
+Genre_136
+Genre_137
+Genre_138
+Genre_139
+Genre_140
+Genre_141
+Genre_142
+Genre_143
+Genre_144
+Genre_145
+Genre_146
+Genre_147
+Go to WebSite;前往網站
+h
+Header file;建立標頭檔案
+Height;畫面高度
+Help;說明
+How many audio streams?;有多少音訊軌?
+How many chapters streams?;有多少章節軌?
+How many text streams?;有多少字幕軌?
+How many video streams?;有多少視訊軌?
+HTML;網頁
+ID
+Image
+Image stream(s)
+Image_Codec_List
+ImageCount
+Info
+Instruments
+Interlacement
+Interlaced
+Interlaced_TFF
+Interlaced_BFF
+Interlaced_PPF
+IRCA
+ISBN
+ISRC
+Keywords;關鍵字
+Known codecs;已知編解碼器
+Known formats;已知格式
+Known parameters;已知參數
+Label
+Language;語系
+Language___;多重語系
+Language_aa
+Language_ab
+Language_ae
+Language_af
+Language_ak
+Language_am
+Language_an
+Language_ar
+Language_as
+Language_av
+Language_ay
+Language_az
+Language_ba
+Language_be
+Language_bg
+Language_bh
+Language_bi
+Language_bm
+Language_bn
+Language_bo
+Language_br
+Language_bs
+Language_ca
+Language_ce
+Language_ch
+Language_co
+Language_cr
+Language_cs
+Language_cu
+Language_cv
+Language_cy
+Language_da
+Language_de
+Language_dv
+Language_dz
+Language_ee
+Language_el
+Language_en
+Language_eo
+Language_es
+Language_et
+Language_eu
+Language_fa
+Language_ff
+Language_fi
+Language_fj
+Language_fo
+Language_fr
+Language_fy
+Language_ga
+Language_gd
+Language_gl
+Language_gn
+Language_gu
+Language_gv
+Language_ha
+Language_he
+Language_hi
+Language_ho
+Language_hr
+Language_ht
+Language_hu
+Language_hy
+Language_hz
+Language_ia
+Language_id
+Language_ie
+Language_ig
+Language_ii
+Language_ik
+Language_Info
+Language_io
+Language_is
+Language_it
+Language_iu
+Language_ja
+Language_jv
+Language_ka
+Language_kg
+Language_ki
+Language_kj
+Language_kk
+Language_kl
+Language_km
+Language_kn
+Language_ko
+Language_kr
+Language_ks
+Language_ku
+Language_kv
+Language_kw
+Language_ky
+Language_la
+Language_lb
+Language_lg
+Language_li
+Language_ln
+Language_lo
+Language_lt
+Language_lu
+Language_lv
+Language_mg
+Language_mh
+Language_mi
+Language_mk
+Language_ml
+Language_mn
+Language_mo
+Language_mr
+Language_ms
+Language_mt
+Language_my
+Language_na
+Language_nb
+Language_nd
+Language_ne
+Language_ng
+Language_nl
+Language_nn
+Language_no
+Language_nr
+Language_nv
+Language_ny
+Language_oc
+Language_oj
+Language_om
+Language_or
+Language_os
+Language_pa
+Language_pi
+Language_pl
+Language_ps
+Language_pt
+Language_qu
+Language_rm
+Language_rn
+Language_ro
+Language_ru
+Language_rw
+Language_sa
+Language_sc
+Language_sd
+Language_se
+Language_sg
+Language_si
+Language_sk
+Language_sl
+Language_sm
+Language_sn
+Language_so
+Language_sq
+Language_sr
+Language_ss
+Language_st
+Language_su
+Language_sv
+Language_sw
+Language_ta
+Language_te
+Language_tg
+Language_th
+Language_ti
+Language_tk
+Language_tl
+Language_tn
+Language_to
+Language_tr
+Language_ts
+Language_tt
+Language_tw
+Language_ty
+Language_ug
+Language_uk
+Language_ur
+Language_uz
+Language_ve
+Language_vi
+Language_vo
+Language_wa
+Language_wo
+Language_xh
+Language_yi
+Language_yo
+Language_za
+Language_zh
+Language_zu
+LawRating
+LCCN
+Library
+Lyricist
+Mastered_Date
+MasteredBy
+MediaInfo_About;支援非常詳盡的多媒體檔案資訊:\r\nMatroska, OGG (包含 OGM)\r\nMPEG-1 (包含 VCD)\r\nMPEG-2 (包含 DVD, SVCD)\r\nMPEG-4 (包含 iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (包含 WMV, WMA)\r\nMicrosoft RIFF (包含 AVI, WAV)\r\n純聲音格式 (AC3, DTS, AAC, AU, AIFF...)
+Menu
+Menu stream(s)
+Menu_Codec_List
+Menu_No
+MenuCount
+Menu_Hint
+mn
+Mood
+More;更多
+Movie
+ms
+MSDI
+Name
+Nationality
+New;新增
+Newest version;檢查最新的版本 (需要網路連線)
+No
+OK;確認
+One output file per input file;一個輸入檔對應一個輸出檔
+Open;開啟
+Options;選項
+Options_Hint;偏好設定
+Original
+Other
+Output
+Output format;輸出格式
+OveralBitRate;平均流量
+Part
+Part_Count
+Performer
+Period
+Phone
+PixelAspectRatio
+PlayCounter
+PlayTime;播放長度
+Position
+Preferences;偏好設定
+Producer;製作者
+ProductionDesigner
+ProductionStudio
+Publisher;發布者
+Purchased_Date
+Quote character;引號字元
+RadioStation
+Rating
+Recorded_Date
+Recorded_Location
+Released_Date
+RemixedBy
+Resolution;顏色深度
+s
+SamplingRate;取樣率　
+Save
+ScreenplayBy
+Season
+see below
+Send HeaderFile
+Separator_Columns;換列字元
+Separator_Lines;換行字元
+Set
+Set_Count
+Setup;設定
+Sheet;表格
+Sheet (Complete)
+Shell extension;快顯功能表 (在檔案總管裡, 按右鍵會出現 MediaInfo 的選項)
+Shell InfoTip;Shell InfoTip (在檔案總管裡, 將滑鼠移到檔案上會顯示相關訊息)
+Show menu;顯示選單
+Show toolbar;顯示工具列
+Sort
+SoundEngineer
+Standard
+Stream
+Stream_MoreInfo
+StreamCount;此軌數量
+StreamID
+StreamKind;此軌類型
+Subject
+SubTrack
+Summary
+Supported formats
+Supported?
+Synopsys
+SystemId
+Tagged_Date
+Technician
+TermsOfUse
+Text;文字
+Text - Custom
+Text (HTML)
+Text stream(s)
+Text streams
+Text_Codec_List;字幕編解碼器
+Text_No
+Text1;第一字幕軌
+Text2;第二字幕軌
+Text3;第三字幕軌
+TextCount;字幕軌數
+ThanksTo
+Thousands separator
+Title
+Title_More
+Total
+Track
+Track_Count
+Translator;翻譯
+Tree;樹狀圖
+Tree & Text
+Unknown
+Url;相關網址
+Video;視訊
+Video stream(s)
+Video_Codec_List;視訊編解碼器
+Video_No
+Video0_Delay
+Video1;第一視訊軌
+VideoCount;視訊軌數
+View;檢視
+View_Hint;改變檢視資訊的方法
+Warning : more streams in the files
+Web
+WebSite_Audio;前往此音效編解碼器的網頁
+WebSite_Audio_More
+WebSite_General;前往此播放程式的網頁
+WebSite_General_More
+WebSite_Text;前往此文字編解碼器的網頁
+WebSite_Text_More
+WebSite_Url
+WebSite_Video;前往此影片編解碼器的網頁
+WebSite_Video_More
+Width;畫面寬度
+WriteMe;寄信給作者
+WriteToTranslator;寄信給譯者
+Written_Date
+Written_Location
+WrittenBy
+Yes
+Your system;您的系統
+ZZ_Automatic_Percent;21
+ZZ_AutomaticLanguage_Percent;46
+Menu_Codecs_List
+Menu_Codecs_List0k

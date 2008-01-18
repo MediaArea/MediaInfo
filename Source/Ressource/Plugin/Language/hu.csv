@@ -1,0 +1,762 @@
+﻿   Junk;x
+  Author_Email;DirektX@freemail.hu
+  Author_Name;DirektX
+  Author_OldNames
+  Language_ISO639;hu
+  Language_Name;Magyar
+ audio stream1;hangsáv
+ audio stream2;hangsáv
+ audio stream3;hangsáv
+ bit1
+ bit2;bit
+ bit3;bit
+ bps;bps
+ Bps;Bps
+ Byte1
+ Byte2;bájt
+ Byte3;bájt
+ channel1;csatorna
+ channel2;csatorna
+ channel3;csatorna
+ chapter1;Fejezet
+ chapter2;Fejezet
+ chapter3;Fejezet
+ chapters stream1;fejezetsáv
+ chapters stream2;fejezetsáv
+ chapters stream3;fejezetsáv
+ day1;nap
+ day2;nap
+ day3;nap
+ file1;fájl
+ file2;fájl
+ file3;fájl
+ fps;fps
+ GB;GB
+ Gb;Gb
+ Gbps;Gbps
+ GBps;GBps
+ GHz;GHz
+ GiB;GiB
+ GibiByte1;GibiBájt
+ GibiByte2;GibiBájt
+ GibiByte3;GibiBájt
+ GiBps;GiBps
+ GigaBit1
+ GigaBit2;GigaBit
+ GigaBit3;GigaBit
+ GigaByte1
+ GigaByte2;GigaBytes
+ GigaByte3;GigaBytes
+ hour1
+ hour2;órák
+ hour3;órák
+ Hz;Hz
+ image stream1;képadat
+ image stream2;képadat
+ image stream3;képadat
+ KB;Kbps
+ Kb;Kb
+ KBps;KBps
+ Kbps;Kbps
+ KHz;KHz
+ KiB;KiB
+ KibiBit1
+ KibiBit2;KibiBit
+ KibiBit3;KibiBit
+ KibiByte1
+ KibiByte2;KibiBájt
+ KibiByte3;KibiBájt
+ KiBps;KiBps
+ KiloBit1
+ KiloBit2;KiloBits
+ KiloBit3;KiloBits
+ KiloByte1
+ KiloByte2;KiloBájt
+ KiloByte3;KiloBájt
+ MB;MB
+ Mb;Mb
+ Mbps;Mbps
+ MBps;MebiBájt
+ MebiBit1
+ MebiBit2
+ MebiBit3
+ MebiByte1
+ MebiByte2;MebiBájt
+ MebiByte3;MebiBájt
+ MegaBit1
+ MegaBit2;MegaBit
+ MegaBit3;MegaBit
+ MegaByte1
+ MegaByte2;MegaBájt
+ MegaByte3;MegaBájt
+ MHz;MHz
+ MiB;MiB
+ Mib;Mib
+ MiBps;MiBps
+ milisecond1;ezredmásodperc
+ milisecond2;ezredmásodperc
+ milisecond3;ezredmásodperc
+ minute1;perc
+ minute2;perc
+ minute3;perc
+ month1;hónap
+ month2;hónap
+ month3;hónap
+ pixel1;képpont
+ pixel2;képpont
+ pixel3;képpont
+ second1;másodperc
+ second2;másodperc
+ second3;másodperc
+ text stream1;szövegsáv
+ text stream2;szövegsáv
+ text stream3;szövegsáv
+ video stream1;képsáv
+ video stream2;képsáv
+ video stream3;képsáv
+ week1;hét
+ week2;het
+ week3;het
+ year1;év
+ year2;év
+ year3;év
+, ;,
+: ;:
+About;Névjegy
+About_Hint;Hogyan léphet velem kapcsolatba, illetve a legfrissebb változat lelőhelye
+Accompaniment;Kíséret
+Actor;Előadó
+Actor_Character;Szerep
+Address;Cím
+Advanced;Bővített
+Advanced mode;Bővített mód
+Album;Album
+All;Mind
+Archival_Location;Arhiválás helye
+Arranger;Szerkesztő
+ArtDirector;Művészeti vezető
+AspectRatio;Képarány
+AssistantDirector;Segédrendező
+at;, képsebesség:
+At least one file;(Legalább egy fájlt meg kell nyitni)
+Audio;Hang
+Audio stream(s);Hangsávok
+Audio_Codec_List;Hang kodekek
+Audio_No;Nincs hang
+Audio1;Első hangsáv
+Audio2;Második hangsáv
+AudioCount;Hangsávok száma
+Author;Szerző
+BarCode;Vonalkód
+Basic;Egyszerű
+Basic_Note;Megjegyzés: a többi nézet (Táblázat, Fa ...) bővebb adatokat mutat a fájlról
+BitRate;Adatsebesség
+BitRate_Mode;Adatsebesség mód
+BitRate_Nominal
+Bits-(Pixel*Frame);Bit/(képpont*képkocka)
+Cancel;Mégsem
+Channel(s);Csatorna
+ChannelPositions
+Chapter(s);Fejezet
+Chapters;Fejezet
+Chapters stream(s);Fejezetsávok
+Chapters_Codec_List;Fejezet kodekek
+Chapters_No;Nincs fejezet
+ChaptersCount;Fejezetsávok száma
+CheckNewVersion;Új változat keresése
+Choose custom;Egyedi
+Choose custom sheet;Adja meg a kívánt egyedi táblázatot
+Choose custom text;Adja meg a kívánt egyedi szöveget
+Choose export format;Adja meg a kívánt egyedi exportálási formátumot
+Choose file(s);Adja meg a megnyitni kívánt fájl nevét
+Choose filename;Adja meg a kívánt fájlnevet
+Choose language;Adja meg a használni kívánt nyelvet
+Choregrapher;Koreográfus
+Chroma
+Close;Bezárás
+Close all before open;Mindent bezár megnyitás előtt
+Codec;Kodek
+Codec_Info;A kodek részletei
+Codec_Settings
+Codec_Profile
+Codec_Url;Kodek weblapja
+Collection;Gyűjtemény
+Comment;Megjegyzés
+CommissionedBy;Megbízó
+CompleteName;Teljes név
+Composer;Zeneszerző
+Conductor;Vezényel
+Container and general information;Gyűjtő és általános adatok
+ContentType
+CoProducer;Gyártó
+Copyright;Jogok
+CostumeDesigner;Jelmeztervező
+Count;Számláló
+Country;Ország
+Cover;Borító
+Cover_Datas;Borító adatai
+Custom;Egyedi
+Customize;Testreszabás
+Date;Dátum
+Debug;Hibakeresés
+Decimal point
+Delay;Késleltetés
+Delete;Törlés
+Description;Leírás
+Digitized_Date;Digitalizálás dátuma
+Director;Rendező
+DirectorOfPhotography;Fényképezte
+DisplayAspectRatio;Képarány
+DistributedBy;Terjesztő
+Donate;Adomány
+Edit;Szerkesztés
+EditedBy;Szerkesztő
+EMail;Email
+Encoded_Application;Kódoló szoftver
+Encoded_Date;Kódolás dátuma
+Encoded_Library;Szoftver beállítások
+Encoded_Library_Settings
+Encoded_Original;Eredeti
+EncodedBy;Kódolta
+Error_File;Fájlolvasási hiba
+ExecutiveProducer;Gyártó
+Exit;Kilépés
+Exit_Hint;Kilépés a programból
+Export;Exportálás
+Export_Hint;Exportálás egyedi formátumba
+Family
+Fax;fax
+File;Fájl
+File size;Fájlméret
+File_Append;Meglévő fájlhoz hozzáfűzés (Figyelem: ügyeljünk az azonos paraméterekre)
+File_Hint;Adja meg a vizsgálandó fájt
+FileExtension;Fájl kiterjesztés
+FileName;Fájlnév
+FileSize;Fájlméret
+Folder;Mappa
+Folder (R);Mappa (R)
+Folder (R)_Hint;Adja meg az almappáival együtt vizsgálandó mappát
+Folder (Recursively);Mappa (rekurzív)
+Folder_Hint;Adja meg a vizsgálandó mappát
+FolderName;Mappanév
+Format;Formátum
+Format_Extensions;Általában használatos kiterjesztések
+FrameRate;Képsebesség
+FrameRate_Min
+FrameRate_Max
+General;Általános
+Genre
+Genre_000
+Genre_001
+Genre_002
+Genre_003
+Genre_004
+Genre_005
+Genre_006
+Genre_007
+Genre_008
+Genre_009
+Genre_010
+Genre_011
+Genre_012
+Genre_013
+Genre_014
+Genre_015
+Genre_016
+Genre_017
+Genre_018
+Genre_019
+Genre_020
+Genre_021
+Genre_022
+Genre_023
+Genre_024
+Genre_025
+Genre_026
+Genre_027
+Genre_028
+Genre_029
+Genre_030
+Genre_031
+Genre_032
+Genre_033
+Genre_034
+Genre_035
+Genre_036
+Genre_037
+Genre_038
+Genre_039
+Genre_040
+Genre_041
+Genre_042
+Genre_043
+Genre_044
+Genre_045
+Genre_046
+Genre_047
+Genre_048
+Genre_049
+Genre_050
+Genre_051
+Genre_052
+Genre_053
+Genre_054
+Genre_055
+Genre_056
+Genre_057
+Genre_058
+Genre_059
+Genre_060
+Genre_061
+Genre_062
+Genre_063
+Genre_064
+Genre_065
+Genre_066
+Genre_067
+Genre_068
+Genre_069
+Genre_070
+Genre_071
+Genre_072
+Genre_073
+Genre_074
+Genre_075
+Genre_076
+Genre_077
+Genre_078
+Genre_079
+Genre_080
+Genre_081
+Genre_082
+Genre_083
+Genre_084
+Genre_085
+Genre_086
+Genre_087
+Genre_088
+Genre_089
+Genre_090
+Genre_091
+Genre_092
+Genre_093
+Genre_094
+Genre_095
+Genre_096
+Genre_097
+Genre_098
+Genre_099
+Genre_100
+Genre_101
+Genre_102
+Genre_103
+Genre_104
+Genre_105
+Genre_106
+Genre_107
+Genre_108
+Genre_109
+Genre_110
+Genre_111
+Genre_112
+Genre_113
+Genre_114
+Genre_115
+Genre_116
+Genre_117
+Genre_118
+Genre_119
+Genre_120
+Genre_121
+Genre_122
+Genre_123
+Genre_124
+Genre_125
+Genre_126
+Genre_127
+Genre_128
+Genre_129
+Genre_130
+Genre_131
+Genre_132
+Genre_133
+Genre_134
+Genre_135
+Genre_136
+Genre_137
+Genre_138
+Genre_139
+Genre_140
+Genre_141
+Genre_142
+Genre_143
+Genre_144
+Genre_145
+Genre_146
+Genre_147
+Go to WebSite;A weblap meglátogatása
+h;ó
+Header file;Fejléc fájl létrehozása
+Height;Magasság
+Help;Súgó
+How many audio streams?;Hány hangsáv?
+How many chapters streams?;Hány fejezetsáv?
+How many text streams?;Hány szövegsáv?
+How many video streams?;Hány képsáv?
+HTML;HTML
+ID;Sáv száma
+Image;Állókép
+Image stream(s);Állóképsávok
+Image_Codec_List;Állókép kodekek
+ImageCount;Állóképsávok száma
+Info
+Instruments;Hangszerek
+Interlacement
+Interlaced
+Interlaced_TFF
+Interlaced_BFF
+Interlaced_PPF
+IRCA;IRCA
+ISBN;ISBN
+ISRC;ISRC
+Keywords;Kulcsszavak
+Known codecs;Ismert kodekek
+Known formats;Ismert formátumok
+Known parameters;Ismert paraméterek
+Label;Címke
+Language;Nyelv
+Language___;Többnyelvű
+Language_aa;afar
+Language_ab;abház
+Language_ae
+Language_af;afrikaans
+Language_ak
+Language_am;amharai
+Language_an
+Language_ar;arab
+Language_as
+Language_av
+Language_ay
+Language_az;azerbajdzsáni
+Language_ba;baskír
+Language_be;belorusz
+Language_bg;bolgár
+Language_bh;bihari
+Language_bi
+Language_bm
+Language_bn;bengáli
+Language_bo;tibeti
+Language_br;breton
+Language_bs;bosnyák
+Language_ca;katalán
+Language_ce;csecsen
+Language_ch
+Language_co;korzikai
+Language_cr
+Language_cs;cseh
+Language_cu;szláv
+Language_cv;csuvas
+Language_cy;wales-i
+Language_da;dán
+Language_de;német
+Language_dv;divehi
+Language_dz;dzonka
+Language_ee
+Language_el;görög
+Language_en;angol
+Language_eo;eszperantó
+Language_es;spanyol
+Language_et;észt
+Language_eu;baszk
+Language_fa;perzsa
+Language_ff
+Language_fi;finn
+Language_fj;fidzsi
+Language_fo;férői
+Language_fr;francia
+Language_fy;fríz
+Language_ga;ír
+Language_gd;skót gael
+Language_gl;gall
+Language_gn;galíciai
+Language_gu;gudzsarati
+Language_gv
+Language_ha
+Language_he;héber
+Language_hi;hindi
+Language_ho
+Language_hr;horvát
+Language_ht;haiti
+Language_hu;magyar
+Language_hy;örmény
+Language_hz;herero
+Language_ia;interlingua
+Language_id;indonéz
+Language_ie;interlinga
+Language_ig; 
+Language_ii; 
+Language_ik
+Language_Info;Nyelv adatok
+Language_io
+Language_is;izlandi
+Language_it;olasz
+Language_iu; 
+Language_ja;japán
+Language_jv;jávai
+Language_ka;grúz
+Language_kg;kongó
+Language_ki; 
+Language_kj; 
+Language_kk;kazah
+Language_kl; 
+Language_km;kmer
+Language_kn;kanadai
+Language_ko;koreai
+Language_kr; 
+Language_ks;kasmír
+Language_ku;kurd
+Language_kv; komi
+Language_kw
+Language_ky;kirgiz
+Language_la;latin
+Language_lb;luxemburgi
+Language_lg
+Language_li
+Language_ln; 
+Language_lo; 
+Language_lt;litván
+Language_lu; 
+Language_lv;lett
+Language_mg; 
+Language_mh; 
+Language_mi;maori 
+Language_mk;macedón
+Language_ml;malajziai
+Language_mn;mongol
+Language_mo;moldáv
+Language_mr;marathi
+Language_ms;maláj
+Language_mt;máltai
+Language_my;burmai
+Language_na; 
+Language_nb;norvég bokmál
+Language_nd; 
+Language_ne;nepáli
+Language_ng; 
+Language_nl;holland
+Language_nn;norvég bokmál
+Language_no;norvég
+Language_nr; 
+Language_nv;navaho
+Language_ny; 
+Language_oc;okcitán
+Language_oj; 
+Language_om; 
+Language_or; 
+Language_os;oszét
+Language_pa;pandzsábi
+Language_pi; 
+Language_pl;lengyel
+Language_ps; 
+Language_pt;portugál
+Language_qu;kecsua
+Language_rm;rétoromán
+Language_rn; 
+Language_ro;román
+Language_ru;orosz
+Language_rw; 
+Language_sa;szanszkrit
+Language_sc;szárd
+Language_sd; 
+Language_se; 
+Language_sg; 
+Language_si;szingaléz
+Language_sk;szlovák
+Language_sl;szlovén
+Language_sm;szamoai
+Language_sn; 
+Language_so;szomáli
+Language_sq;albán
+Language_sr;szerb
+Language_ss; 
+Language_st; 
+Language_su
+Language_sv;svéd
+Language_sw;szuahéli
+Language_ta;tamil
+Language_te;telugu
+Language_tg;tadzsik 
+Language_th;thai
+Language_ti;tigriniai
+Language_tk;türkmén
+Language_tl;tagalog
+Language_tn; 
+Language_to;tonga
+Language_tr;török
+Language_ts; 
+Language_tt;tatár
+Language_tw; 
+Language_ty;tahiti
+Language_ug;vigér
+Language_uk;ukrán
+Language_ur;urdu
+Language_uz;üzbég
+Language_ve; 
+Language_vi;vietnámi
+Language_vo;volapük
+Language_wa;vallon
+Language_wo; 
+Language_xh; 
+Language_yi;jiddis
+Language_yo; 
+Language_za; 
+Language_zh;kínai
+Language_zu;zulu
+LawRating;Korhatár
+LCCN;LCCN
+Library;Keverőkönyvtár
+Lyricist;Szövegíró
+Mastered_Date;Mesterpéldány kelte
+MasteredBy;Mesterpéldány
+MediaInfo_About;Igen részletes adatok az alábbi\r\nmultimédia fájlokról:\r\nMatroska, OGG (OGM is)\r\nMPEG1 (VCD is)\r\nMPEG2 (DVD és SVCD is)\r\nMPEG4 (Itunes M4A is)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV, WMA is)\r\nMicrosoft RIFF (AVI, WAV is)\r\nCsak hangot tartalmazó fájlok (AC3, DTS, AAC, AU, AIFF...)
+Menu;Menü
+Menu stream(s)
+Menu_Codec_List
+Menu_No
+MenuCount
+Menu_Hint;További lehetőségek
+mn;perc
+Mood;Hangnem
+More;Több
+Movie;Film
+ms;emp
+MSDI;MSDI
+Name;Név
+Nationality;Nemzetiség
+New;Új
+Newest version;Frissítés keresése (Internet kapcsolat szükséges)
+No;Nem
+OK;OK
+One output file per input file;Bemeneti fájlonként egy kimeneti fájl
+Open;Megnyit
+Options;Beállítások
+Options_Hint;Beállítások
+Original;Eredeti
+Other;Egyéb
+Output;Kimenet
+Output format;Kimeneti formátum
+OveralBitRate;Teljes adatsebesség
+Part;Rész
+Part_Count;Részek száma
+Performer;Előadó
+Period;Korszak
+Phone;Telefon
+PixelAspectRatio;Képpont arány
+PlayCounter
+PlayTime;Játékidő
+Position
+Preferences;Beállítások
+Producer;Gyártó
+ProductionDesigner;Tervező
+ProductionStudio;Gyártó stúdió
+Publisher;Kiadó
+Purchased_Date;Vásárlás dátuma
+Quote character;Idézőjel karakter
+RadioStation;Rádióállomás
+Rating
+Recorded_Date;Rögzítés dátuma
+Recorded_Location;Rögzítés helye
+Released_Date;Kiadás dátuma
+RemixedBy;Újrakeverte
+Resolution;Felbontás
+s;mp
+SamplingRate;Mintavételezési gyakoriság
+Save;Mentés
+ScreenplayBy;Forgatókönyvíró
+Season;Évad
+see below;lásd alant
+Send HeaderFile;Kérem, küdje el a fejléc fájlt ide: http://sourceforge.net/projects/mediainfo/ (Bug section)
+Separator_Columns;Oszlop elválasztó
+Separator_Lines;Sor elválasztó
+Set
+Set_Count
+Setup;Beállítások
+Sheet;Táblázat
+Sheet (Complete);Táblázat (teljes)
+Shell extension;Rendszerhéj-kiterjesztés (az Intézőben a helyzetérzékeny menüben Media Info menüpont...)
+Shell InfoTip
+Show menu;Menü mutatása
+Show toolbar;Eszköztár mutatása
+Sort;Sorba rendezte
+SoundEngineer;Hangmérnök
+Standard
+Stream;Sáv
+Stream_MoreInfo;Több adat a sávról
+StreamCount;A hasonló fajtájú sávok száma
+StreamID;Sávazonosító
+StreamKind;Sáv fajtája
+Subject;Tárgy
+SubTrack;Alsáv
+Summary;Kivonat
+Supported formats;Támogatott formátumok
+Supported?;Támogatott?
+Synopsys;Áttekintés
+SystemId;Azonosító
+Tagged_Date;Jelölés dátuma
+Technician;Tehnikus
+TermsOfUse;Felhasználási feltételek
+Text;Szöveg
+Text - Custom;Szöveg - egyedi
+Text (HTML);Text (HTML)
+Text stream(s);Szövegsávok
+Text streams;Szövegsávok
+Text_Codec_List;Szöveg kodekek
+Text_No;Nincs szöveg
+Text1;Első szövegsáv
+Text2;Második szövegsáv
+Text3
+TextCount;Szövegsávok száma
+ThanksTo;Köszönetnyilvánítás
+Thousands separator
+Title;Cím
+Title_More;Cím, több adat
+Total;Összesen
+Track;Sáv
+Track_Count;Sávok száma
+Translator;Fordító
+Tree;Fa
+Tree & Text;Fa és szöveg
+Unknown;Ismeretlen
+Url;Url
+Video;Kép
+Video stream(s);Képsávok
+Video_Codec_List;Kép kodekek
+Video_No;Nincs kép
+Video0_Delay;Video0 késleltetés
+Video1;Első képsáv
+VideoCount;Képsávok száma
+View;Nézet
+View_Hint;Megtekintési adatok megváltoztatása
+Warning : more streams in the files;Figyelem: ebben a fájlban több sáv van
+Web;Web
+WebSite_Audio;A hang kodek weblapjának meglátogatása
+WebSite_Audio_More;Látogassa meg ennek a hang kodeknek weblapját (%Url%)
+WebSite_General;A fájl lejátszó a weblapjának meglátogatása
+WebSite_General_More;Látogassa meg a fájl lejátszójának a weblapját (%Url%)
+WebSite_Text;A szöveg kodeknek weblapjának meglátogatása
+WebSite_Text_More;Látogassa meg ennek a szöveg kodeknek weblapját (%Url%)
+WebSite_Url;http://mediainfo.sourceforge.net
+WebSite_Video;A kép kodeknek weblapjának meglátogatása
+WebSite_Video_More;Látogassa meg ennek a kép kodeknek weblapját (%Url%)
+Width;Szélesség
+WriteMe;Írjon
+WriteToTranslator;Írjon a fordítónak
+Written_Date;Írás dátuma
+Written_Location;Írás helye
+WrittenBy;Írta
+Yes;Igen
+Your system;Rendszer
+ZZ_Automatic_Percent;71
+ZZ_AutomaticLanguage_Percent;74
+Menu_Codecs_List
+Menu_Codecs_List0k

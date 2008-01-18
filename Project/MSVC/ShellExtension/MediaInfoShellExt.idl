@@ -1,0 +1,34 @@
+// MediaInfoShellExt.idl : IDL source for MediaInfoShellExt
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (MediaInfoShellExt.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(6482FE39-D67B-49E5-BAA1-EBDDB318055D),
+	helpstring("IMediaInfoShellExt_ Interface"),
+	pointer_default(unique)
+]
+interface IMediaInfoShellExt_ : IUnknown{
+};
+[
+	uuid(BC1AAA9F-D8C5-4EB2-A10A-61B86B7EA77C),
+	version(1.0),
+	helpstring("MediaInfoShellExt 1.0 Type Library")
+]
+library MediaInfoShellExtLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(869C14C8-1830-491F-B575-5F9AB40D2B42),
+		helpstring("MediaInfoShellExt_ Class")
+	]
+	coclass MediaInfoShellExt_
+	{
+		[default] interface IMediaInfoShellExt_;
+	};
+};

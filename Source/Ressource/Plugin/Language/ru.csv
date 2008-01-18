@@ -1,0 +1,762 @@
+﻿   Junk;x
+  Author_Email
+  Author_Name
+  Author_OldNames
+  Language_ISO639;ru
+  Language_Name;Русский
+ audio stream1; Аудиопоток
+ audio stream2; Аудиопотоки
+ audio stream3; Аудиопотоки
+ bit1
+ bit2; бит
+ bit3; бит
+ bps; бит/сек
+ Bps; байт/сек
+ Byte1
+ Byte2; Байт
+ Byte3; Байт
+ channel1; канал
+ channel2; каналы
+ channel3; каналы
+ chapter1; раздел
+ chapter2; разделы
+ chapter3; разделы
+ chapters stream1; поток разделов
+ chapters stream2; потоки разделов
+ chapters stream3; потоки разделов
+ day1; д.
+ day2; дн.
+ day3; дн.
+ file1; файл
+ file2; файлы
+ file3; файлы
+ fps; кадр/сек
+ GB; ГБайт
+ Gb; Гбит
+ Gbps; Гбит/сек
+ GBps; ГБайт/сек
+ GHz; ГГц
+ GiB; Гигабайт
+ GibiByte1; Гигабайт
+ GibiByte2; Гигабайт
+ GibiByte3; Гигабайт
+ GiBps; Гб/сек
+ GigaBit1
+ GigaBit2; Гигабит
+ GigaBit3; Гигабит
+ GigaByte1
+ GigaByte2; Гигабайт
+ GigaByte3; Гигабайт
+ hour1
+ hour2; час.
+ hour3; час.
+ Hz; Гц
+ image stream1; поток изображений
+ image stream2; потоки изображений
+ image stream3; потоки изображений
+ KB; КБайт
+ Kb; Кбит
+ KBps; КБайт/сек
+ Kbps; Кбит/сек
+ KHz; КГц
+ KiB; Килобайт
+ KibiBit1
+ KibiBit2; Килобит
+ KibiBit3; Килобит
+ KibiByte1
+ KibiByte2; Килобайт
+ KibiByte3; Килобайт
+ KiBps; КБит/сек
+ KiloBit1
+ KiloBit2; Килобит
+ KiloBit3; Килобит
+ KiloByte1
+ KiloByte2; Килобайт
+ KiloByte3; Килобайт
+ MB; МБайт
+ Mb; Мбит
+ Mbps; Мбит/сек
+ MBps; МБайт/сек
+ MebiBit1
+ MebiBit2
+ MebiBit3
+ MebiByte1
+ MebiByte2; Мегабайт
+ MebiByte3; Мегабайт
+ MegaBit1
+ MegaBit2; Мегабит
+ MegaBit3; Мегабит
+ MegaByte1
+ MegaByte2; Мегабайт
+ MegaByte3; Мегабайт
+ MHz; МГц
+ MiB; Мегабит
+ Mib; Мегабит
+ MiBps; МБит/сек
+ milisecond1; миллисекунд
+ milisecond2; миллисекунд
+ milisecond3; миллисекунд
+ minute1; мин.
+ minute2; мин.
+ minute3; мин.
+ month1; мес.
+ month2; мес.
+ month3; мес.
+ pixel1; пикс.
+ pixel2; пикс.
+ pixel3; пикс.
+ second1; сек.
+ second2; сек.
+ second3; сек.
+ text stream1; текстовый поток
+ text stream2; текстовые потоки
+ text stream3; текстовые потоки
+ video stream1; видеопоток
+ video stream2; видеопотоки
+ video stream3; видеопотоки
+ week1; нед.
+ week2; нед.
+ week3; нед.
+ year1; год
+ year2; год
+ year3; год
+, ;, 
+: ;: 
+About;О программе
+About_Hint;Расширенная
+Accompaniment
+Actor
+Actor_Character
+Address;Адрес
+Advanced;Расширенный
+Advanced mode;Расширенный режим
+Album;Альбом
+All;Все
+Archival_Location
+Arranger;Разместил
+ArtDirector;Режиссёр
+AspectRatio;Соотношение
+AssistantDirector;Помощник режиссёра
+at
+At least one file;Как минимум один файл
+Audio;Аудио
+Audio stream(s);Аудиопоток(и)
+Audio_Codec_List;Аудиокодек
+Audio_No;Аудиопоток_№
+Audio1;Первый аудиопоток
+Audio2;Второй аудиопоток
+AudioCount;Кол-во аудиопотоков
+Author;Автор
+BarCode;Штрихкод
+Basic;Кратко
+Basic_Note;Примечание: Для дополнительной информации выберите другую закладку (Таблица, Дерево,...)
+BitRate;Битрейт
+BitRate_Mode;Режим расчёта битрейта
+BitRate_Nominal
+Bits-(Pixel*Frame);Бит/(Пиксели*Кадры)
+Cancel;Отмена
+Channel(s);Канал(ы)
+ChannelPositions
+Chapter(s);Раздел(ы)
+Chapters;Разделы
+Chapters stream(s);Поток(и) разделов
+Chapters_Codec_List;Разделы
+Chapters_No;Раздел_№
+ChaptersCount;Кол-во разделов
+CheckNewVersion;Проверить новую версию
+Choose custom;Выбрать
+Choose custom sheet
+Choose custom text
+Choose export format;Выберите формат вывода
+Choose file(s);Выберите файл(ы)
+Choose filename;Выберите имя файла
+Choose language;Выберите язык
+Choregrapher;Хореограф
+Chroma
+Close;Закрыть
+Close all before open;Закрыть перед открытием
+Codec;Кодек
+Codec_Info;Подробно о кодеке
+Codec_Settings
+Codec_Profile
+Codec_Url;Ссылка на кодек
+Collection;Коллекция
+Comment;Примечание
+CommissionedBy;Поручитель
+CompleteName;Полное имя
+Composer;Композитор
+Conductor;Дирижер
+Container and general information;Общая информация
+ContentType;Тип содержимого
+CoProducer;Српродюсер
+Copyright;Copyright
+CostumeDesigner;Дизайн костюмов
+Count;Кол-во
+Country;Страна
+Cover;Обложка
+Cover_Datas;Обложка (данные)
+Custom;Выборочно
+Customize;Формат вывода
+Date;Дата
+Debug;Отладка
+Decimal point
+Delay;Задержка
+Delete;Удалить
+Description;Описание
+Digitized_Date;Дата оцифровки
+Director;Режиссёр
+DirectorOfPhotography;Оператор
+DisplayAspectRatio;Соотношение
+DistributedBy;Распространитель
+Donate;Пожертвовать
+Edit;Изменить
+EditedBy;Изменено
+EMail;Е-Мейл
+Encoded_Application;Программа
+Encoded_Date;Дата кодирования
+Encoded_Library;Программа
+Encoded_Library_Settings;Настройки программы
+Encoded_Original;Изначально кодировано
+EncodedBy;Кодировано
+Error_File;Ошибка в файле
+ExecutiveProducer;Исполнительный продюсер
+Exit;Выход
+Exit_Hint;Выход из программы
+Export;Экспорт
+Export_Hint;Экспорт данных
+Family
+Fax;Факс
+File;Файл
+File size;Размер файла
+File_Append;Добавить к файлу
+File_Hint;Операции с файлами
+FileExtension;Расширение
+FileName;Имя файла
+FileSize;Размер файла
+Folder;Папка
+Folder (R);Папка (Р)
+Folder (R)_Hint
+Folder (Recursively);Папка (рекурсивно)...
+Folder_Hint;Опреации с папками
+FolderName;Имя папки
+Format;Формат
+Format_Extensions;Используется в
+FrameRate;Частота кадров
+FrameRate_Min
+FrameRate_Max
+General;Общее
+Genre
+Genre_000
+Genre_001
+Genre_002
+Genre_003
+Genre_004
+Genre_005
+Genre_006
+Genre_007
+Genre_008
+Genre_009
+Genre_010
+Genre_011
+Genre_012
+Genre_013
+Genre_014
+Genre_015
+Genre_016
+Genre_017
+Genre_018
+Genre_019
+Genre_020
+Genre_021
+Genre_022
+Genre_023
+Genre_024
+Genre_025
+Genre_026
+Genre_027
+Genre_028
+Genre_029
+Genre_030
+Genre_031
+Genre_032
+Genre_033
+Genre_034
+Genre_035
+Genre_036
+Genre_037
+Genre_038
+Genre_039
+Genre_040
+Genre_041
+Genre_042
+Genre_043
+Genre_044
+Genre_045
+Genre_046
+Genre_047
+Genre_048
+Genre_049
+Genre_050
+Genre_051
+Genre_052
+Genre_053
+Genre_054
+Genre_055
+Genre_056
+Genre_057
+Genre_058
+Genre_059
+Genre_060
+Genre_061
+Genre_062
+Genre_063
+Genre_064
+Genre_065
+Genre_066
+Genre_067
+Genre_068
+Genre_069
+Genre_070
+Genre_071
+Genre_072
+Genre_073
+Genre_074
+Genre_075
+Genre_076
+Genre_077
+Genre_078
+Genre_079
+Genre_080
+Genre_081
+Genre_082
+Genre_083
+Genre_084
+Genre_085
+Genre_086
+Genre_087
+Genre_088
+Genre_089
+Genre_090
+Genre_091
+Genre_092
+Genre_093
+Genre_094
+Genre_095
+Genre_096
+Genre_097
+Genre_098
+Genre_099
+Genre_100
+Genre_101
+Genre_102
+Genre_103
+Genre_104
+Genre_105
+Genre_106
+Genre_107
+Genre_108
+Genre_109
+Genre_110
+Genre_111
+Genre_112
+Genre_113
+Genre_114
+Genre_115
+Genre_116
+Genre_117
+Genre_118
+Genre_119
+Genre_120
+Genre_121
+Genre_122
+Genre_123
+Genre_124
+Genre_125
+Genre_126
+Genre_127
+Genre_128
+Genre_129
+Genre_130
+Genre_131
+Genre_132
+Genre_133
+Genre_134
+Genre_135
+Genre_136
+Genre_137
+Genre_138
+Genre_139
+Genre_140
+Genre_141
+Genre_142
+Genre_143
+Genre_144
+Genre_145
+Genre_146
+Genre_147
+Go to WebSite;Перейти к сайту
+h;ч
+Header file;Создать заголовок
+Height;Высота
+Help;Помощь
+How many audio streams?;Количество аудиопотоков?
+How many chapters streams?;Количество потоков с разделами?
+How many text streams?;Количество текстовых потоков?
+How many video streams?;Количество видеопотоков?
+HTML;HTML
+ID;Номер потока
+Image;Изображения
+Image stream(s);Поток(и) изображений
+Image_Codec_List;Изображения
+ImageCount;Кол-во изображений
+Info
+Instruments;Инструменты
+Interlacement
+Interlaced
+Interlaced_TFF
+Interlaced_BFF
+Interlaced_PPF
+IRCA
+ISBN
+ISRC
+Keywords;Ключевые слова
+Known codecs;Известные кодеки
+Known formats;Известные форматы
+Known parameters;Известные параметры
+Label;Метка
+Language;Язык
+Language___
+Language_aa;абхазский
+Language_ab
+Language_ae;авестийский
+Language_af
+Language_ak
+Language_am;амхарский
+Language_an
+Language_ar;арабский
+Language_as
+Language_av;ново-аварский/аварский
+Language_ay;аймара
+Language_az;азербайджанский
+Language_ba;башкирский
+Language_be;белорусский
+Language_bg;болгарский
+Language_bh
+Language_bi
+Language_bm;бамбара
+Language_bn;бенгали
+Language_bo;тибетский
+Language_br;бретонский
+Language_bs;боснийский
+Language_ca;каталонский
+Language_ce;чеченский
+Language_ch
+Language_co;корсиканский
+Language_cr;кри
+Language_cs;чешский
+Language_cu;церковнославянский
+Language_cv;чувашский
+Language_cy;валлийский
+Language_da;датский
+Language_de;немецкий
+Language_dv
+Language_dz
+Language_ee;Эве
+Language_el;греческий
+Language_en;английский
+Language_eo;эсперанто
+Language_es;испанский
+Language_et;эстонский
+Language_eu;баскский
+Language_fa;фарси
+Language_ff
+Language_fi;финский
+Language_fj;Фиджи
+Language_fo;фарерский
+Language_fr;французский
+Language_fy;фризский/фрисландский
+Language_ga;ирландский
+Language_gd;шотландский
+Language_gl
+Language_gn;гварани
+Language_gu;гуджарати
+Language_gv;мэнский
+Language_ha;хауса
+Language_he;иврит
+Language_hi;хинди
+Language_ho
+Language_hr;хорватский
+Language_ht;гаитянский
+Language_hu;венгерский
+Language_hy;армянский
+Language_hz;гереро
+Language_ia;интерлингва
+Language_id;индонезийский
+Language_ie;окциденталь
+Language_ig;ибо/игбо
+Language_ii
+Language_ik
+Language_Info;Nyelv adatok
+Language_io;идо
+Language_is;исландский
+Language_it;итальянский
+Language_iu;инуктитут
+Language_ja;японский
+Language_jv;яванский
+Language_ka;грузинский
+Language_kg
+Language_ki
+Language_kj
+Language_kk;казахский
+Language_kl;гренландский
+Language_km;Кхмер
+Language_kn;Каннада
+Language_ko;корейский
+Language_kr;канури
+Language_ks;кашмирcкий
+Language_ku;курдский
+Language_kv;коми
+Language_kw
+Language_ky;киргизский
+Language_la;латинский
+Language_lb;люксембургский
+Language_lg;лингала
+Language_li
+Language_ln
+Language_lo;лаосский
+Language_lt;литовский
+Language_lu
+Language_lv;латышский
+Language_mg;малагасийский
+Language_mh
+Language_mi;маори
+Language_mk;македонский
+Language_ml;малаялам
+Language_mn;монгольский
+Language_mo;молдавский
+Language_mr;маратхи
+Language_ms;малайский
+Language_mt;мальтийский
+Language_my;бирманский
+Language_na;науруанский
+Language_nb
+Language_nd
+Language_ne;непальский
+Language_ng
+Language_nl;нидерландский
+Language_nn
+Language_no;норвежский
+Language_nr
+Language_nv;навахо
+Language_ny
+Language_oc
+Language_oj
+Language_om
+Language_or;ория
+Language_os;осетинский
+Language_pa;панджаби
+Language_pi
+Language_pl;польский
+Language_ps
+Language_pt;португальский
+Language_qu;кечуа
+Language_rm;ретороманский
+Language_rn;кирунди/рунди
+Language_ro;румынский
+Language_ru;русский
+Language_rw
+Language_sa;санскрит
+Language_sc;сардинский
+Language_sd
+Language_se
+Language_sg;санго
+Language_si
+Language_sk;словацкий
+Language_sl;словенский
+Language_sm
+Language_sn
+Language_so;сомали
+Language_sq;албанский
+Language_sr;сербский
+Language_ss
+Language_st
+Language_su
+Language_sv;шведский
+Language_sw;суахили
+Language_ta
+Language_te;Telugu
+Language_tg;таджикский
+Language_th;таиландский
+Language_ti;тигринья
+Language_tk;туркменский
+Language_tl
+Language_tn
+Language_to
+Language_tr;турецкий
+Language_ts
+Language_tt;татарский
+Language_tw
+Language_ty
+Language_ug;уйгурский
+Language_uk;украинский
+Language_ur;урду
+Language_uz;узбекский
+Language_ve
+Language_vi;вьетнамский
+Language_vo
+Language_wa;валлонский
+Language_wo;волоф
+Language_xh
+Language_yi;идиш
+Language_yo;йоруба
+Language_za
+Language_zh;китайский
+Language_zu;зулу
+LawRating
+LCCN
+Library;Библиотека
+Lyricist;Либретто
+Mastered_Date;Дата мастеринга
+MasteredBy;Мастеринг от
+MediaInfo_About;Отображает детальную информацию\r\nо мультимедиа-файлах Matroska, OGG (включая OGM)\r\nMPEG1 (включая VCD), MPEG2 (включая DVD и SVCD), MPEG4 (включая Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (включая WMV, WMA)\r\nMicrosoft RIFF (включая AVI, WAV, DivX)\r\nзвуковых форматах (AC3, DTS, SSC, AU, AIFF)
+Menu;Меню
+Menu stream(s)
+Menu_Codec_List
+Menu_No
+MenuCount
+Menu_Hint;Меню
+mn;мин
+Mood;Настроение
+More;Еще...
+Movie;Кино
+ms;мс
+MSDI
+Name;Имя
+Nationality;Национальность
+New;Новый...
+Newest version;Проверить на обновление (требуется подключение к Интернету)
+No;Нет
+OK;OK
+One output file per input file;Один файл на каждый исходный
+Open;Открыть
+Options;Параметры
+Options_Hint;Настройки программы
+Original;Настоящий
+Other;Прочее
+Output;Выход
+Output format;Формат вывода
+OveralBitRate;Общий поток
+Part;Часть
+Part_Count;Кол-во частей
+Performer;Исполнитель
+Period;Период
+Phone;Телефон
+PixelAspectRatio;Соотношение
+PlayCounter
+PlayTime;Длительность
+Position;Положение
+Preferences;Предпочтения
+Producer;Продюсер
+ProductionDesigner;Разработчик оформления
+ProductionStudio;Студия оформления
+Publisher;Опубликовано
+Purchased_Date;Дата покупки
+Quote character;Символ кавычек
+RadioStation;Радиостанция
+Rating;Рейтинг
+Recorded_Date;Дата записи
+Recorded_Location;Место записи
+Released_Date;Дата выпуска
+RemixedBy;Ремикс от
+Resolution;Разрешение
+s;с
+SamplingRate;Частота
+Save;Сохранить
+ScreenplayBy;Сценарий
+Season;Сезон
+see below;См.ниже
+Send HeaderFile;Отправить заголовок
+Separator_Columns
+Separator_Lines
+Set;Настройка
+Set_Count;Кол-во настроек
+Setup;Настройка
+Sheet;Таблица
+Sheet (Complete);Таблица (полная)
+Shell extension;Расширение проводника (пункт в меню по правой кнопке)
+Shell InfoTip
+Show menu;Показать меню
+Show toolbar;Отображать панель
+Sort;Сортировка
+SoundEngineer;Звукорежиссёр
+Standard
+Stream;Тип потока
+Stream_MoreInfo;Поток (дополнительная информация)
+StreamCount;Кол-во потоков
+StreamID;Номер потока
+StreamKind;Тип потока
+Subject;Тема
+SubTrack;Подпоток
+Summary;Общие
+Supported formats;Поддерживаемые форматы
+Supported?;Поодержка?
+Synopsys
+SystemId
+Tagged_Date;Дата отметки
+Technician;Техник
+TermsOfUse;Условия Использования
+Text;Текст
+Text - Custom;Текст - Выборочно
+Text (HTML);Текст (HTML)
+Text stream(s);Текст (HTML)
+Text streams
+Text_Codec_List;Текст
+Text_No;Текстовый поток №
+Text1;Первый текстовый поток
+Text2;Второй текстовый поток
+Text3;третий текстовый поток
+TextCount;Кол-во текстовых потоков
+ThanksTo;Благодарности
+Thousands separator
+Title;Заголовок
+Title_More;Заголовок
+Total;Всего
+Track;Дорожка
+Track_Count;Кол-во дорожек
+Translator;Переводчик
+Tree;Дерево
+Tree & Text;Дерево и текст
+Unknown;Неизвестно
+Url;URL
+Video;Видео
+Video stream(s);Задержка видео
+Video_Codec_List;Видеокодек
+Video_No;Видеопоток №
+Video0_Delay;Задержка видео
+Video1;Первый видеопоток
+VideoCount;Кол-во видеопотоков
+View;Просмотр
+View_Hint;Просмотр
+Warning : more streams in the files;Внимание: в файле есть ещё потоки
+Web
+WebSite_Audio
+WebSite_Audio_More
+WebSite_General
+WebSite_General_More
+WebSite_Text
+WebSite_Text_More
+WebSite_Url;http://mediainfo.sourceforge.net
+WebSite_Video
+WebSite_Video_More
+Width;Ширина
+WriteMe;Написать мне
+WriteToTranslator;Написать переводчику
+Written_Date;Дата написания
+Written_Location;Место написания
+WrittenBy;Написано
+Yes;Да
+Your system;Ваша система
+ZZ_Automatic_Percent;63
+ZZ_AutomaticLanguage_Percent;71
+Menu_Codecs_List
+Menu_Codecs_List0k

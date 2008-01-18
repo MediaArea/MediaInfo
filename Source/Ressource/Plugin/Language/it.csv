@@ -1,0 +1,762 @@
+﻿   Junk;x
+  Author_Email;dr4k0@altervista.org
+  Author_Name;Drago Salvatore aka Dr4k0
+  Author_OldNames;Drago Salvatore aka Dr4k0
+  Language_ISO639;it
+  Language_Name;Italiano
+ audio stream1; traccia audio
+ audio stream2; tracce audio
+ audio stream3; tracce audio
+ bit1
+ bit2; bits
+ bit3; bits
+ bps; bit per secondo
+ Bps; Bit per secondo
+ Byte1
+ Byte2; Bytes
+ Byte3; Bytes
+ channel1; canale
+ channel2; canali
+ channel3; canali
+ chapter1; Capitolo
+ chapter2; Capitoli
+ chapter3; Capitoli
+ chapters stream1; Capitoli traccia
+ chapters stream2; Capitoli traccia
+ chapters stream3; Capitoli traccia
+ day1; giorno
+ day2; giorni
+ day3; giorni
+ file1; file
+ file2; files
+ file3; files
+ fps; fps
+ GB; GB
+ Gb; Gb
+ Gbps; Gbps
+ GBps; GBps
+ GHz; GHz
+ GiB; GiB
+ GibiByte1; GibiBytes
+ GibiByte2; GibiBytes
+ GibiByte3; GibiBytes
+ GiBps; GiBps
+ GigaBit1
+ GigaBit2; GigaBits
+ GigaBit3; GigaBits
+ GigaByte1
+ GigaByte2; GigaBytes
+ GigaByte3; GigaBytes
+ hour1
+ hour2; ore
+ hour3; ore
+ Hz; Hz
+ image stream1; flusso immagine
+ image stream2; flusso immagini
+ image stream3; flusso immagini
+ KB; Kbps
+ Kb; Kb
+ KBps; KBps
+ Kbps; Kbps
+ KHz; KHz
+ KiB; KiB
+ KibiBit1
+ KibiBit2; KibiBits
+ KibiBit3; KibiBits
+ KibiByte1
+ KibiByte2; KibiBytes
+ KibiByte3; KibiBytes
+ KiBps; KiBps
+ KiloBit1
+ KiloBit2; KiloBits
+ KiloBit3; KiloBits
+ KiloByte1
+ KiloByte2; KiloBytes
+ KiloByte3; KiloBytes
+ MB; MB
+ Mb; Mb
+ Mbps; Mbps
+ MBps; MebiBytes
+ MebiBit1
+ MebiBit2
+ MebiBit3
+ MebiByte1
+ MebiByte2; MebiBytes
+ MebiByte3; MebiBytes
+ MegaBit1
+ MegaBit2; MegaBits
+ MegaBit3; MegaBits
+ MegaByte1
+ MegaByte2; MegaBytes
+ MegaByte3; MegaBytes
+ MHz; MHz
+ MiB; Mb
+ Mib; Mib
+ MiBps; MiBps
+ milisecond1; millisecondo
+ milisecond2; millisecondi
+ milisecond3; millisecondi
+ minute1; minuto
+ minute2; minuti
+ minute3; minuti
+ month1; mese
+ month2; mesi
+ month3; mesi
+ pixel1; pixel
+ pixel2; pixels
+ pixel3; pixels
+ second1; secondo
+ second2; secondi
+ second3; secondi
+ text stream1; sottotitolo
+ text stream2; sottotitoli
+ text stream3; sottotitoli
+ video stream1; video
+ video stream2; video
+ video stream3; video
+ week1; settimana
+ week2; settimane
+ week3; settimane
+ year1; anno
+ year2; anni
+ year3; anni
+, ;, 
+: ;: 
+About;Informazioni
+About_Hint;Come contattare l'autore e ottenere l'ultima versione
+Accompaniment;Accompagnamento
+Actor;Attore
+Actor_Character;Personaggio
+Address;Indirizzo
+Advanced;Modalità  avanzata
+Advanced mode;Modalità  avanzata
+Album;Album
+All;Tutti
+Archival_Location;Posizione dell'archivio
+Arranger;Compositore
+ArtDirector;Regista
+AspectRatio;AspectRatio
+AssistantDirector;Assistente regista
+at;a
+At least one file;(Devi aprire almeno un file)
+Audio;Audio
+Audio stream(s);Tracce audio
+Audio_Codec_List;Codec Audio
+Audio_No;Nessun Audio
+Audio1;Prima traccia audio
+Audio2;Seconda traccia audio
+AudioCount;Numero di tracce sonore
+Author;Autore
+BarCode;Codice a barre
+Basic;Semplice
+Basic_Note;Nota:X maggiori informazioni seleziona Sheet, Albero....
+BitRate;BitRate
+BitRate_Mode;Modalità
+BitRate_Nominal
+Bits-(Pixel*Frame);Bits/(Pixel*Frame)
+Cancel;Annulla
+Channel(s);Canali
+ChannelPositions
+Chapter(s);Capitoli
+Chapters;Capitoli
+Chapters stream(s);Capitoli
+Chapters_Codec_List;Codec Capitoli
+Chapters_No;Nessun Capitolo
+ChaptersCount;Numero dei Capitoli
+CheckNewVersion;C'è una nuova versione?
+Choose custom;Personalizzato
+Choose custom sheet;Personalizza Modalità Sheet
+Choose custom text;Personalizza Modalità Testo
+Choose export format;Scegli il formato in cui esportare
+Choose file(s);Inserire i file da aprire
+Choose filename;Inserire il nome
+Choose language;Scegli la lingua
+Choregrapher;Coreografo
+Chroma
+Close;Chiudi
+Close all before open;Chiudi tutto prima di aprire
+Codec;Codec
+Codec_Info;Dettagli sui Codec
+Codec_Settings
+Codec_Profile
+Codec_Url;Sito dove scaricare il codec richiesto
+Collection;Collezione
+Comment;Commenti
+CommissionedBy;Commissionato da 
+CompleteName;Nome completo
+Composer;Compositore
+Conductor;Direttore d'Orchestra 
+Container and general information;Tipo di file e informazioni generali
+ContentType;Contenuto
+CoProducer;Coproduttore
+Copyright;Copyright
+CostumeDesigner;Costumista
+Count;Numero
+Country;Stato
+Cover;Cover
+Cover_Datas;Cover
+Custom;Personalizzato
+Customize;Personalizza
+Date;Data
+Debug;Segnala errori
+Decimal point;Separatore decimale
+Delay;Ritardo
+Delete;Cancella
+Description;Decrizione
+Digitized_Date;Data di digitalizzazione
+Director;Regista
+DirectorOfPhotography;Direttore della Fotografia
+DisplayAspectRatio;AspectRatio
+DistributedBy;Distribuito da 
+Donate;Dona
+Edit;Modifica
+EditedBy;Modificato da 
+EMail;E-Mail
+Encoded_Application;Application
+Encoded_Date;Data di codifica
+Encoded_Library;Compressore
+Encoded_Library_Settings;Compressore
+Encoded_Original;Codificatore originale
+EncodedBy;Codificato da 
+Error_File;Errore nella lettura del file 
+ExecutiveProducer;Produttore Esecutivo
+Exit;Esci
+Exit_Hint;Esci dal programma
+Export;Esporta
+Export_Hint;Esporta in un formato personalizzato
+Family
+Fax;Fax
+File;File
+File size;Dimensione
+File_Append;Aggiungi a un file esistente (Attenzione: assicurarsi che abbinano caratteristiche uguali)
+File_Hint;Seleziona più file da aprire
+FileExtension;Estensione
+FileName;Nome
+FileSize;Dimensione
+Folder;Cartella
+Folder (R);Cartella (S)
+Folder (R)_Hint;Seleziona la cartella da analizzare (e le sue sottocartelle)
+Folder (Recursively);Cartella (e Sottocartelle)
+Folder_Hint;Seleziona la cartella da analizzare
+FolderName;Cartella
+Format;Formato
+Format_Extensions;Formato
+FrameRate;FrameRate
+FrameRate_Min
+FrameRate_Max
+General;Generale
+Genre
+Genre_000
+Genre_001
+Genre_002
+Genre_003
+Genre_004
+Genre_005
+Genre_006
+Genre_007
+Genre_008
+Genre_009
+Genre_010
+Genre_011
+Genre_012
+Genre_013
+Genre_014
+Genre_015
+Genre_016
+Genre_017
+Genre_018
+Genre_019
+Genre_020
+Genre_021
+Genre_022
+Genre_023
+Genre_024
+Genre_025
+Genre_026
+Genre_027
+Genre_028
+Genre_029
+Genre_030
+Genre_031
+Genre_032
+Genre_033
+Genre_034
+Genre_035
+Genre_036
+Genre_037
+Genre_038
+Genre_039
+Genre_040
+Genre_041
+Genre_042
+Genre_043
+Genre_044
+Genre_045
+Genre_046
+Genre_047
+Genre_048
+Genre_049
+Genre_050
+Genre_051
+Genre_052
+Genre_053
+Genre_054
+Genre_055
+Genre_056
+Genre_057
+Genre_058
+Genre_059
+Genre_060
+Genre_061
+Genre_062
+Genre_063
+Genre_064
+Genre_065
+Genre_066
+Genre_067
+Genre_068
+Genre_069
+Genre_070
+Genre_071
+Genre_072
+Genre_073
+Genre_074
+Genre_075
+Genre_076
+Genre_077
+Genre_078
+Genre_079
+Genre_080
+Genre_081
+Genre_082
+Genre_083
+Genre_084
+Genre_085
+Genre_086
+Genre_087
+Genre_088
+Genre_089
+Genre_090
+Genre_091
+Genre_092
+Genre_093
+Genre_094
+Genre_095
+Genre_096
+Genre_097
+Genre_098
+Genre_099
+Genre_100
+Genre_101
+Genre_102
+Genre_103
+Genre_104
+Genre_105
+Genre_106
+Genre_107
+Genre_108
+Genre_109
+Genre_110
+Genre_111
+Genre_112
+Genre_113
+Genre_114
+Genre_115
+Genre_116
+Genre_117
+Genre_118
+Genre_119
+Genre_120
+Genre_121
+Genre_122
+Genre_123
+Genre_124
+Genre_125
+Genre_126
+Genre_127
+Genre_128
+Genre_129
+Genre_130
+Genre_131
+Genre_132
+Genre_133
+Genre_134
+Genre_135
+Genre_136
+Genre_137
+Genre_138
+Genre_139
+Genre_140
+Genre_141
+Genre_142
+Genre_143
+Genre_144
+Genre_145
+Genre_146
+Genre_147
+Go to WebSite;Vai al sito internet
+h;h
+Header file;Estrae l'header del file
+Height;Altezza
+Help;Aiuto
+How many audio streams?;Quante sono le tracce audio?
+How many chapters streams?;Quanti sono i capitoli?
+How many text streams?;Quanti sono i sottotitoli?
+How many video streams?;Quante sono le tracce video?
+HTML;HTML
+ID;ID
+Image;Immagine
+Image stream(s);Flusso immagini
+Image_Codec_List;Codec Immagini
+ImageCount;Numero di frame
+Info
+Instruments;Strumenti
+Interlacement
+Interlaced
+Interlaced_TFF
+Interlaced_BFF
+Interlaced_PPF
+IRCA;IRCA
+ISBN;ISBN
+ISRC;ISRC
+Keywords;Parole chiavi
+Known codecs;Codec conoscituti
+Known formats;Formati conosciuti
+Known parameters;Parametri conosciuti
+Label;Etichetta
+Language;Lingua
+Language___;Multilingua
+Language_aa;Afar
+Language_ab;Abkhaziano
+Language_ae;Avestano
+Language_af;Afrikaans
+Language_ak;Akan
+Language_am;Amarico
+Language_an;Aragonese
+Language_ar;Arabo
+Language_as;Assamese
+Language_av;Avarico
+Language_ay;Aymara
+Language_az;Azero
+Language_ba;Bashkir
+Language_be;Bielorusso
+Language_bg;Bulgaro
+Language_bh;Bihari
+Language_bi;Bislama
+Language_bm;Bambara
+Language_bn;Lingua bengali
+Language_bo;Tibetano
+Language_br;Bretone
+Language_bs;Bosniaco
+Language_ca;Catalano
+Language_ce;Ceceno
+Language_ch;Chamorro
+Language_co;Corso
+Language_cr;Cree
+Language_cs;Ceco
+Language_cu;Church Slavonic
+Language_cv;Chuvash
+Language_cy;Gallese
+Language_da;Danese
+Language_de;Tedesco
+Language_dv;Divehi
+Language_dz;Dzongkha
+Language_ee;Ewe
+Language_el;Greco
+Language_en;Inglese
+Language_eo;Esperanto
+Language_es;Spagnolo
+Language_et;Estone
+Language_eu;basco
+Language_fa;Persiano
+Language_ff;Fula
+Language_fi;Finnico
+Language_fj;Fijian
+Language_fo;Faroese
+Language_fr;Francese
+Language_fy;Frisone
+Language_ga;Gaelico irlandese
+Language_gd;Gaelico scozzese
+Language_gl;Galiziano
+Language_gn;Guarani
+Language_gu;Gujarati
+Language_gv;Manx
+Language_ha;Hausa
+Language_he;Ebraico
+Language_hi;Hindi
+Language_ho;Hiri Motu
+Language_hr;Croato
+Language_ht;Haitiano
+Language_hu;Ungherese
+Language_hy;Armeno
+Language_hz;Herero
+Language_ia;Interlingua
+Language_id;Indonesiano
+Language_ie;Interlingue
+Language_ig;Igbo
+Language_ii;Sichuan Yi
+Language_ik;Inupiaq
+Language_Info;Lingua
+Language_io;Ido
+Language_is;Islandese
+Language_it;Italiano
+Language_iu;Inuktitut
+Language_ja;Giapponese
+Language_jv;Giavanese
+Language_ka;Georgiano
+Language_kg;Kongo
+Language_ki;Kikuyu
+Language_kj;Kuanyama
+Language_kk;Kazako
+Language_kl;Groenlandese
+Language_km;Khmer
+Language_kn;Kannada
+Language_ko;Coreano
+Language_kr;Kanuri
+Language_ks;Kashmiri
+Language_ku;Curdo
+Language_kv;Komi
+Language_kw;Cornico
+Language_ky;Kirghiso
+Language_la;Latino
+Language_lb;Lussemburghese
+Language_lg;Ganda
+Language_li;Limburghese
+Language_ln;Lingala
+Language_lo;Lao
+Language_lt;Lituano
+Language_lu;Luba-katanga
+Language_lv;Lettone
+Language_mg;Malagasy
+Language_mh;Marshallese
+Language_mi;Maori
+Language_mk;Macedone
+Language_ml;Malayalam
+Language_mn;Mongolo
+Language_mo;Moldavo
+Language_mr;Marathi
+Language_ms;Malay
+Language_mt;Maltese
+Language_my;Burmese
+Language_na;Nauru
+Language_nb;Norvegese Bokmål
+Language_nd;Ndebele, North
+Language_ne;Nepalese
+Language_ng;Ndonga
+Language_nl;Olandese
+Language_nn;Norvegese Nynorsk
+Language_no;Norvegese
+Language_nr;Ndebele, South
+Language_nv;Navajo
+Language_ny;Chichewa
+Language_oc;Occitano
+Language_oj;Ojibwa
+Language_om;Oromo
+Language_or;Oriya
+Language_os;Osseto
+Language_pa;Panjabi
+Language_pi;Pali
+Language_pl;Polacco
+Language_ps;Pashto
+Language_pt;Portoghese
+Language_qu;Quechua
+Language_rm;Romancio
+Language_rn;Rundi
+Language_ro;Rumeno
+Language_ru;Russo
+Language_rw;Kinyarwanda
+Language_sa;Sanscrito
+Language_sc;Sardo
+Language_sd;Sindhi
+Language_se;Lingua sami di Northern
+Language_sg;Sango
+Language_si;Sinhalese
+Language_sk;Slovacco
+Language_sl;Sloveno
+Language_sm;Samoan
+Language_sn;Shona
+Language_so;Somalo
+Language_sq;Albanese
+Language_sr;Serbo
+Language_ss;Swati
+Language_st;Sotho, Southern
+Language_su;Sundanese
+Language_sv;Svedese
+Language_sw;Swahili
+Language_ta;Tamil
+Language_te;Telugu
+Language_tg;Tagico
+Language_th;Thai
+Language_ti;Tigrino
+Language_tk;Turcmeno
+Language_tl;Tagalog
+Language_tn;Tswana
+Language_to;Tonga
+Language_tr;Turco
+Language_ts;Tsonga
+Language_tt;Tataro
+Language_tw;Twi
+Language_ty;Tahitian
+Language_ug;Uighur
+Language_uk;Ucraino
+Language_ur;Urdu
+Language_uz;Usbeco
+Language_ve;Venda
+Language_vi;Vietnamita
+Language_vo;Volapük
+Language_wa;Vallone
+Language_wo;Wolof
+Language_xh;Xhosa
+Language_yi;Yiddish
+Language_yo;Yoruba
+Language_za;Zhuang
+Language_zh;Cinese
+Language_zu;Zulu
+LawRating;Law Rating
+LCCN;LCCN
+Library;Libreria
+Lyricist;Testo
+Mastered_Date;Data di incisione 
+MasteredBy;Inciso da 
+MediaInfo_About;Ottieni informazioni dettagliate\r\nsu file multimediali:\r\nMatroska, OGG e OGM\r\nMPEG1 (VCD)\r\nMPEG2 (DVD e SVCD)\r\nMPEG4 e Itunes M4A\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV e WMA)\r\nMicrosoft RIFF (AVI e WAV)\r\nFile audio (AC3,DTS,AAC,AU,AIFF...)
+Menu
+Menu stream(s)
+Menu_Codec_List
+Menu_No
+MenuCount
+Menu_Hint
+mn;min
+Mood;Disposizione
+More;Altro
+Movie;Film
+ms;ms
+MSDI;MSDI
+Name;Nome
+Nationality;Nazionalità
+New;Nuovo
+Newest version;Cerca l'ultima versione, richiede una connessione internet
+No;No
+OK;Ok
+One output file per input file;Un file di output per ogni file di input
+Open;Apri
+Options;Opzioni
+Options_Hint;Preferenze
+Original;Originale
+Other;Altri
+Output;Output
+Output format;Formati di output
+OveralBitRate;BitRate Totale
+Part;Parte 
+Part_Count;Totale 
+Performer;Esecutore
+Period;Periodo 
+Phone;Telefono 
+PixelAspectRatio;Pixel ratio
+PlayCounter;Visualizzato per 
+PlayTime;Durata
+Position;Posizione 
+Preferences;Preferenze
+Producer;Produttore
+ProductionDesigner;Product Designer
+ProductionStudio;Studio di registrazione
+Publisher;Pubblicato da 
+Purchased_Date;Data di acquisto
+Quote character;Quote character
+RadioStation;Stazione Radio 
+Rating;Rating 
+Recorded_Date;Data di registrazione
+Recorded_Location;Luogo di registrazione
+Released_Date;Data di distribuzione
+RemixedBy;Remixato da 
+Resolution;Risoluzione
+s;s
+SamplingRate;SamplingRate
+Save;Salva
+ScreenplayBy;Sceneggiatura 
+Season;Stagione N°
+see below;continua sotto
+Send HeaderFile;Invia l'header a http://sourceforge.net/projects/mediainfo/ (Sezione Bug)
+Separator_Columns;Separatore colonne
+Separator_Lines;Separatore di linea
+Set;Imposta
+Set_Count;Imposta
+Setup;Setup
+Sheet;Sheet
+Sheet (Complete);Sheet (Completa)
+Shell extension;Aggiungi al tasto destro Apri con Media Info
+Shell InfoTip
+Show menu;Mostra menù
+Show toolbar;Mostra barra dei menù
+Sort;Ordinato per 
+SoundEngineer;Sound Engeener
+Standard
+Stream;Flusso 
+Stream_MoreInfo;Altre informazioni sulla traccia
+StreamCount;Numero di tracce
+StreamID;Id del Flusso 
+StreamKind;Tipo di traccia
+Subject;Soggetto 
+SubTrack;Sottotitolo
+Summary;Riassunto 
+Supported formats;Formati supportati
+Supported?;Supportato?
+Synopsys;Sommario 
+SystemId;SystemId
+Tagged_Date;Data
+Technician;Tecnico 
+TermsOfUse;Indicazioni per l'uso 
+Text;Testo
+Text - Custom;Testo - Personalizzato
+Text (HTML);Testo (HTML)
+Text stream(s);Sottotitoli
+Text streams;Sottotitoli
+Text_Codec_List;Codec Sottotitoli
+Text_No;Nessun sottotitolo
+Text1;Sottotitolo 1
+Text2;Sottotitolo 2
+Text3;Sottotitolo 3
+TextCount;Numero dei Sottotitoli
+ThanksTo;Ringrazio 
+Thousands separator;Separatore delle centinaia
+Title;Titolo
+Title_More;Titolo
+Total;Totale
+Track;Traccia
+Track_Count;Numero Tracce
+Translator;Traduttore 
+Tree;Albero
+Tree & Text;Albero e Testo
+Unknown;Sconosciuto 
+Url;Url
+Video;Video
+Video stream(s);Tracce video
+Video_Codec_List;Coded Video
+Video_No;Nessuna traccia video
+Video0_Delay;Ritardo Video
+Video1;Prima traccia video
+VideoCount;Numero di Video
+View;Visualizza
+View_Hint;Cambia il significato delle informazioni visualizzate
+Warning : more streams in the files;Attenzione : ci sono diverse tracce nei file
+Web;Internet
+WebSite_Audio;Vai al sito internet del codec per questo audio
+WebSite_Audio_More;Vai al sito internet (%Url%) del codec per questo audio
+WebSite_General;Vai al sito internet del player per questo file
+WebSite_General_More;Vai al sito internet del player per questo file
+WebSite_Text;Vai al sito internet del codec per questo sottotitolo
+WebSite_Text_More;Vai al sito internet (%Url%) del codec per questo sottotitolo
+WebSite_Url;http://mediainfo.sourceforge.net
+WebSite_Video;Vai al sito internet del codec per questo video
+WebSite_Video_More;Vai al sito internet (%Url%) del codec per questo video
+Width;Larghezza
+WriteMe;Scrivimi 
+WriteToTranslator;Scrivi al traduttore
+Written_Date;Data
+Written_Location;Written location 
+WrittenBy;Scritto da 
+Yes;Si 
+Your system;Il tuo sistema
+ZZ_Automatic_Percent;75
+ZZ_AutomaticLanguage_Percent;75
+Menu_Codecs_List
+Menu_Codecs_List0k

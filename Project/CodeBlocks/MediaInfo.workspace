@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="MediaInfo">
+		<Project filename="GUI\MediaInfo.cbp" />
+		<Project filename="CLI\MediaInfo.cbp" />
+		<Project filename="CLI\MediaInfo_WithoutLib.cbp" />
+		<Project filename="PreRelease\PreRelease.cbp" />
+		<Project filename="GUI\MediaInfo_WithoutLib.cbp" active="1" />
+	</Workspace>
+</CodeBlocks_workspace_file>
