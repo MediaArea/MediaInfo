@@ -1,0 +1,239 @@
+// File_Latm - Info for LATM files
+// Copyright (C) 2007-2008 Jerome Martinez, Zen@MediaArea.net
+//
+// This library is free software: you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this library. If not, see <http://www.gnu.org/licenses/>.
+//
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//---------------------------------------------------------------------------
+// Compilation conditions
+#include <MediaInfo/Setup.h>
+#ifdef __BORLANDC__
+    #pragma hdrstop
+#endif
+//---------------------------------------------------------------------------
+
+#define MEDIAINFO_LATM_YES
+
+//---------------------------------------------------------------------------
+#if defined(MEDIAINFO_LATM_YES)
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+#include "MediaInfo/Audio/File_Latm.h"
+//---------------------------------------------------------------------------
+
+namespace MediaInfoLib
+{
+
+//***************************************************************************
+// Format
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+File_Latm::File_Latm()
+: File__Analyze()
+{
+    //In
+    audioMuxVersionA=false;
+
+    //Temp - Technical info
+}
+
+//***************************************************************************
+// Buffer
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Latm::Header_Begin()
+{
+    //Must have enough buffer for having header
+    if (Buffer_Offset+4>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if (Synched && (CC2(Buffer+Buffer_Offset)&0xFFE0)!=0x56E0)
+    {
+        Trusted_IsNot("LATM, Synchronisation lost");
+        Synched=false;
+    }
+
+    //Synchro
+    if (!Synched && !Synchronize())
+        return false;
+
+    //All should be OK...
+    return true;
+}
+
+//---------------------------------------------------------------------------
+void File_Latm::Header_Parse()
+{
+    int16u audioMuxLengthBytes;
+    BS_Begin();
+    Skip_S2(11,                                                 "syncword");
+    Get_S2 (13, audioMuxLengthBytes,                            "audioMuxLengthBytes");
+    BS_End();
+
+    //Filling
+    Header_Fill_Size(3+audioMuxLengthBytes);
+    Header_Fill_Code(0, "LATM");
+}
+
+//---------------------------------------------------------------------------
+void File_Latm::Data_Parse()
+{
+    AudioMuxElement(true);
+}
+
+//***************************************************************************
+// Helpers
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Latm::AudioMuxElement(bool muxConfigPresent)
+{
+    BS_Begin();
+    if (muxConfigPresent)
+    {
+        bool useSameStreamMux;
+        Get_SB (useSameStreamMux,                       "useSameStreamMux");
+        if (!useSameStreamMux)
+            StreamMuxConfig();
+        if (audioMuxVersionA==0)
+        {
+        }
+    }
+            /*if (!useSameStreamMux)
+            ;
+            }
+            if (audioMuxVersionA == 0) {
+            for (i = 0; i <= numSubFrames; i++) {
+            PayloadLengthInfo();
+            PayloadMux();
+            }
+            if (otherDataPresent) {
+            for(i = 0; i < otherDataLenBits; I++) {
+            otherDataBit; 1 bslbf
+            }
+            }
+            }
+            else {
+            }
+            ByteAlign();
+            BS_End();
+            Skip_XX(audioMuxLengthBytes-1,                             "Data");
+
+        }
+    }
+    */
+}
+
+//---------------------------------------------------------------------------
+void File_Latm::StreamMuxConfig()
+{
+    Element_Begin("StreamMuxConfig");
+
+    bool audioMuxVersion;
+    Get_SB (audioMuxVersion,                                    "audioMuxVersion");
+    if (audioMuxVersion)
+        Get_SB (audioMuxVersionA,                               "audioMuxVersionA");
+    else
+        audioMuxVersionA=false;
+
+    if (!audioMuxVersionA)
+    {
+        if (audioMuxVersion==1)
+        {
+            //taraBufferFullness=LatmGetValue();
+        }
+        Skip_SB(                                                "allStreamsSameTimeFraming");
+        Skip_S1(6,                                              "numSubFrames");
+        Skip_S1(4,                                              "numProgram");
+/*        for (int8u prog=0; prog<=numProgram; prog++)
+        {
+            int8u numLayer;
+            Get_S1(3,                                           "numLayer");
+            for (lay = 0; lay <= numLayer; lay++) {
+progSIndx[streamCnt] = prog; laySIndx[streamCnt] = lay;
+streamID [ prog][ lay] = streamCnt++;
+if (prog == 0 && lay == 0) {
+useSameConfig = 0;
+} else {
+useSameConfig; 1 uimsbf
+}
+if (! useSameConfig) {
+if ( audioMuxVersion == 0 ) {
+AudioSpecificConfig();
+}
+else {
+ascLen = LatmGetValue();
+ascLen -= AudioSpecificConfig(); Note 1
+fillBits; ascLen bslbf
+}
+}
+*/
+    }
+
+    Element_End();
+}
+
+//***************************************************************************
+// Helpers
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Latm::Synchronize()
+{
+    //Synchronizing
+    while (Buffer_Offset+2<=Buffer_Size
+        && (CC2(Buffer+Buffer_Offset)&0xFFE0)!=0x56E0)
+        Buffer_Offset++;
+    if (Buffer_Offset+2>=Buffer_Size)
+        return false;
+
+    //Synched is OK
+    Synched=true;
+    return true;
+}
+
+//---------------------------------------------------------------------------
+void File_Latm::HowTo(stream_t StreamKind)
+{
+    switch (StreamKind)
+    {
+        case (Stream_General) :
+            break;
+        case (Stream_Video) :
+            break;
+        case (Stream_Audio) :
+            break;
+        case (Stream_Text) :
+            break;
+        case (Stream_Chapters) :
+            break;
+        case (Stream_Image) :
+            break;
+        case (Stream_Menu) :
+            break;
+        case (Stream_Max) :
+            break;
+    }
+}
+
+} //NameSpace
+
+#endif //MEDIAINFO_LATM_YES
+

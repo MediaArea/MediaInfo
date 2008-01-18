@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<PersonalityInfo>
+		<Option>
+			<Option Name="Personality">CPlusPlusBuilder.Personality</Option>
+			<Option Name="ProjectType">CppStaticLibrary</Option>
+			<Option Name="Version">1.0</Option>
+			<Option Name="GUID">{0F080AA7-24F8-4F98-B3C8-A3D80DBA6E96}</Option>
+		</Option>
+	</PersonalityInfo>
+	<CPlusPlusBuilder.Personality>
+		<Source>
+			<Source Name="MainSource">MediaInfoLib.cpp</Source>
+		</Source>
+		<BCBPROJECT>
+      <project version="10.0">
+        <property category="build.config" name="active" value="1"/>
+        <property category="build.config" name="count" value="1"/>
+        <property category="build.config" name="excludedefaultforzero" value="0"/>
+        <property category="build.config.0" name="builddir" value="Debug"/>
+        <property category="build.config.0" name="key" value="Debug_Build"/>
+        <property category="build.config.0" name="name" value="Debug Build"/>
+        <property category="build.config.0" name="settings.win32b" value="default"/>
+        <property category="build.config.0" name="type" value="Toolset"/>
+        <property category="build.config.0" name="win32.win32b.builddir" value="Debug_Build"/>
+        <property category="build.config.1" name="key" value="Release_Build"/>
+        <property category="build.config.1" name="name" value="Release Build"/>
+        <property category="build.config.1" name="settings.win32b" value="default"/>
+        <property category="build.config.1" name="type" value="Toolset"/>
+        <property category="build.config.1" name="win32.win32b.builddir" value="Release_Build"/>
+        <property category="build.node" name="lastconfig" value="Release_Build"/>
+        <property category="build.node" name="libraries" value="vcl.lib rtl.lib"/>
+        <property category="build.node" name="name" value="MediaInfoLib.lib"/>
+        <property category="build.node" name="packages" value="vcl;rtl;vclx;xmlrtl;vclie;inet;inetdbbde;inetdbxpress;soaprtl;dbrtl;dsnap;bcbie;vcldb;websnap;webdsnap;vclactnband"/>
+        <property category="build.node" name="sparelibs" value="rtl.lib vcl.lib"/>
+        <property category="build.node" name="use_packages" value="0"/>
+        <property category="build.platform" name="active" value="win32"/>
+        <property category="build.platform" name="win32.Debug_Build.toolset" value="win32b"/>
+        <property category="build.platform" name="win32.Release_Build.toolset" value="win32b"/>
+        <property category="build.platform" name="win32.default" value="win32b"/>
+        <property category="build.platform" name="win32.enabled" value="1"/>
+        <property category="build.platform" name="win32.win32b.enabled" value="1"/>
+        <property category="win32.*.win32b.dcc32" name="param.filenames.merge" value="1"/>
+        <property category="win32.*.win32b.tasm32" name="param.listfile.merge" value="1"/>
+        <property category="win32.*.win32b.tasm32" name="param.objfile.merge" value="1"/>
+        <property category="win32.*.win32b.tasm32" name="param.xreffile.merge" value="1"/>
+        <property category="win32.Debug_Build.win32b.bcc32" name="option.D.arg.1" value="_DEBUG"/>
+        <property category="win32.Debug_Build.win32b.bcc32" name="option.D.arg.merge" value="1"/>
+        <property category="win32.Debug_Build.win32b.bcc32" name="option.D.enabled" value="1"/>
+        <property category="win32.Debug_Build.win32b.bcc32" name="option.Od.enabled" value="1"/>
+        <property category="win32.Debug_Build.win32b.bcc32" name="option.k.enabled" value="1"/>
+        <property category="win32.Debug_Build.win32b.bcc32" name="option.r.enabled" value="0"/>
+        <property category="win32.Debug_Build.win32b.bcc32" name="option.v.enabled" value="1"/>
+        <property category="win32.Debug_Build.win32b.bcc32" name="option.vi.enabled" value="0"/>
+        <property category="win32.Debug_Build.win32b.bcc32" name="option.y.enabled" value="1"/>
+        <property category="win32.Debug_Build.win32b.dcc32" name="option.$D.enabled" value="1"/>
+        <property category="win32.Debug_Build.win32b.dcc32" name="option.$O.enabled" value="0"/>
+        <property category="win32.Debug_Build.win32b.dcc32" name="option.D.arg.1" value="DEBUG"/>
+        <property category="win32.Debug_Build.win32b.dcc32" name="option.D.arg.merge" value="1"/>
+        <property category="win32.Debug_Build.win32b.dcc32" name="option.D.enabled" value="1"/>
+        <property category="win32.Debug_Build.win32b.dcc32" name="option.V.enabled" value="1"/>
+        <property category="win32.Debug_Build.win32b.ilink32" name="option.D.enabled" value="1"/>
+        <property category="win32.Debug_Build.win32b.ilink32" name="option.Gn.enabled" value="1"/>
+        <property category="win32.Debug_Build.win32b.ilink32" name="option.L.arg.1" value="$(BDS)\lib\debug"/>
+        <property category="win32.Debug_Build.win32b.ilink32" name="option.L.arg.merge" value="1"/>
+        <property category="win32.Debug_Build.win32b.ilink32" name="option.L.enabled" value="1"/>
+        <property category="win32.Debug_Build.win32b.ilink32" name="option.v.enabled" value="1"/>
+        <property category="win32.Debug_Build.win32b.tasm32" name="option.z.enabled" value="1"/>
+        <property category="win32.Debug_Build.win32b.tasm32" name="option.zd.enabled" value="0"/>
+        <property category="win32.Debug_Build.win32b.tasm32" name="option.zi.enabled" value="1"/>
+        <property category="win32.Debug_Build.win32b.tlib" name="option.P.arg" value="512"/>
+        <property category="win32.Debug_Build.win32b.tlib" name="option.P.arg.merge" value="1"/>
+        <property category="win32.Debug_Build.win32b.tlib" name="option.P.enabled" value="1"/>
+        <property category="win32.Debug_Build.win32b.tlib" name="option.outputdir.arg.1" value="..\..\..\release\bcb\library"/>
+        <property category="win32.Debug_Build.win32b.tlib" name="option.outputdir.arg.merge" value="0"/>
+        <property category="win32.Debug_Build.win32b.tlib" name="option.outputdir.enabled" value="1"/>
+        <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.1" value="NDEBUG"/>
+        <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.2" value="MEDIAINFO_ALL_NO"/>
+        <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.3" value="MEDIAINFO_MPEGTS_YES"/>
+        <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.merge" value="1"/>
+        <property category="win32.Release_Build.win32b.bcc32" name="option.D.enabled" value="1"/>
+        <property category="win32.Release_Build.win32b.bcc32" name="option.O2.enabled" value="1"/>
+        <property category="win32.Release_Build.win32b.bcc32" name="option.k.enabled" value="0"/>
+        <property category="win32.Release_Build.win32b.bcc32" name="option.r.enabled" value="1"/>
+        <property category="win32.Release_Build.win32b.bcc32" name="option.vi.enabled" value="1"/>
+        <property category="win32.Release_Build.win32b.dcc32" name="option.$D.enabled" value="0"/>
+        <property category="win32.Release_Build.win32b.dcc32" name="option.$O.enabled" value="1"/>
+        <property category="win32.Release_Build.win32b.dcc32" name="option.V.enabled" value="0"/>
+        <property category="win32.Release_Build.win32b.ilink32" name="option.L.arg.1" value="$(BDS)\lib\release"/>
+        <property category="win32.Release_Build.win32b.ilink32" name="option.L.arg.merge" value="1"/>
+        <property category="win32.Release_Build.win32b.ilink32" name="option.L.enabled" value="1"/>
+        <property category="win32.Release_Build.win32b.tasm32" name="option.z.enabled" value="0"/>
+        <property category="win32.Release_Build.win32b.tasm32" name="option.zd.enabled" value="0"/>
+        <property category="win32.Release_Build.win32b.tasm32" name="option.zi.enabled" value="0"/>
+        <property category="win32.Release_Build.win32b.tasm32" name="option.zn.enabled" value="1"/>
+        <property category="win32.Release_Build.win32b.tlib" name="option.outputdir.arg.1" value="..\..\..\release\bcb\library"/>
+        <property category="win32.Release_Build.win32b.tlib" name="option.outputdir.arg.merge" value="0"/>
+        <property category="win32.Release_Build.win32b.tlib" name="option.outputdir.enabled" value="1"/>
+        <optionset name="all_configurations">
+          <property category="node" name="displayname" value="All Configurations"/>
+          <property category="win32.*.win32b.bcc32" name="container.SelectedOptimizations.containerenabled" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="container.SelectedWarnings.containerenabled" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.4.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.5.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.6.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.A.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.AK.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.AU.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.1" value="WIN32"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.2" value="_WIN32"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.3" value="UNICODE"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.4" value="_UNICODE"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.merge" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.enabled" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.H=.arg.1" value="$(BDS)\lib\vcl100.csm"/>
+          <property category="win32.*.win32b.bcc32" name="option.H=.arg.merge" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.H=.enabled" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.Hc.enabled" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.1" value="..\..\..\Source\MediaInfo\Tag"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.10" value="..\..\..\Source"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.11" value="..\..\..\..\shared\include"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.12" value="$(BDS)\include"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.13" value="$(BDS)\include\dinkumware"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.14" value="$(BDS)\include\vcl"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.2" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.3" value="..\..\..\Source\MediaInfo\Video"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.4" value="..\..\..\Source\MediaInfo\Text"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="..\..\..\Source\MediaInfo\Multiple"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="..\..\..\Source\MediaInfo\Image"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.7" value="..\..\..\Source\MediaInfo\Audio"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.8" value="..\..\..\Source\MediaInfo\Archive"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.9" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.merge" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.enabled" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.Jgi.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.Jgx.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.O1.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.O2.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.Od.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.V0.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.V1.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.Vmd.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.Vmm.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.Vms.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.align-1.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.align-2.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.align-3.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.align-5.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.b.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.disablewarns.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.p.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.pm.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.pr.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.ps.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.sysdefines.arg.1" value="_RTLDLL"/>
+          <property category="win32.*.win32b.bcc32" name="option.sysdefines.arg.2" value="NO_STRICT"/>
+          <property category="win32.*.win32b.bcc32" name="option.sysdefines.arg.merge" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.sysdefines.enabled" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.tW.enabled" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.tWC.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.tWD.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.tWM.enabled" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.w.enabled" value="0"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.1" value="..\..\..\Source\MediaInfo\Tag"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.10" value="E:\Programmation\MediaInfoLib\Project\BCB\Library"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.2" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.3" value="..\..\..\Source\MediaInfo\Video"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.4" value="..\..\..\Source\MediaInfo\Text"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.5" value="..\..\..\Source\MediaInfo\Multiple"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.6" value="..\..\..\Source\MediaInfo\Image"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.7" value="..\..\..\Source\MediaInfo\Audio"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.8" value="..\..\..\Source\MediaInfo\Archive"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.9" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.merge" value="1"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.enabled" value="0"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.1" value="..\..\..\Source\MediaInfo\Tag"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.10" value="E:\Programmation\MediaInfoLib\Project\BCB\Library"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.2" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.3" value="..\..\..\Source\MediaInfo\Video"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.4" value="..\..\..\Source\MediaInfo\Text"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.5" value="..\..\..\Source\MediaInfo\Multiple"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.6" value="..\..\..\Source\MediaInfo\Image"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.7" value="..\..\..\Source\MediaInfo\Audio"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.8" value="..\..\..\Source\MediaInfo\Archive"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.9" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.merge" value="1"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.enabled" value="0"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.1" value="..\..\..\Source\MediaInfo\Tag"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.10" value="E:\Programmation\MediaInfoLib\Project\BCB\Library"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.2" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.3" value="..\..\..\Source\MediaInfo\Video"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.4" value="..\..\..\Source\MediaInfo\Text"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.5" value="..\..\..\Source\MediaInfo\Multiple"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.6" value="..\..\..\Source\MediaInfo\Image"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.7" value="..\..\..\Source\MediaInfo\Audio"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.8" value="..\..\..\Source\MediaInfo\Archive"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.9" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.merge" value="1"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.enabled" value="0"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.1" value="..\..\..\Source\MediaInfo\Tag"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.10" value="E:\Programmation\MediaInfoLib\Project\BCB\Library"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.11" value="C:\Documents and Settings\Jerome\Mes documents\Borland Studio Projects"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.12" value="$(BDS)\lib"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.13" value="$(BDS)\lib\obj"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.2" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.3" value="..\..\..\Source\MediaInfo\Video"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.4" value="..\..\..\Source\MediaInfo\Text"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.5" value="..\..\..\Source\MediaInfo\Multiple"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.6" value="..\..\..\Source\MediaInfo\Image"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.7" value="..\..\..\Source\MediaInfo\Audio"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.8" value="..\..\..\Source\MediaInfo\Archive"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.9" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.merge" value="1"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.enabled" value="1"/>
+          <property category="win32.*.win32b.dcc32" name="param.filenames.merge" value="1"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.1" value="..\..\..\Source\MediaInfo\Tag"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.10" value="E:\Programmation\MediaInfoLib\Project\BCB\Library"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.2" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.3" value="..\..\..\Source\MediaInfo\Video"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.4" value="..\..\..\Source\MediaInfo\Text"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.5" value="..\..\..\Source\MediaInfo\Multiple"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.6" value="..\..\..\Source\MediaInfo\Image"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.7" value="..\..\..\Source\MediaInfo\Audio"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.8" value="..\..\..\Source\MediaInfo\Archive"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.9" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.merge" value="1"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.enabled" value="1"/>
+          <property category="win32.*.win32b.ilink32" name="option.Gi.enabled" value="0"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.1" value="$(BDS)\lib"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.2" value="$(BDS)\lib\obj"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.3" value="$(BDS)\lib\psdk"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.merge" value="1"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.enabled" value="1"/>
+          <property category="win32.*.win32b.ilink32" name="option.Tpd.enabled" value="0"/>
+          <property category="win32.*.win32b.ilink32" name="option.Tpe.enabled" value="0"/>
+          <property category="win32.*.win32b.ilink32" name="option.Tpp.enabled" value="0"/>
+          <property category="win32.*.win32b.ilink32" name="option.aa.enabled" value="0"/>
+          <property category="win32.*.win32b.ilink32" name="option.ap.enabled" value="0"/>
+          <property category="win32.*.win32b.ilink32" name="option.dynamicrtl.enabled" value="1"/>
+          <property category="win32.*.win32b.tlib" name="option.P.arg" value="64"/>
+          <property category="win32.*.win32b.tlib" name="option.P.arg.merge" value="1"/>
+          <property category="win32.*.win32b.tlib" name="option.P.enabled" value="1"/>
+          <property category="win32.*.win32b.tlib" name="option.dynamicrtl.enabled" value="0"/>
+          <property category="win32.*.win32b.tlib" name="option.outputdir.arg.merge" value="0"/>
+          <property category="win32.*.win32b.tlib" name="option.outputdir.enabled" value="0"/>
+        </optionset>
+      </project>
+      <FILELIST>
+        <FILE FILENAME="MediaInfoLib.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfoLib" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Analyze.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Base.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Base_Automatic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Automatic" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Base_Finalize.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Finalize" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Base_Inform.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Inform" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File_Dummy.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dummy" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File_Other.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Other" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File_Unknown.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Unknown" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfo.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\MediaInfo.h"/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfo_Config.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Config" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\MediaInfo_Config.h"/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfo_File.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_File" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfoList.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfoList" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\MediaInfoList.h"/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Image\File_Bmp.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Bmp" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Image\File_Gif.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Gif" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Image\File_Ico.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ico" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Image\File_Jpeg.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Jpeg" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Image\File_Png.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Png" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Image\File_Rle.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Rle" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Image\File_Tiff.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Tiff" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Text\File_OtherText.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_OtherText" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_Avc.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Avc" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_Flic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Flic" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_Mpeg4v.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4v" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_Mpegv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpegv" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Ac3.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ac3" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Amr.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Amr" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Amv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Amv" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Ape.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ape" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Au.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Au" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Dts.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dts" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Flac.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Flac" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Midi.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Midi" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Mpc.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpc" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Mpega.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpega" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Pcm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Pcm" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Tta.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Tta" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_TwinVQ.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_TwinVQ" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Vorbis.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Vorbis" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Wvpk.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wvpk" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Archive\File_7z.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_7z" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Archive\File_Ace.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ace" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Archive\File_Bzip2.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Bzip2" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Archive\File_Gzip.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Gzip" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Archive\File_Rar.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Rar" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Archive\File_Tar.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Tar" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Archive\File_Zip.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Zip" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Bdav.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Bdav" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Cdxa.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Cdxa" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Dvdv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dvdv" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Flv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Flv" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Mk.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mk" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Mpeg4.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Mpeg4_Descriptors.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4_Descriptors" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Mpeg4_Elements.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4_Elements" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Mpeg_Descriptors.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg_Descriptors" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Mpeg_Psi.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg_Psi" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_MpegPs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpegPs" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_MpegTs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpegTs" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Mxf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mxf" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Ogg.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ogg" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Ogg_SubElement.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ogg_SubElement" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Riff.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Riff" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Riff_Elements.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Riff_Elements" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Rm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Rm" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Skm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Skm" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Swf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Swf" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Wm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wm" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Wm_Elements.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wm_Elements" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Tag\File__Tags.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Tags" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Tag\File_ApeTag.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_ApeTag" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Tag\File_Id3.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Id3" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Tag\File_Id3v2.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Id3v2" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Tag\File_Lyrics3.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Lyrics3" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Tag\File_Lyrics3v2.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Lyrics3v2" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Tag\File_VorbisCom.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_VorbisCom" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_Vc1.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Vc1" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_Dirac.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dirac" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Latm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Latm" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4_AudioSpecificConfig" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Adif.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adif" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Adts.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adts" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\File__Duplicate.h"/>
+      </FILELIST>
+      <IDEOPTIONS>
+        <VersionInfo>
+          <VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+          <VersionInfo Name="AutoIncBuild">False</VersionInfo>
+          <VersionInfo Name="MajorVer">1</VersionInfo>
+          <VersionInfo Name="MinorVer">0</VersionInfo>
+          <VersionInfo Name="Release">0</VersionInfo>
+          <VersionInfo Name="Build">0</VersionInfo>
+          <VersionInfo Name="Debug">False</VersionInfo>
+          <VersionInfo Name="PreRelease">False</VersionInfo>
+          <VersionInfo Name="Special">False</VersionInfo>
+          <VersionInfo Name="Private">False</VersionInfo>
+          <VersionInfo Name="DLL">False</VersionInfo>
+          <VersionInfo Name="Locale">1036</VersionInfo>
+          <VersionInfo Name="CodePage">1252</VersionInfo>
+        </VersionInfo>
+        <VersionInfoKeys>
+          <VersionInfoKeys Name="CompanyName"></VersionInfoKeys>
+          <VersionInfoKeys Name="FileDescription"></VersionInfoKeys>
+          <VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+          <VersionInfoKeys Name="InternalName"></VersionInfoKeys>
+          <VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys>
+          <VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
+          <VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys>
+          <VersionInfoKeys Name="ProductName"></VersionInfoKeys>
+          <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+          <VersionInfoKeys Name="Comments"></VersionInfoKeys>
+        </VersionInfoKeys>
+        <Debugging>
+          <Debugging Name="DebugSourceDirs"></Debugging>
+        </Debugging>
+        <Parameters>
+          <Parameters Name="RunParams"></Parameters>
+          <Parameters Name="Launcher"></Parameters>
+          <Parameters Name="UseLauncher">False</Parameters>
+          <Parameters Name="DebugCWD"></Parameters>
+          <Parameters Name="HostApplication"></Parameters>
+          <Parameters Name="RemoteHost"></Parameters>
+          <Parameters Name="RemotePath"></Parameters>
+          <Parameters Name="RemoteParams"></Parameters>
+          <Parameters Name="RemoteLauncher"></Parameters>
+          <Parameters Name="UseRemoteLauncher">False</Parameters>
+          <Parameters Name="RemoteCWD"></Parameters>
+          <Parameters Name="RemoteDebug">False</Parameters>
+          <Parameters Name="Debug Symbols Search Path"></Parameters>
+          <Parameters Name="LoadAllSymbols">True</Parameters>
+          <Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+        </Parameters>
+        <Linker>
+          <Linker Name="LibPrefix"></Linker>
+          <Linker Name="LibSuffix"></Linker>
+          <Linker Name="LibVersion"></Linker>
+        </Linker>
+      </IDEOPTIONS>
+    </BCBPROJECT>
+		<buildevents/>
+	</CPlusPlusBuilder.Personality>
+	<StarTeamAssociation></StarTeamAssociation>
+	<StarTeamNonRelativeFiles></StarTeamNonRelativeFiles>
+</BorlandProject>

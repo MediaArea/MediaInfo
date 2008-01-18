@@ -1,0 +1,32 @@
+Count;;;N NI;;;Count of objects available in this stream
+StreamCount;;;N NI;;;Count of streams of that kind available
+StreamKind;Menu;Menu;N NI;;;Stream name
+StreamKindID;;;N NI;;;When multiple streams, number of the stream
+Inform;;;N NT;;;Last **Inform** call
+ID;;;N YI;;;A ID for this stream in this file
+UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy
+Codec;;;N YT;;;Codec used
+Codec/String;;;Y NT;;;Codec used (text)
+Codec/Family;;;Y NT;;;Codec family
+Codec/Info;;;Y NT;;;Info about codec
+Codec/Url;;;N NT;;;Link
+Codec_Profile;;;Y NT;;;Profile of the codec
+Codec_Settings;;;Y NT;;;Settings needed for decoder used
+Codec_Settings_Automatic;;;N NT;;;Settings needed for decoder used, with format XXX=Y, Y from 0 to 5
+BitRate;; bps;N YF;;;Bit rate in bps
+BitRate/String;;;Y NT;;;Bit rate (with measurement)
+BitRate_Mode;;;Y YT;;;Bit rate mode (VBR, CBR)
+Width;; pixels;Y YI;;;Width
+Height;; pixels;Y YI;;;Height
+AspectRatio;;;N YF;;;Aspect ratio
+AspectRatio/String;;;Y NT;;;Aspect ratio
+FrameRate;; fps;N YF;;;Frame rate
+FrameRate/String;;;Y NT;;;Frame rate
+Standard;;;Y NT;;;NTSC or PAL
+Resolution;; bits;Y YI;;;example for MP3 : 16 bits
+Title;;;Y YI;;;Name of the track
+Encoded_Library;;;Y YT;;;Software used to create the file
+Encoded_Library_Settings;;;Y YT;;;Parameters used by the software
+Language;;;N YT;;;Language (2 letters)
+Language/String;;;Y NT;;;Language (full)
+Language_More;;;Y YT;;;More info about Language (director's comment...)

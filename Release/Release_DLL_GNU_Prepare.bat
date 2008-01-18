@@ -1,0 +1,54 @@
+@echo off
+
+rem --- Clean up ---
+del MediaInfo_DLL_GNU_Prepare.7z
+rmdir MediaInfo_DLL_GNU_Prepare /S /Q
+
+rem --- Copying : From lib ---
+call Release_Lib_GNU_Prepare SkipCleanUp SkipCompression
+rename MediaInfo_Lib_GNU_Prepare MediaInfo_DLL_GNU_Prepare
+
+rem --- Copying : Project ---
+xcopy ..\Project\GNU\Library\AddThisToRoot_DLL_compile.sh MediaInfo_DLL_GNU_Prepare\Project\GNU\Library\
+
+rem --- Copying : Release ---
+xcopy Release_DLL_GNU.sub MediaInfo_DLL_GNU_Prepare\Release\
+xcopy Release_DLL_Linux_i386.sh MediaInfo_DLL_GNU_Prepare\Release\
+xcopy Release_DLL_Linux_x64.sh MediaInfo_DLL_GNU_Prepare\Release\
+xcopy Release_DLL_Mac_Intel.sh MediaInfo_DLL_GNU_Prepare\Release\
+xcopy Release_DLL_GNU_FromSource.sh MediaInfo_DLL_GNU_Prepare\Release\
+
+rem --- Copying : Sources ---
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.h MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
+xcopy ..\Source\Doc\Doxyfile MediaInfo_DLL_GNU_Prepare\Source\Doc\ /S
+xcopy ..\Source\Doc\Documentation.html MediaInfo_DLL_GNU_Prepare\Source\Doc\ /S
+xcopy ..\Source\Example\*.cpp MediaInfo_DLL_GNU_Prepare\Source\Example\ /S
+xcopy ..\Source\MediaInfoDLL\*.java MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
+
+
+rem --- Preparing Archive : MediaInfoLib ---
+move MediaInfo_DLL_GNU_Prepare MediaInfoLib
+mkdir MediaInfo_DLL_GNU_Prepare
+move MediaInfoLib MediaInfo_DLL_GNU_Prepare
+
+rem --- Preparing Archive : ZenLib ---
+cd ..\..\ZenLib\Release
+call Release_GNU_Prepare.bat SkipCleanUp SkipCompression
+cd ..\..\MediaInfoLib\Release
+move ..\..\ZenLib\Release\ZenLib_GNU_Prepare MediaInfo_DLL_GNU_Prepare\ZenLib
+
+rem --- Shared ---
+mkdir MediaInfo_DLL_GNU_Prepare\Shared
+xcopy ..\..\Shared\Project\_Common\* MediaInfo_DLL_GNU_Prepare\Shared\Project\_Common\ /S
+xcopy ..\..\Shared\Project\ZLib\*.sh MediaInfo_DLL_GNU_Prepare\Shared\Project\ZLib\ /S
+
+
+rem --- Compressing Archive ---
+if "%2"=="SkipCompression" goto SkipCompression
+..\..\Shared\Binary\Win32\7-Zip\7z a -r -t7z -mx9 MediaInfo_DLL_GNU_Prepare.7z MediaInfo_DLL_GNU_Prepare\*
+:SkipCompression
+
+rem --- Clean up ---
+if "%1"=="SkipCleanUp" goto SkipCleanUp
+rmdir MediaInfo_DLL_GNU_Prepare /S /Q
+:SkipCleanUp

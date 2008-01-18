@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="5" />
+	<Project>
+		<Option title="PreRelease" />
+		<Option pch_mode="0" />
+		<Option default_target="" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="" />
+		<Build>
+			<Target title="default">
+				<Option output="..\..\..\Release\PreRelease.exe" prefix_auto="0" extension_auto="0" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectResourceIncludeDirsRelation="0" />
+			</Target>
+		</Build>
+		<VirtualTargets>
+			<Add alias="All" targets="default;" />
+		</VirtualTargets>
+		<Compiler>
+			<Add option="-march=i586" />
+			<Add option="-O3" />
+			<Add option="-Wall" />
+			<Add option="-pipe" />
+			<Add option="-mthreads" />
+			<Add option="-DWIN32" />
+			<Add option="-D_WIN32" />
+			<Add option="-DUNICODE" />
+			<Add option="-D_UNICODE" />
+			<Add directory="..\..\..\Source" />
+			<Add directory="..\..\..\..\Shared\Include" />
+		</Compiler>
+		<Linker>
+			<Add library="Unicows" />
+			<Add library="ZenLib" />
+			<Add library="WxWidgets" />
+			<Add library="ZLib" />
+			<Add library="wsock32" />
+			<Add library="ctl3d32" />
+			<Add library="advapi32" />
+			<Add library="comctl32" />
+			<Add library="comdlg32" />
+			<Add library="kernel32" />
+			<Add library="gdi32" />
+			<Add library="odbc32" />
+			<Add library="ole32" />
+			<Add library="oleaut32" />
+			<Add library="rpcrt4" />
+			<Add library="shell32" />
+			<Add library="user32" />
+			<Add library="uuid" />
+			<Add library="winmm" />
+			<Add library="winspool" />
+			<Add directory="..\..\..\..\Shared\Library\GCC_MinGW32" />
+		</Linker>
+		<Unit filename="..\..\..\Source\PreRelease\OldFiles.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="default" />
+		</Unit>
+		<Unit filename="..\..\..\Source\PreRelease\OldFiles.h">
+			<Option compilerVar="" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="default" />
+		</Unit>
+		<Unit filename="..\..\..\Source\PreRelease\Ressources.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="default" />
+		</Unit>
+		<Unit filename="..\..\..\Source\PreRelease\Ressources.h">
+			<Option compilerVar="" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="default" />
+		</Unit>
+		<Unit filename="..\..\..\Source\PreRelease\WxWidgets\App.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="default" />
+		</Unit>
+		<Unit filename="..\..\..\Source\PreRelease\WxWidgets\App.h">
+			<Option compilerVar="" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="default" />
+		</Unit>
+		<Unit filename="..\..\..\Source\PreRelease\WxWidgets\GUI_Main.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="default" />
+		</Unit>
+		<Unit filename="..\..\..\Source\PreRelease\WxWidgets\GUI_Main.h">
+			<Option compilerVar="" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="default" />
+		</Unit>
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>

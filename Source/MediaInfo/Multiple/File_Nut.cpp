@@ -1,0 +1,302 @@
+// File_Nut - Info for Nut files
+// Copyright (C) 2008-2008 Jerome Martinez, Zen@MediaArea.net
+//
+// This library is free software: you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this library. If not, see <http://www.gnu.org/licenses/>.
+//
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+// Source: http://svn.mplayerhq.hu/nut/docs/nut.txt?view=markup
+//
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//---------------------------------------------------------------------------
+// Compilation conditions
+#include <MediaInfo/Setup.h>
+#ifdef __BORLANDC__
+    #pragma hdrstop
+#endif
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+#if defined(MEDIAINFO_NUT_YES)
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+#include "MediaInfo/Multiple/File_Nut.h"
+//---------------------------------------------------------------------------
+
+namespace MediaInfoLib
+{
+
+//***************************************************************************
+// Const
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+namespace Elements
+{
+    const int64u main       =0x4E4D7A561F5F04ADLL;
+    const int64u stream     =0x4E5311405BF2F9DBLL;
+    const int64u syncpoint  =0x4E4BE4ADEECA4569LL;
+    const int64u index      =0x4E58DD672F23E64ELL;
+    const int64u info       =0x4E49AB68B596BA78LL;
+}
+
+//***************************************************************************
+// Buffer
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Nut::Header_Parse()
+{
+    /*
+    //Parsing
+    int8u  N;
+    Peek_B1(N);
+    if (N==0x4E) //'N'
+    {
+        //Header
+        int64u startcode, forward_ptr;
+        Get_B8(startcode,                                       "startcode");
+        Get_VL(forward_ptr,                                     "forward_ptr");
+        if (forward_ptr>4096)
+            Skip_B4(                                            "header_checksum");
+
+        Header_Fill_Code(startcode, Ztring().From_Number(startcode, 16)); //Quick filling for CC8 with text
+        Header_Fill_Size(Element_Offset+forward_ptr); //4 for cheksum
+
+    }
+    else
+    {
+        //Frame
+        Header_Fill_Code(0, "Frame");
+        Header_Fill_Size(0);
+        Finnished();
+    }
+    */
+}
+
+//***************************************************************************
+// Elements
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Nut::FileHeader_Parse()
+{
+    //Parsing
+    Element_Begin("Nut header", 25);
+    std::string file_id_string;
+    Get_String(25, file_id_string,                               "file_id_string");
+    Element_End();
+
+    FILLING_BEGIN();
+        //Integrity
+        if (file_id_string!="nut/multimedia container")
+        {
+            Finnished();
+            return;
+        }
+
+        //Filling
+        Stream_Prepare(Stream_General);
+        Fill("Format", "Nut");
+
+        Finnished();
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Nut::Data_Parse()
+{
+}
+
+/*
+//---------------------------------------------------------------------------
+void File_Nut::Data_Parse()
+{
+    #define ELEMENT_CASE(_NAME) \
+        case Elements::_NAME : _NAME(); break;
+
+    int64u A=Elements::main;
+    //Parsing
+    #ifndef __BORLANDC__
+        switch (Element_Code)
+    #else //__BORLANDC__
+        switch (Element_Code&0xFFFFFFFF) //Borland does not like int64u for const?
+    #endif //__BORLANDC__
+    {
+        ELEMENT_CASE(main);
+        ELEMENT_CASE(stream);
+        ELEMENT_CASE(syncpoint);
+        ELEMENT_CASE(index);
+        ELEMENT_CASE(info);
+        default : Skip_XX(Element_Size-4,                       "Data");
+    }
+
+    Skip_B4(                                                    "cheksum");
+}
+
+//***************************************************************************
+// Elements
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Nut::main()
+{
+    Element_Name("main");
+
+    //Parsing
+    int64u time_base_count;
+    Skip_VL(                                                    "version");
+    Skip_VL(                                                    "stream_count");
+    Skip_VL(                                                    "max_distance");
+    Get_VL (time_base_count,                                    "time_base_count");
+    for(int64u i=0; i<time_base_count; i++)
+    {
+        Skip_VL(                                                "time_base_num");
+        Skip_VL(                                                "time_base_denom");
+        //time_base[i]= time_base_num/time_base_denom
+    }
+    int64u tmp_mul=1, tmp_stream=0;
+    int64s tmp_pts=0;
+    for(int16u i=0; i<256;)
+    {
+        int64u tmp_fields, tmp_size, tmp_res, count;
+        Skip_VL(                                                "tmp_flag");
+        Get_VL (tmp_fields,                                     "tmp_fields");
+        if(tmp_fields>0)
+            Skip_SL(                                            "tmp_pts");
+        if(tmp_fields>1)
+            Skip_VL(                                            "tmp_mul");
+        if(tmp_fields>2)
+            Skip_VL(                                            "tmp_stream");
+        if(tmp_fields>3)
+            Get_VL (tmp_size,                                   "tmp_size");
+        else
+            tmp_size=0;
+        if(tmp_fields>4)
+            Get_VL (tmp_res,                                    "tmp_res");
+        else
+            tmp_res=0;
+        if(tmp_fields>5)
+            Skip_VL(                                            "count");
+        else
+            count=tmp_mul-tmp_size;
+        for(int64u j=6; j<tmp_fields; j++)
+            Skip_VL(                                            "tmp_reserved[i]");
+
+        for(int64u j=0; j<count && i<256; j++, i++)
+        {
+            if (i == 'N')
+            {
+                //flags[i]= FLAG_INVALID;
+                j--;
+                continue;
+            }
+            //flags[i]= tmp_flag;
+            //stream_id[i]= tmp_stream;
+            //data_size_mul[i]= tmp_mul;
+            //data_size_lsb[i]= tmp_size + j;
+            //pts_delta[i]= tmp_pts;
+            //reserved_count[i]= tmp_res;
+        }
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Nut::stream()
+{
+    Element_Name("stream");
+
+    //Parsing
+    int64u stream_class, fourcc_length, codec_specific_data_length;
+    Skip_VL(                                                    "stream_id");
+    Get_VL (stream_class,                                       "stream_class");
+    Get_VL (fourcc_length,                                      "fourcc length");
+    switch (fourcc_length)
+    {
+        case 2 : Skip_C2(                                       "fourcc"); break;
+        case 4 : Skip_C4(                                       "fourcc"); break;
+        default: Skip_XX(fourcc_length,                         "fourcc");
+    }
+    Skip_VL(                                                    "time_base_id");
+    Skip_VL(                                                    "msb_pts_shift");
+    Skip_VL(                                                    "max_pts_distance");
+    Skip_VL(                                                    "decode_delay");
+    Skip_VL(                                                    "stream_flags");
+    Get_VL (codec_specific_data_length,                         "codec_specific_data length");
+    Skip_XX(codec_specific_data_length,                         "codec_specific_data");
+    switch (stream_class)
+    {
+        case 0 : //video
+            {
+                Skip_VL(                                        "width");
+                Skip_VL(                                        "height");
+                Skip_VL(                                        "sample_width");
+                Skip_VL(                                        "sample_height");
+                Skip_VL(                                        "colorspace_type");
+            }
+            break;
+        case 1 : //audio
+            {
+                Skip_VL(                                         "samplerate_num");
+                Skip_VL(                                         "samplerate_denom");
+                Skip_VL(                                         "channel_count");
+            }
+            break;
+        case 2 : //subtitles
+            {
+            }
+            break;
+        case 3 : //userdata
+            {
+            }
+            break;
+        default: ;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Nut::syncpoint()
+{
+    Element_Name("syncpoint");
+}
+
+//---------------------------------------------------------------------------
+void File_Nut::index()
+{
+    Element_Name("index");
+}
+
+//---------------------------------------------------------------------------
+void File_Nut::info()
+{
+    Element_Name("info");
+}
+
+*/
+//***************************************************************************
+// Information
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Nut::HowTo(stream_t StreamKind)
+{
+}
+
+} //NameSpace
+
+#endif //MEDIAINFO_NUT_YES
+

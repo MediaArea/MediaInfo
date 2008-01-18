@@ -1,0 +1,67 @@
+Count;;;N NI;;;Count of objects available in this stream
+StreamCount;;;N NI;;;Count of streams of that kind available
+StreamKind;Audio;Audio;N NI;;;Stream name
+StreamKindID;;;N NI;;;When multiple streams, number of the stream
+Inform;;;N NT;;;Last **Inform** call
+ID;;;N YI;;;A ID for this stream in this file
+UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy
+Codec;;;N YT;;;Codec used
+Codec/String;;;Y NT;;;Codec used (test)
+Codec/Family;;;Y NT;;;Codec family
+Codec/Info;;;Y NT;;;Info about codec
+Codec/Url;;;N NT;;;Link
+Codec/CC;;;N YT;;;Codec used (Container Code)
+Codec_Description;;;Y NT;;;Manual description
+Codec_Profile;;;Y NT;;;Profile of the codec
+Codec_Settings;;;Y NT;;;Settings needed for decoder used
+Codec_Settings/Floor;;;Y NT;;;
+Codec_Settings_Automatic;;;N NT;;;Settings needed for decoder used, with format XXX=Y, Y from 0 to 5
+PlayTime;; ms;N YI;;;Play time of the stream
+PlayTime/String;;;Y NT;;;Play time (formated)
+PlayTime/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
+PlayTime/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero
+PlayTime/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM
+BitRate_Mode;;;Y NT;;;Bit rate mode (VBR, CBR)
+BitRate;; bps;N YF;;;Bit rate in bps
+BitRate/String;;;Y NT;;;Bit rate (with measurement)
+BitRate_Minimum;; bps;N YF;;;Minimum Bit rate in bps
+BitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement)
+BitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps
+BitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement)
+BitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps
+BitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement)
+Channel(s);; channel;N YF;;;Number of channels
+Channel(s)/String;;;Y NT;;;Number of channels
+ChannelPositions;;;Y YT;;;Position of channels
+SamplingRate;; Hz;N YF;;;Sampling rate
+SamplingRate/String;;;Y NT;;;in KHz
+SamplingCount;;;N NI;;;Frame count
+Resolution;; bit;N YI;;;Resolution in bits (8, 16, 20, 24)
+Resolution/String;;;Y NI;;;
+Delay;; ms;N YI;;;Delay fixed in the stream (relative)
+Delay/String;;;N NT;;;
+Delay/String1;;;N NT;;;
+Delay/String2;;;N NT;;;
+Delay/String3;;;N NT;;;
+Video0_Delay;; ms;N NI;;;Delay fixed in the stream (absolute / video0)
+Video0_Delay/String;;;Y NT;;;
+Video0_Delay/String1;;;N NT;;;
+Video0_Delay/String2;;;N NT;;;
+Video0_Delay/String3;;;N NT;;;
+ReplayGain_Gain;;;N YT;;;The gain to apply to reach 89dB SPL on playback
+ReplayGain_Peak;;;N YT;;;The maximum absolute peak value of the item
+StreamSize;; byte;N YI;;;Stream size in bytes
+StreamSize/String;;;Y NT;;;
+StreamSize/String1;;;N NT;;;
+StreamSize/String2;;;N NT;;;
+StreamSize/String3;;;N NT;;;
+StreamSize/String4;;;N NT;;;
+Title;;;Y YI;;;Name of the track
+Encoded_Library;;;Y YT;;;Software used to create the file
+Encoded_Library_Settings;;;Y YT;;;Parameters used by the software
+Language;;;N YT;;;Language (2 letters)
+Language/String;;;Y NT;;;Language (full)
+Language_More;;;Y YT;;;More info about Language (director's comment...)
+Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
+Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal
+Encryption;;;Y YT;;;;;

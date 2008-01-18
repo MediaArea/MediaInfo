@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="MediaInfoLib">
+		<Project filename="Library\MediaInfoLib.cbp" active="1" />
+		<Project filename="Dll\MediaInfo.cbp" />
+		<Project filename="PreRelease\PreRelease.cbp" />
+		<Project filename="Example\HowToUse_CLI.cbp" />
+	</Workspace>
+</CodeBlocks_workspace_file>

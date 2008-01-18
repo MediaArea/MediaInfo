@@ -1,0 +1,29 @@
+Count;;;N YI;;;Count of objects available in this stream
+StreamCount;;;N YI;;;Count of streams of that kind available
+StreamKind;Image;Image;N NI;;;Stream name
+StreamKindID;;;N NI;;;When multiple streams, number of the stream
+Inform;;;N NT;;;Last **Inform** call
+ID;;;N YI;;;A ID for this stream in this file
+UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy
+Title;;;Y YI;;;Name of the track
+Codec;;;N YT;;;
+Codec/String;;;Y NT;;;
+Codec/Family;;;Y NT;;;Codec family
+Codec/Info;;;Y NT;;;Info about codec
+Codec/Url;;;N NT;;;Link
+Width;; pixels;N YI;;;Width
+Width/String;;;Y NT;;;
+Height;; pixels;N YI;;;Height
+Height/String;;;Y NT;;;;;
+StreamSize;; byte;N YI;;;Stream size in bytes;;
+StreamSize/String;;;Y NT;;;;;
+StreamSize/String1;;;N NT;;;;;
+StreamSize/String2;;;N NT;;;;;
+StreamSize/String3;;;N NT;;;;;
+StreamSize/String4;;;N NT;;;;;
+Language;;;N YT;;;Language (2 letters);;
+Language/String;;;Y NT;;;Language (full);;
+Summary;;;N NT;;;;;
+Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
+Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal
+Encryption;;;Y YT;;;;;

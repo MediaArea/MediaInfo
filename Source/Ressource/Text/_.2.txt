@@ -1,0 +1,6 @@
+
+//---------------------------------------------------------------------------
+void %Name% (ZtringListList &Info)
+{
+    Info.Separator_Set(0, _T("\n"));
+    Info.Write(Ztring().From_Local(

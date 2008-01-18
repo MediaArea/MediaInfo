@@ -1,0 +1,14 @@
+Count;;;N NI;;;Count of objects available in this stream
+StreamCount;;;N NI;;;Count of streams of that kind available
+StreamKind;Chapters;Chapters;N NI;;;Stream name
+StreamKindID;;;N NI;;;When multiple streams, number of the stream
+Inform;;;N NT;;;Last **Inform** call
+ID;;;N YI;;;A ID for this stream in this file
+UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy
+Codec;;;N YT;;;Codec used
+Codec/String;;;Y NT;;;Codec used (test)
+Codec/Url;;;Y YT;;;Codec used (test)
+Total;;;N YT;;;Total number of chapters
+Title;;;Y YI;;;Name of the track
+Language;;;N YT;;;Language (2 letters)
+Language/String;;;Y NT;;;Language (full)

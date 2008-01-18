@@ -1,0 +1,129 @@
+Matroska;Matroska;;M;Mk;;mkv mka mks;http://packs.matroska.org/
+Ogg;Ogg;;M;Ogg;;ogg ogm;http://www.free-codecs.com/Ogg_DirectShow_Filters_download.htm
+AVI;AVI;RIFF;M;Riff;Audio Video Interleave;avi;
+DivX;DivX;RIFF;M;Riff;Hack of AVI;divx;http://www.divx.com
+GVI;Google Video;RIFF;M;Riff;Hack of AVI;gvi;http://video.google.com/playerdownload.html
+AMV;AMV;RIFF;M;Riff;Chinese hack of AVI;amv;http://en.wikipedia.org/wiki/AMV_video_format
+RIFF-MMP;MMP;RIFF;M;Riff;RIFF Multimedia Movie;;
+M4V ;MPEG-4 Visual;MPEG-4;M;Mpeg4;;mp4 m4v;
+isom;MPEG-4;MPEG-4;M;Mpeg4;ISO 14496-1 Base Media;mp4;http://www.apple.com/quicktime/download/standalone.html
+iso2;MPEG-4;MPEG-4;M;Mpeg4;ISO 14496-12 Base Media;mp4;http://www.apple.com/quicktime/download/standalone.html
+mp41;MPEG-4;MPEG-4;M;Mpeg4;ISO 14496-1 version 1;mp4;http://www.apple.com/quicktime/download/standalone.html
+mp42;MPEG-4;MPEG-4;M;Mpeg4;ISO 14496-1 version 2;mp4;http://www.apple.com/quicktime/download/standalone.html
+avc1;AVC (JVT);MPEG-4 Part 10;M;Mpeg4;JVT AVC;3gpp 3gp;http://www.apple.com/quicktime/download/standalone.html
+3gp1;3GPP;MPEG-4;M;Mpeg4;3GPP Media Release 1;3gpp 3gp k3g;http://www.3gpp.org/
+3gp2;3GPP;MPEG-4;M;Mpeg4;3GPP Media Release 2;3gpp 3gp k3g;http://www.3gpp.org/
+3gp3;3GPP;MPEG-4;M;Mpeg4;3GPP Media Release 3;3gpp 3gp k3g;http://www.3gpp.org/
+3gp4;3GPP;MPEG-4;M;Mpeg4;3GPP Media Release 4;3gpp 3gp k3g;http://www.3gpp.org/
+3gp5;3GPP;MPEG-4;M;Mpeg4;3GPP Media Release 5;3gpp 3gp k3g;http://www.3gpp.org/
+3gp6;3GPP;MPEG-4;M;Mpeg4;3GPP Media Release 6 Basic Profile;3gpp 3gp k3g;http://www.3gpp.org/
+3gp6;3GPP;MPEG-4;M;Mpeg4;3GPP Media Release 6 Progressive Download;3gpp 3gp k3g;http://www.3gpp.org/
+3gp6;3GPP;MPEG-4;M;Mpeg4;3GPP Media Release 6 Streaming Servers;3gpp 3gp k3g;http://www.3gpp.org/
+3gp7;3GPP;MPEG-4;M;Mpeg4;3GPP Media Release 7 Streaming Servers;3gpp 3gp k3g;http://www.3gpp.org/
+3g2a;3GPP2;MPEG-4;M;Mpeg4;3GPP2 Media;3gpp2 3g2 k3g;http://www.3gpp2.org/
+3ge6;3GPP;MPEG-4;M;Mpeg4;3GPP Release 6 MBMS Extended Presentation;3gpp 3gp k3g;http://www.3gpp.org/
+3ge7;3GPP;MPEG-4;M;Mpeg4;3GPP Release 7 MBMS Extended Presentation;3gpp 3gp k3g;http://www.3gpp.org/
+3gg6;3GPP;MPEG-4;M;Mpeg4;3GPP Release 6 General Profile;3gpp 3gp k3g;http://www.3gpp.org/
+3gp8;3GPP;MPEG-4;M;Mpeg4;;3gpp 3gp k3g;http://www.apple.com/quicktime/download/standalone.html
+3gp9;3GPP;MPEG-4;M;Mpeg4;;3gpp 3gp k3g;http://www.apple.com/quicktime/download/standalone.html
+CAQV;CAQV;MPEG-4;M;Mpeg4;Casio Digital Camera;;http://world.casio.com/
+JP20;JP20;MPEG-4;M;Mpeg4;JPEG 2000;jpeg;http://gpac.sourceforge.net/
+JPM ;JPM;MPEG-4;M;Mpeg4;JPEG 2000 Compound Image;jpm;http://www.iso.org/
+JPX ;JPX;MPEG-4;M;Mpeg4;JPEG 2000 w/ extensions;jpx;http://www.iso.org/
+KDDI;3GPP2;MPEG-4;M;Mpeg4;3GPP2 EZMovie for KDDI 3G Cellphones;;http://www.3gpp2.org/
+MJ2S;MJ2S;MPEG;M;Mpeg4;Motion JPEG 2000 Simple Profile;;http://www.iso.org/
+MJP2;MJP2;MPEG;M;Mpeg4;Motion JPEG 2000 General Profile;;http://www.iso.org/
+MQT ;MQT;MPEG-4;M;Mpeg4;Sony/Mobile QuickTime;mqv;http://www.sony.com/
+MSNV;MPEG-4;MPEG-4;M;Mpeg4;Sony PSP;mp4;http://www.sony.com/
+ndas;MPEG-4;MPEG-4;M;Mpeg4;Nero Digital AAC Audio;mp4;http://www.nerodigital.com
+ndsc;MPEG-4;MPEG-4 Part 2;M;Mpeg4;Nero Digital Cinema Profile;mp4;http://www.nerodigital.com
+ndsh;MPEG-4;MPEG-4 Part 2;M;Mpeg4;Nero Digital HDTV Profile;mp4;http://www.nerodigital.com
+ndsm;MPEG-4;MPEG-4 Part 2;M;Mpeg4;Nero Digital Mobile Profile;mp4;http://www.nerodigital.com
+ndsp;MPEG-4;MPEG-4 Part 2;M;Mpeg4;Nero Digital Portable Profile;mp4;http://www.nerodigital.com
+ndss;MPEG-4;MPEG-4 Part 2;M;Mpeg4;Nero Digital Standard Profile;mp4;http://www.nerodigital.com
+ndxc;MPEG-4;MPEG-4 Part 10;M;Mpeg4;Nero Digital AVC Cinema Profile;mp4;http://www.nerodigital.com
+ndxh;MPEG-4;MPEG-4 Part 10;M;Mpeg4;Nero Digital AVC HDTV Profile;mp4;http://www.nerodigital.com
+ndxm;MPEG-4;MPEG-4 Part 10;M;Mpeg4;Nero Digital AVC Mobile Profile;mp4;http://www.nerodigital.com
+ndxp;MPEG-4;MPEG-4 Part 10;M;Mpeg4;Nero Digital AVC Portable Profile;mp4;http://www.nerodigital.com
+ndxs;MPEG-4;MPEG-4 Part 10;M;Mpeg4;Nero Digital AVC Standard Profile;mp4;http://www.nerodigital.com
+mmp4;3GPP;MPEG-4;M;Mpeg4;Mobile version;3gpp 3gp;http://www.apple.com/quicktime/download/standalone.html
+mp71;MPEG-4;MPEG-4;M;Mpeg4;ISO 14496-12 MPEG-7 meta data;mp4;http://www.apple.com/quicktime/download/standalone.html
+mp7b;MPEG-4;MPEG-4;M;Mpeg4;ISO 14496-12 MPEG-7 meta data;mp4;http://www.apple.com/quicktime/download/standalone.html
+qt  ;QuickTime;MPEG-4;M;Mpeg4;Quictime movie;mov qt;http://www.apple.com/quicktime/download/standalone.html
+QT;QuickTime;MPEG-4;M;Mpeg4;Original Apple specifications;mov qt;http://www.apple.com/quicktime/download/standalone.html
+MPEG-4PS;MPEG-4 Program;MPEG-4;M;MpegPs;;;
+MPEG-4TS;MPEG-4 Transport;MPEG-4;M;MpegTs;;m4t m4s ts tp trp;
+MPEG-2PS;MPEG-2 Program;MPEG-2;M;MpegPs;;vob mpeg mpg;
+MPEG-2TS;MPEG-2 Transport;MPEG-2;M;MpegTs;;m2t m2s ts;
+MPEG-1PS;MPEG-1 Program;MPEG-1;M;MpegPs;;mpeg mpg;
+MPEG-1TS;MPEG-1 Transport;MPEG-1;M;MpegTs;;ts;
+BDAV;BluRay Video;MPEG-2;M;Bdav;;m2ts;
+FLV;Flash Video;;M;Flv;;flv;http://www.macromedia.com/go/getflashplayer
+SKM;Sky;;M;Skm;Sky Korean Mobilephone;skm;http://www.isky.co.kr/html/cs/download.jsp
+SWF;Shockwave;;M;Swf;;swf;http://www.macromedia.com/go/getflashplayer
+MXF;MXF;;M;Mxf;;mxf;
+WM;Windows Media;;M;Wm;;asf wmv wma;
+RM;RealMedia;;M;Rm;;rm rmvb ra;
+DVDV;DVD Video;;M;Dvdv;;ifo;
+CDXA;CDXA;;M;Cdxa;;dat;
+SDV ;;;M;Mpeg4;SD Memory Card Video;;http://www.sdcard.org/
+AVC;AVC;AVC;V;Avc;Advanced Video Codec;avc h264;http://developers.videolan.org/x264.html
+MPEG-4V;MPEG-4 Video;MPEG-4;V;Mpeg4;;mp4v;
+MPEG-2V;MPEG-2 Video;MPEG-2;V;Mpegv;;mpgv mpv mp2v m2v;
+MPEG-1V;MPEG-1 Video;MPEG-1;V;Mpegv;;mpgv mpv mp1v m1v;
+FLIC;FLIC;;V;Flic;;fli flc;http://www.chem.nott.ac.uk/flc.html
+AAC;AAC;;A;Aac;Advanced Audio Codec;aac;
+AC3;AC3;;A;Ac3;Audio Coding 3;ac3;
+ALS;ALS;;A;Mpeg4;MPEG-4 Audio Lossless Coding;als;http://www.nue.tu-berlin.de/forschung/projekte/lossless/mp4als.html#downloads
+AMR;AMR;;A;Amr;Adaptive Multi-Rate;amr;http://www.apple.com/quicktime/download/standalone.html
+DTS;DTS;;A;Dts;;dts;
+FLAC;FLAC;;A;Flac;Free Lossless Audio Codec;flac;http://flac.sourceforge.net/
+APE;Monkey's Audio;;A;Ape;;ape mac;http://www.monkeysaudio.com/
+M4A ;iTunes;MPEG-4;A;Mpeg4;Apple AAC audio with iTunes info;m4a;http://www.apple.com/itunes/
+M4B ;iTunes;MPEG-4;A;Mpeg4;Apple audio with iTunes position;m4a;http://www.apple.com/itunes/
+M4P ;iTunes;MPEG-4;A;Mpeg4;AES encrypted audio;m4p;http://www.apple.com/itunes/
+M4VP;iPhone;MPEG-4;M;Mpeg4;Apple iPhone;m4v;http://www.apple.com/iphone/
+iphE;iPhone (Cellular);MPEG-4;M;Mpeg4;Apple iPhone (Cellular);3gp;http://www.apple.com/iphone/
+M4VH;Apple TV;MPEG-4;M;Mpeg4;Apple TV;m4v;http://www.apple.com/appletv/
+MTV;AMV;MPEG-1;A;Other;Chinese hack of MPEG-1 layer 3;mtv;http://en.wikipedia.org/wiki/Chinese_MP4/MTV_Player
+MPC;MusePack;;A;Mpc;;mpc mp+;http://www.musepack.net
+MPEG-2A;MPEG-2 Audio;MPEG-2;A;Mpega;;m2a mpa2 mp2 mp3;
+MPEG-1A;MPEG-1 Audio;MPEG-1;A;Mpega;;m1a mpa1 mp1 mp3;
+WAV;Wave;RIFF;A;Riff;;wav;
+RIFF-MIDI;MIDI;RIFF;A;Riff;RIFF Musical Instrument Digital Interface;;
+AIFF;AIFF;;A;SndFile;Apple/SGI;aiff aifc;
+AU;AU;;A;SndFile;Sun/NeXT;au;
+Audio-Raw;Audio Raw;;A;SndFile;Undetermined raw audio format;;
+PARIS;PARIS;;A;SndFile;Ensoniq;par;
+SVX;Amiga Iff;;A;SndFile;Amiga Iff / SVX8 / SV16;iff;
+NIST;NIST;;A;SndFile;Spere;nist;
+VOC;VOC;;A;SndFile;;voc;
+IRCAM;IRCAM;;A;SndFile;Berkeley/IRCAM/CARL;;
+W64;W64;RIFF;A;SndFile;Sonic Foundry's Riff;w64;
+MAT4;Matlab 4;;A;SndFile;;mat;
+MAT5;Matlab 5;;A;SndFile;;mat;
+PVF;PVF;;A;SndFile;Portable Voice Format;pvf;
+XI;FT2E;;A;SndFile;FastTracker 2 Extended;xi;
+HTK;HMM Toolkit;;A;SndFile;;htk;
+SDS;Midi Sample;;A;SndFile;;sds;
+AVR;AVR;;A;SndFile;Audio Video Research;avr;
+SD2;SD2;;A;SndFile;Sound Designer 2;sd2;
+TwinVQ;TwinVQ;;A;TwinVQ;Transform domain Weighted INterleave Vector Quantization;vqf;http://www.twinvq.org/english/index_en.html
+Wvpk;Wavpack;;A;Wvpk;;wv wvc;http://www.wavpack.com
+MNG;MNG;PNG;I;Mng;Multiple-Image Network Graphic;mng;
+JNG;JNG;PNG;I;Jng;JPEG Network Graphic;jng;
+PNG;PNG;PNG;I;Png;Portable Network Graphic;png;
+jp2 ;JPEG2000;;I;Other;;jp2;http://www.morgan-multimedia.com/JPEG2000/
+JPEG;JPEG;;I;Jpeg;;jpeg jpg jpe;
+BMP;Bitmap;;I;Bmp;;bmp;
+ICO;ICO;;I;Ico;;ico;
+GIF;GIF;;I;Gif;Graphics Interchange Format;gif;
+TIFF;TIFF;;I;Tiff;;tiff tif;
+RIFF-Palette;Palette;RIFF;I;Riff;RIFF Palette;;
+RIFF-DIB;DIB;RIFF;I;Riff;RIFF Device Independent Bitmap;;
+QTI;QuickTime Image;MPEG-4;I;Qt;;;http://www.apple.com/quicktime/download/standalone.html
+7Z;7-Zip;;C;7z;;7z;http://7-zip.org
+ZIP;ZIP;;C;Zip;;zip;http://winzip.com
+RAR;RAR;;C;Rar;Rarlabs;rar;http://rarlabs.com
+ACE;ACE;;C;Ace;;ace;http://winace.com
+QTCA;QuickTime Archive;MPEG-4;C;Qt;Quicktime compressed archive;;http://www.apple.com/quicktime/download/standalone.html

@@ -1,0 +1,2509 @@
+// File_Mk - Info for Matroska files
+// Copyright (C) 2002-2008 Jerome Martinez, Zen@MediaArea.net
+//
+// This library is free software: you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this library. If not, see <http://www.gnu.org/licenses/>.
+//
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+//---------------------------------------------------------------------------
+// Compilation conditions
+#include <MediaInfo/Setup.h>
+#ifdef __BORLANDC__
+    #pragma hdrstop
+#endif
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+#if defined(MEDIAINFO_MK_YES)
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+#include "MediaInfo/Multiple/File_Mk.h"
+#if defined(MEDIAINFO_MPEG4V_YES)
+    #include "MediaInfo/Video/File_Mpeg4v.h"
+#endif
+#if defined(MEDIAINFO_AVC_YES)
+    #include "MediaInfo/Video/File_Avc.h"
+#endif
+#if defined(MEDIAINFO_AC3_YES)
+    #include "MediaInfo/Audio/File_Ac3.h"
+#endif
+#if defined(MEDIAINFO_MPEGA_YES)
+    #include "MediaInfo/Audio/File_Mpega.h"
+#endif
+#if defined(MEDIAINFO_MPEG4_YES)
+    #include "MediaInfo/Audio/File_Mpeg4_AudioSpecificConfig.h"
+#endif
+//---------------------------------------------------------------------------
+
+namespace MediaInfoLib
+{
+
+//***************************************************************************
+// Constructor/Destructor
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+File_Mk::File_Mk()
+:File__Analyze()
+{
+    //Configuration
+    DataMustAlwaysBeComplete=false;
+
+    //Temp
+    TimecodeScale=1000000; //Default value
+    Duration=0;
+    Cluster_AlreadyParsed=false;
+
+    //Stream
+    Stream_Count=0;
+}
+
+//***************************************************************************
+// Format
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mk::Read_Buffer_Finalize()
+{
+    if (Duration!=0 && TimecodeScale!=0)
+        Fill(Stream_General, 0, "PlayTime", (float32)(Duration*int64u_float64(TimecodeScale)/1000000.0));
+}
+
+//***************************************************************************
+// Buffer
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mk::Header_Parse()
+{
+    //Parsing
+    int64u Name, Size;
+    Get_EB (Name,                                               "Name");
+    Get_EB (Size,                                               "Size");
+
+    //Filling
+    Header_Fill_Code(Name, Ztring().From_Number(Name, 16));
+    Header_Fill_Size(Element_Offset+Size);
+}
+
+//---------------------------------------------------------------------------
+namespace Elements
+{
+    //Common
+    const int64u CRC32=0x3F;
+    const int64u Void=0x6C;
+
+    //EBML
+    const int64u Ebml=0xA45DFA3;
+    const int64u Ebml_Version=0x286;
+    const int64u Ebml_ReadVersion=0x2F7;
+    const int64u Ebml_MaxIDLength=0x2F2;
+    const int64u Ebml_MaxSizeLength=0x2F3;
+    const int64u Ebml_DocType=0x282;
+    const int64u Ebml_DocTypeVersion=0x287;
+    const int64u Ebml_DocTypeReadVersion=0x285;
+
+    //Segment
+    const int64u Segment=0x8538067;
+    const int64u Segment_Attachements=0x0941A469;
+    const int64u Segment_Attachements_AttachedFile=0x21A7;
+    const int64u Segment_Attachements_AttachedFile_FileData=0x065C;
+    const int64u Segment_Attachements_AttachedFile_FileDescription=0x067E;
+    const int64u Segment_Attachements_AttachedFile_FileName=0x066E;
+    const int64u Segment_Attachements_AttachedFile_FileMimeType=0x0660;
+    const int64u Segment_Attachements_AttachedFile_FileReferral=0x0675;
+    const int64u Segment_Attachements_AttachedFile_FileUID=0x06AE;
+    const int64u Segment_Chapters=0x43A770;
+    const int64u Segment_Chapters_EditionEntry=0x05B9;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom=0x36;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess=0x2944;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessCodecID=0x2955;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessCommand=0x2911;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessCommand_ChapProcessData=0x2933;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessCommand_ChapProcessTime=0x2922;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessPrivate=0x050D;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay=0x00;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay_ChapCountry=0x037E;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay_ChapLanguage=0x037C;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay_ChapString=0x05;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapterFlagEnabled=0x0598;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapterFlagHidden=0x18;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapterPhysicalEquiv=0x23C3;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapterSegmentEditionUID=0x2EBC;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapterSegmentUID=0x2E67;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapterTimeStart=0x11;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapterTimeEnd=0x12;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapterTrack=0x0F;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapterTrack_ChapterTrackNumber=0x09;
+    const int64u Segment_Chapters_EditionEntry_ChapterAtom_ChapterUID=0x33C4;
+    const int64u Segment_Chapters_EditionEntry_EditionFlagDefault=0x05DB;
+    const int64u Segment_Chapters_EditionEntry_EditionFlagHidden=0x05BD;
+    const int64u Segment_Chapters_EditionEntry_EditionFlagOrdered=0x05DD;
+    const int64u Segment_Chapters_EditionEntry_EditionUID=0x05BC;
+    const int64u Segment_Cluster=0xF43B675;
+    const int64u Segment_Cluster_BlockGroup=0x20;
+    const int64u Segment_Cluster_BlockGroup_Block=0x21;
+    const int64u Segment_Cluster_BlockGroup_BlockAdditions=0x35A1;
+    const int64u Segment_Cluster_BlockGroup_BlockAdditions_BlockMore=0x26;
+    const int64u Segment_Cluster_BlockGroup_BlockAdditions_BlockMore_BlockAddID=0x6E;
+    const int64u Segment_Cluster_BlockGroup_BlockAdditions_BlockMore_BlockAdditional=0x25;
+    const int64u Segment_Cluster_BlockGroup_BlockDuration=0x1B;
+    const int64u Segment_Cluster_BlockGroup_ReferenceBlock=0x7B;
+    const int64u Segment_Cluster_BlockGroup_ReferencePriority=0x7A;
+    const int64u Segment_Cluster_BlockGroup_Slices=0xE;
+    const int64u Segment_Cluster_BlockGroup_Slices_TimeSlice=0x68;
+    const int64u Segment_Cluster_BlockGroup_Slices_TimeSlice_Duration=0x4F;
+    const int64u Segment_Cluster_BlockGroup_Slices_TimeSlice_LaceNumber=0x4C;
+    const int64u Segment_Cluster_Position=0x27;
+    const int64u Segment_Cluster_PrevSize=0x2B;
+    const int64u Segment_Cluster_SilentTracks=0x1854;
+    const int64u Segment_Cluster_SilentTracks_SilentTrackNumber=0x18D7;
+    const int64u Segment_Cluster_SimpleBlock=0x23;
+    const int64u Segment_Cluster_Timecode=0x67;
+    const int64u Segment_Cues=0xC53BB6B;
+    const int64u Segment_Cues_CuePoint=0x3B;
+    const int64u Segment_Cues_CuePoint_CueTime=0x33;
+    const int64u Segment_Cues_CuePoint_CueTrackPositions=0x37;
+    const int64u Segment_Cues_CuePoint_CueTrackPositions_CueTrack=0x77;
+    const int64u Segment_Cues_CuePoint_CueTrackPositions_CueClusterPosition=0x71;
+    const int64u Segment_Cues_CuePoint_CueTrackPositions_CueBlockNumber=0x1378;
+    const int64u Segment_Info=0x549A966;
+    const int64u Segment_Info_ChapterTranslate=0x2924;
+    const int64u Segment_Info_ChapterTranslate_ChapterTranslateCodec=0x29BF;
+    const int64u Segment_Info_ChapterTranslate_ChapterTranslateEditionUID=0x29FC;
+    const int64u Segment_Info_ChapterTranslate_ChapterTranslateID=0x29A5;
+    const int64u Segment_Info_DateUTC=0x461;
+    const int64u Segment_Info_Duration=0x489;
+    const int64u Segment_Info_MuxingApp=0xD80;
+    const int64u Segment_Info_NextFilename=0x1E83BB;
+    const int64u Segment_Info_NextUID=0x1EB923;
+    const int64u Segment_Info_PrevFilename=0x1C83AB;
+    const int64u Segment_Info_PrevUID=0x1CB923;
+    const int64u Segment_Info_SegmentFamily=0x444;
+    const int64u Segment_Info_SegmentFilename=0x3384;
+    const int64u Segment_Info_SegmentUID=0x33A4;
+    const int64u Segment_Info_TimecodeScale=0xAD7B1;
+    const int64u Segment_Info_Title=0x3BA9;
+    const int64u Segment_Info_WritingApp=0x1741;
+    const int64u Segment_SeekHead=0x14D9B74;
+    const int64u Segment_SeekHead_Seek=0xDBB;
+    const int64u Segment_SeekHead_Seek_SeekID=0x13AB;
+    const int64u Segment_SeekHead_Seek_SeekPosition=0x13AC;
+    const int64u Segment_Tags=0x0254C367;
+    const int64u Segment_Tags_Tag=0x3373;
+    const int64u Segment_Tags_Tag_SimpleTag=0x27C8;
+    const int64u Segment_Tags_Tag_SimpleTag_TagBinary=0x485;
+    const int64u Segment_Tags_Tag_SimpleTag_TagDefault=0x484;
+    const int64u Segment_Tags_Tag_SimpleTag_TagLanguage=0x47A;
+    const int64u Segment_Tags_Tag_SimpleTag_TagName=0x5A3;
+    const int64u Segment_Tags_Tag_SimpleTag_TagString=0x487;
+    const int64u Segment_Tags_Tag_Targets=0x23C0;
+    const int64u Segment_Tags_Tag_Targets_AttachmentUID=0x23C6;
+    const int64u Segment_Tags_Tag_Targets_ChapterUID=0x23C4;
+    const int64u Segment_Tags_Tag_Targets_EditionUID=0x23C9;
+    const int64u Segment_Tags_Tag_Targets_TargetType=0x23CA;
+    const int64u Segment_Tags_Tag_Targets_TargetTypeValue=0x28CA;
+    const int64u Segment_Tags_Tag_Targets_TrackUID=0x23C5;
+    const int64u Segment_Tracks=0x654AE6B;
+    const int64u Segment_Tracks_TrackEntry=0x2E;
+    const int64u Segment_Tracks_TrackEntry_AttachmentLink=0x3446;
+    const int64u Segment_Tracks_TrackEntry_Audio=0x61;
+    const int64u Segment_Tracks_TrackEntry_Audio_BitDepth=0x2264;
+    const int64u Segment_Tracks_TrackEntry_Audio_Channels=0x1F;
+    const int64u Segment_Tracks_TrackEntry_Audio_OutputSamplingFrequency=0x38B5;
+    const int64u Segment_Tracks_TrackEntry_Audio_SamplingFrequency=0x35;
+    const int64u Segment_Tracks_TrackEntry_CodecDecodeAll=0x2A;
+    const int64u Segment_Tracks_TrackEntry_CodecID=0x6;
+    const int64u Segment_Tracks_TrackEntry_CodecName=0x58688;
+    const int64u Segment_Tracks_TrackEntry_CodecPrivate=0x23A2;
+    const int64u Segment_Tracks_TrackEntry_DefaultDuration=0x3E383;
+    const int64u Segment_Tracks_TrackEntry_FlagDefault=0x8;
+    const int64u Segment_Tracks_TrackEntry_FlagEnabled=0x39;
+    const int64u Segment_Tracks_TrackEntry_FlagForced=0x15AA;
+    const int64u Segment_Tracks_TrackEntry_FlagLacing=0x1C;
+    const int64u Segment_Tracks_TrackEntry_Language=0x2B59C;
+    const int64u Segment_Tracks_TrackEntry_MaxBlockAdditionID=0x15EE;
+    const int64u Segment_Tracks_TrackEntry_MaxCache=0x2DF8;
+    const int64u Segment_Tracks_TrackEntry_MinCache=0x2DE7;
+    const int64u Segment_Tracks_TrackEntry_Name=0x136E;
+    const int64u Segment_Tracks_TrackEntry_TrackNumber=0x57;
+    const int64u Segment_Tracks_TrackEntry_TrackTimecodeScale=0x3314F;
+    const int64u Segment_Tracks_TrackEntry_TrackType=0x3;
+    const int64u Segment_Tracks_TrackEntry_TrackUID=0x33C5;
+    const int64u Segment_Tracks_TrackEntry_Video=0x60;
+    const int64u Segment_Tracks_TrackEntry_Video_AspectRatioType=0x14B3;
+    const int64u Segment_Tracks_TrackEntry_Video_ColourSpace=0xEB524;
+    const int64u Segment_Tracks_TrackEntry_Video_DisplayHeight=0x14BA;
+    const int64u Segment_Tracks_TrackEntry_Video_DisplayUnit=0x14B2;
+    const int64u Segment_Tracks_TrackEntry_Video_DisplayWidth=0x14B0;
+    const int64u Segment_Tracks_TrackEntry_Video_FlagInterlaced=0x1A;
+    const int64u Segment_Tracks_TrackEntry_Video_PixelCropBottom=0x14AA;
+    const int64u Segment_Tracks_TrackEntry_Video_PixelCropLeft=0x14CC;
+    const int64u Segment_Tracks_TrackEntry_Video_PixelCropRight=0x14DD;
+    const int64u Segment_Tracks_TrackEntry_Video_PixelCropTop=0x14BB;
+    const int64u Segment_Tracks_TrackEntry_Video_PixelHeight=0x3A;
+    const int64u Segment_Tracks_TrackEntry_Video_PixelWidth=0x30;
+    const int64u Segment_Tracks_TrackEntry_TrackOverlay=0x2FAB;
+    const int64u Segment_Tracks_TrackEntry_TrackTranslate=0x2624;
+    const int64u Segment_Tracks_TrackEntry_TrackTranslate_Codec=0x26BF;
+    const int64u Segment_Tracks_TrackEntry_TrackTranslate_EditionUID=0x26FC;
+    const int64u Segment_Tracks_TrackEntry_TrackTranslate_TrackID=0x26A5;
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Data_Parse()
+{
+    #define ATOM_END_MK \
+        ATOM(CRC32) \
+        ATOM(Void) \
+        ATOM_END
+
+    //Parsing
+    DATA_BEGIN
+    LIST(Ebml)
+        ATOM_BEGIN
+        ATOM(Ebml_Version)
+        ATOM(Ebml_ReadVersion)
+        ATOM(Ebml_MaxIDLength)
+        ATOM(Ebml_MaxSizeLength)
+        ATOM(Ebml_DocType)
+        ATOM(Ebml_DocTypeVersion)
+        ATOM(Ebml_DocTypeReadVersion)
+        ATOM_END_MK
+    LIST(Segment)
+        ATOM_BEGIN
+        LIST(Segment_Attachements)
+            ATOM_BEGIN
+            LIST(Segment_Attachements_AttachedFile)
+                ATOM_BEGIN
+                LIST(Segment_Attachements_AttachedFile_FileData) //This is ATOM, but some ATOMs are too big
+                    ATOM_BEGIN
+                    ATOM_END
+                ATOM(Segment_Attachements_AttachedFile_FileDescription)
+                ATOM(Segment_Attachements_AttachedFile_FileName)
+                ATOM(Segment_Attachements_AttachedFile_FileMimeType)
+                ATOM(Segment_Attachements_AttachedFile_FileReferral)
+                ATOM(Segment_Attachements_AttachedFile_FileUID)
+                ATOM_END_MK
+            ATOM_END_MK
+        LIST(Segment_Chapters)
+            ATOM_BEGIN
+            LIST(Segment_Chapters_EditionEntry)
+                ATOM_BEGIN
+                LIST(Segment_Chapters_EditionEntry_ChapterAtom)
+                    ATOM_BEGIN
+                    LIST(Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess)
+                        ATOM_BEGIN
+                        ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessCodecID)
+                        LIST(Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessCommand)
+                            ATOM_BEGIN
+                            ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessCommand_ChapProcessData)
+                            ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessCommand_ChapProcessTime)
+                            ATOM_END_MK
+                        ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessPrivate)
+                        ATOM_END_MK
+                    LIST(Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay)
+                        ATOM_BEGIN
+                        ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay_ChapCountry)
+                        ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay_ChapLanguage)
+                        ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay_ChapString)
+                        ATOM_END_MK
+                    ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapterFlagEnabled)
+                    ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapterFlagHidden)
+                    ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapterPhysicalEquiv)
+                    ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapterSegmentEditionUID)
+                    ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapterSegmentUID)
+                    ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapterTimeEnd)
+                    ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapterTimeStart)
+                    LIST(Segment_Chapters_EditionEntry_ChapterAtom_ChapterTrack)
+                        ATOM_BEGIN
+                        ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapterTrack_ChapterTrackNumber)
+                        ATOM_END_MK
+                    ATOM(Segment_Chapters_EditionEntry_ChapterAtom_ChapterUID)
+                    ATOM_END_MK
+                ATOM(Segment_Chapters_EditionEntry_EditionFlagDefault)
+                ATOM(Segment_Chapters_EditionEntry_EditionFlagHidden)
+                ATOM(Segment_Chapters_EditionEntry_EditionFlagOrdered)
+                ATOM(Segment_Chapters_EditionEntry_EditionUID)
+                ATOM_END_MK
+            ATOM_END_MK
+        LIST(Segment_Cluster)
+            ATOM_BEGIN
+            LIST(Segment_Cluster_BlockGroup)
+                ATOM_BEGIN
+                ATOM(Segment_Cluster_BlockGroup_Block)
+                LIST(Segment_Cluster_BlockGroup_BlockAdditions)
+                    ATOM_BEGIN
+                    LIST(Segment_Cluster_BlockGroup_BlockAdditions_BlockMore)
+                        ATOM_BEGIN
+                        ATOM(Segment_Cluster_BlockGroup_BlockAdditions_BlockMore_BlockAddID)
+                        ATOM(Segment_Cluster_BlockGroup_BlockAdditions_BlockMore_BlockAdditional)
+                        ATOM_END_MK
+                    ATOM_END_MK
+                ATOM(Segment_Cluster_BlockGroup_BlockDuration)
+                ATOM(Segment_Cluster_BlockGroup_ReferenceBlock)
+                ATOM(Segment_Cluster_BlockGroup_ReferencePriority)
+                LIST(Segment_Cluster_BlockGroup_Slices)
+                    ATOM_BEGIN
+                    LIST(Segment_Cluster_BlockGroup_Slices_TimeSlice)
+                        ATOM_BEGIN
+                        ATOM(Segment_Cluster_BlockGroup_Slices_TimeSlice_Duration)
+                        ATOM(Segment_Cluster_BlockGroup_Slices_TimeSlice_LaceNumber)
+                        ATOM_END_MK
+                    ATOM_END_MK
+                ATOM_END_MK
+            ATOM(Segment_Cluster_Position)
+            ATOM(Segment_Cluster_PrevSize)
+            LIST(Segment_Cluster_SilentTracks)
+                ATOM_BEGIN
+                ATOM(Segment_Cluster_SilentTracks_SilentTrackNumber)
+                ATOM_END_MK
+            ATOM(Segment_Cluster_SimpleBlock)
+            ATOM(Segment_Cluster_Timecode)
+            ATOM_END_MK
+        LIST(Segment_Cues)
+            ATOM_BEGIN
+            LIST(Segment_Cues_CuePoint)
+                ATOM_BEGIN
+                ATOM(Segment_Cues_CuePoint_CueTime)
+                LIST(Segment_Cues_CuePoint_CueTrackPositions)
+                    ATOM_BEGIN
+                    ATOM(Segment_Cues_CuePoint_CueTrackPositions_CueTrack)
+                    ATOM(Segment_Cues_CuePoint_CueTrackPositions_CueClusterPosition)
+                    ATOM(Segment_Cues_CuePoint_CueTrackPositions_CueBlockNumber)
+                    ATOM_END_MK
+                ATOM_END_MK
+            ATOM_END_MK
+        LIST(Segment_Info)
+            ATOM_BEGIN
+            LIST(Segment_Info_ChapterTranslate)
+                ATOM_BEGIN
+                ATOM(Segment_Info_ChapterTranslate_ChapterTranslateCodec)
+                ATOM(Segment_Info_ChapterTranslate_ChapterTranslateEditionUID)
+                ATOM(Segment_Info_ChapterTranslate_ChapterTranslateID)
+                ATOM_END_MK
+            ATOM(Segment_Info_DateUTC)
+            ATOM(Segment_Info_Duration)
+            ATOM(Segment_Info_MuxingApp)
+            ATOM(Segment_Info_NextFilename)
+            ATOM(Segment_Info_NextUID)
+            ATOM(Segment_Info_PrevFilename)
+            ATOM(Segment_Info_PrevUID)
+            ATOM(Segment_Info_SegmentFamily)
+            ATOM(Segment_Info_SegmentFilename)
+            ATOM(Segment_Info_SegmentUID)
+            ATOM(Segment_Info_TimecodeScale)
+            ATOM(Segment_Info_Title)
+            ATOM(Segment_Info_WritingApp)
+            ATOM_END_MK
+        LIST(Segment_SeekHead)
+            ATOM_BEGIN
+            LIST(Segment_SeekHead_Seek)
+                ATOM_BEGIN
+                ATOM(Segment_SeekHead_Seek_SeekID)
+                ATOM(Segment_SeekHead_Seek_SeekPosition)
+                ATOM_END_MK
+            ATOM_END_MK
+        LIST(Segment_Tags)
+            ATOM_BEGIN
+            LIST(Segment_Tags_Tag)
+                ATOM_BEGIN
+                LIST(Segment_Tags_Tag_SimpleTag)
+                    ATOM_BEGIN
+                    LIST(Segment_Tags_Tag_SimpleTag)
+                        ATOM_BEGIN
+                        LIST(Segment_Tags_Tag_SimpleTag)
+                            ATOM_BEGIN
+                            ATOM(Segment_Tags_Tag_SimpleTag_TagBinary)
+                            ATOM(Segment_Tags_Tag_SimpleTag_TagDefault)
+                            ATOM(Segment_Tags_Tag_SimpleTag_TagLanguage)
+                            ATOM(Segment_Tags_Tag_SimpleTag_TagName)
+                            ATOM(Segment_Tags_Tag_SimpleTag_TagString)
+                            ATOM_END_MK
+                        ATOM(Segment_Tags_Tag_SimpleTag_TagBinary)
+                        ATOM(Segment_Tags_Tag_SimpleTag_TagDefault)
+                        ATOM(Segment_Tags_Tag_SimpleTag_TagLanguage)
+                        ATOM(Segment_Tags_Tag_SimpleTag_TagName)
+                        ATOM(Segment_Tags_Tag_SimpleTag_TagString)
+                        ATOM_END_MK
+                    ATOM(Segment_Tags_Tag_SimpleTag_TagBinary)
+                    ATOM(Segment_Tags_Tag_SimpleTag_TagDefault)
+                    ATOM(Segment_Tags_Tag_SimpleTag_TagLanguage)
+                    ATOM(Segment_Tags_Tag_SimpleTag_TagName)
+                    ATOM(Segment_Tags_Tag_SimpleTag_TagString)
+                    ATOM_END_MK
+                LIST(Segment_Tags_Tag_Targets)
+                    ATOM_BEGIN
+                    ATOM(Segment_Tags_Tag_Targets_AttachmentUID)
+                    ATOM(Segment_Tags_Tag_Targets_ChapterUID)
+                    ATOM(Segment_Tags_Tag_Targets_EditionUID)
+                    ATOM(Segment_Tags_Tag_Targets_TargetType)
+                    ATOM(Segment_Tags_Tag_Targets_TargetTypeValue)
+                    ATOM(Segment_Tags_Tag_Targets_TrackUID)
+                    ATOM_END_MK
+                ATOM_END_MK
+            ATOM_END_MK
+        LIST(Segment_Tracks)
+            ATOM_BEGIN
+            LIST(Segment_Tracks_TrackEntry)
+                ATOM_BEGIN
+                ATOM(Segment_Tracks_TrackEntry_AttachmentLink)
+                LIST(Segment_Tracks_TrackEntry_Audio)
+                    ATOM_BEGIN
+                    ATOM(Segment_Tracks_TrackEntry_Audio_BitDepth)
+                    ATOM(Segment_Tracks_TrackEntry_Audio_Channels)
+                    ATOM(Segment_Tracks_TrackEntry_Audio_OutputSamplingFrequency)
+                    ATOM(Segment_Tracks_TrackEntry_Audio_SamplingFrequency)
+                    ATOM_END_MK
+                ATOM(Segment_Tracks_TrackEntry_CodecDecodeAll)
+                ATOM(Segment_Tracks_TrackEntry_CodecID)
+                ATOM(Segment_Tracks_TrackEntry_CodecName)
+                ATOM(Segment_Tracks_TrackEntry_CodecPrivate)
+                ATOM(Segment_Tracks_TrackEntry_DefaultDuration)
+                ATOM(Segment_Tracks_TrackEntry_FlagDefault)
+                ATOM(Segment_Tracks_TrackEntry_FlagEnabled)
+                ATOM(Segment_Tracks_TrackEntry_FlagForced)
+                ATOM(Segment_Tracks_TrackEntry_FlagLacing)
+                ATOM(Segment_Tracks_TrackEntry_Language)
+                ATOM(Segment_Tracks_TrackEntry_MaxBlockAdditionID)
+                ATOM(Segment_Tracks_TrackEntry_MaxCache)
+                ATOM(Segment_Tracks_TrackEntry_MinCache)
+                ATOM(Segment_Tracks_TrackEntry_Name)
+                ATOM(Segment_Tracks_TrackEntry_TrackNumber)
+                ATOM(Segment_Tracks_TrackEntry_TrackTimecodeScale)
+                ATOM(Segment_Tracks_TrackEntry_TrackType)
+                ATOM(Segment_Tracks_TrackEntry_TrackUID)
+                LIST(Segment_Tracks_TrackEntry_Video)
+                    ATOM_BEGIN
+                    ATOM(Segment_Tracks_TrackEntry_Video_AspectRatioType)
+                    ATOM(Segment_Tracks_TrackEntry_Video_ColourSpace)
+                    ATOM(Segment_Tracks_TrackEntry_Video_DisplayHeight)
+                    ATOM(Segment_Tracks_TrackEntry_Video_DisplayUnit)
+                    ATOM(Segment_Tracks_TrackEntry_Video_DisplayWidth)
+                    ATOM(Segment_Tracks_TrackEntry_Video_FlagInterlaced)
+                    ATOM(Segment_Tracks_TrackEntry_Video_PixelCropBottom)
+                    ATOM(Segment_Tracks_TrackEntry_Video_PixelCropLeft)
+                    ATOM(Segment_Tracks_TrackEntry_Video_PixelCropRight)
+                    ATOM(Segment_Tracks_TrackEntry_Video_PixelCropTop)
+                    ATOM(Segment_Tracks_TrackEntry_Video_PixelHeight)
+                    ATOM(Segment_Tracks_TrackEntry_Video_PixelWidth)
+                    ATOM_END_MK
+                ATOM(Segment_Tracks_TrackEntry_TrackOverlay)
+                LIST(Segment_Tracks_TrackEntry_TrackTranslate)
+                    ATOM_BEGIN
+                    ATOM(Segment_Tracks_TrackEntry_TrackTranslate_Codec)
+                    ATOM(Segment_Tracks_TrackEntry_TrackTranslate_EditionUID)
+                    ATOM(Segment_Tracks_TrackEntry_TrackTranslate_TrackID)
+                    ATOM_END_MK
+                ATOM_END_MK
+            ATOM_END_MK
+        ATOM_END_MK
+    DATA_END
+}
+
+//***************************************************************************
+// Elements
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mk::CRC32()
+{
+    Element_Name("CRC32");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Void()
+{
+    Element_Name("Void");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Ebml()
+{
+    Element_Name("Ebml");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Ebml_Version()
+{
+    Element_Name("Version");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Ebml_ReadVersion()
+{
+    Element_Name("ReadVersion");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Ebml_MaxIDLength()
+{
+    Element_Name("MaxIDLength");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Ebml_MaxSizeLength()
+{
+    Element_Name("MaxSizeLength");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Ebml_DocType()
+{
+    Element_Name("DocType");
+
+    //Parsing
+    Ztring Data;
+    Get_Local(Element_Size, Data,                               "Data"); Element_Info(Data);
+
+    //Filling
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_General);
+        Fill("Format", "Matroska");
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Ebml_DocTypeVersion()
+{
+    Element_Name("DocTypeVersion");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Ebml_DocTypeReadVersion()
+{
+    Element_Name("DocTypeReadVersion");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment()
+{
+    Element_Name("Segment");
+}
+
+void File_Mk::Segment_Attachements()
+{
+    Element_Name("Attachements");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Attachements_AttachedFile()
+{
+    Element_Name("AttachedFile");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Attachements_AttachedFile_FileData()
+{
+    Element_Name("FileData");
+
+    //Parsing
+    Skip_XX(Element_TotalSize_Get(),                            "Data");
+
+    FILLING_BEGIN();
+        Fill(Stream_General, 0, "Cover", "Yes");
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Attachements_AttachedFile_FileDescription()
+{
+    Element_Name("FileDescription");
+
+    //Parsing
+    UTF8_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Attachements_AttachedFile_FileName()
+{
+    Element_Name("FileName");
+
+    //Parsing
+    UTF8_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Attachements_AttachedFile_FileMimeType()
+{
+    Element_Name("FileMimeType");
+
+    //Parsing
+    Local_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Attachements_AttachedFile_FileReferral()
+{
+    Element_Name("FileReferral");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Attachements_AttachedFile_FileUID()
+{
+    Element_Name("FileUID");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters()
+{
+    Element_Name("Chapters");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry()
+{
+    Element_Name("EditionEntry");
+
+    //Filling
+    Stream_Prepare(Stream_Chapters);
+    Chapter_Pos=0;
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom()
+{
+    Element_Name("ChapterAtom");
+
+    //Filling
+    ChapterTimeStart=(int64u)-1;
+    ChapterString=(_T("XXXXXXXX"));
+    Chapter_Pos++;
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess()
+{
+    Element_Name("ChapProcess");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessCodecID()
+{
+    Element_Name("ChapProcessCodecID");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessCommand()
+{
+    Element_Name("ChapProcessCommand");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessCommand_ChapProcessData()
+{
+    Element_Name("ChapProcessData");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessCommand_ChapProcessTime()
+{
+    Element_Name("ChapProcessTime");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessPrivate()
+{
+    Element_Name("ChapProcessPrivate");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay()
+{
+    Element_Name("ChapterDisplay");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay_ChapCountry()
+{
+    Element_Name("ChapCountry");
+
+    //Parsing
+    Local_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay_ChapLanguage()
+{
+    Element_Name("ChapLanguage");
+
+    //Parsing
+    Ztring Data=Local_Get();
+
+    FILLING_BEGIN();
+        Fill("Language", Data, true);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay_ChapString()
+{
+    Element_Name("ChapString");
+
+    //Parsing
+    ChapterString=UTF8_Get();
+
+    FILLING_BEGIN();
+        if (TimecodeScale!=0 && ChapterTimeStart!=(int64u)-1)
+            Fill(Ztring::ToZtring(Chapter_Pos).To_Local().c_str(), Ztring().Duration_From_Milliseconds(ChapterTimeStart/TimecodeScale)+_T(" ")+ChapterString, true);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterFlagHidden()
+{
+    Element_Name("ChapterFlagHidden");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterFlagEnabled()
+{
+    Element_Name("ChapterFlagEnabled");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterPhysicalEquiv()
+{
+    Element_Name("ChapterPhysicalEquiv");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterSegmentEditionUID()
+{
+    Element_Name("ChapterSegmentEditionUID");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterSegmentUID()
+{
+    Element_Name("ChapterSegmentUID");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterTimeEnd()
+{
+    Element_Name("ChapterTimeEnd");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterTimeStart()
+{
+    Element_Name("ChapterTimeStart");
+
+    //Parsing
+    ChapterTimeStart=UInteger_Get();
+
+    FILLING_BEGIN();
+        if (TimecodeScale!=0 && ChapterString!=_T("XXXXXXXX"))
+            Fill(Ztring::ToZtring(Chapter_Pos).To_Local().c_str(), Ztring().Duration_From_Milliseconds(ChapterTimeStart/TimecodeScale)+_T(" ")+ChapterString, true);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterTrack()
+{
+    Element_Name("ChapterTrack");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterTrack_ChapterTrackNumber()
+{
+    Element_Name("ChapterTrackNumber");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterUID()
+{
+    Element_Name("ChapterUID");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_EditionFlagDefault()
+{
+    Element_Name("EditionFlagDefault");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_EditionFlagHidden()
+{
+    Element_Name("EditionFlagHidden");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_EditionFlagOrdered()
+{
+    Element_Name("EditionFlagOrdered");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Chapters_EditionEntry_EditionUID()
+{
+    Element_Name("EditionUID");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster()
+{
+    Element_Name("Cluster");
+
+    //For each stream
+    std::map<int64u, stream>::iterator Temp=Stream.begin();
+    if (!Cluster_AlreadyParsed)
+    {
+        while (Temp!=Stream.end())
+        {
+            if (!Temp->second.Parser)
+            {
+                Temp->second.SearchingPayload=false;
+                Stream_Count--;
+            }
+            Temp++;
+        }
+
+        //We must parse moov?
+        if (Stream_Count==0)
+        {
+            //Jumping
+            Finnished();//Skip_XX(Element_TotalSize_Get(),                        "Data");
+            return;
+        }
+    }
+    Cluster_AlreadyParsed=true;
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_BlockGroup()
+{
+    Element_Name("BlockGroup");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_BlockGroup_Block()
+{
+    Element_Name("Block");
+
+    //Parsing
+    std::vector<int64u> Laces;
+    int64u TrackNumber;
+    int32u Lacing;
+    Get_EB (TrackNumber,                                        "TrackNumber");
+
+    //Finished?
+    Stream[TrackNumber].PacketCount++;
+    if (!Stream[TrackNumber].SearchingPayload)
+    {
+        Element_DoNotShow();
+        return;
+    }
+
+    Skip_B2(                                                    "TimeCode");
+    Element_Begin("Flags", 1);
+        BS_Begin();
+        Skip_BS(1,                                              "KeyFrame");
+        Skip_BS(3,                                              "Reserved");
+        Skip_BS(1,                                              "Invisible");
+        Get_BS (2, Lacing,                                      "Lacing");
+        Skip_BS(1,                                              "Discardable");
+        BS_End();
+    Element_End();
+    if (Lacing>0)
+    {
+        Element_Begin("Lacing");
+            int8u FrameCountMinus1;
+            Get_B1(FrameCountMinus1,                            "Frame count minus 1");
+            switch (Lacing)
+            {
+                case 1 :
+                        break;
+                case 2 : //No more data!
+                        break;
+                case 3 :
+                        {
+                            int64u Element_Offset_Offset=0, Size;
+                            Get_EB (Size,                       "Size");
+                            Element_Offset_Offset+=Size;
+                            for (int8u Pos=1; Pos<FrameCountMinus1; Pos++)
+                            {
+                                int64s Diff;
+                                Get_ES (Diff,                   "Difference");
+                                Size+=Diff; Param_Info(Size);
+                                Element_Offset_Offset+=Size;
+                            }
+                            Size=Element_Size-Element_Offset-Element_Offset_Offset; Param_Info(Size);
+                        }
+                        break;
+                default : ; //Should never be here
+            }
+        Element_End();
+    }
+    else
+        Laces.push_back(Element_Size-Element_Offset);
+
+    FILLING_BEGIN();
+        //Parsing
+        Open_Buffer_Init(Stream[TrackNumber].Parser, File_Size, File_Offset+Buffer_Offset+Element_Offset);
+        Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+Element_Offset, (size_t)Element_Size-Element_Offset);
+
+        //Filling
+        if (Stream[TrackNumber].Parser->File_Offset==File_Size
+         || Stream[TrackNumber].PacketCount>=300)
+        {
+            Ztring Codec_Temp;
+            if (Stream[TrackNumber].StreamKind==Stream_Video)
+                Codec_Temp=Get(Stream_Video, 0, _T("Codec")); //We want to keep the 4CC
+            Merge(*Stream[TrackNumber].Parser, Stream[TrackNumber].StreamKind, 0, Stream[TrackNumber].StreamPos);
+            if (Stream[TrackNumber].StreamKind==Stream_Video)
+                Fill(Stream[TrackNumber].StreamKind, Stream[TrackNumber].StreamPos, "Codec", Codec_Temp, true);
+            Open_Buffer_Finalize(Stream[TrackNumber].Parser);
+            //delete Stream[TrackNumber].Parser; Stream[TrackNumber].Parser=NULL;
+            Stream[TrackNumber].SearchingPayload=false;
+            Stream_Count--;
+        }
+
+        if (Stream_Count==0)
+        {
+            //Jumping
+            Element_Show();
+            Element_End(); //Block
+            Element_End(); //BlockGroup
+            Info("BlockGroup, Jumping to end of cluster");
+            Finnished(); //File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
+        }
+
+        //Demux
+        Demux(Buffer+Buffer_Offset+Element_Offset, (size_t)Element_Size-Element_Offset, Ztring::ToZtring(TrackNumber, 16)+_T(".")+_T("raw"));
+
+        //Positionning
+        Element_Offset=(size_t)Element_Size;
+    FILLING_END();
+
+    Element_Show(); //For debug
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_BlockGroup_BlockAdditions()
+{
+    Element_Name("BlockAdditions");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_BlockGroup_BlockAdditions_BlockMore()
+{
+    Element_Name("BlockMore");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_BlockGroup_BlockAdditions_BlockMore_BlockAddID()
+{
+    Element_Name("BlockAddID");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_BlockGroup_BlockAdditions_BlockMore_BlockAdditional()
+{
+    Element_Name("BlockAdditional");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_BlockGroup_BlockDuration()
+{
+    Element_Name("BlockDuration");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_BlockGroup_ReferenceBlock()
+{
+    Element_Name("ReferenceBlock");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_BlockGroup_ReferencePriority()
+{
+    Element_Name("ReferencePriority");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_BlockGroup_Slices()
+{
+    Element_Name("Slices");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_BlockGroup_Slices_TimeSlice()
+{
+    Element_Name("TimeSlice");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_BlockGroup_Slices_TimeSlice_Duration()
+{
+    Element_Name("Duration");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_BlockGroup_Slices_TimeSlice_LaceNumber()
+{
+    Element_Name("LaceNumber");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_Position()
+{
+    Element_Name("Position");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_PrevSize()
+{
+    Element_Name("PrevSize");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_SilentTracks()
+{
+    Element_Name("SilentTracks");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_SilentTracks_SilentTrackNumber()
+{
+    Element_Name("SilentTrackNumber");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_SimpleBlock()
+{
+    Element_Name("SimpleBlock");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cluster_Timecode()
+{
+    Element_Name("Timecode");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cues()
+{
+    Element_Name("Cues");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cues_CuePoint()
+{
+    Element_Name("CuePoint");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cues_CuePoint_CueTime()
+{
+    Element_Name("CueTime");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cues_CuePoint_CueTrackPositions()
+{
+    Element_Name("CueTrackPositions");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cues_CuePoint_CueTrackPositions_CueTrack()
+{
+    Element_Name("CueTrack");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cues_CuePoint_CueTrackPositions_CueClusterPosition()
+{
+    Element_Name("CueClusterPosition");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Cues_CuePoint_CueTrackPositions_CueBlockNumber()
+{
+    Element_Name("CueBlockNumber");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info()
+{
+    Element_Name("Info");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_ChapterTranslate()
+{
+    Element_Name("ChapterTranslate");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_ChapterTranslate_ChapterTranslateCodec()
+{
+    Element_Name("ChapterTranslateCodec");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_ChapterTranslate_ChapterTranslateEditionUID()
+{
+    Element_Name("ChapterTranslateEditionUID");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_ChapterTranslate_ChapterTranslateID()
+{
+    Element_Name("ChapterTranslateID");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_DateUTC()
+{
+    Element_Name("DateUTC");
+
+    //Parsing
+    int64u Data;
+    Get_B8(Data,                                                "Data"); Element_Info(Data/1000000000+978307200); //From Beginning of the millenium, in nanoseconds
+
+    FILLING_BEGIN();
+        Fill(Stream_General, 0, "Encoded_Date", Ztring().Date_From_Seconds_1970((int32u)(Data/1000000000+978307200))); //978307200s between beginning of the millenium and 1970
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_Duration()
+{
+    Element_Name("Duration");
+
+    //Parsing
+    float64 Float=Float_Get();
+
+    FILLING_BEGIN();
+        Duration=Float;
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_MuxingApp()
+{
+    Element_Name("MuxingApp");
+
+    //Parsing
+    Ztring Data=UTF8_Get();
+
+    FILLING_BEGIN();
+        Fill(Stream_General, 0, "Encoded_Library", Data);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_NextFilename()
+{
+    Element_Name("NextFilename");
+
+    //Parsing
+    UTF8_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_NextUID()
+{
+    Element_Name("NextUID");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_PrevFilename()
+{
+    Element_Name("PrevFilename");
+
+    //Parsing
+    UTF8_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_PrevUID()
+{
+    Element_Name("PrevUID");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_SegmentFamily()
+{
+    Element_Name("SegmentFamily");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_SegmentFilename()
+{
+    Element_Name("SegmentFilename");
+
+    //Parsing
+    UTF8_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_SegmentUID()
+{
+    Element_Name("SegmentUID");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_TimecodeScale()
+{
+    Element_Name("TimecodeScale");
+
+    //Parsing
+    int64u UInteger=UInteger_Get();
+
+    FILLING_BEGIN();
+        TimecodeScale=UInteger;
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_Title()
+{
+    Element_Name("Title");
+
+    //Parsing
+    Ztring Data=UTF8_Get();
+
+    FILLING_BEGIN();
+        Fill(Stream_General, 0, "Title", Data);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Info_WritingApp()
+{
+    Element_Name("WritingApp");
+
+    //Parsing
+    Ztring Data=UTF8_Get();
+
+    FILLING_BEGIN();
+        Fill(Stream_General, 0, "Encoded_Application", Data);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_SeekHead()
+{
+    Element_Name("SeekHead");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_SeekHead_Seek()
+{
+    Element_Name("Seek");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_SeekHead_Seek_SeekID()
+{
+    Element_Name("SeekID");
+
+    //Parsing
+    int64u Data;
+    Get_EB (Data,                                               "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_SeekHead_Seek_SeekPosition()
+{
+    Element_Name("SeekPosition");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tags()
+{
+    Element_Name("Tags");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tags_Tag()
+{
+    Element_Name("Tag");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tags_Tag_SimpleTag()
+{
+    Element_Name("SimpleTag");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tags_Tag_SimpleTag_TagBinary()
+{
+    Element_Name("TagBinary");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tags_Tag_SimpleTag_TagDefault()
+{
+    Element_Name("TagDefault");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tags_Tag_SimpleTag_TagLanguage()
+{
+    Element_Name("TagLanguage");
+
+    //Parsing
+    Ztring Data;
+    Get_Local(Element_Size, Data,                              "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        Fill("Language", Data);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tags_Tag_SimpleTag_TagName()
+{
+    Element_Name("TagName");
+
+    //Parsing
+    UTF8_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tags_Tag_SimpleTag_TagString()
+{
+    Element_Name("TagString");
+
+    //Parsing
+    UTF8_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tags_Tag_Targets()
+{
+    Element_Name("Targets");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tags_Tag_Targets_AttachmentUID()
+{
+    Element_Name("AttachmentUID");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tags_Tag_Targets_ChapterUID()
+{
+    Element_Name("ChapterUID");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tags_Tag_Targets_EditionUID()
+{
+    Element_Name("EditionUID");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tags_Tag_Targets_TargetType()
+{
+    Element_Name("TargetType");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tags_Tag_Targets_TargetTypeValue()
+{
+    Element_Name("TargetTypeValue");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tags_Tag_Targets_TrackUID()
+{
+    Element_Name("TrackUID");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks()
+{
+    Element_Name("Tracks");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry()
+{
+    Element_Name("TrackEntry");
+
+    //Clearing
+    TrackNumber=(int64u)-1;
+    TrackDefaultDuration=0;
+
+    //Preparing
+    Stream_Prepare(Stream_Max);
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_AttachmentLink()
+{
+    Element_Name("AttachmentLink");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Audio()
+{
+    Element_Name("Audio");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Audio_BitDepth()
+{
+    Element_Name("BitDepth");
+
+    //Parsing
+    int64u UInteger=UInteger_Get();
+
+    FILLING_BEGIN();
+        Fill("Resolution", UInteger, 0, true);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Audio_Channels()
+{
+    Element_Name("Channels");
+
+    //Parsing
+    int64u UInteger=UInteger_Get();
+
+    FILLING_BEGIN();
+        Fill("Channel(s)", UInteger, 0, true);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Audio_OutputSamplingFrequency()
+{
+    Element_Name("OutputSamplingFrequency");
+
+    //Parsing
+    float64 Float=Float_Get();
+
+    FILLING_BEGIN();
+        Fill("SamplingRate", Float, 0, true);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Audio_SamplingFrequency()
+{
+    Element_Name("SamplingFrequency");
+
+    //Parsing
+    float64 Float=Float_Get();
+
+    FILLING_BEGIN();
+        Fill("SamplingRate", Float, 0, true);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_CodecDecodeAll()
+{
+    Element_Name("CodecDecodeAll");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_CodecID()
+{
+    Element_Name("CodecID");
+
+    //Parsing
+    Ztring Data;
+    Get_Local(Element_Size, Data,                               "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        if (Get(StreamKind_Last, StreamPos_Last, _T("Coded")).empty())
+            Fill("Codec", Data);
+
+        //Creating the parser
+             if (0);
+        #if defined(MEDIAINFO_MPEG4V_YES)
+        else if (Config.Codec_Get(Data, InfoCodec_KindofCodec).find(_T("MPEG-4V"))==0)
+        {
+            Stream[TrackNumber].Parser=new File_Mpeg4v;
+            ((File_Mpeg4v*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+            ((File_Mpeg4v*)Stream[TrackNumber].Parser)->Frame_Count_Valid=1;
+        }
+        #endif
+        #if defined(MEDIAINFO_AVC_YES)
+        else if (Config.Codec_Get(Data, InfoCodec_KindofCodec).find(_T("AVC"))==0)
+        {
+            Stream[TrackNumber].Parser=new File_Avc;
+            ((File_Avc*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+            ((File_Avc*)Stream[TrackNumber].Parser)->MustParse_SPS_PPS=true;
+            ((File_Avc*)Stream[TrackNumber].Parser)->ShortHeader=true;
+        }
+        #endif
+        #if defined(MEDIAINFO_AC3_YES)
+        else if (Config.Codec_Get(Data, InfoCodec_KindofCodec).find(_T("AC3"))==0)
+        {
+            Stream[TrackNumber].Parser=new File_Ac3;
+            //((File_Ac3*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+        }
+        #endif
+        #if defined(MEDIAINFO_MPEG4_YES)
+        else if (Get(StreamKind_Last, StreamPos_Last, _T("Codec")).find(_T("A_AAC/MPEG4/"))==0)
+        {
+            Stream[TrackNumber].Parser=new File_Mpeg4_AudioSpecificConfig;
+        }
+        #endif
+        #if defined(MEDIAINFO_MPEGA_YES)
+        else if (Config.Codec_Get(Data, InfoCodec_KindofCodec).find(_T("MPEG-A"))==0)
+        {
+            Stream[TrackNumber].Parser=new File_Mpega;
+            //((File_Mpega*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+        }
+        #endif
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_CodecName()
+{
+    Element_Name("CodecName");
+
+    //Parsing
+    UTF8_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate()
+{
+    Element_Name("CodecPrivate");
+
+    //Creating the parser
+    if (Stream[TrackNumber].Parser==NULL)
+    {
+        switch(Element_Size)
+        {
+            case 16 : Segment_Tracks_TrackEntry_CodecPrivate_auds(); break;
+            case 40 : Segment_Tracks_TrackEntry_CodecPrivate_vids(); break;
+            default : Skip_XX(Element_Size,                     "Unknown");
+        }
+        return;
+    }
+
+    //Parsing
+    Open_Buffer_Init(Stream[TrackNumber].Parser, File_Size, File_Offset+Buffer_Offset);
+    Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
+
+    //Filling
+    if (Stream[TrackNumber].Parser->File_Offset==File_Size) //Can be finnished here...
+    {
+        Merge(*Stream[TrackNumber].Parser, Stream[TrackNumber].StreamKind, 0, Stream[TrackNumber].StreamPos);
+        Open_Buffer_Finalize(Stream[TrackNumber].Parser);
+        Stream[TrackNumber].SearchingPayload=false;
+        Stream_Count--;
+    }
+
+    //Filling
+    //Merge(*MI, StreamKind_Last, 0, StreamPos_Last);
+    //delete MI; //MI=NULL;
+
+    //In case of problem
+    Element_Show();
+}
+
+//--------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_auds()
+{
+    Element_Name("Copy of auds");
+
+    //Parsing
+    int32u SamplesPerSec, AvgBytesPerSec;
+    int16u FormatTag, Channels, BitsPerSample;
+    Get_L2 (FormatTag,                                          "FormatTag");
+    Get_L2 (Channels,                                           "Channels");
+    Get_L4 (SamplesPerSec,                                      "SamplesPerSec");
+    Get_L4 (AvgBytesPerSec,                                     "AvgBytesPerSec");
+    Skip_L2(                                                    "BlockAlign");
+    Get_L2 (BitsPerSample,                                      "BitsPerSample");
+
+    //Filling
+    FILLING_BEGIN()
+        Ztring Codec; Codec.From_CC2(FormatTag);
+        Fill("Codec", Codec, true); //May be replaced by codec parser
+        Fill("Codec/CC", Codec);
+        Fill("Channel(s)", Channels!=5?Channels:6, 0, true);
+        Fill("SamplingRate", SamplesPerSec, 0, true);
+        Fill("BitRate", AvgBytesPerSec*8, 0, true);
+        if (BitsPerSample) Fill("Resolution", BitsPerSample);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
+{
+    Element_Info("Copy of vids");
+
+    //Parsing
+    int32u Width, Height, Compression;
+    int16u Resolution;
+    Skip_L4(                                                    "Size");
+    Get_L4 (Width,                                              "Width");
+    Get_L4 (Height,                                             "Height");
+    Skip_L2(                                                    "Planes");
+    Get_L2 (Resolution,                                         "BitCount");
+    Get_C4 (Compression,                                        "Compression");
+    Skip_L4(                                                    "SizeImage");
+    Skip_L4(                                                    "XPelsPerMeter");
+    Skip_L4(                                                    "YPelsPerMeter");
+    Skip_L4(                                                    "ClrUsed");
+    Skip_L4(                                                    "ClrImportant");
+
+    FILLING_BEGIN()
+        Ztring Codec;
+        if (((Compression&0x000000FF)>=0x00000020 && (Compression&0x000000FF)<=0x0000007E
+          && (Compression&0x0000FF00)>=0x00002000 && (Compression&0x0000FF00)<=0x00007E00
+          && (Compression&0x00FF0000)>=0x00200000 && (Compression&0x00FF0000)<=0x007E0000
+          && (Compression&0xFF000000)>=0x20000000 && (Compression&0xFF000000)<=0x7E000000)
+         ||   Compression==0x00000000
+           ) //Sometimes this value is wrong, we have to test this
+        {
+            //Filling
+            Codec.From_CC4(Compression);
+            if (Compression==0x00000000)
+                Fill("Codec", "RGB", Unlimited, true, true); //Raw RGB, not handled by automatic codec mapping
+            else
+            {
+                Fill("Codec", Codec, true); //FormatTag, may be replaced by codec parser
+                Fill("Codec/CC", Codec); //FormatTag
+            }
+            Fill("Width", Width, 0, true);
+            Fill("Height", Height, 0, true);
+            Fill("Resolution", Resolution, 0, true);
+        }
+
+        //Creating the parser
+             if (0);
+        #if defined(MEDIAINFO_MPEG4V_YES)
+        else if (Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("MPEG-4V"))==0)
+        {
+            Stream[TrackNumber].Parser=new File_Mpeg4v;
+            ((File_Mpeg4v*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+            ((File_Mpeg4v*)Stream[TrackNumber].Parser)->Frame_Count_Valid=1;
+        }
+        #endif
+        #if defined(MEDIAINFO_AVC_YES)
+        else if (Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("AVC"))==0)
+        {
+            Stream[TrackNumber].Parser=new File_Avc;
+            ((File_Avc*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+        }
+        #endif
+
+    FILLING_END()
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_DefaultDuration()
+{
+    Element_Name("DefaultDuration");
+
+    //Parsing
+    int64u UInteger=UInteger_Get();
+
+    FILLING_BEGIN();
+        TrackDefaultDuration=UInteger;
+        //FrameRate
+        if (TrackDefaultDuration && StreamKind_Last==Stream_Video)
+            Fill("FrameRate", 1000000000.0/TrackDefaultDuration, 3, true);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_FlagDefault()
+{
+    Element_Name("FlagDefault");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_FlagEnabled()
+{
+    Element_Name("FlagEnabled");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_FlagForced()
+{
+    Element_Name("FlagForced");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_FlagLacing()
+{
+    Element_Name("FlagLacing");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Language()
+{
+    Element_Name("Language");
+
+    //Parsing
+    Ztring Data;
+    Get_Local(Element_Size, Data,                               "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        Fill("Language", Data);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_MaxBlockAdditionID()
+{
+    Element_Name("MaxBlockAdditionID");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_MaxCache()
+{
+    Element_Name("MaxCache");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_MinCache()
+{
+    Element_Name("MinCache");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Name()
+{
+    Element_Name("Name");
+
+    //Parsing
+    Ztring Data;
+    Get_UTF8(Element_Size, Data,                               "Data"); Element_Info(Data);
+
+    FILLING_BEGIN();
+        Fill("Title", Data);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_TrackNumber()
+{
+    Element_Name("TrackNumber");
+
+    //Parsing
+    TrackNumber=UInteger_Get();
+
+    FILLING_BEGIN();
+        Fill("ID", TrackNumber);
+        if (StreamKind_Last!=Stream_Max)
+        {
+            Stream[TrackNumber].StreamKind=StreamKind_Last;
+            Stream[TrackNumber].StreamPos=StreamPos_Last;
+        }
+        Stream_Count++;
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_TrackTimecodeScale()
+{
+    Element_Name("TrackTimecodeScale");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_TrackType()
+{
+    Element_Name("TrackType");
+
+    //Parsing
+    int64u UInteger=UInteger_Get();
+
+    //Filling
+    FILLING_BEGIN();
+        switch(UInteger)
+        {
+            case 0x01 :
+                        Stream_Prepare(Stream_Video);
+                        //FrameRate
+                        if (TrackDefaultDuration)
+                            Fill("FrameRate", 1000000000.0/TrackDefaultDuration, 3, true);
+                        break;
+            case 0x02 :
+                        Stream_Prepare(Stream_Audio);
+                        break;
+            case 0x11 :
+                        Stream_Prepare(Stream_Text );
+                        break;
+            default   : ;
+        }
+
+        if (TrackNumber!=(int64u)-1 && StreamKind_Last!=Stream_Max)
+        {
+            Stream[TrackNumber].StreamKind=StreamKind_Last;
+            Stream[TrackNumber].StreamPos=StreamPos_Last;
+        }
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_TrackUID()
+{
+    Element_Name("TrackUID");
+
+    //Parsing
+    int64u UInteger=UInteger_Get();
+
+    //Filling
+    FILLING_BEGIN();
+        Fill("UniqueID", UInteger);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Video()
+{
+    Element_Name("Video");
+
+    //Preparing
+    TrackVideoDisplayWidth=0;
+    TrackVideoDisplayHeight=0;
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Video_AspectRatioType()
+{
+    Element_Name("AspectRatioType");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Video_ColourSpace()
+{
+    Element_Name("ColourSpace");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Video_DisplayHeight()
+{
+    Element_Name("DisplayHeight");
+
+    //Parsing
+    int64u UInteger=UInteger_Get();
+
+    //Filling
+    FILLING_BEGIN();
+        TrackVideoDisplayHeight=UInteger;
+        if (TrackVideoDisplayWidth && TrackVideoDisplayHeight)
+            Fill("DisplayAspectRatio", ((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight, 3, true);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Video_DisplayUnit()
+{
+    Element_Name("DisplayUnit");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Video_DisplayWidth()
+{
+    Element_Name("DisplayWidth");
+
+    //Parsing
+    int64u UInteger=UInteger_Get();
+
+    //Filling
+    FILLING_BEGIN();
+        TrackVideoDisplayWidth=UInteger;
+        if (TrackVideoDisplayWidth && TrackVideoDisplayHeight)
+            Fill("AspectRatio", ((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight, 3, true);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Video_FlagInterlaced()
+{
+    Element_Name("FlagInterlaced");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Video_PixelCropBottom()
+{
+    Element_Name("PixelCropBottom");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Video_PixelCropLeft()
+{
+    Element_Name("PixelCropLeft");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Video_PixelCropRight()
+{
+    Element_Name("PixelCropRight");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Video_PixelCropTop()
+{
+    Element_Name("PixelCropTop");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Video_PixelHeight()
+{
+    Element_Name("PixelHeight");
+
+    //Parsing
+    int64u UInteger=UInteger_Get();
+
+    //Filling
+    FILLING_BEGIN();
+        Fill("Height", UInteger, 0, true);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_Video_PixelWidth()
+{
+    Element_Name("PixelWidth");
+
+    //Parsing
+    int64u UInteger=UInteger_Get();
+
+    //Filling
+    FILLING_BEGIN();
+        Fill("Width", UInteger, 0, true);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_TrackOverlay()
+{
+    Element_Name("TrackOverlay");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_TrackTranslate()
+{
+    Element_Name("TrackTranslate");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_TrackTranslate_Codec()
+{
+    Element_Name("Codec");
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_TrackTranslate_EditionUID()
+{
+    Element_Name("EditionUID");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_TrackTranslate_TrackID()
+{
+    Element_Name("TrackID");
+
+    //Parsing
+    UInteger_Info();
+}
+
+//***************************************************************************
+// Data
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mk::UInteger_Info()
+{
+    switch (Element_Size)
+    {
+        case 1 :
+                {
+                    Info_B1(Data,                               "Data"); Element_Info(Data);
+                    return;
+                }
+        case 2 :
+                {
+                    Info_B2(Data,                               "Data"); Element_Info(Data);
+                    return;
+                }
+        case 3 :
+                {
+                    Info_B3(Data,                               "Data"); Element_Info(Data);
+                    return;
+                }
+        case 4 :
+                {
+                    Info_B4(Data,                               "Data"); Element_Info(Data);
+                    return;
+                }
+        case 5 :
+                {
+                    Info_B5(Data,                               "Data"); Element_Info(Data);
+                    return;
+                }
+        case 6 :
+                {
+                    Info_B6(Data,                               "Data"); Element_Info(Data);
+                    return;
+                }
+        case 7 :
+                {
+                    Info_B7(Data,                               "Data"); Element_Info(Data);
+                    return;
+                }
+        case 8 :
+                {
+                    Info_B8(Data,                               "Data"); Element_Info(Data);
+                    return;
+                }
+        case 16:
+                {
+                    Info_B16(Data,                              "Data"); Element_Info(Data);
+                    return;
+                }
+        default : Skip_XX(Element_Size,                         "Data");
+    }
+}
+
+//---------------------------------------------------------------------------
+int64u File_Mk::UInteger_Get()
+{
+    switch (Element_Size)
+    {
+        case 1 :
+                {
+                    int8u Data;
+                    Get_B1 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 2 :
+                {
+                    int16u Data;
+                    Get_B2 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 3 :
+                {
+                    int32u Data;
+                    Get_B3 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 4 :
+                {
+                    int32u Data;
+                    Get_B4 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 5 :
+                {
+                    int64u Data;
+                    Get_B5 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 6 :
+                {
+                    int64u Data;
+                    Get_B6 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 7 :
+                {
+                    int64u Data;
+                    Get_B7 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 8 :
+                {
+                    int64u Data;
+                    Get_B8 (Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        default :   Skip_XX(Element_Size,                       "Data");
+                    return 0;
+    }
+}
+
+//---------------------------------------------------------------------------
+float64 File_Mk::Float_Get()
+{
+    switch (Element_Size)
+    {
+        case 4 :
+                {
+                    float32 Data;
+                    Get_BF4(Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        case 8 :
+                {
+                    float64 Data;
+                    Get_BF8(Data,                               "Data"); Element_Info(Data);
+                    return Data;
+                }
+        default :   Skip_XX(Element_Size,                       "Data");
+                    return 0.0;
+    }
+}
+
+//---------------------------------------------------------------------------
+Ztring File_Mk::UTF8_Get()
+{
+    Ztring Data;
+    Get_UTF8(Element_Size, Data,                                "Data"); Element_Info(Data);
+    return Data;
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::UTF8_Info()
+{
+    Info_UTF8(Element_Size, Data,                               "Data"); Element_Info(Data);
+}
+
+//---------------------------------------------------------------------------
+Ztring File_Mk::Local_Get()
+{
+    Ztring Data;
+    Get_Local(Element_Size, Data,                               "Data"); Element_Info(Data);
+    return Data;
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Local_Info()
+{
+    Info_Local(Element_Size, Data,                              "Data"); Element_Info(Data);
+}
+
+//***************************************************************************
+// Information
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mk::HowTo(stream_t StreamKind)
+{
+    switch (StreamKind)
+    {
+        case (Stream_General) :
+            Fill_HowTo("Format", "R");
+            Fill_HowTo("BitRate", "R");
+            Fill_HowTo("PlayTime", "R");
+            Fill_HowTo("Domain", "");
+            Fill_HowTo("Collection", "");
+            Fill_HowTo("Season", "");
+            Fill_HowTo("Movie", "");
+            Fill_HowTo("Movie/More", "");
+            Fill_HowTo("Album", "");
+            Fill_HowTo("Comic", "");
+            Fill_HowTo("Comic/Position_Total", "");
+            Fill_HowTo("Part", "");
+            Fill_HowTo("Part/Position", "");
+            Fill_HowTo("Part/Position_Total", "");
+            Fill_HowTo("Track", "");
+            Fill_HowTo("Track/More", "");
+            Fill_HowTo("Track/Sort", "");
+            Fill_HowTo("Track/Position", "");
+            Fill_HowTo("Track/Position_Total", "");
+            Fill_HowTo("Chapter", "");
+            Fill_HowTo("SubTrack", "");
+            Fill_HowTo("Original/Album", "");
+            Fill_HowTo("Original/Movie", "");
+            Fill_HowTo("Original/Part", "");
+            Fill_HowTo("Original/Track", "");
+            Fill_HowTo("Performer", "");
+            Fill_HowTo("Artist", "");
+            Fill_HowTo("Performer/Sort", "");
+            Fill_HowTo("Performer/Url", "");
+            Fill_HowTo("Original/Performer", "");
+            Fill_HowTo("Accompaniment", "");
+            Fill_HowTo("Composer", "");
+            Fill_HowTo("Composer/Nationality", "");
+            Fill_HowTo("Arranger", "");
+            Fill_HowTo("Lyricist", "");
+            Fill_HowTo("Original/Lyricist", "");
+            Fill_HowTo("Conductor", "");
+            Fill_HowTo("Director", "");
+            Fill_HowTo("AssistantDirector", "");
+            Fill_HowTo("DirectorOfPhotography", "");
+            Fill_HowTo("SoundEngineer", "");
+            Fill_HowTo("ArtDirector", "");
+            Fill_HowTo("ProductionDesigner", "");
+            Fill_HowTo("Choregrapher", "");
+            Fill_HowTo("CostumeDesigner", "");
+            Fill_HowTo("Actor", "");
+            Fill_HowTo("Actor_Character", "");
+            Fill_HowTo("WrittenBy", "");
+            Fill_HowTo("ScreenplayBy", "");
+            Fill_HowTo("EditedBy", "");
+            Fill_HowTo("Producer", "");
+            Fill_HowTo("CoProducer", "");
+            Fill_HowTo("ExecutiveProducer", "");
+            Fill_HowTo("DistributedBy", "");
+            Fill_HowTo("MasteredBy", "");
+            Fill_HowTo("EncodedBy", "");
+            Fill_HowTo("RemixedBy", "");
+            Fill_HowTo("ProductionStudio", "");
+            Fill_HowTo("ThanksTo", "");
+            Fill_HowTo("Publisher", "");
+            Fill_HowTo("Publisher/URL", "");
+            Fill_HowTo("Label", "");
+            Fill_HowTo("Genre", "");
+            Fill_HowTo("Mood", "");
+            Fill_HowTo("ContentType", "");
+            Fill_HowTo("Subject", "");
+            Fill_HowTo("Description", "");
+            Fill_HowTo("Keywords", "");
+            Fill_HowTo("Summary", "");
+            Fill_HowTo("Synopsys", "");
+            Fill_HowTo("Period", "");
+            Fill_HowTo("LawRating", "");
+            Fill_HowTo("ICRA", "");
+            Fill_HowTo("Released_Date", "");
+            Fill_HowTo("Recorded_Date", "");
+            Fill_HowTo("Encoded_Date", "");
+            Fill_HowTo("Tagged_Date", "");
+            Fill_HowTo("Written_Date", "");
+            Fill_HowTo("Mastered_Date", "");
+            Fill_HowTo("Recorded_Location", "");
+            Fill_HowTo("Written_Location", "");
+            Fill_HowTo("Archival_Location", "");
+            Fill_HowTo("Comment", "");
+            Fill_HowTo("Rating ", "");
+            Fill_HowTo("Encoded_Application", "");
+            Fill_HowTo("Encoded_Application/Url", "");
+            Fill_HowTo("Encoded_Library", "");
+            Fill_HowTo("Encoded_Library_Settings", "");
+            Fill_HowTo("BPM", "");
+            Fill_HowTo("ISRC", "");
+            Fill_HowTo("ISBN", "");
+            Fill_HowTo("BarCode", "");
+            Fill_HowTo("LCCN", "");
+            Fill_HowTo("CatalogNumber", "");
+            Fill_HowTo("LabelCode", "");
+            Fill_HowTo("Copyright", "");
+            Fill_HowTo("Copyright/Url", "");
+            Fill_HowTo("Producer_Copyright", "");
+            Fill_HowTo("TermsOfUse", "");
+            Fill_HowTo("Cover", "");
+            Fill_HowTo("Cover_Datas", "");
+            break;
+        case (Stream_Video) :
+            Fill_HowTo("Codec", "R");
+            Fill_HowTo("FrameRate", "R");
+            Fill_HowTo("FrameCount", "R");
+            Fill_HowTo("Width", "R");
+            Fill_HowTo("Height", "R");
+            Fill_HowTo("AspectRatio", "R");
+            Fill_HowTo("BitRate", "R");
+            break;
+        case (Stream_Audio) :
+            Fill_HowTo("Codec", "R");
+            Fill_HowTo("BitRate", "R");
+            Fill_HowTo("Channel(s)", "R");
+            Fill_HowTo("SamplingRate", "R");
+            Fill_HowTo("Resolution", "R");
+            break;
+        case (Stream_Text) :
+            break;
+        case (Stream_Chapters) :
+            break;
+        case (Stream_Image) :
+            break;
+        case (Stream_Menu) :
+            break;
+        case (Stream_Max) :
+            break;
+    }
+}
+
+} //NameSpace
+
+#endif //MEDIAINFO_MK_YES
+

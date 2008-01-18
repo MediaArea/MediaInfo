@@ -1,0 +1,186 @@
+Count;;;N NI;;;Count of objects available in this stream
+StreamCount;;;N NI;;;Count of streams of that kind available
+StreamKind;General;General;N NI;;;Stream name
+StreamKindID;;;N NI;;;When multiple streams, number of the stream
+Inform;;;N NT;;;Last **Inform** call
+ID;;;N YI;;;A ID for this stream in this file
+UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy
+GeneralCount;1;;N NI;;;Count of general streams
+VideoCount;;;N NI;;;Count of video streams
+AudioCount;;;N NI;;;Count of audio streams
+TextCount;;;N NI;;;Count of text streams
+ChaptersCount;;;N NI;;;Count of chapters streams
+ImageCount;;;N NI;;;Count of image streams
+MenuCount;;;N NI;;;Count of menu streams
+Video_Codec_List;;;N NT;;;Video Codecs separated by /
+Video_Language_List;;;N NT;;;Video languages separated by /
+Audio_Codec_List;;;N NT;;;Audio Codecs separated by /
+Audio_Language_List;;;N NT;;;Audio languages separated by /
+Text_Codec_List;;;N NT;;;Text Codecs separated by /
+Text_Language_List;;;N NT;;;Text languages separated by /
+Chapters_Codec_List;;;N NT;;;Chapters Codecs separated by /
+Chapters_Language_List;;;N NT;;;Chapters languages separated by /
+Image_Codec_List;;;N NT;;;Image Codecs separated by /
+Image_Language_List;;;N NT;;;Image languages separated by /
+Menu_Codec_List;;;N NT;;;Menu Codecs separated by /
+Menu_Language_List;;;N NT;;;Menu languages separated by /
+CompleteName;;;Y NT;;;Complete name (Folder+Name+Extension)
+FolderName;;;N NT;;;Folder name only
+FileName;;;N NT;;;File name only
+FileExtension;;;N NT;;;File extension only
+Format;;;N YT;;;Format (short name)
+Format/String;;;Y NT;;;Format (full name)
+Format/Info;;;Y NT;;;More information about this format
+Format/Family;;;Y NT;;;Format family
+Format/Url;;;N NT;;;Url about this format
+Format/Extensions;;;N NT;;;Known extensions of format
+Format_Settings;;;Y NT;;;Settings needed for decoder used
+Format_Settings_Automatic;;;N NT;;;Settings needed for decoder used, with format XXX=Y, Y from 0 to 5
+Interleaved;;;N NT;;;If Audio and video are muxed
+Codec;;;N NT;;;Same as Format, only for automatic parsing
+Codec/String;;;N NT;;;Same as Format, only for automatic parsing
+Codec/Info;;;N NT;;;Same as Format, only for automatic parsing
+Codec/Family;;;N NT;;;Same as Format, only for automatic parsing
+Codec/Url;;;N NT;;;Same as Format, only for automatic parsing
+Codec/Extensions;;;N NT;;;Same as Format, only for automatic parsing
+Codec_Settings;;;N NT;;;Same as Format, only for automatic parsing
+Codec_Settings_Automatic;;;N NT;;;Same as Format, only for automatic parsing
+FileSize;; byte;N NT;;;File size in bytes
+FileSize/String;;;Y NT;;;File size (with measure)
+FileSize/String1;;;N NT;;;File size (with measure, 1 digit mini)
+FileSize/String2;;;N NT;;;File size (with measure, 2 digit mini)
+FileSize/String3;;;N NT;;;File size (with measure, 3 digit mini)
+FileSize/String4;;;N NT;;;File size (with measure, 4 digit mini)
+PlayTime;; ms;N YI;;;Play time of the file
+PlayTime/String;;;Y NT;;;Play time in format : XXx YYy only, YYy omited if zero
+PlayTime/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
+PlayTime/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero
+PlayTime/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM
+BitRate_Mode;;;Y YT;;;Bit rate mode (VBR, CBR)
+BitRate;; bps;N YF;;;BitRate of all streams
+BitRate/String;;;Y NT;;;BitRate of all streams (with measure)
+BitRate_Minimum;; bps;N YF;;;Minimum Bit rate in bps
+BitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement)
+BitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps
+BitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement);;
+BitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps;;
+BitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement);;
+StreamSize;; byte;N YI;;;Stream size in bytes;;
+StreamSize/String;;;Y NT;;;;;
+StreamSize/String1;;;N NT;;;;;
+StreamSize/String2;;;N NT;;;;;
+StreamSize/String3;;;N NT;;;;;
+StreamSize/String4;;;N NT;;;;;
+HeaderSize;;;N NI;;;;;
+DataSize;;;N NI;;;;;
+Title;;;N NT;;;(Generic)Title of file;;Title
+Title/More;;;N NT;;;(Generic)More info about the title of file;;Title
+Title/Url;;;N NT;;;(Generic)Url;;Title
+Domain;;;Y YT;;;Level=8. Eg : Starwars, Stargate, U2;;Title
+Collection;;;Y YT;;;Level=7. Name of the collection. Eg : Starwars movies, Stargate movie, Stargate SG-1, Stargate Atlantis;;Title
+Season;;;Y YT;;;Level=6. Name of the season. Eg : Strawars first Trilogy, Season 1;;Title
+Movie;;;Y YT;;;Level=5. Name of the movie. Eg : Starwars, a new hope;;Title
+Movie/More;;;Y YT;;;;;Title
+Movie/Url;;;Y YT;;;;;Title
+Album;;;Y YT;;;Level=5. Name of album. Eg : The joshua tree;;Title
+Album/Sort;;;Y YT;;;;;Title
+Comic;;;Y YT;;;Level=5. Name of the comic.;;Title
+Comic/Position_Total;;;Y YI;;;;;Title
+Part;;;Y YT;;;Level=4. Name of the part. Eg : CD1, CD2;;Title
+Part/Position;;;Y YI;;;;;Title
+Part/Position_Total;;;Y YI;;;;;Title
+Track;;;Y YT;;;Level=3. Name of the track. Eg : track1, track 2;;Title
+Track/More;;;Y YT;;;;;Title
+Track/Url;;;Y YT;;;;;Title
+Track/Sort;;;Y YT;;;;;Title
+Track/Position;;;Y YI;;;;;Title
+Track/Position_Total;;;Y YI;;;;;Title
+Chapter;;;Y YT;;;Level=3. Name of the chapter.;;Title
+SubTrack;;;Y YT;;;Level=2, Name of the subtrack.;;Title
+Original/Album;;;Y YT;;;Original name of album, serie...;;Title
+Original/Movie;;;Y YT;;;Original name of the movie;;Title
+Original/Part;;;Y YT;;;Name of the part in the original support;;Title
+Original/Track;;;Y YT;;;Original name of the track in the original support;;Title
+Performer;;;Y YT;;;(Generic)Performer of the file;;Entity
+Performer/Sort;;;Y YT;;;;;Entity
+Performer/Url;;;Y YT;;;;;Entity
+Original/Performer;;;Y YT;;;Original artist(s)/performer(s).;;Entity
+Accompaniment;;;Y YT;;;Band/orchestra/accompaniment/musician.;;Entity
+Composer;;;Y YT;;;Name of the original composer.;;Entity
+Composer/Nationality;;;Y YT;;;Nationality of the main composer of the item, mostly for classical music.;;Entity
+Arranger;;;Y YT;;;The person who arranged the piece. e.g. Ravel.;;Entity
+Lyricist;;;Y YT;;;The person who wrote the lyrics for a musical item.;;Entity
+Original/Lyricist;;;Y YT;;;Original lyricist(s)/text writer(s).;;Entity
+Conductor;;;Y YT;;;The artist(s) who performed the work. In classical music this would be the conductor, orchestra, soloists.;;Entity
+Director;;;Y YT;;;Name of the director.;;Entity
+AssistantDirector;;;Y YT;;;Name of the assistant director.;;Entity
+DirectorOfPhotography;;;Y YT;;;The name of the director of photography, also known as cinematographer.;;Entity
+SoundEngineer;;;Y YT;;;The name of the sound engineer or sound recordist.;;Entity
+ArtDirector;;;Y YT;;;The person who oversees the artists and craftspeople who build the sets.;;Entity
+ProductionDesigner;;;Y YT;;;Artist responsible for designing the overall visual appearance of a movie.;;Entity
+Choregrapher;;;Y YT;;;The name of the choregrapher.;;Entity
+CostumeDesigner;;;Y YT;;;The name of the costume designer.;;Entity
+Actor;;;Y YT;;;Real name of actor or actress playing a role in the movie.;;Entity
+Actor_Character;;;Y YT;;;Name of the character an actor or actress plays in this movie.;;Entity
+WrittenBy;;;Y YT;;;The author of the story or script.;;Entity
+ScreenplayBy;;;Y YT;;;The author of the screenplay or scenario (used for movies and TV shows).;;Entity
+EditedBy;;;Y YT;;;Editor name;;Entity
+Producer;;;Y YT;;;Name of the producer of the movie.;;Entity
+CoProducer;;;Y YT;;;The name of a co-producer.;;Entity
+ExecutiveProducer;;;Y YT;;;The name of an executive producer.;;Entity
+DistributedBy;;;Y YT;;; ;;Entity
+MasteredBy;;;Y YT;;;The engineer who mastered the content for a physical medium or for digital distribution.;;Entity
+EncodedBy;;;Y YT;;;Name of the person or organisation that encoded/ripped the audio file.;;Entity
+RemixedBy;;;Y YT;;;Interpreted, remixed, or otherwise modified by.;;Entity
+ProductionStudio;;;Y YT;;; ;;Entity
+ThanksTo;;;Y YT;;;A very general tag for everyone else that wants to be listed.;;Entity
+Publisher;;;Y YT;;;Name of the organization producing the track (i.e. the 'record label').;;Entity
+Publisher/URL;;;Y YT;;;Publishers official webpage.;;Entity
+Label;;;Y YT;;;;;Entity
+Genre;;;Y YT;;;The main genre of the audio or video. e.g. classical, ambient-house, synthpop, sci-fi, drama, etc.;;Classification
+Mood;;;Y YT;;;Intended to reflect the mood of the item with a few keywords, e.g. Romantic, Sad, Uplifting, etc.;;Classification
+ContentType;;;Y YT;;;The type of the item. e.g. Documentary, Feature Film, Cartoon, Music Video, Music, Sound FX, etc.;;Classification
+Subject;;;Y YT;;;Describes the topic of the file, such as Aerial view of Seattle..;;Classification
+Description;;;Y YT;;;A short description of the contents, such as Two birds flying.;;Classification
+Keywords;;;Y YT;;;Keywords to the item separated by a comma, used for searching.;;Classification
+Summary;;;Y YT;;;A plot outline or a summary of the story.;;Classification
+Synopsys;;;Y YT;;;A description of the story line of the item.;;Classification
+Period;;;Y YT;;;Describes the period that the piece is from or about. e.g. Renaissance.;;Classification
+LawRating;;;Y YT;;;Depending on the country it's the format of the rating of a movie (P, R, X in the USA, an age in other countries or a URI defining a logo).;;Classification
+LawRating_Reason;;;Y YT;;;Reason for the law rating;;Classification
+ICRA;;;Y YT;;;The ICRA rating. (Previously RSACi);;Classification
+Released_Date;;;Y YT;;;The time that the item was released.;;Temporal
+Original/Released_Date;;;Y YT;;;The time that the item was originaly released.;;Temporal
+Recorded_Date;;;Y YT;;;The time that the recording began.;;Temporal
+Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
+Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal
+Written_Date;;;Y YT;;;The time that the composition of the music/script began.;;Temporal
+Mastered_Date;;;Y YT;;;The time that the item was tranfered to a digitalmedium.;;Temporal
+Recorded_Location;;;Y YT;;;Location where track was recorded. (See COMPOSITION_LOCATION for format);;Spatial
+Written_Location;;;Y YT;;;Location that the item was originaly designed/written. Information should be stored in the following format: country code, state/province, city where the coutry code is the same 2 octets as in Internet domains, or possibly ISO-3166. e.g. US, Texas, Austin or US, , Austin.;;Spatial
+Archival_Location;;;Y YT;;;;;Spatial
+Encoded_Application;;;Y YT;;;Software. Identifies the name of the software package used to create the file, such as Microsoft WaveEdit.;;Technical
+Encoded_Application/Url;;;N YT;;;Software. Identifies the name of the software package used to create the file, such as Microsoft WaveEdit.;;Technical
+Encoded_Library;;;Y YT;;;The software or hardware used to encode this item. e.g. LAME or XviD;;Technical
+Encoded_Library_Settings;;;Y YT;;;A list of the settings used for encoding this item. No specific format.;;Technical
+Tagged_Application;;;Y YT;;;Software used to tag this file;;Technical
+BPM;;;Y YT;;;Average number of beats per minute;;Technical
+ISRC;;;Y YT;;;International Standard Recording Code, excluding the ISRC prefix and including hyphens.;;Identifier
+ISBN;;;Y YT;;;International Standard Book Number.;;Identifier
+BarCode;;;Y YT;;;EAN-13 (13-digit European Article Numbering) or UPC-A (12-digit Universal Product Code) bar code identifier.;;Identifier
+LCCN;;;Y YT;;;Library of Congress Control Number.;;Identifier
+CatalogNumber;;;Y YT;;;A label-specific catalogue number used to identify the release. e.g. TIC 01.;;Identifier
+LabelCode;;;Y YT;;;A 4-digit or 5-digit number to identify the record label, typically printed as (LC) xxxx or (LC) 0xxxx on CDs medias or covers, with only the number being stored.;;Identifier
+Owner;;;Y YT;;;Owner of the file;;Legal
+Copyright;;;Y YT;;;Copyright attribution.;;Legal
+Copyright/Url;;;Y YT;;;Copyright/legal information.;;Legal
+Producer_Copyright;;;Y YT;;;The copyright information as per the productioncopyright holder.;;Legal
+TermsOfUse;;;Y YT;;;License information, e.g., All Rights Reserved,Any Use Permitted.;;Legal
+Broadcaster;;;Y YT;;;;;Legal
+Broadcaster/Owner;;;Y YT;;;;;Legal
+Broadcaster/Url;;;Y YT;;;;;Legal
+Cover;;;Y YT;;;Is there a cover;;Info
+Cover_Datas;;;N YT;;;Cover, in binary format encoded BASE64;;Info
+Lyrics;;;Y YT;;;;;Info
+Comment;;;Y YT;;;Any comment related to the content.;;Personal
+Rating ;;;Y YT;;;A numeric value defining how much a person likes the song/movie. The number is between 0 and 5 with decimal values possible (e.g. 2.7), 5(.0) being the highest possible rating.;;Personal
