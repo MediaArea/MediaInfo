@@ -1059,10 +1059,10 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
             Ztring Codec_Temp;
             if (Stream[TrackNumber].StreamKind==Stream_Video)
                 Codec_Temp=Get(Stream_Video, 0, _T("Codec")); //We want to keep the 4CC
+            Open_Buffer_Finalize(Stream[TrackNumber].Parser);
             Merge(*Stream[TrackNumber].Parser, Stream[TrackNumber].StreamKind, 0, Stream[TrackNumber].StreamPos);
             if (Stream[TrackNumber].StreamKind==Stream_Video)
                 Fill(Stream[TrackNumber].StreamKind, Stream[TrackNumber].StreamPos, "Codec", Codec_Temp, true);
-            Open_Buffer_Finalize(Stream[TrackNumber].Parser);
             //delete Stream[TrackNumber].Parser; Stream[TrackNumber].Parser=NULL;
             Stream[TrackNumber].SearchingPayload=false;
             Stream_Count--;
