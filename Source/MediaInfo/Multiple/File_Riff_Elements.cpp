@@ -401,7 +401,8 @@ void File_Riff::AIFF_COMT()
 {
     //Parsing
     int16u numComments;
-    for (int16u Pos; Pos<=10; Pos++)
+    Get_B2 (numComments,                                        "numComments");
+    for (int16u Pos=0; Pos<=numComments; Pos++)
     {
         Ztring text;
         int16u count;

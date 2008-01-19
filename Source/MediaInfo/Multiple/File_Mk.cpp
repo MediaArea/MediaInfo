@@ -1004,11 +1004,28 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
             Get_B1(FrameCountMinus1,                            "Frame count minus 1");
             switch (Lacing)
             {
-                case 1 :
+                case 1 : //Xiph lacing
+                        {
+                            int64u Element_Offset_Offset=0;
+                            for (int8u Pos=0; Pos<FrameCountMinus1; Pos++)
+                            {
+                                int32u Size=0;
+                                int8u Size8;
+                                do
+                                {
+                                    Get_B1 (Size8,              "Size");
+                                    Size+=Size8;
+                                }
+                                while (Size8==0xFF);
+                                Param_Info(Size);
+                                Element_Offset_Offset+=Size;
+                            }
+                            //Size=Element_Size-Element_Offset-Element_Offset_Offset; Param_Info(Size);
+                        }
                         break;
-                case 2 : //No more data!
+                case 2 : //Fixed-size lacing - No more data
                         break;
-                case 3 :
+                case 3 : //EBML lacing
                         {
                             int64u Element_Offset_Offset=0, Size;
                             Get_EB (Size,                       "Size");
@@ -1020,7 +1037,7 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
                                 Size+=Diff; Param_Info(Size);
                                 Element_Offset_Offset+=Size;
                             }
-                            Size=Element_Size-Element_Offset-Element_Offset_Offset; Param_Info(Size);
+                            //Size=Element_Size-Element_Offset-Element_Offset_Offset; Param_Info(Size);
                         }
                         break;
                 default : ; //Should never be here

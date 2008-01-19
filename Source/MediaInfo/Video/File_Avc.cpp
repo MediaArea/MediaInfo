@@ -867,7 +867,7 @@ void File_Avc::seq_parameter_set()
             for (int32u Pos=0; Pos<8; Pos++)
             {
                 TEST_SB_SKIP(                                   "seq_scaling_list_present_flag");
-                    scaling_list(Pos<6?16:64); //Never tested!
+                    scaling_list(Pos<6?16:64);
                 TEST_SB_END();
             }
         TEST_SB_END();
@@ -1018,7 +1018,7 @@ void File_Avc::pic_parameter_set()
             for (int8u Pos=0; Pos<6+2*transform_8x8_mode_flag; Pos++ )
             {
                 TEST_SB_SKIP(                                   "pic_scaling_list_present_flag");
-                    scaling_list(Pos<6?16:64); //Never tested!
+                    scaling_list(Pos<6?16:64);
                 TEST_SB_END();
             }
         TEST_SB_END();
@@ -1063,18 +1063,17 @@ void File_Avc::access_unit_delimiter()
 //---------------------------------------------------------------------------
 void File_Avc::scaling_list(int32u ScalingList_Size)
 {
-    //From http://mpeg4ip.cvs.sourceforge.net/mpeg4ip/mpeg4ip/util/h264/main.cpp?revision=1.17&view=markup, never tested
-    double Scale_Delta;
-    int32u Scale_Delta_NeverTested, Scale_Last=8, Scale_Next=8;
+    //From http://mpeg4ip.cvs.sourceforge.net/mpeg4ip/mpeg4ip/util/h264/main.cpp?revision=1.17&view=markup
+    int32u lastScale=8, nextScale=8;
     for (int32u Pos=0; Pos<ScalingList_Size; Pos++)
     {
-        if (Scale_Next!=0)
+        if (nextScale!=0)
         {
-            Get_UE (Scale_Delta_NeverTested,                    "Scale_Delta_NeverTested");
-            Scale_Delta=Scale_Delta_NeverTested;
-            Scale_Next=(Scale_Last+(int32u)(Scale_Delta)+256)%256;
-            Scale_Last=Scale_Next;
+            int32u delta_scale;
+            Get_UE (delta_scale,                                "scale_delta");
+            nextScale=(lastScale+delta_scale+256)%256;
         }
+        lastScale=nextScale;
     }
 }
 
