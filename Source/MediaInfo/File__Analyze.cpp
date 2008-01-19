@@ -79,7 +79,7 @@ File__Analyze::File__Analyze ()
     //Elements
     Element.resize(64);
     Element[0].Code=0;
-    Element[0].Next=File_Size;
+    Element[0].Next=(int64u)-1;
     Element[0].WaitForMoreData=false;
     Element[0].UnTrusted=false;
     Element[0].IsComplete=false;
@@ -139,6 +139,7 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
     //Preparing
     File_Size=File_Size_;
     File_Offset=File_Offset_;
+    Element[0].Next=File_Size;
 
     //Integrity
     if (File_Offset>=File_Size)
@@ -624,6 +625,8 @@ void File__Analyze::Header_Fill_Size(int64u Size)
         
     //Filling
     Element[Element_Level-1].Next=File_Offset+Buffer_Offset+Size;
+    int64u A=Element[2-2].Next;
+    int64u B=Element[2-1].Next;
     if (Element[Element_Level-1].Next>Element[Element_Level-2].Next)
     {
         Element[Element_Level-1].Next=Element[Element_Level-2].Next;

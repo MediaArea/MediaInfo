@@ -49,6 +49,7 @@ protected :
 
 public :
     File_Mk();
+    ~File_Mk();
 
 private :
     //Buffer
@@ -250,6 +251,14 @@ private :
 
     Ztring   Local_Get();
     void     Local_Info();
+
+    //Temp - TrackEntry
+    char*    CodecPrivate;
+    size_t   CodecPrivate_Size;
+    void     CodecPrivate_Fill();
+    Ztring   CodecID;
+    void     CodecID_Fill();
+    int64u   TrackType;
 
     //Temp
     int64u  TimecodeScale;

@@ -69,6 +69,15 @@ File_Mk::File_Mk()
 
     //Stream
     Stream_Count=0;
+
+    //Helpers
+    CodecPrivate=NULL;
+}
+
+//---------------------------------------------------------------------------
+File_Mk::~File_Mk()
+{
+    delete[] CodecPrivate; //CodecPrivate=NULL;
 }
 
 //***************************************************************************
@@ -1212,6 +1221,9 @@ void File_Mk::Segment_Cluster_Timecode()
 void File_Mk::Segment_Cues()
 {
     Element_Name("Cues");
+
+    //Skipping Cues, we don't need of them
+    Skip_XX(Element_TotalSize_Get(),                            "Cues data, skipping");
 }
 
 //---------------------------------------------------------------------------
@@ -1575,6 +1587,8 @@ void File_Mk::Segment_Tracks_TrackEntry()
     Element_Name("TrackEntry");
 
     //Clearing
+    CodecID.clear();
+    TrackType=(int64u)-1;
     TrackNumber=(int64u)-1;
     TrackDefaultDuration=0;
 
@@ -1668,48 +1682,9 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecID()
     Get_Local(Element_Size, Data,                               "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        if (Get(StreamKind_Last, StreamPos_Last, _T("Coded")).empty())
-            Fill("Codec", Data);
-
-        //Creating the parser
-             if (0);
-        #if defined(MEDIAINFO_MPEG4V_YES)
-        else if (Config.Codec_Get(Data, InfoCodec_KindofCodec).find(_T("MPEG-4V"))==0)
-        {
-            Stream[TrackNumber].Parser=new File_Mpeg4v;
-            ((File_Mpeg4v*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
-            ((File_Mpeg4v*)Stream[TrackNumber].Parser)->Frame_Count_Valid=1;
-        }
-        #endif
-        #if defined(MEDIAINFO_AVC_YES)
-        else if (Config.Codec_Get(Data, InfoCodec_KindofCodec).find(_T("AVC"))==0)
-        {
-            Stream[TrackNumber].Parser=new File_Avc;
-            ((File_Avc*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
-            ((File_Avc*)Stream[TrackNumber].Parser)->MustParse_SPS_PPS=true;
-            ((File_Avc*)Stream[TrackNumber].Parser)->ShortHeader=true;
-        }
-        #endif
-        #if defined(MEDIAINFO_AC3_YES)
-        else if (Config.Codec_Get(Data, InfoCodec_KindofCodec).find(_T("AC3"))==0)
-        {
-            Stream[TrackNumber].Parser=new File_Ac3;
-            //((File_Ac3*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
-        }
-        #endif
-        #if defined(MEDIAINFO_MPEG4_YES)
-        else if (Get(StreamKind_Last, StreamPos_Last, _T("Codec")).find(_T("A_AAC/MPEG4/"))==0)
-        {
-            Stream[TrackNumber].Parser=new File_Mpeg4_AudioSpecificConfig;
-        }
-        #endif
-        #if defined(MEDIAINFO_MPEGA_YES)
-        else if (Config.Codec_Get(Data, InfoCodec_KindofCodec).find(_T("MPEG-A"))==0)
-        {
-            Stream[TrackNumber].Parser=new File_Mpega;
-            //((File_Mpega*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
-        }
-        #endif
+        CodecID=Data;
+        CodecID_Fill();
+        CodecPrivate_Fill();
     FILLING_END();
 }
 
@@ -1730,12 +1705,23 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate()
     //Creating the parser
     if (Stream[TrackNumber].Parser==NULL)
     {
-        switch(Element_Size)
+        if (Get(Stream[TrackNumber].StreamKind, Stream[TrackNumber].StreamPos, _T("Codec")).empty())
         {
-            case 16 : Segment_Tracks_TrackEntry_CodecPrivate_auds(); break;
-            case 40 : Segment_Tracks_TrackEntry_CodecPrivate_vids(); break;
-            default : Skip_XX(Element_Size,                     "Unknown");
+            //Codec not already known, saving CodecPrivate
+            if (CodecPrivate)
+                delete[] CodecPrivate; //CodecPrivate=NULL.
+            CodecPrivate_Size=(size_t)Element_Size;
+            CodecPrivate=new int8u[(size_t)Element_Size];
+            std::memcpy(CodecPrivate, Buffer+Buffer_Offset, (size_t)Element_Size);
+            return;
         }
+
+        if (Get(Stream[TrackNumber].StreamKind, Stream[TrackNumber].StreamPos, _T("Codec"))==_T("A_MS/ACM"))
+            Segment_Tracks_TrackEntry_CodecPrivate_auds();
+        else if (Get(Stream[TrackNumber].StreamKind, Stream[TrackNumber].StreamPos, _T("Codec"))==_T("V_MS/VFW/FOURCC"))
+            Segment_Tracks_TrackEntry_CodecPrivate_vids();
+        else if (Element_Size>0)
+            Skip_XX(Element_Size,                 "Unknown");
         return;
     }
 
@@ -1746,15 +1732,11 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate()
     //Filling
     if (Stream[TrackNumber].Parser->File_Offset==File_Size) //Can be finnished here...
     {
-        Merge(*Stream[TrackNumber].Parser, Stream[TrackNumber].StreamKind, 0, Stream[TrackNumber].StreamPos);
         Open_Buffer_Finalize(Stream[TrackNumber].Parser);
+        Merge(*Stream[TrackNumber].Parser, Stream[TrackNumber].StreamKind, 0, Stream[TrackNumber].StreamPos);
         Stream[TrackNumber].SearchingPayload=false;
         Stream_Count--;
     }
-
-    //Filling
-    //Merge(*MI, StreamKind_Last, 0, StreamPos_Last);
-    //delete MI; //MI=NULL;
 
     //In case of problem
     Element_Show();
@@ -1774,6 +1756,8 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_auds()
     Get_L4 (AvgBytesPerSec,                                     "AvgBytesPerSec");
     Skip_L2(                                                    "BlockAlign");
     Get_L2 (BitsPerSample,                                      "BitsPerSample");
+    if (Data_Remain())
+        Skip_XX(Data_Remain(),                                  "Unknown");
 
     //Filling
     FILLING_BEGIN()
@@ -1806,6 +1790,8 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
     Skip_L4(                                                    "YPelsPerMeter");
     Skip_L4(                                                    "ClrUsed");
     Skip_L4(                                                    "ClrImportant");
+    if (Data_Remain())
+        Skip_XX(Data_Remain(),                                  "Unknown");
 
     FILLING_BEGIN()
         Ztring Codec;
@@ -1974,6 +1960,9 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackNumber()
             Stream[TrackNumber].StreamPos=StreamPos_Last;
         }
         Stream_Count++;
+
+        CodecID_Fill();
+        CodecPrivate_Fill();
     FILLING_END();
 }
 
@@ -1993,6 +1982,7 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackType()
 
     //Filling
     FILLING_BEGIN();
+        TrackType=UInteger;
         switch(UInteger)
         {
             case 0x01 :
@@ -2015,6 +2005,9 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackType()
             Stream[TrackNumber].StreamKind=StreamKind_Last;
             Stream[TrackNumber].StreamPos=StreamPos_Last;
         }
+
+        CodecID_Fill();
+        CodecPrivate_Fill();
     FILLING_END();
 }
 
@@ -2377,6 +2370,89 @@ Ztring File_Mk::Local_Get()
 void File_Mk::Local_Info()
 {
     Info_Local(Element_Size, Data,                              "Data"); Element_Info(Data);
+}
+
+//***************************************************************************
+// Helpers
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mk::CodecID_Fill()
+{
+    if (TrackType==(int64u)-1 || TrackNumber==(int64u)-1 || CodecID.empty())
+        return; //Not ready (or not needed)
+
+    if (Get(StreamKind_Last, StreamPos_Last, _T("Codec")).empty())
+        Fill("Codec", CodecID);
+
+    //Creating the parser
+    Ztring CodecFamily=Config.Codec_Get(CodecID, InfoCodec_KindofCodec);
+         if (0);
+    #if defined(MEDIAINFO_MPEG4V_YES)
+    else if (CodecFamily==_T("MPEG-4V"))
+    {
+        Stream[TrackNumber].Parser=new File_Mpeg4v;
+        ((File_Mpeg4v*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+        ((File_Mpeg4v*)Stream[TrackNumber].Parser)->Frame_Count_Valid=1;
+    }
+    #endif
+    #if defined(MEDIAINFO_AVC_YES)
+    else if (CodecFamily==_T("AVC"))
+    {
+        Stream[TrackNumber].Parser=new File_Avc;
+        ((File_Avc*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+        ((File_Avc*)Stream[TrackNumber].Parser)->MustParse_SPS_PPS=true;
+        ((File_Avc*)Stream[TrackNumber].Parser)->ShortHeader=true;
+    }
+    #endif
+    #if defined(MEDIAINFO_AC3_YES)
+    else if (CodecFamily==_T("AC3"))
+    {
+        Stream[TrackNumber].Parser=new File_Ac3;
+        //((File_Ac3*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+    }
+    #endif
+    #if defined(MEDIAINFO_MPEG4_YES)
+    else if (CodecID.find(_T("A_AAC/MPEG4/"))==0)
+    {
+        Stream[TrackNumber].Parser=new File_Mpeg4_AudioSpecificConfig;
+    }
+    #endif
+    #if defined(MEDIAINFO_MPEGA_YES)
+    else if (CodecFamily==_T("MPEG-A"))
+    {
+        Stream[TrackNumber].Parser=new File_Mpega;
+        //((File_Mpega*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+    }
+    #endif
+
+    CodecID.clear();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::CodecPrivate_Fill()
+{
+    if (CodecPrivate==NULL || TrackNumber==(int64u)-1 || TrackType==(int64u)-1)
+        return; //Not ready (or not needed)
+
+    //Codec Private is already here, so we can parse it now
+    const int8u* Buffer_Save=Buffer;
+    size_t Buffer_Offset_Save=Buffer_Offset;
+    size_t Buffer_Size_Save=Buffer_Size;
+    int64u Element_Size_Save=Element_Size;
+    Buffer=CodecPrivate;
+    Buffer_Offset=0;
+    Buffer_Size=CodecPrivate_Size;
+    Element_Offset=0;
+    Element_Size=Buffer_Size;
+    Segment_Tracks_TrackEntry_CodecPrivate();
+    Buffer=Buffer_Save;
+    Buffer_Offset=Buffer_Offset_Save;
+    Buffer_Size=Buffer_Size_Save;
+    Element_Offset=Element_Size=Element_Size_Save;
+    delete[] CodecPrivate; CodecPrivate=NULL;
+    CodecPrivate_Size=0;
+    Element_Name("(Multiple info)");
 }
 
 //***************************************************************************
