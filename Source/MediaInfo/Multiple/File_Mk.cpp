@@ -1208,7 +1208,7 @@ void File_Mk::Segment_Cluster_SilentTracks_SilentTrackNumber()
 //---------------------------------------------------------------------------
 void File_Mk::Segment_Cluster_SimpleBlock()
 {
-    Element_Name("SimpleBlock");
+    Segment_Cluster_BlockGroup_Block();
 }
 
 //---------------------------------------------------------------------------
