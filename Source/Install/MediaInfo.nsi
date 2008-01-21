@@ -1,6 +1,6 @@
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
-!define PRODUCT_VERSION "0.7.5.7"
+!define PRODUCT_VERSION "0.7.5.8BETA"
 !define PRODUCT_WEB_SITE "http://mediainfo.sourceforge.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\MediaInfo.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
@@ -31,6 +31,7 @@ SetCompressor /FINAL /SOLID lzma
 !insertmacro MUI_UNPAGE_INSTFILES
 
 ; Language files
+!insertmacro MUI_LANGUAGE "Catalan"
 !insertmacro MUI_LANGUAGE "Czech"
 !insertmacro MUI_LANGUAGE "Dutch"
 !insertmacro MUI_LANGUAGE "English"
