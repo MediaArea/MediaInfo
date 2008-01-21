@@ -253,7 +253,7 @@ private :
     void     Local_Info();
 
     //Temp - TrackEntry
-    char*    CodecPrivate;
+    int8u*   CodecPrivate;
     size_t   CodecPrivate_Size;
     void     CodecPrivate_Fill();
     Ztring   CodecID;

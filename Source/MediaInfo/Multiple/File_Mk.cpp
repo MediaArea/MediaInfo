@@ -2449,7 +2449,8 @@ void File_Mk::CodecPrivate_Fill()
     Buffer=Buffer_Save;
     Buffer_Offset=Buffer_Offset_Save;
     Buffer_Size=Buffer_Size_Save;
-    Element_Offset=Element_Size=Element_Size_Save;
+    Element_Size=Element_Size_Save;
+    Element_Offset=(size_t)Element_Size_Save;
     delete[] CodecPrivate; CodecPrivate=NULL;
     CodecPrivate_Size=0;
     Element_Name("(Multiple info)");
