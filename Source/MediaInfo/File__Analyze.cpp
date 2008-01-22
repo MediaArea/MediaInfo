@@ -669,11 +669,18 @@ bool File__Analyze::Data_Manage()
     Element[Element_Level].IsComplete=true;
 
     //If no need of more
-    if (File_Offset==File_Size || File_GoTo!=(int64u)-1)
-        return false;
+    if (File_GoTo!=(int64u)-1)
+    {
+        if (File_GoTo<File_Offset || File_GoTo>File_Offset+Buffer_Size)
+            return false;
+
+        //We have it, no need to go!
+        Buffer_Offset=File_GoTo-File_Offset;
+        File_GoTo=(int64u)-1;
+    }
 
     //Next element
-    if (Element[Element_Level].Next-File_Offset>(size_t)-1)
+    else if (Element[Element_Level].Next-File_Offset>(size_t)-1)
         Buffer_Offset=(size_t)-1;
     else if (!Element_WantNextLevel)
         Buffer_Offset=(size_t)(Element[Element_Level].Next-File_Offset);
@@ -718,6 +725,7 @@ void File__Analyze::Data_Info (const Ztring &Parameter)
 //---------------------------------------------------------------------------
 void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
 {
+    Element_Show();
     Element_End(); //Element
 
     if (GoTo==File_Size)
@@ -727,7 +735,7 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
     }
     else
     {
-        Info(Ztring(ParserName)+_T(", jumping to end of file"));
+        Info(Ztring(ParserName)+_T(", jumping to offset ")+Ztring::ToZtring(GoTo, 16));
         File_GoTo=GoTo;
     }
 }
