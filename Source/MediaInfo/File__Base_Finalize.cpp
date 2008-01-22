@@ -628,18 +628,49 @@ void File__Analyze::Finalize_Final()
     //-Video bitrate if we have all audio bitrates and overal bitrate
     if (Video.size()==1 && General[0](_T("BitRate")).size()>4 && Video[0](_T("BitRate")).empty()) //BitRate is > 10 000, to avoid strange behavior
     {
-        int32s VideoBitRate=General[0](_T("BitRate")).To_int32s()-5000; //5000 bps because of a "classic" format overhead
+        float  GeneralBitRate_Ratio=0.98;  //Default container overhead=2%
+        int32u GeneralBitRate_Minus=5000;  //5000 bps because of a "classic" stream overhead
+        float  VideoBitRate_Ratio  =0.98;  //Default container overhead=2%
+        int32u VideoBitRate_Minus  =2000;  //2000 bps because of a "classic" stream overhead
+        float  AudioBitRate_Ratio  =0.98;  //Default container overhead=2%
+        int32u AudioBitRate_Minus  =2000;  //2000 bps because of a "classic" stream overhead
+        //Specific value depends of Container
+        if (Get(Stream_General, 0, _T("Format"))==_T("MPEG-1PS")
+         || Get(Stream_General, 0, _T("Format"))==_T("MPEG-2PS")
+         || Get(Stream_General, 0, _T("Format"))==_T("MPEG-4PS"))
+        {
+            GeneralBitRate_Ratio=0.99;
+            GeneralBitRate_Minus=0;
+            VideoBitRate_Ratio  =0.94;
+            VideoBitRate_Minus  =0;
+            AudioBitRate_Ratio  =0.94;
+            AudioBitRate_Minus  =0;
+        }
+        if (Get(Stream_General, 0, _T("Format"))==_T("MPEG-1TS")
+         || Get(Stream_General, 0, _T("Format"))==_T("MPEG-2TS")
+         || Get(Stream_General, 0, _T("Format"))==_T("MPEG-4TS"))
+        {
+            GeneralBitRate_Ratio=0.99;
+            GeneralBitRate_Minus=0;
+            VideoBitRate_Ratio  =0.97;
+            VideoBitRate_Minus  =0;
+            AudioBitRate_Ratio  =0.97;
+            AudioBitRate_Minus  =0;
+        }
+
+        //Testing
+        float64 VideoBitRate=General[0](_T("BitRate")).To_float64()*GeneralBitRate_Ratio-GeneralBitRate_Minus;
         bool VideobitRateIsValid=true;
         for (size_t Pos=0; Pos<Audio.size(); Pos++)
         {
             int32s AudioBitRate=Audio[Pos](_T("BitRate")).To_int32s();
             if (AudioBitRate>0)
-                VideoBitRate-=AudioBitRate-2000; //5000 bps because of a "classic" stream overhead
+                VideoBitRate-=AudioBitRate*AudioBitRate_Ratio-AudioBitRate_Minus;
             else
                 VideobitRateIsValid=false;
         }
         if (VideobitRateIsValid && VideoBitRate>=10000) //to avoid strange behavior
-            Video[0](_T("BitRate")).From_Number((float)VideoBitRate*0.98); //Default container overhead=2%
+            Video[0](_T("BitRate")).From_Number(VideoBitRate*VideoBitRate_Ratio-VideoBitRate_Minus, 0); //Default container overhead=2%
     }
 
     //Counts
