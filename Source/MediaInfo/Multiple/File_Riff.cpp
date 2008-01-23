@@ -56,6 +56,7 @@ namespace MediaInfoLib
 
 namespace Elements
 {
+    const int32u AVI__hdlr_strl_strh_txts=0x74787473;
     const int32u FORM=0x464F524D;
     const int32u LIST=0x4C495354;
     const int32u MThd=0x4D546864;
@@ -76,6 +77,7 @@ File_Riff::File_Riff()
 
     //Data
     Stream_Pos_Current=Stream_Pos.end();
+    Index_Pos_Current=Index_Pos.end();
     Interleaved0_1=0;
     Interleaved0_10=0;
     Interleaved1_1=0;
@@ -85,12 +87,13 @@ File_Riff::File_Riff()
     avih_FrameRate=0;
     avih_TotalFrame=0;
     dmlh_TotalFrame=0;
+    movi_Pos=(int64u)-1;
     movi_Size=0;
     stream_Count=0;
     rec__Present=false;
     NeedOldIndex=true;
-    IsIndexed=false;
     IsBigEndian=false;
+    IsOpenDML=false;
 }
 
 void File_Riff::Read_Buffer_Finalize ()
@@ -141,11 +144,11 @@ void File_Riff::Read_Buffer_Finalize ()
                 {
                     if (((File_Mpeg4v*)Temp->second.Parser)->RIFF_VOP_Count_Max>1)
                     {
-                        Fill("Codec_Settings/PacketBitStream", "Yes");
+                        Fill("Codec_Settings_PacketBitStream", "Yes");
                         Fill("Codec_Settings", "Packed Bitstream");
                     }
                     else
-                        Fill("Codec_Settings/PacketBitStream", "No");
+                        Fill("Codec_Settings_PacketBitStream", "No");
                 }
             #endif
             #if defined(MEDIAINFO_MPEGA_YES)
@@ -191,6 +194,10 @@ void File_Riff::Read_Buffer_Finalize ()
     if (rec__Present)
         Fill(Stream_General, 0, "Codec_Settings", "rec");
 
+    //OpenDML
+    if (IsOpenDML)
+        Fill(Stream_General, 0, "Format_Settings", "OpenDML");
+
     //Interleaved
     if (Interleaved0_1 && Interleaved0_10 && Interleaved1_1 && Interleaved1_10)
         Fill(Stream_General, 0, "Interleaved", (Interleaved0_1<Interleaved1_1 && Interleaved0_10>Interleaved1_1
@@ -199,6 +206,7 @@ void File_Riff::Read_Buffer_Finalize ()
     //Purge what is not needed anymore
     Stream.clear();
     Stream_Pos.clear();
+    Index_Pos.clear();
 }
 
 //***************************************************************************
@@ -258,6 +266,21 @@ void File_Riff::Header_Parse()
     else
         Alignement_ExtraByte=false;
     Header_Fill_Size(8+Size);
+}
+
+//---------------------------------------------------------------------------
+bool File_Riff::BookMark_Needed()
+{
+    //For each stream
+    std::map<int32u, stream>::iterator Temp=Stream.begin();
+    while (Temp!=Stream.end())
+    {
+        if (!Temp->second.Parser && Temp->second.fccType!=Elements::AVI__hdlr_strl_strh_txts)
+            AVI__movi_StreamClear(Temp->first);
+        Temp++;
+    }
+
+    return stream_Count?true:false;
 }
 
 //***************************************************************************

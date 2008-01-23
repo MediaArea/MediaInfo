@@ -234,13 +234,19 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     //Finnished?
     if(File_GoTo==File_Size || File_Offset+Buffer_Offset>=File_Size)
     {
-        File_Offset=File_Size;
-        File_GoTo=File_Size;
-        Buffer_Clear();
-        Element_Show(); //If Element_Level is >0, we must show what is in the details buffer
-        while (Element_Level>0)
-            Element_End(); //This is finnished, must flush
-        return;
+        if (BookMark_Code.empty())
+        {
+            File_Offset=File_Size;
+            File_GoTo=File_Size;
+            Buffer_Clear();
+            Element_Show(); //If Element_Level is >0, we must show what is in the details buffer
+            while (Element_Level>0)
+                Element_End(); //This is finnished, must flush
+            return;
+        }
+
+        //Bookmark is given, managing it
+        BookMark_Get();
     }
 
     //Detection is parsing too much
@@ -376,13 +382,6 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Finalize ()
 {
-    //Integrity
-    if (Count_Get(Stream_General)==0)
-    {
-        Finnished();
-        return;
-    }
-
     //File with unknown size (stream...), finnishing
     if (File_Size==(int64u)-1)
     {
@@ -399,7 +398,6 @@ void File__Analyze::Open_Buffer_Finalize ()
 
     //Parsing
     Finnished();
-    Finalize();
     Details=Element[0].ToShow.Details;
 
     //Buffer
@@ -625,8 +623,6 @@ void File__Analyze::Header_Fill_Size(int64u Size)
         
     //Filling
     Element[Element_Level-1].Next=File_Offset+Buffer_Offset+Size;
-    int64u A=Element[2-2].Next;
-    int64u B=Element[2-1].Next;
     if (Element[Element_Level-1].Next>Element[Element_Level-2].Next)
     {
         Element[Element_Level-1].Next=Element[Element_Level-2].Next;
@@ -651,11 +647,11 @@ void File__Analyze::Header_Fill_Size(int64u Size)
 bool File__Analyze::Data_Manage()
 {
     Element_Code=Element[Element_Level].Code;
-    size_t Element_Level_Save=Element_Level;
+    //size_t Element_Level_Save=Element_Level;
     Element_WantNextLevel=false;
     Data_Parse();
     BS->Attach(NULL, 0); //Clear it
-    Element_Level=Element_Level_Save;
+    //Element_Level=Element_Level_Save;
 
     //Testing the parser result
     if (Element_IsWaitingForMoreData())
@@ -1248,6 +1244,52 @@ bool File__Analyze::Element_IsNotFinnished ()
 bool File__Analyze::Element_IsWaitingForMoreData ()
 {
     return Element[Element_Level].WaitForMoreData;
+}
+
+//***************************************************************************
+// BookMarks
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File__Analyze::BookMark_Set (size_t Element_Level_ToSet)
+{
+    if (Element_Level_ToSet==(size_t)-1)
+        Element_Level_ToSet=Element_Level;
+    BookMark_Element_Level=Element_Level_ToSet;
+    BookMark_Code.resize(BookMark_Element_Level+1);
+    BookMark_Next.resize(BookMark_Element_Level+1);
+    for (size_t Pos=0; Pos<=BookMark_Element_Level; Pos++)
+    {
+        BookMark_Code[Pos]=Element[Pos].Code;
+        BookMark_Next[Pos]=Element[Pos].Next;
+    }
+    BookMark_GoTo=File_Offset+Buffer_Offset+Element_Offset;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::BookMark_Get (size_t Element_Level_ToGet)
+{
+    if (!BookMark_Needed())
+        return;
+
+    Element_Show();
+    while (Element_Level>0)
+        Element_End();
+    File_Offset=0;
+    Buffer_Offset=0;
+    while (Element_Level<BookMark_Element_Level)
+        Element_Begin("Restarting parsing...", File_Size);
+
+    for (size_t Pos=0; Pos<=Element_Level; Pos++)
+    {
+        int64u A=BookMark_Code[Pos];
+        Element[Pos].Code=BookMark_Code[Pos];
+        Element[Pos].Next=BookMark_Next[Pos];
+    }
+    BookMark_Code.clear();
+    BookMark_Next.clear();
+    File_GoTo=BookMark_GoTo;
+    File_Offset=0; //In case of end of file
 }
 
 } //NameSpace

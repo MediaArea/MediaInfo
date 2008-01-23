@@ -115,8 +115,8 @@ void File__Analyze::Finalize__All(stream_t StreamKind)
         Z1.resize(Z1.size()-3); //Delete extra " / "
         Z2.resize(Z2.size()-3); //Delete extra " / "
         Ztring Z3=Get((stream_t)StreamKind, 0, _T("StreamKind"), Info_Measure);
-        Fill(Stream_General, 0, Ztring(Z3+_T("_Codec_List")).To_Local().c_str(), Z1, true);
-        Fill(Stream_General, 0, Ztring(Z3+_T("_Language_List")).To_Local().c_str(), Z2, true);
+        Fill(Stream_General, 0, Ztring(Z3+_T("_Codec_List")).To_Local().c_str(), Z1);
+        Fill(Stream_General, 0, Ztring(Z3+_T("_Language_List")).To_Local().c_str(), Z2);
     }
 }
 
@@ -170,16 +170,12 @@ void File__Analyze::Finalize__All(stream_t StreamKind, size_t Pos, Ztring &Z1, Z
         Z2+=(*Stream[StreamKind])[Pos](_T("Language/String"))+_T(" / ");
 
         //BitRate
-        if (!(*Stream[StreamKind])[Pos](_T("StreamSize")).empty() && !(*Stream[StreamKind])[Pos](_T("PlayTime")).empty())
+        if ((*Stream[StreamKind])[Pos](_T("BitRate")).empty() && !(*Stream[StreamKind])[Pos](_T("StreamSize")).empty() && !(*Stream[StreamKind])[Pos](_T("PlayTime")).empty())
         {
             int64u PlayTime=(*Stream[StreamKind])[Pos](_T("PlayTime")).To_int64u();
             int64u StreamSize=(*Stream[StreamKind])[Pos](_T("StreamSize")).To_int64u();
             if (PlayTime>0 && StreamSize>0)
-            {
-                if (!(*Stream[StreamKind])[Pos](_T("BitRate")).empty() && (*Stream[StreamKind])[Pos](_T("BitRate_Nominal")).empty() && (*Stream[StreamKind])[Pos](_T("BitRate"))!=(*Stream[StreamKind])[Pos](_T("BitRate_Nominal")))
-                    (*Stream[StreamKind])[Pos](_T("BitRate_Nominal"))=(*Stream[StreamKind])[Pos](_T("BitRate"));
                 (*Stream[StreamKind])[Pos](_T("BitRate")).From_Number(StreamSize*8*1000/PlayTime);
-            }
         }
 
         //BitRate Nominal
@@ -231,14 +227,14 @@ void File__Analyze::Finalize_General(size_t)
     General_Fill(); //Not always done by File_*
     if (!Config.Format_Get(General[0](_T("Format")), InfoFormat_Name).empty())
     {
-        Fill(Stream_General, 0, "Format/String", Config.Format_Get(General[0](_T("Format")), InfoFormat_LongName), true);
-        Fill(Stream_General, 0, "Format/Family", Config.Format_Get(General[0](_T("Format")), InfoFormat_Family), true);
-        Fill(Stream_General, 0, "Format/Info", Config.Format_Get(General[0](_T("Format")), InfoFormat_Info), true);
-        Fill(Stream_General, 0, "Format/Url", Config.Format_Get(General[0](_T("Format")), InfoFormat_Url), true);
-        Fill(Stream_General, 0, "Format/Extensions", Config.Format_Get(General[0](_T("Format")), InfoFormat_Extensions), true);
+        Fill(Stream_General, 0, "Format/String", Config.Format_Get(General[0](_T("Format")), InfoFormat_LongName));
+        Fill(Stream_General, 0, "Format/Family", Config.Format_Get(General[0](_T("Format")), InfoFormat_Family));
+        Fill(Stream_General, 0, "Format/Info", Config.Format_Get(General[0](_T("Format")), InfoFormat_Info));
+        Fill(Stream_General, 0, "Format/Url", Config.Format_Get(General[0](_T("Format")), InfoFormat_Url));
+        Fill(Stream_General, 0, "Format/Extensions", Config.Format_Get(General[0](_T("Format")), InfoFormat_Extensions));
     }
     else
-        Fill(Stream_General, 0, "Format/String", General[0](_T("Format")), true);
+        Fill(Stream_General, 0, "Format/String", General[0](_T("Format")));
 }
 
 //---------------------------------------------------------------------------
@@ -865,10 +861,10 @@ void File__Analyze::PlayTime_PlayTime123(const Ztring &Value, stream_t StreamKin
         PlayTimeString3=Ztring(_T("-"))+PlayTimeString3;
     }
 
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(),  PlayTimeString2, true);
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String1")).To_Local().c_str(), PlayTimeString1, true);
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String2")).To_Local().c_str(), PlayTimeString2, true);
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String3")).To_Local().c_str(), PlayTimeString3, true);
+    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(),  PlayTimeString2);
+    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String1")).To_Local().c_str(), PlayTimeString1);
+    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String2")).To_Local().c_str(), PlayTimeString2);
+    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String3")).To_Local().c_str(), PlayTimeString3);
 }
 
 //---------------------------------------------------------------------------
@@ -916,11 +912,11 @@ void File__Analyze::FileSize_FileSize123(const Ztring &Value, stream_t StreamKin
         case  3 : Measure=Config.Language_Get(_T(" GiB")); break;
         default : Measure=Config.Language_Get(_T(" ????Bytes"));
     }
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(),  Ztring::ToZtring(F1, I3)+Measure, true);
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String1")).To_Local().c_str(), Ztring::ToZtring(F1,  0)+Measure, true);
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String2")).To_Local().c_str(), Ztring::ToZtring(F1, I2)+Measure, true);
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String3")).To_Local().c_str(), Ztring::ToZtring(F1, I3)+Measure, true);
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String4")).To_Local().c_str(), Ztring::ToZtring(F1, I4)+Measure, true);
+    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(),  Ztring::ToZtring(F1, I3)+Measure);
+    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String1")).To_Local().c_str(), Ztring::ToZtring(F1,  0)+Measure);
+    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String2")).To_Local().c_str(), Ztring::ToZtring(F1, I2)+Measure);
+    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String3")).To_Local().c_str(), Ztring::ToZtring(F1, I3)+Measure);
+    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String4")).To_Local().c_str(), Ztring::ToZtring(F1, I4)+Measure);
 }
 
 //---------------------------------------------------------------------------
@@ -951,7 +947,7 @@ void File__Analyze::Kilo_Kilo123(const Ztring &Value, stream_t StreamKind, size_
     {
         Ztring Measure=Config.Info_Get(StreamKind).Read(Value, Info_Measure);
         Measure.insert(1, _T("K"));
-        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), BitRateS+Config.Language_Get(Measure), true);
+        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), BitRateS+Config.Language_Get(Measure));
         return;
     }
 
@@ -960,16 +956,16 @@ void File__Analyze::Kilo_Kilo123(const Ztring &Value, stream_t StreamKind, size_
     {
         Ztring Measure=Config.Info_Get(StreamKind).Read(Value, Info_Measure);
         Measure.insert(1, _T("M"));
-        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Ztring::ToZtring(float32_int32s((float)BitRate/1000000))+Config.Language_Get(Measure), true);
+        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Ztring::ToZtring(float32_int32s((float)BitRate/1000000))+Config.Language_Get(Measure));
     }
     else if (BitRate>10000)
     {
         Ztring Measure=Config.Info_Get(StreamKind).Read(Value, Info_Measure);
         Measure.insert(1, _T("K"));
-        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Ztring::ToZtring(float32_int32s((float)BitRate/1000))+Config.Language_Get(Measure), true);
+        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Ztring::ToZtring(float32_int32s((float)BitRate/1000))+Config.Language_Get(Measure));
     }
     else if (BitRate>0)
-        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Ztring::ToZtring(BitRate)+Config.Language_Get(Config.Info_Get(StreamKind).Read(Value, Info_Measure)), true);
+        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Ztring::ToZtring(BitRate)+Config.Language_Get(Config.Info_Get(StreamKind).Read(Value, Info_Measure)));
 }
 
 //---------------------------------------------------------------------------
@@ -986,7 +982,7 @@ void File__Analyze::Value_Value123(const Ztring &Value, stream_t StreamKind, siz
         return;
 
     //Filling
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Config.Language_Get(List(Value), Config.Info_Get(StreamKind).Read(Value, Info_Measure)), true);
+    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Config.Language_Get(List(Value), Config.Info_Get(StreamKind).Read(Value, Info_Measure)));
 }
 
 } //NameSpace

@@ -1095,38 +1095,38 @@ void File_Mpeg4v::vop_start_Fill()
     if (chroma_format<4)
         Fill("Chroma", Mpeg4v_Chroma[chroma_format]);
     if (low_delay)
-        Fill("Codec_Settings/BVOP", "No");
+        Fill("Codec_Settings_BVOP", "No");
     else
     {
         Fill("Codec_Settings", "BVOP");
-        Fill("Codec_Settings/BVOP", "Yes");
+        Fill("Codec_Settings_BVOP", "Yes");
     }
     if (no_of_sprite_warping_points)
     {
         Fill("Codec_Settings", Ztring(_T("GMC"))+Ztring::ToZtring(no_of_sprite_warping_points));
-        Fill("Codec_Settings/GMC", no_of_sprite_warping_points);
+        Fill("Codec_Settings_GMC", no_of_sprite_warping_points);
     }
     else
-        Fill("Codec_Settings/GMC", 0);
+        Fill("Codec_Settings_GMC", 0);
     if (quarter_sample)
     {
         Fill("Codec_Settings", "QPel");
-        Fill("Codec_Settings/QPel", "Yes");
+        Fill("Codec_Settings_QPel", "Yes");
     }
     else
-        Fill("Codec_Settings/QPel", "No");
+        Fill("Codec_Settings_QPel", "No");
     if (load_intra_quant_mat_grayscale || load_nonintra_quant_mat_grayscale)
     {
         Fill("Codec_Settings", "Custom Matrix (Gray)");
-        Fill("Codec_Settings/Matrix", "Custom (Gray)");
+        Fill("Codec_Settings_Matrix", "Custom (Gray)");
     }
     else if (load_intra_quant_mat || load_nonintra_quant_mat)
     {
         Fill("Codec_Settings", "Custom Matrix");
-        Fill("Codec_Settings/Matrix", "Custom");
+        Fill("Codec_Settings_Matrix", "Custom");
     }
     else
-        Fill("Codec_Settings/Matrix", "Default");
+        Fill("Codec_Settings_Matrix", "Default");
     if (interlaced)
     {
         if ((Interlaced_Top && Interlaced_Bottom) || (!Interlaced_Top && !Interlaced_Bottom))

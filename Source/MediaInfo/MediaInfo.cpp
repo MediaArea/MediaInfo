@@ -159,6 +159,7 @@ int MediaInfo::Format_Test()
     if (Info && Info->Count_Get(Stream_General)>0)
     {
         Info->Open_Buffer_Finalize();
+        Info->Finalize();
         return 1;
     }
 

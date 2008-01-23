@@ -663,16 +663,11 @@ public :
     // Finalize
     //***************************************************************************
 
-protected :
-
-    //Utils - Finalize
-    void PlayTime_PlayTime123   (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
-    void FileSize_FileSize123   (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
-    void Kilo_Kilo123           (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
-    void Value_Value123         (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
-
     //End
     void Finalize();
+
+protected :
+
     void Finalize__All      (stream_t StreamKind);
     void Finalize__All      (stream_t StreamKind, size_t Pos, Ztring &Codec_List, Ztring &Language_List);
     void Finalize_General   (size_t Pos);
@@ -684,6 +679,12 @@ protected :
     void Finalize_Menu      (size_t Pos);
     void Finalize_Tags      ();
     void Finalize_Final     ();
+
+    //Utils - Finalize
+    void PlayTime_PlayTime123   (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
+    void FileSize_FileSize123   (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
+    void Kilo_Kilo123           (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
+    void Value_Value123         (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
 
     //***************************************************************************
     //
@@ -772,6 +773,17 @@ private :
 
     //NextCode
     std::map<int64u, bool> NextCode;
+
+    //BookMarks
+    size_t              BookMark_Element_Level;
+    int64u              BookMark_GoTo;
+    std::vector<int64u> BookMark_Code;
+    std::vector<int64u> BookMark_Next;
+
+public :
+    void BookMark_Set(size_t Element_Level_ToGet=(size_t)-1);
+    void BookMark_Get(size_t Element_Level_ToSet=(size_t)-1);
+    virtual bool BookMark_Needed()                                              {return true;};
 };
 
 } //NameSpace

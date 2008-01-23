@@ -54,7 +54,8 @@ private :
     //Buffer
     void Header_Parse();
     void Data_Parse();
-
+    bool BookMark_Needed();
+    
     //Data
     struct stream
     {
@@ -94,7 +95,9 @@ private :
     int32u                   Stream_ID;
 
     std::map<int64u, int64u> Stream_Pos;
+    std::map<int64u, int64u> Index_Pos;
     std::map<int64u, int64u>::iterator Stream_Pos_Current;
+    std::map<int64u, int64u>::iterator Index_Pos_Current;
     int64u Interleaved0_1;
     int64u Interleaved0_10;
     int64u Interleaved1_1;
@@ -104,13 +107,14 @@ private :
     float64 avih_FrameRate; //FrameRate of the first video stream in one MOVI chunk
     int32u avih_TotalFrame; //Count of frames in one MOVI chunk
     int32u dmlh_TotalFrame; //Count of frames in the whole AVI file (with odml too)
+    int64u movi_Pos;        //Pos of the data part (AVI)
     int64u movi_Size;       //Size of the data part (AVI and AVIX)
     int8u  stream_Count;    //How many stream we have to parse
     bool   rec__Present;    //True if synchro element is present
     bool   Alignement_ExtraByte;
     bool   NeedOldIndex;
-    bool   IsIndexed;
     bool   IsBigEndian;
+    bool   IsOpenDML;
 
     //Chunks
     void AIFC ();
@@ -162,6 +166,7 @@ private :
     void AVI__movi ();
     void AVI__movi_xxxx ();
     void AVI__movi_xxxx___dc ();
+    void AVI__movi_xxxx___sb ();
     void AVI__movi_xxxx___tx ();
     void AVI__movi_xxxx___wb ();
     void AVI__movi_rec_ ();

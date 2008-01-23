@@ -633,10 +633,10 @@ void File_Mpegv::slice_start_Fill()
     if (load_intra_quantiser_matrix || load_intra_quantiser_matrix)
     {
         Fill("Codec_Settings", "CustomMatrix");
-        Fill("Codec_Settings/Matrix", "Custom");
+        Fill("Codec_Settings_Matrix", "Custom");
     }
     else
-        Fill("Codec_Settings/Matrix", "Standard");
+        Fill("Codec_Settings_Matrix", "Standard");
 
     //library
     if (Library.size()>=8)

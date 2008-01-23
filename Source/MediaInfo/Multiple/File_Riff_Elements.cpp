@@ -35,6 +35,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Riff.h"
+#if defined(MEDIAINFO_AVC_YES)
+    #include "MediaInfo/Video/File_Avc.h"
+#endif
 #if defined(MEDIAINFO_MPEG4V_YES)
     #include "MediaInfo/Video/File_Mpeg4v.h"
 #endif
@@ -121,6 +124,8 @@ namespace Elements
     const int32u AVI__idx1=0x69647831;
     const int32u AVI__INFO=0x494E464F;
     const int32u AVI__INFO_IARL=0x4941524C;
+    const int32u AVI__INFO_IAS1=0x49415331;
+    const int32u AVI__INFO_IAS2=0x49415332;
     const int32u AVI__INFO_IART=0x49415254;
     const int32u AVI__INFO_ICMS=0x49434D53;
     const int32u AVI__INFO_ICMT=0x49434D54;
@@ -680,10 +685,6 @@ void File_Riff::AVI__hdlr_strl_indx()
                     break;
         default: Skip_XX(Element_Size-Element_Offset,           "Unknown");
     }
-
-    //We needn't anymore Old version
-    NeedOldIndex=false;
-    IsIndexed=true;
 }
 
 //---------------------------------------------------------------------------
@@ -692,11 +693,14 @@ void File_Riff::AVI__hdlr_strl_indx_StandardIndex(int32u Entry_Count, int32u Chu
     Element_Name("Standard Index");
 
     //Parsing
+    ChunkId&=0xFFFF0000;
     int64u BaseOffset, StreamSize=0;
     Get_L8 (BaseOffset,                                         "BaseOffset");
     Skip_L4(                                                    "Reserved3");
     for (int32u Pos=0; Pos<Entry_Count; Pos++)
     {
+        //Is too slow
+        /*
         Element_Begin("Index");
         int32u Offset, Size;
         Get_L4 (Offset,                                         "Offset"); //BaseOffset + this is absolute file offset
@@ -704,24 +708,31 @@ void File_Riff::AVI__hdlr_strl_indx_StandardIndex(int32u Entry_Count, int32u Chu
         Element_Info(Size&0x7FFFFFFF);
         if (Size)
             Element_Info("KeyFrame");
+        Size&=0x7FFFFFFF;
+        Element_End();
+        */
 
+        //Faster method
+        int32u Offset  =LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset);
+        int32u Size    =LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset+4)&0x7FFFFFFF;
+        Element_Offset+=8;
+        
         //Stream Position and size
         if (Pos<300)
-            Stream_Pos[BaseOffset+Offset-8]=ChunkId&0xFFFF0000;
-        StreamSize+=(Size&0x7FFFFFFF);
+            Stream_Pos[BaseOffset+Offset-8]=ChunkId;
+        StreamSize+=Size;
 
         //Interleaved
-        if (Pos==  0 && (ChunkId&0xFFFF0000)==0x30300000 && Interleaved0_1  ==0)
+        if (Pos==  0 && (ChunkId)==0x30300000 && Interleaved0_1  ==0)
             Interleaved0_1 =BaseOffset+Offset-8;
-        if (Pos==Entry_Count/10 && (ChunkId&0xFFFF0000)==0x30300000 && Interleaved0_10==0)
+        if (Pos==Entry_Count/10 && (ChunkId)==0x30300000 && Interleaved0_10==0)
             Interleaved0_10=BaseOffset+Offset-8;
-        if (Pos==  0 && (ChunkId&0xFFFF0000)==0x30310000 && Interleaved1_1  ==0)
+        if (Pos==  0 && (ChunkId)==0x30310000 && Interleaved1_1  ==0)
             Interleaved1_1 =BaseOffset+Offset-8;
-        if (Pos==Entry_Count/10 && (ChunkId&0xFFFF0000)==0x30310000 && Interleaved1_10==0)
+        if (Pos==Entry_Count/10 && (ChunkId)==0x30310000 && Interleaved1_10==0)
             Interleaved1_10=BaseOffset+Offset-8;
-
-        Element_End();
     }
+
     Stream[ChunkId].StreamSize+=StreamSize;
     Skip_XX(Element_Size-Element_Offset,                        "Garbage");
 }
@@ -760,9 +771,12 @@ void File_Riff::AVI__hdlr_strl_indx_SuperIndex(int32u Entry_Count, int32u ChunkI
         Get_L8 (Offset,                                         "Offset");
         Skip_L4(                                                "Size"); //Size of index chunk at this offset
         Skip_L4(                                                "Duration"); //time span in stream ticks
-        Stream_Pos[Offset]=ChunkId;
+        Index_Pos[Offset]=ChunkId;
         Element_End();
     }
+
+    //Filling
+    NeedOldIndex=false;
 }
 
 //---------------------------------------------------------------------------
@@ -849,7 +863,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     #endif
     #if defined(MEDIAINFO_ADTS_YES)
     else if (FormatTag==0xAAC || FormatTag==0xFF)
-        ;//Stream[Stream_ID].Parser=new File_Adts; //The only 1 example I have is not understable
+        Stream[Stream_ID].Parser=new File_Adts;
     #endif
 
     //Options
@@ -1040,6 +1054,13 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
         ((File_Mpeg4v*)Stream[Stream_ID].Parser)->FrameIsAlwaysComplete=true;
     }
     #endif
+    #if defined(MEDIAINFO_AVC_YES)
+    else if (Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("AVC"))==0)
+    {
+        Stream[Stream_ID].Parser=new File_Avc;
+        ((File_Avc*)Stream[Stream_ID].Parser)->FrameIsAlwaysComplete=true;
+    }
+    #endif
     #if defined(MEDIAINFO_JPEG_YES)
     else if (Ztring().From_CC4(Compression)==_T("MJPG"))
     {
@@ -1089,12 +1110,12 @@ void File_Riff::AVI__hdlr_strl_strh()
     {
         FrameRate=((float32)Rate)/Scale;
         int64u PlayTime=float32_int64s((1000*(float32)Length)/FrameRate);
-        if (avih_TotalFrame>0 //avih_TotalFrame is here because some files have a wrong Audio Playtime if TotalFrame==0 (which is a bug, of course!)
-        && (avih_FrameRate==0 || PlayTime<((float32)avih_TotalFrame)/avih_FrameRate*1000*1.10)  //Some file have a nearly perfect header, except that the value is false, trying to detect it (false if 10% more than 1st video)
-        && (avih_FrameRate==0 || PlayTime>((float32)avih_TotalFrame)/avih_FrameRate*1000*0.90)) //Some file have a nearly perfect header, except that the value is false, trying to detect it (false if 10% less than 1st video)
+        //if (avih_TotalFrame>0 //avih_TotalFrame is here because some files have a wrong Audio Playtime if TotalFrame==0 (which is a bug, of course!)
+        //&& (avih_FrameRate==0 || PlayTime<((float32)avih_TotalFrame)/avih_FrameRate*1000*1.10)  //Some file have a nearly perfect header, except that the value is false, trying to detect it (false if 10% more than 1st video)
+        //&& (avih_FrameRate==0 || PlayTime>((float32)avih_TotalFrame)/avih_FrameRate*1000*0.90)) //Some file have a nearly perfect header, except that the value is false, trying to detect it (false if 10% less than 1st video)
             Fill("PlayTime", PlayTime);
-        else
-            Fill("Coherency/PlayTime", PlayTime);
+        //else
+        //    Fill("Coherency/PlayTime", PlayTime);
     }
     switch (fccType)
     {
@@ -1175,16 +1196,16 @@ void File_Riff::AVI__idx1()
     else if (!Element_IsComplete_Get())
     {
         Element_WaitForMoreData();
-        return;         
+        return;
     }
 
     //Parsing
     std::map <int64u, size_t> Stream_Count;
-    while (Element_Offset<Element_Size)
+    while (Element_Offset+16<=Element_Size)
     {
         //Is too slow
         /*
-	    int32u ChunkID, Offset, Size;
+        int32u ChunkID, Offset, Size;
         Element_Begin("Index");
         Get_C4 (ChunkID,                                        "ChunkID"); //Bit 31 is set if this is NOT a keyframe
         Info_L4(Flags,                                          "Flags");
@@ -1201,15 +1222,19 @@ void File_Riff::AVI__idx1()
         //Stream Pos and Size
         int32u StreamID_Temp=(ChunkID&0xFFFF0000);
         Stream_Pos[Offset]=StreamID_Temp;
-        Stream[StreamID_Temp].StreamSize+=Size;
+        Stream[StreamID_Temp].StreamSize+=Size&7FFFFFFF;
         Element_End();
         */
 
         //Faster method
-        int32u StreamID=LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset)&0xFFFF0000;
-        int32u Size=LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset+8);
+        int32u StreamID=CC4                (Buffer+Buffer_Offset+Element_Offset   )&0xFFFF0000;
+        int32u Offset  =LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset+ 8)+movi_Pos-4;
+        int32u Size    =LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset+12)&0x7FFFFFFF;
         Stream[StreamID].StreamSize+=Size;
-        Element_Offset+=12;
+        Stream_Count[StreamID]++;
+        if (Stream_Count[StreamID]<300)
+            Stream_Pos[Offset]=StreamID;
+        Element_Offset+=16;
     }
 
     //Interleaved
@@ -1268,9 +1293,12 @@ void File_Riff::AVI__INFO_xxxx()
 
     //Filling
     stream_t StreamKind=Stream_General;
+    stream_t StreamPos=0;
     Ztring Name;
     switch (Element_Code)
     {
+        case Elements::AVI__INFO_IAS1 : Name="Language"; StreamKind=Stream_Audio; break;
+        case Elements::AVI__INFO_IAS2 : Name="Language"; StreamKind=Stream_Audio; StreamPos=0; break;
         case Elements::AVI__INFO_IARL : Name="Archival_Location"; break;
         case Elements::AVI__INFO_IART : Name="Director"; break;
         case Elements::AVI__INFO_ICMS : Name="CommissionedBy"; break;
@@ -1301,7 +1329,7 @@ void File_Riff::AVI__INFO_xxxx()
     }
     Element_Name(Name);
     Element_Info(Value);
-    Fill(StreamKind, 0, Name.To_Local().c_str(), Value);
+    Fill(StreamKind, StreamPos, Name.To_Local().c_str(), Value);
 }
 
 //---------------------------------------------------------------------------
@@ -1344,36 +1372,27 @@ void File_Riff::AVI__movi()
     Element_Name("Datas");
 
     //Filling
+    if (movi_Pos==(int64u)-1)
+    {
+        //First movi block, doing some cleaning and remembering
+        BookMark_Set();
+        movi_Pos=File_Offset+Buffer_Offset;
+    }
     movi_Size+=Element_TotalSize_Get();
 
-    //For each stream
-    std::map<int32u, stream>::iterator Temp=Stream.begin();
-    while (Temp!=Stream.end())
+    //Jump to next useful data
+    if (!Index_Pos.empty())
     {
-        if (!Temp->second.Parser && Temp->second.fccType!=Elements::AVI__hdlr_strl_strh_txts)
-        {
-            AVI__movi_StreamClear(Temp->first);
-            Temp->second.SearchingPayload=false;
-            stream_Count--;
-        }
-        Temp++;
+        if (Index_Pos.begin()->first<File_Offset+Buffer_Offset+Element_TotalSize_Get())
+            File_GoTo=Index_Pos.begin()->first; //Go to first index
+        else
+            File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get(); //Go to the next AVIX chunk
     }
-
-    //We must parse moov?
-    if (stream_Count==0)
+    else if (stream_Count==0 || NeedOldIndex)
     {
-        //Jumping
+        //Chunk not needed, skipping it
         Skip_XX(Element_TotalSize_Get(),                        "Data");
         return;
-    }
-
-    //Jump to next useful data
-    if (IsIndexed)
-    {
-        Stream_Pos_Current=Stream_Pos.begin();
-        int64u ToJump=Stream_Pos_Current->first;
-        if (ToJump>File_Offset+Buffer_Size)
-            File_GoTo=ToJump;
     }
 }
 
@@ -1394,22 +1413,20 @@ void File_Riff::AVI__movi_rec__xxxx()
 //---------------------------------------------------------------------------
 void File_Riff::AVI__movi_xxxx()
 {
+    //Junk case
     if (Element_Code==Elements::AVI__JUNK)
     {
         Skip_XX(Element_Size,                                    "Junk");
-        AVI__movi_StreamJump();
         return;
     }
 
     Stream_ID=(int32u)(Element_Code&0xFFFF0000);
 
-    if (Stream_ID==0x69780000) //ix..
+    //ix..
+    if (Stream_ID==0x69780000)
     {
         //AVI Standard Index Chunk
         AVI__hdlr_strl_indx();
-        Stream_ID=(int32u)(Element_Code&0x0000FFFF)<<16;
-        if (!Stream[Stream_ID].SearchingPayload)
-            AVI__movi_StreamClear(Stream_ID);
         AVI__movi_StreamJump();
         return;
     }
@@ -1455,6 +1472,8 @@ void File_Riff::AVI__movi_xxxx()
     {
         case Elements::AVI__movi_xxxx___db :
         case Elements::AVI__movi_xxxx___dc : AVI__movi_xxxx___dc(); break;
+        case Elements::AVI__movi_xxxx___sb : AVI__movi_xxxx___sb(); break;
+        case Elements::AVI__movi_xxxx___tx : AVI__movi_xxxx___tx(); break;
         case Elements::AVI__movi_xxxx___wb : AVI__movi_xxxx___wb(); break;
         default : ;
     }
@@ -1471,9 +1490,7 @@ void File_Riff::AVI__movi_xxxx___dc()
      || Stream[Stream_ID].Parser->File_Offset==File_Size
      || Stream[Stream_ID].PacketCount>=300)
     {
-        Stream[Stream_ID].SearchingPayload=false;
         AVI__movi_StreamClear(Stream_ID);
-        stream_Count--;
         return;
     }
 
@@ -1481,11 +1498,19 @@ void File_Riff::AVI__movi_xxxx___dc()
     #if defined(MEDIAINFO_MPEG4V_YES)
         if (Stream[Stream_ID].Specific_IsMpeg4v && ((File_Mpeg4v*)Stream[Stream_ID].Parser)->RIFF_VOP_Count>1)
         {
-            Stream[Stream_ID].SearchingPayload=false;
             AVI__movi_StreamClear(Stream_ID);
-            stream_Count--;
         }
     #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__movi_xxxx___sb()
+{
+    //Parsing
+    Skip_XX(Element_Size,                                       "DivX subtitles...");
+
+    //Skip it
+    AVI__movi_StreamClear(Stream_ID);
 }
 
 //---------------------------------------------------------------------------
@@ -1503,9 +1528,7 @@ void File_Riff::AVI__movi_xxxx___tx()
     Skip_L4(                                                    "File_Size");
 
     //Skip it
-    Stream[Stream_ID].SearchingPayload=false;
     AVI__movi_StreamClear(Stream_ID);
-    stream_Count--;
 }
 
 //---------------------------------------------------------------------------
@@ -1517,9 +1540,7 @@ void File_Riff::AVI__movi_xxxx___wb()
      || Stream[Stream_ID].PacketCount>=300
      || Element_Size>50000) //For PCM, we disable imediatly
     {
-        Stream[Stream_ID].SearchingPayload=false;
         AVI__movi_StreamClear(Stream_ID);
-        stream_Count--;
     }
 }
 
@@ -1527,34 +1548,56 @@ void File_Riff::AVI__movi_xxxx___wb()
 void File_Riff::AVI__movi_StreamJump()
 {
     //Jump to next useful data
-    if (IsIndexed)
-        Stream_Pos_Current++;
-    if (stream_Count==0
-     || (IsIndexed && Stream_Pos_Current==Stream_Pos.end()))
+    if (!Index_Pos.empty() && Index_Pos.begin()->first+8==File_Offset+Buffer_Offset)
     {
-        //Jumping
-        Element_Show();
-        Element_End();
-        if (rec__Present)
-            Element_End();
-        Info("movi, Jumping to end of chunk");
-        File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
-    }
-    else if (IsIndexed && Stream_Pos_Current->first>File_Offset+Buffer_Size)
-    {
-        File_GoTo=Stream_Pos_Current->first;
-        if (File_GoTo>File_Size)
+        Index_Pos.erase(Index_Pos.begin()); //Clearing, index is parsed
+        if (!Index_Pos.empty() && Index_Pos.begin()->first<File_Offset+Buffer_Offset+Element_TotalSize_Get())
+            File_GoTo=Index_Pos.begin()->first;
+        else
+            File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
+
+        if (Index_Pos.empty())
+        {
+            Element_End(); //Index
             Finnished();
+        }
+
+        return;
+    }
+
+    //Stream part
+    if (!Stream_Pos.empty() && Stream_Pos.begin()->first+8==File_Offset+Buffer_Offset)
+    {
+        Stream_Pos.erase(Stream_Pos.begin()); //Clearing, data is parsed
+        if (Stream_Pos.empty())
+        {
+            Finnished();
+            return;
+        }
+    }
+
+    if (!Stream_Pos.empty())
+    {
+        if (Stream_Pos.begin()->first!=File_Offset+Buffer_Offset+Element_Size)
+            File_GoTo=Stream_Pos.begin()->first;
     }
 }
 
 //---------------------------------------------------------------------------
 void File_Riff::AVI__movi_StreamClear(int32u ChunkId)
 {
+    //Disabling the stream
+    if (Stream[ChunkId].SearchingPayload)
+    {
+        Stream[ChunkId].SearchingPayload=false;
+        stream_Count--;
+    }
+
+    if (Stream_Pos.empty())
+        return;
+
     //Erasing index if not needed
-    std::map<int64u, int64u>::iterator Temp=Stream_Pos_Current;
-    if (Temp!=Stream_Pos.end())
-        Temp++;
+    std::map<int64u, int64u>::iterator Temp=Stream_Pos.begin();
     while (Temp!=Stream_Pos.end())
     {
         std::map<int64u, int64u>::iterator Stream_Pos_Temp=Temp;
@@ -1567,11 +1610,15 @@ void File_Riff::AVI__movi_StreamClear(int32u ChunkId)
         if (!Useful)
             Stream_Pos.erase(Stream_Pos_Temp);
     }
+
+    if (Stream_Pos.empty())
+        Finnished();
 }
 
 //---------------------------------------------------------------------------
 void File_Riff::AVIX()
 {
+    IsOpenDML=true;
 }
 
 //---------------------------------------------------------------------------
