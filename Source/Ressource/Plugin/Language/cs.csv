@@ -176,8 +176,15 @@ Chroma;Chroma
 Close;Zavřít
 Close all before open;Zavřít vše před otevřením nového
 Codec
+Codec_Description
 Codec_Info;Details for codec
 Codec_Settings;Nastavení kodeku
+Codec_Settings_PacketBitStream
+Codec_Settings_BVOP
+Codec_Settings_QPel
+Codec_Settings_GMC
+Codec_Settings_Matrix
+Codec_Settings_Floor
 Codec_Profile;Profil kodeku
 Codec_Url;Adresa pro stažení kodeku
 Collection;Collection
@@ -756,7 +763,7 @@ Written_Location;Written location
 WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98
 Menu_Codecs_List;Menu codecs
 Menu_Codecs_List0k

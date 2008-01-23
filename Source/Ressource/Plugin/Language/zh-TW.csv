@@ -176,8 +176,15 @@ Chroma
 Close;關閉
 Close all before open;開啟前關閉其它檔案
 Codec;編解碼器
+Codec_Description
 Codec_Info
 Codec_Settings
+Codec_Settings_PacketBitStream
+Codec_Settings_BVOP
+Codec_Settings_QPel
+Codec_Settings_GMC
+Codec_Settings_Matrix
+Codec_Settings_Floor
 Codec_Profile
 Codec_Url
 Collection
@@ -757,6 +764,6 @@ WrittenBy
 Yes
 Your system;您的系統
 ZZ_Automatic_Percent;21
-ZZ_AutomaticLanguage_Percent;46
+ZZ_AutomaticLanguage_Percent;45
 Menu_Codecs_List
 Menu_Codecs_List0k

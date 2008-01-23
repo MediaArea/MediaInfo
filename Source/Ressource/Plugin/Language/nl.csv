@@ -176,8 +176,15 @@ Chroma
 Close;Sluiten
 Close all before open;Sluit alle alvorens te openen
 Codec;Codec
+Codec_Description
 Codec_Info;Details voor codec
 Codec_Settings;Codec-instellingen
+Codec_Settings_PacketBitStream
+Codec_Settings_BVOP
+Codec_Settings_QPel
+Codec_Settings_GMC
+Codec_Settings_Matrix
+Codec_Settings_Floor
 Codec_Profile;Codec-profiel
 Codec_Url;Weblink voor codec
 Collection;Collectie
@@ -675,7 +682,7 @@ Save;Opslaan
 ScreenplayBy;Draaiboek door
 Season;Seizoen
 see below;zie onder
-Send HeaderFile;A.u.b het Header-bestand hierheen sturen : http://sourceforge.net/projects/mediainfo/ (onder """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""Bugs"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""")
+Send HeaderFile;A.u.b het Header-bestand hierheen sturen : http://sourceforge.net/projects/mediainfo/ (onder """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""Bugs"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""")
 Separator_Columns;scheidingsteken kolommen
 Separator_Lines;scheidingsteken regels
 Set;Set
@@ -756,7 +763,7 @@ Written_Location;Locatie van schrijven
 WrittenBy;Geschreven door
 Yes;Ja
 Your system;Uw systeem
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96
 Menu_Codecs_List
 Menu_Codecs_List0k

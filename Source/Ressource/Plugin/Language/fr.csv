@@ -176,8 +176,15 @@ Chroma;Chrominance
 Close;Fermer
 Close all before open;Tout fermer avant d'ouvrir
 Codec;Codec
+Codec_Description;Description du codec
 Codec_Info;Infos sur le Codec
 Codec_Settings;Paramètres du codec
+Codec_Settings_PacketBitStream;Paramètres du codec, Packet bitstream
+Codec_Settings_BVOP;Paramètres du codec, BVOP
+Codec_Settings_QPel;Paramètres du codec, QPel
+Codec_Settings_GMC;Paramètres du codec, GMC
+Codec_Settings_Matrix;Paramètres du codec, Matrice
+Codec_Settings_Floor;Paramètres du codec, Seuil
 Codec_Profile;Profile du codec
 Codec_Url;Lien Internet sur le codec
 Collection;Collection 

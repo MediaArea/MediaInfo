@@ -176,8 +176,15 @@ Chroma
 Close;Pechar
 Close all before open;Pechar todo antes de abrir
 Codec;Codec
+Codec_Description
 Codec_Info;Info do codec
 Codec_Settings;Configuración do codec
+Codec_Settings_PacketBitStream
+Codec_Settings_BVOP
+Codec_Settings_QPel
+Codec_Settings_GMC
+Codec_Settings_Matrix
+Codec_Settings_Floor
 Codec_Profile;Codec profile
 Codec_Url;Web do codec
 Collection;Colección
@@ -756,7 +763,7 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96
 Menu_Codecs_List
 Menu_Codecs_List0k

@@ -176,8 +176,15 @@ Chroma
 Close;Inchideti
 Close all before open;Inchideti tot inainte de a deschide
 Codec;Codec
+Codec_Description
 Codec_Info;Detalii despre codec
 Codec_Settings;Setari codec
+Codec_Settings_PacketBitStream
+Codec_Settings_BVOP
+Codec_Settings_QPel
+Codec_Settings_GMC
+Codec_Settings_Matrix
+Codec_Settings_Floor
 Codec_Profile;Profil codec
 Codec_Url;Legatira web pentru codec
 Collection;Colectie

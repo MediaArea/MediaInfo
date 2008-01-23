@@ -176,8 +176,15 @@ Chroma
 Close
 Close all before open;Cerrar todo antes de abrir
 Codec;Codec
+Codec_Description
 Codec_Info;Codec_Info
 Codec_Settings
+Codec_Settings_PacketBitStream
+Codec_Settings_BVOP
+Codec_Settings_QPel
+Codec_Settings_GMC
+Codec_Settings_Matrix
+Codec_Settings_Floor
 Codec_Profile
 Codec_Url;Url_Codec
 Collection

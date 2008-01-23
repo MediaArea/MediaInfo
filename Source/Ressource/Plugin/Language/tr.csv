@@ -176,8 +176,15 @@ Chroma;Krom
 Close;Kapat
 Close all before open;Açmadan önce tümünü kapat
 Codec;Kodek
+Codec_Description
 Codec_Info;Kodek için ayrıntılar
 Codec_Settings;Kodek ayarları
+Codec_Settings_PacketBitStream
+Codec_Settings_BVOP
+Codec_Settings_QPel
+Codec_Settings_GMC
+Codec_Settings_Matrix
+Codec_Settings_Floor
 Codec_Profile;Kodek profili
 Codec_Url;Kodek için web bağlantısı
 Collection;Koleksiyon
@@ -756,7 +763,7 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98
 Menu_Codecs_List
 Menu_Codecs_List0k

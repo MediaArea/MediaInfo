@@ -176,8 +176,15 @@ Chroma
 Close;Закрыть
 Close all before open;Закрыть перед открытием
 Codec;Кодек
+Codec_Description
 Codec_Info;Подробно о кодеке
 Codec_Settings
+Codec_Settings_PacketBitStream
+Codec_Settings_BVOP
+Codec_Settings_QPel
+Codec_Settings_GMC
+Codec_Settings_Matrix
+Codec_Settings_Floor
 Codec_Profile
 Codec_Url;Ссылка на кодек
 Collection;Коллекция
@@ -757,6 +764,6 @@ WrittenBy;Написано
 Yes;Да
 Your system;Ваша система
 ZZ_Automatic_Percent;63
-ZZ_AutomaticLanguage_Percent;71
+ZZ_AutomaticLanguage_Percent;70
 Menu_Codecs_List
 Menu_Codecs_List0k

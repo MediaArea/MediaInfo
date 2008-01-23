@@ -176,8 +176,15 @@ Chroma;Saturação
 Close;Fechar
 Close all before open;Fechar todos antes de abrir
 Codec;Codec
+Codec_Description
 Codec_Info;Detalhes do codec
 Codec_Settings;Config. do Codec
+Codec_Settings_PacketBitStream
+Codec_Settings_BVOP
+Codec_Settings_QPel
+Codec_Settings_GMC
+Codec_Settings_Matrix
+Codec_Settings_Floor
 Codec_Profile;Perfil do Codec
 Codec_Url;Link para o codec
 Collection;Coleção
@@ -756,7 +763,7 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;Seu sistema
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98
 Menu_Codecs_List
 Menu_Codecs_List0k

@@ -176,8 +176,15 @@ Chroma
 Close; Stäng
 Close all before open; Stäng alla före öppna
 Codec; Codec
+Codec_Description
 Codec_Info; Codecdetaljer
 Codec_Settings; Codecinställningar
+Codec_Settings_PacketBitStream
+Codec_Settings_BVOP
+Codec_Settings_QPel
+Codec_Settings_GMC
+Codec_Settings_Matrix
+Codec_Settings_Floor
 Codec_Profile; Codecprofil
 Codec_Url; Länk till codec
 Collection; Samling
@@ -756,7 +763,7 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96
 Menu_Codecs_List
 Menu_Codecs_List0k

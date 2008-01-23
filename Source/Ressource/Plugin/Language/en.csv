@@ -176,8 +176,15 @@ Chroma;Chroma
 Close;Close
 Close all before open;Close all before open
 Codec;Codec
+Codec_Description;Codec description
 Codec_Info;Details for codec
 Codec_Settings;Codec settings
+Codec_Settings_PacketBitStream;Codec settings, Packet bitstream
+Codec_Settings_BVOP;Codec settings, BVOP
+Codec_Settings_QPel;Codec settings, QPel
+Codec_Settings_GMC;Codec settings, GMC
+Codec_Settings_Matrix;Codec settings, Matrix
+Codec_Settings_Floor;Codec settings, Floor
 Codec_Profile;Codec profile
 Codec_Url;Weblink for codec
 Collection;Collection
