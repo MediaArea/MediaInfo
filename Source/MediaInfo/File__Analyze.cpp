@@ -677,7 +677,7 @@ bool File__Analyze::Data_Manage()
 
     //Next element
     else if (Element[Element_Level].Next-File_Offset>(size_t)-1)
-        Buffer_Offset=(size_t)-1;
+        ;
     else if (!Element_WantNextLevel)
         Buffer_Offset=(size_t)(Element[Element_Level].Next-File_Offset);
     else

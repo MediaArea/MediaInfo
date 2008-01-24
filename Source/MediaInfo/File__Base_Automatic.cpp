@@ -1,4 +1,4 @@
-﻿// Helpers - Automaticly generated methods for MediaInfo
+// Helpers - Automaticly generated methods for MediaInfo
 // Copyright (C) 2005-2007 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software; you can redistribute it and/or
@@ -1765,6 +1765,7 @@ void File__Base_Codec (ZtringListList &Info)
     "MPEG-2.5A L3;MPEG-2.5 Audio Layer 3;MediaInfo;A;MPEG-A\n"
     "APE;Monkey's Audio;MediaInfo;A;;;;http://www.monkeysaudio.com/\n"
     "ALS;ALS;MediaInfo;A;;;MPEG-4 Audio Lossless Coding;http://www.nue.tu-berlin.de/forschung/projekte/lossless/mp4als.html#downloads\n"
+    "Vodei;Vodei MP;MediaInfo;V;;;Video On Demand Exploration Interface;http://www.vodei.com\n"
     "0;Unknown;2CC;A\n"
     "1;PCM;2CC;A;PCM;;Microsoft PCM;http://www.microsoft.com/windows/\n"
     "2;ADPCM;2CC;A;ADPCM;;Microsoft ADPCM;http://www.microsoft.com/windows/\n"
@@ -2294,7 +2295,7 @@ void File__Base_Video (ZtringListList &Info)
     "Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal\n"
     "Coherency/PlayTime;;;N NT;;;Playtime if detected wrong\n"
     "Encryption;;;Y YT\n"
-    ));
+    )); 
     Info.Separator_Set(0, ZenLib::EOL);
 }
 
