@@ -1298,7 +1298,7 @@ void File_Riff::AVI__INFO_xxxx()
     switch (Element_Code)
     {
         case Elements::AVI__INFO_IAS1 : Name="Language"; StreamKind=Stream_Audio; break;
-        case Elements::AVI__INFO_IAS2 : Name="Language"; StreamKind=Stream_Audio; StreamPos=0; break;
+        case Elements::AVI__INFO_IAS2 : Name="Language"; StreamKind=Stream_Audio; StreamPos=1; break;
         case Elements::AVI__INFO_IARL : Name="Archival_Location"; break;
         case Elements::AVI__INFO_IART : Name="Director"; break;
         case Elements::AVI__INFO_ICMS : Name="CommissionedBy"; break;
@@ -1591,6 +1591,12 @@ void File_Riff::AVI__movi_StreamClear(int32u ChunkId)
     {
         Stream[ChunkId].SearchingPayload=false;
         stream_Count--;
+        if (stream_Count==0)
+        {
+            //Chunk not needed, skipping it
+            File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get(1);
+            return;
+        }
     }
 
     if (Stream_Pos.empty())

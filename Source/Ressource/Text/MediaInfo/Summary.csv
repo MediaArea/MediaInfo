@@ -1,4 +1,4 @@
-General;[%Format%$: $]%FileSize/String%[, %PlayTime/String%]
+General;[%Format%][ (%Format_Settings%)]$if(%Format%,$: $)%FileSize/String%[, %PlayTime/String%]
 Video;[%Language/String%, ][%BitRate/String%$if(%BitRate_Nominal/String%, \\(%BitRate_Nominal/String%\\)), ][%Width%*][%Height%][ (%DisplayAspectRatio/String%), ][ $at$ %FrameRate/String%, ][%Codec/String%][ (%Standard%)]$if(%Codec_Profile%, \\(%Codec_Profile%\\))$if(%Codec_Settings%, \\(%Codec_Settings%\\))
 Audio;[%Language/String%, ][%BitRate/String%$if(%BitRate_Nominal/String%, \\(%BitRate_Nominal/String%\\)), ][%SamplingRate/String%, ][%Channel(s)/String%, ][%Codec/String%]$if(%Codec_Profile%, \\(%Codec_Profile%\\))$if(%Codec_Settings%, \\(%Codec_Settings%\\))
 Text;[%Language/String%, ][%Codec/String%]

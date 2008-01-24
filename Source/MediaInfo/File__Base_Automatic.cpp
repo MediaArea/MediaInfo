@@ -2874,7 +2874,7 @@ void File__Base_Summary (ZtringListList &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_Local(
-    "General;%Format%[ (%Format_Settings%)]$: $%FileSize/String%[, %PlayTime/String%]\n"
+    "General;[%Format%][ (%Format_Settings%)]$if(%Format%,$: $)%FileSize/String%[, %PlayTime/String%]\n"
     "Video;[%Language/String%, ][%BitRate/String%$if(%BitRate_Nominal/String%, \\(%BitRate_Nominal/String%\\)), ][%Width%*][%Height%][ (%DisplayAspectRatio/String%), ][ $at$ %FrameRate/String%, ][%Codec/String%][ (%Standard%)]$if(%Codec_Profile%, \\(%Codec_Profile%\\))$if(%Codec_Settings%, \\(%Codec_Settings%\\))\n"
     "Audio;[%Language/String%, ][%BitRate/String%$if(%BitRate_Nominal/String%, \\(%BitRate_Nominal/String%\\)), ][%SamplingRate/String%, ][%Channel(s)/String%, ][%Codec/String%]$if(%Codec_Profile%, \\(%Codec_Profile%\\))$if(%Codec_Settings%, \\(%Codec_Settings%\\))\n"
     "Text;[%Language/String%, ][%Codec/String%]\n"

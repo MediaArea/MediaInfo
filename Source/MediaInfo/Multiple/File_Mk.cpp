@@ -40,6 +40,9 @@
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
+#if defined(MEDIAINFO_DTS_YES)
+    #include "MediaInfo/Audio/File_Dts.h"
+#endif
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
@@ -2409,6 +2412,13 @@ void File_Mk::CodecID_Fill()
     else if (CodecFamily==_T("AC3"))
     {
         Stream[TrackNumber].Parser=new File_Ac3;
+        //((File_Ac3*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+    }
+    #endif
+    #if defined(MEDIAINFO_AC3_YES)
+    else if (CodecID==_T("A_DTS"))
+    {
+        Stream[TrackNumber].Parser=new File_Dts;
         //((File_Ac3*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
     }
     #endif
