@@ -1554,7 +1554,7 @@ void File_Riff::AVI__movi_StreamJump()
         if (!Index_Pos.empty() && Index_Pos.begin()->first<File_Offset+Buffer_Offset+Element_TotalSize_Get())
             File_GoTo=Index_Pos.begin()->first;
         else
-            File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get(1);
+            File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
 
         if (Index_Pos.empty())
         {
