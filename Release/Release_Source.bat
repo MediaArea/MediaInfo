@@ -46,7 +46,8 @@ xcopy ..\Project\GNU\* MediaInfo_Source\Project\GNU\ /S
 @rem --- Copying : Release ---
 xcopy *.txt MediaInfo_Source\Release\
 xcopy *.bat MediaInfo_Source\Release\
-xcopy *.sh MediaInfo_Source\Release\
+xcopy *.sh  MediaInfo_Source\Release\
+xcopy *.sub MediaInfo_Source\Release\
 xcopy BCB\*.txt MediaInfo_Source\Release\BCB\ /S
 xcopy MSVC\*.txt MediaInfo_Source\Release\MSVC\ /S
 xcopy GCC_MinGW32\*.txt MediaInfo_Source\Release\GCC_MinGW32\ /S
