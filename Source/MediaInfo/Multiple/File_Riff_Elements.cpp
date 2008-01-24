@@ -1554,7 +1554,7 @@ void File_Riff::AVI__movi_StreamJump()
         if (!Index_Pos.empty() && Index_Pos.begin()->first<File_Offset+Buffer_Offset+Element_TotalSize_Get())
             File_GoTo=Index_Pos.begin()->first;
         else
-            File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
+            File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get(1);
 
         if (Index_Pos.empty())
         {
@@ -1576,7 +1576,7 @@ void File_Riff::AVI__movi_StreamJump()
         }
     }
 
-    if (!Stream_Pos.empty() && File_GoTo!=(int64u)-1)
+    if (!Stream_Pos.empty() && File_GoTo==(int64u)-1)
     {
         if (Stream_Pos.begin()->first!=File_Offset+Buffer_Offset+Element_Size)
             File_GoTo=Stream_Pos.begin()->first;
@@ -1593,8 +1593,7 @@ void File_Riff::AVI__movi_StreamClear(int32u ChunkId)
         stream_Count--;
         if (stream_Count==0)
         {
-            //Chunk not needed, skipping it
-            File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get(1);
+            Finnished();
             return;
         }
     }
