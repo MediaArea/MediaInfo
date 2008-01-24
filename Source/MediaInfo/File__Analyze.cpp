@@ -1155,11 +1155,9 @@ int64u File__Analyze::Element_Code_Get (size_t Level)
 }
 
 //---------------------------------------------------------------------------
-int64u File__Analyze::Element_TotalSize_Get (size_t Level)
+int64u File__Analyze::Element_TotalSize_Get (size_t LevelLess)
 {
-    if (Level==(size_t)-1)
-        Level=Element_Level;
-    return Element[Level].Next-(File_Offset+Buffer_Offset);
+    return Element[Element_Level-LevelLess].Next-(File_Offset+Buffer_Offset);
 }
 
 //---------------------------------------------------------------------------
@@ -1253,7 +1251,7 @@ bool File__Analyze::Element_IsWaitingForMoreData ()
 //---------------------------------------------------------------------------
 void File__Analyze::BookMark_Set (size_t Element_Level_ToSet)
 {
-    if (Element_Level_ToSet==(size_t)-1)
+    if (Element_Level_ToSet==(size_t)-1 && Element_Level>0)
         Element_Level_ToSet=Element_Level;
     BookMark_Element_Level=Element_Level_ToSet;
     BookMark_Code.resize(BookMark_Element_Level+1);
@@ -1282,13 +1280,13 @@ void File__Analyze::BookMark_Get (size_t Element_Level_ToGet)
 
     for (size_t Pos=0; Pos<=Element_Level; Pos++)
     {
-        int64u A=BookMark_Code[Pos];
         Element[Pos].Code=BookMark_Code[Pos];
         Element[Pos].Next=BookMark_Next[Pos];
     }
     BookMark_Code.clear();
     BookMark_Next.clear();
-    File_GoTo=BookMark_GoTo;
+    if (File_GoTo==(int64u)-1)
+        File_GoTo=BookMark_GoTo;
     File_Offset=0; //In case of end of file
 }
 

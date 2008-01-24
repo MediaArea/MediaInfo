@@ -20,6 +20,7 @@ Version 0.7.5.8, 2008-01-
 + MIDI format detection
 + FLV: FrameRate even if the tag is not in the header
 + AU/SND audio formats support
++ Vodei encrypted AVI files detection
 x APE Tags v1 are detected again
 x MPEG-PS: some malformed files were not well parsed, fixed
 x AVC: Cropping was not well handled (example: height was 1088 instead of 1080)

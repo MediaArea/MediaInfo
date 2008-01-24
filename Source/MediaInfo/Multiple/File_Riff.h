@@ -132,6 +132,7 @@ private :
     void AVI__cset ();
     void AVI__exif ();
     void AVI__exif_xxxx ();
+    void AVI__GMET ();
     void AVI__goog ();
     void AVI__goog_GDAT ();
     void AVI__hdlr ();
@@ -173,7 +174,8 @@ private :
     void AVI__movi_rec__xxxx ();
     void AVI__movi_StreamJump ();
     void AVI__movi_StreamClear (int32u ChunkId);
-    void AVI__GMET ();
+    void AVI__ULSC ();
+    void AVI__uvio ();
     void AVIX ();
     void AVIX_idx1 ();
     void AVIX_movi ();

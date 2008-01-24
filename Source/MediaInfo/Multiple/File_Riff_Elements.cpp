@@ -160,6 +160,8 @@ namespace Elements
     const int32u AVI__movi_xxxx___sb=0x00007362;
     const int32u AVI__movi_xxxx___tx=0x00007478;
     const int32u AVI__movi_xxxx___wb=0x00007762;
+    const int32u AVI__ULSC=0x554C5343;
+    const int32u AVI__uvio=0x7576696F;
     const int32u AVIX=0x41564958;
     const int32u AVIX_idx1=0x69647831;
     const int32u AVIX_movi=0x6D6F7669;
@@ -258,6 +260,10 @@ void File_Riff::Data_Parse()
                 ATOM_END_DEFAULT
             ATOM_DEFAULT(AVI__movi_xxxx)
             ATOM_END_DEFAULT
+        ATOM(AVI__ULSC)
+        LIST(AVI__uvio)
+            ATOM_BEGIN
+            ATOM_END
         ATOM_END
     LIST(AVIX) //OpenDML
         ATOM_BEGIN
@@ -1014,6 +1020,7 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
       && (Compression&0x00FF0000)>=0x00200000 && (Compression&0x00FF0000)<=0x007E0000
       && (Compression&0xFF000000)>=0x20000000 && (Compression&0xFF000000)<=0x7E000000)
      ||   Compression==0x00000000
+     ||   Compression==0x01000000
        ) //Sometimes this value is wrong, we have to test this
     {
         if (Compression==CC4("DXSB"))
@@ -1026,12 +1033,13 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
             Stream_Prepare(Stream_Video);
 
         //Filling
-        if (Compression==0x00000000)
-            Fill("Codec", "RGB"); //Raw RGB, not handled by automatic codec mapping
-        else
+        switch (Compression)
         {
-            Fill("Codec", Ztring().From_CC4(Compression).To_Local().c_str()); //FormatTag, may be replaced by codec parser
-            Fill("Codec/CC", Ztring().From_CC4(Compression).To_Local().c_str()); //FormatTag
+            case 0x00000000 : Fill("Codec", "RGB"); break; //Raw RGB, not handled by automatic codec mapping
+            case 0x01000000 : Fill("Codec", "Vodei"); break; //specific
+            default         :
+                              Fill("Codec", Ztring().From_CC4(Compression).To_Local().c_str()); //FormatTag, may be replaced by codec parser
+                              Fill("Codec/CC", Ztring().From_CC4(Compression).To_Local().c_str()); //FormatTag
         }
         Fill("Width", Width, 10, true);
         Fill("Height", Height, 10, true);
@@ -1293,7 +1301,7 @@ void File_Riff::AVI__INFO_xxxx()
 
     //Filling
     stream_t StreamKind=Stream_General;
-    stream_t StreamPos=0;
+    size_t StreamPos=0;
     Ztring Name;
     switch (Element_Code)
     {
@@ -1557,10 +1565,7 @@ void File_Riff::AVI__movi_StreamJump()
             File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get(1);
 
         if (Index_Pos.empty())
-        {
-            Element_End(); //Index
-            Finnished();
-        }
+            File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get(1);
 
         return;
     }
@@ -1618,6 +1623,21 @@ void File_Riff::AVI__movi_StreamClear(int32u ChunkId)
 
     if (Stream_Pos.empty())
         Finnished();
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__ULSC()
+{
+    Element_Name("Vodei stuff");
+
+    //Filling
+    Fill(Stream_Video, 0, "Encryption", "Vodei");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__uvio()
+{
+    Element_Name("Vodei stuff");
 }
 
 //---------------------------------------------------------------------------

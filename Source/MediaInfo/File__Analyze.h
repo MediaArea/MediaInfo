@@ -629,7 +629,7 @@ public :
     //Actions
     void Finnished();
     int64u Element_Code_Get (size_t Level);
-    int64u Element_TotalSize_Get (size_t Level=(size_t)-1);
+    int64u Element_TotalSize_Get (size_t LevelLess=0);
     bool Element_IsComplete_Get ();
     void Element_ThisIsAList ();
     void Element_WaitForMoreData ();

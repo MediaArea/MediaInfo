@@ -280,6 +280,9 @@ bool File_Riff::BookMark_Needed()
         Temp++;
     }
 
+    if (!Stream_Pos.empty())
+        File_GoTo=Stream_Pos.begin()->first;
+
     return stream_Count?true:false;
 }
 
