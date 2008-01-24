@@ -86,6 +86,8 @@ xcopy ..\Project\Java\*.txt MediaInfo_Lib_Source\Project\Java\ /S
 xcopy *.txt MediaInfo_Lib_Source\Release\
 xcopy *.bat MediaInfo_Lib_Source\Release\
 xcopy *.ogg MediaInfo_Lib_Source\Release\
+xcopy *.sh  MediaInfo_Lib_Source\Release\
+xcopy *.sub MediaInfo_Lib_Source\Release\
 xcopy BCB\*.txt MediaInfo_Lib_Source\Release\BCB\ /S
 xcopy MSVC\*.txt MediaInfo_Lib_Source\Release\MSVC\ /S
 xcopy GCC_MinGW32\*.txt MediaInfo_Lib_Source\Release\GCC_MinGW32\ /S
