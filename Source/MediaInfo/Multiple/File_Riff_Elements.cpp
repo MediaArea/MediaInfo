@@ -1576,7 +1576,7 @@ void File_Riff::AVI__movi_StreamJump()
         }
     }
 
-    if (!Stream_Pos.empty())
+    if (!Stream_Pos.empty() && File_GoTo!=(int64u)-1)
     {
         if (Stream_Pos.begin()->first!=File_Offset+Buffer_Offset+Element_Size)
             File_GoTo=Stream_Pos.begin()->first;
