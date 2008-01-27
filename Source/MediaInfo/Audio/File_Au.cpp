@@ -116,7 +116,7 @@ void File_Au::FileHeader_Parse()
         Fill("Channel(s)", channels);
         Fill("SamplingRate", sample_rate);
         if (File_Size!=(int64u)-1)
-            data_size=File_Size-data_start; //Priority for File size
+            data_size=(int32u)File_Size-data_start; //Priority for File size
         if (sample_rate && (data_size!=0 || data_size!=0xFFFFFFFF))
             ; Fill("PlayTime", ((int64u)data_size)*1000/sample_rate);
         Fill("Comments", arbitrary);

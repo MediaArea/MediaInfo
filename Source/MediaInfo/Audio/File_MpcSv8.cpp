@@ -121,7 +121,6 @@ void File_MpcSv8::Header_Parse()
     //Parsing
     int64u Size;
     int16u Key;
-    int8u BLOCK_TYPE;
     Get_C2 (Key,                                                "Key");
     Get_VL (Size,                                               "Size");
 
