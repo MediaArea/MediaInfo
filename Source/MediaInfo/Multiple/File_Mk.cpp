@@ -2415,7 +2415,7 @@ void File_Mk::CodecID_Fill()
         //((File_Ac3*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
     }
     #endif
-    #if defined(MEDIAINFO_AC3_YES)
+    #if defined(MEDIAINFO_DTS_YES)
     else if (CodecID==_T("A_DTS"))
     {
         Stream[TrackNumber].Parser=new File_Dts;
