@@ -67,6 +67,7 @@ private :
     bool Header_Xing();
     bool Header_VBRI();
     bool Header_Encoders();
+    void Header_Encoders_Lame();
     void Encoded_Library_Guess();
 
     //Temp - Global

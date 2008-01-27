@@ -682,28 +682,7 @@ bool File_Mpega::Header_Xing()
             Ztring Lib;
             Peek_Local(4, Lib);
             if (Lame || Lib==_T("LAME") || Lib==_T("GOGO"))
-            {
-                Get_Local(9, Encoded_Library,                   "Encoded_Library");
-                if (Encoded_Library>=_T("LAME3.90"))
-                {
-                    int8u Flags;
-                    Get_B1 (Flags,                              "Flags");
-                    if ((Flags&0xF0)<=0x10) //Rev. 0 or 1, http://gabriel.mp3-tech.org/mp3infotag.html
-                    {
-                        Param_Info(Lame_Method[Flags&0x0F]);
-                        BitRate_Mode=Lame_BitRate_Mode[Flags&0x0F];
-                        Encoded_Library_Settings.From_Local(Lame_Method[Flags&0x0F]);
-                        if ((Flags&0x0F)==1 || (Flags&0x0F)==8) //2 possible values for CBR
-                            VBR_Frames=0;
-                    }
-                    Info_B1(lowpass,                            "Lowpass filter value"); Param_Info(lowpass*100, " Hz");
-                }
-                else
-                {
-                    Element_Offset-=9; //Replace it at the beginning
-                    Get_Local(20, Encoded_Library,              "Encoded_Library_Long"); //Long tag version, if version<3.90
-                }
-            }
+                Header_Encoders_Lame();
 
             if (CC4(Xing_Header)==CC4("Info"))
                 VBR_Frames=0; //This is not a VBR file
@@ -763,14 +742,9 @@ bool File_Mpega::Header_Encoders()
     if (Buffer_Pos!=std::string::npos && Buffer_Pos<Element_Size-11)
     {
         Element_Info("With tag (Lame)");
-        Encoded_Library="Lame";
-
-        size_t Buffer_Pos_End=BufferS.find(0x55, Buffer_Pos+4);
-        if (Buffer_Pos_End!=std::string::npos)
-        {
-            Encoded_Library+=_T(' ');
-            Encoded_Library+=Ztring((const char*)(Buffer+Buffer_Offset+Buffer_Pos+4), Buffer_Pos_End-Buffer_Pos-4);
-        }
+        Element_Offset=Buffer_Pos;
+        Header_Encoders_Lame();
+        Element_Offset=0; //Reseting it
         return true;
     }
 
@@ -813,6 +787,28 @@ bool File_Mpega::Header_Encoders()
     }
 
     return false;
+}
+
+void File_Mpega::Header_Encoders_Lame()
+{
+    Peek_Local(9, Encoded_Library);
+    if (Encoded_Library>=_T("LAME3.90"))
+    {
+        int8u Flags;
+        Skip_Local(9,                                           "Encoded_Library"); //Skipping because we already poke it
+        Get_B1 (Flags,                                          "Flags");
+        if ((Flags&0xF0)<=0x20) //Rev. 0 or 1, http://gabriel.mp3-tech.org/mp3infotag.html and Rev. 2 was seen.
+        {
+            Param_Info(Lame_Method[Flags&0x0F]);
+            BitRate_Mode=Lame_BitRate_Mode[Flags&0x0F];
+            Encoded_Library_Settings.From_Local(Lame_Method[Flags&0x0F]);
+            if ((Flags&0x0F)==1 || (Flags&0x0F)==8) //2 possible values for CBR
+                VBR_Frames=0;
+        }
+        Info_B1(lowpass,                                        "Lowpass filter value"); Param_Info(lowpass*100, " Hz");
+    }
+    else
+        Get_Local(20, Encoded_Library,                          "Encoded_Library_Long"); //Long tag version, if version<3.90
 }
 
 void File_Mpega::Encoded_Library_Guess()
