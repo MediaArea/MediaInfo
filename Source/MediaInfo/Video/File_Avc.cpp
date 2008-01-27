@@ -1207,7 +1207,7 @@ void File_Avc::SPS_PPS()
         Element_Code=0x07; //seq_parameter_set
         Data_Parse();
         Buffer_Offset-=(size_t)Element_Offset_Save;
-        Element_Offset=Element_Offset_Save+Size-1;
+        Element_Offset=(size_t)(Element_Offset_Save+Size-1);
         Element_Size=Element_Size_Save;
         Element_End();
     }
@@ -1230,7 +1230,7 @@ void File_Avc::SPS_PPS()
         Element_Code=0x08; //pic_parameter_set
         Data_Parse();
         Buffer_Offset-=(size_t)Element_Offset_Save;
-        Element_Offset=Element_Offset_Save+Size-1;
+        Element_Offset=(size_t)(Element_Offset_Save+Size-1);
         Element_Size=Element_Size_Save;
         Element_End();
     }

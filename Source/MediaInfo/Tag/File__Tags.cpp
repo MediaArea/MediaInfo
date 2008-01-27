@@ -101,7 +101,7 @@ bool File__Tags_Helper::Read_Buffer_Continue()
     }
 
     if (Base->File_Offset)
-        Base->Buffer_Offset=Base->File_Size-JumpTo_WantedByParser-File_EndTagSize-Base->File_Offset; //Jumping to File_GoTo
+        Base->Buffer_Offset=(size_t)(Base->File_Size-JumpTo_WantedByParser-File_EndTagSize-Base->File_Offset); //Jumping to File_GoTo
     SearchingForEndTags=false;
     return true;
 }

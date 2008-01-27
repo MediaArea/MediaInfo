@@ -624,11 +624,11 @@ void File__Analyze::Finalize_Final()
     //-Video bitrate if we have all audio bitrates and overal bitrate
     if (Video.size()==1 && General[0](_T("BitRate")).size()>4 && Video[0](_T("BitRate")).empty()) //BitRate is > 10 000, to avoid strange behavior
     {
-        float  GeneralBitRate_Ratio=0.98;  //Default container overhead=2%
+        double GeneralBitRate_Ratio=0.98;  //Default container overhead=2%
         int32u GeneralBitRate_Minus=5000;  //5000 bps because of a "classic" stream overhead
-        float  VideoBitRate_Ratio  =0.98;  //Default container overhead=2%
+        double VideoBitRate_Ratio  =0.98;  //Default container overhead=2%
         int32u VideoBitRate_Minus  =2000;  //2000 bps because of a "classic" stream overhead
-        float  AudioBitRate_Ratio  =0.98;  //Default container overhead=2%
+        double AudioBitRate_Ratio  =0.98;  //Default container overhead=2%
         int32u AudioBitRate_Minus  =2000;  //2000 bps because of a "classic" stream overhead
         //Specific value depends of Container
         if (Get(Stream_General, 0, _T("Format"))==_T("MPEG-1PS")

@@ -79,7 +79,7 @@ File__Analyze::File__Analyze ()
     //Elements
     Element.resize(64);
     Element[0].Code=0;
-    Element[0].Next=(int64u)-1;
+    Element[0].Next=File_Size;
     Element[0].WaitForMoreData=false;
     Element[0].UnTrusted=false;
     Element[0].IsComplete=false;
@@ -665,19 +665,12 @@ bool File__Analyze::Data_Manage()
     Element[Element_Level].IsComplete=true;
 
     //If no need of more
-    if (File_GoTo!=(int64u)-1)
-    {
-        if (File_GoTo<File_Offset || File_GoTo>File_Offset+Buffer_Size)
-            return false;
-
-        //We have it, no need to go!
-        Buffer_Offset=File_GoTo-File_Offset;
-        File_GoTo=(int64u)-1;
-    }
+    if (File_Offset==File_Size || File_GoTo!=(int64u)-1)
+        return false;
 
     //Next element
-    else if (Element[Element_Level].Next-File_Offset>(size_t)-1)
-        ;
+    if (Element[Element_Level].Next-File_Offset>(size_t)-1)
+        Buffer_Offset=(size_t)-1;
     else if (!Element_WantNextLevel)
         Buffer_Offset=(size_t)(Element[Element_Level].Next-File_Offset);
     else

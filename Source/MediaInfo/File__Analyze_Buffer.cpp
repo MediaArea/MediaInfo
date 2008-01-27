@@ -832,7 +832,7 @@ void File__Analyze::Get_VL(int64u &Info, const char* Name)
     BS_End();
 
     //Integrity
-    if (!Size>8)
+    if (Size>8)
     {
         Trusted_IsNot("Variable Length Value parsing error");
         Info=0;
@@ -872,7 +872,7 @@ void File__Analyze::Get_SL(int64s &Info, const char* Name)
     BS_End();
 
     //Integrity
-    if (!Size>8)
+    if (Size>8)
     {
         Trusted_IsNot("Variable Length Value parsing error");
         Info=0;
@@ -919,7 +919,7 @@ void File__Analyze::Skip_VL(const char* Name)
     BS_End();
 
     //Integrity
-    if (!Size>8)
+    if (Size>8)
     {
         Trusted_IsNot("Variable Length Value parsing error");
         Info=0;
@@ -959,7 +959,7 @@ void File__Analyze::Skip_SL(const char* Name)
     BS_End();
 
     //Integrity
-    if (!Size>8)
+    if (Size>8)
     {
         Trusted_IsNot("Variable Length Value parsing error");
         Info=0;
