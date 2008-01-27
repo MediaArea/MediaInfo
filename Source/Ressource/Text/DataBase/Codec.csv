@@ -706,14 +706,14 @@ ZMBV;Zip;4CC;V;;;Zip Motion Blocks Video;
 ZPEG;Video Zipper;4CC;V;RGB;;Metheus Video Zipper;
 ZYGO;ZyGo;4CC;V;;;ZyGo Video;
 V_UNCOMPRESSED;Raw;Mk;V;;;Raw uncompressed video frames;
-V_MPEG4/ISO/SP;MPEG-4 SP;Mk;V;MPEG-4V;;Simple Profile;http://www.divx.com
-V_MPEG4/ISO/ASP;MPEG-4 ASP;Mk;V;MPEG-4V;;Advanced Simple Profile;http://www.koepi.org/xvid.shtml
-V_MPEG4/ISO/AP;MPEG-4 ASP;Mk;V;MPEG-4V;;Advanced Profile;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-V_MPEG4/ISO/AVC;MPEG-4 AVC;Mk;V;AVC;;Advanced Video Codec;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-V_MPEG4/MS/V2;MS MPEG4 v2;Mk;V;MPEG-4V;;MS MPEG-4 v2;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-V_MPEG4/MS/V3;MS MPEG4 v3;Mk;V;MPEG-4V;;MS MPEG-4 v3;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-V_MPEG1;MPEG;Mk;V;MPEG-V;;MPEG 1 or 2 Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-V_MPEG2;MPEG;Mk;V;MPEG-V;;MPEG 1 or 2 Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+V_MPEG4/ISO/SP;MPEG-4 Visual SP;Mk;V;MPEG-4V;;Simple Profile;http://www.divx.com
+V_MPEG4/ISO/ASP;MPEG-4 Visual ASP;Mk;V;MPEG-4V;;Advanced Simple Profile;http://www.koepi.org/xvid.shtml
+V_MPEG4/ISO/AP;MPEG-4 Visual AP;Mk;V;MPEG-4V;;Advanced Profile;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+V_MPEG4/ISO/AVC;AVC;Mk;V;AVC;;Advanced Video Codec;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+V_MPEG4/MS/V2;MS MPEG-4 v2;Mk;V;MPEG-4V;;MS MPEG-4 v2;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+V_MPEG4/MS/V3;MS MPEG-4 v3;Mk;V;MPEG-4V;;MS MPEG-4 v3;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+V_MPEG1;MPEG-1 Video;Mk;V;MPEG-V;;MPEG 1 or 2 Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+V_MPEG2;MPEG-2 Video;Mk;V;MPEG-V;;MPEG 1 or 2 Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
 V_REAL/RV10;Real 1;Mk;V;;;RealVideo 1.0 aka RealVideo 5;http://www.real.com
 V_REAL/RV20;Real 2;Mk;V;;;RealVideo 2.0 aka G2 and RealVideo G2+SVT;http://www.real.com
 V_REAL/RV30;Real 3;Mk;V;;;RealVideo 3.0 aka RealVideo 8;http://www.real.com

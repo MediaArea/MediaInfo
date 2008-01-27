@@ -669,10 +669,16 @@ bool File__Analyze::Data_Manage()
         return false;
 
     //Next element
-    if (Element[Element_Level].Next-File_Offset>(size_t)-1)
-        Buffer_Offset=(size_t)-1;
-    else if (!Element_WantNextLevel)
-        Buffer_Offset=(size_t)(Element[Element_Level].Next-File_Offset);
+    if (!Element_WantNextLevel)
+    {
+        if (Element[Element_Level].Next<=File_Offset+Buffer_Size)
+            Buffer_Offset=(size_t)(Element[Element_Level].Next-File_Offset);
+        else
+        {
+            File_GoTo=Element[Element_Level].Next;
+            return false;
+        }
+    }
     else
         Buffer_Offset+=Element_Offset; //This is a sub-level
     Header_Size=0;
