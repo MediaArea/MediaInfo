@@ -967,7 +967,7 @@ bool File_Mpega::Synchronize()
     while (Buffer_Offset+4<=Buffer_Size)
     {
          while (Buffer_Offset+4<=Buffer_Size
-             && (CC2(Buffer+Buffer_Offset)&0xFFF0)!=0xFFF0 || (CC1(Buffer+Buffer_Offset+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+2)&0x0C)==0x0C)
+             && (CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+2)&0x0C)==0x0C)
          {
             //Tags
             if (File_Offset+Buffer_Offset+File_EndTagSize==File_Size)
@@ -1057,10 +1057,10 @@ bool File_Mpega::Synchronize()
         //Parsing last bytes
         if (Buffer_Offset+3==Buffer_Size)
         {
-            if ((CC2(Buffer+Buffer_Offset)&0xFFF0)!=0xFFF0)
+            if ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0)
             {
                 Buffer_Offset++;
-                if ((CC2(Buffer+Buffer_Offset)&0xFFF0)!=0xFFF0)
+                if ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0)
                 {
                     Buffer_Offset++;
                     if (CC1(Buffer+Buffer_Offset)!=0xFF)
