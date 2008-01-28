@@ -381,6 +381,8 @@ void File_Flv::Data_Parse()
 void File_Flv::video()
 {
     Element_Name("Video");
+    Stream[Stream_Video].PacketCount++;
+    Element_Info(Stream[Stream_Video].PacketCount);
 
     //Handling FrameRate
     if (!video_stream_FrameRate_Detected)
@@ -399,7 +401,7 @@ void File_Flv::video()
     if (!video_stream_Count)
         return; //No more need of Video stream
 
-    if (Element_Size==0) //Header says that audio is present, but there is only one null packet
+    if (Element_Size==0) //Header says that video is present, but there is only one null packet
     {
         Element_Info("Null");
         video_stream_Count=false;
@@ -416,6 +418,12 @@ void File_Flv::video()
     Get_S1 (4, Codec,                                           "codecID"); Param_Info(Flv_Codec_Video[Codec]); Element_Info(Flv_Codec_Video[Codec]);
     BS_End();
     Element_End();
+
+    if (Stream[Stream_Video].PacketCount==60) //2s
+    {
+        video_stream_Count=false;
+        return;
+    }
 
     if (FrameType!=1) //Not a KeyFrame
         return;
@@ -565,6 +573,8 @@ void File_Flv::video_VP6(bool WithAlpha)
 void File_Flv::audio()
 {
     Element_Name("Audio");
+    Stream[Stream_Audio].PacketCount++;
+    Element_Info(Stream[Stream_Audio].PacketCount);
 
     //Needed?
     if (!audio_stream_Count)
@@ -596,6 +606,12 @@ void File_Flv::audio()
     {
         sampling_rate=5; //8000 Hz forced
         is_stereo=false; //Mono forced
+    }
+
+    if (Stream[Stream_Audio].PacketCount==60) //2s
+    {
+        audio_stream_Count=false;
+        return;
     }
 
     FILLING_BEGIN();

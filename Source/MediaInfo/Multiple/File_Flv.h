@@ -70,10 +70,12 @@ private :
     struct stream
     {
         File__Analyze*          Parser;
+        size_t                  PacketCount;
 
         stream()
         {
             Parser=NULL;
+            PacketCount=0;
         }
 
         ~stream()
