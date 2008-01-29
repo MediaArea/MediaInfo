@@ -22,6 +22,7 @@ Version 0.7.5.8, 2008-01-
 + AU/SND audio formats support
 + Vodei encrypted AVI files detection
 + Linux/MacOS: support of 2GiB+ files
++ FLV: Video parsing even if the container says there is no video
 x APE Tags v1 are detected again
 x MPEG-PS: some malformed files were not well parsed, fixed
 x AVC: Cropping was not well handled (example: height was 1088 instead of 1080)
