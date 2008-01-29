@@ -1,0 +1,43 @@
+#! /bin/sh
+
+#-----------------------------------------------------------------------
+# $1=OS, $2=Platform
+Release_CLI()
+{
+#-----------------------------------------------------------------------
+# Clean up
+test -e MediaInfo_CLI_$1_$2.tar     && rm    MediaInfo_CLI_$1_$2.tar
+test -e MediaInfo_CLI_$1_$2.tar.bz2 && rm    MediaInfo_CLI_$1_$2.tar.bz2
+test -d MediaInfo_CLI_$1_$2         && rm -r MediaInfo_CLI_$1_$2
+mkdir   MediaInfo_CLI_$1_$2
+
+#-----------------------------------------------------------------------
+# Copying : Exe
+cp ../Project/GNU/CLI/mediainfo MediaInfo_CLI_$1_$2/mediainfo
+cd MediaInfo_CLI_$1_$2
+strip mediainfo
+cd ..
+
+#-----------------------------------------------------------------------
+# Copying : Licence files
+cp ../Licence.html MediaInfo_CLI_$1_$2/
+
+#-----------------------------------------------------------------------
+# Copying : History
+cp ../History.CLI.txt MediaInfo_CLI_$1_$2/History.txt
+
+#-----------------------------------------------------------------------
+# Copying : Information file
+cp ReadMe.$1.txt MediaInfo_CLI_$1_$2/ReadMe.txt
+
+#-----------------------------------------------------------------------
+# Compressing Archive
+tar jchf MediaInfo_CLI_$1_$2.tar.bz2 MediaInfo_CLI_$1_$2
+
+#-----------------------------------------------------------------------
+# Clean up
+#if "%1"=="SkipCleanUp" goto SkipCleanUp
+#rm -r MediaInfo_CLI_$1_$2
+#:SkipCleanUp
+}
+

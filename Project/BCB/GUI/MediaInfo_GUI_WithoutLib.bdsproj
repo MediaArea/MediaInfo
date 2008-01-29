@@ -291,25 +291,6 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Rar.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Rar" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Tar.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Tar" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Zip.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Zip" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Ac3.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ac3" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Adif.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adif" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Adts.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adts" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Amr.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Amr" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Amv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Amv" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Ape.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ape" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Au.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Au" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Dts.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dts" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Flac.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Flac" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Latm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Latm" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Midi.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Midi" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpc.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpc" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4_AudioSpecificConfig" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpega.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpega" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Pcm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Pcm" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Tta.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Tta" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_TwinVQ.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_TwinVQ" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Vorbis.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Vorbis" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Wvpk.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wvpk" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Tiff.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Tiff" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Rle.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Rle" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Png.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Png" FORMNAME="" DESIGNCLASS=""/>
@@ -317,28 +298,6 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Ico.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ico" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Gif.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Gif" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image\File_Bmp.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Bmp" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Wm_Elements.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wm_Elements" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Wm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wm" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Swf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Swf" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Skm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Skm" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Rm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Rm" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Riff_Elements.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Riff_Elements" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Riff.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Riff" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Ogg_SubElement.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ogg_SubElement" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Ogg.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ogg" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mxf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mxf" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_MpegTs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpegTs" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_MpegPs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpegPs" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg4_Elements.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4_Elements" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg4_Descriptors.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4_Descriptors" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg4.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg_Psi.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg_Psi" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg_Descriptors.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg_Descriptors" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mk.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mk" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Flv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Flv" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Dvdv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dvdv" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Cdxa.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Cdxa" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Bdav.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Bdav" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File_VorbisCom.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_VorbisCom" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File_Lyrics3v2.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Lyrics3v2" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File_Lyrics3.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Lyrics3" FORMNAME="" DESIGNCLASS=""/>
@@ -353,20 +312,6 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Flic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Flic" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Dirac.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dirac" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Avc.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Avc" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base_Automatic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Automatic" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base_Finalize.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Finalize" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base_Inform.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Inform" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.h"/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Dummy.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dummy" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__MultipleParsing.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__MultipleParsing" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Other.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Other" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Unknown.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Unknown" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo.h"/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Config" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.h"/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_File.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_File" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfoList" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList.h"/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wininet.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wininet" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\ZLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZLib" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Conf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Conf" FORMNAME="" DESIGNCLASS=""/>
@@ -389,6 +334,65 @@
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\ZtringList.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ZtringList" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\ZtringListList.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ZtringListList" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\ZtringListListF.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ZtringListListF" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\ZenLib\Source\ZenLib\ZtringListListF.h"/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Buffer.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Buffer" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Streams.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Streams" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base_Automatic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Automatic" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base_Finalize.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Finalize" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base_Inform.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Inform" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.h"/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__MultipleParsing.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__MultipleParsing" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Dummy.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dummy" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Other.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Other" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Unknown.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Unknown" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo.h"/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Config" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.h"/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_File.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_File" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfoList" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList.h"/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Bdav.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Bdav" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Cdxa.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Cdxa" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Dvdv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dvdv" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Flv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Flv" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mk.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mk" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg4.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg4_Descriptors.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4_Descriptors" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg4_Elements.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4_Elements" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg_Descriptors.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg_Descriptors" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg_Psi.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg_Psi" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_MpegPs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpegPs" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_MpegTs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpegTs" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mxf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mxf" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Nut.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Nut" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Ogg.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ogg" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Ogg_SubElement.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ogg_SubElement" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Riff.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Riff" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Riff_Elements.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Riff_Elements" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Rm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Rm" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Skm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Skm" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Swf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Swf" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Wm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wm" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Wm_Elements.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wm_Elements" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Ac3.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ac3" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Adif.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adif" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Adts.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adts" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Amr.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Amr" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Amv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Amv" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Ape.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ape" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Au.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Au" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Dts.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dts" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Flac.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Flac" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Latm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Latm" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Midi.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Midi" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpc.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpc" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_MpcSv8.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpcSv8" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4_AudioSpecificConfig" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpega.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpega" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Pcm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Pcm" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Tta.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Tta" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_TwinVQ.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_TwinVQ" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Vorbis.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Vorbis" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Wvpk.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wvpk" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
