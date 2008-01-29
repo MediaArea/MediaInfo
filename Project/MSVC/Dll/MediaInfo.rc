@@ -45,7 +45,7 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "http://mediainfo.sourceforge.net"
             VALUE "FileDescription", "Library for read info about media files"
-            VALUE "FileVersion", "0.7.5.8BETA"
+            VALUE "FileVersion", "0.7.5.8"
             VALUE "InternalName", "MediaInfoLib - Dll - MSVC 2005"
             VALUE "LegalCopyright", "LGPL"
             VALUE "OriginalFilename", "MediaInfo.dll"
