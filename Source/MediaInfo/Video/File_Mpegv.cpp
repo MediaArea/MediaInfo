@@ -307,8 +307,6 @@ void File_Mpegv::Read_Buffer_Finalize()
         if (!Video.empty() && Time_End>Time_Begin)
             Video[0](_T("PlayTime")).From_Number(Time_End-Time_Begin);
     }
-
-    File__Analyze::Read_Buffer_Finalize();
 }
 
 //***************************************************************************
