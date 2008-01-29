@@ -1,4 +1,4 @@
-// Helpers - Automaticly generated methods for MediaInfo
+﻿// Helpers - Automaticly generated methods for MediaInfo
 // Copyright (C) 2005-2007 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software; you can redistribute it and/or
@@ -1692,6 +1692,7 @@ void File__Base_Codec (ZtringListList &Info)
     "A_REAL/SIPR;RealAudio 4;Mk;A;Real;;Real & Sipro Voice Codec;http://www.real.com\n"
     "A_REAL/RALF;RealAudio Lossless;Mk;A;Real;;Real Audio Lossless Format;http://www.real.com\n"
     "A_REAL/ATRC;RealAudio Atrac3;Mk;A;Real;;Real & Sony Atrac3 Codec;http://www.real.com\n"
+    "A_AAC;AAC;Mk;A;AAC\n"
     "A_AAC/MPEG2/MAIN;AAC Main;Mk;A;AAC;;AAC Main Profile\n"
     "A_AAC/MPEG2/LC;AAC LC;Mk;A;AAC;;AAC Low Complexity\n"
     "A_AAC/MPEG2/LC/SBR;AAC LC-SBR;Mk;A;AAC;;AAC Low Complexity with Spectral Band Replication\n"

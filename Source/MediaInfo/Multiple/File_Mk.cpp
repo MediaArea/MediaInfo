@@ -2423,7 +2423,7 @@ void File_Mk::CodecID_Fill()
     }
     #endif
     #if defined(MEDIAINFO_MPEG4_YES)
-    else if (CodecID.find(_T("A_AAC/MPEG4/"))==0)
+    else if (CodecID.find(_T("A_AAC/MPEG4/"))==0 || CodecID==(_T("A_AAC")))
     {
         Stream[TrackNumber].Parser=new File_Mpeg4_AudioSpecificConfig;
     }
