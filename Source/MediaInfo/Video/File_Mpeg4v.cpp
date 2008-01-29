@@ -275,8 +275,8 @@ void File_Mpeg4v::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Mpeg4v::Read_Buffer_Finalize()
 {
-    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4)
-    if (Count_Get(Stream_General)==0)
+    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
+    if (Count_Get(Stream_General)==0 && Frame_Count>0)
         vop_start_Fill();
 }
 
