@@ -706,20 +706,20 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 Ztring ValueS;
                 stream_t StreamKind=Stream_General;
                      if (0) ;
-                else if (StringData=="width") {ToFill="Width"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0);}
-                else if (StringData=="height") {ToFill="Height"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0);}
+                else if (StringData=="width") {ToFill="Width"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0); video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
+                else if (StringData=="height") {ToFill="Height"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0); video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
                 else if (StringData=="duration") {ToFill="PlayTime"; ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="audiodatarate") {ToFill="BitRate"; StreamKind=Stream_Audio; ValueS.From_Number(Value*1000, 0);}
-                else if (StringData=="framerate") {ToFill="FrameRate"; StreamKind=Stream_Video; ValueS.From_Number(Value, 3); video_stream_FrameRate_Detected=true;}
+                else if (StringData=="framerate") {ToFill="FrameRate"; StreamKind=Stream_Video; ValueS.From_Number(Value, 3); video_stream_FrameRate_Detected=true; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
                 else if (StringData=="datasize") {}
                 else if (StringData=="lasttimestamp") {}
                 else if (StringData=="filesize") {}
                 else if (StringData=="audiosize") {ToFill="StreamSize"; StreamKind=Stream_Audio; ValueS.From_Number(Value, 0);}
-                else if (StringData=="videosize") {ToFill="StreamSize"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0);}
-                else if (StringData=="videodatarate") {ToFill="BitRate"; StreamKind=Stream_Video; ValueS.From_Number(Value*1000, 0);}
+                else if (StringData=="videosize") {ToFill="StreamSize"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0);; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
+                else if (StringData=="videodatarate") {ToFill="BitRate"; StreamKind=Stream_Video; ValueS.From_Number(Value*1000, 0); video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
                 else if (StringData=="lastkeyframetimestamp") {}
                 else if (StringData=="lastkeyframelocation") {}
-                else if (StringData=="videocodecid") {}
+                else if (StringData=="videocodecid") {; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
                 else if (StringData=="audiocodecid") {}
                 else if (StringData=="audiodelay") {ToFill="Delay"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="canSeekToEnd") {}
