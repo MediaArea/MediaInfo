@@ -510,8 +510,11 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u start_code)
         Stream[start_code].TimeStamp_End.PTS=(((int64u)PTS_32)<<30)
                                                             | (((int64u)PTS_29)<<15)
                                                             | (((int64u)PTS_14));
-        if (!Stream[start_code].TimeStamp_Start.PTS_Is_Valid)
+        if (Stream[start_code].Searching_TimeStamp_Start)
+        {
             Stream[start_code].TimeStamp_Start=Stream[start_code].TimeStamp_End;
+            Stream[start_code].Searching_TimeStamp_Start=false;
+        }
         Element_Info(Ztring().Duration_From_Milliseconds(Stream[start_code].TimeStamp_End.PTS/90));
         Element_End();
     }
@@ -536,8 +539,11 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u start_code)
         Stream[start_code].TimeStamp_End.PTS=(((int64u)PTS_32)<<30)
                                            | (((int64u)PTS_29)<<15)
                                            | (((int64u)PTS_14));
-        if (!Stream[start_code].TimeStamp_Start.PTS_Is_Valid)
+        if (Stream[start_code].Searching_TimeStamp_Start)
+        {
             Stream[start_code].TimeStamp_Start=Stream[start_code].TimeStamp_End;
+            Stream[start_code].Searching_TimeStamp_Start=false;
+        }
         Element_Info(Ztring().Duration_From_Milliseconds(Stream[start_code].TimeStamp_End.PTS/90));
         Element_End();
 
@@ -560,8 +566,6 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u start_code)
         Stream[start_code].TimeStamp_End.DTS=(((int64u)DTS_32)<<30)
                                            | (((int64u)DTS_29)<<15)
                                            | (((int64u)DTS_14));
-        if (!Stream[start_code].TimeStamp_Start.DTS_Is_Valid)
-            Stream[start_code].TimeStamp_Start=Stream[start_code].TimeStamp_End;
         Element_Info(Ztring().Duration_From_Milliseconds(Stream[start_code].TimeStamp_End.DTS/90));
         Element_End();
     }
@@ -631,8 +635,11 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         Stream[start_code].TimeStamp_End.PTS=(((int64u)PTS_32)<<30)
                                            | (((int64u)PTS_29)<<15)
                                            | (((int64u)PTS_14));
-        if (!Stream[start_code].TimeStamp_Start.PTS_Is_Valid)
+        if (Stream[start_code].Searching_TimeStamp_Start)
+        {
             Stream[start_code].TimeStamp_Start=Stream[start_code].TimeStamp_End;
+            Stream[start_code].Searching_TimeStamp_Start=false;
+        }
         Element_Info(Ztring().Duration_From_Milliseconds(Stream[start_code].TimeStamp_End.PTS/90));
         Element_End();
         Element_End();
@@ -659,8 +666,11 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         Stream[start_code].TimeStamp_End.PTS=(((int64u)PTS_32)<<30)
                                            | (((int64u)PTS_29)<<15)
                                            | (((int64u)PTS_14));
-        if (!Stream[start_code].TimeStamp_Start.PTS_Is_Valid)
+        if (Stream[start_code].Searching_TimeStamp_Start)
+        {
             Stream[start_code].TimeStamp_Start=Stream[start_code].TimeStamp_End;
+            Stream[start_code].Searching_TimeStamp_Start=false;
+        }
         Element_Info(Ztring().Duration_From_Milliseconds(Stream[start_code].TimeStamp_End.PTS/90));
         Element_End();
 
@@ -683,8 +693,6 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         Stream[start_code].TimeStamp_End.DTS=(((int64u)DTS_32)<<30)
                                            | (((int64u)DTS_29)<<15)
                                            | (((int64u)DTS_14));
-        if (!Stream[start_code].TimeStamp_Start.DTS_Is_Valid)
-            Stream[start_code].TimeStamp_Start=Stream[start_code].TimeStamp_End;
         Element_Info(Ztring().Duration_From_Milliseconds(Stream[start_code].TimeStamp_End.DTS/90));
         Element_End();
         Element_End();
@@ -909,6 +917,7 @@ void File_MpegPs::Detect_EOF()
             //End timestamp is out of date
             Temp->second.TimeStamp_End.PTS_Is_Valid=false;
             Temp->second.TimeStamp_End.DTS_Is_Valid=false;
+            Temp->second.Searching_TimeStamp_Start=false;
 
             Temp++;
         }
@@ -920,6 +929,7 @@ void File_MpegPs::Detect_EOF()
             //End timestamp is out of date
             Temp->second.TimeStamp_End.PTS_Is_Valid=false;
             Temp->second.TimeStamp_End.DTS_Is_Valid=false;
+            Temp->second.Searching_TimeStamp_Start=false;
 
             Temp++;
         }
@@ -972,8 +982,11 @@ void File_MpegPs::pack_start()
         Stream[0xBA].TimeStamp_End.PTS=(((int64u)SysClock_32)<<30)
                                      | (((int64u)SysClock_29)<<15)
                                      | (((int64u)SysClock_14));
-        if (!Stream[0xBA].TimeStamp_Start.PTS_Is_Valid)
+        if (Stream[0xBA].Searching_TimeStamp_Start)
+        {
             Stream[0xBA].TimeStamp_Start=Stream[0xBA].TimeStamp_End;
+            Stream[0xBA].Searching_TimeStamp_Start=false;
+        }
         Param_Info(Ztring().Duration_From_Milliseconds(Stream[0xBA].TimeStamp_End.PTS/90));
 
         Mark_1();
@@ -1007,8 +1020,11 @@ void File_MpegPs::pack_start()
         Stream[0xBA].TimeStamp_End.PTS=(((int64u)SysClock_32)<<30)
                                      | (((int64u)SysClock_29)<<15)
                                      | (((int64u)SysClock_14));
-        if (!Stream[0xBA].TimeStamp_Start.PTS_Is_Valid)
+        if (Stream[0xBA].Searching_TimeStamp_Start)
+        {
             Stream[0xBA].TimeStamp_Start=Stream[0xBA].TimeStamp_End;
+            Stream[0xBA].Searching_TimeStamp_Start=false;
+        }
         Param_Info(Ztring().Duration_From_Milliseconds(Stream[0xBA].TimeStamp_End.PTS/90));
 
         Mark_1();
@@ -1024,7 +1040,9 @@ void File_MpegPs::pack_start()
 
     SizeToAnalyze=program_mux_rate*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure
     if (SizeToAnalyze>8*1024*1024)
-        SizeToAnalyze=8*1024*1024;
+        SizeToAnalyze=8*1024*1024; //Not too much
+    if (SizeToAnalyze<1*1024*1024)
+        SizeToAnalyze=1*1024*1024; //Not too less
 
     //Autorisation of other streams
     Stream[0xBA].Searching_Payload=false;           //We need not parse pack_start
@@ -1181,8 +1199,11 @@ void File_MpegPs::private_stream_1()
         Stream_Private1[private_stream_1_ID].Parser=private_stream_1_ChooseParser();
         Stream_Private1[private_stream_1_ID].Searching_Payload=true;
     }
-    if (!Stream_Private1[private_stream_1_ID].TimeStamp_Start.PTS_Is_Valid)
-        Stream_Private1[private_stream_1_ID].TimeStamp_Start=Stream[0xBD].TimeStamp_Start;
+    if (Stream_Private1[private_stream_1_ID].Searching_TimeStamp_Start)
+    {
+        Stream_Private1[private_stream_1_ID].TimeStamp_Start=Stream_Private1[private_stream_1_ID].TimeStamp_End;
+        Stream_Private1[private_stream_1_ID].Searching_TimeStamp_Start=false;
+    }
     Stream_Private1[private_stream_1_ID].TimeStamp_End=Stream[0xBD].TimeStamp_End;
 
     //Needed?
