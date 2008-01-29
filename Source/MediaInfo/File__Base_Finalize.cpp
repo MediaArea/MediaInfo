@@ -621,8 +621,11 @@ void File__Analyze::Finalize_Final()
     //-PlayTime if BitRate
     if (General[0](_T("PlayTime")).empty() && General[0](_T("BitRate")).To_int64u()!=0)
         General[0](_T("PlayTime")).From_Number(General[0](_T("FileSize")).To_int64u()*8*1000/General[0](_T("BitRate")).To_int64u());
+    //-Video bitrate can be the nominal one if <10s (bitrate estimation is not enough precise
+    if (Video.size()==1 && Video[0](_T("BitRate")).empty() && Video[0](_T("PlayTime")).To_int64u()<10000)
+        Video[0](_T("BitRate"))=Video[0](_T("BitRate_Nominal"));
     //-Video bitrate if we have all audio bitrates and overal bitrate
-    if (Video.size()==1 && General[0](_T("BitRate")).size()>4 && Video[0](_T("BitRate")).empty()) //BitRate is > 10 000, to avoid strange behavior
+    if (Video.size()==1 && General[0](_T("BitRate")).size()>4 && Video[0](_T("BitRate")).empty() && Video[0](_T("PlayTime")).To_int64u()>=10000) //BitRate is > 10 000 and playtime>10s, to avoid strange behavior
     {
         double GeneralBitRate_Ratio=0.98;  //Default container overhead=2%
         int32u GeneralBitRate_Minus=5000;  //5000 bps because of a "classic" stream overhead
