@@ -737,6 +737,7 @@ A_REAL/COOK;RealAudio 7;Mk;A;Real;;Real Audio Cook Codec (codename: Gecko);http:
 A_REAL/SIPR;RealAudio 4;Mk;A;Real;;Real & Sipro Voice Codec;http://www.real.com
 A_REAL/RALF;RealAudio Lossless;Mk;A;Real;;Real Audio Lossless Format;http://www.real.com
 A_REAL/ATRC;RealAudio Atrac3;Mk;A;Real;;Real & Sony Atrac3 Codec;http://www.real.com
+A_AAC;AAC;Mk;A;AAC;;;
 A_AAC/MPEG2/MAIN;AAC Main;Mk;A;AAC;;AAC Main Profile;
 A_AAC/MPEG2/LC;AAC LC;Mk;A;AAC;;AAC Low Complexity;
 A_AAC/MPEG2/LC/SBR;AAC LC-SBR;Mk;A;AAC;;AAC Low Complexity with Spectral Band Replication;
@@ -893,7 +894,7 @@ C;MPEG2 5.1;2CC;A;;;MPEG2 5.1;
 80;Softsound;2CC;A;;;;
 81;TQ60;2CC;A;;;Voxware TQ60;http://www.voxware.com/
 82;MSRT24;2CC;A;;;Microsoft MSRT24;
-83;G729A;2CC;A;;;AT&T G729A;
+83;G729A;2CC;A;;;AT&T G729A
 84;MVI_MVI2;2CC;A;;;Motion Pixels MVI_MVI2
 85;G726;2CC;A;;;DataFusion Systems (Pty) G726
 86;GSM6.10;2CC;A;;;DataFusion Systems (Pty) GSM6.10
@@ -925,7 +926,7 @@ FF;AAC;2CC;A;AAC;;
 120;CELP;;;;;Philips Speech Processing
 121;Grundig;;;;;Philips Speech Processing
 123;G723;2CC;A;;;Digital Equipment Corporation (DEC) G723
-125;ADPCM;2CC;A;ADPCM;;Sanyo ADPCM
+125;ADPCM;2CC;A;ADPCM;;Sanyo ADPCM;
 130;ACEPL;2CC;A;;;Sipro ACEPL.net;http://dividix.host.sk
 131;ACELP4800;2CC;A;;;Sipro ACELP4800;
 132;ACELP8V3;2CC;A;;;Sipro ACELP8V3;
@@ -957,7 +958,7 @@ FF;AAC;2CC;A;AAC;;
 190;DTS;;;;;;
 200;ADPCM;2CC;A;;;Creative Labs ADPCM;
 202;FastSpeech8;2CC;A;;;Creative Labs Fast Speech 8;
-203;FastSpeech10;2CC;A;;;Creative Labs Fast Speech 10;
+203;FastSpeech10;2CC;A;;;Creative Labs Fast Speech 10
 210;ADPCM;2CC;A;ADPCM;;UHER informatic GmbH ADPCM
 215;;2CC;A;;;Ulead DV ACM
 216;;2CC;A;;;Ulead DV ACM
@@ -973,7 +974,7 @@ FF;AAC;2CC;A;AAC;;
 272;Atrac3;;;;;Sony
 273;SPC;;;;;Sony
 280;Telum;;;;;
-281;TelumIA;;;;;
+281;TelumIA;;;;;;
 285;ADPCM;;;ADPCM;;Norcom Voice Systems;
 300;FM_TOWNS_SND;2CC;A;;;Fujitsu FM_TOWNS_SND;
 350;Dev;;;;;Micronas Semiconductors, Inc.;
@@ -1005,7 +1006,7 @@ AAC;AAC;;;AAC;;;
 181C;RT24;2CC;A;;;VoxWare RT24 speech codec;
 181E;AX24000P;2CC;A;;;Lucent elemedia AX24000P Music codec;
 1971;SonicFoundry;;;;;Lossless;
-1C03;G.723;2CC;A;;;Lucent SX5363S G.723 compliant codec;
+1C03;G.723;2CC;A;;;Lucent SX5363S G.723 compliant codec
 1C07;SX8300P;2CC;A;;;Lucent SX8300P speech codec
 1C0C;SX5363S;;;G723;;Lucent SX5363S G.723 compliant codec
 1F03;DigiTalk;2CC;A;;;CUseeMe DigiTalk (ex-Rocwell)
@@ -1021,7 +1022,7 @@ AAC;AAC;;;AAC;;;
 3313;AviSynth;2CC;A;;;makeAVIS (fake AVI sound from AviSynth scripts)
 4143;AAC;2CC;A;AAC;;Divio MPEG-4 AAC audio
 4201;Nokia;;;;;
-4243;G726;;;G726;;
+4243;G726;;;G726;;;
 43AC;Lead Speech;2CC;A;;;;
 564C;Lead Vorbis;2CC;A;;;;
 5756;WavPack;;;;;;http://www.wavpack.com/
@@ -1053,4 +1054,4 @@ S_TEXT/SSA;SSA;Mk;T;;;Sub Station Alpha;
 S_TEXT/ASS;ASS;Mk;T;;;Advanced Sub Station Alpha;
 S_TEXT/USF;USF;Mk;T;;;Universal Subtitle Format;
 S_IMAGE/BMP;Bitmap;Mk;T;;;Basic image based subtitle format;
-S_VOBSUB;VobSub;Mk;T;;;The same subtitle format used on DVDs;
+S_VOBSUB;VobSub;Mk;T;;;The same subtitle format used on DVDs
