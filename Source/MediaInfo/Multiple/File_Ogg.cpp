@@ -68,6 +68,8 @@ void File_Ogg::Read_Buffer_Finalize()
             Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, "PlayTime", float64_int64s(((float64)(Stream_Temp->second.absolute_granule_position))*1000/Stream_Temp->second.absolute_granule_position_Resolution));
         Stream_Temp++;
     }
+
+    Fill(Stream_General, 0, "Format", "OGG");
 }
 
 //***************************************************************************
