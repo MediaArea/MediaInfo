@@ -180,7 +180,7 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_, int
 void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
     //Integrity
-    if (ToAdd==NULL || ToAdd_Size==0 || File_Offset==File_Size)
+    if (ToAdd==NULL || File_Offset==File_Size)
         return;
 
     //{File F; F.Open(Ztring(_T("d:\\direct"))+Ztring::ToZtring((size_t)this, 16), File::Access_Write_Append); F.Write(ToAdd, ToAdd_Size);}
