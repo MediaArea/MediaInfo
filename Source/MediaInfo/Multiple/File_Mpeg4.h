@@ -139,6 +139,7 @@ private :
     void moov_udta_chpl();
     void moov_udta_cprt();
     void moov_udta_hinf();
+    void moov_udta_hinv();
     void moov_udta_hnti();
     void moov_udta_hnti_rtp ();
     void moov_udta_LOOP();
@@ -150,9 +151,11 @@ private :
     void moov_udta_meta_ilst_xxxx_data();
     void moov_udta_meta_ilst_xxxx_mean();
     void moov_udta_meta_ilst_xxxx_name();
+    void moov_udta_nsav();
     void moov_udta_ptv ();
     void moov_udta_Sel0();
     void moov_udta_WLOC();
+    void moov_udta_XMP_();
     void moov_udta_xxxx();
     void pckg();
     void pnot();

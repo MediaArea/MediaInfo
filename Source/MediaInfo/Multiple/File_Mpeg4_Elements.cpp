@@ -195,6 +195,7 @@ namespace Elements
     const int64u moov_udta_chpl=0x6368706C;
     const int64u moov_udta_cprt=0x63707274;
     const int64u moov_udta_hinf=0x68696E66;
+    const int64u moov_udta_hinv=0x68696E76;
     const int64u moov_udta_hnti=0x686E7469;
     const int64u moov_udta_hnti_rtp=0x72747020;
     const int64u moov_udta_LOOP=0x4C4F4F50;
@@ -205,9 +206,11 @@ namespace Elements
     const int64u moov_udta_meta_ilst_xxxx_data=0x64617461;
     const int64u moov_udta_meta_ilst_xxxx_mean=0x6D65616E;
     const int64u moov_udta_meta_ilst_xxxx_name=0x6E616D65;
+    const int64u moov_udta_nsav=0x74736176;
     const int64u moov_udta_ptv =0x70747620;
     const int64u moov_udta_Sel0=0x53656C30;
     const int64u moov_udta_WLOC=0x574C4F43;
+    const int64u moov_udta_XMP_=0x584D505F;
     const int64u pckg=0x70636B67;
     const int64u pnot=0x706E6F74;
     const int64u skip=0x736B6970;
@@ -223,11 +226,15 @@ void File_Mpeg4::Data_Parse()
 {
     //Parsing
     DATA_BEGIN
-    ATOM(free)
+    LIST(free)
+        ATOM_BEGIN
+        ATOM_END
     ATOM(ftyp)
     ATOM(idat)
     ATOM(idsc)
-    //ATOM(mdat)
+    LIST(mdat)
+        ATOM_BEGIN
+        ATOM_END
     LIST(moov)
         ATOM_BEGIN
         LIST(moov_cmov)
@@ -336,6 +343,7 @@ void File_Mpeg4::Data_Parse()
             ATOM(moov_udta_chpl)
             ATOM(moov_udta_cprt)
             ATOM(moov_udta_hinf)
+            ATOM(moov_udta_hinv)
             LIST(moov_udta_hnti)
                 ATOM_BEGIN
                 ATOM(moov_udta_hnti_rtp)
@@ -355,9 +363,11 @@ void File_Mpeg4::Data_Parse()
                         ATOM_END
                     ATOM_END_DEFAULT
                 ATOM_END
+            ATOM(moov_udta_nsav)
             ATOM(moov_udta_ptv )
             ATOM(moov_udta_Sel0)
             ATOM(moov_udta_WLOC)
+            ATOM(moov_udta_XMP_)
             ATOM_DEFAULT (moov_udta_xxxx); //User data
             ATOM_END_DEFAULT
         ATOM_END
@@ -464,7 +474,7 @@ void File_Mpeg4::free()
     Element_Name("Free space");
 
     //Parsing
-    Skip_XX(Element_Size,                                       "Free");
+    Skip_XX(Element_TotalSize_Get(),                            "Free");
 }
 
 //---------------------------------------------------------------------------
@@ -513,12 +523,15 @@ void File_Mpeg4::idsc()
     FILLING_END();
 }
 
-/*
 //---------------------------------------------------------------------------
 void File_Mpeg4::mdat()
 {
     Element_Name("Data");
 
+    //Parsing
+    Skip_XX(Element_TotalSize_Get(),                            "Data");
+    
+    /*
     //Filling
     if (Count_Get(Stream_General)==0)
     {
@@ -537,8 +550,8 @@ void File_Mpeg4::mdat()
             return;
         }
     }
+    */
 }
-*/
 
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov()
@@ -1196,14 +1209,23 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stco()
     Get_B4 (Count,                                              "Number of entries");
     if (moov_trak_mdia_minf_stbl_stco_Parse)
     {
-        //DETAILLEVEL_SET(1);
         moov_trak_mdia_minf_stbl_stco_ID.push_back(moov_trak_tkhd_TrackID);
         if (moov_trak_mdia_minf_stbl_stco_Map[moov_trak_tkhd_TrackID]==NULL)
             moov_trak_mdia_minf_stbl_stco_Map[moov_trak_tkhd_TrackID]=new std::vector<int64u>;
         int32u Offset;
         for (int32u Pos=0; Pos<Count; Pos++)
         {
+            //Too much slow
+            /*
             Get_B4 (Offset,                                     "Offset");
+            */
+
+            //Faster
+            if (Element_Offset+4>Element_Size)
+                break; //Problem
+            Offset=BigEndian2int32u(Buffer+Buffer_Offset+Element_Offset);
+            Element_Offset+=4;
+
             moov_trak_mdia_minf_stbl_stco_Map[moov_trak_tkhd_TrackID]->push_back(Offset);
             mdat_Pos[Offset].StreamKind=StreamKind_Last;
             mdat_Pos[Offset].StreamPos=StreamPos_Last;
@@ -1592,8 +1614,16 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
         int32u Size;
         for (int32u Pos=0; Pos<Count; Pos++)
         {
-            //DETAILLEVEL_SET((float32)1.1);
+            //Too much slow
+            /*
             Get_B4 (Size,                                     "Size");
+            */
+
+            if (Element_Offset+4>Element_Size)
+                break; //Problem
+            Size=BigEndian2int32u(Buffer+Buffer_Offset+Element_Offset);
+            Element_Offset+=4;
+
             Stream_Size+=Size;
             if (moov_trak_mdia_minf_stbl_stco_Parse)
                 moov_trak_mdia_minf_stbl_stsz_Map[moov_trak_tkhd_TrackID]->push_back(Size);
@@ -1841,10 +1871,19 @@ void File_Mpeg4::moov_udta_cprt()
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_udta_hinf()
 {
-    Element_Name("hinf");
+    Element_Name("Hint Format");
 
     //Parsing
     Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_hinv()
+{
+    Element_Name("Hint Version");
+
+    //Parsing
+    Skip_Local(Element_Size,                                    "Data");
 }
 
 //---------------------------------------------------------------------------
@@ -1925,6 +1964,15 @@ void File_Mpeg4::moov_udta_meta_ilst_xxxx_name()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_nsav()
+{
+    Element_Name("No Save");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_udta_ptv()
 {
     Element_Name("Print To Video");
@@ -1950,6 +1998,15 @@ void File_Mpeg4::moov_udta_Sel0()
 void File_Mpeg4::moov_udta_WLOC()
 {
     Element_Name("WLOC");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_XMP_()
+{
+    Element_Name("eXtensible Metadata Platform");
 
     //Parsing
     Skip_XX(Element_Size,                                       "Data");
