@@ -274,10 +274,11 @@ bool File_Riff::BookMark_Needed()
     }
 
     //Go to the first usefull chunk
-    if (Stream_Pos.empty())
+    if (stream_Count==0 && Stream_Pos.empty())
         return false; //No need
 
-    File_GoTo=Stream_Pos.begin()->first;
+    if (!Stream_Pos.empty())
+        File_GoTo=Stream_Pos.begin()->first;
     NeedOldIndex=false;
     SecondPass=true;
     return true;
