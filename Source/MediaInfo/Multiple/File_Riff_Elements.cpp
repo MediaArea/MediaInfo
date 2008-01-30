@@ -860,7 +860,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     #endif
     #if defined(MEDIAINFO_ADTS_YES)
     else if (FormatTag==0xAAC || FormatTag==0xFF)
-        ;//Stream[Stream_ID].Parser=new File_Adts; //The only 1 example I have is not understable
+        Stream[Stream_ID].Parser=new File_Adts;
     #endif
 
     //Options
