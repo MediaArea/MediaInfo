@@ -45,23 +45,11 @@ namespace MediaInfoLib
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Flic::Read_Buffer_Continue ()
-{
-	//Test
-    if (Buffer_Size<5)
-        return;
-
-    if (Buffer[4]!=0xAF || (Buffer[5]!=0x11 || Buffer[5]!=0x12 || Buffer[5]!=0x44 || Buffer[5]!=0x30 || Buffer[5]!=0x31))
-    {
-        Finnished();
-        return;
-    }
-}
-
-//---------------------------------------------------------------------------
-void File_Flic::Header_Parse()
+void File_Flic::FileHeader_Parse()
 {
     //Parsing
+    int32u DelayBetweenFrames;
+    int16u Type, Frames, Width, Height, BitsPerPixel, AspectX, AspectY;
     Skip_B4(                                                    "Size of FLIC including this header");
     Get_B2 (Type,                                               "File type");
     Get_B2 (Frames,                                             "Number of frames in first segment");
@@ -99,50 +87,44 @@ void File_Flic::Header_Parse()
         Skip_XX(72,                                             "Reserved");
 
     //Filling
-    Header_Fill_Size(Element_Offset);
-    Header_Fill_Code(0, "FLIC");
-}
-
-//***************************************************************************
-// Elements
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Flic::Data_Parse()
-{
     FILLING_BEGIN();
-        //Filling
-        if (Count_Get(Stream_Video)==0)
-            Data_Parse_Fill();
+        switch (Type)
+        {
+            case 0xAF11 :
+            case 0xAF12 :
+            case 0xAF30 :
+            case 0xAF31 :
+            case 0xAF44 :
+                            break;
+            default     :
+                            Finnished();
+                            return;
+        }
+
+        Stream_Prepare(Stream_General);
+        Fill("Format", "FLIC");
+        Stream_Prepare(Stream_Video);
+        if (Type==0xAF11)
+        {
+            Fill("Codec", "FLI");
+            Fill("FrameRate", 1.0/DelayBetweenFrames); //ms per frame
+            Fill("PlayTime", Frames*DelayBetweenFrames);
+        }
+        else
+        {
+            Fill("Codec", "FLC");
+            Fill("FrameRate", DelayBetweenFrames*1000/70); //multiple of 1/70 per frame
+            Fill("PlayTime", Frames*DelayBetweenFrames*1000/70);
+            if (AspectY>0)
+                Fill("DisplayAspectRatio", AspectX/AspectY);
+        }
+        Fill("FrameCount", Frames);
+        Fill("Width", Width);
+        Fill("Height", Height);
+        Fill("Resolution", BitsPerPixel);
+
+        Finnished();
     FILLING_END();
-}
-
-//---------------------------------------------------------------------------
-void File_Flic::Data_Parse_Fill()
-{
-    Stream_Prepare(Stream_General);
-    Fill("Format", "FLIC");
-    Stream_Prepare(Stream_Video);
-    if (Type==0xAF11)
-    {
-        Fill("Codec", "FLI");
-        Fill("FrameRate", 1.0/DelayBetweenFrames); //ms per frame
-        Fill("PlayTime", Frames*DelayBetweenFrames);
-    }
-    else
-    {
-        Fill("Codec", "FLC");
-        Fill("FrameRate", DelayBetweenFrames*1000/70); //multiple of 1/70 per frame
-        Fill("PlayTime", Frames*DelayBetweenFrames*1000/70);
-        if (AspectY>0)
-            Fill("DisplayAspectRatio", AspectX/AspectY);
-    }
-    Fill("FrameCount", Frames);
-    Fill("Width", Width);
-    Fill("Height", Height);
-    Fill("Resolution", BitsPerPixel);
-
-    Finnished();
 }
 
 //***************************************************************************

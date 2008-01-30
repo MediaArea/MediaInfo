@@ -40,27 +40,12 @@ namespace MediaInfoLib
 class File_Flic : public File__Analyze
 {
 protected :
-    //Format
-    void Read_Buffer_Continue ();
-
     //Information
     void HowTo (stream_t StreamKind);
 
 private :
     //Buffer
-    void Header_Parse();
-    void Data_Parse();
-    void Data_Parse_Fill();
-
-    //Temp
-    int32u DelayBetweenFrames;
-    int16u Type;
-    int16u Frames;
-    int16u Width;
-    int16u Height;
-    int16u BitsPerPixel;
-    int16u AspectX;
-    int16u AspectY;
+    void FileHeader_Parse();
 };
 
 } //NameSpace
