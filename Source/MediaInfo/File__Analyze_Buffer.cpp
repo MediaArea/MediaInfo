@@ -1238,7 +1238,7 @@ void File__Analyze::Get_Local(int64u Bytes, Ztring &Info, const char* Name)
 void File__Analyze::Get_String(int64u Bytes, std::string &Info, const char* Name)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
-    Info.assign((const char*)(Buffer+Buffer_Offset+Element_Offset), 0, (size_t)Bytes);
+    Info.assign((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
     if (Config_Details>0) Param(Name, Info);
     Element_Offset+=(size_t)Bytes;
 }
@@ -1254,7 +1254,7 @@ void File__Analyze::Peek_Local(int64u Bytes, Ztring &Info)
 void File__Analyze::Peek_String(int64u Bytes, std::string &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
-    Info.assign((const char*)(Buffer+Buffer_Offset+Element_Offset), 0, (size_t)Bytes);
+    Info.assign((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
 }
 
 //---------------------------------------------------------------------------
