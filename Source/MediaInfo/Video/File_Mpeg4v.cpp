@@ -542,7 +542,7 @@ void File_Mpeg4v::video_object_layer_start()
                 {
                     int8u intra_quant_mat;
                     Get_S1 (8, intra_quant_mat,                 "intra_quant_mat");
-                    if (intra_quant_mat)
+                    if (!intra_quant_mat)
                         Pos=64;
                 }
             Get_SB (load_nonintra_quant_mat,                    "load_nonintra_quant_mat");
@@ -551,7 +551,7 @@ void File_Mpeg4v::video_object_layer_start()
                 {
                     int8u nonintra_quant_mat;
                     Get_S1 (8, nonintra_quant_mat,               "nonintra_quant_mat");
-                    if (nonintra_quant_mat)
+                    if (!nonintra_quant_mat)
                         Pos=64;
                 }
             if(shape==3) //Shape=GrayScale
@@ -564,7 +564,7 @@ void File_Mpeg4v::video_object_layer_start()
                         {
                             int8u intra_quant_mat_grayscale;
                             Get_S1 (8, intra_quant_mat_grayscale, "intra_quant_mat_grayscale");
-                            if (intra_quant_mat_grayscale)
+                            if (!intra_quant_mat_grayscale)
                                 Pos=64;
                         }
                     Get_SB (load_nonintra_quant_mat_grayscale,  "load_nonintra_quant_mat_grayscale");
@@ -573,7 +573,7 @@ void File_Mpeg4v::video_object_layer_start()
                         {
                             int8u nonintra_quant_mat_grayscale;
                             Get_S1 (8, nonintra_quant_mat_grayscale, "nonintra_quant_mat_grayscale");
-                            if (nonintra_quant_mat_grayscale)
+                            if (!nonintra_quant_mat_grayscale)
                                 Pos=64;
                         }
                 }
