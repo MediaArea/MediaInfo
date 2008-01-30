@@ -111,6 +111,7 @@ private :
     int16u object_layer_width;
     int16u object_layer_height;
     int16u vop_time_increment_resolution;
+    int8u  visual_object_verid;
     int8u  profile_and_level_indication;
     int8u  no_of_sprite_warping_points;
     int8u  aspect_ratio_info;

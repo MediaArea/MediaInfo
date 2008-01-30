@@ -67,7 +67,7 @@ const char* Mpeg4v_visual_object_type[]=
     "",
 };
 
-const char* Mpeg4v_verid[]=
+const char* Mpeg4v_video_object_layer_verid[]=
 {
     "",
     "ISO/IEC 14496-2",
@@ -188,6 +188,7 @@ File_Mpeg4v::File_Mpeg4v()
     object_layer_width=0;
     object_layer_height=0;
     vop_time_increment_resolution=0;
+    visual_object_verid=1;
     profile_and_level_indication=0;
     no_of_sprite_warping_points=0;
     aspect_ratio_info=0;
@@ -415,14 +416,14 @@ void File_Mpeg4v::video_object_layer_start()
     Element_Name("video_object_layer_start");
 
     //Parsing
-    int8u  verid=1;
+    int8u  video_object_layer_verid=visual_object_verid;
     int8u  shape_extension=0;
     int32u aux_comp_count=0;
     BS_Begin();
     Skip_SB(                                                    "random_accessible_vol");
     Skip_S1(8,                                                  "video_object_type_indication");
     TEST_SB_SKIP(                                               "is_object_layer_identifier");
-        Get_S1 (4, verid,                                       "video_object_layer_verid"); Param_Info(Mpeg4v_verid[verid]);
+        Get_S1 (4, video_object_layer_verid,                    "video_object_layer_verid"); Param_Info(Mpeg4v_video_object_layer_verid[video_object_layer_verid]);
         Skip_S1(3,                                              "video_object_layer_priority");
     TEST_SB_END();
     Get_S1 (4, aspect_ratio_info,                               "aspect_ratio_info");
@@ -449,7 +450,7 @@ void File_Mpeg4v::video_object_layer_start()
         TEST_SB_END();
     TEST_SB_END();
     Get_S1 (2, shape,                                           "video_object_layer_shape");
-    if (shape==3 && verid!=1) //Shape=GrayScale
+    if (shape==3 && video_object_layer_verid!=1) //Shape=GrayScale
         Get_S1 (4, shape_extension,                             "video_object_layer_shape_extension");
     if (shape_extension==0 && shape_extension==1 && shape_extension==5 && shape_extension==7 && shape_extension==8) aux_comp_count=1;
     if (shape_extension==2 && shape_extension==3 && shape_extension==6 && shape_extension==9 && shape_extension==11) aux_comp_count=2;
@@ -479,7 +480,7 @@ void File_Mpeg4v::video_object_layer_start()
         }
         Get_SB (interlaced,                                     "interlaced");
         Skip_SB(                                                "obmc_disable");
-        if (verid==1)
+        if (video_object_layer_verid==1)
             Get_S1 (1, sprite_enable,                           "sprite_enable");
         else
             Get_S1 (2, sprite_enable,                           "sprite_enable");
@@ -502,7 +503,7 @@ void File_Mpeg4v::video_object_layer_start()
             if (sprite_enable!=2) //No GMC
                 Skip_SB(                                        "low_latency_sprite_enable");
         }
-        if (verid==1 && shape!=0) //Shape!=Rectangular
+        if (video_object_layer_verid==1 && shape!=0) //Shape!=Rectangular
             Skip_SB(                                            "sadct_disable");
         TEST_SB_SKIP(                                           "bits_per_pixel_not_8_bit");
             Skip_S1(4,                                          "quant_precision");
@@ -558,7 +559,7 @@ void File_Mpeg4v::video_object_layer_start()
                 }
             }
         TEST_SB_END();
-        if (verid!=1)
+        if (video_object_layer_verid!=1)
         {
             Get_SB (quarter_sample,                             "quarter_sample");
         }
@@ -611,7 +612,7 @@ void File_Mpeg4v::video_object_layer_start()
         TEST_SB_SKIP(                                           "data_partitioned");
             Skip_SB(                                            "reversible_vlc");
         TEST_SB_END();
-        if (verid!=1)
+        if (video_object_layer_verid!=1)
         {
             Get_SB (newpred_enable,                             "newpred_enable");
             if (newpred_enable)
@@ -646,7 +647,7 @@ void File_Mpeg4v::video_object_layer_start()
     }
     else
     {
-        if (verid!=1)
+        if (video_object_layer_verid!=1)
         {
             TEST_SB_SKIP(                                       "scalability");
                 Skip_S1(4,                                      "ref_layer_id");
@@ -800,7 +801,7 @@ void File_Mpeg4v::visual_object_start()
     Element_Name("visual_object_start");
 
     //Parsing
-    int8u visual_object_type, visual_object_verid;
+    int8u visual_object_type;
     BS_Begin();
     TEST_SB_SKIP(                                               "is_visual_object_identifier");
         Get_S1 ( 4, visual_object_verid,                        "visual_object_verid");  Param_Info(Mpeg4v_verid[visual_object_verid]);
