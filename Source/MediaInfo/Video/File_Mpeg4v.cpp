@@ -67,6 +67,26 @@ const char* Mpeg4v_visual_object_type[]=
     "",
 };
 
+const char* Mpeg4v_visual_object_verid[]=
+{
+    "",
+    "ISO/IEC 14496-2",
+    "ISO/IEC 14496-2 AMD 1",
+    "ISO/IEC 14496-2 AMD 2",
+    "ISO/IEC 14496-2 AMD 3 (Studio)",
+    "ISO/IEC 14496-2 AMD 4 (SVP)",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
 const char* Mpeg4v_video_object_layer_verid[]=
 {
     "",
@@ -804,7 +824,7 @@ void File_Mpeg4v::visual_object_start()
     int8u visual_object_type;
     BS_Begin();
     TEST_SB_SKIP(                                               "is_visual_object_identifier");
-        Get_S1 ( 4, visual_object_verid,                        "visual_object_verid");  Param_Info(Mpeg4v_verid[visual_object_verid]);
+        Get_S1 ( 4, visual_object_verid,                        "visual_object_verid");  Param_Info(Mpeg4v_visual_object_verid[visual_object_verid]);
         Skip_BS( 3,                                             "visual_object_priority");
     TEST_SB_END();
     Get_S1 ( 4, visual_object_type,                             "visual_object_type"); Param_Info(Mpeg4v_visual_object_type[visual_object_type]);
