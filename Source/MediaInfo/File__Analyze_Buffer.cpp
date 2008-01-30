@@ -944,7 +944,7 @@ void File__Analyze::Skip_VL(const char* Name)
 void File__Analyze::Skip_SL(const char* Name)
 {
     //Element size
-    int64u Info=0;
+    int64s Info=0;
     int8u  Size=0;
     bool more_data;
     BS_Begin();
