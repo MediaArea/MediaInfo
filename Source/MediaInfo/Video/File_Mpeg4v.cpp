@@ -184,7 +184,7 @@ File_Mpeg4v::File_Mpeg4v()
     Interlaced_Bottom=0;
 
     //From VOL, needed in VOP
-    fixed_vop_time=0;
+    fixed_vop_time_increment=0;
     object_layer_width=0;
     object_layer_height=0;
     vop_time_increment_resolution=0;
@@ -418,7 +418,6 @@ void File_Mpeg4v::video_object_layer_start()
     int8u  verid=1;
     int8u  shape_extension=0;
     int32u aux_comp_count=0;
-    int32u fixed_vop_time=0;
     BS_Begin();
     Skip_SB(                                                    "random_accessible_vol");
     Skip_S1(8,                                                  "video_object_type_indication");
@@ -466,7 +465,7 @@ void File_Mpeg4v::video_object_layer_start()
     }
     Mark_1 ();
     TEST_SB_SKIP(                                               "fixed_vop_rate");
-        Get_BS (time_size, fixed_vop_time,                      "fixed_vop_time"); if (vop_time_increment_resolution>0) Param_Info(fixed_vop_time*1000/vop_time_increment_resolution, " ms");
+        Get_BS (time_size, fixed_vop_time_increment,            "fixed_vop_time_increment"); if (vop_time_increment_resolution>0) Param_Info(fixed_vop_time_increment*1000/vop_time_increment_resolution, " ms");
     TEST_SB_END();
     if (shape!=2) //Shape!=BinaryOnly
     {
@@ -1068,14 +1067,14 @@ void File_Mpeg4v::vop_start_Fill()
     if (profile_and_level_indication>0)
         Fill("Codec_Profile", Mpeg4v_Profile_Level(profile_and_level_indication));
 
-    if (fixed_vop_time && vop_time_increment_resolution)
+    if (fixed_vop_time_increment && vop_time_increment_resolution)
     {
-        if (vop_time_increment_resolution==0xFFFF && fixed_vop_time==2733)
+        if (vop_time_increment_resolution==0xFFFF && fixed_vop_time_increment==2733)
             Fill("FrameRate", 23.976); //Rounding with this kind of values is not precise
-        else if (vop_time_increment_resolution==0xFFFF && fixed_vop_time==2186)
+        else if (vop_time_increment_resolution==0xFFFF && fixed_vop_time_increment==2186)
             Fill("FrameRate", 29.97); //Rounding with this kind of values is not precise
         else
-            Fill("FrameRate", ((float)vop_time_increment_resolution)/fixed_vop_time);
+            Fill("FrameRate", ((float)vop_time_increment_resolution)/fixed_vop_time_increment);
     }
     if (object_layer_height)
     {
