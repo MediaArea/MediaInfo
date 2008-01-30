@@ -808,7 +808,7 @@ void File_Mpega::Header_Encoders_Lame()
         Info_B1(lowpass,                                        "Lowpass filter value"); Param_Info(lowpass*100, " Hz");
     }
     else
-        Get_Local(20, Encoded_Library,                          "Encoded_Library_Long"); //Long tag version, if version<3.90
+        Get_Local(8, Encoded_Library,                           "Encoded_Library"); //Long tag version, if version<3.90 (but I found only with "UUUU" at the end, 20 --> 8 bytes only
 }
 
 void File_Mpega::Encoded_Library_Guess()
