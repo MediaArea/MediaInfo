@@ -356,10 +356,10 @@ void File_Rm::MDPR_realvideo()
     //Filling
     Stream_Prepare(Stream_Video);
     Fill("Codec", Ztring().From_CC4(Codec));
-    Fill("Width", BigEndian2int16u(Buffer+Buffer_Offset+12)); //Width
-    Fill("Height", BigEndian2int16u(Buffer+Buffer_Offset+14)); //Height
-    Fill("Resolution", BigEndian2int16u(Buffer+Buffer_Offset+16)); //Resolution
-    Fill("FrameRate", BigEndian2int16u(Buffer+Buffer_Offset+22)); //FrameRate
+    Fill("Width", Width); //Width
+    Fill("Height", Height); //Height
+    Fill("Resolution", Resolution); //Resolution
+    Fill("FrameRate", FrameRate); //FrameRate
 }
 
 //---------------------------------------------------------------------------
