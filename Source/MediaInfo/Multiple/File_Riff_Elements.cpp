@@ -160,6 +160,7 @@ namespace Elements
     const int32u AVIX_movi=0x6D6F7669;
     const int32u AVIX_movi_rec_=0x72656320;
     const int32u IDVX=0x49445658;
+    const int32u JUNK=0x4A554E4B;
     const int32u menu=0x6D656E75;
     const int32u MThd=0x4D546864;
     const int32u MTrk=0x4D54726B;
@@ -267,6 +268,9 @@ void File_Riff::Data_Parse()
             ATOM_END_DEFAULT
         ATOM_END
     ATOM(IDVX)
+    LIST(JUNK)
+        ATOM_BEGIN
+        ATOM_END
     LIST(menu)
         ATOM_BEGIN
         ATOM_END
@@ -679,10 +683,6 @@ void File_Riff::AVI__hdlr_strl_indx()
                     break;
         default: Skip_XX(Element_Size-Element_Offset,           "Unknown");
     }
-
-    //We needn't anymore Old version
-    NeedOldIndex=false;
-    IsIndexed=true;
 }
 
 //---------------------------------------------------------------------------
@@ -696,6 +696,8 @@ void File_Riff::AVI__hdlr_strl_indx_StandardIndex(int32u Entry_Count, int32u Chu
     Skip_L4(                                                    "Reserved3");
     for (int32u Pos=0; Pos<Entry_Count; Pos++)
     {
+        //Is too slow
+        /*
         Element_Begin("Index");
         int32u Offset, Size;
         Get_L4 (Offset,                                         "Offset"); //BaseOffset + this is absolute file offset
@@ -703,6 +705,13 @@ void File_Riff::AVI__hdlr_strl_indx_StandardIndex(int32u Entry_Count, int32u Chu
         Element_Info(Size&0x7FFFFFFF);
         if (Size)
             Element_Info("KeyFrame");
+        Element_End();
+        */
+
+        //Faster method
+        int32u Offset=LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset  );
+        int32u Size  =LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset+4)&0x7FFFFFFF;
+        Element_Offset+=8;
 
         //Stream Position and size
         if (Pos<300)
@@ -718,11 +727,10 @@ void File_Riff::AVI__hdlr_strl_indx_StandardIndex(int32u Entry_Count, int32u Chu
             Interleaved1_1 =BaseOffset+Offset-8;
         if (Pos==Entry_Count/10 && (ChunkId&0xFFFF0000)==0x30310000 && Interleaved1_10==0)
             Interleaved1_10=BaseOffset+Offset-8;
-
-        Element_End();
     }
-    Stream[ChunkId].StreamSize+=StreamSize;
-    Skip_XX(Element_Size-Element_Offset,                        "Garbage");
+    Stream[ChunkId&0xFFFF0000].StreamSize+=StreamSize;
+    if (Element_Offset<Element_Size)
+        Skip_XX(Element_Size-Element_Offset,                    "Garbage");
 }
 
 //---------------------------------------------------------------------------
@@ -759,9 +767,12 @@ void File_Riff::AVI__hdlr_strl_indx_SuperIndex(int32u Entry_Count, int32u ChunkI
         Get_L8 (Offset,                                         "Offset");
         Skip_L4(                                                "Size"); //Size of index chunk at this offset
         Skip_L4(                                                "Duration"); //time span in stream ticks
-        Stream_Pos[Offset]=ChunkId;
+        Index_Pos[Offset]=ChunkId;
         Element_End();
     }
+
+    //We needn't anymore Old version
+    NeedOldIndex=false;
 }
 
 //---------------------------------------------------------------------------
@@ -1166,7 +1177,7 @@ void File_Riff::AVI__idx1()
     Element_Name("Index (old)");
 
     //Tests
-    if (!NeedOldIndex)
+    if (!NeedOldIndex || Idx1_Offset==(int64u)-1)
     {
         Skip_XX(Element_TotalSize_Get(),                            "Data");
         return;
@@ -1183,7 +1194,7 @@ void File_Riff::AVI__idx1()
     {
         //Is too slow
         /*
-	    int32u ChunkID, Offset, Size;
+        int32u ChunkID, Offset, Size;
         Element_Begin("Index");
         Get_C4 (ChunkID,                                        "ChunkID"); //Bit 31 is set if this is NOT a keyframe
         Info_L4(Flags,                                          "Flags");
@@ -1199,16 +1210,18 @@ void File_Riff::AVI__idx1()
 
         //Stream Pos and Size
         int32u StreamID_Temp=(ChunkID&0xFFFF0000);
-        Stream_Pos[Offset]=StreamID_Temp;
         Stream[StreamID_Temp].StreamSize+=Size;
+        Stream_Pos[Idx1_Offset+Offset]=StreamID_Temp;
         Element_End();
         */
 
         //Faster method
-        int32u StreamID=LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset)&0xFFFF0000;
-        int32u Size=LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset+8);
+        int32u StreamID=BigEndian2int32u   (Buffer+Buffer_Offset+Element_Offset   )&0xFFFF0000;
+        int32u Offset  =LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset+ 8);
+        int32u Size    =LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset+12);
         Stream[StreamID].StreamSize+=Size;
-        Element_Offset+=12;
+        Stream_Pos[Idx1_Offset+Offset]=StreamID;
+        Element_Offset+=16;
     }
 
     //Interleaved
@@ -1224,7 +1237,7 @@ void File_Riff::AVI__idx1()
                 if (Interleaved0_10==0)
                 {
                     Pos0++;
-                    if (Pos0==10)
+                    if (Pos0>1)
                         Interleaved0_10=Temp->first;
                 }
                 break;
@@ -1233,7 +1246,7 @@ void File_Riff::AVI__idx1()
                 if (Interleaved1_10==0)
                 {
                     Pos1++;
-                    if (Pos1==10)
+                    if (Pos1>1)
                         Interleaved1_10=Temp->first;
                 }
                 break;
@@ -1342,24 +1355,31 @@ void File_Riff::AVI__movi()
 {
     Element_Name("Datas");
 
+    //Only the first time, no need in AVIX
+    if (movi_Size==0)
+    {
+        Idx1_Offset=File_Offset+Buffer_Offset-4;
+        BookMark_Set(); //Remenbering this place, for stream parsing in phase 2
+
+        //For each stream
+        std::map<int32u, stream>::iterator Temp=Stream.begin();
+        while (Temp!=Stream.end())
+        {
+            if (!Temp->second.Parser && Temp->second.fccType!=Elements::AVI__hdlr_strl_strh_txts)
+            {
+                AVI__movi_StreamClear(Temp->first);
+                Temp->second.SearchingPayload=false;
+                stream_Count--;
+            }
+            Temp++;
+        }
+    }
+
     //Filling
     movi_Size+=Element_TotalSize_Get();
 
-    //For each stream
-    std::map<int32u, stream>::iterator Temp=Stream.begin();
-    while (Temp!=Stream.end())
-    {
-        if (!Temp->second.Parser && Temp->second.fccType!=Elements::AVI__hdlr_strl_strh_txts)
-        {
-            AVI__movi_StreamClear(Temp->first);
-            Temp->second.SearchingPayload=false;
-            stream_Count--;
-        }
-        Temp++;
-    }
-
     //We must parse moov?
-    if (stream_Count==0)
+    if (NeedOldIndex || (stream_Count==0 && Index_Pos.empty()))
     {
         //Jumping
         Skip_XX(Element_TotalSize_Get(),                        "Data");
@@ -1367,13 +1387,7 @@ void File_Riff::AVI__movi()
     }
 
     //Jump to next useful data
-    if (IsIndexed)
-    {
-        Stream_Pos_Current=Stream_Pos.begin();
-        int64u ToJump=Stream_Pos_Current->first;
-        if (ToJump>File_Offset+Buffer_Size)
-            File_GoTo=ToJump;
-    }
+    AVI__movi_StreamJump();
 }
 
 //---------------------------------------------------------------------------
@@ -1526,10 +1540,21 @@ void File_Riff::AVI__movi_xxxx___wb()
 void File_Riff::AVI__movi_StreamJump()
 {
     //Jump to next useful data
-    if (IsIndexed)
-        Stream_Pos_Current++;
-    if (stream_Count==0
-     || (IsIndexed && Stream_Pos_Current==Stream_Pos.end()))
+    if (!Index_Pos.empty())
+    {
+        if (Index_Pos.begin()->first<=File_Offset+Buffer_Offset)
+            Index_Pos.erase(Index_Pos.begin());
+        int64u ToJump=File_Size;
+        if (!Index_Pos.empty())
+            ToJump=Index_Pos.begin()->first;
+        if (ToJump>File_Size)
+            ToJump=File_Size;
+        if (ToJump>=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-2)) //We want always Element movi
+            File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-2); //Not in this chunk
+        else if (ToJump!=File_Offset+Buffer_Offset+(Element_Code==Elements::AVI__movi?0:Element_Size))
+            File_GoTo=ToJump; //Not just after
+    }
+    else if (stream_Count==0)
     {
         //Jumping
         Element_Show();
@@ -1537,13 +1562,20 @@ void File_Riff::AVI__movi_StreamJump()
         if (rec__Present)
             Element_End();
         Info("movi, Jumping to end of chunk");
-        File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
+        if (SecondPass)
+            Finnished(); //The rest is already parsed
+        else
+            File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
     }
-    else if (IsIndexed && Stream_Pos_Current->first>File_Offset+Buffer_Size)
+    else if (!Stream_Pos.empty())
     {
-        File_GoTo=Stream_Pos_Current->first;
-        if (File_GoTo>File_Size)
-            Finnished();
+        if (Stream_Pos.begin()->first<=File_Offset+Buffer_Offset)
+            Stream_Pos.erase(Stream_Pos.begin());
+        int64u ToJump=Stream_Pos.begin()->first;
+        if (ToJump>=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-2))
+            File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-2); //Not in this chunk
+        else if (ToJump!=File_Offset+Buffer_Offset+Element_Size)
+            File_GoTo=ToJump; //Not just after
     }
 }
 
@@ -1551,9 +1583,7 @@ void File_Riff::AVI__movi_StreamJump()
 void File_Riff::AVI__movi_StreamClear(int32u ChunkId)
 {
     //Erasing index if not needed
-    std::map<int64u, int64u>::iterator Temp=Stream_Pos_Current;
-    if (Temp!=Stream_Pos.end())
-        Temp++;
+    std::map<int64u, int64u>::iterator Temp=Stream_Pos.begin();
     while (Temp!=Stream_Pos.end())
     {
         std::map<int64u, int64u>::iterator Stream_Pos_Temp=Temp;
@@ -1607,6 +1637,15 @@ void File_Riff::AVIX_movi_xxxx()
 void File_Riff::IDVX()
 {
     Element_Name("Tags");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::JUNK()
+{
+    Element_Name("Junk");
+
+    //Parse
+    Skip_XX(Element_TotalSize_Get(),                            "Junk");
 }
 
 //---------------------------------------------------------------------------

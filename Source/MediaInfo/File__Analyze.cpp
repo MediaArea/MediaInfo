@@ -232,9 +232,12 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         Open_Buffer_Continue_Loop();
 
     //Finnished?
-    if(File_GoTo==File_Size || File_Offset+Buffer_Offset>=File_Size)
+    if (File_GoTo==File_Size || File_Offset+Buffer_Offset>=File_Size)
     {
-        if (BookMark_Code.empty())
+        if (!BookMark_Code.empty())
+            BookMark_Get();
+
+        if (File_GoTo==File_Size || File_Offset+Buffer_Offset>=File_Size)
         {
             File_Offset=File_Size;
             File_GoTo=File_Size;
@@ -244,9 +247,6 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
                 Element_End(); //This is finnished, must flush
             return;
         }
-
-        //Bookmark is given, managing it
-        BookMark_Get();
     }
 
     //Detection is parsing too much
@@ -1266,8 +1266,12 @@ void File__Analyze::BookMark_Set (size_t Element_Level_ToSet)
 //---------------------------------------------------------------------------
 void File__Analyze::BookMark_Get (size_t Element_Level_ToGet)
 {
+    File_GoTo=(int64u)-1;
     if (!BookMark_Needed())
+    {
+        Finnished();
         return;
+    }
 
     Element_Show();
     while (Element_Level>0)
