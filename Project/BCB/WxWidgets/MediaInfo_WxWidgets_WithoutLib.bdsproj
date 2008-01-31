@@ -88,7 +88,7 @@
           <property category="win32.*.win32b.bcc32" name="option.AK.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.AU.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.1" value="UNICODE"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.10" value="ZENLIB_STANDARDx"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.10" value="ZENLIB_STANDARD"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.2" value="_UNICODE"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.3" value="_DEBUG"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.4" value="__WXMSW__"/>
