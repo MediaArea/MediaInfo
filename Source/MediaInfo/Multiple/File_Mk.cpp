@@ -1973,6 +1973,8 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackNumber()
 void File_Mk::Segment_Tracks_TrackEntry_TrackTimecodeScale()
 {
     Element_Name("TrackTimecodeScale");
+
+    Float_Info();
 }
 
 //---------------------------------------------------------------------------
@@ -2344,6 +2346,26 @@ float64 File_Mk::Float_Get()
                 }
         default :   Skip_XX(Element_Size,                       "Data");
                     return 0.0;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Float_Info()
+{
+    switch (Element_Size)
+    {
+        case 4 :
+                {
+                    Info_BF4(Data,                              "Data"); Element_Info(Data);
+                    return;
+                }
+        case 8 :
+                {
+                    Info_BF8(Data,                              "Data"); Element_Info(Data);
+                    return;
+                }
+        default :   Skip_XX(Element_Size,                       "Data");
+                    return;
     }
 }
 
