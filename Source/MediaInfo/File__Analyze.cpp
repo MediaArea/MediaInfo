@@ -687,7 +687,10 @@ bool File__Analyze::Data_Manage()
     if (Buffer_Offset>Buffer_Size && File_Offset!=File_Size)
         File_GoTo=File_Offset+Buffer_Offset; //Preparing to go far
 
-    Element[Element_Level-1].ToShow.NoShow=Element[Element_Level].ToShow.NoShow; //If data must not be shown, we hide the header too
+    if (Element_Level>0)
+        Element[Element_Level-1].ToShow.NoShow=Element[Element_Level].ToShow.NoShow; //If data must not be shown, we hide the header too
+    else
+        Element[0].ToShow.NoShow=false; //This should never happen, but in case of
     Element_End(); //Element
     if (Element_WantNextLevel)
         Element_Level++;
@@ -721,7 +724,8 @@ void File__Analyze::Data_Info (const Ztring &Parameter)
 void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
 {
     Element_Show();
-    Element_End(); //Element
+    if (Element_Level>0)
+        Element_End(); //Element
 
     if (GoTo==File_Size)
     {
