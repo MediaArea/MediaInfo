@@ -396,7 +396,8 @@ void File_Riff::AIFF_COMM()
     //Filling
     Fill("Channel(s)", numChannels);
     Fill("Resolution", sampleSize);
-    Fill("PlayTime", numSampleFrames/sampleRate*1000);
+    if (sampleRate)
+        Fill("PlayTime", numSampleFrames/sampleRate*1000);
     Fill("SamplingRate", sampleRate, 0);
 }
 
