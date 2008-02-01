@@ -52,12 +52,8 @@ cp -r ../Source/Ressource/Image/Menu/*.xpm MediaInfo_GUI_GNU_FromSource/Source/R
 # Copying : Release
 mkdir -p MediaInfo_GUI_GNU_FromSource/Release
 cp Release_GUI_GNU.sub MediaInfo_GUI_GNU_FromSource/Release/
-cp Release_GUI_Linux_i386.sh MediaInfo_GUI_GNU_FromSource/Release/
-cp Release_GUI_Linux_x64.sh MediaInfo_GUI_GNU_FromSource/Release/
-cp Release_GUI_Mac_Intel.sh MediaInfo_GUI_GNU_FromSource/Release/
-chmod u+x MediaInfo_GUI_GNU_FromSource/Release/Release_GUI_Linux_i386.sh
-chmod u+x MediaInfo_GUI_GNU_FromSource/Release/Release_GUI_Linux_x64.sh
-chmod u+x MediaInfo_GUI_GNU_FromSource/Release/Release_GUI_Mac_Intel.sh
+cp *.sh MediaInfo_GUI_GNU_FromSource/Release/
+chmod u+x MediaInfo_GUI_GNU_FromSource/Release/*.sh
 
 #-----------------------------------------------------------------------
 # Copying : Information
