@@ -29,12 +29,8 @@ cp ../Source/MediaInfoDLL/*.java MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDL
 # Copying : Release
 mkdir -p MediaInfo_DLL_GNU_FromSource/Release
 cp Release_DLL_GNU.sub MediaInfo_DLL_GNU_FromSource/Release/
-cp Release_DLL_Linux_i386.sh MediaInfo_DLL_GNU_FromSource/Release/
-cp Release_DLL_Linux_x64.sh MediaInfo_DLL_GNU_FromSource/Release/
-cp Release_DLL_Mac_Intel.sh MediaInfo_DLL_GNU_FromSource/Release/
-chmod u+x MediaInfo_DLL_GNU_FromSource/Release/Release_DLL_Linux_i386.sh
-chmod u+x MediaInfo_DLL_GNU_FromSource/Release/Release_DLL_Linux_x64.sh
-chmod u+x MediaInfo_DLL_GNU_FromSource/Release/Release_DLL_Mac_Intel.sh
+cp *.sh MediaInfo_DLL_GNU_FromSource/Release/
+chmod u+x MediaInfo_DLL_GNU_FromSource/Release/*.sh
 
 #-----------------------------------------------------------------------
 # Copying : Information
