@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.5.8, 2008-01-
+Version 0.7.5.8, 2008-02-01
 ---------------
 + Matroska: Full parsing of DivX/XviD/H264/AVC settings (profile...)
 + AVI: Full parsing of AVC settings (profile...)
