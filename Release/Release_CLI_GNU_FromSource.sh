@@ -46,12 +46,8 @@ cp -r ../Source/CLI/*.cpp MediaInfo_CLI_GNU_FromSource/Source/CLI/
 # Copying : Release
 mkdir -p MediaInfo_CLI_GNU_FromSource/Release
 cp Release_CLI_GNU.sub MediaInfo_CLI_GNU_FromSource/Release/
-cp Release_CLI_Linux_i386.sh MediaInfo_CLI_GNU_FromSource/Release/
-cp Release_CLI_Linux_x64.sh MediaInfo_CLI_GNU_FromSource/Release/
-cp Release_CLI_Mac_Intel.sh MediaInfo_CLI_GNU_FromSource/Release/
-chmod u+x MediaInfo_CLI_GNU_FromSource/Release/Release_CLI_Linux_i386.sh
-chmod u+x MediaInfo_CLI_GNU_FromSource/Release/Release_CLI_Linux_x64.sh
-chmod u+x MediaInfo_CLI_GNU_FromSource/Release/Release_CLI_Mac_Intel.sh
+cp *.sh MediaInfo_CLI_GNU_FromSource/Release/
+chmod u+x MediaInfo_CLI_GNU_FromSource/Release/*.sh
 
 #-----------------------------------------------------------------------
 # Copying : Information
