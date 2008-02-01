@@ -23,11 +23,8 @@ xcopy ..\Project\GNU\GUI\wxwin.m4 MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S
 xcopy ..\Project\GNU\GUI\AddThisToRoot_GUI_compile.sh MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S
 
 rem --- Copying : Release ---
-xcopy Release_GUI_GNU_FromSource.sh MediaInfo_GUI_GNU_Prepare\Release\
 xcopy Release_GUI_GNU.sub MediaInfo_GUI_GNU_Prepare\Release\
-xcopy Release_GUI_Linux_i386.sh MediaInfo_GUI_GNU_Prepare\Release\
-xcopy Release_GUI_Linux_x64.sh MediaInfo_GUI_GNU_Prepare\Release\
-xcopy Release_GUI_Mac_Intel.sh MediaInfo_GUI_GNU_Prepare\Release\
+xcopy Release_GUI_*.sh MediaInfo_GUI_GNU_Prepare\Release\
 
 rem --- Copying : Information files ---
 copy ..\History.GUI.txt MediaInfo_GUI_GNU_Prepare\

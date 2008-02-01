@@ -20,11 +20,8 @@ xcopy ..\Project\GNU\CLI\wxwin.m4 MediaInfo_CLI_GNU_Prepare\Project\GNU\CLI\ /S
 xcopy ..\Project\GNU\CLI\AddThisToRoot_CLI_compile.sh MediaInfo_CLI_GNU_Prepare\Project\GNU\CLI\ /S
 
 rem --- Copying : Release ---
-xcopy Release_CLI_GNU_FromSource.sh MediaInfo_CLI_GNU_Prepare\Release\
 xcopy Release_CLI_GNU.sub MediaInfo_CLI_GNU_Prepare\Release\
-xcopy Release_CLI_Linux_i386.sh MediaInfo_CLI_GNU_Prepare\Release\
-xcopy Release_CLI_Linux_x64.sh MediaInfo_CLI_GNU_Prepare\Release\
-xcopy Release_CLI_Mac_Intel.sh MediaInfo_CLI_GNU_Prepare\Release\
+xcopy Release_CLI_*.sh MediaInfo_CLI_GNU_Prepare\Release\
 
 rem --- Copying : Information files ---
 copy ..\History.CLI.txt MediaInfo_CLI_GNU_Prepare\
