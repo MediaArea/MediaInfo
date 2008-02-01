@@ -232,7 +232,7 @@ if test -e ../../../../ZenLib/Project/GNU/Library/libzen.la; then
 else
 	AC_MSG_ERROR([ZenLib is not found])
 fi
-CXXFLAGS="$CXXFLASG $(../../../../ZenLib/Project/GNU/Library/ZenLib-config CXXFLAGS)"
+CXXFLAGS="$CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/ZenLib-config CXXFLAGS)"
 MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLASG $(../../../../ZenLib/Project/GNU/Library/ZenLib-config CXXFLAGS)"
 if test "$enable_shared" = "yes"; then
 	LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/ZenLib-config LIBS)"
