@@ -13,10 +13,7 @@ xcopy ..\Project\GNU\Library\AddThisToRoot_DLL_compile.sh MediaInfo_DLL_GNU_Prep
 
 rem --- Copying : Release ---
 xcopy Release_DLL_GNU.sub MediaInfo_DLL_GNU_Prepare\Release\
-xcopy Release_DLL_Linux_i386.sh MediaInfo_DLL_GNU_Prepare\Release\
-xcopy Release_DLL_Linux_x64.sh MediaInfo_DLL_GNU_Prepare\Release\
-xcopy Release_DLL_Mac_Intel.sh MediaInfo_DLL_GNU_Prepare\Release\
-xcopy Release_DLL_GNU_FromSource.sh MediaInfo_DLL_GNU_Prepare\Release\
+xcopy Release_DLL_*.sh MediaInfo_DLL_GNU_Prepare\Release\
 
 rem --- Copying : Sources ---
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.h MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
