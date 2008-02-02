@@ -187,6 +187,10 @@ void File_Rm::DATA()
 {
     NAME_VERSION("Data");
 
+    //Currently, we stop here, enough info
+    Finnished();
+    return;
+
     //Parsing
     int32u num_packets;
     int16u length;
@@ -195,7 +199,7 @@ void File_Rm::DATA()
     Skip_B4(                                                    "next_data_header"); //Offset from start of file to the next data chunk. A non-zero value refers to the file offset of the next data chunk. A value of zero means there are no more data chunks in this file. This field is not typically used.
     for (int32u Pos=0; Pos<num_packets; Pos++)
     {
-        Element_Begin();
+        Element_Begin("packet");
         Get_B2 (Version,                                        "object_version");
         INTEGRITY_VERSION(1);
         Get_B2 (length,                                         "length"); //The length of the packet in bytes.
@@ -245,7 +249,7 @@ void File_Rm::INDX()
     Skip_B4(                                                    "next_index_header"); //Offset from start of file to the next index chunk. This member enables RealMedia file format readers to find all the index chunks quickly. A value of zero for this member indicates there are no more index headers in this file.
     for (int32u Pos=0; Pos<num_indices; Pos++)
     {
-        Element_Begin(14);
+        Element_Begin("index", 14);
         Get_B2 (Version,                                        "object_version");
         INTEGRITY_VERSION(0);
         Element_Info("Media_Packet_Header");
@@ -285,16 +289,11 @@ void File_Rm::MDPR()
     //Parsing TypeSpecific
     Element_Info(mime_type.c_str());
     MDPR_IsStream=true;
-    //if (type_specific_len!=Element_Size)
-    //    return;
          if (0);
-    else if (mime_type=="video/x-pn-realvideo")
-        MDPR_realvideo();
-    else if (mime_type=="video/x-pn-realvideo-encrypted")
-    {
-        MDPR_realvideo();
-        Fill("Encrypted", "Y");
-    }
+    else if (mime_type=="audio/x-pn-multirate-realaudio")
+        MDPR_IsStream=false; //What do we with this?
+    else if (mime_type=="audio/X-MP3-draft-00")
+        MDPR_mp3();
     else if (mime_type=="audio/x-pn-realaudio")
         MDPR_realaudio();
     else if (mime_type=="audio/x-pn-realaudio-encrypted")
@@ -302,22 +301,35 @@ void File_Rm::MDPR()
         MDPR_realaudio();
         Fill("Encrypted", "Y");
     }
-    else if (mime_type=="audio/X-MP3-draft-00")
-        MDPR_mp3();
     else if (mime_type=="audio/x-ralf-mpeg4")
         MDPR_ralf();
     else if (mime_type=="audio/x-ralf-mpeg4-generic")
         MDPR_ralf();
-    else if (mime_type=="video/text")
-        Stream_Prepare(Stream_Text);
-    else if (mime_type=="logical-fileinfo")
-        MDPR_fileinfo();
-    else if (mime_type.find("video/")==0)
-        Stream_Prepare(Stream_Video);
     else if (mime_type.find("audio/")==0)
         Stream_Prepare(Stream_Audio);
-    else if (mime_type.find("logical")==0)
-        ;
+    else if (mime_type=="video/text")
+        Stream_Prepare(Stream_Text);
+    else if (mime_type=="video/x-pn-multirate-realvideo")
+        MDPR_IsStream=false; //What do we with this?
+    else if (mime_type=="video/x-pn-realvideo")
+        MDPR_realvideo();
+    else if (mime_type=="video/x-pn-realvideo-encrypted")
+    {
+        MDPR_realvideo();
+        Fill("Encrypted", "Y");
+    }
+    else if (mime_type.find("video/")==0)
+        Stream_Prepare(Stream_Video);
+    else if (mime_type=="logical-audio/x-pn-multirate-realaudio")
+        MDPR_IsStream=false; //What do we with this?
+    else if (mime_type.find("logical-audio/")==0)
+        MDPR_IsStream=false; //What do we with this?
+    else if (mime_type=="logical-fileinfo")
+        MDPR_fileinfo();
+    else if (mime_type=="logical-video/x-pn-multirate-realvideo")
+        MDPR_IsStream=false; //What do we with this?
+    else if (mime_type.find("logical-video/")==0)
+        MDPR_IsStream=false; //What do we with this?
     else
         MDPR_IsStream=false;
 
@@ -330,7 +342,7 @@ void File_Rm::MDPR()
             Fill("Delay", start_time);
             Fill("PlayTime", duration);
         }
-}
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -537,7 +549,6 @@ void File_Rm::MDPR_fileinfo()
         }
         Element_End(size);
     }
-    Element_End(); //Details_Level_Last=1;
 }
 
 //---------------------------------------------------------------------------
