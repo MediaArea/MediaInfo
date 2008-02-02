@@ -11,6 +11,8 @@ Version 0.7.5.9, 2008-02-
 ---------------
 x RealMedia parser was brocken
 x FLV parser was crashing
+x FLV: Better detection of Nellymoser audio
+x Better false-positive MP3 detection (NSV files are no more detected as MP3)
 
 Version 0.7.5.8, 2008-02-01
 ---------------
