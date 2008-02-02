@@ -320,8 +320,6 @@ void File_Rm::MDPR()
         ;
     else
         MDPR_IsStream=false;
-    //Finalize
-    Element_End();
 
     //Filling
     FILLING_BEGIN();
