@@ -389,6 +389,7 @@ bool File_Mpega::Header_Begin()
     if (Synched && ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+2)&0x0C)==0x0C))
     {
         Trusted_IsNot("MPEG-A, Synchronisation lost");
+        Frame_Count=0; //Reset the frame count, we try to find x consecutive frames
         Synched=false;
     }
 
