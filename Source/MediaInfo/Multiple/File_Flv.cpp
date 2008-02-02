@@ -623,8 +623,7 @@ void File_Flv::audio()
             Fill(Stream_Audio, 0, "Channel(s)", Flv_Channels[is_stereo], 10, true);
             Fill(Stream_Audio, 0, "Resolution", Flv_Resolution[is_16bit], 10, true);
             Fill(Stream_Audio, 0, "SamplingRate", Flv_SamplingRate[sampling_rate], 10, true);
-            if (codec<6)
-                Fill(Stream_Audio, 0, "Codec", Flv_Codec_Audio[codec]);
+            Fill(Stream_Audio, 0, "Codec", Flv_Codec_Audio[codec]);
         }
 
         //Parsing audio data
