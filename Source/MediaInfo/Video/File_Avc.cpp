@@ -382,6 +382,7 @@ void File_Avc::Data_Parse()
     //Parsing
     switch (Element_Code)
     {
+        case 0x00 : Element_Name("unspecified"); break;
         case 0x01 : slice_layer_without_partitioning_non_IDR(); break;
         case 0x02 : Element_Name("slice_data_partition_a_layer"); break;
         case 0x03 : Element_Name("slice_data_partition_b_layer"); break;
@@ -391,14 +392,16 @@ void File_Avc::Data_Parse()
         case 0x07 : seq_parameter_set(); break;
         case 0x08 : pic_parameter_set(); break;
         case 0x09 : access_unit_delimiter(); break;
-        case 0x10 : Element_Name("end_of_seq"); break;
-        case 0x11 : Element_Name("end_of_stream"); break;
-        case 0x12 : Element_Name("filler_data"); break;
+        case 0x0A : Element_Name("end_of_seq"); break;
+        case 0x0B : Element_Name("end_of_stream"); break;
+        case 0x0C : Element_Name("filler_data"); break;
+        case 0x0D : Element_Name("seq_parameter_set_extension"); break;
+        case 0x13 : Element_Name("slice_layer_without_partitioning"); break;
         default :
-            if (Element_Code<=0x23)
+            if (Element_Code<=0x17)
                 Element_Name("reserved");
             else
-                Trusted_IsNot("Unattended element!");
+                Element_Name("unspecified");
     }
 
     if (!ThreeByte_List.empty())
@@ -453,7 +456,7 @@ void File_Avc::slice_header()
     Skip_UE(                                                    "first_mb_in_slice");
     Get_UE (slice_type,                                         "slice_type"); if (slice_type<9) Param_Info(Avc_slice_type[slice_type]);
     Skip_UE(                                                    "pic_parameter_set_id");
-    Get_BS (log2_max_frame_num_minus4, frame_num,               "frame_num");
+    Get_BS (log2_max_frame_num_minus4+4, frame_num,             "frame_num");
     if (!frame_mbs_only_flag)
     {
         TEST_SB_GET(field_pic_flag,                             "field_pic_flag");
