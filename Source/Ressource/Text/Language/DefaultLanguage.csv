@@ -185,6 +185,7 @@ Codec_Settings_QPel;Codec settings, QPel
 Codec_Settings_GMC;Codec settings, GMC
 Codec_Settings_Matrix;Codec settings, Matrix
 Codec_Settings_Floor;Codec settings, Floor
+Codec_Settings_CABAC;Codec settings, CABAC
 Codec_Profile;Codec profile
 Codec_Url;Weblink for codec
 Collection;Collection
@@ -248,6 +249,7 @@ Folder_Hint;Select a folder to study
 FolderName;Folder name
 Format;Format
 Format_Extensions;Extensions usualy used
+Format_Settings;Format setting
 FrameRate;Frame rate
 FrameRate_Min;Minimum frame rate
 FrameRate_Max;Maximum frame rate
