@@ -934,6 +934,7 @@ void File__Analyze::Kilo_Kilo123(const Ztring &Value, stream_t StreamKind, size_
 
     //Well known values
     Ztring BitRateS;
+    if (BitRate==  11024) BitRateS=  "11.024";
     if (BitRate==  11025) BitRateS=  "11.025";
     if (BitRate==  22050) BitRateS=  "22.05";
     if (BitRate==  44100) BitRateS=  "44.1";
