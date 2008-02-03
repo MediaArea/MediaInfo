@@ -21,6 +21,7 @@ Codec_Settings_GMC;; warppoints;N NI;;;Settings needed for decoder used, detaill
 Codec_Settings_GMC/String;;;Y NT;;;
 Codec_Settings_Matrix;;;Y NT;;;Settings needed for decoder used, detailled
 Codec_Settings_Matrix_Data;;;N NT;;;Matrix, in binary format encoded BASE64. Order = intra, non-intra, gray intra, gray non-intra
+Codec_Settings_CABAC;;;Y NT;;;Settings needed for decoder used, detailled
 PlayTime;; ms;N YI;;;Play time of the stream
 PlayTime/String;;;Y NT;;;Play time (formated)
 PlayTime/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
@@ -61,7 +62,7 @@ Delay;; ms;N NI;;;Delay fixed in the stream (relative) IN MS
 Delay/String;;;N NT;;;
 Delay/String1;;;N NT;;;
 Delay/String2;;;N NT;;;
-Delay/String3;;;N NT;;;
+Delay/String3;;;N NT;;;;;
 StreamSize;; byte;N YI;;;Stream size in bytes;;
 StreamSize/String;;;Y NT;;;;;
 StreamSize/String1;;;N NT;;;;;
@@ -78,5 +79,5 @@ Language/String;;;Y NT;;;Language (full);;
 Language_More;;;Y YT;;;More info about Language (director's comment...);;
 Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal
-Coherency/PlayTime;;;N NT;;;Playtime if detected wrong
-Encryption;;;Y YT;;;
+Coherency/PlayTime;;;N NT;;;Playtime if detected wrong;;
+Encryption;;;Y YT;;;;;
