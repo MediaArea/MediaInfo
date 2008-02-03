@@ -547,29 +547,7 @@ void File_Avc::slice_header_Fill()
         if (!fixed_frame_rate_flag)
             Fill("FrameRate", "VFR");
         else if (time_scale && num_units_in_tick)
-        {
-            int32u DeltaTfiDivisor;
-            switch (pic_struct_present_flag)
-            {
-                case false :
-                            switch(field_pic_flag)
-                            {
-                                case false : DeltaTfiDivisor=2; break;
-                                case true  : DeltaTfiDivisor=1; break;
-                            }
-                            break;
-                case true  :
-                            switch (pic_struct)
-                            {
-                                case 0 : DeltaTfiDivisor=2; break;
-                                case 1 :
-                                case 2 : DeltaTfiDivisor=1; break;
-                                default: DeltaTfiDivisor=2; break; //TODO: some specific cases are not handled
-                            }
-                            break;
-            }
-            Fill("FrameRate", (float)time_scale/num_units_in_tick/DeltaTfiDivisor);
-        }
+            Fill("FrameRate", (float)time_scale/num_units_in_tick/2);
     }
     Fill("Chroma", Avc_chroma_format_idc[chroma_format_idc]);
     if (frame_mbs_only_flag)
