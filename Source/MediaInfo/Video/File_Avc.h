@@ -120,6 +120,7 @@ private :
     bool   fixed_frame_rate_flag;
     bool   pic_struct_present_flag;
     bool   field_pic_flag;
+    bool   entropy_coding_mode_flag;
     bool   CpbDpbDelaysPresentFlag;
 
     //PS

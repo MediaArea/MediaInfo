@@ -207,6 +207,7 @@ File_Avc::File_Avc()
     timing_info_present_flag=false;
     pic_struct_present_flag=false;
     field_pic_flag=false;
+    entropy_coding_mode_flag=false;
     CpbDpbDelaysPresentFlag=false;
 
     //Default values
@@ -578,6 +579,13 @@ void File_Avc::slice_header_Fill()
     if (pic_struct_FirstDetected==2)
         Fill("Interlacement", "BFF");
     Fill(Stream_Video, 0, "Encoded_Library", Encoded_Library);
+    if (entropy_coding_mode_flag)
+    {
+        Fill(Stream_Video, 0, "Codec_Settings", "CABAC");
+        Fill(Stream_Video, 0, "Codec_Settings_CABAC", "Yes");
+    }
+    else
+        Fill(Stream_Video, 0, "Codec_Settings_CABAC", "No");
 
     if (File_Offset+Buffer_Size<File_Size)
     {
@@ -950,7 +958,7 @@ void File_Avc::pic_parameter_set()
     BS_Begin();
     Skip_UE(                                                    "pic_parameter_set_id");
     Skip_UE(                                                    "seq_parameter_set_id");
-    Skip_SB(                                                    "entropy_coding_mode_flag");
+    Get_SB (entropy_coding_mode_flag,                           "entropy_coding_mode_flag");
     Skip_SB(                                                    "pic_order_present_flag");
     Get_UE (num_slice_groups_minus1,                            "num_slice_groups_minus1");
     if (num_slice_groups_minus1>7)
