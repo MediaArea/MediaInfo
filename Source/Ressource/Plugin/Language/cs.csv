@@ -185,6 +185,7 @@ Codec_Settings_QPel
 Codec_Settings_GMC
 Codec_Settings_Matrix
 Codec_Settings_Floor
+Codec_Settings_CABAC
 Codec_Profile;Profil kodeku
 Codec_Url;Adresa pro stažení kodeku
 Collection;Collection
@@ -248,6 +249,7 @@ Folder_Hint;Otevřít vše ve složce
 FolderName;Název složky
 Format;Formát
 Format_Extensions;Extensions usualy used
+Format_Settings
 FrameRate;Frame rate
 FrameRate_Min;Minimum frame rate
 FrameRate_Max;Maximum frame rate
@@ -763,7 +765,7 @@ Written_Location;Written location
 WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97
 Menu_Codecs_List;Menu codecs
 Menu_Codecs_List0k

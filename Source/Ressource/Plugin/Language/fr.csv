@@ -185,6 +185,7 @@ Codec_Settings_QPel;Paramètres du codec, QPel
 Codec_Settings_GMC;Paramètres du codec, GMC
 Codec_Settings_Matrix;Paramètres du codec, Matrice
 Codec_Settings_Floor;Paramètres du codec, Seuil
+Codec_Settings_CABAC;Paramètres du codec, CABAC
 Codec_Profile;Profile du codec
 Codec_Url;Lien Internet sur le codec
 Collection;Collection 
@@ -248,6 +249,7 @@ Folder_Hint;Sélectionne un dossier à étudier
 FolderName;Nom du dossier
 Format;Format
 Format_Extensions;Extensions généralement utilisées
+Format_Settings;Paramètres du format
 FrameRate;Images par seconde
 FrameRate_Min;Images/s mini
 FrameRate_Max;Images/s maxi

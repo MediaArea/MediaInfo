@@ -185,6 +185,7 @@ Codec_Settings_QPel
 Codec_Settings_GMC
 Codec_Settings_Matrix
 Codec_Settings_Floor
+Codec_Settings_CABAC
 Codec_Profile;Profil codec
 Codec_Url;Legatira web pentru codec
 Collection;Colectie
@@ -248,6 +249,7 @@ Folder_Hint;Selectati un director pentru analiza
 FolderName;Numele directorului
 Format;Format
 Format_Extensions;Extensia folosita in mod curent
+Format_Settings
 FrameRate;Frecventa cadre
 FrameRate_Min
 FrameRate_Max

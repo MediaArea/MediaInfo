@@ -185,6 +185,7 @@ Codec_Settings_QPel
 Codec_Settings_GMC
 Codec_Settings_Matrix
 Codec_Settings_Floor
+Codec_Settings_CABAC
 Codec_Profile; Codecprofil
 Codec_Url; Länk till codec
 Collection; Samling
@@ -248,6 +249,7 @@ Folder_Hint; Välj en mapp att betrakta
 FolderName; Mappnamn
 Format; Format
 Format_Extensions; Normalt använda filändelser
+Format_Settings
 FrameRate; Bildhastighet (Frame rate)
 FrameRate_Min
 FrameRate_Max
@@ -763,7 +765,7 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;95
+ZZ_AutomaticLanguage_Percent;95
 Menu_Codecs_List
 Menu_Codecs_List0k

@@ -185,6 +185,7 @@ Codec_Settings_QPel;Codec settings, QPel;Paramètres du codec, QPel;;;;;;;;;;;;;
 Codec_Settings_GMC;Codec settings, GMC;Paramètres du codec, GMC;;;;;;;;;;;;;;;;;;;
 Codec_Settings_Matrix;Codec settings, Matrix;Paramètres du codec, Matrice;;;;;;;;;;;;;;;;;;;
 Codec_Settings_Floor;Codec settings, Floor;Paramètres du codec, Seuil;;;;;;;;;;;;;;;;;;;
+Codec_Settings_CABAC;Codec settings, CABAC;Paramètres du codec, CABAC;;;;;;;;;;;;;;;;;;;
 Codec_Profile;Codec profile;Profile du codec;;;;;;Codec profile;Codec-profiel;;Profil codec; Codecprofil;Kodek profili;;;コーデックのプロファイル;Profil kodeku;Προφίλ συμπιεστή;코덱 프로파일;Perfil do Codec;Perfil del codec
 Codec_Url;Weblink for codec;Lien Internet sur le codec;Link zum Codec;Kodek weblapja;Sito dove scaricare il codec richiesto;Ссылка на кодек;Url_Codec;Web do codec;Weblink voor codec;Adres sieciowy kodeka;Legatira web pentru codec; Länk till codec;Kodek için web bağlantısı;;编码器网址;コーデックの URL;Adresa pro stažení kodeku;Σύνδεσμος συμπιεστή (url) ;코덱 웹링크;Link para o codec;Enllaç del codec
 Collection;Collection;Collection ;Kollektion;Gyűjtemény;Collezione;Коллекция;;Colección;Collectie;Kolekcja;Colectie; Samling;Koleksiyon;;收集;コレクション;Collection;Συλλογή;콜렉션;Coleção;Col·lecció
@@ -766,5 +767,5 @@ Yes;Yes;Oui;Ja;Igen;Si ;Да;Si;Si;Ja;Tak;Da; Ja;Evet;;是;はい;Ano;Ναι;예
 Your system;Your system;Votre système;Systeminformationen;Rendszer;Il tuo sistema;Ваша система;Tu sistema;O teu sistema;Uw systeem;System;Sistemul dvs; Ditt system;Sisteminiz;您的系統;您的系统;システム情報;Instalované kodeky;Το σύστημά σας;이 시스템;Seu sistema;El vostre sistema
 ZZ_Automatic_Percent;99;99;73;70;74;63;53;96;96;51;43;96;98;21;41;98;98;98;98;98;99
 ZZ_AutomaticLanguage_Percent;99;99;74;73;74;70;59;96;96;74;67;96;98;45;65;98;98;98;98;98;99
-Menu_Codecs_List;;;;;;;;;;;;;;;;;Menu codecs
-Menu_Codecs_List0k;;;;;;;;;;;;;;;;;
+Menu_Codecs_List;;;;;;;;;;;;;;;;;Menu codecs;;;;
+Menu_Codecs_List0k;;;;;;;;;;;;;;;;;;;;;

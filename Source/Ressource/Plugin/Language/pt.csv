@@ -185,6 +185,7 @@ Codec_Settings_QPel
 Codec_Settings_GMC
 Codec_Settings_Matrix
 Codec_Settings_Floor
+Codec_Settings_CABAC
 Codec_Profile;Perfil do Codec
 Codec_Url;Link para o codec
 Collection;Coleção
@@ -248,6 +249,7 @@ Folder_Hint;Selecione uma pasta para examinar
 FolderName;Nome da pasta
 Format;Formato
 Format_Extensions;Extensões populares
+Format_Settings
 FrameRate;Taxa de quadros
 FrameRate_Min;Taxa de quadros mínima
 FrameRate_Max;Taxa de quadros máxima
@@ -763,7 +765,7 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;Seu sistema
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97
 Menu_Codecs_List
 Menu_Codecs_List0k

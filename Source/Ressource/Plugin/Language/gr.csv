@@ -185,6 +185,7 @@ Codec_Settings_QPel
 Codec_Settings_GMC
 Codec_Settings_Matrix
 Codec_Settings_Floor
+Codec_Settings_CABAC
 Codec_Profile;Προφίλ συμπιεστή
 Codec_Url;Σύνδεσμος συμπιεστή (url) 
 Collection;Συλλογή
@@ -248,6 +249,7 @@ Folder_Hint;Επιλέξτε έναν φάκελο για εξέταση
 FolderName;Όνομα φακέλου
 Format;Μορφοποίηση
 Format_Extensions;Συνήθεις επεκτάσεις
+Format_Settings
 FrameRate;Ρυθμός ανανέωσης πλαισίου
 FrameRate_Min;Ελάχιστος ρυθμός ανανέωσης πλαισίου
 FrameRate_Max;Μέγιστος ρυθμός ανανέωσης πλαισίου

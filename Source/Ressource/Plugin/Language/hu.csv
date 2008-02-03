@@ -185,6 +185,7 @@ Codec_Settings_QPel
 Codec_Settings_GMC
 Codec_Settings_Matrix
 Codec_Settings_Floor
+Codec_Settings_CABAC
 Codec_Profile
 Codec_Url;Kodek weblapja
 Collection;Gyűjtemény
@@ -248,6 +249,7 @@ Folder_Hint;Adja meg a vizsgálandó mappát
 FolderName;Mappanév
 Format;Formátum
 Format_Extensions;Általában használatos kiterjesztések
+Format_Settings
 FrameRate;Képsebesség
 FrameRate_Min
 FrameRate_Max

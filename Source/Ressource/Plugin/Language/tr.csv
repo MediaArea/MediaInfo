@@ -185,6 +185,7 @@ Codec_Settings_QPel
 Codec_Settings_GMC
 Codec_Settings_Matrix
 Codec_Settings_Floor
+Codec_Settings_CABAC
 Codec_Profile;Kodek profili
 Codec_Url;Kodek için web bağlantısı
 Collection;Koleksiyon
@@ -248,6 +249,7 @@ Folder_Hint;Çalışmak için klasör seç
 FolderName;Klasör adı
 Format;Biçim
 Format_Extensions;Daima kullanılan uzantılar
+Format_Settings
 FrameRate;Kare hızı
 FrameRate_Min;En az kare hızı
 FrameRate_Max;En fazla kare hızı

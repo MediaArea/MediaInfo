@@ -185,6 +185,7 @@ Codec_Settings_QPel
 Codec_Settings_GMC
 Codec_Settings_Matrix
 Codec_Settings_Floor
+Codec_Settings_CABAC
 Codec_Profile;Perfil del codec
 Codec_Url;Enllaç del codec
 Collection;Col·lecció
@@ -248,6 +249,7 @@ Folder_Hint;Tria la carpeta general
 FolderName;Nom de la carpeta
 Format;Format
 Format_Extensions;Extensions emprades actualment
+Format_Settings
 FrameRate;Imatges per segon
 FrameRate_Min;Imatges per segon mínimes
 FrameRate_Max;Imatges per segon màximes
