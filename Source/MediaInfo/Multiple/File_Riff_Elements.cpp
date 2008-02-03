@@ -38,6 +38,9 @@
 #if defined(MEDIAINFO_MPEG4V_YES)
     #include "MediaInfo/Video/File_Mpeg4v.h"
 #endif
+#if defined(MEDIAINFO_AVC_YES)
+    #include "MediaInfo/Video/File_Avc.h"
+#endif
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
@@ -1050,6 +1053,13 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
         Stream[Stream_ID].Parser=new File_Mpeg4v;
         Stream[Stream_ID].Specific_IsMpeg4v=true;
         ((File_Mpeg4v*)Stream[Stream_ID].Parser)->FrameIsAlwaysComplete=true;
+    }
+    #endif
+    #if defined(MEDIAINFO_AVC_YES)
+    else if (Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("AVC"))==0)
+    {
+        Stream[Stream_ID].Parser=new File_Avc;
+        ((File_Avc*)Stream[Stream_ID].Parser)->FrameIsAlwaysComplete=true;
     }
     #endif
     #if defined(MEDIAINFO_JPEG_YES)
