@@ -711,6 +711,7 @@ Supported formats;Υποστηριζόμενες μορφοποιήσεις
 Supported?;Υποστηρίζεται?
 Synopsys;Σύνοψη
 SystemId;Id
+Tagged_Application
 Tagged_Date;Tagged date
 Technician;Τεχνικός
 TermsOfUse;Όροι χρήσης
@@ -765,7 +766,7 @@ Written_Location;Τοποθεσία καταγραφής
 WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97
 Menu_Codecs_List
 Menu_Codecs_List0k

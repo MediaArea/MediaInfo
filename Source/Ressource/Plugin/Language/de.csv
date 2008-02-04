@@ -711,6 +711,7 @@ Supported formats;Unterstützte Formate
 Supported?;Unterstützt?
 Synopsys;Fazit 
 SystemId;ID
+Tagged_Application
 Tagged_Date;Tagging-Datum 
 Technician;Techniker 
 TermsOfUse;Verwendungslizenz 
@@ -765,7 +766,7 @@ Written_Location;Speicherort
 WrittenBy;Gespeichert von 
 Yes;Ja
 Your system;Systeminformationen
-ZZ_Automatic_Percent;73
+ZZ_Automatic_Percent;72
 ZZ_AutomaticLanguage_Percent;74
 Menu_Codecs_List
 Menu_Codecs_List0k

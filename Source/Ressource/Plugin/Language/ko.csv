@@ -711,6 +711,7 @@ Supported formats;지원하는 포맷
 Supported?;지원?
 Synopsys;시놉시스
 SystemId;Id
+Tagged_Application
 Tagged_Date;태깅한 날짜
 Technician;기술자
 TermsOfUse;사용권한
@@ -765,7 +766,7 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97
 Menu_Codecs_List
 Menu_Codecs_List0k
