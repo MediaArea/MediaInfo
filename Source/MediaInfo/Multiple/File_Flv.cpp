@@ -44,6 +44,7 @@
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
+#include <algorithm>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -390,9 +391,22 @@ void File_Flv::video()
         video_stream_FrameRate.push_back(Time);
         if (video_stream_FrameRate.size()>30)
         {
-            float Time=(float)(video_stream_FrameRate[30]-video_stream_FrameRate[0])/30; //30 frames for handling 30 fps rounding problems
-            if (Time)
-                Fill(Stream_Video, 0, "FrameRate", 1000/Time);
+            //Trying to detect VFR
+            std::vector<int64u> video_stream_FrameRate_Between;
+            for (size_t Pos=1; Pos<video_stream_FrameRate.size(); Pos++)
+                video_stream_FrameRate_Between.push_back(video_stream_FrameRate[Pos]-video_stream_FrameRate[Pos-1]);
+            std::sort(video_stream_FrameRate_Between.begin(), video_stream_FrameRate_Between.end());
+            int A=video_stream_FrameRate_Between[0];
+            int B=video_stream_FrameRate_Between[video_stream_FrameRate_Between.size()-1];
+            if (video_stream_FrameRate_Between[0]*0.9<video_stream_FrameRate_Between[video_stream_FrameRate_Between.size()-1]
+             && video_stream_FrameRate_Between[0]*1.1>video_stream_FrameRate_Between[video_stream_FrameRate_Between.size()-1])
+            {
+                float Time=(float)(video_stream_FrameRate[30]-video_stream_FrameRate[0])/30; //30 frames for handling 30 fps rounding problems
+                if (Time)
+                    Fill(Stream_Video, 0, "FrameRate", 1000/Time);
+            }
+            else
+                Fill(Stream_Video, 0, "FrameRate", "VFR");
             video_stream_FrameRate_Detected=true;
         }
     }
