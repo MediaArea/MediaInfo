@@ -1531,10 +1531,10 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser_PCM()
         return new File_Pcm();
     #else
         //Filling
-        File__Analyze* Handle=new File__Analyze(); //PCM Signed 16 bits Big Endian
+        File__Analyze* Handle=new File__Analyze(); //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
         Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill("Codec", "PCM");
-        Handle->Fill("Resolution", "16");
+        Handle->Fill("Codec", "LPCM (Big signed)");
+        Handle->Fill("Resolution", "24");
         return Handle;
     #endif
 }
