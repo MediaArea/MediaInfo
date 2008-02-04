@@ -306,7 +306,7 @@ void File_Ac3::Header_Parse()
         }
 
         //Filling
-        Header_Fill_Size(frmsiz);
+        Header_Fill_Size(2+frmsiz*2);
     }
     else
         //Filling
