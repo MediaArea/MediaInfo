@@ -247,7 +247,7 @@ void File_Mpeg4::mdat_Parse()
 //Get language string from 2CC
 char* File_Mpeg4::Language_Get(int x)
 {
-    if (x<0x100 || x==0x7FFF)
+    if (x<0x100 || x==0x7FFF || x==0xFFFF)
     {
         //Old Quicktime method, I never saw it, skip it
         Language_Result[0] = '\0';
