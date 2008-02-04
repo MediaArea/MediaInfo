@@ -1,4 +1,4 @@
-// Helpers - Automaticly generated methods for MediaInfo
+﻿// Helpers - Automaticly generated methods for MediaInfo
 // Copyright (C) 2005-2007 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software; you can redistribute it and/or
@@ -2173,7 +2173,7 @@ void File__Base_General (ZtringListList &Info)
     "Synopsys;;;Y YT;;;A description of the story line of the item.;;Classification\n"
     "Period;;;Y YT;;;Describes the period that the piece is from or about. e.g. Renaissance.;;Classification\n"
     "LawRating;;;Y YT;;;Depending on the country it's the format of the rating of a movie (P, R, X in the USA, an age in other countries or a URI defining a logo).;;Classification\n"
-    "LawRating_Reason;;;Y YT;;;Reason for the law rating;;Classification\n"
+    "LawRating_Reason;;;Y YT;;;Reason for the law rating;;Classification\n"     
     "ICRA;;;Y YT;;;The ICRA rating. (Previously RSACi);;Classification\n"
     "Released_Date;;;Y YT;;;The time that the item was released.;;Temporal\n"
     "Original/Released_Date;;;Y YT;;;The time that the item was originaly released.;;Temporal\n"

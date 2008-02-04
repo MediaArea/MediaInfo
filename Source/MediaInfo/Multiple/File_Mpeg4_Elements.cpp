@@ -1339,7 +1339,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             if (Codec!="raw ")
                 Fill("Codec", Codec, false, true);
             else
-                Fill("Codec", "PCM", Error, false, true);
+                Fill("Codec", "LPCM (Little unsigned)", Error, false, true);
             Fill("Codec/CC", Codec, false, true);
             if (Codec=="drms")
                 Fill("Encryption", "iTunes");
