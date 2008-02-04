@@ -94,6 +94,7 @@ private :
 
     //From seq_parameter_set
     Ztring Encoded_Library;
+    Ztring Encoded_Library_Settings;
     int32u pic_width_in_mbs_minus1;
     int32u pic_height_in_map_units_minus1;
     int32u log2_max_frame_num_minus4;

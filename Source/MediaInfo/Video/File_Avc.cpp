@@ -557,6 +557,7 @@ void File_Avc::slice_header_Fill()
     if (pic_struct_FirstDetected==2)
         Fill("Interlacement", "BFF");
     Fill(Stream_Video, 0, "Encoded_Library", Encoded_Library);
+    Fill(Stream_Video, 0, "Encoded_Library_Settings", Encoded_Library_Settings);
     if (entropy_coding_mode_flag)
     {
         Fill(Stream_Video, 0, "Codec_Settings", "CABAC");
@@ -762,12 +763,21 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
                 Options_Pos=Data.find(_T(" "), Options_Pos_Before);
                 if (Options_Pos==std::string::npos)
                     Options_Pos=Data.size();
-                Skip_Local(Options_Pos-Options_Pos_Before,      "option");
+                Ztring option;
+                Get_Local (Options_Pos-Options_Pos_Before, option, "option");
                 Options_Pos_Before=Options_Pos;
                 if (Options_Pos_Before+3<=Data.size())
                 {
                     Skip_Local(1,                               "separator");
                     Options_Pos_Before+=1;
+                }
+
+                //Filling
+                if (option!=_T("options:"))
+                {
+                    if (!Encoded_Library_Settings.empty())
+                        Encoded_Library_Settings+=_T(" / ");
+                    Encoded_Library_Settings+=option;
                 }
             }
             while (Options_Pos_Before!=Data.size());
