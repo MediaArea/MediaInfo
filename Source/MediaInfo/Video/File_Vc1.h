@@ -42,10 +42,12 @@ class File_Vc1 : public File__Analyze
 public :
     //In
     size_t Frame_Count_Valid;
+    bool   FrameIsAlwaysComplete;
 
 protected :
     //Format
     void Read_Buffer_Continue ();
+    void Read_Buffer_Finalize ();
 
     //Information
     void HowTo (stream_t StreamKind);

@@ -118,7 +118,8 @@ File_Vc1::File_Vc1()
 :File__Analyze()
 {
     //In
-    Frame_Count_Valid=2;
+    Frame_Count_Valid=30;
+    FrameIsAlwaysComplete=false;
 
     //Count
     Frame_Count=0;
@@ -150,6 +151,14 @@ void File_Vc1::Read_Buffer_Continue()
     //Integrity
     if (File_Offset==0 && Detect_NonVC1())
         return;
+}
+
+//---------------------------------------------------------------------------
+void File_Vc1::Read_Buffer_Finalize()
+{
+    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
+    if (Count_Get(Stream_General)==0 && Frame_Count>0)
+        FrameHeader_Fill();
 }
 
 //***************************************************************************
@@ -234,7 +243,7 @@ bool File_Vc1::Header_Parse_Fill_Size()
     //Must wait more data?
     if (Buffer_Offset_Temp+4>Buffer_Size)
     {
-        if (File_Offset+Buffer_Size==File_Size)
+        if (FrameIsAlwaysComplete || File_Offset+Buffer_Size==File_Size)
             Buffer_Offset_Temp=Buffer_Size; //We are sure that the next bytes are a start
         else
             return false;
@@ -275,7 +284,14 @@ void File_Vc1::Field()
 // Packet "0D"
 void File_Vc1::FrameHeader()
 {
+    //Counting
+    if (File_Offset+Buffer_Offset+Element_Size==File_Size)
+        Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
+    Frame_Count++;
+
+    //Name
     Element_Name("FrameHeader");
+    Element_Info(Ztring(_T("Frame ")+Ztring::ToZtring(Frame_Count)));
 
     //Parsing
     bool TypeNotP, TypeNotB, TypeNotI, TypeNotBI;
@@ -333,17 +349,13 @@ void File_Vc1::FrameHeader()
         NextCode_Add(0x0D);
         NextCode_Add(0x0F);
 
-        //Filling
-        if (Count_Get(Stream_Video)==0)
+        //Filling only if not already done
+        if (Frame_Count>=Frame_Count_Valid && Count_Get(Stream_Video)==0)
             FrameHeader_Fill();
 
         //Autorisation of other streams
         Stream[0x0D].Searching_Payload=true;
         Stream[0x0F].Searching_Payload=true;
-
-        //Jumping if needed
-        Info("VC-1, Jumping to end of file");
-        Finnished();
     FILLING_END();
 }
 
@@ -386,6 +398,14 @@ void File_Vc1::FrameHeader_Fill()
         Fill("PixelAspectRatio", PixelAspectRatio);
     if (FrameRate!=0)
         Fill("FrameRate", FrameRate);
+
+    //Jumping
+    if (Frame_Count>=Frame_Count_Valid)
+    {
+        Element_End();
+        Info("VC-1, Jumping to end of file");
+        Finnished();
+    }
 }
 
 //---------------------------------------------------------------------------

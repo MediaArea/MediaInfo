@@ -1665,6 +1665,9 @@ void File_MpegPs::video_stream()
         {
             #if defined(MEDIAINFO_VC1_YES)
                 Stream[Element_Code].Parser=new File_Vc1;
+                ((File_Vc1*)Stream[Element_Code].Parser)->Frame_Count_Valid=1;
+                if (!FromTS)
+                    ((File_Vc1*)Stream[Element_Code].Parser)->FrameIsAlwaysComplete=true;
             #else
                 //Filling
                 Stream[Element_Code].Parser=new File__Analyze();
@@ -1694,6 +1697,9 @@ void File_MpegPs::video_stream()
         {
             #if defined(MEDIAINFO_MPEG4V_YES)
                 Stream[Element_Code].Parser=new File_Mpeg4v;
+                ((File_Mpeg4v*)Stream[Element_Code].Parser)->Frame_Count_Valid=1;
+                if (!FromTS)
+                    ((File_Mpeg4v*)Stream[Element_Code].Parser)->FrameIsAlwaysComplete=true;
             #else
                 //Filling
                 Stream[Element_Code].Parser=new File__Analyze();
