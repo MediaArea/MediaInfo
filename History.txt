@@ -11,6 +11,7 @@ Version 0.7.5.9, 2008-02-
 ---------------
 + AVC: CABAC detection
 + #1886241: AVC: all SEI userdata infos from x264/eavc in Writing library settings
++ ADPCM: compagny which created the stream is now shown in the codec section
 x AVC: FPS were sometimes 2x the reality
 x RealMedia parser was brocken
 x FLV parser was crashing

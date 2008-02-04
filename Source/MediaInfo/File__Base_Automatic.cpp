@@ -941,12 +941,13 @@ void File__Base_Format (ZtringListList &Info)
     "TIFF;TIFF;;I;Tiff;;tiff tif\n"
     "RIFF-Palette;Palette;RIFF;I;Riff;RIFF Palette\n"
     "RIFF-DIB;DIB;RIFF;I;Riff;RIFF Device Independent Bitmap\n"
-    "QTI;QuickTime Image;MPEG-4;I;Qt;;;http://www.apple.com/quicktime/download/standalone.html\n"
+    "QTI;QuickTime Image;MPEG-4;I;Mpeg4;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "7Z;7-Zip;;C;7z;;7z;http://7-zip.org\n"
     "ZIP;ZIP;;C;Zip;;zip;http://winzip.com\n"
     "RAR;RAR;;C;Rar;Rarlabs;rar;http://rarlabs.com\n"
     "ACE;ACE;;C;Ace;;ace;http://winace.com\n"
-    "QTCA;QuickTime Archive;MPEG-4;C;Qt;Quicktime compressed archive;;http://www.apple.com/quicktime/download/standalone.html\n"
+    "QTCA;QuickTime Archive;MPEG-4;C;Mpeg4;Quicktime compressed archive;;http://www.apple.com/quicktime/download/standalone.html\n"
+    "CAQV;Casio;;C;Mpeg4;Casio Digital Camera\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
@@ -2183,7 +2184,7 @@ void File__Base_General (ZtringListList &Info)
     "Mastered_Date;;;Y YT;;;The time that the item was tranfered to a digitalmedium.;;Temporal\n"
     "Recorded_Location;;;Y YT;;;Location where track was recorded. (See COMPOSITION_LOCATION for format);;Spatial\n"
     "Written_Location;;;Y YT;;;Location that the item was originaly designed/written. Information should be stored in the following format: country code, state/province, city where the coutry code is the same 2 octets as in Internet domains, or possibly ISO-3166. e.g. US, Texas, Austin or US, , Austin.;;Spatial\n"
-    "Archival_Location;;;Y YT;;;;;Spatial\n"
+    "Archival_Location;;;Y YT;;;;;Spatial\n"     
     "Encoded_Application;;;Y YT;;;Software. Identifies the name of the software package used to create the file, such as Microsoft WaveEdit.;;Technical\n"
     "Encoded_Application/Url;;;N YT;;;Software. Identifies the name of the software package used to create the file, such as Microsoft WaveEdit.;;Technical\n"
     "Encoded_Library;;;Y YT;;;The software or hardware used to encode this item. e.g. LAME or XviD;;Technical\n"
@@ -2253,7 +2254,7 @@ void File__Base_Video (ZtringListList &Info)
     "BitRate_Minimum;; bps;N YF;;;Minimum Bit rate in bps\n"
     "BitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement)\n"
     "BitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps\n"
-    "BitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement)\n"                  
+    "BitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement)\n"
     "BitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps\n"
     "BitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement)\n"
     "Width;; pixel;N YI;;;Width\n"

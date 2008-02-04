@@ -669,16 +669,19 @@ public :
 protected :
 
     void Finalize__All      (stream_t StreamKind);
-    void Finalize__All      (stream_t StreamKind, size_t Pos, Ztring &Codec_List, Ztring &Language_List);
+    void Finalize__All      (stream_t StreamKind, size_t Pos);
     void Finalize_General   (size_t Pos);
     void Finalize_Video     (size_t Pos);
     void Finalize_Audio     (size_t Pos);
+    void Finalize_Audio_BitRate (size_t Pos, Ztring &Parameter);
     void Finalize_Text      (size_t Pos);
     void Finalize_Chapters  (size_t Pos);
     void Finalize_Image     (size_t Pos);
     void Finalize_Menu      (size_t Pos);
     void Finalize_Tags      ();
     void Finalize_Final     ();
+    void Finalize_Final_All (stream_t StreamKind);
+    void Finalize_Final_All (stream_t StreamKind, size_t Pos, Ztring &Codec_List, Ztring &Language_List);
 
     //Utils - Finalize
     void PlayTime_PlayTime123   (const Ztring &Value, stream_t StreamKind, size_t StreamPos);

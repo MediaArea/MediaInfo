@@ -68,6 +68,7 @@ namespace Elements
     const int64u ftyp=0x66747970;
     const int64u ftyp_qt=0x71742020;
     const int64u ftyp_isom=0x69736F6D;
+    const int64u ftyp_caqv=0x63617176;
     const int64u idat=0x69646174;
     const int64u idsc=0x69647363;
     const int64u mdat=0x6D646174;
@@ -309,7 +310,8 @@ void File_Mpeg4::Data_Parse()
                                     ATOM_BEGIN
                                     ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_esds)
                                     ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma)
-                                    ATOM_END
+                                    ATOM_DEFAULT(moov_trak_mdia_minf_stbl_stsd_xxxx_wave_xxxx)
+                                    ATOM_END_DEFAULT
                                 ATOM_END
                             ATOM_END_DEFAULT
                         ATOM(moov_trak_mdia_minf_stbl_stsh)
@@ -487,7 +489,17 @@ void File_Mpeg4::ftyp()
     Get_C4 (MajorBrand,                                         "MajorBrand");
     Skip_B4(                                                    "MajorBrandVersion");
     while (Element_Offset<Element_Size)
-        Skip_C4(                                                "CompatibleBrand");
+    {
+        int32u CompatibleBrand;
+        Get_C4 (CompatibleBrand,                                "CompatibleBrand");
+
+        //Filling
+        switch (CompatibleBrand)
+        {
+            case Elements::ftyp_caqv : Fill("Encoded_Application", "Casio Digital Camera"); break;
+            default : ;
+        }
+    }
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
@@ -1552,6 +1564,46 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma()
             Fill("Codec", Codec, true);
             Fill("Codec/CC", Codec, true);
         FILLING_END();
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_xxxx()
+{
+    if ((Element_Code&0x6D730000)!=0x6D730000)
+        return; //Only msxx format is known
+
+    Element_Name("Microsoft Audio");
+
+    //Parsing
+    int32u SamplesPerSec, AvgBytesPerSec;
+    int16u FormatTag, Channels, BitsPerSample;
+    Get_L2 (FormatTag,                                          "FormatTag");
+    Get_L2 (Channels,                                           "Channels");
+    Get_L4 (SamplesPerSec,                                      "SamplesPerSec");
+    Get_L4 (AvgBytesPerSec,                                     "AvgBytesPerSec");
+    Skip_L2(                                                    "BlockAlign");
+    Get_L2 (BitsPerSample,                                      "BitsPerSample");
+
+    FILLING_BEGIN();
+        Fill("Channel(s)", Channels!=5?Channels:6, 10, true);
+        Fill("SamplingRate", SamplesPerSec, 10, true);
+        Fill("BitRate_Nominal", AvgBytesPerSec*8, 10, true);
+    FILLING_END();
+
+    //Options
+    if (Element_Offset+2>Element_Size)
+        return; //No options
+        
+    //Parsing
+    int16u Option_Size;
+    Get_L2 (Option_Size,                                        "cbSize");
+
+    //Filling
+    if (Option_Size>0)
+    {
+             if (0);
+        else Skip_XX(Option_Size,                               "Unknown");
     }
 }
 

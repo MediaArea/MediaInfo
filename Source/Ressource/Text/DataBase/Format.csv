@@ -122,9 +122,10 @@ GIF;GIF;;I;Gif;Graphics Interchange Format;gif;
 TIFF;TIFF;;I;Tiff;;tiff tif;
 RIFF-Palette;Palette;RIFF;I;Riff;RIFF Palette;;
 RIFF-DIB;DIB;RIFF;I;Riff;RIFF Device Independent Bitmap;;
-QTI;QuickTime Image;MPEG-4;I;Qt;;;http://www.apple.com/quicktime/download/standalone.html
+QTI;QuickTime Image;MPEG-4;I;Mpeg4;;;http://www.apple.com/quicktime/download/standalone.html
 7Z;7-Zip;;C;7z;;7z;http://7-zip.org
 ZIP;ZIP;;C;Zip;;zip;http://winzip.com
 RAR;RAR;;C;Rar;Rarlabs;rar;http://rarlabs.com
 ACE;ACE;;C;Ace;;ace;http://winace.com
-QTCA;QuickTime Archive;MPEG-4;C;Qt;Quicktime compressed archive;;http://www.apple.com/quicktime/download/standalone.html
+QTCA;QuickTime Archive;MPEG-4;C;Mpeg4;Quicktime compressed archive;;http://www.apple.com/quicktime/download/standalone.html
+CAQV;Casio;;C;Mpeg4;Casio Digital Camera;;

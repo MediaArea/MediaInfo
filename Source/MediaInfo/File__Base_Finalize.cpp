@@ -83,6 +83,10 @@ void File__Analyze::Finalize()
     //Generic
     //ELEMENT(0, "Finalizing (Generic)");
 
+    //For all streams (Generic)
+    for (size_t StreamKind=Stream_General; StreamKind<Stream_Max; StreamKind++)
+        Finalize__All((stream_t)StreamKind);
+
     //For each kind of Stream
     for (size_t Pos=0; Pos<General.size();  Pos++) Finalize_General(Pos);
     for (size_t Pos=0; Pos<Video.size();    Pos++) Finalize_Video(Pos);
@@ -97,17 +101,44 @@ void File__Analyze::Finalize()
 
     //For all streams (Generic)
     for (size_t StreamKind=Stream_General; StreamKind<Stream_Max; StreamKind++)
-        Finalize__All((stream_t)StreamKind);
-
-    //FLUSH();
+        Finalize_Final_All((stream_t)StreamKind);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Finalize__All(stream_t StreamKind)
 {
+    for (size_t Pos=0; Pos<(*Stream[StreamKind]).size(); Pos++)
+        Finalize__All(StreamKind, Pos);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Finalize__All(stream_t StreamKind, size_t Pos)
+{
+    //BitRate
+    if ((*Stream[StreamKind])[Pos](_T("BitRate")).empty() && !(*Stream[StreamKind])[Pos](_T("StreamSize")).empty() && !(*Stream[StreamKind])[Pos](_T("PlayTime")).empty())
+    {
+        int64u PlayTime=(*Stream[StreamKind])[Pos](_T("PlayTime")).To_int64u();
+        int64u StreamSize=(*Stream[StreamKind])[Pos](_T("StreamSize")).To_int64u();
+        if (PlayTime>0 && StreamSize>0)
+            (*Stream[StreamKind])[Pos](_T("BitRate")).From_Number(StreamSize*8*1000/PlayTime);
+    }
+
+    //BitRate Nominal
+    float32 BitRate=(*Stream[StreamKind])[Pos](_T("BitRate")).To_float32();
+    float32 BitRate_Nominal=(*Stream[StreamKind])[Pos](_T("BitRate_Nominal")).To_float32();
+    if (BitRate_Nominal>BitRate*0.995 && BitRate_Nominal<BitRate*1.005)
+    {
+        (*Stream[StreamKind])[Pos](_T("BitRate"))=(*Stream[StreamKind])[Pos](_T("BitRate_Nominal"));
+        (*Stream[StreamKind])[Pos](_T("BitRate_Nominal")).clear();
+    }
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Finalize_Final_All(stream_t StreamKind)
+{
     Ztring Z1, Z2; //For Codec_List
     for (size_t Pos=0; Pos<(*Stream[StreamKind]).size(); Pos++)
-        Finalize__All(StreamKind, Pos, Z1, Z2);
+        Finalize_Final_All(StreamKind, Pos, Z1, Z2);
 
     //Codec_List
     if (StreamKind!=Stream_General && !Z1.empty())
@@ -121,7 +152,7 @@ void File__Analyze::Finalize__All(stream_t StreamKind)
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Finalize__All(stream_t StreamKind, size_t Pos, Ztring &Z1, Ztring &Z2)
+void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &Z1, Ztring &Z2)
 {
     if (StreamKind!=Stream_General)
     {
@@ -168,24 +199,6 @@ void File__Analyze::Finalize__All(stream_t StreamKind, size_t Pos, Ztring &Z1, Z
         //Codec_List
         Z1+=(*Stream[StreamKind])[Pos](_T("Codec/String"))+_T(" / ");
         Z2+=(*Stream[StreamKind])[Pos](_T("Language/String"))+_T(" / ");
-
-        //BitRate
-        if ((*Stream[StreamKind])[Pos](_T("BitRate")).empty() && !(*Stream[StreamKind])[Pos](_T("StreamSize")).empty() && !(*Stream[StreamKind])[Pos](_T("PlayTime")).empty())
-        {
-            int64u PlayTime=(*Stream[StreamKind])[Pos](_T("PlayTime")).To_int64u();
-            int64u StreamSize=(*Stream[StreamKind])[Pos](_T("StreamSize")).To_int64u();
-            if (PlayTime>0 && StreamSize>0)
-                (*Stream[StreamKind])[Pos](_T("BitRate")).From_Number(StreamSize*8*1000/PlayTime);
-        }
-
-        //BitRate Nominal
-        float32 BitRate=(*Stream[StreamKind])[Pos](_T("BitRate")).To_float32();
-        float32 BitRate_Nominal=(*Stream[StreamKind])[Pos](_T("BitRate_Nominal")).To_float32();
-        if (BitRate_Nominal>BitRate*0.995 && BitRate_Nominal<BitRate*1.005)
-        {
-            (*Stream[StreamKind])[Pos](_T("BitRate"))=(*Stream[StreamKind])[Pos](_T("BitRate_Nominal"));
-            (*Stream[StreamKind])[Pos](_T("BitRate_Nominal")).clear();
-        }
     }
 
     //Counts
@@ -386,8 +399,15 @@ void File__Analyze::Finalize_Audio(size_t Pos)
     }
 
     //Well known bitrate values
+    Finalize_Audio_BitRate(Pos, _T("BitRate"));
+    Finalize_Audio_BitRate(Pos, _T("BitRate_Nominal"));
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Finalize_Audio_BitRate(size_t Pos, Ztring &Parameter)
+{
     Ztring& Codec=Audio[Pos](_T("Codec"));
-    int32u BitRate=Audio[Pos](_T("BitRate")).To_int32u();
+    int32u BitRate=Audio[Pos](Parameter).To_int32u();
     int32u BitRate_Sav=BitRate;
     if (Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("MPEG-"))==0
      || Audio[Pos](_T("Codec/String")).find(_T("MPEG-"))==0)
@@ -514,7 +534,9 @@ void File__Analyze::Finalize_Audio(size_t Pos)
     }
 
     else if (Config.Codec_Get(Codec, InfoCodec_Name).find(_T("ADPCM"))==0
-          || Config.Codec_Get(Codec, InfoCodec_Name).find(_T("U-Law"))==0)
+          || Config.Codec_Get(Codec, InfoCodec_Name).find(_T("U-Law"))==0
+          || Config.Codec_Get(Codec, InfoCodec_KindofCodec)==_T("ADPCM")
+          || Config.Codec_Get(Codec, InfoCodec_KindofCodec)==_T("U-Law"))
     {
         if (BitRate>=  42000 && BitRate<=  46000) BitRate=  44100;
         if (BitRate>=  62720 && BitRate<=  65280) BitRate=  64000;
@@ -528,7 +550,7 @@ void File__Analyze::Finalize_Audio(size_t Pos)
     }
 
     if (BitRate!=BitRate_Sav)
-        Audio[Pos](_T("BitRate_Nominal")).From_Number(BitRate);
+        Audio[Pos](Parameter).From_Number(BitRate);
 }
 
 //---------------------------------------------------------------------------
