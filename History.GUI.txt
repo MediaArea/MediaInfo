@@ -15,6 +15,7 @@ Known bugs
 
 Version 0.7.5.9, 2008-02-
 ---------------
++ Lithuanian translation
 
 Version 0.7.5.8, 2008-02-01
 ---------------

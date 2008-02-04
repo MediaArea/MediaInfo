@@ -42,6 +42,7 @@ SetCompressor /FINAL /SOLID lzma
 !insertmacro MUI_LANGUAGE "Hungarian"
 !insertmacro MUI_LANGUAGE "Italian"
 !insertmacro MUI_LANGUAGE "Japanese"
+!insertmacro MUI_LANGUAGE "Lithuanian"
 !insertmacro MUI_LANGUAGE "Polish"
 !insertmacro MUI_LANGUAGE "Romanian"
 !insertmacro MUI_LANGUAGE "Russian"

@@ -38,6 +38,7 @@ Ztring Language_Others_Run ()
     ZtringListListF Dest;
     Dest.Load(L"../Source/Ressource/Language.csv");
 
+    Run_File(Dest, L"ca");
     Run_File(Dest, L"cs");
     Run_File(Dest, L"de");
     Run_File(Dest, L"en");
@@ -49,6 +50,7 @@ Ztring Language_Others_Run ()
     Run_File(Dest, L"it");
     Run_File(Dest, L"ja");
     Run_File(Dest, L"ko");
+    Run_File(Dest, L"lt");
     Run_File(Dest, L"nl");
     Run_File(Dest, L"pl");
     Run_File(Dest, L"pt");
