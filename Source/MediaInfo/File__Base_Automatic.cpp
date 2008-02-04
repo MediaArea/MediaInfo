@@ -1,4 +1,4 @@
-// Helpers - Automaticly generated methods for MediaInfo
+﻿// Helpers - Automaticly generated methods for MediaInfo
 // Copyright (C) 2005-2007 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software; you can redistribute it and/or
@@ -1770,6 +1770,7 @@ void File__Base_Codec (ZtringListList &Info)
     "APE;Monkey's Audio;MediaInfo;A;;;;http://www.monkeysaudio.com/\n"
     "ALS;ALS;MediaInfo;A;;;MPEG-4 Audio Lossless Coding;http://www.nue.tu-berlin.de/forschung/projekte/lossless/mp4als.html#downloads\n"
     "Vodei;Vodei MP;MediaInfo;V;;;Video On Demand Exploration Interface;http://www.vodei.com\n"
+    "SWF ADPCM;SWF ADPCM;MediaInfo;A;ADPCM;;ADPCM found in SWF/FLV files;http://www.adobe.com\n"
     "0;Unknown;2CC;A\n"
     "1;PCM;2CC;A;PCM;;Microsoft PCM;http://www.microsoft.com/windows/\n"
     "2;Microsoft ADPCM;2CC;A;ADPCM;;Microsoft ADPCM;http://www.microsoft.com/windows/\n"
@@ -2252,7 +2253,7 @@ void File__Base_Video (ZtringListList &Info)
     "BitRate_Minimum;; bps;N YF;;;Minimum Bit rate in bps\n"
     "BitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement)\n"
     "BitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps\n"
-    "BitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement)\n"
+    "BitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement)\n"                  
     "BitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps\n"
     "BitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement)\n"
     "Width;; pixel;N YI;;;Width\n"
