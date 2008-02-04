@@ -74,7 +74,7 @@ const int16u Flv_SamplingRate[]=
 const char* Flv_Codec_Audio[]=
 {
     "Uncompressed",
-    "ADPCM",
+    "SWF ADPCM",
     "MPEG-1A L3",
     "",
     "",

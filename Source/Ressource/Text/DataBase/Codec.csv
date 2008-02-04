@@ -776,7 +776,7 @@ tx3g;Timed;4CC;T;;;Timed text (3GPP);http://www.apple.com/quicktime/download/sta
 encv;Encrypted;4CC;V;;;Encrypted Video (3GPP);http://www.apple.com/quicktime/download/standalone.html
 enca;Encrypted;4CC;A;;;Encrypted Audio (3GPP);http://www.apple.com/quicktime/download/standalone.html
 enct;Encrypted;4CC;T;;;Encrypted Text (3GPP);http://www.apple.com/quicktime/download/standalone.html
-ima4;ADPCM;4CC;A;;;;http://www.apple.com/quicktime/download/standalone.html
+ima4;IMA ADPCM;4CC;A;ADPCM;;;http://www.apple.com/quicktime/download/standalone.html
 raw ;PCM;4CC;A;;;;http://www.apple.com/quicktime/download/standalone.html
 twos;PCM;4CC;A;;;;http://www.apple.com/quicktime/download/standalone.html
 sowt;PCM;4CC;A;;;;http://www.apple.com/quicktime/download/standalone.html
@@ -814,7 +814,7 @@ ALS;ALS;MediaInfo;A;;;MPEG-4 Audio Lossless Coding;http://www.nue.tu-berlin.de/f
 Vodei;Vodei MP;MediaInfo;V;;;Video On Demand Exploration Interface;http://www.vodei.com
 0;Unknown;2CC;A;;;;
 1;PCM;2CC;A;PCM;;Microsoft PCM;http://www.microsoft.com/windows/
-2;ADPCM;2CC;A;ADPCM;;Microsoft ADPCM;http://www.microsoft.com/windows/
+2;Microsoft ADPCM;2CC;A;ADPCM;;Microsoft ADPCM;http://www.microsoft.com/windows/
 3;FLOAT;2CC;A;;;IEEE FLOAT;http://www.microsoft.com/windows/
 4;VSELP;2CC;A;;;Compaq VSELP;
 5;CVSD;2CC;A;;;IBM CVSD;
@@ -824,18 +824,18 @@ Vodei;Vodei MP;MediaInfo;V;;;Video On Demand Exploration Interface;http://www.vo
 9;DRM;2CC;A;;;Microsoft;
 A;WMSpeech;2CC;A;;;;
 C;MPEG2 5.1;2CC;A;;;MPEG2 5.1;
-10;ADPCM;2CC;A;ADPCM;;OKI ADPCM;
-11;ADPCM;2CC;A;ADPCM;;Intel ADPCM;
-12;ADPCM;2CC;A;ADPCM;;Mediaspace (Videologic) ADPCM;
-13;ADPCM;2CC;A;ADPCM;;Sierra ADPCM;
-14;ADPCM;2CC;A;ADPCM;;Antex G723 ADPCM;
+10;OKI ADPCM;2CC;A;ADPCM;;;
+11;Intel ADPCM;2CC;A;ADPCM;;;
+12;Mediaspace ADPCM;2CC;A;ADPCM;;Mediaspace (Videologic) ADPCM;
+13;Sierra ADPCM;2CC;A;ADPCM;;Sierra ADPCM;
+14;Antex ADPCM;2CC;A;ADPCM;;Antex G723 ADPCM;
 15;STD;2CC;A;;;DSP solutions Digi-STD;
 16;FIX;2CC;A;;;DSP solutions Digi-FIX;
-17;ADPCM;2CC;A;ADPCM;;Dialogic-OKI ADPCM;http://www.microsoft.com/windows/
-18;ADPCM;2CC;A;ADPCM;;Mediavision ADPCM;
+17;Dialogic ADPCM;2CC;A;ADPCM;;Dialogic-OKI ADPCM;http://www.microsoft.com/windows/
+18;Mediavision ADPCM;2CC;A;ADPCM;;;
 19;CU;2CC;A;;;HP CU_CODEC;
 1A;Dynamic Voice;;;;;HP;
-20;ADPCM;2CC;A;ADPCM;;Yamaha ADPCM;
+20;Yamaha ADPCM;2CC;A;ADPCM;;Yamaha ADPCM;
 21;SONARC;2CC;A;;;Speech Compression SONARC;
 22;Truespeech;2CC;A;;;DSP Group TrueSpeech;http://www.microsoft.com/windows/
 23;SC1;2CC;A;;;Echo Speech SC1;
@@ -847,18 +847,18 @@ C;MPEG2 5.1;2CC;A;;;MPEG2 5.1;
 30;AC2;2CC;A;;;Dolby Laboratories AC2;
 31;GSM 6.10;2CC;A;;;Microsoft GSM 6.10;http://www.microsoft.com/windows/
 32;MSAUDIO;2CC;A;;;Microsoft Audio;
-33;ADPCM;2CC;A;ADPCM;;Antex ADPCM;
+33;Antex ADPCM;2CC;A;ADPCM;;Antex ADPCM;
 34;VQLPC;2CC;A;;;Control Ressources VQLPC;
 35;REAL;2CC;A;;;DSP Solutions Digi-REAL;
-36;ADPCM;2CC;A;ADPCM;;DSP Solutions Digi-ADPCM;
+36;DSP ADPCM;2CC;A;ADPCM;;DSP Solutions Digi-ADPCM;
 37;CR10;2CC;A;;;Control Resources 10;
-38;ADPCM;2CC;A;ADPCM;;Natural MicroSystems VBX ADPCM;
-39;ADPCM;2CC;A;ADPCM;;Crystal Semiconductor IMA ADPCM;
+38;NMS ADPCM;2CC;A;ADPCM;;Natural MicroSystems VBX ADPCM;
+39;Crystal ADPCM;2CC;A;ADPCM;;Crystal Semiconductor IMA ADPCM;
 3A;SC3;2CC;A;;;Echo Speech SC3;
 3B;ADPCM;2CC;A;;;Rockwell ADPCM;
 3C;DigiTalk;2CC;A;;;Rockwell DigiTalk;
 3D;Xebec;2CC;A;;;Xebec Multimedia Solutions;
-40;ADPCM;2CC;A;ADPCM;;Antex Electronics G721 ADPCM;
+40;Antex ADPCM;2CC;A;ADPCM;;Antex Electronics G721 ADPCM;
 41;CELP;2CC;A;;;Antex Electronics G728 CELP;
 42;G.723.1;2CC;A;;;Microsoft G.723.1;http://www.microsoft.com/windows/
 42;ADPCM;;;;;IBM;
@@ -874,8 +874,8 @@ C;MPEG2 5.1;2CC;A;;;MPEG2 5.1;
 61;PCM;2CC;A;;;ESS Technology PCM;
 62;Voxware;2CC;A;;;;
 63;ATRAC;2CC;A;;;Canopus ATRAC;
-64;ADPCM;2CC;A;ADPCM;;APICOM G726 ADPCM;
-65;ADPCM;2CC;A;ADPCM;;APICOM G722 ADPCM;
+64;Apicom ADPCM;2CC;A;ADPCM;;APICOM G726 ADPCM;
+65;Apicom ADPCM;2CC;A;ADPCM;;APICOM G722 ADPCM;
 66;DSAT;2CC;A;;;Microsoft DSAT;
 67;DSAT Display;2CC;A;;;Microsoft DSAT DISPLAY;
 69;BYTE_ALIGNED;2CC;A;;;Voxware BYTE_ALIGNED;http://www.voxware.com/
@@ -907,7 +907,7 @@ C;MPEG2 5.1;2CC;A;;;MPEG2 5.1;
 92;AC3 SPDIF;2CC;A;;;Sonic Foundry AC3 SPDIF
 93;G723;2CC;A;;;MediaSonic G723
 94;Prosody 8KBPS;2CC;A;;;Aculab plc Prosody 8KBPS
-97;ADPCM;2CC;A;;;ZyXEL Communications ADPCM
+97;ZyXEL ADPCM;2CC;A;ADPCM;;ZyXEL Communications ADPCM
 98;LPCBB;2CC;A;;;Philips Speech Processing LPCBB
 99;Packed;2CC;A;;;Studer Professional Audio AG Packed
 A0;PHONYTALK;2CC;A;;;Malden Electronics PHONYTALK
@@ -917,7 +917,7 @@ A3;G.723.1;;;;;Racal Recorders
 A4;ACELP;;;;;Racal Recorders
 B0;AAC;;;AAC;;NEC Corporation
 FF;AAC;2CC;A;AAC;;
-100;ADPCM;2CC;A;ADPCM;;Rhetorex ADPCM
+100;Rhetorex ADPCM;2CC;A;ADPCM;;
 101;IRAT;2CC;A;;;BeCubed IRAT
 102;;2CC;A;;;IBM A-law
 103;;2CC;A;;;IBM AVC ADPCM
@@ -926,7 +926,7 @@ FF;AAC;2CC;A;AAC;;
 120;CELP;;;;;Philips Speech Processing
 121;Grundig;;;;;Philips Speech Processing
 123;G723;2CC;A;;;Digital Equipment Corporation (DEC) G723
-125;ADPCM;2CC;A;ADPCM;;Sanyo ADPCM;
+125;Sanyo ADPCM;2CC;A;ADPCM;;;
 130;ACEPL;2CC;A;;;Sipro ACEPL.net;http://dividix.host.sk
 131;ACELP4800;2CC;A;;;Sipro ACELP4800;
 132;ACELP8V3;2CC;A;;;Sipro ACELP8V3;
@@ -945,7 +945,7 @@ FF;AAC;2CC;A;AAC;;
 162;WMA3;2CC;A;;;Windows Media Audio 3;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
 163;WMA Lossless;2CC;A;;;Windows Media Audio 3;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
 163;WMA Pro;;;;;WMA Pro over S/PDIF;
-170;ADPCM;2CC;A;ADPCM;;Unisys Nap ADPCM;
+170;Unisys ADPCM;2CC;A;ADPCM;;Unisys Nap ADPCM;
 171;U-Law;2CC;A;;;Unisys Nap U-law;
 172;A-Law;2CC;A;;;Unisys Nap A-law;
 173;16K;2CC;A;;;Unisys Nap 16K;
@@ -953,13 +953,13 @@ FF;AAC;2CC;A;AAC;;
 175;G.726L;;;;;SyCom Technologies;
 176;CELP54;;;;;SyCom Technologies;
 177;CELP68;;;;;SyCom Technologies;
-178;ADPCM;;;ADPCM;;Knowledge Adventure, Inc.;
+178;Knownledge ADPCM;;;ADPCM;;Knowledge Adventure, Inc.;
 180;AAC;;;;;Fraunhofer IIS;
 190;DTS;;;;;;
-200;ADPCM;2CC;A;;;Creative Labs ADPCM;
+200;Creative ADPCM;2CC;A;;;Creative Labs ADPCM;
 202;FastSpeech8;2CC;A;;;Creative Labs Fast Speech 8;
 203;FastSpeech10;2CC;A;;;Creative Labs Fast Speech 10
-210;ADPCM;2CC;A;ADPCM;;UHER informatic GmbH ADPCM
+210;Uher ADPCM;2CC;A;ADPCM;;UHER informatic GmbH ADPCM
 215;;2CC;A;;;Ulead DV ACM
 216;;2CC;A;;;Ulead DV ACM
 220;QuaterDeck;2CC;A;;;Quarterdeck
@@ -975,7 +975,7 @@ FF;AAC;2CC;A;AAC;;
 273;SPC;;;;;Sony
 280;Telum;;;;;
 281;TelumIA;;;;;;
-285;ADPCM;;;ADPCM;;Norcom Voice Systems;
+285;NVS ADPCM;;;ADPCM;;Norcom Voice Systems;
 300;FM_TOWNS_SND;2CC;A;;;Fujitsu FM_TOWNS_SND;
 350;Dev;;;;;Micronas Semiconductors, Inc.;
 351;CELP833;;;;;Micronas Semiconductors, Inc.;
@@ -991,7 +991,7 @@ FF;AAC;2CC;A;AAC;;
 8AE;LiteWave;2CC;A;;;ClearJump LiteWave;
 AAC;AAC;;;AAC;;;
 1000;GSM;2CC;A;;;Ing C. Olivetti & C., S.p.A. GSM;
-1001;ADPCM;2CC;A;;;Ing C. Olivetti & C., S.p.A. ADPCM;
+1001;Olivetti ADPCM;2CC;A;ADPCM;;Ing C. Olivetti & C., S.p.A. ADPCM;
 1002;CELP;2CC;A;;;Ing C. Olivetti & C., S.p.A. CELP;
 1003;SBC;2CC;A;;;Ing C. Olivetti & C., S.p.A. SBC;
 1004;OPR;2CC;A;;;Ing C. Olivetti & C., S.p.A. OPR;

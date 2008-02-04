@@ -67,7 +67,7 @@ const int16u Swf_SoundRate[]=
 const char* Swf_SoundFormat[]=
 {
     "Uncompressed",
-    "ADPCM",
+    "SWF ADPCM",
     "MPEG-1L3",
     "Uncompressed Little Endian",
     "",
