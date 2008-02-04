@@ -883,6 +883,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
             AVI__hdlr_strl_strf_auds_Mpega();
         else if (Codec==_T("AAC") || Codec==_T("FF"))
             AVI__hdlr_strl_strf_auds_Aac();
+        else Skip_XX(Option_Size,                               "Unknown");
     }
 }
 
