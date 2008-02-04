@@ -139,6 +139,8 @@ private :
     void moov_udta_AllF();
     void moov_udta_chpl();
     void moov_udta_cprt();
+    void moov_udta_FIEL();
+    void moov_udta_FXTC();
     void moov_udta_hinf();
     void moov_udta_hinv();
     void moov_udta_hnti();

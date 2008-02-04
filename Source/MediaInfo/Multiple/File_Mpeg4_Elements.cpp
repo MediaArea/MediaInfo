@@ -195,6 +195,8 @@ namespace Elements
     const int64u moov_udta_AllF=0x416C6C46;
     const int64u moov_udta_chpl=0x6368706C;
     const int64u moov_udta_cprt=0x63707274;
+    const int64u moov_udta_FIEL=0x4649454C;
+    const int64u moov_udta_FXTC=0x46585443;
     const int64u moov_udta_hinf=0x68696E66;
     const int64u moov_udta_hinv=0x68696E76;
     const int64u moov_udta_hnti=0x686E7469;
@@ -344,6 +346,8 @@ void File_Mpeg4::Data_Parse()
             ATOM(moov_udta_AllF)
             ATOM(moov_udta_chpl)
             ATOM(moov_udta_cprt)
+            ATOM(moov_udta_FIEL)
+            ATOM(moov_udta_FXTC)
             ATOM(moov_udta_hinf)
             ATOM(moov_udta_hinv)
             LIST(moov_udta_hnti)
@@ -1921,6 +1925,24 @@ void File_Mpeg4::moov_udta_cprt()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_FIEL()
+{
+    Element_Name("FIEL?");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_FXTC()
+{
+    Element_Name("Adobe After Effects?");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_udta_hinf()
 {
     Element_Name("Hint Format");
@@ -2090,6 +2112,21 @@ void File_Mpeg4::moov_udta_xxxx()
                 //Parsing
                 Ztring Value;
                 int16u Size, Language;
+                bool IsText=true;
+                if (Element_Size<=4)
+                    IsText=false;
+                else
+                {
+                    Peek_B2(Size);
+                    if (4+Size>Element_Size)
+                        IsText=false;
+                }
+                if (!IsText)
+                {
+                    Skip_XX(Element_Size,                       "Unknown");
+                    return;    
+                }
+
                 while(Element_Offset<Element_Size)
                 {
                     Get_B2(Size,                                "Size");
