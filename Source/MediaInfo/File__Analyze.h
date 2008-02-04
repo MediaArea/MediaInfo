@@ -673,7 +673,7 @@ protected :
     void Finalize_General   (size_t Pos);
     void Finalize_Video     (size_t Pos);
     void Finalize_Audio     (size_t Pos);
-    void Finalize_Audio_BitRate (size_t Pos, Ztring &Parameter);
+    void Finalize_Audio_BitRate (size_t Pos, ZenLib::Char* Parameter);
     void Finalize_Text      (size_t Pos);
     void Finalize_Chapters  (size_t Pos);
     void Finalize_Image     (size_t Pos);

@@ -404,7 +404,7 @@ void File__Analyze::Finalize_Audio(size_t Pos)
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Finalize_Audio_BitRate(size_t Pos, Ztring &Parameter)
+void File__Analyze::Finalize_Audio_BitRate(size_t Pos, Char* Parameter)
 {
     Ztring& Codec=Audio[Pos](_T("Codec"));
     int32u BitRate=Audio[Pos](Parameter).To_int32u();
