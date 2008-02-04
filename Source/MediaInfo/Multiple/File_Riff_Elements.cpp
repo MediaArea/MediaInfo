@@ -868,7 +868,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     #endif
 
     //Options
-    if (Element_Offset+2>=Element_Size)
+    if (Element_Offset+2>Element_Size)
         return; //No options
         
     //Parsing
