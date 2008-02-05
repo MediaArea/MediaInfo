@@ -779,7 +779,7 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
                     if (!Encoded_Library_Settings.empty())
                         Encoded_Library_Settings+=_T(" / ");
                     Encoded_Library_Settings+=option;
-                    if (option.find("bitrate="))==0)
+                    if (option.find(_T("bitrate="))==0)
                         BitRate_Nominal=option.substr(8)+_T("000"); //After "bitrate="
                 }
             }
