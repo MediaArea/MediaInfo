@@ -558,6 +558,7 @@ void File_Avc::slice_header_Fill()
         Fill("Interlacement", "BFF");
     Fill(Stream_Video, 0, "Encoded_Library", Encoded_Library);
     Fill(Stream_Video, 0, "Encoded_Library_Settings", Encoded_Library_Settings);
+    Fill(Stream_Video, 0, "BitRate_Nominal", BitRate_Nominal);
     if (entropy_coding_mode_flag)
     {
         Fill(Stream_Video, 0, "Codec_Settings", "CABAC");
@@ -778,6 +779,8 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
                     if (!Encoded_Library_Settings.empty())
                         Encoded_Library_Settings+=_T(" / ");
                     Encoded_Library_Settings+=option;
+                    if (option.find("bitrate="))==0)
+                        BitRate_Nominal=option.substr(8)+_T("000"); //After "bitrate="
                 }
             }
             while (Options_Pos_Before!=Data.size());
