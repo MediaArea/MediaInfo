@@ -61,6 +61,7 @@ private :
 
     //Temp - Technical info
     int16u chanmap;
+    int16u frmsiz;
     int8u  fscod;
     int8u  fscod2;
     int8u  frmsizecod;
@@ -68,6 +69,7 @@ private :
     int8u  bsmod;
     int8u  acmod;
     int8u  dsurmod;
+    int8u  numblks;
     bool   lfeon;
 
     //Helpers

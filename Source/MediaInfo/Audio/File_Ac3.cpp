@@ -203,6 +203,7 @@ File_Ac3::File_Ac3()
 
     //Temp - Technical info
     chanmap=0;
+    frmsiz=0;
     fscod=0;
     fscod2=0;
     frmsizecod=0;
@@ -210,6 +211,7 @@ File_Ac3::File_Ac3()
     bsmod=0;
     acmod=0;
     dsurmod=0;
+    numblks=0;
     lfeon=false;
 }
 
@@ -274,17 +276,19 @@ void File_Ac3::Header_Parse()
     }
     else if (bsid>0x0A && bsid<=0x10)
     {
-        int16u frmsiz;
-        int8u  strmtyp;
+        int8u  strmtyp, numblkscod;
         BS_Begin();
         Get_S1 ( 2, strmtyp,                                        "strmtyp");
         Skip_S1( 3,                                                 "substreamid");
         Get_S2 (11, frmsiz,                                         "frmsiz");
         Get_S1 ( 2, fscod,                                          "fscod");
-        if (fscod==2)
+        if (fscod==3)
+        {
             Get_S1 ( 2, fscod2,                                     "fscod2");
+            numblkscod=3;
+        }
         else
-            Skip_S1( 2,                                             "numblkscod");
+            Get_S1 ( 2, numblkscod,                                 "numblkscod");
         Get_S1 (3, acmod,                                           "acmod - Audio Coding Mode"); Param_Info(AC3_ChannelPositions[acmod]);
         Get_SB (   lfeon,                                           "lfeon - Low Frequency Effects");
         Get_S1 ( 5, bsid,                                           "bsid - Bit Stream Identification");
@@ -307,6 +311,7 @@ void File_Ac3::Header_Parse()
 
         //Filling
         Header_Fill_Size(2+frmsiz*2);
+        numblks=numblkscod==3?6:numblkscod+1;
     }
     else
         //Filling
@@ -338,12 +343,11 @@ void File_Ac3::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Ac3::Data_Parse_Fill()
 {
-    Stream_Prepare(Stream_General);
-    Fill("Format", "AC3");
-    Stream_Prepare(Stream_Audio);
-
     if (bsid<=0x08)
     {
+        Stream_Prepare(Stream_General);
+        Fill("Format", "AC3");
+        Stream_Prepare(Stream_Audio);
         Fill("Codec", "AC3");
 
         Fill("SamplingRate", AC3_SamplingRate[fscod]);
@@ -373,8 +377,14 @@ void File_Ac3::Data_Parse_Fill()
 
     if (bsid==0x10)
     {
+        Stream_Prepare(Stream_General);
+        Fill("Format", "AC3+");
+        Stream_Prepare(Stream_Audio);
         Fill("Codec", "AC3+");
+
         Fill("BitRate_Mode", "CBR");
+        if (numblks>0)
+            Fill("BitRate", ((frmsiz*2+2)*8*(750/numblks))/4);
 
         if (fscod!=2)
             Fill("SamplingRate", AC3_SamplingRate[fscod]);
