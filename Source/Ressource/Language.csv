@@ -766,5 +766,5 @@ Written_Location;Written location;Lieu d'écriture;Speicherort ;Írás helye;Wri
 WrittenBy;Written by;Ecrit par;Gespeichert von ;Írta;Scritto da ;Написано;;Escrito por;Geschreven door;Napisany przez;Scris de; Skrivet av;Yazan;;作者;著者;Napsal;Γραμμένο από;제작자;Escrito por;Escrit per;Parašė
 Yes;Yes;Oui;Ja;Igen;Si ;Да;Si;Si;Ja;Tak;Da; Ja;Evet;;是;はい;Ano;Ναι;예;Sim;Sí;Taip
 Your system;Your system;Votre système;Systeminformationen;Rendszer;Il tuo sistema;Ваша система;Tu sistema;O teu sistema;Uw systeem;System;Sistemul dvs; Ditt system;Sisteminiz;您的系統;您的系统;システム情報;Instalované kodeky;Το σύστημά σας;이 시스템;Seu sistema;El vostre sistema;Jūsų sistema
-ZZ_Automatic_Percent;99;99;72;70;74;63;53;96;96;51;43;95;98;21;41;98;97;97;97;97;98;99
-ZZ_AutomaticLanguage_Percent;99;99;74;73;74;70;59;96;96;74;67;95;98;45;65;98;97;97;97;97;98;99
+ZZ_Automatic_Percent;100;100;73;70;74;63;53;96;96;51;43;96;98;21;41;98;97;98;98;98;98;99
+ZZ_AutomaticLanguage_Percent;100;100;74;73;74;70;59;96;96;74;67;96;98;45;65;98;97;98;98;98;98;99
