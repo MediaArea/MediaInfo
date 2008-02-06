@@ -640,8 +640,8 @@ WMV3;WMV3;4CC;V;;;Windows Media Video 9;http://www.microsoft.com/windows/windows
 WMVA;WMV;4CC;V;;;Windows Media Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
 WMVP;WMV3;4CC;V;;;Windows Media Video V9;
 WNIX;WniWni;4CC;V;;;WniWni;
-WNV1;WinNow;4CC;V;;;WinNow Videum Hardware Compression;
-WNVA;WinNow;4CC;V;;;WinNow Videum Hardware Compression;
+WNV1;WinNov;4CC;V;;;WinNov Videum Hardware Compression;http://www.winnov.com/
+WNVA;WinNov;4CC;V;;;WinNov Videum Hardware Compression;http://www.winnov.com/
 WRLE;Apple BMP;4CC;V;RGB;;Apple QuickTime BMP;
 WRPR;AVideoTools;4CC;V;;;VideoTools VideoServer Client (wrapper for AviSynth);
 WV1F;WV1F;4CC;V;;;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
