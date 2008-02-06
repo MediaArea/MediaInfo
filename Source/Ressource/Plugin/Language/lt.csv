@@ -21,9 +21,9 @@
  chapter1; skyrius
  chapter2; skyriai
  chapter3; skyriai
- chapters stream1;Skyriaus srovė
- chapters stream2;kanalų srovės
- chapters stream3;kanalų srovės
+ chapters stream1;Skyriaus srautas
+ chapters stream2;kanalų srautai
+ chapters stream3;kanalų srautai
  day1;diena
  day2;dienos
  day3;dienos
@@ -45,8 +45,8 @@
  GigaBit2; GigaBitai
  GigaBit3; GigaBitai
  GigaByte1; GigaBaitas
- GigaByte2; GigaBytai
- GigaByte3; GigaBytai
+ GigaByte2; GigaBaitai
+ GigaByte3; GigaBaitai
  hour1; valanda
  hour2; valandos
  hour3;valandos
@@ -126,7 +126,7 @@ About;Apie
 About_Hint;Kaip man prisijungti ir rasti naujausią versiją
 Accompaniment;Akompanimentas
 Actor;Aktorius
-Actor_Character;rodyti ženklai
+Actor_Character;rodyti ženklą
 Address;Adresas
 Advanced;Išlėstinai
 Advanced mode;Išplėstinis rėžimas
@@ -220,7 +220,7 @@ Donate;Aukoti
 Edit;Redaguoti
 EditedBy;Redagavo
 EMail;El. Paštas
-Encoded_Application;Rašymo prgrama
+Encoded_Application;Rašymo programa
 Encoded_Date;Užkodavimo data
 Encoded_Library;Rašymo biblioteka
 Encoded_Library_Settings;Šifravimo nuostatos
@@ -408,16 +408,16 @@ h;v
 Header file;Sukurti pagrindinį failą
 Height;Aukštis
 Help;Pagalba
-How many audio streams?;Kiek audio srovių?
-How many chapters streams?;Kiek skyrių srovių?
-How many text streams?;Kiek teksto srovių?
-How many video streams?;Kiek video srovių?
+How many audio streams?;Kiek audio srautų?
+How many chapters streams?;Kiek skyrių srautų?
+How many text streams?;Kiek teksto srautų?
+How many video streams?;Kiek video srautų?
 HTML;HTML
 ID;ID
 Image;Paveikslėlis
-Image stream(s);Paveikslėlių srovės
+Image stream(s);Paveikslėlių srautai
 Image_Codec_List;Kodeko paveiklėlis
-ImageCount;Paveikslėlių srovių kiekis
+ImageCount;Paveikslėlių srautų kiekis
 Info;Info
 Instruments;Instrumentai
 Interlacement;Sumaišymas
@@ -440,19 +440,19 @@ Language_ab;Afkazų
 Language_ae;Avestanų
 Language_af;Afrikiečių
 Language_ak;Akanų
-Language_am;Amharic
-Language_an;Aragonese
+Language_am;Amharkų
+Language_an;Argonų
 Language_ar;Arabų
-Language_as;Assamese
-Language_av;Avaric
-Language_ay;Aymara
-Language_az;Azerbaidžianas
-Language_ba;Baškitas
+Language_as;Asamesų
+Language_av;Avarų
+Language_ay;Aimarų
+Language_az;Azerbaidžianiečių
+Language_ba;Baškitų
 Language_be;Baltarusų
 Language_bg;Bulgarų
-Language_bh;Bihari
-Language_bi;Bislama
-Language_bm;Bambara
+Language_bh;Biharų
+Language_bi;Bislamų
+Language_bm;Bambarų
 Language_bn;Bengali
 Language_bo;Tibetan
 Language_br;Breton
@@ -627,7 +627,7 @@ Library;Muxing biblioteka
 Lyricist;Lyrikas
 Mastered_Date;Sukūrimo data
 MasteredBy;Sukūrė
-MediaInfo_About;Teikiama labai detali informacija\r\napie daugialypes bylas:\r\nMatroska, OGG (įskaitant OGM)\r\nMPEG1 (įskaitant VCD)\r\nMPEG2 (įskaitant DVD ir SVCD)\r\nMPEG4 (įskaitant Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (įskaitant WMV, WMA)\r\nMicrosoft RIFF (įskaitant AVI, WAV)\r\nTik-Garso formatai (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About;Teikiama detali informacija\r\napie daugialypes bylas:\r\nMatroska, OGG (įskaitant OGM)\r\nMPEG1 (įskaitant VCD)\r\nMPEG2 (įskaitant DVD ir SVCD)\r\nMPEG4 (įskaitant Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (įskaitant WMV, WMA)\r\nMicrosoft RIFF (įskaitant AVI, WAV)\r\nTik-Garso formatai (AC3, DTS, AAC, AU, AIFF...)
 Menu;Meniu
 Menu stream(s);Meniu srautai
 Menu_Codec_List;Meniu kodekai
@@ -678,12 +678,12 @@ Recorded_Location;Įrašymo vieta
 Released_Date;Išleidimo data
 RemixedBy;Permiksavo
 Resolution;Raiška
-s;Video srovė (s)
+s;Video srautai (s)
 SamplingRate;Atrankos tempas
 Save;Išsaugoti
 ScreenplayBy;Ekrano rodymas
 Season;Sezonas
-see below;ziurėti žemiau
+see below;ziūrėti žemiau
 Send HeaderFile;Prašau atsiuskite pagrindinį failą čia : http://sourceforge.net/projects/mediainfo/ (derinimo sekcija)
 Separator_Columns;Stulpelių skyryba
 Separator_Lines;Eilučių skyryba
@@ -692,18 +692,18 @@ Set_Count;Nustatyti kiekį
 Setup;Sąranka
 Sheet;Lapas
 Sheet (Complete);Lapas (Pilnas)
-Shell extension;Apvalkalo plėtinys (explorer'yje dešinys pasapudimas ten kur bus Media Info pasirinktis)
+Shell extension;Apvalkalo plėtinys (explorer'yje dešinys paspaudimas ten kur bus Media Info pasirinktis)
 Shell InfoTip;Apvalkalo InfoTipas (explorer'yje, užveskite pelę ant failo, bus parodyta informacija)
 Show menu;Rodyti meniu
 Show toolbar;Rodyti įrankių juostą
-Sort;Rušiuotojas
+Sort;Rūšiuotojas
 SoundEngineer;Garso inžinierius
 Standard;Standartas
-Stream;Srovė
-Stream_MoreInfo;Daugiau informacijos apie srovę
-StreamCount;Šios rūšies srovių kiekis
-StreamID;Srovės ID
-StreamKind;Srovės rūšis
+Stream;Srautas
+Stream_MoreInfo;Daugiau informacijos apie srautą
+StreamCount;Šios rūšies srautų kiekis
+StreamID;Srauto ID
+StreamKind;Srauto rūšis
 Subject;Tema
 SubTrack;SubTakelis
 Summary;Santrauka
@@ -718,14 +718,14 @@ TermsOfUse;Naudojimo sąlygos
 Text;Tekstas
 Text - Custom;Tekstas - Vartotojo
 Text (HTML);Tekstas (HTML)
-Text stream(s);Teksto srovės
-Text streams;Teksto srovės
+Text stream(s);Teksto srautai
+Text streams;Teksto srautai
 Text_Codec_List;Teksto kodekas
 Text_No;Be teksto
-Text1;Pirma teksto srovė
-Text2;Antra teksto srovė
-Text3;Trečia teksto srovė
-TextCount;Teksto srovių kiekis
+Text1;Pirmas teksto srautas
+Text2;Antras teksto srautas
+Text3;Trečias teksto srautas
+TextCount;Teksto srautų kiekis
 ThanksTo;Dėkojame
 Thousands separator;Tukstančių skyryba
 Title;Antraštė
@@ -743,11 +743,11 @@ Video stream(s)
 Video_Codec_List;Kodeko video
 Video_No;Be video
 Video0_Delay;Video0 atidėjimas
-Video1;Pirma video srovė
-VideoCount;Video srovių kiekis
+Video1;Pirmas video srautas
+VideoCount;Video srautų kiekis
 View;Rodymas
 View_Hint;Keisti rodymo informacijos reikšmes
-Warning : more streams in the files;Dėmesio : faile yra daugiau srovių
+Warning : more streams in the files;Dėmesio : faile yra daugiau srautų
 Web;Web
 WebSite_Audio;Eiti į šio audio kodeko internetinį puslapį
 WebSite_Audio_More;Eiti į svetainę (%Url%) kad rasti šį kodeką
