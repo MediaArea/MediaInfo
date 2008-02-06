@@ -36,12 +36,10 @@
 #include <ZenLib/ZtringListList.h>
 #include <ZenLib/BitStream.h>
 #include <ZenLib/Utils.h>
-#include <math.h>
-#ifdef __BORLANDC__
-    #include <mem.h>
-#endif //__BORLANDC__
-#include <stdlib.h>
+#include <cmath>
+#include <memory>
 using namespace ZenLib;
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

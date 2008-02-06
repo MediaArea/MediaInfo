@@ -32,9 +32,8 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_MpegTs.h"
 #include "MediaInfo/Multiple/File_MpegPs.h"
-#ifdef __BORLANDC__
-    #include <mem.h>
-#endif //__BORLANDC__
+#include <memory>
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

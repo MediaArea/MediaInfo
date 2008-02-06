@@ -24,7 +24,6 @@
 //---------------------------------------------------------------------------
 // Compilation conditions
 #include <MediaInfo/Setup.h>
-#include <math.h>
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -36,6 +35,8 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Audio/File_Vorbis.h"
+#include <cmath>
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
