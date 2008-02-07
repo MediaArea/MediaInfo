@@ -246,7 +246,7 @@ void File__Analyze::Finalize_General(size_t)
         Fill(Stream_General, 0, "Format/Url", Config.Format_Get(General[0](_T("Format")), InfoFormat_Url));
         Fill(Stream_General, 0, "Format/Extensions", Config.Format_Get(General[0](_T("Format")), InfoFormat_Extensions));
     }
-    else
+    else if (Get(Stream_General, 0, "Format/String").empty())
         Fill(Stream_General, 0, "Format/String", General[0](_T("Format")));
 }
 
