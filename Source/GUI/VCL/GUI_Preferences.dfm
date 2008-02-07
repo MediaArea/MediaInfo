@@ -4,8 +4,8 @@ object PreferencesF: TPreferencesF
   BorderIcons = []
   BorderStyle = bsDialog
   Caption = 'Preferences'
-  ClientHeight = 184
-  ClientWidth = 572
+  ClientHeight = 187
+  ClientWidth = 667
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,8 +18,8 @@ object PreferencesF: TPreferencesF
   PixelsPerInch = 96
   TextHeight = 14
   object OK: TTntButton
-    Left = 448
-    Top = 156
+    Left = 544
+    Top = 159
     Width = 122
     Height = 27
     Caption = 'OK'
@@ -63,8 +63,8 @@ object PreferencesF: TPreferencesF
       00FFFFFFFFFFFFFFFF00000000000000000BEFBBBF4C616E6775616765}
   end
   object Cancel: TTntButton
-    Left = 324
-    Top = 156
+    Left = 417
+    Top = 159
     Width = 121
     Height = 27
     Cancel = True
@@ -75,7 +75,7 @@ object PreferencesF: TPreferencesF
   object Page: TTntPageControl
     Left = 149
     Top = 0
-    Width = 425
+    Width = 517
     Height = 157
     ActivePage = Setup
     MultiLine = True
@@ -127,7 +127,7 @@ object PreferencesF: TPreferencesF
       object CB_CheckUpdate: TTntCheckBox
         Left = 0
         Top = 52
-        Width = 406
+        Width = 506
         Height = 18
         Caption = 'Check for newest versions (require Internet connection)'
         Checked = True
@@ -138,7 +138,7 @@ object PreferencesF: TPreferencesF
       object General_Language_More: TTntButton
         Left = 216
         Top = 0
-        Width = 45
+        Width = 57
         Height = 23
         Caption = 'More...'
         TabOrder = 3
@@ -147,7 +147,7 @@ object PreferencesF: TPreferencesF
       object General_Output_More: TTntButton
         Left = 216
         Top = 26
-        Width = 45
+        Width = 57
         Height = 22
         Caption = 'More...'
         TabOrder = 4
@@ -156,7 +156,7 @@ object PreferencesF: TPreferencesF
       object CB_InfoTip: TTntCheckBox
         Left = 0
         Top = 84
-        Width = 406
+        Width = 506
         Height = 18
         Caption = 
           'Shell InfoTip (in explorer, move the mouse on file, info will be' +
@@ -167,7 +167,7 @@ object PreferencesF: TPreferencesF
       object CB_InscrireShell: TTntCheckBox
         Left = 0
         Top = 68
-        Width = 406
+        Width = 506
         Height = 18
         Caption = 
           'Shell extension (in explorer, righ click, there will be a "Media' +
