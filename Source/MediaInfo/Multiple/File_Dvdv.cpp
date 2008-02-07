@@ -54,8 +54,8 @@ const char*  IFO_VTS_Category[]=
 
 const char*  IFO_CodecV[]=
 {
-    "MPEG1V",
-    "MPEG2V",
+    "MPEG-1V",
+    "MPEG-2V",
     "",
     "",
 };
@@ -92,16 +92,16 @@ const size_t IFO_Height[4][8]=
  {  0,   0,   0,   0,   0,   0,   0,   0}, //Unknown
  };
 
-const size_t IFO_FrameRate[]=
-{25, 30};
+const float64 IFO_FrameRate[]=
+{29.970, 25.000};
 
 const char*  IFO_CodecA[]=
 {
     "AC3",
     "",
-    "MPEG1A",
-    "MPEG2A",
-    "LPCM",
+    "MPEG-1A",
+    "MPEG-2A",
+    "LPCM (Big Endian)",
     "",
     "DTS",
     "SDDS",
@@ -331,7 +331,7 @@ void File_Dvdv::VMG()
     //Filling
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill("Format", "DVD Video");
+        Fill("Format", "DVD Video (Menu)");
         Fill("Format/String", "DVD Video (Menu)");
         Fill("Format/Extensions", "IFO");
 
