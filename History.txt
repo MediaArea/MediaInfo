@@ -20,6 +20,7 @@ x FLV parser was crashing
 x FLV: Better detection of Nellymoser audio
 x FLV: Disabling Framerate estimation if a VFR file is detected (estimation was false in this case)
 x Better false-positive MP3 detection (NSV files are no more detected as MP3)
+x Win9X support was (again) brocken in 0.7.5.8
 
 Version 0.7.5.8, 2008-02-01
 ---------------
