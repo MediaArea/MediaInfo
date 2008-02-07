@@ -1584,11 +1584,16 @@ void File_Riff::AVI__movi_StreamJump()
     {
         if (Stream_Pos.begin()->first<=File_Offset+Buffer_Offset)
             Stream_Pos.erase(Stream_Pos.begin());
-        int64u ToJump=Stream_Pos.begin()->first;
-        if (ToJump>=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-2))
-            File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-2); //Not in this chunk
-        else if (ToJump!=File_Offset+Buffer_Offset+Element_Size)
-            File_GoTo=ToJump; //Not just after
+        if (!Stream_Pos.empty())
+        {
+            int64u ToJump=Stream_Pos.begin()->first;
+            if (ToJump>=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-2))
+                File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-2); //Not in this chunk
+            else if (ToJump!=File_Offset+Buffer_Offset+Element_Size)
+                File_GoTo=ToJump; //Not just after
+        }
+        else
+            Finnished();
     }
 }
 
