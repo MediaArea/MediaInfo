@@ -53,7 +53,8 @@ bool File_Pcm::Header_Begin()
     Stream_Prepare(Stream_General);
     Fill("Format", "PCM");
     Stream_Prepare(Stream_Audio);
-    Fill("Codec", "PCM");
+    Fill("Codec", "LPCM (Big signed)"); //Currently only called from DVD Video
+    Fill("Resolution", 24); //Currently only called from DVD Video
 
     Finnished();
     return false;
