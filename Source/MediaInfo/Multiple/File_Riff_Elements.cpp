@@ -62,6 +62,9 @@
 #if defined(MEDIAINFO_OTHERTEXT_YES)
     #include "MediaInfo/Text/File_OtherText.h"
 #endif
+#if defined(MEDIAINFO_PCM_YES)
+    #include "MediaInfo/Audio/File_Pcm.h"
+#endif
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -865,6 +868,16 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     #if defined(MEDIAINFO_ADTS_YES)
     else if (FormatTag==0xAAC || FormatTag==0xFF)
         Stream[Stream_ID].Parser=new File_Adts;
+    #endif
+    #if defined(MEDIAINFO_PCM_YES)
+    else if (Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("PCM"))==0
+          || Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("ADPCM"))==0)
+    {
+        File_Pcm MI;
+        MI.Codec=Codec;
+        Open_Buffer_Finalize(&MI);
+        Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+    }
     #endif
 
     //Options

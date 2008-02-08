@@ -35,6 +35,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Mpeg4.h"
+#if defined(MEDIAINFO_PCM_YES)
+    #include "MediaInfo/Audio/File_Pcm.h"
+#endif
 #include <zlib.h>
 //---------------------------------------------------------------------------
 
@@ -1343,12 +1346,31 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             if (Codec!="raw ")
                 Fill("Codec", Codec, false, true);
             else
-                Fill("Codec", "LPCM (Little unsigned)", Error, false, true);
+                Fill("Codec", "PCM", Error, false, true);
             Fill("Codec/CC", Codec, false, true);
             if (Codec=="drms")
                 Fill("Encryption", "iTunes");
             if (Codec=="enca")
                 Fill("Encryption", "Encrypted");
+
+            #if defined(MEDIAINFO_MPEG4V_YES)
+            if (Codec=="raw "
+             || Config.Codec_Get(Ztring().From_Local(Codec.c_str()), InfoCodec_KindofCodec).find(_T("PCM"))==0
+             || Config.Codec_Get(Ztring().From_Local(Codec.c_str()), InfoCodec_KindofCodec).find(_T("ADPCM"))==0)
+            {
+                //Creating the parser
+                File__Analyze* MI=new File_Pcm;
+                ((File_Pcm*)MI)->Codec=Ztring().From_Local(Codec.c_str());
+
+                //Parsing
+                Open_Buffer_Finalize(MI);
+
+                //Filling
+                Merge(*MI, StreamKind_Last, 0, StreamPos_Last);
+                delete MI; //MI=NULL;
+            }
+            #else
+            #endif
         }
         else //Microsoft 2CC
         {

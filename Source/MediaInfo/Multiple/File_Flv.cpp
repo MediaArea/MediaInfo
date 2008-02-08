@@ -75,8 +75,8 @@ const int16u Flv_SamplingRate[]=
 const char* Flv_Codec_Audio[]=
 {
     "Uncompressed",
-    "SWF ADPCM",
-    "MPEG-1A L3",
+    "ADPCM",
+    "MPEG-1 Audio Layer 3",
     "",
     "",
     "Nellymoser 8kHz mono",
@@ -636,6 +636,13 @@ void File_Flv::audio()
             Fill(Stream_Audio, 0, "Resolution", Flv_Resolution[is_16bit], 10, true);
             Fill(Stream_Audio, 0, "SamplingRate", Flv_SamplingRate[sampling_rate], 10, true);
             Fill(Stream_Audio, 0, "Codec", Flv_Codec_Audio[codec]);
+            if (codec==1)
+            {
+                //ADPCM
+                Fill("Codec_Settings", "SWF");
+                Fill("Codec_Settings_Firm", "SWF");
+
+            }
         }
 
         //Parsing audio data

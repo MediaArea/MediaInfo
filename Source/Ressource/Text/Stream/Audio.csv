@@ -14,8 +14,12 @@ Codec/CC;;;N YT;;;Codec used (Container Code)
 Codec_Description;;;Y NT;;;Manual description
 Codec_Profile;;;Y NT;;;Profile of the codec
 Codec_Settings;;;Y NT;;;Settings needed for decoder used
-Codec_Settings/Floor;;;Y NT;;;
 Codec_Settings_Automatic;;;N NT;;;Settings needed for decoder used, with format XXX=Y, Y from 0 to 5
+Codec_Settings_Floor;;;Y NT;;;
+Codec_Settings_Endianness;;;Y NT;;;
+Codec_Settings_Sign;;;Y NT;;;
+Codec_Settings_Law;;;Y NT;;;
+Codec_Settings_ITU;;;Y NT;;;
 PlayTime;; ms;N YI;;;Play time of the stream
 PlayTime/String;;;Y NT;;;Play time (formated)
 PlayTime/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
@@ -58,10 +62,10 @@ StreamSize/String3;;;N NT;;;
 StreamSize/String4;;;N NT;;;
 Title;;;Y YI;;;Name of the track
 Encoded_Library;;;Y YT;;;Software used to create the file
-Encoded_Library_Settings;;;Y YT;;;Parameters used by the software
-Language;;;N YT;;;Language (2 letters)
-Language/String;;;Y NT;;;Language (full)
-Language_More;;;Y YT;;;More info about Language (director's comment...)
+Encoded_Library_Settings;;;Y YT;;;Parameters used by the software;;
+Language;;;N YT;;;Language (2 letters);;
+Language/String;;;Y NT;;;Language (full);;
+Language_More;;;Y YT;;;More info about Language (director's comment...);;
 Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal
 Encryption;;;Y YT;;;;;

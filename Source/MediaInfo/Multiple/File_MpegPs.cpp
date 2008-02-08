@@ -1528,13 +1528,14 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser_PCM()
 {
     //Filling
     #if defined(MEDIAINFO_PCM_YES)
-        return new File_Pcm();
+        File__Analyze* Handle=new File_Pcm();
+        ((File_Pcm*)Handle)->Codec=_T("VOB");
+        return Handle;
     #else
         //Filling
-        File__Analyze* Handle=new File__Analyze(); //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
+        File__Analyze* Handle=new File__Analyze();
         Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill("Codec", "LPCM (Big signed)");
-        Handle->Fill("Resolution", 24);
+        Handle->Fill("Codec", "PCM");
         return Handle;
     #endif
 }
