@@ -186,6 +186,10 @@ Codec_Settings_GMC
 Codec_Settings_Matrix
 Codec_Settings_Floor
 Codec_Settings_CABAC
+Codec_Settings_Endianness
+Codec_Settings_Sign
+Codec_Settings_Law
+Codec_Settings_ITU
 Codec_Profile
 Codec_Url
 Collection

@@ -186,6 +186,10 @@ Codec_Settings_GMC
 Codec_Settings_Matrix
 Codec_Settings_Floor
 Codec_Settings_CABAC
+Codec_Settings_Endianness
+Codec_Settings_Sign
+Codec_Settings_Law
+Codec_Settings_ITU
 Codec_Profile;コーデックのプロファイル
 Codec_Url;コーデックの URL
 Collection;コレクション
@@ -766,5 +770,5 @@ Written_Location;作成所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97

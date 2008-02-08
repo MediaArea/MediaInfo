@@ -186,6 +186,10 @@ Codec_Settings_GMC
 Codec_Settings_Matrix
 Codec_Settings_Floor
 Codec_Settings_CABAC
+Codec_Settings_Endianness
+Codec_Settings_Sign
+Codec_Settings_Law
+Codec_Settings_ITU
 Codec_Profile;Perfil del codec
 Codec_Url;Enllaç del codec
 Collection;Col·lecció
@@ -692,7 +696,7 @@ Set_Count;Nombre d'unitats
 Setup;Configura
 Sheet;Fulla
 Sheet (Complete);Fulla (Completa)
-Shell extension;Veure l'opció ""Media Info"" al menú contextual del botó dret del ratolí a l'explorador.
+Shell extension;Veure l'opció """"Media Info"""" al menú contextual del botó dret del ratolí a l'explorador.
 Shell InfoTip;Amplia la informació en passar amb el ratolí per sobre d'un arxiu a l'explorador.
 Show menu;Mostra el menú
 Show toolbar;Mostra la barra d'eines

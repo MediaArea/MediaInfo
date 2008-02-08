@@ -186,6 +186,10 @@ Codec_Settings_GMC
 Codec_Settings_Matrix
 Codec_Settings_Floor
 Codec_Settings_CABAC
+Codec_Settings_Endianness
+Codec_Settings_Sign
+Codec_Settings_Law
+Codec_Settings_ITU
 Codec_Profile;코덱 프로파일
 Codec_Url;코덱 웹링크
 Collection;콜렉션
@@ -766,5 +770,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97

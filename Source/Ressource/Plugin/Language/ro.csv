@@ -186,6 +186,10 @@ Codec_Settings_GMC
 Codec_Settings_Matrix
 Codec_Settings_Floor
 Codec_Settings_CABAC
+Codec_Settings_Endianness
+Codec_Settings_Sign
+Codec_Settings_Law
+Codec_Settings_ITU
 Codec_Profile;Profil codec
 Codec_Url;Legatira web pentru codec
 Collection;Colectie
@@ -766,5 +770,5 @@ Written_Location;Locul mesajului
 WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
-ZZ_Automatic_Percent;43
-ZZ_AutomaticLanguage_Percent;67
+ZZ_Automatic_Percent;42
+ZZ_AutomaticLanguage_Percent;66

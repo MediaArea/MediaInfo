@@ -186,6 +186,10 @@ Codec_Settings_GMC;Kodeko nuostatos, GMC
 Codec_Settings_Matrix;Kodeko nuostatos, Matrix
 Codec_Settings_Floor;Kodeko nuostatos, Floor
 Codec_Settings_CABAC
+Codec_Settings_Endianness
+Codec_Settings_Sign
+Codec_Settings_Law
+Codec_Settings_ITU
 Codec_Profile;Kodeko profilis
 Codec_Url;Nuoroda į kodeką
 Collection;Kolekcija
@@ -766,5 +770,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98
