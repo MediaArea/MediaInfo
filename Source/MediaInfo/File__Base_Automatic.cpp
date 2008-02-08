@@ -1,4 +1,4 @@
-// Helpers - Automaticly generated methods for MediaInfo
+﻿// Helpers - Automaticly generated methods for MediaInfo
 // Copyright (C) 2005-2007 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software; you can redistribute it and/or
@@ -225,6 +225,11 @@ void File__Base_DefaultLanguage (ZtringListList &Info)
     "Codec_Settings_Matrix;Codec settings, Matrix\n"
     "Codec_Settings_Floor;Codec settings, Floor\n"
     "Codec_Settings_CABAC;Codec settings, CABAC\n"
+    "Codec_Settings_Firm;Codec settings, Firm\n"
+    "Codec_Settings_Endianness;Codec settings, Endianness\n"
+    "Codec_Settings_Sign;Codec settings, Sign\n"
+    "Codec_Settings_Law;Codec settings, Law\n"
+    "Codec_Settings_ITU;Codec settings, ITU\n"
     "Codec_Profile;Codec profile\n"
     "Codec_Url;Weblink for codec\n"
     "Collection;Collection\n"
@@ -805,10 +810,8 @@ void File__Base_DefaultLanguage (ZtringListList &Info)
     "WrittenBy;Written by\n"
     "Yes;Yes\n"
     "Your system;Your system\n"
-    "ZZ_Automatic_Percent;99\n"
-    "ZZ_AutomaticLanguage_Percent;99\n"
-    "Menu_Codecs_List\n"
-    "Menu_Codecs_List0k\n"
+    "ZZ_Automatic_Percent;100\n"
+    "ZZ_AutomaticLanguage_Percent;100\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
@@ -2330,6 +2333,7 @@ void File__Base_Audio (ZtringListList &Info)
     "Codec_Settings;;;Y NT;;;Settings needed for decoder used\n"
     "Codec_Settings_Automatic;;;N NT;;;Settings needed for decoder used, with format XXX=Y, Y from 0 to 5\n"
     "Codec_Settings_Floor;;;Y NT\n"
+    "Codec_Settings_Firm;;;Y NT\n"
     "Codec_Settings_Endianness;;;Y NT\n"
     "Codec_Settings_Sign;;;Y NT\n"
     "Codec_Settings_Law;;;Y NT\n"

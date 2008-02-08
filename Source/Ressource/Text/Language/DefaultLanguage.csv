@@ -186,6 +186,11 @@ Codec_Settings_GMC;Codec settings, GMC
 Codec_Settings_Matrix;Codec settings, Matrix
 Codec_Settings_Floor;Codec settings, Floor
 Codec_Settings_CABAC;Codec settings, CABAC
+Codec_Settings_Firm;Codec settings, Firm
+Codec_Settings_Endianness;Codec settings, Endianness
+Codec_Settings_Sign;Codec settings, Sign
+Codec_Settings_Law;Codec settings, Law
+Codec_Settings_ITU;Codec settings, ITU
 Codec_Profile;Codec profile
 Codec_Url;Weblink for codec
 Collection;Collection
@@ -766,7 +771,5 @@ Written_Location;Written location
 WrittenBy;Written by
 Yes;Yes
 Your system;Your system
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
-Menu_Codecs_List
-Menu_Codecs_List0k
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100

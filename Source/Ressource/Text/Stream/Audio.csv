@@ -16,6 +16,7 @@ Codec_Profile;;;Y NT;;;Profile of the codec
 Codec_Settings;;;Y NT;;;Settings needed for decoder used
 Codec_Settings_Automatic;;;N NT;;;Settings needed for decoder used, with format XXX=Y, Y from 0 to 5
 Codec_Settings_Floor;;;Y NT;;;
+Codec_Settings_Firm;;;Y NT;;;
 Codec_Settings_Endianness;;;Y NT;;;
 Codec_Settings_Sign;;;Y NT;;;
 Codec_Settings_Law;;;Y NT;;;
@@ -61,7 +62,7 @@ StreamSize/String2;;;N NT;;;
 StreamSize/String3;;;N NT;;;
 StreamSize/String4;;;N NT;;;
 Title;;;Y YI;;;Name of the track
-Encoded_Library;;;Y YT;;;Software used to create the file
+Encoded_Library;;;Y YT;;;Software used to create the file;;
 Encoded_Library_Settings;;;Y YT;;;Parameters used by the software;;
 Language;;;N YT;;;Language (2 letters);;
 Language/String;;;Y NT;;;Language (full);;
