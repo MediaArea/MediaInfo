@@ -186,6 +186,7 @@ Codec_Settings_GMC;Kodeko nuostatos, GMC
 Codec_Settings_Matrix;Kodeko nuostatos, Matrix
 Codec_Settings_Floor;Kodeko nuostatos, Floor
 Codec_Settings_CABAC
+Codec_Settings_Firm
 Codec_Settings_Endianness
 Codec_Settings_Sign
 Codec_Settings_Law

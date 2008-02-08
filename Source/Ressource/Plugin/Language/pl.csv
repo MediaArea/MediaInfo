@@ -186,6 +186,7 @@ Codec_Settings_GMC
 Codec_Settings_Matrix
 Codec_Settings_Floor
 Codec_Settings_CABAC
+Codec_Settings_Firm
 Codec_Settings_Endianness
 Codec_Settings_Sign
 Codec_Settings_Law
@@ -770,5 +771,5 @@ Written_Location;Lokalizacja
 WrittenBy;Napisany przez
 Yes;Tak
 Your system;System
-ZZ_Automatic_Percent;51
-ZZ_AutomaticLanguage_Percent;74
+ZZ_Automatic_Percent;50
+ZZ_AutomaticLanguage_Percent;73

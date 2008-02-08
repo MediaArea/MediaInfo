@@ -186,6 +186,7 @@ Codec_Settings_GMC;Codec settings, GMC
 Codec_Settings_Matrix;Codec settings, Matrix
 Codec_Settings_Floor;Codec settings, Floor
 Codec_Settings_CABAC;Codec settings, CABAC
+Codec_Settings_Firm;Codec settings, Firm
 Codec_Settings_Endianness;Codec settings, Endianness
 Codec_Settings_Sign;Codec settings, Sign
 Codec_Settings_Law;Codec settings, Law
