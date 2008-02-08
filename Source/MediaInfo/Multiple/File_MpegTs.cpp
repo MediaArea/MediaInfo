@@ -620,28 +620,30 @@ void File_MpegTs::PSI_program_association_table()
     std::map<int32u, File_Mpeg_Psi::Program>::iterator Program_Temp=Parser->Programs.begin();
     while (Program_Temp!=Parser->Programs.end())
     {
+        int16u PID=Program_Temp->first;
+
         //Enabling what we know parsing
-        Stream[Program_Temp->first].TS_Kind=Program_Temp->second.Kind;
-        Stream[Program_Temp->first].program_number=Program_Temp->second.program_number;
-        Stream[Program_Temp->first].Searching_Payload_Start=true;
+        Stream[PID].TS_Kind=Program_Temp->second.Kind;
+        Stream[PID].program_number=Program_Temp->second.program_number;
+        Stream[PID].Searching_Payload_Start=true;
 
         //File_Filter
         if (!Config.File_Filter_Get(Stream[Program_Temp->first].program_number))
         {
-            Stream[Program_Temp->first].Searching_Payload_Start=false;
-            Stream[Program_Temp->first].Searching_Payload_Continue=false;
+            Stream[PID].Searching_Payload_Start=false;
+            Stream[PID].Searching_Payload_Continue=false;
         }
         else
         {
-            Stream[Program_Temp->first].Searching_Payload_Start=true;
-            Stream[Program_Temp->first].Searching_Payload_Continue=true;
+            Stream[PID].Searching_Payload_Start=true;
+            Stream[PID].Searching_Payload_Continue=true;
         }
 
         //File__Duplicate
         if (File__Duplicate_Get(Program_Temp->second.program_number))
-            Stream[Program_Temp->first].ShouldDuplicate=true;
+            Stream[PID].ShouldDuplicate=true;
         else
-            Stream[Program_Temp->first].ShouldDuplicate=false;
+            Stream[PID].ShouldDuplicate=false;
 
         //Menus
         //ProgramNumber2StreamNumber[Parser->program_association_section_ProgramNumber[Pos]]=elementary_PID;
