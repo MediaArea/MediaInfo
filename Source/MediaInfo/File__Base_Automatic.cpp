@@ -1,4 +1,4 @@
-﻿// Helpers - Automaticly generated methods for MediaInfo
+// Helpers - Automaticly generated methods for MediaInfo
 // Copyright (C) 2005-2007 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software; you can redistribute it and/or
