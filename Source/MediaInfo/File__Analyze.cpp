@@ -297,10 +297,10 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     }
     
     //Reserving unused data
-    if ((int64u)-1-Buffer_Offset>=File_Offset) //In case of unknown filesize, File_Offset may be (int64u)-1
+    if ((int64u)-1-Buffer_Offset<File_Offset) //In case of unknown filesize, File_Offset may be (int64u)-1
         Buffer_Offset=(int64u)-1-File_Offset;
     Buffer_Size-=Buffer_Offset;
-        File_Offset+=Buffer_Offset;
+    File_Offset+=Buffer_Offset;
     if (Buffer_Offset_Temp>=Buffer_Offset)
         Buffer_Offset_Temp-=Buffer_Offset;
     Buffer_Offset=0;
