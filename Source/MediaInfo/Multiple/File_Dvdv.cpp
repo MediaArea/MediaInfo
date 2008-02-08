@@ -681,6 +681,11 @@ void File_Dvdv::Data_Parse()
 {
     //Parsing
     size_t Sector_Pos=(size_t)((File_Offset+Buffer_Offset)/2048);
+    if (Sector_Pos>=Sectors.size())
+    {
+        Finnished();
+        return;
+    }
 
     //Parsing
     switch(Sectors[Sector_Pos])
