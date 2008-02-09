@@ -1233,7 +1233,7 @@ void File_MpegPs::private_stream_1()
                 if (Stream_Private1[private_stream_1_ID].stream_type==0 || Stream_Private1[private_stream_1_ID].stream_type==0x06) //None or private
                     ((File_Ac3*)Stream_Private1[private_stream_1_ID].Parser3)->Frame_Count_Valid=1;
             #else
-                Stream_Private1[private_stream_1_ID].Parser3=new File__Base;
+                Stream_Private1[private_stream_1_ID].Parser3=new File__Analyze;
             #endif
         }
         Open_Buffer_Init(Stream_Private1[private_stream_1_ID].Parser3, File_Size, File_Offset+Buffer_Offset);
@@ -1256,7 +1256,7 @@ void File_MpegPs::private_stream_1()
                     if (Stream_Private1[private_stream_1_ID].stream_type==0 || Stream_Private1[private_stream_1_ID].stream_type==0x06) //None or private
                         ((File_Dts*)Stream_Private1[private_stream_1_ID].Parser3)->Frame_Count_Valid=1;
                 #else
-                    Stream_Private1[private_stream_1_ID].Parser2=new File__Base;
+                    Stream_Private1[private_stream_1_ID].Parser2=new File__Analyze;
                 #endif
             }
             Open_Buffer_Init(Stream_Private1[private_stream_1_ID].Parser2, File_Size, File_Offset+Buffer_Offset);
@@ -1742,7 +1742,7 @@ void File_MpegPs::video_stream()
                 Stream[Element_Code].Parser3=new File_Avc;
                 ((File_Avc*)Stream[Element_Code].Parser3)->Frame_Count_Valid=2;
             #else
-                Stream[Element_Code].Parser3=new File__Base;
+                Stream[Element_Code].Parser3=new File__Analyze;
             #endif
         }
         Open_Buffer_Init(Stream[Element_Code].Parser3, File_Size, File_Offset+Buffer_Offset);
@@ -1766,7 +1766,7 @@ void File_MpegPs::video_stream()
                 #if defined(MEDIAINFO_MPEG4V_YES)
                     Stream[Element_Code].Parser2=new File_Mpeg4v;
                 #else
-                    Stream[Element_Code].Parser2=new File__Base;
+                    Stream[Element_Code].Parser2=new File__Analyze;
                 #endif
             }
             Open_Buffer_Init(Stream[Element_Code].Parser2, File_Size, File_Offset+Buffer_Offset);
