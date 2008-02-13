@@ -123,7 +123,7 @@ void File__Duplicate__Writer::Write (const int8u* ToAdd, size_t ToAdd_Size)
         case method_buffer :
             //Testing if enough place
             if (Buffer_Size+ToAdd_Size>Buffer_Size_Max)
-                return; //Buffer underrun
+                Buffer_Size=0; //Buffer underrun, cleaning the buffer
 
             //Copying buffer
             std::memcpy(Buffer+Buffer_Size, ToAdd, ToAdd_Size);
