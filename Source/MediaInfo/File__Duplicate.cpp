@@ -52,6 +52,11 @@ File__Duplicate::File__Duplicate ()
     Config_File_Duplicate_Get_AlwaysNeeded_Count=0;
 }
 
+File__Duplicate::~File__Duplicate ()
+{
+    Read_Buffer_Finalize();
+}
+
 //***************************************************************************
 // Format
 //***************************************************************************

@@ -43,7 +43,7 @@ class File__Duplicate : public File__Analyze
 public :
     //Constructor/Destructor
     File__Duplicate();
-    virtual ~File__Duplicate() {};
+    virtual ~File__Duplicate();
 
 protected :
     //Formats
