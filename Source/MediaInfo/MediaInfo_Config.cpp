@@ -93,6 +93,7 @@ void MediaInfo_Config::Init()
     ParseSpeed=(float32)0.01;
     Details=0;
     Demux=0;
+    FileIsSeekable=1;
     LineSeparator=_T("\r\n");
     ColumnSeparator=_T(";");
     TagSeparator=_T(" / ");
@@ -1109,6 +1110,7 @@ void MediaInfo_Config::File_Duplicate_Set (const Ztring &Value)
     //Preparing for File__Duplicate...
     Enter(true);
     File__Duplicate_List.push_back(Value);
+    File_IsSeekable_Set(false); //If duplicateion, we can not seek anymore
     Leave();
 }
 
