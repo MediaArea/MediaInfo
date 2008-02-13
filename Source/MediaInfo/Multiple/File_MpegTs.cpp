@@ -128,7 +128,17 @@ File_MpegTs::File_MpegTs()
     File__Duplicate_Set(_T("451;file"));
     Config.File_Filter_Set(452);
     File__Duplicate_Set(_T("452;file")); */
-    //File__Duplicate_Set(_T("451;file://e:\\test\\xxx.ts"));
+    //File__Duplicate_Set(_T("program_number=1;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\1.ts"));
+    //File__Duplicate_Set(_T("program_map_PID=1000;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\1.ts"));
+    //File__Duplicate_Set(_T("elementary_PID=1001;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\1.ts"));
+    //File__Duplicate_Set(_T("elementary_PID=1002;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\1.ts"));
+    //File__Duplicate_Set(_T("program_number=1;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\2.ts"));
+    //File__Duplicate_Set(_T("elementary_PID=1001;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\2.ts"));
+    //File__Duplicate_Set(_T("elementary_PID=1003;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\2.ts"));
+    //File__Duplicate_Set(_T("program_number=1;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\3.ts"));
+    //File__Duplicate_Set(_T("elementary_PID=1001;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\3.ts"));
+    //File__Duplicate_Set(_T("elementary_PID=2063;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\3.ts"));
+    //File__Duplicate_Set(_T("2;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\2.ts"));
     //File__Duplicate_Set(_T("452;file://e:\\test\\xxx.ts"));
 
     //Default values
@@ -199,7 +209,7 @@ void File_MpegTs::Read_Buffer_Continue()
 
     //File__Duplicate configuration
     if (File__Duplicate_HasChanged())
-        File__Duplicate_HasChanged_Modify();
+        Stream[0x00].Searching_Payload_Start=true; //Re-enabling program_map_table
 }
 
 //---------------------------------------------------------------------------
@@ -373,24 +383,6 @@ void File_MpegTs::Header_Parse()
     }
     else if (Element_Offset<188+BDAV_Size)
         Skip_XX(188+BDAV_Size-Element_Offset,                      "Junk");
-
-    //File__Duplicate
-    if (pid==0x00 && File__Duplicate_Get())
-    {
-        ZtringListList Codes=File__Duplicate_Codes_Get();
-        for (size_t File_Pos=0; File_Pos<Codes.size(); File_Pos++)
-        {
-            Ztring File_Name=Codes[File_Pos][0];
-            for (size_t Pos=1; Pos<Codes[File_Pos].size(); Pos++)
-            {
-                delete PSI_Table_00_File_Duplicate_Info[File_Name].Buffer; PSI_Table_00_File_Duplicate_Info[File_Name].Buffer=new int8u[188+BDAV_Size];
-                memcpy(PSI_Table_00_File_Duplicate_Info[File_Name].Buffer, Buffer+Buffer_Offset, Element_Offset);
-                PSI_Table_00_File_Duplicate_Info[File_Name].Buffer_Offset=Element_Offset;
-                PSI_Table_00_File_Duplicate_Info[File_Name].Buffer_Size=188+BDAV_Size;
-            }
-        }
-    }
-
 }
 
 //---------------------------------------------------------------------------
@@ -478,7 +470,7 @@ void File_MpegTs::Data_Parse()
     {
         //File__Duplicate
         if (Stream[pid].ShouldDuplicate)
-            File__Duplicate_Write(Stream[pid].program_number);
+            File__Duplicate_Write();
 
         return;
     }
@@ -528,20 +520,7 @@ void File_MpegTs::Data_Parse()
 
     //File__Duplicate
     if (Stream[pid].ShouldDuplicate)
-    {
-        if (pid==0x00)
-        {
-            std::map<Ztring, File_Mpeg_Psi::file_duplicate_info>::iterator PSI_Table_00_File_Duplicate_Info_Temp=PSI_Table_00_File_Duplicate_Info.begin();
-            while (PSI_Table_00_File_Duplicate_Info_Temp!=PSI_Table_00_File_Duplicate_Info.end())
-            {
-                File__Duplicate_Write(PSI_Table_00_File_Duplicate_Info_Temp->first, PSI_Table_00_File_Duplicate_Info_Temp->second.Buffer, PSI_Table_00_File_Duplicate_Info_Temp->second.Buffer_Size);
-
-                PSI_Table_00_File_Duplicate_Info_Temp++;
-            }
-        }
-        else
-            File__Duplicate_Write(Stream[pid].program_number);
-    }
+        File__Duplicate_Write();
 }
 
 //***************************************************************************
@@ -563,21 +542,6 @@ void File_MpegTs::PSI()
             return; //This is not the start of the PSI
         Stream[pid].Parser=new File_Mpeg_Psi;
         Open_Buffer_Init(Stream[pid].Parser, File_Size, File_Offset+Buffer_Offset);
-    }
-
-    //File__Duplicate
-    if (pid==0x00 && File__Duplicate_Get())
-    {
-        Ztring Temp=File__Duplicate_Codes_Get();
-        ZtringListList Codes=File__Duplicate_Codes_Get();
-        for (size_t File_Pos=0; File_Pos<Codes.size(); File_Pos++)
-        {
-            Ztring File_Name=Codes[File_Pos][0];
-            for (size_t Pos=1; Pos<Codes[File_Pos].size(); Pos++)
-               ((File_Mpeg_Psi*)Stream[pid].Parser)->Table_00_RegisteredCodes[File_Name].push_back(Codes[File_Pos][Pos].To_int16u());
-
-            ((File_Mpeg_Psi*)Stream[pid].Parser)->Table_00_File_Duplicate_Info[File_Name].version_number=PSI_Table_00_File_Duplicate_Info[File_Name].version_number;
-        }
     }
 
     //Parsing
@@ -640,7 +604,7 @@ void File_MpegTs::PSI_program_association_table()
         }
 
         //File__Duplicate
-        if (File__Duplicate_Get(Program_Temp->second.program_number))
+        if (File__Duplicate_Get_From_program_number(Program_Temp->second.program_number))
             Stream[PID].ShouldDuplicate=true;
         else
             Stream[PID].ShouldDuplicate=false;
@@ -649,23 +613,6 @@ void File_MpegTs::PSI_program_association_table()
         //ProgramNumber2StreamNumber[Parser->program_association_section_ProgramNumber[Pos]]=elementary_PID;
 
         Program_Temp++;
-    }
-
-    //File__Duplicate
-    if (File__Duplicate_Get())
-    {
-        std::map<Ztring, File_Mpeg_Psi::file_duplicate_info>::iterator PSI_Table_00_File_Duplicate_Info_Temp=PSI_Table_00_File_Duplicate_Info.begin();
-        while (PSI_Table_00_File_Duplicate_Info_Temp!=PSI_Table_00_File_Duplicate_Info.end())
-        {
-            if (Parser->Table_00_File_Duplicate_Info.find(PSI_Table_00_File_Duplicate_Info_Temp->first)!=Parser->Table_00_File_Duplicate_Info.end())
-            {
-                memcpy(PSI_Table_00_File_Duplicate_Info_Temp->second.Buffer+PSI_Table_00_File_Duplicate_Info_Temp->second.Buffer_Offset, Parser->Table_00_File_Duplicate_Info[PSI_Table_00_File_Duplicate_Info_Temp->first].Buffer, Parser->Table_00_File_Duplicate_Info[PSI_Table_00_File_Duplicate_Info_Temp->first].Buffer_Size);
-                PSI_Table_00_File_Duplicate_Info_Temp->second.Buffer_Offset+=Parser->Table_00_File_Duplicate_Info[PSI_Table_00_File_Duplicate_Info_Temp->first].Buffer_Size;
-                PSI_Table_00_File_Duplicate_Info_Temp->second.version_number=Parser->Table_00_File_Duplicate_Info[PSI_Table_00_File_Duplicate_Info_Temp->first].version_number;
-            }
-
-            PSI_Table_00_File_Duplicate_Info_Temp++;
-        }
     }
 
     //Filling
@@ -707,7 +654,7 @@ void File_MpegTs::PSI_program_map_table()
         Stream[elementary_PID].Searching_TimeStamp_Start=true;
         if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
             Stream[elementary_PID].Searching_TimeStamp_End=true;
-        if (File__Duplicate_Get(Stream[elementary_PID].program_number))
+        if (File__Duplicate_Get_From_program_number(Stream[elementary_PID].program_number))
             Stream[elementary_PID].ShouldDuplicate=true;
 
         //Not precised PID handling
@@ -922,21 +869,8 @@ bool File_MpegTs::Header_Parser_QuickSearch()
         //File__Duplicate
         if (Stream[PID].ShouldDuplicate)
         {
-            if (PID==0x00)
-            {
-                std::map<Ztring, File_Mpeg_Psi::file_duplicate_info>::iterator PSI_Table_00_File_Duplicate_Info_Temp=PSI_Table_00_File_Duplicate_Info.begin();
-                while (PSI_Table_00_File_Duplicate_Info_Temp!=PSI_Table_00_File_Duplicate_Info.end())
-                {
-                    File__Duplicate_Write(PSI_Table_00_File_Duplicate_Info_Temp->first, PSI_Table_00_File_Duplicate_Info_Temp->second.Buffer, PSI_Table_00_File_Duplicate_Info_Temp->second.Buffer_Size);
-
-                    PSI_Table_00_File_Duplicate_Info_Temp++;
-                }
-            }
-            else
-            {
-                Element_Size=188+BDAV_Size;
-                File__Duplicate_Write(Stream[PID].program_number);
-            }
+            Element_Size=188+BDAV_Size;
+            File__Duplicate_Write();
         }
 
         Buffer_Offset+=188+BDAV_Size;
@@ -980,34 +914,6 @@ void File_MpegTs::Detect_EOF()
 
         File_GoTo=File_Size-MpegTs_JumpTo_End;
     }
-}
-
-//***************************************************************************
-// File__Duplicate_HasChanged_Modify
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_MpegTs::File__Duplicate_HasChanged_Modify()
-{
-    //Disabling unuseful streams
-    std::map<int64u, ts_stream>::iterator Stream_Temp=Stream.begin();
-    while (Stream_Temp!=Stream.end())
-    {
-        if (Stream_Temp->first!=0x00 && !File__Duplicate_Get(Stream_Temp->second.program_number))
-            Stream_Temp->second.ShouldDuplicate=false;
-        Stream_Temp++;
-    }
-
-    //Disabling all 0x00 maps
-    std::map<Ztring, File_Mpeg_Psi::file_duplicate_info>::iterator PSI_Table_00_File_Duplicate_Info_Temp=PSI_Table_00_File_Duplicate_Info.begin();
-    while (PSI_Table_00_File_Duplicate_Info_Temp!=PSI_Table_00_File_Duplicate_Info.end())
-    {
-        delete[] PSI_Table_00_File_Duplicate_Info_Temp->second.Buffer; PSI_Table_00_File_Duplicate_Info_Temp->second.Buffer=NULL;
-        PSI_Table_00_File_Duplicate_Info_Temp++;
-    }
-
-    //Enabling program_map_table
-    Stream[0x00].Searching_Payload_Start=true;
 }
 
 //***************************************************************************

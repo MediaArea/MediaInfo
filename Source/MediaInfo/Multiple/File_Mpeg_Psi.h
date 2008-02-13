@@ -115,30 +115,6 @@ public :
     };
     std::map<int32u, Stream> Streams;
 
-    //File_Duplicate
-    struct file_duplicate_info
-    {
-        int8u* Buffer;
-        size_t Buffer_Offset;
-        size_t Buffer_Size;
-        int8u  version_number;
-
-        file_duplicate_info()
-        {
-            Buffer=NULL;
-            Buffer_Offset=0;
-            Buffer_Size=0;
-            version_number=0xFF; //Unknown
-        }
-
-        ~file_duplicate_info()
-        {
-            delete[] Buffer; //Buffer=NULL;
-        }
-    };
-    std::map<Ztring, file_duplicate_info> Table_00_File_Duplicate_Info;
-    void   Table_00_Buffer_ApplyCRC32();
-
 public :
     File_Mpeg_Psi();
     ~File_Mpeg_Psi();

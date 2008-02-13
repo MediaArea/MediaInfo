@@ -319,22 +319,6 @@ void File_Mpeg_Psi::Header_Parse()
         }
     }
 
-    //File_Duplicate
-    if (table_id==0x00) //Only PAT
-    {
-        //Preparing all duplicated Table_00
-        std::map<Ztring, file_duplicate_info>::iterator Table_00_File_Duplicate_Info_Temp=Table_00_File_Duplicate_Info.begin();
-        while (Table_00_File_Duplicate_Info_Temp!=Table_00_File_Duplicate_Info.end())
-        {
-            //Duplicate "as is" the table
-            delete Table_00_File_Duplicate_Info_Temp->second.Buffer; Table_00_File_Duplicate_Info_Temp->second.Buffer=new int8u[Buffer_Size];
-            memcpy(Table_00_File_Duplicate_Info_Temp->second.Buffer, Buffer, Buffer_Size);
-            Table_00_File_Duplicate_Info_Temp->second.Buffer_Size=Buffer_Size;
-
-            Table_00_File_Duplicate_Info_Temp++;
-        }
-    }
-
     //Filling
     Header_Fill_Code(table_id, Ztring().From_Number(table_id, 16));
     Header_Fill_Size(Element_Offset+section_length-4);
@@ -551,32 +535,6 @@ void File_Mpeg_Psi::Table_00()
     Skip_B1(                                                    "section_number");
     Skip_B1(                                                    "last_section_number");
 
-    //File_Duplicate
-    if (!Table_00_RegisteredCodes.empty())
-    {
-        //Preparing all duplicated Table_00
-        std::map<Ztring, file_duplicate_info>::iterator Table_00_File_Duplicate_Info_Temp=Table_00_File_Duplicate_Info.begin();
-        while (Table_00_File_Duplicate_Info_Temp!=Table_00_File_Duplicate_Info.end())
-        {
-            //version_number
-            if (Table_00_File_Duplicate_Info_Temp->second.version_number==0xFF)
-                Table_00_File_Duplicate_Info_Temp->second.version_number=version_number; //First value
-            else
-                Table_00_File_Duplicate_Info_Temp->second.version_number++;
-            if (Table_00_File_Duplicate_Info_Temp->second.version_number==32)
-                Table_00_File_Duplicate_Info_Temp->second.version_number=0; //Cyclic, 5 bits
-            int8u ToReplace=Table_00_File_Duplicate_Info_Temp->second.Buffer[Buffer_Offset+Element_Offset-3];
-            ToReplace&=0xC1; //11000001, for removing old version_number
-            ToReplace|=Table_00_File_Duplicate_Info_Temp->second.version_number<<1; //merging, with 1 bit offset
-            Table_00_File_Duplicate_Info_Temp->second.Buffer[Buffer_Offset+Element_Offset-3]=ToReplace;
-
-            //Positioning
-            Table_00_File_Duplicate_Info_Temp->second.Buffer_Offset=Buffer_Offset+Element_Offset; //Just before the program_numbers loop
-
-            Table_00_File_Duplicate_Info_Temp++;
-        }
-    }
-
     //For each program_number
     int16u program_number, xxx_PID;
     while (Element_Offset<Element_Size)
@@ -597,31 +555,12 @@ void File_Mpeg_Psi::Table_00()
         }
         BS_End();
 
-        //File_Duplicate
-        std::map<Ztring, file_duplicate_info>::iterator Table_00_File_Duplicate_Info_Temp=Table_00_File_Duplicate_Info.begin();
-        while (Table_00_File_Duplicate_Info_Temp!=Table_00_File_Duplicate_Info.end())
-        {
-            for (size_t Pos=0; Pos<Table_00_RegisteredCodes[Table_00_File_Duplicate_Info_Temp->first].size(); Pos++)
-                if (program_number==Table_00_RegisteredCodes[Table_00_File_Duplicate_Info_Temp->first][Pos])
-                {
-                    //Copying this program_number
-                    memcpy(Table_00_File_Duplicate_Info_Temp->second.Buffer+Table_00_File_Duplicate_Info_Temp->second.Buffer_Offset, Buffer+Buffer_Offset+Element_Offset-4, 4);
-                    Table_00_File_Duplicate_Info_Temp->second.Buffer_Offset+=4;
-                }
-
-            Table_00_File_Duplicate_Info_Temp++;
-        }
-
         //Filling
         Programs[xxx_PID].program_number=program_number;
         //program_association_section_ProgramNumber.push_back(ProgNumber);
         Element_End(Ztring::ToZtring_From_CC2(program_number));
     }
     BS_End();
-
-    //File_Duplicate
-    if (!Table_00_RegisteredCodes.empty())
-        Table_00_Buffer_ApplyCRC32();
 }
 
 //---------------------------------------------------------------------------
@@ -920,36 +859,6 @@ void File_Mpeg_Psi::Table_C8()
         Element_End(Ztring::ToZtring_From_CC2(program_number), 18+Descriptors_Size);
     }
     //CC_END_CANBEMORE();
-}
-
-//***************************************************************************
-// File_Duplicate
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Mpeg_Psi::Table_00_Buffer_ApplyCRC32()
-{
-    std::map<Ztring, file_duplicate_info>::iterator Table_00_File_Duplicate_Info_Temp=Table_00_File_Duplicate_Info.begin();
-    while (Table_00_File_Duplicate_Info_Temp!=Table_00_File_Duplicate_Info.end())
-    {
-        //Size
-        Table_00_File_Duplicate_Info_Temp->second.Buffer[pointer_field+3]=(int8u)(Table_00_File_Duplicate_Info_Temp->second.Buffer_Offset+4-4); //TODO: handle 12 bits
-
-        //CRC32
-        int32u CRC_32 = 0xFFFFFFFF;
-        for (size_t Table_00_Buffer_Pos=1+pointer_field; Table_00_Buffer_Pos<Table_00_File_Duplicate_Info_Temp->second.Buffer_Offset; Table_00_Buffer_Pos++)
-            CRC_32=(CRC_32<<8) ^ CRC_32_Table[(CRC_32>>24)^(Table_00_File_Duplicate_Info_Temp->second.Buffer[Table_00_Buffer_Pos])];
-
-        Table_00_File_Duplicate_Info_Temp->second.Buffer[Table_00_File_Duplicate_Info_Temp->second.Buffer_Offset+0]=(CRC_32>>24)&0xFF;
-        Table_00_File_Duplicate_Info_Temp->second.Buffer[Table_00_File_Duplicate_Info_Temp->second.Buffer_Offset+1]=(CRC_32>>16)&0xFF;
-        Table_00_File_Duplicate_Info_Temp->second.Buffer[Table_00_File_Duplicate_Info_Temp->second.Buffer_Offset+2]=(CRC_32>> 8)&0xFF;
-        Table_00_File_Duplicate_Info_Temp->second.Buffer[Table_00_File_Duplicate_Info_Temp->second.Buffer_Offset+3]= CRC_32     &0xFF;
-
-        for (size_t Table_00_Buffer_Pos=Table_00_File_Duplicate_Info_Temp->second.Buffer_Offset+4; Table_00_Buffer_Pos<Table_00_File_Duplicate_Info_Temp->second.Buffer_Size; Table_00_Buffer_Pos++)
-            Table_00_File_Duplicate_Info_Temp->second.Buffer[Table_00_Buffer_Pos]=0xFF;
-
-        Table_00_File_Duplicate_Info_Temp++;
-    }
 }
 
 //***************************************************************************

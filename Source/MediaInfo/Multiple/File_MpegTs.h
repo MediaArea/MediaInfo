@@ -122,10 +122,6 @@ private :
     int64u MpegTs_JumpTo_Begin;
     int64u MpegTs_JumpTo_End;
 
-    //File_Duplicate
-    void   File__Duplicate_HasChanged_Modify();
-    std::map<Ztring, File_Mpeg_Psi::file_duplicate_info> PSI_Table_00_File_Duplicate_Info;
-
     //Friends
     friend class File_Bdav;
 };

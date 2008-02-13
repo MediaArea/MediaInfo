@@ -1,4 +1,4 @@
-// File__Duplicate - Duplication of some formats
+// File__Duplicate__Base - Duplication of some formats
 // Copyright (C) 2007-2008 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -16,63 +16,32 @@
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+// Duplication helper for some specific formats
+//
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#ifndef File__DuplicateH
-#define File__DuplicateH
+// Compilation conditions
+#include <MediaInfo/Setup.h>
+#ifdef __BORLANDC__
+    #pragma hdrstop
+#endif
 //---------------------------------------------------------------------------
-
 //---------------------------------------------------------------------------
-#include "MediaInfo/File__Analyze.h"
-#include "MediaInfo/Duplicate/File__Duplicate_MpegTs.h"
-#include "MediaInfo/Duplicate/File__Duplicate__Writer.h"
-#include <ZenLib/ZtringListList.h>
-#include <map>
-using namespace ZenLib;
+#include "MediaInfo/Duplicate/File__Duplicate__Base.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Class File__Duplicate
+// Constructor/Destructor
 //***************************************************************************
 
-class File__Duplicate : public File__Analyze
+File__Duplicate__Base::File__Duplicate__Base ()
 {
-public :
-    //Constructor/Destructor
-    File__Duplicate();
-    virtual ~File__Duplicate() {};
-
-protected :
-    //Formats
-    virtual void Read_Buffer_Finalize ();
-
-    //Set
-    void   File__Duplicate_Set  (const Ztring &Value); //Fill a new File__Duplicate value
-
-    //Get
-    bool   File__Duplicate_Get  ();
-    bool   File__Duplicate_Get_From_program_number  (int16u  Value);
-
-    //Modifications
-    bool   File__Duplicate_HasChanged();
-
-    //Write
-    void   File__Duplicate_Write ();
-
-    //Output buffer
-    size_t Output_Buffer_Get (const Ztring &Value, unsigned char** Output_Buffer=NULL);
-
-private :
-    bool                                       File__Duplicate_HasChanged_;
-    size_t                                     Config_File_Duplicate_Get_AlwaysNeeded_Count;
-
-    std::map<const Ztring, File__Duplicate_MpegTs*> Duplicates;
-};
-
+}
 
 } //NameSpace
 
-#endif

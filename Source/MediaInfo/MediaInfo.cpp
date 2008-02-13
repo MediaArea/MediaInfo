@@ -79,7 +79,7 @@ MediaInfo::~MediaInfo()
 
     delete Info; //Info=NULL;
     delete[] Buffer; //Buffer=NULL;
-    delete File_Handle; //File_Handle=NULL;
+    delete (File*)File_Handle; //File_Handle=NULL;
 }
 
 //***************************************************************************
@@ -211,8 +211,8 @@ int MediaInfo::Format_Test_FillBuffer_Init()
 
     //Opening the file
     File_Handle=new File;
-	((File*)File_Handle)->Open(File_Name);
-	if (!((File*)File_Handle)->Opened_Get())
+    ((File*)File_Handle)->Open(File_Name);
+    if (!((File*)File_Handle)->Opened_Get())
     {
         File_AlreadyBuffered=true; //We don't succeed to open it, so File_Size is 0
         return -1;
@@ -220,7 +220,7 @@ int MediaInfo::Format_Test_FillBuffer_Init()
 
 
     //FileSize
-	File_Size=((File*)File_Handle)->Size_Get();
+    File_Size=((File*)File_Handle)->Size_Get();
 
     //Buffer
     delete[] Buffer; Buffer=new int8u[Buffer_Size_Max];
