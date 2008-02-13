@@ -340,6 +340,15 @@ Ztring MediaInfo_Config::Option (const Ztring &Option, const Ztring &Value)
         //else
         //    return _T("");
     }
+    else if (Option_Lower==_T("file_isseekable"))
+    {
+        File_IsSeekable_Set(Value==_T("0") || Value.empty());
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_isseekable_get"))
+    {
+        return File_IsSeekable_Get()?"1":"0";
+    }
     else if (Option_Lower==_T("info_parameters"))
     {
         ZtringListList ToReturn=Info_Parameters_Get();
@@ -1119,6 +1128,25 @@ bool MediaInfo_Config::File_Duplicate_Get_AlwaysNeeded (size_t AlreadyRead_Pos)
     bool Temp=AlreadyRead_Pos>=File__Duplicate_List.size();
     Leave();
     return !Temp; //True if there is something to read
+}
+
+//***************************************************************************
+// File Is Seekable
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config::File_IsSeekable_Set (bool NewValue)
+{
+    Enter(true);
+    FileIsSeekable=NewValue;
+    Leave();
+}
+
+bool MediaInfo_Config::File_IsSeekable_Get ()
+{
+    Enter();
+    Leave();
+    return false; //FileIsSeekable;
 }
 
 //***************************************************************************

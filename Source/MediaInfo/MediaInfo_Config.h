@@ -144,6 +144,9 @@ public :
           Ztring    File_Duplicate_Get  (size_t AlreadyRead_Pos); //Requester must say how many Get() it already read
           bool      File_Duplicate_Get_AlwaysNeeded (size_t AlreadyRead_Pos); //Requester must say how many Get() it already read
 
+          void      File_IsSeekable_Set (bool NewValue);
+          bool      File_IsSeekable_Get ();
+
 private :
     void Enter (bool Set=false);
     void Leave ();
@@ -161,6 +164,7 @@ private :
     float32         ParseSpeed;
     float           Details;
     int8u           Demux;
+    bool            FileIsSeekable;
     Ztring          ColumnSeparator;
     Ztring          LineSeparator;
     Ztring          TagSeparator;
