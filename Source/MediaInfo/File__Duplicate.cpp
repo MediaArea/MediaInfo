@@ -89,25 +89,28 @@ void File__Duplicate::File__Duplicate_Set (const Ztring &Value)
     ZtringList List(Value);
 
     //Searching Target
-    ZtringList::iterator Target=List.end();
+    std::vector<ZtringList::iterator> Targets;
+    std::vector<ZtringList::iterator> Orders;
     for (ZtringList::iterator Current=List.begin(); Current<List.end(); Current++)
     {
         if (Current->find(_T("file:"))==0
          || Current->find(_T("memory:"))==0)
-        {
-            Target=Current;
-            break;
-        }
+            Targets.push_back(Current);
+        else
+            Orders.push_back(Current);
     }
-    if (Duplicates.find(*Target)==Duplicates.end())
-        Duplicates[*Target]=new File__Duplicate_MpegTs(*Target);
 
-    //For each order
-    for (ZtringList::iterator Current=List.begin(); Current<List.end(); Current++)
+    //For each target
+    for (std::vector<ZtringList::iterator>::iterator Target=Targets.begin(); Target<Targets.end(); Target++)
     {
-        if (Current!=Target)
-            Duplicates[*Target]->Configure(*Current);
+        if (Duplicates.find(**Target)==Duplicates.end())
+            Duplicates[**Target]=new File__Duplicate_MpegTs(**Target);
+
+        //For each order
+        for (std::vector<ZtringList::iterator>::iterator Order=Orders.begin(); Order<Orders.end(); Order++)
+                Duplicates[**Target]->Configure(**Order);
     }
+
 
     //Informing the status has changed
     File__Duplicate_HasChanged_=true;
