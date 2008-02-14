@@ -216,6 +216,8 @@ void File_MpegTs::Read_Buffer_Continue()
 void File_MpegTs::Read_Buffer_Finalize()
 {
     std::map<int64u, ts_stream>::iterator Temp=Stream.begin();
+    std::map<int16u, Ztring> Menus;
+    std::map<int16u, Ztring> MenusText;
     while (Temp!=Stream.end())
     {
         if (Temp->second.TS_Kind==File_Mpeg_Psi::pes)
@@ -250,6 +252,15 @@ void File_MpegTs::Read_Buffer_Finalize()
             {
                 //Common
                 Fill("ID", Temp->first, 16);
+                Fill("MenuID", Temp->second.program_number);
+                Menus[Temp->second.program_number]+=_T(" / ");
+                Menus[Temp->second.program_number]+=Ztring::ToZtring(Temp->first, 16);
+                Ztring Menu_Temp=Ztring::ToZtring(Temp->first, 16);
+                Menu_Temp+=_T(" (");
+                Menu_Temp+=Get(StreamKind_Last, StreamPos_Last, _T("Codec"));
+                Menu_Temp+=_T(")");
+                MenusText[Temp->second.program_number]+=_T(" / ");
+                MenusText[Temp->second.program_number]+=Menu_Temp;
                 if (Get(StreamKind_Last, StreamPos_Last, _T("Codec")).empty())
                     Fill("Codec", Mpeg_Psi_stream_Codec(Temp->second.stream_type));
                 //TimeStamp
@@ -296,6 +307,19 @@ void File_MpegTs::Read_Buffer_Finalize()
         Fill(Stream_General, 0, "Format", "MPEG-4TS");
     else
         Fill(Stream_General, 0, "Format", "MPEG-1TS");
+
+    //Fill Menu
+    if (Menus.size()>1)
+    {
+        Stream_Prepare(Stream_Menu);
+        for (std::map<int16u, Ztring>::iterator Menu=Menus.begin(); Menu!=Menus.end(); Menu++)
+        {
+            Menu->second.erase(0, 3);
+            Fill(Ztring::ToZtring(Menu->first).To_Local().c_str(), Menu->second);
+            MenusText[Menu->first].erase(0, 3);
+            Fill(Ztring(Ztring::ToZtring(Menu->first)+_T("/String")).To_Local().c_str(), MenusText[Menu->first]);
+        }
+    }
 
     File__Duplicate::Read_Buffer_Finalize();
 }

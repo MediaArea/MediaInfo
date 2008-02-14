@@ -3,8 +3,9 @@ StreamCount;;;N NI;;;Count of streams of that kind available
 StreamKind;Text;Text;N NI;;;Stream name
 StreamKindID;;;N NI;;;When multiple streams, number of the stream
 Inform;;;N NT;;;Last **Inform** call
-ID;;;N YI;;;A ID for this stream in this file
+ID;;;Y NT;;;A ID for this stream in this file
 UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy
+MenuID;;;Y NT;;;A menu ID for this stream in this file
 Codec;;;N YT;;;Codec used
 Codec/String;;;Y NT;;;Codec used (test)
 Codec/Info;;;Y NT;;;Info about codec
@@ -30,21 +31,21 @@ Delay/String1;;;N NT;;;
 Delay/String2;;;N NT;;;
 Delay/String3;;;N NT;;;
 Video0_Delay;; ms;N NI;;;Delay fixed in the stream (absolute / video0)
-Video0_Delay/String;;;Y NT;;;;;
-Video0_Delay/String1;;;N NT;;;;;
-Video0_Delay/String2;;;N NT;;;;;
-Video0_Delay/String3;;;N NT;;;;;
-StreamSize;; byte;N YI;;;Stream size in bytes;;
-StreamSize/String;;;Y NT;;;;;
-StreamSize/String1;;;N NT;;;;;
-StreamSize/String2;;;N NT;;;;;
-StreamSize/String3;;;N NT;;;;;
-StreamSize/String4;;;N NT;;;;;
-Title;;;Y YI;;;Name of the track;;
-Language;;;N YT;;;Language (2 letters);;
-Language/String;;;Y NT;;;Language (full);;
-Language_More;;;Y YT;;;More info about Language (director's comment...);;
-Summary;;;N NT;;;;;
+Video0_Delay/String;;;Y NT;;;
+Video0_Delay/String1;;;N NT;;;
+Video0_Delay/String2;;;N NT;;;
+Video0_Delay/String3;;;N NT;;;
+StreamSize;; byte;N YI;;;Stream size in bytes
+StreamSize/String;;;Y NT;;;
+StreamSize/String1;;;N NT;;;
+StreamSize/String2;;;N NT;;;
+StreamSize/String3;;;N NT;;;
+StreamSize/String4;;;N NT;;;
+Title;;;Y YI;;;Name of the track
+Language;;;N YT;;;Language (2 letters)
+Language/String;;;Y NT;;;Language (full)
+Language_More;;;Y YT;;;More info about Language (director's comment...)
+Summary;;;N NT;;;
 Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal
 Encryption;;;Y YT;;;;;
