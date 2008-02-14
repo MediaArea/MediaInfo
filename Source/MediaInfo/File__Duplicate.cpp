@@ -122,8 +122,7 @@ void File__Duplicate::File__Duplicate_Set (const Ztring &Value)
 
 bool File__Duplicate::File__Duplicate_Get ()
 {
-    return true;
-    //return Duplicate->Get();
+    return !Duplicates.empty();
 }
 
 bool File__Duplicate::File__Duplicate_Get_From_program_number (int16u Value)
