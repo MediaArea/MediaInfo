@@ -93,9 +93,7 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
 
     //Option "File_Duplicate": duplicate in the same format a part of a file
     //Form: "program_number" or                     <--clear it
-    //Form: "program_number;file" or                <--The exported filename is filename.program_number
     //Form: "program_number;file://filename" or     <--The exported filename is specified by user
-    //Form: "program_number;memory" or              <--This will be a MediaInfo memory block
     //Form: "program_number;memory://pointer:size"  <--Memory block is specified by user
     //WARNING: program_number & pointer must be in ***DECIMAL*** format.
     //Example: "451;memory://123456789:1316"
@@ -106,10 +104,10 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     //Form: "memory://pointer:size"                  <--The desired memory part you want
     //Return the count of written bytes
 
-    /*
     //EXAMPLE
     //-------
 
+    /*
     //Initilaizing MediaInfo
     MediaInfo MI;
 
@@ -141,9 +139,12 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     MediaInfoLib::String To_Buffer_2_Name=To_Buffer_2_Name_Temp.str();
 
     //Preparing the Program numbers we want
-    MediaInfoLib::String ProgramNumber1=_T("451");
-    MediaInfoLib::String ProgramNumber2=_T("452");
-    MediaInfoLib::String ProgramNumber3=_T("453");
+    //MediaInfoLib::String ProgramNumber1=_T("451");
+    //MediaInfoLib::String ProgramNumber2=_T("452");
+    //MediaInfoLib::String ProgramNumber3=_T("453");
+    MediaInfoLib::String ProgramNumber1=_T("1");
+    MediaInfoLib::String ProgramNumber2=_T("2");
+    MediaInfoLib::String ProgramNumber3=_T("1");
 
     //Optional (aminly for speed improvement): filtering
     MI.Option(_T("File_Filter"), ProgramNumber1);
@@ -151,12 +152,12 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     MI.Option(_T("File_Filter"), ProgramNumber3);
 
     //Registering for duplication
-    MI.Option(_T("File_Duplicate"), ProgramNumber1+_T(';')+To_Buffer_1_Name);  //"program_number;memory://pointer:size"
-    MI.Option(_T("File_Duplicate"), ProgramNumber2+_T(';')+To_Buffer_2_Name);  //"program_number;memory://pointer:size"
-
+    MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1); //"memory://pointer:size;program_number=..."
+    MI.Option(_T("File_Duplicate"), To_Buffer_2_Name+_T(";program_number=")+ProgramNumber2); //"memory://pointer:size;program_number=..."
 
     //Preparing to fill MediaInfo with a buffer
     MI.Open_Buffer_Init();
+    bool CanWrite_OnlyIfParsingIsOk=false;
 
     //The parsing loop
     do
@@ -165,43 +166,50 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
         From_Buffer_Size=From.Read(From_Buffer, 7*188);
 
         //Sending the buffer to MediaInfo
-        if (MI.Open_Buffer_Continue(From_Buffer, From_Buffer_Size)==0)
-            From_Buffer_Size=0; //Get out of the loop, there was an error during the parsing
+        if (MI.Open_Buffer_Continue(From_Buffer, From_Buffer_Size)==0 && !CanWrite_OnlyIfParsingIsOk)
+        {
+            CanWrite_OnlyIfParsingIsOk=true;
+            Text=MI.Inform(); //Inform is ready!
+        }
 
-        //Testing if MediaInfo always need data
+        //Testing if MediaInfo request to go elsewhere
         if (MI.Open_Buffer_Continue_GoTo_Get()!=(ZenLib::int64u)-1)
+        {
             From_Buffer_Size=0; //Get out of the loop, no more data is needed by the parser
-
-        //Finnishing if requested
-        if (From_Buffer_Size==0)
             MI.Open_Buffer_Finalize(); //This is the end of the stream, MediaInfo must finnish some work
+            Text=MI.Inform(); //Inform is ready!
+        }
 
-        //Retrieving data written in memory
-        size_t To_Buffer_Size_1=MI.Output_Buffer_Get(To_Buffer_1_Name);
-        size_t To_Buffer_Size_2=MI.Output_Buffer_Get(To_Buffer_2_Name);
+        if (CanWrite_OnlyIfParsingIsOk)
+        {
+            //Retrieving data written in memory
+            size_t To_Buffer_Size_1=MI.Output_Buffer_Get(To_Buffer_1_Name);
+            size_t To_Buffer_Size_2=MI.Output_Buffer_Get(To_Buffer_2_Name);
 
-        //Writing data to somewhere, do what you want for this.
-        To_1.Write(To_Buffer_1, To_Buffer_Size_1);
-        To_2.Write(To_Buffer_2, To_Buffer_Size_2);
+            //Writing data to somewhere, do what you want for this.
+            To_1.Write(To_Buffer_1, To_Buffer_Size_1);
+            To_2.Write(To_Buffer_2, To_Buffer_Size_2);
+        }
 
         //Optional at 30 MB, we decide to dynamicly change the ProgramNumber of the first output
         static ZenLib::int64u Size_Parsed=0;
         if (Size_Parsed!=(ZenLib::int64u)-1)
         {
             Size_Parsed+=From_Buffer_Size;
-            if (Size_Parsed>10*1024*1024)
+            if (Size_Parsed>1000*1024*1024)
             {
                 //Stop duplicating the first ProgramNumber
-                MI.Option(_T("File_Duplicate"), ProgramNumber1);  //"program_number"
+                MI.Option(_T("File_Duplicate"), MediaInfoLib::String(_T("program_number="))+ProgramNumber1); //"program_number=..."
 
                 //Registering for duplication
-                MI.Option(_T("File_Duplicate"), ProgramNumber3+_T(';')+To_Buffer_1_Name);  //"program_number;memory://pointer:size"
+                MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber3); //"memory://pointer:size;program_number=..."
                 Size_Parsed=(ZenLib::int64u)-1; //Disabling this for not doing this twice
             }
         }
 
     }
     while (From_Buffer_Size>0);
+    Text=MI.Inform();
 
     //Clean up
     delete[] From_Buffer;
