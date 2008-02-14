@@ -69,6 +69,7 @@ void File__Duplicate::Read_Buffer_Finalize ()
         delete Duplicates_Temp->second; //Duplicates_Temp->second=NULL
         Duplicates_Temp++;
     }
+    Duplicates.clear();
 }
 
 //***************************************************************************
