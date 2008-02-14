@@ -45,6 +45,9 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Audio/File_TwinVQ.cpp \
                        ../../../Source/MediaInfo/Audio/File_Vorbis.cpp \
                        ../../../Source/MediaInfo/Audio/File_Wvpk.cpp \
+                       ../../../Source/MediaInfo/Duplicate/File__Duplicate__Base.cpp \
+                       ../../../Source/MediaInfo/Duplicate/File__Duplicate__Writer.cpp \
+                       ../../../Source/MediaInfo/Duplicate/File__Duplicate_MpegTs.cpp \
                        ../../../Source/MediaInfo/Image/File_Bmp.cpp \
                        ../../../Source/MediaInfo/Image/File_Gif.cpp \
                        ../../../Source/MediaInfo/Image/File_Ico.cpp \

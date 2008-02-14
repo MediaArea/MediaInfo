@@ -38,6 +38,9 @@ cp ../Project/GNU/Library/MediaInfoLib-config.in MediaInfo_Lib_GNU_FromSource/Pr
 mkdir -p MediaInfo_Lib_GNU_FromSource/Source/MediaInfo
 cp -r ../Source/MediaInfo/*.h MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/
 cp -r ../Source/MediaInfo/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/
+mkdir -p MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Duplicate
+cp -r ../Source/MediaInfo/Duplicate/*.h MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Duplicate/
+cp -r ../Source/MediaInfo/Duplicate/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Duplicate/
 mkdir MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Archive
 cp -r ../Source/MediaInfo/Archive/*.h MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Archive/
 cp -r ../Source/MediaInfo/Archive/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Archive/

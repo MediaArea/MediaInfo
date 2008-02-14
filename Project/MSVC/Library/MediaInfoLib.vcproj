@@ -697,6 +697,22 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Duplicate"
+				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Base.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Writer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -1052,6 +1068,22 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Tag\File_VorbisCom.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Duplicate"
+				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Base.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Writer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.h"
 					>
 				</File>
 			</Filter>
