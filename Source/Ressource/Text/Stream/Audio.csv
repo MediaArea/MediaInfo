@@ -3,9 +3,11 @@ StreamCount;;;N NI;;;Count of streams of that kind available
 StreamKind;Audio;Audio;N NI;;;Stream name
 StreamKindID;;;N NI;;;When multiple streams, number of the stream
 Inform;;;N NT;;;Last **Inform** call
-ID;;;Y NT;;;A ID for this stream in this file
+ID;;;N YI;;;A ID for this stream in this file
+ID/String;;;Y NT;;;A ID for this stream in this file
 UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy
-MenuID;;;Y NT;;;A menu ID for this stream in this file
+MenuID;;;N YI;;;A menu ID for this stream in this file
+MenuID/String;;;Y NT;;;A menu ID for this stream in this file
 Codec;;;N YT;;;Codec used
 Codec/String;;;Y NT;;;Codec used (test)
 Codec/Family;;;Y NT;;;Codec family
@@ -60,8 +62,8 @@ StreamSize;; byte;N YI;;;Stream size in bytes
 StreamSize/String;;;Y NT;;;
 StreamSize/String1;;;N NT;;;
 StreamSize/String2;;;N NT;;;
-StreamSize/String3;;;N NT;;;
-StreamSize/String4;;;N NT;;;
+StreamSize/String3;;;N NT;;;;;
+StreamSize/String4;;;N NT;;;;;
 Title;;;Y YI;;;Name of the track;;
 Encoded_Library;;;Y YT;;;Software used to create the file;;
 Encoded_Library_Settings;;;Y YT;;;Parameters used by the software;;

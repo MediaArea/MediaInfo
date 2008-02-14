@@ -3,9 +3,11 @@ StreamCount;;;N NI;;;Count of streams of that kind available
 StreamKind;Video;Video;N NI;;;Stream name
 StreamKindID;;;N NI;;;When multiple streams, number of the stream
 Inform;;;N NT;;;Last **Inform** call
-ID;;;Y NT;;;A ID for this stream in this file
+ID;;;N YI;;;A ID for this stream in this file
+ID/String;;;Y NT;;;A ID for this stream in this file
 UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy
-MenuID;;;Y NT;;;A menu ID for this stream in this file
+MenuID;;;N YI;;;A menu ID for this stream in this file
+MenuID/String;;;Y NT;;;A menu ID for this stream in this file
 Codec;;;N YT;;;Codec used
 Codec/String;;;Y NT;;;Codec used (text)
 Codec/Family;;;Y NT;;;Codec family
@@ -76,8 +78,8 @@ Encoded_Library/String;;;Y NT;;;Software detailled name
 Encoded_Library/Date;;;Y NT;;;Date of software
 Encoded_Library_Settings;;;Y YT;;;Parameters used by the software
 Language;;;N YT;;;Language (2 letters)
-Language/String;;;Y NT;;;Language (full)
-Language_More;;;Y YT;;;More info about Language (director's comment...)
+Language/String;;;Y NT;;;Language (full);;
+Language_More;;;Y YT;;;More info about Language (director's comment...);;
 Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal
 Coherency/PlayTime;;;N NT;;;Playtime if detected wrong;;

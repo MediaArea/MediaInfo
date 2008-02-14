@@ -86,6 +86,17 @@ const char* Mpeg_Psi_kind(File_Mpeg_Psi::ts_kind ID)
     }
 }
 
+Ztring Decimal_Hexa(int64u Number)
+{
+    Ztring Temp;
+    Temp.From_Number(Number);
+    Temp+=_T(" (0x");
+    Temp+=Ztring::ToZtring(Number, 16);
+    Temp+=_T(")");
+    return Temp;
+}
+
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -251,18 +262,25 @@ void File_MpegTs::Read_Buffer_Finalize()
             if (StreamKind_Last!=Stream_Max) //Found by the Parser or stream_type
             {
                 //Common
-                Fill("ID", Temp->first, 16);
+                Fill("ID", Temp->first);
+                Fill("ID/String", Decimal_Hexa(Temp->first));
                 Fill("MenuID", Temp->second.program_number);
+                Fill("MenuID/String", Decimal_Hexa(Temp->second.program_number));
+
+                //Menu
                 Menus[Temp->second.program_number]+=_T(" / ");
-                Menus[Temp->second.program_number]+=Ztring::ToZtring(Temp->first, 16);
-                Ztring Menu_Temp=Ztring::ToZtring(Temp->first, 16);
+                Menus[Temp->second.program_number]+=Ztring::ToZtring(Temp->first);
+                Ztring Menu_Temp=Decimal_Hexa(Temp->first);
                 Menu_Temp+=_T(" (");
                 Menu_Temp+=Get(StreamKind_Last, StreamPos_Last, _T("Codec"));
                 Menu_Temp+=_T(")");
                 MenusText[Temp->second.program_number]+=_T(" / ");
                 MenusText[Temp->second.program_number]+=Menu_Temp;
+
+                //Codec
                 if (Get(StreamKind_Last, StreamPos_Last, _T("Codec")).empty())
                     Fill("Codec", Mpeg_Psi_stream_Codec(Temp->second.stream_type));
+
                 //TimeStamp
                 if (Temp->second.TimeStamp_End!=(int64u)-1)
                 {
