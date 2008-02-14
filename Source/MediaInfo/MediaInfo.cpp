@@ -332,6 +332,15 @@ size_t MediaInfo::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         MultipleParsing_IsDetected=true;
     }
 
+    //The parser wanted seek but the buffer is not seekable
+    if (Info->File_GoTo!=(int64u)-1 && Config.File_IsSeekable_Get()==0)
+    {
+        Info->Open_Buffer_Finalize(true);
+        Info->Finalize();
+        Info->File_GoTo=(int64u)-1;
+        return 0;
+    }
+
     return 1;
 }
 
@@ -348,7 +357,10 @@ int64u MediaInfo::Open_Buffer_Continue_GoTo_Get ()
 size_t MediaInfo::Open_Buffer_Finalize ()
 {
     if (Info!=NULL)
+    {
         Info->Open_Buffer_Finalize();
+        Info->Finalize();
+    }
     return 1;
 }
 

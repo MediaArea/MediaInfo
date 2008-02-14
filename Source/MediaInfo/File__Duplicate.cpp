@@ -54,7 +54,13 @@ File__Duplicate::File__Duplicate ()
 
 File__Duplicate::~File__Duplicate ()
 {
-    Read_Buffer_Finalize();
+    std::map<const Ztring, File__Duplicate_MpegTs*>::iterator Duplicates_Temp=Duplicates.begin();
+    while (Duplicates_Temp!=Duplicates.end())
+    {
+        delete Duplicates_Temp->second; //Duplicates_Temp->second=NULL
+        Duplicates_Temp++;
+    }
+    Duplicates.clear();
 }
 
 //***************************************************************************
@@ -63,13 +69,6 @@ File__Duplicate::~File__Duplicate ()
 
 void File__Duplicate::Read_Buffer_Finalize ()
 {
-    std::map<const Ztring, File__Duplicate_MpegTs*>::iterator Duplicates_Temp=Duplicates.begin();
-    while (Duplicates_Temp!=Duplicates.end())
-    {
-        delete Duplicates_Temp->second; //Duplicates_Temp->second=NULL
-        Duplicates_Temp++;
-    }
-    Duplicates.clear();
 }
 
 //***************************************************************************

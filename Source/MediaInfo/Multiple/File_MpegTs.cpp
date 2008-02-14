@@ -888,9 +888,6 @@ bool File_MpegTs::Header_Parser_QuickSearch()
 //---------------------------------------------------------------------------
 void File_MpegTs::Detect_EOF()
 {
-    if (File__Duplicate_Get())
-        return;
-
     //Jump to the end of the file
     if (File_Offset+Buffer_Offset+MpegTs_JumpTo_End<File_Size && (
        (File_Offset+Buffer_Offset>=MpegTs_JumpTo_Begin)
