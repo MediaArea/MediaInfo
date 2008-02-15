@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.6.0, 2008-
+---------------
++ ID3v2 cover reading
+
 Version 0.7.5.9, 2008-02-08
 ---------------
 + AVC: CABAC detection
