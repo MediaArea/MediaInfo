@@ -1148,7 +1148,7 @@ bool MediaInfo_Config::File_IsSeekable_Get ()
 {
     Enter();
     Leave();
-    return false; //FileIsSeekable;
+    return FileIsSeekable;
 }
 
 //***************************************************************************

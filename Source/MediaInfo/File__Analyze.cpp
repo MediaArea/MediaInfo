@@ -260,14 +260,14 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     }
 
     //Demand to go elsewhere
-    if (File_GoTo!=(int64u)-1 && Config.File_IsSeekable_Get())
+    if (Config.File_IsSeekable_Get())
     {
         if (File_GoTo>=File_Size)
             File_GoTo=File_Size;
         Buffer_Clear();
         return;
     }
-    if (File_GoTo==(int64u)-1 && Buffer_Offset>=Buffer_Size)
+    if (Buffer_Offset>=Buffer_Size)
     {
         if (Buffer_Offset>Buffer_Size)
             File_GoTo=File_Offset+Buffer_Offset;
