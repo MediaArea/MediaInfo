@@ -33,6 +33,8 @@
 #include "MediaInfo/Tag/File_Id3v2.h"
 #include <ZenLib/Utils.h>
 #include <ZenLib/ZtringListList.h>
+#include <ZenLib/ZtringListList.h>
+#include <ZenLib/Base64/base64.h>
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -50,6 +52,33 @@ const char* Id3v2_TextEnc[]=
     "UTF-16BE",
     "UTF-8",
 };
+
+const char* Id3v2_PictureType(int8u Type)
+{
+    switch (Type)
+    {
+        case 0x01 :
+        case 0x02 : return "File icon";
+        case 0x03 : return "Cover (front)";
+        case 0x04 : return "Cover (back)";
+        case 0x05 : return "Leaflet page";
+        case 0x06 : return "Media";
+        case 0x07 :
+        case 0x08 : return "Performer";
+        case 0x09 : return "Conductor";
+        case 0x0A : return "Performer";
+        case 0x0B : return "Composer";
+        case 0x0C : return "Lyricist";
+        case 0x0D : return "Recording Location";
+        case 0x0E : return "During recording";
+        case 0x0F : return "During performance";
+        case 0x10 : return "Screen capture";
+        case 0x12 : return "Illustration";
+        case 0x13 : return "Performer logo";
+        case 0x14 : return "Publisher logo";
+        default   : return "";
+    }
+}
 
 //***************************************************************************
 // Format
@@ -503,18 +532,23 @@ void File_Id3v2::W__X()
 //
 void File_Id3v2::APIC()
 {
-    int8u Encoding;
+    int8u Encoding, PictureType;
     Ztring Mime, Description;
     Get_B1 (Encoding,                                           "Text_encoding");
     Get_Local(Element_Size-1, Mime,                             "MIME_type");
     Element_Offset=1+Mime.size()+1;
-    Get_B1 (Encoding,                                           "Picture_type");
-    Get_Local(Element_Size-Element_Offset, Description,            "Description");
+    Get_B1 (PictureType,                                        "Picture_type"); Element_Info(Id3v2_PictureType(PictureType));
+    Get_Local(Element_Size-Element_Offset, Description,         "Description");
     Element_Offset=1+Mime.size()+1+1+Description.size()+1;
-    //TODO: Here is the attached picture
+    std::string Data_Raw((const char*)(Buffer+(size_t)(Buffer_Offset+Element_Offset)), (size_t)(Element_Size-Element_Offset));
+    std::string Data_Base64(Base64::encode(Data_Raw));
 
     //Filling
     Fill_Name();
+    Fill(Stream_General, 0, "Cover_Description", Description);
+    Fill(Stream_General, 0, "Cover_Type", Id3v2_PictureType(PictureType));
+    Fill(Stream_General, 0, "Cover_Mime", Mime);
+    Fill(Stream_General, 0, "Cover_Data", Data_Base64);
 }
 
 //---------------------------------------------------------------------------
