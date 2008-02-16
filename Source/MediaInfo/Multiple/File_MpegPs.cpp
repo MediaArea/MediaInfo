@@ -1254,7 +1254,7 @@ void File_MpegPs::private_stream_1()
                 #if defined(MEDIAINFO_DTS_YES)
                     Stream_Private1[private_stream_1_ID].Parser2=new File_Dts;
                     if (Stream_Private1[private_stream_1_ID].stream_type==0 || Stream_Private1[private_stream_1_ID].stream_type==0x06) //None or private
-                        ((File_Dts*)Stream_Private1[private_stream_1_ID].Parser3)->Frame_Count_Valid=1;
+                        ((File_Dts*)Stream_Private1[private_stream_1_ID].Parser3)->Frame_Count_Valid=2;
                 #else
                     Stream_Private1[private_stream_1_ID].Parser2=new File__Analyze;
                 #endif
@@ -1493,7 +1493,7 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser_DTS()
     //Filling
     #if defined(MEDIAINFO_DTS_YES)
         File__Analyze* Handle=new File_Dts();
-        ((File_Dts*)Handle)->Frame_Count_Valid=1;
+        ((File_Dts*)Handle)->Frame_Count_Valid=2;
         return Handle;
     #else
         //Filling
