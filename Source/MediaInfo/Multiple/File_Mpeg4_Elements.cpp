@@ -2139,7 +2139,7 @@ void File_Mpeg4::moov_udta_xxxx()
                 else
                 {
                     Peek_B2(Size);
-                    if (4+Size>Element_Size)
+                    if (4+(int64u)Size>Element_Size)
                         IsText=false;
                 }
                 if (!IsText)
