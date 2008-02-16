@@ -73,6 +73,8 @@ void File_ApeTag::Header_Parse()
         Skip_Flags(Flags, 30,                               "Contains a footer");
         Skip_Flags(Flags, 31,                               "Contains a header");
     Peek_String(Element_Size-Element_Offset, Key);
+    if (Key.find('\0')!=std::string::npos)
+        Key.resize(Key.find('\0'));
     Skip_String(Key.size(),                                 "Key");
     Skip_L1(                                                "0x00");
 
