@@ -146,7 +146,7 @@ void File_Flac::STREAMINFO()
      else
         Fill("BitRate_Mode", "VBR");
     Fill("SamplingRate", SampleRate);
-    Fill("Channel(s)", Channels);
+    Fill("Channel(s)", Channels+1);
     Fill("Resolution", BitPerSample+1);
     Fill(Stream_General, 0, "PlayTime", Samples*1000/SampleRate);
 }
