@@ -55,7 +55,7 @@ File__Tags_Helper::File__Tags_Helper()
     Lyrics3_Size=0;
     Lyrics3v2_Size=0;
     ApeTag_Size=0;
-    JumpTo_WantedByParser=0;
+    JumpTo_WantedByParser=(int64u)-1;
     TagSizeIsFinal=false;
     SearchingForEndTags=false;
 
@@ -85,41 +85,38 @@ bool File__Tags_Helper::Read_Buffer_Continue()
     if (!SearchingForEndTags || TagSizeIsFinal)
         return true;
 
+    //Trying to parse tags
     while (!TagSizeIsFinal && DetectBeginOfEndTags_Test());
 
-    if (Base->File_GoTo!=(int64u)-1)
+    //Positionning (if finnished)
+    if (TagSizeIsFinal)
     {
-        if (Base->File_GoTo>JumpTo_WantedByParser)
-            Base->File_GoTo-=JumpTo_WantedByParser;
-        return false;
-    }
-    else if (TagSizeIsFinal && Base->File_GoTo>JumpTo_WantedByParser+File_EndTagSize && Base->File_Offset+Base->Buffer_Size!=Base->File_Size)
-    {
-        Base->File_GoTo=Base->File_Size-JumpTo_WantedByParser-File_EndTagSize;
+        Base->File_GoTo=JumpTo_WantedByParser-Id3v1_Size-Lyrics3_Size-Lyrics3v2_Size-ApeTag_Size;
         SearchingForEndTags=false;
-        return false;
     }
 
-    if (Base->File_Offset)
-        Base->Buffer_Offset=(size_t)(Base->File_Size-JumpTo_WantedByParser-File_EndTagSize-Base->File_Offset); //Jumping to File_GoTo
-    SearchingForEndTags=false;
     return true;
 }
 
 void File__Tags_Helper::Data_GoTo (int64u GoTo, const char* Message)
 {
-    JumpTo_WantedByParser=Base->File_Size-GoTo;
+    //Normal Data_GoTo;
+
+    //Configuring
+    JumpTo_WantedByParser=GoTo;
     SearchingForEndTags=true;
 
+    //Trying to parse tags
     while (!TagSizeIsFinal && DetectBeginOfEndTags_Test());
 
-    if (TagSizeIsFinal && Base->File_GoTo>JumpTo_WantedByParser)
-        Base->File_GoTo-=JumpTo_WantedByParser;
-
-    if (Base->File_GoTo<=Base->File_Offset+Base->Buffer_Offset)
-        Base->File_GoTo=(int64u)-1;
-
-    Base->Data_GoTo(Base->File_GoTo, Message);
+    //Positionning (if finnished)
+    if (TagSizeIsFinal)
+    {
+        Base->Data_GoTo(JumpTo_WantedByParser-Id3v1_Size-Lyrics3_Size-Lyrics3v2_Size-ApeTag_Size, Message);
+        SearchingForEndTags=false;
+    }
+    else
+        Base->Data_GoTo(GoTo, Message);
 }
 
 bool File__Tags_Helper::DetectBeginOfEndTags_Test()
