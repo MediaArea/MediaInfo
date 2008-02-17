@@ -164,7 +164,6 @@ void File_Id3v2::Read_Buffer_Finalize()
 void File_Id3v2::FileHeader_Parse()
 {
     //Parsing
-    Element_Begin("ID3v2 header", 10);
     int32u Size;
     int8u Flags;
     Skip_C3(                                                    "identifier");
@@ -183,12 +182,12 @@ void File_Id3v2::FileHeader_Parse()
         Get_B4 (Size,                                           "Size");
         Skip_XX(Size,                                           "Extended header");
     }
-    Element_End();
 
     FILLING_BEGIN();
         //Versions
         switch (Id3v2_Version)
         {
+            case 2 : break;
             case 3 : break;
             case 4 : break;
             default :
@@ -207,8 +206,8 @@ void File_Id3v2::Header_Parse()
     if (Buffer_Offset+10>10+Id3v2_Size) //first 10 is minimum size of a tag, Second 10 is ID3v2 header size
     {
         //Not enough place for a tag, must be padding
-		Header_Fill_Code(0xFFFFFFFF, "Padding");
-		Header_Fill_Size(Buffer_Size-Buffer_Offset);
+        Header_Fill_Code(0xFFFFFFFF, "Padding");
+        Header_Fill_Size(Buffer_Size-Buffer_Offset);
         return;
     }
 
@@ -220,8 +219,8 @@ void File_Id3v2::Header_Parse()
 
     //Testing padding
     int32u Frame_ID, Size;
-    Frame_ID=CC4(Buffer+Buffer_Offset);
-    if (Frame_ID==0x00000000)
+    Frame_ID=CC1(Buffer+Buffer_Offset);
+    if (Frame_ID==0x00)
     {
         //This is the padding
         Header_Fill_Code(0xFFFFFFFF, "Padding");
@@ -230,20 +229,33 @@ void File_Id3v2::Header_Parse()
     }
 
     //Parsing
-    Get_C4 (Frame_ID,                                           "Frame ID");
-    Get_B4 (Size,                                               "Size");
-    Skip_B2(                                                    "Flags");
-    if (Id3v2_Version!=3)
+    if (Id3v2_Version==2)
     {
-        Size=((Size>>0)&0x7F)
-           | ((Size>>1)&0x3F80)
-           | ((Size>>2)&0x1FC000)
-           | ((Size>>3)&0x0FE00000);
-        Param_Info(Size);
+        Get_C3 (Frame_ID,                                       "Frame ID");
+        Get_B3 (Size,                                           "Size");
+    }
+    else
+    {
+        Get_C4 (Frame_ID,                                       "Frame ID");
+        Get_B4 (Size,                                           "Size");
+        Skip_B2(                                                "Flags");
+        if (Id3v2_Version!=3)
+        {
+            Size=((Size>>0)&0x7F)
+               | ((Size>>1)&0x3F80)
+               | ((Size>>2)&0x1FC000)
+               | ((Size>>3)&0x0FE00000);
+            Param_Info(Size);
+        }
     }
 
     //Filling
-    Header_Fill_Code(Frame_ID, Ztring().From_CC4(Frame_ID));
+    Ztring ToShow;
+    if (Id3v2_Version==2)
+        ToShow.From_CC3(Frame_ID);
+    else
+        ToShow.From_CC4(Frame_ID);
+    Header_Fill_Code(Frame_ID, ToShow);
     Header_Fill_Size(Element_Offset+Size);
 }
 
@@ -535,7 +547,19 @@ void File_Id3v2::APIC()
     int8u Encoding, PictureType;
     Ztring Mime, Description;
     Get_B1 (Encoding,                                           "Text_encoding");
-    Get_Local(Element_Size-1, Mime,                             "MIME_type");
+    if (Id3v2_Version==2)
+    {
+        int32u Image_format;
+        Get_C3(Image_format,                                    "Image_format");
+        switch (Image_format)
+        {
+            case 0x504E47 : Mime="image/png";
+            case 0x4A5047 : Mime="image/jpeg";
+            default       : ;
+        }
+    }
+    else
+        Get_Local(Element_Size-1, Mime,                         "MIME_type");
     Element_Offset=1+Mime.size()+1;
     Get_B1 (PictureType,                                        "Picture_type"); Element_Info(Id3v2_PictureType(PictureType));
     Get_Local(Element_Size-Element_Offset, Description,         "Description");

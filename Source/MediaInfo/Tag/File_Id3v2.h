@@ -171,7 +171,7 @@ private :
     void WXXX();
     void BUF()    {};
     void CNT()    {};
-    void COM()    {};
+    void COM()    {COMM();};
     void CRA()    {};
     void CRM()    {};
     void EQU()    {};
@@ -181,57 +181,57 @@ private :
     void LNK()    {};
     void MCI()    {};
     void MLL()    {};
-    void PIC_()   {};
+    void PIC_()   {APIC();};
     void POP()    {};
     void REV()    {};
     void RVA()    {};
     void SLT()    {};
     void STC()    {};
-    void TAL()    {};
-    void TBP()    {};
-    void TCM()    {};
-    void TCO()    {};
-    void TCR()    {};
-    void TDA()    {};
-    void TDY()    {};
-    void TEN()    {};
-    void TFT()    {};
-    void TIM()    {};
-    void TKE()    {};
-    void TLA()    {};
-    void TLE()    {};
-    void TMT()    {};
-    void TOA()    {};
-    void TOF()    {};
-    void TOL()    {};
-    void TOR()    {};
-    void TOT()    {};
-    void TP1()    {};
-    void TP2()    {};
-    void TP3()    {};
-    void TP4()    {};
-    void TPA()    {};
-    void TPB()    {};
-    void TRC()    {};
-    void TRD()    {};
-    void TRK()    {};
-    void TSI()    {};
-    void TSS()    {};
-    void TT1()    {};
-    void TT2()    {};
-    void TT3()    {};
-    void TXT()    {};
-    void TXX()    {};
-    void TYE()    {};
+    void TAL()    {T___();}
+    void TBP()    {T___();}
+    void TCM()    {T___();}
+    void TCO()    {T___();}
+    void TCR()    {T___();}
+    void TDA()    {T___();}
+    void TDY()    {T___();}
+    void TEN()    {T___();}
+    void TFT()    {T___();}
+    void TIM()    {T___();}
+    void TKE()    {T___();}
+    void TLA()    {T___();}
+    void TLE()    {T___();}
+    void TMT()    {T___();}
+    void TOA()    {T___();}
+    void TOF()    {T___();}
+    void TOL()    {T___();}
+    void TOR()    {T___();}
+    void TOT()    {T___();}
+    void TP1()    {T___();}
+    void TP2()    {T___();}
+    void TP3()    {T___();}
+    void TP4()    {T___();}
+    void TPA()    {T___();}
+    void TPB()    {T___();}
+    void TRC()    {T___();}
+    void TRD()    {T___();}
+    void TRK()    {T___();}
+    void TSI()    {T___();}
+    void TSS()    {T___();}
+    void TT1()    {T___();}
+    void TT2()    {T___();}
+    void TT3()    {T___();}
+    void TXT()    {T___();}
+    void TXX()    {TXXX();};
+    void TYE()    {T___();}
     void UFI()    {};
     void ULT()    {};
-    void WAF()    {};
-    void WAR()    {};
-    void WAS()    {};
-    void WCM()    {};
-    void WCP()    {};
-    void WPB()    {};
-    void WXX()    {};
+    void WAF()    {W___();}
+    void WAR()    {W___();};
+    void WAS()    {W___();};
+    void WCM()    {W___();};
+    void WCP()    {W___();};
+    void WPB()    {W___();};
+    void WXX()    {WXXX();};
 
     //Temp
     Ztring Year, Month, Day, Hour, Minute;
