@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.6.0, 2008-
 ---------------
 + ID3v2 cover reading
++ Id3v2.2 (yes, it is old...) support
 
 Version 0.7.5.9, 2008-02-08
 ---------------
