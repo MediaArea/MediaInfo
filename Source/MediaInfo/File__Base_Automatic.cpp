@@ -2557,9 +2557,12 @@ void File__Base_Menu (ZtringListList &Info)
     "Title;;;Y YI;;;Name of the track\n"
     "Encoded_Library;;;Y YT;;;Software used to create the file\n"
     "Encoded_Library_Settings;;;Y YT;;;Parameters used by the software\n"
+    "Total;;;N YT;;;Total number of chapters\n"
     "Language;;;N YT;;;Language (2 letters)\n"
     "Language/String;;;Y NT;;;Language (full)\n"
     "Language_More;;;Y YT;;;More info about Language (director's comment...)\n"
+    "List;;;N YT;;;List of programs available\n"
+    "List/String;;;Y NT\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
