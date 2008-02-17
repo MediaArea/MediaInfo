@@ -700,6 +700,7 @@ void File__Analyze::Finalize_Final()
     General[0](_T("AudioCount")).From_Number(Audio.size());
     General[0](_T("TextCount")).From_Number(Text.size());
     General[0](_T("ChaptersCount")).From_Number(Chapters.size());
+    General[0](_T("MenuCount")).From_Number(Menu.size());
 
     //Format
     General[0](_T("Codec"))=General[0](_T("Format"));
