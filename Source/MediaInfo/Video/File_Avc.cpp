@@ -1036,7 +1036,7 @@ void File_Avc::pic_parameter_set()
                 TEST_SB_END();
             }
         TEST_SB_END();
-        Skip_SB(                                                "second_chroma_qp_index_offset");
+        Skip_UE(                                                "second_chroma_qp_index_offset");
     }
     Mark_1(                                                     );
     BS_End();
