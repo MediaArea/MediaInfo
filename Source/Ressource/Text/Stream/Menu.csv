@@ -27,6 +27,9 @@ Resolution;; bits;Y YI;;;example for MP3 : 16 bits
 Title;;;Y YI;;;Name of the track
 Encoded_Library;;;Y YT;;;Software used to create the file
 Encoded_Library_Settings;;;Y YT;;;Parameters used by the software
+Total;;;N YT;;;Total number of chapters
 Language;;;N YT;;;Language (2 letters)
 Language/String;;;Y NT;;;Language (full)
 Language_More;;;Y YT;;;More info about Language (director's comment...)
+List;;;N YT;;;List of programs available
+List/String;;;Y NT;;;
