@@ -11,6 +11,7 @@ Version 0.7.6.0, 2008-
 ---------------
 + ID3v2 cover reading
 + Id3v2.2 (yes, it is old...) support
++ RMP3 (japanese MP3 based format?) support
 
 Version 0.7.5.9, 2008-02-08
 ---------------

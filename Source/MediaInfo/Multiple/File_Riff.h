@@ -158,6 +158,9 @@ private :
     void AVI__hdlr_xxxx ();
     void AVI__idx1 ();
     void AVI__INFO ();
+    void AVI__INFO_IID3 ();
+    void AVI__INFO_ILYC ();
+    void AVI__INFO_IMP3 ();
     void AVI__INFO_JUNK ();
     void AVI__INFO_xxxx ();
     void AVI__JUNK ();
@@ -186,6 +189,14 @@ private :
     void RDIB ();
     void RMID ();
     void RMMP ();
+    void RMP3 ();
+    void RMP3_data ();
+    void RMP3_INFO() {AVI__INFO();}
+    void RMP3_INFO_IID3() {AVI__INFO_IID3();}
+    void RMP3_INFO_ILYC() {AVI__INFO_ILYC();}
+    void RMP3_INFO_IMP3() {AVI__INFO_IMP3();}
+    void RMP3_INFO_JUNK() {AVI__INFO_JUNK ();}
+    void RMP3_INFO_xxxx() {AVI__INFO_xxxx ();}
     void WAVE ();
     void WAVE_data ();
     void WAVE_fact ();

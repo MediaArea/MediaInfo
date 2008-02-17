@@ -65,6 +65,9 @@
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
+#if defined(MEDIAINFO_ID3_YES)
+    #include "MediaInfo/Tag/File_Id3.h"
+#endif
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -138,10 +141,13 @@ namespace Elements
     const int32u AVI__INFO_IDPI=0x49445049;
     const int32u AVI__INFO_IENG=0x49454E47;
     const int32u AVI__INFO_IGNR=0x49474E52;
+    const int32u AVI__INFO_IID3=0x49494433;
     const int32u AVI__INFO_IKEY=0x494B4559;
     const int32u AVI__INFO_ILGT=0x494C4754;
     const int32u AVI__INFO_ILNG=0x494C4E47;
+    const int32u AVI__INFO_ILYC=0x494C5943;
     const int32u AVI__INFO_IMED=0x494D4544;
+    const int32u AVI__INFO_IMP3=0x494D5033;
     const int32u AVI__INFO_INAM=0x494E414D;
     const int32u AVI__INFO_IPLT=0x49504C54;
     const int32u AVI__INFO_IPRD=0x49505244;
@@ -174,6 +180,13 @@ namespace Elements
     const int32u RDIB=0x52444942;
     const int32u RMID=0x524D4944;
     const int32u RMMP=0x524D4D50;
+    const int32u RMP3=0x524D5033;
+    const int32u RMP3_data=0x64617461;
+    const int32u RMP3_INFO=0x494E464F;
+    const int32u RMP3_INFO_IID3=0x49494433;
+    const int32u RMP3_INFO_ILYC=0x494C5943;
+    const int32u RMP3_INFO_IMP3=0x494D5033;
+    const int32u RMP3_INFO_JUNK=0x4A554E4B;
     const int32u WAVE=0x57415645;
     const int32u WAVE_data=0x64617461;
     const int32u WAVE_fact=0x66616374;
@@ -248,6 +261,9 @@ void File_Riff::Data_Parse()
             ATOM_END
         LIST(AVI__INFO)
             ATOM_BEGIN
+            ATOM(AVI__INFO_IID3)
+            ATOM(AVI__INFO_ILYC)
+            ATOM(AVI__INFO_IMP3)
             ATOM(AVI__INFO_JUNK)
             ATOM_DEFAULT(AVI__INFO_xxxx)
             ATOM_END_DEFAULT
@@ -295,6 +311,19 @@ void File_Riff::Data_Parse()
         ATOM_END
     LIST(RMMP)
         ATOM_BEGIN
+        ATOM_END
+    LIST(RMP3)
+        ATOM_BEGIN
+        LIST(RMP3_data)
+            break;
+        LIST(RMP3_INFO)
+            ATOM_BEGIN
+            ATOM(RMP3_INFO_IID3)
+            ATOM(RMP3_INFO_ILYC)
+            ATOM(RMP3_INFO_IMP3)
+            ATOM(RMP3_INFO_JUNK)
+            ATOM_DEFAULT(RMP3_INFO_xxxx)
+            ATOM_END_DEFAULT
         ATOM_END
     ATOM(W3DI)
     LIST(WAVE)
@@ -1289,6 +1318,33 @@ void File_Riff::AVI__INFO()
 }
 
 //---------------------------------------------------------------------------
+void File_Riff::AVI__INFO_IID3()
+{
+    Element_Name("ID3 Tag");
+
+    //Parsing
+    #if defined(MEDIAINFO_ID3_YES)
+        File_Id3 MI;
+        Open_Buffer_Init(&MI, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+        Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        Open_Buffer_Finalize(&MI);
+        Merge(MI, Stream_General, 0, 0);
+    #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__INFO_ILYC()
+{
+    Element_Name("Lyrics");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__INFO_IMP3()
+{
+    Element_Name("MP3 Information");
+}
+
+//---------------------------------------------------------------------------
 void File_Riff::AVI__INFO_JUNK()
 {
     Element_Name("Garbage");
@@ -1314,7 +1370,7 @@ void File_Riff::AVI__INFO_xxxx()
         case Elements::AVI__INFO_ICMS : Name="CommissionedBy"; break;
         case Elements::AVI__INFO_ICMT : Name="Comment"; break;
         case Elements::AVI__INFO_ICOP : Name="Copyright"; break;
-        case Elements::AVI__INFO_ICRD : Name="Written_Date"; Value.Date_From_String(Value.To_Local().c_str()); break;
+        case Elements::AVI__INFO_ICRD : Name="Recorded_Date"; Value.Date_From_String(Value.To_Local().c_str()); break;
         case Elements::AVI__INFO_ICRP : Name="Cropped"; break;
         case Elements::AVI__INFO_IDIM : Name="Dimensions"; break;
         case Elements::AVI__INFO_IDIT : Name="Mastered_Date", Value.Date_From_String(Value.To_Local().c_str()); break;
@@ -1751,6 +1807,37 @@ void File_Riff::RMMP()
     //Filling
     Stream_Prepare(Stream_General);
     Fill("Format", "RIFF MMP");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::RMP3()
+{
+    Element_Name("Format: RMP3");
+
+    //Filling
+    Stream_Prepare(Stream_General);
+    Fill("Format", "RMP3");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::RMP3_data()
+{
+    Element_Name("Raw datas");
+
+    //Parsing
+    #if defined(MEDIAINFO_MPEGA_YES)
+        File_Mpega MI;
+        Open_Buffer_Init(&MI, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+        Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        Open_Buffer_Finalize(&MI);
+        Merge(MI, Stream_Audio, 0, 0);
+    #else
+        Stream_Prepare(Stream_Audio)
+        Fill("Codec", "MPEG1/2 Audio");
+    #endif
+
+    //Positionning
+    Element_Offset+=(size_t)Element_TotalSize_Get();
 }
 
 //---------------------------------------------------------------------------
