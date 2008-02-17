@@ -993,7 +993,7 @@ void File__Analyze::Skip_SL(const char* Name)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_SE(int32u &Info, const char* Name)
+void File__Analyze::Get_SE(int32s &Info, const char* Name)
 {
     if (BS->Remain()==0)
         return;
@@ -1002,7 +1002,7 @@ void File__Analyze::Get_SE(int32u &Info, const char* Name)
         LeadingZeroBits++;
     double InfoD=pow(2, (float)LeadingZeroBits)-1+BS->Get(LeadingZeroBits);
     if (InfoD<=(int32u)-1)
-        Info=(int32u)pow(-1, InfoD+1)*(int32u)ceil(InfoD/2);
+        Info=(int32s)(pow(-1, InfoD+1)*(int32u)ceil(InfoD/2));
     else
     {
         Trusted_IsNot("(Problem)");
@@ -1029,7 +1029,7 @@ void File__Analyze::Skip_SE(const char* Name)
     {
         double InfoD=pow(2, (float)LeadingZeroBits)-1+BS->Get(LeadingZeroBits);
         if (InfoD<=(int32u)-1)
-            Param(Name, (int32u)pow(-1, InfoD+1)*(int32u)ceil(InfoD/2));
+            Param(Name, (int32s)(pow(-1, InfoD+1)*(int32u)ceil(InfoD/2)));
         else
             Param(Name, "(Problem)");
     }

@@ -388,11 +388,11 @@ public :
     //***************************************************************************
 
     void Get_UE (int32u &Info, const char* Name);
-    void Get_SE (int32u &Info, const char* Name);
+    void Get_SE (int32s &Info, const char* Name);
     void Skip_UE(              const char* Name);
     void Skip_SE(              const char* Name);
     #define Info_UE(_INFO, _NAME) int32u _INFO; Get_UE(_INFO, _NAME)
-    #define Info_SE(_INFO, _NAME) int32u _INFO; Get_SE(_INFO, _NAME)
+    #define Info_SE(_INFO, _NAME) int32s _INFO; Get_SE(_INFO, _NAME)
 
     //***************************************************************************
     // Characters
