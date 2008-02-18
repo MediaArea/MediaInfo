@@ -45,7 +45,7 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 const size_t Avc_Errors_MaxCount=32;
 
-const int8u Avc_PixelAspectRatio_Size=14;
+const int8u Avc_PixelAspectRatio_Size=17;
 const float32 Avc_PixelAspectRatio[]=
 {
     (float32)1, //Reserved
@@ -62,6 +62,9 @@ const float32 Avc_PixelAspectRatio[]=
     (float32)15/(float32)11,
     (float32)64/(float32)33,
     (float32)160/(float32)99,
+    (float32)4/(float32)3,
+    (float32)3/(float32)2,
+    (float32)2,
 };
 
 const char* Avc_video_format[]=
