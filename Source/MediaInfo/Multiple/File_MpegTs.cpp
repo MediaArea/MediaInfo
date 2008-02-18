@@ -330,13 +330,25 @@ void File_MpegTs::Read_Buffer_Finalize()
     if (Menus.size()>1)
     {
         Stream_Prepare(Stream_Menu);
+        Ztring List, ListText;
+        size_t ListCount=0;
         for (std::map<int16u, Ztring>::iterator Menu=Menus.begin(); Menu!=Menus.end(); Menu++)
         {
+            List+=_T(" / ");
+            List+=Ztring::ToZtring(Menu->first);
+            ListText+=_T(" / ");
+            ListText+=Decimal_Hexa(Menu->first);
+            ListCount++;
             Menu->second.erase(0, 3);
             Fill(Ztring::ToZtring(Menu->first).To_Local().c_str(), Menu->second);
             MenusText[Menu->first].erase(0, 3);
             Fill(Ztring(Ztring::ToZtring(Menu->first)+_T("/String")).To_Local().c_str(), MenusText[Menu->first]);
         }
+        List.erase(0, 3);
+        ListText.erase(0, 3);
+        Fill("List", List);
+        Fill("List/String", ListText);
+        Fill("Total", ListCount);
     }
 
     File__Duplicate::Read_Buffer_Finalize();
