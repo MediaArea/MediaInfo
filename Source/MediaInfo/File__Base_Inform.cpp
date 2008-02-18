@@ -54,6 +54,8 @@ Ztring File__Base::Inform()
      && Config.Inform_Get(_T("Audio")).empty()
      && Config.Inform_Get(_T("Text")).empty()
      && Config.Inform_Get(_T("Chapters")).empty()
+     && Config.Inform_Get(_T("Image")).empty()
+     && Config.Inform_Get(_T("Menu")).empty()
      ))
     {
         Ztring Retour;
@@ -101,6 +103,26 @@ Ztring File__Base::Inform()
         }
         if (Chapters.size()>0)
             Retour+=Config.Inform_Get(_T("Chapters_End"));
+        if (Image.size()>0)
+            Retour+=Config.Inform_Get(_T("Image_Begin"));
+        for (size_t I1=0; I1<Image.size(); I1++)
+        {
+            Retour+=Inform(Stream_Image, I1);
+            if (I1!=Image.size()-1)
+                Retour+=Config.Inform_Get(_T("Image_Middle"));
+        }
+        if (Image.size()>0)
+            Retour+=Config.Inform_Get(_T("Image_End"));
+        if (Menu.size()>0)
+            Retour+=Config.Inform_Get(_T("Menu_Begin"));
+        for (size_t I1=0; I1<Menu.size(); I1++)
+        {
+            Retour+=Inform(Stream_Menu, I1);
+            if (I1!=Menu.size()-1)
+                Retour+=Config.Inform_Get(_T("Menu_Middle"));
+        }
+        if (Menu.size()>0)
+            Retour+=Config.Inform_Get(_T("Menu_End"));
         Retour+=Config.Inform_Get(_T("File_End"));
 
         Retour.FindAndReplace(_T("\\r\\n"), _T("\\n"), 0, Ztring_Recursive);
@@ -155,7 +177,9 @@ Ztring File__Base::Inform (stream_t StreamKind, size_t StreamPos)
      && Config.Inform_Get(_T("Video")).empty()
      && Config.Inform_Get(_T("Audio")).empty()
      && Config.Inform_Get(_T("Text")).empty()
-     && Config.Inform_Get(_T("Chapters")).empty())
+     && Config.Inform_Get(_T("Chapters")).empty()
+     && Config.Inform_Get(_T("Image")).empty()
+     && Config.Inform_Get(_T("Menu")).empty())
     {
         Ztring Retour;
         bool HTML=false;
@@ -203,6 +227,10 @@ Ztring File__Base::Inform (stream_t StreamKind, size_t StreamPos)
         Info=Text[StreamPos];
     else if (StreamKind==Stream_Chapters)
         Info=Chapters[StreamPos];
+    else if (StreamKind==Stream_Image)
+        Info=Image[StreamPos];
+    else if (StreamKind==Stream_Menu)
+        Info=Menu[StreamPos];
     else
         return _T("");
 

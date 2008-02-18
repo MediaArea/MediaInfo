@@ -343,7 +343,7 @@ Ztring MediaInfo_Config::Option (const Ztring &Option, const Ztring &Value)
     }
     else if (Option_Lower==_T("file_isseekable"))
     {
-        File_IsSeekable_Set(Value==_T("0") || Value.empty());
+        File_IsSeekable_Set(!(Value==_T("0") || Value.empty()));
         return _T("");
     }
     else if (Option_Lower==_T("file_isseekable_get"))
