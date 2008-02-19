@@ -26,6 +26,8 @@ AC_DISABLE_SHARED
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 AC_PROG_INSTALL
+CFLAGS=""
+CXXFLAGS=""
 
 dnl #########################################################################
 dnl Configure
@@ -40,6 +42,7 @@ dnl #########################################################################
 dnl -------------------------------------------------------------------------
 dnl Enable
 dnl
+AC_ARG_ENABLE(debug,   AC_HELP_STRING([--enable-debug],    [Enable full debug]),                                          ,                            enable_debug=no)
 AC_ARG_ENABLE(minimize-size,   AC_HELP_STRING([--enable-minimize-size], [Enable size optimisations]),                     MediaInfoMinimizeSize=$enableval, MediaInfoMinimizeSize=depend)
 AC_ARG_ENABLE(all,     AC_HELP_STRING([--disable-all],     [Disable all parsers]),                                        MediaInfoAll=$enableval,     MediaInfoAll=depend)
 AC_ARG_ENABLE(archive, AC_HELP_STRING([--disable-archive], [Disable all archive parsers]),                                MediaInfoArchive=$enableval, MediaInfoArchive=depend)
@@ -258,8 +261,13 @@ dnl -------------------------------------------------------------------------
 dnl GNU compiler
 dnl
 if test "$GXX" = yes ; then
-    CFLAGS="$CFLAGS -Wall -Wundef"
-    CXXFLAGS="$CXXFLAGS -Wall -W -Wundef -Wcast-qual -Wno-ctor-dtor-privacy"
+    if test "$enable_debug" = "yes"; then
+		CFLAGS="$CFLAGS -O0 -g -Wall -Wundef"
+		CXXFLAGS="$CXXFLAGS -O0 -g -Wall -W -Wundef -Wcast-qual -Wno-ctor-dtor-privacy"
+	else
+		CFLAGS="$CFLAGS -O2"
+		CXXFLAGS="$CXXFLAGS -O2"
+	fi
 fi
 
 dnl #########################################################################
