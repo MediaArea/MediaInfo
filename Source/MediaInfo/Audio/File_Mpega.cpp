@@ -967,9 +967,11 @@ bool File_Mpega::Synchronize()
     //Synchronizing
     while (Buffer_Offset+4<=Buffer_Size)
     {
-         while (Buffer_Offset+4<=Buffer_Size
-             && (CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+2)&0x0C)==0x0C)
-         {
+        while (Buffer_Offset+4<=Buffer_Size)
+        {
+            if ((CC2(Buffer+Buffer_Offset+0)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+2)&0x0C)==0x0C)
+                break; //while()
+
             //Tags
             if (File_Offset+Buffer_Offset+File_EndTagSize==File_Size)
             {
@@ -978,7 +980,7 @@ bool File_Mpega::Synchronize()
             }
             else
                  Buffer_Offset++;
-         }
+        }
 
         if (Buffer_Offset+4<=Buffer_Size)//Testing if size is coherant
         {
