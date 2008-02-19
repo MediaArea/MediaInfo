@@ -196,7 +196,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         ToAdd_Size-=(size_t)(File_GoTo-File_Offset);
     }
 
-    if (Buffer_Size>0) //There is buffered data from before
+    if (Buffer_Temp) //There is buffered data from before
     {
         //Allocating new buffer if needed
         if (Buffer_Size+ToAdd_Size>Buffer_Size_Max)
@@ -260,11 +260,14 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     }
 
     //Demand to go elsewhere
-    if (Config.File_IsSeekable_Get())
+    if (File_GoTo!=(int64u)-1)
     {
-        if (File_GoTo>=File_Size)
-            File_GoTo=File_Size;
-        Buffer_Clear();
+        if (Config.File_IsSeekable_Get())
+        {
+            if (File_GoTo>=File_Size)
+                File_GoTo=File_Size;
+            Buffer_Clear();
+        }
         return;
     }
     if (Buffer_Offset>=Buffer_Size)
