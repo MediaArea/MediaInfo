@@ -24,6 +24,7 @@
 //Get command line args in main()
 #ifdef UNICODE
     #ifdef _WIN32
+        #include <windows.h>
         #define GETCOMMANDLINE() \
             MediaInfoLib::Char** argv=CommandLineToArgvW(GetCommandLineW(), &argc); \
 
