@@ -24,7 +24,8 @@ AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_LIBTOOL
 AC_PROG_INSTALL
-
+CFLAGS=""
+CXXFLAGS=""
 
 dnl #########################################################################
 dnl ### Configure
@@ -216,8 +217,13 @@ dnl GNU compiler
 dnl
 dnl C/C++ compiler options used to compile
 if test "$GXX" = yes ; then
-    CFLAGS="$CFLAGS -Wall -Wundef"
-    CXXFLAGS="$CXXFLAGS -Wall -W -Wundef -Wcast-qual -Wno-ctor-dtor-privacy"
+    if test "$enable_debug" = "yes"; then
+		CFLAGS="$CFLAGS -O0 -g -Wall -Wundef"
+		CXXFLAGS="$CXXFLAGS -O0 -g -Wall -W -Wundef -Wcast-qual -Wno-ctor-dtor-privacy"
+	else
+		CFLAGS="$CFLAGS -O2"
+		CXXFLAGS="$CXXFLAGS -O2"
+	fi
 fi
 
 dnl #########################################################################
