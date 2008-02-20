@@ -179,6 +179,7 @@ File_Avc::File_Avc()
     FrameIsAlwaysComplete=false;
     MustParse_SPS_PPS=false;
     MustParse_SPS_PPS_Only=false;
+    MustParse_SPS_PPS_Done=false;
     FromMKV=false;
 
     //Count of a Packets
@@ -229,7 +230,7 @@ File_Avc::File_Avc()
 void File_Avc::Read_Buffer_Finalize()
 {
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if ((Count_Get(Stream_General)==0 && Frame_Count>0))
+    if (Count_Get(Stream_General)==0 && (Frame_Count>0 || MustParse_SPS_PPS_Done))
         slice_header_Fill();
 }
 
@@ -1248,6 +1249,7 @@ void File_Avc::SPS_PPS()
 
     //Filling
     MustParse_SPS_PPS=false;
+    MustParse_SPS_PPS_Done=true;
     if (MustParse_SPS_PPS_Only)
     {
         slice_header_Fill();
