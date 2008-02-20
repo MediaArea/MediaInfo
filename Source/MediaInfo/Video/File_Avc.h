@@ -40,7 +40,7 @@ public :
     size_t Frame_Count_Valid;
     bool   FrameIsAlwaysComplete;
     bool   MustParse_SPS_PPS;
-    bool   ShortHeader;
+    bool   FromMKV;
 
 protected :
     //Format

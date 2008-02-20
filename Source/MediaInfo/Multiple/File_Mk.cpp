@@ -2427,7 +2427,7 @@ void File_Mk::CodecID_Fill()
         Stream[TrackNumber].Parser=new File_Avc;
         ((File_Avc*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
         ((File_Avc*)Stream[TrackNumber].Parser)->MustParse_SPS_PPS=true;
-        ((File_Avc*)Stream[TrackNumber].Parser)->ShortHeader=true;
+        ((File_Avc*)Stream[TrackNumber].Parser)->FromMKV=true;
     }
     #endif
     #if defined(MEDIAINFO_AC3_YES)

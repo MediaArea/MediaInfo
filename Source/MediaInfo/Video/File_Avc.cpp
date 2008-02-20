@@ -178,7 +178,7 @@ File_Avc::File_Avc()
     Frame_Count_Valid=2;
     FrameIsAlwaysComplete=false;
     MustParse_SPS_PPS=false;
-    ShortHeader=false;
+    FromMKV=false;
 
     //Count of a Packets
     Frame_Count=0;
@@ -242,7 +242,7 @@ bool File_Avc::Header_Begin()
     //Specific case
     if (MustParse_SPS_PPS)
         return true;
-    if (ShortHeader)
+    if (MustParse_SPS_PPS)
     {
         Synched=true;
         return true;
@@ -290,7 +290,7 @@ void File_Avc::Header_Parse()
 
     //Parsing
     int8u nal_unit_type;
-    if (!ShortHeader)
+    if (!MustParse_SPS_PPS)
         Skip_B3(                                                "sync");
     else
     {
@@ -303,7 +303,7 @@ void File_Avc::Header_Parse()
     Skip_S1( 2,                                                 "nal_ref_idc");
     Get_S1 ( 5, nal_unit_type,                                  "nal_unit_type");
     BS_End();
-    if (!ShortHeader && !Header_Parse_Fill_Size())
+    if (!MustParse_SPS_PPS && !Header_Parse_Fill_Size())
     {
         Element_WaitForMoreData();
         return;
@@ -1186,7 +1186,8 @@ void File_Avc::SPS_PPS()
     int8u Profile, Level, seq_parameter_set_count, pic_parameter_set_count;
     Skip_B1(                                                    "Reserved");
     Get_B1 (Profile,                                            "Profile");
-    Skip_B1(                                                    "Reserved");
+    if (FromMKV)
+        Skip_B1(                                                "Reserved");
     Get_B1 (Level,                                              "Level");
     BS_Begin();
     Skip_S1(6,                                                  "Reserved");
@@ -1209,6 +1210,8 @@ void File_Avc::SPS_PPS()
         Buffer_Offset+=(size_t)Element_Offset_Save;
         Element_Offset=0;
         Element_Size=Size-1;
+        if (Element_Size>Element_Size_Save)
+            break; //There is an error
         Element_Code=0x07; //seq_parameter_set
         Data_Parse();
         Buffer_Offset-=(size_t)Element_Offset_Save;
@@ -1232,6 +1235,8 @@ void File_Avc::SPS_PPS()
         Buffer_Offset+=(size_t)Element_Offset_Save;
         Element_Offset=0;
         Element_Size=Size-1;
+        if (Element_Size>Element_Size_Save)
+            break; //There is an error
         Element_Code=0x08; //pic_parameter_set
         Data_Parse();
         Buffer_Offset-=(size_t)Element_Offset_Save;
