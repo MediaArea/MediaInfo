@@ -220,6 +220,7 @@ private :
         stream_t                StreamKind;
         size_t                  StreamPos;
         size_t                  PacketCount;
+        float32                 DisplayAspectRatio;
         bool                    SearchingPayload;
 
         stream()
@@ -228,6 +229,7 @@ private :
             StreamKind=Stream_Max;
             StreamPos=0;
             PacketCount=0;
+            DisplayAspectRatio=0;
             SearchingPayload=true;
         }
 

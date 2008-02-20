@@ -92,6 +92,11 @@ void File_Mk::Read_Buffer_Finalize()
 {
     if (Duration!=0 && TimecodeScale!=0)
         Fill(Stream_General, 0, "PlayTime", (float32)(Duration*int64u_float64(TimecodeScale)/1000000.0));
+    for (std::map<int64u, stream>::iterator Temp=Stream.begin(); Temp!=Stream.end(); Temp++)
+    {
+        if (Temp->second.DisplayAspectRatio!=0)
+            Fill(Stream_Video, Temp->second.StreamPos, "DisplayAspectRatio", Temp->second.DisplayAspectRatio, 3, true);
+    }
 }
 
 //***************************************************************************
@@ -2070,7 +2075,10 @@ void File_Mk::Segment_Tracks_TrackEntry_Video_DisplayHeight()
     FILLING_BEGIN();
         TrackVideoDisplayHeight=UInteger;
         if (TrackVideoDisplayWidth && TrackVideoDisplayHeight)
+        {
             Fill("DisplayAspectRatio", ((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight, 3, true);
+            Stream[TrackNumber].DisplayAspectRatio=((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight;
+        }
     FILLING_END();
 }
 
