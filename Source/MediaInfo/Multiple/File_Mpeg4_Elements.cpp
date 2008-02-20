@@ -35,6 +35,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Mpeg4.h"
+#if defined(MEDIAINFO_AVC_YES)
+    #include "MediaInfo/Video/File_Avc.h"
+#endif
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
@@ -1440,10 +1443,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
 
         //Descriptors or a list (we can see both!)
         if (Element_Offset+8<=Element_Size
-             && CC1(Buffer+Buffer_Offset+Element_Offset+4+0)>='a' && CC1(Buffer+Buffer_Offset+Element_Offset+4+0)<='z'
-             && CC1(Buffer+Buffer_Offset+Element_Offset+4+1)>='a' && CC1(Buffer+Buffer_Offset+Element_Offset+4+1)<='z'
-             && CC1(Buffer+Buffer_Offset+Element_Offset+4+2)>='a' && CC1(Buffer+Buffer_Offset+Element_Offset+4+2)<='z'
-             && CC1(Buffer+Buffer_Offset+Element_Offset+4+3)>='a' && CC1(Buffer+Buffer_Offset+Element_Offset+4+3)<='z')
+             && CC1(Buffer+Buffer_Offset+Element_Offset+4+0)>='A' && CC1(Buffer+Buffer_Offset+Element_Offset+4+0)<='z'
+             && CC1(Buffer+Buffer_Offset+Element_Offset+4+1)>='A' && CC1(Buffer+Buffer_Offset+Element_Offset+4+1)<='z'
+             && CC1(Buffer+Buffer_Offset+Element_Offset+4+2)>='A' && CC1(Buffer+Buffer_Offset+Element_Offset+4+2)<='z'
+             && CC1(Buffer+Buffer_Offset+Element_Offset+4+3)>='A' && CC1(Buffer+Buffer_Offset+Element_Offset+4+3)<='z')
                 Element_ThisIsAList();
         else
             Descriptors();
@@ -1471,29 +1474,21 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_avcC()
     Get_B1 (Version,                                            "Version");
     if (Version==1)
     {
-        int16u SPS_length, PPS_length;
-        int8u  NAL_length, number_of_SPS, number_of_PPS;
-        Skip_B1(                                                "profile");
-        Skip_B1(                                                "compatible profiles");
-        Skip_B1(                                                "level");
-        BS_Begin();
-        Skip_S1(6,                                              "Reserved");
-        Get_S1 (2, NAL_length,                                  "NAL length");
-        switch (NAL_length)
-        {
-            case 0 : NAL_length=1; break;
-            case 1 : NAL_length=2; break;
-            case 3 : NAL_length=4; break;
-            default : NAL_length=0; //Error
-        }
-        Param_Info(NAL_length);
-        BS_End();
-        Get_B1 (number_of_SPS,                                  "number of SPS");
-        Get_B2 (SPS_length,                                     "SPS length");
-        Skip_XX(SPS_length,                                     "SPS NAL unit");
-        Get_B1 (number_of_PPS,                                  "number of PPS");
-        Get_B2 (PPS_length,                                     "PPS length");
-        Skip_XX(PPS_length,                                     "PPS NAL unit");
+        #ifdef MEDIAINFO_AVC_YES
+            File_Avc Parser;
+            Parser.FrameIsAlwaysComplete=true;
+            Parser.MustParse_SPS_PPS=true;
+
+            //Parsing
+            Open_Buffer_Init(&Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+            Open_Buffer_Continue(&Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+
+            //Filling
+            Open_Buffer_Finalize(&Parser);
+            Merge(Parser, Stream_Video, 0, StreamPos_Last);
+        #else
+            Skip_XX(Element_Size,                               "AVC Data");
+        #endif
     }
     else
         Skip_XX(Element_Size,                                   "Data");
@@ -1662,7 +1657,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsh()
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stss()
 {
-    Element_Name("Time To Sample");
+    NAME_VERSION_FLAG("Sync Sample");
 
     //Parsing
     int32u entry_count;
