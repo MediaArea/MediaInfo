@@ -1478,6 +1478,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_avcC()
             File_Avc Parser;
             Parser.FrameIsAlwaysComplete=true;
             Parser.MustParse_SPS_PPS=true;
+            Parser.MustParse_SPS_PPS_Only=true;
 
             //Parsing
             Open_Buffer_Init(&Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
