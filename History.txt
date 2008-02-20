@@ -12,6 +12,8 @@ Version 0.7.6.0, 2008-
 + ID3v2 cover reading
 + Id3v2.2 (yes, it is old...) support
 + RMP3 (japanese MP3 based format?) support
+x AVC Display Aspect Ratio was not well detected if AVC is in a .mp4 container
+x Matroska Display Aspect RAtio was deleted if AVC aspect ratio was set, now Matroska has priority
 
 Version 0.7.5.9, 2008-02-08
 ---------------
