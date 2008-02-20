@@ -174,6 +174,7 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_btrt=0x62747274;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_chan=0x6368616E;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_dac3=0x64616333;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_damr=0x64616D72;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_esds=0x65736473;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave=0x77617665;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma=0x66726D61;
@@ -310,6 +311,7 @@ void File_Mpeg4::Data_Parse()
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_btrt)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_chan)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_dac3)
+                                ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_damr)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_esds)
                                 LIST(moov_trak_mdia_minf_stbl_stsd_xxxx_wave)
                                     ATOM_BEGIN
@@ -1315,10 +1317,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
     Get_B2 (SampleSize,                                         "Sample size");
     Get_B2 (ID,                                                 "Compression ID");
     Skip_B2(                                                    "Packet size");
-    if (ID==0)
-        {Get_B4 (TimeScale,                                     "Sample rate"); Param_Info(Ztring::ToZtring(TimeScale/0x10000)+_T(" Hz"));}
-    else
-        {Get_B4 (TimeScale,                                     "Frames per chunk"); Param_Info(Ztring::ToZtring(TimeScale/0x10000)+_T(" frames"));}
+    Get_B4 (TimeScale,                                          "Sample rate"); Param_Info(Ztring::ToZtring(TimeScale/0x10000)+_T(" Hz"));
     if (Version>=1)
     {
         Skip_B4(                                                "Samples per packet");
@@ -1381,8 +1380,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         Fill("Channel(s)", Channels, 10, true);
         if (SampleSize!=0)
             Fill("Resolution", SampleSize, 10, true);
-        if (ID==0)
-            Fill("SamplingRate", TimeScale/0x10000);
+        Fill("SamplingRate", TimeScale/0x10000);
 
         //Sometimes, more Atoms in this atoms
         if (Element_Offset+8<Element_Size)
@@ -1542,6 +1540,19 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
                     break;
         default   : Skip_XX(Element_Size-Element_Offset,        "Unknown");
     }
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_damr()
+{
+    Element_Name("AMR decode config");
+
+    //Parsing
+    Skip_C4(                                                    "Encoder vendor");
+    Skip_B1(                                                    "Encoder version");
+    Skip_B2(                                                    "Packet modes");
+    Skip_B1(                                                    "Number of packet mode changes");
+    Skip_B1(                                                    "Samples per packet");
 }
 
 //---------------------------------------------------------------------------
