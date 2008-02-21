@@ -1308,8 +1308,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
 {
     Element_Name("Audio");
 
-    int32u TimeScale;
-    int16u Version, Channels, SampleSize, ID;
+    int16u Version, Channels, SampleSize, ID, SampleRate;
     Skip_B4(                                                    "Reserved");
     Skip_B2(                                                    "Reserved");
     Skip_B2(                                                    "Data reference index");
@@ -1320,7 +1319,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
     Get_B2 (SampleSize,                                         "Sample size");
     Get_B2 (ID,                                                 "Compression ID");
     Skip_B2(                                                    "Packet size");
-    Get_B4 (TimeScale,                                          "Sample rate"); Param_Info(Ztring::ToZtring(TimeScale/0x10000)+_T(" Hz"));
+    Get_B2 (SampleRate,                                         "Sample rate"); Param_Info(SampleRate, " Hz");
+    Skip_B2(                                                    "Reserved");
     if (Version>=1)
     {
         Skip_B4(                                                "Samples per packet");
@@ -1338,6 +1338,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
     }
 
     FILLING_BEGIN();
+        //samr bug viewed in one file: codec=AMR-NB but Sampling rate is 1000, impossible
+        if (Element_Code==0x73616D72 && SampleRate==1000) //Element_Code="samr"
+            SampleRate=8000;
+
         std::string Codec;
         Codec.append(1, (char)((Element_Code&0xFF000000)>>24));
         Codec.append(1, (char)((Element_Code&0x00FF0000)>>16));
@@ -1383,7 +1387,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         Fill("Channel(s)", Channels, 10, true);
         if (SampleSize!=0)
             Fill("Resolution", SampleSize, 10, true);
-        Fill("SamplingRate", TimeScale/0x10000);
+        Fill("SamplingRate", SampleRate);
 
         //Sometimes, more Atoms in this atoms
         if (Element_Offset+8<Element_Size)
