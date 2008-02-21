@@ -140,7 +140,7 @@ const float32 Mpegv_aspect_ratio1[]=
     (float32)0.8055,
     (float32)0.8437, //16/9 NTSC
     (float32)0.8935,
-    (float32)0.9157, //4/3 PAL
+    (float32)0.9375, //4/3 PAL
     (float32)0.9815,
     (float32)1.0255,
     (float32)1.0695,
