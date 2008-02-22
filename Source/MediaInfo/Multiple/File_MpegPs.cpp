@@ -1151,7 +1151,7 @@ void File_MpegPs::program_stream_map()
     Open_Buffer_Continue(&Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
     //Filling
-    std::map<int32u, File_Mpeg_Psi::Stream>::iterator Streams_Temp=Parser.Streams.begin();
+    std::map<int16u, File_Mpeg_Psi::stream>::iterator Streams_Temp=Parser.Streams.begin();
     while (Streams_Temp!=Parser.Streams.end())
     {
         Stream[Streams_Temp->first].stream_type=Streams_Temp->second.stream_type;

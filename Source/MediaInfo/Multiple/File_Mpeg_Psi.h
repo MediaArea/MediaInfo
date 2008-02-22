@@ -44,7 +44,6 @@ class File_Mpeg_Psi : public File__Analyze
 public :
     //Configuration
     bool   From_TS;
-    std::map<Ztring, std::vector<int16u> > Table_00_RegisteredCodes;
 
     enum ts_kind
     {
@@ -82,38 +81,31 @@ public :
         docsis
     };
 
-    //About programs
-    struct Program
-    {
-        //std::map<ZenLib::Ztring, ZenLib::Ztring> Info;
-        ts_kind Kind;
-        int32u  program_number;
-
-        Program()
-        {
-            Kind=unknown;
-        }
-    };
-    std::map<int32u, Program> Programs;
-    int16u                    transport_stream_id; //Unique ID of the stream
-
     //About streams
-    struct Stream
+    struct stream
     {
-        int8u stream_type;
-        //stream_t KindOfStream;
-        //std::map<ZenLib::Ztring, ZenLib::Ztring> Info;
-        ts_kind Kind;
-        int32u  program_number;
+        std::map<ZenLib::Ztring, ZenLib::Ztring>    Infos;
+        int16u                                      program_number;
+        ts_kind                                     Kind;
+        int8u                                       stream_type;
+        //stream_t                                    KindOfStream;
 
-        Stream()
+        stream()
         {
+            program_number=0xFFFF;
+            Kind=unknown;
             stream_type=0;
             //KindOfStream=Stream_Max;
-            //Kind=File_MpegTs::ts_stream::unknown;
         }
     };
-    std::map<int32u, Stream> Streams;
+    std::map<int16u, stream> Streams;
+    int16u                   Stream_Current;
+
+    //About program
+    int16u transport_stream_id; //Unique ID of the stream
+
+    //Temp
+    int32u format_identifier;
 
 public :
     File_Mpeg_Psi();

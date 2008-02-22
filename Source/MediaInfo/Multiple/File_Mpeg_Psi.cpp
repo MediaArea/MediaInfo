@@ -80,7 +80,7 @@ const char* Mpeg_Psi_ATSC_table_type(int16u ID)
 }
 
 //---------------------------------------------------------------------------
-const char* Mpeg_Psi_stream_type(int8u ID)
+const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
 {
     switch (ID)
     {
@@ -112,7 +112,11 @@ const char* Mpeg_Psi_stream_type(int8u ID)
         case 0x83 : return "SCTE Isochronous Data";
         case 0x84 : return "ATSC Reserved";
         case 0x85 : return "ATSC Program Identifier";
-        case 0x86 : return "BluRay - DTS";
+        case 0x86 : switch (format_identifier)
+                    {
+                        case Mpeg_Descriptors::HDMV : return "BluRay - DTS";
+                        default :                     return "";
+                    }
         case 0x87 : return "ATSC - E-AC-3";
         case 0x88 : return "VC-9";
         case 0x90 : return "DVB - stream_type value for Time Slicing / MPE-FEC";
@@ -251,6 +255,9 @@ File_Mpeg_Psi::File_Mpeg_Psi()
     From_TS=true; //Default is from TS
 
     //Temp
+    Stream_Current=0x0000;
+    transport_stream_id=0x0000;
+    format_identifier=0x00000000;
     CRC_32=0;
 }
 
@@ -505,7 +512,7 @@ void File_Mpeg_Psi::program_stream_map()
         Element_Begin();
         int16u ES_info_length;
         int8u  stream_type, elementary_stream_id;
-        Get_B1 (stream_type,                                    "stream_type"); Param_Info(Mpeg_Psi_stream_type(stream_type));
+        Get_B1 (stream_type,                                    "stream_type"); Param_Info(Mpeg_Psi_stream_type(stream_type, format_identifier));
         Get_B1 (elementary_stream_id,                           "elementary_stream_id");
         Get_B2 (ES_info_length,                                 "ES_info_length");
         Element_Name(Ztring::ToZtring(elementary_stream_id, 16));
@@ -546,18 +553,17 @@ void File_Mpeg_Psi::Table_00()
         if (program_number==0)
         {
             Get_S2 ( 13, xxx_PID,                               "network_PID"); Element_Info(Ztring::ToZtring_From_CC2(xxx_PID));
-            Programs[xxx_PID].Kind=network_information_table;
+            Streams[xxx_PID].Kind=network_information_table;
         }
         else
         {
             Get_S2 ( 13, xxx_PID,                               "program_map_PID"); Element_Info(Ztring::ToZtring_From_CC2(xxx_PID));
-            Programs[xxx_PID].Kind=program_map_table;
+            Streams[xxx_PID].Kind=program_map_table;
         }
         BS_End();
 
         //Filling
-        Programs[xxx_PID].program_number=program_number;
-        //program_association_section_ProgramNumber.push_back(ProgNumber);
+        Streams[xxx_PID].program_number=program_number;
         Element_End(Ztring::ToZtring_From_CC2(program_number));
     }
     BS_End();
@@ -609,25 +615,24 @@ void File_Mpeg_Psi::Table_02()
     while (Element_Offset<Element_Size)
     {
         Element_Begin();
-        int16u elementary_PID;
         int8u stream_type;
         BS_Begin();
-        Get_S1 ( 8, stream_type,                                "stream_type"); Element_Info(Mpeg_Psi_stream_type(stream_type)); Param_Info(Mpeg_Psi_stream_type(stream_type));
+        Get_S1 ( 8, stream_type,                                "stream_type"); Element_Info(Mpeg_Psi_stream_type(stream_type, format_identifier)); Param_Info(Mpeg_Psi_stream_type(stream_type, format_identifier));
         Skip_S1( 3,                                             "reserved");
-        Get_S2 (13, elementary_PID,                             "elementary_PID");
+        Get_S2 (13, Stream_Current,                             "elementary_PID");
         Skip_S1( 4,                                             "reserved");
         Get_S2 (12, Descriptors_Size,                           "ES_info_length");
         BS_End();
 
         //Filling
-        Streams[elementary_PID].stream_type=stream_type;
-        Streams[elementary_PID].program_number=program_number;
+        Streams[Stream_Current].stream_type=stream_type;
+        Streams[Stream_Current].program_number=program_number;
 
         //Descriptors
         if (Descriptors_Size>0)
             Descriptors();
 
-        Element_End(Ztring::ToZtring_From_CC2(elementary_PID), 5+Descriptors_Size);
+        Element_End(Ztring::ToZtring_From_CC2(Stream_Current), 5+Descriptors_Size);
     }
 }
 
@@ -875,7 +880,7 @@ void File_Mpeg_Psi::Descriptors()
 
     //Parsing
     File_Mpeg_Descriptors* Descriptors=new File_Mpeg_Descriptors();
-    //Descriptors->format_identifier=Descriptor_format_identifier;
+    Descriptors->format_identifier=format_identifier;
     Buffer_Offset+=Element_Offset; //Positionning
     Open_Buffer_Init(Descriptors, File_Size, File_Offset+Buffer_Offset);
     Open_Buffer_Continue(Descriptors, Buffer+Buffer_Offset, Descriptors_Size);
@@ -883,18 +888,10 @@ void File_Mpeg_Psi::Descriptors()
     Element_Offset+=Descriptors_Size;
 
     //Filling
-    /*
-    if (elementary_PID!=0)
-    {
-        program_map_Values[elementary_PID].KindOfStream=Descriptors->KindOfStream;
-        program_map_Values[elementary_PID].Info=Descriptors->Info;
-    }
-    else
-        Programs[program_number].Info=Descriptors->Info;
-    //Kind=Descriptors->Kind;
+    Streams[Stream_Current].Infos;//.clear();//=Descriptors->Infos;
+    //program_map_Values[elementary_PID].KindOfStream=Descriptors->KindOfStream;
 
-    Descriptor_format_identifier=Descriptors->format_identifier;
-    */
+    format_identifier=Descriptors->format_identifier;
 
     delete Descriptors; //Descriptors=NULL;
 

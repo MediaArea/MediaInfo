@@ -525,6 +525,24 @@ const char* Mpeg_Descriptors_component_type(int8u stream_content, int8u componen
     }
 }
 
+const char* Mpeg_Descriptors_format_identifier(int32u format_identifier)
+{
+    switch (format_identifier)
+    {
+        case Mpeg_Descriptors::AC_3 : return "AC3";
+        case Mpeg_Descriptors::CUEI : return "SCTE 35 2003 - Digital Program Insertion Cueing Message for Cable";
+        case Mpeg_Descriptors::DTS1 : return "DTS (512)";
+        case Mpeg_Descriptors::DTS2 : return "DTS (1024)";
+        case Mpeg_Descriptors::DTS3 : return "DTS (2048)";
+        case Mpeg_Descriptors::GA94 : return "ATSC A/53 - Terrestrial";
+        case Mpeg_Descriptors::HDMV : return "Blu-ray";
+        case Mpeg_Descriptors::S14A : return "ATSC - Satellite";
+        case Mpeg_Descriptors::SCTE : return "SCTE 54 2003 - Digital Video Service Multiplex and Transport System for Cable Television";
+        case Mpeg_Descriptors::VC_1 : return "VC1";
+        default :                     return "";
+    }
+}
+
 //---------------------------------------------------------------------------
 extern const float32 Mpegv_frame_rate[]; //In Video/File_Mpegv.cpp
 extern const char*  Mpegv_chroma_format[]; //In Video/File_Mpegv.cpp
@@ -759,9 +777,9 @@ void File_Mpeg_Descriptors::Descriptor_02()
 
     //Filling
     if (!multiple_frame_rate_flag && !frame_rate_extension_flag)
-        Info[_T("FrameRate")]=Ztring::ToZtring(Mpegv_frame_rate[frame_rate_code]);
-    Info[_T("Chroma")]=Mpegv_chroma_format[chroma_format];
-    Info[_T("Codec_Profile")]=Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]);
+        Infos[_T("FrameRate")]=Ztring::ToZtring(Mpegv_frame_rate[frame_rate_code]);
+    Infos[_T("Chroma")]=Mpegv_chroma_format[chroma_format];
+    Infos[_T("Codec_Profile")]=Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]);
 }
 
 //---------------------------------------------------------------------------
@@ -779,25 +797,21 @@ void File_Mpeg_Descriptors::Descriptor_03()
     BS_End();
 
     //Filling
-    Info[_T("BitRate/Mode")]=variable_rate_audio_indicator?_T("VBR"):_T("CBR");
-    Info[_T("Codec")]=Ztring(Mpega_Version[ID])+Ztring(Mpega_Layer[layer]);
+    Infos[_T("BitRate/Mode")]=variable_rate_audio_indicator?_T("VBR"):_T("CBR");
+    Infos[_T("Codec")]=Ztring(Mpega_Version[ID])+Ztring(Mpega_Layer[layer]);
 }
 
 //---------------------------------------------------------------------------
 void File_Mpeg_Descriptors::Descriptor_05()
 {
     //Parsing
-    Get_B4 (format_identifier,                                  "format_identifier");
+    Get_B4 (format_identifier,                                  "format_identifier"); Element_Info(Mpeg_Descriptors_format_identifier(format_identifier));
 
     //Filling
     switch (format_identifier)
     {
-        case Mpeg_Descriptors::AC_3 : Param_Info(_T("AC3")); KindOfStream=Stream_Audio; Info[_T("Codec")]=_T("AC3"); break;
-        case Mpeg_Descriptors::DTS1 : Param_Info(_T("DTS")); KindOfStream=Stream_Audio; Info[_T("Codec")]=_T("DTS"); break;
-        case Mpeg_Descriptors::GA94 : Param_Info(_T("ATSC - Terrestrial")); break;
-        case Mpeg_Descriptors::HDMV : Param_Info(_T("Blu-ray")); break;
-        case Mpeg_Descriptors::S14A : Param_Info(_T("ATSC - Satellite")); break;
-        case Mpeg_Descriptors::SCTE : Param_Info(_T("SCTE")); break;
+        case Mpeg_Descriptors::AC_3 : Param_Info(_T("AC3")); KindOfStream=Stream_Audio; Infos[_T("Codec")]=_T("AC3"); break;
+        case Mpeg_Descriptors::DTS1 : Param_Info(_T("DTS")); KindOfStream=Stream_Audio; Infos[_T("Codec")]=_T("DTS"); break;
         default : ;
     }
 }
@@ -823,7 +837,7 @@ void File_Mpeg_Descriptors::Descriptor_09()
 
     //Filling
     //Kind[CA_PID]=File_MpegPsi::conditional_access_table; //TODO: DOES NOT WORK
-    //Info[_T("CA_PID")]=Ztring::ToZtring(CA_PID);
+    //Infos[_T("CA_PID")]=Ztring::ToZtring(CA_PID);
 }
 
 //---------------------------------------------------------------------------
@@ -836,9 +850,9 @@ void File_Mpeg_Descriptors::Descriptor_0A()
     Get_B1 (audio_type,                                         "audio_type"); Param_Info(Mpeg_Descriptors_audio_type(audio_type));
 
     //Filling
-    Info[_T("Language")]=ISO_639_language_code;
+    Infos[_T("Language")]=ISO_639_language_code;
     if (audio_type)
-        Info[_T("Language_More")]=Mpeg_Descriptors_audio_type(audio_type);
+        Infos[_T("Language_More")]=Mpeg_Descriptors_audio_type(audio_type);
 }
 
 //---------------------------------------------------------------------------
@@ -852,7 +866,7 @@ void File_Mpeg_Descriptors::Descriptor_0E()
     BS_End();
 
     //Filling
-    Info[_T("BitRate/Max")]=Ztring::ToZtring(maximum_bitrate);
+    Infos[_T("BitRate/Max")]=Ztring::ToZtring(maximum_bitrate);
 }
 
 //---------------------------------------------------------------------------
@@ -914,7 +928,7 @@ void File_Mpeg_Descriptors::Descriptor_50()
     Skip_DVB_Text(Element_Size-Element_Offset,                     "text");
 
     //Filling
-    Info[_T("Language")]=ISO_639_language_code;
+    Infos[_T("Language")]=ISO_639_language_code;
 }
 
 //---------------------------------------------------------------------------
@@ -966,7 +980,7 @@ void File_Mpeg_Descriptors::Descriptor_56()
         BS_End();
 
         //Filling
-        Info[_T("Language")]=ISO_639_language_code;
+        Infos[_T("Language")]=ISO_639_language_code;
         //TODO: this stream is teletext. Be careful, multiple stream in a PID
     }
 }
@@ -984,7 +998,7 @@ void File_Mpeg_Descriptors::Descriptor_59()
         Skip_B2(                                                    "ancillary_page_id");
 
         //Filling
-        Info[_T("Language")]=ISO_639_language_code;
+        Infos[_T("Language")]=ISO_639_language_code;
         //TODO: this stream is subtitle. Be careful, multiple stream in a PID
     }
 }
@@ -1013,7 +1027,7 @@ void File_Mpeg_Descriptors::Descriptor_6A()
         Get_S1 (3, service_type,                                "service_type"); Param_Info(AC3_Mode[service_type]);
         Get_S1 (3, number_of_channels,                          "number_of_channels"); Param_Info(Mpeg_Descriptors_AC3_Channels[number_of_channels], " channels");
         BS_End();
-        Info[_T("Channel(s)")]=Ztring().From_Local(Mpeg_Descriptors_AC3_Channels[number_of_channels]);
+        Infos[_T("Channel(s)")]=Ztring().From_Local(Mpeg_Descriptors_AC3_Channels[number_of_channels]);
     }
     if (bsid_flag)
     {
@@ -1034,7 +1048,7 @@ void File_Mpeg_Descriptors::Descriptor_6A()
 
     //Filling
     KindOfStream=Stream_Audio;
-    Info[_T("Codec")]=_T("AC3");
+    Infos[_T("Codec")]=_T("AC3");
 }
 
 //---------------------------------------------------------------------------
@@ -1060,7 +1074,7 @@ void File_Mpeg_Descriptors::Descriptor_7A()
         Skip_SB(                                               "full_service");
         Get_S1 (3, service_type,                               "service_type"); Param_Info(AC3_Mode[service_type]);
         Get_S1 (3, number_of_channels,                         "number_of_channels"); Param_Info(Mpeg_Descriptors_AC3_Channels[number_of_channels], " channels");
-        Info[_T("Channel(s)")]=Ztring().From_Local(Mpeg_Descriptors_AC3_Channels[number_of_channels]);
+        Infos[_T("Channel(s)")]=Ztring().From_Local(Mpeg_Descriptors_AC3_Channels[number_of_channels]);
         BS_End();
     }
     if (bsid_flag)
@@ -1094,7 +1108,7 @@ void File_Mpeg_Descriptors::Descriptor_7A()
 
     //Filling
     KindOfStream=Stream_Audio;
-    Info[_T("Codec")]=enhanced_ac3?_T("AC3+"):_T("AC3");
+    Infos[_T("Codec")]=enhanced_ac3?_T("AC3+"):_T("AC3");
 }
 
 //---------------------------------------------------------------------------
@@ -1157,10 +1171,10 @@ void File_Mpeg_Descriptors::Descriptor_81()
 
     //Filling
     if (sample_rate_code<4)
-        Info[_T("SamplingRate")]=Ztring::ToZtring(AC3_SamplingRate[sample_rate_code]);
-    Info[_T("BitRate")]=Ztring::ToZtring(AC3_BitRate[bit_rate_code]*1000);
+        Infos[_T("SamplingRate")]=Ztring::ToZtring(AC3_SamplingRate[sample_rate_code]);
+    Infos[_T("BitRate")]=Ztring::ToZtring(AC3_BitRate[bit_rate_code]*1000);
     if (num_channels<8)
-        Info[_T("Channel(s)")]=Ztring::ToZtring(AC3_Channels[num_channels]);
+        Infos[_T("Channel(s)")]=Ztring::ToZtring(AC3_Channels[num_channels]);
 
     //Parsing
     if (Element_Offset==Element_Size) return;
@@ -1271,7 +1285,7 @@ void File_Mpeg_Descriptors::Descriptor_A0()
 
     //Filling
     if (!Value.empty())
-        Info[_T("Extended Channel Name")]=Value;
+        Infos[_T("Extended Channel Name")]=Value;
 }
 
 //---------------------------------------------------------------------------
@@ -1307,7 +1321,7 @@ void File_Mpeg_Descriptors::Descriptor_A3()
 
     //Filling
     if (!Value.empty())
-        Info[_T("Name")]=Value;
+        Infos[_T("Name")]=Value;
 }
 
 //***************************************************************************

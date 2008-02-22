@@ -60,23 +60,24 @@ private :
     void Data_Parse();
 
     //Data
-    struct ts_stream
+    struct stream
     {
-        File__Analyze*          Parser;
-        int8u                   stream_type;
-        File_Mpeg_Psi::ts_kind  TS_Kind;
-        int16u                  program_number;
-        int64u                  TimeStamp_Start;
-        int64u                  TimeStamp_End;
-        bool                    StreamIsRegistred;
-        bool                    Scrambled;
-        bool                    Searching_Payload_Start;
-        bool                    Searching_Payload_Continue;
-        bool                    Searching_TimeStamp_Start;
-        bool                    Searching_TimeStamp_End;
-        bool                    ShouldDuplicate;
+        File__Analyze*                              Parser;
+        std::map<ZenLib::Ztring, ZenLib::Ztring>    Infos;
+        int8u                                       stream_type;
+        File_Mpeg_Psi::ts_kind                      TS_Kind;
+        int16u                                      program_number;
+        int64u                                      TimeStamp_Start;
+        int64u                                      TimeStamp_End;
+        bool                                        StreamIsRegistred;
+        bool                                        Scrambled;
+        bool                                        Searching_Payload_Start;
+        bool                                        Searching_Payload_Continue;
+        bool                                        Searching_TimeStamp_Start;
+        bool                                        Searching_TimeStamp_End;
+        bool                                        ShouldDuplicate;
 
-        ts_stream()
+        stream()
         {
             Parser=NULL;
             stream_type=0;
@@ -93,15 +94,35 @@ private :
             ShouldDuplicate=false;
         }
 
-        ~ts_stream()
+        ~stream()
         {
             delete Parser; //Parser=NULL;
         }
     };
-    std::map<int64u, ts_stream> Stream;
+    std::map<int64u, stream>    Streams;
+    int32u                      format_identifier;
     int16u                      pid;
     bool                        payload_unit_start_indicator;
 
+    struct program
+    {
+        int16u                                      pid;
+        std::map<ZenLib::Ztring, ZenLib::Ztring>    Infos;
+        ZtringList                                  List;
+        ZtringList                                  Language;
+        ZtringList                                  Codec;
+        ZtringList                                  Text;
+
+        program()
+        {
+            pid=0;
+        }
+
+        ~program()
+        {
+        }
+    };
+    std::map<int16u, program>   Programs;
 
     //Elements
     void PSI();

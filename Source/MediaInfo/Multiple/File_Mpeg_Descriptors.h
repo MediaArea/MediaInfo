@@ -44,7 +44,7 @@ class File_Mpeg_Descriptors : public File__Analyze
 public :
     int32u format_identifier; //Must be filled by the caller
     stream_t KindOfStream;
-    std::map<ZenLib::Ztring, ZenLib::Ztring> Info;
+    std::map<ZenLib::Ztring, ZenLib::Ztring> Infos;
     std::map<int32u, File_Mpeg_Psi::ts_kind> Kind;
 
 protected :
@@ -185,11 +185,15 @@ private :
 namespace Mpeg_Descriptors
 {
     const int32u AC_3=0x41432D33; //Exactly AC-3
+    const int32u CUEI=0x43554549; //SCTE
     const int32u DTS1=0x44545331; //DTS
+    const int32u DTS2=0x44545332; //DTS
+    const int32u DTS3=0x44545333; //DTS
     const int32u GA94=0x47413934; //ATSC - Terrestrial
     const int32u HDMV=0x48444D56; //BluRay
     const int32u S14A=0x53313441; //ATSC - Satellite
     const int32u SCTE=0x53435445; //SCTE
+    const int32u VC_1=0x56432D31; //Exactly VC-1
 
     const int32u DVB =0x00000001; //Forced value, does not exist is stream
 }
