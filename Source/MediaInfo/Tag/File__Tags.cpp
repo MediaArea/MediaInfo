@@ -285,6 +285,7 @@ bool File__Tags_Helper::Header_Begin()
                 Base->Skip_XX(10+Id3v2_Size-3,                  "Data");
         #endif //MEDIAINFO_ID3V2_YES
         Base->Buffer_Offset+=10+Id3v2_Size; //Skiping Id3v2
+        File_BeginTagSize+=10+Id3v2_Size;
         Base->Element_End();
     }
 
