@@ -465,7 +465,8 @@ void File_Id3v2::T__X()
 {
     int8u Encoding;
     Get_B1 (Encoding,                                           "Text_encoding");
-    Skip_C3(                                                    "Language");
+    if (Element_Code!=Id3::TXXX)
+        Skip_C3(                                                "Language");
     switch (Encoding)
     {
         case 0 : Get_Local (Element_Size-4, Element_Values(0),  "Short_content_descrip"); break;
@@ -474,7 +475,7 @@ void File_Id3v2::T__X()
         case 3 : Get_UTF8  (Element_Size-4, Element_Values(0),  "Short_content_descrip"); break;
         default : ;
     }
-    Element_Offset=4;
+    Element_Offset=1+(Element_Code!=Id3::TXXX?3:0);
     if (Encoding==1)
     {
         if (Element_Size>=6 && Buffer[Buffer_Offset+4]==0x00 && Buffer[Buffer_Offset+5]==0x00)

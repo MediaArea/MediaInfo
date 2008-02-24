@@ -11,6 +11,7 @@ Version 0.7.6.0, 2008-
 ---------------
 + ID3v2 cover reading
 + Id3v2.2 (yes, it is old...) support
++ Id3v2: TXXX tags support
 + RMP3 (japanese MP3 based format?) support
 + SAMR in .mp4: some files have wrong sampling rate, forcing it to 8000 Hz
 x AVC Display Aspect Ratio was not well detected if AVC is in a .mp4 container
