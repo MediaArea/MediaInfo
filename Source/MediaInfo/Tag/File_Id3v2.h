@@ -97,7 +97,7 @@ private :
     void PCNT()   {};
     void POPM()   {};
     void POSS()   {};
-    void PRIV()   {};
+    void PRIV();
     void RBUF()   {};
     void RVA2()   {};
     void RVRB()   {};

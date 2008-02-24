@@ -590,6 +590,17 @@ void File_Id3v2::COMM()
 
 //---------------------------------------------------------------------------
 //
+void File_Id3v2::PRIV()
+{
+    //Parsing
+    Ztring Owner;
+    Get_Local(Element_Size, Owner,                              "Owner identifier");
+    Element_Offset=Owner.size()+1;
+    Skip_XX(Element_Size-Element_Offset,                        "Data");
+}
+
+//---------------------------------------------------------------------------
+//
 void File_Id3v2::USLT()
 {
     T__X();
