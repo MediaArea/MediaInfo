@@ -265,6 +265,9 @@ File_Mpega::File_Mpega()
     //Temp - VBR handling
     VBR_Frames=0;
     VBR_FileSize=0;
+
+    //Temp - Tags
+    Xing_Scale=0;
 }
 
 //***************************************************************************
@@ -470,7 +473,7 @@ void File_Mpega::Data_Parse()
     Element_Info(Ztring::ToZtring(Frame_Count));
 
     //LAME
-    if (Encoded_Library.empty() && Frame_Count<Frame_Count_Valid) //Can be elsewhere...
+    if (Encoded_Library.empty() && (Frame_Count<Frame_Count_Valid || File_Offset+Buffer_Offset+Element_Size==File_Size-File_EndTagSize)) //Can be elsewhere... At the start, or end frame
         Header_Encoders();
 
     //Filling
@@ -679,7 +682,7 @@ bool File_Mpega::Header_Xing()
             if (TOC)
                 Skip_XX(100,                                    "TOC");
             if (Scale)
-                Skip_B4(                                        "Scale");
+                Get_B4 (Xing_Scale,                             "Scale");
             Ztring Lib;
             Peek_Local(4, Lib);
             if (Lame || Lib==_T("LAME") || Lib==_T("GOGO"))
@@ -740,11 +743,15 @@ bool File_Mpega::Header_Encoders()
 
     //Lame
     Buffer_Pos=BufferS.find("LAME");
-    if (Buffer_Pos!=std::string::npos && Buffer_Pos<Element_Size-11)
+    if (Buffer_Pos!=std::string::npos && Buffer_Pos<=Element_Size-8)
     {
         Element_Info("With tag (Lame)");
         Element_Offset=Buffer_Pos;
-        Header_Encoders_Lame();
+        if (Element_Offset+20<=Element_Size)
+            Get_Local(20, Encoded_Library,                      "Encoded_Library");
+        else
+            Get_Local( 8, Encoded_Library,                      "Encoded_Library");
+        Encoded_Library.Trim(_T('U'));
         Element_Offset=0; //Reseting it
         return true;
     }
@@ -792,11 +799,13 @@ bool File_Mpega::Header_Encoders()
 
 void File_Mpega::Header_Encoders_Lame()
 {
-    Peek_Local(9, Encoded_Library);
-    if (Encoded_Library>=_T("LAME3.90"))
+    Peek_Local(8, Encoded_Library);
+    if (Encoded_Library>=_T("LAME3.90") && Element_IsNotFinnished())
     {
         int8u Flags;
-        Skip_Local(9,                                           "Encoded_Library"); //Skipping because we already poke it
+        Get_Local(9, Encoded_Library,                           "Encoded_Library");
+        Param_Info(Ztring(_T("V"))+Ztring::ToZtring(Xing_Scale&0x0F));
+        Param_Info(Ztring(_T("q"))+Ztring::ToZtring((Xing_Scale>>8)&0x0F));
         Get_B1 (Flags,                                          "Flags");
         if ((Flags&0xF0)<=0x20) //Rev. 0 or 1, http://gabriel.mp3-tech.org/mp3infotag.html and Rev. 2 was seen.
         {
@@ -809,7 +818,7 @@ void File_Mpega::Header_Encoders_Lame()
         Info_B1(lowpass,                                        "Lowpass filter value"); Param_Info(lowpass*100, " Hz");
     }
     else
-        Get_Local(8, Encoded_Library,                           "Encoded_Library"); //Long tag version, if version<3.90 (but I found only with "UUUU" at the end, 20 --> 8 bytes only
+        Get_Local(20, Encoded_Library,                          "Encoded_Library");
 }
 
 void File_Mpega::Encoded_Library_Guess()

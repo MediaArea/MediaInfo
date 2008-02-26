@@ -110,6 +110,9 @@ private :
     std::map<int8u, size_t> sampling_frequency_Count;
     std::map<int8u, size_t> mode_Count;
 
+    //Temp - Tags
+    int32u Xing_Scale;
+
     //Helpers
     bool Synchronize();
     bool Detect_NonMPEGA();
