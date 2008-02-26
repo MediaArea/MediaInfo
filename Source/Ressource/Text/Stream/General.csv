@@ -3,7 +3,7 @@ StreamCount;;;N NI;;;Count of streams of that kind available
 StreamKind;General;General;N NI;;;Stream name
 StreamKindID;;;N NI;;;When multiple streams, number of the stream
 Inform;;;N NT;;;Last **Inform** call
-ID;;;N YI;;;A ID for this stream in this file
+ID;;;Y YI;;;A ID for this stream in this file
 UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy
 GeneralCount;1;;N NI;;;Count of general streams
 VideoCount;;;N NI;;;Count of video streams
@@ -156,6 +156,8 @@ Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed bega
 Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal
 Written_Date;;;Y YT;;;The time that the composition of the music/script began.;;Temporal
 Mastered_Date;;;Y YT;;;The time that the item was tranfered to a digitalmedium.;;Temporal
+File_Created_Date;;;N NT;;;The time that the file was created on the file system;;Temporal
+File_Modified_Date;;;N NT;;;The time that the file was modified on the file system;;Temporal
 Recorded_Location;;;Y YT;;;Location where track was recorded. (See COMPOSITION_LOCATION for format);;Spatial
 Written_Location;;;Y YT;;;Location that the item was originaly designed/written. Information should be stored in the following format: country code, state/province, city where the coutry code is the same 2 octets as in Internet domains, or possibly ISO-3166. e.g. US, Texas, Austin or US, , Austin.;;Spatial
 Archival_Location;;;Y YT;;;;;Spatial

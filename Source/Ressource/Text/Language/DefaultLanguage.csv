@@ -242,7 +242,9 @@ Fax;Fax
 File;File
 File size;File size
 File_Append;Append to the existing file (Warning : be careful to have the same parameters)
+File_Created_Date;File creation date
 File_Hint;Select a multimedia file to study
+File_Modified_Date;File last modification date
 FileExtension;File extension
 FileName;File name
 FileSize;File size

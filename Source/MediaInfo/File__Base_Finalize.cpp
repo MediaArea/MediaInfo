@@ -65,9 +65,12 @@ void File__Analyze::General_Fill()
         General[0](_T("FileExtension"))=FileName::Extension_Get(File_Name).MakeLowerCase();
 
         //FileSize
-        int64u FileSize=File::Size_Get(File_Name);
+        File F(File_Name);
+        int64u FileSize=F.Size_Get();
         if (FileSize)
             General[0](_T("FileSize")).From_Number(FileSize);
+        General[0](_T("File_Created_Date"))=F.Created_Get();
+        General[0](_T("File_Modified_Date"))=F.Modified_Get();
     }
 }
 

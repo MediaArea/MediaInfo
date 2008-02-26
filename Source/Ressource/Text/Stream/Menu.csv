@@ -4,7 +4,10 @@ StreamKind;Menu;Menu;N NI;;;Stream name
 StreamKindID;;;N NI;;;When multiple streams, number of the stream
 Inform;;;N NT;;;Last **Inform** call
 ID;;;N YI;;;A ID for this stream in this file
+ID/String;;;Y NT;;;A ID for this stream in this file
 UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy
+MenuID;;;N YI;;;A menu ID for this stream in this file
+MenuID/String;;;Y NT;;;A menu ID for this stream in this file
 Codec;;;N YT;;;Codec used
 Codec/String;;;Y NT;;;Codec used (text)
 Codec/Family;;;Y NT;;;Codec family
