@@ -366,7 +366,7 @@ void File_Ac3::Data_Parse_Fill()
         if (lfeon)
         {
             Channels+=1;
-            ChannelPositions+=_T(", Subwoofer");
+            ChannelPositions+=_T(", LFE");
         }
         Fill("Channel(s)", Channels);
         Fill("ChannelPositions", ChannelPositions);
@@ -400,7 +400,7 @@ void File_Ac3::Data_Parse_Fill()
             if (lfeon)
             {
                 Channels+=1;
-                ChannelPositions+=_T(", Subwoofer");
+                ChannelPositions+=_T(", LFE");
             }
             Fill("Channel(s)", Channels);
             Fill("ChannelPositions", ChannelPositions);

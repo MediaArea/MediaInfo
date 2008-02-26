@@ -296,7 +296,7 @@ void File_Dts::Data_Parse_Fill()
             ChannelPositions.From_Local("User defined");
         }
         if (lfe_effects)
-            ChannelPositions+=_T(", Subwoofer");
+            ChannelPositions+=_T(", LFE");
         Fill("Channel(s)", Channels);
         Fill("ChannelPositions", ChannelPositions);
     }
