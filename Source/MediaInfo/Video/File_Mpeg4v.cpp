@@ -263,6 +263,7 @@ File_Mpeg4v::File_Mpeg4v()
     Stream[0x20].Searching_Payload=true; //video_object_layer_start
     Stream[0xB0].Searching_Payload=true; //visual_object_sequence_start
     Stream[0xB5].Searching_Payload=true; //visual_object_start
+    NextCode_Add(0x20); //video_object_layer_start
     for (int8u Pos=0xB7; Pos!=0x00; Pos++)
         Stream[Pos].Searching_Payload=true; //Testing other mpeg4v elements and MPEG-PS
 }
@@ -405,7 +406,7 @@ void File_Mpeg4v::Data_Parse()
                   && Element_Code<=0x2F) video_object_layer_start();
             else if (Element_Code>=0x40
                   && Element_Code<=0x4F) fgs_bp_start();
-			else if (Element_Code<=0xC5) reserved();
+            else if (Element_Code<=0xC5) reserved();
             else
                 Trusted_IsNot("Unattended element!");
     }
