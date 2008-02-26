@@ -91,7 +91,8 @@ bool File__Tags_Helper::Read_Buffer_Continue()
     //Positionning (if finnished)
     if (TagSizeIsFinal)
     {
-        Base->File_GoTo=JumpTo_WantedByParser-Id3v1_Size-Lyrics3_Size-Lyrics3v2_Size-ApeTag_Size;
+        if (JumpTo_WantedByParser!=(int64u)-1)
+            Base->File_GoTo=JumpTo_WantedByParser-Id3v1_Size-Lyrics3_Size-Lyrics3v2_Size-ApeTag_Size;
         SearchingForEndTags=false;
     }
 
