@@ -151,6 +151,8 @@ BarCode;바코드
 Basic;기본
 Basic_Note;노트 : 이 파일에 관한 더 자세한 정보를 원하시면 다른 보기를 선택하세요(시트, 트리...)
 BitRate;비트레이트
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode;비트레이트 모드
 BitRate_Nominal
 Bits-(Pixel*Frame);비트/(픽셀*프레임)
@@ -242,7 +244,9 @@ Fax;팩스
 File;파일
 File size;파일 크기
 File_Append;존재하는 파일에 이어쓰기 (경고 : 같은 파라미터인지 주의하세요)
+File_Created_Date
 File_Hint;조사할 미디어 파일을 선택
+File_Modified_Date
 FileExtension;파일 확장자
 FileName;파일명
 FileSize;파일 크기

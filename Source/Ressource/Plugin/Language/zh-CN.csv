@@ -151,6 +151,8 @@ BarCode;条码
 Basic;基本
 Basic_Note;注意: 要了解更多关于此文件的信息, 请选择不同的视图 (表格, 树状图 ...)
 BitRate;比特率
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode;比特率模式
 BitRate_Nominal
 Bits-(Pixel*Frame);比特数-(像素*帧)
@@ -242,7 +244,9 @@ Fax;传真
 File;文件
 File size;文件大小
 File_Append;接在现有的文件后面 (警告: 同参数时要小心)
+File_Created_Date
 File_Hint;选择多媒体文件
+File_Modified_Date
 FileExtension;扩展名
 FileName;文件名
 FileSize;文件大小

@@ -151,6 +151,8 @@ BarCode;Code barre
 Basic;Basique
 Basic_Note;Note : pour plus d'informations sur ce fichier, vous devez utiliser une vue différente (Tableau, Arbre...)
 BitRate;Débit
+BitRate_Maximum;Débit maximum
+BitRate_Minimum;Débit minimum
 BitRate_Mode;Type de débit
 BitRate_Nominal;Débit nominal
 Bits-(Pixel*Frame);Bits/(Pixel*Image)
@@ -242,7 +244,9 @@ Fax;Fax
 File;Fichier
 File size;Taille du fichier
 File_Append;Ajouter à un fichier déja existant (Faites attention à ce que les paramètres soient identiques)
+File_Created_Date;Date de création du fichier
 File_Hint;Sélectionne un fichier multimédia à étudier
+File_Modified_Date;Date de dernière modification du fichier
 FileExtension;Extension du fichier
 FileName;Nom du fichier
 FileSize;Taille du fichier

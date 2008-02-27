@@ -151,6 +151,8 @@ BarCode;條碼
 Basic;基本
 Basic_Note;注意: 想知道更多關於此檔案的資訊, 您得選擇不同的視點 (表格, 樹狀圖 ...)
 BitRate;視訊流量
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode
 BitRate_Nominal
 Bits-(Pixel*Frame)
@@ -242,7 +244,9 @@ Fax;傳真
 File;檔案
 File size
 File_Append;接在現存的檔案之後 (警告: 同參數時要小心)
+File_Created_Date
 File_Hint;選擇要檢視的多媒體檔案
+File_Modified_Date
 FileExtension;副檔名　
 FileName;檔案　　
 FileSize;檔案大小

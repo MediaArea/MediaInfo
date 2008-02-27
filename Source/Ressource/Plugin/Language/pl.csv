@@ -151,6 +151,8 @@ BarCode;Kod kreskowy
 Basic;Podstawowy
 Basic_Note;Uwaga: Aby uzyskać wiecej informacji musisz wybrać inny widok (Karta, Drzewo...)
 BitRate;Przepływność bitów
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode;Rodzaj przepływności
 BitRate_Nominal
 Bits-(Pixel*Frame);bity/(piksele*ramki)
@@ -242,7 +244,9 @@ Fax;Fax
 File;Plik
 File size;Rozmiar pliku
 File_Append;Dołącz do istniejacego pliku (Ostrzeżenie: Upewnij się, że ma takie same parametry)
+File_Created_Date
 File_Hint;Wybierz plik multimedialny do przeanalizowania
+File_Modified_Date
 FileExtension;Rzoszerzenie pliku
 FileName;Nazwa pliku
 FileSize;Rozmiar pliku

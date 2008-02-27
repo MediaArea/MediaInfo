@@ -151,6 +151,8 @@ BarCode;Vonalkód
 Basic;Egyszerű
 Basic_Note;Megjegyzés: a többi nézet (Táblázat, Fa ...) bővebb adatokat mutat a fájlról
 BitRate;Adatsebesség
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode;Adatsebesség mód
 BitRate_Nominal
 Bits-(Pixel*Frame);Bit/(képpont*képkocka)
@@ -242,7 +244,9 @@ Fax;fax
 File;Fájl
 File size;Fájlméret
 File_Append;Meglévő fájlhoz hozzáfűzés (Figyelem: ügyeljünk az azonos paraméterekre)
+File_Created_Date
 File_Hint;Adja meg a vizsgálandó fájt
+File_Modified_Date
 FileExtension;Fájl kiterjesztés
 FileName;Fájlnév
 FileSize;Fájlméret
@@ -771,5 +775,5 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;Igen
 Your system;Rendszer
-ZZ_Automatic_Percent;70
+ZZ_Automatic_Percent;69
 ZZ_AutomaticLanguage_Percent;72

@@ -151,6 +151,8 @@ BarCode;バーコード
 Basic;基本
 Basic_Note;メモ : ファイルについてのさらなる情報は別のビューで開かねばなりません(シート、ツリー...)
 BitRate;ビットレート
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode;ビットレートモード
 BitRate_Nominal
 Bits-(Pixel*Frame);ビット/(ピクセル*フレーム)
@@ -242,7 +244,9 @@ Fax;Fax
 File;ファイル
 File size;ファイルサイズ
 File_Append;既存ファイルに上書き (注意 : 同じパラメータは慎重に！)
+File_Created_Date
 File_Hint;このファイルの詳細
+File_Modified_Date
 FileExtension;拡張子
 FileName;ファイル名
 FileSize;サイズ

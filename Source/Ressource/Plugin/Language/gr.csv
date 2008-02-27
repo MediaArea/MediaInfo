@@ -151,6 +151,8 @@ BarCode;BarCode
 Basic;Βασική
 Basic_Note;Σημείωση : για περισσότερες πληροφορίες σχετικά με το αρχείο, επιλέξτε διαφορετική προβολή (Φύλλο, Δένδρο...)
 BitRate;Ρυθμός μετάδοσης δεδομένων
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode;Bit rate mode
 BitRate_Nominal
 Bits-(Pixel*Frame);Bits/(Εικονοστοιχείο*Πλαίσιο)
@@ -242,7 +244,9 @@ Fax;Fax
 File;Αρχείο
 File size;Μέγεθος αρχείου
 File_Append;Πρόσθεση στο τέλος υπάρχοντος αρχείου (Προειδοποίηση : πρέπει να έχουν όμοιους παραμέτρους)
+File_Created_Date
 File_Hint;Επιλέξτε ένα αρχείο πολυμέσων για εξέταση
+File_Modified_Date
 FileExtension;Επέκταση αρχείου
 FileName;Όνομα αρχείου
 FileSize;Μέγεθος αρχείου

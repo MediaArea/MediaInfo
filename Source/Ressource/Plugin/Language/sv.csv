@@ -151,6 +151,8 @@ BarCode; Streckkod
 Basic; Enkel
 Basic_Note; OBS: För mer information om den här filen, måste du välja en annan vy (Tabell, Träd...)
 BitRate; Bitrate
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode; Bitrateläge
 BitRate_Nominal
 Bits-(Pixel*Frame); Bits/(Pixel*Frame)
@@ -242,7 +244,9 @@ Fax; Fax
 File; Fil
 File size; Filstorlek
 File_Append; Lägg till till existerande fil (Varning : se till att du har använder samma parametrar!)
+File_Created_Date
 File_Hint; Välj en fil att betrakta
+File_Modified_Date
 FileExtension; Filändelse
 FileName; Filnamn
 FileSize; Filstorlek
@@ -771,5 +775,5 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;95
-ZZ_AutomaticLanguage_Percent;95
+ZZ_Automatic_Percent;94
+ZZ_AutomaticLanguage_Percent;94

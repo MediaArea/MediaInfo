@@ -151,6 +151,8 @@ BarCode;BarKod
 Basic;Temel
 Basic_Note;Not : Bu dosya hakkında daha fazla bilgi için farklı görünüm seçmelisiniz (Sayfa, Ağaç...)
 BitRate;Bit oranı
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode;Bit oranı kipi
 BitRate_Nominal
 Bits-(Pixel*Frame);Bit/(Piksel*Kare)
@@ -242,7 +244,9 @@ Fax;Faks
 File;Dosya
 File size;Dosya boyutu
 File_Append;Mevcut dosyaya ekle (Uyarı : aynı parametlere sahip olmak için dikkatli olun)
+File_Created_Date
 File_Hint;Çalışmak için çokluortam dosyası seç
+File_Modified_Date
 FileExtension;Dosya uzantısı
 FileName;Dosya adı
 FileSize;Dosya boyutu

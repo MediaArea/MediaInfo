@@ -151,6 +151,8 @@ BarCode;Codice a barre
 Basic;Semplice
 Basic_Note;Nota:X maggiori informazioni seleziona Sheet, Albero....
 BitRate;BitRate
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode;Modalità
 BitRate_Nominal
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
@@ -242,7 +244,9 @@ Fax;Fax
 File;File
 File size;Dimensione
 File_Append;Aggiungi a un file esistente (Attenzione: assicurarsi che abbinano caratteristiche uguali)
+File_Created_Date
 File_Hint;Seleziona più file da aprire
+File_Modified_Date
 FileExtension;Estensione
 FileName;Nome
 FileSize;Dimensione
@@ -771,5 +775,5 @@ Written_Location;Written location
 WrittenBy;Scritto da 
 Yes;Si 
 Your system;Il tuo sistema
-ZZ_Automatic_Percent;74
-ZZ_AutomaticLanguage_Percent;74
+ZZ_Automatic_Percent;73
+ZZ_AutomaticLanguage_Percent;73

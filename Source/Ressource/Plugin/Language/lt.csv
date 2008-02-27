@@ -151,6 +151,8 @@ BarCode;BarKodas
 Basic;Įprastas
 Basic_Note;Pastaba : jei norite daugiau informacijos apie failą, turite pasirinkti kitą rodymą, (Lapas, Medis...)
 BitRate;Bitreitas
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode;Bitreito rėžimas
 BitRate_Nominal;Nominalus bitreitas
 Bits-(Pixel*Frame);Bitai/(Pikselis*Kadras)
@@ -242,7 +244,9 @@ Fax;Faksas
 File;Failas
 File size;Failo dydis
 File_Append;Prijungtas prie egzistuojančio failo (Dėmesio : nenaudokite tų pačių parametrų)
+File_Created_Date
 File_Hint;Pasirinkite daugialypį failą studijavimui
+File_Modified_Date
 FileExtension;Failo plėtinys
 FileName;Failo pavadinimas
 FileSize;Failo dydis

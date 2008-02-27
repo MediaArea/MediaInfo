@@ -151,6 +151,8 @@ BarCode;Codi de barres
 Basic;Bàsic
 Basic_Note;Nota : per a més informació quant aquest arxiu, heu de triar una vista diferent (fulla, arbre...) 
 BitRate;Bit ràtio
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode;Mode de Bit ràtio
 BitRate_Nominal;Ràtio nominal
 Bits-(Pixel*Frame);Bits/(Píxel*imatge)
@@ -242,7 +244,9 @@ Fax;Fax
 File;Arxiu
 File size;Mida d'arxiu
 File_Append;Crida a un arxiu existent (Atenció : tingueu cura. Han de ser els mateixos paràmetres)
+File_Created_Date
 File_Hint;Trieu l'arxiu Multimèdia
+File_Modified_Date
 FileExtension;Extensió d'arxiu
 FileName;Nom de l'arxiu
 FileSize;Mida de l'arxiu
@@ -697,7 +701,7 @@ Set_Count;Nombre d'unitats
 Setup;Configura
 Sheet;Fulla
 Sheet (Complete);Fulla (Completa)
-Shell extension;Veure l'opció """"""""Media Info"""""""" al menú contextual del botó dret del ratolí a l'explorador.
+Shell extension;Veure l'opció """"""""""""""""Media Info"""""""""""""""" al menú contextual del botó dret del ratolí a l'explorador.
 Shell InfoTip;Amplia la informació en passar amb el ratolí per sobre d'un arxiu a l'explorador.
 Show menu;Mostra el menú
 Show toolbar;Mostra la barra d'eines
@@ -771,5 +775,5 @@ Written_Location;Inseriu el lloc de gravació
 WrittenBy;Escrit per
 Yes;Sí
 Your system;El vostre sistema
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97

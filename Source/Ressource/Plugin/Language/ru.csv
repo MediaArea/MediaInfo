@@ -151,6 +151,8 @@ BarCode;Штрихкод
 Basic;Кратко
 Basic_Note;Примечание: Для дополнительной информации выберите другую закладку (Таблица, Дерево,...)
 BitRate;Битрейт
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode;Режим расчёта битрейта
 BitRate_Nominal
 Bits-(Pixel*Frame);Бит/(Пиксели*Кадры)
@@ -242,7 +244,9 @@ Fax;Факс
 File;Файл
 File size;Размер файла
 File_Append;Добавить к файлу
+File_Created_Date
 File_Hint;Операции с файлами
+File_Modified_Date
 FileExtension;Расширение
 FileName;Имя файла
 FileSize;Размер файла

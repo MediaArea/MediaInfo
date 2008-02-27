@@ -151,6 +151,8 @@ BarCode;Cod de bare
 Basic;Principal
 Basic_Note;Nota: pentru mai multe informatii despre acest fisier, tebuie sa selectati modul avansat
 BitRate
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode
 BitRate_Nominal
 Bits-(Pixel*Frame)
@@ -242,7 +244,9 @@ Fax;Fax
 File;Fisier
 File size;Dimensiune fisier
 File_Append;Adaugare la fisierul existent
+File_Created_Date
 File_Hint;Selectati un fisier multimedia pentru analiza
+File_Modified_Date
 FileExtension;Extensia fisierului
 FileName;Numele fisierului
 FileSize;Dimensiunea fisierului

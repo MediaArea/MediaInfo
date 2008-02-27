@@ -151,6 +151,8 @@ BarCode;BarCode
 Basic;Základní
 Basic_Note;Info : Pro více detailů vyberte jiný mód zobrazení(List, Strom...)
 BitRate;Bit rate
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode;Bit rate mode
 BitRate_Nominal
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
@@ -242,7 +244,9 @@ Fax;Fax
 File;Soubor
 File size;Velikost souboru
 File_Append;Append to the existing file (Warning : be careful to have the same parameters)
+File_Created_Date
 File_Hint;Otevřít soubor
+File_Modified_Date
 FileExtension;Přípona souboru
 FileName;Název souboru
 FileSize;Velikost souboru
@@ -771,5 +775,5 @@ Written_Location;Written location
 WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96

@@ -151,6 +151,8 @@ BarCode
 Basic;Fácil
 Basic_Note;Nota_Fácil
 BitRate;Bitrate
+BitRate_Maximum
+BitRate_Minimum
 BitRate_Mode;Tipo de Bitrate
 BitRate_Nominal
 Bits-(Pixel*Frame);Bits/(Pixel*cuadros)
@@ -242,7 +244,9 @@ Fax
 File;Archivo
 File size;Tamaño del archivo
 File_Append;Archivo_Agregado
+File_Created_Date
 File_Hint;Ayuda_Archivo
+File_Modified_Date
 FileExtension;Extensión del archivo
 FileName;Nombre del Archivo
 FileSize;Tamaño del archivo
