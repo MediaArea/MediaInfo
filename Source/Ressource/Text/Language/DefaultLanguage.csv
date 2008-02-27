@@ -151,6 +151,8 @@ BarCode;BarCode
 Basic;Basic
 Basic_Note;Note : for more information about this file, you must select a different view (Sheet, Tree...)
 BitRate;Bit rate
+BitRate_Maximum;Maximum bit rate
+BitRate_Minimum;Minimum bit rate
 BitRate_Mode;Bit rate mode
 BitRate_Nominal;Nominal bit rate
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)

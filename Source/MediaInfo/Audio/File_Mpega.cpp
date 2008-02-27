@@ -361,6 +361,8 @@ void File_Mpega::Read_Buffer_Finalize()
             Fill("Delay", (float)Delay*8*1000/BitRate, 0);
     }
     Fill(Stream_Audio, 0, "BitRate_Mode", BitRate_Mode);
+    Fill(Stream_Audio, 0, "BitRate_Minimum", BitRate_Minimum);
+    Fill(Stream_Audio, 0, "BitRate_Nominal", BitRate_Nominal);
     if (Encoded_Library.empty())
         Encoded_Library_Guess();
     Fill(Stream_Audio, 0, "Encoded_Library", Encoded_Library);
@@ -751,6 +753,7 @@ bool File_Mpega::Header_Encoders()
             Get_Local(20, Encoded_Library,                      "Encoded_Library");
         else
             Get_Local( 8, Encoded_Library,                      "Encoded_Library");
+        Encoded_Library.Trim(_T('A'));
         Encoded_Library.Trim(_T('U'));
         Element_Offset=0; //Reseting it
         return true;
@@ -802,7 +805,7 @@ void File_Mpega::Header_Encoders_Lame()
     Peek_Local(8, Encoded_Library);
     if (Encoded_Library>=_T("LAME3.90") && Element_IsNotFinnished())
     {
-        int8u Flags;
+        int8u Flags, BitRate;
         Get_Local(9, Encoded_Library,                           "Encoded_Library");
         Param_Info(Ztring(_T("V"))+Ztring::ToZtring(Xing_Scale&0x0F));
         Param_Info(Ztring(_T("q"))+Ztring::ToZtring((Xing_Scale>>8)&0x0F));
@@ -816,6 +819,26 @@ void File_Mpega::Header_Encoders_Lame()
                 VBR_Frames=0;
         }
         Info_B1(lowpass,                                        "Lowpass filter value"); Param_Info(lowpass*100, " Hz");
+        Skip_B4(                                                "Peak signal amplitude");
+        Skip_B2(                                                "Radio Replay Gain");
+        Skip_B2(                                                "Audiophile Replay Gain");
+        Get_B1 (Flags,                                          "Encoding Flags"); Param_Info(Ztring(_T("ATH Type="))+Ztring::ToZtring(Flags&0x0F));
+            Skip_Flags(Flags, 4,                                "nspsytune");
+            Skip_Flags(Flags, 5,                                "nssafejoint");
+            Skip_Flags(Flags, 6,                                "nogap (after)");
+            Skip_Flags(Flags, 7,                                "nogap (before)");
+        Get_B1 (BitRate,                                        "BitRate");
+        if (BitRate!=0 && BitRate!=0xFF)
+        {
+            switch (Flags&0x0F)
+            {
+                case  2 :
+                case  9 : //ABR
+                    BitRate_Nominal.From_Number(BitRate*1000); break;
+                default :
+                    BitRate_Minimum.From_Number(BitRate*1000); break;
+            }
+        }
     }
     else
         Get_Local(20, Encoded_Library,                          "Encoded_Library");

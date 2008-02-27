@@ -101,6 +101,8 @@ private :
     int32u VBR_Frames;
     int64u VBR_FileSize;
     Ztring BitRate_Mode;
+    Ztring BitRate_Nominal;
+    Ztring BitRate_Minimum;
 
     //Temp - Tags in a frame
     Ztring Encoded_Library;

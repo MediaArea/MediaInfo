@@ -1,4 +1,4 @@
-// Helpers - Automaticly generated methods for MediaInfo
+﻿// Helpers - Automaticly generated methods for MediaInfo
 // Copyright (C) 2005-2007 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software; you can redistribute it and/or
@@ -190,6 +190,8 @@ void File__Base_DefaultLanguage (ZtringListList &Info)
     "Basic;Basic\n"
     "Basic_Note;Note : for more information about this file, you must select a different view (Sheet, Tree...)\n"
     "BitRate;Bit rate\n"
+    "BitRate_Maximum;Maximum bit rate\n"
+    "BitRate_Minimum;Minimum bit rate\n"
     "BitRate_Mode;Bit rate mode\n"
     "BitRate_Nominal;Nominal bit rate\n"
     "Bits-(Pixel*Frame);Bits/(Pixel*Frame)\n"
