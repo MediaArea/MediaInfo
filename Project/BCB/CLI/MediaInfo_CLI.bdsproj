@@ -94,7 +94,7 @@
           <property category="win32.*.win32b.bcc32" name="option.D.arg.2" value="_WIN32"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.3" value="UNICODE"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.4" value="_UNICODE"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.5" value="MEDIAINFO_DLL"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.5" value="MEDIAINFO_DLLx"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.D.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.H=.arg.1" value="$(BDS)\lib\vcl100.csm"/>
@@ -191,6 +191,7 @@
         <FILE FILENAME="..\..\..\Source\CLI\CommandLine_Parser.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="CommandLine_Parser" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\Common\Core.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Core" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\Common\Core.h"/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\ZenLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZenLib" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Release\BCB\Library\MediaInfoLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="MediaInfoLib" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
@@ -224,7 +225,7 @@
           <Debugging Name="DebugSourceDirs"></Debugging>
         </Debugging>
         <Parameters>
-          <Parameters Name="RunParams">a.ogg</Parameters>
+          <Parameters Name="RunParams">"D:\test 2008-02-06 - TS\multitrack audio streams\Copie de speed.m2p.ts"</Parameters>
           <Parameters Name="Launcher"></Parameters>
           <Parameters Name="UseLauncher">True</Parameters>
           <Parameters Name="DebugCWD">E:\Programmation\MediaInfo\Release\BCB\CLI</Parameters>

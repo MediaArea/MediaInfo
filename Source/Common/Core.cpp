@@ -85,7 +85,6 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     MI->Open(FileName);
 
 
-
     //Option "File_Filter": filter a part of the file
     //if no filter --> All the file is parser
     //if one or more filter --> Only the filtered streams are parsed
@@ -104,10 +103,10 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     //Form: "memory://pointer:size"                  <--The desired memory part you want
     //Return the count of written bytes
 
+    /*
     //EXAMPLE
     //-------
 
-    /*
     //Initilaizing MediaInfo
     MediaInfo MI;
 
@@ -147,17 +146,18 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     MediaInfoLib::String ProgramNumber3=_T("1");
 
     //Optional (aminly for speed improvement): filtering
-    MI.Option(_T("File_Filter"), ProgramNumber1);
-    MI.Option(_T("File_Filter"), ProgramNumber2);
-    MI.Option(_T("File_Filter"), ProgramNumber3);
+    //MI.Option(_T("File_Filter"), ProgramNumber1);
+    //MI.Option(_T("File_Filter"), ProgramNumber2);
+    //MI.Option(_T("File_Filter"), ProgramNumber3);
 
     //Registering for duplication
-    MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1); //"memory://pointer:size;program_number=..."
-    MI.Option(_T("File_Duplicate"), To_Buffer_2_Name+_T(";program_number=")+ProgramNumber2); //"memory://pointer:size;program_number=..."
+    //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1); //"memory://pointer:size;program_number=..."
+    //MI.Option(_T("File_Duplicate"), To_Buffer_2_Name+_T(";program_number=")+ProgramNumber2); //"memory://pointer:size;program_number=..."
 
     //Preparing to fill MediaInfo with a buffer
     MI.Open_Buffer_Init();
     bool CanWrite_OnlyIfParsingIsOk=false;
+    MI.Option(_T("File_IsSeekable"), _T("0"));
 
     //The parsing loop
     do
@@ -169,6 +169,18 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
         if (MI.Open_Buffer_Continue(From_Buffer, From_Buffer_Size)==0 && !CanWrite_OnlyIfParsingIsOk)
         {
             CanWrite_OnlyIfParsingIsOk=true;
+            //MI.Option(_T("Inform"), _T("Video;%Codec%"));
+            //Text=MI.Inform(); //Inform is ready!
+            //MI.Option(_T("Inform"), _T("Video;%ID%"));
+            //Text=MI.Inform(); //Inform is ready!
+            //MI.Option(_T("Inform"), _T("Menu #0;%Total%"));
+            //Text=MI.Inform(); //Inform is ready!
+            unsigned int nProgramCount;
+            std::basic_stringstream<ZenLib::Char> sStreamFilter;
+            sStreamFilter<< MI.Get(Stream_Menu, 0, _T("Total"));
+            sStreamFilter>>nProgramCount;
+            Text=MI.Get(Stream_Menu, 0, _T("Total")); //Inform is ready!
+            MI.Option(_T("Inform"), _T("Menu;%Total%"));
             Text=MI.Inform(); //Inform is ready!
         }
 
