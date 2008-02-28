@@ -13,6 +13,19 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
+Version 0.7.6.0, 2008-02-29
+---------------
++ Id3v2.2 (yes, it is old...) support
++ Id3v2: TXXX tags support
++ RMP3 (japanese MP3 based format?) support
++ SAMR in .mp4: some files have wrong sampling rate, forcing it to 8000 Hz
++ File_Created_Date and File_Modified_Date tags added (in advanced mode only)
++ MP3 encoded by Lame: Minimal (VBR) or Nominal (ABR) bitrate
+x Better detection of Lame encoder
+x AVC Display Aspect Ratio was not well detected if AVC is in a .mp4 container
+x Matroska Display Aspect Ratio was deleted if AVC aspect ratio was set, now Matroska has priority
+x "Subwoofer" term has been replaced by "LFE", more relevant
+
 Version 0.7.5.9, 2008-02-08
 ---------------
 + Lithuanian translation
