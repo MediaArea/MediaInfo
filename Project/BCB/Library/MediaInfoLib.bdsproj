@@ -116,20 +116,21 @@
           <property category="win32.*.win32b.bcc32" name="option.H=.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.H=.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.Hc.enabled" value="1"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.1" value="..\..\..\Source\MediaInfo\Tag"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.10" value="..\..\..\Source"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.11" value="..\..\..\..\shared\include"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.12" value="$(BDS)\include"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.13" value="$(BDS)\include\dinkumware"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.14" value="$(BDS)\include\vcl"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.2" value="..\..\..\..\ZenLib\Source\ZenLib"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.3" value="..\..\..\Source\MediaInfo\Video"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.4" value="..\..\..\Source\MediaInfo\Text"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="..\..\..\Source\MediaInfo\Multiple"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="..\..\..\Source\MediaInfo\Image"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.7" value="..\..\..\Source\MediaInfo\Audio"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.8" value="..\..\..\Source\MediaInfo\Archive"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.9" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.1" value="..\..\..\Source\MediaInfo\Duplicate"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.10" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.11" value="..\..\..\Source"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.12" value="..\..\..\..\shared\include"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.13" value="$(BDS)\include"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.14" value="$(BDS)\include\dinkumware"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.15" value="$(BDS)\include\vcl"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.2" value="..\..\..\Source\MediaInfo\Tag"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.3" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.4" value="..\..\..\Source\MediaInfo\Video"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="..\..\..\Source\MediaInfo\Text"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="..\..\..\Source\MediaInfo\Multiple"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.7" value="..\..\..\Source\MediaInfo\Image"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.8" value="..\..\..\Source\MediaInfo\Audio"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.9" value="..\..\..\Source\MediaInfo\Archive"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.I.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.Jgi.enabled" value="0"/>
@@ -161,68 +162,73 @@
           <property category="win32.*.win32b.bcc32" name="option.tWD.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.tWM.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.w.enabled" value="0"/>
-          <property category="win32.*.win32b.dcc32" name="option.I.arg.1" value="..\..\..\Source\MediaInfo\Tag"/>
-          <property category="win32.*.win32b.dcc32" name="option.I.arg.10" value="E:\Programmation\MediaInfoLib\Project\BCB\Library"/>
-          <property category="win32.*.win32b.dcc32" name="option.I.arg.2" value="..\..\..\..\ZenLib\Source\ZenLib"/>
-          <property category="win32.*.win32b.dcc32" name="option.I.arg.3" value="..\..\..\Source\MediaInfo\Video"/>
-          <property category="win32.*.win32b.dcc32" name="option.I.arg.4" value="..\..\..\Source\MediaInfo\Text"/>
-          <property category="win32.*.win32b.dcc32" name="option.I.arg.5" value="..\..\..\Source\MediaInfo\Multiple"/>
-          <property category="win32.*.win32b.dcc32" name="option.I.arg.6" value="..\..\..\Source\MediaInfo\Image"/>
-          <property category="win32.*.win32b.dcc32" name="option.I.arg.7" value="..\..\..\Source\MediaInfo\Audio"/>
-          <property category="win32.*.win32b.dcc32" name="option.I.arg.8" value="..\..\..\Source\MediaInfo\Archive"/>
-          <property category="win32.*.win32b.dcc32" name="option.I.arg.9" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.1" value="..\..\..\Source\MediaInfo\Duplicate"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.10" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.11" value="E:\Programmation\MediaInfoLib\Project\BCB\Library"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.2" value="..\..\..\Source\MediaInfo\Tag"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.3" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.4" value="..\..\..\Source\MediaInfo\Video"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.5" value="..\..\..\Source\MediaInfo\Text"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.6" value="..\..\..\Source\MediaInfo\Multiple"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.7" value="..\..\..\Source\MediaInfo\Image"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.8" value="..\..\..\Source\MediaInfo\Audio"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.9" value="..\..\..\Source\MediaInfo\Archive"/>
           <property category="win32.*.win32b.dcc32" name="option.I.arg.merge" value="1"/>
           <property category="win32.*.win32b.dcc32" name="option.I.enabled" value="0"/>
-          <property category="win32.*.win32b.dcc32" name="option.O.arg.1" value="..\..\..\Source\MediaInfo\Tag"/>
-          <property category="win32.*.win32b.dcc32" name="option.O.arg.10" value="E:\Programmation\MediaInfoLib\Project\BCB\Library"/>
-          <property category="win32.*.win32b.dcc32" name="option.O.arg.2" value="..\..\..\..\ZenLib\Source\ZenLib"/>
-          <property category="win32.*.win32b.dcc32" name="option.O.arg.3" value="..\..\..\Source\MediaInfo\Video"/>
-          <property category="win32.*.win32b.dcc32" name="option.O.arg.4" value="..\..\..\Source\MediaInfo\Text"/>
-          <property category="win32.*.win32b.dcc32" name="option.O.arg.5" value="..\..\..\Source\MediaInfo\Multiple"/>
-          <property category="win32.*.win32b.dcc32" name="option.O.arg.6" value="..\..\..\Source\MediaInfo\Image"/>
-          <property category="win32.*.win32b.dcc32" name="option.O.arg.7" value="..\..\..\Source\MediaInfo\Audio"/>
-          <property category="win32.*.win32b.dcc32" name="option.O.arg.8" value="..\..\..\Source\MediaInfo\Archive"/>
-          <property category="win32.*.win32b.dcc32" name="option.O.arg.9" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.1" value="..\..\..\Source\MediaInfo\Duplicate"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.10" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.11" value="E:\Programmation\MediaInfoLib\Project\BCB\Library"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.2" value="..\..\..\Source\MediaInfo\Tag"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.3" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.4" value="..\..\..\Source\MediaInfo\Video"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.5" value="..\..\..\Source\MediaInfo\Text"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.6" value="..\..\..\Source\MediaInfo\Multiple"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.7" value="..\..\..\Source\MediaInfo\Image"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.8" value="..\..\..\Source\MediaInfo\Audio"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.9" value="..\..\..\Source\MediaInfo\Archive"/>
           <property category="win32.*.win32b.dcc32" name="option.O.arg.merge" value="1"/>
           <property category="win32.*.win32b.dcc32" name="option.O.enabled" value="0"/>
-          <property category="win32.*.win32b.dcc32" name="option.R.arg.1" value="..\..\..\Source\MediaInfo\Tag"/>
-          <property category="win32.*.win32b.dcc32" name="option.R.arg.10" value="E:\Programmation\MediaInfoLib\Project\BCB\Library"/>
-          <property category="win32.*.win32b.dcc32" name="option.R.arg.2" value="..\..\..\..\ZenLib\Source\ZenLib"/>
-          <property category="win32.*.win32b.dcc32" name="option.R.arg.3" value="..\..\..\Source\MediaInfo\Video"/>
-          <property category="win32.*.win32b.dcc32" name="option.R.arg.4" value="..\..\..\Source\MediaInfo\Text"/>
-          <property category="win32.*.win32b.dcc32" name="option.R.arg.5" value="..\..\..\Source\MediaInfo\Multiple"/>
-          <property category="win32.*.win32b.dcc32" name="option.R.arg.6" value="..\..\..\Source\MediaInfo\Image"/>
-          <property category="win32.*.win32b.dcc32" name="option.R.arg.7" value="..\..\..\Source\MediaInfo\Audio"/>
-          <property category="win32.*.win32b.dcc32" name="option.R.arg.8" value="..\..\..\Source\MediaInfo\Archive"/>
-          <property category="win32.*.win32b.dcc32" name="option.R.arg.9" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.1" value="..\..\..\Source\MediaInfo\Duplicate"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.10" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.11" value="E:\Programmation\MediaInfoLib\Project\BCB\Library"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.2" value="..\..\..\Source\MediaInfo\Tag"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.3" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.4" value="..\..\..\Source\MediaInfo\Video"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.5" value="..\..\..\Source\MediaInfo\Text"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.6" value="..\..\..\Source\MediaInfo\Multiple"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.7" value="..\..\..\Source\MediaInfo\Image"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.8" value="..\..\..\Source\MediaInfo\Audio"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.9" value="..\..\..\Source\MediaInfo\Archive"/>
           <property category="win32.*.win32b.dcc32" name="option.R.arg.merge" value="1"/>
           <property category="win32.*.win32b.dcc32" name="option.R.enabled" value="0"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.1" value="..\..\..\Source\MediaInfo\Tag"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.10" value="E:\Programmation\MediaInfoLib\Project\BCB\Library"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.11" value="C:\Documents and Settings\Jerome\Mes documents\Borland Studio Projects"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.12" value="$(BDS)\lib"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.13" value="$(BDS)\lib\obj"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.2" value="..\..\..\..\ZenLib\Source\ZenLib"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.3" value="..\..\..\Source\MediaInfo\Video"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.4" value="..\..\..\Source\MediaInfo\Text"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.5" value="..\..\..\Source\MediaInfo\Multiple"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.6" value="..\..\..\Source\MediaInfo\Image"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.7" value="..\..\..\Source\MediaInfo\Audio"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.8" value="..\..\..\Source\MediaInfo\Archive"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.9" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.1" value="..\..\..\Source\MediaInfo\Duplicate"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.10" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.11" value="E:\Programmation\MediaInfoLib\Project\BCB\Library"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.12" value="C:\Documents and Settings\Jerome\Mes documents\Borland Studio Projects"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.13" value="$(BDS)\lib"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.14" value="$(BDS)\lib\obj"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.2" value="..\..\..\Source\MediaInfo\Tag"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.3" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.4" value="..\..\..\Source\MediaInfo\Video"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.5" value="..\..\..\Source\MediaInfo\Text"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.6" value="..\..\..\Source\MediaInfo\Multiple"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.7" value="..\..\..\Source\MediaInfo\Image"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.8" value="..\..\..\Source\MediaInfo\Audio"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.9" value="..\..\..\Source\MediaInfo\Archive"/>
           <property category="win32.*.win32b.dcc32" name="option.U.arg.merge" value="1"/>
           <property category="win32.*.win32b.dcc32" name="option.U.enabled" value="1"/>
           <property category="win32.*.win32b.dcc32" name="param.filenames.merge" value="1"/>
-          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.1" value="..\..\..\Source\MediaInfo\Tag"/>
-          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.10" value="E:\Programmation\MediaInfoLib\Project\BCB\Library"/>
-          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.2" value="..\..\..\..\ZenLib\Source\ZenLib"/>
-          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.3" value="..\..\..\Source\MediaInfo\Video"/>
-          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.4" value="..\..\..\Source\MediaInfo\Text"/>
-          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.5" value="..\..\..\Source\MediaInfo\Multiple"/>
-          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.6" value="..\..\..\Source\MediaInfo\Image"/>
-          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.7" value="..\..\..\Source\MediaInfo\Audio"/>
-          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.8" value="..\..\..\Source\MediaInfo\Archive"/>
-          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.9" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.1" value="..\..\..\Source\MediaInfo\Duplicate"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.10" value="..\..\..\Source\MediaInfo"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.11" value="E:\Programmation\MediaInfoLib\Project\BCB\Library"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.2" value="..\..\..\Source\MediaInfo\Tag"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.3" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.4" value="..\..\..\Source\MediaInfo\Video"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.5" value="..\..\..\Source\MediaInfo\Text"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.6" value="..\..\..\Source\MediaInfo\Multiple"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.7" value="..\..\..\Source\MediaInfo\Image"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.8" value="..\..\..\Source\MediaInfo\Audio"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.9" value="..\..\..\Source\MediaInfo\Archive"/>
           <property category="win32.*.win32b.idl2cpp" name="option.I.arg.merge" value="1"/>
           <property category="win32.*.win32b.idl2cpp" name="option.I.enabled" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.Gi.enabled" value="0"/>
@@ -333,6 +339,9 @@
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Swf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Swf" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Wm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wm" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Wm_Elements.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wm_Elements" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Base.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate__Base" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Base.h"/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Writer.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate__Writer" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Writer.h"/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate_MpegTs" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.h"/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
