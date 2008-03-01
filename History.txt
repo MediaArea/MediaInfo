@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.5.9, 2008-03-
+Version 0.7.6.1, 2008-03-
 ---------------
 x MPEG-4 Visual (DivX/XviD): writing library name was missing
 
