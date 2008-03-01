@@ -355,7 +355,7 @@ void File__Analyze::Finalize_Video(size_t Pos)
         if (!Name.empty())
         {
             Video[Pos](_T("Encoded_Library/String"))=Name;
-            Video[Pos](_T("Encoded_Library/Date"))=Config.Encoder_Get(Video[Pos](_T("Encoded_Library"), InfoEncoder_Date));
+            Video[Pos](_T("Encoded_Library/Date"))=Config.Encoder_Get(Encoder, InfoEncoder_Date);
         }
         else
             Video[Pos](_T("Encoded_Library/String"))=Video[Pos](_T("Encoded_Library"));

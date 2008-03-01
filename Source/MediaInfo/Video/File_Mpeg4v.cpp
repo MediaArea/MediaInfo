@@ -690,12 +690,14 @@ void File_Mpeg4v::video_object_layer_start()
         //NextCode
         NextCode_Test();
         NextCode_Clear();
+        NextCode_Add(0xB2); //user_data
         NextCode_Add(0xB3); //group_of_vop_start
         NextCode_Add(0xB6); //vop_start
         for (int8u Pos=0x00; Pos<0x1F; Pos++)
             NextCode_Add(Pos); //video_object_start
 
         //Autorisation of other streams
+        Stream[0xB2].Searching_Payload=true; //user_data
         Stream[0xB3].Searching_Payload=true; //group_of_vop_start
         Stream[0xB6].Searching_Payload=true; //vop_start
     FILLING_END();
@@ -779,10 +781,11 @@ void File_Mpeg4v::user_data_start()
         Skip_XX(Library_Start_Offset,                           "junk");
     Get_Local(Library_End_Offset-Library_Start_Offset, Temp,    "data");
     if (Element_Offset<Element_Size)
-        Skip_XX(Element_Size-Element_Offset,                     "junk");
+        Skip_XX(Element_Size-Element_Offset,                    "junk");
 
     FILLING_BEGIN();
-        if (Temp.find(_T("build"))==0) Library+=Ztring(_T(" "))+Temp;
+        if (!Temp.empty())
+            Library=Temp;
     FILLING_END();
 }
 
