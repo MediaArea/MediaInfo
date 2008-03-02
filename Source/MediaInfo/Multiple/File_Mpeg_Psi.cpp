@@ -118,7 +118,7 @@ const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
                         default :                     return "";
                     }
         case 0x87 : return "ATSC - E-AC-3";
-        case 0x88 : return "VC-9";
+        case 0x88 : return "VC-1";
         case 0x90 : return "DVB - stream_type value for Time Slicing / MPE-FEC";
         case 0x95 : return "ATSC - Data Service Table, Network Resources Table";
         default :
