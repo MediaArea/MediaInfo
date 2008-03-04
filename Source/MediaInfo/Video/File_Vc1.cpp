@@ -485,11 +485,12 @@ void File_Vc1::SequenceHeader()
                 Element_End();
             }
         TEST_SB_END();
-        //Continue... Something is missing, need specs
+        Mark_1();
     }
     else
     {
         //Unknown, too less info for doing something, abandonning
+        Skip_XX(Element_Size,                                   "Data");
         return;
     }
     BS_End();
