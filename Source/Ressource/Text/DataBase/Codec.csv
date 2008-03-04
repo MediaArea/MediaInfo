@@ -813,6 +813,8 @@ APE;Monkey's Audio;MediaInfo;A;;;;http://www.monkeysaudio.com/
 ALS;ALS;MediaInfo;A;;;MPEG-4 Audio Lossless Coding;http://www.nue.tu-berlin.de/forschung/projekte/lossless/mp4als.html#downloads
 Vodei;Vodei MP;MediaInfo;V;;;Video On Demand Exploration Interface;http://www.vodei.com
 SWF ADPCM;ADPCM;MediaInfo;A;ADPCM;;ADPCM found in SWF/FLV files;http://www.adobe.com
+AC3+;AC3+;MediaInfo;A;AC3;;Dolby Ehanced AC3;
+TrueHD;TrueHD;MediaInfo;A;AC3;;Dolby TrueHD (AC3 based);
 0;Unknown;2CC;A;;;;
 1;PCM;2CC;A;PCM;;Microsoft PCM;http://www.microsoft.com/windows/
 2;ADPCM;2CC;A;ADPCM;;Microsoft ADPCM;http://www.microsoft.com/windows/
@@ -894,20 +896,20 @@ C;MPEG2 5.1;2CC;A;;;MPEG2 5.1;
 7B;SC3;2CC;A;;;Voxware;
 80;Softsound;2CC;A;;;;
 81;TQ60;2CC;A;;;Voxware TQ60;http://www.voxware.com/
-82;MSRT24;2CC;A;;;Microsoft MSRT24
-83;G729A;2CC;A;;;AT&T G729A
-84;MVI_MVI2;2CC;A;;;Motion Pixels MVI_MVI2
-85;ADPCM;2CC;A;ADPCM;;DataFusion Systems (Pty) G726
-86;GSM6.10;2CC;A;;;DataFusion Systems (Pty) GSM6.10
-88;ISI AUDIO;2CC;A;;;Iterated Systems AUDIO
-89;Onlive;2CC;A;;;OnLive! Technologies
-8A;SX20;2CC;A;;;Multitude
-8B;ADPCM;2CC;A;ADPCM;;Infocom ITS A/S
-8C;G.729;2CC;A;;;Convedia Corporation
-91;SBC24;2CC;A;;;Siemens Business Communications Sys 24
-92;AC3 SPDIF;2CC;A;;;Sonic Foundry AC3 SPDIF
-93;G723;2CC;A;;;MediaSonic G723
-94;Prosody 8KBPS;2CC;A;;;Aculab plc Prosody 8KBPS
+82;MSRT24;2CC;A;;;Microsoft MSRT24;
+83;G729A;2CC;A;;;AT&T G729A;
+84;MVI_MVI2;2CC;A;;;Motion Pixels MVI_MVI2;
+85;ADPCM;2CC;A;ADPCM;;DataFusion Systems (Pty) G726;
+86;GSM6.10;2CC;A;;;DataFusion Systems (Pty) GSM6.10;
+88;ISI AUDIO;2CC;A;;;Iterated Systems AUDIO;
+89;Onlive;2CC;A;;;OnLive! Technologies;
+8A;SX20;2CC;A;;;Multitude;
+8B;ADPCM;2CC;A;ADPCM;;Infocom ITS A/S;
+8C;G.729;2CC;A;;;Convedia Corporation;
+91;SBC24;2CC;A;;;Siemens Business Communications Sys 24;
+92;AC3 SPDIF;2CC;A;;;Sonic Foundry AC3 SPDIF;
+93;G723;2CC;A;;;MediaSonic G723;
+94;Prosody 8KBPS;2CC;A;;;Aculab plc Prosody 8KBPS;
 97;ADPCM;2CC;A;ADPCM;;ZyXEL Communications ADPCM
 98;LPCBB;2CC;A;;;Philips Speech Processing LPCBB
 99;Packed;2CC;A;;;Studer Professional Audio AG Packed
@@ -924,8 +926,8 @@ FF;AAC;2CC;A;AAC;;
 103;;2CC;A;;;IBM AVC ADPCM
 111;G723;2CC;A;;;Vivo G723
 112;SIREN;2CC;A;;;Vivo SIREN
-120;CELP;2CC;A;;;Philips Speech Processing
-121;Grundig;2CC;A;;;Philips Speech Processing
+120;CELP;2CC;A;;;Philips Speech Processing;
+121;Grundig;2CC;A;;;Philips Speech Processing;
 123;G723;2CC;A;;;Digital Equipment Corporation (DEC) G723;
 125;ADPCM;2CC;A;ADPCM;;;
 130;ACEPL;2CC;A;;;Sipro ACEPL.net;http://dividix.host.sk
@@ -956,8 +958,8 @@ FF;AAC;2CC;A;AAC;;
 177;CELP68;2CC;A;;;SyCom Technologies;
 178;ADPCM;2CC;A;ADPCM;;Knowledge Adventure, Inc.;
 180;AAC;2CC;A;;;Fraunhofer IIS;
-190;DTS;2CC;A;;;;
-200;ADPCM;2CC;A;ADPCM;;Creative Labs ADPCM;
+190;DTS;2CC;A;;;
+200;ADPCM;2CC;A;ADPCM;;Creative Labs ADPCM
 202;FastSpeech8;2CC;A;;;Creative Labs Fast Speech 8
 203;FastSpeech10;2CC;A;;;Creative Labs Fast Speech 10
 210;ADPCM;2CC;A;ADPCM;;UHER informatic GmbH ADPCM
@@ -972,8 +974,8 @@ FF;AAC;2CC;A;AAC;;
 260;CS2;2CC;A;;;Consistent Software CS2
 270;SCX;2CC;A;;;Sony
 271;SCY;2CC;A;;;Sony
-272;Atrac3;2CC;A;;;Sony
-273;SPC;2CC;A;;;Sony
+272;Atrac3;2CC;A;;;Sony;
+273;SPC;2CC;A;;;Sony;
 280;Telum;2CC;A;;;;
 281;TelumIA;2CC;A;;;;
 285;ADPCM;2CC;A;ADPCM;;Norcom Voice Systems;
@@ -1004,8 +1006,8 @@ AAC;AAC;2CC;A;AAC;;;
 1400;NORRIS;2CC;A;;;Norris Communications, Inc.;
 1401;ISIAUDIO;2CC;A;;;ISIAudio;
 1500;MUSICOMPRESS;2CC;A;;;Soundspace Music Compression;
-181C;RT24;2CC;A;;;VoxWare RT24 speech codec;
-181E;AX24000P;2CC;A;;;Lucent elemedia AX24000P Music codec;
+181C;RT24;2CC;A;;;VoxWare RT24 speech codec
+181E;AX24000P;2CC;A;;;Lucent elemedia AX24000P Music codec
 1971;SonicFoundry;2CC;A;;;Lossless
 1C03;ADPCM;2CC;A;ADPCM;;Lucent SX5363S G.723 compliant codec
 1C07;SX8300P;2CC;A;;;Lucent SX8300P speech codec
@@ -1020,8 +1022,8 @@ AAC;AAC;2CC;A;AAC;;;
 2005;Real Audio 3;2CC;A;;;RealAudio 3/4/5 Music (DNET)
 2006;AAC;2CC;A;AAC;;RealAudio 10 AAC (RAAC)
 2007;AAC+;2CC;A;AAC;;RealAudio 10 AAC+ (RACP)
-3313;AviSynth;2CC;A;;;makeAVIS (fake AVI sound from AviSynth scripts)
-4143;AAC;2CC;A;AAC;;Divio MPEG-4 AAC audio
+3313;AviSynth;2CC;A;;;makeAVIS (fake AVI sound from AviSynth scripts);
+4143;AAC;2CC;A;AAC;;Divio MPEG-4 AAC audio;
 4201;Nokia;2CC;A;;;;
 4243;ADPCM;2CC;A;ADPCM;;G726;
 43AC;Lead Speech;2CC;A;;;;
@@ -1052,7 +1054,7 @@ FFFE;Extensible;2CC;A;;;Extensible wave format;
 FFFF;In Development;2CC;A;;;In Development / Unregistered;
 S_TEXT/UTF8;UTF-8;Mk;T;;;UTF-8 Plain Text;
 S_TEXT/SSA;SSA;Mk;T;;;Sub Station Alpha;
-S_TEXT/ASS;ASS;Mk;T;;;Advanced Sub Station Alpha;
-S_TEXT/USF;USF;Mk;T;;;Universal Subtitle Format;
+S_TEXT/ASS;ASS;Mk;T;;;Advanced Sub Station Alpha
+S_TEXT/USF;USF;Mk;T;;;Universal Subtitle Format
 S_IMAGE/BMP;Bitmap;Mk;T;;;Basic image based subtitle format
 S_VOBSUB;VobSub;Mk;T;;;The same subtitle format used on DVDs
