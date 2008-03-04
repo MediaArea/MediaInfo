@@ -636,8 +636,8 @@ WINX;Winnov;4CC;V;;;;
 WJPG;Winbond M-JPEG;4CC;V;M-JPEG;;Winbond JPEG (AverMedia USB devices);
 WMV1;WMV1;4CC;V;;;Windows Media Video 7;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
 WMV2;WMV2;4CC;V;;;Windows Media Video 8;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
-WMV3;WMV3;4CC;V;;;Windows Media Video 9;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
-WMVA;WMV;4CC;V;;;Windows Media Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+WMV3;WMV3;4CC;V;VC-1;;Windows Media Video 9;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
+WMVA;WMV;4CC;V;VC-1;;Windows Media Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
 WMVP;WMV3;4CC;V;;;Windows Media Video V9;
 WNIX;WniWni;4CC;V;;;WniWni;
 WNV1;WinNov;4CC;V;;;WinNov Videum Hardware Compression;http://www.winnov.com/
@@ -645,7 +645,7 @@ WNVA;WinNov;4CC;V;;;WinNov Videum Hardware Compression;http://www.winnov.com/
 WRLE;Apple BMP;4CC;V;RGB;;Apple QuickTime BMP;
 WRPR;AVideoTools;4CC;V;;;VideoTools VideoServer Client (wrapper for AviSynth);
 WV1F;WV1F;4CC;V;;;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-WVC1;VC-1;4CC;V;;;Microsoft;
+WVC1;VC-1;4CC;V;VC-1;;Microsoft;
 WVLT;IllusionHope Wavelet 9/7;4CC;V;;;IllusionHope Wavelet 9/7;
 WVP2;WVP2;4CC;V;;;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
 WZCD;iScan;4CC;V;;;CORE Co. Ltd.;
@@ -815,6 +815,7 @@ Vodei;Vodei MP;MediaInfo;V;;;Video On Demand Exploration Interface;http://www.vo
 SWF ADPCM;ADPCM;MediaInfo;A;ADPCM;;ADPCM found in SWF/FLV files;http://www.adobe.com
 AC3+;AC3+;MediaInfo;A;AC3;;Dolby Ehanced AC3;
 TrueHD;TrueHD;MediaInfo;A;AC3;;Dolby TrueHD (AC3 based);
+VC-1;VC-1;MediaInfo;V;VC-1;;;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
 0;Unknown;2CC;A;;;;
 1;PCM;2CC;A;PCM;;Microsoft PCM;http://www.microsoft.com/windows/
 2;ADPCM;2CC;A;ADPCM;;Microsoft ADPCM;http://www.microsoft.com/windows/
@@ -909,7 +910,7 @@ C;MPEG2 5.1;2CC;A;;;MPEG2 5.1;
 91;SBC24;2CC;A;;;Siemens Business Communications Sys 24;
 92;AC3 SPDIF;2CC;A;;;Sonic Foundry AC3 SPDIF;
 93;G723;2CC;A;;;MediaSonic G723;
-94;Prosody 8KBPS;2CC;A;;;Aculab plc Prosody 8KBPS;
+94;Prosody 8KBPS;2CC;A;;;Aculab plc Prosody 8KBPS
 97;ADPCM;2CC;A;ADPCM;;ZyXEL Communications ADPCM
 98;LPCBB;2CC;A;;;Philips Speech Processing LPCBB
 99;Packed;2CC;A;;;Studer Professional Audio AG Packed
@@ -925,7 +926,7 @@ FF;AAC;2CC;A;AAC;;
 102;;2CC;A;;;IBM A-law
 103;;2CC;A;;;IBM AVC ADPCM
 111;G723;2CC;A;;;Vivo G723
-112;SIREN;2CC;A;;;Vivo SIREN
+112;SIREN;2CC;A;;;Vivo SIREN;
 120;CELP;2CC;A;;;Philips Speech Processing;
 121;Grundig;2CC;A;;;Philips Speech Processing;
 123;G723;2CC;A;;;Digital Equipment Corporation (DEC) G723;
@@ -957,7 +958,7 @@ FF;AAC;2CC;A;AAC;;
 176;CELP54;2CC;A;;;SyCom Technologies;
 177;CELP68;2CC;A;;;SyCom Technologies;
 178;ADPCM;2CC;A;ADPCM;;Knowledge Adventure, Inc.;
-180;AAC;2CC;A;;;Fraunhofer IIS;
+180;AAC;2CC;A;;;Fraunhofer IIS
 190;DTS;2CC;A;;;
 200;ADPCM;2CC;A;ADPCM;;Creative Labs ADPCM
 202;FastSpeech8;2CC;A;;;Creative Labs Fast Speech 8
@@ -973,7 +974,7 @@ FF;AAC;2CC;A;AAC;;
 251;RPELP;2CC;A;;;Interactive Products, Inc. (IPI) RPELP
 260;CS2;2CC;A;;;Consistent Software CS2
 270;SCX;2CC;A;;;Sony
-271;SCY;2CC;A;;;Sony
+271;SCY;2CC;A;;;Sony;
 272;Atrac3;2CC;A;;;Sony;
 273;SPC;2CC;A;;;Sony;
 280;Telum;2CC;A;;;;
@@ -1005,7 +1006,7 @@ AAC;AAC;2CC;A;AAC;;;
 1104;SBC;2CC;A;;;Lernout & Hauspie SBC 16 kb/s;http://www.microsoft.com/windows/
 1400;NORRIS;2CC;A;;;Norris Communications, Inc.;
 1401;ISIAUDIO;2CC;A;;;ISIAudio;
-1500;MUSICOMPRESS;2CC;A;;;Soundspace Music Compression;
+1500;MUSICOMPRESS;2CC;A;;;Soundspace Music Compression
 181C;RT24;2CC;A;;;VoxWare RT24 speech codec
 181E;AX24000P;2CC;A;;;Lucent elemedia AX24000P Music codec
 1971;SonicFoundry;2CC;A;;;Lossless
@@ -1021,7 +1022,7 @@ AAC;AAC;2CC;A;AAC;;;
 2004;Real Audio 2;2CC;A;;;RealAudio G2/8 Cook (low bitrate)
 2005;Real Audio 3;2CC;A;;;RealAudio 3/4/5 Music (DNET)
 2006;AAC;2CC;A;AAC;;RealAudio 10 AAC (RAAC)
-2007;AAC+;2CC;A;AAC;;RealAudio 10 AAC+ (RACP)
+2007;AAC+;2CC;A;AAC;;RealAudio 10 AAC+ (RACP);
 3313;AviSynth;2CC;A;;;makeAVIS (fake AVI sound from AviSynth scripts);
 4143;AAC;2CC;A;AAC;;Divio MPEG-4 AAC audio;
 4201;Nokia;2CC;A;;;;
@@ -1053,7 +1054,7 @@ F1AC;FLAC;2CC;A;;;Free Lossless Audio Codec FLAC;
 FFFE;Extensible;2CC;A;;;Extensible wave format;
 FFFF;In Development;2CC;A;;;In Development / Unregistered;
 S_TEXT/UTF8;UTF-8;Mk;T;;;UTF-8 Plain Text;
-S_TEXT/SSA;SSA;Mk;T;;;Sub Station Alpha;
+S_TEXT/SSA;SSA;Mk;T;;;Sub Station Alpha
 S_TEXT/ASS;ASS;Mk;T;;;Advanced Sub Station Alpha
 S_TEXT/USF;USF;Mk;T;;;Universal Subtitle Format
 S_IMAGE/BMP;Bitmap;Mk;T;;;Basic image based subtitle format
