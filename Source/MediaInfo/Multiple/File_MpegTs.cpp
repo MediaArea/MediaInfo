@@ -46,8 +46,8 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 //From Mpeg_Psi
 extern const char*  Mpeg_Psi_stream_type(int8u ID, int32u format_identifier);
-extern stream_t     Mpeg_Psi_stream_Kind(int32u ID);
-extern const char*  Mpeg_Psi_stream_Codec(int8u ID);
+extern const char*  Mpeg_Psi_stream_Codec(int8u ID, int32u format_identifier);
+extern stream_t     Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier);
 
 //---------------------------------------------------------------------------
 const char* Mpeg_Psi_kind(File_Mpeg_Psi::ts_kind ID)
@@ -249,9 +249,9 @@ void File_MpegTs::Read_Buffer_Finalize()
             if (StreamKind_Last==Stream_Max)
             {
                 //The parser failed
-                if (Stream->second.StreamIsRegistred && Mpeg_Psi_stream_Kind(Stream->second.stream_type)!=Stream_Max)
+                if (Stream->second.StreamIsRegistred && Mpeg_Psi_stream_Kind(Stream->second.stream_type, format_identifier)!=Stream_Max)
                 {
-                    StreamKind_Last=Mpeg_Psi_stream_Kind(Stream->second.stream_type);
+                    StreamKind_Last=Mpeg_Psi_stream_Kind(Stream->second.stream_type, format_identifier);
                     Stream_Prepare(StreamKind_Last);
                 }
             }
@@ -261,7 +261,7 @@ void File_MpegTs::Read_Buffer_Finalize()
             {
                 //Codec
                 if (Get(StreamKind_Last, StreamPos_Last, _T("Codec")).empty())
-                    Fill("Codec", Mpeg_Psi_stream_Codec(Stream->second.stream_type));
+                    Fill("Codec", Mpeg_Psi_stream_Codec(Stream->second.stream_type, format_identifier));
 
                 //TimeStamp
                 if (Stream->second.TimeStamp_End!=(int64u)-1)
@@ -674,6 +674,7 @@ void File_MpegTs::PSI_program_association_table()
 void File_MpegTs::PSI_program_map_table()
 {
     File_Mpeg_Psi* Parser=(File_Mpeg_Psi*)Streams[pid].Parser;
+    format_identifier=Parser->format_identifier;
     for (std::map<int16u, File_Mpeg_Psi::stream>::iterator Stream=Parser->Streams.begin(); Stream!=Parser->Streams.end(); Stream++)
     {
         //Retrieving info
@@ -787,7 +788,7 @@ void File_MpegTs::PES()
     //If unknown stream_type
     if (Streams[Element_Code].Parser==NULL)
     {
-        if (Mpeg_Psi_stream_Kind(Streams[Element_Code].stream_type)==Stream_Max
+        if (Mpeg_Psi_stream_Kind(Streams[Element_Code].stream_type, format_identifier)==Stream_Max
          && Streams[Element_Code].stream_type!=0x06) //Exception for private data
         {
             Streams[Element_Code].Searching_Payload_Start=false;

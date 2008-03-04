@@ -105,30 +105,52 @@ const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
         case 0x12 : return "ISO/IEC 14496-1 SL-packetized stream or FlexMux stream carried in PES packets";
         case 0x13 : return "ISO/IEC 14496-1 SL-packetized stream or FlexMux stream carried in ISO/IEC14496_sections.";
         case 0x14 : return "ISO/IEC 13818-6 Synchronized Download Protocol";
-        case 0x1B : return "H.264";
-        case 0x80 : return "DigiCipher II video";
-        case 0x81 : return "ATSC - AC-3";
-        case 0x82 : return "SCTE Standard Subtitle";
-        case 0x83 : return "SCTE Isochronous Data";
-        case 0x84 : return "ATSC Reserved";
-        case 0x85 : return "ATSC Program Identifier";
-        case 0x86 : switch (format_identifier)
-                    {
-                        case Mpeg_Descriptors::HDMV : return "BluRay - DTS";
-                        default :                     return "";
-                    }
-        case 0x87 : return "ATSC - E-AC-3";
-        case 0x88 : return "VC-1";
-        case 0x90 : return "DVB - stream_type value for Time Slicing / MPE-FEC";
-        case 0x95 : return "ATSC - Data Service Table, Network Resources Table";
+        case 0x1B : return "AVC";
         default :
             if (ID<=0x7F) return "ITU-T Rec. H.222.0 | ISO/IEC 13818-1 reserved";
-            return "User Private";
+            switch (format_identifier)
+            {
+                case Mpeg_Descriptors::CUEI :
+                case Mpeg_Descriptors::SCTE : //SCTE
+                case Mpeg_Descriptors::GA94 :
+                case Mpeg_Descriptors::S14A : //ATSC
+                        switch (ID)
+                        {
+                            case 0x81 : return "ATSC - AC3";
+                            case 0x82 : return "SCTE - Standard Subtitle";
+                            case 0x83 : return "SCTE - Isochronous Data";
+                            case 0x84 : return "ATSC - Reserved";
+                            case 0x85 : return "ATSC - Program Identifier";
+                            case 0x87 : return "ATSC - AC3+";
+                            case 0x90 : return "DVB  - stream_type value for Time Slicing / MPE-FEC";
+                            case 0x95 : return "ATSC - Data Service Table, Network Resources Table";
+                            default   : return "ATSC/SCTE - Unknown";
+                        }
+                case Mpeg_Descriptors::HDMV : //Bluray
+                        switch (ID)
+                        {
+                            case 0x80 : return "BluRay - PCM";
+                            case 0x81 : return "BluRay - AC3";
+                            case 0x83 : return "BluRay - AC3+";
+                            case 0x86 : return "BluRay - DTS";
+                            case 0xEA : return "BluRay - VC-1";
+                            default   : return "Bluray - Unknown";
+                        }
+                default                     :
+                        switch (ID)
+                        {
+                            case 0x80 : return "DigiCipher II video";
+                            case 0x81 : return "AC3";
+                            case 0x88 : return "VC-1";
+                            case 0x87 : return "AC3+";
+                            default   : return "User Private";
+                        }
+            }
     }
 }
 
 //---------------------------------------------------------------------------
-const char* Mpeg_Psi_stream_Codec(int8u ID)
+const char* Mpeg_Psi_stream_Codec(int8u ID, int32u format_identifier)
 {
     switch (ID)
     {
@@ -140,16 +162,44 @@ const char* Mpeg_Psi_stream_Codec(int8u ID)
         case 0x10 : return "MPEG-4V";
         case 0x11 : return "AAC";
         case 0x1B : return "AVC";
-        case 0x80 : return "MPEG-2V";
-        case 0x81 : return "AC3";
-        case 0x86 : return "DTS";
-        case 0x87 : return "EAC3";
-        default   : return "";
+        default :
+            switch (format_identifier)
+            {
+                case Mpeg_Descriptors::CUEI :
+                case Mpeg_Descriptors::SCTE : //SCTE
+                case Mpeg_Descriptors::GA94 :
+                case Mpeg_Descriptors::S14A : //ATSC
+                        switch (ID)
+                        {
+                            case 0x81 : return "AC3";
+                            case 0x87 : return "AC3+";
+                            default   : return "";
+                        }
+                case Mpeg_Descriptors::HDMV : //Bluray
+                        switch (ID)
+                        {
+                            case 0x80 : return "PCM";
+                            case 0x81 : return "AC3";
+                            case 0x83 : return "AC3+";
+                            case 0x86 : return "DTS";
+                            case 0xEA : return "VC1";
+                            default   : return "";
+                        }
+                default                     :
+                        switch (ID)
+                        {
+                            case 0x80 : return "MPEG-2V";
+                            case 0x81 : return "AC3";
+                            case 0x87 : return "AC3+";
+                            case 0x88 : return "VC-1";
+                            default   : return "";
+                        }
+            }
     }
 }
 
 //---------------------------------------------------------------------------
-stream_t Mpeg_Psi_stream_Kind(int32u ID)
+stream_t Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier)
 {
     switch (ID)
     {
@@ -161,11 +211,39 @@ stream_t Mpeg_Psi_stream_Kind(int32u ID)
         case 0x10 : return Stream_Video;
         case 0x11 : return Stream_Audio;
         case 0x1B : return Stream_Video;
-        case 0x80 : return Stream_Video;
-        case 0x81 : return Stream_Audio;
-        case 0x86 : return Stream_Audio;
-        case 0x87 : return Stream_Audio;
-        default   : return Stream_Max;
+        default :
+            switch (format_identifier)
+            {
+                case Mpeg_Descriptors::CUEI :
+                case Mpeg_Descriptors::SCTE : //SCTE
+                case Mpeg_Descriptors::GA94 :
+                case Mpeg_Descriptors::S14A : //ATSC
+                        switch (ID)
+                        {
+                            case 0x81 : return Stream_Audio;
+                            case 0x87 : return Stream_Audio;
+                            default   : return Stream_Max;
+                        }
+                case Mpeg_Descriptors::HDMV : //Bluray
+                        switch (ID)
+                        {
+                            case 0x80 : return Stream_Audio;
+                            case 0x81 : return Stream_Audio;
+                            case 0x83 : return Stream_Audio;
+                            case 0x86 : return Stream_Audio;
+                            case 0xEA : return Stream_Video;
+                            default   : return Stream_Max;
+                        }
+                default                     :
+                        switch (ID)
+                        {
+                            case 0x80 : return Stream_Video;
+                            case 0x81 : return Stream_Audio;
+                            case 0x87 : return Stream_Audio;
+                            case 0x88 : return Stream_Video;
+                            default   : return Stream_Max;
+                        }
+            }
     }
 }
 
@@ -888,10 +966,9 @@ void File_Mpeg_Psi::Descriptors()
     Element_Offset+=Descriptors_Size;
 
     //Filling
-    Streams[Stream_Current].Infos;//.clear();//=Descriptors->Infos;
-    //program_map_Values[elementary_PID].KindOfStream=Descriptors->KindOfStream;
-
-    format_identifier=Descriptors->format_identifier;
+    Streams[Stream_Current].Infos=Descriptors->Infos;
+    if (Stream_Current==0x0000)
+        format_identifier=Descriptors->format_identifier; //General
 
     delete Descriptors; //Descriptors=NULL;
 
