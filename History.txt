@@ -9,6 +9,8 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.6.1, 2008-03-
 ---------------
++ AC3 TrueHD detection
++ VC-1, AC3+ and AC3 TrueHD in MPEG-TS or Bluray detection
 x MPEG-4 Visual (DivX/XviD): writing library name was missing
 
 Version 0.7.6.0, 2008-02-29
