@@ -71,6 +71,7 @@ private :
     int8u  dsurmod;
     int8u  numblks;
     bool   lfeon;
+    bool   IsTrueHD;
 
     //Helpers
     bool Synchronize();
