@@ -105,7 +105,7 @@ const float32 Vc1_FrameRate_dr(int8u Code)
     {
         case 0x01 : return (float32)1000;
         case 0x02 : return (float32)1001;
-        default   : return (float32)1000; //Not sure, must be precised
+        default   : return (float32)0;
     }
 }
 
@@ -372,16 +372,14 @@ void File_Vc1::FrameHeader_Fill()
         PixelAspectRatio=1; //Unknown
 
     //Calculating - FrameRate
-    float32 FrameRate;
+    float32 FrameRate=0;
     if (framerate_present)
     {
         if (framerate_form)
-            FrameRate=((float32)(framerateexp+1))/32;
-        else
+            FrameRate=((float32)(framerateexp+1))/32.0;
+        else if (Vc1_FrameRate_dr(frameratecode_dr))
             FrameRate=Vc1_FrameRate_enr(frameratecode_enr)/Vc1_FrameRate_dr(frameratecode_dr);
     }
-    else
-        FrameRate=0;
 
     //Filling
     Stream_Prepare(Stream_General);
@@ -464,7 +462,7 @@ void File_Vc1::SequenceHeader()
                         Get_S2 (16, framerateexp,               "framerateexp"); Param_Info((float32)((framerateexp+1)/32.0), 3, " fps");
                     TEST_SB_ELSE();
                         Get_S1 ( 8, frameratecode_enr,          "frameratecode_enr"); Param_Info(Vc1_FrameRate_enr(frameratecode_enr));
-                        Get_S1 ( 8, frameratecode_dr,           "frameratecode_dr"); Param_Info(Vc1_FrameRate_dr(frameratecode_dr));
+                        Get_S1 ( 4, frameratecode_dr,           "frameratecode_dr"); Param_Info(Vc1_FrameRate_dr(frameratecode_dr));
                     TEST_SB_END();
                 TEST_SB_END();
             TEST_SB_END();
