@@ -47,9 +47,9 @@ dnl
 dnl -------------------------------------------------------------------------
 dnl Arguments - With
 dnl
-AC_ARG_WITH(wxwidgets,      AC_HELP_STRING([--with-wxwidgets],     [Do not use WxWidgets]),                     , with_wxwidgets=yes)
-AC_ARG_WITH(wx-static,      AC_HELP_STRING([--without-wx-static],  [Do not use WxWidgets static libs]),         , with_wx_static=no)
-AC_ARG_WITH(dll,            AC_HELP_STRING([--with-dll],           [Use DLL instead of static link]),           , with_dll=no)
+AC_ARG_WITH(wxwidgets,      AC_HELP_STRING([--with-wxwidgets],      [Use WxWidgets]),                           , with_wxwidgets=no)
+AC_ARG_WITH(wx_static,      AC_HELP_STRING([--with-wx-static],      [Use WxWidgets static libs]),               , with_wx_static=no)
+AC_ARG_WITH(dll,            AC_HELP_STRING([--with-dll],            [Use DLL instead of static link]),          , with_dll=no)
 
 dnl -------------------------------------------------------------------------
 dnl External options
