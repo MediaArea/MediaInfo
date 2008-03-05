@@ -52,7 +52,7 @@
  hour3;valandos
  Hz; Hz
  image stream1;paveikslėlio srautas
- image stream2;paveiklsėlių srautai
+ image stream2;paveikslėlių srautai
  image stream3;paveikslėlių srautai
  KB; KB
  Kb; Kb
@@ -129,10 +129,10 @@ Actor;Aktorius
 Actor_Character;rodyti ženklą
 Address;Adresas
 Advanced;Išlėstinai
-Advanced mode;Išplėstinis rėžimas
+Advanced mode;Išplėstinis režimas
 Album;Albumas
 All;Visi
-Archival_Location;Archyvavymo vieta
+Archival_Location;Archyvavimo vieta
 Arranger;Aranžuotojas
 ArtDirector;MenoKatalogas
 AspectRatio;Aspekto santykis
@@ -153,7 +153,7 @@ Basic_Note;Pastaba : jei norite daugiau informacijos apie failą, turite pasirin
 BitRate;Bitreitas
 BitRate_Maximum
 BitRate_Minimum
-BitRate_Mode;Bitreito rėžimas
+BitRate_Mode;Bitreito režimas
 BitRate_Nominal;Nominalus bitreitas
 Bits-(Pixel*Frame);Bitai/(Pikselis*Kadras)
 Cancel;Atšaukti
@@ -171,14 +171,14 @@ Choose custom sheet;Pasirinkite norimą vartotojo lapą
 Choose custom text;Pasirinkite savo norimą vartotojo tekstą
 Choose export format;Pasirinkite savo norimą eksportavimo formatą
 Choose file(s);Pasirinkite failus atvėrimui
-Choose filename;Pasirinkite norima failo pavadinimą
+Choose filename;Pasirinkite norimą failo pavadinimą
 Choose language;Pasirinkite savo norimą kalbą
 Choregrapher;Choreografas
 Chroma;Chromas
 Close;Uždaryti
 Close all before open;Uždaryti visus prieš atveriant
 Codec;Kodekas
-Codec_Description;Kodeko parašymas
+Codec_Description;Kodeko aprašymas
 Codec_Info;Kodeko detalės
 Codec_Settings;Kodeko nuostatos
 Codec_Settings_PacketBitStream;Kodeko nuostatos, Paketo bitų srautas
@@ -226,7 +226,7 @@ DistributedBy;Platintojas
 Donate;Aukoti
 Edit;Redaguoti
 EditedBy;Redagavo
-EMail;El. Paštas
+EMail;El. paštas
 Encoded_Application;Rašymo programa
 Encoded_Date;Užkodavimo data
 Encoded_Library;Rašymo biblioteka
@@ -312,7 +312,7 @@ Genre_044;Erdvė
 Genre_045;Meditacinė
 Genre_046;Instrumentinis pop
 Genre_047;Instrumentinis rock
-Genre_048;Eninė
+Genre_048;Etninė
 Genre_049;Gotikinė
 Genre_050;Tamsa
 Genre_051;Techno-pramoninė
@@ -425,7 +425,7 @@ HTML;HTML
 ID;ID
 Image;Paveikslėlis
 Image stream(s);Paveikslėlių srautai
-Image_Codec_List;Kodeko paveiklėlis
+Image_Codec_List;Kodeko paveikslėlis
 ImageCount;Paveikslėlių srautų kiekis
 Info;Info
 Instruments;Instrumentai
@@ -445,7 +445,7 @@ Label;Etiketė
 Language;Kalba
 Language___;Daugiakalbis
 Language_aa;Afarų
-Language_ab;Afkazų
+Language_ab;Abchazų
 Language_ae;Avestanų
 Language_af;Afrikiečių
 Language_ak;Akanų
@@ -457,7 +457,7 @@ Language_av;Avarų
 Language_ay;Aimarų
 Language_az;Azerbaidžianiečių
 Language_ba;Baškitų
-Language_be;Baltarusų
+Language_be;Baltarusių
 Language_bg;Bulgarų
 Language_bh;Biharų
 Language_bi;Bislamų
@@ -616,7 +616,7 @@ Language_tt;Tatar
 Language_tw;Twi
 Language_ty;Tahitian
 Language_ug;Uighur
-Language_uk;Ukrainian
+Language_uk;Ukrainiečių
 Language_ur;Urdu
 Language_uz;Uzbek
 Language_ve;Venda
@@ -655,7 +655,7 @@ New;Naujas
 Newest version;Tikrinti naujausių versijų (reikalinga interneto jungtis)
 No;Ne
 OK;Gerai
-One output file per input file;Vienas įėjimo failas per įėjimo failą
+One output file per input file;Vienas įšėjimo failas per įėjimo failą
 Open;Atverti
 Options;Pasirinktys
 Options_Hint;Nuostatos
@@ -680,7 +680,7 @@ ProductionStudio;Produkcijos studija
 Publisher;Skelbėjas
 Purchased_Date;Pardavimo data
 Quote character;Kabutės
-RadioStation;Radio stotis
+RadioStation;Radijo stotis
 Rating;Reitingas
 Recorded_Date;Įrašymo data
 Recorded_Location;Įrašymo vieta
@@ -692,7 +692,7 @@ SamplingRate;Atrankos tempas
 Save;Išsaugoti
 ScreenplayBy;Ekrano rodymas
 Season;Sezonas
-see below;ziūrėti žemiau
+see below;žiūrėti žemiau
 Send HeaderFile;Prašau atsiuskite pagrindinį failą čia : http://sourceforge.net/projects/mediainfo/ (derinimo sekcija)
 Separator_Columns;Stulpelių skyryba
 Separator_Lines;Eilučių skyryba
@@ -736,10 +736,10 @@ Text2;Antras teksto srautas
 Text3;Trečias teksto srautas
 TextCount;Teksto srautų kiekis
 ThanksTo;Dėkojame
-Thousands separator;Tukstančių skyryba
+Thousands separator;Tūkstančių skirtukas
 Title;Antraštė
 Title_More;Antraštė, daugiau info
-Total;Viso
+Total;Iš viso
 Track;Takelio pavadinimas
 Track_Count;Takelio kiekis
 Translator;Vertėjas
