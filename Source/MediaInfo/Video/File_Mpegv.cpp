@@ -235,7 +235,7 @@ File_Mpegv::File_Mpegv()
 {
     //In
     MPEG_Version=1;
-    Frame_Count_Valid=2;
+    Frame_Count_Valid=16;
     FrameIsAlwaysComplete=false;
 
     //Count of a Packets

@@ -426,7 +426,10 @@ void File_Wm::Header_StreamProperties_Video ()
          if (0);
     #if defined(MEDIAINFO_MPEGV_YES)
     else if (Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("MPEG-2"))==0)
+    {
         Stream[Stream_Number].Parser=new File_Mpegv;
+        ((File_Mpegv*)Stream[Stream_Number].Parser)->Frame_Count_Valid=1;
+    }
     #endif
 
 }
