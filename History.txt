@@ -11,6 +11,7 @@ Version 0.7.6.1, 2008-03-
 ---------------
 + AC3 TrueHD detection
 + VC-1, AC3+ and AC3 TrueHD in MPEG-TS or Bluray detection
++ AVC in MKV: all SEI userdata infos from x264/eavc in Writing library settings
 x MPEG-4 Visual (DivX/XviD): writing library name was missing
 x MPEG-Video: some DTS files with wrong extension were detected as MPEG-Video
 

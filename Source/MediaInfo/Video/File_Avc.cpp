@@ -243,12 +243,12 @@ bool File_Avc::Header_Begin()
 {
     //Specific case
     if (MustParse_SPS_PPS)
-        return true;
-    if (MustParse_SPS_PPS)
     {
         Synched=true;
         return true;
     }
+    if (FromMKV)
+        return true;
 
     //Trailing 0x00
     if (Synched)
@@ -292,23 +292,32 @@ void File_Avc::Header_Parse()
 
     //Parsing
     int8u nal_unit_type;
-    if (!MustParse_SPS_PPS)
+    if (!FromMKV)
+    {
         Skip_B3(                                                "sync");
+        BS_Begin();
+        Mark_0 ();
+        Skip_S1( 2,                                             "nal_ref_idc");
+        Get_S1 ( 5, nal_unit_type,                              "nal_unit_type");
+        BS_End();
+        if (!Header_Parse_Fill_Size())
+        {
+            Element_WaitForMoreData();
+            return;
+        }
+    }
     else
     {
-        int32u size;
-        Get_B4 (size,                                           "size");
-        Header_Fill_Size(Element_Offset+size);
-    }
-    BS_Begin();
-    Mark_0 ();
-    Skip_S1( 2,                                                 "nal_ref_idc");
-    Get_S1 ( 5, nal_unit_type,                                  "nal_unit_type");
-    BS_End();
-    if (!MustParse_SPS_PPS && !Header_Parse_Fill_Size())
-    {
-        Element_WaitForMoreData();
-        return;
+        int32u Size;
+        Get_B4 (Size,                                           "size");
+        BS_Begin();
+        Mark_0 ();
+        Skip_S1( 2,                                             "nal_ref_idc");
+        Get_S1 ( 5, nal_unit_type,                              "nal_unit_type");
+        BS_End();
+
+        //Filling
+        Header_Fill_Size(Element_Offset+Size-1);
     }
 
     //Filling
