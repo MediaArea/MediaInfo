@@ -76,18 +76,17 @@ dnl ### Parsing options
 dnl #########################################################################
 
 dnl -------------------------------------------------------------------------
-dnl WxWidgets (v1)
+dnl WxWidgets (v2)
 dnl
 
 dnl Download and compile
 WxBuiltInCompile()
 {
-		AC_MSG_ERROR([XXXX])
 	if test -e ../../../../Shared/Project/WxWidgets/Compile.sh; then
 		cd ../../../../Shared/Project/WxWidgets
 		chmod u+x Compile.sh
-		./Compile.sh --enable-unicode=$enable_unicode --enable-static=$with_wx_static --enable-gui=$enable_gui --host=$host
-		cd $Path_Original
+		./Compile.sh --enable-unicode=$enable_unicode --enable-static=yes --enable-gui=$with_wx_gui --host=$host
+		cd $Home
 		if test -e ../../../../Shared/Source/WxWidgets/Compile/wx-config; then
 			if test "x$(../../../../Shared/Source/WxWidgets/Compile/wx-config --unicode=$enable_unicode --version)" = "x"; then
 				with_wxwidgets="no"
@@ -110,8 +109,13 @@ WxBuiltInSearchGoodBuild()
 	if test -e ../../../../Shared/Source/WxWidgets/Compile/wx-config; then
 		dnl There is already a compiled version
 		if test "x$(../../../../Shared/Source/WxWidgets/Compile/wx-config --unicode=$enable_unicode --static=$with_wx_static --version)" = "x"; then
-			dnl Not well compiled, try to compile again
-			WxBuiltInCompile
+			if test "x$(../../../../Shared/Source/WxWidgets/Compile/wx-config --unicode=$enable_unicode --version)" = "x"; then
+				dnl Not well compiled, try to compile again
+				WxBuiltInCompile
+			else
+				dnl Already compiled builtin lib found!
+				with_wxwidgets="builtin"
+			fi
 		else
 			dnl Already compiled builtin lib found!
 			with_wxwidgets="builtin"
