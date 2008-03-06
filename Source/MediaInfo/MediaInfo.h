@@ -36,7 +36,6 @@ namespace MediaInfoLib
 
 class File__Analyze;
 class Internet__Base;
-class WxThread;
 
 //***************************************************************************
 /// @brief MediaInfo
@@ -241,7 +240,7 @@ private :
     Internet__Base* Internet;
 
     //Thread
-    WxThread* Thread;
+    void* Thread;
     blockmethod_t BlockMethod; //Open() returns when?
 
     //Helpers
