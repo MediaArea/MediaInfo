@@ -869,9 +869,19 @@ void MediaInfo_Config::Inform_Set (const ZtringListList &NewValue)
     //Parsing pointer to a file
     if (Custom_View(0, 0).find(_T("file://"))==0)
     {
-        ZtringListListF FromFile;
+        //Open
         Ztring FileName(Custom_View(0, 0), 7, Ztring::npos);
-        FromFile.Load(FileName.c_str());
+        File F(FileName.c_str());
+
+        //Read
+        int8u* Buffer=new int8u[(size_t)F.Size_Get()+1];
+        Buffer[(size_t)F.Size_Get()+1]='\0';
+        F.Read(Buffer, (size_t)F.Size_Get());
+        F.Close();
+        Ztring FromFile; FromFile.From_Local((char*)Buffer);
+        delete[] Buffer; //Buffer=NULL;
+
+        //Merge
         Custom_View=FromFile;
     }
 
