@@ -44,6 +44,7 @@
 #include "ZenLib/Ztring.h"
 #include "ZenLib/CriticalSection.h"
 #include <map>
+#include <vector>
 #include <iostream>
 using namespace MediaInfoLib;
 using namespace ZenLib;
