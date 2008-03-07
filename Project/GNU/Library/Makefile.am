@@ -18,6 +18,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/MediaInfo_Config.cpp \
                        ../../../Source/MediaInfo/MediaInfo_File.cpp \
                        ../../../Source/MediaInfo/MediaInfoList.cpp \
+                       ../../../Source/MediaInfo/MediaInfoList_Internal.cpp \
                        ../../../Source/MediaInfo/Archive/File_7z.cpp \
                        ../../../Source/MediaInfo/Archive/File_Ace.cpp \
                        ../../../Source/MediaInfo/Archive/File_Bzip2.cpp \
