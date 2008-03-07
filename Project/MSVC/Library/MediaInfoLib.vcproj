@@ -349,6 +349,10 @@
 				RelativePath="..\..\..\Source\MediaInfo\MediaInfoList.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\MediaInfoList_Internal.cpp"
+				>
+			</File>
 			<Filter
 				Name="Archive"
 				>
@@ -757,6 +761,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\MediaInfo\MediaInfoList.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\MediaInfoList_Internal.h"
 				>
 			</File>
 			<File

@@ -190,7 +190,7 @@
           <property category="win32.*.win32b.ilink32" name="option.outputdir.arg.1" value="..\..\..\Release\BCB\Dll\"/>
           <property category="win32.*.win32b.ilink32" name="option.outputdir.arg.merge" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.outputdir.enabled" value="1"/>
-          <property category="win32.*.win32b.ilink32" name="param.deffile.1" value="E:\Personnel\Programmation\MediaInfoLib\Source\MediaInfoDLL\MediaInfoDLL.def"/>
+          <property category="win32.*.win32b.ilink32" name="param.deffile.1" value="F:\Programmation\MediaInfoLib\Source\MediaInfoDLL\MediaInfoDLL.def"/>
           <property category="win32.*.win32b.ilink32" name="param.deffile.merge" value="1"/>
           <property category="win32.*.win32b.ilink32" name="param.libfiles.1" value="$(LIBRARIES)"/>
           <property category="win32.*.win32b.ilink32" name="param.libfiles.2" value="import32.lib"/>
@@ -223,11 +223,8 @@
         <FILE FILENAME="MediaInfo.bpf" CONTAINERID="BPF" LOCALCOMMAND="" UNITNAME="MediaInfo" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfoDLL\MediaInfoDLL.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfoDLL.cpp" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfoDLL\MediaInfoDLL.h"/>
         <FILE FILENAME="..\..\..\Source\MediaInfoDLL\MediaInfoDLL.def" CONTAINERID="DefTool" LOCALCOMMAND="" UNITNAME="MediaInfoDLL.def" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\unicows.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="unicows.lib" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\Zlib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="Zlib.lib" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Release\BCB\Library\MediaInfoLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="MediaInfoLib" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\Ebml.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="Ebml" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\Matroska.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="Matroska" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\ZenLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZenLib" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
@@ -321,11 +318,11 @@
           <Debugging Name="DebugSourceDirs"></Debugging>
         </Debugging>
         <Parameters>
-          <Parameters Name="RunParams">"Xvid_SAP 2B-VOP (AVI v1.0).avi"</Parameters>
+          <Parameters Name="RunParams"></Parameters>
           <Parameters Name="Launcher"></Parameters>
           <Parameters Name="UseLauncher">False</Parameters>
           <Parameters Name="DebugCWD"></Parameters>
-          <Parameters Name="HostApplication">D:\Programmation\MediaInfoLib\Release\BCB\Dll\MediaInfo.exe</Parameters>
+          <Parameters Name="HostApplication">F:\Programmation\MediaInfoLib\Release\BCB\Dll\MediaInfo_GUI.exe</Parameters>
           <Parameters Name="RemoteHost"></Parameters>
           <Parameters Name="RemotePath"></Parameters>
           <Parameters Name="RemoteParams"></Parameters>
