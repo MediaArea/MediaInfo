@@ -625,8 +625,8 @@ void File_Mpeg4::moov_cmov_cmvd_zlib()
 
         //Uncompressing
         int8u* Dest=new int8u[Dest_Size];
-		if (uncompress((Bytef*)Dest, &Dest_Size, (const Bytef*)Buffer+Buffer_Offset+4, Source_Size)<0)
-		{
+        if (uncompress((Bytef*)Dest, &Dest_Size, (const Bytef*)Buffer+Buffer_Offset+4, Source_Size)<0)
+        {
             delete Dest; //Dest=NULL;
             return;
         }
