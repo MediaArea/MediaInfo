@@ -19,8 +19,6 @@
 
 //---------------------------------------------------------------------------
 #include <vcl.h>
-#include <ZenLib/Conf.h>
-#include <ZenLib/OS_Utils.h>
 #pragma hdrstop
 #include "GUI/VCL/GUI_Main.h"
 #ifndef MEDIAINFOGUI_PREFS_NO
@@ -53,9 +51,9 @@ TMainF *MainF;
 #include "Common/Preferences.h"
 #include "Common/Utils.h"
 #ifdef MEDIAINFO_DLL
-	#include "MediaInfoDLL/MediaInfoDLL_Static.h"
+    #include "MediaInfoDLL/MediaInfoDLL_Static.h"
 #else
-	#include "MediaInfo/MediaInfoList.h"
+    #include "MediaInfo/MediaInfoList.h"
 #endif
 #include <ZenLib/File.h>
 #include <ZenLib/FileName.h>
