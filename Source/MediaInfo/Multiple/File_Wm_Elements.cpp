@@ -112,6 +112,7 @@ namespace Elements
     UUID(Header_HeaderExtension_TimecodeIndexParameters,        F55E496D, 9797, 4B5D, 8C8B, 604DFE9BFB24)
     UUID(Header_HeaderExtension_Compatibility,                  26F18B5D, 4584, 47EC, 9F5F, 0E651F0452C9)
     UUID(Header_HeaderExtension_AdvancedContentEncryption,      43058533, 6981, 49E6, 9B74, AD12CB86D58C)
+    UUID(Header_HeaderExtension_IndexPlaceholder,               D9AADE20, 7C17, 4F9C, BC28, 8555DD98E2A2)
     UUID(Header_CodecList,                                      86D15240, 311D, 11D0, A3A4, 00ACC90348F6)
     UUID(Header_ScriptCommand,                                  1EFB1A30, 0B62, 11D0, A39B, 00A0C90348F6)
     UUID(Header_Marker,                                         F487CD01, A951, 11CF, 8EE6, 00C00C205365)
@@ -181,6 +182,7 @@ void File_Wm::Data_Parse()
             ATOM(Header_HeaderExtension_TimecodeIndexParameters)
             ATOM(Header_HeaderExtension_Compatibility)
             ATOM(Header_HeaderExtension_AdvancedContentEncryption)
+            ATOM(Header_HeaderExtension_IndexPlaceholder)
             ATOM(Header_Padding)
             ATOM_END
         ATOM(Header_CodecList)
@@ -715,6 +717,12 @@ void File_Wm::Header_HeaderExtension_AdvancedContentEncryption()
 }
 
 //---------------------------------------------------------------------------
+void File_Wm::Header_HeaderExtension_IndexPlaceholder()
+{
+    Element_Name("Indec Placeholder");
+}
+
+//---------------------------------------------------------------------------
 void File_Wm::Header_CodecList()
 {
     Element_Name("Codec List");
@@ -735,7 +743,7 @@ void File_Wm::Header_CodecList()
         Get_UTF16L(CodecDescriptionLength*2, CodecDescription,  "Codec Description");
         Get_L2 (CodecInformationLength,                         "Codec Information Length");
         if (Type==2 && CodecInformationLength==2) //Audio and 2CC
-            Skip_C2(                                            "2CC"); //Not used, we have it elsewhere
+            Skip_B2(                                            "2CC"); //Not used, we have it elsewhere
         else if (Type==1 && CodecInformationLength==4) //Audio and 2CC
             Skip_C4(                                            "4CC"); //Not used, we have it elsewhere
         else

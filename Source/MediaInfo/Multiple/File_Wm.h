@@ -80,6 +80,7 @@ private :
     void Header_HeaderExtension_TimecodeIndexParameters();
     void Header_HeaderExtension_Compatibility();
     void Header_HeaderExtension_AdvancedContentEncryption();
+    void Header_HeaderExtension_IndexPlaceholder();
     void Header_CodecList();
     void Header_ScriptCommand();
     void Header_Marker();
