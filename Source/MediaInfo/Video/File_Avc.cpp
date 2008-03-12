@@ -760,6 +760,11 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
     //Parsing
     Ztring Data;
     Peek_Local(payloadSize, Data);
+    if (Data.size()!=payloadSize && Data.size()+1!=payloadSize)
+    {
+        Skip_XX(payloadSize,                                    "Unknown");
+        return; //This is not a text string
+    }
     size_t Data_Pos;
     size_t Data_Pos_Before=0;
     size_t Loop=0;
