@@ -435,6 +435,8 @@ void File_Mpegv::picture_start()
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
         Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
     Frame_Count++;
+    if (Frame_Count==4)
+        File_MaximumOffset*=4; //We are nearly sure this is a Mpegv stream, augmenting parsing limit
 
     //Name
     Element_Name("picture_start");
@@ -649,6 +651,7 @@ void File_Mpegv::slice_start_Fill()
         Stream[Pos].Searching_Payload=false;
         Stream[Pos].Searching_TimeStamp_End=false;
     }
+    Stream[0x00].Searching_TimeStamp_End=true; //picture_start
     Stream[0xB8].Searching_TimeStamp_End=true; //group_start
     Stream[0xB9].Searching_Payload=true; //sequence_end
 
@@ -866,6 +869,9 @@ void File_Mpegv::sequence_end()
 {
     //DETAILLEVEL_SET(0);
     Element_Name("sequence_end");
+
+    if (Frame_Count>0)
+        slice_start_Fill();
 }
 
 //---------------------------------------------------------------------------
@@ -992,6 +998,8 @@ bool File_Mpegv::Header_Parser_QuickSearch()
 
     if (Buffer_Offset+4>Buffer_Size)
     {
+        if(File_Offset+Buffer_Size==File_Size && Count_Get(Stream_General)==0 && Frame_Count>=2)
+            slice_start_Fill(); //End of file, and we have some frames
         Synched=false;
         Synchronize();
         return false;
