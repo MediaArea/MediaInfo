@@ -105,7 +105,17 @@ const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
         case 0x12 : return "ISO/IEC 14496-1 SL-packetized stream or FlexMux stream carried in PES packets";
         case 0x13 : return "ISO/IEC 14496-1 SL-packetized stream or FlexMux stream carried in ISO/IEC14496_sections.";
         case 0x14 : return "ISO/IEC 13818-6 Synchronized Download Protocol";
-        case 0x1B : return "AVC";
+        case 0x15 : return "Metadata carried in PES packets";
+        case 0x16 : return "Metadata carried in metadata_sections";
+        case 0x17 : return "Metadata carried in ISO/IEC 13818-6 Data Carousel";
+        case 0x18 : return "Metadata carried in ISO/IEC 13818-6 Object Carousel";
+        case 0x19 : return "Metadata carried in ISO/IEC 13818-6 Synchronized Download Protocol";
+        case 0x1A : return "IPMP stream (defined in ISO/IEC 13818-11, MPEG-2 IPMP)";
+        case 0x1B : return "AVC video stream as defined in ITU-T Rec. H.264 | ISO/IEC 14496-10 Video";
+        case 0x1C : return "ISO/IEC 14496-3 Audio, without using any additional transport syntax";
+        case 0x1D : return "ISO/IEC 14496-17 Text";
+        case 0x1E : return "Auxiliary video data stream as defined in ISO/IEC 23002-3";
+        case 0x7F : return "IPMP stream";
         default :
             if (ID<=0x7F) return "ITU-T Rec. H.222.0 | ISO/IEC 13818-1 reserved";
             switch (format_identifier)
@@ -143,6 +153,7 @@ const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
                             case 0x81 : return "AC3";
                             case 0x88 : return "VC-1";
                             case 0x87 : return "AC3+";
+                            case 0xD1 : return "Dirac";
                             default   : return "User Private";
                         }
             }
@@ -162,6 +173,8 @@ const char* Mpeg_Psi_stream_Codec(int8u ID, int32u format_identifier)
         case 0x10 : return "MPEG-4V";
         case 0x11 : return "AAC";
         case 0x1B : return "AVC";
+        case 0x1C : return "AAC";
+        case 0x1D : return "Text";
         default :
             switch (format_identifier)
             {
@@ -172,6 +185,7 @@ const char* Mpeg_Psi_stream_Codec(int8u ID, int32u format_identifier)
                         switch (ID)
                         {
                             case 0x81 : return "AC3";
+                            case 0x82 : return "Text";
                             case 0x87 : return "AC3+";
                             default   : return "";
                         }
@@ -192,6 +206,7 @@ const char* Mpeg_Psi_stream_Codec(int8u ID, int32u format_identifier)
                             case 0x81 : return "AC3";
                             case 0x87 : return "AC3+";
                             case 0x88 : return "VC-1";
+                            case 0xD1 : return "Dirac";
                             default   : return "";
                         }
             }
@@ -211,6 +226,8 @@ stream_t Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier)
         case 0x10 : return Stream_Video;
         case 0x11 : return Stream_Audio;
         case 0x1B : return Stream_Video;
+        case 0x1C : return Stream_Audio;
+        case 0x1D : return Stream_Text;
         default :
             switch (format_identifier)
             {
@@ -221,6 +238,7 @@ stream_t Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier)
                         switch (ID)
                         {
                             case 0x81 : return Stream_Audio;
+                            case 0x82 : return Stream_Text;
                             case 0x87 : return Stream_Audio;
                             default   : return Stream_Max;
                         }
@@ -241,6 +259,7 @@ stream_t Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier)
                             case 0x81 : return Stream_Audio;
                             case 0x87 : return Stream_Audio;
                             case 0x88 : return Stream_Video;
+                            case 0xD1 : return Stream_Video;
                             default   : return Stream_Max;
                         }
             }
@@ -571,9 +590,11 @@ void File_Mpeg_Psi::program_stream_map()
 
     //Parsing
     int16u program_stream_info_length, elementary_stream_map_length;
+    bool single_extension_stream_flag;
     BS_Begin();
     Skip_SB(                                                    "current_next_indicator");
-    Skip_S1( 2,                                                 "reserved");
+    Get_SB (single_extension_stream_flag,                       "single_extension_stream_flag");
+    Skip_SB(                                                    "reserved");
     Skip_S1( 5,                                                 "program_stream_map_version");
     Skip_S1( 7,                                                 "reserved");
     Mark_1 ();
@@ -594,7 +615,15 @@ void File_Mpeg_Psi::program_stream_map()
         Get_B1 (elementary_stream_id,                           "elementary_stream_id");
         Get_B2 (ES_info_length,                                 "ES_info_length");
         Element_Name(Ztring::ToZtring(elementary_stream_id, 16));
-
+        if (elementary_stream_id==0xFD && !single_extension_stream_flag)
+        {
+            Skip_S1(8,                                          "pseudo_descriptor_tag");
+            Skip_S1(8,                                          "pseudo_descriptor_length");
+            Mark_1();
+            Skip_S1(7,                                          "elementary_stream_id_extension");
+            if (ES_info_length>=3)
+                ES_info_length-=3;
+        }
         //Descriptors
         Descriptors_Size=ES_info_length;
         Descriptors();
@@ -969,6 +998,8 @@ void File_Mpeg_Psi::Descriptors()
     Streams[Stream_Current].Infos=Descriptors->Infos;
     if (Stream_Current==0x0000)
         format_identifier=Descriptors->format_identifier; //General
+    if (Streams[Stream_Current].descriptor_tag==0x00)
+        Streams[Stream_Current].descriptor_tag=Descriptors->descriptor_tag;
 
     delete Descriptors; //Descriptors=NULL;
 

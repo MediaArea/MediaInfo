@@ -88,14 +88,14 @@ public :
         int16u                                      program_number;
         ts_kind                                     Kind;
         int8u                                       stream_type;
-        //stream_t                                    KindOfStream;
+        int8u                                       descriptor_tag;
 
         stream()
         {
             program_number=0xFFFF;
             Kind=unknown;
-            stream_type=0;
-            //KindOfStream=Stream_Max;
+            stream_type=0x00;
+            descriptor_tag=0x00;
         }
     };
     std::map<int16u, stream> Streams;

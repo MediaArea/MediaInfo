@@ -65,6 +65,7 @@ private :
         File__Analyze*                              Parser;
         std::map<ZenLib::Ztring, ZenLib::Ztring>    Infos;
         int8u                                       stream_type;
+        int8u                                       descriptor_tag;
         File_Mpeg_Psi::ts_kind                      TS_Kind;
         int16u                                      program_number;
         int64u                                      TimeStamp_Start;
@@ -80,9 +81,10 @@ private :
         stream()
         {
             Parser=NULL;
-            stream_type=0;
+            stream_type=0x00;
+            descriptor_tag=0x00;
             TS_Kind=File_Mpeg_Psi::unknown;
-            program_number=0;
+            program_number=0x0000;
             TimeStamp_Start=(int64u)-1;
             TimeStamp_End=(int64u)-1;
             StreamIsRegistred=false;

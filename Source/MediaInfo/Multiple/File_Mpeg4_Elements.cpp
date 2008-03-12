@@ -1367,7 +1367,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             Fill("Codec", Codec, true);
             Fill("Codec/CC", Codec, true);
         }
-        #if defined(MEDIAINFO_MPEG4V_YES)
+        #if defined(MEDIAINFO_PCM_YES)
         if (Codec=="raw "
          || Config.Codec_Get(Ztring().From_Local(Codec.c_str()), InfoCodec_KindofCodec).find(_T("PCM"))==0
          || Config.Codec_Get(Ztring().From_Local(Codec.c_str()), InfoCodec_KindofCodec).find(_T("ADPCM"))==0)
@@ -1377,6 +1377,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             ((File_Pcm*)MI)->Codec=Ztring().From_Local(Codec.c_str());
 
             //Parsing
+            Open_Buffer_Continue(MI, Buffer+Buffer_Offset, 0);
             Open_Buffer_Finalize(MI);
 
             //Filling

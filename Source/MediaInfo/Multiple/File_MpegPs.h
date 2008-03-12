@@ -44,6 +44,7 @@ public :
     //In
     bool   FromTS;                  //Indicate if stream comes from TS
     int32u stream_type_FromTS;      //ID from TS
+    int32u descriptor_tag_FromTS;   //Descriptor from TS
     int8u  MPEG_Version;            //MPEG_Version from TS
 
 protected :
@@ -79,30 +80,28 @@ private :
     void padding_stream();      //0xBE
     void private_stream_2();    //0xBF
     void audio_stream();        //0xC0 --> 0xDF
-    void video_stream();        //0xE0 --> 0xEF, 0xFD (if !FromTS)
+    void video_stream();        //0xE0 --> 0xEF
     void LATM();                //0xFA
+    void extension_stream();    //0xFD
 
     //private_stream_1 specific
-    void           private_stream_1_ChooseID();
-    void           private_stream_1_ChooseID_VOB();
+    void           private_stream_1_Choose_DVD_ID();
     File__Analyze* private_stream_1_ChooseParser();
-    File__Analyze* private_stream_1_ChooseParser_RLE();
-    File__Analyze* private_stream_1_ChooseParser_AC3();
-    File__Analyze* private_stream_1_ChooseParser_DTS();
-    File__Analyze* private_stream_1_ChooseParser_SDDS();
-    File__Analyze* private_stream_1_ChooseParser_PCM();
-    File__Analyze* private_stream_1_ChooseParser_NULL();
     ZenLib::Char*  private_stream_1_ChooseExtension();
     void           private_stream_1_Element_Info();
     int8u          private_stream_1_ID;
     size_t         private_stream_1_Offset;
     bool           private_stream_1_IsDvdVideo;
 
+    //extension_stream specific
+    ZenLib::Char*  extension_stream_ChooseExtension();
+
     //Count
     int8u video_stream_Count;
     int8u audio_stream_Count;
     int8u private_stream_1_Count;
     bool  private_stream_2_Count;
+    int8u extension_stream_Count;
 
     //From packets
     int32u program_mux_rate;
@@ -127,6 +126,7 @@ private :
         };
 
         int8u          stream_type;
+        int8u          DVD_Identifier;
         File__Analyze* Parser;
         File__Analyze* Parser2; //Sometimes, we need to do parallel tests
         File__Analyze* Parser3; //Sometimes, we need to do parallel tests
@@ -140,6 +140,7 @@ private :
         ps_stream()
         {
             stream_type=0;
+            DVD_Identifier=0;
             Parser=NULL;
             Parser2=NULL;
             Parser3=NULL;
@@ -158,9 +159,11 @@ private :
     };
     std::map<int64u, ps_stream> Stream;
     std::map<int64u, ps_stream> Stream_Private1; //There can have multiple streams in one private stream
+    std::map<int64u, ps_stream> Stream_Extension; //There can have multiple streams in one private stream
 
     //Temp
     int64u SizeToAnalyze; //Total size of a chunk to analyse, it may be changed by the parser
+    int8u  stream_id_extension;
     bool   video_stream_Unlimited;
     int8u  video_stream_Unlimited_start_code;
 
@@ -168,6 +171,21 @@ private :
     bool Synchronize();
     bool Header_Parser_QuickSearch();
     bool Detect_NonMPEGPS();
+
+    //Parsers
+    File__Analyze* ChooseParser_Mpegv();
+    File__Analyze* ChooseParser_Mpeg4v();
+    File__Analyze* ChooseParser_Avc();
+    File__Analyze* ChooseParser_VC1();
+    File__Analyze* ChooseParser_Dirac();
+    File__Analyze* ChooseParser_Mpega();
+    File__Analyze* ChooseParser_AC3();
+    File__Analyze* ChooseParser_DTS();
+    File__Analyze* ChooseParser_SDDS();
+    File__Analyze* ChooseParser_AAC();
+    File__Analyze* ChooseParser_PCM();
+    File__Analyze* ChooseParser_RLE();
+    File__Analyze* ChooseParser_NULL();
 
     //File__Analyze helpers
     void Read_Buffer_Finalize_PerStream(std::map<int64u, ps_stream>::iterator &Temp);

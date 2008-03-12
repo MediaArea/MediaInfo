@@ -42,10 +42,13 @@ namespace MediaInfoLib
 class File_Mpeg_Descriptors : public File__Analyze
 {
 public :
-    int32u format_identifier; //Must be filled by the caller
+    //In
+    int32u   format_identifier; //Must be filled by the caller
     stream_t KindOfStream;
+
+    //Out
     std::map<ZenLib::Ztring, ZenLib::Ztring> Infos;
-    std::map<int32u, File_Mpeg_Psi::ts_kind> Kind;
+    int8u    descriptor_tag;
 
 protected :
     //Formats
@@ -95,6 +98,18 @@ private :
     void Descriptor_21() {Skip_XX(Element_Size, "Data");};
     void Descriptor_22() {Skip_XX(Element_Size, "Data");};
     void Descriptor_23() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_24() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_25() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_26() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_27() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_28() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_29() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_2A() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_2B() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_2C() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_2D() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_2E() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_2F();
     void Descriptor_40() {Skip_XX(Element_Size, "Data");};
     void Descriptor_41() {Skip_XX(Element_Size, "Data");};
     void Descriptor_42() {Skip_XX(Element_Size, "Data");};
@@ -194,6 +209,7 @@ namespace Mpeg_Descriptors
     const int32u S14A=0x53313441; //ATSC - Satellite
     const int32u SCTE=0x53435445; //SCTE
     const int32u VC_1=0x56432D31; //Exactly VC-1
+    const int32u drac=0x64726163; //Dirac
 
     const int32u DVB =0x00000001; //Forced value, does not exist is stream
 }

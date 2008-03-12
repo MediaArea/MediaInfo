@@ -48,6 +48,8 @@ namespace MediaInfoLib
 extern const char*  Mpeg_Psi_stream_type(int8u ID, int32u format_identifier);
 extern const char*  Mpeg_Psi_stream_Codec(int8u ID, int32u format_identifier);
 extern stream_t     Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier);
+extern const char*  Mpeg_Descriptors_stream_Codec(int8u descriptor_tag, int32u format_identifier);
+extern stream_t     Mpeg_Descriptors_stream_Kind(int8u descriptor_tag, int32u format_identifier);
 
 //---------------------------------------------------------------------------
 const char* Mpeg_Psi_kind(File_Mpeg_Psi::ts_kind ID)
@@ -238,13 +240,13 @@ void File_MpegTs::Read_Buffer_Finalize()
                 Stream->second.Parser->Open_Buffer_Finalize();
                 Merge (*Stream->second.Parser);
             }
-            /*
             //By the descriptors
-            if (StreamKind_Last==Stream_Max && Stream->second.KindOfStream!=Stream_Max)
+            if (StreamKind_Last==Stream_Max && Stream->second.StreamIsRegistred
+             && Mpeg_Descriptors_stream_Kind(Stream->second.descriptor_tag, format_identifier)!=Stream_Max)
             {
-                Stream_Prepare(Stream->second.KindOfStream);
+                StreamKind_Last=Mpeg_Descriptors_stream_Kind(Stream->second.descriptor_tag, format_identifier);
+                Stream_Prepare(StreamKind_Last);
             }
-            */
             //By the stream_type
             if (StreamKind_Last==Stream_Max)
             {
@@ -262,6 +264,8 @@ void File_MpegTs::Read_Buffer_Finalize()
                 //Codec
                 if (Get(StreamKind_Last, StreamPos_Last, _T("Codec")).empty())
                     Fill("Codec", Mpeg_Psi_stream_Codec(Stream->second.stream_type, format_identifier));
+                if (Get(StreamKind_Last, StreamPos_Last, _T("Codec")).empty())
+                    Fill("Codec", Mpeg_Descriptors_stream_Codec(Stream->second.descriptor_tag, format_identifier));
 
                 //TimeStamp
                 if (Stream->second.TimeStamp_End!=(int64u)-1)
@@ -701,6 +705,7 @@ void File_MpegTs::PSI_program_map_table()
             Streams[elementary_PID].Infos=Stream->second.Infos;
         Streams[elementary_PID].program_number=Stream->second.program_number;
         Streams[elementary_PID].stream_type=Stream->second.stream_type;
+        Streams[elementary_PID].descriptor_tag=Stream->second.descriptor_tag;
         Streams[elementary_PID].Searching_Payload_Start=true;
         Streams[elementary_PID].Searching_TimeStamp_Start=true;
         if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
@@ -811,6 +816,7 @@ void File_MpegTs::PES()
                 Streams[Element_Code].Parser=new File_MpegPs;
                 ((File_MpegPs*)Streams[Element_Code].Parser)->FromTS=true;
                 ((File_MpegPs*)Streams[Element_Code].Parser)->stream_type_FromTS=Streams[Element_Code].stream_type;
+                ((File_MpegPs*)Streams[Element_Code].Parser)->descriptor_tag_FromTS=Streams[Element_Code].descriptor_tag;
                 ((File_MpegPs*)Streams[Element_Code].Parser)->MPEG_Version=2;
                 Streams[Element_Code].Searching_Payload_Continue=true;
             #else

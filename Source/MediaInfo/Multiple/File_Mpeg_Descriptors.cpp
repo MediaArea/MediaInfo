@@ -543,6 +543,84 @@ const char* Mpeg_Descriptors_format_identifier(int32u format_identifier)
     }
 }
 
+const char* Mpeg_Descriptors_stream_Codec(int8u descriptor_tag, int32u format_identifier)
+{
+    switch (descriptor_tag)
+    {
+        case 0x02 : return "MPEG-V";
+        case 0x03 : return "MPEG-A";
+        case 0x1B : return "MPEG-4V";
+        case 0x1C : return "AAC";
+        case 0x28 : return "AVC";
+        case 0x2B : return "AAC";
+        case 0x2D : return "Text";
+        default :
+            switch (format_identifier)
+            {
+                case Mpeg_Descriptors::CUEI :
+                case Mpeg_Descriptors::SCTE : //SCTE
+                case Mpeg_Descriptors::GA94 :
+                case Mpeg_Descriptors::S14A : //ATSC
+                        switch (descriptor_tag)
+                        {
+                            case 0x81 : return "AC3";
+                            default   : return "";
+                        }
+                default                     :
+                        switch (descriptor_tag)
+                        {
+                            case 0x56 : return "Teletext";
+                            case 0x59 : return "DVB Subtiles";
+                            case 0x6A : return "AC3";
+                            case 0x7A : return "AC3+";
+                            case 0x7B : return "DTS";
+                            case 0x7C : return "AAC";
+                            case 0x81 : return "AC3";
+                            default   : return "";
+                        }
+            }
+    }
+}
+
+stream_t Mpeg_Descriptors_stream_Kind(int8u descriptor_tag, int32u format_identifier)
+{
+    switch (descriptor_tag)
+    {
+        case 0x02 : return Stream_Video;
+        case 0x03 : return Stream_Audio;
+        case 0x1B : return Stream_Video;
+        case 0x1C : return Stream_Audio;
+        case 0x28 : return Stream_Video;
+        case 0x2B : return Stream_Audio;
+        case 0x2D : return Stream_Text;
+        default :
+            switch (format_identifier)
+            {
+                case Mpeg_Descriptors::CUEI :
+                case Mpeg_Descriptors::SCTE : //SCTE
+                case Mpeg_Descriptors::GA94 :
+                case Mpeg_Descriptors::S14A : //ATSC
+                        switch (descriptor_tag)
+                        {
+                            case 0x81 : return Stream_Audio;
+                            default   : return Stream_Max;
+                        }
+                default                     :
+                        switch (descriptor_tag)
+                        {
+                            case 0x56 : return Stream_Text;
+                            case 0x59 : return Stream_Text;
+                            case 0x6A : return Stream_Audio;
+                            case 0x7A : return Stream_Audio;
+                            case 0x7B : return Stream_Audio;
+                            case 0x7C : return Stream_Audio;
+                            case 0x81 : return Stream_Audio;
+                            default   : return Stream_Max;
+                        }
+            }
+    }
+}
+
 //---------------------------------------------------------------------------
 extern const float32 Mpegv_frame_rate[]; //In Video/File_Mpegv.cpp
 extern const char*  Mpegv_chroma_format[]; //In Video/File_Mpegv.cpp
@@ -588,8 +666,12 @@ const char* Mpeg_Descriptors_AC3_Priority[]=
 //---------------------------------------------------------------------------
 void File_Mpeg_Descriptors::Read_Buffer_Init()
 {
-    KindOfStream=Stream_Max;
+    //In
     format_identifier=0x00000000;
+    KindOfStream=Stream_Max;
+
+    //Out
+    descriptor_tag=0x00;
 }
 
 //***************************************************************************
@@ -661,6 +743,18 @@ void File_Mpeg_Descriptors::Data_Parse()
         ELEMENT_CASE(21, "MuxCode");
         ELEMENT_CASE(22, "FmxBufferSize");
         ELEMENT_CASE(23, "MultiplexBuffer");
+        ELEMENT_CASE(24, "Content_labeling_descriptor");
+        ELEMENT_CASE(25, "Metadata_pointer_descriptor");
+        ELEMENT_CASE(26, "Metadata_descriptor");
+        ELEMENT_CASE(27, "Metadata_STD_descriptor");
+        ELEMENT_CASE(28, "AVC video descriptor");
+        ELEMENT_CASE(29, "IPMP_descriptor (defined in ISO/IEC 13818-11, MPEG-2 IPMP)");
+        ELEMENT_CASE(2A, "AVC timing and HRD descriptor");
+        ELEMENT_CASE(2B, "MPEG-2 AAC audio descriptor");
+        ELEMENT_CASE(2C, "FlexMux_Timing_descriptor");
+        ELEMENT_CASE(2D, "MPEG-4_text_descriptor");
+        ELEMENT_CASE(2E, "MPEG-4_audio_extension_descriptor");
+        ELEMENT_CASE(2F, "Auxiliary_video_data_descriptor");
         ELEMENT_CASE(40, "DVB - network_name_descriptor");
         ELEMENT_CASE(41, "DVB - service_list_descriptor");
         ELEMENT_CASE(42, "DVB - stuffing_descriptor");
@@ -737,13 +831,17 @@ void File_Mpeg_Descriptors::Data_Parse()
         ELEMENT_CASE(A9, "ATSC - DCC Arriving Request");
         ELEMENT_CASE(AA, "ATSC - Redistribution Control");
         ELEMENT_CASE(AB, "ATSC - DCC Location Code");
-        default: if (Element_Code>=64)
+        default: if (Element_Code>=0x40)
                     Element_Info("user private");
                  else
                     Element_Info("unknown");
                  Skip_XX(Element_Size,                          "Data");
                  break;
     }
+
+    //Info about format
+    if (Mpeg_Descriptors_stream_Kind((int8u)Element_Code, format_identifier)!=Stream_Max)
+        descriptor_tag=(int8u)Element_Code;
 }
 
 //***************************************************************************
@@ -797,7 +895,7 @@ void File_Mpeg_Descriptors::Descriptor_03()
     BS_End();
 
     //Filling
-    Infos[_T("BitRate/Mode")]=variable_rate_audio_indicator?_T("VBR"):_T("CBR");
+    Infos[_T("BitRate_Mode")]=variable_rate_audio_indicator?_T("VBR"):_T("CBR");
     Infos[_T("Codec")]=Ztring(Mpega_Version[ID])+Ztring(Mpega_Layer[layer]);
 }
 
@@ -811,7 +909,11 @@ void File_Mpeg_Descriptors::Descriptor_05()
     switch (format_identifier)
     {
         case Mpeg_Descriptors::AC_3 : Param_Info(_T("AC3")); KindOfStream=Stream_Audio; Infos[_T("Codec")]=_T("AC3"); break;
-        case Mpeg_Descriptors::DTS1 : Param_Info(_T("DTS")); KindOfStream=Stream_Audio; Infos[_T("Codec")]=_T("DTS"); break;
+        case Mpeg_Descriptors::DTS1 :
+        case Mpeg_Descriptors::DTS2 :
+        case Mpeg_Descriptors::DTS3 : Param_Info(_T("DTS")); KindOfStream=Stream_Audio; Infos[_T("Codec")]=_T("DTS"); break;
+        case Mpeg_Descriptors::VC_1 : Param_Info(_T("VC-1")); KindOfStream=Stream_Video; Infos[_T("Codec")]=_T("VC-1"); break;
+        case Mpeg_Descriptors::drac : Param_Info(_T("Dirac")); KindOfStream=Stream_Video; Infos[_T("Codec")]=_T("Dirac"); break;
         default : ;
     }
 }
@@ -862,11 +964,11 @@ void File_Mpeg_Descriptors::Descriptor_0E()
     int32u maximum_bitrate;
     BS_Begin();
     Skip_S1( 2,                                                 "reserved");
-    Get_S3 (22, maximum_bitrate,                                "maximum_bitrate");
+    Get_S3 (22, maximum_bitrate,                                "maximum_bitrate"); Param_Info(maximum_bitrate*400, " bps");
     BS_End();
 
     //Filling
-    Infos[_T("BitRate/Max")]=Ztring::ToZtring(maximum_bitrate);
+    Infos[_T("BitRate_Maximum")]=Ztring::ToZtring(maximum_bitrate*400);
 }
 
 //---------------------------------------------------------------------------
@@ -886,6 +988,16 @@ void File_Mpeg_Descriptors::Descriptor_10()
     Skip_S1( 2,                                                 "reserved");
     Info_S3(22, sb_size,                                        "sb_size"); Param_Info(sb_size, " bytes");
     BS_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::Descriptor_2F()
+{
+    //Parsing
+    int8u aux_video_params_length;
+    Skip_B1(                                                    "aux_video_type"); //ISO/IEC 23002-3
+    Get_B1 (aux_video_params_length,                            "aux_video_params_length");
+    Skip_XX(aux_video_params_length,                            "aux_video_params");
 }
 
 //---------------------------------------------------------------------------
