@@ -79,7 +79,8 @@ bool File_Tta::Header_Begin()
     //Synchro
     if (Buffer_Offset+4>Buffer_Size)
         return false;
-    if (File_Offset==0 && CC4(Buffer+Buffer_Offset)!=CC4("TTA1"))
+    if ((File_Offset==0 && CC4(Buffer+Buffer_Offset)!=CC4("TTA1"))
+     || (File_Offset!=0 && Count_Get(Stream_General)==0))
     {
         Finnished();
         return false;
