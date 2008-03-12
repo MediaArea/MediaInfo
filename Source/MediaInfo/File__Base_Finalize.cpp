@@ -52,7 +52,7 @@ void File__Analyze::General_Fill()
 {
     //Coherancy
     if (Count_Get(Stream_General)==0)
-        Stream_Prepare(Stream_General);
+        return;
 
     //FileName and FileSize
     //if (File_Name.size()>0 && (General[0](_T("CompleteName")).empty() || General[0](_T("FileSize")).empty())) //Do it even if already, some merges can modify it
@@ -380,13 +380,11 @@ void File__Analyze::Finalize_Audio(size_t Pos)
            Audio[Pos](_T("SamplingCount")).From_Number(int64u(((float64)PlayTime)/1000*SamplingRate));
     }
     //Playtime
-    if (General[0](_T("PlayTime")).empty())
+    if (Audio[Pos](_T("PlayTime")).empty() && Audio[Pos](_T("SamplingRate")).To_int64s()!=0)
     {
-        int64s PlayTime=Audio[Pos](_T("PlayTime")).To_int64s();
-        if (PlayTime==0 && Audio[Pos](_T("SamplingRate")).To_int64s()!=0)
-            PlayTime=Audio[Pos](_T("SamplingCount")).To_int64s()*1000/Audio[Pos](_T("SamplingRate")).To_int64s();
+        int64u PlayTime=Audio[Pos](_T("SamplingCount")).To_int64u()*1000/Audio[Pos](_T("SamplingRate")).To_int64u();
         if (PlayTime)
-           General[0](_T("PlayTime")).From_Number(PlayTime);
+           Audio[Pos](_T("PlayTime")).From_Number(PlayTime);
     }
     //Delay/Video0
     if (Video.size()>0 && !Audio[Pos](_T("Delay")).empty())
