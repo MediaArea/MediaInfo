@@ -270,7 +270,7 @@ void File_Dts::Data_Parse_Fill()
         Fill("SamplingRate", 96000);
     else
         Fill("SamplingRate", DTS_SamplingRate[sample_frequency]);
-    if (bit_rate<29)
+    if (DTS_HD_Unknown_Size==0 && bit_rate<29)
         Fill("BitRate", DTS_BitRate[bit_rate]);
     else if (bit_rate==29)
         Fill("BitRate", "Open");
