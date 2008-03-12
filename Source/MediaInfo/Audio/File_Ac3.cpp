@@ -496,7 +496,7 @@ bool File_Ac3::Synchronize()
             //Retrieving some info
             int8u bsid =(CC1(Buffer+Buffer_Offset+5)<<3)&0x1F;
             int16u Size=0;
-            if (bsid<0x08)
+            if (bsid<=0x08)
             {
                 int8u fscod     =(CC1(Buffer+Buffer_Offset+4)>>6)&0x03;
                 int8u frmsizecod=(CC1(Buffer+Buffer_Offset+4)   )&0x3F;
