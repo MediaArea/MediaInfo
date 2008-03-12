@@ -54,6 +54,9 @@ File_Ogg_SubElement::File_Ogg_SubElement()
 : File__Analyze()
 {
     SetupFinnished=false;
+
+    //Internal
+    Setup_Vorbis=NULL;
 }
 
 //---------------------------------------------------------------------------
