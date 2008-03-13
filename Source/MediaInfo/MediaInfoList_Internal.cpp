@@ -93,7 +93,10 @@ size_t MediaInfoList_Internal::Open(const String &File, const fileoptions_t Opti
     for (ZtringList::iterator L=List.begin(); L!=List.end(); L++)
         ToParse.push(*L);
     ToParse_Total+=List.size();
-    State=ToParse_AlreadyDone*10000/ToParse_Total;
+    if (ToParse_Total)
+        State=ToParse_AlreadyDone*10000/ToParse_Total;
+    else
+        State=10000;
     CS.Leave();
 
     //Parsing
