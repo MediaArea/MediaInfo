@@ -989,7 +989,7 @@ void File__Analyze::Skip_SL(const char* Name)
 }
 
 //***************************************************************************
-// Characters
+// Exp-Golomb
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -1080,6 +1080,76 @@ void File__Analyze::Skip_UE(const char* Name)
     }
     else
         BS->Skip(LeadingZeroBits);
+}
+
+//***************************************************************************
+// Inverted Exp-Golomb
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_SI(int32s &Info, const char* Name)
+{
+    if (BS->Remain()==0)
+        return;
+
+    Info=1;
+    while(BS->Remain()>0 && BS->GetB()==0)
+    {
+        Info<<=1;
+        if (BS->Remain()==0)
+        {
+            Trusted_IsNot("(Problem)");
+            Info=0;
+            return;
+        }
+        if(BS->GetB()==1)
+            Info++;
+    }
+    Info--;
+
+    if (Info!=0 && BS->Remain()>0 && BS->GetB()==1)
+        Info=-Info;
+
+    if (Config_Details>0)
+        Param(Name, Info);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_SI(const char* Name)
+{
+    int32s Info;
+    Get_SI(Info, Name);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_UI(int32u &Info, const char* Name)
+{
+    if (BS->Remain()==0)
+        return;
+    Info=1;
+    while(BS->Remain()>0 && BS->GetB()==0)
+    {
+        Info<<=1;
+        if (BS->Remain()==0)
+        {
+            Trusted_IsNot("(Problem)");
+            Info=0;
+            return;
+        }
+        if(BS->GetB()==1)
+            Info++;
+    }
+    Info--;
+
+    if (Config_Details>0)
+        Param(Name, Info);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_UI(const char* Name)
+{
+    int32u Info;
+    Get_UI(Info, Name);
 }
 
 //***************************************************************************

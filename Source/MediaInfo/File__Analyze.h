@@ -395,6 +395,17 @@ public :
     #define Info_SE(_INFO, _NAME) int32s _INFO; Get_SE(_INFO, _NAME)
 
     //***************************************************************************
+    // Interleaved Exp-Golomb
+    //***************************************************************************
+
+    void Get_UI (int32u &Info, const char* Name);
+    void Get_SI (int32s &Info, const char* Name);
+    void Skip_UI(              const char* Name);
+    void Skip_SI(              const char* Name);
+    #define Info_UI(_INFO, _NAME) int32u _INFO; Get_UI(_INFO, _NAME)
+    #define Info_SI(_INFO, _NAME) int32s _INFO; Get_SI(_INFO, _NAME)
+
+    //***************************************************************************
     // Characters
     //***************************************************************************
 
@@ -537,18 +548,33 @@ public :
                 Element_Begin(_NAME); \
                 Skip_SB(                                        _NAME); \
 
-    #define TEST_SB(_CODE, _NAME) \
+    #define TESTELSE_SB_GET(_CODE, _NAME) \
         { \
-            Element_Begin(_NAME); \
-            Get_SB (_CODE,                                      _NAME); \
+            Peek_SB(_CODE); \
             if (_CODE) \
             { \
+                Element_Begin(_NAME); \
+                Skip_SB(                                        _NAME); \
 
-    #define TEST_SB_ELSE() \
+    #define TESTELSE_SB_SKIP(_NAME) \
+        { \
+            bool Temp; \
+            Peek_SB(Temp); \
+            if (Temp) \
+            { \
+                Element_Begin(_NAME); \
+                Skip_SB(                                        _NAME); \
+
+    #define TESTELSE_SB_ELSE(_NAME) \
                 Element_End(); \
             } \
             else \
             { \
+                Skip_SB(                                        _NAME); \
+
+    #define TESTELSE_SB_END() \
+            } \
+        } \
 
     #define TEST_SB_END() \
                 Element_End(); \

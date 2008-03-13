@@ -46,6 +46,7 @@ public :
 
 protected :
     //Format
+    void Read_Buffer_Continue ();
     void Read_Buffer_Finalize ();
 
     //Information

@@ -227,6 +227,14 @@ File_Avc::File_Avc()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void File_Avc::Read_Buffer_Continue()
+{
+    //Integrity
+    if (File_Offset==0 && Detect_NonAVC())
+        return;
+}
+
+//---------------------------------------------------------------------------
 void File_Avc::Read_Buffer_Finalize()
 {
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
