@@ -1154,6 +1154,7 @@ void File_Wm::Data()
         if (IsDvrMs && !Temp->second.Parser && Temp->second.AverageBitRate>=32768)
         {
             Temp->second.Parser=new File_Mpega; //No stream properties, trying to detect it in datas...
+            ((File_Mpega*)Temp->second.Parser)->Frame_Count_Valid=8;
         }
         if (Temp->second.Parser)
         {
