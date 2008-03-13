@@ -225,10 +225,10 @@
           <Debugging Name="DebugSourceDirs"></Debugging>
         </Debugging>
         <Parameters>
-          <Parameters Name="RunParams">"D:\test 2008-02-06 - TS\multitrack audio streams\Copie de speed.m2p.ts"</Parameters>
+          <Parameters Name="RunParams">--Inform=file://temp.txt test.mpg</Parameters>
           <Parameters Name="Launcher"></Parameters>
           <Parameters Name="UseLauncher">True</Parameters>
-          <Parameters Name="DebugCWD">E:\Programmation\MediaInfo\Release\BCB\CLI</Parameters>
+          <Parameters Name="DebugCWD">F:\Programmation\MediaInfo\Release\BCB\CLI</Parameters>
           <Parameters Name="HostApplication"></Parameters>
           <Parameters Name="RemoteHost"></Parameters>
           <Parameters Name="RemotePath"></Parameters>

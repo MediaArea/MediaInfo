@@ -29,7 +29,6 @@
         <property category="build.config.1" name="type" value="Toolset"/>
         <property category="build.config.1" name="win32.win32b.builddir" value="Release_Build"/>
         <property category="build.node" name="dontverifylibs" value="1"/>
-        <property category="build.node" name="lastconfig" value="Debug_Build"/>
         <property category="build.node" name="name" value="MediaInfo_WxWidgets_WithoutLib.exe"/>
         <property category="build.node" name="packages" value="vcl;rtl;vclx;xmlrtl;vclie;inet;inetdbbde;inetdbxpress;soaprtl;dbrtl;dsnap;bcbie;vcldb;websnap;webdsnap;vclactnband"/>
         <property category="build.node" name="use_packages" value="1"/>
@@ -453,6 +452,7 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate__Writer.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate__Writer" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate_MpegTs" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.h"/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Thread.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Thread" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList_Internal.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfoList_Internal" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>

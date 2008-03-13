@@ -203,7 +203,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source"
-				PreprocessorDefinitions="MEDIAINFO_DLL"
+				PreprocessorDefinitions="MEDIAINFO_DLLx"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -221,7 +221,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ZenLib.lib"
+				AdditionalDependencies="MediaInfo.lib ZenLib.lib zlib.lib"
 				OutputFile="../../../Release/MSVC/CLI/MediaInfo.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\..\..\Shared\Library\MSVC"
