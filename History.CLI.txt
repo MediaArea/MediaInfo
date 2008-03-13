@@ -19,6 +19,7 @@ Version 0.7.6.1, 2008-03-14
 + MPEG-TS: DVB subtitles/Teletext management
 x MPEG-4 Visual (DivX/XviD): writing library name was missing
 x MPEG-Video: some DTS files with wrong extension were detected as MPEG-Video
+x SWF: Compressed SWF files support is back
 x "Inform" option with file as parameter was not well parsed
 
 Version 0.7.6.0, 2008-02-29
