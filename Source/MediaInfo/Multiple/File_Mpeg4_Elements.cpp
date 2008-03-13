@@ -1373,16 +1373,15 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
          || Config.Codec_Get(Ztring().From_Local(Codec.c_str()), InfoCodec_KindofCodec).find(_T("ADPCM"))==0)
         {
             //Creating the parser
-            File__Analyze* MI=new File_Pcm;
-            ((File_Pcm*)MI)->Codec=Ztring().From_Local(Codec.c_str());
+            File_Pcm MI;
+            MI.Codec=Ztring().From_Local(Codec.c_str());
 
             //Parsing
-            Open_Buffer_Continue(MI, Buffer+Buffer_Offset, 0);
-            Open_Buffer_Finalize(MI);
+            Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, 0);
+            Open_Buffer_Finalize(&MI);
 
             //Filling
-            Merge(*MI, StreamKind_Last, 0, StreamPos_Last);
-            delete MI; //MI=NULL;
+            Merge(MI, StreamKind_Last, 0, StreamPos_Last);
         }
         #endif
         Fill("Channel(s)", Channels, 10, true);

@@ -902,9 +902,15 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     else if (Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("PCM"))==0
           || Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("ADPCM"))==0)
     {
+        //Creating the parser
         File_Pcm MI;
         MI.Codec=Codec;
+
+        //Parsing
+        Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, 0);
         Open_Buffer_Finalize(&MI);
+
+        //Filling
         Merge(MI, StreamKind_Last, 0, StreamPos_Last);
     }
     #endif
