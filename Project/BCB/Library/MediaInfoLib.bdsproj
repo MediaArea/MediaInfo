@@ -75,8 +75,6 @@
         <property category="win32.Debug_Build.win32b.tlib" name="option.outputdir.arg.merge" value="0"/>
         <property category="win32.Debug_Build.win32b.tlib" name="option.outputdir.enabled" value="1"/>
         <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.1" value="NDEBUG"/>
-        <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.2" value="MEDIAINFO_ALL_NO"/>
-        <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.3" value="MEDIAINFO_MPEGTS_YES"/>
         <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.merge" value="1"/>
         <property category="win32.Release_Build.win32b.bcc32" name="option.D.enabled" value="1"/>
         <property category="win32.Release_Build.win32b.bcc32" name="option.O2.enabled" value="1"/>
@@ -93,6 +91,9 @@
         <property category="win32.Release_Build.win32b.tasm32" name="option.zd.enabled" value="0"/>
         <property category="win32.Release_Build.win32b.tasm32" name="option.zi.enabled" value="0"/>
         <property category="win32.Release_Build.win32b.tasm32" name="option.zn.enabled" value="1"/>
+        <property category="win32.Release_Build.win32b.tlib" name="option.P.arg" value="128"/>
+        <property category="win32.Release_Build.win32b.tlib" name="option.P.arg.merge" value="1"/>
+        <property category="win32.Release_Build.win32b.tlib" name="option.P.enabled" value="1"/>
         <property category="win32.Release_Build.win32b.tlib" name="option.outputdir.arg.1" value="..\..\..\release\bcb\library"/>
         <property category="win32.Release_Build.win32b.tlib" name="option.outputdir.arg.merge" value="0"/>
         <property category="win32.Release_Build.win32b.tlib" name="option.outputdir.enabled" value="1"/>
@@ -343,6 +344,7 @@
         <FILE FILENAME="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Base.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate__Base" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Base.h"/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Writer.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate__Writer" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Writer.h"/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate_MpegTs" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.h"/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_MpcSv8.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpcSv8" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
