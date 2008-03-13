@@ -12,9 +12,18 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
-Version 0.7.6.1, 2008-03-
+Version 0.7.6.1, 2008-03-14
 ---------------
 + Lithuanian translation updated
++ AC3: TrueHD detection
++ MPEG-TS (or Bluray): VC-1, AC3+ and AC3 TrueHD detection
++ AVC in MKV: all SEI userdata infos from x264/eavc in Writing library settings
++ EVO: Better detection of duration
++ Dirac: raw files parsing
++ MPEG-TS: Dirac management
++ MPEG-TS: DVB subtitles/Teletext management
+x MPEG-4 Visual (DivX/XviD): writing library name was missing
+x MPEG-Video: some DTS files with wrong extension were detected as MPEG-Video
 
 Version 0.7.6.0, 2008-02-29
 ---------------
