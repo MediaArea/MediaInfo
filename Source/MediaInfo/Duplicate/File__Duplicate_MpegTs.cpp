@@ -179,7 +179,7 @@ void File__Duplicate_MpegTs::Manage_PAT (const int8u* ToAdd, size_t ToAdd_Size)
         return;
 
     //version_number
-    int16u PAT_version_number_FromBuffer=(CC1(Buffer+Buffer_Pos+2)>>1)&0x1F;
+    int8u PAT_version_number_FromBuffer=(CC1(Buffer+Buffer_Pos+2)>>1)&0x1F;
     if (PAT_version_number==0xFF)
         PAT_version_number=PAT_version_number_FromBuffer;
     if (PAT_version_number_ToBuffer==0xFF)
@@ -229,7 +229,7 @@ void File__Duplicate_MpegTs::Manage_PMT (const int8u* ToAdd, size_t ToAdd_Size)
 
     //version_number
     int16u program_number=CC2(Buffer+Buffer_Pos);
-    int16u PMT_version_number_FromBuffer=(CC1(Buffer+Buffer_Pos+2)>>1)&0x1F;
+    int8u PMT_version_number_FromBuffer=(CC1(Buffer+Buffer_Pos+2)>>1)&0x1F;
     if (PMT_version_numbers.find(program_number)==PMT_version_numbers.end())
         PMT_version_numbers[program_number]=PMT_version_number_FromBuffer;
     if (PMT_version_numbers_ToBuffer.find(program_number)==PMT_version_numbers_ToBuffer.end())

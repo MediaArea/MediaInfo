@@ -376,7 +376,7 @@ void File_Vc1::FrameHeader_Fill()
     if (framerate_present)
     {
         if (framerate_form)
-            FrameRate=((float32)(framerateexp+1))/32.0;
+            FrameRate=((float32)(framerateexp+1))/(float32)32;
         else if (Vc1_FrameRate_dr(frameratecode_dr))
             FrameRate=Vc1_FrameRate_enr(frameratecode_enr)/Vc1_FrameRate_dr(frameratecode_dr);
     }
