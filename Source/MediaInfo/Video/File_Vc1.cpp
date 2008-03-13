@@ -458,12 +458,12 @@ void File_Vc1::SequenceHeader()
                     Get_S1 ( 8, AspectRatioY,                   "AspectRatioY");
                 }
                 TEST_SB_GET(framerate_present,                  "framerate_present");
-                    TEST_SB(framerate_form,                     "framerate_form");
+                    TESTELSE_SB_GET(framerate_form,             "framerate_form");
                         Get_S2 (16, framerateexp,               "framerateexp"); Param_Info((float32)((framerateexp+1)/32.0), 3, " fps");
-                    TEST_SB_ELSE();
+                    TESTELSE_SB_ELSE(                           "framerate_present");
                         Get_S1 ( 8, frameratecode_enr,          "frameratecode_enr"); Param_Info(Vc1_FrameRate_enr(frameratecode_enr));
                         Get_S1 ( 4, frameratecode_dr,           "frameratecode_dr"); Param_Info(Vc1_FrameRate_dr(frameratecode_dr));
-                    TEST_SB_END();
+                    TESTELSE_SB_END();
                 TEST_SB_END();
             TEST_SB_END();
             TEST_SB_SKIP(                                       "Unknown");
