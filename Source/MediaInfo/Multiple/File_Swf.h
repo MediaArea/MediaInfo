@@ -39,10 +39,18 @@ namespace MediaInfoLib
 
 class File_Swf : public File__Analyze
 {
+public :
+    //In
+    int32u FileLength;;
+    int8u  Version;
+
 protected :
     //Information
     void HowTo (stream_t StreamKind);
 
+public :
+    File_Swf();
+    
 private :
     //Replacement of File__Base
     //const int8u* Buffer;

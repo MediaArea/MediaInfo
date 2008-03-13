@@ -171,49 +171,17 @@ namespace Elements
 }
 
 //***************************************************************************
-// Functions
+// Constructor/Destructor
 //***************************************************************************
 
-/*
 //---------------------------------------------------------------------------
-void File_Swf::Read_Buffer_Continue()
+File_Swf::File_Swf()
+:File__Analyze()
 {
-    //SWF buffer
-    //Buffer=File__Base::Buffer;
-    //Buffer_Size=File__Base::Buffer_Size;
-    //File_Offset=File__Base::File_Offset;
-
-    //Header handling
-    if (File_Offset==0)
-    {
-        if (Buffer_Size<20 || (CC3(Buffer)!=CC3("FWS") && CC3(Buffer)!=CC3("CWS")))
-        {
-            File__Base::File_Offset=File_Size;
-            return;
-        }
-        //Compressed file handling
-        if (CC3(Buffer)==CC3("CWS"))
-        {
-            if (!Decompress())
-                return;
-        }
-        else
-            Header();
-    }
-    if (Count_Get(Stream_General)==0)
-    {
-        Finnished();
-        return;
-    }
-
-    //Parsing
-    while (Buffer_Parse());
-
-    //SWF buffer
-    //if (Buffer!=File__Base::Buffer)
-    //    delete Buffer; //Buffer=NULL;
+    //In
+    FileLength=0;
+    Version=0;
 }
-*/
 
 //***************************************************************************
 // Buffer
@@ -223,20 +191,27 @@ void File_Swf::Read_Buffer_Continue()
 void File_Swf::FileHeader_Parse()
 {
     //Parsing
-    Element_Begin("SWF header", 8);
-    int32u Signature, FileLength;
-    int8u Version;
-    Get_C3 (Signature,                                          "Signature");
-    Get_L1 (Version,                                            "Version");
-    Get_L4 (FileLength,                                         "FileLength");
-    Element_End();
+    int32u Signature;
+    if (FileLength==0 && Version==0)
+    {
+        Element_Begin("SWF header", 8);
+            Get_C3 (Signature,                                  "Signature");
+            Get_L1 (Version,                                    "Version");
+            Get_L4 (FileLength,                                 "FileLength");
+        Element_End();
+    }
+    else
+    {
+        //Was already done by comressed file handling
+        Signature=0x465753;
+    }
 
     //Compressed file handling
-    //if (CC3(Buffer)==CC3("CWS"))
-    //{
-    //    if (!Decompress())
-    //        return;
-    //}
+    if (Signature==0x435753) //CWS
+    {
+        Decompress();
+        return;
+    }
 
     //Parsing
     //Parsing - BitStream
@@ -268,7 +243,7 @@ void File_Swf::FileHeader_Parse()
 
     FILLING_BEGIN();
         //Integrity
-        if (Signature!=CC3("FWS") && Signature!=CC3("CWS"))
+        if (Signature!=0x465753 && Signature!=0x435753) //FWS or CWS
         {
             Finnished();
             return;
@@ -477,7 +452,6 @@ void File_Swf::DefineVideoStream()
 //---------------------------------------------------------------------------
 bool File_Swf::Decompress()
 {
-    /*
     if (Buffer_Size!=File_Size)
     {
         //We must have the complete file in memory
@@ -494,26 +468,23 @@ bool File_Swf::Decompress()
     if (uncompress((Bytef*)Dest, &Dest_Size, (const Bytef*)Buffer+Buffer_Offset+8, Source_Size)<0)
     {
         delete[] Dest; //Dest=NULL
-        TRUSTED_ISNOT("Error while decompressing");
-        FLUSH();
-        File__Base::File_Offset=File_Size;
+        Trusted_IsNot("Error while decompressing");
+        Finnished();
         return false;
     }
 
-    //Configuring
-    Buffer=Dest;
-    Buffer_Size=(size_t)Dest_Size;
-    File_Offset=8;
+    File_Swf MI;
+    MI.FileLength=FileLength;
+    MI.Version=Version;
+    Open_Buffer_Init(&MI, FileLength-8, File_Offset+Buffer_Offset+8);
+    Open_Buffer_Continue(&MI, Dest, FileLength-8);
+    Open_Buffer_Finalize(&MI);
+    Merge(MI);
+    Merge(MI, Stream_General, 0, 0);
+    delete Dest; //Dest=NULL;
 
-    //The rest of the header
-    Header_Continue();
-
-    //Filling
-    ELEMENT(0, "Compressed SWF header", Element_Size);
-    FLUSH();
-
+    Finnished();
     return true;
-    */
 }
 
 //***************************************************************************
