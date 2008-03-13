@@ -229,10 +229,10 @@ File_Mpega::File_Mpega()
     Base=this;
 
     //Configuration
-    File_MaximumOffset=64*1024;
+    File_MaximumOffset=128*1024;
 
     //In
-    Frame_Count_Valid=8;
+    Frame_Count_Valid=16;
     FrameIsAlwaysComplete=false;
 
     //Out
@@ -846,6 +846,8 @@ void File_Mpega::Header_Encoders_Lame()
 
 void File_Mpega::Encoded_Library_Guess()
 {
+    return; //TODO: Not yet enough precise
+
     if (Block_Count[1]==0) //No short blocks
     {
         if (mode==2) //Dual Mono
