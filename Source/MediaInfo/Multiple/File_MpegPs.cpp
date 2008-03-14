@@ -994,6 +994,9 @@ void File_MpegPs::Detect_EOF()
 void File_MpegPs::MPEG_program_end()
 {
     Element_Name("MPEG_program_end");
+
+    //Filling
+    Synched=false; //We don't know what can be after
 }
 
 //---------------------------------------------------------------------------
@@ -1087,6 +1090,7 @@ void File_MpegPs::pack_start()
         SizeToAnalyze=1*1024*1024; //Not too less
 
     //Autorisation of other streams
+    Stream[0xB9].Searching_Payload=true;            //MPEG_program_end
     Stream[0xBA].Searching_Payload=false;           //We need not parse pack_start
     Stream[0xBB].Searching_Payload=true;            //system_header_start
     Stream[0xBD].Searching_Payload=true;            //private_stream_1
@@ -1891,14 +1895,46 @@ ZenLib::Char* File_MpegPs::extension_stream_ChooseExtension()
 bool File_MpegPs::Synchronize()
 {
     //Synchronizing
-    while (Buffer_Offset+4<=Buffer_Size
-      && !(CC3(Buffer+Buffer_Offset  )==0x000001
-        && CC1(Buffer+Buffer_Offset+3)>=0xB9))
-        Buffer_Offset++;
-    if (Buffer_Offset+4>Buffer_Size)
+    while (Buffer_Offset+6<=Buffer_Size)
+    {
+        while (Buffer_Offset+6<=Buffer_Size)
+        {
+            if (CC3(Buffer+Buffer_Offset)==0x000001 && CC1(Buffer+Buffer_Offset+3)>=0xB9)
+                break; //while()
+            Buffer_Offset++;
+        }
+
+        if (Buffer_Offset+6<=Buffer_Size)//Testing if size is coherant
+        {
+            int8u start_code=CC1(Buffer+Buffer_Offset+3);
+            if (start_code!=0xB9 && start_code!=0xBA)
+            {
+                int16u Size=CC2(Buffer+Buffer_Offset+4);
+                if (start_code>=0xE0 && start_code<=0xEF && Size==0)
+                    break; //while //We can't have size, we must trust...
+                if (Buffer_Offset+6+Size+4>Buffer_Size)
+                {
+                    if (File_Offset+Buffer_Offset+6+Size==File_Size)
+                        break; //while
+                    return false; //Need more data
+                }
+
+                //Testing
+                if ((CC3(Buffer+Buffer_Offset+6+Size)==0x000001 && CC1(Buffer+Buffer_Offset+6+Size+3)>=0xB9)
+                  || CC3(Buffer+Buffer_Offset+6+Size+1)==0x000001  //With 1 trailing 0x00
+                  || CC3(Buffer+Buffer_Offset+6+Size+1)==0x000000) //With 2+ trailing 0x00 
+                    break; //while
+                else
+                    Buffer_Offset++;
+            }
+            else
+                break; //while //We can't have size, we must trust...
+        }
+    }
+    if (Buffer_Offset+6>Buffer_Size)
     {
         //Parsing last bytes
-        if (Buffer_Offset+4==Buffer_Size)
+        if (Buffer_Offset+6==Buffer_Size)
         {
             if (CC3(Buffer+Buffer_Offset)!=0x000001)
             {
@@ -1906,11 +1942,19 @@ bool File_MpegPs::Synchronize()
                 if (CC3(Buffer+Buffer_Offset)!=0x000001)
                 {
                     Buffer_Offset++;
-                    if (CC2(Buffer+Buffer_Offset)!=0x0000)
+                    if (CC3(Buffer+Buffer_Offset)!=0x000001)
                     {
                         Buffer_Offset++;
-                        if (CC1(Buffer+Buffer_Offset)!=0x00)
+                        if (CC3(Buffer+Buffer_Offset)!=0x000001)
+                        {
                             Buffer_Offset++;
+                            if (CC2(Buffer+Buffer_Offset)!=0x0000)
+                            {
+                                Buffer_Offset++;
+                                if (CC1(Buffer+Buffer_Offset)!=0x00)
+                                    Buffer_Offset++;
+                            }
+                        }
                     }
                 }
             }

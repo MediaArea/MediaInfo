@@ -602,10 +602,20 @@ void File_Mpeg_Psi::program_stream_map()
     Get_B2 (program_stream_info_length,                         "program_stream_info_length");
 
     //Descriptors
+    if (Element_Offset+program_stream_info_length>Element_Size)
+    {
+        Trusted_IsNot("Integrity error");
+        return;
+    }
     Descriptors_Size=program_stream_info_length;
     Descriptors();
 
     Get_B2 (elementary_stream_map_length,                       "elementary_stream_map_length");
+    if (4+program_stream_info_length+2+elementary_stream_map_length>Element_Size)
+    {
+        Trusted_IsNot("Integrity error");
+        return;
+    }
     while (Element_Offset<(int32u)(4+program_stream_info_length+2+elementary_stream_map_length))
     {
         Element_Begin();
@@ -632,6 +642,9 @@ void File_Mpeg_Psi::program_stream_map()
 
         //Filling
         Streams[elementary_stream_id].stream_type=stream_type;
+
+        if (Element_Offset==Element_Size)
+            break; //there is a problem
     }
 }
 
