@@ -875,7 +875,7 @@ void MediaInfo_Config::Inform_Set (const ZtringListList &NewValue)
 
         //Read
         int8u* Buffer=new int8u[(size_t)F.Size_Get()+1];
-        Buffer[(size_t)F.Size_Get()+1]='\0';
+        Buffer[(size_t)F.Size_Get()]='\0';
         F.Read(Buffer, (size_t)F.Size_Get());
         F.Close();
         Ztring FromFile; FromFile.From_Local((char*)Buffer);
