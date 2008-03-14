@@ -367,12 +367,8 @@ void File_Ac3::Header_Parse()
 
     //CRC
     int16u CRC_16=0x0000;
-    const int8u* CRC_16_Buffer=Buffer+Buffer_Offset+2; //After syncword
-    while(CRC_16_Buffer<Buffer+Buffer_Offset+Size)
-    {
-        CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(*CRC_16_Buffer)];
-        CRC_16_Buffer++;
-    }
+    for (int16u CRC_16_Pos=2; CRC_16_Pos<Size; CRC_16_Pos++) //After syncword
+        CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(Buffer[Buffer_Offset+CRC_16_Pos])];
 
     //Filling
     Header_Fill_Size(CRC_16==0x0000?Size:Element_Offset); //If CRC_16!=0x0000, CRC error
