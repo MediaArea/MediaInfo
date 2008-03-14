@@ -487,7 +487,7 @@ bool File_Ac3::Synchronize()
             Buffer_Offset++;
         }
 
-        if (Buffer_Offset+2<=Buffer_Size) //Testing if CRC is coherant
+        if (Buffer_Offset+6<=Buffer_Size) //Testing if CRC is coherant
         {
             //Retrieving some info
             int8u bsid =(CC1(Buffer+Buffer_Offset+5)<<3)&0x1F;

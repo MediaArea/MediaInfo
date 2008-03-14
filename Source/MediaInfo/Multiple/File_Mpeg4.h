@@ -40,6 +40,7 @@ class File_Mpeg4 : public File__Analyze
 protected :
     //Format
     void Read_Buffer_Continue ();
+    void Read_Buffer_Finalize();
 
     //Information
     void HowTo (stream_t StreamKind);

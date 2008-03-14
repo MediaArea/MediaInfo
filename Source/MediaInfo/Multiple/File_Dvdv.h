@@ -42,6 +42,9 @@ namespace MediaInfoLib
 class File_Dvdv : public File__Analyze
 {
 protected :
+    //Format
+    void Read_Buffer_Finalize();
+
     //Information
     void HowTo (stream_t StreamKind);
 

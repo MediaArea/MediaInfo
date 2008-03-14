@@ -482,6 +482,7 @@ void File__Analyze::Buffer_Clear()
 {
     //Buffer
     delete[] Buffer_Temp; Buffer_Temp=NULL;
+    BS->Attach(NULL, 0);
     Buffer_Size=0;
     Buffer_Size_Max=0;
     Buffer_Offset=0;

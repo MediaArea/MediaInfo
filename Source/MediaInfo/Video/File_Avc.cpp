@@ -240,6 +240,10 @@ void File_Avc::Read_Buffer_Finalize()
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
     if (Count_Get(Stream_General)==0 && (Frame_Count>0 || MustParse_SPS_PPS_Done))
         slice_header_Fill();
+
+    //Purge what is not needed anymore
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+        Stream.clear();
 }
 
 //***************************************************************************

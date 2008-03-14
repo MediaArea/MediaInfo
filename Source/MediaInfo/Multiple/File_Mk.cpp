@@ -97,6 +97,10 @@ void File_Mk::Read_Buffer_Finalize()
         if (Temp->second.DisplayAspectRatio!=0)
             Fill(Stream_Video, Temp->second.StreamPos, "DisplayAspectRatio", Temp->second.DisplayAspectRatio, 3, true);
     }
+
+    //Purge what is not needed anymore
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+        Stream.clear();
 }
 
 //***************************************************************************

@@ -259,6 +259,18 @@ const char* Flv_Amf3Type[]=
 };
 
 //***************************************************************************
+// Constructor/Destructor
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+File_Flv::File_Flv()
+: File__Analyze()
+{
+    //Internal
+    Stream.resize(3); //Null, Video, Audio
+}
+
+//***************************************************************************
 // Format
 //***************************************************************************
 
@@ -275,6 +287,10 @@ void File_Flv::Read_Buffer_Finalize()
         Stream[Stream_Audio].Parser->Open_Buffer_Finalize();
         Merge(*Stream[Stream_Audio].Parser, Stream_Audio, 0, 0);
     }
+
+    //Purge what is not needed anymore
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+        Stream.clear();
 }
 
 //***************************************************************************

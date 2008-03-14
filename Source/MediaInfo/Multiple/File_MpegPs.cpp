@@ -175,6 +175,8 @@ File_MpegPs::File_MpegPs()
     MPEG_Version=0; //No info
 
     //private_stream_1 specific
+    private_stream_1_ID=0x00;
+    private_stream_1_Offset=0;
     private_stream_1_IsDvdVideo=false;
 
     //Count
@@ -280,6 +282,14 @@ void File_MpegPs::Read_Buffer_Finalize()
         Fill(Stream_General, 0, "Format", "MPEG-2PS");
     else if (MPEG_Version==1)
         Fill(Stream_General, 0, "Format", "MPEG-1PS");
+
+    //Purge what is not needed anymore
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+    {
+        Stream.clear();
+        Stream_Private1.clear();
+        Stream_Extension.clear();
+    }
 }
 
 //---------------------------------------------------------------------------

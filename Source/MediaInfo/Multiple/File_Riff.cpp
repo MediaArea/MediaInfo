@@ -198,8 +198,11 @@ void File_Riff::Read_Buffer_Finalize ()
                                               || Interleaved1_1<Interleaved0_1 && Interleaved1_10>Interleaved0_1)?"Yes":"No");
 
     //Purge what is not needed anymore
-    Stream.clear();
-    Stream_Pos.clear();
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+    {
+        Stream.clear();
+        Stream_Pos.clear();
+    }
 }
 
 //***************************************************************************

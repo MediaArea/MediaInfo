@@ -92,7 +92,7 @@ namespace Elements
 }
 
 //***************************************************************************
-// Format
+// Constructor/Destructor
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -130,12 +130,40 @@ File_Mpeg4::~File_Mpeg4()
     }
 }
 
+//***************************************************************************
+// Format
+//***************************************************************************
+
 //---------------------------------------------------------------------------
 void File_Mpeg4::Read_Buffer_Continue()
 {
     //mdat parsing
     if (mdat_MustParse)
         mdat_Parse();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::Read_Buffer_Finalize()
+{
+    //Purge what is not needed anymore
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+    {
+        delete mdat_Info; mdat_Info=NULL;
+        std::map<int32u, std::vector<int64u>*>::iterator stco_Temp=moov_trak_mdia_minf_stbl_stco_Map.begin();
+        while (stco_Temp!=moov_trak_mdia_minf_stbl_stco_Map.end())
+        {
+            delete stco_Temp->second; stco_Temp->second=NULL;
+            stco_Temp++;
+        }
+        moov_trak_mdia_minf_stbl_stco_Map.clear();
+        std::map<int32u, std::vector<int64u>*>::iterator stsz_Temp=moov_trak_mdia_minf_stbl_stsz_Map.begin();
+        while (stsz_Temp!=moov_trak_mdia_minf_stbl_stsz_Map.end())
+        {
+            delete stsz_Temp->second; stsz_Temp->second=NULL;
+            stsz_Temp++;
+        }
+        moov_trak_mdia_minf_stbl_stsz_Map.clear();
+    }
 }
 
 //***************************************************************************

@@ -636,7 +636,7 @@ void File_Mpeg4::moov_cmov_cmvd_zlib()
         Open_Buffer_Finalize(&MI);
         Merge(MI);
         Merge(MI, Stream_General, 0, 0);
-        delete Dest; //Dest=NULL;
+        delete[] Dest; //Dest=NULL;
     FILLING_END();
 }
 

@@ -70,6 +70,10 @@ void File_Ogg::Read_Buffer_Finalize()
     }
 
     Fill(Stream_General, 0, "Format", "OGG");
+
+    //No more need
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+        Stream.clear();
 }
 
 //***************************************************************************

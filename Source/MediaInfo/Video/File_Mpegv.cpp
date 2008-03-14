@@ -307,6 +307,10 @@ void File_Mpegv::Read_Buffer_Finalize()
         if (!Video.empty() && Time_End>Time_Begin)
             Video[0](_T("PlayTime")).From_Number(Time_End-Time_Begin);
     }
+
+    //Purge what is not needed anymore
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+        Stream.clear();
 }
 
 //***************************************************************************

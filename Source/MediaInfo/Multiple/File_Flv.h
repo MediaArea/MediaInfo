@@ -47,6 +47,9 @@ protected :
     //Information
     void HowTo (stream_t StreamKind);
 
+public :
+    File_Flv();
+
 private :
     //Buffer
     void FileHeader_Parse ();
@@ -83,7 +86,7 @@ private :
             delete Parser; //Parser=NULL;
         }
     };
-    stream Stream[3]; //Null, Video, Audio
+    std::vector<stream> Stream; //Null, Video, Audio
 
     //Count
     bool   video_stream_Count;

@@ -316,8 +316,6 @@ void File_MpegTs::Read_Buffer_Finalize()
         }
         delete Stream->second.Parser; Stream->second.Parser=NULL;
     }
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-        Streams.clear();
 
     //Fill General
          if (!Video.empty() && Video[0](_T("Codec"))==_T("MPEG-2V"))
@@ -349,9 +347,13 @@ void File_MpegTs::Read_Buffer_Finalize()
             Fill("Codec", Program->second.Codec.Read());
         }
     }
-    Programs.clear();
 
     File__Duplicate::Read_Buffer_Finalize();
+
+    //Purge what is not needed anymore
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+        Streams.clear();
+    Programs.clear();
 }
 
 //***************************************************************************

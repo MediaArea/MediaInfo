@@ -114,6 +114,10 @@ void File_Wm::Read_Buffer_Finalize()
         }
         Temp++;
     }
+
+    //Purge what is not needed anymore
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+        Stream.clear();
 }
 
 //***************************************************************************
