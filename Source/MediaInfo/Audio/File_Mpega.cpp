@@ -1140,6 +1140,13 @@ bool File_Mpega::Detect_NonMPEGA ()
         return true;
     }
 
+    //Detect SWF files (one case with no possibility to detect false-positive...
+    if (CC3(Buffer)==CC3("FWS"))
+    {
+        Finnished();
+        return true;
+    }
+
     //Detect FLV files (one case with no possibility to detect false-positive...
     if (CC3(Buffer)==CC3("FLV"))
     {
