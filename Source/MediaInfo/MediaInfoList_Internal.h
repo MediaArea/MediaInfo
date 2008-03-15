@@ -44,7 +44,7 @@ class MediaInfoList_Internal : public ZenLib::Thread
 public :
     //Class
     MediaInfoList_Internal (size_t Count_Init=64);
-    ~MediaInfoList_Internal ();
+    virtual ~MediaInfoList_Internal ();
 
     //Files
     size_t Open (const String &File, const fileoptions_t Options=FileOption_Nothing);

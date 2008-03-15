@@ -551,7 +551,7 @@ void File_Avc::slice_header_Fill()
     float32 PixelAspectRatio;
     if (aspect_ratio_idc<Avc_PixelAspectRatio_Size)
         PixelAspectRatio=Avc_PixelAspectRatio[aspect_ratio_idc];
-    else if (sar_height>0)
+    else if (sar_height)
         PixelAspectRatio=((float)sar_width)/sar_height;
     else
         PixelAspectRatio=1; //Unknown

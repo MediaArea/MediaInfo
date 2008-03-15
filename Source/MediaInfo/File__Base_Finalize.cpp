@@ -686,7 +686,7 @@ void File__Analyze::Finalize_Final()
         for (size_t Pos=0; Pos<Audio.size(); Pos++)
         {
             float64 AudioBitRate=Audio[Pos](_T("BitRate")).To_float64();
-            if (AudioBitRate>0)
+            if (AudioBitRate>0 && AudioBitRate_Ratio)
                 VideoBitRate-=AudioBitRate/AudioBitRate_Ratio+AudioBitRate_Minus;
             else
                 VideobitRateIsValid=false;
