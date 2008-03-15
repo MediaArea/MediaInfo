@@ -52,12 +52,8 @@ public :
     File_Swf();
     
 private :
-    //Replacement of File__Base
-    //const int8u* Buffer;
-    //size_t Buffer_Size;
-    //int64u File_Offset;
-
     //Buffer
+    bool FileHeader_Begin();
     void FileHeader_Parse();
     void Header_Parse();
     void Data_Parse();

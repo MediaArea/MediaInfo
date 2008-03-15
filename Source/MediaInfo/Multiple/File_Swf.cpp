@@ -188,6 +188,25 @@ File_Swf::File_Swf()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+bool File_Swf::FileHeader_Begin()
+{
+    //Parsing
+    if (Buffer_Size<8)
+        return false;
+
+    if (CC3(Buffer)!=0x435753)
+        return true;
+
+    //Compressed file
+    if (File_Size>10*1024*1024)
+        return true; //The file is too big, we will not parse all, only say this is SWF
+    Buffer_MaximumSize=File_Size;
+    if (Buffer_Size!=File_Size)
+        return false;
+    return true;
+}
+
+//---------------------------------------------------------------------------
 void File_Swf::FileHeader_Parse()
 {
     //Parsing
@@ -202,7 +221,7 @@ void File_Swf::FileHeader_Parse()
     }
     else
     {
-        //Was already done by comressed file handling
+        //Was already done by compressed file handling
         Signature=0x465753;
     }
 
@@ -363,6 +382,9 @@ void File_Swf::Data_Parse()
         ELEMENT_CASE(StartSound2,                   "StartSound2");
         default : ;
     }
+
+    //We want currently only one item for validation
+    Finnished();
 }
 
 //***************************************************************************
@@ -454,9 +476,12 @@ bool File_Swf::Decompress()
 {
     if (Buffer_Size!=File_Size)
     {
-        //We must have the complete file in memory
-        Stream_Prepare(Stream_General); //Say "OK, this is SWF, need more bytes"
-        return false;
+        //We must have the complete file in memory, but this is too big (not handled by FileHeader_Begin()), only saying this is SWF
+        Stream_Prepare(Stream_General);
+        Fill("Format", "SWF");
+        Stream_Prepare(Stream_Video);
+        Finnished();
+        return true;
     }
 
     //Sizes
