@@ -198,9 +198,11 @@ bool File_Swf::FileHeader_Begin()
         return true;
 
     //Compressed file
-    if (File_Size>10*1024*1024)
+    if (File_Size>8*1024*1024)
         return true; //The file is too big, we will not parse all, only say this is SWF
-    Buffer_MaximumSize=File_Size;
+    if (CC4(Buffer+4)<4*8*1024*1024) //FileLength
+        return true; //The file is too big, we will not parse all, only say this is SWF
+    Buffer_MaximumSize=(size_t)File_Size;
     if (Buffer_Size!=File_Size)
         return false;
     return true;
