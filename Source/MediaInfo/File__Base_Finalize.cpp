@@ -984,13 +984,13 @@ void File__Analyze::Kilo_Kilo123(const Ztring &Value, stream_t StreamKind, size_
     {
         Ztring Measure=Config.Info_Get(StreamKind).Read(Value, Info_Measure);
         Measure.insert(1, _T("M"));
-        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Ztring::ToZtring(float32_int32s((float)BitRate/1000000))+Config.Language_Get(Measure), true);
+        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Ztring::ToZtring(((float)BitRate)/1000000, BitRate>100000000?0:1)+Config.Language_Get(Measure), true);
     }
     else if (BitRate>10000)
     {
         Ztring Measure=Config.Info_Get(StreamKind).Read(Value, Info_Measure);
         Measure.insert(1, _T("K"));
-        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Ztring::ToZtring(float32_int32s((float)BitRate/1000))+Config.Language_Get(Measure), true);
+        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Ztring::ToZtring(((float)BitRate)/1000, BitRate>100000?0:1)+Config.Language_Get(Measure), true);
     }
     else if (BitRate>0)
         Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Ztring::ToZtring(BitRate)+Config.Language_Get(Config.Info_Get(StreamKind).Read(Value, Info_Measure)), true);
