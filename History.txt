@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.6.2
+---------------
+x MPEG-4: better handling of bitrate mode (VBR or CBR)
+
 Version 0.7.6.1, 2008-03-14
 ---------------
 + AC3: TrueHD detection
