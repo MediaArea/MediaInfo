@@ -1688,18 +1688,23 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
     if (Size>0)
     {
         Stream_Size=Size*Count;
+
         if (moov_trak_mdia_minf_stbl_stco_Parse)
         {
             if (moov_trak_mdia_minf_stbl_stsz_Map[moov_trak_tkhd_TrackID]==NULL)
                 moov_trak_mdia_minf_stbl_stsz_Map[moov_trak_tkhd_TrackID]=new std::vector<int64u>;
             moov_trak_mdia_minf_stbl_stsz_Map[moov_trak_tkhd_TrackID]->push_back(Stream_Size);
         }
+
+        if (Get(StreamKind_Last, StreamPos_Last, _T("BitRate_Mode")).empty())
+            Fill("BitRate_Mode", "CBR");
     }
     else
     {
         if (moov_trak_mdia_minf_stbl_stsz_Map[moov_trak_tkhd_TrackID]==NULL)
             moov_trak_mdia_minf_stbl_stsz_Map[moov_trak_tkhd_TrackID]=new std::vector<int64u>;
         int32u Size;
+        int32u Size_Min=(int32u)-1, Size_Max=0;
         for (int32u Pos=0; Pos<Count; Pos++)
         {
             //Too much slow
@@ -1713,8 +1718,20 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
             Element_Offset+=4;
 
             Stream_Size+=Size;
+            if (Size<Size_Min)
+                Size_Min=Size;
+            if (Size>Size_Max)
+                Size_Max=Size;
             if (moov_trak_mdia_minf_stbl_stco_Parse)
                 moov_trak_mdia_minf_stbl_stsz_Map[moov_trak_tkhd_TrackID]->push_back(Size);
+        }
+
+        if (Get(StreamKind_Last, StreamPos_Last, _T("BitRate_Mode")).empty())
+        {
+            if (Size_Min*(1.005+0.005)<Size_Max)
+                Fill("BitRate_Mode", "VBR");
+            else
+                Fill("BitRate_Mode", "CBR");
         }
     }
 

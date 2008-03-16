@@ -239,7 +239,7 @@ void File_Mpeg4_Descriptors::Descriptor_03()
 void File_Mpeg4_Descriptors::Descriptor_04()
 {
     //Parsing
-    int32u MaxBitrate, AvgBitrate;
+    int32u bufferSizeDB, MaxBitrate, AvgBitrate;
     int8u ObjectTypeId;
     Get_B1 (ObjectTypeId,                                       "objectTypeIndication");
     BS_Begin();
@@ -247,7 +247,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
     Skip_SB(                                                    "upStream");
     Skip_SB(                                                    "reserved");
     BS_End();
-    Skip_B3(                                                    "bufferSizeDB");
+    Get_B3 (bufferSizeDB,                                       "bufferSizeDB");
     Get_B4 (MaxBitrate,                                         "maxBitrate");
     Get_B4 (AvgBitrate,                                         "avgBitrate");
 
@@ -289,13 +289,17 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             Fill("Codec", "ALS", Error, false, true);
 
         //Bitrate mode
-        if (AvgBitrate>0)
+        if (AvgBitrate>0
+         && !(bufferSizeDB==AvgBitrate && bufferSizeDB==MaxBitrate && bufferSizeDB==0x1000)) //Some buggy data were found
         {
-            Fill("BitRate", AvgBitrate);
-            if (MaxBitrate<=AvgBitrate*1.1)
+            Fill("BitRate_Nominal", AvgBitrate);
+            if (MaxBitrate<=AvgBitrate*1.005)
                 Fill("BitRate_Mode", "CBR");
             else
+            {
                 Fill("BitRate_Mode", "VBR");
+                Fill("BitRate_Maximum", MaxBitrate);
+            }
         }
 
         Element_ThisIsAList();
