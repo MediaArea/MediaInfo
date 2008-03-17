@@ -261,9 +261,9 @@ Format_Extensions;Általában használatos kiterjesztések
 Format_Settings
 FrameRate;Képsebesség
 FrameRate_Mode
-FrameRate_Minimal
+FrameRate_Minimum
 FrameRate_Nominal
-FrameRate_Maximal
+FrameRate_Maximum
 General;Általános
 Genre
 Genre_000

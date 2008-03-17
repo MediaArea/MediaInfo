@@ -261,9 +261,9 @@ Format_Extensions;Extensions usualy used;Extensions généralement utilisées;ge
 Format_Settings;Format setting;Paramètres du format;;;;;;;;;;;;;;;;;;;;
 FrameRate;Frame rate;Images par seconde;Bildwiederholungsrate;Képsebesség;FrameRate;Частота кадров;Promedio de cuadros;Frame rate;Framerate;Przepływność ramek;Frecventa cadre; Bildhastighet (Frame rate);Kare hızı;畫面頻率;帧频率;フレームレート;Frame rate;Ρυθμός ανανέωσης πλαισίου;프레임레이트;Taxa de quadros;Imatges per segon;Kadrų tempas
 FrameRate_Mode;Frame rate mode;Type d'images/s;;;;;;;;;;;;;;;;;;;;
-FrameRate_Minimal;Minimum frame rate;Images/s mini;;;;;;;;;;;En az kare hızı;;;最小フレームレート;Minimum frame rate;Ελάχιστος ρυθμός ανανέωσης πλαισίου;최소 프레임레이트;Taxa de quadros mínima;Imatges per segon mínimes;Minimalus kadrų tempas
+FrameRate_Minimum;Minimum frame rate;Images/s mini;;;;;;;;;;;En az kare hızı;;;最小フレームレート;Minimum frame rate;Ελάχιστος ρυθμός ανανέωσης πλαισίου;최소 프레임레이트;Taxa de quadros mínima;Imatges per segon mínimes;Minimalus kadrų tempas
 FrameRate_Nominal;Maximum frame rate;Images/s nominal;;;;;;;;;;;;;;;;;;;;
-FrameRate_Maximal;Maximum frame rate;Images/s maxi;;;;;;;;;;;En fazla kare hızı;;;最大フレームレート;Maximum frame rate;Μέγιστος ρυθμός ανανέωσης πλαισίου;최대 프레임레이트;Taxa de quadros máxima;Imatges per segon màximes;Maksimalus kadrų tempas
+FrameRate_Maximum;Maximum frame rate;Images/s maxi;;;;;;;;;;;En fazla kare hızı;;;最大フレームレート;Maximum frame rate;Μέγιστος ρυθμός ανανέωσης πλαισίου;최대 프레임레이트;Taxa de quadros máxima;Imatges per segon màximes;Maksimalus kadrų tempas
 General;General;General;Allgemein;Általános;Generale;Общее;General;Xeral;Algemeen;Ogólne;Generale; Allmänt;Genel;一般;一般;全般;Hlavní;Γενικά;일반;Geral;General;Pagrindinis
 Genre;Genre;Genre;;;;;;Xenero;Muziekstijl;;Gen; Genre;Tarz;;风格;ジャンル;žánr;Genre;장르;Gênero;Gènere;Žanras
 Genre_000;Blues;Blues;;;;;;Blues;Blues;;; Blues;Blues;;;ブルース;Blues;Blues;Blues;Blues;Blues;Bliuzas

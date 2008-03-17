@@ -261,9 +261,9 @@ Format_Extensions;Formato
 Format_Settings
 FrameRate;FrameRate
 FrameRate_Mode
-FrameRate_Minimal
+FrameRate_Minimum
 FrameRate_Nominal
-FrameRate_Maximal
+FrameRate_Maximum
 General;Generale
 Genre
 Genre_000

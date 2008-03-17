@@ -261,9 +261,9 @@ Format_Extensions;Formato_Extensiones
 Format_Settings
 FrameRate;Promedio de cuadros
 FrameRate_Mode
-FrameRate_Minimal
+FrameRate_Minimum
 FrameRate_Nominal
-FrameRate_Maximal
+FrameRate_Maximum
 General;General
 Genre
 Genre_000

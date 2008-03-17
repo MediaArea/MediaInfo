@@ -261,9 +261,9 @@ Format_Extensions;Συνήθεις επεκτάσεις
 Format_Settings
 FrameRate;Ρυθμός ανανέωσης πλαισίου
 FrameRate_Mode
-FrameRate_Minimal;Ελάχιστος ρυθμός ανανέωσης πλαισίου
+FrameRate_Minimum;Ελάχιστος ρυθμός ανανέωσης πλαισίου
 FrameRate_Nominal
-FrameRate_Maximal;Μέγιστος ρυθμός ανανέωσης πλαισίου
+FrameRate_Maximum;Μέγιστος ρυθμός ανανέωσης πλαισίου
 General;Γενικά
 Genre;Genre
 Genre_000;Blues

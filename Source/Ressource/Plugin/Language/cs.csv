@@ -261,9 +261,9 @@ Format_Extensions;Extensions usualy used
 Format_Settings
 FrameRate;Frame rate
 FrameRate_Mode
-FrameRate_Minimal;Minimum frame rate
+FrameRate_Minimum;Minimum frame rate
 FrameRate_Nominal
-FrameRate_Maximal;Maximum frame rate
+FrameRate_Maximum;Maximum frame rate
 General;Hlavní
 Genre;žánr
 Genre_000;Blues

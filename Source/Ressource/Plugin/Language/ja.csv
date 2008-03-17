@@ -261,9 +261,9 @@ Format_Extensions;使用する拡張子
 Format_Settings
 FrameRate;フレームレート
 FrameRate_Mode
-FrameRate_Minimal;最小フレームレート
+FrameRate_Minimum;最小フレームレート
 FrameRate_Nominal
-FrameRate_Maximal;最大フレームレート
+FrameRate_Maximum;最大フレームレート
 General;全般
 Genre;ジャンル
 Genre_000;ブルース

@@ -261,9 +261,9 @@ Format_Extensions;文件扩展名
 Format_Settings
 FrameRate;帧频率
 FrameRate_Mode
-FrameRate_Minimal
+FrameRate_Minimum
 FrameRate_Nominal
-FrameRate_Maximal
+FrameRate_Maximum
 General;一般
 Genre;风格
 Genre_000

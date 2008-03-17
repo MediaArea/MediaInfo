@@ -261,9 +261,9 @@ Format_Extensions;Extensions emprades actualment
 Format_Settings
 FrameRate;Imatges per segon
 FrameRate_Mode
-FrameRate_Minimal;Imatges per segon mínimes
+FrameRate_Minimum;Imatges per segon mínimes
 FrameRate_Nominal
-FrameRate_Maximal;Imatges per segon màximes
+FrameRate_Maximum;Imatges per segon màximes
 General;General
 Genre;Gènere
 Genre_000;Blues

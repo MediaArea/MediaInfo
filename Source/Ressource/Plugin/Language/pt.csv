@@ -261,9 +261,9 @@ Format_Extensions;Extensões populares
 Format_Settings
 FrameRate;Taxa de quadros
 FrameRate_Mode
-FrameRate_Minimal;Taxa de quadros mínima
+FrameRate_Minimum;Taxa de quadros mínima
 FrameRate_Nominal
-FrameRate_Maximal;Taxa de quadros máxima
+FrameRate_Maximum;Taxa de quadros máxima
 General;Geral
 Genre;Gênero
 Genre_000;Blues

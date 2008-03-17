@@ -261,9 +261,9 @@ Format_Extensions;Daima kullanılan uzantılar
 Format_Settings
 FrameRate;Kare hızı
 FrameRate_Mode
-FrameRate_Minimal;En az kare hızı
+FrameRate_Minimum;En az kare hızı
 FrameRate_Nominal
-FrameRate_Maximal;En fazla kare hızı
+FrameRate_Maximum;En fazla kare hızı
 General;Genel
 Genre;Tarz
 Genre_000;Blues

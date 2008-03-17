@@ -261,9 +261,9 @@ Format_Extensions;Extensia folosita in mod curent
 Format_Settings
 FrameRate;Frecventa cadre
 FrameRate_Mode
-FrameRate_Minimal
+FrameRate_Minimum
 FrameRate_Nominal
-FrameRate_Maximal
+FrameRate_Maximum
 General;Generale
 Genre;Gen
 Genre_000

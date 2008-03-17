@@ -261,9 +261,9 @@ Format_Extensions;일반적인 확장자
 Format_Settings
 FrameRate;프레임레이트
 FrameRate_Mode
-FrameRate_Minimal;최소 프레임레이트
+FrameRate_Minimum;최소 프레임레이트
 FrameRate_Nominal
-FrameRate_Maximal;최대 프레임레이트
+FrameRate_Maximum;최대 프레임레이트
 General;일반
 Genre;장르
 Genre_000;Blues
