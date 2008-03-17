@@ -260,8 +260,10 @@ Format;Formatas
 Format_Extensions;Paprastai naudojami plėtiniai
 Format_Settings
 FrameRate;Kadrų tempas
-FrameRate_Min;Minimalus kadrų tempas
-FrameRate_Max;Maksimalus kadrų tempas
+FrameRate_Mode
+FrameRate_Minimal;Minimalus kadrų tempas
+FrameRate_Nominal
+FrameRate_Maximal;Maksimalus kadrų tempas
 General;Pagrindinis
 Genre;Žanras
 Genre_000;Bliuzas

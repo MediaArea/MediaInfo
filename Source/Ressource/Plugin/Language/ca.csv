@@ -260,8 +260,10 @@ Format;Format
 Format_Extensions;Extensions emprades actualment
 Format_Settings
 FrameRate;Imatges per segon
-FrameRate_Min;Imatges per segon mínimes
-FrameRate_Max;Imatges per segon màximes
+FrameRate_Mode
+FrameRate_Minimal;Imatges per segon mínimes
+FrameRate_Nominal
+FrameRate_Maximal;Imatges per segon màximes
 General;General
 Genre;Gènere
 Genre_000;Blues
@@ -701,7 +703,7 @@ Set_Count;Nombre d'unitats
 Setup;Configura
 Sheet;Fulla
 Sheet (Complete);Fulla (Completa)
-Shell extension;Veure l'opció """"""""""""""""Media Info"""""""""""""""" al menú contextual del botó dret del ratolí a l'explorador.
+Shell extension;Veure l'opció """"""""""""""""""""""""""""""""Media Info"""""""""""""""""""""""""""""""" al menú contextual del botó dret del ratolí a l'explorador.
 Shell InfoTip;Amplia la informació en passar amb el ratolí per sobre d'un arxiu a l'explorador.
 Show menu;Mostra el menú
 Show toolbar;Mostra la barra d'eines

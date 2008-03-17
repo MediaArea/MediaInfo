@@ -260,8 +260,10 @@ Format;Формат
 Format_Extensions;Используется в
 Format_Settings
 FrameRate;Частота кадров
-FrameRate_Min
-FrameRate_Max
+FrameRate_Mode
+FrameRate_Minimal
+FrameRate_Nominal
+FrameRate_Maximal
 General;Общее
 Genre
 Genre_000

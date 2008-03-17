@@ -260,8 +260,10 @@ Format;Format
 Format_Extensions;Zwykle używane rozszerzenia
 Format_Settings
 FrameRate;Przepływność ramek
-FrameRate_Min
-FrameRate_Max
+FrameRate_Mode
+FrameRate_Minimal
+FrameRate_Nominal
+FrameRate_Maximal
 General;Ogólne
 Genre
 Genre_000

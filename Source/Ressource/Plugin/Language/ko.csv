@@ -260,8 +260,10 @@ Format;형식
 Format_Extensions;일반적인 확장자
 Format_Settings
 FrameRate;프레임레이트
-FrameRate_Min;최소 프레임레이트
-FrameRate_Max;최대 프레임레이트
+FrameRate_Mode
+FrameRate_Minimal;최소 프레임레이트
+FrameRate_Nominal
+FrameRate_Maximal;최대 프레임레이트
 General;일반
 Genre;장르
 Genre_000;Blues
@@ -775,5 +777,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96

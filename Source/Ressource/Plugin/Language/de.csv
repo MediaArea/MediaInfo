@@ -260,8 +260,10 @@ Format;Format
 Format_Extensions;gebräuchliche Dateierweiterungen
 Format_Settings
 FrameRate;Bildwiederholungsrate
-FrameRate_Min
-FrameRate_Max
+FrameRate_Mode
+FrameRate_Minimal
+FrameRate_Nominal
+FrameRate_Maximal
 General;Allgemein
 Genre
 Genre_000

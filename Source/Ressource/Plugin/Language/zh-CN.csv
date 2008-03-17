@@ -260,8 +260,10 @@ Format;文件格式
 Format_Extensions;文件扩展名
 Format_Settings
 FrameRate;帧频率
-FrameRate_Min
-FrameRate_Max
+FrameRate_Mode
+FrameRate_Minimal
+FrameRate_Nominal
+FrameRate_Maximal
 General;一般
 Genre;风格
 Genre_000
@@ -776,4 +778,4 @@ WrittenBy;作者
 Yes;是
 Your system;您的系统
 ZZ_Automatic_Percent;41
-ZZ_AutomaticLanguage_Percent;65
+ZZ_AutomaticLanguage_Percent;64

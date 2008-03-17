@@ -260,8 +260,10 @@ Format;檔案格式
 Format_Extensions
 Format_Settings
 FrameRate;畫面頻率
-FrameRate_Min
-FrameRate_Max
+FrameRate_Mode
+FrameRate_Minimal
+FrameRate_Nominal
+FrameRate_Maximal
 General;一般
 Genre
 Genre_000

@@ -260,8 +260,10 @@ Format;Formato
 Format_Extensions;Extensões populares
 Format_Settings
 FrameRate;Taxa de quadros
-FrameRate_Min;Taxa de quadros mínima
-FrameRate_Max;Taxa de quadros máxima
+FrameRate_Mode
+FrameRate_Minimal;Taxa de quadros mínima
+FrameRate_Nominal
+FrameRate_Maximal;Taxa de quadros máxima
 General;Geral
 Genre;Gênero
 Genre_000;Blues
@@ -775,5 +777,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;Seu sistema
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96

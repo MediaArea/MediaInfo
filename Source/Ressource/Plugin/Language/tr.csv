@@ -260,8 +260,10 @@ Format;Biçim
 Format_Extensions;Daima kullanılan uzantılar
 Format_Settings
 FrameRate;Kare hızı
-FrameRate_Min;En az kare hızı
-FrameRate_Max;En fazla kare hızı
+FrameRate_Mode
+FrameRate_Minimal;En az kare hızı
+FrameRate_Nominal
+FrameRate_Maximal;En fazla kare hızı
 General;Genel
 Genre;Tarz
 Genre_000;Blues
@@ -775,5 +777,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96

@@ -260,8 +260,10 @@ Format; Format
 Format_Extensions; Normalt använda filändelser
 Format_Settings
 FrameRate; Bildhastighet (Frame rate)
-FrameRate_Min
-FrameRate_Max
+FrameRate_Mode
+FrameRate_Minimal
+FrameRate_Nominal
+FrameRate_Maximal
 General; Allmänt
 Genre; Genre
 Genre_000; Blues

@@ -260,8 +260,10 @@ Format;Format
 Format_Extensions;Extensions généralement utilisées
 Format_Settings;Paramètres du format
 FrameRate;Images par seconde
-FrameRate_Min;Images/s mini
-FrameRate_Max;Images/s maxi
+FrameRate_Mode;Type d'images/s
+FrameRate_Minimal;Images/s mini
+FrameRate_Nominal;Images/s nominal
+FrameRate_Maximal;Images/s maxi
 General;General
 Genre;Genre
 Genre_000;Blues

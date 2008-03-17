@@ -260,8 +260,10 @@ Format;Format
 Format_Extensions;Extensions usualy used
 Format_Settings;Format setting
 FrameRate;Frame rate
-FrameRate_Min;Minimum frame rate
-FrameRate_Max;Maximum frame rate
+FrameRate_Mode;Frame rate mode
+FrameRate_Minimal;Minimum frame rate
+FrameRate_Nominal;Maximum frame rate
+FrameRate_Maximal;Maximum frame rate
 General;General
 Genre;Genre
 Genre_000;Blues

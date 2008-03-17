@@ -260,8 +260,10 @@ Format;Formato
 Format_Extensions;Extensións usadas habitualmente
 Format_Settings
 FrameRate;Frame rate
-FrameRate_Min
-FrameRate_Max
+FrameRate_Mode
+FrameRate_Minimal
+FrameRate_Nominal
+FrameRate_Maximal
 General;Xeral
 Genre;Xenero
 Genre_000;Blues

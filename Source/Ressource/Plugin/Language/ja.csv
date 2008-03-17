@@ -260,8 +260,10 @@ Format;フォーマット
 Format_Extensions;使用する拡張子
 Format_Settings
 FrameRate;フレームレート
-FrameRate_Min;最小フレームレート
-FrameRate_Max;最大フレームレート
+FrameRate_Mode
+FrameRate_Minimal;最小フレームレート
+FrameRate_Nominal
+FrameRate_Maximal;最大フレームレート
 General;全般
 Genre;ジャンル
 Genre_000;ブルース
@@ -775,5 +777,5 @@ Written_Location;作成所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96
