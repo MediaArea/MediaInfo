@@ -262,7 +262,7 @@ Format_Settings;Format setting
 FrameRate;Frame rate
 FrameRate_Mode;Frame rate mode
 FrameRate_Minimum;Minimum frame rate
-FrameRate_Nominal;Maximum frame rate
+FrameRate_Nominal;Nominal frame rate
 FrameRate_Maximum;Maximum frame rate
 General;General
 Genre;Genre
