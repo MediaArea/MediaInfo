@@ -656,6 +656,8 @@ void File__Analyze::Finalize_Final()
         int32u VideoBitRate_Minus  =2000;  //2000 bps because of a "classic" stream overhead
         double AudioBitRate_Ratio  =0.98;  //Default container overhead=2%
         int32u AudioBitRate_Minus  =2000;  //2000 bps because of a "classic" stream overhead
+        double TextBitRate_Ratio   =0.98;  //Default container overhead=2%
+        int32u TextBitRate_Minus   =2000;  //2000 bps because of a "classic" stream overhead
         //Specific value depends of Container
         if (Get(Stream_General, 0, _T("Format"))==_T("MPEG-1PS")
          || Get(Stream_General, 0, _T("Format"))==_T("MPEG-2PS")
@@ -667,6 +669,8 @@ void File__Analyze::Finalize_Final()
             VideoBitRate_Minus  =0;
             AudioBitRate_Ratio  =0.94;
             AudioBitRate_Minus  =0;
+            TextBitRate_Ratio   =0.94;
+            TextBitRate_Minus   =0;
         }
         if (Get(Stream_General, 0, _T("Format"))==_T("MPEG-1TS")
          || Get(Stream_General, 0, _T("Format"))==_T("MPEG-2TS")
@@ -678,6 +682,20 @@ void File__Analyze::Finalize_Final()
             VideoBitRate_Minus  =0;
             AudioBitRate_Ratio  =0.97;
             AudioBitRate_Minus  =0;
+            TextBitRate_Ratio   =0.97;
+            TextBitRate_Minus   =0;
+        }
+
+        if (Config.Format_Get((*Stream[Stream_General])[0](_T("Format")), InfoFormat_KindofFormat)==_T("MPEG-4"))
+        {
+            GeneralBitRate_Ratio=1;
+            GeneralBitRate_Minus=0;
+            VideoBitRate_Ratio  =1;
+            VideoBitRate_Minus  =0;
+            AudioBitRate_Ratio  =1;
+            AudioBitRate_Minus  =0;
+            TextBitRate_Ratio   =1;
+            TextBitRate_Minus   =0;
         }
 
         //Testing
@@ -690,6 +708,14 @@ void File__Analyze::Finalize_Final()
                 VideoBitRate-=AudioBitRate/AudioBitRate_Ratio+AudioBitRate_Minus;
             else
                 VideobitRateIsValid=false;
+        }
+        for (size_t Pos=0; Pos<Text.size(); Pos++)
+        {
+            float64 TextBitRate=Text[Pos](_T("BitRate")).To_float64();
+            if (TextBitRate>0 && TextBitRate_Ratio)
+                VideoBitRate-=TextBitRate/TextBitRate_Ratio+TextBitRate_Minus;
+            else
+                VideoBitRate-=1000; //Estimation: Text stream are not often big
         }
         if (VideobitRateIsValid && VideoBitRate>=10000) //to avoid strange behavior
             Video[0](_T("BitRate")).From_Number(VideoBitRate*VideoBitRate_Ratio-VideoBitRate_Minus, 0); //Default container overhead=2%
