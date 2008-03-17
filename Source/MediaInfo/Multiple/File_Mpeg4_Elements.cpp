@@ -1698,6 +1698,27 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
 
         if (Get(StreamKind_Last, StreamPos_Last, _T("BitRate_Mode")).empty())
             Fill("BitRate_Mode", "CBR");
+
+        //Detecting wrong stream size with some PCM streams
+        if (StreamKind_Last==Stream_Audio)
+        {
+            const Ztring &Codec=Get(Stream_Audio, StreamPos_Last, _T("Codec"));
+            if (Codec==_T("raw ")
+             || Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("PCM"))==0)
+             {
+                int64u PlayTime=Get(StreamKind_Last, StreamPos_Last, _T("PlayTime")).To_int64u();
+                int64u Resolution=Get(StreamKind_Last, StreamPos_Last, _T("Resolution")).To_int64u();
+                int64u SamplingRate=Get(StreamKind_Last, StreamPos_Last, _T("SamplingRate")).To_int64u();
+                int64u Channels=Get(StreamKind_Last, StreamPos_Last, _T("Channel(s)")).To_int64u();
+                int64u Stream_Size_Theory=PlayTime*Resolution*SamplingRate*Channels/8/1000;
+                for (int64u Multiplier=1; Multiplier<=32; Multiplier++)
+                    if (Stream_Size*Multiplier>Stream_Size_Theory*0.995 && Stream_Size*Multiplier<Stream_Size_Theory*1.005)
+                    {
+                        Stream_Size*=Multiplier;
+                        break;
+                    }
+             }
+        }
     }
     else
     {
