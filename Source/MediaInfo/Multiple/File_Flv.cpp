@@ -44,6 +44,9 @@
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
+#if defined(MEDIAINFO_RM_YES)
+    #include "MediaInfo/Multiple/File_Rm.h"
+#endif
 #include <algorithm>
 //---------------------------------------------------------------------------
 
@@ -383,10 +386,11 @@ void File_Flv::Data_Parse()
         case 0x08 : audio(); break;
         case 0x09 : video(); break;
         case 0x12 : meta(); break;
+        case 0xFA : Rm(); break;
         default : break;
     }
 
-    if (!video_stream_Count && !audio_stream_Count && video_stream_FrameRate_Detected) //All streams are parsed
+    if (!video_stream_Count && !audio_stream_Count && video_stream_FrameRate_Detected && Config.ParseSpeed_Get()<1) //All streams are parsed
         Finnished();
 }
 
@@ -933,6 +937,23 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
         default : //Unknown
             Element_Offset=(size_t)Element_Size; //Forcing the end of parsing
     }
+}
+
+//---------------------------------------------------------------------------
+void File_Flv::Rm()
+{
+    Element_Name("Real Media tags");
+
+    //Creating the parser
+    File_Rm MI;
+
+    //Parsing
+    Open_Buffer_Init(&MI);
+    Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, (size_t)Element_Size);
+    Open_Buffer_Finalize(&MI);
+
+    //Filling
+    Merge(MI, Stream_General, 0, 0);
 }
 
 //***************************************************************************

@@ -68,7 +68,8 @@ private :
     void meta_SCRIPTDATAOBJECT();
     void meta_SCRIPTDATAVARIABLE();
     void meta_SCRIPTDATAVALUE(const std::string &StringData);
-
+    void Rm();
+    
     //Streams
     struct stream
     {

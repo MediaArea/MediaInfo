@@ -39,7 +39,7 @@ using namespace ZenLib;
 namespace MediaInfoLib
 {
 
-// https://common.helixcommunity.org/nonav/2003/HCS_SDK_r5/htmfiles/rmff.htm
+// https://common.helixcommunity.org/2003/HCS_SDK_r5/htmfiles/rmff.htm
 // http://wiki.multimedia.cx/index.php?title=RealMedia
 
 //***************************************************************************
@@ -81,10 +81,12 @@ void File_Rm::Header_Parse()
         Skip_B4(                                                "Version");
         Get_B4 (Size,                                           "Size");
         Size+=8; //Name + Version + Size of the section (after Version) in bytes.
+        if (Element_Size>=12)
+            Element_Offset-=8; //Is valid, so we must keep Version and size in the stream
     }
     else if (Name==Elements::RMJE)
     {
-        Size=16;
+        Size=12;
     }
     else if ((Name&0xFFFFFF00)==Elements::TAG)
     {
@@ -596,12 +598,13 @@ void File_Rm::RJMD()
 //---------------------------------------------------------------------------
 void File_Rm::RJMD_property(std::string Name)
 {
-    Element_Name("Property");
+    //Element_Name("Property");
 
     //Parsing
     Ztring value;
     std::string name;
     int32u type, flags, num_subproperties, name_length, value_length;
+    Element_Begin("MetadataProperty");
     Skip_B4(                                                    "size");
     Get_B4 (type,                                               "type");
     Get_B4 (flags,                                              "flags");
@@ -692,10 +695,10 @@ void File_Rm::RJMD_property(std::string Name)
     }
     for (int32u Pos=0; Pos<num_subproperties; Pos++)
     {
-        Element_Begin("MetadataProperty");
         RJMD_property(Name);
-        Element_End();
     }
+
+    Element_End();
 }
 
 //---------------------------------------------------------------------------
