@@ -1795,12 +1795,16 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
             {
                 if (Min!=Max)
                 {
-                    Fill("FrameRate_Min", ((float)moov_trak_mdia_mdhd_TimeScale)/Max);
-                    Fill("FrameRate_Max", ((float)moov_trak_mdia_mdhd_TimeScale)/Min);
-                    Fill("FrameRate",     ((float)FrameCount)/moov_trak_mdia_mdhd_PlayTime*1000, 3, true);
+                    Fill("FrameRate_Minimum", ((float)moov_trak_mdia_mdhd_TimeScale)/Max);
+                    Fill("FrameRate_Maximum", ((float)moov_trak_mdia_mdhd_TimeScale)/Min);
+                    Fill("FrameRate",         ((float)FrameCount)/moov_trak_mdia_mdhd_PlayTime*1000, 3, true);
+                    Fill("FrameRate_Mode",    "VFR");
                 }
                 else
-                    Fill("FrameRate",     ((float)moov_trak_mdia_mdhd_TimeScale)/Max, 3, true);
+                {
+                    Fill("FrameRate",         ((float)moov_trak_mdia_mdhd_TimeScale)/Max, 3, true);
+                    Fill("FrameRate_Mode",    "CFR");
+                }
             }
             Fill("FrameCount", FrameCount);
         }

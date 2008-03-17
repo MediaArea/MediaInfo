@@ -320,6 +320,14 @@ void File__Analyze::Finalize_Video(size_t Pos)
         else if (Video[Pos](_T("Height"))==_T("480"))
             Video[Pos](_T("Standard"))=_T("NTSC");
     }
+    //FrameRate Nominal
+    float32 FrameRate=(*Stream[Stream_Video])[Pos](_T("FrameRate")).To_float32();
+    float32 FrameRate_Nominal=(*Stream[Stream_Video])[Pos](_T("FrameRate_Nominal")).To_float32();
+    if (FrameRate_Nominal>FrameRate*0.995 && FrameRate_Nominal<FrameRate*1.005)
+    {
+        (*Stream[Stream_Video])[Pos](_T("FrameRate"))=(*Stream[Stream_Video])[Pos](_T("FrameRate_Nominal"));
+        (*Stream[Stream_Video])[Pos](_T("FrameRate_Nominal")).clear();
+    }
     //Bits/(Pixel*Frame)
     if (!Video[Pos](_T("BitRate")).empty())
     {

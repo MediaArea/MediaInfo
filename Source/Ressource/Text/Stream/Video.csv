@@ -47,12 +47,15 @@ PixelAspectRatio;;;N YF;;;Pixel Aspect ratio
 PixelAspectRatio/String;;;N NT;;;Pixel Aspect ratio
 DisplayAspectRatio;;;N YF;;;Display Aspect ratio
 DisplayAspectRatio/String;;;Y NT;;;Display Aspect ratio
+FrameRate_Mode;;;Y YT;;;Frame rate mode (CFR, VFR)
 FrameRate;; fps;N YF;;;Frame rate
 FrameRate/String;;;Y NT;;;Frame rate
-FrameRate_Min;; fps;N YF;;;Frame rate
-FrameRate_Min/String;;;Y NT;;;Frame rate
-FrameRate_Max;; fps;N YF;;;Frame rate
-FrameRate_Max/String;;;Y NT;;;Frame rate
+FrameRate_Minimum;; fps;N YF;;;Frame rate
+FrameRate_Minimum/String;;;Y NT;;;Frame rate
+FrameRate_Nominal;; fps;N YF;;;Frame rate
+FrameRate_Nominal/String;;;Y NT;;;Frame rate
+FrameRate_Maximum;; fps;N YF;;;Frame rate
+FrameRate_Maximum/String;;;Y NT;;;Frame rate
 Standard;;;Y NT;;;NTSC or PAL
 FrameCount;;;N NI;;;Frame count
 Resolution;; bit;N YI;;;example for MP3 : 16 bits
@@ -75,9 +78,9 @@ StreamSize/String4;;;N NT;;;
 Title;;;Y YI;;;Name of the track
 Encoded_Library;;;N YT;;;Software used to create the file
 Encoded_Library/String;;;Y NT;;;Software detailled name
-Encoded_Library/Date;;;Y NT;;;Date of software
-Encoded_Library_Settings;;;Y YT;;;Parameters used by the software
-Language;;;N YT;;;Language (2 letters)
+Encoded_Library/Date;;;Y NT;;;Date of software;;
+Encoded_Library_Settings;;;Y YT;;;Parameters used by the software;;
+Language;;;N YT;;;Language (2 letters);;
 Language/String;;;Y NT;;;Language (full);;
 Language_More;;;Y YT;;;More info about Language (director's comment...);;
 Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal

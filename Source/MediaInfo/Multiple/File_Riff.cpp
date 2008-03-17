@@ -131,8 +131,9 @@ void File_Riff::Read_Buffer_Finalize ()
                 {
                     Fill("FrameRate", FrameRate_Temp, true);
                     Fill("FrameRate/String", Config.Language_Get(FrameRate_Temp+_T(" (24/30)"), _T(" fps")));
-                    Fill("FrameRate_Min", 24, 10, true);
-                    Fill("FrameRate_Max", 30, 10, true);
+                    Fill("FrameRate_Minimum", 24, 10, true);
+                    Fill("FrameRate_Maximum", 30, 10, true);
+                    Fill("FrameRate_Mode", "VFR");
                 }
             }
 

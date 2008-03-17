@@ -421,10 +421,13 @@ void File_Flv::video()
             {
                 float Time=(float)(video_stream_FrameRate[30]-video_stream_FrameRate[0])/30; //30 frames for handling 30 fps rounding problems
                 if (Time)
+                {
                     Fill(Stream_Video, 0, "FrameRate", 1000/Time);
+                    Fill(Stream_Video, 0, "FrameRate_Mode", "CFR");
+                }
             }
             else
-                Fill(Stream_Video, 0, "FrameRate", "VFR");
+                Fill(Stream_Video, 0, "FrameRate_Mode", "VFR");
             video_stream_FrameRate_Detected=true;
         }
     }
