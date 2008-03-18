@@ -631,6 +631,13 @@ void File__Analyze::Get_EB(int64u &Info, const char* Name)
 {
     //Element size
     INTEGRITY_SIZE_ATLEAST_INT(1);
+    if (Buffer[Buffer_Offset+Element_Offset]==0xFF)
+    {
+        Info=File_Size-(File_Offset+Buffer_Offset+Element_Offset);
+        if (Config_Details>0) Param(Name, "Unlimited");
+        Element_Offset++;
+        return;
+    }
     int32u Size=0;
     int32u Size_Mark=0;
     BS_Begin();
