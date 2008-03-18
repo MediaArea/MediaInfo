@@ -202,7 +202,7 @@ extern const char*  AC3_ChannelPositions[];
 
 //---------------------------------------------------------------------------
 File_Dvdv::File_Dvdv()
-: File__Analyze()
+:File__Analyze()
 {
     //Temp
     VTS_Attributes_AreHere=false;

@@ -346,7 +346,7 @@ static int32u CRC_32_Table[256] =
 
 //---------------------------------------------------------------------------
 File_Mpeg_Psi::File_Mpeg_Psi()
-: File__Analyze()
+:File__Analyze()
 {
     //Configuration
     From_TS=true; //Default is from TS

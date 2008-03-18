@@ -43,7 +43,7 @@ namespace MediaInfoLib
 
 //---------------------------------------------------------------------------
 File_Ogg::File_Ogg()
-: File__Analyze()
+:File__Analyze()
 {
     //Temp - Global
     StreamsToDo=0;

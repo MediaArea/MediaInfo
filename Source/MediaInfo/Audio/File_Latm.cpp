@@ -44,7 +44,7 @@ namespace MediaInfoLib
 
 //---------------------------------------------------------------------------
 File_Latm::File_Latm()
-: File__Analyze()
+:File__Analyze()
 {
     //In
     audioMuxVersionA=false;

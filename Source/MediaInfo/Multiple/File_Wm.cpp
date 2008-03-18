@@ -51,6 +51,7 @@ namespace MediaInfoLib
 
 //---------------------------------------------------------------------------
 File_Wm::File_Wm()
+:File__Analyze()
 {
     //Configuration
     DataMustAlwaysBeComplete=false;

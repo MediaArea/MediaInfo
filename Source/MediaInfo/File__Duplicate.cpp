@@ -45,7 +45,7 @@ namespace MediaInfoLib
 //***************************************************************************
 
 File__Duplicate::File__Duplicate ()
-: File__Analyze()
+:File__Analyze()
 {
     //Temp
     File__Duplicate_HasChanged_=false;

@@ -110,6 +110,7 @@ const char*  DTS_ExtensionAudioDescriptor[]=
 
 //---------------------------------------------------------------------------
 File_Dts::File_Dts()
+:File__Analyze()
 {
     //Configuration
     File_MaximumOffset=64*1024;

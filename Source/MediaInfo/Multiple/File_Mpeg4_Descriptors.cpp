@@ -74,7 +74,7 @@ const char* Mpeg4_Descriptors_Predefined(int8u ID)
 
 //---------------------------------------------------------------------------
 File_Mpeg4_Descriptors::File_Mpeg4_Descriptors()
-: File__Analyze()
+:File__Analyze()
 {
     KindOfStream=Stream_Max;
 }

@@ -70,7 +70,7 @@ namespace Elements
 
 //---------------------------------------------------------------------------
 File_Riff::File_Riff()
-: File__Analyze()
+:File__Analyze()
 {
     //Configuration
     DataMustAlwaysBeComplete=false;

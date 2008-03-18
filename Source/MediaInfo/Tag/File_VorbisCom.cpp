@@ -42,7 +42,7 @@ namespace MediaInfoLib
 
 //---------------------------------------------------------------------------
 File_VorbisCom::File_VorbisCom()
-: File__Analyze()
+:File__Analyze()
 {
     //In
     StreamKind=Stream_General;

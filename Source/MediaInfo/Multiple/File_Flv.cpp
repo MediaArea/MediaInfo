@@ -267,7 +267,7 @@ const char* Flv_Amf3Type[]=
 
 //---------------------------------------------------------------------------
 File_Flv::File_Flv()
-: File__Analyze()
+:File__Analyze()
 {
     //Internal
     Stream.resize(3); //Null, Video, Audio

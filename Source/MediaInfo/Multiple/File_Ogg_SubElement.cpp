@@ -51,7 +51,7 @@ namespace MediaInfoLib
 
 //---------------------------------------------------------------------------
 File_Ogg_SubElement::File_Ogg_SubElement()
-: File__Analyze()
+:File__Analyze()
 {
     SetupFinnished=false;
 

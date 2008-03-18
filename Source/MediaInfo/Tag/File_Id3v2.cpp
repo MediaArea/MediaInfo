@@ -86,7 +86,7 @@ const char* Id3v2_PictureType(int8u Type)
 
 //---------------------------------------------------------------------------
 File_Id3v2::File_Id3v2()
-: File__Analyze()
+:File__Analyze()
 {
     //Temp
     Id3v2_Size=0;

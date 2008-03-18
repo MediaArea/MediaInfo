@@ -97,7 +97,7 @@ namespace Elements
 
 //---------------------------------------------------------------------------
 File_Mpeg4::File_Mpeg4()
-: File__Analyze()
+:File__Analyze()
 {
     //Configuration
     DataMustAlwaysBeComplete=false;
