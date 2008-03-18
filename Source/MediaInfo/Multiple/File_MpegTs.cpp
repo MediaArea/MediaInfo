@@ -935,13 +935,9 @@ bool File_MpegTs::Header_Parser_QuickSearch()
         Buffer_Offset+=188+BDAV_Size;
     }
 
-    if (Buffer_Offset+188+BDAV_Size>Buffer_Size)
-    {
-        Synched=false;
-        Synchronize();
-        return false;
-    }
-    return true;
+    if (Buffer_Offset+188+BDAV_Size<=Buffer_Size)
+        Trusted_IsNot("MPEG-TS, Synchronisation lost");
+    return Synchronize();
 }
 
 //---------------------------------------------------------------------------

@@ -1000,15 +1000,14 @@ bool File_Mpegv::Header_Parser_QuickSearch()
             Buffer_Offset++;
     }
 
-    if (Buffer_Offset+4>Buffer_Size)
+    if (Buffer_Offset+4<=Buffer_Size)
     {
         if(File_Offset+Buffer_Size==File_Size && Count_Get(Stream_General)==0 && Frame_Count>=2)
             slice_start_Fill(); //End of file, and we have some frames
-        Synched=false;
-        Synchronize();
-        return false;
+        else
+            Trusted_IsNot("Mpegv, Synchronisation lost");
     }
-    return true;
+    return Synchronize();
 }
 
 //---------------------------------------------------------------------------

@@ -831,13 +831,9 @@ bool File_Dirac::Header_Parser_QuickSearch()
         Buffer_Offset+=BigEndian2int32u(Buffer+Buffer_Offset+5);
     }
 
-    if (Buffer_Offset+13>Buffer_Size)
-    {
-        Synched=false;
-        Synchronize();
-        return false;
-    }
-    return true;
+    if (Buffer_Offset+13<=Buffer_Size)
+        Trusted_IsNot("Dirac, Synchronisation lost");
+    return Synchronize();
 }
 
 //---------------------------------------------------------------------------

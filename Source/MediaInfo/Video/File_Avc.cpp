@@ -1359,13 +1359,9 @@ bool File_Avc::Header_Parser_QuickSearch()
             Buffer_Offset++;
     }
 
-    if (Buffer_Offset+4>Buffer_Size)
-    {
-        Synched=false;
-        Synchronize();
-        return false;
-    }
-    return true;
+    if (Buffer_Offset+4<=Buffer_Size)
+        Trusted_IsNot("AVC, Synchronisation lost");
+    return Synchronize();
 }
 
 //---------------------------------------------------------------------------

@@ -999,22 +999,20 @@ void File_Mpeg_Psi::Descriptors()
     Element_Begin("Descriptors", Descriptors_Size);
 
     //Parsing
-    File_Mpeg_Descriptors* Descriptors=new File_Mpeg_Descriptors();
-    Descriptors->format_identifier=format_identifier;
+    File_Mpeg_Descriptors Descriptors;
+    Descriptors.format_identifier=format_identifier;
     Buffer_Offset+=Element_Offset; //Positionning
-    Open_Buffer_Init(Descriptors, File_Size, File_Offset+Buffer_Offset);
-    Open_Buffer_Continue(Descriptors, Buffer+Buffer_Offset, Descriptors_Size);
+    Open_Buffer_Init(&Descriptors, File_Size, File_Offset+Buffer_Offset);
+    Open_Buffer_Continue(&Descriptors, Buffer+Buffer_Offset, Descriptors_Size);
     Buffer_Offset-=Element_Offset; //Positionning
     Element_Offset+=Descriptors_Size;
 
     //Filling
-    Streams[Stream_Current].Infos=Descriptors->Infos;
+    Streams[Stream_Current].Infos=Descriptors.Infos;
     if (Stream_Current==0x0000)
-        format_identifier=Descriptors->format_identifier; //General
+        format_identifier=Descriptors.format_identifier; //General
     if (Streams[Stream_Current].descriptor_tag==0x00)
-        Streams[Stream_Current].descriptor_tag=Descriptors->descriptor_tag;
-
-    delete Descriptors; //Descriptors=NULL;
+        Streams[Stream_Current].descriptor_tag=Descriptors.descriptor_tag;
 
     Element_End();
 }

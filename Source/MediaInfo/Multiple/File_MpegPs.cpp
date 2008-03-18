@@ -1081,6 +1081,9 @@ void File_MpegPs::pack_start()
 
     //Filling
     FILLING_BEGIN();
+    if (Element_Offset!=Element_Size)
+        return; //TODO: Should be done in FILLING_BEGIN later
+
     Stream_Prepare(Stream_General);
 
     SizeToAnalyze=program_mux_rate*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure
@@ -2094,13 +2097,9 @@ bool File_MpegPs::Header_Parser_QuickSearch()
         }
     }
 
-    if (Buffer_Offset+4>Buffer_Size)
-    {
-        Synched=false;
-        Synchronize();
-        return false;
-    }
-    return true;
+    if (Buffer_Offset+4<=Buffer_Size)
+        Trusted_IsNot("MPEG-PS, Synchronisation lost");
+    return Synchronize();
 }
 
 //---------------------------------------------------------------------------
