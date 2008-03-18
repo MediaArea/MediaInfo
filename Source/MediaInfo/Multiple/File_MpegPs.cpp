@@ -1984,7 +1984,11 @@ bool File_MpegPs::Header_Parser_QuickSearch()
                 return true;
 
             //private_stream_1 and IsDvdVideo, looking for substream ID
+            if (Buffer_Offset+9>Buffer_Size)
+                return false; //Need more data
             size_t Data_Offset=CC1(Buffer+Buffer_Offset+8);
+            if (Buffer_Offset+9+Data_Offset>Buffer_Size)
+                return false; //Need more data
             int8u  private_stream_1_ID=CC1(Buffer+Buffer_Offset+9+Data_Offset);
             if (Stream_Private1.find(private_stream_1_ID)==Stream_Private1.end() || Stream_Private1[private_stream_1_ID].Searching_Payload)
                 return true;
@@ -2015,15 +2019,19 @@ bool File_MpegPs::Header_Parser_QuickSearch()
                     {
                         size_t Buffer_Offset_Temp=Buffer_Offset+6;
                         while(Buffer_Offset_Temp<=Buffer_Size && CC1(Buffer+Buffer_Offset_Temp)==0xFF)
+                        {
                             Buffer_Offset_Temp++;
-                        if (Buffer_Offset_Temp>=Buffer_Size)
+                            if (Buffer_Offset_Temp+1>=Buffer_Size)
+                                return false; //Not enough data
+                        }
+                        if (Buffer_Offset_Temp+1>=Buffer_Size)
                             return false; //Not enough data
                         if (Buffer_Offset_Temp<Buffer_Size && (CC1(Buffer+Buffer_Offset_Temp)&0xF0)!=0x00)
                             return true; //With a PTS
                     }
                     if (MPEG_Version==2)
                     {
-                        if (Buffer_Offset+7>Buffer_Size)
+                        if (Buffer_Offset+8>Buffer_Size)
                             return false; //Not enough buffer
                         if ((CC1(Buffer+Buffer_Offset+7)&0xC0)!=0x00)
                             return true; //With a PTS
