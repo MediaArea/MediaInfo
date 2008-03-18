@@ -1511,8 +1511,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_btrt()
     Get_B4 (avgBitrate,                                         "avgBitrate");
 
     FILLING_BEGIN();
-        Fill("BitRate",     avgBitrate);
-        Fill("BitRate_Max", maxBitrate);
+        Fill("BitRate",         avgBitrate);
+        Fill("BitRate_Maximum", maxBitrate);
     FILLING_END();
 }
 
