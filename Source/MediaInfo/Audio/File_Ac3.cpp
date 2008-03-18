@@ -230,6 +230,7 @@ namespace MediaInfoLib
 
 //---------------------------------------------------------------------------
 File_Ac3::File_Ac3()
+:File__Analyze()
 {
     //In
     Frame_Count_Valid=2;
@@ -366,9 +367,14 @@ void File_Ac3::Header_Parse()
         Size=Element_Offset;
 
     //CRC
+    if (Buffer_Offset+Size>Buffer_Size)
+        Element_WaitForMoreData();
     int16u CRC_16=0x0000;
-    for (int16u CRC_16_Pos=2; CRC_16_Pos<Size; CRC_16_Pos++) //After syncword
-        CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(Buffer[Buffer_Offset+CRC_16_Pos])];
+    if (Buffer_Offset+Size<=Buffer_Size) //Only if we have a complete frame, Element_WaitForMoreData() is NOK if the file truncated
+    {
+        for (int16u CRC_16_Pos=2; CRC_16_Pos<Size; CRC_16_Pos++) //After syncword
+            CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(Buffer[Buffer_Offset+CRC_16_Pos])];
+    }
 
     //Filling
     Header_Fill_Size(CRC_16==0x0000?Size:Element_Offset); //If CRC_16!=0x0000, CRC error
@@ -387,7 +393,13 @@ void File_Ac3::Data_Parse()
     Element_Info(Ztring::ToZtring(Frame_Count));
 
     //Parsing
-    Skip_XX(Element_Size,                                       "Data");
+    if (Element_IsComplete_Get())
+        Skip_XX(Element_Size,                                   "Data");
+    else
+    {
+        Element_Info("(Uncomplete)");
+        Skip_XX(Element_Size,                                   "Data (Uncomplete)");
+    }
 
     //Filling
     if (Count_Get(Stream_Audio)==0 && Frame_Count>=Frame_Count_Valid)
