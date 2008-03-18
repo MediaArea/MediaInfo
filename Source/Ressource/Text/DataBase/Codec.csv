@@ -41,7 +41,7 @@ AUR2;YUV;4CC;V;YUV;;Auravision Aura 2 - YUV 422;
 AURA;YUV;4CC;V;YUV;;Auravision Aura 1 - YUV 411;
 AUVX;AUVX;4CC;V;;;USH GmbH;
 AV1X;Avid 1:1;4CC;V;;;Avid 1:1x (Quick Time);http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
-AVC1;AVC;4CC;V;AVC;;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+AVC1;AVC;4CC;V;AVC;;Advanced Video Codec;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
 AVD1;Avid DV;4CC;V;DV;;Avid DV (Quick Time);http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
 AVDJ;Avid JFIF;4CC;V;M-JPEG;;Avid Meridien JFIF with Alpha-channel;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
 AVDN;Avid HD;4CC;V;;;Avid DNxHD (Quick Time);http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
@@ -768,7 +768,7 @@ mp4a;AAC;4CC;A;AAC;;AAC (3GPP);http://www.apple.com/quicktime/download/standalon
 mp4v;MPEG-4;4CC;V;MPEG-4V;;MPEG-4 Video (3GPP);http://www.apple.com/quicktime/download/standalone.html
 avc1;AVC;4CC;V;AVC;;H.264 (3GPP);http://www.apple.com/quicktime/download/standalone.html
 h263;H.263;4CC;V;;;H.263 (3GPP);http://www.apple.com/quicktime/download/standalone.html
-s263;H.263;4CC;V;;;H.263 (3GPP);http://www.apple.com/quicktime/download/standalone.html
+s263;H.263;4CC;V;;;Advanced Video Codec;http://www.apple.com/quicktime/download/standalone.html
 samr;AMR-NB;4CC;A;;;AMR narrow band (3GPP);http://www.apple.com/quicktime/download/standalone.html
 sawb;AMR-WB;4CC;A;;;AMR wide band (3GPP);http://www.apple.com/quicktime/download/standalone.html
 sevc;EVRC;4CC;A;;;;http://www.apple.com/quicktime/download/standalone.html
@@ -793,7 +793,7 @@ MPEG-4 AAC main;AAC Main;Mp4v2;A;AAC;;;
 MPEG-4 AAC LC;AAC LC;Mp4v2;A;AAC;;;
 MPEG-4 AAC SSR;AAC SSR;Mp4v2;A;AAC;;;
 MPEG-4 AAC LTP;AAC LTP;Mp4v2;A;AAC;;;
-AVC;AVC;MediaInfo;V;AVC;;MPEG-4 AVC;http://developers.videolan.org/x264.html
+AVC;AVC;MediaInfo;V;AVC;;Advanced Video Codec;http://developers.videolan.org/x264.html
 MPEG-1V;MPEG-1 Video;MediaInfo;V;MPEG-V;;;
 MPEG-2V;MPEG-2 Video;MediaInfo;V;MPEG-V;;;
 MPEG-4V;MPEG-4 Visual;MediaInfo;V;MPEG-4V;;;
