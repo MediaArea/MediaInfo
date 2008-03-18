@@ -463,6 +463,14 @@ void File_Id3v2::T___()
 //
 void File_Id3v2::T__X()
 {
+    //Integrity
+    if (Element_Size<4)
+    {
+        Element_Values(1).clear();
+        Element_Values(0).clear();
+        return;
+    }
+
     int8u Encoding;
     Get_B1 (Encoding,                                           "Text_encoding");
     if (Element_Code!=Id3::TXXX)
@@ -476,6 +484,8 @@ void File_Id3v2::T__X()
         default : ;
     }
     Element_Offset=1+(Element_Code!=Id3::TXXX?3:0);
+    if (Element_Values(0).find(_T('\0'))!=std::string::npos)
+        Element_Values(0).resize(Element_Values(0).find(_T('\0'))); //Stopping after the first \0
     if (Encoding==1)
     {
         if (Element_Size>=6 && Buffer[Buffer_Offset+4]==0x00 && Buffer[Buffer_Offset+5]==0x00)
@@ -492,6 +502,8 @@ void File_Id3v2::T__X()
     if (Element_Size<Element_Offset)
     {
         //TRUSTED_ISNOT("Out of specifications!");
+        if (Element_Values.size()<2)
+            Element_Values.resize(2); //TODO: protect agains Element_Values(0) not valid if size<2
         Element_Values(1)=Element_Values(0);
         Element_Values(0).clear();
         return;
