@@ -124,12 +124,12 @@ void File_Riff::Read_Buffer_Finalize ()
             if (StreamKind_Last==Stream_Video)
             {
                 Fill("Codec", Codec_Temp, true);
+                Fill("FrameRate", FrameRate_Temp, true);
 
                 //120 fps hack
                 int32u FrameRate=FrameRate_Temp.To_int32u();
                 if (FrameRate==120)
                 {
-                    Fill("FrameRate", FrameRate_Temp, true);
                     Fill("FrameRate/String", Config.Language_Get(FrameRate_Temp+_T(" (24/30)"), _T(" fps")));
                     Fill("FrameRate_Minimum", 24, 10, true);
                     Fill("FrameRate_Maximum", 30, 10, true);
