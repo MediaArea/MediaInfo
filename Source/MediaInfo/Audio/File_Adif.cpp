@@ -215,7 +215,7 @@ void File_Adif::Data_Parse_Fill()
     Stream_Prepare(Stream_Audio);
     Fill ("Codec", ADIF_object_type[object_type]);
     Fill("BitRate_Mode", bitstream_type?"VBR":"CBR");
-    if (bitrate>0) Fill(bitstream_type?"BitRate_Max":"BitRate", bitrate);
+    if (bitrate>0) Fill(bitstream_type?"BitRate_Maximum":"BitRate", bitrate);
     Fill("SamplingRate", ADIF_sampling_frequency[sampling_frequency_index]);
     Fill("Channel(s)", num_front_channel_elements+num_side_channel_elements+num_back_channel_elements+num_lfe_channel_elements);
     Fill("Resolution", 16);
