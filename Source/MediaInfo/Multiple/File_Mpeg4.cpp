@@ -177,7 +177,7 @@ void File_Mpeg4::Header_Parse()
     int64u Size;
     int32u Size_32, Name;
     Get_B4 (Size_32,                                            "Size");
-    if (Size_32==0 && Element_Size==4)
+    if (Size_32==0 && (Element_Size==4 || Element_Size==8))
     {
         //Filling
         Header_Fill_Code(0, "Junk");
