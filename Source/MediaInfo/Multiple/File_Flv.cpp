@@ -807,6 +807,10 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                     else if (StringData=="metadatacreator") {ToFill="Tagged_Application";}
                     else if (StringData=="creationdate") {ToFill="Encoded_Date"; Value.Date_From_String(Value.To_UTF8().c_str());}
                     else {ToFill=StringData;}
+                    if (Value.find(_T('\r'))!=std::string::npos)
+                        Value.resize(Value.find(_T('\r')));
+                    if (Value.find(_T('\n'))!=std::string::npos)
+                        Value.resize(Value.find(_T('\n')));
                     Element_Info(Value);
                     Fill(Stream_General, 0, ToFill.c_str(), Value);
                 }

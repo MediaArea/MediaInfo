@@ -951,7 +951,15 @@ void File_Mpeg4::moov_mvhd()
             //int32u PlayTime=(int32u)(((float)Duration)/TimeScale*1000);
             //Fill("PlayTime", PlayTime);
         }
+        if (Date_Created.find(_T('\r'))!=std::string::npos)
+            Date_Created.resize(Date_Created.find(_T('\r')));
+        if (Date_Created.find(_T('\n'))!=std::string::npos)
+            Date_Created.resize(Date_Created.find(_T('\n')));
         Fill("Encoded_Date", Date_Created);
+        if (Date_Modified.find(_T('\r'))!=std::string::npos)
+            Date_Modified.resize(Date_Modified.find(_T('\r')));
+        if (Date_Modified.find(_T('\n'))!=std::string::npos)
+            Date_Modified.resize(Date_Modified.find(_T('\n')));
         Fill("Tagged_Date", Date_Modified);
     FILLING_END();
 }
