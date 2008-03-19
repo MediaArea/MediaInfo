@@ -577,6 +577,8 @@ void File_Id3v2::APIC()
     Get_B1 (PictureType,                                        "Picture_type"); Element_Info(Id3v2_PictureType(PictureType));
     Get_Local(Element_Size-Element_Offset, Description,         "Description");
     Element_Offset=1+Mime.size()+1+1+Description.size()+1;
+    if (Element_Offset>Element_Size)
+        return; //There is a problem
     std::string Data_Raw((const char*)(Buffer+(size_t)(Buffer_Offset+Element_Offset)), (size_t)(Element_Size-Element_Offset));
     std::string Data_Base64(Base64::encode(Data_Raw));
 
