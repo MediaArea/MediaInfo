@@ -611,7 +611,7 @@ void File_Mpeg_Psi::program_stream_map()
     Descriptors();
 
     Get_B2 (elementary_stream_map_length,                       "elementary_stream_map_length");
-    if ((int64)(4+program_stream_info_length+2+elementary_stream_map_length)>Element_Size)
+    if ((int64u)(4+program_stream_info_length+2+elementary_stream_map_length)>Element_Size)
     {
         Trusted_IsNot("Integrity error");
         return;
