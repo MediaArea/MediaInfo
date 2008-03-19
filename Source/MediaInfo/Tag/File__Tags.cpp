@@ -48,7 +48,7 @@ File__Tags_Helper::File__Tags_Helper()
     Id3v1_Offset=(int64u)-1;
     Lyrics3_Offset=(int64u)-1;
     Lyrics3v2_Offset=(int64u)-1;
-    ApeTag_Size=(int64u)-1;
+    ApeTag_Offset=(int64u)-1;
 
     //Size
     Id3v1_Size=0;
