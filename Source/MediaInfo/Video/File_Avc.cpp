@@ -216,6 +216,7 @@ File_Avc::File_Avc()
     CpbDpbDelaysPresentFlag=false;
 
     //Default values
+    Stream[0x06].Searching_Payload=true; //sei
     Stream[0x07].Searching_Payload=true; //seq_parameter_set
     Stream[0x09].Searching_Payload=true; //access_unit_delimiter
     for (int8u Pos=0xB9; Pos!=0x00; Pos++)
