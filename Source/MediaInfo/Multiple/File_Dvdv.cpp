@@ -552,6 +552,8 @@ void File_Dvdv::Audio()
     Get_BS (4, Channels,                                        "Channels"); Param_Info(Channels+1, " channels");
     BS_End();
     Get_Local(3, Language,                                      "Language code");
+    if (Language==_T("iw"))
+        Language=_T("he"); //Hebrew patch, is "iw" in DVDs
     Get_B1 (Language_Extension,                                 "Language extension"); if (Language_Extension<8) Param_Info(IFO_Language_MoreA[Language_Extension]);
     Skip_B1(                                                    "Unknown");
     switch (Mode)
