@@ -32,6 +32,8 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Video/File_Avc.h"
 #include "math.h"
+#undef FILLING_BEGIN
+#define FILLING_BEGIN() if (Element_Offset!=Element_Size){Trusted_IsNot("Size");} else if (Element_IsOK()) {
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -216,7 +218,6 @@ File_Avc::File_Avc()
     CpbDpbDelaysPresentFlag=false;
 
     //Default values
-    Stream[0x06].Searching_Payload=true; //sei
     Stream[0x07].Searching_Payload=true; //seq_parameter_set
     Stream[0x09].Searching_Payload=true; //access_unit_delimiter
     for (int8u Pos=0xB9; Pos!=0x00; Pos++)
@@ -643,6 +644,8 @@ void File_Avc::sei_message()
     Element_End();
 
     size_t Element_Offset_Save=Element_Offset+payloadSize;
+    int64u Element_Size_Save=Element_Size;
+    Element_Size=Element_Offset_Save;
     switch (payloadType)
     {
         case  0 :   sei_message_buffering_period(payloadSize); break;
@@ -655,6 +658,7 @@ void File_Avc::sei_message()
                     Skip_XX(payloadSize,                        "data");
     }
     Element_Offset=Element_Offset_Save; //Positionning in the right place.
+    Element_Size=Element_Size_Save; //Positionning in the right place.
 }
 
 //---------------------------------------------------------------------------
@@ -739,6 +743,7 @@ void File_Avc::sei_message_pic_timing(int32u payloadSize)
             Element_End();
         }
     }
+    BS_End();
 
     FILLING_BEGIN();
         if (pic_struct_FirstDetected==(int8u)-1)
@@ -957,6 +962,16 @@ void File_Avc::seq_parameter_set()
     TEST_SB_END();
     Mark_1(                                                     );
     BS_End();
+
+    //Hack for 00003.m2ts: There is a trailing 0x89, why?
+    if (Element_Offset+1==Element_Size)
+    {
+        int8u ToTest;
+        Peek_B1(ToTest);
+        if (ToTest==0x98)
+            Skip_B1(                                            "Unknown");
+
+    }
 
     FILLING_BEGIN();
         //NextCode
@@ -1362,6 +1377,7 @@ bool File_Avc::Header_Parser_QuickSearch()
 
     if (Buffer_Offset+4<=Buffer_Size)
         Trusted_IsNot("AVC, Synchronisation lost");
+    Synched=false;
     return Synchronize();
 }
 

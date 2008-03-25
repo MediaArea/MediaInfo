@@ -833,6 +833,7 @@ bool File_Dirac::Header_Parser_QuickSearch()
 
     if (Buffer_Offset+13<=Buffer_Size)
         Trusted_IsNot("Dirac, Synchronisation lost");
+    Synched=false;
     return Synchronize();
 }
 

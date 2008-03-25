@@ -2099,6 +2099,7 @@ bool File_MpegPs::Header_Parser_QuickSearch()
 
     if (Buffer_Offset+4<=Buffer_Size)
         Trusted_IsNot("MPEG-PS, Synchronisation lost");
+    Synched=false;
     return Synchronize();
 }
 

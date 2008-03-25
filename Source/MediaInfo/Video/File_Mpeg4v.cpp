@@ -1335,6 +1335,7 @@ bool File_Mpeg4v::Header_Parser_QuickSearch()
 
     if (Buffer_Offset+4<=Buffer_Size)
         Trusted_IsNot("Mpeg4v, Synchronisation lost");
+    Synched=false;
     return Synchronize();
 }
 

@@ -603,6 +603,7 @@ bool File_Vc1::Header_Parser_QuickSearch()
 
     if (Buffer_Offset+4<=Buffer_Size)
         Trusted_IsNot("VC-1, Synchronisation lost");
+    Synched=false;
     return Synchronize();
 }
 
