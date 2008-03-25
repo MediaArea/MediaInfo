@@ -464,7 +464,7 @@ void File_Id3v2::T___()
 void File_Id3v2::T__X()
 {
     //Integrity
-    if (Element_Size<4)
+    if (Element_Size<(Id3::TXXX?4:1))
     {
         Element_Values(1).clear();
         Element_Values(0).clear();
@@ -475,47 +475,55 @@ void File_Id3v2::T__X()
     Get_B1 (Encoding,                                           "Text_encoding");
     if (Element_Code!=Id3::TXXX)
         Skip_C3(                                                "Language");
+    size_t Value0_Size=0;
     switch (Encoding)
     {
-        case 0 : Get_Local (Element_Size-4, Element_Values(0),  "Short_content_descrip"); break;
-        case 1 : Get_UTF16 (Element_Size-4, Element_Values(0),  "Short_content_descrip"); break;
-        case 2 : Get_UTF16B(Element_Size-4, Element_Values(0),  "Short_content_descrip"); break;
-        case 3 : Get_UTF8  (Element_Size-4, Element_Values(0),  "Short_content_descrip"); break;
-        default : ;
-    }
-    Element_Offset=1+(Element_Code!=Id3::TXXX?3:0);
-    if (Element_Values(0).find(_T('\0'))!=std::string::npos)
-        Element_Values(0).resize(Element_Values(0).find(_T('\0'))); //Stopping after the first \0
-    if (Encoding==1)
-    {
-        if (Element_Size>=6 && Buffer[Buffer_Offset+4]==0x00 && Buffer[Buffer_Offset+5]==0x00)
-            Element_Offset+=Element_Values(0).size()*2+2; //UTF-16 NULL only, file is corrupted
-        else
-            Element_Offset+=Element_Values(0).size()*2+4; //UTF-16 BOM + UTF-16 NULL
-    }
-    else if (Encoding==2)
-        Element_Offset+=Element_Values(0).size()*2+2; //UTF-16 NULL
-    else
-        Element_Offset+=Element_Values(0).size()+1;   //UTF-8 NULL
-
-    //Integrity
-    if (Element_Size<Element_Offset)
-    {
-        //TRUSTED_ISNOT("Out of specifications!");
-        if (Element_Values.size()<2)
-            Element_Values.resize(2); //TODO: protect agains Element_Values(0) not valid if size<2
-        Element_Values(1)=Element_Values(0);
-        Element_Values(0).clear();
-        return;
-    }
-
-    switch (Encoding)
-    {
-        case 0 : Get_Local (Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
-        case 1 : Get_UTF16 (Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
-        case 2 : Get_UTF16B(Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
-        case 3 : Get_UTF8  (Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
-        default : ;
+        case 0 :
+        case 3 : //1-byte char
+                while (Element_Offset+Value0_Size<Element_Size && Buffer[Buffer_Offset+Element_Offset+Value0_Size]!='\0')
+                    Value0_Size++;
+                if (Element_Offset+Value0_Size>=Element_Size)
+                    return; //Problem
+                switch (Encoding)
+                {
+                    case 0 : Get_Local (Value0_Size, Element_Values(0), "Short_content_descrip"); break;
+                    case 3 : Get_UTF8  (Value0_Size, Element_Values(0), "Short_content_descrip"); break;
+                    default : ;
+                }
+                Skip_B1(                                        "Null");
+                switch (Encoding)
+                {
+                    case 0 : Get_Local (Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
+                    case 3 : Get_UTF8  (Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
+                    default : ;
+                }
+                break;
+        case 1 :
+        case 2 : //2-byte char
+                while (Element_Offset+Value0_Size+1<Element_Size
+                    && !(Buffer[Buffer_Offset+Element_Offset+Value0_Size  ]=='\0'
+                      && Buffer[Buffer_Offset+Element_Offset+Value0_Size+1]=='\0')) //2-byte zero
+                    Value0_Size+=2;
+                if (Element_Offset+Value0_Size>=Element_Size)
+                    return; //Problem
+                switch (Encoding)
+                {
+                    case 1 : Get_UTF16 (Value0_Size, Element_Values(0), "Short_content_descrip"); break;
+                    case 2 : Get_UTF16B(Value0_Size, Element_Values(0), "Short_content_descrip"); break;
+                    default : ;
+                }
+                Skip_B2(                                        "Null");
+                switch (Encoding)
+                {
+                    case 1 : Get_UTF16 (Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
+                    case 2 : Get_UTF16B(Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
+                    default : ;
+                }
+                break;
+        default: //Unknown
+                Skip_XX(Element_Size-Element_Offset,            "Unknown");
+                return;
+        ;
     }
 }
 
