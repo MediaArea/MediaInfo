@@ -1307,7 +1307,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx()
     {
         case Stream_Audio : moov_trak_mdia_minf_stbl_stsd_xxxxSound(); break;
         case Stream_Video : moov_trak_mdia_minf_stbl_stsd_xxxxVideo(); break;
-        default : ;
+        default : Skip_XX(Element_TotalSize_Get(),              "Unknown");
     }
 }
 
