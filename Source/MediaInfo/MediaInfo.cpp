@@ -439,17 +439,12 @@ size_t MediaInfo::Set(const String &ToSet, stream_t StreamKind, size_t StreamNum
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-size_t MediaInfo::Output_Buffer_Get (const String &Value, unsigned char** Output_Buffer)
+size_t MediaInfo::Output_Buffer_Get (const String &Value)
 {
     if (!Info)
-    {
-        if (Output_Buffer)
-            *Output_Buffer=NULL;
         return 0;
-    }
 
-    size_t Output_Buffer_Size=Info->Output_Buffer_Get(Value, Output_Buffer);
-    return Output_Buffer_Size;
+    return Info->Output_Buffer_Get(Value);
 }
 
 //***************************************************************************

@@ -138,12 +138,42 @@ void MediaInfoList_Internal::Entry()
 }
 
 //---------------------------------------------------------------------------
-size_t MediaInfoList_Internal::Open (const int8u* Begin, size_t Begin_Size, const int8u* End, size_t End_Size, int64u FileSize)
+size_t MediaInfoList_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
 {
-    Info.resize(Info.size()+1);
-    Info[Info.size()-1]=new MediaInfo();
-    Info[Info.size()-1]->Open(Begin, Begin_Size, End, End_Size, FileSize);
-    return 1;
+    MediaInfo* MI=new MediaInfo();
+    MI->Open_Buffer_Init(File_Size_, File_Offset_);
+    CS.Enter();
+    size_t Pos=Info.size();
+    Info.push_back(MI);
+    CS.Leave();
+    return Pos;
+}
+
+//---------------------------------------------------------------------------
+size_t MediaInfoList_Internal::Open_Buffer_Continue (size_t FilePos, const int8u* ToAdd, size_t ToAdd_Size)
+{
+    if (FilePos>=Info.size() || Info[FilePos]==NULL)
+        return 0;
+
+    return Info[FilePos]->Open_Buffer_Continue(ToAdd, ToAdd_Size);
+}
+
+//---------------------------------------------------------------------------
+int64u MediaInfoList_Internal::Open_Buffer_Continue_GoTo_Get (size_t FilePos)
+{
+    if (FilePos>=Info.size() || Info[FilePos]==NULL)
+        return (int64u)-1;
+
+    return Info[FilePos]->Open_Buffer_Continue_GoTo_Get();
+}
+
+//---------------------------------------------------------------------------
+size_t MediaInfoList_Internal::Open_Buffer_Finalize (size_t FilePos)
+{
+    if (FilePos>=Info.size() || Info[FilePos]==NULL)
+        return 0;
+
+    return Info[FilePos]->Open_Buffer_Finalize();
 }
 
 //---------------------------------------------------------------------------

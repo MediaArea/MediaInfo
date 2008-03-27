@@ -144,13 +144,11 @@ public :
     size_t Set (const String &ToSet, stream_t StreamKind, size_t StreamNumber, const String &Parameter, const String &OldValue=_T(""));
 
     //Output_Buffered
-        /// Output buffer pointer and size retrieving, used for File_Duplicate option.
-        /// @brief Output buffer pointer and size retrieving
-        /// @param Value The name of the duplicated program
-        /// @param Output_Buffer A pointer on the output buffer, NULL if there is nothing in the buffer \n
-        ///        Note: you must use all the size of the buffer before the next call to this procedure
+        /// Output the written size when "File_Duplicate" option is used.
+        /// @brief Output the written size when "File_Duplicate" option is used.
+        /// @param Value The unique name of the duplicated stream (begin with "memory://")
         /// @return The size of the used buffer
-    size_t Output_Buffer_Get (const String &Value, unsigned char** Output_Buffer=NULL);
+    size_t Output_Buffer_Get (const String &Value);
 
     //Info
         /// Configure or get information about MediaInfoLib

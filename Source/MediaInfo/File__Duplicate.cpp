@@ -168,15 +168,12 @@ void File__Duplicate::File__Duplicate_Write ()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-size_t File__Duplicate::Output_Buffer_Get (const Ztring &Code_, unsigned char** Output_Buffer)
+size_t File__Duplicate::Output_Buffer_Get (const Ztring &Code_)
 {
-    if (Duplicates.find(Code_)!=Duplicates.end())
-        return Duplicates[Code_]->Output_Buffer_Get(Code_, Output_Buffer);
-    else
-    {
-        Output_Buffer=NULL;
+    if (Duplicates.find(Code_)==Duplicates.end())
         return 0;
-    }
+
+    return Duplicates[Code_]->Output_Buffer_Get(Code_);
 }
 
 } //NameSpace

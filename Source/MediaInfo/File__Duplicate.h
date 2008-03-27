@@ -63,7 +63,7 @@ protected :
     void   File__Duplicate_Write ();
 
     //Output buffer
-    size_t Output_Buffer_Get (const Ztring &Value, unsigned char** Output_Buffer=NULL);
+    size_t Output_Buffer_Get (const Ztring &Value);
 
 private :
     bool                                       File__Duplicate_HasChanged_;

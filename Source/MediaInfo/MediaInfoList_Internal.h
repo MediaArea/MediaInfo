@@ -48,7 +48,10 @@ public :
 
     //Files
     size_t Open (const String &File, const fileoptions_t Options=FileOption_Nothing);
-    size_t Open (const ZenLib::int8u* Begin, size_t Begin_Size, const ZenLib::int8u* End=NULL, size_t End_Size=NULL, ZenLib::int64u File_Size=0);
+    size_t Open_Buffer_Init (ZenLib::int64u File_Size=(ZenLib::int64u)-1, ZenLib::int64u File_Offset=0);
+    size_t Open_Buffer_Continue (size_t FilePos, const ZenLib::int8u* Buffer, size_t Buffer_Size);
+    ZenLib::int64u Open_Buffer_Continue_GoTo_Get (size_t FilePos);
+    size_t Open_Buffer_Finalize (size_t FilePos);
     size_t Save (size_t FilePos);
     void Close (size_t FilePos=(size_t)-1);
     String Inform (size_t FilePos=(size_t)-1, size_t Reserved=0);
@@ -62,7 +65,7 @@ public :
     size_t Set (const String &ToSet, size_t FilePos, stream_t StreamKind, size_t StreamNumber, const String &Parameter, const String &OldValue=_T("")); //Get info, FilePos=File position, StreamKind=General video audio text chapter, StreamNumber=stream number, PosInStream=parameter you want, KindOfInfo=name text measure options name (language) measure (language) information how to, KindOfSearch=which Kind Of information Parameter must be searched?
 
     //Output_Buffered
-    char* Output_Buffer_Get (size_t &Output_Buffer_Size);
+    char* Output_Buffer_Get (size_t File_Pos, size_t &Output_Buffer_Size);
 
     //Info
     String        Option (const String &Option, const String &Value=String(_T("")));

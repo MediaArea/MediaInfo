@@ -68,9 +68,27 @@ size_t MediaInfoList::Open(const String &File, const fileoptions_t Options)
 }
 
 //---------------------------------------------------------------------------
-size_t MediaInfoList::Open (const int8u* Begin, size_t Begin_Size, const int8u* End, size_t End_Size, int64u FileSize)
+size_t MediaInfoList::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
 {
-    return ((MediaInfoList_Internal*)Internal)->Open(Begin, Begin_Size, End, End_Size, FileSize);
+    return ((MediaInfoList_Internal*)Internal)->Open_Buffer_Init(File_Size_, File_Offset_);
+}
+
+//---------------------------------------------------------------------------
+size_t MediaInfoList::Open_Buffer_Continue (size_t FilePos, const int8u* ToAdd, size_t ToAdd_Size)
+{
+    return ((MediaInfoList_Internal*)Internal)->Open_Buffer_Continue(FilePos, ToAdd, ToAdd_Size);
+}
+
+//---------------------------------------------------------------------------
+int64u MediaInfoList::Open_Buffer_Continue_GoTo_Get (size_t FilePos)
+{
+    return ((MediaInfoList_Internal*)Internal)->Open_Buffer_Continue_GoTo_Get(FilePos);
+}
+
+//---------------------------------------------------------------------------
+size_t MediaInfoList::Open_Buffer_Finalize (size_t FilePos)
+{
+    return ((MediaInfoList_Internal*)Internal)->Open_Buffer_Finalize(FilePos);
 }
 
 //---------------------------------------------------------------------------

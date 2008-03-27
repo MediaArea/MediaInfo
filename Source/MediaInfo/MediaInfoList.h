@@ -59,16 +59,27 @@ public :
         ///                  FileOption_Close = Close all already opened files before
         /// @retval Number of files successfuly added
     size_t Open (const String &File, const fileoptions_t Options=FileOption_Nothing);
-        /// Open a buffer (Begin and end of the stream) and collect information about it (technical information and tags)
-        /// @brief Open a stream
-        /// @param Begin First bytes of the buffer
-        /// @param Begin_Size Size of Begin
-        /// @param End Last bytes of the buffer
-        /// @param End_Size Size of End
-        /// @param File_Size Total size of the file
-        /// @retval 0 File not opened
-        /// @retval 1 File opened
-    size_t Open (const ZenLib::int8u* Begin, size_t Begin_Size, const ZenLib::int8u* End=NULL, size_t End_Size=NULL, ZenLib::int64u File_Size=0);
+        /// Open a stream and collect information about it (technical information and tags)
+        /// @brief Open a stream (Init)
+        /// @param File_Size Estimated file size
+        /// @param File_Offset Offset of the file (if we don't have the beginning of the file)
+    size_t Open_Buffer_Init (ZenLib::int64u File_Size=(ZenLib::int64u)-1, ZenLib::int64u File_Offset=0);
+        /// Open a stream and collect information about it (technical information and tags)
+        /// @brief Open a stream (Continue)
+        /// @param FilePos File position
+        /// @param Buffer pointer to the stream
+        /// @param Buffer_Size Count of bytes to read
+    size_t Open_Buffer_Continue (size_t FilePos, const ZenLib::int8u* Buffer, size_t Buffer_Size);
+        /// Open a stream and collect information about it (technical information and tags)
+        /// @brief Open a stream (Get the needed file Offset)
+        /// @param FilePos File position
+        /// @return the needed offset of the file \n
+        ///         File size if no more bytes are needed
+    ZenLib::int64u Open_Buffer_Continue_GoTo_Get (size_t FilePos);
+        /// Open a stream and collect information about it (technical information and tags)
+        /// @brief Open a stream (Finalize)
+        /// @param FilePos File position
+    size_t Open_Buffer_Finalize (size_t FilePos);
         /// Save the file opened before with Open() (modifications of tags)
         /// @brief Save the file
         /// @param FilePos File position \n
@@ -146,10 +157,11 @@ public :
     //Output_Buffered
         /// Output buffer retrieving, used for File_Duplicate option.
         /// @brief Output buffer retrieving
+        /// @param FilePos File position
         /// @param Output_Buffer_Size A pointer to the variable that receives the size of the buffer \n
         ///        Note: you must use all the size of the buffer before the next call to this procedure
         /// @return A pointer on the output buffer, NULL if there is nothing in the buffer
-    char* Output_Buffer_Get (size_t &Output_Buffer_Size);
+    char* Output_Buffer_Get (size_t FilePos, size_t &Output_Buffer_Size);
 
     //Info
         /// Configure or get information about MediaInfoLib
