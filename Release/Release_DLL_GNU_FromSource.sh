@@ -34,8 +34,8 @@ chmod u+x MediaInfo_DLL_GNU_FromSource/Release/*.sh
 
 #-----------------------------------------------------------------------
 # Copying : Information
-cp ReadMe.Linux.txt MediaInfo_DLL_GNU_FromSource/Release
-cp ReadMe.Mac.txt MediaInfo_DLL_GNU_FromSource/Release
+cp ReadMe_DLL_Linux.txt MediaInfo_DLL_GNU_FromSource/Release/
+cp ReadMe_DLL_Mac.txt MediaInfo_DLL_GNU_FromSource/Release/
 
 
 #-----------------------------------------------------------------------

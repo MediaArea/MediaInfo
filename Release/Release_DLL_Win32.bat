@@ -63,24 +63,19 @@ xcopy ..\Project\Java\Example\*.txt MediaInfoDLL_Win32\Developpers\Project\Java\
 xcopy ..\Project\Java\Example\*.bat MediaInfoDLL_Win32\Developpers\Project\Java\Example\
 xcopy ..\Project\Java\Example\*.sh MediaInfoDLL_Win32\Developpers\Project\Java\Example\
 
-@rem --- Copying : Libs ---
+rem --- Copying : Libs ---
 xcopy ..\Release\BCB\DLL\MediaInfo.lib MediaInfoDLL_Win32\Developpers\Release\BCB\DLL\
 xcopy ..\Release\MSVC\DLL\MediaInfo.lib MediaInfoDLL_Win32\Developpers\Release\MSVC\DLL\
 xcopy ..\Release\MSVC\DLL\MediaInfod.lib MediaInfoDLL_Win32\Developpers\Release\MSVC\DLL\
 
-@rem --- Copying : Examples ---
+rem --- Copying : Examples ---
 xcopy ..\Source\Example\HowToUse_Dll.* MediaInfoDLL_Win32\Developpers\Source\Example\
 xcopy Example.ogg MediaInfoDLL_Win32\Developpers\
 
-@rem --- Copying : Notice ---
-xcopy ReadMe_Dll.txt MediaInfoDLL_Win32\
-
 rem --- Copying : Information files ---
-xcopy ..\*.txt MediaInfoDLL_Win32\Developpers\
-xcopy ..\*.html MediaInfoDLL_Win32\Developpers\
-
-@rem --- Copying : History ---
-xcopy ..\History.DLL.txt MediaInfoDLL_Win32\
+copy ..\Licence.html MediaInfoDLL_Win32\Developpers\
+copy ..\History_DLL.txt MediaInfoDLL_Win32\Developpers\History.txt
+copy ReadMe_DLL_Windows.txt MediaInfoDLL_Win32\ReadMe.txt
 
 rem --- Copying : Contrib ---
 xcopy ..\Contrib\*.* MediaInfoDLL_Win32\Developpers\Contrib\ /S

@@ -41,23 +41,18 @@ xcopy "..\Project\MSVB\Example\My Project\*.*" "MediaInfoDLL_Windows_x64\Develop
 xcopy ..\Project\MSVC\*.sln MediaInfoDLL_Windows_x64\Developpers\Project\MSVC\
 xcopy ..\Project\MSVC\Example\HowToUse_Dll.vcproj MediaInfoDLL_Windows_x64\Developpers\Project\MSVC\Example\
 
-@rem --- Copying : Libs ---
+rem --- Copying : Libs ---
 xcopy ..\Release\MSVCx64\DLL\MediaInfo.lib MediaInfoDLL_Windows_x64\Developpers\Release\MSVC\DLL\
 xcopy ..\Release\MSVCx64\DLL\MediaInfod.lib MediaInfoDLL_Windows_x64\Developpers\Release\MSVC\DLL\
 
-@rem --- Copying : Examples ---
+rem --- Copying : Examples ---
 xcopy ..\Source\Example\HowToUse_Dll.* MediaInfoDLL_Windows_x64\Developpers\Source\Example\
 xcopy Example.ogg MediaInfoDLL_Windows_x64\Developpers\
 
-@rem --- Copying : Notice ---
-xcopy ReadMe_Dll.txt MediaInfoDLL_Windows_x64\
-
 rem --- Copying : Information files ---
-xcopy ..\*.txt MediaInfoDLL_Windows_x64\Developpers\
-xcopy ..\*.html MediaInfoDLL_Windows_x64\Developpers\
-
-@rem --- Copying : History ---
-xcopy ..\History.DLL.txt MediaInfoDLL_Windows_x64\
+copy ..\Licence.html MediaInfoDLL_Windows_x64\Developpers\
+copy ..\History_DLL.txt MediaInfoDLL_Windows_x64\Developpers\History.txt
+copy ReadMe_DLL_Windows.txt MediaInfoDLL_Windows_x64\ReadMe.txt
 
 rem --- Copying : DLL ---
 xcopy MSVCx64\Dll\MediaInfo.dll MediaInfoDLL_Windows_x64\

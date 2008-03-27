@@ -21,11 +21,10 @@ xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.cpp MediaInfo_Lib_GNU_Prepare\Source\M
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL_Static.h MediaInfo_Lib_GNU_Prepare\Source\MediaInfoDLL\ /S
 
 rem --- Copying : Information files ---
-copy ..\History.txt MediaInfo_Lib_GNU_Prepare\
+copy ..\History_DLL.txt MediaInfo_Lib_GNU_Prepare\
 copy ..\Licence.html MediaInfo_Lib_GNU_Prepare\
-copy ..\ReadMe.txt MediaInfo_Lib_GNU_Prepare\
-copy ReadMe.Linux.txt MediaInfo_Lib_GNU_Prepare\Release\
-copy ReadMe.Mac.txt MediaInfo_Lib_GNU_Prepare\Release\
+copy ReadMe_DLL_Linux.txt MediaInfo_Lib_GNU_Prepare\Release\
+copy ReadMe_DLL_Mac.txt MediaInfo_Lib_GNU_Prepare\Release\
 
 
 rem --- Compressing Archive ---

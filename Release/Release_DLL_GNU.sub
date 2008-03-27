@@ -22,16 +22,10 @@ strip libmediainfo.so.0.0.0
 cd ..
 
 #-----------------------------------------------------------------------
-# Copying : Licence files
-cp ../Licence.html MediaInfo_DLL_$1_$2/
-
-#-----------------------------------------------------------------------
-# Copying : History
-cp ../History.txt MediaInfo_DLL_$1_$2/History.txt
-
-#-----------------------------------------------------------------------
 # Copying : Information file
-cp ReadMe.$1.txt MediaInfo_DLL_$1_$2/ReadMe.txt
+cp ../Licence.html MediaInfo_DLL_$1_$2/
+cp ../History_DLL.txt MediaInfo_DLL_$1_$2/History.txt
+cp ReadMe_DLL_$1.txt MediaInfo_DLL_$1_$2/ReadMe.txt
 
 #-----------------------------------------------------------------------
 # Copying : Developpers, Documentation
