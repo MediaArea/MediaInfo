@@ -912,6 +912,34 @@ public :
     } \
     break; \
 
+#define ATOM_DEFAULT_ALONE(_ATOM) \
+    if (Level!=Element_Level) \
+    { \
+        Level++; \
+        if (Level==Element_Level) \
+        { \
+            if (Element_IsComplete_Get()) \
+                _ATOM(); \
+            else \
+            { \
+                Element_WaitForMoreData(); \
+                return; \
+            } \
+        } \
+    } \
+    break; \
+
+#define LIST_SKIP(_ATOM) \
+    case Elements::_ATOM : \
+            if (Level==Element_Level) \
+            { \
+                _ATOM(); \
+                Element_ThisIsAList(); \
+            } \
+            if (Element_TotalSize_Get()>Element_Offset) \
+                Skip_XX(Element_TotalSize_Get()-Element_Offset, "Unknown"); \
+            break; \
+
 
 #define DATA_BEGIN \
     size_t Level=0; \

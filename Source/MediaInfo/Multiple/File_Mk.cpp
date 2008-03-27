@@ -310,9 +310,7 @@ void File_Mk::Data_Parse()
             ATOM_BEGIN
             LIST(Segment_Attachements_AttachedFile)
                 ATOM_BEGIN
-                LIST(Segment_Attachements_AttachedFile_FileData) //This is ATOM, but some ATOMs are too big
-                    ATOM_BEGIN
-                    ATOM_END
+                LIST_SKIP(Segment_Attachements_AttachedFile_FileData) //This is ATOM, but some ATOMs are too big
                 ATOM(Segment_Attachements_AttachedFile_FileDescription)
                 ATOM(Segment_Attachements_AttachedFile_FileName)
                 ATOM(Segment_Attachements_AttachedFile_FileMimeType)

@@ -236,15 +236,11 @@ void File_Mpeg4::Data_Parse()
 {
     //Parsing
     DATA_BEGIN
-    LIST(free)
-        ATOM_BEGIN
-        ATOM_END
+    LIST_SKIP(free)
     ATOM(ftyp)
     ATOM(idat)
     ATOM(idsc)
-    LIST(mdat)
-        ATOM_BEGIN
-        ATOM_END
+    LIST_SKIP(mdat)
     LIST(moov)
         ATOM_BEGIN
         LIST(moov_cmov)

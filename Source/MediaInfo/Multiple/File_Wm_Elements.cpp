@@ -200,15 +200,9 @@ void File_Wm::Data_Parse()
         ATOM(Header_Padding)
         ATOM_END
     LIST(Data)
-        ATOM_BEGIN
-        ATOM_DEFAULT(Data_Packet);
-        ATOM_END_DEFAULT
-    LIST(SimpleIndex)
-        ATOM_BEGIN
-        ATOM_END
-    LIST(Index)
-        ATOM_BEGIN
-        ATOM_END
+        ATOM_DEFAULT_ALONE(Data_Packet)
+    LIST_SKIP(SimpleIndex)
+    LIST_SKIP(Index)
     ATOM(MediaIndex)
     ATOM(TimecodeIndex)
     DATA_END
@@ -1336,7 +1330,7 @@ void File_Wm::SimpleIndex()
         Element_End();
     }
     */
-    Skip_XX(Element_Size-Element_Offset,                        "Indexes");
+    Skip_XX(Element_TotalSize_Get()-Element_Offset,             "Indexes");
 }
 
 //---------------------------------------------------------------------------
@@ -1377,7 +1371,7 @@ void File_Wm::Index()
         Element_End();
     }
     */
-    Skip_XX(Element_Size-Element_Offset,                        "Indexes");
+    Skip_XX(Element_TotalSize_Get()-Element_Offset,             "Indexes");
 }
 
 //---------------------------------------------------------------------------

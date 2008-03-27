@@ -110,9 +110,7 @@ void File_Rm::Data_Parse()
     DATA_BEGIN
     ATOM( RMF)
     ATOM(CONT)
-    LIST(DATA)
-        ATOM_BEGIN
-        ATOM_END
+    LIST_SKIP(DATA)
     ATOM(INDX)
     ATOM(MDPR)
     ATOM(PROP)

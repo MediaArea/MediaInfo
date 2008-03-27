@@ -364,7 +364,7 @@ void File_Ac3::Header_Parse()
     }
     else
         //Filling
-        Size=Element_Offset;
+        Size=(int16u)Element_Offset;
 
     //CRC
     if (Buffer_Offset+Size>Buffer_Size)

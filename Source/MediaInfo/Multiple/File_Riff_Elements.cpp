@@ -211,27 +211,21 @@ void File_Riff::Data_Parse()
         ATOM(AIFC_COMM)
         ATOM(AIFC_COMT)
         ATOM(AIFC_FVER)
-        LIST(AIFC_SSND)
-            ATOM_BEGIN
-            ATOM_END
+        LIST_SKIP(AIFC_SSND)
         ATOM_DEFAULT(AIFC_xxxx)
         ATOM_END_DEFAULT
     LIST(AIFF)
         ATOM_BEGIN
         ATOM(AIFF_COMM)
         ATOM(AIFF_COMT)
-        LIST(AIFF_SSND)
-            ATOM_BEGIN
-            ATOM_END
+        LIST_SKIP(AIFF_SSND)
         ATOM_DEFAULT(AIFF_xxxx)
         ATOM_END_DEFAULT
     LIST(AVI_)
         ATOM_BEGIN
         ATOM(AVI__cset)
         LIST(AVI__exif)
-            ATOM_BEGIN
-            ATOM_DEFAULT(AVI__exif_xxxx)
-            ATOM_END_DEFAULT
+            ATOM_DEFAULT_ALONE(AVI__exif_xxxx)
         LIST(AVI__goog)
             ATOM_BEGIN
             ATOM(AVI__goog_GDAT)
@@ -256,9 +250,7 @@ void File_Riff::Data_Parse()
                 ATOM_END
             ATOM_DEFAULT(AVI__hdlr_xxxx)
             ATOM_END_DEFAULT
-        LIST(AVI__idx1)
-            ATOM_BEGIN
-            ATOM_END
+        LIST_SKIP(AVI__idx1)
         LIST(AVI__INFO)
             ATOM_BEGIN
             ATOM(AVI__INFO_IID3)
@@ -271,9 +263,7 @@ void File_Riff::Data_Parse()
         LIST(AVI__movi)
             ATOM_BEGIN
             LIST(AVI__movi_rec_)
-                ATOM_BEGIN
-                ATOM_DEFAULT(AVI__movi_xxxx)
-                ATOM_END_DEFAULT
+                ATOM_DEFAULT_ALONE(AVI__movi_xxxx)
             ATOM_DEFAULT(AVI__movi_xxxx)
             ATOM_END_DEFAULT
         ATOM_END
@@ -283,35 +273,19 @@ void File_Riff::Data_Parse()
         LIST(AVIX_movi)
             ATOM_BEGIN
             LIST(AVIX_movi_rec_)
-                ATOM_BEGIN
-                ATOM_DEFAULT(AVIX_movi_xxxx)
-                ATOM_END_DEFAULT
+                ATOM_DEFAULT_ALONE(AVIX_movi_xxxx)
             ATOM_DEFAULT(AVIX_movi_xxxx)
             ATOM_END_DEFAULT
         ATOM_END
     ATOM(IDVX)
-    LIST(JUNK)
-        ATOM_BEGIN
-        ATOM_END
-    LIST(menu)
-        ATOM_BEGIN
-        ATOM_END
+    LIST_SKIP(JUNK)
+    LIST_SKIP(menu)
     ATOM(MThd)
-    LIST(MTrk)
-        ATOM_BEGIN
-        ATOM_END
-    LIST(PAL_)
-        ATOM_BEGIN
-        ATOM_END
-    LIST(RDIB)
-        ATOM_BEGIN
-        ATOM_END
-    LIST(RMID)
-        ATOM_BEGIN
-        ATOM_END
-    LIST(RMMP)
-        ATOM_BEGIN
-        ATOM_END
+    LIST_SKIP(MTrk)
+    LIST_SKIP(PAL_)
+    LIST_SKIP(RDIB)
+    LIST_SKIP(RMID)
+    LIST_SKIP(RMMP)
     LIST(RMP3)
         ATOM_BEGIN
         LIST(RMP3_data)
@@ -596,8 +570,6 @@ void File_Riff::AVI__GMET()
     //Filling
     for (size_t Pos=0; Pos<List.size(); Pos++)
     {
-        if (List(Pos, 0)==_T("gvp_version"));
-        if (List(Pos, 0)==_T("duration"));
         if (List(Pos, 0)==_T("title"))          Fill(Stream_General, 0, "Title", List(Pos, 1));
         if (List(Pos, 0)==_T("description"))    Fill(Stream_General, 0, "Title/More", List(Pos, 1));
         if (List(Pos, 0)==_T("url"))            Fill(Stream_General, 0, "Title/Url", List(Pos, 1));
