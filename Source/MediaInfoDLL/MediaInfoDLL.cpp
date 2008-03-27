@@ -665,7 +665,7 @@ size_t          __stdcall MediaInfoList_Open_Buffer (void* Handle, const unsigne
         return (size_t)M;
     }
 
-    EXECUTE_INT(MediaInfoList, Open(Begin, Begin_Size, End, End_Size), Debug+="Open_Buffer(L), will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
+    return 0; //No more implemented
 }
 
 size_t          __stdcall MediaInfoList_Save (void* Handle, size_t  FilePos)
