@@ -28,8 +28,21 @@ HRESULT CMediaInfoShellExt_::GetInfoTip (DWORD, LPWSTR* ppwszTip)
     //Creating tooltip
 	ToolTip=_T("MediaInfo:\n");
 	MediaInfoLib::MediaInfo I;
-	I.Open(FileName);
-	ToolTip+=I.Inform();
+	I.Option(_T("Inform"), _T("Summary"));
+    I.Open(FileName);
+    for (size_t StreamKind=0; StreamKind<(size_t)MediaInfoLib::Stream_Max; StreamKind++)
+        for (size_t StreamPos=0; StreamPos<I.Count_Get((MediaInfoLib::stream_t)StreamKind); StreamPos++)
+        {
+            if (StreamKind>0)
+            {
+                ToolTip+=I.Get((MediaInfoLib::stream_t)StreamKind, StreamPos, _T("StreamKind"));
+                ToolTip+=_T(": ");
+            }
+            ToolTip+=I.Get((MediaInfoLib::stream_t)StreamKind, StreamPos, _T("Inform"));
+            ToolTip+=_T("\r\n");
+        }
+    if (ToolTip.size()>2)
+        ToolTip.resize(ToolTip.size()-2); //Removing the ending \r\n
 
     //Allocate a buffer for Explorer.  Note that the must pass the string 
     //back as a Unicode string, so the string length is multiplied by the 
