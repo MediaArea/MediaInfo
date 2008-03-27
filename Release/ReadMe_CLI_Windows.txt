@@ -11,3 +11,9 @@ Anyone may modify this program and distribute modifications
 under the terms of the GPLv3 licence.
 
 A library is available separately under LGPLv3 conditions.
+
+
+Usage
+-----
+mediainfo FileName
+mediainfo --Help

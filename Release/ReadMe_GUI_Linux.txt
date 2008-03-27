@@ -13,15 +13,9 @@ under the terms of the GPLv3 licence.
 A library is available separately under GPLv3 conditions.
 
 
-Usage
------
-mediainfo FileName
-mediainfo --Help
-
-
 Compilation from source
 -----------------------
-* at the top of the archive, ./CLI_Compile.sh
+* at the top of the archive, ./GUI_Compile.sh
 or
 * for each part of the project, cd Project/GNU/(project part name)/, ./configure, ./make
 
