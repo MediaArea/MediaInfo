@@ -9,8 +9,10 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.6.2
 ---------------
++ Spanish translation updated
 + MKV: handling of files created for streaming
 + MPEG-4: Handling of corrupted stream size info with some PCM streams
++ DVD video: Hebrew patch ("iw" code is mapped to Hebrew)
 x MPEG-4: better handling of bitrate mode (VBR or CBR)
 x AVI: MediaInfo reads now the framerate value from the container rather than the stream value
 
