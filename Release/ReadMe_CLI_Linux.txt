@@ -1,14 +1,14 @@
 MediaInfo - http://mediainfo.sourceforge.net
 Copyright (c) 2002-2008, Jerome Martinez, zen@mediaarea.net
 
-This program is freeware (GPLv3).
+This program is freeware (LGLPv3).
 See licence.html for more information
-A library is available separately under LGPLv3 conditions.
 
-Anyone may copy and use this program free of charge.
-You may distribute it only under certain circunstances :
- - this file must be included with this program.
- - you can't distribute this program for commercial purposes.
+Anyone may use, copy and distribute this program free of charge.
+Anyone may modify this program and distribute modifications
+under the terms of the LGPLv3 licence.
+
+A library is available separately under LGPLv3 conditions.
 
 
 USAGE
