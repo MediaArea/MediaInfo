@@ -271,13 +271,6 @@ void __fastcall TPreferencesF::CB_InscrireShellClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::CB_InfoTipClick(TObject *Sender)
 {
-    //Beta warning
-    if (CB_InfoTip->Checked && Prefs->Config(_T("ShellInfoTip"), 1)!=_T("1") && MessageBox(Application->Handle, _T("This functionality is in BETA status. If windows explorer crashes when moving your mouse on a file, deactivate it. Are you sure you want to test it?"), _T("Warning"), MB_YESNO)==IDNO)
-    {
-        CB_InfoTip->Checked=false;
-        return;
-    }
-
     //ToolTip
     if (CB_InfoTip->Checked)
     {

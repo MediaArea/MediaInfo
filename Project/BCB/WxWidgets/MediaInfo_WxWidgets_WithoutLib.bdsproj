@@ -92,14 +92,14 @@
           <property category="win32.*.win32b.bcc32" name="option.AK.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.AU.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.1" value="UNICODE"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.10" value="ZENLIB_STANDARDx"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.10" value="ZENLIB_STANDARD"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.2" value="_UNICODE"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.3" value="_DEBUG"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.4" value="__WXMSW__"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.5" value="__WXDEBUG__"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.6" value="WIN32"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.7" value="_WIN32"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.8" value="ZENLIB_DEBUG"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.8" value="ZENLIB_DEBUGx"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.9" value="ZENLIB_USEWXx"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.D.enabled" value="1"/>

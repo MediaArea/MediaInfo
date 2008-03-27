@@ -24,10 +24,10 @@ xcopy Release_CLI_GNU.sub MediaInfo_CLI_GNU_Prepare\Release\
 xcopy Release_CLI_*.sh MediaInfo_CLI_GNU_Prepare\Release\
 
 rem --- Copying : Information files ---
-copy ..\History.CLI.txt MediaInfo_CLI_GNU_Prepare\
+copy ..\History_CLI.txt MediaInfo_CLI_GNU_Prepare\
 copy ..\Licence.html MediaInfo_CLI_GNU_Prepare\
-copy ReadMe.Linux.txt MediaInfo_CLI_GNU_Prepare\Release\
-copy ReadMe.Mac.txt MediaInfo_CLI_GNU_Prepare\Release\
+copy ReadMe_CLI_Linux.txt MediaInfo_CLI_GNU_Prepare\Release\
+copy ReadMe_CLI_Mac.txt MediaInfo_CLI_GNU_Prepare\Release\
 
 
 rem --- Preparing Archive : MediaInfo ---

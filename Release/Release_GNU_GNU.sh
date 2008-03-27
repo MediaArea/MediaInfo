@@ -12,16 +12,10 @@ mkdir MediaInfo_GUI_GNU
 cp ../Project/GNU/GUI/MediaInfo MediaInfo_GUI_GNU/MediaInfo
 
 #-----------------------------------------------------------------------
-# Copying : Licence files
-cp ../Licence.html MediaInfo_GUI_GNU/
-
-#-----------------------------------------------------------------------
-# Copying : History
-cp ../History.GUI.txt MediaInfo_GUI_GNU/
-
-#-----------------------------------------------------------------------
 # Copying : Information file
-cp Readme.Linux.txt MediaInfo_GUI_GNU/
+cp ../Licence.html MediaInfo_GUI_GNU/
+cp ../History_GUI.txt MediaInfo_GUI_GNU/History.txt
+cp ReadMe_GUI_Linux.txt MediaInfo_GUI_GNU/ReadMe.txt
 
 #-----------------------------------------------------------------------
 # Compressing Archive

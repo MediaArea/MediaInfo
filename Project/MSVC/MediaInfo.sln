@@ -6,6 +6,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfo_CLI", "CLI\MediaI
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfo_GUI", "GUI\MediaInfo_GUI.vcproj", "{8A1AE679-131A-493C-86CA-91179B0955A5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfo_GUI_WithoutLibrary", "MediaInfo_GUI_WithoutLibrary\MediaInfo_GUI_WithoutLibrary.vcproj", "{A4A03937-2A8A-4337-989F-6F426E0DCBAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -38,6 +40,12 @@ Global
 		{8A1AE679-131A-493C-86CA-91179B0955A5}.Release|Win32.Build.0 = Release|Win32
 		{8A1AE679-131A-493C-86CA-91179B0955A5}.Release|x64.ActiveCfg = Release|x64
 		{8A1AE679-131A-493C-86CA-91179B0955A5}.Release|x64.Build.0 = Release|x64
+		{A4A03937-2A8A-4337-989F-6F426E0DCBAE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A4A03937-2A8A-4337-989F-6F426E0DCBAE}.Debug|Win32.Build.0 = Debug|Win32
+		{A4A03937-2A8A-4337-989F-6F426E0DCBAE}.Debug|x64.ActiveCfg = Debug|Win32
+		{A4A03937-2A8A-4337-989F-6F426E0DCBAE}.Release|Win32.ActiveCfg = Release|Win32
+		{A4A03937-2A8A-4337-989F-6F426E0DCBAE}.Release|Win32.Build.0 = Release|Win32
+		{A4A03937-2A8A-4337-989F-6F426E0DCBAE}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

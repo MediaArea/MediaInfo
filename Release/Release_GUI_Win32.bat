@@ -18,14 +18,10 @@ xcopy MSVC\DLL\MediaInfo_InfoTip.dll MediaInfo_GUI_Win32\ /S
 @rem --- Copying : Plugins ---
 xcopy ..\Source\Ressource\Plugin\* MediaInfo_GUI_Win32\Plugin\ /S
 
-@rem --- Copying : Licence files ---
-xcopy ..\Licence.html MediaInfo_GUI_Win32\
-
-@rem --- Copying : History ---
-xcopy ..\History.GUI.txt MediaInfo_GUI_Win32\
-
 @rem --- Copying : Information files ---
-xcopy Readme.Windows.txt MediaInfo_GUI_Win32\
+copy ..\Licence.html MediaInfo_GUI_Win32\
+copy ..\History_GUI.txt MediaInfo_GUI_Win32\History.txt
+copy ReadMe_GUI_Windows.txt MediaInfo_GUI_Win32\ReadMe.txt
 
 
 rem --- Compressing Archive ---

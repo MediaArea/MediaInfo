@@ -19,16 +19,10 @@ strip mediainfo
 cd ..
 
 #-----------------------------------------------------------------------
-# Copying : Licence files
-cp ../Licence.html MediaInfo_CLI_$1_$2/
-
-#-----------------------------------------------------------------------
-# Copying : History
-cp ../History.CLI.txt MediaInfo_CLI_$1_$2/History.txt
-
-#-----------------------------------------------------------------------
 # Copying : Information file
-cp ReadMe.$1.txt MediaInfo_CLI_$1_$2/ReadMe.txt
+cp ../Licence.html MediaInfo_CLI_$1_$2/
+cp ../History_CLI.txt MediaInfo_CLI_$1_$2/History.txt
+cp ReadMe_CLI_$1.txt MediaInfo_CLI_$1_$2/ReadMe.txt
 
 #-----------------------------------------------------------------------
 # Compressing Archive

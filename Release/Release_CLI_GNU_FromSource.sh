@@ -52,9 +52,9 @@ chmod u+x MediaInfo_CLI_GNU_FromSource/Release/*.sh
 #-----------------------------------------------------------------------
 # Copying : Information
 cp ../Licence.html MediaInfo_CLI_GNU_FromSource/
-cp ../History.CLI.txt MediaInfo_CLI_GNU_FromSource/
-cp ReadMe.Linux.txt MediaInfo_CLI_GNU_FromSource/Release/
-cp ReadMe.Mac.txt MediaInfo_CLI_GNU_FromSource/Release/
+cp ../History_CLI.txt MediaInfo_CLI_GNU_FromSource/
+cp ReadMe_CLI_Linux.txt MediaInfo_CLI_GNU_FromSource/Release/
+cp ReadMe_CLI_Mac.txt MediaInfo_CLI_GNU_FromSource/Release/
 
 
 #-----------------------------------------------------------------------

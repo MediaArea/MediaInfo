@@ -5,21 +5,17 @@ del   MediaInfo_CLI_Win32.zip
 rmdir MediaInfo_CLI_Win32 /S /Q
 mkdir MediaInfo_CLI_Win32
 
-@rem --- Copying : Exe ---
+rem --- Copying : Exe ---
 xcopy MSVC\CLI\MediaInfo.exe MediaInfo_CLI_Win32\ /S
 xcopy ..\..\MediaInfoLib\Release\MSVC\Dll\MediaInfo.dll MediaInfo_CLI_Win32\ /S
 
-@rem --- Copying : Plugins ---
+rem --- Copying : Plugins ---
 xcopy ..\Source\Ressource\Plugin\Custom\* MediaInfo_CLI_Win32\Plugin\Custom\ /S
 
-@rem --- Copying : Licence files ---
-xcopy ..\Licence.html MediaInfo_CLI_Win32\
-
-@rem --- Copying : History ---
-xcopy ..\History.CLI.txt MediaInfo_CLI_Win32\
-
-@rem --- Copying : Information files ---
-xcopy Readme.Windows.txt MediaInfo_CLI_Win32\
+rem --- Copying : Information files ---
+copy ..\Licence.html MediaInfo_CLI_Win32\
+copy ..\History_CLI.txt MediaInfo_CLI_Win32\History.txt
+copy Readme_CLI_Windows.txt MediaInfo_CLI_Win32\ReadMe.txt
 
 
 rem --- Compressing Archive ---
