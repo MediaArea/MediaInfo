@@ -73,16 +73,16 @@ GUI_Main_Easy_Box::GUI_Main_Easy_Box(Core* _C, GUI_Main_Easy* Parent, wxWindow* 
 void GUI_Main_Easy_Box::GUI_Refresh()
 {
     //Translation
-    Box->SetLabel(Box_Get());
+    Box->SetLabel(Box_Get().c_str());
 
     //Info
-    Text->SetLabel(Text_Get());
-    Text->SetToolTip(ToolTip_Get());
-    Tags->SetLabel(Tags_Get());
+    Text->SetLabel(Text_Get().c_str());
+    Text->SetToolTip(ToolTip_Get().c_str());
+    Tags->SetLabel(Tags_Get().c_str());
 
     if (Button_Show())
     {
-        Button->SetLabel(Button_Get());
+        Button->SetLabel(Button_Get().c_str());
         Button->Show();
     }
 }
@@ -117,8 +117,8 @@ void GUI_Main_Easy_Box::GUI_Resize()
                     Tags_Get().empty()?0:Text->GetSize().GetWidth(),
                     Text->GetSize().GetHeight());
     int Text_Width=Text->GetSize().GetWidth();
-    Text->SetLabel(Text_Get());
-    Tags->SetLabel(Tags_Get());
+    Text->SetLabel(Text_Get().c_str());
+    Tags->SetLabel(Tags_Get().c_str());
     Text->Wrap(Text_Width);
     Tags->Wrap(Text_Width);
     Text->SetSize  (-1,
@@ -157,5 +157,5 @@ void GUI_Main_Easy_Box::GUI_Resize()
 void GUI_Main_Easy_Box::OnClick(wxCommandEvent&)
 {
     //Showing
-    wxMessageBox(Button_Click(), _T("Should launch"), wxOK | wxICON_INFORMATION, this);
+    wxMessageBox(Button_Click().c_str(), _T("Should launch"), wxOK | wxICON_INFORMATION, this);
 }

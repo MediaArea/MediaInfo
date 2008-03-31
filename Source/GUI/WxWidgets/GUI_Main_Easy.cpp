@@ -88,7 +88,7 @@ void GUI_Main_Easy::GUI_Refresh()
     Select->Clear();
     size_t FilesCount=FilesCount_Get();
     for (File_Pos=0; File_Pos<FilesCount; File_Pos++)
-        Select->Append(FileName_Get());
+        Select->Append(FileName_Get().c_str());
     File_Pos=0;
     Select->SetSelection((int)File_Pos);
 
@@ -112,7 +112,7 @@ void GUI_Main_Easy::GUI_Resize()
 {
     //Global and Select
     SetSize(0, 0, GetParent()->GetClientSize().GetWidth()-0, GetParent()->GetClientSize().GetHeight()-0);
-    Select->SetSize(0, 0, GetClientSize().GetWidth(), wxDefaultCoord);
+    Select->SetSize(0, 0, GetClientSize().GetWidth(), 20);
 
     //Other
     GUI_Resize_Partial();
