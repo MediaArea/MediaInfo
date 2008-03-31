@@ -28,6 +28,7 @@
 #include "GUI/WxWidgets/GUI_Main_FileDrop.h"
 #include "GUI/WxWidgets/GUI_Main.h"
 #include "Common/Core.h"
+#include "wx/datetime.h"
 //---------------------------------------------------------------------------
 
 //***************************************************************************
@@ -40,9 +41,14 @@ bool FileDrop::OnDropFiles(wxCoord, wxCoord, const wxArrayString& FileNames)
 {
     C->Menu_File_Open_Files_Begin();
 
+    wxDateTime Begin=wxDateTime::UNow();
     for (size_t Pos=0; Pos<FileNames.size(); Pos++)
         C->Menu_File_Open_Files_Continue(FileNames[Pos].c_str());
+    wxTimeSpan Span=wxDateTime::UNow()-Begin;
     GUI->View_Refresh();
+    if (GUI->GetStatusBar()==NULL)
+        GUI->CreateStatusBar();
+    GUI->GetStatusBar()->SetLabel(Span.Format(_T("%Ss %lms")));
     return true;
 }
 #endif //wxUSE_DRAG_AND_DROP
