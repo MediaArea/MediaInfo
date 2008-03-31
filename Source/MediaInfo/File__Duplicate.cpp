@@ -87,6 +87,7 @@ void File__Duplicate::File__Duplicate_Set (const Ztring &Value)
     //WARNING: program_number & pointer must be in ***DECIMAL*** format.
     //Example: "451;memory://123456789:1316"
     ZtringList List(Value);
+    bool ToRemove=false;
 
     //Searching Target
     std::vector<ZtringList::iterator> Targets;
@@ -96,6 +97,8 @@ void File__Duplicate::File__Duplicate_Set (const Ztring &Value)
         if (Current->find(_T("file:"))==0
          || Current->find(_T("memory:"))==0)
             Targets.push_back(Current);
+        else if (*Current==_T("0"))
+            ToRemove=true;
         else
             Orders.push_back(Current);
     }
@@ -108,7 +111,7 @@ void File__Duplicate::File__Duplicate_Set (const Ztring &Value)
 
         //For each order
         for (std::vector<ZtringList::iterator>::iterator Order=Orders.begin(); Order<Orders.end(); Order++)
-                Duplicates[**Target]->Configure(**Order);
+                Duplicates[**Target]->Configure(**Order, ToRemove);
     }
 
 
@@ -152,15 +155,11 @@ bool File__Duplicate::File__Duplicate_HasChanged ()
 
 void File__Duplicate::File__Duplicate_Write ()
 {
-    const int8u* ToAdd=Buffer+Buffer_Offset-(size_t)Header_Size;
-    size_t ToAdd_Size=(size_t)(Element_Size+Header_Size);
+    const int8u* ToAdd=Buffer+Buffer_Offset;
+    size_t ToAdd_Size=(size_t)Element_Size;
 
-    std::map<const Ztring, File__Duplicate_MpegTs*>::iterator Duplicates_Temp=Duplicates.begin();
-    while (Duplicates_Temp!=Duplicates.end())
-    {
+    for (std::map<const Ztring, File__Duplicate_MpegTs*>::iterator Duplicates_Temp=Duplicates.begin(); Duplicates_Temp!=Duplicates.end(); Duplicates_Temp++)
         Duplicates_Temp->second->Write(ToAdd, ToAdd_Size);
-        Duplicates_Temp++;
-    }
 }
 
 //***************************************************************************

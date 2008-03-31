@@ -44,7 +44,7 @@ public :
     File__Duplicate_MpegTs(const Ztring &Target);
 
     //Set
-    void   Configure (const Ztring &Value);
+    void   Configure (const Ztring &Value, bool ToRemove);
 
     //Write
     void   Write (const int8u* ToAdd=NULL, size_t ToAdd_Size=0);
@@ -55,28 +55,76 @@ public :
 //private :
     File__Duplicate__Writer Writer;
 
+    //Configuration
     std::set<int16u> Wanted_program_numbers;
     std::set<int16u> Wanted_program_map_PIDs;
     std::set<int16u> Wanted_elementary_PIDs;
-    std::set<int16u> program_map_PIDs;
-    std::set<int16u> elementary_PIDs;
 
-    //Temp
-    int8u* Buffer;
-    size_t Buffer_Pos;
-    size_t Buffer_End;
-    size_t Buffer_Size;
-    size_t adaptation_field_length;
-    size_t pointer_field;
-    size_t section_length;
-    int8u                   PAT_version_number;
-    int8u                   PAT_version_number_ToBuffer;
-    std::map<int16u, int8u> PMT_version_numbers;
-    std::map<int16u, int8u> PMT_version_numbers_ToBuffer;
+    //Current
+    std::vector<bool> program_map_PIDs;
+    std::vector<bool> elementary_PIDs;
+
+    struct buffer
+    {
+        int8u*          Buffer;
+        size_t          Offset;
+        size_t          Begin; //After pointer_field
+        size_t          End;   //Before CRC
+        size_t          Size;
+        int8u           version_number;
+        int8u           FromTS_version_number_Last;
+        bool            ConfigurationHasChanged;
+
+        buffer()
+        {
+            Buffer=NULL;
+            Offset=0;
+            Begin=0;
+            End=0;
+            Size=0;
+            version_number=0xFF;
+            FromTS_version_number_Last=0xFF;
+            ConfigurationHasChanged=true;
+        }
+        ~buffer()
+        {
+            delete[] Buffer; //Buffer=NULL;
+        }
+    };
+
+    struct buffer_const
+    {
+        const int8u*    Buffer;
+        size_t          Offset;
+        size_t          Begin; //After pointer_field
+        size_t          End;   //Before CRC
+        size_t          Size;
+
+        buffer_const()
+        {
+            Buffer=NULL;
+            Offset=0;
+            Begin=0;
+            End=0;
+            Size=0;
+        }
+    };
+
+    //Data
     void Manage_PAT(const int8u* ToAdd, size_t ToAdd_Size);
     void Manage_PMT(const int8u* ToAdd, size_t ToAdd_Size);
-    bool Parsing_Begin(const int8u* ToAdd, size_t ToAdd_Size);
-    void Parsing_End();
+
+    //Buffers
+    buffer_const                FromTS;
+    std::map<int16u, buffer>    PAT;
+    std::map<int16u, buffer>    PMT;
+
+    //Helpers
+    bool Parsing_Begin(const int8u* ToAdd, size_t ToAdd_Size, std::map<int16u, buffer> &ToModify);
+    void Parsing_End(std::map<int16u, buffer> &ToModify);
+
+    //Temp
+    int16u StreamID;
 };
 
 

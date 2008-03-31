@@ -30,6 +30,7 @@
 #include "MediaInfo/File__Duplicate.h"
 #include "MediaInfo/Multiple/File_Mpeg_Psi.h"
 #include <map>
+#include <vector>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -72,6 +73,7 @@ private :
         int64u                                      TimeStamp_End;
         bool                                        StreamIsRegistred;
         bool                                        Scrambled;
+        bool                                        Searching;
         bool                                        Searching_Payload_Start;
         bool                                        Searching_Payload_Continue;
         bool                                        Searching_TimeStamp_Start;
@@ -89,6 +91,7 @@ private :
             TimeStamp_End=(int64u)-1;
             StreamIsRegistred=false;
             Scrambled=false;
+            Searching=false;
             Searching_Payload_Start=false;
             Searching_Payload_Continue=false;
             Searching_TimeStamp_Start=false;
@@ -101,7 +104,7 @@ private :
             delete Parser; //Parser=NULL;
         }
     };
-    std::map<int64u, stream>    Streams;
+    std::vector<stream>         Streams;
     int32u                      format_identifier;
     int16u                      pid;
     bool                        payload_unit_start_indicator;
@@ -142,6 +145,7 @@ private :
     //Temp
     bool Parsing_End;
     size_t BDAV_Size;
+    size_t TS_Size;
     int64u MpegTs_JumpTo_Begin;
     int64u MpegTs_JumpTo_End;
 

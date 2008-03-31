@@ -45,6 +45,7 @@ namespace MediaInfoLib
 File_Bdav::File_Bdav()
 : File_MpegTs()
 {
+    TS_Size=188+4;
     BDAV_Size=4; //BDAV header
 }
 

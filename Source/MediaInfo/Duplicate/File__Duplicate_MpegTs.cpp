@@ -123,9 +123,9 @@ File__Duplicate_MpegTs::File__Duplicate_MpegTs (const Ztring &Target)
 {
     Writer.Configure(Target);
 
-    //Temp
-    PAT_version_number=0xFF;
-    PAT_version_number_ToBuffer=0xFF;
+    //Current
+    program_map_PIDs.resize(0x2000, false);
+    elementary_PIDs.resize(0x2000, false);
 }
 
 //***************************************************************************
@@ -133,19 +133,26 @@ File__Duplicate_MpegTs::File__Duplicate_MpegTs (const Ztring &Target)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Duplicate_MpegTs::Configure (const Ztring &Value)
+void File__Duplicate_MpegTs::Configure (const Ztring &Value, bool ToRemove)
 {
     //Form: "program_number"
     if (Value.find(_T("program_number="))==0)
     {
-        Ztring program_number=Value.substr(15, string::npos);
-        Wanted_program_numbers.insert(program_number.To_int16u());
+        int16u program_number=Ztring(Value.substr(15, string::npos)).To_int16u();
+        if (ToRemove)
+            Wanted_program_numbers.erase(program_number);
+        else
+            Wanted_program_numbers.insert(program_number);
+        if (!PAT.empty())
+            PAT.begin()->second.ConfigurationHasChanged=true;
     }
     //Form: "program_number"
     else if (Value.find(_T("program_map_PID="))==0)
     {
-        Ztring program_map_PID=Value.substr(16, string::npos);
-        Wanted_program_map_PIDs.insert(program_map_PID.To_int16u());
+        int16u program_map_PID=Ztring(Value.substr(16, string::npos)).To_int16u();
+        Wanted_program_map_PIDs.insert(program_map_PID);
+        if (PMT.find(program_map_PID)!=PAT.end())
+            PMT[program_map_PID].ConfigurationHasChanged=true;
     }
     //Form: "elementary_PID"
     else if (Value.find(_T("elementary_PID="))==0)
@@ -165,182 +172,184 @@ void File__Duplicate_MpegTs::Configure (const Ztring &Value)
 void File__Duplicate_MpegTs::Write (const int8u* ToAdd, size_t ToAdd_Size)
 {
     int16u PID=CC2(ToAdd+1)&0x1FFF;
-    if (PID==0x0000)
-        Manage_PAT(ToAdd, ToAdd_Size);
-    else if (program_map_PIDs.find(PID)!=program_map_PIDs.end())
-        Manage_PMT(ToAdd, ToAdd_Size);
-    else if (elementary_PIDs.find(PID)!=elementary_PIDs.end())
+    if (elementary_PIDs[PID])
         Writer.Write(ToAdd, ToAdd_Size);
+    else if (program_map_PIDs[PID])
+        Manage_PMT(ToAdd, ToAdd_Size);
+    else if (PID==0x0000)
+        Manage_PAT(ToAdd, ToAdd_Size);
 }
 
 void File__Duplicate_MpegTs::Manage_PAT (const int8u* ToAdd, size_t ToAdd_Size)
 {
-    if (!Parsing_Begin(ToAdd, ToAdd_Size))
+    if (!Parsing_Begin(ToAdd, ToAdd_Size, PAT))
         return;
 
-    //version_number
-    int8u PAT_version_number_FromBuffer=(CC1(Buffer+Buffer_Pos+2)>>1)&0x1F;
-    if (PAT_version_number==0xFF)
-        PAT_version_number=PAT_version_number_FromBuffer;
-    if (PAT_version_number_ToBuffer==0xFF)
-        PAT_version_number_ToBuffer=PAT_version_number_FromBuffer;
-    if (PAT_version_number_FromBuffer!=PAT_version_number)
-    {
-        PAT_version_number_ToBuffer++;
-        if (PAT_version_number_ToBuffer>32)
-            PAT_version_number_ToBuffer=0;
-    }
-    int8u ToReplace=Buffer[Buffer_Pos+2];
-    ToReplace&=0xC1; //11000001, for removing old version_number
-    ToReplace|=PAT_version_number_ToBuffer<<1; //merging, with 1 bit offset
-    Buffer[Buffer_Pos+2]=ToReplace;
-
-    //Positionning at first program
-    Buffer_Pos+=5;
-
     //Programs
-    while (Buffer_Pos<Buffer_End)
+    program_map_PIDs.clear();
+    while (FromTS.Offset+4<=FromTS.End)
     {
         //For each program
-        int16u program_number=CC2(Buffer+Buffer_Pos);
-        int16u program_map_PID=CC2(Buffer+Buffer_Pos+2)&0x1FFF;
+        int16u program_number =CC2(FromTS.Buffer+FromTS.Offset+0);
+        int16u program_map_PID=CC2(FromTS.Buffer+FromTS.Offset+2)&0x1FFF;
         if (Wanted_program_numbers.find(program_number)  !=Wanted_program_numbers.end()
          || Wanted_program_map_PIDs.find(program_map_PID)!=Wanted_program_map_PIDs.end())
         {
             //Integrating it
-            program_map_PIDs.insert(program_map_PID);
-            Buffer_Pos+=4;
+            program_map_PIDs[program_map_PID]=true;
+            std::memcpy(PAT[StreamID].Buffer+PAT[StreamID].Offset, FromTS.Buffer+FromTS.Offset, 4);
+            PAT[StreamID].Offset+=4;
+            PMT[program_number].ConfigurationHasChanged=true;
         }
-        else
-        {
-            //Removing it
-            std::memmove(Buffer+Buffer_Pos, Buffer+Buffer_Pos+4, Buffer_End-(Buffer_Pos+4));
-            Buffer_End-=4;
-        }
+        FromTS.Offset+=4;
     }
 
-    Parsing_End();
+    Parsing_End(PAT);
 }
 
 void File__Duplicate_MpegTs::Manage_PMT (const int8u* ToAdd, size_t ToAdd_Size)
 {
-    if (!Parsing_Begin(ToAdd, ToAdd_Size))
+    if (!Parsing_Begin(ToAdd, ToAdd_Size, PMT))
         return;
 
-    //version_number
-    int16u program_number=CC2(Buffer+Buffer_Pos);
-    int8u PMT_version_number_FromBuffer=(CC1(Buffer+Buffer_Pos+2)>>1)&0x1F;
-    if (PMT_version_numbers.find(program_number)==PMT_version_numbers.end())
-        PMT_version_numbers[program_number]=PMT_version_number_FromBuffer;
-    if (PMT_version_numbers_ToBuffer.find(program_number)==PMT_version_numbers_ToBuffer.end())
-        PMT_version_numbers_ToBuffer[program_number]=PMT_version_number_FromBuffer;
-    if (PMT_version_numbers_ToBuffer[program_number]!=PMT_version_numbers[program_number])
-    {
-        PMT_version_numbers_ToBuffer[program_number]++;
-        if (PMT_version_numbers_ToBuffer[program_number]>32)
-            PMT_version_numbers_ToBuffer[program_number]=0;
-    }
-
-    //Positionning at program_info_length
-    Buffer_Pos+=7;
-
     //program_info_length
-    int16u program_info_length=CC2(Buffer+Buffer_Pos)&0x0FFF;
-    Buffer_Pos+=2+program_info_length;
+    int16u program_info_length=CC2(FromTS.Buffer+FromTS.Offset+2)&0x0FFF;
+    std::memcpy(PMT[StreamID].Buffer+PMT[StreamID].Offset, FromTS.Buffer+FromTS.Offset, 4+program_info_length);
+    FromTS.Offset+=4+program_info_length;
+    PMT[StreamID].Offset+=4+program_info_length;
 
     //elementary_PIDs
-    while (Buffer_Pos<Buffer_End)
+    while (FromTS.Offset+5<=FromTS.End)
     {
         //For each elementary_PID
-        int16u elementary_PID=CC2(Buffer+Buffer_Pos+1)&0x1FFF;
-        int16u ES_info_length=CC2(Buffer+Buffer_Pos+3)&0x0FFF;
+        int16u elementary_PID=CC2(FromTS.Buffer+FromTS.Offset+1)&0x1FFF;
+        int16u ES_info_length=CC2(FromTS.Buffer+FromTS.Offset+3)&0x0FFF;
         if (Wanted_elementary_PIDs.empty() || Wanted_elementary_PIDs.find(elementary_PID)!=Wanted_elementary_PIDs.end())
         {
             //Integrating it
-            elementary_PIDs.insert(elementary_PID);
-            Buffer_Pos+=5+ES_info_length;
+            elementary_PIDs[elementary_PID]=true;
+            std::memcpy(PMT[StreamID].Buffer+PMT[StreamID].Offset, FromTS.Buffer+FromTS.Offset, 5+ES_info_length);
+            PMT[StreamID].Offset+=5+ES_info_length;
         }
         else
-        {
-            //Removing it
-            std::memmove(Buffer+Buffer_Pos, Buffer+Buffer_Pos+5+ES_info_length, Buffer_End-(Buffer_Pos+5+ES_info_length));
-            Buffer_End-=5+ES_info_length;
-        }
+            elementary_PIDs[elementary_PID]=false;
+        FromTS.Offset+=5+ES_info_length;
     }
 
-    Parsing_End();
+    Parsing_End(PMT);
 }
 
-bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Size)
+//***************************************************************************
+// Helpers
+//***************************************************************************
+
+bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Size, std::map<int16u, buffer> &ToModify_)
 {
-    Buffer=new int8u[ToAdd_Size];
-    std::memcpy(Buffer, ToAdd, ToAdd_Size);
-    Buffer_Size=ToAdd_Size;
-    Buffer_Pos=0;
+    FromTS.Buffer=ToAdd;
+    FromTS.Size=ToAdd_Size;
+    FromTS.Offset=0;
 
     //adaptation_field_length
-    adaptation_field_length=0;
-    if (CC1(Buffer+3)&0x20) //adaptation_field_control (adaptation) == true
-        adaptation_field_length=1+CC1(Buffer+4);
+    int8u adaptation_field_length=0;
+    if (CC1(FromTS.Buffer+3)&0x20) //adaptation_field_control (adaptation) == true
+        adaptation_field_length=1+CC1(FromTS.Buffer+4);
 
     //pointer_field
-    Buffer_Pos+=4+adaptation_field_length;
-    pointer_field=CC1(Buffer+Buffer_Pos);
+    FromTS.Offset+=4+adaptation_field_length;
+    int8u pointer_field=CC1(FromTS.Buffer+FromTS.Offset);
 
     //section_length
-    Buffer_Pos+=1+pointer_field+1;
-    section_length=CC2(Buffer+Buffer_Pos)&0x0FFF;
-    Buffer_End=4+adaptation_field_length+section_length;
-    if (Buffer_End>ToAdd_Size-4)
+    FromTS.Offset+=1+pointer_field+1;
+    FromTS.Begin=FromTS.Offset-1;
+    int8u section_length=CC2(FromTS.Buffer+FromTS.Offset)&0x0FFF;
+    FromTS.End=4+adaptation_field_length+section_length;
+    if (FromTS.End>FromTS.Size-4)
+        return false; //Problem
+
+    //Verifying CRC
+    int32u CRC_32=0xFFFFFFFF;
+    for (int32u CRC_32_Offset=(int32u)FromTS.Begin; CRC_32_Offset<FromTS.End+4; CRC_32_Offset++) //After syncword
+        CRC_32=(CRC_32<<8) ^ CRC_32_Table[(CRC_32>>24)^(FromTS.Buffer[CRC_32_Offset])];
+    if (CRC_32)
+        return false; //Problem
+
+    //Positionning just after section_length
+    FromTS.Offset+=2;
+
+    //Retrieving StreamID
+    StreamID=CC2(FromTS.Buffer+FromTS.Offset);
+    buffer &ToModify=ToModify_[StreamID];
+
+    //version_number
+    int8u FromTS_version_number=(CC1(FromTS.Buffer+FromTS.Offset+2)>>1)&0x1F;
+    if (ToModify.version_number==0xFF)
+        ToModify.version_number=FromTS_version_number;
+    if (FromTS_version_number!=ToModify.FromTS_version_number_Last || ToModify.ConfigurationHasChanged)
     {
-        delete[] Buffer; Buffer=NULL;
+        ToModify.version_number++;
+        if (ToModify.version_number>32)
+            ToModify.version_number=0;
+        ToModify.FromTS_version_number_Last=FromTS_version_number;
+        ToModify.ConfigurationHasChanged=false;
+    }
+    else
+    {
+        //This is the same as before --> Copying the last version
+        Writer.Write(FromTS.Buffer, FromTS.Size);
         return false;
     }
 
-    //Verifying CRC
-    int32u CRC_32=0xffffffff;
-    const int8u* CRC_32_Buffer=Buffer+Buffer_Pos-1; //table_id position
-    while(CRC_32_Buffer<Buffer+Buffer_End+4) //from table_id to the end, CRC_32 included
-    {
-        CRC_32=(CRC_32<<8) ^ CRC_32_Table[(CRC_32>>24)^(*CRC_32_Buffer)];
-        CRC_32_Buffer++;
-    }
-    if (CRC_32)
-    {
-        delete[] Buffer; Buffer=NULL;
-        return false; //Problem
-    }
+    //Copying
+    ToModify.Buffer=new int8u[FromTS.Size];
+    std::memcpy(ToModify.Buffer, FromTS.Buffer, FromTS.Begin+8); //Only up to last_section_number included
+    ToModify.Offset=FromTS.Offset;
+    ToModify.Begin=FromTS.Begin;
+    ToModify.End=FromTS.End;
+    ToModify.Size=FromTS.Size;
 
-    //Positionning just after section_length
-    Buffer_Pos+=2;
+    //Changing version_number
+    int8u ToReplace=FromTS.Buffer[FromTS.Offset+2];
+    ToReplace&=0xC1; //11000001, for removing old version_number
+    ToReplace|=ToModify.version_number<<1; //merging, with 1 bit offset
+    ToModify.Buffer[ToModify.Offset+2]=ToReplace;
+
+    //Positionning after last_section_number
+    ToModify.Offset+=5;
+    FromTS.Offset+=5;
+
     return true;
 }
 
-void File__Duplicate_MpegTs::Parsing_End ()
+void File__Duplicate_MpegTs::Parsing_End (std::map<int16u, buffer> &ToModify_)
 {
+    buffer &ToModify=ToModify_[StreamID];
+
+    ToModify.End=ToModify.Offset;
+    if (ToModify.End>ToModify.Size)
+        return; //There was an error somewhere!
+
     //section_length
-    int8u ToReplace=CC1(Buffer+6)&0xF0; //before section_length
-    section_length=Buffer_End-0x04;
+    int8u ToReplace=CC1(ToModify.Buffer+ToModify.Begin+1)&0xF0; //before section_length
+    int16u section_length=(int16u)ToModify.End-0x04; //Header size
     ToReplace|=section_length>>8;
-    Buffer[0x06+0]=ToReplace;
-    Buffer[0x06+1]=(int8u)(section_length&0xFF);
+    ToModify.Buffer[ToModify.Begin+1+0]=ToReplace;
+    ToModify.Buffer[ToModify.Begin+1+1]=(int8u)(section_length&0xFF);
 
     //CRC32
     int32u CRC_32=0xFFFFFFFF;
-    for (size_t Buffer_CRC_Pos=4+1+pointer_field; Buffer_CRC_Pos<Buffer_End; Buffer_CRC_Pos++)
-        CRC_32=(CRC_32<<8) ^ CRC_32_Table[(CRC_32>>24)^(Buffer[Buffer_CRC_Pos])];
+    for (size_t Buffer_CRC_Pos=ToModify.Begin; Buffer_CRC_Pos<ToModify.End; Buffer_CRC_Pos++)
+        CRC_32=(CRC_32<<8) ^ CRC_32_Table[(CRC_32>>24)^(ToModify.Buffer[Buffer_CRC_Pos])];
 
-    Buffer[Buffer_Pos+0]=(CRC_32>>24)&0xFF;
-    Buffer[Buffer_Pos+1]=(CRC_32>>16)&0xFF;
-    Buffer[Buffer_Pos+2]=(CRC_32>> 8)&0xFF;
-    Buffer[Buffer_Pos+3]= CRC_32     &0xFF;
+    ToModify.Buffer[ToModify.Offset+0]=(CRC_32>>24)&0xFF;
+    ToModify.Buffer[ToModify.Offset+1]=(CRC_32>>16)&0xFF;
+    ToModify.Buffer[ToModify.Offset+2]=(CRC_32>> 8)&0xFF;
+    ToModify.Buffer[ToModify.Offset+3]= CRC_32     &0xFF;
 
     //Padding
-    for (size_t Buffer_CRC_Pos=Buffer_Pos+4; Buffer_CRC_Pos<Buffer_Size; Buffer_CRC_Pos++)
-        Buffer[Buffer_CRC_Pos]=0xFF;
+    for (size_t Buffer_CRC_Pos=ToModify.End+4; Buffer_CRC_Pos<ToModify.Size; Buffer_CRC_Pos++)
+        ToModify.Buffer[Buffer_CRC_Pos]=0xFF;
 
-    Writer.Write(Buffer, Buffer_Size);
-    delete[] Buffer; Buffer=NULL;
+    Writer.Write(ToModify.Buffer, ToModify.Size);
 }
 
 //***************************************************************************

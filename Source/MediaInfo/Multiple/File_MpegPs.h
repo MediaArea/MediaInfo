@@ -157,9 +157,9 @@ private :
             delete Parser3; //Parser3=NULL;
         }
     };
-    std::map<int64u, ps_stream> Stream;
-    std::map<int64u, ps_stream> Stream_Private1; //There can have multiple streams in one private stream
-    std::map<int64u, ps_stream> Stream_Extension; //There can have multiple streams in one private stream
+    std::vector<ps_stream> Stream;
+    std::vector<ps_stream> Stream_Private1; //There can have multiple streams in one private stream
+    std::vector<ps_stream> Stream_Extension; //There can have multiple streams in one private stream
 
     //Temp
     int64u SizeToAnalyze; //Total size of a chunk to analyse, it may be changed by the parser
@@ -188,7 +188,7 @@ private :
     File__Analyze* ChooseParser_NULL();
 
     //File__Analyze helpers
-    void Read_Buffer_Finalize_PerStream(std::map<int64u, ps_stream>::iterator &Temp);
+    void Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Temp);
 };
 
 } //NameSpace

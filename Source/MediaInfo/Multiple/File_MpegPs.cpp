@@ -190,6 +190,9 @@ File_MpegPs::File_MpegPs()
     program_mux_rate=0;
 
     //Default values
+    Stream.resize(0x100);
+    Stream_Private1.resize(0x100);
+    Stream_Extension.resize(0x100);
     Stream[0xBA].Searching_Payload=true;
 
     //Temp
@@ -255,19 +258,16 @@ void File_MpegPs::Read_Buffer_Continue()
 void File_MpegPs::Read_Buffer_Finalize()
 {
     //For each stream
-    std::map<int64u, ps_stream>::iterator Temp=Stream.begin();
-    while (Temp!=Stream.end())
-        Read_Buffer_Finalize_PerStream(Temp);
+    for (size_t StreamID=0; StreamID<0x100; StreamID++)
+        Read_Buffer_Finalize_PerStream(StreamID, Stream[StreamID]);
 
     //For each private stream
-    Temp=Stream_Private1.begin();
-    while (Temp!=Stream_Private1.end())
-        Read_Buffer_Finalize_PerStream(Temp);
+    for (size_t StreamID=0; StreamID<0x100; StreamID++)
+        Read_Buffer_Finalize_PerStream(StreamID, Stream_Private1[StreamID]);
 
     //For each extesnion stream
-    Temp=Stream_Extension.begin();
-    while (Temp!=Stream_Extension.end())
-        Read_Buffer_Finalize_PerStream(Temp);
+    for (size_t StreamID=0; StreamID<0x100; StreamID++)
+        Read_Buffer_Finalize_PerStream(StreamID, Stream_Extension[StreamID]);
 
     //Tags in MPEG Video
     if (Count_Get(Stream_Video)>0)
@@ -293,29 +293,29 @@ void File_MpegPs::Read_Buffer_Finalize()
 }
 
 //---------------------------------------------------------------------------
-void File_MpegPs::Read_Buffer_Finalize_PerStream(std::map<int64u, ps_stream>::iterator &Temp)
+void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Temp)
 {
     //By the parser
     StreamKind_Last=Stream_Max;
-    if (Temp->second.Parser)
+    if (Temp.Parser)
     {
-        Temp->second.Parser->Open_Buffer_Finalize();
-        Merge(*Temp->second.Parser);
+        Temp.Parser->Open_Buffer_Finalize();
+        Merge(*Temp.Parser);
     }
     //By the TS stream_type
     if (StreamKind_Last==Stream_Max)
     {
-        if (Temp->second.stream_type!=0)
-            Stream_Prepare(Mpeg_Psi_stream_Kind(Temp->second.stream_type, 0x00000000));
+        if (Temp.stream_type!=0)
+            Stream_Prepare(Mpeg_Psi_stream_Kind(Temp.stream_type, 0x00000000));
     }
     //By StreamIsRegistred
     if (StreamKind_Last==Stream_Max)
     {
-        if (Temp->second.StreamIsRegistred)
+        if (Temp.StreamIsRegistred)
         {
-            if (Temp->first>=0xC0 && Temp->first<=0xDF)
+            if (StreamID>=0xC0 && StreamID<=0xDF)
                 Stream_Prepare(Stream_Audio);
-            if (Temp->first>=0xE0 && Temp->first<=0xEF)
+            if (StreamID>=0xE0 && StreamID<=0xEF)
                 Stream_Prepare(Stream_Video);
         }
     }
@@ -325,24 +325,22 @@ void File_MpegPs::Read_Buffer_Finalize_PerStream(std::map<int64u, ps_stream>::it
     {
         //Common
         if (!File_Name.empty())
-            Fill("ID", Temp->first, 16);
-        if (Get(StreamKind_Last, StreamPos_Last, _T("Codec")).empty() && Temp->second.stream_type!=0)
-            Fill("Codec", Mpeg_Psi_stream_Codec(Temp->second.stream_type, 0x0000));
+            Fill("ID", StreamID, 16);
+        if (Get(StreamKind_Last, StreamPos_Last, _T("Codec")).empty() && Temp.stream_type!=0)
+            Fill("Codec", Mpeg_Psi_stream_Codec(Temp.stream_type, 0x0000));
 
-        if (Temp->second.TimeStamp_Start.PTS_Is_Valid && Temp->second.TimeStamp_End.PTS_Is_Valid)
+        if (Temp.TimeStamp_Start.PTS_Is_Valid && Temp.TimeStamp_End.PTS_Is_Valid)
         {
             //TimeStamp
-            if (Temp->second.TimeStamp_End.PTS<Temp->second.TimeStamp_Start.PTS)
-                Temp->second.TimeStamp_End.PTS+=0x200000000LL; //33 bits, cyclic
-            int64u PlayTime=Temp->second.TimeStamp_End.PTS-Temp->second.TimeStamp_Start.PTS;
+            if (Temp.TimeStamp_End.PTS<Temp.TimeStamp_Start.PTS)
+                Temp.TimeStamp_End.PTS+=0x200000000LL; //33 bits, cyclic
+            int64u PlayTime=Temp.TimeStamp_End.PTS-Temp.TimeStamp_Start.PTS;
             if (PlayTime)
                 Fill("PlayTime", PlayTime/90, 10, true);
         }
-        if (Temp->second.TimeStamp_Start.PTS_Is_Valid)
-            Fill("Delay", Temp->second.TimeStamp_Start.PTS/90, 10, true);
+        if (Temp.TimeStamp_Start.PTS_Is_Valid)
+            Fill("Delay", Temp.TimeStamp_Start.PTS/90, 10, true);
     }
-
-    Temp++;
 }
 //***************************************************************************
 // Buffer
@@ -953,27 +951,18 @@ void File_MpegPs::Detect_EOF()
      || FromTS)
     {
         //Reactivating interessant PS streams
-        std::map<int64u, ps_stream>::iterator Temp=Stream.begin();
-        while (Temp!=Stream.end())
+        for (size_t StreamID=0; StreamID<0x100; StreamID++)
         {
             //End timestamp is out of date
-            Temp->second.TimeStamp_End.PTS_Is_Valid=false;
-            Temp->second.TimeStamp_End.DTS_Is_Valid=false;
-            Temp->second.Searching_TimeStamp_Start=false;
-
-            Temp++;
-        }
-
-        //Reactivating interessant PS private streams
-        Temp=Stream_Private1.begin();
-        while (Temp!=Stream_Private1.end())
-        {
-            //End timestamp is out of date
-            Temp->second.TimeStamp_End.PTS_Is_Valid=false;
-            Temp->second.TimeStamp_End.DTS_Is_Valid=false;
-            Temp->second.Searching_TimeStamp_Start=false;
-
-            Temp++;
+            Stream[StreamID].TimeStamp_End.PTS_Is_Valid=false;
+            Stream[StreamID].TimeStamp_End.DTS_Is_Valid=false;
+            Stream[StreamID].Searching_TimeStamp_Start=false;
+            Stream_Private1[StreamID].TimeStamp_End.PTS_Is_Valid=false;
+            Stream_Private1[StreamID].TimeStamp_End.DTS_Is_Valid=false;
+            Stream_Private1[StreamID].Searching_TimeStamp_Start=false;
+            Stream_Extension[StreamID].TimeStamp_End.PTS_Is_Valid=false;
+            Stream_Extension[StreamID].TimeStamp_End.DTS_Is_Valid=false;
+            Stream_Extension[StreamID].Searching_TimeStamp_Start=false;
         }
 
         //Jumping
@@ -1993,7 +1982,7 @@ bool File_MpegPs::Header_Parser_QuickSearch()
             if (Buffer_Offset+9+Data_Offset>Buffer_Size)
                 return false; //Need more data
             int8u  private_stream_1_ID=CC1(Buffer+Buffer_Offset+9+Data_Offset);
-            if (Stream_Private1.find(private_stream_1_ID)==Stream_Private1.end() || Stream_Private1[private_stream_1_ID].Searching_Payload)
+            if (!Stream_Private1[private_stream_1_ID].StreamIsRegistred || Stream_Private1[private_stream_1_ID].Searching_Payload)
                 return true;
         }
 
