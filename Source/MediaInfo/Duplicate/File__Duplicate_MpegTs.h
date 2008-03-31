@@ -63,6 +63,7 @@ public :
     //Current
     std::vector<bool> program_map_PIDs;
     std::vector<bool> elementary_PIDs;
+    std::vector<int16u> elementary_PIDs_program_map_PIDs;
 
     struct buffer
     {

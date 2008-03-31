@@ -126,6 +126,7 @@ File__Duplicate_MpegTs::File__Duplicate_MpegTs (const Ztring &Target)
     //Current
     program_map_PIDs.resize(0x2000, false);
     elementary_PIDs.resize(0x2000, false);
+    elementary_PIDs_program_map_PIDs.resize(0x2000, false);
 }
 
 //***************************************************************************
@@ -201,6 +202,13 @@ void File__Duplicate_MpegTs::Manage_PAT (const int8u* ToAdd, size_t ToAdd_Size)
             PAT[StreamID].Offset+=4;
             PMT[program_number].ConfigurationHasChanged=true;
         }
+        else
+        {
+            program_map_PIDs[program_map_PID]=false;
+            for (size_t Pos=0; Pos<0x2000; Pos++)
+                if (elementary_PIDs_program_map_PIDs[Pos]==program_number)
+                    elementary_PIDs[Pos]=false;
+        }
         FromTS.Offset+=4;
     }
 
@@ -228,6 +236,7 @@ void File__Duplicate_MpegTs::Manage_PMT (const int8u* ToAdd, size_t ToAdd_Size)
         {
             //Integrating it
             elementary_PIDs[elementary_PID]=true;
+            elementary_PIDs_program_map_PIDs[elementary_PID]=StreamID;
             std::memcpy(PMT[StreamID].Buffer+PMT[StreamID].Offset, FromTS.Buffer+FromTS.Offset, 5+ES_info_length);
             PMT[StreamID].Offset+=5+ES_info_length;
         }

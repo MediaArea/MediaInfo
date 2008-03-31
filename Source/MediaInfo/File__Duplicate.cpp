@@ -155,8 +155,8 @@ bool File__Duplicate::File__Duplicate_HasChanged ()
 
 void File__Duplicate::File__Duplicate_Write ()
 {
-    const int8u* ToAdd=Buffer+Buffer_Offset;
-    size_t ToAdd_Size=(size_t)Element_Size;
+    const int8u* ToAdd=Buffer+Buffer_Offset-(size_t)Header_Size;
+    size_t ToAdd_Size=(size_t)(Element_Size+Header_Size);
 
     for (std::map<const Ztring, File__Duplicate_MpegTs*>::iterator Duplicates_Temp=Duplicates.begin(); Duplicates_Temp!=Duplicates.end(); Duplicates_Temp++)
         Duplicates_Temp->second->Write(ToAdd, ToAdd_Size);
