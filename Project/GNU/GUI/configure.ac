@@ -43,6 +43,8 @@ dnl #########################################################################
 dnl -------------------------------------------------------------------------
 dnl Arguments - Enable
 dnl
+AC_ARG_ENABLE(debug,        AC_HELP_STRING([--enable-debug],        [Enable full debug]),                       , enable_debug=no)
+AC_ARG_ENABLE(gprof,        AC_HELP_STRING([--enable-gprof],        [Enable gprof log]),                        , enable_gprof=no)
 
 dnl -------------------------------------------------------------------------
 dnl Arguments - With
@@ -221,12 +223,16 @@ dnl GNU compiler
 dnl
 dnl C/C++ compiler options used to compile
 if test "$GXX" = yes ; then
-    if test "$enable_debug" = "yes"; then
+	if test "$enable_debug" = "yes"; then
 		CFLAGS="$CFLAGS -O0 -g -Wall -Wundef"
 		CXXFLAGS="$CXXFLAGS -O0 -g -Wall -W -Wundef -Wcast-qual -Wno-ctor-dtor-privacy"
 	else
 		CFLAGS="$CFLAGS -O2"
 		CXXFLAGS="$CXXFLAGS -O2"
+	fi
+	if test "$enable_gprof" = "yes"; then
+		CFLAGS="$CFLAGS -pg -g"
+		CXXFLAGS="$CXXFLAGS -pg -g"
 	fi
 fi
 
