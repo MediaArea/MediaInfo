@@ -301,7 +301,7 @@ void File_Wm::Header_Parse_Data_Payload()
     }
 
     if (PacketLength==0 && SizeOfMediaObject>0)
-        PacketLength=Element_Offset+SizeOfMediaObject+Data_Parse_Padding;
+        PacketLength=(int32u)(Element_Offset+SizeOfMediaObject+Data_Parse_Padding);
 
     if (NumberPayloads_Pos+1<NumberPayloads)
         PacketLength-=Data_Parse_Padding; //Padding is only for the last packet
