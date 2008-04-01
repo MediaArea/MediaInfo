@@ -83,7 +83,7 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     //MI->Option(_T("File_Filter"), _T("452"));
     //MI->Option(_T("File_Duplicate"), _T("452;file")); //Activate it
     MI->Open(FileName);
-
+    //return;
 
     //Option "File_Filter": filter a part of the file
     //if no filter --> All the file is parser
@@ -103,10 +103,10 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     //Form: "memory://pointer:size"                  <--The desired memory part you want
     //Return the count of written bytes
 
-    /*
     //EXAMPLE
     //-------
 
+    /*
     //Initilaizing MediaInfo
     MediaInfo MI;
 
@@ -137,13 +137,78 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     To_Buffer_2_Name_Temp<<_T("memory://")<<(size_t)To_Buffer_2<<_T(":")<<7*188; //"memory://pointer:size"
     MediaInfoLib::String To_Buffer_2_Name=To_Buffer_2_Name_Temp.str();
 
+    //To (Output 3): preparing an example file for writing
+    ZenLib::File To_3;
+    To_3.Open(FileName+_T(".Extract3"), ZenLib::File::Access_Write_Append);
+
+    //To (Output 3): preparing a memory buffer for writing
+    ZenLib::int8u* To_Buffer_3=new ZenLib::int8u[7*188]; //Note: you can do your own buffer
+    std::basic_stringstream<ZenLib::Char> To_Buffer_3_Name_Temp;
+    To_Buffer_3_Name_Temp<<_T("memory://")<<(size_t)To_Buffer_3<<_T(":")<<7*188; //"memory://pointer:size"
+    MediaInfoLib::String To_Buffer_3_Name=To_Buffer_3_Name_Temp.str();
+
+    //To (Output 4): preparing an example file for writing
+    ZenLib::File To_4;
+    To_4.Open(FileName+_T(".Extract4"), ZenLib::File::Access_Write_Append);
+
+    //To (Output 4): preparing a memory buffer for writing
+    ZenLib::int8u* To_Buffer_4=new ZenLib::int8u[7*188]; //Note: you can do your own buffer
+    std::basic_stringstream<ZenLib::Char> To_Buffer_4_Name_Temp;
+    To_Buffer_4_Name_Temp<<_T("memory://")<<(size_t)To_Buffer_4<<_T(":")<<7*188; //"memory://pointer:size"
+    MediaInfoLib::String To_Buffer_4_Name=To_Buffer_4_Name_Temp.str();
+
+    //To (Output 5): preparing an example file for writing
+    ZenLib::File To_5;
+    To_5.Open(FileName+_T(".Extract5"), ZenLib::File::Access_Write_Append);
+
+    //To (Output 5): preparing a memory buffer for writing
+    ZenLib::int8u* To_Buffer_5=new ZenLib::int8u[7*188]; //Note: you can do your own buffer
+    std::basic_stringstream<ZenLib::Char> To_Buffer_5_Name_Temp;
+    To_Buffer_5_Name_Temp<<_T("memory://")<<(size_t)To_Buffer_5<<_T(":")<<7*188; //"memory://pointer:size"
+    MediaInfoLib::String To_Buffer_5_Name=To_Buffer_5_Name_Temp.str();
+
+    //To (Output 6): preparing an example file for writing
+    ZenLib::File To_6;
+    To_6.Open(FileName+_T(".Extract6"), ZenLib::File::Access_Write_Append);
+
+    //To (Output 6): preparing a memory buffer for writing
+    ZenLib::int8u* To_Buffer_6=new ZenLib::int8u[7*188]; //Note: you can do your own buffer
+    std::basic_stringstream<ZenLib::Char> To_Buffer_6_Name_Temp;
+    To_Buffer_6_Name_Temp<<_T("memory://")<<(size_t)To_Buffer_6<<_T(":")<<7*188; //"memory://pointer:size"
+    MediaInfoLib::String To_Buffer_6_Name=To_Buffer_6_Name_Temp.str();
+
+    //To (Output 7): preparing an example file for writing
+    ZenLib::File To_7;
+    To_7.Open(FileName+_T(".Extract7"), ZenLib::File::Access_Write_Append);
+
+    //To (Output 7): preparing a memory buffer for writing
+    ZenLib::int8u* To_Buffer_7=new ZenLib::int8u[7*188]; //Note: you can do your own buffer
+    std::basic_stringstream<ZenLib::Char> To_Buffer_7_Name_Temp;
+    To_Buffer_7_Name_Temp<<_T("memory://")<<(size_t)To_Buffer_7<<_T(":")<<7*188; //"memory://pointer:size"
+    MediaInfoLib::String To_Buffer_7_Name=To_Buffer_7_Name_Temp.str();
+
+    //To (Output 8): preparing an example file for writing
+    ZenLib::File To_8;
+    To_8.Open(FileName+_T(".Extract8"), ZenLib::File::Access_Write_Append);
+
+    //To (Output 8): preparing a memory buffer for writing
+    ZenLib::int8u* To_Buffer_8=new ZenLib::int8u[7*188]; //Note: you can do your own buffer
+    std::basic_stringstream<ZenLib::Char> To_Buffer_8_Name_Temp;
+    To_Buffer_8_Name_Temp<<_T("memory://")<<(size_t)To_Buffer_8<<_T(":")<<7*188; //"memory://pointer:size"
+    MediaInfoLib::String To_Buffer_8_Name=To_Buffer_8_Name_Temp.str();
+
     //Preparing the Program numbers we want
-    //MediaInfoLib::String ProgramNumber1=_T("451");
-    //MediaInfoLib::String ProgramNumber2=_T("452");
-    //MediaInfoLib::String ProgramNumber3=_T("453");
-    MediaInfoLib::String ProgramNumber1=_T("1");
-    MediaInfoLib::String ProgramNumber2=_T("2");
-    MediaInfoLib::String ProgramNumber3=_T("1");
+    MediaInfoLib::String ProgramNumber1=_T("451");
+    MediaInfoLib::String ProgramNumber2=_T("452");
+    MediaInfoLib::String ProgramNumber3=_T("453");
+    MediaInfoLib::String ProgramNumber4=_T("454");
+    MediaInfoLib::String ProgramNumber5=_T("455");
+    MediaInfoLib::String ProgramNumber6=_T("456");
+    MediaInfoLib::String ProgramNumber7=_T("457");
+    MediaInfoLib::String ProgramNumber8=_T("459");
+    //MediaInfoLib::String ProgramNumber1=_T("1");
+    //MediaInfoLib::String ProgramNumber2=_T("2");
+    //MediaInfoLib::String ProgramNumber3=_T("1");
 
     //Optional (aminly for speed improvement): filtering
     //MI.Option(_T("File_Filter"), ProgramNumber1);
@@ -151,9 +216,15 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     //MI.Option(_T("File_Filter"), ProgramNumber3);
 
     //Registering for duplication
-    //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1); //"memory://pointer:size;program_number=..."
-    //MI.Option(_T("File_Duplicate"), To_Buffer_2_Name+_T(";program_number=")+ProgramNumber2); //"memory://pointer:size;program_number=..."
-
+    /*MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1); //"memory://pointer:size;program_number=..."
+    MI.Option(_T("File_Duplicate"), To_Buffer_2_Name+_T(";program_number=")+ProgramNumber2); //"memory://pointer:size;program_number=..."
+    MI.Option(_T("File_Duplicate"), To_Buffer_3_Name+_T(";program_number=")+ProgramNumber3); //"memory://pointer:size;program_number=..."
+    MI.Option(_T("File_Duplicate"), To_Buffer_4_Name+_T(";program_number=")+ProgramNumber4); //"memory://pointer:size;program_number=..."
+    MI.Option(_T("File_Duplicate"), To_Buffer_5_Name+_T(";program_number=")+ProgramNumber5); //"memory://pointer:size;program_number=..."
+    MI.Option(_T("File_Duplicate"), To_Buffer_6_Name+_T(";program_number=")+ProgramNumber6); //"memory://pointer:size;program_number=..."
+    MI.Option(_T("File_Duplicate"), To_Buffer_7_Name+_T(";program_number=")+ProgramNumber7); //"memory://pointer:size;program_number=..."
+    MI.Option(_T("File_Duplicate"), To_Buffer_8_Name+_T(";program_number=")+ProgramNumber8); //"memory://pointer:size;program_number=..."
+    */
     //Preparing to fill MediaInfo with a buffer
     MI.Open_Buffer_Init();
     bool CanWrite_OnlyIfParsingIsOk=false;
@@ -169,38 +240,40 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
         if (MI.Open_Buffer_Continue(From_Buffer, From_Buffer_Size)==0 && !CanWrite_OnlyIfParsingIsOk)
         {
             CanWrite_OnlyIfParsingIsOk=true;
-            //MI.Option(_T("Inform"), _T("Video;%Codec%"));
-            //Text=MI.Inform(); //Inform is ready!
-            //MI.Option(_T("Inform"), _T("Video;%ID%"));
-            //Text=MI.Inform(); //Inform is ready!
-            //MI.Option(_T("Inform"), _T("Menu #0;%Total%"));
-            //Text=MI.Inform(); //Inform is ready!
-            unsigned int nProgramCount;
-            std::basic_stringstream<ZenLib::Char> sStreamFilter;
-            sStreamFilter<< MI.Get(Stream_Menu, 0, _T("Total"));
-            sStreamFilter>>nProgramCount;
-            Text=MI.Get(Stream_Menu, 0, _T("Total")); //Inform is ready!
-            MI.Option(_T("Inform"), _T("Menu;%Total%"));
-            Text=MI.Inform(); //Inform is ready!
+            MI.Option(_T("Inform"), _T(""));
+            MediaInfoLib::String A=MI.Inform();
+            A.clear();
         }
 
         //Testing if MediaInfo request to go elsewhere
-        if (MI.Open_Buffer_Continue_GoTo_Get()!=(ZenLib::int64u)-1)
-        {
-            From_Buffer_Size=0; //Get out of the loop, no more data is needed by the parser
-            MI.Open_Buffer_Finalize(); //This is the end of the stream, MediaInfo must finnish some work
-            Text=MI.Inform(); //Inform is ready!
-        }
+        //if (MI.Open_Buffer_Continue_GoTo_Get()!=(ZenLib::int64u)-1)
+        //{
+        //    From_Buffer_Size=0; //Get out of the loop, no more data is needed by the parser
+        //    MI.Open_Buffer_Finalize(); //This is the end of the stream, MediaInfo must finnish some work
+        //    Text=MI.Inform(); //Inform is ready!
+        //}
 
         if (CanWrite_OnlyIfParsingIsOk)
         {
             //Retrieving data written in memory
-            size_t To_Buffer_Size_1=MI.Output_Buffer_Get(To_Buffer_1_Name);
-            size_t To_Buffer_Size_2=MI.Output_Buffer_Get(To_Buffer_2_Name);
+            size_t To_Buffer_Size_1=MI.Output_Buffer_Get(0);
+            size_t To_Buffer_Size_2=MI.Output_Buffer_Get(1);
+            size_t To_Buffer_Size_3=MI.Output_Buffer_Get(2);
+            size_t To_Buffer_Size_4=MI.Output_Buffer_Get(3);
+            size_t To_Buffer_Size_5=MI.Output_Buffer_Get(4);
+            size_t To_Buffer_Size_6=MI.Output_Buffer_Get(5);
+            size_t To_Buffer_Size_7=MI.Output_Buffer_Get(6);
+            size_t To_Buffer_Size_8=MI.Output_Buffer_Get(7);
 
             //Writing data to somewhere, do what you want for this.
             To_1.Write(To_Buffer_1, To_Buffer_Size_1);
             To_2.Write(To_Buffer_2, To_Buffer_Size_2);
+            To_3.Write(To_Buffer_3, To_Buffer_Size_3);
+            To_4.Write(To_Buffer_4, To_Buffer_Size_4);
+            To_5.Write(To_Buffer_5, To_Buffer_Size_5);
+            To_6.Write(To_Buffer_6, To_Buffer_Size_6);
+            To_7.Write(To_Buffer_7, To_Buffer_Size_7);
+            To_8.Write(To_Buffer_8, To_Buffer_Size_8);
         }
 
         //Optional at 30 MB, we decide to dynamicly change the ProgramNumber of the first output
@@ -208,20 +281,20 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
         if (Size_Parsed!=(ZenLib::int64u)-1)
         {
             Size_Parsed+=From_Buffer_Size;
-            if (Size_Parsed>1000*1024*1024)
+            if (Size_Parsed>30*1024*1024)
             {
                 //Stop duplicating the first ProgramNumber
-                MI.Option(_T("File_Duplicate"), MediaInfoLib::String(_T("program_number="))+ProgramNumber1); //"program_number=..."
+                //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1+_T(";0")); //"program_number=..."
 
                 //Registering for duplication
-                MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber3); //"memory://pointer:size;program_number=..."
+                //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber3); //"memory://pointer:size;program_number=..."
                 Size_Parsed=(ZenLib::int64u)-1; //Disabling this for not doing this twice
             }
         }
 
     }
     while (From_Buffer_Size>0);
-    Text=MI.Inform();
+    //Text=MI.Inform();
 
     //Clean up
     delete[] From_Buffer;
