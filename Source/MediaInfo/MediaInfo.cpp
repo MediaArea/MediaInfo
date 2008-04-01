@@ -447,6 +447,15 @@ size_t MediaInfo::Output_Buffer_Get (const String &Value)
     return Info->Output_Buffer_Get(Value);
 }
 
+//---------------------------------------------------------------------------
+size_t MediaInfo::Output_Buffer_Get (size_t Pos)
+{
+    if (!Info)
+        return 0;
+
+    return Info->Output_Buffer_Get(Pos);
+}
+
 //***************************************************************************
 // Information
 //***************************************************************************

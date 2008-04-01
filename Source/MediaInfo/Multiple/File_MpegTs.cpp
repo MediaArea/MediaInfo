@@ -162,7 +162,7 @@ File_MpegTs::File_MpegTs()
     for (int32u Pos=0x03; Pos<0x10; Pos++)
         Streams[Pos].TS_Kind=File_Mpeg_Psi::reserved;
     for (int32u Pos=0x00; Pos<0x10; Pos++)
-        Streams[Pos].Searching_Payload_Start=true;
+        Streams[Pos].Searching_Payload_Start_Set(true);
 
     //File__Duplicate
     Streams[0x00].ShouldDuplicate=true;
@@ -219,13 +219,13 @@ void File_MpegTs::Read_Buffer_Continue()
     {
         bool Searching_Payload_Start=!Config.File_Filter_Get();
         for (int32u Pos=0x01; Pos<0x10; Pos++)
-            Streams[Pos].Searching_Payload_Start=Searching_Payload_Start; //base PID depends of File_Filter configuration
-        Streams[0x00].Searching_Payload_Start=true; //program_map
+            Streams[Pos].Searching_Payload_Start_Set(Searching_Payload_Start); //base PID depends of File_Filter configuration
+        Streams[0x00].Searching_Payload_Start_Set(true); //program_map
     }
 
     //File__Duplicate configuration
     if (File__Duplicate_HasChanged())
-        Streams[0x00].Searching_Payload_Start=true; //Re-enabling program_map_table
+        Streams[0x00].Searching_Payload_Start_Set(true); //Re-enabling program_map_table
 }
 
 //---------------------------------------------------------------------------
@@ -434,7 +434,7 @@ void File_MpegTs::Header_Parse()
         if (transport_scrambling_control>0)
         {
             //Encrypted
-            Streams[pid].Searching_Payload_Start=false;
+            Streams[pid].Searching_Payload_Start_Set(false);
             Streams[pid].Scrambled=true;
             Skip_XX(TS_Size-Element_Offset,                  "Scrambled data");
         }
@@ -473,7 +473,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
             {
                 //This is the first PCR
                 Streams[pid].TimeStamp_Start=program_clock_reference_base;
-                Streams[pid].Searching_TimeStamp_Start=false;
+                Streams[pid].Searching_TimeStamp_Start_Set(false);
             }
             Streams[pid].TimeStamp_End=program_clock_reference_base;
             Data_Info(Ztring().Duration_From_Milliseconds(program_clock_reference_base/90));
@@ -484,7 +484,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
             //Test if we can find the TS bitrate
             if (program_clock_reference_base<Streams[pid].TimeStamp_Start)
                 program_clock_reference_base+=0x200000000LL; //33 bits, cyclic
-            if ((program_clock_reference_base-Streams[pid].TimeStamp_Start)/90>4000)
+            if (File_Size!=(int64u)-1 && (program_clock_reference_base-Streams[pid].TimeStamp_Start)/90>4000) //Only if not unlimited
             {
                 //We are already parsing 4 seconds, we don't hope to have more info
                 MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
@@ -528,7 +528,7 @@ void File_MpegTs::Data_Parse()
     {
         //File__Duplicate
         if (Streams[pid].ShouldDuplicate)
-            File__Duplicate_Write();
+            File__Duplicate_Write(pid);
 
         return;
     }
@@ -578,7 +578,7 @@ void File_MpegTs::Data_Parse()
 
     //File__Duplicate
     if (Streams[pid].ShouldDuplicate)
-        File__Duplicate_Write();
+        File__Duplicate_Write(pid);
 }
 
 //***************************************************************************
@@ -618,21 +618,12 @@ void File_MpegTs::PSI()
 
         //Disabling this PID
         delete Streams[pid].Parser; Streams[pid].Parser=NULL;
-        if (Streams[pid].TS_Kind==File_Mpeg_Psi::program_association_table
-         || Streams[pid].TS_Kind==File_Mpeg_Psi::program_map_table)
-        {
-            Streams[pid].Searching_Payload_Start=false;
-            Streams[pid].Searching_Payload_Continue=false;
-        }
-        else
-        {
-            Streams[pid].Searching_Payload_Start=true;
-            Streams[pid].Searching_Payload_Continue=true;
-        }
+        Streams[pid].Searching_Payload_Start_Set(false);
+        Streams[pid].Searching_Payload_Continue_Set(false);
     }
     else
         //Waiting for more data
-        Streams[pid].Searching_Payload_Continue=true;
+        Streams[pid].Searching_Payload_Continue_Set(true);
 }
 
 //---------------------------------------------------------------------------
@@ -650,18 +641,18 @@ void File_MpegTs::PSI_program_association_table()
         //Enabling what we know parsing
         Streams[PID].TS_Kind=Program->second.Kind;
         Streams[PID].program_number=Program->second.program_number;
-        Streams[PID].Searching_Payload_Start=true;
+        Streams[PID].Searching_Payload_Start_Set(true);
 
         //File_Filter
         if (!Config.File_Filter_Get(Streams[Program->first].program_number))
         {
-            Streams[PID].Searching_Payload_Start=false;
-            Streams[PID].Searching_Payload_Continue=false;
+            Streams[PID].Searching_Payload_Start_Set(false);
+            Streams[PID].Searching_Payload_Continue_Set(false);
         }
         else
         {
-            Streams[PID].Searching_Payload_Start=true;
-            Streams[PID].Searching_Payload_Continue=true;
+            Streams[PID].Searching_Payload_Start_Set(true);
+            Streams[PID].Searching_Payload_Continue_Set(true);
         }
 
         //File__Duplicate
@@ -710,10 +701,10 @@ void File_MpegTs::PSI_program_map_table()
         Streams[elementary_PID].program_number=Stream->second.program_number;
         Streams[elementary_PID].stream_type=Stream->second.stream_type;
         Streams[elementary_PID].descriptor_tag=Stream->second.descriptor_tag;
-        Streams[elementary_PID].Searching_Payload_Start=true;
-        Streams[elementary_PID].Searching_TimeStamp_Start=true;
+        Streams[elementary_PID].Searching_Payload_Start_Set(true);
+        Streams[elementary_PID].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
         if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
-            Streams[elementary_PID].Searching_TimeStamp_End=true;
+            Streams[elementary_PID].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
         if (File__Duplicate_Get_From_program_number(Streams[elementary_PID].program_number))
             Streams[elementary_PID].ShouldDuplicate=true;
 
@@ -725,7 +716,7 @@ void File_MpegTs::PSI_program_map_table()
             {
                 //File_Filter
                 if (!Config.File_Filter_Get())
-                    Streams[Pos].Searching_Payload_Start=true;
+                    Streams[Pos].Searching_Payload_Start_Set(true);
 
                 File_Mpeg_Psi::ts_kind Kind;
                 switch (Pos)
@@ -800,8 +791,8 @@ void File_MpegTs::PES()
         if (Mpeg_Psi_stream_Kind(Streams[pid].stream_type, format_identifier)==Stream_Max
          && Streams[pid].stream_type!=0x06) //Exception for private data
         {
-            Streams[pid].Searching_Payload_Start=false;
-            Streams[pid].Searching_Payload_Continue=false;
+            Streams[pid].Searching_Payload_Start_Set(false);
+            Streams[pid].Searching_Payload_Continue_Set(false);
             return;
         }
     }
@@ -822,7 +813,7 @@ void File_MpegTs::PES()
                 ((File_MpegPs*)Streams[pid].Parser)->stream_type_FromTS=Streams[pid].stream_type;
                 ((File_MpegPs*)Streams[pid].Parser)->descriptor_tag_FromTS=Streams[pid].descriptor_tag;
                 ((File_MpegPs*)Streams[pid].Parser)->MPEG_Version=2;
-                Streams[pid].Searching_Payload_Continue=true;
+                Streams[pid].Searching_Payload_Continue_Set(true);
             #else
                 //Filling
                 Streams[pid].Parser=new File__Analyze();
@@ -844,8 +835,8 @@ void File_MpegTs::PES()
         //Need anymore?
         if (Streams[pid].Parser->File_GoTo!=(int64u)-1 || Streams[pid].Parser->File_Offset==Streams[pid].Parser->File_Size)
         {
-            Streams[pid].Searching_Payload_Start=false;
-            Streams[pid].Searching_Payload_Continue=false;
+            Streams[pid].Searching_Payload_Start_Set(false);
+            Streams[pid].Searching_Payload_Continue_Set(false);
             //Streams_Count--;
         }
     }
@@ -904,26 +895,29 @@ bool File_MpegTs::Header_Parser_QuickSearch()
         //Getting PID
         int16u PID=CC2(Buffer+Buffer_Offset+BDAV_Size+1)&0x1FFF;
 
-        //Searching start
-        if (Streams[PID].Searching_Payload_Start)
+        if (Streams[PID].Searching)
         {
-            int8u Info=CC1(Buffer+Buffer_Offset+BDAV_Size+1);
-            if (Info&0x40) //payload_unit_start_indicator
-                return true;
-        }
-
-        //Searching continue
-        if (Streams[PID].Searching_Payload_Continue)
-            return true;
-
-        //Adaptation layer
-        if (Streams[PID].Searching_TimeStamp_Start || Streams[PID].Searching_TimeStamp_End)
-        {
-            if ((CC1(Buffer+Buffer_Offset+BDAV_Size+3)&0x20)==0x20) //Adaptation is present
+            //Searching start
+            if (Streams[PID].Searching_Payload_Start)
             {
-                int8u PID_Adaptation_Info=CC1(Buffer+Buffer_Offset+BDAV_Size+5);
-                if (PID_Adaptation_Info&0x10) //PCR is present
+                int8u Info=CC1(Buffer+Buffer_Offset+BDAV_Size+1);
+                if (Info&0x40) //payload_unit_start_indicator
                     return true;
+            }
+
+            //Searching continue
+            if (Streams[PID].Searching_Payload_Continue)
+                return true;
+
+            //Adaptation layer
+            if (Streams[PID].Searching_TimeStamp_Start || Streams[PID].Searching_TimeStamp_End)
+            {
+                if ((CC1(Buffer+Buffer_Offset+BDAV_Size+3)&0x20)==0x20) //Adaptation is present
+                {
+                    int8u PID_Adaptation_Info=CC1(Buffer+Buffer_Offset+BDAV_Size+5);
+                    if (PID_Adaptation_Info&0x10) //PCR is present
+                        return true;
+                }
             }
         }
 
@@ -931,7 +925,7 @@ bool File_MpegTs::Header_Parser_QuickSearch()
         if (Streams[PID].ShouldDuplicate)
         {
             Element_Size=TS_Size;
-            File__Duplicate_Write();
+            File__Duplicate_Write(PID);
         }
 
         Buffer_Offset+=TS_Size;
@@ -965,7 +959,7 @@ void File_MpegTs::Detect_EOF()
                 //End timestamp is out of date
                 if (Streams[StreamID].TS_Kind==File_Mpeg_Psi::pes)
                     Streams[StreamID].TimeStamp_End=(int64u)-1;
-                Streams[StreamID].Searching_TimeStamp_End=!Streams[StreamID].Searching_TimeStamp_Start; //Searching only for a start found
+                Streams[StreamID].Searching_TimeStamp_End_Set(!Streams[StreamID].Searching_TimeStamp_Start); //Searching only for a start found
             }
         }
 

@@ -149,6 +149,11 @@ public :
         /// @param Value The unique name of the duplicated stream (begin with "memory://")
         /// @return The size of the used buffer
     size_t Output_Buffer_Get (const String &Value);
+        /// Output the written size when "File_Duplicate" option is used.
+        /// @brief Output the written size when "File_Duplicate" option is used.
+        /// @param Value The order of calling
+        /// @return The size of the used buffer
+    size_t Output_Buffer_Get (size_t Pos);
 
     //Info
         /// Configure or get information about MediaInfoLib

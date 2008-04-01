@@ -47,10 +47,10 @@ public :
     void   Configure (const Ztring &Value, bool ToRemove);
 
     //Write
-    void   Write (const int8u* ToAdd=NULL, size_t ToAdd_Size=0);
+    bool   Write (int16u PID, const int8u* ToAdd=NULL, size_t ToAdd_Size=0);
 
     //Output buffer
-    size_t Output_Buffer_Get (const Ztring &Target, unsigned char** Output_Buffer=NULL);
+    size_t Output_Buffer_Get (unsigned char** Output_Buffer=NULL);
 
 //private :
     File__Duplicate__Writer Writer;
@@ -61,8 +61,8 @@ public :
     std::set<int16u> Wanted_elementary_PIDs;
 
     //Current
-    std::vector<bool> program_map_PIDs;
-    std::vector<bool> elementary_PIDs;
+    std::vector<int8u> program_map_PIDs;
+    std::vector<int8u> elementary_PIDs;
     std::vector<int16u> elementary_PIDs_program_map_PIDs;
 
     struct buffer
@@ -112,8 +112,8 @@ public :
     };
 
     //Data
-    void Manage_PAT(const int8u* ToAdd, size_t ToAdd_Size);
-    void Manage_PMT(const int8u* ToAdd, size_t ToAdd_Size);
+    bool Manage_PAT(const int8u* ToAdd, size_t ToAdd_Size);
+    bool Manage_PMT(const int8u* ToAdd, size_t ToAdd_Size);
 
     //Buffers
     buffer_const                FromTS;

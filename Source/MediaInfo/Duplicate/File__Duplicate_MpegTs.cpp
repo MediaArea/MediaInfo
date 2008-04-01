@@ -124,9 +124,9 @@ File__Duplicate_MpegTs::File__Duplicate_MpegTs (const Ztring &Target)
     Writer.Configure(Target);
 
     //Current
-    program_map_PIDs.resize(0x2000, false);
-    elementary_PIDs.resize(0x2000, false);
-    elementary_PIDs_program_map_PIDs.resize(0x2000, false);
+    program_map_PIDs.resize(0x2000, 0);
+    elementary_PIDs.resize(0x2000, 0);
+    elementary_PIDs_program_map_PIDs.resize(0x2000, 0);
 }
 
 //***************************************************************************
@@ -170,24 +170,30 @@ void File__Duplicate_MpegTs::Configure (const Ztring &Value, bool ToRemove)
 // Write
 //***************************************************************************
 
-void File__Duplicate_MpegTs::Write (const int8u* ToAdd, size_t ToAdd_Size)
+bool File__Duplicate_MpegTs::Write (int16u PID, const int8u* ToAdd, size_t ToAdd_Size)
 {
-    int16u PID=CC2(ToAdd+1)&0x1FFF;
+    //int16u PID=CC2(ToAdd+1)&0x1FFF;
     if (elementary_PIDs[PID])
+    {
         Writer.Write(ToAdd, ToAdd_Size);
+        return false;
+    }
     else if (program_map_PIDs[PID])
-        Manage_PMT(ToAdd, ToAdd_Size);
+        return Manage_PMT(ToAdd, ToAdd_Size);
     else if (PID==0x0000)
-        Manage_PAT(ToAdd, ToAdd_Size);
+        return Manage_PAT(ToAdd, ToAdd_Size);
+    else
+        return false;
 }
 
-void File__Duplicate_MpegTs::Manage_PAT (const int8u* ToAdd, size_t ToAdd_Size)
+bool File__Duplicate_MpegTs::Manage_PAT (const int8u* ToAdd, size_t ToAdd_Size)
 {
     if (!Parsing_Begin(ToAdd, ToAdd_Size, PAT))
-        return;
+        return false;
 
     //Programs
     program_map_PIDs.clear();
+    program_map_PIDs.resize(0x2000, 0);
     while (FromTS.Offset+4<=FromTS.End)
     {
         //For each program
@@ -197,28 +203,29 @@ void File__Duplicate_MpegTs::Manage_PAT (const int8u* ToAdd, size_t ToAdd_Size)
          || Wanted_program_map_PIDs.find(program_map_PID)!=Wanted_program_map_PIDs.end())
         {
             //Integrating it
-            program_map_PIDs[program_map_PID]=true;
+            program_map_PIDs[program_map_PID]=1;
             std::memcpy(PAT[StreamID].Buffer+PAT[StreamID].Offset, FromTS.Buffer+FromTS.Offset, 4);
             PAT[StreamID].Offset+=4;
             PMT[program_number].ConfigurationHasChanged=true;
         }
         else
         {
-            program_map_PIDs[program_map_PID]=false;
+            program_map_PIDs[program_map_PID]=0;
             for (size_t Pos=0; Pos<0x2000; Pos++)
                 if (elementary_PIDs_program_map_PIDs[Pos]==program_number)
-                    elementary_PIDs[Pos]=false;
+                    elementary_PIDs[Pos]=0;
         }
         FromTS.Offset+=4;
     }
 
     Parsing_End(PAT);
+    return true;
 }
 
-void File__Duplicate_MpegTs::Manage_PMT (const int8u* ToAdd, size_t ToAdd_Size)
+bool File__Duplicate_MpegTs::Manage_PMT (const int8u* ToAdd, size_t ToAdd_Size)
 {
     if (!Parsing_Begin(ToAdd, ToAdd_Size, PMT))
-        return;
+        return false;
 
     //program_info_length
     int16u program_info_length=CC2(FromTS.Buffer+FromTS.Offset+2)&0x0FFF;
@@ -235,17 +242,18 @@ void File__Duplicate_MpegTs::Manage_PMT (const int8u* ToAdd, size_t ToAdd_Size)
         if (Wanted_elementary_PIDs.empty() || Wanted_elementary_PIDs.find(elementary_PID)!=Wanted_elementary_PIDs.end())
         {
             //Integrating it
-            elementary_PIDs[elementary_PID]=true;
+            elementary_PIDs[elementary_PID]=1;
             elementary_PIDs_program_map_PIDs[elementary_PID]=StreamID;
             std::memcpy(PMT[StreamID].Buffer+PMT[StreamID].Offset, FromTS.Buffer+FromTS.Offset, 5+ES_info_length);
             PMT[StreamID].Offset+=5+ES_info_length;
         }
         else
-            elementary_PIDs[elementary_PID]=false;
+            elementary_PIDs[elementary_PID]=0;
         FromTS.Offset+=5+ES_info_length;
     }
 
     Parsing_End(PMT);
+    return true;
 }
 
 //***************************************************************************
@@ -275,13 +283,6 @@ bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Siz
     if (FromTS.End>FromTS.Size-4)
         return false; //Problem
 
-    //Verifying CRC
-    int32u CRC_32=0xFFFFFFFF;
-    for (int32u CRC_32_Offset=(int32u)FromTS.Begin; CRC_32_Offset<FromTS.End+4; CRC_32_Offset++) //After syncword
-        CRC_32=(CRC_32<<8) ^ CRC_32_Table[(CRC_32>>24)^(FromTS.Buffer[CRC_32_Offset])];
-    if (CRC_32)
-        return false; //Problem
-
     //Positionning just after section_length
     FromTS.Offset+=2;
 
@@ -307,6 +308,13 @@ bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Siz
         Writer.Write(FromTS.Buffer, FromTS.Size);
         return false;
     }
+
+    //Verifying CRC
+    int32u CRC_32=0xFFFFFFFF;
+    for (int32u CRC_32_Offset=(int32u)FromTS.Begin; CRC_32_Offset<FromTS.End+4; CRC_32_Offset++) //After syncword
+        CRC_32=(CRC_32<<8) ^ CRC_32_Table[(CRC_32>>24)^(FromTS.Buffer[CRC_32_Offset])];
+    if (CRC_32)
+        return false; //Problem
 
     //Copying
     ToModify.Buffer=new int8u[FromTS.Size];
@@ -366,7 +374,7 @@ void File__Duplicate_MpegTs::Parsing_End (std::map<int16u, buffer> &ToModify_)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-size_t File__Duplicate_MpegTs::Output_Buffer_Get (const Ztring &Code_, unsigned char** Output_Buffer)
+size_t File__Duplicate_MpegTs::Output_Buffer_Get (unsigned char** Output_Buffer)
 {
     return Writer.Output_Buffer_Get(Output_Buffer);
 }

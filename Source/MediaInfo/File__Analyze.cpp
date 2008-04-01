@@ -250,7 +250,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     }
 
     //Detection is parsing too much
-    if (General.empty() && !File_Name.empty() && File_Offset>File_MaximumOffset)
+    if (!File_Name.empty() && General.empty() && File_Offset>File_MaximumOffset)
     {
         //Starter not found, we abandon
         Buffer_Clear();
@@ -326,38 +326,44 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
         Sub=this;
 
     //Sub
-    Sub->Element_Level_Base=Element_Level_Base+Element_Level;
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        Sub->Element_Level_Base=Element_Level_Base+Element_Level;
 
-    //{File F; F.Open(Ztring(_T("d:\\direct"))+Ztring::ToZtring((size_t)this, 16), File::Access_Write_Append); F.Write(ToAdd, ToAdd_Size);}
+        //{File F; F.Open(Ztring(_T("d:\\direct"))+Ztring::ToZtring((size_t)this, 16), File::Access_Write_Append); F.Write(ToAdd, ToAdd_Size);}
 
-    //Adaptating File_Offset
-    if (Sub!=this && Sub->Buffer_Size<=Sub->File_Offset)
-        Sub->File_Offset-=Sub->Buffer_Size;
+        //Adaptating File_Offset
+        if (Sub!=this && Sub->Buffer_Size<=Sub->File_Offset)
+            Sub->File_Offset-=Sub->Buffer_Size;
+    #endif
 
     //Parsing
     Sub->Open_Buffer_Continue(ToAdd, ToAdd_Size);
 
-    //Details handling
-    if (!Sub->Element[0].ToShow.Details.empty())
-    {
-        //Line separator
-        if (!Element[Element_Level].ToShow.Details.empty())
-            Element[Element_Level].ToShow.Details+=Config.LineSeparator_Get();
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        //Details handling
+        if (!Sub->Element[0].ToShow.Details.empty())
+        {
+            //Line separator
+            if (!Element[Element_Level].ToShow.Details.empty())
+                Element[Element_Level].ToShow.Details+=Config.LineSeparator_Get();
 
-        //From Sub
-        Element[Element_Level].ToShow.Details+=Sub->Element[0].ToShow.Details;
-        Sub->Element[0].ToShow.Details.clear();
-    }
-    else
-        Element[Element_Level].ToShow.NoShow=true; //We don't want to show this item because there is no info in it
+            //From Sub
+            Element[Element_Level].ToShow.Details+=Sub->Element[0].ToShow.Details;
+            Sub->Element[0].ToShow.Details.clear();
+        }
+        else
+            Element[Element_Level].ToShow.NoShow=true; //We don't want to show this item because there is no info in it
+    #endif
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Continue_Loop ()
 {
     //Save for speed improvement
-    Config_Details=Config.Details_Get();
-
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        Config_Details=Config.Details_Get();
+    #endif
+    
     //Parsing specific
     Read_Buffer_Continue();
     if (File_GoTo!=(int64u)-1)

@@ -142,6 +142,14 @@ void File__Duplicate__Writer::Write (const int8u* ToAdd, size_t ToAdd_Size)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+size_t File__Duplicate__Writer::Output_Buffer_Get ()
+{
+    size_t Output_Buffer_Size=Buffer_Size;
+    Buffer_Size=0; //Can be erased later...
+    return Output_Buffer_Size;
+}
+
+//---------------------------------------------------------------------------
 size_t File__Duplicate__Writer::Output_Buffer_Get (unsigned char** Output_Buffer)
 {
     if (Output_Buffer)

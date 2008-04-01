@@ -60,16 +60,19 @@ protected :
     bool   File__Duplicate_HasChanged();
 
     //Write
-    void   File__Duplicate_Write ();
+    void   File__Duplicate_Write (size_t PID);
 
     //Output buffer
-    size_t Output_Buffer_Get (const Ztring &Value);
+    size_t Output_Buffer_Get (const String &Value);
+    size_t Output_Buffer_Get (size_t Pos);
 
 private :
     bool                                       File__Duplicate_HasChanged_;
     size_t                                     Config_File_Duplicate_Get_AlwaysNeeded_Count;
 
-    std::map<const Ztring, File__Duplicate_MpegTs*> Duplicates;
+    std::vector<File__Duplicate_MpegTs*>               Duplicates_Speed;
+    std::vector<std::vector<File__Duplicate_MpegTs*> > Duplicates_Speed_FromPID;
+    std::map<const String, File__Duplicate_MpegTs*>    Duplicates;
 };
 
 

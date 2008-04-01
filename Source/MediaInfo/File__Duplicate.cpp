@@ -50,11 +50,12 @@ File__Duplicate::File__Duplicate ()
     //Temp
     File__Duplicate_HasChanged_=false;
     Config_File_Duplicate_Get_AlwaysNeeded_Count=0;
+    Duplicates_Speed_FromPID.resize(0x2000);
 }
 
 File__Duplicate::~File__Duplicate ()
 {
-    std::map<const Ztring, File__Duplicate_MpegTs*>::iterator Duplicates_Temp=Duplicates.begin();
+    std::map<const String, File__Duplicate_MpegTs*>::iterator Duplicates_Temp=Duplicates.begin();
     while (Duplicates_Temp!=Duplicates.end())
     {
         delete Duplicates_Temp->second; //Duplicates_Temp->second=NULL
@@ -107,7 +108,11 @@ void File__Duplicate::File__Duplicate_Set (const Ztring &Value)
     for (std::vector<ZtringList::iterator>::iterator Target=Targets.begin(); Target<Targets.end(); Target++)
     {
         if (Duplicates.find(**Target)==Duplicates.end())
+        {
             Duplicates[**Target]=new File__Duplicate_MpegTs(**Target);
+            Duplicates_Speed.resize(Duplicates_Speed.size()+1);
+            Duplicates_Speed[Duplicates_Speed.size()-1]=Duplicates[**Target];
+        }
 
         //For each order
         for (std::vector<ZtringList::iterator>::iterator Order=Orders.begin(); Order<Orders.end(); Order++)
@@ -117,6 +122,8 @@ void File__Duplicate::File__Duplicate_Set (const Ztring &Value)
 
     //Informing the status has changed
     File__Duplicate_HasChanged_=true;
+
+    Duplicates_Speed_FromPID[0x00]=Duplicates_Speed;
 }
 
 //***************************************************************************
@@ -153,13 +160,37 @@ bool File__Duplicate::File__Duplicate_HasChanged ()
 // Write
 //***************************************************************************
 
-void File__Duplicate::File__Duplicate_Write ()
+void File__Duplicate::File__Duplicate_Write (size_t PID)
 {
     const int8u* ToAdd=Buffer+Buffer_Offset-(size_t)Header_Size;
     size_t ToAdd_Size=(size_t)(Element_Size+Header_Size);
 
-    for (std::map<const Ztring, File__Duplicate_MpegTs*>::iterator Duplicates_Temp=Duplicates.begin(); Duplicates_Temp!=Duplicates.end(); Duplicates_Temp++)
-        Duplicates_Temp->second->Write(ToAdd, ToAdd_Size);
+    //int16u PID=CC2(ToAdd+1)&0x1FFF;
+    std::vector<File__Duplicate_MpegTs*> &Dup_FromPID=Duplicates_Speed_FromPID[PID];
+    size_t Size=Duplicates_Speed_FromPID[PID].size();
+    bool ToUpdate=false;
+    for (size_t Pos=0; Pos<Size; Pos++)
+        if (Dup_FromPID[Pos]->Write(PID, ToAdd, ToAdd_Size))
+            ToUpdate=true;
+    if (ToUpdate)
+    {
+        Duplicates_Speed_FromPID.clear();
+        Duplicates_Speed_FromPID.resize(0x2000);
+        size_t Size=Duplicates_Speed.size();
+        for (size_t Pos=0; Pos<Size; Pos++)
+        {
+            File__Duplicate_MpegTs* Dup=Duplicates_Speed[Pos];
+            size_t program_map_PIDs_Size=Duplicates_Speed[Pos]->program_map_PIDs.size();
+            for (size_t program_map_PIDs_Pos=0; program_map_PIDs_Pos<program_map_PIDs_Size; program_map_PIDs_Pos++)
+                if (Dup->program_map_PIDs[program_map_PIDs_Pos])
+                    Duplicates_Speed_FromPID[program_map_PIDs_Pos].push_back(Dup);
+            size_t pelementary_PIDs_Size=Duplicates_Speed[Pos]->program_map_PIDs.size();
+            for (size_t elementary_PIDs_Pos=0; elementary_PIDs_Pos<pelementary_PIDs_Size; elementary_PIDs_Pos++)
+                if (Dup->elementary_PIDs[elementary_PIDs_Pos])
+                    Duplicates_Speed_FromPID[elementary_PIDs_Pos].push_back(Dup);
+        }
+    }
+
 }
 
 //***************************************************************************
@@ -167,12 +198,22 @@ void File__Duplicate::File__Duplicate_Write ()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-size_t File__Duplicate::Output_Buffer_Get (const Ztring &Code_)
+size_t File__Duplicate::Output_Buffer_Get (const String &Code_)
 {
-    if (Duplicates.find(Code_)==Duplicates.end())
+    std::map<const String, File__Duplicate_MpegTs*>::iterator Stream=Duplicates.find(Code_);
+    if (Stream==Duplicates.end())
         return 0;
 
-    return Duplicates[Code_]->Output_Buffer_Get(Code_);
+    return Stream->second->Output_Buffer_Get();
+}
+
+//---------------------------------------------------------------------------
+size_t File__Duplicate::Output_Buffer_Get (size_t Pos)
+{
+    if (Pos>=Duplicates_Speed.size())
+        return 0;
+
+    return Duplicates_Speed[Pos]->Output_Buffer_Get();
 }
 
 } //NameSpace

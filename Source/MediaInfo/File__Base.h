@@ -60,7 +60,8 @@ public :
     int           Set (stream_t StreamKind, size_t StreamNumber, const Ztring &Parameter, const Ztring &ToSet, const Ztring &OldValue=_T(""));
 
     //Output buffer
-    virtual size_t Output_Buffer_Get (const Ztring &) {return 0;};
+    virtual size_t Output_Buffer_Get (const String &) {return 0;};
+    virtual size_t Output_Buffer_Get (size_t) {return 0;};
 
     //Options
     size_t Count_Get (stream_t StreamKind, size_t Pos=Error) const;

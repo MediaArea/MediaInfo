@@ -54,6 +54,7 @@ public :
     void   Write (const int8u* ToAdd, size_t ToAdd_Size);
 
     //Output buffer
+    size_t Output_Buffer_Get ();
     size_t Output_Buffer_Get (unsigned char** Output_Buffer=NULL);
 
 private :

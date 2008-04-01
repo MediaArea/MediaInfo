@@ -103,6 +103,37 @@ private :
         {
             delete Parser; //Parser=NULL;
         }
+
+        void Searching_Payload_Start_Set(bool ToSet)
+        {
+            Searching_Payload_Start=ToSet;
+            Searching_Test();
+        }
+        void Searching_Payload_Continue_Set(bool ToSet)
+        {
+            Searching_Payload_Continue=ToSet;
+            Searching_Test();
+        }
+        void Searching_TimeStamp_Start_Set(bool ToSet)
+        {
+            Searching_TimeStamp_Start=ToSet;
+            Searching_Test();
+        }
+        void Searching_TimeStamp_End_Set(bool ToSet)
+        {
+            Searching_TimeStamp_End=ToSet;
+            Searching_Test();
+        }
+        void Searching_Test()
+        {
+            if (Searching_Payload_Start
+             || Searching_Payload_Continue
+             || Searching_TimeStamp_Start
+             || Searching_TimeStamp_End)
+                Searching=true;
+             else
+                Searching=false;
+        }
     };
     std::vector<stream>         Streams;
     int32u                      format_identifier;
