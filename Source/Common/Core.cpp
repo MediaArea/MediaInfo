@@ -216,7 +216,7 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     //MI.Option(_T("File_Filter"), ProgramNumber3);
 
     //Registering for duplication
-    /*MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1); //"memory://pointer:size;program_number=..."
+    MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1); //"memory://pointer:size;program_number=..."
     MI.Option(_T("File_Duplicate"), To_Buffer_2_Name+_T(";program_number=")+ProgramNumber2); //"memory://pointer:size;program_number=..."
     MI.Option(_T("File_Duplicate"), To_Buffer_3_Name+_T(";program_number=")+ProgramNumber3); //"memory://pointer:size;program_number=..."
     MI.Option(_T("File_Duplicate"), To_Buffer_4_Name+_T(";program_number=")+ProgramNumber4); //"memory://pointer:size;program_number=..."
@@ -224,7 +224,7 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     MI.Option(_T("File_Duplicate"), To_Buffer_6_Name+_T(";program_number=")+ProgramNumber6); //"memory://pointer:size;program_number=..."
     MI.Option(_T("File_Duplicate"), To_Buffer_7_Name+_T(";program_number=")+ProgramNumber7); //"memory://pointer:size;program_number=..."
     MI.Option(_T("File_Duplicate"), To_Buffer_8_Name+_T(";program_number=")+ProgramNumber8); //"memory://pointer:size;program_number=..."
-    */
+
     //Preparing to fill MediaInfo with a buffer
     MI.Open_Buffer_Init();
     bool CanWrite_OnlyIfParsingIsOk=false;
