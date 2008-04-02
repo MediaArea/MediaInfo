@@ -32,6 +32,7 @@
 #include "MediaInfo/File__MultipleParsing.h"
 #include <ZenLib/FileName.h>
 #include <ZenLib/File.h>
+#include <ZenLib/InfoMap.h>
 #include <vector>
 using namespace std;
 using namespace ZenLib;
@@ -99,7 +100,7 @@ size_t MediaInfo::Open(const String &File_Name_)
     Extension.MakeLowerCase();
 
     //Search the theorical format from extension
-    const ZtringListList &FormatList=Config.Format_Get();
+    /*const InfoMap &FormatList=Config.Format_Get();
     size_t Pos=0;
     while (Pos<FormatList.size() && (InfoFormat_Extensions>=FormatList[Pos].size() || InfoFormat_Extensions<FormatList[Pos].size() && FormatList[Pos][InfoFormat_Extensions].find(Extension.c_str())==Error))
         Pos++;
@@ -107,7 +108,7 @@ size_t MediaInfo::Open(const String &File_Name_)
     {
         const Ztring &Parser=FormatList[Pos][InfoFormat_Parser];
         SelectFromExtension(Parser);
-    }
+    }*/
 
     //Test the theorical format
     if (Format_Test()>0)

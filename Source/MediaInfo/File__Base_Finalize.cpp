@@ -213,7 +213,7 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
     size_t List_Measure_Pos=Error;
     do
     {
-        List_Measure_Pos=Config.Info_Get(StreamKind).Find(_T(""), Info_Measure, List_Measure_Pos+1, _T("!="));
+        List_Measure_Pos=Config.Info_Get(StreamKind).Find_Filled(Info_Measure, List_Measure_Pos+1);
         if (List_Measure_Pos!=Error)
         {
             const Ztring &List_Measure_Value=Config.Info_Get(StreamKind).Read(List_Measure_Pos, Info_Measure);

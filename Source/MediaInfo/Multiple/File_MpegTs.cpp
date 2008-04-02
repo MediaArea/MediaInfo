@@ -164,9 +164,6 @@ File_MpegTs::File_MpegTs()
     for (int32u Pos=0x00; Pos<0x10; Pos++)
         Streams[Pos].Searching_Payload_Start_Set(true);
 
-    //File__Duplicate
-    Streams[0x00].ShouldDuplicate=true;
-
     //Temp
     format_identifier=0x00000000;
     TS_Size=188;
@@ -225,7 +222,10 @@ void File_MpegTs::Read_Buffer_Continue()
 
     //File__Duplicate configuration
     if (File__Duplicate_HasChanged())
+    {
+        Streams[0x00].ShouldDuplicate=true;
         Streams[0x00].Searching_Payload_Start_Set(true); //Re-enabling program_map_table
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -524,14 +524,12 @@ void File_MpegTs::Header_Parse_AdaptationField()
 //---------------------------------------------------------------------------
 void File_MpegTs::Data_Parse()
 {
-    if (!Streams[pid].Searching_Payload_Start && !Streams[pid].Searching_Payload_Continue)
-    {
-        //File__Duplicate
-        if (Streams[pid].ShouldDuplicate)
-            File__Duplicate_Write(pid);
+    //File__Duplicate
+    if (Streams[pid].ShouldDuplicate)
+        File__Duplicate_Write(pid);
 
+    if (!Streams[pid].Searching_Payload_Start && !Streams[pid].Searching_Payload_Continue)
         return;
-    }
 
     //PIDs
     switch (Streams[pid].TS_Kind)
@@ -575,10 +573,6 @@ void File_MpegTs::Data_Parse()
 
         default: ;
     }
-
-    //File__Duplicate
-    if (Streams[pid].ShouldDuplicate)
-        File__Duplicate_Write(pid);
 }
 
 //***************************************************************************
@@ -656,7 +650,7 @@ void File_MpegTs::PSI_program_association_table()
         }
 
         //File__Duplicate
-        if (File__Duplicate_Get_From_program_number(Program->second.program_number))
+        if (File__Duplicate_Get_From_PID(PID))
             Streams[PID].ShouldDuplicate=true;
         else
             Streams[PID].ShouldDuplicate=false;
@@ -705,7 +699,7 @@ void File_MpegTs::PSI_program_map_table()
         Streams[elementary_PID].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
         if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
             Streams[elementary_PID].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
-        if (File__Duplicate_Get_From_program_number(Streams[elementary_PID].program_number))
+        if (File__Duplicate_Get_From_PID(elementary_PID))
             Streams[elementary_PID].ShouldDuplicate=true;
 
         //Not precised PID handling

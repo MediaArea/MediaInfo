@@ -54,7 +54,7 @@ protected :
 
     //Get
     bool   File__Duplicate_Get  ();
-    bool   File__Duplicate_Get_From_program_number  (int16u  Value);
+    bool   File__Duplicate_Get_From_PID (int16u PID);
 
     //Modifications
     bool   File__Duplicate_HasChanged();

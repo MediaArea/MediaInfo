@@ -29,6 +29,8 @@
 //---------------------------------------------------------------------------
 #include <MediaInfo/MediaInfo_Const.h>
 #include <ZenLib/ZtringListList.h>
+#include <ZenLib/Translation.h>
+#include <ZenLib/InfoMap.h>
 #include <map>
 #include <vector>
 using namespace ZenLib;
@@ -112,15 +114,15 @@ public :
           Ztring    Inform_Get ();
     const Ztring   &Inform_Get (const Ztring &Value);
 
-    const Ztring   &Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name) const;
-    const ZtringListList &Format_Get() const {return Format;}; //Should not be, but too difficult to hide it
+    const Ztring   &Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name);
+    const InfoMap  &Format_Get() const {return Format;}; //Should not be, but too difficult to hide it
 
-    const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo=InfoCodec_Name) const;
-    const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream) const;
+    const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo=InfoCodec_Name);
+    const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream);
 
     const Ztring   &Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo=InfoEncoder_LongName) const;
 
-    const Ztring   &Iso639_Get (const Ztring &Value) const;
+    const Ztring   &Iso639_Get (const Ztring &Value);
 
     const Ztring   &Info_Get (stream_t KindOfStream, const Ztring &Value, info_t KindOfInfo=Info_Text) const;
     const Ztring   &Info_Get (stream_t KindOfStream, size_t Pos, info_t KindOfInfo=Info_Text) const;
@@ -172,13 +174,13 @@ private :
     Ztring          DecimalPoint;
     Ztring          ThousandsPoint;
     size_t          StreamsMax[Stream_Max];
-    ZtringListList  Language; //ex. : "KB;Ko"
+    Translation     Language; //ex. : "KB;Ko"
     ZtringListList  Custom_View; //Definition of "General", "Video", "Audio", "Text", "Chapters", "Image"
 
-    ZtringListList  Format;
-    ZtringListList  Codec;
+    InfoMap         Format;
+    InfoMap         Codec;
     ZtringListList  Encoder;
-    ZtringListList  Iso639;
+    InfoMap         Iso639;
     ZtringListList  Info[Stream_Max]; //General info
 
     //Extra

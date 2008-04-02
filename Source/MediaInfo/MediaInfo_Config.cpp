@@ -48,9 +48,9 @@ const Ztring EmptyZtring_Const; //Use it when we can't return a reference to a t
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-void File__Base_Codec              (ZtringListList &Info);
-void File__Base_DefaultLanguage    (ZtringListList &Info);
-void File__Base_Iso639             (ZtringListList &Info);
+void File__Base_Codec              (InfoMap &Info);
+void File__Base_DefaultLanguage    (Translation &Info);
+void File__Base_Iso639             (InfoMap &Info);
 void File__Base_General            (ZtringListList &Info);
 void File__Base_Video              (ZtringListList &Info);
 void File__Base_Audio              (ZtringListList &Info);
@@ -59,7 +59,7 @@ void File__Base_Chapters           (ZtringListList &Info);
 void File__Base_Image              (ZtringListList &Info);
 void File__Base_Menu               (ZtringListList &Info);
 void File__Base_Summary            (ZtringListList &Info);
-void File__Base_Format             (ZtringListList &Info);
+void File__Base_Format             (InfoMap &Info);
 void File__Base_Encoder            (ZtringListList &Info);
 //---------------------------------------------------------------------------
 
@@ -691,22 +691,22 @@ void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
         Raw=true;
         //Fill base words (with English translation even if we don't want of it)
         File__Base_DefaultLanguage(Language);
-        //Write internal name instead of translation
-        for (size_t Pos=0; Pos<Language.size(); Pos++)
-            Language.Write(Language[Pos][0], Pos, 1);
+        //TODO Write internal name instead of translation
+        //for (size_t Pos=0; Pos<Language.size(); Pos++)
+        //    Language.Write(Language[Pos][0], Pos, 1);
     }
     //-Add custom language to English language
     else
     {
         //Fill base words (with English translation)
         File__Base_DefaultLanguage(Language);
-        //Add custom language to English language
-        for (size_t Pos=0; Pos<Language.size(); Pos++)
-        {
-            size_t PosNew=NewValue.Find(Language[Pos][0], 0, 0, _T("=="), Ztring_CaseSensitive);
-            if (PosNew!=Error && 1<NewValue[PosNew].size())
-                Language.Write(NewValue[PosNew][1], Pos, 1);
-        }
+        //TODO Add custom language to English language
+        //for (size_t Pos=0; Pos<Language.size(); Pos++)
+        //{
+        //    size_t PosNew=NewValue.Find(Language[Pos][0], 0, 0, _T("=="), Ztring_CaseSensitive);
+        //    if (PosNew!=Error && 1<NewValue[PosNew].size())
+        //        Language.Write(NewValue[PosNew][1], Pos, 1);
+        //}
     }
 
     //Fill Info
@@ -732,15 +732,15 @@ void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
             {
                 Ztring ToReplace1=ToReplace.SubString(_T(""), _T("/"));
                 Ztring ToReplace2=ToReplace.SubString(_T("/"), _T(""));
-                Info[StreamKind](Pos, Info_Name_Text)=Language.Read(ToReplace1, ToReplace1);
+                Info[StreamKind](Pos, Info_Name_Text)=Language[ToReplace1];//TODO Language.Read(ToReplace1, ToReplace1);
                 Info[StreamKind](Pos, Info_Name_Text)+=_T("/");
-                Info[StreamKind](Pos, Info_Name_Text)+=Language.Read(ToReplace2, ToReplace2);
+                Info[StreamKind](Pos, Info_Name_Text)+=Language[ToReplace2];//TODO Language.Read(ToReplace2, ToReplace2);
             }
             else
-                Info[StreamKind](Pos, Info_Name_Text)=Language.Read(ToReplace, ToReplace);
+                Info[StreamKind](Pos, Info_Name_Text)=Language[ToReplace];//TODO Language.Read(ToReplace, ToReplace);
             //Strings - Info_Measure_Text
             Info[StreamKind](Pos, Info_Measure_Text).clear(); //I don(t know why, but if I don't do this Delphi/C# debugger make crasher the calling program
-            Info[StreamKind](Pos, Info_Measure_Text)=Language.Read(Info[StreamKind](Pos, Info_Measure), Info[StreamKind](Pos, Info_Measure));
+            Info[StreamKind](Pos, Info_Measure_Text)=Language[Info[StreamKind](Pos, Info_Measure)];//TODO Language.Read(Info[StreamKind](Pos, Info_Measure), Info[StreamKind](Pos, Info_Measure));
             //Slashes
 
         }
@@ -751,7 +751,7 @@ void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
 Ztring MediaInfo_Config::Language_Get ()
 {
     Enter();
-    Ztring ToReturn=Language.Read();
+    Ztring ToReturn;//TODO =Language.Read();
     Leave();
     return ToReturn;
 }
@@ -759,14 +759,16 @@ Ztring MediaInfo_Config::Language_Get ()
 const Ztring &MediaInfo_Config::Language_Get (const Ztring &Value)
 {
     Enter();
-    size_t Pos=Language.Find(Value, 0, 0, _T("=="), Ztring_CaseSensitive);
-    if (Pos==Error || 1>=Language[Pos].size())
-    {
-        Leave();
-        return EmptyString_Get();
-    }
+    //TODO size_t Pos=Language.Find(Value, 0, 0, _T("=="), Ztring_CaseSensitive);
+    //if (Pos==Error || 1>=Language[Pos].size())
+    //{
+    //    Leave();
+    //    return EmptyString_Get();
+    //}
+    const Ztring &Temp=Language[Value];
     Leave();
-    return Language[Pos][1];
+    //return Language[Pos][1];
+    return Temp;
 }
 
 //---------------------------------------------------------------------------
@@ -934,50 +936,53 @@ const Ztring &MediaInfo_Config::Inform_Get (const Ztring &Value)
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo) const
+const Ztring &MediaInfo_Config::Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo)
 {
-    size_t Pos=Format.Find(Value, 0, 0, _T("=="), Ztring_CaseSensitive);
-    if (Pos==Error || (size_t)KindOfFormatInfo>=Format[Pos].size())
-        return EmptyString_Get();
-    return Format[Pos][KindOfFormatInfo];
+    //TODO size_t Pos=Format.Find(Value, 0, 0, _T("=="), Ztring_CaseSensitive);
+    //if (Pos==Error || (size_t)KindOfFormatInfo>=Format[Pos].size())
+    //    return EmptyString_Get();
+    //return Format[Pos][KindOfFormatInfo];
+    return Format.Get(Value, KindOfFormatInfo);
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo) const
+const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo)
 {
-    size_t Pos=Codec.Find(Value, 0, 0, _T("=="), Ztring_CaseSensitive);
-    if (Pos==Error || (size_t)KindOfCodecInfo>=Codec[Pos].size())
-        return EmptyString_Get();
-    return Codec[Pos][KindOfCodecInfo];
+    //TODO size_t Pos=Codec.Find(Value, 0, 0, _T("=="), Ztring_CaseSensitive);
+    //TODO if (Pos==Error || (size_t)KindOfCodecInfo>=Codec[Pos].size())
+    //TODO     return EmptyString_Get();
+    //TODO return Codec[Pos][KindOfCodecInfo];
+    return Codec.Get(Value, KindOfCodecInfo);
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream) const
+const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream)
 {
     //Transform to text
-    Ztring KindOfStreamS;
-    switch (KindOfStream)
-    {
-        case Stream_General  : KindOfStreamS=_T("G"); break;
-        case Stream_Video    : KindOfStreamS=_T("V"); break;
-        case Stream_Audio    : KindOfStreamS=_T("A"); break;
-        case Stream_Text     : KindOfStreamS=_T("T"); break;
-        case Stream_Image    : KindOfStreamS=_T("I"); break;
-        case Stream_Chapters : KindOfStreamS=_T("C"); break;
-        case Stream_Menu     : KindOfStreamS=_T("M"); break;
-        case Stream_Max      : KindOfStreamS=_T(" "); break;
-    }
+    //TODO Ztring KindOfStreamS;
+    //switch (KindOfStream)
+    //{
+    //    case Stream_General  : KindOfStreamS=_T("G"); break;
+    //    case Stream_Video    : KindOfStreamS=_T("V"); break;
+    //    case Stream_Audio    : KindOfStreamS=_T("A"); break;
+    //    case Stream_Text     : KindOfStreamS=_T("T"); break;
+    //    case Stream_Image    : KindOfStreamS=_T("I"); break;
+    //    case Stream_Chapters : KindOfStreamS=_T("C"); break;
+    //    case Stream_Menu     : KindOfStreamS=_T("M"); break;
+    //    case Stream_Max      : KindOfStreamS=_T(" "); break;
+    //}
 
     //Searching
-    size_t Pos=0;
-    do
-        Pos=Codec.Find(Value, 0, Pos+1, _T("=="), Ztring_CaseSensitive);
-    while (Pos!=Error && Codec.Read(Pos, InfoCodec_KindOfStream)!=KindOfStreamS);
+    //size_t Pos=0;
+    //do
+    //    Pos=Codec.Find(Value, 0, Pos+1, _T("=="), Ztring_CaseSensitive);
+    //while (Pos!=Error && Codec.Read(Pos, InfoCodec_KindOfStream)!=KindOfStreamS);
 
     //Is it ok?
-    if (Pos==Error || (size_t)KindOfCodecInfo>=Codec[Pos].size())
-        return EmptyString_Get();
-    return Codec[Pos][KindOfCodecInfo];
+    //if (Pos==Error || (size_t)KindOfCodecInfo>=Codec[Pos].size())
+    //    return EmptyString_Get();
+    //return Codec[Pos][KindOfCodecInfo];
+    return Codec.Get(Value, KindOfCodecInfo);
 }
 
 //---------------------------------------------------------------------------
@@ -990,12 +995,13 @@ const Ztring &MediaInfo_Config::Encoder_Get (const Ztring &Value, infoencoder_t 
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Iso639_Get (const Ztring &Value) const
+const Ztring &MediaInfo_Config::Iso639_Get (const Ztring &Value)
 {
-    size_t Pos=Iso639.Find(Value);
-    if (Pos==Error || 1>=Iso639.size())
-        return EmptyString_Get();
-    return Iso639[Pos][1];
+    //TODO size_t Pos=Iso639.Find(Value);
+    //if (Pos==Error || 1>=Iso639.size())
+    //    return EmptyString_Get();
+    //return Iso639[Pos][1];
+    return Iso639.Get(Value, 1);
 }
 
 //---------------------------------------------------------------------------
@@ -1048,7 +1054,8 @@ Ztring MediaInfo_Config::Info_Tags_Get () const
 
 Ztring MediaInfo_Config::Info_Codecs_Get () const
 {
-    return Codec.Read();
+    //TODO return Codec.Read();
+    return EmptyZtring;
 }
 
 Ztring MediaInfo_Config::Info_Version_Get () const

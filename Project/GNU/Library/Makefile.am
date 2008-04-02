@@ -4,6 +4,7 @@ lib_LTLIBRARIES = libmediainfo.la
 libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/File__Analyze.cpp \
                        ../../../Source/MediaInfo/File__Analyze_Buffer.cpp \
+                       ../../../Source/MediaInfo/File__Analyze_Buffer_MinimizeSize.cpp \
                        ../../../Source/MediaInfo/File__Analyze_Streams.cpp \
                        ../../../Source/MediaInfo/File__Base.cpp \
                        ../../../Source/MediaInfo/File__Base_Automatic.cpp \

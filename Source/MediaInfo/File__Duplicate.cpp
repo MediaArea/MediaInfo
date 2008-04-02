@@ -135,10 +135,9 @@ bool File__Duplicate::File__Duplicate_Get ()
     return !Duplicates.empty();
 }
 
-bool File__Duplicate::File__Duplicate_Get_From_program_number (int16u Value)
+bool File__Duplicate::File__Duplicate_Get_From_PID (int16u PID)
 {
-    return true;
-    //return Duplicate->Get(Value);
+    return !Duplicates_Speed_FromPID[PID].empty();
 }
 
 bool File__Duplicate::File__Duplicate_HasChanged ()
@@ -176,6 +175,7 @@ void File__Duplicate::File__Duplicate_Write (size_t PID)
     {
         Duplicates_Speed_FromPID.clear();
         Duplicates_Speed_FromPID.resize(0x2000);
+        Duplicates_Speed_FromPID[0x0000]=Duplicates_Speed;
         size_t Size=Duplicates_Speed.size();
         for (size_t Pos=0; Pos<Size; Pos++)
         {
@@ -190,7 +190,6 @@ void File__Duplicate::File__Duplicate_Write (size_t PID)
                     Duplicates_Speed_FromPID[elementary_PIDs_Pos].push_back(Dup);
         }
     }
-
 }
 
 //***************************************************************************

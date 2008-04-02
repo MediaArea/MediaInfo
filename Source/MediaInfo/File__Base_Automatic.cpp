@@ -26,6 +26,8 @@
 
 //---------------------------------------------------------------------------
 #include "ZenLib/ZtringListList.h"
+#include "ZenLib/InfoMap.h"
+#include "ZenLib/Translation.h"
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -33,7 +35,7 @@ namespace MediaInfoLib
 {
 
 //---------------------------------------------------------------------------
-void File__Base_DefaultLanguage (ZtringListList &Info)
+void File__Base_DefaultLanguage (Translation &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_Local(
@@ -823,7 +825,7 @@ void File__Base_DefaultLanguage (ZtringListList &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Format (ZtringListList &Info)
+void File__Base_Format (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_Local(
@@ -963,7 +965,7 @@ void File__Base_Format (ZtringListList &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Codec (ZtringListList &Info)
+void File__Base_Codec (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_Local(
@@ -1010,7 +1012,7 @@ void File__Base_Codec (ZtringListList &Info)
     "AURA;YUV;4CC;V;YUV;;Auravision Aura 1 - YUV 411\n"
     "AUVX;AUVX;4CC;V;;;USH GmbH\n"
     "AV1X;Avid 1:1;4CC;V;;;Avid 1:1x (Quick Time);http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe\n"
-    "AVC1;AVC;4CC;V;AVC;;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow\n"
+    "AVC1;AVC;4CC;V;AVC;;Advanced Video Codec;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow\n"
     "AVD1;Avid DV;4CC;V;DV;;Avid DV (Quick Time);http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe\n"
     "AVDJ;Avid JFIF;4CC;V;M-JPEG;;Avid Meridien JFIF with Alpha-channel;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe\n"
     "AVDN;Avid HD;4CC;V;;;Avid DNxHD (Quick Time);http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe\n"
@@ -1737,7 +1739,7 @@ void File__Base_Codec (ZtringListList &Info)
     "mp4v;MPEG-4;4CC;V;MPEG-4V;;MPEG-4 Video (3GPP);http://www.apple.com/quicktime/download/standalone.html\n"
     "avc1;AVC;4CC;V;AVC;;H.264 (3GPP);http://www.apple.com/quicktime/download/standalone.html\n"
     "h263;H.263;4CC;V;;;H.263 (3GPP);http://www.apple.com/quicktime/download/standalone.html\n"
-    "s263;H.263;4CC;V;;;H.263 (3GPP);http://www.apple.com/quicktime/download/standalone.html\n"
+    "s263;H.263;4CC;V;;;Advanced Video Codec;http://www.apple.com/quicktime/download/standalone.html\n"
     "samr;AMR-NB;4CC;A;;;AMR narrow band (3GPP);http://www.apple.com/quicktime/download/standalone.html\n"
     "sawb;AMR-WB;4CC;A;;;AMR wide band (3GPP);http://www.apple.com/quicktime/download/standalone.html\n"
     "sevc;EVRC;4CC;A;;;;http://www.apple.com/quicktime/download/standalone.html\n"
@@ -1762,7 +1764,7 @@ void File__Base_Codec (ZtringListList &Info)
     "MPEG-4 AAC LC;AAC LC;Mp4v2;A;AAC\n"
     "MPEG-4 AAC SSR;AAC SSR;Mp4v2;A;AAC\n"
     "MPEG-4 AAC LTP;AAC LTP;Mp4v2;A;AAC\n"
-    "AVC;AVC;MediaInfo;V;AVC;;MPEG-4 AVC;http://developers.videolan.org/x264.html\n"
+    "AVC;AVC;MediaInfo;V;AVC;;Advanced Video Codec;http://developers.videolan.org/x264.html\n"
     "MPEG-1V;MPEG-1 Video;MediaInfo;V;MPEG-V\n"
     "MPEG-2V;MPEG-2 Video;MediaInfo;V;MPEG-V\n"
     "MPEG-4V;MPEG-4 Visual;MediaInfo;V;MPEG-4V\n"
@@ -2585,7 +2587,7 @@ void File__Base_Menu (ZtringListList &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Iso639 (ZtringListList &Info)
+void File__Base_Iso639 (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_Local(

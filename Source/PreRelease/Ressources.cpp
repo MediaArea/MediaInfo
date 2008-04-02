@@ -66,6 +66,16 @@ ZenLib::Ztring Ressources_Create_Item(const Ztring &Directory, const Ztring &Nam
     if (!Result.empty())
         return Result;
     Partial.FindAndReplace(L"%Name%", Ztring(L"File__Base_")+Name);
+    if (Name==_T("Codec"))
+        Partial.FindAndReplace(L"%Class%", L"InfoMap");
+    else if (Name==_T("DefaultLanguage"))
+        Partial.FindAndReplace(L"%Class%", L"Translation");
+    else if (Name==_T("Iso639"))
+        Partial.FindAndReplace(L"%Class%", L"InfoMap");
+    else if (Name==_T("Format"))
+        Partial.FindAndReplace(L"%Class%", L"InfoMap");
+    else
+        Partial.FindAndReplace(L"%Class%", L"ZtringListList");
     Contents+=Partial;
 
     //Load line template

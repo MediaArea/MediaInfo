@@ -26,6 +26,8 @@
 
 //---------------------------------------------------------------------------
 #include "ZenLib/ZtringListList.h"
+#include "ZenLib/InfoMap.h"
+#include "ZenLib/Translation.h"
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 

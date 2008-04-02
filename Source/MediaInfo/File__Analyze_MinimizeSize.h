@@ -1,42 +1,3 @@
-// File__Analysze - Base for analyze files
-// Copyright (C) 2007-2008 Jerome Martinez, Zen@MediaArea.net
-//
-// This library is free software: you can redistribute it and/or modify it
-// under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// any later version.
-//
-// This library is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details.
-//
-// You should have received a copy of the GNU Lesser General Public License
-// along with this library. If not, see <http://www.gnu.org/licenses/>.
-//
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-//---------------------------------------------------------------------------
-#ifndef MediaInfo_File__AnalyzeH
-#define MediaInfo_File__AnalyzeH
-//---------------------------------------------------------------------------
-
-//---------------------------------------------------------------------------
-#include "MediaInfo/File__Base.h"
-#include <ZenLib/BitStream.h>
-#include <ZenLib/int128u.h>
-#include <ZenLib/ZtringListList.h>
-#include <vector>
-using namespace ZenLib;
-//---------------------------------------------------------------------------
-
-namespace MediaInfoLib
-{
-
-#ifdef MEDIAINFO_MINIMIZESIZE
-    #include "MediaInfo/File__Analyze_MinimizeSize.h"
-#else
 //***************************************************************************
 // Class File__Base
 //***************************************************************************
@@ -112,7 +73,8 @@ protected :
     virtual void Header_Parse ()                                                {};
 
     //Header - Info
-    void Header_Fill_Code (int64u Code, const Ztring &Name);
+    void Header_Fill_Code (int64u Code);
+    inline void Header_Fill_Code (int64u Code, const Ztring &Name) {Header_Fill_Code(Code);};
     void Header_Fill_Size (int64u Size);
 
     //***************************************************************************
@@ -126,7 +88,7 @@ protected :
     virtual void Data_Parse ()                                                  {};
 
     //Data - Info
-    void Data_Info (const Ztring &Parameter);
+    inline void Data_Info (const Ztring &) {};
 
     //Data - Get info
     size_t Data_Remain ()                                                       {return (size_t)Element_Size-(Element_Offset+BS->Offset_Get());};
@@ -137,8 +99,9 @@ protected :
     bool EOF_AlreadyDetected;
 
     //Data - Helpers
-    void Data_Finnished(const char* Message)                                    {Data_GoTo(File_Size, Message);};
-    void Data_GoTo     (int64u GoTo, const char* Message);
+    inline void Data_Finnished(const char*)                                     {Data_GoTo(File_Size);}
+    void Data_GoTo     (int64u GoTo);
+    inline void Data_GoTo     (int64u GoTo, const char*)                        {Data_GoTo(GoTo);}
 
     //***************************************************************************
     // Elements
@@ -146,38 +109,38 @@ protected :
 
     //Elements - Begin
     void Element_Begin ();
-    void Element_Begin (const Ztring &Name, int64u Size=(int64u)-1);
-    void Element_Begin (int64u Size) {Element_Begin(Ztring(), Size);}
-    void Element_Begin (const char *Name, int64u Size=(int64u)-1) {Element_Begin(Ztring().From_UTF8(Name), Size);}
+    inline void Element_Begin (const Ztring &Name, int64u Size=(int64u)-1) {Element_Begin(Size);}
+    void Element_Begin (int64u Size);
+    inline void Element_Begin (const char *Name, int64u Size=(int64u)-1) {Element_Begin(Size);}
 
     //Elements - Name
-    void Element_Name (const Ztring &Name);
-    void Element_Name (const char*   Name) {Element_Name(Ztring().From_UTF8(Name));}
+    inline void Element_Name (const Ztring &) {}
+    inline void Element_Name (const char*) {}
 
     //Elements - Info
-    void Element_Info (const Ztring &Parameter);
-    void Element_Info (const char*   Parameter) {Element_Info(Ztring().From_UTF8(Parameter));}
-    void Element_Info (const char*   Parameter, const char*   Measure)      {Element_Info(Ztring().From_UTF8(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int8s         Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int8u         Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int16s        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int16u        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int32s        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int32u        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int64s        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int64u        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int128u       Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (const Ztring &Parameter) {}
+    inline void Element_Info (const char*   Parameter) {}
+    inline void Element_Info (const char*   Parameter, const char*   Measure) {}
+    inline void Element_Info (int8s         Parameter, const char*   Measure=NULL) {}
+    inline void Element_Info (int8u         Parameter, const char*   Measure=NULL) {}
+    inline void Element_Info (int16s        Parameter, const char*   Measure=NULL) {}
+    inline void Element_Info (int16u        Parameter, const char*   Measure=NULL) {}
+    inline void Element_Info (int32s        Parameter, const char*   Measure=NULL) {}
+    inline void Element_Info (int32u        Parameter, const char*   Measure=NULL) {}
+    inline void Element_Info (int64s        Parameter, const char*   Measure=NULL) {}
+    inline void Element_Info (int64u        Parameter, const char*   Measure=NULL) {}
+    inline void Element_Info (int128u       Parameter, const char*   Measure=NULL) {}
     #ifdef NEED_SIZET
-    void Element_Info (size_t        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (size_t        Parameter, const char*   Measure=NULL) {}
     #endif //NEED_SIZET
-    void Element_Info (float32       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
-    void Element_Info (float64       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (float32       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {}
+    inline void Element_Info (float64       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {}
 
     //Elements - End
     void Element_End ();
-    void Element_End (const Ztring &Name, int64u Size=(int64u)-1);
-    void Element_End (int64u Size) {Element_End(Ztring(), Size);}
-    void Element_End (const char *Name, int64u Size=(int64u)-1) {Element_End(Ztring().From_UTF8(Name), Size);}
+    inline void Element_End (const Ztring &Name, int64u Size=(int64u)-1) {Element_End(Size);}
+    void Element_End (int64u Size);
+    inline void Element_End (const char *Name, int64u Size=(int64u)-1) {Element_End(Size);}
 
     //Elements - Preparation of element from external app
     void Element_Prepare (int64u Size);
@@ -204,72 +167,84 @@ public :
         Ztring::ToZtring(Value, 16).MakeUpperCase()+_T(" (")+Ztring::ToZtring(Value, 10).MakeUpperCase()+_T(")")
 
     //Param - Main
-    void Param      (const Ztring &Parameter, const Ztring& Value);
-    void Param      (const char*   Parameter, const Ztring& Value) {Param(Ztring().From_Local(Parameter), Value);};
-    void Param      (const char*   Parameter, const std::string& Value) {Param(Parameter, Ztring().From_Local(Value.c_str()));}
-    void Param      (const char*   Parameter, const char*   Value, size_t Value_Size=Unlimited, bool Utf8=true) {Param(Parameter, ToZtring(Value, Value_Size, Utf8));}
-    void Param      (const char*   Parameter, const int8u*  Value, size_t Value_Size=Unlimited, bool Utf8=true) {Param(Parameter, (const char*)Value, Value_Size, Utf8);}
-    void Param      (const char*   Parameter, bool   Value) {if (Value) Param(Parameter, "Yes"); else Param(Parameter, "No");}
-    void Param      (const char*   Parameter, int8u  Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int8s  Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int16u Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int16s Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int32u Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int32s Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int64u Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int64s Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int128u Value){Param(Parameter, VALUE(Value));}
-    void Param_UUID (const char*   Parameter, int128u Value){Param(Parameter, Ztring().From_UUID(Value));}
+    inline void Param      (const Ztring &Parameter, const Ztring& Value) {}
+    inline void Param      (const char*   Parameter, const Ztring& Value) {}
+    inline void Param      (const char*   Parameter, const std::string& Value) {}
+    inline void Param      (const char*   Parameter, const char*   Value, size_t Value_Size=Unlimited, bool Utf8=true) {}
+    inline void Param      (const char*   Parameter, const int8u*  Value, size_t Value_Size=Unlimited, bool Utf8=true) {}
+    inline void Param      (const char*   Parameter, bool   Value) {}
+    inline void Param      (const char*   Parameter, int8u  Value) {}
+    inline void Param      (const char*   Parameter, int8s  Value) {}
+    inline void Param      (const char*   Parameter, int16u Value) {}
+    inline void Param      (const char*   Parameter, int16s Value) {}
+    inline void Param      (const char*   Parameter, int32u Value) {}
+    inline void Param      (const char*   Parameter, int32s Value) {}
+    inline void Param      (const char*   Parameter, int64u Value) {}
+    inline void Param      (const char*   Parameter, int64s Value) {}
+    inline void Param      (const char*   Parameter, int128u Value) {}
+    inline void Param_UUID (const char*   Parameter, int128u Value) {}
     #ifdef NEED_SIZET
-    void Param      (const char*   Parameter, size_t Value, intu Radix=16) {Param(Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase()+_T(" (")+Ztring::ToZtring(Value, 10).MakeUpperCase()+_T(")"));}
+    inline void Param      (const char*   Parameter, size_t Value, intu Radix=16) {}
     #endif //NEED_SIZET
-    void Param      (const char*   Parameter, float32 Value, intu AfterComma=3) {Param(Parameter, Ztring::ToZtring(Value, AfterComma));}
-    void Param      (const char*   Parameter, float64 Value, intu AfterComma=3) {Param(Parameter, Ztring::ToZtring(Value, AfterComma));}
-    void Param      (const char*   Parameter, float80 Value, intu AfterComma=3) {Param(Parameter, Ztring::ToZtring(Value, AfterComma));}
-    void Param      (const int32u  Parameter, const Ztring& Value) {Param(Ztring().From_CC4(Parameter), Value);};
-    void Param      (const int16u  Parameter, const Ztring& Value) {Param(Ztring().From_CC2(Parameter), Value);};
+    inline void Param      (const char*   Parameter, float32 Value, intu AfterComma=3) {}
+    inline void Param      (const char*   Parameter, float64 Value, intu AfterComma=3) {}
+    inline void Param      (const char*   Parameter, float80 Value, intu AfterComma=3)  {}
+    inline void Param      (const int32u  Parameter, const Ztring& Value) {}
+    inline void Param      (const int16u  Parameter, const Ztring& Value) {}
 
     //Param - Info
-    void Param_Info (const Ztring &Parameter);
-    void Param_Info (const char*   Parameter) {Param_Info(Ztring().From_UTF8(Parameter));}
-    void Param_Info (const char*   Parameter, const char*   Measure)      {Param_Info(Ztring().From_UTF8(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int64u        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int64s        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int32u        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int32s        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int16u        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int16s        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int8u         Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int8s         Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (float32       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
-    void Param_Info (float64       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
-    void Param_Info (float80       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
+    inline void Param_Info (const Ztring &Parameter) {}
+    inline void Param_Info (const char*   Parameter) {}
+    inline void Param_Info (const char*   Parameter, const char*   Measure) {}
+    inline void Param_Info (int64u        Parameter, const char*   Measure=NULL) {}
+    inline void Param_Info (int64s        Parameter, const char*   Measure=NULL) {}
+    inline void Param_Info (int32u        Parameter, const char*   Measure=NULL) {}
+    inline void Param_Info (int32s        Parameter, const char*   Measure=NULL) {}
+    inline void Param_Info (int16u        Parameter, const char*   Measure=NULL) {}
+    inline void Param_Info (int16s        Parameter, const char*   Measure=NULL) {}
+    inline void Param_Info (int8u         Parameter, const char*   Measure=NULL) {}
+    inline void Param_Info (int8s         Parameter, const char*   Measure=NULL) {}
+    inline void Param_Info (float32       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {}
+    inline void Param_Info (float64       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {}
+    inline void Param_Info (float80       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {}
     #ifdef NEED_SIZET
-    void Param_Info (size_t        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Param_Info (size_t        Parameter, const char*   Measure=NULL) {}
     #endif //NEED_SIZET
 
     //***************************************************************************
     // Information
     //***************************************************************************
 
-    void Info (const Ztring& Value);
+    inline void Info (const Ztring& Value) {}
 
     //***************************************************************************
     // Big Endian
     //***************************************************************************
 
-    void Get_B1   (int8u   &Info, const char* Name);
-    void Get_B2   (int16u  &Info, const char* Name);
-    void Get_B3   (int32u  &Info, const char* Name);
-    void Get_B4   (int32u  &Info, const char* Name);
-    void Get_B5   (int64u  &Info, const char* Name);
-    void Get_B6   (int64u  &Info, const char* Name);
-    void Get_B7   (int64u  &Info, const char* Name);
-    void Get_B8   (int64u  &Info, const char* Name);
-    void Get_B16  (int128u &Info, const char* Name);
-    void Get_BF4  (float32 &Info, const char* Name);
-    void Get_BF8  (float64 &Info, const char* Name);
-    void Get_BF10 (float80 &Info, const char* Name);
+    void Get_B1   (int8u   &Info);
+    void Get_B2   (int16u  &Info);
+    void Get_B3   (int32u  &Info);
+    void Get_B4   (int32u  &Info);
+    void Get_B5   (int64u  &Info);
+    void Get_B6   (int64u  &Info);
+    void Get_B7   (int64u  &Info);
+    void Get_B8   (int64u  &Info);
+    void Get_B16  (int128u &Info);
+    void Get_BF4  (float32 &Info);
+    void Get_BF8  (float64 &Info);
+    void Get_BF10 (float80 &Info);
+    inline void Get_B1   (int8u   &Info, const char*) {Get_B1(Info);}
+    inline void Get_B2   (int16u  &Info, const char*) {Get_B2(Info);}
+    inline void Get_B3   (int32u  &Info, const char*) {Get_B3(Info);}
+    inline void Get_B4   (int32u  &Info, const char*) {Get_B4(Info);}
+    inline void Get_B5   (int64u  &Info, const char*) {Get_B5(Info);}
+    inline void Get_B6   (int64u  &Info, const char*) {Get_B6(Info);}
+    inline void Get_B7   (int64u  &Info, const char*) {Get_B7(Info);}
+    inline void Get_B8   (int64u  &Info, const char*) {Get_B8(Info);}
+    inline void Get_B16  (int128u &Info, const char*) {Get_B16(Info);}
+    inline void Get_BF4  (float32 &Info, const char*) {Get_BF4(Info);}
+    inline void Get_BF8  (float64 &Info, const char*) {Get_BF8(Info);}
+    inline void Get_BF10 (float80 &Info, const char*) {Get_BF10(Info);}
     void Peek_B1  (int8u   &Info);
     void Peek_B2  (int16u  &Info);
     void Peek_B3  (int32u  &Info);
@@ -282,17 +257,28 @@ public :
     void Peek_BF4 (float32 &Info);
     void Peek_BF8 (float64 &Info);
     void Peek_BF10(float64 &Info);
-    void Skip_B1  (               const char* Name);
-    void Skip_B2  (               const char* Name);
-    void Skip_B3  (               const char* Name);
-    void Skip_B4  (               const char* Name);
-    void Skip_B5  (               const char* Name);
-    void Skip_B6  (               const char* Name);
-    void Skip_B7  (               const char* Name);
-    void Skip_B8  (               const char* Name);
-    void Skip_BF4 (               const char* Name);
-    void Skip_BF8 (               const char* Name);
-    void Skip_B16 (               const char* Name);
+    void Skip_B1  ();
+    void Skip_B2  ();
+    void Skip_B3  ();
+    void Skip_B4  ();
+    void Skip_B5  ();
+    void Skip_B6  ();
+    void Skip_B7  ();
+    void Skip_B8  ();
+    void Skip_BF4 ();
+    void Skip_BF8 ();
+    void Skip_B16 ();
+    inline void Skip_B1  (               const char*) {Element_Offset+=1;}
+    inline void Skip_B2  (               const char*) {Element_Offset+=2;}
+    inline void Skip_B3  (               const char*) {Element_Offset+=3;}
+    inline void Skip_B4  (               const char*) {Element_Offset+=4;}
+    inline void Skip_B5  (               const char*) {Element_Offset+=5;}
+    inline void Skip_B6  (               const char*) {Element_Offset+=6;}
+    inline void Skip_B7  (               const char*) {Element_Offset+=7;}
+    inline void Skip_B8  (               const char*) {Element_Offset+=8;}
+    inline void Skip_BF4 (               const char*) {Element_Offset+=4;}
+    inline void Skip_BF8 (               const char*) {Element_Offset+=8;}
+    inline void Skip_B16 (               const char*) {Element_Offset+=16;}
     #define Info_B1(_INFO, _NAME)   int8u   _INFO; Get_B1 (_INFO, _NAME)
     #define Info_B2(_INFO, _NAME)   int16u  _INFO; Get_B2 (_INFO, _NAME)
     #define Info_B3(_INFO, _NAME)   int32u  _INFO; Get_B3 (_INFO, _NAME)
@@ -310,17 +296,28 @@ public :
     // Little Endian
     //***************************************************************************
 
-    void Get_L1  (int8u   &Info, const char* Name);
-    void Get_L2  (int16u  &Info, const char* Name);
-    void Get_L3  (int32u  &Info, const char* Name);
-    void Get_L4  (int32u  &Info, const char* Name);
-    void Get_L5  (int64u  &Info, const char* Name);
-    void Get_L6  (int64u  &Info, const char* Name);
-    void Get_L7  (int64u  &Info, const char* Name);
-    void Get_L8  (int64u  &Info, const char* Name);
-    void Get_L16 (int128u &Info, const char* Name);
-    void Get_LF4 (float32 &Info, const char* Name);
-    void Get_LF8 (float64 &Info, const char* Name);
+    void Get_L1  (int8u   &Info);
+    void Get_L2  (int16u  &Info);
+    void Get_L3  (int32u  &Info);
+    void Get_L4  (int32u  &Info);
+    void Get_L5  (int64u  &Info);
+    void Get_L6  (int64u  &Info);
+    void Get_L7  (int64u  &Info);
+    void Get_L8  (int64u  &Info);
+    void Get_L16 (int128u &Info);
+    void Get_LF4 (float32 &Info);
+    void Get_LF8 (float64 &Info);
+    inline void Get_L1  (int8u   &Info, const char*) {Get_B1(Info);}
+    inline void Get_L2  (int16u  &Info, const char*) {Get_B2(Info);}
+    inline void Get_L3  (int32u  &Info, const char*) {Get_B3(Info);}
+    inline void Get_L4  (int32u  &Info, const char*) {Get_B4(Info);}
+    inline void Get_L5  (int64u  &Info, const char*) {Get_B5(Info);}
+    inline void Get_L6  (int64u  &Info, const char*) {Get_B6(Info);}
+    inline void Get_L7  (int64u  &Info, const char*) {Get_B7(Info);}
+    inline void Get_L8  (int64u  &Info, const char*) {Get_B8(Info);}
+    inline void Get_L16 (int128u &Info, const char*) {Get_L16(Info);}
+    inline void Get_LF4 (float32 &Info, const char*) {Get_LF4(Info);}
+    inline void Get_LF8 (float64 &Info, const char*) {Get_LF8(Info);}
     void Peek_L1 (int8u   &Info);
     void Peek_L2 (int16u  &Info);
     void Peek_L3 (int32u  &Info);
@@ -332,17 +329,28 @@ public :
     void Peek_L16(int128u &Info);
     void Peek_LF4(float32 &Info);
     void Peek_LF8(float64 &Info);
-    void Skip_L1 (               const char* Name);
-    void Skip_L2 (               const char* Name);
-    void Skip_L3 (               const char* Name);
-    void Skip_L4 (               const char* Name);
-    void Skip_L5 (               const char* Name);
-    void Skip_L6 (               const char* Name);
-    void Skip_L7 (               const char* Name);
-    void Skip_L8 (               const char* Name);
-    void Skip_LF4(               const char* Name);
-    void Skip_LF8(               const char* Name);
-    void Skip_L16(               const char* Name);
+    void Skip_L1  ();
+    void Skip_L2  ();
+    void Skip_L3  ();
+    void Skip_L4  ();
+    void Skip_L5  ();
+    void Skip_L6  ();
+    void Skip_L7  ();
+    void Skip_L8  ();
+    void Skip_LF4 ();
+    void Skip_LF8 ();
+    void Skip_L16 ();
+    inline void Skip_L1  (               const char*) {Element_Offset+=1;}
+    inline void Skip_L2  (               const char*) {Element_Offset+=2;}
+    inline void Skip_L3  (               const char*) {Element_Offset+=3;}
+    inline void Skip_L4  (               const char*) {Element_Offset+=4;}
+    inline void Skip_L5  (               const char*) {Element_Offset+=5;}
+    inline void Skip_L6  (               const char*) {Element_Offset+=6;}
+    inline void Skip_L7  (               const char*) {Element_Offset+=7;}
+    inline void Skip_L8  (               const char*) {Element_Offset+=8;}
+    inline void Skip_LF4 (               const char*) {Element_Offset+=4;}
+    inline void Skip_LF8 (               const char*) {Element_Offset+=8;}
+    inline void Skip_L16 (               const char*) {Element_Offset+=16;}
     #define Info_L1(_INFO, _NAME)  int8u   _INFO; Get_L1 (_INFO, _NAME)
     #define Info_L2(_INFO, _NAME)  int16u  _INFO; Get_L2 (_INFO, _NAME)
     #define Info_L3(_INFO, _NAME)  int32u  _INFO; Get_L3 (_INFO, _NAME)
@@ -359,9 +367,10 @@ public :
     // UUID
     //***************************************************************************
 
-    void Get_UUID (int128u &Info, const char* Name);
+    void Get_UUID (int128u &Info);
+    inline void Get_UUID (int128u &Info, const char*) {Get_UUID(Info);}
     void Peek_UUID(int128u &Info);
-    void Skip_UUID(               const char* Name);
+    inline void Skip_UUID(               const char*) {Element_Offset+=16;}
     #define Info_UUID(_INFO, _NAME) int128u _INFO; Get_UUID(_INFO, _NAME)
 
     //***************************************************************************
@@ -472,7 +481,7 @@ public :
     // Unknown
     //***************************************************************************
 
-    void Skip_XX(int64u Bytes, const char* Name);
+    inline void Skip_XX(int64u Bytes, const char*) {Element_Offset+=Bytes;}
 
     //***************************************************************************
     // Flags
@@ -487,16 +496,26 @@ public :
     // BitStream
     //***************************************************************************
 
-    void Get_BS (size_t Bits, int32u  &Info, const char* Name);
-    void Get_SB (             bool    &Info, const char* Name);
-    void Get_S1 (size_t Bits, int8u   &Info, const char* Name);
-    void Get_S2 (size_t Bits, int16u  &Info, const char* Name);
-    void Get_S3 (size_t Bits, int32u  &Info, const char* Name);
-    void Get_S4 (size_t Bits, int32u  &Info, const char* Name);
-    void Get_S5 (size_t Bits, int64u  &Info, const char* Name);
-    void Get_S6 (size_t Bits, int64u  &Info, const char* Name);
-    void Get_S7 (size_t Bits, int64u  &Info, const char* Name);
-    void Get_S8 (size_t Bits, int64u  &Info, const char* Name);
+    void Get_BS (size_t Bits, int32u  &Info);
+    void Get_SB (             bool    &Info);
+    void Get_S1 (size_t Bits, int8u   &Info);
+    void Get_S2 (size_t Bits, int16u  &Info);
+    void Get_S3 (size_t Bits, int32u  &Info);
+    void Get_S4 (size_t Bits, int32u  &Info);
+    void Get_S5 (size_t Bits, int64u  &Info);
+    void Get_S6 (size_t Bits, int64u  &Info);
+    void Get_S7 (size_t Bits, int64u  &Info);
+    void Get_S8 (size_t Bits, int64u  &Info);
+    inline void Get_BS (size_t Bits, int32u  &Info, const char*) {Get_BS(Bits, Info);}
+    inline void Get_SB (             bool    &Info, const char*) {Get_SB(      Info);}
+    inline void Get_S1 (size_t Bits, int8u   &Info, const char*) {Get_S1(Bits, Info);}
+    inline void Get_S2 (size_t Bits, int16u  &Info, const char*) {Get_S2(Bits, Info);}
+    inline void Get_S3 (size_t Bits, int32u  &Info, const char*) {Get_S3(Bits, Info);}
+    inline void Get_S4 (size_t Bits, int32u  &Info, const char*) {Get_S4(Bits, Info);}
+    inline void Get_S5 (size_t Bits, int64u  &Info, const char*) {Get_S5(Bits, Info);}
+    inline void Get_S6 (size_t Bits, int64u  &Info, const char*) {Get_S6(Bits, Info);}
+    inline void Get_S7 (size_t Bits, int64u  &Info, const char*) {Get_S7(Bits, Info);}
+    inline void Get_S8 (size_t Bits, int64u  &Info, const char*) {Get_S8(Bits, Info);}
     void Peek_BS(size_t Bits, int32u  &Info);
     void Peek_SB(              bool    &Info);
     void Peek_S1(size_t Bits, int8u   &Info);
@@ -507,16 +526,26 @@ public :
     void Peek_S6(size_t Bits, int64u  &Info);
     void Peek_S7(size_t Bits, int64u  &Info);
     void Peek_S8(size_t Bits, int64u  &Info);
-    void Skip_BS(size_t Bits,                const char* Name);
-    void Skip_SB(                            const char* Name);
-    void Skip_S1(size_t Bits,                const char* Name);
-    void Skip_S2(size_t Bits,                const char* Name);
-    void Skip_S3(size_t Bits,                const char* Name);
-    void Skip_S4(size_t Bits,                const char* Name);
-    void Skip_S5(size_t Bits,                const char* Name);
-    void Skip_S6(size_t Bits,                const char* Name);
-    void Skip_S7(size_t Bits,                const char* Name);
-    void Skip_S8(size_t Bits,                const char* Name);
+    void Skip_BS(size_t Bits);
+    void Skip_SB(           );
+    void Skip_S1(size_t Bits);
+    void Skip_S2(size_t Bits);
+    void Skip_S3(size_t Bits);
+    void Skip_S4(size_t Bits);
+    void Skip_S5(size_t Bits);
+    void Skip_S6(size_t Bits);
+    void Skip_S7(size_t Bits);
+    void Skip_S8(size_t Bits);
+    inline void Skip_BS(size_t Bits,                const char*) {BS->Skip8(Bits);}
+    inline void Skip_SB(                            const char*) {BS->Skip1(1);}
+    inline void Skip_S1(size_t Bits,                const char*) {BS->Skip1(Bits);}
+    inline void Skip_S2(size_t Bits,                const char*) {BS->Skip2(Bits);}
+    inline void Skip_S3(size_t Bits,                const char*) {BS->Skip4(Bits);}
+    inline void Skip_S4(size_t Bits,                const char*) {BS->Skip4(Bits);}
+    inline void Skip_S5(size_t Bits,                const char*) {BS->Skip8(Bits);}
+    inline void Skip_S6(size_t Bits,                const char*) {BS->Skip8(Bits);}
+    inline void Skip_S7(size_t Bits,                const char*) {BS->Skip8(Bits);}
+    inline void Skip_S8(size_t Bits,                const char*) {BS->Skip8(Bits);}
     void Mark_0 ();
     void Mark_1 ();
     #define Info_BS(_BITS, _INFO, _NAME) int32u  _INFO; Get_BS(_BITS, _INFO, _NAME)
@@ -663,10 +692,10 @@ public :
     void Element_ThisIsAList ();
     void Element_WaitForMoreData ();
     void Element_DoNotTrust (const char* Reason);
-    void Element_DoNotShow ();
-    void Element_Show ();
-    bool Element_Show_Get ();
-    void Element_Show_Add (const Ztring &ToShow);
+    inline void Element_DoNotShow () {}
+    inline void Element_Show () {}
+    inline bool Element_Show_Get () {return false;}
+    inline void Element_Show_Add (const Ztring &ToShow) {}
 
     //Status
     bool Element_IsOK ();
@@ -799,7 +828,7 @@ private :
         bool    UnTrusted;          //This element has a problem
         bool    IsComplete;         //This element is fully buffered, no need of more
         bool    InLoop;             //This element is in a parsing loop
-        to_show ToShow;
+        //to_show ToShow;
     };
     std::vector<element_details> Element;
 
@@ -817,142 +846,4 @@ public :
     void BookMark_Get(size_t Element_Level_ToSet=(size_t)-1);
     virtual bool BookMark_Needed()                                              {return true;};
 };
-#endif //MEDIAINFO_MINIMIZESIZE
 
-} //NameSpace
-
-
-
-/*
-#define BS_END() \
-    { \
-        BS.Byte_Align(); \
-        int32u BS_Value=0x00; \
-        while(BS.Remain()>0 && BS_Value==0x00) \
-            BS_Value=BS.Get(8); \
-        if (BS_Value!=0x00) \
-            INTEGRITY_SIZE(BS.Offset_Get()-1, BS.Offset_Get()) \
-        else \
-            INTEGRITY_SIZE(BS.Offset_Get(), BS.Offset_Get()) \
-    } \
-
-#define BS_END_FF() \
-    { \
-        BS.Byte_Align(); \
-        int32u BS_Value=0xFF; \
-        while(BS.Remain()>0 && BS_Value==0x00) \
-            BS_Value=BS.Get(8); \
-        if (BS_Value!=0xFF) \
-            INTEGRITY_SIZE(BS.Offset_Get()-1, BS.Offset_Get()) \
-        else \
-            INTEGRITY_SIZE(BS.Offset_Get(), BS.Offset_Get()) \
-    } \
-
-#define BS_END_CANBEMORE() \
-    { \
-    } \
-*/
-
-#define ATOM_BEGIN \
-    if (Level!=Element_Level) \
-    { \
-        Level++; \
-        switch (Element_Code_Get(Level)) \
-        { \
-
-#define ATOM(_ATOM) \
-            case Elements::_ATOM : \
-                    if (Level==Element_Level) \
-                    { \
-                        if (Element_IsComplete_Get()) \
-                            _ATOM(); \
-                        else \
-                        { \
-                            Element_WaitForMoreData(); \
-                            return; \
-                        } \
-                    } \
-                    break; \
-
-#define ATOM_DEFAULT(_ATOM) \
-            default : \
-                    if (Level==Element_Level) \
-                    { \
-                        if (Element_IsComplete_Get()) \
-                            _ATOM(); \
-                        else \
-                        { \
-                            Element_WaitForMoreData(); \
-                            return; \
-                        } \
-                    } \
-                    break; \
-
-#define ATOM_END \
-            default : \
-            Skip_XX(Element_TotalSize_Get(), "Unknown"); \
-        } \
-    } \
-    break; \
-
-#define LIST(_ATOM) \
-    case Elements::_ATOM : \
-            if (Level==Element_Level) \
-            { \
-                _ATOM(); \
-                Element_ThisIsAList(); \
-            } \
-
-#define LIST_DEFAULT(_ATOM) \
-            default : \
-            if (Level==Element_Level) \
-            { \
-                _ATOM(); \
-                Element_ThisIsAList(); \
-            } \
-
-#define ATOM_END_DEFAULT \
-        } \
-    } \
-    break; \
-
-#define ATOM_DEFAULT_ALONE(_ATOM) \
-    if (Level!=Element_Level) \
-    { \
-        Level++; \
-        if (Level==Element_Level) \
-        { \
-            if (Element_IsComplete_Get()) \
-                _ATOM(); \
-            else \
-            { \
-                Element_WaitForMoreData(); \
-                return; \
-            } \
-        } \
-    } \
-    break; \
-
-#define LIST_SKIP(_ATOM) \
-    case Elements::_ATOM : \
-            if (Level==Element_Level) \
-            { \
-                _ATOM(); \
-                Element_ThisIsAList(); \
-            } \
-            if (Element_TotalSize_Get()>Element_Offset) \
-                Skip_XX(Element_TotalSize_Get()-Element_Offset, "Unknown"); \
-            break; \
-
-
-#define DATA_BEGIN \
-    size_t Level=0; \
-    ATOM_BEGIN \
-
-#define DATA_END \
-        default : ; \
-            Skip_XX(Element_TotalSize_Get(), "Unknown"); \
-    }} \
-     \
-
-#endif
