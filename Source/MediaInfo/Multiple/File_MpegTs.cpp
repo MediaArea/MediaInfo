@@ -370,7 +370,7 @@ bool File_MpegTs::Header_Begin()
         return false;
 
     //Quick test of synchro
-    if (Synched && CC1(Buffer+Buffer_Offset+BDAV_Size)!=0x47)
+    if (Synched && Buffer[Buffer_Offset+BDAV_Size]!=0x47)
     {
         Trusted_IsNot("MPEG-TS, Synchronisation lost");
         if (File__Duplicate_Get())
@@ -848,10 +848,10 @@ bool File_MpegTs::Synchronize()
 {
     //Synchronizing
     while (           Buffer_Offset+188*3+BDAV_Size*4+1<=Buffer_Size
-      && !(CC1(Buffer+Buffer_Offset+188*0+BDAV_Size*1)==0x47
-        && CC1(Buffer+Buffer_Offset+188*1+BDAV_Size*2)==0x47
-        && CC1(Buffer+Buffer_Offset+188*2+BDAV_Size*3)==0x47
-        && CC1(Buffer+Buffer_Offset+188*3+BDAV_Size*4)==0x47))
+      && !(Buffer[Buffer_Offset+188*0+BDAV_Size*1]==0x47
+        && Buffer[Buffer_Offset+188*1+BDAV_Size*2]==0x47
+        && Buffer[Buffer_Offset+188*2+BDAV_Size*3]==0x47
+        && Buffer[Buffer_Offset+188*3+BDAV_Size*4]==0x47))
         Buffer_Offset++;
     if (Buffer_Offset+188*3+BDAV_Size*4>=Buffer_Size)
     {
@@ -883,7 +883,7 @@ bool File_MpegTs::Header_Parser_QuickSearch()
 {
     while (Buffer_Offset+TS_Size<=Buffer_Size)
     {
-        if (CC1(Buffer+Buffer_Offset+BDAV_Size)!=0x47)
+        if (Buffer[Buffer_Offset+BDAV_Size]!=0x47)
             break;
 
         //Getting PID
@@ -894,7 +894,7 @@ bool File_MpegTs::Header_Parser_QuickSearch()
             //Searching start
             if (Streams[PID].Searching_Payload_Start)
             {
-                int8u Info=CC1(Buffer+Buffer_Offset+BDAV_Size+1);
+                int8u Info=Buffer[Buffer_Offset+BDAV_Size+1];
                 if (Info&0x40) //payload_unit_start_indicator
                     return true;
             }
@@ -906,9 +906,9 @@ bool File_MpegTs::Header_Parser_QuickSearch()
             //Adaptation layer
             if (Streams[PID].Searching_TimeStamp_Start || Streams[PID].Searching_TimeStamp_End)
             {
-                if ((CC1(Buffer+Buffer_Offset+BDAV_Size+3)&0x20)==0x20) //Adaptation is present
+                if ((Buffer[Buffer_Offset+BDAV_Size+3]&0x20)==0x20) //Adaptation is present
                 {
-                    int8u PID_Adaptation_Info=CC1(Buffer+Buffer_Offset+BDAV_Size+5);
+                    int8u PID_Adaptation_Info=Buffer[Buffer_Offset+BDAV_Size+5];
                     if (PID_Adaptation_Info&0x10) //PCR is present
                         return true;
                 }

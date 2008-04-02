@@ -250,7 +250,7 @@ void File_MpegPs::Read_Buffer_Continue()
     {
         FromTS=true; //We want to anlyze this kind of file
         MPEG_Version=2; //By default, MPEG-TS is version 2
-        Stream[CC1(Buffer+3)].Searching_Payload=true; //Activating the stream
+        Stream[Buffer[3]].Searching_Payload=true; //Activating the stream
     }
 }
 
@@ -372,7 +372,7 @@ bool File_MpegPs::Header_Begin()
         return false;
 
     //Quick test of synchro
-    if (Synched && !(CC3(Buffer+Buffer_Offset)==0x000001 && CC1(Buffer+Buffer_Offset+3)>=0xB9))
+    if (Synched && !(CC3(Buffer+Buffer_Offset)==0x000001 && Buffer[Buffer_Offset+3]>=0xB9))
     {
         Trusted_IsNot("MPEG-PS, Synchronisation lost");
         Synched=false;
@@ -409,7 +409,6 @@ void File_MpegPs::Header_Parse()
     }
 
     //Parsing
-    int8u start_code;
     Skip_B3(                                                    "synchro");
     Get_B1 (start_code,                                         "start_code");
 
@@ -432,7 +431,7 @@ bool File_MpegPs::Header_Parse_Fill_Size()
     if (Buffer_Offset_Temp==0) //Buffer_Offset_Temp is not 0 if Header_Parse_Fill_Size() has already parsed first frames
         Buffer_Offset_Temp=Buffer_Offset+(video_stream_Unlimited?0:4);
     while (Buffer_Offset_Temp+4<=Buffer_Size
-        && !(CC3(Buffer+Buffer_Offset_Temp)==0x000001 && CC1(Buffer+Buffer_Offset_Temp+3)>=0xB9))
+        && !(CC3(Buffer+Buffer_Offset_Temp)==0x000001 && Buffer[Buffer_Offset_Temp+3]>=0xB9))
         Buffer_Offset_Temp++;
 
     //Must wait more data?
@@ -897,7 +896,7 @@ void File_MpegPs::Data_Parse()
         Stream_Prepare(Stream_General);
 
     //Needed?
-    if (!Stream[Element_Code].Searching_Payload)
+    if (!Stream[start_code].Searching_Payload)
     {
         Skip_XX(Element_Size,                                   "data");
         return;
@@ -1596,41 +1595,41 @@ void File_MpegPs::audio_stream()
         private_stream_1_Count=0;
         private_stream_2_Count=false;
         extension_stream_Count=0;
-        Stream[Element_Code].stream_type=stream_type_FromTS;
+        Stream[start_code].stream_type=stream_type_FromTS;
     }
 
     //Exists
-    Stream[Element_Code].StreamIsRegistred=true;
+    Stream[start_code].StreamIsRegistred=true;
 
     //If we have no stream map --> Registering the stream as MPEG Audio
-    if (Stream[Element_Code].stream_type==0)
+    if (Stream[start_code].stream_type==0)
     {
         if (MPEG_Version==2)
-            Stream[Element_Code].stream_type=0x04; //MPEG-2 Audio
+            Stream[start_code].stream_type=0x04; //MPEG-2 Audio
         else
-            Stream[Element_Code].stream_type=0x03; //MPEG-1 Audio
+            Stream[start_code].stream_type=0x03; //MPEG-1 Audio
     }
 
     //New stream if needed
-    if (Stream[Element_Code].Parser==NULL)
+    if (Stream[start_code].Parser==NULL)
     {
-             if (Stream[Element_Code].stream_type==0x03 || Stream[Element_Code].stream_type==0x04)
-            Stream[Element_Code].Parser=ChooseParser_Mpega();
+             if (Stream[start_code].stream_type==0x03 || Stream[start_code].stream_type==0x04)
+            Stream[start_code].Parser=ChooseParser_Mpega();
         else
         {
-            Stream[Element_Code].Parser=ChooseParser_NULL();
-            Stream[Element_Code].Parser->Stream_Prepare(Stream_Audio); //We are sure this is audio
+            Stream[start_code].Parser=ChooseParser_NULL();
+            Stream[start_code].Parser->Stream_Prepare(Stream_Audio); //We are sure this is audio
         }
     }
 
     //Parsing
-    Open_Buffer_Init(Stream[Element_Code].Parser, File_Size, File_Offset+Buffer_Offset);
-    Open_Buffer_Continue(Stream[Element_Code].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
+    Open_Buffer_Init(Stream[start_code].Parser, File_Size, File_Offset+Buffer_Offset);
+    Open_Buffer_Continue(Stream[start_code].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
     //Disabling this stream
-    if (Stream[Element_Code].Parser->File_GoTo!=(int64u)-1 || Stream[Element_Code].Parser->Count_Get(Stream_Audio)>0)
+    if (Stream[start_code].Parser->File_GoTo!=(int64u)-1 || Stream[start_code].Parser->Count_Get(Stream_Audio)>0)
     {
-        Stream[Element_Code].Searching_Payload=false;
+        Stream[start_code].Searching_Payload=false;
         if (audio_stream_Count>0)
             audio_stream_Count--;
     }
@@ -1652,58 +1651,58 @@ void File_MpegPs::video_stream()
         private_stream_1_Count=0;
         private_stream_2_Count=false;
         extension_stream_Count=0;
-        Stream[Element_Code].stream_type=stream_type_FromTS;
+        Stream[start_code].stream_type=stream_type_FromTS;
     }
 
     //Exists
-    Stream[Element_Code].StreamIsRegistred=true;
+    Stream[start_code].StreamIsRegistred=true;
 
     //If we have no stream map --> Registering the stream as MPEG Video
-    if (Stream[Element_Code].stream_type==0)
+    if (Stream[start_code].stream_type==0)
     {
         if (MPEG_Version==2)
-            Stream[Element_Code].stream_type=0x02; //MPEG-2 Video
+            Stream[start_code].stream_type=0x02; //MPEG-2 Video
         else
-            Stream[Element_Code].stream_type=0x01; //MPEG-1 Video
+            Stream[start_code].stream_type=0x01; //MPEG-1 Video
     }
 
     //New stream if needed
-    if (Stream[Element_Code].Parser==NULL)
+    if (Stream[start_code].Parser==NULL)
     {
-             if (Stream[Element_Code].stream_type==0x01 || Stream[Element_Code].stream_type==0x02 || Stream[Element_Code].stream_type==0x80 || Stream[Element_Code].stream_type==0x00)
-            Stream[Element_Code].Parser=ChooseParser_Mpegv();
-        else if (Stream[Element_Code].stream_type==0x10)
-            Stream[Element_Code].Parser=ChooseParser_Mpeg4v();
-        else if (Stream[Element_Code].stream_type==0x1B)
-            Stream[Element_Code].Parser=ChooseParser_Avc();
+             if (Stream[start_code].stream_type==0x01 || Stream[start_code].stream_type==0x02 || Stream[start_code].stream_type==0x80 || Stream[start_code].stream_type==0x00)
+            Stream[start_code].Parser=ChooseParser_Mpegv();
+        else if (Stream[start_code].stream_type==0x10)
+            Stream[start_code].Parser=ChooseParser_Mpeg4v();
+        else if (Stream[start_code].stream_type==0x1B)
+            Stream[start_code].Parser=ChooseParser_Avc();
     }
 
     //Parsing
-    Open_Buffer_Init(Stream[Element_Code].Parser, File_Size, File_Offset+Buffer_Offset);
-    Open_Buffer_Continue(Stream[Element_Code].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
+    Open_Buffer_Init(Stream[start_code].Parser, File_Size, File_Offset+Buffer_Offset);
+    Open_Buffer_Continue(Stream[start_code].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
     //Testing other parsers in case of need
-    if (stream_type_FromTS==0 && Stream[Element_Code].Parser->Count_Get(Stream_Video)==0)
+    if (stream_type_FromTS==0 && Stream[start_code].Parser->Count_Get(Stream_Video)==0)
     {
         bool WantShow1=Element_Show_Get();
         Element_Begin("Testing AVC...");
-        if (Stream[Element_Code].Parser3==NULL)
+        if (Stream[start_code].Parser3==NULL)
         {
             #if defined(MEDIAINFO_AVC_YES)
-                Stream[Element_Code].Parser3=new File_Avc;
-                ((File_Avc*)Stream[Element_Code].Parser3)->Frame_Count_Valid=2;
+                Stream[start_code].Parser3=new File_Avc;
+                ((File_Avc*)Stream[start_code].Parser3)->Frame_Count_Valid=2;
             #else
-                Stream[Element_Code].Parser3=new File__Analyze;
+                Stream[start_code].Parser3=new File__Analyze;
             #endif
         }
-        Open_Buffer_Init(Stream[Element_Code].Parser3, File_Size, File_Offset+Buffer_Offset);
-        Open_Buffer_Continue(Stream[Element_Code].Parser3, Buffer+Buffer_Offset, (size_t)Element_Size);
+        Open_Buffer_Init(Stream[start_code].Parser3, File_Size, File_Offset+Buffer_Offset);
+        Open_Buffer_Continue(Stream[start_code].Parser3, Buffer+Buffer_Offset, (size_t)Element_Size);
 
-        if (Stream[Element_Code].Parser3->Count_Get(Stream_Video)>0)
+        if (Stream[start_code].Parser3->Count_Get(Stream_Video)>0)
         {
             Element_Info("AVC found, changing default parser");
             Element_End();
-            delete Stream[Element_Code].Parser; Stream[Element_Code].Parser=Stream[Element_Code].Parser3; Stream[Element_Code].Parser3=NULL;
+            delete Stream[start_code].Parser; Stream[start_code].Parser=Stream[start_code].Parser3; Stream[start_code].Parser3=NULL;
         }
         else
         {
@@ -1712,39 +1711,39 @@ void File_MpegPs::video_stream()
             if (WantShow1)
                 Element_Show();
             Element_Begin("Testing MPEG-4 Video...");
-            if (Stream[Element_Code].Parser2==NULL)
+            if (Stream[start_code].Parser2==NULL)
             {
                 #if defined(MEDIAINFO_MPEG4V_YES)
-                    Stream[Element_Code].Parser2=new File_Mpeg4v;
+                    Stream[start_code].Parser2=new File_Mpeg4v;
                 #else
-                    Stream[Element_Code].Parser2=new File__Analyze;
+                    Stream[start_code].Parser2=new File__Analyze;
                 #endif
             }
-            Open_Buffer_Init(Stream[Element_Code].Parser2, File_Size, File_Offset+Buffer_Offset);
-            Open_Buffer_Continue(Stream[Element_Code].Parser2, Buffer+Buffer_Offset, (size_t)Element_Size);
+            Open_Buffer_Init(Stream[start_code].Parser2, File_Size, File_Offset+Buffer_Offset);
+            Open_Buffer_Continue(Stream[start_code].Parser2, Buffer+Buffer_Offset, (size_t)Element_Size);
 
-            if (Stream[Element_Code].Parser2->Count_Get(Stream_Video)>0)
+            if (Stream[start_code].Parser2->Count_Get(Stream_Video)>0)
             {
                 Element_Info("MPEG-4 Video found, changing default parser");
-                delete Stream[Element_Code].Parser; Stream[Element_Code].Parser=Stream[Element_Code].Parser2; Stream[Element_Code].Parser2=NULL;
+                delete Stream[start_code].Parser; Stream[start_code].Parser=Stream[start_code].Parser2; Stream[start_code].Parser2=NULL;
             }
             Element_End();
             if (WantShow1 || WantShow2)
                 Element_Show();
         }
     }
-    if (Stream[Element_Code].Parser->Count_Get(Stream_Video)>0 && (Stream[Element_Code].Parser2!=NULL || Stream[Element_Code].Parser3!=NULL))
+    if (Stream[start_code].Parser->Count_Get(Stream_Video)>0 && (Stream[start_code].Parser2!=NULL || Stream[start_code].Parser3!=NULL))
     {
-        delete Stream[Element_Code].Parser2; Stream[Element_Code].Parser2=NULL;
-        delete Stream[Element_Code].Parser3; Stream[Element_Code].Parser3=NULL;
+        delete Stream[start_code].Parser2; Stream[start_code].Parser2=NULL;
+        delete Stream[start_code].Parser3; Stream[start_code].Parser3=NULL;
     }
 
     //Disabling this stream
-    if (                                                        Stream[Element_Code].Parser->File_GoTo !=(int64u)-1
-      && !(Stream[Element_Code].Parser3!=NULL && Stream[Element_Code].Parser3->File_GoTo==(int64u)-1)
-      && !(Stream[Element_Code].Parser2!=NULL && Stream[Element_Code].Parser2->File_GoTo==(int64u)-1))
+    if (                                        Stream[start_code].Parser->File_GoTo !=(int64u)-1
+      && !(Stream[start_code].Parser3!=NULL && Stream[start_code].Parser3->File_GoTo==(int64u)-1)
+      && !(Stream[start_code].Parser2!=NULL && Stream[start_code].Parser2->File_GoTo==(int64u)-1))
     {
-        Stream[Element_Code].Searching_Payload=false;
+        Stream[start_code].Searching_Payload=false;
         if (video_stream_Count>0)
             video_stream_Count--;
     }
@@ -1767,11 +1766,11 @@ void File_MpegPs::LATM()
         private_stream_1_Count=0;
         private_stream_2_Count=false;
         extension_stream_Count=0;
-        Stream[Element_Code].stream_type=stream_type_FromTS;
+        Stream[start_code].stream_type=stream_type_FromTS;
     }
 
     //Exists
-    Stream[Element_Code].StreamIsRegistred=true;
+    Stream[start_code].StreamIsRegistred=true;
 
     //Parsing
     /*
@@ -1791,12 +1790,12 @@ void File_MpegPs::LATM()
     */
 
     //Filling
-    Stream[Element_Code].Parser=new File__Analyze();
-    Stream[Element_Code].Parser->Stream_Prepare(Stream_Audio);
-    Stream[Element_Code].Parser->Fill("Codec", "AAC");
+    Stream[start_code].Parser=new File__Analyze();
+    Stream[start_code].Parser->Stream_Prepare(Stream_Audio);
+    Stream[start_code].Parser->Fill("Codec", "AAC");
 
     //Disabling this stream
-    Stream[Element_Code].Searching_Payload=false;
+    Stream[start_code].Searching_Payload=false;
     if (audio_stream_Count>0)
         audio_stream_Count--;
 
@@ -1822,7 +1821,7 @@ void File_MpegPs::extension_stream()
     }
 
     //Exists
-    Stream[Element_Code].StreamIsRegistred=true;
+    Stream[start_code].StreamIsRegistred=true;
 
     //New stream if needed
     if (stream_id_extension==0x72)
@@ -1891,14 +1890,14 @@ bool File_MpegPs::Synchronize()
     {
         while (Buffer_Offset+6<=Buffer_Size)
         {
-            if (CC3(Buffer+Buffer_Offset)==0x000001 && CC1(Buffer+Buffer_Offset+3)>=0xB9)
+            if (CC3(Buffer+Buffer_Offset)==0x000001 && Buffer[Buffer_Offset+3]>=0xB9)
                 break; //while()
             Buffer_Offset++;
         }
 
         if (Buffer_Offset+6<=Buffer_Size)//Testing if size is coherant
         {
-            int8u start_code=CC1(Buffer+Buffer_Offset+3);
+            int8u start_code=Buffer[Buffer_Offset+3];
             if (start_code!=0xB9 && start_code!=0xBA)
             {
                 int16u Size=CC2(Buffer+Buffer_Offset+4);
@@ -1912,7 +1911,7 @@ bool File_MpegPs::Synchronize()
                 }
 
                 //Testing
-                if ((CC3(Buffer+Buffer_Offset+6+Size)==0x000001 && CC1(Buffer+Buffer_Offset+6+Size+3)>=0xB9)
+                if ((CC3(Buffer+Buffer_Offset+6+Size)==0x000001 && Buffer[Buffer_Offset+6+Size+3]>=0xB9)
                   || CC3(Buffer+Buffer_Offset+6+Size+1)==0x000001  //With 1 trailing 0x00
                   || CC3(Buffer+Buffer_Offset+6+Size+1)==0x000000) //With 2+ trailing 0x00 
                     break; //while
@@ -1943,7 +1942,7 @@ bool File_MpegPs::Synchronize()
                             if (CC2(Buffer+Buffer_Offset)!=0x0000)
                             {
                                 Buffer_Offset++;
-                                if (CC1(Buffer+Buffer_Offset)!=0x00)
+                                if (Buffer[Buffer_Offset]!=0x00)
                                     Buffer_Offset++;
                             }
                         }
@@ -1967,7 +1966,7 @@ bool File_MpegPs::Header_Parser_QuickSearch()
       &&   CC3(Buffer+Buffer_Offset)==0x000001)
     {
         //Getting start_code
-        int8u start_code=CC1(Buffer+Buffer_Offset+3);
+        int8u start_code=Buffer[Buffer_Offset+3];
 
         //Searching start
         if (Stream[start_code].Searching_Payload)
@@ -1978,10 +1977,10 @@ bool File_MpegPs::Header_Parser_QuickSearch()
             //private_stream_1 and IsDvdVideo, looking for substream ID
             if (Buffer_Offset+9>Buffer_Size)
                 return false; //Need more data
-            size_t Data_Offset=CC1(Buffer+Buffer_Offset+8);
+            size_t Data_Offset=Buffer[Buffer_Offset+8];
             if (Buffer_Offset+9+Data_Offset>Buffer_Size)
                 return false; //Need more data
-            int8u  private_stream_1_ID=CC1(Buffer+Buffer_Offset+9+Data_Offset);
+            int8u  private_stream_1_ID=Buffer[Buffer_Offset+9+Data_Offset];
             if (!Stream_Private1[private_stream_1_ID].StreamIsRegistred || Stream_Private1[private_stream_1_ID].Searching_Payload)
                 return true;
         }
@@ -2010,7 +2009,7 @@ bool File_MpegPs::Header_Parser_QuickSearch()
                     if (MPEG_Version==1)
                     {
                         size_t Buffer_Offset_Temp=Buffer_Offset+6;
-                        while(Buffer_Offset_Temp<=Buffer_Size && CC1(Buffer+Buffer_Offset_Temp)==0xFF)
+                        while(Buffer_Offset_Temp<=Buffer_Size && Buffer[Buffer_Offset_Temp]==0xFF)
                         {
                             Buffer_Offset_Temp++;
                             if (Buffer_Offset_Temp+1>=Buffer_Size)
@@ -2018,14 +2017,14 @@ bool File_MpegPs::Header_Parser_QuickSearch()
                         }
                         if (Buffer_Offset_Temp+1>=Buffer_Size)
                             return false; //Not enough data
-                        if (Buffer_Offset_Temp<Buffer_Size && (CC1(Buffer+Buffer_Offset_Temp)&0xF0)!=0x00)
+                        if (Buffer_Offset_Temp<Buffer_Size && (Buffer[Buffer_Offset_Temp]&0xF0)!=0x00)
                             return true; //With a PTS
                     }
                     if (MPEG_Version==2)
                     {
                         if (Buffer_Offset+8>Buffer_Size)
                             return false; //Not enough buffer
-                        if ((CC1(Buffer+Buffer_Offset+7)&0xC0)!=0x00)
+                        if ((Buffer[Buffer_Offset+7]&0xC0)!=0x00)
                             return true; //With a PTS
                     }
             }
@@ -2038,7 +2037,7 @@ bool File_MpegPs::Header_Parser_QuickSearch()
             case 0xB9 : //MPEG_program_end
             case 0xBA : //pack_start
                 Buffer_Offset+=4;
-                while(Buffer_Offset+4<=Buffer_Size && !(CC3(Buffer+Buffer_Offset)==0x000001 && CC1(Buffer+Buffer_Offset+3)>=0xB9))
+                while(Buffer_Offset+4<=Buffer_Size && !(CC3(Buffer+Buffer_Offset)==0x000001 && Buffer[Buffer_Offset+3]>=0xB9))
                     Buffer_Offset++;
                 //Parsing last bytes
                 if (Buffer_Offset+3==Buffer_Size)
@@ -2049,7 +2048,7 @@ bool File_MpegPs::Header_Parser_QuickSearch()
                         if (CC2(Buffer+Buffer_Offset)!=0x0000)
                         {
                             Buffer_Offset++;
-                            if (CC1(Buffer+Buffer_Offset)!=0x00)
+                            if (Buffer[Buffer_Offset]!=0x00)
                                 Buffer_Offset++;
                         }
                     }
@@ -2066,7 +2065,7 @@ bool File_MpegPs::Header_Parser_QuickSearch()
                 else
                 {
                     Buffer_Offset+=6;
-                    while(Buffer_Offset+4<=Buffer_Size && !(CC3(Buffer+Buffer_Offset)==0x000001 && CC1(Buffer+Buffer_Offset+3)>=0xB9))
+                    while(Buffer_Offset+4<=Buffer_Size && !(CC3(Buffer+Buffer_Offset)==0x000001 && Buffer[Buffer_Offset+3]>=0xB9))
                         Buffer_Offset++;
                     //Parsing last bytes
                     if (Buffer_Offset+3==Buffer_Size)
@@ -2077,7 +2076,7 @@ bool File_MpegPs::Header_Parser_QuickSearch()
                             if (CC2(Buffer+Buffer_Offset)!=0x0000)
                             {
                                 Buffer_Offset++;
-                                if (CC1(Buffer+Buffer_Offset)!=0x00)
+                                if (Buffer[Buffer_Offset]!=0x00)
                                     Buffer_Offset++;
                             }
                         }
@@ -2111,9 +2110,9 @@ bool File_MpegPs::Detect_NonMPEGPS ()
     }
 
     //Detect TS files, and the parser is not enough precise to detect them later
-    while (Buffer_Offset<188 && CC1(Buffer+Buffer_Offset)!=0x47) //Look for first Sync word
+    while (Buffer_Offset<188 && Buffer[Buffer_Offset]!=0x47) //Look for first Sync word
         Buffer_Offset++;
-    if (Buffer_Offset<188 && CC1(Buffer+Buffer_Offset+188)==0x47 && CC1(Buffer+Buffer_Offset+188*2)==0x47 && CC1(Buffer+Buffer_Offset+188*3)==0x47)
+    if (Buffer_Offset<188 && Buffer[Buffer_Offset+188]==0x47 && Buffer[Buffer_Offset+188*2]==0x47 && Buffer[Buffer_Offset+188*3]==0x47)
     {
         Finnished();
         return true;

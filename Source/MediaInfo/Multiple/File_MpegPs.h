@@ -160,6 +160,7 @@ private :
     std::vector<ps_stream> Stream;
     std::vector<ps_stream> Stream_Private1; //There can have multiple streams in one private stream
     std::vector<ps_stream> Stream_Extension; //There can have multiple streams in one private stream
+    int8u start_code;
 
     //Temp
     int64u SizeToAnalyze; //Total size of a chunk to analyse, it may be changed by the parser

@@ -176,7 +176,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="../../../Source;../../../../Shared/Include"
 				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32"
+				PreprocessorDefinitions="WIN32;MEDIAINFO_MINIMIZESIZE"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -291,6 +291,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\MediaInfo\File__Analyze_Buffer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\File__Analyze_Buffer_MinimizeSize.cpp"
 				>
 			</File>
 			<File

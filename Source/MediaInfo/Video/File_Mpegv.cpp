@@ -949,9 +949,15 @@ void File_Mpegv::group_start()
 bool File_Mpegv::Synchronize()
 {
     //Synchronizing
-    while (Buffer_Offset+4<=Buffer_Size
-        && CC3(Buffer+Buffer_Offset)!=0x000001)
+    while (Buffer_Offset+4<=Buffer_Size)
+    {
+        while (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+            Buffer_Offset++;
+        if (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset+1]==0x00)
+            if (Buffer[Buffer_Offset+2]==0x01)
+                break;
         Buffer_Offset++;
+    }
     if (Buffer_Offset+4>Buffer_Size)
     {
         //Parsing last bytes
@@ -963,7 +969,7 @@ bool File_Mpegv::Synchronize()
                 if (CC2(Buffer+Buffer_Offset)!=0x0000)
                 {
                     Buffer_Offset++;
-                    if (CC1(Buffer+Buffer_Offset)!=0x00)
+                    if (Buffer[Buffer_Offset]!=0x00)
                         Buffer_Offset++;
                 }
             }
@@ -984,7 +990,7 @@ bool File_Mpegv::Header_Parser_QuickSearch()
       &&   CC3(Buffer+Buffer_Offset)==0x000001)
     {
         //Getting start_code
-        int8u start_code=CC1(Buffer+Buffer_Offset+3);
+        int8u start_code=Buffer[Buffer_Offset+3];
 
         //Searching start
         if (Stream[start_code].Searching_Payload)
@@ -996,8 +1002,15 @@ bool File_Mpegv::Header_Parser_QuickSearch()
 
         //Getting size
         Buffer_Offset+=4;
-        while(Buffer_Offset+4<=Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
+        while (Buffer_Offset+4<=Buffer_Size)
+        {
+            while (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+                Buffer_Offset++;
+            if (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset+1]==0x00)
+                if (Buffer[Buffer_Offset+2]==0x01)
+                    break;
             Buffer_Offset++;
+        }
     }
 
     if (Buffer_Offset+4<=Buffer_Size)
@@ -1007,6 +1020,7 @@ bool File_Mpegv::Header_Parser_QuickSearch()
         else
             Trusted_IsNot("Mpegv, Synchronisation lost");
     }
+    Synched=false;
     return Synchronize();
 }
 
@@ -1029,9 +1043,9 @@ bool File_Mpegv::Detect_NonMPEGV ()
     }
 
     //Detect TS files, and the parser is not enough precise to detect them later
-    while (Buffer_Offset<188 && CC1(Buffer+Buffer_Offset)!=0x47) //Look for first Sync word
+    while (Buffer_Offset<188 && Buffer[Buffer_Offset]!=0x47) //Look for first Sync word
         Buffer_Offset++;
-    if (Buffer_Offset<188 && CC1(Buffer+Buffer_Offset+188)==0x47 && CC1(Buffer+Buffer_Offset+188*2)==0x47 && CC1(Buffer+Buffer_Offset+188*3)==0x47)
+    if (Buffer_Offset<188 && Buffer[Buffer_Offset+188]==0x47 && Buffer[Buffer_Offset+188*2]==0x47 && Buffer[Buffer_Offset+188*3]==0x47)
     {
         Finnished();
         return true;
