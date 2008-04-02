@@ -82,8 +82,13 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
 {
     //MI->Option(_T("File_Filter"), _T("452"));
     //MI->Option(_T("File_Duplicate"), _T("452;file")); //Activate it
+    //MI->Open(FileName);
     MI->Open(FileName);
-    //return;
+    /*#ifndef WIN32
+    for (size_t Pos=0; Pos<128; Pos++)
+        MI->Open(FileName);
+    #endif*/
+    return;
 
     //Option "File_Filter": filter a part of the file
     //if no filter --> All the file is parser
@@ -103,10 +108,10 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     //Form: "memory://pointer:size"                  <--The desired memory part you want
     //Return the count of written bytes
 
+    /*
     //EXAMPLE
     //-------
 
-    /*
     //Initilaizing MediaInfo
     MediaInfo MI;
 
@@ -240,9 +245,6 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
         if (MI.Open_Buffer_Continue(From_Buffer, From_Buffer_Size)==0 && !CanWrite_OnlyIfParsingIsOk)
         {
             CanWrite_OnlyIfParsingIsOk=true;
-            MI.Option(_T("Inform"), _T(""));
-            MediaInfoLib::String A=MI.Inform();
-            A.clear();
         }
 
         //Testing if MediaInfo request to go elsewhere

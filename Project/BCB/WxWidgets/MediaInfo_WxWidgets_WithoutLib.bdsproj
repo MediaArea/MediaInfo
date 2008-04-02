@@ -93,7 +93,7 @@
           <property category="win32.*.win32b.bcc32" name="option.AU.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.1" value="UNICODE"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.10" value="ZENLIB_STANDARD"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.11" value="MEDIAINFO_MINIMIZESIZEx"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.11" value="MEDIAINFO_MINIMIZESIZE"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.2" value="_UNICODE"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.3" value="_DEBUG"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.4" value="__WXMSW__"/>
@@ -454,6 +454,9 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate_MpegTs" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.h"/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Thread.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Thread" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList_Internal.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfoList_Internal" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Translation.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Translation" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\InfoMap.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="InfoMap" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Buffer_MinimizeSize.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Buffer_MinimizeSize" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
