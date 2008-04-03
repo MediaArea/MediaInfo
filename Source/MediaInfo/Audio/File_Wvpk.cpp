@@ -333,13 +333,10 @@ bool File_Wvpk::Synchronize()
             && CC4(Buffer+Buffer_Offset)!=CC4("wvpk"))
         {
             //Tags
-            if (File_Offset+Buffer_Offset+File_EndTagSize==File_Size)
-            {
-                if (!File__Tags_Helper::Header_Begin())
-                    return false;
-            }
-            else
-                 Buffer_Offset++;
+            if (File_Offset+Buffer_Offset+File_EndTagSize==File_Size && !File__Tags_Helper::Header_Begin())
+                return false;
+
+            Buffer_Offset++;
         }
 
         if (Buffer_Offset+8<=Buffer_Size)//Testing if size is coherant
