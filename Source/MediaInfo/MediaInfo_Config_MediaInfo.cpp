@@ -47,7 +47,25 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
         Egal_Pos=Option_Lower.size();
     transform(Option_Lower.begin(), Option_Lower.begin()+Egal_Pos, Option_Lower.begin(), (int(*)(int))tolower); //(int(*)(int)) is a patch for unix
 
-    if (Option_Lower==_T("file_filter"))
+    if (Option_Lower==_T("file_isseekable"))
+    {
+        File_IsSeekable_Set(!(Value==_T("0") || Value.empty()));
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_isseekable_get"))
+    {
+        return File_IsSeekable_Get()?"1":"0";
+    }
+    else if (Option_Lower==_T("file_forceparser"))
+    {
+        File_ForceParser_Set(Value);
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_forceparser_get"))
+    {
+        return File_ForceParser_Get();
+    }
+    else if (Option_Lower==_T("file_filter"))
     {
         File_Filter_Set(Ztring(Value).To_int64u());
         return _T("");
@@ -68,18 +86,51 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
         //else
         //    return _T("");
     }
-    else if (Option_Lower==_T("file_isseekable"))
-    {
-        File_IsSeekable_Set(!(Value==_T("0") || Value.empty()));
-        return _T("");
-    }
-    else if (Option_Lower==_T("file_isseekable_get"))
-    {
-        return File_IsSeekable_Get()?"1":"0";
-    }
     else
         return _T("Option not known");
 }
+
+//***************************************************************************
+// File Is Seekable
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_IsSeekable_Set (bool NewValue)
+{
+    Enter(true);
+    FileIsSeekable=NewValue;
+    Leave();
+}
+
+bool MediaInfo_Config_MediaInfo::File_IsSeekable_Get ()
+{
+    Enter();
+    Leave();
+    return FileIsSeekable;
+}
+
+//***************************************************************************
+// Force Parser
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_ForceParser_Set (const Ztring &NewValue)
+{
+    Enter(true);
+    File_ForceParser=NewValue;
+    Leave();
+}
+
+const Ztring &MediaInfo_Config_MediaInfo::File_ForceParser_Get ()
+{
+    Enter();
+    Leave();
+    return File_ForceParser;
+}
+
+//***************************************************************************
+// Filter
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config_MediaInfo::File_Filter_Set (int64u NewValue)
@@ -120,7 +171,10 @@ bool MediaInfo_Config_MediaInfo::File_Filter_HasChanged ()
     return File_Filter_HasChanged_Temp;
 }
 
-//---------------------------------------------------------------------------
+//***************************************************************************
+// Duplicate
+//***************************************************************************
+
 void MediaInfo_Config_MediaInfo::File_Duplicate_Set (const Ztring &Value)
 {
     //Preparing for File__Duplicate...
@@ -146,25 +200,6 @@ bool MediaInfo_Config_MediaInfo::File_Duplicate_Get_AlwaysNeeded (size_t Already
     bool Temp=AlreadyRead_Pos>=File__Duplicate_List.size();
     Leave();
     return !Temp; //True if there is something to read
-}
-
-//***************************************************************************
-// File Is Seekable
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void MediaInfo_Config_MediaInfo::File_IsSeekable_Set (bool NewValue)
-{
-    Enter(true);
-    FileIsSeekable=NewValue;
-    Leave();
-}
-
-bool MediaInfo_Config_MediaInfo::File_IsSeekable_Get ()
-{
-    Enter();
-    Leave();
-    return FileIsSeekable;
 }
 
 //***************************************************************************

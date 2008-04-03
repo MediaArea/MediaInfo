@@ -49,7 +49,10 @@ public :
     //General
     Ztring Option (const String &Option, const String &Value=_T(""));
 
-    void          File_ForceParser_Set (bool NewValue);
+    void          File_IsSeekable_Set (bool NewValue);
+    bool          File_IsSeekable_Get ();
+
+    void          File_ForceParser_Set (const Ztring &NewValue);
     const Ztring &File_ForceParser_Get ();
 
     void          File_Filter_Set     (int64u NewValue);
@@ -60,9 +63,6 @@ public :
     void          File_Duplicate_Set  (const Ztring &Value);
     Ztring        File_Duplicate_Get  (size_t AlreadyRead_Pos); //Requester must say how many Get() it already read
     bool          File_Duplicate_Get_AlwaysNeeded (size_t AlreadyRead_Pos); //Requester must say how many Get() it already read
-
-    void          File_IsSeekable_Set (bool NewValue);
-    bool          File_IsSeekable_Get ();
 
 private :
     void Enter (bool Set=false);
