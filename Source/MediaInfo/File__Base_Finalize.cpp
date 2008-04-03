@@ -162,7 +162,7 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
         //Codec
         if (!(*Stream[StreamKind])[Pos](_T("Codec")).empty())
         {
-            const Ztring &C1=Config.Codec_Get((*Stream[StreamKind])[Pos](_T("Codec")));
+            const Ztring &C1=Config.Codec_Get((*Stream[StreamKind])[Pos](_T("Codec")), InfoCodec_Name, (stream_t)StreamKind);
             if (C1.empty())
             {
                 if ((*Stream[StreamKind])[Pos](_T("Codec/String")).empty()) (*Stream[StreamKind])[Pos](_T("Codec/String"))=(*Stream[StreamKind])[Pos](_T("Codec"));
@@ -170,9 +170,9 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
             else
             {
                 if ((*Stream[StreamKind])[Pos](_T("Codec/String")).empty()) (*Stream[StreamKind])[Pos](_T("Codec/String"))=C1;
-                if ((*Stream[StreamKind])[Pos](_T("Codec/Family")).empty()) (*Stream[StreamKind])[Pos](_T("Codec/Family"))=Config.Codec_Get((*Stream[StreamKind])[Pos](_T("Codec")), InfoCodec_KindofCodec);
+                if ((*Stream[StreamKind])[Pos](_T("Codec/Family")).empty()) (*Stream[StreamKind])[Pos](_T("Codec/Family"))=Config.Codec_Get((*Stream[StreamKind])[Pos](_T("Codec")), InfoCodec_KindofCodec, (stream_t)StreamKind);
                 if ((*Stream[StreamKind])[Pos](_T("Codec/Info"  )).empty()) (*Stream[StreamKind])[Pos](_T("Codec/Info"  ))=Config.Codec_Get((*Stream[StreamKind])[Pos](_T("Codec")), InfoCodec_Description, (stream_t)StreamKind);
-                if ((*Stream[StreamKind])[Pos](_T("Codec/Url"   )).empty()) (*Stream[StreamKind])[Pos](_T("Codec/Url"   ))=Config.Codec_Get((*Stream[StreamKind])[Pos](_T("Codec")), InfoCodec_Url);
+                if ((*Stream[StreamKind])[Pos](_T("Codec/Url"   )).empty()) (*Stream[StreamKind])[Pos](_T("Codec/Url"   ))=Config.Codec_Get((*Stream[StreamKind])[Pos](_T("Codec")), InfoCodec_Url, (stream_t)StreamKind);
             }
         }
         //Special cases
@@ -402,7 +402,7 @@ void File__Analyze::Finalize_Audio(size_t Pos)
     //CBR/VBR
     if (Audio[Pos](_T("BitRate_Mode")).empty() && !Audio[Pos](_T("Codec")).empty())
     {
-        Ztring Z1=Config.Codec_Get(Audio[Pos](_T("Codec")), InfoCodec_BitRate_Mode);
+        Ztring Z1=Config.Codec_Get(Audio[Pos](_T("Codec")), InfoCodec_BitRate_Mode, Stream_Audio);
         if (!Z1.empty())
             Audio[Pos](_T("BitRate_Mode"))=Z1;
     }
@@ -418,7 +418,7 @@ void File__Analyze::Finalize_Audio_BitRate(size_t Pos, Char* Parameter)
     Ztring& Codec=Audio[Pos](_T("Codec"));
     int32u BitRate=Audio[Pos](Parameter).To_int32u();
     int32u BitRate_Sav=BitRate;
-    if (Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("MPEG-"))==0
+    if (Config.Codec_Get(Codec, InfoCodec_KindofCodec, Stream_Audio).find(_T("MPEG-"))==0
      || Audio[Pos](_T("Codec/String")).find(_T("MPEG-"))==0)
     {
         if (BitRate>=   7500 && BitRate<=   8500) BitRate=   8000;
@@ -449,7 +449,7 @@ void File__Analyze::Finalize_Audio_BitRate(size_t Pos, Char* Parameter)
             BitRate=BitRate_Sav; //If VBR, we want the exact value
     }
 
-    else if (Config.Codec_Get(Codec, InfoCodec_Name).find(_T("AC3"))==0)
+    else if (Config.Codec_Get(Codec, InfoCodec_Name, Stream_Audio).find(_T("AC3"))==0)
     {
         if (BitRate>=  31000 && BitRate<=  33000) BitRate=  32000;
         if (BitRate>=  39000 && BitRate<=  41000) BitRate=  40000;
@@ -472,7 +472,7 @@ void File__Analyze::Finalize_Audio_BitRate(size_t Pos, Char* Parameter)
         if (BitRate>= 627200 && BitRate<= 652800) BitRate= 640000;
   }
 
-    else if (Config.Codec_Get(Codec, InfoCodec_Name).find(_T("DTS"))==0)
+    else if (Config.Codec_Get(Codec, InfoCodec_Name, Stream_Audio).find(_T("DTS"))==0)
     {
         if (BitRate>=  31000 && BitRate<=  33000) BitRate=  32000;
         if (BitRate>=  54000 && BitRate<=  58000) BitRate=  56000;
@@ -505,7 +505,7 @@ void File__Analyze::Finalize_Audio_BitRate(size_t Pos, Char* Parameter)
         if (BitRate>=3763200 && BitRate<=3916800) BitRate=3840000;
     }
 
-    else if (Config.Codec_Get(Codec, InfoCodec_Name).find(_T("AAC"))==0)
+    else if (Config.Codec_Get(Codec, InfoCodec_Name, Stream_Audio).find(_T("AAC"))==0)
     {
         if (BitRate>=  46000 && BitRate<=  50000) BitRate=  48000;
         if (BitRate>=  64827 && BitRate<=  67473) BitRate=  66150;
@@ -523,7 +523,7 @@ void File__Analyze::Finalize_Audio_BitRate(size_t Pos, Char* Parameter)
         if (BitRate>= 648270 && BitRate<= 674730) BitRate= 661500;
     }
 
-    else if (Config.Codec_Get(Codec, InfoCodec_Name).find(_T("PCM"))==0)
+    else if (Config.Codec_Get(Codec, InfoCodec_Name, Stream_Audio).find(_T("PCM"))==0)
     {
         if (BitRate>=  62720 && BitRate<=  65280) BitRate=  64000;
         if (BitRate>=  86436 && BitRate<=  89964) BitRate=  88200;
@@ -542,10 +542,10 @@ void File__Analyze::Finalize_Audio_BitRate(size_t Pos, Char* Parameter)
         if (BitRate>=1505280 && BitRate<=1566720) BitRate=1536000;
     }
 
-    else if (Config.Codec_Get(Codec, InfoCodec_Name).find(_T("ADPCM"))==0
-          || Config.Codec_Get(Codec, InfoCodec_Name).find(_T("U-Law"))==0
-          || Config.Codec_Get(Codec, InfoCodec_KindofCodec)==_T("ADPCM")
-          || Config.Codec_Get(Codec, InfoCodec_KindofCodec)==_T("U-Law"))
+    else if (Config.Codec_Get(Codec, InfoCodec_Name, Stream_Audio).find(_T("ADPCM"))==0
+          || Config.Codec_Get(Codec, InfoCodec_Name, Stream_Audio).find(_T("U-Law"))==0
+          || Config.Codec_Get(Codec, InfoCodec_KindofCodec, Stream_Audio)==_T("ADPCM")
+          || Config.Codec_Get(Codec, InfoCodec_KindofCodec, Stream_Audio)==_T("U-Law"))
     {
         if (BitRate>=  42000 && BitRate<=  46000) BitRate=  44100;
         if (BitRate>=  62720 && BitRate<=  65280) BitRate=  64000;

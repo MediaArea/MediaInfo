@@ -307,14 +307,14 @@ public :
     void Get_L16 (int128u &Info);
     void Get_LF4 (float32 &Info);
     void Get_LF8 (float64 &Info);
-    inline void Get_L1  (int8u   &Info, const char*) {Get_B1(Info);}
-    inline void Get_L2  (int16u  &Info, const char*) {Get_B2(Info);}
-    inline void Get_L3  (int32u  &Info, const char*) {Get_B3(Info);}
-    inline void Get_L4  (int32u  &Info, const char*) {Get_B4(Info);}
-    inline void Get_L5  (int64u  &Info, const char*) {Get_B5(Info);}
-    inline void Get_L6  (int64u  &Info, const char*) {Get_B6(Info);}
-    inline void Get_L7  (int64u  &Info, const char*) {Get_B7(Info);}
-    inline void Get_L8  (int64u  &Info, const char*) {Get_B8(Info);}
+    inline void Get_L1  (int8u   &Info, const char*) {Get_L1(Info);}
+    inline void Get_L2  (int16u  &Info, const char*) {Get_L2(Info);}
+    inline void Get_L3  (int32u  &Info, const char*) {Get_L3(Info);}
+    inline void Get_L4  (int32u  &Info, const char*) {Get_L4(Info);}
+    inline void Get_L5  (int64u  &Info, const char*) {Get_L5(Info);}
+    inline void Get_L6  (int64u  &Info, const char*) {Get_L6(Info);}
+    inline void Get_L7  (int64u  &Info, const char*) {Get_L7(Info);}
+    inline void Get_L8  (int64u  &Info, const char*) {Get_L8(Info);}
     inline void Get_L16 (int128u &Info, const char*) {Get_L16(Info);}
     inline void Get_LF4 (float32 &Info, const char*) {Get_LF4(Info);}
     inline void Get_LF8 (float64 &Info, const char*) {Get_LF8(Info);}

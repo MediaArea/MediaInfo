@@ -173,6 +173,10 @@ private :
     bool Header_Parser_QuickSearch();
     void Detect_EOF();
 
+    //Count
+    size_t program_Count;
+    size_t elementary_PID_Count;
+
     //Temp
     bool Parsing_End;
     size_t BDAV_Size;

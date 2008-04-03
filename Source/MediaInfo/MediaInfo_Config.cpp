@@ -959,21 +959,21 @@ const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t Kind
 const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream)
 {
     //Transform to text
-    //TODO Ztring KindOfStreamS;
-    //switch (KindOfStream)
-    //{
-    //    case Stream_General  : KindOfStreamS=_T("G"); break;
-    //    case Stream_Video    : KindOfStreamS=_T("V"); break;
-    //    case Stream_Audio    : KindOfStreamS=_T("A"); break;
-    //    case Stream_Text     : KindOfStreamS=_T("T"); break;
-    //    case Stream_Image    : KindOfStreamS=_T("I"); break;
-    //    case Stream_Chapters : KindOfStreamS=_T("C"); break;
-    //    case Stream_Menu     : KindOfStreamS=_T("M"); break;
-    //    case Stream_Max      : KindOfStreamS=_T(" "); break;
-    //}
+    Ztring KindOfStreamS;
+    switch (KindOfStream)
+    {
+        case Stream_General  : KindOfStreamS=_T("G"); break;
+        case Stream_Video    : KindOfStreamS=_T("V"); break;
+        case Stream_Audio    : KindOfStreamS=_T("A"); break;
+        case Stream_Text     : KindOfStreamS=_T("T"); break;
+        case Stream_Image    : KindOfStreamS=_T("I"); break;
+        case Stream_Chapters : KindOfStreamS=_T("C"); break;
+        case Stream_Menu     : KindOfStreamS=_T("M"); break;
+        case Stream_Max      : KindOfStreamS=_T(" "); break;
+    }
 
     //Searching
-    //size_t Pos=0;
+    //TODO size_t Pos=0;
     //do
     //    Pos=Codec.Find(Value, 0, Pos+1, _T("=="), Ztring_CaseSensitive);
     //while (Pos!=Error && Codec.Read(Pos, InfoCodec_KindOfStream)!=KindOfStreamS);
@@ -982,7 +982,7 @@ const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t Kind
     //if (Pos==Error || (size_t)KindOfCodecInfo>=Codec[Pos].size())
     //    return EmptyString_Get();
     //return Codec[Pos][KindOfCodecInfo];
-    return Codec.Get(Value, KindOfCodecInfo);
+    return Codec.Get(Value, KindOfCodecInfo, KindOfStreamS, InfoCodec_KindOfStream);
 }
 
 //---------------------------------------------------------------------------

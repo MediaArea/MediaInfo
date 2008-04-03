@@ -115,7 +115,7 @@ public :
     const Ztring   &Inform_Get (const Ztring &Value);
 
     const Ztring   &Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name);
-    const InfoMap  &Format_Get() const {return Format;}; //Should not be, but too difficult to hide it
+          InfoMap  &Format_Get() {return Format;}; //Should not be, but too difficult to hide it
 
     const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo=InfoCodec_Name);
     const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream);

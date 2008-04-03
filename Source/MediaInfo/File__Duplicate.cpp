@@ -70,6 +70,8 @@ File__Duplicate::~File__Duplicate ()
 
 void File__Duplicate::Read_Buffer_Finalize ()
 {
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+        Duplicates_Speed_FromPID.clear();
 }
 
 //***************************************************************************

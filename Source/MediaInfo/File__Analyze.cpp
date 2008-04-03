@@ -330,13 +330,13 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     //Sub
     #ifndef MEDIAINFO_MINIMIZESIZE
         Sub->Element_Level_Base=Element_Level_Base+Element_Level;
-
-        //{File F; F.Open(Ztring(_T("d:\\direct"))+Ztring::ToZtring((size_t)this, 16), File::Access_Write_Append); F.Write(ToAdd, ToAdd_Size);}
-
-        //Adaptating File_Offset
-        if (Sub!=this && Sub->Buffer_Size<=Sub->File_Offset)
-            Sub->File_Offset-=Sub->Buffer_Size;
     #endif
+
+    //{File F; F.Open(Ztring(_T("d:\\direct"))+Ztring::ToZtring((size_t)this, 16), File::Access_Write_Append); F.Write(ToAdd, ToAdd_Size);}
+
+    //Adaptating File_Offset
+    if (Sub!=this && Sub->Buffer_Size<=Sub->File_Offset)
+        Sub->File_Offset-=Sub->Buffer_Size;
 
     //Parsing
     Sub->Open_Buffer_Continue(ToAdd, ToAdd_Size);

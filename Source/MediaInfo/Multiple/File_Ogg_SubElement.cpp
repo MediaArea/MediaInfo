@@ -372,7 +372,9 @@ void File_Ogg_SubElement::Identification_audio()
 
     //Filling
     Stream_Prepare(Stream_Audio);
-    Fill("Codec", Ztring().From_CC4(fccHandler));
+    Ztring Codec; Codec.From_CC4(fccHandler);
+    Codec.TrimLeft(_T('0'));
+    Fill("Codec", Codec);
     if (AvgBytesPerSec<0x80000000) //This is a signed value, and negative values are not OK
         Fill("BitRate", AvgBytesPerSec*8);
     Fill("Channel(s)", Channels==5?6:Channels); //5 channels are 5.1

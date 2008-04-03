@@ -1771,7 +1771,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_auds()
 
     //Filling
     FILLING_BEGIN()
-        Ztring Codec; Codec.From_CC2(FormatTag);
+        Ztring Codec; Codec.From_Number(FormatTag, 16);
         Fill("Codec", Codec, true); //May be replaced by codec parser
         Fill("Codec/CC", Codec);
         Fill("Channel(s)", Channels!=5?Channels:6, 0, true);

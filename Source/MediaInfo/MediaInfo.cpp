@@ -29,6 +29,7 @@
 #include "MediaInfo/MediaInfo.h"
 #include "MediaInfo/MediaInfo_Config.h"
 #include "MediaInfo/File__Base.h"
+#include "MediaInfo/Multiple/File_MpegTs.h" //TODO
 #include "MediaInfo/File__MultipleParsing.h"
 #include <ZenLib/FileName.h>
 #include <ZenLib/File.h>
@@ -100,15 +101,26 @@ size_t MediaInfo::Open(const String &File_Name_)
     Extension.MakeLowerCase();
 
     //Search the theorical format from extension
-    /*const InfoMap &FormatList=Config.Format_Get();
-    size_t Pos=0;
-    while (Pos<FormatList.size() && (InfoFormat_Extensions>=FormatList[Pos].size() || InfoFormat_Extensions<FormatList[Pos].size() && FormatList[Pos][InfoFormat_Extensions].find(Extension.c_str())==Error))
-        Pos++;
-    if (Pos<FormatList.size() && InfoFormat_Extensions<FormatList[Pos].size())
+    InfoMap &FormatList=Config.Format_Get();
+    InfoMap::iterator Format=FormatList.begin();
+    while (Format!=FormatList.end())
     {
-        const Ztring &Parser=FormatList[Pos][InfoFormat_Parser];
+        const Ztring &Extensions=FormatList.Get(Format->first, InfoFormat_Extensions);
+        if (Extensions.find(Extension)!=Error)
+        {
+            if(Extension.size()==Extensions.size())
+                break; //Only one extenion in the list
+            if(Extensions.find(Extension+_T(" "))!=Error
+            || Extensions.find(_T(" ")+Extension)!=Error)
+                break;
+        }
+        Format++;
+    }
+    if (Format!=FormatList.end())
+    {
+        const Ztring &Parser=Format->second(InfoFormat_Parser);
         SelectFromExtension(Parser);
-    }*/
+    }
 
     //Test the theorical format
     if (Format_Test()>0)

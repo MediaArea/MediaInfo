@@ -164,6 +164,10 @@ File_MpegTs::File_MpegTs()
     for (int32u Pos=0x00; Pos<0x10; Pos++)
         Streams[Pos].Searching_Payload_Start_Set(true);
 
+    //Count
+    program_Count=(size_t)-1;
+    elementary_PID_Count=0;
+
     //Temp
     format_identifier=0x00000000;
     TS_Size=188;
@@ -623,6 +627,7 @@ void File_MpegTs::PSI()
 //---------------------------------------------------------------------------
 void File_MpegTs::PSI_program_association_table()
 {
+    program_Count=0;
     File_Mpeg_Psi* Parser=(File_Mpeg_Psi*)Streams[pid].Parser;
     for (std::map<int16u, File_Mpeg_Psi::stream>::iterator Program=Parser->Streams.begin(); Program!=Parser->Streams.end(); Program++)
     {
@@ -647,6 +652,8 @@ void File_MpegTs::PSI_program_association_table()
         {
             Streams[PID].Searching_Payload_Start_Set(true);
             Streams[PID].Searching_Payload_Continue_Set(true);
+            if (Program->second.program_number!=0x0000)
+                program_Count++;
         }
 
         //File__Duplicate
@@ -696,6 +703,7 @@ void File_MpegTs::PSI_program_map_table()
         Streams[elementary_PID].stream_type=Stream->second.stream_type;
         Streams[elementary_PID].descriptor_tag=Stream->second.descriptor_tag;
         Streams[elementary_PID].Searching_Payload_Start_Set(true);
+        elementary_PID_Count++;
         Streams[elementary_PID].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
         if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
             Streams[elementary_PID].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
@@ -768,6 +776,8 @@ void File_MpegTs::PSI_program_map_table()
         }
         */
     }
+    if (program_Count)
+        program_Count--;
 }
 
 //---------------------------------------------------------------------------
@@ -787,6 +797,7 @@ void File_MpegTs::PES()
         {
             Streams[pid].Searching_Payload_Start_Set(false);
             Streams[pid].Searching_Payload_Continue_Set(false);
+            elementary_PID_Count--;
             return;
         }
     }
@@ -831,7 +842,7 @@ void File_MpegTs::PES()
         {
             Streams[pid].Searching_Payload_Start_Set(false);
             Streams[pid].Searching_Payload_Continue_Set(false);
-            //Streams_Count--;
+            elementary_PID_Count--;
         }
     }
 
@@ -939,7 +950,7 @@ void File_MpegTs::Detect_EOF()
     //Jump to the end of the file
     if (File_Offset+Buffer_Offset+MpegTs_JumpTo_End<File_Size && (
        (File_Offset+Buffer_Offset>=MpegTs_JumpTo_Begin)
-    //|| (Streams_Count==0)
+    || (program_Count==0 && elementary_PID_Count==0)
     ))
     {
         //Details
