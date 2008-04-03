@@ -390,7 +390,7 @@ void File_Flv::Data_Parse()
         default : break;
     }
 
-    if (!video_stream_Count && !audio_stream_Count && video_stream_FrameRate_Detected && Config.ParseSpeed_Get()<1) //All streams are parsed
+    if (!video_stream_Count && !audio_stream_Count && video_stream_FrameRate_Detected && MediaInfoLib::Config.ParseSpeed_Get()<1) //All streams are parsed
         Finnished();
 }
 

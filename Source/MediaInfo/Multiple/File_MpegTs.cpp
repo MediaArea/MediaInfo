@@ -32,6 +32,7 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_MpegTs.h"
 #include "MediaInfo/Multiple/File_MpegPs.h"
+#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #include <memory>
 using namespace std;
 //---------------------------------------------------------------------------
@@ -216,9 +217,9 @@ void File_MpegTs::Read_Buffer_Continue()
     Trusted*=2;
 
     //File_Filter configuration
-    if (Config.File_Filter_HasChanged())
+    if (Config->File_Filter_HasChanged())
     {
-        bool Searching_Payload_Start=!Config.File_Filter_Get();
+        bool Searching_Payload_Start=!Config->File_Filter_Get();
         for (int32u Pos=0x01; Pos<0x10; Pos++)
             Streams[Pos].Searching_Payload_Start_Set(Searching_Payload_Start); //base PID depends of File_Filter configuration
         Streams[0x00].Searching_Payload_Start_Set(true); //program_map
@@ -643,7 +644,7 @@ void File_MpegTs::PSI_program_association_table()
         Streams[PID].Searching_Payload_Start_Set(true);
 
         //File_Filter
-        if (!Config.File_Filter_Get(Streams[Program->first].program_number))
+        if (!Config->File_Filter_Get(Streams[Program->first].program_number))
         {
             Streams[PID].Searching_Payload_Start_Set(false);
             Streams[PID].Searching_Payload_Continue_Set(false);

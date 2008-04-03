@@ -35,6 +35,8 @@ using namespace ZenLib;
 namespace MediaInfoLib
 {
 
+class MediaInfo_Config_MediaInfo;
+
 //***************************************************************************
 // Class File__Base
 //***************************************************************************
@@ -128,6 +130,7 @@ public :
 public :  //A virer
     void Traiter(Ztring &C); //enleve les $if...
     friend class File__Analyze;
+    MediaInfo_Config_MediaInfo* Config;
 };
 
 } //NameSpace

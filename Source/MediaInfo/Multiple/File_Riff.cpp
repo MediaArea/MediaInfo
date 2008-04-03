@@ -130,7 +130,7 @@ void File_Riff::Read_Buffer_Finalize ()
                 int32u FrameRate=FrameRate_Temp.To_int32u();
                 if (FrameRate==120)
                 {
-                    Fill("FrameRate/String", Config.Language_Get(FrameRate_Temp+_T(" (24/30)"), _T(" fps")));
+                    Fill("FrameRate/String", MediaInfoLib::Config.Language_Get(FrameRate_Temp+_T(" (24/30)"), _T(" fps")));
                     Fill("FrameRate_Minimum", 24, 10, true);
                     Fill("FrameRate_Maximum", 30, 10, true);
                     Fill("FrameRate_Mode", "VFR");
@@ -139,7 +139,7 @@ void File_Riff::Read_Buffer_Finalize ()
 
             //Specific
             #if defined(MEDIAINFO_MPEG4V_YES)
-                if (StreamKind_Last==Stream_Video && Config.Codec_Get(Ztring().From_CC4(Temp->second.Compression), InfoCodec_KindofCodec).find(_T("MPEG-4V"))==0)
+                if (StreamKind_Last==Stream_Video && MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Temp->second.Compression), InfoCodec_KindofCodec).find(_T("MPEG-4V"))==0)
                 {
                     if (((File_Mpeg4v*)Temp->second.Parser)->RIFF_VOP_Count_Max>1)
                     {
@@ -151,7 +151,7 @@ void File_Riff::Read_Buffer_Finalize ()
                 }
             #endif
             #if defined(MEDIAINFO_MPEGA_YES)
-                if (StreamKind_Last==Stream_Audio && Config.Codec_Get(Ztring().From_Number(Temp->second.Compression, 16), InfoCodec_KindofCodec).find(_T("MPEG-"))==0)
+                if (StreamKind_Last==Stream_Audio && MediaInfoLib::Config.Codec_Get(Ztring().From_Number(Temp->second.Compression, 16), InfoCodec_KindofCodec).find(_T("MPEG-"))==0)
                 {
                     if (((File_Mpega*)Temp->second.Parser)->Delay>100 && Temp->second.AvgBytesPerSec!=0)
                         Fill("Delay", (float)((File_Mpega*)Temp->second.Parser)->Delay*1000/Temp->second.AvgBytesPerSec, 10, true);

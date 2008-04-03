@@ -1373,8 +1373,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         }
         #if defined(MEDIAINFO_PCM_YES)
         if (Codec=="raw "
-         || Config.Codec_Get(Ztring().From_Local(Codec.c_str()), InfoCodec_KindofCodec).find(_T("PCM"))==0
-         || Config.Codec_Get(Ztring().From_Local(Codec.c_str()), InfoCodec_KindofCodec).find(_T("ADPCM"))==0)
+         || MediaInfoLib::Config.Codec_Get(Ztring().From_Local(Codec.c_str()), InfoCodec_KindofCodec).find(_T("PCM"))==0
+         || MediaInfoLib::Config.Codec_Get(Ztring().From_Local(Codec.c_str()), InfoCodec_KindofCodec).find(_T("ADPCM"))==0)
         {
             //Creating the parser
             File_Pcm MI;
@@ -1708,7 +1708,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
         {
             const Ztring &Codec=Get(Stream_Audio, StreamPos_Last, _T("Codec"));
             if (Codec==_T("raw ")
-             || Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("PCM"))==0)
+             || MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("PCM"))==0)
              {
                 int64u PlayTime=Get(StreamKind_Last, StreamPos_Last, _T("PlayTime")).To_int64u();
                 int64u Resolution=Get(StreamKind_Last, StreamPos_Last, _T("Resolution")).To_int64u();

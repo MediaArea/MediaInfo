@@ -30,6 +30,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/MediaInfo.h"
+#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #include <ZenLib/Thread.h>
 #include <ZenLib/CriticalSection.h>
 #include <vector>
@@ -86,7 +87,8 @@ private :
     bool    IsInThread;
     void    Entry();
     ZenLib::CriticalSection CS;
-};                                
+    MediaInfo_Config_MediaInfo Config;
+};
 
 } //NameSpace
 #endif

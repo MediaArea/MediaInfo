@@ -561,7 +561,7 @@ void File_Riff::AVI__GMET()
     List.Write(Value);
 
     //Details
-    if (Config.Details_Get())
+    if (MediaInfoLib::Config.Details_Get())
     {
         //for (size_t Pos=0; Pos<List.size(); Pos++)
         //    Details_Add_Info(Pos, List(Pos, 0).To_Local().c_str(), List(Pos, 1));
@@ -848,7 +848,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     //Creating the parser
          if (0);
     #if defined(MEDIAINFO_MPEGA_YES)
-    else if (Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("MPEG-"))==0)
+    else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("MPEG-"))==0)
         Stream[Stream_ID].Parser=new File_Mpega;
     #endif
     #if defined(MEDIAINFO_AC3_YES)
@@ -871,8 +871,8 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
         Stream[Stream_ID].Parser=new File_Adts;
     #endif
     #if defined(MEDIAINFO_PCM_YES)
-    else if (Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("PCM"))==0
-          || Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("ADPCM"))==0)
+    else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("PCM"))==0
+          || MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("ADPCM"))==0)
     {
         //Creating the parser
         File_Pcm MI;
@@ -899,7 +899,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     if (Option_Size>0)
     {
              if (0);
-        else if (Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("MPEG-1"))==0)
+        else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("MPEG-1"))==0)
             AVI__hdlr_strl_strf_auds_Mpega();
         else if (Codec==_T("AAC") || Codec==_T("FF"))
             AVI__hdlr_strl_strf_auds_Aac();
@@ -1069,7 +1069,7 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     //Creating the parser
          if (0);
     #if defined(MEDIAINFO_MPEG4V_YES)
-    else if (Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("MPEG-4V"))==0)
+    else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("MPEG-4V"))==0)
     {
         Stream[Stream_ID].Parser=new File_Mpeg4v;
         Stream[Stream_ID].Specific_IsMpeg4v=true;
@@ -1077,7 +1077,7 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     }
     #endif
     #if defined(MEDIAINFO_AVC_YES)
-    else if (Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("AVC"))==0)
+    else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("AVC"))==0)
     {
         Stream[Stream_ID].Parser=new File_Avc;
         ((File_Avc*)Stream[Stream_ID].Parser)->FrameIsAlwaysComplete=true;
@@ -1495,7 +1495,7 @@ void File_Riff::AVI__movi_xxxx()
     }
 
     Stream[Stream_ID].PacketCount++;
-    if (Config.Details_Get())
+    if (MediaInfoLib::Config.Details_Get())
     {
         switch (Element_Code&0x0000FFFF) //2 last bytes
         {

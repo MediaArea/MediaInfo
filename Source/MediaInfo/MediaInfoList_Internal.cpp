@@ -230,7 +230,7 @@ String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
     }
 
     if (FilePos>=Info.size() || Info[FilePos]==NULL || Info[FilePos]->Count_Get(Stream_General)==0)
-        return Config.EmptyString_Get();
+        return MediaInfoLib::Config.EmptyString_Get();
 
     return Info[FilePos]->Inform();
 }
@@ -239,7 +239,7 @@ String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
 String MediaInfoList_Internal::Get(size_t FilePos, stream_t KindOfStream, size_t StreamNumber, size_t Parameter, info_t KindOfInfo)
 {
     if (FilePos==Error || FilePos>=Info.size() || Info[FilePos]==NULL || Info[FilePos]->Count_Get(Stream_General)==0)
-        return Config.EmptyString_Get();
+        return MediaInfoLib::Config.EmptyString_Get();
 
     return Info[FilePos]->Get(KindOfStream, StreamNumber, Parameter, KindOfInfo);
 }
@@ -252,7 +252,7 @@ String MediaInfoList_Internal::Get(size_t FilePos, stream_t KindOfStream, size_t
     //TRACE(Trace+=_T("Get(L), will return ");Trace+=Info[FilePos].Get(KindOfStream, StreamNumber, Parameter, KindOfInfo, KindOfSearch).c_str();)
 
     if (FilePos==Error || FilePos>=Info.size() || Info[FilePos]==NULL || Info[FilePos]->Count_Get(Stream_General)==0)
-        return Config.EmptyString_Get();
+        return MediaInfoLib::Config.EmptyString_Get();
 
     return Info[FilePos]->Get(KindOfStream, StreamNumber, Parameter, KindOfInfo, KindOfSearch);
 }
@@ -310,32 +310,32 @@ char* MediaInfoList_Internal::Output_Buffer_Get (size_t FilePos, size_t &Output_
 //---------------------------------------------------------------------------
 String MediaInfoList_Internal::Option (const String &Option, const String &Value)
 {
+    Ztring OptionLower=Option; OptionLower.MakeLowerCase();
          if (Option==_T(""))
         return _T("");
-    else if (Option==_T("Language_Update"))
+    else if (OptionLower==_T("manguage_update"))
     {
         //Special case : Language_Update must update all MediaInfo classes
         for (unsigned int Pos=0; Pos<Info.size(); Pos++)
             if (Info[Pos])
-                Info[Pos]->Option(_T("Language_Update"), Value);
+                Info[Pos]->Option(_T("language_update"), Value);
 
         return _T("");
     }
-    else if (Option==_T("Create_Dummy"))
+    else if (OptionLower==_T("create_dummy"))
     {
         Info.resize(Info.size()+1);
         Info[Info.size()-1]=new MediaInfo();
         Info[Info.size()-1]->Option(Option, Value);
         return _T("");
     }
-    else if (Option==_T("Thread"))
+    else if (OptionLower==_T("thread"))
     {
         BlockMethod=1;
         return _T("");
     }
     else
         return MediaInfo::Option_Static(Option, Value);
-
 }
 
 //---------------------------------------------------------------------------

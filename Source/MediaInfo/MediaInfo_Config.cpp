@@ -127,7 +127,7 @@ void MediaInfo_Config::Init()
 // Info
 //***************************************************************************
 
-Ztring MediaInfo_Config::Option (const Ztring &Option, const Ztring &Value)
+Ztring MediaInfo_Config::Option (const String &Option, const String &Value)
 {
     String Option_Lower(Option);
     size_t Egal_Pos=Option_Lower.find(_T('='));
@@ -234,7 +234,7 @@ Ztring MediaInfo_Config::Option (const Ztring &Option, const Ztring &Value)
     }
     else if (Option_Lower==_T("showfiles_set"))
     {
-        ShowFiles_Set(Value);
+        ShowFiles_Set(Value.c_str());
         return _T("");
     }
     else if (Option_Lower==_T("lineseparator"))
@@ -313,7 +313,7 @@ Ztring MediaInfo_Config::Option (const Ztring &Option, const Ztring &Value)
     }
     else if (Option_Lower==_T("inform"))
     {
-        Inform_Set(Value);
+        Inform_Set(Value.c_str());
         return _T("");
     }
     else if (Option_Lower==_T("inform_get"))
@@ -322,7 +322,7 @@ Ztring MediaInfo_Config::Option (const Ztring &Option, const Ztring &Value)
     }
     else if (Option_Lower==_T("file_filter"))
     {
-        File_Filter_Set(Value.To_int64u());
+        File_Filter_Set(Ztring(Value).To_int64u());
         return _T("");
     }
     else if (Option_Lower==_T("file_filter_get"))

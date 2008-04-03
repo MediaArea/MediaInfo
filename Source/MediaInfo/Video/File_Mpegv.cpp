@@ -293,7 +293,7 @@ void File_Mpegv::Read_Buffer_Continue()
 void File_Mpegv::Read_Buffer_Finalize()
 {
     //PlayTime
-    if (Time_End_NeedComplete && Config.ParseSpeed_Get()!=1)
+    if (Time_End_NeedComplete && MediaInfoLib::Config.ParseSpeed_Get()!=1)
         Time_End_Seconds=Error;
     if (Time_End_Seconds!=Error)
     {
@@ -476,7 +476,7 @@ void File_Mpegv::picture_start()
     while (extra_bit_picture);
 
     //Details
-    if (Config.Details_Get())
+    if (MediaInfoLib::Config.Details_Get())
     {
         if (Time_End_Seconds!=Error)
         {
@@ -660,7 +660,7 @@ void File_Mpegv::slice_start_Fill()
     Stream[0xB9].Searching_Payload=true; //sequence_end
 
     //Jumping
-    if (File_Size>SizeToAnalyse && File_Offset+Buffer_Size<File_Size-SizeToAnalyse && Config.ParseSpeed_Get()<=0.01
+    if (File_Size>SizeToAnalyse && File_Offset+Buffer_Size<File_Size-SizeToAnalyse && MediaInfoLib::Config.ParseSpeed_Get()<=0.01
      || File_Name.empty())
     {
         //

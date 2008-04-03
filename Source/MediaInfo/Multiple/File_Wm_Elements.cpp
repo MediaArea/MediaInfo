@@ -421,7 +421,7 @@ void File_Wm::Header_StreamProperties_Video ()
     //Creating the parser
          if (0);
     #if defined(MEDIAINFO_MPEGV_YES)
-    else if (Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("MPEG-2"))==0)
+    else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("MPEG-2"))==0)
     {
         Stream[Stream_Number].Parser=new File_Mpegv;
         ((File_Mpegv*)Stream[Stream_Number].Parser)->Frame_Count_Valid=1;
@@ -998,7 +998,7 @@ void File_Wm::Header_ExtendedContentDescription()
             {
                 if (Value.empty() || Value[0]!=_T(';')) //Test if there is only the separator
                 {
-                    Value.FindAndReplace(_T(";"), Config.TagSeparator_Get());
+                    Value.FindAndReplace(_T(";"), MediaInfoLib::Config.TagSeparator_Get());
                     Fill(Stream_General, 0, "UniqueID", Value);
                 }
             }

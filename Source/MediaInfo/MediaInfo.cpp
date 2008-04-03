@@ -71,7 +71,7 @@ MediaInfo::MediaInfo()
     File_AlreadyBuffered=false;
     MultipleParsing_IsDetected=false;
 
-    Config.Init(); //Initialize Configuration
+    MediaInfoLib::Config.Init(); //Initialize Configuration
 }
 
 //---------------------------------------------------------------------------
@@ -101,7 +101,7 @@ size_t MediaInfo::Open(const String &File_Name_)
     Extension.MakeLowerCase();
 
     //Search the theorical format from extension
-    InfoMap &FormatList=Config.Format_Get();
+    InfoMap &FormatList=MediaInfoLib::Config.Format_Get();
     InfoMap::iterator Format=FormatList.begin();
     while (Format!=FormatList.end())
     {
@@ -324,6 +324,7 @@ size_t MediaInfo::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
     if (Info==NULL)
         Info=new File__MultipleParsing;
     Info->Open_Buffer_Init(File_Size_, File_Offset_);
+    Info->Config=&Config;
 
     return 1;
 }
@@ -332,7 +333,7 @@ size_t MediaInfo::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
 size_t MediaInfo::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
     if (Info==NULL)
-        Info=new File__MultipleParsing;
+        return 0;
 
     Info->Open_Buffer_Continue(Info, ToAdd, ToAdd_Size);
 
@@ -402,7 +403,7 @@ String MediaInfo::Inform(size_t)
         return Info->Inform();
 
     if (!Info)
-        return Config.EmptyString_Get();
+        return MediaInfoLib::Config.EmptyString_Get();
 
     return Info->Inform();
 }
@@ -411,7 +412,7 @@ String MediaInfo::Inform(size_t)
 String MediaInfo::Get(stream_t KindOfStream, size_t StreamNumber, size_t Parameter, info_t KindOfInfo)
 {
     if (!Info)
-        return Config.EmptyString_Get();
+        return MediaInfoLib::Config.EmptyString_Get();
 
     return Info->Get(KindOfStream, StreamNumber, Parameter, KindOfInfo).c_str();
 }
@@ -420,7 +421,7 @@ String MediaInfo::Get(stream_t KindOfStream, size_t StreamNumber, size_t Paramet
 String MediaInfo::Get(stream_t KindOfStream, size_t StreamNumber, const String &Parameter, info_t KindOfInfo, info_t KindOfSearch)
 {
     if (!Info)
-        return Config.EmptyString_Get();
+        return MediaInfoLib::Config.EmptyString_Get();
 
     return Info->Get(KindOfStream, StreamNumber, Parameter, KindOfInfo, KindOfSearch).c_str();
 }
@@ -476,19 +477,20 @@ size_t MediaInfo::Output_Buffer_Get (size_t Pos)
 //---------------------------------------------------------------------------
 String MediaInfo::Option (const String &Option, const String &Value)
 {
+    Ztring OptionLower=Option; OptionLower.MakeLowerCase();
          if (Option.empty())
         return _T("");
-    else if (Option==_T("Language_Update"))
+    else if (OptionLower==_T("language_update"))
     {
         if (!Info || Info->Get(Stream_General, 0, _T("CompleteName"))==_T(""))
             return _T("");
 
         ZtringListList Language=Value.c_str();
-        Config.Language_Set(Language);
+        MediaInfoLib::Config.Language_Set(Language);
 
         return _T("");
     }
-    else if (Option==_T("Create_Dummy"))
+    else if (OptionLower==_T("create_dummy"))
     {
         CreateDummy (Value);
         if (Info && Info->Open_File(_T(""))>0)
@@ -499,7 +501,7 @@ String MediaInfo::Option (const String &Option, const String &Value)
             return _T("");
         }
     }
-    else if (Option==_T("Info_Capacities"))
+    else if (Option==_T("info_capacities"))
     {
         return _T("Option desactivated for this version, will come back soon!");
         /*
@@ -653,6 +655,10 @@ String MediaInfo::Option (const String &Option, const String &Value)
         return MediaInfo_Capacities_Final;
         */
     }
+    else if (OptionLower.find(_T("file_"))==0)
+    {
+        return Config.Option(Option, Value);
+    }
     else
         return Option_Static(Option, Value);
 }
@@ -660,7 +666,7 @@ String MediaInfo::Option (const String &Option, const String &Value)
 //---------------------------------------------------------------------------
 String MediaInfo::Option_Static (const String &Option, const String &Value)
 {
-    Config.Init(); //Initialize Configuration
+    MediaInfoLib::Config.Init(); //Initialize Configuration
 
          if (Option==_T("Info_Capacities"))
     {
@@ -670,14 +676,14 @@ String MediaInfo::Option_Static (const String &Option, const String &Value)
     }
     else if (Option==_T("Info_Version"))
     {
-        Ztring ToReturn=Config.Info_Version_Get();
+        Ztring ToReturn=MediaInfoLib::Config.Info_Version_Get();
         #if defined(MEDIAINFO_VIDEO_NO) || defined(MEDIAINFO_AUDIO_NO) || defined(MEDIAINFO_RIFF_NO) || defined(MEDIAINFO_OGG_NO) || defined(MEDIAINFO_MPEGPS_NO) || defined(MEDIAINFO_MPEGA_NO) || defined(MEDIAINFO_WM_NO) || defined(MEDIAINFO_QT_NO) || defined(MEDIAINFO_RM_NO) || defined(MEDIAINFO_DVDV_NO) || defined(MEDIAINFO_AAC_NO) || defined(MEDIAINFO_MK_NO) || defined(MEDIAINFO_APE_NO) || defined(MEDIAINFO_FLAC_NO) || defined(MEDIAINFO_SNDFILE_NO) || defined(MEDIAINFO_FLV_NO) || defined(MEDIAINFO_SWF_NO)
             ToReturn+=_T(" modified");
         #endif
         return ToReturn;
     }
     else
-        return Config.Option(Option, Value);
+        return MediaInfoLib::Config.Option(Option, Value);
 }
 
 //---------------------------------------------------------------------------

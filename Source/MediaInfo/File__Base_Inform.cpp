@@ -49,93 +49,93 @@ Ztring File__Base::Inform()
     #endif //MEDIAINFO_MINIMIZESIZE
 
     if (!(
-        Config.Inform_Get(_T("General")).empty()
-     && Config.Inform_Get(_T("Video")).empty()
-     && Config.Inform_Get(_T("Audio")).empty()
-     && Config.Inform_Get(_T("Text")).empty()
-     && Config.Inform_Get(_T("Chapters")).empty()
-     && Config.Inform_Get(_T("Image")).empty()
-     && Config.Inform_Get(_T("Menu")).empty()
+        MediaInfoLib::Config.Inform_Get(_T("General")).empty()
+     && MediaInfoLib::Config.Inform_Get(_T("Video")).empty()
+     && MediaInfoLib::Config.Inform_Get(_T("Audio")).empty()
+     && MediaInfoLib::Config.Inform_Get(_T("Text")).empty()
+     && MediaInfoLib::Config.Inform_Get(_T("Chapters")).empty()
+     && MediaInfoLib::Config.Inform_Get(_T("Image")).empty()
+     && MediaInfoLib::Config.Inform_Get(_T("Menu")).empty()
      ))
     {
         Ztring Retour;
-        Retour+=Config.Inform_Get(_T("File_Begin"));
-        Retour+=Config.Inform_Get(_T("General_Begin"));
+        Retour+=MediaInfoLib::Config.Inform_Get(_T("File_Begin"));
+        Retour+=MediaInfoLib::Config.Inform_Get(_T("General_Begin"));
         Retour+=Inform(Stream_General);
-        Retour+=Config.Inform_Get(_T("General_End"));
+        Retour+=MediaInfoLib::Config.Inform_Get(_T("General_End"));
         if (Video.size()>0)
-            Retour+=Config.Inform_Get(_T("Video_Begin"));
+            Retour+=MediaInfoLib::Config.Inform_Get(_T("Video_Begin"));
         for (size_t I1=0; I1<Video.size(); I1++)
         {
             Retour+=Inform(Stream_Video, I1);
             if (I1!=Video.size()-1)
-                Retour+=Config.Inform_Get(_T("Video_Middle"));
+                Retour+=MediaInfoLib::Config.Inform_Get(_T("Video_Middle"));
         }
         if (Video.size()>0)
-            Retour+=Config.Inform_Get(_T("Video_End"));
+            Retour+=MediaInfoLib::Config.Inform_Get(_T("Video_End"));
         if (Audio.size()>0)
-            Retour+=Config.Inform_Get(_T("Audio_Begin"));
+            Retour+=MediaInfoLib::Config.Inform_Get(_T("Audio_Begin"));
         for (size_t I1=0; I1<Audio.size(); I1++)
         {
             Retour+=Inform(Stream_Audio, I1);
             if (I1!=Audio.size()-1)
-                Retour+=Config.Inform_Get(_T("Audio_Middle"));
+                Retour+=MediaInfoLib::Config.Inform_Get(_T("Audio_Middle"));
         }
         if (Audio.size()>0)
-            Retour+=Config.Inform_Get(_T("Audio_End"));
+            Retour+=MediaInfoLib::Config.Inform_Get(_T("Audio_End"));
         if (Text.size()>0)
-            Retour+=Config.Inform_Get(_T("Text_Begin"));
+            Retour+=MediaInfoLib::Config.Inform_Get(_T("Text_Begin"));
         for (size_t I1=0; I1<Text.size(); I1++)
         {
             Retour+=Inform(Stream_Text, I1);
             if (I1!=Text.size()-1)
-                Retour+=Config.Inform_Get(_T("Text_Middle"));
+                Retour+=MediaInfoLib::Config.Inform_Get(_T("Text_Middle"));
         }
         if (Text.size()>0)
-            Retour+=Config.Inform_Get(_T("Text_End"));
+            Retour+=MediaInfoLib::Config.Inform_Get(_T("Text_End"));
         if (Chapters.size()>0)
-            Retour+=Config.Inform_Get(_T("Chapters_Begin"));
+            Retour+=MediaInfoLib::Config.Inform_Get(_T("Chapters_Begin"));
         for (size_t I1=0; I1<Chapters.size(); I1++)
         {
             Retour+=Inform(Stream_Chapters, I1);
             if (I1!=Chapters.size()-1)
-                Retour+=Config.Inform_Get(_T("Chapters_Middle"));
+                Retour+=MediaInfoLib::Config.Inform_Get(_T("Chapters_Middle"));
         }
         if (Chapters.size()>0)
-            Retour+=Config.Inform_Get(_T("Chapters_End"));
+            Retour+=MediaInfoLib::Config.Inform_Get(_T("Chapters_End"));
         if (Image.size()>0)
-            Retour+=Config.Inform_Get(_T("Image_Begin"));
+            Retour+=MediaInfoLib::Config.Inform_Get(_T("Image_Begin"));
         for (size_t I1=0; I1<Image.size(); I1++)
         {
             Retour+=Inform(Stream_Image, I1);
             if (I1!=Image.size()-1)
-                Retour+=Config.Inform_Get(_T("Image_Middle"));
+                Retour+=MediaInfoLib::Config.Inform_Get(_T("Image_Middle"));
         }
         if (Image.size()>0)
-            Retour+=Config.Inform_Get(_T("Image_End"));
+            Retour+=MediaInfoLib::Config.Inform_Get(_T("Image_End"));
         if (Menu.size()>0)
-            Retour+=Config.Inform_Get(_T("Menu_Begin"));
+            Retour+=MediaInfoLib::Config.Inform_Get(_T("Menu_Begin"));
         for (size_t I1=0; I1<Menu.size(); I1++)
         {
             Retour+=Inform(Stream_Menu, I1);
             if (I1!=Menu.size()-1)
-                Retour+=Config.Inform_Get(_T("Menu_Middle"));
+                Retour+=MediaInfoLib::Config.Inform_Get(_T("Menu_Middle"));
         }
         if (Menu.size()>0)
-            Retour+=Config.Inform_Get(_T("Menu_End"));
-        Retour+=Config.Inform_Get(_T("File_End"));
+            Retour+=MediaInfoLib::Config.Inform_Get(_T("Menu_End"));
+        Retour+=MediaInfoLib::Config.Inform_Get(_T("File_End"));
 
         Retour.FindAndReplace(_T("\\r\\n"), _T("\\n"), 0, Ztring_Recursive);
-        Retour.FindAndReplace(_T("\\n"), Config.LineSeparator_Get(), 0, Ztring_Recursive);
-        //Retour.FindAndReplace(_T("\\n"), Config.LineSeparator_Get(), 0, Ztring_Recursive);
-        //Retour.FindAndReplace(_T("\\r"), Config.LineSeparator_Get(), 0, Ztring_Recursive);
+        Retour.FindAndReplace(_T("\\n"), MediaInfoLib::Config.LineSeparator_Get(), 0, Ztring_Recursive);
+        //Retour.FindAndReplace(_T("\\n"), MediaInfoLib::Config.LineSeparator_Get(), 0, Ztring_Recursive);
+        //Retour.FindAndReplace(_T("\\r"), MediaInfoLib::Config.LineSeparator_Get(), 0, Ztring_Recursive);
         return Retour;
     }
 
     //Informations
     Ztring Retour;
     bool HTML=false;
-    if (Config.Inform_Get()==_T("HTML"))
+    if (MediaInfoLib::Config.Inform_Get()==_T("HTML"))
         HTML=true;
 
     if (HTML) Retour+=_T("<html>\n\n<head>\n<META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>\n<body>\n");
@@ -156,10 +156,10 @@ Ztring File__Base::Inform()
             }
             Retour+=A;
             if (HTML) Retour+=_T("</td>\n  </tr>");
-            Retour+=Config.LineSeparator_Get();
+            Retour+=MediaInfoLib::Config.LineSeparator_Get();
             Retour+=Inform((stream_t)StreamKind, StreamPos);
             if (HTML) Retour+=_T("</table>\n<br />");
-            Retour+=Config.LineSeparator_Get();
+            Retour+=MediaInfoLib::Config.LineSeparator_Get();
         }
     }
 
@@ -173,24 +173,24 @@ Ztring File__Base::Inform (stream_t StreamKind, size_t StreamPos)
     if (StreamKind>=Stream_Max || StreamPos>=Stream[StreamKind]->size())
         return _T("");
 
-    if (Config.Inform_Get(_T("General")).empty()
-     && Config.Inform_Get(_T("Video")).empty()
-     && Config.Inform_Get(_T("Audio")).empty()
-     && Config.Inform_Get(_T("Text")).empty()
-     && Config.Inform_Get(_T("Chapters")).empty()
-     && Config.Inform_Get(_T("Image")).empty()
-     && Config.Inform_Get(_T("Menu")).empty())
+    if (MediaInfoLib::Config.Inform_Get(_T("General")).empty()
+     && MediaInfoLib::Config.Inform_Get(_T("Video")).empty()
+     && MediaInfoLib::Config.Inform_Get(_T("Audio")).empty()
+     && MediaInfoLib::Config.Inform_Get(_T("Text")).empty()
+     && MediaInfoLib::Config.Inform_Get(_T("Chapters")).empty()
+     && MediaInfoLib::Config.Inform_Get(_T("Image")).empty()
+     && MediaInfoLib::Config.Inform_Get(_T("Menu")).empty())
     {
         Ztring Retour;
         bool HTML=false;
-        if (Config.Inform_Get()==_T("HTML"))
+        if (MediaInfoLib::Config.Inform_Get()==_T("HTML"))
             HTML=true;
         for (size_t Champ_Pos=0; Champ_Pos<(size_t)Count_Get((stream_t)StreamKind, StreamPos); Champ_Pos++)
         {
             //Pour chaque champ
             //Ztring A=Get((stream_t)4, 2, 0, Info_Measure_Text); // TODO Bug sinon? voir Ztring
             Ztring A=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Measure_Text); // TODO Bug sinon? voir Ztring
-            if ((Config.Complete_Get() || Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text)!=_T(""))
+            if ((MediaInfoLib::Config.Complete_Get() || Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text)!=_T(""))
             {
                 Ztring Nom=Get((stream_t)StreamKind, 0, Champ_Pos, Info_Name_Text);
                 if (Nom==_T(""))
@@ -207,14 +207,14 @@ Ztring File__Base::Inform (stream_t StreamKind, size_t StreamPos)
                 }
                 else
                     Retour+=Nom + _T(" : ") + Valeur;
-                Retour+=Config.LineSeparator_Get();
+                Retour+=MediaInfoLib::Config.LineSeparator_Get();
             }
         }
 
         return Retour;
     }
 
-    Ztring Retour=Config.Inform_Get(Get(StreamKind, 0, _T("StreamKind"), Info_Measure));
+    Ztring Retour=MediaInfoLib::Config.Inform_Get(Get(StreamKind, 0, _T("StreamKind"), Info_Measure));
     ZtringListList Info;
 
      if (StreamKind==Stream_General)
@@ -251,7 +251,7 @@ Ztring File__Base::Inform (stream_t StreamKind, size_t StreamPos)
         if (Retour.size()>PosX+2 && !(Retour(PosX+1)==_T('i') && Retour(PosX+2)==_T('f') && Retour(PosX+3)==_T('('))) //To keep out "%" without any signification, or "$if(..."
         {
             Ztring ARemplacer=Ztring(_T("$")+Retour.SubString(_T("$"), _T("$"), PosX))+_T("$");
-            Ztring RemplacerPar=Config.Language_Get(Retour.SubString(_T("$"), _T("$"), PosX)); //TODO : case sensitive
+            Ztring RemplacerPar=MediaInfoLib::Config.Language_Get(Retour.SubString(_T("$"), _T("$"), PosX)); //TODO : case sensitive
             Retour.FindAndReplace(ARemplacer, RemplacerPar);
         }
         else
@@ -334,7 +334,7 @@ Ztring File__Base::Inform (stream_t StreamKind, size_t StreamPos)
     Retour.FindAndReplace(_T("|SC7|"), _T(")"), 0, Ztring_Recursive);
     Retour.FindAndReplace(_T("|SC8|"), _T(")"), 0, Ztring_Recursive);
     Retour.FindAndReplace(_T("|SC9|"), _T("),"), 0, Ztring_Recursive);
-    Retour.FindAndReplace(_T("\\r\\n"), Config.LineSeparator_Get(), 0, Ztring_Recursive);
+    Retour.FindAndReplace(_T("\\r\\n"), MediaInfoLib::Config.LineSeparator_Get(), 0, Ztring_Recursive);
 
     //Retour=_T("<table width=\"100%\" border=\"0\" cellpadding=\"1\" cellspacing=\"2\" style=\"border:1px solid Navy\">\n<tr>\n    <td width=\"150\">Video #0</td>\n  </tr>\r\n  <tr>\n    <td><i>Codec :</i></td>\n    <td colspan=\"3\">WMV1</td>\n  </tr>\r\n  <tr>\n    <td><i>Codec/Info :</i></td>\n    <td colspan=\"3\">Windows Media Video 7</td>\n  </tr>\r\n  <tr>\n    <td><i>Width :</i></td>\n    <td colspan=\"3\">200 pixels</td>\n  </tr>\r\n  <tr>\n    <td><i>Height :</i></td>\n    <td colspan=\"3\">150 pixels</td>\n  </tr>\r\n  <tr>\n    <td><i>Aspect ratio :</i></td>\n    <td colspan=\"3\">4/3</td>\n  </tr>\r\n  <tr>\n    <td><i>Resolution :</i></td>\n    <td colspan=\"3\">24 bits</td>\n  </tr>\r\n</table>\n");
     return Retour;

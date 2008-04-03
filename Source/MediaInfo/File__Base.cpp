@@ -26,6 +26,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Base.h"
+#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #include <ZenLib/File.h>
 #include <cstring>
 //---------------------------------------------------------------------------
@@ -67,6 +68,9 @@ File__Base::File__Base ()
     //Debug
     Synched=false;
     Trusted=Error;
+
+    //Config
+    Config=NULL;
 }
 
 //---------------------------------------------------------------------------
@@ -103,10 +107,10 @@ const Ztring &File__Base::Get (stream_t StreamKind, size_t StreamNumber, size_t 
 {
     //Check integrity
     if (StreamKind>=Stream_Max || StreamNumber>=(*Stream[StreamKind]).size() || Parameter>=(*Stream[StreamKind])[StreamNumber].size() || KindOfInfo>=Info_Max)
-        return Config.EmptyString_Get(); //Parameter is unknown
+        return MediaInfoLib::Config.EmptyString_Get(); //Parameter is unknown
 
     //OK for Optimization?
-    if (Optimized[StreamKind][StreamNumber] && (*Stream[StreamKind])[StreamNumber].size()-Config.Info_Get(StreamKind).size()!=0)
+    if (Optimized[StreamKind][StreamNumber] && (*Stream[StreamKind])[StreamNumber].size()-MediaInfoLib::Config.Info_Get(StreamKind).size()!=0)
     {
         //Can't be optimized
         /*TEST
@@ -115,12 +119,12 @@ const Ztring &File__Base::Get (stream_t StreamKind, size_t StreamNumber, size_t 
         */
         for (size_t Pos=0; Pos<(*Stream[StreamKind])[StreamNumber].size(); Pos++)
         {
-            size_t Pos_Info=Config.Info_Get(StreamKind).Find((*Stream[StreamKind])[StreamNumber][Pos][0]);
+            size_t Pos_Info=MediaInfoLib::Config.Info_Get(StreamKind).Find((*Stream[StreamKind])[StreamNumber][Pos][0]);
             if (Pos_Info!=Error)
-                for (size_t Pos1=Config.Info_Get(StreamKind)[Pos_Info].size()-1; Pos1>=Info_Measure; Pos1--) //-- for optimization of ZtringList
+                for (size_t Pos1=MediaInfoLib::Config.Info_Get(StreamKind)[Pos_Info].size()-1; Pos1>=Info_Measure; Pos1--) //-- for optimization of ZtringList
                 {
                     /*TEST if (Pos1!=Info_Options)  */
-                         (*Stream[StreamKind])[StreamNumber][Pos](Pos1)=Config.Info_Get(StreamKind)[Pos_Info][Pos1];
+                         (*Stream[StreamKind])[StreamNumber][Pos](Pos1)=MediaInfoLib::Config.Info_Get(StreamKind)[Pos_Info][Pos1];
                 }
         }
         /*TEST
@@ -143,8 +147,8 @@ const Ztring &File__Base::Get (stream_t StreamKind, size_t StreamNumber, size_t 
         (*Stream[StreamKind])[StreamNumber](Parameter, Info_Options)=_T("Y YT");
 
     //Optimization : KindOfInfo>Info_Text is in static lists
-    if (KindOfInfo!=Info_HowTo && Optimized[StreamKind][StreamNumber] && KindOfInfo>=Info_Measure && (size_t)KindOfInfo<Config.Info_Get(StreamKind)[Parameter].size())
-        return Config.Info_Get(StreamKind)[Parameter][KindOfInfo]; //look for static information only
+    if (KindOfInfo!=Info_HowTo && Optimized[StreamKind][StreamNumber] && KindOfInfo>=Info_Measure && (size_t)KindOfInfo<MediaInfoLib::Config.Info_Get(StreamKind)[Parameter].size())
+        return MediaInfoLib::Config.Info_Get(StreamKind)[Parameter][KindOfInfo]; //look for static information only
     else
         return (*Stream[StreamKind])[StreamNumber][Parameter](KindOfInfo);
 }
@@ -172,7 +176,7 @@ const Ztring &File__Base::Get (stream_t StreamKind, size_t StreamNumber, const Z
 
     //Check integrity
     if (StreamKind>=Stream_Max || StreamNumber>=(*Stream[StreamKind]).size() || (ParameterI=(*Stream[StreamKind])[StreamNumber].Find(Parameter, KindOfSearch))==Error || KindOfInfo>=Info_Max)
-        return Config.EmptyString_Get(); //Parameter is unknown
+        return MediaInfoLib::Config.EmptyString_Get(); //Parameter is unknown
 
     //Special cases
     //-Inform for a stream
@@ -217,8 +221,8 @@ ZtringListList File__Base::Info_Capacities()
     {
         HowTo((stream_t)StreamKind);
         ToReturn_Pos=0;
-        for (size_t Pos=0; Pos<Config.Info_Get((stream_t)StreamKind).size(); Pos++)
-            if (Pos<Config.Info_Get((stream_t)StreamKind).size() && ((size_t)Info_Options)<Config.Info_Get((stream_t)StreamKind)[Pos].size() && Config.Info_Get((stream_t)StreamKind)[Pos][Info_Options][InfoOption_ShowInSupported]==_T('Y'))
+        for (size_t Pos=0; Pos<MediaInfoLib::Config.Info_Get((stream_t)StreamKind).size(); Pos++)
+            if (Pos<MediaInfoLib::Config.Info_Get((stream_t)StreamKind).size() && ((size_t)Info_Options)<MediaInfoLib::Config.Info_Get((stream_t)StreamKind)[Pos].size() && MediaInfoLib::Config.Info_Get((stream_t)StreamKind)[Pos][Info_Options][InfoOption_ShowInSupported]==_T('Y'))
             {
                 ToReturn(StreamKind, ToReturn_Pos)=Get((stream_t)StreamKind, 0, Pos, Info_HowTo);
                 ToReturn_Pos++;
@@ -237,10 +241,10 @@ ZtringListList File__Base::Info_Capacities_Parameters()
     for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
     {
         ToReturn_Pos=0;
-        for (size_t Pos=0; Pos<Config.Info_Get((stream_t)StreamKind).size(); Pos++)
-            if (Pos<Config.Info_Get((stream_t)StreamKind).size() && ((size_t)Info_Options)<Config.Info_Get((stream_t)StreamKind)[Pos].size() && Config.Info_Get((stream_t)StreamKind)[Pos][Info_Options][InfoOption_ShowInSupported]==_T('Y'))
+        for (size_t Pos=0; Pos<MediaInfoLib::Config.Info_Get((stream_t)StreamKind).size(); Pos++)
+            if (Pos<MediaInfoLib::Config.Info_Get((stream_t)StreamKind).size() && ((size_t)Info_Options)<MediaInfoLib::Config.Info_Get((stream_t)StreamKind)[Pos].size() && MediaInfoLib::Config.Info_Get((stream_t)StreamKind)[Pos][Info_Options][InfoOption_ShowInSupported]==_T('Y'))
             {
-                ToReturn(StreamKind, ToReturn_Pos)=Config.Info_Get((stream_t)StreamKind)[Pos][Info_Name];
+                ToReturn(StreamKind, ToReturn_Pos)=MediaInfoLib::Config.Info_Get((stream_t)StreamKind)[Pos][Info_Name];
                 ToReturn_Pos++;
             }
     }
@@ -253,18 +257,18 @@ void File__Base::Language_Set()
 {
 /*
     for (size_t StreamKind=(size_t)Stream_General; StreamKind<(size_t)Stream_Max; StreamKind++)//Note : Optimisation, only the first Stream is, so StreamNumber is only 0
-        for (size_t Pos=0; Pos<Config.Info[StreamKind].size(); Pos++)
+        for (size_t Pos=0; Pos<MediaInfoLib::Config.Info[StreamKind].size(); Pos++)
         {
              //Info_Name_Text
-             const Ztring &Z1=Config.Language_Get(Config.Info_Get((stream_t)StreamKind, Pos, Info_Name));
+             const Ztring &Z1=MediaInfoLib::Config.Language_Get(MediaInfoLib::Config.Info_Get((stream_t)StreamKind, Pos, Info_Name));
              if (Z1.empty())
-                Set((stream_t)StreamKind, 0, Pos, Info_Name_Text, Config.Info_Get((stream_t) StreamKind, Pos, Info_Name));
+                Set((stream_t)StreamKind, 0, Pos, Info_Name_Text, MediaInfoLib::Config.Info_Get((stream_t) StreamKind, Pos, Info_Name));
              else
                 Set((stream_t)StreamKind, 0, Pos, Info_Name_Text, Z1);
              //Info_Measure_Text
-             const Ztring Z2=Config.Language_Get(Config.Info_Get((stream_t)StreamKind, Pos, Info_Measure));
+             const Ztring Z2=MediaInfoLib::Config.Language_Get(MediaInfoLib::Config.Info_Get((stream_t)StreamKind, Pos, Info_Measure));
              if (Z2.empty())
-                Set((stream_t)StreamKind, 0, Pos, Info_Measure_Text, Config.Info_Get((stream_t)StreamKind, Pos, Info_Measure);
+                Set((stream_t)StreamKind, 0, Pos, Info_Measure_Text, MediaInfoLib::Config.Info_Get((stream_t)StreamKind, Pos, Info_Measure);
              else
                 Set((stream_t)StreamKind, 0, Pos, Info_Measure_Text, Z2);
         }
@@ -277,7 +281,7 @@ void File__Base::Language_Set()
 
 void File__Base::Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName, bool)
 {
-    if (!Config.Demux_Get())
+    if (!MediaInfoLib::Config.Demux_Get())
         return;
 
     if (File_Name.empty())

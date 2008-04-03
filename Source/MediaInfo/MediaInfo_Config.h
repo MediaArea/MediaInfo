@@ -50,7 +50,7 @@ public :
     void Init(); //Must be called instead of constructor
 
     //General
-    Ztring Option (const Ztring &Option, const Ztring &Value=_T(""));
+    Ztring Option (const String &Option, const String &Value=_T(""));
 
     //Info
           void      Complete_Set (size_t NewValue);

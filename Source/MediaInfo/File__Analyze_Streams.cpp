@@ -65,14 +65,14 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
 
     //Fill the stream
     ZtringListList* ZLL=&(*Stream[KindOfStream])[Stream[KindOfStream]->size()-1];
-    ZLL->reserve(Config.Info_Get(KindOfStream).size());
-    for (size_t Pos=0; Pos<Config.Info_Get(KindOfStream).size(); Pos++)
+    ZLL->reserve(MediaInfoLib::Config.Info_Get(KindOfStream).size());
+    for (size_t Pos=0; Pos<MediaInfoLib::Config.Info_Get(KindOfStream).size(); Pos++)
     {
-        (*ZLL)(Pos, Info_Name)      =Config.Info_Get(KindOfStream)[Pos][Info_Name];
-        /*TEST (*ZLL)(Pos, Info_Options)   =Config.Info_Get(KindOfStream)(Pos, Info_Options);*/
+        (*ZLL)(Pos, Info_Name)      =MediaInfoLib::Config.Info_Get(KindOfStream)[Pos][Info_Name];
+        /*TEST (*ZLL)(Pos, Info_Options)   =MediaInfoLib::Config.Info_Get(KindOfStream)(Pos, Info_Options);*/
         //Note: if you add a stream here, don't forget to put an exception in ::Get()
     }
-    ZLL->Write(Config.Language_Get(Config.Info_Get(KindOfStream, 2, Info_Text)), 2, Info_Text);
+    ZLL->Write(MediaInfoLib::Config.Language_Get(MediaInfoLib::Config.Info_Get(KindOfStream, 2, Info_Text)), 2, Info_Text);
 
     //Special cases
     if (KindOfStream==Stream_General)
@@ -123,7 +123,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, const char* Par
         Target.clear(); //Empty value --> clear other values
     else
     {
-        Target+=Config.TagSeparator_Get();
+        Target+=MediaInfoLib::Config.TagSeparator_Get();
         Target+=Value;
     }
 }

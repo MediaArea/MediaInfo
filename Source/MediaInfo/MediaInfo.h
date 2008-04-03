@@ -29,6 +29,7 @@
 
 //---------------------------------------------------------------------------
 #include <MediaInfo/MediaInfo_Const.h>
+#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -259,6 +260,9 @@ private :
 
     //Open Buffer
     bool MultipleParsing_IsDetected;
+
+    //Config
+    MediaInfo_Config_MediaInfo Config;
 };
 
 } //NameSpace

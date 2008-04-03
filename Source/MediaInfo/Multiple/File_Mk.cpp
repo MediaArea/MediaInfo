@@ -1829,7 +1829,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
         //Creating the parser
              if (0);
         #if defined(MEDIAINFO_MPEG4V_YES)
-        else if (Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("MPEG-4V"))==0)
+        else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("MPEG-4V"))==0)
         {
             Stream[TrackNumber].Parser=new File_Mpeg4v;
             ((File_Mpeg4v*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
@@ -1837,7 +1837,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
         }
         #endif
         #if defined(MEDIAINFO_AVC_YES)
-        else if (Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("AVC"))==0)
+        else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("AVC"))==0)
         {
             Stream[TrackNumber].Parser=new File_Avc;
             ((File_Avc*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
@@ -2421,7 +2421,7 @@ void File_Mk::CodecID_Fill()
         Fill("Codec", CodecID);
 
     //Creating the parser
-    Ztring CodecFamily=Config.Codec_Get(CodecID, InfoCodec_KindofCodec);
+    Ztring CodecFamily=MediaInfoLib::Config.Codec_Get(CodecID, InfoCodec_KindofCodec);
          if (0);
     #if defined(MEDIAINFO_MPEG4V_YES)
     else if (CodecFamily==_T("MPEG-4V"))

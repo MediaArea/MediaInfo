@@ -31,6 +31,7 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Duplicate.h"
 #include "MediaInfo/MediaInfo_Config.h"
+#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #include <ZenLib/ZtringList.h>
 #include <ZenLib/File.h>
 using namespace ZenLib;
@@ -145,9 +146,9 @@ bool File__Duplicate::File__Duplicate_Get_From_PID (int16u PID)
 bool File__Duplicate::File__Duplicate_HasChanged ()
 {
     //Retrieving general configuration
-    while (Config.File_Duplicate_Get_AlwaysNeeded(Config_File_Duplicate_Get_AlwaysNeeded_Count))
+    while (Config->File_Duplicate_Get_AlwaysNeeded(Config_File_Duplicate_Get_AlwaysNeeded_Count))
     {
-        File__Duplicate_Set(Config.File_Duplicate_Get(Config_File_Duplicate_Get_AlwaysNeeded_Count));
+        File__Duplicate_Set(Config->File_Duplicate_Get(Config_File_Duplicate_Get_AlwaysNeeded_Count));
         File__Duplicate_HasChanged_=true;
         Config_File_Duplicate_Get_AlwaysNeeded_Count++;
     }
