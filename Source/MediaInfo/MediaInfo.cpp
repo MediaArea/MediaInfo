@@ -140,6 +140,7 @@ int MediaInfo::Format_Test()
     //Integrity
     if (Info==NULL)
         return 0;
+    Info->Config=&Config;
 
     //Test the format with filename
     if (Info->Open_File(File_Name)>0)
@@ -322,7 +323,15 @@ size_t MediaInfo::Open (const int8u* Begin_, size_t Begin_Size_, const int8u*, s
 size_t MediaInfo::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
 {
     if (Info==NULL)
-        Info=new File__MultipleParsing;
+    {
+        if (!Config.File_ForceParser_Get().empty())
+        {
+            SelectFromExtension(Config.File_ForceParser_Get());
+            MultipleParsing_IsDetected=true;
+        }
+        else
+            Info=new File__MultipleParsing;
+    }
     Info->Open_Buffer_Init(File_Size_, File_Offset_);
     Info->Config=&Config;
 
