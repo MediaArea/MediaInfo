@@ -17,6 +17,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/File_Unknown.cpp \
                        ../../../Source/MediaInfo/MediaInfo.cpp \
                        ../../../Source/MediaInfo/MediaInfo_Config.cpp \
+                       ../../../Source/MediaInfo/MediaInfo_Config_MediaInfo.cpp \
                        ../../../Source/MediaInfo/MediaInfo_File.cpp \
                        ../../../Source/MediaInfo/MediaInfoList.cpp \
                        ../../../Source/MediaInfo/MediaInfoList_Internal.cpp \

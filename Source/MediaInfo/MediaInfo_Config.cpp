@@ -60,7 +60,7 @@ void File__Base_Image              (ZtringListList &Info);
 void File__Base_Menu               (ZtringListList &Info);
 void File__Base_Summary            (ZtringListList &Info);
 void File__Base_Format             (InfoMap &Info);
-void File__Base_Encoder            (ZtringListList &Info);
+void File__Base_Encoder            (InfoMap &Info);
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -93,7 +93,6 @@ void MediaInfo_Config::Init()
     ParseSpeed=(float32)0.01;
     Details=0;
     Demux=0;
-    FileIsSeekable=1;
     LineSeparator=_T("\r\n");
     ColumnSeparator=_T(";");
     TagSeparator=_T(" / ");
@@ -111,8 +110,6 @@ void MediaInfo_Config::Init()
 
     File__Base_Format(Format);
     File__Base_Codec(Codec);
-    File__Base_Encoder(Encoder);
-    File__Base_Iso639(Iso639);
     File__Base_General(Info[Stream_General]);
     File__Base_Video(Info[Stream_Video]);
     File__Base_Audio(Info[Stream_Audio]);
@@ -319,36 +316,6 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value)
     else if (Option_Lower==_T("inform_get"))
     {
         return Inform_Get();
-    }
-    else if (Option_Lower==_T("file_filter"))
-    {
-        File_Filter_Set(Ztring(Value).To_int64u());
-        return _T("");
-    }
-    else if (Option_Lower==_T("file_filter_get"))
-    {
-        return Ztring();//.From_Number(File_Filter_Get());
-    }
-    else if (Option_Lower==_T("file_duplicate"))
-    {
-        File_Duplicate_Set(Value);
-        return _T("");
-    }
-    else if (Option_Lower==_T("file_duplicate_get"))
-    {
-        //if (File_Duplicate_Get())
-            return _T("1");
-        //else
-        //    return _T("");
-    }
-    else if (Option_Lower==_T("file_isseekable"))
-    {
-        File_IsSeekable_Set(!(Value==_T("0") || Value.empty()));
-        return _T("");
-    }
-    else if (Option_Lower==_T("file_isseekable_get"))
-    {
-        return File_IsSeekable_Get()?"1":"0";
     }
     else if (Option_Lower==_T("info_parameters"))
     {
@@ -986,12 +953,15 @@ const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t Kind
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo) const
+const Ztring &MediaInfo_Config::Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo)
 {
-    size_t Pos=Encoder.Find(Value, 0, 0, _T("IN"), Ztring_CaseSensitive);
-    if (Pos==Error || (size_t)KindOfEncoderInfo>=Encoder[Pos].size())
-        return EmptyString_Get();
-    return Encoder[Pos][KindOfEncoderInfo];
+    //TODO size_t Pos=Encoder.Find(Value, 0, 0, _T("IN"), Ztring_CaseSensitive);
+    //if (Pos==Error || (size_t)KindOfEncoderInfo>=Encoder[Pos].size())
+    //    return EmptyString_Get();
+    //return Encoder[Pos][KindOfEncoderInfo];
+    if (Encoder.empty())
+        File__Base_Encoder(Encoder);
+    return Encoder.Get(Value, KindOfEncoderInfo);
 }
 
 //---------------------------------------------------------------------------
@@ -1001,6 +971,8 @@ const Ztring &MediaInfo_Config::Iso639_Get (const Ztring &Value)
     //if (Pos==Error || 1>=Iso639.size())
     //    return EmptyString_Get();
     //return Iso639[Pos][1];
+    if (Iso639.empty())
+        File__Base_Iso639(Iso639);
     return Iso639.Get(Value, 1);
 }
 
@@ -1080,92 +1052,6 @@ Ztring &MediaInfo_Config::EmptyString_Get ()
 const Ztring &MediaInfo_Config::EmptyString_Get () const
 {
     return EmptyZtring_Const;
-}
-
-//---------------------------------------------------------------------------
-void MediaInfo_Config::File_Filter_Set (int64u NewValue)
-{
-    Enter(true);
-    File_Filter_16[(int16u)NewValue]=true;
-    File_Filter_HasChanged_=true;
-    Leave();
-}
-
-bool MediaInfo_Config::File_Filter_Get (const int16u Value)
-{
-    Enter();
-    //Test
-    bool Exists;
-    if (File_Filter_16.empty())
-        Exists=true;
-    else
-        Exists=(File_Filter_16.find(Value)!=File_Filter_16.end());
-    Leave();
-    return Exists;
-}
-
-bool MediaInfo_Config::File_Filter_Get ()
-{
-    Enter();
-    bool Exist=!File_Filter_16.empty();
-    Leave();
-    return Exist;
-}
-
-bool MediaInfo_Config::File_Filter_HasChanged ()
-{
-    Enter();
-    bool File_Filter_HasChanged_Temp=File_Filter_HasChanged_;
-    File_Filter_HasChanged_=false;
-    Leave();
-    return File_Filter_HasChanged_Temp;
-}
-
-//---------------------------------------------------------------------------
-void MediaInfo_Config::File_Duplicate_Set (const Ztring &Value)
-{
-    //Preparing for File__Duplicate...
-    Enter(true);
-    File__Duplicate_List.push_back(Value);
-    File_IsSeekable_Set(false); //If duplicateion, we can not seek anymore
-    Leave();
-}
-
-Ztring MediaInfo_Config::File_Duplicate_Get (size_t AlreadyRead_Pos)
-{
-    Enter();
-    if (AlreadyRead_Pos>=File__Duplicate_List.size())
-        return Ztring(); //Nothing or not more than the last time
-    Ztring Temp=File__Duplicate_List[AlreadyRead_Pos];
-    Leave();
-    return Temp;
-}
-
-bool MediaInfo_Config::File_Duplicate_Get_AlwaysNeeded (size_t AlreadyRead_Pos)
-{
-    Enter();
-    bool Temp=AlreadyRead_Pos>=File__Duplicate_List.size();
-    Leave();
-    return !Temp; //True if there is something to read
-}
-
-//***************************************************************************
-// File Is Seekable
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void MediaInfo_Config::File_IsSeekable_Set (bool NewValue)
-{
-    Enter(true);
-    FileIsSeekable=NewValue;
-    Leave();
-}
-
-bool MediaInfo_Config::File_IsSeekable_Get ()
-{
-    Enter();
-    Leave();
-    return FileIsSeekable;
 }
 
 //***************************************************************************

@@ -1,4 +1,4 @@
-// Helpers - Automaticly generated methods for MediaInfo
+﻿// Helpers - Automaticly generated methods for MediaInfo
 // Copyright (C) 2005-2007 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software; you can redistribute it and/or
@@ -2807,7 +2807,7 @@ void File__Base_Iso639 (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Encoder (ZtringListList &Info)
+void File__Base_Encoder (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_Local(

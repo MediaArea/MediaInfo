@@ -72,6 +72,8 @@ ZenLib::Ztring Ressources_Create_Item(const Ztring &Directory, const Ztring &Nam
         Partial.FindAndReplace(L"%Class%", L"Translation");
     else if (Name==_T("Iso639"))
         Partial.FindAndReplace(L"%Class%", L"InfoMap");
+    else if (Name==_T("Encoder"))
+        Partial.FindAndReplace(L"%Class%", L"InfoMap");
     else if (Name==_T("Format"))
         Partial.FindAndReplace(L"%Class%", L"InfoMap");
     else

@@ -120,7 +120,7 @@ public :
     const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo=InfoCodec_Name);
     const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream);
 
-    const Ztring   &Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo=InfoEncoder_LongName) const;
+    const Ztring   &Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo=InfoEncoder_LongName);
 
     const Ztring   &Iso639_Get (const Ztring &Value);
 
@@ -136,18 +136,6 @@ public :
 
           Ztring   &EmptyString_Get(); //Use it when we can't return a reference to a true string
     const Ztring   &EmptyString_Get() const; //Use it when we can't return a reference to a true string
-
-          void      File_Filter_Set     (int64u NewValue);
-          bool      File_Filter_Get     (const int16u  Value);
-          bool      File_Filter_Get     ();
-          bool      File_Filter_HasChanged();
-
-          void      File_Duplicate_Set  (const Ztring &Value);
-          Ztring    File_Duplicate_Get  (size_t AlreadyRead_Pos); //Requester must say how many Get() it already read
-          bool      File_Duplicate_Get_AlwaysNeeded (size_t AlreadyRead_Pos); //Requester must say how many Get() it already read
-
-          void      File_IsSeekable_Set (bool NewValue);
-          bool      File_IsSeekable_Get ();
 
 private :
     void Enter (bool Set=false);
@@ -166,7 +154,6 @@ private :
     float32         ParseSpeed;
     float           Details;
     int8u           Demux;
-    bool            FileIsSeekable;
     Ztring          ColumnSeparator;
     Ztring          LineSeparator;
     Ztring          TagSeparator;
@@ -179,15 +166,9 @@ private :
 
     InfoMap         Format;
     InfoMap         Codec;
-    ZtringListList  Encoder;
+    InfoMap         Encoder;
     InfoMap         Iso639;
     ZtringListList  Info[Stream_Max]; //General info
-
-    //Extra
-    std::map<int16u, bool> File_Filter_16;
-    bool                   File_Filter_HasChanged_;
-
-    std::vector<Ztring>    File__Duplicate_List;
 };
 
 extern MediaInfo_Config Config;
