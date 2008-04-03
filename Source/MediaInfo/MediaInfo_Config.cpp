@@ -293,7 +293,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value)
     }
     else if (Option_Lower==_T("streammax"))
     {
-        ZtringListList StreamMax=Value;
+        ZtringListList StreamMax=Value.c_str();
         StreamMax_Set(StreamMax);
         return _T("");
     }
@@ -303,7 +303,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value)
     }
     else if (Option_Lower==_T("language"))
     {
-        ZtringListList Language=Value;
+        ZtringListList Language=Value.c_str();
         Language_Set(Language);
         return _T("");
     }
