@@ -55,7 +55,7 @@ ZenLib::Ztring Ressources_Create_Save(Ztring FileName, Ztring &Contents)
 
 //---------------------------------------------------------------------------
 // Open an item
-ZenLib::Ztring Ressources_Create_Item(const Ztring &Directory, const Ztring &Name, Ztring &Contents)
+ZenLib::Ztring Ressources_Create_Item(const Ztring &Directory, const Ztring &Name, const Ztring &Class, Ztring &Contents)
 {
     Contents.clear();
     Ztring Result;
@@ -66,18 +66,7 @@ ZenLib::Ztring Ressources_Create_Item(const Ztring &Directory, const Ztring &Nam
     if (!Result.empty())
         return Result;
     Partial.FindAndReplace(L"%Name%", Ztring(L"File__Base_")+Name);
-    if (Name==_T("Codec"))
-        Partial.FindAndReplace(L"%Class%", L"InfoMap");
-    else if (Name==_T("DefaultLanguage"))
-        Partial.FindAndReplace(L"%Class%", L"Translation");
-    else if (Name==_T("Iso639"))
-        Partial.FindAndReplace(L"%Class%", L"InfoMap");
-    else if (Name==_T("Encoder"))
-        Partial.FindAndReplace(L"%Class%", L"InfoMap");
-    else if (Name==_T("Format"))
-        Partial.FindAndReplace(L"%Class%", L"InfoMap");
-    else
-        Partial.FindAndReplace(L"%Class%", L"ZtringListList");
+    Partial.FindAndReplace(L"%Class%", Class);
     Contents+=Partial;
 
     //Load line template
@@ -120,67 +109,67 @@ ZenLib::Ztring Ressources_Create()
     Out+=Contents;
 
     //Load datas
-    Result=Ressources_Create_Item(L"Language", L"DefaultLanguage", Contents);
+    Result=Ressources_Create_Item(L"Language", L"DefaultLanguage", L"Translation", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"DataBase", L"Format", Contents);
+    Result=Ressources_Create_Item(L"DataBase", L"Format", L"InfoMap", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"DataBase", L"Codec", Contents);
+    Result=Ressources_Create_Item(L"DataBase", L"Codec", L"InfoMap", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"Stream", L"General", Contents);
+    Result=Ressources_Create_Item(L"Stream", L"General", L"ZtringListList", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"Stream", L"Video", Contents);
+    Result=Ressources_Create_Item(L"Stream", L"Video", L"ZtringListList", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"Stream", L"Audio", Contents);
+    Result=Ressources_Create_Item(L"Stream", L"Audio", L"ZtringListList", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"Stream", L"Text", Contents);
+    Result=Ressources_Create_Item(L"Stream", L"Text", L"ZtringListList", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"Stream", L"Chapters", Contents);
+    Result=Ressources_Create_Item(L"Stream", L"Chapters", L"ZtringListList", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"Stream", L"Image", Contents);
+    Result=Ressources_Create_Item(L"Stream", L"Image", L"ZtringListList", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"Stream", L"Menu", Contents);
+    Result=Ressources_Create_Item(L"Stream", L"Menu", L"ZtringListList", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"DataBase", L"Iso639", Contents);
+    Result=Ressources_Create_Item(L"DataBase", L"Iso639", L"InfoMap", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"DataBase", L"Encoder", Contents);
+    Result=Ressources_Create_Item(L"DataBase", L"Encoder", L"InfoMap", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"MediaInfo", L"Summary", Contents);
+    Result=Ressources_Create_Item(L"MediaInfo", L"Summary", L"ZtringListList", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;

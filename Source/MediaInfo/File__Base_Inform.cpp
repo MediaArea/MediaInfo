@@ -44,7 +44,7 @@ extern MediaInfo_Config Config;
 Ztring File__Base::Inform()
 {
     #ifndef MEDIAINFO_MINIMIZESIZE
-        if (Config.Details_Get())
+        if (MediaInfoLib::Config.Details_Get())
             return Details;
     #endif //MEDIAINFO_MINIMIZESIZE
 

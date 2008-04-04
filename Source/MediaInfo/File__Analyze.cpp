@@ -232,8 +232,6 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     Trusted=Buffer_Size>2*8*1024?Buffer_Size/8/1024:2; //Never less than 2 acceptable errors
 
     //Parsing
-        if (Config==NULL)
-            int A=0;
     if (Buffer_Size>=Buffer_MinimumSize || File_Offset+Buffer_Size==File_Size) //Parsing only if we have enough buffer
         Open_Buffer_Continue_Loop();
 

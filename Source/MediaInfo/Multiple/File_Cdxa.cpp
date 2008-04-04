@@ -271,7 +271,7 @@ void File_Cdxa::Data_Parse()
 
     //Details
     #ifndef MEDIAINFO_MINIMIZESIZE
-    if (Config.Details_Get())
+    if (MediaInfoLib::Config.Details_Get())
     {
         if (!MI->Inform().empty())
             Element_Show_Add(MI->Inform());
