@@ -46,7 +46,9 @@ File__Analyze::File__Analyze ()
 :File__Base()
 {
     //Save for speed improvement
-    Config_Details=0;
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        Config_Details=0;
+    #endif //MEDIAINFO_MINIMIZESIZE
 
     //Configuration
     DataMustAlwaysBeComplete=true;

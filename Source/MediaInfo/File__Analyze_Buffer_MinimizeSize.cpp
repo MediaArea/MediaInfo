@@ -284,69 +284,6 @@ void File__Analyze::Peek_B8(int64u &Info)
     Info=BigEndian2int64u(Buffer+Buffer_Offset+Element_Offset);
 }
 
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_B1()
-{
-    INTEGRITY_SIZE_ATLEAST(1);
-    Element_Offset+=1;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_B2()
-{
-    INTEGRITY_SIZE_ATLEAST(2);
-    Element_Offset+=2;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_B3()
-{
-    INTEGRITY_SIZE_ATLEAST(3);
-    Element_Offset+=3;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_B4()
-{
-    INTEGRITY_SIZE_ATLEAST(4);
-    Element_Offset+=4;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_B5()
-{
-    INTEGRITY_SIZE_ATLEAST(5);
-    Element_Offset+=5;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_B6()
-{
-    INTEGRITY_SIZE_ATLEAST(6);
-    Element_Offset+=6;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_B7()
-{
-    INTEGRITY_SIZE_ATLEAST(7);
-    Element_Offset+=7;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_B8()
-{
-    INTEGRITY_SIZE_ATLEAST(8);
-    Element_Offset+=8;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_B16()
-{
-    INTEGRITY_SIZE_ATLEAST(16);
-    Element_Offset+=16;
-}
-
 //***************************************************************************
 // Little Endian
 //***************************************************************************
@@ -522,7 +459,6 @@ void File__Analyze::Get_EB(int64u &Info, const char* Name)
     if (Buffer[Buffer_Offset+Element_Offset]==0xFF)
     {
         Info=File_Size-(File_Offset+Buffer_Offset+Element_Offset);
-        if (Config_Details>0) Param(Name, "Unlimited");
         Element_Offset++;
         return;
     }
@@ -609,7 +545,6 @@ void File__Analyze::Get_EB(int64u &Info, const char* Name)
                  break;
     }
 
-    if (Config_Details>0) Param(Name, Info);
     Element_Offset+=Size;
 }
 
@@ -701,7 +636,6 @@ void File__Analyze::Get_ES(int64s &Info, const char* Name)
                  break;
     }
 
-    if (Config_Details>0) Param(Name, Info);
     Element_Offset+=Size;
 }
 
@@ -739,13 +673,6 @@ void File__Analyze::Get_VL(int64u &Info, const char* Name)
         Trusted_IsNot("Not enough place to have a Variable Length Value");
         Info=0;
         return; //Not enough space
-    }
-
-    if (Config_Details>0)
-    {
-        Element_Offset-=Size;
-        Param(Name, Info);
-        Element_Offset+=Size;
     }
 }
 
@@ -787,13 +714,6 @@ void File__Analyze::Get_SL(int64s &Info, const char* Name)
         Info=-(Info>>1);
     else
         Info= (Info>>1);
-
-    if (Config_Details>0)
-    {
-        Element_Offset-=Size;
-        Param(Name, Info);
-        Element_Offset+=Size;
-    }
 }
 
 //---------------------------------------------------------------------------
@@ -826,13 +746,6 @@ void File__Analyze::Skip_VL(const char* Name)
         Trusted_IsNot("Not enough place to have a Variable Length Value");
         Info=0;
         return; //Not enough space
-    }
-
-    if (Config_Details>0)
-    {
-        Element_Offset-=Size;
-        Param(Name, Info);
-        Element_Offset+=Size;
     }
 }
 
@@ -867,20 +780,6 @@ void File__Analyze::Skip_SL(const char* Name)
         Info=0;
         return; //Not enough space
     }
-
-    if (Config_Details>0)
-    {
-        //Some computing
-        Info++;
-        if (Info&1)
-            Info=-(Info>>1);
-        else
-            Info= (Info>>1);
-
-        Element_Offset-=Size;
-        Param(Name, Info);
-        Element_Offset+=Size;
-    }
 }
 
 //***************************************************************************
@@ -903,13 +802,6 @@ void File__Analyze::Get_SE(int32s &Info, const char* Name)
         Trusted_IsNot("(Problem)");
         Info=0;
     }
-    if (Config_Details>0)
-    {
-         if (InfoD<=(int32u)-1)
-            Param(Name, Info);
-         else
-            Param(Name, "(Problem)");
-    }
 }
 
 //---------------------------------------------------------------------------
@@ -920,16 +812,7 @@ void File__Analyze::Skip_SE(const char* Name)
     int LeadingZeroBits=0;
     while(BS->Remain()>0 && BS->Get(1)==0)
         LeadingZeroBits++;
-    if (Config_Details>0)
-    {
-        double InfoD=pow(2, (float)LeadingZeroBits)-1+BS->Get(LeadingZeroBits);
-        if (InfoD<=(int32u)-1)
-            Param(Name, (int32s)(pow(-1, InfoD+1)*(int32u)ceil(InfoD/2)));
-        else
-            Param(Name, "(Problem)");
-    }
-    else
-        BS->Skip(LeadingZeroBits);
+    BS->Skip(LeadingZeroBits);
 }
 
 //---------------------------------------------------------------------------
@@ -948,13 +831,6 @@ void File__Analyze::Get_UE(int32u &Info, const char* Name)
         Trusted_IsNot("(Problem)");
         Info=0;
     }
-    if (Config_Details>0)
-    {
-         if (InfoD<=(int32u)-1)
-            Param(Name, Info);
-         else
-            Param(Name, "(Problem)");
-    }
 }
 
 //---------------------------------------------------------------------------
@@ -965,16 +841,7 @@ void File__Analyze::Skip_UE(const char* Name)
     int LeadingZeroBits=0;
     while(BS->Remain()>0 && BS->Get(1)==0)
         LeadingZeroBits++;
-    if (Config_Details>0)
-    {
-        double InfoD=pow(2, (float)LeadingZeroBits);
-        if (InfoD<=(int32u)-1)
-            Param(Name, (int32u)InfoD-1+BS->Get(LeadingZeroBits));
-        else
-            Param(Name, "(Problem)");
-    }
-    else
-        BS->Skip(LeadingZeroBits);
+    BS->Skip(LeadingZeroBits);
 }
 
 //***************************************************************************
@@ -1004,9 +871,6 @@ void File__Analyze::Get_SI(int32s &Info, const char* Name)
 
     if (Info!=0 && BS->Remain()>0 && BS->GetB()==1)
         Info=-Info;
-
-    if (Config_Details>0)
-        Param(Name, Info);
 }
 
 //---------------------------------------------------------------------------
@@ -1035,9 +899,6 @@ void File__Analyze::Get_UI(int32u &Info, const char* Name)
             Info++;
     }
     Info--;
-
-    if (Config_Details>0)
-        Param(Name, Info);
 }
 
 //---------------------------------------------------------------------------
@@ -1052,138 +913,66 @@ void File__Analyze::Skip_UI(const char* Name)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_C1(int8u &Info, const char* Name)
+void File__Analyze::Get_C1(int8u &Info)
 {
     INTEGRITY_SIZE_ATLEAST(1);
     Info=CC1(Buffer+Buffer_Offset+Element_Offset);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 1);
     Element_Offset+=1;
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_C2(int16u &Info, const char* Name)
+void File__Analyze::Get_C2(int16u &Info)
 {
     INTEGRITY_SIZE_ATLEAST(2);
     Info=CC2(Buffer+Buffer_Offset+Element_Offset);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 2);
     Element_Offset+=2;
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_C3(int32u &Info, const char* Name)
+void File__Analyze::Get_C3(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST(3);
     Info=CC3(Buffer+Buffer_Offset+Element_Offset);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 3);
     Element_Offset+=3;
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_C4(int32u &Info, const char* Name)
+void File__Analyze::Get_C4(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST(4);
     Info=CC4(Buffer+Buffer_Offset+Element_Offset);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 4);
     Element_Offset+=4;
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_C5(int64u &Info, const char* Name)
+void File__Analyze::Get_C5(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST(5);
     Info=CC5(Buffer+Buffer_Offset+Element_Offset);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 5);
     Element_Offset+=5;
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_C6(int64u &Info, const char* Name)
+void File__Analyze::Get_C6(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST(6);
     Info=CC6(Buffer+Buffer_Offset+Element_Offset);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 6);
     Element_Offset+=6;
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_C7(int64u &Info, const char* Name)
+void File__Analyze::Get_C7(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST(7);
     Info=CC7(Buffer+Buffer_Offset+Element_Offset);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 7);
     Element_Offset+=7;
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_C8(int64u &Info, const char* Name)
+void File__Analyze::Get_C8(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST(8);
     Info=CC8(Buffer+Buffer_Offset+Element_Offset);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 8);
-    Element_Offset+=8;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_C1(const char* Name)
-{
-    INTEGRITY_SIZE_ATLEAST(1);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 1);
-    Element_Offset+=1;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_C2(const char* Name)
-{
-    INTEGRITY_SIZE_ATLEAST(2);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 2);
-    Element_Offset+=2;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_C3(const char* Name)
-{
-    INTEGRITY_SIZE_ATLEAST(3);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 3);
-    Element_Offset+=3;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_C4(const char* Name)
-{
-    INTEGRITY_SIZE_ATLEAST(4);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 4);
-    Element_Offset+=4;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_C5(const char* Name)
-{
-    INTEGRITY_SIZE_ATLEAST(5);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 5);
-    Element_Offset+=5;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_C6(const char* Name)
-{
-    INTEGRITY_SIZE_ATLEAST(6);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 6);
-    Element_Offset+=6;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_C7(const char* Name)
-{
-    INTEGRITY_SIZE_ATLEAST(7);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 7);
-    Element_Offset+=7;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_C8(const char* Name)
-{
-    INTEGRITY_SIZE_ATLEAST(8);
-    if (Config_Details>0) Param(Name, Buffer+Buffer_Offset+Element_Offset, 8);
     Element_Offset+=8;
 }
 
@@ -1192,20 +981,18 @@ void File__Analyze::Skip_C8(const char* Name)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_Local(int64u Bytes, Ztring &Info, const char* Name)
+void File__Analyze::Get_Local(int64u Bytes, Ztring &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
     Info.From_Local((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
-    if (Config_Details>0) Param(Name, Info);
     Element_Offset+=(size_t)Bytes;
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_String(int64u Bytes, std::string &Info, const char* Name)
+void File__Analyze::Get_String(int64u Bytes, std::string &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
     Info.assign((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
-    if (Config_Details>0) Param(Name, Info);
     Element_Offset+=(size_t)Bytes;
 }
 
@@ -1224,78 +1011,34 @@ void File__Analyze::Peek_String(int64u Bytes, std::string &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_UTF8(int64u Bytes, Ztring &Info, const char* Name)
+void File__Analyze::Get_UTF8(int64u Bytes, Ztring &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
     Info.From_UTF8((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
-    if (Config_Details>0) Param(Name, Info);
     Element_Offset+=(size_t)Bytes;
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_UTF16(int64u Bytes, Ztring &Info, const char* Name)
+void File__Analyze::Get_UTF16(int64u Bytes, Ztring &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
     Info.From_UTF16((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
-    if (Config_Details>0) Param(Name, Info);
     Element_Offset+=(size_t)Bytes;
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_UTF16B(int64u Bytes, Ztring &Info, const char* Name)
+void File__Analyze::Get_UTF16B(int64u Bytes, Ztring &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
     Info.From_UTF16BE((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
-    if (Config_Details>0) Param(Name, Info);
     Element_Offset+=(size_t)Bytes;
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_UTF16L(int64u Bytes, Ztring &Info, const char* Name)
+void File__Analyze::Get_UTF16L(int64u Bytes, Ztring &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
     Info.From_UTF16LE((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
-    if (Config_Details>0) Param(Name, Info);
-    Element_Offset+=(size_t)Bytes;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_Local(int64u Bytes, const char* Name)
-{
-    INTEGRITY_SIZE_ATLEAST(Bytes);
-    if (Config_Details>0) Param(Name, Ztring().From_Local((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes));
-    Element_Offset+=(size_t)Bytes;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_String(int64u Bytes, const char* Name)
-{
-    INTEGRITY_SIZE_ATLEAST(Bytes);
-    if (Config_Details>0) Param(Name, Ztring().From_Local((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes));
-    Element_Offset+=(size_t)Bytes;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_UTF8(int64u Bytes, const char* Name)
-{
-    INTEGRITY_SIZE_ATLEAST(Bytes);
-    if (Config_Details>0) Param(Name, Ztring().From_UTF8((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes));
-    Element_Offset+=(size_t)Bytes;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_UTF16B(int64u Bytes, const char* Name)
-{
-    INTEGRITY_SIZE_ATLEAST(Bytes);
-    if (Config_Details>0) Param(Name, Ztring().From_UTF16BE((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes));
-    Element_Offset+=(size_t)Bytes;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_UTF16L(int64u Bytes, const char* Name)
-{
-    INTEGRITY_SIZE_ATLEAST(Bytes);
-    if (Config_Details>0) Param(Name, Ztring().From_UTF16LE((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes));
     Element_Offset+=(size_t)Bytes;
 }
 
@@ -1304,13 +1047,12 @@ void File__Analyze::Skip_UTF16L(int64u Bytes, const char* Name)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Skip_PA(const char* Name)
+void File__Analyze::Skip_PA()
 {
     INTEGRITY_SIZE_ATLEAST(1);
     int8u Size=Buffer[Buffer_Offset+Element_Offset];
     int8u Pad=Size%2?0:1;
     INTEGRITY_SIZE_ATLEAST(1+Size+Pad);
-    if (Config_Details>0) Param(Name, Ztring().From_Local((const char*)(Buffer+Buffer_Offset+Element_Offset+1), (size_t)Size));
     Element_Offset+=(size_t)(1+Size+Pad);
 }
 
@@ -1319,42 +1061,18 @@ void File__Analyze::Skip_PA(const char* Name)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_Flags (int64u Flags, size_t Order, bool &Info, const char* Name)
+void File__Analyze::Get_Flags (int64u Flags, size_t Order, bool &Info)
 {
     if (Flags&((int64u)1<<Order))
         Info=true;
     else
         Info=false;
-
-    Element_Begin();
-    if (Config_Details>0) Param(Name, Info?"Yes":"No");
-    Element_End();
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_Flags (int64u ValueToPut, int8u &Info, const char* Name)
+void File__Analyze::Get_Flags (int64u ValueToPut, int8u &Info)
 {
     Info=(int8u)ValueToPut;
-
-    Element_Begin();
-    if (Config_Details>0) Param(Name, Info);
-    Element_End();
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_Flags(int64u Flags, size_t Order, const char* Name)
-{
-    Element_Begin();
-    if (Config_Details>0) Param(Name, (Flags&((int64u)1<<Order))?"Yes":"No");
-    Element_End();
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_Flags(int64u ValueToPut, const char* Name)
-{
-    Element_Begin();
-    if (Config_Details>0) Param(Name, ValueToPut);
-    Element_End();
 }
 
 //***************************************************************************

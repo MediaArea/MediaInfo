@@ -257,17 +257,6 @@ public :
     void Peek_BF4 (float32 &Info);
     void Peek_BF8 (float64 &Info);
     void Peek_BF10(float64 &Info);
-    void Skip_B1  ();
-    void Skip_B2  ();
-    void Skip_B3  ();
-    void Skip_B4  ();
-    void Skip_B5  ();
-    void Skip_B6  ();
-    void Skip_B7  ();
-    void Skip_B8  ();
-    void Skip_BF4 ();
-    void Skip_BF8 ();
-    void Skip_B16 ();
     inline void Skip_B1  (               const char*) {Element_Offset+=1;}
     inline void Skip_B2  (               const char*) {Element_Offset+=2;}
     inline void Skip_B3  (               const char*) {Element_Offset+=3;}
@@ -329,17 +318,6 @@ public :
     void Peek_L16(int128u &Info);
     void Peek_LF4(float32 &Info);
     void Peek_LF8(float64 &Info);
-    void Skip_L1  ();
-    void Skip_L2  ();
-    void Skip_L3  ();
-    void Skip_L4  ();
-    void Skip_L5  ();
-    void Skip_L6  ();
-    void Skip_L7  ();
-    void Skip_L8  ();
-    void Skip_LF4 ();
-    void Skip_LF8 ();
-    void Skip_L16 ();
     inline void Skip_L1  (               const char*) {Element_Offset+=1;}
     inline void Skip_L2  (               const char*) {Element_Offset+=2;}
     inline void Skip_L3  (               const char*) {Element_Offset+=3;}
@@ -421,22 +399,30 @@ public :
     // Characters
     //***************************************************************************
 
-    void Get_C1 (int8u  &Info, const char* Name);
-    void Get_C2 (int16u &Info, const char* Name);
-    void Get_C3 (int32u &Info, const char* Name);
-    void Get_C4 (int32u &Info, const char* Name);
-    void Get_C5 (int64u &Info, const char* Name);
-    void Get_C6 (int64u &Info, const char* Name);
-    void Get_C7 (int64u &Info, const char* Name);
-    void Get_C8 (int64u &Info, const char* Name);
-    void Skip_C1(              const char* Name);
-    void Skip_C2(              const char* Name);
-    void Skip_C3(              const char* Name);
-    void Skip_C4(              const char* Name);
-    void Skip_C5(              const char* Name);
-    void Skip_C6(              const char* Name);
-    void Skip_C7(              const char* Name);
-    void Skip_C8(              const char* Name);
+    void Get_C1 (int8u  &Info);
+    void Get_C2 (int16u &Info);
+    void Get_C3 (int32u &Info);
+    void Get_C4 (int32u &Info);
+    void Get_C5 (int64u &Info);
+    void Get_C6 (int64u &Info);
+    void Get_C7 (int64u &Info);
+    void Get_C8 (int64u &Info);
+    inline void Get_C1 (int8u  &Info, const char*) {Get_C1(Info);}
+    inline void Get_C2 (int16u &Info, const char*) {Get_C2(Info);}
+    inline void Get_C3 (int32u &Info, const char*) {Get_C3(Info);}
+    inline void Get_C4 (int32u &Info, const char*) {Get_C4(Info);}
+    inline void Get_C5 (int64u &Info, const char*) {Get_C5(Info);}
+    inline void Get_C6 (int64u &Info, const char*) {Get_C6(Info);}
+    inline void Get_C7 (int64u &Info, const char*) {Get_C7(Info);}
+    inline void Get_C8 (int64u &Info, const char*) {Get_C8(Info);}
+    inline void Skip_C1(              const char*) {Element_Offset+=1;}
+    inline void Skip_C2(              const char*) {Element_Offset+=2;}
+    inline void Skip_C3(              const char*) {Element_Offset+=3;}
+    inline void Skip_C4(              const char*) {Element_Offset+=4;}
+    inline void Skip_C5(              const char*) {Element_Offset+=5;}
+    inline void Skip_C6(              const char*) {Element_Offset+=6;}
+    inline void Skip_C7(              const char*) {Element_Offset+=7;}
+    inline void Skip_C8(              const char*) {Element_Offset+=8;}
     #define Info_C1(_INFO, _NAME) Ztring _INFO; Get_C1(_INFO, _NAME)
     #define Info_C2(_INFO, _NAME) Ztring _INFO; Get_C2(_INFO, _NAME)
     #define Info_C3(_INFO, _NAME) Ztring _INFO; Get_C3(_INFO, _NAME)
@@ -450,19 +436,25 @@ public :
     // Text
     //***************************************************************************
 
-    void Get_Local  (int64u Bytes, Ztring      &Info, const char* Name);
-    void Get_String (int64u Bytes, std::string &Info, const char* Name);
-    void Get_UTF8   (int64u Bytes, Ztring      &Info, const char* Name);
-    void Get_UTF16  (int64u Bytes, Ztring      &Info, const char* Name);
-    void Get_UTF16B (int64u Bytes, Ztring      &Info, const char* Name);
-    void Get_UTF16L (int64u Bytes, Ztring      &Info, const char* Name);
+    void Get_Local  (int64u Bytes, Ztring      &Info);
+    void Get_String (int64u Bytes, std::string &Info);
+    void Get_UTF8   (int64u Bytes, Ztring      &Info);
+    void Get_UTF16  (int64u Bytes, Ztring      &Info);
+    void Get_UTF16B (int64u Bytes, Ztring      &Info);
+    void Get_UTF16L (int64u Bytes, Ztring      &Info);
+    inline void Get_Local  (int64u Bytes, Ztring      &Info, const char*) {Get_Local(Bytes, Info);}
+    inline void Get_String (int64u Bytes, std::string &Info, const char*) {Get_String(Bytes, Info);}
+    inline void Get_UTF8   (int64u Bytes, Ztring      &Info, const char*) {Get_UTF8(Bytes, Info);}
+    inline void Get_UTF16  (int64u Bytes, Ztring      &Info, const char*) {Get_UTF16(Bytes, Info);}
+    inline void Get_UTF16B (int64u Bytes, Ztring      &Info, const char*) {Get_UTF16B(Bytes, Info);}
+    inline void Get_UTF16L (int64u Bytes, Ztring      &Info, const char*) {Get_UTF16L(Bytes, Info);}
     void Peek_Local (int64u Bytes, Ztring      &Info);
     void Peek_String(int64u Bytes, std::string &Info);
-    void Skip_Local (int64u Bytes,                    const char* Name);
-    void Skip_String(int64u Bytes,                    const char* Name);
-    void Skip_UTF8  (int64u Bytes,                    const char* Name);
-    void Skip_UTF16B(int64u Bytes,                    const char* Name);
-    void Skip_UTF16L(int64u Bytes,                    const char* Name);
+    void Skip_Local (int64u Bytes,                    const char*) {Element_Offset+=(size_t)Bytes;}
+    void Skip_String(int64u Bytes,                    const char*) {Element_Offset+=(size_t)Bytes;}
+    void Skip_UTF8  (int64u Bytes,                    const char*) {Element_Offset+=(size_t)Bytes;}
+    void Skip_UTF16B(int64u Bytes,                    const char*) {Element_Offset+=(size_t)Bytes;}
+    void Skip_UTF16L(int64u Bytes,                    const char*) {Element_Offset+=(size_t)Bytes;}
     #define Info_Local(_BYTES, _INFO, _NAME)  Ztring _INFO; Get_Local (_BYTES, _INFO, _NAME)
     #define Info_UTF8(_BYTES, _INFO, _NAME)   Ztring _INFO; Get_UTF8  (_BYTES, _INFO, _NAME)
     #define Info_UTF16B(_BYTES, _INFO, _NAME) Ztring _INFO; Get_UTF16B(_BYTES, _INFO, _NAME)
@@ -472,9 +464,11 @@ public :
     // PAscal strings
     //***************************************************************************
 
-    void Get_PA (std::string &Info, const char* Name);
+    void Get_PA (std::string &Info);
+    inline void Get_PA (std::string &Info, const char*) {Get_PA(Info);}
     void Peek_PA(std::string &Info);
-    void Skip_PA(                   const char* Name);
+    void Skip_PA();
+    inline void Skip_PA(                   const char*) {Skip_PA();}
     #define Info_PA(_INFO, _NAME) Ztring _INFO; Get_PA (_INFO, _NAME)
 
     //***************************************************************************
@@ -487,10 +481,12 @@ public :
     // Flags
     //***************************************************************************
 
-    void Get_Flags (int64u Flags, size_t Order, bool  &Info, const char* Name);
-    void Get_Flags (int64u ValueToPut,          int8u &Info, const char* Name);
-    void Skip_Flags(int64u Flags, size_t Order,              const char* Name);
-    void Skip_Flags(int64u ValueToPut,                       const char* Name);
+    void Get_Flags (int64u Flags, size_t Order, bool  &Info);
+    void Get_Flags (int64u ValueToPut,          int8u &Info);
+    inline void Get_Flags (int64u Flags, size_t Order, bool  &Info, const char*) {Get_Flags(Flags, Order, Info);}
+    inline void Get_Flags (int64u ValueToPut,          int8u &Info, const char*) {Get_Flags(ValueToPut, Info);}
+    inline void Skip_Flags(int64u Flags, size_t Order,              const char*) {}
+    inline void Skip_Flags(int64u ValueToPut,                       const char*) {}
 
     //***************************************************************************
     // BitStream
@@ -752,9 +748,11 @@ protected :
     //***************************************************************************
 
 protected :
-    //Save for speed improvement
-    float Config_Details;
-
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        //Save for speed improvement
+        float Config_Details;
+    #endif //MEDIAINFO_MINIMIZESIZE
+    
     //Configuration
     bool DataMustAlwaysBeComplete;  //Data must always be complete, else wait for more data
     bool MustUseAlternativeParser;  //Must use the second parser (example: for Data part)
