@@ -74,7 +74,7 @@ protected :
 
     //Header - Info
     void Header_Fill_Code (int64u Code);
-    inline void Header_Fill_Code (int64u Code, const Ztring &Name) {Header_Fill_Code(Code);};
+    inline void Header_Fill_Code (int64u Code, const Ztring &) {Header_Fill_Code(Code);};
     void Header_Fill_Size (int64u Size);
 
     //***************************************************************************
@@ -109,38 +109,38 @@ protected :
 
     //Elements - Begin
     void Element_Begin ();
-    inline void Element_Begin (const Ztring &Name, int64u Size=(int64u)-1) {Element_Begin(Size);}
+    inline void Element_Begin (const Ztring &, int64u Size=(int64u)-1) {Element_Begin(Size);}
     void Element_Begin (int64u Size);
-    inline void Element_Begin (const char *Name, int64u Size=(int64u)-1) {Element_Begin(Size);}
+    inline void Element_Begin (const char *, int64u Size=(int64u)-1) {Element_Begin(Size);}
 
     //Elements - Name
     inline void Element_Name (const Ztring &) {}
     inline void Element_Name (const char*) {}
 
     //Elements - Info
-    inline void Element_Info (const Ztring &Parameter) {}
-    inline void Element_Info (const char*   Parameter) {}
-    inline void Element_Info (const char*   Parameter, const char*   Measure) {}
-    inline void Element_Info (int8s         Parameter, const char*   Measure=NULL) {}
-    inline void Element_Info (int8u         Parameter, const char*   Measure=NULL) {}
-    inline void Element_Info (int16s        Parameter, const char*   Measure=NULL) {}
-    inline void Element_Info (int16u        Parameter, const char*   Measure=NULL) {}
-    inline void Element_Info (int32s        Parameter, const char*   Measure=NULL) {}
-    inline void Element_Info (int32u        Parameter, const char*   Measure=NULL) {}
-    inline void Element_Info (int64s        Parameter, const char*   Measure=NULL) {}
-    inline void Element_Info (int64u        Parameter, const char*   Measure=NULL) {}
-    inline void Element_Info (int128u       Parameter, const char*   Measure=NULL) {}
+    inline void Element_Info (const Ztring &) {}
+    inline void Element_Info (const char*) {}
+    inline void Element_Info (const char*, const char* ) {}
+    inline void Element_Info (int8s      , const char* =NULL) {}
+    inline void Element_Info (int8u      , const char* =NULL) {}
+    inline void Element_Info (int16s     , const char* =NULL) {}
+    inline void Element_Info (int16u     , const char* =NULL) {}
+    inline void Element_Info (int32s     , const char* =NULL) {}
+    inline void Element_Info (int32u     , const char* =NULL) {}
+    inline void Element_Info (int64s     , const char* =NULL) {}
+    inline void Element_Info (int64u     , const char* =NULL) {}
+    inline void Element_Info (int128u    , const char* =NULL) {}
     #ifdef NEED_SIZET
-    inline void Element_Info (size_t        Parameter, const char*   Measure=NULL) {}
+    inline void Element_Info (size_t     , const char* =NULL) {}
     #endif //NEED_SIZET
-    inline void Element_Info (float32       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {}
-    inline void Element_Info (float64       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {}
+    inline void Element_Info (float32    , int8u =3, const char* =NULL) {}
+    inline void Element_Info (float64    , int8u =3, const char* =NULL) {}
 
     //Elements - End
     void Element_End ();
-    inline void Element_End (const Ztring &Name, int64u Size=(int64u)-1) {Element_End(Size);}
+    inline void Element_End (const Ztring &, int64u Size=(int64u)-1) {Element_End(Size);}
     void Element_End (int64u Size);
-    inline void Element_End (const char *Name, int64u Size=(int64u)-1) {Element_End(Size);}
+    inline void Element_End (const char*   , int64u Size=(int64u)-1) {Element_End(Size);}
 
     //Elements - Preparation of element from external app
     void Element_Prepare (int64u Size);
@@ -167,55 +167,55 @@ public :
         Ztring::ToZtring(Value, 16).MakeUpperCase()+_T(" (")+Ztring::ToZtring(Value, 10).MakeUpperCase()+_T(")")
 
     //Param - Main
-    inline void Param      (const Ztring &Parameter, const Ztring& Value) {}
-    inline void Param      (const char*   Parameter, const Ztring& Value) {}
-    inline void Param      (const char*   Parameter, const std::string& Value) {}
-    inline void Param      (const char*   Parameter, const char*   Value, size_t Value_Size=Unlimited, bool Utf8=true) {}
-    inline void Param      (const char*   Parameter, const int8u*  Value, size_t Value_Size=Unlimited, bool Utf8=true) {}
-    inline void Param      (const char*   Parameter, bool   Value) {}
-    inline void Param      (const char*   Parameter, int8u  Value) {}
-    inline void Param      (const char*   Parameter, int8s  Value) {}
-    inline void Param      (const char*   Parameter, int16u Value) {}
-    inline void Param      (const char*   Parameter, int16s Value) {}
-    inline void Param      (const char*   Parameter, int32u Value) {}
-    inline void Param      (const char*   Parameter, int32s Value) {}
-    inline void Param      (const char*   Parameter, int64u Value) {}
-    inline void Param      (const char*   Parameter, int64s Value) {}
-    inline void Param      (const char*   Parameter, int128u Value) {}
-    inline void Param_UUID (const char*   Parameter, int128u Value) {}
+    inline void Param      (const Ztring &, const Ztring&) {}
+    inline void Param      (const char*, const Ztring&) {}
+    inline void Param      (const char*, const std::string&) {}
+    inline void Param      (const char*, const char*, size_t =Unlimited, bool =true) {}
+    inline void Param      (const char*, const int8u*, size_t =Unlimited, bool =true) {}
+    inline void Param      (const char*, bool) {}
+    inline void Param      (const char*, int8u) {}
+    inline void Param      (const char*, int8s) {}
+    inline void Param      (const char*, int16u) {}
+    inline void Param      (const char*, int16s) {}
+    inline void Param      (const char*, int32u) {}
+    inline void Param      (const char*, int32s) {}
+    inline void Param      (const char*, int64u) {}
+    inline void Param      (const char*, int64s) {}
+    inline void Param      (const char*, int128u) {}
+    inline void Param_UUID (const char*, int128u) {}
     #ifdef NEED_SIZET
-    inline void Param      (const char*   Parameter, size_t Value, intu Radix=16) {}
+    inline void Param      (const char*, size_t Value, intu Radix=16) {}
     #endif //NEED_SIZET
-    inline void Param      (const char*   Parameter, float32 Value, intu AfterComma=3) {}
-    inline void Param      (const char*   Parameter, float64 Value, intu AfterComma=3) {}
-    inline void Param      (const char*   Parameter, float80 Value, intu AfterComma=3)  {}
-    inline void Param      (const int32u  Parameter, const Ztring& Value) {}
-    inline void Param      (const int16u  Parameter, const Ztring& Value) {}
+    inline void Param      (const char*, float32, intu =3) {}
+    inline void Param      (const char*, float64, intu =3) {}
+    inline void Param      (const char*, float80, intu =3)  {}
+    inline void Param      (const int32u, const Ztring&) {}
+    inline void Param      (const int16u, const Ztring&) {}
 
     //Param - Info
-    inline void Param_Info (const Ztring &Parameter) {}
-    inline void Param_Info (const char*   Parameter) {}
-    inline void Param_Info (const char*   Parameter, const char*   Measure) {}
-    inline void Param_Info (int64u        Parameter, const char*   Measure=NULL) {}
-    inline void Param_Info (int64s        Parameter, const char*   Measure=NULL) {}
-    inline void Param_Info (int32u        Parameter, const char*   Measure=NULL) {}
-    inline void Param_Info (int32s        Parameter, const char*   Measure=NULL) {}
-    inline void Param_Info (int16u        Parameter, const char*   Measure=NULL) {}
-    inline void Param_Info (int16s        Parameter, const char*   Measure=NULL) {}
-    inline void Param_Info (int8u         Parameter, const char*   Measure=NULL) {}
-    inline void Param_Info (int8s         Parameter, const char*   Measure=NULL) {}
-    inline void Param_Info (float32       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {}
-    inline void Param_Info (float64       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {}
-    inline void Param_Info (float80       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {}
+    inline void Param_Info (const Ztring &) {}
+    inline void Param_Info (const char*) {}
+    inline void Param_Info (const char*, const char*) {}
+    inline void Param_Info (int64u     , const char* =NULL) {}
+    inline void Param_Info (int64s     , const char* =NULL) {}
+    inline void Param_Info (int32u     , const char* =NULL) {}
+    inline void Param_Info (int32s     , const char* =NULL) {}
+    inline void Param_Info (int16u     , const char* =NULL) {}
+    inline void Param_Info (int16s     , const char* =NULL) {}
+    inline void Param_Info (int8u      , const char* =NULL) {}
+    inline void Param_Info (int8s      , const char* =NULL) {}
+    inline void Param_Info (float32    , int8u =3, const char* =NULL) {}
+    inline void Param_Info (float64    , int8u =3, const char* =NULL) {}
+    inline void Param_Info (float80    , int8u =3, const char* =NULL) {}
     #ifdef NEED_SIZET
-    inline void Param_Info (size_t        Parameter, const char*   Measure=NULL) {}
+    inline void Param_Info (size_t     , const char* =NULL) {}
     #endif //NEED_SIZET
 
     //***************************************************************************
     // Information
     //***************************************************************************
 
-    inline void Info (const Ztring& Value) {}
+    inline void Info (const Ztring&) {}
 
     //***************************************************************************
     // Big Endian
@@ -695,7 +695,7 @@ public :
     inline void Element_DoNotShow () {}
     inline void Element_Show () {}
     inline bool Element_Show_Get () {return false;}
-    inline void Element_Show_Add (const Ztring &ToShow) {}
+    inline void Element_Show_Add (const Ztring &) {}
 
     //Status
     bool Element_IsOK ();

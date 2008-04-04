@@ -46,6 +46,9 @@ namespace MediaInfoLib
 class MediaInfo_Config_MediaInfo
 {
 public :
+    //Constructor/Destructor
+    MediaInfo_Config_MediaInfo();
+
     //General
     Ztring Option (const String &Option, const String &Value=_T(""));
 

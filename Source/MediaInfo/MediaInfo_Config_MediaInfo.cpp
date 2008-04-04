@@ -39,6 +39,16 @@ namespace MediaInfoLib
 // Info
 //***************************************************************************
 
+MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
+{
+    FileIsSeekable=true;
+    File_Filter_HasChanged_=false;
+}
+
+//***************************************************************************
+// Info
+//***************************************************************************
+
 Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &Value)
 {
     String Option_Lower(Option);

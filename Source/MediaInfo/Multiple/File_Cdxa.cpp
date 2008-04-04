@@ -156,6 +156,12 @@ void File_Cdxa::Read_Buffer_Finalize ()
 //
 void File_Cdxa::FileHeader_Parse()
 {
+    if (Element_Size<44)
+    {
+        Element_WaitForMoreData();
+        return;
+    }
+
     //Parsing
     if (                CC4(Buffer+Buffer_Offset+0x00)!=CC4("RIFF")
      || LittleEndian2int32u(Buffer+Buffer_Offset+0x04)!=LittleEndian2int32u(Buffer+Buffer_Offset+0x28)+0x24 //Sizes of chunks
