@@ -188,4 +188,4 @@ Cover_Mime;;;Y YT;;;;;Info
 Cover_Data;;;N YT;;;Cover, in binary format encoded BASE64;;Info
 Lyrics;;;Y YT;;;;;Info
 Comment;;;Y YT;;;Any comment related to the content.;;Personal
-Rating ;;;Y YT;;;A numeric value defining how much a person likes the song/movie. The number is between 0 and 5 with decimal values possible (e.g. 2.7), 5(.0) being the highest possible rating.;;Personal
+Rating;;;Y YT;;;A numeric value defining how much a person likes the song/movie. The number is between 0 and 5 with decimal values possible (e.g. 2.7), 5(.0) being the highest possible rating.;;Personal
