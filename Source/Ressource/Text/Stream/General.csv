@@ -74,27 +74,31 @@ StreamSize/String4;;;N NT;;;;;
 HeaderSize;;;N NI;;;;;
 DataSize;;;N NI;;;;;
 Title;;;N NT;;;(Generic)Title of file;;Title
-Title/More;;;N NT;;;(Generic)More info about the title of file;;Title
+Title_More;;;N NT;;;(Generic)More info about the title of file;;Title
 Title/Url;;;N NT;;;(Generic)Url;;Title
 Domain;;;Y YT;;;Level=8. Eg : Starwars, Stargate, U2;;Title
 Collection;;;Y YT;;;Level=7. Name of the collection. Eg : Starwars movies, Stargate movie, Stargate SG-1, Stargate Atlantis;;Title
 Season;;;Y YT;;;Level=6. Name of the season. Eg : Strawars first Trilogy, Season 1;;Title
+Season_Position;;;Y YI;;;;;Title
+Season_Position_Total;;;Y YI;;;;;Title
 Movie;;;Y YT;;;Level=5. Name of the movie. Eg : Starwars, a new hope;;Title
-Movie/More;;;Y YT;;;;;Title
+Movie_More;;;Y YT;;;;;Title
 Movie/Url;;;Y YT;;;;;Title
 Album;;;Y YT;;;Level=5. Name of album. Eg : The joshua tree;;Title
+Album_More;;;Y YT;;;;;Title
 Album/Sort;;;Y YT;;;;;Title
 Comic;;;Y YT;;;Level=5. Name of the comic.;;Title
-Comic/Position_Total;;;Y YI;;;;;Title
+Comic_More;;;Y YT;;;;;Title
+Comic_Position_Total;;;Y YI;;;;;Title
 Part;;;Y YT;;;Level=4. Name of the part. Eg : CD1, CD2;;Title
-Part/Position;;;Y YI;;;;;Title
-Part/Position_Total;;;Y YI;;;;;Title
+Part_Position;;;Y YI;;;;;Title
+Part_Position_Total;;;Y YI;;;;;Title
 Track;;;Y YT;;;Level=3. Name of the track. Eg : track1, track 2;;Title
 Track/More;;;Y YT;;;;;Title
 Track/Url;;;Y YT;;;;;Title
 Track/Sort;;;Y YT;;;;;Title
-Track/Position;;;Y YI;;;;;Title
-Track/Position_Total;;;Y YI;;;;;Title
+Track_Position;;;Y YI;;;;;Title
+Track_Position_Total;;;Y YI;;;;;Title
 Chapter;;;Y YT;;;Level=3. Name of the chapter.;;Title
 SubTrack;;;Y YT;;;Level=2, Name of the subtrack.;;Title
 Original/Album;;;Y YT;;;Original name of album, serie...;;Title

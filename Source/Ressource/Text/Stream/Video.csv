@@ -25,6 +25,7 @@ Codec_Settings_GMC/String;;;Y NT;;;
 Codec_Settings_Matrix;;;Y NT;;;Settings needed for decoder used, detailled
 Codec_Settings_Matrix_Data;;;N NT;;;Matrix, in binary format encoded BASE64. Order = intra, non-intra, gray intra, gray non-intra
 Codec_Settings_CABAC;;;Y NT;;;Settings needed for decoder used, detailled
+Codec_Settings_RefFrames;; frames;Y NT;;;Settings needed for decoder used, detailled
 PlayTime;; ms;N YI;;;Play time of the stream
 PlayTime/String;;;Y NT;;;Play time (formated)
 PlayTime/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
@@ -77,7 +78,7 @@ StreamSize/String3;;;N NT;;;
 StreamSize/String4;;;N NT;;;
 Title;;;Y YI;;;Name of the track
 Encoded_Library;;;N YT;;;Software used to create the file
-Encoded_Library/String;;;Y NT;;;Software detailled name
+Encoded_Library/String;;;Y NT;;;Software detailled name;;
 Encoded_Library/Date;;;Y NT;;;Date of software;;
 Encoded_Library_Settings;;;Y YT;;;Parameters used by the software;;
 Language;;;N YT;;;Language (2 letters);;

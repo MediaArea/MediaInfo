@@ -15,6 +15,8 @@ Width;; pixels;N YI;;;Width
 Width/String;;;Y NT;;;
 Height;; pixels;N YI;;;Height
 Height/String;;;Y NT;;;;;
+Resolution;; bit;N YI;;;;;
+Resolution/String;;;Y NT;;;;;
 StreamSize;; byte;N YI;;;Stream size in bytes;;
 StreamSize/String;;;Y NT;;;;;
 StreamSize/String1;;;N NT;;;;;
