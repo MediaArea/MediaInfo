@@ -259,6 +259,7 @@ void File_Riff::Header_Parse()
         //Filling
         Header_Fill_Code(0, "Junk");
         Header_Fill_Size(File_Size-(File_Offset+Buffer_Offset));
+        Alignement_ExtraByte=false;
         return;
     }
 

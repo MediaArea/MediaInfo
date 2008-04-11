@@ -92,6 +92,9 @@ extern MediaInfo_Config Config;
 //---------------------------------------------------------------------------
 void File__Analyze::BS_Begin()
 {
+    if (Element_Offset>Element_Size)
+        return; //There is a problem
+
     size_t BS_Size;
     if (Buffer_Offset+Element_Size<=Buffer_Size)
         BS_Size=(size_t)Element_Size-Element_Offset;
@@ -915,7 +918,7 @@ void File__Analyze::Skip_UI(const char* Name)
 //---------------------------------------------------------------------------
 void File__Analyze::Get_C1(int8u &Info)
 {
-    INTEGRITY_SIZE_ATLEAST(1);
+    INTEGRITY_SIZE_ATLEAST_INT(1);
     Info=CC1(Buffer+Buffer_Offset+Element_Offset);
     Element_Offset+=1;
 }
@@ -923,7 +926,7 @@ void File__Analyze::Get_C1(int8u &Info)
 //---------------------------------------------------------------------------
 void File__Analyze::Get_C2(int16u &Info)
 {
-    INTEGRITY_SIZE_ATLEAST(2);
+    INTEGRITY_SIZE_ATLEAST_INT(2);
     Info=CC2(Buffer+Buffer_Offset+Element_Offset);
     Element_Offset+=2;
 }
@@ -931,7 +934,7 @@ void File__Analyze::Get_C2(int16u &Info)
 //---------------------------------------------------------------------------
 void File__Analyze::Get_C3(int32u &Info)
 {
-    INTEGRITY_SIZE_ATLEAST(3);
+    INTEGRITY_SIZE_ATLEAST_INT(3);
     Info=CC3(Buffer+Buffer_Offset+Element_Offset);
     Element_Offset+=3;
 }
@@ -939,7 +942,7 @@ void File__Analyze::Get_C3(int32u &Info)
 //---------------------------------------------------------------------------
 void File__Analyze::Get_C4(int32u &Info)
 {
-    INTEGRITY_SIZE_ATLEAST(4);
+    INTEGRITY_SIZE_ATLEAST_INT(4);
     Info=CC4(Buffer+Buffer_Offset+Element_Offset);
     Element_Offset+=4;
 }
@@ -947,7 +950,7 @@ void File__Analyze::Get_C4(int32u &Info)
 //---------------------------------------------------------------------------
 void File__Analyze::Get_C5(int64u &Info)
 {
-    INTEGRITY_SIZE_ATLEAST(5);
+    INTEGRITY_SIZE_ATLEAST_INT(5);
     Info=CC5(Buffer+Buffer_Offset+Element_Offset);
     Element_Offset+=5;
 }
@@ -955,7 +958,7 @@ void File__Analyze::Get_C5(int64u &Info)
 //---------------------------------------------------------------------------
 void File__Analyze::Get_C6(int64u &Info)
 {
-    INTEGRITY_SIZE_ATLEAST(6);
+    INTEGRITY_SIZE_ATLEAST_INT(6);
     Info=CC6(Buffer+Buffer_Offset+Element_Offset);
     Element_Offset+=6;
 }
@@ -963,7 +966,7 @@ void File__Analyze::Get_C6(int64u &Info)
 //---------------------------------------------------------------------------
 void File__Analyze::Get_C7(int64u &Info)
 {
-    INTEGRITY_SIZE_ATLEAST(7);
+    INTEGRITY_SIZE_ATLEAST_INT(7);
     Info=CC7(Buffer+Buffer_Offset+Element_Offset);
     Element_Offset+=7;
 }
@@ -971,7 +974,7 @@ void File__Analyze::Get_C7(int64u &Info)
 //---------------------------------------------------------------------------
 void File__Analyze::Get_C8(int64u &Info)
 {
-    INTEGRITY_SIZE_ATLEAST(8);
+    INTEGRITY_SIZE_ATLEAST_INT(8);
     Info=CC8(Buffer+Buffer_Offset+Element_Offset);
     Element_Offset+=8;
 }
