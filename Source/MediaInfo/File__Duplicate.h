@@ -60,7 +60,7 @@ protected :
     bool   File__Duplicate_HasChanged();
 
     //Write
-    void   File__Duplicate_Write (size_t PID);
+    void   File__Duplicate_Write (int16u PID);
 
     //Output buffer
     size_t Output_Buffer_Get (const String &Value);

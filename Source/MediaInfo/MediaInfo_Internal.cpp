@@ -701,7 +701,7 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
         return Config.Option(Option, Value);
     }
     else
-        return _T("");
+        return MediaInfoLib::Config.Option(Option, Value);
 }
 
 //---------------------------------------------------------------------------

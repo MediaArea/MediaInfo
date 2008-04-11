@@ -189,8 +189,6 @@ String MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
         size_t Size=Count_Get(StreamKind, StreamPos);
         for (size_t Champ_Pos=0; Champ_Pos<Size; Champ_Pos++)
         {
-            if (Champ_Pos==195)
-                int A=0;
             //Pour chaque champ
             //Ztring A=Get((stream_t)4, 2, 0, Info_Measure_Text); // TODO Bug sinon? voir Ztring
             Ztring A=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Measure_Text); // TODO Bug sinon? voir Ztring

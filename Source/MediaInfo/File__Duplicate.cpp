@@ -164,7 +164,7 @@ bool File__Duplicate::File__Duplicate_HasChanged ()
 // Write
 //***************************************************************************
 
-void File__Duplicate::File__Duplicate_Write (size_t PID)
+void File__Duplicate::File__Duplicate_Write (int16u PID)
 {
     const int8u* ToAdd=Buffer+Buffer_Offset-(size_t)Header_Size;
     size_t ToAdd_Size=(size_t)(Element_Size+Header_Size);
