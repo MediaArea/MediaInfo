@@ -170,12 +170,13 @@ private :
             Searching_Payload=false;
         }
     };
-    std::map<int8u, stream> Stream;
+    std::vector<stream> Streams;
 
     //Helpers
     bool Synchronize();
     bool Header_Parser_QuickSearch();
     bool Detect_NonMPEG4V();
+    void Init();
 };
 
 } //NameSpace

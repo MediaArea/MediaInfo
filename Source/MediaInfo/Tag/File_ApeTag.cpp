@@ -130,14 +130,14 @@ void File_ApeTag::Data_Parse()
     Get_UTF8(Element_Size, Value,                               "Value"); Element_Info(Value);
 
     //Filling
-         if (Key=="ALBUM")          Fill(Stream_General, 0, "Album", Value);
-    else if (Key=="ARTIST")         Fill(Stream_General, 0, "Performer", Value);
-    else if (Key=="AUTHOR")         Fill(Stream_General, 0, "Performer", Value);
-    else if (Key=="COMMENTS")       Fill(Stream_General, 0, "Comment", Value);
-    else if (Key=="COMPOSER")       Fill(Stream_General, 0, "WrittentBy", Value);
-    else if (Key=="YEAR")           Fill(Stream_General, 0, "Recorded_Date", Value);
-    else if (Key=="TRACK")          Fill(Stream_General, 0, "Track/Position", Value);
-    else if (Key=="TITLE")          Fill(Stream_General, 0, "Title", Value);
+         if (Key=="ALBUM")          Fill(Stream_General, 0, General_Album, Value);
+    else if (Key=="ARTIST")         Fill(Stream_General, 0, General_Performer, Value);
+    else if (Key=="AUTHOR")         Fill(Stream_General, 0, General_Performer, Value);
+    else if (Key=="COMMENTS")       Fill(Stream_General, 0, General_Comment, Value);
+    else if (Key=="COMPOSER")       Fill(Stream_General, 0, General_WrittenBy, Value);
+    else if (Key=="YEAR")           Fill(Stream_General, 0, General_Recorded_Date, Value);
+    else if (Key=="TRACK")          Fill(Stream_General, 0, General_Track_Position, Value);
+    else if (Key=="TITLE")          Fill(Stream_General, 0, General_Title, Value);
     else                            Fill(Stream_General, 0, Key.c_str(), Value);
 }
 

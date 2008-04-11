@@ -97,29 +97,29 @@ void File_VorbisCom::Comment()
         Key.MakeUpperCase();
         Ztring Value=comment.SubString(_T("="), _T(""));
 
-             if (Key==_T("ALBUM"))          Fill(Stream_General, 0, "Album", Value);
-        else if (Key==_T("ARTIST"))         Fill(Stream_General, 0, "Performer", Value);
-        else if (Key==_T("AUTHOR"))         Fill(Stream_General, 0, "Performer", Value);
-        else if (Key==_T("COMMENT"))        Fill(Stream_General, 0, "Comment", Value);
-        else if (Key==_T("COMMENTS"))       Fill(Stream_General, 0, "Comment", Value);
-        else if (Key==_T("CONTACT"))        Fill(Stream_General, 0, "Publisher", Value);
-        else if (Key==_T("COPYRIGHT"))      Fill(Stream_General, 0, "Copyright", Value);
-        else if (Key==_T("DATE"))           Fill(Stream_General, 0, "Recorded_Date", Value);
-        else if (Key==_T("DESCRIPTION"))    Fill(Stream_General, 0, "Comment", Value);
-        else if (Key==_T("ENCODER"))        Fill(Stream_General, 0, "Encoded_Application", Value);
-        else if (Key==_T("ENCODED_USING"))  Fill(Stream_General, 0, "Encoded_Application", Value);
-        else if (Key==_T("ENCODER_URL"))    Fill(Stream_General, 0, "Encoded_Application/Url", Value);
-        else if (Key==_T("GENRE"))          Fill(Stream_General, 0, "Genre", Value);
-        else if (Key==_T("ISRC"))           Fill(Stream_General, 0, "ISRC", Value);
+             if (Key==_T("ALBUM"))          Fill(Stream_General, 0, General_Album, Value);
+        else if (Key==_T("ARTIST"))         Fill(Stream_General, 0, General_Performer, Value);
+        else if (Key==_T("AUTHOR"))         Fill(Stream_General, 0, General_Performer, Value);
+        else if (Key==_T("COMMENT"))        Fill(Stream_General, 0, General_Comment, Value);
+        else if (Key==_T("COMMENTS"))       Fill(Stream_General, 0, General_Comment, Value);
+        else if (Key==_T("CONTACT"))        Fill(Stream_General, 0, General_Publisher, Value);
+        else if (Key==_T("COPYRIGHT"))      Fill(Stream_General, 0, General_Copyright, Value);
+        else if (Key==_T("DATE"))           Fill(Stream_General, 0, General_Recorded_Date, Value);
+        else if (Key==_T("DESCRIPTION"))    Fill(Stream_General, 0, General_Comment, Value);
+        else if (Key==_T("ENCODER"))        Fill(Stream_General, 0, General_Encoded_Application, Value);
+        else if (Key==_T("ENCODED_USING"))  Fill(Stream_General, 0, General_Encoded_Application, Value);
+        else if (Key==_T("ENCODER_URL"))    Fill(Stream_General, 0, General_Encoded_Application_Url, Value);
+        else if (Key==_T("GENRE"))          Fill(Stream_General, 0, General_Genre, Value);
+        else if (Key==_T("ISRC"))           Fill(Stream_General, 0, General_ISRC, Value);
         else if (Key==_T("LANGUAGE"))       Fill(StreamKind,     0, "Language", Value);
-        else if (Key==_T("LICENCE"))        Fill(Stream_General, 0, "TermsOfUse", Value);
+        else if (Key==_T("LICENCE"))        Fill(Stream_General, 0, General_TermsOfUse, Value);
         else if (Key==_T("LWING_GAIN"))     Fill(StreamKind,     0, "ReplayGain_Gain", Value);
-        else if (Key==_T("LOCATION"))       Fill(Stream_General, 0, "Recorded_Location", Value);
-        else if (Key==_T("ORGANIZATION"))   Fill(Stream_General, 0, "Producer", Value);
-        else if (Key==_T("PERFORMER"))      Fill(Stream_General, 0, "Performer", Value);
-        else if (Key==_T("TITLE"))          Fill(Stream_General, 0, "Title", Value);
-        else if (Key==_T("TRACKNUMBER"))    Fill(Stream_General, 0, "Track/Position", Value);
-        else if (Key==_T("VERSION"))        Fill(Stream_General, 0, "Track/More", Value);
+        else if (Key==_T("LOCATION"))       Fill(Stream_General, 0, General_Recorded_Location, Value);
+        else if (Key==_T("ORGANIZATION"))   Fill(Stream_General, 0, General_Producer, Value);
+        else if (Key==_T("PERFORMER"))      Fill(Stream_General, 0, General_Performer, Value);
+        else if (Key==_T("TITLE"))          Fill(Stream_General, 0, General_Title, Value);
+        else if (Key==_T("TRACKNUMBER"))    Fill(Stream_General, 0, General_Track_Position, Value);
+        else if (Key==_T("VERSION"))        Fill(Stream_General, 0, General_Track_More, Value);
         else if (Key.find(_T("CHAPTER"))==0)
         {
             if (Count_Get(Stream_Chapters)==0)
@@ -131,9 +131,9 @@ void File_VorbisCom::Comment()
             }
             else
             {
-                Value.FindAndReplace(_T("\n"), _T(""), Text.size()-1); //Some chapters names have extra characters, not needed
-                Value.FindAndReplace(_T("\r"), _T(""), Text.size()-1); //Some chapters names have extra characters, not needed
-                Value.FindAndReplace(_T(" "),  _T(""), Text.size()-1); //Some chapters names have extra characters, not needed
+                Value.FindAndReplace(_T("\n"), _T(""), Count_Get(Stream_Text)-1); //Some chapters names have extra characters, not needed
+                Value.FindAndReplace(_T("\r"), _T(""), Count_Get(Stream_Text)-1); //Some chapters names have extra characters, not needed
+                Value.FindAndReplace(_T(" "),  _T(""), Count_Get(Stream_Text)-1); //Some chapters names have extra characters, not needed
                 Fill(Stream_Chapters, 0, Chapter_Pos.To_Local().c_str(), Chapter_Time+_T(" ")+Value);
             }
         }

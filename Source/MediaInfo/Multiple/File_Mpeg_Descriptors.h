@@ -47,7 +47,7 @@ public :
     stream_t KindOfStream;
 
     //Out
-    std::map<ZenLib::Ztring, ZenLib::Ztring> Infos;
+    std::map<std::string, ZenLib::Ztring> Infos;
     int8u    descriptor_tag;
 
 protected :

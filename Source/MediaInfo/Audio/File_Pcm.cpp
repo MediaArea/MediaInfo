@@ -47,7 +47,7 @@ void File_Pcm::Read_Buffer_Continue()
 
     //Filling
     Stream_Prepare(Stream_General);
-    Fill("Format", "PCM");
+    Fill(Stream_General, 0, General_Format, "PCM");
     Stream_Prepare(Stream_Audio);
 
     Finnished();
@@ -122,36 +122,36 @@ void File_Pcm::Read_Buffer_Finalize()
 
     if (!Codec_New.empty())
     {
-        Fill("Codec", Codec_New);
-        Fill("Codec/String", Codec_New);
-        Fill("Codec/Family", Codec_New);
+        Fill(Stream_Audio, 0, Audio_Codec, Codec_New);
+        Fill(Stream_Audio, 0, Audio_Codec_String, Codec_New);
+        Fill(Stream_Audio, 0, Audio_Codec_Family, Codec_New);
     }
     if (!Firm.empty())
     {
-        Fill("Codec_Settings", Firm);
-        Fill("Codec_Settings_Firm", Firm);
+        Fill(Stream_Audio, 0, Audio_Codec_Settings, Firm);
+        Fill(Stream_Audio, 0, Audio_Codec_Settings_Firm, Firm);
     }
     if (!Endianness.empty())
     {
-        Fill("Codec_Settings", Endianness);
-        Fill("Codec_Settings_Endianness", Endianness);
+        Fill(Stream_Audio, 0, Audio_Codec_Settings, Endianness);
+        Fill(Stream_Audio, 0, Audio_Codec_Settings_Endianness, Endianness);
     }
     if (!Sign.empty())
     {
-        Fill("Codec_Settings", Sign);
-        Fill("Codec_Settings_Sign", Sign);
+        Fill(Stream_Audio, 0, Audio_Codec_Settings, Sign);
+        Fill(Stream_Audio, 0, Audio_Codec_Settings_Sign, Sign);
     }
     if (!Law.empty())
     {
-        Fill("Codec_Settings", Law);
-        Fill("Codec_Settings_Law", Law);
+        Fill(Stream_Audio, 0, Audio_Codec_Settings, Law);
+        Fill(Stream_Audio, 0, Audio_Codec_Settings_Law, Law);
     }
     if (!ITU.empty())
     {
-        Fill("Codec_Settings", ITU);
-        Fill("Codec_Settings_ITU", ITU);
+        Fill(Stream_Audio, 0, Audio_Codec_Settings, ITU);
+        Fill(Stream_Audio, 0, Audio_Codec_Settings_ITU, ITU);
     }
-    Fill("Resolution", Resolution);
+    Fill(Stream_Audio, 0, Audio_Resolution, Resolution);
 }
 
 //***************************************************************************

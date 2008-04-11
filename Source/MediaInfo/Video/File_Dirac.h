@@ -90,7 +90,7 @@ private :
             Searching_Payload=false;
         }
     };
-    std::map<int8u, stream> Stream;
+    std::vector<stream> Streams;
 
     //Count of a Packets
     size_t Frame_Count;

@@ -216,12 +216,12 @@ void File_OtherText::Read_Buffer_Continue()
         return;
 
     Stream_Prepare(Stream_General);
-    General[0](_T("Format"))=Format;
-    General[0](_T("Format/More"))=FormatMore;
-    General[0](_T("Format/Url"))=Url;
-    General[0](_T("Format/Extensions"))=Extensions;
+    Fill(Stream_General, 0, General_Format, Format);
+    Fill(Stream_General, 0, General_Format_Info, FormatMore);
+    Fill(Stream_General, 0, General_Format_Url, Url);
+    Fill(Stream_General, 0, General_Format_Extensions, Extensions);
     Stream_Prepare(Stream_Text);
-    Text[0](_T("Codec"))=Codec;
+    Fill(Stream_Text, 0, Text_Codec, Codec);
 
     //No need of more
     Element_Begin(Format);

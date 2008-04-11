@@ -35,7 +35,7 @@
 namespace MediaInfoLib
 {
 
-class MediaInfo;
+class MediaInfo_Internal;
 
 //***************************************************************************
 // Class File_Cdxa
@@ -73,7 +73,7 @@ private :
     bool Synchronize();
 
     //Temp
-    MediaInfo* MI;
+    MediaInfo_Internal* MI;
 };
 
 } //NameSpace

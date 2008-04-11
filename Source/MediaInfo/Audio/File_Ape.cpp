@@ -203,15 +203,15 @@ void File_Ape::FileHeader_Parse()
         int32u BitRate=(int32u)(Samples*Channels*Resolution*1000/PlayTime*CompressionRatio);
 
         Stream_Prepare(Stream_General);
-        Fill("Format", "APE");
+        Fill(Stream_General, 0, General_Format, "APE");
         Stream_Prepare(Stream_Audio);
-        Fill("Codec", "APE");
-        Fill("Resolution", Resolution);
-        Fill("Channel(s)", Channels);
-        Fill("SamplingRate", SampleRate);
-        Fill("PlayTime", PlayTime);
-        Fill("CompressionRatio", CompressionRatio);
-        Fill("BitRate", BitRate);
+        Fill(Stream_Audio, 0, Audio_Codec, "APE");
+        Fill(Stream_Audio, 0, Audio_Resolution, Resolution);
+        Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
+        Fill(Stream_Audio, 0, Audio_SamplingRate, SampleRate);
+        Fill(Stream_Audio, 0, Audio_PlayTime, PlayTime);
+        Fill(Stream_Audio, 0, "CompressionRatio", CompressionRatio);
+        Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
 
         File__Tags_Helper::Data_GoTo(File_Size, "APE");
     FILLING_END();
@@ -226,20 +226,20 @@ void File_Ape::HowTo(stream_t StreamKind)
 {
          if (StreamKind==Stream_General)
     {
-        General[0](_T("Format"), Info_HowTo)=_T("R");
-        General[0](_T("BitRate"), Info_HowTo)=_T("R");
-        General[0](_T("PlayTime"), Info_HowTo)=_T("R");
-        General[0](_T("Author"), Info_HowTo)=_T("R");
-        General[0](_T("Album"), Info_HowTo)=_T("R");
-        General[0](_T("Track"), Info_HowTo)=_T("R");
-        General[0](_T("Comment"), Info_HowTo)=_T("R");
+        Fill_HowTo("Format", "R");
+        Fill_HowTo("BitRate", "R");
+        Fill_HowTo("PlayTime", "R");
+        Fill_HowTo("Author", "R");
+        Fill_HowTo("Album", "R");
+        Fill_HowTo("Track", "R");
+        Fill_HowTo("Comment", "R");
     }
     else if (StreamKind==Stream_Audio)
     {
-        Audio[0](_T("BitRate"), Info_HowTo)=_T("R");
-        Audio[0](_T("Channel(s)"), Info_HowTo)=_T("R");
-        Audio[0](_T("SamplingRate"), Info_HowTo)=_T("R");
-        Audio[0](_T("Codec"), Info_HowTo)=_T("R");
+        Fill_HowTo("BitRate", "R");
+        Fill_HowTo("Channel(s)", "R");
+        Fill_HowTo("SamplingRate", "R");
+        Fill_HowTo("Codec", "R");
     }
 }
 

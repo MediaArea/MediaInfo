@@ -110,16 +110,16 @@ void File_Au::FileHeader_Parse()
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill("Format", "AU");
+        Fill(Stream_General, 0, General_Format, "AU");
         Stream_Prepare(Stream_Audio);
-        Fill("Codec", Au_sample_format(sample_format));
-        Fill("Channel(s)", channels);
-        Fill("SamplingRate", sample_rate);
+        Fill(Stream_Audio, 0, Audio_Codec, Au_sample_format(sample_format));
+        Fill(Stream_Audio, 0, Audio_Channel_s_, channels);
+        Fill(Stream_Audio, 0, Audio_SamplingRate, sample_rate);
         if (File_Size!=(int64u)-1)
             data_size=(int32u)File_Size-data_start; //Priority for File size
         if (sample_rate && (data_size!=0 || data_size!=0xFFFFFFFF))
-            Fill("PlayTime", ((int64u)data_size)*1000/sample_rate);
-        Fill("Comments", arbitrary);
+            Fill(Stream_Audio, 0, Audio_PlayTime, ((int64u)data_size)*1000/sample_rate);
+        Fill(Stream_General, 0, General_Comment, arbitrary);
 
         Finnished();
     FILLING_END();

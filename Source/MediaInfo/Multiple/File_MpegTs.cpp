@@ -155,26 +155,9 @@ File_MpegTs::File_MpegTs()
     //File__Duplicate_Set(_T("2;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\2.ts"));
     //File__Duplicate_Set(_T("452;file://e:\\test\\xxx.ts"));
 
-    //Default values
-    Streams.resize(0x2000);
-    Streams[0x00].TS_Kind=File_Mpeg_Psi::program_association_table;
-    Streams[0x01].TS_Kind=File_Mpeg_Psi::conditional_access_table;
-    Streams[0x02].TS_Kind=File_Mpeg_Psi::transport_stream_description_table;
-    for (int32u Pos=0x03; Pos<0x10; Pos++)
-        Streams[Pos].TS_Kind=File_Mpeg_Psi::reserved;
-    for (int32u Pos=0x00; Pos<0x10; Pos++)
-        Streams[Pos].Searching_Payload_Start_Set(true);
-
-    //Count
-    program_Count=(size_t)-1;
-    elementary_PID_Count=0;
-
-    //Temp
-    format_identifier=0x00000000;
+    //temp
     TS_Size=188;
     BDAV_Size=0; //No BDAV header
-    MpegTs_JumpTo_Begin=16*1024*1024;
-    MpegTs_JumpTo_End=8*1024*1024;
 }
 
 //***************************************************************************
@@ -236,6 +219,9 @@ void File_MpegTs::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_MpegTs::Read_Buffer_Finalize()
 {
+    if (Streams.empty())
+        return; //Not initialized
+
     for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
     {
         if (Streams[StreamID].TS_Kind==File_Mpeg_Psi::pes)
@@ -269,10 +255,10 @@ void File_MpegTs::Read_Buffer_Finalize()
             if (StreamKind_Last!=Stream_Max) //Found by the Parser or stream_type
             {
                 //Codec
-                if (Get(StreamKind_Last, StreamPos_Last, _T("Codec")).empty())
-                    Fill("Codec", Mpeg_Psi_stream_Codec(Streams[StreamID].stream_type, format_identifier));
-                if (Get(StreamKind_Last, StreamPos_Last, _T("Codec")).empty())
-                    Fill("Codec", Mpeg_Descriptors_stream_Codec(Streams[StreamID].descriptor_tag, format_identifier));
+                if (Retrieve(StreamKind_Last, StreamPos_Last, "Codec").empty())
+                    Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Psi_stream_Codec(Streams[StreamID].stream_type, format_identifier));
+                if (Retrieve(StreamKind_Last, StreamPos_Last, "Codec").empty())
+                    Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Descriptors_stream_Codec(Streams[StreamID].descriptor_tag, format_identifier));
 
                 //TimeStamp
                 if (Streams[StreamID].TimeStamp_End!=(int64u)-1)
@@ -281,33 +267,33 @@ void File_MpegTs::Read_Buffer_Finalize()
                         Streams[StreamID].TimeStamp_End+=0x200000000LL; //33 bits, cyclic
                     int64u PlayTime=Streams[StreamID].TimeStamp_End-Streams[StreamID].TimeStamp_Start;
                     if (PlayTime!=0 && PlayTime!=(int64u)-1)
-                        Fill("PlayTime", PlayTime/90, 10, true);
+                        Fill(StreamKind_Last, StreamPos_Last, "PlayTime", PlayTime/90, 10, true);
                     else
-                        Fill("PlayTime", "", 0, true, true); //Clear it
+                        Fill(StreamKind_Last, StreamPos_Last, "PlayTime", "", 0, true, true); //Clear it
                 }
 
                 //Encryption
                 if (Streams[StreamID].Scrambled)
-                    Fill("Encryption", "Encrypted");
+                    Fill(StreamKind_Last, StreamPos_Last, "Encryption", "Encrypted");
 
                 //TS info
-                for (std::map<ZenLib::Ztring, ZenLib::Ztring>::iterator Info=Streams[StreamID].Infos.begin(); Info!=Streams[StreamID].Infos.end(); Info++)
+                for (std::map<std::string, ZenLib::Ztring>::iterator Info=Streams[StreamID].Infos.begin(); Info!=Streams[StreamID].Infos.end(); Info++)
                 {
-                    if (Get(StreamKind_Last, StreamPos_Last, Info->first).empty())
-                        Fill(Info->first.To_Local().c_str(), Info->second);
+                    if (Retrieve(StreamKind_Last, StreamPos_Last, Info->first.c_str()).empty())
+                        Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second);
                 }
 
                 //Common
-                Fill("ID", StreamID);
-                Fill("ID/String", Decimal_Hexa(StreamID));
-                Fill("MenuID", Streams[StreamID].program_number);
-                Fill("MenuID/String", Decimal_Hexa(Streams[StreamID].program_number));
+                Fill(StreamKind_Last, StreamPos_Last, "ID", StreamID);
+                Fill(StreamKind_Last, StreamPos_Last, "ID/String", Decimal_Hexa(StreamID));
+                Fill(StreamKind_Last, StreamPos_Last, "MenuID", Streams[StreamID].program_number);
+                Fill(StreamKind_Last, StreamPos_Last, "MenuID/String", Decimal_Hexa(Streams[StreamID].program_number));
 
                 //Menu
                 Programs[Streams[StreamID].program_number].List.push_back(Ztring::ToZtring(StreamID));
-                Ztring Codec=Get(StreamKind_Last, StreamPos_Last, _T("Codec"));
+                Ztring Codec=Retrieve(StreamKind_Last, StreamPos_Last, "Codec");
                 Programs[Streams[StreamID].program_number].Codec.push_back(Codec);
-                Ztring Language=Get(StreamKind_Last, StreamPos_Last, _T("Language"));
+                Ztring Language=Retrieve(StreamKind_Last, StreamPos_Last, "Language");
                 Programs[Streams[StreamID].program_number].Language.push_back(Language);
                 Ztring Menu_Temp=Decimal_Hexa(StreamID);
                 Menu_Temp+=_T(" (");
@@ -325,14 +311,14 @@ void File_MpegTs::Read_Buffer_Finalize()
     }
 
     //Fill General
-         if (!Video.empty() && Video[0](_T("Codec"))==_T("MPEG-2V"))
-        Fill(Stream_General, 0, "Format", "MPEG-2TS");
-    else if (!Video.empty() && Video[0](_T("Codec"))==_T("MPEG-4V"))
-        Fill(Stream_General, 0, "Format", "MPEG-4TS");
-    else if (!Video.empty() && Video[0](_T("Codec"))==_T("AVC"))
-        Fill(Stream_General, 0, "Format", "MPEG-4TS");
+         if (Retrieve(Stream_Video, 0, Video_Codec)==_T("MPEG-2V"))
+        Fill(Stream_General, 0, General_Format, "MPEG-2TS");
+    else if (Retrieve(Stream_Video, 0, Video_Codec)==_T("MPEG-4V"))
+        Fill(Stream_General, 0, General_Format, "MPEG-4TS");
+    else if (Retrieve(Stream_Video, 0, Video_Codec)==_T("AVC"))
+        Fill(Stream_General, 0, General_Format, "MPEG-4TS");
     else
-        Fill(Stream_General, 0, "Format", "MPEG-1TS");
+        Fill(Stream_General, 0, General_Format, "MPEG-1TS");
 
     //Fill Menu
     if (Programs.size()>1)
@@ -340,18 +326,18 @@ void File_MpegTs::Read_Buffer_Finalize()
         for (std::map<int16u, program>::iterator Program=Programs.begin(); Program!=Programs.end(); Program++)
         {
             Stream_Prepare(Stream_Menu);
-            Fill("MenuID", Program->first);
-            Fill("MenuID/String", Decimal_Hexa(Program->first));
-            Fill("ID", Programs[Program->first].pid);
-            Fill("ID/String", Decimal_Hexa(Programs[Program->first].pid));
+            Fill(StreamKind_Last, StreamPos_Last, "MenuID", Program->first);
+            Fill(StreamKind_Last, StreamPos_Last, "MenuID/String", Decimal_Hexa(Program->first));
+            Fill(StreamKind_Last, StreamPos_Last, "ID", Programs[Program->first].pid);
+            Fill(StreamKind_Last, StreamPos_Last, "ID/String", Decimal_Hexa(Programs[Program->first].pid));
             Program->second.List.Separator_Set(0, _T(" / "));
-            Fill("List", Program->second.List.Read());
+            Fill(StreamKind_Last, StreamPos_Last, "List", Program->second.List.Read());
             Program->second.Text.Separator_Set(0, _T(" / "));
-            Fill("List/String", Program->second.Text.Read());
+            Fill(StreamKind_Last, StreamPos_Last, "List/String", Program->second.Text.Read());
             Program->second.Language.Separator_Set(0, _T(" / "));
-            Fill("Language", Program->second.Language.Read());
+            Fill(StreamKind_Last, StreamPos_Last, "Language", Program->second.Language.Read());
             Program->second.Codec.Separator_Set(0, _T(" / "));
-            Fill("Codec", Program->second.Codec.Read());
+            Fill(StreamKind_Last, StreamPos_Last, "Codec", Program->second.Codec.Read());
         }
     }
 
@@ -473,7 +459,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
         {
             BS_Begin();
             int64u program_clock_reference_base;
-            Get_S8 (33, program_clock_reference_base,           "program_clock_reference_base"); Param_Info(Ztring().Duration_From_Milliseconds(program_clock_reference_base/90));
+            Get_S8 (33, program_clock_reference_base,           "program_clock_reference_base"); Param_Info_From_Milliseconds(program_clock_reference_base/90);
             if (Streams[pid].Searching_TimeStamp_Start)
             {
                 //This is the first PCR
@@ -481,7 +467,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                 Streams[pid].Searching_TimeStamp_Start_Set(false);
             }
             Streams[pid].TimeStamp_End=program_clock_reference_base;
-            Data_Info(Ztring().Duration_From_Milliseconds(program_clock_reference_base/90));
+            Data_Info_From_Milliseconds(program_clock_reference_base/90);
             Skip_S1( 6,                                         "reserved");
             Skip_S2( 9,                                         "program_clock_reference_extension");
             BS_End();
@@ -598,10 +584,10 @@ void File_MpegTs::PSI()
         if (!payload_unit_start_indicator)
             return; //This is not the start of the PSI
         Streams[pid].Parser=new File_Mpeg_Psi;
-        Open_Buffer_Init(Streams[pid].Parser, File_Size, File_Offset+Buffer_Offset);
     }
 
     //Parsing
+    Open_Buffer_Init(Streams[pid].Parser, File_Size, File_Offset+Buffer_Offset);
     Open_Buffer_Continue(Streams[pid].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
     //Filling
@@ -668,7 +654,7 @@ void File_MpegTs::PSI_program_association_table()
     }
 
     //Filling
-    Fill(Stream_General, 0, "ID", Parser->transport_stream_id, 16, true);
+    Fill(Stream_General, 0, General_ID, Parser->transport_stream_id, 16, true);
 }
 
 //---------------------------------------------------------------------------
@@ -815,6 +801,7 @@ void File_MpegTs::PES()
     {
             #if defined(MEDIAINFO_MPEGPS_YES)
                 Streams[pid].Parser=new File_MpegPs;
+                Open_Buffer_Init(Streams[pid].Parser);
                 ((File_MpegPs*)Streams[pid].Parser)->FromTS=true;
                 ((File_MpegPs*)Streams[pid].Parser)->stream_type_FromTS=Streams[pid].stream_type;
                 ((File_MpegPs*)Streams[pid].Parser)->descriptor_tag_FromTS=Streams[pid].descriptor_tag;
@@ -823,6 +810,7 @@ void File_MpegTs::PES()
             #else
                 //Filling
                 Streams[pid].Parser=new File__Analyze();
+                Open_Buffer_Init();
                 //Streams_Count--;
             #endif
 
@@ -881,11 +869,31 @@ bool File_MpegTs::Synchronize()
         return false;
     }
 
-    //There is no start code, so Stream_General is filled here
-    if (Count_Get(Stream_General)==0)
-        Stream_Prepare(Stream_General);
-
     //Synched is OK
+    if (Streams.empty())
+    {
+        //Default values
+        Streams.resize(0x2000);
+        Streams[0x00].TS_Kind=File_Mpeg_Psi::program_association_table;
+        Streams[0x01].TS_Kind=File_Mpeg_Psi::conditional_access_table;
+        Streams[0x02].TS_Kind=File_Mpeg_Psi::transport_stream_description_table;
+        for (int32u Pos=0x03; Pos<0x10; Pos++)
+            Streams[Pos].TS_Kind=File_Mpeg_Psi::reserved;
+        for (int32u Pos=0x00; Pos<0x10; Pos++)
+            Streams[Pos].Searching_Payload_Start_Set(true);
+
+        //Count
+        program_Count=(size_t)-1;
+        elementary_PID_Count=0;
+
+        //Temp
+        format_identifier=0x00000000;
+        MpegTs_JumpTo_Begin=16*1024*1024;
+        MpegTs_JumpTo_End=8*1024*1024;
+
+        //There is no start code, so Stream_General is filled here
+        Stream_Prepare(Stream_General);
+    }
     Synched=true;
     return true;
 }

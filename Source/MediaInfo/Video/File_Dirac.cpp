@@ -357,17 +357,6 @@ File_Dirac::File_Dirac()
 {
     //In
     Frame_Count_Valid=1;
-
-    //Count of a Packets
-    Frame_Count=0;
-
-    //Temp
-    Dirac_base_video_format((int8u)-1, frame_width, frame_height, chroma_format, source_sampling,
-                            clean_width, clean_height, clean_left_offset, clean_top_offset,
-                            frame_rate, pixel_aspect_ratio);
-
-    //Default stream values
-    Stream[0x00].Searching_Payload=true; //Sequence header
 }
 
 //***************************************************************************
@@ -385,13 +374,16 @@ void File_Dirac::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Dirac::Read_Buffer_Finalize()
 {
+    if (Streams.empty())
+        return; //Not initialized
+
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
     if (Count_Get(Stream_General)==0 && Frame_Count>0)
         picture_Fill();
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-        Stream.clear();
+        Streams.clear();
 }
 
 //***************************************************************************
@@ -569,19 +561,19 @@ void File_Dirac::Sequence_header()
 
     FILLING_BEGIN();
         //Autorisation of other streams
-        Stream[0x10].Searching_Payload=true; //End_of_Sequence
-        Stream[0x20].Searching_Payload=true; //Auxiliary_data
-        Stream[0x30].Searching_Payload=true; //Padding_data
-        Stream[0x0C].Searching_Payload=true; //Intra_Reference_Picture
-        Stream[0x08].Searching_Payload=true; //Intra_Non_Reference_Picture
-        Stream[0x4C].Searching_Payload=true; //Intra_Reference_Picture_No
-        Stream[0x48].Searching_Payload=true; //Intra_Non_Reference_Picture_No
-        Stream[0x0D].Searching_Payload=true; //Inter_Reference_Picture_1
-        Stream[0x0E].Searching_Payload=true; //Inter_Reference_Picture_2
-        Stream[0x09].Searching_Payload=true; //Inter_Non_Reference_Picture_1
-        Stream[0x0A].Searching_Payload=true; //Inter_Non_Reference_Picture_2
-        Stream[0xCC].Searching_Payload=true; //Reference_Picture_Low
-        Stream[0xC8].Searching_Payload=true; //Intra_Non_Reference_Picture_Low
+        Streams[0x10].Searching_Payload=true; //End_of_Sequence
+        Streams[0x20].Searching_Payload=true; //Auxiliary_data
+        Streams[0x30].Searching_Payload=true; //Padding_data
+        Streams[0x0C].Searching_Payload=true; //Intra_Reference_Picture
+        Streams[0x08].Searching_Payload=true; //Intra_Non_Reference_Picture
+        Streams[0x4C].Searching_Payload=true; //Intra_Reference_Picture_No
+        Streams[0x48].Searching_Payload=true; //Intra_Non_Reference_Picture_No
+        Streams[0x0D].Searching_Payload=true; //Inter_Reference_Picture_1
+        Streams[0x0E].Searching_Payload=true; //Inter_Reference_Picture_2
+        Streams[0x09].Searching_Payload=true; //Inter_Non_Reference_Picture_1
+        Streams[0x0A].Searching_Payload=true; //Inter_Non_Reference_Picture_2
+        Streams[0xCC].Searching_Payload=true; //Reference_Picture_Low
+        Streams[0xC8].Searching_Payload=true; //Intra_Non_Reference_Picture_Low
     FILLING_END();
 }
 
@@ -748,22 +740,22 @@ void File_Dirac::picture()
 void File_Dirac::picture_Fill()
 {
     Stream_Prepare(Stream_General);
-    Fill("Format", "Dirac");
+    Fill(Stream_General, 0, General_Format, "Dirac");
     Stream_Prepare(Stream_Video);
-    Fill("Codec", "Dirac");
+    Fill(Stream_Video, 0, Video_Codec, "Dirac");
 
-    Fill("Width", clean_width);
-    Fill("Height", clean_height);
+    Fill(Stream_Video, StreamPos_Last, Video_Width, clean_width);
+    Fill(Stream_Video, StreamPos_Last, Video_Height, clean_height);
     if (pixel_aspect_ratio)
     {
-        Fill("PixelAspectRatio", pixel_aspect_ratio);
+        Fill(Stream_Video, 0, Video_PixelAspectRatio, pixel_aspect_ratio);
         if (clean_height!=0)
-            Fill("DisplayAspectRatio", ((float)clean_width)/clean_height*pixel_aspect_ratio);
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)clean_width)/clean_height*pixel_aspect_ratio);
     }
     if (frame_rate)
-        Fill("FrameRate", frame_rate);
-    Fill("Chroma", Dirac_chroma_format(chroma_format));
-    Fill("Interlacement", Dirac_source_sampling(source_sampling));
+        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, frame_rate);
+    Fill(Stream_Video, 0, Video_Chroma, Dirac_chroma_format(chroma_format));
+    Fill(Stream_Video, 0, Video_Interlacement, Dirac_source_sampling(source_sampling));
 
     if (File_Offset+Buffer_Size<File_Size)
     {
@@ -811,6 +803,20 @@ bool File_Dirac::Synchronize()
 
     //Synched is OK
     Synched=true;
+    if (Streams.empty())
+    {
+        //Count of a Packets
+        Frame_Count=0;
+
+        //Temp
+        Dirac_base_video_format((int8u)-1, frame_width, frame_height, chroma_format, source_sampling,
+                                clean_width, clean_height, clean_left_offset, clean_top_offset,
+                                frame_rate, pixel_aspect_ratio);
+
+        //Default stream values
+        Streams.resize(0x100);
+        Streams[0x00].Searching_Payload=true; //Sequence header
+    }
     return true;
 }
 
@@ -824,7 +830,7 @@ bool File_Dirac::Header_Parser_QuickSearch()
         int8u start_code=CC1(Buffer+Buffer_Offset+4);
 
         //Searching start
-        if (Stream[start_code].Searching_Payload)
+        if (Streams[start_code].Searching_Payload)
             return true;
 
         //Getting size

@@ -55,22 +55,21 @@ void File__Analyze::General_Fill()
         return;
 
     //FileName and FileSize
-    //if (File_Name.size()>0 && (General[0](_T("CompleteName")).empty() || General[0](_T("FileSize")).empty())) //Do it even if already, some merges can modify it
     if (File_Name.size()>0)
     {
         //FileName
-        General[0](_T("CompleteName"))=File_Name;
-        General[0](_T("FolderName"))=FileName::Path_Get(File_Name);
-        General[0](_T("FileName"))=FileName::Name_Get(File_Name);
-        General[0](_T("FileExtension"))=FileName::Extension_Get(File_Name).MakeLowerCase();
+        Fill (Stream_General, 0, General_CompleteName, File_Name);
+        Fill (Stream_General, 0, General_FolderName, FileName::Path_Get(File_Name));
+        Fill (Stream_General, 0, General_FileName, FileName::Name_Get(File_Name));
+        Fill (Stream_General, 0, General_FileExtension, FileName::Extension_Get(File_Name).MakeLowerCase());
 
         //FileSize
         File F(File_Name);
         int64u FileSize=F.Size_Get();
         if (FileSize)
-            General[0](_T("FileSize")).From_Number(FileSize);
-        General[0](_T("File_Created_Date"))=F.Created_Get();
-        General[0](_T("File_Modified_Date"))=F.Modified_Get();
+            Fill (Stream_General, 0, General_FileSize, FileSize);
+        Fill (Stream_General, 0, General_File_Created_Date, F.Created_Get());
+        Fill (Stream_General, 0, General_File_Modified_Date, F.Modified_Get());
     }
 }
 
@@ -81,23 +80,25 @@ void File__Analyze::General_Fill()
 //---------------------------------------------------------------------------
 void File__Analyze::Finalize()
 {
+    //For all streams (Generic)
+    if (IsSub)
+        return;
+
     General_Fill();
 
     //Generic
     //ELEMENT(0, "Finalizing (Generic)");
-
-    //For all streams (Generic)
     for (size_t StreamKind=Stream_General; StreamKind<Stream_Max; StreamKind++)
         Finalize__All((stream_t)StreamKind);
 
-    //For each kind of Stream
-    for (size_t Pos=0; Pos<General.size();  Pos++) Finalize_General(Pos);
-    for (size_t Pos=0; Pos<Video.size();    Pos++) Finalize_Video(Pos);
-    for (size_t Pos=0; Pos<Audio.size();    Pos++) Finalize_Audio(Pos);
-    for (size_t Pos=0; Pos<Text.size();     Pos++) Finalize_Text(Pos);
-    for (size_t Pos=0; Pos<Chapters.size(); Pos++) Finalize_Chapters(Pos);
-    for (size_t Pos=0; Pos<Image.size();    Pos++) Finalize_Image(Pos);
-    for (size_t Pos=0; Pos<Menu.size();     Pos++) Finalize_Menu(Pos);
+    //For each kind of (*Stream)
+    for (size_t Pos=0; Pos<Count_Get(Stream_General);  Pos++) Finalize_General(Pos);
+    for (size_t Pos=0; Pos<Count_Get(Stream_Video);    Pos++) Finalize_Video(Pos);
+    for (size_t Pos=0; Pos<Count_Get(Stream_Audio);    Pos++) Finalize_Audio(Pos);
+    for (size_t Pos=0; Pos<Count_Get(Stream_Text);     Pos++) Finalize_Text(Pos);
+    for (size_t Pos=0; Pos<Count_Get(Stream_Chapters); Pos++) Finalize_Chapters(Pos);
+    for (size_t Pos=0; Pos<Count_Get(Stream_Image);    Pos++) Finalize_Image(Pos);
+    for (size_t Pos=0; Pos<Count_Get(Stream_Menu);     Pos++) Finalize_Menu(Pos);
 
     //Final parsing
     Finalize_Final();
@@ -110,7 +111,7 @@ void File__Analyze::Finalize()
 //---------------------------------------------------------------------------
 void File__Analyze::Finalize__All(stream_t StreamKind)
 {
-    for (size_t Pos=0; Pos<(*Stream[StreamKind]).size(); Pos++)
+    for (size_t Pos=0; Pos<Count_Get(StreamKind); Pos++)
         Finalize__All(StreamKind, Pos);
 }
 
@@ -118,21 +119,21 @@ void File__Analyze::Finalize__All(stream_t StreamKind)
 void File__Analyze::Finalize__All(stream_t StreamKind, size_t Pos)
 {
     //BitRate
-    if ((*Stream[StreamKind])[Pos](_T("BitRate")).empty() && !(*Stream[StreamKind])[Pos](_T("StreamSize")).empty() && !(*Stream[StreamKind])[Pos](_T("PlayTime")).empty())
+    if (Retrieve(StreamKind, Pos, "BitRate").empty() && !Retrieve(StreamKind, Pos, "StreamSize").empty() && !Retrieve(StreamKind, Pos, "PlayTime").empty())
     {
-        int64u PlayTime=(*Stream[StreamKind])[Pos](_T("PlayTime")).To_int64u();
-        int64u StreamSize=(*Stream[StreamKind])[Pos](_T("StreamSize")).To_int64u();
+        int64u PlayTime=Retrieve(StreamKind, Pos, "PlayTime").To_int64u();
+        int64u StreamSize=Retrieve(StreamKind, Pos, "StreamSize").To_int64u();
         if (PlayTime>0 && StreamSize>0)
-            (*Stream[StreamKind])[Pos](_T("BitRate")).From_Number(StreamSize*8*1000/PlayTime);
+            Fill(StreamKind, Pos, "BitRate", StreamSize*8*1000/PlayTime);
     }
 
     //BitRate Nominal
-    float32 BitRate=(*Stream[StreamKind])[Pos](_T("BitRate")).To_float32();
-    float32 BitRate_Nominal=(*Stream[StreamKind])[Pos](_T("BitRate_Nominal")).To_float32();
+    float32 BitRate=Retrieve(StreamKind, Pos, "BitRate").To_float32();
+    float32 BitRate_Nominal=Retrieve(StreamKind, Pos, "BitRate_Nominal").To_float32();
     if (BitRate_Nominal>BitRate*0.995 && BitRate_Nominal<BitRate*1.005)
     {
-        (*Stream[StreamKind])[Pos](_T("BitRate"))=(*Stream[StreamKind])[Pos](_T("BitRate_Nominal"));
-        (*Stream[StreamKind])[Pos](_T("BitRate_Nominal")).clear();
+        Fill(StreamKind, Pos, "BitRate", Retrieve(StreamKind, Pos, "BitRate_Nominal"), true);
+        Clear(StreamKind, Pos, "BitRate_Nominal");
     }
 }
 
@@ -140,7 +141,7 @@ void File__Analyze::Finalize__All(stream_t StreamKind, size_t Pos)
 void File__Analyze::Finalize_Final_All(stream_t StreamKind)
 {
     Ztring Z1, Z2; //For Codec_List
-    for (size_t Pos=0; Pos<(*Stream[StreamKind]).size(); Pos++)
+    for (size_t Pos=0; Pos<(*Stream)[StreamKind].size(); Pos++)
         Finalize_Final_All(StreamKind, Pos, Z1, Z2);
 
     //Codec_List
@@ -160,54 +161,63 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
     if (StreamKind!=Stream_General)
     {
         //Codec
-        if (!(*Stream[StreamKind])[Pos](_T("Codec")).empty())
+        if (!Retrieve(StreamKind, Pos, "Codec").empty())
         {
-            const Ztring &C1=MediaInfoLib::Config.Codec_Get((*Stream[StreamKind])[Pos](_T("Codec")), InfoCodec_Name, (stream_t)StreamKind);
+            const Ztring &C1=MediaInfoLib::Config.Codec_Get(Retrieve(StreamKind, Pos, "Codec"), InfoCodec_Name, (stream_t)StreamKind);
             if (C1.empty())
             {
-                if ((*Stream[StreamKind])[Pos](_T("Codec/String")).empty()) (*Stream[StreamKind])[Pos](_T("Codec/String"))=(*Stream[StreamKind])[Pos](_T("Codec"));
+                if (Retrieve(StreamKind, Pos, "Codec/String").empty()) Fill(StreamKind, Pos, "Codec/String", Retrieve(StreamKind, Pos, "Codec"));
             }
             else
             {
-                if ((*Stream[StreamKind])[Pos](_T("Codec/String")).empty()) (*Stream[StreamKind])[Pos](_T("Codec/String"))=C1;
-                if ((*Stream[StreamKind])[Pos](_T("Codec/Family")).empty()) (*Stream[StreamKind])[Pos](_T("Codec/Family"))=MediaInfoLib::Config.Codec_Get((*Stream[StreamKind])[Pos](_T("Codec")), InfoCodec_KindofCodec, (stream_t)StreamKind);
-                if ((*Stream[StreamKind])[Pos](_T("Codec/Info"  )).empty()) (*Stream[StreamKind])[Pos](_T("Codec/Info"  ))=MediaInfoLib::Config.Codec_Get((*Stream[StreamKind])[Pos](_T("Codec")), InfoCodec_Description, (stream_t)StreamKind);
-                if ((*Stream[StreamKind])[Pos](_T("Codec/Url"   )).empty()) (*Stream[StreamKind])[Pos](_T("Codec/Url"   ))=MediaInfoLib::Config.Codec_Get((*Stream[StreamKind])[Pos](_T("Codec")), InfoCodec_Url, (stream_t)StreamKind);
+                if (Retrieve(StreamKind, Pos, "Codec/String").empty()) Fill(StreamKind, Pos, "Codec/String", C1);
+                if (Retrieve(StreamKind, Pos, "Codec/Family").empty()) Fill(StreamKind, Pos, "Codec/Family", MediaInfoLib::Config.Codec_Get(Retrieve(StreamKind, Pos, "Codec"), InfoCodec_KindofCodec, (stream_t)StreamKind));
+                if (Retrieve(StreamKind, Pos, "Codec/Info"  ).empty()) Fill(StreamKind, Pos, "Codec/Info"  , MediaInfoLib::Config.Codec_Get(Retrieve(StreamKind, Pos, "Codec"), InfoCodec_Description, (stream_t)StreamKind));
+                if (Retrieve(StreamKind, Pos, "Codec/Url"   ).empty()) Fill(StreamKind, Pos, "Codec/Url"   , MediaInfoLib::Config.Codec_Get(Retrieve(StreamKind, Pos, "Codec"), InfoCodec_Url, (stream_t)StreamKind));
             }
         }
+
         //Special cases
-        if ((*Stream[StreamKind])[Pos](_T("Channel(s)")).empty()
-         &&((*Stream[StreamKind])[Pos](_T("Codec"))==_T("samr")
-         || (*Stream[StreamKind])[Pos](_T("Codec"))==_T("sawb")
-         || (*Stream[StreamKind])[Pos](_T("Codec"))==_T("7A21")
-         || (*Stream[StreamKind])[Pos](_T("Codec"))==_T("7A22"))
+        if (StreamKind==Stream_Audio
+         && Retrieve(StreamKind, Pos, "Channel(s)").empty()
+         &&(Retrieve(StreamKind, Pos, "Codec")==_T("samr")
+         || Retrieve(StreamKind, Pos, "Codec")==_T("sawb")
+         || Retrieve(StreamKind, Pos, "Codec")==_T("7A21")
+         || Retrieve(StreamKind, Pos, "Codec")==_T("7A22"))
             )
-            (*Stream[StreamKind])[Pos](_T("Channel(s)")).From_Number(1); //AMR is always with 1 channel
+            Fill(StreamKind, Pos, "Channel(s)", 1); //AMR is always with 1 channel
 
         //Language
         //-Find 2-digit language
-        (*Stream[StreamKind])[Pos](_T("Language")).MakeLowerCase();
-        if ((*Stream[StreamKind])[Pos](_T("Language")).size()==3 && (*Stream[StreamKind])[Pos](_T("Language"))==_T("und"))
-            (*Stream[StreamKind])[Pos](_T("Language")).clear();
-        if ((*Stream[StreamKind])[Pos](_T("Language")).size()==3 && !MediaInfoLib::Config.Iso639_Get((*Stream[StreamKind])[Pos](_T("Language"))).empty())
-           (*Stream[StreamKind])[Pos](_T("Language"))=MediaInfoLib::Config.Iso639_Get((*Stream[StreamKind])[Pos](_T("Language")));
-        //-Translate
-        Ztring Temp=_T("Language_"); Temp+=(*Stream[StreamKind])[Pos](_T("Language"));
-        const Ztring& Z3=MediaInfoLib::Config.Language_Get(Temp);
-        if (!Z3.empty())
-            (*Stream[StreamKind])[Pos](_T("Language/String"))=Z3;
-        else
-            (*Stream[StreamKind])[Pos](_T("Language/String"))=(*Stream[StreamKind])[Pos](_T("Language"));
-
+        if (!Retrieve(StreamKind, Pos, "Language").empty())
+        {
+            Ztring Language=Retrieve(StreamKind, Pos, "Language");
+            Language.MakeLowerCase();
+            if (Language.size()==3 && Language==_T("und"))
+            {
+                Clear(StreamKind, Pos, "Language");
+                Language.clear();
+            }
+            if (!Language.empty())
+            {
+                if (Language.size()==3 && !MediaInfoLib::Config.Iso639_Get(Language).empty())
+                    Fill(StreamKind, Pos, "Language", MediaInfoLib::Config.Iso639_Get(Language), true);
+                //-Translate
+                Ztring Temp=_T("Language_"); Temp+=Retrieve(StreamKind, Pos, "Language");
+                const Ztring& Z3=MediaInfoLib::Config.Language_Get(Temp);
+                Fill(StreamKind, Pos, "Language/String", Z3.empty()?Language:Z3);
+            }
+        }
+        
         //Codec_List
-        Z1+=(*Stream[StreamKind])[Pos](_T("Codec/String"))+_T(" / ");
-        Z2+=(*Stream[StreamKind])[Pos](_T("Language/String"))+_T(" / ");
+        Z1+=Retrieve(StreamKind, Pos, "Codec/String")+_T(" / ");
+        Z2+=Retrieve(StreamKind, Pos, "Language/String")+_T(" / ");
     }
 
     //Counts
-    (*Stream[StreamKind])[Pos](_T("Count")).From_Number((*Stream[StreamKind])[Pos].size());
-    (*Stream[StreamKind])[Pos](_T("StreamCount")).From_Number((*Stream[StreamKind]).size());
-    (*Stream[StreamKind])[Pos](_T("StreamKindID")).From_Number(Pos);
+    Fill(StreamKind, Pos, "Count", Count_Get(StreamKind, Pos));
+    Fill(StreamKind, Pos, "StreamCount", Count_Get(StreamKind));
+    Fill(StreamKind, Pos, "StreamKindID", Pos);
 
     //Strings
     size_t List_Measure_Pos=Error;
@@ -230,77 +240,80 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
 
     }
     while (List_Measure_Pos!=Error);
+
+    //StreamKind
+    Fill(StreamKind, Pos, General_StreamKind, MediaInfoLib::Config.Info_Get(StreamKind).Read(General_StreamKind, Info_Text));
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Finalize_General(size_t)
 {
     //Integrity
-    if (0>=General.size())
+    if (0>=Count_Get(Stream_General) || IsSub)
         return;
 
     //General, bases
-    General_Fill(); //Not always done by File_*
-    if (!MediaInfoLib::Config.Format_Get(General[0](_T("Format")), InfoFormat_Name).empty())
+    const Ztring Format=Retrieve(Stream_General, 0, "Format");
+    if (!MediaInfoLib::Config.Format_Get(Format, InfoFormat_Name).empty())
     {
-        Fill(Stream_General, 0, "Format/String", MediaInfoLib::Config.Format_Get(General[0](_T("Format")), InfoFormat_LongName));
-        Fill(Stream_General, 0, "Format/Family", MediaInfoLib::Config.Format_Get(General[0](_T("Format")), InfoFormat_Family));
-        Fill(Stream_General, 0, "Format/Info", MediaInfoLib::Config.Format_Get(General[0](_T("Format")), InfoFormat_Info));
-        Fill(Stream_General, 0, "Format/Url", MediaInfoLib::Config.Format_Get(General[0](_T("Format")), InfoFormat_Url));
-        Fill(Stream_General, 0, "Format/Extensions", MediaInfoLib::Config.Format_Get(General[0](_T("Format")), InfoFormat_Extensions));
+        Fill(Stream_General, 0, General_Format_String, MediaInfoLib::Config.Format_Get(Format, InfoFormat_LongName));
+        Fill(Stream_General, 0, General_Format_Family, MediaInfoLib::Config.Format_Get(Format, InfoFormat_Family));
+        Fill(Stream_General, 0, General_Format_Info, MediaInfoLib::Config.Format_Get(Format, InfoFormat_Info));
+        Fill(Stream_General, 0, General_Format_Url, MediaInfoLib::Config.Format_Get(Format, InfoFormat_Url));
+        Fill(Stream_General, 0, General_Format_Extensions, MediaInfoLib::Config.Format_Get(Format, InfoFormat_Extensions));
     }
-    else if (Get(Stream_General, 0, "Format/String").empty())
-        Fill(Stream_General, 0, "Format/String", General[0](_T("Format")));
+    else if (Retrieve(Stream_General, 0, General_Format_String).empty())
+        Fill(Stream_General, 0, "Format/String", Format);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Finalize_Video(size_t Pos)
 {
     //Integrity
-    if (Pos>=Video.size())
+    if (Pos>=Count_Get(Stream_Video))
         return;
 
     //Interlacement
-    if (!Video[Pos](_T("Interlacement")).empty())
+    if (!Retrieve(Stream_Video, Pos, "Interlacement").empty())
     {
-        Ztring &Z1=Video[Pos](_T("Interlacement"));
+        const Ztring &Z1=Retrieve(Stream_Video, Pos, "Interlacement");
         if (Z1.size()==3)
-            Video[Pos](_T("Interlacement/String"))=MediaInfoLib::Config.Language_Get(Ztring(_T("Interlaced_"))+Z1);
+            Fill(Stream_Video, Pos, "Interlacement/String", MediaInfoLib::Config.Language_Get(Ztring(_T("Interlaced_"))+Z1));
         else
-            Video[Pos](_T("Interlacement/String"))=MediaInfoLib::Config.Language_Get(Z1);
-        if (Video[Pos](_T("Interlacement/String")).empty())
-            Video[Pos](_T("Interlacement/String"))=Z1;
+            Fill(Stream_Video, Pos, "Interlacement/String", MediaInfoLib::Config.Language_Get(Z1));
+        if (Retrieve(Stream_Video, Pos, "Interlacement/String").empty())
+            Fill(Stream_Video, Pos, "Interlacement/String", Z1);
     }
     //Display Aspect Ratio from Pixel Aspect Ratio
-    if (Video[Pos](_T("DisplayAspectRatio")).empty() && !Video[Pos](_T("PixelAspectRatio")).empty())
+    if (Retrieve(Stream_Video, Pos, "DisplayAspectRatio").empty() && !Retrieve(Stream_Video, Pos, "PixelAspectRatio").empty())
     {
-        float PAR   =Video[Pos](_T("PixelAspectRatio")).To_float32();
-        float Width =Video[Pos](_T("Width"           )).To_float32();
-        float Height=Video[Pos](_T("Height"          )).To_float32();
+        float PAR   =Retrieve(Stream_Video, Pos, "PixelAspectRatio").To_float32();
+        float Width =Retrieve(Stream_Video, Pos, "Width"           ).To_float32();
+        float Height=Retrieve(Stream_Video, Pos, "Height"          ).To_float32();
         if (PAR && Height && Width)
-            Video[Pos](_T("DisplayAspectRatio")).From_Number(Width/Height*PAR);
+            Fill(Stream_Video, Pos, "DisplayAspectRatio", ((float32)Width)/Height*PAR, 3);
     }
     //Pixel Aspect Ratio from Display Aspect Ratio
-    if (Video[Pos](_T("PixelAspectRatio")).empty() && !Video[Pos](_T("DisplayAspectRatio")).empty())
+    if (Retrieve(Stream_Video, Pos, "PixelAspectRatio").empty() && !Retrieve(Stream_Video, Pos, "DisplayAspectRatio").empty())
     {
-        float DAR   =Video[Pos](_T("DisplayAspectRatio")).To_float32();
-        float Width =Video[Pos](_T("Width"             )).To_float32();
-        float Height=Video[Pos](_T("Height"            )).To_float32();
+        float DAR   =Retrieve(Stream_Video, Pos, "DisplayAspectRatio").To_float32();
+        float Width =Retrieve(Stream_Video, Pos, "Width"             ).To_float32();
+        float Height=Retrieve(Stream_Video, Pos, "Height"            ).To_float32();
         if (DAR && Height && Width)
-            Video[Pos](_T("PixelAspectRatio")).From_Number(Width/Height/DAR);
+            Fill(Stream_Video, Pos, "PixelAspectRatio", ((float32)Width)/Height/DAR);
     }
     //Display Aspect Ratio by default (thinking that PAR is 1.000)
-    if (Video[Pos](_T("DisplayAspectRatio")).empty())
+    if (Retrieve(Stream_Video, Pos, "DisplayAspectRatio").empty())
     {
-        float Width =Video[Pos](_T("Width" )).To_float32();
-        float Height=Video[Pos](_T("Height")).To_float32();
+        float Width =Retrieve(Stream_Video, Pos, "Width" ).To_float32();
+        float Height=Retrieve(Stream_Video, Pos, "Height").To_float32();
         if (Height && Width)
-            Video[Pos](_T("DisplayAspectRatio")).From_Number(Width/Height);
+            Fill(Stream_Video, Pos, "DisplayAspectRatio", ((float32)Width)/Height);
     }
     //Display Aspect Ratio
-    if (!Video[Pos](_T("DisplayAspectRatio")).empty())
+    if (!Retrieve(Stream_Video, Pos, "DisplayAspectRatio").empty())
     {
-        float F1=Video[Pos](_T("DisplayAspectRatio")).To_float32();
+        float F1=Retrieve(Stream_Video, Pos, "DisplayAspectRatio").To_float32();
         Ztring C1;
              if (0);
         else if (F1>1.23 && F1<1.27) C1=_T("5/4");
@@ -310,63 +323,63 @@ void File__Analyze::Finalize_Video(size_t Pos)
         else if (F1>2.23 && F1<2.30) C1=_T("2.25");
         else if (F1>2.30 && F1<2.40) C1=_T("2.35");
         else              C1.From_Number(F1);
-        Video[Pos](_T("DisplayAspectRatio/String"))=C1;
+        Fill(Stream_Video, Pos, "DisplayAspectRatio/String", C1);
     }
     //Standard
-    if (Video[Pos](_T("Standard")).empty() && Video[Pos](_T("Width"))==_T("720"))
+    if (Retrieve(Stream_Video, Pos, "Standard").empty() && Retrieve(Stream_Video, Pos, "Width")==_T("720"))
     {
-             if (Video[Pos](_T("Height"))==_T("576"))
-            Video[Pos](_T("Standard"))=_T("PAL");
-        else if (Video[Pos](_T("Height"))==_T("480"))
-            Video[Pos](_T("Standard"))=_T("NTSC");
+             if (Retrieve(Stream_Video, Pos, "Height")==_T("576"))
+            Fill(Stream_Video, Pos, "Standard", "PAL");
+        else if (Retrieve(Stream_Video, Pos, "Height")==_T("480"))
+            Fill(Stream_Video, Pos, "Standard", "NTSC");
     }
     //FrameRate Nominal
-    float32 FrameRate=(*Stream[Stream_Video])[Pos](_T("FrameRate")).To_float32();
-    float32 FrameRate_Nominal=(*Stream[Stream_Video])[Pos](_T("FrameRate_Nominal")).To_float32();
+    float32 FrameRate=Retrieve(Stream_Video, Pos, "FrameRate").To_float32();
+    float32 FrameRate_Nominal=Retrieve(Stream_Video, Pos, "FrameRate_Nominal").To_float32();
     if (FrameRate_Nominal>FrameRate*0.995 && FrameRate_Nominal<FrameRate*1.005)
     {
-        (*Stream[Stream_Video])[Pos](_T("FrameRate"))=(*Stream[Stream_Video])[Pos](_T("FrameRate_Nominal"));
-        (*Stream[Stream_Video])[Pos](_T("FrameRate_Nominal")).clear();
+        Fill(Stream_Video, Pos, "FrameRate", Retrieve(Stream_Video, Pos, "FrameRate_Nominal"));
+        Clear(Stream_Video, Pos, "FrameRate_Nominal");
     }
     //Bits/(Pixel*Frame)
-    if (!Video[Pos](_T("BitRate")).empty())
+    if (!Retrieve(Stream_Video, Pos, "BitRate").empty())
     {
-        float F1=(float)Video[Pos](_T("Width")).To_int32s()*(float)Video[Pos](_T("Height")).To_int32s()*Video[Pos](_T("FrameRate")).To_float32();
+        float F1=(float)Retrieve(Stream_Video, Pos, "Width").To_int32s()*(float)Retrieve(Stream_Video, Pos, "Height").To_int32s()*Retrieve(Stream_Video, Pos, "FrameRate").To_float32();
         if (F1)
-            Video[Pos](_T("Bits-(Pixel*Frame)")).From_Number(Video[Pos](_T("BitRate")).To_float32()/F1);
+            Fill(Stream_Video, Pos, "Bits-(Pixel*Frame)", Retrieve(Stream_Video, Pos, "BitRate").To_float32()/F1);
     }
     //FrameCount
-    if (Video[Pos](_T("FrameCount")).empty())
+    if (Retrieve(Stream_Video, Pos, "FrameCount").empty())
     {
-        int64s PlayTime=Video[Pos](_T("PlayTime")).To_int64s();
+        int64s PlayTime=Retrieve(Stream_Video, Pos, "PlayTime").To_int64s();
         if (PlayTime==0)
-            PlayTime=General[0](_T("PlayTime")).To_int64s();
-        float FrameRate=Video[Pos](_T("FrameRate")).To_float32();
+            PlayTime=Retrieve(Stream_General, 0, General_PlayTime).To_int64s();
+        float FrameRate=Retrieve(Stream_Video, Pos, "FrameRate").To_float32();
         if (PlayTime && FrameRate)
-           Video[Pos](_T("FrameCount")).From_Number(int64u(((float64)PlayTime)/1000*FrameRate));
+           Fill(Stream_Video, Pos, "FrameCount", ((float64)PlayTime)/1000*FrameRate, 0);
     }
     //Playtime
-    if (Video[Pos](_T("PlayTime")).empty())
+    if (Retrieve(Stream_Video, Pos, "PlayTime").empty())
     {
-        int64u PlayTime=Video[Pos](_T("PlayTime")).To_int64u();
-        int64u FrameRate=Video[Pos](_T("FrameRate")).To_int64u();
+        int64u PlayTime=Retrieve(Stream_Video, Pos, "PlayTime").To_int64u();
+        int64u FrameRate=Retrieve(Stream_Video, Pos, "FrameRate").To_int64u();
         if (PlayTime==0 && FrameRate!=0)
-            PlayTime=Video[Pos](_T("FrameCount")).To_int64u()*1000/FrameRate;
+            PlayTime=Retrieve(Stream_Video, Pos, "FrameCount").To_int64u()*1000/FrameRate;
         if (PlayTime)
-           Video[Pos](_T("PlayTime")).From_Number(PlayTime);
+           Fill(Stream_Video, Pos, "PlayTime", PlayTime);
     }
     //Encoded_Library
-    if (!Video[Pos](_T("Encoded_Library")).empty())
+    if (!Retrieve(Stream_Video, Pos, "Encoded_Library").empty())
     {
-        Ztring Encoder=Video[Pos](_T("Encoded_Library"));
-        const Ztring& Name=MediaInfoLib::Config.Encoder_Get(Video[Pos](_T("Encoded_Library")));
+        const Ztring &Encoded_Library=Retrieve(Stream_Video, Pos, "Encoded_Library");
+        const Ztring& Name=MediaInfoLib::Config.Encoder_Get(Encoded_Library);
         if (!Name.empty())
         {
-            Video[Pos](_T("Encoded_Library/String"))=Name;
-            Video[Pos](_T("Encoded_Library/Date"))=MediaInfoLib::Config.Encoder_Get(Encoder, InfoEncoder_Date);
+            Fill(Stream_Video, Pos, "Encoded_Library/String", Name);
+            Fill(Stream_Video, Pos, "Encoded_Library/Date", MediaInfoLib::Config.Encoder_Get(Encoded_Library, InfoEncoder_Date));
         }
         else
-            Video[Pos](_T("Encoded_Library/String"))=Video[Pos](_T("Encoded_Library"));
+            Fill(Stream_Video, Pos, "Encoded_Library/String", Encoded_Library);
     }
 }
 
@@ -374,52 +387,50 @@ void File__Analyze::Finalize_Video(size_t Pos)
 void File__Analyze::Finalize_Audio(size_t Pos)
 {
     //Integrity
-    if (Pos>=Audio.size())
+    if (Pos>=Count_Get(Stream_Audio))
         return;
 
     //SamplingCount
-    if (Audio[Pos](_T("SamplingCount")).empty())
+    if (Retrieve(Stream_Audio, Pos, Audio_SamplingCount).empty())
     {
-        int64s PlayTime=Audio[Pos](_T("PlayTime")).To_int64s();
+        int64s PlayTime=Retrieve(Stream_Audio, Pos, Audio_PlayTime).To_int64s();
         if (PlayTime==0)
-            PlayTime=General[0](_T("PlayTime")).To_int64s();
-        float SamplingRate=Audio[Pos](_T("SamplingRate")).To_float32();
+            PlayTime=Retrieve(Stream_General, 0, General_PlayTime).To_int64s();
+        float SamplingRate=Retrieve(Stream_Audio, Pos, Audio_SamplingRate).To_float32();
         if (PlayTime && SamplingRate)
-           Audio[Pos](_T("SamplingCount")).From_Number(int64u(((float64)PlayTime)/1000*SamplingRate));
+           Fill(Stream_Audio, Pos, Audio_SamplingCount, ((float64)PlayTime)/1000*SamplingRate, 0);
     }
     //Playtime
-    if (Audio[Pos](_T("PlayTime")).empty() && Audio[Pos](_T("SamplingRate")).To_int64s()!=0)
+    if (Retrieve(Stream_Audio, Pos, Audio_PlayTime).empty() && Retrieve(Stream_Audio, Pos, Audio_SamplingRate).To_int64s()!=0)
     {
-        int64u PlayTime=Audio[Pos](_T("SamplingCount")).To_int64u()*1000/Audio[Pos](_T("SamplingRate")).To_int64u();
+        int64u PlayTime=Retrieve(Stream_Audio, Pos, Audio_SamplingCount).To_int64u()*1000/Retrieve(Stream_Audio, Pos, "SamplingRate").To_int64u();
         if (PlayTime)
-           Audio[Pos](_T("PlayTime")).From_Number(PlayTime);
+           Fill(Stream_Audio, Pos, Audio_PlayTime, PlayTime);
     }
     //Delay/Video0
-    if (Video.size()>0 && !Audio[Pos](_T("Delay")).empty())
-    {
-        Audio[Pos](_T("Video0_Delay")).From_Number(Audio[Pos](_T("Delay")).To_int32s()-Video[0](_T("Delay")).To_int32s());
-    }
+    if (Count_Get(Stream_Video)>0 && !Retrieve(Stream_Audio, Pos, Audio_Delay).empty() && !Retrieve(Stream_Video, 0, Video_Delay).empty())
+        Fill(Stream_Audio, Pos, Audio_Video0_Delay, Retrieve(Stream_Audio, Pos, Audio_Delay).To_int64s()-Retrieve(Stream_Video, 0, Video_Delay).To_int64s());
     //CBR/VBR
-    if (Audio[Pos](_T("BitRate_Mode")).empty() && !Audio[Pos](_T("Codec")).empty())
+    if (Retrieve(Stream_Audio, Pos, Audio_BitRate_Mode).empty() && !Retrieve(Stream_Audio, Pos, Audio_Codec).empty())
     {
-        Ztring Z1=MediaInfoLib::Config.Codec_Get(Audio[Pos](_T("Codec")), InfoCodec_BitRate_Mode, Stream_Audio);
+        Ztring Z1=MediaInfoLib::Config.Codec_Get(Retrieve(Stream_Audio, Pos, Audio_Codec), InfoCodec_BitRate_Mode, Stream_Audio);
         if (!Z1.empty())
-            Audio[Pos](_T("BitRate_Mode"))=Z1;
+            Fill(Stream_Audio, Pos, Audio_BitRate_Mode, Z1);
     }
 
     //Well known bitrate values
-    Finalize_Audio_BitRate(Pos, _T("BitRate"));
-    Finalize_Audio_BitRate(Pos, _T("BitRate_Nominal"));
+    Finalize_Audio_BitRate(Pos, Audio_BitRate);
+    Finalize_Audio_BitRate(Pos, Audio_BitRate_Nominal);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Finalize_Audio_BitRate(size_t Pos, Char* Parameter)
+void File__Analyze::Finalize_Audio_BitRate(size_t Pos, audio Parameter)
 {
-    Ztring& Codec=Audio[Pos](_T("Codec"));
-    int32u BitRate=Audio[Pos](Parameter).To_int32u();
+    const Ztring& Codec=Retrieve(Stream_Audio, Pos, "Codec");
+    int32u BitRate=Retrieve(Stream_Audio, Pos, Parameter).To_int32u();
     int32u BitRate_Sav=BitRate;
     if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec, Stream_Audio).find(_T("MPEG-"))==0
-     || Audio[Pos](_T("Codec/String")).find(_T("MPEG-"))==0)
+     || Retrieve(Stream_Audio, Pos, "Codec/String").find(_T("MPEG-"))==0)
     {
         if (BitRate>=   7500 && BitRate<=   8500) BitRate=   8000;
         if (BitRate>=  15000 && BitRate<=  17000) BitRate=  16000;
@@ -445,7 +456,7 @@ void File__Analyze::Finalize_Audio_BitRate(size_t Pos, Char* Parameter)
         if (BitRate>= 376320 && BitRate<= 391680) BitRate= 384000;
         if (BitRate>= 407680 && BitRate<= 424320) BitRate= 416000;
         if (BitRate>= 439040 && BitRate<= 456960) BitRate= 448000;
-        if (Audio[Pos](_T("BitRate_Mode"))==_T("VBR"))
+        if (Retrieve(Stream_Audio, Pos, "BitRate_Mode")==_T("VBR"))
             BitRate=BitRate_Sav; //If VBR, we want the exact value
     }
 
@@ -559,20 +570,20 @@ void File__Analyze::Finalize_Audio_BitRate(size_t Pos, Char* Parameter)
     }
 
     if (BitRate!=BitRate_Sav)
-        Audio[Pos](Parameter).From_Number(BitRate);
+        Fill(Stream_Audio, Pos, Parameter, BitRate, 0, true);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Finalize_Text(size_t Pos)
 {
     //Integrity
-    if (Pos>=Text.size())
+    if (Pos>=Count_Get(Stream_Text))
         return;
 
     //Delay/Video0
-    if (Video.size()>0 && !Text[Pos](_T("Delay")).empty())
+    if (Count_Get(Stream_Video)>0 && !Retrieve(Stream_Text, Pos, "Delay").empty())
     {
-        Text[Pos](_T("Video0_Delay")).From_Number(Text[Pos](_T("Delay")).To_int32s()-Video[0](_T("Delay")).To_int32s());
+        Fill(Stream_Text, Pos, Text_Video0_Delay, Retrieve(Stream_Text, Pos, "Delay").To_int32s()-Retrieve(Stream_Video, 0, "Delay").To_int32s());
     }
 }
 
@@ -595,21 +606,21 @@ void File__Analyze::Finalize_Menu(size_t)
 void File__Analyze::Finalize_Final()
 {
     //Integrity
-    if (0>=General.size())
+    if (0>=Count_Get(Stream_General))
         return;
 
     //Corelation
     //-PlayTime if General not filled
-    if (General[0](_T("PlayTime")).empty())
+    if (Retrieve(Stream_General, 0, General_PlayTime).empty())
     {
         int64u PlayTime=0;
         //For all streams (Generic)
         for (size_t StreamKind=Stream_Video; StreamKind<Stream_Max; StreamKind++)
-            for (size_t Pos=0; Pos<(*Stream[StreamKind]).size(); Pos++)
+            for (size_t Pos=0; Pos<Count_Get((stream_t)StreamKind); Pos++)
             {
-                if (!(*Stream[StreamKind])[Pos](_T("PlayTime")).empty())
+                if (!Retrieve((stream_t)StreamKind, Pos, "PlayTime").empty())
                 {
-                    int64u PlayTime_Stream=(*Stream[StreamKind])[Pos](_T("PlayTime")).To_int64u();
+                    int64u PlayTime_Stream=Retrieve((stream_t)StreamKind, Pos, "PlayTime").To_int64u();
                     if (PlayTime_Stream>PlayTime)
                         PlayTime=PlayTime_Stream;
                 }
@@ -617,10 +628,10 @@ void File__Analyze::Finalize_Final()
 
         //Filling
         if (PlayTime>0)
-            General[0](_T("PlayTime")).From_Number(PlayTime);
+            Fill(Stream_General, 0, "PlayTime", PlayTime);
     }
-    //-Stream size if all stream sizes are OK
-    if (General[0](_T("StreamSize")).empty())
+    //-(*Stream) size if all stream sizes are OK
+    if (Retrieve(Stream_General, 0, General_StreamSize).empty())
     {
         int64u StreamSize_Total=0;
         bool IsOK=true;
@@ -628,9 +639,9 @@ void File__Analyze::Finalize_Final()
         for (size_t StreamKind=Stream_Video; StreamKind<Stream_Max; StreamKind++)
         {
             if (StreamKind!=Stream_Chapters && StreamKind!=Stream_Menu) //They have no big size, we never calculate them
-                for (size_t Pos=0; Pos<(*Stream[StreamKind]).size(); Pos++)
+                for (size_t Pos=0; Pos<Count_Get((stream_t)StreamKind); Pos++)
                 {
-                    int64u StreamSize=(*Stream[StreamKind])[Pos](_T("StreamSize")).To_int64u();
+                    int64u StreamSize=Retrieve((stream_t)StreamKind, Pos, "StreamSize").To_int64u();
                     if (StreamSize>0)
                         StreamSize_Total+=StreamSize;
                     else if (IsOK)
@@ -640,23 +651,23 @@ void File__Analyze::Finalize_Final()
 
         //Filling
         if (IsOK && StreamSize_Total>0 && StreamSize_Total<File_Size)
-            General[0](_T("StreamSize")).From_Number(File_Size-StreamSize_Total);
+            Fill(Stream_General, 0, "StreamSize", File_Size-StreamSize_Total);
     }
 
     //-BitRate if we have one Audio stream with bitrate
-    if (General[0](_T("PlayTime")).empty() && General[0](_T("BitRate")).empty() && Video.empty() && Audio.size()==1 && Audio[0](_T("BitRate")).To_int64u()!=0)
-        General[0](_T("BitRate"))=Audio[0](_T("BitRate"));
+    if (Retrieve(Stream_General, 0, General_PlayTime).empty() && Retrieve(Stream_General, 0, General_BitRate).empty() && Count_Get(Stream_Video)==0 && Count_Get(Stream_Audio)==1 && Retrieve(Stream_Audio, 0, "BitRate").To_int64u()!=0)
+        Fill(Stream_General, 0, "BitRate", Retrieve(Stream_Audio, 0, "BitRate"));
     //-BitRate if PlayTime
-    if (General[0](_T("BitRate")).empty() && General[0](_T("PlayTime")).To_int64u()!=0)
-        General[0](_T("BitRate")).From_Number(General[0](_T("FileSize")).To_int64u()*8*1000/General[0](_T("PlayTime")).To_int64u());
+    if (Retrieve(Stream_General, 0, General_BitRate).empty() && Retrieve(Stream_General, 0, General_PlayTime).To_int64u()!=0)
+        Fill(Stream_General, 0, "BitRate", Retrieve(Stream_General, 0, General_FileSize).To_int64u()*8*1000/Retrieve(Stream_General, 0, General_PlayTime).To_int64u());
     //-PlayTime if BitRate
-    if (General[0](_T("PlayTime")).empty() && General[0](_T("BitRate")).To_int64u()!=0)
-        General[0](_T("PlayTime")).From_Number(General[0](_T("FileSize")).To_int64u()*8*1000/General[0](_T("BitRate")).To_int64u());
+    if (Retrieve(Stream_General, 0, General_PlayTime).empty() && Retrieve(Stream_General, 0, General_BitRate).To_int64u()!=0)
+        Fill(Stream_General, 0, "PlayTime", Retrieve(Stream_General, 0, General_FileSize).To_int64u()*8*1000/Retrieve(Stream_General, 0, General_BitRate).To_int64u());
     //-Video bitrate can be the nominal one if <10s (bitrate estimation is not enough precise
-    if (Video.size()==1 && Video[0](_T("BitRate")).empty() && Video[0](_T("PlayTime")).To_int64u()<10000)
-        Video[0](_T("BitRate"))=Video[0](_T("BitRate_Nominal"));
+    if (Count_Get(Stream_Video)==1 && Retrieve(Stream_Video, 0, "BitRate").empty() && Retrieve(Stream_Video, 0, "PlayTime").To_int64u()<10000)
+        Fill(Stream_Video, 0, "BitRate", Retrieve(Stream_Video, 0, "BitRate_Nominal"));
     //-Video bitrate if we have all audio bitrates and overal bitrate
-    if (Video.size()==1 && General[0](_T("BitRate")).size()>4 && Video[0](_T("BitRate")).empty() && Video[0](_T("PlayTime")).To_int64u()>=10000) //BitRate is > 10 000 and playtime>10s, to avoid strange behavior
+    if (Count_Get(Stream_Video)==1 && Retrieve(Stream_General, 0, General_BitRate).size()>4 && Retrieve(Stream_Video, 0, "BitRate").empty() && Retrieve(Stream_Video, 0, "PlayTime").To_int64u()>=10000) //BitRate is > 10 000 and playtime>10s, to avoid strange behavior
     {
         double GeneralBitRate_Ratio=0.98;  //Default container overhead=2%
         int32u GeneralBitRate_Minus=5000;  //5000 bps because of a "classic" stream overhead
@@ -694,7 +705,7 @@ void File__Analyze::Finalize_Final()
             TextBitRate_Minus   =0;
         }
 
-        if (MediaInfoLib::Config.Format_Get((*Stream[Stream_General])[0](_T("Format")), InfoFormat_KindofFormat)==_T("MPEG-4"))
+        if (MediaInfoLib::Config.Format_Get(Retrieve(Stream_General, 0, General_Format), InfoFormat_KindofFormat)==_T("MPEG-4"))
         {
             GeneralBitRate_Ratio=1;
             GeneralBitRate_Minus=0;
@@ -707,45 +718,51 @@ void File__Analyze::Finalize_Final()
         }
 
         //Testing
-        float64 VideoBitRate=General[0](_T("BitRate")).To_float64()*GeneralBitRate_Ratio-GeneralBitRate_Minus;
+        float64 VideoBitRate=Retrieve(Stream_General, 0, General_BitRate).To_float64()*GeneralBitRate_Ratio-GeneralBitRate_Minus;
         bool VideobitRateIsValid=true;
-        for (size_t Pos=0; Pos<Audio.size(); Pos++)
+        for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
         {
-            float64 AudioBitRate=Audio[Pos](_T("BitRate")).To_float64();
+            float64 AudioBitRate=Retrieve(Stream_Audio, Pos, Audio_BitRate).To_float64();
             if (AudioBitRate>0 && AudioBitRate_Ratio)
                 VideoBitRate-=AudioBitRate/AudioBitRate_Ratio+AudioBitRate_Minus;
             else
                 VideobitRateIsValid=false;
         }
-        for (size_t Pos=0; Pos<Text.size(); Pos++)
+        for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
         {
-            float64 TextBitRate=Text[Pos](_T("BitRate")).To_float64();
+            float64 TextBitRate=Retrieve(Stream_Text, Pos, Text_BitRate).To_float64();
             if (TextBitRate>0 && TextBitRate_Ratio)
                 VideoBitRate-=TextBitRate/TextBitRate_Ratio+TextBitRate_Minus;
             else
                 VideoBitRate-=1000; //Estimation: Text stream are not often big
         }
         if (VideobitRateIsValid && VideoBitRate>=10000) //to avoid strange behavior
-            Video[0](_T("BitRate")).From_Number(VideoBitRate*VideoBitRate_Ratio-VideoBitRate_Minus, 0); //Default container overhead=2%
+            Fill(Stream_Video, 0, "BitRate", VideoBitRate*VideoBitRate_Ratio-VideoBitRate_Minus, 0); //Default container overhead=2%
     }
 
     //Counts
-    General[0](_T("Count")).From_Number(General[0].size());
-    General[0](_T("VideoCount")).From_Number(Video.size());
-    General[0](_T("AudioCount")).From_Number(Audio.size());
-    General[0](_T("TextCount")).From_Number(Text.size());
-    General[0](_T("ChaptersCount")).From_Number(Chapters.size());
-    General[0](_T("MenuCount")).From_Number(Menu.size());
+    if (Count_Get(Stream_Video))
+        Fill(Stream_General, 0, "VideoCount", Count_Get(Stream_Video));
+    if (Count_Get(Stream_Audio))
+        Fill(Stream_General, 0, "AudioCount", Count_Get(Stream_Audio));
+    if (Count_Get(Stream_Text))
+        Fill(Stream_General, 0, "TextCount", Count_Get(Stream_Text));
+    if (Count_Get(Stream_Image))
+        Fill(Stream_General, 0, "ImageCount", Count_Get(Stream_Image));
+    if (Count_Get(Stream_Chapters))
+        Fill(Stream_General, 0, "ChaptersCount", Count_Get(Stream_Chapters));
+    if (Count_Get(Stream_Menu))
+        Fill(Stream_General, 0, "MenuCount", Count_Get(Stream_Menu));
 
     //Format
-    General[0](_T("Codec"))=General[0](_T("Format"));
-    General[0](_T("Codec/String"))=General[0](_T("Format/String"));
-    General[0](_T("Codec/Info"))=General[0](_T("Format/Info"));
-    General[0](_T("Codec/Family"))=General[0](_T("Format/Family"));
-    General[0](_T("Codec/Url"))=General[0](_T("Format/Url"));
-    General[0](_T("Codec/Extensions"))=General[0](_T("Format/Extensions"));
-    General[0](_T("Codec_Settings"))=General[0](_T("Format_Settings"));
-    General[0](_T("Codec_Settings_Automatic"))=General[0](_T("Format_Settings_Automatic"));
+    Fill(Stream_General, 0, "Codec", Retrieve(Stream_General, 0, General_Format));
+    Fill(Stream_General, 0, "Codec/String", Retrieve(Stream_General, 0, General_Format_String));
+    Fill(Stream_General, 0, "Codec/Info", Retrieve(Stream_General, 0, General_Format_Info));
+    Fill(Stream_General, 0, "Codec/Family", Retrieve(Stream_General, 0, General_Format_Family));
+    Fill(Stream_General, 0, "Codec/Url", Retrieve(Stream_General, 0, General_Format_Url));
+    Fill(Stream_General, 0, "Codec/Extensions", Retrieve(Stream_General, 0, General_Format_Extensions));
+    Fill(Stream_General, 0, "Codec_Settings", Retrieve(Stream_General, 0, General_Format_Settings));
+    Fill(Stream_General, 0, "Codec_Settings_Automatic", Retrieve(Stream_General, 0, General_Format_Settings_Automatic));
 
     //Tags
     Finalize_Tags();
@@ -755,53 +772,53 @@ void File__Analyze::Finalize_Final()
 void File__Analyze::Finalize_Tags()
 {
     //Integrity
-    if (General.size()<1)
+    if (!Count_Get(Stream_General))
         return;
 
     //-Movie/Album
-    if (!General[0](_T("Title")).empty() && General[0](_T("Movie")).empty() && General[0](_T("Track")).empty())
+    if (!Retrieve(Stream_General, 0, General_Title).empty() && Retrieve(Stream_General, 0, General_Movie).empty() && Retrieve(Stream_General, 0, General_Track).empty())
     {
-        if (Video.size()!=0)
-            General[0](_T("Movie"))=General[0](_T("Title"));
+        if (Count_Get(Stream_Video))
+            Fill(Stream_General, 0, "Movie", Retrieve(Stream_General, 0, General_Title));
         else
-            General[0](_T("Track"))=General[0](_T("Title"));
+            Fill(Stream_General, 0, "Track", Retrieve(Stream_General, 0, General_Title));
     }
-    if (!General[0](_T("Title/More")).empty() && General[0](_T("Movie/More")).empty() && General[0](_T("Track/More")).empty())
+    if (!Retrieve(Stream_General, 0, General_Title_More).empty() && Retrieve(Stream_General, 0, General_Movie_More).empty() && Retrieve(Stream_General, 0, General_Track_More).empty())
     {
-        if (Video.size()!=0)
-            General[0](_T("Movie/More"))=General[0](_T("Title/More"));
+        if (Count_Get(Stream_Video))
+            Fill(Stream_General, 0, "Movie/More", Retrieve(Stream_General, 0, General_Title_More));
         else
-            General[0](_T("Track/More"))=General[0](_T("Title/More"));
+            Fill(Stream_General, 0, "Track/More", Retrieve(Stream_General, 0, General_Title_More));
     }
-    if (!General[0](_T("Title/Url")).empty() && General[0](_T("Movie/Url")).empty() && General[0](_T("Track/Url")).empty())
+    if (!Retrieve(Stream_General, 0, General_Title_Url).empty() && Retrieve(Stream_General, 0, General_Movie_Url).empty() && Retrieve(Stream_General, 0, General_Track_Url).empty())
     {
-        if (Video.size()!=0)
-            General[0](_T("Movie/Url"))=General[0](_T("Title/Url"));
+        if (Count_Get(Stream_Video))
+            Fill(Stream_General, 0, "Movie/Url", Retrieve(Stream_General, 0, General_Title_Url));
         else
-            General[0](_T("Track/Url"))=General[0](_T("Title/Url"));
+            Fill(Stream_General, 0, "Track/Url", Retrieve(Stream_General, 0, General_Title_Url));
     }
     //-Title
-    if (General[0](_T("Title")).empty() && !General[0](_T("Movie")).empty())
-        General[0](_T("Title"))=General[0](_T("Movie"));
-    if (General[0](_T("Title")).empty() && !General[0](_T("Track")).empty())
-        General[0](_T("Title"))=General[0](_T("Track"));
-    if (General[0](_T("Title/More")).empty() && !General[0](_T("Movie/More")).empty())
-        General[0](_T("Title/More"))=General[0](_T("Movie/More"));
-    if (General[0](_T("Title/More")).empty() && !General[0](_T("Track/More")).empty())
-        General[0](_T("Title/More"))=General[0](_T("Track/More"));
-    if (General[0](_T("Title/Url")).empty() && !General[0](_T("Movie/Url")).empty())
-        General[0](_T("Title/Url"))=General[0](_T("Movie/Url"));
-    if (General[0](_T("Title/Url")).empty() && !General[0](_T("Track/Url")).empty())
-        General[0](_T("Title/Url"))=General[0](_T("Track/Url"));
+    if (Retrieve(Stream_General, 0, General_Title).empty() && !Retrieve(Stream_General, 0, General_Movie).empty())
+        Fill(Stream_General, 0, "Title", Retrieve(Stream_General, 0, General_Movie));
+    if (Retrieve(Stream_General, 0, General_Title).empty() && !Retrieve(Stream_General, 0, General_Track).empty())
+        Fill(Stream_General, 0, "Title", Retrieve(Stream_General, 0, General_Track));
+    if (Retrieve(Stream_General, 0, General_Title_More).empty() && !Retrieve(Stream_General, 0, General_Movie_More).empty())
+        Fill(Stream_General, 0, "Title/More", Retrieve(Stream_General, 0, General_Movie_More));
+    if (Retrieve(Stream_General, 0, General_Title_More).empty() && !Retrieve(Stream_General, 0, General_Track_More).empty())
+        Fill(Stream_General, 0, "Title/More", Retrieve(Stream_General, 0, General_Track_More));
+    if (Retrieve(Stream_General, 0, General_Title_Url).empty() && !Retrieve(Stream_General, 0, General_Movie_Url).empty())
+        Fill(Stream_General, 0, "Title/Url", Retrieve(Stream_General, 0, General_Movie_Url));
+    if (Retrieve(Stream_General, 0, General_Title_Url).empty() && !Retrieve(Stream_General, 0, General_Track_Url).empty())
+        Fill(Stream_General, 0, "Title/Url", Retrieve(Stream_General, 0, General_Track_Url));
 
     //-Genre
-    if (!General[0](_T("Genre")).empty() && General[0](_T("Genre")).size()<4 && General[0](_T("Genre"))[0]>=_T('0') && General[0](_T("Genre"))[0]<=_T('9'))
+    if (!Retrieve(Stream_General, 0, General_Genre).empty() && Retrieve(Stream_General, 0, General_Genre).size()<4 && Retrieve(Stream_General, 0, General_Genre)[0]>=_T('0') && Retrieve(Stream_General, 0, General_Genre)[0]<=_T('9'))
     {
         Ztring Genre;
-        if (General[0](_T("Genre")).size()==1) Genre=Ztring(_T("Genre_00"))+General[0](_T("Genre"));
-        if (General[0](_T("Genre")).size()==2) Genre=Ztring(_T("Genre_0" ))+General[0](_T("Genre"));
-        if (General[0](_T("Genre")).size()==3) Genre=Ztring(_T("Genre_"  ))+General[0](_T("Genre"));
-        General[0](_T("Genre"))=MediaInfoLib::Config.Language_Get(Genre);
+        if (Retrieve(Stream_General, 0, General_Genre).size()==1) Genre=Ztring(_T("Genre_00"))+Retrieve(Stream_General, 0, General_Genre);
+        if (Retrieve(Stream_General, 0, General_Genre).size()==2) Genre=Ztring(_T("Genre_0" ))+Retrieve(Stream_General, 0, General_Genre);
+        if (Retrieve(Stream_General, 0, General_Genre).size()==3) Genre=Ztring(_T("Genre_"  ))+Retrieve(Stream_General, 0, General_Genre);
+        Fill(Stream_General, 0, "Genre", MediaInfoLib::Config.Language_Get(Genre), true);
     }
 }
 
@@ -813,14 +830,24 @@ void File__Analyze::Finalize_Tags()
 //PlayTime
 void File__Analyze::PlayTime_PlayTime123(const Ztring &Value, stream_t StreamKind, size_t StreamPos)
 {
-    ZtringListList &List=(*Stream[StreamKind])[StreamPos];
-    if (List.Find(Value+_T("/String"))==Error || List(Value).empty())
+    const ZtringListList &List=MediaInfoLib::Config.Info_Get(StreamKind);
+    size_t List_Pos=List.Find(Value+_T("/String"));
+    if (List_Pos==Error)
+        return;
+    const Ztring &Target=Retrieve(StreamKind, StreamPos, List_Pos);
+    if (!Target.empty())
+        return;
+    List_Pos=List.Find(Value);
+    if (List_Pos==Error || List[List_Pos].size()<=Info_Measure || List[List_Pos][Info_Measure].empty())
         return;
 
     int32s HH, MM, SS, MS;
     Ztring PlayTimeString1, PlayTimeString2, PlayTimeString3;
     bool Negative=false;
-    MS=List(Value).To_int32s(); //en ms
+    MS=Retrieve(StreamKind, StreamPos, Value.To_Local().c_str()).To_int32s(); //en ms
+    if (MS==0)
+        return;
+
     if (MS<0)
     {
         Negative=true;
@@ -932,11 +959,21 @@ void File__Analyze::PlayTime_PlayTime123(const Ztring &Value, stream_t StreamKin
 //FileSize
 void File__Analyze::FileSize_FileSize123(const Ztring &Value, stream_t StreamKind, size_t StreamPos)
 {
-    ZtringListList &List=(*Stream[StreamKind])[StreamPos];
-    if (List.Find(Value+_T("/String"))==Error || List(Value).empty())
+    const ZtringListList &List=MediaInfoLib::Config.Info_Get(StreamKind);
+    size_t List_Pos=List.Find(Value+_T("/String"));
+    if (List_Pos==Error)
+        return;
+    const Ztring &Target=Retrieve(StreamKind, StreamPos, List_Pos);
+    if (!Target.empty())
+        return;
+    List_Pos=List.Find(Value);
+    if (List_Pos==Error || List[List_Pos].size()<=Info_Measure || List[List_Pos][Info_Measure].empty())
         return;
 
-    float F1=(float)List(Value).To_int64s(); //Video C++ 6 patch, should be int64u
+    float F1=(float)Retrieve(StreamKind, StreamPos, Value.To_Local().c_str()).To_int64s(); //Video C++ 6 patch, should be int64u
+    if (F1==0)
+        return;
+
     //--Bytes, KiB, MiB or GiB...
     int32u Pow3=0;
     while(F1>=1024)
@@ -984,11 +1021,20 @@ void File__Analyze::FileSize_FileSize123(const Ztring &Value, stream_t StreamKin
 //FileSize
 void File__Analyze::Kilo_Kilo123(const Ztring &Value, stream_t StreamKind, size_t StreamPos)
 {
-    ZtringListList &List=(*Stream[StreamKind])[StreamPos];
-    if (List.Find(Value+_T("/String"))==Error || List(Value).empty())
+    const ZtringListList &List=MediaInfoLib::Config.Info_Get(StreamKind);
+    size_t List_Pos=List.Find(Value+_T("/String"));
+    if (List_Pos==Error)
+        return;
+    const Ztring &Target=Retrieve(StreamKind, StreamPos, List_Pos);
+    if (!Target.empty())
+        return;
+    List_Pos=List.Find(Value);
+    if (List_Pos==Error || List[List_Pos].size()<=Info_Measure || List[List_Pos][Info_Measure].empty())
         return;
 
-    int32u BitRate=List(Value).To_int32u();
+    int32u BitRate=Retrieve(StreamKind, StreamPos, Value.To_Local().c_str()).To_int32u();
+    if (BitRate==0)
+        return;
 
     //Well known values
     Ztring BitRateS;
@@ -1034,17 +1080,19 @@ void File__Analyze::Kilo_Kilo123(const Ztring &Value, stream_t StreamKind, size_
 //Value --> Value with measure
 void File__Analyze::Value_Value123(const Ztring &Value, stream_t StreamKind, size_t StreamPos)
 {
-    //String wanted?
-    ZtringListList &List=(*Stream[StreamKind])[StreamPos];
-    if (List.Find(Value+_T("/String"))==Error || List(Value).empty() || !List(Value+_T("/String")).empty())
+    const ZtringListList &List=MediaInfoLib::Config.Info_Get(StreamKind);
+    size_t List_Pos=List.Find(Value+_T("/String"));
+    if (List_Pos==Error)
         return;
-
-    //String needed?
-    if (List(Value).empty())
+    const Ztring &Target=Retrieve(StreamKind, StreamPos, List_Pos);
+    if (!Target.empty())
+        return;
+    List_Pos=List.Find(Value);
+    if (List_Pos==Error || List[List_Pos].size()<=Info_Measure || List[List_Pos][Info_Measure].empty())
         return;
 
     //Filling
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), MediaInfoLib::Config.Language_Get(List(Value), MediaInfoLib::Config.Info_Get(StreamKind).Read(Value, Info_Measure)), true);
+    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), MediaInfoLib::Config.Language_Get(Retrieve(StreamKind, StreamPos, List_Pos), List[List_Pos][Info_Measure]), true);
 }
 
 } //NameSpace

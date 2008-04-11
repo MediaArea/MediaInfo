@@ -289,6 +289,8 @@ void File_Flv::Read_Buffer_Finalize()
     {
         Stream[Stream_Audio].Parser->Open_Buffer_Finalize();
         Merge(*Stream[Stream_Audio].Parser, Stream_Audio, 0, 0);
+        if (!Retrieve(Stream_Audio, 0, Audio_Delay).empty())
+            Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
     }
 
     //Purge what is not needed anymore
@@ -328,7 +330,7 @@ void File_Flv::FileHeader_Parse()
 
         //Filling
         Stream_Prepare(Stream_General);
-        Fill("Format", "FLV");
+        Fill(Stream_General, 0, General_Format, "FLV");
         if (video_stream_Count)
         {
             Stream_Prepare(Stream_Video);
@@ -422,12 +424,12 @@ void File_Flv::video()
                 float Time=(float)(video_stream_FrameRate[30]-video_stream_FrameRate[0])/30; //30 frames for handling 30 fps rounding problems
                 if (Time)
                 {
-                    Fill(Stream_Video, 0, "FrameRate", 1000/Time);
-                    Fill(Stream_Video, 0, "FrameRate_Mode", "CFR");
+                    Fill(Stream_Video, 0, Video_FrameRate, 1000/Time);
+                    Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
                 }
             }
             else
-                Fill(Stream_Video, 0, "FrameRate_Mode", "VFR");
+                Fill(Stream_Video, 0, Video_FrameRate_Mode, "VFR");
             video_stream_FrameRate_Detected=true;
         }
     }
@@ -440,8 +442,8 @@ void File_Flv::video()
     {
         Element_Info("Null");
         video_stream_Count=false;
-        if (Get(Stream_Video, 0, _T("Codec")).empty())
-            Video.clear();
+        if (Retrieve(Stream_Video, 0, Video_Codec).empty())
+            Clear(Stream_Video, 0);
         return;
     }
 
@@ -464,13 +466,13 @@ void File_Flv::video()
         return;
 
     FILLING_BEGIN();
-        if (Get(Stream_Video, 0, _T("Codec")).empty())
+        if (Retrieve(Stream_Video, 0, Video_Codec).empty())
         {
             //Filling
             if (Count_Get(Stream_Video)==0)
                 Stream_Prepare(Stream_Video);
             if (Codec<6)
-                Fill(Stream_Video, 0, "Codec", Flv_Codec_Video[Codec]);
+                Fill(Stream_Video, 0, Video_Codec, Flv_Codec_Video[Codec]);
             video_stream_Count=false; //No more need of Video stream
 
             //Parsing video data
@@ -527,8 +529,8 @@ void File_Flv::video_H263()
     BS_End();
 
     FILLING_BEGIN();
-        Fill(Stream_Video, 0, "Width", Width, 10, true);
-        Fill(Stream_Video, 0, "Height", Height, 10, true);
+        Fill(Stream_Video, 0, Video_Width, Width, 10, true);
+        Fill(Stream_Video, 0, Video_Height, Height, 10, true);
     FILLING_END();
 }
 
@@ -551,8 +553,8 @@ void File_Flv::video_ScreenVideo(int8u Version)
     BS_End();
 
     FILLING_BEGIN();
-        Fill(Stream_Video, 0, "Width", Width, 10, true);
-        Fill(Stream_Video, 0, "Height", Height, 10, true);
+        Fill(Stream_Video, 0, Video_Width, Width, 10, true);
+        Fill(Stream_Video, 0, Video_Height, Height, 10, true);
     FILLING_END();
 }
 
@@ -596,8 +598,8 @@ void File_Flv::video_VP6(bool WithAlpha)
         FILLING_BEGIN();
             if (Width && Height)
             {
-                Fill(Stream_Video, 0, "Width",  Width*16-HorizontalAdjustment, 10, true);
-                Fill(Stream_Video, 0, "Height", Height*16-VerticalAdjustment, 10, true);
+                Fill(Stream_Video, 0, Video_Width,  Width*16-HorizontalAdjustment, 10, true);
+                Fill(Stream_Video, 0, Video_Height, Height*16-VerticalAdjustment, 10, true);
             }
         FILLING_END();
     }
@@ -619,8 +621,8 @@ void File_Flv::audio()
     {
         Element_Info("Null");
         audio_stream_Count=false;
-        if (Get(Stream_Audio, 0, _T("Codec")).empty())
-            Audio.clear();
+        if (Retrieve(Stream_Audio, 0, Audio_Codec).empty())
+            Clear(Stream_Audio, 0);
         return;
     }
 
@@ -650,20 +652,20 @@ void File_Flv::audio()
     }
 
     FILLING_BEGIN();
-        if (Get(Stream_Audio, 0, _T("Codec")).empty())
+        if (Retrieve(Stream_Audio, 0, Audio_Codec).empty())
         {
             //Filling
             if (Count_Get(Stream_Audio)==0)
                 Stream_Prepare(Stream_Audio);
-            Fill(Stream_Audio, 0, "Channel(s)", Flv_Channels[is_stereo], 10, true);
-            Fill(Stream_Audio, 0, "Resolution", Flv_Resolution[is_16bit], 10, true);
-            Fill(Stream_Audio, 0, "SamplingRate", Flv_SamplingRate[sampling_rate], 10, true);
-            Fill(Stream_Audio, 0, "Codec", Flv_Codec_Audio[codec]);
+            Fill(Stream_Audio, 0, Audio_Channel_s_, Flv_Channels[is_stereo], 10, true);
+            Fill(Stream_Audio, 0, Audio_Resolution, Flv_Resolution[is_16bit], 10, true);
+            Fill(Stream_Audio, 0, Audio_SamplingRate, Flv_SamplingRate[sampling_rate], 10, true);
+            Fill(Stream_Audio, 0, Audio_Codec, Flv_Codec_Audio[codec]);
             if (codec==1)
             {
                 //ADPCM
-                Fill("Codec_Settings", "SWF");
-                Fill("Codec_Settings_Firm", "SWF");
+                Fill(Stream_Audio, 0, Audio_Codec_Settings, "SWF");
+                Fill(Stream_Audio, 0, Audio_Codec_Settings_Firm, "SWF");
 
             }
         }

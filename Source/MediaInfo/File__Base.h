@@ -47,13 +47,11 @@ public :
     //Constructor/Destructor
     File__Base();
     virtual ~File__Base();
-
+    void Init(MediaInfo_Config_MediaInfo * Config, Ztring* Details, std::vector<std::vector<ZtringList> > * Stream_=NULL, std::vector<std::vector<ZtringListList> > * Stream_More=NULL);
     //Save
     int     Save ();
 
     //Get information
-    Ztring  Inform ();
-    Ztring  Inform (stream_t StreamKind, size_t StreamNumber=0); //All about only a specific stream
     const Ztring &Get (stream_t StreamKind, size_t StreamNumber, size_t Parameter, info_t KindOfInfo=Info_Text);
     const Ztring &Get (stream_t StreamKind, size_t StreamNumber, const Ztring &Parameter, info_t KindOfInfo=Info_Text, info_t KindOfSearch=Info_Name);
 
@@ -89,29 +87,22 @@ protected :
     virtual void HowTo (stream_t StreamType);
 
     //Arrays
-    std::vector<ZtringListList> General;
-    std::vector<ZtringListList> Video;
-    std::vector<ZtringListList> Audio;
-    std::vector<ZtringListList> Text;
-    std::vector<ZtringListList> Chapters;
-    std::vector<ZtringListList> Image;
-    std::vector<ZtringListList> Menu;
-    std::vector<ZtringListList>* Stream[Stream_Max]; //pointer to others listed streams
+private :
+    std::vector<std::vector<ZtringList> > * Stream; //pointer to others listed streams
+    std::vector<std::vector<ZtringListList> > * Stream_More; //pointer to others listed streams
+    bool Stream_MustBeDeleted;
+protected :
+    stream_t StreamKind_Last;
+    size_t   StreamPos_Last;
+
+    //Config
+    MediaInfo_Config_MediaInfo* Config;
 
     //Details
-    Ztring Details;
+    Ztring* Details;
 
     //Demux
     void Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName, bool Final=true);
-
-    //Debug
-    bool   Synched;
-    size_t Trusted;
-
-protected :
-    std::vector<bool> Optimized[Stream_Max]; //If true, Arrays are not fully filled
-    stream_t StreamKind_Last;
-    size_t   StreamPos_Last;
 
 public :
     void   Details_Clear();
@@ -128,9 +119,7 @@ public :
     void Clear();
 
 public :  //A virer
-    void Traiter(Ztring &C); //enleve les $if...
     friend class File__Analyze;
-    MediaInfo_Config_MediaInfo* Config;
 };
 
 } //NameSpace

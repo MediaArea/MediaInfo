@@ -54,7 +54,7 @@ void File_Mxf::Read_Buffer_Continue()
     }
 
     Stream_Prepare(Stream_General);
-    Fill("Format", "MXF");
+    Fill(Stream_General, 0, General_Format, "MXF");
 
     //No need of more
     Finnished();

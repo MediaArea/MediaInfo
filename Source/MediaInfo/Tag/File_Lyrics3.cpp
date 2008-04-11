@@ -100,8 +100,7 @@ void File_Lyrics3::Lyrics()
 
     //Filling
     Stream_Prepare(Stream_Text);
-    Fill("Name", "Lyrics");
-    Fill("Codec", "Lyrics3");
+    Fill(Stream_Text, 0, Text_Codec, "Lyrics3");
 
     //Positionning
     Buffer_Offset+=(size_t)Element_Size;

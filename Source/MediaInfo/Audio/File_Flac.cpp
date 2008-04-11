@@ -138,17 +138,17 @@ void File_Flac::STREAMINFO()
     if (SampleRate==0)
         return;
     Stream_Prepare(Stream_General);
-    Fill("Format", "FLAC");
+    Fill(Stream_General, 0, General_Format, "FLAC");
     Stream_Prepare(Stream_Audio);
-    Fill("Codec", "FLAC");
+    Fill(Stream_Audio, 0, Audio_Codec, "FLAC");
     if (FrameSize_Min==FrameSize_Max && FrameSize_Min!=0 ) // 0 means it is unknown
-        Fill("BitRate_Mode", "CBR");
+        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
      else
-        Fill("BitRate_Mode", "VBR");
-    Fill("SamplingRate", SampleRate);
-    Fill("Channel(s)", Channels+1);
-    Fill("Resolution", BitPerSample+1);
-    Fill(Stream_General, 0, "PlayTime", Samples*1000/SampleRate);
+        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
+    Fill(Stream_Audio, 0, Audio_SamplingRate, SampleRate);
+    Fill(Stream_Audio, 0, Audio_Channel_s_, Channels+1);
+    Fill(Stream_Audio, 0, Audio_Resolution, BitPerSample+1);
+    Fill(Stream_General, 0, General_PlayTime, Samples*1000/SampleRate);
 }
 
 //---------------------------------------------------------------------------
@@ -224,22 +224,22 @@ void File_Flac::HowTo(stream_t StreamKind)
 {
          if (StreamKind==Stream_General)
     {
-        General[0](_T("Format"), Info_HowTo)=_T("R");
-        General[0](_T("BitRate"), Info_HowTo)=_T("R");
-        General[0](_T("Title"), Info_HowTo)=_T("R");
-        General[0](_T("Title/More"), Info_HowTo)=_T("R");
-        General[0](_T("PlayTime"), Info_HowTo)=_T("R");
-        General[0](_T("Author"), Info_HowTo)=_T("R");
-        General[0](_T("Album"), Info_HowTo)=_T("R");
-        General[0](_T("Track"), Info_HowTo)=_T("R");
-        General[0](_T("Comment"), Info_HowTo)=_T("R");
+        Fill_HowTo("Format", "R");
+        Fill_HowTo("BitRate", "R");
+        Fill_HowTo("Title", "R");
+        Fill_HowTo("Title/More", "R");
+        Fill_HowTo("PlayTime", "R");
+        Fill_HowTo("Author", "R");
+        Fill_HowTo("Album", "R");
+        Fill_HowTo("Track", "R");
+        Fill_HowTo("Comment", "R");
     }
     else if (StreamKind==Stream_Audio)
     {
-        Audio[0](_T("BitRate"), Info_HowTo)=_T("R");
-        Audio[0](_T("Channel(s)"), Info_HowTo)=_T("R");
-        Audio[0](_T("SamplingRate"), Info_HowTo)=_T("R");
-        Audio[0](_T("Codec"), Info_HowTo)=_T("R");
+        Fill_HowTo("BitRate", "R");
+        Fill_HowTo("Channel(s)", "R");
+        Fill_HowTo("SamplingRate", "R");
+        Fill_HowTo("Codec", "R");
     }
 }
 

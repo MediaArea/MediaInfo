@@ -224,7 +224,7 @@ void File_Wm::Header()
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill("Format", "WM");
+        Fill(Stream_General, 0, General_Format, "WM");
     FILLING_END();
 }
 
@@ -241,9 +241,9 @@ void File_Wm::Header_FileProperties()
     Skip_L8(                                                    "File Size");
     Get_L8 (CreationDate,                                       "Creation Date"); Param_Info(Ztring().Date_From_Milliseconds_1601(CreationDate/10000));
     Skip_L8(                                                    "Data Packets Count");
-    Get_L8 (PlayDuration,                                       "Play Duration"); Param_Info(Ztring().Duration_From_Milliseconds(PlayDuration/10000));
-    Get_L8 (SendDuration,                                       "Send Duration"); Param_Info(Ztring().Duration_From_Milliseconds(SendDuration/10000));
-    Get_L8 (Preroll,                                            "Preroll"); Param_Info(Ztring().Duration_From_Milliseconds(Preroll));
+    Get_L8 (PlayDuration,                                       "Play Duration"); Param_Info_From_Milliseconds(PlayDuration/10000);
+    Get_L8 (SendDuration,                                       "Send Duration"); Param_Info_From_Milliseconds(SendDuration/10000);
+    Get_L8 (Preroll,                                            "Preroll"); Param_Info_From_Milliseconds(Preroll);
     Get_L4 (Flags,                                              "Flags");
         Get_Flags (Flags, 0, Broadcast,                         "Broadcast");
         Get_Flags (Flags, 1, Seekable,                          "Seekable");
@@ -257,11 +257,11 @@ void File_Wm::Header_FileProperties()
 
     //Filling
     if (MaximumBitRate)
-        Fill(Stream_General, 0, "BitRate_Maximum", MaximumBitRate);
+        Fill(Stream_General, 0, General_BitRate_Maximum, MaximumBitRate);
     if (Broadcast)
         Fill(Stream_General, 0, "Broadcast", "Yes");
-    Fill(Stream_General, 0, "Encoded_Date", Ztring().Date_From_Milliseconds_1601(CreationDate/10000));
-    Fill(Stream_General, 0, "PlayTime", PlayDuration/10000-Preroll);
+    Fill(Stream_General, 0, General_Encoded_Date, Ztring().Date_From_Milliseconds_1601(CreationDate/10000));
+    Fill(Stream_General, 0, General_PlayTime, PlayDuration/10000-Preroll);
 }
 
 //---------------------------------------------------------------------------
@@ -307,7 +307,7 @@ void File_Wm::Header_StreamProperties ()
     //Filling
     Stream[Stream_Number].StreamKind=StreamKind_Last;
     Stream[Stream_Number].StreamPos=StreamPos_Last;
-    Fill("ID", Stream_Number);
+    Fill(StreamKind_Last, StreamPos_Last, "ID", Stream_Number);
 }
 
 //---------------------------------------------------------------------------
@@ -330,11 +330,11 @@ void File_Wm::Header_StreamProperties_Audio ()
     Stream[Stream_Number].IsCreated=true;
     Ztring Codec; Codec.From_Number(CodecID, 16);
     Codec.MakeUpperCase();
-    Fill("Codec", Codec); //May be replaced by codec parser
-    Fill("Codec/CC", Codec);
-    Fill("Channel(s)", Channels);
-    Fill("SamplingRate", SamplingRate);
-    Fill("BitRate", BytesPerSec*8);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec); //May be replaced by codec parser
+    Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
+    Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplingRate);
+    Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, BytesPerSec*8);
 
     //Parsing
     if (Data_Size>0)
@@ -377,7 +377,7 @@ void File_Wm::Header_StreamProperties_Audio_AMR ()
         Get_Flags (Flags, 1, VBR,                               "Varying bitrate");
 
     //Filling
-    Fill("BitRate_Mode", VBR?"VBR":"CBR");
+    Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Mode, VBR?"VBR":"CBR");
 }
 
 //---------------------------------------------------------------------------
@@ -409,12 +409,12 @@ void File_Wm::Header_StreamProperties_Video ()
     //Filling
     Stream_Prepare(Stream_Video);
     Stream[Stream_Number].IsCreated=true;
-    Fill("Codec", Ztring().From_CC4(Compression)); //May be replaced by codec parser
-    Fill("Codec/CC", Ztring().From_CC4(Compression));
-    Fill("Width", Width);
-    Fill("Height", Height);
+    Fill(Stream_Video, StreamPos_Last, Video_Codec, Ztring().From_CC4(Compression)); //May be replaced by codec parser
+    Fill(Stream_Video, StreamPos_Last, Video_Codec_CC, Ztring().From_CC4(Compression));
+    Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
+    Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
     if (Resolution>0)
-        Fill("Resolution", Resolution);
+        Fill(Stream_Video, StreamPos_Last, Video_Resolution, Resolution);
     if (Compression==CC4("DVR "))
         IsDvrMs=true;
 
@@ -424,6 +424,7 @@ void File_Wm::Header_StreamProperties_Video ()
     else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("MPEG-2"))==0)
     {
         Stream[Stream_Number].Parser=new File_Mpegv;
+        Open_Buffer_Init(Stream[Stream_Number].Parser);
         ((File_Mpegv*)Stream[Stream_Number].Parser)->Frame_Count_Valid=1;
     }
     #endif
@@ -443,9 +444,9 @@ void File_Wm::Header_StreamProperties_JFIF ()
 
     //Filling
     Stream_Prepare(Stream_Image);
-    Fill("Codec", "JPEG");
-    Fill("Width", Width);
-    Fill("Height", Height);
+    Fill(Stream_Video, StreamPos_Last, Video_Codec, "JPEG");
+    Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
+    Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
 }
 
 //---------------------------------------------------------------------------
@@ -468,9 +469,9 @@ void File_Wm::Header_StreamProperties_DegradableJPEG ()
 
     //Filling
     Stream_Prepare(Stream_Image);
-    Fill("Codec", "JPEG");
-    Fill("Width", Width);
-    Fill("Height", Height);
+    Fill(Stream_Video, StreamPos_Last, Video_Codec, "JPEG");
+    Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
+    Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
 }
 
 //---------------------------------------------------------------------------
@@ -512,8 +513,8 @@ void File_Wm::Header_HeaderExtension_ExtendedStreamProperties()
     int64u AverageTimePerFrame;
     int32u DataBitrate, Flags;
     int16u StreamNumber, LanguageID, StreamNameCount, PayloadExtensionSystemCount;
-    Info_L8(StartTime,                                          "Start Time"); Param_Info(Ztring().Duration_From_Milliseconds(StartTime));
-    Info_L8(EndTime,                                            "End Time"); Param_Info(Ztring().Duration_From_Milliseconds(EndTime));
+    Info_L8(StartTime,                                          "Start Time"); Param_Info_From_Milliseconds(StartTime);
+    Info_L8(EndTime,                                            "End Time"); Param_Info_From_Milliseconds(EndTime);
     Get_L4 (DataBitrate,                                        "Data Bitrate");
     Skip_L4(                                                    "Buffer Size");
     Skip_L4(                                                    "Initial Buffer Fullness");
@@ -808,9 +809,9 @@ void File_Wm::Header_Marker()
         Ztring Marker;
         int32u Length;
         Skip_L8(                                                "Offset");
-        Info_L8(PresentationTime,                               "Presentation Time"); Param_Info(Ztring().Duration_From_Milliseconds(PresentationTime/10000));
+        Info_L8(PresentationTime,                               "Presentation Time"); Param_Info_From_Milliseconds(PresentationTime/10000);
         Skip_L2(                                                "Entry Length");
-        Info_L4(SendTime,                                       "Send Time"); Param_Info(Ztring().Duration_From_Milliseconds(SendTime));
+        Info_L4(SendTime,                                       "Send Time"); Param_Info_From_Milliseconds(SendTime);
         Skip_L4(                                                "Flags");
         Get_L4 (Length,                                         "Marker Description Length");
         if (Length>0)
@@ -866,11 +867,11 @@ void File_Wm::Header_ContentDescription()
         Get_UTF16L(RatingLength, Rating,                        "Rating");
 
     //Filling
-    Fill(Stream_General, 0, "Title", Title);
-    Fill(Stream_General, 0, "Performer", Author);
-    Fill(Stream_General, 0, "Copyright", Copyright);
-    Fill(Stream_General, 0, "Comment", Description);
-    Fill(Stream_General, 0, "Rating", Rating);
+    Fill(Stream_General, 0, General_Title, Title);
+    Fill(Stream_General, 0, General_Performer, Author);
+    Fill(Stream_General, 0, General_Copyright, Copyright);
+    Fill(Stream_General, 0, General_Comment, Description);
+    Fill(Stream_General, 0, General_Rating, Rating);
 }
 
 //---------------------------------------------------------------------------
@@ -915,97 +916,97 @@ void File_Wm::Header_ExtendedContentDescription()
             else if (Name==_T("DVR Index Granularity")) {}
             else if (Name==_T("DVR File Version")) {}
             else if (Name==_T("IsVBR"))
-                Fill(Stream_General, 0, "BitRate_Mode", Value_Int64==0?"CBR":"VBR");
+                Fill(Stream_General, 0, General_BitRate_Mode, Value_Int64==0?"CBR":"VBR");
             else if (Name==_T("VBR Peak")) {} //Already in "Stream Bitrate" chunk
             else if (Name==_T("WMFSDKVersion")) {}
             else if (Name==_T("WMFSDKNeeded")) {}
             else if (Name==_T("WM/AlbumTitle"))
-                Fill(Stream_General, 0, "Album", Value);
+                Fill(Stream_General, 0, General_Album, Value);
             else if (Name==_T("WM/AlbumArtist"))
             {
-                Fill(Stream_General, 0, "Performer", "");
-                Fill(Stream_General, 0, "Performer", Value, true); //Clear last value, like Author (Content Description)
+                Fill(Stream_General, 0, General_Performer, "");
+                Fill(Stream_General, 0, General_Performer, Value, true); //Clear last value, like Author (Content Description)
             }
             else if (Name==_T("WM/ArtistSortOrder"))
-                Fill(Stream_General, 0, "Performer/Sort", Value);
+                Fill(Stream_General, 0, General_Performer_Sort, Value);
             else if (Name==_T("WM/AuthorURL"))
-                Fill(Stream_General, 0, "Performer/Url", Value);
+                Fill(Stream_General, 0, General_Performer_Url, Value);
             else if (Name==_T("WM/BeatsPerMinute"))
-                Fill(Stream_General, 0, "BPM", Value);
+                Fill(Stream_General, 0, General_BPM, Value);
             else if (Name==_T("WM/Binary"))
-                Fill(Stream_General, 0, "Cover", "Y");
+                Fill(Stream_General, 0, General_Cover, "Y");
             else if (Name==_T("WM/Comments"))
-                Fill(Stream_General, 0, "Comment", Value, true); //Clear last value
+                Fill(Stream_General, 0, General_Comment, Value, true); //Clear last value
             else if (Name==_T("WM/Composer"))
-                Fill(Stream_General, 0, "Composer", Value);
+                Fill(Stream_General, 0, General_Composer, Value);
             else if (Name==_T("WM/Conductor"))
-                Fill(Stream_General, 0, "Conductor", Value);
+                Fill(Stream_General, 0, General_Conductor, Value);
             else if (Name==_T("WM/EncodedBy"))
-                Fill(Stream_General, 0, "EncodedBy", Value);
+                Fill(Stream_General, 0, General_EncodedBy, Value);
             else if (Name==_T("WM/EncoderSettings"))
-                Fill(Stream_General, 0, "Encoded_Library_Settings", Value);
+                Fill(Stream_General, 0, General_Encoded_Library_Settings, Value);
             else if (Name==_T("WM/EncodingTime"))
-                Fill(Stream_General, 0, "Encoded_Date", Ztring().Date_From_Seconds_1601(Value_Int64));
+                Fill(Stream_General, 0, General_Encoded_Date, Ztring().Date_From_Seconds_1601(Value_Int64));
             else if (Name==_T("WM/Genre"))
-                Fill(Stream_General, 0, "Genre", Value, true); //Clear last value
+                Fill(Stream_General, 0, General_Genre, Value, true); //Clear last value
             else if (Name==_T("WM/GenreID"))
             {
-                if (Get(Stream_General, 0, _T("Genre")).empty())
-                    Fill(Stream_General, 0, "Genre", Value);
+                if (Retrieve(Stream_General, 0, General_Genre).empty())
+                    Fill(Stream_General, 0, General_Genre, Value);
             }
             else if (Name==_T("WM/Language"))
                 Language_ForAll=Value;
             else if (Name==_T("WM/MediaCredits"))
-                Fill(Stream_General, 0, "Broadcaster", Value);
+                Fill(Stream_General, 0, General_Broadcaster, Value);
             else if (Name==_T("WM/MediaPrimaryClassID")) {}
             else if (Name==_T("WM/MCDI")) {}
             else if (Name==_T("WM/ModifiedBy"))
-                Fill(Stream_General, 0, "RemixedBy", Value);
+                Fill(Stream_General, 0, General_RemixedBy, Value);
             else if (Name==_T("WM/OriginalAlbumTitle"))
                 Fill(Stream_General, 0, "Original/Album", Value);
             else if (Name==_T("WM/OriginalReleaseTime"))
                 Fill(Stream_General, 0, "Original/Released_Date", Value);
             else if (Name==_T("WM/ParentalRating"))
-                Fill(Stream_General, 0, "LawRating", Value);
+                Fill(Stream_General, 0, General_LawRating, Value);
             else if (Name==_T("WM/ParentalRatingReason"))
-                Fill(Stream_General, 0, "LawRating_Reason", Value);
+                Fill(Stream_General, 0, General_LawRating_Reason, Value);
             else if (Name==_T("WM/Picture"))
-                Fill(Stream_General, 0, "Cover", "Y");
+                Fill(Stream_General, 0, General_Cover, "Y");
             else if (Name==_T("WM/Provider"))
                 Fill(Stream_General, 0, "Provider", Value);
             else if (Name==_T("WM/Publisher"))
-                Fill(Stream_General, 0, "Publisher", Value);
+                Fill(Stream_General, 0, General_Publisher, Value);
             else if (Name==_T("WM/RadioStationName"))
-                Fill(Stream_General, 0, "Broadcaster", Value);
+                Fill(Stream_General, 0, General_Broadcaster, Value);
             else if (Name==_T("WM/RadioStationOwner"))
-                Fill(Stream_General, 0, "Broadcaster/Owner", Value);
+                Fill(Stream_General, 0, General_Broadcaster_Owner, Value);
             else if (Name==_T("WM/SubTitle"))
-                Fill(Stream_General, 0, "Title/More", Value);
+                Fill(Stream_General, 0, General_Title_More, Value);
             else if (Name==_T("WM/SubTitleDescription"))
-                Fill(Stream_General, 0, "Title/More", Value);
+                Fill(Stream_General, 0, General_Title_More, Value);
             else if (Name==_T("WM/ToolName"))
-                Fill(Stream_General, 0, "Encoded_Application", Value);
+                Fill(Stream_General, 0, General_Encoded_Application, Value);
             else if (Name==_T("WM/ToolVersion"))
-                Fill(Stream_General, 0, "Encoded_Application", Get(Stream_General, 0, "Encoded_Application")+_T(" ")+Value, true);
+                Fill(Stream_General, 0, General_Encoded_Application, Retrieve(Stream_General, 0, General_Encoded_Application)+_T(" ")+Value, true);
             else if (Name==_T("WM/TrackNumber"))
-                Fill(Stream_General, 0, "Track/Position", Value, true); //Clear last value, like WM/Track
+                Fill(Stream_General, 0, General_Track_Position, Value, true); //Clear last value, like WM/Track
             else if (Name==_T("WM/Track"))
             {
-                if (Get(Stream_General, 0, _T("Track/Position")).empty())
-                    Fill(Stream_General, 0, "Track/Position", Value.To_int32u()+1);
+                if (Retrieve(Stream_General, 0, General_Track_Position).empty())
+                    Fill(Stream_General, 0, General_Track_Position, Value.To_int32u()+1);
             }
             else if (Name==_T("WM/UniqueFileIdentifier"))
             {
                 if (Value.empty() || Value[0]!=_T(';')) //Test if there is only the separator
                 {
                     Value.FindAndReplace(_T(";"), MediaInfoLib::Config.TagSeparator_Get());
-                    Fill(Stream_General, 0, "UniqueID", Value);
+                    Fill(Stream_General, 0, General_UniqueID, Value);
                 }
             }
             else if (Name==_T("WM/Writer"))
                 Fill(Stream_General, 0, "Lyristic", Value);
             else if (Name==_T("WM/Year"))
-                Fill(Stream_General, 0, "Recorded_Date", Value);
+                Fill(Stream_General, 0, General_Recorded_Date, Value);
             else
                 Fill(Stream_General, 0, Name.To_Local().c_str(), Value);
         }
@@ -1135,8 +1136,8 @@ void File_Wm::Data()
     Skip_L1(                                                    "Packet Aligment");
 
     //Filling
-    Fill(Stream_General, 0, "HeaderSize", File_Offset+Buffer_Offset-24);
-    Fill(Stream_General, 0, "DataSize", Element_Size+24);
+    Fill(Stream_General, 0, General_HeaderSize, File_Offset+Buffer_Offset-24);
+    Fill(Stream_General, 0, General_DataSize, Element_Size+24);
 
     MustUseAlternativeParser=true;
 
@@ -1148,6 +1149,7 @@ void File_Wm::Data()
         if (IsDvrMs && !Temp->second.Parser && Temp->second.AverageBitRate>=32768)
         {
             Temp->second.Parser=new File_Mpega; //No stream properties, trying to detect it in datas...
+            Open_Buffer_Init(Temp->second.Parser);
             ((File_Mpega*)Temp->second.Parser)->Frame_Count_Valid=8;
         }
         if (Temp->second.Parser)

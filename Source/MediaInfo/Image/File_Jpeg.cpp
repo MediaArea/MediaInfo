@@ -278,13 +278,13 @@ void File_Jpeg::SOF_()
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill("Format", "JPEG");
+        Fill(Stream_General, 0, General_Format, "JPEG");
         Stream_Prepare(Stream_Image);
-        Fill("Codec", "JPEG");
-        Fill("Codec/String", "JPEG"); //To Avoid automatic filling
-        Fill("Resolution", Resolution);
-        Fill("Height", Height);
-        Fill("Width", Width);
+        Fill(Stream_Image, 0, Image_Codec, "JPEG");
+        Fill(Stream_Image, 0, Image_Codec_String, "JPEG"); //To Avoid automatic filling
+        Fill(Stream_Image, 0, Image_Resolution, Resolution);
+        Fill(Stream_Image, 0, Image_Height, Height);
+        Fill(Stream_Image, 0, Image_Width, Width);
     FILLING_END();
 }
 
@@ -345,16 +345,16 @@ void File_Jpeg::APP0_AVI1()
         if (Count_Get(Stream_General)==0 && File_Name.empty())
         {
             Stream_Prepare(Stream_General);
-            Fill("Format", "JPEG");
+            Fill(Stream_General, 0, General_Format, "JPEG");
             Stream_Prepare(Stream_Video);
-            Fill("Codec", "M-JPEG");
+            Fill(Stream_Video, 0, Video_Codec, "M-JPEG");
         }
 
         switch (FieldOrder)
         {
-            case 0x00 : Fill("Interlacement", "PPF"); break;
-            case 0x01 : Fill("Interlacement", "TFF"); break;
-            case 0x02 : Fill("Interlacement", "BFF"); break;
+            case 0x00 : Fill(Stream_Video, 0, Video_Interlacement, "PPF"); break;
+            case 0x01 : Fill(Stream_Video, 0, Video_Interlacement, "TFF"); break;
+            case 0x02 : Fill(Stream_Video, 0, Video_Interlacement, "BFF"); break;
             default   : ;
         }
     FILLING_END();

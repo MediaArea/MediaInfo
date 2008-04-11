@@ -56,7 +56,7 @@ void File_Ace::Read_Buffer_Continue()
 
     //Filling
     Stream_Prepare(Stream_General);
-    Fill("Format", "ACE");
+    Fill(Stream_General, 0, General_Format, "ACE");
 
     //No need of more
     Finnished();

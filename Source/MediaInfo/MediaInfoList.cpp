@@ -54,7 +54,7 @@ MediaInfoList::MediaInfoList(size_t Count_Init)
 //Destructeur
 MediaInfoList::~MediaInfoList()
 {
-    delete (MediaInfoList_Internal*)Internal; //MI=NULL;
+    delete (MediaInfoList_Internal*)Internal; //Internal=NULL;
 }
 
 //***************************************************************************

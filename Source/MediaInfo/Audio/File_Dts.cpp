@@ -259,26 +259,26 @@ void File_Dts::Data_Parse()
 void File_Dts::Data_Parse_Fill()
 {
     Stream_Prepare(Stream_General);
-    Fill("Format", "DTS");
+    Fill(Stream_General, 0, General_Format, "DTS");
     Stream_Prepare(Stream_Audio);
 
     if (DTS_HD_Unknown_Size==0) //DTS-HD, TODO : Find a better way
-        Fill("Codec", "DTS");
+        Fill(Stream_Audio, 0, Audio_Codec, "DTS");
     else
-        Fill("Codec", "DTS-HD");
+        Fill(Stream_Audio, 0, Audio_Codec, "DTS-HD");
 
     if (ExtendedCoding && (ExtensionAudioDescriptor==2 || ExtensionAudioDescriptor==3))
-        Fill("SamplingRate", 96000);
+        Fill(Stream_Audio, 0, Audio_SamplingRate, 96000);
     else
-        Fill("SamplingRate", DTS_SamplingRate[sample_frequency]);
+        Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_SamplingRate[sample_frequency]);
     if (DTS_HD_Unknown_Size==0 && bit_rate<29)
-        Fill("BitRate", DTS_BitRate[bit_rate]);
+        Fill(Stream_Audio, 0, Audio_BitRate, DTS_BitRate[bit_rate]);
     else if (bit_rate==29)
-        Fill("BitRate", "Open");
+        Fill(Stream_Audio, 0, Audio_BitRate, "Open");
     else if (bit_rate==30)
-        Fill("BitRate", "Variable");
+        Fill(Stream_Audio, 0, Audio_BitRate, "Variable");
     else if (bit_rate==31)
-        Fill("BitRate", "LossLess");
+        Fill(Stream_Audio, 0, Audio_BitRate, "LossLess");
     if (ExtendedCoding && (ExtensionAudioDescriptor==0 || ExtensionAudioDescriptor==3))
     {
     }
@@ -298,10 +298,10 @@ void File_Dts::Data_Parse_Fill()
         }
         if (lfe_effects)
             ChannelPositions+=_T(", LFE");
-        Fill("Channel(s)", Channels);
-        Fill("ChannelPositions", ChannelPositions);
+        Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
+        Fill(Stream_Audio, 0, Audio_ChannelPositions, ChannelPositions);
     }
-    Fill("Resolution", DTS_Resolution[bits_per_sample]);
+    Fill(Stream_Audio, 0, Audio_Resolution, DTS_Resolution[bits_per_sample]);
 
     if (File_Offset+Buffer_Size<File_Size)
     {

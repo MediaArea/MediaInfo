@@ -1,4 +1,4 @@
-// MediaInfo - All info about media files, different parser listing part
+// MediaInfo_Internal - All info about media files, different parser listing part
 // Copyright (C) 2006-2008 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -32,7 +32,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include "MediaInfo/MediaInfo.h"
+#include "MediaInfo/MediaInfo_Internal.h"
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -236,7 +236,7 @@ extern MediaInfo_Config Config;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-void MediaInfo::SelectFromExtension (const String &Parser)
+void MediaInfo_Internal::SelectFromExtension (const String &Parser)
 {
     //Clear last value
     delete Info; Info=NULL;
@@ -425,7 +425,7 @@ void MediaInfo::SelectFromExtension (const String &Parser)
 }
 
 //---------------------------------------------------------------------------
-int MediaInfo::ListFormats()
+int MediaInfo_Internal::ListFormats()
 {
     delete Info; Info=NULL;
 
@@ -620,7 +620,7 @@ int MediaInfo::ListFormats()
 }
 
 //---------------------------------------------------------------------------
-bool MediaInfo::LibraryIsModified ()
+bool MediaInfo_Internal::LibraryIsModified ()
 {
     #if defined(MEDIAINFO_MULTI_NO) || defined(MEDIAINFO_VIDEO_NO) || defined(MEDIAINFO_AUDIO_NO) || defined(MEDIAINFO_TEXT_NO) || defined(MEDIAINFO_IMAGE_NO) || defined(MEDIAINFO_ARCHIVE_NO) \
      || defined(MEDIAINFO_MK_NO) || defined(MEDIAINFO_OGG_NO) || defined(MEDIAINFO_RIFF_NO) || defined(MEDIAINFO_MPEG4_NO) || defined(MEDIAINFO_MPEGPS_NO) || defined(MEDIAINFO_MPEGTS_NO) || defined(MEDIAINFO_FLV_NO) || defined(MEDIAINFO_SWF_NO) || defined(MEDIAINFO_MXF_NO) || defined(MEDIAINFO_NUT_NO) || defined(MEDIAINFO_WM_NO) || defined(MEDIAINFO_QT_NO) || defined(MEDIAINFO_RM_NO) || defined(MEDIAINFO_DVDV_NO) || defined(MEDIAINFO_CDXA_NO) \
@@ -637,7 +637,7 @@ bool MediaInfo::LibraryIsModified ()
 }
 
 //---------------------------------------------------------------------------
-void MediaInfo::CreateDummy (const String& Value)
+void MediaInfo_Internal::CreateDummy (const String& Value)
 {
     #if !defined(MEDIAINFO_DUMMY_NO)
     Info=new File_Dummy();

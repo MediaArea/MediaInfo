@@ -11,9 +11,9 @@ Codec/String;;;Y NT;;;
 Codec/Family;;;Y NT;;;Codec family
 Codec/Info;;;Y NT;;;Info about codec
 Codec/Url;;;N NT;;;Link
-Width;; pixels;N YI;;;Width
+Width;; pixel;N YI;;;Width
 Width/String;;;Y NT;;;
-Height;; pixels;N YI;;;Height
+Height;; pixel;N YI;;;Height
 Height/String;;;Y NT;;;;;
 Resolution;; bit;N YI;;;;;
 Resolution/String;;;Y NT;;;;;

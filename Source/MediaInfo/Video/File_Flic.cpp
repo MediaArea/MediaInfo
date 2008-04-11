@@ -102,26 +102,26 @@ void File_Flic::FileHeader_Parse()
         }
 
         Stream_Prepare(Stream_General);
-        Fill("Format", "FLIC");
+        Fill(Stream_General, 0, General_Format, "FLIC");
         Stream_Prepare(Stream_Video);
         if (Type==0xAF11)
         {
-            Fill("Codec", "FLI");
-            Fill("FrameRate", 1.0/DelayBetweenFrames); //ms per frame
-            Fill("PlayTime", Frames*DelayBetweenFrames);
+            Fill(Stream_Video, 0, Video_Codec, "FLI");
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 1.0/DelayBetweenFrames); //ms per frame
+            Fill(Stream_Video, 0, Video_PlayTime, Frames*DelayBetweenFrames);
         }
         else
         {
-            Fill("Codec", "FLC");
-            Fill("FrameRate", DelayBetweenFrames*1000/70); //multiple of 1/70 per frame
-            Fill("PlayTime", Frames*DelayBetweenFrames*1000/70);
+            Fill(Stream_Video, 0, Video_Codec, "FLC");
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, DelayBetweenFrames*1000/70); //multiple of 1/70 per frame
+            Fill(Stream_Video, 0, Video_PlayTime, Frames*DelayBetweenFrames*1000/70);
             if (AspectY>0)
-                Fill("DisplayAspectRatio", AspectX/AspectY);
+                Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, AspectX/AspectY);
         }
-        Fill("FrameCount", Frames);
-        Fill("Width", Width);
-        Fill("Height", Height);
-        Fill("Resolution", BitsPerPixel);
+        Fill(Stream_Video, 0, Video_FrameCount, Frames);
+        Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
+        Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
+        Fill(Stream_Video, 0, Video_Resolution, BitsPerPixel);
 
         Finnished();
     FILLING_END();

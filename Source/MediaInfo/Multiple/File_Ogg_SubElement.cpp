@@ -262,15 +262,15 @@ void File_Ogg_SubElement::Identification_vorbis()
 
     //Filling
     Stream_Prepare(Stream_Audio);
-    Fill("Codec", "Vorbis");
+    Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "Vorbis");
     if (BitRate_Maximum!=0 && BitRate_Maximum<0x80000000) //This is a signed value, and negative values are not OK
-        Fill("BitRate_Maximum", BitRate_Maximum);
+        Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Maximum, BitRate_Maximum);
     if (BitRate_Nominal!=0 && BitRate_Nominal<0x80000000) //This is a signed value, and negative values are not OK
-        Fill("BitRate", BitRate_Nominal);
+        Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, BitRate_Nominal);
     if (BitRate_Minimum!=0 && BitRate_Minimum<0x80000000) //This is a signed value, and negative values are not OK
-        Fill("BitRate_Minimum", BitRate_Minimum);
-    Fill("Channel(s)", Channels);
-    Fill("SamplingRate", SamplingRate);
+        Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Minimum, BitRate_Minimum);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
+    Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplingRate);
     absolute_granule_position_Resolution=SamplingRate;
 }
 
@@ -306,18 +306,18 @@ void File_Ogg_SubElement::Identification_theora()
 
     //Filling
     Stream_Prepare(Stream_Video);
-    Fill("Codec", "Theora");
+    Fill(Stream_Video, StreamPos_Last, Video_Codec, "Theora");
     if (Version!=0x030200) //Version 3.2.x
         return;
-    Fill("FrameRate", ((float)FRN)/FRD, 3);
+    Fill(Stream_Video, StreamPos_Last, Video_FrameRate, ((float)FRN)/FRD, 3);
     float PixelRatio=1;
     if (PARN && PARN)
         PixelRatio=((float)PARN)/(float)PARN;
-    Fill("Width", PICW);
-    Fill("Height", PICH);
-    Fill("DisplayAspectRatio", ((float)PICW)/((float)PICH)*PixelRatio, 3);
+    Fill(Stream_Video, StreamPos_Last, Video_Width, PICW);
+    Fill(Stream_Video, StreamPos_Last, Video_Height, PICH);
+    Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)PICW)/((float)PICH)*PixelRatio, 3);
     if (NOMBR)
-        Fill("BitRate_Nominal", NOMBR);
+        Fill(Stream_Video, StreamPos_Last, Video_BitRate_Nominal, NOMBR);
 }
 
 //---------------------------------------------------------------------------
@@ -342,10 +342,10 @@ void File_Ogg_SubElement::Identification_video()
 
     //Filling
     Stream_Prepare(Stream_Video);
-    Fill("Codec", Ztring().From_CC4(fccHandler));
-    Fill("FrameRate", (float)10000000/(float)TimeUnit, 3);
-    Fill("Width", Width);
-    Fill("Height", Height);
+    Fill(Stream_Video, StreamPos_Last, Video_Codec, Ztring().From_CC4(fccHandler));
+    Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)10000000/(float)TimeUnit, 3);
+    Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
+    Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
 }
 
 //---------------------------------------------------------------------------
@@ -374,11 +374,11 @@ void File_Ogg_SubElement::Identification_audio()
     Stream_Prepare(Stream_Audio);
     Ztring Codec; Codec.From_CC4(fccHandler);
     Codec.TrimLeft(_T('0'));
-    Fill("Codec", Codec);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec);
     if (AvgBytesPerSec<0x80000000) //This is a signed value, and negative values are not OK
-        Fill("BitRate", AvgBytesPerSec*8);
-    Fill("Channel(s)", Channels==5?6:Channels); //5 channels are 5.1
-    Fill("SamplingRate", SamplesPerUnit);
+        Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, AvgBytesPerSec*8);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels==5?6:Channels); //5 channels are 5.1
+    Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplesPerUnit);
     absolute_granule_position_Resolution=SamplesPerUnit;
 }
 
@@ -392,7 +392,7 @@ void File_Ogg_SubElement::Identification_text()
 
     //Filling
     Stream_Prepare(Stream_Text);
-    Fill("Codec", "Subrip");
+    Fill(Stream_Text, StreamPos_Last, Text_Codec, "Subrip");
 }
 
 //---------------------------------------------------------------------------

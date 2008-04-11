@@ -59,26 +59,26 @@ void File_Png::Read_Buffer_Continue()
     if (CC4(Buffer)==0x89504E47 && CC4(Buffer+4)==0x0D0A1A0A)
     {
         Stream_Prepare(Stream_General);
-        Fill("Format", "PNG");
+        Fill(Stream_General, 0, General_Format, "PNG");
 
         Stream_Prepare(Stream_Image);
-        Fill("Codec", "LZ77 variant");
+        Fill(Stream_Image, 0, Image_Codec, "LZ77 variant");
     }
     else if (CC4(Buffer)==0x8A4E4E47 && CC4(Buffer+4)==0x0D0A1A0A)
     {
         Stream_Prepare(Stream_General);
-        Fill("Format", "MNG");
+        Fill(Stream_General, 0, General_Format, "MNG");
 
         Stream_Prepare(Stream_Image);
-        Fill("Codec", "MNG");
+        Fill(Stream_Image, 0, Image_Codec, "MNG");
     }
     else if (CC4(Buffer)==0x8B4A4E47 && CC4(Buffer+4)==0x0D0A1A0A)
     {
         Stream_Prepare(Stream_General);
-        Fill("Format", "JNG");
+        Fill(Stream_General, 0, General_Format, "JNG");
 
         Stream_Prepare(Stream_Image);
-        Fill("Codec", "JNG");
+        Fill(Stream_Image, 0, Image_Codec, "JNG");
     }
 
     //No need of more

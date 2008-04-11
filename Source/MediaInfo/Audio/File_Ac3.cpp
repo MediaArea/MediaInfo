@@ -412,21 +412,21 @@ void File_Ac3::Data_Parse_Fill()
     if (bsid<=0x08)
     {
         Stream_Prepare(Stream_General);
-        Fill("Format", "AC3");
+        Fill(Stream_General, 0, General_Format, "AC3");
         Stream_Prepare(Stream_Audio);
-        Fill("Codec", IsTrueHD?"TrueHD":"AC3");
+        Fill(Stream_Audio, 0, Audio_Codec, IsTrueHD?"TrueHD":"AC3");
 
-        Fill("SamplingRate", AC3_SamplingRate[fscod]);
+        Fill(Stream_Audio, 0, Audio_SamplingRate, AC3_SamplingRate[fscod]);
         if (frmsizecod/2<19 && !IsTrueHD)
         {
             int32u BitRate=AC3_BitRate[frmsizecod/2]*1000;
-            Fill("BitRate", BitRate);
+            Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
             if (Delay>100 && BitRate>0)
-                Fill("Delay", (float)Delay*8*1000/BitRate, 0);
+                Fill(Stream_Audio, 0, Audio_Delay, (float)Delay*8*1000/BitRate, 0);
         }
 
         if (acmod==0)
-            Fill("Codec_Profile", "Dual Mono");
+            Fill(Stream_Audio, 0, Audio_Codec_Profile, "Dual Mono");
         int8u Channels=AC3_Channels[acmod];
         Ztring ChannelPositions; ChannelPositions.From_Local(AC3_ChannelPositions[acmod]);
         if (lfeon)
@@ -434,33 +434,33 @@ void File_Ac3::Data_Parse_Fill()
             Channels+=1;
             ChannelPositions+=_T(", LFE");
         }
-        Fill("Channel(s)", Channels);
-        Fill("ChannelPositions", ChannelPositions);
+        Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
+        Fill(Stream_Audio, 0, Audio_ChannelPositions, ChannelPositions);
         if (dsurmod==2)
-            Fill("Codec_Profile", "Dolby Digital");
-        Fill("BitRate_Mode", "CBR");
+            Fill(Stream_Audio, 0, Audio_Codec_Profile, "Dolby Digital");
+        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
     }
 
     if (bsid==0x10)
     {
         Stream_Prepare(Stream_General);
-        Fill("Format", "AC3+");
+        Fill(Stream_General, 0, General_Format, "AC3+");
         Stream_Prepare(Stream_Audio);
-        Fill("Codec", "AC3+");
+        Fill(Stream_Audio, 0, Audio_Codec, "AC3+");
 
-        Fill("BitRate_Mode", "CBR");
+        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
         if (numblks>0)
-            Fill("BitRate", ((frmsiz*2+2)*8*(750/numblks))/4);
+            Fill(Stream_Audio, 0, Audio_BitRate, ((frmsiz*2+2)*8*(750/numblks))/4);
 
         if (fscod!=2)
-            Fill("SamplingRate", AC3_SamplingRate[fscod]);
+            Fill(Stream_Audio, 0, Audio_SamplingRate, AC3_SamplingRate[fscod]);
         else
-            Fill("SamplingRate", AC3_SamplingRate2[fscod2]);
+            Fill(Stream_Audio, 0, Audio_SamplingRate, AC3_SamplingRate2[fscod2]);
 
         if (chanmap==0)
         {
             if (acmod==0)
-                Fill("Codec_Profile", "Dual Mono");
+                Fill(Stream_Audio, 0, Audio_Codec_Profile, "Dual Mono");
             int8u Channels=AC3_Channels[acmod];
             Ztring ChannelPositions; ChannelPositions.From_Local(AC3_ChannelPositions[acmod]);
             if (lfeon)
@@ -468,8 +468,8 @@ void File_Ac3::Data_Parse_Fill()
                 Channels+=1;
                 ChannelPositions+=_T(", LFE");
             }
-            Fill("Channel(s)", Channels);
-            Fill("ChannelPositions", ChannelPositions);
+            Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
+            Fill(Stream_Audio, 0, Audio_ChannelPositions, ChannelPositions);
         }
     }
 

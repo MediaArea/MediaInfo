@@ -69,7 +69,7 @@ void File_Ogg::Read_Buffer_Finalize()
         Stream_Temp++;
     }
 
-    Fill(Stream_General, 0, "Format", "OGG");
+    Fill(Stream_General, 0, General_Format, "OGG");
 
     //No more need
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
@@ -146,6 +146,7 @@ void File_Ogg::Data_Parse()
     if (Stream[Element_Code].Parser==NULL)
     {
         Stream[Element_Code].Parser=new File_Ogg_SubElement;
+        Open_Buffer_Init(Stream[Element_Code].Parser);
         StreamsToDo++;
     }
 
@@ -216,7 +217,7 @@ void File_Ogg::Read_Buffer_Continue()
     }
 
     Stream_Prepare(Stream_General);
-    Fill("Format", "Ogg");
+    Fill(Stream_General, 0, General_Format, "Ogg");
 
     //Buffer
     while (!ShouldStop)
@@ -243,13 +244,13 @@ void File_Ogg::Read_Buffer_Continue()
     Ztring ID; ID.From_Number(LittleEndian2int32u(End+Buffer_Offset+14));
     size_t PlayTime=0;
     for (size_t Pos=0; Pos<Audio.size(); Pos++)
-        if (Get(Stream_Audio, Pos, _T("ID"))==ID && Get(Stream_Audio, Pos, _T("SamplingRate")).To_int32u()!=0)
-            PlayTime=Size*1000/Get(Stream_Audio, Pos, _T("SamplingRate")).To_int32u();
+        if (Retrieve(Stream_Audio, Pos, _T("ID"))==ID && Retrieve(Stream_Audio, Pos, _T("SamplingRate")).To_int32u()!=0)
+            PlayTime=Size*1000/Retrieve(Stream_Audio, Pos, _T("SamplingRate")).To_int32u();
     for (size_t Pos=0; Pos<Video.size(); Pos++)
-        if (Get(Stream_Video, Pos, _T("ID"))==ID && Get(Stream_Video, Pos, _T("FrameRate")). To_float32()!=0)
-            PlayTime=Size*1000/Get(Stream_Video, Pos, _T("FrameRate")).To_int32u();
+        if (Retrieve(Stream_Video, Pos, _T("ID"))==ID && Retrieve(Stream_Video, Pos, _T("FrameRate")). To_float32()!=0)
+            PlayTime=Size*1000/Retrieve(Stream_Video, Pos, _T("FrameRate")).To_int32u();
     if (PlayTime)
-        Fill(Stream_General, 0, "PlayTime", PlayTime);
+        Fill(Stream_General, 0, General_PlayTime, PlayTime);
 
 
     //No need of more

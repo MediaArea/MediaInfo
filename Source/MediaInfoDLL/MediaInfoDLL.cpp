@@ -496,7 +496,7 @@ void            __stdcall MediaInfo_Close (void* Handle)
 
 const wchar_t*  __stdcall MediaInfo_Inform (void* Handle, size_t Reserved)
 {
-    MANAGE_STRING(MediaInfo, Inform(0), Debug+="Inform, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+="\r\n";, Debug+="Inform, will return ";Debug+=ToReturn.To_Local().c_str();Debug+="\r\n";)
+    MANAGE_STRING(MediaInfo, Inform(), Debug+="Inform, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+="\r\n";, Debug+="Inform, will return ";Debug+=ToReturn.To_Local().c_str();Debug+="\r\n";)
 }
 
 const wchar_t*  __stdcall MediaInfo_GetI (void* Handle, MediaInfo_stream_t StreamKind, size_t StreamNumber, size_t  Parameter, MediaInfo_info_C KindOfInfo)

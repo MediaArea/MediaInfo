@@ -152,9 +152,9 @@ void File_MpcSv8::FileHeader_Parse()
 
         //Filling
         Stream_Prepare(Stream_General);
-        Fill("Format", "MPC");
+        Fill(Stream_General, 0, General_Format, "MPC");
         Stream_Prepare(Stream_Audio);
-        Fill("Codec", "SV8");
+        Fill(Stream_Audio, 0, Audio_Codec, "SV8");
     FILLING_END();
 }
 
@@ -261,14 +261,14 @@ void File_MpcSv8::SH()
 
     //Filling
     FILLING_BEGIN();
-        Fill("SamplingRate", Mpc_SampleFreq[SampleFrequency]);
+        Fill(Stream_Audio, 0, Audio_SamplingRate, Mpc_SampleFreq[SampleFrequency]);
         if (SampleCount)
         {
-            Fill("SamplingCount", SampleCount);
-            Fill("PlayTime", SampleCount*1000/Mpc_SampleFreq[SampleFrequency]);
-            Fill("BitRate", File_Size*8*Mpc_SampleFreq[SampleFrequency]/SampleCount); //Should be more precise...
+            Fill(Stream_Audio, 0, Audio_SamplingCount, SampleCount);
+            Fill(Stream_Audio, 0, Audio_PlayTime, SampleCount*1000/Mpc_SampleFreq[SampleFrequency]);
+            Fill(Stream_Audio, 0, Audio_BitRate, File_Size*8*Mpc_SampleFreq[SampleFrequency]/SampleCount); //Should be more precise...
         }
-        Fill("Resolution", 16); //MPC support only 16 bits
+        Fill(Stream_Audio, 0, Audio_Resolution, 16); //MPC support only 16 bits
     FILLING_END();
 }
 
@@ -299,18 +299,18 @@ void File_MpcSv8::HowTo(stream_t StreamKind)
 {
         if (StreamKind==Stream_General)
     {
-        General[0](_T("Format"), Info_HowTo)=_T("R");
-        General[0](_T("OverallBitRate"), Info_HowTo)=_T("R");
-        General[0](_T("PlayTime"), Info_HowTo)=_T("R");
+        Fill_HowTo("Format", "R");
+        Fill_HowTo("OverallBitRate", "R");
+        Fill_HowTo("PlayTime", "R");
     }
     else if (StreamKind==Stream_Audio)
     {
-        Audio[0](_T("Codec"), Info_HowTo)=_T("R");
-        Audio[0](_T("BitRate"), Info_HowTo)=_T("R");
-        Audio[0](_T("Channel(s)"), Info_HowTo)=_T("R");
-        Audio[0](_T("SamplingRate"), Info_HowTo)=_T("R");
-        Audio[0](_T("SamplingCount"), Info_HowTo)=_T("R");
-        Audio[0](_T("Resolution"), Info_HowTo)=_T("R");
+        Fill_HowTo("Codec", "R");
+        Fill_HowTo("BitRate", "R");
+        Fill_HowTo("Channel(s)", "R");
+        Fill_HowTo("SamplingRate", "R");
+        Fill_HowTo("SamplingCount", "R");
+        Fill_HowTo("Resolution", "R");
     }
 }
 

@@ -504,14 +504,14 @@ void File_Mpeg4::ftyp()
         //Filling
         switch (CompatibleBrand)
         {
-            case Elements::ftyp_caqv : Fill("Encoded_Application", "Casio Digital Camera"); break;
+            case Elements::ftyp_caqv : Fill(StreamKind_Last, StreamPos_Last, "Encoded_Application", "Casio Digital Camera"); break;
             default : ;
         }
     }
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill("Format", Ztring().From_CC4(MajorBrand));
+        Fill(Stream_General, 0, General_Format, Ztring().From_CC4(MajorBrand));
     FILLING_END();
 }
 
@@ -525,7 +525,7 @@ void File_Mpeg4::idat()
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill("Format", "QTI");
+        Fill(Stream_General, 0, General_Format, "QTI");
     FILLING_END();
 }
 
@@ -539,7 +539,7 @@ void File_Mpeg4::idsc()
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill("Format", "QTI");
+        Fill(Stream_General, 0, General_Format, "QTI");
     FILLING_END();
 }
 
@@ -556,7 +556,7 @@ void File_Mpeg4::mdat()
     if (Count_Get(Stream_General)==0)
     {
         Stream_Prepare(Stream_General);
-        Fill("Format", "QT"); //if there is no ftyp atom, this is an old Quictime file
+        Fill(Stream_General, 0, General_Format, "QT"); //if there is no ftyp atom, this is an old Quictime file
     }
 
     //Parse mdat if needed
@@ -582,7 +582,7 @@ void File_Mpeg4::moov()
         if (Count_Get(Stream_General)==0)
         {
             Stream_Prepare(Stream_General);
-            Fill("Format", "QT"); //If there is no ftyp atom, this is an old Quictime file
+            Fill(Stream_General, 0, General_Format, "QT"); //If there is no ftyp atom, this is an old Quictime file
         }
     FILLING_END();
 }
@@ -780,8 +780,8 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                                 Skip_B2(                        "Reserved"); //Sometimes there are 2 more bytes, unknown
 
                             //Filling
-                            Fill(Stream_General, 0, "Part/Position", Position, 10, true);
-                            Fill(Stream_General, 0, "Part/Position_Total", Total, 10, true);
+                            Fill(Stream_General, 0, General_Part_Position, Position, 10, true);
+                            Fill(Stream_General, 0, General_Part_Position_Total, Total, 10, true);
                             }
                             return;
                         case Elements::moov_meta__trkn :
@@ -795,8 +795,8 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                                 Skip_B2(                        "Reserved"); //Sometimes there are 2 more bytes, unknown
 
                             //Filling
-                            Fill(Stream_General, 0, "Track/Position", Position, 10, true);
-                            Fill(Stream_General, 0, "Track/Position_Total", Total, 10, true);
+                            Fill(Stream_General, 0, General_Track_Position, Position, 10, true);
+                            Fill(Stream_General, 0, General_Track_Position_Total, Total, 10, true);
                             }
                             return;
                         case Elements::moov_meta__covr :
@@ -804,7 +804,7 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                             Skip_XX(Element_Size-Element_Offset,"Data");
 
                             //Filling
-                            Fill(Stream_General, 0, "Cover", "Yes");
+                            Fill(Stream_General, 0, General_Cover, "Yes");
                             }
                             return;
                         default:
@@ -951,12 +951,12 @@ void File_Mpeg4::moov_mvhd()
             Date_Created.resize(Date_Created.find(_T('\r')));
         if (Date_Created.find(_T('\n'))!=std::string::npos)
             Date_Created.resize(Date_Created.find(_T('\n')));
-        Fill("Encoded_Date", Date_Created);
+        Fill(StreamKind_Last, StreamPos_Last, "Encoded_Date", Date_Created);
         if (Date_Modified.find(_T('\r'))!=std::string::npos)
             Date_Modified.resize(Date_Modified.find(_T('\r')));
         if (Date_Modified.find(_T('\n'))!=std::string::npos)
             Date_Modified.resize(Date_Modified.find(_T('\n')));
-        Fill("Tagged_Date", Date_Modified);
+        Fill(StreamKind_Last, StreamPos_Last, "Tagged_Date", Date_Modified);
     FILLING_END();
 }
 
@@ -1039,7 +1039,7 @@ void File_Mpeg4::moov_trak_mdia_hdlr()
         Title.clear(); //This is not a Title
 
     FILLING_BEGIN();
-        if (!Title.empty()) Fill("Title",    Title);
+        if (!Title.empty()) Fill(StreamKind_Last, StreamPos_Last, "Title",    Title);
         switch (SubType)
         {
             case Elements::moov_trak_mdia_hdlr_soun :
@@ -1058,14 +1058,14 @@ void File_Mpeg4::moov_trak_mdia_hdlr()
                 if (StreamKind_Last!=Stream_Text)
                 {
                     Stream_Prepare(Stream_Text);
-                    Fill("Codec", "tx3g");
+                    Fill(StreamKind_Last, StreamPos_Last, "Codec", "tx3g");
                 }
                 break;
             case Elements::moov_trak_mdia_hdlr_subp :
                 if (StreamKind_Last!=Stream_Text)
                 {
                     Stream_Prepare(Stream_Text);
-                    Fill("Codec", "subp");
+                    Fill(StreamKind_Last, StreamPos_Last, "Codec", "subp");
                 }
                 break;
             case Elements::moov_trak_mdia_hdlr_MPEG :
@@ -1093,11 +1093,11 @@ void File_Mpeg4::moov_trak_mdia_mdhd()
     Skip_B2(                                                    "Quality");
 
     FILLING_BEGIN();
-        Fill("Language", Language_Get(Language));
+        Fill(StreamKind_Last, StreamPos_Last, "Language", Language_Get(Language));
         if (moov_trak_mdia_mdhd_TimeScale)
         {
             moov_trak_mdia_mdhd_PlayTime=(int32u)(((float)Duration)/moov_trak_mdia_mdhd_TimeScale*1000);
-            Fill("PlayTime", moov_trak_mdia_mdhd_PlayTime);
+            Fill(StreamKind_Last, StreamPos_Last, "PlayTime", moov_trak_mdia_mdhd_PlayTime);
         }
     FILLING_END();
 }
@@ -1354,22 +1354,22 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             Codec.append(1, (char)((Element_Code&0x0000FF00)>> 8));
             Codec.append(1, (char)((Element_Code&0x000000FF)>> 0));
             if (Codec!="raw ")
-                Fill("Codec", Codec, false, true);
+                Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, false, true);
             else
-                Fill("Codec", "PCM", Error, false, true);
-            Fill("Codec/CC", Codec, false, true);
+                Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "PCM", Error, false, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec, false, true);
             if (Codec=="drms")
-                Fill("Encryption", "iTunes");
+                Fill(Stream_Audio, StreamPos_Last, Audio_Encryption, "iTunes");
             if (Codec=="enca")
-                Fill("Encryption", "Encrypted");
+                Fill(Stream_Audio, StreamPos_Last, Audio_Encryption, "Encrypted");
         }
         else //Microsoft 2CC
         {
             int64u CodecI= ((Element_Code&0x0000FF00ULL)>> 8)
                          + ((Element_Code&0x000000FFULL)>> 0); //FormatTag
             Codec=Ztring().From_Number(CodecI, 16).To_Local();
-            Fill("Codec", Codec, true);
-            Fill("Codec/CC", Codec, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec, true);
         }
         #if defined(MEDIAINFO_PCM_YES)
         if (Codec=="raw "
@@ -1381,6 +1381,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             MI.Codec=Ztring().From_Local(Codec.c_str());
 
             //Parsing
+            Open_Buffer_Init(&MI);
             Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, 0);
             Open_Buffer_Finalize(&MI);
 
@@ -1388,10 +1389,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             Merge(MI, StreamKind_Last, 0, StreamPos_Last);
         }
         #endif
-        Fill("Channel(s)", Channels, 10, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels, 10, true);
         if (SampleSize!=0)
-            Fill("Resolution", SampleSize, 10, true);
-        Fill("SamplingRate", SampleRate);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, SampleSize, 10, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate);
 
         //Sometimes, more Atoms in this atoms
         if (Element_Offset+8<Element_Size)
@@ -1434,19 +1435,19 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
         Codec.append(1, (char)((Element_Code&0x00FF0000)>>16));
         Codec.append(1, (char)((Element_Code&0x0000FF00)>> 8));
         Codec.append(1, (char)((Element_Code&0x000000FF)>> 0));
-        Fill("Codec", Codec, false, true);
-        Fill("Codec/CC", Codec, false, true);
+        Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec, false, true);
+        Fill(Stream_Video, StreamPos_Last, Video_Codec_CC, Codec, false, true);
         if (Codec=="drms")
-            Fill("Encryption", "iTunes");
+            Fill(Stream_Video, StreamPos_Last, Video_Encryption, "iTunes");
         if (Codec=="enca")
-            Fill("Encryption", "Encrypted");
-        Fill("Width", BigEndian2int16u(Buffer+Buffer_Offset+24), 10, true);
-        Fill("Height", BigEndian2int16u(Buffer+Buffer_Offset+26), 10, true);
+            Fill(Stream_Video, StreamPos_Last, Video_Encryption, "Encrypted");
+        Fill(Stream_Video, StreamPos_Last, Video_Width, BigEndian2int16u(Buffer+Buffer_Offset+24), 10, true);
+        Fill(Stream_Video, StreamPos_Last, Video_Height, BigEndian2int16u(Buffer+Buffer_Offset+26), 10, true);
 
         //Specific
         if (Codec=="dvc " || Codec=="DVC " || Codec=="dvcp" || Codec=="DVCP" || Codec=="dvpn" || Codec=="DVPN" || Codec=="dvpp" || Codec=="DVPP")
         {
-            Fill("DisplayAspectRatio", ((float)4)/3, 3, true);
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)4)/3, 3, true);
         }
 
         //Descriptors or a list (we can see both!)
@@ -1515,8 +1516,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_btrt()
     Get_B4 (avgBitrate,                                         "avgBitrate");
 
     FILLING_BEGIN();
-        Fill("BitRate",         avgBitrate);
-        Fill("BitRate_Maximum", maxBitrate);
+        Fill(StreamKind_Last, StreamPos_Last, "BitRate",         avgBitrate);
+        Fill(StreamKind_Last, StreamPos_Last, "BitRate_Maximum", maxBitrate);
     FILLING_END();
 }
 
@@ -1591,8 +1592,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma()
         Get_B2 (CodecMS,                                        "CC2");
 
         FILLING_BEGIN();
-            Fill("Codec", CodecMS, 16, true);
-            Fill("Codec/CC", CodecMS, 16, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, CodecMS, 16, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, CodecMS, 16, true);
         FILLING_END();
     }
     else
@@ -1601,8 +1602,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma()
         Get_Local(4, Codec,                                     "Codec");
 
         FILLING_BEGIN();
-            Fill("Codec", Codec, true);
-            Fill("Codec/CC", Codec, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec, true);
         FILLING_END();
     }
 }
@@ -1626,9 +1627,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_xxxx()
     Get_L2 (BitsPerSample,                                      "BitsPerSample");
 
     FILLING_BEGIN();
-        Fill("Channel(s)", Channels!=5?Channels:6, 10, true);
-        Fill("SamplingRate", SamplesPerSec, 10, true);
-        Fill("BitRate_Nominal", AvgBytesPerSec*8, 10, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels!=5?Channels:6, 10, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplesPerSec, 10, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Nominal, AvgBytesPerSec*8, 10, true);
     FILLING_END();
 
     //Options
@@ -1700,20 +1701,20 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
             moov_trak_mdia_minf_stbl_stsz_Map[moov_trak_tkhd_TrackID]->push_back(Stream_Size);
         }
 
-        if (Get(StreamKind_Last, StreamPos_Last, _T("BitRate_Mode")).empty())
-            Fill("BitRate_Mode", "CBR");
+        if (Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
+            Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "CBR");
 
         //Detecting wrong stream size with some PCM streams
         if (StreamKind_Last==Stream_Audio)
         {
-            const Ztring &Codec=Get(Stream_Audio, StreamPos_Last, _T("Codec"));
+            const Ztring &Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
             if (Codec==_T("raw ")
              || MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("PCM"))==0)
              {
-                int64u PlayTime=Get(StreamKind_Last, StreamPos_Last, _T("PlayTime")).To_int64u();
-                int64u Resolution=Get(StreamKind_Last, StreamPos_Last, _T("Resolution")).To_int64u();
-                int64u SamplingRate=Get(StreamKind_Last, StreamPos_Last, _T("SamplingRate")).To_int64u();
-                int64u Channels=Get(StreamKind_Last, StreamPos_Last, _T("Channel(s)")).To_int64u();
+                int64u PlayTime=Retrieve(StreamKind_Last, StreamPos_Last, Audio_PlayTime).To_int64u();
+                int64u Resolution=Retrieve(StreamKind_Last, StreamPos_Last, Audio_Resolution).To_int64u();
+                int64u SamplingRate=Retrieve(StreamKind_Last, StreamPos_Last, Audio_SamplingRate).To_int64u();
+                int64u Channels=Retrieve(StreamKind_Last, StreamPos_Last, Audio_Channel_s_).To_int64u();
                 int64u Stream_Size_Theory=PlayTime*Resolution*SamplingRate*Channels/8/1000;
                 for (int64u Multiplier=1; Multiplier<=32; Multiplier++)
                     if (Stream_Size*Multiplier>Stream_Size_Theory*0.995 && Stream_Size*Multiplier<Stream_Size_Theory*1.005)
@@ -1751,18 +1752,18 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
                 moov_trak_mdia_minf_stbl_stsz_Map[moov_trak_tkhd_TrackID]->push_back(Size);
         }
 
-        if (Get(StreamKind_Last, StreamPos_Last, _T("BitRate_Mode")).empty())
+        if (Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
         {
             if (Size_Min*(1.005+0.005)<Size_Max)
-                Fill("BitRate_Mode", "VBR");
+                Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "VBR");
             else
-                Fill("BitRate_Mode", "CBR");
+                Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "CBR");
         }
     }
 
     FILLING_BEGIN();
         if (Stream_Size>0)
-            Fill("StreamSize", Stream_Size);
+            Fill(StreamKind_Last, StreamPos_Last, "StreamSize", Stream_Size);
     FILLING_END();
 }
 
@@ -1799,18 +1800,18 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
             {
                 if (Min!=Max)
                 {
-                    Fill("FrameRate_Minimum", ((float)moov_trak_mdia_mdhd_TimeScale)/Max);
-                    Fill("FrameRate_Maximum", ((float)moov_trak_mdia_mdhd_TimeScale)/Min);
-                    Fill("FrameRate",         ((float)FrameCount)/moov_trak_mdia_mdhd_PlayTime*1000, 3, true);
-                    Fill("FrameRate_Mode",    "VFR");
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Minimum, ((float)moov_trak_mdia_mdhd_TimeScale)/Max);
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Maximum, ((float)moov_trak_mdia_mdhd_TimeScale)/Min);
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate,         ((float)FrameCount)/moov_trak_mdia_mdhd_PlayTime*1000, 3, true);
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode,    "VFR");
                 }
                 else
                 {
-                    Fill("FrameRate",         ((float)moov_trak_mdia_mdhd_TimeScale)/Max, 3, true);
-                    Fill("FrameRate_Mode",    "CFR");
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate,         ((float)moov_trak_mdia_mdhd_TimeScale)/Max, 3, true);
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode,    "CFR");
                 }
             }
-            Fill("FrameCount", FrameCount);
+            Fill(Stream_Video, StreamPos_Last, Video_FrameCount, FrameCount);
         }
     FILLING_END();
 }
@@ -1864,9 +1865,9 @@ void File_Mpeg4::moov_trak_tkhd()
     Skip_B4(                                                    "Track height");
 
     FILLING_BEGIN();
-        Fill("Encoded_Date", Date_Created);
-        Fill("Tagged_Date", Date_Modified);
-        Fill("ID", moov_trak_tkhd_TrackID, 10, true);
+        Fill(StreamKind_Last, StreamPos_Last, "Encoded_Date", Date_Created);
+        Fill(StreamKind_Last, StreamPos_Last, "Tagged_Date", Date_Modified);
+        Fill(StreamKind_Last, StreamPos_Last, "ID", moov_trak_tkhd_TrackID, 10, true);
     FILLING_END();
 }
 
@@ -1979,7 +1980,7 @@ void File_Mpeg4::moov_udta_chpl()
             ToAdd+=Ztring().Duration_From_Milliseconds(Time/10000);
             ToAdd+=_T(" - ");
             ToAdd+=Value;
-            Fill(Ztring::ToZtring(Pos+1).To_Local().c_str(), ToAdd);
+            Fill(StreamKind_Last, StreamPos_Last, Ztring::ToZtring(Pos+1).To_Local().c_str(), ToAdd);
         FILLING_END();
 
         //Next
@@ -1998,7 +1999,7 @@ void File_Mpeg4::moov_udta_cprt()
     Get_Local(Element_Size-Element_Offset, Copyright,           "Copyright");
 
     FILLING_BEGIN();
-        Fill(Stream_General, 0, "Copyright", Copyright);
+        Fill(Stream_General, 0, General_Copyright, Copyright);
     FILLING_END();
 }
 
@@ -2063,7 +2064,7 @@ void File_Mpeg4::moov_udta_MCPS()
     Get_Local(Element_Size, Encoder,                            "Value");
 
     //Filling
-    Fill(Stream_General, 0, "Encoded_Library", Encoder);
+    Fill(Stream_General, 0, General_Encoded_Library, Encoder);
 }
 
 //---------------------------------------------------------------------------
@@ -2256,7 +2257,7 @@ void File_Mpeg4::pckg()
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill("Format", "QTCA");
+        Fill(Stream_General, 0, General_Format, "QTCA");
     FILLING_END();
 }
 

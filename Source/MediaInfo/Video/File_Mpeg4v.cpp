@@ -192,87 +192,14 @@ File_Mpeg4v::File_Mpeg4v()
     //Out
     RIFF_VOP_Count=0;
     RIFF_VOP_Count_Max=0;
-
-    //Count of a Packets
-    Frame_Count=0;
-    IVOP_Count=0;
-    PVOP_Count=0;
-    BVOP_Count=0;
-    SVOP_Count=0;
-    NVOP_Count=0;
-    Interlaced_Top=0;
-    Interlaced_Bottom=0;
-
-    //From VOL, needed in VOP
-    fixed_vop_time_increment=0;
-    object_layer_width=0;
-    object_layer_height=0;
-    vop_time_increment_resolution=0;
-    visual_object_verid=1;
-    profile_and_level_indication=0;
-    no_of_sprite_warping_points=0;
-    aspect_ratio_info=0;
-    par_width=0;
-    par_height=0;
-    bits_per_pixel=8;
-    shape=0;
-    sprite_enable=0;
-    estimation_method=0;
-    chroma_format=(int8u)-1;
-    quarter_sample=false;
-    low_delay=false;
-    load_intra_quant_mat=false;
-    load_nonintra_quant_mat=false;
-    load_intra_quant_mat_grayscale=false;
-    load_nonintra_quant_mat_grayscale=false;
-    interlaced=false;
-    newpred_enable=0;
-    time_size=0;
-    reduced_resolution_vop_enable=0;
-    shape=(int8u)-1;
-    sprite_enable=0;
-    scalability=0;
-    enhancement_type=0;
-    complexity_estimation_disable=0;
-    vop_time_increment_resolution=0;
-    opaque=false;
-    transparent=false;
-    intra_cae=false;
-    inter_cae=false;
-    no_update=false;
-    upsampling=false;
-    intra_blocks=false;
-    inter_blocks=false;
-    inter4v_blocks=false;
-    not_coded_blocks=false;
-    dct_coefs=false;
-    dct_lines=false;
-    vlc_symbols=false;
-    vlc_bits=false;
-    apm=false;
-    npm=false;
-    interpolate_mc_q=false;
-    forw_back_mc_q=false;
-    halfpel2=false;
-    halfpel4=false;
-    sadct=false;
-    quarterpel=false;
-
-    //Default stream values
-    Stream[0x00].Searching_Payload=true; //video_object_start
-    Stream[0x20].Searching_Payload=true; //video_object_layer_start
-    Stream[0xB0].Searching_Payload=true; //visual_object_sequence_start
-    Stream[0xB5].Searching_Payload=true; //visual_object_start
-    NextCode_Add(0x20); //video_object_layer_start
-    for (int8u Pos=0xB7; Pos!=0x00; Pos++)
-        Stream[Pos].Searching_Payload=true; //Testing other mpeg4v elements and MPEG-PS
 }
 
 //---------------------------------------------------------------------------
 void File_Mpeg4v::OnlyVOP()
 {
     //Default stream values
-    Stream[0xB6].Searching_Payload=true; //vop_start
+    Init();
+    Streams[0xB6].Searching_Payload=true; //vop_start
 }
 
 //***************************************************************************
@@ -297,13 +224,16 @@ void File_Mpeg4v::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Mpeg4v::Read_Buffer_Finalize()
 {
+    if (Streams.empty())
+        return; //Not initialized
+
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
     if (Count_Get(Stream_General)==0 && Frame_Count>0)
         vop_start_Fill();
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-        Stream.clear();
+        Streams.clear();
 }
 
 //***************************************************************************
@@ -701,9 +631,9 @@ void File_Mpeg4v::video_object_layer_start()
             NextCode_Add(Pos); //video_object_start
 
         //Autorisation of other streams
-        Stream[0xB2].Searching_Payload=true; //user_data
-        Stream[0xB3].Searching_Payload=true; //group_of_vop_start
-        Stream[0xB6].Searching_Payload=true; //vop_start
+        Streams[0xB2].Searching_Payload=true; //user_data
+        Streams[0xB3].Searching_Payload=true; //group_of_vop_start
+        Streams[0xB6].Searching_Payload=true; //vop_start
     FILLING_END();
 }
 
@@ -739,8 +669,8 @@ void File_Mpeg4v::visual_object_sequence_start()
         NextCode_Add(0xB5); //visual_object_start
 
         //Autorisation of other streams
-        Stream[0xB1].Searching_Payload=true, //visual_object_sequence_end
-        Stream[0xB2].Searching_Payload=true; //user_data
+        Streams[0xB1].Searching_Payload=true, //visual_object_sequence_end
+        Streams[0xB2].Searching_Payload=true; //user_data
     FILLING_END();
 }
 
@@ -862,9 +792,9 @@ void File_Mpeg4v::visual_object_start()
             NextCode_Add(Pos); //video_object_start and video_object_layer_start
 
         //Autorisation of other streams
-        Stream[0xB2].Searching_Payload=true;
+        Streams[0xB2].Searching_Payload=true;
         for (int8u Pos=0x00; Pos<0x25; Pos++)
-            Stream[Pos].Searching_Payload=true; //video_object_start and video_object_layer_start
+            Streams[Pos].Searching_Payload=true; //video_object_start and video_object_layer_start
     FILLING_END();
 }
 
@@ -1089,30 +1019,30 @@ void File_Mpeg4v::vop_start_Fill()
 {
     //Filling
     Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, "Codec", "MPEG-4V");
+    Fill(Stream_General, 0, General_Format, "MPEG-4V");
     Stream_Prepare(Stream_Video);
-    Fill("Codec", "MPEG-4V");
+    Fill(Stream_Video, 0, Video_Codec, "MPEG-4V");
 
     if (profile_and_level_indication>0)
-        Fill("Codec_Profile", Mpeg4v_Profile_Level(profile_and_level_indication));
+        Fill(Stream_Video, 0, Video_Codec_Profile, Mpeg4v_Profile_Level(profile_and_level_indication));
 
     if (fixed_vop_time_increment && vop_time_increment_resolution)
     {
         if (vop_time_increment_resolution==0xFFFF && fixed_vop_time_increment==2733)
-            Fill("FrameRate", 23.976); //Rounding with this kind of values is not precise
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 23.976); //Rounding with this kind of values is not precise
         else if (vop_time_increment_resolution==0xFFFF && fixed_vop_time_increment==2730)
-            Fill("FrameRate", 24.000); //Rounding with this kind of values is not precise
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 24.000); //Rounding with this kind of values is not precise
         else if (vop_time_increment_resolution==0xFFFE && fixed_vop_time_increment==2186)
-            Fill("FrameRate", 29.970); //Rounding with this kind of values is not precise
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 29.970); //Rounding with this kind of values is not precise
         else if (vop_time_increment_resolution==0xFFFF && fixed_vop_time_increment==2186)
-            Fill("FrameRate", 29.970); //Rounding with this kind of values is not precise
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 29.970); //Rounding with this kind of values is not precise
         else
-            Fill("FrameRate", ((float)vop_time_increment_resolution)/fixed_vop_time_increment);
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, ((float)vop_time_increment_resolution)/fixed_vop_time_increment);
     }
     if (object_layer_height)
     {
-        Fill("Width", object_layer_width);
-        Fill("Height", object_layer_height);
+        Fill(Stream_Video, StreamPos_Last, Video_Width, object_layer_width);
+        Fill(Stream_Video, StreamPos_Last, Video_Height, object_layer_height);
         float32 PixelAspectRatio_Value=1.0;
              if (aspect_ratio_info==0x01) PixelAspectRatio_Value=(float32)1;
              if (aspect_ratio_info==0x02) PixelAspectRatio_Value=(float32)12/(float32)11;
@@ -1120,56 +1050,56 @@ void File_Mpeg4v::vop_start_Fill()
         else if (aspect_ratio_info==0x04) PixelAspectRatio_Value=(float32)16/(float32)11;
         else if (aspect_ratio_info==0x05) PixelAspectRatio_Value=(float32)40/(float32)13;
         else if (aspect_ratio_info==0x0F && par_height) PixelAspectRatio_Value=((float32)par_width)/par_height;
-        Fill("PixelAspectRatio", PixelAspectRatio_Value);
-        Fill("DisplayAspectRatio", ((float)object_layer_width)/object_layer_height*PixelAspectRatio_Value);
+        Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio_Value);
+        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)object_layer_width)/object_layer_height*PixelAspectRatio_Value);
     }
-    Fill("Resolution", bits_per_pixel);
+    Fill(Stream_Video, 0, Video_Resolution, bits_per_pixel);
     if (chroma_format<4)
-        Fill("Chroma", Mpeg4v_Chroma[chroma_format]);
+        Fill(Stream_Video, 0, Video_Chroma, Mpeg4v_Chroma[chroma_format]);
     if (low_delay)
-        Fill("Codec_Settings_BVOP", "No");
+        Fill(Stream_Video, 0, Video_Codec_Settings_BVOP, "No");
     else
     {
-        Fill("Codec_Settings", "BVOP");
-        Fill("Codec_Settings_BVOP", "Yes");
+        Fill(Stream_Video, 0, Video_Codec_Settings, "BVOP");
+        Fill(Stream_Video, 0, Video_Codec_Settings_BVOP, "Yes");
     }
     if (no_of_sprite_warping_points)
     {
-        Fill("Codec_Settings", Ztring(_T("GMC"))+Ztring::ToZtring(no_of_sprite_warping_points));
-        Fill("Codec_Settings_GMC", no_of_sprite_warping_points);
+        Fill(Stream_Video, 0, Video_Codec_Settings, Ztring(_T("GMC"))+Ztring::ToZtring(no_of_sprite_warping_points));
+        Fill(Stream_Video, 0, Video_Codec_Settings_GMC, no_of_sprite_warping_points);
     }
     else
-        Fill("Codec_Settings_GMC", 0);
+        Fill(Stream_Video, 0, Video_Codec_Settings_GMC, 0);
     if (quarter_sample)
     {
-        Fill("Codec_Settings", "QPel");
-        Fill("Codec_Settings_QPel", "Yes");
+        Fill(Stream_Video, 0, Video_Codec_Settings, "QPel");
+        Fill(Stream_Video, 0, Video_Codec_Settings_QPel, "Yes");
     }
     else
-        Fill("Codec_Settings_QPel", "No");
+        Fill(Stream_Video, 0, Video_Codec_Settings_QPel, "No");
     if (load_intra_quant_mat_grayscale || load_nonintra_quant_mat_grayscale)
     {
-        Fill("Codec_Settings", "Custom Matrix (Gray)");
-        Fill("Codec_Settings_Matrix", "Custom (Gray)");
+        Fill(Stream_Video, 0, Video_Codec_Settings, "Custom Matrix (Gray)");
+        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Custom (Gray)");
     }
     else if (load_intra_quant_mat || load_nonintra_quant_mat)
     {
-        Fill("Codec_Settings", "Custom Matrix");
-        Fill("Codec_Settings_Matrix", "Custom");
+        Fill(Stream_Video, 0, Video_Codec_Settings, "Custom Matrix");
+        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Custom");
     }
     else
-        Fill("Codec_Settings_Matrix", "Default");
+        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Default");
     if (interlaced)
     {
         if ((Interlaced_Top && Interlaced_Bottom) || (!Interlaced_Top && !Interlaced_Bottom))
-            Fill("Interlacement", "Interlaced");
+            Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
         else
-            Fill("Interlacement", Interlaced_Top?"TFF":"BFF");
+            Fill(Stream_Video, 0, Video_Interlacement, Interlaced_Top?"TFF":"BFF");
     }
     else
-        Fill("Interlacement", "PPF");
+        Fill(Stream_Video, 0, Video_Interlacement, "PPF");
     if (!Library.empty())
-        Fill("Encoded_Library", Library);
+        Fill(Stream_Video, 0, Video_Encoded_Library, Library);
 
     //Jumping
     if (Count_Get(Stream_Video)!=0 && Frame_Count>=Frame_Count_Valid)
@@ -1311,6 +1241,7 @@ bool File_Mpeg4v::Synchronize()
 
     //Synched is OK
     Synched=true;
+    Init();
     return true;
 }
 
@@ -1324,7 +1255,7 @@ bool File_Mpeg4v::Header_Parser_QuickSearch()
         int8u start_code=CC1(Buffer+Buffer_Offset+3);
 
         //Searching start
-        if (Stream[start_code].Searching_Payload)
+        if (Streams[start_code].Searching_Payload)
             return true;
 
         //Getting size
@@ -1369,6 +1300,88 @@ bool File_Mpeg4v::Detect_NonMPEG4V ()
 
     //Seems OK
     return false;
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4v::Init()
+{
+    if (!Streams.empty())
+        return;
+
+    //Count of a Packets
+    Frame_Count=0;
+    IVOP_Count=0;
+    PVOP_Count=0;
+    BVOP_Count=0;
+    SVOP_Count=0;
+    NVOP_Count=0;
+    Interlaced_Top=0;
+    Interlaced_Bottom=0;
+
+    //From VOL, needed in VOP
+    fixed_vop_time_increment=0;
+    object_layer_width=0;
+    object_layer_height=0;
+    vop_time_increment_resolution=0;
+    visual_object_verid=1;
+    profile_and_level_indication=0;
+    no_of_sprite_warping_points=0;
+    aspect_ratio_info=0;
+    par_width=0;
+    par_height=0;
+    bits_per_pixel=8;
+    shape=0;
+    sprite_enable=0;
+    estimation_method=0;
+    chroma_format=(int8u)-1;
+    quarter_sample=false;
+    low_delay=false;
+    load_intra_quant_mat=false;
+    load_nonintra_quant_mat=false;
+    load_intra_quant_mat_grayscale=false;
+    load_nonintra_quant_mat_grayscale=false;
+    interlaced=false;
+    newpred_enable=0;
+    time_size=0;
+    reduced_resolution_vop_enable=0;
+    shape=(int8u)-1;
+    sprite_enable=0;
+    scalability=0;
+    enhancement_type=0;
+    complexity_estimation_disable=0;
+    vop_time_increment_resolution=0;
+    opaque=false;
+    transparent=false;
+    intra_cae=false;
+    inter_cae=false;
+    no_update=false;
+    upsampling=false;
+    intra_blocks=false;
+    inter_blocks=false;
+    inter4v_blocks=false;
+    not_coded_blocks=false;
+    dct_coefs=false;
+    dct_lines=false;
+    vlc_symbols=false;
+    vlc_bits=false;
+    apm=false;
+    npm=false;
+    interpolate_mc_q=false;
+    forw_back_mc_q=false;
+    halfpel2=false;
+    halfpel4=false;
+    sadct=false;
+    quarterpel=false;
+
+    //Default stream values
+    Streams.resize(0x100);
+    Streams[0x00].Searching_Payload=true; //video_object_start
+    Streams[0x20].Searching_Payload=true; //video_object_layer_start
+    Streams[0xB0].Searching_Payload=true; //visual_object_sequence_start
+    Streams[0xB5].Searching_Payload=true; //visual_object_start
+    NextCode_Add(0x20); //video_object_layer_start
+    for (int8u Pos=0xB7; Pos!=0x00; Pos++)
+        Streams[Pos].Searching_Payload=true; //Testing other mpeg4v elements and MPEG-PS
 }
 
 //***************************************************************************

@@ -63,10 +63,10 @@ void File_Bmp::Read_Buffer_Continue()
     }
 
     Stream_Prepare(Stream_General);
-    Fill("Format", "BMP");
+    Fill(Stream_General, 0, General_Format, "BMP");
 
     Stream_Prepare(Stream_Image);
-    Fill("Codec", "BMP");
+    Fill(Stream_Image, 0, Image_Codec, "BMP");
 
     //No need of more
     Finnished();
@@ -76,11 +76,11 @@ void File_Bmp::HowTo(stream_t StreamKind)
 {
          if (StreamKind==Stream_General)
     {
-        General[0](_T("Format"), Info_HowTo)=_T("R");
+        Fill_HowTo("Format", "R");
     }
     else if (StreamKind==Stream_Image)
     {
-        Video[0](_T("Codec"), Info_HowTo)=_T("Raw");
+        Fill_HowTo("Codec", "Raw");
     }
 
     return;

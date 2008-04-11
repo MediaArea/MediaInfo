@@ -111,7 +111,7 @@ void File_Nut::FileHeader_Parse()
 
         //Filling
         Stream_Prepare(Stream_General);
-        Fill("Format", "Nut");
+        Fill(Stream_General, 0, General_Format, "Nut");
 
         Finnished();
     FILLING_END();

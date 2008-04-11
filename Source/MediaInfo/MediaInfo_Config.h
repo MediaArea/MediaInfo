@@ -27,7 +27,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include <MediaInfo/MediaInfo_Const.h>
+#include <MediaInfo/MediaInfo_Internal_Const.h>
 #include <ZenLib/ZtringListList.h>
 #include <ZenLib/Translation.h>
 #include <ZenLib/InfoMap.h>

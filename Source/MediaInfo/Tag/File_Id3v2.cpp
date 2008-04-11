@@ -100,7 +100,7 @@ void File_Id3v2::Read_Buffer_Finalize()
 
     //Specific formats (multiple Id3v2 tags for one MI tag)
     Ztring Recorded_Date;
-    if (Get(Stream_General, 0, _T("Recorded_Date")).empty() && !Year.empty())
+    if (Retrieve(Stream_General, 0, General_Recorded_Date).empty() && !Year.empty())
     {
         Recorded_Date+=Year;
         if (!Month.empty() && !Month.empty())
@@ -122,38 +122,27 @@ void File_Id3v2::Read_Buffer_Finalize()
         Fill(Stream_General, 0, "Recorded_Date", Recorded_Date);
 
     //Special cases
-    //-Specific Id3 formating
-    Normalize_Date(General[0](_T("Encoded_Date")));
-    Normalize_Date(General[0](_T("Original/Released_Date")));
-    Normalize_Date(General[0](_T("Recorded_Date")));
-    Normalize_Date(General[0](_T("Released_Date")));
-    Normalize_Date(General[0](_T("Tagged_Date")));
     //-Position and total parts
-    if (General[0](_T("Part/Position")).find(_T("/"))!=Error)
+    if (Retrieve(Stream_General, 0, General_Part_Position).find(_T("/"))!=Error)
     {
-        Ztring Temp=General[0](_T("Part/Position"));
-        Fill(Stream_General, 0, "Part/Position_Total", "");
-        Fill(Stream_General, 0, "Part/Position_Total", Temp.SubString(_T("/"), _T("")));
-        Fill(Stream_General, 0, "Part/Position", "");
-        Fill(Stream_General, 0, "Part/Position", Temp.SubString(_T(""), _T("/")));
+        Ztring Temp=Retrieve(Stream_General, 0, General_Part_Position);
+        Fill(Stream_General, 0, General_Part_Position_Total, Temp.SubString(_T("/"), _T("")));
+        Fill(Stream_General, 0, General_Part_Position, Temp.SubString(_T(""), _T("/")));
     }
-    if (General[0](_T("Track/Position")).find(_T("/"))!=Error)
+    if (Retrieve(Stream_General, 0, General_Track_Position).find(_T("/"))!=Error)
     {
-        Ztring Temp=General[0](_T("Track/Position"));
-        Fill(Stream_General, 0, "Track/Position_Total", "");
-        Fill(Stream_General, 0, "Track/Position_Total", Temp.SubString(_T("/"), _T("")));
-        Fill(Stream_General, 0, "Track/Position", "");
-        Fill(Stream_General, 0, "Track/Position", Temp.SubString(_T(""), _T("/")));
+        const Ztring &Temp=Retrieve(Stream_General, 0, General_Track_Position);
+        Fill(Stream_General, 0, General_Track_Position_Total, Temp.SubString(_T("/"), _T("")), true);
+        Fill(Stream_General, 0, General_Track_Position, Temp.SubString(_T(""), _T("/")), true);
     }
     //-Genre
-    if (General[0](_T("Genre")).find(_T("("))==0)
+    if (Retrieve(Stream_General, 0, General_Genre).find(_T("("))==0)
     {
-        Ztring Genre=General[0](_T("Genre"));
-        Fill(Stream_General, 0, "Genre", "");
-        Fill(Stream_General, 0, "Genre", Genre.SubString(_T("("), _T(")"))); //Replace (nn) by nn
+        const Ztring &Genre=Retrieve(Stream_General, 0, General_Genre);
+        Fill(Stream_General, 0, General_Genre, Genre.SubString(_T("("), _T(")")), true); //Replace (nn) by nn
     }
-    if (General[0](_T("Genre"))==_T("0") || General[0](_T("Genre"))==_T("255"))
-        General[0](_T("Genre")).clear();
+    if (Retrieve(Stream_General, 0, General_Genre)==_T("0") || Retrieve(Stream_General, 0, General_Genre)==_T("255"))
+        Clear(Stream_General, 0, General_Genre);
 }
 
 //***************************************************************************
@@ -656,10 +645,10 @@ void File_Id3v2::SYLT()
     Skip_B1(                                                    "Content_type");
     switch (Encoding)
     {
-        case 0 : Get_Local (Element_Size-6, Element_Value,       "Short_content_descrip"); break;
-        case 1 : Get_UTF16 (Element_Size-6, Element_Value,       "Short_content_descrip"); break;
-        case 2 : Get_UTF16B(Element_Size-6, Element_Value,       "Short_content_descrip"); break;
-        case 3 : Get_UTF8  (Element_Size-6, Element_Value,       "Short_content_descrip"); break;
+        case 0 : Get_Local (Element_Size-6, Element_Value,      "Short_content_descrip"); break;
+        case 1 : Get_UTF16 (Element_Size-6, Element_Value,      "Short_content_descrip"); break;
+        case 2 : Get_UTF16B(Element_Size-6, Element_Value,      "Short_content_descrip"); break;
+        case 3 : Get_UTF8  (Element_Size-6, Element_Value,      "Short_content_descrip"); break;
         default : ;
     }
 
@@ -686,7 +675,7 @@ void File_Id3v2::Fill_Name()
     switch (Element_Code)
     {
         case Id3::AENC : break;
-        case Id3::APIC : Fill(Stream_General, 0, "Cover", "Yes"); break;
+        case Id3::APIC : Fill(Stream_General, 0, General_Cover, "Yes"); break;
         case Id3::ASPI : break;
         case Id3::COMM : Fill(Stream_General, 0, Element_Values(0).To_UTF8().c_str(), Element_Values(1)); break;
         case Id3::COMR : Fill(Stream_General, 0, "Commercial frame", Element_Value); break;
@@ -700,7 +689,7 @@ void File_Id3v2::Fill_Name()
         case Id3::LINK : Fill(Stream_General, 0, "Linked information", Element_Value); break;
         case Id3::MCDI : Fill(Stream_General, 0, "MCDI", "Yes"); break;
         case Id3::MLLT : break;
-        case Id3::OWNE : Fill(Stream_General, 0, "Owner", Element_Value); break;
+        case Id3::OWNE : Fill(Stream_General, 0, General_Owner, Element_Value); break;
         case Id3::PCNT : break;
         case Id3::POPM : break;
         case Id3::POSS : break;
@@ -710,32 +699,32 @@ void File_Id3v2::Fill_Name()
         case Id3::RVRB : break;
         case Id3::SEEK : break;
         case Id3::SIGN : break;
-        case Id3::SYLT : Fill(Stream_General, 0, "Lyrics", Element_Value); break;
+        case Id3::SYLT : Fill(Stream_General, 0, General_Lyrics, Element_Value); break;
         case Id3::SYTC : break;
-        case Id3::TALB : Fill(Stream_General, 0, "Album", Element_Value); break;
-        case Id3::TBPM : Fill(Stream_General, 0, "BPM", Element_Value); break;
-        case Id3::TCOM : Fill(Stream_General, 0, "Composer", Element_Value); break;
-        case Id3::TCON : Fill(Stream_General, 0, "Genre", Element_Value); break;
-        case Id3::TCOP : Fill(Stream_General, 0, "Copyright", Element_Value); break;
+        case Id3::TALB : Fill(Stream_General, 0, General_Album, Element_Value); break;
+        case Id3::TBPM : Fill(Stream_General, 0, General_BPM, Element_Value); break;
+        case Id3::TCOM : Fill(Stream_General, 0, General_Composer, Element_Value); break;
+        case Id3::TCON : Fill(Stream_General, 0, General_Genre, Element_Value); break;
+        case Id3::TCOP : Fill(Stream_General, 0, General_Copyright, Element_Value); break;
         case Id3::TDAT : Month.assign(Element_Value.c_str(), 0, 2);
                          Day.assign  (Element_Value.c_str(), 2, 2); break;
-        case Id3::TDEN : Fill(Stream_General, 0, "Encoded_Date", Element_Value); break;
+        case Id3::TDEN : Normalize_Date(Element_Value); Fill(Stream_General, 0, "Encoded_Date", Element_Value); break;
         case Id3::TDLY : break;
-        case Id3::TDOR : Fill(Stream_General, 0, "Original/Released_Date", Element_Value); break;
-        case Id3::TDRC : Fill(Stream_General, 0, "Recorded_Date", Element_Value); break;
-        case Id3::TDRL : Fill(Stream_General, 0, "Released_Date", Element_Value); break;
-        case Id3::TDTG : Fill(Stream_General, 0, "Tagged_Date", Element_Value); break;
-        case Id3::TENC : Fill(Stream_General, 0, "Encoded_Library", Element_Value); break;
-        case Id3::TEXT : Fill(Stream_General, 0, "Lyricist", Element_Value); break;
+        case Id3::TDOR : Normalize_Date(Element_Value); Fill(Stream_General, 0, "Original/Released_Date", Element_Value); break;
+        case Id3::TDRC : Normalize_Date(Element_Value); Fill(Stream_General, 0, General_Recorded_Date, Element_Value); break;
+        case Id3::TDRL : Normalize_Date(Element_Value); Fill(Stream_General, 0, General_Released_Date, Element_Value); break;
+        case Id3::TDTG : Normalize_Date(Element_Value); Fill(Stream_General, 0, General_Tagged_Date, Element_Value); break;
+        case Id3::TENC : Fill(Stream_General, 0, General_Encoded_Library, Element_Value); break;
+        case Id3::TEXT : Fill(Stream_General, 0, General_Lyricist, Element_Value); break;
         case Id3::TFLT : Fill(Stream_General, 0, "File type", Element_Value); break;
         case Id3::TIME : Hour.assign  (Element_Value.c_str(), 0, 2);
                          Minute.assign(Element_Value.c_str(), 2, 2); break;
-        case Id3::TIPL : Fill(Stream_General, 0, "ThanksTo", Element_Value); break;
-        case Id3::TIT1 : Fill(Stream_General, 0, "ContentType", Element_Value); break;
-        case Id3::TIT2 : Fill(Stream_General, 0, "Track", Element_Value); break;
-        case Id3::TIT3 : Fill(Stream_General, 0, "Track/More", Element_Value); break;
+        case Id3::TIPL : Fill(Stream_General, 0, General_ThanksTo, Element_Value); break;
+        case Id3::TIT1 : Fill(Stream_General, 0, General_ContentType, Element_Value); break;
+        case Id3::TIT2 : Fill(Stream_General, 0, General_Track, Element_Value); break;
+        case Id3::TIT3 : Fill(Stream_General, 0, General_Track_More, Element_Value); break;
         case Id3::TKEY : Fill(Stream_General, 0, "Initial key", Element_Value); break;
-        case Id3::TLAN : Fill(Stream_Audio,   0, "Language", Element_Value); break;
+        case Id3::TLAN : Fill(Stream_Audio,   0, Audio_Language, Element_Value); break;
         case Id3::TLEN : Fill(Stream_General, 0, "Length", Element_Value); break;
         case Id3::TMCL : Fill(Stream_General, 0, "Musician Credit List", Element_Value); break;
         case Id3::TMED : Fill(Stream_General, 0, "Media Type", Element_Value); break;
@@ -744,30 +733,30 @@ void File_Id3v2::Fill_Name()
         case Id3::TOFN : Fill(Stream_General, 0, "Original/Filename", Element_Value); break;
         case Id3::TOLY : Fill(Stream_General, 0, "Original/Lyricist", Element_Value); break;
         case Id3::TOPE : Fill(Stream_General, 0, "Original/Performer", Element_Value); break;
-        case Id3::TORY : Fill(Stream_General, 0, "Original/Released_Date", Element_Value); break;
-        case Id3::TOWN : Fill(Stream_General, 0, "Owner", Element_Value); break;
-        case Id3::TPE1 : Fill(Stream_General, 0, "Performer", Element_Value); break;
-        case Id3::TPE2 : Fill(Stream_General, 0, "Accompaniment", Element_Value); break;
-        case Id3::TPE3 : Fill(Stream_General, 0, "Conductor", Element_Value); break;
-        case Id3::TPE4 : Fill(Stream_General, 0, "RemixedBy", Element_Value); break;
-        case Id3::TPOS : Fill(Stream_General, 0, "Part/Position", Element_Value); break;
-        case Id3::TPRO : Fill(Stream_General, 0, "Producer_Copyright", Element_Value); break;
-        case Id3::TPUB : Fill(Stream_General, 0, "Publisher", Element_Value); break;
-        case Id3::TRCK : Fill(Stream_General, 0, "Track/Position", Element_Value); break;
-        case Id3::TRDA : Fill(Stream_General, 0, "Recorded_Date", Element_Value); break;
-        case Id3::TRSN : Fill(Stream_General, 0, "Broadcaster", Element_Value); break;
-        case Id3::TRSO : Fill(Stream_General, 0, "Broadcaster/Owner", Element_Value); break;
+        case Id3::TORY : Normalize_Date(Element_Value); Fill(Stream_General, 0, "Original/Released_Date", Element_Value); break;
+        case Id3::TOWN : Fill(Stream_General, 0, General_Owner, Element_Value); break;
+        case Id3::TPE1 : Fill(Stream_General, 0, General_Performer, Element_Value); break;
+        case Id3::TPE2 : Fill(Stream_General, 0, General_Accompaniment, Element_Value); break;
+        case Id3::TPE3 : Fill(Stream_General, 0, General_Conductor, Element_Value); break;
+        case Id3::TPE4 : Fill(Stream_General, 0, General_RemixedBy, Element_Value); break;
+        case Id3::TPOS : Fill(Stream_General, 0, General_Part_Position, Element_Value); break;
+        case Id3::TPRO : Fill(Stream_General, 0, General_Producer_Copyright, Element_Value); break;
+        case Id3::TPUB : Fill(Stream_General, 0, General_Publisher, Element_Value); break;
+        case Id3::TRCK : Fill(Stream_General, 0, General_Track_Position, Element_Value); break;
+        case Id3::TRDA : Normalize_Date(Element_Value); Fill(Stream_General, 0, "Recorded_Date", Element_Value); break;
+        case Id3::TRSN : Fill(Stream_General, 0, General_Broadcaster, Element_Value); break;
+        case Id3::TRSO : Fill(Stream_General, 0, General_Broadcaster_Owner, Element_Value); break;
         case Id3::TSIZ : Fill(Stream_General, 0, "Size", Element_Value); break;
-        case Id3::TSOA : Fill(Stream_General, 0, "Album/Sort", Element_Value); break;
-        case Id3::TSOP : Fill(Stream_General, 0, "Performer/Sort", Element_Value); break;
-        case Id3::TSOT : Fill(Stream_General, 0, "Track/Sort", Element_Value); break;
-        case Id3::TSRC : Fill(Stream_General, 0, "ISRC", Element_Value); break;
-        case Id3::TSSE : Fill(Stream_General, 0, "Encoded_Library_Settings", Element_Value); break;
+        case Id3::TSOA : Fill(Stream_General, 0, General_Album_Sort, Element_Value); break;
+        case Id3::TSOP : Fill(Stream_General, 0, General_Performer_Sort, Element_Value); break;
+        case Id3::TSOT : Fill(Stream_General, 0, General_Track_Sort, Element_Value); break;
+        case Id3::TSRC : Fill(Stream_General, 0, General_ISRC, Element_Value); break;
+        case Id3::TSSE : Fill(Stream_General, 0, General_Encoded_Library_Settings, Element_Value); break;
         case Id3::TSST : Fill(Stream_General, 0, "Set subtitle", Element_Value); break;
         case Id3::TXXX : Fill(Stream_General, 0, Element_Values(0).To_UTF8().c_str(), Element_Values(1)); break;
         case Id3::TYER : Year=Element_Value; break;
         case Id3::UFID : Fill(Stream_Audio,   0, "UID", Element_Value); break;
-        case Id3::USER : Fill(Stream_General, 0, "TermsOfUse", Element_Value); break;
+        case Id3::USER : Fill(Stream_General, 0, General_TermsOfUse, Element_Value); break;
         case Id3::USLT : Fill(Stream_General, 0, Element_Values(0).To_UTF8().c_str(), Element_Values(1)); break;
         case Id3::WCOM : Fill(Stream_General, 0, "Commercial information", Element_Value); break;
         case Id3::WCOP : Fill(Stream_General, 0, "Copyright/Legal information", Element_Value); break;
@@ -809,13 +798,13 @@ void File_Id3v2::Fill_Name()
         case Id3::TIM  : Hour.assign  (Element_Value.c_str(), 0, 2);
                          Minute.assign(Element_Value.c_str(), 2, 2); break;
         case Id3::TKE  : Fill(Stream_General, 0, "Initial key", Element_Value); break;
-        case Id3::TLA  : Fill(Stream_Audio,   0, "Language", Element_Value); break;
+        case Id3::TLA  : Fill(Stream_Audio,   0, Audio_Language, Element_Value); break;
         case Id3::TLE  : break;
         case Id3::TMT  : Fill(Stream_General, 0, "Media type", Element_Value); break;
         case Id3::TOA  : Fill(Stream_General, 0, "Original/Performer", Element_Value); break;
         case Id3::TOF  : Fill(Stream_General, 0, "Original/Filename", Element_Value); break;
         case Id3::TOL  : Fill(Stream_General, 0, "Original/Lyricist", Element_Value); break;
-        case Id3::TOR  : Fill(Stream_General, 0, "Original/Released_Date", Element_Value); break;
+        case Id3::TOR  : Normalize_Date(Element_Value); Fill(Stream_General, 0, "Original/Released_Date", Element_Value); break;
         case Id3::TOT  : Fill(Stream_General, 0, "Original/Album", Element_Value); break;
         case Id3::TP1  : Fill(Stream_General, 0, "Performer", Element_Value); break;
         case Id3::TP2  : Fill(Stream_General, 0, "Accompaniment", Element_Value); break;
@@ -824,7 +813,7 @@ void File_Id3v2::Fill_Name()
         case Id3::TPA  : Fill(Stream_General, 0, "Part/Position", Element_Value); break;
         case Id3::TPB  : Fill(Stream_General, 0, "Publisher", Element_Value); break;
         case Id3::TRC  : Fill(Stream_General, 0, "ISRC", Element_Value); break;
-        case Id3::TRD  : Fill(Stream_General, 0, "Recorded_Date", Element_Value); break;
+        case Id3::TRD  : Normalize_Date(Element_Value); Fill(Stream_General, 0, "Recorded_Date", Element_Value); break;
         case Id3::TRK  : Fill(Stream_General, 0, "Track/Position", Element_Value); break;
         case Id3::TSI  : break;
         case Id3::TSS  : break;

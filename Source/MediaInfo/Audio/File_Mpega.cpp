@@ -351,22 +351,22 @@ void File_Mpega::Read_Buffer_Finalize()
         VBR_FileSize-=File_EndTagSize;
     }
     if (BitRate>0 && !File_Name.empty())
-        Fill(Stream_General, 0, "PlayTime", VBR_FileSize*8*1000/BitRate);
-    Fill(Stream_General, 0, "Encoded_Library", Encoded_Library);
+        Fill(Stream_General, 0, General_PlayTime, VBR_FileSize*8*1000/BitRate);
+    Fill(Stream_General, 0, General_Encoded_Library, Encoded_Library);
     if (BitRate>0)
     {
-        Fill(Stream_General, 0, "BitRate", BitRate);
-        Fill(Stream_Audio, 0, "BitRate", BitRate);
+        Fill(Stream_General, 0, General_BitRate, BitRate);
+        Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
         if (Delay>100 && BitRate>0)
-            Fill("Delay", (float)Delay*8*1000/BitRate, 0);
+            Fill(Stream_Audio, 0, Audio_Delay, (float)Delay*8*1000/BitRate, 0);
     }
-    Fill(Stream_Audio, 0, "BitRate_Mode", BitRate_Mode);
-    Fill(Stream_Audio, 0, "BitRate_Minimum", BitRate_Minimum);
-    Fill(Stream_Audio, 0, "BitRate_Nominal", BitRate_Nominal);
+    Fill(Stream_Audio, 0, Audio_BitRate_Mode, BitRate_Mode);
+    Fill(Stream_Audio, 0, Audio_BitRate_Minimum, BitRate_Minimum);
+    Fill(Stream_Audio, 0, Audio_BitRate_Nominal, BitRate_Nominal);
     if (Encoded_Library.empty())
         Encoded_Library_Guess();
-    Fill(Stream_Audio, 0, "Encoded_Library", Encoded_Library);
-    Fill(Stream_Audio, 0, "Encoded_Library_Settings", Encoded_Library_Settings);
+    Fill(Stream_Audio, 0, Audio_Encoded_Library, Encoded_Library);
+    Fill(Stream_Audio, 0, Audio_Encoded_Library_Settings, Encoded_Library_Settings);
 
     //Tags
     File__Tags_Helper::Read_Buffer_Finalize();
@@ -609,14 +609,14 @@ void File_Mpega::Data_Parse_Fill()
 
     //Filling
     Stream_Prepare(Stream_General);
-    Fill("Format", Ztring(Mpega_Version[ID])+Ztring(Mpega_Layer[layer]));
+    Fill(Stream_General, 0, General_Format, Ztring(Mpega_Version[ID])+Ztring(Mpega_Layer[layer]));
     Stream_Prepare(Stream_Audio);
-    Fill("Codec", Ztring(Mpega_Version[ID])+Ztring(Mpega_Layer[layer]));
-    Fill("Codec/String", Ztring(Mpega_Version_String[ID])+Ztring(Mpega_Layer_String[layer]));
-    Fill("SamplingRate", Mpega_SamplingRate[ID][sampling_frequency]);
-    Fill("Channel(s)", Mpega_Channels[mode]);
-    Fill("Codec_Profile", Mpega_Codec_Profile[mode]);
-    Fill("Resolution", 16);
+    Fill(Stream_Audio, 0, Audio_Codec, Ztring(Mpega_Version[ID])+Ztring(Mpega_Layer[layer]));
+    Fill(Stream_Audio, 0, Audio_Codec_String, Ztring(Mpega_Version_String[ID])+Ztring(Mpega_Layer_String[layer]));
+    Fill(Stream_Audio, 0, Audio_SamplingRate, Mpega_SamplingRate[ID][sampling_frequency]);
+    Fill(Stream_Audio, 0, Audio_Channel_s_, Mpega_Channels[mode]);
+    Fill(Stream_Audio, 0, Audio_Codec_Profile, Mpega_Codec_Profile[mode]);
+    Fill(Stream_Audio, 0, Audio_Resolution, 16);
 
     //Jumping
     if (File_Name.empty())
@@ -1164,17 +1164,17 @@ void File_Mpega::HowTo(stream_t StreamKind)
 {
          if (StreamKind==Stream_General)
     {
-        General[0](_T("Format"), Info_HowTo)=_T("R");
-        General[0](_T("BitRate"), Info_HowTo)=_T("R");
-        General[0](_T("PlayTime"), Info_HowTo)=_T("R");
+        Fill_HowTo("Format", "R");
+        Fill_HowTo("BitRate", "R");
+        Fill_HowTo("PlayTime", "R");
     }
     else if (StreamKind==Stream_Audio)
     {
-        Audio[0](_T("Codec"), Info_HowTo)=_T("R");
-        Audio[0](_T("BitRate"), Info_HowTo)=_T("R");
-        Audio[0](_T("Channel(s)"), Info_HowTo)=_T("R");
-        Audio[0](_T("ChannelPositions"), Info_HowTo)=_T("R");
-        Audio[0](_T("SamplingRate"), Info_HowTo)=_T("R");
+        Fill_HowTo("Codec", "R");
+        Fill_HowTo("BitRate", "R");
+        Fill_HowTo("Channel(s)", "R");
+        Fill_HowTo("ChannelPositions", "R");
+        Fill_HowTo("SamplingRate", "R");
     }
 }
 

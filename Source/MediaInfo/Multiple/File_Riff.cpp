@@ -106,7 +106,7 @@ void File_Riff::Read_Buffer_Finalize ()
 
         //StreamSize
         if (Temp->second.StreamSize>0)
-            Fill("StreamSize", Temp->second.StreamSize);
+            Fill(StreamKind_Last, StreamPos_Last, "StreamSize", Temp->second.StreamSize);
 
         //Parser specific
         if (Temp->second.Parser)
@@ -117,23 +117,23 @@ void File_Riff::Read_Buffer_Finalize ()
             Ztring FrameRate_Temp;
             if (StreamKind_Last==Stream_Video)
             {
-                Codec_Temp=Get(Stream_Video, 0, _T("Codec")); //We want to keep the 4CC of AVI
-                FrameRate_Temp=Get(Stream_Video, 0, _T("FrameRate")); //We want to keep the FrameRate of AVI 120 fps
+                Codec_Temp=Retrieve(Stream_Video, 0, Video_Codec); //We want to keep the 4CC of AVI
+                FrameRate_Temp=Retrieve(Stream_Video, 0, Video_FrameRate); //We want to keep the FrameRate of AVI 120 fps
             }
             Merge(*Temp->second.Parser, Temp->second.StreamKind, 0, Temp->second.StreamPos);
             if (StreamKind_Last==Stream_Video)
             {
-                Fill("Codec", Codec_Temp, true);
-                Fill("FrameRate", FrameRate_Temp, true);
+                Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec_Temp, true);
+                Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_Temp, true);
 
                 //120 fps hack
                 int32u FrameRate=FrameRate_Temp.To_int32u();
                 if (FrameRate==120)
                 {
-                    Fill("FrameRate/String", MediaInfoLib::Config.Language_Get(FrameRate_Temp+_T(" (24/30)"), _T(" fps")));
-                    Fill("FrameRate_Minimum", 24, 10, true);
-                    Fill("FrameRate_Maximum", 30, 10, true);
-                    Fill("FrameRate_Mode", "VFR");
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_String, MediaInfoLib::Config.Language_Get(FrameRate_Temp+_T(" (24/30)"), _T(" fps")));
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Minimum, 24, 10, true);
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Maximum, 30, 10, true);
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, "VFR");
                 }
             }
 
@@ -143,32 +143,41 @@ void File_Riff::Read_Buffer_Finalize ()
                 {
                     if (((File_Mpeg4v*)Temp->second.Parser)->RIFF_VOP_Count_Max>1)
                     {
-                        Fill("Codec_Settings_PacketBitStream", "Yes");
-                        Fill("Codec_Settings", "Packed Bitstream");
+                        Fill(Stream_Video, StreamPos_Last, Video_Codec_Settings_PacketBitStream, "Yes");
+                        Fill(Stream_Video, StreamPos_Last, Video_Codec_Settings, "Packed Bitstream");
                     }
                     else
-                        Fill("Codec_Settings_PacketBitStream", "No");
+                        Fill(Stream_Video, StreamPos_Last, Video_Codec_Settings_PacketBitStream, "No");
                 }
             #endif
             #if defined(MEDIAINFO_MPEGA_YES)
                 if (StreamKind_Last==Stream_Audio && MediaInfoLib::Config.Codec_Get(Ztring().From_Number(Temp->second.Compression, 16), InfoCodec_KindofCodec).find(_T("MPEG-"))==0)
                 {
                     if (((File_Mpega*)Temp->second.Parser)->Delay>100 && Temp->second.AvgBytesPerSec!=0)
-                        Fill("Delay", (float)((File_Mpega*)Temp->second.Parser)->Delay*1000/Temp->second.AvgBytesPerSec, 10, true);
+                    {
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, (float)((File_Mpega*)Temp->second.Parser)->Delay*1000/Temp->second.AvgBytesPerSec, 10, true);
+                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                    }
                 }
             #endif
             #if defined(MEDIAINFO_AC3_YES)
                 if (StreamKind_Last==Stream_Audio && Temp->second.Compression==0x2000)
                 {
                     if (((File_Ac3*)Temp->second.Parser)->Delay>100 && Temp->second.AvgBytesPerSec!=0)
-                        Fill("Delay", ((File_Ac3*)Temp->second.Parser)->Delay*1000/Temp->second.AvgBytesPerSec, 10, true);
+                    {
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((File_Ac3*)Temp->second.Parser)->Delay*1000/Temp->second.AvgBytesPerSec, 10, true);
+                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                    }
                 }
             #endif
             #if defined(MEDIAINFO_DTS_YES)
                 if (StreamKind_Last==Stream_Audio && Temp->second.Compression==0x2001 ||Temp->second.Compression==0x1)
                 {
                     if (((File_Dts*)Temp->second.Parser)->Delay>100 && Temp->second.AvgBytesPerSec!=0)
-                        Fill("Delay", ((File_Dts*)Temp->second.Parser)->Delay*1000/Temp->second.AvgBytesPerSec, 10, true);
+                    {
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((File_Dts*)Temp->second.Parser)->Delay*1000/Temp->second.AvgBytesPerSec, 10, true);
+                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                    }
                 }
             #endif
         }
@@ -177,25 +186,25 @@ void File_Riff::Read_Buffer_Finalize ()
     }
 
     //Some work on the first video stream
-    if (!Video.empty())
+    if (Count_Get(Stream_Video))
     {
         //ODML
         if (dmlh_TotalFrame!=0)
         {
-            Fill(Stream_Video, 0, "FrameCount", dmlh_TotalFrame, 10, true);
-            float32 FrameRate=Get(Stream_Video, 0, _T("FrameRate")).To_float32();
+            Fill(Stream_Video, 0, Video_FrameCount, dmlh_TotalFrame, 10, true);
+            float32 FrameRate=Retrieve(Stream_Video, 0, Video_FrameRate).To_float32();
             if (FrameRate!=0)
-                Fill(Stream_Video, 0, "PlayTime", (int64u)(dmlh_TotalFrame*1000/FrameRate), 10, true);
+                Fill(Stream_Video, 0, Video_PlayTime, (int64u)(dmlh_TotalFrame*1000/FrameRate), 10, true);
         }
     }
 
     //Rec
     if (rec__Present)
-        Fill(Stream_General, 0, "Codec_Settings", "rec");
+        Fill(Stream_General, 0, General_Codec_Settings, "rec");
 
     //Interleaved
     if (Interleaved0_1 && Interleaved0_10 && Interleaved1_1 && Interleaved1_10)
-        Fill(Stream_General, 0, "Interleaved", (Interleaved0_1<Interleaved1_1 && Interleaved0_10>Interleaved1_1
+        Fill(Stream_General, 0, General_Interleaved, (Interleaved0_1<Interleaved1_1 && Interleaved0_10>Interleaved1_1
                                               || Interleaved1_1<Interleaved0_1 && Interleaved1_10>Interleaved0_1)?"Yes":"No");
 
     //Purge what is not needed anymore

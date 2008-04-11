@@ -57,7 +57,7 @@ void File_Zip::Read_Buffer_Continue()
 
     //Filling
     Stream_Prepare(Stream_General);
-    Fill("Format", "ZIP");
+    Fill(Stream_General, 0, General_Format, "ZIP");
 
     //No need of more
     Finnished();

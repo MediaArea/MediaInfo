@@ -58,10 +58,10 @@ void File_Amr::Read_Buffer_Continue()
 
     //Filling
     Stream_Prepare(Stream_General);
-    Fill("Format", "AMR");
+    Fill(Stream_General, 0, General_Format, "AMR");
 
     Stream_Prepare(Stream_Audio);
-    Fill("Codec", "AMR");
+    Fill(Stream_Audio, 0, Audio_Codec, "AMR");
 
     //No need of more
     Finnished();
@@ -76,11 +76,11 @@ void File_Amr::HowTo(stream_t StreamKind)
 {
         if (StreamKind==Stream_General)
     {
-        General[0](_T("Format"), Info_HowTo)=_T("R");
+        Fill_HowTo("Format", "R");
     }
     else if (StreamKind==Stream_Audio)
     {
-        Audio[0](_T("Codec"), Info_HowTo)=_T("R");
+        Fill_HowTo("Codec", "R");
     }
 }
 

@@ -84,7 +84,7 @@ void File_Adif::Read_Buffer_Continue ()
 }
 
 //---------------------------------------------------------------------------
-bool File_Adif::Header_Begin()
+bool File_Adif::FileHeader_Begin()
 {
     if (!File__Tags_Helper::Header_Begin())
         return false;
@@ -93,7 +93,7 @@ bool File_Adif::Header_Begin()
 }
 
 //---------------------------------------------------------------------------
-void File_Adif::Header_Parse()
+void File_Adif::FileHeader_Parse()
 {
     //Parsing
     int8u  num_program_config_elements;
@@ -186,9 +186,9 @@ void File_Adif::Header_Parse()
     }
     BS_End();
 
-    //Filling
-    Header_Fill_Size(Element_Offset);
-    Header_Fill_Code(0, "Audio Data Interchange Format");
+    FILLING_BEGIN();
+        Data_Parse_Fill();
+    FILLING_END();
 }
 
 //***************************************************************************
@@ -196,29 +196,19 @@ void File_Adif::Header_Parse()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Adif::Data_Parse()
-{
-    FILLING_BEGIN();
-        //Filling
-        if (Count_Get(Stream_Audio)==0)
-            Data_Parse_Fill();
-    FILLING_END();
-}
-
-//---------------------------------------------------------------------------
 void File_Adif::Data_Parse_Fill()
 {
     Stream_Prepare(Stream_General);
-    Fill ("Format", "AAC");
+    Fill(Stream_General, 0, General_Format, "AAC");
     if (!comment_field_data.empty())
-        Fill("Comment", comment_field_data);
+        Fill(Stream_General, 0, General_Comment, comment_field_data);
     Stream_Prepare(Stream_Audio);
-    Fill ("Codec", ADIF_object_type[object_type]);
-    Fill("BitRate_Mode", bitstream_type?"VBR":"CBR");
-    if (bitrate>0) Fill(bitstream_type?"BitRate_Maximum":"BitRate", bitrate);
-    Fill("SamplingRate", ADIF_sampling_frequency[sampling_frequency_index]);
-    Fill("Channel(s)", num_front_channel_elements+num_side_channel_elements+num_back_channel_elements+num_lfe_channel_elements);
-    Fill("Resolution", 16);
+    Fill (Stream_Audio, 0, Audio_Codec, ADIF_object_type[object_type]);
+    Fill(Stream_Audio, 0, Audio_BitRate_Mode, bitstream_type?"VBR":"CBR");
+    if (bitrate>0) Fill(Stream_Audio, 0, bitstream_type?Audio_BitRate_Maximum:Audio_BitRate, bitrate);
+    Fill(Stream_Audio, 0, Audio_SamplingRate, ADIF_sampling_frequency[sampling_frequency_index]);
+    Fill(Stream_Audio, 0, Audio_Channel_s_, num_front_channel_elements+num_side_channel_elements+num_back_channel_elements+num_lfe_channel_elements);
+    Fill(Stream_Audio, 0, Audio_Resolution, 16);
 
     //Jumping if needed
     File__Tags_Helper::Data_GoTo(File_Size, "ADIF");
@@ -233,17 +223,17 @@ void File_Adif::HowTo(stream_t StreamKind)
 {
         if (StreamKind==Stream_General)
     {
-        General[0](_T("Format"), Info_HowTo)=_T("R");
-        General[0](_T("BitRate"), Info_HowTo)=_T("R");
-        General[0](_T("PlayTime"), Info_HowTo)=_T("R");
+        Fill_HowTo("Format", "R");
+        Fill_HowTo("BitRate", "R");
+        Fill_HowTo("PlayTime", "R");
     }
     else if (StreamKind==Stream_Audio)
     {
-        Audio[0](_T("Codec"), Info_HowTo)=_T("R");
-        Audio[0](_T("BitRate"), Info_HowTo)=_T("R");
-        Audio[0](_T("Channel(s)"), Info_HowTo)=_T("R");
-        Audio[0](_T("SamplingRate"), Info_HowTo)=_T("R");
-        Audio[0](_T("Resolution"), Info_HowTo)=_T("R");
+        Fill_HowTo("Codec", "R");
+        Fill_HowTo("BitRate", "R");
+        Fill_HowTo("Channel(s)", "R");
+        Fill_HowTo("SamplingRate", "R");
+        Fill_HowTo("Resolution", "R");
     }
 }
 

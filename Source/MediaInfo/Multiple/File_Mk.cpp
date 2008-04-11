@@ -609,7 +609,7 @@ void File_Mk::Ebml_DocType()
     //Filling
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill("Format", "Matroska");
+        Fill(Stream_General, 0, General_Format, "Matroska");
     FILLING_END();
 }
 
@@ -805,7 +805,7 @@ void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay_ChapLangu
     Ztring Data=Local_Get();
 
     FILLING_BEGIN();
-        Fill("Language", Data, true);
+        Fill(StreamKind_Last, StreamPos_Last, "Language", Data, true);
     FILLING_END();
 }
 
@@ -819,7 +819,7 @@ void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay_ChapStrin
 
     FILLING_BEGIN();
         if (TimecodeScale!=0 && ChapterTimeStart!=(int64u)-1)
-            Fill(Ztring::ToZtring(Chapter_Pos).To_Local().c_str(), Ztring().Duration_From_Milliseconds(ChapterTimeStart/TimecodeScale)+_T(" ")+ChapterString, true);
+            Fill(StreamKind_Last, StreamPos_Last, Ztring::ToZtring(Chapter_Pos).To_Local().c_str(), Ztring().Duration_From_Milliseconds(ChapterTimeStart/TimecodeScale)+_T(" ")+ChapterString, true);
     FILLING_END();
 }
 
@@ -887,7 +887,7 @@ void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterTimeStart()
 
     FILLING_BEGIN();
         if (TimecodeScale!=0 && ChapterString!=_T("XXXXXXXX"))
-            Fill(Ztring::ToZtring(Chapter_Pos).To_Local().c_str(), Ztring().Duration_From_Milliseconds(ChapterTimeStart/TimecodeScale)+_T(" ")+ChapterString, true);
+            Fill(StreamKind_Last, StreamPos_Last, Ztring::ToZtring(Chapter_Pos).To_Local().c_str(), Ztring().Duration_From_Milliseconds(ChapterTimeStart/TimecodeScale)+_T(" ")+ChapterString, true);
     FILLING_END();
 }
 
@@ -1077,7 +1077,7 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
         {
             Ztring Codec_Temp;
             if (Stream[TrackNumber].StreamKind==Stream_Video)
-                Codec_Temp=Get(Stream_Video, 0, _T("Codec")); //We want to keep the 4CC
+                Codec_Temp=Retrieve(Stream_Video, 0, Video_Codec); //We want to keep the 4CC
             Open_Buffer_Finalize(Stream[TrackNumber].Parser);
             Merge(*Stream[TrackNumber].Parser, Stream[TrackNumber].StreamKind, 0, Stream[TrackNumber].StreamPos);
             if (Stream[TrackNumber].StreamKind==Stream_Video)
@@ -1521,7 +1521,7 @@ void File_Mk::Segment_Tags_Tag_SimpleTag_TagLanguage()
     Get_Local(Element_Size, Data,                              "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        Fill("Language", Data);
+        Fill(StreamKind_Last, StreamPos_Last, "Language", Data);
     FILLING_END();
 }
 
@@ -1630,7 +1630,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Audio_BitDepth()
     int64u UInteger=UInteger_Get();
 
     FILLING_BEGIN();
-        Fill("Resolution", UInteger, 0, true);
+        Fill(StreamKind_Last, StreamPos_Last, "Resolution", UInteger, 0, true);
     FILLING_END();
 }
 
@@ -1643,7 +1643,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Audio_Channels()
     int64u UInteger=UInteger_Get();
 
     FILLING_BEGIN();
-        Fill("Channel(s)", UInteger, 0, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, UInteger, 0, true);
     FILLING_END();
 }
 
@@ -1656,7 +1656,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Audio_OutputSamplingFrequency()
     float64 Float=Float_Get();
 
     FILLING_BEGIN();
-        Fill("SamplingRate", Float, 0, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Float, 0, true);
     FILLING_END();
 }
 
@@ -1669,7 +1669,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Audio_SamplingFrequency()
     float64 Float=Float_Get();
 
     FILLING_BEGIN();
-        Fill("SamplingRate", Float, 0, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Float, 0, true);
     FILLING_END();
 }
 
@@ -1715,7 +1715,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate()
     //Creating the parser
     if (Stream[TrackNumber].Parser==NULL)
     {
-        if (Get(Stream[TrackNumber].StreamKind, Stream[TrackNumber].StreamPos, _T("Codec")).empty())
+        if (Retrieve(Stream[TrackNumber].StreamKind, Stream[TrackNumber].StreamPos, "Codec").empty())
         {
             //Codec not already known, saving CodecPrivate
             if (CodecPrivate)
@@ -1726,9 +1726,9 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate()
             return;
         }
 
-        if (Get(Stream[TrackNumber].StreamKind, Stream[TrackNumber].StreamPos, _T("Codec"))==_T("A_MS/ACM"))
+        if (Stream[TrackNumber].StreamKind==Stream_Audio && Retrieve(Stream_Audio, Stream[TrackNumber].StreamPos, Audio_Codec)==_T("A_MS/ACM"))
             Segment_Tracks_TrackEntry_CodecPrivate_auds();
-        else if (Get(Stream[TrackNumber].StreamKind, Stream[TrackNumber].StreamPos, _T("Codec"))==_T("V_MS/VFW/FOURCC"))
+        else if (Stream[TrackNumber].StreamKind==Stream_Video && Retrieve(Stream_Video, Stream[TrackNumber].StreamPos, Video_Codec)==_T("V_MS/VFW/FOURCC"))
             Segment_Tracks_TrackEntry_CodecPrivate_vids();
         else if (Element_Size>0)
             Skip_XX(Element_Size,                 "Unknown");
@@ -1772,12 +1772,12 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_auds()
     //Filling
     FILLING_BEGIN()
         Ztring Codec; Codec.From_Number(FormatTag, 16);
-        Fill("Codec", Codec, true); //May be replaced by codec parser
-        Fill("Codec/CC", Codec);
-        Fill("Channel(s)", Channels!=5?Channels:6, 0, true);
-        Fill("SamplingRate", SamplesPerSec, 0, true);
-        Fill("BitRate", AvgBytesPerSec*8, 0, true);
-        if (BitsPerSample) Fill("Resolution", BitsPerSample);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true); //May be replaced by codec parser
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels!=5?Channels:6, 0, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplesPerSec, 0, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, AvgBytesPerSec*8, 0, true);
+        if (BitsPerSample) Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, BitsPerSample);
     FILLING_END();
 }
 
@@ -1815,15 +1815,15 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
             //Filling
             Codec.From_CC4(Compression);
             if (Compression==0x00000000)
-                Fill("Codec", "RGB", Unlimited, true, true); //Raw RGB, not handled by automatic codec mapping
+                Fill(Stream_Video, StreamPos_Last, Video_Codec, "RGB", Unlimited, true, true); //Raw RGB, not handled by automatic codec mapping
             else
             {
-                Fill("Codec", Codec, true); //FormatTag, may be replaced by codec parser
-                Fill("Codec/CC", Codec); //FormatTag
+                Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec, true); //FormatTag, may be replaced by codec parser
+                Fill(Stream_Video, StreamPos_Last, Video_Codec_CC, Codec); //FormatTag
             }
-            Fill("Width", Width, 0, true);
-            Fill("Height", Height, 0, true);
-            Fill("Resolution", Resolution, 0, true);
+            Fill(Stream_Video, StreamPos_Last, Video_Width, Width, 0, true);
+            Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 0, true);
+            Fill(Stream_Video, StreamPos_Last, Video_Resolution, Resolution, 0, true);
         }
 
         //Creating the parser
@@ -1832,6 +1832,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
         else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("MPEG-4V"))==0)
         {
             Stream[TrackNumber].Parser=new File_Mpeg4v;
+            Open_Buffer_Init(Stream[TrackNumber].Parser);
             ((File_Mpeg4v*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
             ((File_Mpeg4v*)Stream[TrackNumber].Parser)->Frame_Count_Valid=1;
         }
@@ -1840,6 +1841,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
         else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("AVC"))==0)
         {
             Stream[TrackNumber].Parser=new File_Avc;
+            Open_Buffer_Init(Stream[TrackNumber].Parser);
             ((File_Avc*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
         }
         #endif
@@ -1859,7 +1861,7 @@ void File_Mk::Segment_Tracks_TrackEntry_DefaultDuration()
         TrackDefaultDuration=UInteger;
         //FrameRate
         if (TrackDefaultDuration && StreamKind_Last==Stream_Video)
-            Fill("FrameRate", 1000000000.0/TrackDefaultDuration, 3, true);
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 1000000000.0/TrackDefaultDuration, 3, true);
     FILLING_END();
 }
 
@@ -1909,7 +1911,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Language()
     Get_Local(Element_Size, Data,                               "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        Fill("Language", Data);
+        Fill(StreamKind_Last, StreamPos_Last, "Language", Data);
     FILLING_END();
 }
 
@@ -1950,7 +1952,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Name()
     Get_UTF8(Element_Size, Data,                               "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        Fill("Title", Data);
+        Fill(StreamKind_Last, StreamPos_Last, "Title", Data);
     FILLING_END();
 }
 
@@ -1963,7 +1965,7 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackNumber()
     TrackNumber=UInteger_Get();
 
     FILLING_BEGIN();
-        Fill("ID", TrackNumber);
+        Fill(StreamKind_Last, StreamPos_Last, "ID", TrackNumber);
         if (StreamKind_Last!=Stream_Max)
         {
             Stream[TrackNumber].StreamKind=StreamKind_Last;
@@ -2001,7 +2003,7 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackType()
                         Stream_Prepare(Stream_Video);
                         //FrameRate
                         if (TrackDefaultDuration)
-                            Fill("FrameRate", 1000000000.0/TrackDefaultDuration, 3, true);
+                            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 1000000000.0/TrackDefaultDuration, 3, true);
                         break;
             case 0x02 :
                         Stream_Prepare(Stream_Audio);
@@ -2033,7 +2035,7 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackUID()
 
     //Filling
     FILLING_BEGIN();
-        Fill("UniqueID", UInteger);
+        Fill(StreamKind_Last, StreamPos_Last, "UniqueID", UInteger);
     FILLING_END();
 }
 
@@ -2078,7 +2080,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Video_DisplayHeight()
         TrackVideoDisplayHeight=UInteger;
         if (TrackVideoDisplayWidth && TrackVideoDisplayHeight)
         {
-            Fill("DisplayAspectRatio", ((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight, 3, true);
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight, 3, true);
             Stream[TrackNumber].DisplayAspectRatio=((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight;
         }
     FILLING_END();
@@ -2105,7 +2107,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Video_DisplayWidth()
     FILLING_BEGIN();
         TrackVideoDisplayWidth=UInteger;
         if (TrackVideoDisplayWidth && TrackVideoDisplayHeight)
-            Fill("AspectRatio", ((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight, 3, true);
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight, 3, true);
     FILLING_END();
 }
 
@@ -2164,7 +2166,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Video_PixelHeight()
 
     //Filling
     FILLING_BEGIN();
-        Fill("Height", UInteger, 0, true);
+        Fill(Stream_Video, StreamPos_Last, Video_Height, UInteger, 0, true);
     FILLING_END();
 }
 
@@ -2178,7 +2180,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Video_PixelWidth()
 
     //Filling
     FILLING_BEGIN();
-        Fill("Width", UInteger, 0, true);
+        Fill(Stream_Video, StreamPos_Last, Video_Width, UInteger, 0, true);
     FILLING_END();
 }
 
@@ -2417,8 +2419,8 @@ void File_Mk::CodecID_Fill()
     if (TrackType==(int64u)-1 || TrackNumber==(int64u)-1 || CodecID.empty())
         return; //Not ready (or not needed)
 
-    if (Get(StreamKind_Last, StreamPos_Last, _T("Codec")).empty())
-        Fill("Codec", CodecID);
+    if (Retrieve(StreamKind_Last, StreamPos_Last, "Codec").empty())
+        Fill(StreamKind_Last, StreamPos_Last, "Codec", CodecID);
 
     //Creating the parser
     Ztring CodecFamily=MediaInfoLib::Config.Codec_Get(CodecID, InfoCodec_KindofCodec);
@@ -2435,6 +2437,7 @@ void File_Mk::CodecID_Fill()
     else if (CodecFamily==_T("AVC"))
     {
         Stream[TrackNumber].Parser=new File_Avc;
+        Open_Buffer_Init(Stream[TrackNumber].Parser);
         ((File_Avc*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
         ((File_Avc*)Stream[TrackNumber].Parser)->MustParse_SPS_PPS=true;
         ((File_Avc*)Stream[TrackNumber].Parser)->FromMKV=true;
@@ -2444,6 +2447,7 @@ void File_Mk::CodecID_Fill()
     else if (CodecFamily==_T("AC3"))
     {
         Stream[TrackNumber].Parser=new File_Ac3;
+        Open_Buffer_Init(Stream[TrackNumber].Parser);
         //((File_Ac3*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
     }
     #endif
@@ -2451,6 +2455,7 @@ void File_Mk::CodecID_Fill()
     else if (CodecID==_T("A_DTS"))
     {
         Stream[TrackNumber].Parser=new File_Dts;
+        Open_Buffer_Init(Stream[TrackNumber].Parser);
         //((File_Dts*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
     }
     #endif
@@ -2458,12 +2463,14 @@ void File_Mk::CodecID_Fill()
     else if (CodecID.find(_T("A_AAC/MPEG4/"))==0 || CodecID==(_T("A_AAC")))
     {
         Stream[TrackNumber].Parser=new File_Mpeg4_AudioSpecificConfig;
+        Open_Buffer_Init(Stream[TrackNumber].Parser);
     }
     #endif
     #if defined(MEDIAINFO_MPEGA_YES)
     else if (CodecFamily==_T("MPEG-A"))
     {
         Stream[TrackNumber].Parser=new File_Mpega;
+        Open_Buffer_Init(Stream[TrackNumber].Parser);
         //((File_Mpega*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
     }
     #endif

@@ -343,9 +343,9 @@ void File_Dvdv::VMG()
     //Filling
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill("Format", "DVD Video (Menu)");
-        Fill("Format/String", "DVD Video (Menu)");
-        Fill("Format/Extensions", "IFO");
+        Fill(Stream_General, 0, General_Format, "DVD Video (Menu)");
+        Fill(Stream_General, 0, General_Format_String, "DVD Video (Menu)");
+        Fill(Stream_General, 0, General_Format_Extensions, "IFO");
 
         if (Version>0x001F)
             return;
@@ -475,9 +475,9 @@ void File_Dvdv::VTS()
     //Filling
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill("Format", "DVD Video");
-        Fill("Format/String", "DVD Video");
-        Fill("Format/Extensions", "IFO");
+        Fill(Stream_General, 0, General_Format, "DVD Video");
+        Fill(Stream_General, 0, General_Format_String, "DVD Video");
+        Fill(Stream_General, 0, General_Format_Extensions, "IFO");
 
         if (Version>0x001F)
             return;
@@ -525,12 +525,12 @@ void File_Dvdv::Video()
         if (VTS_Attributes_AreHere)
         {
             Stream_Prepare(Stream_Video);
-            Fill("Codec", IFO_CodecV[Codec]);
-            Fill("DisplayAspectRatio", IFO_AspectRatio[AspectRatio]);
-            Fill("Width", IFO_Width[Resolution]);
-            Fill("Height", IFO_Height[Standard][Resolution]);
-            Fill("FrameRate", IFO_FrameRate[Standard]);
-            Fill("BitRate_Mode", IFO_BitRate_Mode[BitRate_Mode]);
+            Fill(Stream_Video, StreamPos_Last, Video_Codec, IFO_CodecV[Codec]);
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, IFO_AspectRatio[AspectRatio]);
+            Fill(Stream_Video, StreamPos_Last, Video_Width, IFO_Width[Resolution]);
+            Fill(Stream_Video, StreamPos_Last, Video_Height, IFO_Height[Standard][Resolution]);
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, IFO_FrameRate[Standard]);
+            Fill(Stream_Video, StreamPos_Last, Video_BitRate_Mode, IFO_BitRate_Mode[BitRate_Mode]);
         }
     FILLING_END();
 }
@@ -592,16 +592,16 @@ void File_Dvdv::Audio()
         if (VTS_Attributes_AreHere)
         {
             Stream_Prepare(Stream_Audio);
-            Fill("Codec", IFO_CodecA[Codec]);
-            Fill("SamplingRate", IFO_SamplingRate[SamplingRate]);
-            Fill("Channel(s)", Channels+1);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, IFO_CodecA[Codec]);
+            Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, IFO_SamplingRate[SamplingRate]);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels+1);
             if (Codec==2 || Codec==3)
-                Fill("Resolution", IFO_ResolutionA[Resolution]);
+                Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, IFO_ResolutionA[Resolution]);
             else if (Codec==4 && Mode)
-                Fill("Resolution", "DRC");
-            Fill("Language", Language);
+                Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, "DRC");
+            Fill(Stream_Audio, StreamPos_Last, Audio_Language, Language);
             if (Language_Extension<8)
-                Fill("Language_More", IFO_Language_MoreA[Language_Extension]);
+                Fill(Stream_Audio, StreamPos_Last, Audio_Language_More, IFO_Language_MoreA[Language_Extension]);
         }
     FILLING_END();
 }
@@ -627,10 +627,10 @@ void File_Dvdv::Text()
         if (VTS_Attributes_AreHere)
         {
             Stream_Prepare(Stream_Text);
-            Fill("Codec", IFO_CodecT[Codec]);
-            Fill("Language", Language);
+            Fill(Stream_Text, StreamPos_Last, Text_Codec, IFO_CodecT[Codec]);
+            Fill(Stream_Text, StreamPos_Last, Text_Language, Language);
             if (Language_Extension<16)
-                Fill("Language_More", IFO_Language_MoreT[Language_Extension]);
+                Fill(Stream_Text, StreamPos_Last, Text_Language_More, IFO_Language_MoreT[Language_Extension]);
         }
     FILLING_END();
 }

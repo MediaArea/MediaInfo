@@ -51,9 +51,9 @@ bool File_Rle::Header_Begin()
 
     //Filling
     Stream_Prepare(Stream_General);
-    Fill("Format", "RLE");
+    Fill(Stream_General, 0, General_Format, "RLE");
     Stream_Prepare(Stream_Text); //TODO: This is currenlty only text
-    Fill("Codec", "RLE");
+    Fill(Stream_Text, 0, Text_Codec, "RLE");
 
     Info("RLE, Jumping to end of file");
     Finnished();

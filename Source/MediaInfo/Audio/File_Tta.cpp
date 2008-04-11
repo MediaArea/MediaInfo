@@ -116,15 +116,15 @@ void File_Tta::Header_Parse()
     int32u BitRate=(int32u)(Samples*Channels*BitsPerSample*1000/PlayTime*CompressionRatio);
 
     Stream_Prepare(Stream_General);
-    Fill("Format", "TTA");
+    Fill(Stream_General, 0, General_Format, "TTA");
     Stream_Prepare(Stream_Audio);
-    Fill("Codec", "TTA ");
-    Fill("Resolution", BitsPerSample);
-    Fill("Channel(s)", Channels);
-    Fill("SamplingRate", SampleRate);
-    Fill("PlayTime", PlayTime);
-    Fill("CompressionRatio", CompressionRatio);
-    Fill("BitRate", BitRate);
+    Fill(Stream_Audio, 0, Audio_Codec, "TTA ");
+    Fill(Stream_Audio, 0, Audio_Resolution, BitsPerSample);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
+    Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate);
+    Fill(Stream_Audio, 0, Audio_PlayTime, PlayTime);
+    Fill(Stream_Audio, 0, "CompressionRatio", CompressionRatio);
+    Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
 
     //Filling
     Header_Fill_Size(22);

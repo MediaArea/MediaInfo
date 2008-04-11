@@ -79,12 +79,12 @@ void File_Gif::FileHeader_Parse()
 
         //Filling
         Stream_Prepare(Stream_General);
-        Fill("Format", "GIF");
+        Fill(Stream_General, 0, General_Format, "GIF");
 
         Stream_Prepare(Stream_Image);
-        Fill("Width", Width);
-        Fill("Height", Height);
-        Fill("Codec", Header+Version);
+        Fill(Stream_Image, 0, Image_Width, Width);
+        Fill(Stream_Image, 0, Image_Height, Height);
+        Fill(Stream_Image, 0, Image_Codec, Header+Version);
 
         Finnished();
     FILLING_END();

@@ -272,12 +272,12 @@ void File_Swf::FileHeader_Parse()
 
         //Filling
         Stream_Prepare(Stream_General);
-        Fill("Format", "SWF");
+        Fill(Stream_General, 0, General_Format, "SWF");
         Stream_Prepare(Stream_Video);
-        Fill("Width", (Xmax-Xmin)/20);
-        Fill("Height", (Ymax-Ymin)/20);
-        Fill("FrameRate", FrameRate);
-        Fill("FrameCount", FrameCount);
+        Fill(Stream_Video, StreamPos_Last, Video_Width, (Xmax-Xmin)/20);
+        Fill(Stream_Video, StreamPos_Last, Video_Height, (Ymax-Ymin)/20);
+        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate);
+        Fill(Stream_Video, StreamPos_Last, Video_FrameCount, FrameCount);
     FILLING_END();
 }
 
@@ -410,11 +410,11 @@ void File_Swf::DefineSound()
     Skip_XX(Element_Size-Element_Offset,                        "SoundData");
 
     Stream_Prepare(Stream_Audio);
-    Fill("ID", SoundId);
-    Fill("Codec", Swf_SoundFormat[SoundFormat]);
-    Fill("SamplingRate", Swf_SoundRate[SoundRate]);
-    Fill("Resolution", Swf_SoundSize[SoundSize]);
-    Fill("Channel(s)", Swf_SoundType[SoundType]);
+    Fill(Stream_Audio, StreamPos_Last, Audio_ID, SoundId);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Swf_SoundFormat[SoundFormat]);
+    Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Swf_SoundRate[SoundRate]);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, Swf_SoundSize[SoundSize]);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Swf_SoundType[SoundType]);
 }
 
 //---------------------------------------------------------------------------
@@ -437,10 +437,10 @@ void File_Swf::SoundStreamHead()
         Skip_L2(                                                "LatencySeek");
 
     Stream_Prepare(Stream_Audio);
-    Fill("Codec", Swf_SoundFormat[StreamSoundCompression]);
-    Fill("SamplingRate", Swf_SoundRate[StreamSoundRate]);
-    Fill("Resolution", Swf_SoundSize[StreamSoundSize]);
-    Fill("Channel(s)", Swf_SoundType[StreamSoundType]);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Swf_SoundFormat[StreamSoundCompression]);
+    Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Swf_SoundRate[StreamSoundRate]);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, Swf_SoundSize[StreamSoundSize]);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Swf_SoundType[StreamSoundType]);
 }
 
 //---------------------------------------------------------------------------
@@ -463,10 +463,10 @@ void File_Swf::DefineVideoStream()
         CodecID=0; //Should never happen (FLV is only 4-bit sized)
 
     Stream_Prepare(Stream_Video);
-    Fill("ID", CharacterID);
-    Fill("Width", Width);
-    Fill("Height", Height);
-    Fill("Codec", Swf_CodecID[CodecID]);
+    Fill(Stream_Audio, StreamPos_Last, Audio_ID, CharacterID);
+    Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
+    Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Swf_CodecID[CodecID]);
 }
 
 //***************************************************************************
@@ -480,7 +480,7 @@ bool File_Swf::Decompress()
     {
         //We must have the complete file in memory, but this is too big (not handled by FileHeader_Begin()), only saying this is SWF
         Stream_Prepare(Stream_General);
-        Fill("Format", "SWF");
+        Fill(Stream_General, 0, General_Format, "SWF");
         Stream_Prepare(Stream_Video);
         Finnished();
         return true;

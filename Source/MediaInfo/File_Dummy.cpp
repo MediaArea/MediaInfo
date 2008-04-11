@@ -73,41 +73,40 @@ void File_Dummy::Read_File()
     else
     {
         File_Name=_T("D:\\WhatIsIt.mkv");
-        size_t Pos;
-        Pos=Stream_Prepare(Stream_General);
-        General[Pos](_T("Domain"))=_T("Starwars saga");
-        General[Pos](_T("Movie"))=_T("Starwars 4");
-        General[Pos](_T("Movie/More"))=_T("A new hope");
-        General[Pos](_T("Director"))=_T("Georges Lucas");
-        General[Pos](_T("Released_Date"))=_T("1977");
-        General[Pos](_T("FileSize"))=_T("734000000");
-        General[Pos](_T("Format"))=_T("Matroska");
-        General[Pos](_T("Format/Url"))=_T("http://mediainfo.sourceforge.net");
-        Pos=Stream_Prepare(Stream_Video);
-        Video[Pos](_T("Codec"))=_T("XVID");
-        Video[Pos](_T("Codec/Url"))=_T("http://mediainfo.sourceforge.net");
-        Video[Pos](_T("BitRate"))=_T("800000");
-        Video[Pos](_T("Width"))=_T("720");
-        Video[Pos](_T("Height"))=_T("320");
-        Video[Pos](_T("FrameRate"))=_T("24.976");
-        Video[Pos](_T("Resolution"))=_T("24");
-        Video[Pos](_T("Language"))=_T("en");
-        Pos=Stream_Prepare(Stream_Audio);
-        Audio[Pos](_T("Codec"))=_T("AC3");
-        Audio[Pos](_T("Codec/Url"))=_T("http://mediainfo.sourceforge.net");
-        Audio[Pos](_T("BitRate"))=_T("384000");
-        Audio[Pos](_T("BitRate_Mode"))=_T("CBR");
-        Audio[Pos](_T("Channel(s)"))=_T("6");
-        Audio[Pos](_T("SamplingRate"))=_T("48000");
-        Audio[Pos](_T("Language"))=_T("en");
-        Pos=Stream_Prepare(Stream_Text);
-        Text[Pos](_T("Codec"))=_T("SSA");
-        Text[Pos](_T("Codec/Url"))=_T("http://mediainfo.sourceforge.net");
-        Text[Pos](_T("Language"))=_T("en");
-        Text[Pos](_T("Language_More"))=_T("Forced");
-        Pos=Stream_Prepare(Stream_Chapters);
-        Chapters[Pos](_T("Total"))=_T("16");
-        Chapters[Pos](_T("Language"))=_T("en");
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Domain, "Starwars saga");
+        Fill(Stream_General, 0, General_Movie, "Starwars 4");
+        Fill(Stream_General, 0, General_Movie_More, "A new hope");
+        Fill(Stream_General, 0, General_Director, "Georges Lucas");
+        Fill(Stream_General, 0, General_Released_Date, "1977");
+        Fill(Stream_General, 0, General_FileSize, "734000000");
+        Fill(Stream_General, 0, General_Format, "Matroska");
+        Fill(Stream_General, 0, General_Format_Url, "http://mediainfo.sourceforge.net");
+        Stream_Prepare(Stream_Video);
+        Fill(Stream_Video, 0, Video_Codec, "XVID");
+        Fill(Stream_Video, 0, Video_Codec_Url, "http://mediainfo.sourceforge.net");
+        Fill(Stream_Video, 0, Video_BitRate, "800000");
+        Fill(Stream_Video, 0, Video_Width, "720");
+        Fill(Stream_Video, 0, Video_Height, "320");
+        Fill(Stream_Video, 0, Video_FrameRate, "24.976");
+        Fill(Stream_Video, 0, Video_Resolution, "24");
+        Fill(Stream_Video, 0, Video_Language, "en");
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Codec, "AC3");
+        Fill(Stream_Audio, 0, Audio_Codec_Url, "http://mediainfo.sourceforge.net");
+        Fill(Stream_Audio, 0, Audio_BitRate, "384000");
+        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
+        Fill(Stream_Audio, 0, Audio_Channel_s_, "6");
+        Fill(Stream_Audio, 0, Audio_SamplingRate, "48000");
+        Fill(Stream_Audio, 0, Audio_Language, "en");
+        Stream_Prepare(Stream_Text);
+        Fill(Stream_Text, 0, Text_Codec, "SSA");
+        Fill(Stream_Text, 0, Text_Codec_Url, "http://mediainfo.sourceforge.net");
+        Fill(Stream_Text, 0, Text_Language, "en");
+        Fill(Stream_Text, 0, Text_Language_More, "Forced");
+        Stream_Prepare(Stream_Chapters);
+        Fill(Stream_Chapters, 0, Chapters_Total, "16");
+        Fill(Stream_Chapters, 0, Chapters_Language, "en");
     }
 }
 
@@ -118,223 +117,203 @@ void File_Dummy::Read_File()
 //---------------------------------------------------------------------------
 void File_Dummy::Fill_Dummy_General()
 {
-    size_t Pos=Stream_Prepare(Stream_General);
-    General[Pos](_T("Format"))=_T("Format");
-    General[Pos](_T("Format/String"))=_T("Format, longer version");
-    General[Pos](_T("Format/More"))=_T("More information about this format");
-    General[Pos](_T("Format/Url"))=_T("http://mediainfo.sourceforge.net");
-    General[Pos](_T("Format/Extensions"))=_T("fmt fmt fmt");
-    General[Pos](_T("FileSize"))=_T("1000000");
-    General[Pos](_T("PlayTime"))=_T("10000");
-    General[Pos](_T("Domain"))=_T("Domain");
-    General[Pos](_T("Domain/Position_Total"))=_T("Domain/Position_Total");
-    General[Pos](_T("Collection"))=_T("Collection");
-    General[Pos](_T("Collection/Position_Total"))=_T("Collection/Position_Total");
-    General[Pos](_T("Season"))=_T("Season");
-    General[Pos](_T("Season/Position_Total"))=_T("Season/Position_Total");
+    Stream_Prepare(Stream_General);
+    Fill(Stream_General, 0, General_Format, "Format");
+    Fill(Stream_General, 0, General_Format_String, "Format, longer version");
+    Fill(Stream_General, 0, General_Format_Url, "http://mediainfo.sourceforge.net");
+    Fill(Stream_General, 0, General_Format_Extensions, "fmt fmt fmt");
+    Fill(Stream_General, 0, General_FileSize, "1000000");
+    Fill(Stream_General, 0, General_PlayTime, "10000");
+    Fill(Stream_General, 0, General_Domain, "Domain");
+    Fill(Stream_General, 0, General_Collection, "Collection");
+    Fill(Stream_General, 0, General_Season, "Season");
+    Fill(Stream_General, 0, General_Season_Position_Total, "Season/Position_Total");
          if (KindOfDummy==_T("Album"))
     {
-        General[Pos](_T("Album"))=_T("Album name");
-        General[Pos](_T("Album/More"))=_T("More information about the album");
-        General[Pos](_T("Album/Position_Total"))=_T("Album/Position_Total");
-        General[Pos](_T("Part"))=_T("Part");
-        General[Pos](_T("Part/Position_Total"))=_T("Part/Position_Total");
-        General[Pos](_T("Part/Position"))=_T("Part/Position");
-        General[Pos](_T("Track"))=_T("Track");
-        General[Pos](_T("Track/Position"))=_T("Track/Position");
-        General[Pos](_T("Track/More"))=_T("More information about the track");
+        Fill(Stream_General, 0, General_Album, "Album name");
+        Fill(Stream_General, 0, General_Album_More, "More information about the album");
+        Fill(Stream_General, 0, General_Part, "Part");
+        Fill(Stream_General, 0, General_Part_Position_Total, "Part/Position_Total");
+        Fill(Stream_General, 0, General_Part_Position, "Part/Position");
+        Fill(Stream_General, 0, General_Track, "Track");
+        Fill(Stream_General, 0, General_Track_Position, "Track/Position");
+        Fill(Stream_General, 0, General_Track_More, "More information about the track");
     }
     else if (KindOfDummy==_T("Comic"))
     {
-        General[Pos](_T("Comic"))=_T("Comic name");
-        General[Pos](_T("Comic/More"))=_T("More information about the comic");
+        Fill(Stream_General, 0, General_Comic, "Comic name");
+        Fill(Stream_General, 0, General_Comic_More, "More information about the comic");
     }
     else //if (KindOfDummy==_T("Movie"))
     {
-        General[Pos](_T("Movie"))=_T("Movie name");
-        General[Pos](_T("Movie/More"))=_T("More information about the movie");
+        Fill(Stream_General, 0, General_Movie, "Movie name");
+        Fill(Stream_General, 0, General_Movie_More, "More information about the movie");
     }
-    General[Pos](_T("Performer"))=_T("Performer");
-    General[Pos](_T("Artist"))=_T("Artist");
-    General[Pos](_T("Performer/Sort"))=_T("Performer/Sort");
-    General[Pos](_T("Performer/Url"))=_T("Performer/Url");
-    General[Pos](_T("Original/Performer"))=_T("Original/Performer");
-    General[Pos](_T("Accompaniment"))=_T("Accompaniment");
-    General[Pos](_T("Musician_Instrument"))=_T("Musician_Instrument");
-    General[Pos](_T("Composer"))=_T("Composer");
-    General[Pos](_T("Composer/Nationality"))=_T("Composer/Nationality");
-    General[Pos](_T("Arranger"))=_T("Arranger");
-    General[Pos](_T("Lyricist"))=_T("Lyricist");
-    General[Pos](_T("Original/Lyricist"))=_T("Original/Lyricist");
-    General[Pos](_T("Conductor"))=_T("Conductor");
-    General[Pos](_T("Actor"))=_T("Actor");
-    General[Pos](_T("Actor_Character"))=_T("Actor_Character");
-    General[Pos](_T("WrittenBy"))=_T("WrittenBy");
-    General[Pos](_T("ScreenplayBy"))=_T("ScreenplayBy");
-    General[Pos](_T("Director"))=_T("Director");
-    General[Pos](_T("AssistantDirector"))=_T("AssistantDirector");
-    General[Pos](_T("DirectorOfPhotography"))=_T("DirectorOfPhotography");
-    General[Pos](_T("ArtDirector"))=_T("ArtDirector");
-    General[Pos](_T("EditedBy"))=_T("EditedBy");
-    General[Pos](_T("Producer"))=_T("Producer");
-    General[Pos](_T("CoProducer"))=_T("CoProducer");
-    General[Pos](_T("ExecutiveProducer"))=_T("ExecutiveProducer");
-    General[Pos](_T("ProductionDesigner"))=_T("ProductionDesigner");
-    General[Pos](_T("CostumeDesigner"))=_T("CostumeDesigner");
-    General[Pos](_T("Choregrapher"))=_T("Choregrapher");
-    General[Pos](_T("SoundEngineer"))=_T("SoundEngineer");
-    General[Pos](_T("MasteredBy"))=_T("MasteredBy");
-    General[Pos](_T("RemixedBy"))=_T("RemixedBy");
-    General[Pos](_T("ProductionStudio"))=_T("ProductionStudio");
-    General[Pos](_T("Label"))=_T("Label");
-    General[Pos](_T("Publisher"))=_T("Publisher");
-    General[Pos](_T("Publisher/URL"))=_T("Publisher/URL");
-    General[Pos](_T("DistributedBy"))=_T("DistributedBy");
-    General[Pos](_T("EncodedBy"))=_T("EncodedBy");
-    General[Pos](_T("ThanksTo"))=_T("ThanksTo");
-    General[Pos](_T("Technician"))=_T("Technician");
-    General[Pos](_T("CommissionedBy"))=_T("CommissionedBy");
-    General[Pos](_T("Encoded_Original/DistributedBy"))=_T("Encoded_Original/DistributedBy");
-    General[Pos](_T("Broadcaster"))=_T("Broadcaster");
-    General[Pos](_T("Broadcaster/Owner"))=_T("Broadcaster/Owner");
-    General[Pos](_T("Broadcaster/URL"))=_T("Broadcaster/URL");
-    General[Pos](_T("ContentType"))=_T("ContentType");
-    General[Pos](_T("Subject"))=_T("Subject");
-    General[Pos](_T("Synopsys"))=_T("Synopsys");
-    General[Pos](_T("Summary"))=_T("Summary");
-    General[Pos](_T("Description"))=_T("Description");
-    General[Pos](_T("Keywords"))=_T("Keywords");
-    General[Pos](_T("Period"))=_T("Period");
-    General[Pos](_T("LawRating"))=_T("LawRating");
-    General[Pos](_T("IRCA"))=_T("IRCA");
-    General[Pos](_T("Language"))=_T("Language");
-    General[Pos](_T("Medium"))=_T("Medium");
-    General[Pos](_T("Product"))=_T("Product");
-    General[Pos](_T("Country"))=_T("Country");
-    General[Pos](_T("Written_Date"))=_T("Written_Date");
-    General[Pos](_T("Recorded_Date"))=_T("Recorded_Date");
-    General[Pos](_T("Released_Date"))=_T("Released_Date");
-    General[Pos](_T("Mastered_Date"))=_T("Mastered_Date");
-    General[Pos](_T("Encoded_Date"))=_T("Encoded_Date");
-    General[Pos](_T("Tagged_Date"))=_T("Tagged_Date");
-    General[Pos](_T("Original/Released_Date"))=_T("Original/Released_Date");
-    General[Pos](_T("Original/Recorded_Date"))=_T("Original/Recorded_Date");
-    General[Pos](_T("Written_Location"))=_T("Written_Location");
-    General[Pos](_T("Recorded_Location"))=_T("Recorded_Location");
-    General[Pos](_T("Archival_Location"))=_T("Archival_Location");
-    General[Pos](_T("Genre"))=_T("Genre");
-    General[Pos](_T("Mood"))=_T("Mood");
-    General[Pos](_T("Comment"))=_T("Comment");
-    General[Pos](_T("Rating "))=_T("Rating ");
-    General[Pos](_T("Encoded_Application"))=_T("Encoded_Application");
-    General[Pos](_T("Encoded_Library"))=_T("Encoded_Library");
-    General[Pos](_T("Encoded_Library_Settings"))=_T("Encoded_Library_Settings");
-    General[Pos](_T("Encoded_Original"))=_T("Encoded_Original");
-    General[Pos](_T("Encoded_Original/Url"))=_T("Encoded_Original/Url");
-    General[Pos](_T("Copyright"))=_T("Copyright");
-    General[Pos](_T("Producer_Copyright"))=_T("Producer_Copyright");
-    General[Pos](_T("TermsOfUse"))=_T("TermsOfUse");
-    General[Pos](_T("Copyright/Url"))=_T("Copyright/Url");
-    General[Pos](_T("ISRC"))=_T("ISRC");
-    General[Pos](_T("MSDI"))=_T("MSDI");
-    General[Pos](_T("ISBN"))=_T("ISBN");
-    General[Pos](_T("BarCode"))=_T("BarCode");
-    General[Pos](_T("LCCN"))=_T("LCCN");
-    General[Pos](_T("CatalogNumber"))=_T("CatalogNumber");
-    General[Pos](_T("LabelCode"))=_T("LabelCode");
-    General[Pos](_T("Cover"))=_T("Y");
-    General[Pos](_T("Cover_Datas"))=_T("Cover_Datas");
-    General[Pos](_T("Summary"))=_T("Summary");
-    General[Pos](_T("BPM"))=_T("100");
+    Fill(Stream_General, 0, General_Performer, "Performer");
+    Fill(Stream_General, 0, General_Performer_Sort, "Performer/Sort");
+    Fill(Stream_General, 0, General_Performer_Url, "Performer/Url");
+    Fill(Stream_General, 0, General_Original_Performer, "Original/Performer");
+    Fill(Stream_General, 0, General_Accompaniment, "Accompaniment");
+    Fill(Stream_General, 0, General_Composer, "Composer");
+    Fill(Stream_General, 0, General_Composer_Nationality, "Composer/Nationality");
+    Fill(Stream_General, 0, General_Arranger, "Arranger");
+    Fill(Stream_General, 0, General_Lyricist, "Lyricist");
+    Fill(Stream_General, 0, General_Original_Lyricist, "Original/Lyricist");
+    Fill(Stream_General, 0, General_Conductor, "Conductor");
+    Fill(Stream_General, 0, General_Actor, "Actor");
+    Fill(Stream_General, 0, General_Actor_Character, "Actor_Character");
+    Fill(Stream_General, 0, General_WrittenBy, "WrittenBy");
+    Fill(Stream_General, 0, General_ScreenplayBy, "ScreenplayBy");
+    Fill(Stream_General, 0, General_Director, "Director");
+    Fill(Stream_General, 0, General_AssistantDirector, "AssistantDirector");
+    Fill(Stream_General, 0, General_DirectorOfPhotography, "DirectorOfPhotography");
+    Fill(Stream_General, 0, General_ArtDirector, "ArtDirector");
+    Fill(Stream_General, 0, General_EditedBy, "EditedBy");
+    Fill(Stream_General, 0, General_Producer, "Producer");
+    Fill(Stream_General, 0, General_CoProducer, "CoProducer");
+    Fill(Stream_General, 0, General_ExecutiveProducer, "ExecutiveProducer");
+    Fill(Stream_General, 0, General_ProductionDesigner, "ProductionDesigner");
+    Fill(Stream_General, 0, General_CostumeDesigner, "CostumeDesigner");
+    Fill(Stream_General, 0, General_Choregrapher, "Choregrapher");
+    Fill(Stream_General, 0, General_SoundEngineer, "SoundEngineer");
+    Fill(Stream_General, 0, General_MasteredBy, "MasteredBy");
+    Fill(Stream_General, 0, General_RemixedBy, "RemixedBy");
+    Fill(Stream_General, 0, General_ProductionStudio, "ProductionStudio");
+    Fill(Stream_General, 0, General_Label, "Label");
+    Fill(Stream_General, 0, General_Publisher, "Publisher");
+    Fill(Stream_General, 0, General_Publisher_URL, "Publisher/URL");
+    Fill(Stream_General, 0, General_DistributedBy, "DistributedBy");
+    Fill(Stream_General, 0, General_EncodedBy, "EncodedBy");
+    Fill(Stream_General, 0, General_ThanksTo, "ThanksTo");
+    Fill(Stream_General, 0, General_Broadcaster, "Broadcaster");
+    Fill(Stream_General, 0, General_Broadcaster_Owner, "Broadcaster/Owner");
+    Fill(Stream_General, 0, General_Broadcaster_Url, "Broadcaster/URL");
+    Fill(Stream_General, 0, General_ContentType, "ContentType");
+    Fill(Stream_General, 0, General_Subject, "Subject");
+    Fill(Stream_General, 0, General_Synopsys, "Synopsys");
+    Fill(Stream_General, 0, General_Summary, "Summary");
+    Fill(Stream_General, 0, General_Description, "Description");
+    Fill(Stream_General, 0, General_Keywords, "Keywords");
+    Fill(Stream_General, 0, General_Period, "Period");
+    Fill(Stream_General, 0, General_LawRating, "LawRating");
+    Fill(Stream_General, 0, General_Written_Date, "Written_Date");
+    Fill(Stream_General, 0, General_Recorded_Date, "Recorded_Date");
+    Fill(Stream_General, 0, General_Released_Date, "Released_Date");
+    Fill(Stream_General, 0, General_Mastered_Date, "Mastered_Date");
+    Fill(Stream_General, 0, General_Encoded_Date, "Encoded_Date");
+    Fill(Stream_General, 0, General_Tagged_Date, "Tagged_Date");
+    Fill(Stream_General, 0, General_Original_Released_Date, "Original/Released_Date");
+    Fill(Stream_General, 0, General_Written_Location, "Written_Location");
+    Fill(Stream_General, 0, General_Recorded_Location, "Recorded_Location");
+    Fill(Stream_General, 0, General_Archival_Location, "Archival_Location");
+    Fill(Stream_General, 0, General_Genre, "Genre");
+    Fill(Stream_General, 0, General_Mood, "Mood");
+    Fill(Stream_General, 0, General_Comment, "Comment");
+    Fill(Stream_General, 0, General_Rating , "Rating ");
+    Fill(Stream_General, 0, General_Encoded_Application, "Encoded_Application");
+    Fill(Stream_General, 0, General_Encoded_Library, "Encoded_Library");
+    Fill(Stream_General, 0, General_Encoded_Library_Settings, "Encoded_Library_Settings");
+    Fill(Stream_General, 0, General_Copyright, "Copyright");
+    Fill(Stream_General, 0, General_Producer_Copyright, "Producer_Copyright");
+    Fill(Stream_General, 0, General_TermsOfUse, "TermsOfUse");
+    Fill(Stream_General, 0, General_Copyright_Url, "Copyright/Url");
+    Fill(Stream_General, 0, General_ISRC, "ISRC");
+    Fill(Stream_General, 0, General_ISBN, "ISBN");
+    Fill(Stream_General, 0, General_BarCode, "BarCode");
+    Fill(Stream_General, 0, General_LCCN, "LCCN");
+    Fill(Stream_General, 0, General_CatalogNumber, "CatalogNumber");
+    Fill(Stream_General, 0, General_LabelCode, "LabelCode");
+    Fill(Stream_General, 0, General_Cover, "Y");
+    Fill(Stream_General, 0, General_Cover_Data, "Cover_Datas");
+    Fill(Stream_General, 0, General_Summary, "Summary");
+    Fill(Stream_General, 0, General_BPM, "100");
 }
 
 //---------------------------------------------------------------------------
 void File_Dummy::Fill_Dummy_Video()
 {
-    size_t Pos=Stream_Prepare(Stream_Video);
-    Video[Pos](_T("ID"))=_T("ID");
-    Video[Pos](_T("UniqueID"))=_T("UniqueID");
-    Video[Pos](_T("Title"))=_T("Title");
-    Video[Pos](_T("Codec"))=_T("Codec"); Video[Pos](_T("Codec"))+=Ztring::ToZtring(Pos+1);
-    Video[Pos](_T("Codec/Info"))=_T("Codec/Info");
-    Video[Pos](_T("Codec/Url"))=_T("http://--Codec/Url--");
-    Video[Pos](_T("BitRate"))=_T("10000");
-    Video[Pos](_T("BitRate_Mode"))=_T("BitRate_Mode");
-    Video[Pos](_T("Encoded_Library"))=_T("Encoded_Library");
-    Video[Pos](_T("Encoded_Library_Settings"))=_T("Encoded_Library_Settings");
+    Stream_Prepare(Stream_Video);
+    Fill(Stream_Video, 0, Video_ID, "ID");
+    Fill(Stream_Video, 0, Video_UniqueID, "UniqueID");
+    Fill(Stream_Video, 0, Video_Title, "Title");
+    Fill(Stream_Video, 0, Video_Codec, "Codec");
+    Fill(Stream_Video, 0, Video_Codec_Info, "Codec/Info");
+    Fill(Stream_Video, 0, Video_Codec_Url, "http://--Codec/Url--");
+    Fill(Stream_Video, 0, Video_BitRate, "10000");
+    Fill(Stream_Video, 0, Video_BitRate_Mode, "BitRate_Mode");
+    Fill(Stream_Video, 0, Video_Encoded_Library, "Encoded_Library");
+    Fill(Stream_Video, 0, Video_Encoded_Library_Settings, "Encoded_Library_Settings");
          if (KindOfDummy==_T("Album"))
     {
-        Video[Pos](_T("Width"))=_T("2000");
-        Video[Pos](_T("Height"))=_T("3000");
+        Fill(Stream_Video, 0, Video_Width, "2000");
+        Fill(Stream_Video, 0, Video_Height, "3000");
     }
     else //if (KindOfDummy==_T("Movie"))
     {
-        Video[Pos](_T("DisplayAspectRatio"))=_T("2");
-        Video[Pos](_T("FrameRate"))=_T("24.976");
-        Video[Pos](_T("FrameCount"))=_T("FrameCount");
-        Video[Pos](_T("Resolution"))=_T("24");
-        Video[Pos](_T("Bits-(Pixel*Frame)"))=_T("Bits/(Pixel*Frame)");
-        Video[Pos](_T("Delay"))=_T("100");
-        Video[Pos](_T("PlayTime"))=_T("990000");
+        Fill(Stream_Video, 0, Video_DisplayAspectRatio, "2");
+        Fill(Stream_Video, 0, Video_FrameRate, "24.976");
+        Fill(Stream_Video, 0, Video_FrameCount, "FrameCount");
+        Fill(Stream_Video, 0, Video_Resolution, "24");
+        Fill(Stream_Video, 0, Video_Bits__Pixel_Frame_, "Bits/(Pixel*Frame)");
+        Fill(Stream_Video, 0, Video_Delay, "100");
+        Fill(Stream_Video, 0, Video_PlayTime, "990000");
     }
-    Video[Pos](_T("Language"))=_T("eng");
-    Video[Pos](_T("Language_More"))=_T("Language_More");
+    Fill(Stream_Video, 0, Video_Language, "eng");
+    Fill(Stream_Video, 0, Video_Language_More, "Language_More");
 }
 
 //---------------------------------------------------------------------------
 void File_Dummy::Fill_Dummy_Audio()
 {
-    size_t Pos=Stream_Prepare(Stream_Audio);
-    Audio[Pos](_T("ID"))=_T("ID");
-    Audio[Pos](_T("UniqueID"))=_T("UniqueID");
-    Audio[Pos](_T("Title"))=_T("Title");
-    Audio[Pos](_T("Codec"))=_T("Codec"); Audio[Pos](_T("Codec"))+=Ztring::ToZtring(Pos+1);
-    Audio[Pos](_T("Codec/Info"))=_T("Codec/Info");
-    Audio[Pos](_T("Codec/Url"))=_T("http://--Codec/Url--");
-    Audio[Pos](_T("BitRate"))=_T("1000");
-    Audio[Pos](_T("BitRate_Mode"))=_T("BitRate_Mode");
-    Audio[Pos](_T("Encoded_Library"))=_T("Encoded_Library");
-    Audio[Pos](_T("Encoded_Library_Settings"))=_T("Encoded_Library_Settings");
-    Audio[Pos](_T("Channel(s)"))=Ztring::ToZtring(Pos+1);
-    Audio[Pos](_T("ChannelPositions"))=_T("ChannelPositions");
-    Audio[Pos](_T("SamplingRate"))=_T("48000");
-    Audio[Pos](_T("SamplingCount"))=_T("SamplingCount");
-    Audio[Pos](_T("Resolution"))=_T("Resolution");
-    Audio[Pos](_T("Delay"))=_T("10");
-    Audio[Pos](_T("PlayTime"))=_T("100000");
-    Audio[Pos](_T("Language"))=_T("fre");
-    Audio[Pos](_T("Language_More"))=_T("Language_More");
-    Audio[Pos](_T("Summary"))=_T("Summary");
+    Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, 0, Audio_ID, "ID");
+    Fill(Stream_Audio, 0, Audio_UniqueID, "UniqueID");
+    Fill(Stream_Audio, 0, Audio_Title, "Title");
+    Fill(Stream_Audio, 0, Audio_Codec, "Codec");
+    Fill(Stream_Audio, 0, Audio_Codec_Info, "Codec/Info");
+    Fill(Stream_Audio, 0, Audio_Codec_Url, "http://--Codec/Url--");
+    Fill(Stream_Audio, 0, Audio_BitRate, "1000");
+    Fill(Stream_Audio, 0, Audio_BitRate_Mode, "BitRate_Mode");
+    Fill(Stream_Audio, 0, Audio_Encoded_Library, "Encoded_Library");
+    Fill(Stream_Audio, 0, Audio_Encoded_Library_Settings, "Encoded_Library_Settings");
+    Fill(Stream_Audio, 0, Audio_Channel_s_, 2);
+    Fill(Stream_Audio, 0, Audio_ChannelPositions, "ChannelPositions");
+    Fill(Stream_Audio, 0, Audio_SamplingRate, "48000");
+    Fill(Stream_Audio, 0, Audio_SamplingCount, "SamplingCount");
+    Fill(Stream_Audio, 0, Audio_Resolution, "Resolution");
+    Fill(Stream_Audio, 0, Audio_Delay, "10");
+    Fill(Stream_Audio, 0, Audio_PlayTime, "100000");
+    Fill(Stream_Audio, 0, Audio_Language, "fre");
+    Fill(Stream_Audio, 0, Audio_Language_More, "Language_More");
 }
 
 //---------------------------------------------------------------------------
 void File_Dummy::Fill_Dummy_Text()
 {
-    size_t Pos=Stream_Prepare(Stream_Text);
-    Text[Pos](_T("ID"))=_T("ID");
-    Text[Pos](_T("UniqueID"))=_T("UniqueID");
-    Text[Pos](_T("Title"))=_T("Title");
-    Text[Pos](_T("Codec"))=_T("Codec"); Text[Pos](_T("Codec"))+=Ztring::ToZtring(Pos+1);
-    Text[Pos](_T("Codec/Url"))=_T("http://--Codec/Url--");
-    Text[Pos](_T("Delay"))=_T("100");
-    Text[Pos](_T("PlayTime"))=_T("100");
-    Text[Pos](_T("Language"))=_T("de");
-    Text[Pos](_T("Language_More"))=_T("Language_More");
-    Text[Pos](_T("Summary"))=_T("Summary");
+    Stream_Prepare(Stream_Text);
+    Fill(Stream_Text, 0, Text_ID, "ID");
+    Fill(Stream_Text, 0, Text_UniqueID, "UniqueID");
+    Fill(Stream_Text, 0, Text_Title, "Title");
+    Fill(Stream_Text, 0, Text_Codec, "Codec");
+    Fill(Stream_Text, 0, Text_Codec_Url, "http://--Codec/Url--");
+    Fill(Stream_Text, 0, Text_Delay, "100");
+    Fill(Stream_Text, 0, Text_PlayTime, "100");
+    Fill(Stream_Text, 0, Text_Language, "de");
+    Fill(Stream_Text, 0, Text_Language_More, "Language_More");
+    Fill(Stream_Text, 0, Text_Summary, "Summary");
 }
 
 //---------------------------------------------------------------------------
 void File_Dummy::Fill_Dummy_Chapters()
 {
-    size_t Pos=Stream_Prepare(Stream_Chapters);
-    Chapters[Pos](_T("ID"))=_T("ID");
-    Chapters[Pos](_T("UniqueID"))=_T("UniqueID");
-    Chapters[Pos](_T("Title"))=_T("Title");
-    Chapters[Pos](_T("Codec"))=_T("Codec"); Chapters[Pos](_T("Codec"))+=Ztring::ToZtring(Pos+1);
-    Chapters[Pos](_T("Codec/Url"))=_T("http://--Codec/Url--");
-    Chapters[Pos](_T("Total"))=_T("Total");
-    Chapters[Pos](_T("Language"))=_T("de");
-    Chapters[Pos](_T("Summary"))=_T("Summary");
+    Stream_Prepare(Stream_Chapters);
+    Fill(Stream_Chapters, 0, Chapters_ID, "ID");
+    Fill(Stream_Chapters, 0, Chapters_UniqueID, "UniqueID");
+    Fill(Stream_Chapters, 0, Chapters_Title, "Title");
+    Fill(Stream_Chapters, 0, Chapters_Codec, "Codec");
+    Fill(Stream_Chapters, 0, Chapters_Codec_Url, "http://--Codec/Url--");
+    Fill(Stream_Chapters, 0, Chapters_Total, "Total");
+    Fill(Stream_Chapters, 0, Chapters_Language, "de");
 }
 
 } //NameSpace

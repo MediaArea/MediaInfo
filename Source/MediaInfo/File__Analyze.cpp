@@ -49,6 +49,7 @@ File__Analyze::File__Analyze ()
     #ifndef MEDIAINFO_MINIMIZESIZE
         Config_Details=0;
     #endif //MEDIAINFO_MINIMIZESIZE
+    IsSub=false;
 
     //Configuration
     DataMustAlwaysBeComplete=true;
@@ -71,6 +72,7 @@ File__Analyze::File__Analyze ()
     //Synchro
     MustParseTheHeaderFile=true;
     Synched=false;
+    Trusted=Error;
 
     //Header
     Header_Size=0;
@@ -121,6 +123,15 @@ File__Analyze::~File__Analyze ()
 //---------------------------------------------------------------------------
 int File__Analyze::Open_File (const Ztring &File_Name_)
 {
+    if (!Stream)
+    {
+        Stream=new std::vector<std::vector<ZtringList> >;
+        Stream->resize(Stream_Max);
+        Stream_More=new std::vector<std::vector<ZtringListList> >;
+        Stream_More->resize(Stream_Max);
+        Stream_MustBeDeleted=true;
+    }
+
     //Preparing
     Clear();
     File_Name=File_Name_;
@@ -141,10 +152,23 @@ int File__Analyze::Open_File (const Ztring &File_Name_)
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
 {
+    if (!Stream)
+    {
+        Stream=new std::vector<std::vector<ZtringList> >;
+        Stream->resize(Stream_Max);
+        Stream_More=new std::vector<std::vector<ZtringListList> >;
+        Stream_More->resize(Stream_Max);
+        Stream_MustBeDeleted=true;
+    }
+
     //Preparing
     File_Size=File_Size_;
     File_Offset=File_Offset_;
     Element[0].Next=File_Size;
+
+    //Options
+    if (!IsSub)
+        IsSub=Config->File_IsSub_Get();
 
     //Integrity
     if (File_Offset>=File_Size)
@@ -178,8 +202,9 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_, int
         Sub=this;
 
     //Parsing
+    Sub->Init(Config, Details);
+    Sub->IsSub=true;
     Sub->Open_Buffer_Init(File_Size_, File_Offset_);
-    Sub->Config=Config;
 }
 
 //---------------------------------------------------------------------------
@@ -256,7 +281,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     }
 
     //Detection is parsing too much
-    if (!File_Name.empty() && General.empty() && File_Offset>File_MaximumOffset)
+    if (!File_Name.empty() && Count_Get(Stream_General)==0 && File_Offset>File_MaximumOffset)
     {
         //Starter not found, we abandon
         Buffer_Clear();
@@ -385,7 +410,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     while (Buffer_Parse());
 
     //Jumping to the end of the file if needed
-    if (!EOF_AlreadyDetected)
+    if (!EOF_AlreadyDetected && Count_Get(Stream_General))
     {
         Element[Element_Level].WaitForMoreData=false;
         Detect_EOF();
@@ -418,7 +443,8 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
     if (!NoBufferModification)
         Finnished();
     #ifndef MEDIAINFO_MINIMIZESIZE
-    Details=Element[0].ToShow.Details;
+    if (Details)
+        Details->assign(Element[0].ToShow.Details);
     #endif //MEDIAINFO_MINIMIZESIZE
 
     //Buffer
@@ -528,7 +554,7 @@ bool File__Analyze::FileHeader_Manage()
         //The header is not complete, need more data
         #ifndef MEDIAINFO_MINIMIZESIZE
         Element[Element_Level].ToShow.Details.clear();
-        #endif MEDIAINFO_MINIMIZESIZE
+        #endif //MEDIAINFO_MINIMIZESIZE
         return false;
     }
 
@@ -1391,7 +1417,7 @@ void File__Analyze::BookMark_Set (size_t Element_Level_ToSet)
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::BookMark_Get (size_t Element_Level_ToGet)
+void File__Analyze::BookMark_Get ()
 {
     File_GoTo=(int64u)-1;
     if (!BookMark_Needed())

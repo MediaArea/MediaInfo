@@ -120,7 +120,7 @@ private :
             Searching_TimeStamp_End=false;
         }
     };
-    std::map<int8u, stream> Stream;
+    std::vector<stream> Streams;
 
     //Temp
     float32 FrameRate;

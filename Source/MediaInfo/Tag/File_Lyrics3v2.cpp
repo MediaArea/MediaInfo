@@ -155,7 +155,7 @@ void File_Lyrics3v2::EAL()
     Get_Local(Element_Size, Value,                              "Value");
 
     //Filling
-    Fill(Stream_General, 0, "Album", Value);
+    Fill(Stream_General, 0, General_Album, Value);
 }
 
 //---------------------------------------------------------------------------
@@ -168,7 +168,7 @@ void File_Lyrics3v2::EAR()
     Get_Local(Element_Size, Value,                              "Value");
 
     //Filling
-    Fill(Stream_General, 0, "Performer", Value);
+    Fill(Stream_General, 0, General_Performer, Value);
 }
 
 //---------------------------------------------------------------------------
@@ -181,7 +181,7 @@ void File_Lyrics3v2::ETT()
     Get_Local(Element_Size, Value,                              "Value");
 
     //Filling
-    Fill(Stream_General, 0, "Title", Value);
+    Fill(Stream_General, 0, General_Title, Value);
 }
 
 //---------------------------------------------------------------------------
@@ -218,7 +218,7 @@ void File_Lyrics3v2::INF()
     Get_Local(Element_Size, Value,                              "Value");
 
     //Filling
-    Fill(Stream_General, 0, "Comment", Value);
+    Fill(Stream_General, 0, General_Comment, Value);
 }
 
 //---------------------------------------------------------------------------
@@ -231,8 +231,7 @@ void File_Lyrics3v2::LYR()
 
     //Filling
     Stream_Prepare(Stream_Text);
-    Fill("Name", "Lyrics");
-    Fill("Codec", "Lyrics3v2");
+    Fill(Stream_Text, 0, Text_Codec, "Lyrics3v2");
 }
 //***************************************************************************
 // Information

@@ -198,6 +198,7 @@
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\ZenLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZenLib" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\Zlib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="Zlib" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Ztring.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Ztring" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\PreRelease\Enums.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Enums" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>

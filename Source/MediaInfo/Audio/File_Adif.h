@@ -48,9 +48,8 @@ public :
 
 private :
     //Buffer
-    bool Header_Begin();
-    void Header_Parse();
-    void Data_Parse();
+    bool FileHeader_Begin();
+    void FileHeader_Parse();
     void Data_Parse_Fill();
 
     //Temp

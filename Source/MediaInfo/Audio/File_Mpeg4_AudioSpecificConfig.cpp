@@ -167,7 +167,7 @@ const char* MP4_ChannelConfiguration[]=
     "L C R",
     "Front: L C R, Rear: C",
     "Front: L C R, Rear: L R",
-    "Front: L R,   Rear: L R, LFE",
+    "Front: L C R, Rear: L R, LFE",
     "Front: L C R, Middle: L C R, Surround: L R, LFE",
     "",
     "",
@@ -335,16 +335,16 @@ void File_Mpeg4_AudioSpecificConfig::audioSpecificConfig ()
     FILLING_BEGIN();
         //Filling
         Stream_Prepare(Stream_General);
-        Fill("Format", "MPEG-4 AAC");
+        Fill(Stream_General, 0, General_Format, "MPEG-4 AAC");
         Stream_Prepare(Stream_Audio);
-        Fill("Codec", MP4_Profile[audioObjectType]);
-        Fill("SamplingRate", samplingFrequency);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, MP4_Profile[audioObjectType]);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplingFrequency);
         if (channelConfiguration)
         {
-            Fill("Channel(s)", MP4_Channels[channelConfiguration]);
-            Fill("ChannelPositions", MP4_ChannelConfiguration[channelConfiguration]);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, MP4_Channels[channelConfiguration]);
+            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, MP4_ChannelConfiguration[channelConfiguration]);
         }
-        Fill("Resolution", 16);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, 16);
 
         //SBR stuff
         if (Data_Remain()>=2 && extensionAudioObjectType!=0x05)
@@ -433,8 +433,9 @@ void File_Mpeg4_AudioSpecificConfig::SBR ()
         //Filling
         if (sbrPresentFlag)
         {
-            (Stream[StreamKind_Last]->at(StreamPos_Last))(_T("Codec")).append(_T("/SBR"));
-            Fill("SamplingRate", samplingFrequency, 10, true);
+            Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec+_T("/SBR"), true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplingFrequency, 10, true);
         }
 
         //PS stuff
@@ -455,11 +456,12 @@ void File_Mpeg4_AudioSpecificConfig::PS ()
 
     FILLING_BEGIN();
         //Possible only if 1 Channel
-        if (Get(Stream_Audio, 0, _T("Channel(s)"))==_T("1"))
+        if (Retrieve(Stream_Audio, 0, Audio_Channel_s_)==_T("1"))
         {
-            Fill("Channel(s)", 2, 10, true);
-            (Stream[StreamKind_Last]->at(StreamPos_Last))(_T("Codec")).append(_T("/PS"));
-            Fill("ChannelPositions", "", Unlimited, true, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 2, 10, true);
+            Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec+_T("/PS"), true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, "", Unlimited, true, true);
         }
     FILLING_END();
 }
@@ -473,17 +475,17 @@ void File_Mpeg4_AudioSpecificConfig::HowTo(stream_t StreamKind)
 {
         if (StreamKind==Stream_General)
     {
-        General[0](_T("Format"), Info_HowTo)=_T("R");
-        General[0](_T("BitRate"), Info_HowTo)=_T("R");
-        General[0](_T("PlayTime"), Info_HowTo)=_T("R");
+        Fill_HowTo("Format", "R");
+        Fill_HowTo("BitRate", "R");
+        Fill_HowTo("PlayTime", "R");
     }
     else if (StreamKind==Stream_Audio)
     {
-        Audio[0](_T("Codec"), Info_HowTo)=_T("R");
-        Audio[0](_T("BitRate"), Info_HowTo)=_T("R");
-        Audio[0](_T("Channel(s)"), Info_HowTo)=_T("R");
-        Audio[0](_T("SamplingRate"), Info_HowTo)=_T("R");
-        Audio[0](_T("Resolution"), Info_HowTo)=_T("R");
+        Fill_HowTo("Codec", "R");
+        Fill_HowTo("BitRate", "R");
+        Fill_HowTo("Channel(s)", "R");
+        Fill_HowTo("SamplingRate", "R");
+        Fill_HowTo("Resolution", "R");
     }
 }
 

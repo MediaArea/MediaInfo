@@ -183,45 +183,6 @@ File_Avc::File_Avc()
     MustParse_SPS_PPS_Only=false;
     MustParse_SPS_PPS_Done=false;
     FromMKV=false;
-
-    //Count of a Packets
-    Frame_Count=0;
-    frame_num_LastOne=(int32u)-1;
-
-    //From seq_parameter_set
-    pic_width_in_mbs_minus1=0;
-    pic_height_in_map_units_minus1=0;
-    log2_max_frame_num_minus4=0;
-    num_units_in_tick=0;
-    time_scale=0;
-    chroma_format_idc=1;
-    frame_crop_left_offset=0;
-    frame_crop_right_offset=0;
-    frame_crop_top_offset=0;
-    frame_crop_bottom_offset=0;
-    sar_width=0;
-    sar_height=0;
-    profile_idc=0;
-    level_idc=0;
-    aspect_ratio_idc=0xFF;
-    video_format=5;
-    cpb_removal_delay_length_minus1=0;
-    dpb_output_delay_length_minus1=0;
-    time_offset_length=0;
-    pic_struct=0;
-    pic_struct_FirstDetected=(int8u)-1;
-    frame_mbs_only_flag=false;
-    timing_info_present_flag=false;
-    pic_struct_present_flag=false;
-    field_pic_flag=false;
-    entropy_coding_mode_flag=false;
-    CpbDpbDelaysPresentFlag=false;
-
-    //Default values
-    Stream[0x07].Searching_Payload=true; //seq_parameter_set
-    Stream[0x09].Searching_Payload=true; //access_unit_delimiter
-    for (int8u Pos=0xB9; Pos!=0x00; Pos++)
-        Stream[Pos].Searching_Payload=true; //Testing MPEG-PS
 }
 
 //***************************************************************************
@@ -239,13 +200,16 @@ void File_Avc::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Avc::Read_Buffer_Finalize()
 {
+    if (Streams.empty())
+        return; //Not initialized
+
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
     if (Count_Get(Stream_General)==0 && (Frame_Count>0 || MustParse_SPS_PPS_Done))
         slice_header_Fill();
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-        Stream.clear();
+        Streams.clear();
 }
 
 //***************************************************************************
@@ -259,6 +223,7 @@ bool File_Avc::Header_Begin()
     if (MustParse_SPS_PPS)
     {
         Synched=true;
+        Init();
         return true;
     }
     if (FromMKV)
@@ -358,7 +323,7 @@ bool File_Avc::Header_Parse_Fill_Size()
     }
 
     //Keeping out trailing zeroes
-     while (CC3(Buffer+Buffer_Offset_Temp-1)==0x000000)
+    while (CC3(Buffer+Buffer_Offset_Temp-1)==0x000000)
         Buffer_Offset_Temp--;
 
     //OK, we continue
@@ -559,41 +524,44 @@ void File_Avc::slice_header_Fill()
         PixelAspectRatio=1; //Unknown
 
     Stream_Prepare(Stream_General);
-    Fill("Format", "AVC");
+    Fill(Stream_General, 0, General_Format, "AVC");
     Stream_Prepare(Stream_Video);
-    Fill("Codec", "AVC");
+    Fill(Stream_Video, 0, Video_Codec, "AVC");
 
-    Fill("Codec_Profile", ProfileS+_T("@L")+LevelS);
-    Fill("Width", Width);
-    Fill("Height", Height);
-    Fill("PixelAspectRatio", PixelAspectRatio);
+    Fill(Stream_Video, 0, Video_Codec_Profile, ProfileS+_T("@L")+LevelS);
+    Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
+    Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
+    Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio);
     if (Height!=0)
-        Fill("DisplayAspectRatio", ((float)Width)/Height*PixelAspectRatio);
-    Fill("Standard", Avc_video_format[video_format]);
+        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)Width)/Height*PixelAspectRatio);
+    Fill(Stream_Video, 0, Video_Standard, Avc_video_format[video_format]);
     if (timing_info_present_flag)
     {
         if (!fixed_frame_rate_flag)
-            Fill("FrameRate", "VFR");
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, "VFR");
         else if (time_scale && num_units_in_tick)
-            Fill("FrameRate", (float)time_scale/num_units_in_tick/2);
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)time_scale/num_units_in_tick/2);
     }
-    Fill("Chroma", Avc_chroma_format_idc[chroma_format_idc]);
+    Fill(Stream_Video, 0, Video_Chroma, Avc_chroma_format_idc[chroma_format_idc]);
     if (frame_mbs_only_flag)
-        Fill("Interlacement", "PPF");
+        Fill(Stream_Video, 0, Video_Interlacement, "PPF");
     if (pic_struct_FirstDetected==1)
-        Fill("Interlacement", "TFF");
+        Fill(Stream_Video, 0, Video_Interlacement, "TFF");
     if (pic_struct_FirstDetected==2)
-        Fill("Interlacement", "BFF");
-    Fill(Stream_Video, 0, "Encoded_Library", Encoded_Library);
-    Fill(Stream_Video, 0, "Encoded_Library_Settings", Encoded_Library_Settings);
-    Fill(Stream_Video, 0, "BitRate_Nominal", BitRate_Nominal);
+        Fill(Stream_Video, 0, Video_Interlacement, "BFF");
+    Fill(Stream_Video, 0, Video_Encoded_Library, Encoded_Library);
+    Fill(Stream_Video, 0, Video_Encoded_Library_Settings, Encoded_Library_Settings);
+    Fill(Stream_Video, 0, Video_BitRate_Nominal, BitRate_Nominal);
     if (entropy_coding_mode_flag)
     {
-        Fill(Stream_Video, 0, "Codec_Settings", "CABAC");
-        Fill(Stream_Video, 0, "Codec_Settings_CABAC", "Yes");
+        Fill(Stream_Video, 0, Video_Codec_Settings, "CABAC");
+        Fill(Stream_Video, 0, Video_Codec_Settings_CABAC, "Yes");
     }
     else
-        Fill(Stream_Video, 0, "Codec_Settings_CABAC", "No");
+        Fill(Stream_Video, 0, Video_Codec_Settings_CABAC, "No");
+    if (num_ref_frames>0)
+        Fill(Stream_Video, 0, Video_Codec_Settings, Ztring::ToZtring(num_ref_frames)+_T(" Ref Frames"));
+    Fill(Stream_Video, 0, Video_Codec_Settings_RefFrames, num_ref_frames);
 
     if (File_Offset+Buffer_Size<File_Size)
     {
@@ -943,7 +911,7 @@ void File_Avc::seq_parameter_set()
         for(int32u Pos=0; Pos<num_ref_frames_in_pic_order_cnt_cycle; Pos++)
             Skip_SE(                                            "offset_for_ref_frame");
     }
-    Skip_UE(                                                    "num_ref_frames");
+    Get_UE (num_ref_frames,                                     "num_ref_frames");
     Skip_SB(                                                    "gaps_in_frame_num_value_allowed_flag");
     Get_UE (pic_width_in_mbs_minus1,                            "pic_width_in_mbs_minus1");
     Get_UE (pic_height_in_map_units_minus1,                     "pic_height_in_map_units_minus1");
@@ -979,9 +947,9 @@ void File_Avc::seq_parameter_set()
         NextCode_Add(0x08);
 
         //Autorisation of other streams
-        Stream[0x06].Searching_Payload=true; //sei
+        Streams[0x06].Searching_Payload=true; //sei
         for (int8u Pos=0x08; Pos<=0x1F; Pos++)
-            Stream[Pos].Searching_Payload=true; //pic_parameter_set, access_unit_delimiter, end_of_seq, end_of_stream, filler_data, reserved
+            Streams[Pos].Searching_Payload=true; //pic_parameter_set, access_unit_delimiter, end_of_seq, end_of_stream, filler_data, reserved
     FILLING_END();
 }
 
@@ -1096,7 +1064,7 @@ void File_Avc::pic_parameter_set()
 
         //Autorisation of other streams
         for (int8u Pos=0x01; Pos<=0x06; Pos++)
-            Stream[Pos].Searching_Payload=true; //Coded slice...
+            Streams[Pos].Searching_Payload=true; //Coded slice...
     FILLING_END();
 }
 
@@ -1319,9 +1287,8 @@ bool File_Avc::Synchronize()
             int8u nal_unit_type=CC1(Buffer+Buffer_Offset+3);
             bool nal_ref_idc=(nal_unit_type&0x60)?true:false;
             nal_unit_type&=0x1F;
-            if (Stream[nal_unit_type].Searching_Payload
-             && ((nal_ref_idc  && (nal_unit_type==0x05 || nal_unit_type==0x07 || nal_unit_type==0x08))
-              || (!nal_ref_idc && (nal_unit_type==0x06 || nal_unit_type==0x09 || nal_unit_type==0x10 || nal_unit_type==0x0A || nal_unit_type==0x0B))))
+            if (( nal_ref_idc && (nal_unit_type==0x05 || nal_unit_type==0x07 || nal_unit_type==0x08))
+             || (!nal_ref_idc && (nal_unit_type==0x06 || nal_unit_type==0x09 || nal_unit_type==0x10 || nal_unit_type==0x0A || nal_unit_type==0x0B)))
                  break;
             else
                 Buffer_Offset++;
@@ -1353,6 +1320,7 @@ bool File_Avc::Synchronize()
 
     //Synched is OK
     Synched=true;
+    Init();
     return true;
 }
 
@@ -1366,7 +1334,7 @@ bool File_Avc::Header_Parser_QuickSearch()
         int8u start_code=CC1(Buffer+Buffer_Offset+3)&0x1F;
 
         //Searching start
-        if (Stream[start_code].Searching_Payload)
+        if (Streams[start_code].Searching_Payload)
             return true;
 
         //Getting size
@@ -1411,6 +1379,54 @@ bool File_Avc::Detect_NonAVC ()
 
     //Seems OK
     return false;
+}
+
+//---------------------------------------------------------------------------
+void File_Avc::Init()
+{
+    if (!Streams.empty())
+        return;
+
+    //Count of a Packets
+    Frame_Count=0;
+    frame_num_LastOne=(int32u)-1;
+
+    //From seq_parameter_set
+    pic_width_in_mbs_minus1=0;
+    pic_height_in_map_units_minus1=0;
+    log2_max_frame_num_minus4=0;
+    num_units_in_tick=0;
+    time_scale=0;
+    chroma_format_idc=1;
+    frame_crop_left_offset=0;
+    frame_crop_right_offset=0;
+    frame_crop_top_offset=0;
+    frame_crop_bottom_offset=0;
+    num_ref_frames=0;
+    sar_width=0;
+    sar_height=0;
+    profile_idc=0;
+    level_idc=0;
+    aspect_ratio_idc=0xFF;
+    video_format=5;
+    cpb_removal_delay_length_minus1=0;
+    dpb_output_delay_length_minus1=0;
+    time_offset_length=0;
+    pic_struct=0;
+    pic_struct_FirstDetected=(int8u)-1;
+    frame_mbs_only_flag=false;
+    timing_info_present_flag=false;
+    pic_struct_present_flag=false;
+    field_pic_flag=false;
+    entropy_coding_mode_flag=false;
+    CpbDpbDelaysPresentFlag=false;
+
+    //Default values
+    Streams.resize(0x100);
+    Streams[0x07].Searching_Payload=true; //seq_parameter_set
+    Streams[0x09].Searching_Payload=true; //access_unit_delimiter
+    for (int8u Pos=0xB9; Pos!=0x00; Pos++)
+        Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
 }
 
 //***************************************************************************

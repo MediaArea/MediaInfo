@@ -51,7 +51,6 @@ File__Duplicate::File__Duplicate ()
     //Temp
     File__Duplicate_HasChanged_=false;
     Config_File_Duplicate_Get_AlwaysNeeded_Count=0;
-    Duplicates_Speed_FromPID.resize(0x2000);
 }
 
 File__Duplicate::~File__Duplicate ()
@@ -122,9 +121,10 @@ void File__Duplicate::File__Duplicate_Set (const Ztring &Value)
                 Duplicates[**Target]->Configure(**Order, ToRemove);
     }
 
-
     //Informing the status has changed
     File__Duplicate_HasChanged_=true;
+    if (Duplicates_Speed_FromPID.empty())
+        Duplicates_Speed_FromPID.resize(0x2000);
 
     Duplicates_Speed_FromPID[0x00]=Duplicates_Speed;
 }
@@ -140,6 +140,8 @@ bool File__Duplicate::File__Duplicate_Get ()
 
 bool File__Duplicate::File__Duplicate_Get_From_PID (int16u PID)
 {
+    if (Duplicates_Speed_FromPID.empty())
+        return false;
     return !Duplicates_Speed_FromPID[PID].empty();
 }
 

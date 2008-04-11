@@ -365,7 +365,7 @@ void File_Mpeg4::Descriptors()
     //Preparing
     File_Mpeg4_Descriptors MI;
     MI.KindOfStream=StreamKind_Last;
-    MI.Codec=Get(StreamKind_Last, StreamPos_Last, _T("Codec"));
+    MI.Codec=Retrieve(StreamKind_Last, StreamPos_Last, "Codec");
 
     //Parsing
     Open_Buffer_Init(&MI, File_Offset+Buffer_Offset+Element_Size, File_Offset+Buffer_Offset+Element_Offset);

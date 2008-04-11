@@ -63,7 +63,8 @@ namespace MediaInfoLib
 File_Cdxa::File_Cdxa()
 :File__Analyze()
 {
-    //Configuration
+    //Basic configuration
+    Synched=false;
     File_MaximumOffset=64*1024;
     Frame_Count_Valid=16;
 
@@ -93,8 +94,8 @@ void File_Cdxa::Read_Buffer_Finalize ()
     //If nothing
     if (MI->Info==NULL|| MI->Count_Get(Stream_General)==0)
     {
-        Fill(Stream_General, 0, "Format", "CDXA");
-        Fill(Stream_General, 0, "Format/String", "CD Mode 2");
+        Fill(Stream_General, 0, General_Format, "CDXA");
+        Fill(Stream_General, 0, General_Format_String, "CD Mode 2");
     }
     else
     {
@@ -103,10 +104,12 @@ void File_Cdxa::Read_Buffer_Finalize ()
         MI->Open_Buffer_Finalize();
         Merge(*(MI->Info));
         Merge(*(MI->Info), Stream_General, 0, 0);
-        Fill(Stream_General, 0, "Format", (Ztring(_T("CDXA/"))+General[0](_T("Format"))).c_str(), Unlimited, true);
-        Fill(Stream_General, 0, "Format/String", (Ztring(_T("CD Mode 2 / "))+General[0](_T("Format/String"))).c_str(), Unlimited, true);
-        Fill(Stream_General, 0, "PlayTime", "");
-        Fill(Stream_Video, 0, "PlayTime", "");
+        const Ztring &Format=Retrieve(Stream_General, 0, "Format");
+        const Ztring &Format_String=MediaInfoLib::Config.Format_Get(Format, InfoFormat_LongName);
+        Fill(Stream_General, 0, General_Format, (Ztring(_T("CDXA/"))+Format).c_str(), Unlimited, true);
+        Fill(Stream_General, 0, General_Format_String, (Ztring(_T("CD Mode 2 / "))+Format_String).c_str(), Unlimited, true);
+        Fill(Stream_General, 0, General_PlayTime, "", Unlimited, true);
+        Fill(Stream_Video, 0, Video_PlayTime, "", Unlimited, true);
     }
 
     //Purge what is not needed anymore
@@ -194,8 +197,11 @@ void File_Cdxa::FileHeader_Parse()
 
     FILLING_BEGIN();
         if (MI==NULL)
-            MI=new MediaInfo;
-
+        {
+            MI=new MediaInfo_Internal;
+            MI->Option(_T("File_IsSub"), _T("1"));
+        }
+        
         Stream_Prepare(Stream_General);
     FILLING_END();
 }

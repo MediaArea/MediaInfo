@@ -141,7 +141,7 @@ void File_Wvpk::Read_Buffer_Finalize()
 {
     //PlayTime
     if (SamplingRate<15)
-        Fill("PlayTime", ((int64u)(block_index_LastFrame+block_samples_LastFrame-block_index_FirstFrame))*1000/Wvpk_SamplingRate[SamplingRate], 10, true); //Don't forget the last frame with block_samples...
+        Fill(Stream_Audio, 0, Audio_PlayTime, ((int64u)(block_index_LastFrame+block_samples_LastFrame-block_index_FirstFrame))*1000/Wvpk_SamplingRate[SamplingRate], 10, true); //Don't forget the last frame with block_samples...
 
     //Tags
     File__Tags_Helper::Read_Buffer_Finalize();
@@ -297,23 +297,23 @@ void File_Wvpk::Data_Parse_Fill()
     if (Count_Get(Stream_General)==0)
     {
         Stream_Prepare(Stream_General);
-        Fill("Format", "Wvpk");
+        Fill(Stream_General, 0, General_Format, "Wvpk");
         Stream_Prepare(Stream_Audio);
-        Fill("Codec", "Wavpack");
+        Fill(Stream_Audio, 0, Audio_Codec, "Wavpack");
     }
 
-    Fill("Resolution", Wvpk_Resolution[(resolution1?1:0)*2+(resolution0?1:0)]);
-    Fill("Channel(s)", mono?1:2);
+    Fill(Stream_Audio, 0, Audio_Resolution, Wvpk_Resolution[(resolution1?1:0)*2+(resolution0?1:0)]);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, mono?1:2);
     if (SamplingRate<15)
     {
-        Fill("SamplingRate", Wvpk_SamplingRate[SamplingRate]);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Wvpk_SamplingRate[SamplingRate]);
         if (total_samples_FirstFrame!=0xFFFFFFFF) //--> this is a valid value
-            Fill("PlayTime", ((int64u)total_samples_FirstFrame)*1000/Wvpk_SamplingRate[SamplingRate]);
+            Fill(Stream_Audio, 0, Audio_PlayTime, ((int64u)total_samples_FirstFrame)*1000/Wvpk_SamplingRate[SamplingRate]);
     }
     if (hybrid)
-        Fill("Codec_Settings", "hybrid lossy");
+        Fill(Stream_Audio, 0, Audio_Codec_Settings, "hybrid lossy");
             else
-        Fill("Codec_Settings", "lossless");
+        Fill(Stream_Audio, 0, Audio_Codec_Settings, "lossless");
 
     //Going to end of file
     File__Tags_Helper::Data_GoTo(File_Size, "WavPack");

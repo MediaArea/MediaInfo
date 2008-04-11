@@ -28,7 +28,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include <MediaInfo/MediaInfo_Const.h>
+#include "MediaInfo/MediaInfo_Internal.h"
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 //---------------------------------------------------------------------------
 
@@ -217,52 +217,7 @@ public :
     size_t                  Count_Get (stream_t StreamKind, size_t StreamNumber=(size_t)-1);
 
 private :
-    friend class File_Cdxa; //Theses classes need access to internal structure for optimization. There is recursivity with theses formats
-
-    //Format testing
-    int Format_Test();
-    int Format_Test_Buffer();
-    int Format_Test_FillBuffer_Init();
-    int Format_Test_FillBuffer_Continue();
-    int Format_Test_FillBuffer_Close();
-
-    //File
-    String File_Name;
-    void*             File_Handle;
-    ZenLib::int64u   File_Size;
-    ZenLib::int64u   File_Offset;
-    bool             File_AlreadyBuffered;
-
-    //Buffer
-    unsigned char*   Buffer;
-    size_t           Buffer_Size;
-    size_t           Buffer_Size_Max;
-    const unsigned char* BufferConst;
-
-    //Parsing handles
-    File__Analyze*  Info;
-    Internet__Base* Internet;
-
-    //Thread
-    void* Thread;
-    blockmethod_t BlockMethod; //Open() returns when?
-
-    //Helpers
-    int  InternalMethod; //1=Open file, 3=Supported formats
-    int  ApplyMethod();
-    int  ListFormats();
-    void Buffer_Clear(); //Clear the buffer
-    void SelectFromExtension (const String &Parser); //Select File_* from the parser name
-    bool LibraryIsModified(); //Is the library has been modified? (#defines...)
-    void CreateDummy (const String& Value); //Create dummy Information
-
-    MediaInfo(const MediaInfo&); // Copy Constructor
-
-    //Open Buffer
-    bool MultipleParsing_IsDetected;
-
-    //Config
-    MediaInfo_Config_MediaInfo Config;
+    void* Internal;
 };
 
 } //NameSpace

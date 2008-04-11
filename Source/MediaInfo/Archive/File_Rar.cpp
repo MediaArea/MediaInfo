@@ -58,7 +58,7 @@ void File_Rar::Read_Buffer_Continue()
 
     //Filling
     Stream_Prepare(Stream_General);
-    Fill("Format", "RAR");
+    Fill(Stream_General, 0, General_Format, "RAR");
 
     //No need of more
     Finnished();

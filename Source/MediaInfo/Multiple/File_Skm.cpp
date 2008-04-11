@@ -63,7 +63,7 @@ void File_Skm::FileHeader_Parse()
 
         //Filling
         Stream_Prepare(Stream_General);
-        Fill("Format", "SKM");
+        Fill(Stream_General, 0, General_Format, "SKM");
     FILLING_END();
 }
 

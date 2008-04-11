@@ -100,19 +100,19 @@ void File_Id3::FileHeader_Parse()
         Stream_Prepare(Stream_Audio);
 
         if (!Id3v1_Album.empty())
-            Fill(Stream_General, 0, "Album", Id3v1_Album);
+            Fill(Stream_General, 0, General_Album, Id3v1_Album);
         if (!Id3v1_Title.empty())
-            Fill(Stream_General, 0, "Track", Id3v1_Title);
+            Fill(Stream_General, 0, General_Track, Id3v1_Title);
         if (!Id3v1_Artist.empty())
-            Fill(Stream_General, 0, "Performer", Id3v1_Artist);
+            Fill(Stream_General, 0, General_Performer, Id3v1_Artist);
         if (!Id3v1_Comment.empty())
-            Fill(Stream_General, 0, "Comment", Id3v1_Comment);
+            Fill(Stream_General, 0, General_Comment, Id3v1_Comment);
         if (!Id3v1_Year.empty())
-            Fill(Stream_General, 0, "Recorded_Date", Id3v1_Year);
+            Fill(Stream_General, 0, General_Recorded_Date, Id3v1_Year);
         if (!Id3v1_Genre.empty())
-            Fill(Stream_General, 0, "Genre", Id3v1_Genre);
+            Fill(Stream_General, 0, General_Genre, Id3v1_Genre);
         if (!Id3v1_Track.empty())
-            Fill(Stream_General, 0, "Track/Position", Id3v1_Track);
+            Fill(Stream_General, 0, General_Track_Position, Id3v1_Track);
     FILLING_END();
 }
 

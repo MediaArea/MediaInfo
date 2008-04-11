@@ -192,19 +192,19 @@ void File_Adts::Data_Parse_Fill()
     //Filling
     int32u BitRate=(ADTS_SamplingRate[sampling_frequency_index]/1024)*aac_frame_length*8;
     Stream_Prepare(Stream_General);
-    Fill("Format", "AAC");
+    Fill(Stream_General, 0, General_Format, "AAC");
     Stream_Prepare(Stream_Audio);
-    Fill("Codec", ADTS_Profile[profile_ObjectType]);
-    Fill("SamplingRate", ADTS_SamplingRate[sampling_frequency_index]);
-    Fill("Channel(s)", channel_configuration);
+    Fill(Stream_Audio, 0, Audio_Codec, ADTS_Profile[profile_ObjectType]);
+    Fill(Stream_Audio, 0, Audio_SamplingRate, ADTS_SamplingRate[sampling_frequency_index]);
+    Fill(Stream_Audio, 0, Audio_Channel_s_, channel_configuration);
     if (adts_buffer_fullness==0x7FF)
-        Fill("BitRate_Mode", "VBR");
+        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
     else
     {
-        Fill("BitRate_Mode", "CBR");
-        Fill("BitRate", BitRate);
+        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
+        Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
     }
-    Fill("Resolution", 16);
+    Fill(Stream_Audio, 0, Audio_Resolution, 16);
 
     //Jumping if needed
     if (File_Offset+Buffer_Size+File_EndTagSize<File_Size)
@@ -290,17 +290,17 @@ void File_Adts::HowTo(stream_t StreamKind)
 {
         if (StreamKind==Stream_General)
     {
-        General[0](_T("Format"), Info_HowTo)=_T("R");
-        General[0](_T("BitRate"), Info_HowTo)=_T("R");
-        General[0](_T("PlayTime"), Info_HowTo)=_T("R");
+        Fill_HowTo("Format", "R");
+        Fill_HowTo("BitRate", "R");
+        Fill_HowTo("PlayTime", "R");
     }
     else if (StreamKind==Stream_Audio)
     {
-        Audio[0](_T("Codec"), Info_HowTo)=_T("R");
-        Audio[0](_T("BitRate"), Info_HowTo)=_T("R");
-        Audio[0](_T("Channel(s)"), Info_HowTo)=_T("R");
-        Audio[0](_T("SamplingRate"), Info_HowTo)=_T("R");
-        Audio[0](_T("Resolution"), Info_HowTo)=_T("R");
+        Fill_HowTo("Codec", "R");
+        Fill_HowTo("BitRate", "R");
+        Fill_HowTo("Channel(s)", "R");
+        Fill_HowTo("SamplingRate", "R");
+        Fill_HowTo("Resolution", "R");
     }
 }
 

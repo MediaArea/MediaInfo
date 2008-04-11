@@ -84,7 +84,7 @@ public :
     //About streams
     struct stream
     {
-        std::map<ZenLib::Ztring, ZenLib::Ztring>    Infos;
+        std::map<std::string, ZenLib::Ztring>       Infos;
         int16u                                      program_number;
         ts_kind                                     Kind;
         int8u                                       stream_type;

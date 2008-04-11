@@ -120,29 +120,6 @@ File_Vc1::File_Vc1()
     //In
     Frame_Count_Valid=30;
     FrameIsAlwaysComplete=false;
-
-    //Count
-    Frame_Count=0;
-
-    //Temp
-    coded_width=0;
-    coded_height=0;
-    framerateexp=0;
-    frameratecode_enr=0;
-    frameratecode_dr=0;
-    profile=0;
-    level=0;
-    chromaformat=0;
-    AspectRatio=0;
-    AspectRatioX=0;
-    AspectRatioY=0;
-    interlace=false;
-    tfcntrflag=false;
-    framerate_present=false;
-    framerate_form=false;
-
-    //Default stream values
-    Stream[0x0F].Searching_Payload=true;
 }
 
 //---------------------------------------------------------------------------
@@ -156,13 +133,16 @@ void File_Vc1::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Vc1::Read_Buffer_Finalize()
 {
+    if (Streams.empty())
+        return; //Not initialized
+
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
     if (Count_Get(Stream_General)==0 && Frame_Count>0)
         FrameHeader_Fill();
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-        Stream.clear();
+        Streams.clear();
 }
 
 //***************************************************************************
@@ -358,8 +338,8 @@ void File_Vc1::FrameHeader()
             FrameHeader_Fill();
 
         //Autorisation of other streams
-        Stream[0x0D].Searching_Payload=true;
-        Stream[0x0F].Searching_Payload=true;
+        Streams[0x0D].Searching_Payload=true;
+        Streams[0x0F].Searching_Payload=true;
     FILLING_END();
 }
 
@@ -387,19 +367,19 @@ void File_Vc1::FrameHeader_Fill()
 
     //Filling
     Stream_Prepare(Stream_General);
-    Fill("Format", "VC-1");
+    Fill(Stream_General, 0, General_Format, "VC-1");
     Stream_Prepare(Stream_Video);
-    Fill("Codec", "VC-1");
+    Fill(Stream_Video, 0, Video_Codec, "VC-1");
 
-    Fill("Codec_Profile", Ztring(Vc1_Profile[profile])+_T('@')+Ztring::ToZtring(level));
-    Fill("Chroma", Vc1_ChromaFormat[chromaformat]);
-    Fill("Interlacement", interlace?"Interlaced":"PPF");
-    Fill("Width", (coded_width+1)*2);
-    Fill("Height", (coded_height+1)*2);
+    Fill(Stream_Video, 0, Video_Codec_Profile, Ztring(Vc1_Profile[profile])+_T('@')+Ztring::ToZtring(level));
+    Fill(Stream_Video, 0, Video_Chroma, Vc1_ChromaFormat[chromaformat]);
+    Fill(Stream_Video, 0, Video_Interlacement, interlace?"Interlaced":"PPF");
+    Fill(Stream_Video, StreamPos_Last, Video_Width, (coded_width+1)*2);
+    Fill(Stream_Video, StreamPos_Last, Video_Height, (coded_height+1)*2);
     if (PixelAspectRatio!=0)
-        Fill("PixelAspectRatio", PixelAspectRatio);
+        Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio);
     if (FrameRate!=0)
-        Fill("FrameRate", FrameRate);
+        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate);
 
     //Jumping
     if (Frame_Count>=Frame_Count_Valid)
@@ -423,7 +403,7 @@ void File_Vc1::EntryPointHeader()
         NextCode_Add(0x0D);
 
         //Autorisation of other streams
-        Stream[0x0D].Searching_Payload=true;
+        Streams[0x0D].Searching_Payload=true;
     FILLING_END();
 }
 
@@ -506,8 +486,8 @@ void File_Vc1::SequenceHeader()
         NextCode_Add(0x0E);
 
         //Autorisation of other streams
-        Stream[0x0D].Searching_Payload=true;
-        Stream[0x0E].Searching_Payload=true;
+        Streams[0x0D].Searching_Payload=true;
+        Streams[0x0E].Searching_Payload=true;
     FILLING_END();
 }
 
@@ -579,6 +559,32 @@ bool File_Vc1::Synchronize()
 
     //Synched is OK
     Synched=true;
+    if (Streams.empty())
+    {
+        //Count
+        Frame_Count=0;
+
+        //Temp
+        coded_width=0;
+        coded_height=0;
+        framerateexp=0;
+        frameratecode_enr=0;
+        frameratecode_dr=0;
+        profile=0;
+        level=0;
+        chromaformat=0;
+        AspectRatio=0;
+        AspectRatioX=0;
+        AspectRatioY=0;
+        interlace=false;
+        tfcntrflag=false;
+        framerate_present=false;
+        framerate_form=false;
+
+        //Default stream values
+        Streams.resize(0x100);
+        Streams[0x0F].Searching_Payload=true;
+    }
     return true;
 }
 
@@ -592,7 +598,7 @@ bool File_Vc1::Header_Parser_QuickSearch()
         int8u start_code=CC1(Buffer+Buffer_Offset+3);
 
         //Searching start
-        if (Stream[start_code].Searching_Payload)
+        if (Streams[start_code].Searching_Payload)
             return true;
 
         //Getting size

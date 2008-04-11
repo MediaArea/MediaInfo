@@ -64,7 +64,7 @@ private :
     struct stream
     {
         File__Analyze*                              Parser;
-        std::map<ZenLib::Ztring, ZenLib::Ztring>    Infos;
+        std::map<std::string, ZenLib::Ztring>       Infos;
         int8u                                       stream_type;
         int8u                                       descriptor_tag;
         File_Mpeg_Psi::ts_kind                      TS_Kind;

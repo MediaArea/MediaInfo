@@ -24,6 +24,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Base.h"
+#include "MediaInfo/File__Analyse_Automatic.h"
 #include <ZenLib/BitStream.h>
 #include <ZenLib/int128u.h>
 #include <ZenLib/ZtringListList.h>
@@ -127,6 +128,7 @@ protected :
 
     //Data - Info
     void Data_Info (const Ztring &Parameter);
+    inline void Data_Info_From_Milliseconds (int64u Parameter)                  {Data_Info(Ztring().Duration_From_Milliseconds(Parameter));}
 
     //Data - Get info
     size_t Data_Remain ()                                                       {return (size_t)Element_Size-(Element_Offset+BS->Offset_Get());};
@@ -147,37 +149,38 @@ protected :
     //Elements - Begin
     void Element_Begin ();
     void Element_Begin (const Ztring &Name, int64u Size=(int64u)-1);
-    void Element_Begin (int64u Size) {Element_Begin(Ztring(), Size);}
-    void Element_Begin (const char *Name, int64u Size=(int64u)-1) {Element_Begin(Ztring().From_UTF8(Name), Size);}
+    inline void Element_Begin (int64u Size) {Element_Begin(Ztring(), Size);}
+    inline void Element_Begin (const char *Name, int64u Size=(int64u)-1) {Element_Begin(Ztring().From_UTF8(Name), Size);}
 
     //Elements - Name
     void Element_Name (const Ztring &Name);
-    void Element_Name (const char*   Name) {Element_Name(Ztring().From_UTF8(Name));}
+    inline void Element_Name (const char*   Name) {Element_Name(Ztring().From_UTF8(Name));}
 
     //Elements - Info
     void Element_Info (const Ztring &Parameter);
-    void Element_Info (const char*   Parameter) {Element_Info(Ztring().From_UTF8(Parameter));}
-    void Element_Info (const char*   Parameter, const char*   Measure)      {Element_Info(Ztring().From_UTF8(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int8s         Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int8u         Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int16s        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int16u        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int32s        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int32u        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int64s        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int64u        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Element_Info (int128u       Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (const char*   Parameter) {Element_Info(Ztring().From_UTF8(Parameter));}
+    inline void Element_Info (const char*   Parameter, const char*   Measure)      {Element_Info(Ztring().From_UTF8(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (int8s         Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (int8u         Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (int16s        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (int16u        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (int32s        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (int32u        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (int64s        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (int64u        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (int128u       Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
     #ifdef NEED_SIZET
-    void Element_Info (size_t        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (size_t        Parameter, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
     #endif //NEED_SIZET
-    void Element_Info (float32       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
-    void Element_Info (float64       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (float32       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info (float64       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Element_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
+    inline void Element_Info_From_Milliseconds (int64u Parameter)                  {Element_Info(Ztring().Duration_From_Milliseconds(Parameter));}
 
     //Elements - End
     void Element_End ();
     void Element_End (const Ztring &Name, int64u Size=(int64u)-1);
-    void Element_End (int64u Size) {Element_End(Ztring(), Size);}
-    void Element_End (const char *Name, int64u Size=(int64u)-1) {Element_End(Ztring().From_UTF8(Name), Size);}
+    inline void Element_End (int64u Size) {Element_End(Ztring(), Size);}
+    inline void Element_End (const char *Name, int64u Size=(int64u)-1) {Element_End(Ztring().From_UTF8(Name), Size);}
 
     //Elements - Preparation of element from external app
     void Element_Prepare (int64u Size);
@@ -205,48 +208,49 @@ public :
 
     //Param - Main
     void Param      (const Ztring &Parameter, const Ztring& Value);
-    void Param      (const char*   Parameter, const Ztring& Value) {Param(Ztring().From_Local(Parameter), Value);};
-    void Param      (const char*   Parameter, const std::string& Value) {Param(Parameter, Ztring().From_Local(Value.c_str()));}
-    void Param      (const char*   Parameter, const char*   Value, size_t Value_Size=Unlimited, bool Utf8=true) {Param(Parameter, ToZtring(Value, Value_Size, Utf8));}
-    void Param      (const char*   Parameter, const int8u*  Value, size_t Value_Size=Unlimited, bool Utf8=true) {Param(Parameter, (const char*)Value, Value_Size, Utf8);}
-    void Param      (const char*   Parameter, bool   Value) {if (Value) Param(Parameter, "Yes"); else Param(Parameter, "No");}
-    void Param      (const char*   Parameter, int8u  Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int8s  Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int16u Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int16s Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int32u Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int32s Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int64u Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int64s Value) {Param(Parameter, VALUE(Value));}
-    void Param      (const char*   Parameter, int128u Value){Param(Parameter, VALUE(Value));}
-    void Param_UUID (const char*   Parameter, int128u Value){Param(Parameter, Ztring().From_UUID(Value));}
+    inline void Param      (const char*   Parameter, const Ztring& Value) {Param(Ztring().From_Local(Parameter), Value);};
+    inline void Param      (const char*   Parameter, const std::string& Value) {Param(Parameter, Ztring().From_Local(Value.c_str()));}
+    inline void Param      (const char*   Parameter, const char*   Value, size_t Value_Size=Unlimited, bool Utf8=true) {Param(Parameter, ToZtring(Value, Value_Size, Utf8));}
+    inline void Param      (const char*   Parameter, const int8u*  Value, size_t Value_Size=Unlimited, bool Utf8=true) {Param(Parameter, (const char*)Value, Value_Size, Utf8);}
+    inline void Param      (const char*   Parameter, bool   Value) {if (Value) Param(Parameter, "Yes"); else Param(Parameter, "No");}
+    inline void Param      (const char*   Parameter, int8u  Value) {Param(Parameter, VALUE(Value));}
+    inline void Param      (const char*   Parameter, int8s  Value) {Param(Parameter, VALUE(Value));}
+    inline void Param      (const char*   Parameter, int16u Value) {Param(Parameter, VALUE(Value));}
+    inline void Param      (const char*   Parameter, int16s Value) {Param(Parameter, VALUE(Value));}
+    inline void Param      (const char*   Parameter, int32u Value) {Param(Parameter, VALUE(Value));}
+    inline void Param      (const char*   Parameter, int32s Value) {Param(Parameter, VALUE(Value));}
+    inline void Param      (const char*   Parameter, int64u Value) {Param(Parameter, VALUE(Value));}
+    inline void Param      (const char*   Parameter, int64s Value) {Param(Parameter, VALUE(Value));}
+    inline void Param      (const char*   Parameter, int128u Value){Param(Parameter, VALUE(Value));}
+    inline void Param_UUID (const char*   Parameter, int128u Value){Param(Parameter, Ztring().From_UUID(Value));}
     #ifdef NEED_SIZET
-    void Param      (const char*   Parameter, size_t Value, intu Radix=16) {Param(Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase()+_T(" (")+Ztring::ToZtring(Value, 10).MakeUpperCase()+_T(")"));}
+    inline void Param      (const char*   Parameter, size_t Value, intu Radix=16) {Param(Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase()+_T(" (")+Ztring::ToZtring(Value, 10).MakeUpperCase()+_T(")"));}
     #endif //NEED_SIZET
-    void Param      (const char*   Parameter, float32 Value, intu AfterComma=3) {Param(Parameter, Ztring::ToZtring(Value, AfterComma));}
-    void Param      (const char*   Parameter, float64 Value, intu AfterComma=3) {Param(Parameter, Ztring::ToZtring(Value, AfterComma));}
-    void Param      (const char*   Parameter, float80 Value, intu AfterComma=3) {Param(Parameter, Ztring::ToZtring(Value, AfterComma));}
-    void Param      (const int32u  Parameter, const Ztring& Value) {Param(Ztring().From_CC4(Parameter), Value);};
-    void Param      (const int16u  Parameter, const Ztring& Value) {Param(Ztring().From_CC2(Parameter), Value);};
+    inline void Param      (const char*   Parameter, float32 Value, intu AfterComma=3) {Param(Parameter, Ztring::ToZtring(Value, AfterComma));}
+    inline void Param      (const char*   Parameter, float64 Value, intu AfterComma=3) {Param(Parameter, Ztring::ToZtring(Value, AfterComma));}
+    inline void Param      (const char*   Parameter, float80 Value, intu AfterComma=3) {Param(Parameter, Ztring::ToZtring(Value, AfterComma));}
+    inline void Param      (const int32u  Parameter, const Ztring& Value) {Param(Ztring().From_CC4(Parameter), Value);};
+    inline void Param      (const int16u  Parameter, const Ztring& Value) {Param(Ztring().From_CC2(Parameter), Value);};
 
     //Param - Info
     void Param_Info (const Ztring &Parameter);
-    void Param_Info (const char*   Parameter) {Param_Info(Ztring().From_UTF8(Parameter));}
-    void Param_Info (const char*   Parameter, const char*   Measure)      {Param_Info(Ztring().From_UTF8(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int64u        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int64s        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int32u        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int32s        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int16u        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int16s        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int8u         Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (int8s         Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
-    void Param_Info (float32       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
-    void Param_Info (float64       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
-    void Param_Info (float80       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
+    inline void Param_Info (const char*   Parameter) {Param_Info(Ztring().From_UTF8(Parameter));}
+    inline void Param_Info (const char*   Parameter, const char*   Measure)      {Param_Info(Ztring().From_UTF8(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Param_Info (int64u        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Param_Info (int64s        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Param_Info (int32u        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Param_Info (int32s        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Param_Info (int16u        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Param_Info (int16s        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Param_Info (int8u         Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Param_Info (int8s         Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Param_Info (float32       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
+    inline void Param_Info (float64       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
+    inline void Param_Info (float80       Parameter, int8u AfterComma=3, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter, AfterComma)+Ztring().From_UTF8(Measure));}
     #ifdef NEED_SIZET
-    void Param_Info (size_t        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
+    inline void Param_Info (size_t        Parameter, const char*   Measure=NULL) {Param_Info(Ztring::ToZtring(Parameter)+Ztring().From_UTF8(Measure));}
     #endif //NEED_SIZET
+    inline void Param_Info_From_Milliseconds (int64u Parameter)                  {Param_Info(Ztring().Duration_From_Milliseconds(Parameter));}
 
     //***************************************************************************
     // Information
@@ -606,6 +610,25 @@ public :
     size_t Stream_Prepare   (stream_t KindOfStream);
     void   General_Fill     (); //Special : pre-fill General with some important information
 
+    //Fill with datas (with parameter as a size_t)
+    void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const Ztring  &Value, bool Replace=false);
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const std::string &Value, bool Utf8=true, bool Replace=false) {if (Utf8) Fill(StreamKind, StreamPos, Parameter, Ztring().From_UTF8(Value.c_str(), Value.size())); else Fill(StreamKind, StreamPos, Parameter, Ztring().From_Local(Value.c_str(), Value.size()), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const char*    Value, size_t Value_Size=Unlimited, bool Utf8=true, bool Replace=false) {if (Utf8) Fill(StreamKind, StreamPos, Parameter, Ztring().From_UTF8(Value, Value_Size), Replace); else Fill(StreamKind, StreamPos, Parameter, Ztring().From_Local(Value, Value_Size), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const wchar_t* Value, size_t Value_Size=Unlimited, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring().From_Unicode(Value, Value_Size), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int8u          Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int8s          Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int16u         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int16s         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int32u         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int32s         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int64u         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int64s         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, float32        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, AfterComma), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, float64        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, AfterComma), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, float80        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, AfterComma), Replace);}
+    #ifdef NEED_SIZET
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, size_t         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    #endif //NEED_SIZET
     //Fill with datas
     void Fill (stream_t StreamKind, size_t StreamPos, const char* Parameter, const Ztring  &Value, bool Replace=false);
     inline void Fill (stream_t StreamKind, size_t StreamPos, const char* Parameter, const std::string &Value, bool Utf8=true, bool Replace=false) {if (Utf8) Fill(StreamKind, StreamPos, Parameter, Ztring().From_UTF8(Value.c_str(), Value.size())); else Fill(StreamKind, StreamPos, Parameter, Ztring().From_Local(Value.c_str(), Value.size()), Replace);}
@@ -625,31 +648,18 @@ public :
     #ifdef NEED_SIZET
     inline void Fill (stream_t StreamKind, size_t StreamPos, const char* Parameter, size_t         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
     #endif //NEED_SIZET
-    inline void Fill (const char* Parameter, const Ztring  &Value, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Replace);} //With the last set
-    inline void Fill (const char* Parameter, const std::string &Value, bool Utf8=true, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Utf8, Replace);} //With the last set
-    inline void Fill (const char* Parameter, const char*    Value, size_t ValueSize=Unlimited, bool Utf8=true, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, ValueSize, Utf8, Replace);} //With the last set
-    inline void Fill (const char* Parameter, const int8u*   Value, size_t ValueSize=Unlimited, bool Utf8=true, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, (const char*)Value, ValueSize, Utf8, Replace);} //With the last set
-    inline void Fill (const char* Parameter, const wchar_t* Value, size_t ValueSize=Unlimited, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, ValueSize, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int8u          Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int8s          Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int16u         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int16s         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int32u         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int32s         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int64u         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int64s         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, float32        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, AfterComma, Replace);} //With the last set
-    inline void Fill (const char* Parameter, float64        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, AfterComma, Replace);} //With the last set
-    inline void Fill (const char* Parameter, float80        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, AfterComma, Replace);} //With the last set
-    #ifdef NEED_SIZET
-    inline void Fill (const char* Parameter, size_t         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    #endif //NEED_SIZET
-    void Fill (stream_t StreamKind, size_t StreamPos, const int32u Parameter, const Ztring  &Value, bool Replace=false);
-    inline void Fill (int32u Parameter, const Ztring  &Value, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Replace);} //With the last set
     void Fill_HowTo (stream_t StreamKind, size_t StreamPos, const char* Parameter, const char* Value);
     inline void Fill_HowTo (const char* Parameter, const char* Value) {Fill_HowTo(StreamKind_Last, StreamPos_Last, Parameter, Value);} //With the last set
     ZtringListList Fill_Temp;
     void Fill_Flush ();
+
+    const Ztring &Retrieve (stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo=Info_Text);
+    const Ztring &Retrieve (stream_t StreamKind, size_t StreamPos, const char* Parameter, info_t KindOfInfo=Info_Text, info_t KindOfSearch=Info_Name);
+
+    void Clear (stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo=Info_Text);
+    void Clear (stream_t StreamKind, size_t StreamPos, const char* Parameter, info_t KindOfInfo=Info_Text, info_t KindOfSearch=Info_Name);
+    void Clear (stream_t StreamKind, size_t StreamPos);
+    inline void Clear () {File__Base::Clear();}
 
     //***************************************************************************
     // Filling
@@ -685,7 +695,7 @@ public :
 
     //Utils
 public :
-    size_t Merge(const File__Base &ToAdd); //Merge 2 File_Base
+    size_t Merge(File__Base &ToAdd); //Merge 2 File_Base
     size_t Merge(File__Base &ToAdd, stream_t StreamKind, size_t StreamPos_From, size_t StreamPos_To); //Merge 2 streams
 
     //***************************************************************************
@@ -702,7 +712,7 @@ protected :
     void Finalize_General   (size_t Pos);
     void Finalize_Video     (size_t Pos);
     void Finalize_Audio     (size_t Pos);
-    void Finalize_Audio_BitRate (size_t Pos, ZenLib::Char* Parameter);
+    void Finalize_Audio_BitRate (size_t Pos, audio Parameter);
     void Finalize_Text      (size_t Pos);
     void Finalize_Chapters  (size_t Pos);
     void Finalize_Image     (size_t Pos);
@@ -725,6 +735,7 @@ protected :
 protected :
     //Save for speed improvement
     float Config_Details;
+    bool  IsSub;
 
     //Configuration
     bool DataMustAlwaysBeComplete;  //Data must always be complete, else wait for more data
@@ -733,6 +744,7 @@ protected :
     //Synchro
     bool MustParseTheHeaderFile;    //There is an header part, must parse it
     bool Synched;                   //Data is synched
+    size_t Trusted;
 
     //Elements
     size_t Element_Level;           //Current level
@@ -814,7 +826,7 @@ private :
 
 public :
     void BookMark_Set(size_t Element_Level_ToGet=(size_t)-1);
-    void BookMark_Get(size_t Element_Level_ToSet=(size_t)-1);
+    void BookMark_Get();
     virtual bool BookMark_Needed()                                              {return true;};
 };
 #endif //MEDIAINFO_MINIMIZESIZE

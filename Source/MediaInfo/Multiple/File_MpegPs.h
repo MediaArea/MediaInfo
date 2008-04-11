@@ -157,9 +157,9 @@ private :
             delete Parser3; //Parser3=NULL;
         }
     };
-    std::vector<ps_stream> Stream;
-    std::vector<ps_stream> Stream_Private1; //There can have multiple streams in one private stream
-    std::vector<ps_stream> Stream_Extension; //There can have multiple streams in one private stream
+    std::vector<ps_stream> Streams;
+    std::vector<ps_stream> Streams_Private1; //There can have multiple streams in one private stream
+    std::vector<ps_stream> Streams_Extension; //There can have multiple streams in one private stream
     int8u start_code;
 
     //Temp

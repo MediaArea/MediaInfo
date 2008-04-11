@@ -73,7 +73,7 @@ File_Wm::File_Wm()
 void File_Wm::Read_Buffer_Finalize()
 {
     //Encryption management
-    /*const Ztring& Encryption=Get(Stream_General, 0, "Encryption");
+    /*const Ztring& Encryption=Retrieve(Stream_General, 0, General_Encryption);
     if (!Encryption.empty())
     {
         for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)

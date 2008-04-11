@@ -354,6 +354,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\MediaInfo\MediaInfo_Inform.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\MediaInfo_Internal.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\MediaInfo\MediaInfoList.cpp"
 				>
 			</File>
@@ -732,6 +740,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\MediaInfo\File__Analyze.h"
 				>
 			</File>
@@ -769,6 +781,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\MediaInfo\MediaInfo_Config_MediaInfo.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\MediaInfo_Internal.h"
 				>
 			</File>
 			<File

@@ -108,9 +108,9 @@ void File_TwinVQ::FileHeader_Parse()
         }
 
         Stream_Prepare(Stream_General);
-        Fill("Format", "TwinVQ");
+        Fill(Stream_General, 0, General_Format, "TwinVQ");
         Stream_Prepare(Stream_Audio);
-        Fill("Codec", "TwinVQ");
+        Fill(Stream_Audio, 0, Audio_Codec, "TwinVQ");
     FILLING_END();
 }
 
@@ -150,9 +150,9 @@ void File_TwinVQ::COMM()
     Skip_B4(                                                    "security_level");
 
     //Filling
-    Fill(Stream_Audio, 0, "Channel(s)", channel_mode+1);
-    Fill(Stream_Audio, 0, "BitRate", bitrate*1000);
-    Fill(Stream_Audio, 0, "SamplingRate", TwinVQ_samplerate(samplerate));
+    Fill(Stream_Audio, 0, Audio_Channel_s_, channel_mode+1);
+    Fill(Stream_Audio, 0, Audio_BitRate, bitrate*1000);
+    Fill(Stream_Audio, 0, Audio_SamplingRate, TwinVQ_samplerate(samplerate));
 }
 
 //---------------------------------------------------------------------------
@@ -200,11 +200,11 @@ void File_TwinVQ::HowTo(stream_t StreamKind)
 {
         if (StreamKind==Stream_General)
     {
-        General[0](_T("Format"), Info_HowTo)=_T("R");
+        Fill_HowTo("Format", "R");
     }
     else if (StreamKind==Stream_Audio)
     {
-        Audio[0](_T("Codec"), Info_HowTo)=_T("R");
+        Fill_HowTo("Codec", "R");
     }
 }
 

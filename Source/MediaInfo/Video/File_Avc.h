@@ -109,6 +109,7 @@ private :
     int32u frame_crop_right_offset;
     int32u frame_crop_top_offset;
     int32u frame_crop_bottom_offset;
+    int32u num_ref_frames;
     int16u sar_width;
     int16u sar_height;
     int8u  profile_idc;
@@ -129,21 +130,22 @@ private :
     bool   CpbDpbDelaysPresentFlag;
 
     //PS
-    struct avc_stream
+    struct stream
     {
         bool   Searching_Payload;
 
-        avc_stream()
+        stream()
         {
             Searching_Payload=false;
         }
     };
-    std::map<int8u, avc_stream> Stream;
+    std::vector<stream> Streams;
 
     //Helpers
     bool Synchronize();
     bool Header_Parser_QuickSearch();
     bool Detect_NonAVC();
+    void Init();
 };
 
 } //NameSpace

@@ -88,7 +88,8 @@ protected :
     virtual void Data_Parse ()                                                  {};
 
     //Data - Info
-    inline void Data_Info (const Ztring &) {};
+    inline void Data_Info (const Ztring &)                                      {};
+    inline void Data_Info_From_Milliseconds (int64u)                            {}
 
     //Data - Get info
     size_t Data_Remain ()                                                       {return (size_t)Element_Size-(Element_Offset+BS->Offset_Get());};
@@ -135,6 +136,7 @@ protected :
     #endif //NEED_SIZET
     inline void Element_Info (float32    , int8u =3, const char* =NULL) {}
     inline void Element_Info (float64    , int8u =3, const char* =NULL) {}
+    inline void Element_Info_From_Milliseconds (int64u) {}
 
     //Elements - End
     void Element_End ();
@@ -210,6 +212,7 @@ public :
     #ifdef NEED_SIZET
     inline void Param_Info (size_t     , const char* =NULL) {}
     #endif //NEED_SIZET
+    inline void Param_Info_From_Milliseconds (int64u) {}
 
     //***************************************************************************
     // Information
@@ -485,8 +488,8 @@ public :
     void Get_Flags (int64u ValueToPut,          int8u &Info);
     inline void Get_Flags (int64u Flags, size_t Order, bool  &Info, const char*) {Get_Flags(Flags, Order, Info);}
     inline void Get_Flags (int64u ValueToPut,          int8u &Info, const char*) {Get_Flags(ValueToPut, Info);}
-    inline void Skip_Flags(int64u Flags, size_t Order,              const char*) {}
-    inline void Skip_Flags(int64u ValueToPut,                       const char*) {}
+    inline void Skip_Flags(int64u, size_t,                          const char*) {}
+    inline void Skip_Flags(int64u,                                  const char*) {}
 
     //***************************************************************************
     // BitStream
@@ -631,6 +634,25 @@ public :
     size_t Stream_Prepare   (stream_t KindOfStream);
     void   General_Fill     (); //Special : pre-fill General with some important information
 
+    //Fill with datas (with parameter as a size_t)
+    void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const Ztring  &Value, bool Replace=false);
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const std::string &Value, bool Utf8=true, bool Replace=false) {if (Utf8) Fill(StreamKind, StreamPos, Parameter, Ztring().From_UTF8(Value.c_str(), Value.size())); else Fill(StreamKind, StreamPos, Parameter, Ztring().From_Local(Value.c_str(), Value.size()), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const char*    Value, size_t Value_Size=Unlimited, bool Utf8=true, bool Replace=false) {if (Utf8) Fill(StreamKind, StreamPos, Parameter, Ztring().From_UTF8(Value, Value_Size), Replace); else Fill(StreamKind, StreamPos, Parameter, Ztring().From_Local(Value, Value_Size), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const wchar_t* Value, size_t Value_Size=Unlimited, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring().From_Unicode(Value, Value_Size), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int8u          Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int8s          Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int16u         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int16s         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int32u         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int32s         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int64u         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, int64s         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, float32        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, AfterComma), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, float64        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, AfterComma), Replace);}
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, float80        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, AfterComma), Replace);}
+    #ifdef NEED_SIZET
+    inline void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, size_t         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
+    #endif //NEED_SIZET
     //Fill with datas
     void Fill (stream_t StreamKind, size_t StreamPos, const char* Parameter, const Ztring  &Value, bool Replace=false);
     inline void Fill (stream_t StreamKind, size_t StreamPos, const char* Parameter, const std::string &Value, bool Utf8=true, bool Replace=false) {if (Utf8) Fill(StreamKind, StreamPos, Parameter, Ztring().From_UTF8(Value.c_str(), Value.size())); else Fill(StreamKind, StreamPos, Parameter, Ztring().From_Local(Value.c_str(), Value.size()), Replace);}
@@ -650,31 +672,18 @@ public :
     #ifdef NEED_SIZET
     inline void Fill (stream_t StreamKind, size_t StreamPos, const char* Parameter, size_t         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
     #endif //NEED_SIZET
-    inline void Fill (const char* Parameter, const Ztring  &Value, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Replace);} //With the last set
-    inline void Fill (const char* Parameter, const std::string &Value, bool Utf8=true, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Utf8, Replace);} //With the last set
-    inline void Fill (const char* Parameter, const char*    Value, size_t ValueSize=Unlimited, bool Utf8=true, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, ValueSize, Utf8, Replace);} //With the last set
-    inline void Fill (const char* Parameter, const int8u*   Value, size_t ValueSize=Unlimited, bool Utf8=true, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, (const char*)Value, ValueSize, Utf8, Replace);} //With the last set
-    inline void Fill (const char* Parameter, const wchar_t* Value, size_t ValueSize=Unlimited, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, ValueSize, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int8u          Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int8s          Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int16u         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int16s         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int32u         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int32s         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int64u         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, int64s         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    inline void Fill (const char* Parameter, float32        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, AfterComma, Replace);} //With the last set
-    inline void Fill (const char* Parameter, float64        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, AfterComma, Replace);} //With the last set
-    inline void Fill (const char* Parameter, float80        Value, int8u AfterComma=3, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, AfterComma, Replace);} //With the last set
-    #ifdef NEED_SIZET
-    inline void Fill (const char* Parameter, size_t         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Radix, Replace);} //With the last set
-    #endif //NEED_SIZET
-    void Fill (stream_t StreamKind, size_t StreamPos, const int32u Parameter, const Ztring  &Value, bool Replace=false);
-    inline void Fill (int32u Parameter, const Ztring  &Value, bool Replace=false) {Fill(StreamKind_Last, StreamPos_Last, Parameter, Value, Replace);} //With the last set
     void Fill_HowTo (stream_t StreamKind, size_t StreamPos, const char* Parameter, const char* Value);
     inline void Fill_HowTo (const char* Parameter, const char* Value) {Fill_HowTo(StreamKind_Last, StreamPos_Last, Parameter, Value);} //With the last set
     ZtringListList Fill_Temp;
     void Fill_Flush ();
+
+    const Ztring &Retrieve (stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo=Info_Text);
+    const Ztring &Retrieve (stream_t StreamKind, size_t StreamPos, const char* Parameter, info_t KindOfInfo=Info_Text, info_t KindOfSearch=Info_Name);
+
+    void Clear (stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo=Info_Text);
+    void Clear (stream_t StreamKind, size_t StreamPos, const char* Parameter, info_t KindOfInfo=Info_Text, info_t KindOfSearch=Info_Name);
+    void Clear (stream_t StreamKind, size_t StreamPos);
+    inline void Clear () {File__Base::Clear();}
 
     //***************************************************************************
     // Filling
@@ -710,7 +719,7 @@ public :
 
     //Utils
 public :
-    size_t Merge(const File__Base &ToAdd); //Merge 2 File_Base
+    size_t Merge(File__Base &ToAdd); //Merge 2 File_Base
     size_t Merge(File__Base &ToAdd, stream_t StreamKind, size_t StreamPos_From, size_t StreamPos_To); //Merge 2 streams
 
     //***************************************************************************
@@ -727,7 +736,7 @@ protected :
     void Finalize_General   (size_t Pos);
     void Finalize_Video     (size_t Pos);
     void Finalize_Audio     (size_t Pos);
-    void Finalize_Audio_BitRate (size_t Pos, ZenLib::Char* Parameter);
+    void Finalize_Audio_BitRate (size_t Pos, audio Parameter);
     void Finalize_Text      (size_t Pos);
     void Finalize_Chapters  (size_t Pos);
     void Finalize_Image     (size_t Pos);
@@ -752,6 +761,7 @@ protected :
         //Save for speed improvement
         float Config_Details;
     #endif //MEDIAINFO_MINIMIZESIZE
+    bool IsSub;
     
     //Configuration
     bool DataMustAlwaysBeComplete;  //Data must always be complete, else wait for more data
@@ -760,6 +770,7 @@ protected :
     //Synchro
     bool MustParseTheHeaderFile;    //There is an header part, must parse it
     bool Synched;                   //Data is synched
+    size_t Trusted;
 
     //Elements
     size_t Element_Level;           //Current level
@@ -841,7 +852,7 @@ private :
 
 public :
     void BookMark_Set(size_t Element_Level_ToGet=(size_t)-1);
-    void BookMark_Get(size_t Element_Level_ToSet=(size_t)-1);
+    void BookMark_Get();
     virtual bool BookMark_Needed()                                              {return true;};
 };
 
