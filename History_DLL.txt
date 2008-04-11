@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.6.3
 ---------------
 + AVC: Count of reference frames
++ AU: Comments
 + Some global speed improvement
 
 Version 0.7.6.2

@@ -342,11 +342,14 @@ void File__Analyze::Finalize_Video(size_t Pos)
         Clear(Stream_Video, Pos, "FrameRate_Nominal");
     }
     //Bits/(Pixel*Frame)
-    if (!Retrieve(Stream_Video, Pos, "BitRate").empty())
+    if (!Retrieve(Stream_Video, Pos, Video_BitRate).empty() || !Retrieve(Stream_Video, Pos, Video_BitRate_Nominal).empty())
     {
+        float32 BitRate=Retrieve(Stream_Video, Pos, Video_BitRate).To_float32();
+        if (BitRate==0)
+            BitRate=Retrieve(Stream_Video, Pos, Video_BitRate_Nominal).To_float32();
         float F1=(float)Retrieve(Stream_Video, Pos, "Width").To_int32s()*(float)Retrieve(Stream_Video, Pos, "Height").To_int32s()*Retrieve(Stream_Video, Pos, "FrameRate").To_float32();
         if (F1)
-            Fill(Stream_Video, Pos, "Bits-(Pixel*Frame)", Retrieve(Stream_Video, Pos, "BitRate").To_float32()/F1);
+            Fill(Stream_Video, Pos, Video_Bits__Pixel_Frame_, BitRate/F1);
     }
     //FrameCount
     if (Retrieve(Stream_Video, Pos, "FrameCount").empty())
