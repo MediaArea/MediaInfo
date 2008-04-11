@@ -92,8 +92,8 @@
           <property category="win32.*.win32b.bcc32" name="option.AK.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.AU.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.1" value="UNICODE"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.10" value="ZENLIB_STANDARD"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.11" value="MEDIAINFO_MINIMIZESIZE"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.10" value="ZENLIB_STANDARDx"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.11" value="MEDIAINFO_MINIMIZESIZEx"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.2" value="_UNICODE"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.3" value="_DEBUG"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.4" value="__WXMSW__"/>
@@ -457,6 +457,9 @@
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Translation.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Translation" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\InfoMap.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="InfoMap" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Buffer_MinimizeSize.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Buffer_MinimizeSize" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config_MediaInfo.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Config_MediaInfo" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config_MediaInfo.h"/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Inform.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Inform" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Internal.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Internal" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>

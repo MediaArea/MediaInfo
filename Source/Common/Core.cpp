@@ -87,7 +87,7 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     /*#ifndef WIN32
     for (size_t Pos=0; Pos<128; Pos++)
         MI->Open(FileName);
-    #endif*/
+    #endif */
     return;
 
     //Option "File_Filter": filter a part of the file
@@ -108,10 +108,10 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     //Form: "memory://pointer:size"                  <--The desired memory part you want
     //Return the count of written bytes
 
-    /*
     //EXAMPLE
     //-------
 
+    /*
     //Initilaizing MediaInfo
     MediaInfo MI;
 
@@ -221,6 +221,7 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     //MI.Option(_T("File_Filter"), ProgramNumber3);
 
     //Registering for duplication
+    MI.Option(_T("File_ForceParser"), _T("MpegTs"));
     MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1); //"memory://pointer:size;program_number=..."
     MI.Option(_T("File_Duplicate"), To_Buffer_2_Name+_T(";program_number=")+ProgramNumber2); //"memory://pointer:size;program_number=..."
     MI.Option(_T("File_Duplicate"), To_Buffer_3_Name+_T(";program_number=")+ProgramNumber3); //"memory://pointer:size;program_number=..."

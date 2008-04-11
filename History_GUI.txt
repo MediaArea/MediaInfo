@@ -13,6 +13,11 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
+Version 0.7.6.3, 2008-04-
+---------------
++ Portuguese (Brazil) translation added (Software and website)
++ Thai translation added (Software and website)
+
 Version 0.7.6.2, 2008-03-28
 ---------------
 + Spanish translation updated

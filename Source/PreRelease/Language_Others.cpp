@@ -54,9 +54,11 @@ Ztring Language_Others_Run ()
     Run_File(Dest, L"nl");
     Run_File(Dest, L"pl");
     Run_File(Dest, L"pt");
+    Run_File(Dest, L"pt-BR");
     Run_File(Dest, L"ro");
     Run_File(Dest, L"ru");
     Run_File(Dest, L"sv");
+    Run_File(Dest, L"th");
     Run_File(Dest, L"tr");
     Run_File(Dest, L"zh-TW");
     Run_File(Dest, L"zh-CN");
