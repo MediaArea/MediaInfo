@@ -90,6 +90,7 @@ File_Id3v2::File_Id3v2()
 {
     //Temp
     Id3v2_Size=0;
+    Unsynchronisation_Frame=false;
 }
 
 //---------------------------------------------------------------------------
@@ -155,17 +156,21 @@ void File_Id3v2::FileHeader_Parse()
     //Parsing
     int32u Size;
     int8u Flags;
+    bool ExtendedHeader;
     Skip_C3(                                                    "identifier");
     Get_B1 (Id3v2_Version,                                      "version_major");
     Skip_B1(                                                    "version_revision");
     Get_B1 (Flags,                                              "flags");
+        Get_Flags (Flags, 7, Unsynchronisation_Global,          "Unsynchronisation");
+        Get_Flags (Flags, 6, ExtendedHeader,                    "Extended header");
+        Skip_Flags(Flags, 5,                                    "Experimental indicator");
     Get_B4 (Size,                                               "Size");
     Id3v2_Size=((Size>>0)&0x7F)
              | ((Size>>1)&0x3F80)
              | ((Size>>2)&0x1FC000)
              | ((Size>>3)&0x0FE00000);
     Param_Info(Id3v2_Size);
-    if (Flags&0x40) //Extended header
+    if (ExtendedHeader)
     {
         int32u Size;
         Get_B4 (Size,                                           "Size");
@@ -225,9 +230,30 @@ void File_Id3v2::Header_Parse()
     }
     else
     {
+        int16u Flags;
         Get_C4 (Frame_ID,                                       "Frame ID");
         Get_B4 (Size,                                           "Size");
-        Skip_B2(                                                "Flags");
+        Get_B2 (Flags,                                          "Flags");
+        if (Id3v2_Version==3)
+        {
+            Skip_Flags(Flags, 15,                               "Tag alter preservation");
+            Skip_Flags(Flags, 14,                               "File alter preservation");
+            Skip_Flags(Flags, 13,                               "Read only");
+            Skip_Flags(Flags,  7,                               "Compression");
+            Skip_Flags(Flags,  6,                               "Encryption");
+            Skip_Flags(Flags,  5,                               "Grouping identity");
+        }
+        if (Id3v2_Version==4)
+        {
+            Skip_Flags(Flags, 14,                               "Tag alter preservation");
+            Skip_Flags(Flags, 13,                               "File alter preservation");
+            Skip_Flags(Flags, 12,                               "Read only");
+            Skip_Flags(Flags,  6,                               "Grouping identity");
+            Skip_Flags(Flags,  3,                               "Compression");
+            Skip_Flags(Flags,  2,                               "Encryption");
+            Get_Flags (Flags,  1, Unsynchronisation_Frame,      "Unsynchronisation");
+            Skip_Flags(Flags,  0,                               "Data length indicator");
+        }
         if (Id3v2_Version!=3)
         {
             Size=((Size>>0)&0x7F)
@@ -251,6 +277,40 @@ void File_Id3v2::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Id3v2::Data_Parse()
 {
+    //Unsynchronisation
+    int8u* Buffer_Unsynch=NULL;
+    const int8u* Save_Buffer=Buffer;
+    size_t Save_Buffer_Offset=Buffer_Offset;
+    int64u Save_Element_Size=Element_Size;
+    size_t Element_Offset_Unsynch=0;
+    std::vector<size_t> Unsynch_List;
+    if (Unsynchronisation_Global || Unsynchronisation_Frame)
+    {
+        while (Element_Offset_Unsynch+3<=Element_Size)
+        {
+            if (CC2(Buffer+Buffer_Offset+Element_Offset_Unsynch)==0xFF00)
+                Unsynch_List.push_back(Element_Offset_Unsynch+1);
+            Element_Offset_Unsynch++;
+        }
+        if (!Unsynch_List.empty())
+        {
+            //We must change the buffer for keeping out
+            Element_Size=Save_Element_Size-Unsynch_List.size();
+            Buffer_Offset=0;
+            Buffer_Unsynch=new int8u[(size_t)Element_Size];
+            for (size_t Pos=0; Pos<=Unsynch_List.size(); Pos++)
+            {
+                size_t Pos0=(Pos==Unsynch_List.size())?(size_t)Save_Element_Size:(Unsynch_List[Pos]);
+                size_t Pos1=(Pos==0)?0:(Unsynch_List[Pos-1]+1);
+                size_t Buffer_Unsynch_Begin=Pos1-Pos;
+                size_t Save_Buffer_Begin  =Pos1;
+                size_t Size=               Pos0-Pos1;
+                std::memcpy(Buffer_Unsynch+Buffer_Unsynch_Begin, Save_Buffer+Save_Buffer_Offset+Save_Buffer_Begin, Size);
+            }
+            Buffer=Buffer_Unsynch;
+        }
+    }
+
     #define ELEMENT_CASE(_NAME, _DETAIL) \
         case Id3::_NAME : Element_Info(_DETAIL); _NAME(); break;
 
@@ -414,6 +474,16 @@ void File_Id3v2::Data_Parse()
         ELEMENT_CASE(WPB,  "Publishers official webpage");
         ELEMENT_CASE(WXX,  "User defined URL link frame");
         default : Skip_XX(Element_Size,                         "Data");
+    }
+
+    if (!Unsynch_List.empty())
+    {
+        //We must change the buffer for keeping out
+        Element_Size=Save_Element_Size;
+        Buffer_Offset=Save_Buffer_Offset;
+        delete[] Buffer; Buffer=Save_Buffer;
+        Buffer_Unsynch=NULL; //Same as Buffer...
+        Element_Offset+=Unsynch_List.size();
     }
 }
 

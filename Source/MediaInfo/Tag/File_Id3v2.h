@@ -63,6 +63,8 @@ protected :
 
 private :
     int8u  Id3v2_Version;
+    bool   Unsynchronisation_Global;
+    bool   Unsynchronisation_Frame;
 
     //Elements
     void Fill_Name();

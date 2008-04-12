@@ -12,6 +12,7 @@ Version 0.7.6.3, 2008-04-12
 + AVC: Count of reference frames
 + AU: Comments
 + Some global speed improvement
+x #1931844, Id3v2: Unsynchronized frames support (v2.3 & v2.4)
 
 Version 0.7.6.2, 2008-03-28
 ---------------
