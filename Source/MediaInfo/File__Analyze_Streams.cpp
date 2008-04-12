@@ -280,8 +280,6 @@ size_t File__Analyze::Merge(File__Base &ToAdd, stream_t StreamKind, size_t Strea
     size_t Size=ToAdd.Count_Get(StreamKind, StreamPos_From);
     for (size_t Pos=0; Pos<Size; Pos++)
     {
-        if (Pos==195)
-            int A=0;
         const Ztring &ToFill_Value=ToAdd.Get(StreamKind, StreamPos_From, Pos);
         if (!ToFill_Value.empty())
         {
