@@ -14,7 +14,7 @@
 		</Source>
 		<BCBPROJECT>
       <project version="10.0">
-        <property category="build.config" name="active" value="1"/>
+        <property category="build.config" name="active" value="0"/>
         <property category="build.config" name="count" value="1"/>
         <property category="build.config" name="excludedefaultforzero" value="0"/>
         <property category="build.config.0" name="builddir" value="Debug"/>
@@ -28,7 +28,7 @@
         <property category="build.config.1" name="settings.win32b" value="default"/>
         <property category="build.config.1" name="type" value="Toolset"/>
         <property category="build.config.1" name="win32.win32b.builddir" value="Release_Build"/>
-        <property category="build.node" name="lastconfig" value="Release_Build"/>
+        <property category="build.node" name="lastconfig" value="Debug_Build"/>
         <property category="build.node" name="libraries" value="vcl.lib rtl.lib"/>
         <property category="build.node" name="name" value="MediaInfoLib.lib"/>
         <property category="build.node" name="packages" value="vcl;rtl;vclx;xmlrtl;vclie;inet;inetdbbde;inetdbxpress;soaprtl;dbrtl;dsnap;bcbie;vcldb;websnap;webdsnap;vclactnband"/>
@@ -68,16 +68,22 @@
         <property category="win32.Debug_Build.win32b.tasm32" name="option.z.enabled" value="1"/>
         <property category="win32.Debug_Build.win32b.tasm32" name="option.zd.enabled" value="0"/>
         <property category="win32.Debug_Build.win32b.tasm32" name="option.zi.enabled" value="1"/>
-        <property category="win32.Debug_Build.win32b.tlib" name="option.P.arg" value="512"/>
+        <property category="win32.Debug_Build.win32b.tlib" name="option.P.arg" value="1024"/>
         <property category="win32.Debug_Build.win32b.tlib" name="option.P.arg.merge" value="1"/>
         <property category="win32.Debug_Build.win32b.tlib" name="option.P.enabled" value="1"/>
         <property category="win32.Debug_Build.win32b.tlib" name="option.outputdir.arg.1" value="..\..\..\release\bcb\library"/>
         <property category="win32.Debug_Build.win32b.tlib" name="option.outputdir.arg.merge" value="0"/>
         <property category="win32.Debug_Build.win32b.tlib" name="option.outputdir.enabled" value="1"/>
         <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.1" value="NDEBUG"/>
+        <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.2" value="__MT__"/>
+        <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.3" value="_MT"/>
+        <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.4" value="__MFC_COMPAT__"/>
         <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.merge" value="1"/>
         <property category="win32.Release_Build.win32b.bcc32" name="option.D.enabled" value="1"/>
         <property category="win32.Release_Build.win32b.bcc32" name="option.O2.enabled" value="1"/>
+        <property category="win32.Release_Build.win32b.bcc32" name="option.additional_switches.arg" value=""/>
+        <property category="win32.Release_Build.win32b.bcc32" name="option.additional_switches.arg.merge" value="1"/>
+        <property category="win32.Release_Build.win32b.bcc32" name="option.additional_switches.enabled" value="0"/>
         <property category="win32.Release_Build.win32b.bcc32" name="option.k.enabled" value="0"/>
         <property category="win32.Release_Build.win32b.bcc32" name="option.r.enabled" value="1"/>
         <property category="win32.Release_Build.win32b.bcc32" name="option.vi.enabled" value="1"/>
@@ -94,6 +100,9 @@
         <property category="win32.Release_Build.win32b.tlib" name="option.P.arg" value="128"/>
         <property category="win32.Release_Build.win32b.tlib" name="option.P.arg.merge" value="1"/>
         <property category="win32.Release_Build.win32b.tlib" name="option.P.enabled" value="1"/>
+        <property category="win32.Release_Build.win32b.tlib" name="option.additional_switches.arg" value=""/>
+        <property category="win32.Release_Build.win32b.tlib" name="option.additional_switches.arg.merge" value="1"/>
+        <property category="win32.Release_Build.win32b.tlib" name="option.additional_switches.enabled" value="0"/>
         <property category="win32.Release_Build.win32b.tlib" name="option.outputdir.arg.1" value="..\..\..\release\bcb\library"/>
         <property category="win32.Release_Build.win32b.tlib" name="option.outputdir.arg.merge" value="0"/>
         <property category="win32.Release_Build.win32b.tlib" name="option.outputdir.enabled" value="1"/>
@@ -144,6 +153,9 @@
           <property category="win32.*.win32b.bcc32" name="option.Vmd.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.Vmm.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.Vms.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.additional_switches.arg" value="-tWM"/>
+          <property category="win32.*.win32b.bcc32" name="option.additional_switches.arg.merge" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.additional_switches.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.align-1.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.align-2.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.align-3.enabled" value="0"/>
@@ -301,23 +313,6 @@
         <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4_AudioSpecificConfig" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Adif.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adif" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Adts.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adts" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Analyze.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Analyze_Buffer.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Buffer" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Analyze_Streams.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Streams" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Base.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Base_Automatic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Automatic" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Base_Finalize.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Finalize" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Base_Inform.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Inform" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\File__Duplicate.h"/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\File__MultipleParsing.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__MultipleParsing" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\File_Dummy.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dummy" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\File_Other.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Other" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\File_Unknown.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Unknown" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfo.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\MediaInfo.h"/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfo_Config.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Config" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\MediaInfo_Config.h"/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfo_File.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_File" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfoList.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfoList" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\MediaInfoList.h"/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfoList_Internal.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfoList_Internal" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\MediaInfoList_Internal.h"/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Bdav.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Bdav" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Cdxa.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Cdxa" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Dvdv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dvdv" FORMNAME="" DESIGNCLASS=""/>
@@ -345,6 +340,27 @@
         <FILE FILENAME="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Writer.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate__Writer" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Writer.h"/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate_MpegTs" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.h"/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_MpcSv8.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpcSv8" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Analyze.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Analyze_Buffer.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Buffer" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Analyze_Buffer_MinimizeSize.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Buffer_MinimizeSize" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Analyze_Streams.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Streams" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Base.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Base_Automatic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Automatic" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Base_Finalize.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Finalize" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Base_Inform.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Inform" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\File__Duplicate.h"/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File__MultipleParsing.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__MultipleParsing" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File_Dummy.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dummy" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File_Other.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Other" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\File_Unknown.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Unknown" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfo.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\MediaInfo.h"/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfo_Config.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Config" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\MediaInfo_Config.h"/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfo_Config_MediaInfo.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Config_MediaInfo" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\MediaInfo_Config_MediaInfo.h"/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfo_File.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_File" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfo_Inform.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Inform" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfo_Internal.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Internal" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\MediaInfo_Internal.h"/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfoList.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfoList" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\MediaInfoList.h"/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\MediaInfoList_Internal.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfoList_Internal" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfo\MediaInfoList_Internal.h"/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>

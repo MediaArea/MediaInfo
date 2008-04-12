@@ -166,7 +166,7 @@ const Ztring &File__Analyze::Retrieve (stream_t StreamKind, size_t StreamPos, si
 }
 
 //---------------------------------------------------------------------------
-const Ztring &File__Analyze::Retrieve (stream_t StreamKind, size_t StreamPos, const char* Parameter, info_t KindOfInfo, info_t)
+const Ztring &File__Analyze::Retrieve (stream_t StreamKind, size_t StreamPos, const char* Parameter, info_t KindOfInfo)
 {
     //Integrity
     if (StreamKind>=Stream_Max
@@ -184,7 +184,7 @@ const Ztring &File__Analyze::Retrieve (stream_t StreamKind, size_t StreamPos, co
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Clear (stream_t StreamKind, size_t StreamPos, const char* Parameter, info_t KindOfInfo, info_t)
+void File__Analyze::Clear (stream_t StreamKind, size_t StreamPos, const char* Parameter)
 {
     //Integrity
     if (StreamKind>=Stream_Max
@@ -197,7 +197,7 @@ void File__Analyze::Clear (stream_t StreamKind, size_t StreamPos, const char* Pa
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Clear (stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo)
+void File__Analyze::Clear (stream_t StreamKind, size_t StreamPos, size_t Parameter)
 {
     //Integrity
     if (StreamKind>=Stream_Max

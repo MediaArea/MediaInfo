@@ -51,6 +51,7 @@ File_Ogg::File_Ogg()
     
     //Temp - Stream
     Chunk_Sizes_Finnished=true;
+    packet_type=0;
 }
 
 //***************************************************************************

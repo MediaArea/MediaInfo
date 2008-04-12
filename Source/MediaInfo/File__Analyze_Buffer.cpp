@@ -84,6 +84,14 @@ extern MediaInfo_Config Config;
         return; \
     } \
 
+#define INTEGRITY_SIZE_ATLEAST_BUFFER() \
+    if (BS->Remain()==0) \
+    { \
+        Trusted_IsNot("Size is wrong"); \
+        Element_Offset=(size_t)Element_Size; \
+        Info=0; \
+        return; \
+    } \
 
 //***************************************************************************
 // Init
@@ -1003,8 +1011,7 @@ void File__Analyze::Skip_SL(const char* Name)
 //---------------------------------------------------------------------------
 void File__Analyze::Get_SE(int32s &Info, const char* Name)
 {
-    if (BS->Remain()==0)
-        return;
+    INTEGRITY_SIZE_ATLEAST_BUFFER();
     int LeadingZeroBits=0;
     while(BS->Remain()>0 && BS->Get(1)==0)
         LeadingZeroBits++;
@@ -1028,8 +1035,7 @@ void File__Analyze::Get_SE(int32s &Info, const char* Name)
 //---------------------------------------------------------------------------
 void File__Analyze::Skip_SE(const char* Name)
 {
-    if (BS->Remain()==0)
-        return;
+    INTEGRITY(BS->Remain(), "Size is wrong", 0)
     int LeadingZeroBits=0;
     while(BS->Remain()>0 && BS->Get(1)==0)
         LeadingZeroBits++;
@@ -1048,8 +1054,7 @@ void File__Analyze::Skip_SE(const char* Name)
 //---------------------------------------------------------------------------
 void File__Analyze::Get_UE(int32u &Info, const char* Name)
 {
-    if (BS->Remain()==0)
-        return;
+    INTEGRITY_SIZE_ATLEAST_BUFFER();
     int LeadingZeroBits=0;
     while(BS->Remain()>0 && BS->Get(1)==0)
         LeadingZeroBits++;
@@ -1073,8 +1078,7 @@ void File__Analyze::Get_UE(int32u &Info, const char* Name)
 //---------------------------------------------------------------------------
 void File__Analyze::Skip_UE(const char* Name)
 {
-    if (BS->Remain()==0)
-        return;
+    INTEGRITY(BS->Remain(), "Size is wrong", 0)
     int LeadingZeroBits=0;
     while(BS->Remain()>0 && BS->Get(1)==0)
         LeadingZeroBits++;
@@ -1097,8 +1101,7 @@ void File__Analyze::Skip_UE(const char* Name)
 //---------------------------------------------------------------------------
 void File__Analyze::Get_SI(int32s &Info, const char* Name)
 {
-    if (BS->Remain()==0)
-        return;
+    INTEGRITY_SIZE_ATLEAST_BUFFER();
 
     Info=1;
     while(BS->Remain()>0 && BS->GetB()==0)
@@ -1132,8 +1135,7 @@ void File__Analyze::Skip_SI(const char* Name)
 //---------------------------------------------------------------------------
 void File__Analyze::Get_UI(int32u &Info, const char* Name)
 {
-    if (BS->Remain()==0)
-        return;
+    INTEGRITY_SIZE_ATLEAST_BUFFER();
     Info=1;
     while(BS->Remain()>0 && BS->GetB()==0)
     {

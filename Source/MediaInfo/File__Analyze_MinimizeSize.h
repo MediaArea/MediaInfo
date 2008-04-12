@@ -678,10 +678,10 @@ public :
     void Fill_Flush ();
 
     const Ztring &Retrieve (stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo=Info_Text);
-    const Ztring &Retrieve (stream_t StreamKind, size_t StreamPos, const char* Parameter, info_t KindOfInfo=Info_Text, info_t KindOfSearch=Info_Name);
+    const Ztring &Retrieve (stream_t StreamKind, size_t StreamPos, const char* Parameter, info_t KindOfInfo=Info_Text);
 
-    void Clear (stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo=Info_Text);
-    void Clear (stream_t StreamKind, size_t StreamPos, const char* Parameter, info_t KindOfInfo=Info_Text, info_t KindOfSearch=Info_Name);
+    void Clear (stream_t StreamKind, size_t StreamPos, size_t Parameter);
+    void Clear (stream_t StreamKind, size_t StreamPos, const char* Parameter);
     void Clear (stream_t StreamKind, size_t StreamPos);
     inline void Clear () {File__Base::Clear();}
 
