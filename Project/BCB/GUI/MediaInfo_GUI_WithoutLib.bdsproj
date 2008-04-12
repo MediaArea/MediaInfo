@@ -88,7 +88,8 @@
           <property category="win32.*.win32b.bcc32" name="option.D.arg.2" value="_WIN32"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.3" value="UNICODEx"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.4" value="_UNICODEx"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.5" value="ZENLIB_STANDARD"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.5" value="MEDIAINFO_MINIMIZESIZE"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.6" value="ZENLIB_STANDARD"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.D.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.H=.arg.1" value="$(BDS)\lib\vcl100.csm"/>
@@ -333,11 +334,13 @@
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\HTTP_Client\HTTPClientAuth.c" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HTTPClientAuth" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\HTTP_Client\HTTPClientString.c" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HTTPClientString" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\HTTP_Client\HTTPClientWrapper.c" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HTTPClientWrapper" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\InfoMap.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="InfoMap" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\int128s.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="int128s" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\int128u.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="int128u" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\MemoryDebug.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MemoryDebug" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\OS_Utils.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="OS_Utils" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Thread.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Thread" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Translation.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Translation" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Utils.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Utils" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Ztring.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Ztring" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\ZtringList.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ZtringList" FORMNAME="" DESIGNCLASS=""/>
@@ -345,6 +348,7 @@
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\ZtringListListF.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ZtringListListF" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\ZenLib\Source\ZenLib\ZtringListListF.h"/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Buffer.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Buffer" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Buffer_MinimizeSize.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Buffer_MinimizeSize" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Streams.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Streams" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base_Automatic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Automatic" FORMNAME="" DESIGNCLASS=""/>
@@ -357,7 +361,10 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Unknown.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Unknown" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo.h"/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Config" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.h"/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config_MediaInfo.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Config_MediaInfo" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config_MediaInfo.h"/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_File.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_File" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Inform.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Inform" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Internal.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Internal" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Internal.h"/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfoList" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList.h"/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList_Internal.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfoList_Internal" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList_Internal.h"/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Bdav.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Bdav" FORMNAME="" DESIGNCLASS=""/>

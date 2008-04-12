@@ -8,6 +8,13 @@ bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
 
+Version 0.7.6.3, 2008-04-12
+---------------
++ AVC: Count of reference frames
++ AU: Comments
++ Some global speed improvement
+x #1931844, Id3v2: Unsynchronized frames support (v2.3 & v2.4)
+
 Version 0.7.6.2, 2008-03-28
 ---------------
 + Spanish translation updated
@@ -17,6 +24,7 @@ Version 0.7.6.2, 2008-03-28
 + DVD video: Hebrew patch ("iw" code is mapped to Hebrew)
 x MPEG-4: better handling of bitrate mode (VBR or CBR)
 x AVI: MediaInfo reads now the framerate value from the container rather than the stream value
+x #1931844, Id3v2: Unsynchronized frames support (v2.3 & v2.4)
 
 Version 0.7.6.1, 2008-03-14
 ---------------

@@ -88,7 +88,7 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     for (size_t Pos=0; Pos<128; Pos++)
         MI->Open(FileName);
     #endif */
-    return;
+    //return;
 
     //Option "File_Filter": filter a part of the file
     //if no filter --> All the file is parser
