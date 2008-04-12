@@ -200,19 +200,22 @@ void File_MpegTs::Read_Buffer_Continue()
     Trusted*=2;
 
     //File_Filter configuration
-    if (Config->File_Filter_HasChanged() && !Streams.empty())
+    if (!Streams.empty())
     {
-        bool Searching_Payload_Start=!Config->File_Filter_Get();
-        for (int32u Pos=0x01; Pos<0x10; Pos++)
-            Streams[Pos].Searching_Payload_Start_Set(Searching_Payload_Start); //base PID depends of File_Filter configuration
-        Streams[0x00].Searching_Payload_Start_Set(true); //program_map
-    }
+        if (Config->File_Filter_HasChanged())
+        {
+            bool Searching_Payload_Start=!Config->File_Filter_Get();
+            for (int32u Pos=0x01; Pos<0x10; Pos++)
+                Streams[Pos].Searching_Payload_Start_Set(Searching_Payload_Start); //base PID depends of File_Filter configuration
+            Streams[0x00].Searching_Payload_Start_Set(true); //program_map
+        }
 
-    //File__Duplicate configuration
-    if (File__Duplicate_HasChanged() && !Streams.empty())
-    {
-        Streams[0x00].ShouldDuplicate=true;
-        Streams[0x00].Searching_Payload_Start_Set(true); //Re-enabling program_map_table
+        //File__Duplicate configuration
+        if (File__Duplicate_HasChanged())
+        {
+            Streams[0x00].ShouldDuplicate=true;
+            Streams[0x00].Searching_Payload_Start_Set(true); //Re-enabling program_map_table
+        }
     }
 }
 
