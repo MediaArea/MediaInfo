@@ -305,7 +305,7 @@ bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Siz
     else
     {
         //This is the same as before --> Copying the last version
-        Writer.Write(FromTS.Buffer, FromTS.Size);
+        Writer.Write(ToModify.Buffer, ToModify.Size);
         return false;
     }
 
