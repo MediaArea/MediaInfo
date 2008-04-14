@@ -199,6 +199,7 @@ dnl Use DLL
 dnl
 if test "$with_dll" = "yes"; then
  AC_DEFINE(MEDIAINFO_DLL)
+ LIBS="$LIBS -ldl"
 fi
 
 dnl #########################################################################
@@ -236,6 +237,17 @@ if test "$GXX" = yes ; then
 	fi
 fi
 
+dnl -------------------------------------------------------------------------
+dnl ZenLib
+dnl
+if test -e ../../../../ZenLib/Project/GNU/Library/libzen.la; then
+ with_zenlib="builtin"
+else
+ AC_MSG_ERROR([ZenLib is not found])
+fi
+CXXFLAGS="$CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/ZenLib-config CXXFLAGS)"
+LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/ZenLib-config LIBS)"
+
 dnl #########################################################################
 dnl ### Output
 dnl #########################################################################
@@ -250,6 +262,7 @@ echo ""
 echo "Configured MediaInfo for '$build'"
 echo ""
 echo "  Unicode?                                                $enable_unicode"
+echo "  Using ZenLib?                                           $with_zenlib"
 echo "  Use WxWidgets?                                          $with_wxwidgets"
 echo "  Use DLL instead of static lib?                          $with_dll"
 echo ""
