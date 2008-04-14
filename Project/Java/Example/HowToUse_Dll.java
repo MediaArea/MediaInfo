@@ -56,7 +56,7 @@ public static void main(String[] argv)
     static String displayFileSummary(String filename) throws Exception
     {
 	/* Path to the library */
-	MediaInfo.setLibraryName("MediaInfo.dll");
+	/*MediaInfo.setLibraryName("MediaInfo.dll");*/
 	
 	String To_Display = "";
 
