@@ -30,10 +30,10 @@
 #if defined (_WIN32) || defined (WIN32)
     #define MEDIAINFODLL_NAME  "MediaInfo.dll"
 #elif defined(__APPLE__) && defined(__MACH__)
-    #define MEDIAINFODLL_NAME  "libmediainfo.0.dynlib"
+    #define MEDIAINFODLL_NAME  "libmediainfo.dynlib.0"
     #define __stdcall
 #else
-    #define MEDIAINFODLL_NAME  "libmediainfo.0.so"
+    #define MEDIAINFODLL_NAME  "libmediainfo.so.0"
     #define __stdcall
 #endif //!defined(_WIN32) || defined (WIN32)
 #include <new> //For size_t in MacOS
@@ -186,6 +186,8 @@ static size_t MediaInfoDLL_Load()
         Module=dlopen(MEDIAINFODLL_NAME, RTLD_LAZY);
         if (!Module)
             Module=dlopen("./"MEDIAINFODLL_NAME, RTLD_LAZY);
+        if (!Module)
+            Module=dlopen("/usr/local/lib/"MEDIAINFODLL_NAME, RTLD_LAZY);
     #endif
     if (!Module)
         return -1;
