@@ -26,8 +26,6 @@ AC_DISABLE_SHARED
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 AC_PROG_INSTALL
-CFLAGS=""
-CXXFLAGS=""
 
 dnl #########################################################################
 dnl Configure
