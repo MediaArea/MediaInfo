@@ -20,6 +20,8 @@ AM_INIT_AUTOMAKE(MediaInfoGUI,0)
 dnl -------------------------------------------------------------------------
 dnl Autotools init
 dnl
+CFLAGS="$CFLAGS"
+CXXFLAGS="$CXXFLAGS"
 AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_LIBTOOL
