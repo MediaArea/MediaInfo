@@ -29,8 +29,11 @@
 /*-------------------------------------------------------------------------*/
 #if defined (_WIN32) || defined (WIN32)
     #define MEDIAINFODLL_NAME  "MediaInfo.dll"
+#elif defined(__APPLE__) && defined(__MACH__)
+    #define MEDIAINFODLL_NAME  "libmediainfo.0.dynlib"
+    #define __stdcall
 #else
-    #define MEDIAINFODLL_NAME  "libMediaInfo.la"
+    #define MEDIAINFODLL_NAME  "libmediainfo.0.so"
     #define __stdcall
 #endif //!defined(_WIN32) || defined (WIN32)
 #include <new> //For size_t in MacOS
