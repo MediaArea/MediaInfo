@@ -120,6 +120,7 @@ public :
 
 public :  //A virer
     friend class File__Analyze;
+    friend class File__MultipleParsing;
 };
 
 } //NameSpace
