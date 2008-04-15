@@ -63,7 +63,7 @@ public static void main(String[] argv)
 	//Info about the library
     
 	To_Display += MediaInfo.Option_Static("Info_Version");
-
+	
 	To_Display += "\r\n\r\nInfo_Parameters\r\n";
 	To_Display += MediaInfo.Option_Static("Info_Parameters");
 
@@ -79,7 +79,10 @@ public static void main(String[] argv)
 	MediaInfo MI = new MediaInfo();
     
 	To_Display += "\r\n\r\nOpen\r\n";
-	MI.Open(filename);
+	if (MI.Open(filename)>0)
+		To_Display+="is OK\r\n";
+	else
+		To_Display+="has a problem\r\n";
 
 	To_Display += "\r\n\r\nInform with Complete=false\r\n";
 	MI.Option("Complete", "");
@@ -93,8 +96,8 @@ public static void main(String[] argv)
 	MI.Option("Inform", "General;Example : FileSize=%FileSize%");
 	To_Display += MI.Inform();
 
-	To_Display += "\r\n\r\nGetI with Stream=General and Parameter=13\r\n";
-	To_Display += MI.Get(MediaInfo.Stream_General, 0, 46, MediaInfo.Info_Text);
+	To_Display += "\r\n\r\nGetI with Stream=General and Parameter=2\r\n";
+	To_Display += MI.Get(MediaInfo.Stream_General, 0, 2, MediaInfo.Info_Text);
 
 	To_Display += "\r\n\r\nCount_Get with StreamKind=Stream_Audio\r\n";
 	To_Display += MI.Count_Get(MediaInfo.Stream_Audio, -1);
@@ -110,7 +113,7 @@ public static void main(String[] argv)
 
 	To_Display += "\r\n\r\nClose\r\n";
 	MI.Close();
-
-        return To_Display;
+	
+	return To_Display;
     }
 }

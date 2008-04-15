@@ -1,1 +1,1 @@
-java -classpath .:JNative.jar HowToUse_Dll
+java -cp .:JNative.jar HowToUse_Dll $1
