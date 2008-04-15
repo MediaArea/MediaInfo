@@ -304,7 +304,7 @@ String MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
         if (Retour.size()>PosX+2 && Retour[PosX+1]>=_T('A') && Retour[PosX+1]<=_T('Z')) //To keep out "%" without any signification
         {
             Ztring ARemplacer=Ztring(_T("%")+Retour.SubString(_T("%"), _T("%"), PosX))+_T("%");
-            Ztring RemplacerPar=Info(MediaInfoLib::Config.Info_Get(StreamKind).Find(Retour.SubString(_T("%"), _T("%"), PosX)));
+            Ztring RemplacerPar=Get(StreamKind, StreamPos, Retour.SubString(_T("%"), _T("%"), PosX));
             RemplacerPar.FindAndReplace(_T("),"), _T("|SC9|"), 0, Ztring_Recursive);
             RemplacerPar.FindAndReplace(_T(")"), _T("|SC8|"), 0, Ztring_Recursive);
             Retour.FindAndReplace(ARemplacer, RemplacerPar);
