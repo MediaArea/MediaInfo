@@ -18,6 +18,11 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
+// For user: you can disable or enable it
+//#define MEDIAINFO_DEBUG
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
 // Compilation conditions
 #include <MediaInfo/Setup.h>
 #ifdef __BORLANDC__
@@ -33,6 +38,64 @@ using namespace ZenLib;
 
 namespace MediaInfoLib
 {
+
+//---------------------------------------------------------------------------
+//To clarify the code
+#ifdef MEDIAINFO_DEBUG
+    #include <stdio.h>
+    FILE* F;
+    std::string Debug;
+
+    #undef MEDIAINFO_DEBUG
+    #define MEDIAINFO_DEBUG(_TOAPPEND) \
+        F=fopen("MediaInfo_Debug.txt", "a+t"); \
+        Debug.clear(); \
+        _TOAPPEND; \
+        Debug+="\r\n"; \
+        fwrite(Debug.c_str(), Debug.size(), 1, F); \
+        fclose(F);
+#else // MEDIAINFO_DEBUG
+    #define MEDIAINFO_DEBUG(_TOAPPEND)
+#endif // MEDIAINFO_DEBUG
+
+#ifndef MEDIAINFO_DEBUG
+#define EXECUTE_VOID(_METHOD,_DEBUGB) \
+        ((MediaInfo_Internal*)Internal)->_METHOD;
+#else //MEDIAINFO_DEBUG
+#define EXECUTE_VOID(_METHOD,_DEBUGB) \
+        ((MediaInfo_Internal*)Internal)->_METHOD; \
+        MEDIAINFO_DEBUG(_DEBUGB)
+#endif //MEDIAINFO_DEBUG
+
+#ifndef MEDIAINFO_DEBUG
+#define EXECUTE_INT(_METHOD,_DEBUGB) \
+        return ((MediaInfo_Internal*)Internal)->_METHOD;
+#else //MEDIAINFO_DEBUG
+#define EXECUTE_INT(_METHOD, _DEBUGB) \
+        size_t ToReturn=((MediaInfo_Internal*)Internal)->_METHOD; \
+        MEDIAINFO_DEBUG(_DEBUGB) \
+        return ToReturn;
+#endif //MEDIAINFO_DEBUG
+
+#ifndef MEDIAINFO_DEBUG
+#define EXECUTE_STRING(_METHOD,_DEBUGB) \
+        return ((MediaInfo_Internal*)Internal)->_METHOD;
+#else //MEDIAINFO_DEBUG
+#define EXECUTE_STRING(_METHOD,_DEBUGB) \
+        Ztring ToReturn=((MediaInfo_Internal*)Internal)->_METHOD; \
+        MEDIAINFO_DEBUG(_DEBUGB) \
+        return ToReturn;
+#endif //MEDIAINFO_DEBUG
+
+inline std::string ToString(int64u Integer)
+{
+    return Ztring::ToZtring(Integer).To_Local();
+}
+
+inline std::string ToString(size_t Integer)
+{
+    return Ztring::ToZtring(Integer).To_Local();
+}
 
 //***************************************************************************
 // Constructor/destructor
@@ -67,15 +130,22 @@ size_t MediaInfo::Open (const int8u* Begin_, size_t Begin_Size_, const int8u*, s
 }
 
 //---------------------------------------------------------------------------
-size_t MediaInfo::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
+size_t MediaInfo::Open_Buffer_Init (int64u File_Size, int64u File_Offset)
 {
-    return ((MediaInfo_Internal*)Internal)->Open_Buffer_Init(File_Size_, File_Offset_);
+    MEDIAINFO_DEBUG(Debug+="Open_Buffer_Init, File_Size=";Debug+=ToString(File_Size);Debug+=", File_Offset=";Debug+=ToString(File_Offset);)
+    EXECUTE_INT(Open_Buffer_Init(File_Size, File_Offset), Debug+="Open_Buffer, will return ";Debug+=ToString(ToReturn);)
 }
 
 //---------------------------------------------------------------------------
 size_t MediaInfo::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
-    return ((MediaInfo_Internal*)Internal)->Open_Buffer_Continue(ToAdd, ToAdd_Size);
+    size_t ToReturn=((MediaInfo_Internal*)Internal)->Open_Buffer_Continue(ToAdd, ToAdd_Size);
+    if (ToReturn==0)
+    {
+        MEDIAINFO_DEBUG(Debug+="Open_Buffer_Continue, will return ";Debug+=ToString(ToReturn);Debug+=", forcing a Get() :";)
+        Get(Stream_General, 0, _T("Format"));        
+    }
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -87,7 +157,8 @@ int64u MediaInfo::Open_Buffer_Continue_GoTo_Get ()
 //---------------------------------------------------------------------------
 size_t MediaInfo::Open_Buffer_Finalize ()
 {
-    return ((MediaInfo_Internal*)Internal)->Open_Buffer_Finalize();
+    MEDIAINFO_DEBUG(Debug+="Open_Buffer_Finalize";)
+    EXECUTE_INT(Open_Buffer_Continue_GoTo_Get(), Debug+="Open_Buffer_Finalize, will return ";Debug+=ToString(ToReturn);)
 }
 
 //---------------------------------------------------------------------------
@@ -99,6 +170,7 @@ size_t MediaInfo::Save()
 //---------------------------------------------------------------------------
 void MediaInfo::Close()
 {
+    MEDIAINFO_DEBUG(Debug+="Close";)
     return ((MediaInfo_Internal*)Internal)->Close();
 }
 
@@ -109,18 +181,21 @@ void MediaInfo::Close()
 //---------------------------------------------------------------------------
 String MediaInfo::Inform(size_t)
 {
-    return ((MediaInfo_Internal*)Internal)->Inform();
+    MEDIAINFO_DEBUG(Debug+="Inform";)
+    EXECUTE_STRING(Inform(), Debug+="Inform, will return ";Debug+=ToReturn.To_Local();)
 }
 
 //---------------------------------------------------------------------------
 String MediaInfo::Get(stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo)
 {
-    return ((MediaInfo_Internal*)Internal)->Get(StreamKind, StreamPos, Parameter, KindOfInfo);
+    MEDIAINFO_DEBUG(Debug+="Get, StreamKind=";Debug+=ToString((size_t)StreamKind);Debug+=", StreamKind=";Debug+=ToString(StreamPos);Debug+=", Parameter=";Debug+=ToString(Parameter);)
+    EXECUTE_STRING(Get(StreamKind, StreamPos, Parameter, KindOfInfo), Debug+="Get, will return ";Debug+=ToReturn.To_Local();)
 }
 
 //---------------------------------------------------------------------------
 String MediaInfo::Get(stream_t StreamKind, size_t StreamPos, const String &Parameter, info_t KindOfInfo, info_t KindOfSearch)
 {
+    MEDIAINFO_DEBUG(Debug+="Get, StreamKind=";Debug+=ToString((size_t)StreamKind);Debug+=", StreamKind=";Debug+=ToString(StreamPos);Debug+=", Parameter=";Debug+=Ztring(Parameter).To_Local();)
     //Legacy
     if (Parameter.find(_T("_String"))!=Error)
     {
@@ -137,7 +212,7 @@ String MediaInfo::Get(stream_t StreamKind, size_t StreamPos, const String &Param
     if (Parameter==_T("AspectRatio/String"))
         return Get(StreamKind, StreamPos, _T("DisplayAspectRatio/String"), KindOfInfo, KindOfSearch);
 
-    return ((MediaInfo_Internal*)Internal)->Get(StreamKind, StreamPos, Parameter, KindOfInfo);
+    EXECUTE_STRING(Get(StreamKind, StreamPos, Parameter, KindOfInfo), Debug+="Get, will return ";Debug+=ToReturn.To_Local();)
 }
 
 //***************************************************************************
@@ -179,12 +254,14 @@ size_t MediaInfo::Output_Buffer_Get (size_t Pos)
 //---------------------------------------------------------------------------
 String MediaInfo::Option (const String &Option, const String &Value)
 {
-    return ((MediaInfo_Internal*)Internal)->Option(Option, Value);
+    MEDIAINFO_DEBUG(Debug+="Option, Option=";Debug+=Ztring(Option).To_Local();Debug+=", Value=";Debug+=Ztring(Value).To_Local();)
+    EXECUTE_STRING(Option(Option, Value), Debug+="Option, will return ";Debug+=ToReturn.To_Local();)
 }
 
 //---------------------------------------------------------------------------
 String MediaInfo::Option_Static (const String &Option, const String &Value)
 {
+    MEDIAINFO_DEBUG(Debug+="Option_Static, Option=";Debug+=Ztring(Option).To_Local();Debug+=", Value=";Debug+=Ztring(Value).To_Local();)
     MediaInfoLib::Config.Init(); //Initialize Configuration
 
          if (Option==_T("Info_Capacities"))
