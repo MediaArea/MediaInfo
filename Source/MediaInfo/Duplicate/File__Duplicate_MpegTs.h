@@ -59,6 +59,9 @@ public :
     std::set<int16u> Wanted_program_numbers;
     std::set<int16u> Wanted_program_map_PIDs;
     std::set<int16u> Wanted_elementary_PIDs;
+    std::set<int16u> Remove_program_numbers;
+    std::set<int16u> Remove_program_map_PIDs;
+    std::set<int16u> Remove_elementary_PIDs;
 
     //Current
     std::vector<int8u> program_map_PIDs;

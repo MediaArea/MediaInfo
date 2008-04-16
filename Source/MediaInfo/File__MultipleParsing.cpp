@@ -462,7 +462,10 @@ void File__MultipleParsing::Data_Parse()
     for (size_t Pos=0; Pos<Parser.size(); Pos++)
     {
         //Parsing
-        Parser[Pos]->Init(Config, Details, Stream, Stream_More);
+        if (IsSub)
+            Parser[Pos]->Init(Config, Details);
+        else
+            Parser[Pos]->Init(Config, Details, Stream, Stream_More);
         Open_Buffer_Init(Parser[Pos], File_Size, File_Offset+Buffer_Offset);
         Open_Buffer_Continue(Parser[Pos], Buffer+Buffer_Offset, (size_t)Element_Size);
 

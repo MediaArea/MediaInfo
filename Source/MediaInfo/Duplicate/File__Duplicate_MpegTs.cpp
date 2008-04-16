@@ -141,29 +141,86 @@ void File__Duplicate_MpegTs::Configure (const Ztring &Value, bool ToRemove)
     {
         int16u program_number=Ztring(Value.substr(15, string::npos)).To_int16u();
         if (ToRemove)
-            Wanted_program_numbers.erase(program_number);
+        {
+            if (Wanted_program_numbers.find(program_number)!=Wanted_program_numbers.end())
+                Wanted_program_numbers.erase(program_number);
+            else if (Remove_program_numbers.find(program_number)==Remove_program_numbers.end())
+                Remove_program_numbers.insert(program_number);
+        }
         else
-            Wanted_program_numbers.insert(program_number);
+        {
+            if (Remove_program_numbers.find(program_number)!=Remove_program_numbers.end())
+                Remove_program_numbers.erase(program_number);
+            if (Wanted_program_numbers.find(program_number)==Wanted_program_numbers.end())
+                Wanted_program_numbers.insert(program_number);
+        }
         if (!PAT.empty())
             PAT.begin()->second.ConfigurationHasChanged=true;
     }
-    //Form: "program_number"
+    //Form: "program_map_PID"
     else if (Value.find(_T("program_map_PID="))==0)
     {
         int16u program_map_PID=Ztring(Value.substr(16, string::npos)).To_int16u();
-        Wanted_program_map_PIDs.insert(program_map_PID);
-        if (PMT.find(program_map_PID)!=PAT.end())
+        if (ToRemove)
+        {
+            if (Wanted_program_map_PIDs.find(program_map_PID)!=Wanted_program_map_PIDs.end())
+                Wanted_program_map_PIDs.erase(program_map_PID);
+            else if (Remove_program_map_PIDs.find(program_map_PID)==Remove_program_map_PIDs.end())
+                Remove_program_map_PIDs.insert(program_map_PID);
+        }
+        else
+        {
+            if (Remove_program_map_PIDs.find(program_map_PID)!=Remove_program_map_PIDs.end())
+                Remove_program_map_PIDs.erase(program_map_PID);
+            if (Wanted_program_map_PIDs.find(program_map_PID)==Wanted_program_map_PIDs.end())
+                Wanted_program_map_PIDs.insert(program_map_PID);
+        }
+        if (PMT.find(program_map_PID)!=PMT.end())
             PMT[program_map_PID].ConfigurationHasChanged=true;
     }
     //Form: "elementary_PID"
     else if (Value.find(_T("elementary_PID="))==0)
     {
-        Ztring elementary_PID=Value.substr(15, string::npos);
-        Wanted_elementary_PIDs.insert(elementary_PID.To_int16u());
+        int16u elementary_PID=Ztring(Value.substr(15, string::npos)).To_int16u();
+        if (ToRemove)
+        {
+            if (Wanted_elementary_PIDs.find(elementary_PID)!=Wanted_elementary_PIDs.end())
+                Wanted_elementary_PIDs.erase(elementary_PID);
+            else if (Remove_elementary_PIDs.find(elementary_PID)==Remove_elementary_PIDs.end())
+                Remove_elementary_PIDs.insert(elementary_PID);
+        }
+        else
+        {
+            if (Remove_elementary_PIDs.find(elementary_PID)!=Remove_elementary_PIDs.end())
+                Remove_elementary_PIDs.erase(elementary_PID);
+            if (Wanted_elementary_PIDs.find(elementary_PID)==Wanted_elementary_PIDs.end())
+                Wanted_elementary_PIDs.insert(elementary_PID);
+        }
+        int16u A=elementary_PIDs_program_map_PIDs[elementary_PID];
+        if (PMT.find(elementary_PIDs_program_map_PIDs[elementary_PID])!=PMT.end())
+            PMT[elementary_PIDs_program_map_PIDs[elementary_PID]].ConfigurationHasChanged=true;
     }
     //Old
     else
-        Wanted_program_numbers.insert(Value.To_int16u());
+    {
+        int16u program_number=Ztring(Value).To_int16u();
+        if (ToRemove)
+        {
+            if (Wanted_program_numbers.find(program_number)!=Wanted_program_numbers.end())
+                Wanted_program_numbers.erase(program_number);
+            else if (Remove_program_numbers.find(program_number)==Remove_program_numbers.end())
+                Remove_program_numbers.insert(program_number);
+        }
+        else
+        {
+            if (Remove_program_numbers.find(program_number)!=Remove_program_numbers.end())
+                Remove_program_numbers.erase(program_number);
+            if (Wanted_program_numbers.find(program_number)==Wanted_program_numbers.end())
+                Wanted_program_numbers.insert(program_number);
+        }
+        if (!PAT.empty())
+            PAT.begin()->second.ConfigurationHasChanged=true;
+    }
 }
 
 //***************************************************************************
@@ -172,7 +229,9 @@ void File__Duplicate_MpegTs::Configure (const Ztring &Value, bool ToRemove)
 
 bool File__Duplicate_MpegTs::Write (int16u PID, const int8u* ToAdd, size_t ToAdd_Size)
 {
-    //int16u PID=CC2(ToAdd+1)&0x1FFF;
+    if (PID==1002)
+        int A=0;
+
     if (elementary_PIDs[PID])
     {
         Writer.Write(ToAdd, ToAdd_Size);
@@ -212,7 +271,7 @@ bool File__Duplicate_MpegTs::Manage_PAT (const int8u* ToAdd, size_t ToAdd_Size)
         {
             program_map_PIDs[program_map_PID]=0;
             for (size_t Pos=0; Pos<0x2000; Pos++)
-                if (elementary_PIDs_program_map_PIDs[Pos]==program_number)
+                if (elementary_PIDs_program_map_PIDs[Pos]==program_map_PID)
                     elementary_PIDs[Pos]=0;
         }
         FromTS.Offset+=4;

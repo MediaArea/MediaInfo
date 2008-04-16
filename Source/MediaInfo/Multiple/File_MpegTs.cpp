@@ -685,86 +685,93 @@ void File_MpegTs::PSI_program_map_table()
             Streams[elementary_PID].PES_Needed=true;
         }
         */
-        if (Streams[elementary_PID].Parser==NULL) //Not yet parsed
-            Streams[elementary_PID].TS_Kind=File_Mpeg_Psi::pes;
-        if (elementary_PID!=0x0000 && Stream->second.program_number!=0x0000)
-            Streams[elementary_PID].Infos=Stream->second.Infos;
-        Streams[elementary_PID].program_number=Stream->second.program_number;
-        Streams[elementary_PID].stream_type=Stream->second.stream_type;
-        Streams[elementary_PID].descriptor_tag=Stream->second.descriptor_tag;
-        Streams[elementary_PID].Searching_Payload_Start_Set(true);
-        elementary_PID_Count++;
-        Streams[elementary_PID].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
-        if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
-            Streams[elementary_PID].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
-        if (File__Duplicate_Get_From_PID(elementary_PID))
-            Streams[elementary_PID].ShouldDuplicate=true;
-
-        //Not precised PID handling
-        /*
-        for (size_t Pos=0x11; Pos<0x1FFF; Pos++)
+        if (elementary_PID==0x0000)
         {
-            if (Stream.find(Pos)==Stream.end() || Streams[Pos].TS_Kind==File_Mpeg_Psi::unknown)
-            {
-                //File_Filter
-                if (!Config.File_Filter_Get())
-                    Streams[Pos].Searching_Payload_Start_Set(true);
-
-                File_Mpeg_Psi::ts_kind Kind;
-                switch (Pos)
-                {
-                    case 0x0010 : Kind=File_Mpeg_Psi::dvb_nit_st; break;
-                    case 0x0011 : Kind=File_Mpeg_Psi::dvb_sdt_bat_st; break;
-                    case 0x0012 : Kind=File_Mpeg_Psi::dvb_eit; break;
-                    case 0x0013 : Kind=File_Mpeg_Psi::dvb_rst_st; break;
-                    case 0x0014 : Kind=File_Mpeg_Psi::dvb_tdt_tot_st; break;
-                    case 0x0015 : Kind=File_Mpeg_Psi::dvb_mip; break;
-                    case 0x0016 :
-                    case 0x0017 :
-                    case 0x0018 :
-                    case 0x0019 :
-                    case 0x001A :
-                    case 0x001B : Kind=File_Mpeg_Psi::dvb_reserved; break;
-                    case 0x001C : Kind=File_Mpeg_Psi::dvb_inband; break;
-                    case 0x001D : Kind=File_Mpeg_Psi::dvb_measurement; break;
-                    case 0x001E : Kind=File_Mpeg_Psi::dvb_dit; break;
-                    case 0x001F : Kind=File_Mpeg_Psi::dvb_sit; break;
-                    case 0x0020 :
-                    case 0x0021 :
-                    case 0x0022 :
-                    case 0x0023 :
-                    case 0x0024 :
-                    case 0x0025 :
-                    case 0x0026 :
-                    case 0x0027 :
-                    case 0x0028 :
-                    case 0x0029 :
-                    case 0x002A :
-                    case 0x002B :
-                    case 0x002C :
-                    case 0x002D :
-                    case 0x002E :
-                    case 0x002F : Kind=File_Mpeg_Psi::arib; break;
-                    case 0x1ABC : Kind=File_Mpeg_Psi::cea_osd; break;
-                    case 0x1FF7 : Kind=File_Mpeg_Psi::atsc_pate; break;
-                    case 0x1FF8 : Kind=File_Mpeg_Psi::atsc_stt_pide; break;
-                    case 0x1FF9 : Kind=File_Mpeg_Psi::atsc_reserved; break;
-                    case 0x1FFA : Kind=File_Mpeg_Psi::atsc_op; break;
-                    case 0x1FFB : Kind=File_Mpeg_Psi::atsc_psip; break;
-                    case 0x1FFC : Kind=File_Mpeg_Psi::atsc_scte; break;
-                    case 0x1FFD : Kind=File_Mpeg_Psi::atsc_reserved; break;
-                    case 0x1FFE : Kind=File_Mpeg_Psi::docsis; break;
-                    default     : Kind=File_Mpeg_Psi::reserved;
-                }
-                Streams[Pos].TS_Kind=Kind;
-            }
-
-            if (Pos==0x002F)
-                Pos=0x1ABB; //Skipping normal data
-            if (Pos==0x01ABC)
-                Pos=0x1FF6; //Skipping normal data
+            //About the program
         }
-        */
+        else
+        {
+            if (Streams[elementary_PID].Parser==NULL) //Not yet parsed
+                Streams[elementary_PID].TS_Kind=File_Mpeg_Psi::pes;
+            if (Stream->second.program_number!=0x0000)
+                Streams[elementary_PID].Infos=Stream->second.Infos;
+            Streams[elementary_PID].program_number=Stream->second.program_number;
+            Streams[elementary_PID].stream_type=Stream->second.stream_type;
+            Streams[elementary_PID].descriptor_tag=Stream->second.descriptor_tag;
+            Streams[elementary_PID].Searching_Payload_Start_Set(true);
+            elementary_PID_Count++;
+            Streams[elementary_PID].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
+            if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
+                Streams[elementary_PID].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
+            if (File__Duplicate_Get_From_PID(elementary_PID))
+                Streams[elementary_PID].ShouldDuplicate=true;
+
+            //Not precised PID handling
+            /*
+            for (size_t Pos=0x11; Pos<0x1FFF; Pos++)
+            {
+                if (Stream.find(Pos)==Stream.end() || Streams[Pos].TS_Kind==File_Mpeg_Psi::unknown)
+                {
+                    //File_Filter
+                    if (!Config.File_Filter_Get())
+                        Streams[Pos].Searching_Payload_Start_Set(true);
+
+                    File_Mpeg_Psi::ts_kind Kind;
+                    switch (Pos)
+                    {
+                        case 0x0010 : Kind=File_Mpeg_Psi::dvb_nit_st; break;
+                        case 0x0011 : Kind=File_Mpeg_Psi::dvb_sdt_bat_st; break;
+                        case 0x0012 : Kind=File_Mpeg_Psi::dvb_eit; break;
+                        case 0x0013 : Kind=File_Mpeg_Psi::dvb_rst_st; break;
+                        case 0x0014 : Kind=File_Mpeg_Psi::dvb_tdt_tot_st; break;
+                        case 0x0015 : Kind=File_Mpeg_Psi::dvb_mip; break;
+                        case 0x0016 :
+                        case 0x0017 :
+                        case 0x0018 :
+                        case 0x0019 :
+                        case 0x001A :
+                        case 0x001B : Kind=File_Mpeg_Psi::dvb_reserved; break;
+                        case 0x001C : Kind=File_Mpeg_Psi::dvb_inband; break;
+                        case 0x001D : Kind=File_Mpeg_Psi::dvb_measurement; break;
+                        case 0x001E : Kind=File_Mpeg_Psi::dvb_dit; break;
+                        case 0x001F : Kind=File_Mpeg_Psi::dvb_sit; break;
+                        case 0x0020 :
+                        case 0x0021 :
+                        case 0x0022 :
+                        case 0x0023 :
+                        case 0x0024 :
+                        case 0x0025 :
+                        case 0x0026 :
+                        case 0x0027 :
+                        case 0x0028 :
+                        case 0x0029 :
+                        case 0x002A :
+                        case 0x002B :
+                        case 0x002C :
+                        case 0x002D :
+                        case 0x002E :
+                        case 0x002F : Kind=File_Mpeg_Psi::arib; break;
+                        case 0x1ABC : Kind=File_Mpeg_Psi::cea_osd; break;
+                        case 0x1FF7 : Kind=File_Mpeg_Psi::atsc_pate; break;
+                        case 0x1FF8 : Kind=File_Mpeg_Psi::atsc_stt_pide; break;
+                        case 0x1FF9 : Kind=File_Mpeg_Psi::atsc_reserved; break;
+                        case 0x1FFA : Kind=File_Mpeg_Psi::atsc_op; break;
+                        case 0x1FFB : Kind=File_Mpeg_Psi::atsc_psip; break;
+                        case 0x1FFC : Kind=File_Mpeg_Psi::atsc_scte; break;
+                        case 0x1FFD : Kind=File_Mpeg_Psi::atsc_reserved; break;
+                        case 0x1FFE : Kind=File_Mpeg_Psi::docsis; break;
+                        default     : Kind=File_Mpeg_Psi::reserved;
+                    }
+                    Streams[Pos].TS_Kind=Kind;
+                }
+
+                if (Pos==0x002F)
+                    Pos=0x1ABB; //Skipping normal data
+                if (Pos==0x01ABC)
+                    Pos=0x1FF6; //Skipping normal data
+            }
+            */
+        }
     }
     if (program_Count)
         program_Count--;
