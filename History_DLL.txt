@@ -11,6 +11,7 @@ Version 0.7.6.4, 2008-
 ---------------
 + About the library : Java/Linux binding is available
 x #1943743, AVI with MPEG-Audio VBR and delay: delay was incorrect
+x XviD CodecID was redirected on Koepi website, no more available, changed to official WviD webpage
 
 Version 0.7.6.3, 2008-04-12
 ---------------

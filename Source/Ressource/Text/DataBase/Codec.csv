@@ -657,8 +657,8 @@ x264;AVC;4CC;V;AVC;;XiWave GNU GPL x264 MPEG-4;
 XJPG;Xirlink;4CC;V;M-JPEG;;Xirlink, Inc.;
 XLV0;NetXL Video;4CC;V;;;NetXL Inc. XL Video Decoder;
 XMPG;Xing MPEG;4CC;V;MPEG-V;;XING MPEG (I frame only);
-XVID;XviD;4CC;V;MPEG-4V;;XviD project;http://www.koepi.org/xvid.shtml
-XVIX;XviD;4CC;V;MPEG-4V;;Based on XviD MPEG-4;http://www.koepi.org/xvid.shtml
+XVID;XviD;4CC;V;MPEG-4V;;XviD project;http://www.xvid.org/Downloads.15.0.html
+XVIX;XviD;4CC;V;MPEG-4V;;Based on XviD MPEG-4;http://www.xvid.org/Downloads.15.0.html
 XWV0;XiWave Video;4CC;V;;;XiWave Video;
 XWV1;XiWave Video;4CC;V;;;XiWave Video;
 XWV2;XiWave Video;4CC;V;;;XiWave Video;
@@ -707,7 +707,7 @@ ZPEG;Video Zipper;4CC;V;RGB;;Metheus Video Zipper;
 ZYGO;ZyGo;4CC;V;;;ZyGo Video;
 V_UNCOMPRESSED;Raw;Mk;V;;;Raw uncompressed video frames;
 V_MPEG4/ISO/SP;MPEG-4 Visual SP;Mk;V;MPEG-4V;;Simple Profile;http://www.divx.com
-V_MPEG4/ISO/ASP;MPEG-4 Visual ASP;Mk;V;MPEG-4V;;Advanced Simple Profile;http://www.koepi.org/xvid.shtml
+V_MPEG4/ISO/ASP;MPEG-4 Visual ASP;Mk;V;MPEG-4V;;Advanced Simple Profile;http://www.xvid.org/Downloads.15.0.html
 V_MPEG4/ISO/AP;MPEG-4 Visual AP;Mk;V;MPEG-4V;;Advanced Profile;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
 V_MPEG4/ISO/AVC;AVC;Mk;V;AVC;;Advanced Video Codec;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
 V_MPEG4/MS/V2;MS MPEG-4 v2;Mk;V;MPEG-4V;;MS MPEG-4 v2;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
