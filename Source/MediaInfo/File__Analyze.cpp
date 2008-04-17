@@ -529,6 +529,13 @@ void File__Analyze::Buffer_Clear()
     Buffer_Offset=0;
     Buffer_Offset_Temp=0;
     Buffer_MinimumSize=0;
+
+    //Details
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        Element[Element_Level].WaitForMoreData=false; //We must finalize the details
+        Element[Element_Level].IsComplete=true; //We must finalize the details
+    #endif //MEDIAINFO_MINIMIZESIZE
+
 }
 
 //***************************************************************************
