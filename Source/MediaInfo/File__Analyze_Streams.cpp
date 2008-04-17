@@ -88,6 +88,19 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
     if (StreamKind>Stream_Max)
         return;
 
+    //Handling values with \r\n inside
+    if (Value.find(_T('\r'))!=string::npos || Value.find(_T('\n'))!=string::npos)
+    {
+        Ztring NewValue=Value;
+        NewValue.FindAndReplace(_T("\r\n"), _T(" / "), 0, Ztring_Recursive);
+        NewValue.FindAndReplace(_T("\r"), _T(" / "), 0, Ztring_Recursive);
+        NewValue.FindAndReplace(_T("\n"), _T(" / "), 0, Ztring_Recursive);
+        if (NewValue.size()>=3 && NewValue.rfind(_T(" / "))==NewValue.size()-3)
+            NewValue.resize(NewValue.size()-3);
+        Fill(StreamKind, StreamPos, Parameter, NewValue, Replace);
+        return;
+    }
+
     //Handle Value before StreamKind
     if (StreamKind==Stream_Max || StreamPos>=(*Stream)[StreamKind].size())
     {
@@ -116,6 +129,19 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, const char* Par
     //Integrity
     if (StreamKind>Stream_Max || Parameter==NULL || Parameter[0]=='\0')
         return;
+
+    //Handling values with \r\n inside
+    if (Value.find(_T('\r'))!=string::npos || Value.find(_T('\n'))!=string::npos)
+    {
+        Ztring NewValue=Value;
+        NewValue.FindAndReplace(_T("\r\n"), _T(" / "), 0, Ztring_Recursive);
+        NewValue.FindAndReplace(_T("\r"), _T(" / "), 0, Ztring_Recursive);
+        NewValue.FindAndReplace(_T("\n"), _T(" / "), 0, Ztring_Recursive);
+        if (NewValue.size()>=3 && NewValue.rfind(_T(" / "))==NewValue.size()-3)
+            NewValue.resize(NewValue.size()-3);
+        Fill(StreamKind, StreamPos, Parameter, NewValue, Replace);
+        return;
+    }
 
     //Handle Value before StreamKind
     if (StreamKind==Stream_Max || StreamPos>=(*Stream)[StreamKind].size())

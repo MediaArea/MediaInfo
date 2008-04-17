@@ -85,44 +85,44 @@ public :
           int8u     Demux_Get ();
 
           void      LineSeparator_Set (const Ztring &NewValue);
-    const Ztring   &LineSeparator_Get ();
+          Ztring    LineSeparator_Get ();
 
           void      ColumnSeparator_Set (const Ztring &NewValue);
-    const Ztring   &ColumnSeparator_Get ();
+          Ztring    ColumnSeparator_Get ();
 
           void      TagSeparator_Set (const Ztring &NewValue);
-    const Ztring   &TagSeparator_Get ();
+          Ztring    TagSeparator_Get ();
 
           void      Quote_Set (const Ztring &NewValue);
-    const Ztring   &Quote_Get ();
+          Ztring    Quote_Get ();
 
           void      DecimalPoint_Set (const Ztring &NewValue);
-    const Ztring   &DecimalPoint_Get ();
+          Ztring    DecimalPoint_Get ();
 
           void      ThousandsPoint_Set (const Ztring &NewValue);
-    const Ztring   &ThousandsPoint_Get ();
+          Ztring    ThousandsPoint_Get ();
 
           void      StreamMax_Set (const ZtringListList &NewValue);
           Ztring    StreamMax_Get ();
 
           void      Language_Set (const ZtringListList &NewLanguage);
           Ztring    Language_Get ();
-    const Ztring   &Language_Get (const Ztring &Value);
+          Ztring    Language_Get (const Ztring &Value);
           Ztring    Language_Get (const Ztring &Count, const Ztring &Value);
 
           void      Inform_Set (const ZtringListList &NewInform);
           Ztring    Inform_Get ();
-    const Ztring   &Inform_Get (const Ztring &Value);
+          Ztring    Inform_Get (const Ztring &Value);
 
-    const Ztring   &Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name);
+    const Ztring   &Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name) const;
           InfoMap  &Format_Get() {return Format;}; //Should not be, but too difficult to hide it
 
-    const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo=InfoCodec_Name);
-    const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream);
+    const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo=InfoCodec_Name) const;
+    const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream) const;
 
-    const Ztring   &Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo=InfoEncoder_LongName);
+    const Ztring   &Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo=InfoEncoder_LongName) const;
 
-    const Ztring   &Iso639_Get (const Ztring &Value);
+    const Ztring   &Iso639_Get (const Ztring &Value) const;
 
     const Ztring   &Info_Get (stream_t KindOfStream, const Ztring &Value, info_t KindOfInfo=Info_Text) const;
     const Ztring   &Info_Get (stream_t KindOfStream, size_t Pos, info_t KindOfInfo=Info_Text) const;
@@ -134,7 +134,6 @@ public :
           Ztring    Info_Version_Get    () const;
           Ztring    Info_Url_Get        () const;
 
-          Ztring   &EmptyString_Get(); //Use it when we can't return a reference to a true string
     const Ztring   &EmptyString_Get() const; //Use it when we can't return a reference to a true string
 
 private :

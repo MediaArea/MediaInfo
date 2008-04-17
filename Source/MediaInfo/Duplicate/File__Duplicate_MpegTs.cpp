@@ -196,7 +196,6 @@ void File__Duplicate_MpegTs::Configure (const Ztring &Value, bool ToRemove)
             if (Wanted_elementary_PIDs.find(elementary_PID)==Wanted_elementary_PIDs.end())
                 Wanted_elementary_PIDs.insert(elementary_PID);
         }
-        int16u A=elementary_PIDs_program_map_PIDs[elementary_PID];
         if (PMT.find(elementary_PIDs_program_map_PIDs[elementary_PID])!=PMT.end())
             PMT[elementary_PIDs_program_map_PIDs[elementary_PID]].ConfigurationHasChanged=true;
     }
@@ -229,9 +228,6 @@ void File__Duplicate_MpegTs::Configure (const Ztring &Value, bool ToRemove)
 
 bool File__Duplicate_MpegTs::Write (int16u PID, const int8u* ToAdd, size_t ToAdd_Size)
 {
-    if (PID==1002)
-        int A=0;
-
     if (elementary_PIDs[PID])
     {
         Writer.Write(ToAdd, ToAdd_Size);

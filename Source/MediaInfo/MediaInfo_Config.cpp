@@ -73,6 +73,7 @@ MediaInfo_Config Config;
 
 void MediaInfo_Config::Init()
 {
+    Enter(true);
     //We use Init() instead of COnstructor because for some backends (like WxWidgets...) does NOT like constructor of static object with Unicode conversion
 
     //Test
@@ -117,7 +118,11 @@ void MediaInfo_Config::Init()
     File__Base_Chapters(Info[Stream_Chapters]);
     File__Base_Image(Info[Stream_Image]);
     File__Base_Menu(Info[Stream_Menu]);
+    File__Base_Encoder(Encoder);
+    File__Base_Iso639(Iso639);
     ZtringListList ZLL1; Language_Set(ZLL1);
+
+    Leave();
 }
 
 //***************************************************************************
@@ -372,8 +377,9 @@ void MediaInfo_Config::Complete_Set (size_t NewValue)
 size_t MediaInfo_Config::Complete_Get ()
 {
     Enter();
+    size_t ToReturn=Complete;
     Leave();
-    return Complete;
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -387,8 +393,9 @@ void MediaInfo_Config::BlockMethod_Set (size_t NewValue)
 size_t MediaInfo_Config::BlockMethod_Get ()
 {
     Enter();
+    size_t ToReturn=BlockMethod;
     Leave();
-    return BlockMethod;
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -402,8 +409,9 @@ void MediaInfo_Config::Internet_Set (size_t NewValue)
 size_t MediaInfo_Config::Internet_Get ()
 {
     Enter();
+    size_t ToReturn=Internet;
     Leave();
-    return Internet;
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -417,8 +425,9 @@ void MediaInfo_Config::MultipleValues_Set (size_t NewValue)
 size_t MediaInfo_Config::MultipleValues_Get ()
 {
     Enter();
+    size_t ToReturn=MultipleValues;
     Leave();
-    return MultipleValues;
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -432,8 +441,9 @@ void MediaInfo_Config::ParseUnknownExtensions_Set (size_t NewValue)
 size_t MediaInfo_Config::ParseUnknownExtensions_Get ()
 {
     Enter();
+    size_t ToReturn=ParseUnknownExtensions;
     Leave();
-    return ParseUnknownExtensions;
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -460,36 +470,41 @@ void MediaInfo_Config::ShowFiles_Set (const ZtringListList &NewShowFiles)
 size_t MediaInfo_Config::ShowFiles_Nothing_Get ()
 {
     Enter();
+    size_t ToReturn=ShowFiles_Nothing;
     Leave();
-    return ShowFiles_Nothing;
+    return ToReturn;
 }
 
 size_t MediaInfo_Config::ShowFiles_VideoAudio_Get ()
 {
     Enter();
+    size_t ToReturn=ShowFiles_VideoAudio;
     Leave();
-    return ShowFiles_VideoAudio;
+    return ToReturn;
 }
 
 size_t MediaInfo_Config::ShowFiles_VideoOnly_Get ()
 {
     Enter();
+    size_t ToReturn=ShowFiles_VideoOnly;
     Leave();
-    return ShowFiles_VideoOnly;
+    return ToReturn;
 }
 
 size_t MediaInfo_Config::ShowFiles_AudioOnly_Get ()
 {
     Enter();
+    size_t ToReturn=ShowFiles_AudioOnly;
     Leave();
-    return ShowFiles_AudioOnly;
+    return ToReturn;
 }
 
 size_t MediaInfo_Config::ShowFiles_TextOnly_Get ()
 {
     Enter();
+    size_t ToReturn=ShowFiles_TextOnly;
     Leave();
-    return ShowFiles_TextOnly;
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -503,8 +518,9 @@ void MediaInfo_Config::ParseSpeed_Set (float32 NewValue)
 float32 MediaInfo_Config::ParseSpeed_Get ()
 {
     Enter();
+    float32 ToReturn=ParseSpeed;
     Leave();
-    return ParseSpeed;
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -518,8 +534,9 @@ void MediaInfo_Config::Details_Set (float NewValue)
 float MediaInfo_Config::Details_Get ()
 {
     Enter();
+    float ToReturn=Details;
     Leave();
-    return Details;
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -533,8 +550,9 @@ void MediaInfo_Config::Demux_Set (int8u NewValue)
 int8u MediaInfo_Config::Demux_Get ()
 {
     Enter();
+    int8u ToReturn=Demux;
     Leave();
-    return Demux;
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -545,11 +563,12 @@ void MediaInfo_Config::LineSeparator_Set (const Ztring &NewValue)
     Leave();
 }
 
-const Ztring &MediaInfo_Config::LineSeparator_Get ()
+Ztring MediaInfo_Config::LineSeparator_Get ()
 {
     Enter();
+    Ztring ToReturn=LineSeparator;
     Leave();
-    return LineSeparator;
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -560,11 +579,12 @@ void MediaInfo_Config::ColumnSeparator_Set (const Ztring &NewValue)
     Leave();
 }
 
-const Ztring &MediaInfo_Config::ColumnSeparator_Get ()
+Ztring MediaInfo_Config::ColumnSeparator_Get ()
 {
     Enter();
+    Ztring ToReturn=ColumnSeparator;
     Leave();
-    return ColumnSeparator;
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -575,11 +595,12 @@ void MediaInfo_Config::TagSeparator_Set (const Ztring &NewValue)
     Leave();
 }
 
-const Ztring &MediaInfo_Config::TagSeparator_Get ()
+Ztring MediaInfo_Config::TagSeparator_Get ()
 {
     Enter();
+    Ztring ToReturn=TagSeparator;
     Leave();
-    return TagSeparator;
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -590,11 +611,12 @@ void MediaInfo_Config::Quote_Set (const Ztring &NewValue)
     Leave();
 }
 
-const Ztring &MediaInfo_Config::Quote_Get ()
+Ztring MediaInfo_Config::Quote_Get ()
 {
     Enter();
+    Ztring ToReturn=Quote;
     Leave();
-    return Quote;
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -605,11 +627,12 @@ void MediaInfo_Config::DecimalPoint_Set (const Ztring &NewValue)
     Leave();
 }
 
-const Ztring &MediaInfo_Config::DecimalPoint_Get ()
+Ztring MediaInfo_Config::DecimalPoint_Get ()
 {
     Enter();
+    Ztring ToReturn=DecimalPoint;
     Leave();
-    return DecimalPoint;
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -620,11 +643,12 @@ void MediaInfo_Config::ThousandsPoint_Set (const Ztring &NewValue)
     Leave();
 }
 
-const Ztring &MediaInfo_Config::ThousandsPoint_Get ()
+Ztring MediaInfo_Config::ThousandsPoint_Get ()
 {
     Enter();
+    Ztring ToReturn=ThousandsPoint;
     Leave();
-    return ThousandsPoint;
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
@@ -723,7 +747,7 @@ Ztring MediaInfo_Config::Language_Get ()
     return ToReturn;
 }
 
-const Ztring &MediaInfo_Config::Language_Get (const Ztring &Value)
+Ztring MediaInfo_Config::Language_Get (const Ztring &Value)
 {
     Enter();
     //TODO size_t Pos=Language.Find(Value, 0, 0, _T("=="), Ztring_CaseSensitive);
@@ -889,7 +913,7 @@ Ztring MediaInfo_Config::Inform_Get ()
     return ToReturn;
 }
 
-const Ztring &MediaInfo_Config::Inform_Get (const Ztring &Value)
+Ztring MediaInfo_Config::Inform_Get (const Ztring &Value)
 {
     Enter();
     size_t Pos=Custom_View.Find(Value);
@@ -898,32 +922,25 @@ const Ztring &MediaInfo_Config::Inform_Get (const Ztring &Value)
         Leave();
         return EmptyString_Get();
     }
+    Ztring ToReturn=Custom_View[Pos][1];
     Leave();
-    return Custom_View[Pos][1];
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo)
+const Ztring &MediaInfo_Config::Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo) const
 {
-    //TODO size_t Pos=Format.Find(Value, 0, 0, _T("=="), Ztring_CaseSensitive);
-    //if (Pos==Error || (size_t)KindOfFormatInfo>=Format[Pos].size())
-    //    return EmptyString_Get();
-    //return Format[Pos][KindOfFormatInfo];
     return Format.Get(Value, KindOfFormatInfo);
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo)
+const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo) const
 {
-    //TODO size_t Pos=Codec.Find(Value, 0, 0, _T("=="), Ztring_CaseSensitive);
-    //TODO if (Pos==Error || (size_t)KindOfCodecInfo>=Codec[Pos].size())
-    //TODO     return EmptyString_Get();
-    //TODO return Codec[Pos][KindOfCodecInfo];
     return Codec.Get(Value, KindOfCodecInfo);
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream)
+const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream) const
 {
     //Transform to text
     Ztring KindOfStreamS;
@@ -939,40 +956,18 @@ const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t Kind
         case Stream_Max      : KindOfStreamS=_T(" "); break;
     }
 
-    //Searching
-    //TODO size_t Pos=0;
-    //do
-    //    Pos=Codec.Find(Value, 0, Pos+1, _T("=="), Ztring_CaseSensitive);
-    //while (Pos!=Error && Codec.Read(Pos, InfoCodec_KindOfStream)!=KindOfStreamS);
-
-    //Is it ok?
-    //if (Pos==Error || (size_t)KindOfCodecInfo>=Codec[Pos].size())
-    //    return EmptyString_Get();
-    //return Codec[Pos][KindOfCodecInfo];
     return Codec.Get(Value, KindOfCodecInfo, KindOfStreamS, InfoCodec_KindOfStream);
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo)
+const Ztring &MediaInfo_Config::Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo) const
 {
-    //TODO size_t Pos=Encoder.Find(Value, 0, 0, _T("IN"), Ztring_CaseSensitive);
-    //if (Pos==Error || (size_t)KindOfEncoderInfo>=Encoder[Pos].size())
-    //    return EmptyString_Get();
-    //return Encoder[Pos][KindOfEncoderInfo];
-    if (Encoder.empty())
-        File__Base_Encoder(Encoder);
     return Encoder.Get(Value, KindOfEncoderInfo);
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Iso639_Get (const Ztring &Value)
+const Ztring &MediaInfo_Config::Iso639_Get (const Ztring &Value) const
 {
-    //TODO size_t Pos=Iso639.Find(Value);
-    //if (Pos==Error || 1>=Iso639.size())
-    //    return EmptyString_Get();
-    //return Iso639[Pos][1];
-    if (Iso639.empty())
-        File__Base_Iso639(Iso639);
     return Iso639.Get(Value, 1);
 }
 
@@ -1038,15 +1033,6 @@ Ztring MediaInfo_Config::Info_Version_Get () const
 Ztring MediaInfo_Config::Info_Url_Get () const
 {
     return MediaInfo_Url;
-}
-
-//---------------------------------------------------------------------------
-Ztring &MediaInfo_Config::EmptyString_Get ()
-{
-    Enter();
-    EmptyZtring.clear();
-    Leave();
-    return EmptyZtring;
 }
 
 const Ztring &MediaInfo_Config::EmptyString_Get () const
