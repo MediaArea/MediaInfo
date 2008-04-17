@@ -35,6 +35,10 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Riff.h"
+#if defined(MEDIAINFO_OGG_YES)
+    #include "MediaInfo/Multiple/File_Ogg.h"
+    #include "MediaInfo/Multiple/File_Ogg_SubElement.h"
+#endif
 #if defined(MEDIAINFO_MPEG4V_YES)
     #include "MediaInfo/Video/File_Mpeg4v.h"
 #endif
@@ -895,6 +899,14 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
         Merge(MI, StreamKind_Last, 0, StreamPos_Last);
     }
     #endif
+    #if defined(MEDIAINFO_OGG_YES)
+    else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec)==_T("Vorbis")
+          && FormatTag!=0x566F) //0x6F56 has config in this chunk
+    {
+        Stream[Stream_ID].Parser=new File_Ogg;
+        Open_Buffer_Init(Stream[Stream_ID].Parser);
+    }
+    #endif
 
     //Options
     if (Element_Offset+2>Element_Size)
@@ -912,6 +924,10 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
             AVI__hdlr_strl_strf_auds_Mpega();
         else if (Codec==_T("AAC") || Codec==_T("FF"))
             AVI__hdlr_strl_strf_auds_Aac();
+        else if (FormatTag==0x566F) //Vorbis with Config in this chunk
+            AVI__hdlr_strl_strf_auds_Vorbis();
+        else if (FormatTag==0x6750) //Vorbis with Config in this chunk
+            AVI__hdlr_strl_strf_auds_Vorbis2();
         else Skip_XX(Option_Size,                               "Unknown");
     }
 }
@@ -940,6 +956,73 @@ void File_Riff::AVI__hdlr_strl_strf_auds_Aac()
         Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         Open_Buffer_Finalize(&MI);
         Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+    #else //MEDIAINFO_MPEG4_YES
+        Skip_XX(Element_Size-Element_Offset,                    "(AudioSpecificConfig)");
+    #endif
+    Element_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__hdlr_strl_strf_auds_Vorbis()
+{
+    //Parsing
+    Element_Begin("Vorbis options");
+    #if defined(MEDIAINFO_OGG_YES)
+        File_Ogg_SubElement MI;
+        Element_Begin("Element sizes");
+            //All elements parsing, except last one
+            std::vector<size_t> Elements_Size;
+            size_t Elements_TotalSize=0;
+            int8u Elements_Count;
+            Get_L1(Elements_Count,                                  "Element count");
+            Elements_Size.resize(Elements_Count+1); //+1 for the last block
+            for (int8u Pos=0; Pos<Elements_Count; Pos++)
+            {
+                int8u Size;
+                Get_L1(Size,                                        "Size");
+                Elements_Size[Pos]=Size;
+                Elements_TotalSize+=Size;
+            }
+        Element_End();
+        if (Element_Offset+Elements_TotalSize>Element_Size)
+            return;
+        //Adding the last block
+        Elements_Size[Elements_Count]=(size_t)Element_Size-(Element_Offset+Elements_TotalSize);
+        Elements_Count++;
+        //Parsing blocks
+        for (int8u Pos=0; Pos<Elements_Count; Pos++)
+        {
+            Open_Buffer_Init(&MI, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+            Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, Elements_Size[Pos]);
+            Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Size, 0);
+            Element_Offset+=Elements_Size[Pos];
+        }
+        //Finalizing
+        Open_Buffer_Finalize(&MI);
+        Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+        Element_Show();
+    #else //MEDIAINFO_MPEG4_YES
+        Skip_XX(Element_Size-Element_Offset,                    "(Vorbis headers)");
+    #endif
+    Element_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__hdlr_strl_strf_auds_Vorbis2()
+{
+    //Parsing
+    Skip_XX(8,                                                  "Vorbis Unknown");
+    Element_Begin("Vorbis options");
+    #if defined(MEDIAINFO_OGG_YES)
+        File_Ogg_SubElement MI;
+        Open_Buffer_Init(Stream[Stream_ID].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+        Open_Buffer_Continue(Stream[Stream_ID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        Open_Buffer_Continue(Stream[Stream_ID].Parser, Buffer+Buffer_Offset+(size_t)Element_Size, 0);
+        Open_Buffer_Finalize(Stream[Stream_ID].Parser);
+        Merge(*Stream[Stream_ID].Parser, StreamKind_Last, 0, StreamPos_Last);
+        Element_Show();
+    #else //MEDIAINFO_MPEG4_YES
+        Skip_XX(Element_Size-Element_Offset,                    "(Vorbis headers)");
     #endif
     Element_End();
 }
@@ -1036,8 +1119,6 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     Skip_L4(                                                    "YPelsPerMeter");
     Skip_L4(                                                    "ClrUsed");
     Skip_L4(                                                    "ClrImportant");
-    if(Element_Offset<Element_Size)
-        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
 
     //Filling
     Stream[Stream_ID].Compression=Compression;
@@ -1102,6 +1183,32 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
         Open_Buffer_Init(Stream[Stream_ID].Parser);
     }
     #endif
+
+    //Options
+    if (Element_Offset>=Element_Size)
+        return; //No options
+        
+    //Filling
+         if (0);
+    else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("AVC"))==0)
+        AVI__hdlr_strl_strf_vids_Avc();
+    else Skip_XX(Element_Size-Element_Offset,                   "Unknown");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__hdlr_strl_strf_vids_Avc()
+{
+    //Parsing
+    Element_Begin("AVC options");
+    #if defined(MEDIAINFO_AVC_YES)
+        ((File_Avc*)Stream[Stream_ID].Parser)->MustParse_SPS_PPS=true;
+        ((File_Avc*)Stream[Stream_ID].Parser)->SizedBlocks=true;
+        Open_Buffer_Init(Stream[Stream_ID].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+        Open_Buffer_Continue(Stream[Stream_ID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+    #else //MEDIAINFO_MPEG4_YES
+        Skip_XX(Element_Size-Element_Offset,                    "(AVC headers)");
+    #endif
+    Element_End();
 }
 
 //---------------------------------------------------------------------------
@@ -1490,7 +1597,7 @@ void File_Riff::AVI__movi_xxxx()
 
     Stream_ID=(int32u)(Element_Code&0xFFFF0000);
 
-    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring().From_CC4(Element_Code)+_T(".raw"));
+    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring().From_CC4((int32u)Element_Code)+_T(".raw"));
 
     if (Stream_ID==0x69780000) //ix..
     {

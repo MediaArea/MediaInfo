@@ -153,7 +153,7 @@ void File_Ogg::Data_Parse()
 
     //Parsing
     File_Ogg_SubElement* Parser=(File_Ogg_SubElement*)Stream[Element_Code].Parser;
-    if (!Parser->SetupFinnished)
+    if (Parser->File_GoTo==(int64u)-1)
         //For each chunk
         for (size_t Chunk_Sizes_Pos=0; Chunk_Sizes_Pos<Chunk_Sizes.size(); Chunk_Sizes_Pos++)
         {
@@ -172,7 +172,7 @@ void File_Ogg::Data_Parse()
              || (Chunk_Sizes_Pos==Chunk_Sizes.size()-1 && Chunk_Sizes_Finnished))
                 Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, 0); //Purge old datas
 
-            if (Parser->SetupFinnished)
+            if (Parser->File_GoTo!=(int64u)-1)
             {
                 Merge(*Parser);
                 Merge(*Parser, Stream_General, 0, 0);
@@ -184,7 +184,7 @@ void File_Ogg::Data_Parse()
 
             Element_Offset+=Chunk_Sizes[Chunk_Sizes_Pos];
             continued=false; //If there is another chunk, this can not be a continued chunk
-            if (Parser->SetupFinnished)
+            if (Parser->File_GoTo!=(int64u)-1)
                 Chunk_Sizes_Pos=Chunk_Sizes.size();
         }
 
@@ -193,7 +193,7 @@ void File_Ogg::Data_Parse()
         (StreamsToDo==0 || File_Offset+Buffer_Offset+Element_Offset>256*1024))
     {
         Info("OGG, Jumping to end of file");
-        File_GoTo=File_Size-256*1024;
+        File_GoTo=File_Size-(IsSub?0:256*1024);
         std::map<int64u, stream>::iterator Stream_Temp=Stream.begin();
         while (Stream_Temp!=Stream.end())
         {

@@ -1031,12 +1031,12 @@ AAC;AAC;2CC;A;AAC;;;
 564C;Lead Vorbis;2CC;A;;;;
 566F;Vorbis;2CC;A;Vorbis;;;http://www.vorbis.com
 5756;WavPack;2CC;A;;;;http://www.wavpack.com/
-674F;Vorbis1;2CC;A;Vorbis;;Vorbis Mode 1;http://www.vorbis.com
-6750;Vorbis2;2CC;A;Vorbis;;Vorbis Mode 2;http://www.vorbis.com
-6751;Vorbis3;2CC;A;Vorbis;;Vorbis Mode 3;http://www.vorbis.com
-676F;Vorbis1+;2CC;A;Vorbis;;Vorbis Mode 1+;http://www.vorbis.com
-6770;Vorbis2+;2CC;A;Vorbis;;Vorbis Mode 2+;http://www.vorbis.com
-6771;Vorbis3+;2CC;A;Vorbis;;Vorbis Mode 2+;http://www.vorbis.com
+674F;Vorbis;2CC;A;Vorbis;;Mode 1;http://www.vorbis.com
+6750;Vorbis;2CC;A;Vorbis;;Mode 2;http://www.vorbis.com
+6751;Vorbis;2CC;A;Vorbis;;Mode 3;http://www.vorbis.com
+676F;Vorbis;2CC;A;Vorbis;;Mode 1+;http://www.vorbis.com
+6770;Vorbis;2CC;A;Vorbis;;Mode 2+;http://www.vorbis.com
+6771;Vorbis;2CC;A;Vorbis;;Mode 2+;http://www.vorbis.com
 ;3COM NBX;2CC;A;;;3Com Corporation;
 ;FAAD AAC;2CC;A;;;;
 7A21;AMR;2CC;A;;CBR;GSM-AMR (CBR, no SID);http://www.microsoft.com

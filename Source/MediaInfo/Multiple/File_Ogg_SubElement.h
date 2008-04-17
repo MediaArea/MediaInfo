@@ -44,9 +44,6 @@ public :
     stream_t StreamKind;
     int64u   absolute_granule_position_Resolution;
 
-    //Out
-    bool     SetupFinnished;
-
 protected :
     //Formats
     void Read_Buffer_Init ();

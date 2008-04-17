@@ -42,7 +42,7 @@ public :
     bool   MustParse_SPS_PPS;
     bool   MustParse_SPS_PPS_Only;
     bool   MustParse_SPS_PPS_Done;
-    bool   FromMKV;
+    bool   SizedBlocks;
 
 protected :
     //Format

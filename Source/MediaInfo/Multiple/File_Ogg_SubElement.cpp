@@ -53,8 +53,6 @@ namespace MediaInfoLib
 File_Ogg_SubElement::File_Ogg_SubElement()
 :File__Analyze()
 {
-    SetupFinnished=false;
-
     //Internal
     Setup_Vorbis=NULL;
 }
@@ -194,7 +192,7 @@ void File_Ogg_SubElement::Data_Parse()
         case 0x81 : Comment(); break;
         case 0x82 : Setup(); break;
         default   : Skip_XX(Element_Size,                       "Data");
-                    SetupFinnished=true;
+                    Finnished();
     }
 }
 
@@ -230,7 +228,7 @@ void File_Ogg_SubElement::Identification()
     ELEMENT_CASE(text)
     else
     {
-        SetupFinnished=true;
+        Finnished();
         return;
     }
 
@@ -423,17 +421,17 @@ void File_Ogg_SubElement::Comment()
     ELEMENT_CASE(audio)
     ELEMENT_CASE(text)
     else
-        SetupFinnished=true;
+        Finnished();
 
     //Must finnish?
     #undef ELEMENT_CASE
     #ifdef __BORLANDC__ //Borland converts int64u to int32u
         #define ELEMENT_CASE(_NAME) \
-            else if (ID_Identification==Ogg::_NAME##1*0x100000000LL+Ogg::_NAME##2) SetupFinnished=true;
+            else if (ID_Identification==Ogg::_NAME##1*0x100000000LL+Ogg::_NAME##2) Finnished();
 
     #else //__BORLANDC__
         #define ELEMENT_CASE(_NAME) \
-            else if (ID_Identification==Ogg::_NAME) SetupFinnished=true;
+            else if (ID_Identification==Ogg::_NAME) Finnished();
 
     #endif //__BORLANDC__
 
@@ -529,7 +527,7 @@ void File_Ogg_SubElement::Setup()
     //ELEMENT_CASE(video)
     //ELEMENT_CASE(audio)
     //ELEMENT_CASE(text)
-    SetupFinnished=true;
+    Finnished();
 }
 
 //---------------------------------------------------------------------------

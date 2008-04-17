@@ -2440,7 +2440,7 @@ void File_Mk::CodecID_Fill()
         Open_Buffer_Init(Stream[TrackNumber].Parser);
         ((File_Avc*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
         ((File_Avc*)Stream[TrackNumber].Parser)->MustParse_SPS_PPS=true;
-        ((File_Avc*)Stream[TrackNumber].Parser)->FromMKV=true;
+        ((File_Avc*)Stream[TrackNumber].Parser)->SizedBlocks=true;
     }
     #endif
     #if defined(MEDIAINFO_AC3_YES)

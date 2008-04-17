@@ -182,7 +182,7 @@ File_Avc::File_Avc()
     MustParse_SPS_PPS=false;
     MustParse_SPS_PPS_Only=false;
     MustParse_SPS_PPS_Done=false;
-    FromMKV=false;
+    SizedBlocks=false;
 }
 
 //***************************************************************************
@@ -226,7 +226,7 @@ bool File_Avc::Header_Begin()
         Init();
         return true;
     }
-    if (FromMKV)
+    if (SizedBlocks)
         return true;
 
     //Trailing 0x00
@@ -271,7 +271,7 @@ void File_Avc::Header_Parse()
 
     //Parsing
     int8u nal_unit_type;
-    if (!FromMKV)
+    if (!SizedBlocks)
     {
         Skip_B3(                                                "sync");
         BS_Begin();
@@ -1198,7 +1198,7 @@ void File_Avc::SPS_PPS()
     int8u Profile, Level, seq_parameter_set_count, pic_parameter_set_count;
     Skip_B1(                                                    "Reserved");
     Get_B1 (Profile,                                            "Profile");
-    if (FromMKV)
+    if (SizedBlocks)
         Skip_B1(                                                "Reserved");
     Get_B1 (Level,                                              "Level");
     BS_Begin();
