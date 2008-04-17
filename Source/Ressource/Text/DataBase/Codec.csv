@@ -1029,6 +1029,7 @@ AAC;AAC;2CC;A;AAC;;;
 4243;ADPCM;2CC;A;ADPCM;;G726;
 43AC;Lead Speech;2CC;A;;;;
 564C;Lead Vorbis;2CC;A;;;;
+566F;Vorbis;2CC;A;Vorbis;;;http://www.vorbis.com
 5756;WavPack;2CC;A;;;;http://www.wavpack.com/
 674F;Vorbis1;2CC;A;Vorbis;;Vorbis Mode 1;http://www.vorbis.com
 6750;Vorbis2;2CC;A;Vorbis;;Vorbis Mode 2;http://www.vorbis.com
@@ -1053,7 +1054,7 @@ DFAC;FrameServer;2CC;A;;;DebugMode SonicFoundry Vegas FrameServer ACM Codec;
 F1AC;FLAC;2CC;A;;;Free Lossless Audio Codec FLAC;
 FFFE;Extensible;2CC;A;;;Extensible wave format;
 FFFF;In Development;2CC;A;;;In Development / Unregistered;
-S_TEXT/UTF8;UTF-8;Mk;T;;;UTF-8 Plain Text;
+S_TEXT/UTF8;UTF-8;Mk;T;;;UTF-8 Plain Text
 S_TEXT/SSA;SSA;Mk;T;;;Sub Station Alpha
 S_TEXT/ASS;ASS;Mk;T;;;Advanced Sub Station Alpha
 S_TEXT/USF;USF;Mk;T;;;Universal Subtitle Format
