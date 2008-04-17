@@ -486,7 +486,7 @@ void File_Riff::AVI_()
     Fill(Stream_General, 0, General_Format, "AVI");
 
     //Configuring
-    Buffer_MaximumSize=16*1024*1024;
+    Buffer_MaximumSize=32*1024*1024;
 }
 
 //---------------------------------------------------------------------------
@@ -1490,6 +1490,8 @@ void File_Riff::AVI__movi_xxxx()
 
     Stream_ID=(int32u)(Element_Code&0xFFFF0000);
 
+    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring().From_CC4(Element_Code)+_T(".raw"));
+
     if (Stream_ID==0x69780000) //ix..
     {
         //AVI Standard Index Chunk
@@ -1504,6 +1506,7 @@ void File_Riff::AVI__movi_xxxx()
     //Finished?
     if (!Stream[Stream_ID].SearchingPayload)
     {
+        Element_DoNotShow();
         AVI__movi_StreamJump();
         return;
     }
