@@ -7,6 +7,11 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.6.4, 2008-
+---------------
++ About the library : Java/Linux binding is available
+x #1943743, AVI with MPEG-Audio VBR and delay: delay was incorrect
+
 Version 0.7.6.3, 2008-04-12
 ---------------
 + AVC: Count of reference frames

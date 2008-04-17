@@ -1165,6 +1165,7 @@ void File_Riff::AVI__hdlr_strl_strh()
     }
     Stream[Stream_ID].fccType=fccType;
     Stream[Stream_ID].fccHandler=fccHandler;
+    Stream[Stream_ID].Rate=Rate;
 }
 
 //---------------------------------------------------------------------------
