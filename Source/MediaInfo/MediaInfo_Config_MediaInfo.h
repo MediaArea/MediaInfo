@@ -70,6 +70,10 @@ public :
     Ztring        File_Duplicate_Get  (size_t AlreadyRead_Pos); //Requester must say how many Get() it already read
     bool          File_Duplicate_Get_AlwaysNeeded (size_t AlreadyRead_Pos); //Requester must say how many Get() it already read
 
+    //Specific
+    void          File_MpegTs_ForceMenu_Set (bool NewValue);
+    bool          File_MpegTs_ForceMenu_Get ();
+
 private :
     void Enter (bool Set=false);
     void Leave ();
@@ -83,6 +87,9 @@ private :
     bool                    File_Filter_HasChanged_;
 
     std::vector<Ztring>     File__Duplicate_List;
+
+    //Specific
+    bool                    File_MpegTs_ForceMenu;
 };
 
 } //NameSpace

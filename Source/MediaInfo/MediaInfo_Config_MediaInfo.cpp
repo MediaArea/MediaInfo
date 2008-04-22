@@ -44,6 +44,9 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     FileIsSeekable=true;
     File_Filter_HasChanged_=false;
     File_IsSub=false;
+
+    //Specific
+    File_MpegTs_ForceMenu=false;
 }
 
 //***************************************************************************
@@ -105,6 +108,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
             return _T("1");
         //else
         //    return _T("");
+    }
+    else if (Option_Lower==_T("file_mpegts_forcemenu"))
+    {
+        File_MpegTs_ForceMenu_Set(!(Value==_T("0") || Value.empty()));
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_mpegts_forcemenu_get"))
+    {
+        return File_MpegTs_ForceMenu_Get()?"1":"0";
     }
     else
         return _T("Option not known");
@@ -239,6 +251,26 @@ bool MediaInfo_Config_MediaInfo::File_Duplicate_Get_AlwaysNeeded (size_t Already
     bool Temp=AlreadyRead_Pos>=File__Duplicate_List.size();
     Leave();
     return !Temp; //True if there is something to read
+}
+
+//***************************************************************************
+// Force Parser
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_MpegTs_ForceMenu_Set (bool NewValue)
+{
+    Enter(true);
+    File_MpegTs_ForceMenu=NewValue;
+    Leave();
+}
+
+bool MediaInfo_Config_MediaInfo::File_MpegTs_ForceMenu_Get ()
+{
+    Enter();
+    bool Temp=File_MpegTs_ForceMenu;
+    Leave();
+    return Temp;
 }
 
 //***************************************************************************

@@ -324,7 +324,7 @@ void File_MpegTs::Read_Buffer_Finalize()
         Fill(Stream_General, 0, General_Format, "MPEG-1TS");
 
     //Fill Menu
-    if (Programs.size()>1)
+    if (Programs.size()>1 || Config->File_MpegTs_ForceMenu_Get())
     {
         for (std::map<int16u, program>::iterator Program=Programs.begin(); Program!=Programs.end(); Program++)
         {
