@@ -118,7 +118,7 @@ void File__Duplicate::File__Duplicate_Set (const Ztring &Value)
 
         //For each order
         for (std::vector<ZtringList::iterator>::iterator Order=Orders.begin(); Order<Orders.end(); Order++)
-                Duplicates[**Target]->Configure(**Order, ToRemove);
+            Duplicates[**Target]->Configure(**Order, ToRemove);
     }
 
     //Informing the status has changed

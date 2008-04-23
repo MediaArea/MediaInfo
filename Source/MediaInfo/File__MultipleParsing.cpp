@@ -35,6 +35,9 @@
 #if defined(MEDIAINFO_CDXA_YES)
     #include "MediaInfo/Multiple/File_Cdxa.h"
 #endif
+#if defined(MEDIAINFO_DVDIF_YES)
+    #include "MediaInfo/Multiple/File_DvDif.h"
+#endif
 #if defined(MEDIAINFO_DVDV_YES)
     #include "MediaInfo/Multiple/File_Dvdv.h"
 #endif
@@ -273,6 +276,9 @@ void File__MultipleParsing::Read_Buffer_Continue()
         #endif
         #if defined(MEDIAINFO_CDXA_YES)
             Temp=new File_Cdxa(); Parser.push_back(Temp);
+        #endif
+        #if defined(MEDIAINFO_DVDIF_YES)
+            Temp=new File_DvDif(); Parser.push_back(Temp);
         #endif
         #if defined(MEDIAINFO_DVDV_YES)
             Temp=new File_Dvdv(); Parser.push_back(Temp);
