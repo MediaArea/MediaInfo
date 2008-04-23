@@ -73,7 +73,7 @@ MediaInfo_Config Config;
 
 void MediaInfo_Config::Init()
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);
     //We use Init() instead of COnstructor because for some backends (like WxWidgets...) does NOT like constructor of static object with Unicode conversion
 
     //Test
@@ -121,8 +121,6 @@ void MediaInfo_Config::Init()
     File__Base_Encoder(Encoder);
     File__Base_Iso639(Iso639);
     ZtringListList ZLL1; Language_Set(ZLL1);
-
-    Leave();
 }
 
 //***************************************************************************
@@ -369,87 +367,72 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value)
 //---------------------------------------------------------------------------
 void MediaInfo_Config::Complete_Set (size_t NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     Complete=NewValue;
-    Leave();
 }
 
 size_t MediaInfo_Config::Complete_Get ()
 {
-    Enter();
-    size_t ToReturn=Complete;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return Complete;
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::BlockMethod_Set (size_t NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     BlockMethod=NewValue;
-    Leave();
 }
 
 size_t MediaInfo_Config::BlockMethod_Get ()
 {
-    Enter();
-    size_t ToReturn=BlockMethod;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return BlockMethod;
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::Internet_Set (size_t NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     Internet=NewValue;
-    Leave();
 }
 
 size_t MediaInfo_Config::Internet_Get ()
 {
-    Enter();
-    size_t ToReturn=Internet;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return Internet;
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::MultipleValues_Set (size_t NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     MultipleValues=NewValue;
-    Leave();
 }
 
 size_t MediaInfo_Config::MultipleValues_Get ()
 {
-    Enter();
-    size_t ToReturn=MultipleValues;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return MultipleValues;
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::ParseUnknownExtensions_Set (size_t NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     ParseUnknownExtensions=NewValue;
-    Leave();
 }
 
 size_t MediaInfo_Config::ParseUnknownExtensions_Get ()
 {
-    Enter();
-    size_t ToReturn=ParseUnknownExtensions;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return ParseUnknownExtensions;
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::ShowFiles_Set (const ZtringListList &NewShowFiles)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     for  (size_t Pos=0; Pos<NewShowFiles.size(); Pos++)
     {
         const Ztring& Object=NewShowFiles.Read(Pos, 0);
@@ -464,215 +447,174 @@ void MediaInfo_Config::ShowFiles_Set (const ZtringListList &NewShowFiles)
         else if (Object==_T("TextOnly"))
             ShowFiles_TextOnly=NewShowFiles.Read(Pos, 1).empty()?1:0;
     }
-    Leave();
 }
 
 size_t MediaInfo_Config::ShowFiles_Nothing_Get ()
 {
-    Enter();
-    size_t ToReturn=ShowFiles_Nothing;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return ShowFiles_Nothing;
 }
 
 size_t MediaInfo_Config::ShowFiles_VideoAudio_Get ()
 {
-    Enter();
-    size_t ToReturn=ShowFiles_VideoAudio;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return ShowFiles_VideoAudio;
 }
 
 size_t MediaInfo_Config::ShowFiles_VideoOnly_Get ()
 {
-    Enter();
-    size_t ToReturn=ShowFiles_VideoOnly;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return ShowFiles_VideoOnly;
 }
 
 size_t MediaInfo_Config::ShowFiles_AudioOnly_Get ()
 {
-    Enter();
-    size_t ToReturn=ShowFiles_AudioOnly;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return ShowFiles_AudioOnly;
 }
 
 size_t MediaInfo_Config::ShowFiles_TextOnly_Get ()
 {
-    Enter();
-    size_t ToReturn=ShowFiles_TextOnly;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return ShowFiles_TextOnly;
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::ParseSpeed_Set (float32 NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     ParseSpeed=NewValue;
-    Leave();
 }
 
 float32 MediaInfo_Config::ParseSpeed_Get ()
 {
-    Enter();
-    float32 ToReturn=ParseSpeed;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return ParseSpeed;
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::Details_Set (float NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     Details=NewValue;
-    Leave();
 }
 
 float MediaInfo_Config::Details_Get ()
 {
-    Enter();
-    float ToReturn=Details;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return Details;
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::Demux_Set (int8u NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     Demux=NewValue;
-    Leave();
 }
 
 int8u MediaInfo_Config::Demux_Get ()
 {
-    Enter();
-    int8u ToReturn=Demux;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return Demux;
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::LineSeparator_Set (const Ztring &NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     LineSeparator=NewValue;
-    Leave();
 }
 
 Ztring MediaInfo_Config::LineSeparator_Get ()
 {
-    Enter();
-    Ztring ToReturn=LineSeparator;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return LineSeparator;
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::ColumnSeparator_Set (const Ztring &NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     ColumnSeparator=NewValue;
-    Leave();
 }
 
 Ztring MediaInfo_Config::ColumnSeparator_Get ()
 {
-    Enter();
-    Ztring ToReturn=ColumnSeparator;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return ColumnSeparator;
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::TagSeparator_Set (const Ztring &NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     TagSeparator=NewValue;
-    Leave();
 }
 
 Ztring MediaInfo_Config::TagSeparator_Get ()
 {
-    Enter();
-    Ztring ToReturn=TagSeparator;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return TagSeparator;
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::Quote_Set (const Ztring &NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     Quote=NewValue;
-    Leave();
 }
 
 Ztring MediaInfo_Config::Quote_Get ()
 {
-    Enter();
-    Ztring ToReturn=Quote;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return Quote;
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::DecimalPoint_Set (const Ztring &NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     DecimalPoint=NewValue;
-    Leave();
 }
 
 Ztring MediaInfo_Config::DecimalPoint_Get ()
 {
-    Enter();
-    Ztring ToReturn=DecimalPoint;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return DecimalPoint;
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::ThousandsPoint_Set (const Ztring &NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     ThousandsPoint=NewValue;
-    Leave();
 }
 
 Ztring MediaInfo_Config::ThousandsPoint_Get ()
 {
-    Enter();
-    Ztring ToReturn=ThousandsPoint;
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return ThousandsPoint;
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::StreamMax_Set (const ZtringListList &)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     //TODO : implementation
-    Leave();
 }
 
 Ztring MediaInfo_Config::StreamMax_Get ()
 {
-    Enter();
+    CriticalSectionLocker CSL(CS);;
     ZtringListList StreamMax;
     //TODO : implementation
-    Ztring ToReturn=StreamMax.Read();
-    Leave();
-    return ToReturn;
+    return StreamMax.Read();
 }
 
 //---------------------------------------------------------------------------
 void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
 
     //Which language to choose?
     bool Raw=false;
@@ -735,31 +677,23 @@ void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
             //Slashes
 
         }
-
-    Leave();
 }
 
 Ztring MediaInfo_Config::Language_Get ()
 {
-    Enter();
+    CriticalSectionLocker CSL(CS);;
     Ztring ToReturn;//TODO =Language.Read();
-    Leave();
     return ToReturn;
 }
 
 Ztring MediaInfo_Config::Language_Get (const Ztring &Value)
 {
-    Enter();
+    CriticalSectionLocker CSL(CS);;
     //TODO size_t Pos=Language.Find(Value, 0, 0, _T("=="), Ztring_CaseSensitive);
     //if (Pos==Error || 1>=Language[Pos].size())
-    //{
-    //    Leave();
     //    return EmptyString_Get();
-    //}
-    const Ztring &Temp=Language[Value];
-    Leave();
+    return Language[Value];
     //return Language[Pos][1];
-    return Temp;
 }
 
 //---------------------------------------------------------------------------
@@ -846,7 +780,7 @@ Ztring MediaInfo_Config::Language_Get (const Ztring &Count, const Ztring &Value)
 //---------------------------------------------------------------------------
 void MediaInfo_Config::Inform_Set (const ZtringListList &NewValue)
 {
-    Enter(true);
+    CriticalSectionLocker CSL(CS);;
     if (NewValue.Read(0, 0)==_T("Details"))
         Details_Set(NewValue.Read(0, 1).To_float32());
     else
@@ -901,30 +835,21 @@ void MediaInfo_Config::Inform_Set (const ZtringListList &NewValue)
             Custom_View(Pos, 1)=FromFile;
         }
     }
-
-    Leave();
 }
 
 Ztring MediaInfo_Config::Inform_Get ()
 {
-    Enter();
-    Ztring ToReturn=Custom_View.Read();
-    Leave();
-    return ToReturn;
+    CriticalSectionLocker CSL(CS);;
+    return Custom_View.Read();
 }
 
 Ztring MediaInfo_Config::Inform_Get (const Ztring &Value)
 {
-    Enter();
+    CriticalSectionLocker CSL(CS);;
     size_t Pos=Custom_View.Find(Value);
     if (Pos==Error || 1>=Custom_View[Pos].size())
-    {
-        Leave();
         return EmptyString_Get();
-    }
-    Ztring ToReturn=Custom_View[Pos][1];
-    Leave();
-    return ToReturn;
+    return Custom_View[Pos][1];
 }
 
 //---------------------------------------------------------------------------
@@ -1040,17 +965,6 @@ const Ztring &MediaInfo_Config::EmptyString_Get () const
     return EmptyZtring_Const;
 }
 
-//***************************************************************************
-// Enter/Leave
-//***************************************************************************
-
-void MediaInfo_Config::Enter (bool)
-{
-}
-
-void MediaInfo_Config::Leave ()
-{
-}
 
 } //NameSpace
 

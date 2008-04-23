@@ -28,6 +28,7 @@
 
 //---------------------------------------------------------------------------
 #include <MediaInfo/MediaInfo_Internal_Const.h>
+#include <ZenLib/CriticalSection.h>
 #include <ZenLib/ZtringListList.h>
 #include <ZenLib/Translation.h>
 #include <ZenLib/InfoMap.h>
@@ -56,7 +57,7 @@ public :
     bool          File_IsSeekable_Get ();
 
     void          File_ForceParser_Set (const Ztring &NewValue);
-    const Ztring &File_ForceParser_Get ();
+    Ztring        File_ForceParser_Get ();
 
     void          File_IsSub_Set (bool NewValue);
     bool          File_IsSub_Get ();
@@ -75,9 +76,6 @@ public :
     bool          File_MpegTs_ForceMenu_Get ();
 
 private :
-    void Enter (bool Set=false);
-    void Leave ();
-
     bool                    FileIsSeekable;
     Ztring                  File_ForceParser;
     bool                    File_IsSub;
@@ -90,8 +88,11 @@ private :
 
     //Specific
     bool                    File_MpegTs_ForceMenu;
+
+    ZenLib::CriticalSection CS;
 };
 
 } //NameSpace
 
 #endif
+

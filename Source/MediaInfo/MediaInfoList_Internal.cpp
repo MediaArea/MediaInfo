@@ -48,6 +48,7 @@ extern MediaInfo_Config Config;
 //Constructeurs
 MediaInfoList_Internal::MediaInfoList_Internal(size_t Count_Init)
 {
+    CriticalSectionLocker CSL(CS);
     //Initialisation
     Info.reserve(Count_Init);
     for (size_t Pos=0; Pos<Info.size(); Pos++)
@@ -65,6 +66,7 @@ MediaInfoList_Internal::~MediaInfoList_Internal()
 {
     Close();
 
+    CriticalSectionLocker CSL(CS);;
     for (size_t Pos=0; Pos<Info.size(); Pos++)
         delete Info[Pos]; //Info[Pos]=NULL;
 }
@@ -130,7 +132,10 @@ void MediaInfoList_Internal::Entry()
             ToParse_AlreadyDone++;
             State=ToParse_AlreadyDone*10000/ToParse_Total;
             if (!IsInThread && State==10000)
+            {
+                CS.Leave();
                 break; //This is not in a thread, we must stop alone
+            }
         }
         CS.Leave();
         Yield();
@@ -142,16 +147,17 @@ size_t MediaInfoList_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_
 {
     MediaInfo* MI=new MediaInfo();
     MI->Open_Buffer_Init(File_Size_, File_Offset_);
-    CS.Enter();
+
+    CriticalSectionLocker CSL(CS);;
     size_t Pos=Info.size();
     Info.push_back(MI);
-    CS.Leave();
     return Pos;
 }
 
 //---------------------------------------------------------------------------
 size_t MediaInfoList_Internal::Open_Buffer_Continue (size_t FilePos, const int8u* ToAdd, size_t ToAdd_Size)
 {
+    CriticalSectionLocker CSL(CS);
     if (FilePos>=Info.size() || Info[FilePos]==NULL)
         return 0;
 
@@ -161,6 +167,7 @@ size_t MediaInfoList_Internal::Open_Buffer_Continue (size_t FilePos, const int8u
 //---------------------------------------------------------------------------
 int64u MediaInfoList_Internal::Open_Buffer_Continue_GoTo_Get (size_t FilePos)
 {
+    CriticalSectionLocker CSL(CS);
     if (FilePos>=Info.size() || Info[FilePos]==NULL)
         return (int64u)-1;
 
@@ -170,6 +177,7 @@ int64u MediaInfoList_Internal::Open_Buffer_Continue_GoTo_Get (size_t FilePos)
 //---------------------------------------------------------------------------
 size_t MediaInfoList_Internal::Open_Buffer_Finalize (size_t FilePos)
 {
+    CriticalSectionLocker CSL(CS);
     if (FilePos>=Info.size() || Info[FilePos]==NULL)
         return 0;
 
@@ -179,6 +187,7 @@ size_t MediaInfoList_Internal::Open_Buffer_Finalize (size_t FilePos)
 //---------------------------------------------------------------------------
 size_t MediaInfoList_Internal::Save(size_t)
 {
+    CriticalSectionLocker CSL(CS);
     return 0; //Not yet implemented
 }
 
@@ -211,6 +220,7 @@ void MediaInfoList_Internal::Close(size_t FilePos)
 //---------------------------------------------------------------------------
 String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
 {
+    CriticalSectionLocker CSL(CS);
     if (FilePos==Error)
     {
         Ztring Retour;
@@ -238,6 +248,7 @@ String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
 //---------------------------------------------------------------------------
 String MediaInfoList_Internal::Get(size_t FilePos, stream_t KindOfStream, size_t StreamNumber, size_t Parameter, info_t KindOfInfo)
 {
+    CriticalSectionLocker CSL(CS);
     if (FilePos==Error || FilePos>=Info.size() || Info[FilePos]==NULL || Info[FilePos]->Count_Get(Stream_General)==0)
         return MediaInfoLib::Config.EmptyString_Get();
 
@@ -247,10 +258,7 @@ String MediaInfoList_Internal::Get(size_t FilePos, stream_t KindOfStream, size_t
 //---------------------------------------------------------------------------
 String MediaInfoList_Internal::Get(size_t FilePos, stream_t KindOfStream, size_t StreamNumber, const String &Parameter, info_t KindOfInfo, info_t KindOfSearch)
 {
-    //TRACE(Trace+=_T("Get(L), CompleteName=");Trace+=Info[FilePos].Get(Stream_General, 0, _T("CompleteName")).c_str();)
-    //TRACE(Trace+=_T("Get(L), StreamKind=");Trace+=ZenLib::Ztring::ToZtring((int8u)KindOfStream);Trace+=_T(", StreamNumber=");Trace+=ZenLib::Ztring::ToZtring((int8u)StreamNumber);Trace+=_T(", Parameter=");Trace+=ZenLib::Ztring(Parameter);Trace+=_T(", KindOfInfo=");Trace+=ZenLib::Ztring::ToZtring((int8u)KindOfInfo);Trace+=_T(", KindOfSearch=");Trace+=ZenLib::Ztring::ToZtring((int8u)KindOfSearch);)
-    //TRACE(Trace+=_T("Get(L), will return ");Trace+=Info[FilePos].Get(KindOfStream, StreamNumber, Parameter, KindOfInfo, KindOfSearch).c_str();)
-
+    CriticalSectionLocker CSL(CS);
     if (FilePos==Error || FilePos>=Info.size() || Info[FilePos]==NULL || Info[FilePos]->Count_Get(Stream_General)==0)
         return MediaInfoLib::Config.EmptyString_Get();
 
@@ -264,6 +272,7 @@ String MediaInfoList_Internal::Get(size_t FilePos, stream_t KindOfStream, size_t
 //---------------------------------------------------------------------------
 size_t MediaInfoList_Internal::Set(const String &ToSet, size_t FilePos, stream_t StreamKind, size_t StreamNumber, size_t Parameter, const String &OldValue)
 {
+    CriticalSectionLocker CSL(CS);
     if (FilePos==(size_t)-1)
         FilePos=0; //TODO : average
 
@@ -276,6 +285,7 @@ size_t MediaInfoList_Internal::Set(const String &ToSet, size_t FilePos, stream_t
 //---------------------------------------------------------------------------
 size_t MediaInfoList_Internal::Set(const String &ToSet, size_t FilePos, stream_t StreamKind, size_t StreamNumber, const String &Parameter, const String &OldValue)
 {
+    CriticalSectionLocker CSL(CS);
     if (FilePos==(size_t)-1)
         FilePos=0; //TODO : average
 
@@ -310,6 +320,7 @@ char* MediaInfoList_Internal::Output_Buffer_Get (size_t FilePos, size_t &Output_
 //---------------------------------------------------------------------------
 String MediaInfoList_Internal::Option (const String &Option, const String &Value)
 {
+    CriticalSectionLocker CSL(CS);
     Ztring OptionLower=Option; OptionLower.MakeLowerCase();
          if (Option==_T(""))
         return _T("");
@@ -359,6 +370,7 @@ size_t MediaInfoList_Internal::State_Get()
 //---------------------------------------------------------------------------
 size_t MediaInfoList_Internal::Count_Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber)
 {
+    CriticalSectionLocker CSL(CS);
     if (FilePos>=Info.size() || Info[FilePos]==NULL)
         return 0;
 
@@ -368,6 +380,7 @@ size_t MediaInfoList_Internal::Count_Get (size_t FilePos, stream_t StreamKind, s
 //---------------------------------------------------------------------------
 size_t MediaInfoList_Internal::Count_Get()
 {
+    CriticalSectionLocker CSL(CS);
     return Info.size();
 }
 

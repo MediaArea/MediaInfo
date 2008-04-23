@@ -132,6 +132,8 @@ private :
     std::vector<std::vector<ZtringListList> > Stream_More;
     Ztring Details;
     void Traiter(Ztring &C); //enleve les $if...
+
+    ZenLib::CriticalSection CS;
 };
 
 } //NameSpace

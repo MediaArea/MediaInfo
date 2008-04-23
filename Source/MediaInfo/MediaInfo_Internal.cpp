@@ -57,6 +57,7 @@ extern MediaInfo_Config         Config;
 //---------------------------------------------------------------------------
 MediaInfo_Internal::MediaInfo_Internal()
 {
+    CriticalSectionLocker CSL(CS);
     Thread=NULL;
     BlockMethod=BlockMethod_Local;
     Info=NULL;
@@ -80,6 +81,7 @@ MediaInfo_Internal::~MediaInfo_Internal()
 {
     Close();
 
+    CriticalSectionLocker CSL(CS);;
     delete Info; //Info=NULL;
     delete[] Buffer; //Buffer=NULL;
     delete (File*)File_Handle; //File_Handle=NULL;
@@ -123,6 +125,7 @@ size_t MediaInfo_Internal::Open(const String &File_Name_)
         SelectFromExtension(Parser);
     }
 
+    CriticalSectionLocker CSL(CS);;
     //Test the theorical format
     if (Format_Test()>0)
          return 1;
@@ -307,6 +310,7 @@ int MediaInfo_Internal::Format_Test_FillBuffer_Close()
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Open (const int8u* Begin_, size_t Begin_Size_, const int8u*, size_t, int64u FileSize_)
 {
+    CriticalSectionLocker CSL(CS);
     Buffer_Size_Max=Begin_Size_;
     delete[] Buffer; Buffer=new int8u[Buffer_Size_Max];
     memcpy(Buffer, Begin_, Begin_Size_);
@@ -324,6 +328,7 @@ size_t MediaInfo_Internal::Open (const int8u* Begin_, size_t Begin_Size_, const 
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
 {
+    CriticalSectionLocker CSL(CS);
     if (Info==NULL)
     {
         if (!Config.File_ForceParser_Get().empty())
@@ -343,6 +348,7 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
+    CriticalSectionLocker CSL(CS);
     if (Info==NULL)
         return 0;
 
@@ -372,6 +378,7 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
 //---------------------------------------------------------------------------
 int64u MediaInfo_Internal::Open_Buffer_Continue_GoTo_Get ()
 {
+    CriticalSectionLocker CSL(CS);
     if (Info!=NULL)
         return Info->File_GoTo;
     else
@@ -381,6 +388,7 @@ int64u MediaInfo_Internal::Open_Buffer_Continue_GoTo_Get ()
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Open_Buffer_Finalize ()
 {
+    CriticalSectionLocker CSL(CS);
     if (Info!=NULL)
     {
         Info->Open_Buffer_Finalize();
@@ -392,6 +400,9 @@ size_t MediaInfo_Internal::Open_Buffer_Finalize ()
 //---------------------------------------------------------------------------
 void MediaInfo_Internal::Close()
 {
+    CriticalSectionLocker CSL(CS);
+    Stream.clear();
+    Stream_More.clear();
     delete Info; Info=NULL;
     Buffer_Clear();
 }
@@ -416,6 +427,7 @@ String MediaInfo_Internal::Inform(size_t)
 //---------------------------------------------------------------------------
 String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, size_t Parameter, info_t KindOfInfo)
 {
+    CriticalSectionLocker CSL(CS);
     //Check integrity
     if (StreamKind>=Stream_Max || StreamNumber>=Stream[StreamKind].size() || Parameter>=MediaInfoLib::Config.Info_Get(StreamKind).size()+Stream_More[StreamKind][StreamNumber].size() || KindOfInfo>=Info_Max)
         return MediaInfoLib::Config.EmptyString_Get(); //Parameter is unknown
@@ -437,6 +449,7 @@ String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, size_t 
 //---------------------------------------------------------------------------
 String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, const String &Parameter, info_t KindOfInfo, info_t KindOfSearch)
 {
+    CriticalSectionLocker CSL(CS);
     size_t ParameterI=0;
 
     //Legacy
@@ -474,6 +487,7 @@ String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, const S
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Set(const String &ToSet, stream_t StreamKind, size_t StreamNumber, size_t Parameter, const String &OldValue)
 {
+    CriticalSectionLocker CSL(CS);
     if (!Info)
         return 0;
 
@@ -483,6 +497,7 @@ size_t MediaInfo_Internal::Set(const String &ToSet, stream_t StreamKind, size_t 
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Set(const String &ToSet, stream_t StreamKind, size_t StreamNumber, const String &Parameter, const String &OldValue)
 {
+    CriticalSectionLocker CSL(CS);
     if (!Info)
         return 0;
 
@@ -496,6 +511,7 @@ size_t MediaInfo_Internal::Set(const String &ToSet, stream_t StreamKind, size_t 
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Output_Buffer_Get (const String &Value)
 {
+    CriticalSectionLocker CSL(CS);
     if (!Info)
         return 0;
 
@@ -505,6 +521,7 @@ size_t MediaInfo_Internal::Output_Buffer_Get (const String &Value)
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Output_Buffer_Get (size_t Pos)
 {
+    CriticalSectionLocker CSL(CS);
     if (!Info)
         return 0;
 
@@ -518,6 +535,7 @@ size_t MediaInfo_Internal::Output_Buffer_Get (size_t Pos)
 //---------------------------------------------------------------------------
 String MediaInfo_Internal::Option (const String &Option, const String &Value)
 {
+    CriticalSectionLocker CSL(CS);
     Ztring OptionLower=Option; OptionLower.MakeLowerCase();
          if (Option.empty())
         return _T("");
@@ -707,6 +725,7 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Count_Get (stream_t StreamKind, size_t StreamPos)
 {
+    CriticalSectionLocker CSL(CS);
     //Integrity
     if (StreamKind>=Stream_Max)
         return 0;
@@ -726,6 +745,7 @@ size_t MediaInfo_Internal::Count_Get (stream_t StreamKind, size_t StreamPos)
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::State_Get ()
 {
+    CriticalSectionLocker CSL(CS);
     return 0; //Not yet implemented
 }
 

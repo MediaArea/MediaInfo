@@ -28,6 +28,7 @@
 
 //---------------------------------------------------------------------------
 #include <MediaInfo/MediaInfo_Internal_Const.h>
+#include <ZenLib/CriticalSection.h>
 #include <ZenLib/ZtringListList.h>
 #include <ZenLib/Translation.h>
 #include <ZenLib/InfoMap.h>
@@ -137,9 +138,6 @@ public :
     const Ztring   &EmptyString_Get() const; //Use it when we can't return a reference to a true string
 
 private :
-    void Enter (bool Set=false);
-    void Leave ();
-
     size_t          Complete;
     size_t          BlockMethod;
     size_t          Internet;
@@ -168,6 +166,8 @@ private :
     InfoMap         Encoder;
     InfoMap         Iso639;
     ZtringListList  Info[Stream_Max]; //General info
+
+    ZenLib::CriticalSection CS;
 };
 
 extern MediaInfo_Config Config;

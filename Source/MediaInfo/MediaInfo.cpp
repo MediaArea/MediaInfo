@@ -273,7 +273,7 @@ String MediaInfo::Option_Static (const String &Option, const String &Value)
     else if (Option==_T("Info_Version"))
     {
         Ztring ToReturn=MediaInfoLib::Config.Info_Version_Get();
-        #if defined(MediaInfo_Internal_VIDEO_NO) || defined(MediaInfo_Internal_AUDIO_NO) || defined(MediaInfo_Internal_RIFF_NO) || defined(MediaInfo_Internal_OGG_NO) || defined(MediaInfo_Internal_MPEGPS_NO) || defined(MediaInfo_Internal_MPEGA_NO) || defined(MediaInfo_Internal_WM_NO) || defined(MediaInfo_Internal_QT_NO) || defined(MediaInfo_Internal_RM_NO) || defined(MediaInfo_Internal_DVDV_NO) || defined(MediaInfo_Internal_AAC_NO) || defined(MediaInfo_Internal_MK_NO) || defined(MediaInfo_Internal_APE_NO) || defined(MediaInfo_Internal_FLAC_NO) || defined(MediaInfo_Internal_SNDFILE_NO) || defined(MediaInfo_Internal_FLV_NO) || defined(MediaInfo_Internal_SWF_NO)
+        #if defined(MediaInfo_Internal_VIDEO_NO) || defined(MediaInfo_Internal_AUDIO_NO) || defined(MediaInfo_Internal_RIFF_NO) || defined(MediaInfo_Internal_OGG_NO) || defined(MediaInfo_Internal_MPEGPS_NO) || defined(MediaInfo_Internal_MPEGA_NO) || defined(MediaInfo_Internal_WM_NO) || defined(MediaInfo_Internal_QT_NO) || defined(MediaInfo_Internal_RM_NO) || defined(MediaInfo_Internal_DVDIF_NO) || defined(MediaInfo_Internal_DVDV_NO) || defined(MediaInfo_Internal_AAC_NO) || defined(MediaInfo_Internal_MK_NO) || defined(MediaInfo_Internal_APE_NO) || defined(MediaInfo_Internal_FLAC_NO) || defined(MediaInfo_Internal_SNDFILE_NO) || defined(MediaInfo_Internal_FLV_NO) || defined(MediaInfo_Internal_SWF_NO)
             ToReturn+=_T(" modified");
         #endif
         return ToReturn;
