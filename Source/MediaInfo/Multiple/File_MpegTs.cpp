@@ -790,7 +790,8 @@ void File_MpegTs::PES()
     if (Streams[pid].Parser==NULL)
     {
         if (Mpeg_Psi_stream_Kind(Streams[pid].stream_type, format_identifier)==Stream_Max
-         && Streams[pid].stream_type!=0x06) //Exception for private data
+         && Streams[pid].stream_type!=0x06 //Exception for private data
+         && Mpeg_Descriptors_stream_Kind(Streams[pid].descriptor_tag, format_identifier)==Stream_Max) //From Descriptor
         {
             Streams[pid].Searching_Payload_Start_Set(false);
             Streams[pid].Searching_Payload_Continue_Set(false);

@@ -566,6 +566,12 @@ const char* Mpeg_Descriptors_stream_Codec(int8u descriptor_tag, int32u format_id
                             case 0x81 : return "AC3";
                             default   : return "";
                         }
+                case Mpeg_Descriptors::AC_3 : return "AC3";
+                case Mpeg_Descriptors::DTS1 : return "DTS";
+                case Mpeg_Descriptors::DTS2 : return "DTS";
+                case Mpeg_Descriptors::DTS3 : return "DTS";
+                case Mpeg_Descriptors::VC_1 : return "VC-1";
+                case Mpeg_Descriptors::drac : return "Dirac";
                 default                     :
                         switch (descriptor_tag)
                         {
@@ -605,6 +611,12 @@ stream_t Mpeg_Descriptors_stream_Kind(int8u descriptor_tag, int32u format_identi
                             case 0x81 : return Stream_Audio;
                             default   : return Stream_Max;
                         }
+                case Mpeg_Descriptors::AC_3 : return Stream_Audio;
+                case Mpeg_Descriptors::DTS1 : return Stream_Audio;
+                case Mpeg_Descriptors::DTS2 : return Stream_Audio;
+                case Mpeg_Descriptors::DTS3 : return Stream_Audio;
+                case Mpeg_Descriptors::VC_1 : return Stream_Video;
+                case Mpeg_Descriptors::drac : return Stream_Video;
                 default                     :
                         switch (descriptor_tag)
                         {

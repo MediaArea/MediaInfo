@@ -1010,8 +1010,7 @@ void File_Mpeg_Psi::Descriptors()
 
     //Filling
     Streams[Stream_Current].Infos=Descriptors.Infos;
-    if (Stream_Current==0x0000)
-        format_identifier=Descriptors.format_identifier; //General
+    format_identifier=Descriptors.format_identifier; //General
     if (Streams[Stream_Current].descriptor_tag==0x00)
         Streams[Stream_Current].descriptor_tag=Descriptors.descriptor_tag;
 

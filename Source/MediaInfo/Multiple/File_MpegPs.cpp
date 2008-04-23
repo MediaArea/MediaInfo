@@ -829,7 +829,10 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
                 Get_S1 (7, stream_id_extension,                 "stream_id_extension"); Param_Info(MpegPs_stream_id_extension(stream_id_extension));
             }
             else
-                Skip_S1(7,                                      "reserved");
+            {
+                //This should not, but I found a file with stream_id_extension_flag=1 and a real code...
+                Get_S1 (7, stream_id_extension,                 "stream_id_extension"); Param_Info(MpegPs_stream_id_extension(stream_id_extension));
+            }
             BS_End();
             if (PES_extension_field_length-1>0)
                 Skip_XX(PES_extension_field_length-1,           "reserved");
@@ -1856,7 +1859,7 @@ bool File_MpegPs::Synchronize()
             if (start_code!=0xB9 && start_code!=0xBA)
             {
                 int16u Size=CC2(Buffer+Buffer_Offset+4);
-                if (start_code>=0xE0 && start_code<=0xEF && Size==0)
+                if ((start_code>=0xE0 && start_code<=0xEF || start_code==0xFD) && Size==0)
                     break; //while //We can't have size, we must trust...
                 if (Buffer_Offset+6+Size+4>Buffer_Size)
                 {
