@@ -744,7 +744,7 @@ const wchar_t*     __stdcall MediaInfoList_Option (void* Handle, const wchar_t* 
             MI_Handle[NULL]->Unicode==L"Note to developper : you must create an object before";
             return MI_Handle[NULL]->Unicode.c_str();
         }
-        EXECUTE_STRING(MediaInfo, Option(Option, Value), Debug+="Option(L), will return ";Debug+=ToReturn.To_Local().c_str();Debug+="\r\n";)
+        EXECUTE_STRING(MediaInfoList, Option(Option, Value), Debug+="Option(L), will return ";Debug+=ToReturn.To_Local().c_str();Debug+="\r\n";)
     }
     else
     {
