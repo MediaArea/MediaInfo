@@ -13,7 +13,10 @@ Version 0.7.6.4, 2008-
 + AVC: Handling of SEI which is before a SPS
 + AVC in AVI: reading more info (Profile, Cabac...) from streams created by FFMpeg
 + Vorbis in AVI: reading more info (Max bitrate, tags...) from streams created by FFMpeg
++ Detection of VC-1 in MPEG-TS from MainConcept encoder
++ MediaInfoLib is now thread-safe
 x #1943743, AVI with MPEG-Audio VBR and delay: delay was incorrect
+x Pixel Aspect Ratio was sometimes inverted (1/x)
 x XviD CodecID was redirected on Koepi website, no more available, changed to official WviD webpage
 
 Version 0.7.6.3, 2008-04-12

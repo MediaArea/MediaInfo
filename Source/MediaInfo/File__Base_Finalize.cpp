@@ -300,7 +300,7 @@ void File__Analyze::Finalize_Video(size_t Pos)
         float Width =Retrieve(Stream_Video, Pos, "Width"             ).To_float32();
         float Height=Retrieve(Stream_Video, Pos, "Height"            ).To_float32();
         if (DAR && Height && Width)
-            Fill(Stream_Video, Pos, "PixelAspectRatio", ((float32)Width)/Height/DAR);
+            Fill(Stream_Video, Pos, "PixelAspectRatio", DAR/(((float32)Width)/Height));
     }
     //Display Aspect Ratio by default (thinking that PAR is 1.000)
     if (Retrieve(Stream_Video, Pos, "DisplayAspectRatio").empty())
