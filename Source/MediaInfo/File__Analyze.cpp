@@ -28,6 +28,7 @@
 #include "MediaInfo/File__Analyze.h"
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #include "MediaInfo/MediaInfo_Config.h"
+#include <cstring>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

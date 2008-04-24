@@ -33,8 +33,8 @@
 #include "MediaInfo/MediaInfo_Config.h"
 #include <ZenLib/ZtringList.h>
 #include <ZenLib/File.h>
+#include <cstring>
 using namespace ZenLib;
-using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -76,7 +76,7 @@ void File__Duplicate__Writer::Configure (const Ztring &Target)
     //Form: "memory://pointer:size"  <--Memory block is specified by user
     //WARNING: pointer must be in ***DECIMAL*** format.
     //Example: "memory://123456789:1316"
-    if (Target.find(_T("memory://"))==0 && Target.find(_T(":"), 9)!=string::npos)
+    if (Target.find(_T("memory://"))==0 && Target.find(_T(":"), 9)!=std::string::npos)
     {
         size_t SemiColumn_Pos=Target.find(_T(":"), 9);
         Ztring Address=Target.substr(9, SemiColumn_Pos-9);
@@ -90,7 +90,7 @@ void File__Duplicate__Writer::Configure (const Ztring &Target)
     else if (Target.find(_T("file://"))==0)
     {
         Method=method_filename;
-        File_Name=Target.substr(7, string::npos);
+        File_Name=Target.substr(7, std::string::npos);
     }
 }
 

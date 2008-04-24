@@ -33,8 +33,8 @@
 #include "MediaInfo/MediaInfo_Config.h"
 #include <ZenLib/ZtringList.h>
 #include <ZenLib/File.h>
+#include <cstring>
 using namespace ZenLib;
-using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -139,7 +139,7 @@ void File__Duplicate_MpegTs::Configure (const Ztring &Value, bool ToRemove)
     //Form: "program_number"
     if (Value.find(_T("program_number="))==0)
     {
-        int16u program_number=Ztring(Value.substr(15, string::npos)).To_int16u();
+        int16u program_number=Ztring(Value.substr(15, std::string::npos)).To_int16u();
         if (ToRemove)
         {
             if (Wanted_program_numbers.find(program_number)!=Wanted_program_numbers.end())
@@ -160,7 +160,7 @@ void File__Duplicate_MpegTs::Configure (const Ztring &Value, bool ToRemove)
     //Form: "program_map_PID"
     else if (Value.find(_T("program_map_PID="))==0)
     {
-        int16u program_map_PID=Ztring(Value.substr(16, string::npos)).To_int16u();
+        int16u program_map_PID=Ztring(Value.substr(16, std::string::npos)).To_int16u();
         if (ToRemove)
         {
             if (Wanted_program_map_PIDs.find(program_map_PID)!=Wanted_program_map_PIDs.end())
@@ -181,7 +181,7 @@ void File__Duplicate_MpegTs::Configure (const Ztring &Value, bool ToRemove)
     //Form: "elementary_PID"
     else if (Value.find(_T("elementary_PID="))==0)
     {
-        int16u elementary_PID=Ztring(Value.substr(15, string::npos)).To_int16u();
+        int16u elementary_PID=Ztring(Value.substr(15, std::string::npos)).To_int16u();
         if (ToRemove)
         {
             if (Wanted_elementary_PIDs.find(elementary_PID)!=Wanted_elementary_PIDs.end())

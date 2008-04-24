@@ -35,6 +35,7 @@
 #include <ZenLib/ZtringListList.h>
 #include <ZenLib/ZtringListList.h>
 #include <ZenLib/Base64/base64.h>
+#include <cstring>
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 

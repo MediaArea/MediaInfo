@@ -49,6 +49,7 @@
 #if defined(MEDIAINFO_MPEG4_YES)
     #include "MediaInfo/Audio/File_Mpeg4_AudioSpecificConfig.h"
 #endif
+#include <cstring>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

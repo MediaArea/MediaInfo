@@ -31,7 +31,8 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Video/File_Avc.h"
-#include "math.h"
+#include <cstring>
+#include <cmath>
 #undef FILLING_BEGIN
 #define FILLING_BEGIN() if (Element_Offset!=Element_Size){Trusted_IsNot("Size");} else if (Element_IsOK()) {
 using namespace ZenLib;
@@ -1005,7 +1006,7 @@ void File_Avc::pic_parameter_set()
                 Trusted_IsNot("pic_size_in_map_units_minus1 too high");
                 pic_size_in_map_units_minus1=0;
             }
-            int32u slice_group_id_Size=(int32u)(ceil(log((float32)(num_slice_groups_minus1+1))/log((float32)2))); //this is log2
+            int32u slice_group_id_Size=(int32u)(std::ceil(std::log((float32)(num_slice_groups_minus1+1))/std::log((float32)2))); //this is log2
             for (int32u Pos=0; Pos<=pic_size_in_map_units_minus1; Pos++)
                 Skip_S4(slice_group_id_Size,                    "slice_group_id");
         }

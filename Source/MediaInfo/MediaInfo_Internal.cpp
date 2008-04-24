@@ -34,7 +34,7 @@
 #include <ZenLib/File.h>
 #include <ZenLib/InfoMap.h>
 #include <vector>
-using namespace std;
+#include <cstring>
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -313,7 +313,7 @@ size_t MediaInfo_Internal::Open (const int8u* Begin_, size_t Begin_Size_, const 
     CriticalSectionLocker CSL(CS);
     Buffer_Size_Max=Begin_Size_;
     delete[] Buffer; Buffer=new int8u[Buffer_Size_Max];
-    memcpy(Buffer, Begin_, Begin_Size_);
+    std::memcpy(Buffer, Begin_, Begin_Size_);
     Buffer_Size=Begin_Size_;
     File_Name.clear();
     File_Size=FileSize_;
