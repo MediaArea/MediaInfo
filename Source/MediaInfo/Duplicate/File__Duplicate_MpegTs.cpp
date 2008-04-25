@@ -402,7 +402,7 @@ void File__Duplicate_MpegTs::Parsing_End (std::map<int16u, buffer> &ToModify_)
 
     //section_length
     int8u ToReplace=CC1(ToModify.Buffer+ToModify.Begin+1)&0xF0; //before section_length
-    int16u section_length=(int16u)ToModify.End-0x04; //Header size
+    int16u section_length=(int16u)(ToModify.End-ToModify.Begin+1); //+4 for CRC, -3 for header size
     ToReplace|=section_length>>8;
     ToModify.Buffer[ToModify.Begin+1+0]=ToReplace;
     ToModify.Buffer[ToModify.Begin+1+1]=(int8u)(section_length&0xFF);
