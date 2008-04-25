@@ -39,6 +39,10 @@ namespace MediaInfoLib
 
 class File_DvDif : public File__Analyze
 {
+public :
+    //In
+    int8u AuxToAnalyze; //Only Aux must be parsed
+
 protected :
     //Information
     void HowTo (stream_t StreamKind);
@@ -51,21 +55,41 @@ private :
     void Header_Parse();
     void Data_Parse();
 
-    //Elements
+    //Elements - Main
     void Header();
     void Subcode();
+    void Subcode_Ssyb(int8u syb_num);
     void Aux();
-    void Aux_video_source();
-    void Aux_video_control();
-    void Aux_video_recdate();
-    void Aux_video_rectime();
     void Audio();
     void Video();
 
+    //Elements - Sub
+    void Element();
+    void timecode();
+    void audio_source();
+    void audio_control();
+    void audio_recdate();
+    void audio_rectime();
+    void video_source();
+    void video_control();
+    void video_recdate();
+    void video_rectime();
+
+    //Helpers
+    Ztring recdate();
+    Ztring rectime();
+
     //Temp
-    int8u DIFBlockNumber;
-    bool  Subcode_First;
-    bool  Aux_video_control_Parsed;
+    size_t FrameCount;
+    size_t FrameSize_Theory; //The size of a frame
+    int64u PlayTime;
+    int8u  DIFBlockNumber;
+    int8u  Subcode_First;
+    bool   dsf;
+    int8u  apt;
+    bool   tf1;
+    bool   tf2;
+    bool   tf3;
 };
 
 } //NameSpace
