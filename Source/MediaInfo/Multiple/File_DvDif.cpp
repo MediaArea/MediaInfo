@@ -143,12 +143,39 @@ File_DvDif::File_DvDif()
 :File__Analyze()
 {
     //In
+    Frame_Count_Valid=8;
     AuxToAnalyze=0x00; //No Aux to analyze
 
     //Temp
     FrameCount=0;
-    Subcode_First=true;
+    FrameSize_Theory=0;
     PlayTime=0;
+    Subcode_First=true;
+    apt=0xFF; //Impossible
+    tf1=false; //Valid by default, for direct analyze
+    tf2=false; //Valid by default, for direct analyze
+    tf3=false; //Valid by default, for direct analyze
+}
+
+//***************************************************************************
+// Format
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_DvDif::Read_Buffer_Finalize()
+{
+    if (!Recorded_Date_Date.empty())
+    {
+        if (Recorded_Date_Time.size()>4)
+        {
+            Recorded_Date_Time.resize(Recorded_Date_Time.size()-4); //Keep out milliseconds
+            Recorded_Date_Date+=_T(" ");
+            Recorded_Date_Date+=Recorded_Date_Time;
+        }
+        Fill(Stream_General, 0, General_Recorded_Date, Recorded_Date_Date);
+    }
+    if (!File_Name.empty() && PlayTime)
+        Fill(Stream_General, 0, General_PlayTime, PlayTime);
 }
 
 //***************************************************************************
@@ -441,23 +468,23 @@ void File_DvDif::audio_source()
     BS_End();
 
     FILLING_BEGIN();
-        if (FrameCount==1)
+        if (FrameCount==1 || AuxToAnalyze) //Only the first time
         {
             Stream_Prepare(Stream_Audio);
-            Fill(Stream_Audio, 0, Audio_Codec, "s16l");
+            Fill(Stream_Audio, 0, Audio_Codec, "PCM");
             Fill(Stream_Audio, 0, Audio_Channel_s_, 2);
             Fill(Stream_Audio, 0, Audio_SamplingRate, Dv_Audio_SamplingRate[SamplingRate]);
             Fill(Stream_Audio, 0, Audio_Resolution, Dv_Audio_Resolution[Resolution]);
-            Fill(Stream_Audio, 0, Audio_BitRate, 2*2*Dv_Audio_SamplingRate[SamplingRate]*8);
+            Fill(Stream_Audio, 0, Audio_BitRate, 2*Dv_Audio_SamplingRate[SamplingRate]*Dv_Audio_Resolution[Resolution]);
 
             if (stype==2 || (Resolution==1 && SamplingRate==2)) //stype=? or (Resolution=12 bits and SamplingRate=32 KHz)
             {
                 Stream_Prepare(Stream_Audio);
-                Fill(Stream_Audio, 1, Audio_Codec, "s16l");
+                Fill(Stream_Audio, 1, Audio_Codec, "PCM");
                 Fill(Stream_Audio, 1, Audio_Channel_s_, 2);
                 Fill(Stream_Audio, 1, Audio_SamplingRate, Dv_Audio_SamplingRate[SamplingRate]);
                 Fill(Stream_Audio, 1, Audio_Resolution, Dv_Audio_Resolution[Resolution]);
-                Fill(Stream_Audio, 1, Audio_BitRate, 2*2*Dv_Audio_SamplingRate[SamplingRate]*8);
+                Fill(Stream_Audio, 0, Audio_BitRate, 2*Dv_Audio_SamplingRate[SamplingRate]*Dv_Audio_Resolution[Resolution]);
             }
         }
     FILLING_END();
@@ -535,6 +562,7 @@ void File_DvDif::video_source()
     Element_Name("video_source");
 
     int8u stype;
+    bool  System;
     BS_Begin();
     Mark_1();
     Mark_1();
@@ -555,35 +583,36 @@ void File_DvDif::video_source()
 
     Skip_S1(1,                                                  "Unknown");
     Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "System"); //0=PAL, 1=NTSC?
+    Get_SB (   System,                                          "System"); Param_Info(System?"PAL":"NTSC"); //As dsf
     Get_S1 (4, stype,                                           "stype"); //0=not 4:2:2, 4=4:2:2
 
     BS_End();
     Skip_B1(                                                    "VISC");
 
     FILLING_BEGIN();
-        if (FrameCount==0) //Only the first time
+        if (FrameCount==0 || AuxToAnalyze) //Only the first time
         {
             Stream_Prepare(Stream_Video);
             Fill(Stream_Video, 0, Video_Codec, "DV");
-            Fill(Stream_Video, 0, Video_Standard, dsf?"PAL":"NTSC");
+            Fill(Stream_Video, 0, Video_Standard, System?"PAL":"NTSC");
             Fill(Stream_Video, 0, Video_Width, 720);
-            Fill(Stream_Video, 0, Video_Height, dsf?576:480);
-            Fill(Stream_Video, 0, Video_FrameRate, dsf?25.000:29.970);
+            Fill(Stream_Video, 0, Video_Height, System?576:480);
+            Fill(Stream_Video, 0, Video_FrameRate, System?25.000:29.970);
             Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
 
-            if (dsf==false && stype==4) //NTSC and 4:2:2
+            if (System==false && stype==4) //NTSC and 4:2:2
                 Fill(Stream_Video, 0, Video_Chroma, "4:2:2");       //NTSC 50 Mbps
-            else if (dsf==false) //NTSC and not 4:2:2 (--> 4:1:1)
+            else if (System==false) //NTSC and not 4:2:2 (--> 4:1:1)
                 Fill(Stream_Video, 0, Video_Chroma, "4:1:1");       //NTSC 25 Mbps
             else if (stype==4) //PAL and 4:2:2
                 Fill(Stream_Video, 0, Video_Chroma, "4:2:2");       //PAL  50 Mbps
             else if (apt==0) //PAL and 4:2:0
                 Fill(Stream_Video, 0, Video_Chroma, "4:2:0");       //PAL  25 Mbps 4:2:0
-            else //PAL and not 4:2:0 (--> 4:1:1)
+            else if (apt==1) //PAL and not 4:2:0 (--> 4:1:1)
                 Fill(Stream_Video, 0, Video_Chroma, "4:1:1");       //PAL  25 Mbps 4:1:1
 
-            PlayTime=File_Size*1000/(FrameSize_Theory*(dsf?25.000:29.970));
+            if (FrameSize_Theory)
+                PlayTime=(int64u)(File_Size*1000/(FrameSize_Theory*(System?25.000:29.970)));
         }
     FILLING_END();
 }
@@ -613,8 +642,8 @@ void File_DvDif::video_control()
 
     Skip_S1(1,                                                  "Unknown");
     Skip_S1(1,                                                  "Unknown");
-    Mark_0();
-    Mark_0();
+    Skip_S1(1,                                                  "Unknown");
+    Skip_S1(1,                                                  "Unknown");
     Skip_S1(1,                                                  "Unknown");
     Get_S1 (3, aspect,                                          "aspect"); //0=4/3, 2=16/9, 3=letterbox, 7=16/9
 
@@ -622,30 +651,28 @@ void File_DvDif::video_control()
     Skip_SB(                                                    "First Field"); //0=Field 2, 1=Field 1
     Skip_SB(                                                    "Frame Change"); //0=Same picture as before
     Get_SB (   Interlaced,                                      "Interlaced"); //1=Interlaced
-    Mark_1();
-    Mark_1();
-    Mark_0();
-    Mark_0();
+    Skip_S1(1,                                                  "Unknown");
+    Skip_S1(1,                                                  "Unknown");
+    Skip_S1(1,                                                  "Unknown");
+    Skip_S1(1,                                                  "Unknown");
 
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
+    Skip_S1(1,                                                  "Unknown");
+    Skip_S1(1,                                                  "Unknown");
+    Skip_S1(1,                                                  "Unknown");
+    Skip_S1(1,                                                  "Unknown");
+    Skip_S1(1,                                                  "Unknown");
+    Skip_S1(1,                                                  "Unknown");
+    Skip_S1(1,                                                  "Unknown");
+    Skip_S1(1,                                                  "Unknown");
 
     BS_End();
 
     FILLING_BEGIN();
         FrameCount++;
-        if (FrameCount>=8)
+        if (FrameCount>=Frame_Count_Valid || AuxToAnalyze)
         {
             Stream_Prepare(Stream_General);
             Fill(Stream_General, 0, General_Format, "DV");
-            if (!File_Name.empty() && PlayTime)
-                Fill(Stream_General, 0, General_PlayTime, PlayTime);
 
             Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"Progressive");
             switch (aspect)
@@ -671,7 +698,9 @@ void File_DvDif::video_recdate()
 
     Element_Name("video_recdate");
 
-    recdate();
+    Ztring Date=recdate();
+    if (Recorded_Date_Date.empty())
+        Recorded_Date_Date=Date;
 }
 
 //---------------------------------------------------------------------------
@@ -685,7 +714,9 @@ void File_DvDif::video_rectime()
 
     Element_Name("video_rectime");
 
-    rectime();
+    Ztring Date=rectime();
+    if (Recorded_Date_Time.empty())
+        Recorded_Date_Time=Date;
 }
 
 //***************************************************************************
@@ -707,7 +738,9 @@ Ztring File_DvDif::recdate()
     Day+=Temp*10;
     Get_S1 (4, Temp,                                            "Days (Units)");
     Day+=Temp;
-    Skip_S1(3,                                                  "Nothing");
+    Mark_1();
+    Mark_1();
+    Mark_1();
     Get_S1 (1, Temp,                                            "Month (Tens)");
     Month+=Temp*10;
     Get_S1 (4, Temp,                                            "Month (Units)");
@@ -721,7 +754,15 @@ Ztring File_DvDif::recdate()
 
     BS_End();
 
-    return Ztring();
+    Ztring MonthString;
+    if (Month<10)
+        MonthString=_T("0");
+    MonthString+=Ztring::ToZtring(Month);
+    Ztring DayString;
+    if (Day<10)
+        DayString=_T("0");
+    DayString+=Ztring::ToZtring(Day);
+    return Ztring::ToZtring(Year)+_T("-")+MonthString+_T("-")+DayString;
 }
 
 //---------------------------------------------------------------------------
@@ -740,11 +781,13 @@ Ztring File_DvDif::rectime()
     Frames+=Temp;
     if (Temp!=0xF)
         Time+=(dsf?25000:29970)/Frames;
-    Get_S1 (4, Temp,                                            "Seconds (Tens)");
+    Mark_1();
+    Get_S1 (3, Temp,                                            "Seconds (Tens)");
     Time+=Temp*10*1000;
     Get_S1 (4, Temp,                                            "Seconds (Units)");
     Time+=Temp*1000;
-    Get_S1 (4, Temp,                                            "Minutes (Tens)");
+    Mark_1();
+    Get_S1 (3, Temp,                                            "Minutes (Tens)");
     Time+=Temp*10*60*1000;
     Get_S1 (4, Temp,                                            "Minutes (Units)");
     Time+=Temp*60*1000;
@@ -758,7 +801,7 @@ Ztring File_DvDif::rectime()
 
     BS_End();
 
-    return Ztring();
+    return Ztring().Duration_From_Milliseconds(Time);
 }
 
 //***************************************************************************

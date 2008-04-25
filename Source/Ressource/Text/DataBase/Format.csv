@@ -65,6 +65,7 @@ SWF;Shockwave;;M;Swf;;swf;http://www.macromedia.com/go/getflashplayer
 MXF;MXF;;M;Mxf;;mxf;
 WM;Windows Media;;M;Wm;;asf wmv wma;
 RM;RealMedia;;M;Rm;;rm rmvb ra;
+DV;Digital Video;;M;DvdDif;;dv;
 DVDV;DVD Video;;M;Dvdv;;ifo;
 CDXA;CDXA;;M;Cdxa;;dat;
 SDV ;;;M;Mpeg4;SD Memory Card Video;;http://www.sdcard.org/
@@ -93,22 +94,22 @@ MPEG-1A;MPEG-1 Audio;MPEG-1;A;Mpega;;m1a mpa1 mp1 mp3;
 WAV;Wave;RIFF;A;Riff;;wav;
 RIFF-MIDI;MIDI;RIFF;A;Riff;RIFF Musical Instrument Digital Interface;;
 AIFF;AIFF;;A;SndFile;Apple/SGI;aiff aifc;
-AU;AU;;A;SndFile;Sun/NeXT;au;
-Audio-Raw;Audio Raw;;A;SndFile;Undetermined raw audio format;;
-PARIS;PARIS;;A;SndFile;Ensoniq;par;
-SVX;Amiga Iff;;A;SndFile;Amiga Iff / SVX8 / SV16;iff;
-NIST;NIST;;A;SndFile;Spere;nist;
-VOC;VOC;;A;SndFile;;voc;
-IRCAM;IRCAM;;A;SndFile;Berkeley/IRCAM/CARL;;
-W64;W64;RIFF;A;SndFile;Sonic Foundry's Riff;w64;
-MAT4;Matlab 4;;A;SndFile;;mat;
-MAT5;Matlab 5;;A;SndFile;;mat;
-PVF;PVF;;A;SndFile;Portable Voice Format;pvf;
-XI;FT2E;;A;SndFile;FastTracker 2 Extended;xi;
-HTK;HMM Toolkit;;A;SndFile;;htk;
-SDS;Midi Sample;;A;SndFile;;sds;
-AVR;AVR;;A;SndFile;Audio Video Research;avr;
-SD2;SD2;;A;SndFile;Sound Designer 2;sd2;
+AU;AU;;A;SndFile;Sun/NeXT;au
+Audio-Raw;Audio Raw;;A;SndFile;Undetermined raw audio format;
+PARIS;PARIS;;A;SndFile;Ensoniq;par
+SVX;Amiga Iff;;A;SndFile;Amiga Iff / SVX8 / SV16;iff
+NIST;NIST;;A;SndFile;Spere;nist
+VOC;VOC;;A;SndFile;;voc
+IRCAM;IRCAM;;A;SndFile;Berkeley/IRCAM/CARL;
+W64;W64;RIFF;A;SndFile;Sonic Foundry's Riff;w64
+MAT4;Matlab 4;;A;SndFile;;mat
+MAT5;Matlab 5;;A;SndFile;;mat
+PVF;PVF;;A;SndFile;Portable Voice Format;pvf
+XI;FT2E;;A;SndFile;FastTracker 2 Extended;xi
+HTK;HMM Toolkit;;A;SndFile;;htk
+SDS;Midi Sample;;A;SndFile;;sds
+AVR;AVR;;A;SndFile;Audio Video Research;avr
+SD2;SD2;;A;SndFile;Sound Designer 2;sd2
 TwinVQ;TwinVQ;;A;TwinVQ;Transform domain Weighted INterleave Vector Quantization;vqf;http://www.twinvq.org/english/index_en.html
 Wvpk;Wavpack;;A;Wvpk;;wv wvc;http://www.wavpack.com
 MNG;MNG;PNG;I;Mng;Multiple-Image Network Graphic;mng;

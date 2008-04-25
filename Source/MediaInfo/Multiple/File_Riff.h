@@ -49,6 +49,7 @@ protected :
 
 public :
     File_Riff();
+    ~File_Riff();
 
 private :
     //Buffer
@@ -115,6 +116,7 @@ private :
     bool   NeedOldIndex;
     bool   IsBigEndian;
     bool   SecondPass;      //Second pass for streams
+    File__Analyze*  DV_FromHeader;
 
     //Chunks
     void AIFC ();

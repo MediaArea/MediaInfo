@@ -246,6 +246,16 @@ void File__Analyze::Clear (stream_t StreamKind, size_t StreamPos)
 }
 
 //---------------------------------------------------------------------------
+void File__Analyze::Clear (stream_t StreamKind)
+{
+    //Integrity
+    if (StreamKind>=Stream_Max)
+        return;
+
+    (*Stream)[StreamKind].clear();
+}
+
+//---------------------------------------------------------------------------
 void File__Analyze::Fill_HowTo (stream_t StreamKind, size_t StreamPos, const char* Parameter, const char* Value)
 {
     //Integrity

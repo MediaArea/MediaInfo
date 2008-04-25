@@ -41,9 +41,13 @@ class File_DvDif : public File__Analyze
 {
 public :
     //In
-    int8u AuxToAnalyze; //Only Aux must be parsed
+    size_t Frame_Count_Valid;
+    int8u  AuxToAnalyze; //Only Aux must be parsed
 
 protected :
+    //Format
+    void Read_Buffer_Finalize ();
+
     //Information
     void HowTo (stream_t StreamKind);
 
@@ -80,6 +84,8 @@ private :
     Ztring rectime();
 
     //Temp
+    Ztring Recorded_Date_Date;
+    Ztring Recorded_Date_Time;
     size_t FrameCount;
     size_t FrameSize_Theory; //The size of a frame
     int64u PlayTime;

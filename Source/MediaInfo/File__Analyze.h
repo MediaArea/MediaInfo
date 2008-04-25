@@ -659,6 +659,7 @@ public :
     void Clear (stream_t StreamKind, size_t StreamPos, size_t Parameter);
     void Clear (stream_t StreamKind, size_t StreamPos, const char* Parameter);
     void Clear (stream_t StreamKind, size_t StreamPos);
+    void Clear (stream_t StreamKind);
     inline void Clear () {File__Base::Clear();}
 
     //***************************************************************************

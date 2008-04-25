@@ -43,6 +43,9 @@
 #if defined(MEDIAINFO_DTS_YES)
     #include "MediaInfo/Audio/File_Dts.h"
 #endif
+#if defined(MEDIAINFO_DVDIF_YES)
+    #include "MediaInfo/Multiple/File_DvDif.h"
+#endif
 #include <ZenLib/Utils.h>
 using namespace ZenLib;
 //---------------------------------------------------------------------------
@@ -92,8 +95,18 @@ File_Riff::File_Riff()
     NeedOldIndex=true;
     IsBigEndian=false;
     SecondPass=false;
+    DV_FromHeader=NULL;
 }
 
+//---------------------------------------------------------------------------
+File_Riff::~File_Riff()
+{
+    #ifdef MEDIAINFO_DVDIF_YES
+        delete (File_DvDif*)DV_FromHeader; //DV_FromHeader=NULL
+    #endif //MEDIAINFO_DVDIF_YES
+}
+
+//---------------------------------------------------------------------------
 void File_Riff::Read_Buffer_Finalize ()
 {
     //For each stream
@@ -123,8 +136,10 @@ void File_Riff::Read_Buffer_Finalize ()
             Merge(*Temp->second.Parser, Temp->second.StreamKind, 0, Temp->second.StreamPos);
             if (StreamKind_Last==Stream_Video)
             {
-                Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec_Temp, true);
-                Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_Temp, true);
+                if (!Codec_Temp.empty())
+                    Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec_Temp, true);
+                if (!FrameRate_Temp.empty())
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_Temp, true);
 
                 //120 fps hack
                 int32u FrameRate=FrameRate_Temp.To_int32u();
@@ -180,7 +195,30 @@ void File_Riff::Read_Buffer_Finalize ()
                     }
                 }
             #endif
+            #if defined(MEDIAINFO_DVDIF_YES)
+                if (StreamKind_Last==Stream_Video && (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Temp->second.Compression), InfoCodec_KindofCodec).find(_T("DV"))==0
+                                                   || Retrieve(Stream_Video, StreamPos_Last, Video_Codec)==_T("DV")))
+                {
+                    if (Retrieve(Stream_General, 0, General_Recorded_Date).empty())
+                        Fill(Stream_General, 0, General_Recorded_Date, Temp->second.Parser->Retrieve(Stream_General, 0, General_Recorded_Date));
+                    for (size_t Pos=0; Pos<Temp->second.Parser->Count_Get(Stream_Audio); Pos++)
+                    {
+                        Stream_Prepare(Stream_Audio);
+                        Merge(*Temp->second.Parser, Stream_Audio, Pos, StreamPos_Last);
+                    }
+                }
+            #endif
         }
+        #if defined(MEDIAINFO_DVDIF_YES)
+        if (StreamKind_Last==Stream_Video && DV_FromHeader && Retrieve(Stream_Video, StreamPos_Last, Video_Codec).empty()) //Sometimes, there is a problem with the parser
+        {
+            Clear(Stream_Video);
+            Clear(Stream_Audio);
+            Merge(*DV_FromHeader);
+            Fill(Stream_Video, 0, Video_Codec_CC, "dvsd");
+            Fill(Stream_Audio, 0, Audio_Codec_CC, "PCM");
+        }
+        #endif
 
         Temp++;
     }
@@ -212,6 +250,7 @@ void File_Riff::Read_Buffer_Finalize ()
     {
         Stream.clear();
         Stream_Pos.clear();
+        delete DV_FromHeader; DV_FromHeader=NULL;
     }
 }
 

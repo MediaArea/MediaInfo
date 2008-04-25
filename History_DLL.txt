@@ -10,6 +10,8 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.6.4, 2008-
 ---------------
 + About the library : Java/Linux binding is available
++ DV (raw) files support
++ Better support of DV in AVI container (type 1 and 2)
 + AVC: Handling of SEI which is before a SPS
 + AVC in AVI: reading more info (Profile, Cabac...) from streams created by FFMpeg
 + Vorbis in AVI: reading more info (Max bitrate, tags...) from streams created by FFMpeg
@@ -18,6 +20,7 @@ Version 0.7.6.4, 2008-
 x #1943743, AVI with MPEG-Audio VBR and delay: delay was incorrect
 x Pixel Aspect Ratio was sometimes inverted (1/x)
 x XviD CodecID was redirected on Koepi website, no more available, changed to official WviD webpage
+x #1946098, DV in AVI: DV aspect ratio errors
 
 Version 0.7.6.3, 2008-04-12
 ---------------

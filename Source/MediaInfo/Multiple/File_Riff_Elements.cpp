@@ -72,6 +72,9 @@
 #if defined(MEDIAINFO_ID3_YES)
     #include "MediaInfo/Tag/File_Id3.h"
 #endif
+#if defined(MEDIAINFO_DVDIF_YES)
+    #include "MediaInfo/Multiple/File_DvDif.h"
+#endif
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -166,6 +169,7 @@ namespace Elements
     const int32u AVI__JUNK=0x4A554E4B;
     const int32u AVI__movi=0x6D6F7669;
     const int32u AVI__movi_rec_=0x72656320;
+    const int32u AVI__movi_xxxx_____=0x00005F5F;
     const int32u AVI__movi_xxxx___db=0x00006462;
     const int32u AVI__movi_xxxx___dc=0x00006463;
     const int32u AVI__movi_xxxx___sb=0x00007362;
@@ -1040,39 +1044,84 @@ void File_Riff::AVI__hdlr_strl_strf_iavs()
 
     Element_Info("Interleaved Audio/Video");
 
-    //Parsing
-    Skip_L4(                                                    "DVAAuxSrc");
-    Skip_L4(                                                    "DVAAuxCtl");
-    Skip_L4(                                                    "DVAAuxSrc1");
-    Skip_L4(                                                    "DVAAuxCtl1");
-    Skip_L4(                                                    "DVVAuxSrc");
-    Skip_L4(                                                    "DVVAuxCtl");
-    Skip_L4(                                                    "DVReserved");
+    #ifdef MEDIAINFO_DVDIF_YES
+        if (Element_Size<8*4)
+            return;
 
-    //Filling
-    Ztring Codec; Codec.From_CC4(Stream[Stream_ID].fccHandler);
-    Stream_Prepare(Stream_Video);
-    float32 FrameRate=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float32();
-    Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec); //May be replaced by codec parser
-    Fill(Stream_Video, StreamPos_Last, Video_Codec_CC, Codec);
-         if (Codec==_T("dvsd")
-          || Codec==_T("dvsl"))
-    {
-                                    Fill(Stream_Video, StreamPos_Last, Video_Width,  720);
-             if (FrameRate==25.000) Fill(Stream_Video, StreamPos_Last, Video_Height, 576);
-        else if (FrameRate==29.970) Fill(Stream_Video, StreamPos_Last, Video_Height, 480);
-        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, 4.0/3);
-    }
-    else if (Codec==_T("dvhd"))
-    {
-                                    Fill(Stream_Video, StreamPos_Last, Video_Width,  1440);
-             if (FrameRate==25.000) Fill(Stream_Video, StreamPos_Last, Video_Height, 1152);
-        else if (FrameRate==30.000) Fill(Stream_Video, StreamPos_Last, Video_Height,  960);
-        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, 4.0/3);
-    }
-    Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec); //May be replaced by codec parser
-    Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
+        //Parsing
+        DV_FromHeader=new File_DvDif();
+
+        //DVAAuxSrc
+        ((File_DvDif*)DV_FromHeader)->AuxToAnalyze=0x50; //Audio source
+        Open_Buffer_Init(DV_FromHeader, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+        Open_Buffer_Continue(DV_FromHeader, Buffer+Buffer_Offset+(size_t)Element_Offset, 4);
+        Element_Offset+=4;
+        //DVAAuxCtl
+        ((File_DvDif*)DV_FromHeader)->AuxToAnalyze=0x51; //Audio control
+        Open_Buffer_Init(DV_FromHeader, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+        Open_Buffer_Continue(DV_FromHeader, Buffer+Buffer_Offset+(size_t)Element_Offset, 4);
+        Element_Offset+=4;
+        //DVAAuxSrc1
+        Skip_L4(                                                "DVAAuxSrc1");
+        //DVAAuxCtl1
+        Skip_L4(                                                "DVAAuxCtl1");
+        //DVVAuxSrc
+        ((File_DvDif*)DV_FromHeader)->AuxToAnalyze=0x60; //Video source
+        Open_Buffer_Init(DV_FromHeader, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+        Open_Buffer_Continue(DV_FromHeader, Buffer+Buffer_Offset+(size_t)Element_Offset, 4);
+        Element_Offset+=4;
+        //DVAAuxCtl
+        ((File_DvDif*)DV_FromHeader)->AuxToAnalyze=0x61; //Video control
+        Open_Buffer_Init(DV_FromHeader, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+        Open_Buffer_Continue(DV_FromHeader, Buffer+Buffer_Offset+(size_t)Element_Offset, 4);
+        Element_Offset+=4;
+        //Reserved
+        Skip_L4(                                                "DVReserved");
+        Skip_L4(                                                "DVReserved");
+
+        Open_Buffer_Finalize(DV_FromHeader);
+
+        Stream_Prepare(Stream_Video);
+        Stream[Stream_ID].Parser=new File_DvDif;
+        Open_Buffer_Init(Stream[Stream_ID].Parser);
+        ((File_DvDif*)Stream[Stream_ID].Parser)->Frame_Count_Valid=2;
+
+    #else //MEDIAINFO_DVDIF_YES
+        //Parsing
+        Skip_L4(                                                "DVAAuxSrc");
+        Skip_L4(                                                "DVAAuxCtl");
+        Skip_L4(                                                "DVAAuxSrc1");
+        Skip_L4(                                                "DVAAuxCtl1");
+        Skip_L4(                                                "DVVAuxSrc");
+        Skip_L4(                                                "DVVAuxCtl");
+        Skip_L4(                                                "DVReserved");
+        Skip_L4(                                                "DVReserved");
+
+        //Filling
+        Ztring Codec; Codec.From_CC4(Stream[Stream_ID].fccHandler);
+        Stream_Prepare(Stream_Video);
+        float32 FrameRate=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float32();
+        Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec); //May be replaced by codec parser
+        Fill(Stream_Video, StreamPos_Last, Video_Codec_CC, Codec);
+             if (Codec==_T("dvsd")
+              || Codec==_T("dvsl"))
+        {
+                                        Fill(Stream_Video, StreamPos_Last, Video_Width,  720);
+                 if (FrameRate==25.000) Fill(Stream_Video, StreamPos_Last, Video_Height, 576);
+            else if (FrameRate==29.970) Fill(Stream_Video, StreamPos_Last, Video_Height, 480);
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, 4.0/3);
+        }
+        else if (Codec==_T("dvhd"))
+        {
+                                        Fill(Stream_Video, StreamPos_Last, Video_Width,  1440);
+                 if (FrameRate==25.000) Fill(Stream_Video, StreamPos_Last, Video_Height, 1152);
+            else if (FrameRate==30.000) Fill(Stream_Video, StreamPos_Last, Video_Height,  960);
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, 4.0/3);
+        }
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec); //May be replaced by codec parser
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
+    #endif //MEDIAINFO_DVDIF_YES
 }
 
 //---------------------------------------------------------------------------
@@ -1181,6 +1230,14 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     {
         Stream[Stream_ID].Parser=new File_Jpeg;
         Open_Buffer_Init(Stream[Stream_ID].Parser);
+    }
+    #endif
+    #if defined(MEDIAINFO_DVDIF_YES)
+    else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("DV"))==0)
+    {
+        Stream[Stream_ID].Parser=new File_DvDif;
+        Open_Buffer_Init(Stream[Stream_ID].Parser);
+        ((File_DvDif*)Stream[Stream_ID].Parser)->Frame_Count_Valid=1;
     }
     #endif
 
@@ -1623,6 +1680,7 @@ void File_Riff::AVI__movi_xxxx()
     {
         switch (Element_Code&0x0000FFFF) //2 last bytes
         {
+            case Elements::AVI__movi_xxxx_____ : Element_Info("DV"); break;
             case Elements::AVI__movi_xxxx___db :
             case Elements::AVI__movi_xxxx___dc : Element_Info("Video"); break;
             case Elements::AVI__movi_xxxx___sb :
@@ -1650,6 +1708,7 @@ void File_Riff::AVI__movi_xxxx()
     //Some specific stuff
     switch (Element_Code&0x0000FFFF) //2 last bytes
     {
+        case Elements::AVI__movi_xxxx_____ :
         case Elements::AVI__movi_xxxx___db :
         case Elements::AVI__movi_xxxx___dc : AVI__movi_xxxx___dc(); break;
         case Elements::AVI__movi_xxxx___wb : AVI__movi_xxxx___wb(); break;
