@@ -101,17 +101,21 @@
           <property category="win32.*.win32b.bcc32" name="option.H=.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.H=.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.Hc.enabled" value="1"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.1" value="..\..\..\Source"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.2" value="..\..\..\Source\Common"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.3" value="..\..\..\Source\CLI"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.4" value="..\..\..\..\shared\include"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="..\..\..\..\mediainfolib\source"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="$(BDS)\include"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.7" value="$(BDS)\include\dinkumware"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.8" value="$(BDS)\include\vcl"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.1" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.2" value="..\..\..\Source"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.3" value="..\..\..\Source\Common"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.4" value="..\..\..\Source\CLI"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="..\..\..\..\shared\include"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="..\..\..\..\mediainfolib\source"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.7" value="$(BDS)\include"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.8" value="$(BDS)\include\dinkumware"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.9" value="$(BDS)\include\vcl"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.I.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.Ve.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.additional_switches.arg" value=""/>
+          <property category="win32.*.win32b.bcc32" name="option.additional_switches.arg.merge" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.additional_switches.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.b.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.sysdefines.arg.1" value="_RTLDLL"/>
           <property category="win32.*.win32b.bcc32" name="option.sysdefines.arg.2" value="NO_STRICT"/>
@@ -122,44 +126,50 @@
           <property category="win32.*.win32b.bcc32" name="option.tWC.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.tWD.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.tWM.enabled" value="0"/>
-          <property category="win32.*.win32b.dcc32" name="option.I.arg.1" value="..\..\..\Source\Common"/>
-          <property category="win32.*.win32b.dcc32" name="option.I.arg.2" value="..\..\..\Source\CLI"/>
-          <property category="win32.*.win32b.dcc32" name="option.I.arg.3" value="D:\Programmation\MediaInfo\Source\CLI"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.1" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.2" value="..\..\..\Source\Common"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.3" value="..\..\..\Source\CLI"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.4" value="D:\Programmation\MediaInfo\Source\CLI"/>
           <property category="win32.*.win32b.dcc32" name="option.I.arg.merge" value="1"/>
           <property category="win32.*.win32b.dcc32" name="option.I.enabled" value="0"/>
-          <property category="win32.*.win32b.dcc32" name="option.O.arg.1" value="..\..\..\Source\Common"/>
-          <property category="win32.*.win32b.dcc32" name="option.O.arg.2" value="..\..\..\Source\CLI"/>
-          <property category="win32.*.win32b.dcc32" name="option.O.arg.3" value="D:\Programmation\MediaInfo\Source\CLI"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.1" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.2" value="..\..\..\Source\Common"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.3" value="..\..\..\Source\CLI"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.4" value="D:\Programmation\MediaInfo\Source\CLI"/>
           <property category="win32.*.win32b.dcc32" name="option.O.arg.merge" value="1"/>
           <property category="win32.*.win32b.dcc32" name="option.O.enabled" value="0"/>
-          <property category="win32.*.win32b.dcc32" name="option.R.arg.1" value="..\..\..\Source\Common"/>
-          <property category="win32.*.win32b.dcc32" name="option.R.arg.2" value="..\..\..\Source\CLI"/>
-          <property category="win32.*.win32b.dcc32" name="option.R.arg.3" value="D:\Programmation\MediaInfo\Source\CLI"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.1" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.2" value="..\..\..\Source\Common"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.3" value="..\..\..\Source\CLI"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.4" value="D:\Programmation\MediaInfo\Source\CLI"/>
           <property category="win32.*.win32b.dcc32" name="option.R.arg.merge" value="1"/>
           <property category="win32.*.win32b.dcc32" name="option.R.enabled" value="0"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.1" value="..\..\..\Source\Common"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.2" value="..\..\..\Source\CLI"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.3" value="D:\Programmation\MediaInfo\Source\CLI"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.4" value="C:\Documents and Settings\Jerome\Mes documents\Borland Studio Projects"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.5" value="$(BDS)\lib"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.6" value="$(BDS)\lib\obj"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.1" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.2" value="..\..\..\Source\Common"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.3" value="..\..\..\Source\CLI"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.4" value="D:\Programmation\MediaInfo\Source\CLI"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.5" value="C:\Documents and Settings\Jerome\Mes documents\Borland Studio Projects"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.6" value="$(BDS)\lib"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.7" value="$(BDS)\lib\obj"/>
           <property category="win32.*.win32b.dcc32" name="option.U.arg.merge" value="1"/>
           <property category="win32.*.win32b.dcc32" name="option.U.enabled" value="1"/>
           <property category="win32.*.win32b.dcc32" name="param.filenames.merge" value="1"/>
-          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.1" value="..\..\..\Source\Common"/>
-          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.2" value="..\..\..\Source\CLI"/>
-          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.3" value="D:\Programmation\MediaInfo\Source\CLI"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.1" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.2" value="..\..\..\Source\Common"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.3" value="..\..\..\Source\CLI"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.4" value="D:\Programmation\MediaInfo\Source\CLI"/>
           <property category="win32.*.win32b.idl2cpp" name="option.I.arg.merge" value="1"/>
           <property category="win32.*.win32b.idl2cpp" name="option.I.enabled" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.Gi.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.Gpd.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.Gpr.enabled" value="0"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.1" value="..\..\..\Source\Common"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.2" value="..\..\..\Source\CLI"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.3" value="D:\Programmation\MediaInfo\Source\CLI"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.4" value="$(BDS)\lib"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.5" value="$(BDS)\lib\obj"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.6" value="$(BDS)\lib\psdk"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.1" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.2" value="..\..\..\Source\Common"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.3" value="..\..\..\Source\CLI"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.4" value="D:\Programmation\MediaInfo\Source\CLI"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.5" value="$(BDS)\lib"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.6" value="$(BDS)\lib\obj"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.7" value="$(BDS)\lib\psdk"/>
           <property category="win32.*.win32b.ilink32" name="option.L.arg.merge" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.L.enabled" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.Tpd.enabled" value="0"/>
@@ -168,9 +178,10 @@
           <property category="win32.*.win32b.ilink32" name="option.aa.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.ap.enabled" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.dynamicrtl.enabled" value="1"/>
-          <property category="win32.*.win32b.ilink32" name="option.j.arg.1" value="..\..\..\Source\Common"/>
-          <property category="win32.*.win32b.ilink32" name="option.j.arg.2" value="..\..\..\Source\CLI"/>
-          <property category="win32.*.win32b.ilink32" name="option.j.arg.3" value="D:\Programmation\MediaInfo\Source\CLI"/>
+          <property category="win32.*.win32b.ilink32" name="option.j.arg.1" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.ilink32" name="option.j.arg.2" value="..\..\..\Source\Common"/>
+          <property category="win32.*.win32b.ilink32" name="option.j.arg.3" value="..\..\..\Source\CLI"/>
+          <property category="win32.*.win32b.ilink32" name="option.j.arg.4" value="D:\Programmation\MediaInfo\Source\CLI"/>
           <property category="win32.*.win32b.ilink32" name="option.j.arg.merge" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.j.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.outputdir.arg.merge" value="0"/>
@@ -192,6 +203,8 @@
         <FILE FILENAME="..\..\..\Source\Common\Core.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Core" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\Common\Core.h"/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\ZenLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZenLib" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Release\BCB\Library\MediaInfoLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="MediaInfoLib" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\ZLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZLib" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Thread.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Thread" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
@@ -225,7 +238,7 @@
           <Debugging Name="DebugSourceDirs"></Debugging>
         </Debugging>
         <Parameters>
-          <Parameters Name="RunParams">--Inform=file://temp.txt test.mpg</Parameters>
+          <Parameters Name="RunParams">-f "F:\Programmation\MediaInfoLib_CrashTest\Nominal\Multiple\RIFF (AVI-DivX-WAV)\AAC"</Parameters>
           <Parameters Name="Launcher"></Parameters>
           <Parameters Name="UseLauncher">True</Parameters>
           <Parameters Name="DebugCWD">F:\Programmation\MediaInfo\Release\BCB\CLI</Parameters>

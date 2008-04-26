@@ -134,7 +134,7 @@ void GUI_Main_Easy_Box::GUI_Resize()
     Button->SetSize(Box_Boundary,
                     Text->GetPosition().y+(Text->GetSize().GetHeight()>Tags->GetSize().GetHeight()?Text->GetSize().GetHeight():Tags->GetSize().GetHeight()),
                     Parent_Width-Box_Boundary*2,
-                    Button_Show()?(Button->GetCharHeight()+Box_Boundary*2):0);
+                    Button_Show()?(Button->GetCharHeight()+Button->GetWindowBorderSize().GetY()+Button->GetWindowBorderSize().GetHeight()):0);
 
     //Panel
     Box->SetSize   (0,

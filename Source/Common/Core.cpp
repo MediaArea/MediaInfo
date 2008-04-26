@@ -108,10 +108,10 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     //Form: "memory://pointer:size"                  <--The desired memory part you want
     //Return the count of written bytes
 
+    /*
     //EXAMPLE
     //-------
 
-    /*
     //Initilaizing MediaInfo
     MediaInfo MI;
 
@@ -222,19 +222,24 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
 
     //Registering for duplication
     MI.Option(_T("File_ForceParser"), _T("MpegTs"));
-    MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1); //"memory://pointer:size;program_number=..."
-    MI.Option(_T("File_Duplicate"), To_Buffer_2_Name+_T(";program_number=")+ProgramNumber2); //"memory://pointer:size;program_number=..."
-    MI.Option(_T("File_Duplicate"), To_Buffer_3_Name+_T(";program_number=")+ProgramNumber3); //"memory://pointer:size;program_number=..."
-    MI.Option(_T("File_Duplicate"), To_Buffer_4_Name+_T(";program_number=")+ProgramNumber4); //"memory://pointer:size;program_number=..."
-    MI.Option(_T("File_Duplicate"), To_Buffer_5_Name+_T(";program_number=")+ProgramNumber5); //"memory://pointer:size;program_number=..."
-    MI.Option(_T("File_Duplicate"), To_Buffer_6_Name+_T(";program_number=")+ProgramNumber6); //"memory://pointer:size;program_number=..."
-    MI.Option(_T("File_Duplicate"), To_Buffer_7_Name+_T(";program_number=")+ProgramNumber7); //"memory://pointer:size;program_number=..."
-    MI.Option(_T("File_Duplicate"), To_Buffer_8_Name+_T(";program_number=")+ProgramNumber8); //"memory://pointer:size;program_number=..."
+    //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1);//+_T(";elementary_PID=1001;elementary_PID=2063"));
+    //MI.Option(_T("File_Duplicate"), To_Buffer_2_Name+_T(";program_number=")+ProgramNumber1+_T(";elementary_PID=1001;elementary_PID=1003"));
+    //MI.Option(_T("File_Duplicate"), To_Buffer_2_Name+_T(";program_number=")+ProgramNumber1);
+    //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1+_T(";elementary_PID=104"));
+    MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1);//+_T(";elementary_PID=166"));
+    MI.Option(_T("File_Duplicate"), To_Buffer_2_Name+_T(";program_number=")+ProgramNumber2);
+    MI.Option(_T("File_Duplicate"), To_Buffer_3_Name+_T(";program_number=")+ProgramNumber3);
+    MI.Option(_T("File_Duplicate"), To_Buffer_4_Name+_T(";program_number=")+ProgramNumber4);
+    MI.Option(_T("File_Duplicate"), To_Buffer_5_Name+_T(";program_number=")+ProgramNumber5);
+    MI.Option(_T("File_Duplicate"), To_Buffer_6_Name+_T(";program_number=")+ProgramNumber6);
+    MI.Option(_T("File_Duplicate"), To_Buffer_7_Name+_T(";program_number=")+ProgramNumber7);
+    MI.Option(_T("File_Duplicate"), To_Buffer_8_Name+_T(";program_number=")+ProgramNumber8);
 
     //Preparing to fill MediaInfo with a buffer
-    MI.Open_Buffer_Init();
     bool CanWrite_OnlyIfParsingIsOk=false;
+    ZenLib::int64u Size_Parsed=0;
     MI.Option(_T("File_IsSeekable"), _T("0"));
+    MI.Open_Buffer_Init();
 
     //The parsing loop
     do
@@ -245,9 +250,14 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
         //Sending the buffer to MediaInfo
         if (MI.Open_Buffer_Continue(From_Buffer, From_Buffer_Size)==0 && !CanWrite_OnlyIfParsingIsOk)
         {
+            int C=MI.Count_Get(Stream_Video);
+            MediaInfoLib::String A=MI.Get(Stream_Menu, 0, _T("StreamCount"));
+            MI.Option(_T("Inform"), _T("General;%VideoCount%"));
+            A=MI.Inform();
             CanWrite_OnlyIfParsingIsOk=true;
         }
 
+            int C=MI.Count_Get(Stream_Video);
         //Testing if MediaInfo request to go elsewhere
         //if (MI.Open_Buffer_Continue_GoTo_Get()!=(ZenLib::int64u)-1)
         //{
@@ -280,17 +290,23 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
         }
 
         //Optional at 30 MB, we decide to dynamicly change the ProgramNumber of the first output
-        static ZenLib::int64u Size_Parsed=0;
         if (Size_Parsed!=(ZenLib::int64u)-1)
         {
             Size_Parsed+=From_Buffer_Size;
-            if (Size_Parsed>30*1024*1024)
+            if (Size_Parsed>20*1024*1024)
             {
                 //Stop duplicating the first ProgramNumber
-                //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1+_T(";0")); //"program_number=..."
+                //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1+_T(";elementary_PID=166")+_T(";0"));
+                //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1+_T(";0"));
 
                 //Registering for duplication
-                //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber3); //"memory://pointer:size;program_number=..."
+                //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1);
+                //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1);
+                //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1+_T(";elementary_PID=104"));
+                //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";elementary_PID=104;0"));
+                //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";program_number=")+ProgramNumber1+_T(";elementary_PID=166;0"));
+                //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";elementary_PID=2063;0"));
+                //MI.Option(_T("File_Duplicate"), To_Buffer_1_Name+_T(";elementary_PID=1002"));
                 Size_Parsed=(ZenLib::int64u)-1; //Disabling this for not doing this twice
             }
         }
