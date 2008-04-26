@@ -562,7 +562,6 @@ void File_DvDif::video_source()
     Element_Name("video_source");
 
     int8u stype;
-    bool  System;
     BS_Begin();
     Mark_1();
     Mark_1();
@@ -583,7 +582,7 @@ void File_DvDif::video_source()
 
     Skip_S1(1,                                                  "Unknown");
     Skip_S1(1,                                                  "Unknown");
-    Get_SB (   System,                                          "System"); Param_Info(System?"PAL":"NTSC"); //As dsf
+    Get_SB (   dsf,                                             "System"); Param_Info(dsf?"PAL":"NTSC"); //As dsf
     Get_S1 (4, stype,                                           "stype"); //0=not 4:2:2, 4=4:2:2
 
     BS_End();
@@ -594,15 +593,15 @@ void File_DvDif::video_source()
         {
             Stream_Prepare(Stream_Video);
             Fill(Stream_Video, 0, Video_Codec, "DV");
-            Fill(Stream_Video, 0, Video_Standard, System?"PAL":"NTSC");
+            Fill(Stream_Video, 0, Video_Standard, dsf?"PAL":"NTSC");
             Fill(Stream_Video, 0, Video_Width, 720);
-            Fill(Stream_Video, 0, Video_Height, System?576:480);
-            Fill(Stream_Video, 0, Video_FrameRate, System?25.000:29.970);
+            Fill(Stream_Video, 0, Video_Height, dsf?576:480);
+            Fill(Stream_Video, 0, Video_FrameRate, dsf?25.000:29.970);
             Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
 
-            if (System==false && stype==4) //NTSC and 4:2:2
+            if (dsf==false && stype==4) //NTSC and 4:2:2
                 Fill(Stream_Video, 0, Video_Chroma, "4:2:2");       //NTSC 50 Mbps
-            else if (System==false) //NTSC and not 4:2:2 (--> 4:1:1)
+            else if (dsf==false) //NTSC and not 4:2:2 (--> 4:1:1)
                 Fill(Stream_Video, 0, Video_Chroma, "4:1:1");       //NTSC 25 Mbps
             else if (stype==4) //PAL and 4:2:2
                 Fill(Stream_Video, 0, Video_Chroma, "4:2:2");       //PAL  50 Mbps
@@ -612,7 +611,7 @@ void File_DvDif::video_source()
                 Fill(Stream_Video, 0, Video_Chroma, "4:1:1");       //PAL  25 Mbps 4:1:1
 
             if (FrameSize_Theory)
-                PlayTime=(int64u)(File_Size*1000/(FrameSize_Theory*(System?25.000:29.970)));
+                PlayTime=(int64u)(File_Size*1000/(FrameSize_Theory*(dsf?25.000:29.970)));
         }
     FILLING_END();
 }
