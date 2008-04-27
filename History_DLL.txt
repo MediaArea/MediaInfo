@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.6.4, 2008-
+Version 0.7.6.4, 2008-04-27
 ---------------
 + About the library : Java/Linux binding is available
 + DV (raw) files support
