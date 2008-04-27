@@ -19,7 +19,7 @@ Version 0.7.6.4, 2008-04-27
 + MediaInfoLib is now thread-safe
 x #1943743, AVI with MPEG-Audio VBR and delay: delay was incorrect
 x Pixel Aspect Ratio was sometimes inverted (1/x)
-x XviD CodecID was redirected on Koepi website, no more available, changed to official WviD webpage
+x XviD CodecID was redirected on Koepi website, no more available, changed to official XviD webpage
 x #1946098, DV in AVI: DV aspect ratio errors
 
 Version 0.7.6.3, 2008-04-12
