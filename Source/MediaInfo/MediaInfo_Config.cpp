@@ -73,12 +73,15 @@ MediaInfo_Config Config;
 
 void MediaInfo_Config::Init()
 {
-    CriticalSectionLocker CSL(CS);
+    CS.Enter();
     //We use Init() instead of COnstructor because for some backends (like WxWidgets...) does NOT like constructor of static object with Unicode conversion
 
     //Test
     if (!Format.empty())
+    {
+        CS.Leave();
         return; //Already done
+    }
 
     //Filling
     Complete=0;
@@ -120,6 +123,9 @@ void MediaInfo_Config::Init()
     File__Base_Menu(Info[Stream_Menu]);
     File__Base_Encoder(Encoder);
     File__Base_Iso639(Iso639);
+
+    CS.Leave();
+
     ZtringListList ZLL1; Language_Set(ZLL1);
 }
 
@@ -780,18 +786,22 @@ Ztring MediaInfo_Config::Language_Get (const Ztring &Count, const Ztring &Value)
 //---------------------------------------------------------------------------
 void MediaInfo_Config::Inform_Set (const ZtringListList &NewValue)
 {
-    CriticalSectionLocker CSL(CS);;
     if (NewValue.Read(0, 0)==_T("Details"))
         Details_Set(NewValue.Read(0, 1).To_float32());
     else
     {
         Details_Set(0);
+
+        CriticalSectionLocker CSL(CS);;
+
         //Inform
         if (NewValue==_T("Summary"))
             File__Base_Summary(Custom_View);
         else
             Custom_View=NewValue;
     }
+
+    CriticalSectionLocker CSL(CS);;
 
     //Parsing pointer to a file
     if (Custom_View(0, 0).find(_T("file://"))==0)

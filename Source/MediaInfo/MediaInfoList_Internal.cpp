@@ -66,7 +66,7 @@ MediaInfoList_Internal::~MediaInfoList_Internal()
 {
     Close();
 
-    CriticalSectionLocker CSL(CS);;
+    CriticalSectionLocker CSL(CS);
     for (size_t Pos=0; Pos<Info.size(); Pos++)
         delete Info[Pos]; //Info[Pos]=NULL;
 }
@@ -148,7 +148,7 @@ size_t MediaInfoList_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_
     MediaInfo* MI=new MediaInfo();
     MI->Open_Buffer_Init(File_Size_, File_Offset_);
 
-    CriticalSectionLocker CSL(CS);;
+    CriticalSectionLocker CSL(CS);
     size_t Pos=Info.size();
     Info.push_back(MI);
     return Pos;
@@ -220,7 +220,6 @@ void MediaInfoList_Internal::Close(size_t FilePos)
 //---------------------------------------------------------------------------
 String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
 {
-    CriticalSectionLocker CSL(CS);
     if (FilePos==Error)
     {
         Ztring Retour;
@@ -238,6 +237,8 @@ String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
         //Retour.FindAndReplace(_T("\\n"),_T( "\n"), 0, Ztring_Recursive);
         return Retour.c_str();
     }
+
+    CriticalSectionLocker CSL(CS);
 
     if (FilePos>=Info.size() || Info[FilePos]==NULL || Info[FilePos]->Count_Get(Stream_General)==0)
         return MediaInfoLib::Config.EmptyString_Get();

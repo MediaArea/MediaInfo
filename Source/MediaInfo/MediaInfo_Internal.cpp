@@ -125,7 +125,7 @@ size_t MediaInfo_Internal::Open(const String &File_Name_)
         SelectFromExtension(Parser);
     }
 
-    CriticalSectionLocker CSL(CS);;
+    CriticalSectionLocker CSL(CS);
     //Test the theorical format
     if (Format_Test()>0)
          return 1;
@@ -449,7 +449,6 @@ String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, size_t 
 //---------------------------------------------------------------------------
 String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, const String &Parameter, info_t KindOfInfo, info_t KindOfSearch)
 {
-    CriticalSectionLocker CSL(CS);
     size_t ParameterI=0;
 
     //Legacy
@@ -468,14 +467,25 @@ String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, const S
     if (Parameter==_T("AspectRatio/String"))
         return Get(StreamKind, StreamNumber, _T("DisplayAspectRatio/String"), KindOfInfo, KindOfSearch);
 
+    CS.Enter();
+
     //Check integrity
     if (StreamKind>=Stream_Max || StreamNumber>=Stream[StreamKind].size() || (ParameterI=MediaInfoLib::Config.Info_Get(StreamKind).Find(Parameter, KindOfSearch))==Error || KindOfInfo>=Info_Max)
+    {
+        CS.Leave();
         return MediaInfoLib::Config.EmptyString_Get(); //Parameter is unknown
+    }
 
     //Special cases
     //-Inform for a stream
     if (Parameter==_T("Inform"))
+    {
+        CS.Leave();
         Stream[StreamKind][StreamNumber](MediaInfoLib::Config.Info_Get(StreamKind).Find(_T("Inform")))=Inform(StreamKind, StreamNumber);
+        CS.Enter();
+    }
+
+    CS.Leave();
 
     return Get(StreamKind, StreamNumber, ParameterI, KindOfInfo);
 }

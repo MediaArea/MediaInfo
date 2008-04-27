@@ -219,8 +219,9 @@ bool MediaInfo_Config_MediaInfo::File_Filter_HasChanged ()
 void MediaInfo_Config_MediaInfo::File_Duplicate_Set (const Ztring &Value)
 {
     //Preparing for File__Duplicate...
-    CriticalSectionLocker CSL(CS);
+    CS.Enter();
     File__Duplicate_List.push_back(Value);
+    CS.Leave();
     File_IsSeekable_Set(false); //If duplicateion, we can not seek anymore
 }
 
