@@ -6,7 +6,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0366 */
-/* at Fri Apr 11 15:27:17 2008
+/* at Sun Apr 27 12:35:47 2008
  */
 /* Compiler settings for .\MediaInfoShellExt.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
