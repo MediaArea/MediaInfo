@@ -152,6 +152,7 @@ File_DvDif::File_DvDif()
     PlayTime=0;
     Subcode_First=true;
     apt=0xFF; //Impossible
+    dsf_IsValid=false;
     tf1=false; //Valid by default, for direct analyze
     tf2=false; //Valid by default, for direct analyze
     tf3=false; //Valid by default, for direct analyze
@@ -282,6 +283,7 @@ void File_DvDif::Header()
     Skip_XX(72,                                                 "Unused");
 
     FILLING_BEGIN();
+        dsf_IsValid=true;
         FrameSize_Theory=(dsf?12:10)*150*80; //12 DIF sequences for PAL, 10 for NTSC
     FILLING_END();
 }
@@ -458,7 +460,7 @@ void File_DvDif::audio_source()
 
     Skip_SB(                                                    "Res?");
     Skip_SB(                                                    "Multi-language?");
-    Info_S1(1, System,                                          "System"); Param_Info(System?"50 fields":"60 fields"); //As dsf
+    Get_SB (   dsf,                                             "System"); Param_Info(dsf?"50 fields":"60 fields"); //As dsf
     Get_S1 (5, stype,                                           "stype"); Param_Info(stype==0?"2 channels":(stype==2?"4 channels":"Unknown")); //0=25 Mbps, 2=50 Mbps
 
     Skip_SB(                                                    "Emphasis off");
@@ -468,6 +470,7 @@ void File_DvDif::audio_source()
     BS_End();
 
     FILLING_BEGIN();
+        dsf_IsValid=true;
         if (FrameCount==1 || AuxToAnalyze) //Only the first time
         {
             Stream_Prepare(Stream_Audio);
@@ -589,6 +592,7 @@ void File_DvDif::video_source()
     Skip_B1(                                                    "VISC");
 
     FILLING_BEGIN();
+        dsf_IsValid=true;
         if (FrameCount==0 || AuxToAnalyze) //Only the first time
         {
             Stream_Prepare(Stream_Video);
@@ -767,6 +771,12 @@ Ztring File_DvDif::recdate()
 //---------------------------------------------------------------------------
 Ztring File_DvDif::rectime()
 {
+    if (!dsf_IsValid)
+    {
+        Trusted_IsNot("Not in right order");
+        return Ztring();
+    }
+
     BS_Begin();
 
     int8u Temp;

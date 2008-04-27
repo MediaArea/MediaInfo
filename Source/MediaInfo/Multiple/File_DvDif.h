@@ -92,6 +92,7 @@ private :
     int8u  DIFBlockNumber;
     int8u  Subcode_First;
     bool   dsf;
+    bool   dsf_IsValid;
     int8u  apt;
     bool   tf1;
     bool   tf2;
