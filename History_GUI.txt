@@ -13,7 +13,7 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
-Version 0.7.6.4, 2008-04-26
+Version 0.7.6.4, 2008-04-27
 ---------------
 + About the library : Java/Linux binding is available
 + DV (raw) files support
