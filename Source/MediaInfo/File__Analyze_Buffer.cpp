@@ -100,6 +100,8 @@ extern MediaInfo_Config Config;
 //---------------------------------------------------------------------------
 void File__Analyze::BS_Begin()
 {
+    if (Element_Offset>Element_Size)
+        Element_Offset=Element_Size;
     size_t BS_Size;
     if (Buffer_Offset+Element_Size<=Buffer_Size)
         BS_Size=(size_t)Element_Size-Element_Offset;
