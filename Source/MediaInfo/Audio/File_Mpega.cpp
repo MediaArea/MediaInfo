@@ -755,6 +755,7 @@ bool File_Mpega::Header_Encoders()
             Get_Local( 8, Encoded_Library,                      "Encoded_Library");
         Encoded_Library.Trim(_T('A'));
         Encoded_Library.Trim(_T('U'));
+        Encoded_Library.Trim(0xAA);
         Element_Offset=0; //Reseting it
         return true;
     }
