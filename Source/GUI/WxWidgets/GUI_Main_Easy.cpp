@@ -112,7 +112,7 @@ void GUI_Main_Easy::GUI_Resize()
 {
     //Global and Select
     SetSize(0, 0, GetParent()->GetClientSize().GetWidth()-0, GetParent()->GetClientSize().GetHeight()-0);
-    Select->SetSize(0, 0, GetClientSize().GetWidth(), Select->GetCharHeight()+Select->GetWindowBorderSize().GetY()+Select->GetWindowBorderSize().GetHeight());
+    Select->SetSize(0, 0, GetClientSize().GetWidth(), Select->GetBestSize().GetHeight());
 
     //Other
     GUI_Resize_Partial();
