@@ -318,7 +318,7 @@ void File_MpegTs::Read_Buffer_Finalize()
         Fill(Stream_General, 0, General_Format, "MPEG-2TS");
     else if (Retrieve(Stream_Video, 0, Video_Codec)==_T("MPEG-4V"))
         Fill(Stream_General, 0, General_Format, "MPEG-4TS");
-    else if (Retrieve(Stream_Video, 0, Video_Codec)==_T("AVC"))
+    else if (!Retrieve(Stream_Video, 0, Video_Codec).empty())
         Fill(Stream_General, 0, General_Format, "MPEG-4TS");
     else
         Fill(Stream_General, 0, General_Format, "MPEG-1TS");
@@ -791,6 +791,7 @@ void File_MpegTs::PES()
     {
         if (Mpeg_Psi_stream_Kind(Streams[pid].stream_type, format_identifier)==Stream_Max
          && Streams[pid].stream_type!=0x06 //Exception for private data
+         && Streams[pid].stream_type<=0x7F //Exception for private data
          && Mpeg_Descriptors_stream_Kind(Streams[pid].descriptor_tag, format_identifier)==Stream_Max) //From Descriptor
         {
             Streams[pid].Searching_Payload_Start_Set(false);

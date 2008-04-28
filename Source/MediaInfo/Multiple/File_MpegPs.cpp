@@ -1938,7 +1938,7 @@ bool File_MpegPs::Synchronize()
         Streams[0xBA].Searching_Payload=true;
 
         //Temp
-        stream_id_extension=0x00; //Unknown
+        stream_id_extension=0x55; //Default is set to VC-1, should never happens, but happens sometimes
         video_stream_Unlimited_start_code=0xFF;
 
         //TS specific
