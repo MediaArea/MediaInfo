@@ -1785,7 +1785,7 @@ void File_Riff::AVI__movi_StreamJump()
     //Jump to next useful data
     if (!Index_Pos.empty())
     {
-        if (Index_Pos.begin()->first<=File_Offset+Buffer_Offset)
+        if (Index_Pos.begin()->first<=File_Offset+Buffer_Offset && Element_Code!=Elements::AVI__movi)
             Index_Pos.erase(Index_Pos.begin());
         int64u ToJump=File_Size;
         if (!Index_Pos.empty())
