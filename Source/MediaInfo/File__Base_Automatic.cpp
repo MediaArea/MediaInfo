@@ -1,4 +1,4 @@
-// Helpers - Automaticly generated methods for MediaInfo
+﻿// Helpers - Automaticly generated methods for MediaInfo
 // Copyright (C) 2005-2007 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software; you can redistribute it and/or
@@ -3249,6 +3249,7 @@ void File__Base_General (ZtringListList &Info)
     "FileName;;;N NT;;;File name only\n"
     "FileExtension;;;N NT;;;File extension only\n"
     "Format;;;Y YT;;;Format used\n"
+    "Format/String;;;N NT;;;Deprecated\n"
     "Format/Info;;;Y NT;;;Info about Format\n"
     "Format/Url;;;N NT;;;Link\n"
     "Format/Extensions;;;N NT;;;Known extensions of format\n"
@@ -3263,6 +3264,7 @@ void File__Base_General (ZtringListList &Info)
     "CodecID_Description;;;Y NT;;;Manual description\n"
     "Interleaved;;;N NT;;;If Audio and video are muxed\n"
     "Codec;;;N NT;;;Same as Format, only for automatic parsing\n"
+    "Codec/String;;;N NT;;;Codec used (text)\n"
     "Codec/Info;;;N NT;;;Same as Format, only for automatic parsing\n"
     "Codec/Url;;;N NT;;;Same as Format, only for automatic parsing\n"
     "Codec/Extensions;;;N NT;;;Same as Format, only for automatic parsing\n"
@@ -4179,7 +4181,7 @@ void File__Base_Summary (ZtringListList &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_Local(
-    "General;[%Format%][ (%Format_Profile%)]$if(%Format%,$: $)%FileSize/String%[, %PlayTime/String%]\n"
+    "General;[%Format%][ (%Format_Profile%)]$if(%Format%,$: $)%FileSize/String%[, %Duration/String%]\n"
     "Video;[%Language/String%, ][%BitRate/String%$if(%BitRate_Nominal/String%, \\(%BitRate_Nominal/String%\\)), ][%Width%*][%Height%][ (%DisplayAspectRatio/String%), ][$at$ %FrameRate/String%, ][%Format%][ (%CodecID/Hint%)][ (%Standard%)]$if(%Format_Profile%, \\(%Format_Profile%\\))$if(%Format_Settings%, \\(%Format_Settings%\\))\n"
     "Audio;[%Language/String%, ][%BitRate/String%$if(%BitRate_Nominal/String%, \\(%BitRate_Nominal/String%\\)), ][%SamplingRate/String%, ][%Channel(s)/String%, ][%Format%][ (%CodecID/Hint%)]$if(%Format_Profile%, \\(%Format_Profile%\\))$if(%Format_Settings%, \\(%Format_Settings%\\))\n"
     "Text;[%Language/String%, ][%Codec/String%]\n"

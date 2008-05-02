@@ -311,7 +311,7 @@ void File_Wvpk::Data_Parse_Fill()
         if (total_samples_FirstFrame!=0xFFFFFFFF) //--> this is a valid value
             Fill(Stream_Audio, 0, Audio_Duration, ((int64u)total_samples_FirstFrame)*1000/Wvpk_SamplingRate[SamplingRate]);
     }
-    Fill(Stream_Audio, 0, Audio_Format_Settings, hybrid?"hybrid lossy":"lossless");
+    Fill(Stream_Audio, 0, Audio_Format_Settings, hybrid?"Hybrid lossy":"Lossless");
     Fill(Stream_Audio, 0, Audio_Codec_Settings, hybrid?"hybrid lossy":"lossless");
 
     //Going to end of file

@@ -110,6 +110,10 @@ void File__Tags_Helper::Data_GoTo (int64u GoTo, const char* Message)
     //Trying to parse tags
     while (!TagSizeIsFinal && DetectBeginOfEndTags_Test());
 
+    //If a jump is requested
+    if (Base->File_GoTo!=(int64u)-1)
+        return;
+
     //Positionning (if finnished)
     if (TagSizeIsFinal)
     {
