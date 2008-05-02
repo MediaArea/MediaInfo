@@ -1,0 +1,10 @@
+DXSB;DivX.com Subtitle;4CC;;;;Subtitle in AVI from DivX networks;http://www.divx.com
+subp;VobSub;4CC;;;;The same subtitle format used on DVDs;
+tx3g;Timed;4CC;;;;Timed text (3GPP);http://www.apple.com/quicktime/download/standalone.html
+enct;Encrypted;4CC;;;;Encrypted Text (3GPP);http://www.apple.com/quicktime/download/standalone.html
+S_TEXT/UTF8;UTF-8;Mk;;;;UTF-8 Plain Text;
+S_TEXT/SSA;SSA;Mk;;;;Sub Station Alpha;
+S_TEXT/ASS;ASS;Mk;;;;Advanced Sub Station Alpha;
+S_TEXT/USF;USF;Mk;;;;Universal Subtitle Format;
+S_IMAGE/BMP;Bitmap;Mk;;;;Basic image based subtitle format;
+S_VOBSUB;VobSub;Mk;;;;The same subtitle format used on DVDs;

@@ -1,5 +1,5 @@
 AAC;;;A;;Advanced Audio Codec;aac;
-AC-3;;;A;Ac3;Audio Coding 3;ac3;
+AC-3;;;A;Ac3;Audio Coding 3;ac3 dd+;
 ADIF;;;A;Adif;Audio Data Interchange Format;aac;
 ADTS;;;A;Adts;Audio Data Transport Stream;aac;
 ALS;;;A;;MPEG-4 Audio Lossless Coding;als;http://www.nue.tu-berlin.de/forschung/projekte/lossless/mp4als.html#downloads
@@ -7,7 +7,6 @@ AMR;;;A;Amr;Adaptive Multi-Rate;amr;http://www.apple.com/quicktime/download/stan
 AU;;;A;Au;uLaw/AU Audio File;au;
 DTS;;;A;Dts;Digital Theater Systems;dts;
 DTS-HD;;;A;Dts;Digital Theater Systems;dts;
-E-AC-3;;;A;Ac3;Audio Coding 3;dd+;
 FLAC;;;A;Flac;Free Lossless Audio Codec;flac;http://flac.sourceforge.net/
 MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface;;
 Monkey's Audio;;;A;Ape;;ape mac;http://www.monkeysaudio.com/
@@ -15,7 +14,7 @@ MPEG Audio;;;A;Mpega;;m1a mpa1 mp1 m2a mpa2 mp2 mp3;
 MusePack SV7;;;A;Mpc;;mpc;http://www.musepack.net
 MusePack SV8;;;A;Mpc;;mp+;http://www.musepack.net
 RIFF-MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface;;
-TrueHD;;;A;Ac3;;dts;
+TrueHD;;;A;Ac3;;;
 TwinVQ;;;A;TwinVQ;Transform domain Weighted INterleave Vector Quantization;vqf;http://www.twinvq.org/english/index_en.html
 Vorbis;;;A;;;;
 Wave;;;A;Riff;;wav;
@@ -40,7 +39,7 @@ TIFF;;;I;Tiff;;tiff tif;
 AIFF;;;M;Riff;Apple/SGI;aiff aifc;
 AMV;;;M;Riff;Chinese hack of AVI;amv;http://en.wikipedia.org/wiki/AMV_video_format
 AVI;;;M;Riff;Audio Video Interleave;avi;
-BDAV;;;M;Bdav;BluRay Video;m2ts;
+BluRay Video;;;M;Bdav;;m2ts;
 CDXA;;;M;Cdxa;;dat;
 Digital Video;;;M;DvdDif;;dv;
 DivX;;;M;Riff;Hack of AVI;divx;http://www.divx.com
@@ -58,11 +57,11 @@ Ogg;;;M;Ogg;;ogg ogm;http://www.free-codecs.com/Ogg_DirectShow_Filters_download.
 QuickTime;;;M;Mpeg4;Original Apple specifications;mov qt;http://www.apple.com/quicktime/download/standalone.html
 RealMedia;;;M;Rm;;rm rmvb ra;
 RIFF-MMP;;;M;Riff;RIFF Multimedia Movie;;
-ShockWave;;;M;Swf;;swf;http://www.macromedia.com/go/getflashplayer
+Shockwave;;;M;Swf;;swf;http://www.macromedia.com/go/getflashplayer
 SKM;;;M;Skm;Sky Korean Mobilephone;skm;http://www.isky.co.kr/html/cs/download.jsp
 Windows Media;;;M;Wm;;asf wmv wma;
 AVC;;;V;Avc;Advanced Video Codec;avc h264;http://developers.videolan.org/x264.html
-Dirac;;;V;Dirac;;drc;
+Dirac;;;C;Dirac;;drc;
 FLI;;;V;Flic;;fli flc;http://www.chem.nott.ac.uk/flc.html
 FLC;;;V;Flic;;fli flc;http://www.chem.nott.ac.uk/flc.html
 FLIC;;;V;Flic;;fli flc;http://www.chem.nott.ac.uk/flc.html

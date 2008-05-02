@@ -1,0 +1,54 @@
+M4V ;;4CC;MPEG-4;;;;
+isom;;4CC;MPEG-4;Base Media;;;http://www.apple.com/quicktime/download/standalone.html
+iso2;;4CC;MPEG-4;Base Media;;;http://www.apple.com/quicktime/download/standalone.html
+mp41;;4CC;MPEG-4;Base Media / Version 1;;;http://www.apple.com/quicktime/download/standalone.html
+mp42;;4CC;MPEG-4;Base Media / Version 2;;;http://www.apple.com/quicktime/download/standalone.html
+avc1;;4CC;MPEG-4;JVT;;;http://www.apple.com/quicktime/download/standalone.html
+3gp1;;4CC;MPEG-4;3GPP Media Release 1;;;http://www.3gpp.org/
+3gp2;;4CC;MPEG-4;3GPP Media Release 2;;;http://www.3gpp.org/
+3gp3;;4CC;MPEG-4;3GPP Media Release 3;;;http://www.3gpp.org/
+3gp4;;4CC;MPEG-4;3GPP Media Release 4;;;http://www.3gpp.org/
+3gp5;;4CC;MPEG-4;3GPP Media Release 5;;;http://www.3gpp.org/
+3gp6;;4CC;MPEG-4;3GPP Media Release 6 Basic;;;http://www.3gpp.org/
+3gp6;;4CC;MPEG-4;3GPP Media Release 6 Progressive Download;;;http://www.3gpp.org/
+3gp6;;4CC;MPEG-4;3GPP Media Release 6 Streaming Servers;;;http://www.3gpp.org/
+3gp7;;4CC;MPEG-4;3GPP Media Release 7 Streaming Servers;;;http://www.3gpp.org/
+3g2a;;4CC;MPEG-4;3GPP2 Media;;;http://www.3gpp2.org/
+3ge6;;4CC;MPEG-4;3GPP Release 6 MBMS Extended Presentation;;;http://www.3gpp.org/
+3ge7;;4CC;MPEG-4;3GPP Release 7 MBMS Extended Presentation;;;http://www.3gpp.org/
+3gg6;;4CC;MPEG-4;3GPP Release 6 General;;;http://www.3gpp.org/
+3gp8;;4CC;MPEG-4;;;;http://www.apple.com/quicktime/download/standalone.html
+3gp9;;4CC;MPEG-4;;;;http://www.apple.com/quicktime/download/standalone.html
+CAQV;;4CC;MPEG-4;Casio;;;http://world.casio.com/
+JP20;;4CC;MPEG-4;JPEG 2000;;;http://gpac.sourceforge.net/
+JPM ;;4CC;MPEG-4;JPEG 2000 Compound Image;;;http://www.iso.org/
+JPX ;;4CC;MPEG-4;JPEG 2000 w/ extensions;;;http://www.iso.org/
+KDDI;;4CC;MPEG-4;3GPP2 EZMovie for KDDI 3G Cellphones;;;http://www.3gpp2.org/
+MJ2S;;4CC;MPEG-4;Motion JPEG 2000 Simple Profile;;;http://www.iso.org/
+MJP2;;4CC;MPEG-4;Motion JPEG 2000 General Profile;;;http://www.iso.org/
+MQT ;;4CC;MPEG-4;Sony/Mobile QuickTime;;;http://www.sony.com/
+MSNV;;4CC;MPEG-4;Sony PSP;;;http://www.sony.com/
+ndas;;4CC;MPEG-4;Nero Digital AAC Audio;;;http://www.nerodigital.com
+ndsc;;4CC;MPEG-4;Nero Digital Cinema Profile;;;http://www.nerodigital.com
+ndsh;;4CC;MPEG-4;Nero Digital HDTV Profile;;;http://www.nerodigital.com
+ndsm;;4CC;MPEG-4;Nero Digital Mobile Profile;;;http://www.nerodigital.com
+ndsp;;4CC;MPEG-4;Nero Digital Portable Profile;;;http://www.nerodigital.com
+ndss;;4CC;MPEG-4;Nero Digital Standard Profile;;;http://www.nerodigital.com
+ndxc;;4CC;MPEG-4;Nero Digital AVC Cinema Profile;;;http://www.nerodigital.com
+ndxh;;4CC;MPEG-4;Nero Digital AVC HDTV Profile;;;http://www.nerodigital.com
+ndxm;;4CC;MPEG-4;Nero Digital AVC Mobile Profile;;;http://www.nerodigital.com
+ndxp;;4CC;MPEG-4;Nero Digital AVC Portable Profile;;;http://www.nerodigital.com
+ndxs;;4CC;MPEG-4;Nero Digital AVC Standard Profile;;;http://www.nerodigital.com
+mmp4;;4CC;MPEG-4;Mobile version;;;http://www.apple.com/quicktime/download/standalone.html
+mp71;;4CC;MPEG-4;ISO 14496-12 MPEG-7 meta data;;;http://www.apple.com/quicktime/download/standalone.html
+mp7b;;4CC;MPEG-4;ISO 14496-12 MPEG-7 meta data;;;http://www.apple.com/quicktime/download/standalone.html
+qt  ;;4CC;MPEG-4;Quicktime;;;http://www.apple.com/quicktime/download/standalone.html
+SDV ;;4CC;MPEG-4;SD Memory Card Video;;;http://www.sdcard.org/
+M4A ;;4CC;MPEG-4;Apple AAC audio with iTunes info;;;http://www.apple.com/itunes/
+M4B ;;4CC;MPEG-4;Apple audio with iTunes position;;;http://www.apple.com/itunes/
+M4P ;;4CC;MPEG-4;AES encrypted audio;;;http://www.apple.com/itunes/
+M4VP;;4CC;MPEG-4;Apple iPhone;;;http://www.apple.com/iphone/
+iphE;;4CC;MPEG-4;Apple iPhone (Cellular);;;http://www.apple.com/iphone/
+M4VH;;4CC;MPEG-4;Apple TV;;;http://www.apple.com/appletv/
+QTCA;;4CC;MPEG-4;Quicktime compressed archive;;;http://www.apple.com/quicktime/download/standalone.html
+CAQV;;4CC;MPEG-4;Casio Digital Camera;;;
