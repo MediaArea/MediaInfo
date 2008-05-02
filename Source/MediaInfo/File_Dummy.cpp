@@ -92,6 +92,7 @@ void File_Dummy::Read_File()
         Fill(Stream_Video, 0, Video_Resolution, "24");
         Fill(Stream_Video, 0, Video_Language, "en");
         Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "AC-3");
         Fill(Stream_Audio, 0, Audio_Codec, "AC3");
         Fill(Stream_Audio, 0, Audio_Codec_Url, "http://mediainfo.sourceforge.net");
         Fill(Stream_Audio, 0, Audio_BitRate, "384000");
@@ -119,11 +120,10 @@ void File_Dummy::Fill_Dummy_General()
 {
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "Format");
-    Fill(Stream_General, 0, General_Format_String, "Format, longer version");
     Fill(Stream_General, 0, General_Format_Url, "http://mediainfo.sourceforge.net");
     Fill(Stream_General, 0, General_Format_Extensions, "fmt fmt fmt");
     Fill(Stream_General, 0, General_FileSize, "1000000");
-    Fill(Stream_General, 0, General_PlayTime, "10000");
+    Fill(Stream_General, 0, General_Duration, "10000");
     Fill(Stream_General, 0, General_Domain, "Domain");
     Fill(Stream_General, 0, General_Collection, "Collection");
     Fill(Stream_General, 0, General_Season, "Season");
@@ -256,7 +256,7 @@ void File_Dummy::Fill_Dummy_Video()
         Fill(Stream_Video, 0, Video_Resolution, "24");
         Fill(Stream_Video, 0, Video_Bits__Pixel_Frame_, "Bits/(Pixel*Frame)");
         Fill(Stream_Video, 0, Video_Delay, "100");
-        Fill(Stream_Video, 0, Video_PlayTime, "990000");
+        Fill(Stream_Video, 0, Video_Duration, "990000");
     }
     Fill(Stream_Video, 0, Video_Language, "eng");
     Fill(Stream_Video, 0, Video_Language_More, "Language_More");
@@ -269,6 +269,9 @@ void File_Dummy::Fill_Dummy_Audio()
     Fill(Stream_Audio, 0, Audio_ID, "ID");
     Fill(Stream_Audio, 0, Audio_UniqueID, "UniqueID");
     Fill(Stream_Audio, 0, Audio_Title, "Title");
+    Fill(Stream_Audio, 0, Audio_Format, "Format");
+    Fill(Stream_Audio, 0, Audio_Format_Info, "Format/Info");
+    Fill(Stream_Audio, 0, Audio_Format_Url, "http://--Format/Url--");
     Fill(Stream_Audio, 0, Audio_Codec, "Codec");
     Fill(Stream_Audio, 0, Audio_Codec_Info, "Codec/Info");
     Fill(Stream_Audio, 0, Audio_Codec_Url, "http://--Codec/Url--");
@@ -282,7 +285,7 @@ void File_Dummy::Fill_Dummy_Audio()
     Fill(Stream_Audio, 0, Audio_SamplingCount, "SamplingCount");
     Fill(Stream_Audio, 0, Audio_Resolution, "Resolution");
     Fill(Stream_Audio, 0, Audio_Delay, "10");
-    Fill(Stream_Audio, 0, Audio_PlayTime, "100000");
+    Fill(Stream_Audio, 0, Audio_Duration, "100000");
     Fill(Stream_Audio, 0, Audio_Language, "fre");
     Fill(Stream_Audio, 0, Audio_Language_More, "Language_More");
 }
@@ -297,7 +300,7 @@ void File_Dummy::Fill_Dummy_Text()
     Fill(Stream_Text, 0, Text_Codec, "Codec");
     Fill(Stream_Text, 0, Text_Codec_Url, "http://--Codec/Url--");
     Fill(Stream_Text, 0, Text_Delay, "100");
-    Fill(Stream_Text, 0, Text_PlayTime, "100");
+    Fill(Stream_Text, 0, Text_Duration, "100");
     Fill(Stream_Text, 0, Text_Language, "de");
     Fill(Stream_Text, 0, Text_Language_More, "Language_More");
     Fill(Stream_Text, 0, Text_Summary, "Summary");

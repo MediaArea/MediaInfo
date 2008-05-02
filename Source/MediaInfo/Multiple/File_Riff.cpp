@@ -158,11 +158,16 @@ void File_Riff::Read_Buffer_Finalize ()
                 {
                     if (((File_Mpeg4v*)Temp->second.Parser)->RIFF_VOP_Count_Max>1)
                     {
+                        Fill(Stream_Video, StreamPos_Last, Video_Format_Settings_PacketBitStream, "Yes");
+                        Fill(Stream_Video, StreamPos_Last, Video_Format_Settings, "Packed Bitstream");
                         Fill(Stream_Video, StreamPos_Last, Video_Codec_Settings_PacketBitStream, "Yes");
                         Fill(Stream_Video, StreamPos_Last, Video_Codec_Settings, "Packed Bitstream");
                     }
                     else
+                    {
+                        Fill(Stream_Video, StreamPos_Last, Video_Format_Settings_PacketBitStream, "No");
                         Fill(Stream_Video, StreamPos_Last, Video_Codec_Settings_PacketBitStream, "No");
+                    }
                 }
             #endif
             #if defined(MEDIAINFO_MPEGA_YES)
@@ -197,6 +202,7 @@ void File_Riff::Read_Buffer_Finalize ()
             #endif
             #if defined(MEDIAINFO_DVDIF_YES)
                 if (StreamKind_Last==Stream_Video && (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Temp->second.Compression), InfoCodec_KindofCodec).find(_T("DV"))==0
+                                                   || Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("Digital Video")
                                                    || Retrieve(Stream_Video, StreamPos_Last, Video_Codec)==_T("DV")))
                 {
                     if (Retrieve(Stream_General, 0, General_Recorded_Date).empty())
@@ -210,12 +216,14 @@ void File_Riff::Read_Buffer_Finalize ()
             #endif
         }
         #if defined(MEDIAINFO_DVDIF_YES)
-        if (StreamKind_Last==Stream_Video && DV_FromHeader && Retrieve(Stream_Video, StreamPos_Last, Video_Codec).empty()) //Sometimes, there is a problem with the parser
+        if (StreamKind_Last==Stream_Video && DV_FromHeader && Retrieve(Stream_Video, StreamPos_Last, Video_Format).empty() && Retrieve(Stream_Video, StreamPos_Last, Video_Codec).empty()) //Sometimes, there is a problem with the parser
         {
             Clear(Stream_Video);
             Clear(Stream_Audio);
             Merge(*DV_FromHeader);
+            Fill(Stream_Video, 0, Video_Format, "Digital Video");
             Fill(Stream_Video, 0, Video_Codec_CC, "dvsd");
+            Fill(Stream_Audio, 0, Audio_Format, "PCM");
             Fill(Stream_Audio, 0, Audio_Codec_CC, "PCM");
         }
         #endif
@@ -232,13 +240,13 @@ void File_Riff::Read_Buffer_Finalize ()
             Fill(Stream_Video, 0, Video_FrameCount, dmlh_TotalFrame, 10, true);
             float32 FrameRate=Retrieve(Stream_Video, 0, Video_FrameRate).To_float32();
             if (FrameRate!=0)
-                Fill(Stream_Video, 0, Video_PlayTime, (int64u)(dmlh_TotalFrame*1000/FrameRate), 10, true);
+                Fill(Stream_Video, 0, Video_Duration, (int64u)(dmlh_TotalFrame*1000/FrameRate), 10, true);
         }
     }
 
     //Rec
     if (rec__Present)
-        Fill(Stream_General, 0, General_Codec_Settings, "rec");
+        Fill(Stream_General, 0, General_Format_Settings, "rec");
 
     //Interleaved
     if (Interleaved0_1 && Interleaved0_10 && Interleaved1_1 && Interleaved1_10)
@@ -349,7 +357,7 @@ void File_Riff::HowTo(stream_t StreamKind)
         case (Stream_General) :
             Fill_HowTo("Format", "R");
             Fill_HowTo("BitRate", "R");
-            Fill_HowTo("PlayTime", "R");
+            Fill_HowTo("Duration", "R");
             Fill_HowTo("Movie", "R|INAM");
             Fill_HowTo("Track", "N|INAM");
             Fill_HowTo("Track/Position", "N|IPRT");

@@ -211,6 +211,18 @@ String MediaInfo::Get(stream_t StreamKind, size_t StreamPos, const String &Param
         return Get(StreamKind, StreamPos, _T("DisplayAspectRatio"), KindOfInfo, KindOfSearch);
     if (Parameter==_T("AspectRatio/String"))
         return Get(StreamKind, StreamPos, _T("DisplayAspectRatio/String"), KindOfInfo, KindOfSearch);
+    if (Parameter==_T("Chroma"))
+        return Get(StreamKind, StreamPos, _T("Colourimetry"), KindOfInfo, KindOfSearch);
+    if (Parameter==_T("PlayTime"))
+        return Get(StreamKind, StreamPos, _T("Duration"), KindOfInfo, KindOfSearch);
+    if (Parameter==_T("PlayTime/String"))
+        return Get(StreamKind, StreamPos, _T("Duration/String"), KindOfInfo, KindOfSearch);
+    if (Parameter==_T("PlayTime/String1"))
+        return Get(StreamKind, StreamPos, _T("Duration/String1"), KindOfInfo, KindOfSearch);
+    if (Parameter==_T("PlayTime/String2"))
+        return Get(StreamKind, StreamPos, _T("Duration/String2"), KindOfInfo, KindOfSearch);
+    if (Parameter==_T("PlayTime/String3"))
+        return Get(StreamKind, StreamPos, _T("Duration/String3"), KindOfInfo, KindOfSearch);
 
     EXECUTE_STRING(Get(StreamKind, StreamPos, Parameter, KindOfInfo), Debug+="Get, will return ";Debug+=ToReturn.To_Local();)
 }

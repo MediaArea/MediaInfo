@@ -61,6 +61,7 @@ void File_Amr::Read_Buffer_Continue()
     Fill(Stream_General, 0, General_Format, "AMR");
 
     Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, 0, Audio_Format, "AMR");
     Fill(Stream_Audio, 0, Audio_Codec, "AMR");
 
     //No need of more

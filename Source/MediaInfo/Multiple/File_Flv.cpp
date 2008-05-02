@@ -75,6 +75,46 @@ const int16u Flv_SamplingRate[]=
     8000, //Special case for Nellymoser 8kHz mono
 };
 
+const char* Flv_Format_Audio[]=
+{
+    "PCM",
+    "ADPCM",
+    "MPEG Audio",
+    "",
+    "",
+    "Nellymoser",
+    "Nellymoser",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
+const char* Flv_Format_Profile_Audio[]=
+{
+    "",
+    "",
+    "Version 1 / Layer 3",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
 const char* Flv_Codec_Audio[]=
 {
     "Uncompressed",
@@ -84,6 +124,46 @@ const char* Flv_Codec_Audio[]=
     "",
     "Nellymoser 8kHz mono",
     "Nellymoser",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
+const char* Flv_Format_Video[]=
+{
+    "",
+    "",
+    "H.263",
+    "Screen video",
+    "VP6",
+    "VP6",
+    "Screen video 2",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
+const char* Flv_Format_Profile_Video[]=
+{
+    "",
+    "",
+    "",
+    "",
+    "",
+    "Alpha channel",
+    "",
     "",
     "",
     "",
@@ -330,7 +410,7 @@ void File_Flv::FileHeader_Parse()
 
         //Filling
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "FLV");
+        Fill(Stream_General, 0, General_Format, "Flash Video");
         if (video_stream_Count)
         {
             Stream_Prepare(Stream_Video);
@@ -442,7 +522,7 @@ void File_Flv::video()
     {
         Element_Info("Null");
         video_stream_Count=false;
-        if (Retrieve(Stream_Video, 0, Video_Codec).empty())
+        if (Retrieve(Stream_Video, 0, Video_Format).empty() && Retrieve(Stream_Video, 0, Video_Codec).empty())
             Clear(Stream_Video, 0);
         return;
     }
@@ -466,13 +546,17 @@ void File_Flv::video()
         return;
 
     FILLING_BEGIN();
-        if (Retrieve(Stream_Video, 0, Video_Codec).empty())
+        if (Retrieve(Stream_Video, 0, Video_Format).empty() && Retrieve(Stream_Video, 0, Video_Codec).empty())
         {
             //Filling
             if (Count_Get(Stream_Video)==0)
                 Stream_Prepare(Stream_Video);
             if (Codec<6)
+            {
+                Fill(Stream_Video, 0, Video_Format, Flv_Format_Video[Codec]);
+                Fill(Stream_Video, 0, Video_Format_Profile, Flv_Format_Profile_Video[Codec]);
                 Fill(Stream_Video, 0, Video_Codec, Flv_Codec_Video[Codec]);
+            }
             video_stream_Count=false; //No more need of Video stream
 
             //Parsing video data
@@ -621,7 +705,7 @@ void File_Flv::audio()
     {
         Element_Info("Null");
         audio_stream_Count=false;
-        if (Retrieve(Stream_Audio, 0, Audio_Codec).empty())
+        if (Retrieve(Stream_Audio, 0, Audio_Format).empty())
             Clear(Stream_Audio, 0);
         return;
     }
@@ -652,7 +736,7 @@ void File_Flv::audio()
     }
 
     FILLING_BEGIN();
-        if (Retrieve(Stream_Audio, 0, Audio_Codec).empty())
+        if (Retrieve(Stream_Audio, 0, Audio_Format).empty())
         {
             //Filling
             if (Count_Get(Stream_Audio)==0)
@@ -660,10 +744,13 @@ void File_Flv::audio()
             Fill(Stream_Audio, 0, Audio_Channel_s_, Flv_Channels[is_stereo], 10, true);
             Fill(Stream_Audio, 0, Audio_Resolution, Flv_Resolution[is_16bit], 10, true);
             Fill(Stream_Audio, 0, Audio_SamplingRate, Flv_SamplingRate[sampling_rate], 10, true);
+            Fill(Stream_Audio, 0, Audio_Format, Flv_Format_Audio[codec]);
+            Fill(Stream_Audio, 0, Audio_Format_Profile, Flv_Format_Profile_Audio[codec]);
             Fill(Stream_Audio, 0, Audio_Codec, Flv_Codec_Audio[codec]);
             if (codec==1)
             {
                 //ADPCM
+                Fill(Stream_Audio, 0, Audio_Format_Profile, "ShockWave");
                 Fill(Stream_Audio, 0, Audio_Codec_Settings, "SWF");
                 Fill(Stream_Audio, 0, Audio_Codec_Settings_Firm, "SWF");
 
@@ -751,7 +838,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                      if (0) ;
                 else if (StringData=="width") {ToFill="Width"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0); video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
                 else if (StringData=="height") {ToFill="Height"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0); video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
-                else if (StringData=="duration") {ToFill="PlayTime"; ValueS.From_Number(Value*1000, 0);}
+                else if (StringData=="duration") {ToFill="Duration"; ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="audiodatarate") {ToFill="BitRate"; StreamKind=Stream_Audio; ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="framerate") {ToFill="FrameRate"; StreamKind=Stream_Video; ValueS.From_Number(Value, 3); video_stream_FrameRate_Detected=true; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
                 else if (StringData=="datasize") {}

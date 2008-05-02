@@ -511,7 +511,8 @@ void File_Mpeg4::ftyp()
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, Ztring().From_CC4(MajorBrand));
+        Fill(Stream_General, 0, General_Format, "MPEG-4");
+        Fill(Stream_General, 0, General_CodecID, Ztring().From_CC4(MajorBrand));
     FILLING_END();
 }
 
@@ -525,7 +526,8 @@ void File_Mpeg4::idat()
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "QTI");
+        Fill(Stream_General, 0, General_Format, "MPEG-4");
+        Fill(Stream_General, 0, General_CodecID, "QTI");
     FILLING_END();
 }
 
@@ -539,7 +541,8 @@ void File_Mpeg4::idsc()
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "QTI");
+        Fill(Stream_General, 0, General_Format, "MPEG-4");
+        Fill(Stream_General, 0, General_CodecID, "QTI");
     FILLING_END();
 }
 
@@ -556,7 +559,7 @@ void File_Mpeg4::mdat()
     if (Count_Get(Stream_General)==0)
     {
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "QT"); //if there is no ftyp atom, this is an old Quictime file
+        Fill(Stream_General, 0, General_Format, "QT");
     }
 
     //Parse mdat if needed
@@ -582,7 +585,7 @@ void File_Mpeg4::moov()
         if (Count_Get(Stream_General)==0)
         {
             Stream_Prepare(Stream_General);
-            Fill(Stream_General, 0, General_Format, "QT"); //If there is no ftyp atom, this is an old Quictime file
+            Fill(Stream_General, 0, General_Format, "QuickTime"); //If there is no ftyp atom, this is an old Quictime file
         }
     FILLING_END();
 }
@@ -944,8 +947,8 @@ void File_Mpeg4::moov_mvhd()
     FILLING_BEGIN();
         if (TimeScale)
         {
-            //int32u PlayTime=(int32u)(((float)Duration)/TimeScale*1000);
-            //Fill("PlayTime", PlayTime);
+            //int32u Duration=(int32u)(((float)Duration)/TimeScale*1000);
+            //Fill("Duration", Duration);
         }
         if (Date_Created.find(_T('\r'))!=std::string::npos)
             Date_Created.resize(Date_Created.find(_T('\r')));
@@ -1003,7 +1006,7 @@ void File_Mpeg4::moov_trak_mdia()
     Element_Name("Media");
 
     FILLING_BEGIN();
-        moov_trak_mdia_mdhd_PlayTime=0;
+        moov_trak_mdia_mdhd_Duration=0;
     FILLING_END();
 }
 
@@ -1058,14 +1061,16 @@ void File_Mpeg4::moov_trak_mdia_hdlr()
                 if (StreamKind_Last!=Stream_Text)
                 {
                     Stream_Prepare(Stream_Text);
-                    Fill(StreamKind_Last, StreamPos_Last, "Codec", "tx3g");
+                    Fill(StreamKind_Last, StreamPos_Last, Text_CodecID, "tx3g");
+                    Fill(StreamKind_Last, StreamPos_Last, Text_Codec, "tx3g");
                 }
                 break;
             case Elements::moov_trak_mdia_hdlr_subp :
                 if (StreamKind_Last!=Stream_Text)
                 {
                     Stream_Prepare(Stream_Text);
-                    Fill(StreamKind_Last, StreamPos_Last, "Codec", "subp");
+                    Fill(StreamKind_Last, StreamPos_Last, Text_CodecID, "subp");
+                    Fill(StreamKind_Last, StreamPos_Last, Text_Codec, "subp");
                 }
                 break;
             case Elements::moov_trak_mdia_hdlr_MPEG :
@@ -1096,8 +1101,8 @@ void File_Mpeg4::moov_trak_mdia_mdhd()
         Fill(StreamKind_Last, StreamPos_Last, "Language", Language_Get(Language));
         if (moov_trak_mdia_mdhd_TimeScale)
         {
-            moov_trak_mdia_mdhd_PlayTime=(int32u)(((float)Duration)/moov_trak_mdia_mdhd_TimeScale*1000);
-            Fill(StreamKind_Last, StreamPos_Last, "PlayTime", moov_trak_mdia_mdhd_PlayTime);
+            moov_trak_mdia_mdhd_Duration=(int32u)(((float)Duration)/moov_trak_mdia_mdhd_TimeScale*1000);
+            Fill(StreamKind_Last, StreamPos_Last, "Duration", moov_trak_mdia_mdhd_Duration);
         }
     FILLING_END();
 }
@@ -1353,6 +1358,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         {
             Codec.append(1, (char)((Element_Code&0x0000FF00)>> 8));
             Codec.append(1, (char)((Element_Code&0x000000FF)>> 0));
+            if (Codec!="mp4a") //mp4a is for Mpeg4 system
+                Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Codec);
             if (Codec!="raw ")
                 Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, false, true);
             else
@@ -1368,6 +1375,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             int64u CodecI= ((Element_Code&0x0000FF00ULL)>> 8)
                          + ((Element_Code&0x000000FFULL)>> 0); //FormatTag
             Codec=Ztring().From_Number(CodecI, 16).To_Local();
+            Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Codec);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec, true);
         }
@@ -1435,6 +1443,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
         Codec.append(1, (char)((Element_Code&0x00FF0000)>>16));
         Codec.append(1, (char)((Element_Code&0x0000FF00)>> 8));
         Codec.append(1, (char)((Element_Code&0x000000FF)>> 0));
+        if (Codec!="mp4v") //mp4v is for Mpeg4 system
+            Fill(Stream_Video, StreamPos_Last, Video_CodecID, Codec, false, true);
         Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec, false, true);
         Fill(Stream_Video, StreamPos_Last, Video_Codec_CC, Codec, false, true);
         if (Codec=="drms")
@@ -1592,6 +1602,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma()
         Get_B2 (CodecMS,                                        "CC2");
 
         FILLING_BEGIN();
+            Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, CodecMS, 16);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, CodecMS, 16, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, CodecMS, 16, true);
         FILLING_END();
@@ -1602,6 +1613,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma()
         Get_Local(4, Codec,                                     "Codec");
 
         FILLING_BEGIN();
+            Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Codec);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec, true);
         FILLING_END();
@@ -1707,15 +1719,15 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
         //Detecting wrong stream size with some PCM streams
         if (StreamKind_Last==Stream_Audio)
         {
-            const Ztring &Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
+            const Ztring &Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_CodecID);
             if (Codec==_T("raw ")
              || MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("PCM"))==0)
              {
-                int64u PlayTime=Retrieve(StreamKind_Last, StreamPos_Last, Audio_PlayTime).To_int64u();
+                int64u Duration=Retrieve(StreamKind_Last, StreamPos_Last, Audio_Duration).To_int64u();
                 int64u Resolution=Retrieve(StreamKind_Last, StreamPos_Last, Audio_Resolution).To_int64u();
                 int64u SamplingRate=Retrieve(StreamKind_Last, StreamPos_Last, Audio_SamplingRate).To_int64u();
                 int64u Channels=Retrieve(StreamKind_Last, StreamPos_Last, Audio_Channel_s_).To_int64u();
-                int64u Stream_Size_Theory=PlayTime*Resolution*SamplingRate*Channels/8/1000;
+                int64u Stream_Size_Theory=Duration*Resolution*SamplingRate*Channels/8/1000;
                 for (int64u Multiplier=1; Multiplier<=32; Multiplier++)
                     if (Stream_Size*Multiplier>Stream_Size_Theory*0.995 && Stream_Size*Multiplier<Stream_Size_Theory*1.005)
                     {
@@ -1802,7 +1814,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
                 {
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Minimum, ((float)moov_trak_mdia_mdhd_TimeScale)/Max);
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Maximum, ((float)moov_trak_mdia_mdhd_TimeScale)/Min);
-                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate,         ((float)FrameCount)/moov_trak_mdia_mdhd_PlayTime*1000, 3, true);
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate,         ((float)FrameCount)/moov_trak_mdia_mdhd_Duration*1000, 3, true);
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode,    "VFR");
                 }
                 else
@@ -2257,7 +2269,8 @@ void File_Mpeg4::pckg()
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "QTCA");
+        Fill(Stream_General, 0, General_Format, "MPEG-4");
+        Fill(Stream_General, 0, General_CodecID, "QTCA");
     FILLING_END();
 }
 

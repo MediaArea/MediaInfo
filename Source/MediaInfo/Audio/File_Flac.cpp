@@ -140,6 +140,7 @@ void File_Flac::STREAMINFO()
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "FLAC");
     Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, 0, Audio_Format, "FLAC");
     Fill(Stream_Audio, 0, Audio_Codec, "FLAC");
     if (FrameSize_Min==FrameSize_Max && FrameSize_Min!=0 ) // 0 means it is unknown
         Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
@@ -148,7 +149,7 @@ void File_Flac::STREAMINFO()
     Fill(Stream_Audio, 0, Audio_SamplingRate, SampleRate);
     Fill(Stream_Audio, 0, Audio_Channel_s_, Channels+1);
     Fill(Stream_Audio, 0, Audio_Resolution, BitPerSample+1);
-    Fill(Stream_General, 0, General_PlayTime, Samples*1000/SampleRate);
+    Fill(Stream_General, 0, General_Duration, Samples*1000/SampleRate);
 }
 
 //---------------------------------------------------------------------------
@@ -228,7 +229,7 @@ void File_Flac::HowTo(stream_t StreamKind)
         Fill_HowTo("BitRate", "R");
         Fill_HowTo("Title", "R");
         Fill_HowTo("Title/More", "R");
-        Fill_HowTo("PlayTime", "R");
+        Fill_HowTo("Duration", "R");
         Fill_HowTo("Author", "R");
         Fill_HowTo("Album", "R");
         Fill_HowTo("Track", "R");

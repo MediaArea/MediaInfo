@@ -92,7 +92,7 @@ File_Mk::~File_Mk()
 void File_Mk::Read_Buffer_Finalize()
 {
     if (Duration!=0 && TimecodeScale!=0)
-        Fill(Stream_General, 0, "PlayTime", (float32)(Duration*int64u_float64(TimecodeScale)/1000000.0));
+        Fill(Stream_General, 0, "Duration", (float32)(Duration*int64u_float64(TimecodeScale)/1000000.0));
     for (std::map<int64u, stream>::iterator Temp=Stream.begin(); Temp!=Stream.end(); Temp++)
     {
         if (Temp->second.DisplayAspectRatio!=0)
@@ -1082,7 +1082,7 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
             Open_Buffer_Finalize(Stream[TrackNumber].Parser);
             Merge(*Stream[TrackNumber].Parser, Stream[TrackNumber].StreamKind, 0, Stream[TrackNumber].StreamPos);
             if (Stream[TrackNumber].StreamKind==Stream_Video)
-                Fill(Stream[TrackNumber].StreamKind, Stream[TrackNumber].StreamPos, "Codec", Codec_Temp, true);
+                Fill(Stream_Video, 0, Video_Codec, Codec_Temp, true);
             //delete Stream[TrackNumber].Parser; Stream[TrackNumber].Parser=NULL;
             Stream[TrackNumber].SearchingPayload=false;
             Stream_Count--;
@@ -1716,7 +1716,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate()
     //Creating the parser
     if (Stream[TrackNumber].Parser==NULL)
     {
-        if (Retrieve(Stream[TrackNumber].StreamKind, Stream[TrackNumber].StreamPos, "Codec").empty())
+        if (Retrieve(Stream[TrackNumber].StreamKind, Stream[TrackNumber].StreamPos, "CodecID").empty())
         {
             //Codec not already known, saving CodecPrivate
             if (CodecPrivate)
@@ -1727,9 +1727,9 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate()
             return;
         }
 
-        if (Stream[TrackNumber].StreamKind==Stream_Audio && Retrieve(Stream_Audio, Stream[TrackNumber].StreamPos, Audio_Codec)==_T("A_MS/ACM"))
+        if (Stream[TrackNumber].StreamKind==Stream_Audio && Retrieve(Stream_Audio, Stream[TrackNumber].StreamPos, Audio_CodecID)==_T("A_MS/ACM"))
             Segment_Tracks_TrackEntry_CodecPrivate_auds();
-        else if (Stream[TrackNumber].StreamKind==Stream_Video && Retrieve(Stream_Video, Stream[TrackNumber].StreamPos, Video_Codec)==_T("V_MS/VFW/FOURCC"))
+        else if (Stream[TrackNumber].StreamKind==Stream_Video && Retrieve(Stream_Video, Stream[TrackNumber].StreamPos, Video_CodecID)==_T("V_MS/VFW/FOURCC"))
             Segment_Tracks_TrackEntry_CodecPrivate_vids();
         else if (Element_Size>0)
             Skip_XX(Element_Size,                 "Unknown");
@@ -1773,6 +1773,8 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_auds()
     //Filling
     FILLING_BEGIN()
         Ztring Codec; Codec.From_Number(FormatTag, 16);
+        Fill(Stream_Video, StreamPos_Last, Audio_Format, "", Unlimited, true, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Codec, true);
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true); //May be replaced by codec parser
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels!=5?Channels:6, 0, true);
@@ -1816,9 +1818,14 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
             //Filling
             Codec.From_CC4(Compression);
             if (Compression==0x00000000)
+            {
+                Fill(Stream_Video, StreamPos_Last, Video_Format, "RGB", Unlimited, true, true);
                 Fill(Stream_Video, StreamPos_Last, Video_Codec, "RGB", Unlimited, true, true); //Raw RGB, not handled by automatic codec mapping
+            }
             else
             {
+                Fill(Stream_Video, StreamPos_Last, Video_Format, "", Unlimited, true, true);
+                Fill(Stream_Video, StreamPos_Last, Video_CodecID, Codec, true);
                 Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec, true); //FormatTag, may be replaced by codec parser
                 Fill(Stream_Video, StreamPos_Last, Video_Codec_CC, Codec); //FormatTag
             }
@@ -2420,8 +2427,11 @@ void File_Mk::CodecID_Fill()
     if (TrackType==(int64u)-1 || TrackNumber==(int64u)-1 || CodecID.empty())
         return; //Not ready (or not needed)
 
-    if (Retrieve(StreamKind_Last, StreamPos_Last, "Codec").empty())
+    if (Retrieve(StreamKind_Last, StreamPos_Last, "CodecID").empty())
+    {
+        Fill(StreamKind_Last, StreamPos_Last, "CodecID", CodecID);
         Fill(StreamKind_Last, StreamPos_Last, "Codec", CodecID);
+    }
 
     //Creating the parser
     Ztring CodecFamily=MediaInfoLib::Config.Codec_Get(CodecID, InfoCodec_KindofCodec);
@@ -2518,7 +2528,7 @@ void File_Mk::HowTo(stream_t StreamKind)
         case (Stream_General) :
             Fill_HowTo("Format", "R");
             Fill_HowTo("BitRate", "R");
-            Fill_HowTo("PlayTime", "R");
+            Fill_HowTo("Duration", "R");
             Fill_HowTo("Domain", "");
             Fill_HowTo("Collection", "");
             Fill_HowTo("Season", "");

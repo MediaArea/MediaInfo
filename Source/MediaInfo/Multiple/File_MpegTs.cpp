@@ -268,11 +268,11 @@ void File_MpegTs::Read_Buffer_Finalize()
                 {
                     if (Streams[StreamID].TimeStamp_End<Streams[StreamID].TimeStamp_Start)
                         Streams[StreamID].TimeStamp_End+=0x200000000LL; //33 bits, cyclic
-                    int64u PlayTime=Streams[StreamID].TimeStamp_End-Streams[StreamID].TimeStamp_Start;
-                    if (PlayTime!=0 && PlayTime!=(int64u)-1)
-                        Fill(StreamKind_Last, StreamPos_Last, "PlayTime", PlayTime/90, 10, true);
+                    int64u Duration=Streams[StreamID].TimeStamp_End-Streams[StreamID].TimeStamp_Start;
+                    if (Duration!=0 && Duration!=(int64u)-1)
+                        Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration/90, 10, true);
                     else
-                        Fill(StreamKind_Last, StreamPos_Last, "PlayTime", "", 0, true, true); //Clear it
+                        Fill(StreamKind_Last, StreamPos_Last, "Duration", "", 0, true, true); //Clear it
                 }
 
                 //Encryption
@@ -314,14 +314,7 @@ void File_MpegTs::Read_Buffer_Finalize()
     }
 
     //Fill General
-         if (Retrieve(Stream_Video, 0, Video_Codec)==_T("MPEG-2V"))
-        Fill(Stream_General, 0, General_Format, "MPEG-2TS");
-    else if (Retrieve(Stream_Video, 0, Video_Codec)==_T("MPEG-4V"))
-        Fill(Stream_General, 0, General_Format, "MPEG-4TS");
-    else if (!Retrieve(Stream_Video, 0, Video_Codec).empty())
-        Fill(Stream_General, 0, General_Format, "MPEG-4TS");
-    else
-        Fill(Stream_General, 0, General_Format, "MPEG-1TS");
+    Fill(Stream_General, 0, General_Format, "MPEG-TS");
 
     //Fill Menu
     if (Programs.size()>1 || Config->File_MpegTs_ForceMenu_Get())

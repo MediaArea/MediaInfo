@@ -254,6 +254,36 @@ void File_Mpeg4_Descriptors::Descriptor_04()
     FILLING_BEGIN();
         switch (ObjectTypeId)
         {
+            case 0x01 : Fill(StreamKind_Last, StreamPos_Last, "Format", "System", Error, false, true); break;
+            case 0x02 : Fill(StreamKind_Last, StreamPos_Last, "Format", "System Core", Error, false, true); break;
+            case 0x20 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG-4 Visual", Error, false, true); break;
+            case 0x21 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AVC", Error, false, true); break;
+            case 0x40 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AAC", Error, false, true); break; //MPEG-4 AAC
+            case 0x60 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Simple" , Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Settings", "Version 2", Error, false, true); break; //MPEG-2V Simple
+            case 0x61 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Main"   , Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Settings", "Version 2", Error, false, true); break; //MPEG-2V Main
+            case 0x62 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "SNR"    , Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Settings", "Version 2", Error, false, true); break; //MPEG-2V SNR
+            case 0x63 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Spatial", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Settings", "Version 2", Error, false, true); break; //MPEG-2V Spatial
+            case 0x64 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "High"   , Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Settings", "Version 2", Error, false, true); break; //MPEG-2V High
+            case 0x65 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "4:2:2"  , Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Settings", "Version 2", Error, false, true); break; //MPEG-2V 4:2:2
+            case 0x66 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AAC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Main", Error, false, true); break; //MPEG-2 AAC Main
+            case 0x67 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AAC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "LC", Error, false, true); break; //MPEG-2 AAC LC
+            case 0x68 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AAC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "SSR", Error, false, true); break; //MPEG-2 AAC SSR
+            case 0x69 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Audio", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Version 2 / Layer 3", Error, false, true); break;
+            case 0x6A : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Version 1", Error, false, true); break;
+            case 0x6B : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Audio", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Version 1", Error, false, true); break;
+            case 0x6C : Fill(StreamKind_Last, StreamPos_Last, "Format", "JPEG", Error, false, true); break;
+            case 0xA0 : Fill(StreamKind_Last, StreamPos_Last, "Format", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true); break;
+            case 0xA1 : Fill(StreamKind_Last, StreamPos_Last, "Format", "SMV", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
+            case 0xD1 : Fill(StreamKind_Last, StreamPos_Last, "Format", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
+            case 0xD3 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AC-3", Error, false, true); break;
+            case 0xD4 : Fill(StreamKind_Last, StreamPos_Last, "Format", "DTS", Error, false, true); break;
+            case 0xDD : Fill(StreamKind_Last, StreamPos_Last, "Format", "Ogg", Error, false, true); break;
+            case 0xDE : Fill(StreamKind_Last, StreamPos_Last, "Format", "Ogg", Error, false, true); break;
+            case 0xE1 : Fill(StreamKind_Last, StreamPos_Last, "Format", "QCELP", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
+            default: ;
+        }
+        switch (ObjectTypeId)
+        {
             case 0x01 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "System", Error, false, true); break;
             case 0x02 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "System Core", Error, false, true); break;
             case 0x20 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-4V", Error, false, true); break;
@@ -313,15 +343,15 @@ void File_Mpeg4_Descriptors::Descriptor_05()
     File__Analyze* MI=NULL;
          if (0);
     #if defined(MEDIAINFO_MPEG4V_YES)
-    else if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Codec)==_T("MPEG-4V"))
+    else if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("MPEG-4 Visual"))
         MI=new File_Mpeg4v;
     #endif
     #if defined(MEDIAINFO_MPEG4_YES)
-    else if (StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec)==_T("AAC"))
+    else if (StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC"))
         MI=new File_Mpeg4_AudioSpecificConfig;
     #endif
     #if defined(MEDIAINFO_MPEG4V_YES)
-    else if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Codec).empty() && Codec==_T("mp4v"))
+    else if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format).empty() && Codec==_T("mp4v"))
         MI=new File_Mpeg4v;
     #endif
     else

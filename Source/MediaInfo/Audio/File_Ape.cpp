@@ -187,8 +187,8 @@ void File_Ape::FileHeader_Parse()
 
         //Filling
         int32u Samples=(TotalFrames-1)*SamplesPerFrame+FinalFrameSamples;
-        int64u PlayTime=((int64u)Samples)*1000/SampleRate;
-        if (PlayTime==0)
+        int64u Duration=((int64u)Samples)*1000/SampleRate;
+        if (Duration==0)
         {
             Finnished();
             return;
@@ -200,16 +200,17 @@ void File_Ape::FileHeader_Parse()
             return;
         }
         float32 CompressionRatio=((float32)File_Size)/UncompressedSize;
-        int32u BitRate=(int32u)(Samples*Channels*Resolution*1000/PlayTime*CompressionRatio);
+        int32u BitRate=(int32u)(Samples*Channels*Resolution*1000/Duration*CompressionRatio);
 
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "APE");
+        Fill(Stream_General, 0, General_Format, "Monkey's Audio");
         Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "Monkey's Audio");
         Fill(Stream_Audio, 0, Audio_Codec, "APE");
         Fill(Stream_Audio, 0, Audio_Resolution, Resolution);
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
         Fill(Stream_Audio, 0, Audio_SamplingRate, SampleRate);
-        Fill(Stream_Audio, 0, Audio_PlayTime, PlayTime);
+        Fill(Stream_Audio, 0, Audio_Duration, Duration);
         Fill(Stream_Audio, 0, "CompressionRatio", CompressionRatio);
         Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
 
@@ -228,7 +229,7 @@ void File_Ape::HowTo(stream_t StreamKind)
     {
         Fill_HowTo("Format", "R");
         Fill_HowTo("BitRate", "R");
-        Fill_HowTo("PlayTime", "R");
+        Fill_HowTo("Duration", "R");
         Fill_HowTo("Author", "R");
         Fill_HowTo("Album", "R");
         Fill_HowTo("Track", "R");

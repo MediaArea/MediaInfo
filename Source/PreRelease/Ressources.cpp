@@ -114,7 +114,32 @@ ZenLib::Ztring Ressources_Create()
         return Result;
     Out+=Contents;
 
+    Result=Ressources_Create_Item(L"DataBase", L"Container", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
     Result=Ressources_Create_Item(L"DataBase", L"Format", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_General", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Video", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Audio", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Text", L"InfoMap", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;

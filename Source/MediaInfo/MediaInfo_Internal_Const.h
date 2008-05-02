@@ -132,6 +132,20 @@ enum infoformat_t
 };
 
 /// @brief Used with Codec info
+enum infocodecid_t
+{
+    InfoCodecID_Codec,              ///<
+    InfoCodecID_Hint,               ///<
+    InfoCodecID_KindOfCode,         ///<
+    InfoCodecID_Format,             ///<
+    InfoCodecID_Format_Profile,     ///<
+    InfoCodecID_BitRate_Mode,       ///<
+    InfoCodecID_Description,        ///<
+    InfoCodecID_Url,                ///<
+    InfoCodecID_Max
+};
+
+/// @brief Used with Codec info
 enum infocodec_t
 {
     InfoCodec_Codec,                ///<

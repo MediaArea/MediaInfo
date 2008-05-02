@@ -227,14 +227,7 @@ void File_MpegPs::Read_Buffer_Finalize()
         Fill(Stream_General, 0, General_Encoded_Library, Retrieve(Stream_Video, 0, Video_Encoded_Library));
 
     //Fill General
-         if (Retrieve(Stream_Video, 0, Video_Codec)==_T("AVC"))
-        Fill(Stream_General, 0, General_Format, "MPEG-4PS");
-    else if (Retrieve(Stream_Video, 0, Video_Codec)==_T("MPEG-4V"))
-        Fill(Stream_General, 0, General_Format, "MPEG-4PS");
-    else if (MPEG_Version==2)
-        Fill(Stream_General, 0, General_Format, "MPEG-2PS");
-    else if (MPEG_Version==1)
-        Fill(Stream_General, 0, General_Format, "MPEG-1PS");
+    Fill(Stream_General, 0, General_Format, "MPEG-PS");
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
@@ -280,6 +273,8 @@ void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Tem
         if (!File_Name.empty())
             Fill(StreamKind_Last, StreamPos_Last, "ID", StreamID, 16);
         if (Retrieve(StreamKind_Last, StreamPos_Last, "Codec").empty() && Temp.stream_type!=0)
+            Fill(StreamKind_Last, StreamPos_Last, "CodecID", Mpeg_Psi_stream_Codec(Temp.stream_type, 0x0000));
+        if (Retrieve(StreamKind_Last, StreamPos_Last, "CodecID").empty() && Temp.stream_type!=0)
             Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Psi_stream_Codec(Temp.stream_type, 0x0000));
 
         if (Temp.TimeStamp_Start.PTS_Is_Valid && Temp.TimeStamp_End.PTS_Is_Valid)
@@ -287,9 +282,9 @@ void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Tem
             //TimeStamp
             if (Temp.TimeStamp_End.PTS<Temp.TimeStamp_Start.PTS)
                 Temp.TimeStamp_End.PTS+=0x200000000LL; //33 bits, cyclic
-            int64u PlayTime=Temp.TimeStamp_End.PTS-Temp.TimeStamp_Start.PTS;
-            if (PlayTime)
-                Fill(StreamKind_Last, StreamPos_Last, "PlayTime", PlayTime/90, 10, true);
+            int64u Duration=Temp.TimeStamp_End.PTS-Temp.TimeStamp_Start.PTS;
+            if (Duration)
+                Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration/90, 10, true);
         }
         if (Temp.TimeStamp_Start.PTS_Is_Valid)
             Fill(StreamKind_Last, StreamPos_Last, "Delay", Temp.TimeStamp_Start.PTS/90, 10, true);
@@ -1750,6 +1745,7 @@ void File_MpegPs::LATM()
     Streams[start_code].Parser=new File__Analyze();
     Open_Buffer_Init(Streams[start_code].Parser);
     Streams[start_code].Parser->Stream_Prepare(Stream_Audio);
+    Streams[start_code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "AAC");
     Streams[start_code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "AAC");
 
     //Disabling this Streams
@@ -2254,10 +2250,13 @@ File__Analyze* File_MpegPs::ChooseParser_Mpega()
         Handle=new File__Analyze();
         Open_Buffer_Init(Handle);
         Handle->Stream_Prepare(Stream_Audio);
+        Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "MPEG Audio");
         switch ()
         {
-            case 0x03 : Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "MPEG-1A");
-            case 0x04 : Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "MPEG-2A");
+            case 0x03 : Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "Version 1");
+                        Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "MPEG-1A"); break;
+            case 0x04 : Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "Version 2");
+                        Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "MPEG-2A"); break;
             default   : Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "MPEG-A");
         }
         return Handle;
@@ -2277,6 +2276,7 @@ File__Analyze* File_MpegPs::ChooseParser_AC3()
         File__Analyze* Handle=new File__Analyze();
         Open_Buffer_Init(Handle);
         Handle->Stream_Prepare(Stream_Audio);
+        Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Format, private_stream_1_ID==0x83?"E-AC-3":"AC-3");
         Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, private_stream_1_ID==0x83?"AC3+":"AC3");
         return Handle;
     #endif
@@ -2295,6 +2295,7 @@ File__Analyze* File_MpegPs::ChooseParser_DTS()
         File__Analyze* Handle=new File__Analyze();
         Open_Buffer_Init(Handle);
         Handle->Stream_Prepare(Stream_Audio);
+        Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "DTS");
         Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "DTS");
         return Handle;
     #endif
@@ -2309,6 +2310,7 @@ File__Analyze* File_MpegPs::ChooseParser_SDDS()
         File__Analyze* Handle=new File__Analyze();
         Open_Buffer_Init(Handle);
         Handle->Stream_Prepare(Stream_Audio);
+        Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "SDDS");
         Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "SDDS");
         return Handle;
     #else
@@ -2316,6 +2318,7 @@ File__Analyze* File_MpegPs::ChooseParser_SDDS()
         File__Analyze* Handle=new File__Analyze();
         Open_Buffer_Init(Handle);
         Handle->Stream_Prepare(Stream_Audio);
+        Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "SDDS");
         Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "SDDS");
         return Handle;
     #endif
@@ -2330,6 +2333,7 @@ File__Analyze* File_MpegPs::ChooseParser_AAC()
         File__Analyze* Handle=new File__Analyze();
         Open_Buffer_Init(Handle);
         Handle->Stream_Prepare(Stream_Audio);
+        Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "AAC");
         Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "AAC");
         return Handle;
     #else
@@ -2337,6 +2341,7 @@ File__Analyze* File_MpegPs::ChooseParser_AAC()
         File__Analyze* Handle=new File__Analyze();
         Open_Buffer_Init(Handle);
         Handle->Stream_Prepare(Stream_Audio);
+        Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "AAC");
         Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "AAC");
         return Handle;
     #endif
@@ -2355,7 +2360,8 @@ File__Analyze* File_MpegPs::ChooseParser_PCM()
         File__Analyze* Handle=new File__Analyze();
         Open_Buffer_Init(Handle);
         Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill("Codec", "PCM");
+        Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "PCM");
+        Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "PCM");
         return Handle;
     #endif
 }
@@ -2371,7 +2377,8 @@ File__Analyze* File_MpegPs::ChooseParser_RLE()
         File__Analyze* Handle=new File__Analyze();
         Open_Buffer_Init(Handle);
         Handle->Stream_Prepare(Stream_Text);
-        Handle->Fill("Codec", "RLE");
+        Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "RLE");
+        Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "RLE");
         return Handle;
     #endif
 }
@@ -2396,7 +2403,7 @@ void File_MpegPs::HowTo(stream_t StreamKind)
         case (Stream_General) :
             Fill_HowTo("Format", "R");
             Fill_HowTo("OveralBitRate", "R");
-            Fill_HowTo("PlayTime", "R");
+            Fill_HowTo("Duration", "R");
             Fill_HowTo("Encoded_Application", "R");
             break;
         case (Stream_Video) :

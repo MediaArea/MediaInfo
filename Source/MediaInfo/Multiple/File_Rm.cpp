@@ -154,7 +154,7 @@ void File_Rm::RMF()
 
     //Filling
     Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "RMF");
+    Fill(Stream_General, 0, General_Format, "RealMedia");
 }
 
 //---------------------------------------------------------------------------
@@ -176,7 +176,7 @@ void File_Rm::CONT()
     Get_Local(comment_len, comment,                             "comment"); //An array of ASCII characters that represents the comment information for the RealMedia file.
 
     //Filling
-    Fill(Stream_General, 0, General_PlayTime, title);
+    Fill(Stream_General, 0, General_Duration, title);
     Fill(Stream_General, 0, General_Performer, author);
     Fill(Stream_General, 0, General_Copyright, copyright);
     Fill(Stream_General, 0, General_Comment, comment);
@@ -340,7 +340,7 @@ void File_Rm::MDPR()
             Fill(StreamKind_Last, StreamPos_Last, "ID", stream_number);
             Fill(StreamKind_Last, StreamPos_Last, "BitRate", avg_bit_rate);
             Fill(StreamKind_Last, StreamPos_Last, "Delay", start_time);
-            Fill(StreamKind_Last, StreamPos_Last, "PlayTime", duration);
+            Fill(StreamKind_Last, StreamPos_Last, "Duration", duration);
         }
     FILLING_END();
 }
@@ -365,6 +365,7 @@ void File_Rm::MDPR_realvideo()
 
     //Filling
     Stream_Prepare(Stream_Video);
+    Fill(Stream_Video, StreamPos_Last, Video_CodecID, Ztring().From_CC4(Codec));
     Fill(Stream_Video, StreamPos_Last, Video_Codec, Ztring().From_CC4(Codec));
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width); //Width
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height); //Height
@@ -409,7 +410,7 @@ void File_Rm::MDPR_realaudio()
         }
 
         //Filling
-        Fill(Stream_General, 0, General_PlayTime, title);
+        Fill(Stream_General, 0, General_Duration, title);
         Fill(Stream_General, 0, General_Performer, author);
         Fill(Stream_General, 0, General_Copyright, copyright);
         Fill(Stream_General, 0, General_Comment, comment);
@@ -477,11 +478,20 @@ void File_Rm::MDPR_realaudio()
     //Filling
     Stream_Prepare(Stream_Audio);
     if (Version==3)
+    {
+        Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, FourCC3);
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, FourCC3);
+    }
     if (Version==4)
+    {
+        Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, FourCC4);
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, FourCC4);
+    }
     if (Version==5)
+    {
+        Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Ztring().From_CC4(FourCC5));
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Ztring().From_CC4(FourCC5));
+    }
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Samplerate);
     Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, Samplesize);
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
@@ -492,6 +502,8 @@ void File_Rm::MDPR_mp3()
 {
     //Filling
     Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Format, "MPEG Audio");
+    Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "Version 1 / Layer 3");
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "MPEG1AL3");
 }
 
@@ -500,6 +512,7 @@ void File_Rm::MDPR_ralf()
 {
     //Filling
     Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, "ralf");
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "ralf");
 }
 
@@ -578,7 +591,7 @@ void File_Rm::PROP()
 
     //Filling
     Fill(Stream_General, 0, General_BitRate, avg_bit_rate);
-    Fill(Stream_General, 0, General_PlayTime, duration);
+    Fill(Stream_General, 0, General_Duration, duration);
 }
 
 //---------------------------------------------------------------------------
@@ -739,7 +752,7 @@ void File_Rm::HowTo(stream_t StreamKind)
             Fill_HowTo("Performer", "R");
             Fill_HowTo("Copyright", "R");
             Fill_HowTo("Comment", "R");
-            Fill_HowTo("PlayTime", "R");
+            Fill_HowTo("Duration", "R");
             break;
         case (Stream_Video) :
             Fill_HowTo("Codec", "R");
@@ -749,7 +762,7 @@ void File_Rm::HowTo(stream_t StreamKind)
             Fill_HowTo("FrameRate", "R");
             Fill_HowTo("BitRate", "R");
             Fill_HowTo("Delay", "R");
-            Fill_HowTo("PlayTime", "R");
+            Fill_HowTo("Duration", "R");
             break;
         case (Stream_Audio) :
             Fill_HowTo("Codec", "R");
@@ -757,7 +770,7 @@ void File_Rm::HowTo(stream_t StreamKind)
             Fill_HowTo("Channel(s)", "R");
             Fill_HowTo("BitRate", "R");
             Fill_HowTo("Delay", "R");
-            Fill_HowTo("PlayTime", "R");
+            Fill_HowTo("Duration", "R");
             break;
         case (Stream_Text) :
             break;

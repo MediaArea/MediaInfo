@@ -122,32 +122,43 @@ void File_Pcm::Read_Buffer_Finalize()
 
     if (!Codec_New.empty())
     {
+        Fill(Stream_Audio, 0, Audio_Format, Codec_New);
         Fill(Stream_Audio, 0, Audio_Codec, Codec_New);
         Fill(Stream_Audio, 0, Audio_Codec_String, Codec_New);
         Fill(Stream_Audio, 0, Audio_Codec_Family, Codec_New);
     }
     if (!Firm.empty())
     {
+        Fill(Stream_Audio, 0, Audio_Format_Settings, Firm);
+        Fill(Stream_Audio, 0, Audio_Format_Settings_Firm, Firm);
         Fill(Stream_Audio, 0, Audio_Codec_Settings, Firm);
         Fill(Stream_Audio, 0, Audio_Codec_Settings_Firm, Firm);
     }
     if (!Endianness.empty())
     {
+        Fill(Stream_Audio, 0, Audio_Format_Settings, Endianness);
+        Fill(Stream_Audio, 0, Audio_Format_Settings_Endianness, Endianness);
         Fill(Stream_Audio, 0, Audio_Codec_Settings, Endianness);
         Fill(Stream_Audio, 0, Audio_Codec_Settings_Endianness, Endianness);
     }
     if (!Sign.empty())
     {
+        Fill(Stream_Audio, 0, Audio_Format_Settings, Sign);
+        Fill(Stream_Audio, 0, Audio_Format_Settings_Sign, Sign);
         Fill(Stream_Audio, 0, Audio_Codec_Settings, Sign);
         Fill(Stream_Audio, 0, Audio_Codec_Settings_Sign, Sign);
     }
     if (!Law.empty())
     {
+        Fill(Stream_Audio, 0, Audio_Format_Settings, Law);
+        Fill(Stream_Audio, 0, Audio_Format_Settings_Law, Law);
         Fill(Stream_Audio, 0, Audio_Codec_Settings, Law);
         Fill(Stream_Audio, 0, Audio_Codec_Settings_Law, Law);
     }
     if (!ITU.empty())
     {
+        Fill(Stream_Audio, 0, Audio_Format_Settings, ITU);
+        Fill(Stream_Audio, 0, Audio_Format_Settings_ITU, ITU);
         Fill(Stream_Audio, 0, Audio_Codec_Settings, ITU);
         Fill(Stream_Audio, 0, Audio_Codec_Settings_ITU, ITU);
     }

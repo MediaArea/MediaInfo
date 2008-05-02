@@ -152,8 +152,9 @@ void File_MpcSv8::FileHeader_Parse()
 
         //Filling
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "MPC");
+        Fill(Stream_General, 0, General_Format, "MusePack SV8");
         Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "MusePack SV8");
         Fill(Stream_Audio, 0, Audio_Codec, "SV8");
     FILLING_END();
 }
@@ -265,7 +266,7 @@ void File_MpcSv8::SH()
         if (SampleCount)
         {
             Fill(Stream_Audio, 0, Audio_SamplingCount, SampleCount);
-            Fill(Stream_Audio, 0, Audio_PlayTime, SampleCount*1000/Mpc_SampleFreq[SampleFrequency]);
+            Fill(Stream_Audio, 0, Audio_Duration, SampleCount*1000/Mpc_SampleFreq[SampleFrequency]);
             Fill(Stream_Audio, 0, Audio_BitRate, File_Size*8*Mpc_SampleFreq[SampleFrequency]/SampleCount); //Should be more precise...
         }
         Fill(Stream_Audio, 0, Audio_Resolution, 16); //MPC support only 16 bits
@@ -301,7 +302,7 @@ void File_MpcSv8::HowTo(stream_t StreamKind)
     {
         Fill_HowTo("Format", "R");
         Fill_HowTo("OverallBitRate", "R");
-        Fill_HowTo("PlayTime", "R");
+        Fill_HowTo("Duration", "R");
     }
     else if (StreamKind==Stream_Audio)
     {

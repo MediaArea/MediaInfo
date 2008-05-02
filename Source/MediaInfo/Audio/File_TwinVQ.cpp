@@ -110,6 +110,7 @@ void File_TwinVQ::FileHeader_Parse()
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "TwinVQ");
         Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "TwinVQ");
         Fill(Stream_Audio, 0, Audio_Codec, "TwinVQ");
     FILLING_END();
 }

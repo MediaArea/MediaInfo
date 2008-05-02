@@ -64,6 +64,46 @@ const int16u Swf_SoundRate[]=
     44100,
 };
 
+const char* Swf_Format_Audio[]=
+{
+    "PCM",
+    "ADPCM",
+    "MPEG Audio",
+    "",
+    "",
+    "Nellymoser",
+    "Nellymoser",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
+const char* Swf_Format_Settings_Audio[]=
+{
+    "",
+    "",
+    "Version 1 / Layer 3",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
 const char* Swf_SoundFormat[]=
 {
     "Uncompressed",
@@ -272,7 +312,7 @@ void File_Swf::FileHeader_Parse()
 
         //Filling
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "SWF");
+        Fill(Stream_General, 0, General_Format, "ShockWave");
         Stream_Prepare(Stream_Video);
         Fill(Stream_Video, StreamPos_Last, Video_Width, (Xmax-Xmin)/20);
         Fill(Stream_Video, StreamPos_Last, Video_Height, (Ymax-Ymin)/20);
@@ -411,6 +451,8 @@ void File_Swf::DefineSound()
 
     Stream_Prepare(Stream_Audio);
     Fill(Stream_Audio, StreamPos_Last, Audio_ID, SoundId);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Format, Swf_Format_Audio[SoundFormat]);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, Swf_Format_Settings_Audio[SoundFormat]);
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Swf_SoundFormat[SoundFormat]);
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Swf_SoundRate[SoundRate]);
     Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, Swf_SoundSize[SoundSize]);
@@ -466,6 +508,8 @@ void File_Swf::DefineVideoStream()
     Fill(Stream_Audio, StreamPos_Last, Audio_ID, CharacterID);
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Format, Swf_Format_Audio[CodecID]);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, Swf_Format_Settings_Audio[CodecID]);
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Swf_CodecID[CodecID]);
 }
 
@@ -480,7 +524,7 @@ bool File_Swf::Decompress()
     {
         //We must have the complete file in memory, but this is too big (not handled by FileHeader_Begin()), only saying this is SWF
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "SWF");
+        Fill(Stream_General, 0, General_Format, "ShockWave");
         Stream_Prepare(Stream_Video);
         Finnished();
         return true;

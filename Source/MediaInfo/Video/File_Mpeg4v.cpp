@@ -39,7 +39,7 @@ using namespace ZenLib;
 namespace MediaInfoLib
 {
 
-const char* Mpeg4v_Chroma[]=
+const char* Mpeg4v_Colorimetry[]=
 {
     "",
     "4:2:0",
@@ -119,59 +119,59 @@ const char* Mpeg4v_Profile_Level(int32u Profile_Level)
 {
     switch (Profile_Level)
     {
-        case B8(00000001) : return "Simple Profile/Level 1";
-        case B8(00000010) : return "Simple Profile/Level 2";
-        case B8(00000011) : return "Simple Profile/Level 3";
-        case B8(00010001) : return "Simple Scalable Profile/Level 1";
-        case B8(00010010) : return "Simple Scalable Profile/Level 2";
-        case B8(00100001) : return "Core Profile/Level 1";
-        case B8(00100010) : return "Core Profile/Level 2";
-        case B8(00110010) : return "Main Profile/Level 2";
-        case B8(00110011) : return "Main Profile/Level 3";
-        case B8(00110100) : return "Main Profile/Level 4";
-        case B8(01000010) : return "N-bit Profile/Level 2";
-        case B8(01010001) : return "Scalable Texture Profile/Level 1";
-        case B8(01100001) : return "Simple Face Animation Profile/Level 1";
-        case B8(01100010) : return "Simple Face Animation Profile/Level 2";
-        case B8(01100011) : return "Simple FBA Profile/Level 1";
-        case B8(01100100) : return "Simple FBA Profile/Level 2";
-        case B8(01110001) : return "Basic Animated Texture Profile/Level 1";
-        case B8(01110010) : return "Basic Animated Texture Profile/Level 2";
-        case B8(10000001) : return "Hybrid Profile/Level 1";
-        case B8(10000010) : return "Hybrid Profile/Level 2";
-        case B8(10010001) : return "Advanced Real Time Simple Profile/Level 1";
-        case B8(10010010) : return "Advanced Real Time Simple Profile/Level 2";
-        case B8(10010011) : return "Advanced Real Time Simple Profile/Level 3";
-        case B8(10010100) : return "Advanced Real Time Simple Profile/Level 4";
-        case B8(10100001) : return "Core Scalable Profile/Level 1";
-        case B8(10100010) : return "Core Scalable Profile/Level 2";
-        case B8(10100011) : return "Core Scalable Profile/Level 3";
-        case B8(10110001) : return "Advanced Coding Efficiency Profile/Level 1";
-        case B8(10110010) : return "Advanced Coding Efficiency Profile/Level 2";
-        case B8(10110011) : return "Advanced Coding Efficiency Profile/Level 3";
-        case B8(10110100) : return "Advanced Coding Efficiency Profile/Level 4";
-        case B8(11000001) : return "Advanced Core Profile/Level 1";
-        case B8(11000010) : return "Advanced Core Profile/Level 2";
-        case B8(11010001) : return "Advanced Scalable Texture/Level 1";
-        case B8(11010010) : return "Advanced Scalable Texture/Level 2";
-        case B8(11010011) : return "Advanced Scalable Texture/Level 3";
-        case B8(11100001) : return "Simple Studio Profile/Level 1";
-        case B8(11100010) : return "Simple Studio Profile/Level 2";
-        case B8(11100011) : return "Simple Studio Profile/Level 3";
-        case B8(11100100) : return "Simple Studio Profile/Level 4";
-        case B8(11100101) : return "Core Studio Profile/Level 1";
-        case B8(11100110) : return "Core Studio Profile/Level 2";
-        case B8(11100111) : return "Core Studio Profile/Level 3";
-        case B8(11101000) : return "Core Studio Profile/Level 4";
-        case B8(11110001) : return "Simple Streaming Video Profile/Level 1";
-        case B8(11110010) : return "Simple Streaming Video Profile/Level 2";
-        case B8(11110011) : return "Simple Streaming Video Profile/Level 3";
-        case B8(11110100) : return "Simple Streaming Video Profile/Level 4";
-        case B8(11110101) : return "Streaming Video Profile/Level 1";
-        case B8(11110110) : return "Streaming Video Profile/Level 2";
-        case B8(11110111) : return "Streaming Video Profile/Level 3";
-        case B8(11111000) : return "Streaming Video Profile/Level 4";
-        case B8(11111111) : return "None";
+        case B8(00000001) : return "Simple@L1";
+        case B8(00000010) : return "Simple@L2";
+        case B8(00000011) : return "Simple@L3";
+        case B8(00010001) : return "Simple Scalable@L1";
+        case B8(00010010) : return "Simple Scalable@L2";
+        case B8(00100001) : return "Core@L1";
+        case B8(00100010) : return "Core@L2";
+        case B8(00110010) : return "Main@L2";
+        case B8(00110011) : return "Main@L3";
+        case B8(00110100) : return "Main@L4";
+        case B8(01000010) : return "N-bit@L2";
+        case B8(01010001) : return "Scalable Texture@L1";
+        case B8(01100001) : return "Simple Face Animation@L1";
+        case B8(01100010) : return "Simple Face Animation@L2";
+        case B8(01100011) : return "Simple FBA@L1";
+        case B8(01100100) : return "Simple FBA@L2";
+        case B8(01110001) : return "Basic Animated Texture@L1";
+        case B8(01110010) : return "Basic Animated Texture@L2";
+        case B8(10000001) : return "Hybrid@L1";
+        case B8(10000010) : return "Hybrid@L2";
+        case B8(10010001) : return "Advanced Real Time Simple@L1";
+        case B8(10010010) : return "Advanced Real Time Simple@L2";
+        case B8(10010011) : return "Advanced Real Time Simple@L3";
+        case B8(10010100) : return "Advanced Real Time Simple@L4";
+        case B8(10100001) : return "Core Scalable@L1";
+        case B8(10100010) : return "Core Scalable@L2";
+        case B8(10100011) : return "Core Scalable@L3";
+        case B8(10110001) : return "Advanced Coding Efficiency@L1";
+        case B8(10110010) : return "Advanced Coding Efficiency@L2";
+        case B8(10110011) : return "Advanced Coding Efficiency@L3";
+        case B8(10110100) : return "Advanced Coding Efficiency@L4";
+        case B8(11000001) : return "Advanced Core@L1";
+        case B8(11000010) : return "Advanced Core@L2";
+        case B8(11010001) : return "Advanced Scalable Texture@L1";
+        case B8(11010010) : return "Advanced Scalable Texture@L2";
+        case B8(11010011) : return "Advanced Scalable Texture@L3";
+        case B8(11100001) : return "Simple Studio@L1";
+        case B8(11100010) : return "Simple Studio@L2";
+        case B8(11100011) : return "Simple Studio@L3";
+        case B8(11100100) : return "Simple Studio@L4";
+        case B8(11100101) : return "Core Studio@L1";
+        case B8(11100110) : return "Core Studio@L2";
+        case B8(11100111) : return "Core Studio@L3";
+        case B8(11101000) : return "Core Studio@L4";
+        case B8(11110001) : return "Simple Streaming Video@L1";
+        case B8(11110010) : return "Simple Streaming Video@L2";
+        case B8(11110011) : return "Simple Streaming Video@L3";
+        case B8(11110100) : return "Simple Streaming Video@L4";
+        case B8(11110101) : return "Streaming Video@L1";
+        case B8(11110110) : return "Streaming Video@L2";
+        case B8(11110111) : return "Streaming Video@L3";
+        case B8(11111000) : return "Streaming Video@L4";
+        case B8(11111111) : return "";
         default :           return "Unknown";
     }
 }
@@ -1019,12 +1019,16 @@ void File_Mpeg4v::vop_start_Fill()
 {
     //Filling
     Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "MPEG-4V");
+    Fill(Stream_General, 0, General_Format, "MPEG-4 Visual");
     Stream_Prepare(Stream_Video);
+    Fill(Stream_Video, 0, Video_Format, "MPEG-4 Visual");
     Fill(Stream_Video, 0, Video_Codec, "MPEG-4V");
 
     if (profile_and_level_indication>0)
+    {
+        Fill(Stream_Video, 0, Video_Format_Profile, Mpeg4v_Profile_Level(profile_and_level_indication));
         Fill(Stream_Video, 0, Video_Codec_Profile, Mpeg4v_Profile_Level(profile_and_level_indication));
+    }
 
     if (fixed_vop_time_increment && vop_time_increment_resolution)
     {
@@ -1055,49 +1059,78 @@ void File_Mpeg4v::vop_start_Fill()
     }
     Fill(Stream_Video, 0, Video_Resolution, bits_per_pixel);
     if (chroma_format<4)
-        Fill(Stream_Video, 0, Video_Chroma, Mpeg4v_Chroma[chroma_format]);
+        Fill(Stream_Video, 0, Video_Colorimetry, Mpeg4v_Colorimetry[chroma_format]);
     if (low_delay)
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings_BVOP, "No");
         Fill(Stream_Video, 0, Video_Codec_Settings_BVOP, "No");
+    }
     else
     {
+        Fill(Stream_Video, 0, Video_Format_Settings, "BVOP");
+        Fill(Stream_Video, 0, Video_Format_Settings_BVOP, "Yes");
         Fill(Stream_Video, 0, Video_Codec_Settings, "BVOP");
         Fill(Stream_Video, 0, Video_Codec_Settings_BVOP, "Yes");
     }
     if (no_of_sprite_warping_points)
     {
+        Fill(Stream_Video, 0, Video_Format_Settings, Ztring(_T("GMC"))+Ztring::ToZtring(no_of_sprite_warping_points));
+        Fill(Stream_Video, 0, Video_Format_Settings_GMC, no_of_sprite_warping_points);
         Fill(Stream_Video, 0, Video_Codec_Settings, Ztring(_T("GMC"))+Ztring::ToZtring(no_of_sprite_warping_points));
         Fill(Stream_Video, 0, Video_Codec_Settings_GMC, no_of_sprite_warping_points);
     }
     else
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings_GMC, 0);
         Fill(Stream_Video, 0, Video_Codec_Settings_GMC, 0);
+    }
     if (quarter_sample)
     {
+        Fill(Stream_Video, 0, Video_Format_Settings, "QPel");
+        Fill(Stream_Video, 0, Video_Format_Settings_QPel, "Yes");
         Fill(Stream_Video, 0, Video_Codec_Settings, "QPel");
         Fill(Stream_Video, 0, Video_Codec_Settings_QPel, "Yes");
     }
     else
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings_QPel, "No");
         Fill(Stream_Video, 0, Video_Codec_Settings_QPel, "No");
+    }
     if (load_intra_quant_mat_grayscale || load_nonintra_quant_mat_grayscale)
     {
+        Fill(Stream_Video, 0, Video_Format_Settings, "Custom Matrix (Gray)");
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Custom (Gray)");
         Fill(Stream_Video, 0, Video_Codec_Settings, "Custom Matrix (Gray)");
         Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Custom (Gray)");
     }
     else if (load_intra_quant_mat || load_nonintra_quant_mat)
     {
+        Fill(Stream_Video, 0, Video_Format_Settings, "Custom Matrix");
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Custom");
         Fill(Stream_Video, 0, Video_Codec_Settings, "Custom Matrix");
         Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Custom");
     }
     else
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Default");
         Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Default");
+    }
     if (interlaced)
     {
+        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
         if ((Interlaced_Top && Interlaced_Bottom) || (!Interlaced_Top && !Interlaced_Bottom))
             Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
         else
+        {
+            Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Top?"TFF":"BFF");
             Fill(Stream_Video, 0, Video_Interlacement, Interlaced_Top?"TFF":"BFF");
+        }
     }
     else
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Progressive");
         Fill(Stream_Video, 0, Video_Interlacement, "PPF");
+    }
     if (!Library.empty())
         Fill(Stream_Video, 0, Video_Encoded_Library, Library);
 

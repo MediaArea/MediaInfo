@@ -44,6 +44,24 @@ namespace MediaInfoLib
 using namespace ZenLib;
 
 //---------------------------------------------------------------------------
+const char* Mpega_Format_Profile_Version[4]=
+{
+    "Version 2.5",
+    "",
+    "Version 2",
+    "Version 1"
+};
+
+//---------------------------------------------------------------------------
+const char* Mpega_Format_Profile_Layer[4]=
+{
+    "",
+    "Layer 3",
+    "Layer 2",
+    "Layer 1",
+};
+
+//---------------------------------------------------------------------------
 const char* Mpega_Version[4]=
 {
     "MPA2.5",
@@ -351,7 +369,7 @@ void File_Mpega::Read_Buffer_Finalize()
         VBR_FileSize-=File_EndTagSize;
     }
     if (BitRate>0 && !File_Name.empty())
-        Fill(Stream_General, 0, General_PlayTime, VBR_FileSize*8*1000/BitRate);
+        Fill(Stream_General, 0, General_Duration, VBR_FileSize*8*1000/BitRate);
     Fill(Stream_General, 0, General_Encoded_Library, Encoded_Library);
     if (BitRate>0)
     {
@@ -609,8 +627,12 @@ void File_Mpega::Data_Parse_Fill()
 
     //Filling
     Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, Ztring(Mpega_Version[ID])+Ztring(Mpega_Layer[layer]));
+    Fill(Stream_General, 0, General_Format, "MPEG Audio");
     Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, 0, Audio_Format, "MPEG Audio");
+    Fill(Stream_Audio, 0, Audio_Format_Profile, Mpega_Format_Profile_Version[ID]);
+    Fill(Stream_Audio, 0, Audio_Format_Profile, Mpega_Format_Profile_Layer[layer]);
+    Fill(Stream_Audio, 0, Audio_Format_Settings, Mpega_Codec_Profile[mode]);
     Fill(Stream_Audio, 0, Audio_Codec, Ztring(Mpega_Version[ID])+Ztring(Mpega_Layer[layer]));
     Fill(Stream_Audio, 0, Audio_Codec_String, Ztring(Mpega_Version_String[ID])+Ztring(Mpega_Layer_String[layer]));
     Fill(Stream_Audio, 0, Audio_SamplingRate, Mpega_SamplingRate[ID][sampling_frequency]);
@@ -1167,7 +1189,7 @@ void File_Mpega::HowTo(stream_t StreamKind)
     {
         Fill_HowTo("Format", "R");
         Fill_HowTo("BitRate", "R");
-        Fill_HowTo("PlayTime", "R");
+        Fill_HowTo("Duration", "R");
     }
     else if (StreamKind==Stream_Audio)
     {

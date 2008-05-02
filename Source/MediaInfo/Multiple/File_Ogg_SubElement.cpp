@@ -260,6 +260,7 @@ void File_Ogg_SubElement::Identification_vorbis()
 
     //Filling
     Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Format, "Vorbis");
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "Vorbis");
     if (BitRate_Maximum!=0 && BitRate_Maximum<0x80000000) //This is a signed value, and negative values are not OK
         Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Maximum, BitRate_Maximum);
@@ -304,6 +305,7 @@ void File_Ogg_SubElement::Identification_theora()
 
     //Filling
     Stream_Prepare(Stream_Video);
+    Fill(Stream_Video, StreamPos_Last, Video_Format, "Theora");
     Fill(Stream_Video, StreamPos_Last, Video_Codec, "Theora");
     if (Version!=0x030200) //Version 3.2.x
         return;
@@ -340,6 +342,7 @@ void File_Ogg_SubElement::Identification_video()
 
     //Filling
     Stream_Prepare(Stream_Video);
+    Fill(Stream_Video, StreamPos_Last, Video_CodecID, Ztring().From_CC4(fccHandler));
     Fill(Stream_Video, StreamPos_Last, Video_Codec, Ztring().From_CC4(fccHandler));
     Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)10000000/(float)TimeUnit, 3);
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
@@ -372,6 +375,7 @@ void File_Ogg_SubElement::Identification_audio()
     Stream_Prepare(Stream_Audio);
     Ztring Codec; Codec.From_CC4(fccHandler);
     Codec.TrimLeft(_T('0'));
+    Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Codec);
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec);
     if (AvgBytesPerSec<0x80000000) //This is a signed value, and negative values are not OK
         Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, AvgBytesPerSec*8);

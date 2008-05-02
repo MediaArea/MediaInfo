@@ -52,6 +52,22 @@ const char*  IFO_VTS_Category[]=
     "Karaoke",
 };
 
+const char*  IFO_Format_V[]=
+{
+    "MPEG Video",
+    "MPEG Video",
+    "",
+    "",
+};
+
+const char*  IFO_Format_Profile_V[]=
+{
+    "Version 1",
+    "Version 2",
+    "",
+    "",
+};
+
 const char*  IFO_CodecV[]=
 {
     "MPEG-1V",
@@ -94,6 +110,30 @@ const size_t IFO_Height[4][8]=
 
 const float64 IFO_FrameRate[]=
 {29.970, 25.000};
+
+const char*  IFO_Format_A[]=
+{
+    "AC-3",
+    "",
+    "MPEG Audio",
+    "MPEG Audio",
+    "PCM",
+    "",
+    "DTS",
+    "SDDS",
+};
+
+const char*  IFO_Format_Profile_A[]=
+{
+    "",
+    "",
+    "Version 1",
+    "Version 2",
+    "",
+    "",
+    "",
+    "",
+};
 
 const char*  IFO_CodecA[]=
 {
@@ -343,9 +383,8 @@ void File_Dvdv::VMG()
     //Filling
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "DVD Video (Menu)");
-        Fill(Stream_General, 0, General_Format_String, "DVD Video (Menu)");
-        Fill(Stream_General, 0, General_Format_Extensions, "IFO");
+        Fill(Stream_General, 0, General_Format, "DVD Video");
+        Fill(Stream_General, 0, General_Format_Profile, "Menu");
 
         if (Version>0x001F)
             return;
@@ -476,8 +515,7 @@ void File_Dvdv::VTS()
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "DVD Video");
-        Fill(Stream_General, 0, General_Format_String, "DVD Video");
-        Fill(Stream_General, 0, General_Format_Extensions, "IFO");
+        Fill(Stream_General, 0, General_Format_Profile, "Program");
 
         if (Version>0x001F)
             return;
@@ -525,6 +563,8 @@ void File_Dvdv::Video()
         if (VTS_Attributes_AreHere)
         {
             Stream_Prepare(Stream_Video);
+            Fill(Stream_Video, StreamPos_Last, Video_Format, IFO_Format_V[Codec]);
+            Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, IFO_Format_Profile_V[Codec]);
             Fill(Stream_Video, StreamPos_Last, Video_Codec, IFO_CodecV[Codec]);
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, IFO_AspectRatio[AspectRatio]);
             Fill(Stream_Video, StreamPos_Last, Video_Width, IFO_Width[Resolution]);
@@ -592,6 +632,8 @@ void File_Dvdv::Audio()
         if (VTS_Attributes_AreHere)
         {
             Stream_Prepare(Stream_Audio);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format, IFO_Format_A[Codec]);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, IFO_Format_Profile_A[Codec]);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, IFO_CodecA[Codec]);
             Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, IFO_SamplingRate[SamplingRate]);
             Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels+1);

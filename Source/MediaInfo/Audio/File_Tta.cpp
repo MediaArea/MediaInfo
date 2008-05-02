@@ -106,23 +106,24 @@ void File_Tta::Header_Parse()
     //Filling data
     if (SampleRate==0)
         return;
-    int64u PlayTime=((int64u)Samples)*1000/SampleRate;
-    if (PlayTime==0)
+    int64u Duration=((int64u)Samples)*1000/SampleRate;
+    if (Duration==0)
         return;
     int64u UncompressedSize=Samples*Channels*(BitsPerSample/8);
     if (UncompressedSize==0)
         return;
     float32 CompressionRatio=((float32)File_Size)/UncompressedSize;
-    int32u BitRate=(int32u)(Samples*Channels*BitsPerSample*1000/PlayTime*CompressionRatio);
+    int32u BitRate=(int32u)(Samples*Channels*BitsPerSample*1000/Duration*CompressionRatio);
 
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "TTA");
     Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, 0, Audio_Format, "TTA");
     Fill(Stream_Audio, 0, Audio_Codec, "TTA ");
     Fill(Stream_Audio, 0, Audio_Resolution, BitsPerSample);
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate);
-    Fill(Stream_Audio, 0, Audio_PlayTime, PlayTime);
+    Fill(Stream_Audio, 0, Audio_Duration, Duration);
     Fill(Stream_Audio, 0, "CompressionRatio", CompressionRatio);
     Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
 
@@ -154,7 +155,7 @@ void File_Tta::HowTo(stream_t StreamKind)
         case (Stream_General) :
             Fill_HowTo("Format", "R");
             Fill_HowTo("OverallBitRate", "R");
-            Fill_HowTo("PlayTime", "R");
+            Fill_HowTo("Duration", "R");
             Fill_HowTo("Encoded_Library", "R");
             break;
         case (Stream_Video) :

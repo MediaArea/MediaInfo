@@ -197,7 +197,7 @@ private :
     int32u                                  moov_cmov_dcom_Compressor;
     int32u                                  moov_meta_hdlr_Type;
     std::string                             moov_meta_ilst_xxxx_name_Name;
-    int32u                                  moov_trak_mdia_mdhd_PlayTime;
+    int32u                                  moov_trak_mdia_mdhd_Duration;
     int32u                                  moov_trak_mdia_mdhd_TimeScale;
     std::vector<int32u>                     moov_trak_mdia_minf_stbl_stco_ID;
     int32u                                  moov_trak_mdia_minf_stbl_stco_Parse;

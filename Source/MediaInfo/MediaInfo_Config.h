@@ -115,11 +115,15 @@ public :
           Ztring    Inform_Get ();
           Ztring    Inform_Get (const Ztring &Value);
 
+    const Ztring   &Container_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name) const;
+
     const Ztring   &Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name) const;
           InfoMap  &Format_Get() {return Format;}; //Should not be, but too difficult to hide it
 
     const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo=InfoCodec_Name) const;
     const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream) const;
+
+    const Ztring   &CodecID_Get (stream_t KindOfStream, const Ztring &Value, infocodecid_t KindOfCodecIDInfo=InfoCodecID_Format) const;
 
     const Ztring   &Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo=InfoEncoder_LongName) const;
 
@@ -157,10 +161,11 @@ private :
     Ztring          Quote;
     Ztring          DecimalPoint;
     Ztring          ThousandsPoint;
-    size_t          StreamsMax[Stream_Max];
     Translation     Language; //ex. : "KB;Ko"
     ZtringListList  Custom_View; //Definition of "General", "Video", "Audio", "Text", "Chapters", "Image"
 
+    InfoMap         Container;
+    InfoMap         CodecID[Stream_Max];
     InfoMap         Format;
     InfoMap         Codec;
     InfoMap         Encoder;

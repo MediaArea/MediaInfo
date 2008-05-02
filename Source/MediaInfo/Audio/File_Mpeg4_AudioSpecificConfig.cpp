@@ -47,6 +47,206 @@ const char* MP4_ID[]=
     "MPEG-2",
 };
 
+const char* MP4_Format[]=
+{
+    "",
+    "AAC",                                                      // 1
+    "AAC",
+    "AAC",
+    "AAC",
+    "SBR",                                                      // 5
+    "AAC Scalable",
+    "TwinVQ",
+    "CELP",
+    "HVXC",
+    "",                                                         //10
+    ""
+    "TTSI",
+    "Main synthetic",
+    "Wavetable synthesis",
+    "General MIDI",
+    "Algorithmic Synthesis and Audio FX",                       //15
+    "AAC",
+    "",
+    "ER AAC",
+    "ER AAC",
+    "ER TwinVQ",                                                //20
+    "ER BSAC",
+    "ER AAC LD",
+    "ER CELP",
+    "ER HVXC",
+    "ER HILN",
+    "ER Parametric",
+    "SSC",
+    "",
+    "",
+    "(escape)",
+    "Layer-1",
+    "Layer-2",
+    "Layer-3",
+    "DST",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
+const char* MP4_Format_Profile[]=
+{
+    "",
+    "Main",                                                     // 1
+    "LC",
+    "SSR",
+    "LTP",
+    "",                                                         // 5
+    "",
+    "",
+    "",
+    "",
+    "",                                                         //10
+    ""
+    "",
+    "",
+    "",
+    "",                                                         //15
+    "",
+    "LC",
+    "",
+    "LTP",
+    "",                                                         //20
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
 const char* MP4_Profile[]=
 {
     "Reserved",
@@ -335,8 +535,10 @@ void File_Mpeg4_AudioSpecificConfig::audioSpecificConfig ()
     FILLING_BEGIN();
         //Filling
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "MPEG-4 AAC");
+        Fill(Stream_General, 0, General_Format, "AAC");
         Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format, MP4_Format[audioObjectType]);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, MP4_Format_Profile[audioObjectType]);
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, MP4_Profile[audioObjectType]);
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplingFrequency);
         if (channelConfiguration)
@@ -433,6 +635,7 @@ void File_Mpeg4_AudioSpecificConfig::SBR ()
         //Filling
         if (sbrPresentFlag)
         {
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "SBR");
             Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec+_T("/SBR"), true);
             Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplingFrequency, 10, true);
@@ -459,6 +662,7 @@ void File_Mpeg4_AudioSpecificConfig::PS ()
         if (Retrieve(Stream_Audio, 0, Audio_Channel_s_)==_T("1"))
         {
             Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 2, 10, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "PS");
             Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec+_T("/PS"), true);
             Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, "", Unlimited, true, true);
@@ -477,7 +681,7 @@ void File_Mpeg4_AudioSpecificConfig::HowTo(stream_t StreamKind)
     {
         Fill_HowTo("Format", "R");
         Fill_HowTo("BitRate", "R");
-        Fill_HowTo("PlayTime", "R");
+        Fill_HowTo("Duration", "R");
     }
     else if (StreamKind==Stream_Audio)
     {

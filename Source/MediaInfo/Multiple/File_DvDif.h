@@ -88,7 +88,7 @@ private :
     Ztring Recorded_Date_Time;
     size_t FrameCount;
     size_t FrameSize_Theory; //The size of a frame
-    int64u PlayTime;
+    int64u Duration;
     int8u  DIFBlockNumber;
     int8u  Subcode_First;
     bool   dsf;

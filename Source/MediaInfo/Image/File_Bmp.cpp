@@ -63,9 +63,10 @@ void File_Bmp::Read_Buffer_Continue()
     }
 
     Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "BMP");
+    Fill(Stream_General, 0, General_Format, "Bitmap");
 
     Stream_Prepare(Stream_Image);
+    Fill(Stream_Image, 0, Image_Format, "Bitmap");
     Fill(Stream_Image, 0, Image_Codec, "BMP");
 
     //No need of more

@@ -41,6 +41,14 @@ const int32u ADIF_sampling_frequency[]=
 {96000, 88200, 64000, 48000, 44100, 32000, 24000, 22050,
  16000, 12000, 11025,  8000,  7350,     0,     0,     0,};
 
+const char* ADIF_Format_Profile[]=
+{
+    "Main",
+    "LC",
+    "SSR",
+    "LTP",
+};
+
 const char* ADIF_object_type[]=
 {
     "A_AAC/MPEG4/MAIN",
@@ -199,10 +207,12 @@ void File_Adif::FileHeader_Parse()
 void File_Adif::Data_Parse_Fill()
 {
     Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "AAC");
+    Fill(Stream_General, 0, General_Format, "ADIF");
     if (!comment_field_data.empty())
         Fill(Stream_General, 0, General_Comment, comment_field_data);
     Stream_Prepare(Stream_Audio);
+    Fill (Stream_Audio, 0, Audio_Format, "AAC");
+    Fill (Stream_Audio, 0, Audio_Format_Profile, ADIF_Format_Profile[object_type]);
     Fill (Stream_Audio, 0, Audio_Codec, ADIF_object_type[object_type]);
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, bitstream_type?"VBR":"CBR");
     if (bitrate>0) Fill(Stream_Audio, 0, bitstream_type?Audio_BitRate_Maximum:Audio_BitRate, bitrate);
@@ -225,7 +235,7 @@ void File_Adif::HowTo(stream_t StreamKind)
     {
         Fill_HowTo("Format", "R");
         Fill_HowTo("BitRate", "R");
-        Fill_HowTo("PlayTime", "R");
+        Fill_HowTo("Duration", "R");
     }
     else if (StreamKind==Stream_Audio)
     {

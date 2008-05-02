@@ -721,10 +721,10 @@ protected :
     void Finalize_Tags      ();
     void Finalize_Final     ();
     void Finalize_Final_All (stream_t StreamKind);
-    void Finalize_Final_All (stream_t StreamKind, size_t Pos, Ztring &Codec_List, Ztring &Language_List);
+    void Finalize_Final_All (stream_t StreamKind, size_t Pos, Ztring &Codec_List, Ztring &Language_List, Ztring &Format_List, Ztring &Format_WithHint_List);
 
     //Utils - Finalize
-    void PlayTime_PlayTime123   (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
+    void Duration_Duration123   (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
     void FileSize_FileSize123   (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
     void Kilo_Kilo123           (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
     void Value_Value123         (const Ztring &Value, stream_t StreamKind, size_t StreamPos);

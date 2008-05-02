@@ -61,7 +61,7 @@ extern const float32 Mpegv_frame_rate[]=
 };
 
 //---------------------------------------------------------------------------
-const char* Mpegv_chroma_format[]=
+const char* Mpegv_Colorimetry_format[]=
 {
     "",
     "4:2:0",
@@ -260,7 +260,7 @@ void File_Mpegv::Read_Buffer_Finalize()
     if (Streams.empty())
         return; //Not initialized
 
-    //PlayTime
+    //Duration
     if (Time_End_NeedComplete && MediaInfoLib::Config.ParseSpeed_Get()!=1)
         Time_End_Seconds=Error;
     if (Time_End_Seconds!=Error)
@@ -273,7 +273,7 @@ void File_Mpegv::Read_Buffer_Finalize()
             Time_End  +=(size_t)(Time_End_Frames  *1000/FrameRate);
         }
         if (Count_Get(Stream_Video) && Time_End>Time_Begin)
-            Fill(Stream_Video, 0, Video_PlayTime, Time_End-Time_Begin);
+            Fill(Stream_Video, 0, Video_Duration, Time_End-Time_Begin);
     }
 
     //Purge what is not needed anymore
@@ -535,20 +535,27 @@ void File_Mpegv::slice_start_Fill()
     //Version
     if (MPEG_Version==2)
     {
-        Fill(Stream_General, 0, General_Format, "MPEG-2V");
+        Fill(Stream_General, 0, General_Format, "MPEG Video");
+        if (Retrieve(Stream_General, 0, General_Format_Profile).empty())
+            Fill(Stream_General, 0, General_Format_Profile, "Version 2");
+        Fill(Stream_Video, 0, Video_Format, "MPEG Video");
+        Fill(Stream_Video, 0, Video_Format_Settings, "Version 2");
         Fill(Stream_Video, 0, Video_Codec, "MPEG-2V");
         Fill(Stream_Video, 0, Video_Codec_String, "MPEG-2 Video");
     }
     else
     {
-        Fill(Stream_General, 0, General_Format, "MPEG-1V");
+        Fill(Stream_General, 0, General_Format, "MPEG Video");
+        Fill(Stream_General, 0, General_Format_Profile, "Version 1");
+        Fill(Stream_Video, 0, Video_Format, "MPEG Video");
+        Fill(Stream_Video, 0, Video_Format_Settings, "Version 1");
         Fill(Stream_Video, 0, Video_Codec, "MPEG-1V");
         Fill(Stream_Video, 0, Video_Codec_String, "MPEG-1 Video");
     }
 
     Fill(Stream_Video, 0, Video_Width, 0x1000*horizontal_size_extension+horizontal_size_value);
     Fill(Stream_Video, 0, Video_Height, 0x1000*vertical_size_extension+vertical_size_value);
-    Fill(Stream_Video, 0, Video_Chroma, Mpegv_chroma_format[chroma_format]);
+    Fill(Stream_Video, 0, Video_Colorimetry, Mpegv_Colorimetry_format[chroma_format]);
 
     //AspectRatio
     float AspectRatio=0;
@@ -584,18 +591,28 @@ void File_Mpegv::slice_start_Fill()
 
     //Interlacement
     if (progressive_sequence)
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Progressive");
         Fill(Stream_Video, 0, Video_Interlacement, "PPF");
+    }
     else
     {
+        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
         if ((Interlaced_Top && Interlaced_Bottom) || (!Interlaced_Top && !Interlaced_Bottom))
             Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
         else
+        {
+            Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Top?"TFF":"BFF");
             Fill(Stream_Video, 0, Video_Interlacement, Interlaced_Top?"TFF":"BFF");
+        }
     }
 
     //Profile
     if (profile_and_level_indication_profile>0 && profile_and_level_indication_profile<8 && profile_and_level_indication_level>0 && profile_and_level_indication_level<16)
+    {
+        Fill(Stream_Video, 0, Video_Format_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));
         Fill(Stream_Video, 0, Video_Codec_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));
+    }
 
     //Standard
     if (video_format)
@@ -604,11 +621,16 @@ void File_Mpegv::slice_start_Fill()
     //Matrix
     if (load_intra_quantiser_matrix || load_intra_quantiser_matrix)
     {
+        Fill(Stream_Video, 0, Video_Format_Settings, "CustomMatrix");
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Custom");
         Fill(Stream_Video, 0, Video_Codec_Settings, "CustomMatrix");
         Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Custom");
     }
     else
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Standard");
         Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Standard");
+    }
 
     //library
     if (Library.size()>=8)
@@ -756,7 +778,7 @@ void File_Mpegv::extension_start()
                     Get_S1 ( 3, profile_and_level_indication_profile, "profile_and_level_indication_profile"); Param_Info(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile]);
                     Get_S1 ( 4, profile_and_level_indication_level, "profile_and_level_indication_level"); Param_Info(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]);
                     Get_SB (    progressive_sequence,           "progressive_sequence");
-                    Get_S1 ( 2, chroma_format,                  "chroma_format"); Param_Info(Mpegv_chroma_format[chroma_format]);
+                    Get_S1 ( 2, chroma_format,                  "chroma_format"); Param_Info(Mpegv_Colorimetry_format[chroma_format]);
                     Get_S1 ( 2, horizontal_size_extension,      "horizontal_size_extension");
                     Get_S1 ( 2, vertical_size_extension,        "vertical_size_extension");
                     Get_S2 (12, bit_rate_extension,             "bit_rate_extension");

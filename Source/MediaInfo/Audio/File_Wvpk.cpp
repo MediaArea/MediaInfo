@@ -139,9 +139,9 @@ void File_Wvpk::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Wvpk::Read_Buffer_Finalize()
 {
-    //PlayTime
+    //Duration
     if (SamplingRate<15)
-        Fill(Stream_Audio, 0, Audio_PlayTime, ((int64u)(block_index_LastFrame+block_samples_LastFrame-block_index_FirstFrame))*1000/Wvpk_SamplingRate[SamplingRate], 10, true); //Don't forget the last frame with block_samples...
+        Fill(Stream_Audio, 0, Audio_Duration, ((int64u)(block_index_LastFrame+block_samples_LastFrame-block_index_FirstFrame))*1000/Wvpk_SamplingRate[SamplingRate], 10, true); //Don't forget the last frame with block_samples...
 
     //Tags
     File__Tags_Helper::Read_Buffer_Finalize();
@@ -297,8 +297,9 @@ void File_Wvpk::Data_Parse_Fill()
     if (Count_Get(Stream_General)==0)
     {
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "Wvpk");
+        Fill(Stream_General, 0, General_Format, "WavPack");
         Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "WavPack");
         Fill(Stream_Audio, 0, Audio_Codec, "Wavpack");
     }
 
@@ -308,12 +309,10 @@ void File_Wvpk::Data_Parse_Fill()
     {
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Wvpk_SamplingRate[SamplingRate]);
         if (total_samples_FirstFrame!=0xFFFFFFFF) //--> this is a valid value
-            Fill(Stream_Audio, 0, Audio_PlayTime, ((int64u)total_samples_FirstFrame)*1000/Wvpk_SamplingRate[SamplingRate]);
+            Fill(Stream_Audio, 0, Audio_Duration, ((int64u)total_samples_FirstFrame)*1000/Wvpk_SamplingRate[SamplingRate]);
     }
-    if (hybrid)
-        Fill(Stream_Audio, 0, Audio_Codec_Settings, "hybrid lossy");
-            else
-        Fill(Stream_Audio, 0, Audio_Codec_Settings, "lossless");
+    Fill(Stream_Audio, 0, Audio_Format_Settings, hybrid?"hybrid lossy":"lossless");
+    Fill(Stream_Audio, 0, Audio_Codec_Settings, hybrid?"hybrid lossy":"lossless");
 
     //Going to end of file
     File__Tags_Helper::Data_GoTo(File_Size, "WavPack");
@@ -411,7 +410,7 @@ void File_Wvpk::HowTo(stream_t StreamKind)
         case (Stream_General) :
             Fill_HowTo("Format", "R");
             Fill_HowTo("OverallBitRate", "R");
-            Fill_HowTo("PlayTime", "R");
+            Fill_HowTo("Duration", "R");
             Fill_HowTo("Encoded_Library", "R");
              break;
          case (Stream_Video) :

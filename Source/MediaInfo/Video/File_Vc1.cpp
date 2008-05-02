@@ -53,7 +53,7 @@ const char* Vc1_Profile[]=
 };
 
 //---------------------------------------------------------------------------
-const char* Vc1_ChromaFormat[]=
+const char* Vc1_ColorimetryFormat[]=
 {
     "",
     "4:2:0",
@@ -369,10 +369,13 @@ void File_Vc1::FrameHeader_Fill()
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "VC-1");
     Stream_Prepare(Stream_Video);
+    Fill(Stream_Video, 0, Video_Format, "VC-1");
     Fill(Stream_Video, 0, Video_Codec, "VC-1");
 
+    Fill(Stream_Video, 0, Video_Format_Profile, Ztring(Vc1_Profile[profile])+_T('@')+Ztring::ToZtring(level));
     Fill(Stream_Video, 0, Video_Codec_Profile, Ztring(Vc1_Profile[profile])+_T('@')+Ztring::ToZtring(level));
-    Fill(Stream_Video, 0, Video_Chroma, Vc1_ChromaFormat[chromaformat]);
+    Fill(Stream_Video, 0, Video_Colorimetry, Vc1_ColorimetryFormat[chromaformat]);
+    Fill(Stream_Video, 0, Video_ScanType, interlace?"Interlaced":"Progressive");
     Fill(Stream_Video, 0, Video_Interlacement, interlace?"Interlaced":"PPF");
     Fill(Stream_Video, StreamPos_Last, Video_Width, (coded_width+1)*2);
     Fill(Stream_Video, StreamPos_Last, Video_Height, (coded_height+1)*2);
@@ -419,7 +422,7 @@ void File_Vc1::SequenceHeader()
     if (profile==3) //Advanced
     {
         Get_S1 ( 3, level,                                      "level");
-        Get_S1 ( 2, chromaformat,                               "chromaformat"); Param_Info(Vc1_ChromaFormat[chromaformat]);
+        Get_S1 ( 2, chromaformat,                               "chromaformat"); Param_Info(Vc1_ColorimetryFormat[chromaformat]);
         Skip_S1( 3,                                             "frmrtq_postproc");
         Skip_S1( 5,                                             "bitrtq_postproc");
         Skip_SB(                                                "postprocflag");

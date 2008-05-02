@@ -404,17 +404,21 @@ void File_Riff::AIFF_COMM()
         Skip_PA(                                            "compressionName");
 
         //Filling
+        Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Ztring().From_CC4(compressionType));
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Ztring().From_CC4(compressionType));
     }
     else
+    {
         //Filling
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format, "PCM");
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "PCM");
+    }
 
     //Filling
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, numChannels);
     Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, sampleSize);
     if (sampleRate)
-        Fill(Stream_Audio, StreamPos_Last, Audio_PlayTime, numSampleFrames/sampleRate*1000);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Duration, numSampleFrames/sampleRate*1000);
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, sampleRate, 0);
 }
 
@@ -544,7 +548,7 @@ void File_Riff::AVI__goog()
     Element_Name("Google specific");
 
     //Filling
-    Fill(Stream_General, 0, General_Format, "GVI", Unlimited, false, true);
+    Fill(Stream_General, 0, General_Format, "Google Video", Unlimited, false, true);
 }
 
 //---------------------------------------------------------------------------
@@ -845,6 +849,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     Stream[Stream_ID].Compression=FormatTag;
     Ztring Codec; Codec.From_Number(FormatTag, 16);
     Codec.MakeUpperCase();
+    Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Codec);
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec); //May be replaced by codec parser
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels!=5?Channels:6);
@@ -872,7 +877,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     #endif
     #if defined(MEDIAINFO_DTS_YES)
     else if (FormatTag==0x2001
-          || (FormatTag==0x1 && Retrieve(Stream_General, 0, General_Format)==_T("WAV"))) //Some DTS streams are coded "1"
+          || (FormatTag==0x1 && Retrieve(Stream_General, 0, General_Format)==_T("Wave"))) //Some DTS streams are coded "1"
     {
         Stream[Stream_ID].Parser=new File_Dts;
         Open_Buffer_Init(Stream[Stream_ID].Parser);
@@ -1119,6 +1124,7 @@ void File_Riff::AVI__hdlr_strl_strf_iavs()
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, 4.0/3);
         }
         Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Codec);
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec); //May be replaced by codec parser
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
     #endif //MEDIAINFO_DVDIF_YES
@@ -1131,6 +1137,7 @@ void File_Riff::AVI__hdlr_strl_strf_mids()
 
     //Filling
     Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Format, "MIDO");
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "Midi");
 }
 
@@ -1180,7 +1187,7 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     {
         if (Compression==CC4("DXSB"))
         {
-            //Divx.com hack for subtitle, this is a text stream in a DivX container
+            //Divx.com hack for subtitle, this is a text stream in a DivX Format
             Fill(Stream_General, 0, General_Format, "DivX", Unlimited, true, true);
             Stream_Prepare(Stream_Text);
         }
@@ -1192,6 +1199,7 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
             Fill(StreamKind_Last, StreamPos_Last, "Codec", "RGB"); //Raw RGB, not handled by automatic codec mapping
         else
         {
+            Fill(StreamKind_Last, StreamPos_Last, "CodecID", Ztring().From_CC4(Compression).To_Local().c_str());
             Fill(StreamKind_Last, StreamPos_Last, "Codec", Ztring().From_CC4(Compression).To_Local().c_str()); //FormatTag, may be replaced by codec parser
             Fill(StreamKind_Last, StreamPos_Last, "Codec/CC", Ztring().From_CC4(Compression).To_Local().c_str()); //FormatTag
         }
@@ -1308,13 +1316,13 @@ void File_Riff::AVI__hdlr_strl_strh()
     if (Rate>0 && Scale>0)
     {
         FrameRate=((float32)Rate)/Scale;
-        int64u PlayTime=float32_int64s((1000*(float32)Length)/FrameRate);
-        if (avih_TotalFrame>0 //avih_TotalFrame is here because some files have a wrong Audio Playtime if TotalFrame==0 (which is a bug, of course!)
-        && (avih_FrameRate==0 || PlayTime<((float32)avih_TotalFrame)/avih_FrameRate*1000*1.10)  //Some file have a nearly perfect header, except that the value is false, trying to detect it (false if 10% more than 1st video)
-        && (avih_FrameRate==0 || PlayTime>((float32)avih_TotalFrame)/avih_FrameRate*1000*0.90)) //Some file have a nearly perfect header, except that the value is false, trying to detect it (false if 10% less than 1st video)
-            Fill(StreamKind_Last, StreamPos_Last, "PlayTime", PlayTime);
+        int64u Duration=float32_int64s((1000*(float32)Length)/FrameRate);
+        if (avih_TotalFrame>0 //avih_TotalFrame is here because some files have a wrong Audio Duration if TotalFrame==0 (which is a bug, of course!)
+        && (avih_FrameRate==0 || Duration<((float32)avih_TotalFrame)/avih_FrameRate*1000*1.10)  //Some file have a nearly perfect header, except that the value is false, trying to detect it (false if 10% more than 1st video)
+        && (avih_FrameRate==0 || Duration>((float32)avih_TotalFrame)/avih_FrameRate*1000*0.90)) //Some file have a nearly perfect header, except that the value is false, trying to detect it (false if 10% less than 1st video)
+            Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration);
         else
-            Fill(StreamKind_Last, StreamPos_Last, "Coherency/PlayTime", PlayTime);
+            Fill(StreamKind_Last, StreamPos_Last, "Coherency/Duration", Duration);
     }
     switch (fccType)
     {
@@ -1561,7 +1569,9 @@ void File_Riff::AVI__JUNK()
 
     //Detect DivX files
          if (CC5(Buffer+Buffer_Offset)==CC5("DivX "))
+    {
         Fill(Stream_General, 0, General_Format, "DivX", Unlimited, true, true);
+    }
     //MPlayer
     else if (CC8(Buffer+Buffer_Offset)==CC8("[= MPlay") && Retrieve(Stream_General, 0, General_Encoded_Library).empty())
         Fill(Stream_General, 0, General_Encoded_Library, "MPlayer");
@@ -1924,8 +1934,9 @@ void File_Riff::MTrk()
 
     //Filling
     Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "Midi");
+    Fill(Stream_General, 0, General_Format, "MIDI");
     Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Format, "MIDI");
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "Midi");
     Finnished();
 }
@@ -2008,7 +2019,7 @@ void File_Riff::WAVE()
 
     //Filling
     Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "WAV");
+    Fill(Stream_General, 0, General_Format, "Wave");
 }
 
 //---------------------------------------------------------------------------

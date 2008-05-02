@@ -106,15 +106,17 @@ void File_Flic::FileHeader_Parse()
         Stream_Prepare(Stream_Video);
         if (Type==0xAF11)
         {
+            Fill(Stream_Video, 0, Video_Format, "FLI");
             Fill(Stream_Video, 0, Video_Codec, "FLI");
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 1.0/DelayBetweenFrames); //ms per frame
-            Fill(Stream_Video, 0, Video_PlayTime, Frames*DelayBetweenFrames);
+            Fill(Stream_Video, 0, Video_Duration, Frames*DelayBetweenFrames);
         }
         else
         {
+            Fill(Stream_Video, 0, Video_Format, "FLC");
             Fill(Stream_Video, 0, Video_Codec, "FLC");
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate, DelayBetweenFrames*1000/70); //multiple of 1/70 per frame
-            Fill(Stream_Video, 0, Video_PlayTime, Frames*DelayBetweenFrames*1000/70);
+            Fill(Stream_Video, 0, Video_Duration, Frames*DelayBetweenFrames*1000/70);
             if (AspectY>0)
                 Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, AspectX/AspectY);
         }

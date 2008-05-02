@@ -53,24 +53,21 @@ const char* ADTS_ID[]=
 };
 
 //---------------------------------------------------------------------------
+const char* ADTS_Format_Profile[]=
+{
+    "Main",
+    "LC",
+    "SSR",
+    "LTP",
+};
+
+//---------------------------------------------------------------------------
 const char* ADTS_Profile[]=
 {
     "A_AAC/MPEG4/MAIN",
     "A_AAC/MPEG4/LC",
     "A_AAC/MPEG4/SSR",
     "A_AAC/MPEG4/LTP",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
 };
 
 //***************************************************************************
@@ -192,8 +189,10 @@ void File_Adts::Data_Parse_Fill()
     //Filling
     int32u BitRate=(ADTS_SamplingRate[sampling_frequency_index]/1024)*aac_frame_length*8;
     Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "AAC");
+    Fill(Stream_General, 0, General_Format, "ADTS");
     Stream_Prepare(Stream_Audio);
+    Fill (Stream_Audio, 0, Audio_Format, "AAC");
+    Fill (Stream_Audio, 0, Audio_Format_Profile, ADTS_Format_Profile[profile_ObjectType]);
     Fill(Stream_Audio, 0, Audio_Codec, ADTS_Profile[profile_ObjectType]);
     Fill(Stream_Audio, 0, Audio_SamplingRate, ADTS_SamplingRate[sampling_frequency_index]);
     Fill(Stream_Audio, 0, Audio_Channel_s_, channel_configuration);
@@ -292,7 +291,7 @@ void File_Adts::HowTo(stream_t StreamKind)
     {
         Fill_HowTo("Format", "R");
         Fill_HowTo("BitRate", "R");
-        Fill_HowTo("PlayTime", "R");
+        Fill_HowTo("Duration", "R");
     }
     else if (StreamKind==Stream_Audio)
     {

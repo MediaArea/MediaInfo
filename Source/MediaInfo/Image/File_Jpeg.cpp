@@ -280,6 +280,7 @@ void File_Jpeg::SOF_()
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "JPEG");
         Stream_Prepare(Stream_Image);
+        Fill(Stream_Image, 0, Image_Format, "JPEG");
         Fill(Stream_Image, 0, Image_Codec, "JPEG");
         Fill(Stream_Image, 0, Image_Codec_String, "JPEG"); //To Avoid automatic filling
         Fill(Stream_Image, 0, Image_Resolution, Resolution);
@@ -347,14 +348,15 @@ void File_Jpeg::APP0_AVI1()
             Stream_Prepare(Stream_General);
             Fill(Stream_General, 0, General_Format, "JPEG");
             Stream_Prepare(Stream_Video);
+            Fill(Stream_Video, 0, Video_Format, "M-JPEG");
             Fill(Stream_Video, 0, Video_Codec, "M-JPEG");
         }
 
         switch (FieldOrder)
         {
-            case 0x00 : Fill(Stream_Video, 0, Video_Interlacement, "PPF"); break;
-            case 0x01 : Fill(Stream_Video, 0, Video_Interlacement, "TFF"); break;
-            case 0x02 : Fill(Stream_Video, 0, Video_Interlacement, "BFF"); break;
+            case 0x00 : Fill(Stream_Video, 0, Video_Interlacement, "PPF"); Fill(Stream_Video, 0, Video_ScanType, "Progressive"); break;
+            case 0x01 : Fill(Stream_Video, 0, Video_Interlacement, "TFF"); Fill(Stream_Video, 0, Video_ScanType, "Interlaced"); Fill(Stream_Video, 0, Video_ScanOrder, "TPF"); break;
+            case 0x02 : Fill(Stream_Video, 0, Video_Interlacement, "BFF"); Fill(Stream_Video, 0, Video_ScanType, "Interlaced"); Fill(Stream_Video, 0, Video_ScanOrder, "BPF"); break;
             default   : ;
         }
     FILLING_END();

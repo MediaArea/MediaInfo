@@ -149,7 +149,7 @@ File_DvDif::File_DvDif()
     //Temp
     FrameCount=0;
     FrameSize_Theory=0;
-    PlayTime=0;
+    Duration=0;
     Subcode_First=true;
     apt=0xFF; //Impossible
     dsf_IsValid=false;
@@ -175,8 +175,8 @@ void File_DvDif::Read_Buffer_Finalize()
         }
         Fill(Stream_General, 0, General_Recorded_Date, Recorded_Date_Date);
     }
-    if (!File_Name.empty() && PlayTime)
-        Fill(Stream_General, 0, General_PlayTime, PlayTime);
+    if (!File_Name.empty() && Duration)
+        Fill(Stream_General, 0, General_Duration, Duration);
 }
 
 //***************************************************************************
@@ -474,6 +474,7 @@ void File_DvDif::audio_source()
         if (FrameCount==1 || AuxToAnalyze) //Only the first time
         {
             Stream_Prepare(Stream_Audio);
+            Fill(Stream_Audio, 0, Audio_Format, "PCM");
             Fill(Stream_Audio, 0, Audio_Codec, "PCM");
             Fill(Stream_Audio, 0, Audio_Channel_s_, 2);
             Fill(Stream_Audio, 0, Audio_SamplingRate, Dv_Audio_SamplingRate[SamplingRate]);
@@ -483,6 +484,7 @@ void File_DvDif::audio_source()
             if (stype==2 || (Resolution==1 && SamplingRate==2)) //stype=? or (Resolution=12 bits and SamplingRate=32 KHz)
             {
                 Stream_Prepare(Stream_Audio);
+                Fill(Stream_Audio, 1, Audio_Format, "PCM");
                 Fill(Stream_Audio, 1, Audio_Codec, "PCM");
                 Fill(Stream_Audio, 1, Audio_Channel_s_, 2);
                 Fill(Stream_Audio, 1, Audio_SamplingRate, Dv_Audio_SamplingRate[SamplingRate]);
@@ -596,6 +598,7 @@ void File_DvDif::video_source()
         if (FrameCount==0 || AuxToAnalyze) //Only the first time
         {
             Stream_Prepare(Stream_Video);
+            Fill(Stream_Video, 0, Video_Format, "Digital Video");
             Fill(Stream_Video, 0, Video_Codec, "DV");
             Fill(Stream_Video, 0, Video_Standard, dsf?"PAL":"NTSC");
             Fill(Stream_Video, 0, Video_Width, 720);
@@ -604,18 +607,18 @@ void File_DvDif::video_source()
             Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
 
             if (dsf==false && stype==4) //NTSC and 4:2:2
-                Fill(Stream_Video, 0, Video_Chroma, "4:2:2");       //NTSC 50 Mbps
+                Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2");       //NTSC 50 Mbps
             else if (dsf==false) //NTSC and not 4:2:2 (--> 4:1:1)
-                Fill(Stream_Video, 0, Video_Chroma, "4:1:1");       //NTSC 25 Mbps
+                Fill(Stream_Video, 0, Video_Colorimetry, "4:1:1");       //NTSC 25 Mbps
             else if (stype==4) //PAL and 4:2:2
-                Fill(Stream_Video, 0, Video_Chroma, "4:2:2");       //PAL  50 Mbps
+                Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2");       //PAL  50 Mbps
             else if (apt==0) //PAL and 4:2:0
-                Fill(Stream_Video, 0, Video_Chroma, "4:2:0");       //PAL  25 Mbps 4:2:0
+                Fill(Stream_Video, 0, Video_Colorimetry, "4:2:0");       //PAL  25 Mbps 4:2:0
             else if (apt==1) //PAL and not 4:2:0 (--> 4:1:1)
-                Fill(Stream_Video, 0, Video_Chroma, "4:1:1");       //PAL  25 Mbps 4:1:1
+                Fill(Stream_Video, 0, Video_Colorimetry, "4:1:1");       //PAL  25 Mbps 4:1:1
 
             if (FrameSize_Theory)
-                PlayTime=(int64u)(File_Size*1000/(FrameSize_Theory*(dsf?25.000:29.970)));
+                Duration=(int64u)(File_Size*1000/(FrameSize_Theory*(dsf?25.000:29.970)));
         }
     FILLING_END();
 }
@@ -675,9 +678,10 @@ void File_DvDif::video_control()
         if (FrameCount>=Frame_Count_Valid || AuxToAnalyze)
         {
             Stream_Prepare(Stream_General);
-            Fill(Stream_General, 0, General_Format, "DV");
+            Fill(Stream_General, 0, General_Format, "Digital Video");
 
-            Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"Progressive");
+            Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive");
+            Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"PFF");
             switch (aspect)
             {
                 case 0 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 4.0/3.0); break;

@@ -412,8 +412,9 @@ void File_Ac3::Data_Parse_Fill()
     if (bsid<=0x08)
     {
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "AC3");
+        Fill(Stream_General, 0, General_Format, "AC-3");
         Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, IsTrueHD?"TrueHD":"AC-3");
         Fill(Stream_Audio, 0, Audio_Codec, IsTrueHD?"TrueHD":"AC3");
 
         Fill(Stream_Audio, 0, Audio_SamplingRate, AC3_SamplingRate[fscod]);
@@ -426,7 +427,10 @@ void File_Ac3::Data_Parse_Fill()
         }
 
         if (acmod==0)
+        {
+            Fill(Stream_Audio, 0, Audio_Format_Profile, "Dual Mono");
             Fill(Stream_Audio, 0, Audio_Codec_Profile, "Dual Mono");
+        }
         int8u Channels=AC3_Channels[acmod];
         Ztring ChannelPositions; ChannelPositions.From_Local(AC3_ChannelPositions[acmod]);
         if (lfeon)
@@ -437,15 +441,19 @@ void File_Ac3::Data_Parse_Fill()
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
         Fill(Stream_Audio, 0, Audio_ChannelPositions, ChannelPositions);
         if (dsurmod==2)
+        {
+            Fill(Stream_Audio, 0, Audio_Format_Profile, "Dolby Digital");
             Fill(Stream_Audio, 0, Audio_Codec_Profile, "Dolby Digital");
+        }
         Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
     }
 
     if (bsid==0x10)
     {
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "AC3+");
+        Fill(Stream_General, 0, General_Format, "E-AC-3");
         Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "E-AC-3");
         Fill(Stream_Audio, 0, Audio_Codec, "AC3+");
 
         Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
@@ -460,7 +468,10 @@ void File_Ac3::Data_Parse_Fill()
         if (chanmap==0)
         {
             if (acmod==0)
+            {
+                Fill(Stream_Audio, 0, Audio_Format_Profile, "Dual Mono");
                 Fill(Stream_Audio, 0, Audio_Codec_Profile, "Dual Mono");
+            }
             int8u Channels=AC3_Channels[acmod];
             Ztring ChannelPositions; ChannelPositions.From_Local(AC3_ChannelPositions[acmod]);
             if (lfeon)
@@ -576,7 +587,7 @@ void File_Ac3::HowTo(stream_t StreamKind)
         case (Stream_General) :
             Fill_HowTo("Format", "R");
             Fill_HowTo("OveralBitRate", "R");
-            Fill_HowTo("PlayTime", "R");
+            Fill_HowTo("Duration", "R");
             break;
         case (Stream_Video) :
             break;

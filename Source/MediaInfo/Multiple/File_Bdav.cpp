@@ -59,7 +59,7 @@ void File_Bdav::Read_Buffer_Finalize()
     File_MpegTs::Read_Buffer_Finalize();
 
     //Fill General
-    Fill(Stream_General, 0, "Format", "BDAV", Unlimited, false, true);
+    Fill(Stream_General, 0, General_Format, "BDAV", Unlimited, false, true);
 }
 
 } //NameSpace

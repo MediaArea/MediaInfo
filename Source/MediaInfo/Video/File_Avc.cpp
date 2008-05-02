@@ -143,7 +143,7 @@ const char* Avc_ct_type[]=
     "Reserved",
 };
 
-const char* Avc_chroma_format_idc[]=
+const char* Avc_Colorimetry_format_idc[]=
 {
     "monochrome",
     "4:2:0",
@@ -527,8 +527,10 @@ void File_Avc::slice_header_Fill()
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "AVC");
     Stream_Prepare(Stream_Video);
+    Fill(Stream_Video, 0, Video_Format, "AVC");
     Fill(Stream_Video, 0, Video_Codec, "AVC");
 
+    Fill(Stream_Video, 0, Video_Format_Profile, ProfileS+_T("@L")+LevelS);
     Fill(Stream_Video, 0, Video_Codec_Profile, ProfileS+_T("@L")+LevelS);
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
@@ -543,25 +545,45 @@ void File_Avc::slice_header_Fill()
         else if (time_scale && num_units_in_tick)
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)time_scale/num_units_in_tick/2);
     }
-    Fill(Stream_Video, 0, Video_Chroma, Avc_chroma_format_idc[chroma_format_idc]);
+    Fill(Stream_Video, 0, Video_Colorimetry, Avc_Colorimetry_format_idc[chroma_format_idc]);
     if (frame_mbs_only_flag)
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Progressive");
         Fill(Stream_Video, 0, Video_Interlacement, "PPF");
+    }
     if (pic_struct_FirstDetected==1)
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
+        Fill(Stream_Video, 0, Video_ScanOrder, "TFF");
         Fill(Stream_Video, 0, Video_Interlacement, "TFF");
+    }
     if (pic_struct_FirstDetected==2)
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
+        Fill(Stream_Video, 0, Video_ScanOrder, "BFF");
         Fill(Stream_Video, 0, Video_Interlacement, "BFF");
+    }
     Fill(Stream_Video, 0, Video_Encoded_Library, Encoded_Library);
     Fill(Stream_Video, 0, Video_Encoded_Library_Settings, Encoded_Library_Settings);
     Fill(Stream_Video, 0, Video_BitRate_Nominal, BitRate_Nominal);
     if (entropy_coding_mode_flag)
     {
+        Fill(Stream_Video, 0, Video_Format_Settings, "CABAC");
+        Fill(Stream_Video, 0, Video_Format_Settings_CABAC, "Yes");
         Fill(Stream_Video, 0, Video_Codec_Settings, "CABAC");
         Fill(Stream_Video, 0, Video_Codec_Settings_CABAC, "Yes");
     }
     else
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings_CABAC, "No");
         Fill(Stream_Video, 0, Video_Codec_Settings_CABAC, "No");
+    }
     if (num_ref_frames>0)
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings, Ztring::ToZtring(num_ref_frames)+_T(" Ref Frames"));
         Fill(Stream_Video, 0, Video_Codec_Settings, Ztring::ToZtring(num_ref_frames)+_T(" Ref Frames"));
+    }
+    Fill(Stream_Video, 0, Video_Format_Settings_RefFrames, num_ref_frames);
     Fill(Stream_Video, 0, Video_Codec_Settings_RefFrames, num_ref_frames);
 
     if (File_Offset+Buffer_Size<File_Size)
@@ -877,11 +899,11 @@ void File_Avc::seq_parameter_set()
             Trusted_IsNot("chroma_format_idc is too high");
             chroma_format_idc=1;
         }
-        Param_Info(Avc_chroma_format_idc[chroma_format_idc]);
+        Param_Info(Avc_Colorimetry_format_idc[chroma_format_idc]);
         if (chroma_format_idc==3)
             Skip_SB(                                            "residual_colour_transform_flag");
         Skip_UE(                                                "bit_depth_luma_minus8");
-        Skip_UE(                                                "bit_depth_chroma_minus8");
+        Skip_UE(                                                "bit_depth_Colorimetry_minus8");
         Skip_SB(                                                "qpprime_y_zero_transform_bypass_flag");
         TEST_SB_SKIP(                                           "seq_scaling_matrix_present_flag");
             for (int32u Pos=0; Pos<8; Pos++)
@@ -1052,7 +1074,7 @@ void File_Avc::pic_parameter_set()
                 TEST_SB_END();
             }
         TEST_SB_END();
-        Skip_SE(                                                "second_chroma_qp_index_offset");
+        Skip_SE(                                                "second_Colorimetry_qp_index_offset");
     }
     Mark_1(                                                     );
     BS_End();

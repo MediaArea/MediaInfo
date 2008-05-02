@@ -56,7 +56,7 @@ void File_7z::Read_Buffer_Continue()
 
     //Filling
     Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "7Z");
+    Fill(Stream_General, 0, General_Format, "7-Zip");
 
     //No need of more
     Finnished();

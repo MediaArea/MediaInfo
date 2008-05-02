@@ -66,7 +66,7 @@ void File_Ogg::Read_Buffer_Finalize()
     {
         //Filling
         if (Stream_Temp->second.absolute_granule_position_Resolution)
-            Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, "PlayTime", float64_int64s(((float64)(Stream_Temp->second.absolute_granule_position))*1000/Stream_Temp->second.absolute_granule_position_Resolution));
+            Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, "Duration", float64_int64s(((float64)(Stream_Temp->second.absolute_granule_position))*1000/Stream_Temp->second.absolute_granule_position_Resolution));
         Stream_Temp++;
     }
 
@@ -243,15 +243,15 @@ void File_Ogg::Read_Buffer_Continue()
         return 1; //Time not found, but begin is OK...
     int64u Size=LittleEndian2int64u(End+Buffer_Offset+6);
     Ztring ID; ID.From_Number(LittleEndian2int32u(End+Buffer_Offset+14));
-    size_t PlayTime=0;
+    size_t Duration=0;
     for (size_t Pos=0; Pos<Audio.size(); Pos++)
         if (Retrieve(Stream_Audio, Pos, _T("ID"))==ID && Retrieve(Stream_Audio, Pos, _T("SamplingRate")).To_int32u()!=0)
-            PlayTime=Size*1000/Retrieve(Stream_Audio, Pos, _T("SamplingRate")).To_int32u();
+            Duration=Size*1000/Retrieve(Stream_Audio, Pos, _T("SamplingRate")).To_int32u();
     for (size_t Pos=0; Pos<Video.size(); Pos++)
         if (Retrieve(Stream_Video, Pos, _T("ID"))==ID && Retrieve(Stream_Video, Pos, _T("FrameRate")). To_float32()!=0)
-            PlayTime=Size*1000/Retrieve(Stream_Video, Pos, _T("FrameRate")).To_int32u();
-    if (PlayTime)
-        Fill(Stream_General, 0, General_PlayTime, PlayTime);
+            Duration=Size*1000/Retrieve(Stream_Video, Pos, _T("FrameRate")).To_int32u();
+    if (Duration)
+        Fill(Stream_General, 0, General_Duration, Duration);
 
 
     //No need of more
@@ -328,7 +328,7 @@ void File_Ogg::HowTo(stream_t StreamKind)
         case (Stream_General) :
             Fill_HowTo("Format", "R");
             Fill_HowTo("BitRate", "R");
-            Fill_HowTo("PlayTime", "R");
+            Fill_HowTo("Duration", "R");
             Fill_HowTo("Album", "R ALBUM");
             Fill_HowTo("Movie", "R TITLE");
             Fill_HowTo("Movie/More", "R VERSION");

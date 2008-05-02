@@ -44,6 +44,38 @@ namespace MediaInfoLib
 // Constants
 //***************************************************************************
 
+const char* Au_Format(int32u sample_format)
+{
+    switch (sample_format)
+    {
+        case  1 : return "ADPCM";
+        case  2 : return "PCM";
+        case  3 : return "PCM";
+        case  4 : return "PCM";
+        case  5 : return "PCM";
+        case  6 : return "PCM";
+        case  7 : return "PCM";
+        case  8 : return "fragmented sampled data";
+        case 10 : return "DSP program";
+        case 11 : return "PCM";
+        case 12 : return "PCM";
+        case 13 : return "PCM";
+        case 14 : return "PCM";
+        case 17 : return "ADPCM";
+        case 18 : return "PCM";
+        case 19 : return "PCM";
+        case 20 : return "PCM";
+        case 21 : return "Music Kit DSP commands";
+        case 22 : return "Music Kit DSP samples";
+        case 23 : return "ADPCM";
+        case 24 : return "ADPCM";
+        case 25 : return "ADPCM";
+        case 26 : return "ADPCM";
+        case 27 : return "ADPCM";
+        default : return "";
+    }
+}
+
 const char* Au_sample_format(int32u sample_format)
 {
     switch (sample_format)
@@ -112,13 +144,15 @@ void File_Au::FileHeader_Parse()
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "AU");
         Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, Au_Format(sample_format));
+        Fill(Stream_Audio, 0, Audio_CodecID, Au_sample_format(sample_format));
         Fill(Stream_Audio, 0, Audio_Codec, Au_sample_format(sample_format));
         Fill(Stream_Audio, 0, Audio_Channel_s_, channels);
         Fill(Stream_Audio, 0, Audio_SamplingRate, sample_rate);
         if (File_Size!=(int64u)-1)
             data_size=(int32u)File_Size-data_start; //Priority for File size
         if (sample_rate && (data_size!=0 || data_size!=0xFFFFFFFF))
-            Fill(Stream_Audio, 0, Audio_PlayTime, ((int64u)data_size)*1000/sample_rate);
+            Fill(Stream_Audio, 0, Audio_Duration, ((int64u)data_size)*1000/sample_rate);
         Fill(Stream_General, 0, General_Comment, arbitrary);
 
         Finnished();

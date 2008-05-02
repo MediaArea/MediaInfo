@@ -321,8 +321,8 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta___prf : Parameter="Performer"; return Method_String;
         case Elements::moov_meta___req : Parameter="SpecialPlaybackRequirements"; return Method_String;
         case Elements::moov_meta___src : Parameter="DistribtedBy"; return Method_String;
-        case Elements::moov_meta___swr : Parameter="Encoded_application"; return Method_String;
-        case Elements::moov_meta___too : Parameter="Encoded_application"; return Method_String;
+        case Elements::moov_meta___swr : Parameter="Encoded_Application"; return Method_String;
+        case Elements::moov_meta___too : Parameter="Encoded_Application"; return Method_String;
         case Elements::moov_meta___wrn : Parameter="Warning"; return Method_String;
         case Elements::moov_meta___wrt : Parameter="ScreenplayBy"; return Method_String;
         case Elements::moov_meta__auth : Parameter="Performer"; return Method_String2;
@@ -365,7 +365,7 @@ void File_Mpeg4::Descriptors()
     //Preparing
     File_Mpeg4_Descriptors MI;
     MI.KindOfStream=StreamKind_Last;
-    MI.Codec=Retrieve(StreamKind_Last, StreamPos_Last, "Codec");
+    MI.Codec=Retrieve(StreamKind_Last, StreamPos_Last, "CodecID");
 
     //Parsing
     Open_Buffer_Init(&MI, File_Offset+Buffer_Offset+Element_Size, File_Offset+Buffer_Offset+Element_Offset);
@@ -390,7 +390,7 @@ void File_Mpeg4::HowTo(stream_t StreamKind)
     {
         case (Stream_General) :
             Fill_HowTo("Format", "R");
-            Fill_HowTo("PlayTime", "R");
+            Fill_HowTo("Duration", "R");
             Fill_HowTo("Album", "R");
             Fill_HowTo("Part/Track_Total", "R");
             Fill_HowTo("Movie", "R");

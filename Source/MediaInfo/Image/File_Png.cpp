@@ -62,6 +62,8 @@ void File_Png::Read_Buffer_Continue()
         Fill(Stream_General, 0, General_Format, "PNG");
 
         Stream_Prepare(Stream_Image);
+        Fill(Stream_Image, 0, Image_Format, "LZ77");
+        Fill(Stream_Image, 0, Image_Format_Profile, "Variant");
         Fill(Stream_Image, 0, Image_Codec, "LZ77 variant");
     }
     else if (CC4(Buffer)==0x8A4E4E47 && CC4(Buffer+4)==0x0D0A1A0A)
@@ -71,6 +73,7 @@ void File_Png::Read_Buffer_Continue()
 
         Stream_Prepare(Stream_Image);
         Fill(Stream_Image, 0, Image_Codec, "MNG");
+        Fill(Stream_Image, 0, Image_Format, "MNG");
     }
     else if (CC4(Buffer)==0x8B4A4E47 && CC4(Buffer+4)==0x0D0A1A0A)
     {
@@ -78,6 +81,7 @@ void File_Png::Read_Buffer_Continue()
         Fill(Stream_General, 0, General_Format, "JNG");
 
         Stream_Prepare(Stream_Image);
+        Fill(Stream_Image, 0, Image_Format, "JNG");
         Fill(Stream_Image, 0, Image_Codec, "JNG");
     }
 

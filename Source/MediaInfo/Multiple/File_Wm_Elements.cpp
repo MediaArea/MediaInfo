@@ -224,7 +224,7 @@ void File_Wm::Header()
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "WM");
+        Fill(Stream_General, 0, General_Format, "Windows Media");
     FILLING_END();
 }
 
@@ -261,7 +261,7 @@ void File_Wm::Header_FileProperties()
     if (Broadcast)
         Fill(Stream_General, 0, "Broadcast", "Yes");
     Fill(Stream_General, 0, General_Encoded_Date, Ztring().Date_From_Milliseconds_1601(CreationDate/10000));
-    Fill(Stream_General, 0, General_PlayTime, PlayDuration/10000-Preroll);
+    Fill(Stream_General, 0, General_Duration, PlayDuration/10000-Preroll);
 }
 
 //---------------------------------------------------------------------------
@@ -330,6 +330,7 @@ void File_Wm::Header_StreamProperties_Audio ()
     Stream[Stream_Number].IsCreated=true;
     Ztring Codec; Codec.From_Number(CodecID, 16);
     Codec.MakeUpperCase();
+    Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Codec);
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec); //May be replaced by codec parser
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
@@ -409,6 +410,7 @@ void File_Wm::Header_StreamProperties_Video ()
     //Filling
     Stream_Prepare(Stream_Video);
     Stream[Stream_Number].IsCreated=true;
+    Fill(Stream_Video, StreamPos_Last, Video_CodecID, Ztring().From_CC4(Compression)); //May be replaced by codec parser
     Fill(Stream_Video, StreamPos_Last, Video_Codec, Ztring().From_CC4(Compression)); //May be replaced by codec parser
     Fill(Stream_Video, StreamPos_Last, Video_Codec_CC, Ztring().From_CC4(Compression));
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
@@ -444,6 +446,7 @@ void File_Wm::Header_StreamProperties_JFIF ()
 
     //Filling
     Stream_Prepare(Stream_Image);
+    Fill(Stream_Video, StreamPos_Last, Video_Format, "M-JPEG");
     Fill(Stream_Video, StreamPos_Last, Video_Codec, "JPEG");
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
@@ -469,6 +472,7 @@ void File_Wm::Header_StreamProperties_DegradableJPEG ()
 
     //Filling
     Stream_Prepare(Stream_Image);
+    Fill(Stream_Video, StreamPos_Last, Video_Format, "M-JPEG");
     Fill(Stream_Video, StreamPos_Last, Video_Codec, "JPEG");
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height);

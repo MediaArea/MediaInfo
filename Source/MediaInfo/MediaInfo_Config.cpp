@@ -41,13 +41,18 @@ namespace MediaInfoLib
 {
 
 //---------------------------------------------------------------------------
-const Char*  MediaInfo_Version=_T("MediaInfoLib - v0.7.6.4");
+const Char*  MediaInfo_Version=_T("MediaInfoLib - v0.7.6.4BETA");
 const Char*  MediaInfo_Url=_T("http://mediainfo.sourceforge.net");
       Ztring EmptyZtring;       //Use it when we can't return a reference to a true Ztring
 const Ztring EmptyZtring_Const; //Use it when we can't return a reference to a true Ztring, const version
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
+void File__Base_Container          (InfoMap &Info);
+void File__Base_CodecID_General    (InfoMap &Info);
+void File__Base_CodecID_Video      (InfoMap &Info);
+void File__Base_CodecID_Audio      (InfoMap &Info);
+void File__Base_CodecID_Text       (InfoMap &Info);
 void File__Base_Codec              (InfoMap &Info);
 void File__Base_DefaultLanguage    (Translation &Info);
 void File__Base_Iso639             (InfoMap &Info);
@@ -104,15 +109,12 @@ void MediaInfo_Config::Init()
     DecimalPoint=_T(".");
     ThousandsPoint=_T("");
 
-    StreamsMax[Stream_General]=1;
-    StreamsMax[Stream_Video]=1;
-    StreamsMax[Stream_Audio]=2;
-    StreamsMax[Stream_Text]=2;
-    StreamsMax[Stream_Chapters]=1;
-    StreamsMax[Stream_Image]=1;
-    StreamsMax[Stream_Menu]=1;
-
+    File__Base_Container(Container);
     File__Base_Format(Format);
+    File__Base_CodecID_General(CodecID[Stream_General]);
+    File__Base_CodecID_Video(CodecID[Stream_Video]);
+    File__Base_CodecID_Audio(CodecID[Stream_Audio]);
+    File__Base_CodecID_Text(CodecID[Stream_Text]);
     File__Base_Codec(Codec);
     File__Base_General(Info[Stream_General]);
     File__Base_Video(Info[Stream_Video]);
@@ -863,6 +865,12 @@ Ztring MediaInfo_Config::Inform_Get (const Ztring &Value)
 }
 
 //---------------------------------------------------------------------------
+const Ztring &MediaInfo_Config::Container_Get (const Ztring &Value, infoformat_t KindOfFormatInfo) const
+{
+    return Container.Get(Value, KindOfFormatInfo);
+}
+
+//---------------------------------------------------------------------------
 const Ztring &MediaInfo_Config::Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo) const
 {
     return Format.Get(Value, KindOfFormatInfo);
@@ -892,6 +900,12 @@ const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t Kind
     }
 
     return Codec.Get(Value, KindOfCodecInfo, KindOfStreamS, InfoCodec_KindOfStream);
+}
+
+//---------------------------------------------------------------------------
+const Ztring &MediaInfo_Config::CodecID_Get (stream_t KindOfStream, const Ztring &Value, infocodecid_t KindOfCodecIDInfo) const
+{
+    return CodecID[KindOfStream].Get(Value, KindOfCodecIDInfo);
 }
 
 //---------------------------------------------------------------------------

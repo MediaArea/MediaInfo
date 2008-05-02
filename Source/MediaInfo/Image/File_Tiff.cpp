@@ -69,6 +69,7 @@ void File_Tiff::Read_Buffer_Continue()
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "TIFF");
     Stream_Prepare(Stream_Image);
+    Fill(Stream_Image, 0, Image_Format, "TIFF");
     Fill(Stream_Image, 0, Image_Codec, "TIFF");
 
     //No need of more

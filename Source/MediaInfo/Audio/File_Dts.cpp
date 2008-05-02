@@ -263,9 +263,15 @@ void File_Dts::Data_Parse_Fill()
     Stream_Prepare(Stream_Audio);
 
     if (DTS_HD_Unknown_Size==0) //DTS-HD, TODO : Find a better way
+    {
+        Fill(Stream_Audio, 0, Audio_Format, "DTS");
         Fill(Stream_Audio, 0, Audio_Codec, "DTS");
+    }
     else
+    {
+        Fill(Stream_Audio, 0, Audio_Format, "DTS-HD");
         Fill(Stream_Audio, 0, Audio_Codec, "DTS-HD");
+    }
 
     if (ExtendedCoding && (ExtensionAudioDescriptor==2 || ExtensionAudioDescriptor==3))
         Fill(Stream_Audio, 0, Audio_SamplingRate, 96000);

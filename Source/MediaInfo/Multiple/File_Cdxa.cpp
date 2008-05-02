@@ -95,7 +95,6 @@ void File_Cdxa::Read_Buffer_Finalize ()
     if (MI->Info==NULL|| MI->Count_Get(Stream_General)==0)
     {
         Fill(Stream_General, 0, General_Format, "CDXA");
-        Fill(Stream_General, 0, General_Format_String, "CD Mode 2");
     }
     else
     {
@@ -104,12 +103,10 @@ void File_Cdxa::Read_Buffer_Finalize ()
         MI->Open_Buffer_Finalize();
         Merge(*(MI->Info));
         Merge(*(MI->Info), Stream_General, 0, 0);
-        const Ztring &Format=Retrieve(Stream_General, 0, "Format");
-        const Ztring &Format_String=MediaInfoLib::Config.Format_Get(Format, InfoFormat_LongName);
+        const Ztring &Format=Retrieve(Stream_General, 0, General_Format);
         Fill(Stream_General, 0, General_Format, (Ztring(_T("CDXA/"))+Format).c_str(), Unlimited, true);
-        Fill(Stream_General, 0, General_Format_String, (Ztring(_T("CD Mode 2 / "))+Format_String).c_str(), Unlimited, true);
-        Fill(Stream_General, 0, General_PlayTime, "", Unlimited, true);
-        Fill(Stream_Video, 0, Video_PlayTime, "", Unlimited, true);
+        Fill(Stream_General, 0, General_Duration, "", Unlimited, true);
+        Fill(Stream_Video, 0, Video_Duration, "", Unlimited, true);
     }
 
     //Purge what is not needed anymore

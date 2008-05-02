@@ -169,9 +169,13 @@ void File_Vorbis::Data_Parse()
         if (Count_Get(Stream_Audio)==0)
         {
             Stream_Prepare(Stream_Audio);
+            Fill(Stream_Audio, 0, Audio_Format_Settings_Floor, vorbis_floor_types);
             Fill(Stream_Audio, 0, Audio_Codec_Settings_Floor, vorbis_floor_types);
             if (vorbis_floor_types==0)
+            {
+                Fill(Stream_Audio, 0, Audio_Format_Settings, "Floor0");
                 Fill(Stream_Audio, 0, Audio_Codec_Settings, "Floor0");
+            }
         }
         //Must continue parsing...
     }
