@@ -792,6 +792,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\MediaInfo\MediaInfo_Internal_Const.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\MediaInfo\MediaInfoList.h"
 				>
 			</File>

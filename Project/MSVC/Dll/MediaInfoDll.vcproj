@@ -65,7 +65,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="ZLibd.lib ZenLibd.lib MediaInfod.lib"
-				OutputFile="MediaInfo.dll"
+				OutputFile="../../../Release/MSVC/Dll/MediaInfod.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../../Release/MSVC/Library;../../../../Shared/Library/MSVC"
 				ModuleDefinitionFile="../../../Source/MediaInfoDLL/MediaInfoDLL.def"
