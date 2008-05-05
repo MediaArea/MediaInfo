@@ -373,6 +373,12 @@ void File_Flv::Read_Buffer_Finalize()
             Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
     }
 
+    //Delay
+    if (Stream[Stream_Video].Delay!=(int32u)-1)
+        Fill(Stream_Video, 0, Video_Delay, Stream[Stream_Video].Delay);
+    if (Stream[Stream_Audio].Delay!=(int32u)-1)
+        Fill(Stream_Audio, 0, Audio_Delay, Stream[Stream_Audio].Delay);
+
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Stream.clear();
@@ -521,11 +527,12 @@ void File_Flv::video()
     if (Element_Size==0) //Header says that video is present, but there is only one null packet
     {
         Element_Info("Null");
-        video_stream_Count=false;
-        if (Retrieve(Stream_Video, 0, Video_Format).empty() && Retrieve(Stream_Video, 0, Video_Codec).empty())
-            Clear(Stream_Video, 0);
         return;
     }
+
+    //Delay
+    if (Stream[Stream_Video].Delay==(int32u)-1)
+        Stream[Stream_Video].Delay=Time;
 
     //Parsing
     int8u Codec, FrameType;
@@ -699,16 +706,17 @@ void File_Flv::audio()
 
     //Needed?
     if (!audio_stream_Count)
-        return; //No more need of Aufio stream
+        return; //No more need of Audio stream
 
     if (Element_Size==0) //Header says that audio is present, but there is only one null packet
     {
         Element_Info("Null");
-        audio_stream_Count=false;
-        if (Retrieve(Stream_Audio, 0, Audio_Format).empty())
-            Clear(Stream_Audio, 0);
         return;
     }
+
+    //Delay
+    if (Stream[Stream_Audio].Delay==(int32u)-1)
+        Stream[Stream_Audio].Delay=Time;
 
     //Parsing
     int8u  codec, sampling_rate;

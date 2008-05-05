@@ -75,11 +75,13 @@ private :
     {
         File__Analyze*          Parser;
         size_t                  PacketCount;
+        int32u                  Delay;
 
         stream()
         {
             Parser=NULL;
             PacketCount=0;
+            Delay=(int32u)-1;
         }
 
         ~stream()
