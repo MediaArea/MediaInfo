@@ -445,7 +445,7 @@ void File_Ac3::Data_Parse_Fill()
             Fill(Stream_Audio, 0, Audio_Format_Profile, "Dolby Digital");
             Fill(Stream_Audio, 0, Audio_Codec_Profile, "Dolby Digital");
         }
-        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
+        Fill(Stream_Audio, 0, Audio_BitRate_Mode, IsTrueHD?"VBR":"CBR");
     }
 
     if (bsid==0x10)
