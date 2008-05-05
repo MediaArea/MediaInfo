@@ -13,28 +13,28 @@ TextCount;;;N NI;;;Count of text streams
 ChaptersCount;;;N NI;;;Count of chapters streams
 ImageCount;;;N NI;;;Count of image streams
 MenuCount;;;N NI;;;Count of menu streams
-Video_CodecID_List;;;N NT;;;Video Codecs separated by /
-Video_CodecID_WithHint_List;;;N NT;;;Video Codecs separated by /
+Video_Format_List;;;N NT;;;Video Codecs separated by /
+Video_Format_WithHint_List;;;N NT;;;Video Codecs separated by /
 Video_Codec_List;;;N NT;;;Video Codecs separated by /
 Video_Language_List;;;N NT;;;Video languages separated by /
-Audio_CodecID_List;;;N NT;;;Audio Codecs separated by /
-Audio_CodecID_WithHint_List;;;N NT;;;Audio Codecs separated by /
+Audio_Format_List;;;N NT;;;Audio Codecs separated by /
+Audio_Format_WithHint_List;;;N NT;;;Audio Codecs separated by /
 Audio_Codec_List;;;N NT;;;Audio Codecs separated by /
 Audio_Language_List;;;N NT;;;Audio languages separated by /
-Text_CodecID_List;;;N NT;;;Text Codecs separated by /
-Text_CodecID_WithHint_List;;;N NT;;;Text Codecs separated by /
+Text_Format_List;;;N NT;;;Text Codecs separated by /
+Text_Format_WithHint_List;;;N NT;;;Text Codecs separated by /
 Text_Codec_List;;;N NT;;;Text Codecs separated by /
 Text_Language_List;;;N NT;;;Text languages separated by /
-Chapters_CodecID_List;;;N NT;;;Chapters Codecs separated by /
-Chapters_CodecID_WithHint_List;;;N NT;;;Chapters Codecs separated by /
+Chapters_Format_List;;;N NT;;;Chapters Codecs separated by /
+Chapters_Format_WithHint_List;;;N NT;;;Chapters Codecs separated by /
 Chapters_Codec_List;;;N NT;;;Chapters Codecs separated by /
 Chapters_Language_List;;;N NT;;;Chapters languages separated by /
-Image_CodecID_List;;;N NT;;;Image Codecs separated by /
-Image_CodecID_WithHint_List;;;N NT;;;Image Codecs separated by /
+Image_Format_List;;;N NT;;;Image Codecs separated by /
+Image_Format_WithHint_List;;;N NT;;;Image Codecs separated by /
 Image_Codec_List;;;N NT;;;Image Codecs separated by /
 Image_Language_List;;;N NT;;;Image languages separated by /
-Menu_CodecID_List;;;N NT;;;Menu Codecs separated by /
-Menu_CodecID_WithHint_List;;;N NT;;;Menu Codecs separated by /
+Menu_Format_List;;;N NT;;;Menu Codecs separated by /
+Menu_Format_WithHint_List;;;N NT;;;Menu Codecs separated by /
 Menu_Codec_List;;;N NT;;;Menu Codecs separated by /
 Menu_Language_List;;;N NT;;;Menu languages separated by /
 CompleteName;;;Y NT;;;Complete name (Folder+Name+Extension)

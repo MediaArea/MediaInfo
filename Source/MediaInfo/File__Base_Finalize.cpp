@@ -152,8 +152,8 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind)
         Z3.resize(Z3.size()-3); //Delete extra " / "
         Z4.resize(Z4.size()-3); //Delete extra " / "
         Ztring Z9=Get((stream_t)StreamKind, 0, _T("StreamKind"), Info_Measure);
-        Fill(Stream_General, 0, Ztring(Z9+_T("_CodecID_List")).To_Local().c_str(), Z3);
-        Fill(Stream_General, 0, Ztring(Z9+_T("_CodecID_WithHint_List")).To_Local().c_str(), Z4);
+        Fill(Stream_General, 0, Ztring(Z9+_T("_Format_List")).To_Local().c_str(), Z3);
+        Fill(Stream_General, 0, Ztring(Z9+_T("_Format_WithHint_List")).To_Local().c_str(), Z4);
         Fill(Stream_General, 0, Ztring(Z9+_T("_Codec_List")).To_Local().c_str(), Z1);
         Fill(Stream_General, 0, Ztring(Z9+_T("_Language_List")).To_Local().c_str(), Z2);
     }
