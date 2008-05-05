@@ -263,7 +263,6 @@ Format_Description;Format description
 Format_Info;Details for format
 Format_Extensions;Extensions usualy used
 Format_Profile;Format profile
-Format_Settings;Format setting
 Format_Settings;Format settings
 Format_Settings_PacketBitStream;Format settings, Packet bitstream
 Format_Settings_BVOP;Format settings, BVOP
@@ -284,6 +283,7 @@ FrameRate_Mode;Frame rate mode
 FrameRate_Minimum;Minimum frame rate
 FrameRate_Nominal;Nominal frame rate
 FrameRate_Maximum;Maximum frame rate
+FrameRate_Original;Original frame rate
 General;General
 Genre;Genre
 Genre_000;Blues
@@ -695,6 +695,7 @@ PixelAspectRatio;Pixel Aspect Ratio
 PlayCounter;PlayCounter
 PlayTime;PlayTime
 Position;Position
+Position_Total;Total
 Preferences;Preferences
 Producer;Producer
 ProductionDesigner;ProductionDesigner
