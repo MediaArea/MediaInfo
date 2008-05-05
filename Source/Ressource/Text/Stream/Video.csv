@@ -78,6 +78,8 @@ FrameRate_Nominal;; fps;N YF;;;Frame rate
 FrameRate_Nominal/String;;;Y NT;;;Frame rate
 FrameRate_Maximum;; fps;N YF;;;Frame rate
 FrameRate_Maximum/String;;;Y NT;;;Frame rate
+FrameRate_Original;; fps;N YF;;;Frame rate
+FrameRate_Original/String;;;Y NT;;;Frame rate
 Standard;;;Y NT;;;NTSC or PAL
 FrameCount;;;N NI;;;Frame count
 Resolution;; bit;N YI;;;example for MP3 : 16 bits
@@ -92,8 +94,8 @@ Bits-(Pixel*Frame);;;Y YF;;;bits/(Pixel*Frame) (like Gordian Knot)
 Delay;; ms;N NI;;;Delay fixed in the stream (relative) IN MS
 Delay/String;;;N NT;;;
 Delay/String1;;;N NT;;;
-Delay/String2;;;N NT;;;
-Delay/String3;;;N NT;;;
+Delay/String2;;;N NT;;;;;
+Delay/String3;;;N NT;;;;;
 StreamSize;; byte;N YI;;;Stream size in bytes;;
 StreamSize/String;;;Y NT;;;;;
 StreamSize/String1;;;N NT;;;;;
