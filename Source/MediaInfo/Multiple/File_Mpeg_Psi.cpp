@@ -161,6 +161,59 @@ const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
 }
 
 //---------------------------------------------------------------------------
+const char* Mpeg_Psi_stream_Format(int8u ID, int32u format_identifier)
+{
+    switch (ID)
+    {
+        case 0x01 : return "MPEG Video"; //Version 1
+        case 0x02 : return "MPEG Video"; //Version 2
+        case 0x03 : return "MPEG Audio"; //Version 1
+        case 0x04 : return "MPEG Audio";    //Version 2
+        case 0x0F : return "AAC";
+        case 0x10 : return "MPEG-4 Visual";
+        case 0x11 : return "AAC";
+        case 0x1B : return "AVC";
+        case 0x1C : return "AAC";
+        case 0x1D : return "Text";
+        default :
+            switch (format_identifier)
+            {
+                case Mpeg_Descriptors::CUEI :
+                case Mpeg_Descriptors::SCTE : //SCTE
+                case Mpeg_Descriptors::GA94 :
+                case Mpeg_Descriptors::S14A : //ATSC
+                        switch (ID)
+                        {
+                            case 0x81 : return "AC-3";
+                            case 0x82 : return "Text";
+                            case 0x87 : return "E-AC-3";
+                            default   : return "";
+                        }
+                case Mpeg_Descriptors::HDMV : //Bluray
+                        switch (ID)
+                        {
+                            case 0x80 : return "PCM";
+                            case 0x81 : return "AC-3";
+                            case 0x83 : return "E-AC-3";
+                            case 0x86 : return "DTS";
+                            case 0xEA : return "VC-1";
+                            default   : return "";
+                        }
+                default                     :
+                        switch (ID)
+                        {
+                            case 0x80 : return "MPEG Video";
+                            case 0x81 : return "AC-3";
+                            case 0x87 : return "E-AC-3";
+                            case 0x88 : return "VC-1";
+                            case 0xD1 : return "Dirac";
+                            default   : return "";
+                        }
+            }
+    }
+}
+
+//---------------------------------------------------------------------------
 const char* Mpeg_Psi_stream_Codec(int8u ID, int32u format_identifier)
 {
     switch (ID)
@@ -354,7 +407,6 @@ File_Mpeg_Psi::File_Mpeg_Psi()
     //Temp
     Stream_Current=0x0000;
     transport_stream_id=0x0000;
-    format_identifier=0x00000000;
     CRC_32=0;
 }
 
@@ -622,7 +674,7 @@ void File_Mpeg_Psi::program_stream_map()
         Element_Begin();
         int16u ES_info_length;
         int8u  stream_type, elementary_stream_id;
-        Get_B1 (stream_type,                                    "stream_type"); Param_Info(Mpeg_Psi_stream_type(stream_type, format_identifier));
+        Get_B1 (stream_type,                                    "stream_type"); Param_Info(Mpeg_Psi_stream_type(stream_type, 0x00000000));
         Get_B1 (elementary_stream_id,                           "elementary_stream_id");
         Get_B2 (ES_info_length,                                 "ES_info_length");
         Element_Name(Ztring::ToZtring(elementary_stream_id, 16));
@@ -738,7 +790,7 @@ void File_Mpeg_Psi::Table_02()
         Element_Begin();
         int8u stream_type;
         BS_Begin();
-        Get_S1 ( 8, stream_type,                                "stream_type"); Element_Info(Mpeg_Psi_stream_type(stream_type, format_identifier)); Param_Info(Mpeg_Psi_stream_type(stream_type, format_identifier));
+        Get_S1 ( 8, stream_type,                                "stream_type"); Element_Info(Mpeg_Psi_stream_type(stream_type, Streams[Stream_Current].format_identifier)); Param_Info(Mpeg_Psi_stream_type(stream_type, Streams[Stream_Current].format_identifier));
         Skip_S1( 3,                                             "reserved");
         Get_S2 (13, Stream_Current,                             "elementary_PID");
         Skip_S1( 4,                                             "reserved");
@@ -1001,7 +1053,7 @@ void File_Mpeg_Psi::Descriptors()
 
     //Parsing
     File_Mpeg_Descriptors Descriptors;
-    Descriptors.format_identifier=format_identifier;
+    Descriptors.format_identifier=Streams[Stream_Current].format_identifier;
     Buffer_Offset+=Element_Offset; //Positionning
     Open_Buffer_Init(&Descriptors, File_Size, File_Offset+Buffer_Offset);
     Open_Buffer_Continue(&Descriptors, Buffer+Buffer_Offset, Descriptors_Size);
@@ -1010,7 +1062,7 @@ void File_Mpeg_Psi::Descriptors()
 
     //Filling
     Streams[Stream_Current].Infos=Descriptors.Infos;
-    format_identifier=Descriptors.format_identifier; //General
+    Streams[Stream_Current].format_identifier=Descriptors.format_identifier; //General
     if (Streams[Stream_Current].descriptor_tag==0x00)
         Streams[Stream_Current].descriptor_tag=Descriptors.descriptor_tag;
 

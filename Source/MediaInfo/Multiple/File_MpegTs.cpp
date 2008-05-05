@@ -32,6 +32,7 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_MpegTs.h"
 #include "MediaInfo/Multiple/File_MpegPs.h"
+#include "MediaInfo/Multiple/File_Mpeg_Descriptors.h"
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #include <memory>
 using namespace std;
@@ -47,6 +48,7 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 //From Mpeg_Psi
 extern const char*  Mpeg_Psi_stream_type(int8u ID, int32u format_identifier);
+extern const char*  Mpeg_Psi_stream_Format(int8u ID, int32u format_identifier);
 extern const char*  Mpeg_Psi_stream_Codec(int8u ID, int32u format_identifier);
 extern stream_t     Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier);
 extern const char*  Mpeg_Descriptors_stream_Codec(int8u descriptor_tag, int32u format_identifier);
@@ -258,8 +260,8 @@ void File_MpegTs::Read_Buffer_Finalize()
             if (StreamKind_Last!=Stream_Max) //Found by the Parser or stream_type
             {
                 //Codec
-                if (Retrieve(StreamKind_Last, StreamPos_Last, "Codec").empty())
-                    Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Psi_stream_Codec(Streams[StreamID].stream_type, format_identifier));
+                if (Retrieve(StreamKind_Last, StreamPos_Last, "Format").empty())
+                    Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Psi_stream_Format(Streams[StreamID].stream_type, format_identifier));
                 if (Retrieve(StreamKind_Last, StreamPos_Last, "Codec").empty())
                     Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Descriptors_stream_Codec(Streams[StreamID].descriptor_tag, format_identifier));
 
@@ -311,6 +313,22 @@ void File_MpegTs::Read_Buffer_Finalize()
             }
         }
         delete Streams[StreamID].Parser; Streams[StreamID].Parser=NULL;
+    }
+
+    //HDMV specific
+    if (format_identifier==Mpeg_Descriptors::HDMV)
+    {
+        //TimeStamp
+        if (Streams[0x1001].TimeStamp_End!=(int64u)-1)
+        {
+            if (Streams[0x1001].TimeStamp_End<Streams[0x1001].TimeStamp_Start)
+                Streams[0x1001].TimeStamp_End+=0x200000000LL; //33 bits, cyclic
+            int64u Duration=Streams[0x1001].TimeStamp_End-Streams[0x1001].TimeStamp_Start;
+            if (Duration!=0 && Duration!=(int64u)-1)
+                Fill(Stream_General, 0, General_Duration, Duration/90, 10, true);
+            else
+                Fill(Stream_General, 0, General_Duration, "", 0, true, true); //Clear it
+        }
     }
 
     //Fill General
@@ -657,7 +675,16 @@ void File_MpegTs::PSI_program_association_table()
 void File_MpegTs::PSI_program_map_table()
 {
     File_Mpeg_Psi* Parser=(File_Mpeg_Psi*)Streams[pid].Parser;
-    format_identifier=Parser->format_identifier;
+
+    //Format identifier
+    format_identifier=Parser->Streams[0x0000].format_identifier;
+    if (format_identifier==Mpeg_Descriptors::HDMV)
+    {
+        //Bluray specification fixes the PID of the PCR PID by 0x1001
+        Streams[0x1001].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
+        Streams[0x1001].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
+    }
+
     for (std::map<int16u, File_Mpeg_Psi::stream>::iterator Stream=Parser->Streams.begin(); Stream!=Parser->Streams.end(); Stream++)
     {
         //Retrieving info
@@ -981,7 +1008,8 @@ void File_MpegTs::Detect_EOF()
                 //End timestamp is out of date
                 if (Streams[StreamID].TS_Kind==File_Mpeg_Psi::pes)
                     Streams[StreamID].TimeStamp_End=(int64u)-1;
-                Streams[StreamID].Searching_TimeStamp_End_Set(!Streams[StreamID].Searching_TimeStamp_Start); //Searching only for a start found
+                if (Streams[StreamID].TimeStamp_Start!=(int64u)-1)
+                    Streams[StreamID].Searching_TimeStamp_End_Set(!Streams[StreamID].Searching_TimeStamp_Start); //Searching only for a start found
             }
         }
 

@@ -85,6 +85,7 @@ public :
     struct stream
     {
         std::map<std::string, ZenLib::Ztring>       Infos;
+        int32u                                      format_identifier;
         int16u                                      program_number;
         ts_kind                                     Kind;
         int8u                                       stream_type;
@@ -92,6 +93,7 @@ public :
 
         stream()
         {
+            format_identifier=0x00000000;
             program_number=0xFFFF;
             Kind=unknown;
             stream_type=0x00;
@@ -103,9 +105,6 @@ public :
 
     //About program
     int16u transport_stream_id; //Unique ID of the stream
-
-    //Temp
-    int32u format_identifier;
 
 public :
     File_Mpeg_Psi();

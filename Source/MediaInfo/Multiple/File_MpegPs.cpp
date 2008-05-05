@@ -149,6 +149,7 @@ const char* MpegPs_stream_id_extension(int8u stream_id_extension)
                   && stream_id_extension<=0x6F) return "Dirac";
             else if (stream_id_extension==0x71) return "Audio";
             else if (stream_id_extension==0x72) return "Audio Ext";
+            else if (stream_id_extension==0x76) return "Audio";
             else if (stream_id_extension>=0x75
                   && stream_id_extension<=0x7F) return "VC-1";
             else                                return "";
@@ -157,6 +158,7 @@ const char* MpegPs_stream_id_extension(int8u stream_id_extension)
 
 //---------------------------------------------------------------------------
 extern const char* Mpeg_Psi_stream_type(int32u ID);
+extern const char* Mpeg_Psi_stream_Format(int8u ID, int32u format_identifier);
 extern const char* Mpeg_Psi_stream_Codec(int8u ID, int32u format_identifier);
 extern stream_t    Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier);
 
@@ -272,9 +274,9 @@ void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Tem
         //Common
         if (!File_Name.empty())
             Fill(StreamKind_Last, StreamPos_Last, "ID", StreamID, 16);
+        if (Retrieve(StreamKind_Last, StreamPos_Last, "Format").empty() && Temp.stream_type!=0)
+            Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Psi_stream_Format(Temp.stream_type, 0x0000));
         if (Retrieve(StreamKind_Last, StreamPos_Last, "Codec").empty() && Temp.stream_type!=0)
-            Fill(StreamKind_Last, StreamPos_Last, "CodecID", Mpeg_Psi_stream_Codec(Temp.stream_type, 0x0000));
-        if (Retrieve(StreamKind_Last, StreamPos_Last, "CodecID").empty() && Temp.stream_type!=0)
             Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Psi_stream_Codec(Temp.stream_type, 0x0000));
 
         if (Temp.TimeStamp_Start.PTS_Is_Valid && Temp.TimeStamp_End.PTS_Is_Valid)
@@ -1778,36 +1780,39 @@ void File_MpegPs::extension_stream()
     Streams[start_code].StreamIsRegistred=true;
 
     //New Streams if needed
-    if (stream_id_extension==0x72)
-        stream_id_extension=0x71; //0x72 is extension of 0x71 (example : DTS-HD)
-    if (Streams_Extension[stream_id_extension].Parser==NULL)
+    int8u Extension=stream_id_extension;
+    if (Extension==0x72)
+        Extension=0x71; //0x72 is extension of 0x71 (example : DTS-HD)
+    if (Extension==0x76)
+        Extension=0x71; //0x76 is extension of 0x71 (example : TrueHD)
+    if (Streams_Extension[Extension].Parser==NULL)
     {
-            if ((stream_id_extension>=0x55 && stream_id_extension<=0x5F)
-             || (stream_id_extension==0x75 && stream_id_extension<=0x7F))
-             Streams_Extension[stream_id_extension].Parser=ChooseParser_VC1();
-        else if (stream_id_extension>=0x60 && stream_id_extension<=0x6F)
-             Streams_Extension[stream_id_extension].Parser=ChooseParser_Dirac();
-        else if (stream_id_extension==0x71)
-            Streams_Extension[stream_id_extension].Parser=private_stream_1_ChooseParser();
+            if ((Extension>=0x55 && Extension<=0x5F)
+             || (Extension==0x75 && Extension<=0x7F))
+             Streams_Extension[Extension].Parser=ChooseParser_VC1();
+        else if (Extension>=0x60 && Extension<=0x6F)
+             Streams_Extension[Extension].Parser=ChooseParser_Dirac();
+        else if (Extension==0x71)
+            Streams_Extension[Extension].Parser=private_stream_1_ChooseParser();
         else
-            Streams_Extension[stream_id_extension].Parser=new File__Analyze();
-        Streams_Extension[stream_id_extension].Searching_TimeStamp_Start=true;
+            Streams_Extension[Extension].Parser=new File__Analyze();
+        Streams_Extension[Extension].Searching_TimeStamp_Start=true;
     }
-    if (Streams_Extension[stream_id_extension].Searching_TimeStamp_Start)
+    if (Streams_Extension[Extension].Searching_TimeStamp_Start)
     {
-        Streams_Extension[stream_id_extension].TimeStamp_Start=Streams[0xFD].TimeStamp_End;
-        Streams_Extension[stream_id_extension].Searching_TimeStamp_Start=false;
+        Streams_Extension[Extension].TimeStamp_Start=Streams[0xFD].TimeStamp_End;
+        Streams_Extension[Extension].Searching_TimeStamp_Start=false;
     }
-    Streams_Extension[stream_id_extension].TimeStamp_End=Streams[0xFD].TimeStamp_End;
+    Streams_Extension[Extension].TimeStamp_End=Streams[0xFD].TimeStamp_End;
 
     //Parsing
-    Open_Buffer_Init(Streams_Extension[stream_id_extension].Parser, File_Size, File_Offset+Buffer_Offset);
-    Open_Buffer_Continue(Streams_Extension[stream_id_extension].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
+    Open_Buffer_Init(Streams_Extension[Extension].Parser, File_Size, File_Offset+Buffer_Offset);
+    Open_Buffer_Continue(Streams_Extension[Extension].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
     //Disabling this Streams
-    if (Streams_Extension[stream_id_extension].Parser->File_GoTo!=(int64u)-1)
+    if (Streams_Extension[Extension].Parser->File_GoTo!=(int64u)-1)
     {
-        Streams_Extension[stream_id_extension].Searching_Payload=false;
+        Streams_Extension[Extension].Searching_Payload=false;
         if (extension_stream_Count>0)
             extension_stream_Count--;
     }
