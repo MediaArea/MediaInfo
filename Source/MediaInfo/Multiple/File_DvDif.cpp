@@ -285,6 +285,14 @@ void File_DvDif::Header()
     FILLING_BEGIN();
         dsf_IsValid=true;
         FrameSize_Theory=(dsf?12:10)*150*80; //12 DIF sequences for PAL, 10 for NTSC
+
+        if (tf1 && tf2 && tf3)
+        {
+            //This is not logic, the header says no audio and no video! We do not trust the header, resetting all
+            tf1=false;
+            tf2=false;
+            tf3=false;
+        }
     FILLING_END();
 }
 
