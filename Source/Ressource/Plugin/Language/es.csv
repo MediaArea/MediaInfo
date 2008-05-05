@@ -195,6 +195,7 @@ Codec_Settings_Law;Ajustes del códec, Law
 Codec_Settings_ITU;Ajustes del códec, ITU
 Codec_Profile;Perfil del códec
 Codec_Url;Vínculo web del códec
+CodecID
 Collection;Colección
 Comment;Comentarios
 CommissionedBy;Encargado por
@@ -224,6 +225,7 @@ DirectorOfPhotography;Director de fotografía
 DisplayAspectRatio;Relación de aspecto
 DistributedBy;Distribuído por
 Donate;Donación
+Duration
 Edit;Editar
 EditedBy;Editado por
 EMail;E-Mail
@@ -257,8 +259,26 @@ Folder (Recursively);Carpeta general
 Folder_Hint;Selecciona una carpeta para estudiar
 FolderName;Nombre de la carpeta
 Format;Formato
+Format_Description;Descripción del formato
+Format_Info;Detalles del formato
 Format_Extensions;Extensiones usadas habitualmente
+Format_Profile
 Format_Settings;Ajuste del formato
+Format_Settings;Ajustes del formato
+Format_Settings_PacketBitStream;Ajustes del formato, Packet bitstream
+Format_Settings_BVOP;Ajustes del formato, BVOP
+Format_Settings_QPel;Ajustes del formato, Qpel
+Format_Settings_GMC;Ajustes del formato, GMC
+Format_Settings_Matrix;Ajustes del formato, Matrix
+Format_Settings_Floor;Ajustes del formato, Floor
+Format_Settings_CABAC;Ajustes del formato, CABAC
+Format_Settings_Firm;Ajustes del formato, Firm
+Format_Settings_Endianness;Ajustes del formato, Endianness
+Format_Settings_RefFrames;Ajustes del formato, RefFrames
+Format_Settings_Sign;Ajustes del formato, Sign
+Format_Settings_Law;Ajustes del formato, Law
+Format_Settings_ITU;Ajustes del formato, ITU
+Codec_Url;Vínculo web del códec
 FrameRate;Frecuencia por cuadro
 FrameRate_Mode
 FrameRate_Minimum
@@ -692,6 +712,8 @@ Resolution;Resolución
 s;seg.
 SamplingRate;Velocidad de la muestra
 Save;Guardar
+ScanType
+ScanOrder
 ScreenplayBy;Guión por
 Season;Sesión
 see below;Ver más abajo
@@ -715,6 +737,7 @@ Stream_MoreInfo;Más información acerca de la pista
 StreamCount;Cantidad de pistas de éste tipo
 StreamID;ID de Pista
 StreamKind;Clase de pista
+StreamSize
 Subject;Asunto
 SubTrack;SubPista
 Summary;Sumario

@@ -195,6 +195,7 @@ Codec_Settings_Law
 Codec_Settings_ITU
 Codec_Profile;Profil codec
 Codec_Url;Legatira web pentru codec
+CodecID
 Collection;Colectie
 Comment;Comentariu
 CommissionedBy
@@ -224,6 +225,7 @@ DirectorOfPhotography;Director de film
 DisplayAspectRatio;Raport imagine
 DistributedBy;Distribuit de
 Donate;Donatii
+Duration
 Edit;Editare
 EditedBy;Editat de
 EMail;E-mail
@@ -257,8 +259,26 @@ Folder (Recursively);Director (recursiv)
 Folder_Hint;Selectati un director pentru analiza
 FolderName;Numele directorului
 Format;Format
+Format_Description
+Format_Info
 Format_Extensions;Extensia folosita in mod curent
+Format_Profile
 Format_Settings
+Format_Settings
+Format_Settings_PacketBitStream
+Format_Settings_BVOP
+Format_Settings_QPel
+Format_Settings_GMC
+Format_Settings_Matrix
+Format_Settings_Floor
+Format_Settings_CABAC
+Format_Settings_Firm
+Format_Settings_Endianness
+Format_Settings_RefFrames
+Format_Settings_Sign
+Format_Settings_Law
+Format_Settings_ITU
+Codec_Url;Legatira web pentru codec
 FrameRate;Frecventa cadre
 FrameRate_Mode
 FrameRate_Minimum
@@ -692,6 +712,8 @@ Resolution;Rezolutie
 s;s
 SamplingRate
 Save;Salveaza
+ScanType
+ScanOrder
 ScreenplayBy;Scenariu de
 Season;Sezon
 see below;vezi mai jos
@@ -715,6 +737,7 @@ Stream_MoreInfo;Mai multe informatii despre flux
 StreamCount;Numara fluxurile de acest tip
 StreamID;ID flux
 StreamKind;Tipul fluxului
+StreamSize
 Subject;Subiect
 SubTrack;Sub-pista
 Summary;Sumar
@@ -777,5 +800,5 @@ Written_Location;Locul mesajului
 WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
-ZZ_Automatic_Percent;42
-ZZ_AutomaticLanguage_Percent;66
+ZZ_Automatic_Percent;41
+ZZ_AutomaticLanguage_Percent;64

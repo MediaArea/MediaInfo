@@ -195,6 +195,7 @@ Codec_Settings_Law
 Codec_Settings_ITU
 Codec_Profile
 Codec_Url
+CodecID
 Collection
 Comment
 CommissionedBy
@@ -224,6 +225,7 @@ DirectorOfPhotography
 DisplayAspectRatio;畫面比例
 DistributedBy
 Donate;贊助
+Duration
 Edit;編輯
 EditedBy
 EMail;電子信箱
@@ -257,8 +259,26 @@ Folder (Recursively)
 Folder_Hint;選擇要檢視的資料夾
 FolderName;資料夾　
 Format;檔案格式
+Format_Description
+Format_Info
 Format_Extensions
+Format_Profile
 Format_Settings
+Format_Settings
+Format_Settings_PacketBitStream
+Format_Settings_BVOP
+Format_Settings_QPel
+Format_Settings_GMC
+Format_Settings_Matrix
+Format_Settings_Floor
+Format_Settings_CABAC
+Format_Settings_Firm
+Format_Settings_Endianness
+Format_Settings_RefFrames
+Format_Settings_Sign
+Format_Settings_Law
+Format_Settings_ITU
+Codec_Url
 FrameRate;畫面頻率
 FrameRate_Mode
 FrameRate_Minimum
@@ -692,6 +712,8 @@ Resolution;顏色深度
 s
 SamplingRate;取樣率　
 Save
+ScanType
+ScanOrder
 ScreenplayBy
 Season
 see below
@@ -715,6 +737,7 @@ Stream_MoreInfo
 StreamCount;此軌數量
 StreamID
 StreamKind;此軌類型
+StreamSize
 Subject
 SubTrack
 Summary
@@ -777,5 +800,5 @@ Written_Location
 WrittenBy
 Yes
 Your system;您的系統
-ZZ_Automatic_Percent;21
-ZZ_AutomaticLanguage_Percent;45
+ZZ_Automatic_Percent;20
+ZZ_AutomaticLanguage_Percent;43

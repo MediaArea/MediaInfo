@@ -92,7 +92,7 @@ Ztring FileName_Temp; //Temporary file used for HTML presentation
 
 //---------------------------------------------------------------------------
 const ZenLib::Char* MEDIAINFO_TITLE=_T("MediaInfo - http:\/\/mediainfo.sourceforge.net");
-const size_t Title_Pos=72; //TODO: Position of Title in General.csv, should shange this...
+const size_t Title_Pos=94; //TODO: Position of Title in General.csv, should shange this...
 MediaInfoList *I;
 //---------------------------------------------------------------------------
 

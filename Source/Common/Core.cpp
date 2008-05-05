@@ -32,7 +32,6 @@
 
 //---------------------------------------------------------------------------
 const MediaInfoLib::Char* MEDIAINFO_TITLE=_T("MediaInfo - http://mediainfo.sourceforge.net");
-const size_t Title_Pos=66; //TODO: Position of Title in General.csv, should shange this...
 ZenLib::Ztring Text_Temp;
 //---------------------------------------------------------------------------
 
@@ -84,6 +83,7 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     //MI->Option(_T("File_Duplicate"), _T("452;file")); //Activate it
     //MI->Open(FileName);
     MI->Open(FileName);
+    MI->Get(0, Stream_General, 0, _T("Duration"));
     /*#ifndef WIN32
     for (size_t Pos=0; Pos<128; Pos++)
         MI->Open(FileName);

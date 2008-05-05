@@ -195,6 +195,7 @@ Codec_Settings_Law
 Codec_Settings_ITU
 Codec_Profile
 Codec_Url;编码器网址
+CodecID
 Collection;收集
 Comment;评论
 CommissionedBy;评论人
@@ -224,6 +225,7 @@ DirectorOfPhotography;摄影导演
 DisplayAspectRatio;画面比例
 DistributedBy;发行
 Donate;赞助
+Duration
 Edit;编辑
 EditedBy;编辑
 EMail;电子邮件
@@ -257,8 +259,26 @@ Folder (Recursively)
 Folder_Hint;选择文件夹
 FolderName;文件夹名　
 Format;文件格式
+Format_Description
+Format_Info
 Format_Extensions;文件扩展名
+Format_Profile
 Format_Settings
+Format_Settings
+Format_Settings_PacketBitStream
+Format_Settings_BVOP
+Format_Settings_QPel
+Format_Settings_GMC
+Format_Settings_Matrix
+Format_Settings_Floor
+Format_Settings_CABAC
+Format_Settings_Firm
+Format_Settings_Endianness
+Format_Settings_RefFrames
+Format_Settings_Sign
+Format_Settings_Law
+Format_Settings_ITU
+Codec_Url;编码器网址
 FrameRate;帧频率
 FrameRate_Mode
 FrameRate_Minimum
@@ -692,6 +712,8 @@ Resolution;分辨率
 s
 SamplingRate;采样率　
 Save;保存
+ScanType
+ScanOrder
 ScreenplayBy;编剧
 Season;季
 see below;请看下面列出的内容
@@ -715,6 +737,7 @@ Stream_MoreInfo;流_更多信息
 StreamCount;此轨数量
 StreamID;流标号
 StreamKind;此轨类型
+StreamSize
 Subject;主题
 SubTrack
 Summary;总结
@@ -777,5 +800,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;41
-ZZ_AutomaticLanguage_Percent;64
+ZZ_Automatic_Percent;40
+ZZ_AutomaticLanguage_Percent;63

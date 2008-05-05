@@ -195,6 +195,7 @@ Codec_Settings_Law
 Codec_Settings_ITU
 Codec_Profile
 Codec_Url;Kodek weblapja
+CodecID
 Collection;Gyűjtemény
 Comment;Megjegyzés
 CommissionedBy;Megbízó
@@ -224,6 +225,7 @@ DirectorOfPhotography;Fényképezte
 DisplayAspectRatio;Képarány
 DistributedBy;Terjesztő
 Donate;Adomány
+Duration
 Edit;Szerkesztés
 EditedBy;Szerkesztő
 EMail;Email
@@ -257,8 +259,26 @@ Folder (Recursively);Mappa (rekurzív)
 Folder_Hint;Adja meg a vizsgálandó mappát
 FolderName;Mappanév
 Format;Formátum
+Format_Description
+Format_Info;A kodek részletei
 Format_Extensions;Általában használatos kiterjesztések
+Format_Profile
 Format_Settings
+Format_Settings
+Format_Settings_PacketBitStream
+Format_Settings_BVOP
+Format_Settings_QPel
+Format_Settings_GMC
+Format_Settings_Matrix
+Format_Settings_Floor
+Format_Settings_CABAC
+Format_Settings_Firm
+Format_Settings_Endianness
+Format_Settings_RefFrames
+Format_Settings_Sign
+Format_Settings_Law
+Format_Settings_ITU
+Codec_Url;Kodek weblapja
 FrameRate;Képsebesség
 FrameRate_Mode
 FrameRate_Minimum
@@ -692,6 +712,8 @@ Resolution;Felbontás
 s;mp
 SamplingRate;Mintavételezési gyakoriság
 Save;Mentés
+ScanType
+ScanOrder
 ScreenplayBy;Forgatókönyvíró
 Season;Évad
 see below;lásd alant
@@ -715,6 +737,7 @@ Stream_MoreInfo;Több adat a sávról
 StreamCount;A hasonló fajtájú sávok száma
 StreamID;Sávazonosító
 StreamKind;Sáv fajtája
+StreamSize
 Subject;Tárgy
 SubTrack;Alsáv
 Summary;Kivonat
@@ -777,5 +800,5 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;Igen
 Your system;Rendszer
-ZZ_Automatic_Percent;69
-ZZ_AutomaticLanguage_Percent;72
+ZZ_Automatic_Percent;67
+ZZ_AutomaticLanguage_Percent;70

@@ -195,6 +195,7 @@ Codec_Settings_Law
 Codec_Settings_ITU
 Codec_Profile
 Codec_Url;Ссылка на кодек
+CodecID
 Collection;Коллекция
 Comment;Примечание
 CommissionedBy;Поручитель
@@ -224,6 +225,7 @@ DirectorOfPhotography;Оператор
 DisplayAspectRatio;Соотношение
 DistributedBy;Распространитель
 Donate;Пожертвовать
+Duration
 Edit;Изменить
 EditedBy;Изменено
 EMail;Е-Мейл
@@ -257,8 +259,26 @@ Folder (Recursively);Папка (рекурсивно)...
 Folder_Hint;Опреации с папками
 FolderName;Имя папки
 Format;Формат
+Format_Description
+Format_Info;Подробно о кодеке
 Format_Extensions;Используется в
+Format_Profile
 Format_Settings
+Format_Settings
+Format_Settings_PacketBitStream
+Format_Settings_BVOP
+Format_Settings_QPel
+Format_Settings_GMC
+Format_Settings_Matrix
+Format_Settings_Floor
+Format_Settings_CABAC
+Format_Settings_Firm
+Format_Settings_Endianness
+Format_Settings_RefFrames
+Format_Settings_Sign
+Format_Settings_Law
+Format_Settings_ITU
+Codec_Url;Ссылка на кодек
 FrameRate;Частота кадров
 FrameRate_Mode
 FrameRate_Minimum
@@ -692,6 +712,8 @@ Resolution;Разрешение
 s;с
 SamplingRate;Частота
 Save;Сохранить
+ScanType
+ScanOrder
 ScreenplayBy;Сценарий
 Season;Сезон
 see below;См.ниже
@@ -715,6 +737,7 @@ Stream_MoreInfo;Поток (дополнительная информация)
 StreamCount;Кол-во потоков
 StreamID;Номер потока
 StreamKind;Тип потока
+StreamSize
 Subject;Тема
 SubTrack;Подпоток
 Summary;Общие
@@ -777,5 +800,5 @@ Written_Location;Место написания
 WrittenBy;Написано
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;62
-ZZ_AutomaticLanguage_Percent;69
+ZZ_Automatic_Percent;60
+ZZ_AutomaticLanguage_Percent;67

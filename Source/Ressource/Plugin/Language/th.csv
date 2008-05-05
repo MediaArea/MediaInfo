@@ -195,6 +195,7 @@ Codec_Settings_Law;ตั้งค่า Codec, Law
 Codec_Settings_ITU;ตั้งค่า Codec, ITU
 Codec_Profile;Codec โพรไฟล์
 Codec_Url;เว็บลิงค์ของ codec
+CodecID
 Collection;Collection
 Comment;คอมเมนต์
 CommissionedBy;Commissioned by
@@ -224,6 +225,7 @@ DirectorOfPhotography;Director of photography
 DisplayAspectRatio;Display Aspect ratio
 DistributedBy;Distributed by
 Donate;บริจาค
+Duration
 Edit;แก้ไข
 EditedBy;แก้ไขโดย
 EMail;อี-เมลล์
@@ -257,8 +259,26 @@ Folder (Recursively);Folder (Recursively)
 Folder_Hint;เลือกโฟลเดอร์เพื่อเรียนรู้
 FolderName;ชื่อโฟลเดอร์
 Format;รูปแบบ
-Format_Extensions;Extensions usualy used
-Format_Settings;ตั้งค่ารูปแบบ
+Format_Description
+Format_Info
+Format_Extensions
+Format_Profile
+Format_Settings
+Format_Settings
+Format_Settings_PacketBitStream
+Format_Settings_BVOP
+Format_Settings_QPel
+Format_Settings_GMC
+Format_Settings_Matrix
+Format_Settings_Floor
+Format_Settings_CABAC
+Format_Settings_Firm
+Format_Settings_Endianness
+Format_Settings_RefFrames
+Format_Settings_Sign
+Format_Settings_Law
+Format_Settings_ITU
+Codec_Url;เว็บลิงค์ของ codec
 FrameRate;เฟรมเรต
 FrameRate_Mode;เฟรมเรตโหมด
 FrameRate_Minimum;เฟรมเรตต่ำสุด
@@ -692,6 +712,8 @@ Resolution;Resolution
 s;s
 SamplingRate;Sampling rate
 Save;บันทึก
+ScanType
+ScanOrder
 ScreenplayBy;Screenplay by
 Season;Season
 see below;see below
@@ -715,6 +737,7 @@ Stream_MoreInfo;More information about the stream
 StreamCount;Count of stream of this kind
 StreamID;Stream ID
 StreamKind;Kind of stream
+StreamSize
 Subject;Subject
 SubTrack;SubTrack
 Summary;Summary
@@ -777,5 +800,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96

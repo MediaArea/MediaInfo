@@ -195,6 +195,7 @@ Codec_Settings_Law
 Codec_Settings_ITU
 Codec_Profile
 Codec_Url;Adres sieciowy kodeka
+CodecID
 Collection;Kolekcja
 Comment;Komentarz
 CommissionedBy;Zamówiony przez
@@ -224,6 +225,7 @@ DirectorOfPhotography;Zdjęcia
 DisplayAspectRatio;Proporcje
 DistributedBy;Rozpowszechniamie
 Donate;Darowizna
+Duration
 Edit;Edytuj
 EditedBy;Edytowany przez
 EMail;email
@@ -257,8 +259,26 @@ Folder (Recursively);Folder (rekurencyjny)
 Folder_Hint;Wybierz folder do przeanalizowania
 FolderName;Nazwa folderu
 Format;Format
+Format_Description
+Format_Info
 Format_Extensions;Zwykle używane rozszerzenia
+Format_Profile
 Format_Settings
+Format_Settings
+Format_Settings_PacketBitStream
+Format_Settings_BVOP
+Format_Settings_QPel
+Format_Settings_GMC
+Format_Settings_Matrix
+Format_Settings_Floor
+Format_Settings_CABAC
+Format_Settings_Firm
+Format_Settings_Endianness
+Format_Settings_RefFrames
+Format_Settings_Sign
+Format_Settings_Law
+Format_Settings_ITU
+Codec_Url;Adres sieciowy kodeka
 FrameRate;Przepływność ramek
 FrameRate_Mode
 FrameRate_Minimum
@@ -692,6 +712,8 @@ Resolution;Rozdzielczość
 s;s
 SamplingRate;Częstotliwość próbkowania
 Save;Zapisz
+ScanType
+ScanOrder
 ScreenplayBy;Scenariusz
 Season;Sezon
 see below;zobacz poniżej
@@ -715,6 +737,7 @@ Stream_MoreInfo;Wiecej informacji o strumieniu
 StreamCount;Liczba strumieni
 StreamID;ID strumienia
 StreamKind;Rodzaj strumienia
+StreamSize
 Subject;Temat
 SubTrack;Podnagranie
 Summary;Podsumowanie
@@ -777,5 +800,5 @@ Written_Location;Lokalizacja
 WrittenBy;Napisany przez
 Yes;Tak
 Your system;System
-ZZ_Automatic_Percent;50
-ZZ_AutomaticLanguage_Percent;73
+ZZ_Automatic_Percent;49
+ZZ_AutomaticLanguage_Percent;71

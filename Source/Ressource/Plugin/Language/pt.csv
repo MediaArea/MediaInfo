@@ -195,6 +195,7 @@ Codec_Settings_Law
 Codec_Settings_ITU
 Codec_Profile;Perfil do Codec
 Codec_Url;Link para o codec
+CodecID
 Collection;Coleção
 Comment;Comentário
 CommissionedBy;Representado por
@@ -224,6 +225,7 @@ DirectorOfPhotography;Diretor de fotografia
 DisplayAspectRatio;Proporção da imagem
 DistributedBy;Distribuído por
 Donate;Doação
+Duration
 Edit;Editar
 EditedBy;Editado por
 EMail;E-Mail
@@ -257,8 +259,26 @@ Folder (Recursively);Sub-pasta
 Folder_Hint;Selecione uma pasta para examinar
 FolderName;Nome da pasta
 Format;Formato
+Format_Description
+Format_Info
 Format_Extensions;Extensões populares
+Format_Profile
 Format_Settings
+Format_Settings
+Format_Settings_PacketBitStream
+Format_Settings_BVOP
+Format_Settings_QPel
+Format_Settings_GMC
+Format_Settings_Matrix
+Format_Settings_Floor
+Format_Settings_CABAC
+Format_Settings_Firm
+Format_Settings_Endianness
+Format_Settings_RefFrames
+Format_Settings_Sign
+Format_Settings_Law
+Format_Settings_ITU
+Codec_Url;Link para o codec
 FrameRate;Taxa de quadros
 FrameRate_Mode
 FrameRate_Minimum;Taxa de quadros mínima
@@ -692,6 +712,8 @@ Resolution;Resolução
 s;s
 SamplingRate;Taxa de amostragem
 Save;Salvar
+ScanType
+ScanOrder
 ScreenplayBy;Roteirista
 Season;Temporada
 see below;veja abaixo
@@ -715,6 +737,7 @@ Stream_MoreInfo;Mais informações sobre esta faixa
 StreamCount;Número de faixas do mesmo tipo
 StreamID;ID da Faixa
 StreamKind;Faixa do tipo
+StreamSize
 Subject;Assunto
 SubTrack;Sub-Faixa
 Summary;Sumário
@@ -777,5 +800,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;Seu sistema
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;94
+ZZ_AutomaticLanguage_Percent;94

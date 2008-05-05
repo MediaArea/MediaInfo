@@ -195,6 +195,7 @@ Codec_Settings_Law;Codec settings, Law
 Codec_Settings_ITU;Codec settings, ITU
 Codec_Profile;Codec profile
 Codec_Url;Weblink for codec
+CodecID;Codec ID
 Collection;Collection
 Comment;Comment
 CommissionedBy;Commissioned by
@@ -221,9 +222,10 @@ Description;Description
 Digitized_Date;Digitized date
 Director;Director
 DirectorOfPhotography;Director of photography
-DisplayAspectRatio;Display Aspect ratio
+DisplayAspectRatio;Display aspect ratio
 DistributedBy;Distributed by
 Donate;Donate
+Duration;Duration
 Edit;Edit
 EditedBy;Edited by
 EMail;E-Mail
@@ -257,8 +259,26 @@ Folder (Recursively);Folder (Recursively)
 Folder_Hint;Select a folder to study
 FolderName;Folder name
 Format;Format
+Format_Description;Format description
+Format_Info;Details for format
 Format_Extensions;Extensions usualy used
+Format_Profile;Format profile
 Format_Settings;Format setting
+Format_Settings;Format settings
+Format_Settings_PacketBitStream;Format settings, Packet bitstream
+Format_Settings_BVOP;Format settings, BVOP
+Format_Settings_QPel;Format settings, QPel
+Format_Settings_GMC;Format settings, GMC
+Format_Settings_Matrix;Format settings, Matrix
+Format_Settings_Floor;Format settings, Floor
+Format_Settings_CABAC;Format settings, CABAC
+Format_Settings_Firm;Format settings, Firm
+Format_Settings_Endianness;Format settings, Endianness
+Format_Settings_RefFrames;Format settings, ReFrames
+Format_Settings_Sign;Format settings, Sign
+Format_Settings_Law;Format settings, Law
+Format_Settings_ITU;Format settings, ITU
+Codec_Url;Weblink for codec
 FrameRate;Frame rate
 FrameRate_Mode;Frame rate mode
 FrameRate_Minimum;Minimum frame rate
@@ -692,6 +712,8 @@ Resolution;Resolution
 s;s
 SamplingRate;Sampling rate
 Save;Save
+ScanType;Scan type
+ScanOrder;Scan order
 ScreenplayBy;Screenplay by
 Season;Season
 see below;see below
@@ -715,6 +737,7 @@ Stream_MoreInfo;More information about the stream
 StreamCount;Count of stream of this kind
 StreamID;Stream ID
 StreamKind;Kind of stream
+StreamSize;Stream size
 Subject;Subject
 SubTrack;SubTrack
 Summary;Summary

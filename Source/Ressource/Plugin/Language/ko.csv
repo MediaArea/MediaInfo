@@ -195,6 +195,7 @@ Codec_Settings_Law
 Codec_Settings_ITU
 Codec_Profile;코덱 프로파일
 Codec_Url;코덱 웹링크
+CodecID
 Collection;콜렉션
 Comment;주석
 CommissionedBy;의뢰
@@ -224,6 +225,7 @@ DirectorOfPhotography;촬영 감독
 DisplayAspectRatio;화면 종횡비
 DistributedBy;배포
 Donate;기부하기
+Duration
 Edit;편집
 EditedBy;편집
 EMail;이메일
@@ -257,8 +259,26 @@ Folder (Recursively);폴더 (하위 포함)
 Folder_Hint;조사할 폴더를 선택
 FolderName;폴더명
 Format;형식
+Format_Description
+Format_Info
 Format_Extensions;일반적인 확장자
+Format_Profile
 Format_Settings
+Format_Settings
+Format_Settings_PacketBitStream
+Format_Settings_BVOP
+Format_Settings_QPel
+Format_Settings_GMC
+Format_Settings_Matrix
+Format_Settings_Floor
+Format_Settings_CABAC
+Format_Settings_Firm
+Format_Settings_Endianness
+Format_Settings_RefFrames
+Format_Settings_Sign
+Format_Settings_Law
+Format_Settings_ITU
+Codec_Url;코덱 웹링크
 FrameRate;프레임레이트
 FrameRate_Mode
 FrameRate_Minimum;최소 프레임레이트
@@ -692,6 +712,8 @@ Resolution;해상도
 s;초
 SamplingRate;샘플링레이트
 Save;저장
+ScanType
+ScanOrder
 ScreenplayBy;각본
 Season;시즌
 see below;아래 참고
@@ -715,6 +737,7 @@ Stream_MoreInfo;이 스트림에 대한 자세한 정보
 StreamCount;이 종류의 스트림 개수
 StreamID;스트림 ID
 StreamKind;스트림 종류
+StreamSize
 Subject;제목
 SubTrack;서브트랙
 Summary;요약
@@ -777,5 +800,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;94
+ZZ_AutomaticLanguage_Percent;94

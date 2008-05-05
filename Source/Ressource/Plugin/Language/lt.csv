@@ -195,6 +195,7 @@ Codec_Settings_Law
 Codec_Settings_ITU
 Codec_Profile;Kodeko profilis
 Codec_Url;Nuoroda į kodeką
+CodecID
 Collection;Kolekcija
 Comment;Komentaras
 CommissionedBy;Įgaliotas
@@ -224,6 +225,7 @@ DirectorOfPhotography;Fotografijos direktorius
 DisplayAspectRatio;Rodyti aspekto santykį
 DistributedBy;Platintojas
 Donate;Aukoti
+Duration
 Edit;Redaguoti
 EditedBy;Redagavo
 EMail;El. paštas
@@ -257,8 +259,26 @@ Folder (Recursively);Katalogas (Pasikartojančiai)
 Folder_Hint;Pasirinkite katalogą studijavymui 
 FolderName;Katalogo pavadinimas
 Format;Formatas
+Format_Description;Formatas aprašymas
+Format_Info;Formatas detalės
 Format_Extensions;Paprastai naudojami plėtiniai
+Format_Profile
 Format_Settings
+Format_Settings
+Format_Settings_PacketBitStream
+Format_Settings_BVOP
+Format_Settings_QPel
+Format_Settings_GMC
+Format_Settings_Matrix
+Format_Settings_Floor
+Format_Settings_CABAC
+Format_Settings_Firm
+Format_Settings_Endianness
+Format_Settings_RefFrames
+Format_Settings_Sign
+Format_Settings_Law
+Format_Settings_ITU
+Codec_Url;Nuoroda į kodeką
 FrameRate;Kadrų tempas
 FrameRate_Mode
 FrameRate_Minimum;Minimalus kadrų tempas
@@ -692,6 +712,8 @@ Resolution;Raiška
 s;Video srautai (s)
 SamplingRate;Atrankos tempas
 Save;Išsaugoti
+ScanType
+ScanOrder
 ScreenplayBy;Ekrano rodymas
 Season;Sezonas
 see below;žiūrėti žemiau
@@ -715,6 +737,7 @@ Stream_MoreInfo;Daugiau informacijos apie srautą
 StreamCount;Šios rūšies srautų kiekis
 StreamID;Srauto ID
 StreamKind;Srauto rūšis
+StreamSize
 Subject;Tema
 SubTrack;SubTakelis
 Summary;Santrauka
@@ -777,5 +800,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;95
+ZZ_AutomaticLanguage_Percent;95

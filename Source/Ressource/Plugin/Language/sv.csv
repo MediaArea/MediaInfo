@@ -195,6 +195,7 @@ Codec_Settings_Law
 Codec_Settings_ITU
 Codec_Profile; Codecprofil
 Codec_Url; Länk till codec
+CodecID
 Collection; Samling
 Comment; Kommentar
 CommissionedBy; Kommissionerad av
@@ -224,6 +225,7 @@ DirectorOfPhotography; Chefkameraman
 DisplayAspectRatio; Bildförhållande
 DistributedBy; Distribuerad av
 Donate; Donera
+Duration
 Edit; Redigera
 EditedBy; Redigerad av
 EMail; E-Mail
@@ -257,8 +259,26 @@ Folder (Recursively); Mapp (rekursivt)
 Folder_Hint; Välj en mapp att betrakta
 FolderName; Mappnamn
 Format; Format
+Format_Description
+Format_Info
 Format_Extensions; Normalt använda filändelser
+Format_Profile
 Format_Settings
+Format_Settings
+Format_Settings_PacketBitStream
+Format_Settings_BVOP
+Format_Settings_QPel
+Format_Settings_GMC
+Format_Settings_Matrix
+Format_Settings_Floor
+Format_Settings_CABAC
+Format_Settings_Firm
+Format_Settings_Endianness
+Format_Settings_RefFrames
+Format_Settings_Sign
+Format_Settings_Law
+Format_Settings_ITU
+Codec_Url; Länk till codec
 FrameRate; Bildhastighet (Frame rate)
 FrameRate_Mode
 FrameRate_Minimum
@@ -692,6 +712,8 @@ Resolution; Upplösning
 s; s
 SamplingRate; Samplingstakt
 Save; Spara
+ScanType
+ScanOrder
 ScreenplayBy; Framträdande av
 Season; Säsong
 see below; se nedan
@@ -715,6 +737,7 @@ Stream_MoreInfo; Mer information om strömmen
 StreamCount; Antal strömmar av den här typen
 StreamID; Ström-ID
 StreamKind; Strömtyp
+StreamSize
 Subject; Innehåll
 SubTrack; Underspår
 Summary; Sammanfattning
@@ -777,5 +800,5 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;94
-ZZ_AutomaticLanguage_Percent;94
+ZZ_Automatic_Percent;92
+ZZ_AutomaticLanguage_Percent;92

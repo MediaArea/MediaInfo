@@ -195,6 +195,7 @@ Codec_Settings_Law;Paramètres du codec, Law
 Codec_Settings_ITU;Paramètres du codec, ITU
 Codec_Profile;Profile du codec
 Codec_Url;Lien Internet sur le codec
+CodecID;Identifiant du codec
 Collection;Collection 
 Comment;Commentaire
 CommissionedBy;Commanditaire
@@ -224,6 +225,7 @@ DirectorOfPhotography;Responsable de la photographie
 DisplayAspectRatio;Format à l'écran
 DistributedBy;Dirstribué par
 Donate;Faire un don
+Duration;Durée
 Edit;Modifier
 EditedBy;Édité par
 EMail;E-mail
@@ -257,8 +259,26 @@ Folder (Recursively);Dossier (Récursif)
 Folder_Hint;Sélectionne un dossier à étudier
 FolderName;Nom du dossier
 Format;Format
+Format_Description;Description du format
+Format_Info;Infos sur le format
 Format_Extensions;Extensions généralement utilisées
+Format_Profile;Profil du format
 Format_Settings;Paramètres du format
+Format_Settings;Paramètres du format
+Format_Settings_PacketBitStream;Paramètres du format, Packet bitstream
+Format_Settings_BVOP;Paramètres du format, BVOP
+Format_Settings_QPel;Paramètres du format, QPel
+Format_Settings_GMC;Paramètres du format, GMC
+Format_Settings_Matrix;Paramètres du format, Matrice
+Format_Settings_Floor;Paramètres du format, Seuil
+Format_Settings_CABAC;Paramètres du format, CABAC
+Format_Settings_Firm;Paramètres du format, Entreprise
+Format_Settings_Endianness;Paramètres du format, Endianness
+Format_Settings_RefFrames;Paramètres du format, RefFrames
+Format_Settings_Sign;Paramètres du format, Signe
+Format_Settings_Law;Paramètres du format, Law
+Format_Settings_ITU;Paramètres du format, ITU
+Codec_Url;Lien Internet sur le codec
 FrameRate;Images par seconde
 FrameRate_Mode;Type d'images/s
 FrameRate_Minimum;Images/s mini
@@ -692,6 +712,8 @@ Resolution;Résolution
 s;s
 SamplingRate;Echantillonnage
 Save;Sauvegarder
+ScanType;Type d'image
+ScanOrder;Ordre des images
 ScreenplayBy;Joué par
 Season;Saison
 see below;voir ci-dessous
@@ -715,6 +737,7 @@ Stream_MoreInfo;Plus d'information au sujet de ce flux
 StreamCount;Nombre de pistes de ce type
 StreamID;ID de flux
 StreamKind;Type de flux
+StreamSize;Taille du flux
 Subject;Sujet
 SubTrack;Sous-piste
 Summary;Résumé
