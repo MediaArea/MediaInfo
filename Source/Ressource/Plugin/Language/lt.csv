@@ -264,7 +264,6 @@ Format_Info;Formatas detalės
 Format_Extensions;Paprastai naudojami plėtiniai
 Format_Profile
 Format_Settings
-Format_Settings
 Format_Settings_PacketBitStream
 Format_Settings_BVOP
 Format_Settings_QPel
@@ -695,6 +694,7 @@ PixelAspectRatio;Pikselių aspekto koeficientas
 PlayCounter;Rodymo skaitiklis
 PlayTime;Rodymo laikas
 Position;Padėtis
+Position_Total
 Preferences;Pasirinktys
 Producer;Podiuseris
 ProductionDesigner;Produkcijos dizaineris

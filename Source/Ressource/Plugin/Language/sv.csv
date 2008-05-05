@@ -264,7 +264,6 @@ Format_Info
 Format_Extensions; Normalt använda filändelser
 Format_Profile
 Format_Settings
-Format_Settings
 Format_Settings_PacketBitStream
 Format_Settings_BVOP
 Format_Settings_QPel
@@ -695,6 +694,7 @@ PixelAspectRatio; Pixelförhållande
 PlayCounter; Spelräknare
 PlayTime; Speltid
 Position; Position
+Position_Total
 Preferences; Inställningar
 Producer; Producent
 ProductionDesigner; Produktionsdesigner

@@ -264,7 +264,6 @@ Format_Info
 Format_Extensions
 Format_Profile
 Format_Settings
-Format_Settings
 Format_Settings_PacketBitStream
 Format_Settings_BVOP
 Format_Settings_QPel
@@ -695,6 +694,7 @@ PixelAspectRatio
 PlayCounter
 PlayTime;播放長度
 Position
+Position_Total
 Preferences;偏好設定
 Producer;製作者
 ProductionDesigner

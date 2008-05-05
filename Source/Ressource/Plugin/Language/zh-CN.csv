@@ -264,7 +264,6 @@ Format_Info
 Format_Extensions;文件扩展名
 Format_Profile
 Format_Settings
-Format_Settings
 Format_Settings_PacketBitStream
 Format_Settings_BVOP
 Format_Settings_QPel
@@ -695,6 +694,7 @@ PixelAspectRatio;像素比
 PlayCounter;播放计数
 PlayTime;播放时间
 Position;位置
+Position_Total
 Preferences;参数设置
 Producer;制做
 ProductionDesigner;制做设计

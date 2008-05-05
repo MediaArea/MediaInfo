@@ -264,7 +264,6 @@ Format_Info
 Format_Extensions;Συνήθεις επεκτάσεις
 Format_Profile
 Format_Settings
-Format_Settings
 Format_Settings_PacketBitStream
 Format_Settings_BVOP
 Format_Settings_QPel
@@ -695,6 +694,7 @@ PixelAspectRatio;Λόγος εικονοστοιχείου
 PlayCounter;PlayCounter
 PlayTime;Διάρκεια
 Position;Θέση
+Position_Total
 Preferences;Επιλογές/Προτιμήσεις
 Producer;Παραγωγός
 ProductionDesigner;ProductionDesigner

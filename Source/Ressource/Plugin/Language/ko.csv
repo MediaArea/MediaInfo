@@ -264,7 +264,6 @@ Format_Info
 Format_Extensions;일반적인 확장자
 Format_Profile
 Format_Settings
-Format_Settings
 Format_Settings_PacketBitStream
 Format_Settings_BVOP
 Format_Settings_QPel
@@ -695,6 +694,7 @@ PixelAspectRatio;픽셀 종횡비
 PlayCounter;재생 횟수
 PlayTime;재생시간
 Position;위치
+Position_Total
 Preferences;환경 설정
 Producer;제작자
 ProductionDesigner;프로덕션

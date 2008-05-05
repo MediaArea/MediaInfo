@@ -264,7 +264,6 @@ Format_Info;A kodek részletei
 Format_Extensions;Általában használatos kiterjesztések
 Format_Profile
 Format_Settings
-Format_Settings
 Format_Settings_PacketBitStream
 Format_Settings_BVOP
 Format_Settings_QPel
@@ -695,6 +694,7 @@ PixelAspectRatio;Képpont arány
 PlayCounter
 PlayTime;Játékidő
 Position
+Position_Total
 Preferences;Beállítások
 Producer;Gyártó
 ProductionDesigner;Tervező

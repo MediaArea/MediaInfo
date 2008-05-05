@@ -264,7 +264,6 @@ Format_Info
 Format_Extensions;Extensia folosita in mod curent
 Format_Profile
 Format_Settings
-Format_Settings
 Format_Settings_PacketBitStream
 Format_Settings_BVOP
 Format_Settings_QPel
@@ -695,6 +694,7 @@ PixelAspectRatio;Dimensiune pixel
 PlayCounter;Numar redari
 PlayTime;Durata redare
 Position;Pozitie
+Position_Total
 Preferences;Preferinte
 Producer;Producator
 ProductionDesigner;Director productie

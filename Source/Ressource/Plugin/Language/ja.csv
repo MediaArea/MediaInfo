@@ -264,7 +264,6 @@ Format_Info
 Format_Extensions;使用する拡張子
 Format_Profile
 Format_Settings
-Format_Settings
 Format_Settings_PacketBitStream
 Format_Settings_BVOP
 Format_Settings_QPel
@@ -695,6 +694,7 @@ PixelAspectRatio;ピクセル比
 PlayCounter;再生数
 PlayTime;再生時間
 Position;位置
+Position_Total
 Preferences;設定
 Producer;プロデューサー
 ProductionDesigner;プロダクション

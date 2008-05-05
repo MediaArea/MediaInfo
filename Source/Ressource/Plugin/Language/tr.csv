@@ -264,7 +264,6 @@ Format_Info
 Format_Extensions;Daima kullanılan uzantılar
 Format_Profile
 Format_Settings
-Format_Settings
 Format_Settings_PacketBitStream
 Format_Settings_BVOP
 Format_Settings_QPel
@@ -695,6 +694,7 @@ PixelAspectRatio;Piksel oranı
 PlayCounter;Oynatma Sayacı
 PlayTime;Oynatma Süresi
 Position;Konum
+Position_Total
 Preferences;Tercihler
 Producer;Yapımcı
 ProductionDesigner;Üretim Tasarımcısı

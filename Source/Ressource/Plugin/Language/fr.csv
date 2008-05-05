@@ -264,7 +264,6 @@ Format_Info;Infos sur le format
 Format_Extensions;Extensions généralement utilisées
 Format_Profile;Profil du format
 Format_Settings;Paramètres du format
-Format_Settings;Paramètres du format
 Format_Settings_PacketBitStream;Paramètres du format, Packet bitstream
 Format_Settings_BVOP;Paramètres du format, BVOP
 Format_Settings_QPel;Paramètres du format, QPel
@@ -695,6 +694,7 @@ PixelAspectRatio;Taille du pixel
 PlayCounter;Compteur de lecture
 PlayTime;Durée
 Position;Position
+Position_Total;Total
 Preferences;Préférences
 Producer;Producteur
 ProductionDesigner;ProductionDesigner

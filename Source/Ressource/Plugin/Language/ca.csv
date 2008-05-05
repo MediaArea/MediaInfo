@@ -264,7 +264,6 @@ Format_Info
 Format_Extensions;Extensions emprades actualment
 Format_Profile
 Format_Settings
-Format_Settings
 Format_Settings_PacketBitStream
 Format_Settings_BVOP
 Format_Settings_QPel
@@ -695,6 +694,7 @@ PixelAspectRatio;Relació d'aspecte
 PlayCounter;Comptador
 PlayTime;Duració
 Position;Posició
+Position_Total
 Preferences;Preferències
 Producer;Productor
 ProductionDesigner;Disseny de producció
@@ -725,7 +725,7 @@ Set_Count;Nombre d'unitats
 Setup;Configura
 Sheet;Fulla
 Sheet (Complete);Fulla (Completa)
-Shell extension;Veure l'opció """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""Media Info"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" al menú contextual del botó dret del ratolí a l'explorador.
+Shell extension;Veure l'opció """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""Media Info"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" al menú contextual del botó dret del ratolí a l'explorador.
 Shell InfoTip;Amplia la informació en passar amb el ratolí per sobre d'un arxiu a l'explorador.
 Show menu;Mostra el menú
 Show toolbar;Mostra la barra d'eines

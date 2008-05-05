@@ -263,7 +263,6 @@ Format_Description;Descripción del formato
 Format_Info;Detalles del formato
 Format_Extensions;Extensiones usadas habitualmente
 Format_Profile
-Format_Settings;Ajuste del formato
 Format_Settings;Ajustes del formato
 Format_Settings_PacketBitStream;Ajustes del formato, Packet bitstream
 Format_Settings_BVOP;Ajustes del formato, BVOP
@@ -695,6 +694,7 @@ PixelAspectRatio;Relación de aspecto
 PlayCounter;Contador
 PlayTime;Duración
 Position;Posición
+Position_Total
 Preferences;Preferencias
 Producer;Productor
 ProductionDesigner;Diseño de Producción

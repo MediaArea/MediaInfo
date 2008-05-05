@@ -264,7 +264,6 @@ Format_Info;Подробно о кодеке
 Format_Extensions;Используется в
 Format_Profile
 Format_Settings
-Format_Settings
 Format_Settings_PacketBitStream
 Format_Settings_BVOP
 Format_Settings_QPel
@@ -695,6 +694,7 @@ PixelAspectRatio;Соотношение
 PlayCounter
 PlayTime;Длительность
 Position;Положение
+Position_Total
 Preferences;Предпочтения
 Producer;Продюсер
 ProductionDesigner;Разработчик оформления

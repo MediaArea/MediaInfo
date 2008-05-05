@@ -264,7 +264,6 @@ Format_Info
 Format_Extensions
 Format_Profile
 Format_Settings
-Format_Settings
 Format_Settings_PacketBitStream
 Format_Settings_BVOP
 Format_Settings_QPel
@@ -695,6 +694,7 @@ PixelAspectRatio;Pixel Aspect Ratio
 PlayCounter;PlayCounter
 PlayTime;เวลาเล่น
 Position;ตำแหน่ง
+Position_Total
 Preferences;การปรับแต่ง
 Producer;Producer
 ProductionDesigner;ProductionDesigner
