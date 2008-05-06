@@ -258,8 +258,14 @@ String MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
         Elements(0)=Elements(0).SubString(_T("%"), _T("%"));
 
         //Test if there is something to replace
-        if (Info(MediaInfoLib::Config.Info_Get(StreamKind).Find(Elements(0))).size()>0)
-            Elements_Index=1;
+        size_t Pos=MediaInfoLib::Config.Info_Get(StreamKind).Find(Elements(0));
+        if (Pos!=std::string::npos)
+        {
+            if (Info(Pos).size()>0)
+                Elements_Index=1;
+            else
+                Elements_Index=2;
+        }
         else
             Elements_Index=2;
 
