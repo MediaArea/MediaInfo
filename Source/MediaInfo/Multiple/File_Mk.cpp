@@ -1894,7 +1894,12 @@ void File_Mk::Segment_Tracks_TrackEntry_DefaultDuration()
         TrackDefaultDuration=UInteger;
         //FrameRate
         if (TrackDefaultDuration && StreamKind_Last==Stream_Video)
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 1000000000.0/TrackDefaultDuration, 3, true);
+        {
+            float64 FrameRate=1000000000.0/TrackDefaultDuration;
+            if (FrameRate>=23.975 && FrameRate<=23.977)
+                FrameRate=23.976; //One example was seen with 23.975
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate, 3, true);
+        }
     FILLING_END();
 }
 
@@ -2036,7 +2041,12 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackType()
                         Stream_Prepare(Stream_Video);
                         //FrameRate
                         if (TrackDefaultDuration)
-                            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 1000000000.0/TrackDefaultDuration, 3, true);
+                        {
+                            float64 FrameRate=1000000000.0/TrackDefaultDuration;
+                            if (FrameRate>=23.975 && FrameRate<=23.977)
+                                FrameRate=23.976; //One example was seen with 23.975
+                            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate, 3, true);
+                        }
                         break;
             case 0x02 :
                         Stream_Prepare(Stream_Audio);
