@@ -86,6 +86,7 @@ namespace Elements
     const int64u moov_meta__gnre=0x676E7265;
     const int64u moov_meta__name=0x6E616D65;
     const int64u moov_meta__perf=0x70657266;
+    const int64u moov_meta__pgap=0x70676170;
     const int64u moov_meta__titl=0x7469746C;
     const int64u moov_meta__trkn=0x74726B6E;
     const int64u moov_meta__tmpo=0x746D706F;
@@ -332,6 +333,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta__gnre : Parameter="Genre"; return Method_String2;
         case Elements::moov_meta__name : Parameter="Title"; return Method_String;
         case Elements::moov_meta__perf : Parameter="Performer"; return Method_String2;
+        case Elements::moov_meta__pgap : Parameter.clear(); return Method_None;
         case Elements::moov_meta__titl : Parameter="Title"; return Method_String2;
         case Elements::moov_meta__trkn : Parameter="Track"; return Method_Binary;
         case Elements::moov_meta__tmpo : Parameter.clear(); return Method_None;
@@ -355,6 +357,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, const std::s
     else if (Meta=="com.apple.quicktime.displayname") Parameter="Title";
     else if (Meta=="iTunNORM") Parameter="";
     else if (Meta=="iTunes_CDDB_IDs") Parameter="";
+    else if (Meta=="iTunSMPB") Parameter="";
     else Parameter=Meta;
     return Method_String;
 }

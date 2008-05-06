@@ -810,6 +810,20 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                             Fill(Stream_General, 0, General_Cover, "Yes");
                             }
                             return;
+                        case Elements::moov_meta__gnre :
+                            {
+                            if (Element_Size-Element_Offset==2)
+                            {
+                                int16u Genre;
+                                Get_B2(Genre,                   "Genre");
+
+                                //Filling
+                                //Fill(Stream_General, 0, General_Genre, Genre); //This is not Id3 genres, what is it?
+                            }
+                            else
+                                Skip_XX(Element_Size-Element_Offset,"Data");
+                            }
+                            return;
                         default:
                             Value=_T("(Binary)");
                     }
