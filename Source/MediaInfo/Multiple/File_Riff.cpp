@@ -138,6 +138,8 @@ void File_Riff::Read_Buffer_Finalize ()
             {
                 if (!Codec_Temp.empty())
                     Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec_Temp, true);
+                if (FrameRate_Temp!=Retrieve(Stream_Video, 0, Video_FrameRate))
+                    Fill(Stream_Video, 0, Video_FrameRate_Original, Retrieve(Stream_Video, 0, Video_FrameRate), true);
                 if (!FrameRate_Temp.empty())
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_Temp, true);
 
