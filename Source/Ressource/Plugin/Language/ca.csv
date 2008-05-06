@@ -283,6 +283,7 @@ FrameRate_Mode
 FrameRate_Minimum;Imatges per segon mínimes
 FrameRate_Nominal
 FrameRate_Maximum;Imatges per segon màximes
+FrameRate_Original
 General;General
 Genre;Gènere
 Genre_000;Blues
@@ -664,6 +665,7 @@ Menu_Codec_List;Menú de codecs
 Menu_No;Sense menú
 MenuCount;Nombre de pistes al menú
 Menu_Hint;Més possibilitats
+MenuID
 mn;mn
 Mood;humor
 More;Més

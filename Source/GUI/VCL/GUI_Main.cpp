@@ -1162,7 +1162,7 @@ void __fastcall TMainF::Page_Easy_FileChange(TObject *Sender)
                     Z2+=_T(" stream1");
                 else
                     Z2+=_T(" stream2");
-                Ztring Z3=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Measure)+_T("_Codec_List"));
+                Ztring Z3=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Measure)+_T("_Format_WithHint_List"));
                 Page_Easy_X_List[KindOfStream]->Caption=(I->Get(Page_Position, Stream_General, 0, Z1)+Prefs->Translate(Z2)+Prefs->Translate(_T(": "))+I->Get(Page_Easy_File->ItemIndex, Stream_General, 0, Z3)).c_str();
             }
             else

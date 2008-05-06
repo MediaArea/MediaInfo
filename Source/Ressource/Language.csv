@@ -283,6 +283,7 @@ FrameRate_Mode;Frame rate mode;Type d'images/s;;;;;;;;;;;;;;;;;;;;;;เฟรม
 FrameRate_Minimum;Minimum frame rate;Images/s mini;;;;;;;;;;;En az kare hızı;;;最小フレームレート;Minimum frame rate;Ελάχιστος ρυθμός ανανέωσης πλαισίου;최소 프레임레이트;Taxa de quadros mínima;Imatges per segon mínimes;Minimalus kadrų tempas;Taxa de quadros mínima;เฟรมเรตต่ำสุด
 FrameRate_Nominal;Nominal frame rate;Images/s nominal;;;;;;;;;;;;;;;;;;;;;;เฟรมเรต Nominal
 FrameRate_Maximum;Maximum frame rate;Images/s maxi;;;;;;;;;;;En fazla kare hızı;;;最大フレームレート;Maximum frame rate;Μέγιστος ρυθμός ανανέωσης πλαισίου;최대 프레임레이트;Taxa de quadros máxima;Imatges per segon màximes;Maksimalus kadrų tempas;Taxa de quadros máxima;เฟรมเรตสูงสุด
+FrameRate_Original;Original frame rate;Images/s d'origine;;;;;;;;;;;;;;;;;;;;;;
 General;General;General;Allgemein;Általános;Generale;Общее;General;Xeral;Algemeen;Ogólne;Generale; Allmänt;Genel;一般;一般;全般;Hlavní;Γενικά;일반;Geral;General;Pagrindinis;Geral;ทั่วไป
 Genre;Genre;Genre;;;;;;Xenero;Muziekstijl;;Gen; Genre;Tarz;;风格;ジャンル;žánr;Genre;장르;Gênero;Gènere;Žanras;Gênero;แนวเพลง
 Genre_000;Blues;Blues;;;;;;Blues;Blues;;; Blues;Blues;;;ブルース;Blues;Blues;Blues;Blues;Blues;Bliuzas;Blues;บลู
@@ -664,6 +665,7 @@ Menu_Codec_List;Menu codecs;Codecs Menu;;;;;Códecs de menú;;;;;;Menü kodekler
 Menu_No;No menu;Pas de menu;;;;;Sin menú;;;;;;Menü yok;;;メニューなし;No menu;Χωρίς μενού;메뉴 없음;Sem menu;Sense menú;Be meniu;Sem menu;No menu
 MenuCount;Count of menu streams;Nombre de pistes menu;;;;;Cantidad de menú;;;;;;Meni akış sayısı;;;メニューストリーム数;Count of menu streams;Αριθμός των ροών μενού;메뉴 스트림 개수;Número de faixas de menu;Nombre de pistes al menú;Meniu srautų kiekis;Número de faixas de menu;Count of menu streams
 Menu_Hint;More possibilities;Plus de possibilités;Weitere Möglichkeiten;További lehetőségek;;Меню;Más posibilidades;Máis posibilidades;Meer mogelijkheden;Wiecej możliwosci;Mai multe posibilitati; Mer möjligheter;Daha fazla olasılık;;;さらに;More possibilities;Περισσότερες πιθανότητες;더 자세히;Mais possibilidades;Més possibilitats;Daugiau galimybių;Mais possibilidades;More possibilities
+MenuID;Menu ID;ID de menu;;;;;;;;;;;;;;;;;;;;;;
 mn;mn;mn;min;perc;min;мин;min.;mn;mn;min.;mn; min;dk;;;分;mn;mn;분;mn;mn;mn;mn;mn
 Mood;Mood;Humeur;Stimmung ;Hangnem;Disposizione;Настроение;Humor;Humor;Stemming;Nastrój;Mod; Humör;Mizaç;;情绪;ムード;Mood;Mood;무드;Descrição;humor;Nuotaika;Descrição;Mood
 More;More;Plus;Mehr ;Több;Altro;Еще...;Más;Máis info;Meer;Więcej;Mai mult(e); Mer;Daha;更多;更多;さらに;Více;Περισσότερα;상세;Mais;Més;Daugiau;Mais;เพิ่มเติม

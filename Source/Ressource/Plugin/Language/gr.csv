@@ -283,6 +283,7 @@ FrameRate_Mode
 FrameRate_Minimum;Ελάχιστος ρυθμός ανανέωσης πλαισίου
 FrameRate_Nominal
 FrameRate_Maximum;Μέγιστος ρυθμός ανανέωσης πλαισίου
+FrameRate_Original
 General;Γενικά
 Genre;Genre
 Genre_000;Blues
@@ -664,6 +665,7 @@ Menu_Codec_List;Συμπιεστές μενού
 Menu_No;Χωρίς μενού
 MenuCount;Αριθμός των ροών μενού
 Menu_Hint;Περισσότερες πιθανότητες
+MenuID
 mn;mn
 Mood;Mood
 More;Περισσότερα

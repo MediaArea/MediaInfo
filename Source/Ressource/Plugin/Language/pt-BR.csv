@@ -283,6 +283,7 @@ FrameRate_Mode
 FrameRate_Minimum;Taxa de quadros mínima
 FrameRate_Nominal
 FrameRate_Maximum;Taxa de quadros máxima
+FrameRate_Original
 General;Geral
 Genre;Gênero
 Genre_000;Blues
@@ -664,6 +665,7 @@ Menu_Codec_List;Codecs de menu
 Menu_No;Sem menu
 MenuCount;Número de faixas de menu
 Menu_Hint;Mais possibilidades
+MenuID
 mn;mn
 Mood;Descrição
 More;Mais

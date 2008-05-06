@@ -283,6 +283,7 @@ FrameRate_Mode
 FrameRate_Minimum
 FrameRate_Nominal
 FrameRate_Maximum
+FrameRate_Original
 General;Generale
 Genre
 Genre_000
@@ -664,6 +665,7 @@ Menu_Codec_List
 Menu_No
 MenuCount
 Menu_Hint
+MenuID
 mn;min
 Mood;Disposizione
 More;Altro

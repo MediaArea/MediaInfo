@@ -283,6 +283,7 @@ FrameRate_Mode
 FrameRate_Minimum;Minimum frame rate
 FrameRate_Nominal
 FrameRate_Maximum;Maximum frame rate
+FrameRate_Original
 General;Hlavní
 Genre;žánr
 Genre_000;Blues
@@ -664,6 +665,7 @@ Menu_Codec_List
 Menu_No;No menu
 MenuCount;Count of menu streams
 Menu_Hint;More possibilities
+MenuID
 mn;mn
 Mood;Mood
 More;Více

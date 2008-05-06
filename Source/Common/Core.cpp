@@ -83,7 +83,6 @@ void Core::Menu_File_Open_Files_Continue (const String &FileName)
     //MI->Option(_T("File_Duplicate"), _T("452;file")); //Activate it
     //MI->Open(FileName);
     MI->Open(FileName);
-    MI->Get(0, Stream_General, 0, _T("Duration"));
     /*#ifndef WIN32
     for (size_t Pos=0; Pos<128; Pos++)
         MI->Open(FileName);

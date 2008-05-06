@@ -283,6 +283,7 @@ FrameRate_Mode
 FrameRate_Minimum;Minimalus kadrų tempas
 FrameRate_Nominal
 FrameRate_Maximum;Maksimalus kadrų tempas
+FrameRate_Original
 General;Pagrindinis
 Genre;Žanras
 Genre_000;Bliuzas
@@ -664,6 +665,7 @@ Menu_Codec_List;Meniu kodekai
 Menu_No;Be meniu
 MenuCount;Meniu srautų kiekis
 Menu_Hint;Daugiau galimybių
+MenuID
 mn;mn
 Mood;Nuotaika
 More;Daugiau

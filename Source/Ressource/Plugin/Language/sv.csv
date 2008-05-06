@@ -283,6 +283,7 @@ FrameRate_Mode
 FrameRate_Minimum
 FrameRate_Nominal
 FrameRate_Maximum
+FrameRate_Original
 General; Allmänt
 Genre; Genre
 Genre_000; Blues
@@ -664,6 +665,7 @@ Menu_Codec_List
 Menu_No
 MenuCount
 Menu_Hint; Mer möjligheter
+MenuID
 mn; min
 Mood; Humör
 More; Mer
@@ -800,5 +802,5 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;92
-ZZ_AutomaticLanguage_Percent;92
+ZZ_Automatic_Percent;91
+ZZ_AutomaticLanguage_Percent;91

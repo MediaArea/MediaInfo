@@ -283,6 +283,7 @@ FrameRate_Mode
 FrameRate_Minimum;En az kare hızı
 FrameRate_Nominal
 FrameRate_Maximum;En fazla kare hızı
+FrameRate_Original
 General;Genel
 Genre;Tarz
 Genre_000;Blues
@@ -664,6 +665,7 @@ Menu_Codec_List;Menü kodekleri
 Menu_No;Menü yok
 MenuCount;Meni akış sayısı
 Menu_Hint;Daha fazla olasılık
+MenuID
 mn;dk
 Mood;Mizaç
 More;Daha

@@ -283,6 +283,7 @@ FrameRate_Mode
 FrameRate_Minimum;最小フレームレート
 FrameRate_Nominal
 FrameRate_Maximum;最大フレームレート
+FrameRate_Original
 General;全般
 Genre;ジャンル
 Genre_000;ブルース
@@ -664,6 +665,7 @@ Menu_Codec_List;メニューコーデック
 Menu_No;メニューなし
 MenuCount;メニューストリーム数
 Menu_Hint;さらに
+MenuID
 mn;分
 Mood;ムード
 More;さらに

@@ -283,6 +283,7 @@ FrameRate_Mode;เฟรมเรตโหมด
 FrameRate_Minimum;เฟรมเรตต่ำสุด
 FrameRate_Nominal;เฟรมเรต Nominal
 FrameRate_Maximum;เฟรมเรตสูงสุด
+FrameRate_Original
 General;ทั่วไป
 Genre;แนวเพลง
 Genre_000;บลู
@@ -664,6 +665,7 @@ Menu_Codec_List;Menu codecs
 Menu_No;No menu
 MenuCount;Count of menu streams
 Menu_Hint;More possibilities
+MenuID
 mn;mn
 Mood;Mood
 More;เพิ่มเติม
