@@ -166,15 +166,6 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
     Ztring A=Retrieve(StreamKind, Pos, "CodecID");
     if (!Retrieve(StreamKind, Pos, "CodecID").empty())
     {
-        const Ztring &C1=MediaInfoLib::Config.CodecID_Get((stream_t)StreamKind, Retrieve(StreamKind, Pos, "CodecID"), InfoCodecID_Format);
-        if (C1.empty())
-        {
-            if (Retrieve(StreamKind, Pos, "CodecID/String").empty()) Fill(StreamKind, Pos, "CodecID/String", Retrieve(StreamKind, Pos, "CodecID"));
-        }
-        else
-        {
-            if (Retrieve(StreamKind, Pos, "CodecID/String").empty()) Fill(StreamKind, Pos, "CodecID/String", C1);
-        }
         if (Retrieve(StreamKind, Pos, "CodecID/Info"  ).empty()) Fill(StreamKind, Pos, "CodecID/Info"  , MediaInfoLib::Config.CodecID_Get((stream_t)StreamKind, Retrieve(StreamKind, Pos, "CodecID"), InfoCodecID_Description));
         if (Retrieve(StreamKind, Pos, "CodecID/Hint"  ).empty()) Fill(StreamKind, Pos, "CodecID/Hint"  , MediaInfoLib::Config.CodecID_Get((stream_t)StreamKind, Retrieve(StreamKind, Pos, "CodecID"), InfoCodecID_Hint));
         if (Retrieve(StreamKind, Pos, "CodecID/Url"   ).empty()) Fill(StreamKind, Pos, "CodecID/Url"   , MediaInfoLib::Config.CodecID_Get((stream_t)StreamKind, Retrieve(StreamKind, Pos, "CodecID"), InfoCodecID_Url));
@@ -199,8 +190,6 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
     {
         if (Retrieve(StreamKind, Pos, "Format/Info"  ).empty()) Fill(StreamKind, Pos, "Format/Info"  , MediaInfoLib::Config.Container_Get(Retrieve(StreamKind, Pos, "Format"), InfoFormat_Info));
         if (Retrieve(StreamKind, Pos, "Format/Url"   ).empty()) Fill(StreamKind, Pos, "Format/Url"   , MediaInfoLib::Config.Container_Get(Retrieve(StreamKind, Pos, "Format"), InfoFormat_Url));
-        if (Retrieve(StreamKind, Pos, "Format")==Retrieve(StreamKind, Pos, "CodecID/String"))
-            Fill(StreamKind, Pos, "CodecID/String", "", Unlimited, true, true);
     }
 
     if (StreamKind!=Stream_General)
@@ -325,6 +314,17 @@ void File__Analyze::Finalize_Video(size_t Pos)
     if (Pos>=Count_Get(Stream_Video))
         return;
 
+    //Scan type
+    if (!Retrieve(Stream_Video, Pos, Video_ScanType).empty())
+    {
+        const Ztring &Z1=Retrieve(Stream_Video, Pos, Video_ScanType);
+        if (Z1.size()==3)
+            Fill(Stream_Video, Pos, Video_ScanType_String, MediaInfoLib::Config.Language_Get(Ztring(_T("Interlaced_"))+Z1));
+        else
+            Fill(Stream_Video, Pos, Video_ScanType_String, MediaInfoLib::Config.Language_Get(Z1));
+        if (Retrieve(Stream_Video, Pos, Video_ScanType_String).empty())
+            Fill(Stream_Video, Pos, Video_ScanType_String, Z1);
+    }
     //Scan order
     if (!Retrieve(Stream_Video, Pos, Video_ScanOrder).empty())
     {
@@ -473,6 +473,9 @@ void File__Analyze::Finalize_Audio(size_t Pos)
         if (Duration)
            Fill(Stream_Audio, Pos, Audio_Duration, Duration);
     }
+    //Delay/Video
+    if (Count_Get(Stream_Video)>0 && !Retrieve(Stream_Audio, Pos, Audio_Delay).empty() && !Retrieve(Stream_Video, 0, Video_Delay).empty())
+        Fill(Stream_Audio, Pos, Audio_Video_Delay, Retrieve(Stream_Audio, Pos, Audio_Delay).To_int64s()-Retrieve(Stream_Video, 0, Video_Delay).To_int64s());
     //Delay/Video0
     if (Count_Get(Stream_Video)>0 && !Retrieve(Stream_Audio, Pos, Audio_Delay).empty() && !Retrieve(Stream_Video, 0, Video_Delay).empty())
         Fill(Stream_Audio, Pos, Audio_Video0_Delay, Retrieve(Stream_Audio, Pos, Audio_Delay).To_int64s()-Retrieve(Stream_Video, 0, Video_Delay).To_int64s());
@@ -646,11 +649,12 @@ void File__Analyze::Finalize_Text(size_t Pos)
     if (Pos>=Count_Get(Stream_Text))
         return;
 
+    //Delay/Video
+    if (Count_Get(Stream_Video)>0 && !Retrieve(Stream_Text, Pos, Text_Delay).empty())
+        Fill(Stream_Text, Pos, Text_Video_Delay, Retrieve(Stream_Text, Pos, Text_Delay).To_int32s()-Retrieve(Stream_Video, 0, "Delay").To_int32s());
     //Delay/Video0
-    if (Count_Get(Stream_Video)>0 && !Retrieve(Stream_Text, Pos, "Delay").empty())
-    {
-        Fill(Stream_Text, Pos, Text_Video0_Delay, Retrieve(Stream_Text, Pos, "Delay").To_int32s()-Retrieve(Stream_Video, 0, "Delay").To_int32s());
-    }
+    if (Count_Get(Stream_Video)>0 && !Retrieve(Stream_Text, Pos, Text_Delay).empty())
+        Fill(Stream_Text, Pos, Text_Video0_Delay, Retrieve(Stream_Text, Pos, Text_Delay).To_int32s()-Retrieve(Stream_Video, 0, "Delay").To_int32s());
 }
 
 //---------------------------------------------------------------------------
@@ -720,20 +724,20 @@ void File__Analyze::Finalize_Final()
             Fill(Stream_General, 0, "StreamSize", File_Size-StreamSize_Total);
     }
 
-    //-BitRate if we have one Audio stream with bitrate
-    if (Retrieve(Stream_General, 0, General_Duration).empty() && Retrieve(Stream_General, 0, General_BitRate).empty() && Count_Get(Stream_Video)==0 && Count_Get(Stream_Audio)==1 && Retrieve(Stream_Audio, 0, "BitRate").To_int64u()!=0)
-        Fill(Stream_General, 0, "BitRate", Retrieve(Stream_Audio, 0, "BitRate"));
-    //-BitRate if Duration
-    if (Retrieve(Stream_General, 0, General_BitRate).empty() && Retrieve(Stream_General, 0, General_Duration).To_int64u()!=0)
-        Fill(Stream_General, 0, "BitRate", Retrieve(Stream_General, 0, General_FileSize).To_int64u()*8*1000/Retrieve(Stream_General, 0, General_Duration).To_int64u());
-    //-Duration if BitRate
-    if (Retrieve(Stream_General, 0, General_Duration).empty() && Retrieve(Stream_General, 0, General_BitRate).To_int64u()!=0)
-        Fill(Stream_General, 0, "Duration", Retrieve(Stream_General, 0, General_FileSize).To_int64u()*8*1000/Retrieve(Stream_General, 0, General_BitRate).To_int64u());
+    //-OveralBitRate if we have one Audio stream with bitrate
+    if (Retrieve(Stream_General, 0, General_Duration).empty() && Retrieve(Stream_General, 0, General_OveralBitRate).empty() && Count_Get(Stream_Video)==0 && Count_Get(Stream_Audio)==1 && Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u()!=0)
+        Fill(Stream_General, 0, General_OveralBitRate, Retrieve(Stream_Audio, 0, Audio_BitRate));
+    //-OveralBitRate if Duration
+    if (Retrieve(Stream_General, 0, General_OveralBitRate).empty() && Retrieve(Stream_General, 0, General_Duration).To_int64u()!=0)
+        Fill(Stream_General, 0, General_OveralBitRate, Retrieve(Stream_General, 0, General_FileSize).To_int64u()*8*1000/Retrieve(Stream_General, 0, General_Duration).To_int64u());
+    //-Duration if OveralBitRate
+    if (Retrieve(Stream_General, 0, General_Duration).empty() && Retrieve(Stream_General, 0, General_OveralBitRate).To_int64u()!=0)
+        Fill(Stream_General, 0, General_Duration, Retrieve(Stream_General, 0, General_FileSize).To_int64u()*8*1000/Retrieve(Stream_General, 0, General_OveralBitRate).To_int64u());
     //-Video bitrate can be the nominal one if <10s (bitrate estimation is not enough precise
-    if (Count_Get(Stream_Video)==1 && Retrieve(Stream_Video, 0, "BitRate").empty() && Retrieve(Stream_Video, 0, "Duration").To_int64u()<10000)
-        Fill(Stream_Video, 0, "BitRate", Retrieve(Stream_Video, 0, "BitRate_Nominal"));
+    if (Count_Get(Stream_Video)==1 && Retrieve(Stream_Video, 0, Video_BitRate).empty() && Retrieve(Stream_Video, 0, Video_Duration).To_int64u()<10000)
+        Fill(Stream_Video, 0, Video_BitRate, Retrieve(Stream_Video, 0, Video_BitRate_Nominal));
     //-Video bitrate if we have all audio bitrates and overal bitrate
-    if (Count_Get(Stream_Video)==1 && Retrieve(Stream_General, 0, General_BitRate).size()>4 && Retrieve(Stream_Video, 0, "BitRate").empty() && Retrieve(Stream_Video, 0, "Duration").To_int64u()>=10000) //BitRate is > 10 000 and Duration>10s, to avoid strange behavior
+    if (Count_Get(Stream_Video)==1 && Retrieve(Stream_General, 0, General_OveralBitRate).size()>4 && Retrieve(Stream_Video, 0, Video_BitRate).empty() && Retrieve(Stream_Video, 0, Video_Duration).To_int64u()>=10000) //BitRate is > 10 000 and Duration>10s, to avoid strange behavior
     {
         double GeneralBitRate_Ratio=0.98;  //Default container overhead=2%
         int32u GeneralBitRate_Minus=5000;  //5000 bps because of a "classic" stream overhead
@@ -744,9 +748,7 @@ void File__Analyze::Finalize_Final()
         double TextBitRate_Ratio   =0.98;  //Default container overhead=2%
         int32u TextBitRate_Minus   =2000;  //2000 bps because of a "classic" stream overhead
         //Specific value depends of Container
-        if (Get(Stream_General, 0, _T("Format"))==_T("MPEG-1PS")
-         || Get(Stream_General, 0, _T("Format"))==_T("MPEG-2PS")
-         || Get(Stream_General, 0, _T("Format"))==_T("MPEG-4PS"))
+        if (Get(Stream_General, 0, _T("Format"))==_T("MPEG-PS"))
         {
             GeneralBitRate_Ratio=0.99;
             GeneralBitRate_Minus=0;
@@ -757,9 +759,7 @@ void File__Analyze::Finalize_Final()
             TextBitRate_Ratio   =0.94;
             TextBitRate_Minus   =0;
         }
-        if (Get(Stream_General, 0, _T("Format"))==_T("MPEG-1TS")
-         || Get(Stream_General, 0, _T("Format"))==_T("MPEG-2TS")
-         || Get(Stream_General, 0, _T("Format"))==_T("MPEG-4TS"))
+        if (Get(Stream_General, 0, _T("Format"))==_T("MPEG-TS"))
         {
             GeneralBitRate_Ratio=0.99;
             GeneralBitRate_Minus=0;
@@ -784,7 +784,7 @@ void File__Analyze::Finalize_Final()
         }
 
         //Testing
-        float64 VideoBitRate=Retrieve(Stream_General, 0, General_BitRate).To_float64()*GeneralBitRate_Ratio-GeneralBitRate_Minus;
+        float64 VideoBitRate=Retrieve(Stream_General, 0, General_OveralBitRate).To_float64()*GeneralBitRate_Ratio-GeneralBitRate_Minus;
         bool VideobitRateIsValid=true;
         for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
         {
@@ -803,7 +803,40 @@ void File__Analyze::Finalize_Final()
                 VideoBitRate-=1000; //Estimation: Text stream are not often big
         }
         if (VideobitRateIsValid && VideoBitRate>=10000) //to avoid strange behavior
-            Fill(Stream_Video, 0, "BitRate", VideoBitRate*VideoBitRate_Ratio-VideoBitRate_Minus, 0); //Default container overhead=2%
+            Fill(Stream_Video, 0, Video_BitRate, VideoBitRate*VideoBitRate_Ratio-VideoBitRate_Minus, 0); //Default container overhead=2%
+    }
+    //-General stream size if we have all streamsize
+    if (File_Size!=(int64u)-1 && !Retrieve(Stream_General, 0, General_StreamSize).empty())
+    {
+        //Testing
+        int64s StreamSize=File_Size;
+        bool StreamSizeIsValid=true;
+        for (size_t Pos=0; Pos<Count_Get(Stream_Video); Pos++)
+        {
+            int64u VideoStreamSize=Retrieve(Stream_Video, Pos, Video_StreamSize).To_int64u();
+            if (VideoStreamSize>0)
+                StreamSize-=VideoStreamSize;
+            else
+                StreamSizeIsValid=false;
+        }
+        for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
+        {
+            int64u AudioStreamSize=Retrieve(Stream_Audio, Pos, Audio_StreamSize).To_int64u();
+            if (AudioStreamSize>0)
+                StreamSize-=AudioStreamSize;
+            else
+                StreamSizeIsValid=false;
+        }
+        for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
+        {
+            int64u TextStreamSize=Retrieve(Stream_Text, Pos, Text_StreamSize).To_int64u();
+            if (TextStreamSize>0)
+                StreamSize-=TextStreamSize;
+            else
+                StreamSizeIsValid=false;
+        }
+        if (StreamSizeIsValid && StreamSize>=0) //to avoid strange behavior
+            Fill(Stream_General, 0, General_StreamSize, StreamSize);
     }
 
     //Counts
@@ -828,7 +861,6 @@ void File__Analyze::Finalize_Final()
     Fill(Stream_General, 0, "Codec/Url", Retrieve(Stream_General, 0, General_Format_Url));
     Fill(Stream_General, 0, "Codec/Extensions", Retrieve(Stream_General, 0, General_Format_Extensions));
     Fill(Stream_General, 0, "Codec_Settings", Retrieve(Stream_General, 0, General_Format_Settings));
-    Fill(Stream_General, 0, "Codec_Settings_Automatic", Retrieve(Stream_General, 0, General_Format_Settings_Automatic));
 
     //Tags
     Finalize_Tags();

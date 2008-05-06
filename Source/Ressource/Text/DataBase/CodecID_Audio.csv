@@ -70,7 +70,7 @@ fl64;;4CC;PCM;;;;http://www.apple.com/quicktime/download/standalone.html
 alaw;;4CC;ADPCM;A-Law;CBR;;http://www.apple.com/quicktime/download/standalone.html
 ulaw;;4CC;ADPCM;U-Law;CBR;;http://www.apple.com/quicktime/download/standalone.html
 0;;2CC;;;;;
-1;;2CC;PCM;;CBR;Microsoft PCM;http://www.microsoft.com/windows/
+1;Microsoft;2CC;PCM;;CBR;;http://www.microsoft.com/windows/
 2;;2CC;ADPCM;;CBR;Microsoft ADPCM;http://www.microsoft.com/windows/
 3;;2CC;PCM;;CBR;IEEE FLOAT;http://www.microsoft.com/windows/
 4;;2CC;VSELP;;CBR;Compaq VSELP;

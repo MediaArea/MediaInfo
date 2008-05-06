@@ -1,6 +1,6 @@
 Count;;;N NI;;;Count of objects available in this stream
 StreamCount;;;N NI;;;Count of streams of that kind available
-StreamKind;Text;Text;N NI;;;Stream name
+StreamKind;Text;Text;N NI;;;Stream type name
 StreamKindID;;;N NI;;;Number of the stream (base=0)
 StreamKindPos;;;N NI;;;When multiple streams, number of the stream (base=1)
 Inform;;;N NT;;;Last **Inform** call
@@ -13,14 +13,15 @@ Format;;;Y YT;;;Format used
 Format/Info;;;Y NT;;;Info about Format
 Format/Url;;;N NT;;;Link
 CodecID;;;N YT;;;Codec ID (found in some containers)
-CodecID/String;;;Y NT;;;Codec used (text)
-CodecID/Info;;;Y NT;;;Info about codec
-CodecID/Url;;;N NT;;;Link
-CodecID_Description;;;Y NT;;;Manual description
-Codec;;;N YT;;;Codec used
-Codec/String;;;Y NT;;;Codec used (test)
-Codec/Info;;;Y NT;;;Info about codec
-Codec/Url;;;Y YT;;;Codec used (test)
+CodecID/String;;;Y NT;;;Codec ID used (text)
+CodecID/Info;;;Y NT;;;Info about codec ID
+CodecID/Hint;;;N NT;;;A hint for this codec ID
+CodecID/Url;;;N NT;;;A link for more details about this codec ID
+CodecID_Description;;;Y NT;;;Manual description given by the container
+Codec;;;N YT;;;Deprecated
+Codec/String;;;Y NT;;;Deprecated
+Codec/Info;;;Y NT;;;Deprecated
+Codec/Url;;;Y YT;;;Deprecated
 Duration;; ms;N YI;;;Play time of the stream
 Duration/String;;;Y NT;;;Play time (formated)
 Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
@@ -41,21 +42,26 @@ Delay/String;;;N NT;;;
 Delay/String1;;;N NT;;;
 Delay/String2;;;N NT;;;
 Delay/String3;;;N NT;;;
-Video0_Delay;; ms;N NI;;;Delay fixed in the stream (absolute / video0)
-Video0_Delay/String;;;Y NT;;;
-Video0_Delay/String1;;;N NT;;;
-Video0_Delay/String2;;;N NT;;;
-Video0_Delay/String3;;;N NT;;;
-StreamSize;; byte;N YI;;;Stream size in bytes;;
-StreamSize/String;;;Y NT;;;;;
-StreamSize/String1;;;N NT;;;;;
-StreamSize/String2;;;N NT;;;;;
-StreamSize/String3;;;N NT;;;;;
-StreamSize/String4;;;N NT;;;;;
-Title;;;Y YI;;;Name of the track;;
-Language;;;N YT;;;Language (2 letters);;
-Language/String;;;Y NT;;;Language (full);;
-Language_More;;;Y YT;;;More info about Language (director's comment...);;
+Video_Delay;; ms;N NI;;;Delay fixed in the stream (absolute / video)
+Video_Delay/String;;;Y NT;;;
+Video_Delay/String1;;;N NT;;;
+Video_Delay/String2;;;N NT;;;
+Video_Delay/String3;;;N NT;;;
+Video0_Delay;; ms;N NI;;;Deprecated
+Video0_Delay/String;;;N NT;;;Deprecated
+Video0_Delay/String1;;;N NT;;;Deprecated
+Video0_Delay/String2;;;N NT;;;Deprecated
+Video0_Delay/String3;;;N NT;;;Deprecated
+StreamSize;; byte;N YI;;;Stream size in bytes
+StreamSize/String;;;Y NT;;;
+StreamSize/String1;;;N NT;;;
+StreamSize/String2;;;N NT;;;
+StreamSize/String3;;;N NT;;;
+StreamSize/String4;;;N NT;;;
+Title;;;Y YI;;;Name of the track
+Language;;;N YT;;;Language (2 letters)
+Language/String;;;Y NT;;;Language (full)
+Language_More;;;Y YT;;;More info about Language (director's comment...)
 Summary;;;N NT;;;;;
 Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal

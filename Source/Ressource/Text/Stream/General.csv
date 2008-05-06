@@ -1,10 +1,11 @@
 Count;;;N NI;;;Count of objects available in this stream
 StreamCount;;;N NI;;;Count of streams of that kind available
-StreamKind;General;General;N NI;;;Stream name
+StreamKind;General;General;N NI;;;Stream type name
 StreamKindID;;;N NI;;;Number of the stream (base=0)
 StreamKindPos;;;N NI;;;When multiple streams, number of the stream (base=1)
 Inform;;;N NT;;;Last **Inform** call
 ID;;;Y YI;;;A ID for this stream in this file
+ID/String;;;Y NT;;;A ID for this stream in this file
 UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy
 GeneralCount;1;;N NI;;;Count of general streams
 VideoCount;;;N NI;;;Count of video streams
@@ -15,27 +16,27 @@ ImageCount;;;N NI;;;Count of image streams
 MenuCount;;;N NI;;;Count of menu streams
 Video_Format_List;;;N NT;;;Video Codecs separated by /
 Video_Format_WithHint_List;;;N NT;;;Video Codecs separated by /
-Video_Codec_List;;;N NT;;;Video Codecs separated by /
+Video_Codec_List;;;N NT;;;Deprecated
 Video_Language_List;;;N NT;;;Video languages separated by /
 Audio_Format_List;;;N NT;;;Audio Codecs separated by /
 Audio_Format_WithHint_List;;;N NT;;;Audio Codecs separated by /
-Audio_Codec_List;;;N NT;;;Audio Codecs separated by /
+Audio_Codec_List;;;N NT;;;Deprecated
 Audio_Language_List;;;N NT;;;Audio languages separated by /
 Text_Format_List;;;N NT;;;Text Codecs separated by /
 Text_Format_WithHint_List;;;N NT;;;Text Codecs separated by /
-Text_Codec_List;;;N NT;;;Text Codecs separated by /
+Text_Codec_List;;;N NT;;;Deprecated
 Text_Language_List;;;N NT;;;Text languages separated by /
 Chapters_Format_List;;;N NT;;;Chapters Codecs separated by /
 Chapters_Format_WithHint_List;;;N NT;;;Chapters Codecs separated by /
-Chapters_Codec_List;;;N NT;;;Chapters Codecs separated by /
+Chapters_Codec_List;;;N NT;;;Deprecated
 Chapters_Language_List;;;N NT;;;Chapters languages separated by /
 Image_Format_List;;;N NT;;;Image Codecs separated by /
 Image_Format_WithHint_List;;;N NT;;;Image Codecs separated by /
-Image_Codec_List;;;N NT;;;Image Codecs separated by /
+Image_Codec_List;;;N NT;;;Deprecated
 Image_Language_List;;;N NT;;;Image languages separated by /
 Menu_Format_List;;;N NT;;;Menu Codecs separated by /
 Menu_Format_WithHint_List;;;N NT;;;Menu Codecs separated by /
-Menu_Codec_List;;;N NT;;;Menu Codecs separated by /
+Menu_Codec_List;;;N NT;;;Deprecated
 Menu_Language_List;;;N NT;;;Menu languages separated by /
 CompleteName;;;Y NT;;;Complete name (Folder+Name+Extension)
 FolderName;;;N NT;;;Folder name only
@@ -48,21 +49,20 @@ Format/Url;;;N NT;;;Link
 Format/Extensions;;;N NT;;;Known extensions of format
 Format_Profile;;;Y NT;;;Profile of the Format
 Format_Settings;;;Y NT;;;Settings needed for decoder used
-Format_Settings_Automatic;;;N NT;;;Settings needed for decoder used, with format XXX=Y, Y from 0 to 5
 CodecID;;;N YT;;;Codec ID (found in some containers)
-CodecID/String;;;Y NT;;;Codec used (text)
-CodecID/Info;;;Y NT;;;Info about codec
-CodecID/Hint;;;N NT;;;
-CodecID/Url;;;N NT;;;Link
-CodecID_Description;;;Y NT;;;Manual description
+CodecID/String;;;Y NT;;;Codec ID used (text)
+CodecID/Info;;;Y NT;;;Info about codec ID
+CodecID/Hint;;;N NT;;;A hint for this codec ID
+CodecID/Url;;;N NT;;;A link for more details about this codec ID
+CodecID_Description;;;Y NT;;;Manual description given by the container
 Interleaved;;;N NT;;;If Audio and video are muxed
-Codec;;;N NT;;;Same as Format, only for automatic parsing
-Codec/String;;;N NT;;;Codec used (text)
-Codec/Info;;;N NT;;;Same as Format, only for automatic parsing
-Codec/Url;;;N NT;;;Same as Format, only for automatic parsing
-Codec/Extensions;;;N NT;;;Same as Format, only for automatic parsing
-Codec_Settings;;;N NT;;;Same as Format, only for automatic parsing
-Codec_Settings_Automatic;;;N NT;;;Same as Format, only for automatic parsing
+Codec;;;N NT;;;Deprecated
+Codec/String;;;N NT;;;Deprecated
+Codec/Info;;;N NT;;;Deprecated
+Codec/Url;;;N NT;;;Deprecated
+Codec/Extensions;;;N NT;;;Deprecated
+Codec_Settings;;;N NT;;;Deprecated
+Codec_Settings_Automatic;;;N NT;;;Deprecated
 FileSize;; byte;N NT;;;File size in bytes
 FileSize/String;;;Y NT;;;File size (with measure)
 FileSize/String1;;;N NT;;;File size (with measure, 1 digit mini)
@@ -74,23 +74,24 @@ Duration/String;;;Y NT;;;Play time (formated)
 Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
 Duration/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero
 Duration/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM
-BitRate_Mode;;;Y YT;;;Bit rate mode (VBR, CBR)
-BitRate;; bps;N YF;;;BitRate of all streams
-BitRate/String;;;Y NT;;;BitRate of all streams (with measure)
-BitRate_Minimum;; bps;N YF;;;Minimum Bit rate in bps
-BitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement);;
-BitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps;;
-BitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement);;
-BitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps;;
-BitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement);;
+OveralBitRate_Mode;;;Y YT;;;Bit rate mode of all streams (VBR, CBR)
+OveralBitRate;; bps;N YF;;;Bit rate of all streams
+OveralBitRate/String;;;Y NT;;;Bit rate of all streams (with measure)
+OveralBitRate_Minimum;; bps;N YF;;;Minimum Bit rate in bps
+OveralBitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement);;
+OveralBitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps;;
+OveralBitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement);;
+OveralBitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps;;
+OveralBitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement);;
 StreamSize;; byte;N YI;;;Stream size in bytes;;
-StreamSize/String;;;Y NT;;;;;
+StreamSize/String;;;N NT;;;;;
 StreamSize/String1;;;N NT;;;;;
 StreamSize/String2;;;N NT;;;;;
 StreamSize/String3;;;N NT;;;;;
 StreamSize/String4;;;N NT;;;;;
 HeaderSize;;;N NI;;;;;
 DataSize;;;N NI;;;;;
+FooterSize;;;N NI;;;;;
 Title;;;N NT;;;(Generic)Title of file;;Title
 Title/More;;;N NT;;;(Generic)More info about the title of file;;Title
 Title/Url;;;N NT;;;(Generic)Url;;Title

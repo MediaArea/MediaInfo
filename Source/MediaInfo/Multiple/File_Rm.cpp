@@ -590,7 +590,7 @@ void File_Rm::PROP()
         Skip_Flags(flags, 3,                                    "Allow_Download");
 
     //Filling
-    Fill(Stream_General, 0, General_BitRate, avg_bit_rate);
+    Fill(Stream_General, 0, General_OveralBitRate, avg_bit_rate);
     Fill(Stream_General, 0, General_Duration, duration);
 }
 

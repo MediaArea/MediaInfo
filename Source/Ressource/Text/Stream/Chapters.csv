@@ -1,14 +1,19 @@
 Count;;;N NI;;;Count of objects available in this stream
 StreamCount;;;N NI;;;Count of streams of that kind available
-StreamKind;Chapters;Chapters;N NI;;;Stream name
+StreamKind;Chapters;Chapters;N NI;;;Stream type name
 StreamKindID;;;N NI;;;Number of the stream (base=0)
 StreamKindPos;;;N NI;;;When multiple streams, number of the stream (base=1)
 Inform;;;N NT;;;Last **Inform** call
 ID;;;N YI;;;A ID for this stream in this file
+ID/String;;;Y NT;;;A ID for this stream in this file
 UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy
-Codec;;;N YT;;;Codec used
-Codec/String;;;Y NT;;;Codec used (test)
-Codec/Url;;;Y YT;;;Codec used (test)
+Format;;;Y YT;;;Format used
+Format/Info;;;Y NT;;;Info about Format
+Format/Url;;;N NT;;;Link
+Codec;;;N YT;;;Deprecated
+Codec/String;;;Y NT;;;Deprecated
+Codec/Info;;;Y NT;;;Deprecated
+Codec/Url;;;Y YT;;;Deprecated
 Total;;;N YT;;;Total number of chapters
 Title;;;Y YI;;;Name of the track
 Language;;;N YT;;;Language (2 letters)

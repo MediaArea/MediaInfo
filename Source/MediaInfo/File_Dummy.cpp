@@ -313,8 +313,6 @@ void File_Dummy::Fill_Dummy_Chapters()
     Fill(Stream_Chapters, 0, Chapters_ID, "ID");
     Fill(Stream_Chapters, 0, Chapters_UniqueID, "UniqueID");
     Fill(Stream_Chapters, 0, Chapters_Title, "Title");
-    Fill(Stream_Chapters, 0, Chapters_Codec, "Codec");
-    Fill(Stream_Chapters, 0, Chapters_Codec_Url, "http://--Codec/Url--");
     Fill(Stream_Chapters, 0, Chapters_Total, "Total");
     Fill(Stream_Chapters, 0, Chapters_Language, "de");
 }

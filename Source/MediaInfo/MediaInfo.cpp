@@ -197,34 +197,6 @@ String MediaInfo::Get(stream_t StreamKind, size_t StreamPos, const String &Param
 {
     MEDIAINFO_DEBUG(Debug+="Get, StreamKind=";Debug+=ToString((size_t)StreamKind);Debug+=", StreamKind=";Debug+=ToString(StreamPos);Debug+=", Parameter=";Debug+=Ztring(Parameter).To_Local();)
 
-    //Legacy
-    if (Parameter.find(_T("_String"))!=Error)
-    {
-        Ztring S1=Parameter;
-        S1.FindAndReplace(_T("_String"), _T("/String"));
-        return Get(StreamKind, StreamPos, S1, KindOfInfo, KindOfSearch);
-    }
-    if (Parameter==_T("Channels"))
-        return Get(StreamKind, StreamPos, _T("Channel(s)"), KindOfInfo, KindOfSearch);
-    if (Parameter==_T("Artist"))
-        return Get(StreamKind, StreamPos, _T("Performer"), KindOfInfo, KindOfSearch);
-    if (Parameter==_T("AspectRatio"))
-        return Get(StreamKind, StreamPos, _T("DisplayAspectRatio"), KindOfInfo, KindOfSearch);
-    if (Parameter==_T("AspectRatio/String"))
-        return Get(StreamKind, StreamPos, _T("DisplayAspectRatio/String"), KindOfInfo, KindOfSearch);
-    if (Parameter==_T("Chroma"))
-        return Get(StreamKind, StreamPos, _T("Colourimetry"), KindOfInfo, KindOfSearch);
-    if (Parameter==_T("PlayTime"))
-        return Get(StreamKind, StreamPos, _T("Duration"), KindOfInfo, KindOfSearch);
-    if (Parameter==_T("PlayTime/String"))
-        return Get(StreamKind, StreamPos, _T("Duration/String"), KindOfInfo, KindOfSearch);
-    if (Parameter==_T("PlayTime/String1"))
-        return Get(StreamKind, StreamPos, _T("Duration/String1"), KindOfInfo, KindOfSearch);
-    if (Parameter==_T("PlayTime/String2"))
-        return Get(StreamKind, StreamPos, _T("Duration/String2"), KindOfInfo, KindOfSearch);
-    if (Parameter==_T("PlayTime/String3"))
-        return Get(StreamKind, StreamPos, _T("Duration/String3"), KindOfInfo, KindOfSearch);
-
     EXECUTE_STRING(Get(StreamKind, StreamPos, Parameter, KindOfInfo), Debug+="Get, will return ";Debug+=ToReturn.To_Local();)
 }
 

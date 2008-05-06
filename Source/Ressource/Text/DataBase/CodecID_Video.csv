@@ -163,8 +163,8 @@ DVR ;MPEG-2 Video;4CC;MPEG Video;;;MPEG-2 Video in a ASF container;
 DVR1;;4CC;Targa2000;;;TARGA2000;
 DVRS;DualMoon;4CC;Digital Video;;;VSYNC DualMoon Iris DV;
 DVSD;;4CC;Digital Video;;;IEC 61834 and SMPTE 314M;
-dvsd;Sony;4CC;Digital Video;;;Sony Digital Video (DV) 525 lines at 29.97 Hz or 625 lines at 25.00 Hz;
-dvsl;Sony;4CC;Digital Video;;;Sony Digital Video (DV) 525 lines at 29.97 Hz or 625 lines at 25.00 Hz;
+dvsd;Sony;4CC;Digital Video;;;;
+dvsl;Sony;4CC;Digital Video;;;;
 DVSL;;4CC;Digital Video;;;DV compressed in SD (SDL);
 DVX1;;4CC;DVX 1 SP;;;Lucent DVX1000SP Video Decoder;
 DVX2;;4CC;DVX 2 S;;;Lucent DVX2000S Video Decoder;
@@ -641,7 +641,7 @@ x264;;4CC;AVC;;;XiWave GNU GPL x264 MPEG-4;
 XJPG;Xirlink;4CC;M-JPEG;;;Xirlink, Inc.;
 XLV0;;4CC;NetXL Video;;;NetXL Inc. XL Video Decoder;
 XMPG;Xing;4CC;MPEG Video;;;XING MPEG (I frame only);
-XVID;XviD;4CC;MPEG-4 Visual;;;XviD project;http://www.xvid.org/Downloads.15.0.html
+XVID;XviD;4CC;MPEG-4 Visual;;;;http://www.xvid.org/Downloads.15.0.html
 XVIX;XviD;4CC;MPEG-4 Visual;;;Based on XviD MPEG-4;http://www.xvid.org/Downloads.15.0.html
 XWV0;;4CC;XiWave Video;;;XiWave Video;
 XWV1;;4CC;XiWave Video;;;XiWave Video;

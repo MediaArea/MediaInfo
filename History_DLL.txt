@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.6.5, 2008-
 ---------------
++ Third-party developpers: some MediaInfo fields have changed, please look at Changes.txt for more info
 + Python (Windows) binding
 + AC-3 TrueHD in bluray detection (even if the stream is splitted in 2 sub-streams)
 + Original framerate is shown if the framerate from the video stream and the one in the container are different

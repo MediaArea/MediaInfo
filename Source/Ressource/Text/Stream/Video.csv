@@ -1,6 +1,6 @@
 Count;;;N NI;;;Count of objects available in this stream
 StreamCount;;;N NI;;;Count of streams of that kind available
-StreamKind;Video;Video;N NI;;;Stream name
+StreamKind;Video;Video;N NI;;;Stream type name
 StreamKindID;;;N NI;;;Number of the stream (base=0)
 StreamKindPos;;;N NI;;;When multiple streams, number of the stream (base=1)
 Inform;;;N NT;;;Last **Inform** call
@@ -14,7 +14,8 @@ Format/Info;;;Y NT;;;Info about Format
 Format/Url;;;N NT;;;Link
 Format_Profile;;;Y NT;;;Profile of the Format
 Format_Settings;;;N NT;;;Settings needed for decoder used, summary
-Format_Settings_PacketBitStream;;;Y NT;;;Settings needed for decoder used, detailled
+Format_Settings_MuxingMode;;;Y NT;;;Settings needed for decoder used, detailled
+Format_Settings_PacketBitStream;;;N NT;;;Deprecated
 Format_Settings_BVOP;;;Y NT;;;Settings needed for decoder used, detailled
 Format_Settings_QPel;;;Y NT;;;Settings needed for decoder used, detailled
 Format_Settings_GMC;; warppoints;N NI;;;Settings needed for decoder used, detailled
@@ -23,30 +24,29 @@ Format_Settings_Matrix;;;Y NT;;;Settings needed for decoder used, detailled
 Format_Settings_Matrix_Data;;;N NT;;;Matrix, in binary format encoded BASE64. Order = intra, non-intra, gray intra, gray non-intra
 Format_Settings_CABAC;;;Y NT;;;Settings needed for decoder used, detailled
 Format_Settings_RefFrames;; frames;Y NT;;;Settings needed for decoder used, detailled
-CodecID;;;N YT;;;Codec ID (found in some containers)
-CodecID/String;;;Y NT;;;Codec used (text)
-CodecID/Info;;;Y NT;;;Info about codec
-CodecID/Hint;;;N NT;;;
-CodecID/Url;;;N NT;;;Link
-CodecID_Description;;;Y NT;;;Manual description
-Codec;;;N NT;;;Codec used
-Codec/String;;;N NT;;;Codec used (text)
-Codec/Family;;;N NT;;;Codec family
-Codec/Info;;;N NT;;;Info about codec
-Codec/Url;;;N NT;;;Link
-Codec/CC;;;N NT;;;Codec used (Container Code)
-Codec_Profile;;;N NT;;;Profile of the codec
-Codec_Description;;;N NT;;;Manual description
-Codec_Settings;;;N NT;;;Settings needed for decoder used, summary
-Codec_Settings_PacketBitStream;;;N NT;;;Settings needed for decoder used, detailled
-Codec_Settings_BVOP;;;N NT;;;Settings needed for decoder used, detailled
-Codec_Settings_QPel;;;N NT;;;Settings needed for decoder used, detailled
-Codec_Settings_GMC;; warppoints;N NT;;;Settings needed for decoder used, detailled
-Codec_Settings_GMC/String;;;N NT;;;
-Codec_Settings_Matrix;;;N NT;;;Settings needed for decoder used, detailled
-Codec_Settings_Matrix_Data;;;N NT;;;Matrix, in binary format encoded BASE64. Order = intra, non-intra, gray intra, gray non-intra
-Codec_Settings_CABAC;;;N NT;;;Settings needed for decoder used, detailled
-Codec_Settings_RefFrames;; frames;N NT;;;Settings needed for decoder used, detailled
+CodecID;;;Y YT;;;Codec ID (found in some containers)
+CodecID/Info;;;Y NT;;;Info about codec ID
+CodecID/Hint;;;Y NT;;;A hint for this codec ID
+CodecID/Url;;;N NT;;;A link for more details about this codec ID
+CodecID_Description;;;Y NT;;;Manual description given by the container
+Codec;;;N NT;;;Deprecated
+Codec/String;;;N NT;;;Deprecated
+Codec/Family;;;N NT;;;Deprecated
+Codec/Info;;;N NT;;;Deprecated
+Codec/Url;;;N NT;;;Deprecated
+Codec/CC;;;N NT;;;Deprecated
+Codec_Profile;;;N NT;;;Deprecated
+Codec_Description;;;N NT;;;Deprecated
+Codec_Settings;;;N NT;;;Deprecated
+Codec_Settings_PacketBitStream;;;N NT;;;Deprecated
+Codec_Settings_BVOP;;;N NT;;;Deprecated
+Codec_Settings_QPel;;;N NT;;;Deprecated
+Codec_Settings_GMC;; warppoints;N NT;;;Deprecated
+Codec_Settings_GMC/String;;;N NT;;;Deprecated
+Codec_Settings_Matrix;;;N NT;;;Deprecated
+Codec_Settings_Matrix_Data;;;N NT;;;Deprecated
+Codec_Settings_CABAC;;;N NT;;;Deprecated
+Codec_Settings_RefFrames;; frames;N NT;;;Deprecated
 Duration;; ms;N YI;;;Play time of the stream
 Duration/String;;;Y NT;;;Play time (formated)
 Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
@@ -80,20 +80,21 @@ FrameRate_Maximum;; fps;N YF;;;Frame rate
 FrameRate_Maximum/String;;;Y NT;;;Frame rate
 FrameRate_Original;; fps;N YF;;;Frame rate
 FrameRate_Original/String;;;Y NT;;;Frame rate
-Standard;;;Y NT;;;NTSC or PAL
 FrameCount;;;N NI;;;Frame count
+Standard;;;Y NT;;;NTSC or PAL
 Resolution;; bit;N YI;;;example for MP3 : 16 bits
 Resolution/String;;;Y NT;;;example for MP3 : 16 bits
 Colorimetry;;;Y YT;;;
-ScanType;;;Y YT;;;
+ScanType;;;N YT;;;
+ScanType/String;;;Y NT;;;
 ScanOrder;;;N YT;;;
 ScanOrder/String;;;Y NT;;;
-Interlacement;;;N NT;;;
-Interlacement/String;;;N NT;;;
+Interlacement;;;N NT;;;Deprecated
+Interlacement/String;;;N NT;;;Deprecated
 Bits-(Pixel*Frame);;;Y YF;;;bits/(Pixel*Frame) (like Gordian Knot)
 Delay;; ms;N NI;;;Delay fixed in the stream (relative) IN MS
 Delay/String;;;N NT;;;
-Delay/String1;;;N NT;;;
+Delay/String1;;;N NT;;;;;
 Delay/String2;;;N NT;;;;;
 Delay/String3;;;N NT;;;;;
 StreamSize;; byte;N YI;;;Stream size in bytes;;
@@ -114,5 +115,5 @@ Language/String;;;Y NT;;;Language (full);;
 Language_More;;;Y YT;;;More info about Language (director's comment...);;
 Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal
-Coherency/PlayTime;;;N NT;;;Playtime if detected wrong;;
 Encryption;;;Y YT;;;;;
+Coherency/PlayTime;;;N NT;;;Playtime if detected wrong;;

@@ -236,7 +236,6 @@ void File_Wm::Header_FileProperties()
     //Parsing
     int64u CreationDate, PlayDuration, SendDuration, Preroll;
     int32u Flags, MaximumBitRate;
-    bool   Seekable, Broadcast;
     Skip_UUID(                                                  "File ID");
     Skip_L8(                                                    "File Size");
     Get_L8 (CreationDate,                                       "Creation Date"); Param_Info(Ztring().Date_From_Milliseconds_1601(CreationDate/10000));
@@ -245,8 +244,8 @@ void File_Wm::Header_FileProperties()
     Get_L8 (SendDuration,                                       "Send Duration"); Param_Info_From_Milliseconds(SendDuration/10000);
     Get_L8 (Preroll,                                            "Preroll"); Param_Info_From_Milliseconds(Preroll);
     Get_L4 (Flags,                                              "Flags");
-        Get_Flags (Flags, 0, Broadcast,                         "Broadcast");
-        Get_Flags (Flags, 1, Seekable,                          "Seekable");
+        Skip_Flags(Flags, 0,                                    "Broadcast");
+        Skip_Flags(Flags, 1,                                    "Seekable");
         Skip_Flags(Flags, 2,                                    "Use Packet Template");
         Skip_Flags(Flags, 3,                                    "Live");
         Skip_Flags(Flags, 4,                                    "Recordable");
@@ -257,9 +256,7 @@ void File_Wm::Header_FileProperties()
 
     //Filling
     if (MaximumBitRate)
-        Fill(Stream_General, 0, General_BitRate_Maximum, MaximumBitRate);
-    if (Broadcast)
-        Fill(Stream_General, 0, "Broadcast", "Yes");
+        Fill(Stream_General, 0, General_OveralBitRate_Maximum, MaximumBitRate);
     Fill(Stream_General, 0, General_Encoded_Date, Ztring().Date_From_Milliseconds_1601(CreationDate/10000));
     Fill(Stream_General, 0, General_Duration, PlayDuration/10000-Preroll);
 }
@@ -920,7 +917,7 @@ void File_Wm::Header_ExtendedContentDescription()
             else if (Name==_T("DVR Index Granularity")) {}
             else if (Name==_T("DVR File Version")) {}
             else if (Name==_T("IsVBR"))
-                Fill(Stream_General, 0, General_BitRate_Mode, Value_Int64==0?"CBR":"VBR");
+                Fill(Stream_General, 0, General_OveralBitRate_Mode, Value_Int64==0?"CBR":"VBR");
             else if (Name==_T("VBR Peak")) {} //Already in "Stream Bitrate" chunk
             else if (Name==_T("WMFSDKVersion")) {}
             else if (Name==_T("WMFSDKNeeded")) {}

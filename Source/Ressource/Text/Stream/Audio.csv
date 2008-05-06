@@ -1,6 +1,6 @@
 Count;;;N NI;;;Count of objects available in this stream
 StreamCount;;;N NI;;;Count of streams of that kind available
-StreamKind;Audio;Audio;N NI;;;Stream name
+StreamKind;Audio;Audio;N NI;;;Stream type name
 StreamKindID;;;N NI;;;Number of the stream (base=0)
 StreamKindPos;;;N NI;;;When multiple streams, number of the stream (base=1)
 Inform;;;N NT;;;Last **Inform** call
@@ -20,28 +20,27 @@ Format_Settings_Endianness;;;Y NT;;;
 Format_Settings_Sign;;;Y NT;;;
 Format_Settings_Law;;;Y NT;;;
 Format_Settings_ITU;;;Y NT;;;
-CodecID;;;N YT;;;Codec ID (found in some containers)
-CodecID/String;;;Y NT;;;Codec used (text)
-CodecID/Info;;;Y NT;;;Info about codec
-CodecID/Hint;;;N NT;;;
-CodecID/Url;;;N NT;;;Link
-CodecID_Description;;;Y NT;;;Manual description
-Codec;;;N NT;;;Codec used
-Codec/String;;;N NT;;;Codec used (test)
-Codec/Family;;;N NT;;;Codec family
-Codec/Info;;;N NT;;;Info about codec
-Codec/Url;;;N NT;;;Link
-Codec/CC;;;N NT;;;Codec used (Container Code)
-Codec_Description;;;N NT;;;Manual description
-Codec_Profile;;;N NT;;;Profile of the codec
-Codec_Settings;;;N NT;;;Settings needed for decoder used
-Codec_Settings_Automatic;;;N NT;;;Settings needed for decoder used, with format XXX=Y, Y from 0 to 5
-Codec_Settings_Floor;;;N NT;;;
-Codec_Settings_Firm;;;N NT;;;
-Codec_Settings_Endianness;;;N NT;;;
-Codec_Settings_Sign;;;N NT;;;
-Codec_Settings_Law;;;N NT;;;
-Codec_Settings_ITU;;;N NT;;;
+CodecID;;;Y YT;;;Codec ID (found in some containers)
+CodecID/Info;;;Y NT;;;Info about codec ID
+CodecID/Hint;;;Y NT;;;A hint for this codec ID
+CodecID/Url;;;N NT;;;A link for more details about this codec ID
+CodecID_Description;;;Y NT;;;Manual description given by the container
+Codec;;;N NT;;;Deprecated
+Codec/String;;;N NT;;;Deprecated
+Codec/Family;;;N NT;;;Deprecated
+Codec/Info;;;N NT;;;Deprecated
+Codec/Url;;;N NT;;;Deprecated
+Codec/CC;;;N NT;;;Deprecated
+Codec_Description;;;N NT;;;Deprecated
+Codec_Profile;;;N NT;;;Deprecated
+Codec_Settings;;;N NT;;;Deprecated
+Codec_Settings_Automatic;;;N NT;;;Deprecated
+Codec_Settings_Floor;;;N NT;;;Deprecated
+Codec_Settings_Firm;;;N NT;;;Deprecated
+Codec_Settings_Endianness;;;N NT;;;Deprecated
+Codec_Settings_Sign;;;N NT;;;Deprecated
+Codec_Settings_Law;;;N NT;;;Deprecated
+Codec_Settings_ITU;;;N NT;;;Deprecated
 Duration;; ms;N YI;;;Play time of the stream
 Duration/String;;;Y NT;;;Play time (formated)
 Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
@@ -69,15 +68,20 @@ Delay/String;;;N NT;;;
 Delay/String1;;;N NT;;;
 Delay/String2;;;N NT;;;
 Delay/String3;;;N NT;;;
-Video0_Delay;; ms;N NI;;;Delay fixed in the stream (absolute / video0)
-Video0_Delay/String;;;Y NT;;;
-Video0_Delay/String1;;;N NT;;;
-Video0_Delay/String2;;;N NT;;;
-Video0_Delay/String3;;;N NT;;;
-ReplayGain_Gain;;;N YT;;;The gain to apply to reach 89dB SPL on playback
-ReplayGain_Peak;;;N YT;;;The maximum absolute peak value of the item
-StreamSize;; byte;N YI;;;Stream size in bytes
-StreamSize/String;;;Y NT;;;
+Video_Delay;; ms;N NI;;;Delay fixed in the stream (absolute / video)
+Video_Delay/String;;;Y NT;;;
+Video_Delay/String1;;;N NT;;;
+Video_Delay/String2;;;N NT;;;
+Video_Delay/String3;;;N NT;;;
+Video0_Delay;; ms;N NI;;;Deprecated
+Video0_Delay/String;;;N NT;;;Deprecated
+Video0_Delay/String1;;;N NT;;;Deprecated
+Video0_Delay/String2;;;N NT;;;Deprecated
+Video0_Delay/String3;;;N NT;;;Deprecated
+ReplayGain_Gain;;;N YT;;;The gain to apply to reach 89dB SPL on playback;;
+ReplayGain_Peak;;;N YT;;;The maximum absolute peak value of the item;;
+StreamSize;; byte;N YI;;;Stream size in bytes;;
+StreamSize/String;;;Y NT;;;;;
 StreamSize/String1;;;N NT;;;;;
 StreamSize/String2;;;N NT;;;;;
 StreamSize/String3;;;N NT;;;;;
@@ -90,4 +94,4 @@ Language/String;;;Y NT;;;Language (full);;
 Language_More;;;Y YT;;;More info about Language (director's comment...);;
 Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal
-Encryption;;;Y YT;;;;;
+Encryption;;;Y YT

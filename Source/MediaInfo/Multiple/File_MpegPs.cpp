@@ -1528,6 +1528,7 @@ void File_MpegPs::private_stream_2()
 
     //Filling
     Stream_Prepare(Stream_Menu);
+    Fill(Stream_Menu, StreamPos_Last, Menu_Format, "DVD-Video");
     Fill(Stream_Menu, StreamPos_Last, Menu_Codec, "DVD-Video");
 
     //Disabling this Streams

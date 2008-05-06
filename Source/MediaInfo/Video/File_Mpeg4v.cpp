@@ -1032,7 +1032,9 @@ void File_Mpeg4v::vop_start_Fill()
 
     if (fixed_vop_time_increment && vop_time_increment_resolution)
     {
-        if (vop_time_increment_resolution==0xFFFF && fixed_vop_time_increment==2733)
+             if (vop_time_increment_resolution==0xFFFE && fixed_vop_time_increment==2733)
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 23.976); //Rounding with this kind of values is not precise
+        else if (vop_time_increment_resolution==0xFFFF && fixed_vop_time_increment==2733)
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 23.976); //Rounding with this kind of values is not precise
         else if (vop_time_increment_resolution==0xFFFF && fixed_vop_time_increment==2730)
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 24.000); //Rounding with this kind of values is not precise
