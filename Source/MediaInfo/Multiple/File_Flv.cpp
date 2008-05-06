@@ -369,15 +369,13 @@ void File_Flv::Read_Buffer_Finalize()
     {
         Stream[Stream_Audio].Parser->Open_Buffer_Finalize();
         Merge(*Stream[Stream_Audio].Parser, Stream_Audio, 0, 0);
-        if (!Retrieve(Stream_Audio, 0, Audio_Delay).empty())
-            Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
     }
 
     //Delay
     if (Stream[Stream_Video].Delay!=(int32u)-1)
-        Fill(Stream_Video, 0, Video_Delay, Stream[Stream_Video].Delay);
+        Fill(Stream_Video, 0, Video_Delay, Stream[Stream_Video].Delay+Retrieve(Stream_Video, 0, Video_Delay).To_int32u(), 10, true);
     if (Stream[Stream_Audio].Delay!=(int32u)-1)
-        Fill(Stream_Audio, 0, Audio_Delay, Stream[Stream_Audio].Delay);
+        Fill(Stream_Audio, 0, Audio_Delay, Stream[Stream_Audio].Delay+Retrieve(Stream_Audio, 0, Audio_Delay).To_int32u(), 10, true);
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
