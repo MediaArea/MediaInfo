@@ -41,6 +41,7 @@ xcopy ..\Source\*.txt MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.csv MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.dfm MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.au3 MediaInfo_Lib_Source\Source\ /S
+xcopy ..\Source\*.py MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\Doc\* MediaInfo_Lib_Source\Source\Doc\ /S
 
 @rem --- Copying : Projects ---

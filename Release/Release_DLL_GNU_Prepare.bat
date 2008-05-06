@@ -20,7 +20,11 @@ xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.h MediaInfo_DLL_GNU_Prepare\Source\Med
 xcopy ..\Source\Doc\Doxyfile MediaInfo_DLL_GNU_Prepare\Source\Doc\ /S
 xcopy ..\Source\Doc\Documentation.html MediaInfo_DLL_GNU_Prepare\Source\Doc\ /S
 xcopy ..\Source\Example\*.cpp MediaInfo_DLL_GNU_Prepare\Source\Example\ /S
+xcopy ..\Source\Example\*.java MediaInfo_DLL_GNU_Prepare\Source\Example\ /S
+xcopy ..\Source\Example\*.py MediaInfo_DLL_GNU_Prepare\Source\Example\ /S
+xcopy ..\Source\MediaInfoDLL\*.cpp MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
 xcopy ..\Source\MediaInfoDLL\*.java MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
+xcopy ..\Source\MediaInfoDLL\*.py MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
 
 
 rem --- Preparing Archive : MediaInfoLib ---

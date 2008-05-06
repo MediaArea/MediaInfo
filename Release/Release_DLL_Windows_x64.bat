@@ -26,6 +26,7 @@ xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.cs MediaInfoDLL_Windows_x64\Developper
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.jsl MediaInfoDLL_Windows_x64\Developpers\Source\MediaInfoDLL\
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.vb MediaInfoDLL_Windows_x64\Developpers\Source\MediaInfoDLL\
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.java MediaInfoDLL_Windows_x64\Developpers\Source\MediaInfoDLL\
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.py MediaInfoDLL_Windows_x64\Developpers\Source\MediaInfoDLL\
 
 @rem --- Copying : Projects ---
 xcopy ..\Project\MSCS\*.sln MediaInfoDLL_Windows_x64\Developpers\Project\MSCS\
