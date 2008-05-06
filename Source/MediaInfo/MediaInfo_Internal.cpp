@@ -449,28 +449,10 @@ String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, size_t 
 //---------------------------------------------------------------------------
 String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, const String &Parameter, info_t KindOfInfo, info_t KindOfSearch)
 {
-    size_t ParameterI=0;
-
-    //Legacy
-    if (Parameter.find(_T("_String"))!=Error)
-    {
-        Ztring S1=Parameter;
-        S1.FindAndReplace(_T("_String"), _T("/String"));
-        return Get(StreamKind, StreamNumber, S1, KindOfInfo, KindOfSearch);
-    }
-    if (Parameter==_T("Channels"))
-        return Get(StreamKind, StreamNumber, _T("Channel(s)"), KindOfInfo, KindOfSearch);
-    if (Parameter==_T("Artist"))
-        return Get(StreamKind, StreamNumber, _T("Performer"), KindOfInfo, KindOfSearch);
-    if (Parameter==_T("AspectRatio"))
-        return Get(StreamKind, StreamNumber, _T("DisplayAspectRatio"), KindOfInfo, KindOfSearch);
-    if (Parameter==_T("AspectRatio/String"))
-        return Get(StreamKind, StreamNumber, _T("DisplayAspectRatio/String"), KindOfInfo, KindOfSearch);
-
     CS.Enter();
 
     //Check integrity
-    if (StreamKind>=Stream_Max || StreamNumber>=Stream[StreamKind].size() || (ParameterI=MediaInfoLib::Config.Info_Get(StreamKind).Find(Parameter, KindOfSearch))==Error || KindOfInfo>=Info_Max)
+    if (StreamKind>=Stream_Max || StreamNumber>=Stream[StreamKind].size() || KindOfInfo>=Info_Max)
     {
         CS.Leave();
         return MediaInfoLib::Config.EmptyString_Get(); //Parameter is unknown
@@ -481,8 +463,24 @@ String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, const S
     if (Parameter==_T("Inform"))
     {
         CS.Leave();
-        Stream[StreamKind][StreamNumber](MediaInfoLib::Config.Info_Get(StreamKind).Find(_T("Inform")))=Inform(StreamKind, StreamNumber);
+        Ztring InformZtring=Inform(StreamKind, StreamNumber);
         CS.Enter();
+        Stream[StreamKind][StreamNumber](MediaInfoLib::Config.Info_Get(StreamKind).Find(_T("Inform")))=InformZtring;
+    }
+
+    //Case of specific info
+    size_t ParameterI=MediaInfoLib::Config.Info_Get(StreamKind).Find(Parameter, KindOfSearch);
+    if (ParameterI==Error)
+    {
+        ParameterI=Stream_More[StreamKind][StreamNumber].Find(Parameter, KindOfSearch);
+        if (ParameterI==Error)
+        {
+            CS.Leave();
+            return MediaInfoLib::Config.EmptyString_Get(); //Parameter is unknown
+        }
+        CS.Leave();
+        CriticalSectionLocker CSL(CS);
+        return Stream_More[StreamKind][StreamNumber][ParameterI](KindOfInfo);
     }
 
     CS.Leave();

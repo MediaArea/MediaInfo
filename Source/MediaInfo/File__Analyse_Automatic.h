@@ -332,6 +332,8 @@ enum video
     Video_FrameRate_Nominal_String,
     Video_FrameRate_Maximum,
     Video_FrameRate_Maximum_String,
+    Video_FrameRate_Original,
+    Video_FrameRate_Original_String,
     Video_Standard,
     Video_FrameCount,
     Video_Resolution,

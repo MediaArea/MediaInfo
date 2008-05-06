@@ -19,7 +19,7 @@
 
 //---------------------------------------------------------------------------
 // For user: you can disable or enable it
-//#define MEDIAINFO_DEBUG
+#define MEDIAINFO_DEBUG
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -196,6 +196,7 @@ String MediaInfo::Get(stream_t StreamKind, size_t StreamPos, size_t Parameter, i
 String MediaInfo::Get(stream_t StreamKind, size_t StreamPos, const String &Parameter, info_t KindOfInfo, info_t KindOfSearch)
 {
     MEDIAINFO_DEBUG(Debug+="Get, StreamKind=";Debug+=ToString((size_t)StreamKind);Debug+=", StreamKind=";Debug+=ToString(StreamPos);Debug+=", Parameter=";Debug+=Ztring(Parameter).To_Local();)
+
     //Legacy
     if (Parameter.find(_T("_String"))!=Error)
     {
