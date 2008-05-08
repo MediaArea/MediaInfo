@@ -273,6 +273,7 @@ Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
 Format_Settings_Endianness
+Format_Settings_MuxingMode
 Format_Settings_RefFrames
 Format_Settings_Sign
 Format_Settings_Law
@@ -439,6 +440,7 @@ h;ч
 Header file;Создать заголовок
 Height;Высота
 Help;Помощь
+Hint
 How many audio streams?;Количество аудиопотоков?
 How many chapters streams?;Количество потоков с разделами?
 How many text streams?;Количество текстовых потоков?
@@ -655,6 +657,7 @@ Language_zu;зулу
 LawRating
 LCCN
 Library;Библиотека
+List
 Lyricist;Либретто
 Mastered_Date;Дата мастеринга
 MasteredBy;Мастеринг от
@@ -687,6 +690,10 @@ Other;Прочее
 Output;Выход
 Output format;Формат вывода
 OveralBitRate;Общий поток
+OveralBitRate_Maximum
+OveralBitRate_Minimum
+OveralBitRate_Mode
+OveralBitRate_Nominal
 Part;Часть
 Part_Count;Кол-во частей
 Performer;Исполнитель
@@ -803,4 +810,4 @@ WrittenBy;Написано
 Yes;Да
 Your system;Ваша система
 ZZ_Automatic_Percent;60
-ZZ_AutomaticLanguage_Percent;67
+ZZ_AutomaticLanguage_Percent;66

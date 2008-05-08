@@ -273,6 +273,7 @@ Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
 Format_Settings_Endianness
+Format_Settings_MuxingMode
 Format_Settings_RefFrames
 Format_Settings_Sign
 Format_Settings_Law
@@ -439,6 +440,7 @@ h;h
 Header file;Generare header fisier
 Height;Inaltime
 Help;Ajutor
+Hint
 How many audio streams?;Cate fluxuri audio?
 How many chapters streams?;Cate capitole?
 How many text streams?;Cate fluxuri text?
@@ -655,6 +657,7 @@ Language_zu
 LawRating
 LCCN
 Library;Biblioteca muxing
+List
 Lyricist;Textier
 Mastered_Date;Data realizarii
 MasteredBy;Realizat de
@@ -687,6 +690,10 @@ Other;Altele
 Output;Iesire
 Output format;Format iesire
 OveralBitRate;BitRate general
+OveralBitRate_Maximum
+OveralBitRate_Minimum
+OveralBitRate_Mode
+OveralBitRate_Nominal
 Part;Parte
 Part_Count
 Performer;Cantaret
@@ -802,5 +809,5 @@ Written_Location;Locul mesajului
 WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
-ZZ_Automatic_Percent;41
-ZZ_AutomaticLanguage_Percent;64
+ZZ_Automatic_Percent;40
+ZZ_AutomaticLanguage_Percent;63

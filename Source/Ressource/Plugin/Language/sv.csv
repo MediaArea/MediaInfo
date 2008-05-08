@@ -273,6 +273,7 @@ Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
 Format_Settings_Endianness
+Format_Settings_MuxingMode
 Format_Settings_RefFrames
 Format_Settings_Sign
 Format_Settings_Law
@@ -439,6 +440,7 @@ h; h
 Header file; Skapa headerfil
 Height; Höjd
 Help; Hjälp
+Hint
 How many audio streams?; Hur många ljudströmmar?
 How many chapters streams?
 How many text streams?
@@ -655,6 +657,7 @@ Language_zu; Zulu
 LawRating; Åldersgräns
 LCCN; LCCN
 Library; Muxningsbibliotek
+List
 Lyricist; Texter från
 Mastered_Date; Masterdatum
 MasteredBy; Mastrad av
@@ -687,6 +690,10 @@ Other; Övrigt
 Output; Utdata
 Output format; Utdataformat
 OveralBitRate; Generell Bitrate
+OveralBitRate_Maximum
+OveralBitRate_Minimum
+OveralBitRate_Mode
+OveralBitRate_Nominal
 Part; Del
 Part_Count; Antal delar
 Performer; Framträdare

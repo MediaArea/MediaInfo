@@ -273,6 +273,7 @@ Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
 Format_Settings_Endianness
+Format_Settings_MuxingMode
 Format_Settings_RefFrames
 Format_Settings_Sign
 Format_Settings_Law
@@ -439,6 +440,7 @@ h;h
 Header file;Utwórz plik nagłówka
 Height;Wysokość
 Help;Pomoc
+Hint
 How many audio streams?;Ile strumieni audio?
 How many chapters streams?;Ile strumieni rozdziałów?
 How many text streams?;Ile strumieni tekstu?
@@ -655,6 +657,7 @@ Language_zu
 LawRating
 LCCN;LCCN
 Library;Bibloteka multipleksu
+List
 Lyricist;Słowa
 Mastered_Date;Data nagrania
 MasteredBy;Nagrane przez
@@ -687,6 +690,10 @@ Other;Inny
 Output;Wyjście
 Output format;Wyjściowy format
 OveralBitRate;Przepływność bitów
+OveralBitRate_Maximum
+OveralBitRate_Minimum
+OveralBitRate_Mode
+OveralBitRate_Nominal
 Part;Część
 Part_Count;Ogółem
 Performer;Wykonawca
@@ -802,5 +809,5 @@ Written_Location;Lokalizacja
 WrittenBy;Napisany przez
 Yes;Tak
 Your system;System
-ZZ_Automatic_Percent;49
-ZZ_AutomaticLanguage_Percent;71
+ZZ_Automatic_Percent;48
+ZZ_AutomaticLanguage_Percent;70

@@ -273,6 +273,7 @@ Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
 Format_Settings_Endianness
+Format_Settings_MuxingMode
 Format_Settings_RefFrames
 Format_Settings_Sign
 Format_Settings_Law
@@ -439,6 +440,7 @@ h;v
 Header file;Sukurti pagrindinį failą
 Height;Aukštis
 Help;Pagalba
+Hint
 How many audio streams?;Kiek audio srautų?
 How many chapters streams?;Kiek skyrių srautų?
 How many text streams?;Kiek teksto srautų?
@@ -655,6 +657,7 @@ Language_zu;Zulu
 LawRating;Law rating
 LCCN;LCCN
 Library;Muxing biblioteka
+List
 Lyricist;Lyrikas
 Mastered_Date;Sukūrimo data
 MasteredBy;Sukūrė
@@ -687,6 +690,10 @@ Other;Kita
 Output;Išėjimas
 Output format;Išėjimo formatas
 OveralBitRate;Bendras bitreitas
+OveralBitRate_Maximum
+OveralBitRate_Minimum
+OveralBitRate_Mode
+OveralBitRate_Nominal
 Part;Dalis
 Part_Count;Bendra apimtis
 Performer;Atlikėjas
@@ -802,5 +809,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;95
-ZZ_AutomaticLanguage_Percent;95
+ZZ_Automatic_Percent;94
+ZZ_AutomaticLanguage_Percent;94

@@ -273,6 +273,7 @@ Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
 Format_Settings_Endianness
+Format_Settings_MuxingMode
 Format_Settings_RefFrames
 Format_Settings_Sign
 Format_Settings_Law
@@ -439,6 +440,7 @@ h;시
 Header file;헤더 파일 만들기
 Height;높이
 Help;도움말
+Hint
 How many audio streams?;몇 개의 오디오 스트림?
 How many chapters streams?;몇 개의 챕터 스트림?
 How many text streams?;몇 개의 텍스트 스트림?
@@ -655,6 +657,7 @@ Language_zu;Zulu
 LawRating;법률 등급
 LCCN;LCCN
 Library;Muxing 라이브러리
+List
 Lyricist;작사
 Mastered_Date;마스터 날짜
 MasteredBy;마스터
@@ -687,6 +690,10 @@ Other;기타
 Output;출력
 Output format;출력 형식
 OveralBitRate;총 비트레이트
+OveralBitRate_Maximum
+OveralBitRate_Minimum
+OveralBitRate_Mode
+OveralBitRate_Nominal
 Part;파트
 Part_Count;총계
 Performer;연기자
@@ -802,5 +809,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;94
-ZZ_AutomaticLanguage_Percent;94
+ZZ_Automatic_Percent;93
+ZZ_AutomaticLanguage_Percent;93

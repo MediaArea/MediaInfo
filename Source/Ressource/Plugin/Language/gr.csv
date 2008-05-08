@@ -273,6 +273,7 @@ Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
 Format_Settings_Endianness
+Format_Settings_MuxingMode
 Format_Settings_RefFrames
 Format_Settings_Sign
 Format_Settings_Law
@@ -439,6 +440,7 @@ h;h
 Header file;Δημιουργήστε αρχείο κεφαλίδας
 Height;Ύψος
 Help;Βοήθεια
+Hint
 How many audio streams?;Πόσες ροές ήχου?
 How many chapters streams?;Πόσες ροές κεφαλαίων?
 How many text streams?;Πόσες ρόες κειμένου?
@@ -655,6 +657,7 @@ Language_zu;Zulu
 LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
+List
 Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
@@ -687,6 +690,10 @@ Other;Άλλος
 Output;Έξοδος
 Output format;Μορφοποίηση εξόδου
 OveralBitRate;Συνολικό BitRate
+OveralBitRate_Maximum
+OveralBitRate_Minimum
+OveralBitRate_Mode
+OveralBitRate_Nominal
 Part;Μέρος
 Part_Count;Συνολικός αριθμός
 Performer;Performer
@@ -802,5 +809,5 @@ Written_Location;Τοποθεσία καταγραφής
 WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
-ZZ_Automatic_Percent;94
-ZZ_AutomaticLanguage_Percent;94
+ZZ_Automatic_Percent;93
+ZZ_AutomaticLanguage_Percent;93

@@ -273,6 +273,7 @@ Format_Settings_Floor;Ajustes del formato, Floor
 Format_Settings_CABAC;Ajustes del formato, CABAC
 Format_Settings_Firm;Ajustes del formato, Firm
 Format_Settings_Endianness;Ajustes del formato, Endianness
+Format_Settings_MuxingMode
 Format_Settings_RefFrames;Ajustes del formato, RefFrames
 Format_Settings_Sign;Ajustes del formato, Sign
 Format_Settings_Law;Ajustes del formato, Law
@@ -439,6 +440,7 @@ h;h
 Header file;Archivo de cabecera
 Height;Alto
 Help;Ayuda
+Hint
 How many audio streams?;¿Cuántas reproducciones de pistas de audio?
 How many chapters streams?;¿Cuántas reproducciones de pistas de capítulos?
 How many text streams?;¿Cuántas reproducciones de pistas de texto?
@@ -655,6 +657,7 @@ Language_zu;zulú
 LawRating
 LCCN
 Library;Librería Musical
+List
 Lyricist;Autor de Letra
 Mastered_Date;Fecha de edición
 MasteredBy;Editado por
@@ -687,6 +690,10 @@ Other;Otro
 Output;Salida
 Output format;Formato de salida
 OveralBitRate;Bitrate total
+OveralBitRate_Maximum
+OveralBitRate_Minimum
+OveralBitRate_Mode
+OveralBitRate_Nominal
 Part;Parte
 Part_Count;Cantidad de partes
 Performer;Intérprete
@@ -802,5 +809,5 @@ Written_Location;Escrito en
 WrittenBy;Escrito por
 Yes;Si
 Your system;Tu sistema
-ZZ_Automatic_Percent;73
-ZZ_AutomaticLanguage_Percent;79
+ZZ_Automatic_Percent;72
+ZZ_AutomaticLanguage_Percent;78

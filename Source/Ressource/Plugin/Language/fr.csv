@@ -273,6 +273,7 @@ Format_Settings_Floor;Paramètres du format, Seuil
 Format_Settings_CABAC;Paramètres du format, CABAC
 Format_Settings_Firm;Paramètres du format, Entreprise
 Format_Settings_Endianness;Paramètres du format, Endianness
+Format_Settings_MuxingMode;Paramètres du format, Type de muxing
 Format_Settings_RefFrames;Paramètres du format, RefFrames
 Format_Settings_Sign;Paramètres du format, Signe
 Format_Settings_Law;Paramètres du format, Law
@@ -439,6 +440,7 @@ h;h
 Header file;Créer un fichier Header
 Height;Hauteur
 Help;Aide
+Hint;Suggestion
 How many audio streams?;Combien de flux audio?
 How many chapters streams?;Combien de flux chapitres?
 How many text streams?;Combien de flux texte?
@@ -655,6 +657,7 @@ Language_zu;Zoulou
 LawRating;Classé
 LCCN;LCCN
 Library;Bibliotheque utilisée
+List;Liste
 Lyricist;Parolier
 Mastered_Date;Date de création
 MasteredBy;Créé par
@@ -686,7 +689,11 @@ Original;Original
 Other;Autre
 Output;Sortie
 Output format;Format de sortie
-OveralBitRate;Débit moyen
+OveralBitRate;Débit global moyen
+OveralBitRate_Maximum;Débit global maximum
+OveralBitRate_Minimum;Débit global minimum
+OveralBitRate_Mode;Type de débit global
+OveralBitRate_Nominal;Débit global nominal
 Part;Partie
 Part_Count;Nombre de parties
 Performer;Interprète

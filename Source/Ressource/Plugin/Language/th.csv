@@ -273,6 +273,7 @@ Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
 Format_Settings_Endianness
+Format_Settings_MuxingMode
 Format_Settings_RefFrames
 Format_Settings_Sign
 Format_Settings_Law
@@ -439,6 +440,7 @@ h;h
 Header file;สร้างไฟล์ header
 Height;ความสูง
 Help;ช่วยเหลือ
+Hint
 How many audio streams?;มีจำนวนสตรีมเสียงเท่าไหร่?
 How many chapters streams?;มีจำนวนเชฟเตอร์สตรีมเท่าไหร่?
 How many text streams?;มีจำนวนสตรีมข้อความเท่าไหร่?
@@ -655,6 +657,7 @@ Language_zu;Zulu
 LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
+List
 Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
@@ -687,6 +690,10 @@ Other;อื่นๆ
 Output;ผลลัพธ์
 Output format;รูปแบบผลลัพธ์
 OveralBitRate;Overal BitRate
+OveralBitRate_Maximum
+OveralBitRate_Minimum
+OveralBitRate_Mode
+OveralBitRate_Nominal
 Part;Part
 Part_Count;Total count
 Performer;Performer
@@ -802,5 +809,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;95
+ZZ_AutomaticLanguage_Percent;95

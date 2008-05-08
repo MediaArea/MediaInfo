@@ -273,6 +273,7 @@ Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
 Format_Settings_Endianness
+Format_Settings_MuxingMode
 Format_Settings_RefFrames
 Format_Settings_Sign
 Format_Settings_Law
@@ -439,6 +440,7 @@ h;ó
 Header file;Fejléc fájl létrehozása
 Height;Magasság
 Help;Súgó
+Hint
 How many audio streams?;Hány hangsáv?
 How many chapters streams?;Hány fejezetsáv?
 How many text streams?;Hány szövegsáv?
@@ -655,6 +657,7 @@ Language_zu;zulu
 LawRating;Korhatár
 LCCN;LCCN
 Library;Keverőkönyvtár
+List
 Lyricist;Szövegíró
 Mastered_Date;Mesterpéldány kelte
 MasteredBy;Mesterpéldány
@@ -687,6 +690,10 @@ Other;Egyéb
 Output;Kimenet
 Output format;Kimeneti formátum
 OveralBitRate;Teljes adatsebesség
+OveralBitRate_Maximum
+OveralBitRate_Minimum
+OveralBitRate_Mode
+OveralBitRate_Nominal
 Part;Rész
 Part_Count;Részek száma
 Performer;Előadó
@@ -803,4 +810,4 @@ WrittenBy;Írta
 Yes;Igen
 Your system;Rendszer
 ZZ_Automatic_Percent;67
-ZZ_AutomaticLanguage_Percent;70
+ZZ_AutomaticLanguage_Percent;69

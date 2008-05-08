@@ -273,6 +273,7 @@ Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
 Format_Settings_Endianness
+Format_Settings_MuxingMode
 Format_Settings_RefFrames
 Format_Settings_Sign
 Format_Settings_Law
@@ -439,6 +440,7 @@ h
 Header file;建立標頭檔案
 Height;畫面高度
 Help;說明
+Hint
 How many audio streams?;有多少音訊軌?
 How many chapters streams?;有多少章節軌?
 How many text streams?;有多少字幕軌?
@@ -655,6 +657,7 @@ Language_zu
 LawRating
 LCCN
 Library
+List
 Lyricist
 Mastered_Date
 MasteredBy
@@ -687,6 +690,10 @@ Other
 Output
 Output format;輸出格式
 OveralBitRate;平均流量
+OveralBitRate_Maximum
+OveralBitRate_Minimum
+OveralBitRate_Mode
+OveralBitRate_Nominal
 Part
 Part_Count
 Performer

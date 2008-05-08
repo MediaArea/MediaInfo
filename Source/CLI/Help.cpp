@@ -72,11 +72,11 @@ int Help_Inform()
     TEXTOUT("     Filename must be in the form file://filename");
     TEXTOUT("");
     TEXTOUT("See --Info-Parameters for available parameters in the text");
-    TEXTOUT("(Parameters must be surrounded by \"%%\" sign)");
+    TEXTOUT("(Parameters must be surrounded by \"%\" sign)");
     TEXTOUT("");
-    TEXTOUT("Example: \"MediaInfo --Inform=Video;%%AspectRatio%% FileName\"");
+    TEXTOUT("Example: \"MediaInfo --Inform=Video;%AspectRatio% FileName\"");
     TEXTOUT("Example: \"MediaInfo --Inform=Video;file://Video.txt FileName\"");
-    TEXTOUT("and Video.txt contains \"%%AspectRatio%%\"");
+    TEXTOUT("and Video.txt contains \"%AspectRatio%\"");
     TEXTOUT("for having Video Aspect Ratio.");
 
     return -1;

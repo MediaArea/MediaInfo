@@ -92,7 +92,7 @@ Ztring FileName_Temp; //Temporary file used for HTML presentation
 
 //---------------------------------------------------------------------------
 const ZenLib::Char* MEDIAINFO_TITLE=_T("MediaInfo - http:\/\/mediainfo.sourceforge.net");
-const size_t Title_Pos=94; //TODO: Position of Title in General.csv, should shange this...
+const size_t Title_Pos=95; //TODO: Position of Title in General.csv, should shange this...
 MediaInfoList *I;
 //---------------------------------------------------------------------------
 
@@ -1146,7 +1146,7 @@ void __fastcall TMainF::Page_Easy_FileChange(TObject *Sender)
                 if (Page_Easy_File->ItemIndex!=-1) //To avoid refresh on the first GUI show
                     Page_Easy_X[KindOfStream][StreamPos]->Visible=Page_Easy_X_Codec[KindOfStream][StreamPos]->Caption.Length();
                 //Web
-                Page_Easy_X_Web_Url[KindOfStream][StreamPos]=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, _T("Codec/Url")).c_str();
+                Page_Easy_X_Web_Url[KindOfStream][StreamPos]=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, _T("CodecID/Url")).c_str();
                 Page_Easy_X_Web[KindOfStream][StreamPos]->Visible=Page_Easy_X_Web_Url[KindOfStream][StreamPos].size();
             }
         }
@@ -1294,13 +1294,8 @@ void __fastcall TMainF::Page_Sheet_Change(TObject *Sender)
         I1=Page_Sheet_X[KindOfStream]->ItemIndex-1;
 
     //Fill info
-    Ztring Type;
-    if (KindOfStream==Stream_General)
-        Type=_T("Format");
-    else
-        Type=_T("Codec");
-    Page_Sheet_X[KindOfStream]->Hint=I->Get(Page_Position, (stream_t)KindOfStream, I1, Type+_T("/Info")).c_str();
-    Page_Sheet_X_Web_Url[KindOfStream]=I->Get(Page_Position, (stream_t)KindOfStream, I1, Type+_T("/Url")).c_str();
+    Page_Sheet_X[KindOfStream]->Hint=I->Get(Page_Position, (stream_t)KindOfStream, I1, _T("CodecID/Info")).c_str();
+    Page_Sheet_X_Web_Url[KindOfStream]=I->Get(Page_Position, (stream_t)KindOfStream, I1, _T("CodecID/Url")).c_str();
     if (Page_Sheet_X_Web_Url[KindOfStream]==_T(""))
     {
         Page_Sheet_X_Web[KindOfStream]->Enabled=false;
