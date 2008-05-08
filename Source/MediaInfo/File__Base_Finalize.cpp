@@ -163,7 +163,6 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind)
 void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &Z1, Ztring &Z2, Ztring &Z3, Ztring &Z4)
 {
     //CodecID
-    Ztring A=Retrieve(StreamKind, Pos, "CodecID");
     if (!Retrieve(StreamKind, Pos, "CodecID").empty())
     {
         if (Retrieve(StreamKind, Pos, "CodecID/Info"  ).empty()) Fill(StreamKind, Pos, "CodecID/Info"  , MediaInfoLib::Config.CodecID_Get((stream_t)StreamKind, Retrieve(StreamKind, Pos, "CodecID"), InfoCodecID_Description));
