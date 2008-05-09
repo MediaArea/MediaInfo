@@ -49,11 +49,10 @@ Format/Url;;;N NT;;;Link
 Format/Extensions;;;N NT;;;Known extensions of format
 Format_Profile;;;Y NT;;;Profile of the Format
 Format_Settings;;;Y NT;;;Settings needed for decoder used
-CodecID;;;N YT;;;Codec ID (found in some containers)
-CodecID/String;;;Y NT;;;Codec ID used (text)
+CodecID;;;Y YT;;;Codec ID (found in some containers)
 CodecID/Info;;;Y NT;;;Info about codec ID
-CodecID/Hint;;;N NT;;;A hint for this codec ID
-CodecID/Url;;;N NT;;;A link for more details about this codec ID
+CodecID/Hint;;;Y NT;;;A hint for this codec ID
+CodecID/Url;;;Y NT;;;A link for more details about this codec ID
 CodecID_Description;;;Y NT;;;Manual description given by the container
 Interleaved;;;N NT;;;If Audio and video are muxed
 Codec;;;N NT;;;Deprecated
@@ -78,7 +77,7 @@ OveralBitRate_Mode;;;Y YT;;;Bit rate mode of all streams (VBR, CBR)
 OveralBitRate;; bps;N YF;;;Bit rate of all streams
 OveralBitRate/String;;;Y NT;;;Bit rate of all streams (with measure)
 OveralBitRate_Minimum;; bps;N YF;;;Minimum Bit rate in bps
-OveralBitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement);;
+OveralBitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement)
 OveralBitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps;;
 OveralBitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement);;
 OveralBitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps;;

@@ -271,7 +271,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0x69 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Audio", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Version 2 / Layer 3", Error, false, true); break;
             case 0x6A : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Version 1", Error, false, true); break;
             case 0x6B : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Audio", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Version 1", Error, false, true); break;
-            case 0x6C : Fill(StreamKind_Last, StreamPos_Last, "Format", "JPEG", Error, false, true); break;
+            case 0x6C : Fill(StreamKind_Last, StreamPos_Last, "Format", "M-JPEG", Error, false, true); break;
             case 0xA0 : Fill(StreamKind_Last, StreamPos_Last, "Format", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true); break;
             case 0xA1 : Fill(StreamKind_Last, StreamPos_Last, "Format", "SMV", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
             case 0xD1 : Fill(StreamKind_Last, StreamPos_Last, "Format", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
@@ -301,7 +301,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0x69 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-2A L3", Error, false, true); break;
             case 0x6A : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-1V", Error, false, true); break;
             case 0x6B : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-1A", Error, false, true); break;
-            case 0x6C : Fill(StreamKind_Last, StreamPos_Last, "Codec", "JPEG", Error, false, true); break;
+            case 0x6C : Fill(StreamKind_Last, StreamPos_Last, "Codec", "M-JPEG", Error, false, true); break;
             case 0xA0 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true); break;
             case 0xA1 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "SMV", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
             case 0xD1 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;

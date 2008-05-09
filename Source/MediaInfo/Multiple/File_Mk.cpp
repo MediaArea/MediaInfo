@@ -1706,8 +1706,8 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecID()
 
     FILLING_BEGIN();
         CodecID=Data;
-        CodecID_Fill();
-        CodecPrivate_Fill();
+        CodecID_Manage();
+        CodecPrivate_Manage();
     FILLING_END();
 }
 
@@ -1798,8 +1798,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_auds()
     //Filling
     FILLING_BEGIN()
         Ztring Codec; Codec.From_Number(FormatTag, 16);
-        Fill(Stream_Video, StreamPos_Last, Audio_Format, "", Unlimited, true, true);
-        Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Codec, true);
+        CodecID_Fill(Codec, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Riff);
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true); //May be replaced by codec parser
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels!=5?Channels:6, 0, true);
@@ -1849,8 +1848,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
             }
             else
             {
-                Fill(Stream_Video, StreamPos_Last, Video_Format, "", Unlimited, true, true);
-                Fill(Stream_Video, StreamPos_Last, Video_CodecID, Codec, true);
+                CodecID_Fill(Codec, Stream_Video, StreamPos_Last, InfoCodecID_Format_Riff);
                 Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec, true); //FormatTag, may be replaced by codec parser
                 Fill(Stream_Video, StreamPos_Last, Video_Codec_CC, Codec); //FormatTag
             }
@@ -2011,8 +2009,8 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackNumber()
         }
         Stream_Count++;
 
-        CodecID_Fill();
-        CodecPrivate_Fill();
+        CodecID_Manage();
+        CodecPrivate_Manage();
     FILLING_END();
 }
 
@@ -2063,8 +2061,8 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackType()
             Stream[TrackNumber].StreamPos=StreamPos_Last;
         }
 
-        CodecID_Fill();
-        CodecPrivate_Fill();
+        CodecID_Manage();
+        CodecPrivate_Manage();
     FILLING_END();
 }
 
@@ -2457,22 +2455,22 @@ void File_Mk::Local_Info()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Mk::CodecID_Fill()
+void File_Mk::CodecID_Manage()
 {
     if (TrackType==(int64u)-1 || TrackNumber==(int64u)-1 || CodecID.empty())
         return; //Not ready (or not needed)
 
     if (Retrieve(StreamKind_Last, StreamPos_Last, "CodecID").empty())
     {
-        Fill(StreamKind_Last, StreamPos_Last, "CodecID", CodecID);
+        CodecID_Fill(CodecID, StreamKind_Last, StreamPos_Last, InfoCodecID_Format_Matroska);
         Fill(StreamKind_Last, StreamPos_Last, "Codec", CodecID);
     }
 
     //Creating the parser
-    Ztring CodecFamily=MediaInfoLib::Config.Codec_Get(CodecID, InfoCodec_KindofCodec);
+    const Ztring &Format=MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Matroska, CodecID, InfoCodecID_Format);
          if (0);
     #if defined(MEDIAINFO_MPEG4V_YES)
-    else if (CodecFamily==_T("MPEG-4V"))
+    else if (Format==_T("MPEG-4 Visual"))
     {
         Stream[TrackNumber].Parser=new File_Mpeg4v;
         ((File_Mpeg4v*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
@@ -2480,7 +2478,7 @@ void File_Mk::CodecID_Fill()
     }
     #endif
     #if defined(MEDIAINFO_AVC_YES)
-    else if (CodecFamily==_T("AVC"))
+    else if (Format==_T("AVC"))
     {
         Stream[TrackNumber].Parser=new File_Avc;
         Open_Buffer_Init(Stream[TrackNumber].Parser);
@@ -2490,7 +2488,7 @@ void File_Mk::CodecID_Fill()
     }
     #endif
     #if defined(MEDIAINFO_AC3_YES)
-    else if (CodecFamily==_T("AC3"))
+    else if (Format==_T("AC-3"))
     {
         Stream[TrackNumber].Parser=new File_Ac3;
         Open_Buffer_Init(Stream[TrackNumber].Parser);
@@ -2498,7 +2496,7 @@ void File_Mk::CodecID_Fill()
     }
     #endif
     #if defined(MEDIAINFO_DTS_YES)
-    else if (CodecID==_T("A_DTS"))
+    else if (Format==_T("DTS"))
     {
         Stream[TrackNumber].Parser=new File_Dts;
         Open_Buffer_Init(Stream[TrackNumber].Parser);
@@ -2513,7 +2511,7 @@ void File_Mk::CodecID_Fill()
     }
     #endif
     #if defined(MEDIAINFO_MPEGA_YES)
-    else if (CodecFamily==_T("MPEG-A"))
+    else if (Format==_T("MPEG Audio"))
     {
         Stream[TrackNumber].Parser=new File_Mpega;
         Open_Buffer_Init(Stream[TrackNumber].Parser);
@@ -2525,7 +2523,7 @@ void File_Mk::CodecID_Fill()
 }
 
 //---------------------------------------------------------------------------
-void File_Mk::CodecPrivate_Fill()
+void File_Mk::CodecPrivate_Manage()
 {
     if (CodecPrivate==NULL || TrackNumber==(int64u)-1 || TrackType==(int64u)-1)
         return; //Not ready (or not needed)

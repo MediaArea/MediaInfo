@@ -162,29 +162,7 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind)
 //---------------------------------------------------------------------------
 void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &Z1, Ztring &Z2, Ztring &Z3, Ztring &Z4)
 {
-    //CodecID
-    if (!Retrieve(StreamKind, Pos, "CodecID").empty())
-    {
-        if (Retrieve(StreamKind, Pos, "CodecID/Info"  ).empty()) Fill(StreamKind, Pos, "CodecID/Info"  , MediaInfoLib::Config.CodecID_Get((stream_t)StreamKind, Retrieve(StreamKind, Pos, "CodecID"), InfoCodecID_Description));
-        if (Retrieve(StreamKind, Pos, "CodecID/Hint"  ).empty()) Fill(StreamKind, Pos, "CodecID/Hint"  , MediaInfoLib::Config.CodecID_Get((stream_t)StreamKind, Retrieve(StreamKind, Pos, "CodecID"), InfoCodecID_Hint));
-        if (Retrieve(StreamKind, Pos, "CodecID/Url"   ).empty()) Fill(StreamKind, Pos, "CodecID/Url"   , MediaInfoLib::Config.CodecID_Get((stream_t)StreamKind, Retrieve(StreamKind, Pos, "CodecID"), InfoCodecID_Url));
-        if (Retrieve(StreamKind, Pos, "Format_Profile").empty()) Fill(StreamKind, Pos, "Format_Profile", MediaInfoLib::Config.CodecID_Get((stream_t)StreamKind, Retrieve(StreamKind, Pos, "CodecID"), InfoCodecID_Format_Profile));
-        if (Retrieve(StreamKind, Pos, "BitRate_Mode"  ).empty()) Fill(StreamKind, Pos, "BitRate_Mode"  , MediaInfoLib::Config.CodecID_Get((stream_t)StreamKind, Retrieve(StreamKind, Pos, "CodecID"), InfoCodecID_BitRate_Mode));
-    }
-
     //Format
-    if (Retrieve(StreamKind, Pos, "Format").empty())
-    {
-        const Ztring &C1=MediaInfoLib::Config.CodecID_Get((stream_t)StreamKind, Retrieve(StreamKind, Pos, "CodecID"), InfoCodecID_Format);
-        if (C1.empty())
-        {
-            if (!Retrieve(StreamKind, Pos, "CodecID").empty()) Fill(StreamKind, Pos, "Format", Retrieve(StreamKind, Pos, "CodecID"));
-        }
-        else
-        {
-            Fill(StreamKind, Pos, "Format", C1);
-        }
-    }
     if (!Retrieve(StreamKind, Pos, "Format").empty())
     {
         if (Retrieve(StreamKind, Pos, "Format/Info"  ).empty()) Fill(StreamKind, Pos, "Format/Info"  , MediaInfoLib::Config.Container_Get(Retrieve(StreamKind, Pos, "Format"), InfoFormat_Info));
@@ -1190,6 +1168,19 @@ void File__Analyze::Value_Value123(const Ztring &Value, stream_t StreamKind, siz
 
     //Filling
     Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), MediaInfoLib::Config.Language_Get(Retrieve(StreamKind, StreamPos, List_Pos), List[List_Pos][Info_Measure]), true);
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::CodecID_Fill(const Ztring &Value, stream_t StreamKind, size_t StreamPos, infocodecid_format_t Format)
+{
+    Fill(StreamKind, StreamPos, "CodecID", Value, true);
+    const Ztring &C1=MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Format);
+    Fill(StreamKind, StreamPos, "Format", C1.empty()?Value:C1, true);
+    Fill(StreamKind, StreamPos, "CodecID/Info"  , MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Description), true);
+    Fill(StreamKind, StreamPos, "CodecID/Hint"  , MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Hint), true);
+    Fill(StreamKind, StreamPos, "CodecID/Url"   , MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Url), true);
+    Fill(StreamKind, StreamPos, "Format_Profile", MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Profile), true);
+    Fill(StreamKind, StreamPos, "BitRate_Mode"  , MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_BitRate_Mode), true);
 }
 
 } //NameSpace

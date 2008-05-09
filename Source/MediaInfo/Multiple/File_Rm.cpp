@@ -293,7 +293,11 @@ void File_Rm::MDPR()
     else if (mime_type=="audio/x-pn-multirate-realaudio")
         MDPR_IsStream=false; //What do we with this?
     else if (mime_type=="audio/X-MP3-draft-00")
-        MDPR_mp3();
+    {
+        Stream_Prepare(Stream_Audio);
+        CodecID_Fill(Ztring(mime_type.c_str()), Stream_Audio, StreamPos_Last, InfoCodecID_Format_Real);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "MPEG1AL3");
+    }
     else if (mime_type=="audio/x-pn-realaudio")
         MDPR_realaudio();
     else if (mime_type=="audio/x-pn-realaudio-encrypted")
@@ -302,9 +306,17 @@ void File_Rm::MDPR()
         Fill(Stream_Audio, StreamPos_Last, Audio_Encryption, "Y");
     }
     else if (mime_type=="audio/x-ralf-mpeg4")
-        MDPR_ralf();
+    {
+        Stream_Prepare(Stream_Audio);
+        CodecID_Fill(Ztring(mime_type.c_str()), Stream_Audio, StreamPos_Last, InfoCodecID_Format_Real);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "ralf");
+    }
     else if (mime_type=="audio/x-ralf-mpeg4-generic")
-        MDPR_ralf();
+    {
+        Stream_Prepare(Stream_Audio);
+        CodecID_Fill(Ztring(mime_type.c_str()), Stream_Audio, StreamPos_Last, InfoCodecID_Format_Real);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "ralf");
+    }
     else if (mime_type.find("audio/")==0)
         Stream_Prepare(Stream_Audio);
     else if (mime_type=="video/text")
@@ -365,7 +377,7 @@ void File_Rm::MDPR_realvideo()
 
     //Filling
     Stream_Prepare(Stream_Video);
-    Fill(Stream_Video, StreamPos_Last, Video_CodecID, Ztring().From_CC4(Codec));
+    CodecID_Fill(Ztring().From_CC4(Codec), Stream_Video, StreamPos_Last, InfoCodecID_Format_Real);
     Fill(Stream_Video, StreamPos_Last, Video_Codec, Ztring().From_CC4(Codec));
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width); //Width
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height); //Height
@@ -377,8 +389,8 @@ void File_Rm::MDPR_realvideo()
 void File_Rm::MDPR_realaudio()
 {
     //Parsing
-    std::string FourCC3="lpcJ"; //description of this codec : http://focus.ti.com/lit/an/spra136/spra136.pdf http://en.wikipedia.org/wiki/VSELP
-    std::string FourCC4;
+    Ztring FourCC3="lpcJ"; //description of this codec : http://focus.ti.com/lit/an/spra136/spra136.pdf http://en.wikipedia.org/wiki/VSELP
+    Ztring FourCC4;
     int32u FourCC5=0;
     int16u Version, Samplerate=8000, Samplesize=16, Channels=0;
     Skip_C4(                                                    "Header signature");
@@ -406,7 +418,7 @@ void File_Rm::MDPR_realaudio()
         {
             Skip_B1(                                            "Uknown");
             Get_B4 (length,                                     "Fourcc string length");
-            Get_String(length, FourCC3,                         "Fourcc string");
+            Get_Local(length, FourCC3,                          "Fourcc string");
         }
 
         //Filling
@@ -451,7 +463,7 @@ void File_Rm::MDPR_realaudio()
         Get_B1 (length,                                         "Interleaver ID string lengt");
         Skip_Local(length,                                      "Interleaver ID string");
         Get_B1 (length,                                         "FourCC string lengt");
-        Get_String(length, FourCC4,                             "FourCC string");
+        Get_Local(length, FourCC4,                              "FourCC string");
     }
     if (Version==5)
     {
@@ -479,41 +491,22 @@ void File_Rm::MDPR_realaudio()
     Stream_Prepare(Stream_Audio);
     if (Version==3)
     {
-        Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, FourCC3);
+        CodecID_Fill(FourCC3, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Real);
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, FourCC3);
     }
     if (Version==4)
     {
-        Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, FourCC4);
+        CodecID_Fill(FourCC4, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Real);
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, FourCC4);
     }
     if (Version==5)
     {
-        Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Ztring().From_CC4(FourCC5));
+        CodecID_Fill(Ztring().From_CC4(FourCC5), Stream_Audio, StreamPos_Last, InfoCodecID_Format_Real);
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Ztring().From_CC4(FourCC5));
     }
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Samplerate);
     Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, Samplesize);
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
-}
-
-//---------------------------------------------------------------------------
-void File_Rm::MDPR_mp3()
-{
-    //Filling
-    Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Format, "MPEG Audio");
-    Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "Version 1 / Layer 3");
-    Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "MPEG1AL3");
-}
-
-//---------------------------------------------------------------------------
-void File_Rm::MDPR_ralf()
-{
-    //Filling
-    Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, "ralf");
-    Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "ralf");
 }
 
 //---------------------------------------------------------------------------

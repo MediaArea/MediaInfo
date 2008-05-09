@@ -9,16 +9,16 @@ ID/String;;;Y NT;;;A ID for this stream in this file
 UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy
 MenuID;;;N YI;;;A menu ID for this stream in this file
 MenuID/String;;;Y NT;;;A menu ID for this stream in this file
-Format;;;Y YT;;;Format used
-Format/Info;;;Y NT;;;Info about Format
+Format;;;N YT;;;Format used
+Format/Info;;;N NT;;;Info about Format
 Format/Url;;;N NT;;;Link
 Codec;;;N YT;;;Deprecated
-Codec/String;;;Y NT;;;Deprecated
-Codec/Info;;;Y NT;;;Deprecated
-Codec/Url;;;Y YT;;;Deprecated
+Codec/String;;;N NT;;;Deprecated
+Codec/Info;;;N NT;;;Deprecated
+Codec/Url;;;N NT;;;Deprecated
 Title;;;Y YI;;;Name of this menu
 Language;;;N YT;;;Language (2 letters)
-Language/String;;;Y NT;;;Language (full)
-Language_More;;;Y YT;;;More info about Language (director's comment...)
+Language/String;;;N NT;;;Language (full)
+Language_More;;;N YT;;;More info about Language (director's comment...)
 List;;;N YT;;;List of programs available
 List/String;;;Y NT;;;

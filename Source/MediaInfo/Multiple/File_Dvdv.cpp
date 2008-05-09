@@ -178,6 +178,30 @@ const char*  IFO_Language_MoreA[]=
     "",
 };
 
+const char*  IFO_Format_T[]=
+{
+    "RLE",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
+const char*  IFO_Resolution_T[]=
+{
+    "2",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
 const char*  IFO_CodecT[]=
 {
     "2-bit RLE",
@@ -669,6 +693,8 @@ void File_Dvdv::Text()
         if (VTS_Attributes_AreHere)
         {
             Stream_Prepare(Stream_Text);
+            Fill(Stream_Text, StreamPos_Last, Text_Format, IFO_Format_T[Codec]);
+            Fill(Stream_Text, StreamPos_Last, Text_Resolution, IFO_Resolution_T[Codec]);
             Fill(Stream_Text, StreamPos_Last, Text_Codec, IFO_CodecT[Codec]);
             Fill(Stream_Text, StreamPos_Last, Text_Language, Language);
             if (Language_Extension<16)

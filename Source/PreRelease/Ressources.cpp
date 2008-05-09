@@ -124,22 +124,62 @@ ZenLib::Ztring Ressources_Create()
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"DataBase", L"CodecID_General", L"InfoMap", Contents);
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_General_Mpeg4", L"InfoMap", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Video", L"InfoMap", Contents);
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Video_Matroska", L"InfoMap", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Audio", L"InfoMap", Contents);
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Video_Mpeg4", L"InfoMap", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Text", L"InfoMap", Contents);
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Video_Real", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Video_Riff", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Audio_Matroska", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Audio_Mpeg4", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Audio_Real", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Audio_Riff", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Text_Matroska", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Text_Mpeg4", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
+    Result=Ressources_Create_Item(L"DataBase", L"CodecID_Text_Riff", L"InfoMap", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;

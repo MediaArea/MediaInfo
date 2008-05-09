@@ -51,6 +51,7 @@ extern const char*  Mpeg_Psi_stream_type(int8u ID, int32u format_identifier);
 extern const char*  Mpeg_Psi_stream_Format(int8u ID, int32u format_identifier);
 extern const char*  Mpeg_Psi_stream_Codec(int8u ID, int32u format_identifier);
 extern stream_t     Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier);
+extern const char*  Mpeg_Descriptors_stream_Format(int8u descriptor_tag, int32u format_identifier);
 extern const char*  Mpeg_Descriptors_stream_Codec(int8u descriptor_tag, int32u format_identifier);
 extern stream_t     Mpeg_Descriptors_stream_Kind(int8u descriptor_tag, int32u format_identifier);
 
@@ -261,9 +262,13 @@ void File_MpegTs::Read_Buffer_Finalize()
             {
                 //Codec
                 if (Retrieve(StreamKind_Last, StreamPos_Last, "Format").empty())
+                    Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Descriptors_stream_Format(Streams[StreamID].descriptor_tag, format_identifier));
+                if (Retrieve(StreamKind_Last, StreamPos_Last, "Format").empty())
                     Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Psi_stream_Format(Streams[StreamID].stream_type, format_identifier));
                 if (Retrieve(StreamKind_Last, StreamPos_Last, "Codec").empty())
                     Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Descriptors_stream_Codec(Streams[StreamID].descriptor_tag, format_identifier));
+                if (Retrieve(StreamKind_Last, StreamPos_Last, "Codec").empty())
+                    Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Psi_stream_Codec(Streams[StreamID].stream_type, format_identifier));
 
                 //TimeStamp
                 if (Streams[StreamID].TimeStamp_End!=(int64u)-1)
@@ -296,13 +301,15 @@ void File_MpegTs::Read_Buffer_Finalize()
 
                 //Menu
                 Programs[Streams[StreamID].program_number].List.push_back(Ztring::ToZtring(StreamID));
+                Ztring Format=Retrieve(StreamKind_Last, StreamPos_Last, "Format");
+                Programs[Streams[StreamID].program_number].Format.push_back(Format);
                 Ztring Codec=Retrieve(StreamKind_Last, StreamPos_Last, "Codec");
                 Programs[Streams[StreamID].program_number].Codec.push_back(Codec);
                 Ztring Language=Retrieve(StreamKind_Last, StreamPos_Last, "Language");
                 Programs[Streams[StreamID].program_number].Language.push_back(Language);
                 Ztring Menu_Temp=Decimal_Hexa(StreamID);
                 Menu_Temp+=_T(" (");
-                Menu_Temp+=Codec;
+                Menu_Temp+=Format;
                 if (!Language.empty())
                 {
                     Menu_Temp+=_T(", ");
@@ -352,6 +359,8 @@ void File_MpegTs::Read_Buffer_Finalize()
             Fill(StreamKind_Last, StreamPos_Last, "Language", Program->second.Language.Read());
             Program->second.Codec.Separator_Set(0, _T(" / "));
             Fill(StreamKind_Last, StreamPos_Last, "Codec", Program->second.Codec.Read());
+            Program->second.Format.Separator_Set(0, _T(" / "));
+            Fill(StreamKind_Last, StreamPos_Last, "Format", Program->second.Format.Read());
         }
     }
 

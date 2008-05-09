@@ -728,6 +728,7 @@ protected :
     void FileSize_FileSize123   (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
     void Kilo_Kilo123           (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
     void Value_Value123         (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
+    void CodecID_Fill           (const Ztring &Value, stream_t StreamKind, size_t StreamPos, infocodecid_format_t Format);
 
     //***************************************************************************
     //

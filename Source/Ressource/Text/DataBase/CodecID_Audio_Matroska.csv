@@ -1,0 +1,29 @@
+A_MPEG/L1;MPEG Audio;MP1;Layer 1;;;http://www.iis.fraunhofer.de/amm/index.html
+A_MPEG/L2;MPEG Audio;MP2;Layer 2;;;http://www.iis.fraunhofer.de/amm/index.html
+A_MPEG/L3;MPEG Audio;MP3;Layer 3;;;http://www.iis.fraunhofer.de/amm/index.html
+A_PCM/INT/BIG;PCM;;Big;CBR;;
+A_PCM/INT/LIT;PCM;;Little;CBR;;
+A_PCM/FLOAT/IEEE;PCM;;Float;CBR;;
+A_AC3;AC-3;;;CBR;;
+A_AC3/BSID9;AC-3;;;CBR;;
+A_AC3/BSID10;AC-3;;;CBR;;
+A_DTS;DTS;;;CBR;;
+A_VORBIS;Vorbis;;;;;http://www.vorbis.com
+A_WAVPACK4;WavPack;;;VBR;;http://www.wavepack.com
+A_REAL/14_4;VSELP;;;;Real Audio 1 (14.4);http://www.real.com
+A_REAL/28_8;G.728;;;;Real Audio 2 (28.8);http://www.real.com
+A_REAL/COOK;Cooker;;;;Real Audio Cook Codec (codename: Gecko);http://www.real.com
+A_REAL/SIPR;G.729;;;;Real & Sipro Voice Codec;http://www.real.com
+A_REAL/RALF;RealAudio Lossless;;;;Real Audio Lossless Format;http://www.real.com
+A_REAL/ATRC;Atrac;;3;;Real & Sony Atrac3 Codec;http://www.real.com
+A_AAC;AAC;;;;;
+A_AAC/MPEG2/MAIN;AAC;;Main;;;
+A_AAC/MPEG2/LC;AAC;;LC;;;
+A_AAC/MPEG2/LC/SBR;AAC;;LC-SBR;;;
+A_AAC/MPEG2/SSR;AAC;;SSR;;;
+A_AAC/MPEG4/MAIN;AAC;;Main;;;
+A_AAC/MPEG4/LC;AAC;;LC;;;
+A_AAC/MPEG4/LC/SBR;AAC;;LC-SBR;;;
+A_AAC/MPEG4/LC/SBR/PS;AAC;;LC-SBR-PS;;;
+A_AAC/MPEG4/SSR;AAC;;SSR;;;
+A_AAC/MPEG4/LTP;AAC;;LTP;;;

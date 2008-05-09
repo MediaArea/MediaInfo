@@ -56,8 +56,6 @@ private :
     void MDPR();
     void MDPR_realvideo();
     void MDPR_realaudio();
-    void MDPR_mp3();
-    void MDPR_ralf();
     void MDPR_fileinfo();
     void PROP();
     void RJMD();

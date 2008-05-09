@@ -123,7 +123,7 @@ public :
     const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo=InfoCodec_Name) const;
     const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream) const;
 
-    const Ztring   &CodecID_Get (stream_t KindOfStream, const Ztring &Value, infocodecid_t KindOfCodecIDInfo=InfoCodecID_Format) const;
+    const Ztring   &CodecID_Get (stream_t KindOfStream, infocodecid_format_t Format, const Ztring &Value, infocodecid_t KindOfCodecIDInfo=InfoCodecID_Format);
 
     const Ztring   &Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo=InfoEncoder_LongName) const;
 
@@ -165,7 +165,7 @@ private :
     ZtringListList  Custom_View; //Definition of "General", "Video", "Audio", "Text", "Chapters", "Image"
 
     InfoMap         Container;
-    InfoMap         CodecID[Stream_Max];
+    InfoMap         CodecID[InfoCodecID_Format_Max][Stream_Max];
     InfoMap         Format;
     InfoMap         Codec;
     InfoMap         Encoder;

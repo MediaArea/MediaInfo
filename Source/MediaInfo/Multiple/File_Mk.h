@@ -257,9 +257,9 @@ private :
     //Temp - TrackEntry
     int8u*   CodecPrivate;
     size_t   CodecPrivate_Size;
-    void     CodecPrivate_Fill();
+    void     CodecPrivate_Manage();
     Ztring   CodecID;
-    void     CodecID_Fill();
+    void     CodecID_Manage();
     int64u   TrackType;
 
     //Temp

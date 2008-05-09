@@ -404,7 +404,7 @@ void File_Riff::AIFF_COMM()
         Skip_PA(                                            "compressionName");
 
         //Filling
-        Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Ztring().From_CC4(compressionType));
+        CodecID_Fill(Ztring().From_CC4(compressionType), Stream_Audio, StreamPos_Last, InfoCodecID_Format_Mpeg4);
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Ztring().From_CC4(compressionType));
     }
     else
@@ -849,7 +849,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     Stream[Stream_ID].Compression=FormatTag;
     Ztring Codec; Codec.From_Number(FormatTag, 16);
     Codec.MakeUpperCase();
-    Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Codec);
+    CodecID_Fill(Codec, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Riff);
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec); //May be replaced by codec parser
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels!=5?Channels:6);
@@ -1124,7 +1124,7 @@ void File_Riff::AVI__hdlr_strl_strf_iavs()
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, 4.0/3);
         }
         Stream_Prepare(Stream_Audio);
-        Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Codec);
+        CodecID_Fill(Codec, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Riff);
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec); //May be replaced by codec parser
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
     #endif //MEDIAINFO_DVDIF_YES
@@ -1196,10 +1196,13 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
 
         //Filling
         if (Compression==0x00000000)
+        {
+            CodecID_Fill(_T("RGB "), StreamKind_Last, StreamPos_Last, InfoCodecID_Format_Riff);
             Fill(StreamKind_Last, StreamPos_Last, "Codec", "RGB"); //Raw RGB, not handled by automatic codec mapping
+        }
         else
         {
-            Fill(StreamKind_Last, StreamPos_Last, "CodecID", Ztring().From_CC4(Compression).To_Local().c_str());
+            CodecID_Fill(Ztring().From_CC4(Compression), StreamKind_Last, StreamPos_Last, InfoCodecID_Format_Riff);
             Fill(StreamKind_Last, StreamPos_Last, "Codec", Ztring().From_CC4(Compression).To_Local().c_str()); //FormatTag, may be replaced by codec parser
             Fill(StreamKind_Last, StreamPos_Last, "Codec/CC", Ztring().From_CC4(Compression).To_Local().c_str()); //FormatTag
         }
@@ -1328,10 +1331,10 @@ void File_Riff::AVI__hdlr_strl_strh()
     {
         case Elements::AVI__hdlr_strl_strh_iavs :
         case Elements::AVI__hdlr_strl_strh_vids :
-            if (FrameRate>0)  Fill(StreamKind_Last, StreamPos_Last, Video_FrameRate, FrameRate, 3);
+            if (FrameRate>0)  Fill(StreamKind_Last, StreamPos_Last, "FrameRate", FrameRate, 3);
         case Elements::AVI__hdlr_strl_strh_txts :
-            if (Right-Left>0) Fill(StreamKind_Last, StreamPos_Last, Video_Width,  Right-Left);
-            if (Bottom-Top>0) Fill(StreamKind_Last, StreamPos_Last, Video_Height, Bottom-Top);
+            if (Right-Left>0) Fill(StreamKind_Last, StreamPos_Last, "Width",  Right-Left);
+            if (Bottom-Top>0) Fill(StreamKind_Last, StreamPos_Last, "Height", Bottom-Top);
             break;
         default: ;
     }
@@ -1913,6 +1916,7 @@ void File_Riff::menu()
 
     //Filling
     Stream_Prepare(Stream_Menu);
+    Fill(Stream_Menu, StreamPos_Last, Menu_Format, "DivX Menu");
     Fill(Stream_Menu, StreamPos_Last, Menu_Codec, "DivX");
 }
 

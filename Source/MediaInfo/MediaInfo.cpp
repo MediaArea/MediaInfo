@@ -58,7 +58,7 @@ namespace MediaInfoLib
     #define MEDIAINFO_DEBUG(_TOAPPEND)
 #endif // MEDIAINFO_DEBUG
 
-#ifndef MEDIAINFO_DEBUG
+#ifdef MEDIAINFO_DEBUG
 #define EXECUTE_VOID(_METHOD,_DEBUGB) \
         ((MediaInfo_Internal*)Internal)->_METHOD;
 #else //MEDIAINFO_DEBUG
@@ -67,17 +67,17 @@ namespace MediaInfoLib
         MEDIAINFO_DEBUG(_DEBUGB)
 #endif //MEDIAINFO_DEBUG
 
-#ifndef MEDIAINFO_DEBUG
+#ifdef MEDIAINFO_DEBUG
 #define EXECUTE_INT(_METHOD,_DEBUGB) \
         return ((MediaInfo_Internal*)Internal)->_METHOD;
 #else //MEDIAINFO_DEBUG
 #define EXECUTE_INT(_METHOD, _DEBUGB) \
-        size_t ToReturn=((MediaInfo_Internal*)Internal)->_METHOD; \
+        int64u ToReturn=((MediaInfo_Internal*)Internal)->_METHOD; \
         MEDIAINFO_DEBUG(_DEBUGB) \
         return ToReturn;
 #endif //MEDIAINFO_DEBUG
 
-#ifndef MEDIAINFO_DEBUG
+#ifdef MEDIAINFO_DEBUG
 #define EXECUTE_STRING(_METHOD,_DEBUGB) \
         return ((MediaInfo_Internal*)Internal)->_METHOD;
 #else //MEDIAINFO_DEBUG
@@ -158,7 +158,7 @@ int64u MediaInfo::Open_Buffer_Continue_GoTo_Get ()
 size_t MediaInfo::Open_Buffer_Finalize ()
 {
     MEDIAINFO_DEBUG(Debug+="Open_Buffer_Finalize";)
-    EXECUTE_INT(Open_Buffer_Continue_GoTo_Get(), Debug+="Open_Buffer_Finalize, will return ";Debug+=ToString(ToReturn);)
+    EXECUTE_INT(Open_Buffer_Finalize(), Debug+="Open_Buffer_Finalize, will return ";Debug+=ToString(ToReturn);)
 }
 
 //---------------------------------------------------------------------------

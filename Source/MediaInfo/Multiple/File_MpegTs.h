@@ -146,6 +146,7 @@ private :
         std::map<ZenLib::Ztring, ZenLib::Ztring>    Infos;
         ZtringList                                  List;
         ZtringList                                  Language;
+        ZtringList                                  Format;
         ZtringList                                  Codec;
         ZtringList                                  Text;
 

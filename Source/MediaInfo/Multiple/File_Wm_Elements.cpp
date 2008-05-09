@@ -327,7 +327,7 @@ void File_Wm::Header_StreamProperties_Audio ()
     Stream[Stream_Number].IsCreated=true;
     Ztring Codec; Codec.From_Number(CodecID, 16);
     Codec.MakeUpperCase();
-    Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Codec);
+    CodecID_Fill(Codec, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Riff);
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec); //May be replaced by codec parser
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
@@ -407,7 +407,7 @@ void File_Wm::Header_StreamProperties_Video ()
     //Filling
     Stream_Prepare(Stream_Video);
     Stream[Stream_Number].IsCreated=true;
-    Fill(Stream_Video, StreamPos_Last, Video_CodecID, Ztring().From_CC4(Compression)); //May be replaced by codec parser
+    CodecID_Fill(Ztring().From_CC4(Compression), Stream_Video, StreamPos_Last, InfoCodecID_Format_Riff);
     Fill(Stream_Video, StreamPos_Last, Video_Codec, Ztring().From_CC4(Compression)); //May be replaced by codec parser
     Fill(Stream_Video, StreamPos_Last, Video_Codec_CC, Ztring().From_CC4(Compression));
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);

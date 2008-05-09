@@ -135,14 +135,23 @@ enum infoformat_t
 enum infocodecid_t
 {
     InfoCodecID_Codec,              ///<
-    InfoCodecID_Hint,               ///<
-    InfoCodecID_KindOfCode,         ///<
     InfoCodecID_Format,             ///<
-    InfoCodecID_Format_Profile,     ///<
+    InfoCodecID_Hint,               ///<
+    InfoCodecID_Profile,            ///<
     InfoCodecID_BitRate_Mode,       ///<
     InfoCodecID_Description,        ///<
     InfoCodecID_Url,                ///<
     InfoCodecID_Max
+};
+
+/// @brief Used with Codec info (Fromat type part)
+enum infocodecid_format_t
+{
+    InfoCodecID_Format_Matroska,    ///<
+    InfoCodecID_Format_Mpeg4,       ///<
+    InfoCodecID_Format_Real,        ///<
+    InfoCodecID_Format_Riff,        ///<
+    InfoCodecID_Format_Max
 };
 
 /// @brief Used with Codec info

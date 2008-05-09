@@ -543,6 +543,51 @@ const char* Mpeg_Descriptors_format_identifier(int32u format_identifier)
     }
 }
 
+const char* Mpeg_Descriptors_stream_Format(int8u descriptor_tag, int32u format_identifier)
+{
+    switch (descriptor_tag)
+    {
+        case 0x02 : return "MPEG Video";
+        case 0x03 : return "MPEG Audio";
+        case 0x1B : return "MPEG-4 Visual";
+        case 0x1C : return "AAC";
+        case 0x28 : return "AVC";
+        case 0x2B : return "AAC";
+        case 0x2D : return "Text";
+        default :
+            switch (format_identifier)
+            {
+                case Mpeg_Descriptors::CUEI :
+                case Mpeg_Descriptors::SCTE : //SCTE
+                case Mpeg_Descriptors::GA94 :
+                case Mpeg_Descriptors::S14A : //ATSC
+                        switch (descriptor_tag)
+                        {
+                            case 0x81 : return "AC-3";
+                            default   : return "";
+                        }
+                case Mpeg_Descriptors::AC_3 : return "AC-3";
+                case Mpeg_Descriptors::DTS1 : return "DTS";
+                case Mpeg_Descriptors::DTS2 : return "DTS";
+                case Mpeg_Descriptors::DTS3 : return "DTS";
+                case Mpeg_Descriptors::VC_1 : return "VC-1";
+                case Mpeg_Descriptors::drac : return "Dirac";
+                default                     :
+                        switch (descriptor_tag)
+                        {
+                            case 0x56 : return "Teletext";
+                            case 0x59 : return "DVB Subtitles";
+                            case 0x6A : return "AC-3";
+                            case 0x7A : return "E-AC-3";
+                            case 0x7B : return "DTS";
+                            case 0x7C : return "AAC";
+                            case 0x81 : return "AC-3";
+                            default   : return "";
+                        }
+            }
+    }
+}
+
 const char* Mpeg_Descriptors_stream_Codec(int8u descriptor_tag, int32u format_identifier)
 {
     switch (descriptor_tag)
@@ -576,7 +621,7 @@ const char* Mpeg_Descriptors_stream_Codec(int8u descriptor_tag, int32u format_id
                         switch (descriptor_tag)
                         {
                             case 0x56 : return "Teletext";
-                            case 0x59 : return "DVB Subtiles";
+                            case 0x59 : return "DVB Subtitles";
                             case 0x6A : return "AC3";
                             case 0x7A : return "AC3+";
                             case 0x7B : return "DTS";
