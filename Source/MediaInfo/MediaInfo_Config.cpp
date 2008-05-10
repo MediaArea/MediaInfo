@@ -638,9 +638,10 @@ void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
         Raw=true;
         //Fill base words (with English translation even if we don't want of it)
         File__Base_DefaultLanguage(Language);
-        //TODO Write internal name instead of translation
-        //for (size_t Pos=0; Pos<Language.size(); Pos++)
-        //    Language.Write(Language[Pos][0], Pos, 1);
+        //Write internal name instead of translation
+        ZtringListList LanguageToUpdate=Language.Get();
+        for (size_t Pos=0; Pos<LanguageToUpdate.size(); Pos++)
+            Language.Write(LanguageToUpdate[Pos][0], LanguageToUpdate[Pos][0]);
     }
     //-Add custom language to English language
     else
@@ -648,12 +649,9 @@ void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
         //Fill base words (with English translation)
         File__Base_DefaultLanguage(Language);
         //TODO Add custom language to English language
-        //for (size_t Pos=0; Pos<Language.size(); Pos++)
-        //{
-        //    size_t PosNew=NewValue.Find(Language[Pos][0], 0, 0, _T("=="), Ztring_CaseSensitive);
-        //    if (PosNew!=Error && 1<NewValue[PosNew].size())
-        //        Language.Write(NewValue[PosNew][1], Pos, 1);
-        //}
+        for (size_t Pos=0; Pos<NewValue.size(); Pos++)
+            if (NewValue[Pos].size()>=2)
+                Language.Write(NewValue[Pos][0], NewValue[Pos][1]);
     }
 
     //Fill Info
