@@ -49,6 +49,12 @@
 #if defined(MEDIAINFO_MPEG4_YES)
     #include "MediaInfo/Audio/File_Mpeg4_AudioSpecificConfig.h"
 #endif
+#if defined(MEDIAINFO_AAC_YES)
+    #include "MediaInfo/Audio/File_Aac.h"
+#endif
+#if defined(MEDIAINFO_PCM_YES)
+    #include "MediaInfo/Audio/File_Pcm.h"
+#endif
 #include <cstring>
 //---------------------------------------------------------------------------
 
@@ -2504,9 +2510,17 @@ void File_Mk::CodecID_Manage()
     }
     #endif
     #if defined(MEDIAINFO_MPEG4_YES)
-    else if (CodecID.find(_T("A_AAC/MPEG4/"))==0 || CodecID==(_T("A_AAC")))
+    else if (CodecID==(_T("A_AAC")))
     {
         Stream[TrackNumber].Parser=new File_Mpeg4_AudioSpecificConfig;
+        Open_Buffer_Init(Stream[TrackNumber].Parser);
+    }
+    #endif
+    #if defined(MEDIAINFO_AAC_YES)
+    else if (CodecID.find(_T("A_AAC/"))==0)
+    {
+        Stream[TrackNumber].Parser=new File_Aac;
+        ((File_Aac*)Stream[TrackNumber].Parser)->Codec=CodecID;
         Open_Buffer_Init(Stream[TrackNumber].Parser);
     }
     #endif
@@ -2516,6 +2530,14 @@ void File_Mk::CodecID_Manage()
         Stream[TrackNumber].Parser=new File_Mpega;
         Open_Buffer_Init(Stream[TrackNumber].Parser);
         //((File_Mpega*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+    }
+    #endif
+    #if defined(MEDIAINFO_PCM_YES)
+    else if (Format==_T("PCM"))
+    {
+        Stream[TrackNumber].Parser=new File_Pcm;
+        ((File_Pcm*)Stream[TrackNumber].Parser)->Codec=CodecID;
+        Open_Buffer_Init(Stream[TrackNumber].Parser);
     }
     #endif
 

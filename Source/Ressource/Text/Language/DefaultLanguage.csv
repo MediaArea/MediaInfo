@@ -273,11 +273,13 @@ Format_Settings_Floor;Format settings, Floor
 Format_Settings_CABAC;Format settings, CABAC
 Format_Settings_Firm;Format settings, Firm
 Format_Settings_Endianness;Format settings, Endianness
-Format_Settings_MuxingMode;Format settings, Muxing mode
 Format_Settings_RefFrames;Format settings, ReFrames
 Format_Settings_Sign;Format settings, Sign
 Format_Settings_Law;Format settings, Law
 Format_Settings_ITU;Format settings, ITU
+Format_Settings_SBR;Format settings, SBR
+Format_Settings_PS;Format settings, PS
+Format_Version;Format version
 Codec_Url;Weblink for codec
 FrameRate;Frame rate
 FrameRate_Mode;Frame rate mode
@@ -675,6 +677,7 @@ More;More
 Movie;Movie name
 ms;ms
 MSDI;MSDI
+MuxingMode;Muxing mode
 Name;Name
 Nationality;Nationality
 New;New

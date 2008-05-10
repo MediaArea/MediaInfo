@@ -67,7 +67,8 @@ private :
     int8u  channel_configuration;
     int16u adts_buffer_fullness;
     int16u aac_frame_length;
-
+    bool   id;
+    
     //Helpers
     bool Synchronize();
 };

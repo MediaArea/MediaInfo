@@ -45,15 +45,18 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 void File_Amr::Read_Buffer_Continue()
 {
-    //Integrity
-    if (Buffer_Size<=16)
-        return;
-
-    //Header
-    if (!(CC5(Buffer)==CC5("#!AMR")))
+    if (Codec.empty()) //Test of header only if it is a file --> The codec field is empty
     {
-        Finnished();
-        return;
+        //Integrity
+        if (Buffer_Size<=16)
+            return;
+
+        //Header
+        if (!(CC5(Buffer)==CC5("#!AMR")))
+        {
+            Finnished();
+            return;
+        }
     }
 
     //Filling
@@ -66,6 +69,23 @@ void File_Amr::Read_Buffer_Continue()
 
     //No need of more
     Finnished();
+}
+
+//---------------------------------------------------------------------------
+void File_Amr::Read_Buffer_Finalize()
+{
+    if (Codec.empty())
+        return; //This is only if this is not a file
+
+    //Filling
+    Ztring Profile;
+    if (0)
+        ;
+    else if (Codec==_T("samr"))             {Profile=_T("Narrow band");}
+    else if (Codec==_T("sawb"))             {Profile=_T("Wide band");}
+    else if (Codec==_T("A104"))             {Profile=_T("Wide band");}
+
+    Fill(Stream_Audio, 0, Audio_Format_Profile, Profile);
 }
 
 //***************************************************************************

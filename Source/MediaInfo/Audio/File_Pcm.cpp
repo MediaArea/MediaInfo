@@ -49,6 +49,8 @@ void File_Pcm::Read_Buffer_Continue()
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "PCM");
     Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, 0, Audio_Format, "PCM");
+    Fill(Stream_Audio, 0, Audio_Codec, "PCM");
 
     Finnished();
 }
@@ -57,30 +59,25 @@ void File_Pcm::Read_Buffer_Continue()
 void File_Pcm::Read_Buffer_Finalize()
 {
     //Filling
-    Ztring Firm, Endianness, Sign, Law, ITU, Resolution, Codec_New;
+    Ztring Firm, Endianness, Sign, ITU, Resolution;
     if (0)
         ;
-    else if (Codec==_T("EVOB"))             {Firm=_T("");       Endianness=_T("Big");    Sign=_T("Signed");   Resolution=_T(""); Codec_New=_T("PCM");} //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
-    else if (Codec==_T("VOB"))              {Firm=_T("");       Endianness=_T("Big");    Sign=_T("Signed");   Resolution=_T("24"); Codec_New=_T("PCM");} //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
+    else if (Codec==_T("EVOB"))             {Firm=_T("");       Endianness=_T("Big");    Sign=_T("Signed");   Resolution=_T("");} //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
+    else if (Codec==_T("VOB"))              {Firm=_T("");       Endianness=_T("Big");    Sign=_T("Signed");   Resolution=_T("24");} //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
     else if (Codec==_T("A_PCM/INT/BIG"))    {Firm=_T("");       Endianness=_T("Big");}
     else if (Codec==_T("A_PCM/INT/LITTLE")) {Firm=_T("");       Endianness=_T("Little");}
     else if (Codec==_T("A_PCM/INT/FLOAT"))  {Firm=_T("");       Endianness=_T("Float");}
-    else if (Codec==_T("ima4"))             {Firm=_T("IMA");}
-    else if (Codec==_T("raw "))             {                   Endianness=_T("Little"); Sign=_T("Unsigned"); Codec_New=_T("PCM");}
-    else if (Codec==_T("twos"))             {                   Endianness=_T("Big");    Sign=_T("Signed");}
-    else if (Codec==_T("sowt"))             {                   Endianness=_T("Little"); Sign=_T("Signed");}
-    else if (Codec==_T("in24"))             {                   Endianness=_T("Big");    Sign=_T("Unsigned"); Resolution=_T("24");}
-    else if (Codec==_T("in32"))             {                   Endianness=_T("Big");    Sign=_T("Unsigned"); Resolution=_T("32");}
     else if (Codec==_T("fl32"))             {                   Endianness=_T("Float");                       Resolution=_T("32");}
     else if (Codec==_T("fl64"))             {                   Endianness=_T("Float");                       Resolution=_T("64");}
-    else if (Codec==_T("alaw"))             {                   Law=_T("A-Law");}
-    else if (Codec==_T("alaw"))             {                   Law=_T("U-Law");}
+    else if (Codec==_T("in24"))             {                   Endianness=_T("Big");    Sign=_T("Unsigned"); Resolution=_T("24");}
+    else if (Codec==_T("in32"))             {                   Endianness=_T("Big");    Sign=_T("Unsigned"); Resolution=_T("32");}
+    else if (Codec==_T("raw "))             {                   Endianness=_T("Little"); Sign=_T("Unsigned");}
+    else if (Codec==_T("twos"))             {                   Endianness=_T("Big");    Sign=_T("Signed");}
+    else if (Codec==_T("sowt"))             {                   Endianness=_T("Little"); Sign=_T("Signed");}
     else if (Codec==_T("SWF ADPCM"))        {Firm=_T("SWF");}
     else if (Codec==_T("1"))                {                   Endianness=_T("Little"); Sign=_T("Unsigned");}
     else if (Codec==_T("2"))                {Firm=_T("Microsoft");}
     else if (Codec==_T("3"))                {                   Endianness=_T("Float");}
-    else if (Codec==_T("6"))                {                   Law=_T("A-Law");}
-    else if (Codec==_T("7"))                {                   Law=_T("U-Law");}
     else if (Codec==_T("10"))               {Firm=_T("OKI");}
     else if (Codec==_T("11"))               {Firm=_T("Intel");}
     else if (Codec==_T("12"))               {Firm=_T("Mediaspace");}
@@ -106,8 +103,6 @@ void File_Pcm::Read_Buffer_Finalize()
     else if (Codec==_T("125"))              {Firm=_T("Sanyo");}
     else if (Codec==_T("140"))              {Firm=_T("Dictaphone"); ITU=_T("G.726");}
     else if (Codec==_T("170"))              {Firm=_T("Unisys");}
-    else if (Codec==_T("171"))              {Firm=_T("Unisys"); Law=_T("A-Law");}
-    else if (Codec==_T("172"))              {Firm=_T("Unisys"); Law=_T("U-Law");}
     else if (Codec==_T("175"))              {Firm=_T("SyCom"); ITU=_T("G.726");}
     else if (Codec==_T("178"))              {Firm=_T("Knownledge");}
     else if (Codec==_T("200"))              {Firm=_T("Creative");}
@@ -120,13 +115,8 @@ void File_Pcm::Read_Buffer_Finalize()
     else if (Codec==_T("A105"))             {ITU=_T("G.726");}
     else if (Codec==_T("A107"))             {ITU=_T("G.726");}
 
-    if (!Codec_New.empty())
-    {
-        Fill(Stream_Audio, 0, Audio_Format, Codec_New);
-        Fill(Stream_Audio, 0, Audio_Codec, Codec_New);
-        Fill(Stream_Audio, 0, Audio_Codec_String, Codec_New);
-        Fill(Stream_Audio, 0, Audio_Codec_Family, Codec_New);
-    }
+    Fill(Stream_Audio, 0, Audio_Codec_String, "PCM");
+    Fill(Stream_Audio, 0, Audio_Codec_Family, "PCM");
     if (!Firm.empty())
     {
         Fill(Stream_Audio, 0, Audio_Format_Settings, Firm);
@@ -148,13 +138,6 @@ void File_Pcm::Read_Buffer_Finalize()
         Fill(Stream_Audio, 0, Audio_Codec_Settings, Sign);
         Fill(Stream_Audio, 0, Audio_Codec_Settings_Sign, Sign);
     }
-    if (!Law.empty())
-    {
-        Fill(Stream_Audio, 0, Audio_Format_Settings, Law);
-        Fill(Stream_Audio, 0, Audio_Format_Settings_Law, Law);
-        Fill(Stream_Audio, 0, Audio_Codec_Settings, Law);
-        Fill(Stream_Audio, 0, Audio_Codec_Settings_Law, Law);
-    }
     if (!ITU.empty())
     {
         Fill(Stream_Audio, 0, Audio_Format_Settings, ITU);
@@ -163,6 +146,7 @@ void File_Pcm::Read_Buffer_Finalize()
         Fill(Stream_Audio, 0, Audio_Codec_Settings_ITU, ITU);
     }
     Fill(Stream_Audio, 0, Audio_Resolution, Resolution);
+    Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
 }
 
 //***************************************************************************

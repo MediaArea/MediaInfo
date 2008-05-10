@@ -39,9 +39,14 @@ namespace MediaInfoLib
 
 class File_Amr : public File__Analyze
 {
+public :
+    //In
+    ZenLib::Ztring Codec;
+
 protected :
     //Format
     void Read_Buffer_Continue ();
+    void Read_Buffer_Finalize ();
 
     //Information
     void HowTo (stream_t StreamKind);

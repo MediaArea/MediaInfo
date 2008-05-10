@@ -38,6 +38,12 @@
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
 #endif
+#if defined(MEDIAINFO_AMR_YES)
+    #include "MediaInfo/Audio/File_Amr.h"
+#endif
+#if defined(MEDIAINFO_ADPCM_YES)
+    #include "MediaInfo/Audio/File_Adpcm.h"
+#endif
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
@@ -883,7 +889,10 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                     else
                         Metadata_Get(Parameter, Element_Code_Get(Element_Level-1));
                     if (!Parameter.empty())
+                    {
+                        Element_Info(Parameter.c_str());
                         Fill(Stream_General, 0, Parameter.c_str(), Value, true);
+                    }
                 }
                 break;
             case Elements::moov_meta_hdlr_mdta :
@@ -1393,10 +1402,40 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec, true);
         }
+        #if defined(MEDIAINFO_AMR_YES)
+        if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("AMR"))
+        {
+            //Creating the parser
+            File_Amr MI;
+            MI.Codec=Ztring().From_Local(Codec.c_str());
+
+            //Parsing
+            Open_Buffer_Init(&MI);
+            Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, 0);
+            Open_Buffer_Finalize(&MI);
+
+            //Filling
+            Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+        }
+        #endif
+        #if defined(MEDIAINFO_ADPCM_YES)
+        if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("ADPCM"))
+        {
+            //Creating the parser
+            File_Adpcm MI;
+            MI.Codec=Ztring().From_Local(Codec.c_str());
+
+            //Parsing
+            Open_Buffer_Init(&MI);
+            Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, 0);
+            Open_Buffer_Finalize(&MI);
+
+            //Filling
+            Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+        }
+        #endif
         #if defined(MEDIAINFO_PCM_YES)
-        if (Codec=="raw "
-         || MediaInfoLib::Config.Codec_Get(Ztring().From_Local(Codec.c_str()), InfoCodec_KindofCodec).find(_T("PCM"))==0
-         || MediaInfoLib::Config.Codec_Get(Ztring().From_Local(Codec.c_str()), InfoCodec_KindofCodec).find(_T("ADPCM"))==0)
+        if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("PCM"))
         {
             //Creating the parser
             File_Pcm MI;
@@ -2198,6 +2237,7 @@ void File_Mpeg4::moov_udta_xxxx()
     //Getting the method
     std::string Parameter;
     method Method=Metadata_Get(Parameter, Element_Code);
+    Element_Info(Parameter.c_str());
 
     switch (Method)
     {
@@ -2240,7 +2280,8 @@ void File_Mpeg4::moov_udta_xxxx()
                     Get_Local(Size, Value,                      "Value");
 
                     FILLING_BEGIN();
-                        Fill(Stream_General, 0, Parameter.c_str(), Value);
+                        if (Retrieve(Stream_General, 0, Parameter.c_str()).empty())
+                            Fill(Stream_General, 0, Parameter.c_str(), Value);
                     FILLING_END();
                 }
             }
@@ -2258,7 +2299,25 @@ void File_Mpeg4::moov_udta_xxxx()
                     Get_UTF8(Element_Size-Element_Offset, Value,"Value");
 
                     FILLING_BEGIN();
-                        Fill(Stream_General, 0, Parameter.c_str(), Value);
+                       if (Retrieve(Stream_General, 0, Parameter.c_str()).empty())
+                            Fill(Stream_General, 0, Parameter.c_str(), Value);
+                    FILLING_END();
+                }
+            }
+            break;
+        case Method_String3 :
+            {
+                NAME_VERSION_FLAG("Text");
+
+                //Parsing
+                Ztring Value;
+                while(Element_Offset<Element_Size)
+                {
+                    Get_UTF8(Element_Size-Element_Offset, Value,"Value");
+
+                    FILLING_BEGIN();
+                       if (Retrieve(Stream_General, 0, Parameter.c_str()).empty())
+                            Fill(Stream_General, 0, Parameter.c_str(), Value);
                     FILLING_END();
                 }
             }

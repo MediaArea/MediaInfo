@@ -172,11 +172,17 @@
 
 //---------------------------------------------------------------------------
 // Audio
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_AAC_NO) && !defined(MEDIAINFO_AAC_YES)
+    #define MEDIAINFO_AAC_YES
+#endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_AC3_NO) && !defined(MEDIAINFO_AC3_YES)
     #define MEDIAINFO_AC3_YES
 #endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_ADIF_NO) && !defined(MEDIAINFO_ADIF_YES)
     #define MEDIAINFO_ADIF_YES
+#endif
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_ADPCM_NO) && !defined(MEDIAINFO_ADPCM_YES)
+    #define MEDIAINFO_ADPCM_YES
 #endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_ADTS_NO) && !defined(MEDIAINFO_ADTS_YES)
     #define MEDIAINFO_ADTS_YES

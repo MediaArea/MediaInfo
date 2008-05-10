@@ -1,26 +1,26 @@
-.mp3;MPEG Audio;;Layer 3;;;
-alac;ALAC;;;VBR;Apple Lossless Format;http://www.apple.com/quicktime/download/standalone.html
-alaw;ADPCM;;A-Law;CBR;;http://www.apple.com/quicktime/download/standalone.html
-dvca;DV Audio;;;CBR;;http://www.apple.com/quicktime/download/standalone.html
-enca;(Encrypted);;;;;
-fl32;PCM ; ;Float;CBR;;http://www.apple.com/quicktime/download/standalone.html
-fl64;PCM;;Float;CBR;;http://www.apple.com/quicktime/download/standalone.html
-ima4;ADPCM;;;CBR;;http://www.apple.com/quicktime/download/standalone.html
-in24;PCM;;;CBR;;http://www.apple.com/quicktime/download/standalone.html
-in32;PCM;;;CBR;;http://www.apple.com/quicktime/download/standalone.html
-MAC3;MACE 3;;;;;
-MAC6;MACE 6;;;;;
-NONE;PCM;;;CBR;;http://www.apple.com/quicktime/download/standalone.html
-Qclp;QCELP;;;CBR;Qualcomm PureVoice;
-QDM1;QDesign 1;;;;QDesign Music 1;http://www.apple.com/quicktime/download/standalone.html
-QDM2;Qdesign 2;;;;QDesign Music 2;http://www.apple.com/quicktime/download/standalone.html
-QDMC;Qdesign 2;(Old);;;QDesign Music 2 (old version, rare);http://www.apple.com/quicktime/download/standalone.html
-raw ;PCM;;Unsigned;CBR;;http://www.apple.com/quicktime/download/standalone.html
-sac3;AC-3;;;CBR;Made by Nero;http://www.nerodigital.com
-samr;AMR;;Narrow band;CBR;;http://www.apple.com/quicktime/download/standalone.html
-sawb;AMR;;Wide band;CBR;;http://www.apple.com/quicktime/download/standalone.html
-sevc;EVRC;;;CBR;;http://www.apple.com/quicktime/download/standalone.html
-sowt;PCM;;Signed / Little;CBR;;http://www.apple.com/quicktime/download/standalone.html
-twos;PCM;;Signed / Big;CBR;;http://www.apple.com/quicktime/download/standalone.html
-ulaw;ADPCM;;U-Law;CBR;;http://www.apple.com/quicktime/download/standalone.html
-vdva;DV Audio;;;CBR;;http://www.apple.com/quicktime/download/standalone.html
+.mp3;MPEG Audio;;;
+alac;ALAC;;Apple Lossless Format;http://www.apple.com/quicktime/download/standalone.html
+alaw;ADPCM;;;http://www.apple.com/quicktime/download/standalone.html
+dvca;DV Audio;;;http://www.apple.com/quicktime/download/standalone.html
+enca;(Encrypted);;;
+fl32;PCM ; ;;http://www.apple.com/quicktime/download/standalone.html
+fl64;PCM;;;http://www.apple.com/quicktime/download/standalone.html
+ima4;ADPCM;;;http://www.apple.com/quicktime/download/standalone.html
+in24;PCM;;;http://www.apple.com/quicktime/download/standalone.html
+in32;PCM;;;http://www.apple.com/quicktime/download/standalone.html
+MAC3;MACE 3;;;
+MAC6;MACE 6;;;
+NONE;PCM;;;http://www.apple.com/quicktime/download/standalone.html
+Qclp;QCELP;;Qualcomm PureVoice;
+QDM1;QDesign 1;;QDesign Music 1;http://www.apple.com/quicktime/download/standalone.html
+QDM2;Qdesign 2;;QDesign Music 2;http://www.apple.com/quicktime/download/standalone.html
+QDMC;Qdesign 2;(Old);QDesign Music 2 (old version, rare);http://www.apple.com/quicktime/download/standalone.html
+raw ;PCM;;;http://www.apple.com/quicktime/download/standalone.html
+sac3;AC-3;;Made by Nero;http://www.nerodigital.com
+samr;AMR;;;http://www.apple.com/quicktime/download/standalone.html
+sawb;AMR;;;http://www.apple.com/quicktime/download/standalone.html
+sevc;EVRC;;;http://www.apple.com/quicktime/download/standalone.html
+sowt;PCM;;;http://www.apple.com/quicktime/download/standalone.html
+twos;PCM;;;http://www.apple.com/quicktime/download/standalone.html
+ulaw;ADPCM;;;http://www.apple.com/quicktime/download/standalone.html
+vdva;DV Audio;;;http://www.apple.com/quicktime/download/standalone.html

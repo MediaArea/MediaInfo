@@ -177,6 +177,7 @@ private :
         Method_None,
         Method_String,
         Method_String2,
+        Method_String3,
         Method_Integer,
         Method_Binary
     };

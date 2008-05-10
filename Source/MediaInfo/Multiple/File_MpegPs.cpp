@@ -2259,9 +2259,9 @@ File__Analyze* File_MpegPs::ChooseParser_Mpega()
         Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "MPEG Audio");
         switch ()
         {
-            case 0x03 : Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "Version 1");
+            case 0x03 : Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, "Version 1");
                         Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "MPEG-1A"); break;
-            case 0x04 : Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "Version 2");
+            case 0x04 : Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, "Version 2");
                         Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "MPEG-2A"); break;
             default   : Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "MPEG-A");
         }

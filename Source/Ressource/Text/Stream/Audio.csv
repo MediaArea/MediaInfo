@@ -12,14 +12,18 @@ MenuID/String;;;Y NT;;;A menu ID for this stream in this file
 Format;;;Y YT;;;Format used
 Format/Info;;;Y NT;;;Info about Format
 Format/Url;;;N NT;;;Link
+Format_Version;;;Y NT;;;Version of this format
 Format_Profile;;;Y NT;;;Profile of the Format
 Format_Settings;;;N NT;;;Settings needed for decoder used, summary
+Format_Settings_SBR;;;Y NT;;;
+Format_Settings_PS;;;Y NT;;;
 Format_Settings_Floor;;;Y NT;;;
 Format_Settings_Firm;;;Y NT;;;
 Format_Settings_Endianness;;;Y NT;;;
 Format_Settings_Sign;;;Y NT;;;
 Format_Settings_Law;;;Y NT;;;
 Format_Settings_ITU;;;Y NT;;;
+MuxingMode;;;Y NT;;;How this file is muxed in the container
 CodecID;;;Y YT;;;Codec ID (found in some containers)
 CodecID/Info;;;Y NT;;;Info about codec ID
 CodecID/Hint;;;Y NT;;;A hint for this codec ID
@@ -78,20 +82,20 @@ Video0_Delay/String;;;N NT;;;Deprecated
 Video0_Delay/String1;;;N NT;;;Deprecated
 Video0_Delay/String2;;;N NT;;;Deprecated
 Video0_Delay/String3;;;N NT;;;Deprecated
-ReplayGain_Gain;;;N YT;;;The gain to apply to reach 89dB SPL on playback;;
-ReplayGain_Peak;;;N YT;;;The maximum absolute peak value of the item;;
-StreamSize;; byte;N YI;;;Stream size in bytes;;
-StreamSize/String;;;Y NT;;;;;
-StreamSize/String1;;;N NT;;;;;
-StreamSize/String2;;;N NT;;;;;
-StreamSize/String3;;;N NT;;;;;
-StreamSize/String4;;;N NT;;;;;
-Title;;;Y YI;;;Name of the track;;
-Encoded_Library;;;Y YT;;;Software used to create the file;;
-Encoded_Library_Settings;;;Y YT;;;Parameters used by the software;;
-Language;;;N YT;;;Language (2 letters);;
+ReplayGain_Gain;;;N YT;;;The gain to apply to reach 89dB SPL on playback
+ReplayGain_Peak;;;N YT;;;The maximum absolute peak value of the item
+StreamSize;; byte;N YI;;;Stream size in bytes
+StreamSize/String;;;Y NT;;;
+StreamSize/String1;;;N NT;;;
+StreamSize/String2;;;N NT;;;
+StreamSize/String3;;;N NT;;;
+StreamSize/String4;;;N NT;;;
+Title;;;Y YI;;;Name of the track
+Encoded_Library;;;Y YT;;;Software used to create the file
+Encoded_Library_Settings;;;Y YT;;;Parameters used by the software
+Language;;;N YT;;;Language (2 letters)
 Language/String;;;Y NT;;;Language (full);;
 Language_More;;;Y YT;;;More info about Language (director's comment...);;
 Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal
-Encryption;;;Y YT
+Encryption;;;Y YT;;;;;

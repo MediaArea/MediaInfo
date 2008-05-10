@@ -30,8 +30,10 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Archive/File_Rar.cpp \
                        ../../../Source/MediaInfo/Archive/File_Tar.cpp \
                        ../../../Source/MediaInfo/Archive/File_Zip.cpp \
+                       ../../../Source/MediaInfo/Audio/File_Aac.cpp \
                        ../../../Source/MediaInfo/Audio/File_Ac3.cpp \
                        ../../../Source/MediaInfo/Audio/File_Adif.cpp \
+                       ../../../Source/MediaInfo/Audio/File_Adpcm.cpp \
                        ../../../Source/MediaInfo/Audio/File_Adts.cpp \
                        ../../../Source/MediaInfo/Audio/File_Amr.cpp \
                        ../../../Source/MediaInfo/Audio/File_Amv.cpp \

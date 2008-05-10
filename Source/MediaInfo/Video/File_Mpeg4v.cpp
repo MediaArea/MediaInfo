@@ -172,7 +172,7 @@ const char* Mpeg4v_Profile_Level(int32u Profile_Level)
         case B8(11110111) : return "Streaming Video@L3";
         case B8(11111000) : return "Streaming Video@L4";
         case B8(11111111) : return "";
-        default :           return "Unknown";
+        default :           return "";
     }
 }
 //---------------------------------------------------------------------------
@@ -228,7 +228,7 @@ void File_Mpeg4v::Read_Buffer_Finalize()
         return; //Not initialized
 
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Count_Get(Stream_General)==0 && Frame_Count>0)
+    if (Count_Get(Stream_General)==0)
         vop_start_Fill();
 
     //Purge what is not needed anymore

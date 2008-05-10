@@ -1,236 +1,236 @@
-0;;;;;;
-1;PCM;Microsoft;;CBR;;http://www.microsoft.com/windows/
-2;ADPCM;;;CBR;Microsoft ADPCM;http://www.microsoft.com/windows/
-3;PCM;;;CBR;IEEE FLOAT;http://www.microsoft.com/windows/
-4;VSELP;;;CBR;Compaq VSELP;
-5;CVSD;;;;IBM CVSD;
-6;ADPCM;;A-Law;CBR;CCITT A-Law;http://www.microsoft.com/windows/
-7;ADPCM;;U-Law;CBR;CCITT U-Law;http://www.microsoft.com/windows/
-8;DTS;;;CBR;;
-9;DRM;;;;Microsoft;
-A;WMSpeech;;;;;
-C;MPEG Audio;;5.1;;MPEG2 5.1;
-10;ADPCM;;;CBR;OKI ADPCM;
-11;ADPCM;;;CBR;Intel ADPCM;
-12;ADPCM;;;CBR;Mediaspace (Videologic) ADPCM;
-13;ADPCM;;;CBR;Sierra ADPCM;
-14;ADPCM;;;CBR;Antex G723 ADPCM;
-15;STD;;;;DSP solutions Digi-STD;
-16;FIX;;;;DSP solutions Digi-FIX;
-17;ADPCM;;;CBR;Dialogic-OKI ADPCM;http://www.microsoft.com/windows/
-18;ADPCM;;;CBR;;
-19;CU;;;;HP CU_CODEC;
-1A;Dynamic Voice;;;;HP;
-20;ADPCM;;;CBR;Yamaha ADPCM;
-21;SONARC;;;;Speech Compression SONARC;
-22;Truespeech;;;;DSP Group TrueSpeech;http://www.microsoft.com/windows/
-23;SC1;;;;Echo Speech SC1;
-24;AF36;;;;Virtual Music AudioFile 36;
-25;APTX;;;;Audio Processing Technology X;
-26;AF10;;;;Virtual Music AudioFile 10;
-27;Prosody 1612;;;;Aculab plc Prosody 1612;
-28;LRC;;;;Merging Technologies LRC;
-30;AC2;;;;Dolby Laboratories AC2;
-31;GSM 6.10;;;;Microsoft GSM 6.10;http://www.microsoft.com/windows/
-32;MSAUDIO;;;;Microsoft Audio;
-33;ADPCM;;;CBR;Antex ADPCM;
-34;VQLPC;;;;Control Ressources VQLPC;
-35;REAL;;;;DSP Solutions Digi-REAL;
-36;ADPCM;;;CBR;DSP Solutions Digi-ADPCM;
-37;CR10;;;;Control Resources 10;
-38;ADPCM;;;CBR;Natural MicroSystems VBX ADPCM;
-39;ADPCM;;;CBR;Crystal Semiconductor IMA ADPCM;
-3A;SC3;;;;Echo Speech SC3;
-3B;ADPCM;;;CBR;Rockwell ADPCM;
-3C;DigiTalk;;;;Rockwell DigiTalk;
-3D;Xebec;;;;Xebec Multimedia Solutions;
-40;ADPCM;;;CBR;Antex Electronics G721 ADPCM;
-41;CELP;;;;Antex Electronics G728 CELP;
-42;G.723.1;;;CBR;Microsoft G.723.1;http://www.microsoft.com/windows/
-42;ADPCM;;;CBR;IBM;
-42;G.729;;;CBR;Microsoft;
-45;ADPCM;;;CBR;Microsoft G.726;http://www.microsoft.com/windows/
-50;MPEG Audio;MP1;Layer 1;;;http://www.iis.fraunhofer.de/amm/index.html
-51;MPEG Audio;MP2;Layer 2;;;http://www.iis.fraunhofer.de/amm/index.html
-52;RT24;;;;InSoft, Inc.;
-53;PAC;;;;InSoft, Inc.;
-55;MPEG Audio;MP3;Layer 3;;;http://www.iis.fraunhofer.de/amm/index.html
-59;G.723;;;CBR;Lucent G723;
-60;Cirrus;;;;Cirrus Logic;
-61;PCM;;;CBR;ESS Technology PCM;
-62;Voxware;;;;;
-63;Atrac;;;;Canopus ATRAC;
-64;ADPCM;;;CBR;APICOM G726 ADPCM;
-65;ADPCM;;;CBR;APICOM G722 ADPCM;
-66;DSAT;;;;Microsoft DSAT;
-67;DSAT Display;;;;Microsoft DSAT DISPLAY;
-69;BYTE_ALIGNED;;;;Voxware BYTE_ALIGNED;http://www.voxware.com/
-70;AC8;;;;Voxware AC8;http://www.voxware.com/
-71;AC10;;;;Voxware AC10;http://www.voxware.com/
-72;AC16;;;;Voxware AC16;http://www.voxware.com/
-73;AC20;;;;Voxware AC20;http://www.voxware.com/
-74;RT24;;;;Voxware RT24 (MetaVoice);http://www.voxware.com/
-75;RT29;;;;Voxware RT29 (MetaSound);http://www.voxware.com/
-76;RT29HW;;;;Voxware RT29HW;http://www.voxware.com/
-77;VR12;;;;Voxware VR12;http://www.voxware.com/
-78;VR18;;;;Voxware VR18;http://www.voxware.com/
-79;TQ40;;;;Voxware TQ40;http://www.voxware.com/
-7A;SC3;;;;Voxware;
-7B;SC3;;;;Voxware;
-80;Softsound;;;;;
-81;TQ60;;;;Voxware TQ60;http://www.voxware.com/
-82;MSRT24;;;;Microsoft MSRT24;
-83;G.729a;;;CBR;AT&T G729A;
-84;MVI_MVI2;;;;Motion Pixels MVI_MVI2;
-85;ADPCM;;;CBR;DataFusion Systems (Pty) G726;
-86;GSM 6.10;;;;DataFusion Systems (Pty) GSM6.10;
-88;ISI AUDIO;;;;Iterated Systems AUDIO;
-89;Onlive;;;;OnLive! Technologies;
-8A;SX20;;;;Multitude;
-8B;ADPCM;;;CBR;Infocom ITS A/S;
-8C;G.729;;;CBR;Convedia Corporation;
-91;SBC24;;;;Siemens Business Communications Sys 24;
-92;AC-3;;;CBR;Sonic Foundry AC3 SPDIF;
-93;G.723;;;CBR;MediaSonic G723;
-94;Prosody 8KBPS;;;;Aculab plc Prosody 8KBPS;
-97;ADPCM;;;CBR;ZyXEL Communications ADPCM;
-98;LPCBB;;;;Philips Speech Processing LPCBB
-99;Packed;;;;Studer Professional Audio AG Packed
-A0;PHONYTALK;;;;Malden Electronics PHONYTALK
-A1;GSM;;;;Racal Recorders
-A2;G.720a;;;CBR;Racal Recorders
-A3;G.723.1;;;CBR;Racal Recorders
-A4;ACELP;;;CBR;Racal Recorders
-B0;AAC;;;;NEC Corporation
-FF;AAC;;;;
-100;ADPCM;;;CBR;
-101;IRAT;;;;BeCubed IRAT
-102;ADPCM;;A-Law;CBR;IBM A-law
-103;ADPCM;;;CBR;IBM AVC ADPCM
-111;G.723;;;CBR;Vivo G723
-112;SIREN;;;;Vivo SIREN
-120;CELP;;;;Philips Speech Processing
-121;Grundig;;;;Philips Speech Processing;
-123;G.723;;;CBR;Digital Equipment Corporation (DEC) G723;
-125;ADPCM;;;CBR;;
-130;ACELP;;;;Sipro ACELP.net;http://dividix.host.sk
-131;ACELP;4800;;;Sipro ACELP4800;
-132;ACELP;8V3;;;Sipro ACELP8V3;
-133;G.729;;;CBR;Sipro G729;
-134;G.729a;;;CBR;Sipro G729A;
-135;KELVIN;;;;Sipro KELVIN;
-135;AMR;;;;VoiceAge Corporation;
-140;ADPCM;;;CBR;Dictaphone Corporation G726 ADPCM;
-140;CELP68;;;;Dictaphone Corporation;
-140;CELP54;;;;Dictaphone Corporation;
-150;PureVoice;;;;Qualcomm PUREVOICE;
-151;HalfRate;;;;Qualcomm HALFRATE;
-155;TUBGSM;;;;Ring Zero Systems TUBGSM;
-160;WMA1;;;;Windows Media Audio 1;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
-161;WMA2;;;;Windows Media Audio 2;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
-162;WMA3;;;;Windows Media Audio 3;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
-163;WMA Lossless;;;;Windows Media Audio 3;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
-163;WMA Pro;;;;WMA Pro over S/PDIF;
-170;ADPCM;;;CBR;Unisys Nap ADPCM;
-171;ADPCM;;U-Law;CBR;Unisys Nap U-law;
-172;ADPCM;;A-Law;CBR;Unisys Nap A-law;
-173;16K;;;;Unisys Nap 16K;
-174;G.700;;;;SyCom Technologies;
-175;ADPCM;;;CBR;SyCom Technologies;
-176;CELP54;;;;SyCom Technologies;
-177;CELP68;;;;SyCom Technologies;
-178;ADPCM;;;CBR;Knowledge Adventure, Inc.;
-180;AAC;;;;Fraunhofer IIS;
-190;DTS;;;CBR;;
-200;ADPCM;;;CBR;Creative Labs ADPCM
-202;FastSpeech8;;;;Creative Labs Fast Speech 8
-203;FastSpeech10;;;;Creative Labs Fast Speech 10
-210;ADPCM;;;CBR;UHER informatic GmbH ADPCM
-215;ACM;;;;Ulead DV ACM
-216;ACM;;;;Ulead DV ACM
-220;QuaterDeck;;;;Quarterdeck
-230;VC;;;;I-link VC
-240;RAW_SPORT;;;;Aureal RAW_SPORT
-241;AC3;;;;ESST AC3
-250;HSX;;;;Interactive Products, Inc. (IPI) HSX
-251;RPELP;;;;Interactive Products, Inc. (IPI) RPELP
-260;CS2;;;;Consistent Software CS2
-270;SCX;;;;Sony
-271;SCY;;;;Sony
-272;Atrac3;;;;Sony
-273;SPC;;;;Sony;
-280;Telum;;;;;
-281;TelumIA;;;;;
-285;ADPCM;;;CBR;Norcom Voice Systems;
-300;FM_TOWNS_SND;;;;Fujitsu FM_TOWNS_SND;
-350;Dev;;;;Micronas Semiconductors, Inc.;
-351;CELP833;;;;Micronas Semiconductors, Inc.;
-400;BTV_DIGITAL;;;;Brooktree (BTV) DIGITAL;
-401;Music Coder;;;;Intel Music Coder;http://www.intel.com/
-402;IAC2;;;;Ligos IAC2;http://www.ligos.com
-450;Qdesign;;;;QDesign Music;
-500;VP7;;;;On2 VP7 Audio;http://www.on2.com/vp7.php3
-501;VP6;;;;On2 VP7 Audio;http://www.on2.com/vp7.php3
-680;VM;;;;AT&T VME_VMPCM;
-681;TPC;;;;AT&T TPC;
-700;YMPEG;;;;YMPEG Alpha;
-8AE;LiteWave;;;;ClearJump LiteWave;
-AAC;AAC;;;;;
-1000;GSM;;;;Ing C. Olivetti & C., S.p.A. GSM;
-1001;ADPCM;;;CBR;Ing C. Olivetti & C., S.p.A. ADPCM;
-1002;CELP;;;;Ing C. Olivetti & C., S.p.A. CELP;
-1003;SBC;;;;Ing C. Olivetti & C., S.p.A. SBC;
-1004;OPR;;;;Ing C. Olivetti & C., S.p.A. OPR;
-1100;LH_CODEC;;;;Lernout & Hauspie Codec;
-1101;CELP;;;;Lernout & Hauspie CELP 4.8 kb/s;http://www.microsoft.com/windows/
-1102;SBC;;;;Lernout & Hauspie SBC 8 kb/s;http://www.microsoft.com/windows/
-1103;SBC;;;;Lernout & Hauspie SBC 12 kb/s;http://www.microsoft.com/windows/
-1104;SBC;;;;Lernout & Hauspie SBC 16 kb/s;http://www.microsoft.com/windows/
-1400;NORRIS;;;;Norris Communications, Inc.;
-1401;ISIAUDIO;;;;ISIAudio;
-1500;MUSICOMPRESS;;;;Soundspace Music Compression;
-181C;RT24;;;;VoxWare RT24 speech codec;
-181E;AX24000P;;;;Lucent elemedia AX24000P Music codec
-1971;SonicFoundry;;;;Lossless
-1C03;ADPCM;;;CBR;Lucent SX5363S G.723 compliant codec
-1C07;SX8300P;;;;Lucent SX8300P speech codec
-1C0C;ADPCM;;;CBR;Lucent SX5363S G.723 compliant codec
-1F03;DigiTalk;;;;CUseeMe DigiTalk (ex-Rocwell)
-1FC4;ALF2CD;;;;NCT Soft ALF2CD ACM
-2000;AC-3;;;CBR;
-2001;DTS;;;;Digital Theater Systems
-2002;VSELP;;;;RealAudio 1/2 14.4
-2003;VSELP;;;;RealAudio 1/2 28.8
-2004;Cooker;;;;RealAudio G2/8 Cook (low bitrate)
-2005;DNET;;;;RealAudio 3/4/5 Music (DNET)
-2006;AAC;;;;RealAudio 10 AAC (RAAC)
-2007;AAC;;;;RealAudio 10 AAC+ (RACP)
-3313;AviSynth;;;;makeAVIS (fake AVI sound from AviSynth scripts)
-4143;AAC;;;;Divio MPEG-4 AAC audio;
-4201;Nokia;;;;;
-4243;ADPCM;;;CBR;G726;
-43AC;Speex;;;;;
-564C;Vorbis;;;;;
-566F;Vorbis;;;;;http://www.vorbis.com
-5756;WavPack;;;;;http://www.wavpack.com/
-674F;Vorbis;;;;Mode 1;http://www.vorbis.com
-6750;Vorbis;;;;Mode 2;http://www.vorbis.com
-6751;Vorbis;;;;Mode 3;http://www.vorbis.com
-676F;Vorbis;;;;Mode 1+;http://www.vorbis.com
-6770;Vorbis;;;;Mode 2+;http://www.vorbis.com
-6771;Vorbis;;;;Mode 2+;http://www.vorbis.com
-7A21;AMR;;;CBR;GSM-AMR (CBR, no SID);http://www.microsoft.com
-7A22;AMR;;;VBR;GSM-AMR (VBR, including SID);http://www.microsoft.com
-A100;G.723.1;;;;;
-A101;AVQSBC;;;;;
-A102;ODSBC;;;;;
-A103;G729A;;;;;
-A104;AMR;;WB;CBR;;
-A105;ADPCM;;;CBR;G726;
-A106;AAC;;;;;
-A107;ADPCM;;;CBR;G726;
-A109;Speex;;;;;http://www.speex.org/
-DFAC;FrameServer;;;;DebugMode SonicFoundry Vegas FrameServer ACM Codec;
-F1AC;FLAC;;;VBR;Free Lossless Audio Codec FLAC;
-FFFE;;Extensible;;;Extensible wave format;
-FFFF;;In Development;;;In Development / Unregistered;
+0;;;;
+1;PCM;Microsoft;;http://www.microsoft.com/windows/
+2;ADPCM;;Microsoft ADPCM;http://www.microsoft.com/windows/
+3;PCM;;IEEE FLOAT;http://www.microsoft.com/windows/
+4;VSELP;;Compaq VSELP;
+5;CVSD;;IBM CVSD;
+6;ADPCM;;CCITT A-Law;http://www.microsoft.com/windows/
+7;ADPCM;;CCITT U-Law;http://www.microsoft.com/windows/
+8;DTS;;;
+9;DRM;;Microsoft;
+A;WMSpeech;;;
+C;MPEG Audio;;MPEG2 5.1;
+10;ADPCM;;OKI ADPCM;
+11;ADPCM;;Intel ADPCM;
+12;ADPCM;;Mediaspace (Videologic) ADPCM;
+13;ADPCM;;Sierra ADPCM;
+14;ADPCM;;Antex G723 ADPCM;
+15;STD;;DSP solutions Digi-STD;
+16;FIX;;DSP solutions Digi-FIX;
+17;ADPCM;;Dialogic-OKI ADPCM;http://www.microsoft.com/windows/
+18;ADPCM;;;
+19;CU;;HP CU_CODEC;
+1A;Dynamic Voice;;HP;
+20;ADPCM;;Yamaha ADPCM;
+21;SONARC;;Speech Compression SONARC;
+22;Truespeech;;DSP Group TrueSpeech;http://www.microsoft.com/windows/
+23;SC1;;Echo Speech SC1;
+24;AF36;;Virtual Music AudioFile 36;
+25;APTX;;Audio Processing Technology X;
+26;AF10;;Virtual Music AudioFile 10;
+27;Prosody 1612;;Aculab plc Prosody 1612;
+28;LRC;;Merging Technologies LRC;
+30;AC2;;Dolby Laboratories AC2;
+31;GSM 6.10;;Microsoft GSM 6.10;http://www.microsoft.com/windows/
+32;MSAUDIO;;Microsoft Audio;
+33;ADPCM;;Antex ADPCM;
+34;VQLPC;;Control Ressources VQLPC;
+35;REAL;;DSP Solutions Digi-REAL;
+36;ADPCM;;DSP Solutions Digi-ADPCM;
+37;CR10;;Control Resources 10;
+38;ADPCM;;Natural MicroSystems VBX ADPCM;
+39;ADPCM;;Crystal Semiconductor IMA ADPCM;
+3A;SC3;;Echo Speech SC3;
+3B;ADPCM;;Rockwell ADPCM;
+3C;DigiTalk;;Rockwell DigiTalk;
+3D;Xebec;;Xebec Multimedia Solutions;
+40;ADPCM;;Antex Electronics G721 ADPCM;
+41;CELP;;Antex Electronics G728 CELP;
+42;G.723.1;;Microsoft G.723.1;http://www.microsoft.com/windows/
+42;ADPCM;;IBM;
+42;G.729;;Microsoft;
+45;ADPCM;;Microsoft G.726;http://www.microsoft.com/windows/
+50;MPEG Audio;MP1;;http://www.iis.fraunhofer.de/amm/index.html
+51;MPEG Audio;MP2;;http://www.iis.fraunhofer.de/amm/index.html
+52;RT24;;InSoft, Inc.;
+53;PAC;;InSoft, Inc.;
+55;MPEG Audio;MP3;;http://www.iis.fraunhofer.de/amm/index.html
+59;G.723;;Lucent G723;
+60;Cirrus;;Cirrus Logic;
+61;PCM;;ESS Technology PCM;
+62;Voxware;;;
+63;Atrac;;Canopus ATRAC;
+64;ADPCM;;APICOM G726 ADPCM;
+65;ADPCM;;APICOM G722 ADPCM;
+66;DSAT;;Microsoft DSAT;
+67;DSAT Display;;Microsoft DSAT DISPLAY;
+69;BYTE_ALIGNED;;Voxware BYTE_ALIGNED;http://www.voxware.com/
+70;AC8;;Voxware AC8;http://www.voxware.com/
+71;AC10;;Voxware AC10;http://www.voxware.com/
+72;AC16;;Voxware AC16;http://www.voxware.com/
+73;AC20;;Voxware AC20;http://www.voxware.com/
+74;RT24;;Voxware RT24 (MetaVoice);http://www.voxware.com/
+75;RT29;;Voxware RT29 (MetaSound);http://www.voxware.com/
+76;RT29HW;;Voxware RT29HW;http://www.voxware.com/
+77;VR12;;Voxware VR12;http://www.voxware.com/
+78;VR18;;Voxware VR18;http://www.voxware.com/
+79;TQ40;;Voxware TQ40;http://www.voxware.com/
+7A;SC3;;Voxware;
+7B;SC3;;Voxware;
+80;Softsound;;;
+81;TQ60;;Voxware TQ60;http://www.voxware.com/
+82;MSRT24;;Microsoft MSRT24;
+83;G.729a;;AT&T G729A;
+84;MVI_MVI2;;Motion Pixels MVI_MVI2;
+85;ADPCM;;DataFusion Systems (Pty) G726;
+86;GSM 6.10;;DataFusion Systems (Pty) GSM6.10;
+88;ISI AUDIO;;Iterated Systems AUDIO;
+89;Onlive;;OnLive! Technologies;
+8A;SX20;;Multitude;
+8B;ADPCM;;Infocom ITS A/S;
+8C;G.729;;Convedia Corporation;
+91;SBC24;;Siemens Business Communications Sys 24;
+92;AC-3;;Sonic Foundry AC3 SPDIF;
+93;G.723;;MediaSonic G723;
+94;Prosody 8KBPS;;Aculab plc Prosody 8KBPS;
+97;ADPCM;;ZyXEL Communications ADPCM;
+98;LPCBB;;Philips Speech Processing LPCBB
+99;Packed;;Studer Professional Audio AG Packed
+A0;PHONYTALK;;Malden Electronics PHONYTALK
+A1;GSM;;Racal Recorders
+A2;G.720a;;Racal Recorders
+A3;G.723.1;;Racal Recorders
+A4;ACELP;;Racal Recorders
+B0;AAC;;NEC Corporation
+FF;AAC;;
+100;ADPCM;;
+101;IRAT;;BeCubed IRAT
+102;ADPCM;;IBM A-law
+103;ADPCM;;IBM AVC ADPCM
+111;G.723;;Vivo G723
+112;SIREN;;Vivo SIREN
+120;CELP;;Philips Speech Processing
+121;Grundig;;Philips Speech Processing;
+123;G.723;;Digital Equipment Corporation (DEC) G723;
+125;ADPCM;;;
+130;ACELP;;Sipro ACELP.net;http://dividix.host.sk
+131;ACELP;4800;Sipro ACELP4800;
+132;ACELP;8V3;Sipro ACELP8V3;
+133;G.729;;Sipro G729;
+134;G.729a;;Sipro G729A;
+135;KELVIN;;Sipro KELVIN;
+135;AMR;;VoiceAge Corporation;
+140;ADPCM;;Dictaphone Corporation G726 ADPCM;
+140;CELP68;;Dictaphone Corporation;
+140;CELP54;;Dictaphone Corporation;
+150;PureVoice;;Qualcomm PUREVOICE;
+151;HalfRate;;Qualcomm HALFRATE;
+155;TUBGSM;;Ring Zero Systems TUBGSM;
+160;WMA1;;Windows Media Audio 1;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
+161;WMA2;;Windows Media Audio 2;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
+162;WMA3;;Windows Media Audio 3;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
+163;WMA Lossless;;Windows Media Audio 3;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
+163;WMA Pro;;WMA Pro over S/PDIF;
+170;ADPCM;;Unisys Nap ADPCM;
+171;ADPCM;;Unisys Nap U-law;
+172;ADPCM;;Unisys Nap A-law;
+173;16K;;Unisys Nap 16K;
+174;G.700;;SyCom Technologies;
+175;ADPCM;;SyCom Technologies;
+176;CELP54;;SyCom Technologies;
+177;CELP68;;SyCom Technologies;
+178;ADPCM;;Knowledge Adventure, Inc.;
+180;AAC;;Fraunhofer IIS;
+190;DTS;;;
+200;ADPCM;;Creative Labs ADPCM
+202;FastSpeech8;;Creative Labs Fast Speech 8
+203;FastSpeech10;;Creative Labs Fast Speech 10
+210;ADPCM;;UHER informatic GmbH ADPCM
+215;ACM;;Ulead DV ACM
+216;ACM;;Ulead DV ACM
+220;QuaterDeck;;Quarterdeck
+230;VC;;I-link VC
+240;RAW_SPORT;;Aureal RAW_SPORT
+241;AC3;;ESST AC3
+250;HSX;;Interactive Products, Inc. (IPI) HSX
+251;RPELP;;Interactive Products, Inc. (IPI) RPELP
+260;CS2;;Consistent Software CS2
+270;SCX;;Sony
+271;SCY;;Sony
+272;Atrac3;;Sony
+273;SPC;;Sony;
+280;Telum;;;
+281;TelumIA;;;
+285;ADPCM;;Norcom Voice Systems;
+300;FM_TOWNS_SND;;Fujitsu FM_TOWNS_SND;
+350;Dev;;Micronas Semiconductors, Inc.;
+351;CELP833;;Micronas Semiconductors, Inc.;
+400;BTV_DIGITAL;;Brooktree (BTV) DIGITAL;
+401;Music Coder;;Intel Music Coder;http://www.intel.com/
+402;IAC2;;Ligos IAC2;http://www.ligos.com
+450;Qdesign;;QDesign Music;
+500;VP7;;On2 VP7 Audio;http://www.on2.com/vp7.php3
+501;VP6;;On2 VP7 Audio;http://www.on2.com/vp7.php3
+680;VM;;AT&T VME_VMPCM;
+681;TPC;;AT&T TPC;
+700;YMPEG;;YMPEG Alpha;
+8AE;LiteWave;;ClearJump LiteWave;
+AAC;AAC;;;
+1000;GSM;;Ing C. Olivetti & C., S.p.A. GSM;
+1001;ADPCM;;Ing C. Olivetti & C., S.p.A. ADPCM;
+1002;CELP;;Ing C. Olivetti & C., S.p.A. CELP;
+1003;SBC;;Ing C. Olivetti & C., S.p.A. SBC;
+1004;OPR;;Ing C. Olivetti & C., S.p.A. OPR;
+1100;LH_CODEC;;Lernout & Hauspie Codec;
+1101;CELP;;Lernout & Hauspie CELP 4.8 kb/s;http://www.microsoft.com/windows/
+1102;SBC;;Lernout & Hauspie SBC 8 kb/s;http://www.microsoft.com/windows/
+1103;SBC;;Lernout & Hauspie SBC 12 kb/s;http://www.microsoft.com/windows/
+1104;SBC;;Lernout & Hauspie SBC 16 kb/s;http://www.microsoft.com/windows/
+1400;NORRIS;;Norris Communications, Inc.;
+1401;ISIAUDIO;;ISIAudio;
+1500;MUSICOMPRESS;;Soundspace Music Compression;
+181C;RT24;;VoxWare RT24 speech codec;
+181E;AX24000P;;Lucent elemedia AX24000P Music codec
+1971;SonicFoundry;;Lossless
+1C03;ADPCM;;Lucent SX5363S G.723 compliant codec
+1C07;SX8300P;;Lucent SX8300P speech codec
+1C0C;ADPCM;;Lucent SX5363S G.723 compliant codec
+1F03;DigiTalk;;CUseeMe DigiTalk (ex-Rocwell)
+1FC4;ALF2CD;;NCT Soft ALF2CD ACM
+2000;AC-3;;
+2001;DTS;;Digital Theater Systems
+2002;VSELP;;RealAudio 1/2 14.4
+2003;VSELP;;RealAudio 1/2 28.8
+2004;Cooker;;RealAudio G2/8 Cook (low bitrate)
+2005;DNET;;RealAudio 3/4/5 Music (DNET)
+2006;AAC;;RealAudio 10 AAC (RAAC)
+2007;AAC;;RealAudio 10 AAC+ (RACP)
+3313;AviSynth;;makeAVIS (fake AVI sound from AviSynth scripts)
+4143;AAC;;Divio MPEG-4 AAC audio;
+4201;Nokia;;;
+4243;ADPCM;;G726;
+43AC;Speex;;;
+564C;Vorbis;;;
+566F;Vorbis;;;http://www.vorbis.com
+5756;WavPack;;;http://www.wavpack.com/
+674F;Vorbis;;Mode 1;http://www.vorbis.com
+6750;Vorbis;;Mode 2;http://www.vorbis.com
+6751;Vorbis;;Mode 3;http://www.vorbis.com
+676F;Vorbis;;Mode 1+;http://www.vorbis.com
+6770;Vorbis;;Mode 2+;http://www.vorbis.com
+6771;Vorbis;;Mode 2+;http://www.vorbis.com
+7A21;AMR;;GSM-AMR (CBR, no SID);http://www.microsoft.com
+7A22;AMR;;GSM-AMR (VBR, including SID);http://www.microsoft.com
+A100;G.723.1;;;
+A101;AVQSBC;;;
+A102;ODSBC;;;
+A103;G729A;;;
+A104;AMR;;;
+A105;ADPCM;;G726;
+A106;AAC;;;
+A107;ADPCM;;G726;
+A109;Speex;;;http://www.speex.org/
+DFAC;FrameServer;;DebugMode SonicFoundry Vegas FrameServer ACM Codec;
+F1AC;FLAC;;Free Lossless Audio Codec FLAC;
+FFFE;;Extensible;Extensible wave format;
+FFFF;;In Development;In Development / Unregistered;

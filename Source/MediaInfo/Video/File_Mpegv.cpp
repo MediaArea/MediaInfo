@@ -536,19 +536,18 @@ void File_Mpegv::slice_start_Fill()
     if (MPEG_Version==2)
     {
         Fill(Stream_General, 0, General_Format, "MPEG Video");
-        if (Retrieve(Stream_General, 0, General_Format_Profile).empty())
-            Fill(Stream_General, 0, General_Format_Profile, "Version 2");
+        Fill(Stream_General, 0, General_Format_Version, "Version 2");
         Fill(Stream_Video, 0, Video_Format, "MPEG Video");
-        Fill(Stream_Video, 0, Video_Format_Settings, "Version 2");
+        Fill(Stream_Video, 0, Video_Format_Version, "Version 2");
         Fill(Stream_Video, 0, Video_Codec, "MPEG-2V");
         Fill(Stream_Video, 0, Video_Codec_String, "MPEG-2 Video");
     }
     else
     {
         Fill(Stream_General, 0, General_Format, "MPEG Video");
-        Fill(Stream_General, 0, General_Format_Profile, "Version 1");
+        Fill(Stream_General, 0, General_Format_Version, "Version 1");
         Fill(Stream_Video, 0, Video_Format, "MPEG Video");
-        Fill(Stream_Video, 0, Video_Format_Settings, "Version 1");
+        Fill(Stream_Video, 0, Video_Format_Version, "Version 1");
         Fill(Stream_Video, 0, Video_Codec, "MPEG-1V");
         Fill(Stream_Video, 0, Video_Codec_String, "MPEG-1 Video");
     }

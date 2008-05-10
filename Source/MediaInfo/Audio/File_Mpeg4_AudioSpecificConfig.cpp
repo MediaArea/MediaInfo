@@ -538,7 +538,10 @@ void File_Mpeg4_AudioSpecificConfig::audioSpecificConfig ()
         Fill(Stream_General, 0, General_Format, "AAC");
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, StreamPos_Last, Audio_Format, MP4_Format[audioObjectType]);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, "Version 4");
         Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, MP4_Format_Profile[audioObjectType]);
+        if (audioObjectType==2) //LC
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_SBR, "No");
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, MP4_Profile[audioObjectType]);
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplingFrequency);
         if (channelConfiguration)
@@ -636,6 +639,8 @@ void File_Mpeg4_AudioSpecificConfig::SBR ()
         if (sbrPresentFlag)
         {
             Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "SBR");
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_SBR, "Yes", Unlimited, true, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, "No");
             Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec+_T("/SBR"), true);
             Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplingFrequency, 10, true);
@@ -663,6 +668,7 @@ void File_Mpeg4_AudioSpecificConfig::PS ()
         {
             Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 2, 10, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "PS");
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, "Yes", Unlimited, true, true);
             Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec+_T("/PS"), true);
             Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, "", Unlimited, true, true);

@@ -756,7 +756,8 @@ void File_Flv::audio()
             if (codec==1)
             {
                 //ADPCM
-                Fill(Stream_Audio, 0, Audio_Format_Profile, "ShockWave");
+                Fill(Stream_Audio, 0, Audio_Format_Settings, "ShockWave");
+                Fill(Stream_Audio, 0, Audio_Format_Settings_Firm, "ShockWave");
                 Fill(Stream_Audio, 0, Audio_Codec_Settings, "SWF");
                 Fill(Stream_Audio, 0, Audio_Codec_Settings_Firm, "SWF");
 

@@ -1,4 +1,4 @@
-// File_Aac - Info for AAC files
+// File_Adts - Info for AAC (ADTS) files
 // Copyright (C) 2002-2008 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -140,7 +140,7 @@ bool File_Adts::Header_Begin()
 void File_Adts::Header_Parse()
 {
     //Parsing
-    bool id, protection_absent;
+    bool protection_absent;
     BS_Begin();
     Skip_BS(12,                                                 "syncword");
     Get_SB (    id,                                             "id"); Param_Info(ADTS_ID[id]);
@@ -192,6 +192,7 @@ void File_Adts::Data_Parse_Fill()
     Fill(Stream_General, 0, General_Format, "ADTS");
     Stream_Prepare(Stream_Audio);
     Fill (Stream_Audio, 0, Audio_Format, "AAC");
+    Fill (Stream_Audio, 0, Audio_Format_Version, id?"Version 2":"Version 4");
     Fill (Stream_Audio, 0, Audio_Format_Profile, ADTS_Format_Profile[profile_ObjectType]);
     Fill(Stream_Audio, 0, Audio_Codec, ADTS_Profile[profile_ObjectType]);
     Fill(Stream_Audio, 0, Audio_SamplingRate, ADTS_SamplingRate[sampling_frequency_index]);

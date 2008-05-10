@@ -1179,8 +1179,8 @@ void File__Analyze::CodecID_Fill(const Ztring &Value, stream_t StreamKind, size_
     Fill(StreamKind, StreamPos, "CodecID/Info"  , MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Description), true);
     Fill(StreamKind, StreamPos, "CodecID/Hint"  , MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Hint), true);
     Fill(StreamKind, StreamPos, "CodecID/Url"   , MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Url), true);
-    Fill(StreamKind, StreamPos, "Format_Profile", MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Profile), true);
-    Fill(StreamKind, StreamPos, "BitRate_Mode"  , MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_BitRate_Mode), true);
+    if (StreamKind==Stream_General)
+        Fill(StreamKind, StreamPos, "Format_Profile", MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Profile), true);
 }
 
 } //NameSpace

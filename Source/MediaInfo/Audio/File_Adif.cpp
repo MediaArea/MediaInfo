@@ -212,6 +212,7 @@ void File_Adif::Data_Parse_Fill()
         Fill(Stream_General, 0, General_Comment, comment_field_data);
     Stream_Prepare(Stream_Audio);
     Fill (Stream_Audio, 0, Audio_Format, "AAC");
+    Fill (Stream_Audio, 0, Audio_Format_Version, "Version 2");
     Fill (Stream_Audio, 0, Audio_Format_Profile, ADIF_Format_Profile[object_type]);
     Fill (Stream_Audio, 0, Audio_Codec, ADIF_object_type[object_type]);
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, bitstream_type?"VBR":"CBR");

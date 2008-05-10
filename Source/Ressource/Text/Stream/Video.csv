@@ -12,10 +12,9 @@ MenuID/String;;;Y NT;;;A menu ID for this stream in this file
 Format;;;Y YT;;;Format used
 Format/Info;;;Y NT;;;Info about Format
 Format/Url;;;N NT;;;Link
+Format_Version;;;Y NT;;;Version of this format
 Format_Profile;;;Y NT;;;Profile of the Format
 Format_Settings;;;N NT;;;Settings needed for decoder used, summary
-Format_Settings_MuxingMode;;;Y NT;;;Settings needed for decoder used, detailled
-Format_Settings_PacketBitStream;;;N NT;;;Deprecated
 Format_Settings_BVOP;;;Y NT;;;Settings needed for decoder used, detailled
 Format_Settings_QPel;;;Y NT;;;Settings needed for decoder used, detailled
 Format_Settings_GMC;; warppoints;N NI;;;Settings needed for decoder used, detailled
@@ -24,6 +23,7 @@ Format_Settings_Matrix;;;Y NT;;;Settings needed for decoder used, detailled
 Format_Settings_Matrix_Data;;;N NT;;;Matrix, in binary format encoded BASE64. Order = intra, non-intra, gray intra, gray non-intra
 Format_Settings_CABAC;;;Y NT;;;Settings needed for decoder used, detailled
 Format_Settings_RefFrames;; frames;Y NT;;;Settings needed for decoder used, detailled
+MuxingMode;;;Y NT;;;How this file is muxed in the container
 CodecID;;;Y YT;;;Codec ID (found in some containers)
 CodecID/Info;;;Y NT;;;Info about codec ID
 CodecID/Hint;;;Y NT;;;A hint for this codec ID

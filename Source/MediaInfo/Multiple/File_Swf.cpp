@@ -84,7 +84,7 @@ const char* Swf_Format_Audio[]=
     "",
 };
 
-const char* Swf_Format_Settings_Audio[]=
+const char* Swf_Format_Version_Audio[]=
 {
     "",
     "",
@@ -452,7 +452,7 @@ void File_Swf::DefineSound()
     Stream_Prepare(Stream_Audio);
     Fill(Stream_Audio, StreamPos_Last, Audio_ID, SoundId);
     Fill(Stream_Audio, StreamPos_Last, Audio_Format, Swf_Format_Audio[SoundFormat]);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, Swf_Format_Settings_Audio[SoundFormat]);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, Swf_Format_Version_Audio[SoundFormat]);
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Swf_SoundFormat[SoundFormat]);
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Swf_SoundRate[SoundRate]);
     Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, Swf_SoundSize[SoundSize]);
@@ -509,7 +509,7 @@ void File_Swf::DefineVideoStream()
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
     Fill(Stream_Audio, StreamPos_Last, Audio_Format, Swf_Format_Audio[CodecID]);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, Swf_Format_Settings_Audio[CodecID]);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, Swf_Format_Version_Audio[CodecID]);
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Swf_CodecID[CodecID]);
 }
 

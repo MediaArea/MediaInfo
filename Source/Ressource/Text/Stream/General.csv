@@ -47,6 +47,7 @@ Format/String;;;N NT;;;Deprecated
 Format/Info;;;Y NT;;;Info about Format
 Format/Url;;;N NT;;;Link
 Format/Extensions;;;N NT;;;Known extensions of format
+Format_Version;;;Y NT;;;Version of this format
 Format_Profile;;;Y NT;;;Profile of the Format
 Format_Settings;;;Y NT;;;Settings needed for decoder used
 CodecID;;;Y YT;;;Codec ID (found in some containers)
@@ -77,7 +78,7 @@ OveralBitRate_Mode;;;Y YT;;;Bit rate mode of all streams (VBR, CBR)
 OveralBitRate;; bps;N YF;;;Bit rate of all streams
 OveralBitRate/String;;;Y NT;;;Bit rate of all streams (with measure)
 OveralBitRate_Minimum;; bps;N YF;;;Minimum Bit rate in bps
-OveralBitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement)
+OveralBitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement);;
 OveralBitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps;;
 OveralBitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement);;
 OveralBitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps;;

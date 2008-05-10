@@ -61,6 +61,7 @@ namespace Elements
     const int64u moov_meta___dir=0xA9646972;
     const int64u moov_meta___dis=0xA9646973;
     const int64u moov_meta___edl=0xA965646C;
+    const int64u moov_meta___enc=0xA9656E63;
     const int64u moov_meta___fmt=0xA9666D74;
     const int64u moov_meta___gen=0xA967656E;
     const int64u moov_meta___hos=0xA9686F73;
@@ -309,6 +310,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta___dir : Parameter="Director"; return Method_String;
         case Elements::moov_meta___dis : Parameter="TermsOfUse"; return Method_String;
         case Elements::moov_meta___edl : Parameter="Tagged_Date"; return Method_String;
+        case Elements::moov_meta___enc : Parameter="Encoded_Application"; return Method_String;
         case Elements::moov_meta___fmt : Parameter="Origin"; return Method_String;
         case Elements::moov_meta___gen : Parameter="Genre"; return Method_String;
         case Elements::moov_meta___hos : Parameter="HostComputer"; return Method_String;
@@ -316,7 +318,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta___key : Parameter="Keywords"; return Method_String;
         case Elements::moov_meta___mak : Parameter="Make"; return Method_String;
         case Elements::moov_meta___mod : Parameter="Model"; return Method_String;
-        case Elements::moov_meta___nam : Parameter="Title"; return Method_String;
+        case Elements::moov_meta___nam : Parameter="Title"; return Method_String3;
         case Elements::moov_meta___prd : Parameter="Producer"; return Method_String;
         case Elements::moov_meta___PRD : Parameter="Product"; return Method_String;
         case Elements::moov_meta___prf : Parameter="Performer"; return Method_String;
