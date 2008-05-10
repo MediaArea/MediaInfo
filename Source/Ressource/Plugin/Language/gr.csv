@@ -196,7 +196,6 @@ Codec_Settings_ITU
 Codec_Profile;Προφίλ συμπιεστή
 Codec_Url;Σύνδεσμος συμπιεστή (url) 
 CodecID
-Colorimetry
 Collection;Συλλογή
 Colorimetry
 Comment;Σχόλιο
@@ -816,4 +815,3 @@ Yes;Ναι
 Your system;Το σύστημά σας
 ZZ_Automatic_Percent;92
 ZZ_AutomaticLanguage_Percent;92
-Pixel ratio

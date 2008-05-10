@@ -196,7 +196,6 @@ Codec_Settings_ITU
 Codec_Profile;コーデックのプロファイル
 Codec_Url;コーデックの URL
 CodecID
-Colorimetry
 Collection;コレクション
 Colorimetry
 Comment;コメント
@@ -816,4 +815,3 @@ Yes;はい
 Your system;システム情報
 ZZ_Automatic_Percent;92
 ZZ_AutomaticLanguage_Percent;92
-Pixel ratio

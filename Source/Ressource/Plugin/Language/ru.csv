@@ -196,7 +196,6 @@ Codec_Settings_ITU
 Codec_Profile
 Codec_Url;Ссылка на кодек
 CodecID
-Colorimetry
 Collection;Коллекция
 Colorimetry
 Comment;Примечание
@@ -815,5 +814,4 @@ WrittenBy;Написано
 Yes;Да
 Your system;Ваша система
 ZZ_Automatic_Percent;59
-ZZ_AutomaticLanguage_Percent;66
-Pixel ratio
+ZZ_AutomaticLanguage_Percent;84

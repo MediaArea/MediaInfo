@@ -196,7 +196,6 @@ Codec_Settings_ITU
 Codec_Profile;Codec profile
 Codec_Url;Web do codec
 CodecID
-Colorimetry
 Collection;Colección
 Colorimetry
 Comment;Comentario
@@ -814,6 +813,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;90
-Pixel ratio
+ZZ_Automatic_Percent;91
+ZZ_AutomaticLanguage_Percent;91

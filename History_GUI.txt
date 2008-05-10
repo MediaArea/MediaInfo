@@ -13,6 +13,12 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
+Version 0.7.7.0, 2008-05-
+---------------
++ Ukrainian language added
++ Italian translation updated
++ Lithuanian translation updated
+
 Version 0.7.6.4, 2008-04-27
 ---------------
 + About the library : Java/Linux binding is available

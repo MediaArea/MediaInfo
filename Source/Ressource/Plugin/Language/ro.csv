@@ -196,7 +196,6 @@ Codec_Settings_ITU
 Codec_Profile;Profil codec
 Codec_Url;Legatira web pentru codec
 CodecID
-Colorimetry
 Collection;Colectie
 Colorimetry
 Comment;Comentariu
@@ -815,5 +814,4 @@ WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
 ZZ_Automatic_Percent;40
-ZZ_AutomaticLanguage_Percent;63
-Pixel ratio
+ZZ_AutomaticLanguage_Percent;81

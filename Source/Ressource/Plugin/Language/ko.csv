@@ -196,7 +196,6 @@ Codec_Settings_ITU
 Codec_Profile;코덱 프로파일
 Codec_Url;코덱 웹링크
 CodecID
-Colorimetry
 Collection;콜렉션
 Colorimetry
 Comment;주석
@@ -816,4 +815,3 @@ Yes;예
 Your system;이 시스템
 ZZ_Automatic_Percent;92
 ZZ_AutomaticLanguage_Percent;92
-Pixel ratio

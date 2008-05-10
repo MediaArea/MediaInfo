@@ -196,7 +196,6 @@ Codec_Settings_ITU
 Codec_Profile;Profil kodeku
 Codec_Url;Adresa pro stažení kodeku
 CodecID
-Colorimetry
 Collection;Collection
 Colorimetry
 Comment;Komentář
@@ -816,4 +815,3 @@ Yes;Ano
 Your system;Instalované kodeky
 ZZ_Automatic_Percent;92
 ZZ_AutomaticLanguage_Percent;92
-Pixel ratio

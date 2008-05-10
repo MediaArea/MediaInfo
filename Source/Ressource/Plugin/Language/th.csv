@@ -196,7 +196,6 @@ Codec_Settings_ITU;ตั้งค่า Codec, ITU
 Codec_Profile;Codec โพรไฟล์
 Codec_Url;เว็บลิงค์ของ codec
 CodecID
-Colorimetry
 Collection;Collection
 Colorimetry
 Comment;คอมเมนต์
@@ -814,6 +813,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;94
-ZZ_AutomaticLanguage_Percent;94
-Pixel ratio
+ZZ_Automatic_Percent;95
+ZZ_AutomaticLanguage_Percent;95

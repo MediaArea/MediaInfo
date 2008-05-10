@@ -194,9 +194,8 @@ Codec_Settings_Sign
 Codec_Settings_Law
 Codec_Settings_ITU
 Codec_Profile;Профайл кодеку
-Codec_Url;Посилання на кодек
+Codec_Url
 CodecID
-Colorimetry
 Collection;Колекція
 Colorimetry
 Comment;Примітка
@@ -816,4 +815,3 @@ Yes;Так
 Your system;Ваша система
 ZZ_Automatic_Percent;91
 ZZ_AutomaticLanguage_Percent;91
-Pixel ratio;Співвідношення

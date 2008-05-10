@@ -196,7 +196,6 @@ Codec_Settings_ITU;Paramètres du codec, ITU
 Codec_Profile;Profile du codec
 Codec_Url;Lien Internet sur le codec
 CodecID;Identifiant du codec
-Colorimetry;Colorimétrie
 Collection;Collection 
 Colorimetry;Colorimétrie
 Comment;Commentaire
@@ -814,6 +813,5 @@ Written_Location;Lieu d'écriture
 WrittenBy;Ecrit par
 Yes;Oui
 Your system;Votre système
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
-Pixel ratio
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100

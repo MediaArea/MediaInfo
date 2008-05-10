@@ -44,7 +44,7 @@
  GigaBit1; GigaBitas
  GigaBit2; GigaBitai
  GigaBit3; GigaBitai
- GigaByte1; GigaBaitas
+ GigaByte1; Gigabaitas
  GigaByte2; GigaBaitai
  GigaByte3; GigaBaitai
  hour1; valanda
@@ -128,13 +128,13 @@ Accompaniment;Akompanimentas
 Actor;Aktorius
 Actor_Character;rodyti ženklą
 Address;Adresas
-Advanced;Išlėstinai
+Advanced;Išplėstinai
 Advanced mode;Išplėstinis režimas
 Album;Albumas
 All;Visi
 Archival_Location;Archyvavimo vieta
 Arranger;Aranžuotojas
-ArtDirector;MenoKatalogas
+ArtDirector;Meno Katalogas
 AspectRatio;Aspekto santykis
 AssistantDirector;Asistuojantis dirigentas
 at;-
@@ -147,14 +147,14 @@ Audio1;Pirmas audio srautas
 Audio2;Antras audio srautas
 AudioCount;Audio srautų kiekis
 Author;Autorius
-BarCode;BarKodas
+BarCode;Brūkšninis kodas
 Basic;Įprastas
 Basic_Note;Pastaba : jei norite daugiau informacijos apie failą, turite pasirinkti kitą rodymą, (Lapas, Medis...)
-BitRate;Bitreitas
-BitRate_Maximum
-BitRate_Minimum
-BitRate_Mode;Bitreito režimas
-BitRate_Nominal;Nominalus bitreitas
+BitRate;Bitų tempas
+BitRate_Maximum;Maksimalus bitų tempas
+BitRate_Minimum;Minimalus bitų tempas
+BitRate_Mode;Bitų tempo režimas
+BitRate_Nominal;Nominalus bitų tempas
 Bits-(Pixel*Frame);Bitai/(Pikselis*Kadras)
 Cancel;Atšaukti
 Channel(s);Kanalas (-ai)
@@ -187,18 +187,17 @@ Codec_Settings_QPel;Kodeko nuostatos, QPel
 Codec_Settings_GMC;Kodeko nuostatos, GMC
 Codec_Settings_Matrix;Kodeko nuostatos, Matrix
 Codec_Settings_Floor;Kodeko nuostatos, Floor
-Codec_Settings_CABAC
-Codec_Settings_Firm
-Codec_Settings_Endianness
-Codec_Settings_Sign
-Codec_Settings_Law
-Codec_Settings_ITU
+Codec_Settings_CABAC;Kodeko nuostatos, CABAC
+Codec_Settings_Firm;Kodeko nuostatos, Firm
+Codec_Settings_Endianness;Kodeko nuostatos, Endianness
+Codec_Settings_Sign;Kodeko nuostatos, Sign
+Codec_Settings_Law;Kodeko nuostatos, Law
+Codec_Settings_ITU;Kodeko nuostatos, ITU
 Codec_Profile;Kodeko profilis
 Codec_Url;Nuoroda į kodeką
-CodecID
-Colorimetry
+CodecID;Kodeko ID
 Collection;Kolekcija
-Colorimetry
+Colorimetry;Kolorimetrija
 Comment;Komentaras
 CommissionedBy;Įgaliotas
 CompleteName;Pilnas pavadinimas
@@ -227,7 +226,7 @@ DirectorOfPhotography;Fotografijos direktorius
 DisplayAspectRatio;Rodyti aspekto santykį
 DistributedBy;Platintojas
 Donate;Aukoti
-Duration
+Duration;Trukmė
 Edit;Redaguoti
 EditedBy;Redagavo
 EMail;El. paštas
@@ -248,47 +247,47 @@ Fax;Faksas
 File;Failas
 File size;Failo dydis
 File_Append;Prijungtas prie egzistuojančio failo (Dėmesio : nenaudokite tų pačių parametrų)
-File_Created_Date
+File_Created_Date;Failo sukūrimo data
 File_Hint;Pasirinkite daugialypį failą studijavimui
-File_Modified_Date
+File_Modified_Date;Failo paskutinio modifikavimo data
 FileExtension;Failo plėtinys
 FileName;Failo pavadinimas
 FileSize;Failo dydis
 Folder;Katalogas
 Folder (R);Katalogas (R)
-Folder (R)_Hint;Pasirinkite katalogą studijavymui (su visais pasikartojančiais katalogais)
+Folder (R)_Hint;Pasirinkite katalogą studijavimui (su visais pasikartojančiais katalogais)
 Folder (Recursively);Katalogas (Pasikartojančiai)
-Folder_Hint;Pasirinkite katalogą studijavymui 
+Folder_Hint;Pasirinkite katalogą studijavimui 
 FolderName;Katalogo pavadinimas
 Format;Formatas
 Format_Description;Formatas aprašymas
 Format_Info;Formatas detalės
 Format_Extensions;Paprastai naudojami plėtiniai
-Format_Profile
-Format_Settings
-Format_Settings_PacketBitStream
-Format_Settings_BVOP
-Format_Settings_QPel
-Format_Settings_GMC
-Format_Settings_Matrix
-Format_Settings_Floor
-Format_Settings_CABAC
-Format_Settings_Firm
-Format_Settings_Endianness
-Format_Settings_RefFrames
-Format_Settings_Sign
-Format_Settings_Law
-Format_Settings_ITU
-Format_Settings_SBR
-Format_Settings_PS
-Format_Version
+Format_Profile;Formato profilis
+Format_Settings;Formato nuostatos
+Format_Settings_PacketBitStream;Formato nuostatos, PacketBitStream
+Format_Settings_BVOP;Formato nuostatos, BVOP
+Format_Settings_QPel;Formato nuostatos, Qpel
+Format_Settings_GMC;Formato nuostatos, GMC
+Format_Settings_Matrix;Formato nuostatos, Matrix
+Format_Settings_Floor;Formato nuostatos, Floor
+Format_Settings_CABAC;Formato nuostatos, CABAC
+Format_Settings_Firm;Formato nuostatos, Firm
+Format_Settings_Endianness;Formato nuostatos, Endianness
+Format_Settings_RefFrames;Formato nuostatos, RefFrames
+Format_Settings_Sign;Formato nuostatos, Sign
+Format_Settings_Law;Formato nuostatos, Law
+Format_Settings_ITU;Formato nuostatos, ITU
+Format_Settings_SBR;Formato nuostatos, SBR
+Format_Settings_PS;Formato nuostatos, PS
+Format_Version;Formato versija
 Codec_Url;Nuoroda į kodeką
 FrameRate;Kadrų tempas
-FrameRate_Mode
+FrameRate_Mode;Kadrų tempo rėžimas
 FrameRate_Minimum;Minimalus kadrų tempas
-FrameRate_Nominal
+FrameRate_Nominal;Nominalus kadrų skaičius
 FrameRate_Maximum;Maksimalus kadrų tempas
-FrameRate_Original
+FrameRate_Original;Originalus kadrų skaičius
 General;Pagrindinis
 Genre;Žanras
 Genre_000;Bliuzas
@@ -371,10 +370,10 @@ Genre_076;Retro
 Genre_077;Muzikinė
 Genre_078;Rock & Roll
 Genre_079;Sunkus Rock
-Genre_080;Folk
-Genre_081;Folk-Rock
-Genre_082;National Folk
-Genre_083;Sving
+Genre_080;Folkas
+Genre_081;Folk-rokas
+Genre_082;Nacionalinis folkas
+Genre_083;Svingas
 Genre_084;Fast Fusion
 Genre_085;Bebob
 Genre_086;Lotynų
@@ -465,7 +464,7 @@ Interlaced_PPF;Progresyvus
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;Raktiniai žožiai
+Keywords;Raktiniai žodžiai
 Known codecs;Žinomi kodekai
 Known formats;Žinomi formatai
 Known parameters;Žinomi parametrai
@@ -490,12 +489,12 @@ Language_bg;Bulgarų
 Language_bh;Biharų
 Language_bi;Bislamų
 Language_bm;Bambarų
-Language_bn;Bengali
-Language_bo;Tibetan
-Language_br;Breton
-Language_bs;Bosnian
-Language_ca;Catalan
-Language_ce;Chechen
+Language_bn;Bengalų
+Language_bo;Tibeto
+Language_br;Bretonų
+Language_bs;Bosnių
+Language_ca;Katalonų
+Language_ce;Čekų
 Language_ch;Chamorro
 Language_co;Corsican
 Language_cr;Cree
@@ -512,9 +511,9 @@ Language_el;Greek
 Language_en;Anglų
 Language_eo;Esperanto
 Language_es;Ispanų
-Language_et;Estonian
-Language_eu;Basque
-Language_fa;Persian
+Language_et;Estų
+Language_eu;Baskų
+Language_fa;Persų
 Language_ff;Fulah
 Language_fi;Soumių
 Language_fj;Fijian
@@ -622,33 +621,33 @@ Language_sl;Slovenian
 Language_sm;Samoan
 Language_sn;Shona
 Language_so;Somali
-Language_sq;Albanian
-Language_sr;Serbian
+Language_sq;Albanų
+Language_sr;Serbų
 Language_ss;Swati
 Language_st;Sotho
 Language_su;Sundanese
-Language_sv;Swedish
+Language_sv;Švedų
 Language_sw;Swahili
 Language_ta;Tamil
 Language_te;Telugu
 Language_tg;Tajik
 Language_th;Thai
 Language_ti;Tigrinya
-Language_tk;Turkmen
+Language_tk;Turkmėnų
 Language_tl;Tagalog
 Language_tn;Tswana
 Language_to;Tonga
 Language_tr;Turkish
 Language_ts;Tsonga
-Language_tt;Tatar
+Language_tt;Totorių
 Language_tw;Twi
 Language_ty;Tahitian
 Language_ug;Uighur
 Language_uk;Ukrainiečių
 Language_ur;Urdu
-Language_uz;Uzbek
+Language_uz;Uzbekų
 Language_ve;Venda
-Language_vi;Vietnamese
+Language_vi;Vietnamo
 Language_vo;Volapuk
 Language_wa;Walloon
 Language_wo;Wolof
@@ -656,12 +655,12 @@ Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
-Language_zh;Chinese
+Language_zh;Kinų
 Language_zu;Zulu
-LawRating;Law rating
+LawRating;Law reitingas
 LCCN;LCCN
 Library;Muxing biblioteka
-List
+List;Sąrašas
 Lyricist;Lyrikas
 Mastered_Date;Sukūrimo data
 MasteredBy;Sukūrė
@@ -672,14 +671,14 @@ Menu_Codec_List;Meniu kodekai
 Menu_No;Be meniu
 MenuCount;Meniu srautų kiekis
 Menu_Hint;Daugiau galimybių
-MenuID
+MenuID;Meniu ID
 mn;mn
 Mood;Nuotaika
 More;Daugiau
 Movie;Filmo pavadinimas
 ms;ms
 MSDI;MSDI
-MuxingMode
+MuxingMode;Muxing rėžimas
 Name;Pavadinimas
 Nationality;Tautybė
 New;Naujas
@@ -694,11 +693,11 @@ Original;Originalas
 Other;Kita
 Output;Išėjimas
 Output format;Išėjimo formatas
-OveralBitRate;Bendras bitreitas
-OveralBitRate_Maximum
-OveralBitRate_Minimum
-OveralBitRate_Mode
-OveralBitRate_Nominal
+OveralBitRate;Bendras bitų tempas
+OveralBitRate_Maximum;Bendras maksimalus bitų temas
+OveralBitRate_Minimum;Bendras minimalus bitų tempas
+OveralBitRate_Mode;Bendro bitų tempo rėžimas
+OveralBitRate_Nominal;Bendras nominalus bitų tempas
 Part;Dalis
 Part_Count;Bendra apimtis
 Performer;Atlikėjas
@@ -708,9 +707,9 @@ PixelAspectRatio;Pikselių aspekto koeficientas
 PlayCounter;Rodymo skaitiklis
 PlayTime;Rodymo laikas
 Position;Padėtis
-Position_Total
+Position_Total;Viso
 Preferences;Pasirinktys
-Producer;Podiuseris
+Producer;Prodiuseris
 ProductionDesigner;Produkcijos dizaineris
 ProductionStudio;Produkcijos studija
 Publisher;Skelbėjas
@@ -726,12 +725,12 @@ Resolution;Raiška
 s;Video srautai (s)
 SamplingRate;Atrankos tempas
 Save;Išsaugoti
-ScanType
-ScanOrder
+ScanType;Skenavimo tipas
+ScanOrder;Skenavimo tvarka
 ScreenplayBy;Ekrano rodymas
 Season;Sezonas
 see below;žiūrėti žemiau
-Send HeaderFile
+Send HeaderFile;Prašome siųskite antraštinį failą čia: http://sourceforge.net/projects/mediainfo/ (bug sekcija)
 Separator_Columns;Stulpelių skyryba
 Separator_Lines;Eilučių skyryba
 Set;Nustatyti
@@ -751,15 +750,15 @@ Stream_MoreInfo;Daugiau informacijos apie srautą
 StreamCount;Šios rūšies srautų kiekis
 StreamID;Srauto ID
 StreamKind;Srauto rūšis
-StreamSize
+StreamSize;Srauto dydis
 Subject;Tema
 SubTrack;SubTakelis
 Summary;Santrauka
 Supported formats;Palaikomi formatai
 Supported?;Palaikomas?
-Synopsys;Synopsys
+Synopsys;Trumpa apžvalga
 SystemId;Id
-Tagged_Application
+Tagged_Application;Žymėjimo programa
 Tagged_Date;Pažymėta data
 Technician;Technikas
 TermsOfUse;Naudojimo sąlygos
@@ -787,7 +786,7 @@ Tree & Text;Medis ir tekstas
 Unknown;Nežinomas
 Url;Url
 Video;Video
-Video stream(s)
+Video stream(s);Video srautas (ai)
 Video_Codec_List;Kodeko video
 Video_No;Be video
 Video0_Delay;Video0 atidėjimas
@@ -814,6 +813,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;93
-ZZ_AutomaticLanguage_Percent;93
-Pixel ratio
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

@@ -196,7 +196,6 @@ Codec_Settings_ITU
 Codec_Profile; Codecprofil
 Codec_Url; Länk till codec
 CodecID
-Colorimetry
 Collection; Samling
 Colorimetry
 Comment; Kommentar
@@ -816,4 +815,3 @@ Yes; Ja
 Your system; Ditt system
 ZZ_Automatic_Percent;90
 ZZ_AutomaticLanguage_Percent;90
-Pixel ratio

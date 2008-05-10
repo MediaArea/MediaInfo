@@ -196,7 +196,6 @@ Codec_Settings_ITU
 Codec_Profile
 Codec_Url;Kodek weblapja
 CodecID
-Colorimetry
 Collection;Gyűjtemény
 Colorimetry
 Comment;Megjegyzés
@@ -815,5 +814,4 @@ WrittenBy;Írta
 Yes;Igen
 Your system;Rendszer
 ZZ_Automatic_Percent;66
-ZZ_AutomaticLanguage_Percent;69
-Pixel ratio
+ZZ_AutomaticLanguage_Percent;87
