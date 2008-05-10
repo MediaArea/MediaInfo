@@ -391,8 +391,10 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Swf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Swf" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Wm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wm" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Wm_Elements.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wm_Elements" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Aac" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Ac3.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ac3" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Adif.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adif" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Adpcm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adpcm" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Adts.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adts" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Amr.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Amr" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Amv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Amv" FORMNAME="" DESIGNCLASS=""/>

@@ -196,7 +196,9 @@ Codec_Settings_ITU;Ajustes del códec, ITU
 Codec_Profile;Perfil del códec
 Codec_Url;Vínculo web del códec
 CodecID
+Colorimetry
 Collection;Colección
+Colorimetry
 Comment;Comentarios
 CommissionedBy;Encargado por
 CompleteName;Nombre completo
@@ -273,11 +275,13 @@ Format_Settings_Floor;Ajustes del formato, Floor
 Format_Settings_CABAC;Ajustes del formato, CABAC
 Format_Settings_Firm;Ajustes del formato, Firm
 Format_Settings_Endianness;Ajustes del formato, Endianness
-Format_Settings_MuxingMode
 Format_Settings_RefFrames;Ajustes del formato, RefFrames
 Format_Settings_Sign;Ajustes del formato, Sign
 Format_Settings_Law;Ajustes del formato, Law
 Format_Settings_ITU;Ajustes del formato, ITU
+Format_Settings_SBR;Ajustes del formato, SBR
+Format_Settings_PS;Ajustes del formato, PS
+Format_Version
 Codec_Url;Vínculo web del códec
 FrameRate;Frecuencia por cuadro
 FrameRate_Mode
@@ -675,6 +679,7 @@ More;Más
 Movie;Película
 ms;ms
 MSDI;MSDI
+MuxingMode
 Name;Nombre
 Nationality;Nacionalidad
 New;Nuevo
@@ -811,3 +816,4 @@ Yes;Si
 Your system;Tu sistema
 ZZ_Automatic_Percent;72
 ZZ_AutomaticLanguage_Percent;78
+Pixel ratio

@@ -196,7 +196,9 @@ Codec_Settings_ITU
 Codec_Profile;Profil codec
 Codec_Url;Legatira web pentru codec
 CodecID
+Colorimetry
 Collection;Colectie
+Colorimetry
 Comment;Comentariu
 CommissionedBy
 CompleteName;Nume complet
@@ -273,11 +275,13 @@ Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
 Format_Settings_Endianness
-Format_Settings_MuxingMode
 Format_Settings_RefFrames
 Format_Settings_Sign
 Format_Settings_Law
 Format_Settings_ITU
+Format_Settings_SBR
+Format_Settings_PS
+Format_Version
 Codec_Url;Legatira web pentru codec
 FrameRate;Frecventa cadre
 FrameRate_Mode
@@ -675,6 +679,7 @@ More;Mai mult(e)
 Movie;Numele filmului
 ms
 MSDI
+MuxingMode
 Name;Nume
 Nationality;Nationalitate
 New;Nou
@@ -726,7 +731,7 @@ ScanOrder
 ScreenplayBy;Scenariu de
 Season;Sezon
 see below;vezi mai jos
-Send HeaderFile;Va rog trimiteti-mi headerul fisierului la:
+Send HeaderFile
 Separator_Columns;separator coloane
 Separator_Lines;separator linii
 Set;Seteaza
@@ -811,3 +816,4 @@ Yes;Da
 Your system;Sistemul dvs
 ZZ_Automatic_Percent;40
 ZZ_AutomaticLanguage_Percent;63
+Pixel ratio

@@ -196,7 +196,9 @@ Codec_Settings_ITU
 Codec_Profile;Profil kodeku
 Codec_Url;Adresa pro stažení kodeku
 CodecID
+Colorimetry
 Collection;Collection
+Colorimetry
 Comment;Komentář
 CommissionedBy;Commissioned by
 CompleteName;Celý název a cesta
@@ -273,11 +275,13 @@ Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
 Format_Settings_Endianness
-Format_Settings_MuxingMode
 Format_Settings_RefFrames
 Format_Settings_Sign
 Format_Settings_Law
 Format_Settings_ITU
+Format_Settings_SBR
+Format_Settings_PS
+Format_Version
 Codec_Url;Adresa pro stažení kodeku
 FrameRate;Frame rate
 FrameRate_Mode
@@ -675,6 +679,7 @@ More;Více
 Movie;Název filmu
 ms;ms
 MSDI;MSDI
+MuxingMode
 Name;Název
 Nationality;Nationality
 New;Nový
@@ -726,7 +731,7 @@ ScanOrder
 ScreenplayBy;Screenplay by
 Season;Season
 see below;see below
-Send HeaderFile;Please send me the Header file here : http://sourceforge.net/projects/mediainfo/ (Bug section)
+Send HeaderFile
 Separator_Columns;columns separator
 Separator_Lines;lines separator
 Set;Nastavit
@@ -811,3 +816,4 @@ Yes;Ano
 Your system;Instalované kodeky
 ZZ_Automatic_Percent;92
 ZZ_AutomaticLanguage_Percent;92
+Pixel ratio

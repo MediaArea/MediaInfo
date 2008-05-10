@@ -461,6 +461,8 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Inform.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Inform" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Internal.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Internal" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_DvDif.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_DvDif" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Adpcm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adpcm" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aac.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Aac" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>

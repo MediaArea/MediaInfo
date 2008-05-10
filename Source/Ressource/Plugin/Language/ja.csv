@@ -196,7 +196,9 @@ Codec_Settings_ITU
 Codec_Profile;コーデックのプロファイル
 Codec_Url;コーデックの URL
 CodecID
+Colorimetry
 Collection;コレクション
+Colorimetry
 Comment;コメント
 CommissionedBy;コミッショナー
 CompleteName;コンプリートネーム
@@ -273,11 +275,13 @@ Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
 Format_Settings_Endianness
-Format_Settings_MuxingMode
 Format_Settings_RefFrames
 Format_Settings_Sign
 Format_Settings_Law
 Format_Settings_ITU
+Format_Settings_SBR
+Format_Settings_PS
+Format_Version
 Codec_Url;コーデックの URL
 FrameRate;フレームレート
 FrameRate_Mode
@@ -675,6 +679,7 @@ More;さらに
 Movie;映画名
 ms;秒
 MSDI;MSDI
+MuxingMode
 Name;名前
 Nationality;制作国
 New;新規
@@ -726,7 +731,7 @@ ScanOrder
 ScreenplayBy;監督
 Season;季節
 see below;以下詳細
-Send HeaderFile;ここにヘッダーファイルを送信してください : http://sourceforge.net/projects/mediainfo/ (バグ専用)
+Send HeaderFile
 Separator_Columns;列の区切り
 Separator_Lines;区切り線
 Set;セット
@@ -809,5 +814,6 @@ Written_Location;作成所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;93
-ZZ_AutomaticLanguage_Percent;93
+ZZ_Automatic_Percent;92
+ZZ_AutomaticLanguage_Percent;92
+Pixel ratio

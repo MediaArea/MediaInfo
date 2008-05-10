@@ -196,7 +196,9 @@ Codec_Settings_ITU
 Codec_Profile
 Codec_Url;Ссылка на кодек
 CodecID
+Colorimetry
 Collection;Коллекция
+Colorimetry
 Comment;Примечание
 CommissionedBy;Поручитель
 CompleteName;Полное имя
@@ -273,11 +275,13 @@ Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
 Format_Settings_Endianness
-Format_Settings_MuxingMode
 Format_Settings_RefFrames
 Format_Settings_Sign
 Format_Settings_Law
 Format_Settings_ITU
+Format_Settings_SBR
+Format_Settings_PS
+Format_Version
 Codec_Url;Ссылка на кодек
 FrameRate;Частота кадров
 FrameRate_Mode
@@ -675,6 +679,7 @@ More;Еще...
 Movie;Кино
 ms;мс
 MSDI
+MuxingMode
 Name;Имя
 Nationality;Национальность
 New;Новый...
@@ -809,5 +814,6 @@ Written_Location;Место написания
 WrittenBy;Написано
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;60
+ZZ_Automatic_Percent;59
 ZZ_AutomaticLanguage_Percent;66
+Pixel ratio

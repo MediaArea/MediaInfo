@@ -60,6 +60,7 @@ Ztring Language_Others_Run ()
     Run_File(Dest, L"sv");
     Run_File(Dest, L"th");
     Run_File(Dest, L"tr");
+    Run_File(Dest, L"uk");
     Run_File(Dest, L"zh-TW");
     Run_File(Dest, L"zh-CN");
 
