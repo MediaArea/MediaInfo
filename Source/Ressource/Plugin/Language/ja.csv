@@ -788,6 +788,7 @@ Url;Url
 Video;Video
 Video stream(s);映像ストリーム
 Video_Codec_List;映像コーデック
+Video_Delay;映像 遅延
 Video_No;映像なし
 Video0_Delay;映像0 遅延
 Video1;プライマリ映像ストリーム

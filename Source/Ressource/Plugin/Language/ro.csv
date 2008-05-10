@@ -788,6 +788,7 @@ Url
 Video;Video
 Video stream(s);Flux(uri) video
 Video_Codec_List;Codecuri video
+Video_Delay;Intrziere video
 Video_No;Fara video
 Video0_Delay;Intrziere video
 Video1;Primul flux video

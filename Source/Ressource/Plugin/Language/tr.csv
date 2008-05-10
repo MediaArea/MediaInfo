@@ -788,6 +788,7 @@ Url;Url
 Video;Görüntü
 Video stream(s);Görüntü akış(lar)ı
 Video_Codec_List;Görüntü Kodekleri
+Video_Delay;Görüntü gecikmesi
 Video_No;Görüntü yok
 Video0_Delay;Görüntü0 gecikmesi
 Video1;Birinci hareketli görüntü

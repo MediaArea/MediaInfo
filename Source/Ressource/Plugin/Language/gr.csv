@@ -788,6 +788,7 @@ Url;Url
 Video;Video
 Video stream(s);Video stream(s)
 Video_Codec_List;Συμπιεστές Video
+Video_Delay;Καθηστέριση video
 Video_No;Χωρίς video
 Video0_Delay;Καθηστέριση video
 Video1;Πρώτη ροή video

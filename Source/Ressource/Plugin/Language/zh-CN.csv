@@ -788,6 +788,7 @@ Url;相关网址
 Video;视频
 Video stream(s);视频流
 Video_Codec_List;视频编解码器
+Video_Delay;视频延迟
 Video_No;没有视频
 Video0_Delay;视频延迟
 Video1;第一视频

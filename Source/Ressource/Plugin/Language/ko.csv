@@ -788,6 +788,7 @@ Url;Url
 Video;비디오
 Video stream(s);비디오 스트림
 Video_Codec_List;비디오 코덱
+Video_Delay;비디오0 딜레이
 Video_No;비디오 없음
 Video0_Delay;비디오0 딜레이
 Video1;첫번째 비디오 스트림

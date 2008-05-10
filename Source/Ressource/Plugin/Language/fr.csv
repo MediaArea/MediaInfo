@@ -788,6 +788,7 @@ Url;Url
 Video;Video
 Video stream(s);Piste(s) vidéo
 Video_Codec_List;Codecs Video
+Video_Delay;Delai par rapport Vidéo
 Video_No;Pas de vidéo
 Video0_Delay;Delai par rapport Vidéo0
 Video1;Première piste Vidéo

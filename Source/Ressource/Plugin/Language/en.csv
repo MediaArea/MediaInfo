@@ -788,6 +788,7 @@ Url;Url
 Video;Video
 Video stream(s);Video stream(s)
 Video_Codec_List;Codecs Video
+Video_Delay;Video delay
 Video_No;No video
 Video0_Delay;Video0 delay
 Video1;First video stream
