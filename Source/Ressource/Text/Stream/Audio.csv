@@ -67,6 +67,7 @@ SamplingRate/String;;;Y NT;;;in KHz
 SamplingCount;;;N NI;;;Frame count
 Resolution;; bit;N YI;;;Resolution in bits (8, 16, 20, 24)
 Resolution/String;;;Y NI;;;
+CompressionRatio;;;Y YF;;;Current stream size divided by uncompressed stream size
 Delay;; ms;N YI;;;Delay fixed in the stream (relative)
 Delay/String;;;N NT;;;
 Delay/String1;;;N NT;;;
@@ -93,7 +94,7 @@ StreamSize/String4;;;N NT;;;
 Title;;;Y YI;;;Name of the track
 Encoded_Library;;;Y YT;;;Software used to create the file
 Encoded_Library_Settings;;;Y YT;;;Parameters used by the software
-Language;;;N YT;;;Language (2 letters)
+Language;;;N YT;;;Language (2 letters);;
 Language/String;;;Y NT;;;Language (full);;
 Language_More;;;Y YT;;;More info about Language (director's comment...);;
 Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal

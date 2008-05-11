@@ -31,6 +31,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Tag/File_ApeTag.h"
+#include <algorithm>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -130,6 +131,7 @@ void File_ApeTag::Data_Parse()
     Get_UTF8(Element_Size, Value,                               "Value"); Element_Info(Value);
 
     //Filling
+    transform(Key.begin(), Key.end(), Key.begin(), (int(*)(int))toupper); //(int(*)(int)) is a patch for unix
          if (Key=="ALBUM")          Fill(Stream_General, 0, General_Album, Value);
     else if (Key=="ARTIST")         Fill(Stream_General, 0, General_Performer, Value);
     else if (Key=="AUTHOR")         Fill(Stream_General, 0, General_Performer, Value);

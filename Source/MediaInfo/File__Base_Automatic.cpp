@@ -3722,6 +3722,7 @@ void File__Base_Audio (ZtringListList &Info)
     "SamplingCount;;;N NI;;;Frame count\n"
     "Resolution;; bit;N YI;;;Resolution in bits (8, 16, 20, 24)\n"
     "Resolution/String;;;Y NI\n"
+    "CompressionRatio;;;Y YF;;;Current stream size divided by uncompressed stream size\n"
     "Delay;; ms;N YI;;;Delay fixed in the stream (relative)\n"
     "Delay/String;;;N NT\n"
     "Delay/String1;;;N NT\n"

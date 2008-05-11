@@ -124,7 +124,7 @@ void File_Tta::Header_Parse()
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate);
     Fill(Stream_Audio, 0, Audio_Duration, Duration);
-    Fill(Stream_Audio, 0, "CompressionRatio", CompressionRatio);
+    Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio);
     Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
 
     //Filling

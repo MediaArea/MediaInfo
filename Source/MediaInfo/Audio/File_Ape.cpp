@@ -211,7 +211,7 @@ void File_Ape::FileHeader_Parse()
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
         Fill(Stream_Audio, 0, Audio_SamplingRate, SampleRate);
         Fill(Stream_Audio, 0, Audio_Duration, Duration);
-        Fill(Stream_Audio, 0, "CompressionRatio", CompressionRatio);
+        Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio);
         Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
 
         File__Tags_Helper::Data_GoTo(File_Size, "APE");

@@ -446,6 +446,7 @@ enum audio
     Audio_SamplingCount,
     Audio_Resolution,
     Audio_Resolution_String,
+    Audio_CompressionRatio,
     Audio_Delay,
     Audio_Delay_String,
     Audio_Delay_String1,
