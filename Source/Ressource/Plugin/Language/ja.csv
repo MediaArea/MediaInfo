@@ -132,8 +132,8 @@ Advanced;詳細
 Advanced mode;詳細モード
 Album;アルバム
 All;すべて
-Archival_Location;Archival location
-Arranger;編集者
+Archival_Location;作成された場所
+Arranger;アレンジ者
 ArtDirector;アートディレクター
 AspectRatio;解像度
 AssistantDirector;AD
@@ -141,7 +141,7 @@ at;at
 At least one file;（少なくとも一つ以上のファイルを開いてください）
 Audio;オーディオ
 Audio stream(s);音声ストリーム
-Audio_Codec_List;音声コーデック
+Audio_Codec_List;音声コーデックリスト
 Audio_No;音声なし
 Audio1;プライマリ音声
 Audio2;セカンダリ音声
@@ -151,8 +151,8 @@ BarCode;バーコード
 Basic;基本
 Basic_Note;メモ : ファイルについてのさらなる情報は別のビューで開かねばなりません(シート、ツリー...)
 BitRate;ビットレート
-BitRate_Maximum
-BitRate_Minimum
+BitRate_Maximum;最大
+BitRate_Minimum;最小
 BitRate_Mode;ビットレートモード
 BitRate_Nominal
 Bits-(Pixel*Frame);ビット/(ピクセル*フレーム)
@@ -178,34 +178,34 @@ Chroma;クローマ
 Close;閉じる
 Close all before open;すべて閉じて開く
 Codec;コーデック
-Codec_Description
+Codec_Description;コーデックの説明
 Codec_Info;コーデックの詳細
 Codec_Settings;コーデックの設定
-Codec_Settings_PacketBitStream
-Codec_Settings_BVOP
-Codec_Settings_QPel
-Codec_Settings_GMC
-Codec_Settings_Matrix
-Codec_Settings_Floor
-Codec_Settings_CABAC
-Codec_Settings_Firm
-Codec_Settings_Endianness
-Codec_Settings_Sign
-Codec_Settings_Law
-Codec_Settings_ITU
+Codec_Settings_PacketBitStream;パケットビットストリーム
+Codec_Settings_BVOP;BVOP
+Codec_Settings_QPel;QPel
+Codec_Settings_GMC;GMC
+Codec_Settings_Matrix;Matrix
+Codec_Settings_Floor;Floor
+Codec_Settings_CABAC;CABAC
+Codec_Settings_Firm;Firm
+Codec_Settings_Endianness;Endianness
+Codec_Settings_Sign;Sign
+Codec_Settings_Law;Law
+Codec_Settings_ITU;ITU
 Codec_Profile;コーデックのプロファイル
 Codec_Url;コーデックの URL
-CodecID
+CodecID;CodecID
 Collection;コレクション
-Colorimetry
+Colorimetry;カラーリメトリ
 Comment;コメント
 CommissionedBy;コミッショナー
-CompleteName;コンプリートネーム
+CompleteName;完全名称
 Composer;コンポーザ
 Conductor;コンダクター
 Container and general information;コンテナと全般情報
 ContentType;コンテンツタイプ
-CoProducer;Co-プロデューサ
+CoProducer;Co プロデューサ
 Copyright;著作
 CostumeDesigner;衣装デザイナー
 Count;数
@@ -226,7 +226,7 @@ DirectorOfPhotography;フォトディレクター
 DisplayAspectRatio;解像度
 DistributedBy;ディストリビュート by
 Donate;寄付
-Duration
+Duration;ながさ
 Edit;編集
 EditedBy;編集者
 EMail;E-Mail
@@ -242,14 +242,14 @@ Exit;終了
 Exit_Hint;プログラムの終了
 Export;エクスポート
 Export_Hint;カスタム形式でエクスポート
-Family
+Family;ファミリ
 Fax;Fax
 File;ファイル
 File size;ファイルサイズ
 File_Append;既存ファイルに上書き (注意 : 同じパラメータは慎重に！)
-File_Created_Date
+File_Created_Date;ファイル作成日
 File_Hint;このファイルの詳細
-File_Modified_Date
+File_Modified_Date;ファイル変更日
 FileExtension;拡張子
 FileName;ファイル名
 FileSize;サイズ
@@ -260,34 +260,34 @@ Folder (Recursively);フォルダ（サブフォルダ含む）
 Folder_Hint;このフォルダの詳細
 FolderName;フォルダ名
 Format;フォーマット
-Format_Description
-Format_Info
+Format_Description;詳細
+Format_Info;情報
 Format_Extensions;使用する拡張子
-Format_Profile
-Format_Settings
-Format_Settings_PacketBitStream
-Format_Settings_BVOP
-Format_Settings_QPel
-Format_Settings_GMC
-Format_Settings_Matrix
-Format_Settings_Floor
-Format_Settings_CABAC
-Format_Settings_Firm
-Format_Settings_Endianness
-Format_Settings_RefFrames
-Format_Settings_Sign
-Format_Settings_Law
-Format_Settings_ITU
-Format_Settings_SBR
-Format_Settings_PS
-Format_Version
+Format_Profile;プロファイル
+Format_Settings;設定
+Format_Settings_PacketBitStream;パケットビットストリーム
+Format_Settings_BVOP;BVOP
+Format_Settings_QPel;QPel
+Format_Settings_GMC;GMC
+Format_Settings_Matrix;Matrix
+Format_Settings_Floor;Floor
+Format_Settings_CABAC;CABAC
+Format_Settings_Firm;Firm
+Format_Settings_Endianness;Endianness
+Format_Settings_RefFrames;RefFrames
+Format_Settings_Sign;Sign
+Format_Settings_Law;Law
+Format_Settings_ITU;ITU
+Format_Settings_SBR;SBR
+Format_Settings_PS;PS
+Format_Version;バージョン
 Codec_Url;コーデックの URL
 FrameRate;フレームレート
-FrameRate_Mode
-FrameRate_Minimum;最小フレームレート
-FrameRate_Nominal
-FrameRate_Maximum;最大フレームレート
-FrameRate_Original
+FrameRate_Mode;モード
+FrameRate_Minimum;最小
+FrameRate_Nominal;通常
+FrameRate_Maximum;最大
+FrameRate_Original;オリジナル
 General;全般
 Genre;ジャンル
 Genre_000;ブルース
@@ -443,7 +443,7 @@ h;時
 Header file;ヘッダーファイルを作成
 Height;高さ
 Help;ヘルプ
-Hint
+Hint;ヒント
 How many audio streams?;音声ストリームの数？
 How many chapters streams?;チャプターストリームの数？
 How many text streams?;テキストストリームの数？
@@ -454,7 +454,7 @@ Image;イメージ
 Image stream(s);イメージストリーム
 Image_Codec_List;コーデックのイメージ
 ImageCount;イメージストリームの数
-Info
+Info;情報
 Instruments;インストゥルメンツ
 Interlacement;インターレスメンツ
 Interlaced;インターレース
@@ -660,7 +660,7 @@ Language_zu;Zulu
 LawRating;レイティング
 LCCN;LCCN
 Library;ライブラリ
-List
+List;リスト
 Lyricist;作詞
 Mastered_Date;マスタリング日
 MasteredBy;マスタリング by 
@@ -678,7 +678,7 @@ More;さらに
 Movie;映画名
 ms;秒
 MSDI;MSDI
-MuxingMode
+MuxingMode;Muxing モード
 Name;名前
 Nationality;制作国
 New;新規
@@ -694,10 +694,10 @@ Other;その他
 Output;出力
 Output format;出力フォーマット
 OveralBitRate;オーバルビットレート
-OveralBitRate_Maximum
-OveralBitRate_Minimum
-OveralBitRate_Mode
-OveralBitRate_Nominal
+OveralBitRate_Maximum;最大
+OveralBitRate_Minimum;最小
+OveralBitRate_Mode;OBR モード
+OveralBitRate_Nominal;通常
 Part;パート
 Part_Count;合計
 Performer;パフォーマー
@@ -706,8 +706,8 @@ Phone;電話
 PixelAspectRatio;ピクセル比
 PlayCounter;再生数
 PlayTime;再生時間
-Position;位置
-Position_Total
+Position;ポジション
+Position_Total;合計
 Preferences;設定
 Producer;プロデューサー
 ProductionDesigner;プロダクション
@@ -725,12 +725,12 @@ Resolution;解像度
 s;秒
 SamplingRate;サンプルレート
 Save;保存
-ScanType
-ScanOrder
+ScanType;スキャンの種類
+ScanOrder;スキャンの並び
 ScreenplayBy;監督
 Season;季節
 see below;以下詳細
-Send HeaderFile
+Send HeaderFile;可能ならヘッダファイルを送信してください: http://sourceforge.net/projects/mediainfo/ (バグセクション)
 Separator_Columns;列の区切り
 Separator_Lines;区切り線
 Set;セット
@@ -750,7 +750,7 @@ Stream_MoreInfo;このストリームの詳細情報
 StreamCount;この種類のストリーム数
 StreamID;ストリーム ID
 StreamKind;ストリーム種
-StreamSize
+StreamSize;ストリームサイズ
 Subject;件名
 SubTrack;サブトラック
 Summary;サマリー
@@ -758,8 +758,8 @@ Supported formats;対応フォーマット
 Supported?;サポート？
 Synopsys;サイノプシス
 SystemId;Id
-Tagged_Application
-Tagged_Date;タグ日
+Tagged_Application;タギングツール
+Tagged_Date;タグ付け日
 Technician;テクニシャン
 TermsOfUse;使用許諾
 Text;テキスト
@@ -814,5 +814,5 @@ Written_Location;作成所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;92
-ZZ_AutomaticLanguage_Percent;92
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

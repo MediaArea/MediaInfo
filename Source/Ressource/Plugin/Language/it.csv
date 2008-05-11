@@ -443,7 +443,7 @@ h;h
 Header file;Estrae l'header del file
 Height;Altezza
 Help;Aiuto
-Hint
+Hint;Consiglio
 How many audio streams?;Quante sono le tracce audio?
 How many chapters streams?;Quanti sono i capitoli?
 How many text streams?;Quanti sono i sottotitoli?
@@ -815,4 +815,4 @@ WrittenBy;Scritto da
 Yes;Si 
 Your system;Il tuo sistema
 ZZ_Automatic_Percent;92
-ZZ_AutomaticLanguage_Percent;99
+ZZ_AutomaticLanguage_Percent;100
