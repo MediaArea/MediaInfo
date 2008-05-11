@@ -655,6 +655,11 @@ void File_Wm::Header_HeaderExtension_Metadata()
 
         if (Name==_T("IsVBR"))
             Stream[StreamNumber].Info["BitRate_Mode"]=(Data_Int64==0)?"CBR":"VBR";
+        else if (Name==_T("DeviceConformanceTemplate"))
+        {
+            if (Data!=_T("@"))
+                Stream[StreamNumber].Info["Format_Profile"]=Data;
+        }
         else if (Name==_T("WM/WMADRCPeakReference")) {}
         else if (Name==_T("WM/WMADRCAverageReference")) {}
         else if (Name==_T("WM/WMADRCAverageTarget")) {}
