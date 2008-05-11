@@ -933,7 +933,7 @@ void File_Mpeg_Descriptors::Descriptor_02()
     //Filling
     if (!multiple_frame_rate_flag && !frame_rate_extension_flag)
         Infos["FrameRate"]=Ztring::ToZtring(Mpegv_frame_rate[frame_rate_code]);
-    Infos["Chroma"]=Mpegv_Colorimetry_format[chroma_format];
+    Infos["Colorimetry"]=Mpegv_Colorimetry_format[chroma_format];
     Infos["Codec_Profile"]=Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]);
 }
 
