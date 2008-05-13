@@ -202,6 +202,7 @@ Comment;Comentário
 CommissionedBy;Representado por
 CompleteName;Nome completo
 Composer;Compositor
+CompressionRatio
 Conductor;Regente
 Container and general information;Container e informações gerais
 ContentType;Conteúdo
@@ -814,5 +815,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;Seu sistema
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

@@ -125,7 +125,7 @@
 About;เกี่ยวกับ
 About_Hint;วิธีติดต่อฉันและค้นหาเวอร์ชันล่าสุด
 Accompaniment;Accompaniment
-Actor;Actor
+Actor;นักแสดง
 Actor_Character;Character played
 Address;ที่อยู่
 Advanced;ขั้นสูง
@@ -134,18 +134,18 @@ Album;อัลบั้ม
 All;ทั้งหมด
 Archival_Location;Archival location
 Arranger;Arranger
-ArtDirector;ArtDirector
-AspectRatio;Aspect ratio
-AssistantDirector;AssistantDirector
+ArtDirector;ผู้กำกับศิลป์
+AspectRatio;อัตราการแสดง
+AssistantDirector;ผู้ช่วยผู้กำกับ
 at;ที่
-At least one file;(You must at least open one file)
+At least one file;(คุณต้องเปิดอย่างน้อยหนึ่งไฟล์)
 Audio;เสียง
 Audio stream(s);สตรีมเสียง
 Audio_Codec_List;codecs เสียง
 Audio_No;ไม่มีเสียง
 Audio1;สตรีมเสียงแรก
 Audio2;สตรีมเสียงที่สอง
-AudioCount;Count of audio streams
+AudioCount;จำนวนของสตรีมเสียง
 Author;ผู้เขียน
 BarCode;บาร์โค้ด
 Basic;พื้นฐาน
@@ -164,7 +164,7 @@ Chapters;เชฟเตอร์
 Chapters stream(s);เชฟเตอร์สตรีม
 Chapters_Codec_List;เชฟเตอร์ Codecs
 Chapters_No;ไม่มีเชฟเตอร์
-ChaptersCount;Count of chapter streams
+ChaptersCount;จำนวนของสตรีมเชฟเตอร์
 CheckNewVersion;ตรวจสอบรุ่นใหม่
 Choose custom;กำหนดเอง
 Choose custom sheet;เลือกชีตที่คุณต้องการ
@@ -195,19 +195,20 @@ Codec_Settings_Law;ตั้งค่า Codec, Law
 Codec_Settings_ITU;ตั้งค่า Codec, ITU
 Codec_Profile;Codec โพรไฟล์
 Codec_Url;เว็บลิงค์ของ codec
-CodecID
+CodecID;รหัสประจำตัว Codec
 Collection;Collection
 Colorimetry
 Comment;คอมเมนต์
 CommissionedBy;Commissioned by
 CompleteName;ชื่อเต็ม
 Composer;ผู้เรียบเรียง
-Conductor;Conductor
+CompressionRatio
+Conductor;ผู้อำนวยเพลง
 Container and general information;ตัวบรรจุและข้อมูลทั่วไป
 ContentType;ชนิดที่บรรจุ
-CoProducer;Coproducer
-Copyright;Copyright
-CostumeDesigner;Costume designer
+CoProducer;ผู้อำนวยการสร้างร่วม
+Copyright;ลิขสิทธิ์
+CostumeDesigner;ผู้ออกแบบเครื่องแต่งกาย
 Count;Count
 Country;ประเทศ
 Cover;Cover
@@ -221,12 +222,12 @@ Delay;Delay
 Delete;ลบ
 Description;รายละเอียด
 Digitized_Date;Digitized date
-Director;Director
-DirectorOfPhotography;Director of photography
-DisplayAspectRatio;Display Aspect ratio
-DistributedBy;Distributed by
+Director;ผู้กำกับการแสดง
+DirectorOfPhotography;ผู้กำกับการถ่ายภาพ
+DisplayAspectRatio;อัตราการแสดงผล
+DistributedBy;เผยแพร่โดย
 Donate;บริจาค
-Duration
+Duration;ระยะเวลา
 Edit;แก้ไข
 EditedBy;แก้ไขโดย
 EMail;อี-เมลล์
@@ -246,7 +247,7 @@ Family;Family
 Fax;แฟ็ก
 File;แฟ้ม
 File size;ขนาดไฟล์
-File_Append;Append to the existing file (Warning : be careful to have the same parameters)
+File_Append;เพิ่มเติมไปยังไฟล์ที่มีอยู่ (คำเตือน : โปรดระมัดระวังเมื่อมีตัวแปรเดียวกัน)
 File_Created_Date;วันที่สร้างไฟล์
 File_Hint;เลือกไฟล์มัลติมีเดียเพื่อเรียนรู้
 File_Modified_Date;วันที่แก้ไขไฟล์ล่าสุด
@@ -256,50 +257,50 @@ FileSize;ขนาดไฟล์
 Folder;โฟลเดอร์
 Folder (R);โฟลเดอร์ (R)
 Folder (R)_Hint;เลือกโฟลเดอร์เพื่อเรียนรู้ (พร้อมทั้งโฟลเดอร์ย่อยทั้งหมด)
-Folder (Recursively);Folder (Recursively)
+Folder (Recursively);โฟลเดอร์ (Recursively)
 Folder_Hint;เลือกโฟลเดอร์เพื่อเรียนรู้
 FolderName;ชื่อโฟลเดอร์
 Format;รูปแบบ
-Format_Description
-Format_Info
+Format_Description;รายละเอียดของรูปแบบ
+Format_Info;ข้อมูลของรูปแบบ
 Format_Extensions
-Format_Profile
-Format_Settings
-Format_Settings_PacketBitStream
-Format_Settings_BVOP
-Format_Settings_QPel
-Format_Settings_GMC
-Format_Settings_Matrix
-Format_Settings_Floor
-Format_Settings_CABAC
-Format_Settings_Firm
-Format_Settings_Endianness
-Format_Settings_RefFrames
-Format_Settings_Sign
-Format_Settings_Law
-Format_Settings_ITU
-Format_Settings_SBR
-Format_Settings_PS
-Format_Version
+Format_Profile;โพรไฟล์รูปแบบ
+Format_Settings;ตั้งค่ารูปแบบ
+Format_Settings_PacketBitStream;ตั้งค่ารูปแบบ, พ็อกเก็ตบิตสตรีม
+Format_Settings_BVOP;ตั้งค่ารูปแบบ, BVOP
+Format_Settings_QPel;ตั้งค่ารูปแบบ, QPel
+Format_Settings_GMC;ตั้งค่ารูปแบบ, GMC
+Format_Settings_Matrix;ตั้งค่ารูปแบบ, Matrix
+Format_Settings_Floor;ตั้งค่ารูปแบบ, Floor
+Format_Settings_CABAC;ตั้งค่ารูปแบบ, CABAC
+Format_Settings_Firm;ตั้งค่ารูปแบบ, Firm
+Format_Settings_Endianness;ตั้งค่ารูปแบบ, Endianness
+Format_Settings_RefFrames;ตั้งค่ารูปแบบ, RefFrames
+Format_Settings_Sign;ตั้งค่ารูปแบบ, Sign
+Format_Settings_Law;ตั้งค่ารูปแบบ, Law
+Format_Settings_ITU;ตั้งค่ารูปแบบ, ITU
+Format_Settings_SBR;ตั้งค่ารูปแบบ, SBR
+Format_Settings_PS;ตั้งค่ารูปแบบ, PS
+Format_Version;เวอร์ชันรูปแบบ
 Codec_Url;เว็บลิงค์ของ codec
 FrameRate;เฟรมเรต
 FrameRate_Mode;เฟรมเรตโหมด
 FrameRate_Minimum;เฟรมเรตต่ำสุด
 FrameRate_Nominal;เฟรมเรต Nominal
 FrameRate_Maximum;เฟรมเรตสูงสุด
-FrameRate_Original
+FrameRate_Original;เฟรมเรตต้นฉบับ
 General;ทั่วไป
 Genre;แนวเพลง
 Genre_000;บลู
 Genre_001;คลาสสิคร็อค
-Genre_002;Country
-Genre_003;Dance
+Genre_002;คันทรี
+Genre_003;แดนซ์
 Genre_004;ดิสโก้
 Genre_005;ฟังค์
 Genre_006;Grunge
 Genre_007;ฮิบ-ฮอบ
 Genre_008;แจ๊ส
-Genre_009;Metal
+Genre_009;เมทอล
 Genre_010;New Age
 Genre_011;Oldies
 Genre_012;อื่นๆ
@@ -312,10 +313,10 @@ Genre_018;เทคโน
 Genre_019;Industrial
 Genre_020;อัลเทอร์เนทีฟ
 Genre_021;Ska
-Genre_022;Death Metal
+Genre_022;เด็ทเมทอล
 Genre_023;Pranks
 Genre_024;Soundtrack
-Genre_025;Euro-Techno
+Genre_025;ยูโร-เทคโน
 Genre_026;Ambient
 Genre_027;Trip-Hop
 Genre_028;Vocal
@@ -327,7 +328,7 @@ Genre_033;Instrumental
 Genre_034;Acid
 Genre_035;House
 Genre_036;เกม
-Genre_037;Sound Clip
+Genre_037;คลิปเสียง
 Genre_038;Gospel
 Genre_039;Noise
 Genre_040;AlternRock
@@ -342,7 +343,7 @@ Genre_048;Ethnic
 Genre_049;Gothic
 Genre_050;Darkwave
 Genre_051;Techno-Industrial
-Genre_052;Electronic
+Genre_052;อิเล็กทรอนิกส์
 Genre_053;ป๊อบ-โฟล์ค
 Genre_054;Eurodance
 Genre_055;Dream
@@ -358,7 +359,7 @@ Genre_064;Native American
 Genre_065;คาบาเรต์
 Genre_066;New Wave
 Genre_067;Psychadelic
-Genre_068;Rave
+Genre_068;แร็ฟ
 Genre_069;Showtunes
 Genre_070;Trailer
 Genre_071;Lo-Fi
@@ -387,7 +388,7 @@ Genre_093;Psychedelic Rock
 Genre_094;Symphonic Rock
 Genre_095;Slow Rock
 Genre_096;Big Band
-Genre_097;Chorus
+Genre_097;ลูกคู่
 Genre_098;Easy Listening
 Genre_099;Acoustic
 Genre_100;Humour
@@ -421,7 +422,7 @@ Genre_127;Drum & Bass
 Genre_128;Club-House
 Genre_129;ฮาร์ดคอร์
 Genre_130;Terror
-Genre_131;Indie
+Genre_131;อินดี้
 Genre_132;Britpop
 Genre_133;Negerpunk
 Genre_134;Polsk Punk
@@ -443,7 +444,7 @@ h;h
 Header file;สร้างไฟล์ header
 Height;ความสูง
 Help;ช่วยเหลือ
-Hint
+Hint;คำแนะนำ
 How many audio streams?;มีจำนวนสตรีมเสียงเท่าไหร่?
 How many chapters streams?;มีจำนวนเชฟเตอร์สตรีมเท่าไหร่?
 How many text streams?;มีจำนวนสตรีมข้อความเท่าไหร่?
@@ -453,13 +454,13 @@ ID;ID
 Image;ภาพ
 Image stream(s);สตรีมรูปภาพ
 Image_Codec_List;Codecs รูปภาพ
-ImageCount;Count of image streams
+ImageCount;จำนวนของสตรีมภาพ
 Info;ข้อมูล
 Instruments;Instruments
 Interlacement;Interlacement
 Interlaced;Interlaced
-Interlaced_TFF;Top Field First
-Interlaced_BFF;Bottom Field First
+Interlaced_TFF;ช่องบนสุดก่อน
+Interlaced_BFF;ช่องล่างก่อน
 Interlaced_PPF;Progressive
 IRCA;IRCA
 ISBN;ISBN
@@ -474,91 +475,91 @@ Language___;Multiple languages
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
-Language_af;Afrikaans
+Language_af;แอฟริกา
 Language_ak;Akan
-Language_am;Amharic
+Language_am;อัมฮาริค
 Language_an;Aragonese
-Language_ar;Arabic
-Language_as;Assamese
+Language_ar;อาหรับ
+Language_as;อัสสมี
 Language_av;Avaric
 Language_ay;Aymara
 Language_az;Azerbaijani
 Language_ba;Bashkir
-Language_be;Belarusian
-Language_bg;Bulgarian
-Language_bh;Bihari
+Language_be;เบลารูเชียน
+Language_bg;บัลแกเรีย
+Language_bh;พิหาร
 Language_bi;Bislama
 Language_bm;Bambara
-Language_bn;Bengali
-Language_bo;Tibetan
+Language_bn;เบงกอล
+Language_bo;ทิเบต
 Language_br;Breton
-Language_bs;Bosnian
-Language_ca;Catalan
+Language_bs;บอซเนีย
+Language_ca;คาตะลาน
 Language_ce;Chechen
 Language_ch;Chamorro
-Language_co;Corsican
+Language_co;คอร์ซิกา
 Language_cr;Cree
-Language_cs;Czech
+Language_cs;เช็ก
 Language_cu;Slave
 Language_cv;Chuvash
-Language_cy;Welsh
-Language_da;Danish
-Language_de;German
+Language_cy;เวลส์
+Language_da;เดนมาร์ก
+Language_de;เยอรมัน
 Language_dv;Divehi
 Language_dz;Dzongkha
 Language_ee;Ewe
-Language_el;Greek
-Language_en;English
+Language_el;กรีก
+Language_en;อังกฤษ
 Language_eo;Esperanto
-Language_es;Spanish
-Language_et;Estonian
-Language_eu;Basque
-Language_fa;Persian
+Language_es;สเปน
+Language_et;เอสโตเนีย
+Language_eu;แบ็ซค์
+Language_fa;เปอร์เซีย
 Language_ff;Fulah
-Language_fi;Finnish
-Language_fj;Fijian
-Language_fo;Faroese
-Language_fr;French
+Language_fi;ฟินแลนด์
+Language_fj;ฟิจิ
+Language_fo;แฟโร
+Language_fr;ฝรั่งเศส
 Language_fy;Frisian
-Language_ga;Irish
+Language_ga;ไอริช
 Language_gd;Gaelic
-Language_gl;Galician
+Language_gl;กาลิเชียน
 Language_gn;Guarani
-Language_gu;Gujarati
+Language_gu;คุชราตี
 Language_gv;Manx
 Language_ha;Hausa
-Language_he;Hebrew
-Language_hi;Hindi
+Language_he;ฮิบรู
+Language_hi;ฮินดี
 Language_ho;Hiri Motu
-Language_hr;Croatian
+Language_hr;โครเอเชีย
 Language_ht;Haitian
-Language_hu;Hungarian
-Language_hy;Armenian
+Language_hu;ฮังการี
+Language_hy;อาร์เมเนียน
 Language_hz;Herero
 Language_ia;Auxiliary Language Association
-Language_id;Indonesian
+Language_id;อินโดนีเซีย
 Language_ie;Interlingue
 Language_ig;Igbo
 Language_ii;Sichuan Yi
 Language_ik;Inupiaq
 Language_Info;ข้อมูลภาษา
 Language_io;Ido
-Language_is;Icelandic
-Language_it;Italian
+Language_is;ไอซ์แลนด์
+Language_it;อิตาลี
 Language_iu;Inuktitut
-Language_ja;Japanese
+Language_ja;ญี่ปุ่น
 Language_jv;Javanese
-Language_ka;Georgian
-Language_kg;Kongo
+Language_ka;จอร์เจีย
+Language_kg;คองโก
 Language_ki;Kikuyu
 Language_kj;Kuanyama
 Language_kk;Kazakh
 Language_kl;Kalaallisut
-Language_km;Khmer
-Language_kn;Kannada
-Language_ko;Korean
+Language_km;เขมร
+Language_kn;กัณณาท
+Language_ko;เกาหลี
 Language_kr;Kanuri
-Language_ks;Kashmiri
+Language_ks;กัศมีรี
 Language_ku;Kurdish
 Language_kv;Komi
 Language_kw;Cornish
@@ -568,86 +569,86 @@ Language_lb;Luxembourgish
 Language_lg;Ganda
 Language_li;Limburgish
 Language_ln;Lingala
-Language_lo;Lao
-Language_lt;Lithuanian
+Language_lo;ลาว
+Language_lt;ลิทัวเนีย
 Language_lu;Luba-Katanga
-Language_lv;Latvian
+Language_lv;ลัตเวีย
 Language_mg;Malagasy
-Language_mh;Marshallese
-Language_mi;Maori
-Language_mk;Macedonian
-Language_ml;Malayalam
-Language_mn;Mongolian
-Language_mo;Moldavian
-Language_mr;Marathi
-Language_ms;Malay
-Language_mt;Maltese
-Language_my;Burmese
-Language_na;Nauru
+Language_mh;มาร์แชล
+Language_mi;เมารี
+Language_mk;มาซิโดเนีย
+Language_ml;มะละยาลัม
+Language_mn;มองโกเลีย
+Language_mo;มอลเดเวีย
+Language_mr;มาราฐี
+Language_ms;มาเลย์
+Language_mt;มัลตีส
+Language_my;พม่า
+Language_na;นาอูรู
 Language_nb;Norwegian Bokmal
 Language_nd;Ndebele
-Language_ne;Nepali
+Language_ne;เนปาล
 Language_ng;Ndonga
-Language_nl;Dutch
+Language_nl;ดัทช์
 Language_nn;Norwegian Bokmal
 Language_no;Norwegian Nynorsk
 Language_nr;Ndebele
 Language_nv;Navaho
 Language_ny;Nyanja
-Language_oc;Occitan
+Language_oc;ออกซิตัน	
 Language_oj;Ojibwa
 Language_om;Oromo
-Language_or;Oriya
+Language_or;โอริยา
 Language_os;Ossetic
-Language_pa;Panjabi
-Language_pi;Pali
-Language_pl;Polish
+Language_pa;ปันจาบ
+Language_pi;บาลี
+Language_pl;โปแลนด์
 Language_ps;Pushto
-Language_pt;Portuguese
+Language_pt;โปรตุเกส
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
-Language_ro;Romanian
-Language_ru;Russian
+Language_ro;โรมาเนีย
+Language_ru;รัสเซีย
 Language_rw;Kinyarwanda
-Language_sa;Sanskrit
-Language_sc;Sardinian
-Language_sd;Sindhi
+Language_sa;สันสกฤต
+Language_sc;ซาร์ดิเนีย
+Language_sd;สินธี
 Language_se;Northern Sami
 Language_sg;Sango
-Language_si;Sinhala
-Language_sk;Slovak
-Language_sl;Slovenian
-Language_sm;Samoan
+Language_si;สิงหล
+Language_sk;สโลวะเกีย
+Language_sl;สโลเวเนียน
+Language_sm;ซามัว
 Language_sn;Shona
-Language_so;Somali
-Language_sq;Albanian
-Language_sr;Serbian
+Language_so;โซมาเลีย
+Language_sq;อัลบาเนียน
+Language_sr;เซอร์เบียน
 Language_ss;Swati
 Language_st;Sotho
-Language_su;Sundanese
-Language_sv;Swedish
-Language_sw;Swahili
-Language_ta;Tamil
-Language_te;Telugu
+Language_su;ซุนดา
+Language_sv;สวีเดน
+Language_sw;สวาฮีลี
+Language_ta;ทมิฬ
+Language_te;เตลุคู
 Language_tg;Tajik
-Language_th;Thai
-Language_ti;Tigrinya
-Language_tk;Turkmen
-Language_tl;Tagalog
+Language_th;ไทย
+Language_ti;ทีกรินยา
+Language_tk;เติร์กเมนิสถาน
+Language_tl;ตากาลอค
 Language_tn;Tswana
-Language_to;Tonga
-Language_tr;Turkish
+Language_to;ตองกา
+Language_tr;ตุรกี
 Language_ts;Tsonga
 Language_tt;Tatar
 Language_tw;Twi
-Language_ty;Tahitian
+Language_ty;ตาฮิติ
 Language_ug;Uighur
-Language_uk;Ukrainian
-Language_ur;Urdu
-Language_uz;Uzbek
-Language_ve;Venda
-Language_vi;Vietnamese
+Language_uk;ยูเครน
+Language_ur;อูรดู
+Language_uz;อุบเบกิสถาน
+Language_ve;เวนดา
+Language_vi;เวียดนาม
 Language_vo;Volapuk
 Language_wa;Walloon
 Language_wo;Wolof
@@ -655,30 +656,30 @@ Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
-Language_zh;Chinese
-Language_zu;Zulu
+Language_zh;จีน
+Language_zu;ซูลู
 LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
-List
+List;รายการ
 Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
-MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About;แสดงข้อมูลอย่างละเอียด\r\nของไฟล์มัลติมีเดีย:\r\nMatroska, OGG (รวมทั้ง OGM)\r\nMPEG1 (รวมทั้ง VCD)\r\nMPEG2 (รวมทั้ง DVD และ SVCD)\r\nMPEG4 (รวมทั้ง Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (รวมทั้ง WMV, WMA)\r\nMicrosoft RIFF (รวมทั้ง AVI, WAV)\r\nรูปแบบเสียงอย่างเดียว (AC3, DTS, AAC, AU, AIFF...)
 Menu;เมนู
-Menu stream(s);Menu streams
-Menu_Codec_List;Menu codecs
-Menu_No;No menu
-MenuCount;Count of menu streams
+Menu stream(s);สตรีมเมนู
+Menu_Codec_List;codecs เมนู
+Menu_No;ไม่มีเมนู
+MenuCount;จำนวนของสตรีมเมนู
 Menu_Hint;More possibilities
-MenuID
+MenuID;รหัสประจำตัวเมนู
 mn;mn
 Mood;Mood
 More;เพิ่มเติม
 Movie;ชื่อภาพยนตร์
 ms;ms
 MSDI;MSDI
-MuxingMode
+MuxingMode;โหมด Muxing
 Name;ชื่อ
 Nationality;Nationality
 New;ใหม่
@@ -693,12 +694,12 @@ Original;ต้นฉบับ
 Other;อื่นๆ
 Output;ผลลัพธ์
 Output format;รูปแบบผลลัพธ์
-OveralBitRate;Overal BitRate
-OveralBitRate_Maximum
-OveralBitRate_Minimum
-OveralBitRate_Mode
-OveralBitRate_Nominal
-Part;Part
+OveralBitRate;บิตเรตทั้งหมด
+OveralBitRate_Maximum;บิตเรตทั้งหมดสูงสุด
+OveralBitRate_Minimum;บิตเรตทั้งหมดต่ำสุด
+OveralBitRate_Mode;โหมดบิตเรตทั้งหมด
+OveralBitRate_Nominal;บิตเรต Nominal ทั้งหมด
+Part;ส่วน
 Part_Count;Total count
 Performer;Performer
 Period;Period
@@ -707,12 +708,12 @@ PixelAspectRatio;Pixel Aspect Ratio
 PlayCounter;PlayCounter
 PlayTime;เวลาเล่น
 Position;ตำแหน่ง
-Position_Total
+Position_Total;ทั้งหมด
 Preferences;การปรับแต่ง
-Producer;Producer
-ProductionDesigner;ProductionDesigner
+Producer;โพรดิวเซอร์
+ProductionDesigner;ผู้ออกแบบการแสดง
 ProductionStudio;ProductionStudio
-Publisher;Publisher
+Publisher;ผู้เผยแพร่
 Purchased_Date;Purcahsed date
 Quote character;Quote character
 RadioStation;สถานีวิทยุ
@@ -720,59 +721,59 @@ Rating;เรตติ้ง
 Recorded_Date;วันที่บันทึก
 Recorded_Location;Recorded location
 Released_Date;Released date
-RemixedBy;Remixed by
-Resolution;Resolution
+RemixedBy;รีมิกซ์โดย
+Resolution;ความละเอียด
 s;s
-SamplingRate;Sampling rate
+SamplingRate
 Save;บันทึก
 ScanType
 ScanOrder
 ScreenplayBy;Screenplay by
 Season;Season
-see below;see below
-Send HeaderFile
-Separator_Columns;columns separator
-Separator_Lines;lines separator
-Set;Set
+see below;ดูด้านล่าง
+Send HeaderFile;โปรดส่งไฟล์ Header (หัวข้อ)ให้ฉันที่นี่ : http://sourceforge.net/projects/mediainfo/ (Bug section)
+Separator_Columns;ตัวแยกคอลัมน์
+Separator_Lines;ตัวแยกบรรทัด
+Set;กำหนด
 Set_Count;Set count
 Setup;ติดตั้ง
 Sheet;ชีต
 Sheet (Complete);Sheet (Complete)
 Shell extension;ลงทะเบียนชนิดไฟล์ (เมื่อคลิกขวาใน explorer จะแสดงตัวเลือกของ Media)
-Shell InfoTip;Shell InfoTip (ใน explorer, เมื่อชี้เม้าท์ที่ไฟล์, จะแสดงข้อมูลไฟล์)
+Shell InfoTip;ข้อมูลเคล็บลับ Shell (ใน explorer, เมื่อชี้เม้าท์ที่ไฟล์, จะแสดงข้อมูลไฟล์)
 Show menu;แสดงเมนู
 Show toolbar;แสดงแถบเครื่องมือ
 Sort;จัดเรียงโดย
-SoundEngineer;Sound engineer
+SoundEngineer;ซาวน์เอนจิเนียร์
 Standard;มาตรฐาน
 Stream;สตรีม
-Stream_MoreInfo;More information about the stream
-StreamCount;Count of stream of this kind
-StreamID;Stream ID
-StreamKind;Kind of stream
-StreamSize
+Stream_MoreInfo;ข้อมูลเพิ่มเติมเกี่ยวกับสตรีม
+StreamCount;จำนวนสตรีมของชนิดนี้
+StreamID;รหัสประจำตัวสตรีม
+StreamKind;ชนิดของสตรีม
+StreamSize;ขนาดสตรีม
 Subject;Subject
-SubTrack;SubTrack
-Summary;Summary
-Supported formats;Supported formats
+SubTrack;แทร็กย่อย
+Summary;สรุป
+Supported formats;รูปแบบที่สนับสนุน
 Supported?;สนับสนุนแล้ว?
 Synopsys;Synopsys
 SystemId;Id
 Tagged_Application;tagging application
 Tagged_Date;Tagged date
 Technician;Technician
-TermsOfUse;Terms of use
+TermsOfUse;ข้อตกลงการใช้
 Text;ข้อความ
 Text - Custom;Text - Custom
-Text (HTML);Text (HTML)
+Text (HTML);ข้อความ (HTML)
 Text stream(s);สตรีมข้อความ
 Text streams;สตรีมข้อความ
-Text_Codec_List;Text codecs
+Text_Codec_List;codecs ข้อความ
 Text_No;ไม่มีข้อความ
 Text1;ข้อความสตรีมแรก
 Text2;ข้อความสตรีมที่สอง
 Text3;ข้อความสตรีมที่สาม
-TextCount;Count of text streams
+TextCount;จำนวนของสตรีมข้อความ
 ThanksTo;ขอขอบคุณ
 Thousands separator;ตัวแบ่งหลักพัน
 Title;ชื่อเรื่อง
@@ -783,7 +784,7 @@ Track_Count;Track count
 Translator;แปลไทยโดย 
 Tree;Tree
 Tree & Text;Tree & Text
-Unknown;Unknown
+Unknown;ไม่รู้จัก
 Url;Url
 Video;วีดีโอ
 Video stream(s);สตรีมวีดีโอ
@@ -792,7 +793,7 @@ Video_Delay;Video delay
 Video_No;ไม่มีวีดีโอ
 Video0_Delay;Video0 delay
 Video1;สตรีมวีดีโอแรก
-VideoCount;Count of video streams
+VideoCount;จำนวนของสตรีมวีดีโอ
 View;มุมมอง
 View_Hint;เปลี่ยนรูปแบบของการแสดงข้อมูล
 Warning : more streams in the files;คำเตือน : มีหลายสตรีมในไฟล์
@@ -814,5 +815,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;95
-ZZ_AutomaticLanguage_Percent;95
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

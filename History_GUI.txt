@@ -16,7 +16,7 @@ Known bugs
 Version 0.7.7.0, 2008-05-
 ---------------
 + Ukrainian language added
-+ Italian, Japanese, Lithuanian, Portuguese (Brazil), Chinese (Traditional) translation updated
++ Italian, Japanese, Lithuanian, Portuguese (Brazil), Chinese (Traditional), Chinese (Simplified), Thai translations updated
 
 
 Version 0.7.6.4, 2008-04-27

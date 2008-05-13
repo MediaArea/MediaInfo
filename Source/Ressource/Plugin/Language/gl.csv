@@ -202,6 +202,7 @@ Comment;Comentario
 CommissionedBy;Commissioned by
 CompleteName;Nome completo
 Composer;Compositor
+CompressionRatio
 Conductor;Condutor
 Container and general information;Contedor e información xeral
 ContentType;ContentType
@@ -814,5 +815,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;91
+ZZ_Automatic_Percent;90
+ZZ_AutomaticLanguage_Percent;90
