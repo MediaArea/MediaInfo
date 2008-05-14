@@ -32,6 +32,8 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Tag/File_ApeTag.h"
 #include <algorithm>
+#include <ctime>
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -135,11 +137,42 @@ void File_ApeTag::Data_Parse()
          if (Key=="ALBUM")          Fill(Stream_General, 0, General_Album, Value);
     else if (Key=="ARTIST")         Fill(Stream_General, 0, General_Performer, Value);
     else if (Key=="AUTHOR")         Fill(Stream_General, 0, General_Performer, Value);
+    else if (Key=="BAND")           Fill(Stream_General, 0, General_Performer, Value);
+    else if (Key=="COMMENT")        Fill(Stream_General, 0, General_Comment, Value);
     else if (Key=="COMMENTS")       Fill(Stream_General, 0, General_Comment, Value);
     else if (Key=="COMPOSER")       Fill(Stream_General, 0, General_WrittenBy, Value);
-    else if (Key=="YEAR")           Fill(Stream_General, 0, General_Recorded_Date, Value);
-    else if (Key=="TRACK")          Fill(Stream_General, 0, General_Track_Position, Value);
+    else if (Key=="CONTENTGROUP")   Fill(Stream_General, 0, General_Genre, Value);
+    else if (Key=="COPYRIGHT")      Fill(Stream_General, 0, General_Copyright, Value);
+    else if (Key=="DISK")
+    {
+                                    if (Value.find(_T("/"))!=Error)
+                                    {
+                                        Fill(Stream_General, 0, General_Part_Position_Total, Value.SubString(_T("/"), _T("")));
+                                        Fill(Stream_General, 0, General_Part_Position, Value.SubString(_T(""), _T("/")));
+                                    }
+                                    else
+                                        Fill(Stream_General, 0, General_Track_Position, Value);
+    }
+    else if (Key=="ENCODEDBY")      Fill(Stream_General, 0, General_EncodedBy, Value);
+    else if (Key=="GENRE")          Fill(Stream_General, 0, General_Genre, Value);
+    else if (Key=="ORIGARTIST")     Fill(Stream_General, 0, General_Original_Performer, Value);
     else if (Key=="TITLE")          Fill(Stream_General, 0, General_Title, Value);
+    else if (Key=="TRACK")
+    {
+                                    if (Value.find(_T("/"))!=Error)
+                                    {
+                                        Fill(Stream_General, 0, General_Track_Position_Total, Value.SubString(_T("/"), _T("")));
+                                        Fill(Stream_General, 0, General_Track_Position, Value.SubString(_T(""), _T("/")));
+                                    }
+                                    else
+                                        Fill(Stream_General, 0, General_Track_Position, Value);
+    }
+    else if (Key=="UNSYNCEDLYRICS") Fill(Stream_General, 0, General_Lyrics, Value);
+    else if (Key=="WWW")            Fill(Stream_General, 0, General_Title_Url, Value);
+    else if (Key=="YEAR")           Fill(Stream_General, 0, General_Recorded_Date, Value);
+    else if (Key=="CONTENT GROUP DESCRIPTION") Fill(Stream_General, 0, General_Title, Value);
+    else if (Key=="ORIGINAL ALBUM/MOVIE/SHOW TITLE") Fill(Stream_General, 0, General_Title, Value);
+    else if (Key=="ORIGINAL ARTIST(S)/PERFORMER(S)") Fill(Stream_General, 0, General_Original_Performer, Value);
     else                            Fill(Stream_General, 0, Key.c_str(), Value);
 }
 

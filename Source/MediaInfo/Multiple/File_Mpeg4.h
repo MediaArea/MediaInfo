@@ -156,9 +156,14 @@ private :
     void moov_udta_meta_ilst_xxxx_data();
     void moov_udta_meta_ilst_xxxx_mean();
     void moov_udta_meta_ilst_xxxx_name();
+    void moov_udta_ndrm();
     void moov_udta_nsav();
     void moov_udta_ptv ();
     void moov_udta_Sel0();
+    void moov_udta_tags();
+    void moov_udta_tags_meta();
+    void moov_udta_tags_tseg();
+    void moov_udta_tags_tseg_tshd();
     void moov_udta_WLOC();
     void moov_udta_XMP_();
     void moov_udta_xxxx();

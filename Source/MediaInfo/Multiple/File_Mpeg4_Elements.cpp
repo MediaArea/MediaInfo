@@ -222,9 +222,14 @@ namespace Elements
     const int64u moov_udta_meta_ilst_xxxx_data=0x64617461;
     const int64u moov_udta_meta_ilst_xxxx_mean=0x6D65616E;
     const int64u moov_udta_meta_ilst_xxxx_name=0x6E616D65;
-    const int64u moov_udta_nsav=0x74736176;
+    const int64u moov_udta_ndrm=0x6E64726D;
+    const int64u moov_udta_nsav=0x6E736176;
     const int64u moov_udta_ptv =0x70747620;
     const int64u moov_udta_Sel0=0x53656C30;
+    const int64u moov_udta_tags=0x74616773;
+    const int64u moov_udta_tags_meta=0x6D657461;
+    const int64u moov_udta_tags_tseg=0x74736567;
+    const int64u moov_udta_tags_tseg_tshd=0x74736864;
     const int64u moov_udta_WLOC=0x574C4F43;
     const int64u moov_udta_XMP_=0x584D505F;
     const int64u pckg=0x70636B67;
@@ -379,9 +384,18 @@ void File_Mpeg4::Data_Parse()
                         ATOM_END
                     ATOM_END_DEFAULT
                 ATOM_END
+            ATOM(moov_udta_ndrm)
             ATOM(moov_udta_nsav)
             ATOM(moov_udta_ptv )
             ATOM(moov_udta_Sel0)
+            LIST(moov_udta_tags)
+                ATOM_BEGIN
+                ATOM(moov_udta_tags_meta)
+                LIST(moov_udta_tags_tseg)
+                    ATOM_BEGIN
+                    ATOM(moov_udta_tags_tseg_tshd);
+                    ATOM_END
+                ATOM_END
             ATOM(moov_udta_WLOC)
             ATOM(moov_udta_XMP_)
             ATOM_DEFAULT (moov_udta_xxxx); //User data
@@ -854,8 +868,21 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
         case 0x03 : //Mac String
                     Value=_T("String(Mac) encoding not yet supported");
                     break;
-        case 0x0E : //JPEG
-                    Value=_T("(Image)");
+        case 0x0D : //JPEG
+        case 0x0E : //PNG
+                    switch (Element_Code_Get(Element_Level-1))
+                    {
+                        case Elements::moov_meta__covr :
+                            {
+                            Skip_XX(Element_Size-Element_Offset,"Data");
+
+                            //Filling
+                            Fill(Stream_General, 0, General_Cover, "Yes");
+                            }
+                            return;
+                        default:
+                            Value=_T("(Binary)");
+                    }
                     break;
         case 0x15 : //Signed Integer
                     {
@@ -2183,6 +2210,13 @@ void File_Mpeg4::moov_udta_meta_ilst_xxxx_name()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_ndrm()
+{
+    //Parsing
+    Skip_XX(Element_Size,                                       "Unknown");
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_udta_nsav()
 {
     Element_Name("No Save");
@@ -2209,6 +2243,33 @@ void File_Mpeg4::moov_udta_Sel0()
 {
     Element_Name("Sel0");
 
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_tags()
+{
+    Element_Name("Tags");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_tags_meta()
+{
+    Element_Name("Metadata");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_tags_tseg()
+{
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_tags_tseg_tshd()
+{
     //Parsing
     Skip_XX(Element_Size,                                       "Data");
 }
@@ -2249,6 +2310,8 @@ void File_Mpeg4::moov_udta_xxxx()
         case Method_Binary :
             {
                 Element_Name("Binary");
+                Skip_XX(Element_Size,                           "Unknown");
+                return;
             }
             break;
         case Method_String :

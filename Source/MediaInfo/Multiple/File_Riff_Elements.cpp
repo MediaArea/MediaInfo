@@ -1324,8 +1324,6 @@ void File_Riff::AVI__hdlr_strl_strh()
         && (avih_FrameRate==0 || Duration<((float32)avih_TotalFrame)/avih_FrameRate*1000*1.10)  //Some file have a nearly perfect header, except that the value is false, trying to detect it (false if 10% more than 1st video)
         && (avih_FrameRate==0 || Duration>((float32)avih_TotalFrame)/avih_FrameRate*1000*0.90)) //Some file have a nearly perfect header, except that the value is false, trying to detect it (false if 10% less than 1st video)
             Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration);
-        else
-            Fill(StreamKind_Last, StreamPos_Last, "Coherency/Duration", Duration);
     }
     switch (fccType)
     {
@@ -1562,7 +1560,8 @@ void File_Riff::AVI__INFO_xxxx()
     }
     Element_Name(Name);
     Element_Info(Value);
-    Fill(StreamKind, 0, Name.To_Local().c_str(), Value);
+    if (!Value.empty())
+        Fill(StreamKind, 0, Name.To_Local().c_str(), Value);
 }
 
 //---------------------------------------------------------------------------

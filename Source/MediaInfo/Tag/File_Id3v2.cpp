@@ -664,6 +664,19 @@ void File_Id3v2::COMM()
 {
     T__X();
 
+    //Testing
+         if (Element_Values(0)==_T("Songs-DB_Tempo")) return;
+    else if (Element_Values(0)==_T("Songs-DB_Preference")) return;
+    else if (Element_Values(0)==_T("MusicMatch_Tempo")) return;
+    else if (Element_Values(0)==_T("MusicMatch_Mood"))
+    {
+        if (Retrieve(Stream_General, 0, General_Mood).empty())
+            Element_Values(0)==_T("Mood");
+        else
+            return;
+    }
+    else if (Element_Values(0)==_T("MusicMatch_Preference")) return;
+
     //Filling
     if (Element_Values(0).empty())
         Element_Values(0)=_T("Comment");
@@ -796,7 +809,7 @@ void File_Id3v2::Fill_Name()
         case Id3::TIT3 : Fill(Stream_General, 0, General_Track_More, Element_Value); break;
         case Id3::TKEY : Fill(Stream_General, 0, "Initial key", Element_Value); break;
         case Id3::TLAN : Fill(Stream_Audio,   0, Audio_Language, Element_Value); break;
-        case Id3::TLEN : Fill(Stream_General, 0, "Length", Element_Value); break;
+        case Id3::TLEN : break; //Fill(Stream_General, 0, "Length", Element_Value); break;
         case Id3::TMCL : Fill(Stream_General, 0, "Musician Credit List", Element_Value); break;
         case Id3::TMED : Fill(Stream_General, 0, "Media Type", Element_Value); break;
         case Id3::TMOO : Fill(Stream_General, 0, "Mood", Element_Value); break;

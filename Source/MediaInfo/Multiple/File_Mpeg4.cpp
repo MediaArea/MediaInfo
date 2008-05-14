@@ -64,6 +64,7 @@ namespace Elements
     const int64u moov_meta___enc=0xA9656E63;
     const int64u moov_meta___fmt=0xA9666D74;
     const int64u moov_meta___gen=0xA967656E;
+    const int64u moov_meta___grp=0xA9677270;
     const int64u moov_meta___hos=0xA9686F73;
     const int64u moov_meta___inf=0xA9696E66;
     const int64u moov_meta___key=0xA96B6579;
@@ -89,6 +90,7 @@ namespace Elements
     const int64u moov_meta__perf=0x70657266;
     const int64u moov_meta__pgap=0x70676170;
     const int64u moov_meta__titl=0x7469746C;
+    const int64u moov_meta__tool=0x746F6F6C;
     const int64u moov_meta__trkn=0x74726B6E;
     const int64u moov_meta__tmpo=0x746D706F;
 }
@@ -300,6 +302,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
 {
     switch (Meta)
     {
+        //http://atomicparsley.sourceforge.net/mpeg-4files.html
         case Elements::moov_meta___ART : Parameter="Performer"; return Method_String;
         case Elements::moov_meta___alb : Parameter="Album"; return Method_String;
         case Elements::moov_meta___aut : Parameter="Performer"; return Method_String;
@@ -313,6 +316,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta___enc : Parameter="Encoded_Application"; return Method_String;
         case Elements::moov_meta___fmt : Parameter="Origin"; return Method_String;
         case Elements::moov_meta___gen : Parameter="Genre"; return Method_String;
+        case Elements::moov_meta___grp : Parameter="Genre"; return Method_String;
         case Elements::moov_meta___hos : Parameter="HostComputer"; return Method_String;
         case Elements::moov_meta___inf : Parameter="Title/More"; return Method_String;
         case Elements::moov_meta___key : Parameter="Keywords"; return Method_String;
@@ -322,7 +326,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta___prd : Parameter="Producer"; return Method_String;
         case Elements::moov_meta___PRD : Parameter="Product"; return Method_String;
         case Elements::moov_meta___prf : Parameter="Performer"; return Method_String;
-        case Elements::moov_meta___req : Parameter="SpecialPlaybackRequirements"; return Method_String;
+        case Elements::moov_meta___req : Parameter="Comment"; return Method_String;
         case Elements::moov_meta___src : Parameter="DistribtedBy"; return Method_String;
         case Elements::moov_meta___swr : Parameter="Encoded_Application"; return Method_String;
         case Elements::moov_meta___too : Parameter="Encoded_Application"; return Method_String;
@@ -337,6 +341,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta__perf : Parameter="Performer"; return Method_String2;
         case Elements::moov_meta__pgap : Parameter.clear(); return Method_None;
         case Elements::moov_meta__titl : Parameter="Title"; return Method_String2;
+        case Elements::moov_meta__tool : Parameter="Encoded_Application"; return Method_String3;
         case Elements::moov_meta__trkn : Parameter="Track"; return Method_Binary;
         case Elements::moov_meta__tmpo : Parameter.clear(); return Method_None;
         default :

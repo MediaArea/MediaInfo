@@ -897,18 +897,23 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 {
                     Ztring Value;
                     Get_UTF8(Value_Size, Value,                 "Value");
-                    std::string ToFill;
+                    size_t ToFill=(size_t)-1;
                          if (0) ;
-                    else if (StringData=="creator") {ToFill="Encoded_Application";}
-                    else if (StringData=="metadatacreator") {ToFill="Tagged_Application";}
-                    else if (StringData=="creationdate") {ToFill="Encoded_Date"; Value.Date_From_String(Value.To_UTF8().c_str());}
-                    else {ToFill=StringData;}
+                    else if (StringData=="creator") {ToFill=General_Encoded_Application;}
+                    else if (StringData=="creationdate") {ToFill=General_Encoded_Date; Value.Date_From_String(Value.To_UTF8().c_str());}
+                    else if (StringData=="encoder") {ToFill=General_Encoded_Application;}
+                    else if (StringData=="Encoded_With") {ToFill=General_Encoded_Application;}
+                    else if (StringData=="Encoded_By") {ToFill=General_Encoded_Application;}
+                    else if (StringData=="metadatacreator") {ToFill=General_Tagged_Application;}
                     if (Value.find(_T('\r'))!=std::string::npos)
                         Value.resize(Value.find(_T('\r')));
                     if (Value.find(_T('\n'))!=std::string::npos)
                         Value.resize(Value.find(_T('\n')));
                     Element_Info(Value);
-                    Fill(Stream_General, 0, ToFill.c_str(), Value);
+                    if (ToFill==(size_t)-1)
+                        Fill(Stream_General, 0, StringData.c_str(), Value);
+                    else
+                        Fill(Stream_General, 0, ToFill, Value);
                 }
             }
             break;
