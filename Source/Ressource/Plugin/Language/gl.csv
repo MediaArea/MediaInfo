@@ -6,7 +6,7 @@
   Language_Name;Galego
  audio stream1; pista de audio
  audio stream2; pistas de audio
- audio stream3; pitas de audio
+ audio stream3; pistas de audio
  bit1; bit
  bit2; bits
  bit3; bits
@@ -111,9 +111,9 @@
  text stream1; pista de texto
  text stream2; pistas de texto
  text stream3; pistas de texto
- video stream1; pista de video
- video stream2; pistas de video
- video stream3; pistas de video
+ video stream1; pista de vídeo
+ video stream2; pistas de vídeo
+ video stream3; pistas de vídeo
  week1; semana
  week2; semanas
  week3; semanas
@@ -133,7 +133,7 @@ Advanced mode;Modo avanzado
 Album;Albúm
 All;Todo
 Archival_Location;Localización de arquivos
-Arranger;Arranger
+Arranger;Arranxador
 ArtDirector;ArtDirector
 AspectRatio;Relación de aspecto
 AssistantDirector;Director asistente
@@ -147,18 +147,18 @@ Audio1;Primeira pista de audio
 Audio2;Segunda pista de audio
 AudioCount;Nº pistas audio
 Author;Autor
-BarCode;BarCode
+BarCode;Código de Barras
 Basic;Básico
 Basic_Note;Nota : para máis información sobre este arquivo selecciona outra vista (Folla, Árbore...)
 BitRate;Bit rate
 BitRate_Maximum
 BitRate_Minimum
-BitRate_Mode;Bit rate mode
+BitRate_Mode;Tipo de Bitrate
 BitRate_Nominal
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 Cancel;Cancelar
 Channel(s);Canle(s)
-ChannelPositions;Channel positions
+ChannelPositions;Posicións da canle
 Chapter(s);Capítulo(s)
 Chapters;Capítulos
 Chapters stream(s);Pista(s) do capítulo
@@ -173,7 +173,7 @@ Choose export format;Escolle o formato de exportación
 Choose file(s);Escolle os archivos para abrir
 Choose filename;Elixe o nome do arquivo
 Choose language;Escolle a linguaxe
-Choregrapher;Choregrapher
+Choregrapher;Coreografía
 Chroma
 Close;Pechar
 Close all before open;Pechar todo antes de abrir
@@ -199,16 +199,16 @@ CodecID
 Collection;Colección
 Colorimetry
 Comment;Comentario
-CommissionedBy;Commissioned by
+CommissionedBy;Encargado por
 CompleteName;Nome completo
 Composer;Compositor
 CompressionRatio
 Conductor;Condutor
 Container and general information;Contedor e información xeral
-ContentType;ContentType
-CoProducer;Coproducer
+ContentType;Tipo de contido
+CoProducer;Co-productor
 Copyright;Copyright
-CostumeDesigner;Costume designer
+CostumeDesigner;Deseñador
 Count;Cantidade
 Country;País
 Cover;Carátula
@@ -221,24 +221,24 @@ Decimal point;Punto decimal
 Delay;Retraso
 Delete;Borrar
 Description;Descrición
-Digitized_Date;Digitized date
+Digitized_Date;Data de dixitalización
 Director;Director
 DirectorOfPhotography;Director de fotografía
 DisplayAspectRatio;Relación de aspecto
 DistributedBy;Distribuido por
 Donate;Doar
-Duration
+Duration;Duración
 Edit;Editar
-EditedBy;Edited by
+EditedBy;Editado por
 EMail;E-Mail
-Encoded_Application;Writing application
-Encoded_Date;Encoded date
-Encoded_Library;Writing library
-Encoded_Library_Settings;Encoding settings
-Encoded_Original;Original
-EncodedBy;Encoded by
-Error_File;Error while reading file
-ExecutiveProducer;Executive producer
+Encoded_Application;Aplicación codificadora
+Encoded_Date;Data de codificación
+Encoded_Library;Librería de codificación
+Encoded_Library_Settings;Parámetros de codificación
+Encoded_Original;Soporte orixinal
+EncodedBy;Codificado por
+Error_File;Erro mentres se lía o arquivo
+ExecutiveProducer;Produtor executivo
 Exit;Saír
 Exit_Hint;Saír
 Export;Exportar
@@ -448,7 +448,7 @@ Hint
 How many audio streams?;Cantas pistas de audio?
 How many chapters streams?;Cantos capítulos?
 How many text streams?;Cantas pistas de texto?
-How many video streams?;Cantas pistas de video?
+How many video streams?;Cantas pistas de vídeo?
 HTML;HTML
 ID;ID
 Image;Imaxe
@@ -469,7 +469,7 @@ Keywords;Palabras chave
 Known codecs;Codecs coñecidos
 Known formats;Formatos coñecidos
 Known parameters;Parámetros coñecidos
-Label;Label
+Label;Etiqueta
 Language;Linguaxe
 Language___;Múltiples linguaxes
 Language_aa;Afar
@@ -705,7 +705,7 @@ Performer;Realizador
 Period;Período
 Phone;Teléfono
 PixelAspectRatio;Pixel ratio
-PlayCounter;PlayCounter
+PlayCounter;Contador
 PlayTime;Duración
 Position;Posición
 Position_Total
@@ -721,29 +721,29 @@ Rating;Valoración
 Recorded_Date;Data de grabación
 Recorded_Location;Lugar de grabación
 Released_Date;Data de distribución
-RemixedBy;Remixed by
+RemixedBy;Mesturado por
 Resolution;Resolución
 s;s
 SamplingRate;Ratio de mostraxe
 Save;Gardar
 ScanType
 ScanOrder
-ScreenplayBy;Screenplay by
+ScreenplayBy;Guión de
 Season;Tempada
-see below;pincha aquí
+see below;ver abaixo
 Send HeaderFile;Por favor envíame o arquivo de cabeceira aquí : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;Separador de columnas
 Separator_Lines;Separador de liñas
 Set;Configurar
 Set_Count;Establecer cantidade
-Setup;Setup
+Setup;Configuración
 Sheet;Folla
 Sheet (Complete);Folla (Completa)
 Shell extension;Shell extension (ao picar co botón dereito do rato aparecerá unha opción Media Info ...)
 Shell InfoTip
 Show menu;Mostrar menú
 Show toolbar;Mostrar barra de ferramentas
-Sort;Sorted by
+Sort;Ordear por
 SoundEngineer;Enxeñeiro de son
 Standard
 Stream;Pista
@@ -759,9 +759,9 @@ Supported formats;Formatos soportados
 Supported?;Soportado?
 Synopsys;Sinopsis
 SystemId;Id do sistema
-Tagged_Application
-Tagged_Date;Tagged date
-Technician;Technician
+Tagged_Application;Aplicación de etiquetado
+Tagged_Date;Data de etiqueta
+Technician;Técnico
 TermsOfUse;Condicións de uso
 Text;Texto
 Text - Custom;Texto - Personalizar
@@ -815,5 +815,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;90
+ZZ_Automatic_Percent;91
+ZZ_AutomaticLanguage_Percent;91
