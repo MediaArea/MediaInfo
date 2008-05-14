@@ -194,7 +194,7 @@ Codec_Settings_Sign;编解码器设置, Sign
 Codec_Settings_Law;编解码器设置, Law
 Codec_Settings_ITU;编解码器设置, ITU
 Codec_Profile
-Codec_Url;编解码器网址
+Codec_Url;编码器网址
 CodecID;编解码器ID
 Collection;收集
 Colorimetry
