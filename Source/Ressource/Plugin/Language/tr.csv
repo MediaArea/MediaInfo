@@ -282,7 +282,7 @@ Format_Settings_ITU
 Format_Settings_SBR
 Format_Settings_PS
 Format_Version
-Codec_Url;Kodek için web bağlantısı
+Format_Url
 FrameRate;Kare hızı
 FrameRate_Mode
 FrameRate_Minimum;En az kare hızı

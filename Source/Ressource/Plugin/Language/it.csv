@@ -282,7 +282,7 @@ Format_Settings_ITU;Impostazioni del formato, ITU
 Format_Settings_SBR;Impostazioni del formato, SBR
 Format_Settings_PS;Impostazioni del formato, PS
 Format_Version;Versione del formato
-Codec_Url;Sito dove scaricare il codec richiesto
+Format_Url
 FrameRate;FrameRate
 FrameRate_Mode;FrameRate mode
 FrameRate_Minimum;FrameRate Minimo
@@ -815,5 +815,5 @@ Written_Location;Written location
 WrittenBy;Scritto da 
 Yes;Si 
 Your system;Il tuo sistema
-ZZ_Automatic_Percent;92
+ZZ_Automatic_Percent;91
 ZZ_AutomaticLanguage_Percent;99

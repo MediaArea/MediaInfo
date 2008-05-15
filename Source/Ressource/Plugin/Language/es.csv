@@ -282,7 +282,7 @@ Format_Settings_ITU;Ajustes del formato, ITU
 Format_Settings_SBR;Ajustes del formato, SBR
 Format_Settings_PS;Ajustes del formato, PS
 Format_Version
-Codec_Url;Vínculo web del códec
+Format_Url
 FrameRate;Frecuencia por cuadro
 FrameRate_Mode
 FrameRate_Minimum

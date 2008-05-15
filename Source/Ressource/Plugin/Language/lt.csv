@@ -282,7 +282,7 @@ Format_Settings_ITU;Formato nuostatos, ITU
 Format_Settings_SBR;Formato nuostatos, SBR
 Format_Settings_PS;Formato nuostatos, PS
 Format_Version;Formato versija
-Codec_Url;Nuoroda į kodeką
+Format_Url
 FrameRate;Kadrų tempas
 FrameRate_Mode;Kadrų tempo rėžimas
 FrameRate_Minimum;Minimalus kadrų tempas

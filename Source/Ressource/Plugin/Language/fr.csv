@@ -282,7 +282,7 @@ Format_Settings_ITU;Paramètres du format, ITU
 Format_Settings_SBR;Paramètres du format, SBR
 Format_Settings_PS;Paramètres du format, PS
 Format_Version;Version du format
-Codec_Url;Lien Internet sur le codec
+Format_Url;Lien Internet sur le format
 FrameRate;Images par seconde
 FrameRate_Mode;Type d'images/s
 FrameRate_Minimum;Images/s mini

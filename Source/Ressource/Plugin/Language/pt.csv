@@ -282,7 +282,7 @@ Format_Settings_ITU
 Format_Settings_SBR
 Format_Settings_PS
 Format_Version
-Codec_Url;Link para o codec
+Format_Url
 FrameRate;Taxa de quadros
 FrameRate_Mode
 FrameRate_Minimum;Taxa de quadros mínima

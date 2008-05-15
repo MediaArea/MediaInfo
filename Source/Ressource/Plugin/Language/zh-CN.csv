@@ -3,7 +3,7 @@
   Author_Name;erabbit
   Author_OldNames;Initial translator
   Language_ISO639;zh-CN
-  Language_Name;Chinese(Simplified)
+  Language_Name;简体中文
  audio stream1;音频
  audio stream2;音频
  audio stream3;音频
@@ -282,7 +282,7 @@ Format_Settings_ITU;文件格式设置, ITU
 Format_Settings_SBR;文件格式设置, SBR
 Format_Settings_PS;文件格式设置, PS
 Format_Version;文件格式版本
-Codec_Url;编码器网址
+Format_Url
 FrameRate;帧频
 FrameRate_Mode;帧频模式
 FrameRate_Minimum;最大帧频

@@ -282,7 +282,7 @@ Format_Settings_ITU
 Format_Settings_SBR
 Format_Settings_PS
 Format_Version
-Codec_Url;코덱 웹링크
+Format_Url
 FrameRate;프레임레이트
 FrameRate_Mode
 FrameRate_Minimum;최소 프레임레이트

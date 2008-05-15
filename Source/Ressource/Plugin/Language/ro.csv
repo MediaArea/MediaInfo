@@ -282,7 +282,7 @@ Format_Settings_ITU
 Format_Settings_SBR
 Format_Settings_PS
 Format_Version
-Codec_Url;Legatira web pentru codec
+Format_Url
 FrameRate;Frecventa cadre
 FrameRate_Mode
 FrameRate_Minimum

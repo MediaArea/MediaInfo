@@ -282,7 +282,7 @@ Format_Settings_ITU
 Format_Settings_SBR
 Format_Settings_PS
 Format_Version
-Codec_Url;Kodek weblapja
+Format_Url
 FrameRate;Képsebesség
 FrameRate_Mode
 FrameRate_Minimum

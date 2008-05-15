@@ -282,7 +282,7 @@ Format_Settings_ITU;ITU
 Format_Settings_SBR;SBR
 Format_Settings_PS;PS
 Format_Version;バージョン
-Codec_Url;コーデックの URL
+Format_Url
 FrameRate;フレームレート
 FrameRate_Mode;モード
 FrameRate_Minimum;最小

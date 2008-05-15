@@ -282,7 +282,7 @@ Format_Settings_ITU;格式設定, ITU
 Format_Settings_SBR;格式設定, SBR
 Format_Settings_PS;格式設定, PS
 Format_Version;格式版本
-Codec_Url
+Format_Url
 FrameRate;畫面頻率
 FrameRate_Mode;畫面頻率模式
 FrameRate_Minimum;最小畫面頻率

@@ -282,7 +282,7 @@ Format_Settings_ITU;ตั้งค่ารูปแบบ, ITU
 Format_Settings_SBR;ตั้งค่ารูปแบบ, SBR
 Format_Settings_PS;ตั้งค่ารูปแบบ, PS
 Format_Version;เวอร์ชันรูปแบบ
-Codec_Url;เว็บลิงค์ของ codec
+Format_Url
 FrameRate;เฟรมเรต
 FrameRate_Mode;เฟรมเรตโหมด
 FrameRate_Minimum;เฟรมเรตต่ำสุด
