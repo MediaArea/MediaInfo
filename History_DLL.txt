@@ -15,6 +15,7 @@ Version 0.7.6.5, 2008-
 + Original framerate is shown if the framerate from the video stream and the one in the container are different
 + #1955061, Bluray: Duration
 + #1953908, FLV with audio delay detection
+x #1954663, Some mono HE-AAC audio track detected as 2 channels with PS
 x VC-1 in TS detection even if the stream_type is not declared
 x xxxBSD compatibility
 

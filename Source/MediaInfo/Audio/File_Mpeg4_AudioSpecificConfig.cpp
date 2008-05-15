@@ -659,12 +659,14 @@ void File_Mpeg4_AudioSpecificConfig::PS ()
 {
     //Parsing
     Element_Begin("PS");
-    Skip_S2(16,                                                 "Unknown");
+    bool PS;
+    Skip_S1(11,                                                 "Unknown");
+    Get_SB (    PS,                                             "PS present");
+    Skip_S1( 4,                                                 "Unknown");
     Element_End();
 
     FILLING_BEGIN();
-        //Possible only if 1 Channel
-        if (Retrieve(Stream_Audio, 0, Audio_Channel_s_)==_T("1"))
+        if (PS)
         {
             Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 2, 10, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "PS");
