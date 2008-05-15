@@ -1099,15 +1099,8 @@ void __fastcall TMainF::M_Help_SupportedFormatsClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_LanguageClick(TObject *Sender)
 {
-    TTntMenuItem* Menu=(TTntMenuItem*)Sender;
-    Ztring Title=GUI_Text(Menu->Caption);
-    Title.FindAndReplace(_T("&"), _T("")); //BCB adds a "&" in menus
-
     //Special case : Languages, should show the name of language in the local version
-    size_t Language_Pos=Prefs->FilesList[Language_List].Find(Title);
-    if (Language_Pos==(size_t)-1)
-        return;
-    Title=Prefs->FilesList[Language](Language_Pos);
+    Ztring Title=Prefs->FilesList[Language](((TTntMenuItem*)Sender)->MenuIndex);
 
     //Load
     Prefs->Load(Language, Title);
