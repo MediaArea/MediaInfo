@@ -195,7 +195,7 @@ Codec_Settings_Law;Ajustes del códec, Law
 Codec_Settings_ITU;Ajustes del códec, ITU
 Codec_Profile;Perfil del códec
 Codec_Url;Vínculo web del códec
-CodecID
+CodecID;ID Códec
 Collection;Colección
 Colorimetry
 Comment;Comentarios
@@ -227,7 +227,7 @@ DirectorOfPhotography;Director de fotografía
 DisplayAspectRatio;Relación de aspecto
 DistributedBy;Distribuído por
 Donate;Donación
-Duration
+Duration;Duración
 Edit;Editar
 EditedBy;Editado por
 EMail;E-Mail
@@ -264,7 +264,7 @@ Format;Formato
 Format_Description;Descripción del formato
 Format_Info;Detalles del formato
 Format_Extensions;Extensiones usadas habitualmente
-Format_Profile
+Format_Profile;Formato del perfil
 Format_Settings;Ajustes del formato
 Format_Settings_PacketBitStream;Ajustes del formato, Packet bitstream
 Format_Settings_BVOP;Ajustes del formato, BVOP
@@ -281,16 +281,16 @@ Format_Settings_Law;Ajustes del formato, Law
 Format_Settings_ITU;Ajustes del formato, ITU
 Format_Settings_SBR;Ajustes del formato, SBR
 Format_Settings_PS;Ajustes del formato, PS
-Format_Version
+Format_Version;Formato de la versión
 Format_Url
-FrameRate;Frecuencia por cuadro
-FrameRate_Mode
-FrameRate_Minimum
-FrameRate_Nominal
-FrameRate_Maximum
-FrameRate_Original
+FrameRate;Velocidad de cuadro
+FrameRate_Mode;Modo de velocidad de cuadro
+FrameRate_Minimum;Velocidad de cuadro Mínima
+FrameRate_Nominal;Velocidad de cuadro Nominal
+FrameRate_Maximum;Velocidad de cuadro Máxima
+FrameRate_Original;Velocidad de cuadro Original
 General;General
-Genre
+Genre;Género
 Genre_000
 Genre_001
 Genre_002
@@ -462,16 +462,16 @@ Interlaced;Entrelazado
 Interlaced_TFF;Campo Superior Primero
 Interlaced_BFF;Campo Inferior Primero
 Interlaced_PPF;Progresivo
-IRCA
-ISBN
-ISRC
+IRCA;IRCA
+ISBN;ISBN
+ISRC;ISRC
 Keywords;Palabras claves
 Known codecs;Códecs conocidos
 Known formats;Formatos conocidos
 Known parameters;Parámetros conocidos
 Label;Etiqueta
 Language;Idioma
-Language___
+Language___;Idiomas múltiples
 Language_aa;afar
 Language_ab;abjaso
 Language_ae
@@ -658,10 +658,10 @@ Language_yo;Yoruba
 Language_za
 Language_zh;chino
 Language_zu;zulú
-LawRating
-LCCN
+LawRating;Ley de calificación
+LCCN;LCCN
 Library;Librería Musical
-List
+List;Lista
 Lyricist;Autor de Letra
 Mastered_Date;Fecha de edición
 MasteredBy;Editado por
@@ -672,14 +672,14 @@ Menu_Codec_List;Códecs de menú
 Menu_No;Sin menú
 MenuCount;Cantidad de menú
 Menu_Hint;Más posibilidades
-MenuID
+MenuID;ID Menú
 mn;min.
 Mood;Humor
 More;Más
 Movie;Película
 ms;ms
 MSDI;MSDI
-MuxingMode
+MuxingMode;Modo Muxing
 Name;Nombre
 Nationality;Nacionalidad
 New;Nuevo
@@ -695,10 +695,10 @@ Other;Otro
 Output;Salida
 Output format;Formato de salida
 OveralBitRate;Bitrate total
-OveralBitRate_Maximum
-OveralBitRate_Minimum
-OveralBitRate_Mode
-OveralBitRate_Nominal
+OveralBitRate_Maximum;Bitrate total Máximo
+OveralBitRate_Minimum;Bitrate total Mínimo
+OveralBitRate_Mode;Modo Bitrate total
+OveralBitRate_Nominal;Bitrate total Nominal
 Part;Parte
 Part_Count;Cantidad de partes
 Performer;Intérprete
@@ -708,7 +708,7 @@ PixelAspectRatio;Relación de aspecto
 PlayCounter;Contador
 PlayTime;Duración
 Position;Posición
-Position_Total
+Position_Total;Total
 Preferences;Preferencias
 Producer;Productor
 ProductionDesigner;Diseño de Producción
@@ -726,8 +726,8 @@ Resolution;Resolución
 s;seg.
 SamplingRate;Velocidad de la muestra
 Save;Guardar
-ScanType
-ScanOrder
+ScanType;Tipo de exploración
+ScanOrder;Orden de la exploración
 ScreenplayBy;Guión por
 Season;Sesión
 see below;Ver más abajo
@@ -751,7 +751,7 @@ Stream_MoreInfo;Más información acerca de la pista
 StreamCount;Cantidad de pistas de éste tipo
 StreamID;ID de Pista
 StreamKind;Clase de pista
-StreamSize
+StreamSize;Tamaño de pista
 Subject;Asunto
 SubTrack;SubPista
 Summary;Sumario
@@ -815,5 +815,5 @@ Written_Location;Escrito en
 WrittenBy;Escrito por
 Yes;Si
 Your system;Tu sistema
-ZZ_Automatic_Percent;72
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;75
+ZZ_AutomaticLanguage_Percent;99
