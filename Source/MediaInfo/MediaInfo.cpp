@@ -92,11 +92,6 @@ inline std::string ToString(int64u Integer)
     return Ztring::ToZtring(Integer).To_Local();
 }
 
-inline std::string ToString(size_t Integer)
-{
-    return Ztring::ToZtring(Integer).To_Local();
-}
-
 //***************************************************************************
 // Constructor/destructor
 //***************************************************************************
