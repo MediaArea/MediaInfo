@@ -752,6 +752,12 @@ void File_Wm::Header_CodecList()
         Element_End();
 
         //Filling
+        Stream[Pos+1].Info["CodecID_Description"]=CodecName;
+        if (!CodecDescription.empty())
+        {
+            Stream[Pos+1].Info["CodecID_Description"]+=_T(" - ");
+            Stream[Pos+1].Info["CodecID_Description"]+=CodecDescription;
+        }
         Stream[Pos+1].Info["Codec_Description"]=CodecName;
         Stream[Pos+1].Info["Codec_Description"]+=_T(" - ");
         Stream[Pos+1].Info["Codec_Description"]+=CodecDescription;

@@ -14,7 +14,7 @@ Format_Profile;;;Y NT;;;Profile of the Format
 CodecID;;;Y YT;;;Codec ID (found in some containers)
 CodecID/Info;;;Y NT;;;Info about codec ID
 CodecID/Hint;;;Y NT;;;A hint for this codec ID
-CodecID/Url;;;Y NT;;;A link for more details about this codec ID
+CodecID/Url;;;N NT;;;A link for more details about this codec ID
 CodecID_Description;;;Y NT;;;Manual description given by the container
 Codec;;;N NT;;;Deprecated
 Codec/String;;;N NT;;;Deprecated

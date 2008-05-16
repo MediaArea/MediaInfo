@@ -243,9 +243,12 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         }
 
         //Copying buffer
-        std::memcpy(Buffer_Temp+Buffer_Size, ToAdd, ToAdd_Size);
-        Buffer_Size+=ToAdd_Size;
-
+        if (ToAdd_Size>0)
+        {
+            std::memcpy(Buffer_Temp+Buffer_Size, ToAdd, ToAdd_Size);
+            Buffer_Size+=ToAdd_Size;
+        }
+        
         //Buffer
         Buffer=Buffer_Temp;
     }

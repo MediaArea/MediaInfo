@@ -436,7 +436,7 @@ String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, size_t 
     {
         //Optimization : KindOfInfo>Info_Text is in static lists
         if (KindOfInfo!=Info_Text)
-            return MediaInfoLib::Config.Info_Get(StreamKind)[Parameter][KindOfInfo]; //look for static information only
+            return MediaInfoLib::Config.Info_Get(StreamKind, Parameter, KindOfInfo); //look for static information only
         else if (Parameter<Stream[StreamKind][StreamNumber].size())
             return Stream[StreamKind][StreamNumber][Parameter];
         else

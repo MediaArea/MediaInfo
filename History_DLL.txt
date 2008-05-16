@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.6.5, 2008-
+Version 0.7.6.5, 2008-05-16
 ---------------
 + Third-party developpers: some MediaInfo fields have changed, please look at Changes.txt for more info
 + Python (Windows) binding
@@ -15,6 +15,7 @@ Version 0.7.6.5, 2008-
 + Original framerate is shown if the framerate from the video stream and the one in the container are different
 + #1955061, Bluray: Duration
 + #1953908, FLV with audio delay detection
+x Linux with UTF-8 locale was not accepting non-English characters in filenames
 x #1954663, Some mono HE-AAC audio track detected as 2 channels with PS
 x VC-1 in TS detection even if the stream_type is not declared
 x xxxBSD compatibility

@@ -88,6 +88,9 @@ public :
           void      LineSeparator_Set (const Ztring &NewValue);
           Ztring    LineSeparator_Get ();
 
+          void      Version_Set (const Ztring &NewValue);
+          Ztring    Version_Get ();
+
           void      ColumnSeparator_Set (const Ztring &NewValue);
           Ztring    ColumnSeparator_Get ();
 
@@ -115,23 +118,23 @@ public :
           Ztring    Inform_Get ();
           Ztring    Inform_Get (const Ztring &Value);
 
-    const Ztring   &Container_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name) const;
+    const Ztring   &Container_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name);
 
-    const Ztring   &Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name) const;
+    const Ztring   &Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name);
           InfoMap  &Format_Get() {return Format;}; //Should not be, but too difficult to hide it
 
-    const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo=InfoCodec_Name) const;
-    const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream) const;
+    const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo=InfoCodec_Name);
+    const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream);
 
     const Ztring   &CodecID_Get (stream_t KindOfStream, infocodecid_format_t Format, const Ztring &Value, infocodecid_t KindOfCodecIDInfo=InfoCodecID_Format);
 
-    const Ztring   &Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo=InfoEncoder_LongName) const;
+    const Ztring   &Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo=InfoEncoder_LongName);
 
-    const Ztring   &Iso639_Get (const Ztring &Value) const;
+    const Ztring   &Iso639_Get (const Ztring &Value);
 
-    const Ztring   &Info_Get (stream_t KindOfStream, const Ztring &Value, info_t KindOfInfo=Info_Text) const;
-    const Ztring   &Info_Get (stream_t KindOfStream, size_t Pos, info_t KindOfInfo=Info_Text) const;
-    const ZtringListList &Info_Get(stream_t KindOfStream) const {return Info[KindOfStream];}; //Should not be, but too difficult to hide it
+    const Ztring   &Info_Get (stream_t KindOfStream, const Ztring &Value, info_t KindOfInfo=Info_Text);
+    const Ztring   &Info_Get (stream_t KindOfStream, size_t Pos, info_t KindOfInfo=Info_Text);
+    const ZtringListList &Info_Get(stream_t KindOfStream); //Should not be, but too difficult to hide it
 
           Ztring    Info_Parameters_Get () const;
           Ztring    Info_Tags_Get       () const;
@@ -154,7 +157,9 @@ private :
     size_t          ShowFiles_TextOnly;
     float32         ParseSpeed;
     float           Details;
+    bool            Language_Raw;
     int8u           Demux;
+    Ztring          Version;
     Ztring          ColumnSeparator;
     Ztring          LineSeparator;
     Ztring          TagSeparator;
@@ -173,6 +178,8 @@ private :
     ZtringListList  Info[Stream_Max]; //General info
 
     ZenLib::CriticalSection CS;
+
+    void      Language_Set (stream_t StreamKind);
 };
 
 extern MediaInfo_Config Config;

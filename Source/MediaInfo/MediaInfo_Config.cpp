@@ -41,7 +41,7 @@ namespace MediaInfoLib
 {
 
 //---------------------------------------------------------------------------
-const Char*  MediaInfo_Version=_T("MediaInfoLib - v0.7.7.0BETA");
+const Char*  MediaInfo_Version=_T("MediaInfoLib - v0.7.7.0");
 const Char*  MediaInfo_Url=_T("http://mediainfo.sourceforge.net");
       Ztring EmptyZtring;       //Use it when we can't return a reference to a true Ztring
 const Ztring EmptyZtring_Const; //Use it when we can't return a reference to a true Ztring, const version
@@ -92,7 +92,7 @@ void MediaInfo_Config::Init()
     //We use Init() instead of COnstructor because for some backends (like WxWidgets...) does NOT like constructor of static object with Unicode conversion
 
     //Test
-    if (!Format.empty())
+    if (!LineSeparator.empty())
     {
         CS.Leave();
         return; //Already done
@@ -111,6 +111,7 @@ void MediaInfo_Config::Init()
     ShowFiles_TextOnly=1;
     ParseSpeed=(float32)0.01;
     Details=0;
+    Language_Raw=false;
     Demux=0;
     LineSeparator=_T("\r\n");
     ColumnSeparator=_T(";");
@@ -118,19 +119,6 @@ void MediaInfo_Config::Init()
     Quote=_T("\"");
     DecimalPoint=_T(".");
     ThousandsPoint=_T("");
-
-    File__Base_Container(Container);
-    File__Base_Format(Format);
-    File__Base_Codec(Codec);
-    File__Base_General(Info[Stream_General]);
-    File__Base_Video(Info[Stream_Video]);
-    File__Base_Audio(Info[Stream_Audio]);
-    File__Base_Text(Info[Stream_Text]);
-    File__Base_Chapters(Info[Stream_Chapters]);
-    File__Base_Image(Info[Stream_Image]);
-    File__Base_Menu(Info[Stream_Menu]);
-    File__Base_Encoder(Encoder);
-    File__Base_Iso639(Iso639);
 
     CS.Leave();
 
@@ -259,6 +247,15 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value)
     else if (Option_Lower==_T("lineseparator_get"))
     {
         return LineSeparator_Get();
+    }
+    else if (Option_Lower==_T("version"))
+    {
+        Version_Set(Value);
+        return _T("");
+    }
+    else if (Option_Lower==_T("version_get"))
+    {
+        return Version_Get();
     }
     else if (Option_Lower==_T("columnseparator"))
     {
@@ -546,6 +543,19 @@ Ztring MediaInfo_Config::LineSeparator_Get ()
 }
 
 //---------------------------------------------------------------------------
+void MediaInfo_Config::Version_Set (const Ztring &NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    Version=ZtringListList(NewValue).Read(0); //Only the 1st value
+}
+
+Ztring MediaInfo_Config::Version_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Version;
+}
+
+//---------------------------------------------------------------------------
 void MediaInfo_Config::ColumnSeparator_Set (const Ztring &NewValue)
 {
     CriticalSectionLocker CSL(CS);;
@@ -631,24 +641,18 @@ void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
     CriticalSectionLocker CSL(CS);;
 
     //Which language to choose?
-    bool Raw=false;
     //-Raw
          if (NewValue.size()==1 && NewValue[0].size()==1 && NewValue[0][0]==_T("raw"))
     {
-        Raw=true;
-        //Fill base words (with English translation even if we don't want of it)
-        File__Base_DefaultLanguage(Language);
-        //Write internal name instead of translation
-        ZtringListList LanguageToUpdate=Language.Get();
-        for (size_t Pos=0; Pos<LanguageToUpdate.size(); Pos++)
-            Language.Write(LanguageToUpdate[Pos][0], LanguageToUpdate[Pos][0]);
+        Language_Raw=true;
+        Language.clear();
     }
     //-Add custom language to English language
     else
     {
         //Fill base words (with English translation)
         File__Base_DefaultLanguage(Language);
-        //TODO Add custom language to English language
+        //Add custom language to English language
         for (size_t Pos=0; Pos<NewValue.size(); Pos++)
             if (NewValue[Pos].size()>=2)
                 Language.Write(NewValue[Pos][0], NewValue[Pos][1]);
@@ -656,39 +660,48 @@ void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
 
     //Fill Info
     for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
-        for (size_t Pos=0; Pos<Info[StreamKind].size(); Pos++)
-        {
-            //Strings - Info_Name_Text
-            Ztring ToReplace=Info[StreamKind](Pos, Info_Name);
-            if (!Raw && ToReplace.find(_T("/String"))!=Error)
-            {
-                ToReplace.FindAndReplace(_T("/String1"), _T(""));
-                ToReplace.FindAndReplace(_T("/String2"), _T(""));
-                ToReplace.FindAndReplace(_T("/String3"), _T(""));
-                ToReplace.FindAndReplace(_T("/String4"), _T(""));
-                ToReplace.FindAndReplace(_T("/String5"), _T(""));
-                ToReplace.FindAndReplace(_T("/String6"), _T(""));
-                ToReplace.FindAndReplace(_T("/String7"), _T(""));
-                ToReplace.FindAndReplace(_T("/String8"), _T(""));
-                ToReplace.FindAndReplace(_T("/String9"), _T(""));
-                ToReplace.FindAndReplace(_T("/String"),  _T(""));
-            }
-            if (!Raw && ToReplace.find(_T("/"))!=Error) //Complex values, like XXX/YYY --> We translate both XXX and YYY
-            {
-                Ztring ToReplace1=ToReplace.SubString(_T(""), _T("/"));
-                Ztring ToReplace2=ToReplace.SubString(_T("/"), _T(""));
-                Info[StreamKind](Pos, Info_Name_Text)=Language[ToReplace1];//TODO Language.Read(ToReplace1, ToReplace1);
-                Info[StreamKind](Pos, Info_Name_Text)+=_T("/");
-                Info[StreamKind](Pos, Info_Name_Text)+=Language[ToReplace2];//TODO Language.Read(ToReplace2, ToReplace2);
-            }
-            else
-                Info[StreamKind](Pos, Info_Name_Text)=Language[ToReplace];//TODO Language.Read(ToReplace, ToReplace);
-            //Strings - Info_Measure_Text
-            Info[StreamKind](Pos, Info_Measure_Text).clear(); //I don(t know why, but if I don't do this Delphi/C# debugger make crasher the calling program
-            Info[StreamKind](Pos, Info_Measure_Text)=Language[Info[StreamKind](Pos, Info_Measure)];//TODO Language.Read(Info[StreamKind](Pos, Info_Measure), Info[StreamKind](Pos, Info_Measure));
-            //Slashes
+        if (!Info[StreamKind].empty())
+            Language_Set((stream_t)StreamKind);
+}
 
+void MediaInfo_Config::Language_Set (stream_t StreamKind)
+{
+    //CriticalSectionLocker CSL(CS); //No, only used internaly
+
+    //Fill Info
+    for (size_t Pos=0; Pos<Info[StreamKind].size(); Pos++)
+    {
+        //Strings - Info_Name_Text
+        Ztring ToReplace=Info[StreamKind](Pos, Info_Name);
+        if (!Language_Raw && ToReplace.find(_T("/String"))!=Error)
+        {
+            ToReplace.FindAndReplace(_T("/String1"), _T(""));
+            ToReplace.FindAndReplace(_T("/String2"), _T(""));
+            ToReplace.FindAndReplace(_T("/String3"), _T(""));
+            ToReplace.FindAndReplace(_T("/String4"), _T(""));
+            ToReplace.FindAndReplace(_T("/String5"), _T(""));
+            ToReplace.FindAndReplace(_T("/String6"), _T(""));
+            ToReplace.FindAndReplace(_T("/String7"), _T(""));
+            ToReplace.FindAndReplace(_T("/String8"), _T(""));
+            ToReplace.FindAndReplace(_T("/String9"), _T(""));
+            ToReplace.FindAndReplace(_T("/String"),  _T(""));
         }
+        if (!Language_Raw && ToReplace.find(_T("/"))!=Error) //Complex values, like XXX/YYY --> We translate both XXX and YYY
+        {
+            Ztring ToReplace1=ToReplace.SubString(_T(""), _T("/"));
+            Ztring ToReplace2=ToReplace.SubString(_T("/"), _T(""));
+            Info[StreamKind](Pos, Info_Name_Text)=Language.Get(ToReplace1);
+            Info[StreamKind](Pos, Info_Name_Text)+=_T("/");
+            Info[StreamKind](Pos, Info_Name_Text)+=Language.Get(ToReplace2);
+        }
+        else
+            Info[StreamKind](Pos, Info_Name_Text)=Language.Get(ToReplace);
+        //Strings - Info_Measure_Text
+        Info[StreamKind](Pos, Info_Measure_Text).clear(); //I don(t know why, but if I don't do this Delphi/C# debugger make crashing the calling program
+        Info[StreamKind](Pos, Info_Measure_Text)=Language.Get(Info[StreamKind](Pos, Info_Measure));
+        //Slashes
+
+    }
 }
 
 Ztring MediaInfo_Config::Language_Get ()
@@ -701,11 +714,7 @@ Ztring MediaInfo_Config::Language_Get ()
 Ztring MediaInfo_Config::Language_Get (const Ztring &Value)
 {
     CriticalSectionLocker CSL(CS);;
-    //TODO size_t Pos=Language.Find(Value, 0, 0, _T("=="), Ztring_CaseSensitive);
-    //if (Pos==Error || 1>=Language[Pos].size())
-    //    return EmptyString_Get();
-    return Language[Value];
-    //return Language[Pos][1];
+    return Language.Get(Value);
 }
 
 //---------------------------------------------------------------------------
@@ -869,26 +878,50 @@ Ztring MediaInfo_Config::Inform_Get (const Ztring &Value)
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Container_Get (const Ztring &Value, infoformat_t KindOfFormatInfo) const
+const Ztring &MediaInfo_Config::Container_Get (const Ztring &Value, infoformat_t KindOfFormatInfo)
 {
+    //Loading codec table if not yet done
+    CS.Enter();
+    if (Container.empty())
+        File__Base_Container(Container);
+    CS.Leave();
+
     return Container.Get(Value, KindOfFormatInfo);
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo) const
+const Ztring &MediaInfo_Config::Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo)
 {
+    //Loading codec table if not yet done
+    CS.Enter();
+    if (Format.empty())
+        File__Base_Format(Format);
+    CS.Leave();
+
     return Format.Get(Value, KindOfFormatInfo);
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo) const
+const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo)
 {
+    //Loading codec table if not yet done
+    CS.Enter();
+    if (Codec.empty())
+        File__Base_Codec(Codec);
+    CS.Leave();
+
     return Codec.Get(Value, KindOfCodecInfo);
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream) const
+const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream)
 {
+    //Loading codec table if not yet done
+    CS.Enter();
+    if (Codec.empty())
+        File__Base_Codec(Codec);
+    CS.Leave();
+
     //Transform to text
     Ztring KindOfStreamS;
     switch (KindOfStream)
@@ -958,20 +991,48 @@ const Ztring &MediaInfo_Config::CodecID_Get (stream_t KindOfStream, infocodecid_
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo) const
+const Ztring &MediaInfo_Config::Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo)
 {
+    //Loading codec table if not yet done
+    CS.Enter();
+    if (Encoder.empty())
+        File__Base_Encoder(Encoder);
+    CS.Leave();
+
     return Encoder.Get(Value, KindOfEncoderInfo);
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Iso639_Get (const Ztring &Value) const
+const Ztring &MediaInfo_Config::Iso639_Get (const Ztring &Value)
 {
+    //Loading codec table if not yet done
+    CS.Enter();
+    if (Iso639.empty())
+        File__Base_Iso639(Iso639);
+    CS.Leave();
+
     return Iso639.Get(Value, 1);
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Info_Get (stream_t KindOfStream, const Ztring &Value, info_t KindOfInfo) const
+const Ztring &MediaInfo_Config::Info_Get (stream_t KindOfStream, const Ztring &Value, info_t KindOfInfo)
 {
+    //Loading codec table if not yet done
+    CS.Enter();
+    if (Info[KindOfStream].empty())
+        switch (KindOfStream)
+        {
+            case Stream_General :   File__Base_General(Info[Stream_General]);   Language_Set(Stream_General); break;
+            case Stream_Video :     File__Base_Video(Info[Stream_Video]);       Language_Set(Stream_Video); break;
+            case Stream_Audio :     File__Base_Audio(Info[Stream_Audio]);       Language_Set(Stream_Audio); break;
+            case Stream_Text :      File__Base_Text(Info[Stream_Text]);         Language_Set(Stream_Text); break;
+            case Stream_Chapters :  File__Base_Chapters(Info[Stream_Chapters]); Language_Set(Stream_Chapters); break;
+            case Stream_Image :     File__Base_Image(Info[Stream_Image]);       Language_Set(Stream_Image); break;
+            case Stream_Menu :      File__Base_Menu(Info[Stream_Menu]);         Language_Set(Stream_Menu); break;
+            default:;
+        }
+    CS.Leave();
+
     if (KindOfStream>=Stream_Max)
         return EmptyString_Get();
     size_t Pos=Info[KindOfStream].Find(Value);
@@ -980,13 +1041,50 @@ const Ztring &MediaInfo_Config::Info_Get (stream_t KindOfStream, const Ztring &V
     return Info[KindOfStream][Pos][KindOfInfo];
 }
 
-const Ztring &MediaInfo_Config::Info_Get (stream_t KindOfStream, size_t Pos, info_t KindOfInfo) const
+const Ztring &MediaInfo_Config::Info_Get (stream_t KindOfStream, size_t Pos, info_t KindOfInfo)
 {
+    //Loading codec table if not yet done
+    CS.Enter();
+    if (Info[KindOfStream].empty())
+        switch (KindOfStream)
+        {
+            case Stream_General :   File__Base_General(Info[Stream_General]);   Language_Set(Stream_General); break;
+            case Stream_Video :     File__Base_Video(Info[Stream_Video]);       Language_Set(Stream_Video); break;
+            case Stream_Audio :     File__Base_Audio(Info[Stream_Audio]);       Language_Set(Stream_Audio); break;
+            case Stream_Text :      File__Base_Text(Info[Stream_Text]);         Language_Set(Stream_Text); break;
+            case Stream_Chapters :  File__Base_Chapters(Info[Stream_Chapters]); Language_Set(Stream_Chapters); break;
+            case Stream_Image :     File__Base_Image(Info[Stream_Image]);       Language_Set(Stream_Image); break;
+            case Stream_Menu :      File__Base_Menu(Info[Stream_Menu]);         Language_Set(Stream_Menu); break;
+            default:;
+        }
+    CS.Leave();
+
     if (KindOfStream>=Stream_Max)
         return EmptyString_Get();
     if (Pos>=Info[KindOfStream].size() || (size_t)KindOfInfo>=Info[KindOfStream][Pos].size())
         return EmptyString_Get();
     return Info[KindOfStream][Pos][KindOfInfo];
+}
+
+const ZtringListList &MediaInfo_Config::Info_Get(stream_t KindOfStream)
+{
+    //Loading codec table if not yet done
+    CS.Enter();
+    if (Info[KindOfStream].empty())
+        switch (KindOfStream)
+        {
+            case Stream_General :   File__Base_General(Info[Stream_General]);   Language_Set(Stream_General); break;
+            case Stream_Video :     File__Base_Video(Info[Stream_Video]);       Language_Set(Stream_Video); break;
+            case Stream_Audio :     File__Base_Audio(Info[Stream_Audio]);       Language_Set(Stream_Audio); break;
+            case Stream_Text :      File__Base_Text(Info[Stream_Text]);         Language_Set(Stream_Text); break;
+            case Stream_Chapters :  File__Base_Chapters(Info[Stream_Chapters]); Language_Set(Stream_Chapters); break;
+            case Stream_Image :     File__Base_Image(Info[Stream_Image]);       Language_Set(Stream_Image); break;
+            case Stream_Menu :      File__Base_Menu(Info[Stream_Menu]);         Language_Set(Stream_Menu); break;
+            default:;
+        }
+    CS.Leave();
+
+    return Info[KindOfStream];
 }
 
 //---------------------------------------------------------------------------

@@ -198,6 +198,10 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
             )
             Fill(StreamKind, Pos, "Channel(s)", 1); //AMR is always with 1 channel
 
+        //CodecID_Description
+        if (Retrieve(StreamKind, Pos, "CodecID_Description")==Retrieve(StreamKind, Pos, "CodecID/Info"))
+            Fill(StreamKind, Pos, "CodecID_Description", "", Unlimited, true, true);
+
         //Language
         //-Find 2-digit language
         if (!Retrieve(StreamKind, Pos, "Language").empty())
@@ -212,11 +216,16 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
             if (!Language.empty())
             {
                 if (Language.size()==3 && !MediaInfoLib::Config.Iso639_Get(Language).empty())
-                    Fill(StreamKind, Pos, "Language", MediaInfoLib::Config.Iso639_Get(Language), true);
-                //-Translate
-                Ztring Temp=_T("Language_"); Temp+=Retrieve(StreamKind, Pos, "Language");
-                const Ztring& Z3=MediaInfoLib::Config.Language_Get(Temp);
-                Fill(StreamKind, Pos, "Language/String", Z3.empty()?Language:Z3);
+                    Language=MediaInfoLib::Config.Iso639_Get(Language);
+                //Translate
+                if (Language.size()==2)
+                {
+                    Ztring Temp=_T("Language_"); Temp+=Language;
+                    const Ztring& Z3=MediaInfoLib::Config.Language_Get(Temp);
+                    Fill(StreamKind, Pos, "Language/String", Z3.find(_T("Language_"))==0?Language:Z3);
+                }
+                else
+                    Fill(StreamKind, Pos, "Language/String", Language);
             }
         }
         

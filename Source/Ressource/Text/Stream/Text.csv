@@ -15,7 +15,7 @@ Format/Url;;;N NT;;;Link
 CodecID;;;Y YT;;;Codec ID (found in some containers)
 CodecID/Info;;;Y NT;;;Info about codec ID
 CodecID/Hint;;;Y NT;;;A hint for this codec ID
-CodecID/Url;;;Y NT;;;A link for more details about this codec ID
+CodecID/Url;;;N NT;;;A link for more details about this codec ID
 CodecID_Description;;;Y NT;;;Manual description given by the container
 Codec;;;N YT;;;Deprecated
 Codec/String;;;N NT;;;Deprecated
@@ -30,9 +30,9 @@ Duration/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM
 BitRate;; bps;N YF;;;Bit rate in bps
 BitRate/String;;;Y NT;;;Bit rate (with measurement)
 BitRate_Mode;;;Y NT;;;Bit rate mode (VBR, CBR)
-Width;; pixels;N YI;;;Width
+Width;; pixel;N YI;;;Width
 Width/String;;;Y NT;;;
-Height;; pixels;N YI;;;Height
+Height;; pixel;N YI;;;Height
 Height/String;;;Y NT;;;
 FrameCount;;;N NI;;;Frame count
 Resolution;; bit;N YI;;;

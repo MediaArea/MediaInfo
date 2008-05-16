@@ -30,7 +30,9 @@
  file1; file
  file2; files
  file3; files
- fps; fps
+ fps1; fps
+ fps2; fps
+ fps3; fps
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -114,6 +116,9 @@
  video stream1; video stream
  video stream2; video streams
  video stream3; video streams
+ warppoint1; warppoint
+ warppoint2; warppoints
+ warppoint3; warppoints
  week1; week
  week2; weeks
  week3; weeks
@@ -196,11 +201,14 @@ Codec_Settings_ITU;Codec settings, ITU
 Codec_Profile;Codec profile
 Codec_Url;Weblink for codec
 CodecID;Codec ID
+CodecID_Description;Description of the codec
 Collection;Collection
+Colorimetry;Colorimetry
 Comment;Comment
 CommissionedBy;Commissioned by
 CompleteName;Complete name
 Composer;Composer
+CompressionRatio;Compression ratio
 Conductor;Conductor
 Container and general information;Container and general information
 ContentType;ContentType
@@ -280,7 +288,7 @@ Format_Settings_ITU;Format settings, ITU
 Format_Settings_SBR;Format settings, SBR
 Format_Settings_PS;Format settings, PS
 Format_Version;Format version
-Codec_Url;Weblink for codec
+Format_Url;Weblink for format
 FrameRate;Frame rate
 FrameRate_Mode;Frame rate mode
 FrameRate_Minimum;Minimum frame rate
@@ -757,7 +765,7 @@ Supported formats;Supported formats
 Supported?;Supported?
 Synopsys;Synopsys
 SystemId;Id
-Tagged_Application;tagging application
+Tagged_Application;Tagging application
 Tagged_Date;Tagged date
 Technician;Technician
 TermsOfUse;Terms of use
@@ -787,6 +795,7 @@ Url;Url
 Video;Video
 Video stream(s);Video stream(s)
 Video_Codec_List;Codecs Video
+Video_Delay;Video delay
 Video_No;No video
 Video0_Delay;Video0 delay
 Video1;First video stream

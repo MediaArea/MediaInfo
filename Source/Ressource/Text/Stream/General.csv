@@ -53,7 +53,7 @@ Format_Settings;;;Y NT;;;Settings needed for decoder used
 CodecID;;;Y YT;;;Codec ID (found in some containers)
 CodecID/Info;;;Y NT;;;Info about codec ID
 CodecID/Hint;;;Y NT;;;A hint for this codec ID
-CodecID/Url;;;Y NT;;;A link for more details about this codec ID
+CodecID/Url;;;N NT;;;A link for more details about this codec ID
 CodecID_Description;;;Y NT;;;Manual description given by the container
 Interleaved;;;N NT;;;If Audio and video are muxed
 Codec;;;N NT;;;Deprecated
