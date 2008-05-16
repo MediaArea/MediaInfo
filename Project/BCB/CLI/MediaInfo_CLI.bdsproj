@@ -238,7 +238,7 @@
           <Debugging Name="DebugSourceDirs"></Debugging>
         </Debugging>
         <Parameters>
-          <Parameters Name="RunParams">-f "F:\Programmation\MediaInfoLib_CrashTest\Nominal\Multiple\RIFF (AVI-DivX-WAV)\AAC"</Parameters>
+          <Parameters Name="RunParams">"F:\Programmation\MediaInfoLib_CrashTest\Nominal\Multiple\RIFF (AVI-DivX-WAV)\AAC"</Parameters>
           <Parameters Name="Launcher"></Parameters>
           <Parameters Name="UseLauncher">True</Parameters>
           <Parameters Name="DebugCWD">F:\Programmation\MediaInfo\Release\BCB\CLI</Parameters>
