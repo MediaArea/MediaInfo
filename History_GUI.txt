@@ -17,7 +17,7 @@ Version 0.7.7.0, 2008-05-16
 ---------------
 + Third-party developpers: some MediaInfo fields have changed, please look at Changes.txt for more info
 + Ukrainian language added
-+ Italian, Japanese, Lithuanian, Portuguese (Brazil), Chinese (Traditional), Chinese (Simplified), Thai, Galician, Spanish translations updated
++ Italian, Japanese, Lithuanian, Portuguese (Brazil), Chinese (Traditional), Chinese (Simplified), Thai, Galician, Spanish, Korean translations updated
 + Two versions of translation are available for Chinese (Traditional) and Chinese (Simplified), make your choice
 + Python (Windows) binding
 + AC-3 TrueHD in bluray detection (even if the stream is splitted in 2 sub-streams)
