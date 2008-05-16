@@ -197,7 +197,7 @@ String MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
                 Ztring Nom=Get((stream_t)StreamKind, 0, Champ_Pos, Info_Name_Text);
                 if (Nom==_T(""))
                     Nom=Get((stream_t)StreamKind, 0, Champ_Pos, Info_Name); //Texte n'existe pas
-                if (!HTML) Nom.resize(28, ' ');
+                if (!HTML) Nom.resize(32, ' ');
                 Ztring Valeur=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text);
                 if (HTML)
                 {

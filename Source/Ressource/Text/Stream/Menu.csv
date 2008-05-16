@@ -9,8 +9,8 @@ ID/String;;;Y NT;;;A ID for this stream in this file
 UniqueID;;;N YI;;;A unique ID for this stream, should be copied with stream copy
 MenuID;;;N YI;;;A menu ID for this stream in this file
 MenuID/String;;;Y NT;;;A menu ID for this stream in this file
-Format;;;N YT;;;Format used
-Format/Info;;;N NT;;;Info about Format
+Format;;;Y YT;;;Format used
+Format/Info;;;Y NT;;;Info about Format
 Format/Url;;;N NT;;;Link
 Codec;;;N YT;;;Deprecated
 Codec/String;;;N NT;;;Deprecated
