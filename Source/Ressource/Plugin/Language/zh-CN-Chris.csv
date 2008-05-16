@@ -30,7 +30,9 @@
  file1;文件
  file2;文件
  file3;文件
- fps;fps
+ fps1;fps
+ fps2;fps
+ fps3;fps
  GB;GB
  Gb;Gb
  Gbps;Gbps
@@ -114,6 +116,9 @@
  video stream1;视频
  video stream2;视频
  video stream3;视频
+ warppoint1
+ warppoint2
+ warppoint3
  week1;周
  week2;周
  week3;周
@@ -196,6 +201,7 @@ Codec_Settings_ITU;编解设置, ITU
 Codec_Profile;编码概况
 Codec_Url
 CodecID;编码ID
+CodecID_Description
 Collection;收集
 Colorimetry;比色法
 Comment;评论

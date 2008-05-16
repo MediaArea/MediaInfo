@@ -30,7 +30,9 @@
  file1; arxiu
  file2; arxius
  file3; arxius
- fps; fps
+ fps1; fps
+ fps2; fps
+ fps3; fps
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -114,6 +116,9 @@
  video stream1; pista de vídeo
  video stream2; pistes de vídeo
  video stream3; pistes de vídeo
+ warppoint1
+ warppoint2
+ warppoint3
  week1; setmana
  week2; setmanes
  week3; setmanes
@@ -196,6 +201,7 @@ Codec_Settings_ITU
 Codec_Profile;Perfil del codec
 Codec_Url;Enllaç del codec
 CodecID
+CodecID_Description
 Collection;Col·lecció
 Colorimetry
 Comment;Comentari

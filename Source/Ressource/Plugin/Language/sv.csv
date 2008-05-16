@@ -30,7 +30,9 @@
  file1; fil
  file2; filer
  file3; filer
- fps; fps
+ fps1; fps
+ fps2; fps
+ fps3; fps
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -114,6 +116,9 @@
  video stream1; videoström
  video stream2; videoströmmar
  video stream3; videoströmmar
+ warppoint1
+ warppoint2
+ warppoint3
  week1; vecka
  week2; veckor
  week3; veckor
@@ -196,6 +201,7 @@ Codec_Settings_ITU
 Codec_Profile; Codecprofil
 Codec_Url; Länk till codec
 CodecID
+CodecID_Description
 Collection; Samling
 Colorimetry
 Comment; Kommentar
@@ -815,5 +821,5 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;90
+ZZ_Automatic_Percent;89
+ZZ_AutomaticLanguage_Percent;89

@@ -30,7 +30,9 @@
  file1;fájl
  file2;fájl
  file3;fájl
- fps;fps
+ fps1;fps
+ fps2;fps
+ fps3;fps
  GB;GB
  Gb;Gb
  Gbps;Gbps
@@ -114,6 +116,9 @@
  video stream1;képsáv
  video stream2;képsáv
  video stream3;képsáv
+ warppoint1
+ warppoint2
+ warppoint3
  week1;hét
  week2;het
  week3;het
@@ -196,6 +201,7 @@ Codec_Settings_ITU
 Codec_Profile
 Codec_Url;Kodek weblapja
 CodecID
+CodecID_Description
 Collection;Gyűjtemény
 Colorimetry
 Comment;Megjegyzés
@@ -816,4 +822,4 @@ WrittenBy;Írta
 Yes;Igen
 Your system;Rendszer
 ZZ_Automatic_Percent;66
-ZZ_AutomaticLanguage_Percent;87
+ZZ_AutomaticLanguage_Percent;86

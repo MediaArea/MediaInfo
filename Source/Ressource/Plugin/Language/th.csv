@@ -30,7 +30,9 @@
  file1; ไฟล์
  file2; ไฟล์
  file3; ไฟล์
- fps; fps
+ fps1; fps
+ fps2; fps
+ fps3; fps
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -114,6 +116,9 @@
  video stream1; สตรีมวีดีโอ
  video stream2; สตรีมวีดีโอ
  video stream3; สตรีมวีดีโอ
+ warppoint1
+ warppoint2
+ warppoint3
  week1; สัปดาห์
  week2; สัปดาห์
  week3; สัปดาห์
@@ -196,6 +201,7 @@ Codec_Settings_ITU;ตั้งค่า Codec, ITU
 Codec_Profile;Codec โพรไฟล์
 Codec_Url;เว็บลิงค์ของ codec
 CodecID;รหัสประจำตัว Codec
+CodecID_Description
 Collection;Collection
 Colorimetry
 Comment;คอมเมนต์
@@ -815,5 +821,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

@@ -16,37 +16,37 @@ File_Begin;
 File_Middle;(unused)\r\n
 File_End;
 ;
-General;<tr><td colspan="3" class="RowHead">File</td><td class="Name" colspan="7">%FileName%.%FileExtension%</td></tr><tr bgcolor="#DFDFDF"><td class="RowIndent"></td><td colspan="2" class="RowHead">Cont</td><td>$if(%Format%,%Format/String%,<center>?</center>)</td><td colspan="4" align="center">($if(%FileSize%,%FileSize/String2%,size ?)$if(%PlayTime%, ~ %PlayTime/String%))</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
+General;<tr><td colspan="3" class="RowHead">File</td><td class="Name" colspan="7">%FileName%.%FileExtension%</td></tr><tr bgcolor="#DFDFDF"><td class="RowIndent"></td><td colspan="2" class="RowHead">Cont</td><td>$if(%Format%,%Format%,<center>?</center>)</td><td colspan="4" align="center">($if(%FileSize%,%FileSize/String2%,size ?)$if(%PlayTime%, ~ %PlayTime/String%))</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
 General_Begin;
 General_Middle;(unused)\r\n
 General_End;
 ;
-Video;<tr><td class="RowIndent" colspan="2"></td><td class="RowHead">Video</td><td>$if(%Codec%,%Codec/String%,<center>?</center>)</td><td>$if(%Language%,%Language%,<center>?</center>)</td><td>[%Width%x%Height%] [%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution%,<center>?</center>)</td><td>$if(%FrameRate%,%FrameRate%,<center>?</center>)</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
+Video;<tr><td class="RowIndent" colspan="2"></td><td class="RowHead">Video</td><td>$if(%Format%,%Format%,<center>?</center>)</td><td>$if(%Language%,%Language%,<center>?</center>)</td><td>[%Width%x%Height%] [%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution%,<center>?</center>)</td><td>$if(%FrameRate%,%FrameRate%,<center>?</center>)</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
 Video_Begin;<tbody bgcolor="#FFBFBF">
 Video_Middle;
 Video_End;</tbody>
 ;
-Audio;<tr><td class="RowIndent" colspan="2"></td><td class="RowHead">Audio</td><td>$if(%Codec%,%Codec/String%,<center>?</center>)</td><td>$if(%Language%,%Language%,<center>?</center>)</td><td>%Channel(s)% ch</td><td>$if(%Resolution%,%Resolution%,<center>?</center>)</td><td>$if(%SamplingRate%,%SamplingRate/String%,<center>?</center>)</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
+Audio;<tr><td class="RowIndent" colspan="2"></td><td class="RowHead">Audio</td><td>$if(%Format%,%Format%,<center>?</center>)</td><td>$if(%Language%,%Language%,<center>?</center>)</td><td>%Channel(s)% ch</td><td>$if(%Resolution%,%Resolution%,<center>?</center>)</td><td>$if(%SamplingRate%,%SamplingRate/String%,<center>?</center>)</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
 Audio_Begin;<tbody bgcolor="#BFFFBF">
 Audio_Middle;
 Audio_End;</tbody>
 ;
-Text;\[$if(%Codec%,%Codec/String%,?) $if(%Language%,%Language%,?)\]
+Text;\[$if(%Format%,%Format%,?) $if(%Language%,%Language%,?)\]
 Text_Begin;<tbody bgcolor="#BFBFFF"><tr><td class="RowIndent" colspan="2"></td><td class="RowHead">Subs</td><td colspan="6">
 Text_Middle; + 
 Text_End;</td></tr></tbody>
 ;
-Chapters;\[$if(%Codec%,%Codec/String%,?) $if(%Language%,%Language%,?)\]
+Chapters;\[$if(%Format%,%Format%,?) $if(%Language%,%Language%,?)\]
 Chapters_Begin;<tbody bgcolor="#FFFFBF"><tr><td class="RowIndent" colspan="2"></td><td class="RowHead">Chaps</td><td colspan="6">
 Chapters_Middle; + 
 Chapters_End;</tbody>
 ;
-Image;<tr><td<td class="RowIndent" colspan="2"></td><td class="RowHead">Img</td><td>$if(%Codec%,%Codec/String%,<center>?</center>)</td><td>$if(%Language%,%Language%,<center>?</center>)</td><td>[%Width%x%Height%] [%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution%,<center>?</center>)</td><td>$if(%FrameRate%,%FrameRate%,<center>-</center>)</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
+Image;<tr><td<td class="RowIndent" colspan="2"></td><td class="RowHead">Img</td><td>$if(%Format%,%Format%,<center>?</center>)</td><td>$if(%Language%,%Language%,<center>?</center>)</td><td>[%Width%x%Height%] [%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution%,<center>?</center>)</td><td>$if(%FrameRate%,%FrameRate%,<center>-</center>)</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
 Image_Begin;<tbody bgcolor="#FFBFFF">
 Image_Middle;
 Image_End;</tbody>
 ;
-Menu;<tr><td class="RowIndent" colspan="2"></td><td class="RowHead">Menu</td><td>$if(%Codec%,%Codec/String%,<center>?</center>)</td><td>$if(%Language%,%Language%,<center>?</center>)</td><td>[%Width%x%Height%] [%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution%,<center>?</center>)</td><td>$if(%FrameRate%,%FrameRate%,<center>?</center>)</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
+Menu;<tr><td class="RowIndent" colspan="2"></td><td class="RowHead">Menu</td><td>$if(%Format%,%Format%,<center>?</center>)</td><td>$if(%Language%,%Language%,<center>?</center>)</td><td>[%Width%x%Height%] [%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution%,<center>?</center>)</td><td>$if(%FrameRate%,%FrameRate%,<center>?</center>)</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
 Menu_Begin;<tbody bgcolor="#BFFFFF">
 Menu_Middle;
 Menu_End;</tbody>

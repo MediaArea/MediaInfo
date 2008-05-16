@@ -30,7 +30,9 @@
  file1; dosya
  file2; dosya
  file3; dosya
- fps; kare/s
+ fps1; kare/s
+ fps2; kare/s
+ fps3; kare/s
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -114,6 +116,9 @@
  video stream1; görüntü akışı
  video stream2; görüntü akışı
  video stream3; görüntü akışı
+ warppoint1
+ warppoint2
+ warppoint3
  week1; hafta
  week2; hafta
  week3; hafta
@@ -196,6 +201,7 @@ Codec_Settings_ITU
 Codec_Profile;Kodek profili
 Codec_Url;Kodek için web bağlantısı
 CodecID
+CodecID_Description
 Collection;Koleksiyon
 Colorimetry
 Comment;Yorum

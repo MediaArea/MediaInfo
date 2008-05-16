@@ -30,7 +30,9 @@
  file1; arquivo
  file2; arquivos
  file3; arquivos
- fps; fps
+ fps1; fps
+ fps2; fps
+ fps3; fps
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -114,6 +116,9 @@
  video stream1; faixa de vídeo
  video stream2; faixas de vídeo
  video stream3; faixas de vídeo
+ warppoint1
+ warppoint2
+ warppoint3
  week1; semana
  week2; semanas
  week3; semanas
@@ -196,6 +201,7 @@ Codec_Settings_ITU
 Codec_Profile;Perfil do Codec
 Codec_Url;Link para o codec
 CodecID
+CodecID_Description
 Collection;Coleção
 Colorimetry
 Comment;Comentário
@@ -815,5 +821,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;Seu sistema
-ZZ_Automatic_Percent;92
-ZZ_AutomaticLanguage_Percent;92
+ZZ_Automatic_Percent;91
+ZZ_AutomaticLanguage_Percent;91

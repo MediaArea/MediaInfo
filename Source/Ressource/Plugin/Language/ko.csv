@@ -30,7 +30,9 @@
  file1; 파일
  file2; 파일
  file3; 파일
- fps; fps
+ fps1; fps
+ fps2; fps
+ fps3; fps
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -114,6 +116,9 @@
  video stream1; 비디오 스트림
  video stream2; 비디오 스트림
  video stream3; 비디오 스트림
+ warppoint1
+ warppoint2
+ warppoint3
  week1; 주
  week2; 주
  week3; 주
@@ -196,6 +201,7 @@ Codec_Settings_ITU
 Codec_Profile;코덱 프로파일
 Codec_Url;코덱 웹링크
 CodecID
+CodecID_Description
 Collection;콜렉션
 Colorimetry
 Comment;주석

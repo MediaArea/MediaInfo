@@ -30,7 +30,9 @@
  file1; файл
  file2; файлы
  file3; файлы
- fps; кадр/сек
+ fps1; кадр/сек
+ fps2; кадр/сек
+ fps3; кадр/сек
  GB; ГБайт
  Gb; Гбит
  Gbps; Гбит/сек
@@ -114,6 +116,9 @@
  video stream1; видеопоток
  video stream2; видеопотоки
  video stream3; видеопотоки
+ warppoint1
+ warppoint2
+ warppoint3
  week1; нед.
  week2; нед.
  week3; нед.
@@ -196,6 +201,7 @@ Codec_Settings_ITU
 Codec_Profile
 Codec_Url;Ссылка на кодек
 CodecID
+CodecID_Description
 Collection;Коллекция
 Colorimetry
 Comment;Примечание

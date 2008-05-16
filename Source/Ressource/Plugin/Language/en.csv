@@ -30,7 +30,9 @@
  file1; file
  file2; files
  file3; files
- fps; fps
+ fps1; fps
+ fps2; fps
+ fps3; fps
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -114,6 +116,9 @@
  video stream1; video stream
  video stream2; video streams
  video stream3; video streams
+ warppoint1; warppoint
+ warppoint2; warppoints
+ warppoint3; warppoints
  week1; week
  week2; weeks
  week3; weeks
@@ -196,6 +201,7 @@ Codec_Settings_ITU;Codec settings, ITU
 Codec_Profile;Codec profile
 Codec_Url;Weblink for codec
 CodecID;Codec ID
+CodecID_Description;Description of the codec
 Collection;Collection
 Colorimetry;Colorimetry
 Comment;Comment

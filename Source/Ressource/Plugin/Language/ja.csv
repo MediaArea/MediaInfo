@@ -30,7 +30,9 @@
  file1; ファイル
  file2; ファイル
  file3; ファイル
- fps; fps
+ fps1; fps
+ fps2; fps
+ fps3; fps
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -114,6 +116,9 @@
  video stream1; ビデオストリーム
  video stream2; ビデオストリーム
  video stream3; ビデオストリーム
+ warppoint1
+ warppoint2
+ warppoint3
  week1; 週
  week2; 週
  week3; 週
@@ -196,6 +201,7 @@ Codec_Settings_ITU;ITU
 Codec_Profile;コーデックのプロファイル
 Codec_Url;コーデックの URL
 CodecID;CodecID
+CodecID_Description
 Collection;コレクション
 Colorimetry;カラーリメトリ
 Comment;コメント

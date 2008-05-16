@@ -1,7 +1,7 @@
 General;Generale           : %FileName%\r\nFormato            : %Format%$if(%OveralBitRate%, a %OveralBitRate_String%)\r\nDurata             : %FileSize_String% per un totale di %PlayTime_String1%\r\n\r\n
-Video;Traccia Video n°%ID%  : %Codec_String%$if(%BitRate%, a %BitRate_String%)\r\nAspectRatio        : %Width% x %Height% (%AspectRatio%) a %FrameRate% fps\r\n\r\n
-Audio;Traccia Audio n°%ID%  : %Codec_String%$if(%BitRate%, a %BitRate_String%)\r\nAltre Informazioni : %Channels% channel(s), %SamplingRate_String%\r\n$if(%Language%,Lingua             : %Language%\r\n)\r\n
-Text;Sottotitolo n°%ID%    : %Codec_String%\r\n$if(%Language%,Lingua             : %Language%\r\n)\r\n
+Video;Traccia Video n°%ID%  : %Format_String%$if(%BitRate%, a %BitRate_String%)\r\nAspectRatio        : %Width% x %Height% (%AspectRatio%) a %FrameRate% fps\r\n\r\n
+Audio;Traccia Audio n°%ID%  : %Format_String%$if(%BitRate%, a %BitRate_String%)\r\nAltre Informazioni : %Channels% channel(s), %SamplingRate_String%\r\n$if(%Language%,Lingua             : %Language%\r\n)\r\n
+Text;Sottotitolo n°%ID%    : %Format_String%\r\n$if(%Language%,Lingua             : %Language%\r\n)\r\n
 Chapters;Numero Capitoli %ID% : %Total% capitoli\r\n\r\n
 Image
 File_Begin

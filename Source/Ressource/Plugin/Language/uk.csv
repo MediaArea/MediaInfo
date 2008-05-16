@@ -30,7 +30,9 @@
  file1; файл
  file2; файла
  file3; файли
- fps; кадр (-и,-ів)/сек
+ fps1; кадр (-и,-ів)/сек
+ fps2; кадр (-и,-ів)/сек
+ fps3; кадр (-и,-ів)/сек
  GB; ГБайт
  Gb; Гбіт
  Gbps; Гбіт/сек
@@ -114,6 +116,9 @@
  video stream1; відеопотік
  video stream2; відеопотік (-оки,-ів)
  video stream3; відеопотоки
+ warppoint1
+ warppoint2
+ warppoint3
  week1; тижд.
  week2; тижд.
  week3; тижд.
@@ -196,6 +201,7 @@ Codec_Settings_ITU
 Codec_Profile;Профайл кодеку
 Codec_Url
 CodecID
+CodecID_Description
 Collection;Колекція
 Colorimetry
 Comment;Примітка
@@ -815,5 +821,5 @@ Written_Location;Місце написання
 WrittenBy;Написано
 Yes;Так
 Your system;Ваша система
-ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;91
+ZZ_Automatic_Percent;90
+ZZ_AutomaticLanguage_Percent;90

@@ -30,7 +30,9 @@
  file1; soubor
  file2; soubory
  file3; soubory
- fps; fps
+ fps1; fps
+ fps2; fps
+ fps3; fps
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -114,6 +116,9 @@
  video stream1; video stream
  video stream2; video streams
  video stream3; video streams
+ warppoint1
+ warppoint2
+ warppoint3
  week1;týden
  week2;týdny
  week3;týdny
@@ -196,6 +201,7 @@ Codec_Settings_ITU
 Codec_Profile;Profil kodeku
 Codec_Url;Adresa pro stažení kodeku
 CodecID
+CodecID_Description
 Collection;Collection
 Colorimetry
 Comment;Komentář
@@ -815,5 +821,5 @@ Written_Location;Written location
 WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
-ZZ_Automatic_Percent;92
-ZZ_AutomaticLanguage_Percent;92
+ZZ_Automatic_Percent;91
+ZZ_AutomaticLanguage_Percent;91

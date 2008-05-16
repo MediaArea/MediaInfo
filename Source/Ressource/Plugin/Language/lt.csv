@@ -30,7 +30,9 @@
  file1;failas
  file2;failai
  file3;failai
- fps; kps
+ fps1; kps
+ fps2; kps
+ fps3; kps
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -114,6 +116,9 @@
  video stream1;video srautas
  video stream2;video srautai
  video stream3;video srautai
+ warppoint1
+ warppoint2
+ warppoint3
  week1;savaitė
  week2;savaitės
  week3;savaitės
@@ -196,6 +201,7 @@ Codec_Settings_ITU;Kodeko nuostatos, ITU
 Codec_Profile;Kodeko profilis
 Codec_Url;Nuoroda į kodeką
 CodecID;Kodeko ID
+CodecID_Description
 Collection;Kolekcija
 Colorimetry;Kolorimetrija
 Comment;Komentaras
