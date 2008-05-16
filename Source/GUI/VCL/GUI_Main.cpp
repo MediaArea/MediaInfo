@@ -690,7 +690,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             F.Close();
             //Navigate
             WideString ToShow=FileName_Temp.c_str();
-            Page_HTML_HTML->Navigate((wchar_t*)GUI_Text(ToShow));
+            Page_HTML_HTML->Navigate(ToShow);
         }
         else
             Page_HTML_HTML->Navigate(L"about:blank");
@@ -701,9 +701,11 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     {
         I->Option_Static(_T("Inform"), Prefs->Details[Custom].Read());
         Ztring S1=I->Inform();
-        if (S1.size()>1 && S1[1]=='<' && S1[2]=='h')
+        if (S1.size()>1 && S1[0]=='<' && S1[1]=='h')
         {
             //Supposing this is HTML
+            Page_Custom_Text->Visible=false;
+            Page_Custom_HTML->Visible=true;
             //Creating file
             File F;
             if (FileName_Temp==_T(""))
@@ -717,9 +719,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             F.Close();
             //Navigate
             WideString ToShow=FileName_Temp.c_str();
-            Page_Custom_HTML->Navigate((wchar_t*)GUI_Text(ToShow));
-            Page_Custom_Text->Visible=false;
-            Page_Custom_HTML->Visible=true;
+            Page_Custom_HTML->Navigate(ToShow);
             FormResize(NULL);
         }
         else

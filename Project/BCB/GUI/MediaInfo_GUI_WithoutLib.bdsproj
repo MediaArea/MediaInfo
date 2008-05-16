@@ -89,7 +89,7 @@
           <property category="win32.*.win32b.bcc32" name="option.D.arg.3" value="UNICODEx"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.4" value="_UNICODEx"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.5" value="MEDIAINFO_MINIMIZESIZE"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.6" value="ZENLIB_STANDARD"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.6" value="ZENLIB_STANDARDx"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.D.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.H=.arg.1" value="$(BDS)\lib\vcl100.csm"/>
