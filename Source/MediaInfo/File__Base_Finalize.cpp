@@ -199,7 +199,7 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
             Fill(StreamKind, Pos, "Channel(s)", 1); //AMR is always with 1 channel
 
         //CodecID_Description
-        if (Retrieve(StreamKind, Pos, "CodecID_Description")==Retrieve(StreamKind, Pos, "CodecID/Info"))
+        if (!Retrieve(StreamKind, Pos, "CodecID_Description").empty() && Retrieve(StreamKind, Pos, "CodecID_Description")==Retrieve(StreamKind, Pos, "CodecID/Info"))
             Fill(StreamKind, Pos, "CodecID_Description", "", Unlimited, true, true);
 
         //Language

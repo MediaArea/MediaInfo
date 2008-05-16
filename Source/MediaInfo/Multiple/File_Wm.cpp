@@ -57,6 +57,7 @@ File_Wm::File_Wm()
     DataMustAlwaysBeComplete=false;
 
     //Stream
+    Codec_Description_Count=0;
     Stream_Number=0;
     Data_Parse_Padding=0;
     MaximumDataPacketSize=(int32u)-1;
@@ -64,9 +65,6 @@ File_Wm::File_Wm()
     NumberPayloads_Pos=0;
     Data_Parse_Begin=true;
     IsDvrMs=false;
-
-    //TO DELETE
-    Buffer_MaximumSize=1000000000;
 }
 
 //---------------------------------------------------------------------------
@@ -90,7 +88,8 @@ void File_Wm::Read_Buffer_Finalize()
         std::map<std::string, ZenLib::Ztring>::iterator Info_Temp=Temp->second.Info.begin();
         while (Info_Temp!=Temp->second.Info.end())
         {
-            Fill(Temp->second.StreamKind, Temp->second.StreamPos, Info_Temp->first.c_str(), Info_Temp->second);
+            if (Codec_Description_Count==Stream.size() || Info_Temp->first!="CodecID_Description") //With some files, There are only x Codec desecription and !x streams, no coherancy
+                Fill(Temp->second.StreamKind, Temp->second.StreamPos, Info_Temp->first.c_str(), Info_Temp->second);
             Info_Temp++;
         }
 

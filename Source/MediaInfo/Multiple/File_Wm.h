@@ -153,6 +153,7 @@ private :
     bool                        IsDvrMs;                        //Is DVR-Ms format (for finding MPEG Audio)
 
     //From Data headers
+    size_t Codec_Description_Count;
     int32u PacketLength;
     int32u SizeOfMediaObject;
     int8u  ReplicatedDataLengthType;

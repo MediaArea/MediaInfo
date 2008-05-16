@@ -720,7 +720,7 @@ void File_Wm::Header_HeaderExtension_AdvancedContentEncryption()
 //---------------------------------------------------------------------------
 void File_Wm::Header_HeaderExtension_IndexPlaceholder()
 {
-    Element_Name("Indec Placeholder");
+    Element_Name("Index Placeholder");
 }
 
 //---------------------------------------------------------------------------
@@ -761,6 +761,8 @@ void File_Wm::Header_CodecList()
         Stream[Pos+1].Info["Codec_Description"]=CodecName;
         Stream[Pos+1].Info["Codec_Description"]+=_T(" - ");
         Stream[Pos+1].Info["Codec_Description"]+=CodecDescription;
+
+        Codec_Description_Count++;
     }
 }
 
