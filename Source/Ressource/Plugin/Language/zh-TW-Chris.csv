@@ -287,6 +287,7 @@ Format_Settings_Law;格式設置, Law
 Format_Settings_ITU;格式設置, ITU
 Format_Settings_SBR;格式設置, SBR
 Format_Settings_PS;格式設置, PS
+Format_Settings_Pulldown;格式設置, Pulldown
 Format_Version;格式版本
 Format_Url
 FrameRate;幀頻率

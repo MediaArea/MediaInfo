@@ -287,6 +287,7 @@ Format_Settings_Law;포맷 설정, Law
 Format_Settings_ITU;포맷 설정, ITU
 Format_Settings_SBR;포맷 설정, SBR
 Format_Settings_PS;포맷 설정, PS
+Format_Settings_Pulldown;포맷 설정, Pulldown
 Format_Version;포맷 버전
 Format_Url
 FrameRate;프레임레이트

@@ -287,6 +287,7 @@ Format_Settings_Law
 Format_Settings_ITU
 Format_Settings_SBR
 Format_Settings_PS
+Format_Settings_Pulldown
 Format_Version
 Format_Url
 FrameRate;Bildwiederholungsrate

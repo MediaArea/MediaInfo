@@ -287,6 +287,7 @@ Format_Settings_Law;Law
 Format_Settings_ITU;ITU
 Format_Settings_SBR;SBR
 Format_Settings_PS;PS
+Format_Settings_Pulldown;Pulldown
 Format_Version;バージョン
 Format_Url
 FrameRate;フレームレート

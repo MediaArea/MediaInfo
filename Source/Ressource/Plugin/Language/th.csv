@@ -287,6 +287,7 @@ Format_Settings_Law;ตั้งค่ารูปแบบ, Law
 Format_Settings_ITU;ตั้งค่ารูปแบบ, ITU
 Format_Settings_SBR;ตั้งค่ารูปแบบ, SBR
 Format_Settings_PS;ตั้งค่ารูปแบบ, PS
+Format_Settings_Pulldown;ตั้งค่ารูปแบบ, Pulldown
 Format_Version;เวอร์ชันรูปแบบ
 Format_Url
 FrameRate;เฟรมเรต

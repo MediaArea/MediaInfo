@@ -287,6 +287,7 @@ Format_Settings_Law;Paramètres du format, Law
 Format_Settings_ITU;Paramètres du format, ITU
 Format_Settings_SBR;Paramètres du format, SBR
 Format_Settings_PS;Paramètres du format, PS
+Format_Settings_Pulldown;Paramètres du format, Pulldown
 Format_Version;Version du format
 Format_Url;Lien Internet sur le format
 FrameRate;Images par seconde

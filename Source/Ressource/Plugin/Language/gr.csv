@@ -287,6 +287,7 @@ Format_Settings_Law
 Format_Settings_ITU
 Format_Settings_SBR
 Format_Settings_PS
+Format_Settings_Pulldown
 Format_Version
 Format_Url
 FrameRate;Ρυθμός ανανέωσης πλαισίου
@@ -821,5 +822,5 @@ Written_Location;Τοποθεσία καταγραφής
 WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
-ZZ_Automatic_Percent;92
-ZZ_AutomaticLanguage_Percent;92
+ZZ_Automatic_Percent;91
+ZZ_AutomaticLanguage_Percent;91

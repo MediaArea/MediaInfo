@@ -287,6 +287,7 @@ Format_Settings_Law;文件格式设置, Law
 Format_Settings_ITU;文件格式设置, ITU
 Format_Settings_SBR;文件格式设置, SBR
 Format_Settings_PS;文件格式设置, PS
+Format_Settings_Pulldown;文件格式设置, Pulldown
 Format_Version;文件格式版本
 Format_Url
 FrameRate;帧频率
@@ -821,5 +822,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;确定
 Your system;您的系统
-ZZ_Automatic_Percent;48
+ZZ_Automatic_Percent;49
 ZZ_AutomaticLanguage_Percent;89

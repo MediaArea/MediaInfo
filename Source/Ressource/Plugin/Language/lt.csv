@@ -287,6 +287,7 @@ Format_Settings_Law;Formato nuostatos, Law
 Format_Settings_ITU;Formato nuostatos, ITU
 Format_Settings_SBR;Formato nuostatos, SBR
 Format_Settings_PS;Formato nuostatos, PS
+Format_Settings_Pulldown;Formato nuostatos, Pulldown
 Format_Version;Formato versija
 Format_Url
 FrameRate;Kadrų tempas
