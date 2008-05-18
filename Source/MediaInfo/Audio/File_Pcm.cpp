@@ -52,6 +52,7 @@ void File_Pcm::Read_Buffer_Continue()
     Fill(Stream_Audio, 0, Audio_Format, "PCM");
     Fill(Stream_Audio, 0, Audio_Codec, "PCM");
 
+    Info("PCM, Jumping to end of file");
     Finnished();
 }
 
