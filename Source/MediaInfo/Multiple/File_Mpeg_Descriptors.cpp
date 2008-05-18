@@ -1296,7 +1296,7 @@ void File_Mpeg_Descriptors::Descriptor_7A()
 
     //Filling
     StreamKind=Stream_Audio;
-    Infos["Codec"]=enhanced_ac3?_T("AC3+"):_T("AC3");
+    Infos["Codec"]=enhanced_ac3?_T("E-AC-3"):_T("AC-3");
 }
 
 //---------------------------------------------------------------------------
