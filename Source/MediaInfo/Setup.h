@@ -238,6 +238,9 @@
 
 //---------------------------------------------------------------------------
 // Text
+#if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_PGS_NO) && !defined(MEDIAINFO_PGS_YES)
+    #define MEDIAINFO_PGS_YES
+#endif
 #if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_OTHERTEXT_NO) && !defined(MEDIAINFO_OTHERTEXT_YES)
     #define MEDIAINFO_OTHERTEXT_YES
 #endif

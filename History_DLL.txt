@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.7.1, 2008-06-
+---------------
++ Bluray: detection of subtitles
+
 Version 0.7.7.0, 2008-05-16
 ---------------
 + Third-party developpers: some MediaInfo fields have changed, please look at Changes.txt for more info

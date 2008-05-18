@@ -186,6 +186,7 @@ private :
     File__Analyze* ChooseParser_AAC();
     File__Analyze* ChooseParser_PCM();
     File__Analyze* ChooseParser_RLE();
+    File__Analyze* ChooseParser_PGS();
     File__Analyze* ChooseParser_NULL();
 
     //File__Analyze helpers

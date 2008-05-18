@@ -65,6 +65,9 @@
 #if defined(MEDIAINFO_RLE_YES)
     #include "MediaInfo/Image/File_Rle.h"
 #endif
+#if defined(MEDIAINFO_PGS_YES)
+    #include "MediaInfo/Text/File_Pgs.h"
+#endif
 #include <ZenLib/Utils.h>
 using namespace ZenLib;
 //---------------------------------------------------------------------------
@@ -1371,7 +1374,9 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
             case 0x81 :
             case 0x83 :
             case 0x87 : return ChooseParser_AC3(); //AC3/AC3+
+            case 0x82 :
             case 0x86 : return ChooseParser_DTS(); //DTS
+            case 0x90 : return ChooseParser_PGS(); //PGS from Bluray
             case 0xEA : return ChooseParser_NULL(); //VC1()
             default   : switch (descriptor_tag_FromTS)
                         {
@@ -1473,13 +1478,13 @@ void File_MpegPs::private_stream_1_Element_Info()
     {
         switch (private_stream_1_ID)
         {
-            case 0x80 : Element_Info("PCM");
-            case 0x81 : Element_Info("AC3");
+            case 0x80 : Element_Info("PCM"); return;
+            case 0x81 : Element_Info("AC3"); return;
             case 0x83 :
-            case 0x87 : Element_Info("AC3+");
-            case 0x86 : Element_Info("DTS");
-            case 0xEA : Element_Info("VC1");
-            default   : ;
+            case 0x87 : Element_Info("AC3+"); return;
+            case 0x86 : Element_Info("DTS"); return;
+            case 0xEA : Element_Info("VC1"); return;
+            default   : return;
         }
     }
     else
@@ -2383,8 +2388,25 @@ File__Analyze* File_MpegPs::ChooseParser_RLE()
         File__Analyze* Handle=new File__Analyze();
         Open_Buffer_Init(Handle);
         Handle->Stream_Prepare(Stream_Text);
-        Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "RLE");
-        Handle->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "RLE");
+        Handle->Fill(Stream_Text, StreamPos_Last, Text_Format, "RLE");
+        Handle->Fill(Stream_Text, StreamPos_Last, Text_Codec, "RLE");
+        return Handle;
+    #endif
+}
+
+//---------------------------------------------------------------------------
+File__Analyze* File_MpegPs::ChooseParser_PGS()
+{
+    //Filling
+    #if defined(MEDIAINFO_PGS_YES)
+        return new File_Pgs();
+    #else
+        //Filling
+        File__Analyze* Handle=new File__Analyze();
+        Open_Buffer_Init(Handle);
+        Handle->Stream_Prepare(Stream_Text);
+        Handle->Fill(Stream_Text, StreamPos_Last, Text_Format, "PGS");
+        Handle->Fill(Stream_Text, StreamPos_Last, Text_Codec, "PGS");
         return Handle;
     #endif
 }

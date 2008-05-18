@@ -250,7 +250,7 @@ void File_MpegTs::Read_Buffer_Finalize()
             if (StreamKind_Last==Stream_Max)
             {
                 //The parser failed
-                if (Streams[StreamID].StreamIsRegistred && Mpeg_Psi_stream_Kind(Streams[StreamID].stream_type, format_identifier)!=Stream_Max)
+                if ((Streams[StreamID].StreamIsRegistred || format_identifier==Mpeg_Descriptors::HDMV) && Mpeg_Psi_stream_Kind(Streams[StreamID].stream_type, format_identifier)!=Stream_Max)
                 {
                     StreamKind_Last=Mpeg_Psi_stream_Kind(Streams[StreamID].stream_type, format_identifier);
                     Stream_Prepare(StreamKind_Last);
@@ -320,6 +320,13 @@ void File_MpegTs::Read_Buffer_Finalize()
             }
         }
         delete Streams[StreamID].Parser; Streams[StreamID].Parser=NULL;
+    }
+
+    //TS info for General
+    for (std::map<std::string, ZenLib::Ztring>::iterator Info=Streams[0x0000].Infos.begin(); Info!=Streams[0x0000].Infos.end(); Info++)
+    {
+        if (Retrieve(Stream_General, 0, Info->first.c_str()).empty())
+            Fill(Stream_General, 0, Info->first.c_str(), Info->second);
     }
 
     //HDMV specific
@@ -621,6 +628,7 @@ void File_MpegTs::PSI()
         {
             case File_Mpeg_Psi::program_association_table : PSI_program_association_table(); break;
             case File_Mpeg_Psi::program_map_table :         PSI_program_map_table(); break;
+            case File_Mpeg_Psi::network_information_table : PSI_network_information_table(); break;
             default : ;
         }
 
@@ -804,6 +812,18 @@ void File_MpegTs::PSI_program_map_table()
     }
     if (program_Count)
         program_Count--;
+}
+
+//---------------------------------------------------------------------------
+void File_MpegTs::PSI_network_information_table()
+{
+    File_Mpeg_Psi* Parser=(File_Mpeg_Psi*)Streams[pid].Parser;
+
+    for (std::map<int16u, File_Mpeg_Psi::stream>::iterator Stream=Parser->Streams.begin(); Stream!=Parser->Streams.end(); Stream++)
+    {
+        //Enabling what we know parsing
+        Streams[0x0000].Infos=Stream->second.Infos;
+    }
 }
 
 //---------------------------------------------------------------------------

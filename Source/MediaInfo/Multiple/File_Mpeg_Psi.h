@@ -161,7 +161,7 @@ private :
     void Table_78() {Skip_XX(Element_Size, "Data");};
     void Table_79() {Skip_XX(Element_Size, "Data");};
     void Table_7E() {Skip_XX(Element_Size, "Data");};
-    void Table_7F() {Skip_XX(Element_Size, "Data");};
+    void Table_7F();
     //Elements - ASTC
     void Table_C0() {Skip_XX(Element_Size, "Data");};
     void Table_C1() {Skip_XX(Element_Size, "Data");};

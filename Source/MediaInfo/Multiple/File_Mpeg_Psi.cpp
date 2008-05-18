@@ -126,12 +126,12 @@ const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
                 case Mpeg_Descriptors::S14A : //ATSC
                         switch (ID)
                         {
-                            case 0x81 : return "ATSC - AC3";
+                            case 0x81 : return "ATSC - AC-3";
                             case 0x82 : return "SCTE - Standard Subtitle";
                             case 0x83 : return "SCTE - Isochronous Data";
                             case 0x84 : return "ATSC - Reserved";
                             case 0x85 : return "ATSC - Program Identifier";
-                            case 0x87 : return "ATSC - AC3+";
+                            case 0x87 : return "ATSC - E-AC-3";
                             case 0x90 : return "DVB  - stream_type value for Time Slicing / MPE-FEC";
                             case 0x95 : return "ATSC - Data Service Table, Network Resources Table";
                             default   : return "ATSC/SCTE - Unknown";
@@ -140,9 +140,11 @@ const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
                         switch (ID)
                         {
                             case 0x80 : return "BluRay - PCM";
-                            case 0x81 : return "BluRay - AC3";
-                            case 0x83 : return "BluRay - AC3+";
+                            case 0x81 : return "BluRay - AC-3";
+                            case 0x82 : return "BluRay - DTS";
+                            case 0x83 : return "BluRay - E-AC-3";
                             case 0x86 : return "BluRay - DTS";
+                            case 0x90 : return "BluRay - PGS";
                             case 0xEA : return "BluRay - VC-1";
                             default   : return "Bluray - Unknown";
                         }
@@ -150,9 +152,9 @@ const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
                         switch (ID)
                         {
                             case 0x80 : return "DigiCipher II video";
-                            case 0x81 : return "AC3";
+                            case 0x81 : return "AC-3";
                             case 0x88 : return "VC-1";
-                            case 0x87 : return "AC3+";
+                            case 0x87 : return "E-AC-3";
                             case 0xD1 : return "Dirac";
                             default   : return "User Private";
                         }
@@ -174,7 +176,7 @@ const char* Mpeg_Psi_stream_Format(int8u ID, int32u format_identifier)
         case 0x11 : return "AAC";
         case 0x1B : return "AVC";
         case 0x1C : return "AAC";
-        case 0x1D : return "Text";
+        case 0x1D : return "Timed Text";
         default :
             switch (format_identifier)
             {
@@ -194,8 +196,10 @@ const char* Mpeg_Psi_stream_Format(int8u ID, int32u format_identifier)
                         {
                             case 0x80 : return "PCM";
                             case 0x81 : return "AC-3";
+                            case 0x82 : return "DTS";
                             case 0x83 : return "E-AC-3";
                             case 0x86 : return "DTS";
+                            case 0x90 : return "PGS";
                             case 0xEA : return "VC-1";
                             default   : return "";
                         }
@@ -247,8 +251,10 @@ const char* Mpeg_Psi_stream_Codec(int8u ID, int32u format_identifier)
                         {
                             case 0x80 : return "PCM";
                             case 0x81 : return "AC3";
+                            case 0x82 : return "DTS";
                             case 0x83 : return "AC3+";
                             case 0x86 : return "DTS";
+                            case 0x90 : return "PGS";
                             case 0xEA : return "VC1";
                             default   : return "";
                         }
@@ -300,8 +306,10 @@ stream_t Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier)
                         {
                             case 0x80 : return Stream_Audio;
                             case 0x81 : return Stream_Audio;
+                            case 0x82 : return Stream_Audio;
                             case 0x83 : return Stream_Audio;
                             case 0x86 : return Stream_Audio;
+                            case 0x90 : return Stream_Text;
                             case 0xEA : return Stream_Video;
                             default   : return Stream_Max;
                         }
@@ -790,7 +798,7 @@ void File_Mpeg_Psi::Table_02()
         Element_Begin();
         int8u stream_type;
         BS_Begin();
-        Get_S1 ( 8, stream_type,                                "stream_type"); Element_Info(Mpeg_Psi_stream_type(stream_type, Streams[Stream_Current].format_identifier)); Param_Info(Mpeg_Psi_stream_type(stream_type, Streams[Stream_Current].format_identifier));
+        Get_S1 ( 8, stream_type,                                "stream_type"); Element_Info(Mpeg_Psi_stream_type(stream_type, Streams[0x0000].format_identifier)); Param_Info(Mpeg_Psi_stream_type(stream_type, Streams[Stream_Current].format_identifier));
         Skip_S1( 3,                                             "reserved");
         Get_S2 (13, Stream_Current,                             "elementary_PID");
         Skip_S1( 4,                                             "reserved");
@@ -929,6 +937,46 @@ void File_Mpeg_Psi::Table_6F()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg_Psi::Table_7F()
+{
+    //Parsing
+    Skip_B2(                                                    "DVB_reserved_future_use");
+    BS_Begin();
+    Skip_S1( 2,                                                 "ISO_reserved");
+    Skip_S1( 5,                                                 "version_number");
+    Skip_S1( 1,                                                 "current_next_indicator");
+    BS_End();
+    Skip_B1(                                                    "section_number");
+    Skip_B1(                                                    "last_section_number");
+    BS_Begin();
+    Skip_S1( 4,                                                 "DVB_reserved_for_future_use");
+    Get_S2 (12, Descriptors_Size,                               "transmission_info_loop_length");
+    BS_End();
+
+    //Descriptors
+    if (Descriptors_Size>0)
+        Descriptors();
+
+    while (Element_Offset<Element_Size)
+    {
+        Element_Begin();
+        int16u service_id;
+        Get_B2 (    service_id,                                 "service_id");
+        BS_Begin();
+        Skip_SB(                                                "DVB_reserved_future_use");
+        Skip_S1( 3,                                             "running_status");
+        Get_S2 (12, Descriptors_Size,                           "service_loop_length");
+        BS_End();
+
+        //Descriptors
+        if (Descriptors_Size>0)
+            Descriptors();
+
+        Element_End(Ztring::ToZtring_From_CC2(service_id), 5+Descriptors_Size);
+    }
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg_Psi::Table_C7()
 {
     //Parsing
@@ -1053,9 +1101,10 @@ void File_Mpeg_Psi::Descriptors()
 
     //Parsing
     File_Mpeg_Descriptors Descriptors;
-    Descriptors.format_identifier=Streams[Stream_Current].format_identifier;
     Buffer_Offset+=Element_Offset; //Positionning
     Open_Buffer_Init(&Descriptors, File_Size, File_Offset+Buffer_Offset);
+    Descriptors.format_identifier=Streams[Streams[Stream_Current].format_identifier?Stream_Current:0x0000].format_identifier; //format_identifier of fthe stream if exist, else general format_identifier
+    Descriptors.StreamKind=Stream_Current?Stream_Max:Stream_General; //Saying if it is General or not
     Open_Buffer_Continue(&Descriptors, Buffer+Buffer_Offset, Descriptors_Size);
     Buffer_Offset-=Element_Offset; //Positionning
     Element_Offset+=Descriptors_Size;

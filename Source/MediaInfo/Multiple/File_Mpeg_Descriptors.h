@@ -44,7 +44,7 @@ class File_Mpeg_Descriptors : public File__Analyze
 public :
     //In
     int32u   format_identifier; //Must be filled by the caller
-    stream_t KindOfStream;
+    stream_t StreamKind;
 
     //Out
     std::map<std::string, ZenLib::Ztring> Infos;
@@ -145,7 +145,7 @@ private :
     void Descriptor_60() {Skip_XX(Element_Size, "Data");};
     void Descriptor_61() {Skip_XX(Element_Size, "Data");};
     void Descriptor_62() {Skip_XX(Element_Size, "Data");};
-    void Descriptor_63() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_63();
     void Descriptor_64() {Skip_XX(Element_Size, "Data");};
     void Descriptor_65() {Skip_XX(Element_Size, "Data");};
     void Descriptor_66() {Skip_XX(Element_Size, "Data");};

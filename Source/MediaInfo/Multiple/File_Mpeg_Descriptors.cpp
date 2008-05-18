@@ -725,7 +725,7 @@ void File_Mpeg_Descriptors::Read_Buffer_Init()
 {
     //In
     format_identifier=0x00000000;
-    KindOfStream=Stream_Max;
+    StreamKind=Stream_Max;
 
     //Out
     descriptor_tag=0x00;
@@ -965,12 +965,12 @@ void File_Mpeg_Descriptors::Descriptor_05()
     //Filling
     switch (format_identifier)
     {
-        case Mpeg_Descriptors::AC_3 : Param_Info(_T("AC3")); KindOfStream=Stream_Audio; Infos["Codec"]=_T("AC3"); break;
+        case Mpeg_Descriptors::AC_3 : Param_Info(_T("AC3")); StreamKind=Stream_Audio; Infos["Codec"]=_T("AC3"); break;
         case Mpeg_Descriptors::DTS1 :
         case Mpeg_Descriptors::DTS2 :
-        case Mpeg_Descriptors::DTS3 : Param_Info(_T("DTS")); KindOfStream=Stream_Audio; Infos["Codec"]=_T("DTS"); break;
-        case Mpeg_Descriptors::VC_1 : Param_Info(_T("VC-1")); KindOfStream=Stream_Video; Infos["Codec"]=_T("VC-1"); break;
-        case Mpeg_Descriptors::drac : Param_Info(_T("Dirac")); KindOfStream=Stream_Video; Infos["Codec"]=_T("Dirac"); break;
+        case Mpeg_Descriptors::DTS3 : Param_Info(_T("DTS")); StreamKind=Stream_Audio; Infos["Codec"]=_T("DTS"); break;
+        case Mpeg_Descriptors::VC_1 : Param_Info(_T("VC-1")); StreamKind=Stream_Video; Infos["Codec"]=_T("VC-1"); break;
+        case Mpeg_Descriptors::drac : Param_Info(_T("Dirac")); StreamKind=Stream_Video; Infos["Codec"]=_T("Dirac"); break;
         default : ;
     }
 }
@@ -1094,10 +1094,11 @@ void File_Mpeg_Descriptors::Descriptor_50()
     Info_B1(component_type,                                     "component_type"); Param_Info(Mpeg_Descriptors_component_type(stream_content, component_type)); Element_Info(Mpeg_Descriptors_component_type(stream_content, component_type));
     Info_B1(component_tag,                                      "component_tag");
     Get_Local(3, ISO_639_language_code,                         "ISO_639_language_code");
-    Skip_DVB_Text(Element_Size-Element_Offset,                     "text");
+    Skip_DVB_Text(Element_Size-Element_Offset,                  "text");
 
     //Filling
-    Infos["Language"]=ISO_639_language_code;
+    if (StreamKind!=Stream_General)
+        Infos["Language"]=ISO_639_language_code;
 }
 
 //---------------------------------------------------------------------------
@@ -1173,6 +1174,24 @@ void File_Mpeg_Descriptors::Descriptor_59()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::Descriptor_63()
+{
+    //Parsing
+    int32u peak_rate;
+    BS_Begin();
+    Skip_S1( 2,                                                 "DVB_reserved_future_use");
+    Get_S3 (22, peak_rate,                                      "peak_rate");
+    Skip_S1( 2,                                                 "DVB_reserved_future_use");
+    Skip_S3(22,                                                 "minimum_overall_smoothing_rate");
+    Skip_S1( 2,                                                 "DVB_reserved_future_use");
+    Skip_S2(14,                                                 "maximum_overall_smoothing_buffer");
+    BS_End();
+
+    //Filling
+    Infos["OveralBitRate_Maximum"]=Ztring::ToZtring(peak_rate*400);
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg_Descriptors::Descriptor_6A()
 {
     //Parsing
@@ -1216,7 +1235,7 @@ void File_Mpeg_Descriptors::Descriptor_6A()
     //BS_End_CANBEMORE();
 
     //Filling
-    KindOfStream=Stream_Audio;
+    StreamKind=Stream_Audio;
     Infos["Codec"]=_T("AC3");
 }
 
@@ -1276,7 +1295,7 @@ void File_Mpeg_Descriptors::Descriptor_7A()
     //BS_End_CANBEMORE();
 
     //Filling
-    KindOfStream=Stream_Audio;
+    StreamKind=Stream_Audio;
     Infos["Codec"]=enhanced_ac3?_T("AC3+"):_T("AC3");
 }
 

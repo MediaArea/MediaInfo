@@ -326,14 +326,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Source\MediaInfo\Audio\File_Aac.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adpcm.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\Source\MediaInfo\File_Dummy.cpp"
 				>
 			</File>
@@ -413,11 +405,19 @@
 				Name="Audio"
 				>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Aac.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Ac3.cpp"
 					>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adif.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adpcm.cpp"
 					>
 				</File>
 				<File
@@ -660,6 +660,10 @@
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_OtherText.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Pgs.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Tag"
@@ -772,10 +776,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adpcm.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\Source\MediaInfo\File_Dummy.h"
 				>
 			</File>
@@ -868,6 +868,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adif.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adpcm.h"
 					>
 				</File>
 				<File
@@ -1096,6 +1100,10 @@
 				>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_OtherText.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Pgs.h"
 					>
 				</File>
 			</Filter>
