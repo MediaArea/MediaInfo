@@ -1,6 +1,7 @@
 Count;;;N NI;;;Count of objects available in this stream
 StreamCount;;;N NI;;;Count of streams of that kind available
-StreamKind;Chapters;Chapters;N NI;;;Stream type name
+StreamKind;Chapters;;N NI;;;Stream type name
+StreamKind/String;;;N NI;;;Stream type name
 StreamKindID;;;N NI;;;Number of the stream (base=0)
 StreamKindPos;;;N NI;;;When multiple streams, number of the stream (base=1)
 Inform;;;N NT;;;Last **Inform** call

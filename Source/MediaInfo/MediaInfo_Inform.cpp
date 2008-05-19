@@ -148,11 +148,11 @@ String MediaInfo_Internal::Inform()
         {
             //Pour chaque stream
             if (HTML) Retour+=_T("<table width=\"100%\" border=\"0\" cellpadding=\"1\" cellspacing=\"2\" style=\"border:1px solid Navy\">\n<tr>\n    <td width=\"150\">");
-            Ztring A=Get((stream_t)StreamKind, StreamPos, _T("StreamKind"));
+            Ztring A=Get((stream_t)StreamKind, StreamPos, _T("StreamKind/String"));
             Ztring B=Get((stream_t)StreamKind, StreamPos, _T("StreamKindPos"));
             if (!B.empty())
             {
-                A+=_T(" #");
+                A+=MediaInfoLib::Config.Language_Get(_T("  Config_Text_NumberTag"));
                 A+=B;
             }
             Retour+=A;
@@ -197,7 +197,13 @@ String MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
                 Ztring Nom=Get((stream_t)StreamKind, 0, Champ_Pos, Info_Name_Text);
                 if (Nom==_T(""))
                     Nom=Get((stream_t)StreamKind, 0, Champ_Pos, Info_Name); //Texte n'existe pas
-                if (!HTML) Nom.resize(32, ' ');
+                if (!HTML)
+                {
+                     int8u Size=MediaInfoLib::Config.Language_Get(_T("  Config_Text_ColumnSize")).To_int8u();
+                     if (Size==0)
+                        Size=32; //Default
+                     Nom.resize(Size, ' ');
+                }
                 Ztring Valeur=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text);
                 if (HTML)
                 {
@@ -208,7 +214,7 @@ String MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
                     Retour+=_T("</td>\n  </tr>");
                 }
                 else
-                    Retour+=Nom + _T(" : ") + Valeur;
+                    Retour+=Nom + MediaInfoLib::Config.Language_Get(_T("  Config_Text_Separator")) + Valeur;
                 Retour+=MediaInfoLib::Config.LineSeparator_Get();
             }
         }
@@ -216,7 +222,7 @@ String MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
         return Retour;
     }
 
-    Ztring Retour=MediaInfoLib::Config.Inform_Get(Get(StreamKind, 0, _T("StreamKind"), Info_Measure));
+    Ztring Retour=MediaInfoLib::Config.Inform_Get(Get(StreamKind, 0, _T("StreamKind"), Info_Text));
     ZtringList Info;
 
     if (StreamKind>=Stream_Max)

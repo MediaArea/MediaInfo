@@ -738,16 +738,18 @@ Ztring MediaInfo_Config::Language_Get (const Ztring &Count, const Ztring &Value)
     size_t Pos3=CountI/100;
     int8u  Pos2=(int8u)((CountI-Pos3)/10);
     int8u  Pos1=(int8u)(CountI-Pos3-Pos2);
-    size_t Form=0;
+    int8u  Form=(int8u)-1;
 
     //Polish has 2 plurial, Algorithm of Polish
     if (Pos3==0)
     {
         if (Pos2==0)
         {
-                 if (Pos1<=1)
-                Form=1; //000 to 001 kanal
-            else if (Pos1>=2 && Pos1<=4)
+                 if (Pos1==0 && Count.size()==1) //Only "0", not "0.xxx"
+                Form=0; //000 to 000 kanal?
+            else if (Pos1<=1)
+                Form=1; //001 to 001 kanal
+            else if (Pos1<=4)
                 Form=2; //002 to 004 kanaly
             else //if (Pos1>=5)
                 Form=3; //005 to 009 kanalow
@@ -758,7 +760,7 @@ Ztring MediaInfo_Config::Language_Get (const Ztring &Count, const Ztring &Value)
         {
                  if (Pos1<=1)
                 Form=3; //020 to 021, 090 to 091 kanalow
-            else if (Pos1>=2 && Pos1<=4)
+            else if (Pos1<=4)
                 Form=2; //022 to 024, 092 to 094 kanali
             else //if (Pos1>=5)
                 Form=3; //025 to 029, 095 to 099 kanalow
@@ -770,7 +772,7 @@ Ztring MediaInfo_Config::Language_Get (const Ztring &Count, const Ztring &Value)
         {
                  if (Pos1<=1)
                 Form=3; //100 to 101 kanalow
-            else if (Pos1>=2 && Pos1<=4)
+            else if (Pos1<=4)
                 Form=2; //102 to 104 kanaly
             else //if (Pos1>=5)
                 Form=3; //105 to 109 kanalow
@@ -781,7 +783,7 @@ Ztring MediaInfo_Config::Language_Get (const Ztring &Count, const Ztring &Value)
         {
                  if (Pos1<=1)
                 Form=3; //120 to 121, 990 to 991 kanalow
-            else if (Pos1>=2 && Pos1<=4)
+            else if (Pos1<=4)
                 Form=2; //122 to 124, 992 to 994 kanali
             else //if (Pos1>=5)
                 Form=3; //125 to 129, 995 to 999 kanalow
@@ -789,7 +791,9 @@ Ztring MediaInfo_Config::Language_Get (const Ztring &Count, const Ztring &Value)
     }
 
     Ztring ToReturn=Count;
-         if (Form==1)
+         if (Form==0)
+        ToReturn =Language_Get(Value+_T("0")); //Only the translation
+    else if (Form==1)
         ToReturn+=Language_Get(Value+_T("1"));
     else if (Form==2)
         ToReturn+=Language_Get(Value+_T("2"));

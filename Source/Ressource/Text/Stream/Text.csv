@@ -1,6 +1,7 @@
 Count;;;N NI;;;Count of objects available in this stream
 StreamCount;;;N NI;;;Count of streams of that kind available
-StreamKind;Text;Text;N NI;;;Stream type name
+StreamKind;Text;;N NI;;;Stream type name
+StreamKind/String;;;N NI;;;Stream type name
 StreamKindID;;;N NI;;;Number of the stream (base=0)
 StreamKindPos;;;N NI;;;When multiple streams, number of the stream (base=1)
 Inform;;;N NT;;;Last **Inform** call
@@ -27,9 +28,10 @@ Duration/String;;;Y NT;;;Play time (formated)
 Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
 Duration/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero
 Duration/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM
+BitRate_Mode;;;N YT;;;Bit rate mode (VBR, CBR)
+BitRate_Mode/String;;;Y NT;;;Bit rate mode (VBR, CBR)
 BitRate;; bps;N YF;;;Bit rate in bps
 BitRate/String;;;Y NT;;;Bit rate (with measurement)
-BitRate_Mode;;;Y NT;;;Bit rate mode (VBR, CBR)
 Width;; pixel;N YI;;;Width
 Width/String;;;Y NT;;;
 Height;; pixel;N YI;;;Height
@@ -60,8 +62,8 @@ StreamSize/String3;;;N NT;;;
 StreamSize/String4;;;N NT;;;
 Title;;;Y YI;;;Name of the track
 Language;;;N YT;;;Language (2 letters)
-Language/String;;;Y NT;;;Language (full)
-Language_More;;;Y YT;;;More info about Language (director's comment...)
+Language/String;;;Y NT;;;Language (full);;
+Language_More;;;Y YT;;;More info about Language (director's comment...);;
 Summary;;;N NT;;;;;
 Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal

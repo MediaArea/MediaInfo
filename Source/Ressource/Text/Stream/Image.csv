@@ -1,6 +1,7 @@
 Count;;;N YI;;;Count of objects available in this stream
 StreamCount;;;N YI;;;Count of streams of that kind available
-StreamKind;Image;Image;N NI;;;Stream type name
+StreamKind;Image;;N NI;;;Stream type name
+StreamKind/String;;;N NI;;;Stream type name
 StreamKindID;;;N NI;;;Number of the stream (base=0)
 StreamKindPos;;;N NI;;;When multiple streams, number of the stream (base=1)
 Inform;;;N NT;;;Last **Inform** call
@@ -29,7 +30,7 @@ Resolution;; bit;N YI;;;
 Resolution/String;;;Y NT;;;
 StreamSize;; byte;N YI;;;Stream size in bytes
 StreamSize/String;;;Y NT;;;
-StreamSize/String1;;;N NT;;;
+StreamSize/String1;;;N NT;;;;;
 StreamSize/String2;;;N NT;;;;;
 StreamSize/String3;;;N NT;;;;;
 StreamSize/String4;;;N NT;;;;;

@@ -745,8 +745,10 @@ void File_Dirac::picture_Fill()
     Fill(Stream_Video, 0, Video_Format, "Dirac");
     Fill(Stream_Video, 0, Video_Codec, "Dirac");
 
-    Fill(Stream_Video, StreamPos_Last, Video_Width, clean_width);
-    Fill(Stream_Video, StreamPos_Last, Video_Height, clean_height);
+    if (clean_width)
+        Fill(Stream_Video, StreamPos_Last, Video_Width, clean_width);
+    if (clean_height)
+        Fill(Stream_Video, StreamPos_Last, Video_Height, clean_height);
     if (pixel_aspect_ratio)
     {
         Fill(Stream_Video, 0, Video_PixelAspectRatio, pixel_aspect_ratio);

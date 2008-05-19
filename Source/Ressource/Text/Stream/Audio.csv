@@ -1,6 +1,7 @@
 Count;;;N NI;;;Count of objects available in this stream
 StreamCount;;;N NI;;;Count of streams of that kind available
-StreamKind;Audio;Audio;N NI;;;Stream type name
+StreamKind;Audio;;N NI;;;Stream type name
+StreamKind/String;;;N NI;;;Stream type name
 StreamKindID;;;N NI;;;Number of the stream (base=0)
 StreamKindPos;;;N NI;;;When multiple streams, number of the stream (base=1)
 Inform;;;N NT;;;Last **Inform** call
@@ -15,14 +16,16 @@ Format/Url;;;N NT;;;Link
 Format_Version;;;Y NT;;;Version of this format
 Format_Profile;;;Y NT;;;Profile of the Format
 Format_Settings;;;N NT;;;Settings needed for decoder used, summary
-Format_Settings_SBR;;;Y NT;;;
-Format_Settings_PS;;;Y NT;;;
-Format_Settings_Floor;;;Y NT;;;
-Format_Settings_Firm;;;Y NT;;;
-Format_Settings_Endianness;;;Y NT;;;
-Format_Settings_Sign;;;Y NT;;;
-Format_Settings_Law;;;Y NT;;;
-Format_Settings_ITU;;;Y NT;;;
+Format_Settings_SBR;;Yes;N YT;;;
+Format_Settings_SBR/String;;;Y NT;;;
+Format_Settings_PS;;Yes;N YT;;;
+Format_Settings_PS/String;;;Y NT;;;
+Format_Settings_Floor;;;Y YT;;;
+Format_Settings_Firm;;;Y YT;;;
+Format_Settings_Endianness;;;Y YT;;;
+Format_Settings_Sign;;;Y YT;;;
+Format_Settings_Law;;;Y YT;;;
+Format_Settings_ITU;;;Y YT;;;
 MuxingMode;;;Y NT;;;How this file is muxed in the container
 CodecID;;;Y YT;;;Codec ID (found in some containers)
 CodecID/Info;;;Y NT;;;Info about codec ID
@@ -50,7 +53,8 @@ Duration/String;;;Y NT;;;Play time (formated)
 Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
 Duration/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero
 Duration/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM
-BitRate_Mode;;;Y NT;;;Bit rate mode (VBR, CBR)
+BitRate_Mode;;;N YT;;;Bit rate mode (VBR, CBR)
+BitRate_Mode/String;;;Y NT;;;Bit rate mode (VBR, CBR)
 BitRate;; bps;N YF;;;Bit rate in bps
 BitRate/String;;;Y NT;;;Bit rate (with measurement)
 BitRate_Minimum;; bps;N YF;;;Minimum Bit rate in bps
@@ -90,10 +94,10 @@ StreamSize/String;;;Y NT;;;
 StreamSize/String1;;;N NT;;;
 StreamSize/String2;;;N NT;;;
 StreamSize/String3;;;N NT;;;
-StreamSize/String4;;;N NT;;;
-Title;;;Y YI;;;Name of the track
-Encoded_Library;;;Y YT;;;Software used to create the file
-Encoded_Library_Settings;;;Y YT;;;Parameters used by the software
+StreamSize/String4;;;N NT;;;;;
+Title;;;Y YI;;;Name of the track;;
+Encoded_Library;;;Y YT;;;Software used to create the file;;
+Encoded_Library_Settings;;;Y YT;;;Parameters used by the software;;
 Language;;;N YT;;;Language (2 letters);;
 Language/String;;;Y NT;;;Language (full);;
 Language_More;;;Y YT;;;More info about Language (director's comment...);;

@@ -541,7 +541,7 @@ void File_Avc::slice_header_Fill()
     if (timing_info_present_flag)
     {
         if (!fixed_frame_rate_flag)
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, "VFR");
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, "VFR");
         else if (time_scale && num_units_in_tick)
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)time_scale/num_units_in_tick/2);
     }

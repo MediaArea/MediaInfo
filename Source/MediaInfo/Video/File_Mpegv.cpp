@@ -628,7 +628,7 @@ void File_Mpegv::slice_start_Fill()
     else
     {
         Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Standard");
-        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Standard");
+        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Default");
     }
 
     //library

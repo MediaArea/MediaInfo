@@ -1,6 +1,7 @@
 Count;;;N NI;;;Count of objects available in this stream
 StreamCount;;;N NI;;;Count of streams of that kind available
-StreamKind;General;General;N NI;;;Stream type name
+StreamKind;General;;N NI;;;Stream type name
+StreamKind/String;;;N NI;;;Stream type name
 StreamKindID;;;N NI;;;Number of the stream (base=0)
 StreamKindPos;;;N NI;;;When multiple streams, number of the stream (base=1)
 Inform;;;N NT;;;Last **Inform** call
@@ -74,24 +75,25 @@ Duration/String;;;Y NT;;;Play time (formated)
 Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
 Duration/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero
 Duration/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM
-OveralBitRate_Mode;;;Y YT;;;Bit rate mode of all streams (VBR, CBR)
+OveralBitRate_Mode;;;N YT;;;Bit rate mode of all streams (VBR, CBR)
+OveralBitRate_Mode/String;;;Y NT;;;Bit rate mode of all streams (VBR, CBR)
 OveralBitRate;; bps;N YF;;;Bit rate of all streams
 OveralBitRate/String;;;Y NT;;;Bit rate of all streams (with measure)
 OveralBitRate_Minimum;; bps;N YF;;;Minimum Bit rate in bps
-OveralBitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement);;
-OveralBitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps;;
-OveralBitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement);;
-OveralBitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps;;
-OveralBitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement);;
-StreamSize;; byte;N YI;;;Stream size in bytes;;
-StreamSize/String;;;N NT;;;;;
-StreamSize/String1;;;N NT;;;;;
-StreamSize/String2;;;N NT;;;;;
-StreamSize/String3;;;N NT;;;;;
-StreamSize/String4;;;N NT;;;;;
-HeaderSize;;;N NI;;;;;
-DataSize;;;N NI;;;;;
-FooterSize;;;N NI;;;;;
+OveralBitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement)
+OveralBitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps
+OveralBitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement)
+OveralBitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps
+OveralBitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement)
+StreamSize;; byte;N YI;;;Stream size in bytes
+StreamSize/String;;;N NT;;;
+StreamSize/String1;;;N NT;;;
+StreamSize/String2;;;N NT;;;
+StreamSize/String3;;;N NT;;;
+StreamSize/String4;;;N NT;;;
+HeaderSize;;;N NI;;;
+DataSize;;;N NI;;;
+FooterSize;;;N NI;;;
 Title;;;N NT;;;(Generic)Title of file;;Title
 Title/More;;;N NT;;;(Generic)More info about the title of file;;Title
 Title/Url;;;N NT;;;(Generic)Url;;Title
