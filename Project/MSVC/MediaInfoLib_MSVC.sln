@@ -1,5 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HowToUse_Dll", "Example\HowToUse_Dll.vcproj", "{51E7EE1D-D4DD-4374-976C-66519B3B94DF}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HowToUse", "Example\HowToUse.vcproj", "{3AF60488-4BD7-4345-B37F-0EC4A4484F7E}"
@@ -7,12 +7,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HowToUse", "Example\HowToUs
 		{20E0F8D6-213C-460B-B361-9C725CB375C7} = {20E0F8D6-213C-460B-B361-9C725CB375C7}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoLib", "Library\MediaInfoLib.vcproj", "{20E0F8D6-213C-460B-B361-9C725CB375C7}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoDll", "Dll\MediaInfoDll.vcproj", "{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{20E0F8D6-213C-460B-B361-9C725CB375C7} = {20E0F8D6-213C-460B-B361-9C725CB375C7}
 	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoLib", "Library\MediaInfoLib.vcproj", "{20E0F8D6-213C-460B-B361-9C725CB375C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,14 +38,6 @@ Global
 		{3AF60488-4BD7-4345-B37F-0EC4A4484F7E}.Release|Win32.Build.0 = Release|Win32
 		{3AF60488-4BD7-4345-B37F-0EC4A4484F7E}.Release|x64.ActiveCfg = Release|x64
 		{3AF60488-4BD7-4345-B37F-0EC4A4484F7E}.Release|x64.Build.0 = Release|x64
-		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Debug|Win32.ActiveCfg = Debug|Win32
-		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Debug|Win32.Build.0 = Debug|Win32
-		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Debug|x64.ActiveCfg = Debug|x64
-		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Debug|x64.Build.0 = Debug|x64
-		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Release|Win32.ActiveCfg = Release|Win32
-		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Release|Win32.Build.0 = Release|Win32
-		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Release|x64.ActiveCfg = Release|x64
-		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Release|x64.Build.0 = Release|x64
 		{20E0F8D6-213C-460B-B361-9C725CB375C7}.Debug|Win32.ActiveCfg = Debug|Win32
 		{20E0F8D6-213C-460B-B361-9C725CB375C7}.Debug|Win32.Build.0 = Debug|Win32
 		{20E0F8D6-213C-460B-B361-9C725CB375C7}.Debug|x64.ActiveCfg = Debug|x64
@@ -54,6 +46,12 @@ Global
 		{20E0F8D6-213C-460B-B361-9C725CB375C7}.Release|Win32.Build.0 = Release|Win32
 		{20E0F8D6-213C-460B-B361-9C725CB375C7}.Release|x64.ActiveCfg = Release|x64
 		{20E0F8D6-213C-460B-B361-9C725CB375C7}.Release|x64.Build.0 = Release|x64
+		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Debug|Win32.Build.0 = Debug|Win32
+		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Debug|x64.ActiveCfg = Debug|Win32
+		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Release|Win32.ActiveCfg = Release|Win32
+		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Release|Win32.Build.0 = Release|Win32
+		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
