@@ -1092,14 +1092,26 @@ const ZtringListList &MediaInfo_Config::Info_Get(stream_t KindOfStream)
 }
 
 //---------------------------------------------------------------------------
-Ztring MediaInfo_Config::Info_Parameters_Get () const
+Ztring MediaInfo_Config::Info_Parameters_Get ()
 {
+    CriticalSectionLocker CSL(CS);;
+
+    //Loading all
+    File__Base_General(Info[Stream_General]);
+    File__Base_Video(Info[Stream_Video]);
+    File__Base_Audio(Info[Stream_Audio]);
+    File__Base_Text(Info[Stream_Text]);
+    File__Base_Chapters(Info[Stream_Chapters]);
+    File__Base_Image(Info[Stream_Image]);
+    File__Base_Menu(Info[Stream_Menu]);
+
+    //Building
     ZtringListList ToReturn;
     size_t ToReturn_Pos=0;
 
     for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
     {
-        ToReturn(ToReturn_Pos, 0)=Info[StreamKind].Read(_T("StreamKind"), Info_Measure);
+        ToReturn(ToReturn_Pos, 0)=Info[StreamKind].Read(_T("StreamKind"), Info_Text);
         ToReturn_Pos++;
         for (size_t Pos=0; Pos<Info[StreamKind].size(); Pos++)
             if (!Info[StreamKind].Read(Pos, Info_Name).empty())
@@ -1119,10 +1131,24 @@ Ztring MediaInfo_Config::Info_Tags_Get () const
     return _T("");
 }
 
-Ztring MediaInfo_Config::Info_Codecs_Get () const
+Ztring MediaInfo_Config::Info_Codecs_Get ()
 {
-    //TODO return Codec.Read();
-    return EmptyZtring;
+    CriticalSectionLocker CSL(CS);;
+
+    //Loading
+    File__Base_Codec(Codec);
+
+    //Building
+    Ztring ToReturn;
+    InfoMap::iterator Temp=Codec.begin();
+    while (Temp!=Codec.end())
+    {
+        ToReturn+=Temp->second.Read();
+        ToReturn+=EOL;
+        Temp++;
+    }    
+
+    return ToReturn;
 }
 
 Ztring MediaInfo_Config::Info_Version_Get () const
