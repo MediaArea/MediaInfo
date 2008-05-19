@@ -258,7 +258,8 @@ void File_Wm::Header_FileProperties()
     if (MaximumBitRate)
         Fill(Stream_General, 0, General_OveralBitRate_Maximum, MaximumBitRate);
     Fill(Stream_General, 0, General_Encoded_Date, Ztring().Date_From_Milliseconds_1601(CreationDate/10000));
-    Fill(Stream_General, 0, General_Duration, PlayDuration/10000-Preroll);
+    if (PlayDuration/1000>Preroll)
+        Fill(Stream_General, 0, General_Duration, PlayDuration/10000-Preroll);
 }
 
 //---------------------------------------------------------------------------
@@ -296,7 +297,8 @@ void File_Wm::Header_StreamProperties ()
             case Elements::Header_StreamProperties_DegradableJPEG : Header_StreamProperties_DegradableJPEG(); break;
             case Elements::Header_StreamProperties_FileTransfer :
             case Elements::Header_StreamProperties_Binary :         Header_StreamProperties_Binary(); break;
-            default :                                               if (StreamTypeLength>0) {Element_Name("Unknown"); Skip_XX(StreamTypeLength, "Type-Specific Data");} break;
+            default :                                               if (StreamTypeLength>0) {Element_Name("Unknown"); Skip_XX(StreamTypeLength, "Type-Specific Data");}
+                                                                    StreamKind_Last=Stream_Max; StreamPos_Last=(size_t)-1; break;
         }
     Element_End();
     Skip_XX(ErrorCorrectionTypeLength,                          "Error Correction Data");
