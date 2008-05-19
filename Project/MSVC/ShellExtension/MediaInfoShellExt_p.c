@@ -3,8 +3,8 @@
 /* this ALWAYS GENERATED file contains the proxy stub code */
 
 
- /* File created by MIDL compiler version 6.00.0366 */
-/* at Fri May 16 15:34:53 2008
+ /* File created by MIDL compiler version 7.00.0500 */
+/* at Mon May 19 16:14:48 2008
  */
 /* Compiler settings for .\MediaInfoShellExt.idl:
     Oicf, W1, Zp8, env=Win64 (32b run)
@@ -24,8 +24,11 @@
 #pragma warning(push)
 #endif
 
-#pragma warning( disable: 4211 )  /* redefine extent to static */
+#pragma warning( disable: 4211 )  /* redefine extern to static */
 #pragma warning( disable: 4232 )  /* dllimport identity*/
+#pragma warning( disable: 4024 )  /* array to pointer mapping*/
+#pragma warning( disable: 4152 )  /* function/data pointer conversion in expression */
+
 #define USE_STUBLESS_PROXY
 
 
@@ -45,28 +48,36 @@
 
 #define TYPE_FORMAT_STRING_SIZE   3                                 
 #define PROC_FORMAT_STRING_SIZE   1                                 
+#define EXPR_FORMAT_STRING_SIZE   1                                 
 #define TRANSMIT_AS_TABLE_SIZE    0            
 #define WIRE_MARSHAL_TABLE_SIZE   0            
 
-typedef struct _MIDL_TYPE_FORMAT_STRING
+typedef struct _MediaInfoShellExt_MIDL_TYPE_FORMAT_STRING
     {
     short          Pad;
     unsigned char  Format[ TYPE_FORMAT_STRING_SIZE ];
-    } MIDL_TYPE_FORMAT_STRING;
+    } MediaInfoShellExt_MIDL_TYPE_FORMAT_STRING;
 
-typedef struct _MIDL_PROC_FORMAT_STRING
+typedef struct _MediaInfoShellExt_MIDL_PROC_FORMAT_STRING
     {
     short          Pad;
     unsigned char  Format[ PROC_FORMAT_STRING_SIZE ];
-    } MIDL_PROC_FORMAT_STRING;
+    } MediaInfoShellExt_MIDL_PROC_FORMAT_STRING;
+
+typedef struct _MediaInfoShellExt_MIDL_EXPR_FORMAT_STRING
+    {
+    long          Pad;
+    unsigned char  Format[ EXPR_FORMAT_STRING_SIZE ];
+    } MediaInfoShellExt_MIDL_EXPR_FORMAT_STRING;
 
 
 static RPC_SYNTAX_IDENTIFIER  _RpcTransferSyntax = 
 {{0x8A885D04,0x1CEB,0x11C9,{0x9F,0xE8,0x08,0x00,0x2B,0x10,0x48,0x60}},{2,0}};
 
 
-extern const MIDL_TYPE_FORMAT_STRING __MIDL_TypeFormatString;
-extern const MIDL_PROC_FORMAT_STRING __MIDL_ProcFormatString;
+extern const MediaInfoShellExt_MIDL_TYPE_FORMAT_STRING MediaInfoShellExt__MIDL_TypeFormatString;
+extern const MediaInfoShellExt_MIDL_PROC_FORMAT_STRING MediaInfoShellExt__MIDL_ProcFormatString;
+extern const MediaInfoShellExt_MIDL_EXPR_FORMAT_STRING MediaInfoShellExt__MIDL_ExprFormatString;
 
 
 extern const MIDL_STUB_DESC Object_StubDesc;
@@ -81,7 +92,7 @@ extern const MIDL_STUBLESS_PROXY_INFO IMediaInfoShellExt__ProxyInfo;
 #error  Invalid build platform for this stub.
 #endif
 
-static const MIDL_PROC_FORMAT_STRING __MIDL_ProcFormatString =
+static const MediaInfoShellExt_MIDL_PROC_FORMAT_STRING MediaInfoShellExt__MIDL_ProcFormatString =
     {
         0,
         {
@@ -90,7 +101,7 @@ static const MIDL_PROC_FORMAT_STRING __MIDL_ProcFormatString =
         }
     };
 
-static const MIDL_TYPE_FORMAT_STRING __MIDL_TypeFormatString =
+static const MediaInfoShellExt_MIDL_TYPE_FORMAT_STRING MediaInfoShellExt__MIDL_TypeFormatString =
     {
         0,
         {
@@ -117,7 +128,7 @@ static const unsigned short IMediaInfoShellExt__FormatStringOffsetTable[] =
 static const MIDL_STUBLESS_PROXY_INFO IMediaInfoShellExt__ProxyInfo =
     {
     &Object_StubDesc,
-    __MIDL_ProcFormatString.Format,
+    MediaInfoShellExt__MIDL_ProcFormatString.Format,
     &IMediaInfoShellExt__FormatStringOffsetTable[-3],
     0,
     0,
@@ -129,7 +140,7 @@ static const MIDL_SERVER_INFO IMediaInfoShellExt__ServerInfo =
     {
     &Object_StubDesc,
     0,
-    __MIDL_ProcFormatString.Format,
+    MediaInfoShellExt__MIDL_ProcFormatString.Format,
     &IMediaInfoShellExt__FormatStringOffsetTable[-3],
     0,
     0,
@@ -163,18 +174,18 @@ static const MIDL_STUB_DESC Object_StubDesc =
     0,
     0,
     0,
-    __MIDL_TypeFormatString.Format,
+    MediaInfoShellExt__MIDL_TypeFormatString.Format,
     1, /* -error bounds_check flag */
     0x50002, /* Ndr library version */
     0,
-    0x600016e, /* MIDL Version 6.0.366 */
+    0x70001f4, /* MIDL Version 7.0.500 */
     0,
     0,
     0,  /* notify & notify_flag routine table */
     0x1, /* MIDL flag */
     0, /* cs routines */
     0,   /* proxy/server info */
-    0   /* Reserved5 */
+    0
     };
 
 const CInterfaceProxyVtbl * _MediaInfoShellExt_ProxyVtblList[] = 

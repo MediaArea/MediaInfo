@@ -5,8 +5,8 @@
 /* link this file in with the server and any clients */
 
 
- /* File created by MIDL compiler version 6.00.0366 */
-/* at Fri May 16 15:34:53 2008
+ /* File created by MIDL compiler version 7.00.0500 */
+/* at Mon May 19 16:14:48 2008
  */
 /* Compiler settings for .\MediaInfoShellExt.idl:
     Oicf, W1, Zp8, env=Win64 (32b run)

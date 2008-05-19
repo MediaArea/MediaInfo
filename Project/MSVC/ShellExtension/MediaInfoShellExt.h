@@ -3,8 +3,8 @@
 /* this ALWAYS GENERATED file contains the definitions for the interfaces */
 
 
- /* File created by MIDL compiler version 6.00.0366 */
-/* at Fri May 16 15:34:53 2008
+ /* File created by MIDL compiler version 7.00.0500 */
+/* at Mon May 19 16:14:48 2008
  */
 /* Compiler settings for .\MediaInfoShellExt.idl:
     Oicf, W1, Zp8, env=Win64 (32b run)
@@ -71,8 +71,6 @@ typedef struct MediaInfoShellExt_ MediaInfoShellExt_;
 extern "C"{
 #endif 
 
-void * __RPC_USER MIDL_user_allocate(size_t);
-void __RPC_USER MIDL_user_free( void * ); 
 
 #ifndef __IMediaInfoShellExt__INTERFACE_DEFINED__
 #define __IMediaInfoShellExt__INTERFACE_DEFINED__
@@ -100,7 +98,8 @@ EXTERN_C const IID IID_IMediaInfoShellExt_;
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
             IMediaInfoShellExt_ * This,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppvObject);
+            /* [iid_is][out] */ 
+            __RPC__deref_out  void **ppvObject);
         
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
             IMediaInfoShellExt_ * This);
@@ -122,13 +121,13 @@ EXTERN_C const IID IID_IMediaInfoShellExt_;
 
 
 #define IMediaInfoShellExt__QueryInterface(This,riid,ppvObject)	\
-    (This)->lpVtbl -> QueryInterface(This,riid,ppvObject)
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
 
 #define IMediaInfoShellExt__AddRef(This)	\
-    (This)->lpVtbl -> AddRef(This)
+    ( (This)->lpVtbl -> AddRef(This) ) 
 
 #define IMediaInfoShellExt__Release(This)	\
-    (This)->lpVtbl -> Release(This)
+    ( (This)->lpVtbl -> Release(This) ) 
 
 
 #endif /* COBJMACROS */
