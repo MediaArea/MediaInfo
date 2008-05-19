@@ -12,13 +12,13 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("Zenitram")> 
 <Assembly: AssemblyProduct("HowToUse_Dll")> 
-<Assembly: AssemblyCopyright("Copyright © Zenitram 2007")> 
+<Assembly: AssemblyCopyright("Copyright © Zenitram 2008")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("48a7f443-429f-48ed-93bb-ab27575ea82e")> 
+<Assembly: Guid("7398464a-e759-492a-b6a9-46f49110c74d")> 
 
 ' Version information for an assembly consists of the following four values:
 '

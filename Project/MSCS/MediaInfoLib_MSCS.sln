@@ -1,5 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HowToUse_Dll", "Example\HowToUse_Dll.csproj", "{574FB186-52E8-4EAA-9BC9-815F2B2CA632}"
 EndProject
 Global
