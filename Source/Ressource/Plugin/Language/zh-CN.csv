@@ -1,6 +1,6 @@
 ﻿   Junk;x
-  Author_Email;rabbitom@gmail.com
-  Author_Name;erabbit
+  Author_Email;ChrisStudio@Live.Com
+  Author_Name;erabbit, chriszxl
   Author_OldNames;Initial translator
   Language_ISO639;zh-CN
   Language_Name;简体中文
@@ -8,8 +8,8 @@
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
  audio stream1;音频
- audio stream2;音频
- audio stream3;音频
+ audio stream2;个音频
+ audio stream3;个音频
  bit1;位
  bit2;位
  bit3;位
@@ -22,17 +22,17 @@
  channel2;声道
  channel3;声道
  chapter1;段落
- chapter2;段落
- chapter3;段落
- chapters stream1; 段落
- chapters stream2; 段落
- chapters stream3; 段落
+ chapter2;个段落
+ chapter3;个段落
+ chapters stream1;段落流
+ chapters stream2;个段落流
+ chapters stream3;个段落流
  day1;天
  day2;天
  day3;天
  file1;文件
- file2;文件
- file3;文件
+ file2;个文件
+ file3;个文件
  frame1
  frame2
  frame3
@@ -55,13 +55,13 @@
  GigaByte1
  GigaByte2
  GigaByte3
- hour1; 时
- hour2; 时
- hour3; 时
+ hour1;小时
+ hour2;小时
+ hour3;小时
  Hz
  image stream1;图像流
- image stream2;图像流
- image stream3;图像流
+ image stream2;个图像流
+ image stream3;个图像流
  KB
  Kb
  KBps
@@ -101,37 +101,37 @@
  MiB
  Mib
  MiBps
- milisecond1
- milisecond2
- milisecond3
- minute1; 分
- minute2; 分
- minute3; 分
- month1; 月
- month2; 月
- month3; 月
+ milisecond1;毫秒
+ milisecond2;毫秒
+ milisecond3;毫秒
+ minute1;分
+ minute2;分
+ minute3;分
+ month1;月
+ month2;月
+ month3;月
  pixel1;像素
  pixel2;像素
  pixel3;像素
- second1; 秒
- second2; 秒
- second3; 秒
- text stream1; 字幕
- text stream2; 字幕
- text stream3; 字幕
- video stream1; 视频
- video stream2; 视频
- video stream3; 视频
+ second1;秒
+ second2;秒
+ second3;秒
+ text stream1;字幕
+ text stream2;个字幕
+ text stream3;个字幕
+ video stream1;视频
+ video stream2;个视频
+ video stream3;个视频
  warppoint0
  warppoint1
  warppoint2
  warppoint3
- week1; 周
- week2; 周
- week3; 周
- year1; 年
- year2; 年
- year3; 年
+ week1;周
+ week2;周
+ week3;周
+ year1;年
+ year2;年
+ year3;年
 , ;, 
 : ;: 
 About;关于
@@ -155,23 +155,23 @@ Audio;音频
 Audio stream(s);音频流
 Audio_Codec_List;音频编解码器
 Audio_No;没有音频
-Audio1;第一音频
-Audio2;第二音频
-AudioCount;音频数
+Audio1;音频1
+Audio2;音频2
+AudioCount;音频总数
 Author;作者
 BarCode;条形码
 Basic;基本
 Basic_Note;注意: 要了解更多关于此文件的信息, 请选择不同的视图 (表格, 树状图 ...)
-BitRate;比特率
-BitRate_Maximum;最大比特率
-BitRate_Minimum;最小比特率
-BitRate_Mode;比特率模式
+BitRate;码率
+BitRate_Maximum;最大码率
+BitRate_Minimum;最小码率
+BitRate_Mode;码率模式
 BitRate_Mode_CBR
 BitRate_Mode_VBR
-BitRate_Nominal;标称比特率
-Bits-(Pixel*Frame);比特数(像素*帧)
+BitRate_Nominal;标称码率
+Bits-(Pixel*Frame);平均每像素比特数
 Cancel;取消
-Channel(s);声道　
+Channel(s);声道
 ChannelPositions;声道位置
 Chapter(s);段落
 Chapters;段落
@@ -207,12 +207,12 @@ Codec_Settings_Endianness;编解码器设置, Endianness
 Codec_Settings_Sign;编解码器设置, Sign
 Codec_Settings_Law;编解码器设置, Law
 Codec_Settings_ITU;编解码器设置, ITU
-Codec_Profile
-Codec_Url;编码器网址
+Codec_Profile;编解码器简介
+Codec_Url;编解码器网址
 CodecID;编解码器ID
 CodecID_Description
 Collection;收集
-Colorimetry
+Colorimetry;比色法
 Comment;评论
 CommissionedBy;评论人
 CompleteName;完整名称
@@ -258,15 +258,15 @@ Exit;退出
 Exit_Hint;退出程序
 Export;导出
 Export_Hint;以自定义格式导出
-Extensions;文件扩展名
-Family
+Extensions;扩展名
+Family;系列
 Fax;传真
 File;文件
 File size;文件大小
 File_Append;接在现有的文件后面 (警告: 同参数时要小心)
 File_Created_Date;文件创建日期
 File_Hint;选择多媒体文件
-File_Modified_Date;文件修改日期
+File_Modified_Date;最后修改日期
 FileExtension;扩展名
 FileName;文件名
 FileSize;文件大小
@@ -278,8 +278,8 @@ Folder_Hint;选择文件夹
 FolderName;文件夹名　
 Format;文件格式
 Format_Description;文件格式描述
-Format_Info;文件格式详细信息
-Format_Profile
+Format_Info;文件格式详情
+Format_Profile;文件格式简介
 Format_Settings;文件格式设置
 Format_Settings_PacketBitStream;文件格式设置, Packet bitstream
 Format_Settings_BVOP;文件格式设置, BVOP
@@ -678,19 +678,19 @@ Language_xh
 Language_yi
 Language_yo
 Language_za
-Language_zh
+Language_zh;简体中文
 Language_zu
 LawRating
 LCCN
 Library
 List;列表
 Lyricist;作词
-Mastered_Date;母带日期
+Mastered_Date;母带完成日期
 MasteredBy;母带制做
 MediaInfo_About;支持多种格式的多媒体文件:\r\nMatroska, OGG (包括 OGM)\r\nMPEG-1 (包括 VCD)\r\nMPEG-2 (包括 DVD, SVCD)\r\nMPEG-4 (包括 iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (包括 WMV, WMA)\r\nMicrosoft RIFF (包括 AVI, WAV)\r\n纯声音格式 (AC3, DTS, AAC, AU, AIFF...)
 Menu;菜单
 Menu stream(s)
-Menu_Codec_List
+Menu_Codec_List;菜单编解码器
 Menu_No;没有菜单
 MenuCount;菜单数
 Menu_Hint;更多选择
@@ -701,7 +701,7 @@ More;更多
 Movie;电影
 ms
 MSDI
-MuxingMode
+MuxingMode;混合模式
 Name;名称
 Nationality;国藉
 New;新建
@@ -716,21 +716,21 @@ Original;源
 Other;其它
 Output;输出
 Output format;输出格式
-OveralBitRate;平均比特率
-OveralBitRate_Maximum
-OveralBitRate_Minimum
-OveralBitRate_Mode
-OveralBitRate_Nominal
+OveralBitRate;平均混合码率
+OveralBitRate_Maximum;最大混合码率
+OveralBitRate_Minimum;最小混合码率
+OveralBitRate_Mode;混合码率模式
+OveralBitRate_Nominal;标称混合码率
 Part
 Part_Count
-Performer;表演者
+Performer;艺术家
 Period
 Phone;电话
 PixelAspectRatio;画面比例(像素)
 PlayCounter;播放计数器
 PlayTime;播放时间
 Position;位置
-Position_Total
+Position_Total;总计
 Preferences;参数设置
 Producer;制片人
 ProductionDesigner;制做设计师
@@ -757,7 +757,7 @@ Send HeaderFile;发送头文件
 Separator_Columns;列分隔符
 Separator_Lines;换行符
 Set;设置
-Set_Count
+Set_Count;设置项目
 Setup;设置
 Sheet;表格
 Sheet (Complete);表格(完整)
@@ -766,7 +766,7 @@ Shell InfoTip;[资源管理器]气泡提示 (将鼠标移到文件图标上会�
 Show menu;显示菜单
 Show toolbar;显示工具栏
 Sort;排序
-SoundEngineer;音频师
+SoundEngineer;录音师
 Standard;标准
 Stream;流
 Stream_MoreInfo;更多信息
@@ -781,7 +781,7 @@ SubTrack;子轨道
 Summary;摘要
 Supported formats;支持的格式
 Supported?;支持?
-Synopsys
+Synopsys;系统摘要
 SystemId;系统ID
 Tagged_Application;标记软件
 Tagged_Date;标记日期
@@ -794,14 +794,14 @@ Text stream(s);文字流
 Text streams;文字流
 Text_Codec_List;字幕编解码器
 Text_No;没有字幕
-Text1;第一字幕
-Text2;第二字幕
-Text3;第三字幕
-TextCount;字幕数
+Text1;字幕1
+Text2;字幕2
+Text3;字幕3
+TextCount;字幕总数
 ThanksTo;感谢
 Thousands separator;数字分隔符
 Title;标题
-Title_More;更多信息
+Title_More;更多标题
 Total;总计
 Track;音轨
 Track_Count;音轨数
@@ -816,8 +816,8 @@ Video_Codec_List;视频编解码器
 Video_Delay;视频延迟
 Video_No;没有视频
 Video0_Delay;视频延迟
-Video1;第一视频
-VideoCount;视频数
+Video1;视频1
+VideoCount;视频总数
 View;查看
 View_Hint;改变查看方示
 Warning : more streams in the files;注意：这个文件中还有更多的流
@@ -839,5 +839,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;47
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;49
+ZZ_AutomaticLanguage_Percent;89

@@ -17,6 +17,7 @@ Version 0.7.7.1, 2008-06-
 ---------------
 + Translations: more words can be translated
 + Bluray: detection of subtitles
++ The two Chinese language files are merged
 
 Version 0.7.7.0, 2008-05-16
 ---------------
