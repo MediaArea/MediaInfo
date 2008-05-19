@@ -4,6 +4,9 @@
   Author_OldNames;Traductor Inicial
   Language_ISO639;es
   Language_Name;Español
+  Config_Text_ColumnSize;32
+  Config_Text_Separator; : 
+  Config_Text_NumberTag; #
  audio stream1;pista de audio
  audio stream2;pista de audio
  audio stream3;pista de audio
@@ -30,6 +33,9 @@
  file1;archivo
  file2;archivos
  file3;archivos
+ frame1
+ frame2
+ frame3
  fps1;fps
  fps2;fps
  fps3;fps
@@ -116,6 +122,7 @@
  video stream1;Primera pista de video
  video stream2;Segunda pista de video
  video stream3;Tercera pista de video
+ warppoint0
  warppoint1
  warppoint2
  warppoint3
@@ -159,6 +166,8 @@ BitRate;Bitrate
 BitRate_Maximum;Bitrate máximo
 BitRate_Minimum;Bitrate mínimo
 BitRate_Mode;Tipo de Bitrate
+BitRate_Mode_CBR
+BitRate_Mode_VBR
 BitRate_Nominal;Bitrate nominal
 Bits-(Pixel*Frame);Bits/(Pixel*cuadros)
 Cancel;Cancelar
@@ -249,6 +258,7 @@ Exit;Salir
 Exit_Hint;Salir del programa
 Export;Exportar
 Export_Hint;Exportar en un formato personalizado
+Extensions;Extensiones usadas habitualmente
 Family;Familia
 Fax;Fax
 File;Archivo
@@ -269,7 +279,6 @@ FolderName;Nombre de la carpeta
 Format;Formato
 Format_Description;Descripción del formato
 Format_Info;Detalles del formato
-Format_Extensions;Extensiones usadas habitualmente
 Format_Profile;Formato del perfil
 Format_Settings;Ajustes del formato
 Format_Settings_PacketBitStream;Ajustes del formato, Packet bitstream
@@ -277,6 +286,8 @@ Format_Settings_BVOP;Ajustes del formato, BVOP
 Format_Settings_QPel;Ajustes del formato, Qpel
 Format_Settings_GMC;Ajustes del formato, GMC
 Format_Settings_Matrix;Ajustes del formato, Matrix
+Format_Settings_Matrix_Custom
+Format_Settings_Matrix_Default
 Format_Settings_Floor;Ajustes del formato, Floor
 Format_Settings_CABAC;Ajustes del formato, CABAC
 Format_Settings_Firm;Ajustes del formato, Firm
@@ -290,8 +301,11 @@ Format_Settings_PS;Ajustes del formato, PS
 Format_Settings_Pulldown;Ajustes del formato, Pulldown
 Format_Version;Formato de la versión
 Format_Url
+FrameCount
 FrameRate;Velocidad de cuadro
 FrameRate_Mode;Modo de velocidad de cuadro
+FrameRate_Mode_CFR
+FrameRate_Mode_VFR
 FrameRate_Minimum;Velocidad de cuadro Mínima
 FrameRate_Nominal;Velocidad de cuadro Nominal
 FrameRate_Maximum;Velocidad de cuadro Máxima
@@ -465,10 +479,11 @@ ImageCount;Cantidad de imágenes
 Info;Info
 Instruments;Instrumentos
 Interlacement;Interlacement
-Interlaced;Entrelazado
+Interlaced_Interlaced;Entrelazado
 Interlaced_TFF;Campo Superior Primero
 Interlaced_BFF;Campo Inferior Primero
 Interlaced_PPF;Progresivo
+Interlaced_Progressive;Progresivo
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -758,6 +773,8 @@ Stream_MoreInfo;Más información acerca de la pista
 StreamCount;Cantidad de pistas de éste tipo
 StreamID;ID de Pista
 StreamKind;Clase de pista
+StreamKindID
+StreamKindPos
 StreamSize;Tamaño de pista
 Subject;Asunto
 SubTrack;SubPista
@@ -822,5 +839,5 @@ Written_Location;Escrito en
 WrittenBy;Escrito por
 Yes;Si
 Your system;Tu sistema
-ZZ_Automatic_Percent;75
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;74
+ZZ_AutomaticLanguage_Percent;97

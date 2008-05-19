@@ -4,6 +4,9 @@
   Author_OldNames
   Language_ISO639;pt
   Language_Name;Portugues
+  Config_Text_ColumnSize;32
+  Config_Text_Separator; : 
+  Config_Text_NumberTag; #
  audio stream1; faixa de áudio
  audio stream2; faixas de áudio
  audio stream3; faixas de áudio
@@ -30,6 +33,9 @@
  file1; arquivo
  file2; arquivos
  file3; arquivos
+ frame1
+ frame2
+ frame3
  fps1; fps
  fps2; fps
  fps3; fps
@@ -116,6 +122,7 @@
  video stream1; faixa de vídeo
  video stream2; faixas de vídeo
  video stream3; faixas de vídeo
+ warppoint0
  warppoint1
  warppoint2
  warppoint3
@@ -159,6 +166,8 @@ BitRate;Taxa de bits
 BitRate_Maximum
 BitRate_Minimum
 BitRate_Mode;Modo da taxa de bits
+BitRate_Mode_CBR
+BitRate_Mode_VBR
 BitRate_Nominal
 Bits-(Pixel*Frame);Bits/(Pixel*Quadro)
 Cancel;Cancelar
@@ -249,6 +258,7 @@ Exit;Sair
 Exit_Hint;Fechar o programa
 Export;Exportar
 Export_Hint;Exportar em um formato personalizado
+Extensions;Extensões populares
 Family
 Fax;Fax
 File;Arquivo
@@ -269,7 +279,6 @@ FolderName;Nome da pasta
 Format;Formato
 Format_Description
 Format_Info
-Format_Extensions;Extensões populares
 Format_Profile
 Format_Settings
 Format_Settings_PacketBitStream
@@ -277,6 +286,8 @@ Format_Settings_BVOP
 Format_Settings_QPel
 Format_Settings_GMC
 Format_Settings_Matrix
+Format_Settings_Matrix_Custom
+Format_Settings_Matrix_Default
 Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
@@ -290,8 +301,11 @@ Format_Settings_PS
 Format_Settings_Pulldown
 Format_Version
 Format_Url
+FrameCount
 FrameRate;Taxa de quadros
 FrameRate_Mode
+FrameRate_Mode_CFR
+FrameRate_Mode_VFR
 FrameRate_Minimum;Taxa de quadros mínima
 FrameRate_Nominal
 FrameRate_Maximum;Taxa de quadros máxima
@@ -465,10 +479,11 @@ ImageCount;Número de faixas de imagem
 Info
 Instruments;Instrumentos
 Interlacement;Entrelaçamento
-Interlaced;Entrelaçado
+Interlaced_Interlaced;Entrelaçado
 Interlaced_TFF;Primeiro a área superior
 Interlaced_BFF;Primeiro a área inferior
 Interlaced_PPF;Progressivo
+Interlaced_Progressive;Progressivo
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -758,6 +773,8 @@ Stream_MoreInfo;Mais informações sobre esta faixa
 StreamCount;Número de faixas do mesmo tipo
 StreamID;ID da Faixa
 StreamKind;Faixa do tipo
+StreamKindID
+StreamKindPos
 StreamSize
 Subject;Assunto
 SubTrack;Sub-Faixa
@@ -822,5 +839,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;Seu sistema
-ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;91
+ZZ_Automatic_Percent;90
+ZZ_AutomaticLanguage_Percent;90

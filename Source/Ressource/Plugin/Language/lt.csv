@@ -4,6 +4,9 @@
   Author_OldNames;…
   Language_ISO639;lt
   Language_Name;Lithuanian
+  Config_Text_ColumnSize;32
+  Config_Text_Separator; : 
+  Config_Text_NumberTag; #
  audio stream1;audio srautas
  audio stream2;audio srautai
  audio stream3;audio srautai
@@ -30,6 +33,9 @@
  file1;failas
  file2;failai
  file3;failai
+ frame1
+ frame2
+ frame3
  fps1; kps
  fps2; kps
  fps3; kps
@@ -116,6 +122,7 @@
  video stream1;video srautas
  video stream2;video srautai
  video stream3;video srautai
+ warppoint0
  warppoint1
  warppoint2
  warppoint3
@@ -159,6 +166,8 @@ BitRate;Bitų tempas
 BitRate_Maximum;Maksimalus bitų tempas
 BitRate_Minimum;Minimalus bitų tempas
 BitRate_Mode;Bitų tempo režimas
+BitRate_Mode_CBR
+BitRate_Mode_VBR
 BitRate_Nominal;Nominalus bitų tempas
 Bits-(Pixel*Frame);Bitai/(Pikselis*Kadras)
 Cancel;Atšaukti
@@ -249,6 +258,7 @@ Exit;Išeiti
 Exit_Hint;Išeiti iš programos
 Export;Eksportuoti
 Export_Hint;Eksportuoti vartotojo formate
+Extensions;Paprastai naudojami plėtiniai
 Family;Šeima
 Fax;Faksas
 File;Failas
@@ -269,7 +279,6 @@ FolderName;Katalogo pavadinimas
 Format;Formatas
 Format_Description;Formatas aprašymas
 Format_Info;Formatas detalės
-Format_Extensions;Paprastai naudojami plėtiniai
 Format_Profile;Formato profilis
 Format_Settings;Formato nuostatos
 Format_Settings_PacketBitStream;Formato nuostatos, PacketBitStream
@@ -277,6 +286,8 @@ Format_Settings_BVOP;Formato nuostatos, BVOP
 Format_Settings_QPel;Formato nuostatos, Qpel
 Format_Settings_GMC;Formato nuostatos, GMC
 Format_Settings_Matrix;Formato nuostatos, Matrix
+Format_Settings_Matrix_Custom
+Format_Settings_Matrix_Default
 Format_Settings_Floor;Formato nuostatos, Floor
 Format_Settings_CABAC;Formato nuostatos, CABAC
 Format_Settings_Firm;Formato nuostatos, Firm
@@ -290,8 +301,11 @@ Format_Settings_PS;Formato nuostatos, PS
 Format_Settings_Pulldown;Formato nuostatos, Pulldown
 Format_Version;Formato versija
 Format_Url
+FrameCount
 FrameRate;Kadrų tempas
 FrameRate_Mode;Kadrų tempo rėžimas
+FrameRate_Mode_CFR
+FrameRate_Mode_VFR
 FrameRate_Minimum;Minimalus kadrų tempas
 FrameRate_Nominal;Nominalus kadrų skaičius
 FrameRate_Maximum;Maksimalus kadrų tempas
@@ -465,10 +479,11 @@ ImageCount;Paveikslėlių srautų kiekis
 Info;Info
 Instruments;Instrumentai
 Interlacement;Sumaišymas
-Interlaced;Sumaišytas
+Interlaced_Interlaced;Sumaišytas
 Interlaced_TFF;Viršutinis laukas pirmiau
 Interlaced_BFF;Apatinis laukas pirmiau
 Interlaced_PPF;Progresyvus
+Interlaced_Progressive;Progresyvus
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -758,6 +773,8 @@ Stream_MoreInfo;Daugiau informacijos apie srautą
 StreamCount;Šios rūšies srautų kiekis
 StreamID;Srauto ID
 StreamKind;Srauto rūšis
+StreamKindID
+StreamKindPos
 StreamSize;Srauto dydis
 Subject;Tema
 SubTrack;SubTakelis
@@ -822,5 +839,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97

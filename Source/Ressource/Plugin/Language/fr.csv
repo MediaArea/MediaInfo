@@ -4,6 +4,9 @@
   Author_OldNames;Traducteur initial
   Language_ISO639;fr
   Language_Name;Français
+  Config_Text_ColumnSize;32
+  Config_Text_Separator; : 
+  Config_Text_NumberTag; #
  audio stream1; flux audio
  audio stream2; flux audio
  audio stream3; flux audio
@@ -30,6 +33,9 @@
  file1; fichier
  file2; fichiers
  file3; fichiers
+ frame1; image
+ frame2; images
+ frame3; images
  fps1; Im/s
  fps2; Im/s
  fps3; Im/s
@@ -116,6 +122,7 @@
  video stream1; flux vidéo
  video stream2; flux vidéo
  video stream3; flux vidéo
+ warppoint0;Pas de warppoints
  warppoint1; warppoint
  warppoint2; warppoints
  warppoint3; warppoints
@@ -159,6 +166,8 @@ BitRate;Débit
 BitRate_Maximum;Débit maximum
 BitRate_Minimum;Débit minimum
 BitRate_Mode;Type de débit
+BitRate_Mode_CBR;Constant
+BitRate_Mode_VBR;Variable
 BitRate_Nominal;Débit nominal
 Bits-(Pixel*Frame);Bits/(Pixel*Image)
 Cancel;Annuler
@@ -249,6 +258,7 @@ Exit;Quitter
 Exit_Hint;Quitte le programe
 Export;Exporte
 Export_Hint;Exporte dans un format personnalisé
+Extensions;Extensions généralement utilisées
 Family;Famille
 Fax;Fax 
 File;Fichier
@@ -269,7 +279,6 @@ FolderName;Nom du dossier
 Format;Format
 Format_Description;Description du format
 Format_Info;Infos sur le format
-Format_Extensions;Extensions généralement utilisées
 Format_Profile;Profil du format
 Format_Settings;Paramètres du format
 Format_Settings_PacketBitStream;Paramètres du format, Packet bitstream
@@ -277,6 +286,8 @@ Format_Settings_BVOP;Paramètres du format, BVOP
 Format_Settings_QPel;Paramètres du format, QPel
 Format_Settings_GMC;Paramètres du format, GMC
 Format_Settings_Matrix;Paramètres du format, Matrice
+Format_Settings_Matrix_Custom;Personnalisée
+Format_Settings_Matrix_Default;Par défaut
 Format_Settings_Floor;Paramètres du format, Seuil
 Format_Settings_CABAC;Paramètres du format, CABAC
 Format_Settings_Firm;Paramètres du format, Entreprise
@@ -290,13 +301,16 @@ Format_Settings_PS;Paramètres du format, PS
 Format_Settings_Pulldown;Paramètres du format, Pulldown
 Format_Version;Version du format
 Format_Url;Lien Internet sur le format
+FrameCount;Nombre d'images
 FrameRate;Images par seconde
 FrameRate_Mode;Type d'images/s
+FrameRate_Mode_CFR;Constant
+FrameRate_Mode_VFR;Variable
 FrameRate_Minimum;Images/s mini
 FrameRate_Nominal;Images/s nominal
 FrameRate_Maximum;Images/s maxi
 FrameRate_Original;Images/s d'origine
-General;General
+General;Général
 Genre;Genre
 Genre_000;Blues
 Genre_001;Rock classique
@@ -464,11 +478,12 @@ Image_Codec_List;Codecs Image
 ImageCount;Nombre de pistes image
 Info;Info
 Instruments;Instruments
-Interlacement;Entrlacement
-Interlaced;Entrelacé
+Interlacement;Entrelacement
+Interlaced_Interlaced;Entrelacé
 Interlaced_TFF;Ligne du haut d'abord
 Interlaced_BFF;Ligne du bas d'abord
 Interlaced_PPF;Progressif
+Interlaced_Progressive;Progressif
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -758,6 +773,8 @@ Stream_MoreInfo;Plus d'information au sujet de ce flux
 StreamCount;Nombre de pistes de ce type
 StreamID;ID de flux
 StreamKind;Type de flux
+StreamKindID;Identifiant du flux
+StreamKindPos;Identifiant du flux
 StreamSize;Taille du flux
 Subject;Sujet
 SubTrack;Sous-piste
@@ -793,7 +810,7 @@ Tree;Arbre
 Tree & Text;Arbre & Texte
 Unknown;Inconnu
 Url;Url
-Video;Video
+Video;Vidéo
 Video stream(s);Piste(s) vidéo
 Video_Codec_List;Codecs Video
 Video_Delay;Delai par rapport Vidéo

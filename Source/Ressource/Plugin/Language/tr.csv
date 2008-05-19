@@ -4,6 +4,9 @@
   Author_OldNames;İlk çevirmen
   Language_ISO639;tr
   Language_Name;Türkçe
+  Config_Text_ColumnSize;32
+  Config_Text_Separator; : 
+  Config_Text_NumberTag; #
  audio stream1; seslendirme
  audio stream2; seslendirme
  audio stream3; seslendirme
@@ -30,6 +33,9 @@
  file1; dosya
  file2; dosya
  file3; dosya
+ frame1
+ frame2
+ frame3
  fps1; kare/s
  fps2; kare/s
  fps3; kare/s
@@ -116,6 +122,7 @@
  video stream1; görüntü akışı
  video stream2; görüntü akışı
  video stream3; görüntü akışı
+ warppoint0
  warppoint1
  warppoint2
  warppoint3
@@ -159,6 +166,8 @@ BitRate;Bit oranı
 BitRate_Maximum
 BitRate_Minimum
 BitRate_Mode;Bit oranı kipi
+BitRate_Mode_CBR
+BitRate_Mode_VBR
 BitRate_Nominal
 Bits-(Pixel*Frame);Bit/(Piksel*Kare)
 Cancel;İptal
@@ -249,6 +258,7 @@ Exit;Çıkış
 Exit_Hint;Programdan çıkış
 Export;Dışarı Aktar
 Export_Hint;Özelleştirilmiş biçimde dışarı aktarır
+Extensions;Daima kullanılan uzantılar
 Family
 Fax;Faks
 File;Dosya
@@ -269,7 +279,6 @@ FolderName;Klasör adı
 Format;Biçim
 Format_Description
 Format_Info
-Format_Extensions;Daima kullanılan uzantılar
 Format_Profile
 Format_Settings
 Format_Settings_PacketBitStream
@@ -277,6 +286,8 @@ Format_Settings_BVOP
 Format_Settings_QPel
 Format_Settings_GMC
 Format_Settings_Matrix
+Format_Settings_Matrix_Custom
+Format_Settings_Matrix_Default
 Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
@@ -290,8 +301,11 @@ Format_Settings_PS
 Format_Settings_Pulldown
 Format_Version
 Format_Url
+FrameCount
 FrameRate;Kare hızı
 FrameRate_Mode
+FrameRate_Mode_CFR
+FrameRate_Mode_VFR
 FrameRate_Minimum;En az kare hızı
 FrameRate_Nominal
 FrameRate_Maximum;En fazla kare hızı
@@ -465,10 +479,11 @@ ImageCount;İmaj akışı sayısı
 Info
 Instruments;Enstrüman
 Interlacement;Karıştırma
-Interlaced;Karışık
+Interlaced_Interlaced;Karışık
 Interlaced_TFF;En Üst Alanın İlki
 Interlaced_BFF;En Alt Alanın İlki
 Interlaced_PPF;Aşamalı
+Interlaced_Progressive;Aşamalı
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -758,6 +773,8 @@ Stream_MoreInfo;Akış hakkında daha fazla bilgi
 StreamCount;Bu çeşidin akış sayısı
 StreamID;Akış ID
 StreamKind;Akış çeşidi
+StreamKindID
+StreamKindPos
 StreamSize
 Subject;Konu
 SubTrack;Altİz
@@ -822,5 +839,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;91
+ZZ_Automatic_Percent;90
+ZZ_AutomaticLanguage_Percent;90

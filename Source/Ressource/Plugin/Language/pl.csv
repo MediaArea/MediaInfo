@@ -4,6 +4,9 @@
   Author_OldNames;Gregg
   Language_ISO639;pl
   Language_Name;Polski
+  Config_Text_ColumnSize;32
+  Config_Text_Separator; : 
+  Config_Text_NumberTag; #
  audio stream1; strumień audio
  audio stream2; strumienie audio
  audio stream3; strumienie audio
@@ -30,6 +33,9 @@
  file1; plik
  file2; pliki
  file3; pliki
+ frame1
+ frame2
+ frame3
  fps1; r/s
  fps2; r/s
  fps3; r/s
@@ -116,6 +122,7 @@
  video stream1; strumień wideo
  video stream2; strumienie wideo
  video stream3; strumienie wideo
+ warppoint0
  warppoint1
  warppoint2
  warppoint3
@@ -159,6 +166,8 @@ BitRate;Przepływność bitów
 BitRate_Maximum
 BitRate_Minimum
 BitRate_Mode;Rodzaj przepływności
+BitRate_Mode_CBR
+BitRate_Mode_VBR
 BitRate_Nominal
 Bits-(Pixel*Frame);bity/(piksele*ramki)
 Cancel;Anuluj
@@ -249,6 +258,7 @@ Exit;Wyjście
 Exit_Hint;Wyjście z programu
 Export;Eksport
 Export_Hint;Eksport we wałsnym  formacie
+Extensions;Zwykle używane rozszerzenia
 Family
 Fax;Fax
 File;Plik
@@ -269,7 +279,6 @@ FolderName;Nazwa folderu
 Format;Format
 Format_Description
 Format_Info
-Format_Extensions;Zwykle używane rozszerzenia
 Format_Profile
 Format_Settings
 Format_Settings_PacketBitStream
@@ -277,6 +286,8 @@ Format_Settings_BVOP
 Format_Settings_QPel
 Format_Settings_GMC
 Format_Settings_Matrix
+Format_Settings_Matrix_Custom
+Format_Settings_Matrix_Default
 Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
@@ -290,8 +301,11 @@ Format_Settings_PS
 Format_Settings_Pulldown
 Format_Version
 Format_Url
+FrameCount
 FrameRate;Przepływność ramek
 FrameRate_Mode
+FrameRate_Mode_CFR
+FrameRate_Mode_VFR
 FrameRate_Minimum
 FrameRate_Nominal
 FrameRate_Maximum
@@ -465,10 +479,11 @@ ImageCount;Strumieni obrazu
 Info
 Instruments;Instrumenty
 Interlacement
-Interlaced
+Interlaced_Interlaced
 Interlaced_TFF
 Interlaced_BFF
 Interlaced_PPF
+Interlaced_Progressive
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -758,6 +773,8 @@ Stream_MoreInfo;Wiecej informacji o strumieniu
 StreamCount;Liczba strumieni
 StreamID;ID strumienia
 StreamKind;Rodzaj strumienia
+StreamKindID
+StreamKindPos
 StreamSize
 Subject;Temat
 SubTrack;Podnagranie
@@ -822,5 +839,5 @@ Written_Location;Lokalizacja
 WrittenBy;Napisany przez
 Yes;Tak
 Your system;System
-ZZ_Automatic_Percent;48
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;47
+ZZ_AutomaticLanguage_Percent;86

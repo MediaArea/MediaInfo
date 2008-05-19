@@ -4,6 +4,9 @@
   Author_OldNames;Samuel Dias (based on)
   Language_ISO639;pt-BR
   Language_Name;Português (Brasil)
+  Config_Text_ColumnSize;32
+  Config_Text_Separator; : 
+  Config_Text_NumberTag; #
  audio stream1; faixa(s) de áudio
  audio stream2; faixa(s) de áudio
  audio stream3; faixa(s) de áudio
@@ -30,6 +33,9 @@
  file1; arquivo(s)
  file2; arquivo(s)
  file3; arquivo(s)
+ frame1
+ frame2
+ frame3
  fps1; fps
  fps2; fps
  fps3; fps
@@ -116,6 +122,7 @@
  video stream1; faixa(s) de vídeo
  video stream2; faixa(s) de vídeo
  video stream3; faixa(s) de vídeo
+ warppoint0
  warppoint1
  warppoint2
  warppoint3
@@ -159,6 +166,8 @@ BitRate;Taxa de bits
 BitRate_Maximum;Taxa de bits máxima 
 BitRate_Minimum;Taxa de bits mínima 
 BitRate_Mode;Modo da taxa de bits
+BitRate_Mode_CBR
+BitRate_Mode_VBR
 BitRate_Nominal;Taxa de bits nominal
 Bits-(Pixel*Frame);Bits/(Pixels*Quadros)
 Cancel;Cancelar
@@ -249,6 +258,7 @@ Exit;Sair
 Exit_Hint;Fechar o programa
 Export;Exportar
 Export_Hint;Exportar em um formato personalizado
+Extensions;Extensões populares
 Family;Família
 Fax;Fax
 File;Arquivo
@@ -269,7 +279,6 @@ FolderName;Nome da pasta
 Format;Formato
 Format_Description;Descrição do Formato
 Format_Info;Detalhes do codec
-Format_Extensions;Extensões populares
 Format_Profile;Perfil do Formato
 Format_Settings;Conf. do Formato
 Format_Settings_PacketBitStream;Conf do Formato, Pacote da Faixa de Bits
@@ -277,6 +286,8 @@ Format_Settings_BVOP;Conf do Formato, BVOP
 Format_Settings_QPel;Conf do Formato, QPel
 Format_Settings_GMC;Conf do Formato, GMC
 Format_Settings_Matrix;Conf do Formato, Matriz
+Format_Settings_Matrix_Custom
+Format_Settings_Matrix_Default
 Format_Settings_Floor;Conf do Formato, Floor
 Format_Settings_CABAC;Conf do Formato, CABAC
 Format_Settings_Firm;Conf do Formato, Firm
@@ -290,8 +301,11 @@ Format_Settings_PS;Conf do Formato, PS
 Format_Settings_Pulldown;Conf do Formato, Pulldown
 Format_Version;Versão do Formato
 Format_Url
+FrameCount
 FrameRate;Taxa de quadros
 FrameRate_Mode;Modo de taxa de quadros
+FrameRate_Mode_CFR
+FrameRate_Mode_VFR
 FrameRate_Minimum;Taxa de quadros mínima
 FrameRate_Nominal;Taxa de quadros nominal
 FrameRate_Maximum;Taxa de quadros máxima
@@ -465,10 +479,11 @@ ImageCount;Número de faixas de imagem
 Info;Informações
 Instruments;Instrumentos
 Interlacement;Entrelaçamento
-Interlaced;Entrelaçado
+Interlaced_Interlaced;Entrelaçado
 Interlaced_TFF;Primeiro a área superior
 Interlaced_BFF;Primeiro a área inferior
 Interlaced_PPF;Progressivo
+Interlaced_Progressive;Progressivo
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -758,6 +773,8 @@ Stream_MoreInfo;Mais informações sobre esta faixa
 StreamCount;Número de faixas do mesmo tipo
 StreamID;ID da Faixa
 StreamKind;Tipo da Faixa
+StreamKindID
+StreamKindPos
 StreamSize;Tamanho da Faixa
 Subject;Assunto
 SubTrack;Sub-Faixa
@@ -822,5 +839,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;Seu sistema
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97

@@ -618,13 +618,13 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             for (int StreamKind=(int)Stream_General; StreamKind<(int)Stream_Max; StreamKind++)
             {
                 //Pour chaque type de flux
-                Ztring StreamKindText=I->Get(FilePos, (stream_t)StreamKind, 0, _T("StreamKind"), Info_Text).c_str();
+                Ztring StreamKindText=I->Get(FilePos, (stream_t)StreamKind, 0, _T("StreamKind/String"), Info_Text).c_str();
                 unsigned StreamsCount=I->Count_Get(FilePos, (stream_t)StreamKind);
                 for (size_t StreamPos=Stream_General; StreamPos<StreamsCount; StreamPos++)
                 {
                     //Pour chaque stream
                     Ztring A=StreamKindText;
-                    Ztring B=I->Get(FilePos, (stream_t)StreamKind, StreamPos, _T("StreamKindID"), Info_Text).c_str();
+                    Ztring B=I->Get(FilePos, (stream_t)StreamKind, StreamPos, _T("StreamKindPos"), Info_Text).c_str();
                     if (B!=_T(""))
                     {
                         A+=_T(" #");
@@ -1148,14 +1148,14 @@ void __fastcall TMainF::Page_Easy_FileChange(TObject *Sender)
         {
             if (I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind")).size()>0)
             {
-                Ztring Z1=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Measure)+_T("Count"));
-                Ztring Z2=Ztring(_T(" "))+I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Measure);
+                Ztring Z1=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T("Count"));
+                Ztring Z2=Ztring(_T(" "))+I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text);
                 Z2.MakeLowerCase();
                 if (I->Count_Get(Page_Position, (stream_t)KindOfStream)>1)
                     Z2+=_T(" stream1");
                 else
                     Z2+=_T(" stream2");
-                Ztring Z3=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Measure)+_T("_Format_WithHint_List"));
+                Ztring Z3=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T("_Format_WithHint_List"));
                 Page_Easy_X_List[KindOfStream]->Caption=(I->Get(Page_Position, Stream_General, 0, Z1)+Prefs->Translate(Z2)+Prefs->Translate(_T(": "))+I->Get(Page_Easy_File->ItemIndex, Stream_General, 0, Z3)).c_str();
             }
             else
@@ -1249,8 +1249,8 @@ void __fastcall TMainF::Page_Sheet_SheetSelectCell(TObject *Sender, int ACol,
                 Page_Sheet_X[KindOfStream]->Style=Stdctrls::csDropDownList;
                 Page_Sheet_X[KindOfStream]->Items->Clear();
                 I->Option(_T("Inform"), _T("Summary"));
-                Ztring Z1=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Measure)+_T("Count"));
-                Ztring Z2=Ztring(_T(" "))+I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Measure)+_T(" streams"); Z2.MakeLowerCase();
+                Ztring Z1=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T("Count"));
+                Ztring Z2=Ztring(_T(" "))+I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T(" streams"); Z2.MakeLowerCase();
                 Page_Sheet_X[KindOfStream]->Items->Add((I->Get(Page_Position, Stream_General, 0, Z1.c_str())+Prefs->Translate(Z2)+Prefs->Translate(_T(", "))+Prefs->Translate(_T("see below"))).c_str());
                 for (int A=0; A<Stream_Count; A++)
                     Page_Sheet_X[KindOfStream]->Items->Add(I->Get(Page_Position, (stream_t)KindOfStream, A, _T("Inform")).c_str());

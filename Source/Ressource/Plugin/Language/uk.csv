@@ -4,6 +4,9 @@
   Author_OldNames
   Language_ISO639;uk
   Language_Name;Українська
+  Config_Text_ColumnSize;32
+  Config_Text_Separator; : 
+  Config_Text_NumberTag; #
  audio stream1; аудіопотік
  audio stream2; аудіопотік (-оки,-оків)
  audio stream3; аудіопотоки
@@ -30,6 +33,9 @@
  file1; файл
  file2; файла
  file3; файли
+ frame1
+ frame2
+ frame3
  fps1; кадр (-и,-ів)/сек
  fps2; кадр (-и,-ів)/сек
  fps3; кадр (-и,-ів)/сек
@@ -116,6 +122,7 @@
  video stream1; відеопотік
  video stream2; відеопотік (-оки,-ів)
  video stream3; відеопотоки
+ warppoint0
  warppoint1
  warppoint2
  warppoint3
@@ -159,6 +166,8 @@ BitRate;Бітрейт
 BitRate_Maximum
 BitRate_Minimum
 BitRate_Mode;Режим розрахунку бітрейта
+BitRate_Mode_CBR
+BitRate_Mode_VBR
 BitRate_Nominal
 Bits-(Pixel*Frame);Біт/(Пікселі*Кадри)
 Cancel;Відміна
@@ -249,6 +258,7 @@ Exit;Вихід
 Exit_Hint;Вихід з програми
 Export;Експорт
 Export_Hint;Експорт у обраний формат
+Extensions;Розширення, що звичайно використовується
 Family
 Fax;Факс
 File;Файл
@@ -269,7 +279,6 @@ FolderName;Назва каталогу
 Format;Формат
 Format_Description
 Format_Info
-Format_Extensions;Розширення, що звичайно використовується
 Format_Profile
 Format_Settings
 Format_Settings_PacketBitStream
@@ -277,6 +286,8 @@ Format_Settings_BVOP
 Format_Settings_QPel
 Format_Settings_GMC
 Format_Settings_Matrix
+Format_Settings_Matrix_Custom
+Format_Settings_Matrix_Default
 Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
@@ -290,8 +301,11 @@ Format_Settings_PS
 Format_Settings_Pulldown
 Format_Version
 Format_Url
+FrameCount
 FrameRate;Частота кадрів
 FrameRate_Mode
+FrameRate_Mode_CFR
+FrameRate_Mode_VFR
 FrameRate_Minimum
 FrameRate_Nominal
 FrameRate_Maximum
@@ -465,10 +479,11 @@ ImageCount;Кількість зображень
 Info
 Instruments;Інструменти
 Interlacement;Інтерлейсність
-Interlaced;Черезстроковий
+Interlaced_Interlaced;Черезстроковий
 Interlaced_TFF;Непарні - перші
 Interlaced_BFF;Парні - перші
 Interlaced_PPF;Прогресивний
+Interlaced_Progressive;Прогресивний
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -758,6 +773,8 @@ Stream_MoreInfo;Більше інформації про потік
 StreamCount;Кількість потоків
 StreamID;Ідентифікатор потоку
 StreamKind;Вид потоку
+StreamKindID
+StreamKindPos
 StreamSize
 Subject;Тема
 SubTrack;Підпотік
@@ -822,5 +839,5 @@ Written_Location;Місце написання
 WrittenBy;Написано
 Yes;Так
 Your system;Ваша система
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;90
+ZZ_Automatic_Percent;89
+ZZ_AutomaticLanguage_Percent;89

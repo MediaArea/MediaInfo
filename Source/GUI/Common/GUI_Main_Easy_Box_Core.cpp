@@ -140,13 +140,13 @@ String GUI_Main_Easy_Box_Core::Text_Get()
         {
             if (C->MI->Count_Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream)>0)
             {
-                String Z1=String(C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Measure))+_T("Count");
-                String Z2=String(_T(" "))+C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Measure);
+                String Z1=String(C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Measure))+_T("StreamCount");
+                String Z2=String(_T(" "))+C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text);
                 if (C->MI->Count_Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream)==1)
                     Z2+=_T(" stream");//_T(" stream1");
                 else
                     Z2+=_T(" streams");//_T(" stream2");
-                String Z3=String(C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Measure)+_T("_Format_WithHint_List"));
+                String Z3=String(C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T("_Format_WithHint_List"));
                 Temp+=_T("\r\n");
                 Temp+=(C->MI->Get(Parent_Core->FilesPos_Get(), Stream_General, 0, Z1)+/*Prefs->Translate(*/Z2/*)*/+/*Prefs->Translate(*/_T(": ")/*)*/+C->MI->Get(Parent_Core->FilesPos_Get(), Stream_General, 0, Z3)).c_str();
             }

@@ -4,6 +4,9 @@
   Author_OldNames
   Language_ISO639;gl
   Language_Name;Galego
+  Config_Text_ColumnSize;32
+  Config_Text_Separator; : 
+  Config_Text_NumberTag; #
  audio stream1; pista de audio
  audio stream2; pistas de audio
  audio stream3; pistas de audio
@@ -30,6 +33,9 @@
  file1; arquivo
  file2; arquivo
  file3; arquivo
+ frame1
+ frame2
+ frame3
  fps1; fps
  fps2; fps
  fps3; fps
@@ -116,6 +122,7 @@
  video stream1; pista de vídeo
  video stream2; pistas de vídeo
  video stream3; pistas de vídeo
+ warppoint0
  warppoint1
  warppoint2
  warppoint3
@@ -159,6 +166,8 @@ BitRate;Bit rate
 BitRate_Maximum
 BitRate_Minimum
 BitRate_Mode;Tipo de Bitrate
+BitRate_Mode_CBR
+BitRate_Mode_VBR
 BitRate_Nominal
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 Cancel;Cancelar
@@ -249,6 +258,7 @@ Exit;Saír
 Exit_Hint;Saír
 Export;Exportar
 Export_Hint;Exportar nun formato personalizado
+Extensions;Extensións usadas habitualmente
 Family
 Fax;Fax
 File;Arquivo
@@ -269,7 +279,6 @@ FolderName;Nome da carpeta
 Format;Formato
 Format_Description
 Format_Info;Info do codec
-Format_Extensions;Extensións usadas habitualmente
 Format_Profile
 Format_Settings
 Format_Settings_PacketBitStream
@@ -277,6 +286,8 @@ Format_Settings_BVOP
 Format_Settings_QPel
 Format_Settings_GMC
 Format_Settings_Matrix
+Format_Settings_Matrix_Custom
+Format_Settings_Matrix_Default
 Format_Settings_Floor
 Format_Settings_CABAC
 Format_Settings_Firm
@@ -290,8 +301,11 @@ Format_Settings_PS
 Format_Settings_Pulldown
 Format_Version
 Format_Url
+FrameCount
 FrameRate;Frame rate
 FrameRate_Mode
+FrameRate_Mode_CFR
+FrameRate_Mode_VFR
 FrameRate_Minimum
 FrameRate_Nominal
 FrameRate_Maximum
@@ -465,10 +479,11 @@ ImageCount;Nº de pistas de imaxe
 Info
 Instruments;Instrumentos
 Interlacement
-Interlaced
+Interlaced_Interlaced
 Interlaced_TFF
 Interlaced_BFF
 Interlaced_PPF
+Interlaced_Progressive
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -758,6 +773,8 @@ Stream_MoreInfo;Máis información sobre esta pista
 StreamCount;Pistas desta clase
 StreamID;ID pista
 StreamKind;Clase de pista
+StreamKindID
+StreamKindPos
 StreamSize
 Subject;Asunto
 SubTrack;SubPista
@@ -822,5 +839,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;90
+ZZ_Automatic_Percent;89
+ZZ_AutomaticLanguage_Percent;89

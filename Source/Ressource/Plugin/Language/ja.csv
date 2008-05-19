@@ -4,6 +4,9 @@
   Author_OldNames;barlog
   Language_ISO639;ja
   Language_Name;日本語
+  Config_Text_ColumnSize;32
+  Config_Text_Separator; : 
+  Config_Text_NumberTag; #
  audio stream1; オーディオストリーム
  audio stream2; オーディオストリーム
  audio stream3; オーディオストリーム
@@ -30,6 +33,9 @@
  file1; ファイル
  file2; ファイル
  file3; ファイル
+ frame1
+ frame2
+ frame3
  fps1; fps
  fps2; fps
  fps3; fps
@@ -116,6 +122,7 @@
  video stream1; ビデオストリーム
  video stream2; ビデオストリーム
  video stream3; ビデオストリーム
+ warppoint0
  warppoint1
  warppoint2
  warppoint3
@@ -159,6 +166,8 @@ BitRate;ビットレート
 BitRate_Maximum;最大
 BitRate_Minimum;最小
 BitRate_Mode;ビットレートモード
+BitRate_Mode_CBR
+BitRate_Mode_VBR
 BitRate_Nominal
 Bits-(Pixel*Frame);ビット/(ピクセル*フレーム)
 Cancel;キャンセル
@@ -249,6 +258,7 @@ Exit;終了
 Exit_Hint;プログラムの終了
 Export;エクスポート
 Export_Hint;カスタム形式でエクスポート
+Extensions;使用する拡張子
 Family;ファミリ
 Fax;Fax
 File;ファイル
@@ -269,7 +279,6 @@ FolderName;フォルダ名
 Format;フォーマット
 Format_Description;詳細
 Format_Info;情報
-Format_Extensions;使用する拡張子
 Format_Profile;プロファイル
 Format_Settings;設定
 Format_Settings_PacketBitStream;パケットビットストリーム
@@ -277,6 +286,8 @@ Format_Settings_BVOP;BVOP
 Format_Settings_QPel;QPel
 Format_Settings_GMC;GMC
 Format_Settings_Matrix;Matrix
+Format_Settings_Matrix_Custom
+Format_Settings_Matrix_Default
 Format_Settings_Floor;Floor
 Format_Settings_CABAC;CABAC
 Format_Settings_Firm;Firm
@@ -290,8 +301,11 @@ Format_Settings_PS;PS
 Format_Settings_Pulldown;Pulldown
 Format_Version;バージョン
 Format_Url
+FrameCount
 FrameRate;フレームレート
 FrameRate_Mode;モード
+FrameRate_Mode_CFR
+FrameRate_Mode_VFR
 FrameRate_Minimum;最小
 FrameRate_Nominal;通常
 FrameRate_Maximum;最大
@@ -465,10 +479,11 @@ ImageCount;イメージストリームの数
 Info;情報
 Instruments;インストゥルメンツ
 Interlacement;インターレスメンツ
-Interlaced;インターレース
+Interlaced_Interlaced;インターレース
 Interlaced_TFF;トップファースト(TFF)
 Interlaced_BFF;ボトムファースト(BFF)
 Interlaced_PPF;プログレシッブ(PPF)
+Interlaced_Progressive;プログレシッブ(PPF)
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -758,6 +773,8 @@ Stream_MoreInfo;このストリームの詳細情報
 StreamCount;この種類のストリーム数
 StreamID;ストリーム ID
 StreamKind;ストリーム種
+StreamKindID
+StreamKindPos
 StreamSize;ストリームサイズ
 Subject;件名
 SubTrack;サブトラック
@@ -822,5 +839,5 @@ Written_Location;作成所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97
