@@ -192,7 +192,7 @@ Chroma;Cromat
 Close;Tanca
 Close all before open;Tanca tot abans d'obrir
 Codec;Còdec
-Codec_Description
+Codec_Description; Descripció del Còdec
 Codec_Info;Detalls del còdec
 Codec_Settings;Configuració del còdec
 Codec_Settings_PacketBitStream
@@ -344,11 +344,11 @@ Genre_028;Vocal
 Genre_029;Jazz+Funk
 Genre_030;Fusion
 Genre_031;Trance
-Genre_032;Classical
+Genre_032;Clàssica
 Genre_033;Instrumental
 Genre_034;Acid
 Genre_035;House
-Genre_036;Game
+Genre_036;Joc
 Genre_037;Sound Clip
 Genre_038;Gospel
 Genre_039;Noise
@@ -369,7 +369,7 @@ Genre_053;Pop-Folk
 Genre_054;Eurodance
 Genre_055;Dream
 Genre_056;Southern Rock
-Genre_057;Comedy
+Genre_057;Comèdia
 Genre_058;Cult
 Genre_059;Gangsta
 Genre_060;Top 40
@@ -434,7 +434,7 @@ Genre_118;Rhythmic Soul
 Genre_119;Freestyle
 Genre_120;Duet
 Genre_121;Punk Rock
-Genre_122;Drum Solo
+Genre_122;Solo de Bateria
 Genre_123;A capella
 Genre_124;Euro-House
 Genre_125;Dance Hall
