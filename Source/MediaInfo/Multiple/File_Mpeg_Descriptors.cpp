@@ -58,7 +58,7 @@ const char* Mpeg_Descriptors_alignment_type(int8u alignment_type)
 {
     switch (alignment_type)
     {
-        case 0x01 : return "Slice or video access unit (Viedo), or sync word (Audio)";
+        case 0x01 : return "Slice or video access unit (Video), or sync word (Audio)";
         case 0x02 : return "Video access unit";
         case 0x03 : return "GOP, or SEQ";
         case 0x04 : return "SEQ";
