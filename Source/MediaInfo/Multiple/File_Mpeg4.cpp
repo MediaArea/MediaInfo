@@ -80,6 +80,7 @@ namespace Elements
     const int64u moov_meta___too=0xA9746F6F;
     const int64u moov_meta___wrn=0xA977726E;
     const int64u moov_meta___wrt=0xA9777274;
+    const int64u moov_meta__aART=0x61415254;
     const int64u moov_meta__auth=0x61757468;
     const int64u moov_meta__cpil=0x6370696C;
     const int64u moov_meta__covr=0x636F7672;
@@ -93,6 +94,7 @@ namespace Elements
     const int64u moov_meta__tool=0x746F6F6C;
     const int64u moov_meta__trkn=0x74726B6E;
     const int64u moov_meta__tmpo=0x746D706F;
+    const int64u moov_meta__year=0x79656172;
 }
 
 //***************************************************************************
@@ -333,6 +335,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta___wrn : Parameter="Warning"; return Method_String;
         case Elements::moov_meta___wrt : Parameter="ScreenplayBy"; return Method_String;
         case Elements::moov_meta__auth : Parameter="Performer"; return Method_String2;
+        case Elements::moov_meta__aART : Parameter="Performer"; return Method_String2;
         case Elements::moov_meta__cpil : Parameter.clear(); return Method_None;
         case Elements::moov_meta__disk : Parameter="Part"; return Method_Binary;
         case Elements::moov_meta__dscp : Parameter="Title/More"; return Method_String2;
@@ -343,6 +346,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta__titl : Parameter="Title"; return Method_String2;
         case Elements::moov_meta__tool : Parameter="Encoded_Application"; return Method_String3;
         case Elements::moov_meta__trkn : Parameter="Track"; return Method_Binary;
+        case Elements::moov_meta__year : Parameter="Recorded_Date"; return Method_String2;
         case Elements::moov_meta__tmpo : Parameter.clear(); return Method_None;
         default :
             {

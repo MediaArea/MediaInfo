@@ -701,7 +701,7 @@ void File_Mpeg4::moov_iods()
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_meta()
 {
-    NAME_VERSION_FLAG("Metadatas");
+    NAME_VERSION_FLAG("Metadata");
     INTEGRITY_VERSION(0);
 
     //Filling
@@ -760,7 +760,6 @@ void File_Mpeg4::moov_meta_keys_mdta()
 void File_Mpeg4::moov_meta_ilst()
 {
     Element_Name("List");
-    INTEGRITY(moov_meta_hdlr_Type==Elements::moov_meta_hdlr_mdta || moov_meta_hdlr_Type==Elements::moov_meta_hdlr_mdir, "Bad meta type");
 
     //Filling
     moov_udta_meta_keys_ilst_Pos=0;
@@ -770,7 +769,6 @@ void File_Mpeg4::moov_meta_ilst()
 void File_Mpeg4::moov_meta_ilst_xxxx()
 {
     Element_Name("Element");
-    INTEGRITY(moov_meta_hdlr_Type==Elements::moov_meta_hdlr_mdta || moov_meta_hdlr_Type==Elements::moov_meta_hdlr_mdir, "Bad meta type");
 
     //Filling
     moov_meta_ilst_xxxx_name_Name.clear(); //useful if metadata type = "mdir"
@@ -780,7 +778,6 @@ void File_Mpeg4::moov_meta_ilst_xxxx()
 void File_Mpeg4::moov_meta_ilst_xxxx_data()
 {
     Element_Name("Data");
-    INTEGRITY(moov_meta_hdlr_Type==Elements::moov_meta_hdlr_mdta || moov_meta_hdlr_Type==Elements::moov_meta_hdlr_mdir, "Bad meta type");
 
     //Parsing
     int32u Kind, Language;
@@ -931,6 +928,13 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                         Fill(Stream_General, 0, Parameter.c_str(), Value, true);
                     moov_udta_meta_keys_ilst_Pos++;
                 }
+            case Elements::moov_udta_meta :
+                {
+                    std::string Parameter;
+                    Metadata_Get(Parameter, (int32u)Element_Code_Get(Element_Level-1));
+                    if (!Parameter.empty())
+                        Fill(Stream_General, 0, Parameter.c_str(), Value, true);
+                }
             default: ;
         }
    FILLING_END();
@@ -940,7 +944,6 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
 void File_Mpeg4::moov_meta_ilst_xxxx_mean()
 {
     Element_Name("Mean");
-    INTEGRITY(moov_meta_hdlr_Type==Elements::moov_meta_hdlr_mdir, "Bad meta type");
 
     //Parsing
     Skip_B4(                                                    "Unknown");
@@ -951,7 +954,6 @@ void File_Mpeg4::moov_meta_ilst_xxxx_mean()
 void File_Mpeg4::moov_meta_ilst_xxxx_name()
 {
     Element_Name("Name");
-    INTEGRITY(moov_meta_hdlr_Type==Elements::moov_meta_hdlr_mdir, "Bad meta type");
 
     //Parsing
     Skip_B4(                                                    "Unknown");
@@ -2173,6 +2175,10 @@ void File_Mpeg4::moov_udta_LOOP()
 void File_Mpeg4::moov_udta_meta()
 {
     NAME_VERSION_FLAG("Metadata");
+    INTEGRITY_VERSION(0);
+
+    //Filling
+    moov_meta_hdlr_Type=Elements::moov_udta_meta;
 }
 
 //---------------------------------------------------------------------------

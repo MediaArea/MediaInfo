@@ -11,6 +11,7 @@ Version 0.7.7.1, 2008-06-
 ---------------
 + Translations: more words can be translated
 + Bluray: detection of subtitles
+x #1967663, mp4: some specific iTunes atoms were not correctly parsed
 
 Version 0.7.7.0, 2008-05-16
 ---------------
