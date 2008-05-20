@@ -359,7 +359,13 @@ bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Siz
     }
     else
     {
-        //This is the same as before --> Copying the last version
+        //This is the same as before --> Copying the last version, except continuity_counter (incremented)
+        int8u continuity_counter=ToModify.Buffer[3]&0xF; //Only the 4 bits of continuity_counter
+        continuity_counter++;
+        if (continuity_counter>0x0F)
+            continuity_counter=0x00;
+        ToModify.Buffer[3]&=0xF0;
+        ToModify.Buffer[3]|=continuity_counter;
         Writer.Write(ToModify.Buffer, ToModify.Size);
         return false;
     }
