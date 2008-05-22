@@ -9,7 +9,7 @@ No break in binary compatibily (no crash), but some details.
 - Codec is replaced by 2 fields:
  - Format is the real format string (ie "MPEG-4 Visual")
  - CodecID is the codec string filled in the container (ie "DX50")
- - CodecID/String is a string for it (ie "DivX 5")
+ - CodecID/Hint is a hint for it (ie "DivX 5")
  (Codec fields are DEPRECATED)
 - Interlacement field is replaced by 2 fields:
  - ScanType for "Progressive" or "Interlaced"
