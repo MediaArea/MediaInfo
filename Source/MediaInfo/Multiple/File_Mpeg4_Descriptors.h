@@ -40,11 +40,17 @@ namespace MediaInfoLib
 class File_Mpeg4_Descriptors : public File__Analyze
 {
 public :
+    //In
     stream_t KindOfStream;
     Ztring   Codec;
+    bool     Parser_DoNotFreeIt; //If you want to keep the Parser
+
+    //Out
+    File__Analyze* Parser;
 
 public :
     File_Mpeg4_Descriptors();
+    ~File_Mpeg4_Descriptors();
 
 private :
     //Buffer

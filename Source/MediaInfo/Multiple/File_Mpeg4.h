@@ -39,7 +39,6 @@ class File_Mpeg4 : public File__Analyze
 {
 protected :
     //Format
-    void Read_Buffer_Continue ();
     void Read_Buffer_Finalize();
 
     //Information
@@ -47,7 +46,6 @@ protected :
 
 public :
     File_Mpeg4();
-    ~File_Mpeg4();
 
 private :
     //Buffer
@@ -56,7 +54,6 @@ private :
 
     //mdat specific
     void mdat_Parse();
-    File__Base* mdat_Info;
 
     //Elements
     void free();
@@ -64,6 +61,9 @@ private :
     void idat();
     void idsc();
     void mdat();
+    void mdat_xxxx();
+    void mdat_StreamClear();
+    void mdat_StreamJump();
     void moov();
     void moov_cmov();
     void moov_cmov_cmvd();
@@ -192,12 +192,6 @@ private :
 
     //Temp
     bool List;
-    struct mdat_Pos_Type
-    {
-        stream_t StreamKind;
-        size_t   StreamPos;
-    };
-    std::map<int64u, mdat_Pos_Type>         mdat_Pos;
     bool                                    mdat_MustParse;
     bool                                    moov_Done;
     int32u                                  moov_cmov_dcom_Compressor;
@@ -205,14 +199,47 @@ private :
     std::string                             moov_meta_ilst_xxxx_name_Name;
     int32u                                  moov_trak_mdia_mdhd_Duration;
     int32u                                  moov_trak_mdia_mdhd_TimeScale;
-    std::vector<int32u>                     moov_trak_mdia_minf_stbl_stco_ID;
-    int32u                                  moov_trak_mdia_minf_stbl_stco_Parse;
-    std::map<int32u, std::vector<int64u>*>  moov_trak_mdia_minf_stbl_stco_Map;
-    std::map<int32u, std::vector<int64u>*>  moov_trak_mdia_minf_stbl_stsz_Map;
     int32u                                  moov_trak_tkhd_TrackID;
     std::vector<std::string>                moov_udta_meta_keys_List;
     size_t                                  moov_udta_meta_keys_ilst_Pos;
     char                                    Language_Result[4];
+
+    //Data
+    struct stream
+    {
+        File__Analyze*          Parser;
+        stream_t                StreamKind;
+        size_t                  StreamPos;
+        std::vector<int64u>     stco;
+        struct stsc_struct
+        {
+            int32u FirstChunk;
+            int32u SamplesPerChunk;
+        };
+        std::vector<stsc_struct> stsc;
+        std::vector<int64u>     stsz;
+
+        stream()
+        {
+            Parser=NULL;
+            StreamKind=Stream_Max;
+            StreamPos=0;
+        }
+
+        ~stream()
+        {
+            delete Parser; //Parser=NULL;
+        }
+    };
+    std::map<int32u, stream> Stream;
+
+    //Positions
+    struct mdat_Pos_Type
+    {
+        int32u StreamID;
+        int64u Size;
+    };
+    std::map<int64u, mdat_Pos_Type> mdat_Pos;
 };
 
 } //NameSpace

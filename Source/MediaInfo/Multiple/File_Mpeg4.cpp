@@ -39,6 +39,9 @@
 #if defined(MEDIAINFO_MPEGPS_YES)
     #include "MediaInfo/Multiple/File_MpegPs.h"
 #endif
+#if defined(MEDIAINFO_MPEGA_YES)
+    #include "MediaInfo/Audio/File_Mpega.h"
+#endif
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -50,6 +53,7 @@ namespace MediaInfoLib
 
 namespace Elements
 {
+    const int64u mdat=0x6D646174;
     const int64u moov_meta______=0x2D2D2D2D;
     const int64u moov_meta___ART=0xA9415254;
     const int64u moov_meta___alb=0xA9616C62;
@@ -109,31 +113,10 @@ File_Mpeg4::File_Mpeg4()
     DataMustAlwaysBeComplete=false;
     File_MaximumOffset=(int64u)-1;
     
-    mdat_Info=NULL;
-
     //Temp
-    delete mdat_Info; mdat_Info=NULL;
     mdat_MustParse=false;
     moov_Done=false;
     moov_trak_mdia_mdhd_TimeScale=0;
-}
-
-//---------------------------------------------------------------------------
-File_Mpeg4::~File_Mpeg4()
-{
-    delete mdat_Info; //mdat_Info=NULL;
-    std::map<int32u, std::vector<int64u>*>::iterator stco_Temp=moov_trak_mdia_minf_stbl_stco_Map.begin();
-    while (stco_Temp!=moov_trak_mdia_minf_stbl_stco_Map.end())
-    {
-        delete stco_Temp->second; //stco_Temp->second=NULL;
-        stco_Temp++;
-    }
-    std::map<int32u, std::vector<int64u>*>::iterator stsz_Temp=moov_trak_mdia_minf_stbl_stsz_Map.begin();
-    while (stsz_Temp!=moov_trak_mdia_minf_stbl_stsz_Map.end())
-    {
-        delete stsz_Temp->second; //Temp->second=NULL;
-        stsz_Temp++;
-    }
 }
 
 //***************************************************************************
@@ -141,34 +124,44 @@ File_Mpeg4::~File_Mpeg4()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Mpeg4::Read_Buffer_Continue()
-{
-    //mdat parsing
-    if (mdat_MustParse)
-        mdat_Parse();
-}
-
-//---------------------------------------------------------------------------
 void File_Mpeg4::Read_Buffer_Finalize()
 {
+    //For each stream
+    std::map<int32u, stream>::iterator Temp=Stream.begin();
+    while (Temp!=Stream.end())
+    {
+        //Preparing
+        StreamKind_Last=Temp->second.StreamKind;
+        StreamPos_Last=Temp->second.StreamPos;
+
+        //Parser specific
+        if (Temp->second.Parser)
+        {
+            //Finalizing and Merging
+            Open_Buffer_Finalize(Temp->second.Parser);
+            Ztring FrameRate_Temp;
+            if (StreamKind_Last==Stream_Video)
+            {
+                FrameRate_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate); //We want to keep the FrameRate of AVI 120 fps
+            }
+            Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
+            if (StreamKind_Last==Stream_Video)
+            {
+                if (FrameRate_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate))
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Original, Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate), true);
+                if (!FrameRate_Temp.empty())
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_Temp, true);
+            }
+        }
+
+        Temp++;
+    }
+
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
     {
-        delete mdat_Info; mdat_Info=NULL;
-        std::map<int32u, std::vector<int64u>*>::iterator stco_Temp=moov_trak_mdia_minf_stbl_stco_Map.begin();
-        while (stco_Temp!=moov_trak_mdia_minf_stbl_stco_Map.end())
-        {
-            delete stco_Temp->second; stco_Temp->second=NULL;
-            stco_Temp++;
-        }
-        moov_trak_mdia_minf_stbl_stco_Map.clear();
-        std::map<int32u, std::vector<int64u>*>::iterator stsz_Temp=moov_trak_mdia_minf_stbl_stsz_Map.begin();
-        while (stsz_Temp!=moov_trak_mdia_minf_stbl_stsz_Map.end())
-        {
-            delete stsz_Temp->second; stsz_Temp->second=NULL;
-            stsz_Temp++;
-        }
-        moov_trak_mdia_minf_stbl_stsz_Map.clear();
+        Stream.clear();
+        mdat_Pos.clear();
     }
 }
 
@@ -179,6 +172,15 @@ void File_Mpeg4::Read_Buffer_Finalize()
 //---------------------------------------------------------------------------
 void File_Mpeg4::Header_Parse()
 {
+    //mdat
+    if (!mdat_Pos.empty())
+    {
+        //Filling
+        Header_Fill_Code(mdat_Pos.begin()->second.StreamID, Ztring::ToZtring(mdat_Pos.begin()->second.StreamID));
+        Header_Fill_Size(mdat_Pos.begin()->second.Size);
+        return;
+    }
+
     //Parsing
     int64u Size;
     int32u Size_32, Name;
@@ -192,6 +194,16 @@ void File_Mpeg4::Header_Parse()
     }
     Size=Size_32;
     Get_C4 (Name,                                               "Name");
+    if (Name==Elements::mdat && Element_Level==3)
+    {
+        //moov size is wrong!
+        Header_Fill_Code(0, _T("moov size is wrong!"));
+        Header_Fill_Size(0);
+        Element_Level--;
+        Header_Fill_Size(0);
+        Element_Level++;
+        Size=0;
+    }
     if (Size<8)
     {
         //Special case: until the end of the atom
@@ -379,6 +391,7 @@ void File_Mpeg4::Descriptors()
     //Preparing
     File_Mpeg4_Descriptors MI;
     MI.KindOfStream=StreamKind_Last;
+    MI.Parser_DoNotFreeIt=true;
     MI.Codec=Retrieve(StreamKind_Last, StreamPos_Last, "CodecID");
 
     //Parsing
@@ -391,6 +404,28 @@ void File_Mpeg4::Descriptors()
 
     //Position
     Element_Offset=(size_t)Element_Size;
+
+    //Parser from Descriptor 
+    if (MI.Parser)
+    {
+        if (Stream[moov_trak_tkhd_TrackID].Parser)
+            delete Stream[moov_trak_tkhd_TrackID].Parser; //Stream[moov_trak_tkhd_TrackID].Parser=NULL
+        Stream[moov_trak_tkhd_TrackID].Parser=MI.Parser;
+        mdat_MustParse=true;
+    }
+
+    //Parser based on Descriptor info
+    if (StreamKind_Last!=Stream_General && Stream[moov_trak_tkhd_TrackID].Parser==NULL)
+    {
+        #if defined(MEDIAINFO_MPEGA_YES)
+        if (Retrieve(StreamKind_Last, StreamPos_Last, "Format")==_T("MPEG Audio"))
+        {
+            //Creating the parser
+            Stream[moov_trak_tkhd_TrackID].Parser=new File_Mpega;
+            mdat_MustParse=true;
+        }
+        #endif
+    }
 }
 
 //***************************************************************************

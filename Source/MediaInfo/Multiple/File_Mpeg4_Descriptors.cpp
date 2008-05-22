@@ -76,7 +76,19 @@ const char* Mpeg4_Descriptors_Predefined(int8u ID)
 File_Mpeg4_Descriptors::File_Mpeg4_Descriptors()
 :File__Analyze()
 {
+    //In
     KindOfStream=Stream_Max;
+    Parser_DoNotFreeIt=false;
+
+    //Out
+    Parser=NULL;
+}
+
+//---------------------------------------------------------------------------
+File_Mpeg4_Descriptors::~File_Mpeg4_Descriptors()
+{
+    if (!Parser_DoNotFreeIt)
+        delete Parser;// Parser=NULL;
 }
 
 //***************************************************************************
@@ -268,9 +280,9 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0x66 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AAC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Main", Error, false, true); break; //MPEG-2 AAC Main
             case 0x67 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AAC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "LC", Error, false, true); break; //MPEG-2 AAC LC
             case 0x68 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AAC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "SSR", Error, false, true); break; //MPEG-2 AAC SSR
-            case 0x69 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Audio", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Version 2 / Layer 3", Error, false, true); break;
-            case 0x6A : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Version 1", Error, false, true); break;
-            case 0x6B : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Audio", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Version 1", Error, false, true); break;
+            case 0x69 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Audio", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Layer 3", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 2", Error, false, true); break;
+            case 0x6A : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 1", Error, false, true); break;
+            case 0x6B : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Audio", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 1", Error, false, true); break;
             case 0x6C : Fill(StreamKind_Last, StreamPos_Last, "Format", "M-JPEG", Error, false, true); break;
             case 0xA0 : Fill(StreamKind_Last, StreamPos_Last, "Format", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true); break;
             case 0xA1 : Fill(StreamKind_Last, StreamPos_Last, "Format", "SMV", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
@@ -312,6 +324,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0xE1 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "QCELP", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
             default: ;
         }
+        Fill(StreamKind_Last, StreamPos_Last, "CodecID", ObjectTypeId, 16, true);
         Fill(StreamKind_Last, StreamPos_Last, "Codec/CC", ObjectTypeId, 16, true);
 
         //Exception, TODO: find a better way to detect ALS
@@ -340,31 +353,46 @@ void File_Mpeg4_Descriptors::Descriptor_04()
 void File_Mpeg4_Descriptors::Descriptor_05()
 {
     //Creating the parser
-    File__Analyze* MI=NULL;
          if (0);
     #if defined(MEDIAINFO_MPEG4V_YES)
     else if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("MPEG-4 Visual"))
-        MI=new File_Mpeg4v;
+    {
+        Parser=new File_Mpeg4v;
+        ((File_Mpeg4v*)Parser)->Frame_Count_Valid=1;
+        ((File_Mpeg4v*)Parser)->FrameIsAlwaysComplete=true;
+    }
     #endif
     #if defined(MEDIAINFO_MPEG4_YES)
     else if (StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC"))
-        MI=new File_Mpeg4_AudioSpecificConfig;
+        Parser=new File_Mpeg4_AudioSpecificConfig;
     #endif
     #if defined(MEDIAINFO_MPEG4V_YES)
     else if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format).empty() && Codec==_T("mp4v"))
-        MI=new File_Mpeg4v;
+    {
+        Parser=new File_Mpeg4v;
+        ((File_Mpeg4v*)Parser)->Frame_Count_Valid=1;
+        ((File_Mpeg4v*)Parser)->FrameIsAlwaysComplete=true;
+    }
     #endif
     else
-        MI=new File__Analyze();
+    {
+        Skip_XX(Element_Size,                                   "Unknown");
+        return;
+    }
 
     //Parsing
-    Open_Buffer_Init(MI, File_Offset+Buffer_Offset+Element_Size, File_Offset+Buffer_Offset);
-    Open_Buffer_Continue(MI, Buffer+Buffer_Offset, (size_t)Element_Size);
-    Open_Buffer_Finalize(MI);
+    Open_Buffer_Init(Parser, File_Offset+Buffer_Offset+Element_Size, File_Offset+Buffer_Offset);
+    Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
+    if (!Parser_DoNotFreeIt
+     || StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC")) //File_Mpeg4_AudioSpecificConfig is only for DecConfig
+    {
+        Open_Buffer_Finalize(Parser);
 
-    //Filling
-    Merge(*MI, StreamKind_Last, 0, StreamPos_Last);
-    delete MI; //MI=NULL;
+        //Filling
+        Merge(*Parser, StreamKind_Last, 0, StreamPos_Last);
+
+        delete Parser; Parser=NULL;
+    }
 
     //Positionning
     Element_Offset=(size_t)Element_Size;
