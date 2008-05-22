@@ -98,7 +98,7 @@ File_Mk::~File_Mk()
 void File_Mk::Read_Buffer_Finalize()
 {
     if (Duration!=0 && TimecodeScale!=0)
-        Fill(Stream_General, 0, "Duration", (float32)(Duration*int64u_float64(TimecodeScale)/1000000.0));
+        Fill(Stream_General, 0, General_Duration, Duration*int64u_float64(TimecodeScale)/1000000.0, 0);
     for (std::map<int64u, stream>::iterator Temp=Stream.begin(); Temp!=Stream.end(); Temp++)
     {
         if (Temp->second.DisplayAspectRatio!=0)
