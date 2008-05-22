@@ -631,7 +631,7 @@ void File_Mpega::Data_Parse_Fill()
     Stream_Prepare(Stream_Audio);
     Fill(Stream_Audio, 0, Audio_Format, "MPEG Audio");
     Fill(Stream_Audio, 0, Audio_Format_Version, Mpega_Format_Profile_Version[ID]);
-    Fill(Stream_Audio, 0, Audio_Format_Version, Mpega_Format_Profile_Layer[layer]);
+    Fill(Stream_Audio, 0, Audio_Format_Profile, Mpega_Format_Profile_Layer[layer]);
     Fill(Stream_Audio, 0, Audio_Format_Settings, Mpega_Codec_Profile[mode]);
     Fill(Stream_Audio, 0, Audio_Codec, Ztring(Mpega_Version[ID])+Ztring(Mpega_Layer[layer]));
     Fill(Stream_Audio, 0, Audio_Codec_String, Ztring(Mpega_Version_String[ID])+Ztring(Mpega_Layer_String[layer]));
