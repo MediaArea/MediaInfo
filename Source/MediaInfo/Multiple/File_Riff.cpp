@@ -130,16 +130,16 @@ void File_Riff::Read_Buffer_Finalize ()
             Ztring FrameRate_Temp;
             if (StreamKind_Last==Stream_Video)
             {
-                Codec_Temp=Retrieve(Stream_Video, 0, Video_Codec); //We want to keep the 4CC of AVI
-                FrameRate_Temp=Retrieve(Stream_Video, 0, Video_FrameRate); //We want to keep the FrameRate of AVI 120 fps
+                Codec_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_Codec); //We want to keep the 4CC of AVI
+                FrameRate_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate); //We want to keep the FrameRate of AVI 120 fps
             }
-            Merge(*Temp->second.Parser, Temp->second.StreamKind, 0, Temp->second.StreamPos);
+            Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
             if (StreamKind_Last==Stream_Video)
             {
                 if (!Codec_Temp.empty())
                     Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec_Temp, true);
-                if (FrameRate_Temp!=Retrieve(Stream_Video, 0, Video_FrameRate))
-                    Fill(Stream_Video, 0, Video_FrameRate_Original, Retrieve(Stream_Video, 0, Video_FrameRate), true);
+                if (FrameRate_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate))
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Original, Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate), true);
                 if (!FrameRate_Temp.empty())
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_Temp, true);
 
