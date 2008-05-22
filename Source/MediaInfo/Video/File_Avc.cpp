@@ -184,6 +184,9 @@ File_Avc::File_Avc()
     MustParse_SPS_PPS_Only=false;
     MustParse_SPS_PPS_Done=false;
     SizedBlocks=false;
+
+    //Temp
+    SizeOfNALU_Minus1=(int8u)-1;
 }
 
 //***************************************************************************
@@ -289,7 +292,31 @@ void File_Avc::Header_Parse()
     else
     {
         int32u Size;
-        Get_B4 (Size,                                           "size");
+        switch (SizeOfNALU_Minus1)
+        {
+            case 0: {
+                        int8u Size_;
+                        Get_B1 (Size_,                          "size");
+                        Size=Size_;
+                    }
+                    break;
+            case 1: {
+                        int16u Size_;
+                        Get_B2 (Size_,                          "size");
+                        Size=Size_;
+                    }
+                    break;
+            case 2: {
+                        int32u Size_;
+                        Get_B3 (Size_,                          "size");
+                        Size=Size_;
+                    }
+                    break;
+            case 3:     Get_B4 (Size,                           "size");
+                    break;
+            default:    Trusted_IsNot("No size of NALU defined");
+                        Size=Buffer_Size-Buffer_Offset;
+        }
         BS_Begin();
         Mark_0 ();
         Skip_S1( 2,                                             "nal_ref_idc");
@@ -821,7 +848,14 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
 
             //Saving
             if (Loop==0)
+            {
+                //Cleaning a little the value
+                while (!Value.empty() && Value[0]<0x30)
+                    Value.erase(Value.begin());
+                while (!Value.empty() && Value[Value.size()-1]<0x30)
+                    Value.erase(Value.end()-1);
                 Encoded_Library=Value;
+            }
             if (Loop==1 && Encoded_Library.find(_T("x264"))==0)
             {
                 Encoded_Library+=_T(" - ");
@@ -1226,7 +1260,7 @@ void File_Avc::SPS_PPS()
     Get_B1 (Level,                                              "Level");
     BS_Begin();
     Skip_S1(6,                                                  "Reserved");
-    Skip_S1(2,                                                  "Size of NALU length minus 1");
+    Get_S1 (2, SizeOfNALU_Minus1,                               "Size of NALU length minus 1");
     Skip_S1(3,                                                  "Reserved");
     Get_S1 (5, seq_parameter_set_count,                         "seq_parameter_set count");
     BS_End();

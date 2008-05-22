@@ -121,6 +121,7 @@ private :
     int8u  time_offset_length;
     int8u  pic_struct;
     int8u  pic_struct_FirstDetected;
+    int8u  SizeOfNALU_Minus1;
     bool   frame_mbs_only_flag;
     bool   timing_info_present_flag;
     bool   fixed_frame_rate_flag;

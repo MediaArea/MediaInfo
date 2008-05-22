@@ -672,7 +672,11 @@ void File_Mpegv::user_data_start()
 
     //Rejecting junk from the end
     size_t Library_End_Offset=(size_t)Element_Size;
-    while (Library_End_Offset>0 && (Buffer[Buffer_Offset+Library_End_Offset-1]<0x20 || Buffer[Buffer_Offset+Library_End_Offset-1]>0x7D))
+    while (Library_End_Offset>0
+        && (Buffer[Buffer_Offset+Library_End_Offset-1]<0x20
+         || Buffer[Buffer_Offset+Library_End_Offset-1]>0x7D
+         || (Buffer[Buffer_Offset+Library_End_Offset-1]>=0x3A
+          && Buffer[Buffer_Offset+Library_End_Offset-1]<=0x40)))
         Library_End_Offset--;
     if (Library_End_Offset==0)
         return; //No good info
@@ -682,9 +686,10 @@ void File_Mpegv::user_data_start()
     while (Library_Start_Offset>0 && (Buffer[Buffer_Offset+Library_Start_Offset-1]>=0x20 && Buffer[Buffer_Offset+Library_Start_Offset-1]<=0x7D))
         Library_Start_Offset--;
 
-    //But don't accept non-alpha caracters at the beginning
-    while (Buffer[Buffer_Offset+Library_Start_Offset]<0x41)
-        Library_Start_Offset++;
+    //But don't accept non-alpha caracters at the beginning (except for "3ivx")
+    if (Library_End_Offset-Library_Start_Offset!=4 || CC4(Buffer+Buffer_Offset+Library_Start_Offset)!=0x33697678) //3ivx
+        while (Buffer[Buffer_Offset+Library_Start_Offset]<=0x40)
+            Library_Start_Offset++;
 
     //Parsing
     Ztring Temp;
