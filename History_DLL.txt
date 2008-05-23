@@ -10,6 +10,8 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.7.1, 2008-06-
 ---------------
 + Translations: more words can be translated
++ MPEG-4 files: More info (profile, format settings, encoder name, x264 settings) for some well-known stream formats
++ MPEG-4 files: Better handling of not common formats (ALS, PNG, AC-3, DTS... in .mp4)
 + Bluray: detection of subtitles
 x #1967663, mp4: some specific iTunes atoms were not correctly parsed
 

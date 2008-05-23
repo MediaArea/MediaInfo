@@ -856,6 +856,6 @@ private :
 public :
     void BookMark_Set(size_t Element_Level_ToGet=(size_t)-1);
     void BookMark_Get();
-    virtual bool BookMark_Needed()                                              {return true;};
+    virtual bool BookMark_Needed()                                              {return false;};
 };
 

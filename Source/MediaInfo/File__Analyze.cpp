@@ -1414,8 +1414,7 @@ bool File__Analyze::Element_IsWaitingForMoreData ()
 //---------------------------------------------------------------------------
 void File__Analyze::BookMark_Set (size_t Element_Level_ToSet)
 {
-    if (Element_Level_ToSet==(size_t)-1 && Element_Level>0)
-        Element_Level_ToSet=Element_Level;
+    Element_Level_ToSet=Element_Level;
     BookMark_Element_Level=Element_Level_ToSet;
     BookMark_Code.resize(BookMark_Element_Level+1);
     BookMark_Next.resize(BookMark_Element_Level+1);

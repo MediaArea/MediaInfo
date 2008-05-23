@@ -51,6 +51,7 @@ private :
     //Buffer
     void Header_Parse();
     void Data_Parse();
+    bool BookMark_Needed();
 
     //mdat specific
     void mdat_Parse();

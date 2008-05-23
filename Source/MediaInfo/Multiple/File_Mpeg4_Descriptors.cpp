@@ -35,11 +35,32 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Mpeg4_Descriptors.h"
+#if defined(MEDIAINFO_MPEG4_YES)
+    #include "MediaInfo/Audio/File_Mpeg4_AudioSpecificConfig.h"
+#endif
+#if defined(MEDIAINFO_AVC_YES)
+    #include "MediaInfo/Video/File_Avc.h"
+#endif
 #if defined(MEDIAINFO_MPEG4V_YES)
     #include "MediaInfo/Video/File_Mpeg4v.h"
 #endif
-#if defined(MEDIAINFO_MPEG4_YES)
-    #include "MediaInfo/Audio/File_Mpeg4_AudioSpecificConfig.h"
+#if defined(MEDIAINFO_MPEGV_YES)
+    #include "MediaInfo/Video/File_Mpegv.h"
+#endif
+#if defined(MEDIAINFO_JPEG_YES)
+    #include "MediaInfo/Image/File_Jpeg.h"
+#endif
+#if defined(MEDIAINFO_PNG_YES)
+    #include "MediaInfo/Image/File_Png.h"
+#endif
+#if defined(MEDIAINFO_AC3_YES)
+    #include "MediaInfo/Audio/File_Ac3.h"
+#endif
+#if defined(MEDIAINFO_DTS_YES)
+    #include "MediaInfo/Audio/File_Dts.h"
+#endif
+#if defined(MEDIAINFO_MPEGA_YES)
+    #include "MediaInfo/Audio/File_Mpega.h"
 #endif
 //---------------------------------------------------------------------------
 
@@ -97,6 +118,7 @@ const char* Mpeg4_Descriptors_ObjectTypeIndication(int8u ID)
         case 0x6A : return "Visual ISO/IEC 11172-2 (MPEG Video)";
         case 0x6B : return "Audio ISO/IEC 11172-3 (MPEG Audio)";
         case 0x6C : return "Visual ISO/IEC 10918-1 (M-JPEG)";
+        case 0x6D : return "PNG";
         case 0xA0 : return "EVRC";
         case 0xA1 : return "SMV";
         case 0xD1 : return "Private - EVRC";
@@ -281,6 +303,9 @@ File_Mpeg4_Descriptors::File_Mpeg4_Descriptors()
 
     //Out
     Parser=NULL;
+
+    //Temp
+    ObjectTypeId=0x00;
 }
 
 //---------------------------------------------------------------------------
@@ -318,11 +343,8 @@ void File_Mpeg4_Descriptors::Header_Parse()
 void File_Mpeg4_Descriptors::Data_Parse()
 {
     //Preparing
-    if (KindOfStream!=Stream_Max)
-    {
+    if (Count_Get(KindOfStream)==0)
         Stream_Prepare(KindOfStream);
-        KindOfStream=Stream_Max; //Do it once
-    }
 
     #define ELEMENT_CASE(_NAME, _DETAIL) \
         case 0x##_NAME : Element_Name(_DETAIL); Descriptor_##_NAME(); break;
@@ -448,7 +470,6 @@ void File_Mpeg4_Descriptors::Descriptor_04()
 {
     //Parsing
     int32u bufferSizeDB, MaxBitrate, AvgBitrate;
-    int8u ObjectTypeId;
     Get_B1 (ObjectTypeId,                                       "objectTypeIndication"); Param_Info(Mpeg4_Descriptors_ObjectTypeIndication(ObjectTypeId));
     BS_Begin();
     Info_S1(6, streamType,                                      "streamType"); Param_Info(Mpeg4_Descriptors_StreamType(streamType));
@@ -486,6 +507,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0x6A : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 1", Error, false, true); break;
             case 0x6B : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Audio", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 1", Error, false, true); break;
             case 0x6C : Fill(StreamKind_Last, StreamPos_Last, "Format", "M-JPEG", Error, false, true); break;
+            case 0x6D : Fill(StreamKind_Last, StreamPos_Last, "Format", "PNG", Error, false, true); break;
             case 0xA0 : Fill(StreamKind_Last, StreamPos_Last, "Format", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true); break;
             case 0xA1 : Fill(StreamKind_Last, StreamPos_Last, "Format", "SMV", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
             case 0xD1 : Fill(StreamKind_Last, StreamPos_Last, "Format", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
@@ -516,6 +538,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0x6A : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-1V", Error, false, true); break;
             case 0x6B : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-1A", Error, false, true); break;
             case 0x6C : Fill(StreamKind_Last, StreamPos_Last, "Codec", "M-JPEG", Error, false, true); break;
+            case 0x6D : Fill(StreamKind_Last, StreamPos_Last, "Codec", "PNG", Error, false, true); break;
             case 0xA0 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true); break;
             case 0xA1 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "SMV", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
             case 0xD1 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
@@ -528,13 +551,6 @@ void File_Mpeg4_Descriptors::Descriptor_04()
         }
         Fill(StreamKind_Last, StreamPos_Last, "CodecID", ObjectTypeId, 16, true);
         Fill(StreamKind_Last, StreamPos_Last, "Codec/CC", ObjectTypeId, 16, true);
-
-        //Exception, TODO: find a better way to detect ALS
-        if (ObjectTypeId==0x40 && AvgBitrate>640000)
-        {
-            Fill(StreamKind_Last, StreamPos_Last, "Format", "ALS", Error, false, true);
-            Fill(StreamKind_Last, StreamPos_Last, "Codec", "ALS", Error, false, true);
-        }
 
         //Bitrate mode
         if (AvgBitrate>0
@@ -550,38 +566,28 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             }
         }
 
-    //Creating the parser
-         if (0);
-    #if defined(MEDIAINFO_MPEG4V_YES)
-    else if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("MPEG-4 Visual"))
-    {
-        Parser=new File_Mpeg4v;
-        ((File_Mpeg4v*)Parser)->Frame_Count_Valid=1;
-        ((File_Mpeg4v*)Parser)->FrameIsAlwaysComplete=true;
-    }
-    #endif
-    #if defined(MEDIAINFO_MPEG4_YES)
-    else if (StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC"))
-        Parser=new File_Mpeg4_AudioSpecificConfig;
-    #endif
-    #if defined(MEDIAINFO_MPEG4V_YES)
-    else if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format).empty() && Codec==_T("mp4v"))
-    {
-        Parser=new File_Mpeg4v;
-        ((File_Mpeg4v*)Parser)->Frame_Count_Valid=1;
-        ((File_Mpeg4v*)Parser)->FrameIsAlwaysComplete=true;
-    }
-    #endif
-
         //Creating parser
         switch (ObjectTypeId)
         {
             case 0x20 : //MPEG-4 Visual
+                        #if defined(MEDIAINFO_MPEG4V_YES)
+                            Parser=new File_Mpeg4v;
+                            ((File_Mpeg4v*)Parser)->Frame_Count_Valid=1;
+                            ((File_Mpeg4v*)Parser)->FrameIsAlwaysComplete=true;
+                        #endif
+                        break;
             case 0x21 : //AVC
+                        #if defined(MEDIAINFO_AVC_YES)
+                            Parser=new File_Avc;
+                            ((File_Avc*)Parser)->MustParse_SPS_PPS=true;
+                            ((File_Avc*)Parser)->SizedBlocks=true;
+                        #endif
+                        break;
             case 0x40 :
-            case 0x66 :
-            case 0x67 :
-            case 0x68 : //AAC
+                        #if defined(MEDIAINFO_MPEG4_YES)
+                            Parser=new File_Mpeg4_AudioSpecificConfig;
+                        #endif
+                        break;
             case 0x60 :
             case 0x61 :
             case 0x62 :
@@ -589,13 +595,48 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0x64 :
             case 0x65 :
             case 0x6A : //MPEG Video
+                        #if defined(MEDIAINFO_MPEGV_YES)
+                            Parser=new File_Mpegv;
+                            ((File_Mpegv*)Parser)->Frame_Count_Valid=1;
+                            ((File_Mpegv*)Parser)->FrameIsAlwaysComplete=true;
+                        #endif
+                        break;
+            case 0x66 :
+            case 0x67 :
+            case 0x68 : //MPEG-2 AAC
+                        #if defined(MEDIAINFO_MPEG4_YES)
+                            Parser=new File_Mpeg4_AudioSpecificConfig; //Should be ADIF, but the only sample I have is AudioSpecificConfig 
+                        #endif
+                        break;
             case 0x69 :
             case 0x6B : //MPEG Audio
+                        #if defined(MEDIAINFO_MPEGA_YES)
+                            Parser=new File_Mpega;
+                        #endif
+                        break;
             case 0x6C : //M-JPEG
+                        #if defined(MEDIAINFO_JPEG_YES)
+                            Parser=new File_Jpeg;
+                        #endif
+                        break;
+            case 0x6D : //PNG
+                        #if defined(MEDIAINFO_PNG_YES)
+                            Parser=new File_Png;
+                        #endif
+                        break;
             case 0xD3 : //AC-3
+                        #if defined(MEDIAINFO_AC3_YES)
+                            Parser=new File_Ac3;
+                        #endif
+                        break;
             case 0xD4 : //DTS
+                        #if defined(MEDIAINFO_DTS_YES)
+                            Parser=new File_Dts;
+                        #endif
+                        break;
             case 0xDD :
             case 0xDE : //OGG
+                        break;
             default: ;
         }
 
@@ -606,6 +647,32 @@ void File_Mpeg4_Descriptors::Descriptor_04()
 //---------------------------------------------------------------------------
 void File_Mpeg4_Descriptors::Descriptor_05()
 {
+    if (ObjectTypeId==0x00 && Parser==NULL) //If no ObjectTypeId detected
+    {
+        switch (KindOfStream)
+        {
+            case Stream_Video :
+                                #if defined(MEDIAINFO_MPEG4V_YES)
+                                    Parser=new File_Mpeg4v;
+                                    ((File_Mpeg4v*)Parser)->Frame_Count_Valid=1;
+                                    ((File_Mpeg4v*)Parser)->FrameIsAlwaysComplete=true;
+                                #endif
+                                break;
+            case Stream_Audio :
+                                #if defined(MEDIAINFO_MPEG4_YES)
+                                    Parser=new File_Mpeg4_AudioSpecificConfig;
+                                #endif
+                                break;
+            default: ;
+        }
+    }
+
+    if (Parser==NULL)
+    {
+        Skip_XX(Element_Size,                                   "Unknown");
+        return;
+    }
+
     //Parsing
     Open_Buffer_Init(Parser, File_Offset+Buffer_Offset+Element_Size, File_Offset+Buffer_Offset);
     Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)Element_Size);

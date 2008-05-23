@@ -518,6 +518,12 @@ void File_Mpeg4::ftyp()
 {
     Element_Name("File Type");
 
+    if (Count_Get(Stream_General))
+    {
+        Skip_XX(Element_Size,                                   "Duplicate ftyp");
+        return;
+    }
+
     //Parsing
     int32u MajorBrand;
     Get_C4 (MajorBrand,                                         "MajorBrand");
@@ -638,6 +644,16 @@ void File_Mpeg4::mdat()
         //Next piece of data
         mdat_StreamJump();
         return; //Only if have something in this mdat
+    }
+
+    //In case of mdat is before moov
+    if (Stream.empty())
+    {
+        Buffer_Offset-=(size_t)Header_Size;
+        Element_Level--;
+        BookMark_Set(); //Remenbering this place, for stream parsing in phase 2
+        Element_Level++;
+        Buffer_Offset+=(size_t)Header_Size;
     }
 
     //Parsing

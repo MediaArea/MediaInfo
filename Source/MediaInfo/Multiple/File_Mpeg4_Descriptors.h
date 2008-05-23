@@ -42,7 +42,6 @@ class File_Mpeg4_Descriptors : public File__Analyze
 public :
     //In
     stream_t KindOfStream;
-    Ztring   Codec;
     bool     Parser_DoNotFreeIt; //If you want to keep the Parser
 
     //Out
@@ -102,6 +101,9 @@ private :
     void Descriptor_67() {Skip_XX(Element_Size, "Data");};
     void Descriptor_68() {Skip_XX(Element_Size, "Data");};
     void Descriptor_69() {Skip_XX(Element_Size, "Data");};
+
+    //Temp
+    int8u ObjectTypeId;
 };
 
 } //NameSpace

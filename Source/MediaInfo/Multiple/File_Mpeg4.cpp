@@ -39,9 +39,6 @@
 #if defined(MEDIAINFO_MPEGPS_YES)
     #include "MediaInfo/Multiple/File_MpegPs.h"
 #endif
-#if defined(MEDIAINFO_MPEGA_YES)
-    #include "MediaInfo/Audio/File_Mpega.h"
-#endif
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -194,16 +191,6 @@ void File_Mpeg4::Header_Parse()
     }
     Size=Size_32;
     Get_C4 (Name,                                               "Name");
-    if (Name==Elements::mdat && Element_Level==3)
-    {
-        //moov size is wrong!
-        Header_Fill_Code(0, _T("moov size is wrong!"));
-        Header_Fill_Size(0);
-        Element_Level--;
-        Header_Fill_Size(0);
-        Element_Level++;
-        Size=0;
-    }
     if (Size<8)
     {
         //Special case: until the end of the atom
@@ -227,6 +214,16 @@ void File_Mpeg4::Header_Parse()
     //Filling
     Header_Fill_Code(Name, Ztring().From_CC4(Name));
     Header_Fill_Size(Size);
+}
+
+//---------------------------------------------------------------------------
+bool File_Mpeg4::BookMark_Needed()
+{
+    if (Stream.empty())
+        return false;
+        
+    File_GoTo=0; //Reseting it
+    return true;
 }
 
 //***************************************************************************
@@ -392,7 +389,6 @@ void File_Mpeg4::Descriptors()
     File_Mpeg4_Descriptors MI;
     MI.KindOfStream=StreamKind_Last;
     MI.Parser_DoNotFreeIt=true;
-    MI.Codec=Retrieve(StreamKind_Last, StreamPos_Last, "CodecID");
 
     //Parsing
     Open_Buffer_Init(&MI, File_Offset+Buffer_Offset+Element_Size, File_Offset+Buffer_Offset+Element_Offset);
@@ -412,19 +408,6 @@ void File_Mpeg4::Descriptors()
             delete Stream[moov_trak_tkhd_TrackID].Parser; //Stream[moov_trak_tkhd_TrackID].Parser=NULL
         Stream[moov_trak_tkhd_TrackID].Parser=MI.Parser;
         mdat_MustParse=true;
-    }
-
-    //Parser based on Descriptor info
-    if (StreamKind_Last!=Stream_General && Stream[moov_trak_tkhd_TrackID].Parser==NULL)
-    {
-        #if defined(MEDIAINFO_MPEGA_YES)
-        if (Retrieve(StreamKind_Last, StreamPos_Last, "Format")==_T("MPEG Audio"))
-        {
-            //Creating the parser
-            Stream[moov_trak_tkhd_TrackID].Parser=new File_Mpega;
-            mdat_MustParse=true;
-        }
-        #endif
     }
 }
 
