@@ -660,7 +660,7 @@ void File_Mpegv::slice_start_Fill()
         //Jumping
         //DETAILLEVEL_SET(0);
         Info("MPEG-V, Jumping to end of file");
-        File_GoTo=File_Size-SizeToAnalyse;
+        File_GoTo=File_Size-(IsSub?0:SizeToAnalyse);
     }
 }
 
