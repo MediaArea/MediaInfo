@@ -520,6 +520,7 @@ void File_Mpeg4_AudioSpecificConfig::ALS ()
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "ALS", Unlimited, true, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, "", Unlimited, true, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_CodecID_Hint, "", Unlimited, true, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_CodecID_Url, "", Unlimited, true, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, "", Unlimited, true, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Mode, "", Unlimited, true, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, "", Unlimited, true, true);
