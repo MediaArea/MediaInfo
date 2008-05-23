@@ -49,6 +49,7 @@ private :
     void GASpecificConfig();
     void SBR();
     void PS();
+    void ALS();
 
     //Temp
     int32u samplingFrequency;

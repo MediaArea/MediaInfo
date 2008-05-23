@@ -31,6 +31,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Audio/File_Mpeg4_AudioSpecificConfig.h"
+#if defined(MEDIAINFO_RIFF_YES)
+    #include "MediaInfo/Multiple/File_Riff.h"
+#endif
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -47,305 +50,99 @@ const char* MP4_ID[]=
     "MPEG-2",
 };
 
-const char* MP4_Format[]=
+//---------------------------------------------------------------------------
+const char* MP4_Format(int8u ID)
 {
-    "",
-    "AAC",                                                      // 1
-    "AAC",
-    "AAC",
-    "AAC",
-    "SBR",                                                      // 5
-    "AAC Scalable",
-    "TwinVQ",
-    "CELP",
-    "HVXC",
-    "",                                                         //10
-    ""
-    "TTSI",
-    "Main synthetic",
-    "Wavetable synthesis",
-    "General MIDI",
-    "Algorithmic Synthesis and Audio FX",                       //15
-    "AAC",
-    "",
-    "ER AAC",
-    "ER AAC",
-    "ER TwinVQ",                                                //20
-    "ER BSAC",
-    "ER AAC LD",
-    "ER CELP",
-    "ER HVXC",
-    "ER HILN",
-    "ER Parametric",
-    "SSC",
-    "",
-    "",
-    "(escape)",
-    "Layer-1",
-    "Layer-2",
-    "Layer-3",
-    "DST",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-};
+    switch (ID)
+    {
+        case    1 :
+        case    2 :
+        case    3 :
+        case    4 : return "AAC";
+        case    5 : return "SBR";
+        case    6 : return "AAC Scalable";
+        case    7 : return "TwinVQ";
+        case    8 : return "CELP";
+        case    9 : return "HVXC";
+        case   12 : return "TTSI";
+        case   13 : return "Main synthetic";
+        case   14 : return "Wavetable synthesis";
+        case   15 : return "General MIDI";
+        case   16 : return "Algorithmic Synthesis and Audio FX";
+        case   17 :
+        case   19 :
+        case   20 : return "ER AAC";
+        case   21 : return "ER TwinVQ";
+        case   22 : return "ER BSAC";
+        case   23 : return "ER AAC LD";
+        case   24 : return "ER CELP";
+        case   25 : return "ER HVXC";
+        case   26 : return "ER HILN";
+        case   27 : return "ER Parametric";
+        case   28 : return "SSC";
+        case   32 : return "Layer-1";
+        case   33 : return "Layer-2";
+        case   34 : return "Layer-3";
+        case   35 : return "DST";
+        case   36 : return "ALS";
+        default   : return "";
+    }
+}
 
-const char* MP4_Format_Profile[]=
+//---------------------------------------------------------------------------
+const char* MP4_Format_Profile(int8u ID)
 {
-    "",
-    "Main",                                                     // 1
-    "LC",
-    "SSR",
-    "LTP",
-    "",                                                         // 5
-    "",
-    "",
-    "",
-    "",
-    "",                                                         //10
-    ""
-    "",
-    "",
-    "",
-    "",                                                         //15
-    "",
-    "LC",
-    "",
-    "LTP",
-    "",                                                         //20
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-};
+    switch (ID)
+    {
+        case    1 : return "Main";
+        case    2 : return "LC";
+        case    3 : return "SSR";
+        case    4 : return "LTP";
+        case   17 : return "LC";
+        case   19 : return "LTP";
+        default   : return "";
+    }
+}
 
-const char* MP4_Profile[]=
+//---------------------------------------------------------------------------
+const char* MP4_Profile(int8u ID)
 {
-    "Reserved",
-    "A_AAC/MPEG4/MAIN",
-    "A_AAC/MPEG4/LC",
-    "A_AAC/MPEG4/SSR",
-    "A_AAC/MPEG4/LTP",
-    "SBR",
-    "AAC Scalable",
-    "TwinVQ",
-    "CELP",
-    "HVXC",
-    "",
-    ""
-    "TTSI",
-    "Main synthetic",
-    "Wavetable synthesis",
-    "General MIDI",
-    "Algorithmic Synthesis and Audio FX",
-    "ER AAC LC",
-    "",
-    "ER AAC LTP",
-    "ER AAC scalable",
-    "ER TwinVQ",
-    "ER BSAC",
-    "ER AAC LD",
-    "ER CELP",
-    "ER HVXC",
-    "ER HILN",
-    "ER Parametric",
-    "SSC",
-    "",
-    "",
-    "(escape)",
-    "Layer-1",
-    "Layer-2",
-    "Layer-3",
-    "DST",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-};
+    switch (ID)
+    {
+        case    1 : return "A_AAC/MPEG4/MAIN";
+        case    2 : return "A_AAC/MPEG4/LC";
+        case    3 : return "A_AAC/MPEG4/SSR";
+        case    4 : return "A_AAC/MPEG4/LTP";
+        case    5 : return "SBR";
+        case    6 : return "AAC Scalable";
+        case    7 : return "TwinVQ";
+        case    8 : return "CELP";
+        case    9 : return "HVXC";
+        case   12 : return "TTSI";
+        case   13 : return "Main synthetic";
+        case   14 : return "Wavetable synthesis";
+        case   15 : return "General MIDI";
+        case   16 : return "Algorithmic Synthesis and Audio FX";
+        case   17 : return "ER AAC LC";
+        case   19 : return "ER AAC LTP";
+        case   20 : return "ER AAC Scalable";
+        case   21 : return "ER TwinVQ";
+        case   22 : return "ER BSAC";
+        case   23 : return "ER AAC LD";
+        case   24 : return "ER CELP";
+        case   25 : return "ER HVXC";
+        case   26 : return "ER HILN";
+        case   27 : return "ER Parametric";
+        case   28 : return "SSC";
+        case   31 : return "(escape)";
+        case   32 : return "Layer-1";
+        case   33 : return "Layer-2";
+        case   34 : return "Layer-3";
+        case   35 : return "DST";
+        case   36 : return "ALS";
+        default   : return "";
+    }
+}
 
 const int8u MP4_Channels[]=
 {
@@ -407,13 +204,19 @@ void File_Mpeg4_AudioSpecificConfig::audioSpecificConfig ()
     //Parsing
     int8u samplingFrequencyIndex;
     BS_Begin();
-    Get_S1 (5, audioObjectType,                                 "audioObjectType"); Param_Info(MP4_Profile[audioObjectType]);
+    Get_S1 (5, audioObjectType,                                 "audioObjectType"); Param_Info(MP4_Profile(audioObjectType));
     if (audioObjectType==31)
     {
         int8u audioObjectTypeExt;
         Get_S1 (6, audioObjectTypeExt,                          "audioObjectTypeExt");
-        audioObjectType=32+audioObjectTypeExt; Param_Info(MP4_Profile[audioObjectType]);
+        audioObjectType=32+audioObjectTypeExt; Param_Info(MP4_Profile(audioObjectType));
     }
+    if (audioObjectType==36)
+    {
+        ALS();
+        return;
+    }
+
     Get_S1 (4, samplingFrequencyIndex,                          "samplingFrequencyIndex"); Param_Info(MP4_SamplingRate[samplingFrequencyIndex]);
     if (samplingFrequencyIndex==0xF)
     {
@@ -435,12 +238,12 @@ void File_Mpeg4_AudioSpecificConfig::audioSpecificConfig ()
         }
         else
             samplingFrequency=MP4_SamplingRate[samplingFrequencyIndex];
-        Get_S1 (5, audioObjectType,                             "audioObjectType"); Param_Info(MP4_Profile[audioObjectType]);
+        Get_S1 (5, audioObjectType,                             "audioObjectType"); Param_Info(MP4_Profile(audioObjectType));
         if (audioObjectType==31)
         {
             int8u audioObjectTypeExt;
             Get_S1 (6, audioObjectTypeExt,                      "audioObjectTypeExt");
-            audioObjectType=32+audioObjectTypeExt; Param_Info(MP4_Profile[audioObjectType]);
+            audioObjectType=32+audioObjectTypeExt; Param_Info(MP4_Profile(audioObjectType));
         }
     }
     else
@@ -537,12 +340,12 @@ void File_Mpeg4_AudioSpecificConfig::audioSpecificConfig ()
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "AAC");
         Stream_Prepare(Stream_Audio);
-        Fill(Stream_Audio, StreamPos_Last, Audio_Format, MP4_Format[audioObjectType]);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format, MP4_Format(audioObjectType));
         Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, "Version 4");
-        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, MP4_Format_Profile[audioObjectType]);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, MP4_Format_Profile(audioObjectType));
         if (audioObjectType==2) //LC
             Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_SBR, "No");
-        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, MP4_Profile[audioObjectType]);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, MP4_Profile(audioObjectType));
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplingFrequency);
         if (channelConfiguration)
         {
@@ -676,6 +479,61 @@ void File_Mpeg4_AudioSpecificConfig::PS ()
             Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, "", Unlimited, true, true);
         }
     FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+// ALS is detected
+// Format is unknown
+void File_Mpeg4_AudioSpecificConfig::ALS ()
+{
+    //Parsing
+    BS_End();
+
+    FILLING_BEGIN();
+        //Filling
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "ALS");
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format, "ALS");
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "ALS");
+    FILLING_END();
+
+    std::string Riff;
+    Riff.append((const char*)Buffer+Buffer_Offset, (size_t)(Element_Size-Element_Offset));
+    if (Riff.find("RIFF") && Riff.find("WAVEfmt"))
+    {
+        #if defined(MEDIAINFO_RIFF_YES)
+            //Creating the parser
+            File_Riff MI;
+
+            //Parsing
+            size_t Riff_Pos=Riff.find("RIFF");
+            Open_Buffer_Init(&MI, File_Offset+Buffer_Offset+(size_t)Element_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset+Riff_Pos);
+            Open_Buffer_Continue(&MI, (const int8u*)Riff.c_str()+Riff_Pos, Riff.size()-Riff_Pos);
+            Open_Buffer_Finalize(&MI);
+
+            //Filling
+            Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+
+            //The RIFF header is for PCM
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format, "ALS", Unlimited, true, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "ALS", Unlimited, true, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, "", Unlimited, true, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_CodecID_Hint, "", Unlimited, true, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, "", Unlimited, true, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Mode, "", Unlimited, true, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, "", Unlimited, true, true);
+
+        #else
+            Skip_XX(Element_Size-Element_Offset,                "(RIFF chunck)");
+        #endif
+
+    }
+    else
+        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
+
+    //NO need more
+    Finnished();
 }
 
 //***************************************************************************
