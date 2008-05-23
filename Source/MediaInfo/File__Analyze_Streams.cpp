@@ -111,9 +111,6 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         return; //No streams
     }
 
-    if (Parameter==3) {
-        int A=0;
-    }
     Ztring &Target=(*Stream)[StreamKind][StreamPos](Parameter);
     if (Target.empty() || Replace)
         Target=Value; //First value
