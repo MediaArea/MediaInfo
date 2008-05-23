@@ -1971,7 +1971,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
         if (mdat_MustParse)
             Stream[moov_trak_tkhd_TrackID].stsz.resize(Count<=300?Count:300, Size);
 
-        if (Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
+        if (Count>1 && Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
             Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "CBR");
 
         //Detecting wrong stream size with some PCM streams

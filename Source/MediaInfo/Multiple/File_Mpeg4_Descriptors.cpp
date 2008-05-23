@@ -64,7 +64,206 @@ const char* Mpeg4_Descriptors_Predefined(int8u ID)
         case 0x00 : return "Custom";
         case 0x01 : return "null SL packet header";
         case 0x02 : return "Reserved for use in MP4 files";
-        default   : return "Reserved";
+        default   : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mpeg4_Descriptors_ObjectTypeIndication(int8u ID)
+{
+    switch (ID)
+    {
+        case 0x01 : return "Systems ISO/IEC 14496-1";
+        case 0x02 : return "Systems ISO/IEC 14496-1 (v2)";
+        case 0x03 : return "Interaction Stream";
+        case 0x05 : return "AFX Stream";
+        case 0x06 : return "Font Data Stream";
+        case 0x07 : return "Synthesized Texture Stream";
+        case 0x08 : return "Streaming Text Stream";
+        case 0x20 : return "Visual ISO/IEC 14496-2 (MPEG-4 Visual)";
+        case 0x21 : return "Visual ISO/IEC 14496-10 (AVC)";
+        case 0x22 : return "Parameter Sets for Visual ISO/IEC 14496-10 (AVC)";
+        case 0x40 : return "Audio ISO/IEC 14496-3 (AAC)";
+        case 0x60 : return "Visual ISO/IEC 13818-2 Simple Profile (MPEG Video)";
+        case 0x61 : return "Visual ISO/IEC 13818-2 Main Profile (MPEG Video)";
+        case 0x62 : return "Visual ISO/IEC 13818-2 SNR Profile (MPEG Video)";
+        case 0x63 : return "Visual ISO/IEC 13818-2 Spatial Profile (MPEG Video)";
+        case 0x64 : return "Visual ISO/IEC 13818-2 High Profile (MPEG Video)";
+        case 0x65 : return "Visual ISO/IEC 13818-2 422 Profile (MPEG Video)";
+        case 0x66 : return "Audio ISO/IEC 13818-7 Main Profile (AAC)";
+        case 0x67 : return "Audio ISO/IEC 13818-7 LowComplexity Profile (AAC)";
+        case 0x68 : return "Audio ISO/IEC 13818-7 Scaleable Sampling Rate Profile (AAC)";
+        case 0x69 : return "Audio ISO/IEC 13818-3 (MPEG Audio)";
+        case 0x6A : return "Visual ISO/IEC 11172-2 (MPEG Video)";
+        case 0x6B : return "Audio ISO/IEC 11172-3 (MPEG Audio)";
+        case 0x6C : return "Visual ISO/IEC 10918-1 (M-JPEG)";
+        case 0xA0 : return "EVRC";
+        case 0xA1 : return "SMV";
+        case 0xD1 : return "Private - EVRC";
+        case 0xD3 : return "Private - AC-3";
+        case 0xD4 : return "Private - DTS";
+        case 0xDD : return "Private - Ogg";
+        case 0xDE : return "Private - Ogg";
+        case 0xE1 : return "Private - QCELP";
+        default   : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mpeg4_Descriptors_StreamType(int8u ID)
+{
+    switch (ID)
+    {
+        case 0x01 : return "ObjectDescriptorStream";
+        case 0x02 : return "ClockReferenceStream";
+        case 0x03 : return "SceneDescriptionStream";
+        case 0x04 : return "VisualStream";
+        case 0x05 : return "AudioStream";
+        case 0x06 : return "MPEG7Stream";
+        case 0x07 : return "IPMPStream";
+        case 0x08 : return "ObjectContentInfoStream";
+        case 0x09 : return "MPEGJStream";
+        default   : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mpeg4_Descriptors_ODProfileLevelIndication(int8u ID)
+{
+    switch (ID)
+    {
+        default   : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mpeg4_Descriptors_SceneProfileLevelIndication(int8u ID)
+{
+    switch (ID)
+    {
+        case    1 : return "Simple2D@L1";
+        case    2 : return "Simple2D@L2";
+        case   11 : return "Basic2D@L1";
+        case   12 : return "Core2D@L1";
+        case   13 : return "Core2D@L2";
+        case   14 : return "Advanced2D@L1";
+        case   15 : return "Advanced2D@L2";
+        case   16 : return "Advanced2D@L3";
+        case   17 : return "Main2D@L1";
+        case   18 : return "Main2D@L2";
+        case   19 : return "Main2D@L3";
+        default   : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mpeg4_Descriptors_AudioProfileLevelIndication(int8u ID)
+{
+    switch (ID)
+    {
+        case    1 : return "Main@L1";
+        case    2 : return "Main@L2";
+        case    3 : return "Main@L3";
+        case    4 : return "Main@L4";
+        case    5 : return "Scalable@L1";
+        case    6 : return "Scalable@L2";
+        case    7 : return "Scalable@L3";
+        case    8 : return "Scalable@L4";
+        case    9 : return "Speech@L1";
+        case   10 : return "Speech@L2";
+        case   11 : return "Synthesis@L1";
+        case   12 : return "Synthesis@L2";
+        case   13 : return "Synthesis@L3";
+        case   14 : return "HighQualityAudio@L1";
+        case   15 : return "HighQualityAudio@L2";
+        case   16 : return "HighQualityAudio@L3";
+        case   17 : return "HighQualityAudio@L4";
+        case   18 : return "HighQualityAudio@L5";
+        case   19 : return "HighQualityAudio@L6";
+        case   20 : return "HighQualityAudio@L7";
+        case   21 : return "HighQualityAudio@L8";
+        case   22 : return "LowDelayAudio@L1";
+        case   23 : return "LowDelayAudio@L2";
+        case   24 : return "LowDelayAudio@L3";
+        case   25 : return "LowDelayAudio@L4";
+        case   26 : return "LowDelayAudio@L5";
+        case   27 : return "LowDelayAudio@L6";
+        case   28 : return "LowDelayAudio@L7";
+        case   29 : return "LowDelayAudio@L8";
+        case   30 : return "NaturalAudio@L1";
+        case   31 : return "NaturalAudio@L2";
+        case   32 : return "NaturalAudio@L3";
+        case   33 : return "NaturalAudio@L4";
+        case   34 : return "MobileAudioInternetworking@L1";
+        case   35 : return "MobileAudioInternetworking@L2";
+        case   36 : return "MobileAudioInternetworking@L3";
+        case   37 : return "MobileAudioInternetworking@L4";
+        case   38 : return "MobileAudioInternetworking@L5";
+        case   39 : return "MobileAudioInternetworking@L6";
+        default   : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mpeg4_Descriptors_VisualProfileLevelIndication(int8u ID)
+{
+    switch (ID)
+    {
+        case    1 : return "Simple@L3";
+        case    2 : return "Simple@L2";
+        case    3 : return "Simple@L1";
+        case    4 : return "SimpleScalable@L1";
+        case    5 : return "SimpleScalable@L2";
+        case    6 : return "Core@L2";
+        case    7 : return "Core@L1";
+        case    8 : return "Main@L4";
+        case    9 : return "Main@L3";
+        case   10 : return "Main@L2";
+        case   11 : return "N-Bit@L2";
+        case   12 : return "Hybrid@L2";
+        case   13 : return "Hybrid@L1";
+        case   14 : return "BasicAnimatedTexture@L2";
+        case   15 : return "BasicAnimatedTexture@L1";
+        case   16 : return "ScalableTexture@L3";
+        case   17 : return "ScalableTexture@L2";
+        case   18 : return "ScalableTexture@L1";
+        case   19 : return "SimpleFaceAnimation@L2";
+        case   20 : return "SimpleFaceAnimation@L1";
+        case   21 : return "SimpleFBA@L2";
+        case   22 : return "SimpleFBA@L1";
+        case   23 : return "AdvancedRealTimeSimple@L4";
+        case   24 : return "AdvancedRealTimeSimple@L3";
+        case   25 : return "AdvancedRealTimeSimple@L2";
+        case   26 : return "AdvancedRealTimeSimple@L1";
+        case   27 : return "CoreScalable@L3";
+        case   28 : return "CoreScalable@L2";
+        case   29 : return "CoreScalable@L1";
+        case   30 : return "AdvancedCodingEfficiency@L4";
+        case   31 : return "AdvancedCodingEfficiency@L3";
+        case   32 : return "AdvancedCodingEfficiency@L2";
+        case   33 : return "AdvancedCoding@EfficiencyL1";
+        case   34 : return "AdvanceCore@L2";
+        case   35 : return "AdvanceCore@L1";
+        case   36 : return "AdvancedScalableTexture@L3";
+        case   37 : return "AdvancedScalableTexture@L2";
+        case   38 : return "AdvancedScalableTexture@L1";
+        default   : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mpeg4_Descriptors_GraphicsProfileLevelIndication(int8u ID)
+{
+    switch (ID)
+    {
+        case    1 : return "Simple2D@L1";
+        case    2 : return "Simple2D+Text@L1";
+        case    3 : return "Simple2D+Text@L2";
+        case    4 : return "Core2D@L1";
+        case    5 : return "Core2D@L2";
+        case    6 : return "Advanced2D@L1";
+        case    7 : return "Advanced2D@L2";
+        default   : return "";
     }
 }
 
@@ -205,14 +404,11 @@ void File_Mpeg4_Descriptors::Descriptor_02()
         Get_B1 (URLlength,                                      "URLlength");
         Skip_UTF8(URLlength,                                    "URLstring");
     }
-    Skip_B1(                                                    "ODProfileLevelIndication");
-    Skip_B1(                                                    "sceneProfileLevelIndication");
-    Skip_B1(                                                    "audioProfileLevelIndication");
-    Info_B1(VideoProfileLevel,                                  "visualProfileLevelIndication");
-        #ifdef MEDIAInfo_MPEG4V_YES
-            INFO(Mpeg4v_Profile_Level(VideoProfileLevel));
-        #endif //MEDIAInfo_MPEG4V_YES
-    Skip_B1(                                                    "graphicsProfileLevelIndication");
+    Info_B1(ODProfileLevel,                                     "ODProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_ODProfileLevelIndication(ODProfileLevel));
+    Info_B1(SceneProfileLevel,                                  "sceneProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_SceneProfileLevelIndication(SceneProfileLevel));
+    Info_B1(AudioProfileLevel,                                  "audioProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_AudioProfileLevelIndication(AudioProfileLevel));
+    Info_B1(VisualProfileLevel,                                 "visualProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_VisualProfileLevelIndication(VisualProfileLevel));
+    Info_B1(GraphicsProfileLevel,                               "graphicsProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_GraphicsProfileLevelIndication(GraphicsProfileLevel));
 
     FILLING_BEGIN();
         Element_ThisIsAList();
@@ -253,9 +449,9 @@ void File_Mpeg4_Descriptors::Descriptor_04()
     //Parsing
     int32u bufferSizeDB, MaxBitrate, AvgBitrate;
     int8u ObjectTypeId;
-    Get_B1 (ObjectTypeId,                                       "objectTypeIndication");
+    Get_B1 (ObjectTypeId,                                       "objectTypeIndication"); Param_Info(Mpeg4_Descriptors_ObjectTypeIndication(ObjectTypeId));
     BS_Begin();
-    Skip_S1(6,                                                  "streamType");
+    Info_S1(6, streamType,                                      "streamType"); Param_Info(Mpeg4_Descriptors_StreamType(streamType));
     Skip_SB(                                                    "upStream");
     Skip_SB(                                                    "reserved");
     BS_End();
@@ -268,8 +464,14 @@ void File_Mpeg4_Descriptors::Descriptor_04()
         {
             case 0x01 : Fill(StreamKind_Last, StreamPos_Last, "Format", "System", Error, false, true); break;
             case 0x02 : Fill(StreamKind_Last, StreamPos_Last, "Format", "System Core", Error, false, true); break;
+            //case 0x03 Interaction Stream
+            //case 0x05 AFX
+            //case 0x06 Font Data
+            //case 0x07 Synthesized Texture Stream
+            case 0x08 : Fill(StreamKind_Last, StreamPos_Last, "Format", "Streaming Text", Error, false, true); break;
             case 0x20 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG-4 Visual", Error, false, true); break;
             case 0x21 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AVC", Error, false, true); break;
+            //case 0x22 Parameter Sets for AVC
             case 0x40 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AAC", Error, false, true); break; //MPEG-4 AAC
             case 0x60 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Simple" , Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 2", Error, false, true); break; //MPEG-2V Simple
             case 0x61 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Main"   , Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 2", Error, false, true); break; //MPEG-2V Main
@@ -328,8 +530,11 @@ void File_Mpeg4_Descriptors::Descriptor_04()
         Fill(StreamKind_Last, StreamPos_Last, "Codec/CC", ObjectTypeId, 16, true);
 
         //Exception, TODO: find a better way to detect ALS
-        if ((AvgBitrate>640000) && (ObjectTypeId==0x40))
+        if (ObjectTypeId==0x40 && AvgBitrate>640000)
+        {
+            Fill(StreamKind_Last, StreamPos_Last, "Format", "ALS", Error, false, true);
             Fill(StreamKind_Last, StreamPos_Last, "Codec", "ALS", Error, false, true);
+        }
 
         //Bitrate mode
         if (AvgBitrate>0
@@ -345,13 +550,6 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             }
         }
 
-        Element_ThisIsAList();
-    FILLING_END();
-}
-
-//---------------------------------------------------------------------------
-void File_Mpeg4_Descriptors::Descriptor_05()
-{
     //Creating the parser
          if (0);
     #if defined(MEDIAINFO_MPEG4V_YES)
@@ -374,12 +572,40 @@ void File_Mpeg4_Descriptors::Descriptor_05()
         ((File_Mpeg4v*)Parser)->FrameIsAlwaysComplete=true;
     }
     #endif
-    else
-    {
-        Skip_XX(Element_Size,                                   "Unknown");
-        return;
-    }
 
+        //Creating parser
+        switch (ObjectTypeId)
+        {
+            case 0x20 : //MPEG-4 Visual
+            case 0x21 : //AVC
+            case 0x40 :
+            case 0x66 :
+            case 0x67 :
+            case 0x68 : //AAC
+            case 0x60 :
+            case 0x61 :
+            case 0x62 :
+            case 0x63 :
+            case 0x64 :
+            case 0x65 :
+            case 0x6A : //MPEG Video
+            case 0x69 :
+            case 0x6B : //MPEG Audio
+            case 0x6C : //M-JPEG
+            case 0xD3 : //AC-3
+            case 0xD4 : //DTS
+            case 0xDD :
+            case 0xDE : //OGG
+            default: ;
+        }
+
+        Element_ThisIsAList();
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4_Descriptors::Descriptor_05()
+{
     //Parsing
     Open_Buffer_Init(Parser, File_Offset+Buffer_Offset+Element_Size, File_Offset+Buffer_Offset);
     Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
