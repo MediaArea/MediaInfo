@@ -40,14 +40,18 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Audio/File_Ape.cpp \
                        ../../../Source/MediaInfo/Audio/File_Au.cpp \
                        ../../../Source/MediaInfo/Audio/File_Dts.cpp \
+                       ../../../Source/MediaInfo/Audio/File_ExtendedModule.cpp \
                        ../../../Source/MediaInfo/Audio/File_Flac.cpp \
+                       ../../../Source/MediaInfo/Audio/File_ImpulseTracker.cpp \
                        ../../../Source/MediaInfo/Audio/File_Latm.cpp \
                        ../../../Source/MediaInfo/Audio/File_Midi.cpp \
+                       ../../../Source/MediaInfo/Audio/File_Module.cpp \
                        ../../../Source/MediaInfo/Audio/File_Mpc.cpp \
                        ../../../Source/MediaInfo/Audio/File_MpcSv8.cpp \
                        ../../../Source/MediaInfo/Audio/File_Mpeg4_AudioSpecificConfig.cpp \
                        ../../../Source/MediaInfo/Audio/File_Mpega.cpp \
                        ../../../Source/MediaInfo/Audio/File_Pcm.cpp \
+                       ../../../Source/MediaInfo/Audio/File_ScreamTracker3.cpp \
                        ../../../Source/MediaInfo/Audio/File_Tta.cpp \
                        ../../../Source/MediaInfo/Audio/File_TwinVQ.cpp \
                        ../../../Source/MediaInfo/Audio/File_Vorbis.cpp \

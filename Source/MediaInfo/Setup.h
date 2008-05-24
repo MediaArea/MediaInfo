@@ -208,8 +208,14 @@
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_FLAC_NO) && !defined(MEDIAINFO_FLAC_YES)
     #define MEDIAINFO_FLAC_YES
 #endif
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_IT_NO) && !defined(MEDIAINFO_IT_YES)
+    #define MEDIAINFO_IT_YES
+#endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_MIDO_NO) && !defined(MEDIAINFO_MIDO_YES)
     #define MEDIAINFO_MIDI_YES
+#endif
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_MOD_NO) && !defined(MEDIAINFO_MOD_YES)
+    #define MEDIAINFO_MOD_YES
 #endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_MPC_NO) && !defined(MEDIAINFO_MPC_YES)
     #define MEDIAINFO_MPC_YES
@@ -223,6 +229,9 @@
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_PCM_NO) && !defined(MEDIAINFO_PCM_YES)
     #define MEDIAINFO_PCM_YES
 #endif
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_S3M_NO) && !defined(MEDIAINFO_S3M_YES)
+    #define MEDIAINFO_S3M_YES
+#endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_TTA_NO) && !defined(MEDIAINFO_TTA_YES)
     #define MEDIAINFO_TTA_YES
 #endif
@@ -234,6 +243,9 @@
 #endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_WVPK_NO) && !defined(MEDIAINFO_WVPK_YES)
     #define MEDIAINFO_WVPK_YES
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_XM_NO) && !defined(MEDIAINFO_XM_YES)
+    #define MEDIAINFO_XM_YES
+#endif
 #endif
 
 //---------------------------------------------------------------------------
