@@ -166,9 +166,9 @@ BitRate;码率
 BitRate_Maximum;最大码率
 BitRate_Minimum;最小码率
 BitRate_Mode;码率模式
-BitRate_Mode_CBR
-BitRate_Mode_VBR
-BitRate_Nominal;标称码率
+BitRate_Mode_CBR;恒定码率
+BitRate_Mode_VBR;可变码率
+BitRate_Nominal;额定码率
 Bits-(Pixel*Frame);平均每像素比特数
 Cancel;取消
 Channel(s);声道
@@ -210,7 +210,7 @@ Codec_Settings_ITU;编解码器设置, ITU
 Codec_Profile;编解码器简介
 Codec_Url;编解码器网址
 CodecID;编解码器ID
-CodecID_Description
+CodecID_Description;编码描述
 Collection;收集
 Colorimetry;比色法
 Comment;评论
@@ -300,16 +300,16 @@ Format_Settings_SBR;文件格式设置, SBR
 Format_Settings_PS;文件格式设置, PS
 Format_Settings_Pulldown;文件格式设置, Pulldown
 Format_Version;文件格式版本
-Format_Url
-FrameCount
-FrameRate;帧频
-FrameRate_Mode;帧频模式
-FrameRate_Mode_CFR
-FrameRate_Mode_VFR
-FrameRate_Minimum;最大帧频
-FrameRate_Nominal;标称帧频
-FrameRate_Maximum;最小帧频
-FrameRate_Original;原始帧频
+Format_Url;编解码器网址
+FrameCount;总帧数
+FrameRate;帧率
+FrameRate_Mode;帧率模式
+FrameRate_Mode_CFR;恒定帧率
+FrameRate_Mode_VFR;可变帧率
+FrameRate_Minimum;最小帧率
+FrameRate_Nominal;额定帧率
+FrameRate_Maximum;最大帧率
+FrameRate_Original;原始帧率
 General;概要
 Genre;风格
 Genre_000
@@ -480,8 +480,8 @@ Info;信息
 Instruments;乐器
 Interlacement;隔行扫描模式
 Interlaced_Interlaced;隔行扫描
-Interlaced_TFF;奇数场(前场)优先
-Interlaced_BFF;偶数场(后场)优先
+Interlaced_TFF;奇数场(前场TFF)优先
+Interlaced_BFF;偶数场(后场BFF)优先
 Interlaced_PPF;逐行扫描
 Interlaced_Progressive;逐行扫描
 IRCA
@@ -493,7 +493,7 @@ Known formats;已知格式
 Known parameters;已知参数
 Label;标签
 Language;语言
-Language___;多语言
+Language___;多国语言
 Language_aa
 Language_ab
 Language_ae
@@ -706,7 +706,7 @@ Name;名称
 Nationality;国藉
 New;新建
 Newest version;检查新版本(需要网络连接)
-No;否
+No;放弃
 OK;确定
 One output file per input file;一个输入文件对应一个输出文件
 Open;打开
@@ -720,7 +720,7 @@ OveralBitRate;平均混合码率
 OveralBitRate_Maximum;最大混合码率
 OveralBitRate_Minimum;最小混合码率
 OveralBitRate_Mode;混合码率模式
-OveralBitRate_Nominal;标称混合码率
+OveralBitRate_Nominal;额定混合码率
 Part
 Part_Count
 Performer;艺术家
@@ -753,7 +753,7 @@ ScanOrder;扫描顺序
 ScreenplayBy;编剧
 Season;季
 see below;请看下面列出的内容
-Send HeaderFile;发送头文件
+Send HeaderFile;发送头文件: http://sourceforge.net/projects/mediainfo/
 Separator_Columns;列分隔符
 Separator_Lines;换行符
 Set;设置
@@ -787,9 +787,9 @@ Tagged_Application;标记软件
 Tagged_Date;标记日期
 Technician;技术员
 TermsOfUse;使用方法
-Text;文字
-Text - Custom;文字-自定义
-Text (HTML);文字(网页)
+Text;文本
+Text - Custom;文本-自定义
+Text (HTML);文本(HTML)
 Text stream(s);文字流
 Text streams;文字流
 Text_Codec_List;字幕编解码器
@@ -811,7 +811,7 @@ Tree & Text;树状图和文本
 Unknown;不详
 Url;相关网址
 Video;视频
-Video stream(s);视频流
+Video stream(s);视频流(s)
 Video_Codec_List;视频编解码器
 Video_Delay;视频延迟
 Video_No;没有视频
@@ -828,16 +828,16 @@ WebSite_General;访问此播放程序的网页
 WebSite_General_More;更多播放程序的网页
 WebSite_Text;访问此文字编解码器的网页
 WebSite_Text_More;更多文字编解码器的网页
-WebSite_Url;网址
+WebSite_Url;网址http://mediainfo.sourceforge.net
 WebSite_Video;访问此视频编解码器的网页
-WebSite_Video_More;更多视频编解码器的网页
+WebSite_Video_More;更多视频编解码器的网页(%Url%)
 Width;画面宽度
 WriteMe;给作者写信
 WriteToTranslator;给译者写信
 Written_Date;写入日期
 Written_Location;写入地点
 WrittenBy;作者
-Yes;是
+Yes;确定
 Your system;您的系统
-ZZ_Automatic_Percent;49
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;50
+ZZ_AutomaticLanguage_Percent;90
