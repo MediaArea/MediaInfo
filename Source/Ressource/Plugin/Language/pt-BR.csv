@@ -33,9 +33,9 @@
  file1; arquivo(s)
  file2; arquivo(s)
  file3; arquivo(s)
- frame1
- frame2
- frame3
+ frame1; quadro
+ frame2; quadro
+ frame3; quadro
  fps1; fps
  fps2; fps
  fps3; fps
@@ -166,8 +166,8 @@ BitRate;Taxa de bits
 BitRate_Maximum;Taxa de bits máxima 
 BitRate_Minimum;Taxa de bits mínima 
 BitRate_Mode;Modo da taxa de bits
-BitRate_Mode_CBR
-BitRate_Mode_VBR
+BitRate_Mode_CBR;Constante
+BitRate_Mode_VBR;Variável
 BitRate_Nominal;Taxa de bits nominal
 Bits-(Pixel*Frame);Bits/(Pixels*Quadros)
 Cancel;Cancelar
@@ -286,8 +286,8 @@ Format_Settings_BVOP;Conf do Formato, BVOP
 Format_Settings_QPel;Conf do Formato, QPel
 Format_Settings_GMC;Conf do Formato, GMC
 Format_Settings_Matrix;Conf do Formato, Matriz
-Format_Settings_Matrix_Custom
-Format_Settings_Matrix_Default
+Format_Settings_Matrix_Custom;Personalizada
+Format_Settings_Matrix_Default;Padrão
 Format_Settings_Floor;Conf do Formato, Floor
 Format_Settings_CABAC;Conf do Formato, CABAC
 Format_Settings_Firm;Conf do Formato, Firm
@@ -300,12 +300,12 @@ Format_Settings_SBR;Conf do Formato, SBR
 Format_Settings_PS;Conf do Formato, PS
 Format_Settings_Pulldown;Conf do Formato, Pulldown
 Format_Version;Versão do Formato
-Format_Url
-FrameCount
+Format_Url;URL do Formato
+FrameCount;Número de Quadros
 FrameRate;Taxa de quadros
 FrameRate_Mode;Modo de taxa de quadros
-FrameRate_Mode_CFR
-FrameRate_Mode_VFR
+FrameRate_Mode_CFR;TConstante
+FrameRate_Mode_VFR;Variável
 FrameRate_Minimum;Taxa de quadros mínima
 FrameRate_Nominal;Taxa de quadros nominal
 FrameRate_Maximum;Taxa de quadros máxima
@@ -773,8 +773,8 @@ Stream_MoreInfo;Mais informações sobre esta faixa
 StreamCount;Número de faixas do mesmo tipo
 StreamID;ID da Faixa
 StreamKind;Tipo da Faixa
-StreamKindID
-StreamKindPos
+StreamKindID;Tipo da Faixa/ID
+StreamKindPos;Tipo da Faixa/Pos
 StreamSize;Tamanho da Faixa
 Subject;Assunto
 SubTrack;Sub-Faixa
@@ -839,5 +839,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;Seu sistema
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

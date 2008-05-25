@@ -33,9 +33,9 @@
  file1; file; fichier; Datei;fájl; file; файл;archivo; arquivo; bestand; plik;fisier; fil; dosya; 檔案;文件; ファイル; soubor; αρχείο; 파일; arquivo; arxiu;failas; arquivo(s); ไฟล์; файл;文件
  file2; files; fichiers; Dateien;fájl; files; файлы;archivos; arquivo; bestanden; pliki;fisiere; filer; dosya; 檔案;个文件; ファイル; soubory; αρχεία; 파일; arquivos; arxius;failai; arquivo(s); ไฟล์; файла;文件
  file3; files; fichiers; Dateien;fájl; files; файлы;archivos; arquivo; bestanden; pliki;fisiere; filer; dosya; 檔案;个文件; ファイル; soubory; αρχεία; 파일; arquivos; arxius;failai; arquivo(s); ไฟล์; файли;文件
- frame1; frame; image
- frame2; frames; images
- frame3; frames; images
+ frame1; frame; image;;;;;;;;;;;;;;;;;;;;; quadro
+ frame2; frames; images;;;;;;;;;;;;;;;;;;;;; quadro
+ frame3; frames; images;;;;;;;;;;;;;;;;;;;;; quadro
  fps1; fps; Im/s; FPS;fps; fps; кадр/сек;fps; fps; fps; r/s;pfs; fps; kare/s;;帧每秒; fps; fps; fps; fps; fps; fps; kps; fps; fps; кадр (-и,-ів)/сек;fps
  fps2; fps; Im/s; FPS;fps; fps; кадр/сек;fps; fps; fps; r/s;pfs; fps; kare/s;;帧每秒; fps; fps; fps; fps; fps; fps; kps; fps; fps; кадр (-и,-ів)/сек;fps
  fps3; fps; Im/s; FPS;fps; fps; кадр/сек;fps; fps; fps; r/s;pfs; fps; kare/s;;帧每秒; fps; fps; fps; fps; fps; fps; kps; fps; fps; кадр (-и,-ів)/сек;fps
@@ -166,8 +166,8 @@ BitRate;Bit rate;Débit;Bitrate;Adatsebesség;BitRate;Битрейт;Bitrate;Bit
 BitRate_Maximum;Maximum bit rate;Débit maximum;;;BitRate Massimo;;Bitrate máximo;;;;;;;最大流量;最大码率;最大;;;최고 비트레이트;;;Maksimalus bitų tempas;Taxa de bits máxima ;บิตเรตสูงสุด;;最大碼率
 BitRate_Minimum;Minimum bit rate;Débit minimum;;;BitRate Minimo;;Bitrate mínimo;;;;;;;最小流量;最小码率;最小;;;최소 비트레이트;;;Minimalus bitų tempas;Taxa de bits mínima ;บิตเรตต่ำสุด;;最小碼率
 BitRate_Mode;Bit rate mode;Type de débit;Bitraten-Modus;Adatsebesség mód;Modalità;Режим расчёта битрейта;Tipo de Bitrate;Tipo de Bitrate;Bitrate-modus;Rodzaj przepływności;; Bitrateläge;Bit oranı kipi;流量模式;码率模式;ビットレートモード;Bit rate mode;Bit rate mode;비트레이트 모드;Modo da taxa de bits;Mode de Bit ràtio;Bitų tempo režimas;Modo da taxa de bits;บิตเรตโหมด;Режим розрахунку бітрейта;比特率模式
-BitRate_Mode_CBR;Constant;Constant
-BitRate_Mode_VBR;Variable;Variable
+BitRate_Mode_CBR;Constant;Constant;;;;;;;;;;;;;;;;;;;;;Constante
+BitRate_Mode_VBR;Variable;Variable;;;;;;;;;;;;;;;;;;;;;Variável
 BitRate_Nominal;Nominal bit rate;Débit nominal;;;BitRate nominale;;Bitrate nominal;;;;;;;;标称码率;;;;명목상의 비트레이트;;Ràtio nominal;Nominalus bitų tempas;Taxa de bits nominal;Nominal bit rate;;正常碼率
 Bits-(Pixel*Frame);Bits/(Pixel*Frame);Bits/(Pixel*Image);Bits/(Pixel*Frame);Bit/(képpont*képkocka);Bits/(Pixel*Frame);Бит/(Пиксели*Кадры);Bits/(Pixel*cuadros);Bits/(Pixel*Frame);Bits/(Pixel*Frame);bity/(piksele*ramki);; Bits/(Pixel*Frame);Bit/(Piksel*Kare);位元/(像素*畫面);平均每像素比特数;ビット/(ピクセル*フレーム);Bits/(Pixel*Frame);Bits/(Εικονοστοιχείο*Πλαίσιο);비트/(픽셀*프레임);Bits/(Pixel*Quadro);Bits/(Píxel*imatge);Bitai/(Pikselis*Kadras);Bits/(Pixels*Quadros);บิต/(พิกเซล*เฟรม);Біт/(Пікселі*Кадри);比特數/(像素*幀)
 Cancel;Cancel;Annuler;Abbrechen;Mégsem;Annulla;Отмена;Cancelar;Cancelar;Annuleren;Anuluj;Anulare; Ångra;İptal;取消;取消;キャンセル;Zrušit;Άκυρο;취소;Cancelar;Cancel·la;Atšaukti;Cancelar;ยกเลิก;Відміна;取消
@@ -286,8 +286,8 @@ Format_Settings_BVOP;Format settings, BVOP;Paramètres du format, BVOP;;;Imposta
 Format_Settings_QPel;Format settings, QPel;Paramètres du format, QPel;;;Impostazioni del formato, QPel;;Ajustes del formato, Qpel;;;;;;;格式設定, QPel;文件格式设置, QPel;QPel;;;포맷 설정, QPel;;;Formato nuostatos, Qpel;Conf do Formato, QPel;ตั้งค่ารูปแบบ, QPel;;格式設置, QPel
 Format_Settings_GMC;Format settings, GMC;Paramètres du format, GMC;;;Impostazioni del formato, GMC;;Ajustes del formato, GMC;;;;;;;格式設定, GMC;文件格式设置, GMC;GMC;;;포맷 설정, GMC;;;Formato nuostatos, GMC;Conf do Formato, GMC;ตั้งค่ารูปแบบ, GMC;;格式設置, GMC
 Format_Settings_Matrix;Format settings, Matrix;Paramètres du format, Matrice;;;Impostazioni del formato, Matrix;;Ajustes del formato, Matrix;;;;;;;格式設定, Matrix;文件格式设置, Matrix;Matrix;;;포맷 설정, 매트릭스;;;Formato nuostatos, Matrix;Conf do Formato, Matriz;ตั้งค่ารูปแบบ, Matrix;;格式設置, Matrix
-Format_Settings_Matrix_Custom;Custom;Personnalisée
-Format_Settings_Matrix_Default;Default;Par défaut
+Format_Settings_Matrix_Custom;Custom;Personnalisée;;;;;;;;;;;;;;;;;;;;;Personalizada
+Format_Settings_Matrix_Default;Default;Par défaut;;;;;;;;;;;;;;;;;;;;;Padrão
 Format_Settings_Floor;Format settings, Floor;Paramètres du format, Seuil;;;Impostazioni del formato, Floor;;Ajustes del formato, Floor;;;;;;;格式設定, Floor;文件格式设置, Floor;Floor;;;포맷 설정, Floor;;;Formato nuostatos, Floor;Conf do Formato, Floor;ตั้งค่ารูปแบบ, Floor;;格式設置, Floor
 Format_Settings_CABAC;Format settings, CABAC;Paramètres du format, CABAC;;;Impostazioni del formato, CABAC;;Ajustes del formato, CABAC;;;;;;;格式設定, CABAC;文件格式设置, CABAC;CABAC;;;포맷 설정, CABAC;;;Formato nuostatos, CABAC;Conf do Formato, CABAC;ตั้งค่ารูปแบบ, CABAC;;格式設置, CABAC
 Format_Settings_Firm;Format settings, Firm;Paramètres du format, Entreprise;;;Impostazioni del formato, Firm;;Ajustes del formato, Firm;;;;;;;格式設定, Firm;文件格式设置, Firm;Firm;;;포맷 설정, Firm;;;Formato nuostatos, Firm;Conf do Formato, Firm;ตั้งค่ารูปแบบ, Firm;;格式設置, Firm
@@ -300,12 +300,12 @@ Format_Settings_SBR;Format settings, SBR;Paramètres du format, SBR;;;Impostazio
 Format_Settings_PS;Format settings, PS;Paramètres du format, PS;;;Impostazioni del formato, PS;;Ajustes del formato, PS;;;;;;;格式設定, PS;文件格式设置, PS;PS;;;포맷 설정, PS;;;Formato nuostatos, PS;Conf do Formato, PS;ตั้งค่ารูปแบบ, PS;;格式設置, PS
 Format_Settings_Pulldown;Format settings, Pulldown;Paramètres du format, Pulldown;;;Impostazioni del formato, Pulldown;;Ajustes del formato, Pulldown;;;;;;;格式設定, Pulldown;文件格式设置, Pulldown;Pulldown;;;포맷 설정, Pulldown;;;Formato nuostatos, Pulldown;Conf do Formato, Pulldown;ตั้งค่ารูปแบบ, Pulldown;;格式設置, Pulldown
 Format_Version;Format version;Version du format;;;Versione del formato;;Formato de la versión;;;;;;;格式版本;文件格式版本;バージョン;;;포맷 버전;;;Formato versija;Versão do Formato;เวอร์ชันรูปแบบ;;格式版本
-Format_Url;Weblink for format;Lien Internet sur le format
-FrameCount;Frame count;Nombre d'images
+Format_Url;Weblink for format;Lien Internet sur le format;;;;;;;;;;;;;;;;;;;;;URL do Formato
+FrameCount;Frame count;Nombre d'images;;;;;;;;;;;;;;;;;;;;;Número de Quadros
 FrameRate;Frame rate;Images par seconde;Bildwiederholungsrate;Képsebesség;FrameRate;Частота кадров;Velocidad de cuadro;Frame rate;Framerate;Przepływność ramek;Frecventa cadre; Bildhastighet (Frame rate);Kare hızı;畫面頻率;帧频;フレームレート;Frame rate;Ρυθμός ανανέωσης πλαισίου;프레임레이트;Taxa de quadros;Imatges per segon;Kadrų tempas;Taxa de quadros;เฟรมเรต;Частота кадрів;幀頻率
 FrameRate_Mode;Frame rate mode;Type d'images/s;;;FrameRate mode;;Modo de velocidad de cuadro;;;;;;;畫面頻率模式;帧频模式;モード;;;프레임레이트 모드;;;Kadrų tempo rėžimas;Modo de taxa de quadros;เฟรมเรตโหมด;;幀率類型
-FrameRate_Mode_CFR;Constant;Constant
-FrameRate_Mode_VFR;Variable;Variable
+FrameRate_Mode_CFR;Constant;Constant;;;;;;;;;;;;;;;;;;;;;TConstante
+FrameRate_Mode_VFR;Variable;Variable;;;;;;;;;;;;;;;;;;;;;Variável
 FrameRate_Minimum;Minimum frame rate;Images/s mini;;;FrameRate Minimo;;Velocidad de cuadro Mínima;;;;;;En az kare hızı;最小畫面頻率;最大帧频;最小;Minimum frame rate;Ελάχιστος ρυθμός ανανέωσης πλαισίου;최소 프레임레이트;Taxa de quadros mínima;Imatges per segon mínimes;Minimalus kadrų tempas;Taxa de quadros mínima;เฟรมเรตต่ำสุด;;最小幀率
 FrameRate_Nominal;Nominal frame rate;Images/s nominal;;;FrameRate Nominale;;Velocidad de cuadro Nominal;;;;;;;;标称帧频;通常;;;명목상의 프레임레이트;;;Nominalus kadrų skaičius;Taxa de quadros nominal;เฟรมเรต Nominal;;正常幀率
 FrameRate_Maximum;Maximum frame rate;Images/s maxi;;;FrameRate Massimo;;Velocidad de cuadro Máxima;;;;;;En fazla kare hızı;最大畫面頻率;最小帧频;最大;Maximum frame rate;Μέγιστος ρυθμός ανανέωσης πλαισίου;최대 프레임레이트;Taxa de quadros máxima;Imatges per segon màximes;Maksimalus kadrų tempas;Taxa de quadros máxima;เฟรมเรตสูงสุด;;最大幀率
@@ -773,8 +773,8 @@ Stream_MoreInfo;More information about the stream;Plus d'information au sujet de
 StreamCount;Count of stream of this kind;Nombre de pistes de ce type;Anzahl der Streams dieser Art;A hasonló fajtájú sávok száma;Numero di tracce;Кол-во потоков;Cantidad de pistas de éste tipo;Pistas desta clase;Telling van dit soort stromen;Liczba strumieni;Numara fluxurile de acest tip; Antal strömmar av den här typen;Bu çeşidin akış sayısı;此串流數量;此类型流的数量;この種類のストリーム数;Count of stream of this kind;Αριθμός των ροών αυτού του τύπου;이 종류의 스트림 개수;Número de faixas do mesmo tipo;Comptador d'aquest tipus de pistes;Šios rūšies srautų kiekis;Número de faixas do mesmo tipo;จำนวนสตรีมของชนิดนี้;Кількість потоків;此軌數量
 StreamID;Stream ID;ID de flux;Stream-ID;Sávazonosító;Id del Flusso ;Номер потока;ID de Pista;ID pista;Stroom ID;ID strumienia;ID flux; Ström-ID;Akış ID;串流ID;流ID;ストリーム ID;Stream ID;Stream ID;스트림 ID;ID da Faixa;ID de Pista;Srauto ID;ID da Faixa;รหัสประจำตัวสตรีม;Ідентифікатор потоку;流標號
 StreamKind;Kind of stream;Type de flux;Art des Streams;Sáv fajtája;Tipo di traccia;Тип потока;Clase de pista;Clase de pista;Soort stroom;Rodzaj strumienia;Tipul fluxului; Strömtyp;Akış çeşidi;串流類型;类型;ストリーム種;Kind of stream;Τύπος/Είδος Ροής;스트림 종류;Faixa do tipo;Tipus de pista;Srauto rūšis;Tipo da Faixa;ชนิดของสตรีม;Вид потоку;此軌類型
-StreamKindID;Stream identifier;Identifiant du flux
-StreamKindPos;Stream identifier;Identifiant du flux
+StreamKindID;Stream identifier;Identifiant du flux;;;;;;;;;;;;;;;;;;;;;Tipo da Faixa/ID
+StreamKindPos;Stream identifier;Identifiant du flux;;;;;;;;;;;;;;;;;;;;;Tipo da Faixa/Pos
 StreamSize;Stream size;Taille du flux;;;Dimensione del canale;;Tamaño de pista;;;;;;;串流大小;大小;ストリームサイズ;;;스트림 크기;;;Srauto dydis;Tamanho da Faixa;ขนาดสตรีม;;流大小
 Subject;Subject;Sujet;Inhalt ;Tárgy;Soggetto ;Тема;Asunto;Asunto;Onderwerp;Temat;Subiect; Innehåll;Konu;;主题;件名;Subject;Subject;제목;Assunto;Subjecte;Tema;Assunto;Subject;Тема;主題
 SubTrack;SubTrack;Sous-piste;Untertitel ;Alsáv;Sottotitolo;Подпоток;SubPista;SubPista;Ondertiteling;Podnagranie;Sub-pista; Underspår;Altİz;;子轨道;サブトラック;SubTrack;SubTrack;서브트랙;Sub-Faixa;transició;SubTakelis;Sub-Faixa;แทร็กย่อย;Підпотік;字幕軌道
@@ -839,5 +839,5 @@ Written_Location;Written location;Lieu d'écriture;Speicherort ;Írás helye;Wri
 WrittenBy;Written by;Ecrit par;Gespeichert von ;Írta;Scritto da ;Написано;Escrito por;Escrito por;Geschreven door;Napisany przez;Scris de; Skrivet av;Yazan;撰寫人;作者;著者;Napsal;Γραμμένο από;제작자;Escrito por;Escrit per;Parašė;Escrito por;เขียนโดย;Написано;作者
 Yes;Yes;Oui;Ja;Igen;Si ;Да;Si;Si;Ja;Tak;Da; Ja;Evet;是;是;はい;Ano;Ναι;예;Sim;Sí;Taip;Sim;ใช่;Так;確定
 Your system;Your system;Votre système;Systeminformationen;Rendszer;Il tuo sistema;Ваша система;Tu sistema;O teu sistema;Uw systeem;System;Sistemul dvs; Ditt system;Sisteminiz;您的系統;您的系统;システム情報;Instalované kodeky;Το σύστημά σας;이 시스템;Seu sistema;El vostre sistema;Jūsų sistema;Seu sistema;ระบบของคุณ;Ваша система;您的系統
-ZZ_Automatic_Percent;100;100;67;65;90;58;74;89;88;47;39;88;90;58;49;97;90;90;97;90;90;97;97;97;89;97
-ZZ_AutomaticLanguage_Percent;100;100;86;85;97;82;97;89;88;86;79;88;90;78;89;97;90;90;97;90;90;97;97;97;89;97
+ZZ_Automatic_Percent;100;100;67;65;90;58;74;89;88;47;39;88;90;58;49;97;90;90;97;90;90;97;99;97;89;97
+ZZ_AutomaticLanguage_Percent;100;100;86;85;97;82;97;89;88;86;79;88;90;78;89;97;90;90;97;90;90;97;99;97;89;97

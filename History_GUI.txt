@@ -15,7 +15,7 @@ Known bugs
 
 Version 0.7.7.1, 2008-06-
 ---------------
-+ Catalan translations updated
++ Catalan, Korean, Portuguese (Brazil) translations updated
 + Bluray: detection of subtitles
 + The two Chinese language files are merged
 
