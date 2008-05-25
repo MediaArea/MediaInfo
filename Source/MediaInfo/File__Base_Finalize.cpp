@@ -732,7 +732,7 @@ void File__Analyze::Finalize_Final()
 
         //Filling
         if (IsOK && StreamSize_Total>0 && StreamSize_Total<File_Size)
-            Fill(Stream_General, 0, "StreamSize", File_Size-StreamSize_Total);
+            Fill(Stream_General, 0, General_StreamSize, File_Size-StreamSize_Total);
     }
 
     //-OveralBitRate if we have one Audio stream with bitrate
@@ -817,35 +817,20 @@ void File__Analyze::Finalize_Final()
             Fill(Stream_Video, 0, Video_BitRate, VideoBitRate*VideoBitRate_Ratio-VideoBitRate_Minus, 0); //Default container overhead=2%
     }
     //-General stream size if we have all streamsize
-    if (File_Size!=(int64u)-1 && !Retrieve(Stream_General, 0, General_StreamSize).empty())
+    if (File_Size!=(int64u)-1 && Retrieve(Stream_General, 0, General_StreamSize).empty())
     {
         //Testing
         int64s StreamSize=File_Size;
         bool StreamSizeIsValid=true;
-        for (size_t Pos=0; Pos<Count_Get(Stream_Video); Pos++)
-        {
-            int64u VideoStreamSize=Retrieve(Stream_Video, Pos, Video_StreamSize).To_int64u();
-            if (VideoStreamSize>0)
-                StreamSize-=VideoStreamSize;
-            else
-                StreamSizeIsValid=false;
-        }
-        for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
-        {
-            int64u AudioStreamSize=Retrieve(Stream_Audio, Pos, Audio_StreamSize).To_int64u();
-            if (AudioStreamSize>0)
-                StreamSize-=AudioStreamSize;
-            else
-                StreamSizeIsValid=false;
-        }
-        for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
-        {
-            int64u TextStreamSize=Retrieve(Stream_Text, Pos, Text_StreamSize).To_int64u();
-            if (TextStreamSize>0)
-                StreamSize-=TextStreamSize;
-            else
-                StreamSizeIsValid=false;
-        }
+        for (size_t StreamKind_Pos=Stream_General+1; StreamKind_Pos<Stream_Max; StreamKind_Pos++)
+            for (size_t Pos=0; Pos<Count_Get((stream_t)StreamKind_Pos); Pos++)
+            {
+                int64u StreamXX_StreamSize=Retrieve((stream_t)StreamKind_Pos, Pos, "StreamSize").To_int64u();
+                if (StreamXX_StreamSize>0)
+                    StreamSize-=StreamXX_StreamSize;
+                else
+                    StreamSizeIsValid=false;
+            }
         if (StreamSizeIsValid && StreamSize>=0) //to avoid strange behavior
             Fill(Stream_General, 0, General_StreamSize, StreamSize);
     }
