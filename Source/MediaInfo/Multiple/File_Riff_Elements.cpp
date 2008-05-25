@@ -1408,6 +1408,10 @@ void File_Riff::AVI__idx1()
         return;         
     }
 
+    //Testing malformed index (index is based on start of the file, wrong)
+    if (16<=Element_Size && Idx1_Offset+4==LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset+ 8))
+        Idx1_Offset=0; //Fixing base of movi atom, the index think it is the start of the file
+
     //Parsing
     std::map <int64u, size_t> Stream_Count;
     while (Element_Offset<Element_Size)
