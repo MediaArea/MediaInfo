@@ -52,6 +52,7 @@ void File_Adpcm::Read_Buffer_Continue()
     Fill(Stream_General, 0, Audio_Format, "ADPCM");
     Fill(Stream_General, 0, Audio_Codec, "ADPCM");
 
+    Info("ADPCM, Jumping to end of file");
     Finnished();
 }
 
