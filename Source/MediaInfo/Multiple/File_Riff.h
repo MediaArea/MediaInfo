@@ -68,6 +68,7 @@ private :
         stream_t                StreamKind;
         size_t                  StreamPos;
         int32u                  AvgBytesPerSec;
+        size_t                  PacketPos;
         size_t                  PacketCount;
         int64u                  StreamSize;
         bool                    SearchingPayload;
@@ -83,6 +84,7 @@ private :
             StreamKind=Stream_Max;
             StreamPos=0;
             AvgBytesPerSec=0;
+            PacketPos=0;
             PacketCount=0;
             StreamSize=0;
             SearchingPayload=true;

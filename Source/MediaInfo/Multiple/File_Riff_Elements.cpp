@@ -66,6 +66,9 @@
 #if defined(MEDIAINFO_OTHERTEXT_YES)
     #include "MediaInfo/Text/File_OtherText.h"
 #endif
+#if defined(MEDIAINFO_ADPCM_YES)
+    #include "MediaInfo/Audio/File_Adpcm.h"
+#endif
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
@@ -892,11 +895,26 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     }
     #endif
     #if defined(MEDIAINFO_PCM_YES)
-    else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("PCM"))==0
-          || MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("ADPCM"))==0)
+    else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("PCM"))==0)
     {
         //Creating the parser
         File_Pcm MI;
+        MI.Codec=Codec;
+
+        //Parsing
+        Open_Buffer_Init(&MI);
+        Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, 0);
+        Open_Buffer_Finalize(&MI);
+
+        //Filling
+        Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+    }
+    #endif
+    #if defined(MEDIAINFO_ADPCM_YES)
+    else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("ADPCM"))==0)
+    {
+        //Creating the parser
+        File_Adpcm MI;
         MI.Codec=Codec;
 
         //Parsing
@@ -929,8 +947,13 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     if (Option_Size>0)
     {
              if (0);
-        else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("MPEG-1"))==0)
-            AVI__hdlr_strl_strf_auds_Mpega();
+        else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Codec)==_T("MPEG Audio"))
+        {
+            if (Option_Size==12)
+                AVI__hdlr_strl_strf_auds_Mpega();
+            else
+                Skip_XX(Option_Size,                            "MPEG Audio - Uknown");
+        }
         else if (Codec==_T("AAC") || Codec==_T("FF"))
             AVI__hdlr_strl_strf_auds_Aac();
         else if (FormatTag==0x566F) //Vorbis with Config in this chunk
@@ -1444,6 +1467,7 @@ void File_Riff::AVI__idx1()
         int32u Offset  =LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset+ 8);
         int32u Size    =LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset+12);
         Stream[StreamID].StreamSize+=Size;
+        Stream[StreamID].PacketCount++;
         Stream_Pos[Idx1_Offset+Offset]=StreamID;
         Element_Offset+=16;
     }
@@ -1691,7 +1715,7 @@ void File_Riff::AVI__movi_xxxx()
         return;
     }
 
-    Stream[Stream_ID].PacketCount++;
+    Stream[Stream_ID].PacketPos++;
     if (MediaInfoLib::Config.Details_Get())
     {
         switch (Element_Code&0x0000FFFF) //2 last bytes
@@ -1704,7 +1728,7 @@ void File_Riff::AVI__movi_xxxx()
             case Elements::AVI__movi_xxxx___wb : Element_Info("Audio"); break;
             default :                            Element_Info("Unknown"); break;
         }
-        Element_Info(Stream[Stream_ID].PacketCount);
+        Element_Info(Stream[Stream_ID].PacketPos);
     }
 
     //Some specific stuff
@@ -1741,7 +1765,7 @@ void File_Riff::AVI__movi_xxxx___dc()
     //Finalize (if requested)
     if (Stream[Stream_ID].Parser==NULL
      || Stream[Stream_ID].Parser->File_Offset==File_Size
-     || Stream[Stream_ID].PacketCount>=300)
+     || Stream[Stream_ID].PacketPos>=300)
     {
         Stream[Stream_ID].SearchingPayload=false;
         AVI__movi_StreamClear(Stream_ID);
@@ -1786,7 +1810,7 @@ void File_Riff::AVI__movi_xxxx___wb()
     //Finalize (if requested)
     if (Stream[Stream_ID].Parser==NULL
      || Stream[Stream_ID].Parser->File_Offset==File_Size
-     || Stream[Stream_ID].PacketCount>=300
+     || Stream[Stream_ID].PacketPos>=300
      || Element_Size>50000) //For PCM, we disable imediatly
     {
         Stream[Stream_ID].SearchingPayload=false;

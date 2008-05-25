@@ -227,6 +227,47 @@ void File_Riff::Read_Buffer_Finalize ()
         }
         #endif
 
+        //Duration
+        if (Temp->second.PacketCount>0)
+        {
+            if (StreamKind_Last==Stream_Video)
+            {
+                //Duration in case it is missing from header (malformed header...)
+                if (Retrieve(Stream_Video, StreamPos_Last, Video_Duration).empty())
+                {
+                    float32 FrameRate=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float32();
+                    if (FrameRate>0)
+                        Fill(Stream_Video, StreamPos_Last, Video_Duration, Temp->second.PacketCount*1000/FrameRate, 0);
+                }
+            }
+            if (StreamKind_Last==Stream_Audio)
+            {
+                //Duration in case it is missing from header (malformed header...)
+                if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Duration).empty())
+                {
+                    int64u SamplingCount=0;
+                    if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("MPEG Audio"))
+                    {
+                        if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format_Profile)==_T("Layer 1"))
+                            SamplingCount=Temp->second.PacketCount*384;  //Layer 1
+                        else
+                            SamplingCount=Temp->second.PacketCount*1152; //Layer 2 and 3
+                    }
+                    if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("PCM")
+                     || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("ADPCM"))
+                    {
+                        int64u Resolution=Retrieve(Stream_Audio, StreamPos_Last, Audio_Resolution).To_int64u();
+                        if (Resolution>0)
+                            SamplingCount=Temp->second.StreamSize*8/Resolution;
+                    }
+
+                    int64u SamplingRate=Retrieve(Stream_Audio, StreamPos_Last, Audio_SamplingRate).To_int64u();
+                    if (SamplingCount>0 && SamplingRate>0)
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Duration, SamplingCount*1000/SamplingRate, 10, true);
+                }
+            }
+        }
+        
         Temp++;
     }
 
