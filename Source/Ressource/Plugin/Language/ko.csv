@@ -264,9 +264,9 @@ Fax;팩스
 File;파일
 File size;파일 크기
 File_Append;존재하는 파일에 이어쓰기 (경고 : 같은 파라미터인지 주의하세요)
-File_Created_Date
+File_Created_Date;파일 만든 날짜
 File_Hint;조사할 미디어 파일을 선택
-File_Modified_Date
+File_Modified_Date;파일 수정한 날짜
 FileExtension;파일 확장자
 FileName;파일명
 FileSize;파일 크기
@@ -303,7 +303,7 @@ Format_Version;포맷 버전
 Format_Url
 FrameCount
 FrameRate;프레임레이트
-FrameRate_Mode
+FrameRate_Mode;프레임레이트 모드
 FrameRate_Mode_CFR
 FrameRate_Mode_VFR
 FrameRate_Minimum;최소 프레임레이트
@@ -783,7 +783,7 @@ Supported formats;지원하는 포맷
 Supported?;지원?
 Synopsys;시놉시스
 SystemId;Id
-Tagged_Application
+Tagged_Application;태깅 어플리케이션
 Tagged_Date;태깅한 날짜
 Technician;기술자
 TermsOfUse;사용권한

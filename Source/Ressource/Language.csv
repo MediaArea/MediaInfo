@@ -33,9 +33,9 @@
  file1; file; fichier; Datei;fájl; file; файл;archivo; arquivo; bestand; plik;fisier; fil; dosya; 檔案;文件; ファイル; soubor; αρχείο; 파일; arquivo; arxiu;failas; arquivo(s); ไฟล์; файл;文件
  file2; files; fichiers; Dateien;fájl; files; файлы;archivos; arquivo; bestanden; pliki;fisiere; filer; dosya; 檔案;个文件; ファイル; soubory; αρχεία; 파일; arquivos; arxius;failai; arquivo(s); ไฟล์; файла;文件
  file3; files; fichiers; Dateien;fájl; files; файлы;archivos; arquivo; bestanden; pliki;fisiere; filer; dosya; 檔案;个文件; ファイル; soubory; αρχεία; 파일; arquivos; arxius;failai; arquivo(s); ไฟล์; файли;文件
- frame1; frame; image;;;;;;;;;;;;;;;;;;;;;;;;
- frame2; frames; images;;;;;;;;;;;;;;;;;;;;;;;;
- frame3; frames; images;;;;;;;;;;;;;;;;;;;;;;;;
+ frame1; frame; image
+ frame2; frames; images
+ frame3; frames; images
  fps1; fps; Im/s; FPS;fps; fps; кадр/сек;fps; fps; fps; r/s;pfs; fps; kare/s;;帧每秒; fps; fps; fps; fps; fps; fps; kps; fps; fps; кадр (-и,-ів)/сек;fps
  fps2; fps; Im/s; FPS;fps; fps; кадр/сек;fps; fps; fps; r/s;pfs; fps; kare/s;;帧每秒; fps; fps; fps; fps; fps; fps; kps; fps; fps; кадр (-и,-ів)/сек;fps
  fps3; fps; Im/s; FPS;fps; fps; кадр/сек;fps; fps; fps; r/s;pfs; fps; kare/s;;帧每秒; fps; fps; fps; fps; fps; fps; kps; fps; fps; кадр (-и,-ів)/сек;fps
@@ -122,10 +122,10 @@
  video stream1; video stream; flux vidéo; Video-Stream;képsáv; video; видеопоток;Primera pista de video; pista de vídeo; videostroom; strumień wideo;flux video; videoström; görüntü akışı; 視訊串流;视频; ビデオストリーム; video stream; ροή video; 비디오 스트림; faixa de vídeo; pista de vídeo;video srautas; faixa(s) de vídeo; สตรีมวีดีโอ; відеопотік;視頻
  video stream2; video streams; flux vidéo; Video-Streams;képsáv; video; видеопотоки;Segunda pista de video; pistas de vídeo; videostromen; strumienie wideo;fluxuri video; videoströmmar; görüntü akışı; 視訊串流;个视频; ビデオストリーム; video streams; ροές video; 비디오 스트림; faixas de vídeo; pistes de vídeo;video srautai; faixa(s) de vídeo; สตรีมวีดีโอ; відеопотік (-оки,-ів);視頻
  video stream3; video streams; flux vidéo; Video-Streams;képsáv; video; видеопотоки;Tercera pista de video; pistas de vídeo; videostromen; strumienie wideo;fluxuri video; videoströmmar; görüntü akışı; 視訊串流;个视频; ビデオストリーム; video streams; ροές video; 비디오 스트림; faixas de vídeo; pistes de vídeo;video srautai; faixa(s) de vídeo; สตรีมวีดีโอ; відеопотоки;視頻
- warppoint0;No warppoints;Pas de warppoints;;;;;;;;;;;;;;;;;;;;;;;;
- warppoint1; warppoint; warppoint;;;;;;;;;;;;;;;;;;;;;;;;
- warppoint2; warppoints; warppoints;;;;;;;;;;;;;;;;;;;;;;;;
- warppoint3; warppoints; warppoints;;;;;;;;;;;;;;;;;;;;;;;;
+ warppoint0;No warppoints;Pas de warppoints
+ warppoint1; warppoint; warppoint
+ warppoint2; warppoints; warppoints
+ warppoint3; warppoints; warppoints
  week1; week; semaine; Woche;hét; settimana; нед.;semana; semana; week; tydzień;saptamana; vecka; hafta; 周;周; 週;týden; εβδομάδα; 주; semana; setmana;savaitė; semana(s); สัปดาห์; тижд.;周
  week2; weeks; semaines; Wochen;het; settimane; нед.;semanas; semanas; weken; tygodnie;saptamani; veckor; hafta; 周;周; 週;týdny; εβδομάδες; 주; semanas; setmanes;savaitės; semana(s); สัปดาห์; тижд.;周
  week3; weeks; semaines; Wochen;het; settimane; нед.;semanas; semanas; weken; tygodnie;saptamani; veckor; hafta; 周;周; 週;týdny; εβδομάδες; 주; semanas; setmanes;savaitės; semana(s); สัปดาห์; тижд.;周
@@ -166,8 +166,8 @@ BitRate;Bit rate;Débit;Bitrate;Adatsebesség;BitRate;Битрейт;Bitrate;Bit
 BitRate_Maximum;Maximum bit rate;Débit maximum;;;BitRate Massimo;;Bitrate máximo;;;;;;;最大流量;最大码率;最大;;;최고 비트레이트;;;Maksimalus bitų tempas;Taxa de bits máxima ;บิตเรตสูงสุด;;最大碼率
 BitRate_Minimum;Minimum bit rate;Débit minimum;;;BitRate Minimo;;Bitrate mínimo;;;;;;;最小流量;最小码率;最小;;;최소 비트레이트;;;Minimalus bitų tempas;Taxa de bits mínima ;บิตเรตต่ำสุด;;最小碼率
 BitRate_Mode;Bit rate mode;Type de débit;Bitraten-Modus;Adatsebesség mód;Modalità;Режим расчёта битрейта;Tipo de Bitrate;Tipo de Bitrate;Bitrate-modus;Rodzaj przepływności;; Bitrateläge;Bit oranı kipi;流量模式;码率模式;ビットレートモード;Bit rate mode;Bit rate mode;비트레이트 모드;Modo da taxa de bits;Mode de Bit ràtio;Bitų tempo režimas;Modo da taxa de bits;บิตเรตโหมด;Режим розрахунку бітрейта;比特率模式
-BitRate_Mode_CBR;Constant;Constant;;;;;;;;;;;;;;;;;;;;;;;;
-BitRate_Mode_VBR;Variable;Variable;;;;;;;;;;;;;;;;;;;;;;;;
+BitRate_Mode_CBR;Constant;Constant
+BitRate_Mode_VBR;Variable;Variable
 BitRate_Nominal;Nominal bit rate;Débit nominal;;;BitRate nominale;;Bitrate nominal;;;;;;;;标称码率;;;;명목상의 비트레이트;;Ràtio nominal;Nominalus bitų tempas;Taxa de bits nominal;Nominal bit rate;;正常碼率
 Bits-(Pixel*Frame);Bits/(Pixel*Frame);Bits/(Pixel*Image);Bits/(Pixel*Frame);Bit/(képpont*képkocka);Bits/(Pixel*Frame);Бит/(Пиксели*Кадры);Bits/(Pixel*cuadros);Bits/(Pixel*Frame);Bits/(Pixel*Frame);bity/(piksele*ramki);; Bits/(Pixel*Frame);Bit/(Piksel*Kare);位元/(像素*畫面);平均每像素比特数;ビット/(ピクセル*フレーム);Bits/(Pixel*Frame);Bits/(Εικονοστοιχείο*Πλαίσιο);비트/(픽셀*프레임);Bits/(Pixel*Quadro);Bits/(Píxel*imatge);Bitai/(Pikselis*Kadras);Bits/(Pixels*Quadros);บิต/(พิกเซล*เฟรม);Біт/(Пікселі*Кадри);比特數/(像素*幀)
 Cancel;Cancel;Annuler;Abbrechen;Mégsem;Annulla;Отмена;Cancelar;Cancelar;Annuleren;Anuluj;Anulare; Ångra;İptal;取消;取消;キャンセル;Zrušit;Άκυρο;취소;Cancelar;Cancel·la;Atšaukti;Cancelar;ยกเลิก;Відміна;取消
@@ -208,16 +208,16 @@ Codec_Settings_Sign;Codec settings, Sign;Paramètres du codec, Signe;;;Impostazi
 Codec_Settings_Law;Codec settings, Law;Paramètres du codec, Law;;;Impostazioni del Codec, Law;;Ajustes del códec, Law;;;;;;;編解碼器設定, Law;编解码器设置, Law;Law;;;코덱 설정, Law;;;Kodeko nuostatos, Law;Conf. do codec, Law;ตั้งค่า Codec, Law;;編解設置, Law
 Codec_Settings_ITU;Codec settings, ITU;Paramètres du codec, ITU;;;Impostazioni del Codec, ITU;;Ajustes del códec, ITU;;;;;;;編解碼器設定, ITU;编解码器设置, ITU;ITU;;;코덱 설정, ITU;;;Kodeko nuostatos, ITU;Conf. do codec, ITU;ตั้งค่า Codec, ITU;;編解設置, ITU
 Codec_Profile;Codec profile;Profile du codec;;;Profilo del Codec;;Perfil del códec;Codec profile;Codec-profiel;;Profil codec; Codecprofil;Kodek profili;;编解码器简介;コーデックのプロファイル;Profil kodeku;Προφίλ συμπιεστή;코덱 프로파일;Perfil do Codec;Perfil del codec;Kodeko profilis;Perfil do Codec;Codec โพรไฟล์;Профайл кодеку;編碼概況
-Codec_Url;Weblink for codec;Lien Internet sur le codec;Link zum Codec;Kodek weblapja;Sito dove scaricare il codec richiesto;Ссылка на кодек;Vínculo web del códec;Web do codec;Weblink voor codec;Adres sieciowy kodeka;Legatira web pentru codec; Länk till codec;Kodek için web bağlantısı;;编解码器网址;コーデックの URL;Adresa pro stažení kodeku;Σύνδεσμος συμπιεστή (url) ;코덱 웹링크;Link para o codec;Enllaç del codec;Nuoroda į kodeką;Link para o codec;เว็บลิงค์ของ codec;;
+Codec_Url;Weblink for codec;Lien Internet sur le codec;Link zum Codec;Kodek weblapja;Sito dove scaricare il codec richiesto;Ссылка на кодек;Vínculo web del códec;Web do codec;Weblink voor codec;Adres sieciowy kodeka;Legatira web pentru codec; Länk till codec;Kodek için web bağlantısı;;编解码器网址;コーデックの URL;Adresa pro stažení kodeku;Σύνδεσμος συμπιεστή (url) ;코덱 웹링크;Link para o codec;Enllaç del codec;Nuoroda į kodeką;Link para o codec;เว็บลิงค์ของ codec
 CodecID;Codec ID;Identifiant du codec;;;Codec ID;;ID Códec;;;;;;;編解碼器ID;编解码器ID;CodecID;;;코덱 ID;;;Kodeko ID;ID do Codec;รหัสประจำตัว Codec;;編碼ID
-CodecID_Description;Description of the codec;Description du codec;;;;;;;;;;;;;;;;;;;;;;;;
+CodecID_Description;Description of the codec;Description du codec
 Collection;Collection;Collection ;Kollektion;Gyűjtemény;Collezione;Коллекция;Colección;Colección;Collectie;Kolekcja;Colectie; Samling;Koleksiyon;;收集;コレクション;Collection;Συλλογή;콜렉션;Coleção;Col·lecció;Kolekcija;Coleção;Collection;Колекція;收集
 Colorimetry;Colorimetry;Colorimétrie;;;Colorimetria;;;;;;;;;;比色法;カラーリメトリ;;;색체계;;;Kolorimetrija;Colorimetria;;;比色法
 Comment;Comment;Commentaire;Kommentar ;Megjegyzés;Commenti;Примечание;Comentarios;Comentario;Commentaar;Komentarz;Comentariu; Kommentar;Yorum;;评论;コメント;Komentář;Σχόλιο;주석;Comentário;Comentari;Komentaras;Comentário;คอมเมนต์;Примітка;評論
 CommissionedBy;Commissioned by;Commanditaire;Im Auftrag von ;Megbízó;Commissionato da ;Поручитель;Encargado por;Encargado por;In opdracht van;Zamówiony przez;; Kommissionerad av;Görevlendiren;;评论人;コミッショナー;Commissioned by;Commissioned by;의뢰;Representado por;Commissionat per;Įgaliotas;Representado por;Commissioned by;Поручитель;評論人
 CompleteName;Complete name;Nom complet;Vollständiger Name;Teljes név;Nome completo;Полное имя;Nombre completo;Nome completo;Volledige naam;Pełna nazwa;Nume complet; Fullständigt namn;Tam isim;完整檔名;完整名称;完全名称;Celý název a cesta;Πλήρες όνομα;전체 이름;Nome completo;Nom complet;Pilnas pavadinimas;Nome completo;ชื่อเต็ม;Повна назва;完整文件名
 Composer;Composer;Compositeur;Komponist ;Zeneszerző;Compositore;Композитор;Compositor;Compositor;Componist;Kompozytor;Compositor; Kompositör;Besteci;作曲者;作曲;コンポーザ;Composer;Composer;작곡가;Compositor;Compositor;Kūrėjas;Compositor;ผู้เรียบเรียง;Композитор;作曲
-CompressionRatio;Compression ratio;Taux de compression;;;;;;;;;;;;;;;;;;;;;;;;
+CompressionRatio;Compression ratio;Taux de compression
 Conductor;Conductor;Chef d'orchestre;Leiter ;Vezényel;Direttore d'Orchestra ;Дирижер;Conductor;Condutor;Dirigent;Dyrygent;; Dirigent;Orkestra şefi;;指挥;コンダクター;Conductor;Conductor;지휘자;Regente;Conductor;Konduktorius;Regente;ผู้อำนวยเพลง;Диригент;指導
 Container and general information;Container and general information;Conteneur et informations générales;Containerformat und allgemeine Informationen;Gyűjtő és általános adatok;Tipo di file e informazioni generali;Общая информация;Información general;Contedor e información xeral;Container en algemene informatie;Zawartość i informacje ogólne;Container si informatii generale; Behållare och allmän information;Konteyner ve genel bilgi;容器格式與一般訊息;文件格式和一般信息;コンテナと全般情報;Hlavní informace;Container και γενικές πληροφορίες;컨테이너와 일반 정보;Container e informação geral;Contenidor i informació general;Talpykla ir pagrindinė informacija;Container e informações gerais;ตัวบรรจุและข้อมูลทั่วไป;Загальна інформація;文件格式與一般信息
 ContentType;ContentType;Type de contenu;Medientyp;;Contenuto;Тип содержимого;Tipo de Contenido;Tipo de contido;Inhoudstype;Typ zawartosci;Tip continut; Innehållstyp;İçerik Türü;內容型態;内容类型;コンテンツタイプ;ContentType;Είδος περιεχόμενου;내용 종류;Conteúdo;Tipus de contingut;TurinioTipas;Conteúdo;ชนิดที่บรรจุ;Тип вмісту;內容類型
@@ -264,9 +264,9 @@ Fax;Fax;Fax ;Fax ;fax;Fax;Факс;Fax;Fax;Fax;Fax;Fax; Fax;Faks;傳真;传真;F
 File;File;Fichier;Datei;Fájl;File;Файл;Archivo;Arquivo;Bestand;Plik;Fisier; Fil;Dosya;檔案;文件;ファイル;Soubor;Αρχείο;파일;Arquivo;Arxiu;Failas;Arquivo;แฟ้ม;Файл;文件
 File size;File size;Taille du fichier;Dateigröße;Fájlméret;Dimensione;Размер файла;Tamaño del archivo;Tamaño do arquivo;Bestandsgrootte;Rozmiar pliku;Dimensiune fisier; Filstorlek;Dosya boyutu;檔案大小;文件大小;ファイルサイズ;Velikost souboru;Μέγεθος αρχείου;파일 크기;Tamanho do arquivo;Mida d'arxiu;Failo dydis;Tamanho do arquivo;ขนาดไฟล์;Розмір файлу;文件大小
 File_Append;Append to the existing file (Warning : be careful to have the same parameters);Ajouter à un fichier déja existant (Faites attention à ce que les paramètres soient identiques);An eine existierende Datei anhängen (Achtung! Auf gleiche Parameter achten!);Meglévő fájlhoz hozzáfűzés (Figyelem: ügyeljünk az azonos paraméterekre);Aggiungi a un file esistente (Attenzione: assicurarsi che abbinano caratteristiche uguali);Добавить к файлу;Añadir a un archivo existente (Advertencia: tenga cuidado de tener los mismos parámetros);Engadir ao arquivo existente (Deben ter os mesmos parámetros);Toevoegen aan het bestaande bestand (Waarschuwing : let erop dezelfde parameters te gebruiken);Dołącz do istniejacego pliku (Ostrzeżenie: Upewnij się, że ma takie same parametry);Adaugare la fisierul existent; Lägg till till existerande fil (Varning : se till att du har använder samma parametrar!);Mevcut dosyaya ekle (Uyarı : aynı parametlere sahip olmak için dikkatli olun);接在現存的檔案之後 (警告: 同參數時要小心);接在现有的文件后面 (警告: 同参数时要小心);既存ファイルに上書き (注意 : 同じパラメータは慎重に！);Append to the existing file (Warning : be careful to have the same parameters);Πρόσθεση στο τέλος υπάρχοντος αρχείου (Προειδοποίηση : πρέπει να έχουν όμοιους παραμέτρους);존재하는 파일에 이어쓰기 (경고 : 같은 파라미터인지 주의하세요);Anexar a um arquivo existente (Aviso : assegure-se que os parâmetros sejam iguais);Crida a un arxiu existent (Atenció : tingueu cura. Han de ser els mateixos paràmetres);Prijungtas prie egzistuojančio failo (Dėmesio : nenaudokite tų pačių parametrų);Anexar a um arquivo existente (Aviso : assegure-se que os parâmetros sejam iguais);เพิ่มเติมไปยังไฟล์ที่มีอยู่ (คำเตือน : โปรดระมัดระวังเมื่อมีตัวแปรเดียวกัน);Додати до файлу;接在現有的文件後面 (警告: 同參數時要小心)
-File_Created_Date;File creation date;Date de création du fichier;;;Data di creazione;;Fecha de creación del archivo;;;;;;;建立日期;文件创建日期;ファイル作成日;;;;;;Failo sukūrimo data;Data de criação;วันที่สร้างไฟล์;;文件創建日期
+File_Created_Date;File creation date;Date de création du fichier;;;Data di creazione;;Fecha de creación del archivo;;;;;;;建立日期;文件创建日期;ファイル作成日;;;파일 만든 날짜;;;Failo sukūrimo data;Data de criação;วันที่สร้างไฟล์;;文件創建日期
 File_Hint;Select a multimedia file to study;Sélectionne un fichier multimédia à étudier;Eine Datei zum Betrachten auswählen;Adja meg a vizsgálandó fájt;Seleziona più file da aprire;Операции с файлами;Seleccione un archivo multimedia para estudiar;Selecciona un arquivo multimedia para analizar;Kies een multimediabestand om te onderzoeken;Wybierz plik multimedialny do przeanalizowania;Selectati un fisier multimedia pentru analiza; Välj en fil att betrakta;Çalışmak için çokluortam dosyası seç;選擇要檢視的多媒體檔案;选择多媒体文件;このファイルの詳細;Otevřít soubor;Επιλέξτε ένα αρχείο πολυμέσων για εξέταση;조사할 미디어 파일을 선택;Selecione um arquivo multimídia para examinar;Trieu l'arxiu Multimèdia;Pasirinkite daugialypį failą studijavimui;Selecione um arquivo multimídia para examinar;เลือกไฟล์มัลติมีเดียเพื่อเรียนรู้;Операції з файлами;選擇多媒體文件
-File_Modified_Date;File last modification date;Date de dernière modification du fichier;;;Data di ultima modifica;;Última fecha de modificación del archivo;;;;;;;最後編輯日期;最后修改日期;ファイル変更日;;;;;;Failo paskutinio modifikavimo data;Data de modificação;วันที่แก้ไขไฟล์ล่าสุด;;最後修改時間
+File_Modified_Date;File last modification date;Date de dernière modification du fichier;;;Data di ultima modifica;;Última fecha de modificación del archivo;;;;;;;最後編輯日期;最后修改日期;ファイル変更日;;;파일 수정한 날짜;;;Failo paskutinio modifikavimo data;Data de modificação;วันที่แก้ไขไฟล์ล่าสุด;;最後修改時間
 FileExtension;File extension;Extension du fichier;Dateierweiterung;Fájl kiterjesztés;Estensione;Расширение;Extensión del archivo;Extensión do arquivo;Bestandsextensie;Rzoszerzenie pliku;Extensia fisierului; Filändelse;Dosya uzantısı;副檔名;扩展名;拡張子;Přípona souboru;Επέκταση αρχείου;파일 확장자;Extensão do arquivo;Extensió d'arxiu;Failo plėtinys;Extensão do arquivo;ชนิดไฟล์;Розширення файлу;擴展名
 FileName;File name;Nom du fichier;Dateiname;Fájlnév;Nome;Имя файла;Nombre del Archivo;Nome do arquivo;Bestandsnaam;Nazwa pliku;Numele fisierului; Filnamn;Dosya adı;檔案;文件名;ファイル名;Název souboru;Όνομα αρχείου;파일명;Nome do arquivo;Nom de l'arxiu;Failo pavadinimas;Nome do arquivo;ชื่อไฟล์;Назва файлу;文件名
 FileSize;File size;Taille du fichier;Dateigröße;Fájlméret;Dimensione;Размер файла;Tamaño del archivo;Tamaño do arquivo;Bestandsgrootte;Rozmiar pliku;Dimensiunea fisierului; Filstorlek;Dosya boyutu;檔案大小;文件大小;サイズ;Velikost souboru;Μέγεθος αρχείου;파일 크기;Tamanho do arquivo;Mida de l'arxiu;Failo dydis;Tamanho do arquivo;ขนาดไฟล์;Розмір файлу;文件大小
@@ -286,8 +286,8 @@ Format_Settings_BVOP;Format settings, BVOP;Paramètres du format, BVOP;;;Imposta
 Format_Settings_QPel;Format settings, QPel;Paramètres du format, QPel;;;Impostazioni del formato, QPel;;Ajustes del formato, Qpel;;;;;;;格式設定, QPel;文件格式设置, QPel;QPel;;;포맷 설정, QPel;;;Formato nuostatos, Qpel;Conf do Formato, QPel;ตั้งค่ารูปแบบ, QPel;;格式設置, QPel
 Format_Settings_GMC;Format settings, GMC;Paramètres du format, GMC;;;Impostazioni del formato, GMC;;Ajustes del formato, GMC;;;;;;;格式設定, GMC;文件格式设置, GMC;GMC;;;포맷 설정, GMC;;;Formato nuostatos, GMC;Conf do Formato, GMC;ตั้งค่ารูปแบบ, GMC;;格式設置, GMC
 Format_Settings_Matrix;Format settings, Matrix;Paramètres du format, Matrice;;;Impostazioni del formato, Matrix;;Ajustes del formato, Matrix;;;;;;;格式設定, Matrix;文件格式设置, Matrix;Matrix;;;포맷 설정, 매트릭스;;;Formato nuostatos, Matrix;Conf do Formato, Matriz;ตั้งค่ารูปแบบ, Matrix;;格式設置, Matrix
-Format_Settings_Matrix_Custom;Custom;Personnalisée;;;;;;;;;;;;;;;;;;;;;;;;
-Format_Settings_Matrix_Default;Default;Par défaut;;;;;;;;;;;;;;;;;;;;;;;;
+Format_Settings_Matrix_Custom;Custom;Personnalisée
+Format_Settings_Matrix_Default;Default;Par défaut
 Format_Settings_Floor;Format settings, Floor;Paramètres du format, Seuil;;;Impostazioni del formato, Floor;;Ajustes del formato, Floor;;;;;;;格式設定, Floor;文件格式设置, Floor;Floor;;;포맷 설정, Floor;;;Formato nuostatos, Floor;Conf do Formato, Floor;ตั้งค่ารูปแบบ, Floor;;格式設置, Floor
 Format_Settings_CABAC;Format settings, CABAC;Paramètres du format, CABAC;;;Impostazioni del formato, CABAC;;Ajustes del formato, CABAC;;;;;;;格式設定, CABAC;文件格式设置, CABAC;CABAC;;;포맷 설정, CABAC;;;Formato nuostatos, CABAC;Conf do Formato, CABAC;ตั้งค่ารูปแบบ, CABAC;;格式設置, CABAC
 Format_Settings_Firm;Format settings, Firm;Paramètres du format, Entreprise;;;Impostazioni del formato, Firm;;Ajustes del formato, Firm;;;;;;;格式設定, Firm;文件格式设置, Firm;Firm;;;포맷 설정, Firm;;;Formato nuostatos, Firm;Conf do Formato, Firm;ตั้งค่ารูปแบบ, Firm;;格式設置, Firm
@@ -300,12 +300,12 @@ Format_Settings_SBR;Format settings, SBR;Paramètres du format, SBR;;;Impostazio
 Format_Settings_PS;Format settings, PS;Paramètres du format, PS;;;Impostazioni del formato, PS;;Ajustes del formato, PS;;;;;;;格式設定, PS;文件格式设置, PS;PS;;;포맷 설정, PS;;;Formato nuostatos, PS;Conf do Formato, PS;ตั้งค่ารูปแบบ, PS;;格式設置, PS
 Format_Settings_Pulldown;Format settings, Pulldown;Paramètres du format, Pulldown;;;Impostazioni del formato, Pulldown;;Ajustes del formato, Pulldown;;;;;;;格式設定, Pulldown;文件格式设置, Pulldown;Pulldown;;;포맷 설정, Pulldown;;;Formato nuostatos, Pulldown;Conf do Formato, Pulldown;ตั้งค่ารูปแบบ, Pulldown;;格式設置, Pulldown
 Format_Version;Format version;Version du format;;;Versione del formato;;Formato de la versión;;;;;;;格式版本;文件格式版本;バージョン;;;포맷 버전;;;Formato versija;Versão do Formato;เวอร์ชันรูปแบบ;;格式版本
-Format_Url;Weblink for format;Lien Internet sur le format;;;;;;;;;;;;;;;;;;;;;;;;
-FrameCount;Frame count;Nombre d'images;;;;;;;;;;;;;;;;;;;;;;;;
+Format_Url;Weblink for format;Lien Internet sur le format
+FrameCount;Frame count;Nombre d'images
 FrameRate;Frame rate;Images par seconde;Bildwiederholungsrate;Képsebesség;FrameRate;Частота кадров;Velocidad de cuadro;Frame rate;Framerate;Przepływność ramek;Frecventa cadre; Bildhastighet (Frame rate);Kare hızı;畫面頻率;帧频;フレームレート;Frame rate;Ρυθμός ανανέωσης πλαισίου;프레임레이트;Taxa de quadros;Imatges per segon;Kadrų tempas;Taxa de quadros;เฟรมเรต;Частота кадрів;幀頻率
-FrameRate_Mode;Frame rate mode;Type d'images/s;;;FrameRate mode;;Modo de velocidad de cuadro;;;;;;;畫面頻率模式;帧频模式;モード;;;;;;Kadrų tempo rėžimas;Modo de taxa de quadros;เฟรมเรตโหมด;;幀率類型
-FrameRate_Mode_CFR;Constant;Constant;;;;;;;;;;;;;;;;;;;;;;;;
-FrameRate_Mode_VFR;Variable;Variable;;;;;;;;;;;;;;;;;;;;;;;;
+FrameRate_Mode;Frame rate mode;Type d'images/s;;;FrameRate mode;;Modo de velocidad de cuadro;;;;;;;畫面頻率模式;帧频模式;モード;;;프레임레이트 모드;;;Kadrų tempo rėžimas;Modo de taxa de quadros;เฟรมเรตโหมด;;幀率類型
+FrameRate_Mode_CFR;Constant;Constant
+FrameRate_Mode_VFR;Variable;Variable
 FrameRate_Minimum;Minimum frame rate;Images/s mini;;;FrameRate Minimo;;Velocidad de cuadro Mínima;;;;;;En az kare hızı;最小畫面頻率;最大帧频;最小;Minimum frame rate;Ελάχιστος ρυθμός ανανέωσης πλαισίου;최소 프레임레이트;Taxa de quadros mínima;Imatges per segon mínimes;Minimalus kadrų tempas;Taxa de quadros mínima;เฟรมเรตต่ำสุด;;最小幀率
 FrameRate_Nominal;Nominal frame rate;Images/s nominal;;;FrameRate Nominale;;Velocidad de cuadro Nominal;;;;;;;;标称帧频;通常;;;명목상의 프레임레이트;;;Nominalus kadrų skaičius;Taxa de quadros nominal;เฟรมเรต Nominal;;正常幀率
 FrameRate_Maximum;Maximum frame rate;Images/s maxi;;;FrameRate Massimo;;Velocidad de cuadro Máxima;;;;;;En fazla kare hızı;最大畫面頻率;最小帧频;最大;Maximum frame rate;Μέγιστος ρυθμός ανανέωσης πλαισίου;최대 프레임레이트;Taxa de quadros máxima;Imatges per segon màximes;Maksimalus kadrų tempas;Taxa de quadros máxima;เฟรมเรตสูงสุด;;最大幀率
@@ -617,7 +617,7 @@ Language_no;Norwegian Nynorsk;Norvégien Nynorsk;Norwegisch;norvég;Norvegese;н
 Language_nr;Ndebele;Ndébélé du Sud;Süd-Ndebele; ;Ndebele, South;;;Ndebele;Ndebele;;; Ndebele;Ndebele;;;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele
 Language_nv;Navaho;Navaho;Navajo;navaho;Navajo;навахо;;Navaho;Navaho;;; Navaho;Navaho;;;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho
 Language_ny;Nyanja;Nyanja;Chichewa; ;Chichewa;;;Nyanja;Nyanja;;; Nyanja;Nyanja;;;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja
-Language_oc;Occitan;Occitan;Okzitanisch;okcitán;Occitano;;Occitano;Occitan;Occitaans;;; Occitan;Occitan;;;Occitan;Occitan;Occitan;Occitan;Occitano;Occitan;Occitan;Occitano;"ออกซิตัน	";Occitan;Occitan
+Language_oc;Occitan;Occitan;Okzitanisch;okcitán;Occitano;;Occitano;Occitan;Occitaans;;; Occitan;Occitan;;;Occitan;Occitan;Occitan;Occitan;Occitano;Occitan;Occitan;Occitano;ออกซิตัน	;Occitan;Occitan
 Language_oj;Ojibwa;Ojibwa;; ;Ojibwa;;;Ojibwa;Ojibwa;;; Ojibwa;Ojibwa;;;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa
 Language_om;Oromo;Galla;Oromo; ;Oromo;;Oromo;Oromo;Oromo;;; Oromo;Oromo;澳洛莫語;;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo
 Language_or;Oriya;Oriya;Orija; ;Oriya;ория;Oriya;Oriya;Oriya;;; Oriya;Oriya;;;Oriya;Oriya;Oriya;Oriya;Oriya;Oriya;Oriya;Oriya;โอริยา;Oriya;Oriya
@@ -773,8 +773,8 @@ Stream_MoreInfo;More information about the stream;Plus d'information au sujet de
 StreamCount;Count of stream of this kind;Nombre de pistes de ce type;Anzahl der Streams dieser Art;A hasonló fajtájú sávok száma;Numero di tracce;Кол-во потоков;Cantidad de pistas de éste tipo;Pistas desta clase;Telling van dit soort stromen;Liczba strumieni;Numara fluxurile de acest tip; Antal strömmar av den här typen;Bu çeşidin akış sayısı;此串流數量;此类型流的数量;この種類のストリーム数;Count of stream of this kind;Αριθμός των ροών αυτού του τύπου;이 종류의 스트림 개수;Número de faixas do mesmo tipo;Comptador d'aquest tipus de pistes;Šios rūšies srautų kiekis;Número de faixas do mesmo tipo;จำนวนสตรีมของชนิดนี้;Кількість потоків;此軌數量
 StreamID;Stream ID;ID de flux;Stream-ID;Sávazonosító;Id del Flusso ;Номер потока;ID de Pista;ID pista;Stroom ID;ID strumienia;ID flux; Ström-ID;Akış ID;串流ID;流ID;ストリーム ID;Stream ID;Stream ID;스트림 ID;ID da Faixa;ID de Pista;Srauto ID;ID da Faixa;รหัสประจำตัวสตรีม;Ідентифікатор потоку;流標號
 StreamKind;Kind of stream;Type de flux;Art des Streams;Sáv fajtája;Tipo di traccia;Тип потока;Clase de pista;Clase de pista;Soort stroom;Rodzaj strumienia;Tipul fluxului; Strömtyp;Akış çeşidi;串流類型;类型;ストリーム種;Kind of stream;Τύπος/Είδος Ροής;스트림 종류;Faixa do tipo;Tipus de pista;Srauto rūšis;Tipo da Faixa;ชนิดของสตรีม;Вид потоку;此軌類型
-StreamKindID;Stream identifier;Identifiant du flux;;;;;;;;;;;;;;;;;;;;;;;;
-StreamKindPos;Stream identifier;Identifiant du flux;;;;;;;;;;;;;;;;;;;;;;;;
+StreamKindID;Stream identifier;Identifiant du flux
+StreamKindPos;Stream identifier;Identifiant du flux
 StreamSize;Stream size;Taille du flux;;;Dimensione del canale;;Tamaño de pista;;;;;;;串流大小;大小;ストリームサイズ;;;스트림 크기;;;Srauto dydis;Tamanho da Faixa;ขนาดสตรีม;;流大小
 Subject;Subject;Sujet;Inhalt ;Tárgy;Soggetto ;Тема;Asunto;Asunto;Onderwerp;Temat;Subiect; Innehåll;Konu;;主题;件名;Subject;Subject;제목;Assunto;Subjecte;Tema;Assunto;Subject;Тема;主題
 SubTrack;SubTrack;Sous-piste;Untertitel ;Alsáv;Sottotitolo;Подпоток;SubPista;SubPista;Ondertiteling;Podnagranie;Sub-pista; Underspår;Altİz;;子轨道;サブトラック;SubTrack;SubTrack;서브트랙;Sub-Faixa;transició;SubTakelis;Sub-Faixa;แทร็กย่อย;Підпотік;字幕軌道
@@ -783,7 +783,7 @@ Supported formats;Supported formats;Formats supportés;Unterstützte Formate;Tá
 Supported?;Supported?;Supporté?;Unterstützt?;Támogatott?;Supportato?;Поодержка?;Soportado?;Soportado?;Ondersteund?;Obsługiwane?;Acceptat?; Stött?;Desteklenen?;是否支援?;支持?;サポート？;Supported?;Υποστηρίζεται?;지원?;Suportado?;Suportat ?;Palaikomas?;Suportado?;สนับสนุนแล้ว?;Підтримується?;支持?
 Synopsys;Synopsys;Synopsis;Fazit ;Áttekintés;Sommario ;;Sinopsis;Sinopsis;Samenvatting;Streszczenie;; Sammanfattning;Synopsys;;系统摘要;サイノプシス;Synopsys;Σύνοψη;시놉시스;Sinopse;Sinopsi;Trumpa apžvalga;Sinopse;Synopsys;Короткий огляд;系統摘要
 SystemId;Id;Id;ID;Azonosító;SystemId;;Id;Id do sistema;Id;Id;; Id;Id; ID;系统ID;Id;Id;Id;Id;Id;Id;Id;Id;Id;Системний ідентифікатор;系統標識
-Tagged_Application;Tagging application;Application de marquage;;;Applicazione utilizzata;;Aplicando etiqueta;Aplicación de etiquetado;;;;;;;标记软件;タギングツール;;;;;;Žymėjimo programa;Programa Alvo;tagging application;;應用程序標籤
+Tagged_Application;Tagging application;Application de marquage;;;Applicazione utilizzata;;Aplicando etiqueta;Aplicación de etiquetado;;;;;;;标记软件;タギングツール;;;태깅 어플리케이션;;;Žymėjimo programa;Programa Alvo;tagging application;;應用程序標籤
 Tagged_Date;Tagged date;Date de marquage;Tagging-Datum ;Jelölés dátuma;Data;Дата отметки;Fecha de la etiqueta;Data de etiqueta;Tagdatum;Znakowana data;Data marcarii; Taggingdatum;Etiketleme tarihi;加標籤日期;标记日期;タグ付け日;Tagged date;Tagged date;태깅한 날짜;Etiquetado dia;Data;Pažymėta data;Data rotulada;Tagged date;Дата мітки;標記日期
 Technician;Technician;Technicien;Techniker ;Tehnikus;Tecnico ;Техник;Técnico;Técnico;Technicus;Technik;Tehnician; Tekniker;Teknisyen;;技术员;テクニシャン;Technician;Τεχνικός;기술자;Technician;Tècnic;Technikas;Technician;Technician;Техник;技術員
 TermsOfUse;Terms of use;Conditions d'utilisation;Verwendungslizenz ;Felhasználási feltételek;Indicazioni per l'uso ;Условия Использования;Términos de uso;Condicións de uso;Gebruiksvoorwaarden;Zasady używania;Condifiile de utilizare; Användarvillkor;Kullanım şarları;使用條款;使用方法;使用許諾;Terms of use;Όροι χρήσης;사용권한;Termos de uso;Termes d'ús;Naudojimo sąlygos;Termos de uso;ข้อตกลงการใช้;Умови використання;使用方法
@@ -839,5 +839,5 @@ Written_Location;Written location;Lieu d'écriture;Speicherort ;Írás helye;Wri
 WrittenBy;Written by;Ecrit par;Gespeichert von ;Írta;Scritto da ;Написано;Escrito por;Escrito por;Geschreven door;Napisany przez;Scris de; Skrivet av;Yazan;撰寫人;作者;著者;Napsal;Γραμμένο από;제작자;Escrito por;Escrit per;Parašė;Escrito por;เขียนโดย;Написано;作者
 Yes;Yes;Oui;Ja;Igen;Si ;Да;Si;Si;Ja;Tak;Da; Ja;Evet;是;是;はい;Ano;Ναι;예;Sim;Sí;Taip;Sim;ใช่;Так;確定
 Your system;Your system;Votre système;Systeminformationen;Rendszer;Il tuo sistema;Ваша система;Tu sistema;O teu sistema;Uw systeem;System;Sistemul dvs; Ditt system;Sisteminiz;您的系統;您的系统;システム情報;Instalované kodeky;Το σύστημά σας;이 시스템;Seu sistema;El vostre sistema;Jūsų sistema;Seu sistema;ระบบของคุณ;Ваша система;您的系統
-ZZ_Automatic_Percent;100;100;67;65;90;58;74;89;88;47;39;88;90;58;49;97;90;90;97;90;92;97;97;97;89;97
-ZZ_AutomaticLanguage_Percent;100;100;86;85;97;82;97;89;88;86;79;88;90;78;89;97;90;90;97;90;92;97;97;97;89;97
+ZZ_Automatic_Percent;100;100;67;65;90;58;74;89;88;47;39;88;90;58;49;97;90;90;97;90;90;97;97;97;89;97
+ZZ_AutomaticLanguage_Percent;100;100;86;85;97;82;97;89;88;86;79;88;90;78;89;97;90;90;97;90;90;97;97;97;89;97
