@@ -402,7 +402,9 @@ void MediaInfo_Internal::Close()
 {
     CriticalSectionLocker CSL(CS);
     Stream.clear();
+    Stream.resize(Stream_Max);
     Stream_More.clear();
+    Stream_More.resize(Stream_Max);
     delete Info; Info=NULL;
     Buffer_Clear();
 }
