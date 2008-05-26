@@ -97,6 +97,9 @@ private :
 
     //From seq_parameter_set
     Ztring Encoded_Library;
+    Ztring Encoded_Library_Name;
+    Ztring Encoded_Library_Version;
+    Ztring Encoded_Library_Date;
     Ztring Encoded_Library_Settings;
     Ztring BitRate_Nominal;
     int32u pic_width_in_mbs_minus1;

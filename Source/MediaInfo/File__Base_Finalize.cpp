@@ -302,6 +302,32 @@ void File__Analyze::Finalize_General(size_t)
         Fill(Stream_General, 0, General_Format_Url, MediaInfoLib::Config.Format_Get(Format, InfoFormat_Url));
         Fill(Stream_General, 0, General_Format_Extensions, MediaInfoLib::Config.Format_Get(Format, InfoFormat_Extensions));
     }
+
+    //Encoded_Library
+    if (!Retrieve(Stream_General, 0, General_Encoded_Library).empty())
+    {
+        const Ztring& Name=Retrieve(Stream_General, 0, General_Encoded_Library_Name);
+        const Ztring& Version=Retrieve(Stream_General, 0, General_Encoded_Library_Version);
+        const Ztring& Date=Retrieve(Stream_General, 0, General_Encoded_Library_Date);
+        if (!Name.empty())
+        {
+            Ztring String=Name;
+            if (!Version.empty())
+            {
+                String+=_T(" ");
+                String+=Version;
+            }
+            if (!Date.empty())
+            {
+                String+=_T(" (");
+                String+=Date;
+                String+=_T(")");
+            }
+            Fill(Stream_General, 0, General_Encoded_Library_String, String);
+        }
+        else
+            Fill(Stream_General, 0, General_Encoded_Library_String, Retrieve(Stream_General, 0, General_Encoded_Library));
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -439,17 +465,29 @@ void File__Analyze::Finalize_Video(size_t Pos)
            Fill(Stream_Video, Pos, "Duration", Duration);
     }
     //Encoded_Library
-    if (!Retrieve(Stream_Video, Pos, "Encoded_Library").empty())
+    if (!Retrieve(Stream_Video, Pos, Video_Encoded_Library).empty())
     {
-        const Ztring &Encoded_Library=Retrieve(Stream_Video, Pos, "Encoded_Library");
-        const Ztring& Name=MediaInfoLib::Config.Encoder_Get(Encoded_Library);
+        const Ztring& Name=Retrieve(Stream_Video, Pos, Video_Encoded_Library_Name);
+        const Ztring& Version=Retrieve(Stream_Video, Pos, Video_Encoded_Library_Version);
+        const Ztring& Date=Retrieve(Stream_Video, Pos, Video_Encoded_Library_Date);
         if (!Name.empty())
         {
-            Fill(Stream_Video, Pos, "Encoded_Library/String", Name);
-            Fill(Stream_Video, Pos, "Encoded_Library/Date", MediaInfoLib::Config.Encoder_Get(Encoded_Library, InfoEncoder_Date));
+            Ztring String=Name;
+            if (!Version.empty())
+            {
+                String+=_T(" ");
+                String+=Version;
+            }
+            if (!Date.empty())
+            {
+                String+=_T(" (");
+                String+=Date;
+                String+=_T(")");
+            }
+            Fill(Stream_Video, Pos, Video_Encoded_Library_String, String);
         }
         else
-            Fill(Stream_Video, Pos, "Encoded_Library/String", Encoded_Library);
+            Fill(Stream_Video, Pos, Video_Encoded_Library_String, Retrieve(Stream_Video, Pos, Video_Encoded_Library));
     }
     //Format_Settings_CABAC
     if (!Retrieve(Stream_Video, Pos, Video_Format_Settings_CABAC).empty())

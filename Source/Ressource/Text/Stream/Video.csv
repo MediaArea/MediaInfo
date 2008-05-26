@@ -116,13 +116,14 @@ Title;;;Y YI;;;Name of the track;;
 Encoded_Application;;;Y YT;;;Software. Identifies the name of the software package used to create the file, such as Microsoft WaveEdit.;;Technical
 Encoded_Application/Url;;;N YT;;;Software. Identifies the name of the software package used to create the file, such as Microsoft WaveEdit.;;Technical
 Encoded_Library;;;N YT;;;Software used to create the file;;
-Encoded_Library/String;;;Y NT;;;Software detailled name;;
-Encoded_Library/Date;;;Y NT;;;Date of software;;
+Encoded_Library/String;;;Y NT;;;Software used to create the file;;
+Encoded_Library/Name;;;N NT;;;Info from the software;;
+Encoded_Library/Version;;;N NT;;;Version of software;;
+Encoded_Library/Date;;;N NT;;;Release date of software;;
 Encoded_Library_Settings;;;Y YT;;;Parameters used by the software;;
 Language;;;N YT;;;Language (2 letters);;
 Language/String;;;Y NT;;;Language (full);;
 Language_More;;;Y YT;;;More info about Language (director's comment...);;
 Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal
-Encryption;;;Y YT;;;;;
-Coherency/PlayTime;;;N NT;;;Playtime if detected wrong;;
+Encryption;;;Y YT

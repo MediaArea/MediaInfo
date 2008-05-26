@@ -229,7 +229,17 @@ ZenLib::Ztring Ressources_Create()
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"DataBase", L"Encoder", L"InfoMap", Contents);
+    Result=Ressources_Create_Item(L"DataBase", L"Library_DivX", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
+    Result=Ressources_Create_Item(L"DataBase", L"Library_XviD", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
+    Result=Ressources_Create_Item(L"DataBase", L"Library_MainConcept_Avc", L"InfoMap", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;

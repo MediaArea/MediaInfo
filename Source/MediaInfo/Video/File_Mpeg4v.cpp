@@ -723,8 +723,53 @@ void File_Mpeg4v::user_data_start()
         Skip_XX(Element_Size-Element_Offset,                    "junk");
 
     FILLING_BEGIN();
-        if (!Temp.empty())
-            Library=Temp;
+        if (Temp.size()>=4)
+        {
+            if (Temp.find(_T("build"))==0)
+                Library+=Ztring(_T(" "))+Temp;
+            else
+                Library=Temp;
+
+            //Library
+            if (Library.find(_T("DivX50"))==0)
+            {
+                Library_Name=_T("DivX");
+                Ztring Version=Library.SubString(_T("Build"), _T(""));
+                if (Version.empty())
+                    Version=Library.SubString(_T("b"), _T("p"));
+                if (Version.empty())
+                    Version=Library.SubString(_T("b"), _T(""));
+                Library_Version=MediaInfoLib::Config.Library_Get(InfoLibrary_Format_DivX, Version, InfoLibrary_Version);
+                if (Library_Version.empty())
+                    Library_Version=Version;
+                Library_Date=MediaInfoLib::Config.Library_Get(InfoLibrary_Format_DivX, Version, InfoLibrary_Date);
+            }
+            if (Library.find(_T("XviD"))==0)
+            {
+                Library_Name=_T("XviD");
+                if (Library.find(_T("build="))==std::string::npos)
+                {
+                    Ztring Version=Library.SubString(_T("XviD"), _T(""));
+                    Version.FindAndReplace(_T("C"), _T(""));
+                    Version.TrimLeft(_T('0'));
+                    Library_Version=MediaInfoLib::Config.Library_Get(InfoLibrary_Format_XviD, Version, InfoLibrary_Version);
+                    if (Library_Version.empty())
+                        Library_Version=Version;
+                    Library_Date=MediaInfoLib::Config.Library_Get(InfoLibrary_Format_XviD, Version, InfoLibrary_Date);
+                }
+                else
+                {
+                    Library_Version=Library.SubString(_T("XviD"), _T(""));
+                    Ztring Date=Library.SubString(_T(" build="), _T(""));
+                    if (Date.size()==10)
+                    {
+                        Date[4]=_T('-');
+                        Date[7]=_T('-');
+                        Library_Date=_T("UTC ")+Date;
+                    }
+                }
+            }
+        }
     FILLING_END();
 }
 
@@ -1139,7 +1184,12 @@ void File_Mpeg4v::vop_start_Fill()
         Fill(Stream_Video, 0, Video_Interlacement, "PPF");
     }
     if (!Library.empty())
+    {
         Fill(Stream_Video, 0, Video_Encoded_Library, Library);
+        Fill(Stream_Video, 0, Video_Encoded_Library_Name, Library_Name);
+        Fill(Stream_Video, 0, Video_Encoded_Library_Version, Library_Version);
+        Fill(Stream_Video, 0, Video_Encoded_Library_Date, Library_Date);
+    }
 
     //Jumping
     if (Count_Get(Stream_Video)!=0 && Frame_Count>=Frame_Count_Valid)

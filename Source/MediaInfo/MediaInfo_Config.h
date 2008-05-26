@@ -128,7 +128,7 @@ public :
 
     const Ztring   &CodecID_Get (stream_t KindOfStream, infocodecid_format_t Format, const Ztring &Value, infocodecid_t KindOfCodecIDInfo=InfoCodecID_Format);
 
-    const Ztring   &Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo=InfoEncoder_LongName);
+    const Ztring   &Library_Get (infolibrary_format_t Format, const Ztring &Value, infolibrary_t KindOfLibraryInfo=InfoLibrary_Version);
 
     const Ztring   &Iso639_Get (const Ztring &Value);
 
@@ -174,7 +174,7 @@ private :
     InfoMap         CodecID[InfoCodecID_Format_Max][Stream_Max];
     InfoMap         Format;
     InfoMap         Codec;
-    InfoMap         Encoder;
+    InfoMap         Library[InfoLibrary_Format_Max];
     InfoMap         Iso639;
     ZtringListList  Info[Stream_Max]; //General info
 

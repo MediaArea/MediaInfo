@@ -105,6 +105,8 @@ private :
 
     //From user_data
     Ztring Library;
+    Ztring Library_Name;
+    Ztring Library_Version;
 
     //Stream
     struct stream

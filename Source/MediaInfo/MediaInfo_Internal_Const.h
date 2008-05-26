@@ -143,7 +143,7 @@ enum infocodecid_t
     InfoCodecID_Max
 };
 
-/// @brief Used with Codec info (Fromat type part)
+/// @brief Used with Codec ID info (Format type part)
 enum infocodecid_format_t
 {
     InfoCodecID_Format_Matroska,    ///<
@@ -174,6 +174,24 @@ enum infoencoder_t
     InfoEncoder_LongName,           ///<
     InfoEncoder_Date,               ///<
     InfoEncoder_Max
+};
+
+/// @brief Used with Library info
+enum infolibrary_t
+{
+    InfoLibrary_Numlber,            ///<
+    InfoLibrary_Version,            ///<
+    InfoLibrary_Date,               ///<
+    InfoLibrary_Max
+};
+
+/// @brief Used with Library info (Format type part)
+enum infolibrary_format_t
+{
+    InfoLibrary_Format_DivX,        ///<
+    InfoLibrary_Format_XviD,        ///<
+    InfoLibrary_Format_MainConcept_Avc, ///<
+    InfoLibrary_Format_Max
 };
 
 /// @brief Used by BlockMethod

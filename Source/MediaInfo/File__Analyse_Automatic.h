@@ -225,6 +225,10 @@ enum general
     General_Encoded_Application,
     General_Encoded_Application_Url,
     General_Encoded_Library,
+    General_Encoded_Library_String,
+    General_Encoded_Library_Name,
+    General_Encoded_Library_Version,
+    General_Encoded_Library_Date,
     General_Encoded_Library_Settings,
     General_Tagged_Application,
     General_BPM,
@@ -374,6 +378,8 @@ enum video
     Video_Encoded_Application_Url,
     Video_Encoded_Library,
     Video_Encoded_Library_String,
+    Video_Encoded_Library_Name,
+    Video_Encoded_Library_Version,
     Video_Encoded_Library_Date,
     Video_Encoded_Library_Settings,
     Video_Language,
@@ -382,7 +388,6 @@ enum video
     Video_Encoded_Date,
     Video_Tagged_Date,
     Video_Encryption,
-    Video_Coherency_PlayTime,
 };
 
 //---------------------------------------------------------------------------

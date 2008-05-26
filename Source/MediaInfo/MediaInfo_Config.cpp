@@ -75,7 +75,9 @@ void File__Base_Image                   (ZtringListList &Info);
 void File__Base_Menu                    (ZtringListList &Info);
 void File__Base_Summary                 (ZtringListList &Info);
 void File__Base_Format                  (InfoMap &Info);
-void File__Base_Encoder                 (InfoMap &Info);
+void File__Base_Library_DivX            (InfoMap &Info);
+void File__Base_Library_XviD            (InfoMap &Info);
+void File__Base_Library_MainConcept_Avc (InfoMap &Info);
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -995,15 +997,21 @@ const Ztring &MediaInfo_Config::CodecID_Get (stream_t KindOfStream, infocodecid_
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Encoder_Get (const Ztring &Value, infoencoder_t KindOfEncoderInfo)
+const Ztring &MediaInfo_Config::Library_Get (infolibrary_format_t Format, const Ztring &Value, infolibrary_t KindOfLibraryInfo)
 {
-    //Loading codec table if not yet done
     CS.Enter();
-    if (Encoder.empty())
-        File__Base_Encoder(Encoder);
+    if (Library[Format].empty())
+    {
+        switch (Format)
+        {
+            case InfoLibrary_Format_DivX : File__Base_Library_DivX(Library[Format]); break;
+            case InfoLibrary_Format_XviD : File__Base_Library_XviD(Library[Format]); break;
+            case InfoLibrary_Format_MainConcept_Avc : File__Base_Library_MainConcept_Avc(Library[Format]); break;
+            default: ;
+        }
+    }
     CS.Leave();
-
-    return Encoder.Get(Value, KindOfEncoderInfo);
+    return Library[Format].Get(Value, KindOfLibraryInfo);
 }
 
 //---------------------------------------------------------------------------

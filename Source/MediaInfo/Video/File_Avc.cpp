@@ -591,6 +591,8 @@ void File_Avc::slice_header_Fill()
         Fill(Stream_Video, 0, Video_Interlacement, "BFF");
     }
     Fill(Stream_Video, 0, Video_Encoded_Library, Encoded_Library);
+    Fill(Stream_Video, 0, Video_Encoded_Library_Name, Encoded_Library_Name);
+    Fill(Stream_Video, 0, Video_Encoded_Library_Version, Encoded_Library_Version);
     Fill(Stream_Video, 0, Video_Encoded_Library_Settings, Encoded_Library_Settings);
     Fill(Stream_Video, 0, Video_BitRate_Nominal, BitRate_Nominal);
     if (entropy_coding_mode_flag)
@@ -872,6 +874,25 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
         Loop++;
     }
     while (Data_Pos_Before!=Data.size());
+
+    //Encoded_Library
+    if (Encoded_Library.find(_T("eavc "))==0)
+    {
+        Encoded_Library_Name=_T("eavc");
+        Encoded_Library_Version=Encoded_Library.SubString(_T("eavc "), _T(""));
+    }
+    else if (Encoded_Library.find(_T("x264 - "))==0)
+    {
+        Encoded_Library_Name=_T("x264");
+        Encoded_Library_Version=Encoded_Library.SubString(_T("x264 - "), _T(""));
+    }
+    else if (Encoded_Library.find(_T("SUPER(C) by eRightSoft "))==0)
+    {
+        Encoded_Library_Name=_T("SUPER(C) by eRightSoft");
+        Encoded_Library_Date=Ztring(_T("UTC "))+Encoded_Library.SubString(_T("2000-"), _T(" "));
+    }
+    else
+        Encoded_Library_Name=Encoded_Library;
 }
 
 //---------------------------------------------------------------------------
@@ -895,9 +916,15 @@ void File_Avc::sei_message_mainconcept(int32u payloadSize)
 
     //Parsing
     Ztring Text;
-    Get_Local(payloadSize, Text,                                "text");
+    Get_Local(payloadSize, Encoded_Library,                                "text");
 
-    Encoded_Library=Text.SubString(_T("produced by "), _T(" MainConcept AG"));
+    if (Encoded_Library.find(_T("produced by MainConcept H.264/AVC Codec v"))==0)
+    {
+        Encoded_Library=Text.SubString(_T("produced by "), _T(" MainConcept AG"));
+        Encoded_Library_Name=_T("MainConcept H.264/AVC Codec");
+        Encoded_Library_Version=Text.SubString(_T("produced by MainConcept H.264/AVC Codec v"), _T(" (c) "));;
+        Encoded_Library_Date=MediaInfoLib::Config.Library_Get(InfoLibrary_Format_MainConcept_Avc, Encoded_Library_Version, InfoLibrary_Date);
+    }
 }
 
 //---------------------------------------------------------------------------

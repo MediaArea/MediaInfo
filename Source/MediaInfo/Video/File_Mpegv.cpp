@@ -635,7 +635,11 @@ void File_Mpegv::slice_start_Fill()
     if (Library.size()>=8)
     {
         Fill(Stream_Video, 0, Video_Encoded_Library, Library);
-        Fill(Stream_General, 0, General_Encoded_Library, Library);
+        Fill(Stream_Video, 0, Video_Encoded_Library_Name, Library_Name);
+        Fill(Stream_Video, 0, Video_Encoded_Library_Version, Library_Version);
+        Fill(Stream_Video, 0, General_Encoded_Library, Library);
+        Fill(Stream_Video, 0, General_Encoded_Library_Name, Library_Name);
+        Fill(Stream_Video, 0, General_Encoded_Library_Version, Library_Version);
     }
 
     //Autorisation of other streams
@@ -699,9 +703,54 @@ void File_Mpegv::user_data_start()
     if (Element_Offset<Element_Size)
         Skip_XX(Element_Size-Element_Offset,                    "junk");
 
-    //Filling
-         if (Temp.find(_T("build"))==0) Library+=Ztring(_T(" "))+Temp;
-    else Library=Temp;
+    FILLING_BEGIN();
+        if (!Temp.empty())
+        {
+            if (Temp.find(_T("build"))==0)
+                Library+=Ztring(_T(" "))+Temp;
+            else
+                Library=Temp;
+
+            //Library
+            if (Temp.find(_T("Created with Nero"))==0)
+            {
+                Library_Name=_T("Ahead Nero");
+            }
+            else if (Library.find(_T("encoded by avi2mpg1 ver "))==0)
+            {
+                Library_Name=_T("avi2mpg1");
+                Library_Version=Library.SubString(_T("encoded by avi2mpg1 ver "), _T(""));
+            }
+            else if (Library.find(_T("encoded by TMPGEnc (ver. "))==0)
+            {
+                Library_Name=_T("TMPGEnc");
+                Library_Version=Library.SubString(_T("encoded by TMPGEnc (ver. "), _T(")"));
+            }
+            else if (Library.find(_T("encoded by TMPGEnc 4.0 XPress Version. "))==0)
+            {
+                Library_Name=_T("TMPGEnc XPress");
+                Library_Version=Library.SubString(_T("encoded by TMPGEnc 4.0 XPress Version. "), _T(""));
+            }
+            else if (Library.find(_T("encoded by TMPGEnc MPEG Editor "))==0)
+            {
+                Library_Name=_T("TMPGEnc MPEG Editor");
+                Library_Version=Library.SubString(_T("Version. "), _T(""));
+            }
+            else if (Library.find(_T("encoded by TMPGEnc "))==0)
+            {
+                Library_Name=_T("TMPGEnc");
+                Library_Version=Library.SubString(_T("encoded by TMPGEnc "), _T(""));
+            }
+            else if (Library.find(_T("MPEG Encoder v"))==0)
+            {
+                Library_Name=_T("MPEG Encoder by Tristan Savatier");
+                Library_Version=Library.SubString(_T("MPEG Encoder v"), _T(" by"));
+            }
+            else
+                Library_Name=Library;
+
+        }
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
