@@ -362,12 +362,12 @@ void File_Flv::Read_Buffer_Finalize()
 {
     if (Stream[Stream_Video].Parser!=NULL)
     {
-        Stream[Stream_Video].Parser->Open_Buffer_Finalize();
+        Open_Buffer_Finalize(Stream[Stream_Video].Parser);
         Merge(*Stream[Stream_Video].Parser, Stream_Video, 0, 0);
     }
     if (Stream[Stream_Audio].Parser!=NULL)
     {
-        Stream[Stream_Audio].Parser->Open_Buffer_Finalize();
+        Open_Buffer_Finalize(Stream[Stream_Audio].Parser);
         Merge(*Stream[Stream_Audio].Parser, Stream_Audio, 0, 0);
     }
 

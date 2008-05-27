@@ -453,18 +453,18 @@ void File_Ogg_SubElement::Comment_vorbis()
     if (Element_Size<6)
         return;
 
-    File_VorbisCom* Vorbis=new File_VorbisCom;
-    Vorbis->StreamKind=StreamKind;
+    File_VorbisCom Vorbis;
+    Vorbis.StreamKind=StreamKind;
 
     //Open
-    Open_Buffer_Init(Vorbis, File_Size, File_Offset+Buffer_Offset+6);
-    Open_Buffer_Continue(Vorbis, Buffer+Buffer_Offset+6, (size_t)(Element_Size-6));
-    Merge(*Vorbis, Stream_General, 0, 0);
-    Merge(*Vorbis, StreamKind, 0, 0);
-    Merge(*Vorbis, Stream_Chapters, 0, 0);
+    Open_Buffer_Init(&Vorbis, File_Size, File_Offset+Buffer_Offset+6);
+    Open_Buffer_Continue(&Vorbis, Buffer+Buffer_Offset+6, (size_t)(Element_Size-6));
+    Open_Buffer_Finalize(&Vorbis);
+    Merge(Vorbis, Stream_General, 0, 0);
+    Merge(Vorbis, StreamKind, 0, 0);
+    Merge(Vorbis, Stream_Chapters, 0, 0);
 
     //int32u Element_Offset=Vorbis->Comment_Size;
-    delete Vorbis; //Vorbis=NULL;
     /*if (CC1(Buffer+Buffer_Offset+Element_Offset)==0x01) //End bit
         Element_Offset++;
 

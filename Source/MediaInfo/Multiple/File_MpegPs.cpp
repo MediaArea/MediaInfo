@@ -250,7 +250,7 @@ void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Tem
     StreamKind_Last=Stream_Max;
     if (Temp.Parser)
     {
-        Temp.Parser->Open_Buffer_Finalize();
+        Open_Buffer_Finalize(Temp.Parser);
         Merge(*Temp.Parser);
     }
     //By the TS stream_type

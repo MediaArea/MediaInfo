@@ -174,6 +174,7 @@ void File_Ogg::Data_Parse()
 
             if (Parser->File_GoTo!=(int64u)-1)
             {
+                Open_Buffer_Finalize(Parser);
                 Merge(*Parser);
                 Merge(*Parser, Stream_General, 0, 0);
                 Stream[Element_Code].StreamKind=((File_Ogg_SubElement*)Parser)->StreamKind;

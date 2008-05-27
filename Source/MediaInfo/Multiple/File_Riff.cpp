@@ -209,6 +209,7 @@ void File_Riff::Read_Buffer_Finalize ()
                     for (size_t Pos=0; Pos<Temp->second.Parser->Count_Get(Stream_Audio); Pos++)
                     {
                         Stream_Prepare(Stream_Audio);
+                        Open_Buffer_Finalize(Temp->second.Parser);
                         Merge(*Temp->second.Parser, Stream_Audio, Pos, StreamPos_Last);
                     }
                 }
@@ -219,6 +220,7 @@ void File_Riff::Read_Buffer_Finalize ()
         {
             Clear(Stream_Video);
             Clear(Stream_Audio);
+            Open_Buffer_Finalize(DV_FromHeader);
             Merge(*DV_FromHeader);
             Fill(Stream_Video, 0, Video_Format, "Digital Video");
             Fill(Stream_Video, 0, Video_Codec_CC, "dvsd");

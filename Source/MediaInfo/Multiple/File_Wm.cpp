@@ -110,7 +110,7 @@ void File_Wm::Read_Buffer_Finalize()
                     Temp->second.StreamKind=StreamKind_Last;
                     Temp->second.StreamPos=StreamPos_Last;
                 }
-            Temp->second.Parser->Open_Buffer_Finalize();
+            Open_Buffer_Finalize(Temp->second.Parser);
             Merge(*Temp->second.Parser, Temp->second.StreamKind, 0, Temp->second.StreamPos);
         }
         Temp++;
