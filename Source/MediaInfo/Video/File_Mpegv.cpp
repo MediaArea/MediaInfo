@@ -188,9 +188,9 @@ const char* Mpegv_video_format[]=
 const char* Mpegv_picture_structure[]=
 {
     "",
-    "TFF",
-    "BFF",
-    "PPF",
+    "T", //Top Field
+    "B", //Bottom Field
+    "F", //Frame
 };
 
 const char* Mpegv_picture_coding_type[]=
@@ -235,7 +235,7 @@ File_Mpegv::File_Mpegv()
 {
     //In
     MPEG_Version=1;
-    Frame_Count_Valid=16;
+    Frame_Count_Valid=32;
     FrameIsAlwaysComplete=false;
 
     //temp
@@ -421,7 +421,7 @@ void File_Mpegv::picture_start()
     //Parsing
     int8u picture_coding_type;
     BS_Begin();
-    Skip_S2(10,                                                 "temporal_reference");
+    Get_S2 (10, temporal_reference,                             "temporal_reference");
     Get_S1 ( 3, picture_coding_type,                            "picture_coding_type"); Param_Info(Mpegv_picture_coding_type[picture_coding_type]);
     Element_Info(Mpegv_picture_coding_type[picture_coding_type]);
     Skip_S2(16,                                                 "vbv_delay");
@@ -482,7 +482,15 @@ void File_Mpegv::picture_start()
 
     //Time
     if (Time_End_Seconds!=Error)
-        Time_End_Frames++;
+    {
+        Time_End_Frames++; //One frame
+        if (progressive_sequence && repeat_first_field)
+        {
+            Time_End_Frames++; //Frame repeated a second time
+            if (top_field_first)
+                Time_End_Frames++; //Frame repeated a third time
+        }
+    }
 
     FILLING_BEGIN();
         //NextCode
@@ -593,20 +601,49 @@ void File_Mpegv::slice_start_Fill()
     }
 
     //Interlacement
-    if (progressive_sequence)
+    if (MPEG_Version==1)
     {
         Fill(Stream_Video, 0, Video_ScanType, "Progressive");
         Fill(Stream_Video, 0, Video_Interlacement, "PPF");
     }
-    else
+    else if (Frame_Count>0) //Only if we have at least one progressive_frame definition
     {
-        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
-        if ((Interlaced_Top && Interlaced_Bottom) || (!Interlaced_Top && !Interlaced_Bottom))
-            Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
+        if (progressive_sequence || progressive_frame)
+        {
+            Fill(Stream_Video, 0, Video_ScanType, "Progressive");
+            Fill(Stream_Video, 0, Video_Interlacement, "PPF");
+        }
         else
         {
-            Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Top?"TFF":"BFF");
-            Fill(Stream_Video, 0, Video_Interlacement, Interlaced_Top?"TFF":"BFF");
+            Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
+            if ((Interlaced_Top && Interlaced_Bottom) || (!Interlaced_Top && !Interlaced_Bottom))
+                Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
+            else
+            {
+                Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Top?"TFF":"BFF");
+                Fill(Stream_Video, 0, Video_Interlacement, Interlaced_Top?"TFF":"BFF");
+            }
+        }
+        std::string TempRef;
+        for (std::map<int16u, temporalreference>::iterator Temp=TemporalReference.begin(); Temp!=TemporalReference.end(); Temp++)
+        {
+            TempRef+=Temp->second.top_field_first?"T":"B";
+            TempRef+=Temp->second.repeat_first_field?"3":"2";
+        }
+        if (TempRef.find('3')!=std::string::npos)
+        {
+            TempRef.erase(TempRef.begin()); //First ":"
+            if (TempRef.find('3')!=std::string::npos) //A pulldown maybe is detected
+            {
+                if (TempRef.find("T2T3B2B3T2T3B2B3")!=std::string::npos)
+                    Fill(Stream_Video, 0, Video_ScanOrder, "2:3 Pulldown", Unlimited, true, true);
+                if (TempRef.find("B2B3T2T3B2B3T2T3")!=std::string::npos)
+                    Fill(Stream_Video, 0, Video_ScanOrder, "2:3 Pulldown", Unlimited, true, true);
+                if (TempRef.find("T2T2T2T2T2T2T2T2T2T2T2T3B2B2B2B2B2B2B2B2B2B2B2B3")!=std::string::npos)
+                    Fill(Stream_Video, 0, Video_ScanOrder, "2:2:2:2:2:2:2:2:2:2:2:3 Pulldown", Unlimited, true, true);
+                if (TempRef.find("B2B2B2B2B2B2B2B2B2B2B2B3T2T2T2T2T2T2T2T2T2T2T2T3")!=std::string::npos)
+                    Fill(Stream_Video, 0, Video_ScanOrder, "2:2:2:2:2:2:2:2:2:2:2:3 Pulldown", Unlimited, true, true);
+            }
         }
     }
 
@@ -786,6 +823,8 @@ void File_Mpegv::sequence_header()
     BS_End();
 
     FILLING_BEGIN();
+        TemporalReference_Offset+=0x800; //Twice the value for cycle
+
         //NextCode
         NextCode_Clear();
         NextCode_Add(0xB2);
@@ -869,7 +908,6 @@ void File_Mpegv::extension_start()
         case 8 :{ //Picture Coding
                     //Parsing
                     int8u picture_structure;
-                    bool  top_field_first;
                     Skip_S1( 4,                                 "f_code_forward_horizontal");
                     Skip_S1( 4,                                 "f_code_forward_vertical");
                     Skip_S1( 4,                                 "f_code_backward_horizontal");
@@ -882,9 +920,9 @@ void File_Mpegv::extension_start()
                     Skip_SB(                                    "q_scale_type");
                     Skip_SB(                                    "intra_vlc_format");
                     Skip_SB(                                    "alternate_scan");
-                    Skip_SB(                                    "repeat_first_field");
+                    Get_SB (    repeat_first_field,             "repeat_first_field");
                     Skip_SB(                                    "chroma_420_type");
-                    Skip_SB(                                    "progressive_frame");
+                    Get_SB (    progressive_frame,              "progressive_frame");
                     TEST_SB_SKIP(                               "composite_display_flag");
                         Skip_SB(                                "v_axis");
                         Skip_S1( 3,                             "field_sequence");
@@ -897,10 +935,33 @@ void File_Mpegv::extension_start()
                     FILLING_BEGIN();
                         if (progressive_sequence==0)
                         {
-                            if (top_field_first)
-                                Interlaced_Top++;
-                            else
-                                Interlaced_Bottom++;
+                            if (picture_structure==3)           //Frame
+                            {
+                                if (top_field_first)
+                                    Interlaced_Top++;
+                                else
+                                    Interlaced_Bottom++;
+                                FirstFieldFound=false;
+                                if (TemporalReference.size()<30)
+                                {
+                                    if (temporal_reference<=30)
+                                        temporal_reference+=0x400; //10 bits cyclic, avoiding cases of the limit
+                                    temporal_reference+=TemporalReference_Offset;
+                                    TemporalReference[temporal_reference].top_field_first=top_field_first;
+                                    TemporalReference[temporal_reference].repeat_first_field=repeat_first_field;
+                                }
+                            }
+                            else                                //Field
+                            {
+                                if (!FirstFieldFound)
+                                {
+                                    if (picture_structure==1)   //-Top
+                                        Interlaced_Top++;
+                                    else                        //-Bottom
+                                        Interlaced_Bottom++;
+                                }
+                                FirstFieldFound=!FirstFieldFound;
+                            }
                         }
                     FILLING_END();
                 }
@@ -1057,6 +1118,11 @@ bool File_Mpegv::Synchronize()
         load_intra_quantiser_matrix=false;
         load_non_intra_quantiser_matrix=false;
         progressive_sequence=true; //progressive by default
+        progressive_frame=true; //progressive by default
+        top_field_first=false;
+        repeat_first_field=false;
+        FirstFieldFound=false;
+        TemporalReference_Offset=0;
 
         //Default stream values
         Streams.resize(0x100);

@@ -86,6 +86,7 @@ private :
     int16u horizontal_size_value;
     int16u vertical_size_value;
     int16u bit_rate_extension;
+    int16u temporal_reference;
     int8u  Time_Begin_Frames;
     int8u  Time_End_Frames;
     int8u  aspect_ratio_information;
@@ -102,6 +103,10 @@ private :
     bool   load_intra_quantiser_matrix;
     bool   load_non_intra_quantiser_matrix;
     bool   progressive_sequence;
+    bool   progressive_frame;
+    bool   top_field_first;
+    bool   repeat_first_field;
+    bool   FirstFieldFound;
 
     //From user_data
     Ztring Library;
@@ -123,6 +128,15 @@ private :
         }
     };
     std::vector<stream> Streams;
+
+    //Temporal reference
+    struct temporalreference
+    {
+        bool   top_field_first;
+        bool   repeat_first_field;
+    };
+    std::map<int16u, temporalreference> TemporalReference; //int32u is the reference
+    int16u TemporalReference_Offset;
 
     //Temp
     float32 FrameRate;

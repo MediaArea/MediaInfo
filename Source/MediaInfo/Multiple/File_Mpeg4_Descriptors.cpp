@@ -597,7 +597,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0x6A : //MPEG Video
                         #if defined(MEDIAINFO_MPEGV_YES)
                             Parser=new File_Mpegv;
-                            ((File_Mpegv*)Parser)->Frame_Count_Valid=12; //For searching Pulldown
+                            ((File_Mpegv*)Parser)->Frame_Count_Valid=30; //For searching Pulldown
                             ((File_Mpegv*)Parser)->FrameIsAlwaysComplete=true;
                         #endif
                         break;

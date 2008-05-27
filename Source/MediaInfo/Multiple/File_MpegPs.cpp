@@ -2154,7 +2154,7 @@ File__Analyze* File_MpegPs::ChooseParser_Mpegv()
     #if defined(MEDIAINFO_MPEGV_YES)
         File__Analyze* Handle=new File_Mpegv;
         ((File_Mpegv*)Handle)->MPEG_Version=MPEG_Version;
-        ((File_Mpegv*)Handle)->Frame_Count_Valid=12;
+        ((File_Mpegv*)Handle)->Frame_Count_Valid=30;
         return Handle;
     #else
         //Filling
