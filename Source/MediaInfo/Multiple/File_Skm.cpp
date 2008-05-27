@@ -144,7 +144,7 @@ void File_Skm::Data_Parse()
         Stream.Parser=new File_Mpeg4v();
         ((File_Mpeg4v*)Stream.Parser)->FrameIsAlwaysComplete=true;
         ((File_Mpeg4v*)Stream.Parser)->OnlyVOP();
-        Open_Buffer_Init(Stream.Parser, File_Offset+Buffer_Offset, File_Offset+Buffer_Offset+Element_Size);
+        Open_Buffer_Init(Stream.Parser, File_Size, File_Offset+Buffer_Offset);
         Open_Buffer_Continue(Stream.Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
         //if (Stream.Parser->Count_Get(Stream_Video)>0)
         {

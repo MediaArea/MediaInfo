@@ -257,8 +257,12 @@ void File_Mpegv::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Mpegv::Read_Buffer_Finalize()
 {
-    if (Streams.empty())
+    if (horizontal_size_value==0)
         return; //Not initialized
+
+    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
+    if (Count_Get(Stream_General)==0)
+        slice_start_Fill();
 
     //Duration
     if (Time_End_NeedComplete && MediaInfoLib::Config.ParseSpeed_Get()!=1)

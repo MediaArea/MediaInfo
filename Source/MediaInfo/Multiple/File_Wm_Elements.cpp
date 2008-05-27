@@ -426,7 +426,7 @@ void File_Wm::Header_StreamProperties_Video ()
     {
         Stream[Stream_Number].Parser=new File_Mpegv;
         Open_Buffer_Init(Stream[Stream_Number].Parser);
-        ((File_Mpegv*)Stream[Stream_Number].Parser)->Frame_Count_Valid=1;
+        ((File_Mpegv*)Stream[Stream_Number].Parser)->Frame_Count_Valid=12; //For searching Pulldown
     }
     #endif
 

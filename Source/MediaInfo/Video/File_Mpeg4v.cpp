@@ -224,7 +224,7 @@ void File_Mpeg4v::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Mpeg4v::Read_Buffer_Finalize()
 {
-    if (Streams.empty())
+    if (object_layer_width==0)
         return; //Not initialized
 
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
