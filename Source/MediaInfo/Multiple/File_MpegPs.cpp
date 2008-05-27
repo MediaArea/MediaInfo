@@ -2155,8 +2155,6 @@ File__Analyze* File_MpegPs::ChooseParser_Mpegv()
         File__Analyze* Handle=new File_Mpegv;
         ((File_Mpegv*)Handle)->MPEG_Version=MPEG_Version;
         ((File_Mpegv*)Handle)->Frame_Count_Valid=12;
-        if (!FromTS)
-            ((File_Mpegv*)Handle)->FrameIsAlwaysComplete=true;
         return Handle;
     #else
         //Filling
