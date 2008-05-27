@@ -100,7 +100,7 @@ void File_Cdxa::Read_Buffer_Finalize ()
     {
 
         //General
-        Open_Buffer_Finalize(MI);
+        Open_Buffer_Finalize(MI->Info);
         Merge(*(MI->Info));
         Merge(*(MI->Info), Stream_General, 0, 0);
         const Ztring &Format=Retrieve(Stream_General, 0, General_Format);
