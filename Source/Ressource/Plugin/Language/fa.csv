@@ -1,0 +1,843 @@
+﻿   Junk;x
+  Author_Email;martik.panosian@gmail.com
+  Author_Name;Martik Panosian
+  Author_OldNames;Martik Panosian
+  Language_ISO639;fa
+  Language_Name;فارسی
+  Config_Text_ColumnSize;32
+  Config_Text_Separator; : 
+  Config_Text_NumberTag; #
+ audio stream1
+ audio stream2
+ audio stream3
+ bit1
+ bit2
+ bit3
+ bps
+ Bps
+ Byte1
+ Byte2
+ Byte3
+ channel1
+ channel2
+ channel3
+ chapter1
+ chapter2
+ chapter3
+ chapters stream1
+ chapters stream2
+ chapters stream3
+ day1;روز
+ day2;روزها
+ day3;روزها
+ file1;فایل
+ file2;فایلها
+ file3;فایلها
+ frame1
+ frame2
+ frame3
+ fps1
+ fps2
+ fps3
+ GB
+ Gb
+ Gbps
+ GBps
+ GHz
+ GiB
+ GibiByte1
+ GibiByte2
+ GibiByte3
+ GiBps
+ GigaBit1
+ GigaBit2
+ GigaBit3
+ GigaByte1
+ GigaByte2
+ GigaByte3
+ hour1;ساعت
+ hour2;ساعات
+ hour3;ساعات
+ Hz
+ image stream1
+ image stream2
+ image stream3
+ KB
+ Kb
+ KBps
+ Kbps
+ KHz
+ KiB
+ KibiBit1
+ KibiBit2
+ KibiBit3
+ KibiByte1
+ KibiByte2
+ KibiByte3
+ KiBps
+ KiloBit1
+ KiloBit2
+ KiloBit3
+ KiloByte1
+ KiloByte2
+ KiloByte3
+ MB
+ Mb
+ Mbps
+ MBps
+ MebiBit1
+ MebiBit2
+ MebiBit3
+ MebiByte1
+ MebiByte2
+ MebiByte3
+ MegaBit1
+ MegaBit2
+ MegaBit3
+ MegaByte1
+ MegaByte2
+ MegaByte3
+ MHz
+ MiB
+ Mib
+ MiBps
+ milisecond1
+ milisecond2
+ milisecond3
+ minute1;دقیقه
+ minute2;دقایق
+ minute3;دقایق
+ month1;ماه
+ month2;ماهها
+ month3;ماهها
+ pixel1
+ pixel2
+ pixel3
+ second1;ثانیه
+ second2;ثانیه ها
+ second3;ثانیه ها
+ text stream1
+ text stream2
+ text stream3
+ video stream1
+ video stream2
+ video stream3
+ warppoint0
+ warppoint1
+ warppoint2
+ warppoint3
+ week1;هفته
+ week2;هفته ها
+ week3;هفته ها
+ year1;سال
+ year2;سالها
+ year3;سالها
+, ;, 
+: ;: 
+About;درباره
+About_Hint;چگونه با من تماس بگیرید
+Accompaniment;همراهی
+Actor;اکتور
+Actor_Character
+Address;آدرس
+Advanced;حرفه ای
+Advanced mode;مد پیشرفته
+Album;آلبوم
+All;همه
+Archival_Location;مکان بایگانی
+Arranger
+ArtDirector
+AspectRatio;نسبت نمود
+AssistantDirector
+at;در
+At least one file;(یک فایلی را باز کنید)
+Audio;صوت
+Audio stream(s);گردش صوت
+Audio_Codec_List;کدک صوت
+Audio_No;هیچ صوتی وجود ندارد
+Audio1;اولین گردش صوت
+Audio2;دومین گردش صوت
+AudioCount;تعداد گردش صوت
+Author;نویسنده
+BarCode;بارکد
+Basic;پایه
+Basic_Note;(Sheet, Tree...) توجه : برای اطلاعات بیشتر نمایش های دیگر را انتخاب کنید
+BitRate;بیت ریت
+BitRate_Maximum;حداکثر بیت ریت
+BitRate_Minimum;حداقل بیت ریت
+BitRate_Mode;مد بیت ریت
+BitRate_Mode_CBR
+BitRate_Mode_VBR
+BitRate_Nominal;بیت ریت جزیی
+Bits-(Pixel*Frame)
+Cancel;لغو
+Channel(s);کانال
+ChannelPositions;موقعیت کانال
+Chapter(s);چپتر
+Chapters;چپترز
+Chapters stream(s);گردش چپترز
+Chapters_Codec_List;کدک چپترز
+Chapters_No;هیچ چپترزی وجود ندارد
+ChaptersCount;تعداد گردش چپترز
+CheckNewVersion;کنترل ویرایش جدید
+Choose custom;انتخاب حالت دلبخواهی
+Choose custom sheet;انتخاب حالت دلبخواهی
+Choose custom text;انتخاب حالت دلبخواهی متن
+Choose export format;اتنخاب فرمت خروجی
+Choose file(s);انتخاب فایل برای باز کردن
+Choose filename;انتخاب نام فایل
+Choose language;انتخاب زبان
+Choregrapher
+Chroma
+Close;بستن
+Close all before open;همه را ببند قبل از باز کردن
+Codec;کدکها
+Codec_Description;توضیح کدک
+Codec_Info;جزییات کدک
+Codec_Settings;تنظیمات کدک
+Codec_Settings_PacketBitStream;تنظیمات کدک, بسته بیتستریم
+Codec_Settings_BVOP;تنظیمات کدک, BVOP
+Codec_Settings_QPel;تنظیمات کدک, QPel
+Codec_Settings_GMC;تنظیمات کدک, GMC
+Codec_Settings_Matrix;تنظیمات کدک, Matrix
+Codec_Settings_Floor;تنظیمات کدک, Floor
+Codec_Settings_CABAC;تنظیمات کدک, CABAC
+Codec_Settings_Firm;تنظیمات کدک, Firm
+Codec_Settings_Endianness;تنظیمات کدک, Endianness
+Codec_Settings_Sign;تنظیمات کدک, Sign
+Codec_Settings_Law;تنظیمات کدک, Law
+Codec_Settings_ITU;تنظیمات کدک, ITU
+Codec_Profile;پروفایل کدک
+Codec_Url;لینک برای کدک
+CodecID;کدک ID
+CodecID_Description;توضیح کدک
+Collection;مجموعه
+Colorimetry;رنگ سنجی
+Comment;توضیح
+CommissionedBy;بکار افتاده توسط
+CompleteName;نام کامل
+Composer;نویسنده
+CompressionRatio;نسبت فشردگی
+Conductor;رسانا
+Container and general information;محتوی و اطلاعات کلی
+ContentType
+CoProducer
+Copyright;کپی رایت
+CostumeDesigner;طراح
+Count;تعداد
+Country;کشور
+Cover;جلد
+Cover_Datas;تاریخ جلد
+Custom;بر حسب عادت
+Customize;دلبخواه کردن
+Date;تاریخ
+Debug;اشکال زدایی
+Decimal point;ممیز اعشاری
+Delay;انتظار
+Delete;حذف
+Description;توضیحات
+Digitized_Date;تاریخ رقمی شده
+Director;دایرکتور
+DirectorOfPhotography;دایرکتور عکاسی
+DisplayAspectRatio;نمایش نسبت نمود
+DistributedBy;توزیع شده توسط
+Donate;کمک نقدی کردن
+Duration;مدت
+Edit;ویرایش
+EditedBy;ویرایش شده توسط
+EMail;پست الکترونیکی
+Encoded_Application;نرم افزار نوشتاری
+Encoded_Date;تاریخ انکد
+Encoded_Library;کتابخانه نوشتاری
+Encoded_Library_Settings;تنظیمات انکد
+Encoded_Original;اصلی
+EncodedBy;انکد توسط
+Error_File;خطا هنگام خواندن فایل
+ExecutiveProducer;تولیدکننده اجرایی
+Exit;خروج
+Exit_Hint;خروج از برنامه
+Export;خارج سازی
+Export_Hint;خارج سازی در فرمت مورد نظر
+Extensions;پسوندهای مورد استفاده
+Family;خانوادگی
+Fax;فاکس
+File;فایل
+File size;اندازه فایل
+File_Append
+File_Created_Date;تاریخ ساخت فایل
+File_Hint;انتخاب فایل
+File_Modified_Date;تاریخ آخرین تغییرات فایل
+FileExtension;پسوند فایل
+FileName;نام فایل
+FileSize;اندازه فابل
+Folder;پوشه
+Folder (R);پوشه (R)
+Folder (R)_Hint;انتخاب پوشه
+Folder (Recursively);پوشه (Recursively)
+Folder_Hint;انتخاب پوشه
+FolderName;نلم پوشه
+Format;فرمت
+Format_Description;توضیحات فرمت
+Format_Info;جزییات فرمت
+Format_Profile;پروفایل فرمت
+Format_Settings;تنظیمات فرمت
+Format_Settings_PacketBitStream;تنظیمات فرمت, Packet bitstream
+Format_Settings_BVOP;تنظیمات فرمت, BVOP
+Format_Settings_QPel;تنظیمات فرمت, QPel
+Format_Settings_GMC;تنظیمات فرمت, GMC
+Format_Settings_Matrix;تنظیمات فرمت, Matrix
+Format_Settings_Matrix_Custom
+Format_Settings_Matrix_Default
+Format_Settings_Floor;تنظیمات فرمت, Floor
+Format_Settings_CABAC;تنظیمات فرمت, CABAC
+Format_Settings_Firm;تنظیمات فرمت, Firm
+Format_Settings_Endianness;تنظیمات فرمت, Endianness
+Format_Settings_RefFrames;تنظیمات فرمت, ReFrames
+Format_Settings_Sign;تنظیمات فرمت, Sign
+Format_Settings_Law;تنظیمات فرمت, Law
+Format_Settings_ITU;تنظیمات فرمت, ITU
+Format_Settings_SBR;تنظیمات فرمت, SBR
+Format_Settings_PS;تنظیمات فرمت, PS
+Format_Settings_Pulldown
+Format_Version;ورژن فرمت
+Format_Url;لینک به فرمت
+FrameCount
+FrameRate;نرخ فرمت
+FrameRate_Mode;مد نرخ فرمت
+FrameRate_Mode_CFR
+FrameRate_Mode_VFR
+FrameRate_Minimum;حداقل نرخ فرمت
+FrameRate_Nominal;نرخ فرمت جزیی
+FrameRate_Maximum;حداکثر نرخ فرمت
+FrameRate_Original;نرخ فرمت اصلی
+General;کلی
+Genre;نوع
+Genre_000
+Genre_001
+Genre_002
+Genre_003
+Genre_004
+Genre_005
+Genre_006
+Genre_007
+Genre_008
+Genre_009
+Genre_010
+Genre_011
+Genre_012
+Genre_013
+Genre_014
+Genre_015
+Genre_016
+Genre_017
+Genre_018
+Genre_019
+Genre_020
+Genre_021
+Genre_022
+Genre_023
+Genre_024
+Genre_025
+Genre_026
+Genre_027
+Genre_028
+Genre_029
+Genre_030
+Genre_031
+Genre_032
+Genre_033
+Genre_034
+Genre_035
+Genre_036
+Genre_037
+Genre_038
+Genre_039
+Genre_040
+Genre_041
+Genre_042
+Genre_043
+Genre_044
+Genre_045
+Genre_046
+Genre_047
+Genre_048
+Genre_049
+Genre_050
+Genre_051
+Genre_052
+Genre_053
+Genre_054
+Genre_055
+Genre_056
+Genre_057
+Genre_058
+Genre_059
+Genre_060
+Genre_061
+Genre_062
+Genre_063
+Genre_064
+Genre_065
+Genre_066
+Genre_067
+Genre_068
+Genre_069
+Genre_070
+Genre_071
+Genre_072
+Genre_073
+Genre_074
+Genre_075
+Genre_076
+Genre_077
+Genre_078
+Genre_079
+Genre_080
+Genre_081
+Genre_082
+Genre_083
+Genre_084
+Genre_085
+Genre_086
+Genre_087
+Genre_088
+Genre_089
+Genre_090
+Genre_091
+Genre_092
+Genre_093
+Genre_094
+Genre_095
+Genre_096
+Genre_097
+Genre_098
+Genre_099
+Genre_100
+Genre_101
+Genre_102
+Genre_103
+Genre_104
+Genre_105
+Genre_106
+Genre_107
+Genre_108
+Genre_109
+Genre_110
+Genre_111
+Genre_112
+Genre_113
+Genre_114
+Genre_115
+Genre_116
+Genre_117
+Genre_118
+Genre_119
+Genre_120
+Genre_121
+Genre_122
+Genre_123
+Genre_124
+Genre_125
+Genre_126
+Genre_127
+Genre_128
+Genre_129
+Genre_130
+Genre_131
+Genre_132
+Genre_133
+Genre_134
+Genre_135
+Genre_136
+Genre_137
+Genre_138
+Genre_139
+Genre_140
+Genre_141
+Genre_142
+Genre_143
+Genre_144
+Genre_145
+Genre_146
+Genre_147
+Go to WebSite;سایت سازنده
+h
+Header file;ساخت فایل هدر
+Height;بلندی
+Help;کمک
+Hint;اشاره
+How many audio streams?;چقدر گردش صوتی?
+How many chapters streams?;چقدر گردش چپترز?
+How many text streams?;چقدر گردش متن?
+How many video streams?;چقدر گردش ویدیویی?
+HTML
+ID
+Image;تصویر
+Image stream(s);گردش تصویر
+Image_Codec_List;تصویر کدک
+ImageCount;تعداد گردش تصویر
+Info;اطلاعات
+Instruments;ادوات موسیقی
+Interlacement;تقاطع
+Interlaced_Interlaced;درهم بافته
+Interlaced_TFF
+Interlaced_BFF
+Interlaced_PPF;تصاعد
+Interlaced_Progressive
+IRCA
+ISBN
+ISRC
+Keywords
+Known codecs;کدک آشنا
+Known formats;فرمت آشنا
+Known parameters;پارامتر آشنا
+Label;برچسب
+Language;زبان
+Language___;زبان چندگانه
+Language_aa
+Language_ab
+Language_ae
+Language_af
+Language_ak
+Language_am
+Language_an
+Language_ar
+Language_as
+Language_av
+Language_ay
+Language_az
+Language_ba
+Language_be
+Language_bg
+Language_bh
+Language_bi
+Language_bm
+Language_bn
+Language_bo
+Language_br
+Language_bs
+Language_ca
+Language_ce
+Language_ch
+Language_co
+Language_cr
+Language_cs
+Language_cu
+Language_cv
+Language_cy
+Language_da
+Language_de
+Language_dv
+Language_dz
+Language_ee
+Language_el
+Language_en
+Language_eo
+Language_es
+Language_et
+Language_eu
+Language_fa
+Language_ff
+Language_fi
+Language_fj
+Language_fo
+Language_fr
+Language_fy
+Language_ga
+Language_gd
+Language_gl
+Language_gn
+Language_gu
+Language_gv
+Language_ha
+Language_he
+Language_hi
+Language_ho
+Language_hr
+Language_ht
+Language_hu
+Language_hy
+Language_hz
+Language_ia
+Language_id
+Language_ie
+Language_ig
+Language_ii
+Language_ik
+Language_Info
+Language_io
+Language_is
+Language_it
+Language_iu
+Language_ja
+Language_jv
+Language_ka
+Language_kg
+Language_ki
+Language_kj
+Language_kk
+Language_kl
+Language_km
+Language_kn
+Language_ko
+Language_kr
+Language_ks
+Language_ku
+Language_kv
+Language_kw
+Language_ky
+Language_la
+Language_lb
+Language_lg
+Language_li
+Language_ln
+Language_lo
+Language_lt
+Language_lu
+Language_lv
+Language_mg
+Language_mh
+Language_mi
+Language_mk
+Language_ml
+Language_mn
+Language_mo
+Language_mr
+Language_ms
+Language_mt
+Language_my
+Language_na
+Language_nb
+Language_nd
+Language_ne
+Language_ng
+Language_nl
+Language_nn
+Language_no
+Language_nr
+Language_nv
+Language_ny
+Language_oc
+Language_oj
+Language_om
+Language_or
+Language_os
+Language_pa
+Language_pi
+Language_pl
+Language_ps
+Language_pt
+Language_qu
+Language_rm
+Language_rn
+Language_ro
+Language_ru
+Language_rw
+Language_sa
+Language_sc
+Language_sd
+Language_se
+Language_sg
+Language_si
+Language_sk
+Language_sl
+Language_sm
+Language_sn
+Language_so
+Language_sq
+Language_sr
+Language_ss
+Language_st
+Language_su
+Language_sv
+Language_sw
+Language_ta
+Language_te
+Language_tg
+Language_th
+Language_ti
+Language_tk
+Language_tl
+Language_tn
+Language_to
+Language_tr
+Language_ts
+Language_tt
+Language_tw
+Language_ty
+Language_ug
+Language_uk
+Language_ur
+Language_uz
+Language_ve
+Language_vi
+Language_vo
+Language_wa
+Language_wo
+Language_xh
+Language_yi
+Language_yo
+Language_za
+Language_zh
+Language_zu
+LawRating
+LCCN
+Library
+List;لیست
+Lyricist
+Mastered_Date
+MasteredBy
+MediaInfo_About
+Menu;منو
+Menu stream(s);گردش منو
+Menu_Codec_List;کدک منو
+Menu_No;هیچ منویی وجود ندارد
+MenuCount;تعداد گردش منو
+Menu_Hint;امکان بیشتر
+MenuID;منو ID
+mn
+Mood;حالت
+More;بیشتر
+Movie;نام فیلم
+ms
+MSDI
+MuxingMode
+Name;نام
+Nationality;ملیت
+New;جدید
+Newest version;کنترل برای نسخه جدید برنامه
+No;خیر
+OK;موافق
+One output file per input file;یک فایل خروجی برطبق فایل ورودی
+Open;باز کردن
+Options;خصوصیات
+Options_Hint;تنظیمات
+Original;اصلی
+Other;دیگر
+Output;خروجی
+Output format;فرمت خروجی
+OveralBitRate;اورال بیت ریت
+OveralBitRate_Maximum;حداکثر اورال بیت ریت
+OveralBitRate_Minimum;حداقل اورال بیت ریت
+OveralBitRate_Mode;مد اورال بیت ریت
+OveralBitRate_Nominal;جزیی اورال بیت ریت
+Part;بخش
+Part_Count;تعداد کلی
+Performer;ایفا کننده
+Period;دوره
+Phone;تلفن
+PixelAspectRatio;Pixel Aspect Ratio
+PlayCounter;تعداد پخش
+PlayTime;زمان پخش
+Position;موقعیت
+Position_Total;کلی
+Preferences;تنظیمات
+Producer;تولید کننده
+ProductionDesigner
+ProductionStudio
+Publisher;پخش کننده
+Purchased_Date;تاریخ خرید
+Quote character
+RadioStation;ایستگاه رادیو
+Rating;درجه
+Recorded_Date
+Recorded_Location
+Released_Date
+RemixedBy
+Resolution
+s
+SamplingRate
+Save;ذخیره
+ScanType;نوع اسکن
+ScanOrder;نوع اسکن
+ScreenplayBy
+Season
+see below;ببینید زیر را
+Send HeaderFile
+Separator_Columns
+Separator_Lines
+Set
+Set_Count
+Setup;ستاپ
+Sheet;ورق
+Sheet (Complete);ورق (Complete)
+Shell extension
+Shell InfoTip
+Show menu;نمایش نمو
+Show toolbar;نمایش تولبار
+Sort;چیدمان با
+SoundEngineer;مهندس صدا
+Standard;استاندارد
+Stream;گردش
+Stream_MoreInfo;اطلاعات بیشتر درباره این گردش
+StreamCount;تعداد گردش این نوع
+StreamID;گردش ID
+StreamKind;نوع گردش
+StreamKindID
+StreamKindPos
+StreamSize;اندازه گردش
+Subject;موضوع
+SubTrack;ترک اصلی
+Summary;خلاصه
+Supported formats;فرمتهای پشتیبانی شده
+Supported?;پشتیبانی?
+Synopsys
+SystemId
+Tagged_Application;کاربرد ضمیمه
+Tagged_Date;تاریخ ضمیمه
+Technician;کارشناس فنی
+TermsOfUse;چگونگی استفاده
+Text;متن
+Text - Custom;متن - Custom
+Text (HTML);متن (HTML)
+Text stream(s);گردش متن
+Text streams;گردش متن
+Text_Codec_List;کدک متن
+Text_No;هیچ متنی وجود ندارد
+Text1;اولین گردش متن
+Text2;دومین گردش متن
+Text3;سومین گردش متن
+TextCount;تعداد گردش متن
+ThanksTo;تشکر از
+Thousands separator;هزاران جدا کننده
+Title;عنوان
+Title_More;عنوان اطلاعات بیشتر
+Total;کلی
+Track;نام ترک
+Track_Count;تعداد ترک
+Translator
+Tree;درختی
+Tree & Text;درخت و متن
+Unknown;نامشخص
+Url
+Video;ویدیو
+Video stream(s);گردشهای ویدیو
+Video_Codec_List;ویدیو کدک
+Video_Delay;تاخیر ویدیو
+Video_No;هیچ ویدیویی وجود ندارد
+Video0_Delay
+Video1;اولین گردش ویدیویی
+VideoCount;تعداد گردش ویدیویی
+View;نمایش
+View_Hint;تغییر منو
+Warning : more streams in the files;احتیاط: چند گردش در این فایل وجود دارد
+Web;وب
+WebSite_Audio
+WebSite_Audio_More
+WebSite_General
+WebSite_General_More
+WebSite_Text
+WebSite_Text_More
+WebSite_Url
+WebSite_Video
+WebSite_Video_More
+Width;عرض
+WriteMe;ایمیل به من
+WriteToTranslator;ایمیل به مترجم
+Written_Date;تاریخ نوشته شده
+Written_Location;مکان نوشته شده
+WrittenBy;نوشته شده توسط
+Yes;بله
+Your system;سیستم شما
+ZZ_Automatic_Percent;39
+ZZ_AutomaticLanguage_Percent;79
