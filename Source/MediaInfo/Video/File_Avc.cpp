@@ -918,9 +918,7 @@ void File_Avc::sei_message_mainconcept(int32u payloadSize)
     Ztring Text;
     Get_Local(payloadSize, Text,                                "text");
 
-    if (!Text.empty() && Text[0]==_T('\"') && Text[Text.size()-1]==_T('\"'))
-        Text.Trim(_T('\"'));
-    if (Text.find(_T("produced by MainConcept H.264/AVC Codec v"))==0)
+    if (Text.find(_T("produced by MainConcept H.264/AVC Codec v"))!=std::string::npos)
     {
         Encoded_Library=Text.SubString(_T("produced by "), _T(" MainConcept AG"));
         Encoded_Library_Name=_T("MainConcept H.264/AVC Codec");
