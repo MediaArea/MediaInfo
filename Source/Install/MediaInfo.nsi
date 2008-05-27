@@ -35,6 +35,7 @@ SetCompressor /FINAL /SOLID lzma
 !insertmacro MUI_LANGUAGE "Czech"
 !insertmacro MUI_LANGUAGE "Dutch"
 !insertmacro MUI_LANGUAGE "English"
+!insertmacro MUI_LANGUAGE "Farsi"
 !insertmacro MUI_LANGUAGE "French"
 !insertmacro MUI_LANGUAGE "German"
 !insertmacro MUI_LANGUAGE "Greek"
