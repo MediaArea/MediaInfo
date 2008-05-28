@@ -15,18 +15,18 @@
  bit3
  bps
  Bps
- Byte1
- Byte2
- Byte3
- channel1
- channel2
- channel3
- chapter1
- chapter2
- chapter3
- chapters stream1
- chapters stream2
- chapters stream3
+ Byte1;بایت
+ Byte2;بایت
+ Byte3;بایت
+ channel1;کانال
+ channel2;کانالها
+ channel3;کانالها
+ chapter1;چپتر
+ chapter2;چپترز
+ chapter3;چپترز
+ chapters stream1;گردش چپتر
+ chapters stream2;گردش چپتر
+ chapters stream3;گردش چپتر
  day1;روز
  day2;روزها
  day3;روزها
@@ -49,19 +49,19 @@
  GibiByte2
  GibiByte3
  GiBps
- GigaBit1
- GigaBit2
- GigaBit3
- GigaByte1
- GigaByte2
- GigaByte3
+ GigaBit1;گیگابیت
+ GigaBit2;گیگابیت
+ GigaBit3;گیگابیت
+ GigaByte1;گیگابایت
+ GigaByte2;گیگابایت
+ GigaByte3;گیگابایت
  hour1;ساعت
  hour2;ساعات
  hour3;ساعات
  Hz
- image stream1
- image stream2
- image stream3
+ image stream1;گردش تصویر
+ image stream2;گردش تصویر
+ image stream3;گردش تصویر
  KB
  Kb
  KBps
@@ -75,12 +75,12 @@
  KibiByte2
  KibiByte3
  KiBps
- KiloBit1
- KiloBit2
- KiloBit3
- KiloByte1
- KiloByte2
- KiloByte3
+ KiloBit1;کیلوبیت
+ KiloBit2;کیلوبیت
+ KiloBit3;کیلوبیت
+ KiloByte1;کیلوبایت
+ KiloByte2;کیلوبایت
+ KiloByte3;کیلوبایت
  MB
  Mb
  Mbps
@@ -91,12 +91,12 @@
  MebiByte1
  MebiByte2
  MebiByte3
- MegaBit1
- MegaBit2
- MegaBit3
- MegaByte1
- MegaByte2
- MegaByte3
+ MegaBit1;مگابیت
+ MegaBit2;مگابیت
+ MegaBit3;مگابیت
+ MegaByte1;مگابایت
+ MegaByte2;مگابایت
+ MegaByte3;مگابایت
  MHz
  MiB
  Mib
@@ -110,18 +110,18 @@
  month1;ماه
  month2;ماهها
  month3;ماهها
- pixel1
- pixel2
- pixel3
+ pixel1;پیکسل
+ pixel2;پیکسل
+ pixel3;پیکسل
  second1;ثانیه
  second2;ثانیه ها
  second3;ثانیه ها
- text stream1
- text stream2
- text stream3
- video stream1
- video stream2
- video stream3
+ text stream1;گردش متن
+ text stream2;گردش متن
+ text stream3;گردش متن
+ video stream1;گردش ویدیو
+ video stream2;گردش ویدیو
+ video stream3;گردش ویدیو
  warppoint0
  warppoint1
  warppoint2
@@ -138,17 +138,17 @@ About;درباره
 About_Hint;چگونه با من تماس بگیرید
 Accompaniment;همراهی
 Actor;اکتور
-Actor_Character
+Actor_Character;پخش کاراکتر
 Address;آدرس
 Advanced;حرفه ای
 Advanced mode;مد پیشرفته
 Album;آلبوم
 All;همه
 Archival_Location;مکان بایگانی
-Arranger
-ArtDirector
+Arranger;چیدمانگر
+ArtDirector;گارگردان هنری
 AspectRatio;نسبت نمود
-AssistantDirector
+AssistantDirector;همیار گارگردان
 at;در
 At least one file;(یک فایلی را باز کنید)
 Audio;صوت
@@ -188,7 +188,7 @@ Choose file(s);انتخاب فایل برای باز کردن
 Choose filename;انتخاب نام فایل
 Choose language;انتخاب زبان
 Choregrapher
-Chroma
+Chroma;چروما
 Close;بستن
 Close all before open;همه را ببند قبل از باز کردن
 Codec;کدکها
@@ -220,8 +220,8 @@ Composer;نویسنده
 CompressionRatio;نسبت فشردگی
 Conductor;رسانا
 Container and general information;محتوی و اطلاعات کلی
-ContentType
-CoProducer
+ContentType;نوع محتوی
+CoProducer;تهیه کننده
 Copyright;کپی رایت
 CostumeDesigner;طراح
 Count;تعداد
@@ -488,9 +488,9 @@ IRCA
 ISBN
 ISRC
 Keywords
-Known codecs;کدک آشنا
-Known formats;فرمت آشنا
-Known parameters;پارامتر آشنا
+Known codecs;کدک شناسایی شده
+Known formats;فرمت شناسایی شده
+Known parameters;پارامتر شناسایی شده
 Label;برچسب
 Language;زبان
 Language___;زبان چندگانه
@@ -684,9 +684,9 @@ LawRating
 LCCN
 Library
 List;لیست
-Lyricist
-Mastered_Date
-MasteredBy
+Lyricist;لایریکس
+Mastered_Date;تاریخ کارفرمایی
+MasteredBy;کارفرما
 MediaInfo_About
 Menu;منو
 Menu stream(s);گردش منو
@@ -733,31 +733,31 @@ Position;موقعیت
 Position_Total;کلی
 Preferences;تنظیمات
 Producer;تولید کننده
-ProductionDesigner
-ProductionStudio
+ProductionDesigner;طراح
+ProductionStudio;استودیو
 Publisher;پخش کننده
 Purchased_Date;تاریخ خرید
-Quote character
+Quote character;نقل کننده
 RadioStation;ایستگاه رادیو
 Rating;درجه
-Recorded_Date
-Recorded_Location
-Released_Date
-RemixedBy
-Resolution
+Recorded_Date;تاریخ ظبط
+Recorded_Location;مکان ظبط
+Released_Date;تاریخ انتشار
+RemixedBy;دوباره میکس شده
+Resolution;تفکیک پذیری
 s
-SamplingRate
+SamplingRate;نرخ نمونه برداری
 Save;ذخیره
 ScanType;نوع اسکن
 ScanOrder;نوع اسکن
 ScreenplayBy
-Season
+Season;فصل
 see below;ببینید زیر را
 Send HeaderFile
-Separator_Columns
-Separator_Lines
-Set
-Set_Count
+Separator_Columns;جدا کننده ستون
+Separator_Lines;جدا کننده خط
+Set;تعیین
+Set_Count;تعیین تعداد
 Setup;ستاپ
 Sheet;ورق
 Sheet (Complete);ورق (Complete)
@@ -805,7 +805,7 @@ Title_More;عنوان اطلاعات بیشتر
 Total;کلی
 Track;نام ترک
 Track_Count;تعداد ترک
-Translator
+Translator;مترجم
 Tree;درختی
 Tree & Text;درخت و متن
 Unknown;نامشخص
@@ -822,14 +822,14 @@ View;نمایش
 View_Hint;تغییر منو
 Warning : more streams in the files;احتیاط: چند گردش در این فایل وجود دارد
 Web;وب
-WebSite_Audio
+WebSite_Audio;رفتن به سایت کدک
 WebSite_Audio_More
-WebSite_General
-WebSite_General_More
-WebSite_Text
+WebSite_General;رفتن به سایت پلیر
+WebSite_General_More;رفتن به سایت پلیر
+WebSite_Text;رفتن به سایت متن کدک
 WebSite_Text_More
 WebSite_Url
-WebSite_Video
+WebSite_Video;رفتن به سایت ویدیو کدک
 WebSite_Video_More
 Width;عرض
 WriteMe;ایمیل به من
@@ -839,5 +839,5 @@ Written_Location;مکان نوشته شده
 WrittenBy;نوشته شده توسط
 Yes;بله
 Your system;سیستم شما
-ZZ_Automatic_Percent;39
-ZZ_AutomaticLanguage_Percent;79
+ZZ_Automatic_Percent;48
+ZZ_AutomaticLanguage_Percent;87
