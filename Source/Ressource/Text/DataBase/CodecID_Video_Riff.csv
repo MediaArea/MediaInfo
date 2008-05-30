@@ -117,7 +117,7 @@ DIV3;MPEG-4 Visual;DivX 3 Low;;http://www.divx.com
 DIV4;MPEG-4 Visual;DivX 3 Fast;;http://www.divx.com
 DIV5;MPEG-4 Visual;DivX 5;;http://www.divx.com
 DIV6;MPEG-4 Visual;MS MPEG-4 v3;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-DIVX;MPEG-4 Visual;DivX 4;Project Mayo;http://www.divx.com
+DIVX;MPEG-4 Visual;DivX 4;Project Mayo;http://mediaarea.net/DIVX
 divx;MPEG-4 Visual;DivX;Mainly used by Google;http://www.divx.com
 DJPG;M-JPEG;Broadway 101;Data Translation, Inc.;
 DM4V;MPEG-4 Visual;Dicas;;
@@ -166,7 +166,7 @@ DVSL;Digital Video;;;
 DVX1;DVX 1 SP;;Lucent DVX1000SP Video Decoder;
 DVX2;DVX 2 S;;Lucent DVX2000S Video Decoder;
 DVX3;DVX 3 S;;Lucent DVX3000S Video Decoder;
-DX50;MPEG-4 Visual;DivX 5;;http://www.divx.com
+DX50;MPEG-4 Visual;DivX 5;;http://mediaarea.net/DX50
 DXGM;EA GameVideo;;;
 DXT1;DirectX TC;;DirectX Compressed Texture (1bit alpha channel);
 DXT2;DirectX TC;;DirectX Compressed Texture;
@@ -629,7 +629,7 @@ X264;AVC;;XiWave GNU GPL x264 MPEG-4;
 XJPG;M-JPEG;Xirlink;;
 XLV0;NetXL Video;;NetXL Inc. XL Video Decoder;
 XMPG;MPEG Video;Xing;XING MPEG (I frame only);
-XVID;MPEG-4 Visual;XviD;;http://www.xvid.org/Downloads.15.0.html
+XVID;MPEG-4 Visual;XviD;;http://mediaarea.net/XVID
 XVIX;MPEG-4 Visual;XviD;Based on XviD MPEG-4;http://www.xvid.org/Downloads.15.0.html
 XWV0;XiWave Video;;;
 XWV1;XiWave Video;;;
