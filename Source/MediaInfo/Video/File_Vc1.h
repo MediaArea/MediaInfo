@@ -75,7 +75,12 @@ private :
     void UserDefinedFrameHeader();
     void UserDefinedEntryPointHeader();
     void UserDefinedSequenceHeader();
+
+    //Count
     size_t Frame_Count;
+    size_t Interlaced_Top;
+    size_t Interlaced_Bottom;
+    std::vector<size_t> PictureFormat_Count;
 
     //From SequenceHeader
     int16u coded_width;
@@ -85,15 +90,23 @@ private :
     int8u  frameratecode_dr;
     int8u  profile;
     int8u  level;
-    int8u  chromaformat;
+    int8u  colordiff_format;
     int8u  AspectRatio;
     int8u  AspectRatioX;
     int8u  AspectRatioY;
+    int8u  hrd_num_leaky_buckets;
+    int8u  max_b_frames;
     bool   interlace;
     bool   tfcntrflag;
     bool   framerate_present;
     bool   framerate_form;
-
+    bool   hrd_param_flag;
+    bool   finterpflag;
+    bool   rangered;
+    bool   psf;
+    bool   pulldown;
+    bool   panscan_flag;
+    
     //Stream
     struct stream
     {
@@ -109,6 +122,16 @@ private :
         }
     };
     std::vector<stream> Streams;
+
+    //Temporal reference
+    struct temporalreference
+    {
+        bool   top_field_first;
+        bool   repeat_first_field;
+    };
+    std::map<int16u, temporalreference> TemporalReference; //int32u is the reference
+    std::vector<temporalreference>      TemporalReference_Waiting; //First must be I and P-frames, other B-frames
+    int16u TemporalReference_Offset;
 
     //Helpers
     bool Synchronize();

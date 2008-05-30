@@ -116,8 +116,8 @@ const char* Avc_pic_struct[]=
     "bottom field",
     "top field, bottom field",
     "bottom field, top field",                                                     
-    "top field, bottom field, top field",
-    "bottom field, top field, bottom field",
+    "top field, bottom field, top field repeated",
+    "bottom field, top field, bottom field repeated",
     "frame doubling",
     "frame tripling",
 };
@@ -178,7 +178,7 @@ File_Avc::File_Avc()
 :File__Analyze()
 {
     //In
-    Frame_Count_Valid=2;
+    Frame_Count_Valid=8; //Currently no 3:2 pulldown detection
     FrameIsAlwaysComplete=false;
     MustParse_SPS_PPS=false;
     MustParse_SPS_PPS_Only=false;
@@ -208,7 +208,7 @@ void File_Avc::Read_Buffer_Finalize()
         return; //Not initialized
 
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Count_Get(Stream_General)==0 && (Frame_Count>0 || MustParse_SPS_PPS_Done))
+    if (Count_Get(Stream_Video)==0 && (Frame_Count>0 || MustParse_SPS_PPS_Done))
         slice_header_Fill();
 
     //Purge what is not needed anymore
@@ -472,11 +472,11 @@ void File_Avc::slice_layer_without_partitioning_IDR()
 void File_Avc::slice_header()
 {
     //Parsing
-    int32u slice_type, frame_num;
+    int32u slice_type, frame_num, pic_order_cnt_lsb=(int32u)-1;
     bool   bottom_field_flag=0;
     BS_Begin();
     Skip_UE(                                                    "first_mb_in_slice");
-    Get_UE (slice_type,                                         "slice_type"); if (slice_type<9) Param_Info(Avc_slice_type[slice_type]);
+    Get_UE (slice_type,                                         "slice_type"); if (slice_type<9) {Param_Info(Avc_slice_type[slice_type]);Element_Info(Avc_slice_type[slice_type]);}
     Skip_UE(                                                    "pic_parameter_set_id");
     Get_BS (log2_max_frame_num_minus4+4, frame_num,             "frame_num");
     if (!frame_mbs_only_flag)
@@ -485,28 +485,70 @@ void File_Avc::slice_header()
             Get_SB (bottom_field_flag,                          "bottom_field_flag");
         TEST_SB_END();
     }
+    if (Element_Code==5)
+        Skip_UE(                                                "idr_pic_id");
+    if (pic_order_cnt_type==0)
+    {
+        Get_BS (log2_max_pic_order_cnt_lsb_minus4+4, pic_order_cnt_lsb, "pic_order_cnt_lsb"); Element_Info(pic_order_cnt_lsb);
+        if (pic_order_present_flag && !field_pic_flag)
+            Skip_SE(                                            "delta_pic_order_cnt_bottom");
+    }
     //TODO...
     BS_End();
     Skip_XX(Element_Size-Element_Offset,                        "ToDo...");
-    
-    FILLING_BEGIN();
-        //Counting
-        if (File_Offset+Buffer_Offset+Element_Size==File_Size)
-            Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
-        if (frame_num!=frame_num_LastOne)
-        {
-            Frame_Count++;
-            frame_num_LastOne=frame_num;
-        }
+    if (!field_pic_flag)
+        Element_Info("Frame");
+    else
+        Element_Info(bottom_field_flag?"Bottom":"Top");
 
+    FILLING_BEGIN();
         //pic_struct
         if (field_pic_flag && pic_struct_FirstDetected==(int8u)-1)
             pic_struct_FirstDetected=bottom_field_flag?2:1; //2=BFF, 1=TFF
+
+        //Saving some info
+        if (pic_order_cnt_type==0)
+        {
+            if (field_pic_flag)
+            {
+                Structure_Field++;
+                if (bottom_field_flag)
+                    Interlaced_Bottom++;
+                else
+                    Interlaced_Top++;
+            }
+            else
+                Structure_Frame++;
+
+            if (TemporalReference.size()<30)
+            {
+                if (pic_order_cnt_lsb_Before!=(int32u)-1)
+                {
+                    if (pic_order_cnt_lsb+8<pic_order_cnt_lsb_Before)
+                        TemporalReference_Offset+=30;
+                }
+                pic_order_cnt_lsb_Before=pic_order_cnt_lsb;
+
+                TemporalReference[TemporalReference_Offset+pic_order_cnt_lsb].frame_num=frame_num;
+                TemporalReference[TemporalReference_Offset+pic_order_cnt_lsb].IsTop=!bottom_field_flag;
+                TemporalReference[TemporalReference_Offset+pic_order_cnt_lsb].IsField=field_pic_flag;
+            }
+        }
+
+         //Counting
+        if (File_Offset+Buffer_Offset+Element_Size==File_Size)
+            Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
+        if (pic_order_cnt_type!=0)
+            Frame_Count++;
+        else
+            Frame_Count=TemporalReference.size();
 
         //Name
         Element_Info(Ztring::ToZtring(Frame_Count));
 
         //Filling only if not already done
+        if (Frame_Count>1 && Count_Get(Stream_General)==0)
+            Stream_Prepare(Stream_General);
         if (Frame_Count>=Frame_Count_Valid && Count_Get(Stream_Video)==0)
             slice_header_Fill();
     FILLING_END();
@@ -551,7 +593,6 @@ void File_Avc::slice_header_Fill()
     else
         PixelAspectRatio=1; //Unknown
 
-    Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "AVC");
     Stream_Prepare(Stream_Video);
     Fill(Stream_Video, 0, Video_Format, "AVC");
@@ -573,6 +614,41 @@ void File_Avc::slice_header_Fill()
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)time_scale/num_units_in_tick/2);
     }
     Fill(Stream_Video, 0, Video_Colorimetry, Avc_Colorimetry_format_idc[chroma_format_idc]);
+
+    //Interlacement
+    if (mb_adaptive_frame_field_flag && Structure_Frame>0) //Interlaced macro-block
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "MBAFF");
+        Fill(Stream_Video, 0, Video_Interlacement, "MBAFF");
+    }
+    else if (frame_mbs_only_flag || Structure_Field==0) //No interlaced frame
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Progressive");
+        Fill(Stream_Video, 0, Video_Interlacement, "PPF");
+    }
+    else
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
+        Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
+    }
+    std::string TempRef;
+    for (std::map<int32u, temporalreference>::iterator Temp=TemporalReference.begin(); Temp!=TemporalReference.end(); Temp++)
+    {
+        TempRef+=Temp->second.IsTop?"T":"B";
+    }
+    if (TempRef.find("TBTBTBTB")==0)
+    {
+        Fill(Stream_Video, 0, Video_ScanOrder, "TFF");
+        Fill(Stream_Video, 0, Video_Interlacement, "TFF", Unlimited, true, true);
+    }
+    if (TempRef.find("BTBTBTBT")==0)
+    {
+        Fill(Stream_Video, 0, Video_ScanOrder, "BFF");
+        Fill(Stream_Video, 0, Video_Interlacement, "BFF", Unlimited, true, true);
+    }
+
+
+    /*
     if (frame_mbs_only_flag)
     {
         Fill(Stream_Video, 0, Video_ScanType, "Progressive");
@@ -590,6 +666,7 @@ void File_Avc::slice_header_Fill()
         Fill(Stream_Video, 0, Video_ScanOrder, "BFF");
         Fill(Stream_Video, 0, Video_Interlacement, "BFF");
     }
+    */
     Fill(Stream_Video, 0, Video_Encoded_Library, Encoded_Library);
     Fill(Stream_Video, 0, Video_Encoded_Library_Name, Encoded_Library_Name);
     Fill(Stream_Video, 0, Video_Encoded_Library_Version, Encoded_Library_Version);
@@ -933,7 +1010,6 @@ void File_Avc::seq_parameter_set()
 {
     Element_Name("seq_parameter_set");
 
-    int32u pic_order_cnt_type;
     Get_B1 (profile_idc,                                        "profile_idc");
     BS_Begin();
     Element_Begin("constraints");
@@ -979,7 +1055,7 @@ void File_Avc::seq_parameter_set()
     Get_UE (log2_max_frame_num_minus4,                          "log2_max_frame_num_minus4");
     Get_UE (pic_order_cnt_type,                                 "pic_order_cnt_type");
     if (pic_order_cnt_type==0)
-        Skip_UE(                                                "log2_max_pic_order_cnt_lsb_minus4");
+        Get_UE (log2_max_pic_order_cnt_lsb_minus4,              "log2_max_pic_order_cnt_lsb_minus4");
     else if (pic_order_cnt_type==1)
     {
         int32u num_ref_frames_in_pic_order_cnt_cycle;
@@ -1001,7 +1077,7 @@ void File_Avc::seq_parameter_set()
     Get_UE (pic_height_in_map_units_minus1,                     "pic_height_in_map_units_minus1");
     Get_SB (frame_mbs_only_flag,                                "frame_mbs_only_flag");
     if (!frame_mbs_only_flag)
-        Skip_SB(                                                "mb_adaptive_frame_field_flag");
+        Get_SB (mb_adaptive_frame_field_flag,                   "mb_adaptive_frame_field_flag");
     Skip_SB(                                                    "direct_8x8_inference_flag");
     TEST_SB_SKIP(                                               "frame_cropping_flag");
         Get_UE (frame_crop_left_offset,                         "frame_crop_left_offset");
@@ -1049,7 +1125,7 @@ void File_Avc::pic_parameter_set()
     Skip_UE(                                                    "pic_parameter_set_id");
     Skip_UE(                                                    "seq_parameter_set_id");
     Get_SB (entropy_coding_mode_flag,                           "entropy_coding_mode_flag");
-    Skip_SB(                                                    "pic_order_present_flag");
+    Get_SB (pic_order_present_flag,                             "pic_order_present_flag");
     Get_UE (num_slice_groups_minus1,                            "num_slice_groups_minus1");
     if (num_slice_groups_minus1>7)
     {
@@ -1163,10 +1239,6 @@ void File_Avc::access_unit_delimiter()
     Get_S1 ( 3, primary_pic_type,                               "primary_pic_type"); Param_Info(Avc_primary_pic_type[primary_pic_type]);
     Mark_1(                                                     );
     BS_End();
-
-    FILLING_BEGIN();
-        frame_num_LastOne=(int32u)-1; //Reseting
-    FILLING_END();
 }
 
 //***************************************************************************
@@ -1474,11 +1546,18 @@ void File_Avc::Init()
     //Count of a Packets
     Frame_Count=0;
     frame_num_LastOne=(int32u)-1;
+    Interlaced_Top=0;
+    Interlaced_Bottom=0;
+    Structure_Field=0;
+    Structure_Frame=0;
+    TemporalReference_Offset=0;
+    pic_order_cnt_lsb_Before=(int32u)-1;
 
     //From seq_parameter_set
     pic_width_in_mbs_minus1=0;
     pic_height_in_map_units_minus1=0;
     log2_max_frame_num_minus4=0;
+    log2_max_pic_order_cnt_lsb_minus4=0;
     num_units_in_tick=0;
     time_scale=0;
     chroma_format_idc=1;
@@ -1487,6 +1566,7 @@ void File_Avc::Init()
     frame_crop_top_offset=0;
     frame_crop_bottom_offset=0;
     num_ref_frames=0;
+    pic_order_cnt_type=0;
     sar_width=0;
     sar_height=0;
     profile_idc=0;
@@ -1504,7 +1584,9 @@ void File_Avc::Init()
     field_pic_flag=false;
     entropy_coding_mode_flag=false;
     CpbDpbDelaysPresentFlag=false;
-
+    mb_adaptive_frame_field_flag=false;
+    pic_order_present_flag=false;
+    
     //Default values
     Streams.resize(0x100);
     Streams[0x06].Searching_Payload=true; //sei

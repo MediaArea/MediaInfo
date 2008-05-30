@@ -94,6 +94,10 @@ private :
     //Count of a Packets
     size_t Frame_Count;
     int32u frame_num_LastOne;
+    size_t Interlaced_Top;
+    size_t Interlaced_Bottom;
+    size_t Structure_Field;
+    size_t Structure_Frame;
 
     //From seq_parameter_set
     Ztring Encoded_Library;
@@ -105,6 +109,7 @@ private :
     int32u pic_width_in_mbs_minus1;
     int32u pic_height_in_map_units_minus1;
     int32u log2_max_frame_num_minus4;
+    int32u log2_max_pic_order_cnt_lsb_minus4;
     int32u num_units_in_tick;
     int32u time_scale;
     int32u chroma_format_idc;
@@ -113,6 +118,7 @@ private :
     int32u frame_crop_top_offset;
     int32u frame_crop_bottom_offset;
     int32u num_ref_frames;
+    int32u pic_order_cnt_type;
     int16u sar_width;
     int16u sar_height;
     int8u  profile_idc;
@@ -132,7 +138,9 @@ private :
     bool   field_pic_flag;
     bool   entropy_coding_mode_flag;
     bool   CpbDpbDelaysPresentFlag;
-
+    bool   mb_adaptive_frame_field_flag;
+    bool   pic_order_present_flag;
+    
     //PS
     struct stream
     {
@@ -144,6 +152,17 @@ private :
         }
     };
     std::vector<stream> Streams;
+
+    //Temporal reference
+    struct temporalreference
+    {
+        int32u frame_num;
+        bool   IsTop;
+        bool   IsField;
+    };
+    std::map<int32u, temporalreference> TemporalReference; //int32u is the reference
+    int32u TemporalReference_Offset;
+    int32u pic_order_cnt_lsb_Before;
 
     //Helpers
     bool Synchronize();

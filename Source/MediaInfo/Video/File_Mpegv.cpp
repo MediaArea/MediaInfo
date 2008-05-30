@@ -632,7 +632,6 @@ void File_Mpegv::slice_start_Fill()
         }
         if (TempRef.find('3')!=std::string::npos)
         {
-            TempRef.erase(TempRef.begin()); //First ":"
             if (TempRef.find('3')!=std::string::npos) //A pulldown maybe is detected
             {
                 if (TempRef.find("T2T3B2B3T2T3B2B3")!=std::string::npos)

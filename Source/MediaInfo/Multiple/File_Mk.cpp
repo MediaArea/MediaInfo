@@ -101,6 +101,28 @@ void File_Mk::Read_Buffer_Finalize()
         Fill(Stream_General, 0, General_Duration, Duration*int64u_float64(TimecodeScale)/1000000.0, 0);
     for (std::map<int64u, stream>::iterator Temp=Stream.begin(); Temp!=Stream.end(); Temp++)
     {
+        if (Temp->second.Parser)
+        {
+            Ztring Codec_Temp, FrameRate_Temp;
+            if (Temp->second.StreamKind==Stream_Video)
+            {
+                Codec_Temp=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Codec); //We want to keep the 4CC
+                FrameRate_Temp=Retrieve(Stream_Video, Temp->second.StreamPos, Video_FrameRate); //We want to keep the FrameRate of AVI 120 fps
+            }
+            Open_Buffer_Finalize(Temp->second.Parser);
+            Merge(*Temp->second.Parser, Temp->second.StreamKind, 0, Temp->second.StreamPos);
+            if (Temp->second.StreamKind==Stream_Video)
+            {
+                if (!Codec_Temp.empty())
+                    Fill(Stream_Video, Temp->second.StreamPos, Video_Codec, Codec_Temp, true);
+                if (!FrameRate_Temp.empty())
+                {
+                    if (FrameRate_Temp!=Retrieve(Stream_Video, Temp->second.StreamPos, Video_FrameRate))
+                        Fill(Stream_Video, Temp->second.StreamPos, Video_FrameRate_Original, Retrieve(Stream_Video, 0, Video_FrameRate), true);
+                    Fill(Stream_Video, Temp->second.StreamPos, Video_FrameRate, FrameRate_Temp, true);
+                }
+            }
+        }
         if (Temp->second.DisplayAspectRatio!=0)
             Fill(Stream_Video, Temp->second.StreamPos, "DisplayAspectRatio", Temp->second.DisplayAspectRatio, 3, true);
     }
@@ -1082,26 +1104,6 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
         if (Stream[TrackNumber].Parser->File_Offset==File_Size
          || Stream[TrackNumber].PacketCount>=300)
         {
-            Ztring Codec_Temp, FrameRate_Temp;
-            if (Stream[TrackNumber].StreamKind==Stream_Video)
-            {
-                Codec_Temp=Retrieve(Stream_Video, 0, Video_Codec); //We want to keep the 4CC
-                FrameRate_Temp=Retrieve(Stream_Video, 0, Video_FrameRate); //We want to keep the FrameRate of AVI 120 fps
-            }
-            Open_Buffer_Finalize(Stream[TrackNumber].Parser);
-            Merge(*Stream[TrackNumber].Parser, Stream[TrackNumber].StreamKind, 0, Stream[TrackNumber].StreamPos);
-            if (Stream[TrackNumber].StreamKind==Stream_Video)
-            {
-                if (!Codec_Temp.empty())
-                    Fill(Stream_Video, 0, Video_Codec, Codec_Temp, true);
-                if (!FrameRate_Temp.empty())
-                {
-                    if (FrameRate_Temp!=Retrieve(Stream_Video, 0, Video_FrameRate))
-                        Fill(Stream_Video, 0, Video_FrameRate_Original, Retrieve(Stream_Video, 0, Video_FrameRate), true);
-                    Fill(Stream_Video, 0, Video_FrameRate, FrameRate_Temp, true);
-                }
-            }
-            //delete Stream[TrackNumber].Parser; Stream[TrackNumber].Parser=NULL;
             Stream[TrackNumber].SearchingPayload=false;
             Stream_Count--;
         }
@@ -1761,21 +1763,6 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate()
     //Filling
     if (Stream[TrackNumber].Parser->File_Offset==File_Size) //Can be finnished here...
     {
-        Ztring Codec_Temp, FrameRate_Temp;
-        if (Stream[TrackNumber].StreamKind==Stream_Video)
-        {
-            Codec_Temp=Retrieve(Stream_Video, 0, Video_Codec); //We want to keep the 4CC
-            FrameRate_Temp=Retrieve(Stream_Video, 0, Video_FrameRate); //We want to keep the FrameRate of AVI 120 fps
-        }
-        Open_Buffer_Finalize(Stream[TrackNumber].Parser);
-        Merge(*Stream[TrackNumber].Parser, Stream[TrackNumber].StreamKind, 0, Stream[TrackNumber].StreamPos);
-        if (Stream[TrackNumber].StreamKind==Stream_Video)
-        {
-            if (!Codec_Temp.empty())
-                Fill(Stream_Video, 0, Video_Codec, Codec_Temp, true);
-            if (!FrameRate_Temp.empty())
-                Fill(Stream_Video, 0, Video_FrameRate, FrameRate_Temp, true);
-        }
         Stream[TrackNumber].SearchingPayload=false;
         Stream_Count--;
     }

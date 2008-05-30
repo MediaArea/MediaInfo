@@ -686,8 +686,6 @@ void File_Mpeg4::mdat_xxxx()
     mdat_StreamClear();
     
     //Next piece of data
-    if (!mdat_Pos.empty() && mdat_Pos.begin()->first<=File_Offset+Buffer_Offset)
-        mdat_Pos.erase(mdat_Pos.begin());
     mdat_StreamJump();
 }
 

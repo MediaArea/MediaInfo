@@ -175,6 +175,7 @@ void File_Mpeg4::Header_Parse()
         //Filling
         Header_Fill_Code(mdat_Pos.begin()->second.StreamID, Ztring::ToZtring(mdat_Pos.begin()->second.StreamID));
         Header_Fill_Size(mdat_Pos.begin()->second.Size);
+        mdat_Pos.erase(mdat_Pos.begin());
         return;
     }
 

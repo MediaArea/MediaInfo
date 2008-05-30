@@ -1650,7 +1650,6 @@ void File_MpegPs::video_stream()
         {
             #if defined(MEDIAINFO_AVC_YES)
                 Streams[start_code].Parser3=new File_Avc;
-                ((File_Avc*)Streams[start_code].Parser3)->Frame_Count_Valid=2;
             #else
                 Streams[start_code].Parser3=new File__Analyze;
             #endif
@@ -2197,7 +2196,6 @@ File__Analyze* File_MpegPs::ChooseParser_Avc()
     //Filling
     #if defined(MEDIAINFO_AVC_YES)
         File__Analyze* Handle=new File_Avc;
-        ((File_Avc*)Handle)->Frame_Count_Valid=2;
         return Handle;
     #else
         //Filling
@@ -2215,7 +2213,6 @@ File__Analyze* File_MpegPs::ChooseParser_VC1()
     //Filling
     #if defined(MEDIAINFO_VC1_YES)
         File__Analyze* Handle=new File_Vc1;
-        ((File_Vc1*)Handle)->Frame_Count_Valid=1;
         if (!FromTS)
             ((File_Vc1*)Handle)->FrameIsAlwaysComplete=true;
         return Handle;
