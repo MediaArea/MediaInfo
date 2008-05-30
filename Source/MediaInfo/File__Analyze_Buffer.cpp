@@ -829,11 +829,11 @@ void File__Analyze::Get_ES(int64s &Info, const char* Name)
 }
 
 //***************************************************************************
-// Variable Length Value
+// Variable Size Value
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_VL(int64u &Info, const char* Name)
+void File__Analyze::Get_VS(int64u &Info, const char* Name)
 {
     //Element size
     Info=0;
@@ -853,13 +853,13 @@ void File__Analyze::Get_VL(int64u &Info, const char* Name)
     //Integrity
     if (Size>8)
     {
-        Trusted_IsNot("Variable Length Value parsing error");
+        Trusted_IsNot("Variable Size Value parsing error");
         Info=0;
         return;
     }
     if (File_Offset+Buffer_Offset+Element_Offset>=Element[Element_Level].Next)
     {
-        Trusted_IsNot("Not enough place to have a Variable Length Value");
+        Trusted_IsNot("Not enough place to have a Variable Size Value");
         Info=0;
         return; //Not enough space
     }
@@ -873,54 +873,7 @@ void File__Analyze::Get_VL(int64u &Info, const char* Name)
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_SL(int64s &Info, const char* Name)
-{
-    //Element size
-    Info=0;
-    int8u  Size=0;
-    bool more_data;
-    BS_Begin();
-    do
-    {
-        Size++;
-        INTEGRITY_INT(8<=BS->Remain(), "Size is wrong", BS->Offset_Get())
-        more_data=BS->GetB();
-        Info=128*Info+BS->Get1(7);
-    }
-    while (more_data && Size<=8 && BS->Remain());
-    BS_End();
-
-    //Integrity
-    if (Size>8)
-    {
-        Trusted_IsNot("Variable Length Value parsing error");
-        Info=0;
-        return;
-    }
-    if (File_Offset+Buffer_Offset+Element_Offset>=Element[Element_Level].Next)
-    {
-        Trusted_IsNot("Not enough place to have a Variable Length Value");
-        Info=0;
-        return; //Not enough space
-    }
-
-    //Some computing
-    Info++;
-    if (Info&1)
-        Info=-(Info>>1);
-    else
-        Info= (Info>>1);
-
-    if (Config_Details>0)
-    {
-        Element_Offset-=Size;
-        Param(Name, Info);
-        Element_Offset+=Size;
-    }
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_VL(const char* Name)
+void File__Analyze::Skip_VS(const char* Name)
 {
     //Element size
     int64u Info=0;
@@ -940,66 +893,19 @@ void File__Analyze::Skip_VL(const char* Name)
     //Integrity
     if (Size>8)
     {
-        Trusted_IsNot("Variable Length Value parsing error");
+        Trusted_IsNot("Variable Size Value parsing error");
         Info=0;
         return;
     }
     if (File_Offset+Buffer_Offset+Element_Offset>=Element[Element_Level].Next)
     {
-        Trusted_IsNot("Not enough place to have a Variable Length Value");
+        Trusted_IsNot("Not enough place to have a Variable Size Value");
         Info=0;
         return; //Not enough space
     }
 
     if (Config_Details>0)
     {
-        Element_Offset-=Size;
-        Param(Name, Info);
-        Element_Offset+=Size;
-    }
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Skip_SL(const char* Name)
-{
-    //Element size
-    int64s Info=0;
-    int8u  Size=0;
-    bool more_data;
-    BS_Begin();
-    do
-    {
-        Size++;
-        INTEGRITY_INT(8<=BS->Remain(), "Size is wrong", BS->Offset_Get())
-        more_data=BS->GetB();
-        Info=128*Info+BS->Get1(7);
-    }
-    while (more_data && Size<=8 && BS->Remain());
-    BS_End();
-
-    //Integrity
-    if (Size>8)
-    {
-        Trusted_IsNot("Variable Length Value parsing error");
-        Info=0;
-        return;
-    }
-    if (File_Offset+Buffer_Offset+Element_Offset>=Element[Element_Level].Next)
-    {
-        Trusted_IsNot("Not enough place to have a Variable Length Value");
-        Info=0;
-        return; //Not enough space
-    }
-
-    if (Config_Details>0)
-    {
-        //Some computing
-        Info++;
-        if (Info&1)
-            Info=-(Info>>1);
-        else
-            Info= (Info>>1);
-
         Element_Offset-=Size;
         Param(Name, Info);
         Element_Offset+=Size;
@@ -1162,6 +1068,51 @@ void File__Analyze::Skip_UI(const char* Name)
 {
     int32u Info;
     Get_UI(Info, Name);
+}
+
+//***************************************************************************
+// Variable Length Code
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_VL(int32u Call(int8u Size, int32u ToCall), int32u &Info, const char* Name)
+{
+    //Element size
+    Info=0;
+    int32u Code=0;
+    int8u  Size=0;
+    do
+    {
+        Size++;
+        INTEGRITY_INT(1<BS->Remain(), "Size is wrong", BS->Offset_Get())
+        Code=(Code<<1)|(BS->GetB()?1:0);
+        Info=Call(Size, Code);
+        if (Info!=(int32u)-1)
+            break;
+    }
+    while (Size<=32);
+
+    //Integrity
+    if (Size>32)
+    {
+        Trusted_IsNot("Variable Length Code error");
+        Info=0;
+        return;
+    }
+
+    if (Config_Details>0)
+    {
+        Element_Offset-=Size;
+        Param(Name, Info);
+        Element_Offset+=Size;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_VL(int32u Call(int8u Size, int32u ToCall), const char* Name)
+{
+    int32u Info;
+    Get_VL(Call, Info, Name);
 }
 
 //***************************************************************************

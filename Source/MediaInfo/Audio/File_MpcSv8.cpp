@@ -122,7 +122,7 @@ void File_MpcSv8::Header_Parse()
     int64u Size;
     int16u Key;
     Get_C2 (Key,                                                "Key");
-    Get_VL (Size,                                               "Size");
+    Get_VS (Size,                                               "Size");
 
     //Filling
     Header_Fill_Code(Key, Ztring().From_CC4(Key<<16)); //Quick filling for CC2 with text
@@ -250,8 +250,8 @@ void File_MpcSv8::SH()
     bool   MidSideStereo;
     Skip_B4(                                                    "CRC32");
     Get_B1 (Version,                                            "Version");
-    Get_VL (SampleCount,                                        "Sample count");
-    Skip_VL(                                                    "Beginning silence");
+    Get_VS (SampleCount,                                        "Sample count");
+    Skip_VS(                                                    "Beginning silence");
     BS_Begin();
     Get_S1 (3, SampleFrequency,                                 "Sample frequency"); Param_Info(Mpc_SampleFreq[SampleFrequency]);
     Skip_S1(5,                                                  "Max used bands");
@@ -279,7 +279,7 @@ void File_MpcSv8::SO()
     Element_Info("Seek Table Offset");
 
     //Parsing
-    Skip_VL(                                                    "Offset");
+    Skip_VS(                                                    "Offset");
 }
 
 //---------------------------------------------------------------------------

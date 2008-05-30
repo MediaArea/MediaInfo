@@ -380,15 +380,12 @@ public :
     #define Info_ES(_INFO, _NAME) int64s _INFO; Get_ES(_INFO, _NAME)
 
     //***************************************************************************
-    // Variable Length Value
+    // Variable Size Value
     //***************************************************************************
 
-    void Get_VL (int64u &Info, const char* Name);
-    void Get_SL (int64s &Info, const char* Name);
-    void Skip_VL(              const char* Name);
-    void Skip_SL(              const char* Name);
-    #define Info_VL(_INFO, _NAME) int64u _INFO; Get_VL(_INFO, _NAME)
-    #define Info_SL(_INFO, _NAME) int64s _INFO; Get_SL(_INFO, _NAME)
+    void Get_VS (int64u &Info, const char* Name);
+    void Skip_VS(              const char* Name);
+    #define Info_VS(_INFO, _NAME) int64u _INFO; Get_VS(_INFO, _NAME)
 
     //***************************************************************************
     // Exp-Golomb
@@ -411,6 +408,14 @@ public :
     void Skip_SI(              const char* Name);
     #define Info_UI(_INFO, _NAME) int32u _INFO; Get_UI(_INFO, _NAME)
     #define Info_SI(_INFO, _NAME) int32s _INFO; Get_SI(_INFO, _NAME)
+
+    //***************************************************************************
+    // Variable Length Code
+    //***************************************************************************
+
+    void Get_VL (int32u Call(int8u Size, int32u ToCall), int32u &Info, const char* Name);
+    void Skip_VL(int32u Call(int8u Size, int32u ToCall),               const char* Name);
+    #define Info_VL(_CALL, _INFO, _NAME) int32u _INFO; Get_VL(_CALL, _INFO, _NAME)
 
     //***************************************************************************
     // Characters

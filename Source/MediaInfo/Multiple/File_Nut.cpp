@@ -70,7 +70,7 @@ void File_Nut::Header_Parse()
         //Header
         int64u startcode, forward_ptr;
         Get_B8(startcode,                                       "startcode");
-        Get_VL(forward_ptr,                                     "forward_ptr");
+        Get_VS(forward_ptr,                                     "forward_ptr");
         if (forward_ptr>4096)
             Skip_B4(                                            "header_checksum");
 
@@ -159,14 +159,14 @@ void File_Nut::main()
 
     //Parsing
     int64u time_base_count;
-    Skip_VL(                                                    "version");
-    Skip_VL(                                                    "stream_count");
-    Skip_VL(                                                    "max_distance");
-    Get_VL (time_base_count,                                    "time_base_count");
+    Skip_VS(                                                    "version");
+    Skip_VS(                                                    "stream_count");
+    Skip_VS(                                                    "max_distance");
+    Get_VS (time_base_count,                                    "time_base_count");
     for(int64u i=0; i<time_base_count; i++)
     {
-        Skip_VL(                                                "time_base_num");
-        Skip_VL(                                                "time_base_denom");
+        Skip_VS(                                                "time_base_num");
+        Skip_VS(                                                "time_base_denom");
         //time_base[i]= time_base_num/time_base_denom
     }
     int64u tmp_mul=1, tmp_stream=0;
@@ -174,28 +174,28 @@ void File_Nut::main()
     for(int16u i=0; i<256;)
     {
         int64u tmp_fields, tmp_size, tmp_res, count;
-        Skip_VL(                                                "tmp_flag");
-        Get_VL (tmp_fields,                                     "tmp_fields");
+        Skip_VS(                                                "tmp_flag");
+        Get_VS (tmp_fields,                                     "tmp_fields");
         if(tmp_fields>0)
             Skip_SL(                                            "tmp_pts");
         if(tmp_fields>1)
-            Skip_VL(                                            "tmp_mul");
+            Skip_VS(                                            "tmp_mul");
         if(tmp_fields>2)
-            Skip_VL(                                            "tmp_stream");
+            Skip_VS(                                            "tmp_stream");
         if(tmp_fields>3)
-            Get_VL (tmp_size,                                   "tmp_size");
+            Get_VS (tmp_size,                                   "tmp_size");
         else
             tmp_size=0;
         if(tmp_fields>4)
-            Get_VL (tmp_res,                                    "tmp_res");
+            Get_VS (tmp_res,                                    "tmp_res");
         else
             tmp_res=0;
         if(tmp_fields>5)
-            Skip_VL(                                            "count");
+            Skip_VS(                                            "count");
         else
             count=tmp_mul-tmp_size;
         for(int64u j=6; j<tmp_fields; j++)
-            Skip_VL(                                            "tmp_reserved[i]");
+            Skip_VS(                                            "tmp_reserved[i]");
 
         for(int64u j=0; j<count && i<256; j++, i++)
         {
@@ -222,38 +222,38 @@ void File_Nut::stream()
 
     //Parsing
     int64u stream_class, fourcc_length, codec_specific_data_length;
-    Skip_VL(                                                    "stream_id");
-    Get_VL (stream_class,                                       "stream_class");
-    Get_VL (fourcc_length,                                      "fourcc length");
+    Skip_VS(                                                    "stream_id");
+    Get_VS (stream_class,                                       "stream_class");
+    Get_VS (fourcc_length,                                      "fourcc length");
     switch (fourcc_length)
     {
         case 2 : Skip_C2(                                       "fourcc"); break;
         case 4 : Skip_C4(                                       "fourcc"); break;
         default: Skip_XX(fourcc_length,                         "fourcc");
     }
-    Skip_VL(                                                    "time_base_id");
-    Skip_VL(                                                    "msb_pts_shift");
-    Skip_VL(                                                    "max_pts_distance");
-    Skip_VL(                                                    "decode_delay");
-    Skip_VL(                                                    "stream_flags");
-    Get_VL (codec_specific_data_length,                         "codec_specific_data length");
+    Skip_VS(                                                    "time_base_id");
+    Skip_VS(                                                    "msb_pts_shift");
+    Skip_VS(                                                    "max_pts_distance");
+    Skip_VS(                                                    "decode_delay");
+    Skip_VS(                                                    "stream_flags");
+    Get_VS (codec_specific_data_length,                         "codec_specific_data length");
     Skip_XX(codec_specific_data_length,                         "codec_specific_data");
     switch (stream_class)
     {
         case 0 : //video
             {
-                Skip_VL(                                        "width");
-                Skip_VL(                                        "height");
-                Skip_VL(                                        "sample_width");
-                Skip_VL(                                        "sample_height");
-                Skip_VL(                                        "colorspace_type");
+                Skip_VS(                                        "width");
+                Skip_VS(                                        "height");
+                Skip_VS(                                        "sample_width");
+                Skip_VS(                                        "sample_height");
+                Skip_VS(                                        "colorspace_type");
             }
             break;
         case 1 : //audio
             {
-                Skip_VL(                                         "samplerate_num");
-                Skip_VL(                                         "samplerate_denom");
-                Skip_VL(                                         "channel_count");
+                Skip_VS(                                         "samplerate_num");
+                Skip_VS(                                         "samplerate_denom");
+                Skip_VS(                                         "channel_count");
             }
             break;
         case 2 : //subtitles
