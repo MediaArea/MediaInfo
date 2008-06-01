@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoLib", "Library\MediaInfoLib.vcproj", "{20E0F8D6-213C-460B-B361-9C725CB375C7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoDll", "DLL\MediaInfoDll.vcproj", "{157952BD-7FA9-4859-8F9C-81B847FE0D4A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{20E0F8D6-213C-460B-B361-9C725CB375C7} = {20E0F8D6-213C-460B-B361-9C725CB375C7}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{20E0F8D6-213C-460B-B361-9C725CB375C7}.Release|Win32.ActiveCfg = Release|Win32
+		{20E0F8D6-213C-460B-B361-9C725CB375C7}.Release|Win32.Build.0 = Release|Win32
+		{157952BD-7FA9-4859-8F9C-81B847FE0D4A}.Release|Win32.ActiveCfg = Release|Win32
+		{157952BD-7FA9-4859-8F9C-81B847FE0D4A}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
