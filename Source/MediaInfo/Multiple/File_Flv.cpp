@@ -41,6 +41,12 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Flv.h"
+#if defined(MEDIAINFO_AVC_YES)
+    #include "MediaInfo/Video/File_Avc.h"
+#endif
+#if defined(MEDIAINFO_MPEG4_YES)
+    #include "MediaInfo/Audio/File_Mpeg4_AudioSpecificConfig.h"
+#endif
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
@@ -80,18 +86,18 @@ const char* Flv_Format_Audio[]=
     "PCM",
     "ADPCM",
     "MPEG Audio",
-    "",
-    "",
+    "PCM",
     "Nellymoser",
     "Nellymoser",
+    "Nellymoser",
+    "ADPCM",
+    "ADPCM",
+    "",
+    "AAC",
     "",
     "",
     "",
-    "",
-    "",
-    "",
-    "",
-    "",
+    "MPEG Audio",
     "",
 };
 
@@ -104,14 +110,14 @@ const char* Flv_Format_Profile_Audio[]=
     "",
     "",
     "",
+    "A-law",
+    "U-law",
     "",
     "",
     "",
     "",
     "",
-    "",
-    "",
-    "",
+    "Layer 3",
     "",
 };
 
@@ -121,17 +127,17 @@ const char* Flv_Codec_Audio[]=
     "ADPCM",
     "MPEG-1 Audio Layer 3",
     "",
-    "",
+    "Nellymoser 16kHz mono",
     "Nellymoser 8kHz mono",
     "Nellymoser",
+    "ADPCM",
+    "ADPCM",
+    "",
+    "AAC",
     "",
     "",
     "",
-    "",
-    "",
-    "",
-    "",
-    "",
+    "MPEG Audio Layer 3",
     "",
 };
 
@@ -144,7 +150,7 @@ const char* Flv_Format_Video[]=
     "VP6",
     "VP6",
     "Screen video 2",
-    "",
+    "AVC",
     "",
     "",
     "",
@@ -184,7 +190,7 @@ const char* Flv_Codec_Video[]=
     "On2 VP6",
     "On2 VP6 with alpha channel",
     "Screen video 2",
-    "",
+    "AVC",
     "",
     "",
     "",
@@ -341,6 +347,17 @@ const char* Flv_Amf3Type[]=
     "ByteArray",
 };
 
+const char* Flv_AVCPacketType(int8u Value)
+{
+    switch (Value)
+    {
+        case 0 : return "AVC sequence header";
+        case 1 : return "NALU";
+        case 2 : return "end of sequence";
+        default: return "";
+    }
+}
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -422,7 +439,8 @@ void File_Flv::FileHeader_Parse()
         }
         else
             video_stream_FrameRate_Detected=true;
-        if (audio_stream_Count) Stream_Prepare(Stream_Audio);
+        if (audio_stream_Count)
+            Stream_Prepare(Stream_Audio);
 
         if (Version>1)
         {
@@ -541,6 +559,8 @@ void File_Flv::video()
     BS_End();
     Element_End();
 
+    Demux(Buffer+Buffer_Offset+Element_Offset, (size_t)(Element_Size-Element_Offset), _T("video.raw"));
+
     if (Stream[Stream_Video].PacketCount==60) //2s
     {
         video_stream_Count=false;
@@ -551,29 +571,30 @@ void File_Flv::video()
         return;
 
     FILLING_BEGIN();
-        if (Retrieve(Stream_Video, 0, Video_Format).empty() && Retrieve(Stream_Video, 0, Video_Codec).empty())
+        //Filling
+        if (Retrieve(Stream_Video, 0, Video_Format).empty())
         {
-            //Filling
             if (Count_Get(Stream_Video)==0)
                 Stream_Prepare(Stream_Video);
-            if (Codec<6)
+            if (Codec<8)
             {
                 Fill(Stream_Video, 0, Video_Format, Flv_Format_Video[Codec]);
                 Fill(Stream_Video, 0, Video_Format_Profile, Flv_Format_Profile_Video[Codec]);
                 Fill(Stream_Video, 0, Video_Codec, Flv_Codec_Video[Codec]);
             }
-            video_stream_Count=false; //No more need of Video stream
+        }
 
-            //Parsing video data
-            switch (Codec)
-            {
-                case 2 : video_H263(); break;
-                case 3 : video_ScreenVideo(1); break;
-                case 4 : video_VP6(false); break;
-                case 5 : video_VP6(true); break;
-                case 6 : video_ScreenVideo(2); break;
-                default : ;
-            }
+        //Parsing video data
+        switch (Codec)
+        {
+            case  2 : video_H263(); break;
+            case  3 : video_ScreenVideo(1); break;
+            case  4 : video_VP6(false); break;
+            case  5 : video_VP6(true); break;
+            case  6 : video_ScreenVideo(2); break;
+            case  7 : video_AVC(); break;
+            default : Skip_XX(Element_Size-Element_Offset,      "Unknown");
+                      video_stream_Count=false; //No more need of Video stream;
         }
     FILLING_END();
 }
@@ -620,6 +641,7 @@ void File_Flv::video_H263()
     FILLING_BEGIN();
         Fill(Stream_Video, 0, Video_Width, Width, 10, true);
         Fill(Stream_Video, 0, Video_Height, Height, 10, true);
+        video_stream_Count=false; //No more need of Video stream
     FILLING_END();
 }
 
@@ -644,6 +666,7 @@ void File_Flv::video_ScreenVideo(int8u Version)
     FILLING_BEGIN();
         Fill(Stream_Video, 0, Video_Width, Width, 10, true);
         Fill(Stream_Video, 0, Video_Height, Height, 10, true);
+        video_stream_Count=false; //No more need of Video stream
     FILLING_END();
 }
 
@@ -690,11 +713,62 @@ void File_Flv::video_VP6(bool WithAlpha)
                 Fill(Stream_Video, 0, Video_Width,  Width*16-HorizontalAdjustment, 10, true);
                 Fill(Stream_Video, 0, Video_Height, Height*16-VerticalAdjustment, 10, true);
             }
+            video_stream_Count=false; //No more need of Video stream
         FILLING_END();
     }
-
 }
 
+//---------------------------------------------------------------------------
+void File_Flv::video_AVC()
+{
+    int8u AVCPacketType;
+    Get_B1 (AVCPacketType,                                      "AVCPacketType"); Param_Info(Flv_AVCPacketType(AVCPacketType));
+    Skip_B3(                                                    "CompositionTime");
+
+    switch (AVCPacketType)
+    {
+        case 0 :
+                #ifdef MEDIAINFO_AVC_YES
+                    if (Stream[Stream_Video].Parser==NULL)
+                    {
+                        Stream[Stream_Video].Parser=new File_Avc;
+                        ((File_Avc*)Stream[Stream_Video].Parser)->MustParse_SPS_PPS=true;
+                        ((File_Avc*)Stream[Stream_Video].Parser)->SizedBlocks=true;
+                    }
+
+                    //Parsing
+                    Open_Buffer_Init(Stream[Stream_Video].Parser, File_Size, File_Offset+Buffer_Offset+Element_Offset);
+                    Open_Buffer_Continue(Stream[Stream_Video].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+                #else
+                    Skip_XX(Element_Size-Element_Offset,        "AVC Data");
+                    video_stream_Count=false; //Unable to parse it
+                #endif
+                break;
+        case 1 :
+                #ifdef MEDIAINFO_AVC_YES
+                    if (Stream[Stream_Video].Parser==NULL)
+                    {
+                        //Data before header, this is wrong
+                        video_stream_Count=false;
+                        break;
+                    }
+
+                    //Parsing
+                    Open_Buffer_Init(Stream[Stream_Video].Parser, File_Size, File_Offset+Buffer_Offset+Element_Offset);
+                    Open_Buffer_Continue(Stream[Stream_Video].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+
+                    //Disabling this stream
+                    if (Stream[Stream_Video].Parser->File_GoTo!=(int64u)-1 || Stream[Stream_Video].Parser->Count_Get(Stream_Video)>0)
+                         video_stream_Count=false;
+                #else
+                    Skip_XX(Element_Size-Element_Offset,        "AVC Data");
+                    video_stream_Count=false; //Unable to parse it
+                #endif
+                break;
+        default: Skip_XX(Element_Size-Element_Offset,           "Unknown");
+                 video_stream_Count=false; //Unable to parse it
+    }
+}
 //---------------------------------------------------------------------------
 void File_Flv::audio()
 {
@@ -767,8 +841,11 @@ void File_Flv::audio()
         //Parsing audio data
         switch (codec)
         {
-            case 2 : audio_MPEG(); break;
-            default: audio_stream_Count=false; //No more need of Audio stream
+            case  2 :
+            case 14 : audio_MPEG(); break;
+            case 10 : audio_AAC(); break;
+            default : Skip_XX(Element_Size-Element_Offset,      "Unknown");
+                      audio_stream_Count=false; //No more need of Audio stream
         }
     FILLING_END();
 }
@@ -791,6 +868,42 @@ void File_Flv::audio_MPEG()
         if (Stream[Stream_Audio].Parser->File_GoTo!=(int64u)-1 || Stream[Stream_Audio].Parser->Count_Get(Stream_Audio)>0)
              audio_stream_Count=false;
     #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Flv::audio_AAC()
+{
+    int8u AVCPacketType;
+    Get_B1 (AVCPacketType,                                      "AVCPacketType"); Param_Info(Flv_AVCPacketType(AVCPacketType));
+    Skip_B3(                                                    "CompositionTime");
+
+    switch (AVCPacketType)
+    {
+        case 0 :
+                #if defined(MEDIAINFO_MPEG4_YES)
+                    if (Stream[Stream_Audio].Parser==NULL)
+                    {
+                        Stream[Stream_Audio].Parser=new File_Mpeg4_AudioSpecificConfig;
+                    }
+
+                    //Parsing
+                    Open_Buffer_Init(Stream[Stream_Audio].Parser, File_Size, File_Offset+Buffer_Offset+Element_Offset);
+                    Open_Buffer_Continue(Stream[Stream_Audio].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+
+                    //Disabling this stream
+                    audio_stream_Count=false;
+                #else
+                    Skip_XX(Element_Size-Element_Offset,        "AAC Data");
+                    audio_stream_Count=false; //Unable to parse it
+                #endif
+                break;
+        case 1 :
+                Skip_XX(Element_Size-Element_Offset,            "AAC Data");
+                audio_stream_Count=false; //Unable to parse it
+                break;
+        default: Skip_XX(Element_Size-Element_Offset,           "Unknown");
+                audio_stream_Count=false; //Unable to parse it
+    }
 }
 
 //---------------------------------------------------------------------------

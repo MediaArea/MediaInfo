@@ -62,8 +62,10 @@ private :
     void video_H263();
     void video_ScreenVideo(int8u Version);
     void video_VP6(bool WithAlpha);
+    void video_AVC();
     void audio();
     void audio_MPEG();
+    void audio_AAC();
     void meta();
     void meta_SCRIPTDATAOBJECT();
     void meta_SCRIPTDATAVARIABLE();
