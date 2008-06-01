@@ -1,6 +1,6 @@
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
-!define PRODUCT_VERSION "0.7.7.1"
+!define PRODUCT_VERSION "0.7.7.2BETA"
 !define PRODUCT_WEB_SITE "http://mediainfo.sourceforge.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\MediaInfo.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
@@ -87,7 +87,7 @@ Section "SectionPrincipale" SEC01
   CreateShortCut "$SMPROGRAMS\MediaInfo\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe"
   File "..\..\Release\BCB\GUI\MediaInfo.exe"
   File "..\..\Release\MSVC\DLL\MediaInfo_InfoTip.dll"
-  File "..\..\..\MediaInfoLib\Release\MSVC\DLL\MediaInfo.dll"
+  File "..\..\..\MediaInfoLib\Release\MSVC2005\DLL\MediaInfo.dll"
   File "/oname=History.txt" "..\..\History_GUI.txt"
   File "..\..\Licence.html"
   File  "/oname=ReadMe.txt""..\..\Release\ReadMe_GUI_Windows.txt"
