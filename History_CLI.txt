@@ -8,7 +8,7 @@ bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
 
-Version 0.7.7.1, 2008-06-30
+Version 0.7.7.1, 2008-05-30
 ---------------
 + MPEG Video: Detection of 2:3 and 2:2:2:2:2:2:2:2:2:2:2:3 Pulldown
 + VC-1: Detection of 2:3 and 2:2:2:2:2:2:2:2:2:2:2:3 Pulldown
