@@ -358,6 +358,16 @@ const char* Flv_AVCPacketType(int8u Value)
     }
 }
 
+const char* Flv_AACPacketType(int8u Value)
+{
+    switch (Value)
+    {
+        case 0 : return "AAC sequence header";
+        case 1 : return "AAC Raw";
+        default: return "";
+    }
+}
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -873,11 +883,10 @@ void File_Flv::audio_MPEG()
 //---------------------------------------------------------------------------
 void File_Flv::audio_AAC()
 {
-    int8u AVCPacketType;
-    Get_B1 (AVCPacketType,                                      "AVCPacketType"); Param_Info(Flv_AVCPacketType(AVCPacketType));
-    Skip_B3(                                                    "CompositionTime");
+    int8u AACPacketType;
+    Get_B1 (AACPacketType,                                      "AACPacketType"); Param_Info(Flv_AACPacketType(AACPacketType));
 
-    switch (AVCPacketType)
+    switch (AACPacketType)
     {
         case 0 :
                 #if defined(MEDIAINFO_MPEG4_YES)
