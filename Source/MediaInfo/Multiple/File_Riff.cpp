@@ -162,6 +162,7 @@ void File_Riff::Read_Buffer_Finalize ()
                     {
                         Fill(Stream_Video, StreamPos_Last, Video_MuxingMode, "Packet Bitstream");
                         Fill(Stream_Video, StreamPos_Last, Video_Codec_Settings, "Packed Bitstream");
+                        Fill(Stream_Video, StreamPos_Last, Video_Codec_Settings_PacketBitStream, "Yes");
                     }
                     else
                     {
