@@ -1651,7 +1651,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Audio_BitDepth()
     int64u UInteger=UInteger_Get();
 
     FILLING_BEGIN();
-        Fill(StreamKind_Last, StreamPos_Last, "Resolution", UInteger, 0, true);
+        Fill(StreamKind_Last, StreamPos_Last, "Resolution", UInteger, 10, true);
     FILLING_END();
 }
 
@@ -1664,7 +1664,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Audio_Channels()
     int64u UInteger=UInteger_Get();
 
     FILLING_BEGIN();
-        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, UInteger, 0, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, UInteger, 10, true);
     FILLING_END();
 }
 
@@ -1677,7 +1677,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Audio_OutputSamplingFrequency()
     float64 Float=Float_Get();
 
     FILLING_BEGIN();
-        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Float, 0, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Float, 10, true);
     FILLING_END();
 }
 
@@ -1690,7 +1690,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Audio_SamplingFrequency()
     float64 Float=Float_Get();
 
     FILLING_BEGIN();
-        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Float, 0, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Float, 10, true);
     FILLING_END();
 }
 
@@ -1794,9 +1794,9 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_auds()
         CodecID_Fill(Codec, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Riff);
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true); //May be replaced by codec parser
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
-        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels!=5?Channels:6, 0, true);
-        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplesPerSec, 0, true);
-        Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, AvgBytesPerSec*8, 0, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels!=5?Channels:6, 10, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplesPerSec, 10, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, AvgBytesPerSec*8, 10, true);
         if (BitsPerSample) Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, BitsPerSample);
     FILLING_END();
 }
@@ -1845,9 +1845,9 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
                 Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec, true); //FormatTag, may be replaced by codec parser
                 Fill(Stream_Video, StreamPos_Last, Video_Codec_CC, Codec); //FormatTag
             }
-            Fill(Stream_Video, StreamPos_Last, Video_Width, Width, 0, true);
-            Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 0, true);
-            Fill(Stream_Video, StreamPos_Last, Video_Resolution, Resolution, 0, true);
+            Fill(Stream_Video, StreamPos_Last, Video_Width, Width, 10, true);
+            Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 10, true);
+            Fill(Stream_Video, StreamPos_Last, Video_Resolution, Resolution, 10, true);
         }
 
         //Creating the parser
@@ -2200,7 +2200,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Video_PixelHeight()
 
     //Filling
     FILLING_BEGIN();
-        Fill(Stream_Video, StreamPos_Last, Video_Height, UInteger, 0, true);
+        Fill(Stream_Video, StreamPos_Last, Video_Height, UInteger, 10, true);
     FILLING_END();
 }
 
@@ -2214,7 +2214,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Video_PixelWidth()
 
     //Filling
     FILLING_BEGIN();
-        Fill(Stream_Video, StreamPos_Last, Video_Width, UInteger, 0, true);
+        Fill(Stream_Video, StreamPos_Last, Video_Width, UInteger, 10, true);
     FILLING_END();
 }
 
