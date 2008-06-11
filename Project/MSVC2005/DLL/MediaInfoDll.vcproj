@@ -40,7 +40,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../../../Source;../../../../Shared/Include"
+				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../Shared/Include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MEDIAINFODLL_EXPORTS"
 				RuntimeLibrary="0"
 			/>
@@ -57,7 +57,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="MediaInfo.lib ZenLib.lib ZLib.lib"
 				OutputFile="../../../Release/MSVC2005/DLL/MediaInfo.dll"
-				AdditionalLibraryDirectories="../../../Release/MSVC2005/Library;../../../../Shared/Library/MSVC2005"
+				AdditionalLibraryDirectories="../../../Release/MSVC2005/Library;../../../../ZenLib/Release/MSVC2005/Library;../../../../Shared/Library/MSVC2005"
 				ModuleDefinitionFile="../../../Source/MediaInfoDLL/MediaInfoDLL.def"
 				SubSystem="2"
 				OptimizeReferences="2"

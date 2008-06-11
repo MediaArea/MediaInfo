@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../Source;../../../../Shared/Include"
+				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../Shared/Include"
 				AdditionalUsingDirectories=""
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				MinimalRebuild="true"
@@ -110,7 +110,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../Source;../../../../Shared/Include"
+				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../Shared/Include"
 				AdditionalUsingDirectories=""
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				MinimalRebuild="true"
@@ -176,7 +176,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="../../../Source;../../../../Shared/Include"
+				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../Shared/Include"
 				AdditionalUsingDirectories=""
 				PreprocessorDefinitions="WIN32;MEDIAINFO_MINIMIZESIZE"
 				RuntimeLibrary="0"
@@ -241,7 +241,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="../../../Source;../../../../Shared/Include"
+				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../Shared/Include"
 				AdditionalUsingDirectories=""
 				PreprocessorDefinitions="WIN32"
 				RuntimeLibrary="0"
