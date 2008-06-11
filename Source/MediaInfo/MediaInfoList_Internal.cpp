@@ -120,8 +120,11 @@ size_t MediaInfoList_Internal::Open(const String &File, const fileoptions_t Opti
 
 void MediaInfoList_Internal::Entry()
 {
-   while (1)
-   {
+    if (ToParse_Total==0)
+        return;
+
+    while (1)
+    {
         CS.Enter();
         if (!ToParse.empty())
         {
