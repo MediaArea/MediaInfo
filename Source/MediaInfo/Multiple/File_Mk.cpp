@@ -1677,7 +1677,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Audio_OutputSamplingFrequency()
     float64 Float=Float_Get();
 
     FILLING_BEGIN();
-        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Float, 10, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Float, 0, true);
     FILLING_END();
 }
 
@@ -1690,7 +1690,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Audio_SamplingFrequency()
     float64 Float=Float_Get();
 
     FILLING_BEGIN();
-        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Float, 10, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Float, 0, true);
     FILLING_END();
 }
 
