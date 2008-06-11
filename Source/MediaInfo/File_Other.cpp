@@ -43,7 +43,7 @@ namespace MediaInfoLib
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Other::Read_File()
+void File_Other::Read_Buffer_Continue()
 {
     //Integrity
     if (Buffer_Size<16)
@@ -70,7 +70,7 @@ void File_Other::Read_File()
     else if (CC4(Buffer+10)==CC4("Vivo")) {Format=_T("Vivo");}
     else if (CC4(Buffer+1)==CC4("VRML")) {Format=_T("VRML");}
     else if (CC5(Buffer)==CC5("HVQM4")) {Format=_T("GameCube Movie");}
-    else if (CC8(Buffer)==CC8("KW-DIRAC")) {Format=_T("Dirac"); Extensions=_T("drc"); Url=_T("http://dirac.sourceforge.net/");}
+    else if (CC8(Buffer)==CC8("KW-DIRAC")) {Format=_T("Dirac"); Url=_T("http://dirac.sourceforge.net/");}
     else if (CC5(Buffer)==CC5("ustar")) {Format=_T("Tar archive");}
     //TODO: all archive magic numbers
     else if (CC4(Buffer+1)==CC4("MSCB")) {Format=_T("MS Cabinet");}
@@ -115,7 +115,7 @@ void File_Other::Read_File()
                 {Format=_T("AMR");
                 Stream_Prepare(Stream_Audio); Fill(Stream_Audio, 0, Audio_Codec, "AMR"); Fill(Stream_Audio, 0, Audio_Codec_Url, "http://www.apple.com/quicktime/download/standalone.html");}
     else if (CC4(Buffer)==CC4("RIFF") && CC4(Buffer+8)==CC4("AMV ")) {Format=_T("AMV");}
-    else if (CC4(Buffer)==CC4("AMV—")) {Format=_T("MTV");}
+    else if (CC4(Buffer)==0x414D5697) {Format=_T("MTV");}
     else if (CC4(Buffer)==CC4("")) {Format=_T("");}
 
     if (Format.empty())
@@ -125,6 +125,7 @@ void File_Other::Read_File()
     Fill(Stream_General, 0, General_Format, Format);
     Fill(Stream_General, 0, General_Format_Url, Url);
     Fill(Stream_General, 0, General_Format_Extensions, Extensions);
+    Finnished();
 }
 
 } //NameSpace

@@ -43,7 +43,7 @@ class File_Other : public File__Analyze
 {
 protected :
     //Format
-    void Read_File ();
+    void Read_Buffer_Continue ();
 };
 
 } //NameSpace
