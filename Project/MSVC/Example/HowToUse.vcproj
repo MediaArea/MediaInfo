@@ -65,7 +65,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MediaInfod.lib ZenLibd.lib"
+				AdditionalDependencies="MediaInfod.lib ZenLibd.lib ZLib.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\..\Release\MSVC\Library;..\..\..\..\Shared\Library\MSVC"
 				GenerateDebugInformation="true"
@@ -143,7 +143,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MediaInfod.lib ZenLibd.lib"
+				AdditionalDependencies="MediaInfod.lib ZenLibd.lib ZLib.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\..\Release\MSVCx64\Library;..\..\..\..\Shared\Library\MSVCx64"
 				GenerateDebugInformation="true"
@@ -217,7 +217,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MediaInfo.lib ZenLib.lib"
+				AdditionalDependencies="MediaInfo.lib ZenLib.lib ZLib.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\..\Release\MSVC\Library;..\..\..\..\Shared\Library\MSVC"
 				GenerateDebugInformation="true"
@@ -294,7 +294,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MediaInfo.lib ZenLib.lib"
+				AdditionalDependencies="MediaInfo.lib ZenLib.lib ZLib.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\..\Release\MSVCx64\Library;..\..\..\..\Shared\Library\MSVCx64"
 				GenerateDebugInformation="true"
