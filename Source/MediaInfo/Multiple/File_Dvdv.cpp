@@ -217,7 +217,7 @@ const char*  IFO_CodecT[]=
 const char*  IFO_Language_MoreT[]=
 {
     "",
-    "",
+    "Normal",
     "Large",
     "Children",
     "",
@@ -1234,8 +1234,10 @@ void File_Dvdv::PGC(size_t Offset)
             {
                 Element_Begin("Audio Stream Control", 2);
                 Element_Info(Ztring::ToZtring(Pos));
-                Skip_B1(                                        "Audio Stream Control - bits...");
-                Skip_B1(                                        "Audio Stream Control - reserved");
+                Skip_SB(                                        "Stream available");
+                Skip_S1(7,                                      "Stream number");
+                BS_End();
+                Skip_B1(                                        "Reserved");
                 Element_End();
             }
             Element_End();
@@ -1244,10 +1246,13 @@ void File_Dvdv::PGC(size_t Offset)
             {
                 Element_Begin("Subpicture Stream Control", 4);
                 Element_Info(Ztring::ToZtring(Pos));
-                Skip_B1(                                        "Subpicture Stream Control - bits...");
-                Skip_B1(                                        "Subpicture Stream Control - bits...");
-                Skip_B1(                                        "Subpicture Stream Control - bits...");
-                Skip_B1(                                        "Subpicture Stream Control - bits...");
+                BS_Begin();
+                Skip_SB(                                        "Stream available");
+                Skip_S1(7,                                      "Stream number for 4/3");
+                BS_End();
+                Skip_B1(                                        "Stream number for Wide");
+                Skip_B1(                                        "Stream number for Letterbox");
+                Skip_B1(                                        "Stream number for Pan&Scan");
                 Element_End();
             }
             Element_End();
