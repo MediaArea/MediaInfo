@@ -5,7 +5,7 @@
   Language_ISO639;tr
   Language_Name;Türkçe
   Config_Text_ColumnSize;32
-  Config_Text_Separator; : 
+  Config_Text_Separator; :
   Config_Text_NumberTag; #
  audio stream1; seslendirme
  audio stream2; seslendirme
@@ -33,9 +33,9 @@
  file1; dosya
  file2; dosya
  file3; dosya
- frame1
- frame2
- frame3
+ frame1; kare
+ frame2; kare
+ frame3; kare
  fps1; kare/s
  fps2; kare/s
  fps3; kare/s
@@ -122,10 +122,10 @@
  video stream1; görüntü akışı
  video stream2; görüntü akışı
  video stream3; görüntü akışı
- warppoint0
- warppoint1
- warppoint2
- warppoint3
+ warppoint0; Sapma noktası yok
+ warppoint1; sapma noktası
+ warppoint2; sapma noktası
+ warppoint3; sapma noktası
  week1; hafta
  week2; hafta
  week3; hafta
@@ -163,12 +163,12 @@ BarCode;BarKod
 Basic;Temel
 Basic_Note;Not : Bu dosya hakkında daha fazla bilgi için farklı görünüm seçmelisiniz (Sayfa, Ağaç...)
 BitRate;Bit oranı
-BitRate_Maximum
-BitRate_Minimum
+BitRate_Maximum;En fazla bit oranı
+BitRate_Minimum;En az bit oranı
 BitRate_Mode;Bit oranı kipi
-BitRate_Mode_CBR
-BitRate_Mode_VBR
-BitRate_Nominal
+BitRate_Mode_CBR;Sabit
+BitRate_Mode_VBR;Değişken
+BitRate_Nominal;Düşük bit oranı
 Bits-(Pixel*Frame);Bit/(Piksel*Kare)
 Cancel;İptal
 Channel(s);Kanal(lar)
@@ -192,32 +192,32 @@ Chroma;Krom
 Close;Kapat
 Close all before open;Açmadan önce tümünü kapat
 Codec;Kodek
-Codec_Description
+Codec_Description;Kodek açıklaması
 Codec_Info;Kodek için ayrıntılar
 Codec_Settings;Kodek ayarları
-Codec_Settings_PacketBitStream
-Codec_Settings_BVOP
-Codec_Settings_QPel
-Codec_Settings_GMC
-Codec_Settings_Matrix
-Codec_Settings_Floor
-Codec_Settings_CABAC
-Codec_Settings_Firm
-Codec_Settings_Endianness
-Codec_Settings_Sign
-Codec_Settings_Law
-Codec_Settings_ITU
+Codec_Settings_PacketBitStream;Kodek ayarları, Paket bit akışı
+Codec_Settings_BVOP;Kodek ayarları, BVOP
+Codec_Settings_QPel;Kodek ayarları, QPel
+Codec_Settings_GMC;Kodek ayarları, GMC
+Codec_Settings_Matrix;Kodek ayarları, Matrix
+Codec_Settings_Floor;Kodek ayarları, Floor
+Codec_Settings_CABAC;Kodek ayarları, CABAC
+Codec_Settings_Firm;Kodek ayarları, Firm
+Codec_Settings_Endianness;Kodek ayarları, Endianness
+Codec_Settings_Sign;Kodek ayarları, Sign
+Codec_Settings_Law;Kodek ayarları, Law
+Codec_Settings_ITU;Kodek ayarları, ITU
 Codec_Profile;Kodek profili
 Codec_Url;Kodek için web bağlantısı
-CodecID
-CodecID_Description
+CodecID;Kodek ID
+CodecID_Description;Kodek'in tanımı
 Collection;Koleksiyon
-Colorimetry
+Colorimetry;Renkölçüm 
 Comment;Yorum
 CommissionedBy;Görevlendiren
 CompleteName;Tam isim
 Composer;Besteci
-CompressionRatio
+CompressionRatio;Sıkıştırma oranı
 Conductor;Orkestra şefi
 Container and general information;Konteyner ve genel bilgi
 ContentType;İçerik Türü
@@ -242,7 +242,7 @@ DirectorOfPhotography;Fotoğrafçılık yönetmeni
 DisplayAspectRatio;En-Boy oranı
 DistributedBy;Dağıtan
 Donate;Bağış
-Duration
+Duration;Süre
 Edit;Düzenle
 EditedBy;Düzenleyen
 EMail;E-Posta
@@ -258,15 +258,15 @@ Exit;Çıkış
 Exit_Hint;Programdan çıkış
 Export;Dışarı Aktar
 Export_Hint;Özelleştirilmiş biçimde dışarı aktarır
-Extensions;Daima kullanılan uzantılar
-Family
+Extensions;Genellikle kullanılan uzantılar
+Family;Aile
 Fax;Faks
 File;Dosya
 File size;Dosya boyutu
 File_Append;Mevcut dosyaya ekle (Uyarı : aynı parametlere sahip olmak için dikkatli olun)
-File_Created_Date
+File_Created_Date;Dosya oluşturma tarihi
 File_Hint;Çalışmak için çokluortam dosyası seç
-File_Modified_Date
+File_Modified_Date;Dosya son değiştirme tarihi
 FileExtension;Dosya uzantısı
 FileName;Dosya adı
 FileSize;Dosya boyutu
@@ -277,39 +277,39 @@ Folder (Recursively);Klasör (Yinelemeli)
 Folder_Hint;Çalışmak için klasör seç
 FolderName;Klasör adı
 Format;Biçim
-Format_Description
-Format_Info
-Format_Profile
-Format_Settings
-Format_Settings_PacketBitStream
-Format_Settings_BVOP
-Format_Settings_QPel
-Format_Settings_GMC
-Format_Settings_Matrix
-Format_Settings_Matrix_Custom
-Format_Settings_Matrix_Default
-Format_Settings_Floor
-Format_Settings_CABAC
-Format_Settings_Firm
-Format_Settings_Endianness
-Format_Settings_RefFrames
-Format_Settings_Sign
-Format_Settings_Law
-Format_Settings_ITU
-Format_Settings_SBR
-Format_Settings_PS
-Format_Settings_Pulldown
-Format_Version
-Format_Url
-FrameCount
+Format_Description;Biçim açıklaması
+Format_Info;Biçim için ayrıntılar
+Format_Profile;Biçim profili
+Format_Settings;Biçim ayarları
+Format_Settings_PacketBitStream;Biçim ayarları, Paket bit akışı
+Format_Settings_BVOP;Biçim ayarları, BVOP
+Format_Settings_QPel;Biçim ayarları, QPel
+Format_Settings_GMC;Biçim ayarları, GMC
+Format_Settings_Matrix;Biçim ayarları, Matrix
+Format_Settings_Matrix_Custom;Özel
+Format_Settings_Matrix_Default;Varsayılan
+Format_Settings_Floor;Biçim ayarları, Floor
+Format_Settings_CABAC;Biçim ayarları, CABAC
+Format_Settings_Firm;Biçim ayarları, Firm
+Format_Settings_Endianness;Biçim ayarları, Endianess
+Format_Settings_RefFrames;Biçim ayarları, ReFrames
+Format_Settings_Sign;Biçim ayarları, Sign
+Format_Settings_Law;Biçim ayarları, Law
+Format_Settings_ITU;Biçim ayarları, ITU
+Format_Settings_SBR;Biçim ayarları, SBR
+Format_Settings_PS;Biçim ayarları, PS
+Format_Settings_Pulldown;Biçim ayarları, Pulldown
+Format_Version;Biçim sürümü
+Format_Url;Biçim için web bağlantısı
+FrameCount;Kare sayısı
 FrameRate;Kare hızı
-FrameRate_Mode
-FrameRate_Mode_CFR
-FrameRate_Mode_VFR
+FrameRate_Mode;Kare hız modu
+FrameRate_Mode_CFR;Sabit
+FrameRate_Mode_VFR;Değişken
 FrameRate_Minimum;En az kare hızı
-FrameRate_Nominal
+FrameRate_Nominal;Düşük kare hızı
 FrameRate_Maximum;En fazla kare hızı
-FrameRate_Original
+FrameRate_Original;Orijinal kare hızı
 General;Genel
 Genre;Tarz
 Genre_000;Blues
@@ -465,7 +465,7 @@ h;s
 Header file;Üst bilgi dosyası oluştur
 Height;Yükseklik
 Help;Yardım
-Hint
+Hint;İpucu
 How many audio streams?;Kaç tane seslendirme?
 How many chapters streams?;Kaç tane bölüm akışı?
 How many text streams?;Kaç tane yazı akışı?
@@ -476,7 +476,7 @@ Image;İmaj
 Image stream(s);İmaj akışı
 Image_Codec_List;Kodek İmajı
 ImageCount;İmaj akışı sayısı
-Info
+Info;Bilgi
 Instruments;Enstrüman
 Interlacement;Karıştırma
 Interlaced_Interlaced;Karışık
@@ -683,7 +683,7 @@ Language_zu;Zulu
 LawRating;Kanun oranı
 LCCN;LCCN
 Library;Muxing kütüphanesi
-List
+List;Liste
 Lyricist;Söz yazarı
 Mastered_Date;Sahip olma tarihi
 MasteredBy;Sahibi
@@ -694,14 +694,14 @@ Menu_Codec_List;Menü kodekleri
 Menu_No;Menü yok
 MenuCount;Meni akış sayısı
 Menu_Hint;Daha fazla olasılık
-MenuID
+MenuID;Menü ID
 mn;dk
 Mood;Mizaç
 More;Daha
 Movie;Film adı
 ms;ms
 MSDI;MSDI
-MuxingMode
+MuxingMode;Çoklamalı mod
 Name;İsim
 Nationality;Uyruk
 New;Yeni
@@ -716,11 +716,11 @@ Original;Orjinal
 Other;Diğer
 Output;Çıktı
 Output format;Çıktı biçimi
-OveralBitRate;Kapsamlı BitOranı
-OveralBitRate_Maximum
-OveralBitRate_Minimum
-OveralBitRate_Mode
-OveralBitRate_Nominal
+OveralBitRate;Kapsamlı bit oranı
+OveralBitRate_Maximum;En fazla kapsamlı bit oranı
+OveralBitRate_Minimum;En düşük kapsamlı bit oranı
+OveralBitRate_Mode;Kapsamlı bit oranı modu
+OveralBitRate_Nominal;Düşük kapsamlı bit oranı
 Part;Parça
 Part_Count;Toplam sayım
 Performer;Sanatçı
@@ -730,7 +730,7 @@ PixelAspectRatio;Piksel oranı
 PlayCounter;Oynatma Sayacı
 PlayTime;Oynatma Süresi
 Position;Konum
-Position_Total
+Position_Total;Toplam
 Preferences;Tercihler
 Producer;Yapımcı
 ProductionDesigner;Üretim Tasarımcısı
@@ -748,12 +748,12 @@ Resolution;Çözünürlük
 s;s
 SamplingRate;Örnekleme oranı
 Save;Kaydet
-ScanType
-ScanOrder
+ScanType;Tarama türü
+ScanOrder;Tarama sırası
 ScreenplayBy;Senaryo
 Season;Sezon
 see below;aşağı bakın
-Send HeaderFile
+Send HeaderFile;Lütfen Header dosyasını buraya gönderin : http://sourceforge.net/projects/mediainfo/ (Bug bölümü)
 Separator_Columns;sütun ayırıcı
 Separator_Lines;satır ayırıcı
 Set;Ayar
@@ -773,9 +773,9 @@ Stream_MoreInfo;Akış hakkında daha fazla bilgi
 StreamCount;Bu çeşidin akış sayısı
 StreamID;Akış ID
 StreamKind;Akış çeşidi
-StreamKindID
-StreamKindPos
-StreamSize
+StreamKindID;Akış tanımlayıcısı
+StreamKindPos;Akış tanımlayıcısı
+StreamSize;Akış boyutu
 Subject;Konu
 SubTrack;Altİz
 Summary;Özet
@@ -783,7 +783,7 @@ Supported formats;Desteklenen biçimler
 Supported?;Desteklenen?
 Synopsys;Synopsys
 SystemId;Id
-Tagged_Application
+Tagged_Application;Etiketleme uygulaması
 Tagged_Date;Etiketleme tarihi
 Technician;Teknisyen
 TermsOfUse;Kullanım şarları
@@ -839,5 +839,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;90
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
