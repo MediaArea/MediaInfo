@@ -9,6 +9,10 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.7.2, 2008-06-13
 ---------------
++ MPEG-TS: Detection of scrambled streams
+
+Version 0.7.7.2, 2008-06-13
+---------------
 + FLV: detection of AVC and AAC
 x #1981032, Visual C++ 2008 binary is not compatible with Win9X, coming back to Visual C++ 2005
 x #1964299, Never-ending 100% CPU if input file doesn't exist

@@ -453,12 +453,7 @@ void File_MpegTs::Header_Parse()
     {
         //Encryption
         if (transport_scrambling_control>0)
-        {
-            //Encrypted
-            Streams[pid].Searching_Payload_Start_Set(false);
             Streams[pid].Scrambled=true;
-            Skip_XX(TS_Size-Element_Offset,                  "Scrambled data");
-        }
     }
     else if (Element_Offset<TS_Size)
         Skip_XX(TS_Size-Element_Offset,                      "Junk");
@@ -834,6 +829,21 @@ void File_MpegTs::PES()
 
     //Exists
     Streams[pid].StreamIsRegistred=true;
+
+    //Case of encrypted streams
+    if (Streams[pid].Scrambled)
+    {
+        //Don't need anymore
+        Streams[pid].Searching_Payload_Start_Set(false);
+        Streams[pid].Searching_Payload_Continue_Set(false);
+        Skip_XX(Element_Size-Element_Offset,                    "Scrambled data");
+        elementary_PID_Count--;
+
+        //Demux
+        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(pid, 16)+_T(".mpg"));
+
+        return;
+    }
 
     //If unknown stream_type
     if (Streams[pid].Parser==NULL)
