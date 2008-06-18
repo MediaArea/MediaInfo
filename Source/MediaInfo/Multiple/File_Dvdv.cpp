@@ -32,6 +32,8 @@
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
+#include <vector>
+using namespace std;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -866,7 +868,7 @@ void File_Dvdv::VTS_PGCI ()
     //DETAILLEVEL_SET(1.0);
     while (Element_Offset<=EndAddress)
     {
-        PGC(Offset);
+        PGC(Offset, true);
     }
 }
 
@@ -1163,8 +1165,14 @@ void File_Dvdv::Time_BCD(const Ztring &Name)
     Element_End();
 }
 
-void File_Dvdv::PGC(size_t Offset)
+void File_Dvdv::PGC(size_t Offset, bool Title)
 {
+        vector<int8u> Stream_Control_Audio;
+        vector<int8u> Stream_Control_SubPicture_43;
+        vector<int8u> Stream_Control_SubPicture_Wide;
+        vector<int8u> Stream_Control_SubPicture_Letterbox;
+        vector<int8u> Stream_Control_SubPicture_PanScan;
+
         //VTS_PGC
         Element_Begin("PGC");
         int16u commands, program_map, cell_playback, cell_position;
@@ -1234,12 +1242,16 @@ void File_Dvdv::PGC(size_t Offset)
             {
                 Element_Begin("Audio Stream Control", 2);
                 Element_Info(Ztring::ToZtring(Pos));
+                int8u Number;
+                bool  Available;
                 BS_Begin();
-                Skip_SB(                                        "Stream available");
-                Skip_S1(7,                                      "Stream number");
+                Get_SB (   Available,                           "Stream available");
+                Get_S1 (7, Number,                              "Stream number");
                 BS_End();
                 Skip_B1(                                        "Reserved");
                 Element_End();
+                if (Available)
+                    Stream_Control_Audio.push_back(Number);
             }
             Element_End();
             Element_Begin("Subpicture Stream Controls", 32*4);
@@ -1247,14 +1259,23 @@ void File_Dvdv::PGC(size_t Offset)
             {
                 Element_Begin("Subpicture Stream Control", 4);
                 Element_Info(Ztring::ToZtring(Pos));
+                int8u Number_43, Number_Wide, Number_Letterbox, Number_PanScan;
+                bool  Available;
                 BS_Begin();
-                Skip_SB(                                        "Stream available");
-                Skip_S1(7,                                      "Stream number for 4/3");
+                Get_SB (   Available,                           "Stream available");
+                Get_S1 (7, Number_43,                           "Stream number for 4/3");
                 BS_End();
-                Skip_B1(                                        "Stream number for Wide");
-                Skip_B1(                                        "Stream number for Letterbox");
-                Skip_B1(                                        "Stream number for Pan&Scan");
+                Get_B1 (Number_Wide,                            "Stream number for Wide");
+                Get_B1 (Number_Letterbox,                       "Stream number for Letterbox");
+                Get_B1 (Number_PanScan,                         "Stream number for Pan&Scan");
                 Element_End();
+                if (Available)
+                {
+                    Stream_Control_SubPicture_43.push_back(Number_43);
+                    Stream_Control_SubPicture_Wide.push_back(Number_Wide);
+                    Stream_Control_SubPicture_Letterbox.push_back(Number_Letterbox);
+                    Stream_Control_SubPicture_PanScan.push_back(Number_PanScan);
+                }
             }
             Element_End();
             Skip_B2(                                            "next PGCN");
@@ -1375,6 +1396,33 @@ void File_Dvdv::PGC(size_t Offset)
         }
 
         Element_End(Element_Offset-Offset);
+
+        //FILLING_BEGIN();
+            if (Title)
+            {
+                Stream_Prepare(Stream_Menu);
+                for (size_t Pos=0; Pos<Stream_Control_Audio.size(); Pos++)
+                {
+                    Fill(StreamKind_Last, StreamPos_Last, "List (Audio)", Stream_Control_Audio[Pos]);
+                }
+                for (size_t Pos=0; Pos<Stream_Control_SubPicture_43.size(); Pos++)
+                {
+                    Fill(StreamKind_Last, StreamPos_Last, "List (Subtitles 4/3)", Stream_Control_SubPicture_43[Pos]);
+                }
+                for (size_t Pos=0; Pos<Stream_Control_SubPicture_Wide.size(); Pos++)
+                {
+                    Fill(StreamKind_Last, StreamPos_Last, "List (Subtitles Wide)", Stream_Control_SubPicture_Wide[Pos]);
+                }
+                for (size_t Pos=0; Pos<Stream_Control_SubPicture_Letterbox.size(); Pos++)
+                {
+                    Fill(StreamKind_Last, StreamPos_Last, "List (Subtitles Letterbox)", Stream_Control_SubPicture_Letterbox[Pos]);
+                }
+                for (size_t Pos=0; Pos<Stream_Control_SubPicture_PanScan.size(); Pos++)
+                {
+                    Fill(StreamKind_Last, StreamPos_Last, "List (Subtitles Pan&Scan)", Stream_Control_SubPicture_PanScan[Pos]);
+                }
+            }
+        //FILLING_END();
 }
 
 //---------------------------------------------------------------------------
