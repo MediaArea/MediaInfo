@@ -1889,6 +1889,8 @@ void File_Riff::AVI__movi_StreamClear(int32u ChunkId)
 //---------------------------------------------------------------------------
 void File_Riff::AVIX()
 {
+    //Filling
+    Fill(Stream_General, 0, General_Format_Profile, "OpenDML", Unlimited, true, true);
 }
 
 //---------------------------------------------------------------------------
