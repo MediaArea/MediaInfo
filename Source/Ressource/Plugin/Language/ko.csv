@@ -776,6 +776,7 @@ StreamKind;스트림 종류
 StreamKindID
 StreamKindPos
 StreamSize;스트림 크기
+StreamSize_Proportion
 Subject;제목
 SubTrack;서브트랙
 Summary;요약

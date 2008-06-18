@@ -776,6 +776,7 @@ StreamKind;ชนิดของสตรีม
 StreamKindID
 StreamKindPos
 StreamSize;ขนาดสตรีม
+StreamSize_Proportion
 Subject;Subject
 SubTrack;แทร็กย่อย
 Summary;สรุป

@@ -776,6 +776,7 @@ StreamKind;Sáv fajtája
 StreamKindID
 StreamKindPos
 StreamSize
+StreamSize_Proportion
 Subject;Tárgy
 SubTrack;Alsáv
 Summary;Kivonat

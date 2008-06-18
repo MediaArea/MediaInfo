@@ -776,6 +776,7 @@ StreamKind;Clase de pista
 StreamKindID
 StreamKindPos
 StreamSize;Tamaño de pista
+StreamSize_Proportion
 Subject;Asunto
 SubTrack;SubPista
 Summary;Sumario

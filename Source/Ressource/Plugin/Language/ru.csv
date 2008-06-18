@@ -776,6 +776,7 @@ StreamKind;Тип потока
 StreamKindID;Идентификатор потока
 StreamKindPos;Идентификатор потока
 StreamSize;Размер потока
+StreamSize_Proportion
 Subject;Тема
 SubTrack;Подпоток
 Summary;Сводка

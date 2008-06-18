@@ -776,6 +776,7 @@ StreamKind;Type de flux
 StreamKindID;Identifiant du flux
 StreamKindPos;Identifiant du flux
 StreamSize;Taille du flux
+StreamSize_Proportion;Proportion de ce flux
 Subject;Sujet
 SubTrack;Sous-piste
 Summary;Résumé

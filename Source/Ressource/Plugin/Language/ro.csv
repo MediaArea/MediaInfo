@@ -776,6 +776,7 @@ StreamKind;Tipul fluxului
 StreamKindID
 StreamKindPos
 StreamSize
+StreamSize_Proportion
 Subject;Subiect
 SubTrack;Sub-pista
 Summary;Sumar

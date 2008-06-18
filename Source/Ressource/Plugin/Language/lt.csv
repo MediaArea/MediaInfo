@@ -776,6 +776,7 @@ StreamKind;Srauto rūšis
 StreamKindID
 StreamKindPos
 StreamSize;Srauto dydis
+StreamSize_Proportion
 Subject;Tema
 SubTrack;SubTakelis
 Summary;Santrauka

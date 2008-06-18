@@ -776,6 +776,7 @@ StreamKind;串流類型
 StreamKindID
 StreamKindPos
 StreamSize;串流大小
+StreamSize_Proportion
 Subject;主題
 SubTrack
 Summary;摘要

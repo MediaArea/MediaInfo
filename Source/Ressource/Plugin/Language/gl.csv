@@ -776,6 +776,7 @@ StreamKind;Clase de pista
 StreamKindID
 StreamKindPos
 StreamSize
+StreamSize_Proportion
 Subject;Asunto
 SubTrack;SubPista
 Summary;Sumario
@@ -839,5 +840,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;88
+ZZ_AutomaticLanguage_Percent;88

@@ -776,6 +776,7 @@ StreamKind;ストリーム種
 StreamKindID
 StreamKindPos
 StreamSize;ストリームサイズ
+StreamSize_Proportion
 Subject;件名
 SubTrack;サブトラック
 Summary;サマリー

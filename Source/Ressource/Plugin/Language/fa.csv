@@ -776,6 +776,7 @@ StreamKind;نوع گردش
 StreamKindID
 StreamKindPos
 StreamSize;اندازه گردش
+StreamSize_Proportion
 Subject;موضوع
 SubTrack;ترک اصلی
 Summary;خلاصه

@@ -776,6 +776,7 @@ StreamKind;此軌類型
 StreamKindID
 StreamKindPos
 StreamSize;流大小
+StreamSize_Proportion
 Subject;主題
 SubTrack;字幕軌道
 Summary;總結

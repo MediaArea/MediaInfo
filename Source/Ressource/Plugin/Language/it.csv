@@ -776,6 +776,7 @@ StreamKind;Tipo di traccia
 StreamKindID
 StreamKindPos
 StreamSize;Dimensione del canale
+StreamSize_Proportion
 Subject;Soggetto 
 SubTrack;Sottotitolo
 Summary;Riassunto 

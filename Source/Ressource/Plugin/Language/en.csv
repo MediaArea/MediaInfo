@@ -776,6 +776,7 @@ StreamKind;Kind of stream
 StreamKindID;Stream identifier
 StreamKindPos;Stream identifier
 StreamSize;Stream size
+StreamSize_Proportion;Proportion of this stream
 Subject;Subject
 SubTrack;SubTrack
 Summary;Summary

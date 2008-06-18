@@ -776,6 +776,7 @@ StreamKind;Tipo da Faixa
 StreamKindID;Tipo da Faixa/ID
 StreamKindPos;Tipo da Faixa/Pos
 StreamSize;Tamanho da Faixa
+StreamSize_Proportion
 Subject;Assunto
 SubTrack;Sub-Faixa
 Summary;Sumário

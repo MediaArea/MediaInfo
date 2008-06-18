@@ -776,6 +776,7 @@ StreamKind;Soort stroom
 StreamKindID
 StreamKindPos
 StreamSize
+StreamSize_Proportion
 Subject;Onderwerp
 SubTrack;Ondertiteling
 Summary;Samenvatting
