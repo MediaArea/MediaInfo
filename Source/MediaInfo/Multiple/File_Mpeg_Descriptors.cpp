@@ -729,6 +729,7 @@ void File_Mpeg_Descriptors::Read_Buffer_Init()
 
     //Out
     descriptor_tag=0x00;
+    CA_PID=0x0000;
 }
 
 //***************************************************************************
@@ -986,17 +987,12 @@ void File_Mpeg_Descriptors::Descriptor_06()
 void File_Mpeg_Descriptors::Descriptor_09()
 {
     //Parsing
-    int16u CA_PID;
     Skip_B2(                                                    "CA_system_ID");
     BS_Begin();
     Skip_S1( 3,                                                 "reserved");
     Get_S2 (13, CA_PID,                                         "CA_PID");
     BS_End();
-    Skip_XX(Element_Size-Element_Offset,                           "private_data_byte");
-
-    //Filling
-    //Kind[CA_PID]=File_MpegPsi::conditional_access_table; //TODO: DOES NOT WORK
-    //Infos["CA_PID")]=Ztring::ToZtring(CA_PID);
+    Skip_XX(Element_Size-Element_Offset,                        "private_data_byte");
 }
 
 //---------------------------------------------------------------------------

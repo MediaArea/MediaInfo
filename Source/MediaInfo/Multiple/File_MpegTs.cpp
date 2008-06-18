@@ -717,6 +717,16 @@ void File_MpegTs::PSI_program_map_table()
             Streams[elementary_PID].PES_Needed=true;
         }
         */
+
+        //Scrambling
+        if (Stream->second.CA_PID)
+        {
+            Streams[Stream->second.CA_PID].program_number=Stream->second.program_number;
+            Streams[Stream->second.CA_PID].TS_Kind=File_Mpeg_Psi::conditional_access_table;
+            Streams[Stream->second.CA_PID].Searching_Payload_Start_Set(true);
+            elementary_PID_Count++;
+        }
+
         if (elementary_PID==0x0000)
         {
             //About the program

@@ -90,6 +90,7 @@ public :
         ts_kind                                     Kind;
         int8u                                       stream_type;
         int8u                                       descriptor_tag;
+        int16u                                      CA_PID;
 
         stream()
         {
@@ -98,6 +99,7 @@ public :
             Kind=unknown;
             stream_type=0x00;
             descriptor_tag=0x00;
+            CA_PID=0x0000;
         }
     };
     std::map<int16u, stream> Streams;

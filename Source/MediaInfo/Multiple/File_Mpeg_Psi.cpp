@@ -599,16 +599,16 @@ void File_Mpeg_Psi::Data_Parse()
         ELEMENT_CASE(DA, "ATSC - Satellite VCT");
         default :
             if (table_id>=0x06
-             && table_id<=0x37) {Element_Name("ITU-T Rec. H.222.0 | ISO/IEC 13818-1 reserved"); break;}
+             && table_id<=0x37) {Element_Name("ITU-T Rec. H.222.0 | ISO/IEC 13818-1 reserved"); Skip_XX(Element_Size, "Unknown"); break;}
             if (table_id>=0x40
-             && table_id<=0x7F) {Element_Name("DVB - reserved"); break;}
+             && table_id<=0x7F) {Element_Name("DVB - reserved"); Skip_XX(Element_Size, "Unknown"); break;}
             if (table_id>=0x80
-             && table_id<=0x8F) {Element_Name("CA message, EMM, ECM"); break;}
+             && table_id<=0x8F) {Element_Name("CA message, EMM, ECM"); Skip_XX(Element_Size, "Unknown"); break;}
             if (table_id>=0xC0
-             && table_id<=0xDF) {Element_Name("ATSC/SCTE - reserved"); break;}
-            if (table_id<=0xFE) {Element_Name("User Private"); break;}
+             && table_id<=0xDF) {Element_Name("ATSC/SCTE - reserved");Skip_XX(Element_Size, "Unknown");  break;}
+            if (table_id<=0xFE) {Element_Name("User Private"); Skip_XX(Element_Size, "Unknown"); break;}
             if (Element_Code==(int64u)-1) {program_stream_map(); break;} //Specific to MPEG-PS
-                                {Element_Name("forbidden"); break;}
+                                {Element_Name("forbidden"); Skip_XX(Element_Size, "Unknown"); break;}
     }
 
     Element_Size+=4;
@@ -1114,6 +1114,8 @@ void File_Mpeg_Psi::Descriptors()
     Streams[Stream_Current].format_identifier=Descriptors.format_identifier; //General
     if (Streams[Stream_Current].descriptor_tag==0x00)
         Streams[Stream_Current].descriptor_tag=Descriptors.descriptor_tag;
+    if (Streams[Stream_Current].CA_PID==0x0000)
+        Streams[Stream_Current].CA_PID=Descriptors.CA_PID;
 
     Element_End();
 }

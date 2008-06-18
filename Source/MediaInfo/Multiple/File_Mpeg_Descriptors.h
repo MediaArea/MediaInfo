@@ -49,7 +49,8 @@ public :
     //Out
     std::map<std::string, ZenLib::Ztring> Infos;
     int8u    descriptor_tag;
-
+    int16u   CA_PID;
+    
 protected :
     //Formats
     void Read_Buffer_Init ();
