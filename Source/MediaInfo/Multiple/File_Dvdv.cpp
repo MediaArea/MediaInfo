@@ -1234,6 +1234,7 @@ void File_Dvdv::PGC(size_t Offset)
             {
                 Element_Begin("Audio Stream Control", 2);
                 Element_Info(Ztring::ToZtring(Pos));
+                BS_Begin();
                 Skip_SB(                                        "Stream available");
                 Skip_S1(7,                                      "Stream number");
                 BS_End();
