@@ -34,6 +34,8 @@ StreamSize/String1;;;N NT;;;;;
 StreamSize/String2;;;N NT;;;;;
 StreamSize/String3;;;N NT;;;;;
 StreamSize/String4;;;N NT;;;;;
+StreamSize/String5;;;N NT;;;With proportion;;
+StreamSize_Proportion;;;N NT;;;Stream size divided by file size;;
 Language;;;N YT;;;Language (2 letters);;
 Language/String;;;Y NT;;;Language (full);;
 Summary;;;N NT;;;;;

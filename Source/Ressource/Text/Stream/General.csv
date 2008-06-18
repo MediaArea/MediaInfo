@@ -91,9 +91,11 @@ StreamSize/String1;;;N NT;;;
 StreamSize/String2;;;N NT;;;
 StreamSize/String3;;;N NT;;;
 StreamSize/String4;;;N NT;;;
+StreamSize/String5;;;N NT;;;With proportion
+StreamSize_Proportion;;;N NT;;;Stream size divided by file size
 HeaderSize;;;N NI;;;
-DataSize;;;N NI;;;
-FooterSize;;;N NI;;;
+DataSize;;;N NI;;;;;
+FooterSize;;;N NI;;;;;
 Title;;;N NT;;;(Generic)Title of file;;Title
 Title/More;;;N NT;;;(Generic)More info about the title of file;;Title
 Title/Url;;;N NT;;;(Generic)Url;;Title

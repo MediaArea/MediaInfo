@@ -1147,11 +1147,19 @@ void File__Analyze::FileSize_FileSize123(const Ztring &Value, stream_t StreamKin
         case  3 : Measure=MediaInfoLib::Config.Language_Get(_T(" GiB")); break;
         default : Measure=MediaInfoLib::Config.Language_Get(_T(" ????Bytes"));
     }
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(),  Ztring::ToZtring(F1, I3)+Measure, true);
     Fill(StreamKind, StreamPos, Ztring(Value+_T("/String1")).To_Local().c_str(), Ztring::ToZtring(F1,  0)+Measure, true);
     Fill(StreamKind, StreamPos, Ztring(Value+_T("/String2")).To_Local().c_str(), Ztring::ToZtring(F1, I2)+Measure, true);
     Fill(StreamKind, StreamPos, Ztring(Value+_T("/String3")).To_Local().c_str(), Ztring::ToZtring(F1, I3)+Measure, true);
     Fill(StreamKind, StreamPos, Ztring(Value+_T("/String4")).To_Local().c_str(), Ztring::ToZtring(F1, I4)+Measure, true);
+    if (File_Size>0 && File_Size<(int64u)-1 && Value==_T("StreamSize"))
+    {
+        float F2=(float)Retrieve(StreamKind, StreamPos, Value.To_Local().c_str()).To_int64s(); //Video C++ 6 patch, should be int64u
+        Fill(StreamKind, StreamPos, "StreamSize_Proportion", F2/File_Size, 5, true);
+        Fill(StreamKind, StreamPos, "StreamSize/String5", Ztring::ToZtring(F1, I3)+Measure+_T(" (")+Ztring::ToZtring(F2*100/File_Size, 0)+_T("%)"), true);
+        Fill(StreamKind, StreamPos, "StreamSize/String",  Ztring::ToZtring(F1, I3)+Measure+_T(" (")+Ztring::ToZtring(F2*100/File_Size, 0)+_T("%)"), true);
+    }
+    else
+        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(),  Ztring::ToZtring(F1, I3)+Measure, true);
 }
 
 //---------------------------------------------------------------------------
