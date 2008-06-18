@@ -175,6 +175,26 @@ const char* MP4_ChannelConfiguration[]=
     "",
     "",
 };
+
+const char* MP4_ChannelConfiguration2[]=
+{
+    "",
+    "1/0",
+    "2/0",
+    "3/0",
+    "3/1",
+    "3/2",
+    "3/2.1",
+    "3.3/2.1",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
 //---------------------------------------------------------------------------
 
 //***************************************************************************
@@ -351,6 +371,7 @@ void File_Mpeg4_AudioSpecificConfig::audioSpecificConfig ()
         {
             Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, MP4_Channels[channelConfiguration]);
             Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, MP4_ChannelConfiguration[channelConfiguration]);
+            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions_String2, MP4_ChannelConfiguration2[channelConfiguration]);
         }
         Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, 16);
 

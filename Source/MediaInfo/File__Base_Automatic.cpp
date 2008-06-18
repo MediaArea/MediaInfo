@@ -3768,6 +3768,7 @@ void File__Base_Audio (ZtringListList &Info)
     "Channel(s);; channel;N YF;;;Number of channels\n"
     "Channel(s)/String;;;Y NT;;;Number of channels\n"
     "ChannelPositions;;;Y YT;;;Position of channels\n"
+    "ChannelPositions/String2;;;N NT;;;Position of channels (x/y.z format)\n"
     "SamplingRate;; Hz;N YF;;;Sampling rate\n"
     "SamplingRate/String;;;Y NT;;;in KHz\n"
     "SamplingCount;;;N NI;;;Frame count\n"

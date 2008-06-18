@@ -261,6 +261,7 @@ const char*  IFO_MenuType[]=
 
 //---------------------------------------------------------------------------
 extern const char*  AC3_ChannelPositions[];
+extern const char*  AC3_ChannelPositions2[];
 
 //***************************************************************************
 // Constructor/Destructor
@@ -607,7 +608,7 @@ void File_Dvdv::Audio()
     //Parsing
     Ztring Language;
     int32u Codec, LanguageType, Mode, Resolution, SamplingRate, Channels;
-    int8u Language_Extension;
+    int8u Language_Extension, ChannelsK=(int8u)-1;
     BS_Begin();
     Get_BS (3, Codec,                                           "Coding mode"); Param_Info(IFO_CodecA[Codec]);
     Info_BS(1, MultiChannel,                                    "Multichannel extension present"); Param_Info(MultiChannel?"Yes":"No");
@@ -630,7 +631,7 @@ void File_Dvdv::Audio()
             {
             BS_Begin();
             Skip_BS(1,                                          "Zero");
-            Info_BS(3, ChannelsK,                               "Channels");
+            Get_S1 (3, ChannelsK,                               "Channels");
                 #ifdef MEDIAINFO_AC3_YES
                     Param_Info(AC3_ChannelPositions[ChannelsK]);
                 #endif //MEDIAINFO_AC3_YES
@@ -672,6 +673,13 @@ void File_Dvdv::Audio()
             Fill(Stream_Audio, StreamPos_Last, Audio_Language, Language);
             if (Language_Extension<8)
                 Fill(Stream_Audio, StreamPos_Last, Audio_Language_More, IFO_Language_MoreA[Language_Extension]);
+            #ifdef MEDIAINFO_AC3_YES
+                if (Codec==0 && ChannelsK!=(int8u)-1) //AC-3
+                {
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions, AC3_ChannelPositions[ChannelsK]);
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, AC3_ChannelPositions2[ChannelsK]);
+                }
+            #endif //MEDIAINFO_AC3_YES
         }
     FILLING_END();
 }

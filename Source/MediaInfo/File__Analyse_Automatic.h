@@ -461,6 +461,7 @@ enum audio
     Audio_Channel_s_,
     Audio_Channel_s__String,
     Audio_ChannelPositions,
+    Audio_ChannelPositions_String2,
     Audio_SamplingRate,
     Audio_SamplingRate_String,
     Audio_SamplingCount,

@@ -66,6 +66,7 @@ BitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement)
 Channel(s);; channel;N YF;;;Number of channels
 Channel(s)/String;;;Y NT;;;Number of channels
 ChannelPositions;;;Y YT;;;Position of channels
+ChannelPositions/String2;;;N NT;;;Position of channels (x/y.z format)
 SamplingRate;; Hz;N YF;;;Sampling rate
 SamplingRate/String;;;Y NT;;;in KHz
 SamplingCount;;;N NI;;;Frame count
@@ -93,7 +94,7 @@ StreamSize;; byte;N YI;;;Stream size in bytes
 StreamSize/String;;;Y NT;;;
 StreamSize/String1;;;N NT;;;
 StreamSize/String2;;;N NT;;;
-StreamSize/String3;;;N NT;;;
+StreamSize/String3;;;N NT;;;;;
 StreamSize/String4;;;N NT;;;;;
 Title;;;Y YI;;;Name of the track;;
 Encoded_Library;;;Y YT;;;Software used to create the file;;

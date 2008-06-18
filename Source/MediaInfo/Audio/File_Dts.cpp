@@ -89,6 +89,26 @@ const char*  DTS_ChannelPositions[]=
     "Front: L C R, Middle: L R, Surround: L C R",
 };
 
+const char*  DTS_ChannelPositions2[]=
+{
+    "1/0",
+    "2/0",
+    "2/0",
+    "2/0",
+    "2/0",
+    "3/0",
+    "2/1",
+    "3/1",
+    "2/2",
+    "3/2",
+    "4/2",
+    "3/2",
+    "2.2/2",
+    "3.2/2",
+    "2.2/4",
+    "3.2/3",
+};
+
 const char*  DTS_ExtensionAudioDescriptor[]=
 {
     "Channel Extension",
@@ -291,11 +311,12 @@ void File_Dts::Data_Parse_Fill()
     else
     {
         int8u Channels;
-        Ztring ChannelPositions;
+        Ztring ChannelPositions, ChannelPositions2;
         if (channel_arrangement<16)
         {
             Channels=DTS_Channels[channel_arrangement]+(lfe_effects?1:0);
             ChannelPositions.From_Local(DTS_ChannelPositions[channel_arrangement]);
+            ChannelPositions2.From_Local(DTS_ChannelPositions2[channel_arrangement]);
         }
         else
         {
@@ -303,9 +324,13 @@ void File_Dts::Data_Parse_Fill()
             ChannelPositions.From_Local("User defined");
         }
         if (lfe_effects)
+        {
             ChannelPositions+=_T(", LFE");
+            ChannelPositions2+=_T(".1");
+        }
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
         Fill(Stream_Audio, 0, Audio_ChannelPositions, ChannelPositions);
+        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, ChannelPositions2);
     }
     Fill(Stream_Audio, 0, Audio_Resolution, DTS_Resolution[bits_per_sample]);
 

@@ -86,6 +86,19 @@ const char*  AC3_ChannelPositions[]=
 };
 
 //---------------------------------------------------------------------------
+const char*  AC3_ChannelPositions2[]=
+{
+    "2/0",
+    "1/0",
+    "2/0",
+    "3/0",
+    "2/1",
+    "3/1",
+    "2/2",
+    "3/2",
+};
+
+//---------------------------------------------------------------------------
 extern const int8u AC3_Channels[]=
 {2, 1, 2, 3, 3, 4, 4, 5};
 
@@ -433,13 +446,16 @@ void File_Ac3::Data_Parse_Fill()
         }
         int8u Channels=AC3_Channels[acmod];
         Ztring ChannelPositions; ChannelPositions.From_Local(AC3_ChannelPositions[acmod]);
+        Ztring ChannelPositions2; ChannelPositions2.From_Local(AC3_ChannelPositions2[acmod]);
         if (lfeon)
         {
             Channels+=1;
             ChannelPositions+=_T(", LFE");
+            ChannelPositions2+=_T(".1");
         }
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
         Fill(Stream_Audio, 0, Audio_ChannelPositions, ChannelPositions);
+        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, ChannelPositions2);
         if (dsurmod==2)
         {
             Fill(Stream_Audio, 0, Audio_Format_Profile, "Dolby Digital");
