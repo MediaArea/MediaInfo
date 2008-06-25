@@ -744,7 +744,7 @@ void File_Mpeg_Psi::Table_00()
         BS_End();
 
         //Filling
-        Streams[xxx_PID].program_number=program_number;
+        Programs[program_number].pid=xxx_PID;
         Element_End(Ztring::ToZtring_From_CC2(program_number));
     }
     BS_End();

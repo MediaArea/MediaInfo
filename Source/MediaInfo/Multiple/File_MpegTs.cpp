@@ -35,6 +35,7 @@
 #include "MediaInfo/Multiple/File_Mpeg_Descriptors.h"
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #include <memory>
+#include <algorithm>
 using namespace std;
 //---------------------------------------------------------------------------
 
@@ -628,9 +629,12 @@ void File_MpegTs::PSI()
         }
 
         //Disabling this PID
-        delete Streams[pid].Parser; Streams[pid].Parser=NULL;
-        Streams[pid].Searching_Payload_Start_Set(false);
-        Streams[pid].Searching_Payload_Continue_Set(false);
+        if (Streams[pid].Parser->File_Offset==Streams[pid].Parser->File_Size) //some methods can modify this value for saying that we must no delete
+        {
+            delete Streams[pid].Parser; Streams[pid].Parser=NULL;
+            Streams[pid].Searching_Payload_Start_Set(false);
+            Streams[pid].Searching_Payload_Continue_Set(false);
+        }
     }
     else
         //Waiting for more data
@@ -642,21 +646,21 @@ void File_MpegTs::PSI_program_association_table()
 {
     program_Count=0;
     File_Mpeg_Psi* Parser=(File_Mpeg_Psi*)Streams[pid].Parser;
-    for (std::map<int16u, File_Mpeg_Psi::stream>::iterator Program=Parser->Streams.begin(); Program!=Parser->Streams.end(); Program++)
+    for (std::map<int16u, File_Mpeg_Psi::program>::iterator Program=Parser->Programs.begin(); Program!=Parser->Programs.end(); Program++)
     {
-        int16u PID=Program->first;
+        int16u PID=Program->second.pid;
 
         //Program
-        if (Program->second.program_number!=0x0000)
-            Programs[Program->second.program_number].pid=PID;
+        if (Program->first!=0x0000)
+            Programs[Program->first].pid=PID;
 
         //Enabling what we know parsing
-        Streams[PID].TS_Kind=Program->second.Kind;
-        Streams[PID].program_number=Program->second.program_number;
+        Streams[PID].TS_Kind=Program->first!=0x0000?File_Mpeg_Psi::program_map_table:File_Mpeg_Psi::network_information_table;
+        Streams[PID].program_number=Program->first;
         Streams[PID].Searching_Payload_Start_Set(true);
 
         //File_Filter
-        if (!Config->File_Filter_Get(Streams[Program->first].program_number))
+        if (!Config->File_Filter_Get(Program->first))
         {
             Streams[PID].Searching_Payload_Start_Set(false);
             Streams[PID].Searching_Payload_Continue_Set(false);
@@ -665,7 +669,7 @@ void File_MpegTs::PSI_program_association_table()
         {
             Streams[PID].Searching_Payload_Start_Set(true);
             Streams[PID].Searching_Payload_Continue_Set(true);
-            if (Program->second.program_number!=0x0000)
+            if (Program->first!=0x0000)
                 program_Count++;
         }
 
@@ -674,6 +678,9 @@ void File_MpegTs::PSI_program_association_table()
             Streams[PID].ShouldDuplicate=true;
         else
             Streams[PID].ShouldDuplicate=false;
+
+        //Case of multiple program in one PID
+        PID_PMTs[PID].List.push_back(Program->first);
 
         //Menus
         //ProgramNumber2StreamNumber[Parser->program_association_section_ProgramNumber[Pos]]=elementary_PID;
@@ -697,6 +704,7 @@ void File_MpegTs::PSI_program_map_table()
         Streams[0x1001].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
     }
 
+    int16u program_number=0; //We want to remember the program_number, it is always the same
     for (std::map<int16u, File_Mpeg_Psi::stream>::iterator Stream=Parser->Streams.begin(); Stream!=Parser->Streams.end(); Stream++)
     {
         //Retrieving info
@@ -813,10 +821,22 @@ void File_MpegTs::PSI_program_map_table()
                     Pos=0x1FF6; //Skipping normal data
             }
             */
+
+            program_number=Stream->second.program_number;
         }
     }
     if (program_Count)
         program_Count--;
+
+    //Case of multiple program in one PID
+    if (program_number)
+    {
+        std::vector<int16u>::iterator Pos=find(PID_PMTs[pid].List.begin(), PID_PMTs[pid].List.end(), program_number);
+        if (Pos!=PID_PMTs[pid].List.end())
+            PID_PMTs[pid].List.erase(Pos);
+        if (!PID_PMTs[pid].List.empty())
+            Streams[pid].Parser->File_Offset=File_Offset; //Disabling the tag "finnished", we want it again!
+    }
 }
 
 //---------------------------------------------------------------------------

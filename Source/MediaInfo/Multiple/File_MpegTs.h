@@ -161,6 +161,20 @@ private :
     };
     std::map<int16u, program>   Programs;
 
+    struct pid_pmts
+    {
+        std::vector<int16u>                         List;
+
+        pid_pmts()
+        {
+        }
+
+        ~pid_pmts()
+        {
+        }
+    };
+    std::map<int16u, pid_pmts> PID_PMTs;
+
     //Elements
     void PSI();
     void PSI_program_association_table();

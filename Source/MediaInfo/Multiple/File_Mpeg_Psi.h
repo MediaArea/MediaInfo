@@ -105,6 +105,22 @@ public :
     std::map<int16u, stream> Streams;
     int16u                   Stream_Current;
 
+    //About Programs
+    struct program
+    {
+        int16u                                      pid;
+
+        program()
+        {
+            pid=0;
+        }
+
+        ~program()
+        {
+        }
+    };
+    std::map<int16u, program>   Programs;
+
     //About program
     int16u transport_stream_id; //Unique ID of the stream
 
