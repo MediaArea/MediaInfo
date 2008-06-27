@@ -99,6 +99,7 @@ private :
     int8u  frame_rate_extension_n;
     int8u  frame_rate_extension_d;
     int8u  video_format;
+    int8u  picture_structure;
     bool   Time_End_NeedComplete;
     bool   load_intra_quantiser_matrix;
     bool   load_non_intra_quantiser_matrix;

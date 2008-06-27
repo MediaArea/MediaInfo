@@ -27,8 +27,8 @@ LANGUAGE LANG_FRENCH, SUBLANG_FRENCH
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,7,7,1
- PRODUCTVERSION 0,7,7,1
+ FILEVERSION 0,7,7,3
+ PRODUCTVERSION 0,7,7,3
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -45,12 +45,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "http://mediainfo.sourceforge.net"
             VALUE "FileDescription", "Library for read info about media files"
-            VALUE "FileVersion", "0, 7, 7, 1"
+            VALUE "FileVersion", "0, 7, 7, 3"
             VALUE "InternalName", "MediaInfoLib - Dll - MSVC 2008"
             VALUE "LegalCopyright", "LGPL"
             VALUE "OriginalFilename", "MediaInfo.dll"
             VALUE "ProductName", "MediaInfoLib"
-            VALUE "ProductVersion", "0, 7, 7, 1"
+            VALUE "ProductVersion", "0, 7, 7, 3"
         END
     END
     BLOCK "VarFileInfo"

@@ -416,7 +416,7 @@ void File_Mpegv::picture_start()
 
     //Name
     Element_Name("picture_start");
-    Element_Info(Ztring(_T("Frame ")+Ztring::ToZtring(Frame_Count)));
+    Element_Info(Ztring(_T("Field ")+Ztring::ToZtring(Frame_Count)));
 
     //Parsing
     int8u picture_coding_type;
@@ -452,18 +452,13 @@ void File_Mpegv::picture_start()
     {
         if (Time_End_Seconds!=Error)
         {
-            size_t Time_Begin=Time_Begin_Seconds*1000;
             size_t Time_End  =Time_End_Seconds  *1000;
             if (FrameRate)
-            {
-                Time_Begin+=(size_t)(Time_Begin_Frames*1000/FrameRate);
                 Time_End  +=(size_t)(Time_End_Frames  *1000/FrameRate);
-            }
-            size_t Time_Total=Time_End-Time_Begin;
-            size_t Hours  = Time_Total/60/60/1000;
-            size_t Minutes=(Time_Total-(Hours*60*60*1000))/60/1000;
-            size_t Seconds=(Time_Total-(Hours*60*60*1000)-(Minutes*60*1000))/1000;
-            size_t Milli  =(Time_Total-(Hours*60*60*1000)-(Minutes*60*1000)-(Seconds*1000));
+            size_t Hours  = Time_End/60/60/1000;
+            size_t Minutes=(Time_End-(Hours*60*60*1000))/60/1000;
+            size_t Seconds=(Time_End-(Hours*60*60*1000)-(Minutes*60*1000))/1000;
+            size_t Milli  =(Time_End-(Hours*60*60*1000)-(Minutes*60*1000)-(Seconds*1000));
 
             Ztring Time;
             Time+=Ztring::ToZtring(Hours);
@@ -490,6 +485,8 @@ void File_Mpegv::picture_start()
             if (top_field_first)
                 Time_End_Frames++; //Frame repeated a third time
         }
+        if (picture_structure==2) //Bottom, and we want to add a frame only one time if 2 fields
+            Time_End_Frames--; //One frame
     }
 
     FILLING_BEGIN();
@@ -689,6 +686,7 @@ void File_Mpegv::slice_start_Fill()
         Streams[Pos].Searching_TimeStamp_End=false;
     }
     Streams[0x00].Searching_TimeStamp_End=true; //picture_start
+    Streams[0xB5].Searching_TimeStamp_End=true; //extension_start
     Streams[0xB8].Searching_TimeStamp_End=true; //group_start
     Streams[0xB9].Searching_Payload=true; //sequence_end
 
@@ -906,7 +904,6 @@ void File_Mpegv::extension_start()
                 break;
         case 8 :{ //Picture Coding
                     //Parsing
-                    int8u picture_structure;
                     Skip_S1( 4,                                 "f_code_forward_horizontal");
                     Skip_S1( 4,                                 "f_code_forward_vertical");
                     Skip_S1( 4,                                 "f_code_backward_horizontal");
