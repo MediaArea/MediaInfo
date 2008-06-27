@@ -648,6 +648,7 @@ void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
     {
         Language_Raw=true;
         Language.clear();
+        Language.Write(_T("  Config_Text_Separator"), _T(" : ")); //Exception for ":"
     }
     //-Add custom language to English language
     else
