@@ -297,27 +297,32 @@ void File_MpegTs::Read_Buffer_Finalize()
                 //Common
                 Fill(StreamKind_Last, StreamPos_Last, "ID", StreamID);
                 Fill(StreamKind_Last, StreamPos_Last, "ID/String", Decimal_Hexa(StreamID));
-                Fill(StreamKind_Last, StreamPos_Last, "MenuID", Streams[StreamID].program_number);
-                Fill(StreamKind_Last, StreamPos_Last, "MenuID/String", Decimal_Hexa(Streams[StreamID].program_number));
 
-                //Menu
-                Programs[Streams[StreamID].program_number].List.push_back(Ztring::ToZtring(StreamID));
-                Ztring Format=Retrieve(StreamKind_Last, StreamPos_Last, "Format");
-                Programs[Streams[StreamID].program_number].Format.push_back(Format);
-                Ztring Codec=Retrieve(StreamKind_Last, StreamPos_Last, "Codec");
-                Programs[Streams[StreamID].program_number].Codec.push_back(Codec);
-                Ztring Language=Retrieve(StreamKind_Last, StreamPos_Last, "Language");
-                Programs[Streams[StreamID].program_number].Language.push_back(Language);
-                Ztring Menu_Temp=Decimal_Hexa(StreamID);
-                Menu_Temp+=_T(" (");
-                Menu_Temp+=Format;
-                if (!Language.empty())
+                for (size_t Pos=0; Pos<Streams[StreamID].program_numbers.size(); Pos++)
                 {
-                    Menu_Temp+=_T(", ");
-                    Menu_Temp+=Language;
+                    //Common
+                    Fill(StreamKind_Last, StreamPos_Last, "MenuID", Streams[StreamID].program_numbers[Pos]);
+                    Fill(StreamKind_Last, StreamPos_Last, "MenuID/String", Decimal_Hexa(Streams[StreamID].program_numbers[Pos]));
+
+                    //Menu
+                    Programs[Streams[StreamID].program_numbers[Pos]].List.push_back(Ztring::ToZtring(StreamID));
+                    Ztring Format=Retrieve(StreamKind_Last, StreamPos_Last, "Format");
+                    Programs[Streams[StreamID].program_numbers[Pos]].Format.push_back(Format);
+                    Ztring Codec=Retrieve(StreamKind_Last, StreamPos_Last, "Codec");
+                    Programs[Streams[StreamID].program_numbers[Pos]].Codec.push_back(Codec);
+                    Ztring Language=Retrieve(StreamKind_Last, StreamPos_Last, "Language");
+                    Programs[Streams[StreamID].program_numbers[Pos]].Language.push_back(Language);
+                    Ztring Menu_Temp=Decimal_Hexa(StreamID);
+                    Menu_Temp+=_T(" (");
+                    Menu_Temp+=Format;
+                    if (!Language.empty())
+                    {
+                        Menu_Temp+=_T(", ");
+                        Menu_Temp+=Language;
+                    }
+                    Menu_Temp+=_T(")");
+                    Programs[Streams[StreamID].program_numbers[Pos]].Text.push_back(Menu_Temp);
                 }
-                Menu_Temp+=_T(")");
-                Programs[Streams[StreamID].program_number].Text.push_back(Menu_Temp);
             }
         }
         delete Streams[StreamID].Parser; Streams[StreamID].Parser=NULL;
@@ -436,8 +441,11 @@ void File_MpegTs::Header_Parse()
     BS_End();
 
     //Info
-    if (Streams[pid].program_number>0)
-        Data_Info(Ztring::ToZtring_From_CC2(Streams[pid].program_number));
+    if (!Streams[pid].program_numbers.empty())
+    {
+        for (size_t Pos=0; Pos<Streams[pid].program_numbers.size(); Pos++)
+            Data_Info(Ztring::ToZtring_From_CC2(Streams[pid].program_numbers[Pos]));
+    }
     else
         Data_Info("    ");
     Data_Info(Mpeg_Psi_kind(Streams[pid].TS_Kind));
@@ -632,7 +640,7 @@ void File_MpegTs::PSI()
         if (Streams[pid].Parser->File_Offset==Streams[pid].Parser->File_Size) //some methods can modify this value for saying that we must no delete
         {
             delete Streams[pid].Parser; Streams[pid].Parser=NULL;
-            Streams[pid].Searching_Payload_Start_Set(false);
+            Streams[pid].Searching_Payload_Start_Set(pid==0x0000 && File_Offset<0x8000);
             Streams[pid].Searching_Payload_Continue_Set(false);
         }
     }
@@ -656,7 +664,7 @@ void File_MpegTs::PSI_program_association_table()
 
         //Enabling what we know parsing
         Streams[PID].TS_Kind=Program->first!=0x0000?File_Mpeg_Psi::program_map_table:File_Mpeg_Psi::network_information_table;
-        Streams[PID].program_number=Program->first;
+        Streams[PID].program_numbers.push_back(Program->first);
         Streams[PID].Searching_Payload_Start_Set(true);
 
         //File_Filter
@@ -699,9 +707,13 @@ void File_MpegTs::PSI_program_map_table()
     format_identifier=Parser->Streams[0x0000].format_identifier;
     if (format_identifier==Mpeg_Descriptors::HDMV)
     {
-        //Bluray specification fixes the PID of the PCR PID by 0x1001
-        Streams[0x1001].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
-        Streams[0x1001].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
+        if (Streams[0x1001].TS_Kind==File_Mpeg_Psi::unknown) //Only if not already registered
+        {
+            //Bluray specification fixes the PID of the PCR PID by 0x1001
+            Streams[0x1001].TS_Kind=File_Mpeg_Psi::PCR;
+            Streams[0x1001].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
+            Streams[0x1001].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
+        }
     }
 
     int16u program_number=0; //We want to remember the program_number, it is always the same
@@ -729,10 +741,13 @@ void File_MpegTs::PSI_program_map_table()
         //Scrambling
         if (Stream->second.CA_PID)
         {
-            Streams[Stream->second.CA_PID].program_number=Stream->second.program_number;
-            Streams[Stream->second.CA_PID].TS_Kind=File_Mpeg_Psi::conditional_access_table;
-            Streams[Stream->second.CA_PID].Searching_Payload_Start_Set(true);
-            elementary_PID_Count++;
+            if (Streams[Stream->second.CA_PID].TS_Kind==File_Mpeg_Psi::unknown) //Only if not already registered
+            {
+                elementary_PID_Count++;
+                Streams[Stream->second.CA_PID].program_numbers.push_back(Stream->second.program_number);
+                Streams[Stream->second.CA_PID].TS_Kind=File_Mpeg_Psi::conditional_access_table;
+                Streams[Stream->second.CA_PID].Searching_Payload_Start_Set(true);
+            }
         }
 
         if (elementary_PID==0x0000)
@@ -741,20 +756,24 @@ void File_MpegTs::PSI_program_map_table()
         }
         else
         {
-            if (Streams[elementary_PID].Parser==NULL) //Not yet parsed
+            std::vector<int16u>::iterator Pos=find(Streams[elementary_PID].program_numbers.begin(), Streams[elementary_PID].program_numbers.end(), Stream->second.program_number);
+            if (Pos==Streams[elementary_PID].program_numbers.end())
+                Streams[elementary_PID].program_numbers.push_back(Stream->second.program_number);
+            if (Streams[elementary_PID].TS_Kind==File_Mpeg_Psi::unknown) //Only if not already registered
+            {
+                elementary_PID_Count++;
                 Streams[elementary_PID].TS_Kind=File_Mpeg_Psi::pes;
-            if (Stream->second.program_number!=0x0000)
-                Streams[elementary_PID].Infos=Stream->second.Infos;
-            Streams[elementary_PID].program_number=Stream->second.program_number;
-            Streams[elementary_PID].stream_type=Stream->second.stream_type;
-            Streams[elementary_PID].descriptor_tag=Stream->second.descriptor_tag;
-            Streams[elementary_PID].Searching_Payload_Start_Set(true);
-            elementary_PID_Count++;
-            Streams[elementary_PID].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
-            if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
-                Streams[elementary_PID].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
-            if (File__Duplicate_Get_From_PID(elementary_PID))
-                Streams[elementary_PID].ShouldDuplicate=true;
+                if (Stream->second.program_number!=0x0000)
+                    Streams[elementary_PID].Infos=Stream->second.Infos;
+                Streams[elementary_PID].stream_type=Stream->second.stream_type;
+                Streams[elementary_PID].descriptor_tag=Stream->second.descriptor_tag;
+                Streams[elementary_PID].Searching_Payload_Start_Set(true);
+                Streams[elementary_PID].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
+                if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
+                    Streams[elementary_PID].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
+                if (File__Duplicate_Get_From_PID(elementary_PID))
+                    Streams[elementary_PID].ShouldDuplicate=true;
+            }
 
             //Not precised PID handling
             /*
@@ -934,6 +953,11 @@ void File_MpegTs::PES()
             Streams[pid].Searching_Payload_Continue_Set(false);
             elementary_PID_Count--;
         }
+    }
+    else
+    {
+        Streams[pid].Searching_Payload_Start_Set(false);
+        Streams[pid].Searching_Payload_Continue_Set(false);
     }
 
     //Demux
