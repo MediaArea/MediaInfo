@@ -1085,7 +1085,7 @@ bool File_MpegTs::Header_Parser_QuickSearch()
 void File_MpegTs::Detect_EOF()
 {
     //Jump to the end of the file
-    if (File_Offset+Buffer_Offset+MpegTs_JumpTo_End<File_Size && (
+    if (File_Offset+Buffer_Offset>0x8000 && File_Offset+Buffer_Offset+MpegTs_JumpTo_End<File_Size && (
        (File_Offset+Buffer_Offset>=MpegTs_JumpTo_Begin)
     || (program_Count==0 && elementary_PID_Count==0)
     ))
