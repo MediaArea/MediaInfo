@@ -83,7 +83,7 @@ rem --- Copying : Contrib ---
 xcopy ..\Contrib\*.* MediaInfoDLL_Win32\Developpers\Contrib\ /S
 
 rem --- Copying : DLL ---
-xcopy MSVC\Dll\MediaInfo.dll MediaInfoDLL_Win32\
+xcopy MSVC2005\Dll\MediaInfo.dll MediaInfoDLL_Win32\
 xcopy ..\..\MediaInfo\Release\MSVC\Dll\MediaInfo_InfoTip.dll MediaInfoDLL_Win32\
 xcopy ..\..\MediaInfo\Project\MSVC\ShellExtension\*.bat MediaInfoDLL_Win32\
 
