@@ -569,7 +569,7 @@ void File_Flv::video()
     BS_End();
     Element_End();
 
-    Demux(Buffer+Buffer_Offset+Element_Offset, (size_t)(Element_Size-Element_Offset), _T("video.raw"));
+    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), _T("video.raw"));
 
     if (Stream[Stream_Video].PacketCount==60) //2s
     {
@@ -1160,12 +1160,12 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                     case 0x03 : //boolean-true
                         break;
                     default : //Not implemented or unknown
-                        Element_Offset=(size_t)Element_Size;
+                        Element_Offset=Element_Size;
                 }
             }
             break;
         default : //Unknown
-            Element_Offset=(size_t)Element_Size; //Forcing the end of parsing
+            Element_Offset=Element_Size; //Forcing the end of parsing
     }
 }
 

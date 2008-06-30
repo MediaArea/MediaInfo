@@ -593,7 +593,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
     Get_SB (PES_extension_flag,                                 "PES_extension_flag");
     BS_End();
     Get_B1 (PES_header_data_length,                             "PES_header_data_length");
-    size_t Element_Pos_After_Data=Element_Offset+PES_header_data_length;
+    int64u Element_Pos_After_Data=Element_Offset+PES_header_data_length;
 
     //Options
     if (PTS_DTS_flags==0x2)

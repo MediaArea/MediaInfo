@@ -688,7 +688,7 @@ void File_Mpeg4_Descriptors::Descriptor_05()
     }
 
     //Positionning
-    Element_Offset=(size_t)Element_Size;
+    Element_Offset=Element_Size;
 }
 
 //---------------------------------------------------------------------------

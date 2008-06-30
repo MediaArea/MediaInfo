@@ -1098,7 +1098,7 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
     FILLING_BEGIN();
         //Parsing
         Open_Buffer_Init(Stream[TrackNumber].Parser, File_Size, File_Offset+Buffer_Offset+Element_Offset);
-        Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+Element_Offset, (size_t)Element_Size-Element_Offset);
+        Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
 
         //Filling
         if (Stream[TrackNumber].Parser->File_Offset==File_Size
@@ -1119,10 +1119,10 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
         }
 
         //Demux
-        Demux(Buffer+Buffer_Offset+Element_Offset, (size_t)Element_Size-Element_Offset, Ztring::ToZtring(TrackNumber, 16)+_T(".")+_T("raw"));
+        Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), Ztring::ToZtring(TrackNumber, 16)+_T(".")+_T("raw"));
 
         //Positionning
-        Element_Offset=(size_t)Element_Size;
+        Element_Offset=Element_Size;
     FILLING_END();
 
     Element_Show(); //For debug
@@ -2552,7 +2552,7 @@ void File_Mk::CodecPrivate_Manage()
     Buffer_Offset=Buffer_Offset_Save;
     Buffer_Size=Buffer_Size_Save;
     Element_Size=Element_Size_Save;
-    Element_Offset=(size_t)Element_Size_Save;
+    Element_Offset=Element_Size_Save;
     delete[] CodecPrivate; CodecPrivate=NULL;
     CodecPrivate_Size=0;
     Element_Name("(Multiple info)");

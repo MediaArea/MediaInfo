@@ -1304,7 +1304,7 @@ void File_Wm::Data_Packet()
     }
 
     //Padding handling
-    Element_Offset=(size_t)Element_RealSize;
+    Element_Offset=Element_RealSize;
     if (NumberPayloads_Pos==NumberPayloads && Data_Parse_Padding>0)
     {
         Skip_XX(Data_Parse_Padding,                             "Padding");

@@ -465,14 +465,14 @@ void File_Ogg_SubElement::Comment_vorbis()
     Merge(Vorbis, Stream_Chapters, 0, 0);
 
     //int32u Element_Offset=Vorbis->Comment_Size;
-    /*if (CC1(Buffer+Buffer_Offset+Element_Offset)==0x01) //End bit
+    /*if (CC1(Buffer+Buffer_Offset+(size_t)Element_Offset)==0x01) //End bit
         Element_Offset++;
 
     if (Element_Offset==Element_Size)
         Finnished();
 
     //Parsing Setup
-    while (CC1(Buffer+Buffer_Offset+Element_Offset)==0x00)
+    while (CC1(Buffer+Buffer_Offset+(size_t)Element_Offset)==0x00)
         Element_Offset++;
 
     Buffer_Offset+=Element_Offset;

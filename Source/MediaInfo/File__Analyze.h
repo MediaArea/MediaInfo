@@ -760,7 +760,7 @@ protected :
 
     //Element
     int64u Element_Code;            //Code filled in the file, copy of Element[Element_Level].Code
-    size_t Element_Offset;          //Position in the Element (without header)
+    int64u Element_Offset;          //Position in the Element (without header)
     int64u Element_Size;            //Size of the Element (without header)
 
 private :

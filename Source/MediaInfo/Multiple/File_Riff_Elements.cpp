@@ -733,8 +733,8 @@ void File_Riff::AVI__hdlr_strl_indx_StandardIndex(int32u Entry_Count, int32u Chu
         */
 
         //Faster method
-        int32u Offset=LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset  );
-        int32u Size  =LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset+4)&0x7FFFFFFF;
+        int32u Offset=LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset  );
+        int32u Size  =LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+4)&0x7FFFFFFF;
         Element_Offset+=8;
 
         //Stream Position and size
@@ -1019,7 +1019,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds_Vorbis()
         if (Element_Offset+Elements_TotalSize>Element_Size)
             return;
         //Adding the last block
-        Elements_Size[Elements_Count]=(size_t)Element_Size-(Element_Offset+Elements_TotalSize);
+        Elements_Size[Elements_Count]=(size_t)(Element_Size-(Element_Offset+Elements_TotalSize));
         Elements_Count++;
         //Parsing blocks
         for (int8u Pos=0; Pos<Elements_Count; Pos++)
@@ -1432,7 +1432,7 @@ void File_Riff::AVI__idx1()
     }
 
     //Testing malformed index (index is based on start of the file, wrong)
-    if (16<=Element_Size && Idx1_Offset+4==LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset+ 8))
+    if (16<=Element_Size && Idx1_Offset+4==LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+ 8))
         Idx1_Offset=0; //Fixing base of movi atom, the index think it is the start of the file
 
     //Parsing
@@ -1463,9 +1463,9 @@ void File_Riff::AVI__idx1()
         */
 
         //Faster method
-        int32u StreamID=BigEndian2int32u   (Buffer+Buffer_Offset+Element_Offset   )&0xFFFF0000;
-        int32u Offset  =LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset+ 8);
-        int32u Size    =LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset+12);
+        int32u StreamID=BigEndian2int32u   (Buffer+Buffer_Offset+(size_t)Element_Offset   )&0xFFFF0000;
+        int32u Offset  =LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+ 8);
+        int32u Size    =LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+12);
         Stream[StreamID].StreamSize+=Size;
         Stream[StreamID].PacketCount++;
         Stream_Pos[Idx1_Offset+Offset]=StreamID;
@@ -2042,7 +2042,7 @@ void File_Riff::RMP3_data()
     #endif
 
     //Positionning
-    Element_Offset+=(size_t)Element_TotalSize_Get();
+    Element_Offset+=Element_TotalSize_Get();
 }
 
 //---------------------------------------------------------------------------

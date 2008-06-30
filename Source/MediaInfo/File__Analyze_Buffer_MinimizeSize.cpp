@@ -45,7 +45,7 @@ extern MediaInfo_Config Config;
     if (!(TOVALIDATE)) \
     { \
         Trusted_IsNot(ERRORTEXT); \
-        Element_Offset=(size_t)Element_Size; \
+        Element_Offset=Element_Size; \
         return; \
     } \
 
@@ -53,7 +53,7 @@ extern MediaInfo_Config Config;
     if (!(TOVALIDATE)) \
     { \
         Trusted_IsNot(ERRORTEXT); \
-        Element_Offset=(size_t)Element_Size; \
+        Element_Offset=Element_Size; \
         Info=0; \
         return; \
     } \
@@ -62,7 +62,7 @@ extern MediaInfo_Config Config;
     if (Element_Offset+_BYTES>Element_Size) \
     { \
         Trusted_IsNot("Size is wrong"); \
-        Element_Offset=(size_t)Element_Size; \
+        Element_Offset=Element_Size; \
         return; \
     } \
 
@@ -70,7 +70,7 @@ extern MediaInfo_Config Config;
     if (Element_Offset+_BYTES>Element_Size) \
     { \
         Trusted_IsNot("Size is wrong"); \
-        Element_Offset=(size_t)Element_Size; \
+        Element_Offset=Element_Size; \
         Info.clear(); \
         return; \
     } \
@@ -79,7 +79,7 @@ extern MediaInfo_Config Config;
     if (Element_Offset+_BYTES>Element_Size) \
     { \
         Trusted_IsNot("Size is wrong"); \
-        Element_Offset=(size_t)Element_Size; \
+        Element_Offset=Element_Size; \
         Info=0; \
         return; \
     } \
@@ -88,7 +88,7 @@ extern MediaInfo_Config Config;
     if (BS->Remain()==0) \
     { \
         Trusted_IsNot("Size is wrong"); \
-        Element_Offset=(size_t)Element_Size; \
+        Element_Offset=Element_Size; \
         Info=0; \
         return; \
     } \
@@ -105,10 +105,10 @@ void File__Analyze::BS_Begin()
 
     size_t BS_Size;
     if (Buffer_Offset+Element_Size<=Buffer_Size)
-        BS_Size=(size_t)Element_Size-Element_Offset;
+        BS_Size=(size_t)(Element_Size-Element_Offset);
     else
-        BS_Size=Buffer_Size-(Buffer_Offset+Element_Offset);
-    BS->Attach(Buffer+Buffer_Offset+Element_Offset, BS_Size);
+        BS_Size=Buffer_Size-(size_t)(Buffer_Offset+Element_Offset);
+    BS->Attach(Buffer+Buffer_Offset+(size_t)Element_Offset, BS_Size);
 }
 
 //---------------------------------------------------------------------------
@@ -145,7 +145,7 @@ void File__Analyze::BS_End_LE()
 void File__Analyze::Get_B1(int8u  &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(1);
-    Info=BigEndian2int8u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int8u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=1;
 }
 
@@ -153,7 +153,7 @@ void File__Analyze::Get_B1(int8u  &Info)
 void File__Analyze::Get_B2(int16u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(2);
-    Info=BigEndian2int16u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int16u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=2;
 }
 
@@ -161,7 +161,7 @@ void File__Analyze::Get_B2(int16u &Info)
 void File__Analyze::Get_B3(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(3);
-    Info=BigEndian2int24u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int24u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=3;
 }
 
@@ -169,7 +169,7 @@ void File__Analyze::Get_B3(int32u &Info)
 void File__Analyze::Get_B4(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(4);
-    Info=BigEndian2int32u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=4;
 }
 
@@ -177,7 +177,7 @@ void File__Analyze::Get_B4(int32u &Info)
 void File__Analyze::Get_B5(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(5);
-    Info=BigEndian2int40u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int40u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=5;
 }
 
@@ -185,7 +185,7 @@ void File__Analyze::Get_B5(int64u &Info)
 void File__Analyze::Get_B6(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(6);
-    Info=BigEndian2int48u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int48u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=6;
 }
 
@@ -193,7 +193,7 @@ void File__Analyze::Get_B6(int64u &Info)
 void File__Analyze::Get_B7(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(7);
-    Info=BigEndian2int56u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int56u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=7;
 }
 
@@ -201,7 +201,7 @@ void File__Analyze::Get_B7(int64u &Info)
 void File__Analyze::Get_B8(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(8);
-    Info=BigEndian2int64u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=8;
 }
 
@@ -209,9 +209,9 @@ void File__Analyze::Get_B8(int64u &Info)
 void File__Analyze::Get_B16(int128u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(16);
-    //Info=BigEndian2int128u(Buffer+Buffer_Offset+Element_Offset);
-    Info.hi=BigEndian2int64u(Buffer+Buffer_Offset+Element_Offset);
-    Info.lo=BigEndian2int64u(Buffer+Buffer_Offset+Element_Offset+8);
+    //Info=BigEndian2int128u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    Info.hi=BigEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    Info.lo=BigEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset+8);
     Element_Offset+=16;
 }
 
@@ -219,7 +219,7 @@ void File__Analyze::Get_B16(int128u &Info)
 void File__Analyze::Get_BF4(float32 &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(4);
-    Info=BigEndian2float32(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2float32(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=4;
 }
 
@@ -227,7 +227,7 @@ void File__Analyze::Get_BF4(float32 &Info)
 void File__Analyze::Get_BF8(float64 &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(8);
-    Info=BigEndian2float64(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2float64(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=8;
 }
 
@@ -235,7 +235,7 @@ void File__Analyze::Get_BF8(float64 &Info)
 void File__Analyze::Get_BF10(float80 &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(10);
-    Info=BigEndian2float80(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2float80(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=10;
 }
 
@@ -243,56 +243,56 @@ void File__Analyze::Get_BF10(float80 &Info)
 void File__Analyze::Peek_B1(int8u  &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(1);
-    Info=BigEndian2int8u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int8u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_B2(int16u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(2);
-    Info=BigEndian2int16u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int16u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_B3(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(3);
-    Info=BigEndian2int24u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int24u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_B4(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(4);
-    Info=BigEndian2int32u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_B5(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(5);
-    Info=BigEndian2int40u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int40u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_B6(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(6);
-    Info=BigEndian2int48u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int48u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_B7(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(7);
-    Info=BigEndian2int56u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int56u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_B8(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(8);
-    Info=BigEndian2int64u(Buffer+Buffer_Offset+Element_Offset);
+    Info=BigEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //***************************************************************************
@@ -303,7 +303,7 @@ void File__Analyze::Peek_B8(int64u &Info)
 void File__Analyze::Get_L1(int8u  &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(1);
-    Info=LittleEndian2int8u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int8u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=1;
 }
 
@@ -311,7 +311,7 @@ void File__Analyze::Get_L1(int8u  &Info)
 void File__Analyze::Get_L2(int16u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(2);
-    Info=LittleEndian2int16u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int16u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=2;
 }
 
@@ -319,7 +319,7 @@ void File__Analyze::Get_L2(int16u &Info)
 void File__Analyze::Get_L3(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(3);
-    Info=LittleEndian2int24u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int24u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=3;
 }
 
@@ -327,7 +327,7 @@ void File__Analyze::Get_L3(int32u &Info)
 void File__Analyze::Get_L4(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(4);
-    Info=LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=4;
 }
 
@@ -335,7 +335,7 @@ void File__Analyze::Get_L4(int32u &Info)
 void File__Analyze::Get_L5(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(5);
-    Info=LittleEndian2int40u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int40u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=5;
 }
 
@@ -343,7 +343,7 @@ void File__Analyze::Get_L5(int64u &Info)
 void File__Analyze::Get_L6(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(6);
-    Info=LittleEndian2int48u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int48u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=6;
 }
 
@@ -351,7 +351,7 @@ void File__Analyze::Get_L6(int64u &Info)
 void File__Analyze::Get_L7(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(7);
-    Info=LittleEndian2int56u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int56u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=7;
 }
 
@@ -359,7 +359,7 @@ void File__Analyze::Get_L7(int64u &Info)
 void File__Analyze::Get_L8(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(8);
-    Info=LittleEndian2int64u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=8;
 }
 
@@ -367,9 +367,9 @@ void File__Analyze::Get_L8(int64u &Info)
 void File__Analyze::Get_L16(int128u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(16);
-    //Info=LittleEndian2int128u(Buffer+Buffer_Offset+Element_Offset);
-    Info.hi=LittleEndian2int64u(Buffer+Buffer_Offset+Element_Offset);
-    Info.lo=LittleEndian2int64u(Buffer+Buffer_Offset+Element_Offset+8);
+    //Info=LittleEndian2int128u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    Info.hi=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    Info.lo=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset+8);
     Element_Offset+=16;
 }
 
@@ -377,7 +377,7 @@ void File__Analyze::Get_L16(int128u &Info)
 void File__Analyze::Get_LF4(float32 &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(4);
-    Info=LittleEndian2float32(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2float32(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=4;
 }
 
@@ -385,7 +385,7 @@ void File__Analyze::Get_LF4(float32 &Info)
 void File__Analyze::Get_LF8(float64 &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(8);
-    Info=LittleEndian2float64(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2float64(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=8;
 }
 
@@ -393,56 +393,56 @@ void File__Analyze::Get_LF8(float64 &Info)
 void File__Analyze::Peek_L1(int8u  &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(1);
-    Info=LittleEndian2int8u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int8u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_L2(int16u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(2);
-    Info=LittleEndian2int16u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int16u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_L3(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(3);
-    Info=LittleEndian2int24u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int24u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_L4(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(4);
-    Info=LittleEndian2int32u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_L5(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(5);
-    Info=LittleEndian2int40u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int40u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_L6(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(6);
-    Info=LittleEndian2int48u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int48u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_L7(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(7);
-    Info=LittleEndian2int56u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int56u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_L8(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(8);
-    Info=LittleEndian2int64u(Buffer+Buffer_Offset+Element_Offset);
+    Info=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
 //***************************************************************************
@@ -453,8 +453,8 @@ void File__Analyze::Peek_L8(int64u &Info)
 void File__Analyze::Get_UUID(int128u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(16);
-    Info.hi=LittleEndian2int64u(Buffer+Buffer_Offset+Element_Offset);
-    Info.lo=BigEndian2int64u   (Buffer+Buffer_Offset+Element_Offset+8);
+    Info.hi=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    Info.lo=BigEndian2int64u   (Buffer+Buffer_Offset+(size_t)Element_Offset+8);
     Element_Offset+=16;
 }
 
@@ -886,7 +886,7 @@ void File__Analyze::Skip_VL(int32u Call(int8u Size, int32u ToCall), const char* 
 void File__Analyze::Get_C1(int8u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(1);
-    Info=CC1(Buffer+Buffer_Offset+Element_Offset);
+    Info=CC1(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=1;
 }
 
@@ -894,7 +894,7 @@ void File__Analyze::Get_C1(int8u &Info)
 void File__Analyze::Get_C2(int16u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(2);
-    Info=CC2(Buffer+Buffer_Offset+Element_Offset);
+    Info=CC2(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=2;
 }
 
@@ -902,7 +902,7 @@ void File__Analyze::Get_C2(int16u &Info)
 void File__Analyze::Get_C3(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(3);
-    Info=CC3(Buffer+Buffer_Offset+Element_Offset);
+    Info=CC3(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=3;
 }
 
@@ -910,7 +910,7 @@ void File__Analyze::Get_C3(int32u &Info)
 void File__Analyze::Get_C4(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(4);
-    Info=CC4(Buffer+Buffer_Offset+Element_Offset);
+    Info=CC4(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=4;
 }
 
@@ -918,7 +918,7 @@ void File__Analyze::Get_C4(int32u &Info)
 void File__Analyze::Get_C5(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(5);
-    Info=CC5(Buffer+Buffer_Offset+Element_Offset);
+    Info=CC5(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=5;
 }
 
@@ -926,7 +926,7 @@ void File__Analyze::Get_C5(int64u &Info)
 void File__Analyze::Get_C6(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(6);
-    Info=CC6(Buffer+Buffer_Offset+Element_Offset);
+    Info=CC6(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=6;
 }
 
@@ -934,7 +934,7 @@ void File__Analyze::Get_C6(int64u &Info)
 void File__Analyze::Get_C7(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(7);
-    Info=CC7(Buffer+Buffer_Offset+Element_Offset);
+    Info=CC7(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=7;
 }
 
@@ -942,7 +942,7 @@ void File__Analyze::Get_C7(int64u &Info)
 void File__Analyze::Get_C8(int64u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(8);
-    Info=CC8(Buffer+Buffer_Offset+Element_Offset);
+    Info=CC8(Buffer+Buffer_Offset+(size_t)Element_Offset);
     Element_Offset+=8;
 }
 
@@ -954,62 +954,62 @@ void File__Analyze::Get_C8(int64u &Info)
 void File__Analyze::Get_Local(int64u Bytes, Ztring &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
-    Info.From_Local((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
-    Element_Offset+=(size_t)Bytes;
+    Info.From_Local((const char*)(Buffer+Buffer_Offset+(size_t)Element_Offset), (size_t)Bytes);
+    Element_Offset+=Bytes;
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Get_String(int64u Bytes, std::string &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
-    Info.assign((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
-    Element_Offset+=(size_t)Bytes;
+    Info.assign((const char*)(Buffer+Buffer_Offset+(size_t)Element_Offset), (size_t)Bytes);
+    Element_Offset+=Bytes;
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_Local(int64u Bytes, Ztring &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
-    Info.From_Local((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
+    Info.From_Local((const char*)(Buffer+Buffer_Offset+(size_t)Element_Offset), (size_t)Bytes);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Peek_String(int64u Bytes, std::string &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
-    Info.assign((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
+    Info.assign((const char*)(Buffer+Buffer_Offset+(size_t)Element_Offset), (size_t)Bytes);
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Get_UTF8(int64u Bytes, Ztring &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
-    Info.From_UTF8((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
-    Element_Offset+=(size_t)Bytes;
+    Info.From_UTF8((const char*)(Buffer+Buffer_Offset+(size_t)Element_Offset), (size_t)Bytes);
+    Element_Offset+=Bytes;
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Get_UTF16(int64u Bytes, Ztring &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
-    Info.From_UTF16((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
-    Element_Offset+=(size_t)Bytes;
+    Info.From_UTF16((const char*)(Buffer+Buffer_Offset+(size_t)Element_Offset), (size_t)Bytes);
+    Element_Offset+=Bytes;
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Get_UTF16B(int64u Bytes, Ztring &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
-    Info.From_UTF16BE((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
-    Element_Offset+=(size_t)Bytes;
+    Info.From_UTF16BE((const char*)(Buffer+Buffer_Offset+(size_t)Element_Offset), (size_t)Bytes);
+    Element_Offset+=Bytes;
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Get_UTF16L(int64u Bytes, Ztring &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
-    Info.From_UTF16LE((const char*)(Buffer+Buffer_Offset+Element_Offset), (size_t)Bytes);
-    Element_Offset+=(size_t)Bytes;
+    Info.From_UTF16LE((const char*)(Buffer+Buffer_Offset+(size_t)Element_Offset), (size_t)Bytes);
+    Element_Offset+=Bytes;
 }
 
 //***************************************************************************

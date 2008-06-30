@@ -289,7 +289,7 @@ void File_Id3v2::Data_Parse()
     {
         while (Element_Offset_Unsynch+3<=Element_Size)
         {
-            if (CC2(Buffer+Buffer_Offset+Element_Offset_Unsynch)==0xFF00)
+            if (CC2(Buffer+Buffer_Offset+(size_t)Element_Offset_Unsynch)==0xFF00)
                 Unsynch_List.push_back(Element_Offset_Unsynch+1);
             Element_Offset_Unsynch++;
         }
@@ -540,7 +540,7 @@ void File_Id3v2::T__X()
     {
         case 0 :
         case 3 : //1-byte char
-                while (Element_Offset+Value0_Size<Element_Size && Buffer[Buffer_Offset+Element_Offset+Value0_Size]!='\0')
+                while (Element_Offset+Value0_Size<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset+Value0_Size]!='\0')
                     Value0_Size++;
                 if (Element_Offset+Value0_Size>=Element_Size)
                     return; //Problem
@@ -561,8 +561,8 @@ void File_Id3v2::T__X()
         case 1 :
         case 2 : //2-byte char
                 while (Element_Offset+Value0_Size+1<Element_Size
-                    && !(Buffer[Buffer_Offset+Element_Offset+Value0_Size  ]=='\0'
-                      && Buffer[Buffer_Offset+Element_Offset+Value0_Size+1]=='\0')) //2-byte zero
+                    && !(Buffer[Buffer_Offset+(size_t)Element_Offset+Value0_Size  ]=='\0'
+                      && Buffer[Buffer_Offset+(size_t)Element_Offset+Value0_Size+1]=='\0')) //2-byte zero
                     Value0_Size+=2;
                 if (Element_Offset+Value0_Size>=Element_Size)
                     return; //Problem

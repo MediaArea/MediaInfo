@@ -472,7 +472,7 @@ void File_MpegTs::Header_Parse()
 //
 void File_MpegTs::Header_Parse_AdaptationField()
 {
-    size_t Element_Pos_Save=Element_Offset;
+    int64u Element_Pos_Save=Element_Offset;
     Element_Begin("adaptation_field");
     int8u Adaptation_Size;
     Get_B1 (Adaptation_Size,                                    "adaptation_field_length");

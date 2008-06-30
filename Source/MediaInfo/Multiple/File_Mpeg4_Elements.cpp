@@ -651,7 +651,7 @@ void File_Mpeg4::mdat()
     {
         Buffer_Offset-=(size_t)Header_Size;
         Element_Level--;
-        BookMark_Set(); //Remenbering this place, for stream parsing in phase 2
+        BookMark_Set(); //Remembering this place, for stream parsing in phase 2
         Element_Level++;
         Buffer_Offset+=(size_t)Header_Size;
     }
@@ -676,7 +676,7 @@ void File_Mpeg4::mdat_xxxx()
     {
         Open_Buffer_Init(Stream[(int32u)Element_Code].Parser, File_Size, File_Offset+Buffer_Offset);
         Open_Buffer_Continue(Stream[(int32u)Element_Code].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
-        Element_Offset=(size_t)Element_Size;
+        Element_Offset=Element_Size;
         Element_Show();
     }
     else
@@ -1442,7 +1442,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stco()
             //Faster
             if (Element_Offset+4>Element_Size)
                 break; //Problem
-            Offset=BigEndian2int32u(Buffer+Buffer_Offset+Element_Offset);
+            Offset=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
             Element_Offset+=4;
 
             if (Pos<300)
@@ -1499,14 +1499,14 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsc()
             {
                 if (Element_Offset+12>Element_Size)
                     break; //Problem
-                Stsc.FirstChunk     =BigEndian2int32u(Buffer+Buffer_Offset+Element_Offset  );
-                Stsc.SamplesPerChunk=BigEndian2int32u(Buffer+Buffer_Offset+Element_Offset+4);
+                Stsc.FirstChunk     =BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset  );
+                Stsc.SamplesPerChunk=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+4);
                 Element_Offset+=12;
 
                 Stream[moov_trak_tkhd_TrackID].stsc.push_back(Stsc);
             }
             else
-                Element_Offset=(size_t)Element_Size; //No need
+                Element_Offset=Element_Size; //No need
         }
     }
 
@@ -1726,10 +1726,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
 
         //Descriptors or a list (we can see both!)
         if (Element_Offset+8<=Element_Size
-             && CC1(Buffer+Buffer_Offset+Element_Offset+4+0)>='A' && CC1(Buffer+Buffer_Offset+Element_Offset+4+0)<='z'
-             && CC1(Buffer+Buffer_Offset+Element_Offset+4+1)>='A' && CC1(Buffer+Buffer_Offset+Element_Offset+4+1)<='z'
-             && CC1(Buffer+Buffer_Offset+Element_Offset+4+2)>='A' && CC1(Buffer+Buffer_Offset+Element_Offset+4+2)<='z'
-             && CC1(Buffer+Buffer_Offset+Element_Offset+4+3)>='A' && CC1(Buffer+Buffer_Offset+Element_Offset+4+3)<='z')
+             && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+0)>='A' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+0)<='z'
+             && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+1)>='A' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+1)<='z'
+             && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+2)>='A' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+2)<='z'
+             && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+3)>='A' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+3)<='z')
                 Element_ThisIsAList();
         else
             Descriptors();
@@ -2023,7 +2023,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
             //Faster
             if (Element_Offset+4>Element_Size)
                 break; //Problem
-            Size=BigEndian2int32u(Buffer+Buffer_Offset+Element_Offset);
+            Size=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
             Element_Offset+=4;
 
             Stream_Size+=Size;

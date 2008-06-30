@@ -474,9 +474,9 @@ void File_Mpeg_Psi::Header_Parse()
     if (section_syntax_indicator)
     {
         int32u CRC_32=0xffffffff;
-        const int8u* CRC_32_Buffer=Buffer+Buffer_Offset+Element_Offset-3; //table_id position
+        const int8u* CRC_32_Buffer=Buffer+Buffer_Offset+(size_t)Element_Offset-3; //table_id position
 
-        while(CRC_32_Buffer<Buffer+Buffer_Offset+Element_Offset+section_length) //from table_id to the end, CRC_32 included
+        while(CRC_32_Buffer<Buffer+Buffer_Offset+(size_t)Element_Offset+section_length) //from table_id to the end, CRC_32 included
         {
             CRC_32=(CRC_32<<8) ^ CRC_32_Table[(CRC_32>>24)^(*CRC_32_Buffer)];
             CRC_32_Buffer++;
@@ -1101,12 +1101,12 @@ void File_Mpeg_Psi::Descriptors()
 
     //Parsing
     File_Mpeg_Descriptors Descriptors;
-    Buffer_Offset+=Element_Offset; //Positionning
+    Buffer_Offset+=(size_t)Element_Offset; //Positionning
     Open_Buffer_Init(&Descriptors, File_Size, File_Offset+Buffer_Offset);
     Descriptors.format_identifier=Streams[Streams[Stream_Current].format_identifier?Stream_Current:0x0000].format_identifier; //format_identifier of fthe stream if exist, else general format_identifier
     Descriptors.StreamKind=Stream_Current?Stream_Max:Stream_General; //Saying if it is General or not
     Open_Buffer_Continue(&Descriptors, Buffer+Buffer_Offset, Descriptors_Size);
-    Buffer_Offset-=Element_Offset; //Positionning
+    Buffer_Offset-=(size_t)Element_Offset; //Positionning
     Element_Offset+=Descriptors_Size;
 
     //Filling

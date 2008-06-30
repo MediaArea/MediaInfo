@@ -379,7 +379,7 @@ void File_Avc::Data_Parse()
     std::vector<size_t> ThreeByte_List;
     while (Element_Offset_3Bytes+3<=Element_Size)
     {
-        if (CC3(Buffer+Buffer_Offset+Element_Offset_3Bytes)==0x000003)
+        if (CC3(Buffer+Buffer_Offset+(size_t)Element_Offset_3Bytes)==0x000003)
             ThreeByte_List.push_back(Element_Offset_3Bytes+2);
         Element_Offset_3Bytes++;
     }
@@ -740,7 +740,7 @@ void File_Avc::sei_message()
         while(payload_size_byte==0xFF);
     Element_End();
 
-    size_t Element_Offset_Save=Element_Offset+payloadSize;
+    int64u Element_Offset_Save=Element_Offset+payloadSize;
     int64u Element_Size_Save=Element_Size;
     Element_Size=Element_Offset_Save;
     switch (payloadType)
@@ -1383,7 +1383,7 @@ void File_Avc::SPS_PPS()
         Element_Code=0x07; //seq_parameter_set
         Data_Parse();
         Buffer_Offset-=(size_t)Element_Offset_Save;
-        Element_Offset=(size_t)(Element_Offset_Save+Size-1);
+        Element_Offset=Element_Offset_Save+Size-1;
         Element_Size=Element_Size_Save;
         Element_End();
     }
@@ -1408,7 +1408,7 @@ void File_Avc::SPS_PPS()
         Element_Code=0x08; //pic_parameter_set
         Data_Parse();
         Buffer_Offset-=(size_t)Element_Offset_Save;
-        Element_Offset=(size_t)(Element_Offset_Save+Size-1);
+        Element_Offset=Element_Offset_Save+Size-1;
         Element_Size=Element_Size_Save;
         Element_End();
     }

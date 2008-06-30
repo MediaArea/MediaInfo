@@ -167,7 +167,7 @@ void File_Ogg::Data_Parse()
             //Parsing
             Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset);
             if (continued || Parser->File_Offset!=Parser->File_Size)
-                Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+Element_Offset, Chunk_Sizes[Chunk_Sizes_Pos]);
+                Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, Chunk_Sizes[Chunk_Sizes_Pos]);
             if (Chunk_Sizes_Pos<Chunk_Sizes.size()-1
              || (Chunk_Sizes_Pos==Chunk_Sizes.size()-1 && Chunk_Sizes_Finnished))
                 Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, 0); //Purge old datas

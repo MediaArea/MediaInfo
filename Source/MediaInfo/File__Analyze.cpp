@@ -570,7 +570,7 @@ bool File__Analyze::FileHeader_Manage()
     }
 
     //Positionning
-    Buffer_Offset+=Element_Offset;
+    Buffer_Offset+=(size_t)Element_Offset;
 
     MustParseTheHeaderFile=false;
     return true;
@@ -749,20 +749,19 @@ bool File__Analyze::Data_Manage()
     if (!Element_WantNextLevel)
     {
         if (Element[Element_Level].Next<=File_Offset+Buffer_Size)
-            Buffer_Offset=(size_t)(Element[Element_Level].Next-File_Offset);
+            Element_Offset=(size_t)(Element[Element_Level].Next-File_Offset-Buffer_Offset);
         else
         {
             File_GoTo=Element[Element_Level].Next;
             return false;
         }
     }
-    else
-        Buffer_Offset+=Element_Offset; //This is a sub-level
+    if (Buffer_Offset+Element_Offset>Buffer_Size && File_Offset!=File_Size)
+        File_GoTo=File_Offset+Buffer_Offset+Element_Offset; //Preparing to go far
+    Buffer_Offset+=(size_t)Element_Offset;
     Header_Size=0;
-    Element_Offset=0;
     Element_Size=0;
-    if (Buffer_Offset>Buffer_Size && File_Offset!=File_Size)
-        File_GoTo=File_Offset+Buffer_Offset; //Preparing to go far
+    Element_Offset=0;
 
     #ifndef MEDIAINFO_MINIMIZESIZE
     if (Element_Level>0)
@@ -1274,7 +1273,7 @@ void File__Analyze::Trusted_IsNot (const char* Reason)
         //Enough data?
         if (!Element[Element_Level].IsComplete)
         {
-            Element_Offset=(size_t)Element_Size;
+            Element_Offset=Element_Size;
             BS->Attach(NULL, 0);
             Element[Element_Level].WaitForMoreData=true;
             return;

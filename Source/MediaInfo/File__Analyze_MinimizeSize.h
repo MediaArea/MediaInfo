@@ -92,7 +92,7 @@ protected :
     inline void Data_Info_From_Milliseconds (int64u)                            {}
 
     //Data - Get info
-    size_t Data_Remain ()                                                       {return (size_t)Element_Size-(Element_Offset+BS->Offset_Get());};
+    size_t Data_Remain ()                                                       {return (size_t)(Element_Size-(Element_Offset+BS->Offset_Get()));};
     size_t Data_BS_Remain ()                                                    {return (size_t)BS->Remain();};
 
     //Data - Detect EOF
@@ -786,7 +786,7 @@ protected :
 
     //Element
     int64u Element_Code;            //Code filled in the file, copy of Element[Element_Level].Code
-    size_t Element_Offset;          //Position in the Element (without header)
+    int64u Element_Offset;          //Position in the Element (without header)
     int64u Element_Size;            //Size of the Element (without header)
 
 private :
