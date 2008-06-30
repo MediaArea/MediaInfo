@@ -286,11 +286,13 @@ void File_Dts::Data_Parse_Fill()
     {
         Fill(Stream_Audio, 0, Audio_Format, "DTS");
         Fill(Stream_Audio, 0, Audio_Codec, "DTS");
+        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
     }
     else
     {
         Fill(Stream_Audio, 0, Audio_Format, "DTS-HD");
         Fill(Stream_Audio, 0, Audio_Codec, "DTS-HD");
+        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
     }
 
     if (ExtendedCoding && (ExtensionAudioDescriptor==2 || ExtensionAudioDescriptor==3))
