@@ -205,7 +205,12 @@ const Ztring &File__Analyze::Retrieve (stream_t StreamKind, size_t StreamPos, co
         return MediaInfoLib::Config.Info_Get(StreamKind, Parameter, KindOfInfo);
     size_t Parameter_Pos=MediaInfoLib::Config.Info_Get(StreamKind).Find(Ztring().From_Local(Parameter));
     if (Parameter_Pos==Error)
-        return MediaInfoLib::Config.EmptyString_Get();
+    {
+        Parameter_Pos=(*Stream_More)[StreamKind][StreamPos].Find(Ztring().From_Local(Parameter));
+        if (Parameter_Pos==Error)
+            return MediaInfoLib::Config.EmptyString_Get();
+        return (*Stream_More)[StreamKind][StreamPos](Parameter_Pos, 1);
+    }
     return (*Stream)[StreamKind][StreamPos](Parameter_Pos);
 }
 
