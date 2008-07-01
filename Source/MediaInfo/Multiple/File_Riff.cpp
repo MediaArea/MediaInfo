@@ -96,6 +96,9 @@ File_Riff::File_Riff()
     IsBigEndian=false;
     SecondPass=false;
     DV_FromHeader=NULL;
+
+    //Pointers
+    Stream_Structure_Temp=Stream_Structure.end();
 }
 
 //---------------------------------------------------------------------------
@@ -254,12 +257,26 @@ void File_Riff::Read_Buffer_Finalize ()
                             SamplingCount=Temp->second.PacketCount*1152; //Layer 2 and 3
                     }
                 }
-                if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("PCM")
-                 || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("ADPCM"))
+                if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("PCM"))
                 {
                     int64u Resolution=Retrieve(Stream_Audio, StreamPos_Last, Audio_Resolution).To_int64u();
-                    if (Resolution>0)
-                        SamplingCount=Temp->second.StreamSize*8/Resolution;
+                    int64u Channels=Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s_).To_int64u();
+                    if (Resolution>0 && Channels>0)
+                        SamplingCount=Temp->second.StreamSize*8/Resolution/Channels;
+                }
+                if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("ADPCM"))
+                {
+                    int64u Resolution=Retrieve(Stream_Audio, StreamPos_Last, Audio_Resolution).To_int64u();
+                    int64u Channels=Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s_).To_int64u();
+                    if (Resolution>0 && Channels>0)
+                        SamplingCount=(int64u)(Temp->second.StreamSize*8/Resolution/Channels*0.98); //0.98 is not precise!
+
+                    //ADPCM estimation is not precise, if container sampling count is around our value, using it rather than the estimation
+                    float32 SamplingRate=Retrieve(Stream_Audio, StreamPos_Last, Audio_SamplingRate).To_float32();
+                    if (SamplingRate>0
+                     && SamplingCount*1000/SamplingRate<((float32)avih_TotalFrame)/avih_FrameRate*1000*1.10
+                     && SamplingCount*1000/SamplingRate>((float32)avih_TotalFrame)/avih_FrameRate*1000*0.10)
+                        SamplingCount=0; //Value disabled
                 }
                 //One AC-3 frame is 32 ms
                 //One DTS frame is 21 ms
@@ -299,7 +316,7 @@ void File_Riff::Read_Buffer_Finalize ()
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
     {
         Stream.clear();
-        Stream_Pos.clear();
+        Stream_Structure.clear();
         delete DV_FromHeader; DV_FromHeader=NULL;
     }
 }
@@ -367,21 +384,13 @@ void File_Riff::Header_Parse()
 //---------------------------------------------------------------------------
 bool File_Riff::BookMark_Needed()
 {
-    //For each stream
-    std::map<int32u, stream>::iterator Temp=Stream.begin();
-    while (Temp!=Stream.end())
-    {
-        if (!Temp->second.Parser && Temp->second.fccType!=Elements::AVI__hdlr_strl_strh_txts)
-            AVI__movi_StreamClear(Temp->first);
-        Temp++;
-    }
-
     //Go to the first usefull chunk
-    if (stream_Count==0 && Stream_Pos.empty())
+    if (stream_Count==0 && Stream_Structure.empty())
         return false; //No need
 
-    if (!Stream_Pos.empty())
-        File_GoTo=Stream_Pos.begin()->first;
+    Stream_Structure_Temp=Stream_Structure.begin();
+    if (!Stream_Structure.empty())
+        File_GoTo=Stream_Structure_Temp->first;
     NeedOldIndex=false;
     SecondPass=true;
     return true;

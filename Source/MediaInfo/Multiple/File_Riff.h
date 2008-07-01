@@ -99,7 +99,13 @@ private :
     std::map<int32u, stream> Stream;
     int32u                   Stream_ID;
 
-    std::map<int64u, int64u> Stream_Pos;
+    struct stream_structure
+    {
+        int64u                  Name;
+        int64u                  Size;
+    };
+    std::map<int64u, stream_structure> Stream_Structure;
+    std::map<int64u, stream_structure>::iterator Stream_Structure_Temp;
     std::map<int64u, int64u> Index_Pos;
     int64u Interleaved0_1;
     int64u Interleaved0_10;
@@ -181,7 +187,6 @@ private :
     void AVI__movi_rec_ ();
     void AVI__movi_rec__xxxx ();
     void AVI__movi_StreamJump ();
-    void AVI__movi_StreamClear (int32u ChunkId);
     void AVI__GMET ();
     void AVIX ();
     void AVIX_idx1 ();
