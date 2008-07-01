@@ -31,6 +31,7 @@ SetCompressor /FINAL /SOLID lzma
 !insertmacro MUI_UNPAGE_INSTFILES
 
 ; Language files
+!insertmacro MUI_LANGUAGE "Albanian"
 !insertmacro MUI_LANGUAGE "Catalan"
 !insertmacro MUI_LANGUAGE "Czech"
 !insertmacro MUI_LANGUAGE "Dutch"
