@@ -483,7 +483,7 @@ public :
     // Unknown
     //***************************************************************************
 
-    inline void Skip_XX(int64u Bytes, const char*) {Element_Offset+=(size_t)Bytes;}
+    inline void Skip_XX(int64u Bytes, const char*) {Element_Offset+=Bytes;}
 
     //***************************************************************************
     // Flags
