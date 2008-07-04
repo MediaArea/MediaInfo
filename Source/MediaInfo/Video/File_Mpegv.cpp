@@ -700,9 +700,7 @@ void File_Mpegv::slice_start_Fill()
         Time_End_Frames=(int8u)-1;
 
         //Jumping
-        //DETAILLEVEL_SET(0);
-        Info("MPEG-V, Jumping to end of file");
-        File_GoTo=File_Size-(IsSub?0:SizeToAnalyse);
+        Data_GoTo(File_Size-(IsSub?0:SizeToAnalyse), "MPEG-V");
     }
 }
 

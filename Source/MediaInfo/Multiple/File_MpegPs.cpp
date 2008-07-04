@@ -1294,9 +1294,9 @@ void File_MpegPs::private_stream_1()
     }
 
     //Disabling this Streams
-    if (                                                         Streams_Private1[private_stream_1_ID].Parser->File_GoTo !=(int64u)-1
-      && !(Streams_Private1[private_stream_1_ID].Parser3!=NULL && Streams_Private1[private_stream_1_ID].Parser3->File_GoTo==(int64u)-1)
-      && !(Streams_Private1[private_stream_1_ID].Parser2!=NULL && Streams_Private1[private_stream_1_ID].Parser2->File_GoTo==(int64u)-1))
+    if (                                                          (Streams_Private1[private_stream_1_ID].Parser->File_GoTo !=(int64u)-1 || Streams_Private1[private_stream_1_ID].Parser->File_Offset ==Streams_Private1[private_stream_1_ID].Parser->File_Size)
+      && !(Streams_Private1[private_stream_1_ID].Parser3!=NULL && (Streams_Private1[private_stream_1_ID].Parser3->File_GoTo==(int64u)-1 || Streams_Private1[private_stream_1_ID].Parser2->File_Offset==Streams_Private1[private_stream_1_ID].Parser2->File_Size))
+      && !(Streams_Private1[private_stream_1_ID].Parser2!=NULL && (Streams_Private1[private_stream_1_ID].Parser2->File_GoTo==(int64u)-1 || Streams_Private1[private_stream_1_ID].Parser3->File_Offset==Streams_Private1[private_stream_1_ID].Parser3->File_Size)))
     {
         Streams_Private1[private_stream_1_ID].Searching_Payload=false;
         if (private_stream_1_Count>0)
@@ -1587,7 +1587,7 @@ void File_MpegPs::audio_stream()
     Open_Buffer_Continue(Streams[start_code].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
     //Disabling this Streams
-    if (Streams[start_code].Parser->File_GoTo!=(int64u)-1 || Streams[start_code].Parser->Count_Get(Stream_Audio)>0)
+    if (Streams[start_code].Parser->File_GoTo!=(int64u)-1 || Streams[start_code].Parser->File_Offset ==Streams[start_code].Parser->File_Size)
     {
         Streams[start_code].Searching_Payload=false;
         if (audio_stream_Count>0)
@@ -1698,9 +1698,9 @@ void File_MpegPs::video_stream()
     }
 
     //Disabling this Streams
-    if (                                        Streams[start_code].Parser->File_GoTo !=(int64u)-1
-      && !(Streams[start_code].Parser3!=NULL && Streams[start_code].Parser3->File_GoTo==(int64u)-1)
-      && !(Streams[start_code].Parser2!=NULL && Streams[start_code].Parser2->File_GoTo==(int64u)-1))
+    if (                                        (Streams[start_code].Parser->File_GoTo !=(int64u)-1 || Streams[start_code].Parser->File_Offset ==Streams[start_code].Parser->File_Size)
+      && !(Streams[start_code].Parser3!=NULL && (Streams[start_code].Parser3->File_GoTo==(int64u)-1 || Streams[start_code].Parser2->File_Offset==Streams[start_code].Parser2->File_Size))
+      && !(Streams[start_code].Parser2!=NULL && (Streams[start_code].Parser2->File_GoTo==(int64u)-1 || Streams[start_code].Parser3->File_Offset==Streams[start_code].Parser3->File_Size)))
     {
         Streams[start_code].Searching_Payload=false;
         if (video_stream_Count>0)
@@ -1815,7 +1815,7 @@ void File_MpegPs::extension_stream()
     Open_Buffer_Continue(Streams_Extension[Extension].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
     //Disabling this Streams
-    if (Streams_Extension[Extension].Parser->File_GoTo!=(int64u)-1)
+    if (Streams_Extension[Extension].Parser->File_GoTo!=(int64u)-1 || Streams_Extension[Extension].Parser->File_Offset ==Streams_Extension[Extension].Parser->File_Size)
     {
         Streams_Extension[Extension].Searching_Payload=false;
         if (extension_stream_Count>0)
