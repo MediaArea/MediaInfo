@@ -141,11 +141,15 @@ private :
 
     //Temp
     float32 FrameRate;
-    int64u SizeToAnalyse; //Total size of a chunk to analyse, it may be changed by the parser
+    int64u SizeToAnalyse_Begin; //Total size of a chunk to analyse, it may be changed by the parser
+    int64u SizeToAnalyse_End; //Total size of a chunk to analyse, it may be changed by the parser
+    bool   Time_Begin_Seconds_IsFrozen;
+    bool   Searching_TimeStamp_Start_DoneOneTime;
 
     //Helpers
     bool Synchronize();
     bool Header_Parser_QuickSearch();
+    void Detect_EOF();
     bool Detect_NonMPEGV();
 };
 

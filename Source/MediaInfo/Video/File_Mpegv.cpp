@@ -239,7 +239,10 @@ File_Mpegv::File_Mpegv()
     FrameIsAlwaysComplete=false;
 
     //temp
-    SizeToAnalyse=1*1024*1024;
+    SizeToAnalyse_Begin=1*1024*1024;
+    SizeToAnalyse_End=1*1024*1024;
+    Time_Begin_Seconds_IsFrozen=false;
+    Searching_TimeStamp_Start_DoneOneTime=false;
 }
 
 //***************************************************************************
@@ -685,23 +688,16 @@ void File_Mpegv::slice_start_Fill()
         Streams[Pos].Searching_Payload=false;
         Streams[Pos].Searching_TimeStamp_End=false;
     }
+    Streams[0x00].Searching_Payload=false; //picture_start
     Streams[0x00].Searching_TimeStamp_End=true; //picture_start
+    Streams[0xB5].Searching_Payload=false; //extension_start
     Streams[0xB5].Searching_TimeStamp_End=true; //extension_start
+    Streams[0xB8].Searching_Payload=true; //group_start
     Streams[0xB8].Searching_TimeStamp_End=true; //group_start
     Streams[0xB9].Searching_Payload=true; //sequence_end
 
     //Jumping
-    if (File_Size>SizeToAnalyse && File_Offset+Buffer_Size<File_Size-SizeToAnalyse && MediaInfoLib::Config.ParseSpeed_Get()<=0.01
-     || File_Name.empty())
-    {
-        //
-        NextCode_Clear();
-        Time_End_Seconds=Error;
-        Time_End_Frames=(int8u)-1;
-
-        //Jumping
-        Data_GoTo(File_Size-(IsSub?0:SizeToAnalyse), "MPEG-V");
-    }
+    Detect_EOF();
 }
 
 //---------------------------------------------------------------------------
@@ -835,7 +831,8 @@ void File_Mpegv::sequence_header()
 
         //Temp
         FrameRate=Mpegv_frame_rate[frame_rate_code];
-        SizeToAnalyse=bit_rate_value*50; //standard delay between TimeStamps is 0.7s, we try 1s to be sure
+        SizeToAnalyse_Begin=bit_rate_value*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure to have at least 2 timestamps (for integrity checking)
+        SizeToAnalyse_End=bit_rate_value*50; //standard delay between TimeStamps is 0.7s, we try 1s to be sure
     FILLING_END();
 }
 
@@ -1020,6 +1017,28 @@ void File_Mpegv::group_start()
         NextCode_Add(0xB5);
 
         //Calculating
+        if (Time_Begin_Seconds!=Error || Time_Begin_Seconds_IsFrozen)
+        {
+            if (Time_Begin_Seconds==60*60*Hours+60*Minutes+Seconds
+             && Time_Begin_Frames ==Frames)
+            {
+                //Same as before, there is a problem at starting of the time
+                Time_Begin_Seconds_IsFrozen=true;
+                SizeToAnalyse_Begin=SizeToAnalyse_End*10; //10s
+                Time_Begin_Seconds=Error;
+                Time_Begin_Frames =(int8u)Error;
+                Searching_TimeStamp_Start_DoneOneTime=false;
+            }
+            else if (Time_Begin_Seconds_IsFrozen)
+            {
+                //We consider this is the first valid time_code
+                Time_Begin_Seconds_IsFrozen=false;
+                SizeToAnalyse_Begin=SizeToAnalyse_End*2; //2s
+                Time_Begin_Seconds=Error;
+                Time_Begin_Frames =(int8u)Error;
+                Searching_TimeStamp_Start_DoneOneTime=true;
+            }
+        }
         if (Time_Begin_Seconds==Error)
         {
             Time_Begin_Seconds=60*60*Hours+60*Minutes+Seconds;
@@ -1038,8 +1057,12 @@ void File_Mpegv::group_start()
         }
 
         //Autorisation of other streams
-        Streams[0xB0].Searching_TimeStamp_Start=false; //group_start
+        if (Searching_TimeStamp_Start_DoneOneTime)
+            Streams[0xB8].Searching_TimeStamp_Start=false; //group_start
+        else
+            Searching_TimeStamp_Start_DoneOneTime=true;
         Streams[0x00].Searching_TimeStamp_End=true; //picture_start
+        Streams[0xB5].Searching_TimeStamp_End=true; //extension_start
     FILLING_END();
 }
 
@@ -1201,6 +1224,27 @@ bool File_Mpegv::Detect_NonMPEGV ()
 
     //Seems OK
     return false;
+}
+
+//---------------------------------------------------------------------------
+void File_Mpegv::Detect_EOF()
+{
+    if (Count_Get(Stream_Video)
+     && (File_Size>SizeToAnalyse_Begin+SizeToAnalyse_End && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End && MediaInfoLib::Config.ParseSpeed_Get()<=0.01
+      || File_Name.empty()))
+    {
+        //
+        NextCode_Clear();
+        Time_End_Seconds=Error;
+        Time_End_Frames=(int8u)-1;
+
+        //Waiting for a group_start
+        Streams[0x00].Searching_TimeStamp_End=false; //picture_start
+        Streams[0xB5].Searching_TimeStamp_End=false; //extension_start
+
+        //Jumping
+        Data_GoTo(File_Size-(IsSub?0:SizeToAnalyse_End), "MPEG-V");
+    }
 }
 
 //***************************************************************************
