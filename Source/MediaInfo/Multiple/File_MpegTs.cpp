@@ -660,26 +660,16 @@ void File_MpegTs::PSI_program_association_table()
 
         //Program
         if (Program->first!=0x0000)
+        {
             Programs[Program->first].pid=PID;
+            if (Config->File_Filter_Get(Program->first))
+                program_Count++;
+        }
 
         //Enabling what we know parsing
         Streams[PID].TS_Kind=Program->first!=0x0000?File_Mpeg_Psi::program_map_table:File_Mpeg_Psi::network_information_table;
-        Streams[PID].program_numbers.push_back(Program->first);
-        Streams[PID].Searching_Payload_Start_Set(true);
-
-        //File_Filter
-        if (!Config->File_Filter_Get(Program->first))
-        {
-            Streams[PID].Searching_Payload_Start_Set(false);
-            Streams[PID].Searching_Payload_Continue_Set(false);
-        }
-        else
-        {
-            Streams[PID].Searching_Payload_Start_Set(true);
-            Streams[PID].Searching_Payload_Continue_Set(true);
-            if (Program->first!=0x0000)
-                program_Count++;
-        }
+        if (Config->File_Filter_Get(Program->first))
+            Streams[PID].program_numbers.push_back(Program->first);
 
         //File__Duplicate
         if (File__Duplicate_Get_From_PID(PID))
@@ -692,6 +682,25 @@ void File_MpegTs::PSI_program_association_table()
 
         //Menus
         //ProgramNumber2StreamNumber[Parser->program_association_section_ProgramNumber[Pos]]=elementary_PID;
+    }
+
+    //File_Filter (taking care for multiple programs in one PID)
+    for(std::map<int16u, pid_pmts>::iterator PID_PMT=PID_PMTs.begin(); PID_PMT!=PID_PMTs.end(); PID_PMT++)
+    {
+        int16u PID=PID_PMT->first;
+
+        //File_Filter
+        bool ShouldFilter=false;
+        for (size_t Pos=0; Pos<PID_PMT->second.List.size(); Pos++)
+            if (Config->File_Filter_Get(PID_PMT->second.List[Pos]))
+                ShouldFilter=true;
+            else
+            {
+                PID_PMT->second.List.erase(PID_PMT->second.List.begin()+Pos);
+                Pos--;
+            }
+        Streams[PID].Searching_Payload_Start_Set(ShouldFilter);
+        Streams[PID].Searching_Payload_Continue_Set(ShouldFilter);
     }
 
     //Filling
@@ -754,7 +763,7 @@ void File_MpegTs::PSI_program_map_table()
         {
             //About the program
         }
-        else
+        else if (Config->File_Filter_Get(Stream->second.program_number))
         {
             std::vector<int16u>::iterator Pos=find(Streams[elementary_PID].program_numbers.begin(), Streams[elementary_PID].program_numbers.end(), Stream->second.program_number);
             if (Pos==Streams[elementary_PID].program_numbers.end())
@@ -771,9 +780,10 @@ void File_MpegTs::PSI_program_map_table()
                 Streams[elementary_PID].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
                 if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
                     Streams[elementary_PID].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
-                if (File__Duplicate_Get_From_PID(elementary_PID))
-                    Streams[elementary_PID].ShouldDuplicate=true;
             }
+
+            //File_Duplicate
+            Streams[elementary_PID].ShouldDuplicate=File__Duplicate_Get_From_PID(elementary_PID);
 
             //Not precised PID handling
             /*
@@ -840,11 +850,11 @@ void File_MpegTs::PSI_program_map_table()
                     Pos=0x1FF6; //Skipping normal data
             }
             */
-
-            program_number=Stream->second.program_number;
         }
+
+        program_number=Stream->second.program_number; //One of them, they should have all the same
     }
-    if (program_Count)
+    if (program_Count && Config->File_Filter_Get(program_number))
         program_Count--;
 
     //Case of multiple program in one PID

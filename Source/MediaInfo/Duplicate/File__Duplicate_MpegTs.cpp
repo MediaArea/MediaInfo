@@ -249,6 +249,8 @@ bool File__Duplicate_MpegTs::Manage_PAT (const int8u* ToAdd, size_t ToAdd_Size)
     //Programs
     program_map_PIDs.clear();
     program_map_PIDs.resize(0x2000, 0);
+    elementary_PIDs.clear();
+    elementary_PIDs.resize(0x2000, 0);
     while (FromTS.Offset+4<=FromTS.End)
     {
         //For each program
@@ -263,13 +265,6 @@ bool File__Duplicate_MpegTs::Manage_PAT (const int8u* ToAdd, size_t ToAdd_Size)
             PAT[StreamID].Offset+=4;
             PMT[program_number].ConfigurationHasChanged=true;
         }
-        else
-        {
-            program_map_PIDs[program_map_PID]=0;
-            for (size_t Pos=0; Pos<0x2000; Pos++)
-                if (elementary_PIDs_program_map_PIDs[Pos]==program_map_PID)
-                    elementary_PIDs[Pos]=0;
-        }
         FromTS.Offset+=4;
     }
 
@@ -281,6 +276,13 @@ bool File__Duplicate_MpegTs::Manage_PMT (const int8u* ToAdd, size_t ToAdd_Size)
 {
     if (!Parsing_Begin(ToAdd, ToAdd_Size, PMT))
         return false;
+
+    //Testing program_number
+    if (Wanted_program_numbers.find(StreamID)==Wanted_program_numbers.end())
+    {
+        delete PMT[StreamID].Buffer; PMT[StreamID].Buffer=NULL;
+        return false;
+    }
 
     //program_info_length
     int16u program_info_length=CC2(FromTS.Buffer+FromTS.Offset+2)&0x0FFF;
@@ -359,6 +361,9 @@ bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Siz
     }
     else
     {
+        if (ToModify.Buffer==NULL)
+            return false;
+
         //This is the same as before --> Copying the last version, except continuity_counter (incremented)
         int8u continuity_counter=ToModify.Buffer[3]&0xF; //Only the 4 bits of continuity_counter
         continuity_counter++;

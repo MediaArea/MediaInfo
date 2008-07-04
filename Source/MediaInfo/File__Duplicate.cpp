@@ -189,8 +189,8 @@ void File__Duplicate::File__Duplicate_Write (int16u PID)
             for (size_t program_map_PIDs_Pos=0; program_map_PIDs_Pos<program_map_PIDs_Size; program_map_PIDs_Pos++)
                 if (Dup->program_map_PIDs[program_map_PIDs_Pos])
                     Duplicates_Speed_FromPID[program_map_PIDs_Pos].push_back(Dup);
-            size_t pelementary_PIDs_Size=Duplicates_Speed[Pos]->program_map_PIDs.size();
-            for (size_t elementary_PIDs_Pos=0; elementary_PIDs_Pos<pelementary_PIDs_Size; elementary_PIDs_Pos++)
+            size_t elementary_PIDs_Size=Duplicates_Speed[Pos]->program_map_PIDs.size();
+            for (size_t elementary_PIDs_Pos=0; elementary_PIDs_Pos<elementary_PIDs_Size; elementary_PIDs_Pos++)
                 if (Dup->elementary_PIDs[elementary_PIDs_Pos])
                     Duplicates_Speed_FromPID[elementary_PIDs_Pos].push_back(Dup);
         }
