@@ -288,6 +288,12 @@ void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Tem
             if (Temp.TimeStamp_End.PTS<Temp.TimeStamp_Start.PTS)
                 Temp.TimeStamp_End.PTS+=0x200000000LL; //33 bits, cyclic
             int64u Duration=Temp.TimeStamp_End.PTS-Temp.TimeStamp_Start.PTS;
+            if (File_Size!=(int64u)-1 && File_Size>1024*1024*16 && Temp.TimeStamp_End.PTS>=0x200000000LL)
+            {
+                //Testing coherancy
+                if (Duration/90>16*3600*1000)
+                    Duration=0; //Disabling it
+            }
             if (Duration)
                 Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration/90, 10, true);
         }
