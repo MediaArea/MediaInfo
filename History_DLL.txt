@@ -7,14 +7,17 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.7.4, 2008-07-
+---------------
++ MPEG-Video (raw): handling of "not started at the beginning" time_code
++ MPEG-PS: Trying to prevent errors with time code reset in the stream
+
 Version 0.7.7.3, 2008-06-27
 ---------------
 + MPEG-TS: Detection of scrambled streams
 + #1995566: AVi, Identify ODML files
 + AC-3/DTS/AAC: Added another Channel configuration string (example: "3/2.1") in advanced mode
 + #1995569: Added proportion of each stream in the file (example: "500 MiB (90%)")
-+ MPEG-Video (raw): handling of "not started at the beginning" time_code
-+ MPEG-PS: Trying to prevent errors with time code reset in the stream
 x MPEG-TS: Handling of multiple programs in one PMT PID
 x MPEG-TS: Handling of streams in multiple programs
 
