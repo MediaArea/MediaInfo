@@ -949,8 +949,6 @@ void File_MpegTs::PES()
     //Open MPEG-PS (PES)
     if (Streams[pid].Parser && (Streams[pid].Parser->File_GoTo==(int64u)-1 || Streams[pid].Parser->File_GoTo<File_Offset+Buffer_Offset) && Streams[pid].Parser->File_Offset!=Streams[pid].Parser->File_Size)
     {
-        if (File_Offset+Buffer_Offset>=0xF42B4)
-            int A=0;
         //Parsing
         Open_Buffer_Init(Streams[pid].Parser, File_Size, File_Offset+Buffer_Offset);
         Open_Buffer_Continue(Streams[pid].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
