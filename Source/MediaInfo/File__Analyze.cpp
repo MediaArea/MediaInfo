@@ -211,6 +211,11 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_, int
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
+            if (File_Offset+Buffer_Offset>0x180000)
+            {
+                int A=0;
+                return;
+            }
     //Integrity
     if (ToAdd==NULL || File_Offset==File_Size)
         return;
@@ -656,7 +661,10 @@ bool File__Analyze::Header_Manage()
     Element_Offset=0;
     if (Buffer_Offset+Element_Size>Buffer_Size)
     {
-        Element_Size=Buffer_Size-Buffer_Offset;
+        if (Buffer_Size>Buffer_Offset)
+            Element_Size=Buffer_Size-Buffer_Offset;
+        else
+            Element_Size=0; //There is an error in the parsing
         Element[Element_Level-1].IsComplete=false;
     }
 
