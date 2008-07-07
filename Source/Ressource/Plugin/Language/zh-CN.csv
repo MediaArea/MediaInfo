@@ -716,11 +716,11 @@ Original;源
 Other;其它
 Output;输出
 Output format;输出格式
-OveralBitRate;平均混合码率
-OveralBitRate_Maximum;最大混合码率
-OveralBitRate_Minimum;最小混合码率
-OveralBitRate_Mode;混合码率模式
-OveralBitRate_Nominal;额定混合码率
+OverallBitRate;平均混合码率
+OverallBitRate_Maximum;最大混合码率
+OverallBitRate_Minimum;最小混合码率
+OverallBitRate_Mode;混合码率模式
+OverallBitRate_Nominal;额定混合码率
 Part
 Part_Count
 Performer;艺术家

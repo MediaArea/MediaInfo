@@ -258,7 +258,7 @@ Exit;Konec
 Exit_Hint;Ukončit program
 Export;Exportovat
 Export_Hint;Exportovat do vybraného formátu
-Extensions;Extensions usualy used
+Extensions;Extensions usually used
 Family
 Fax;Fax
 File;Soubor
@@ -716,11 +716,11 @@ Original;Originál
 Other;Různé
 Output;Výstup
 Output format;Zobrazit jako
-OveralBitRate;Celkový BitRate
-OveralBitRate_Maximum
-OveralBitRate_Minimum
-OveralBitRate_Mode
-OveralBitRate_Nominal
+OverallBitRate;Celkový BitRate
+OverallBitRate_Maximum
+OverallBitRate_Minimum
+OverallBitRate_Mode
+OverallBitRate_Nominal
 Part;Část
 Part_Count;Total count
 Performer;Performer
@@ -736,7 +736,7 @@ Producer;Producer
 ProductionDesigner;ProductionDesigner
 ProductionStudio;ProductionStudio
 Publisher;Publisher
-Purchased_Date;Purcahsed date
+Purchased_Date;purchased date
 Quote character;Quote character
 RadioStation;Radio station
 Rating;Hodnocení

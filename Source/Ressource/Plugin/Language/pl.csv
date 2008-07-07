@@ -716,11 +716,11 @@ Original;Oryginalny
 Other;Inny
 Output;Wyjście
 Output format;Wyjściowy format
-OveralBitRate;Przepływność bitów
-OveralBitRate_Maximum
-OveralBitRate_Minimum
-OveralBitRate_Mode
-OveralBitRate_Nominal
+OverallBitRate;Przepływność bitów
+OverallBitRate_Maximum
+OverallBitRate_Minimum
+OverallBitRate_Mode
+OverallBitRate_Nominal
 Part;Część
 Part_Count;Ogółem
 Performer;Wykonawca

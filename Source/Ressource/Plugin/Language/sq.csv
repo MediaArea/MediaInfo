@@ -716,11 +716,11 @@ Original;Origjinal
 Other;Tjetër
 Output;Outputi
 Output format;Formati i outputit
-OveralBitRate;Raporti i plotë i bitit
-OveralBitRate_Maximum;Raporti maksimal i plotë i bitit
-OveralBitRate_Minimum;Raporti minimal i plotë i bitit
-OveralBitRate_Mode;Mënyrë e raportit të plotë të bitit
-OveralBitRate_Nominal;Raporti nominal i plotë i bitit
+OverallBitRate;Raporti i plotë i bitit
+OverallBitRate_Maximum;Raporti maksimal i plotë i bitit
+OverallBitRate_Minimum;Raporti minimal i plotë i bitit
+OverallBitRate_Mode;Mënyrë e raportit të plotë të bitit
+OverallBitRate_Nominal;Raporti nominal i plotë i bitit
 Part;Pjesa
 Part_Count;Numri total
 Performer;Interpretuesi

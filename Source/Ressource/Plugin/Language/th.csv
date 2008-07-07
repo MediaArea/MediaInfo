@@ -716,11 +716,11 @@ Original;ต้นฉบับ
 Other;อื่นๆ
 Output;ผลลัพธ์
 Output format;รูปแบบผลลัพธ์
-OveralBitRate;บิตเรตทั้งหมด
-OveralBitRate_Maximum;บิตเรตทั้งหมดสูงสุด
-OveralBitRate_Minimum;บิตเรตทั้งหมดต่ำสุด
-OveralBitRate_Mode;โหมดบิตเรตทั้งหมด
-OveralBitRate_Nominal;บิตเรต Nominal ทั้งหมด
+OverallBitRate;บิตเรตทั้งหมด
+OverallBitRate_Maximum;บิตเรตทั้งหมดสูงสุด
+OverallBitRate_Minimum;บิตเรตทั้งหมดต่ำสุด
+OverallBitRate_Mode;โหมดบิตเรตทั้งหมด
+OverallBitRate_Nominal;บิตเรต Nominal ทั้งหมด
 Part;ส่วน
 Part_Count;Total count
 Performer;Performer
@@ -736,7 +736,7 @@ Producer;โพรดิวเซอร์
 ProductionDesigner;ผู้ออกแบบการแสดง
 ProductionStudio;ProductionStudio
 Publisher;ผู้เผยแพร่
-Purchased_Date;Purcahsed date
+Purchased_Date;purchased date
 Quote character;Quote character
 RadioStation;สถานีวิทยุ
 Rating;เรตติ้ง

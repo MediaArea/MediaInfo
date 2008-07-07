@@ -716,11 +716,11 @@ Original;オリジナル
 Other;その他
 Output;出力
 Output format;出力フォーマット
-OveralBitRate;オーバルビットレート
-OveralBitRate_Maximum;最大
-OveralBitRate_Minimum;最小
-OveralBitRate_Mode;OBR モード
-OveralBitRate_Nominal;通常
+OverallBitRate;オーバルビットレート
+OverallBitRate_Maximum;最大
+OverallBitRate_Minimum;最小
+OverallBitRate_Mode;OBR モード
+OverallBitRate_Nominal;通常
 Part;パート
 Part_Count;合計
 Performer;パフォーマー

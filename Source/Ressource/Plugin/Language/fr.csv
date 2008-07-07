@@ -716,11 +716,11 @@ Original;Original
 Other;Autre
 Output;Sortie
 Output format;Format de sortie
-OveralBitRate;Débit global moyen
-OveralBitRate_Maximum;Débit global maximum
-OveralBitRate_Minimum;Débit global minimum
-OveralBitRate_Mode;Type de débit global
-OveralBitRate_Nominal;Débit global nominal
+OverallBitRate;Débit global moyen
+OverallBitRate_Maximum;Débit global maximum
+OverallBitRate_Minimum;Débit global minimum
+OverallBitRate_Mode;Type de débit global
+OverallBitRate_Nominal;Débit global nominal
 Part;Partie
 Part_Count;Nombre de parties
 Performer;Interprète

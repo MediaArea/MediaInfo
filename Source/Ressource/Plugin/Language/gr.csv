@@ -716,11 +716,11 @@ Original;Original
 Other;Άλλος
 Output;Έξοδος
 Output format;Μορφοποίηση εξόδου
-OveralBitRate;Συνολικό BitRate
-OveralBitRate_Maximum
-OveralBitRate_Minimum
-OveralBitRate_Mode
-OveralBitRate_Nominal
+OverallBitRate;Συνολικό BitRate
+OverallBitRate_Maximum
+OverallBitRate_Minimum
+OverallBitRate_Mode
+OverallBitRate_Nominal
 Part;Μέρος
 Part_Count;Συνολικός αριθμός
 Performer;Performer

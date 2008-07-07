@@ -716,11 +716,11 @@ Original
 Other;其它
 Output;輸出
 Output format;輸出格式
-OveralBitRate;整體流量
-OveralBitRate_Maximum;最大整體流量
-OveralBitRate_Minimum;最小整體流量
-OveralBitRate_Mode;整體流量模式
-OveralBitRate_Nominal;正常整體流量
+OverallBitRate;整體流量
+OverallBitRate_Maximum;最大整體流量
+OverallBitRate_Minimum;最小整體流量
+OverallBitRate_Mode;整體流量模式
+OverallBitRate_Nominal;正常整體流量
 Part
 Part_Count
 Performer;演出者

@@ -716,11 +716,11 @@ Original;Original
 Other;Altres
 Output;Sortida
 Output format;Format de sortida
-OveralBitRate;Velocitat de transmissió
-OveralBitRate_Maximum
-OveralBitRate_Minimum
-OveralBitRate_Mode
-OveralBitRate_Nominal
+OverallBitRate;Velocitat de transmissió
+OverallBitRate_Maximum
+OverallBitRate_Minimum
+OverallBitRate_Mode
+OverallBitRate_Nominal
 Part;Part
 Part_Count;Comptador Total
 Performer;Intèrpret

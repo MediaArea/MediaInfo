@@ -716,11 +716,11 @@ Original;Original
 Other;Altele
 Output;Iesire
 Output format;Format iesire
-OveralBitRate;BitRate general
-OveralBitRate_Maximum
-OveralBitRate_Minimum
-OveralBitRate_Mode
-OveralBitRate_Nominal
+OverallBitRate;BitRate general
+OverallBitRate_Maximum
+OverallBitRate_Minimum
+OverallBitRate_Mode
+OverallBitRate_Nominal
 Part;Parte
 Part_Count
 Performer;Cantaret

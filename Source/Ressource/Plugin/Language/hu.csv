@@ -716,11 +716,11 @@ Original;Eredeti
 Other;Egyéb
 Output;Kimenet
 Output format;Kimeneti formátum
-OveralBitRate;Teljes adatsebesség
-OveralBitRate_Maximum
-OveralBitRate_Minimum
-OveralBitRate_Mode
-OveralBitRate_Nominal
+OverallBitRate;Teljes adatsebesség
+OverallBitRate_Maximum
+OverallBitRate_Minimum
+OverallBitRate_Mode
+OverallBitRate_Nominal
 Part;Rész
 Part_Count;Részek száma
 Performer;Előadó

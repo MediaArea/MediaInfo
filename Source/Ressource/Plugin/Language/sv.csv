@@ -716,11 +716,11 @@ Original; Original
 Other; Övrigt
 Output; Utdata
 Output format; Utdataformat
-OveralBitRate; Generell Bitrate
-OveralBitRate_Maximum
-OveralBitRate_Minimum
-OveralBitRate_Mode
-OveralBitRate_Nominal
+OverallBitRate; Generell Bitrate
+OverallBitRate_Maximum
+OverallBitRate_Minimum
+OverallBitRate_Mode
+OverallBitRate_Nominal
 Part; Del
 Part_Count; Antal delar
 Performer; Framträdare

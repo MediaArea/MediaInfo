@@ -716,11 +716,11 @@ Original;Origineel
 Other;Ander
 Output;Uitvoer
 Output format;Uitvoerformaat
-OveralBitRate;Totale bitrate
-OveralBitRate_Maximum
-OveralBitRate_Minimum
-OveralBitRate_Mode
-OveralBitRate_Nominal
+OverallBitRate;Totale bitrate
+OverallBitRate_Maximum
+OverallBitRate_Minimum
+OverallBitRate_Mode
+OverallBitRate_Nominal
 Part;Deel
 Part_Count;Totale telling
 Performer;Artiest

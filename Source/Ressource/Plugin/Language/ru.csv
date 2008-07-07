@@ -716,11 +716,11 @@ Original;Настоящий
 Other;Прочее
 Output;Выход
 Output format;Формат вывода
-OveralBitRate;Общий поток
-OveralBitRate_Maximum;Максимальный общий битрейт
-OveralBitRate_Minimum;Минимальный общий битрейт
-OveralBitRate_Mode;Режим общего битрейта
-OveralBitRate_Nominal;Номинальный общий битрейт
+OverallBitRate;Общий поток
+OverallBitRate_Maximum;Максимальный общий битрейт
+OverallBitRate_Minimum;Минимальный общий битрейт
+OverallBitRate_Mode;Режим общего битрейта
+OverallBitRate_Nominal;Номинальный общий битрейт
 Part;Часть
 Part_Count;Кол-во частей
 Performer;Исполнитель

@@ -716,11 +716,11 @@ Original;원본
 Other;기타
 Output;출력
 Output format;출력 형식
-OveralBitRate;총 비트레이트
-OveralBitRate_Maximum;최대 총 비트레이트
-OveralBitRate_Minimum;최소 총 비트레이트
-OveralBitRate_Mode;총 비트레이트 모드
-OveralBitRate_Nominal;명목상의 총 비트레이트
+OverallBitRate;총 비트레이트
+OverallBitRate_Maximum;최대 총 비트레이트
+OverallBitRate_Minimum;최소 총 비트레이트
+OverallBitRate_Mode;총 비트레이트 모드
+OverallBitRate_Nominal;명목상의 총 비트레이트
 Part;파트
 Part_Count;총계
 Performer;연기자

@@ -716,11 +716,11 @@ Original;اصلی
 Other;دیگر
 Output;خروجی
 Output format;فرمت خروجی
-OveralBitRate;اورال بیت ریت
-OveralBitRate_Maximum;حداکثر اورال بیت ریت
-OveralBitRate_Minimum;حداقل اورال بیت ریت
-OveralBitRate_Mode;مد اورال بیت ریت
-OveralBitRate_Nominal;جزیی اورال بیت ریت
+OverallBitRate;اورال بیت ریت
+OverallBitRate_Maximum;حداکثر اورال بیت ریت
+OverallBitRate_Minimum;حداقل اورال بیت ریت
+OverallBitRate_Mode;مد اورال بیت ریت
+OverallBitRate_Nominal;جزیی اورال بیت ریت
 Part;بخش
 Part_Count;تعداد کلی
 Performer;ایفا کننده

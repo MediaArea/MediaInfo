@@ -716,11 +716,11 @@ Original;Оригінальний
 Other;Інше
 Output;Виведення
 Output format;Формат виведення
-OveralBitRate;Загальний потік
-OveralBitRate_Maximum
-OveralBitRate_Minimum
-OveralBitRate_Mode
-OveralBitRate_Nominal
+OverallBitRate;Загальний потік
+OverallBitRate_Maximum
+OverallBitRate_Minimum
+OverallBitRate_Mode
+OverallBitRate_Nominal
 Part;Частина
 Part_Count;Кількість частин
 Performer;Виконавець

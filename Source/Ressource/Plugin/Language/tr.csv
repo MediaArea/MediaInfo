@@ -716,11 +716,11 @@ Original;Orjinal
 Other;Diğer
 Output;Çıktı
 Output format;Çıktı biçimi
-OveralBitRate;Kapsamlı bit oranı
-OveralBitRate_Maximum;En fazla kapsamlı bit oranı
-OveralBitRate_Minimum;En düşük kapsamlı bit oranı
-OveralBitRate_Mode;Kapsamlı bit oranı modu
-OveralBitRate_Nominal;Düşük kapsamlı bit oranı
+OverallBitRate;Kapsamlı bit oranı
+OverallBitRate_Maximum;En fazla kapsamlı bit oranı
+OverallBitRate_Minimum;En düşük kapsamlı bit oranı
+OverallBitRate_Mode;Kapsamlı bit oranı modu
+OverallBitRate_Nominal;Düşük kapsamlı bit oranı
 Part;Parça
 Part_Count;Toplam sayım
 Performer;Sanatçı

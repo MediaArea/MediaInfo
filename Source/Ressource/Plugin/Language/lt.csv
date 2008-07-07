@@ -716,11 +716,11 @@ Original;Originalas
 Other;Kita
 Output;Išėjimas
 Output format;Išėjimo formatas
-OveralBitRate;Bendras bitų tempas
-OveralBitRate_Maximum;Bendras maksimalus bitų temas
-OveralBitRate_Minimum;Bendras minimalus bitų tempas
-OveralBitRate_Mode;Bendro bitų tempo rėžimas
-OveralBitRate_Nominal;Bendras nominalus bitų tempas
+OverallBitRate;Bendras bitų tempas
+OverallBitRate_Maximum;Bendras maksimalus bitų temas
+OverallBitRate_Minimum;Bendras minimalus bitų tempas
+OverallBitRate_Mode;Bendro bitų tempo rėžimas
+OverallBitRate_Nominal;Bendras nominalus bitų tempas
 Part;Dalis
 Part_Count;Bendra apimtis
 Performer;Atlikėjas
