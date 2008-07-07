@@ -1575,7 +1575,7 @@ void File_Avc::Init()
     video_format=5;
     cpb_removal_delay_length_minus1=0;
     dpb_output_delay_length_minus1=0;
-    time_offset_length=0;
+    time_offset_length=24;
     pic_struct=0;
     pic_struct_FirstDetected=(int8u)-1;
     frame_mbs_only_flag=false;
