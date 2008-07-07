@@ -1641,6 +1641,8 @@ void File_MpegPs::video_stream()
             Streams[start_code].Parser=ChooseParser_Mpeg4v();
         else if (Streams[start_code].stream_type==0x1B)
             Streams[start_code].Parser=ChooseParser_Avc();
+        else
+            Streams[start_code].Parser=ChooseParser_Mpegv(); //Trying by default
     }
 
     //Parsing
@@ -1648,7 +1650,7 @@ void File_MpegPs::video_stream()
     Open_Buffer_Continue(Streams[start_code].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
     //Testing other parsers in case of need
-    if (stream_type_FromTS==0 && Streams[start_code].Parser->Count_Get(Stream_Video)==0)
+    if ((stream_type_FromTS==0 || stream_type_FromTS==6) && Streams[start_code].Parser->Count_Get(Stream_Video)==0)
     {
         bool WantShow1=Element_Show_Get();
         Element_Begin("Testing AVC...");

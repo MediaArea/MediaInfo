@@ -187,6 +187,8 @@ File_Avc::File_Avc()
 
     //Temp
     SizeOfNALU_Minus1=(int8u)-1;
+    SPS_IsParsed=false;
+    PPS_IsParsed=false;
 }
 
 //***************************************************************************
@@ -208,8 +210,16 @@ void File_Avc::Read_Buffer_Finalize()
         return; //Not initialized
 
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Count_Get(Stream_Video)==0 && (Frame_Count>0 || MustParse_SPS_PPS_Done))
+    if (Retrieve(Stream_Video, 0, Video_Format).empty() && (Frame_Count>0 || MustParse_SPS_PPS_Done))
         slice_header_Fill();
+
+    //In case of there is enough elements for trusting this is a AVC file, but SPS/PPS are absent
+    if (Retrieve(Stream_Video, 0, Video_Format).empty() && Block_Count>=8)
+    {
+        Fill(Stream_General, 0, General_Format, "AVC");
+        Fill(Stream_Video, 0, Video_Format, "AVC");
+        Fill(Stream_Video, 0, Video_Codec, "AVC");
+    }
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
@@ -404,26 +414,38 @@ void File_Avc::Data_Parse()
     //Parsing
     switch (Element_Code)
     {
-        case 0x00 : Element_Name("unspecified"); break;
+        case 0x00 : Element_Name("unspecified"); Skip_XX(Element_Size-Element_Offset, "Data"); break;
         case 0x01 : slice_layer_without_partitioning_non_IDR(); break;
-        case 0x02 : Element_Name("slice_data_partition_a_layer"); break;
-        case 0x03 : Element_Name("slice_data_partition_b_layer"); break;
-        case 0x04 : Element_Name("slice_data_partition_c_layer"); break;
+        case 0x02 : Element_Name("slice_data_partition_a_layer"); Skip_XX(Element_Size-Element_Offset, "Data"); break;
+        case 0x03 : Element_Name("slice_data_partition_b_layer"); Skip_XX(Element_Size-Element_Offset, "Data"); break;
+        case 0x04 : Element_Name("slice_data_partition_c_layer"); Skip_XX(Element_Size-Element_Offset, "Data"); break;
         case 0x05 : slice_layer_without_partitioning_IDR(); break;
         case 0x06 : sei(); break;
         case 0x07 : seq_parameter_set(); break;
         case 0x08 : pic_parameter_set(); break;
         case 0x09 : access_unit_delimiter(); break;
-        case 0x0A : Element_Name("end_of_seq"); break;
-        case 0x0B : Element_Name("end_of_stream"); break;
-        case 0x0C : Element_Name("filler_data"); break;
-        case 0x0D : Element_Name("seq_parameter_set_extension"); break;
-        case 0x13 : Element_Name("slice_layer_without_partitioning"); break;
+        case 0x0A : Element_Name("end_of_seq"); Skip_XX(Element_Size-Element_Offset, "Data"); break;
+        case 0x0B : Element_Name("end_of_stream"); Skip_XX(Element_Size-Element_Offset, "Data"); break;
+        case 0x0C : filler_data(); break;
+        case 0x0D : Element_Name("seq_parameter_set_extension"); Skip_XX(Element_Size-Element_Offset, "Data"); break;
+        case 0x13 : Element_Name("slice_layer_without_partitioning"); Skip_XX(Element_Size-Element_Offset, "Data"); break;
         default :
             if (Element_Code<=0x17)
                 Element_Name("reserved");
             else
                 Element_Name("unspecified");
+            Skip_XX(Element_Size-Element_Offset, "Data");
+    }
+
+    //In case of there is enough elements for trusting this is a AVC file, but SPS/PPS are absent
+    if (Block_Count<8 && Synched && Element_Offset==Element_Size)
+    {
+        Block_Count++; //We can trust this stream a bit more
+        if (Block_Count>=8 && Count_Get(Stream_General)==0)
+        {
+            Stream_Prepare(Stream_General); //We trust it
+            Stream_Prepare(Stream_Video); //We trust it
+        }
     }
 
     if (!ThreeByte_List.empty())
@@ -594,7 +616,8 @@ void File_Avc::slice_header_Fill()
         PixelAspectRatio=1; //Unknown
 
     Fill(Stream_General, 0, General_Format, "AVC");
-    Stream_Prepare(Stream_Video);
+    if (Count_Get(Stream_Video)==0)
+        Stream_Prepare(Stream_Video);
     Fill(Stream_Video, 0, Video_Format, "AVC");
     Fill(Stream_Video, 0, Video_Codec, "AVC");
 
@@ -774,6 +797,13 @@ void File_Avc::sei_message_buffering_period(int32u payloadSize)
 void File_Avc::sei_message_pic_timing(int32u payloadSize)
 {
     Element_Info("pic_timing");
+
+    //Testing if we can parsing it now
+    if (!SPS_IsParsed)
+    {
+        Skip_XX(Element_Size-Element_Offset,                    "Data");
+        return;   
+    }
 
     //Parsing
     BS_Begin();
@@ -1110,6 +1140,9 @@ void File_Avc::seq_parameter_set()
         Streams[0x06].Searching_Payload=true; //sei
         for (int8u Pos=0x08; Pos<=0x1F; Pos++)
             Streams[Pos].Searching_Payload=true; //pic_parameter_set, access_unit_delimiter, end_of_seq, end_of_stream, filler_data, reserved
+
+        //Setting as OK
+        SPS_IsParsed=false;
     FILLING_END();
 }
 
@@ -1225,6 +1258,9 @@ void File_Avc::pic_parameter_set()
         //Autorisation of other streams
         for (int8u Pos=0x01; Pos<=0x06; Pos++)
             Streams[Pos].Searching_Payload=true; //Coded slice...
+
+        //Setting as OK
+        PPS_IsParsed=false;
     FILLING_END();
 }
 
@@ -1237,6 +1273,25 @@ void File_Avc::access_unit_delimiter()
     int8u primary_pic_type;
     BS_Begin();
     Get_S1 ( 3, primary_pic_type,                               "primary_pic_type"); Param_Info(Avc_primary_pic_type[primary_pic_type]);
+    Mark_1(                                                     );
+    BS_End();
+}
+
+//---------------------------------------------------------------------------
+// Packet "09"
+void File_Avc::filler_data()
+{
+    Element_Name("filler_data");
+
+    while (Element_Offset<Element_Size)
+    {
+        int8u FF;
+        Peek_B1(FF);
+        if (FF!=0xFF)
+            break;
+        Element_Offset++;
+    }
+    BS_Begin();
     Mark_1(                                                     );
     BS_End();
 }
@@ -1545,6 +1600,7 @@ void File_Avc::Init()
 
     //Count of a Packets
     Frame_Count=0;
+    Block_Count=0;
     frame_num_LastOne=(int32u)-1;
     Interlaced_Top=0;
     Interlaced_Bottom=0;
@@ -1575,7 +1631,7 @@ void File_Avc::Init()
     video_format=5;
     cpb_removal_delay_length_minus1=0;
     dpb_output_delay_length_minus1=0;
-    time_offset_length=24;
+    time_offset_length=0;
     pic_struct=0;
     pic_struct_FirstDetected=(int8u)-1;
     frame_mbs_only_flag=false;
@@ -1592,6 +1648,7 @@ void File_Avc::Init()
     Streams[0x06].Searching_Payload=true; //sei
     Streams[0x07].Searching_Payload=true; //seq_parameter_set
     Streams[0x09].Searching_Payload=true; //access_unit_delimiter
+    Streams[0x0C].Searching_Payload=true; //filler_data
     for (int8u Pos=0xB9; Pos!=0x00; Pos++)
         Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
 }

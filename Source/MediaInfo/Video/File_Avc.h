@@ -82,6 +82,7 @@ private :
     void sei_message_recovery_point(int32u payloadSize);
     void sei_message_mainconcept(int32u payloadSize);
     void access_unit_delimiter();
+    void filler_data();
 
     //Packets - SubElements
     void scaling_list(int32u ScalingList_Size);
@@ -93,6 +94,7 @@ private :
 
     //Count of a Packets
     size_t Frame_Count;
+    size_t Block_Count;
     int32u frame_num_LastOne;
     size_t Interlaced_Top;
     size_t Interlaced_Bottom;
@@ -163,6 +165,10 @@ private :
     std::map<int32u, temporalreference> TemporalReference; //int32u is the reference
     int32u TemporalReference_Offset;
     int32u pic_order_cnt_lsb_Before;
+
+    //Temp
+    bool SPS_IsParsed;
+    bool PPS_IsParsed;
 
     //Helpers
     bool Synchronize();
