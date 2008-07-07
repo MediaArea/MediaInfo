@@ -479,21 +479,21 @@ String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, const Stri
     if (Parameter==_T("PlayTime/String3"))
         return Get(StreamKind, StreamPos, _T("Duration/String3"), KindOfInfo, KindOfSearch);
     if (StreamKind==Stream_General && Parameter==_T("BitRate"))
-        return Get(Stream_General, StreamPos, _T("OveralBitRate"), KindOfInfo, KindOfSearch);
+        return Get(Stream_General, StreamPos, _T("OverallBitRate"), KindOfInfo, KindOfSearch);
     if (StreamKind==Stream_General && Parameter==_T("BitRate/String"))
-        return Get(Stream_General, StreamPos, _T("OveralBitRate/String"), KindOfInfo, KindOfSearch);
+        return Get(Stream_General, StreamPos, _T("OverallBitRate/String"), KindOfInfo, KindOfSearch);
     if (StreamKind==Stream_General && Parameter==_T("BitRate_Minimum"))
-        return Get(Stream_General, StreamPos, _T("OveralBitRate_Minimum"), KindOfInfo, KindOfSearch);
+        return Get(Stream_General, StreamPos, _T("OverallBitRate_Minimum"), KindOfInfo, KindOfSearch);
     if (StreamKind==Stream_General && Parameter==_T("BitRate_Minimum/String"))
-        return Get(Stream_General, StreamPos, _T("OveralBitRate_Minimum/String"), KindOfInfo, KindOfSearch);
+        return Get(Stream_General, StreamPos, _T("OverallBitRate_Minimum/String"), KindOfInfo, KindOfSearch);
     if (StreamKind==Stream_General && Parameter==_T("BitRate_Nominal"))
-        return Get(Stream_General, StreamPos, _T("OveralBitRate_Nominal"), KindOfInfo, KindOfSearch);
+        return Get(Stream_General, StreamPos, _T("OverallBitRate_Nominal"), KindOfInfo, KindOfSearch);
     if (StreamKind==Stream_General && Parameter==_T("BitRate_Nominal/String"))
-        return Get(Stream_General, StreamPos, _T("OveralBitRate_Nominal/String"), KindOfInfo, KindOfSearch);
+        return Get(Stream_General, StreamPos, _T("OverallBitRate_Nominal/String"), KindOfInfo, KindOfSearch);
     if (StreamKind==Stream_General && Parameter==_T("BitRate_Maximum"))
-        return Get(Stream_General, StreamPos, _T("OveralBitRate_Maximum"), KindOfInfo, KindOfSearch);
+        return Get(Stream_General, StreamPos, _T("OverallBitRate_Maximum"), KindOfInfo, KindOfSearch);
     if (StreamKind==Stream_General && Parameter==_T("BitRate_Maximum/String"))
-        return Get(Stream_General, StreamPos, _T("OveralBitRate_Maximum/String"), KindOfInfo, KindOfSearch);
+        return Get(Stream_General, StreamPos, _T("OverallBitRate_Maximum/String"), KindOfInfo, KindOfSearch);
 
     CS.Enter();
 

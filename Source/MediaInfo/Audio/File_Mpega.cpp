@@ -373,7 +373,7 @@ void File_Mpega::Read_Buffer_Finalize()
     Fill(Stream_General, 0, General_Encoded_Library, Encoded_Library);
     if (BitRate>0)
     {
-        Fill(Stream_General, 0, General_OveralBitRate, BitRate);
+        Fill(Stream_General, 0, General_OverallBitRate, BitRate);
         Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
         if (Delay>100 && BitRate>0)
             Fill(Stream_Audio, 0, Audio_Delay, (float)Delay*8*1000/BitRate, 0);

@@ -1191,7 +1191,7 @@ void File_Mpeg_Descriptors::Descriptor_63()
     BS_End();
 
     //Filling
-    Infos["OveralBitRate_Maximum"]=Ztring::ToZtring(peak_rate*400);
+    Infos["OverallBitRate_Maximum"]=Ztring::ToZtring(peak_rate*400);
 }
 
 //---------------------------------------------------------------------------

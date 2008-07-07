@@ -250,12 +250,12 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
     if (Count_Get(StreamKind)>1)
         Fill(StreamKind, Pos, "StreamKindPos", Pos+1);
 
-    //BitRate / OveralBitRate
-    if (!Retrieve(StreamKind, Pos, StreamKind==Stream_General?"OveralBitRate_Mode":"BitRate_Mode").empty())
+    //BitRate / OverallBitRate
+    if (!Retrieve(StreamKind, Pos, StreamKind==Stream_General?"OverallBitRate_Mode":"BitRate_Mode").empty())
     {
-        const Ztring &UnTranslated=Retrieve(StreamKind, Pos, StreamKind==Stream_General?"OveralBitRate_Mode":"BitRate_Mode");
+        const Ztring &UnTranslated=Retrieve(StreamKind, Pos, StreamKind==Stream_General?"OverallBitRate_Mode":"BitRate_Mode");
         Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("BitRate_Mode_"))+UnTranslated);
-        Fill(StreamKind, Pos, StreamKind==Stream_General?"OveralBitRate_Mode/String":"BitRate_Mode/String", Translated.find(_T("BitRate_Mode_"))?Translated:UnTranslated);
+        Fill(StreamKind, Pos, StreamKind==Stream_General?"OverallBitRate_Mode/String":"BitRate_Mode/String", Translated.find(_T("BitRate_Mode_"))?Translated:UnTranslated);
     }
 
     //Strings
@@ -773,20 +773,20 @@ void File__Analyze::Finalize_Final()
             Fill(Stream_General, 0, General_StreamSize, File_Size-StreamSize_Total);
     }
 
-    //-OveralBitRate if we have one Audio stream with bitrate
-    if (Retrieve(Stream_General, 0, General_Duration).empty() && Retrieve(Stream_General, 0, General_OveralBitRate).empty() && Count_Get(Stream_Video)==0 && Count_Get(Stream_Audio)==1 && Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u()!=0)
-        Fill(Stream_General, 0, General_OveralBitRate, Retrieve(Stream_Audio, 0, Audio_BitRate));
-    //-OveralBitRate if Duration
-    if (Retrieve(Stream_General, 0, General_OveralBitRate).empty() && Retrieve(Stream_General, 0, General_Duration).To_int64u()!=0)
-        Fill(Stream_General, 0, General_OveralBitRate, Retrieve(Stream_General, 0, General_FileSize).To_int64u()*8*1000/Retrieve(Stream_General, 0, General_Duration).To_int64u());
-    //-Duration if OveralBitRate
-    if (Retrieve(Stream_General, 0, General_Duration).empty() && Retrieve(Stream_General, 0, General_OveralBitRate).To_int64u()!=0)
-        Fill(Stream_General, 0, General_Duration, Retrieve(Stream_General, 0, General_FileSize).To_int64u()*8*1000/Retrieve(Stream_General, 0, General_OveralBitRate).To_int64u());
+    //-OverallBitRate if we have one Audio stream with bitrate
+    if (Retrieve(Stream_General, 0, General_Duration).empty() && Retrieve(Stream_General, 0, General_OverallBitRate).empty() && Count_Get(Stream_Video)==0 && Count_Get(Stream_Audio)==1 && Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u()!=0)
+        Fill(Stream_General, 0, General_OverallBitRate, Retrieve(Stream_Audio, 0, Audio_BitRate));
+    //-OverallBitRate if Duration
+    if (Retrieve(Stream_General, 0, General_OverallBitRate).empty() && Retrieve(Stream_General, 0, General_Duration).To_int64u()!=0)
+        Fill(Stream_General, 0, General_OverallBitRate, Retrieve(Stream_General, 0, General_FileSize).To_int64u()*8*1000/Retrieve(Stream_General, 0, General_Duration).To_int64u());
+    //-Duration if OverallBitRate
+    if (Retrieve(Stream_General, 0, General_Duration).empty() && Retrieve(Stream_General, 0, General_OverallBitRate).To_int64u()!=0)
+        Fill(Stream_General, 0, General_Duration, Retrieve(Stream_General, 0, General_FileSize).To_int64u()*8*1000/Retrieve(Stream_General, 0, General_OverallBitRate).To_int64u());
     //-Video bitrate can be the nominal one if <10s (bitrate estimation is not enough precise
     if (Count_Get(Stream_Video)==1 && Retrieve(Stream_Video, 0, Video_BitRate).empty() && Retrieve(Stream_Video, 0, Video_Duration).To_int64u()<10000)
         Fill(Stream_Video, 0, Video_BitRate, Retrieve(Stream_Video, 0, Video_BitRate_Nominal));
     //-Video bitrate if we have all audio bitrates and overal bitrate
-    if (Count_Get(Stream_Video)==1 && Retrieve(Stream_General, 0, General_OveralBitRate).size()>4 && Retrieve(Stream_Video, 0, Video_BitRate).empty() && Retrieve(Stream_Video, 0, Video_Duration).To_int64u()>=10000) //BitRate is > 10 000 and Duration>10s, to avoid strange behavior
+    if (Count_Get(Stream_Video)==1 && Retrieve(Stream_General, 0, General_OverallBitRate).size()>4 && Retrieve(Stream_Video, 0, Video_BitRate).empty() && Retrieve(Stream_Video, 0, Video_Duration).To_int64u()>=10000) //BitRate is > 10 000 and Duration>10s, to avoid strange behavior
     {
         double GeneralBitRate_Ratio=0.98;  //Default container overhead=2%
         int32u GeneralBitRate_Minus=5000;  //5000 bps because of a "classic" stream overhead
@@ -833,7 +833,7 @@ void File__Analyze::Finalize_Final()
         }
 
         //Testing
-        float64 VideoBitRate=Retrieve(Stream_General, 0, General_OveralBitRate).To_float64()*GeneralBitRate_Ratio-GeneralBitRate_Minus;
+        float64 VideoBitRate=Retrieve(Stream_General, 0, General_OverallBitRate).To_float64()*GeneralBitRate_Ratio-GeneralBitRate_Minus;
         bool VideobitRateIsValid=true;
         for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
         {

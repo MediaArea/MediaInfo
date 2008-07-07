@@ -258,7 +258,7 @@ Exit;Exit
 Exit_Hint;Quit the program
 Export;Export
 Export_Hint;Export in a customized format
-Extensions;Extensions usualy used
+Extensions;Extensions usually used
 Family;Family
 Fax;Fax
 File;File
@@ -716,11 +716,11 @@ Original;Original
 Other;Other
 Output;Output
 Output format;Output format
-OveralBitRate;Overal bit rate
-OveralBitRate_Maximum;Maximum overal bit rate
-OveralBitRate_Minimum;Minimum overal bit rate
-OveralBitRate_Mode;Overal bit rate mode
-OveralBitRate_Nominal;Nominal overal bit rate
+OverallBitRate;Overall bit rate
+OverallBitRate_Maximum;Maximum Overall bit rate
+OverallBitRate_Minimum;Minimum Overall bit rate
+OverallBitRate_Mode;Overall bit rate mode
+OverallBitRate_Nominal;Nominal Overall bit rate
 Part;Part
 Part_Count;Total count
 Performer;Performer
@@ -736,7 +736,7 @@ Producer;Producer
 ProductionDesigner;ProductionDesigner
 ProductionStudio;ProductionStudio
 Publisher;Publisher
-Purchased_Date;Purcahsed date
+Purchased_Date;purchased date
 Quote character;Quote character
 RadioStation;Radio station
 Rating;Rating

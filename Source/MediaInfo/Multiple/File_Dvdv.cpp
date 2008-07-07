@@ -1173,7 +1173,7 @@ void File_Dvdv::Time_BCD(const Ztring &Name)
     Element_End();
 }
 
-void File_Dvdv::PGC(size_t Offset, bool Title)
+void File_Dvdv::PGC(int64u Offset, bool Title)
 {
         vector<int8u> Stream_Control_Audio;
         vector<int8u> Stream_Control_SubPicture_43;

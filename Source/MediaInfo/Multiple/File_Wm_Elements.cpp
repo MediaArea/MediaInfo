@@ -256,7 +256,7 @@ void File_Wm::Header_FileProperties()
 
     //Filling
     if (MaximumBitRate)
-        Fill(Stream_General, 0, General_OveralBitRate_Maximum, MaximumBitRate);
+        Fill(Stream_General, 0, General_OverallBitRate_Maximum, MaximumBitRate);
     Fill(Stream_General, 0, General_Encoded_Date, Ztring().Date_From_Milliseconds_1601(CreationDate/10000));
     if (PlayDuration/1000>Preroll)
         Fill(Stream_General, 0, General_Duration, PlayDuration/10000-Preroll);
@@ -932,7 +932,7 @@ void File_Wm::Header_ExtendedContentDescription()
             else if (Name==_T("DVR Index Granularity")) {}
             else if (Name==_T("DVR File Version")) {}
             else if (Name==_T("IsVBR"))
-                Fill(Stream_General, 0, General_OveralBitRate_Mode, Value_Int64==0?"CBR":"VBR");
+                Fill(Stream_General, 0, General_OverallBitRate_Mode, Value_Int64==0?"CBR":"VBR");
             else if (Name==_T("VBR Peak")) {} //Already in "Stream Bitrate" chunk
             else if (Name==_T("WMFSDKVersion")) {}
             else if (Name==_T("WMFSDKNeeded")) {}

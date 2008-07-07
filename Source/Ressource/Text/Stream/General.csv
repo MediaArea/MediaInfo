@@ -75,16 +75,16 @@ Duration/String;;;Y NT;;;Play time (formated)
 Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
 Duration/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero
 Duration/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM
-OveralBitRate_Mode;;;N YT;;;Bit rate mode of all streams (VBR, CBR)
-OveralBitRate_Mode/String;;;Y NT;;;Bit rate mode of all streams (VBR, CBR)
-OveralBitRate;; bps;N YF;;;Bit rate of all streams
-OveralBitRate/String;;;Y NT;;;Bit rate of all streams (with measure)
-OveralBitRate_Minimum;; bps;N YF;;;Minimum Bit rate in bps
-OveralBitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement)
-OveralBitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps
-OveralBitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement)
-OveralBitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps
-OveralBitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement)
+OverallBitRate_Mode;;;N YT;;;Bit rate mode of all streams (VBR, CBR)
+OverallBitRate_Mode/String;;;Y NT;;;Bit rate mode of all streams (VBR, CBR)
+OverallBitRate;; bps;N YF;;;Bit rate of all streams
+OverallBitRate/String;;;Y NT;;;Bit rate of all streams (with measure)
+OverallBitRate_Minimum;; bps;N YF;;;Minimum Bit rate in bps
+OverallBitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement)
+OverallBitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps
+OverallBitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement)
+OverallBitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps
+OverallBitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement)
 StreamSize;; byte;N YI;;;Stream size in bytes
 StreamSize/String;;;N NT;;;
 StreamSize/String1;;;N NT;;;
@@ -144,7 +144,7 @@ AssistantDirector;;;Y YT;;;Name of the assistant director.;;Entity
 DirectorOfPhotography;;;Y YT;;;The name of the director of photography, also known as cinematographer.;;Entity
 SoundEngineer;;;Y YT;;;The name of the sound engineer or sound recordist.;;Entity
 ArtDirector;;;Y YT;;;The person who oversees the artists and craftspeople who build the sets.;;Entity
-ProductionDesigner;;;Y YT;;;Artist responsible for designing the overall visual appearance of a movie.;;Entity
+ProductionDesigner;;;Y YT;;;Artist responsible for designing the Overall visual appearance of a movie.;;Entity
 Choregrapher;;;Y YT;;;The name of the choregrapher.;;Entity
 CostumeDesigner;;;Y YT;;;The name of the costume designer.;;Entity
 Actor;;;Y YT;;;Real name of actor or actress playing a role in the movie.;;Entity

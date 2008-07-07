@@ -2433,7 +2433,7 @@ void File_MpegPs::HowTo(stream_t StreamKind)
     {
         case (Stream_General) :
             Fill_HowTo("Format", "R");
-            Fill_HowTo("OveralBitRate", "R");
+            Fill_HowTo("OverallBitRate", "R");
             Fill_HowTo("Duration", "R");
             Fill_HowTo("Encoded_Application", "R");
             break;

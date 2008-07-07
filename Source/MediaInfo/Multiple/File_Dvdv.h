@@ -114,7 +114,7 @@ private :
     size_t Time_Pos;
     void Time_BCD(const Ztring &Name);
     Ztring Time_String; //Value from Time_*()
-    void PGC(size_t Offset, bool Title=false);
+    void PGC(int64u Offset, bool Title=false);
 };
 
 //***************************************************************************
