@@ -658,6 +658,8 @@ bool File__Analyze::Header_Manage()
     {
         if (Buffer_Size>Buffer_Offset)
             Element_Size=Buffer_Size-Buffer_Offset;
+        else
+            Element_Size=0; //There is an error in the parsing
         Element[Element_Level-1].IsComplete=false;
     }
 
