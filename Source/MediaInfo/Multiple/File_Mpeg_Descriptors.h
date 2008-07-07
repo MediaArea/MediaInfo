@@ -142,14 +142,14 @@ private :
     void Descriptor_5C() {Skip_XX(Element_Size, "Data");};
     void Descriptor_5D() {Skip_XX(Element_Size, "Data");};
     void Descriptor_5E() {Skip_XX(Element_Size, "Data");};
-    void Descriptor_5F() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_5F();
     void Descriptor_60() {Skip_XX(Element_Size, "Data");};
     void Descriptor_61() {Skip_XX(Element_Size, "Data");};
     void Descriptor_62() {Skip_XX(Element_Size, "Data");};
     void Descriptor_63();
     void Descriptor_64() {Skip_XX(Element_Size, "Data");};
     void Descriptor_65() {Skip_XX(Element_Size, "Data");};
-    void Descriptor_66() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_66();
     void Descriptor_67() {Skip_XX(Element_Size, "Data");};
     void Descriptor_68() {Skip_XX(Element_Size, "Data");};
     void Descriptor_69() {Skip_XX(Element_Size, "Data");};

@@ -1170,6 +1170,13 @@ void File_Mpeg_Descriptors::Descriptor_59()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::Descriptor_5F()
+{
+    //Parsing
+    Info_B4(private_data_specifier,                             "private_data_specifier"); Param_Info(Ztring().From_CC4(private_data_specifier));
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg_Descriptors::Descriptor_63()
 {
     //Parsing
@@ -1185,6 +1192,21 @@ void File_Mpeg_Descriptors::Descriptor_63()
 
     //Filling
     Infos["OveralBitRate_Maximum"]=Ztring::ToZtring(peak_rate*400);
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::Descriptor_66()
+{
+    //Parsing
+    Ztring ISO_639_language_code;
+    int8u selector_length, text_length;
+    Skip_B2(                                                    "data_broadcast_id");
+    Skip_B1(                                                    "component_tag");
+    Get_B1 (selector_length,                                    "selector_length");
+    Skip_XX(selector_length,                                    "selector_bytes");
+    Get_Local(3, ISO_639_language_code,                         "ISO_639_language_code");
+    Get_B1 (text_length,                                        "text_length");
+    Skip_Local(text_length,                                     "text_chars");
 }
 
 //---------------------------------------------------------------------------
