@@ -1280,6 +1280,7 @@ void File__Analyze::Trusted_IsNot (const char* Reason)
         }
 
         Element[Element_Level].UnTrusted=true;
+        Synched=false;
         if (Trusted>0)
             Trusted--;
     }
