@@ -669,7 +669,11 @@ void File_MpegTs::PSI_program_association_table()
         //Enabling what we know parsing
         Streams[PID].TS_Kind=Program->first!=0x0000?File_Mpeg_Psi::program_map_table:File_Mpeg_Psi::network_information_table;
         if (Config->File_Filter_Get(Program->first))
-            Streams[PID].program_numbers.push_back(Program->first);
+        {
+            std::vector<int16u>::iterator Pos=find(Streams[PID].program_numbers.begin(), Streams[PID].program_numbers.end(), Program->first);
+            if (Pos==Streams[PID].program_numbers.end())
+                Streams[PID].program_numbers.push_back(Program->first);
+        }
 
         //File__Duplicate
         if (File__Duplicate_Get_From_PID(PID))
