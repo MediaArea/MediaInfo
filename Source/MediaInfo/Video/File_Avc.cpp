@@ -571,7 +571,7 @@ void File_Avc::slice_header()
         //Filling only if not already done
         if (Frame_Count>1 && Count_Get(Stream_General)==0)
             Stream_Prepare(Stream_General);
-        if (Frame_Count>=Frame_Count_Valid && Count_Get(Stream_Video)==0)
+        if (Frame_Count>=Frame_Count_Valid && Retrieve(Stream_Video, 0, Video_Format).empty())
             slice_header_Fill();
     FILLING_END();
 }
