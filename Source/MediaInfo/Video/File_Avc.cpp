@@ -1309,11 +1309,12 @@ void File_Avc::scaling_list(int32u ScalingList_Size)
     {
         if (nextScale!=0)
         {
-            int32u delta_scale;
-            Get_UE (delta_scale,                                "scale_delta");
+            int32s delta_scale;
+            Get_SE (delta_scale,                                "scale_delta");
             nextScale=(lastScale+delta_scale+256)%256;
         }
-        lastScale=nextScale;
+        if (nextScale)
+            lastScale=nextScale;
     }
 }
 
