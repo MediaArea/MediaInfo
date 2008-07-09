@@ -12,6 +12,7 @@ Version 0.7.7.4, 2008-07-
 + MPEG-Video (raw): handling of "not started at the beginning" time_code
 + MPEG-PS: Trying to prevent errors with time code reset in the stream
 + AVC: Trying to detect raw AVC streams without SPS/PPS
++ AAC in MPEG-TS: complete parsing of ADTS stream for more info
 
 Version 0.7.7.3, 2008-06-27
 ---------------

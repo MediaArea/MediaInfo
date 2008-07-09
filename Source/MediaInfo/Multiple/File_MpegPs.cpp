@@ -56,6 +56,9 @@
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
+#if defined(MEDIAINFO_ADTS_YES)
+    #include "MediaInfo/Audio/File_Adts.h"
+#endif
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
@@ -1580,6 +1583,8 @@ void File_MpegPs::audio_stream()
     {
              if (Streams[start_code].stream_type==0x03 || Streams[start_code].stream_type==0x04)
             Streams[start_code].Parser=ChooseParser_Mpega();
+        else if (Streams[start_code].stream_type==0x0F)
+            Streams[start_code].Parser=ChooseParser_Adts();
         else
         {
             Streams[start_code].Parser=ChooseParser_NULL();
@@ -1592,8 +1597,39 @@ void File_MpegPs::audio_stream()
     Open_Buffer_Init(Streams[start_code].Parser, File_Size, File_Offset+Buffer_Offset);
     Open_Buffer_Continue(Streams[start_code].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
+    //Testing other parsers in case of need
+    if ((stream_type_FromTS==0 || stream_type_FromTS==6) && Streams[start_code].Parser->Count_Get(Stream_Audio)==0)
+    {
+        bool WantShow2=Element_Show_Get();
+        Element_Begin("Testing ADTS...");
+        if (Streams[start_code].Parser2==NULL)
+        {
+            #if defined(MEDIAINFO_ADTS_YES)
+                Streams[start_code].Parser2=new File_Adts;
+            #else
+                Streams[start_code].Parser2=new File__Analyze;
+            #endif
+        }
+        Open_Buffer_Init(Streams[start_code].Parser2, File_Size, File_Offset+Buffer_Offset);
+        Open_Buffer_Continue(Streams[start_code].Parser2, Buffer+Buffer_Offset, (size_t)Element_Size);
+
+        if (Streams[start_code].Parser2->Count_Get(Stream_Audio)>0)
+        {
+            Element_Info("ADTS Video found, changing default parser");
+            delete Streams[start_code].Parser; Streams[start_code].Parser=Streams[start_code].Parser2; Streams[start_code].Parser2=NULL;
+        }
+        Element_End();
+        if (WantShow2)
+            Element_Show();
+    }
+    if (Streams[start_code].Parser->Count_Get(Stream_Audio)>0 && Streams[start_code].Parser2!=NULL)
+    {
+        delete Streams[start_code].Parser2; Streams[start_code].Parser2=NULL;
+    }
+
     //Disabling this Streams
-    if (Streams[start_code].Parser->File_GoTo!=(int64u)-1 || Streams[start_code].Parser->File_Offset ==Streams[start_code].Parser->File_Size)
+    if (                                        (Streams[start_code].Parser->File_GoTo !=(int64u)-1 || Streams[start_code].Parser->File_Offset ==Streams[start_code].Parser->File_Size)
+      && !(Streams[start_code].Parser2!=NULL && (Streams[start_code].Parser3->File_GoTo==(int64u)-1 || Streams[start_code].Parser2->File_Offset==Streams[start_code].Parser2->File_Size)))
     {
         Streams[start_code].Searching_Payload=false;
         if (audio_stream_Count>0)
@@ -1707,8 +1743,8 @@ void File_MpegPs::video_stream()
 
     //Disabling this Streams
     if (                                        (Streams[start_code].Parser->File_GoTo !=(int64u)-1 || Streams[start_code].Parser->File_Offset ==Streams[start_code].Parser->File_Size)
-      && !(Streams[start_code].Parser3!=NULL && (Streams[start_code].Parser3->File_GoTo==(int64u)-1 || Streams[start_code].Parser2->File_Offset==Streams[start_code].Parser2->File_Size))
-      && !(Streams[start_code].Parser2!=NULL && (Streams[start_code].Parser2->File_GoTo==(int64u)-1 || Streams[start_code].Parser3->File_Offset==Streams[start_code].Parser3->File_Size)))
+      && !(Streams[start_code].Parser2!=NULL && (Streams[start_code].Parser3->File_GoTo==(int64u)-1 || Streams[start_code].Parser2->File_Offset==Streams[start_code].Parser2->File_Size))
+      && !(Streams[start_code].Parser3!=NULL && (Streams[start_code].Parser2->File_GoTo==(int64u)-1 || Streams[start_code].Parser3->File_Offset==Streams[start_code].Parser3->File_Size)))
     {
         Streams[start_code].Searching_Payload=false;
         if (video_stream_Count>0)
@@ -2273,6 +2309,24 @@ File__Analyze* File_MpegPs::ChooseParser_Mpega()
                         Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "MPEG-2A"); break;
             default   : Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "MPEG-A");
         }
+        return Handle;
+    #endif
+}
+
+//---------------------------------------------------------------------------
+File__Analyze* File_MpegPs::ChooseParser_Adts()
+{
+    //Filling
+    #if defined(MEDIAINFO_ADTS_YES)
+        File__Analyze* Handle=new File_Adts;
+        ((File_Adts*)Handle)->Frame_Count_Valid=1;
+        return Handle;
+    #else
+        //Filling
+        Handle=new File__Analyze();
+        Open_Buffer_Init(Handle);
+        Handle->Stream_Prepare(Stream_Audio);
+        Streams[Element_Code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "AAC");
         return Handle;
     #endif
 }
