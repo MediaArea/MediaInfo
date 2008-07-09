@@ -1798,6 +1798,7 @@ void File_MpegPs::LATM()
     Streams[start_code].Parser->Stream_Prepare(Stream_Audio);
     Streams[start_code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "AAC");
     Streams[start_code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "AAC");
+    Streams[start_code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "LATM");
 
     //Disabling this Streams
     Streams[start_code].Searching_Payload=false;

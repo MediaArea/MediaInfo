@@ -191,12 +191,13 @@ void File_Adts::Data_Parse_Fill()
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "ADTS");
     Stream_Prepare(Stream_Audio);
-    Fill (Stream_Audio, 0, Audio_Format, "AAC");
-    Fill (Stream_Audio, 0, Audio_Format_Version, id?"Version 2":"Version 4");
-    Fill (Stream_Audio, 0, Audio_Format_Profile, ADTS_Format_Profile[profile_ObjectType]);
+    Fill(Stream_Audio, 0, Audio_Format, "AAC");
+    Fill(Stream_Audio, 0, Audio_Format_Version, id?"Version 2":"Version 4");
+    Fill(Stream_Audio, 0, Audio_Format_Profile, ADTS_Format_Profile[profile_ObjectType]);
     Fill(Stream_Audio, 0, Audio_Codec, ADTS_Profile[profile_ObjectType]);
     Fill(Stream_Audio, 0, Audio_SamplingRate, ADTS_SamplingRate[sampling_frequency_index]);
     Fill(Stream_Audio, 0, Audio_Channel_s_, channel_configuration);
+    Fill(Stream_Audio, 0, Audio_MuxingMode, "ADTS");
     if (adts_buffer_fullness==0x7FF)
         Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
     else

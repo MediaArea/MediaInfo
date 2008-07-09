@@ -15,6 +15,7 @@ Version 0.7.7.4, 2008-07-
 + [2013746] AAC in MPEG-TS: complete parsing of ADTS stream for more info about AAC
 + AAC in MPEG-TS: complete parsing of IOD based stream for more info about AAC
 + MPEG-TS: better detection of PCR time code
++ AAC: specifying the muxing mode (ADIF, ADTS or LATM)
 
 Version 0.7.7.3, 2008-06-27
 ---------------
