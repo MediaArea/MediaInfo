@@ -28,7 +28,6 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
-#include "MediaInfo/Multiple/File_Mpeg_Psi.h"
 #include <map>
 //---------------------------------------------------------------------------
 
@@ -50,7 +49,24 @@ public :
     std::map<std::string, ZenLib::Ztring> Infos;
     int8u    descriptor_tag;
     int16u   CA_PID;
-    
+    int16u   ES_ID;
+    struct es_element
+    {
+        File__Analyze* Parser;
+
+        es_element()
+        {
+            Parser=NULL;
+        }
+
+        ~es_element()
+        {
+            delete Parser; //Parser=NULL;
+        }
+    };
+    std::map<int16u, es_element> ES_Elements; //Key is ES_ID
+
+
 protected :
     //Formats
     void Read_Buffer_Init ();
@@ -92,9 +108,9 @@ private :
     void Descriptor_1A() {Skip_XX(Element_Size, "Data");};
     void Descriptor_1B() {Skip_XX(Element_Size, "Data");};
     void Descriptor_1C() {Skip_XX(Element_Size, "Data");};
-    void Descriptor_1D() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_1D();
     void Descriptor_1E() {Skip_XX(Element_Size, "Data");};
-    void Descriptor_1F() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_1F();
     void Descriptor_20() {Skip_XX(Element_Size, "Data");};
     void Descriptor_21() {Skip_XX(Element_Size, "Data");};
     void Descriptor_22() {Skip_XX(Element_Size, "Data");};

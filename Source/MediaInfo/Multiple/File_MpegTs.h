@@ -64,6 +64,7 @@ private :
     struct stream
     {
         File__Analyze*                              Parser;
+        File__Analyze*                              ES_Parser;
         std::map<std::string, ZenLib::Ztring>       Infos;
         int8u                                       stream_type;
         int8u                                       descriptor_tag;
@@ -83,6 +84,7 @@ private :
         stream()
         {
             Parser=NULL;
+            ES_Parser=NULL;
             stream_type=0x00;
             descriptor_tag=0x00;
             TS_Kind=File_Mpeg_Psi::unknown;
@@ -101,6 +103,7 @@ private :
         ~stream()
         {
             delete Parser; //Parser=NULL;
+            delete ES_Parser; //ES_Parser=NULL;
         }
 
         void Searching_Payload_Start_Set(bool ToSet)

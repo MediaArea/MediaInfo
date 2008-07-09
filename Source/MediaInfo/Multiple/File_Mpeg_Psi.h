@@ -28,6 +28,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#include "MediaInfo/Multiple/File_Mpeg_Descriptors.h"
 #include <map>
 using namespace ZenLib;
 //---------------------------------------------------------------------------
@@ -92,6 +93,8 @@ public :
         int8u                                       stream_type;
         int8u                                       descriptor_tag;
         int16u                                      CA_PID;
+        int16u                                      ES_ID;
+        File__Analyze*                              ES_Parser;
 
         stream()
         {
@@ -101,6 +104,13 @@ public :
             stream_type=0x00;
             descriptor_tag=0x00;
             CA_PID=0x0000;
+            ES_ID=0x0000;
+            ES_Parser=NULL;
+        }
+
+        ~stream()
+        {
+            delete ES_Parser; //ES_Parser=NULL;
         }
     };
     std::map<int16u, stream> Streams;
@@ -121,6 +131,9 @@ public :
         }
     };
     std::map<int16u, program>   Programs;
+
+    //About ES
+    std::map<int16u, File_Mpeg_Descriptors::es_element> ES_Elements;//Key is ES_ID
 
     //About the complete stream
     int16u transport_stream_id; //Unique ID of the stream

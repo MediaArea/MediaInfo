@@ -46,6 +46,7 @@ public :
 
     //Out
     File__Analyze* Parser;
+    int16u ES_ID;
 
 public :
     File_Mpeg4_Descriptors();

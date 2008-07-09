@@ -240,6 +240,13 @@ void File_MpegTs::Read_Buffer_Finalize()
             {
                 Streams[StreamID].Parser->Open_Buffer_Finalize();
                 Merge (*Streams[StreamID].Parser);
+
+                //Info from the ES parser
+                if (Streams[StreamID].ES_Parser)
+                {
+                    Streams[StreamID].ES_Parser->Open_Buffer_Finalize();
+                    Merge (*Streams[StreamID].ES_Parser, StreamKind_Last, 0, StreamPos_Last);
+                }
             }
             //By the descriptors
             if (StreamKind_Last==Stream_Max && Streams[StreamID].StreamIsRegistred
@@ -784,6 +791,7 @@ void File_MpegTs::PSI_program_map_table()
                     Streams[elementary_PID].Infos=Stream->second.Infos;
                 Streams[elementary_PID].stream_type=Stream->second.stream_type;
                 Streams[elementary_PID].descriptor_tag=Stream->second.descriptor_tag;
+                Streams[elementary_PID].ES_Parser=Stream->second.ES_Parser; Stream->second.ES_Parser=NULL;
                 Streams[elementary_PID].Searching_Payload_Start_Set(true);
                 Streams[elementary_PID].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
                 if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)

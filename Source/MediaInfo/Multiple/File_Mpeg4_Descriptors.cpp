@@ -303,6 +303,7 @@ File_Mpeg4_Descriptors::File_Mpeg4_Descriptors()
 
     //Out
     Parser=NULL;
+    ES_ID=0x0000;
 
     //Temp
     ObjectTypeId=0x00;
@@ -442,7 +443,7 @@ void File_Mpeg4_Descriptors::Descriptor_03()
 {
     //Parsing
     bool streamDependenceFlag, URL_Flag, OCRstreamFlag;
-    Skip_B2(                                                    "ES_ID");
+    Get_B2 (ES_ID,                                              "ES_ID");
     BS_Begin();
     Get_SB (   streamDependenceFlag,                            "streamDependenceFlag");
     Get_SB (   URL_Flag,                                        "URL_Flag");

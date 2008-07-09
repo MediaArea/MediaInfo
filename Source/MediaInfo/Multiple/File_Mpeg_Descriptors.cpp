@@ -31,6 +31,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Mpeg_Descriptors.h"
+#ifdef MEDIAINFO_MPEG4_YES
+    #include "MediaInfo/Multiple/File_Mpeg4_Descriptors.h"
+#endif
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -730,6 +733,7 @@ void File_Mpeg_Descriptors::Read_Buffer_Init()
     //Out
     descriptor_tag=0x00;
     CA_PID=0x0000;
+    ES_ID=0x0000;
 }
 
 //***************************************************************************
@@ -1041,6 +1045,35 @@ void File_Mpeg_Descriptors::Descriptor_10()
     Skip_S1( 2,                                                 "reserved");
     Info_S3(22, sb_size,                                        "sb_size"); Param_Info(sb_size, " bytes");
     BS_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::Descriptor_1D()
+{
+    //Parsing
+    Skip_B1(                                                    "Scope_of_IOD_label");
+    Skip_B1(                                                    "IOD_label");
+    File_Mpeg4_Descriptors MI;
+    MI.Parser_DoNotFreeIt=true;
+    Open_Buffer_Init(&MI, File_Offset+Buffer_Offset+Element_Size, File_Offset+Buffer_Offset+Element_Offset);
+    Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+    Open_Buffer_Finalize(&MI);
+
+    //Parser from Descriptor
+    if (MI.Parser)
+        ES_Elements[MI.ES_ID].Parser=MI.Parser;
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::Descriptor_1F()
+{
+    //Parsing
+    while (Element_Offset<Element_Size)
+    {
+        Get_B2 (ES_ID,                                          "ES_ID");
+        if (Element_Offset!=Element_Size)
+            Skip_B1(                                            "FlexMuxChannel");
+    }
 }
 
 //---------------------------------------------------------------------------

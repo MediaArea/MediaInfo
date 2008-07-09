@@ -815,6 +815,14 @@ void File_Mpeg_Psi::Table_02()
             Descriptors();
 
         Element_End(Ztring::ToZtring_From_CC2(Stream_Current), 5+Descriptors_Size);
+
+        //Merging ES if present
+        std::map<int16u, File_Mpeg_Descriptors::es_element>::iterator ES_Element=ES_Elements.find(Streams[Stream_Current].ES_ID);
+        if (ES_Element!=ES_Elements.end())
+        {
+            //Transfering the Parser
+            Streams[Stream_Current].ES_Parser=ES_Element->second.Parser; ES_Element->second.Parser=NULL;
+        }
     }
 }
 
@@ -1109,6 +1117,7 @@ void File_Mpeg_Psi::Descriptors()
     Open_Buffer_Continue(&Descriptors, Buffer+Buffer_Offset, Descriptors_Size);
     Buffer_Offset-=(size_t)Element_Offset; //Positionning
     Element_Offset+=Descriptors_Size;
+    Element_End();
 
     //Filling
     Streams[Stream_Current].Infos=Descriptors.Infos;
@@ -1117,8 +1126,13 @@ void File_Mpeg_Psi::Descriptors()
         Streams[Stream_Current].descriptor_tag=Descriptors.descriptor_tag;
     if (Streams[Stream_Current].CA_PID==0x0000)
         Streams[Stream_Current].CA_PID=Descriptors.CA_PID;
-
-    Element_End();
+    if (Streams[Stream_Current].ES_ID==0x0000)
+        Streams[Stream_Current].ES_ID=Descriptors.ES_ID;
+    for (std::map<int16u, File_Mpeg_Descriptors::es_element>::iterator ES_Element=Descriptors.ES_Elements.begin(); ES_Element!=Descriptors.ES_Elements.end(); ES_Element++)
+    {
+        //Transfering the Parser
+        ES_Elements[ES_Element->first].Parser=ES_Element->second.Parser; ES_Element->second.Parser=NULL;
+    }
 }
 
 //---------------------------------------------------------------------------
