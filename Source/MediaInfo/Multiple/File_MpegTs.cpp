@@ -231,6 +231,7 @@ void File_MpegTs::Read_Buffer_Finalize()
 
     for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
     {
+        //PES
         if (Streams[StreamID].TS_Kind==File_Mpeg_Psi::pes)
         {
             //By the parser
@@ -325,6 +326,22 @@ void File_MpegTs::Read_Buffer_Finalize()
                 }
             }
         }
+
+        //PCR
+        if (Streams[StreamID].TS_Kind==File_Mpeg_Psi::PCR)
+        {
+            if (Streams[StreamID].TimeStamp_End!=(int64u)-1)
+            {
+                if (Streams[StreamID].TimeStamp_End<Streams[StreamID].TimeStamp_Start)
+                    Streams[StreamID].TimeStamp_End+=0x200000000LL; //33 bits, cyclic
+                int64u Duration=Streams[StreamID].TimeStamp_End-Streams[StreamID].TimeStamp_Start;
+                if (Duration!=0 && Duration!=(int64u)-1)
+                    Fill(Stream_General, 0, General_Duration, Duration/90, 10, true);
+                else
+                    Fill(Stream_General, 0, General_Duration, "", 0, true, true); //Clear it
+            }
+        }
+
         delete Streams[StreamID].Parser; Streams[StreamID].Parser=NULL;
     }
 
@@ -333,22 +350,6 @@ void File_MpegTs::Read_Buffer_Finalize()
     {
         if (Retrieve(Stream_General, 0, Info->first.c_str()).empty())
             Fill(Stream_General, 0, Info->first.c_str(), Info->second);
-    }
-
-    //HDMV specific
-    if (format_identifier==Mpeg_Descriptors::HDMV)
-    {
-        //TimeStamp
-        if (Streams[0x1001].TimeStamp_End!=(int64u)-1)
-        {
-            if (Streams[0x1001].TimeStamp_End<Streams[0x1001].TimeStamp_Start)
-                Streams[0x1001].TimeStamp_End+=0x200000000LL; //33 bits, cyclic
-            int64u Duration=Streams[0x1001].TimeStamp_End-Streams[0x1001].TimeStamp_Start;
-            if (Duration!=0 && Duration!=(int64u)-1)
-                Fill(Stream_General, 0, General_Duration, Duration/90, 10, true);
-            else
-                Fill(Stream_General, 0, General_Duration, "", 0, true, true); //Clear it
-        }
     }
 
     //Fill General
@@ -718,14 +719,17 @@ void File_MpegTs::PSI_program_map_table()
 
     //Format identifier
     format_identifier=Parser->Streams[0x0000].format_identifier;
-    if (format_identifier==Mpeg_Descriptors::HDMV)
+
+    //PCR
+    int16u PCR_PID=Parser->PCR_PID;
+    if (PCR_PID!=0x1FFF)
     {
-        if (Streams[0x1001].TS_Kind==File_Mpeg_Psi::unknown) //Only if not already registered
+        if (Streams[PCR_PID].TS_Kind==File_Mpeg_Psi::unknown) //Only if not already registered
         {
-            //Bluray specification fixes the PID of the PCR PID by 0x1001
-            Streams[0x1001].TS_Kind=File_Mpeg_Psi::PCR;
-            Streams[0x1001].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
-            Streams[0x1001].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
+            Streams[PCR_PID].TS_Kind=File_Mpeg_Psi::PCR;
+            Streams[PCR_PID].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
+            if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
+                Streams[PCR_PID].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
         }
     }
 
@@ -772,7 +776,7 @@ void File_MpegTs::PSI_program_map_table()
             std::vector<int16u>::iterator Pos=find(Streams[elementary_PID].program_numbers.begin(), Streams[elementary_PID].program_numbers.end(), Stream->second.program_number);
             if (Pos==Streams[elementary_PID].program_numbers.end())
                 Streams[elementary_PID].program_numbers.push_back(Stream->second.program_number);
-            if (Streams[elementary_PID].TS_Kind==File_Mpeg_Psi::unknown) //Only if not already registered
+            if (Streams[elementary_PID].TS_Kind==File_Mpeg_Psi::unknown || Streams[elementary_PID].TS_Kind==File_Mpeg_Psi::PCR) //Only if not already registered
             {
                 elementary_PID_Count++;
                 Streams[elementary_PID].TS_Kind=File_Mpeg_Psi::pes;
@@ -793,7 +797,7 @@ void File_MpegTs::PSI_program_map_table()
             /*
             for (size_t Pos=0x11; Pos<0x1FFF; Pos++)
             {
-                if (Stream.find(Pos)==Stream.end() || Streams[Pos].TS_Kind==File_Mpeg_Psi::unknown)
+                if (Stream.find(Pos)==Stream.end() || Streams[Pos].TS_Kind==File_Mpeg_Psi::unknown || Streams[elementary_PID].TS_Kind==File_Mpeg_Psi::PCR)
                 {
                     //File_Filter
                     if (!Config.File_Filter_Get())

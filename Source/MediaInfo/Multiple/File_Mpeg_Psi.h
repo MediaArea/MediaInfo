@@ -122,8 +122,11 @@ public :
     };
     std::map<int16u, program>   Programs;
 
-    //About program
+    //About the complete stream
     int16u transport_stream_id; //Unique ID of the stream
+
+    //About program
+    int16u PCR_PID;
 
 public :
     File_Mpeg_Psi();

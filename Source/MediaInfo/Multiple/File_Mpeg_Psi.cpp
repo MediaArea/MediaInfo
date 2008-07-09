@@ -414,7 +414,8 @@ File_Mpeg_Psi::File_Mpeg_Psi()
 
     //Temp
     Stream_Current=0x0000;
-    transport_stream_id=0x0000;
+    transport_stream_id=0xFFFF; //Impossible
+    PCR_PID=0x1FFF; //Default value
     CRC_32=0;
 }
 
@@ -783,7 +784,7 @@ void File_Mpeg_Psi::Table_02()
     Skip_S1( 8,                                                 "section_number");
     Skip_S1( 8,                                                 "last_section_number");
     Skip_S1( 3,                                                 "reserved");
-    Skip_S2(13,                                                 "PCR_PID");
+    Get_S2 (13, PCR_PID,                                        "PCR_PID");
     Skip_S1( 4,                                                 "reserved");
     Get_S2 (12, Descriptors_Size,                               "program_info_length");
     BS_End();
