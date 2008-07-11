@@ -179,7 +179,7 @@ void File_Adts::Data_Parse()
     Skip_XX(Element_Size,                                       "Data");
 
     //Filling
-    if (Frame_Count>=Frame_Count_Valid)
+    if (Frame_Count>=Frame_Count_Valid && Count_Get(Stream_Audio)==0)
         Data_Parse_Fill();
 }
 
@@ -236,6 +236,9 @@ bool File_Adts::Synchronize()
             //Testing next start, to be sure
             if (File_Offset+Buffer_Offset+aac_frame_length!=File_Size-File_EndTagSize)
             {
+                if (IsSub && Buffer_Offset+aac_frame_length==Buffer_Size)
+                    break;
+
                 if (Buffer_Offset+aac_frame_length+2>Buffer_Size)
                     return false; //Need more data
 

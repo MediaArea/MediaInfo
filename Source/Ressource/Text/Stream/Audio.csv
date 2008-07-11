@@ -98,8 +98,8 @@ StreamSize/String3;;;N NT;;;
 StreamSize/String4;;;N NT;;;
 StreamSize/String5;;;N NT;;;With proportion
 StreamSize_Proportion;;;N NT;;;Stream size divided by file size
-Alignment;;;Y NT;;;How this stream file is aligned in the container
-Alignment/String;;;N YT;;;
+Alignment;;;N YT;;;How this stream file is aligned in the container
+Alignment/String;;;Y NT;;;
 Interleave_VideoFrames;;;N YF;;;Between how many video frames the stream is inserted
 Interleave_Duration;;;N YI;;;Between how much time (ms) the stream is inserted
 Interleave_Duration/String;;;Y NT;;;Between how much time and video frames the stream is inserted (with measurement)

@@ -160,6 +160,7 @@ void File_Riff::Read_Buffer_Finalize ()
             {
                 if (Count_Get(Stream_Video)>0) //Only if this is not a WAV file
                     Fill(Stream_Audio, StreamPos_Last, Audio_Alignment, Temp->second.ChunksAreComplete?"Aligned":"Split");
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Alignment_String, MediaInfoLib::Config.Language_Get(Temp->second.ChunksAreComplete?_T("Alignment_Aligned"):_T("Alignment_Split")));
             }
 
             //Specific
@@ -290,14 +291,15 @@ void File_Riff::Read_Buffer_Finalize ()
                 if (SamplingCount>0 && SamplingRate>0)
                     Fill(Stream_Audio, StreamPos_Last, Audio_Duration, SamplingCount*1000/SamplingRate, 0, true);
 
-                //Interleave - In progress, not tested enough
+                //Interleave
                 if (Stream[0x30300000].PacketCount && Temp->second.PacketCount)
                 {
-                    if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Duration).To_float32() && Retrieve(Stream_Video, 0, Video_Duration).To_float32())
-                        Fill(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames", (float)Stream[0x30300000].PacketCount/Temp->second.PacketCount*Retrieve(Stream_Audio, StreamPos_Last, Audio_Duration).To_float32()/Retrieve(Stream_Video, 0, Video_Duration).To_float32(), 2);
+                    Fill(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames", (float)Stream[0x30300000].PacketCount/Temp->second.PacketCount, 2);
                     if (Retrieve(Stream_Video, 0, Video_FrameRate).To_float32())
+                    {
                         Fill(Stream_Audio, StreamPos_Last, "Interleave_Duration", (float)Stream[0x30300000].PacketCount/Temp->second.PacketCount*1000/Retrieve(Stream_Video, 0, Video_FrameRate).To_float32(), 0);
-                    Fill(Stream_Audio, StreamPos_Last, "Interleave_Duration/String", Retrieve(Stream_Audio, StreamPos_Last, "Interleave_Duration")+_T(" ms")+(Retrieve(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames").empty()?Ztring():(_T(" (")+Retrieve(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames")+_T(" video frames)"))), 0);
+                        Fill(Stream_Audio, StreamPos_Last, "Interleave_Duration/String", Retrieve(Stream_Audio, StreamPos_Last, "Interleave_Duration")+_T(" ")+MediaInfoLib::Config.Language_Get(_T("ms"))+(Retrieve(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames").empty()?Ztring():(_T(" (")+MediaInfoLib::Config.Language_Get(Retrieve(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames"), _T(" video frames"))+_T(")"))), 0);
+                    }
                     int64u Audio_FirstBytes=0;
                     for (std::map<int64u, stream_structure>::iterator Stream_Structure_Temp=Stream_Structure.begin(); Stream_Structure_Temp!=Stream_Structure.end(); Stream_Structure_Temp++)
                     {

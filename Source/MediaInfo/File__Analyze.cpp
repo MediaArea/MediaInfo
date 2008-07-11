@@ -813,6 +813,14 @@ void File__Analyze::Data_Info (const Ztring &Parameter)
 void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
 {
     Element_Show();
+
+    if (IsSub)
+    {
+        Info(Ztring(ParserName)+(ShouldContinueParsing?_T(" detected"):_T(", parsing finnished")), 1);
+        Finnished();
+        return;
+    }
+
     if (Element_Level>0)
         Element_End(); //Element
 
@@ -830,6 +838,12 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Data_GoTo (int64u GoTo)
 {
+    if (IsSub)
+    {
+        Finnished();
+        return;
+    }
+
     if (Element_Level>0)
         Element_End(); //Element
 

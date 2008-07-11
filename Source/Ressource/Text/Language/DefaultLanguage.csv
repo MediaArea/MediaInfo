@@ -119,6 +119,9 @@
  text stream1; text stream
  text stream2; text streams
  text stream3; text streams
+ video frames1; video frame
+ video frames2; video frames
+ video frames3; video frames
  video stream1; video stream
  video stream2; video streams
  video stream3; video streams
@@ -143,6 +146,8 @@ Address;Address
 Advanced;Advanced
 Advanced mode;Advanced mode
 Album;Album
+Alignment_Aligned;Aligned on interleaves
+Alignment_Split;Split accross interleaves
 All;All
 Archival_Location;Archival location
 Arranger;Arranger
@@ -484,6 +489,9 @@ Interlaced_TFF;Top Field First
 Interlaced_BFF;Bottom Field First
 Interlaced_PPF;Progressive
 Interlaced_Progressive;Progressive
+Interleave_Duration;Interleave, duration
+Interleave_Preload;Interleave, preload duration
+Interleave_VideoFrames;Interleave, duration
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC

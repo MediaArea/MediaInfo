@@ -641,10 +641,7 @@ void File_Mpega::Data_Parse_Fill()
     Fill(Stream_Audio, 0, Audio_Resolution, 16);
 
     //Jumping
-    if (File_Name.empty())
-        Finnished();
-    else
-        File__Tags_Helper::Data_GoTo(File_Size-(File_Size>=8*1024?8*1024:0), "MPEG-A");
+    File__Tags_Helper::Data_GoTo(File_Size-(File_Size>=8*1024?8*1024:0), "MPEG-A");
 }
 
 //---------------------------------------------------------------------------
@@ -1051,7 +1048,7 @@ bool File_Mpega::Synchronize()
             {
                 //Testing next start, to be sure
                 size_t Size=(Mpega_Coefficient[ID][layer]*Mpega_BitRate[ID][layer][bitrate_index]*1000/Mpega_SamplingRate[ID][sampling_frequency]+(padding_bit?1:0))*Mpega_SlotSize[layer];
-                if (FrameIsAlwaysComplete && Buffer_Offset+Size==Buffer_Size)
+                if (IsSub && Buffer_Offset+Size==Buffer_Size)
                     break;
                 if (File_Offset+Buffer_Offset+Size!=File_Size-File_EndTagSize)
                 {

@@ -902,6 +902,9 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     {
         Stream[Stream_ID].Parser=new File_Adts;
         Open_Buffer_Init(Stream[Stream_ID].Parser);
+        ((File_Adts*)Stream[Stream_ID].Parser)->Frame_Count_Valid=1;
+        Stream[Stream_ID].Parser->NewFinnishMethod=true;
+        Stream[Stream_ID].Parser->ShouldContinueParsing=true;
     }
     #endif
     #if defined(MEDIAINFO_PCM_YES)
@@ -942,6 +945,8 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     {
         Stream[Stream_ID].Parser=new File_Ogg;
         Open_Buffer_Init(Stream[Stream_ID].Parser);
+        Stream[Stream_ID].Parser->NewFinnishMethod=true;
+        Stream[Stream_ID].Parser->ShouldContinueParsing=true;
     }
     #endif
 

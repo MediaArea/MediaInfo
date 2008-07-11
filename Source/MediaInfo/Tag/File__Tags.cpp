@@ -79,6 +79,9 @@ File__Tags_Helper::~File__Tags_Helper()
 
 bool File__Tags_Helper::Read_Buffer_Continue()
 {
+    if (Base->IsSub)
+        return true;
+
     if (!TagSizeIsFinal && Base->File_Offset+Base->Buffer_Size==Base->File_Size)
         SearchingForEndTags=true; //For small files
 
@@ -101,6 +104,12 @@ bool File__Tags_Helper::Read_Buffer_Continue()
 
 void File__Tags_Helper::Data_GoTo (int64u GoTo, const char* Message)
 {
+    if (Base->IsSub)
+    {
+        Base->Data_GoTo(GoTo, Message);
+        return;
+    }
+
     //Normal Data_GoTo;
 
     //Configuring
