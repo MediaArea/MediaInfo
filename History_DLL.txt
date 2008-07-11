@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.7.4, 2008-07-
+Version 0.7.7.4, 2008-07-11
 ---------------
 + #1995653, AVI: Delay of interleaves (example: "64 ms (1.53 video frames)")
 + #1995574, AVI: Report if the audio frames are split across or aligned on
