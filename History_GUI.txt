@@ -13,9 +13,19 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
-Version 0.7.7.4, 2008-07-
+Version 0.7.7.4, 2008-07-11
 ---------------
 + Albanian translation added
++ #1995653, AVI: Delay of interleaves (example: "64 ms (1.53 video frames)")
++ #1995574, AVI: Report if the audio frames are split across or aligned on
++ MPEG-Video (raw): handling of "not started at the beginning" time_code
++ MPEG-PS: Trying to prevent errors with time code reset in the stream
++ AVC: Trying to detect raw AVC streams without SPS/PPS
++ [2013746] AAC in MPEG-TS: complete parsing of ADTS stream for more info about AAC
++ AAC in MPEG-TS: complete parsing of IOD based stream for more info about AAC
++ MPEG-TS: better detection of PCR time code
++ AAC: specifying the muxing mode (ADIF, ADTS or LATM)
++ MediaInfo DLL: NetBeans java binding example
 
 Version 0.7.7.3, 2008-06-27
 ---------------
