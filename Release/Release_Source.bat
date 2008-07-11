@@ -82,6 +82,11 @@ xcopy ..\Project\Java\*.bat MediaInfo_Lib_Source\Project\Java\ /S
 xcopy ..\Project\Java\*.sh MediaInfo_Lib_Source\Project\Java\ /S
 xcopy ..\Project\Java\*.java MediaInfo_Lib_Source\Project\Java\ /S
 xcopy ..\Project\Java\*.txt MediaInfo_Lib_Source\Project\Java\ /S
+xcopy ..\Project\NetBeans\Example\*.xml MediaInfo_Lib_Source\Project\NetBeans\Example\ /s
+xcopy ..\Project\NetBeans\Example\*.properties MediaInfo_Lib_Source\Project\NetBeans\Example\ /s
+xcopy ..\Project\NetBeans\Example\*.mf MediaInfo_Lib_Source\Project\NetBeans\Example\
+xcopy ..\Project\NetBeans\Example\*.txt MediaInfo_Lib_Source\Project\NetBeans\Example\
+xcopy ..\Project\NetBeans\Example\src\*.java MediaInfo_Lib_Source\Project\NetBeans\Example\src\
 
 @rem --- Copying : Release ---
 xcopy *.txt MediaInfo_Lib_Source\Release\
