@@ -119,9 +119,9 @@
  text stream1;字幕
  text stream2;个字幕
  text stream3;个字幕
- video frames1
- video frames2
- video frames3
+ video frames1; 视频段
+ video frames2; 段视频
+ video frames3; 段视频
  video stream1;视频
  video stream2;个视频
  video stream3;个视频
@@ -146,8 +146,8 @@ Address;地址
 Advanced;高级
 Advanced mode;高级模式
 Album;专辑
-Alignment_Aligned
-Alignment_Split
+Alignment_Aligned;同步合并
+Alignment_Split;非同步合并
 All;全部
 Archival_Location;归档地址
 Arranger;改编者
@@ -489,9 +489,9 @@ Interlaced_TFF;奇数场(前场TFF)优先
 Interlaced_BFF;偶数场(后场BFF)优先
 Interlaced_PPF;逐行扫描
 Interlaced_Progressive;逐行扫描
-Interleave_Duration
-Interleave_Preload
-Interleave_VideoFrames
+Interleave_Duration;音视频交错, 时间
+Interleave_Preload;音视频交错, 音频预读
+Interleave_VideoFrames;音视频交错, 时间
 IRCA
 ISBN
 ISRC
@@ -848,5 +848,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;49
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;50
+ZZ_AutomaticLanguage_Percent;89
