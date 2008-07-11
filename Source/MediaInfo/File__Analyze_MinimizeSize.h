@@ -218,7 +218,7 @@ public :
     // Information
     //***************************************************************************
 
-    inline void Info (const Ztring&) {}
+    inline void Info (const Ztring&, size_t =0) {}
 
     //***************************************************************************
     // Big Endian
@@ -800,7 +800,9 @@ protected :
     //Buffer
     const int8u* Buffer;
     int8u* Buffer_Temp;
+public : //TO CHANGE
     size_t Buffer_Size;
+protected :
     size_t Buffer_Size_Max;
     size_t Buffer_Offset; //Temporary usage in this parser
     size_t Buffer_Offset_Temp; //Temporary usage in this parser
@@ -862,5 +864,10 @@ public :
     void BookMark_Set(size_t Element_Level_ToGet=(size_t)-1);
     void BookMark_Get();
     virtual bool BookMark_Needed()                                              {return false;};
+
+    //Temp
+    bool NewFinnishMethod;
+    bool IsFinnished;
+    bool ShouldContinueParsing;
 };
 

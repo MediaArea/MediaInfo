@@ -105,6 +105,11 @@ File__Analyze::File__Analyze ()
 
     //BitStream
     BS=new BitStream;
+
+    //Temp
+    NewFinnishMethod=false;
+    IsFinnished=false;
+    ShouldContinueParsing=false;
 }
 
 //---------------------------------------------------------------------------
@@ -418,7 +423,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     {
         Element[Element_Level].WaitForMoreData=false;
         Detect_EOF();
-        if (File_GoTo!=(int64u)-1 || File_Offset==(int64u)-1)
+        if (File_GoTo!=(int64u)-1 || File_Offset==(int64u)-1 || (IsFinnished && !ShouldContinueParsing))
         {
             EOF_AlreadyDetected=true;
             return;
@@ -745,7 +750,7 @@ bool File__Analyze::Data_Manage()
     Element[Element_Level].IsComplete=true;
 
     //If no need of more
-    if (File_Offset==File_Size || File_GoTo!=(int64u)-1)
+    if (File_Offset==File_Size || File_GoTo!=(int64u)-1 || (IsFinnished && !ShouldContinueParsing))
         return false;
 
     //Next element
@@ -782,7 +787,7 @@ bool File__Analyze::Data_Manage()
     {
         Element[Element_Level].WaitForMoreData=false;
         Detect_EOF();
-        if (File_GoTo!=(int64u)-1 || File_Offset==(int64u)-1)
+        if (File_GoTo!=(int64u)-1 || File_Offset==(int64u)-1 || (IsFinnished && !ShouldContinueParsing))
         {
             EOF_AlreadyDetected=true;
             return false;
@@ -1051,7 +1056,14 @@ void File__Analyze::Element_End_Common_Flush()
     Element[Element_Level].WaitForMoreData=Element[Element_Level+1].WaitForMoreData;
 
     #ifndef MEDIAINFO_MINIMIZESIZE
-    //ToShow
+        Element_End_Common_Flush_Details();
+    #endif //MEDIAINFO_MINIMIZESIZE
+}
+
+#ifndef MEDIAINFO_MINIMIZESIZE
+//---------------------------------------------------------------------------
+void File__Analyze::Element_End_Common_Flush_Details()
+{
     Element[Element_Level].ToShow.NoShow=Element[Element_Level+1].ToShow.NoShow;
     if (MediaInfoLib::Config.Details_Get()!=0)
     {
@@ -1076,8 +1088,8 @@ void File__Analyze::Element_End_Common_Flush()
             }
         }
     }
-    #endif //MEDIAINFO_MINIMIZESIZE
 }
+#endif //MEDIAINFO_MINIMIZESIZE
 
 #ifndef MEDIAINFO_MINIMIZESIZE
 //---------------------------------------------------------------------------
@@ -1181,25 +1193,38 @@ void File__Analyze::Param(const Ztring& Parameter, const Ztring& Value)
 
 //---------------------------------------------------------------------------
 #ifndef MEDIAINFO_MINIMIZESIZE
-void File__Analyze::Info(const Ztring& Value)
+void File__Analyze::Info(const Ztring& Value, size_t Element_Level_Minus)
 {
+    //Handling a different level (only Element_Level_Minus to 1 is currently well supported)
+    size_t Element_Level_Final=Element_Level;
+    if (Element_Level_Minus<=Element_Level)
+    {
+        if (Element_Level_Minus==1)
+        {
+            Element_Level--;
+            Element_End_Common_Flush_Details();
+            Element_Level++;
+        }
+        Element_Level_Final-=Element_Level_Minus;
+    }
+
     if (MediaInfoLib::Config.Details_Get()==0)
         return;
 
     //Coherancy
-    if (Element[Element_Level].UnTrusted)
+    if (Element[Element_Level_Final].UnTrusted)
         return;
 
     //Line separator
-    if (!Element[Element_Level].ToShow.Details.empty())
-        Element[Element_Level].ToShow.Details+=MediaInfoLib::Config.LineSeparator_Get();
+    if (!Element[Element_Level_Final].ToShow.Details.empty())
+        Element[Element_Level_Final].ToShow.Details+=MediaInfoLib::Config.LineSeparator_Get();
 
     //Preparing
-    Ztring ToShow; ToShow.resize(Element_Level, _T(' '));
+    Ztring ToShow; ToShow.resize(Element_Level_Final, _T(' '));
     ToShow+=_T("---   ");
     ToShow+=Value;
     ToShow+=_T("   ---");
-    Ztring Separator; Separator.resize(Element_Level, _T(' '));
+    Ztring Separator; Separator.resize(Element_Level_Final, _T(' '));
     Separator.resize(ToShow.size(), _T('-'));
 
     //Show Offset
@@ -1209,14 +1234,14 @@ void File__Analyze::Info(const Ztring& Value)
     Offset.resize(Offset.size()+Element_Level_Base, _T(' '));
 
     //Show Value
-    Element[Element_Level].ToShow.Details+=Offset;
-    Element[Element_Level].ToShow.Details+=Separator;
-    Element[Element_Level].ToShow.Details+=MediaInfoLib::Config.LineSeparator_Get();
-    Element[Element_Level].ToShow.Details+=Offset;
-    Element[Element_Level].ToShow.Details+=ToShow;
-    Element[Element_Level].ToShow.Details+=MediaInfoLib::Config.LineSeparator_Get();
-    Element[Element_Level].ToShow.Details+=Offset;
-    Element[Element_Level].ToShow.Details+=Separator;
+    Element[Element_Level_Final].ToShow.Details+=Offset;
+    Element[Element_Level_Final].ToShow.Details+=Separator;
+    Element[Element_Level_Final].ToShow.Details+=MediaInfoLib::Config.LineSeparator_Get();
+    Element[Element_Level_Final].ToShow.Details+=Offset;
+    Element[Element_Level_Final].ToShow.Details+=ToShow;
+    Element[Element_Level_Final].ToShow.Details+=MediaInfoLib::Config.LineSeparator_Get();
+    Element[Element_Level_Final].ToShow.Details+=Offset;
+    Element[Element_Level_Final].ToShow.Details+=Separator;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
@@ -1302,6 +1327,12 @@ void File__Analyze::Trusted_IsNot (const char* Reason)
 //---------------------------------------------------------------------------
 void File__Analyze::Finnished ()
 {
+    if (NewFinnishMethod)
+    {
+        IsFinnished=true;
+        return;
+    }
+
     File_Offset=File_Size;
     File_GoTo=File_Size;
 }

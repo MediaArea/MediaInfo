@@ -338,7 +338,7 @@ void File_Dts::Data_Parse_Fill()
 
     if (File_Offset+Buffer_Size<File_Size)
     {
-        Info("DTS, Jumping to end of file");
+        Info("DTS detected");
         Finnished();
     }
 }

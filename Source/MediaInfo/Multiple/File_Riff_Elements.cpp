@@ -872,6 +872,8 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     {
         Stream[Stream_ID].Parser=new File_Mpega;
         Open_Buffer_Init(Stream[Stream_ID].Parser);
+        Stream[Stream_ID].Parser->NewFinnishMethod=true;
+        Stream[Stream_ID].Parser->ShouldContinueParsing=true;
     }
     #endif
     #if defined(MEDIAINFO_AC3_YES)
@@ -880,6 +882,8 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
         Stream[Stream_ID].Parser=new File_Ac3;
         Open_Buffer_Init(Stream[Stream_ID].Parser);
         ((File_Ac3*)Stream[Stream_ID].Parser)->Frame_Count_Valid=1;
+        Stream[Stream_ID].Parser->NewFinnishMethod=true;
+        Stream[Stream_ID].Parser->ShouldContinueParsing=true;
     }
     #endif
     #if defined(MEDIAINFO_DTS_YES)
@@ -889,6 +893,8 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
         Stream[Stream_ID].Parser=new File_Dts;
         Open_Buffer_Init(Stream[Stream_ID].Parser);
         ((File_Dts*)Stream[Stream_ID].Parser)->Frame_Count_Valid=1;
+        Stream[Stream_ID].Parser->NewFinnishMethod=true;
+        Stream[Stream_ID].Parser->ShouldContinueParsing=true;
     }
     #endif
     #if defined(MEDIAINFO_ADTS_YES)
@@ -1743,6 +1749,8 @@ void File_Riff::AVI__movi_xxxx()
     {
         Open_Buffer_Init(Stream[Stream_ID].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
         Open_Buffer_Continue(Stream[Stream_ID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        if (Stream[Stream_ID].Parser->Buffer_Size>0)
+            Stream[Stream_ID].ChunksAreComplete=false;
     }
 
     //Some specific stuff
@@ -1805,10 +1813,12 @@ void File_Riff::AVI__movi_xxxx___tx()
 void File_Riff::AVI__movi_xxxx___wb()
 {
     //Finalize (if requested)
-    if (Stream[Stream_ID].Parser==NULL
-     || Stream[Stream_ID].Parser->File_Offset==File_Size
-     || Stream[Stream_ID].PacketPos>=300
-     || Element_Size>50000) //For PCM, we disable imediatly
+    if (Stream[Stream_ID].PacketPos>=4 //For having the chunk alignement
+     && (Stream[Stream_ID].Parser==NULL
+      || Stream[Stream_ID].Parser->File_Offset==File_Size
+      || Stream[Stream_ID].Parser->IsFinnished
+      || Stream[Stream_ID].PacketPos>=300
+      || Element_Size>50000)) //For PCM, we disable imediatly
     {
         Stream[Stream_ID].SearchingPayload=false;
         stream_Count--;

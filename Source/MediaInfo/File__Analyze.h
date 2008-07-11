@@ -188,6 +188,7 @@ protected :
 protected :
     //Element - Common
     void   Element_End_Common_Flush();
+    void   Element_End_Common_Flush_Details();
     Ztring Element_End_Common_Flush_Build();
 public :
 
@@ -256,7 +257,7 @@ public :
     // Information
     //***************************************************************************
 
-    void Info (const Ztring& Value);
+    void Info (const Ztring& Value, size_t Element_Level_Minus=0);
 
     //***************************************************************************
     // Big Endian
@@ -774,7 +775,9 @@ protected :
     //Buffer
     const int8u* Buffer;
     int8u* Buffer_Temp;
+public : //TO CHANGE
     size_t Buffer_Size;
+protected :
     size_t Buffer_Size_Max;
     size_t Buffer_Offset; //Temporary usage in this parser
     size_t Buffer_Offset_Temp; //Temporary usage in this parser
@@ -836,6 +839,11 @@ public :
     void BookMark_Set(size_t Element_Level_ToGet=(size_t)-1);
     void BookMark_Get();
     virtual bool BookMark_Needed()                                              {return false;};
+
+    //Temp
+    bool NewFinnishMethod;
+    bool IsFinnished;
+    bool ShouldContinueParsing;
 };
 #endif //MEDIAINFO_MINIMIZESIZE
 

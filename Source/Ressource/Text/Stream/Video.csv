@@ -114,6 +114,8 @@ StreamSize/String3;;;N NT;;;;;
 StreamSize/String4;;;N NT;;;;;
 StreamSize/String5;;;N NT;;;With proportion;;
 StreamSize_Proportion;;;N NT;;;Stream size divided by file size;;
+Alignment;;;Y NT;;;How this stream file is aligned in the container;;
+Alignment/String;;;N YT;;;;;
 Title;;;Y YI;;;Name of the track;;
 Encoded_Application;;;Y YT;;;Software. Identifies the name of the software package used to create the file, such as Microsoft WaveEdit.;;Technical
 Encoded_Application/Url;;;N YT;;;Software. Identifies the name of the software package used to create the file, such as Microsoft WaveEdit.;;Technical

@@ -503,8 +503,7 @@ void File_Ac3::Data_Parse_Fill()
     if (File_Offset+Buffer_Size<File_Size)
     {
         //No more need data
-        Element_End();
-        Info("AC3, Jumping to end of file");
+        Info("AC-3 detected", 1);
         Finnished();
     }
 }

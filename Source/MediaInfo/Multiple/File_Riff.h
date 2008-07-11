@@ -73,6 +73,7 @@ private :
         int64u                  StreamSize;
         bool                    SearchingPayload;
         bool                    Specific_IsMpeg4v;
+        bool                    ChunksAreComplete;
 
         stream()
         {
@@ -89,6 +90,7 @@ private :
             StreamSize=0;
             SearchingPayload=true;
             Specific_IsMpeg4v=false;
+            ChunksAreComplete=true;
         }
 
         ~stream()
