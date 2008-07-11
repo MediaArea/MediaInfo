@@ -64,6 +64,11 @@ xcopy ..\Project\Java\Example\*.java MediaInfoDLL_Win32\Developpers\Project\Java
 xcopy ..\Project\Java\Example\*.txt MediaInfoDLL_Win32\Developpers\Project\Java\Example\
 xcopy ..\Project\Java\Example\*.bat MediaInfoDLL_Win32\Developpers\Project\Java\Example\
 xcopy ..\Project\Java\Example\*.sh MediaInfoDLL_Win32\Developpers\Project\Java\Example\
+xcopy ..\Project\NetBeans\Example\*.xml MediaInfoDLL_Win32\Developpers\Project\NetBeans\Example\ /s
+xcopy ..\Project\NetBeans\Example\*.properties MediaInfoDLL_Win32\Developpers\Project\NetBeans\Example\ /s
+xcopy ..\Project\NetBeans\Example\*.mf MediaInfoDLL_Win32\Developpers\Project\NetBeans\Example\
+xcopy ..\Project\NetBeans\Example\*.txt MediaInfoDLL_Win32\Developpers\Project\NetBeans\Example\
+xcopy ..\Project\NetBeans\Example\src\*.java MediaInfoDLL_Win32\Developpers\Project\NetBeans\Example\src\
 
 rem --- Copying : Libs ---
 xcopy ..\Release\BCB\DLL\MediaInfo.lib MediaInfoDLL_Win32\Developpers\Release\BCB\DLL\

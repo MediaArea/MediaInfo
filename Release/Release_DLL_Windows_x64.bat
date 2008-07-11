@@ -41,6 +41,16 @@ xcopy ..\Project\MSVB\Example\*.res* MediaInfoDLL_Windows_x64\Developpers\Projec
 xcopy "..\Project\MSVB\Example\My Project\*.*" "MediaInfoDLL_Windows_x64\Developpers\Project\MSVB\Example\My Project\"
 xcopy ..\Project\MSVC\*.sln MediaInfoDLL_Windows_x64\Developpers\Project\MSVC\
 xcopy ..\Project\MSVC\Example\HowToUse_Dll.vcproj MediaInfoDLL_Windows_x64\Developpers\Project\MSVC\Example\
+xcopy ..\Project\GCC\Example\Make* MediaInfoDLL_Win32\Developpers\Project\GCC\Example\
+xcopy ..\Project\Java\Example\*.java MediaInfoDLL_Win32\Developpers\Project\Java\Example\
+xcopy ..\Project\Java\Example\*.txt MediaInfoDLL_Win32\Developpers\Project\Java\Example\
+xcopy ..\Project\Java\Example\*.bat MediaInfoDLL_Win32\Developpers\Project\Java\Example\
+xcopy ..\Project\Java\Example\*.sh MediaInfoDLL_Win32\Developpers\Project\Java\Example\
+xcopy ..\Project\NetBeans\Example\*.xml MediaInfoDLL_Win32\Developpers\Project\NetBeans\Example\ /s
+xcopy ..\Project\NetBeans\Example\*.properties MediaInfoDLL_Win32\Developpers\Project\NetBeans\Example\ /s
+xcopy ..\Project\NetBeans\Example\*.mf MediaInfoDLL_Win32\Developpers\Project\NetBeans\Example\
+xcopy ..\Project\NetBeans\Example\*.txt MediaInfoDLL_Win32\Developpers\Project\NetBeans\Example\
+xcopy ..\Project\NetBeans\Example\src\*.java MediaInfoDLL_Win32\Developpers\Project\NetBeans\Example\src\
 
 rem --- Copying : Libs ---
 xcopy ..\Release\MSVCx64\DLL\MediaInfo.lib MediaInfoDLL_Windows_x64\Developpers\Release\MSVC\DLL\
