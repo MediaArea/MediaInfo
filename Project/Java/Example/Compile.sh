@@ -1,1 +1,1 @@
-javac -d . -cp .:JNative.jar MediaInfoDLL.java HowToUse_Dll.java
+javac -d . -cp .:JNative.jar ../../../Source/MediaInfoDLL/MediaInfoDLL.java ../../../Source/Example/HowToUse_Dll.java
