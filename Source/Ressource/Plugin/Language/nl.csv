@@ -119,6 +119,9 @@
  text stream1; tekststroom
  text stream2; tekststromen
  text stream3; tekststromen
+ video frames1
+ video frames2
+ video frames3
  video stream1; videostroom
  video stream2; videostromen
  video stream3; videostromen
@@ -143,6 +146,8 @@ Address;Adres
 Advanced;Geavanceerd
 Advanced mode;Geavanceerde modus
 Album;Album
+Alignment_Aligned
+Alignment_Split
 All;Alles
 Archival_Location;Archieflocatie
 Arranger;Arrangeur
@@ -484,6 +489,9 @@ Interlaced_TFF
 Interlaced_BFF
 Interlaced_PPF
 Interlaced_Progressive
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -840,5 +848,5 @@ Written_Location;Locatie van schrijven
 WrittenBy;Geschreven door
 Yes;Ja
 Your system;Uw systeem
-ZZ_Automatic_Percent;88
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;87
+ZZ_AutomaticLanguage_Percent;87

@@ -119,6 +119,9 @@
  text stream1;گردش متن
  text stream2;گردش متن
  text stream3;گردش متن
+ video frames1
+ video frames2
+ video frames3
  video stream1;گردش ویدیو
  video stream2;گردش ویدیو
  video stream3;گردش ویدیو
@@ -143,6 +146,8 @@ Address;آدرس
 Advanced;حرفه ای
 Advanced mode;مد پیشرفته
 Album;آلبوم
+Alignment_Aligned
+Alignment_Split
 All;همه
 Archival_Location;مکان بایگانی
 Arranger;چیدمانگر
@@ -484,6 +489,9 @@ Interlaced_TFF
 Interlaced_BFF
 Interlaced_PPF;تصاعد
 Interlaced_Progressive
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA
 ISBN
 ISRC
@@ -840,5 +848,5 @@ Written_Location;مکان نوشته شده
 WrittenBy;نوشته شده توسط
 Yes;بله
 Your system;سیستم شما
-ZZ_Automatic_Percent;48
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;47
+ZZ_AutomaticLanguage_Percent;86

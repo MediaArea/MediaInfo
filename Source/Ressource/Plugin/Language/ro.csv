@@ -119,6 +119,9 @@
  text stream1;flux test
  text stream2;fluxuri test
  text stream3;fluxuri text
+ video frames1
+ video frames2
+ video frames3
  video stream1;flux video
  video stream2;fluxuri video
  video stream3;fluxuri video
@@ -143,6 +146,8 @@ Address;Adresa
 Advanced;Avansat
 Advanced mode;Mod avansat
 Album;Album
+Alignment_Aligned
+Alignment_Split
 All;Toate
 Archival_Location;Locul arhivei
 Arranger;Regizor
@@ -484,6 +489,9 @@ Interlaced_TFF
 Interlaced_BFF
 Interlaced_PPF
 Interlaced_Progressive
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA
 ISBN
 ISRC
@@ -841,4 +849,4 @@ WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
 ZZ_Automatic_Percent;39
-ZZ_AutomaticLanguage_Percent;79
+ZZ_AutomaticLanguage_Percent;78

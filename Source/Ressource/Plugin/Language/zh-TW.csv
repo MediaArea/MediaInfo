@@ -119,6 +119,9 @@
  text stream1; 字幕串流
  text stream2; 字幕串流
  text stream3; 字幕串流
+ video frames1
+ video frames2
+ video frames3
  video stream1; 視訊串流
  video stream2; 視訊串流
  video stream3; 視訊串流
@@ -143,6 +146,8 @@ Address
 Advanced;進階
 Advanced mode;進階模式
 Album;專輯
+Alignment_Aligned
+Alignment_Split
 All;全部
 Archival_Location
 Arranger
@@ -484,6 +489,9 @@ Interlaced_TFF;前場優先
 Interlaced_BFF;後場優先
 Interlaced_PPF;漸進式
 Interlaced_Progressive;漸進式
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA
 ISBN
 ISRC
@@ -840,5 +848,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;73
-ZZ_AutomaticLanguage_Percent;86
+ZZ_Automatic_Percent;72
+ZZ_AutomaticLanguage_Percent;85

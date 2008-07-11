@@ -119,6 +119,9 @@
  text stream1; yazı akışı
  text stream2; yazı akışı
  text stream3; yazı akışı
+ video frames1
+ video frames2
+ video frames3
  video stream1; görüntü akışı
  video stream2; görüntü akışı
  video stream3; görüntü akışı
@@ -143,6 +146,8 @@ Address;Adres
 Advanced;Gelişmiş
 Advanced mode;Gelişmiş kip
 Album;Albüm
+Alignment_Aligned
+Alignment_Split
 All;Tümü
 Archival_Location;Arşiv konumu
 Arranger;Düzenleyici
@@ -484,6 +489,9 @@ Interlaced_TFF;En Üst Alanın İlki
 Interlaced_BFF;En Alt Alanın İlki
 Interlaced_PPF;Aşamalı
 Interlaced_Progressive;Aşamalı
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -840,5 +848,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

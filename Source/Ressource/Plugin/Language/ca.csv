@@ -119,6 +119,9 @@
  text stream1; pista de text
  text stream2; pistes de text
  text stream3; pistes de text
+ video frames1
+ video frames2
+ video frames3
  video stream1; pista de vídeo
  video stream2; pistes de vídeo
  video stream3; pistes de vídeo
@@ -143,6 +146,8 @@ Address;Adreça
 Advanced;Avançat
 Advanced mode;Mode avançat
 Album;Àlbum
+Alignment_Aligned
+Alignment_Split
 All;Tot
 Archival_Location;Arxivat a
 Arranger;Compositor
@@ -484,6 +489,9 @@ Interlaced_TFF;Camp superior primer
 Interlaced_BFF;Camp inferior primer
 Interlaced_PPF;Progressiu
 Interlaced_Progressive;Progressiu
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC

@@ -119,6 +119,9 @@
  text stream1; 텍스트 스트림
  text stream2; 텍스트 스트림
  text stream3; 텍스트 스트림
+ video frames1
+ video frames2
+ video frames3
  video stream1; 비디오 스트림
  video stream2; 비디오 스트림
  video stream3; 비디오 스트림
@@ -143,6 +146,8 @@ Address;주소
 Advanced;고급
 Advanced mode;고급 모드
 Album;앨범
+Alignment_Aligned
+Alignment_Split
 All;전체
 Archival_Location;기록 장소
 Arranger;편곡자
@@ -484,6 +489,9 @@ Interlaced_TFF;Top Field First
 Interlaced_BFF;Bottom Field First
 Interlaced_PPF;프로그레시브
 Interlaced_Progressive;프로그레시브
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -840,5 +848,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96

@@ -119,6 +119,9 @@
  text stream1; text stream
  text stream2; text streams
  text stream3; text streams
+ video frames1
+ video frames2
+ video frames3
  video stream1; video stream
  video stream2; video streams
  video stream3; video streams
@@ -143,6 +146,8 @@ Address;Address
 Advanced;Pokročilé
 Advanced mode;Více detailů
 Album;Album
+Alignment_Aligned
+Alignment_Split
 All;Vše
 Archival_Location;Archival location
 Arranger;Arranger
@@ -484,6 +489,9 @@ Interlaced_TFF;Top Field First
 Interlaced_BFF;Bottom Field First
 Interlaced_PPF;Progressive
 Interlaced_Progressive;Progressive
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -840,5 +848,5 @@ Written_Location;Written location
 WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;90
+ZZ_Automatic_Percent;89
+ZZ_AutomaticLanguage_Percent;89

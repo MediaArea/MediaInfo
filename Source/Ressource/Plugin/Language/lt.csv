@@ -119,6 +119,9 @@
  text stream1;teksto srautas
  text stream2;teksto srautai
  text stream3;teksto srautai
+ video frames1
+ video frames2
+ video frames3
  video stream1;video srautas
  video stream2;video srautai
  video stream3;video srautai
@@ -143,6 +146,8 @@ Address;Adresas
 Advanced;Išplėstinai
 Advanced mode;Išplėstinis režimas
 Album;Albumas
+Alignment_Aligned
+Alignment_Split
 All;Visi
 Archival_Location;Archyvavimo vieta
 Arranger;Aranžuotojas
@@ -484,6 +489,9 @@ Interlaced_TFF;Viršutinis laukas pirmiau
 Interlaced_BFF;Apatinis laukas pirmiau
 Interlaced_PPF;Progresyvus
 Interlaced_Progressive;Progresyvus
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -840,5 +848,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96

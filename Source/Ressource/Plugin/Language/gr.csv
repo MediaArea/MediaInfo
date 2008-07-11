@@ -119,6 +119,9 @@
  text stream1; ροή κειμένου
  text stream2; ροές κειμένου
  text stream3; ροές κειμένου
+ video frames1
+ video frames2
+ video frames3
  video stream1; ροή video
  video stream2; ροές video
  video stream3; ροές video
@@ -143,6 +146,8 @@ Address;Διεύθυνση
 Advanced;Για προχωρημένους
 Advanced mode;Κατάσταση λειτουργίας για προχωρημένους
 Album;Album
+Alignment_Aligned
+Alignment_Split
 All;Όλα
 Archival_Location;Archival location
 Arranger;Arranger
@@ -484,6 +489,9 @@ Interlaced_TFF;Top Field First
 Interlaced_BFF;Bottom Field First
 Interlaced_PPF;Συνεχής σάρωση
 Interlaced_Progressive;Συνεχής σάρωση
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -840,5 +848,5 @@ Written_Location;Τοποθεσία καταγραφής
 WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;90
+ZZ_Automatic_Percent;89
+ZZ_AutomaticLanguage_Percent;89

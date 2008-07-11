@@ -119,6 +119,9 @@
  text stream1; sottotitolo
  text stream2; sottotitoli
  text stream3; sottotitoli
+ video frames1
+ video frames2
+ video frames3
  video stream1; video
  video stream2; video
  video stream3; video
@@ -143,6 +146,8 @@ Address;Indirizzo
 Advanced;Modalità  avanzata
 Advanced mode;Modalità  avanzata
 Album;Album
+Alignment_Aligned
+Alignment_Split
 All;Tutti
 Archival_Location;Posizione dell'archivio
 Arranger;Compositore
@@ -484,6 +489,9 @@ Interlaced_TFF;Top Field First
 Interlaced_BFF;Bottom Field First
 Interlaced_PPF;Progressivo
 Interlaced_Progressive;Progressivo
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -840,5 +848,5 @@ Written_Location;Written location
 WrittenBy;Scritto da 
 Yes;Si 
 Your system;Il tuo sistema
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;89
+ZZ_AutomaticLanguage_Percent;96

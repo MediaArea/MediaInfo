@@ -119,6 +119,9 @@
  text stream1; текстовый поток
  text stream2; текстовые потоки
  text stream3; текстовые потоки
+ video frames1
+ video frames2
+ video frames3
  video stream1; видеопоток
  video stream2; видеопотоки
  video stream3; видеопотоки
@@ -143,6 +146,8 @@ Address;Адрес
 Advanced;Дополнительно
 Advanced mode;Расширенный режим
 Album;Альбом
+Alignment_Aligned
+Alignment_Split
 All;Все
 Archival_Location;Место хранения
 Arranger;Разместил
@@ -484,6 +489,9 @@ Interlaced_TFF;Верхнее поле первое
 Interlaced_BFF;Нижнее поле первое
 Interlaced_PPF;Прогрессивная
 Interlaced_Progressive;Прогрессивная
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -840,5 +848,5 @@ Written_Location;Место написания
 WrittenBy;Написано
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

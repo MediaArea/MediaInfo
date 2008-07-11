@@ -119,6 +119,9 @@
  text stream1; textström
  text stream2; textströmmar
  text stream3; textströmmar
+ video frames1
+ video frames2
+ video frames3
  video stream1; videoström
  video stream2; videoströmmar
  video stream3; videoströmmar
@@ -143,6 +146,8 @@ Address; Adress
 Advanced; Avancerat
 Advanced mode; Avancerat läge
 Album; Album
+Alignment_Aligned
+Alignment_Split
 All; Alla
 Archival_Location; arkiveringsplats
 Arranger; Arrangör
@@ -484,6 +489,9 @@ Interlaced_TFF
 Interlaced_BFF
 Interlaced_PPF
 Interlaced_Progressive
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA; IRCA
 ISBN; ISBN
 ISRC; ISRC
@@ -840,5 +848,5 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;88
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;87
+ZZ_AutomaticLanguage_Percent;87

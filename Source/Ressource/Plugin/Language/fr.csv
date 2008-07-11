@@ -119,6 +119,9 @@
  text stream1; flux texte
  text stream2; flux texte
  text stream3; flux texte
+ video frames1; image vidéo
+ video frames2; images vidéo
+ video frames3; images vidéo
  video stream1; flux vidéo
  video stream2; flux vidéo
  video stream3; flux vidéo
@@ -143,6 +146,8 @@ Address;Adresse
 Advanced;Avancée
 Advanced mode;Mode Avancé
 Album;Album
+Alignment_Aligned;Alignée sur les interleaves
+Alignment_Split;Eparpillé à travers les interleaves
 All;Tout
 Archival_Location;Archivé à
 Arranger;Arangement
@@ -484,6 +489,9 @@ Interlaced_TFF;Ligne du haut d'abord
 Interlaced_BFF;Ligne du bas d'abord
 Interlaced_PPF;Progressif
 Interlaced_Progressive;Progressif
+Interleave_Duration;Interleave, durée
+Interleave_Preload;Interleave, d. de pré-chargement
+Interleave_VideoFrames;Interleave, durée
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC

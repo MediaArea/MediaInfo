@@ -119,6 +119,9 @@
  text stream1;szövegsáv
  text stream2;szövegsáv
  text stream3;szövegsáv
+ video frames1
+ video frames2
+ video frames3
  video stream1;képsáv
  video stream2;képsáv
  video stream3;képsáv
@@ -143,6 +146,8 @@ Address;Cím
 Advanced;Bővített
 Advanced mode;Bővített mód
 Album;Album
+Alignment_Aligned
+Alignment_Split
 All;Mind
 Archival_Location;Arhiválás helye
 Arranger;Szerkesztő
@@ -484,6 +489,9 @@ Interlaced_TFF
 Interlaced_BFF
 Interlaced_PPF
 Interlaced_Progressive
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -840,5 +848,5 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;Igen
 Your system;Rendszer
-ZZ_Automatic_Percent;65
-ZZ_AutomaticLanguage_Percent;85
+ZZ_Automatic_Percent;64
+ZZ_AutomaticLanguage_Percent;84

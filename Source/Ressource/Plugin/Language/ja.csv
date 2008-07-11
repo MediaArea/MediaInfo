@@ -119,6 +119,9 @@
  text stream1; テキストストリーム
  text stream2; テキストストリーム
  text stream3; テキストストリーム
+ video frames1
+ video frames2
+ video frames3
  video stream1; ビデオストリーム
  video stream2; ビデオストリーム
  video stream3; ビデオストリーム
@@ -143,6 +146,8 @@ Address;アドレス
 Advanced;詳細
 Advanced mode;詳細モード
 Album;アルバム
+Alignment_Aligned
+Alignment_Split
 All;すべて
 Archival_Location;作成された場所
 Arranger;アレンジ者
@@ -484,6 +489,9 @@ Interlaced_TFF;トップファースト(TFF)
 Interlaced_BFF;ボトムファースト(BFF)
 Interlaced_PPF;プログレシッブ(PPF)
 Interlaced_Progressive;プログレシッブ(PPF)
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -840,5 +848,5 @@ Written_Location;作成所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96

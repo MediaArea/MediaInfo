@@ -119,6 +119,9 @@
  text stream1; strumień tekstu
  text stream2; strumienie tekstu
  text stream3; strumienie tekstu
+ video frames1
+ video frames2
+ video frames3
  video stream1; strumień wideo
  video stream2; strumienie wideo
  video stream3; strumienie wideo
@@ -143,6 +146,8 @@ Address;Adres
 Advanced;Zaawansowane
 Advanced mode;Tryb zaawansowany
 Album;Album
+Alignment_Aligned
+Alignment_Split
 All;Wszystkie
 Archival_Location;Lokalizacja archiwalna
 Arranger;Aranżer
@@ -484,6 +489,9 @@ Interlaced_TFF
 Interlaced_BFF
 Interlaced_PPF
 Interlaced_Progressive
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -840,5 +848,5 @@ Written_Location;Lokalizacja
 WrittenBy;Napisany przez
 Yes;Tak
 Your system;System
-ZZ_Automatic_Percent;47
-ZZ_AutomaticLanguage_Percent;86
+ZZ_Automatic_Percent;46
+ZZ_AutomaticLanguage_Percent;85

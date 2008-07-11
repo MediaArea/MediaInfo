@@ -119,6 +119,9 @@
  text stream1; rrymë e tekstit
  text stream2; rryma të tekstit
  text stream3; rryma të tekstit
+ video frames1
+ video frames2
+ video frames3
  video stream1; rrymë e videos
  video stream2; rryma të videos
  video stream3; rryma të videos
@@ -143,6 +146,8 @@ Address;Adresa
 Advanced;Avancuar
 Advanced mode;Mënyrë e avancuar
 Album;Albumi
+Alignment_Aligned
+Alignment_Split
 All;Gjithçka
 Archival_Location;Vendndodhje e arkivimit
 Arranger;Radhitësi
@@ -484,6 +489,9 @@ Interlaced_TFF;Së Pari Fusha Sipër
 Interlaced_BFF;Së Pari Fusha Poshtë
 Interlaced_PPF;Progresiv
 Interlaced_Progressive;Progresiv
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -840,5 +848,5 @@ Written_Location;Vendndodhje e shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

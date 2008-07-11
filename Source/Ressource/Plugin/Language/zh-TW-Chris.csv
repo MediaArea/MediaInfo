@@ -119,6 +119,9 @@
  text stream1;字幕
  text stream2;字幕
  text stream3;字幕
+ video frames1
+ video frames2
+ video frames3
  video stream1;視頻
  video stream2;視頻
  video stream3;視頻
@@ -143,6 +146,8 @@ Address;地址
 Advanced;高級
 Advanced mode;高級模式
 Album;唱片
+Alignment_Aligned
+Alignment_Split
 All;全部
 Archival_Location;文檔位置
 Arranger;排列
@@ -484,6 +489,9 @@ Interlaced_TFF;逐行(頂場優先TFF)
 Interlaced_BFF;逐行(底場優先BFF)
 Interlaced_PPF;漸進Progressive
 Interlaced_Progressive;漸進Progressive
+Interleave_Duration
+Interleave_Preload
+Interleave_VideoFrames
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -840,5 +848,5 @@ Written_Location;寫入地點
 WrittenBy;作者
 Yes;確定
 Your system;您的系統
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96
