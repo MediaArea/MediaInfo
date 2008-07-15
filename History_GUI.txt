@@ -13,9 +13,9 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
-Version 0.7.7.5, 2008-07-11
+Version 0.7.7.5, 2008-0
 ---------------
-+ Chinese Simplified updated
++ Chinese Simplified and Italian languages updated
 
 Version 0.7.7.4, 2008-07-11
 ---------------
