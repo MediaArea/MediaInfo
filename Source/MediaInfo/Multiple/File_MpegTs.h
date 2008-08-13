@@ -190,6 +190,7 @@ private :
     bool Synchronize();
     bool Header_Parser_QuickSearch();
     void Detect_EOF();
+    bool Detect_NonMPEGTS();
 
     //Count
     size_t program_Count;

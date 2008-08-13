@@ -203,6 +203,10 @@ void File_MpegTs::Read_Buffer_Continue()
     //We can accept a lost of synchronisation loss
     Trusted*=2;
 
+    //Integrity
+    if (File_Offset==0 && Detect_NonMPEGTS())
+        return;
+
     //File_Filter configuration
     if (!Streams.empty())
     {
@@ -1134,6 +1138,35 @@ void File_MpegTs::Detect_EOF()
 
         File_GoTo=File_Size-MpegTs_JumpTo_End;
     }
+}
+
+//---------------------------------------------------------------------------
+bool File_MpegTs::Detect_NonMPEGTS ()
+{
+    //File_Size
+    if (File_Size<=8)
+        return false; //We can't do detection
+
+    //Element_Size
+    if (Buffer_Size<=8)
+        return true; //Must wait for more data
+
+    //Detect mainly DAT files, and the parser is not enough precise to detect them later
+    if (CC4(Buffer)==CC4("RIFF"))
+    {
+        Finnished();
+        return true;
+    }
+
+    //Detect MPEG-4 files, and the parser is not enough precise to detect them later if there is a lot of 0x47 in the size chunks
+    if (CC4(Buffer+4)==CC4("ftyp") || CC4(Buffer+4)==CC4("moov") || CC4(Buffer+4)==CC4("mdat"))
+    {
+        Finnished();
+        return true;
+    }
+
+    //Seems OK
+    return false;
 }
 
 //***************************************************************************
