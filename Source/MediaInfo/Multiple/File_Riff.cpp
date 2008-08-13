@@ -183,30 +183,30 @@ void File_Riff::Read_Buffer_Finalize ()
                 if (StreamKind_Last==Stream_Audio && MediaInfoLib::Config.Codec_Get(Ztring().From_Number(Temp->second.Compression, 16), InfoCodec_KindofCodec).find(_T("MPEG-"))==0 && Temp->second.Parser->Count_Get(Stream_General)>0)
                 {
                     if (((File_Mpega*)Temp->second.Parser)->Delay>100 && Temp->second.Rate!=0)
-                    {
                         Fill(Stream_Audio, StreamPos_Last, Audio_Delay, (float)((File_Mpega*)Temp->second.Parser)->Delay*1000/Temp->second.Rate, 10, true);
-                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                    }
+                    else
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, 0);
+                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
                 }
             #endif
             #if defined(MEDIAINFO_AC3_YES)
                 if (StreamKind_Last==Stream_Audio && Temp->second.Compression==0x2000 && Temp->second.Parser->Count_Get(Stream_General)>0)
                 {
                     if (((File_Ac3*)Temp->second.Parser)->Delay>100 && Temp->second.Rate!=0)
-                    {
                         Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((File_Ac3*)Temp->second.Parser)->Delay*1000/Temp->second.Rate, 10, true);
-                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                    }
+                    else
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, 0);
+                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
                 }
             #endif
             #if defined(MEDIAINFO_DTS_YES)
                 if (StreamKind_Last==Stream_Audio && (Temp->second.Compression==0x2001 || Temp->second.Compression==0x1) && Temp->second.Parser->Count_Get(Stream_General)>0)
                 {
                     if (((File_Dts*)Temp->second.Parser)->Delay>100 && Temp->second.Rate!=0)
-                    {
                         Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((File_Dts*)Temp->second.Parser)->Delay*1000/Temp->second.Rate, 10, true);
-                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                    }
+                    else
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, 0);
+                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
                 }
             #endif
             #if defined(MEDIAINFO_DVDIF_YES)
