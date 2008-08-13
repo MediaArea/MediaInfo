@@ -801,7 +801,7 @@ Ztring File_DvDif::rectime()
     Get_S1 (4, Temp,                                            "Frames (Units)");
     Frames+=Temp;
     if (Temp!=0xF)
-        Time+=(dsf?25000:29970)/Frames;
+        Time+=(int64u)(Frames/(dsf?25.000:29.970));
     Mark_1();
     Get_S1 (3, Temp,                                            "Seconds (Tens)");
     Time+=Temp*10*1000;
