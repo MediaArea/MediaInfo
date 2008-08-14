@@ -871,7 +871,6 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("MPEG-"))==0)
     {
         Stream[Stream_ID].Parser=new File_Mpega;
-        Open_Buffer_Init(Stream[Stream_ID].Parser);
         Stream[Stream_ID].Parser->NewFinnishMethod=true;
         Stream[Stream_ID].Parser->ShouldContinueParsing=true;
     }
@@ -880,7 +879,6 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     else if (FormatTag==0x2000)
     {
         Stream[Stream_ID].Parser=new File_Ac3;
-        Open_Buffer_Init(Stream[Stream_ID].Parser);
         ((File_Ac3*)Stream[Stream_ID].Parser)->Frame_Count_Valid=1;
         Stream[Stream_ID].Parser->NewFinnishMethod=true;
         Stream[Stream_ID].Parser->ShouldContinueParsing=true;
@@ -891,7 +889,6 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
           || (FormatTag==0x1 && Retrieve(Stream_General, 0, General_Format)==_T("Wave"))) //Some DTS streams are coded "1"
     {
         Stream[Stream_ID].Parser=new File_Dts;
-        Open_Buffer_Init(Stream[Stream_ID].Parser);
         ((File_Dts*)Stream[Stream_ID].Parser)->Frame_Count_Valid=1;
         Stream[Stream_ID].Parser->NewFinnishMethod=true;
         Stream[Stream_ID].Parser->ShouldContinueParsing=true;
@@ -901,7 +898,6 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     else if (FormatTag==0xAAC || FormatTag==0xFF)
     {
         Stream[Stream_ID].Parser=new File_Adts;
-        Open_Buffer_Init(Stream[Stream_ID].Parser);
         ((File_Adts*)Stream[Stream_ID].Parser)->Frame_Count_Valid=1;
         Stream[Stream_ID].Parser->NewFinnishMethod=true;
         Stream[Stream_ID].Parser->ShouldContinueParsing=true;
@@ -944,11 +940,13 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
           && FormatTag!=0x566F) //0x6F56 has config in this chunk
     {
         Stream[Stream_ID].Parser=new File_Ogg;
-        Open_Buffer_Init(Stream[Stream_ID].Parser);
         Stream[Stream_ID].Parser->NewFinnishMethod=true;
         Stream[Stream_ID].Parser->ShouldContinueParsing=true;
     }
     #endif
+
+    if (Stream[Stream_ID].Parser)
+        Open_Buffer_Init(Stream[Stream_ID].Parser);
 
     //Options
     if (Element_Offset+2>Element_Size)
@@ -1261,7 +1259,6 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("MPEG-4V"))==0)
     {
         Stream[Stream_ID].Parser=new File_Mpeg4v;
-        Open_Buffer_Init(Stream[Stream_ID].Parser);
         Stream[Stream_ID].Specific_IsMpeg4v=true;
         ((File_Mpeg4v*)Stream[Stream_ID].Parser)->FrameIsAlwaysComplete=true;
     }
@@ -1270,7 +1267,6 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("AVC"))==0)
     {
         Stream[Stream_ID].Parser=new File_Avc;
-        Open_Buffer_Init(Stream[Stream_ID].Parser);
         ((File_Avc*)Stream[Stream_ID].Parser)->FrameIsAlwaysComplete=true;
     }
     #endif
@@ -1278,17 +1274,18 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     else if (Ztring().From_CC4(Compression)==_T("MJPG"))
     {
         Stream[Stream_ID].Parser=new File_Jpeg;
-        Open_Buffer_Init(Stream[Stream_ID].Parser);
     }
     #endif
     #if defined(MEDIAINFO_DVDIF_YES)
     else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("DV"))==0)
     {
         Stream[Stream_ID].Parser=new File_DvDif;
-        Open_Buffer_Init(Stream[Stream_ID].Parser);
         ((File_DvDif*)Stream[Stream_ID].Parser)->Frame_Count_Valid=1;
     }
     #endif
+
+    if (Stream[Stream_ID].Parser)
+        Open_Buffer_Init(Stream[Stream_ID].Parser);
 
     //Options
     if (Element_Offset>=Element_Size)
