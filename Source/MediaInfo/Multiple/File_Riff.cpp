@@ -131,12 +131,18 @@ void File_Riff::Read_Buffer_Finalize ()
             Open_Buffer_Finalize(Temp->second.Parser);
             Ztring Codec_Temp;
             Ztring FrameRate_Temp;
+
+            //Hack - Before
             if (StreamKind_Last==Stream_Video)
             {
                 Codec_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_Codec); //We want to keep the 4CC of AVI
                 FrameRate_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate); //We want to keep the FrameRate of AVI 120 fps
             }
+
+            //Merging
             Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
+
+            //Hacks - After
             if (StreamKind_Last==Stream_Video)
             {
                 if (!Codec_Temp.empty())
@@ -156,6 +162,8 @@ void File_Riff::Read_Buffer_Finalize ()
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, "VFR");
                 }
             }
+
+            //Alignment
             if (StreamKind_Last==Stream_Audio)
             {
                 if (Count_Get(Stream_Video)>0) //Only if this is not a WAV file
@@ -163,7 +171,34 @@ void File_Riff::Read_Buffer_Finalize ()
                     Fill(Stream_Audio, StreamPos_Last, Audio_Alignment_String, MediaInfoLib::Config.Language_Get(Temp->second.ChunksAreComplete?_T("Alignment_Aligned"):_T("Alignment_Split")));
             }
 
-            //Specific
+            //Delay
+            if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)==1 && Temp->second.Rate!=0 && Temp->second.Parser->Count_Get(Stream_General)>0)
+            {
+                #if defined(MEDIAINFO_MPEGA_YES)
+                    if (MediaInfoLib::Config.Codec_Get(Ztring().From_Number(Temp->second.Compression, 16), InfoCodec_KindofCodec).find(_T("MPEG-"))==0)
+                    {
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)((File_Mpega*)Temp->second.Parser)->Delay)*1000/Temp->second.Rate, 0, true);
+                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                    }
+                #endif
+                #if defined(MEDIAINFO_AC3_YES)
+                    size_t A=Temp->second.Compression;
+                    if (Temp->second.Compression==0x2000)
+                    {
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)((File_Ac3*)Temp->second.Parser)->Delay)*1000/Temp->second.Rate, 0, true);
+                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                    }
+                #endif
+                #if defined(MEDIAINFO_DTS_YES)
+                    if (Temp->second.Compression==0x2001 || Temp->second.Compression==0x1)
+                    {
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)((File_Dts*)Temp->second.Parser)->Delay)*1000/Temp->second.Rate, 0, true);
+                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                    }
+                #endif
+            }
+
+            //Format specific
             #if defined(MEDIAINFO_MPEG4V_YES)
                 if (StreamKind_Last==Stream_Video && MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Temp->second.Compression), InfoCodec_KindofCodec).find(_T("MPEG-4V"))==0)
                 {
@@ -177,36 +212,6 @@ void File_Riff::Read_Buffer_Finalize ()
                     {
                         Fill(Stream_Video, StreamPos_Last, Video_Codec_Settings_PacketBitStream, "No");
                     }
-                }
-            #endif
-            #if defined(MEDIAINFO_MPEGA_YES)
-                if (StreamKind_Last==Stream_Audio && MediaInfoLib::Config.Codec_Get(Ztring().From_Number(Temp->second.Compression, 16), InfoCodec_KindofCodec).find(_T("MPEG-"))==0 && Temp->second.Parser->Count_Get(Stream_General)>0)
-                {
-                    if (((File_Mpega*)Temp->second.Parser)->Delay>100 && Temp->second.Rate!=0)
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, (float)((File_Mpega*)Temp->second.Parser)->Delay*1000/Temp->second.Rate, 10, true);
-                    else
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, 0);
-                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                }
-            #endif
-            #if defined(MEDIAINFO_AC3_YES)
-                if (StreamKind_Last==Stream_Audio && Temp->second.Compression==0x2000 && Temp->second.Parser->Count_Get(Stream_General)>0)
-                {
-                    if (((File_Ac3*)Temp->second.Parser)->Delay>100 && Temp->second.Rate!=0)
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((File_Ac3*)Temp->second.Parser)->Delay*1000/Temp->second.Rate, 10, true);
-                    else
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, 0);
-                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                }
-            #endif
-            #if defined(MEDIAINFO_DTS_YES)
-                if (StreamKind_Last==Stream_Audio && (Temp->second.Compression==0x2001 || Temp->second.Compression==0x1) && Temp->second.Parser->Count_Get(Stream_General)>0)
-                {
-                    if (((File_Dts*)Temp->second.Parser)->Delay>100 && Temp->second.Rate!=0)
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((File_Dts*)Temp->second.Parser)->Delay*1000/Temp->second.Rate, 10, true);
-                    else
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, 0);
-                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
                 }
             #endif
             #if defined(MEDIAINFO_DVDIF_YES)
