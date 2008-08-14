@@ -415,7 +415,7 @@ void File_Mpegv::picture_start()
         Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
     Frame_Count++;
     if (Frame_Count==4)
-        File_MaximumOffset*=4; //We are nearly sure this is a Mpegv stream, augmenting parsing limit
+        File_MaximumOffset*=Frame_Count_Valid; //We are nearly sure this is a Mpegv stream, augmenting parsing limit
 
     //Name
     Element_Name("picture_start");
