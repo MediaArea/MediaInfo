@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.7.5, 2008-08-
 ---------------
++ #2030684, AVI: Support of malformed chunks
 x #2023872, DV: Crash with floating point exception on some files
 x #2024706, BDAV: Some QuickTime files misidentified as BDAV
 x DLL only, the "by buffer" interface was broken

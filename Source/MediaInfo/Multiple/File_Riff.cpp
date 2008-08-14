@@ -401,14 +401,15 @@ void File_Riff::Header_Parse()
 
     //Filling
     Header_Fill_Code(Name, Ztring().From_CC4(Name));
-    if (Size%2==1)
+    int64u Size_Complete=Size;
+    if (Size_Complete%2==1)
     {
-        Size++; //Always 2-byte aligned
+        Size_Complete++; //Always 2-byte aligned
         Alignement_ExtraByte=true;
     }
     else
         Alignement_ExtraByte=false;
-    Header_Fill_Size(8+Size);
+    Header_Fill_Size(Size_Complete+8);
 }
 
 //---------------------------------------------------------------------------
