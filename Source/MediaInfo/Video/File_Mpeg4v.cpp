@@ -228,7 +228,7 @@ void File_Mpeg4v::Read_Buffer_Finalize()
         return; //Not initialized
 
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Count_Get(Stream_General)==0 && !Streams.empty())
+    if (Retrieve(Stream_Video, 0, Video_Format).empty() && !Streams.empty() && object_layer_width!=0) //Verifying we have at least the headers
         vop_start_Fill();
 
     //Purge what is not needed anymore
