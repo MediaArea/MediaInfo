@@ -119,9 +119,9 @@
  text stream1; текстовый поток
  text stream2; текстовые потоки
  text stream3; текстовые потоки
- video frames1
- video frames2
- video frames3
+ video frames1; видеокадр
+ video frames2; видеокадров
+ video frames3; видеокадров
  video stream1; видеопоток
  video stream2; видеопотоки
  video stream3; видеопотоки
@@ -146,8 +146,8 @@ Address;Адрес
 Advanced;Дополнительно
 Advanced mode;Расширенный режим
 Album;Альбом
-Alignment_Aligned
-Alignment_Split
+Alignment_Aligned;Соединение по промежуткам
+Alignment_Split;Разделение по промежуткам
 All;Все
 Archival_Location;Место хранения
 Arranger;Разместил
@@ -292,7 +292,7 @@ Format_Settings_QPel;Настройка QPel формата
 Format_Settings_GMC;Настройка GMC формата
 Format_Settings_Matrix;Настройка матрицы формата
 Format_Settings_Matrix_Custom;Выборочная
-Format_Settings_Matrix_Default;По умолччанию
+Format_Settings_Matrix_Default;По умолчанию
 Format_Settings_Floor;Настройка Floor формата
 Format_Settings_CABAC;Настройка CABAC формата
 Format_Settings_Firm;Настройка Firm формата
@@ -303,7 +303,7 @@ Format_Settings_Law;Настройка Law формата
 Format_Settings_ITU;Настройка ITU формата
 Format_Settings_SBR;Настройка SBR формата
 Format_Settings_PS;Настройка PS формата
-Format_Settings_Pulldown;Format settings, Pulldown
+Format_Settings_Pulldown;Выбрать настройки формата
 Format_Version;Версия формата
 Format_Url;Ссылка на формат
 FrameCount;Счётчик кадров
@@ -489,9 +489,9 @@ Interlaced_TFF;Верхнее поле первое
 Interlaced_BFF;Нижнее поле первое
 Interlaced_PPF;Прогрессивная
 Interlaced_Progressive;Прогрессивная
-Interleave_Duration
-Interleave_Preload
-Interleave_VideoFrames
+Interleave_Duration;Продолжительность промежутка
+Interleave_Preload;Время предзагрузки промежутка
+Interleave_VideoFrames;Продолжительность промежутка
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -784,14 +784,14 @@ StreamKind;Тип потока
 StreamKindID;Идентификатор потока
 StreamKindPos;Идентификатор потока
 StreamSize;Размер потока
-StreamSize_Proportion
+StreamSize_Proportion;Пропорции потока
 Subject;Тема
 SubTrack;Подпоток
 Summary;Сводка
 Supported formats;Поддерживаемые форматы
-Supported?;Поодержка?
+Supported?;Поддерживается?
 Synopsys
-SystemId
+SystemId;Идентификатор
 Tagged_Application;Пометившая программа
 Tagged_Date;Дата отметки
 Technician;Техник
@@ -848,5 +848,5 @@ Written_Location;Место написания
 WrittenBy;Написано
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99
