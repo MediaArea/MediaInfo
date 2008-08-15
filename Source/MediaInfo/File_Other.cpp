@@ -116,7 +116,7 @@ void File_Other::Read_Buffer_Continue()
                 Stream_Prepare(Stream_Audio); Fill(Stream_Audio, 0, Audio_Format, "AMR"); Fill(Stream_Audio, 0, Audio_Format_Url, "http://www.apple.com/quicktime/download/standalone.html");}
     else if (CC4(Buffer)==CC4("RIFF") && CC4(Buffer+8)==CC4("AMV ")) {Format=_T("AMV");}
     else if (CC4(Buffer)==0x414D5697) {Format=_T("MTV");}
-    else if (CC6(Buffer)==CC6("Z\0\W\0F\0"))
+    else if (CC6(Buffer)==CC6("Z\0W\0F\0"))
                 {Format=_T("ZWF");
                 Stream_Prepare(Stream_Audio); Fill(Stream_Audio, 0, Audio_Format, "ZWF");}
     else if (CC4(Buffer)==CC4("")) {Format=_T("");}
