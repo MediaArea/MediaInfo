@@ -359,6 +359,9 @@ void File_DvDif::Aux()
     for (int8u i=0; i<15; i++)
         Element();
     Skip_XX(2,                                                  "Unused");
+
+    if (Count_Get(Stream_General))
+        Finnished(); //Here because we currently must be at the end of an element
 }
 
 //---------------------------------------------------------------------------
@@ -697,7 +700,6 @@ void File_DvDif::video_control()
                 case 7 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 16.0/9.0); break;
                 default: ;
             }
-            Finnished();
         }
     FILLING_END();
 }
