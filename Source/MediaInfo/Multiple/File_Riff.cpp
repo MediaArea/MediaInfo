@@ -182,7 +182,6 @@ void File_Riff::Read_Buffer_Finalize ()
                     }
                 #endif
                 #if defined(MEDIAINFO_AC3_YES)
-                    size_t A=Temp->second.Compression;
                     if (Temp->second.Compression==0x2000)
                     {
                         Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)((File_Ac3*)Temp->second.Parser)->Delay)*1000/Temp->second.Rate, 0, true);
