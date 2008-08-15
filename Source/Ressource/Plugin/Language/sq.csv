@@ -8,8 +8,8 @@
   Config_Text_Separator; :
   Config_Text_NumberTag; #
  audio stream1; rrymë audio
- audio stream2; rryma të audios
- audio stream3; rryma të audios
+ audio stream2; rrymë audio
+ audio stream3; rrymë audio
  bit1; bit
  bit2; bite
  bit3; bite
@@ -24,9 +24,9 @@
  chapter1; kapitull
  chapter2; kapituj
  chapter3; kapituj
- chapters stream1; rrymë e kapitujve
- chapters stream2; rryma të kapitujve
- chapters stream3; rryma të kapitujve
+ chapters stream1; rrymë kapitulli
+ chapters stream2; rrymë kapitulli
+ chapters stream3; rrymë kapitulli
  day1; ditë
  day2; ditë
  day3; ditë
@@ -59,9 +59,9 @@
  hour2; orë
  hour3; orë
  Hz; Hz
- image stream1; rrymë e figurës
- image stream2; rryma të figurës
- image stream3; rryma të figurës
+ image stream1; rrymë figure
+ image stream2; rrymë figure
+ image stream3; rrymë figure
  KB; KB
  Kb; Kb
  KBps; KBps
@@ -116,15 +116,15 @@
  second1; sekondë
  second2; sekonda
  second3; sekonda
- text stream1; rrymë e tekstit
- text stream2; rryma të tekstit
- text stream3; rryma të tekstit
- video frames1
- video frames2
- video frames3
- video stream1; rrymë e videos
- video stream2; rryma të videos
- video stream3; rryma të videos
+ text stream1; rrymë teksti
+ text stream2; rrymë teksti
+ text stream3; rrymë teksti
+ video frames1; kuadër video
+ video frames2; kuadre video
+ video frames3; kuadre video
+ video stream1; rrymë video
+ video stream2; rrymë video
+ video stream3; rrymë video
  warppoint0; Pa pikëdeformime
  warppoint1; pikëdoformim
  warppoint2; pikëdeformime
@@ -146,8 +146,8 @@ Address;Adresa
 Advanced;Avancuar
 Advanced mode;Mënyrë e avancuar
 Album;Albumi
-Alignment_Aligned
-Alignment_Split
+Alignment_Aligned;I radhitur te gërshetimet
+Alignment_Split;I ndarë te gërshetimet
 All;Gjithçka
 Archival_Location;Vendndodhje e arkivimit
 Arranger;Radhitësi
@@ -160,8 +160,8 @@ Audio;Audio
 Audio stream(s);Rrymat e audios
 Audio_Codec_List;Kodekët e audios
 Audio_No;Pa audio
-Audio1;Rryma e parë e audios
-Audio2;Rryma e dytë e audios
+Audio1;Rryma e parë audio
+Audio2;Rryma e dytë audio
 AudioCount;Numri i rrymave të audios
 Author;Autori
 BarCode;BarCode
@@ -238,7 +238,7 @@ Customize;Porosite
 Date;Data
 Debug;Debug
 Decimal point;Pika dhjetore
-Delay;Vonesa
+Delay;Vonesë
 Delete;Fshije
 Description;Përshkrimi
 Digitized_Date;Datë e shifruar
@@ -262,7 +262,7 @@ ExecutiveProducer;Producenti ekzekutiv
 Exit;Dil
 Exit_Hint;Mbylle Programin
 Export;Eksporto
-Export_Hint;Eksportoni në formatin e porositur
+Export_Hint;Eksportoni në format të porositur
 Extensions;Shtojcat e zakonshme
 Family;Familje
 Fax;Faks
@@ -270,16 +270,16 @@ File;Skedë
 File size;Masë e skedës
 File_Append;Bashkangjite te skeda ekzistuese (Kujdes : duhet të keni të njëjtët parametra)
 File_Created_Date;Datë e krijimit të skedës
-File_Hint;Zgjidhni të studioni një skedë multimediale
+File_Hint;Studioni një skedë multimediale
 File_Modified_Date;Modifikimi i fundit i skedës
 FileExtension;Shtojcë e skedës
 FileName;Emri i skedës
 FileSize;Masë e skedës
 Folder;Dosje
 Folder (R);Dosje (R)
-Folder (R)_Hint;Zgjidhni të studioni një dosje (me gjithë dosjet si rekursive)
+Folder (R)_Hint;Studioni një dosje (me gjithë dosjet si rekursive)
 Folder (Recursively);Dosje (Rekursive)
-Folder_Hint;Zgjidhni të studioni një dosje
+Folder_Hint;Studioni një dosje
 FolderName;Emri i dosjes
 Format;Formati
 Format_Description;Përshkrimi i formatit
@@ -477,7 +477,7 @@ How many text streams?;Sa rryma të tekstit?
 How many video streams?;Sa rryma të videos?
 HTML;HTML
 ID;ID
-Image;Figura
+Image;Figurë
 Image stream(s);Rrymat e figurës
 Image_Codec_List;Kodekët e figurës
 ImageCount;Numri i rrymave të figurës
@@ -485,13 +485,13 @@ Info;Info
 Instruments;Instrumentat
 Interlacement;Gërshetimi
 Interlaced_Interlaced;Gërshetohet
-Interlaced_TFF;Së Pari Fusha Sipër
-Interlaced_BFF;Së Pari Fusha Poshtë
+Interlaced_TFF;Më Parë Fusha Sipër
+Interlaced_BFF;Më Parë Fusha Poshtë
 Interlaced_PPF;Progresiv
 Interlaced_Progressive;Progresiv
-Interleave_Duration
-Interleave_Preload
-Interleave_VideoFrames
+Interleave_Duration;Gërshetimi, kohëzgjatje
+Interleave_Preload;Gërshetimi, kohëzgjatje e parahapjes
+Interleave_VideoFrames;Gërshetimi, kohëzgjatje
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -713,7 +713,7 @@ MuxingMode;Mënyrë e muksimit
 Name;Emri
 Nationality;Kombësia
 New;E re
-Newest version;Verifiko për versionet e reja (nevojitet lidhje me internet)
+Newest version;Verifiko versionin më të ri (nevojitet lidhje me internet)
 No;Jo
 OK;OK
 One output file per input file;Një skedë output për skedë input
@@ -769,13 +769,13 @@ Set_Count;Vendos numërimin
 Setup;Ndërtimi
 Sheet;Fletë
 Sheet (Complete);Fletë (Plot)
-Shell extension;Shtimi në bazë (kur në Explorer klikohet me të djathtën do të jetë mundësia Media Info)
+Shell extension;Shto në bazë (kur në Explorer klikohet me të djathtën do të jetë mundësia Media Info)
 Shell InfoTip;Këshilla Informuese në bazë (në Explorer, çojeni mausin mbi skedë, do të shfaqen info)
 Show menu;Trego menynë
 Show toolbar;Trego shiritin e mjeteve
 Sort;Radhitur nga
 SoundEngineer;Inxhinieri i zërit
-Standard;Standard
+Standard;Standardi
 Stream;Rryma
 Stream_MoreInfo;Më tepër info rreth rrymës
 StreamCount;Numri i rrymave si ky lloj
@@ -803,9 +803,9 @@ Text stream(s);Rrymat e tekstit
 Text streams;Rrymat e tekstit
 Text_Codec_List;Kodekët e tekstit
 Text_No;Pa tekst
-Text1;Rryma e parë e tekstit
-Text2;Rryma e dytë e tekstit
-Text3;Rryma e tretë e tekstit
+Text1;Rryma e parë tekst
+Text2;Rryma e dytë tekst
+Text3;Rryma e tretë tekst
 TextCount;Numri i rrymave të tekstit
 ThanksTo;Falënderime për
 Thousands separator;Ndarësi i mijësheve
@@ -818,27 +818,27 @@ Translator;Përktheu
 Tree;Pemë
 Tree & Text;Pemë & Tekst
 Unknown;Nuk e di
-Url;Url
+Url;URL
 Video;Video
 Video stream(s);Rryma(t) e videos
 Video_Codec_List;Kodekët e videos
 Video_Delay;Vonesë e videos
 Video_No;Pa video
-Video0_Delay;Vonesë e video0
-Video1;Rryma e parë e videos
+Video0_Delay;Vonesë e videos
+Video1;Rryma e parë video
 VideoCount;Numri i rrymave të videos
 View;Pamje
 View_Hint;Ndryshoni mënyrën si paraqitet informacioni
 Warning : more streams in the files;Kujdes : në skeda ka më tepër rryma
 Web;Rrjet
-WebSite_Audio;Shko në truallin në rrjet të këtij kodeku për audio
+WebSite_Audio;Shko në truallin në rrjet të kodekut për audio
 WebSite_Audio_More;Shko në truallin në rrjet (%Url%) për të gjetur kodekun për audio
 WebSite_General;Shko në truallin në rrjet të një luajtësi për këtë skedë
 WebSite_General_More;Shko në truallin në rrjet të një luajtësi për këtë skedë
-WebSite_Text;Shko në truallin në rrjet të këtij kodeku për tekst
+WebSite_Text;Shko në truallin në rrjet të kodekut për tekst
 WebSite_Text_More;Shko në truallin në rrjet (%Url%) për të gjetur kodekun për tekst
 WebSite_Url;http://mediainfo.sourceforge.net
-WebSite_Video;Shko në truallin në rrjet të këtij kodeku për video
+WebSite_Video;Shko në truallin në rrjet të kodekut për video
 WebSite_Video_More;Shko në truallin në rrjet (%Url%) për të gjetur kodekun për video
 Width;Gjerësi
 WriteMe;Më shkruaj
@@ -848,5 +848,5 @@ Written_Location;Vendndodhje e shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99
