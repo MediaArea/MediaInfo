@@ -429,6 +429,7 @@ bool File_Riff::BookMark_Needed()
         File_GoTo=Stream_Structure_Temp->first;
     NeedOldIndex=false;
     SecondPass=true;
+    Index_Pos.clear(); //We didn't succeed to find theses indexes :(
     return true;
 }
 
