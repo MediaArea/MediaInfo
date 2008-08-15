@@ -286,6 +286,8 @@ bool File__Tags_Helper::Header_Begin()
 
         //Retrieving size
         int32u Id3v2_Size=SynchSafeInt(Base->Buffer+Base->Buffer_Offset+6);
+        if (Base->Count_Get(Stream_General)==0 && Base->Buffer_Offset+Id3v2_Size>Base->Buffer_MaximumSize && Id3v2_Size<16*1024*1024) //Fixing a limit of the Id3v2 size
+            Base->Buffer_MaximumSize=Base->Buffer_Offset+Id3v2_Size;
         if (Base->Buffer_Offset+Id3v2_Size>Base->Buffer_Size)
             return false; //Not enough buffer
 
