@@ -2023,10 +2023,7 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackNumber()
             Stream[TrackNumber].StreamPos=StreamPos_Last;
         }
         if (TrackVideoDisplayWidth && TrackVideoDisplayHeight)
-        {
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight, 3, true);
             Stream[TrackNumber].DisplayAspectRatio=((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight;
-        }
         if (AvgBytesPerSec)
             Stream[TrackNumber].AvgBytesPerSec=AvgBytesPerSec;
         Stream_Count++;
@@ -2142,14 +2139,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Video_DisplayHeight()
     FILLING_BEGIN();
         TrackVideoDisplayHeight=UInteger;
         if (TrackNumber!=(int64u)-1 && TrackVideoDisplayWidth && TrackVideoDisplayHeight)
-        {
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight, 3, true);
             Stream[TrackNumber].DisplayAspectRatio=((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight;
-
-            //Reseting for not filling twice
-            TrackVideoDisplayWidth=0;
-            TrackVideoDisplayHeight=0;
-        }
     FILLING_END();
 }
 
@@ -2174,14 +2164,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Video_DisplayWidth()
     FILLING_BEGIN();
         TrackVideoDisplayWidth=UInteger;
         if (TrackNumber!=(int64u)-1 && TrackVideoDisplayWidth && TrackVideoDisplayHeight)
-        {
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight, 3, true);
             Stream[TrackNumber].DisplayAspectRatio=((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight;
-
-            //Reseting for not filling twice
-            TrackVideoDisplayWidth=0;
-            TrackVideoDisplayHeight=0;
-        }
     FILLING_END();
 }
 
