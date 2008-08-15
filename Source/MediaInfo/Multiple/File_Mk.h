@@ -259,6 +259,7 @@ private :
     size_t   CodecPrivate_Size;
     void     CodecPrivate_Manage();
     Ztring   CodecID;
+    infocodecid_format_t InfoCodecID_Format_Type;
     void     CodecID_Manage();
     int64u   TrackType;
 
