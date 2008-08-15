@@ -15,7 +15,7 @@ Known bugs
 
 Version 0.7.7.5, 2008-0
 ---------------
-+ Chinese Simplified and Italian languages updated
++ Chinese Simplified, Italian, Korean languages updated
 
 Version 0.7.7.4, 2008-07-11
 ---------------
