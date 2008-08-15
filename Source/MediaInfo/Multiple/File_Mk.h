@@ -220,6 +220,7 @@ private :
         stream_t                StreamKind;
         size_t                  StreamPos;
         size_t                  PacketCount;
+        int32u                  AvgBytesPerSec; //Only used by x_MS/* codecIDs
         float32                 DisplayAspectRatio;
         bool                    SearchingPayload;
 
@@ -229,6 +230,7 @@ private :
             StreamKind=Stream_Max;
             StreamPos=0;
             PacketCount=0;
+            AvgBytesPerSec=0;
             DisplayAspectRatio=0;
             SearchingPayload=true;
         }
@@ -270,6 +272,7 @@ private :
     int64u  TrackDefaultDuration;
     int64u  TrackVideoDisplayWidth;
     int64u  TrackVideoDisplayHeight;
+    int32u  AvgBytesPerSec;
     int64u  ChapterTimeStart;
     Ztring  ChapterString;
     int32u  Chapter_Pos;

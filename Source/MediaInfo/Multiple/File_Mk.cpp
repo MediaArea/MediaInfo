@@ -104,6 +104,9 @@ void File_Mk::Read_Buffer_Finalize()
         if (Temp->second.Parser)
         {
             Ztring Codec_Temp, FrameRate_Temp;
+            StreamKind_Last=Temp->second.StreamKind;
+            StreamPos_Last=Temp->second.StreamPos;
+
             if (Temp->second.StreamKind==Stream_Video)
             {
                 Codec_Temp=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Codec); //We want to keep the 4CC
@@ -121,6 +124,32 @@ void File_Mk::Read_Buffer_Finalize()
                         Fill(Stream_Video, Temp->second.StreamPos, Video_FrameRate_Original, Retrieve(Stream_Video, 0, Video_FrameRate), true);
                     Fill(Stream_Video, Temp->second.StreamPos, Video_FrameRate, FrameRate_Temp, true);
                 }
+            }
+
+            //Delay
+            if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)==1 && Temp->second.AvgBytesPerSec!=0 && Temp->second.Parser->Count_Get(Stream_General)>0)
+            {
+                #if defined(MEDIAINFO_MPEGA_YES)
+                    if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("MPEG Audio"))
+                    {
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)((File_Mpega*)Temp->second.Parser)->Delay)*1000/Temp->second.AvgBytesPerSec, 0, true);
+                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                    }
+                #endif
+                #if defined(MEDIAINFO_AC3_YES)
+                    if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AC-3"))
+                    {
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)((File_Ac3*)Temp->second.Parser)->Delay)*1000/Temp->second.AvgBytesPerSec, 0, true);
+                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                    }
+                #endif
+                #if defined(MEDIAINFO_DTS_YES)
+                    if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("DTS"))
+                    {
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)((File_Dts*)Temp->second.Parser)->Delay)*1000/Temp->second.AvgBytesPerSec, 0, true);
+                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                    }
+                #endif
             }
         }
         if (Temp->second.DisplayAspectRatio!=0)
@@ -1625,6 +1654,7 @@ void File_Mk::Segment_Tracks_TrackEntry()
     TrackDefaultDuration=0;
     TrackVideoDisplayWidth=0;
     TrackVideoDisplayHeight=0;
+    AvgBytesPerSec=0;
 
     //Preparing
     Stream_Prepare(Stream_Max);
@@ -1780,7 +1810,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_auds()
     Element_Info("Copy of auds");
 
     //Parsing
-    int32u SamplesPerSec, AvgBytesPerSec;
+    int32u SamplesPerSec;
     int16u FormatTag, Channels, BitsPerSample;
     Get_L2 (FormatTag,                                          "FormatTag");
     Get_L2 (Channels,                                           "Channels");
@@ -1802,7 +1832,10 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_auds()
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplesPerSec, 10, true);
         Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, AvgBytesPerSec*8, 10, true);
         if (BitsPerSample) Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, BitsPerSample);
+
         CodecID_Manage();
+        if (TrackNumber!=(int64u)-1)
+            Stream[TrackNumber].AvgBytesPerSec=AvgBytesPerSec;
     FILLING_END();
 }
 
@@ -1994,6 +2027,8 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackNumber()
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight, 3, true);
             Stream[TrackNumber].DisplayAspectRatio=((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight;
         }
+        if (AvgBytesPerSec)
+            Stream[TrackNumber].AvgBytesPerSec=AvgBytesPerSec;
         Stream_Count++;
 
         CodecID_Manage();
