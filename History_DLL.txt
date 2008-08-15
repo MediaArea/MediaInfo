@@ -14,6 +14,7 @@ Version 0.7.7.5, 2008-08-
 x #2023872, DV: Crash with floating point exception on some files
 x #2024706, BDAV: Some QuickTime files misidentified as BDAV
 x #2033307, MPEG Video: Some raw files with high bitrate were not detected
+x #2040411, Id3v2: Crash with some malformed Id3v2 fields
 x Video, Resolution/bits per pixel was sometimes per color entity, sometimes per pixel, now always per pixel
 x DLL only, the "by buffer" interface was broken
 

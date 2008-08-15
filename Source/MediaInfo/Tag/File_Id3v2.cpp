@@ -790,8 +790,12 @@ void File_Id3v2::Fill_Name()
         case Id3::TCOM : Fill(Stream_General, 0, General_Composer, Element_Value); break;
         case Id3::TCON : Fill(Stream_General, 0, General_Genre, Element_Value); break;
         case Id3::TCOP : Fill(Stream_General, 0, General_Copyright, Element_Value); break;
-        case Id3::TDAT : Month.assign(Element_Value.c_str(), 0, 2);
-                         Day.assign  (Element_Value.c_str(), 2, 2); break;
+        case Id3::TDA  :
+        case Id3::TDAT : if (Element_Value.size()==4)
+                         {
+                            Month.assign(Element_Value.c_str(), 0, 2);
+                            Day.assign  (Element_Value.c_str(), 2, 2); break;
+                         }
         case Id3::TDEN : Normalize_Date(Element_Value); Fill(Stream_General, 0, "Encoded_Date", Element_Value); break;
         case Id3::TDLY : break;
         case Id3::TDOR : Normalize_Date(Element_Value); Fill(Stream_General, 0, "Original/Released_Date", Element_Value); break;
@@ -801,8 +805,12 @@ void File_Id3v2::Fill_Name()
         case Id3::TENC : Fill(Stream_General, 0, General_Encoded_Library, Element_Value); break;
         case Id3::TEXT : Fill(Stream_General, 0, General_Lyricist, Element_Value); break;
         case Id3::TFLT : Fill(Stream_General, 0, "File type", Element_Value); break;
-        case Id3::TIME : Hour.assign  (Element_Value.c_str(), 0, 2);
-                         Minute.assign(Element_Value.c_str(), 2, 2); break;
+        case Id3::TIM  :
+        case Id3::TIME : if (Element_Value.size()==4)
+                         {
+                            Hour.assign  (Element_Value.c_str(), 0, 2);
+                            Minute.assign(Element_Value.c_str(), 2, 2); break;
+                         }
         case Id3::TIPL : Fill(Stream_General, 0, General_ThanksTo, Element_Value); break;
         case Id3::TIT1 : Fill(Stream_General, 0, General_ContentType, Element_Value); break;
         case Id3::TIT2 : Fill(Stream_General, 0, General_Track, Element_Value); break;
@@ -874,13 +882,9 @@ void File_Id3v2::Fill_Name()
         case Id3::TCM  : Fill(Stream_General, 0, "Composer", Element_Value); break;
         case Id3::TCO  : Fill(Stream_General, 0, "Genre", Element_Value); break;
         case Id3::TCR  : Fill(Stream_General, 0, "Copyright", Element_Value); break;
-        case Id3::TDA  : Month.assign(Element_Value.c_str(), 0, 2);
-                         Day.assign  (Element_Value.c_str(), 2, 2); break;
         case Id3::TDY  : break;
         case Id3::TEN  : Fill(Stream_General, 0, "Encoded_Library", Element_Value); break;
         case Id3::TFT  : Fill(Stream_General, 0, "File type", Element_Value); break;
-        case Id3::TIM  : Hour.assign  (Element_Value.c_str(), 0, 2);
-                         Minute.assign(Element_Value.c_str(), 2, 2); break;
         case Id3::TKE  : Fill(Stream_General, 0, "Initial key", Element_Value); break;
         case Id3::TLA  : Fill(Stream_Audio,   0, Audio_Language, Element_Value); break;
         case Id3::TLE  : break;
