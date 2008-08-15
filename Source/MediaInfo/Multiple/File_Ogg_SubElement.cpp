@@ -394,6 +394,7 @@ void File_Ogg_SubElement::Identification_text()
 
     //Filling
     Stream_Prepare(Stream_Text);
+    Fill(Stream_Text, StreamPos_Last, Text_Format, "Subrip");
     Fill(Stream_Text, StreamPos_Last, Text_Codec, "Subrip");
 }
 
