@@ -714,6 +714,8 @@ void File_Avc::slice_header_Fill()
     }
     Fill(Stream_Video, 0, Video_Format_Settings_RefFrames, num_ref_frames);
     Fill(Stream_Video, 0, Video_Codec_Settings_RefFrames, num_ref_frames);
+    if (bit_depth_luma_minus8==bit_depth_Colorimetry_minus8)
+        Fill(Stream_Video, 0, Video_Resolution, (bit_depth_luma_minus8+8)*3);
 
     if (File_Offset+Buffer_Size<File_Size)
     {
@@ -1624,6 +1626,8 @@ void File_Avc::Init()
     frame_crop_bottom_offset=0;
     num_ref_frames=0;
     pic_order_cnt_type=0;
+    bit_depth_luma_minus8=0;
+    bit_depth_Colorimetry_minus8=0;
     sar_width=0;
     sar_height=0;
     profile_idc=0;

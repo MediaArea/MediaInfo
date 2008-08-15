@@ -1109,7 +1109,7 @@ void File_Mpeg4v::vop_start_Fill()
         Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio_Value);
         Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)object_layer_width)/object_layer_height*PixelAspectRatio_Value);
     }
-    Fill(Stream_Video, 0, Video_Resolution, bits_per_pixel);
+    Fill(Stream_Video, 0, Video_Resolution, bits_per_pixel*3);
     if (chroma_format<4)
         Fill(Stream_Video, 0, Video_Colorimetry, Mpeg4v_Colorimetry[chroma_format]);
     if (low_delay)

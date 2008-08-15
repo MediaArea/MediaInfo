@@ -121,6 +121,8 @@ private :
     int32u frame_crop_bottom_offset;
     int32u num_ref_frames;
     int32u pic_order_cnt_type;
+    int32u bit_depth_luma_minus8;
+    int32u bit_depth_Colorimetry_minus8;
     int16u sar_width;
     int16u sar_height;
     int8u  profile_idc;
