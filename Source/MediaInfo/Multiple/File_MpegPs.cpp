@@ -251,7 +251,7 @@ void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Tem
 {
     //By the parser
     StreamKind_Last=Stream_Max;
-    if (Temp.Parser)
+    if (Temp.Parser /*&& Temp.Parser->Count_Get(Stream_General)>0*/) //Verifying it is really detected, not only a header
     {
         Open_Buffer_Finalize(Temp.Parser);
         Merge(*Temp.Parser);
