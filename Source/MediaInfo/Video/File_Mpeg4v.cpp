@@ -192,6 +192,9 @@ File_Mpeg4v::File_Mpeg4v()
     //Out
     RIFF_VOP_Count=0;
     RIFF_VOP_Count_Max=0;
+
+    //Temp
+    video_object_layer_start_IsParsed=false;
 }
 
 //---------------------------------------------------------------------------
@@ -224,11 +227,8 @@ void File_Mpeg4v::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Mpeg4v::Read_Buffer_Finalize()
 {
-    if (object_layer_width==0)
-        return; //Not initialized
-
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Retrieve(Stream_Video, 0, Video_Format).empty() && !Streams.empty() && object_layer_width!=0) //Verifying we have at least the headers
+    if (Retrieve(Stream_Video, 0, Video_Format).empty() && video_object_layer_start_IsParsed)
         vop_start_Fill();
 
     //Purge what is not needed anymore
@@ -634,7 +634,10 @@ void File_Mpeg4v::video_object_layer_start()
         Streams[0xB2].Searching_Payload=true; //user_data
         Streams[0xB3].Searching_Payload=true; //group_of_vop_start
         Streams[0xB6].Searching_Payload=true; //vop_start
-    FILLING_END();
+
+        //Setting as OK
+        video_object_layer_start_IsParsed=true;
+    FILLING_END()
 }
 
 //---------------------------------------------------------------------------

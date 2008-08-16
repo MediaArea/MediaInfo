@@ -210,7 +210,7 @@ void File_Avc::Read_Buffer_Finalize()
         return; //Not initialized
 
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Retrieve(Stream_Video, 0, Video_Format).empty() && (Frame_Count>0 || MustParse_SPS_PPS_Done))
+    if (Retrieve(Stream_Video, 0, Video_Format).empty() && (SPS_IsParsed || MustParse_SPS_PPS_Done))
         slice_header_Fill();
 
     //In case of there is enough elements for trusting this is a AVC file, but SPS/PPS are absent
@@ -801,9 +801,9 @@ void File_Avc::sei_message_pic_timing(int32u payloadSize)
     Element_Info("pic_timing");
 
     //Testing if we can parsing it now
-    if (!SPS_IsParsed)
+    //if (!SPS_IsParsed) //There is sometimes one problem in one message, should not untrusting all
     {
-        Skip_XX(Element_Size-Element_Offset,                    "Data");
+        Skip_XX(payloadSize,                                    "Data");
         return;   
     }
 
@@ -1144,7 +1144,7 @@ void File_Avc::seq_parameter_set()
             Streams[Pos].Searching_Payload=true; //pic_parameter_set, access_unit_delimiter, end_of_seq, end_of_stream, filler_data, reserved
 
         //Setting as OK
-        SPS_IsParsed=false;
+        SPS_IsParsed=true;
     FILLING_END();
 }
 
@@ -1262,7 +1262,7 @@ void File_Avc::pic_parameter_set()
             Streams[Pos].Searching_Payload=true; //Coded slice...
 
         //Setting as OK
-        PPS_IsParsed=false;
+        PPS_IsParsed=true;
     FILLING_END();
 }
 

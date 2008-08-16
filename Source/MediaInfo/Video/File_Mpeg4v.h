@@ -156,6 +156,7 @@ private :
     bool   halfpel4;
     bool   sadct;
     bool   quarterpel;
+    bool   video_object_layer_start_IsParsed;
 
     //From user_data
     Ztring Library;

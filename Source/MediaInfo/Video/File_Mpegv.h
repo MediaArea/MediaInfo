@@ -108,7 +108,8 @@ private :
     bool   top_field_first;
     bool   repeat_first_field;
     bool   FirstFieldFound;
-
+    bool   sequence_header_IsParsed;
+    
     //From user_data
     Ztring Library;
     Ztring Library_Name;
