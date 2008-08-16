@@ -165,8 +165,8 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
     //Format
     if (!Retrieve(StreamKind, Pos, "Format").empty())
     {
-        if (Retrieve(StreamKind, Pos, "Format/Info"  ).empty()) Fill(StreamKind, Pos, "Format/Info"  , MediaInfoLib::Config.Container_Get(Retrieve(StreamKind, Pos, "Format"), InfoFormat_Info));
-        if (Retrieve(StreamKind, Pos, "Format/Url"   ).empty()) Fill(StreamKind, Pos, "Format/Url"   , MediaInfoLib::Config.Container_Get(Retrieve(StreamKind, Pos, "Format"), InfoFormat_Url));
+        if (Retrieve(StreamKind, Pos, "Format/Info"  ).empty()) Fill(StreamKind, Pos, "Format/Info"  , MediaInfoLib::Config.Format_Get(Retrieve(StreamKind, Pos, "Format"), InfoFormat_Info));
+        if (Retrieve(StreamKind, Pos, "Format/Url"   ).empty()) Fill(StreamKind, Pos, "Format/Url"   , MediaInfoLib::Config.Format_Get(Retrieve(StreamKind, Pos, "Format"), InfoFormat_Url));
     }
 
     if (StreamKind!=Stream_General)
