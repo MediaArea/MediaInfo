@@ -448,6 +448,7 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File_Lyrics3v2.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Lyrics3v2" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File_VorbisCom.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_VorbisCom" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Avc.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Avc" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_AvsV.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_AvsV" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Dirac.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dirac" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Flic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Flic" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Mpeg4v.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4v" FORMNAME="" DESIGNCLASS=""/>

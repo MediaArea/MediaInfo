@@ -315,12 +315,13 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File_ApeTag.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_ApeTag" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File__Tags.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Tags" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_OtherText.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_OtherText" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Vc1.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Vc1" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Mpegv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpegv" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Mpeg4v.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4v" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Flic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Flic" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Dirac.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dirac" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Avc.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Avc" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_AvsV.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_AvsV" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Dirac.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dirac" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Flic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Flic" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Mpeg4v.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4v" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Mpegv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpegv" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Vc1.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Vc1" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wininet.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wininet" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\ZLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZLib" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Conf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Conf" FORMNAME="" DESIGNCLASS=""/>
