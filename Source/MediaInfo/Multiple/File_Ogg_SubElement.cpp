@@ -55,6 +55,11 @@ File_Ogg_SubElement::File_Ogg_SubElement()
 {
     //Internal
     Setup_Vorbis=NULL;
+
+    //In
+    StreamKind=Stream_General;
+    IsStandAlone=true;
+    absolute_granule_position_Resolution=0;
 }
 
 //---------------------------------------------------------------------------
@@ -456,6 +461,7 @@ void File_Ogg_SubElement::Comment_vorbis()
 
     File_VorbisCom Vorbis;
     Vorbis.StreamKind=StreamKind;
+    Vorbis.StreamGoal=IsStandAlone?Stream_General:StreamKind;
 
     //Open
     Open_Buffer_Init(&Vorbis, File_Size, File_Offset+Buffer_Offset+6);

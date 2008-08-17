@@ -88,8 +88,9 @@ Video0_Delay/String;;;N NT;;;Deprecated
 Video0_Delay/String1;;;N NT;;;Deprecated
 Video0_Delay/String2;;;N NT;;;Deprecated
 Video0_Delay/String3;;;N NT;;;Deprecated
-ReplayGain_Gain;;;N YT;;;The gain to apply to reach 89dB SPL on playback
-ReplayGain_Peak;;;N YT;;;The maximum absolute peak value of the item
+ReplayGain_Gain;; dB;N YT;;;The gain to apply to reach 89dB SPL on playback
+ReplayGain_Gain/String;;;Y YT;;;
+ReplayGain_Peak;;;Y YT;;;The maximum absolute peak value of the item
 StreamSize;; byte;N YI;;;Stream size in bytes
 StreamSize/String;;;Y NT;;;
 StreamSize/String1;;;N NT;;;
@@ -109,7 +110,7 @@ Title;;;Y YI;;;Name of the track
 Encoded_Library;;;Y YT;;;Software used to create the file
 Encoded_Library_Settings;;;Y YT;;;Parameters used by the software
 Language;;;N YT;;;Language (2 letters)
-Language/String;;;Y NT;;;Language (full)
+Language/String;;;Y NT;;;Language (full);;
 Language_More;;;Y YT;;;More info about Language (director's comment...);;
 Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal

@@ -30,6 +30,9 @@
  day1; day
  day2; days
  day3; days
+ dB1; dB
+ dB2; dB
+ dB3; dB
  file1; file
  file2; files
  file3; files
@@ -142,10 +145,13 @@ About_Hint;How to contact me and find last version
 Accompaniment;Accompaniment
 Actor;Actor
 Actor_Character;Character played
+Added_Date;Added date
 Address;Address
 Advanced;Advanced
 Advanced mode;Advanced mode
 Album;Album
+Album_ReplayGain_Gain;Album replay gain
+Album_ReplayGain_Peak;Album replay gain peak
 Alignment_Aligned;Aligned on interleaves
 Alignment_Split;Split accross interleaves
 All;All
@@ -736,6 +742,9 @@ Period;Period
 Phone;Phone
 PixelAspectRatio;Pixel Aspect Ratio
 PlayCounter;PlayCounter
+Played_Count;Count of playings
+Played_First_Date;First playing
+Played_Last_Date;Last playing
 PlayTime;PlayTime
 Position;Position
 Position_Total;Total
@@ -752,6 +761,8 @@ Recorded_Date;Recorded date
 Recorded_Location;Recorded location
 Released_Date;Released date
 RemixedBy;Remixed by
+ReplayGain_Gain;Replay gain
+ReplayGain_Peak;Replay gain peak
 Resolution;Resolution
 s;s
 SamplingRate;Sampling rate

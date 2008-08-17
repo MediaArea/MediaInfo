@@ -132,6 +132,9 @@ enum general
     General_HeaderSize,
     General_DataSize,
     General_FooterSize,
+    General_Album_ReplayGain_Gain,
+    General_Album_ReplayGain_Gain_String,
+    General_Album_ReplayGain_Peak,
     General_Title,
     General_Title_More,
     General_Title_Url,
@@ -256,6 +259,10 @@ enum general
     General_Lyrics,
     General_Comment,
     General_Rating,
+    General_Added_Date,
+    General_Played_First_Date,
+    General_Played_Last_Date,
+    General_Played_Count,
 };
 
 //---------------------------------------------------------------------------
@@ -490,6 +497,7 @@ enum audio
     Audio_Video0_Delay_String2,
     Audio_Video0_Delay_String3,
     Audio_ReplayGain_Gain,
+    Audio_ReplayGain_Gain_String,
     Audio_ReplayGain_Peak,
     Audio_StreamSize,
     Audio_StreamSize_String,

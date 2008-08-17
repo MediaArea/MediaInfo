@@ -192,7 +192,9 @@ void File_Flac::VORBIS_COMMENT()
     Open_Buffer_Init(&VorbisCom, File_Size, File_Offset+Buffer_Offset);
     Open_Buffer_Continue(&VorbisCom, Buffer+Buffer_Offset, (size_t)Element_Size);
     Open_Buffer_Finalize(&VorbisCom);
-    Merge(VorbisCom, Stream_General, 0, 0);
+    Merge(VorbisCom, Stream_General,  0, 0);
+    Merge(VorbisCom, Stream_Audio,    0, 0);
+    Merge(VorbisCom, Stream_Chapters, 0, 0);
 }
 
 //---------------------------------------------------------------------------

@@ -96,6 +96,9 @@ StreamSize_Proportion;;;N NT;;;Stream size divided by file size
 HeaderSize;;;N NI;;;
 DataSize;;;N NI;;;;;
 FooterSize;;;N NI;;;;;
+Album_ReplayGain_Gain;; dB;N YT;;;The gain to apply to reach 89dB SPL on playback;;
+Album_ReplayGain_Gain/String;;;Y YT;;;;;
+Album_ReplayGain_Peak;;;Y YT;;;The maximum absolute peak value of the item;;
 Title;;;N NT;;;(Generic)Title of file;;Title
 Title/More;;;N NT;;;(Generic)More info about the title of file;;Title
 Title/Url;;;N NT;;;(Generic)Url;;Title
@@ -220,3 +223,7 @@ Cover_Data;;;N YT;;;Cover, in binary format encoded BASE64;;Info
 Lyrics;;;Y YT;;;;;Info
 Comment;;;Y YT;;;Any comment related to the content.;;Personal
 Rating;;;Y YT;;;A numeric value defining how much a person likes the song/movie. The number is between 0 and 5 with decimal values possible (e.g. 2.7), 5(.0) being the highest possible rating.;;Personal
+Added_Date;;;Y YT;;;;;Personal
+Played_First_Date;;;Y YT;;;;;Personal
+Played_Last_Date;;;Y YT;;;;;Personal
+Played_Count;;;Y YI;;;;;Personal

@@ -46,6 +46,7 @@ File_VorbisCom::File_VorbisCom()
 {
     //In
     StreamKind=Stream_General;
+    StreamGoal=Stream_General;
 }
 
 //***************************************************************************
@@ -65,7 +66,10 @@ void File_VorbisCom::FileHeader_Parse()
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Stream_Prepare(StreamKind);
+        if (StreamKind!=Stream_General)
+            Stream_Prepare(StreamKind);
+        if (StreamGoal!=Stream_General && StreamGoal!=StreamKind)
+            Stream_Prepare(StreamGoal);
 
         //Comments
         for (int32u Pos=0; Pos<user_comment_list_length; Pos++)
@@ -97,29 +101,37 @@ void File_VorbisCom::Comment()
         Key.MakeUpperCase();
         Ztring Value=comment.SubString(_T("="), _T(""));
 
-             if (Key==_T("ALBUM"))          Fill(Stream_General, 0, General_Album, Value);
-        else if (Key==_T("ARTIST"))         Fill(Stream_General, 0, General_Performer, Value);
-        else if (Key==_T("AUTHOR"))         Fill(Stream_General, 0, General_Performer, Value);
-        else if (Key==_T("COMMENT"))        Fill(Stream_General, 0, General_Comment, Value);
-        else if (Key==_T("COMMENTS"))       Fill(Stream_General, 0, General_Comment, Value);
-        else if (Key==_T("CONTACT"))        Fill(Stream_General, 0, General_Publisher, Value);
-        else if (Key==_T("COPYRIGHT"))      Fill(Stream_General, 0, General_Copyright, Value);
-        else if (Key==_T("DATE"))           Fill(Stream_General, 0, General_Recorded_Date, Value);
-        else if (Key==_T("DESCRIPTION"))    Fill(Stream_General, 0, General_Comment, Value);
-        else if (Key==_T("ENCODER"))        Fill(Stream_General, 0, General_Encoded_Application, Value);
-        else if (Key==_T("ENCODED_USING"))  Fill(Stream_General, 0, General_Encoded_Application, Value);
-        else if (Key==_T("ENCODER_URL"))    Fill(Stream_General, 0, General_Encoded_Application_Url, Value);
-        else if (Key==_T("GENRE"))          Fill(Stream_General, 0, General_Genre, Value);
-        else if (Key==_T("ISRC"))           Fill(Stream_General, 0, General_ISRC, Value);
-        else if (Key==_T("LANGUAGE"))       Fill(StreamKind,     0, "Language", Value);
-        else if (Key==_T("LICENCE"))        Fill(Stream_General, 0, General_TermsOfUse, Value);
-        else if (Key==_T("LWING_GAIN"))     Fill(StreamKind,     0, "ReplayGain_Gain", Value);
-        else if (Key==_T("LOCATION"))       Fill(Stream_General, 0, General_Recorded_Location, Value);
-        else if (Key==_T("ORGANIZATION"))   Fill(Stream_General, 0, General_Producer, Value);
-        else if (Key==_T("PERFORMER"))      Fill(Stream_General, 0, General_Performer, Value);
-        else if (Key==_T("TITLE"))          Fill(Stream_General, 0, General_Title, Value);
-        else if (Key==_T("TRACKNUMBER"))    Fill(Stream_General, 0, General_Track_Position, Value);
-        else if (Key==_T("VERSION"))        Fill(Stream_General, 0, General_Track_More, Value);
+             if (Key==_T("ADDED_TIMESTAMP"))        Fill(Stream_General, 0, "Added_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/1000));
+        else if (Key==_T("ALBUM"))                  Fill(Stream_General, 0, General_Album, Value);
+        else if (Key==_T("ARTIST"))                 Fill(Stream_General, 0, General_Performer, Value);
+        else if (Key==_T("AUTHOR"))                 Fill(Stream_General, 0, General_Performer, Value);
+        else if (Key==_T("COMMENT"))                Fill(Stream_General, 0, General_Comment, Value);
+        else if (Key==_T("COMMENTS"))               Fill(Stream_General, 0, General_Comment, Value);
+        else if (Key==_T("CONTACT"))                Fill(Stream_General, 0, General_Publisher, Value);
+        else if (Key==_T("COPYRIGHT"))              Fill(Stream_General, 0, General_Copyright, Value);
+        else if (Key==_T("DATE"))                   Fill(Stream_General, 0, General_Recorded_Date, Value);
+        else if (Key==_T("DESCRIPTION"))            Fill(Stream_General, 0, General_Comment, Value);
+        else if (Key==_T("ENCODER"))                Fill(Stream_General, 0, General_Encoded_Application, Value);
+        else if (Key==_T("ENCODED_USING"))          Fill(Stream_General, 0, General_Encoded_Application, Value);
+        else if (Key==_T("ENCODER_URL"))            Fill(Stream_General, 0, General_Encoded_Application_Url, Value);
+        else if (Key==_T("GENRE"))                  Fill(Stream_General, 0, General_Genre, Value);
+        else if (Key==_T("FIRST_PLAYED_TIMESTAMP")) Fill(StreamGoal,     0, "Played_First_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/1000));
+        else if (Key==_T("ISRC"))                   Fill(Stream_General, 0, General_ISRC, Value);
+        else if (Key==_T("LANGUAGE"))               Fill(StreamKind,     0, "Language", Value);
+        else if (Key==_T("LAST_PLAYED_TIMESTAMP"))  Fill(StreamGoal,     0, "Played_Last_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/1000));
+        else if (Key==_T("LICENCE"))                Fill(Stream_General, 0, General_TermsOfUse, Value);
+        else if (Key==_T("LWING_GAIN"))             Fill(StreamGoal,     0, "ReplayGain_Gain", Value.To_float64(), 2);
+        else if (Key==_T("LOCATION"))               Fill(Stream_General, 0, General_Recorded_Location, Value);
+        else if (Key==_T("ORGANIZATION"))           Fill(Stream_General, 0, General_Producer, Value);
+        else if (Key==_T("PERFORMER"))              Fill(Stream_General, 0, General_Performer, Value);
+        else if (Key==_T("PLAY_COUNT"))             Fill(StreamGoal,     0, "Played_Count", Value.To_int64u());
+        else if (Key==_T("REPLAYGAIN_ALBUM_GAIN"))  Fill(Stream_General, 0, "Album_ReplayGain_Gain", Value.To_float64(), 2);
+        else if (Key==_T("REPLAYGAIN_ALBUM_PEAK"))  Fill(Stream_General, 0, "Album_ReplayGain_Peak", Value.To_float64(), 6);
+        else if (Key==_T("REPLAYGAIN_TRACK_GAIN"))  Fill(StreamKind,     0, "ReplayGain_Gain",       Value.To_float64(), 2);
+        else if (Key==_T("REPLAYGAIN_TRACK_PEAK"))  Fill(StreamKind,     0, "ReplayGain_Peak",       Value.To_float64(), 6);
+        else if (Key==_T("TITLE"))                  Fill(Stream_General, 0, General_Title, Value);
+        else if (Key==_T("TRACKNUMBER"))            Fill(Stream_General, 0, General_Track_Position, Value);
+        else if (Key==_T("VERSION"))                Fill(Stream_General, 0, General_Track_More, Value);
         else if (Key.find(_T("CHAPTER"))==0)
         {
             if (Count_Get(Stream_Chapters)==0)
@@ -137,7 +149,7 @@ void File_VorbisCom::Comment()
                 Fill(Stream_Chapters, 0, Chapter_Pos.To_Local().c_str(), Chapter_Time+_T(" ")+Value);
             }
         }
-        else                                Fill(Stream_General, 0, Key.To_Local().c_str(), Value);
+        else                                Fill(Stream_General, 0, comment.SubString(_T(""), _T("=")).To_Local().c_str(), Value);
     FILLING_END();
 }
 

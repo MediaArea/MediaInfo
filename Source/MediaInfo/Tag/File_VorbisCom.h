@@ -42,6 +42,7 @@ class File_VorbisCom : public File__Analyze
 public :
     //In
     stream_t StreamKind;
+    stream_t StreamGoal; //This tag is only for the kind of track in StreamGoal
 
 public :
     File_VorbisCom();

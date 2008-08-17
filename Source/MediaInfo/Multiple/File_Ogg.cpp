@@ -147,6 +147,7 @@ void File_Ogg::Data_Parse()
     if (Stream[Element_Code].Parser==NULL)
     {
         Stream[Element_Code].Parser=new File_Ogg_SubElement;
+        ((File_Ogg_SubElement*)Stream[Element_Code].Parser)->IsStandAlone=Stream.size()==1;
         Open_Buffer_Init(Stream[Element_Code].Parser);
         StreamsToDo++;
     }
