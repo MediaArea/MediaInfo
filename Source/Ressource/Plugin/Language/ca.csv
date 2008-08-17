@@ -30,6 +30,9 @@
  day1; dia
  day2; dies
  day3; dies
+ dB1
+ dB2
+ dB3
  file1; arxiu
  file2; arxius
  file3; arxius
@@ -142,10 +145,13 @@ About_Hint;Quant a l'ajuda
 Accompaniment;Banda Sonora
 Actor;Actor
 Actor_Character;Personatge
+Added_Date
 Address;Adreça
 Advanced;Avançat
 Advanced mode;Mode avançat
 Album;Àlbum
+Album_ReplayGain_Gain
+Album_ReplayGain_Peak
 Alignment_Aligned
 Alignment_Split
 All;Tot
@@ -736,6 +742,9 @@ Period;Període
 Phone;Telèfon
 PixelAspectRatio;Relació d'aspecte
 PlayCounter;Comptador
+Played_Count
+Played_First_Date
+Played_Last_Date
 PlayTime;Duració
 Position;Posició
 Position_Total
@@ -752,6 +761,8 @@ Recorded_Date;Data d'enregistrament
 Recorded_Location;Lloc de gravació
 Released_Date;Data de llançament
 RemixedBy;Remesclat per
+ReplayGain_Gain
+ReplayGain_Peak
 Resolution;Resolució
 s;seg
 SamplingRate;Freqüència de mostratge
@@ -848,5 +859,5 @@ Written_Location;Inseriu el lloc de gravació
 WrittenBy;Escrit per
 Yes;Sí
 Your system;El vostre sistema
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;90
+ZZ_Automatic_Percent;88
+ZZ_AutomaticLanguage_Percent;88

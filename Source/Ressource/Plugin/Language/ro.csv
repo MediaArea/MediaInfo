@@ -30,6 +30,9 @@
  day1;zi
  day2;zile
  day3;zile
+ dB1
+ dB2
+ dB3
  file1;fisier
  file2;fisiere
  file3;fisiere
@@ -142,10 +145,13 @@ About_Hint;Sfaturi
 Accompaniment;Acompaniament
 Actor;Actor
 Actor_Character;Personaj
+Added_Date
 Address;Adresa
 Advanced;Avansat
 Advanced mode;Mod avansat
 Album;Album
+Album_ReplayGain_Gain
+Album_ReplayGain_Peak
 Alignment_Aligned
 Alignment_Split
 All;Toate
@@ -736,6 +742,9 @@ Period;Perioada
 Phone;Telefon
 PixelAspectRatio;Dimensiune pixel
 PlayCounter;Numar redari
+Played_Count
+Played_First_Date
+Played_Last_Date
 PlayTime;Durata redare
 Position;Pozitie
 Position_Total
@@ -752,6 +761,8 @@ Recorded_Date;Data inregistrarii
 Recorded_Location;Locul inregistrarii
 Released_Date;Data lansarii
 RemixedBy;Rearanjat de
+ReplayGain_Gain
+ReplayGain_Peak
 Resolution;Rezolutie
 s;s
 SamplingRate
@@ -849,4 +860,4 @@ WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
 ZZ_Automatic_Percent;39
-ZZ_AutomaticLanguage_Percent;78
+ZZ_AutomaticLanguage_Percent;77

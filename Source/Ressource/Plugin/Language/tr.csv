@@ -30,6 +30,9 @@
  day1; gün
  day2; gün
  day3; gün
+ dB1
+ dB2
+ dB3
  file1; dosya
  file2; dosya
  file3; dosya
@@ -142,10 +145,13 @@ About_Hint;Son sürümü bulmak ve benle nasıl bağlantı kurmanız için
 Accompaniment;Refakat
 Actor;Oyuncu
 Actor_Character;Oynayan karakter
+Added_Date
 Address;Adres
 Advanced;Gelişmiş
 Advanced mode;Gelişmiş kip
 Album;Albüm
+Album_ReplayGain_Gain
+Album_ReplayGain_Peak
 Alignment_Aligned
 Alignment_Split
 All;Tümü
@@ -736,6 +742,9 @@ Period;Dönem
 Phone;Telefon
 PixelAspectRatio;Piksel oranı
 PlayCounter;Oynatma Sayacı
+Played_Count
+Played_First_Date
+Played_Last_Date
 PlayTime;Oynatma Süresi
 Position;Konum
 Position_Total;Toplam
@@ -752,6 +761,8 @@ Recorded_Date;Kaydedildiği tarih
 Recorded_Location;Kaydedildiği yer
 Released_Date;Yayım tarihi
 RemixedBy;Remiksleyen
+ReplayGain_Gain
+ReplayGain_Peak
 Resolution;Çözünürlük
 s;s
 SamplingRate;Örnekleme oranı
@@ -848,5 +859,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97

@@ -30,6 +30,9 @@
  day1; μέρα
  day2; μέρες
  day3; μέρες
+ dB1
+ dB2
+ dB3
  file1; αρχείο
  file2; αρχεία
  file3; αρχεία
@@ -142,10 +145,13 @@ About_Hint;Πως θα επικοινωνήσετε μαζί μου και θα 
 Accompaniment;Συνοδεία
 Actor;Actor
 Actor_Character;Character played
+Added_Date
 Address;Διεύθυνση
 Advanced;Για προχωρημένους
 Advanced mode;Κατάσταση λειτουργίας για προχωρημένους
 Album;Album
+Album_ReplayGain_Gain
+Album_ReplayGain_Peak
 Alignment_Aligned
 Alignment_Split
 All;Όλα
@@ -736,6 +742,9 @@ Period;Περίοδος
 Phone;Τηλέφωνο
 PixelAspectRatio;Λόγος εικονοστοιχείου
 PlayCounter;PlayCounter
+Played_Count
+Played_First_Date
+Played_Last_Date
 PlayTime;Διάρκεια
 Position;Θέση
 Position_Total
@@ -752,6 +761,8 @@ Recorded_Date;Ημερομηνία εγγραφής
 Recorded_Location;Τοποθεσία εγγραφής
 Released_Date;Ημερομηνία Έκδοσης
 RemixedBy;Remixed by
+ReplayGain_Gain
+ReplayGain_Peak
 Resolution;Ανάλυση
 s;s
 SamplingRate;Συχνότητα δειγματοληψίας
@@ -848,5 +859,5 @@ Written_Location;Τοποθεσία καταγραφής
 WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;88
+ZZ_AutomaticLanguage_Percent;88

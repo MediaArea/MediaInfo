@@ -30,6 +30,9 @@
  day1; day; jour; Tag;nap; giorno; д.;día; día; dag; dzień;zi; dag; gün; 日;天; 日;den; μέρα; 일; dia; dia;diena; dia(s); วัน; д.;天;روز; ditë
  day2; days; jours; Tage;nap; giorni; дн.;días; días; dagen; dni;zile; dagar; gün; 日;天; 日; dny; μέρες; 일; dias; dies;dienos; dia(s); วัน; дн.;天;روزها; ditë
  day3; days; jours; Tage;nap; giorni; дн.;días; días; dagen; dni;zile; dagar; gün; 日;天; 日; dny; μέρες; 일; dias; dies;dienos; dia(s); วัน; дн.;天;روزها; ditë
+ dB1; dB; dB
+ dB2; dB; dB
+ dB3; dB; dB
  file1; file; fichier; Datei;fájl; file; файл;archivo; arquivo; bestand; plik;fisier; fil; dosya; 檔案;文件; ファイル; soubor; αρχείο; 파일; arquivo; arxiu;failas; arquivo(s); ไฟล์; файл;文件;فایل; skedë
  file2; files; fichiers; Dateien;fájl; file; файлы;archivos; arquivo; bestanden; pliki;fisiere; filer; dosya; 檔案;个文件; ファイル; soubory; αρχεία; 파일; arquivos; arxius;failai; arquivo(s); ไฟล์; файла;文件;فایلها; skedat
  file3; files; fichiers; Dateien;fájl; file; файлы;archivos; arquivo; bestanden; pliki;fisiere; filer; dosya; 檔案;个文件; ファイル; soubory; αρχεία; 파일; arquivos; arxius;failai; arquivo(s); ไฟล์; файли;文件;فایلها; skedat
@@ -142,10 +145,13 @@ About_Hint;How to contact me and find last version;Comment me contacter et trouv
 Accompaniment;Accompaniment;Accompagnement;Begleitung ;Kíséret;Accompagnamento;Сопровождение;Acompañamiento;Acompañamento;Begeleiding;Akompaniament;Acompaniament; Ackompanjemang;Refakat;;伴奏;演奏者;Accompaniment;Συνοδεία;반주;Acompanhamento;Banda Sonora;Akompanimentas;Acompanhamento;Accompaniment;Супровід;伴奏;همراهی;Shoqëruesi
 Actor;Actor;Acteur;Schauspieler ;Előadó;Attore;Исполнитель;Actor;Actor;Acteur;Aktor;Actor; Skådespelare;Oyuncu;主演;演员;主演;Herec;Actor;배우;Ator;Actor;Aktorius;Ator;นักแสดง;Актор;演員;اکتور;Aktori
 Actor_Character;Character played;Personnage joué;Rolle ;Szerep;Personaggio;Роль;Personaje;Personaxe interpretado;Personage;Odtwarzany znak;Personaj; Roll;Oynayan karakter;主演角色;角色;出演名;Character played;Character played;배역;Personagem;Personatge;rodyti ženklą;Personagem;Character played;У ролі;角色;پخش کاراکتر;Personazhi i luajtur
+Added_Date;Added date;Date d'ajout
 Address;Address;Adresse;Adresse;Cím;Indirizzo;Адрес;Dirección;Enderezo;Adres;Adres;Adresa; Adress;Adres;;地址;アドレス;Address;Διεύθυνση;주소;Endereço;Adreça;Adresas;Endereço;ที่อยู่;Адреса;地址;آدرس;Adresa
 Advanced;Advanced;Avancée;Erweitert;Bővített;Modalità avanzata;Дополнительно;Avanzado;Avanzado;Geavanceerd;Zaawansowane;Avansat; Avancerat;Gelişmiş;進階;高级;詳細;Pokročilé;Για προχωρημένους;고급;Avançado;Avançat;Išplėstinai;Avançado;ขั้นสูง;Додаткові;高級;حرفه ای;Avancuar
 Advanced mode;Advanced mode;Mode Avancé;Erweiterter Modus;Bővített mód;Modalità avanzata;Расширенный режим;Modo Avanzado;Modo avanzado;Geavanceerde modus;Tryb zaawansowany;Mod avansat; Avancerat läge;Gelişmiş kip;進階模式;高级模式;詳細モード;Více detailů;Κατάσταση λειτουργίας για προχωρημένους;고급 모드;Modo avançado;Mode avançat;Išplėstinis režimas;Modo avançado;โหมดขั้นสูง;Розширений режим;高級模式;مد پیشرفته;Mënyrë e avancuar
 Album;Album;Album;Album;Album;Album;Альбом;Álbum;Albúm;Album;Album;Album; Album;Albüm;專輯;专辑;アルバム;Album;Album;앨범;Álbum;Àlbum;Albumas;Álbum;อัลบั้ม;Альбом;唱片;آلبوم;Albumi
+Album_ReplayGain_Gain;Album replay gain;Gain en lecture de l'album
+Album_ReplayGain_Peak;Album replay gain peak;Crête de gain en lecture de l'album
 Alignment_Aligned;Aligned on interleaves;Alignée sur les interleaves;;;Audio allineato ;Соединение по промежуткам;;;;;;;;;同步合并;;;;인터리브에 정렬;;;;;;;;;I radhitur te gërshetimet
 Alignment_Split;Split accross interleaves;Eparpillé à travers les interleaves;;;Audio splittato;Разделение по промежуткам;;;;;;;;;非同步合并;;;;인터리브로 분할;;;;;;;;;I ndarë te gërshetimet
 All;All;Tout;Alle;Mind;Tutti;Все;Todo;Todo;Alles;Wszystkie;Toate; Alla;Tümü;全部;全部;すべて;Vše;Όλα;전체;Todos;Tot;Visi;Todos;ทั้งหมด;Все;全部;همه;Gjithçka
@@ -736,6 +742,9 @@ Period;Period;Période;Epoche ;Korszak;Periodo;Период;Período;Período;Pe
 Phone;Phone;Téléphone;Telefon ;Telefon;Telefono;Телефон;Teléfono;Teléfono;Telefoon;Telefon;Telefon; Telefon;Telefon;;电话;電話;Phone;Τηλέφωνο;전화;Telefone;Telèfon;Telefonas;Telefone;โทรศัพท์;Телефон;電話;تلفن;Telefoni
 PixelAspectRatio;Pixel Aspect Ratio;Taille du pixel;Pixelverhältnis;Képpont arány;Rapporto pixel;Соотношение пикселей;Relación de aspecto;Pixel ratio;Pixelverhouding;Proporcje pikseli;Dimensiune pixel; Pixelförhållande;Piksel oranı;像素長寬比例;画面比例(像素);ピクセル比;Poměr pixelů;Λόγος εικονοστοιχείου;픽셀 종횡비;Proporção de pixels;Relació d'aspecte;Pikselių aspekto koeficientas;Proporção de pixels;Pixel Aspect Ratio;;像素比;Pixel Aspect Ratio;Raporti i aspektit të pikselit
 PlayCounter;PlayCounter;Compteur de lecture;Wiedergabezähler ;;Riprodotto per;Счётчик воспроизведения;Contador;Contador;Teller;Licznik odtwarzania;Numar redari; Spelräknare;Oynatma Sayacı;;播放计数器;再生数;PlayCounter;PlayCounter;재생 횟수;Reproduzido;Comptador;Rodymo skaitiklis;Reproduzido;PlayCounter;Лічильник;播放計數;تعداد پخش;Njehsori i lojës
+Played_Count;Count of playings;Nombre de lectures
+Played_First_Date;First playing;Première lecture
+Played_Last_Date;Last playing;Dernière lecture
 PlayTime;PlayTime;Durée;Spielzeit;Játékidő;Durata;Длительность;Duración;Duración;Speeltijd;Czas trwania;Durata redare; Speltid;Oynatma Süresi;播放長度;播放时间;再生時間;Hrací čas;Διάρκεια;재생시간;Duração;Duració;Rodymo laikas;Duração;เวลาเล่น;Тривалість;播放時間;زمان پخش;Kohë e lojës
 Position;Position;Position;Position im Mediensatz ;;Posizione;Положение;Posición;Posición;Tracknummer;Pozycja;Pozitie; Position;Konum;曲目順序;位置;ポジション;Pozice;Θέση;위치;Posição;Posició;Padėtis;Posição;ตำแหน่ง;Положення;位置;موقعیت;Pozicioni
 Position_Total;Total;Total;;;Totale;Всего;Total;;;;;;Toplam;曲目總和;总计;合計;;;전체;;;Viso;Total;ทั้งหมด;;總計;کلی;Totali
@@ -752,6 +761,8 @@ Recorded_Date;Recorded date;Date d'enregistrement;Aufnahmedatum ;Rögzítés dá
 Recorded_Location;Recorded location;Lieu d'enregistrement;Aufnahmeort ;Rögzítés helye;Luogo di registrazione;Место записи;Lugar de grabación;Lugar de grabación;Opnamelocatie;Miejsce nagrania;Locul inregistrarii; Inspelningsort;Kaydedildiği yer;錄製地點;录制地点;録音した場所;Recorded location;Τοποθεσία εγγραφής;기록 장소;Local de gravação;Lloc de gravació;Įrašymo vieta;Local de gravação;Recorded location;Місце запису;目錄地點;مکان ظبط;Vendndodhje e regjistrimit
 Released_Date;Released date;Date de premère diffusion;Veröffentlichungsdatum ;Kiadás dátuma;Data di distribuzione;Дата выпуска;Fecha de Lanzamiento;Data de distribución;Releasedatum;Data wydania;Data lansarii; Releasedatum;Yayım tarihi;發行日期;发布日期;リリース日;Released date;Ημερομηνία Έκδοσης;개봉일;Data de lançamento;Data de llançament;Išleidimo data;Data de lançamento;Released date;Дата випуску;發佈日期;تاریخ انتشار;Datë e lëshimit
 RemixedBy;Remixed by;Remixé par;Remixed von ;Újrakeverte;Remixato da ;Ремикс от;Mezcaldo por;Mesturado por;Geremixed door;Remiksowany;Rearanjat de; Remixad av;Remiksleyen;;重新混合;リミックス by;Remixed by;Remixed by;리믹스;Remixado por;Remesclat per;Permiksavo;Remixado por;รีมิกซ์โดย;Ремікс;重新混合;دوباره میکس شده;Rimiksuar nga
+ReplayGain_Gain;Replay gain;Gain en lecture
+ReplayGain_Peak;Replay gain peak;Crête de gain en lecture
 Resolution;Resolution;Résolution;Auflösung;Felbontás;Risoluzione;Разрешение;Resolución;Resolución;Resolutie;Rozdzielczość;Rezolutie; Upplösning;Çözünürlük;顏色深度;分辨率;解像度;Rozlišení;Ανάλυση;해상도;Resolução;Resolució;Raiška;Resolução;ความละเอียด;Дозвіл;分辨率;تفکیک پذیری;Rezolucioni
 s;s;s;s;mp;s;с;seg.;s;s;s;s; s;s;秒;秒;秒;s;s;초;s;seg;Video srautai (s);s;s;с;秒;;s
 SamplingRate;Sampling rate;Echantillonnage;Samplingrate;Mintavételezési gyakoriság;SamplingRate;Частота;Velocidad de la muestra;Ratio de mostraxe;Samplerate;Częstotliwość próbkowania;; Samplingstakt;Örnekleme oranı;取樣率;采样率;サンプルレート;Sampling rate;Συχνότητα δειγματοληψίας;샘플링레이트;Taxa de amostragem;Freqüència de mostratge;Atrankos tempas;Taxa de amostragem;;Частота;採樣率　;نرخ نمونه برداری;Raporti i shëmbëllimit
@@ -848,5 +859,5 @@ Written_Location;Written location;Lieu d'écriture;Speicherort ;Írás helye;Rea
 WrittenBy;Written by;Ecrit par;Gespeichert von ;Írta;Realizzato da;Написано;Escrito por;Escrito por;Geschreven door;Napisany przez;Scris de; Skrivet av;Yazan;撰寫人;作者;著者;Napsal;Γραμμένο από;제작자;Escrito por;Escrit per;Parašė;Escrito por;เขียนโดย;Написано;作者;نوشته شده توسط;Shkruar nga
 Yes;Yes;Oui;Ja;Igen;Si ;Да;Si;Si;Ja;Tak;Da; Ja;Evet;是;是;はい;Ano;Ναι;예;Sim;Sí;Taip;Sim;ใช่;Так;確定;بله;Po
 Your system;Your system;Votre système;Systeminformationen;Rendszer;Il tuo sistema;Ваша система;Tu sistema;O teu sistema;Uw systeem;System;Sistemul dvs; Ditt system;Sisteminiz;您的系統;您的系统;システム情報;Instalované kodeky;Το σύστημά σας;이 시스템;Seu sistema;El vostre sistema;Jūsų sistema;Seu sistema;ระบบของคุณ;Ваша система;您的系統;سیستم شما;Sistemi yt
-ZZ_Automatic_Percent;100;100;66;64;100;99;73;88;87;46;39;87;98;72;50;96;89;89;100;89;90;96;98;96;88;96;47;98
-ZZ_AutomaticLanguage_Percent;100;100;85;84;100;99;96;88;87;85;78;87;98;85;89;96;89;89;100;89;90;96;98;96;88;96;86;98
+ZZ_Automatic_Percent;100;100;66;63;98;98;72;87;86;46;39;86;97;71;49;95;88;88;98;88;88;95;96;94;87;95;47;98
+ZZ_AutomaticLanguage_Percent;100;100;84;83;98;98;95;87;86;84;77;86;97;84;88;95;88;88;98;88;88;95;96;94;87;95;85;98

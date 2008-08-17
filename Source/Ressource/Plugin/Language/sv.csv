@@ -30,6 +30,9 @@
  day1; dag
  day2; dagar
  day3; dagar
+ dB1
+ dB2
+ dB3
  file1; fil
  file2; filer
  file3; filer
@@ -142,10 +145,13 @@ About_Hint; Kontakt - och versionsinformation
 Accompaniment; Ackompanjemang
 Actor; Skådespelare
 Actor_Character; Roll
+Added_Date
 Address; Adress
 Advanced; Avancerat
 Advanced mode; Avancerat läge
 Album; Album
+Album_ReplayGain_Gain
+Album_ReplayGain_Peak
 Alignment_Aligned
 Alignment_Split
 All; Alla
@@ -736,6 +742,9 @@ Period; Period
 Phone; Telefon
 PixelAspectRatio; Pixelförhållande
 PlayCounter; Spelräknare
+Played_Count
+Played_First_Date
+Played_Last_Date
 PlayTime; Speltid
 Position; Position
 Position_Total
@@ -752,6 +761,8 @@ Recorded_Date; Inspelningsdatum
 Recorded_Location; Inspelningsort
 Released_Date; Releasedatum
 RemixedBy; Remixad av
+ReplayGain_Gain
+ReplayGain_Peak
 Resolution; Upplösning
 s; s
 SamplingRate; Samplingstakt
@@ -848,5 +859,5 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;87
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;86
+ZZ_AutomaticLanguage_Percent;86

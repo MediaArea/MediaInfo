@@ -30,6 +30,9 @@
  day1; วัน
  day2; วัน
  day3; วัน
+ dB1
+ dB2
+ dB3
  file1; ไฟล์
  file2; ไฟล์
  file3; ไฟล์
@@ -142,10 +145,13 @@ About_Hint;วิธีติดต่อฉันและค้นหาเว
 Accompaniment;Accompaniment
 Actor;นักแสดง
 Actor_Character;Character played
+Added_Date
 Address;ที่อยู่
 Advanced;ขั้นสูง
 Advanced mode;โหมดขั้นสูง
 Album;อัลบั้ม
+Album_ReplayGain_Gain
+Album_ReplayGain_Peak
 Alignment_Aligned
 Alignment_Split
 All;ทั้งหมด
@@ -736,6 +742,9 @@ Period;Period
 Phone;โทรศัพท์
 PixelAspectRatio;Pixel Aspect Ratio
 PlayCounter;PlayCounter
+Played_Count
+Played_First_Date
+Played_Last_Date
 PlayTime;เวลาเล่น
 Position;ตำแหน่ง
 Position_Total;ทั้งหมด
@@ -752,6 +761,8 @@ Recorded_Date;วันที่บันทึก
 Recorded_Location;Recorded location
 Released_Date;Released date
 RemixedBy;รีมิกซ์โดย
+ReplayGain_Gain
+ReplayGain_Peak
 Resolution;ความละเอียด
 s;s
 SamplingRate
@@ -848,5 +859,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;94
+ZZ_AutomaticLanguage_Percent;94

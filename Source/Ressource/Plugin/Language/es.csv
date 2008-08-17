@@ -30,6 +30,9 @@
  day1;día
  day2;días
  day3;días
+ dB1
+ dB2
+ dB3
  file1;archivo
  file2;archivos
  file3;archivos
@@ -142,10 +145,13 @@ About_Hint;Cómo ponerse en contacto conmigo y encontrar la última versión
 Accompaniment;Acompañamiento
 Actor;Actor
 Actor_Character;Personaje
+Added_Date
 Address;Dirección
 Advanced;Avanzado
 Advanced mode;Modo Avanzado
 Album;Álbum
+Album_ReplayGain_Gain
+Album_ReplayGain_Peak
 Alignment_Aligned
 Alignment_Split
 All;Todo
@@ -736,6 +742,9 @@ Period;Período
 Phone;Teléfono
 PixelAspectRatio;Relación de aspecto
 PlayCounter;Contador
+Played_Count
+Played_First_Date
+Played_Last_Date
 PlayTime;Duración
 Position;Posición
 Position_Total;Total
@@ -752,6 +761,8 @@ Recorded_Date;Fecha de grabación
 Recorded_Location;Lugar de grabación
 Released_Date;Fecha de Lanzamiento
 RemixedBy;Mezcaldo por
+ReplayGain_Gain
+ReplayGain_Peak
 Resolution;Resolución
 s;seg.
 SamplingRate;Velocidad de la muestra
@@ -848,5 +859,5 @@ Written_Location;Escrito en
 WrittenBy;Escrito por
 Yes;Si
 Your system;Tu sistema
-ZZ_Automatic_Percent;73
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;72
+ZZ_AutomaticLanguage_Percent;95

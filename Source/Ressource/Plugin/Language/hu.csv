@@ -30,6 +30,9 @@
  day1;nap
  day2;nap
  day3;nap
+ dB1
+ dB2
+ dB3
  file1;fájl
  file2;fájl
  file3;fájl
@@ -142,10 +145,13 @@ About_Hint;Hogyan léphet velem kapcsolatba, illetve a legfrissebb változat lel
 Accompaniment;Kíséret
 Actor;Előadó
 Actor_Character;Szerep
+Added_Date
 Address;Cím
 Advanced;Bővített
 Advanced mode;Bővített mód
 Album;Album
+Album_ReplayGain_Gain
+Album_ReplayGain_Peak
 Alignment_Aligned
 Alignment_Split
 All;Mind
@@ -736,6 +742,9 @@ Period;Korszak
 Phone;Telefon
 PixelAspectRatio;Képpont arány
 PlayCounter
+Played_Count
+Played_First_Date
+Played_Last_Date
 PlayTime;Játékidő
 Position
 Position_Total
@@ -752,6 +761,8 @@ Recorded_Date;Rögzítés dátuma
 Recorded_Location;Rögzítés helye
 Released_Date;Kiadás dátuma
 RemixedBy;Újrakeverte
+ReplayGain_Gain
+ReplayGain_Peak
 Resolution;Felbontás
 s;mp
 SamplingRate;Mintavételezési gyakoriság
@@ -848,5 +859,5 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;Igen
 Your system;Rendszer
-ZZ_Automatic_Percent;64
-ZZ_AutomaticLanguage_Percent;84
+ZZ_Automatic_Percent;63
+ZZ_AutomaticLanguage_Percent;83

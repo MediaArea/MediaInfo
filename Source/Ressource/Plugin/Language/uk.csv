@@ -30,6 +30,9 @@
  day1; д.
  day2; дн.
  day3; дн.
+ dB1
+ dB2
+ dB3
  file1; файл
  file2; файла
  file3; файли
@@ -142,10 +145,13 @@ About_Hint;Контакти та пошук нової версії
 Accompaniment;Супровід
 Actor;Актор
 Actor_Character;У ролі
+Added_Date
 Address;Адреса
 Advanced;Додаткові
 Advanced mode;Розширений режим
 Album;Альбом
+Album_ReplayGain_Gain
+Album_ReplayGain_Peak
 Alignment_Aligned
 Alignment_Split
 All;Все
@@ -736,6 +742,9 @@ Period;Період
 Phone;Телефон
 PixelAspectRatio
 PlayCounter;Лічильник
+Played_Count
+Played_First_Date
+Played_Last_Date
 PlayTime;Тривалість
 Position;Положення
 Position_Total
@@ -752,6 +761,8 @@ Recorded_Date;Дата запису
 Recorded_Location;Місце запису
 Released_Date;Дата випуску
 RemixedBy;Ремікс
+ReplayGain_Gain
+ReplayGain_Peak
 Resolution;Дозвіл
 s;с
 SamplingRate;Частота
@@ -848,5 +859,5 @@ Written_Location;Місце написання
 WrittenBy;Написано
 Yes;Так
 Your system;Ваша система
-ZZ_Automatic_Percent;88
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;87
+ZZ_AutomaticLanguage_Percent;87

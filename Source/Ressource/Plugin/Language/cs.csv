@@ -30,6 +30,9 @@
  day1;den
  day2; dny
  day3; dny
+ dB1
+ dB2
+ dB3
  file1; soubor
  file2; soubory
  file3; soubory
@@ -142,10 +145,13 @@ About_Hint;O programu
 Accompaniment;Accompaniment
 Actor;Herec
 Actor_Character;Character played
+Added_Date
 Address;Address
 Advanced;Pokročilé
 Advanced mode;Více detailů
 Album;Album
+Album_ReplayGain_Gain
+Album_ReplayGain_Peak
 Alignment_Aligned
 Alignment_Split
 All;Vše
@@ -736,6 +742,9 @@ Period;Period
 Phone;Phone
 PixelAspectRatio;Poměr pixelů
 PlayCounter;PlayCounter
+Played_Count
+Played_First_Date
+Played_Last_Date
 PlayTime;Hrací čas
 Position;Pozice
 Position_Total
@@ -752,6 +761,8 @@ Recorded_Date;Recorded date
 Recorded_Location;Recorded location
 Released_Date;Released date
 RemixedBy;Remixed by
+ReplayGain_Gain
+ReplayGain_Peak
 Resolution;Rozlišení
 s;s
 SamplingRate;Sampling rate
@@ -848,5 +859,5 @@ Written_Location;Written location
 WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;88
+ZZ_AutomaticLanguage_Percent;88

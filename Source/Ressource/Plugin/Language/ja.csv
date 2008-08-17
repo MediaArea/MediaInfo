@@ -30,6 +30,9 @@
  day1; 日
  day2; 日
  day3; 日
+ dB1
+ dB2
+ dB3
  file1; ファイル
  file2; ファイル
  file3; ファイル
@@ -142,10 +145,13 @@ About_Hint;連絡方法と最新版チェック
 Accompaniment;演奏者
 Actor;主演
 Actor_Character;出演名
+Added_Date
 Address;アドレス
 Advanced;詳細
 Advanced mode;詳細モード
 Album;アルバム
+Album_ReplayGain_Gain
+Album_ReplayGain_Peak
 Alignment_Aligned
 Alignment_Split
 All;すべて
@@ -736,6 +742,9 @@ Period;ピリオド
 Phone;電話
 PixelAspectRatio;ピクセル比
 PlayCounter;再生数
+Played_Count
+Played_First_Date
+Played_Last_Date
 PlayTime;再生時間
 Position;ポジション
 Position_Total;合計
@@ -752,6 +761,8 @@ Recorded_Date;録音日
 Recorded_Location;録音した場所
 Released_Date;リリース日
 RemixedBy;リミックス by
+ReplayGain_Gain
+ReplayGain_Peak
 Resolution;解像度
 s;秒
 SamplingRate;サンプルレート
@@ -848,5 +859,5 @@ Written_Location;作成所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;95
+ZZ_AutomaticLanguage_Percent;95

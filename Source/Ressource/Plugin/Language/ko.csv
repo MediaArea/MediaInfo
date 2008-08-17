@@ -30,6 +30,9 @@
  day1; 일
  day2; 일
  day3; 일
+ dB1
+ dB2
+ dB3
  file1; 파일
  file2; 파일
  file3; 파일
@@ -142,10 +145,13 @@ About_Hint;연락처와 최신 버전 확인
 Accompaniment;반주
 Actor;배우
 Actor_Character;배역
+Added_Date
 Address;주소
 Advanced;고급
 Advanced mode;고급 모드
 Album;앨범
+Album_ReplayGain_Gain
+Album_ReplayGain_Peak
 Alignment_Aligned;인터리브에 정렬
 Alignment_Split;인터리브로 분할
 All;전체
@@ -736,6 +742,9 @@ Period;시대
 Phone;전화
 PixelAspectRatio;픽셀 종횡비
 PlayCounter;재생 횟수
+Played_Count
+Played_First_Date
+Played_Last_Date
 PlayTime;재생시간
 Position;위치
 Position_Total;전체
@@ -752,6 +761,8 @@ Recorded_Date;기록일
 Recorded_Location;기록 장소
 Released_Date;개봉일
 RemixedBy;리믹스
+ReplayGain_Gain
+ReplayGain_Peak
 Resolution;해상도
 s;초
 SamplingRate;샘플링레이트
@@ -848,5 +859,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

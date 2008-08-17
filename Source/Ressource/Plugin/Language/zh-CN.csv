@@ -30,6 +30,9 @@
  day1;天
  day2;天
  day3;天
+ dB1
+ dB2
+ dB3
  file1;文件
  file2;个文件
  file3;个文件
@@ -142,10 +145,13 @@ About_Hint;联系作者以及获得最新版
 Accompaniment;伴奏
 Actor;演员
 Actor_Character;角色
+Added_Date
 Address;地址
 Advanced;高级
 Advanced mode;高级模式
 Album;专辑
+Album_ReplayGain_Gain
+Album_ReplayGain_Peak
 Alignment_Aligned;同步合并
 Alignment_Split;非同步合并
 All;全部
@@ -736,6 +742,9 @@ Period
 Phone;电话
 PixelAspectRatio;画面比例(像素)
 PlayCounter;播放计数器
+Played_Count
+Played_First_Date
+Played_Last_Date
 PlayTime;播放时间
 Position;位置
 Position_Total;总计
@@ -752,6 +761,8 @@ Recorded_Date;录制日期
 Recorded_Location;录制地点
 Released_Date;发布日期
 RemixedBy;重新混合
+ReplayGain_Gain
+ReplayGain_Peak
 Resolution;分辨率
 s;秒
 SamplingRate;采样率
@@ -848,5 +859,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;50
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;49
+ZZ_AutomaticLanguage_Percent;88

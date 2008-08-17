@@ -30,6 +30,9 @@
  day1; ditë
  day2; ditë
  day3; ditë
+ dB1
+ dB2
+ dB3
  file1; skedë
  file2; skedat
  file3; skedat
@@ -142,10 +145,13 @@ About_Hint;Kontaktoni dhe gjeni versionin e fundit
 Accompaniment;Shoqëruesi
 Actor;Aktori
 Actor_Character;Personazhi i luajtur
+Added_Date
 Address;Adresa
 Advanced;Avancuar
 Advanced mode;Mënyrë e avancuar
 Album;Albumi
+Album_ReplayGain_Gain
+Album_ReplayGain_Peak
 Alignment_Aligned;I radhitur te gërshetimet
 Alignment_Split;I ndarë te gërshetimet
 All;Gjithçka
@@ -736,6 +742,9 @@ Period;Periudha
 Phone;Telefoni
 PixelAspectRatio;Raporti i aspektit të pikselit
 PlayCounter;Njehsori i lojës
+Played_Count
+Played_First_Date
+Played_Last_Date
 PlayTime;Kohë e lojës
 Position;Pozicioni
 Position_Total;Totali
@@ -752,6 +761,8 @@ Recorded_Date;Datë e regjistrimit
 Recorded_Location;Vendndodhje e regjistrimit
 Released_Date;Datë e lëshimit
 RemixedBy;Rimiksuar nga
+ReplayGain_Gain
+ReplayGain_Peak
 Resolution;Rezolucioni
 s;s
 SamplingRate;Raporti i shëmbëllimit
@@ -848,5 +859,5 @@ Written_Location;Vendndodhje e shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

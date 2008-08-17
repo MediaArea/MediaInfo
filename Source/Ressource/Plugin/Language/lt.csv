@@ -30,6 +30,9 @@
  day1;diena
  day2;dienos
  day3;dienos
+ dB1
+ dB2
+ dB3
  file1;failas
  file2;failai
  file3;failai
@@ -142,10 +145,13 @@ About_Hint;Kaip man prisijungti ir rasti naujausią versiją
 Accompaniment;Akompanimentas
 Actor;Aktorius
 Actor_Character;rodyti ženklą
+Added_Date
 Address;Adresas
 Advanced;Išplėstinai
 Advanced mode;Išplėstinis režimas
 Album;Albumas
+Album_ReplayGain_Gain
+Album_ReplayGain_Peak
 Alignment_Aligned
 Alignment_Split
 All;Visi
@@ -736,6 +742,9 @@ Period;Laikotarpis
 Phone;Telefonas
 PixelAspectRatio;Pikselių aspekto koeficientas
 PlayCounter;Rodymo skaitiklis
+Played_Count
+Played_First_Date
+Played_Last_Date
 PlayTime;Rodymo laikas
 Position;Padėtis
 Position_Total;Viso
@@ -752,6 +761,8 @@ Recorded_Date;Įrašymo data
 Recorded_Location;Įrašymo vieta
 Released_Date;Išleidimo data
 RemixedBy;Permiksavo
+ReplayGain_Gain
+ReplayGain_Peak
 Resolution;Raiška
 s;Video srautai (s)
 SamplingRate;Atrankos tempas
@@ -848,5 +859,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;95
+ZZ_AutomaticLanguage_Percent;95
