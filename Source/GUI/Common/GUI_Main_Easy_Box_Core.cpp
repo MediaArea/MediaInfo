@@ -224,7 +224,7 @@ String GUI_Main_Easy_Box_Core::Button_Get()
 //---------------------------------------------------------------------------
 bool GUI_Main_Easy_Box_Core::Button_Show()
 {
-    if (Parent_Core->CodecUrl_Get(StreamKind, StreamPos).empty())
+    if (Parent_Core->FormatUrl_Get(StreamKind, StreamPos).empty())
         return false;
     else
         return true;
@@ -233,7 +233,7 @@ bool GUI_Main_Easy_Box_Core::Button_Show()
 //---------------------------------------------------------------------------
 String GUI_Main_Easy_Box_Core::Button_Click()
 {
-    return Parent_Core->CodecUrl_Get(StreamKind, StreamPos);
+    return Parent_Core->FormatUrl_Get(StreamKind, StreamPos);
 }
 
 

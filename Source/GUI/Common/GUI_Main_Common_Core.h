@@ -69,7 +69,7 @@ public:
     //Actions - Per Stream
     MediaInfoLib::String  Summary_Get         (stream_t StreamKind, size_t StreamPos);
     MediaInfoLib::String  Inform_Get          (stream_t StreamKind, size_t StreamPos);
-    MediaInfoLib::String  CodecUrl_Get        (stream_t StreamKind, size_t StreamPos);
+    MediaInfoLib::String  FormatUrl_Get       (stream_t StreamKind, size_t StreamPos);
 
 //protected: //Should be protected, but Borland VCL does NOT accept multiple classes, so we need of data
     //Internal
