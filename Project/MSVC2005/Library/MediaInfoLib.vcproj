@@ -135,6 +135,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\MediaInfo\Video\File_AvsV.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\MediaInfo\File_Dummy.cpp"
 				>
 			</File>
@@ -567,6 +571,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adpcm.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\Video\File_AvsV.h"
 				>
 			</File>
 			<File

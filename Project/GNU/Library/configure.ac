@@ -104,6 +104,7 @@ AC_ARG_ENABLE(skm,     AC_HELP_STRING([--disable-skm],     [Disable Multiple - S
 AC_ARG_ENABLE(swf,     AC_HELP_STRING([--disable-swf],     [Disable Multiple - Shockwave]),                               MediaInfoSwf=$enableval,     MediaInfoSwf=depend)
 AC_ARG_ENABLE(wm,      AC_HELP_STRING([--disable-wm],      [Disable Multiple - Windows Media (ASF, WMV, WMA)]),           MediaInfoWm=$enableval,      MediaInfoWm=depend)
 AC_ARG_ENABLE(avc,     AC_HELP_STRING([--disable-avc],     [Disable Video - AVC/H264]),                                   MediaInfoAvc=$enableval,     MediaInfoAvc=depend)
+AC_ARG_ENABLE(avsV,    AC_HELP_STRING([--disable-avsv],    [Disable Video - AVS (Chinese)]),                              MediaInfoAvsV=$enableval,    MediaInfoAvsV=depend)
 AC_ARG_ENABLE(flic,    AC_HELP_STRING([--disable-flic],    [Disable Video - FLIC (fli, flc)]),                            MediaInfoFlic=$enableval,    MediaInfoFlic=depend)
 AC_ARG_ENABLE(mpeg4v,  AC_HELP_STRING([--disable-mpeg4v],  [Disable Video - MPEG-4 Video based formats (DivX, XviD...)]), MediaInfoMpeg4v=$enableval,  MediaInfoMpeg4v=depend)
 AC_ARG_ENABLE(mpegv,   AC_HELP_STRING([--disable-mpegv],   [Disable Video - MPEG-Video]),                                 MediaInfoMpegv=$enableval,   MediaInfoMpegv=depend)
@@ -165,6 +166,7 @@ if test "$MediaInfoSkm"     = "no";  then AC_DEFINE(MEDIAINFO_SKM_NO)     fi; if
 if test "$MediaInfoSwf"     = "no";  then AC_DEFINE(MEDIAINFO_SWF_NO)     fi; if test "$MediaInfoSwf"     = "yes"; then AC_DEFINE(MEDIAINFO_SWF_YES)     fi
 if test "$MediaInfoWm"      = "no";  then AC_DEFINE(MEDIAINFO_WM_NO)      fi; if test "$MediaInfoWm"      = "yes"; then AC_DEFINE(MEDIAINFO_WM_YES)      fi
 if test "$MediaInfoAvc"     = "no";  then AC_DEFINE(MEDIAINFO_AVC_NO)     fi; if test "$MediaInfoAvc"     = "yes"; then AC_DEFINE(MEDIAINFO_AVC_YES)     fi
+if test "$MediaInfoAvsV"    = "no";  then AC_DEFINE(MEDIAINFO_AVSV_NO)    fi; if test "$MediaInfoAvsV"    = "yes"; then AC_DEFINE(MEDIAINFO_AVSV_YES)    fi
 if test "$MediaInfoFlic"    = "no";  then AC_DEFINE(MEDIAINFO_FLIC_NO)    fi; if test "$MediaInfoflic"    = "yes"; then AC_DEFINE(MEDIAINFO_FLIC_YES)    fi
 if test "$MediaInfoMpeg4v"  = "no";  then AC_DEFINE(MEDIAINFO_MPEG4V_NO)  fi; if test "$MediaInfoMpeg4v"  = "yes"; then AC_DEFINE(MEDIAINFO_MPEG4V_YES)  fi
 if test "$MediaInfoMpegv"   = "no";  then AC_DEFINE(MEDIAINFO_MPEGV_NO)   fi; if test "$MediaInfoMpegv"   = "yes"; then AC_DEFINE(MEDIAINFO_MPEGV_YES)   fi
@@ -366,6 +368,7 @@ Mcho "Skm    " "$MediaInfoSkm"
 Mcho "Swf    " "$MediaInfoSwf"
 Mcho "Wm     " "$MediaInfoWm"
 Mcho "Avc    " "$MediaInfoAvc"
+Mcho "AvsV   " "$MediaInfoAvsV"
 Mcho "Flic   " "$MediaInfoFlic"
 Mcho "Mpeg4v " "$MediaInfoMpeg4v"
 Mcho "Mpegv  " "$MediaInfoMpegv"

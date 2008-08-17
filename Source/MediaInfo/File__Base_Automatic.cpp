@@ -1059,6 +1059,7 @@ void File__Base_Format (InfoMap &Info)
     "MPEG-4 Visual;;;V;Mpeg4;;mp4v\n"
     "VC-1;;;V;Vc1;;vc1\n"
     "Theroa;;;V\n"
+    "AVS Video;;;V;AvsV;Audio Video Standart, Video part;;http://www.avs.org.cn/\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }

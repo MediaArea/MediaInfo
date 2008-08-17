@@ -169,6 +169,9 @@
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_VC1_NO) && !defined(MEDIAINFO_VC1_YES)
     #define MEDIAINFO_VC1_YES
 #endif
+#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_AVSV_NO) && !defined(MEDIAINFO_AVSV_YES)
+    #define MEDIAINFO_AVSV_YES
+#endif
 
 //---------------------------------------------------------------------------
 // Audio

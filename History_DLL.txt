@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.7.5, 2008-08-
 ---------------
++ #2044174, AVS (Chinese Audio Video Standard) support
 + #2030684, AVI: Support of malformed chunks
 + Matroska: delay between audio and video calculation (for AC-3, DTS, MPEG Audio)
 x #2023872, DV: Crash with floating point exception on some files

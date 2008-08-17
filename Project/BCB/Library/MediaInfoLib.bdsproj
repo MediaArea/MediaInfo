@@ -275,6 +275,7 @@
         <FILE FILENAME="..\..\..\Source\MediaInfo\Image\File_Tiff.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Tiff" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Text\File_OtherText.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_OtherText" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_Avc.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Avc" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_AvsV.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_AvsV" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_Flic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Flic" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_Mpeg4v.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4v" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_Mpegv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpegv" FORMNAME="" DESIGNCLASS=""/>

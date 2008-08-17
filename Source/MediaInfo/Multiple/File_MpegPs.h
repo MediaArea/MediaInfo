@@ -130,6 +130,7 @@ private :
         File__Analyze* Parser;
         File__Analyze* Parser2; //Sometimes, we need to do parallel tests
         File__Analyze* Parser3; //Sometimes, we need to do parallel tests
+        File__Analyze* Parser4; //Sometimes, we need to do parallel tests
         Mpeg_TimeStamp TimeStamp_Start;
         Mpeg_TimeStamp TimeStamp_End;
         bool           StreamIsRegistred;
@@ -144,6 +145,7 @@ private :
             Parser=NULL;
             Parser2=NULL;
             Parser3=NULL;
+            Parser4=NULL;
             StreamIsRegistred=false;
             Searching_Payload=false;
             Searching_TimeStamp_Start=false;

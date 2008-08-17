@@ -109,6 +109,9 @@
 #if defined(MEDIAINFO_VC1_YES)
     #include "MediaInfo/Video/File_Vc1.h"
 #endif
+#if defined(MEDIAINFO_AVSV_YES)
+    #include "MediaInfo/Video/File_AvsV.h"
+#endif
 
 //---------------------------------------------------------------------------
 // Audio
@@ -331,6 +334,9 @@ void MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_VC1_YES)
         else if (Parser==_T("Vc1"))         Info=new File_Vc1();
     #endif
+    #if defined(MEDIAINFO_AVSV_YES)
+        else if (Parser==_T("AvsV"))        Info=new File_AvsV();
+    #endif
 
     // Audio
     #if defined(MEDIAINFO_AC3_YES)
@@ -530,6 +536,9 @@ int MediaInfo_Internal::ListFormats()
     #endif
     #if defined(MEDIAINFO_VC1_YES)
         delete Info; Info=new File_Vc1();                if (ApplyMethod()>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_AVSV_YES)
+        delete Info; Info=new File_AvsV();               if (ApplyMethod()>0) return 1;
     #endif
 
     // Audio

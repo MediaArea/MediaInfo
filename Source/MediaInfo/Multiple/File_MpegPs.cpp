@@ -44,6 +44,9 @@
 #if defined(MEDIAINFO_VC1_YES)
     #include "MediaInfo/Video/File_Vc1.h"
 #endif
+#if defined(MEDIAINFO_AVSV_YES)
+    #include "MediaInfo/Video/File_AvsV.h"
+#endif
 #if defined(MEDIAINFO_DIRAC_YES)
     #include "MediaInfo/Video/File_Dirac.h"
 #endif
@@ -1729,10 +1732,35 @@ void File_MpegPs::video_stream()
             {
                 Element_Info("MPEG-4 Video found, changing default parser");
                 delete Streams[start_code].Parser; Streams[start_code].Parser=Streams[start_code].Parser2; Streams[start_code].Parser2=NULL;
+                Element_End();
             }
-            Element_End();
-            if (WantShow1 || WantShow2)
-                Element_Show();
+            else
+            {
+                Element_End();
+                bool WantShow3=Element_Show_Get();
+                if (WantShow1 || WantShow2)
+                    Element_Show();
+                Element_Begin("Testing AVS Video...");
+                if (Streams[start_code].Parser4==NULL)
+                {
+                    #if defined(MEDIAINFO_AVSV_YES)
+                        Streams[start_code].Parser4=new File_AvsV;
+                    #else
+                        Streams[start_code].Parser4=new File__Analyze;
+                    #endif
+                }
+                Open_Buffer_Init(Streams[start_code].Parser4, File_Size, File_Offset+Buffer_Offset);
+                Open_Buffer_Continue(Streams[start_code].Parser4, Buffer+Buffer_Offset, (size_t)Element_Size);
+
+                if (Streams[start_code].Parser4->Count_Get(Stream_Video)>0)
+                {
+                    Element_Info("AVS Video found, changing default parser");
+                    delete Streams[start_code].Parser; Streams[start_code].Parser=Streams[start_code].Parser4; Streams[start_code].Parser4=NULL;
+                }
+                Element_End();
+                if (WantShow1 || WantShow2 || WantShow3)
+                    Element_Show();
+            }
         }
     }
     if (Streams[start_code].Parser->Count_Get(Stream_Video)>0 && (Streams[start_code].Parser2!=NULL || Streams[start_code].Parser3!=NULL))
