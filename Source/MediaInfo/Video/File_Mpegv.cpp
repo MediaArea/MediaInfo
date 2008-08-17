@@ -174,7 +174,7 @@ const float32 Mpegv_aspect_ratio2[]=
 //---------------------------------------------------------------------------
 const char* Mpegv_video_format[]=
 {
-    "Composite",
+    "Component",
     "PAL",
     "NTSC",
     "SECAM",
@@ -655,8 +655,7 @@ void File_Mpegv::slice_start_Fill()
     }
 
     //Standard
-    if (video_format)
-        Fill(Stream_Video, 0, Video_Standard, Mpegv_video_format[video_format]);
+    Fill(Stream_Video, 0, Video_Standard, Mpegv_video_format[video_format]);
 
     //Matrix
     if (load_intra_quantiser_matrix || load_intra_quantiser_matrix)

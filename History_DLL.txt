@@ -18,6 +18,7 @@ x #2033307, MPEG Video: Some raw files with high bitrate were not detected
 x #2040411, Id3v2: Crash with some malformed Id3v2 fields
 x #2036580, Id3v2: Problem when parsing big (>1M) Id3v2 tags, file was no more detected
 x Video, Resolution/bits per pixel was sometimes per color entity, sometimes per pixel, now always per pixel
+x MPEG Video, the "Component" video standard was not detected
 x DLL only, the "by buffer" interface was broken
 
 Version 0.7.7.4, 2008-07-11
