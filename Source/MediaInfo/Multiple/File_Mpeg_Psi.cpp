@@ -148,6 +148,8 @@ const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
                             case 0xEA : return "BluRay - VC-1";
                             default   : return "Bluray - Unknown";
                         }
+                case 0xFFFFFFFF : //Unknown
+                        return "";
                 default                     :
                         switch (ID)
                         {
@@ -203,6 +205,8 @@ const char* Mpeg_Psi_stream_Format(int8u ID, int32u format_identifier)
                             case 0xEA : return "VC-1";
                             default   : return "";
                         }
+                case 0xFFFFFFFF : //Unknown
+                        return "";
                 default                     :
                         switch (ID)
                         {
@@ -258,6 +262,8 @@ const char* Mpeg_Psi_stream_Codec(int8u ID, int32u format_identifier)
                             case 0xEA : return "VC1";
                             default   : return "";
                         }
+                case 0xFFFFFFFF : //Unknown
+                        return "";
                 default                     :
                         switch (ID)
                         {
@@ -313,6 +319,8 @@ stream_t Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier)
                             case 0xEA : return Stream_Video;
                             default   : return Stream_Max;
                         }
+                case 0xFFFFFFFF : //Unknown
+                        return Stream_Max;
                 default                     :
                         switch (ID)
                         {

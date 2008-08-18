@@ -930,7 +930,8 @@ void File_MpegTs::PES()
         if (Mpeg_Psi_stream_Kind(Streams[pid].stream_type, format_identifier)==Stream_Max
          && Streams[pid].stream_type!=0x06 //Exception for private data
          && Streams[pid].stream_type<=0x7F //Exception for private data
-         && Mpeg_Descriptors_stream_Kind(Streams[pid].descriptor_tag, format_identifier)==Stream_Max) //From Descriptor
+         && Mpeg_Descriptors_stream_Kind(Streams[pid].descriptor_tag, format_identifier)==Stream_Max //From Descriptor
+         && format_identifier!=0xFFFFFFFF) //No info
         {
             Streams[pid].Searching_Payload_Start_Set(false);
             Streams[pid].Searching_Payload_Continue_Set(false);
@@ -1045,6 +1046,11 @@ bool File_MpegTs::Synchronize()
         format_identifier=0x00000000;
         MpegTs_JumpTo_Begin=16*1024*1024;
         MpegTs_JumpTo_End=8*1024*1024;
+        if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
+        {
+            MpegTs_JumpTo_Begin=File_Size;
+            MpegTs_JumpTo_End=File_Size;
+        }
 
         //There is no start code, so Stream_General is filled here
         Stream_Prepare(Stream_General);
@@ -1114,6 +1120,21 @@ bool File_MpegTs::Header_Parser_QuickSearch()
 //---------------------------------------------------------------------------
 void File_MpegTs::Detect_EOF()
 {
+    if (File_Offset+Buffer_Size>=MpegTs_JumpTo_Begin && Programs.empty() && format_identifier!=0xFFFFFFFF)
+    {
+        //Activating all streams as PES, in case of PAT/PMT are missing (ofen in .trp files)
+        for (size_t StreamID=0x20; StreamID<0x1FFF; StreamID++)
+        {
+            Streams[StreamID].Searching_Payload_Start_Set(true);
+            Streams[StreamID].Searching_TimeStamp_Start_Set(true);
+            Streams[StreamID].TS_Kind=File_Mpeg_Psi::pes;
+        }
+        format_identifier=0xFFFFFFFF;
+        File_GoTo=0;
+        Fill(Stream_General, 0, General_Format_Profile, "No PAT/PMT");
+    }
+
+
     //Jump to the end of the file
     if (File_Offset+Buffer_Offset>0x8000 && File_Offset+Buffer_Offset+MpegTs_JumpTo_End<File_Size && (
        (File_Offset+Buffer_Offset>=MpegTs_JumpTo_Begin)
