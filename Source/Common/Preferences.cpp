@@ -368,7 +368,7 @@ int Preferences::ExplorerShell()
         ".gvi;AVIFile\r\n"
         ".mpeg;mpegFile\r\n"
         ".mpg;mpegFile\r\n"
-        ".dat;mpegFile\r\n"
+        ".dat;datFile\r\n"
         ".mpe;mpegFile\r\n"
         ".mpgx;mpegFile\r\n"
         ".mpm;mpegFile\r\n"
@@ -424,7 +424,7 @@ int Preferences::ExplorerShell()
             Reg->CloseKey();
 
             //Test if MediaInfo shell extension is known
-            if (Reg->OpenKey(Player+_T("\\Shell\\Media Info\\Command"), false))
+            if (Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), false))
             {
                 //MediaInfo shell extension is known
                 if (Config.Read(_T("ShellExtension")).To_int32s())
@@ -443,6 +443,7 @@ int Preferences::ExplorerShell()
                 {
                     //Should not be here, deleting
                     Reg->CloseKey();
+                    Reg->DeleteKey(Player+"\\Shell\\MediaInfo");
                     Reg->DeleteKey(Player+"\\Shell\\Media Info");
                     IsChanged=true;
                 }
@@ -454,7 +455,8 @@ int Preferences::ExplorerShell()
                 if (Config.Read(_T("ShellExtension")).To_int32s())
                 {
                     //Create it
-                    Reg->OpenKey(Player+_T("\\Shell\\Media Info\\Command"), true);
+                    Reg->DeleteKey(Player+"\\Shell\\Media Info"); //Delete the lod version if it exists
+                    Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), true);
                     AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
                     try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
                     Reg->CloseKey();
