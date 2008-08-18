@@ -742,9 +742,9 @@ Period;Period
 Phone;Phone
 PixelAspectRatio;Pixel Aspect Ratio
 PlayCounter;PlayCounter
-Played_Count;Count of playings
-Played_First_Date;First playing
-Played_Last_Date;Last playing
+Played_Count;Times played
+Played_First_Date;First played
+Played_Last_Date;Last played
 PlayTime;PlayTime
 Position;Position
 Position_Total;Total
