@@ -382,6 +382,7 @@ int Preferences::ExplorerShell()
         ".m1v;mpegFile\r\n"
         ".m2v;mpegFile\r\n"
         ".ts;tsFile\r\n"
+        ".m2ts;m2tsFile\r\n"
         ".mp2;mp3File\r\n"
         ".mp3;mp3File\r\n"
         ".mpc;mpcFile\r\n"
