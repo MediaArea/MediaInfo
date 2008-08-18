@@ -721,7 +721,7 @@ Ztring MediaInfo_Config::Language_Get (const Ztring &Value)
 }
 
 //---------------------------------------------------------------------------
-Ztring MediaInfo_Config::Language_Get (const Ztring &Count, const Ztring &Value)
+Ztring MediaInfo_Config::Language_Get (const Ztring &Count, const Ztring &Value, bool ValueIsAlwaysSame)
 {
     //Integrity
     if (Count.empty())
@@ -737,63 +737,76 @@ Ztring MediaInfo_Config::Language_Get (const Ztring &Count, const Ztring &Value)
     }
 
     //Detecting plural form for multiple plurals
-    size_t CountI=Count.To_int32u();
-    size_t Pos3=CountI/100;
-    int8u  Pos2=(int8u)((CountI-Pos3)/10);
-    int8u  Pos1=(int8u)(CountI-Pos3-Pos2);
     int8u  Form=(int8u)-1;
 
-    //Polish has 2 plurial, Algorithm of Polish
-    if (Pos3==0)
+    if (!ValueIsAlwaysSame)
     {
-        if (Pos2==0)
+        //Polish has 2 plurial, Algorithm of Polish
+        size_t CountI=Count.To_int32u();
+        size_t Pos3=CountI/100;
+        int8u  Pos2=(int8u)((CountI-Pos3)/10);
+        int8u  Pos1=(int8u)(CountI-Pos3-Pos2);
+        if (Pos3==0)
         {
-                 if (Pos1==0 && Count.size()==1) //Only "0", not "0.xxx"
-                Form=0; //000 to 000 kanal?
-            else if (Pos1<=1)
-                Form=1; //001 to 001 kanal
-            else if (Pos1<=4)
-                Form=2; //002 to 004 kanaly
-            else //if (Pos1>=5)
-                Form=3; //005 to 009 kanalow
+            if (Pos2==0)
+            {
+                     if (Pos1==0 && Count.size()==1) //Only "0", not "0.xxx"
+                    Form=0; //000 to 000 kanal?
+                else if (Pos1<=1)
+                    Form=1; //001 to 001 kanal
+                else if (Pos1<=4)
+                    Form=2; //002 to 004 kanaly
+                else //if (Pos1>=5)
+                    Form=3; //005 to 009 kanalow
+            }
+            else if (Pos2==1)
+                    Form=3; //010 to 019 kanalow
+            else //if (Pos2>=2)
+            {
+                     if (Pos1<=1)
+                    Form=3; //020 to 021, 090 to 091 kanalow
+                else if (Pos1<=4)
+                    Form=2; //022 to 024, 092 to 094 kanali
+                else //if (Pos1>=5)
+                    Form=3; //025 to 029, 095 to 099 kanalow
+            }
         }
-        else if (Pos2==1)
-                Form=3; //010 to 019 kanalow
-        else //if (Pos2>=2)
+        else //if (Pos3>=1)
         {
-                 if (Pos1<=1)
-                Form=3; //020 to 021, 090 to 091 kanalow
-            else if (Pos1<=4)
-                Form=2; //022 to 024, 092 to 094 kanali
-            else //if (Pos1>=5)
-                Form=3; //025 to 029, 095 to 099 kanalow
-        }
-    }
-    else //if (Pos3>=1)
-    {
-        if (Pos2==0)
-        {
-                 if (Pos1<=1)
-                Form=3; //100 to 101 kanalow
-            else if (Pos1<=4)
-                Form=2; //102 to 104 kanaly
-            else //if (Pos1>=5)
-                Form=3; //105 to 109 kanalow
-        }
-        else if (Pos2==1)
-                Form=3; //110 to 119 kanalow
-        else //if (Pos2>=2)
-        {
-                 if (Pos1<=1)
-                Form=3; //120 to 121, 990 to 991 kanalow
-            else if (Pos1<=4)
-                Form=2; //122 to 124, 992 to 994 kanali
-            else //if (Pos1>=5)
-                Form=3; //125 to 129, 995 to 999 kanalow
+            if (Pos2==0)
+            {
+                     if (Pos1<=1)
+                    Form=3; //100 to 101 kanalow
+                else if (Pos1<=4)
+                    Form=2; //102 to 104 kanaly
+                else //if (Pos1>=5)
+                    Form=3; //105 to 109 kanalow
+            }
+            else if (Pos2==1)
+                    Form=3; //110 to 119 kanalow
+            else //if (Pos2>=2)
+            {
+                     if (Pos1<=1)
+                    Form=3; //120 to 121, 990 to 991 kanalow
+                else if (Pos1<=4)
+                    Form=2; //122 to 124, 992 to 994 kanali
+                else //if (Pos1>=5)
+                    Form=3; //125 to 129, 995 to 999 kanalow
+            }
         }
     }
 
+    //Replace dot and thousand separator
     Ztring ToReturn=Count;
+    size_t DotPos=ToReturn.find(_T('.'));
+    if (DotPos!=string::npos)
+        ToReturn.FindAndReplace(_T("."), Language_Get(_T("  Config_Text_FloatSeparator")), DotPos);
+    else
+        DotPos=ToReturn.size();
+    if (DotPos>3)
+        ToReturn.insert(DotPos-3, Language_Get(_T("  Config_Text_ThousandsSeparator")));
+
+    //Selecting the form
          if (Form==0)
         ToReturn =Language_Get(Value+_T("0")); //Only the translation
     else if (Form==1)
@@ -802,6 +815,8 @@ Ztring MediaInfo_Config::Language_Get (const Ztring &Count, const Ztring &Value)
         ToReturn+=Language_Get(Value+_T("2"));
     else if (Form==3)
         ToReturn+=Language_Get(Value+_T("3"));
+    else
+        ToReturn+=Language_Get(Value);
     return ToReturn;
 }
 

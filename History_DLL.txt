@@ -14,6 +14,7 @@ Version 0.7.7.5, 2008-08-
 + Matroska: delay between audio and video calculation (for AC-3, DTS, MPEG Audio)
 + Full Replay gain support (gain/peak, track/album) for Flac/Ogg/MP3
 + MPEG-TS without PAT/PMT (example: stream captured by some satellite TV receivers) support
++ Dot and thousand separator localized
 x #2023872, DV: Crash with floating point exception on some files
 x #2024706, BDAV: Some QuickTime files misidentified as BDAV
 x #2033307, MPEG Video: Some raw files with high bitrate were not detected

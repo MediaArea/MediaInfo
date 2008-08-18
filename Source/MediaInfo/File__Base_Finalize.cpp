@@ -1138,28 +1138,28 @@ void File__Analyze::FileSize_FileSize123(const Ztring &Value, stream_t StreamKin
         I3=2;
         I4=3;
     }
-    Ztring Measure;
+    Ztring Measure; bool MeasureIsAlwaysSame;
     switch (Pow3)
     {
-        case  0 : Measure=MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1, 0), _T(" Byte")); Measure.FindAndReplace(Ztring::ToZtring(F1, 0), _T("")); break; //This is only to have measure with multiple plurals
-        case  1 : Measure=MediaInfoLib::Config.Language_Get(_T(" KiB")); break;
-        case  2 : Measure=MediaInfoLib::Config.Language_Get(_T(" MiB")); break;
-        case  3 : Measure=MediaInfoLib::Config.Language_Get(_T(" GiB")); break;
-        default : Measure=MediaInfoLib::Config.Language_Get(_T(" ????Bytes"));
+        case  0 : Measure=_T(" Byte"); MeasureIsAlwaysSame=false; break;
+        case  1 : Measure=_T(" KiB");  MeasureIsAlwaysSame=true;  break;
+        case  2 : Measure=_T(" MiB");  MeasureIsAlwaysSame=true;  break;
+        case  3 : Measure=_T(" GiB");  MeasureIsAlwaysSame=true;  break;
+        default : Measure=_T(" ?iB");  MeasureIsAlwaysSame=true;
     }
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String1")).To_Local().c_str(), Ztring::ToZtring(F1,  0)+Measure, true);
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String2")).To_Local().c_str(), Ztring::ToZtring(F1, I2)+Measure, true);
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String3")).To_Local().c_str(), Ztring::ToZtring(F1, I3)+Measure, true);
-    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String4")).To_Local().c_str(), Ztring::ToZtring(F1, I4)+Measure, true);
+    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String1")).To_Local().c_str(), MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1,  0), Measure, MeasureIsAlwaysSame), true);
+    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String2")).To_Local().c_str(), MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1, I2), Measure, MeasureIsAlwaysSame), true);
+    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String3")).To_Local().c_str(), MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1, I3), Measure, MeasureIsAlwaysSame), true);
+    Fill(StreamKind, StreamPos, Ztring(Value+_T("/String4")).To_Local().c_str(), MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1, I4), Measure, MeasureIsAlwaysSame), true);
     if (File_Size>0 && File_Size<(int64u)-1 && Value==_T("StreamSize"))
     {
         float F2=(float)Retrieve(StreamKind, StreamPos, Value.To_Local().c_str()).To_int64s(); //Video C++ 6 patch, should be int64u
         Fill(StreamKind, StreamPos, "StreamSize_Proportion", F2/File_Size, 5, true);
-        Fill(StreamKind, StreamPos, "StreamSize/String5", Ztring::ToZtring(F1, I3)+Measure+_T(" (")+Ztring::ToZtring(F2*100/File_Size, 0)+_T("%)"), true);
-        Fill(StreamKind, StreamPos, "StreamSize/String",  Ztring::ToZtring(F1, I3)+Measure+_T(" (")+Ztring::ToZtring(F2*100/File_Size, 0)+_T("%)"), true);
+        Fill(StreamKind, StreamPos, "StreamSize/String5", MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1, I3), Measure, MeasureIsAlwaysSame)+_T(" (")+Ztring::ToZtring(F2*100/File_Size, 0)+_T("%)"), true);
+        Fill(StreamKind, StreamPos, "StreamSize/String",  MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1, I3), Measure, MeasureIsAlwaysSame)+_T(" (")+Ztring::ToZtring(F2*100/File_Size, 0)+_T("%)"), true);
     }
     else
-        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(),  Ztring::ToZtring(F1, I3)+Measure, true);
+        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(),  MediaInfoLib::Config.Language_Get(Ztring::ToZtring(F1, I3), Measure, MeasureIsAlwaysSame), true);
 }
 
 //---------------------------------------------------------------------------
@@ -1200,7 +1200,7 @@ void File__Analyze::Kilo_Kilo123(const Ztring &Value, stream_t StreamKind, size_
     {
         Ztring Measure=MediaInfoLib::Config.Info_Get(StreamKind).Read(Value, Info_Measure);
         Measure.insert(1, _T("K"));
-        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), BitRateS+MediaInfoLib::Config.Language_Get(Measure), true);
+        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), MediaInfoLib::Config.Language_Get(BitRateS, Measure, true), true);
         return;
     }
 
@@ -1209,16 +1209,16 @@ void File__Analyze::Kilo_Kilo123(const Ztring &Value, stream_t StreamKind, size_
     {
         Ztring Measure=MediaInfoLib::Config.Info_Get(StreamKind).Read(Value, Info_Measure);
         Measure.insert(1, _T("M"));
-        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Ztring::ToZtring(((float)BitRate)/1000000, BitRate>100000000?0:1)+MediaInfoLib::Config.Language_Get(Measure), true);
+        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), MediaInfoLib::Config.Language_Get(Ztring::ToZtring(((float)BitRate)/1000000, BitRate>100000000?0:1), Measure, true), true);
     }
     else if (BitRate>10000)
     {
         Ztring Measure=MediaInfoLib::Config.Info_Get(StreamKind).Read(Value, Info_Measure);
         Measure.insert(1, _T("K"));
-        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Ztring::ToZtring(((float)BitRate)/1000, BitRate>100000?0:1)+MediaInfoLib::Config.Language_Get(Measure), true);
+        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), MediaInfoLib::Config.Language_Get(Ztring::ToZtring(((float)BitRate)/1000, BitRate>100000?0:1), Measure, true), true);
     }
     else if (BitRate>0)
-        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), Ztring::ToZtring(BitRate)+MediaInfoLib::Config.Language_Get(MediaInfoLib::Config.Info_Get(StreamKind).Read(Value, Info_Measure)), true);
+        Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), MediaInfoLib::Config.Language_Get(Ztring::ToZtring(BitRate), MediaInfoLib::Config.Info_Get(StreamKind).Read(Value, Info_Measure), true), true);
 }
 
 //---------------------------------------------------------------------------

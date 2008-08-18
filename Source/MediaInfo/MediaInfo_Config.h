@@ -112,7 +112,7 @@ public :
           void      Language_Set (const ZtringListList &NewLanguage);
           Ztring    Language_Get ();
           Ztring    Language_Get (const Ztring &Value);
-          Ztring    Language_Get (const Ztring &Count, const Ztring &Value);
+          Ztring    Language_Get (const Ztring &Count, const Ztring &Value, bool ValueIsAlwaysSame=false);
 
           void      Inform_Set (const ZtringListList &NewInform);
           Ztring    Inform_Get ();

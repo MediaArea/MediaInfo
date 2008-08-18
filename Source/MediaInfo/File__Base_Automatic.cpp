@@ -48,6 +48,8 @@ void File__Base_DefaultLanguage (Translation &Info)
     "  Config_Text_ColumnSize;32\n"
     "  Config_Text_Separator; : \n"
     "  Config_Text_NumberTag; #\n"
+    "  Config_Text_FloatSeparator;.\n"
+    "  Config_Text_ThousandsSeparator; \n"
     " audio stream1; audio stream\n"
     " audio stream2; audio streams\n"
     " audio stream3; audio streams\n"
