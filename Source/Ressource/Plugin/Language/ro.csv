@@ -7,6 +7,8 @@
   Config_Text_ColumnSize;32
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
+  Config_Text_FloatSeparator;,
+  Config_Text_ThousandsSeparator; 
  audio stream1;flux audio
  audio stream2;fluxuri audio
  audio stream3;fluxuri audio

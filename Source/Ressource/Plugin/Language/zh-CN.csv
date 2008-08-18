@@ -7,6 +7,8 @@
   Config_Text_ColumnSize;32
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
+  Config_Text_FloatSeparator;.
+  Config_Text_ThousandsSeparator; 
  audio stream1;音频
  audio stream2;个音频
  audio stream3;个音频

@@ -7,6 +7,8 @@
   Config_Text_ColumnSize;32
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
+  Config_Text_FloatSeparator;,
+  Config_Text_ThousandsSeparator; 
  audio stream1;hangsáv
  audio stream2;hangsáv
  audio stream3;hangsáv
