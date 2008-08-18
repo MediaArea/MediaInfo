@@ -115,10 +115,10 @@ void File_VorbisCom::Comment()
         else if (Key==_T("ENCODED_USING"))          Fill(Stream_General, 0, General_Encoded_Application, Value);
         else if (Key==_T("ENCODER_URL"))            Fill(Stream_General, 0, General_Encoded_Application_Url, Value);
         else if (Key==_T("GENRE"))                  Fill(Stream_General, 0, General_Genre, Value);
-        else if (Key==_T("FIRST_PLAYED_TIMESTAMP")) Fill(StreamGoal,     0, "Played_First_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/1000));
+        else if (Key==_T("FIRST_PLAYED_TIMESTAMP")) Fill(StreamGoal,     0, "Played_First_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/10000));
         else if (Key==_T("ISRC"))                   Fill(Stream_General, 0, General_ISRC, Value);
         else if (Key==_T("LANGUAGE"))               Fill(StreamKind,     0, "Language", Value);
-        else if (Key==_T("LAST_PLAYED_TIMESTAMP"))  Fill(StreamGoal,     0, "Played_Last_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/1000));
+        else if (Key==_T("LAST_PLAYED_TIMESTAMP"))  Fill(StreamGoal,     0, "Played_Last_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/10000));
         else if (Key==_T("LICENCE"))                Fill(Stream_General, 0, General_TermsOfUse, Value);
         else if (Key==_T("LWING_GAIN"))             Fill(StreamGoal,     0, "ReplayGain_Gain", Value.To_float64(), 2);
         else if (Key==_T("LOCATION"))               Fill(Stream_General, 0, General_Recorded_Location, Value);

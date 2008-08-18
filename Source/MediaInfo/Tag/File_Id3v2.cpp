@@ -845,10 +845,10 @@ void File_Id3v2::Fill_Name()
         case Id3::TSRC : Fill(Stream_General, 0, General_ISRC, Element_Value); break;
         case Id3::TSSE : Fill(Stream_General, 0, General_Encoded_Library_Settings, Element_Value); break;
         case Id3::TSST : Fill(Stream_General, 0, "Set subtitle", Element_Value); break;
-        case Id3::TXXX :      if (Element_Values(0)==_T("first_played_timestamp")) Fill(Stream_General, 0, "Played_First_Date",     Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/1000));
-                         else if (Element_Values(0)==_T("last_played_timestamp"))  Fill(Stream_General, 0, "Played_Last_Date",      Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/1000));
+        case Id3::TXXX :      if (Element_Values(0)==_T("first_played_timestamp")) Fill(Stream_General, 0, "Played_First_Date",     Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/10000));
+                         else if (Element_Values(0)==_T("last_played_timestamp"))  Fill(Stream_General, 0, "Played_Last_Date",      Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/10000));
                          else if (Element_Values(0)==_T("play_count"))             Fill(Stream_General, 0, "Played_Count",          Element_Values(1).To_int64u());
-                         else if (Element_Values(0)==_T("added_timestamp"))        Fill(Stream_General, 0, "Added_Date",            Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/1000));
+                         else if (Element_Values(0)==_T("added_timestamp"))        Fill(Stream_General, 0, "Added_Date",            Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/10000));
                          else if (Element_Values(0)==_T("replaygain_album_gain"))  Fill(Stream_General, 0, "Album_ReplayGain_Gain", Element_Values(1).To_float64(), 2);
                          else if (Element_Values(0)==_T("replaygain_album_peak"))  Fill(Stream_General, 0, "Album_ReplayGain_Peak", Element_Values(1).To_float64(), 6);
                          else if (Element_Values(0)==_T("replaygain_track_gain"))  Fill(Stream_Audio,   0, "ReplayGain_Gain",       Element_Values(1).To_float64(), 2);
