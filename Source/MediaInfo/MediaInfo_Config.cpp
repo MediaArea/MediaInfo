@@ -101,6 +101,8 @@ void MediaInfo_Config::Init()
     }
 
     //Filling
+    FormatDetection_MaximumOffset=1*1024*1024;
+    MpegTs_MaximumOffset=16*1024*1024;
     Complete=0;
     BlockMethod=0;
     Internet=0;
@@ -368,6 +370,24 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value)
     else if (Option_Lower==_T("info_url"))
     {
         return Info_Url_Get();
+    }
+    else if (Option_Lower==_T("formatdetection_maximumoffset"))
+    {
+        FormatDetection_MaximumOffset_Set(Value==_T("-1")?(int64u)-1:((Ztring*)&Value)->To_int64u());
+        return _T("");
+    }
+    else if (Option_Lower==_T("formatdetection_maximumoffset_get"))
+    {
+        return FormatDetection_MaximumOffset_Get()==(int64u)-1?Ztring(_T("-1")):Ztring::ToZtring(FormatDetection_MaximumOffset_Get());
+    }
+    else if (Option_Lower==_T("mpegts_maximumoffset"))
+    {
+        MpegTs_MaximumOffset_Set(Value==_T("-1")?(int64u)-1:((Ztring*)&Value)->To_int64u());
+        return _T("");
+    }
+    else if (Option_Lower==_T("mpegts_maximumoffset_get"))
+    {
+        return MpegTs_MaximumOffset_Get()==(int64u)-1?Ztring(_T("-1")):Ztring::ToZtring(MpegTs_MaximumOffset_Get());
     }
     else
         return _T("Option not known");
@@ -924,6 +944,18 @@ const Ztring &MediaInfo_Config::Format_Get (const Ztring &Value, infoformat_t Ki
 }
 
 //---------------------------------------------------------------------------
+InfoMap &MediaInfo_Config::Format_Get ()
+{
+    //Loading codec table if not yet done
+    CS.Enter();
+    if (Format.empty())
+        File__Base_Format(Format);
+    CS.Leave();
+
+    return Format;
+}
+
+//---------------------------------------------------------------------------
 const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo)
 {
     //Loading codec table if not yet done
@@ -1190,6 +1222,29 @@ const Ztring &MediaInfo_Config::EmptyString_Get () const
     return EmptyZtring_Const;
 }
 
+void MediaInfo_Config::FormatDetection_MaximumOffset_Set (int64u Value)
+{
+    CriticalSectionLocker CSL(CS);
+    FormatDetection_MaximumOffset=Value;
+}
+
+int64u MediaInfo_Config::FormatDetection_MaximumOffset_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return FormatDetection_MaximumOffset;
+}
+
+void MediaInfo_Config::MpegTs_MaximumOffset_Set (int64u Value)
+{
+    CriticalSectionLocker CSL(CS);
+    MpegTs_MaximumOffset=Value;
+}
+
+int64u MediaInfo_Config::MpegTs_MaximumOffset_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return MpegTs_MaximumOffset;
+}
 
 } //NameSpace
 

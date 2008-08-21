@@ -121,7 +121,7 @@ public :
     const Ztring   &Container_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name);
 
     const Ztring   &Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name);
-          InfoMap  &Format_Get() {return Format;}; //Should not be, but too difficult to hide it
+          InfoMap  &Format_Get(); //Should not be, but too difficult to hide it
 
     const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo=InfoCodec_Name);
     const Ztring   &Codec_Get (const Ztring &Value, infocodec_t KindOfCodecInfo, stream_t KindOfStream);
@@ -145,7 +145,15 @@ public :
 
     const Ztring   &EmptyString_Get() const; //Use it when we can't return a reference to a true string
 
+          void      FormatDetection_MaximumOffset_Set (int64u Value);
+          int64u    FormatDetection_MaximumOffset_Get ();
+
+          void      MpegTs_MaximumOffset_Set (int64u Value);
+          int64u    MpegTs_MaximumOffset_Get ();
+
 private :
+    int64u          FormatDetection_MaximumOffset;
+    int64u          MpegTs_MaximumOffset;
     size_t          Complete;
     size_t          BlockMethod;
     size_t          Internet;

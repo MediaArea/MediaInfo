@@ -1075,7 +1075,7 @@ bool File_MpegTs::Synchronize()
             Synched=false;
         }
         //Managing first Synch attempt
-        else if (File_Offset+Buffer_Size>=188*4+BDAV_Size*5 && Count_Get(Stream_General)==0)
+        else if (!File_Name.empty() && File_Offset+Buffer_Size>=188*4+BDAV_Size*5 && Count_Get(Stream_General)==0)
             Finnished(); //This is not a TS file, ending
 
         return false;
@@ -1100,7 +1100,7 @@ bool File_MpegTs::Synchronize()
 
         //Temp
         format_identifier=0x00000000;
-        MpegTs_JumpTo_Begin=16*1024*1024;
+        MpegTs_JumpTo_Begin=(File_Offset_FirstSynched==(int64u)-1?0:File_Offset_FirstSynched)+MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
         MpegTs_JumpTo_End=8*1024*1024;
         if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
         {

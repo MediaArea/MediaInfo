@@ -55,8 +55,9 @@ File__Base::File__Base ()
     //File
     File_Size=(int64u)-1;
     File_Offset=0;
+    File_Offset_FirstSynched=(int64u)-1;
     File_GoTo=(int64u)-1;
-    File_MaximumOffset=1024*1024;
+    File_MaximumOffset=MediaInfoLib::Config.FormatDetection_MaximumOffset_Get();
 
     //Optimization init
     StreamKind_Last=Stream_Max;

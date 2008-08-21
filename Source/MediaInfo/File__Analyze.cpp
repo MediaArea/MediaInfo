@@ -211,6 +211,9 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_, int
     Sub->Init(Config, Details);
     Sub->IsSub=true;
     Sub->Open_Buffer_Init(File_Size_, File_Offset_);
+
+    //Configuring
+    File_MaximumOffset=MediaInfoLib::Config.FormatDetection_MaximumOffset_Get();
 }
 
 //---------------------------------------------------------------------------
@@ -270,6 +273,10 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     //Parsing
     if (Buffer_Size>=Buffer_MinimumSize || File_Offset+Buffer_Size==File_Size) //Parsing only if we have enough buffer
         Open_Buffer_Continue_Loop();
+
+    //Registering the first synch offset
+    if (File_Offset_FirstSynched==(int64u)-1 && Synched)
+        File_Offset_FirstSynched=File_Offset; //This is ~this offset, we don't know precisely the offset synched in the buffer
 
     //Finnished?
     if ((File_GoTo==File_Size && File_Size!=(int64u)-1)|| File_Offset+Buffer_Offset>=File_Size)

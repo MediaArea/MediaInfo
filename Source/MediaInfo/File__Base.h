@@ -112,6 +112,7 @@ public :
     Ztring File_Name;
     int64u File_Size;
     int64u File_Offset;
+    int64u File_Offset_FirstSynched;
     int64u File_GoTo; //How many byte to skip?
     int64u File_MaximumOffset;
 
