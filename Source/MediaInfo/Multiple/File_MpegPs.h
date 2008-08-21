@@ -157,6 +157,7 @@ private :
             delete Parser; //Parser=NULL;
             delete Parser2; //Parser2=NULL;
             delete Parser3; //Parser3=NULL;
+            delete Parser4; //Parser4=NULL;
         }
     };
     std::vector<ps_stream> Streams;
