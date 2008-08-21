@@ -59,7 +59,7 @@ void File_Other::Read_Buffer_Continue()
     else if (CC4(Buffer)==CC4("SMOD")) {Format=_T("Amiga Future Composer");}
     else if (CC4(Buffer)==CC4("AON4")) {Format=_T("Amiga Art Of Noise");}
     else if (CC8(Buffer+1)==CC8("MUGICIAN")) {Format=_T("Amiga Mugician");}
-    else if (CC8(Buffer+58)==CC8("SIDMON I")) {Format=_T("Amiga Sidmon");}
+    else if (Buffer_Size>=64 && CC8(Buffer+58)==CC8("SIDMON I")) {Format=_T("Amiga Sidmon");}
     else if (CC8(Buffer)==CC8("Synth4.0")) {Format=_T("Amiga Synthesis");}
     else if (CC4(Buffer)==CC4("ARP.")) {Format=_T("Amiga Holy Noise");}
     else if (CC4(Buffer)==CC4("BeEp")) {Format=_T("Amiga JamCracker");}
@@ -91,10 +91,10 @@ void File_Other::Read_Buffer_Continue()
     else if (CC3(Buffer)==CC3("BZh")) {Format=_T("BZip2");}
     else if (CC2(Buffer)==CC2("BZ")) {Format=_T("BZip1");}
     else if (CC3(Buffer)==CC3("NES")) {Format=_T("NES ROM");}
-    else if (CC4(Buffer+0x104)==0xCEED6666) {Format=_T("GameBoy");}
-    else if (CC4(Buffer+0x100)==CC4("SEGA")) {Format=_T("MegaDrive");}
-    else if (CC4(Buffer+0x280)==CC4("EAGN")) {Format=_T("SupeMegaDrive");}
-    else if (CC4(Buffer+0x280)==CC4("EAMG")) {Format=_T("SupeMegaDrive");}
+    else if (Buffer_Size>=0x108 && CC4(Buffer+0x104)==0xCEED6666) {Format=_T("GameBoy");}
+    else if (Buffer_Size>=0x104 && CC4(Buffer+0x100)==CC4("SEGA")) {Format=_T("MegaDrive");}
+    else if (Buffer_Size>=0x284 && CC4(Buffer+0x280)==CC4("EAGN")) {Format=_T("SupeMegaDrive");}
+    else if (Buffer_Size>=0x284 && CC4(Buffer+0x280)==CC4("EAMG")) {Format=_T("SupeMegaDrive");}
     else if (CC4(Buffer)==0x21068028) {Format=_T("Dreamcast");}
     else if (CC4(Buffer)==CC4("LCDi")) {Format=_T("Dreamcast");}
     else if (CC4(Buffer)==0x37804012) {Format=_T("Nintendo64");}
