@@ -777,6 +777,10 @@ see below;詳見下述
 Send HeaderFile;請將標頭檔寄到這給我: http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;換列字元
 Separator_Lines;換行字元
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set
 Set_Count
 Setup;設定
@@ -862,4 +866,4 @@ WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
 ZZ_Automatic_Percent;71
-ZZ_AutomaticLanguage_Percent;84
+ZZ_AutomaticLanguage_Percent;83

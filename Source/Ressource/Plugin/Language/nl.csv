@@ -777,6 +777,10 @@ see below;zie onder
 Send HeaderFile;A.u.b het Header-bestand hierheen sturen : http://sourceforge.net/projects/mediainfo/
 Separator_Columns;scheidingsteken kolommen
 Separator_Lines;scheidingsteken regels
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;Set
 Set_Count;Set count
 Setup;Setup

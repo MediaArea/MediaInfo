@@ -777,6 +777,10 @@ see below;siehe unterhalb
 Send HeaderFile;Bitte die Header-Datei hierhin schicken: http://sourceforge.net/projects/mediainfo/ (unter Bugs)
 Separator_Columns;Spaltentrenner
 Separator_Lines;Zeilentrenner
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;Mediensatz
 Set_Count;Nummer im Mediensatz
 Setup;Setup
@@ -861,5 +865,5 @@ Written_Location;Speicherort
 WrittenBy;Gespeichert von 
 Yes;Ja
 Your system;Systeminformationen
-ZZ_Automatic_Percent;66
+ZZ_Automatic_Percent;65
 ZZ_AutomaticLanguage_Percent;84

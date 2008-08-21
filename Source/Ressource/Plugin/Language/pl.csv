@@ -777,6 +777,10 @@ see below;zobacz poniżej
 Send HeaderFile
 Separator_Columns;Separator kolumn
 Separator_Lines;Separator wierszy
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;Zestaw
 Set_Count;Liczba zestawu
 Setup;Ustawienia
@@ -862,4 +866,4 @@ WrittenBy;Napisany przez
 Yes;Tak
 Your system;System
 ZZ_Automatic_Percent;46
-ZZ_AutomaticLanguage_Percent;84
+ZZ_AutomaticLanguage_Percent;83

@@ -777,6 +777,10 @@ see below;아래 참고
 Send HeaderFile;여기로 헤더 파일을 보내주세요 : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;컬럼 구분자
 Separator_Lines;라인 구분자
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;세트
 Set_Count;세트 개수
 Setup;설정

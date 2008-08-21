@@ -777,6 +777,10 @@ see below;ดูด้านล่าง
 Send HeaderFile;โปรดส่งไฟล์ Header (หัวข้อ)ให้ฉันที่นี่ : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;ตัวแยกคอลัมน์
 Separator_Lines;ตัวแยกบรรทัด
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;กำหนด
 Set_Count;Set count
 Setup;ติดตั้ง

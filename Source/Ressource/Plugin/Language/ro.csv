@@ -777,6 +777,10 @@ see below;vezi mai jos
 Send HeaderFile
 Separator_Columns;separator coloane
 Separator_Lines;separator linii
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;Seteaza
 Set_Count;Seteaza numaratorul
 Setup;Setari

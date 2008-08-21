@@ -777,6 +777,10 @@ see below;shih poshtë
 Send HeaderFile;Ju lutem dërgoni këtu Kokën e skedës : http://sourceforge.net/projects/mediainfo/ (Sektori Bug)
 Separator_Columns;ndarësi i kolonave
 Separator_Lines;ndarësi i rreshtave
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;Vendos
 Set_Count;Vendos numërimin
 Setup;Ndërtimi

@@ -777,6 +777,10 @@ see below;请看下面列出的内容
 Send HeaderFile;发送头文件: http://sourceforge.net/projects/mediainfo/
 Separator_Columns;列分隔符
 Separator_Lines;换行符
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;设置
 Set_Count;设置项目
 Setup;设置
@@ -862,4 +866,4 @@ WrittenBy;作者
 Yes;是
 Your system;您的系统
 ZZ_Automatic_Percent;49
-ZZ_AutomaticLanguage_Percent;88
+ZZ_AutomaticLanguage_Percent;87

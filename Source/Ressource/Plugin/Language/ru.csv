@@ -777,6 +777,10 @@ see below;см. ниже
 Send HeaderFile;Отправить заголовок этого файла на http://sourceforge.net/projects/mediainfo/ (Раздел ошибок)
 Separator_Columns;Разделитель столбцов
 Separator_Lines;Разделитель строк
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;Настройка
 Set_Count;Кол-во
 Setup;Настройка

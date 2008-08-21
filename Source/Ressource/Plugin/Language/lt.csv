@@ -777,6 +777,10 @@ see below;žiūrėti žemiau
 Send HeaderFile;Prašome siųskite antraštinį failą čia: http://sourceforge.net/projects/mediainfo/ (bug sekcija)
 Separator_Columns;Stulpelių skyryba
 Separator_Lines;Eilučių skyryba
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;Nustatyti
 Set_Count;Nustatyti kiekį
 Setup;Sąranka

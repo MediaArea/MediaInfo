@@ -777,6 +777,10 @@ see below;Mireu mes avall
 Send HeaderFile
 Separator_Columns;Separador de columnes
 Separator_Lines;Separador de línies
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;Unitats
 Set_Count;Nombre d'unitats
 Setup;Configura

@@ -777,6 +777,10 @@ see below;lásd alant
 Send HeaderFile;Kérem, küdje el a fejléc fájlt ide: http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;Oszlop elválasztó
 Separator_Lines;Sor elválasztó
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set
 Set_Count
 Setup;Beállítások

@@ -777,6 +777,10 @@ see below;veja abaixo
 Send HeaderFile;Enviar arquivo de cabeçalho
 Separator_Columns;separador de colunas
 Separator_Lines;separador de linhas
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;Ajustar
 Set_Count;Ajustar contador
 Setup;Configurar

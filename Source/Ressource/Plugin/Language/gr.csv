@@ -777,6 +777,10 @@ see below;δείτε παρακάτω
 Send HeaderFile
 Separator_Columns;διαχωριστής στηλών
 Separator_Lines;διαχωριστής γραμμών
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;Set
 Set_Count;Set count
 Setup;Ρυθμίσεις

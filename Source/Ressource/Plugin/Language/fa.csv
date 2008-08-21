@@ -777,6 +777,10 @@ see below;ببینید زیر را
 Send HeaderFile
 Separator_Columns;جدا کننده ستون
 Separator_Lines;جدا کننده خط
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;تعیین
 Set_Count;تعیین تعداد
 Setup;ستاپ
@@ -861,5 +865,5 @@ Written_Location;مکان نوشته شده
 WrittenBy;نوشته شده توسط
 Yes;بله
 Your system;سیستم شما
-ZZ_Automatic_Percent;47
+ZZ_Automatic_Percent;46
 ZZ_AutomaticLanguage_Percent;85

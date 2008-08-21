@@ -777,6 +777,10 @@ see below;ver abaixo
 Send HeaderFile;Por favor envíame o arquivo de cabeceira aquí : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;Separador de columnas
 Separator_Lines;Separador de liñas
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;Configurar
 Set_Count;Establecer cantidade
 Setup;Configuración
@@ -861,5 +865,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;87
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;86
+ZZ_AutomaticLanguage_Percent;86

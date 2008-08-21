@@ -777,6 +777,10 @@ see below;aşağı bakın
 Send HeaderFile;Lütfen Header dosyasını buraya gönderin : http://sourceforge.net/projects/mediainfo/ (Bug bölümü)
 Separator_Columns;sütun ayırıcı
 Separator_Lines;satır ayırıcı
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;Ayar
 Set_Count;Ayar sayısı
 Setup;Kurulum

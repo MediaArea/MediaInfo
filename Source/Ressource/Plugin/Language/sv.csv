@@ -777,6 +777,10 @@ see below; se nedan
 Send HeaderFile
 Separator_Columns; columnseparator
 Separator_Lines; linjeseparator
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set; Set
 Set_Count; Antal set
 Setup; Ställ in
@@ -861,5 +865,5 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;86
-ZZ_AutomaticLanguage_Percent;86
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;85

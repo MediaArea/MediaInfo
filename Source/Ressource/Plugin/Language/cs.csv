@@ -777,6 +777,10 @@ see below;see below
 Send HeaderFile
 Separator_Columns;columns separator
 Separator_Lines;lines separator
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;Nastavit
 Set_Count;Set count
 Setup;Hlavní
@@ -861,5 +865,5 @@ Written_Location;Written location
 WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
-ZZ_Automatic_Percent;88
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;87
+ZZ_AutomaticLanguage_Percent;87

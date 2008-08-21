@@ -777,6 +777,10 @@ see below;continua...
 Send HeaderFile;Invia l'header a http://sourceforge.net/projects/mediainfo/ (Sezione bug)
 Separator_Columns;Separatore colonne
 Separator_Lines;Separatore di linea
+ServiceChannel
+ServiceName
+ServiceProvider
+ServiceType
 Set;Imposta
 Set_Count;Imposta contatore
 Setup;Installazione
