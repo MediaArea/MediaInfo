@@ -18,6 +18,11 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
+// For user: you can disable or enable it
+//#define MEDIAINFO_DEBUG
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
 // Compilation conditions
 #include <MediaInfo/Setup.h>
 #ifdef __BORLANDC__
@@ -36,6 +41,58 @@
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
+//---------------------------------------------------------------------------
+//To clarify the code
+namespace MediaInfoList_Debug
+{
+#ifdef MEDIAINFO_DEBUG
+    #include <stdio.h>
+    FILE* F;
+    std::string Debug;
+
+    #undef MEDIAINFO_DEBUG
+    #define MEDIAINFO_DEBUG(_TOAPPEND) \
+        F=fopen("MediaInfoList_Debug.txt", "a+t"); \
+        Debug.clear(); \
+        _TOAPPEND; \
+        Debug+="\r\n"; \
+        fwrite(Debug.c_str(), Debug.size(), 1, F); \
+        fclose(F);
+#else // MEDIAINFO_DEBUG
+    #define MEDIAINFO_DEBUG(_TOAPPEND)
+#endif // MEDIAINFO_DEBUG
+
+#ifdef MEDIAINFO_DEBUG
+#define EXECUTE_VOID(_METHOD,_DEBUGB) \
+        ((MediaInfo_Internal*)Internal)->_METHOD;
+#else //MEDIAINFO_DEBUG
+#define EXECUTE_VOID(_METHOD,_DEBUGB) \
+        ((MediaInfo_Internal*)Internal)->_METHOD; \
+        MEDIAINFO_DEBUG(_DEBUGB)
+#endif //MEDIAINFO_DEBUG
+
+#ifdef MEDIAINFO_DEBUG
+#define EXECUTE_INT(_METHOD,_DEBUGB) \
+        return ((MediaInfo_Internal*)Internal)->_METHOD;
+#else //MEDIAINFO_DEBUG
+#define EXECUTE_INT(_METHOD, _DEBUGB) \
+        int64u ToReturn=((MediaInfo_Internal*)Internal)->_METHOD; \
+        MEDIAINFO_DEBUG(_DEBUGB) \
+        return ToReturn;
+#endif //MEDIAINFO_DEBUG
+
+#ifdef MEDIAINFO_DEBUG
+#define EXECUTE_STRING(_METHOD,_DEBUGB) \
+        return ((MediaInfo_Internal*)Internal)->_METHOD;
+#else //MEDIAINFO_DEBUG
+#define EXECUTE_STRING(_METHOD,_DEBUGB) \
+        Ztring ToReturn=((MediaInfo_Internal*)Internal)->_METHOD; \
+        MEDIAINFO_DEBUG(_DEBUGB) \
+        return ToReturn;
+#endif //MEDIAINFO_DEBUG
+}
+using namespace MediaInfoList_Debug;
+
 namespace MediaInfoLib
 {
 
@@ -47,6 +104,7 @@ namespace MediaInfoLib
 //Constructeurs
 MediaInfoList::MediaInfoList(size_t Count_Init)
 {
+    MEDIAINFO_DEBUG(Debug+="Construction";)
     Internal=new MediaInfoList_Internal(Count_Init);
 }
 
@@ -54,6 +112,7 @@ MediaInfoList::MediaInfoList(size_t Count_Init)
 //Destructeur
 MediaInfoList::~MediaInfoList()
 {
+    MEDIAINFO_DEBUG(Debug+="Destruction";)
     delete (MediaInfoList_Internal*)Internal; //Internal=NULL;
 }
 
@@ -64,6 +123,7 @@ MediaInfoList::~MediaInfoList()
 //---------------------------------------------------------------------------
 size_t MediaInfoList::Open(const String &File, const fileoptions_t Options)
 {
+    MEDIAINFO_DEBUG(Debug+="Open, File=";Debug+=Ztring(File).To_Local().c_str();)
     return ((MediaInfoList_Internal*)Internal)->Open(File, Options);
 }
 

@@ -41,6 +41,8 @@ namespace MediaInfoLib
 
 //---------------------------------------------------------------------------
 //To clarify the code
+namespace MediaInfo_Debug_MediaInfo
+{
 #ifdef MEDIAINFO_DEBUG
     #include <stdio.h>
     FILE* F;
@@ -86,6 +88,8 @@ namespace MediaInfoLib
         MEDIAINFO_DEBUG(_DEBUGB) \
         return ToReturn;
 #endif //MEDIAINFO_DEBUG
+}
+using namespace MediaInfo_Debug_MediaInfo;
 
 inline std::string ToString(int64u Integer)
 {
@@ -99,12 +103,14 @@ inline std::string ToString(int64u Integer)
 //---------------------------------------------------------------------------
 MediaInfo::MediaInfo()
 {
+    MEDIAINFO_DEBUG(Debug+="Construction";)
     Internal=new MediaInfo_Internal();
 }
 
 //---------------------------------------------------------------------------
 MediaInfo::~MediaInfo()
 {
+    MEDIAINFO_DEBUG(Debug+="Destruction";)
     delete (MediaInfo_Internal*)Internal; //Internal=NULL;
 }
 
@@ -115,6 +121,7 @@ MediaInfo::~MediaInfo()
 //---------------------------------------------------------------------------
 size_t MediaInfo::Open(const String &File_Name_)
 {
+    MEDIAINFO_DEBUG(Debug+="Open, File=";Debug+=Ztring(File_Name_).To_Local().c_str();)
     return ((MediaInfo_Internal*)Internal)->Open(File_Name_);
 }
 
