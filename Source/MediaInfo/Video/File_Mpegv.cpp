@@ -489,8 +489,6 @@ void File_Mpegv::picture_start()
             if (top_field_first)
                 Time_End_Frames++; //Frame repeated a third time
         }
-        if (picture_structure==2) //Bottom, and we want to add a frame only one time if 2 fields
-            Time_End_Frames--; //One frame
     }
 
     FILLING_BEGIN();
@@ -957,6 +955,9 @@ void File_Mpegv::extension_start()
                                 FirstFieldFound=!FirstFieldFound;
                             }
                         }
+
+                        if (picture_structure==2) //Bottom, and we want to add a frame only one time if 2 fields
+                            Time_End_Frames--; //One frame
                     FILLING_END();
                 }
                 break;
