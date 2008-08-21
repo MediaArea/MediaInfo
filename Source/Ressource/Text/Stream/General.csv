@@ -212,9 +212,12 @@ Copyright;;;Y YT;;;Copyright attribution.;;Legal
 Copyright/Url;;;Y YT;;;Copyright/legal information.;;Legal
 Producer_Copyright;;;Y YT;;;The copyright information as per the productioncopyright holder.;;Legal
 TermsOfUse;;;Y YT;;;License information, e.g., All Rights Reserved,Any Use Permitted.;;Legal
-Broadcaster;;;Y YT;;;;;Legal
-Broadcaster/Owner;;;Y YT;;;;;Legal
-Broadcaster/Url;;;Y YT;;;;;Legal
+ServiceName;;;Y YT;;;;;Legal
+ServiceChannel;;;Y YT;;;;;Legal
+Service/Url;;;Y YT;;;;;Legal
+ServiceProvider;;;Y YT;;;;;Legal
+ServiceProviderr/Url;;;Y YT;;;;;Legal
+ServiceType;;;Y YT;;;;;Legal
 Cover;;;Y YT;;;Is there a cover;;Info
 Cover_Description;;;Y YT;;;;;Info
 Cover_Type;;;Y YT;;;;;Info

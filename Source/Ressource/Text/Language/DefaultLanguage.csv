@@ -777,6 +777,10 @@ see below;see below
 Send HeaderFile;Please send me the Header file here : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;columns separator
 Separator_Lines;lines separator
+ServiceChannel;Service channel number
+ServiceName;Service name
+ServiceProvider;Service provider
+ServiceType;Service type
 Set;Set
 Set_Count;Set count
 Setup;Setup

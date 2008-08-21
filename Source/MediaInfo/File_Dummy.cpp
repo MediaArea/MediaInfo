@@ -185,9 +185,9 @@ void File_Dummy::Fill_Dummy_General()
     Fill(Stream_General, 0, General_DistributedBy, "DistributedBy");
     Fill(Stream_General, 0, General_EncodedBy, "EncodedBy");
     Fill(Stream_General, 0, General_ThanksTo, "ThanksTo");
-    Fill(Stream_General, 0, General_Broadcaster, "Broadcaster");
-    Fill(Stream_General, 0, General_Broadcaster_Owner, "Broadcaster/Owner");
-    Fill(Stream_General, 0, General_Broadcaster_Url, "Broadcaster/URL");
+    Fill(Stream_General, 0, General_ServiceName, "ServiceNeme");
+    Fill(Stream_General, 0, General_ServiceProvider, "ServiceProvider");
+    Fill(Stream_General, 0, General_Service_Url, "Service/URL");
     Fill(Stream_General, 0, General_ContentType, "ContentType");
     Fill(Stream_General, 0, General_Subject, "Subject");
     Fill(Stream_General, 0, General_Synopsys, "Synopsys");

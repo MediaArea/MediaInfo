@@ -973,7 +973,7 @@ void File_Wm::Header_ExtendedContentDescription()
             else if (Name==_T("WM/Language"))
                 Language_ForAll=Value;
             else if (Name==_T("WM/MediaCredits"))
-                Fill(Stream_General, 0, General_Broadcaster, Value);
+                Fill(Stream_General, 0, General_ServiceName, Value);
             else if (Name==_T("WM/MediaPrimaryClassID")) {}
             else if (Name==_T("WM/MCDI")) {}
             else if (Name==_T("WM/ModifiedBy"))
@@ -993,9 +993,9 @@ void File_Wm::Header_ExtendedContentDescription()
             else if (Name==_T("WM/Publisher"))
                 Fill(Stream_General, 0, General_Publisher, Value);
             else if (Name==_T("WM/RadioStationName"))
-                Fill(Stream_General, 0, General_Broadcaster, Value);
+                Fill(Stream_General, 0, General_ServiceName, Value);
             else if (Name==_T("WM/RadioStationOwner"))
-                Fill(Stream_General, 0, General_Broadcaster_Owner, Value);
+                Fill(Stream_General, 0, General_ServiceProvider, Value);
             else if (Name==_T("WM/SubTitle"))
                 Fill(Stream_General, 0, General_Title_More, Value);
             else if (Name==_T("WM/SubTitleDescription"))

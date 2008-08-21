@@ -14,12 +14,18 @@ Format;;;Y YT;;;Format used
 Format/Info;;;Y NT;;;Info about Format
 Format/Url;;;N NT;;;Link
 Codec;;;N YT;;;Deprecated
-Codec/String;;;N NT;;;Deprecated
-Codec/Info;;;N NT;;;Deprecated
-Codec/Url;;;N NT;;;Deprecated
-Title;;;Y YI;;;Name of this menu
-Language;;;N YT;;;Language (2 letters)
-Language/String;;;N NT;;;Language (full)
-Language_More;;;N YT;;;More info about Language (director's comment...)
-List;;;N YT;;;List of programs available
-List/String;;;Y NT;;;
+Codec/String;;;N NT;;;Deprecated;;
+Codec/Info;;;N NT;;;Deprecated;;
+Codec/Url;;;N NT;;;Deprecated;;
+List;;;N YT;;;List of programs available;;
+List/String;;;Y NT;;;;;
+Title;;;Y YI;;;Name of this menu;;
+Language;;;N YT;;;Language (2 letters);;
+Language/String;;;N NT;;;Language (full);;
+Language_More;;;N YT;;;More info about Language (director's comment...);;
+ServiceName;;;Y YT;;;;;Legal
+ServiceChannel;;;Y YT;;;;;Legal
+Service/Url;;;Y YT;;;;;Legal
+ServiceProvider;;;Y YT;;;;;Legal
+ServiceProviderr/Url;;;Y YT;;;;;Legal
+ServiceType;;;Y YT;;;;;Legal

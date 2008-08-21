@@ -836,8 +836,8 @@ void File_Id3v2::Fill_Name()
         case Id3::TPUB : Fill(Stream_General, 0, General_Publisher, Element_Value); break;
         case Id3::TRCK : Fill(Stream_General, 0, General_Track_Position, Element_Value); break;
         case Id3::TRDA : Normalize_Date(Element_Value); Fill(Stream_General, 0, "Recorded_Date", Element_Value); break;
-        case Id3::TRSN : Fill(Stream_General, 0, General_Broadcaster, Element_Value); break;
-        case Id3::TRSO : Fill(Stream_General, 0, General_Broadcaster_Owner, Element_Value); break;
+        case Id3::TRSN : Fill(Stream_General, 0, General_ServiceName, Element_Value); break;
+        case Id3::TRSO : Fill(Stream_General, 0, General_ServiceProvider, Element_Value); break;
         case Id3::TSIZ : Fill(Stream_General, 0, "Size", Element_Value); break;
         case Id3::TSOA : Fill(Stream_General, 0, General_Album_Sort, Element_Value); break;
         case Id3::TSOP : Fill(Stream_General, 0, General_Performer_Sort, Element_Value); break;
@@ -865,7 +865,7 @@ void File_Id3v2::Fill_Name()
         case Id3::WOAF : Fill(Stream_General, 0, "Official audio file webpage", Element_Value); break;
         case Id3::WOAR : Fill(Stream_General, 0, "Performer/Url", Element_Value); break;
         case Id3::WOAS : Fill(Stream_General, 0, "Official audio source webpage", Element_Value); break;
-        case Id3::WORS : Fill(Stream_General, 0, "Broadcaster/Url", Element_Value); break;
+        case Id3::WORS : Fill(Stream_General, 0, General_Service_Url, Element_Value); break;
         case Id3::WPAY : Fill(Stream_General, 0, "Payment", Element_Value); break;
         case Id3::WPUB : Fill(Stream_General, 0, "Publisher/Url", Element_Value); break;
         case Id3::WXXX : Fill(Stream_General, 0, Element_Values(0).To_UTF8().c_str(), Element_Values(1)); break;
@@ -924,7 +924,7 @@ void File_Id3v2::Fill_Name()
         case Id3::UFI  : Fill(Stream_Audio,   0, "UID", Element_Value); break;
         case Id3::ULT  : break;
         case Id3::WAF  : break;
-        case Id3::WAR  : Fill(Stream_General, 0, "Broadcaster/Url", Element_Value); break;
+        case Id3::WAR  : Fill(Stream_General, 0, General_Service_Url, Element_Value); break;
         case Id3::WAS  : Fill(Stream_General, 0, "Official audio source webpage", Element_Value); break;
         case Id3::WCM  : Fill(Stream_General, 0, "Commercial information", Element_Value); break;
         case Id3::WCP  : Fill(Stream_General, 0, "Copyright/Legal information", Element_Value); break;
@@ -999,9 +999,9 @@ void File_Id3v2::HowTo(stream_t StreamKind)
             Fill_HowTo("Copyright", "R|TCOP TCR");
             Fill_HowTo("Producer_Copyright", "R|TPRO");
             Fill_HowTo("TermsOfUse", "R|USER");
-            Fill_HowTo("Broadcaster", "N|TRSN");
-            Fill_HowTo("Broadcaster/Owner", "N|TRSO");
-            Fill_HowTo("Broadcaster/Url", "N|WORS WAR");
+            Fill_HowTo("Service", "N|TRSN");
+            Fill_HowTo("SerivceProvider", "N|TRSO");
+            Fill_HowTo("Service/Url", "N|WORS WAR");
             Fill_HowTo("Cover", "R|APIC PIC");
             Fill_HowTo("Cover_Datas", "N|APIC PIC");
             Fill_HowTo("Lyrics", "Y|SYLT");
