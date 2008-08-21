@@ -44,6 +44,8 @@ public :
     //In
     int32u   format_identifier; //Must be filled by the caller
     stream_t StreamKind;
+    int8u    table_id;
+    bool     From_ATSC;
 
     //Out
     std::map<std::string, ZenLib::Ztring> Infos;
@@ -65,6 +67,23 @@ public :
         }
     };
     std::map<int16u, es_element> ES_Elements; //Key is ES_ID
+
+    //Out - About Programs
+    struct program
+    {
+        int16u                                      pid;
+        std::map<std::string, ZenLib::Ztring>       Infos;
+
+        program()
+        {
+            pid=0;
+        }
+
+        ~program()
+        {
+        }
+    };
+    program Program;
 
 
 protected :
@@ -137,7 +156,7 @@ private :
     void Descriptor_47() {Skip_XX(Element_Size, "Data");};
     void Descriptor_48();
     void Descriptor_49() {Skip_XX(Element_Size, "Data");};
-    void Descriptor_4A() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_4A();
     void Descriptor_4B() {Skip_XX(Element_Size, "Data");};
     void Descriptor_4C() {Skip_XX(Element_Size, "Data");};
     void Descriptor_4D();

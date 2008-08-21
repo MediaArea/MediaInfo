@@ -336,6 +336,129 @@ stream_t Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier)
 }
 
 //---------------------------------------------------------------------------
+const char* File_Mpeg_Psi::Mpeg_Psi_Element_Name() //Part of File_Mpeg_Psi for acceding to Element_Code
+{
+    switch (Element_Code)
+    {
+        case 0x00 : return "program_association_section";
+        case 0x01 : return "conditional_access_section";
+        case 0x02 : return "TS_program_map_section";
+        case 0x03 : return "TS_description_section";
+        case 0x04 : return "ISO_IEC_14496_scene_description_section";
+        case 0x05 : return "ISO_IEC_14496_object_descriptor_section";
+        case 0x06 : return "Metadata?";
+        case 0x38 : return "ISO/IEC 13818-6 reserved";
+        case 0x39 : return "DSM-CC addressable section";
+        case 0x3A : return "DSM-CC : return MPE";
+        case 0x3B : return "DSM-CC : return U-N messages : return except DDM";
+        case 0x3C : return "DSM-CC : return DDM";
+        case 0x3D : return "DSM-CC : return stream descriptors";
+        case 0x3E : return "DSM-CC : return private data : return IP-Datagram";
+        case 0x3F : return "DSM-CC addressable section";
+        case 0x40 : return "DVB - network_information_section - actual_network";
+        case 0x41 : return "DVB - network_information_section - other_network";
+        case 0x42 : return "DVB - service_description_section - actual_transport_stream";
+        case 0x46 : return "DVB - service_description_section - other_transport_stream";
+        case 0x4A : return "DVB - bouquet_association_section";
+        case 0x4E : return "DVB - event_information_section - actual_transport_stream : return present/following";
+        case 0x4F : return "DVB - event_information_section - other_transport_stream : return present/following";
+        case 0x50 :
+        case 0x51 :
+        case 0x52 :
+        case 0x53 :
+        case 0x54 :
+        case 0x55 :
+        case 0x56 :
+        case 0x57 :
+        case 0x58 :
+        case 0x59 :
+        case 0x5A :
+        case 0x5B :
+        case 0x5C :
+        case 0x5E :
+        case 0x5F : return "DVB - event_information_section - actual_transport_stream : return schedule";
+        case 0x60 :
+        case 0x61 :
+        case 0x62 :
+        case 0x63 :
+        case 0x64 :
+        case 0x65 :
+        case 0x66 :
+        case 0x67 :
+        case 0x68 :
+        case 0x69 :
+        case 0x6A :
+        case 0x6B :
+        case 0x6C :
+        case 0x6D :
+        case 0x6E :
+        case 0x6F : return "DVB - event_information_section - other_transport_stream : return schedule";
+        case 0x70 : return "DVB - time_date_section";
+        case 0x71 : return "DVB - running_status_section";
+        case 0x72 : return "DVB - stuffing_section";
+        case 0x73 : return "DVB - time_offset_section";
+        case 0x74 : return "DVB - application information section";
+        case 0x75 : return "DVB - container section";
+        case 0x76 : return "DVB - related content section";
+        case 0x77 : return "DVB - content identifier section";
+        case 0x78 : return "DVB - MPE-FEC section";
+        case 0x79 : return "DVB - resolution notification section";
+        case 0x7E : return "DVB - discontinuity_information_section";
+        case 0x7F : return "DVB - selection_information_section";
+        case 0xC0 : return "ATSC - Program Information Message";
+        case 0xC1 : return "ATSC - Program Name Message";
+        case 0xC2 : return "ATSC/SCTE - Network Information Message";
+        case 0xC3 : return "ATSC/SCTE - Network Text Table (NTT)";
+        case 0xC4 : return "ATSC/SCTE - Short Form Virtual Channel Table (S-VCT)";
+        case 0xC5 : return "ATSC/SCTE - System Time Table (STT)";
+        case 0xC6 : return "ATSC/SCTE - Subtitle Message";
+        case 0xC7 : return "ATSC - Master Guide Table (MGT)";
+        case 0xC8 : return "ATSC - Terrestrial Virtual Channel Table (TVCT)";
+        case 0xC9 : return "ATSC - Cable Virtual Channel Table (CVCT) / Long-form Virtual Channel Table (L-VCT)";
+        case 0xCA : return "ATSC - Rating Region Table (RRT)";
+        case 0xCB : return "ATSC - Event Information Table (EIT)";
+        case 0xCC : return "ATSC - Extended Text Table (ETT)";
+        case 0xCD : return "ATSC - System Time Table (STT)";
+        case 0xCE : return "ATSC - Data Event Table (DET)";
+        case 0xCF : return "ATSC - Data Service Table (DST)";
+        case 0xD0 : return "ATSC - Program Identifier Table (PIT)";
+        case 0xD1 : return "ATSC - Network Resource Table (NRT)";
+        case 0xD2 : return "ATSC - Long-term Service Table (L-TST)";
+        case 0xD3 : return "ATSC - Directed Channel Change Table (DCCT)";
+        case 0xD4 : return "ATSC - DCC Selection Code Table (DCCSCT)";
+        case 0xD5 : return "ATSC - Selection Information Table (SIT)";
+        case 0xD6 : return "ATSC - Aggregate Event Information Table (AEIT)";
+        case 0xD7 : return "ATSC - Aggregate Extended Text Table (AETT)";
+        case 0xD8 : return "ATSC - Cable Emergency Alert";
+        case 0xD9 : return "ATSC - Aggregate Data Event Table";
+        case 0xDA : return "ATSC - Satellite VCT";
+        default :
+            if (table_id>=0x06
+             && table_id<=0x37) return "ITU-T Rec. H.222.0 | ISO/IEC 13818-1 reserved";
+            if (table_id>=0x40
+             && table_id<=0x7F) return "DVB - reserved";
+            if (table_id>=0x80
+             && table_id<=0x8F) return "CA message : return EMM : return ECM";
+            if (table_id>=0xC0
+             && table_id<=0xDF) return "ATSC/SCTE - reserved";
+            if (table_id<=0xFE) return "User Private";
+            return "unknown";
+    }
+}
+
+const char* Mpeg_Psi_atsc_service_type(int8u service_type)
+{
+    switch (service_type)
+    {
+        case 0x00 : return "reserved";
+        case 0x01 : return "Analog television";
+        case 0x02 : return "Digital television";
+        case 0x03 : return "Digital radio";
+        case 0x04 : return "Data";
+        default   : return "reserved for future use";
+    }
+}
+//---------------------------------------------------------------------------
 // CRC_32_Table
 // A CRC is computed like this:
 // Init: int32u CRC_32 = 0xFFFFFFFF;
@@ -510,7 +633,9 @@ void File_Mpeg_Psi::Data_Parse()
     }
 
     #define ELEMENT_CASE(_NAME, _DETAIL) \
-        case 0x##_NAME : Element_Name(_DETAIL); Table_##_NAME(); break;
+        case 0x##_NAME : Table_##_NAME(); break;
+
+    Element_Name(Mpeg_Psi_Element_Name());
 
     switch (table_id)
     {
@@ -871,8 +996,7 @@ void File_Mpeg_Psi::Table_42()
     while (Element_Offset<Element_Size)
     {
         Element_Begin();
-        int16u service_id;
-        Get_B2 (    service_id,                                 "service_id");
+        Get_B2 (    program_number,                             "service_id");
         BS_Begin();
         Skip_S1( 6,                                             "reserved_future_use");
         Skip_SB(                                                "EIT_schedule_flag");
@@ -886,7 +1010,7 @@ void File_Mpeg_Psi::Table_42()
         if (Descriptors_Size>0)
             Descriptors();
 
-        Element_End(Ztring::ToZtring_From_CC2(service_id), 5+Descriptors_Size);
+        Element_End(Ztring::ToZtring_From_CC2(program_number), 5+Descriptors_Size);
     }
 }
 
@@ -1031,6 +1155,9 @@ void File_Mpeg_Psi::Table_C7()
 
         Element_Info(Mpeg_Psi_ATSC_table_type(table_type));
         Element_End(Ztring::ToZtring_From_CC2(table_type_PID), 11+Descriptors_Size);
+
+        //Filling
+        Streams[table_type_PID].Kind=atsc_psip;
     }
     BS_Begin();
     Skip_S1( 4,                                                 "reserved");
@@ -1064,14 +1191,14 @@ void File_Mpeg_Psi::Table_C8()
     BS_End();
     for (int8u Pos=0; Pos<num_channels_in_section; Pos++)
     {
-        int16u major_channel_number, program_number;
+        int16u major_channel_number, minor_channel_number;
+        int8u service_type;
         Element_Begin();
-        //Get_UTF16B(14, short_name,                              "short_name");
-        Skip_XX(14,                                             "short_name");
+        Get_UTF16B(14, short_name,                              "short_name");
         BS_Begin();
         Skip_S1( 4,                                             "reserved");
         Get_S2 (10, major_channel_number,                       "major_channel_number");
-        Skip_S2(10,                                             "minor_channel_number");
+        Get_S2 (10, minor_channel_number,                       "minor_channel_number");
         BS_End();
         Skip_B1(                                                "modulation_mode");
         Skip_B4(                                                "carrier_frequency");
@@ -1084,7 +1211,7 @@ void File_Mpeg_Psi::Table_C8()
         Skip_S1( 2,                                             "reserved");
         Skip_SB(                                                "hide_guide");
         Skip_S1( 3,                                             "reserved");
-        Skip_S1( 6,                                             "service_type");
+        Get_S1 ( 6, service_type,                               "service_type");
         BS_End();
         Skip_B2(                                                "source_id");
         BS_Begin();
@@ -1092,16 +1219,102 @@ void File_Mpeg_Psi::Table_C8()
         Get_S2 (10, Descriptors_Size,                           "descriptors_length");
         BS_End();
 
-        //Filling
-        //Programs[program_number].Info[_T("major_channel_number")]=Ztring::ToZtring(major_channel_number);
-
         //Descriptors
         if (Descriptors_Size>0)
             Descriptors();
 
         Element_End(Ztring::ToZtring_From_CC2(program_number), 18+Descriptors_Size);
+
+        //Filling
+        Ztring Channel=Ztring::ToZtring(major_channel_number);
+        if (minor_channel_number)
+            Channel+=_T("-")+Ztring::ToZtring(minor_channel_number);
+        if (program_number>0 && program_number<2000)
+        {
+            Programs[program_number].Infos["ServiceName"]=short_name;
+            Programs[program_number].Infos["ServiceChannel"]=Channel;
+            Programs[program_number].Infos["ServiceType"]=Mpeg_Psi_atsc_service_type(service_type);
+        }
+        else if (program_number==0xFFFF)
+        {
+            Streams[0x0000].Infos["ServiceName"]=short_name;
+            Streams[0x0000].Infos["ServiceChannel"]=Channel;
+            Streams[0x0000].Infos["ServiceType"]=Mpeg_Psi_atsc_service_type(service_type);
+        }
     }
     //CC_END_CANBEMORE();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Psi::Table_CB()
+{
+    //Parsing
+    int8u num_events_in_section;
+    Skip_B2(                                                    "source_id");
+    BS_Begin();
+    Skip_S1( 2,                                                 "reserved");
+    Skip_S1( 5,                                                 "version_number");
+    Skip_S1( 1,                                                 "current_next_indicator");
+    BS_End();
+    Skip_B1(                                                    "section_number");
+    Skip_B1(                                                    "last_section_number");
+    Skip_B1(                                                    "protocol_version");
+    Get_B1 (    num_events_in_section,                          "num_events_in_section");
+    BS_End();
+    for (int8u Pos=0; Pos<num_events_in_section; Pos++)
+    {
+        Ztring title;
+        int32u length_in_seconds;
+        int16u event_id;
+        Element_Begin();
+        BS_Begin();
+        Skip_S1( 2,                                             "reserved");
+        Get_S2 (14, event_id,                                   "event_id");
+        BS_End();
+        Skip_B4(                                                "start_time");
+        BS_Begin();
+        Skip_S1( 2,                                             "reserved");
+        Skip_S1( 2,                                             "ETM_location");
+        Get_S3 (20, length_in_seconds,                          "length_in_seconds");
+        BS_End();
+        Skip_B1 (                                               "title_length"); //We don't use it for verification
+        ATSC_multiple_string_structure(title);
+        BS_Begin();
+        Skip_S1( 6,                                             "reserved");
+        Get_S2 (10, Descriptors_Size,                           "descriptors_length");
+        BS_End();
+
+        //Descriptors
+        if (Descriptors_Size>0)
+            Descriptors();
+        Streams[Stream_Current].Infos.clear(); //Info for future programs is not supported
+
+        Element_End(Ztring::ToZtring_From_CC2(event_id));
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Psi::Table_CC()
+{
+    //Parsing
+    Ztring extended_text_message;
+    Skip_B2(                                                    "ETT_table_id_extension");
+    BS_Begin();
+    Skip_S1( 2,                                                 "reserved");
+    Skip_S1( 5,                                                 "version_number");
+    Skip_S1( 1,                                                 "current_next_indicator");
+    BS_End();
+    Skip_B1(                                                    "section_number");
+    Skip_B1(                                                    "last_section_number");
+    Skip_B1(                                                    "protocol_version");
+    Element_Begin("ETM_id", 2);
+        Skip_B2(                                                "source_id");
+        BS_Begin();
+        Skip_S1(14,                                             "event_id");
+        Skip_S1( 2,                                             "lsb");
+        BS_End();
+    Element_End();
+    ATSC_multiple_string_structure(extended_text_message);
 }
 
 //***************************************************************************
@@ -1122,6 +1335,7 @@ void File_Mpeg_Psi::Descriptors()
     Open_Buffer_Init(&Descriptors, File_Size, File_Offset+Buffer_Offset);
     Descriptors.format_identifier=Streams[Streams[Stream_Current].format_identifier?Stream_Current:0x0000].format_identifier; //format_identifier of fthe stream if exist, else general format_identifier
     Descriptors.StreamKind=Stream_Current?Stream_Max:Stream_General; //Saying if it is General or not
+    Descriptors.table_id=table_id;
     Open_Buffer_Continue(&Descriptors, Buffer+Buffer_Offset, Descriptors_Size);
     Buffer_Offset-=(size_t)Element_Offset; //Positionning
     Element_Offset+=Descriptors_Size;
@@ -1136,11 +1350,57 @@ void File_Mpeg_Psi::Descriptors()
         Streams[Stream_Current].CA_PID=Descriptors.CA_PID;
     if (Streams[Stream_Current].ES_ID==0x0000)
         Streams[Stream_Current].ES_ID=Descriptors.ES_ID;
+
+    //About program
+    for (std::map<std::string, ZenLib::Ztring>::iterator Info=Descriptors.Program.Infos.begin(); Info!=Descriptors.Program.Infos.end(); Info++)
+        Programs[program_number].Infos[Info->first]=Info->second;
+
+    //About es_element
     for (std::map<int16u, File_Mpeg_Descriptors::es_element>::iterator ES_Element=Descriptors.ES_Elements.begin(); ES_Element!=Descriptors.ES_Elements.end(); ES_Element++)
     {
         //Transfering the Parser
         ES_Elements[ES_Element->first].Parser=ES_Element->second.Parser; ES_Element->second.Parser=NULL;
     }
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Psi::ATSC_multiple_string_structure(Ztring &Value)
+{
+    //Parsing
+    Ztring string;
+    int8u number_strings, number_segments;
+    Get_B1(number_strings,                                      "number_strings");
+    for (int8u Pos=0; Pos<number_strings; Pos++)
+    {
+        Element_Begin("String");
+        Skip_Local(3,                                           "ISO_639_language_code");
+        Get_B1(number_segments,                                 "number_segments");
+        for (int8u Pos=0; Pos<number_segments; Pos++)
+        {
+            Element_Begin("Segment");
+            Ztring String;
+            int8u compression_type, mode, number_bytes;
+            Get_B1 (compression_type,                           "compression_type");
+            Get_B1 (mode,                                       "mode");
+            Get_B1 (number_bytes,                               "number_bytes");
+            switch (compression_type)
+            {
+                case 0x00 :
+                            switch (mode)
+                            {
+                                case 0x00 : Get_Local(number_bytes, string, "string"); break;
+                                default   : Skip_XX(number_bytes, "Unknown");
+                            }
+                            break;
+                default   : Skip_XX(number_bytes,               "Unknown");
+            }
+            Element_End(3+number_bytes);
+        }
+        Element_End("String");
+    }
+
+    //Filling
+    Value=string;
 }
 
 //---------------------------------------------------------------------------

@@ -386,6 +386,9 @@ void File_MpegTs::Read_Buffer_Finalize()
             Fill(StreamKind_Last, StreamPos_Last, "Codec", Program->second.Codec.Read());
             Program->second.Format.Separator_Set(0, _T(" / "));
             Fill(StreamKind_Last, StreamPos_Last, "Format", Program->second.Format.Read());
+
+            for (std::map<std::string, ZenLib::Ztring>::iterator Info=Program->second.Infos.begin(); Info!=Program->second.Infos.end(); Info++)
+                Fill(Stream_Menu, StreamPos_Last, Info->first.c_str(), Info->second);
         }
     }
 
@@ -643,8 +646,10 @@ void File_MpegTs::PSI()
         switch (Streams[pid].TS_Kind)
         {
             case File_Mpeg_Psi::program_association_table : PSI_program_association_table(); break;
-            case File_Mpeg_Psi::program_map_table :         PSI_program_map_table(); break;
+            case File_Mpeg_Psi::program_map_table         : PSI_program_map_table(); break;
             case File_Mpeg_Psi::network_information_table : PSI_network_information_table(); break;
+            case File_Mpeg_Psi::dvb_sdt_bat_st            : PSI_dvb_sdt_bat_st(); break;
+            case File_Mpeg_Psi::atsc_psip                 : PSI_atsc_psip(); break;
             default : ;
         }
 
@@ -666,7 +671,7 @@ void File_MpegTs::PSI_program_association_table()
 {
     program_Count=0;
     File_Mpeg_Psi* Parser=(File_Mpeg_Psi*)Streams[pid].Parser;
-    for (std::map<int16u, File_Mpeg_Psi::program>::iterator Program=Parser->Programs.begin(); Program!=Parser->Programs.end(); Program++)
+    for (std::map<int16u, File_Mpeg_Descriptors::program>::iterator Program=Parser->Programs.begin(); Program!=Parser->Programs.end(); Program++)
     {
         int16u PID=Program->second.pid;
 
@@ -769,7 +774,8 @@ void File_MpegTs::PSI_program_map_table()
         //Scrambling
         if (Stream->second.CA_PID)
         {
-            if (Streams[Stream->second.CA_PID].TS_Kind==File_Mpeg_Psi::unknown) //Only if not already registered
+            if (Streams[Stream->second.CA_PID].TS_Kind==File_Mpeg_Psi::unknown
+             || Streams[Stream->second.CA_PID].TS_Kind>=File_Mpeg_Psi::ts_outofspec) //Only if not already registered
             {
                 elementary_PID_Count++;
                 Streams[Stream->second.CA_PID].program_numbers.push_back(Stream->second.program_number);
@@ -787,7 +793,9 @@ void File_MpegTs::PSI_program_map_table()
             std::vector<int16u>::iterator Pos=find(Streams[elementary_PID].program_numbers.begin(), Streams[elementary_PID].program_numbers.end(), Stream->second.program_number);
             if (Pos==Streams[elementary_PID].program_numbers.end())
                 Streams[elementary_PID].program_numbers.push_back(Stream->second.program_number);
-            if (Streams[elementary_PID].TS_Kind==File_Mpeg_Psi::unknown || Streams[elementary_PID].TS_Kind==File_Mpeg_Psi::PCR) //Only if not already registered
+            if (Streams[elementary_PID].TS_Kind==File_Mpeg_Psi::unknown
+             || Streams[elementary_PID].TS_Kind==File_Mpeg_Psi::PCR
+             || Streams[elementary_PID].TS_Kind>=File_Mpeg_Psi::ts_outofspec) //Only if not already registered
             {
                 elementary_PID_Count++;
                 Streams[elementary_PID].TS_Kind=File_Mpeg_Psi::pes;
@@ -804,78 +812,75 @@ void File_MpegTs::PSI_program_map_table()
 
             //File_Duplicate
             Streams[elementary_PID].ShouldDuplicate=File__Duplicate_Get_From_PID(elementary_PID);
-
-            //Not precised PID handling
-            /*
-            for (size_t Pos=0x11; Pos<0x1FFF; Pos++)
-            {
-                if (Stream.find(Pos)==Stream.end() || Streams[Pos].TS_Kind==File_Mpeg_Psi::unknown || Streams[elementary_PID].TS_Kind==File_Mpeg_Psi::PCR)
-                {
-                    //File_Filter
-                    if (!Config.File_Filter_Get())
-                        Streams[Pos].Searching_Payload_Start_Set(true);
-
-                    File_Mpeg_Psi::ts_kind Kind;
-                    switch (Pos)
-                    {
-                        case 0x0010 : Kind=File_Mpeg_Psi::dvb_nit_st; break;
-                        case 0x0011 : Kind=File_Mpeg_Psi::dvb_sdt_bat_st; break;
-                        case 0x0012 : Kind=File_Mpeg_Psi::dvb_eit; break;
-                        case 0x0013 : Kind=File_Mpeg_Psi::dvb_rst_st; break;
-                        case 0x0014 : Kind=File_Mpeg_Psi::dvb_tdt_tot_st; break;
-                        case 0x0015 : Kind=File_Mpeg_Psi::dvb_mip; break;
-                        case 0x0016 :
-                        case 0x0017 :
-                        case 0x0018 :
-                        case 0x0019 :
-                        case 0x001A :
-                        case 0x001B : Kind=File_Mpeg_Psi::dvb_reserved; break;
-                        case 0x001C : Kind=File_Mpeg_Psi::dvb_inband; break;
-                        case 0x001D : Kind=File_Mpeg_Psi::dvb_measurement; break;
-                        case 0x001E : Kind=File_Mpeg_Psi::dvb_dit; break;
-                        case 0x001F : Kind=File_Mpeg_Psi::dvb_sit; break;
-                        case 0x0020 :
-                        case 0x0021 :
-                        case 0x0022 :
-                        case 0x0023 :
-                        case 0x0024 :
-                        case 0x0025 :
-                        case 0x0026 :
-                        case 0x0027 :
-                        case 0x0028 :
-                        case 0x0029 :
-                        case 0x002A :
-                        case 0x002B :
-                        case 0x002C :
-                        case 0x002D :
-                        case 0x002E :
-                        case 0x002F : Kind=File_Mpeg_Psi::arib; break;
-                        case 0x1ABC : Kind=File_Mpeg_Psi::cea_osd; break;
-                        case 0x1FF7 : Kind=File_Mpeg_Psi::atsc_pate; break;
-                        case 0x1FF8 : Kind=File_Mpeg_Psi::atsc_stt_pide; break;
-                        case 0x1FF9 : Kind=File_Mpeg_Psi::atsc_reserved; break;
-                        case 0x1FFA : Kind=File_Mpeg_Psi::atsc_op; break;
-                        case 0x1FFB : Kind=File_Mpeg_Psi::atsc_psip; break;
-                        case 0x1FFC : Kind=File_Mpeg_Psi::atsc_scte; break;
-                        case 0x1FFD : Kind=File_Mpeg_Psi::atsc_reserved; break;
-                        case 0x1FFE : Kind=File_Mpeg_Psi::docsis; break;
-                        default     : Kind=File_Mpeg_Psi::reserved;
-                    }
-                    Streams[Pos].TS_Kind=Kind;
-                }
-
-                if (Pos==0x002F)
-                    Pos=0x1ABB; //Skipping normal data
-                if (Pos==0x01ABC)
-                    Pos=0x1FF6; //Skipping normal data
-            }
-            */
         }
 
         program_number=Stream->second.program_number; //One of them, they should have all the same
     }
     if (program_Count && Config->File_Filter_Get(program_number))
         program_Count--;
+
+    //DVB/ATSC handling
+    if (program_Count==0 && Streams[0x1FFB].TS_Kind!=File_Mpeg_Psi::atsc_psip) //One test to know if we have already did it
+        for (size_t Pos=0x10; Pos<0x1FFF; Pos++)
+         {
+            if (Streams[Pos].TS_Kind==File_Mpeg_Psi::unknown)
+             {
+                File_Mpeg_Psi::ts_kind Kind;
+                switch (Pos)
+                {
+                    case 0x0010 : Kind=File_Mpeg_Psi::dvb_nit_st; break;
+                    case 0x0011 : Kind=File_Mpeg_Psi::dvb_sdt_bat_st; break;
+                    case 0x0012 : Kind=File_Mpeg_Psi::dvb_eit; break;
+                    case 0x0013 : Kind=File_Mpeg_Psi::dvb_rst_st; break;
+                    case 0x0014 : Kind=File_Mpeg_Psi::dvb_tdt_tot_st; break;
+                    case 0x0015 : Kind=File_Mpeg_Psi::dvb_mip; break;
+                    case 0x0016 :
+                    case 0x0017 :
+                    case 0x0018 :
+                    case 0x0019 :
+                    case 0x001A :
+                    case 0x001B : Kind=File_Mpeg_Psi::dvb_reserved; break;
+                    case 0x001C : Kind=File_Mpeg_Psi::dvb_inband; break;
+                    case 0x001D : Kind=File_Mpeg_Psi::dvb_measurement; break;
+                    case 0x001E : Kind=File_Mpeg_Psi::dvb_dit; break;
+                    case 0x001F : Kind=File_Mpeg_Psi::dvb_sit; break;
+                    case 0x0020 :
+                    case 0x0021 :
+                    case 0x0022 :
+                    case 0x0023 :
+                    case 0x0024 :
+                    case 0x0025 :
+                    case 0x0026 :
+                    case 0x0027 :
+                    case 0x0028 :
+                    case 0x0029 :
+                    case 0x002A :
+                    case 0x002B :
+                    case 0x002C :
+                    case 0x002D :
+                    case 0x002E :
+                    case 0x002F : Kind=File_Mpeg_Psi::arib; break;
+                    case 0x1ABC : Kind=File_Mpeg_Psi::cea_osd; break;
+                    case 0x1FF7 : Kind=File_Mpeg_Psi::atsc_pate; break;
+                    case 0x1FF8 : Kind=File_Mpeg_Psi::atsc_stt_pide; break;
+                    case 0x1FF9 : Kind=File_Mpeg_Psi::atsc_reserved; break;
+                    case 0x1FFA : Kind=File_Mpeg_Psi::atsc_op; break;
+                    case 0x1FFB : Kind=File_Mpeg_Psi::atsc_psip; break;
+                    case 0x1FFC : Kind=File_Mpeg_Psi::atsc_scte; break;
+                    case 0x1FFD : Kind=File_Mpeg_Psi::atsc_reserved; break;
+                    case 0x1FFE : Kind=File_Mpeg_Psi::docsis; break;
+                    default     : Kind=File_Mpeg_Psi::reserved;
+                }
+
+                Streams[Pos].TS_Kind=Kind;
+                Streams[Pos].Searching_Payload_Start_Set(true);
+            }
+
+            if (Pos==0x002F)
+                Pos=0x1ABB; //Skipping normal data
+            if (Pos==0x01ABC)
+                Pos=0x1FF6; //Skipping normal data
+        }
 
     //Case of multiple program in one PID
     if (program_number)
@@ -897,6 +902,57 @@ void File_MpegTs::PSI_network_information_table()
     {
         //Enabling what we know parsing
         Streams[0x0000].Infos=Stream->second.Infos;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_MpegTs::PSI_atsc_psip()
+{
+    File_Mpeg_Psi* Parser=(File_Mpeg_Psi*)Streams[pid].Parser;
+
+    Element_Info(Parser->Mpeg_Psi_Element_Name());
+
+    for (std::map<int16u, File_Mpeg_Psi::stream>::iterator Stream=Parser->Streams.begin(); Stream!=Parser->Streams.end(); Stream++)
+    {
+        Streams[Stream->first].TS_Kind=Stream->second.Kind;
+        Streams[Stream->first].Searching_Payload_Start_Set(true);
+        if (Streams[Stream->first].Parser)
+            Streams[Stream->first].Parser->File_Offset=File_Offset; //Disabling the tag "finnished", we want it again!
+    }
+
+    if (Streams[0x1FFB].Parser)
+        Streams[0x1FFB].Parser->File_Offset=File_Offset; //Disabling the tag "finnished", we want it again!
+
+    for (std::map<int16u, File_Mpeg_Descriptors::program>::iterator Psi_Program=Parser->Programs.begin(); Psi_Program!=Parser->Programs.end(); Psi_Program++)
+    {
+        //Transfering the strings
+        std::map<int16u, program>::iterator Program=Programs.find(Psi_Program->first);
+        if (Program!=Programs.end())
+            for (std::map<std::string, ZenLib::Ztring>::iterator Info=Psi_Program->second.Infos.begin(); Info!=Psi_Program->second.Infos.end(); Info++)
+                Program->second.Infos[Info->first]=Info->second;
+    }
+
+    //Transfering the strings
+    std::map<int16u, File_Mpeg_Psi::stream>::iterator Psi_Stream=Parser->Streams.find(0x0000);
+    if (Psi_Stream!=Parser->Streams.end())
+    {
+        for (std::map<std::string, ZenLib::Ztring>::iterator Info=Psi_Stream->second.Infos.begin(); Info!=Psi_Stream->second.Infos.end(); Info++)
+            Streams[0x0000].Infos[Info->first]=Info->second;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_MpegTs::PSI_dvb_sdt_bat_st()
+{
+    File_Mpeg_Psi* Parser=(File_Mpeg_Psi*)Streams[pid].Parser;
+
+    for (std::map<int16u, File_Mpeg_Descriptors::program>::iterator Psi_Program=Parser->Programs.begin(); Psi_Program!=Parser->Programs.end(); Psi_Program++)
+    {
+        //Transfering the strings
+        std::map<int16u, program>::iterator Program=Programs.find(Psi_Program->first);
+        if (Program!=Programs.end())
+            for (std::map<std::string, ZenLib::Ztring>::iterator Info=Psi_Program->second.Infos.begin(); Info!=Psi_Program->second.Infos.end(); Info++)
+                Program->second.Infos[Info->first]=Info->second;
     }
 }
 

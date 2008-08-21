@@ -61,6 +61,7 @@ public :
         PCR,
         
         //Other
+        ts_outofspec, //Not a real type, only to say that all following is out of MPEG-TS specs
         dvb_nit_st,
         dvb_sdt_bat_st,
         dvb_eit,
@@ -117,29 +118,22 @@ public :
     int16u                   Stream_Current;
 
     //About Programs
-    struct program
-    {
-        int16u                                      pid;
-
-        program()
-        {
-            pid=0;
-        }
-
-        ~program()
-        {
-        }
-    };
-    std::map<int16u, program>   Programs;
+    std::map<int16u, File_Mpeg_Descriptors::program>    Programs; //Key is program_number
 
     //About ES
-    std::map<int16u, File_Mpeg_Descriptors::es_element> ES_Elements;//Key is ES_ID
+    std::map<int16u, File_Mpeg_Descriptors::es_element> ES_Elements; //Key is ES_ID
 
     //About the complete stream
     int16u transport_stream_id; //Unique ID of the stream
 
     //About program
     int16u PCR_PID;
+
+    //Temp
+    int16u program_number;
+
+    //Details
+    const char* Mpeg_Psi_Element_Name();
 
 public :
     File_Mpeg_Psi();
@@ -209,8 +203,8 @@ private :
     void Table_C8();
     void Table_C9() {Skip_XX(Element_Size, "Data");};
     void Table_CA() {Skip_XX(Element_Size, "Data");};
-    void Table_CB() {Skip_XX(Element_Size, "Data");};
-    void Table_CC() {Skip_XX(Element_Size, "Data");};
+    void Table_CB();
+    void Table_CC();
     void Table_CD() {Skip_XX(Element_Size, "Data");};
     void Table_CE() {Skip_XX(Element_Size, "Data");};
     void Table_CF() {Skip_XX(Element_Size, "Data");};
@@ -229,6 +223,7 @@ private :
     //Helpers
     int16u Descriptors_Size;
     void Descriptors();
+    void ATSC_multiple_string_structure(Ztring &Value);
     Ztring Date_MJD(int16u Date);
     Ztring Time_BCD(int32u Time);
 

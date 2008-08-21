@@ -145,7 +145,7 @@ private :
     struct program
     {
         int16u                                      pid;
-        std::map<ZenLib::Ztring, ZenLib::Ztring>    Infos;
+        std::map<std::string, ZenLib::Ztring>       Infos;
         ZtringList                                  List;
         ZtringList                                  Language;
         ZtringList                                  Format;
@@ -182,6 +182,8 @@ private :
     void PSI_program_association_table();
     void PSI_program_map_table();
     void PSI_network_information_table();
+    void PSI_atsc_psip();
+    void PSI_dvb_sdt_bat_st();
     void Reserved();
     void PES();
     void Null();

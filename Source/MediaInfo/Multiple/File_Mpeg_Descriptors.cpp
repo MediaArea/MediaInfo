@@ -341,6 +341,52 @@ const char* Mpeg_Descriptors_content_nibble_level_2(int8u content_nibble_level_1
     }
 }
 
+const char* Mpeg_Descriptors_linkage_type(int8u linkage_type)
+{
+    switch (linkage_type)
+    {
+        case 0x00 : return "reserved for future use";
+        case 0x01 : return "information service";
+        case 0x02 : return "Electronic Programme Guide (EPG) service";
+        case 0x03 : return "CA replacement service";
+        case 0x04 : return "transport stream containing complete Network/Bouquet SI";
+        case 0x05 : return "service replacement service";
+        case 0x06 : return "data broadcast service";
+        case 0xFF : return "reserved for future use";
+        default   :
+            if (linkage_type>=0x80)
+                    return "user defined";
+            else
+                    return "reserved for future use";
+    }
+}
+
+const char* Mpeg_Descriptors_dvb_service_type(int8u service_type)
+{
+    switch (service_type)
+    {
+        case 0x00 : return "reserved for future use";
+        case 0x01 : return "Digital television";
+        case 0x02 : return "Digital radio";
+        case 0x03 : return "Teletext";
+        case 0x04 : return "NVOD reference";
+        case 0x05 : return "NVOD time-shifted";
+        case 0x06 : return "Mosaic";
+        case 0x07 : return "PAL coded signal";
+        case 0x08 : return "SECAM coded signal";
+        case 0x09 : return "D/D2-MAC";
+        case 0x0A : return "FM Radio";
+        case 0x0B : return "NTSC coded signal";
+        case 0x0C : return "Data";
+        case 0xFF : return "reserved for future use";
+        default   :
+            if (service_type>=0x80)
+                    return "user defined";
+            else
+                    return "reserved for future use";
+    }
+}
+
 const char* Mpeg_Descriptors_stream_content(int8u stream_content)
 {
     switch (stream_content)
@@ -729,6 +775,7 @@ void File_Mpeg_Descriptors::Read_Buffer_Init()
     //In
     format_identifier=0x00000000;
     StreamKind=Stream_Max;
+    table_id=0x00;
 
     //Out
     descriptor_tag=0x00;
@@ -767,138 +814,264 @@ void File_Mpeg_Descriptors::Data_Parse()
     #define ELEMENT_CASE(_NAME, _DETAIL) \
         case 0x##_NAME : Element_Name(_DETAIL); Descriptor_##_NAME(); break;
 
-    switch (Element_Code)
+    //Configuring
+    if (Element_Code>=0x40)
     {
-        ELEMENT_CASE(00, "Reserved");
-        ELEMENT_CASE(01, "Reserved");
-        ELEMENT_CASE(02, "video_stream");
-        ELEMENT_CASE(03, "audio_stream");
-        ELEMENT_CASE(04, "hierarchy");
-        ELEMENT_CASE(05, "registration");
-        ELEMENT_CASE(06, "data_stream_alignment");
-        ELEMENT_CASE(07, "target_background_grid");
-        ELEMENT_CASE(08, "Video_window");
-        ELEMENT_CASE(09, "CA");
-        ELEMENT_CASE(0A, "ISO_639_language");
-        ELEMENT_CASE(0B, "System_clock");
-        ELEMENT_CASE(0C, "Multiplex_buffer_utilization");
-        ELEMENT_CASE(0D, "Copyright");
-        ELEMENT_CASE(0E, "Maximum_bitrate");
-        ELEMENT_CASE(0F, "Private_data_indicator");
-        ELEMENT_CASE(10, "Smoothing_buffer");
-        ELEMENT_CASE(11, "STD");
-        ELEMENT_CASE(12, "IBP");
-        ELEMENT_CASE(13, "Defined in ISO/IEC 13818-6");
-        ELEMENT_CASE(14, "Defined in ISO/IEC 13818-6");
-        ELEMENT_CASE(15, "Defined in ISO/IEC 13818-6");
-        ELEMENT_CASE(16, "Defined in ISO/IEC 13818-6");
-        ELEMENT_CASE(17, "Defined in ISO/IEC 13818-6");
-        ELEMENT_CASE(18, "Defined in ISO/IEC 13818-6");
-        ELEMENT_CASE(19, "Defined in ISO/IEC 13818-6");
-        ELEMENT_CASE(1A, "Defined in ISO/IEC 13818-6");
-        ELEMENT_CASE(1B, "MPEG-4_video");
-        ELEMENT_CASE(1C, "MPEG-4_audio");
-        ELEMENT_CASE(1D, "IOD");
-        ELEMENT_CASE(1E, "SL");
-        ELEMENT_CASE(1F, "FMC");
-        ELEMENT_CASE(20, "External_ES_ID");
-        ELEMENT_CASE(21, "MuxCode");
-        ELEMENT_CASE(22, "FmxBufferSize");
-        ELEMENT_CASE(23, "MultiplexBuffer");
-        ELEMENT_CASE(24, "Content_labeling_descriptor");
-        ELEMENT_CASE(25, "Metadata_pointer_descriptor");
-        ELEMENT_CASE(26, "Metadata_descriptor");
-        ELEMENT_CASE(27, "Metadata_STD_descriptor");
-        ELEMENT_CASE(28, "AVC video descriptor");
-        ELEMENT_CASE(29, "IPMP_descriptor (defined in ISO/IEC 13818-11, MPEG-2 IPMP)");
-        ELEMENT_CASE(2A, "AVC timing and HRD descriptor");
-        ELEMENT_CASE(2B, "MPEG-2 AAC audio descriptor");
-        ELEMENT_CASE(2C, "FlexMux_Timing_descriptor");
-        ELEMENT_CASE(2D, "MPEG-4_text_descriptor");
-        ELEMENT_CASE(2E, "MPEG-4_audio_extension_descriptor");
-        ELEMENT_CASE(2F, "Auxiliary_video_data_descriptor");
-        ELEMENT_CASE(40, "DVB - network_name_descriptor");
-        ELEMENT_CASE(41, "DVB - service_list_descriptor");
-        ELEMENT_CASE(42, "DVB - stuffing_descriptor");
-        ELEMENT_CASE(43, "DVB - satellite_delivery_system_descriptor");
-        ELEMENT_CASE(44, "DVB - cable_delivery_system_descriptor");
-        ELEMENT_CASE(45, "DVB - VBI_data_descriptor");
-        ELEMENT_CASE(46, "DVB - VBI_teletext_descriptor");
-        ELEMENT_CASE(47, "DVB - bouquet_name_descriptor");
-        ELEMENT_CASE(48, "DVB - service_descriptor");
-        ELEMENT_CASE(49, "DVB - country_availability_descriptor");
-        ELEMENT_CASE(4A, "DVB - linkage_descriptor");
-        ELEMENT_CASE(4B, "DVB - NVOD_reference_descriptor");
-        ELEMENT_CASE(4C, "DVB - time_shifted_service_descriptor");
-        ELEMENT_CASE(4D, "DVB - short_event_descriptor");
-        ELEMENT_CASE(4E, "DVB - extended_event_descriptor");
-        ELEMENT_CASE(4F, "DVB - time_shifted_event_descriptor");
-        ELEMENT_CASE(50, "DVB - component_descriptor");
-        ELEMENT_CASE(51, "DVB - mosaic_descriptor");
-        ELEMENT_CASE(52, "DVB - stream_identifier_descriptor");
-        ELEMENT_CASE(53, "DVB - CA_identifier_descriptor");
-        ELEMENT_CASE(54, "DVB - content_descriptor");
-        ELEMENT_CASE(55, "DVB - parental_rating_descriptor");
-        ELEMENT_CASE(56, "DVB - teletext_descriptor");
-        ELEMENT_CASE(57, "DVB - telephone_descriptor");
-        ELEMENT_CASE(58, "DVB - local_time_offset_descriptor");
-        ELEMENT_CASE(59, "DVB - subtitling_descriptor");
-        ELEMENT_CASE(5A, "DVB - terrestrial_delivery_system_descriptor");
-        ELEMENT_CASE(5B, "DVB - multilingual_network_name_descriptor");
-        ELEMENT_CASE(5C, "DVB - multilingual_bouquet_name_descriptor");
-        ELEMENT_CASE(5D, "DVB - multilingual_service_name_descriptor");
-        ELEMENT_CASE(5E, "DVB - multilingual_component_descriptor");
-        ELEMENT_CASE(5F, "DVB - private_data_specifier_descriptor");
-        ELEMENT_CASE(60, "DVB - service_move_descriptor");
-        ELEMENT_CASE(61, "DVB - short_smoothing_buffer_descriptor");
-        ELEMENT_CASE(62, "DVB - frequency_list_descriptor");
-        ELEMENT_CASE(63, "DVB - partial_transport_stream_descriptor");
-        ELEMENT_CASE(64, "DVB - data_broadcast_descriptor");
-        ELEMENT_CASE(65, "DVB - scrambling_descriptor");
-        ELEMENT_CASE(66, "DVB - data_broadcast_id_descriptor");
-        ELEMENT_CASE(67, "DVB - transport_stream_descriptor");
-        ELEMENT_CASE(68, "DVB - DSNG_descriptor");
-        ELEMENT_CASE(69, "DVB - PDC_descriptor");
-        ELEMENT_CASE(6A, "DVB - AC-3_descriptor");
-        ELEMENT_CASE(6B, "DVB - ancillary_data_descriptor");
-        ELEMENT_CASE(6C, "DVB - cell_list_descriptor");
-        ELEMENT_CASE(6D, "DVB - cell_frequency_link_descriptor");
-        ELEMENT_CASE(6E, "DVB - announcement_support_descriptor");
-        ELEMENT_CASE(6F, "DVB - application_signalling_descriptor");
-        ELEMENT_CASE(70, "DVB - adaptation_field_data_descriptor");
-        ELEMENT_CASE(71, "DVB - service_identifier_descriptor");
-        ELEMENT_CASE(72, "DVB - service_availability_descriptor");
-        ELEMENT_CASE(73, "DVB - default_authority_descriptor");
-        ELEMENT_CASE(74, "DVB - related_content_descriptor");
-        ELEMENT_CASE(75, "DVB - TVA_id_descriptor");
-        ELEMENT_CASE(76, "DVB - content_identifier_descriptor");
-        ELEMENT_CASE(77, "DVB - time_slice_fec_identifier_descriptor");
-        ELEMENT_CASE(78, "DVB - ECM_repetition_rate_descriptor");
-        ELEMENT_CASE(79, "DVB - S2_satellite_delivery_system_descriptor");
-        ELEMENT_CASE(7A, "DVB - enhanced_AC-3_descriptor");
-        ELEMENT_CASE(7B, "DVB - DTS descriptor");
-        ELEMENT_CASE(7C, "DVB - AAC descriptor");
-        ELEMENT_CASE(7D, "DVB - reserved for future use");
-        ELEMENT_CASE(7E, "DVB - reserved for future use");
-        ELEMENT_CASE(7F, "DVB - extension descriptor");
-        ELEMENT_CASE(80, "ATSC - stuffing");
-        ELEMENT_CASE(81, "ATSC - AC-3 audio");
-        ELEMENT_CASE(86, "ATSC - caption service");
-        ELEMENT_CASE(87, "ATSC - content advisory");
-        ELEMENT_CASE(A0, "ATSC - extended channel name");
-        ELEMENT_CASE(A1, "ATSC - service location");
-        ELEMENT_CASE(A2, "ATSC - time-shifted service");
-        ELEMENT_CASE(A3, "ATSC - component name");
-        ELEMENT_CASE(A8, "ATSC - DCC Departing Request");
-        ELEMENT_CASE(A9, "ATSC - DCC Arriving Request");
-        ELEMENT_CASE(AA, "ATSC - Redistribution Control");
-        ELEMENT_CASE(AB, "ATSC - DCC Location Code");
-        default: if (Element_Code>=0x40)
-                    Element_Info("user private");
-                 else
-                    Element_Info("unknown");
-                 Skip_XX(Element_Size,                          "Data");
-                 break;
+             if (format_identifier==Mpeg_Descriptors::GA94
+              || format_identifier==Mpeg_Descriptors::S14A)
+            table_id=0xC0; //Forcing it to ATSC
+    }
+
+    //Parsing
+         if (table_id> 0x00 && table_id<0x40)
+    {
+        switch (Element_Code)
+        {
+            ELEMENT_CASE(00, "Reserved");
+            ELEMENT_CASE(01, "Reserved");
+            ELEMENT_CASE(02, "video_stream");
+            ELEMENT_CASE(03, "audio_stream");
+            ELEMENT_CASE(04, "hierarchy");
+            ELEMENT_CASE(05, "registration");
+            ELEMENT_CASE(06, "data_stream_alignment");
+            ELEMENT_CASE(07, "target_background_grid");
+            ELEMENT_CASE(08, "Video_window");
+            ELEMENT_CASE(09, "CA");
+            ELEMENT_CASE(0A, "ISO_639_language");
+            ELEMENT_CASE(0B, "System_clock");
+            ELEMENT_CASE(0C, "Multiplex_buffer_utilization");
+            ELEMENT_CASE(0D, "Copyright");
+            ELEMENT_CASE(0E, "Maximum_bitrate");
+            ELEMENT_CASE(0F, "Private_data_indicator");
+            ELEMENT_CASE(10, "Smoothing_buffer");
+            ELEMENT_CASE(11, "STD");
+            ELEMENT_CASE(12, "IBP");
+            ELEMENT_CASE(13, "Defined in ISO/IEC 13818-6");
+            ELEMENT_CASE(14, "Defined in ISO/IEC 13818-6");
+            ELEMENT_CASE(15, "Defined in ISO/IEC 13818-6");
+            ELEMENT_CASE(16, "Defined in ISO/IEC 13818-6");
+            ELEMENT_CASE(17, "Defined in ISO/IEC 13818-6");
+            ELEMENT_CASE(18, "Defined in ISO/IEC 13818-6");
+            ELEMENT_CASE(19, "Defined in ISO/IEC 13818-6");
+            ELEMENT_CASE(1A, "Defined in ISO/IEC 13818-6");
+            ELEMENT_CASE(1B, "MPEG-4_video");
+            ELEMENT_CASE(1C, "MPEG-4_audio");
+            ELEMENT_CASE(1D, "IOD");
+            ELEMENT_CASE(1E, "SL");
+            ELEMENT_CASE(1F, "FMC");
+            ELEMENT_CASE(20, "External_ES_ID");
+            ELEMENT_CASE(21, "MuxCode");
+            ELEMENT_CASE(22, "FmxBufferSize");
+            ELEMENT_CASE(23, "MultiplexBuffer");
+            ELEMENT_CASE(24, "Content_labeling_descriptor");
+            ELEMENT_CASE(25, "Metadata_pointer_descriptor");
+            ELEMENT_CASE(26, "Metadata_descriptor");
+            ELEMENT_CASE(27, "Metadata_STD_descriptor");
+            ELEMENT_CASE(28, "AVC video descriptor");
+            ELEMENT_CASE(29, "IPMP_descriptor (defined in ISO/IEC 13818-11, MPEG-2 IPMP)");
+            ELEMENT_CASE(2A, "AVC timing and HRD descriptor");
+            ELEMENT_CASE(2B, "MPEG-2 AAC audio descriptor");
+            ELEMENT_CASE(2C, "FlexMux_Timing_descriptor");
+            ELEMENT_CASE(2D, "MPEG-4_text_descriptor");
+            ELEMENT_CASE(2E, "MPEG-4_audio_extension_descriptor");
+            ELEMENT_CASE(2F, "Auxiliary_video_data_descriptor");
+
+            //Following is in private sections, in case there is not network type detected
+            ELEMENT_CASE(40, "DVB - network_name_descriptor");
+            ELEMENT_CASE(41, "DVB - service_list_descriptor");
+            ELEMENT_CASE(42, "DVB - stuffing_descriptor");
+            ELEMENT_CASE(43, "DVB - satellite_delivery_system_descriptor");
+            ELEMENT_CASE(44, "DVB - cable_delivery_system_descriptor");
+            ELEMENT_CASE(45, "DVB - VBI_data_descriptor");
+            ELEMENT_CASE(46, "DVB - VBI_teletext_descriptor");
+            ELEMENT_CASE(47, "DVB - bouquet_name_descriptor");
+            ELEMENT_CASE(48, "DVB - service_descriptor");
+            ELEMENT_CASE(49, "DVB - country_availability_descriptor");
+            ELEMENT_CASE(4A, "DVB - linkage_descriptor");
+            ELEMENT_CASE(4B, "DVB - NVOD_reference_descriptor");
+            ELEMENT_CASE(4C, "DVB - time_shifted_service_descriptor");
+            ELEMENT_CASE(4D, "DVB - short_event_descriptor");
+            ELEMENT_CASE(4E, "DVB - extended_event_descriptor");
+            ELEMENT_CASE(4F, "DVB - time_shifted_event_descriptor");
+            ELEMENT_CASE(50, "DVB - component_descriptor");
+            ELEMENT_CASE(51, "DVB - mosaic_descriptor");
+            ELEMENT_CASE(52, "DVB - stream_identifier_descriptor");
+            ELEMENT_CASE(53, "DVB - CA_identifier_descriptor");
+            ELEMENT_CASE(54, "DVB - content_descriptor");
+            ELEMENT_CASE(55, "DVB - parental_rating_descriptor");
+            ELEMENT_CASE(56, "DVB - teletext_descriptor");
+            ELEMENT_CASE(57, "DVB - telephone_descriptor");
+            ELEMENT_CASE(58, "DVB - local_time_offset_descriptor");
+            ELEMENT_CASE(59, "DVB - subtitling_descriptor");
+            ELEMENT_CASE(5A, "DVB - terrestrial_delivery_system_descriptor");
+            ELEMENT_CASE(5B, "DVB - multilingual_network_name_descriptor");
+            ELEMENT_CASE(5C, "DVB - multilingual_bouquet_name_descriptor");
+            ELEMENT_CASE(5D, "DVB - multilingual_service_name_descriptor");
+            ELEMENT_CASE(5E, "DVB - multilingual_component_descriptor");
+            ELEMENT_CASE(5F, "DVB - private_data_specifier_descriptor");
+            ELEMENT_CASE(60, "DVB - service_move_descriptor");
+            ELEMENT_CASE(61, "DVB - short_smoothing_buffer_descriptor");
+            ELEMENT_CASE(62, "DVB - frequency_list_descriptor");
+            ELEMENT_CASE(63, "DVB - partial_transport_stream_descriptor");
+            ELEMENT_CASE(64, "DVB - data_broadcast_descriptor");
+            ELEMENT_CASE(65, "DVB - scrambling_descriptor");
+            ELEMENT_CASE(66, "DVB - data_broadcast_id_descriptor");
+            ELEMENT_CASE(67, "DVB - transport_stream_descriptor");
+            ELEMENT_CASE(68, "DVB - DSNG_descriptor");
+            ELEMENT_CASE(69, "DVB - PDC_descriptor");
+            ELEMENT_CASE(6A, "DVB - AC-3_descriptor");
+            ELEMENT_CASE(6B, "DVB - ancillary_data_descriptor");
+            ELEMENT_CASE(6C, "DVB - cell_list_descriptor");
+            ELEMENT_CASE(6D, "DVB - cell_frequency_link_descriptor");
+            ELEMENT_CASE(6E, "DVB - announcement_support_descriptor");
+            ELEMENT_CASE(6F, "DVB - application_signalling_descriptor");
+            ELEMENT_CASE(70, "DVB - adaptation_field_data_descriptor");
+            ELEMENT_CASE(71, "DVB - service_identifier_descriptor");
+            ELEMENT_CASE(72, "DVB - service_availability_descriptor");
+            ELEMENT_CASE(73, "DVB - default_authority_descriptor");
+            ELEMENT_CASE(74, "DVB - related_content_descriptor");
+            ELEMENT_CASE(75, "DVB - TVA_id_descriptor");
+            ELEMENT_CASE(76, "DVB - content_identifier_descriptor");
+            ELEMENT_CASE(77, "DVB - time_slice_fec_identifier_descriptor");
+            ELEMENT_CASE(78, "DVB - ECM_repetition_rate_descriptor");
+            ELEMENT_CASE(79, "DVB - S2_satellite_delivery_system_descriptor");
+            ELEMENT_CASE(7A, "DVB - enhanced_AC-3_descriptor");
+            ELEMENT_CASE(7B, "DVB - DTS descriptor");
+            ELEMENT_CASE(7C, "DVB - AAC descriptor");
+            ELEMENT_CASE(7D, "DVB - reserved for future use");
+            ELEMENT_CASE(7E, "DVB - reserved for future use");
+            ELEMENT_CASE(7F, "DVB - extension descriptor");
+            ELEMENT_CASE(80, "ATSC - stuffing");
+            ELEMENT_CASE(81, "ATSC - AC-3 audio");
+            ELEMENT_CASE(86, "ATSC - caption service");
+            ELEMENT_CASE(87, "ATSC - content advisory");
+            ELEMENT_CASE(A0, "ATSC - extended channel name");
+            ELEMENT_CASE(A1, "ATSC - service location");
+            ELEMENT_CASE(A2, "ATSC - time-shifted service");
+            ELEMENT_CASE(A3, "ATSC - component name");
+            ELEMENT_CASE(A8, "ATSC - DCC Departing Request");
+            ELEMENT_CASE(A9, "ATSC - DCC Arriving Request");
+            ELEMENT_CASE(AA, "ATSC - Redistribution Control");
+            ELEMENT_CASE(AB, "ATSC - DCC Location Code");
+            default: if (Element_Code>=0x40)
+                        Element_Info("user private");
+                     else
+                        Element_Info("unknown");
+                     Skip_XX(Element_Size,                          "Data");
+                     break;
+        }
+    }
+    else if (table_id>=0x40 && table_id<0x80)
+    {
+        switch (Element_Code)
+        {
+            ELEMENT_CASE(40, "DVB - network_name_descriptor");
+            ELEMENT_CASE(41, "DVB - service_list_descriptor");
+            ELEMENT_CASE(42, "DVB - stuffing_descriptor");
+            ELEMENT_CASE(43, "DVB - satellite_delivery_system_descriptor");
+            ELEMENT_CASE(44, "DVB - cable_delivery_system_descriptor");
+            ELEMENT_CASE(45, "DVB - VBI_data_descriptor");
+            ELEMENT_CASE(46, "DVB - VBI_teletext_descriptor");
+            ELEMENT_CASE(47, "DVB - bouquet_name_descriptor");
+            ELEMENT_CASE(48, "DVB - service_descriptor");
+            ELEMENT_CASE(49, "DVB - country_availability_descriptor");
+            ELEMENT_CASE(4A, "DVB - linkage_descriptor");
+            ELEMENT_CASE(4B, "DVB - NVOD_reference_descriptor");
+            ELEMENT_CASE(4C, "DVB - time_shifted_service_descriptor");
+            ELEMENT_CASE(4D, "DVB - short_event_descriptor");
+            ELEMENT_CASE(4E, "DVB - extended_event_descriptor");
+            ELEMENT_CASE(4F, "DVB - time_shifted_event_descriptor");
+            ELEMENT_CASE(50, "DVB - component_descriptor");
+            ELEMENT_CASE(51, "DVB - mosaic_descriptor");
+            ELEMENT_CASE(52, "DVB - stream_identifier_descriptor");
+            ELEMENT_CASE(53, "DVB - CA_identifier_descriptor");
+            ELEMENT_CASE(54, "DVB - content_descriptor");
+            ELEMENT_CASE(55, "DVB - parental_rating_descriptor");
+            ELEMENT_CASE(56, "DVB - teletext_descriptor");
+            ELEMENT_CASE(57, "DVB - telephone_descriptor");
+            ELEMENT_CASE(58, "DVB - local_time_offset_descriptor");
+            ELEMENT_CASE(59, "DVB - subtitling_descriptor");
+            ELEMENT_CASE(5A, "DVB - terrestrial_delivery_system_descriptor");
+            ELEMENT_CASE(5B, "DVB - multilingual_network_name_descriptor");
+            ELEMENT_CASE(5C, "DVB - multilingual_bouquet_name_descriptor");
+            ELEMENT_CASE(5D, "DVB - multilingual_service_name_descriptor");
+            ELEMENT_CASE(5E, "DVB - multilingual_component_descriptor");
+            ELEMENT_CASE(5F, "DVB - private_data_specifier_descriptor");
+            ELEMENT_CASE(60, "DVB - service_move_descriptor");
+            ELEMENT_CASE(61, "DVB - short_smoothing_buffer_descriptor");
+            ELEMENT_CASE(62, "DVB - frequency_list_descriptor");
+            ELEMENT_CASE(63, "DVB - partial_transport_stream_descriptor");
+            ELEMENT_CASE(64, "DVB - data_broadcast_descriptor");
+            ELEMENT_CASE(65, "DVB - scrambling_descriptor");
+            ELEMENT_CASE(66, "DVB - data_broadcast_id_descriptor");
+            ELEMENT_CASE(67, "DVB - transport_stream_descriptor");
+            ELEMENT_CASE(68, "DVB - DSNG_descriptor");
+            ELEMENT_CASE(69, "DVB - PDC_descriptor");
+            ELEMENT_CASE(6A, "DVB - AC-3_descriptor");
+            ELEMENT_CASE(6B, "DVB - ancillary_data_descriptor");
+            ELEMENT_CASE(6C, "DVB - cell_list_descriptor");
+            ELEMENT_CASE(6D, "DVB - cell_frequency_link_descriptor");
+            ELEMENT_CASE(6E, "DVB - announcement_support_descriptor");
+            ELEMENT_CASE(6F, "DVB - application_signalling_descriptor");
+            ELEMENT_CASE(70, "DVB - adaptation_field_data_descriptor");
+            ELEMENT_CASE(71, "DVB - service_identifier_descriptor");
+            ELEMENT_CASE(72, "DVB - service_availability_descriptor");
+            ELEMENT_CASE(73, "DVB - default_authority_descriptor");
+            ELEMENT_CASE(74, "DVB - related_content_descriptor");
+            ELEMENT_CASE(75, "DVB - TVA_id_descriptor");
+            ELEMENT_CASE(76, "DVB - content_identifier_descriptor");
+            ELEMENT_CASE(77, "DVB - time_slice_fec_identifier_descriptor");
+            ELEMENT_CASE(78, "DVB - ECM_repetition_rate_descriptor");
+            ELEMENT_CASE(79, "DVB - S2_satellite_delivery_system_descriptor");
+            ELEMENT_CASE(7A, "DVB - enhanced_AC-3_descriptor");
+            ELEMENT_CASE(7B, "DVB - DTS descriptor");
+            ELEMENT_CASE(7C, "DVB - AAC descriptor");
+            ELEMENT_CASE(7D, "DVB - reserved for future use");
+            ELEMENT_CASE(7E, "DVB - reserved for future use");
+            ELEMENT_CASE(7F, "DVB - extension descriptor");
+            default: if (Element_Code>=0x40)
+                        Element_Info("user private");
+                     else
+                        Element_Info("unknown");
+                     Skip_XX(Element_Size,                          "Data");
+                     break;
+        }
+    }
+    else if ((table_id>=0xC0 && table_id<0xE0))
+    {
+        switch (Element_Code)
+        {
+            ELEMENT_CASE(80, "ATSC - stuffing");
+            ELEMENT_CASE(81, "ATSC - AC-3 audio");
+            ELEMENT_CASE(86, "ATSC - caption service");
+            ELEMENT_CASE(87, "ATSC - content advisory");
+            ELEMENT_CASE(A0, "ATSC - extended channel name");
+            ELEMENT_CASE(A1, "ATSC - service location");
+            ELEMENT_CASE(A2, "ATSC - time-shifted service");
+            ELEMENT_CASE(A3, "ATSC - component name");
+            ELEMENT_CASE(A8, "ATSC - DCC Departing Request");
+            ELEMENT_CASE(A9, "ATSC - DCC Arriving Request");
+            ELEMENT_CASE(AA, "ATSC - Redistribution Control");
+            ELEMENT_CASE(AB, "ATSC - DCC Location Code");
+            default: if (Element_Code>=0x40)
+                        Element_Info("user private");
+                     else
+                        Element_Info("unknown");
+                     Skip_XX(Element_Size,                          "Data");
+                     break;
+        }
+    }
+    else
+    {
+        switch (Element_Code)
+        {
+            default: if (Element_Code>=0x40)
+                        Element_Info("user private");
+                     else
+                        Element_Info("unknown");
+                     Skip_XX(Element_Size,                          "Data");
+                     break;
+        }
     }
 
     //Info about format
@@ -936,10 +1109,12 @@ void File_Mpeg_Descriptors::Descriptor_02()
     BS_End();
 
     //Filling
-    if (!multiple_frame_rate_flag && !frame_rate_extension_flag)
-        Infos["FrameRate"]=Ztring::ToZtring(Mpegv_frame_rate[frame_rate_code]);
-    Infos["Colorimetry"]=Mpegv_Colorimetry_format[chroma_format];
-    Infos["Codec_Profile"]=Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]);
+    FILLING_BEGIN();
+        if (!multiple_frame_rate_flag && !frame_rate_extension_flag)
+            Infos["FrameRate"]=Ztring::ToZtring(Mpegv_frame_rate[frame_rate_code]);
+        Infos["Colorimetry"]=Mpegv_Colorimetry_format[chroma_format];
+        Infos["Codec_Profile"]=Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]);
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -1090,12 +1265,33 @@ void File_Mpeg_Descriptors::Descriptor_2F()
 void File_Mpeg_Descriptors::Descriptor_48()
 {
     //Parsing
+    Ztring service_provider_name, service_name;
     int8u service_type, service_provider_name_length, service_name_length;
-    Get_B1 (service_type,                                       "service_type");
+    Get_B1 (service_type,                                       "service_type"); Param_Info(Mpeg_Descriptors_dvb_service_type(service_type));
     Get_B1 (service_provider_name_length,                       "service_provider_name_length");
-    Skip_Local(service_provider_name_length,                    "service_provider_name");
+    Get_Local (service_provider_name_length, service_provider_name, "service_provider_name");
     Get_B1 (service_name_length,                                "service_name_length");
-    Skip_Local(service_name_length,                             "service_name");
+    Get_Local(service_name_length, service_name,                "service_name");
+
+    //Filling
+    FILLING_BEGIN();
+        Program.Infos["ServiceType"]=Mpeg_Descriptors_dvb_service_type(service_type);
+        Program.Infos["ServiceProvider"]=service_provider_name;
+        Program.Infos["ServiceName"]=service_name;
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::Descriptor_4A()
+{
+    //Parsing
+    int8u linkage_type;
+    Skip_B2(                                                    "transport_stream_id");
+    Skip_B2(                                                    "original_network_id");
+    Skip_B2(                                                    "service_id");
+    Get_B1 (linkage_type,                                       "linkage_type"); Param_Info(Mpeg_Descriptors_linkage_type(linkage_type));
+    if (Element_Size>7)
+        Skip_XX(Element_Size-7,                                 "private_data");
 }
 
 //---------------------------------------------------------------------------
@@ -1483,20 +1679,17 @@ void File_Mpeg_Descriptors::Descriptor_86()
         Skip_Local(3,                                           "language");
         BS_Begin();
         Get_SB (digital_cc,                                     "digital_cc");
-        Mark_1();
+        Skip_SB(                                                "reserved");
         if (digital_cc) //line21
         {
-            Mark_1();
-            Mark_1();
-            Mark_1();
-            Mark_1();
-            Mark_1();
+            Skip_S1(5,                                          "reserved");
             Skip_SB(                                            "line21_field");
         }
         else
             Skip_S1(6,                                          "caption_service_number");
         Skip_SB(                                                "easy_reader");
         Skip_SB(                                                "wide_aspect_ratio");
+            Skip_S1(5,                                          "reserved");
         Mark_1();
         Mark_1();
         Mark_1();
@@ -1524,7 +1717,7 @@ void File_Mpeg_Descriptors::Descriptor_A0()
 
     //Filling
     if (!Value.empty())
-        Infos["Extended Channel Name"]=Value;
+        Program.Infos["Title"]=Value;
 }
 
 //---------------------------------------------------------------------------
