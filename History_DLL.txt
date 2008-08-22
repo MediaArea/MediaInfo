@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.7.5, 2008-08-
+Version 0.7.7.5, 2008-08-22
 ---------------
 + #2044174, AVS (Chinese Audio Video Standard) support
 + #2030684, AVI: Support of malformed chunks
