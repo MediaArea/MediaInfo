@@ -13,9 +13,26 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
-Version 0.7.7.5, 2008-0
+Version 0.7.7.5, 2008-08-22
 ---------------
 + Chinese Simplified, Italian, Korean, Russian, Albanian languages updated
++ #2044174, AVS (Chinese Audio Video Standard) support
++ #2030684, AVI: Support of malformed chunks
++ Matroska: delay between audio and video calculation (for AC-3, DTS, MPEG Audio)
++ Full Replay gain support (gain/peak, track/album) for Flac/Ogg/MP3
++ MPEG-TS without PAT/PMT (example: stream captured by some satellite TV receivers) support
++ MPEG-TS: Service info (name, provider, channel number) for both DVB and ATSC tags
++ Dot and thousand separator localized
++ Matroska: Handling of audio Delay
+x #2023872, DV: Crash with floating point exception on some files
+x #2024706, BDAV: Some QuickTime files misidentified as BDAV
+x #2033307, MPEG Video: Some raw files with high bitrate were not detected
+x #2040411, Id3v2: Crash with some malformed Id3v2 fields
+x #2036580, Id3v2: Problem when parsing big (>1M) Id3v2 tags, file was no more detected
+x #1893830, WMA/WMV: there was textual info (Linux/Mac only)
+x Video, Resolution/bits per pixel was sometimes per color entity, sometimes per pixel, now always per pixel
+x MPEG Video, the "Component" video standard was not detected
+x DLL only, the "by buffer" interface was broken
 
 Version 0.7.7.4, 2008-07-11
 ---------------
