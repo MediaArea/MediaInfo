@@ -16,6 +16,7 @@ Version 0.7.7.5, 2008-08-
 + MPEG-TS without PAT/PMT (example: stream captured by some satellite TV receivers) support
 + MPEG-TS: Service info (name, provider, channel number) for both DVB and ATSC tags
 + Dot and thousand separator localized
++ Matroska: Handling of audio Delay
 x #2023872, DV: Crash with floating point exception on some files
 x #2024706, BDAV: Some QuickTime files misidentified as BDAV
 x #2033307, MPEG Video: Some raw files with high bitrate were not detected

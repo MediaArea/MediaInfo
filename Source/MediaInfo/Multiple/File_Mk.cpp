@@ -127,29 +127,44 @@ void File_Mk::Read_Buffer_Finalize()
             }
 
             //Delay
-            if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)==1 && Temp->second.AvgBytesPerSec!=0 && Temp->second.Parser->Count_Get(Stream_General)>0)
+            if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)==1 && Temp->second.Parser->Count_Get(Stream_General)>0)
             {
+                int64u Delay=(int64u)-1;
                 #if defined(MEDIAINFO_MPEGA_YES)
                     if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("MPEG Audio"))
-                    {
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)((File_Mpega*)Temp->second.Parser)->Delay)*1000/Temp->second.AvgBytesPerSec, 0, true);
-                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                    }
+                        Delay=((File_Mpega*)Temp->second.Parser)->Delay;
                 #endif
                 #if defined(MEDIAINFO_AC3_YES)
                     if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AC-3"))
-                    {
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)((File_Ac3*)Temp->second.Parser)->Delay)*1000/Temp->second.AvgBytesPerSec, 0, true);
-                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                    }
+                        Delay=((File_Ac3*)Temp->second.Parser)->Delay;
                 #endif
                 #if defined(MEDIAINFO_DTS_YES)
                     if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("DTS"))
+                        Delay=((File_Dts*)Temp->second.Parser)->Delay;
+                #endif
+                if (Delay==0)
+                {
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, 0, 0, true);
+                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                }
+                else if (Delay!=(int64u)-1)
+                {
+                    if (Temp->second.AvgBytesPerSec!=0)
                     {
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)((File_Dts*)Temp->second.Parser)->Delay)*1000/Temp->second.AvgBytesPerSec, 0, true);
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Delay)*1000/Temp->second.AvgBytesPerSec, 0, true);
                         Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
                     }
-                #endif
+                    else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u()!=0)
+                    {
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Delay)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u(), 0, true);
+                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                    }
+                    else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u()!=0)
+                    {
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Delay)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u(), 0, true);
+                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                    }
+                }
             }
         }
         if (Temp->second.DisplayAspectRatio!=0)
