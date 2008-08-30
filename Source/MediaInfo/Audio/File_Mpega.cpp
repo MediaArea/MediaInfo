@@ -258,6 +258,7 @@ File_Mpega::File_Mpega()
 
     //Temp - Global
     Frame_Count=0;
+    LastSync_Offset=(int64u)-1;
 
     //Temp - BitStream info
     Block_Count[0]=0;
@@ -361,12 +362,20 @@ void File_Mpega::Read_Buffer_Finalize()
     //Fill("Scalefactors", Ztring::ToZtring(Scalefac*100/(Granules*Ch*Frame_Count))+_T('%'));
 
     //Filling
-    if (File_Size!=0 && VBR_FileSize==0)
+    if ((File_Size!=(int64u)-1 || LastSync_Offset!=(int64u)-1) && VBR_FileSize==0)
     {
-        //We calculate VBR_FileSize from File_Size
-        VBR_FileSize=File_Size;
-        VBR_FileSize-=File_BeginTagSize;
-        VBR_FileSize-=File_EndTagSize;
+        //We calculate VBR_FileSize from the last synch or File_Size
+        if (LastSync_Offset!=(int64u)-1)
+        {
+            VBR_FileSize=LastSync_Offset;
+            VBR_FileSize-=File_BeginTagSize;
+        }
+        else
+        {
+            VBR_FileSize=File_Size;
+            VBR_FileSize-=File_BeginTagSize;
+            VBR_FileSize-=File_EndTagSize;
+        }
     }
     if (BitRate>0 && !File_Name.empty())
         Fill(Stream_General, 0, General_Duration, VBR_FileSize*8*1000/BitRate);
@@ -610,8 +619,13 @@ void File_Mpega::Data_Parse()
 
     FILLING_BEGIN();
         //Filling
+        LastSync_Offset=File_Offset+Buffer_Offset+Element_Size;
         if (Count_Get(Stream_Audio)==0 && Frame_Count>=Frame_Count_Valid)
             Data_Parse_Fill();
+
+        //Detect Id3v1 tags inside a frame
+        if (File_Offset+Buffer_Offset+(size_t)Element_Size==File_Size && Element_Size>=128 && CC3(Buffer+Buffer_Offset+(size_t)Element_Size-128)==CC3("TAG"))
+            File__Analyze::Data_GoTo(File_Offset+Buffer_Offset+(size_t)Element_Size-128, "Id3v1 inside a frame, parsing the Id3v1 tag");
     FILLING_END();
 }
 
@@ -641,7 +655,8 @@ void File_Mpega::Data_Parse_Fill()
     Fill(Stream_Audio, 0, Audio_Resolution, 16);
 
     //Jumping
-    File__Tags_Helper::Data_GoTo(File_Size-(File_Size>=8*1024?8*1024:0), "MPEG-A");
+    File__Tags_Helper::Data_GoTo(File_Size-(File_Size>=16*1024?16*1024:0), "MPEG-A");
+    LastSync_Offset=(int64u)-1;
 }
 
 //---------------------------------------------------------------------------
@@ -1036,11 +1051,11 @@ bool File_Mpega::Synchronize()
         if (Buffer_Offset+4<=Buffer_Size)//Testing if size is coherant
         {
             //Retrieving some info
-            ID                =(CC1(Buffer+Buffer_Offset+1)>>3)&0x03;
-            layer             =(CC1(Buffer+Buffer_Offset+1)>>1)&0x03;
-            bitrate_index     =(CC1(Buffer+Buffer_Offset+2)>>4)&0x0F;
-            sampling_frequency=(CC1(Buffer+Buffer_Offset+2)>>2)&0x03;
-            padding_bit       =(CC1(Buffer+Buffer_Offset+2)>>1)&0x01;
+            int8u ID                =(CC1(Buffer+Buffer_Offset+1)>>3)&0x03;
+            int8u layer             =(CC1(Buffer+Buffer_Offset+1)>>1)&0x03;
+            int8u bitrate_index     =(CC1(Buffer+Buffer_Offset+2)>>4)&0x0F;
+            int8u sampling_frequency=(CC1(Buffer+Buffer_Offset+2)>>2)&0x03;
+            int8u padding_bit       =(CC1(Buffer+Buffer_Offset+2)>>1)&0x01;
             //Coherancy
             if (Mpega_SamplingRate[ID][sampling_frequency]==0 || Mpega_Coefficient[ID][layer]==0 || Mpega_BitRate[ID][layer][bitrate_index]==0 || Mpega_SlotSize[layer]==0)
                 Buffer_Offset++; //False start
@@ -1066,11 +1081,11 @@ bool File_Mpega::Synchronize()
                     else
                     {
                         //Retrieving some info
-                        ID                =(CC1(Buffer+Buffer_Offset+Size+1)>>3)&0x03;
-                        layer             =(CC1(Buffer+Buffer_Offset+Size+1)>>1)&0x03;
-                        bitrate_index     =(CC1(Buffer+Buffer_Offset+Size+2)>>4)&0x0F;
-                        sampling_frequency=(CC1(Buffer+Buffer_Offset+Size+2)>>2)&0x03;
-                        padding_bit       =(CC1(Buffer+Buffer_Offset+Size+2)>>1)&0x01;
+                        int8u ID                =(CC1(Buffer+Buffer_Offset+Size+1)>>3)&0x03;
+                        int8u layer             =(CC1(Buffer+Buffer_Offset+Size+1)>>1)&0x03;
+                        int8u bitrate_index     =(CC1(Buffer+Buffer_Offset+Size+2)>>4)&0x0F;
+                        int8u sampling_frequency=(CC1(Buffer+Buffer_Offset+Size+2)>>2)&0x03;
+                        int8u padding_bit       =(CC1(Buffer+Buffer_Offset+Size+2)>>1)&0x01;
                         //Coherancy
                         if (Mpega_SamplingRate[ID][sampling_frequency]==0 || Mpega_Coefficient[ID][layer]==0 || Mpega_BitRate[ID][layer][bitrate_index]==0 || Mpega_SlotSize[layer]==0)
                             Buffer_Offset++; //False start

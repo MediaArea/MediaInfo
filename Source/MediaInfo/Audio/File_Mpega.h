@@ -72,6 +72,7 @@ private :
 
     //Temp - Global
     size_t Frame_Count;
+    int64u LastSync_Offset;
 
     //Temp - Technical info
     int8u  ID;

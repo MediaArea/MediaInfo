@@ -82,7 +82,7 @@ bool File__Tags_Helper::Read_Buffer_Continue()
     if (Base->IsSub)
         return true;
 
-    if (!TagSizeIsFinal && Base->File_Offset+Base->Buffer_Size==Base->File_Size)
+    if (!TagSizeIsFinal && Base->File_Offset+Base->Buffer_Size==Base->File_Size && JumpTo_WantedByParser==(int64u)-1)
         SearchingForEndTags=true; //For small files
 
     if (!SearchingForEndTags || TagSizeIsFinal)
@@ -94,9 +94,13 @@ bool File__Tags_Helper::Read_Buffer_Continue()
     //Positionning (if finnished)
     if (TagSizeIsFinal)
     {
-        if (JumpTo_WantedByParser!=(int64u)-1)
-            Base->File_GoTo=JumpTo_WantedByParser-Id3v1_Size-Lyrics3_Size-Lyrics3v2_Size-ApeTag_Size;
         SearchingForEndTags=false;
+        if (JumpTo_WantedByParser!=(int64u)-1)
+        {
+            Base->Data_GoTo(JumpTo_WantedByParser-Id3v1_Size-Lyrics3_Size-Lyrics3v2_Size-ApeTag_Size, "Tags, searching sync");
+            JumpTo_WantedByParser=(int64u)-1;
+            return false;
+        }
     }
 
     return true;
@@ -142,7 +146,7 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
         {
             if (Base->File_Offset>Base->File_Size-128) //Must be at least at the end less 128 bytes
             {
-                Base->File_GoTo=Base->File_Size-128-32; //32 to be able to quickly see another tag system
+                Base->Data_GoTo(Base->File_Size-128-32, "Tags"); //32 to be able to quickly see another tag system
                 TagSizeIsFinal=false;
                 return false;
             }
@@ -150,7 +154,7 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
             if (Base->File_Offset+Base->Buffer_Size<Base->File_Size-125) //Must be at least at the end less 128 bytes plus 3 bytes of tags
             {
                 if (Base->File_Offset!=Base->File_Size-128)
-                    Base->File_GoTo=Base->File_Size-128-32; //32 to be able to quickly see another tag system
+                    Base->Data_GoTo(Base->File_Size-128-32, "Tags"); //32 to be able to quickly see another tag system
                 TagSizeIsFinal=false;
                 return false;
             }
