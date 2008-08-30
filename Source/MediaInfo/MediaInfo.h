@@ -125,6 +125,7 @@ public :
     //Set
         /// Set a piece of information about a file (parameter is an integer)
         /// @brief Set a piece of information about a file (parameter is an int)
+        /// @warning Not yet implemented, do not use it
         /// @param ToSet Piece of information
         /// @param StreamKind Kind of stream (general, video, audio...)
         /// @param StreamNumber Stream number in Kind of stream (first, second...)
@@ -134,6 +135,7 @@ public :
         /// @retval 0 failed
     size_t Set (const String &ToSet, stream_t StreamKind, size_t StreamNumber, size_t Parameter, const String &OldValue=_T(""));
         /// Set a piece of information about a file (parameter is a string)
+        /// @warning Not yet implemented, do not use it
         /// @brief Set information about a file (parameter is a string)
         /// @param ToSet Piece of information
         /// @param StreamKind Kind of stream (general, video, audio...)

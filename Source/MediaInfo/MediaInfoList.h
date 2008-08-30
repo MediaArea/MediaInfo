@@ -131,6 +131,7 @@ public :
     //Set
         /// Set a piece of information about a file (parameter is an int)
         /// @brief Set a piece of information about a file (parameter is an int)
+        /// @warning Not yet implemented, do not use it
         /// @param ToSet Piece of information
         /// @param FilePos File position \n
         ///        (you can know the position in searching the filename with MediaInfoList::Get(FilePos, 0, 0, "CompleteName") )
@@ -142,6 +143,7 @@ public :
         /// @retval 0 failed
     size_t Set (const String &ToSet, size_t FilePos, stream_t StreamKind, size_t StreamNumber, size_t Parameter, const String &OldValue=_T("")); //Get info, FilePos=File position, StreamKind=General video audio text chapter, StreamNumber=stream number, PosInStream=parameter you want, KindOfInfo=name, text, measure, options name(language) measure(language) information how to
         /// @brief Get information about a file (parameter is a string)
+        /// @warning Not yet implemented, do not use it
         /// @param ToSet Piece of information
         /// @param FilePos File position \n
         ///        (you can know the position in searching the filename with MediaInfoList::Get(FilePos, 0, 0, "CompleteName") )
