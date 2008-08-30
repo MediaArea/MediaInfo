@@ -1,4 +1,4 @@
-﻿   Junk;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x
+﻿   Junk;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;x;
   Author_Email;Zen@mediaarea.net;Zen@mediaarea.net;petruscaleus@gmx.de;DirektX@freemail.hu;dr4k0@altervista.org  - bovirus@live.it;;elega@argentina.com;felipe_pl@yahoo.es;bertvanvelsen@myrealbox.com;gregg@cdrinfo.pl;cazanescu@gmail.com;mike@comhem.se;BouRock@live.com;kenelin@gmail.com;ChrisStudio@Live.Com;nihongoka@gmail.com;heavy@keli.cz;ajinchv@csd.auth.gr;starcodec@gmail.com;samueldsi@bol.com.br;bennybeat@gmail.com;pauliusvenckus@gmail.com;brunorex@gmail.com;ประสิทธิ์ แคภูเขียว<hs3pln@users.sourceforge.net>;komolex@ukr.net;ChrisStudio@Live.Com;martik.panosian@gmail.com;bgodole@gmail.com
   Author_Name;Zen;Zen;Petruscaleus;DirektX;Drago Salvatore aka Dr4k0 - Bovirus;solokot;elega;Felipe Pérez;bvv;Gregg;Severin Cazanescu;Yonder;BouRock;Kene Lin;erabbit, chriszxl;だい( http://barca.daa.jp );Heavy;Alexander Ntzintsvelasvili;starcodec(http://www.starcodec.com);Samuel Dias;BennyBeat;Paulius;Bruno 'ReX' Barbieri;ประสิทธิ์ แคภูเขียว;oLex;chriszxl 小良奇;Martik Panosian;Besmir Godole
   Author_OldNames;Initial translator;Traducteur initial;Ursprüngliche(r) Übersetzer;;Drago Salvatore aka Dr4k0  - Bovirus;lost in history;Traductor Inicial;;Initial translator;Gregg;Severin Cazanescu;Ursprunglig översättare;İlk çevirmen;Initial translator;Initial translator;barlog;;Initial translator;Initial translator;;Traductor inicial;…;Samuel Dias (based on);Initial translator;;Initial translator;Martik Panosian;Përkthyesi i parë
@@ -32,9 +32,9 @@
  day1; day; jour; Tag;nap; giorno; д.;día; día; dag; dzień;zi; dag; gün; 日;天; 日;den; μέρα; 일; dia; dia;diena; dia(s); วัน; д.;天;روز; ditë
  day2; days; jours; Tage;nap; giorni; дн.;días; días; dagen; dni;zile; dagar; gün; 日;天; 日; dny; μέρες; 일; dias; dies;dienos; dia(s); วัน; дн.;天;روزها; ditë
  day3; days; jours; Tage;nap; giorni; дн.;días; días; dagen; dni;zile; dagar; gün; 日;天; 日; dny; μέρες; 일; dias; dies;dienos; dia(s); วัน; дн.;天;روزها; ditë
- dB1; dB; dB
- dB2; dB; dB
- dB3; dB; dB
+ dB1; dB; dB;;;;;;;;;;;;;;;;;;;;;;;;;;
+ dB2; dB; dB;;;;;;;;;;;;;;;;;;;;;;;;;;
+ dB3; dB; dB;;;;;;;;;;;;;;;;;;;;;;;;;;
  file1; file; fichier; Datei;fájl; file; файл;archivo; arquivo; bestand; plik;fisier; fil; dosya; 檔案;文件; ファイル; soubor; αρχείο; 파일; arquivo; arxiu;failas; arquivo(s); ไฟล์; файл;文件;فایل; skedë
  file2; files; fichiers; Dateien;fájl; file; файлы;archivos; arquivo; bestanden; pliki;fisiere; filer; dosya; 檔案;个文件; ファイル; soubory; αρχεία; 파일; arquivos; arxius;failai; arquivo(s); ไฟล์; файла;文件;فایلها; skedat
  file3; files; fichiers; Dateien;fájl; file; файлы;archivos; arquivo; bestanden; pliki;fisiere; filer; dosya; 檔案;个文件; ファイル; soubory; αρχεία; 파일; arquivos; arxius;failai; arquivo(s); ไฟล์; файли;文件;فایلها; skedat
@@ -147,13 +147,13 @@ About_Hint;How to contact me and find last version;Comment me contacter et trouv
 Accompaniment;Accompaniment;Accompagnement;Begleitung ;Kíséret;Accompagnamento;Сопровождение;Acompañamiento;Acompañamento;Begeleiding;Akompaniament;Acompaniament; Ackompanjemang;Refakat;;伴奏;演奏者;Accompaniment;Συνοδεία;반주;Acompanhamento;Banda Sonora;Akompanimentas;Acompanhamento;Accompaniment;Супровід;伴奏;همراهی;Shoqëruesi
 Actor;Actor;Acteur;Schauspieler ;Előadó;Attore;Исполнитель;Actor;Actor;Acteur;Aktor;Actor; Skådespelare;Oyuncu;主演;演员;主演;Herec;Actor;배우;Ator;Actor;Aktorius;Ator;นักแสดง;Актор;演員;اکتور;Aktori
 Actor_Character;Character played;Personnage joué;Rolle ;Szerep;Personaggio;Роль;Personaje;Personaxe interpretado;Personage;Odtwarzany znak;Personaj; Roll;Oynayan karakter;主演角色;角色;出演名;Character played;Character played;배역;Personagem;Personatge;rodyti ženklą;Personagem;Character played;У ролі;角色;پخش کاراکتر;Personazhi i luajtur
-Added_Date;Added date;Date d'ajout
+Added_Date;Added date;Date d'ajout;;;;;;;;;;;;;;;;;;;;;;;;;;
 Address;Address;Adresse;Adresse;Cím;Indirizzo;Адрес;Dirección;Enderezo;Adres;Adres;Adresa; Adress;Adres;;地址;アドレス;Address;Διεύθυνση;주소;Endereço;Adreça;Adresas;Endereço;ที่อยู่;Адреса;地址;آدرس;Adresa
 Advanced;Advanced;Avancée;Erweitert;Bővített;Modalità avanzata;Дополнительно;Avanzado;Avanzado;Geavanceerd;Zaawansowane;Avansat; Avancerat;Gelişmiş;進階;高级;詳細;Pokročilé;Για προχωρημένους;고급;Avançado;Avançat;Išplėstinai;Avançado;ขั้นสูง;Додаткові;高級;حرفه ای;Avancuar
 Advanced mode;Advanced mode;Mode Avancé;Erweiterter Modus;Bővített mód;Modalità avanzata;Расширенный режим;Modo Avanzado;Modo avanzado;Geavanceerde modus;Tryb zaawansowany;Mod avansat; Avancerat läge;Gelişmiş kip;進階模式;高级模式;詳細モード;Více detailů;Κατάσταση λειτουργίας για προχωρημένους;고급 모드;Modo avançado;Mode avançat;Išplėstinis režimas;Modo avançado;โหมดขั้นสูง;Розширений режим;高級模式;مد پیشرفته;Mënyrë e avancuar
 Album;Album;Album;Album;Album;Album;Альбом;Álbum;Albúm;Album;Album;Album; Album;Albüm;專輯;专辑;アルバム;Album;Album;앨범;Álbum;Àlbum;Albumas;Álbum;อัลบั้ม;Альбом;唱片;آلبوم;Albumi
-Album_ReplayGain_Gain;Album replay gain;Gain en lecture de l'album
-Album_ReplayGain_Peak;Album replay gain peak;Crête de gain en lecture de l'album
+Album_ReplayGain_Gain;Album replay gain;Gain en lecture de l'album;;;;;;;;;;;;;;;;;;;;;;;;;;
+Album_ReplayGain_Peak;Album replay gain peak;Crête de gain en lecture de l'album;;;;;;;;;;;;;;;;;;;;;;;;;;
 Alignment_Aligned;Aligned on interleaves;Alignée sur les interleaves;;;Audio allineato ;Соединение по промежуткам;;;;;;;;;同步合并;;;;인터리브에 정렬;;;;;;;;;I radhitur te gërshetimet
 Alignment_Split;Split accross interleaves;Eparpillé à travers les interleaves;;;Audio splittato;Разделение по промежуткам;;;;;;;;;非同步合并;;;;인터리브로 분할;;;;;;;;;I ndarë te gërshetimet
 All;All;Tout;Alle;Mind;Tutti;Все;Todo;Todo;Alles;Wszystkie;Toate; Alla;Tümü;全部;全部;すべて;Vše;Όλα;전체;Todos;Tot;Visi;Todos;ทั้งหมด;Все;全部;همه;Gjithçka
@@ -633,7 +633,7 @@ Language_no;Norwegian Nynorsk;Norvégien Nynorsk;Norwegisch;norvég;Norvegese;No
 Language_nr;Ndebele;Ndébélé du Sud;Süd-Ndebele; ;Ndebele, South;Ndebele;;Ndebele;Ndebele;;; Ndebele;Ndebele;南恩德貝勒語;;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;;Ndebele
 Language_nv;Navaho;Navaho;Navajo;navaho;Navajo;Navaho;;Navaho;Navaho;;; Navaho;Navaho;納瓦霍語;;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;;Navaho
 Language_ny;Nyanja;Nyanja;Chichewa; ;Chichewa;Nyanja;;Nyanja;Nyanja;;; Nyanja;Nyanja;;;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;;Nyanja
-Language_oc;Occitan;Occitan;Okzitanisch;okcitán;Occitano;Occitan;Occitano;Occitan;Occitaans;;; Occitan;Occitan;奧克西坦語;;Occitan;Occitan;Occitan;Occitan;Occitano;Occitan;Occitan;Occitano;ออกซิตัน	;Occitan;Occitan;;Occitan
+Language_oc;Occitan;Occitan;Okzitanisch;okcitán;Occitano;Occitan;Occitano;Occitan;Occitaans;;; Occitan;Occitan;奧克西坦語;;Occitan;Occitan;Occitan;Occitan;Occitano;Occitan;Occitan;Occitano;"ออกซิตัน	";Occitan;Occitan;;Occitan
 Language_oj;Ojibwa;Ojibwa;; ;Ojibwa;Ojibwa;;Ojibwa;Ojibwa;;; Ojibwa;Ojibwa;奧吉布瓦語;;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;;Ojibwa
 Language_om;Oromo;Galla;Oromo; ;Oromo;Oromo;Oromo;Oromo;Oromo;;; Oromo;Oromo;澳洛莫語;;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;;Oromo
 Language_or;Oriya;Oriya;Orija; ;Oriya;Oriya;Oriya;Oriya;Oriya;;; Oriya;Oriya;奧里雅語;;Oriya;Oriya;Oriya;Oriya;Oriya;Oriya;Oriya;Oriya;โอริยา;Oriya;Oriya;;Oriya
@@ -718,6 +718,7 @@ Movie;Movie name;Film;Film;Film;Film;Фильм;Película;Nome da película;Naam
 ms;ms;ms;ms;emp;ms;мс;ms;ms;ms;ms;; ms;ms;毫秒;;秒;ms;ms;미리초;ms;ms;ms;ms;ms;мс;ms;;ms
 MSDI;MSDI;MSDI;MSDI ;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;; MSDI;MSDI;;;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;;MSDI
 MuxingMode;Muxing mode;Type de muxing;;;Modalità di muxing;Режим смешивания;Modo Muxing;;;;;;Çoklamalı mod;合成模式;混合模式;Muxing モード;;;먹싱 모드;;;Muxing rėžimas;Modo de Multiplexação;โหมด Muxing;;混合模式;;Mënyrë e muksimit
+MuxingMode_PackedBitstream;Packed bitstream;Packed bitstream;;;;;;;;;;;;;;;;;;;;;;;;;;
 Name;Name;Nom;Name;Név;Nome;Имя;Nombre;Nome;Naam;Nazwa;Nume; Namn;İsim;名稱;名称;名前;Název;Όνομα;이름;Nome;Nom;Pavadinimas;Nome;ชื่อ;Назва;名稱;نام;Emri
 Nationality;Nationality;Nationalité;Nationalität;Nemzetiség;Nazionalità;Национальность;Nacionalidad;Nacionalidade;Nationaliteit;Narodowość;Nationalitate; Nationalitet;Uyruk;國籍;国藉;制作国;Nationality;Nationality;국적;Nacionalidade;Nacionalitat;Tautybė;Nacionalidade;Nationality;Національність;國藉;ملیت;Kombësia
 New;New;Nouveau;Neu;Új;Nuovo;Новый...;Nuevo;Novo;Nieuw;Nowy;Nou; Ny;Yeni;新增;新建;新規;Nový;Νέο;새로 만들기;Novo;Nou;Naujas;Novo;ใหม่;Новий;新建;جدید;E re
@@ -744,9 +745,9 @@ Period;Period;Période;Epoche ;Korszak;Periodo;Период;Período;Período;Pe
 Phone;Phone;Téléphone;Telefon ;Telefon;Telefono;Телефон;Teléfono;Teléfono;Telefoon;Telefon;Telefon; Telefon;Telefon;;电话;電話;Phone;Τηλέφωνο;전화;Telefone;Telèfon;Telefonas;Telefone;โทรศัพท์;Телефон;電話;تلفن;Telefoni
 PixelAspectRatio;Pixel Aspect Ratio;Taille du pixel;Pixelverhältnis;Képpont arány;Rapporto pixel;Соотношение пикселей;Relación de aspecto;Pixel ratio;Pixelverhouding;Proporcje pikseli;Dimensiune pixel; Pixelförhållande;Piksel oranı;像素長寬比例;画面比例(像素);ピクセル比;Poměr pixelů;Λόγος εικονοστοιχείου;픽셀 종횡비;Proporção de pixels;Relació d'aspecte;Pikselių aspekto koeficientas;Proporção de pixels;Pixel Aspect Ratio;;像素比;Pixel Aspect Ratio;Raporti i aspektit të pikselit
 PlayCounter;PlayCounter;Compteur de lecture;Wiedergabezähler ;;Riprodotto per;Счётчик воспроизведения;Contador;Contador;Teller;Licznik odtwarzania;Numar redari; Spelräknare;Oynatma Sayacı;;播放计数器;再生数;PlayCounter;PlayCounter;재생 횟수;Reproduzido;Comptador;Rodymo skaitiklis;Reproduzido;PlayCounter;Лічильник;播放計數;تعداد پخش;Njehsori i lojës
-Played_Count;Times played;Nombre de lectures
-Played_First_Date;First played;Première lecture
-Played_Last_Date;Last played;Dernière lecture
+Played_Count;Times played;Nombre de lectures;;;;;;;;;;;;;;;;;;;;;;;;;;
+Played_First_Date;First played;Première lecture;;;;;;;;;;;;;;;;;;;;;;;;;;
+Played_Last_Date;Last played;Dernière lecture;;;;;;;;;;;;;;;;;;;;;;;;;;
 PlayTime;PlayTime;Durée;Spielzeit;Játékidő;Durata;Длительность;Duración;Duración;Speeltijd;Czas trwania;Durata redare; Speltid;Oynatma Süresi;播放長度;播放时间;再生時間;Hrací čas;Διάρκεια;재생시간;Duração;Duració;Rodymo laikas;Duração;เวลาเล่น;Тривалість;播放時間;زمان پخش;Kohë e lojës
 Position;Position;Position;Position im Mediensatz ;;Posizione;Положение;Posición;Posición;Tracknummer;Pozycja;Pozitie; Position;Konum;曲目順序;位置;ポジション;Pozice;Θέση;위치;Posição;Posició;Padėtis;Posição;ตำแหน่ง;Положення;位置;موقعیت;Pozicioni
 Position_Total;Total;Total;;;Totale;Всего;Total;;;;;;Toplam;曲目總和;总计;合計;;;전체;;;Viso;Total;ทั้งหมด;;總計;کلی;Totali
@@ -763,8 +764,8 @@ Recorded_Date;Recorded date;Date d'enregistrement;Aufnahmedatum ;Rögzítés dá
 Recorded_Location;Recorded location;Lieu d'enregistrement;Aufnahmeort ;Rögzítés helye;Luogo di registrazione;Место записи;Lugar de grabación;Lugar de grabación;Opnamelocatie;Miejsce nagrania;Locul inregistrarii; Inspelningsort;Kaydedildiği yer;錄製地點;录制地点;録音した場所;Recorded location;Τοποθεσία εγγραφής;기록 장소;Local de gravação;Lloc de gravació;Įrašymo vieta;Local de gravação;Recorded location;Місце запису;目錄地點;مکان ظبط;Vendndodhje e regjistrimit
 Released_Date;Released date;Date de premère diffusion;Veröffentlichungsdatum ;Kiadás dátuma;Data di distribuzione;Дата выпуска;Fecha de Lanzamiento;Data de distribución;Releasedatum;Data wydania;Data lansarii; Releasedatum;Yayım tarihi;發行日期;发布日期;リリース日;Released date;Ημερομηνία Έκδοσης;개봉일;Data de lançamento;Data de llançament;Išleidimo data;Data de lançamento;Released date;Дата випуску;發佈日期;تاریخ انتشار;Datë e lëshimit
 RemixedBy;Remixed by;Remixé par;Remixed von ;Újrakeverte;Remixato da ;Ремикс от;Mezcaldo por;Mesturado por;Geremixed door;Remiksowany;Rearanjat de; Remixad av;Remiksleyen;;重新混合;リミックス by;Remixed by;Remixed by;리믹스;Remixado por;Remesclat per;Permiksavo;Remixado por;รีมิกซ์โดย;Ремікс;重新混合;دوباره میکس شده;Rimiksuar nga
-ReplayGain_Gain;Replay gain;Gain en lecture
-ReplayGain_Peak;Replay gain peak;Crête de gain en lecture
+ReplayGain_Gain;Replay gain;Gain en lecture;;;;;;;;;;;;;;;;;;;;;;;;;;
+ReplayGain_Peak;Replay gain peak;Crête de gain en lecture;;;;;;;;;;;;;;;;;;;;;;;;;;
 Resolution;Resolution;Résolution;Auflösung;Felbontás;Risoluzione;Разрешение;Resolución;Resolución;Resolutie;Rozdzielczość;Rezolutie; Upplösning;Çözünürlük;顏色深度;分辨率;解像度;Rozlišení;Ανάλυση;해상도;Resolução;Resolució;Raiška;Resolução;ความละเอียด;Дозвіл;分辨率;تفکیک پذیری;Rezolucioni
 s;s;s;s;mp;s;с;seg.;s;s;s;s; s;s;秒;秒;秒;s;s;초;s;seg;Video srautai (s);s;s;с;秒;;s
 SamplingRate;Sampling rate;Echantillonnage;Samplingrate;Mintavételezési gyakoriság;SamplingRate;Частота;Velocidad de la muestra;Ratio de mostraxe;Samplerate;Częstotliwość próbkowania;; Samplingstakt;Örnekleme oranı;取樣率;采样率;サンプルレート;Sampling rate;Συχνότητα δειγματοληψίας;샘플링레이트;Taxa de amostragem;Freqüència de mostratge;Atrankos tempas;Taxa de amostragem;;Частота;採樣率　;نرخ نمونه برداری;Raporti i shëmbëllimit
@@ -777,10 +778,10 @@ see below;see below;voir ci-dessous;siehe unterhalb;lásd alant;continua...;см
 Send HeaderFile;Please send me the Header file here : http://sourceforge.net/projects/mediainfo/ (Bug section);SVP envoyez-moi le fichier Header ici : http://sourceforge.net/projects/mediainfo/ (partie Bugs);Bitte die Header-Datei hierhin schicken: http://sourceforge.net/projects/mediainfo/ (unter Bugs);Kérem, küdje el a fejléc fájlt ide: http://sourceforge.net/projects/mediainfo/ (Bug section);Invia l'header a http://sourceforge.net/projects/mediainfo/ (Sezione bug);Отправить заголовок этого файла на http://sourceforge.net/projects/mediainfo/ (Раздел ошибок);Por favor enviarme el archivo aquí: http://sourceforge.net/projects/mediainfo/ (Sección Bug);Por favor envíame o arquivo de cabeceira aquí : http://sourceforge.net/projects/mediainfo/ (Bug section);A.u.b het Header-bestand hierheen sturen : http://sourceforge.net/projects/mediainfo/;;;;Lütfen Header dosyasını buraya gönderin : http://sourceforge.net/projects/mediainfo/ (Bug bölümü);請將標頭檔寄到這給我: http://sourceforge.net/projects/mediainfo/ (Bug section);发送头文件: http://sourceforge.net/projects/mediainfo/;可能ならヘッダファイルを送信してください: http://sourceforge.net/projects/mediainfo/ (バグセクション);;;여기로 헤더 파일을 보내주세요 : http://sourceforge.net/projects/mediainfo/ (Bug section);;;Prašome siųskite antraštinį failą čia: http://sourceforge.net/projects/mediainfo/ (bug sekcija);Enviar arquivo de cabeçalho;โปรดส่งไฟล์ Header (หัวข้อ)ให้ฉันที่นี่ : http://sourceforge.net/projects/mediainfo/ (Bug section);Відіслати заголовок;Please send me the Header file here : http://sourceforge.net/projects/mediainfo/ (Bug section);;Ju lutem dërgoni këtu Kokën e skedës : http://sourceforge.net/projects/mediainfo/ (Sektori Bug)
 Separator_Columns;columns separator;Séparateur de colonnes;Spaltentrenner;Oszlop elválasztó;Separatore colonne;Разделитель столбцов;Separador de colúmnas;Separador de columnas;scheidingsteken kolommen;Separator kolumn;separator coloane; columnseparator;sütun ayırıcı;換列字元;列分隔符;列の区切り;columns separator;διαχωριστής στηλών;컬럼 구분자;separador de colunas;Separador de columnes;Stulpelių skyryba;separador de colunas;ตัวแยกคอลัมน์;Роздельник стовпців;換列符;جدا کننده ستون;ndarësi i kolonave
 Separator_Lines;lines separator;Séparateur de lignes;Zeilentrenner;Sor elválasztó;Separatore di linea;Разделитель строк;Separador de líneas;Separador de liñas;scheidingsteken regels;Separator wierszy;separator linii; linjeseparator;satır ayırıcı;換行字元;换行符;区切り線;lines separator;διαχωριστής γραμμών;라인 구분자;separador de linhas;Separador de línies;Eilučių skyryba;separador de linhas;ตัวแยกบรรทัด;Роздільник строк;換行符;جدا کننده خط;ndarësi i rreshtave
-ServiceChannel;Service channel number;Numéro du service
-ServiceName;Service name;Nom du service
-ServiceProvider;Service provider;Fournisseur du service
-ServiceType;Service type;Type de service
+ServiceChannel;Service channel number;Numéro du service;;;;;;;;;;;;;;;;;;;;;;;;;;
+ServiceName;Service name;Nom du service;;;;;;;;;;;;;;;;;;;;;;;;;;
+ServiceProvider;Service provider;Fournisseur du service;;;;;;;;;;;;;;;;;;;;;;;;;;
+ServiceType;Service type;Type de service;;;;;;;;;;;;;;;;;;;;;;;;;;
 Set;Set;Ensemble;Mediensatz;;Imposta;Настройка;Unidades;Configurar;Set;Zestaw;Seteaza; Set;Ayar;;设置;セット;Nastavit;Set;세트;Ajustar;Unitats;Nustatyti;Ajustar;กำหนด;Конфігурація;設置;تعیین;Vendos
 Set_Count;Set count;Nombre d'ensemble;Nummer im Mediensatz;;Imposta contatore;Кол-во;Número de unidades;Establecer cantidade;Set count;Liczba zestawu;Seteaza numaratorul; Antal set;Ayar sayısı;;设置项目;セット回数;Set count;Set count;세트 개수;Ajustar contador;Nombre d'unitats;Nustatyti kiekį;Ajustar contador;Set count;Кількість конфігурацій;設置項目;تعیین تعداد;Vendos numërimin
 Setup;Setup;Configuration;Setup;Beállítások;Installazione;Настройка;Configurar;Configuración;Setup;Ustawienia;Setari; Ställ in;Kurulum;設定;设置;セットアップ;Hlavní;Ρυθμίσεις;설정;Configurar;Configura;Sąranka;Configurar;ติดตั้ง;Настроювання;設置;ستاپ;Ndërtimi

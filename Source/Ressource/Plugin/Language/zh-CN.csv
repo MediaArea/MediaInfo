@@ -718,6 +718,7 @@ Movie;电影
 ms
 MSDI
 MuxingMode;混合模式
+MuxingMode_PackedBitstream
 Name;名称
 Nationality;国藉
 New;新建

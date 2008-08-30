@@ -718,6 +718,7 @@ Movie;Film
 ms;emp
 MSDI;MSDI
 MuxingMode
+MuxingMode_PackedBitstream
 Name;Név
 Nationality;Nemzetiség
 New;Új
@@ -866,4 +867,4 @@ WrittenBy;Írta
 Yes;Igen
 Your system;Rendszer
 ZZ_Automatic_Percent;63
-ZZ_AutomaticLanguage_Percent;83
+ZZ_AutomaticLanguage_Percent;82

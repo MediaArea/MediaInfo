@@ -718,6 +718,7 @@ Movie;Film adı
 ms;ms
 MSDI;MSDI
 MuxingMode;Çoklamalı mod
+MuxingMode_PackedBitstream
 Name;İsim
 Nationality;Uyruk
 New;Yeni

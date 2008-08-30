@@ -718,6 +718,7 @@ Movie;電影名稱
 ms;毫秒
 MSDI
 MuxingMode;合成模式
+MuxingMode_PackedBitstream
 Name;名稱
 Nationality;國籍
 New;新增

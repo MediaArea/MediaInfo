@@ -718,6 +718,7 @@ Movie;Фильм
 ms;мс
 MSDI;MSDI
 MuxingMode;Режим смешивания
+MuxingMode_PackedBitstream
 Name;Имя
 Nationality;Национальность
 New;Новый...
@@ -865,5 +866,5 @@ Written_Location;Место написания
 WrittenBy;Написано
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97

@@ -718,6 +718,7 @@ Movie; filmnamn
 ms; ms
 MSDI; MSDI
 MuxingMode
+MuxingMode_PackedBitstream
 Name; Namn
 Nationality; Nationalitet
 New; Ny

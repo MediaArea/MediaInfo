@@ -718,6 +718,7 @@ Movie;Numele filmului
 ms
 MSDI
 MuxingMode
+MuxingMode_PackedBitstream
 Name;Nume
 Nationality;Nationalitate
 New;Nou
@@ -865,5 +866,5 @@ Written_Location;Locul mesajului
 WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
-ZZ_Automatic_Percent;39
+ZZ_Automatic_Percent;38
 ZZ_AutomaticLanguage_Percent;77

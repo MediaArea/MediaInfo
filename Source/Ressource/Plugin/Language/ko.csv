@@ -718,6 +718,7 @@ Movie;영화 이름
 ms;미리초
 MSDI;MSDI
 MuxingMode;먹싱 모드
+MuxingMode_PackedBitstream
 Name;이름
 Nationality;국적
 New;새로 만들기

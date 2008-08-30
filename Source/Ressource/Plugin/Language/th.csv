@@ -718,6 +718,7 @@ Movie;ชื่อภาพยนตร์
 ms;ms
 MSDI;MSDI
 MuxingMode;โหมด Muxing
+MuxingMode_PackedBitstream
 Name;ชื่อ
 Nationality;Nationality
 New;ใหม่
