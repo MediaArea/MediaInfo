@@ -218,7 +218,7 @@ void File_Riff::Read_Buffer_Finalize ()
                 {
                     if (((File_Mpeg4v*)Temp->second.Parser)->RIFF_VOP_Count_Max>1)
                     {
-                        Fill(Stream_Video, StreamPos_Last, Video_MuxingMode, "Packet Bitstream");
+                        Fill(Stream_Video, StreamPos_Last, Video_MuxingMode, MediaInfoLib::Config.Language_Get("MuxingMode_PackedBitstream"));
                         Fill(Stream_Video, StreamPos_Last, Video_Codec_Settings, "Packed Bitstream");
                         Fill(Stream_Video, StreamPos_Last, Video_Codec_Settings_PacketBitStream, "Yes");
                     }

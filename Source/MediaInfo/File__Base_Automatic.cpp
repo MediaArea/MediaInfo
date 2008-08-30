@@ -759,6 +759,7 @@ void File__Base_DefaultLanguage (Translation &Info)
     "ms;ms\n"
     "MSDI;MSDI\n"
     "MuxingMode;Muxing mode\n"
+    "MuxingMode_PackedBitstream;Packed bitstream\n"
     "Name;Name\n"
     "Nationality;Nationality\n"
     "New;New\n"
