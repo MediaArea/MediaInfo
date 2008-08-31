@@ -624,8 +624,8 @@ void File_Mpega::Data_Parse()
             Data_Parse_Fill();
 
         //Detect Id3v1 tags inside a frame
-        if (File_Offset+Buffer_Offset+(size_t)Element_Size==File_Size && Element_Size>=128 && CC3(Buffer+Buffer_Offset+(size_t)Element_Size-128)==CC3("TAG"))
-            File__Analyze::Data_GoTo(File_Offset+Buffer_Offset+(size_t)Element_Size-128, "Id3v1 inside a frame, parsing the Id3v1 tag");
+        if (File_Offset+Buffer_Offset+(size_t)Element_Size>File_Size-File_EndTagSize)
+            File__Analyze::Data_GoTo(File_Size-File_EndTagSize, "Tags inside a frame, parsing the tags");
     FILLING_END();
 }
 
