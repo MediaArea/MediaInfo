@@ -11,6 +11,7 @@ Version 0.7.7.6, 2008-09-
 ---------------
 x #2071681, MPEG Audio: handling of truncated MPEG audio frames at the end of a file
 x #2032760, MPEG Audio: handling of MPEG Audio files with junk at the end
+x #2085149, Id3v2: was crashing with some malformed tags
 
 Version 0.7.7.5, 2008-08-22
 ---------------

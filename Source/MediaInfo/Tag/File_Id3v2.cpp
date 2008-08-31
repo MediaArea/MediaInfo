@@ -601,6 +601,9 @@ void File_Id3v2::W___()
 //
 void File_Id3v2::W__X()
 {
+    if (Element_Size<1)
+        return; //Problem
+
     int8u Encoding;
     Get_B1 (Encoding,                                           "Text_encoding");
     switch (Encoding)
