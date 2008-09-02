@@ -9,6 +9,8 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.7.6, 2008-09-
 ---------------
++ [2088009] Flac: Picture tag support
++ Flac: Support of Id3v1&2 in a Flac file
 x #2071681, MPEG Audio: handling of truncated MPEG audio frames at the end of a file
 x #2032760, MPEG Audio: handling of MPEG Audio files with junk at the end
 x #2085149, Id3v2: was crashing with some malformed tags

@@ -28,6 +28,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#include "MediaInfo/Tag/File__Tags.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -37,7 +38,7 @@ namespace MediaInfoLib
 // Class File_Flac
 //***************************************************************************
 
-class File_Flac : public File__Analyze
+class File_Flac : public File__Analyze, public File__Tags_Helper
 {
 protected :
     //Information
@@ -47,9 +48,15 @@ public :
     File_Flac();
 
 private :
+    //Format
+    void Read_Buffer_Continue();
+    void Read_Buffer_Finalize ();
+
     //Buffer
+    bool FileHeader_Begin();
+    void FileHeader_Parse();
+    bool Header_Begin();
     void Header_Parse();
-    void FileHeader_Parse ();
     void Data_Parse();
 
     //Elements

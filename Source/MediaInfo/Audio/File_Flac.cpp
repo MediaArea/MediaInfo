@@ -32,10 +32,18 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Audio/File_Flac.h"
 #include "MediaInfo/Tag/File_VorbisCom.h"
+#include <ZenLib/Base64/base64.h>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
 {
+
+//***************************************************************************
+// Const
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+extern const char* Id3v2_PictureType(int8u Type); //In Tag/File_Id3v2.cpp
 
 //***************************************************************************
 // Constructor/Destructor
@@ -43,14 +51,70 @@ namespace MediaInfoLib
 
 //---------------------------------------------------------------------------
 File_Flac::File_Flac()
-:File__Analyze()
+:File__Analyze(), File__Tags_Helper()
 {
+    //File__Tags_Helper
+    Base=this;
+
     Last_metadata_block=false;
 }
 
 //***************************************************************************
 // Format
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Flac::Read_Buffer_Continue()
+{
+    //Tags
+    if (!File__Tags_Helper::Read_Buffer_Continue())
+        return;
+}
+
+//---------------------------------------------------------------------------
+void File_Flac::Read_Buffer_Finalize()
+{
+    //Tags
+    File__Tags_Helper::Read_Buffer_Finalize();
+}
+
+//---------------------------------------------------------------------------
+bool File_Flac::FileHeader_Begin()
+{
+    if (!File__Tags_Helper::Header_Begin())
+        return false;
+
+    return true;
+}
+
+//---------------------------------------------------------------------------
+void File_Flac::FileHeader_Parse()
+{
+    //Parsing
+    int32u Signature;
+    Get_C4 (Signature,                                          "Signature");
+
+    FILLING_BEGIN();
+        //Integrity
+        if (Signature!=CC4("fLaC"))
+        {
+            Finnished();
+            return;
+        }
+
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "FLAC");
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+bool File_Flac::Header_Begin()
+{
+    if (!File__Tags_Helper::Header_Begin())
+        return false;
+
+    return true;
+}
 
 //---------------------------------------------------------------------------
 void File_Flac::Header_Parse()
@@ -67,19 +131,6 @@ void File_Flac::Header_Parse()
     //Filling
     Header_Fill_Code(BLOCK_TYPE, Ztring().From_CC1(BLOCK_TYPE));
     Header_Fill_Size(Element_Offset+Length);
-}
-
-//---------------------------------------------------------------------------
-void File_Flac::FileHeader_Parse ()
-{
-    //Parsing
-    int32u Header;
-    Get_C4 (Header,                                             "Header");
-
-    FILLING_BEGIN();
-        if (Header!=CC4("fLaC"))
-            Finnished();
-    FILLING_END();
 }
 
 //***************************************************************************
@@ -106,7 +157,7 @@ void File_Flac::Data_Parse()
     }
 
     if (Last_metadata_block)
-        Finnished();
+        File__Tags_Helper::Data_GoTo(File_Size, "Flac");
 }
 
 //***************************************************************************
@@ -137,8 +188,6 @@ void File_Flac::STREAMINFO()
     //Filling
     if (SampleRate==0)
         return;
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "FLAC");
     Stream_Prepare(Stream_Audio);
     Fill(Stream_Audio, 0, Audio_Format, "FLAC");
     Fill(Stream_Audio, 0, Audio_Codec, "FLAC");
@@ -212,7 +261,29 @@ void File_Flac::PICTURE()
     Element_Info("PICTURE");
 
     //Parsing
-    Skip_XX(Element_Size,                                       "Data");
+    int32u PictureType, MimeType_Size, Description_Size, Data_Size;
+    Ztring MimeType, Description;
+    Get_B4 (PictureType,                                        "Picture type"); Element_Info(Id3v2_PictureType((int8u)PictureType));
+    Get_B4 (MimeType_Size,                                      "MIME type size");
+    Get_Local(MimeType_Size, MimeType,                          "MIME type");
+    Get_B4 (Description_Size,                                   "Description size");
+    Get_UTF8(Description_Size, Description,                     "Description");
+    Skip_B4(                                                    "Width");
+    Skip_B4(                                                    "Height");
+    Skip_B4(                                                    "Color depth");
+    Skip_B4(                                                    "Number of colors used");
+    Get_B4 (Data_Size,                                          "Data size");
+    if (Element_Offset+Data_Size>Element_Size)
+        return; //There is a problem
+    std::string Data_Raw((const char*)(Buffer+(size_t)(Buffer_Offset+Element_Offset)), Data_Size);
+    std::string Data_Base64(Base64::encode(Data_Raw));
+
+    //Filling
+    Fill(Stream_General, 0, General_Cover, "Yes");
+    Fill(Stream_General, 0, General_Cover_Description, Description);
+    Fill(Stream_General, 0, General_Cover_Type, Id3v2_PictureType(PictureType));
+    Fill(Stream_General, 0, General_Cover_Mime, MimeType);
+    Fill(Stream_General, 0, General_Cover_Data, Data_Base64);
 }
 
 //***************************************************************************
