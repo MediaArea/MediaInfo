@@ -102,6 +102,7 @@ void File_VorbisCom::Comment()
         Ztring Value=comment.SubString(_T("="), _T(""));
 
              if (Key==_T("ADDED_TIMESTAMP"))        Fill(Stream_General, 0, "Added_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/1000));
+        else if (Key==_T("ALBUM ARTIST"))           Fill(Stream_General, 0, General_Performer, Value);
         else if (Key==_T("ALBUM"))                  Fill(Stream_General, 0, General_Album, Value);
         else if (Key==_T("ARTIST"))                 Fill(Stream_General, 0, General_Performer, Value);
         else if (Key==_T("AUTHOR"))                 Fill(Stream_General, 0, General_Performer, Value);

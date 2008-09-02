@@ -25,6 +25,58 @@
 #endif
 //---------------------------------------------------------------------------
 
+//***************************************************************************
+// Constants
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if defined(MEDIAINFO_ID3V2_YES) || defined(MEDIAINFO_FLAC_YES)
+//---------------------------------------------------------------------------
+
+namespace MediaInfoLib
+{
+
+#include "ZenLib/Conf.h"
+using namespace ZenLib;
+
+//---------------------------------------------------------------------------
+extern const char* Id3v2_PictureType(int8u Type)
+{
+    switch (Type)
+    {
+        case 0x01 :
+        case 0x02 : return "File icon";
+        case 0x03 : return "Cover (front)";
+        case 0x04 : return "Cover (back)";
+        case 0x05 : return "Leaflet page";
+        case 0x06 : return "Media";
+        case 0x07 :
+        case 0x08 : return "Performer";
+        case 0x09 : return "Conductor";
+        case 0x0A : return "Performer";
+        case 0x0B : return "Composer";
+        case 0x0C : return "Lyricist";
+        case 0x0D : return "Recording Location";
+        case 0x0E : return "During recording";
+        case 0x0F : return "During performance";
+        case 0x10 : return "Screen capture";
+        case 0x12 : return "Illustration";
+        case 0x13 : return "Performer logo";
+        case 0x14 : return "Publisher logo";
+        default   : return "";
+    }
+}
+
+} //NameSpace
+
+//---------------------------------------------------------------------------
+#endif //...
+//---------------------------------------------------------------------------
+
+//***************************************************************************
+//
+//***************************************************************************
+
 //---------------------------------------------------------------------------
 #if defined(MEDIAINFO_ID3V2_YES)
 //---------------------------------------------------------------------------
@@ -53,33 +105,6 @@ const char* Id3v2_TextEnc[]=
     "UTF-16BE",
     "UTF-8",
 };
-
-const char* Id3v2_PictureType(int8u Type)
-{
-    switch (Type)
-    {
-        case 0x01 :
-        case 0x02 : return "File icon";
-        case 0x03 : return "Cover (front)";
-        case 0x04 : return "Cover (back)";
-        case 0x05 : return "Leaflet page";
-        case 0x06 : return "Media";
-        case 0x07 :
-        case 0x08 : return "Performer";
-        case 0x09 : return "Conductor";
-        case 0x0A : return "Performer";
-        case 0x0B : return "Composer";
-        case 0x0C : return "Lyricist";
-        case 0x0D : return "Recording Location";
-        case 0x0E : return "During recording";
-        case 0x0F : return "During performance";
-        case 0x10 : return "Screen capture";
-        case 0x12 : return "Illustration";
-        case 0x13 : return "Performer logo";
-        case 0x14 : return "Publisher logo";
-        default   : return "";
-    }
-}
 
 //***************************************************************************
 // Format
@@ -655,10 +680,10 @@ void File_Id3v2::APIC()
 
     //Filling
     Fill_Name();
-    Fill(Stream_General, 0, "Cover_Description", Description);
-    Fill(Stream_General, 0, "Cover_Type", Id3v2_PictureType(PictureType));
-    Fill(Stream_General, 0, "Cover_Mime", Mime);
-    Fill(Stream_General, 0, "Cover_Data", Data_Base64);
+    Fill(Stream_General, 0, General_Cover_Description, Description);
+    Fill(Stream_General, 0, General_Cover_Type, Id3v2_PictureType(PictureType));
+    Fill(Stream_General, 0, General_Cover_Mime, Mime);
+    Fill(Stream_General, 0, General_Cover_Data, Data_Base64);
 }
 
 //---------------------------------------------------------------------------
