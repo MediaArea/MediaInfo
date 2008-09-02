@@ -616,7 +616,7 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
     }
     else if (Option==_T("info_capacities"))
     {
-        return _T("Option desactivated for this version, will come back soon!");
+        return _T("Option disactivated for this version, will come back soon!");
         /*
         //Header
         Ztring Header;
