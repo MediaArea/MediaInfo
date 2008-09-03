@@ -121,6 +121,11 @@ const char* Mpeg4_Descriptors_ObjectTypeIndication(int8u ID)
         case 0x6D : return "PNG";
         case 0xA0 : return "EVRC";
         case 0xA1 : return "SMV";
+        case 0xA2 : return "3GPP2 Compact Multimedia Format (CMF)";
+        case 0xA3 : return "VC-1";
+        case 0xA4 : return "Dirac";
+        case 0xA5 : return "AC-3";
+        case 0xA6 : return "E-AC-3";
         case 0xD1 : return "Private - EVRC";
         case 0xD3 : return "Private - AC-3";
         case 0xD4 : return "Private - DTS";
@@ -145,6 +150,10 @@ const char* Mpeg4_Descriptors_StreamType(int8u ID)
         case 0x07 : return "IPMPStream";
         case 0x08 : return "ObjectContentInfoStream";
         case 0x09 : return "MPEGJStream";
+        case 0x0A : return "Interaction Stream";
+        case 0x0B : return "IPMPToolStream";
+        case 0x0C : return "FontDataStream";
+        case 0x0D : return "StreamingText";
         default   : return "";
     }
 }
@@ -509,8 +518,14 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0x6B : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Audio", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 1", Error, false, true); break;
             case 0x6C : Fill(StreamKind_Last, StreamPos_Last, "Format", "M-JPEG", Error, false, true); break;
             case 0x6D : Fill(StreamKind_Last, StreamPos_Last, "Format", "PNG", Error, false, true); break;
+            case 0x6E : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); break;  
             case 0xA0 : Fill(StreamKind_Last, StreamPos_Last, "Format", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true); break;
             case 0xA1 : Fill(StreamKind_Last, StreamPos_Last, "Format", "SMV", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
+            case 0xA2 : Fill(StreamKind_Last, StreamPos_Last, "Format", "3GPP2", Error, false, true); break;
+            case 0xA3 : Fill(StreamKind_Last, StreamPos_Last, "Format", "VC-1", Error, false, true); break;
+            case 0xA4 : Fill(StreamKind_Last, StreamPos_Last, "Format", "Dirac", Error, false, true); break;
+            case 0xA5 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AC-3", Error, false, true); break;
+            case 0xA6 : Fill(StreamKind_Last, StreamPos_Last, "Format", "E-AC-3", Error, false, true); break; 
             case 0xD1 : Fill(StreamKind_Last, StreamPos_Last, "Format", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
             case 0xD3 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AC-3", Error, false, true); break;
             case 0xD4 : Fill(StreamKind_Last, StreamPos_Last, "Format", "DTS", Error, false, true); break;
@@ -540,8 +555,14 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0x6B : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-1A", Error, false, true); break;
             case 0x6C : Fill(StreamKind_Last, StreamPos_Last, "Codec", "M-JPEG", Error, false, true); break;
             case 0x6D : Fill(StreamKind_Last, StreamPos_Last, "Codec", "PNG", Error, false, true); break;
+            case 0x6E : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-4V", Error, false, true); break; 
             case 0xA0 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true); break;
             case 0xA1 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "SMV", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
+            case 0xA2 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-4V", Error, false, true); break;
+            case 0xA3 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "VC-1", Error, false, true); break;
+            case 0xA4 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "Dirac", Error, false, true); break;
+            case 0xA5 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "AC3", Error, false, true); break;
+            case 0xA6 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "AC3+", Error, false, true); break;
             case 0xD1 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
             case 0xD3 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "AC3", Error, false, true); break;
             case 0xD4 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "DTS", Error, false, true); break;
@@ -625,6 +646,18 @@ void File_Mpeg4_Descriptors::Descriptor_04()
                             Parser=new File_Png;
                         #endif
                         break;
+            case 0xA3 : //VC-1
+                        #if defined(MEDIAINFO_VC1_YES)
+                            Parser=new File_Vc1; 
+                        #endif
+                        break;
+            case 0xA4 : //Dirac
+                        #if defined(MEDIAINFO_DIRAC_YES)
+                            Parser=new File_Dirac;
+                        #endif
+                        break;
+            case 0xA5 : //AC-3
+            case 0xA6 : //E-AC-3
             case 0xD3 : //AC-3
                         #if defined(MEDIAINFO_AC3_YES)
                             Parser=new File_Ac3;
