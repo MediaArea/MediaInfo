@@ -431,7 +431,7 @@ void File__Analyze::Finalize_Video(size_t Pos)
     float32 FrameRate_Nominal=Retrieve(Stream_Video, Pos, "FrameRate_Nominal").To_float32();
     if (FrameRate_Nominal>FrameRate*0.995 && FrameRate_Nominal<FrameRate*1.005)
     {
-        Fill(Stream_Video, Pos, "FrameRate", Retrieve(Stream_Video, Pos, "FrameRate_Nominal"));
+        Fill(Stream_Video, Pos, "FrameRate", Retrieve(Stream_Video, Pos, "FrameRate_Nominal"), true);
         Clear(Stream_Video, Pos, "FrameRate_Nominal");
     }
     //Bits/(Pixel*Frame)
