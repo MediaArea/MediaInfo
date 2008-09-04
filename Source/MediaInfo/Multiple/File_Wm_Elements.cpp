@@ -260,6 +260,7 @@ void File_Wm::Header_FileProperties()
     Fill(Stream_General, 0, General_Encoded_Date, Ztring().Date_From_Milliseconds_1601(CreationDate/10000));
     if (PlayDuration/1000>Preroll)
         Fill(Stream_General, 0, General_Duration, PlayDuration/10000-Preroll);
+    FileProperties_Preroll=(int32u)(Preroll);
 }
 
 //---------------------------------------------------------------------------
@@ -403,8 +404,6 @@ void File_Wm::Header_StreamProperties_Video ()
     Skip_L4(                                                    "YPelsPerMeter");
     Skip_L4(                                                    "ClrUsed");
     Skip_L4(                                                    "ClrImportant");
-    if (Data_Size-28>0) //TODO: see "The Mummy_e"
-        Skip_XX(Data_Size-28,                                   "Codec Specific Data");
 
     //Filling
     Stream_Prepare(Stream_Video);
@@ -429,7 +428,8 @@ void File_Wm::Header_StreamProperties_Video ()
         ((File_Mpegv*)Stream[Stream_Number].Parser)->Frame_Count_Valid=30; //For searching Pulldown
     }
     #endif
-
+    else if (Data_Size>40) //TODO: see "The Mummy_e"
+        Skip_XX(Data_Size-40,                                   "Codec Specific Data");
 }
 
 //---------------------------------------------------------------------------
@@ -1155,10 +1155,8 @@ void File_Wm::Data()
     Fill(Stream_General, 0, General_HeaderSize, File_Offset+Buffer_Offset-24);
     Fill(Stream_General, 0, General_DataSize, Element_Size+24);
 
-    MustUseAlternativeParser=true;
-
     //For each stream
-    Stream_Number=0;
+    Streams_Count=0;
     std::map<int16u, stream>::iterator Temp=Stream.begin();
     while (Temp!=Stream.end())
     {
@@ -1168,162 +1166,210 @@ void File_Wm::Data()
             Open_Buffer_Init(Temp->second.Parser);
             ((File_Mpega*)Temp->second.Parser)->Frame_Count_Valid=8;
         }
-        if (Temp->second.Parser)
+        if (Temp->second.Parser || Temp->second.StreamKind==Stream_Video) //We need Stream_Video for Frame_Rate computing
         {
-            Stream_Number++;
             Temp->second.SearchingPayload=true;
+            Streams_Count++;
         }
         Temp++;
     }
 
-    //Jumping
-    //Info("Data, Jumping to end of chunk");
-    //File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
+    //Enabling the alternative parser
+    MustUseAlternativeParser=true;
+    Data_AfterTheDataChunk=File_Offset+Buffer_Offset+Element_TotalSize_Get();
 }
 
 //---------------------------------------------------------------------------
 void File_Wm::Data_Packet()
 {
-    Element_Info(Element_Code);
-
-    //Jumping if not need anymore
-    if (Stream_Number==0)
-        Data_Packet_Jump();
-
-    //Header managing
-    NumberPayloads_Pos++; //Increment position
-    if (NumberPayloads_Pos>=NumberPayloads)
-        Data_Parse_Begin=true; //this is the last packet, waiting a beginning
-    else
-        Data_Parse_Begin=false;
-
-    int64u Element_RealSize=Element_Size;
-    if (NumberPayloads_Pos==NumberPayloads && Data_Parse_Padding<=Element_RealSize)
-        Element_RealSize-=Data_Parse_Padding; //Padding only for the last packet
+    //Counting
+    Packet_Count++;
+    Element_Info(Packet_Count);
 
     //Parsing
-    if (Element_RealSize>0)
-    {
-        if (Stream[(int16u)Element_Code].SearchingPayload)
+    PacketLength=0; SizeOfMediaObject=0;
+    int8u  Flags, ErrorCorrectionData_Length, ErrorCorrectionLengthType, SequenceType, PaddingLengthType, PacketLengthType;
+    bool   ErrorCorrectionPresent;
+    Element_Begin("Error Correction");
+        Get_L1 (Flags,                                          "Flags");
+            Get_Flags (Flags&0x0F, ErrorCorrectionData_Length,  "Error Correction Data Length"); //4 lowest bits
+            Skip_Flags(Flags, 4,                                "Opaque Data Present");
+            Get_Flags ((Flags>>5)&0x03, ErrorCorrectionLengthType, "Error Correction Length Type"); //bits 6 and 7
+            Get_Flags (Flags, 7, ErrorCorrectionPresent,        "Error Correction Present");
+        if (ErrorCorrectionPresent && ErrorCorrectionLengthType==0 && ErrorCorrectionData_Length==2)
         {
-            Stream[(int16u)Element_Code].PacketCount++;
+            int8u  TypeNumber;
+            Get_L1 (TypeNumber,                                 "Type/Number");
+                Skip_Flags((TypeNumber>>4)&0x0F, "Type");
+                Skip_Flags( TypeNumber    &0x0F, "Number");
+            Skip_L1(                                            "Cycle");
+        }
+    Element_End();
 
-            //Parsing
-            Open_Buffer_Init(Stream[(int16u)Element_Code].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
-            Open_Buffer_Continue(Stream[(int16u)Element_Code].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Element_RealSize);
+    Element_Begin("Payload Parsing Information");
+        Get_L1 (Flags,                                          "Length Type Flags");
+            Get_Flags (Flags, 0, MultiplePayloadsPresent,       "Multiple Payloads Present");
+            Get_Flags ((Flags>>1)&0x3, SequenceType,            "Sequence Type");
+            Get_Flags ((Flags>>3)&0x3, PaddingLengthType,       "Padding Length Type");
+            Get_Flags ((Flags>>5)&0x3, PacketLengthType,        "Packet Length Type");
+            Skip_Flags(Flags, 7,                                "Error Correction Present");
+        Get_L1 (Flags,                                          "Property Flags");
+            Get_Flags ( Flags    &0x3, ReplicatedDataLengthType, "Replicated Data Length Type");
+            Get_Flags ((Flags>>2)&0x3, OffsetIntoMediaObjectLengthType, "Offset Into Media Object Length Type");
+            Get_Flags ((Flags>>4)&0x3, MediaObjectNumberLengthType, "Media Object Number Length Type");
+            Get_Flags ((Flags>>6)&0x3, StreamNumberLengthType,  "Stream Number Length Type");
+        switch (PacketLengthType)
+        {
+            case 1 : {int8u  Data; Get_L1(Data,                 "Packet Length"); PacketLength=Data;} break;
+            case 2 : {int16u Data; Get_L2(Data,                 "Packet Length"); PacketLength=Data;} break;
+            case 3 :               Get_L4(PacketLength,         "Packet Length");                     break;
+            default: ;
+        }
+        switch (SequenceType)
+        {
+            case 1 : Skip_L1(                                   "Sequence"); break;
+            case 2 : Skip_L2(                                   "Sequence"); break;
+            case 3 : Skip_L4(                                   "Sequence"); break;
+            default: ;
+        }
+        switch (PaddingLengthType)
+        {
+            case 1 : {int8u  Data; Get_L1(Data,                 "Padding Length"); Data_Parse_Padding=Data;} break;
+            case 2 : {int16u Data; Get_L2(Data,                 "Padding Length"); Data_Parse_Padding=Data;} break;
+            case 3 :               Get_L4(Data_Parse_Padding,   "Padding Length");                           break;
+            default: Data_Parse_Padding=0;
+        }
+        Skip_L4(                                                "Send Time");
+        Skip_L2(                                                "Duration");
+    Element_End();
 
+    if (MultiplePayloadsPresent)
+    {
+        //Parsing
+        Element_Begin("Multiple Payloads additional flags");
+            int8u Flags;
+            Get_L1 (Flags,                                          "Flags");
+                Get_Flags ( Flags    &0x3F, NumberPayloads,         "Number of Payloads"); //6 bits
+                Get_Flags ((Flags>>6)&0x03, PayloadLengthType,      "Payload Length Type"); //bits 6 and 7
+        Element_End();
+    }
+    else
+    {
+        SizeOfMediaObject=(int32u)(Element_Size-Element_Offset-Data_Parse_Padding);
+        NumberPayloads=1;
+    }
 
-            //Testing other parsers in case of need
-            if (Stream[(int16u)Element_Code].StreamKind==Stream_Max && Stream[(int16u)Element_Code].Parser && Stream[(int16u)Element_Code].Parser->Count_Get(Stream_Audio)==0)
+    for (NumberPayloads_Pos=0; NumberPayloads_Pos<NumberPayloads; NumberPayloads_Pos++)
+    {
+        Element_Begin("Payload");
+        int32u ReplicatedDataLength;
+        int8u  StreamNumber;
+        Get_L1 (StreamNumber,                                   "Stream Number");
+        StreamNumber&=0x7F; //For KeyFrame
+        Element_Info(StreamNumber);
+        switch (MediaObjectNumberLengthType)
+        {
+            case 1 : Skip_L1(                                   "Media Object Number"); break;
+            case 2 : Skip_L2(                                   "Media Object Number"); break;
+            case 3 : Skip_L4(                                   "Media Object Number"); break;
+            default: ;
+        }
+        switch (OffsetIntoMediaObjectLengthType)
+        {
+            case 1 : Skip_L1(                                   "Offset Into Media Object"); break;
+            case 2 : Skip_L2(                                   "Offset Into Media Object"); break;
+            case 3 : Skip_L4(                                   "Offset Into Media Object"); break;
+            default: ;
+        }
+        switch (ReplicatedDataLengthType)
+        {
+            case 1 : {int8u  Data; Get_L1(Data,                 "Replicated Data Length"); ReplicatedDataLength=Data;} break;
+            case 2 : {int16u Data; Get_L2(Data,                 "Replicated Data Length"); ReplicatedDataLength=Data;} break;
+            case 3 :               Get_L4(ReplicatedDataLength, "Replicated Data Length");                             break;
+            default: ;
+        }
+        if (ReplicatedDataLengthType!=0 && ReplicatedDataLength>0)
+        {
+            if (ReplicatedDataLength>=8)
             {
-                bool WantShow1=Element_Show_Get();
-                Element_Begin("Testing AC3...");
-                if (Stream[(int16u)Element_Code].Parser3==NULL)
+                int32u PresentationTime;
+                Get_L4 (SizeOfMediaObject,                      "Size Of Media Object");
+                Get_L4 (PresentationTime,                       "Presentation Time");
+                if (ReplicatedDataLength>8)
                 {
-                    #if defined(MEDIAINFO_AC3_YES)
-                        Stream[(int16u)Element_Code].Parser3=new File_Ac3;
-                    #else
-                        Stream[(int16u)Element_Code].Parser3=new File__Analyze;
-                    #endif
+                    Skip_XX(ReplicatedDataLength-8,             "Payload Extension");
                 }
-                Open_Buffer_Init(Stream[(int16u)Element_Code].Parser3, File_Size, File_Offset+Buffer_Offset);
-                Open_Buffer_Continue(Stream[(int16u)Element_Code].Parser3, Buffer+Buffer_Offset, (size_t)Element_RealSize);
 
-                if (Stream[(int16u)Element_Code].Parser3->Count_Get(Stream_Audio)>0)
+                //Presentation time delta
+                std::map<int16u, stream>::iterator Strea=Stream.find(StreamNumber);
+                if (Strea->second.StreamKind==Stream_Video)
                 {
-                    Element_Info("AC3 found, changing default parser");
-                    Element_End();
-                    delete Stream[(int16u)Element_Code].Parser; Stream[(int16u)Element_Code].Parser=Stream[(int16u)Element_Code].Parser3; Stream[(int16u)Element_Code].Parser3=NULL;
-                }
-                else
-                {
-                    Element_End();
-                    bool WantShow2=Element_Show_Get();
-                    if (WantShow1)
-                        Element_Show();
-                    Element_Begin("Testing LATM...");
-                    if (Stream[(int16u)Element_Code].Parser2==NULL)
+                    if (Strea->second.PresentationTime_Old==0)
+                        Strea->second.PresentationTime_Old=FileProperties_Preroll;
+                    if (PresentationTime!=Strea->second.PresentationTime_Old)
                     {
-                        #if defined(MEDIAINFO_LATM_YES)
-                            Stream[(int16u)Element_Code].Parser2=new File_Latm;
-                        #else
-                            Stream[(int16u)Element_Code].Parser2=new File__Analyze;
-                        #endif
+                        Strea->second.PresentationTime_Deltas[PresentationTime-Strea->second.PresentationTime_Old]++;
+                        Strea->second.PresentationTime_Old=PresentationTime;
+                        Strea->second.PresentationTime_Count++;
                     }
-                    Open_Buffer_Init(Stream[(int16u)Element_Code].Parser2, File_Size, File_Offset+Buffer_Offset);
-                    Open_Buffer_Continue(Stream[(int16u)Element_Code].Parser2, Buffer+Buffer_Offset, (size_t)Element_RealSize);
-
-                    if (Stream[(int16u)Element_Code].Parser2->Count_Get(Stream_Audio)>0)
-                    {
-                        Element_Info("LATM, changing default parser");
-                        delete Stream[(int16u)Element_Code].Parser; Stream[(int16u)Element_Code].Parser=Stream[(int16u)Element_Code].Parser2; Stream[(int16u)Element_Code].Parser2=NULL;
-                    }
-                    Element_End();
-                    if (WantShow1 || WantShow2)
-                        Element_Show();
                 }
             }
-            if (Stream[(int16u)Element_Code].Parser->Count_Get(Stream_Audio)>0 && (Stream[(int16u)Element_Code].Parser2!=NULL || Stream[(int16u)Element_Code].Parser3!=NULL))
+            else if (ReplicatedDataLength==1)
             {
-                delete Stream[(int16u)Element_Code].Parser2; Stream[(int16u)Element_Code].Parser2=NULL;
-                delete Stream[(int16u)Element_Code].Parser3; Stream[(int16u)Element_Code].Parser3=NULL;
+                Skip_L1(                                        "Presentation Time Delta");
+                //TODO
+            }
+            else
+                Skip_XX(ReplicatedDataLength,                   "Replicated Data");
+        }
+
+        if (MultiplePayloadsPresent)
+        {
+            switch (PayloadLengthType)
+            {
+                case 1 : {int8u  Data; Get_L1(Data,                 "Payload Length"); SizeOfMediaObject=Data;} break;
+                case 2 : {int16u Data; Get_L2(Data,                 "Payload Length"); SizeOfMediaObject=Data;} break;
+                case 3 :               Get_L4(SizeOfMediaObject,    "Payload Length");                          break;
+                default: return; //Problem
+            }
+        }
+
+        //Analyzing
+        if (Stream[StreamNumber].Parser && Stream[StreamNumber].SearchingPayload)
+        {
+            Open_Buffer_Init(Stream[StreamNumber].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+            Open_Buffer_Continue(Stream[StreamNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)SizeOfMediaObject);
+            if (Stream[StreamNumber].Parser->File_GoTo!=(int64u)-1
+             && (Stream[StreamNumber].StreamKind==Stream_Video && Stream[StreamNumber].PresentationTime_Count>=300))
+            {
+                Stream[StreamNumber].SearchingPayload=false;
+                Streams_Count--;
             }
 
-            //Disabling this stream
-            if (                                         Stream[(int16u)Element_Code].Parser->File_GoTo !=(int64u)-1
-              && !(Stream[(int16u)Element_Code].Parser3!=NULL && Stream[(int16u)Element_Code].Parser3->File_GoTo==(int64u)-1)
-              && !(Stream[(int16u)Element_Code].Parser2!=NULL && Stream[(int16u)Element_Code].Parser2->File_GoTo==(int64u)-1)
-                 || Stream[(int16u)Element_Code].PacketCount>=300)
-            {
-                    Stream[(int16u)Element_Code].SearchingPayload=false;
-                    Stream_Number--;
-            }
-
-
-
-            /*
-            //Finalizing (if requested)
-            int A=Stream[(int16u)Element_Code].PacketCount;
-            if (Element_Code>1)
-                int B=0;
-            if (Stream[(int16u)Element_Code].Parser->File_GoTo!=(int64u)-1
-             || Stream[(int16u)Element_Code].PacketCount>=300)
-            {
-                Stream[(int16u)Element_Code].SearchingPayload=false;
-                Stream_Number--;
-            }
-            */
-
+            Element_Offset+=SizeOfMediaObject;
         }
         else
         {
-            //Skip_XX(Element_RealSize,                           "Data");
-            Element_DoNotShow();
-            return;
+            Skip_XX(SizeOfMediaObject,                          "Data");
+            if (Stream[StreamNumber].SearchingPayload
+             && (Stream[StreamNumber].StreamKind==Stream_Video && Stream[StreamNumber].PresentationTime_Count>=300))
+            {
+                Stream[StreamNumber].SearchingPayload=false;
+                Streams_Count--;
+            }
         }
+        Element_End();
     }
 
-    //Padding handling
-    Element_Offset=Element_RealSize;
-    if (NumberPayloads_Pos==NumberPayloads && Data_Parse_Padding>0)
-    {
+    if (Data_Parse_Padding)
         Skip_XX(Data_Parse_Padding,                             "Padding");
-        Data_Parse_Padding=0;
+
+    //Jumping if needed
+    if (Streams_Count==0 || Packet_Count>=1000)
+    {
+        Info("Data, Jumping to end of chunk");
+        File_GoTo=Data_AfterTheDataChunk;
     }
-
-    //Jumping if requested
-    if (Stream_Number==0)
-        Data_Packet_Jump();
-}
-
-//---------------------------------------------------------------------------
-void File_Wm::Data_Packet_Jump()
-{
-    //Jumping
-    Element_Show();
-    Element_End();
-    Info("Data, Jumping to end of chunk");
-    File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
 }
 
 //---------------------------------------------------------------------------

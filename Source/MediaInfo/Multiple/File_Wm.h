@@ -49,10 +49,6 @@ protected :
 private :
     //Buffer
     void Header_Parse();
-    void Header_Parse_Data();
-    void Header_Parse_Data_Begin();
-    void Header_Parse_Data_MultiplePayloads();
-    void Header_Parse_Data_Payload();
     void Data_Parse();
 
     //Elements
@@ -97,7 +93,6 @@ private :
     void Header_Padding();
     void Data();
     void Data_Packet();
-    void Data_Packet_Jump();
     void SimpleIndex();
     void Index();
     void MediaIndex();
@@ -118,6 +113,9 @@ private :
         std::map<std::string, ZenLib::Ztring> Info;
         bool                    IsCreated; //if Stream_Prepare() is done
         bool                    SearchingPayload;
+        int32u                  PresentationTime_Old;
+        int32u                  PresentationTime_Count;
+        std::map<int32u, int32u> PresentationTime_Deltas;
 
         stream()
         {
@@ -132,6 +130,8 @@ private :
             LanguageID=(int16u)-1;
             IsCreated=false;
             SearchingPayload=false;
+            PresentationTime_Old=0;
+            PresentationTime_Count=0;
         }
 
         ~stream()
@@ -154,8 +154,12 @@ private :
 
     //From Data headers
     size_t Codec_Description_Count;
+    size_t Packet_Count;
+    size_t Streams_Count;
+    int64u Data_AfterTheDataChunk;
     int32u PacketLength;
     int32u SizeOfMediaObject;
+    int32u FileProperties_Preroll;
     int8u  ReplicatedDataLengthType;
     int8u  OffsetIntoMediaObjectLengthType;
     int8u  MediaObjectNumberLengthType;
