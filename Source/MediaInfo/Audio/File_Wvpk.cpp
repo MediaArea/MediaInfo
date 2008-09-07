@@ -122,6 +122,7 @@ File_Wvpk::File_Wvpk()
     total_samples_FirstFrame=0xFFFFFFFF;
     block_index_FirstFrame=0;
     block_index_LastFrame=0;
+    SamplingRate=(int8u)-1;
 }
 
 //***************************************************************************
@@ -141,7 +142,16 @@ void File_Wvpk::Read_Buffer_Finalize()
 {
     //Duration
     if (SamplingRate<15)
-        Fill(Stream_Audio, 0, Audio_Duration, ((int64u)(block_index_LastFrame+block_samples_LastFrame-block_index_FirstFrame))*1000/Wvpk_SamplingRate[SamplingRate], 10, true); //Don't forget the last frame with block_samples...
+    {
+        int64u Duration=(((int64u)(block_index_LastFrame+block_samples_LastFrame-block_index_FirstFrame))*1000/Wvpk_SamplingRate[SamplingRate]); //Don't forget the last frame with block_samples...
+        int64u CompressedSize=File_Size-File_BeginTagSize-File_EndTagSize;
+        int64u UncompressedSize=Duration*(mono?1:2)*Wvpk_Resolution[(resolution1?1:0)*2+(resolution0?1:0)]*Wvpk_SamplingRate[SamplingRate]/8/1000;
+        float32 CompressionRatio=((float32)UncompressedSize)/CompressedSize;
+        Fill(Stream_Audio, 0, Audio_StreamSize, CompressedSize, 3, true);
+        Fill(Stream_Audio, 0, Audio_Duration, Duration, 10, true);
+        Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio, 3, true);
+        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
+    }
 
     //Tags
     File__Tags_Helper::Read_Buffer_Finalize();
@@ -245,7 +255,7 @@ void File_Wvpk::Data_Parse()
                 Skip_Flags(flags, 23,                           "sampling rate");
                 Skip_Flags(flags, 24,                           "sampling rate");
                 Skip_Flags(flags, 25,                           "sampling rate");
-                Skip_Flags(flags, 26,                           "sampling rate"); SamplingRate=((flags>>23)&0xF); Element_Info(Wvpk_SamplingRate[SamplingRate]);
+                Skip_Flags(flags, 26,                           "sampling rate"); SamplingRate=(int8u)(((flags>>23)&0xF)); Element_Info(Wvpk_SamplingRate[SamplingRate]);
                 Skip_Flags(flags, 27,                           "reserved");
                 Skip_Flags(flags, 28,                           "reserved");
                 Skip_Flags(flags, 29,                           "use IIR for negative hybrid noise shaping");
@@ -315,7 +325,8 @@ void File_Wvpk::Data_Parse_Fill()
     Fill(Stream_Audio, 0, Audio_Codec_Settings, hybrid?"hybrid lossy":"lossless");
 
     //Going to end of file
-    File__Tags_Helper::Data_GoTo(File_Size, "WavPack");
+    if (File_Size>512*1024)
+        File__Tags_Helper::Data_GoTo(File_Size-512*1024, "WavPack");
 }
 
 //***************************************************************************

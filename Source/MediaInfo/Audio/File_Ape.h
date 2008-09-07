@@ -54,8 +54,13 @@ public :
 
 private :
     //Buffer
-    bool Header_Begin();
+    bool FileHeader_Begin();
     void FileHeader_Parse ();
+    bool Header_Begin ();
+
+    //Temp
+    int64u Duration;
+    int64u UncompressedSize;
 };
 
 } //NameSpace

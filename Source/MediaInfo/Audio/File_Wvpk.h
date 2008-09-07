@@ -76,7 +76,7 @@ private :
     bool   hybrid;
     bool   joint_stereo;
     bool   cross_channel_decorrelation;
-    int32u SamplingRate;
+    int8u  SamplingRate;
 
     //Helpers
     bool Synchronize();

@@ -62,6 +62,14 @@ void File_Tta::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Tta::Read_Buffer_Finalize()
 {
+    //Filling
+    int64u CompressedSize=File_Size-File_BeginTagSize-File_EndTagSize;
+    float32 CompressionRatio=((float32)UncompressedSize)/CompressedSize;
+
+    Fill(Stream_Audio, 0, Audio_StreamSize, CompressedSize);
+    Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio);
+    Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
+
     //Tags
     File__Tags_Helper::Read_Buffer_Finalize();
 }
@@ -106,14 +114,12 @@ void File_Tta::Header_Parse()
     //Filling data
     if (SampleRate==0)
         return;
-    int64u Duration=((int64u)Samples)*1000/SampleRate;
+    Duration=((int64u)Samples)*1000/SampleRate;
     if (Duration==0)
         return;
-    int64u UncompressedSize=Samples*Channels*(BitsPerSample/8);
+    UncompressedSize=Samples*Channels*(BitsPerSample/8);
     if (UncompressedSize==0)
         return;
-    float32 CompressionRatio=((float32)File_Size)/UncompressedSize;
-    int32u BitRate=(int32u)(Samples*Channels*BitsPerSample*1000/Duration*CompressionRatio);
 
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "TTA");
@@ -124,8 +130,6 @@ void File_Tta::Header_Parse()
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate);
     Fill(Stream_Audio, 0, Audio_Duration, Duration);
-    Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio);
-    Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
 
     //Filling
     Header_Fill_Size(22);

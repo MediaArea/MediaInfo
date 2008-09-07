@@ -157,7 +157,10 @@ void File_Flac::Data_Parse()
     }
 
     if (Last_metadata_block)
+    {
+        Fill(Stream_Audio, 0, Audio_StreamSize, File_Size-(File_Offset+Buffer_Offset+Element_Size));
         File__Tags_Helper::Data_GoTo(File_Size, "Flac");
+    }
 }
 
 //***************************************************************************
@@ -198,7 +201,7 @@ void File_Flac::STREAMINFO()
     Fill(Stream_Audio, 0, Audio_SamplingRate, SampleRate);
     Fill(Stream_Audio, 0, Audio_Channel_s_, Channels+1);
     Fill(Stream_Audio, 0, Audio_Resolution, BitPerSample+1);
-    Fill(Stream_General, 0, General_Duration, Samples*1000/SampleRate);
+    Fill(Stream_Audio, 0, Audio_Duration, Samples*1000/SampleRate);
 }
 
 //---------------------------------------------------------------------------

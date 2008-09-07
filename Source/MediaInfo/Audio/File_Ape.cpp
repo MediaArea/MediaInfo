@@ -92,6 +92,14 @@ void File_Ape::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Ape::Read_Buffer_Finalize()
 {
+    //Filling
+    int64u CompressedSize=File_Size-File_BeginTagSize-File_EndTagSize;
+    float32 CompressionRatio=((float32)UncompressedSize)/CompressedSize;
+    int64u BitRate=CompressedSize*8*1000/Duration;
+
+    Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio);
+    Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
+
     //Tags
     File__Tags_Helper::Read_Buffer_Finalize();
 }
@@ -101,7 +109,7 @@ void File_Ape::Read_Buffer_Finalize()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-bool File_Ape::Header_Begin()
+bool File_Ape::FileHeader_Begin()
 {
     if (!File__Tags_Helper::Header_Begin())
         return false;
@@ -179,29 +187,16 @@ void File_Ape::FileHeader_Parse()
         }
 
         //Coherancy
-        if (SampleRate==0 || Channels==0 || Resolution==0)
+        int32u Samples=(TotalFrames-1)*SamplesPerFrame+FinalFrameSamples;
+        if (Samples==0 || SampleRate==0 || Channels==0 || Resolution==0)
         {
             Finnished();
             return;
         }
 
         //Filling
-        int32u Samples=(TotalFrames-1)*SamplesPerFrame+FinalFrameSamples;
-        int64u Duration=((int64u)Samples)*1000/SampleRate;
-        if (Duration==0)
-        {
-            Finnished();
-            return;
-        }
-        int64u UncompressedSize=Samples*Channels*(Resolution/8);
-        if (UncompressedSize==0)
-        {
-            Finnished();
-            return;
-        }
-        float32 CompressionRatio=((float32)File_Size)/UncompressedSize;
-        int32u BitRate=(int32u)(Samples*Channels*Resolution*1000/Duration*CompressionRatio);
-
+        Duration=((int64u)Samples)*1000/SampleRate;
+        UncompressedSize=Samples*Channels*(Resolution/8);
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "Monkey's Audio");
         Stream_Prepare(Stream_Audio);
@@ -211,11 +206,18 @@ void File_Ape::FileHeader_Parse()
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
         Fill(Stream_Audio, 0, Audio_SamplingRate, SampleRate);
         Fill(Stream_Audio, 0, Audio_Duration, Duration);
-        Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio);
-        Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
 
         File__Tags_Helper::Data_GoTo(File_Size, "APE");
     FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+bool File_Ape::Header_Begin()
+{
+    if (!File__Tags_Helper::Header_Begin())
+        return false;
+
+    return true;
 }
 
 //***************************************************************************

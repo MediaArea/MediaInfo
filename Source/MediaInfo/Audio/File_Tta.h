@@ -56,6 +56,10 @@ private :
     bool Header_Begin();
     void Header_Parse();
     void Data_Parse();
+
+    //Temp
+    int64u Duration;
+    int64u UncompressedSize;
 };
 
 } //NameSpace

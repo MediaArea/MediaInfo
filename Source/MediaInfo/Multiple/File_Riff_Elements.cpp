@@ -416,6 +416,7 @@ void File_Riff::AIFF_COMM()
         Fill(Stream_Audio, StreamPos_Last, Audio_Format, "PCM");
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "PCM");
     }
+    Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Mode, "CBR");
 
     //Filling
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, numChannels);
@@ -454,6 +455,7 @@ void File_Riff::AIFF_SSND()
     Element_Name("Sound Data");
 
     //Filling
+    Fill(Stream_Audio, 0, Audio_StreamSize, Element_TotalSize_Get());
     Finnished();
 }
 

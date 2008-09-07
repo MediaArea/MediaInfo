@@ -544,7 +544,8 @@ void File__Analyze::Finalize_Audio(size_t Pos)
 //---------------------------------------------------------------------------
 void File__Analyze::Finalize_Audio_BitRate(size_t Pos, audio Parameter)
 {
-    const Ztring& Codec=Retrieve(Stream_Audio, Pos, "Codec");
+    const Ztring& Format=Retrieve(Stream_Audio, Pos, Audio_Format);
+    const Ztring& Codec=Retrieve(Stream_Audio, Pos, Audio_Codec);
     int32u BitRate=Retrieve(Stream_Audio, Pos, Parameter).To_int32u();
     int32u BitRate_Sav=BitRate;
     if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec, Stream_Audio).find(_T("MPEG-"))==0
@@ -652,7 +653,7 @@ void File__Analyze::Finalize_Audio_BitRate(size_t Pos, audio Parameter)
         if (BitRate>= 648270 && BitRate<= 674730) BitRate= 661500;
     }
 
-    else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_Name, Stream_Audio).find(_T("PCM"))==0)
+    else if (Codec==_T("PCM") || MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_Name, Stream_Audio).find(_T("PCM"))==0)
     {
         if (BitRate>=  62720 && BitRate<=  65280) BitRate=  64000;
         if (BitRate>=  86436 && BitRate<=  89964) BitRate=  88200;
@@ -674,7 +675,8 @@ void File__Analyze::Finalize_Audio_BitRate(size_t Pos, audio Parameter)
     else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_Name, Stream_Audio).find(_T("ADPCM"))==0
           || MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_Name, Stream_Audio).find(_T("U-Law"))==0
           || MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec, Stream_Audio)==_T("ADPCM")
-          || MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec, Stream_Audio)==_T("U-Law"))
+          || MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec, Stream_Audio)==_T("U-Law")
+          || Format==_T("ADPCM"))
     {
         if (BitRate>=  42000 && BitRate<=  46000) BitRate=  44100;
         if (BitRate>=  62720 && BitRate<=  65280) BitRate=  64000;
