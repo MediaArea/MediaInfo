@@ -87,8 +87,8 @@ public :
         /// @retval 0 failed
         /// @retval 1 suceed
     size_t Save (size_t FilePos);
-        /// Save all files opened before with Open() (modifications of tags)
-        /// @brief Save all files
+        /// (NOT IMPLEMENTED YET) Save all files opened before with Open() (modifications of tags)
+        /// @brief (NOT IMPLEMENTED YET) Save all files
         /// @param FilePos File position \n
         ///        (you can know the position in searching the filename with MediaInfoList::Get(FilePos, 0, 0, "CompleteName") )
         /// @retval Count of files saved
@@ -129,8 +129,8 @@ public :
     String Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber, const String &Parameter, info_t KindOfInfo=Info_Text, info_t KindOfSearch=Info_Name); //Get info, FilePos=File position, StreamKind=General video audio text chapter, StreamNumber=stream number, PosInStream=parameter you want, KindOfInfo=name text measure options name(language) measure(language) information how to, KindOfSearch=which Kind Of information Parameter must be searched?
 
     //Set
-        /// Set a piece of information about a file (parameter is an int)
-        /// @brief Set a piece of information about a file (parameter is an int)
+        /// (NOT IMPLEMENTED YET) Set a piece of information about a file (parameter is an int)
+        /// @brief (NOT IMPLEMENTED YET) Set a piece of information about a file (parameter is an int)
         /// @warning Not yet implemented, do not use it
         /// @param ToSet Piece of information
         /// @param FilePos File position \n
@@ -142,7 +142,7 @@ public :
         /// @retval >0 succeed
         /// @retval 0 failed
     size_t Set (const String &ToSet, size_t FilePos, stream_t StreamKind, size_t StreamNumber, size_t Parameter, const String &OldValue=_T("")); //Get info, FilePos=File position, StreamKind=General video audio text chapter, StreamNumber=stream number, PosInStream=parameter you want, KindOfInfo=name, text, measure, options name(language) measure(language) information how to
-        /// @brief Get information about a file (parameter is a string)
+        /// @brief (NOT IMPLEMENTED YET) Get information about a file (parameter is a string)
         /// @warning Not yet implemented, do not use it
         /// @param ToSet Piece of information
         /// @param FilePos File position \n

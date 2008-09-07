@@ -84,8 +84,8 @@ public :
         /// Open a stream and collect information about it (technical information and tags)
         /// @brief Open a stream (Finalize)
     size_t Open_Buffer_Finalize ();
-        /// Save the file opened before with Open() (modifications of tags)
-        /// @brief Save the file
+        /// (NOT IMPLEMENTED YET) Save the file opened before with Open() (modifications of tags)
+        /// @brief (NOT IMPLEMENTED YET) Save the file
         /// @retval 0 failed
         /// @retval 1 suceed
     size_t Save ();
@@ -123,8 +123,8 @@ public :
     String Get (stream_t StreamKind, size_t StreamNumber, const String &Parameter, info_t InfoKind=Info_Text, info_t SearchKind=Info_Name);
 
     //Set
-        /// Set a piece of information about a file (parameter is an integer)
-        /// @brief Set a piece of information about a file (parameter is an int)
+        /// (NOT IMPLEMENTED YET) Set a piece of information about a file (parameter is an integer)
+        /// @brief (NOT IMPLEMENTED YET) Set a piece of information about a file (parameter is an int)
         /// @warning Not yet implemented, do not use it
         /// @param ToSet Piece of information
         /// @param StreamKind Kind of stream (general, video, audio...)
@@ -134,9 +134,9 @@ public :
         /// @retval >0 succeed
         /// @retval 0 failed
     size_t Set (const String &ToSet, stream_t StreamKind, size_t StreamNumber, size_t Parameter, const String &OldValue=_T(""));
-        /// Set a piece of information about a file (parameter is a string)
+        /// (NOT IMPLEMENTED YET) Set a piece of information about a file (parameter is a string)
         /// @warning Not yet implemented, do not use it
-        /// @brief Set information about a file (parameter is a string)
+        /// @brief (NOT IMPLEMENTED YET) Set information about a file (parameter is a string)
         /// @param ToSet Piece of information
         /// @param StreamKind Kind of stream (general, video, audio...)
         /// @param StreamNumber Stream number in Kind of stream (first, second...)
