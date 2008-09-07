@@ -668,7 +668,29 @@ void File_Vc1::SequenceHeader()
     //Parsing
     BS_Begin();
     Get_S1 ( 2, profile,                                        "profile"); Param_Info(Vc1_Profile[profile]);
-    if (profile==3) //Advanced
+    if (profile==0 || profile==1) //Simple or Main
+    {
+        Skip_S1( 2,                                             "res_sm");
+        Skip_S1( 3,                                             "frmrtq_postproc");
+        Skip_S1( 5,                                             "bitrtq_postproc");
+        Skip_SB(                                                "loopfilter");
+        Skip_SB(                                                "res_x8");
+        Skip_SB(                                                "multires");
+        Skip_SB(                                                "res_fasttx");
+        Skip_SB(                                                "fastuvmc");
+        Skip_SB(                                                "extended_mv");
+        Skip_S1( 2,                                             "dquant");
+        Skip_SB(                                                "vtransform");
+        Skip_SB(                                                "res_transtab");
+        Skip_SB(                                                "overlap");
+        Skip_SB(                                                "syncmarker");
+        Skip_SB(                                                "rangered");
+        Skip_S1( 2,                                             "maxbframes");
+        Skip_S1( 2,                                             "quantizer");
+        Skip_SB(                                                "finterpflag");
+        Skip_SB(                                                "res_rtm_flag");
+    }
+    else if (profile==3) //Advanced
     {
         Get_S1 ( 3, level,                                      "level");
         Get_S1 ( 2, colordiff_format,                           "colordiff_format"); Param_Info(Vc1_ColorimetryFormat[colordiff_format]);
@@ -680,7 +702,7 @@ void File_Vc1::SequenceHeader()
         Get_SB (    pulldown,                                   "pulldown");
         Get_SB (    interlace,                                  "interlace");
         Get_SB (    tfcntrflag,                                 "tfcntrflag - frame counter");
-        Get_SB (    finterpflag,                                "finterpflagflag");
+        Get_SB (    finterpflag,                                "finterpflag");
         Skip_SB(                                                "reserved");
         Get_SB (    psf,                                        "psf - progressive segmented frame");
         TEST_SB_SKIP(                                           "display_ext");
@@ -720,14 +742,12 @@ void File_Vc1::SequenceHeader()
                 Element_End();
             }
         TEST_SB_END();
-        Mark_1();
     }
-    else
+    else //forbidden
     {
-        //Unknown, too less info for doing something, abandonning
-        Skip_XX(Element_Size,                                   "Data");
-        return;
+        Element_DoNotTrust("Forbidden value");
     }
+    Mark_1();
     BS_End();
 
     FILLING_BEGIN();
