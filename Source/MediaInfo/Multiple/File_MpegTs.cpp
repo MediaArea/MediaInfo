@@ -1179,11 +1179,14 @@ void File_MpegTs::Detect_EOF()
     if (File_Offset+Buffer_Size>=MpegTs_JumpTo_Begin && Programs.empty() && format_identifier!=0xFFFFFFFF)
     {
         //Activating all streams as PES, in case of PAT/PMT are missing (ofen in .trp files)
-        for (size_t StreamID=0x20; StreamID<0x1FFF; StreamID++)
+        if (!Streams.empty())
         {
-            Streams[StreamID].Searching_Payload_Start_Set(true);
-            Streams[StreamID].Searching_TimeStamp_Start_Set(true);
-            Streams[StreamID].TS_Kind=File_Mpeg_Psi::pes;
+            for (size_t StreamID=0x20; StreamID<0x1FFF; StreamID++)
+            {
+                Streams[StreamID].Searching_Payload_Start_Set(true);
+                Streams[StreamID].Searching_TimeStamp_Start_Set(true);
+                Streams[StreamID].TS_Kind=File_Mpeg_Psi::pes;
+            }
         }
         format_identifier=0xFFFFFFFF;
         File_GoTo=0;
@@ -1203,13 +1206,17 @@ void File_MpegTs::Detect_EOF()
         if (File_Size!=(int64u)-1) //Only if not unlimited
         {
             //Reactivating interessant TS streams
-            for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+            if (!Streams.empty())
             {
                 //End timestamp is out of date
-                if (Streams[StreamID].TS_Kind==File_Mpeg_Psi::pes)
-                    Streams[StreamID].TimeStamp_End=(int64u)-1;
-                if (Streams[StreamID].TimeStamp_Start!=(int64u)-1)
-                    Streams[StreamID].Searching_TimeStamp_End_Set(!Streams[StreamID].Searching_TimeStamp_Start); //Searching only for a start found
+                for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+                {
+                    //End timestamp is out of date
+                    if (Streams[StreamID].TS_Kind==File_Mpeg_Psi::pes)
+                        Streams[StreamID].TimeStamp_End=(int64u)-1;
+                    if (Streams[StreamID].TimeStamp_Start!=(int64u)-1)
+                        Streams[StreamID].Searching_TimeStamp_End_Set(!Streams[StreamID].Searching_TimeStamp_Start); //Searching only for a start found
+                }
             }
         }
 

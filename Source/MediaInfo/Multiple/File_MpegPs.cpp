@@ -907,30 +907,33 @@ void File_MpegPs::Detect_EOF()
     }
 
     //Jumping only if needed
-    if (video_stream_Count>0 || audio_stream_Count>0 || private_stream_1_Count>0 || private_stream_2_Count==true || extension_stream_Count>0)
+    if (Streams.empty() || video_stream_Count>0 || audio_stream_Count>0 || private_stream_1_Count>0 || private_stream_2_Count==true || extension_stream_Count>0)
         return;
-
-    //No need anymore of this Streams
-    Streams[0xBB].Searching_Payload=false; //system_start
 
     //Jumping if needed
     if (File_Size>SizeToAnalyze && File_Offset+Buffer_Size<File_Size-SizeToAnalyze
      || FromTS)
     {
-        //Reactivating interessant PS streams
-        for (size_t StreamID=0; StreamID<0x100; StreamID++)
-        {
-            //End timestamp is out of date
-            Streams[StreamID].TimeStamp_End.PTS_Is_Valid=false;
-            Streams[StreamID].TimeStamp_End.DTS_Is_Valid=false;
-            Streams[StreamID].Searching_TimeStamp_Start=false;
-            Streams_Private1[StreamID].TimeStamp_End.PTS_Is_Valid=false;
-            Streams_Private1[StreamID].TimeStamp_End.DTS_Is_Valid=false;
-            Streams_Private1[StreamID].Searching_TimeStamp_Start=false;
-            Streams_Extension[StreamID].TimeStamp_End.PTS_Is_Valid=false;
-            Streams_Extension[StreamID].TimeStamp_End.DTS_Is_Valid=false;
-            Streams_Extension[StreamID].Searching_TimeStamp_Start=false;
-        }
+        if (!Streams.empty())
+         {
+            //No need anymore of this Streams
+            Streams[0xBB].Searching_Payload=false; //system_start
+
+            //Reactivating interessant PS streams
+            for (size_t StreamID=0; StreamID<0x100; StreamID++)
+            {
+                //End timestamp is out of date
+                Streams[StreamID].TimeStamp_End.PTS_Is_Valid=false;
+                Streams[StreamID].TimeStamp_End.DTS_Is_Valid=false;
+                Streams[StreamID].Searching_TimeStamp_Start=false;
+                Streams_Private1[StreamID].TimeStamp_End.PTS_Is_Valid=false;
+                Streams_Private1[StreamID].TimeStamp_End.DTS_Is_Valid=false;
+                Streams_Private1[StreamID].Searching_TimeStamp_Start=false;
+                Streams_Extension[StreamID].TimeStamp_End.PTS_Is_Valid=false;
+                Streams_Extension[StreamID].TimeStamp_End.DTS_Is_Valid=false;
+                Streams_Extension[StreamID].Searching_TimeStamp_Start=false;
+            }
+         }
 
         //Jumping
         Info("MPEG-PS, Jumping to end of file");

@@ -430,7 +430,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     {
         Element[Element_Level].WaitForMoreData=false;
         Detect_EOF();
-        if (File_GoTo!=(int64u)-1 || File_Offset==(int64u)-1 || (IsFinnished && !ShouldContinueParsing))
+        if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || File_Offset==File_Size || File_Offset==(int64u)-1 || (IsFinnished && !ShouldContinueParsing))
         {
             EOF_AlreadyDetected=true;
             return;
@@ -596,13 +596,23 @@ bool File__Analyze::FileHeader_Manage()
 bool File__Analyze::Header_Manage()
 {
     //Test
-    if (Buffer_Offset>Buffer_Size)
+    if (Buffer_Offset>=Buffer_Size)
         return false;
 
     //From the parser
     Element[Element_Level].IsComplete=true;
     if (!Header_Begin())
+    {
+        //Jumping to the end of the file if needed
+        if (!EOF_AlreadyDetected && File_GoTo==(int64u)-1)
+        {
+            Element[Element_Level].WaitForMoreData=false;
+            Detect_EOF();
+            if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || File_Offset==File_Size || File_Offset==(int64u)-1 || (IsFinnished && !ShouldContinueParsing))
+                EOF_AlreadyDetected=true;
+        }
         return false; //Wait for more data
+    }
     Element[Element_Level].UnTrusted=false;
 
     //Going in a lower level
@@ -757,7 +767,7 @@ bool File__Analyze::Data_Manage()
     Element[Element_Level].IsComplete=true;
 
     //If no need of more
-    if (File_Offset==File_Size || File_GoTo!=(int64u)-1 || (IsFinnished && !ShouldContinueParsing))
+    if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || File_Offset==File_Size || File_Offset==(int64u)-1 || (IsFinnished && !ShouldContinueParsing))
         return false;
 
     //Next element
@@ -794,7 +804,7 @@ bool File__Analyze::Data_Manage()
     {
         Element[Element_Level].WaitForMoreData=false;
         Detect_EOF();
-        if (File_GoTo!=(int64u)-1 || File_Offset==(int64u)-1 || (IsFinnished && !ShouldContinueParsing))
+        if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || File_Offset==File_Size || File_Offset==(int64u)-1 || (IsFinnished && !ShouldContinueParsing))
         {
             EOF_AlreadyDetected=true;
             return false;
