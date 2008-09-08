@@ -1410,8 +1410,8 @@ void File_Avc::SPS_PPS()
 {
     //Parsing
     int8u Profile, Level, seq_parameter_set_count, pic_parameter_set_count;
-    Skip_B1(                                                    "Reserved");
     Get_B1 (Profile,                                            "Profile");
+    Skip_B1(                                                    "Compatible profile");
     if (SizedBlocks)
         Skip_B1(                                                "Reserved");
     Get_B1 (Level,                                              "Level");
