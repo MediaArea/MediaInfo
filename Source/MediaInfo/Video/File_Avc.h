@@ -108,6 +108,7 @@ private :
     Ztring Encoded_Library_Date;
     Ztring Encoded_Library_Settings;
     Ztring BitRate_Nominal;
+    Ztring MuxingMode;
     int32u pic_width_in_mbs_minus1;
     int32u pic_height_in_map_units_minus1;
     int32u log2_max_frame_num_minus4;

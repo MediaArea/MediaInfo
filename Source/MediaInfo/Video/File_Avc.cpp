@@ -168,6 +168,20 @@ const int8u Avc_SubHeightC[]=
 };
 
 //---------------------------------------------------------------------------
+const char* Avc_profile_idc(int8u profile_idc)
+{
+    switch (profile_idc)
+    {
+        case  66 : return "Baseline";
+        case  77 : return "Main";
+        case  88 : return "Extended";
+        case 100 : return "High";
+        case 110 : return "High 10";
+        case 122 : return "High 4:2:2";
+        case 144 : return "High 4:4:4";
+        default  : return "Unknown";
+    }
+}
 
 //***************************************************************************
 // Constructor/Destructor
@@ -590,17 +604,7 @@ void File_Avc::slice_header_Fill()
 
     //Calculating - Profile
     Ztring ProfileS;
-    switch (profile_idc)
-    {
-        case  66 : ProfileS=_T("Baseline"); break;
-        case  77 : ProfileS=_T("Main"); break;
-        case  88 : ProfileS=_T("Extended"); break;
-        case 100 : ProfileS=_T("High"); break;
-        case 110 : ProfileS=_T("High 10"); break;
-        case 122 : ProfileS=_T("High 4:2:2"); break;
-        case 144 : ProfileS=_T("High 4:4:4"); break;
-        default   : ProfileS.From_Number(profile_idc); break;
-    }
+    ProfileS.From_Local(Avc_profile_idc(profile_idc));
 
     //Calculating - Level
     Ztring LevelS;
@@ -695,6 +699,7 @@ void File_Avc::slice_header_Fill()
     Fill(Stream_Video, 0, Video_Encoded_Library_Version, Encoded_Library_Version);
     Fill(Stream_Video, 0, Video_Encoded_Library_Settings, Encoded_Library_Settings);
     Fill(Stream_Video, 0, Video_BitRate_Nominal, BitRate_Nominal);
+    Fill(Stream_Video, 0, Video_MuxingMode, MuxingMode);
     if (entropy_coding_mode_flag)
     {
         Fill(Stream_Video, 0, Video_Format_Settings, "CABAC");
@@ -1470,6 +1475,10 @@ void File_Avc::SPS_PPS()
         Element_Size=Element_Size_Save;
         Element_End();
     }
+
+    //Detection of some bugs in the file
+    if (Profile!=profile_idc || Level!=level_idc)
+        MuxingMode=Ztring("Container profile=")+Ztring().From_Local(Avc_profile_idc(Profile))+_T("@")+Ztring().From_Number(((float)Level)/10, 1);
 
     //Filling
     MustParse_SPS_PPS=false;
