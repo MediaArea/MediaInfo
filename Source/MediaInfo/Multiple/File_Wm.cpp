@@ -96,7 +96,7 @@ void File_Wm::Read_Buffer_Finalize()
             Info_Temp++;
         }
 
-        if (Temp->second.StreamKind==Stream_Video && Temp->second.AverageTimePerFrame>0)
+        if (Temp->second.StreamKind==Stream_Video)
         {
             //Some tests about the frame rate
             std::map<int32u, int32u> PresentationTime_Deltas_Problem;
@@ -112,11 +112,15 @@ void File_Wm::Read_Buffer_Finalize()
             if (PresentationTime_Deltas_Most.size()==0
              || (PresentationTime_Deltas_Most.size()==1 && PresentationTime_Deltas_Problem.size()>1)
              || (PresentationTime_Deltas_Most.size()==2 && PresentationTime_Deltas_Problem.size()>2))
-                Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate", ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
+            {
+                if (Temp->second.AverageTimePerFrame>0)
+                    Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate", ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
+            }
             else if (PresentationTime_Deltas_Most.size()==1)
             {
                 Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate", 1000/((float64)PresentationTime_Deltas_Most.begin()->first), 3, true);
-                Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate_Nominal", ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
+                if (Temp->second.AverageTimePerFrame>0)
+                    Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate_Nominal", ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
             }
             else if (PresentationTime_Deltas_Most.size()==2)
             {
@@ -140,12 +144,14 @@ void File_Wm::Read_Buffer_Finalize()
                 else if (FrameRate_Real>29.955*2 && FrameRate_Real<=29.985*2) FrameRate_Real=29.970;
                 else if (FrameRate_Real>30.985*2 && FrameRate_Real<=30.015*2) FrameRate_Real=30.000;
                 Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate", FrameRate_Real, 3, true);
-                Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate_Nominal", ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
+                if (Temp->second.AverageTimePerFrame>0)
+                    Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate_Nominal", ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
             }
             else
             {
                 Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate", "VFR");
-                Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate_Nominal", ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
+                if (Temp->second.AverageTimePerFrame>0)
+                    Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate_Nominal", ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
             }
         }
         if (Temp->second.AverageBitRate>0)
