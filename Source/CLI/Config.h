@@ -54,6 +54,9 @@ inline void TEXTOUT(char* Text)
 
 inline void STRINGOUT(ZenLib::Ztring Text)
 {
+    #ifdef __WINDOWS__
+        Text.FindAndReplace(_T("\r\n"), _T("\n"), 0, ZenLib::Ztring_Recursive); //MediaInfoLib handle differences between platforms, but cout too!
+    #endif //__WINDOWS__
     std::cout<<Text.To_Local().c_str()<<std::endl;
 }
 

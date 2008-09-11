@@ -38,16 +38,18 @@ int Help()
     TEXTOUT("Usage: \"MediaInfo [-Options...] FileName1 [Filename2...]\"");
     TEXTOUT("");
     TEXTOUT("Options:");
-    TEXTOUT("--Full, -f  Display full information (all internal tags)");
-    TEXTOUT("--Info-Parameters  Display available parameters");
-    TEXTOUT("--Inform=...  Specify a template");
-    TEXTOUT("             (--Help-Inform for more info)");
-    TEXTOUT("--Help, -h  Display this help and exit");
-    TEXTOUT("--Language=raw  Display Non-translated words (internal text)");
-    TEXTOUT("--Output=HTML  Display with HTML tags for parsing by a browser");
-    TEXTOUT("--Version  Display version information and exit");
+    TEXTOUT("--Help, -h         Display this help and exit");
+    TEXTOUT("--Help-Inform      Display help for Inform= option");
+    TEXTOUT("--Help-AnOption    Display help for \"AnOption\"");
+    TEXTOUT("--Version          Display MediaInfo version and exit");
     TEXTOUT("");
-    TEXTOUT("--Help-AnOption  Display more details about \"AnOption\"");
+    TEXTOUT("--Full , -f        Full information Display (all internal tags)");
+    TEXTOUT("--Output=HTML      Full information Display with HTML tags ");
+    TEXTOUT("--Inform=...       Template defined information Display");
+    TEXTOUT("--Info-Parameters  Display list of Inform= parameters");
+    TEXTOUT("");
+    TEXTOUT("--Language=raw     Display Non-translated words (internal text)");
+    TEXTOUT("--LogFile=...      Save the output in the specified file");
 
     return -1;
 }
@@ -65,7 +67,7 @@ int Help_Nothing()
 int Help_Inform()
 {
     TEXTOUT("--Inform=...  Specify a template (BETA)");
-    TEXTOUT("Usage: \"MediaInfo --Inform=xxx;Text FileName\"");
+    TEXTOUT("Usage: \"MediaInfo --Inform=[xxx;]Text FileName\"");
     TEXTOUT("");
     TEXTOUT("xxx can be: General, Video, Audio, Text, Chapter, Image, Menu");
     TEXTOUT("Text can be the template text, or a filename");
@@ -75,9 +77,15 @@ int Help_Inform()
     TEXTOUT("(Parameters must be surrounded by \"%\" sign)");
     TEXTOUT("");
     TEXTOUT("Example: \"MediaInfo --Inform=Video;%AspectRatio% FileName\"");
+    TEXTOUT("");
     TEXTOUT("Example: \"MediaInfo --Inform=Video;file://Video.txt FileName\"");
-    TEXTOUT("and Video.txt contains \"%AspectRatio%\"");
-    TEXTOUT("for having Video Aspect Ratio.");
+    TEXTOUT("and Video.txt contains ");
+    TEXTOUT("\"%DisplayAspectRatio%\"        for Video Aspect Ratio.");
+    TEXTOUT("");
+    TEXTOUT("Example: \"MediaInfo --Inform=file://Text.txt FileName\"");
+    TEXTOUT("and Text.txt contains");
+    TEXTOUT("\"Video;%DisplayAspectRatio%\"  for Video Aspect Ratio.");
+    TEXTOUT("\"Audio;%Format%\"              for Audio Format.");
 
     return -1;
 }

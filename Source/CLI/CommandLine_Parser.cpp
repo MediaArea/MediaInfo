@@ -69,6 +69,7 @@ int Parse(Core &MI, MediaInfoLib::String &Argument)
     OPTION("--inform=",                                     Inform)
     OPTION("--language",                                    Language)
     OPTION("--output=html",                                 Output_HTML)
+    OPTION("--output=HTML",                                 Output_HTML)
     OPTION("--logfile",                                     LogFile)
     OPTION("--version",                                     Version)
     //Obsolete
@@ -194,7 +195,7 @@ void LogFile_Action(ZenLib::Ztring Inform)
         return;
 
     std::string Inform_Ansi=Inform.To_UTF8();
-    std::fstream File(LogFile_FileName.To_Local().c_str(), std::ios_base::out|std::ios_base::trunc);
+    std::fstream File(LogFile_FileName.To_Local().c_str(), std::ios_base::out|std::ios_base::binary|std::ios_base::trunc);
     File.write(Inform_Ansi.c_str(), Inform_Ansi.size());
 }
 
