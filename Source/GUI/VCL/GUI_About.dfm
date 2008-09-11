@@ -64,7 +64,7 @@ object AboutF: TAboutF
     TabOrder = 0
   end
   object WebSite: TTntButton
-    Left = 72
+    Left = 74
     Top = 312
     Width = 193
     Height = 27
@@ -88,14 +88,14 @@ object AboutF: TAboutF
     TabOrder = 3
     object ToolButton1: TToolButton
       Left = 0
-      Top = 2
+      Top = 0
       Caption = 'ToolButton1'
       Enabled = False
       ImageIndex = 0
     end
   end
   object NewVersion: TTntButton
-    Left = 72
+    Left = 74
     Top = 339
     Width = 193
     Height = 27
@@ -104,7 +104,7 @@ object AboutF: TAboutF
     OnClick = NewVersionClick
   end
   object Donate: TTntButton
-    Left = 72
+    Left = 74
     Top = 366
     Width = 193
     Height = 27
@@ -128,14 +128,14 @@ object AboutF: TAboutF
     TabOrder = 6
     object ToolButton2: TToolButton
       Left = 0
-      Top = 2
+      Top = 0
       Caption = 'ToolButton1'
       Enabled = False
       ImageIndex = 0
     end
   end
   object WriteMe: TTntButton
-    Left = 72
+    Left = 74
     Top = 393
     Width = 193
     Height = 27
