@@ -124,9 +124,9 @@
  text stream1;字幕
  text stream2;个字幕
  text stream3;个字幕
- video frames1; 视频段
- video frames2; 段视频
- video frames3; 段视频
+ video frames1; 帧
+ video frames2; 帧
+ video frames3; 帧
  video stream1;视频
  video stream2;个视频
  video stream3;个视频
@@ -147,15 +147,15 @@ About_Hint;联系作者以及获得最新版
 Accompaniment;伴奏
 Actor;演员
 Actor_Character;角色
-Added_Date
+Added_Date;附加数据
 Address;地址
 Advanced;高级
 Advanced mode;高级模式
 Album;专辑
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
-Alignment_Aligned;同步合并
-Alignment_Split;非同步合并
+Alignment_Aligned
+Alignment_Split
 All;全部
 Archival_Location;归档地址
 Arranger;改编者
@@ -497,9 +497,9 @@ Interlaced_TFF;奇数场(前场TFF)优先
 Interlaced_BFF;偶数场(后场BFF)优先
 Interlaced_PPF;逐行扫描
 Interlaced_Progressive;逐行扫描
-Interleave_Duration;音视频交错, 时间
+Interleave_Duration;音视频交错, 间隔时间
 Interleave_Preload;音视频交错, 音频预读
-Interleave_VideoFrames;音视频交错, 时间
+Interleave_VideoFrames;音视频交错, 帧间隔
 IRCA
 ISBN
 ISRC
