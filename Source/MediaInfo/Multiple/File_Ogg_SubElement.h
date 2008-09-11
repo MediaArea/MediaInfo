@@ -68,6 +68,7 @@ private :
     void Identification_video();
     void Identification_audio();
     void Identification_text();
+    void Identification_FLAC1();
     void Comment();
     void Comment_vorbis();
     void Comment_theora();
@@ -76,10 +77,14 @@ private :
     void Comment_text();
     void Setup();
     void Setup_vorbis();
+    void FLAC1();
+    void OutOfSpecs();
 
     //Temp
     File__Analyze* Setup_Vorbis;
+    File__Analyze* Flac;
     int64u         ID_Identification;
+    bool           IsOutOfSpecs_Flac;
 };
 
 #ifdef __BORLANDC__ //Borland converts int64u to int32u without error or warning
@@ -96,12 +101,14 @@ private :
 namespace Ogg
 {
     const int32u OggS=0x4F676753;
+    const int32u fLaC=0x664C6143;
 
     OGG_ID(vorbis, 766F, 72626973)
     OGG_ID(theora, 7468, 656F7261)
     OGG_ID(video,  7669, 64656F00)
     OGG_ID(audio,  6175, 64696F00)
     OGG_ID(text,   7465, 78740000)
+    OGG_ID(FLAC1,  464C, 41430100)
 }
 
 } //NameSpace

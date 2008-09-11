@@ -38,6 +38,9 @@
 #include <ZenLib/Utils.h>
 #include <cmath>
 #include <memory>
+#if defined(MEDIAINFO_FLAC_YES)
+    #include "MediaInfo/Audio/File_Flac.h"
+#endif
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
@@ -55,6 +58,8 @@ File_Ogg_SubElement::File_Ogg_SubElement()
 {
     //Internal
     Setup_Vorbis=NULL;
+    Flac=NULL;
+    IsOutOfSpecs_Flac=false;
 
     //In
     StreamKind=Stream_General;
@@ -66,6 +71,7 @@ File_Ogg_SubElement::File_Ogg_SubElement()
 File_Ogg_SubElement::~File_Ogg_SubElement()
 {
     delete Setup_Vorbis; //Setup_Vorbis=NULL;
+    delete Flac; //Flac=NULL;
 }
 
 //***************************************************************************
@@ -108,6 +114,17 @@ bool File_Ogg_SubElement::Header_Begin()
 //---------------------------------------------------------------------------
 void File_Ogg_SubElement::Header_Parse()
 {
+    if (Count_Get(Stream_General)==0)
+        Stream_Prepare(Stream_General);
+
+    //Testing old and out of specs Flac in OGG
+    if (IsOutOfSpecs_Flac || (Element_Size==4 && CC4(Buffer+Buffer_Offset)==Ogg::fLaC))
+    {
+        Header_Fill_Code((int64u)-1, IsOutOfSpecs_Flac?"Flac":"Out of specifications");
+        Header_Fill_Size(Buffer_Size);
+        return;
+    }
+
     //Parsing
     int64u SamplesCount;
     int32u SamplesCount4;
@@ -179,23 +196,29 @@ void File_Ogg_SubElement::Header_Parse()
     //Filling
     Header_Fill_Code(Type, Ztring::ToZtring(Type, 16));
     Header_Fill_Size(Element_Size);
-
-    if (Count_Get(Stream_General)==0)
-        Stream_Prepare(Stream_General);
 }
 
 //---------------------------------------------------------------------------
 void File_Ogg_SubElement::Data_Parse()
 {
+    //Specific to Flac
+    if (IsOutOfSpecs_Flac)
+    {
+        FLAC1();
+        return;
+    }
+
     //Parsing
     switch (Element_Code)
     {
         case 0x01 : Identification(); break;
         case 0x03 : Comment(); break;
         case 0x05 : Setup(); break;
+        case 0x7F : Identification(); break;
         case 0x80 : Identification(); break;
         case 0x81 : Comment(); break;
         case 0x82 : Setup(); break;
+        case (int64u)-1 : OutOfSpecs(); break;
         default   : Skip_XX(Element_Size,                       "Data");
                     Finnished();
     }
@@ -231,6 +254,7 @@ void File_Ogg_SubElement::Identification()
     ELEMENT_CASE(video)
     ELEMENT_CASE(audio)
     ELEMENT_CASE(text)
+    ELEMENT_CASE(FLAC1)
     else
     {
         Finnished();
@@ -404,6 +428,35 @@ void File_Ogg_SubElement::Identification_text()
 }
 
 //---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_FLAC1()
+{
+    Element_Info("Flac");
+
+    //Integrity
+    if (Element_Offset+2>Element_Size)
+        return;
+
+    //Parsing
+    Skip_B2(                                                    "Number of headers");
+
+    #if defined(MEDIAINFO_FLAC_YES)
+        //Open
+        Flac=new File_Flac;
+        Open_Buffer_Init(Flac, File_Size, File_Offset+Buffer_Offset+Element_Offset);
+        Open_Buffer_Continue(Flac, Buffer+Buffer_Offset+Element_Offset, (size_t)(Element_Size-Element_Offset));
+        Merge(*Flac, Stream_Audio, 0, 0);
+    #else
+        //Filling
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Text_Format, "FLAC");
+        Fill(Stream_Audio, 0, Text_Codec, "FLAC");
+    #endif
+
+    //Filling
+    IsOutOfSpecs_Flac=true;
+}
+
+//---------------------------------------------------------------------------
 void File_Ogg_SubElement::Comment()
 {
     Element_Name("Comment");
@@ -557,6 +610,52 @@ void File_Ogg_SubElement::Setup_vorbis()
     Open_Buffer_Init(Setup_Vorbis, File_Size, File_Offset+Buffer_Offset+6);
     Open_Buffer_Continue(Setup_Vorbis, Buffer+Buffer_Offset+6, (size_t)(Element_Size-6));
     Merge(*Setup_Vorbis, Stream_Audio, 0, 0);
+}
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::FLAC1()
+{
+    //Parsing
+    #if defined(MEDIAINFO_FLAC_YES)
+        if (Flac==NULL)
+        {
+            Finnished();
+            return;
+        }
+        Open_Buffer_Init(Flac, File_Size, File_Offset+Buffer_Offset+Element_Offset);
+        Open_Buffer_Continue(Flac, Buffer+Buffer_Offset+Element_Offset, (size_t)(Element_Size-Element_Offset));
+        if (Flac->File_Offset==Flac->File_Size)
+        {
+            Merge(*Flac, Stream_Audio, 0, 0);
+            Finnished();
+        }
+
+    #else
+        Skip_XX(Element_Size,                                   "Flac data");
+        Finnished();
+    #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::OutOfSpecs()
+{
+    //Parsing
+    int32u Signature;
+    Get_C4 (Signature,                                          "Signature");
+
+    FILLING_BEGIN();
+        if (Signature==Ogg::fLaC)
+        {
+            Stream_Prepare(Stream_Audio);
+            Fill(Stream_Audio, 0, Audio_Format, "FLAC");
+            Fill(Stream_Audio, 0, Audio_Codec, "FLAC");
+            Fill(Stream_Audio, 0, Audio_MuxingMode, "pre-FLAC 1.1.1");
+            Flac=new File_Flac;
+            Open_Buffer_Init(Flac, File_Size, File_Offset+Buffer_Offset+Element_Offset-4);
+            Open_Buffer_Continue(Flac, Buffer+Buffer_Offset+Element_Offset-4, (size_t)(Element_Size-(Element_Offset-4)));
+            IsOutOfSpecs_Flac=true;
+        }
+    FILLING_END();
 }
 
 //***************************************************************************
