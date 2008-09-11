@@ -8,6 +8,21 @@ bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
 
+Version 0.7.7.6, 2008-09-12
+---------------
++ [2088009] Flac: Picture tag support
++ Flac: Support of Id3v1&2 in a Flac file
++ WM (ASF/WMV/WMA): detection of wrong framerate in header, trusting now the timestamp instead of the header
++ WM (ASF/WMV/WMA): detection of framerate from the timestamp when the framerate info is not available in the header
++ MPEG-4 with AVC: Added information about buggy files readable by all players except iPods
++ OGG: OGG with FLAC (pre- and post-FLAC 1.1.1) support
+x Output=HTML was not working
+x MPEG-TS without PAT/PMT: the complete stream was parsed, may be very long
+x Wavpack: duration and bitrate were false
+x #2071681, MPEG Audio: handling of truncated MPEG audio frames at the end of a file
+x #2032760, MPEG Audio: handling of MPEG Audio files with junk at the end
+x #2085149, Id3v2: was crashing with some malformed tags
+
 Version 0.7.7.5, 2008-08-22
 ---------------
 + Chinese Simplified, Italian, Korean, Russian, Albanian languages updated
