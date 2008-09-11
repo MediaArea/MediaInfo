@@ -29,6 +29,10 @@ copy ..\Licence.html MediaInfo_CLI_GNU_Prepare\
 copy ReadMe_CLI_Linux.txt MediaInfo_CLI_GNU_Prepare\Release\
 copy ReadMe_CLI_Mac.txt MediaInfo_CLI_GNU_Prepare\Release\
 
+rem --- Copying : Contrib files ---
+mkdir MediaInfo_CLI_GNU_Prepare\Contrib
+copy ..\Contrib\CLI_Help.doc MediaInfo_CLI_GNU_Prepare\Contrib\
+
 
 rem --- Preparing Archive : MediaInfo ---
 move MediaInfo_CLI_GNU_Prepare MediaInfo

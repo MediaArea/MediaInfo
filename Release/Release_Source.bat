@@ -58,6 +58,9 @@ rem --- Copying : Information files ---
 xcopy ..\*.txt MediaInfo_Source\
 xcopy ..\*.html MediaInfo_Source\
 
+rem --- Copying : Contrib files ---
+xcopy ..\Contrib\*.doc MediaInfo_Source\Contrib\ /S
+
 rem --- Copying : CVS files ---
 xcopy ..\*.cvsignore MediaInfo_Source\
 

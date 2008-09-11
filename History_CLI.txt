@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.7.6, 2008-09-12
 ---------------
++ A small doc for helping automatic parsing
 + [2088009] Flac: Picture tag support
 + Flac: Support of Id3v1&2 in a Flac file
 + WM (ASF/WMV/WMA): detection of wrong framerate in header, trusting now the timestamp instead of the header

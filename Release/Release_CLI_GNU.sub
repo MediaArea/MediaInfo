@@ -25,6 +25,11 @@ cp ../History_CLI.txt MediaInfo_CLI_$1_$2/History.txt
 cp ReadMe_CLI_$1.txt MediaInfo_CLI_$1_$2/ReadMe.txt
 
 #-----------------------------------------------------------------------
+# Copying : Information file
+mkdir -p MediaInfo_CLI_$1_$2/Contrib
+cp ../Contrib/CLI_Help.doc MediaInfo_CLI_$1_$2/Contrib/
+
+#-----------------------------------------------------------------------
 # Compressing Archive
 tar jchf MediaInfo_CLI_$1_$2.tar.bz2 MediaInfo_CLI_$1_$2
 

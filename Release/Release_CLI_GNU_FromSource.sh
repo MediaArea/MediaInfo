@@ -56,6 +56,11 @@ cp ../History_CLI.txt MediaInfo_CLI_GNU_FromSource/
 cp ReadMe_CLI_Linux.txt MediaInfo_CLI_GNU_FromSource/Release/
 cp ReadMe_CLI_Mac.txt MediaInfo_CLI_GNU_FromSource/Release/
 
+#-----------------------------------------------------------------------
+# Copying : Contrib
+mkdir -p MediaInfo_CLI_GNU_FromSource/Contrib
+cp ../Contrib/CLI_Help.doc MediaInfo_CLI_GNU_FromSource/Contrib/
+
 
 #-----------------------------------------------------------------------
 # Preparing Archive : MediaInfo
