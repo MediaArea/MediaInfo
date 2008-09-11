@@ -53,8 +53,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,7,7,5
- PRODUCTVERSION 0,7,7,5
+ FILEVERSION 0,7,7,6
+ PRODUCTVERSION 0,7,7,6
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -71,12 +71,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "http://mediainfo.sourceforge.net"
             VALUE "FileDescription", "MediaInfo Command Line"
-            VALUE "FileVersion", "0, 7, 7, 5"
+            VALUE "FileVersion", "0, 7, 7, 6"
             VALUE "InternalName", "MediaInfo_CLI.exe"
             VALUE "LegalCopyright", "GPL"
             VALUE "OriginalFilename", "MediaInfo_CLI.exe"
             VALUE "ProductName", "MediaInfo"
-            VALUE "ProductVersion", "0, 7, 7, 5"
+            VALUE "ProductVersion", "0, 7, 7, 6"
         END
     END
     BLOCK "VarFileInfo"

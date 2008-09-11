@@ -6,11 +6,11 @@
 
 
  /* File created by MIDL compiler version 7.00.0500 */
-/* at Fri Jun 13 16:03:55 2008
+/* at Mon Sep 08 18:48:30 2008
  */
 /* Compiler settings for .\MediaInfoShellExt.idl:
-    Oicf, W1, Zp8, env=Win32 (32b run)
-    protocol : dce , ms_ext, c_ext
+    Oicf, W1, Zp8, env=Win64 (32b run)
+    protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 
     VC __declspec() decoration level: 
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
