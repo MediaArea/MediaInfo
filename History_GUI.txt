@@ -22,6 +22,7 @@ Version 0.7.7.6, 2008-09-12
 + WM (ASF/WMV/WMA): detection of framerate from the timestamp when the framerate info is not available in the header
 + MPEG-4 with AVC: Added information about buggy files readable by all players except iPods
 + OGG: OGG with FLAC (pre- and post-FLAC 1.1.1) support
+x FLI/FLC: were not correctly detected
 x MPEG-TS without PAT/PMT: the complete stream was parsed, may be very long
 x Wavpack: duration and bitrate were false
 x #2071681, MPEG Audio: handling of truncated MPEG audio frames at the end of a file
