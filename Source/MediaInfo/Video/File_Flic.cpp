@@ -50,37 +50,37 @@ void File_Flic::FileHeader_Parse()
     //Parsing
     int32u DelayBetweenFrames;
     int16u Type, Frames, Width, Height, BitsPerPixel, AspectX, AspectY;
-    Skip_B4(                                                    "Size of FLIC including this header");
-    Get_B2 (Type,                                               "File type");
-    Get_B2 (Frames,                                             "Number of frames in first segment");
-    Get_B2 (Width,                                              "Width");
-    Get_B2 (Height,                                             "Height");
-    Get_B2 (BitsPerPixel,                                       "Bits per pixel");
-    Skip_B2(                                                    "Unknown");
-    Get_B4 (DelayBetweenFrames,                                 "Delay between frames");
+    Skip_L4(                                                    "Size of FLIC including this header");
+    Get_L2 (Type,                                               "File type");
+    Get_L2 (Frames,                                             "Number of frames in first segment");
+    Get_L2 (Width,                                              "Width");
+    Get_L2 (Height,                                             "Height");
+    Get_L2 (BitsPerPixel,                                       "Bits per pixel");
+    Skip_L2(                                                    "Flags");
+    Get_L4 (DelayBetweenFrames,                                 "Delay between frames");
     if (Type!=0xAF11)
     {
-        Skip_B2(                                                "Reserved");
-        Skip_B4(                                                "Date of Creation)");
-        Skip_B4(                                                "Serial number or compiler id");
-        Skip_B4(                                                "Date of FLIC update");
-        Skip_B4(                                                "Serial number");
-        Get_B2 (AspectX,                                        "Width of square rectangle");
-        Get_B2 (AspectY,                                        "Height of square rectangle");
+        Skip_L2(                                                "Reserved");
+        Skip_L4(                                                "Date of Creation)");
+        Skip_L4(                                                "Serial number or compiler id");
+        Skip_L4(                                                "Date of FLIC update");
+        Skip_L4(                                                "Serial number");
+        Get_L2 (AspectX,                                        "Width of square rectangle");
+        Get_L2 (AspectY,                                        "Height of square rectangle");
     }
     else
         Skip_XX(22,                                             "Reserved");
-    Skip_B2(                                                    "EGI: flags for specific EGI extensions");
-    Skip_B2(                                                    "EGI: key-image frequency");
-    Skip_B2(                                                    "EGI: total number of frames (segments)");
-    Skip_B4(                                                    "EGI: maximum chunk size (uncompressed)");
-    Skip_B2(                                                    "EGI: max. number of regions in a CHK_REGION chunk");
-    Skip_B2(                                                    "EGI: number of transparent levels");
+    Skip_L2(                                                    "EGI: flags for specific EGI extensions");
+    Skip_L2(                                                    "EGI: key-image frequency");
+    Skip_L2(                                                    "EGI: total number of frames (segments)");
+    Skip_L4(                                                    "EGI: maximum chunk size (uncompressed)");
+    Skip_L2(                                                    "EGI: max. number of regions in a CHK_REGION chunk");
+    Skip_L2(                                                    "EGI: number of transparent levels");
     if (Type!=0xAF11)
     {
         Skip_XX(24,                                             "Reserved");
-        Skip_B4(                                                "Offset to frame 1");
-        Skip_B4(                                                "Offset to frame 2");
+        Skip_L4(                                                "Offset to frame 1");
+        Skip_L4(                                                "Offset to frame 2");
         Skip_XX(40,                                             "Reserved");
     }
     else
@@ -108,15 +108,21 @@ void File_Flic::FileHeader_Parse()
         {
             Fill(Stream_Video, 0, Video_Format, "FLI");
             Fill(Stream_Video, 0, Video_Codec, "FLI");
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 1.0/DelayBetweenFrames); //ms per frame
-            Fill(Stream_Video, 0, Video_Duration, Frames*DelayBetweenFrames);
+            if (DelayBetweenFrames)
+            {
+                Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 1000.0/(DelayBetweenFrames*70)); //multiple of 1/70 per frame
+                Fill(Stream_Video, 0, Video_Duration, Frames*DelayBetweenFrames*70);
+            }
         }
         else
         {
             Fill(Stream_Video, 0, Video_Format, "FLC");
             Fill(Stream_Video, 0, Video_Codec, "FLC");
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, DelayBetweenFrames*1000/70); //multiple of 1/70 per frame
-            Fill(Stream_Video, 0, Video_Duration, Frames*DelayBetweenFrames*1000/70);
+            if (DelayBetweenFrames)
+            {
+                Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 1000.0/DelayBetweenFrames); //ms per frame
+                Fill(Stream_Video, 0, Video_Duration, Frames*DelayBetweenFrames);
+            }
             if (AspectY>0)
                 Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, AspectX/AspectY);
         }
