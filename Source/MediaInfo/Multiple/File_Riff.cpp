@@ -59,10 +59,13 @@ namespace MediaInfoLib
 
 namespace Elements
 {
+    const int32u AVI_=0x41564920;
     const int32u AVI__hdlr_strl_strh_txts=0x74787473;
     const int32u FORM=0x464F524D;
     const int32u LIST=0x4C495354;
     const int32u MThd=0x4D546864;
+    const int32u ON2_=0x4F4E3220;
+    const int32u ON2f=0x4F4E3266;
     const int32u RIFF=0x52494646;
     const int32u W3DI=0x57334449;
 }
@@ -405,6 +408,7 @@ void File_Riff::Header_Parse()
         Get_L4 (Size,                                           "Size");
     if (Name==Elements::LIST
      || Name==Elements::RIFF
+     || Name==Elements::ON2_
      || Name==Elements::FORM)
         Get_C4 (Name,                                           "Real Name");
 
@@ -417,6 +421,10 @@ void File_Riff::Header_Parse()
         Alignement_ExtraByte=false;
         return;
     }
+
+    //Specific
+    if (Name==Elements::ON2f)
+        Name=Elements::AVI_;
 
     //Filling
     Header_Fill_Code(Name, Ztring().From_CC4(Name));

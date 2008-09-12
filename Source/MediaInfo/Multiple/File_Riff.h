@@ -172,6 +172,7 @@ private :
     void AVI__hdlr_strl_vprp ();
     void AVI__hdlr_odml ();
     void AVI__hdlr_odml_dmlh ();
+    void AVI__hdlr_ON2h ();
     void AVI__hdlr_xxxx ();
     void AVI__idx1 ();
     void AVI__INFO ();

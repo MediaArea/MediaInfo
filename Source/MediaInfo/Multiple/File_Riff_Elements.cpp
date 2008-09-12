@@ -91,6 +91,7 @@ namespace Elements
 {
     const int32u FORM=0x464F524D;
     const int32u LIST=0x4C495354;
+    const int32u ON2_=0x4F4E3220;
     const int32u RIFF=0x52494646;
 
     const int32u AIFC=0x41494643;
@@ -137,6 +138,7 @@ namespace Elements
     const int32u AVI__hdlr_strl_vprp=0x76707270;
     const int32u AVI__hdlr_odml=0x6F646D6C;
     const int32u AVI__hdlr_odml_dmlh=0x646D6C68;
+    const int32u AVI__hdlr_ON2h=0x4F4E3268;
     const int32u AVI__idx1=0x69647831;
     const int32u AVI__INFO=0x494E464F;
     const int32u AVI__INFO_IARL=0x4941524C;
@@ -250,6 +252,7 @@ void File_Riff::Data_Parse()
                 ATOM_BEGIN
                 ATOM(AVI__hdlr_strl_indx)
                 ATOM(AVI__hdlr_strl_JUNK)
+                ATOM(AVI__hdlr_strl_strd)
                 ATOM(AVI__hdlr_strl_strf)
                 ATOM(AVI__hdlr_strl_strh)
                 ATOM(AVI__hdlr_strl_strn)
@@ -259,6 +262,7 @@ void File_Riff::Data_Parse()
                 ATOM_BEGIN
                 ATOM(AVI__hdlr_odml_dmlh)
                 ATOM_END
+            ATOM(AVI__hdlr_ON2h)
             ATOM_DEFAULT(AVI__hdlr_xxxx)
             ATOM_END_DEFAULT
         LIST_SKIP(AVI__idx1)
@@ -660,6 +664,15 @@ void File_Riff::AVI__hdlr_odml_dmlh()
 }
 
 //---------------------------------------------------------------------------
+void File_Riff::AVI__hdlr_ON2h()
+{
+    Element_Name("On2 header");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Unknown");
+}
+
+//---------------------------------------------------------------------------
 void File_Riff::AVI__hdlr_strl()
 {
     Element_Name("Stream info");
@@ -815,6 +828,9 @@ void File_Riff::AVI__hdlr_strl_JUNK()
 void File_Riff::AVI__hdlr_strl_strd()
 {
     Element_Name("Stream datas");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Unknown");
 }
 
 //---------------------------------------------------------------------------
