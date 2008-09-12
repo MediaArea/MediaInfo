@@ -679,6 +679,8 @@ void File_Mpeg4_Descriptors::Descriptor_04()
                         break;
             default: ;
         }
+        if (Parser)
+            Open_Buffer_Init(Parser);
 
         Element_ThisIsAList();
     FILLING_END();

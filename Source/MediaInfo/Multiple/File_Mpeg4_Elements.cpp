@@ -1427,30 +1427,24 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stco()
 {
     NAME_VERSION_FLAG("Chunk offset");
 
-    int32u Count;
+    int32u Count, Offset;
     Get_B4 (Count,                                              "Number of entries");
-    if (mdat_MustParse)
+    for (int32u Pos=0; Pos<Count; Pos++)
     {
-        int32u Offset;
-        for (int32u Pos=0; Pos<Count; Pos++)
-        {
-            //Too much slow
-            /*
-            Get_B4 (Offset,                                     "Offset");
-            */
+        //Too much slow
+        /*
+        Get_B4 (Offset,                                     "Offset");
+        */
 
-            //Faster
-            if (Element_Offset+4>Element_Size)
-                break; //Problem
-            Offset=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
-            Element_Offset+=4;
+        //Faster
+        if (Element_Offset+4>Element_Size)
+            break; //Problem
+        Offset=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+        Element_Offset+=4;
 
-            if (Pos<300)
-                Stream[moov_trak_tkhd_TrackID].stco.push_back(Offset);
-        }
+        if (Pos<300)
+            Stream[moov_trak_tkhd_TrackID].stco.push_back(Offset);
     }
-    else
-        Skip_XX(Count,                                          "Offsets");
 }
 
 //---------------------------------------------------------------------------
@@ -1475,43 +1469,37 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsc()
 
     //Parsing
     int32u Count;
+    stream::stsc_struct Stsc;
     Get_B4 (Count,                                              "Number of entries");
-    if (mdat_MustParse)
+    for (int32u Pos=0; Pos<Count; Pos++)
     {
-        stream::stsc_struct Stsc;
-        for (int32u Pos=0; Pos<Count; Pos++)
+        //Too much slow
+        /*
+        Element_Begin("Entry", 12);
+        int32u SampleDescriptionId;
+        Get_B4 (Stsc.FirstChunk,                                "First chunk");
+        Get_B4 (Stsc.SamplesPerChunk,                           "Samples per chunk");
+        Get_B4 (SampleDescriptionId,                            "Sample description ID");
+        Element_Info(Stsc.FirstChunk);
+        Element_Info(Stsc.SamplesPerChunk);
+        Element_Info(SampleDescriptionId);
+        Element_End();
+        */
+
+        //Faster
+        if (Pos<300)
         {
-            //Too much slow
-            /*
-            Element_Begin("Entry", 12);
-            int32u SampleDescriptionId;
-            Get_B4 (Stsc.FirstChunk,                                "First chunk");
-            Get_B4 (Stsc.SamplesPerChunk,                           "Samples per chunk");
-            Get_B4 (SampleDescriptionId,                            "Sample description ID");
-            Element_Info(Stsc.FirstChunk);
-            Element_Info(Stsc.SamplesPerChunk);
-            Element_Info(SampleDescriptionId);
-            Element_End();
-            */
+            if (Element_Offset+12>Element_Size)
+                break; //Problem
+            Stsc.FirstChunk     =BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset  );
+            Stsc.SamplesPerChunk=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+4);
+            Element_Offset+=12;
 
-            //Faster
-            if (Pos<300)
-            {
-                if (Element_Offset+12>Element_Size)
-                    break; //Problem
-                Stsc.FirstChunk     =BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset  );
-                Stsc.SamplesPerChunk=BigEndian2int32u(Buffer+Buffer_Offset+(size_t)Element_Offset+4);
-                Element_Offset+=12;
-
-                Stream[moov_trak_tkhd_TrackID].stsc.push_back(Stsc);
-            }
-            else
-                Element_Offset=Element_Size; //No need
+            Stream[moov_trak_tkhd_TrackID].stsc.push_back(Stsc);
         }
+        else
+            Element_Offset=Element_Size; //No need
     }
-
-    //Parsing
-    Skip_XX(Element_Size,                                       "Data");
 }
 
 //---------------------------------------------------------------------------
@@ -1982,8 +1970,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
     {
         Stream_Size=Size*Count;
 
-        if (mdat_MustParse)
-            Stream[moov_trak_tkhd_TrackID].stsz.resize(Count<=300?Count:300, Size);
+        Stream[moov_trak_tkhd_TrackID].stsz.resize(Count<=300?Count:300, Size);
 
         if (Count>1 && Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
             Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "CBR");
@@ -2031,7 +2018,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
                 Size_Min=Size;
             if (Size>Size_Max)
                 Size_Max=Size;
-            if (mdat_MustParse && Pos<300)
+            if (Pos<300)
                 Stream[moov_trak_tkhd_TrackID].stsz.push_back(Size);
         }
 
