@@ -725,8 +725,8 @@ public :
 
     //Utils
 public :
-    size_t Merge(File__Base &ToAdd); //Merge 2 File_Base
-    size_t Merge(File__Base &ToAdd, stream_t StreamKind, size_t StreamPos_From, size_t StreamPos_To); //Merge 2 streams
+    size_t Merge(File__Base &ToAdd, bool Erase=true); //Merge 2 File_Base
+    size_t Merge(File__Base &ToAdd, stream_t StreamKind, size_t StreamPos_From, size_t StreamPos_To, bool Erase=true); //Merge 2 streams
 
     //***************************************************************************
     // Finalize

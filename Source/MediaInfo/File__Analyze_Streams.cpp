@@ -288,7 +288,7 @@ void File__Analyze::Fill_Flush()
 }
 
 //---------------------------------------------------------------------------
-size_t File__Analyze::Merge(File__Base &ToAdd)
+size_t File__Analyze::Merge(File__Base &ToAdd, bool Erase)
 {
     size_t Count=0;
     for (size_t StreamKind=(size_t)Stream_General+1; StreamKind<(size_t)Stream_Max; StreamKind++)
@@ -298,7 +298,7 @@ size_t File__Analyze::Merge(File__Base &ToAdd)
             Stream_Prepare((stream_t)StreamKind);
 
             //Merge
-            Merge(ToAdd, (stream_t)StreamKind, StreamPos, StreamPos_Last);
+            Merge(ToAdd, (stream_t)StreamKind, StreamPos, StreamPos_Last, Erase);
 
             Count++;
         }
@@ -306,7 +306,7 @@ size_t File__Analyze::Merge(File__Base &ToAdd)
 }
 
 //---------------------------------------------------------------------------
-size_t File__Analyze::Merge(File__Base &ToAdd, stream_t StreamKind, size_t StreamPos_From, size_t StreamPos_To)
+size_t File__Analyze::Merge(File__Base &ToAdd, stream_t StreamKind, size_t StreamPos_From, size_t StreamPos_To, bool Erase)
 {
     //Integrity
     if (&ToAdd==NULL || StreamKind>=Stream_Max || !ToAdd.Stream || StreamPos_From>=(*ToAdd.Stream)[StreamKind].size())
@@ -322,7 +322,7 @@ size_t File__Analyze::Merge(File__Base &ToAdd, stream_t StreamKind, size_t Strea
     for (size_t Pos=0; Pos<Size; Pos++)
     {
         const Ztring &ToFill_Value=ToAdd.Get(StreamKind, StreamPos_From, Pos);
-        if (!ToFill_Value.empty())
+        if (!ToFill_Value.empty() && (Erase || Get(StreamKind, StreamPos_From, Pos).empty()))
         {
             if (Pos<MediaInfoLib::Config.Info_Get(StreamKind).size())
                 Fill(StreamKind, StreamPos_To, Pos, ToFill_Value, true);

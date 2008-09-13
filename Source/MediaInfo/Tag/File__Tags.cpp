@@ -413,66 +413,66 @@ bool File__Tags_Helper::Header_Begin()
 
 void File__Tags_Helper::Read_Buffer_Finalize()
 {
-    #if defined(MEDIAINFO_ID3_YES)
-    if (Id3!=NULL)
-    {
-        Id3->Read_Buffer_Finalize();
-        if (Id3->Count_Get(Stream_General)>0)
-        {
-            Base->Merge(*Id3, Stream_General, 0, 0);
-            Base->Merge(*Id3, Stream_Audio  , 0, 0);
-        }
-        delete Id3; Id3=NULL;
-    }
-    #endif //MEDIAINFO_ID3_YES
-    #if defined(MEDIAINFO_ID3V2_YES)
-    if (Id3v2!=NULL)
-    {
-        Id3v2->Read_Buffer_Finalize();
-        if (Id3v2->Count_Get(Stream_General)>0)
-        {
-            Base->Merge(*Id3v2, Stream_General, 0, 0);
-            Base->Merge(*Id3v2, Stream_Audio  , 0, 0);
-        }
-        delete Id3v2; Id3v2=NULL;
-    }
-    #endif //MEDIAINFO_ID3V2_YES
-    #if defined(MEDIAINFO_LYRICS3_YES)
-    if (Lyrics3!=NULL)
-    {
-        Lyrics3->Read_Buffer_Finalize();
-        if (Lyrics3->Count_Get(Stream_General)>0)
-        {
-            Base->Merge(*Lyrics3, Stream_General, 0, 0);
-            Base->Merge(*Lyrics3, Stream_Audio  , 0, 0);
-        }
-        delete Lyrics3; Lyrics3=NULL;
-    }
-    #endif //MEDIAINFO_LYRICS3_YES
-    #if defined(MEDIAINFO_LYRICS3V2_YES)
-    if (Lyrics3v2!=NULL)
-    {
-        Lyrics3v2->Read_Buffer_Finalize();
-        if (Lyrics3v2->Count_Get(Stream_General)>0)
-        {
-            Base->Merge(*Lyrics3v2, Stream_General, 0, 0);
-            Base->Merge(*Lyrics3v2, Stream_Audio  , 0, 0);
-        }
-        delete Lyrics3v2; Lyrics3v2=NULL;
-    }
-    #endif //MEDIAINFO_LYRICS3V2_YES
     #if defined(MEDIAINFO_APETAG_YES)
     if (ApeTag!=NULL)
     {
         ApeTag->Read_Buffer_Finalize();
         if (ApeTag->Count_Get(Stream_General)>0)
         {
-            Base->Merge(*ApeTag, Stream_General, 0, 0);
-            Base->Merge(*ApeTag, Stream_Audio  , 0, 0);
+            Base->Merge(*ApeTag, Stream_General, 0, 0, false);
+            Base->Merge(*ApeTag, Stream_Audio  , 0, 0, false);
         }
         delete ApeTag; ApeTag=NULL;
     }
     #endif //MEDIAINFO_APETAG_YES
+    #if defined(MEDIAINFO_LYRICS3V2_YES)
+    if (Lyrics3v2!=NULL)
+    {
+        Lyrics3v2->Read_Buffer_Finalize();
+        if (Lyrics3v2->Count_Get(Stream_General)>0)
+        {
+            Base->Merge(*Lyrics3v2, Stream_General, 0, 0, false);
+            Base->Merge(*Lyrics3v2, Stream_Audio  , 0, 0, false);
+        }
+        delete Lyrics3v2; Lyrics3v2=NULL;
+    }
+    #endif //MEDIAINFO_LYRICS3V2_YES
+    #if defined(MEDIAINFO_LYRICS3_YES)
+    if (Lyrics3!=NULL)
+    {
+        Lyrics3->Read_Buffer_Finalize();
+        if (Lyrics3->Count_Get(Stream_General)>0)
+        {
+            Base->Merge(*Lyrics3, Stream_General, 0, 0, false);
+            Base->Merge(*Lyrics3, Stream_Audio  , 0, 0, false);
+        }
+        delete Lyrics3; Lyrics3=NULL;
+    }
+    #endif //MEDIAINFO_LYRICS3_YES
+    #if defined(MEDIAINFO_ID3V2_YES)
+    if (Id3v2!=NULL)
+    {
+        Id3v2->Read_Buffer_Finalize();
+        if (Id3v2->Count_Get(Stream_General)>0)
+        {
+            Base->Merge(*Id3v2, Stream_General, 0, 0, false);
+            Base->Merge(*Id3v2, Stream_Audio  , 0, 0, false);
+        }
+        delete Id3v2; Id3v2=NULL;
+    }
+    #endif //MEDIAINFO_ID3V2_YES
+    #if defined(MEDIAINFO_ID3_YES)
+    if (Id3!=NULL)
+    {
+        Id3->Read_Buffer_Finalize();
+        if (Id3->Count_Get(Stream_General)>0)
+        {
+            Base->Merge(*Id3, Stream_General, 0, 0, false);
+            Base->Merge(*Id3, Stream_Audio  , 0, 0, false);
+        }
+        delete Id3; Id3=NULL;
+    }
+    #endif //MEDIAINFO_ID3_YES
 }
 
 //***************************************************************************
