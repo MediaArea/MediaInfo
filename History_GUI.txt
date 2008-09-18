@@ -13,6 +13,10 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
+Version 0.7.7.7, 2008-
+---------------
++ Chinese Traditional language updated
+
 Version 0.7.7.6, 2008-09-12
 ---------------
 + Chinese Simplified language updated
