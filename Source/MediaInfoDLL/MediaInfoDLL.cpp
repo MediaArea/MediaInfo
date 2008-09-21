@@ -23,7 +23,7 @@
 
 //---------------------------------------------------------------------------
 // For user: you can disable or enable it
-#define MEDIAINFO_DEBUG
+//#define MEDIAINFO_DEBUG
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -687,7 +687,7 @@ const wchar_t*  __stdcall MediaInfoList_GetI (void* Handle, size_t  FilePos, Med
 {
     StreamKind=(MediaInfo_stream_t)(((size_t)StreamKind)&0xFF);
     KindOfInfo=(MediaInfo_info_C)  (((size_t)KindOfInfo)&0xFF);
-    MANAGE_STRING(MediaInfoList, Get(FilePos, (stream_t)StreamKind, StreamNumber, Parameter, (info_t)KindOfInfo), Debug+="Get(L), Handle=";Debug+=ZenLib::Ztring::ToZtring((int8u)Handle).To_Local().c_str();Debug+=", FilePos=";Debug+=ZenLib::Ztring::ToZtring((size_t)FilePos).To_Local().c_str();Debug+=", StreamKind=";Debug+=ZenLib::Ztring::ToZtring((int8u)StreamKind).To_Local().c_str();Debug+=", StreamNumber=";Debug+=ZenLib::Ztring::ToZtring((int8u)StreamNumber).To_Local().c_str();Debug+=", Parameter=";Debug+=ZenLib::Ztring::ToZtring(Parameter).To_Local().c_str();Debug+=", KindOfInfo=";Debug+=ZenLib::Ztring::ToZtring((int8u)KindOfInfo).To_Local().c_str();Debug+="\r\n";, Debug+="Get(L), will return ";Debug+=ToReturn.To_Local();Debug+="\r\n";)
+    MANAGE_STRING(MediaInfoList, Get(FilePos, (stream_t)StreamKind, StreamNumber, Parameter, (info_t)KindOfInfo), Debug+="Get(L), Handle=";Debug+=ZenLib::Ztring::ToZtring((int64u)Handle).To_Local().c_str();Debug+=", FilePos=";Debug+=ZenLib::Ztring::ToZtring((size_t)FilePos).To_Local().c_str();Debug+=", StreamKind=";Debug+=ZenLib::Ztring::ToZtring((int8u)StreamKind).To_Local().c_str();Debug+=", StreamNumber=";Debug+=ZenLib::Ztring::ToZtring((int8u)StreamNumber).To_Local().c_str();Debug+=", Parameter=";Debug+=ZenLib::Ztring::ToZtring(Parameter).To_Local().c_str();Debug+=", KindOfInfo=";Debug+=ZenLib::Ztring::ToZtring((int8u)KindOfInfo).To_Local().c_str();Debug+="\r\n";, Debug+="Get(L), will return ";Debug+=ToReturn.To_Local();Debug+="\r\n";)
 }
 
 const wchar_t*  __stdcall MediaInfoList_Get (void* Handle, size_t  FilePos, MediaInfo_stream_t StreamKind, size_t StreamNumber, const wchar_t* Parameter, MediaInfo_info_C KindOfInfo, MediaInfo_info_C KindOfSearch)
