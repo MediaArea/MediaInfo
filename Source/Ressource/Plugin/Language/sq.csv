@@ -1,9 +1,9 @@
-﻿   Junk
+﻿   Junk;x
   Author_Email;bgodole@gmail.com
   Author_Name;Besmir Godole
   Author_OldNames;Përkthyesi i parë
   Language_ISO639;sq
-  Language_Name;Albanian
+  Language_Name;Shqip
   Config_Text_ColumnSize;32
   Config_Text_Separator; :
   Config_Text_NumberTag; #
@@ -32,9 +32,9 @@
  day1; ditë
  day2; ditë
  day3; ditë
- dB1
- dB2
- dB3
+ dB1;dB
+ dB2;dB
+ dB3;dB
  file1; skedë
  file2; skedat
  file3; skedat
@@ -147,13 +147,13 @@ About_Hint;Kontaktoni dhe gjeni versionin e fundit
 Accompaniment;Shoqëruesi
 Actor;Aktori
 Actor_Character;Personazhi i luajtur
-Added_Date
+Added_Date;Datë e shtimit
 Address;Adresa
 Advanced;Avancuar
 Advanced mode;Mënyrë e avancuar
 Album;Albumi
-Album_ReplayGain_Gain
-Album_ReplayGain_Peak
+Album_ReplayGain_Gain;Replay gain i albumit
+Album_ReplayGain_Peak;Piku i replay gain të albumit
 Alignment_Aligned;I radhitur te gërshetimet
 Alignment_Split;I ndarë te gërshetimet
 All;Gjithçka
@@ -193,13 +193,13 @@ Chapters_Codec_List;Kodekët e Kapitujve
 Chapters_No;Pa kapituj
 ChaptersCount;Numri i rrymave të kapitujve
 CheckNewVersion;Verifiko versionin e ri
-Choose custom;Zgjidhni me porosi
-Choose custom sheet;Zgjidhni me porosi fletën e dëshiruar
-Choose custom text;Zgjidhni me porosi tekstin e dëshiruar
-Choose export format;Zgjidhni formatin e eksportimit të dëshiruar
-Choose file(s);Zgjidhni skedat që doni të hapni
-Choose filename;Zgjidhni emrin e skedës që doni
-Choose language;Zgjidhni gjuhën që doni
+Choose custom;Zgjidheni me porosi
+Choose custom sheet;Zgjidheni me porosi fletën e dëshiruar
+Choose custom text;Zgjidheni me porosi tekstin e dëshiruar
+Choose export format;Zgjidheni formatin e eksportimit të dëshiruar
+Choose file(s);Zgjidhini skedat që doni të hapni
+Choose filename;Zgjidheni emrin e skedës që doni
+Choose language;Zgjidheni gjuhën që doni
 Choregrapher;Koreografi
 Chroma;Kroma
 Close;Mbylle
@@ -323,7 +323,7 @@ FrameRate_Minimum;Raporti minimal i kuadrit
 FrameRate_Nominal;Raporti nominal i kuadrit
 FrameRate_Maximum;Raporti maksimal i kuadrit
 FrameRate_Original;Raporti origjinal i kuadrit
-General;Përgjithshëm
+General;Përgjithësi
 Genre;Gjinia
 Genre_000;Blues
 Genre_001;Classic Rock
@@ -718,7 +718,7 @@ Movie;Emri i filmit
 ms;ms
 MSDI;MSDI
 MuxingMode;Mënyrë e muksimit
-MuxingMode_PackedBitstream
+MuxingMode_PackedBitstream;Rrymë e bitit e paketuar
 Name;Emri
 Nationality;Kombësia
 New;E re
@@ -745,9 +745,9 @@ Period;Periudha
 Phone;Telefoni
 PixelAspectRatio;Raporti i aspektit të pikselit
 PlayCounter;Njehsori i lojës
-Played_Count
-Played_First_Date
-Played_Last_Date
+Played_Count;Herët e Luajtura
+Played_First_Date;Luajtur në Fillim
+Played_Last_Date;Luajtur së Fundmi
 PlayTime;Kohë e lojës
 Position;Pozicioni
 Position_Total;Totali
@@ -763,9 +763,9 @@ Rating;Vlerësimi
 Recorded_Date;Datë e regjistrimit
 Recorded_Location;Vendndodhje e regjistrimit
 Released_Date;Datë e lëshimit
-RemixedBy;Rimiksuar nga
-ReplayGain_Gain
-ReplayGain_Peak
+RemixedBy;Miksuar nga
+ReplayGain_Gain;Replay gain
+ReplayGain_Peak;Piku i replay gain
 Resolution;Rezolucioni
 s;s
 SamplingRate;Raporti i shëmbëllimit
@@ -778,10 +778,10 @@ see below;shih poshtë
 Send HeaderFile;Ju lutem dërgoni këtu Kokën e skedës : http://sourceforge.net/projects/mediainfo/ (Sektori Bug)
 Separator_Columns;ndarësi i kolonave
 Separator_Lines;ndarësi i rreshtave
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
+ServiceChannel;Numri i kanalit të shërbimit
+ServiceName;Emri i shërbimit
+ServiceProvider;Siguruesi i shërbimit
+ServiceType;Lloji i shërbimit
 Set;Vendos
 Set_Count;Vendos numërimin
 Setup;Ndërtimi
@@ -866,5 +866,5 @@ Written_Location;Vendndodhje e shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100

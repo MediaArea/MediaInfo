@@ -15,7 +15,7 @@ Known bugs
 
 Version 0.7.7.7, 2008-
 ---------------
-+ Chinese Traditional language updated
++ Chinese Traditional, Albanian language updated
 
 Version 0.7.7.6, 2008-09-12
 ---------------
