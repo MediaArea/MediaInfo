@@ -23,7 +23,7 @@
 
 //---------------------------------------------------------------------------
 // For user: you can disable or enable it
-//#define MEDIAINFO_DEBUG
+#define MEDIAINFO_DEBUG
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -511,7 +511,7 @@ const wchar_t*  __stdcall MediaInfo_Get (void* Handle, MediaInfo_stream_t Stream
     StreamKind=(MediaInfo_stream_t)(((size_t)StreamKind)&0xFF);
     KindOfInfo=(MediaInfo_info_C)  (((size_t)KindOfInfo)&0xFF);
     KindOfSearch=(MediaInfo_info_C)(((size_t)KindOfSearch)&0xFF);
-    MANAGE_STRING(MediaInfo, Get((stream_t)StreamKind, StreamNumber, Parameter, (info_t)KindOfInfo, (info_t)KindOfSearch), Debug+="Get, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", Parameter=";Debug+=ZenLib::Ztring(Parameter).To_Local().c_str();Debug+="\r\n";, Debug+="Get, will return ";Debug+=ToReturn.To_Local().c_str();Debug+="\r\n";)
+    MANAGE_STRING(MediaInfo, Get((stream_t)StreamKind, StreamNumber, Parameter, (info_t)KindOfInfo, (info_t)KindOfSearch), Debug+="Get, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", Parameter=";Debug+=ZenLib::Ztring(Parameter).To_Local().c_str();Debug+=", KindOfInfo=";Debug+=ZenLib::Ztring::ToZtring(KindOfInfo).To_Local().c_str();Debug+=", KindOfSearch=";Debug+=ZenLib::Ztring::ToZtring(KindOfSearch).To_Local().c_str();Debug+="\r\n";, Debug+="Get, will return ";Debug+=ToReturn.To_Local().c_str();Debug+="\r\n";)
 }
 
 size_t          __stdcall MediaInfo_SetI (void* Handle, const wchar_t* ToSet, MediaInfo_stream_t StreamKind, size_t StreamNumber, size_t  Parameter, const wchar_t* OldParameter)
