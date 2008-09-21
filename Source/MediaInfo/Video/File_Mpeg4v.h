@@ -163,6 +163,8 @@ private :
     Ztring Library_Name;
     Ztring Library_Version;
     Ztring Library_Date;
+    Ztring Matrix_intra;
+    Ztring Matrix_nonintra;
 
     //Streams
     struct stream

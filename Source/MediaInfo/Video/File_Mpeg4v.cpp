@@ -478,17 +478,47 @@ void File_Mpeg4v::video_object_layer_start()
                     int8u intra_quant_mat;
                     Get_S1 (8, intra_quant_mat,                 "intra_quant_mat");
                     if (!intra_quant_mat)
-                        Pos=64;
+                    {
+                        if (Matrix_intra.size()<2)
+                            break; //There is a problem
+                        Ztring Value=Matrix_intra.substr(Matrix_intra.size()-2, 2);
+                        for (;Pos<64; Pos++)
+                            Matrix_intra+=Value;
+                    }
+                    else
+                    {
+                        Ztring Value=Ztring::ToZtring(intra_quant_mat, 16);
+                        if (Value.size()==1)
+                            Value.insert(0, _T("0"));
+                        Matrix_intra+=Value;
+                    }
                 }
+            else
+                Matrix_intra="Default";
             Get_SB (load_nonintra_quant_mat,                    "load_nonintra_quant_mat");
             if(load_nonintra_quant_mat)
                 for (int16u Pos=0; Pos<64; Pos++)
                 {
                     int8u nonintra_quant_mat;
-                    Get_S1 (8, nonintra_quant_mat,               "nonintra_quant_mat");
+                    Get_S1 (8, nonintra_quant_mat,              "nonintra_quant_mat");
                     if (!nonintra_quant_mat)
-                        Pos=64;
+                    {
+                        if (Matrix_nonintra.size()<2)
+                            break; //There is a problem
+                        Ztring Value=Matrix_nonintra.substr(Matrix_nonintra.size()-2, 2);
+                        for (;Pos<64; Pos++)
+                            Matrix_nonintra+=Value;
+                    }
+                    else
+                    {
+                        Ztring Value=Ztring::ToZtring(nonintra_quant_mat, 16);
+                        if (Value.size()==1)
+                            Value.insert(0, _T("0"));
+                        Matrix_nonintra+=Value;
+                    }
                 }
+            else
+                Matrix_nonintra="Default";
             if(shape==3) //Shape=GrayScale
             {
                 for(size_t Pos=0; Pos<aux_comp_count; Pos++)
@@ -1162,6 +1192,8 @@ void File_Mpeg4v::vop_start_Fill()
     {
         Fill(Stream_Video, 0, Video_Format_Settings, "Custom Matrix");
         Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Custom");
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix_Data, Matrix_intra);
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix_Data, Matrix_nonintra);
         Fill(Stream_Video, 0, Video_Codec_Settings, "Custom Matrix");
         Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Custom");
     }

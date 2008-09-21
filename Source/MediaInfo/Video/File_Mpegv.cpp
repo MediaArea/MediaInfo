@@ -660,12 +660,14 @@ void File_Mpegv::slice_start_Fill()
     {
         Fill(Stream_Video, 0, Video_Format_Settings, "CustomMatrix");
         Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Custom");
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix_Data, Matrix_intra);
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix_Data, Matrix_nonintra);
         Fill(Stream_Video, 0, Video_Codec_Settings, "CustomMatrix");
         Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Custom");
     }
     else
     {
-        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Standard");
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Default");
         Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Default");
     }
 
@@ -803,11 +805,25 @@ void File_Mpegv::sequence_header()
     Skip_SB(                                                    "constrained_parameters_flag");
     TEST_SB_GET(load_intra_quantiser_matrix,                    "load_intra_quantiser_matrix");
         for (size_t Pos=0; Pos<64; Pos++)
-            Skip_S1(8,                                          "intra_quantiser_matrix");
+        {
+            int8u intra_quantiser;
+            Get_S1 (8, intra_quantiser,                         "intra_quantiser");
+            Ztring Value=Ztring::ToZtring(intra_quantiser, 16);
+            if (Value.size()==1)
+                Value.insert(0, _T("0"));
+            Matrix_intra+=Value;
+        }
     TEST_SB_END();
     TEST_SB_GET(load_non_intra_quantiser_matrix,                "load_non_intra_quantiser_matrix");
         for (size_t Pos=0; Pos<64; Pos++)
-            Skip_S1(8,                                          "non_intra_quantiser_matrix");
+        {
+            int8u non_intra_quantiser;
+            Get_S1 (8, non_intra_quantiser,                     "non_intra_quantiser");
+            Ztring Value=Ztring::ToZtring(non_intra_quantiser, 16);
+            if (Value.size()==1)
+                Value.insert(0, _T("0"));
+            Matrix_nonintra+=Value;
+        }
     TEST_SB_END();
     BS_End();
 
