@@ -12,14 +12,14 @@
  audio stream1; 音訊串流
  audio stream2; 音訊串流
  audio stream3; 音訊串流
- bit1
- bit2
- bit3
- bps
- Bps
- Byte1
- Byte2
- Byte3
+ bit1; bit
+ bit2; bits
+ bit3; bits
+ bps; bps
+ Bps; Bps
+ Byte1; Byte
+ Byte2; Bytes
+ Byte3; Bytes
  channel1; 聲道
  channel2; 聲道
  channel3; 聲道
@@ -32,80 +32,80 @@
  day1; 日
  day2; 日
  day3; 日
- dB1
- dB2
- dB3
+ dB1; dB
+ dB2; dB
+ dB3; dB
  file1; 檔案
  file2; 檔案
  file3; 檔案
- frame1
- frame2
- frame3
- fps1
- fps2
- fps3
- GB
- Gb
- Gbps
- GBps
- GHz
- GiB
- GibiByte1
- GibiByte2
- GibiByte3
- GiBps
- GigaBit1
- GigaBit2
- GigaBit3
- GigaByte1
- GigaByte2
- GigaByte3
- hour1; 時
- hour2; 時
- hour3; 時
- Hz
+ frame1; 畫面
+ frame2; 畫面
+ frame3; 畫面
+ fps1; fps
+ fps2; fps
+ fps3; fps
+ GB; GB
+ Gb; Gb
+ Gbps; Gbps
+ GBps; GBps
+ GHz; GHz
+ GiB; GiB
+ GibiByte1; GibiBytes
+ GibiByte2; GibiBytes
+ GibiByte3; GibiBytes
+ GiBps; GiBps
+ GigaBit1; GigaBit
+ GigaBit2; GigaBits
+ GigaBit3; GigaBits
+ GigaByte1; GigaByte
+ GigaByte2; GigaBytes
+ GigaByte3; GigaBytes
+ hour1; 小時
+ hour2; 小時
+ hour3; 小時
+ Hz; Hz
  image stream1; 圖片串流
  image stream2; 圖片串流
  image stream3; 圖片串流
- KB
- Kb
- KBps
- Kbps
- KHz
- KiB
- KibiBit1
- KibiBit2
- KibiBit3
- KibiByte1
- KibiByte2
- KibiByte3
- KiBps
- KiloBit1
- KiloBit2
- KiloBit3
- KiloByte1
- KiloByte2
- KiloByte3
- MB
- Mb
- Mbps
- MBps
- MebiBit1
- MebiBit2
- MebiBit3
- MebiByte1
- MebiByte2
- MebiByte3
- MegaBit1
- MegaBit2
- MegaBit3
- MegaByte1
- MegaByte2
- MegaByte3
- MHz
- MiB
- Mib
- MiBps
+ KB; KB
+ Kb; Kb
+ KBps; KBps
+ Kbps; Kbps
+ KHz; KHz
+ KiB; KiB
+ KibiBit1; KibiBit
+ KibiBit2; KibiBits
+ KibiBit3; KibiBits
+ KibiByte1; KibiByte
+ KibiByte2; KibiBytes
+ KibiByte3; KibiBytes
+ KiBps; KiBps
+ KiloBit1; KiloBit
+ KiloBit2; KiloBits
+ KiloBit3; KiloBits
+ KiloByte1; KiloByte
+ KiloByte2; KiloBytes
+ KiloByte3; KiloBytes
+ MB; MB
+ Mb; Mb
+ Mbps; Mbps
+ MBps; MebiBytes
+ MebiBit1; MebiBit
+ MebiBit2; MebiBits
+ MebiBit3; MebiBits
+ MebiByte1; MebiByte
+ MebiByte2; MebiBytes
+ MebiByte3; MebiBytes
+ MegaBit1; MegaBit
+ MegaBit2; MegaBits
+ MegaBit3; MegaBits
+ MegaByte1; MegaByte
+ MegaByte2; MegaBytes
+ MegaByte3; MegaBytes
+ MHz; MHz
+ MiB; MiB
+ Mib; Mib
+ MiBps; MiBps
  milisecond1; 毫秒
  milisecond2; 毫秒
  milisecond3; 毫秒
@@ -124,16 +124,16 @@
  text stream1; 字幕串流
  text stream2; 字幕串流
  text stream3; 字幕串流
- video frames1
- video frames2
- video frames3
+ video frames1; 視訊畫面
+ video frames2; 視訊畫面
+ video frames3; 視訊畫面
  video stream1; 視訊串流
  video stream2; 視訊串流
  video stream3; 視訊串流
- warppoint0
- warppoint1
- warppoint2
- warppoint3
+ warppoint0; 沒有跳躍點
+ warppoint1; 跳躍點
+ warppoint2; 跳躍點
+ warppoint3; 跳躍點
  week1; 周
  week2; 周
  week3; 周
@@ -144,25 +144,25 @@
 : ;: 
 About;關於
 About_Hint;如何聯絡作者以及尋找最新版
-Accompaniment
+Accompaniment;伴奏
 Actor;主演
 Actor_Character;主演角色
-Added_Date
-Address
+Added_Date;加入時間
+Address;地址
 Advanced;進階
 Advanced mode;進階模式
 Album;專輯
-Album_ReplayGain_Gain
-Album_ReplayGain_Peak
+Album_ReplayGain_Gain;專輯播放增益
+Album_ReplayGain_Peak;專輯播放增益尖峰值
 Alignment_Aligned
 Alignment_Split
 All;全部
-Archival_Location
-Arranger
+Archival_Location;檔案位置
+Arranger;編曲
 ArtDirector;藝術指導
 AspectRatio;長寬比例
 AssistantDirector;副導演
-at
+at;於
 At least one file;(您最少要開啟一個檔案)
 Audio;音訊
 Audio stream(s);音訊串流
@@ -200,7 +200,7 @@ Choose export format;選擇你要的輸出格式
 Choose file(s);選擇你要開啟的檔案
 Choose filename;選擇你要的檔名
 Choose language;選擇你要的語系
-Choregrapher
+Choregrapher;動作指導
 Chroma;彩度
 Close;關閉
 Close all before open;開啟前關閉其它檔案
@@ -208,7 +208,7 @@ Codec;編解碼器
 Codec_Description;編解碼器描述
 Codec_Info;編解碼器詳細資訊
 Codec_Settings;編解碼器設定
-Codec_Settings_PacketBitStream
+Codec_Settings_PacketBitStream;編解碼器設定, Packet bitstream
 Codec_Settings_BVOP;編解碼器設定, BVOP
 Codec_Settings_QPel;編解碼器設定, QPel
 Codec_Settings_GMC;編解碼器設定, GMC
@@ -226,8 +226,8 @@ CodecID;編解碼器識別字
 CodecID_Description;編解碼器描述
 Collection
 Colorimetry;比色法
-Comment
-CommissionedBy
+Comment;註釋
+CommissionedBy;委託
 CompleteName;完整檔名
 Composer;作曲者
 CompressionRatio;壓縮比
@@ -249,11 +249,11 @@ Decimal point;小數點
 Delay;延遲
 Delete;刪除
 Description;敘述
-Digitized_Date
+Digitized_Date;數位化日期
 Director;導演
 DirectorOfPhotography;攝影導演
 DisplayAspectRatio;顯示長寬比例
-DistributedBy
+DistributedBy;發布者
 Donate;贊助
 Duration;時間長度
 Edit;編輯
@@ -285,7 +285,7 @@ FileName;檔案
 FileSize;檔案大小
 Folder;資料夾
 Folder (R);資料夾 (R)
-Folder (R)_Hint
+Folder (R)_Hint;選擇要檢視的資料夾 (遞迴所有資料夾)
 Folder (Recursively);資料夾 (遞迴)
 Folder_Hint;選擇要檢視的資料夾
 FolderName;資料夾
@@ -314,7 +314,7 @@ Format_Settings_PS;格式設定, PS
 Format_Settings_Pulldown;格式設定, Pulldown
 Format_Version;格式版本
 Format_Url;該格式的網址
-FrameCount
+FrameCount;畫面數
 FrameRate;畫面頻率
 FrameRate_Mode;畫面頻率模式
 FrameRate_Mode_CFR;固定常數
@@ -331,7 +331,7 @@ Genre_002;鄉村
 Genre_003;舞曲
 Genre_004;迪士可
 Genre_005;放客
-Genre_006
+Genre_006;頹廢
 Genre_007;嘻哈
 Genre_008;爵士
 Genre_009;金屬
@@ -484,7 +484,7 @@ How many chapters streams?;有多少章節串流?
 How many text streams?;有多少字幕串流?
 How many video streams?;有多少視訊串流?
 HTML;網頁
-ID;ID
+ID;識別字
 Image;圖片
 Image stream(s);圖片串流
 Image_Codec_List;圖片編解碼器
@@ -500,9 +500,9 @@ Interlaced_Progressive;漸進式
 Interleave_Duration
 Interleave_Preload
 Interleave_VideoFrames
-IRCA
-ISBN
-ISRC
+IRCA;IRCA
+ISBN;ISBN
+ISRC;ISRC
 Keywords;關鍵字
 Known codecs;已知編解碼器
 Known formats;已知格式
@@ -538,7 +538,7 @@ Language_ch;查莫羅語
 Language_co;科西嘉語
 Language_cr;克里語
 Language_cs;捷克語
-Language_cu
+Language_cu;古教會斯拉夫語
 Language_cv;楚瓦什語
 Language_cy;威爾斯語
 Language_da;丹麥語
@@ -605,7 +605,7 @@ Language_ky;吉爾吉斯語
 Language_la;拉丁語
 Language_lb;盧森堡語
 Language_lg;干達語
-Language_li
+Language_li;林堡語
 Language_ln;班圖語
 Language_lo;寮國語
 Language_lt;立陶宛語
@@ -632,7 +632,7 @@ Language_nn;新挪威語
 Language_no;挪威語
 Language_nr;南恩德貝勒語
 Language_nv;納瓦霍語
-Language_ny
+Language_ny;尼揚賈語
 Language_oc;奧克西坦語
 Language_oj;奧吉布瓦語
 Language_om;澳洛莫語
@@ -653,7 +653,7 @@ Language_sa;梵語
 Language_sc;薩丁尼亞語
 Language_sd;信德語
 Language_se;薩米語
-Language_sg
+Language_sg;桑戈語
 Language_si;錫蘭語
 Language_sk;斯洛伐克語
 Language_sl;斯洛維尼亞語
@@ -696,27 +696,27 @@ Language_yo;庫哇語
 Language_za;壯語
 Language_zh;華語
 Language_zu;祖魯語
-LawRating
-LCCN
+LawRating;分級
+LCCN;LCCN
 Library;合成函式庫
-List
+List;清單
 Lyricist;作詞者
-Mastered_Date
-MasteredBy
+Mastered_Date;後製日期
+MasteredBy;後製者
 MediaInfo_About;支援非常詳盡的多媒體檔案資訊:\r\nMatroska, OGG (包含 OGM)\r\nMPEG-1 (包含 VCD)\r\nMPEG-2 (包含 DVD, SVCD)\r\nMPEG-4 (包含 iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (包含 WMV, WMA)\r\nMicrosoft RIFF (包含 AVI, WAV)\r\n純聲音格式 (AC3, DTS, AAC, AU, AIFF...)
 Menu;選單
 Menu stream(s);選單串流
 Menu_Codec_List;選單編解碼器
 Menu_No;無選單
 MenuCount;選單串流數
-Menu_Hint
+Menu_Hint;更多可能
 MenuID;選單ID
 mn;分
 Mood;情緒
 More;更多
 Movie;電影名稱
 ms;毫秒
-MSDI
+MSDI;MSDI
 MuxingMode;合成模式
 MuxingMode_PackedBitstream
 Name;名稱
@@ -741,13 +741,13 @@ OverallBitRate_Nominal;正常整體流量
 Part
 Part_Count
 Performer;演出者
-Period
+Period;時期
 Phone
 PixelAspectRatio;像素長寬比例
-PlayCounter
-Played_Count
-Played_First_Date
-Played_Last_Date
+PlayCounter;播放計數器
+Played_Count;已播放數
+Played_First_Date;首次播放
+Played_Last_Date;前次播放
 PlayTime;播放長度
 Position;曲目順序
 Position_Total;曲目總和
@@ -759,13 +759,13 @@ Publisher;發布者
 Purchased_Date;購買日期
 Quote character;引號字元
 RadioStation;電台
-Rating;評比
+Rating;分級
 Recorded_Date;錄製日期
 Recorded_Location;錄製地點
 Released_Date;發行日期
-RemixedBy
-ReplayGain_Gain
-ReplayGain_Peak
+RemixedBy;重混者
+ReplayGain_Gain;播放增益
+ReplayGain_Peak;播放增益尖峰值
 Resolution;顏色深度
 s;秒
 SamplingRate;取樣率
@@ -773,15 +773,15 @@ Save;儲存
 ScanType;掃描型態
 ScanOrder;掃描順序
 ScreenplayBy;編劇
-Season
+Season;季期
 see below;詳見下述
 Send HeaderFile;請將標頭檔寄到這給我: http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;換列字元
 Separator_Lines;換行字元
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
+ServiceChannel;服務頻道
+ServiceName;服務名稱
+ServiceProvider;服務提供者
+ServiceType;服務類型
 Set
 Set_Count
 Setup;設定
@@ -866,5 +866,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;71
-ZZ_AutomaticLanguage_Percent;83
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;97
