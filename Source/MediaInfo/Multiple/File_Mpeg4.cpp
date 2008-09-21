@@ -175,7 +175,8 @@ void File_Mpeg4::Header_Parse()
         //Filling
         Header_Fill_Code(mdat_Pos.begin()->second.StreamID, Ztring::ToZtring(mdat_Pos.begin()->second.StreamID));
         Header_Fill_Size(mdat_Pos.begin()->second.Size);
-        mdat_Pos.erase(mdat_Pos.begin());
+        if (Buffer_Offset+mdat_Pos.begin()->second.Size<=Buffer_Size)
+            mdat_Pos.erase(mdat_Pos.begin()); //Only if we will not need it later (in case of partial data, this function will be called again for the same chunk)
         return;
     }
 
