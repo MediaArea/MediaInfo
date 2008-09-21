@@ -1891,7 +1891,7 @@ void File_MpegPs::extension_stream()
     Open_Buffer_Continue(Streams_Extension[Extension].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
     //Disabling this Streams
-    if (Streams_Extension[Extension].Parser->File_GoTo!=(int64u)-1 || Streams_Extension[Extension].Parser->File_Offset ==Streams_Extension[Extension].Parser->File_Size)
+    if ((Streams_Extension[Extension].Parser->File_GoTo!=(int64u)-1 && Count_Get(Stream_Video)>0) || Streams_Extension[Extension].Parser->File_Offset ==Streams_Extension[Extension].Parser->File_Size) //TODO: find a better way for detecting End of the initial parsing
     {
         Streams_Extension[Extension].Searching_Payload=false;
         if (extension_stream_Count>0)
