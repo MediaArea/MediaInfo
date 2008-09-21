@@ -11,6 +11,7 @@ Version 0.7.7.7, 2008-
 ---------------
 + Support of VP5 file format
 + MPEG-4 Visual and MPEG Video: can now display the custom matrices data
++ PureBasic binding
 x #2109107, Tags in Flac or Ogg: modification of the tag types priorities
 x MPEG-4: Crash on MPEG-4 Visual format without DecDecoder stuff
 
