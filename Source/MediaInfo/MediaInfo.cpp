@@ -19,7 +19,8 @@
 
 //---------------------------------------------------------------------------
 // For user: you can disable or enable it
-//#define MEDIAINFO_DEBUG
+#define MEDIAINFO_DEBUG
+#define MEDIAINFO_DEBUG_BUFFER_SAVE
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -88,6 +89,24 @@ namespace MediaInfo_Debug_MediaInfo
         MEDIAINFO_DEBUG(_DEBUGB) \
         return ToReturn;
 #endif //MEDIAINFO_DEBUG
+
+#ifdef MEDIAINFO_DEBUG_BUFFER_SAVE
+    #include <stdio.h>
+    FILE* Buffer_Stream=fopen("MediaInfo_Debug_Stream.raw", "a+b"); \
+    FILE* Buffer_Sizes=fopen("MediaInfo_Debug_Stream.sizes", "a+b"); \
+
+    #undef MEDIAINFO_DEBUG_BUFFER_SAVE
+    #define MEDIAINFO_DEBUG_BUFFER_SAVE(_BUFFER, _SIZE) \
+        Buffer_Stream=fopen("MediaInfo_Debug_Stream.raw", "a+b"); \
+        Buffer_Sizes=fopen("MediaInfo_Debug_Stream.sizes", "a+b"); \
+        fwrite(_BUFFER, _SIZE, 1, Buffer_Stream); \
+        fwrite((char*)&_SIZE, sizeof(size_t), 1, Buffer_Sizes); \
+        fclose(Buffer_Stream); \
+        fclose(Buffer_Sizes);
+#else // MEDIAINFO_DEBUG_BUFFER_SAVE
+    #define MEDIAINFO_DEBUG_BUFFER_SAVE(_TOAPPEND)
+#endif // MEDIAINFO_DEBUG_BUFFER_SAVE
+
 }
 using namespace MediaInfo_Debug_MediaInfo;
 
@@ -141,6 +160,8 @@ size_t MediaInfo::Open_Buffer_Init (int64u File_Size, int64u File_Offset)
 //---------------------------------------------------------------------------
 size_t MediaInfo::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
+    MEDIAINFO_DEBUG_BUFFER_SAVE(ToAdd, ToAdd_Size);
+
     size_t ToReturn=((MediaInfo_Internal*)Internal)->Open_Buffer_Continue(ToAdd, ToAdd_Size);
     if (ToReturn==0)
     {
