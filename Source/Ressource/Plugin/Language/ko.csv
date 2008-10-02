@@ -32,9 +32,9 @@
  day1; 일
  day2; 일
  day3; 일
- dB1
- dB2
- dB3
+ dB1; dB
+ dB2; dB
+ dB3; dB
  file1; 파일
  file2; 파일
  file3; 파일
@@ -147,13 +147,13 @@ About_Hint;연락처와 최신 버전 확인
 Accompaniment;반주
 Actor;배우
 Actor_Character;배역
-Added_Date
+Added_Date;추가된 날짜
 Address;주소
 Advanced;고급
 Advanced mode;고급 모드
 Album;앨범
-Album_ReplayGain_Gain
-Album_ReplayGain_Peak
+Album_ReplayGain_Gain;앨범 재생 게인
+Album_ReplayGain_Peak;앨범 재생 게인 피크
 Alignment_Aligned;인터리브에 정렬
 Alignment_Split;인터리브로 분할
 All;전체
@@ -718,7 +718,7 @@ Movie;영화 이름
 ms;미리초
 MSDI;MSDI
 MuxingMode;먹싱 모드
-MuxingMode_PackedBitstream
+MuxingMode_PackedBitstream;팩드 비트스트림
 Name;이름
 Nationality;국적
 New;새로 만들기
@@ -745,9 +745,9 @@ Period;시대
 Phone;전화
 PixelAspectRatio;픽셀 종횡비
 PlayCounter;재생 횟수
-Played_Count
-Played_First_Date
-Played_Last_Date
+Played_Count;재생 횟수
+Played_First_Date;최초 재생
+Played_Last_Date;마지막 재생
 PlayTime;재생시간
 Position;위치
 Position_Total;전체
@@ -764,8 +764,8 @@ Recorded_Date;기록일
 Recorded_Location;기록 장소
 Released_Date;개봉일
 RemixedBy;리믹스
-ReplayGain_Gain
-ReplayGain_Peak
+ReplayGain_Gain;재생 게인
+ReplayGain_Peak;재생 게인 피크
 Resolution;해상도
 s;초
 SamplingRate;샘플링레이트
@@ -778,10 +778,10 @@ see below;아래 참고
 Send HeaderFile;여기로 헤더 파일을 보내주세요 : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;컬럼 구분자
 Separator_Lines;라인 구분자
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
+ServiceChannel;서비스 채널 번호
+ServiceName;서비스 이름
+ServiceProvider;서비스 제공자
+ServiceType;서비스 종류
 Set;세트
 Set_Count;세트 개수
 Setup;설정
@@ -866,5 +866,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
