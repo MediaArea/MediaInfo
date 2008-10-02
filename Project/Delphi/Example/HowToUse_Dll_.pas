@@ -35,6 +35,14 @@ var
   CR: WideString;
 begin
   CR:=Chr(13) + Chr(10);
+
+  if (MediaInfoDLL_Load('MediaInfo.dll')=false) then
+  begin
+      Memo1.Text := 'Error while loading MediaInfo.dll';
+      exit;
+  end;
+
+
   To_Display := MediaInfo_Option (0, 'Info_Version', '');
 
   To_Display := To_Display + CR + CR + 'Info_Parameters' + CR;
@@ -64,19 +72,19 @@ begin
   To_Display := To_Display + MediaInfo_Inform(Handle, 0);
 
   To_Display := To_Display + CR + CR + 'GetI with Stream=General and Parameter:=17' + CR;
-  To_Display := To_Display + MediaInfo_GetI(Handle, 0, 0, 17, 1);
+  To_Display := To_Display + MediaInfo_GetI(Handle, Stream_General, 0, 17, Info_Text);
 
   To_Display := To_Display + CR + CR + 'Count_Get with StreamKind=Stream_Audio' + CR;
-  To_Display := To_Display + format('%d', [MediaInfo_Count_Get(Handle, 2, -1)]);
+  To_Display := To_Display + format('%d', [MediaInfo_Count_Get(Handle, Stream_Audio, -1)]);
 
   To_Display := To_Display + CR + CR + 'Get with Stream:=General and Parameter=^AudioCount^' + CR;
-  To_Display := To_Display + MediaInfo_Get(Handle, 0, 0, 'AudioCount', 1, 0);
+  To_Display := To_Display + MediaInfo_Get(Handle, Stream_General, 0, 'AudioCount', Info_Text, Info_Name);
 
   To_Display := To_Display + CR + CR + 'Get with Stream:=Audio and Parameter=^StreamCount^' + CR;
-  To_Display := To_Display + MediaInfo_Get(Handle, 2, 0, 'StreamCount', 1, 0);
+  To_Display := To_Display + MediaInfo_Get(Handle, Stream_Audio, 0, 'StreamCount', Info_Text, Info_Name);
 
   To_Display := To_Display + CR + CR + 'Get with Stream:=General and Parameter=^FileSize^' + CR;
-  To_Display := To_Display + MediaInfo_Get(Handle, 0, 0, 'FileSize', 1, 0);
+  To_Display := To_Display + MediaInfo_Get(Handle, Stream_General, 0, 'FileSize', Info_Text, Info_Name);
 
   To_Display := To_Display + CR + CR + 'Close' + CR;
   MediaInfo_Close(Handle);
