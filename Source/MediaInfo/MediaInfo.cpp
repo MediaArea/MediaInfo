@@ -19,8 +19,8 @@
 
 //---------------------------------------------------------------------------
 // For user: you can disable or enable it
-#define MEDIAINFO_DEBUG
-#define MEDIAINFO_DEBUG_BUFFER_SAVE
+//#define MEDIAINFO_DEBUG
+//#define MEDIAINFO_DEBUG_BUFFER_SAVE
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -53,6 +53,8 @@ namespace MediaInfo_Debug_MediaInfo
     #define MEDIAINFO_DEBUG(_TOAPPEND) \
         F=fopen("MediaInfo_Debug.txt", "a+t"); \
         Debug.clear(); \
+        Debug+=ToString((size_t)this); \
+        Debug.resize(11, ' '); \
         _TOAPPEND; \
         Debug+="\r\n"; \
         fwrite(Debug.c_str(), Debug.size(), 1, F); \
@@ -62,32 +64,45 @@ namespace MediaInfo_Debug_MediaInfo
 #endif // MEDIAINFO_DEBUG
 
 #ifdef MEDIAINFO_DEBUG
-#define EXECUTE_VOID(_METHOD,_DEBUGB) \
-        ((MediaInfo_Internal*)Internal)->_METHOD;
-#else //MEDIAINFO_DEBUG
+    #define MEDIAINFO_DEBUG_STATIC(_TOAPPEND) \
+        F=fopen("MediaInfo_Debug.txt", "a+t"); \
+        Debug.clear(); \
+        Debug.resize(11, ' '); \
+        _TOAPPEND; \
+        Debug+="\r\n"; \
+        fwrite(Debug.c_str(), Debug.size(), 1, F); \
+        fclose(F);
+#else // MEDIAINFO_DEBUG
+    #define MEDIAINFO_DEBUG_STATIC(_TOAPPEND)
+#endif // MEDIAINFO_DEBUG
+
+#ifdef MEDIAINFO_DEBUG
 #define EXECUTE_VOID(_METHOD,_DEBUGB) \
         ((MediaInfo_Internal*)Internal)->_METHOD; \
         MEDIAINFO_DEBUG(_DEBUGB)
+#else //MEDIAINFO_DEBUG
+#define EXECUTE_VOID(_METHOD,_DEBUGB) \
+        ((MediaInfo_Internal*)Internal)->_METHOD;
 #endif //MEDIAINFO_DEBUG
 
 #ifdef MEDIAINFO_DEBUG
 #define EXECUTE_INT(_METHOD,_DEBUGB) \
-        return ((MediaInfo_Internal*)Internal)->_METHOD;
-#else //MEDIAINFO_DEBUG
-#define EXECUTE_INT(_METHOD, _DEBUGB) \
         int64u ToReturn=((MediaInfo_Internal*)Internal)->_METHOD; \
         MEDIAINFO_DEBUG(_DEBUGB) \
         return ToReturn;
+#else //MEDIAINFO_DEBUG
+#define EXECUTE_INT(_METHOD, _DEBUGB) \
+        return ((MediaInfo_Internal*)Internal)->_METHOD;
 #endif //MEDIAINFO_DEBUG
 
 #ifdef MEDIAINFO_DEBUG
 #define EXECUTE_STRING(_METHOD,_DEBUGB) \
-        return ((MediaInfo_Internal*)Internal)->_METHOD;
-#else //MEDIAINFO_DEBUG
-#define EXECUTE_STRING(_METHOD,_DEBUGB) \
         Ztring ToReturn=((MediaInfo_Internal*)Internal)->_METHOD; \
         MEDIAINFO_DEBUG(_DEBUGB) \
         return ToReturn;
+#else //MEDIAINFO_DEBUG
+#define EXECUTE_STRING(_METHOD,_DEBUGB) \
+        return ((MediaInfo_Internal*)Internal)->_METHOD;
 #endif //MEDIAINFO_DEBUG
 
 #ifdef MEDIAINFO_DEBUG_BUFFER_SAVE
@@ -97,14 +112,10 @@ namespace MediaInfo_Debug_MediaInfo
 
     #undef MEDIAINFO_DEBUG_BUFFER_SAVE
     #define MEDIAINFO_DEBUG_BUFFER_SAVE(_BUFFER, _SIZE) \
-        Buffer_Stream=fopen("MediaInfo_Debug_Stream.raw", "a+b"); \
-        Buffer_Sizes=fopen("MediaInfo_Debug_Stream.sizes", "a+b"); \
         fwrite(_BUFFER, _SIZE, 1, Buffer_Stream); \
-        fwrite((char*)&_SIZE, sizeof(size_t), 1, Buffer_Sizes); \
-        fclose(Buffer_Stream); \
-        fclose(Buffer_Sizes);
+        fwrite((char*)&_SIZE, sizeof(size_t), 1, Buffer_Sizes);
 #else // MEDIAINFO_DEBUG_BUFFER_SAVE
-    #define MEDIAINFO_DEBUG_BUFFER_SAVE(_TOAPPEND)
+    #define MEDIAINFO_DEBUG_BUFFER_SAVE(_BUFFER, _SIZE)
 #endif // MEDIAINFO_DEBUG_BUFFER_SAVE
 
 }
@@ -269,7 +280,7 @@ String MediaInfo::Option (const String &Option, const String &Value)
 //---------------------------------------------------------------------------
 String MediaInfo::Option_Static (const String &Option, const String &Value)
 {
-    MEDIAINFO_DEBUG(Debug+="Option_Static, Option=";Debug+=Ztring(Option).To_Local();Debug+=", Value=";Debug+=Ztring(Value).To_Local();)
+    MEDIAINFO_DEBUG_STATIC(Debug+="Option_Static, Option=";Debug+=Ztring(Option).To_Local();Debug+=", Value=";Debug+=Ztring(Value).To_Local();)
     MediaInfoLib::Config.Init(); //Initialize Configuration
 
          if (Option==_T("Info_Capacities"))
