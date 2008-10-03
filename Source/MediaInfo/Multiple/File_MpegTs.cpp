@@ -914,8 +914,11 @@ void File_MpegTs::PSI_atsc_psip()
 
     for (std::map<int16u, File_Mpeg_Psi::stream>::iterator Stream=Parser->Streams.begin(); Stream!=Parser->Streams.end(); Stream++)
     {
-        Streams[Stream->first].TS_Kind=Stream->second.Kind;
-        Streams[Stream->first].Searching_Payload_Start_Set(true);
+        if (Stream->first>0x10) //Protection again erasing standard PID
+        {
+            Streams[Stream->first].TS_Kind=Stream->second.Kind;
+            Streams[Stream->first].Searching_Payload_Start_Set(true);
+        }
         if (Streams[Stream->first].Parser)
             Streams[Stream->first].Parser->File_Offset=File_Offset; //Disabling the tag "finnished", we want it again!
     }

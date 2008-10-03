@@ -1342,14 +1342,18 @@ void File_Mpeg_Psi::Descriptors()
     Element_End();
 
     //Filling
-    Streams[Stream_Current].Infos=Descriptors.Infos;
-    Streams[Stream_Current].format_identifier=Descriptors.format_identifier; //General
-    if (Streams[Stream_Current].descriptor_tag==0x00)
-        Streams[Stream_Current].descriptor_tag=Descriptors.descriptor_tag;
-    if (Streams[Stream_Current].CA_PID==0x0000)
-        Streams[Stream_Current].CA_PID=Descriptors.CA_PID;
-    if (Streams[Stream_Current].ES_ID==0x0000)
-        Streams[Stream_Current].ES_ID=Descriptors.ES_ID;
+    //About a PID
+    if (Stream_Current) //Only if an ID is registered
+    {
+        Streams[Stream_Current].Infos=Descriptors.Infos;
+        Streams[Stream_Current].format_identifier=Descriptors.format_identifier; //General
+        if (Streams[Stream_Current].descriptor_tag==0x00)
+            Streams[Stream_Current].descriptor_tag=Descriptors.descriptor_tag;
+        if (Streams[Stream_Current].CA_PID==0x0000)
+            Streams[Stream_Current].CA_PID=Descriptors.CA_PID;
+        if (Streams[Stream_Current].ES_ID==0x0000)
+            Streams[Stream_Current].ES_ID=Descriptors.ES_ID;
+    }
 
     //About program
     for (std::map<std::string, ZenLib::Ztring>::iterator Info=Descriptors.Program.Infos.begin(); Info!=Descriptors.Program.Infos.end(); Info++)
