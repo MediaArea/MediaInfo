@@ -45,6 +45,7 @@ namespace MediaInfoLib
 namespace MediaInfo_Debug_MediaInfo
 {
 #ifdef MEDIAINFO_DEBUG
+    #define MEDIAINFO_DEBUG_WANTED
     #include <stdio.h>
     FILE* F;
     std::string Debug;
@@ -63,7 +64,7 @@ namespace MediaInfo_Debug_MediaInfo
     #define MEDIAINFO_DEBUG(_TOAPPEND)
 #endif // MEDIAINFO_DEBUG
 
-#ifdef MEDIAINFO_DEBUG
+#ifdef MEDIAINFO_DEBUG_WANTED
     #define MEDIAINFO_DEBUG_STATIC(_TOAPPEND) \
         F=fopen("MediaInfo_Debug.txt", "a+t"); \
         Debug.clear(); \
@@ -72,38 +73,38 @@ namespace MediaInfo_Debug_MediaInfo
         Debug+="\r\n"; \
         fwrite(Debug.c_str(), Debug.size(), 1, F); \
         fclose(F);
-#else // MEDIAINFO_DEBUG
+#else // MEDIAINFO_DEBUG_WANTED
     #define MEDIAINFO_DEBUG_STATIC(_TOAPPEND)
-#endif // MEDIAINFO_DEBUG
+#endif // MEDIAINFO_DEBUG_WANTED
 
-#ifdef MEDIAINFO_DEBUG
+#ifdef MEDIAINFO_DEBUG_WANTED
 #define EXECUTE_VOID(_METHOD,_DEBUGB) \
         ((MediaInfo_Internal*)Internal)->_METHOD; \
         MEDIAINFO_DEBUG(_DEBUGB)
-#else //MEDIAINFO_DEBUG
+#else //MEDIAINFO_DEBUG_WANTED
 #define EXECUTE_VOID(_METHOD,_DEBUGB) \
         ((MediaInfo_Internal*)Internal)->_METHOD;
-#endif //MEDIAINFO_DEBUG
+#endif //MEDIAINFO_DEBUG_WANTED
 
-#ifdef MEDIAINFO_DEBUG
+#ifdef MEDIAINFO_DEBUG_WANTED
 #define EXECUTE_INT(_METHOD,_DEBUGB) \
         int64u ToReturn=((MediaInfo_Internal*)Internal)->_METHOD; \
         MEDIAINFO_DEBUG(_DEBUGB) \
         return ToReturn;
-#else //MEDIAINFO_DEBUG
+#else //MEDIAINFO_DEBUG_WANTED
 #define EXECUTE_INT(_METHOD, _DEBUGB) \
         return ((MediaInfo_Internal*)Internal)->_METHOD;
-#endif //MEDIAINFO_DEBUG
+#endif //MEDIAINFO_DEBUG_WANTED
 
-#ifdef MEDIAINFO_DEBUG
+#ifdef MEDIAINFO_DEBUG_WANTED
 #define EXECUTE_STRING(_METHOD,_DEBUGB) \
         Ztring ToReturn=((MediaInfo_Internal*)Internal)->_METHOD; \
         MEDIAINFO_DEBUG(_DEBUGB) \
         return ToReturn;
-#else //MEDIAINFO_DEBUG
+#else //MEDIAINFO_DEBUG_WANTED
 #define EXECUTE_STRING(_METHOD,_DEBUGB) \
         return ((MediaInfo_Internal*)Internal)->_METHOD;
-#endif //MEDIAINFO_DEBUG
+#endif //MEDIAINFO_DEBUG_WANTED
 
 #ifdef MEDIAINFO_DEBUG_BUFFER_SAVE
     #include <stdio.h>
