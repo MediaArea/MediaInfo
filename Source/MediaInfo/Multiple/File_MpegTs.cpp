@@ -734,7 +734,7 @@ void File_MpegTs::PSI_program_map_table()
     File_Mpeg_Psi* Parser=(File_Mpeg_Psi*)Streams[pid].Parser;
 
     //Format identifier
-    format_identifier=Parser->Streams[0x0000].format_identifier;
+    format_identifier=Parser->Programs[Parser->program_number].format_identifier;
 
     //PCR
     int16u PCR_PID=Parser->PCR_PID;
@@ -903,6 +903,10 @@ void File_MpegTs::PSI_network_information_table()
         //Enabling what we know parsing
         Streams[0x0000].Infos=Stream->second.Infos;
     }
+
+    //Global infos
+    for (std::map<std::string, ZenLib::Ztring>::iterator Info=Parser->Infos.begin(); Info!=Parser->Infos.end(); Info++)
+        Streams[0x0000].Infos[Info->first]=Info->second;
 }
 
 //---------------------------------------------------------------------------

@@ -548,6 +548,7 @@ File_Mpeg_Psi::File_Mpeg_Psi()
     transport_stream_id=0xFFFF; //Impossible
     PCR_PID=0x1FFF; //Default value
     CRC_32=0;
+    program_number=0x0000; //Reserved value
 }
 
 //---------------------------------------------------------------------------
@@ -908,7 +909,6 @@ void File_Mpeg_Psi::Table_01()
 void File_Mpeg_Psi::Table_02()
 {
     //Parsing
-    int16u program_number;
     Get_B2 (    program_number,                                 "program_number");
     BS_Begin();
     Skip_S1( 2,                                                 "reserved");
@@ -932,7 +932,7 @@ void File_Mpeg_Psi::Table_02()
         Element_Begin();
         int8u stream_type;
         BS_Begin();
-        Get_S1 ( 8, stream_type,                                "stream_type"); Element_Info(Mpeg_Psi_stream_type(stream_type, Streams[0x0000].format_identifier)); Param_Info(Mpeg_Psi_stream_type(stream_type, Streams[Stream_Current].format_identifier));
+        Get_S1 ( 8, stream_type,                                "stream_type"); Element_Info(Mpeg_Psi_stream_type(stream_type, Programs[program_number].format_identifier)); Param_Info(Mpeg_Psi_stream_type(stream_type, Streams[Stream_Current].format_identifier));
         Skip_S1( 3,                                             "reserved");
         Get_S2 (13, Stream_Current,                             "elementary_PID");
         Skip_S1( 4,                                             "reserved");
@@ -942,6 +942,7 @@ void File_Mpeg_Psi::Table_02()
         //Filling
         Streams[Stream_Current].stream_type=stream_type;
         Streams[Stream_Current].program_number=program_number;
+        Streams[Stream_Current].format_identifier=Programs[program_number].format_identifier;
 
         //Descriptors
         if (Descriptors_Size>0)
@@ -1333,7 +1334,7 @@ void File_Mpeg_Psi::Descriptors()
     File_Mpeg_Descriptors Descriptors;
     Buffer_Offset+=(size_t)Element_Offset; //Positionning
     Open_Buffer_Init(&Descriptors, File_Size, File_Offset+Buffer_Offset);
-    Descriptors.format_identifier=Streams[Streams[Stream_Current].format_identifier?Stream_Current:0x0000].format_identifier; //format_identifier of fthe stream if exist, else general format_identifier
+    Descriptors.format_identifier=Streams[Stream_Current].format_identifier==0x00000000?Programs[program_number].format_identifier:Streams[Stream_Current].format_identifier; //format_identifier of the stream if exist, else general format_identifier
     Descriptors.StreamKind=Stream_Current?Stream_Max:Stream_General; //Saying if it is General or not
     Descriptors.table_id=table_id;
     Open_Buffer_Continue(&Descriptors, Buffer+Buffer_Offset, Descriptors_Size);
@@ -1354,6 +1355,15 @@ void File_Mpeg_Psi::Descriptors()
         if (Streams[Stream_Current].ES_ID==0x0000)
             Streams[Stream_Current].ES_ID=Descriptors.ES_ID;
     }
+    else if (program_number) //This is about a program, not a stream
+    {
+        Programs[program_number].format_identifier=Descriptors.format_identifier;
+        for (std::map<std::string, ZenLib::Ztring>::iterator Info=Descriptors.Infos.begin(); Info!=Descriptors.Infos.end(); Info++)
+            Programs[program_number].Infos[Info->first]=Info->second;
+    }
+    else
+        for (std::map<std::string, ZenLib::Ztring>::iterator Info=Descriptors.Infos.begin(); Info!=Descriptors.Infos.end(); Info++)
+            Infos[Info->first]=Info->second;
 
     //About program
     for (std::map<std::string, ZenLib::Ztring>::iterator Info=Descriptors.Program.Infos.begin(); Info!=Descriptors.Program.Infos.end(); Info++)

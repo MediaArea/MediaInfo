@@ -125,6 +125,7 @@ public :
 
     //About the complete stream
     int16u transport_stream_id; //Unique ID of the stream
+    std::map<std::string, ZenLib::Ztring>       Infos;
 
     //About program
     int16u PCR_PID;

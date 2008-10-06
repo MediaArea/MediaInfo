@@ -72,11 +72,13 @@ public :
     struct program
     {
         int16u                                      pid;
+        int32u                                      format_identifier;
         std::map<std::string, ZenLib::Ztring>       Infos;
 
         program()
         {
             pid=0;
+            format_identifier=0x00000000;
         }
 
         ~program()
