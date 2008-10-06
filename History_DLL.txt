@@ -18,6 +18,7 @@ x #2109107, Tags in Flac or Ogg: modification of the tag types priorities
 x #2120224, MPEG-4: some specific files were not parsed completely (missing info)
 x MPEG-TS with Dirac: some specific files were not parsed completely (missing info)
 x MPEG-4: Crash on MPEG-4 Visual format without DecDecoder stuff
+x Command line: was not reading custom template in UTF-8 codepage
 
 Version 0.7.7.6, 2008-09-12
 ---------------

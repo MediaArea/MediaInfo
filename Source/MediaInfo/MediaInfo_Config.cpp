@@ -872,7 +872,9 @@ void MediaInfo_Config::Inform_Set (const ZtringListList &NewValue)
         Buffer[(size_t)F.Size_Get()]='\0';
         F.Read(Buffer, (size_t)F.Size_Get());
         F.Close();
-        Ztring FromFile; FromFile.From_Local((char*)Buffer);
+        Ztring FromFile; FromFile.From_UTF8((char*)Buffer);
+        if (FromFile.empty())
+             FromFile.From_Local((char*)Buffer);
         delete[] Buffer; //Buffer=NULL;
 
         //Merge
