@@ -131,7 +131,7 @@ protected :
     inline void Data_Info_From_Milliseconds (int64u Parameter)                  {Data_Info(Ztring().Duration_From_Milliseconds(Parameter));}
 
     //Data - Get info
-    size_t Data_Remain ()                                                       {return (size_t)Element_Size-(Element_Offset+BS->Offset_Get());};
+    size_t Data_Remain ()                                                       {return (size_t)(Element_Size-(Element_Offset+BS->Offset_Get()));};
     size_t Data_BS_Remain ()                                                    {return (size_t)BS->Remain();};
 
     //Data - Detect EOF

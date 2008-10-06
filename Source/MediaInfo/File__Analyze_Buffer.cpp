@@ -104,9 +104,9 @@ void File__Analyze::BS_Begin()
         Element_Offset=Element_Size;
     size_t BS_Size;
     if (Buffer_Offset+Element_Size<=Buffer_Size)
-        BS_Size=(size_t)Element_Size-Element_Offset;
+        BS_Size=(size_t)(Element_Size-Element_Offset);
     else
-        BS_Size=Buffer_Size-(Buffer_Offset+Element_Offset);
+        BS_Size=Buffer_Size-(Buffer_Offset+(size_t)Element_Offset);
     BS->Attach(Buffer+Buffer_Offset+(size_t)Element_Offset, BS_Size);
 }
 
