@@ -35,6 +35,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Wm.h"
+#if defined(MEDIAINFO_VC1_YES)
+    #include "MediaInfo/Video/File_Vc1.h"
+#endif
 #if defined(MEDIAINFO_MPEGV_YES)
     #include "MediaInfo/Video/File_Mpegv.h"
 #endif
@@ -420,6 +423,22 @@ void File_Wm::Header_StreamProperties_Video ()
 
     //Creating the parser
          if (0);
+    #if defined(MEDIAINFO_VC1_YES)
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_Format)==_T("VC-1"))
+    {
+        Stream[Stream_Number].Parser=new File_Vc1;
+        Open_Buffer_Init(Stream[Stream_Number].Parser);
+        if (Compression==CC4("WMV3"))
+            ((File_Vc1*)Stream[Stream_Number].Parser)->From_WMV3=true;
+        if (Data_Size>40)
+        {
+            Open_Buffer_Continue(Stream[Stream_Number].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Data_Size-40));
+            Open_Buffer_Finalize(Stream[Stream_Number].Parser);
+            Merge (*Stream[Stream_Number].Parser, Stream_Video, 0, StreamPos_Last);
+        }
+        delete Stream[Stream_Number].Parser; Stream[Stream_Number].Parser=NULL;
+    }
+    #endif
     #if defined(MEDIAINFO_MPEGV_YES)
     else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("MPEG-2"))==0)
     {

@@ -43,6 +43,7 @@ public :
     //In
     size_t Frame_Count_Valid;
     bool   FrameIsAlwaysComplete;
+    bool   From_WMV3;
 
 protected :
     //Format
@@ -135,6 +136,7 @@ private :
 
     //Helpers
     bool Synchronize();
+    void Init();
     bool Header_Parser_QuickSearch();
     bool Detect_NonVC1();
 

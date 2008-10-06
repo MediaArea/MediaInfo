@@ -46,10 +46,10 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 const char* Vc1_Profile[]=
 {
-    "Simple",
-    "Main",
-    "Complex",
-    "Advanced",
+    "SP",
+    "MP",
+    "CP",
+    "AP",
 };
 
 //---------------------------------------------------------------------------
@@ -223,6 +223,7 @@ File_Vc1::File_Vc1()
     //In
     Frame_Count_Valid=30;
     FrameIsAlwaysComplete=false;
+    From_WMV3=false;
 }
 
 //---------------------------------------------------------------------------
@@ -240,7 +241,7 @@ void File_Vc1::Read_Buffer_Finalize()
         return; //Not initialized
 
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Count_Get(Stream_General)==0 && Frame_Count>0)
+    if (Count_Get(Stream_General)==0 && (Frame_Count>0 || From_WMV3))
         FrameHeader_Fill();
 
     //Purge what is not needed anymore
@@ -255,6 +256,10 @@ void File_Vc1::Read_Buffer_Finalize()
 //---------------------------------------------------------------------------
 bool File_Vc1::Header_Begin()
 {
+    //Specific
+    if (From_WMV3)
+        return true;
+
     //Must have enough buffer for having header
     if (Buffer_Offset+4>Buffer_Size)
         return false;
@@ -281,6 +286,15 @@ bool File_Vc1::Header_Begin()
 //---------------------------------------------------------------------------
 void File_Vc1::Header_Parse()
 {
+    //Specific
+    if (From_WMV3)
+    {
+        Header_Fill_Size(Buffer_Size);
+        Header_Fill_Code(0x0F, Ztring().From_CC1(0x0F));
+        Init();
+        return;
+    }
+
     //Parsing
     int8u start_code;
     Skip_B3(                                                    "synchro");
@@ -548,13 +562,19 @@ void File_Vc1::FrameHeader_Fill()
     Fill(Stream_General, 0, General_Format, "VC-1");
     Stream_Prepare(Stream_Video);
     Fill(Stream_Video, 0, Video_Format, "VC-1");
-    Fill(Stream_Video, 0, Video_Codec, "VC-1");
+    Fill(Stream_Video, 0, Video_Codec, From_WMV3?"WMV3":"VC-1"); //For compatibility with the old reaction
 
-    Fill(Stream_Video, 0, Video_Format_Profile, Ztring(Vc1_Profile[profile])+_T('@')+Ztring::ToZtring(level));
-    Fill(Stream_Video, 0, Video_Codec_Profile, Ztring(Vc1_Profile[profile])+_T('@')+Ztring::ToZtring(level));
+    Ztring Profile=Vc1_Profile[profile];
+    if (profile==3)
+        Profile+=_T("@L")+Ztring::ToZtring(level);
+    Fill(Stream_Video, 0, Video_Format_Profile, Profile);
+    Fill(Stream_Video, 0, Video_Codec_Profile, Profile);
     Fill(Stream_Video, 0, Video_Colorimetry, Vc1_ColorimetryFormat[colordiff_format]);
-    Fill(Stream_Video, StreamPos_Last, Video_Width, (coded_width+1)*2);
-    Fill(Stream_Video, StreamPos_Last, Video_Height, (coded_height+1)*2);
+    if (coded_width && coded_height)
+    {
+        Fill(Stream_Video, StreamPos_Last, Video_Width, (coded_width+1)*2);
+        Fill(Stream_Video, StreamPos_Last, Video_Height, (coded_height+1)*2);
+    }
     if (PixelAspectRatio!=0)
         Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio);
     if (FrameRate!=0)
@@ -831,45 +851,49 @@ bool File_Vc1::Synchronize()
     //Synched is OK
     Synched=true;
     if (Streams.empty())
-    {
-        //Count
-        Frame_Count=0;
-        Interlaced_Top=0;
-        Interlaced_Bottom=0;
-        PictureFormat_Count.resize(4);
-
-        //Temp
-        coded_width=0;
-        coded_height=0;
-        framerateexp=0;
-        frameratecode_enr=0;
-        frameratecode_dr=0;
-        profile=0;
-        level=0;
-        colordiff_format=0;
-        AspectRatio=0;
-        AspectRatioX=0;
-        AspectRatioY=0;
-        hrd_num_leaky_buckets=0;
-        max_b_frames=7; //Default for advanced profile
-        interlace=false;
-        tfcntrflag=false;
-        framerate_present=false;
-        framerate_form=false;
-        hrd_param_flag=false;
-        finterpflag=false;
-        rangered=false;
-        psf=false;
-        pulldown=false;
-        panscan_flag=false;
-
-        TemporalReference_Offset=0;
-
-        //Default stream values
-        Streams.resize(0x100);
-        Streams[0x0F].Searching_Payload=true;
-    }
+        Init();
     return true;
+}
+
+//---------------------------------------------------------------------------
+void File_Vc1::Init()
+{
+    //Count
+    Frame_Count=0;
+    Interlaced_Top=0;
+    Interlaced_Bottom=0;
+    PictureFormat_Count.resize(4);
+
+    //Temp
+    coded_width=0;
+    coded_height=0;
+    framerateexp=0;
+    frameratecode_enr=0;
+    frameratecode_dr=0;
+    profile=0;
+    level=0;
+    colordiff_format=0;
+    AspectRatio=0;
+    AspectRatioX=0;
+    AspectRatioY=0;
+    hrd_num_leaky_buckets=0;
+    max_b_frames=7; //Default for advanced profile
+    interlace=false;
+    tfcntrflag=false;
+    framerate_present=false;
+    framerate_form=false;
+    hrd_param_flag=false;
+    finterpflag=false;
+    rangered=false;
+    psf=false;
+    pulldown=false;
+    panscan_flag=false;
+
+    TemporalReference_Offset=0;
+
+    //Default stream values
+    Streams.resize(0x100);
+    Streams[0x0F].Searching_Payload=true;
 }
 
 //---------------------------------------------------------------------------
