@@ -92,7 +92,7 @@ void File_Wm::Read_Buffer_Finalize()
         while (Info_Temp!=Temp->second.Info.end())
         {
             if (Codec_Description_Count==Stream.size() || Info_Temp->first!="CodecID_Description") //With some files, There are only x Codec desecription and !x streams, no coherancy
-                Fill(Temp->second.StreamKind, Temp->second.StreamPos, Info_Temp->first.c_str(), Info_Temp->second);
+                Fill(Temp->second.StreamKind, Temp->second.StreamPos, Info_Temp->first.c_str(), Info_Temp->second, true);
             Info_Temp++;
         }
 
@@ -149,7 +149,7 @@ void File_Wm::Read_Buffer_Finalize()
             }
             else
             {
-                Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate", "VFR");
+                Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate_Mode", "VFR");
                 if (Temp->second.AverageTimePerFrame>0)
                     Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate_Nominal", ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
             }
