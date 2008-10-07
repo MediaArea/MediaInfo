@@ -107,6 +107,7 @@ protected :
 public :
     void   Details_Clear();
     void   Details_Add(const char* Parameter);
+    virtual void Option_Manage() {};
 
     //File
     Ztring File_Name;

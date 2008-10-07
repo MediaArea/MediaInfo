@@ -134,7 +134,7 @@ File__Duplicate_MpegTs::File__Duplicate_MpegTs (const Ztring &Target)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Duplicate_MpegTs::Configure (const Ztring &Value, bool ToRemove)
+bool File__Duplicate_MpegTs::Configure (const Ztring &Value, bool ToRemove)
 {
     //Form: "program_number"
     if (Value.find(_T("program_number="))==0)
@@ -220,6 +220,17 @@ void File__Duplicate_MpegTs::Configure (const Ztring &Value, bool ToRemove)
         if (!PAT.empty())
             PAT.begin()->second.ConfigurationHasChanged=true;
     }
+
+    //Can be disabled?
+    if (Wanted_program_numbers.empty()
+     && Wanted_program_map_PIDs.empty()
+     && Wanted_elementary_PIDs.empty()
+     && Remove_program_numbers.empty()
+     && Remove_program_map_PIDs.empty()
+     && Remove_elementary_PIDs.empty())
+        return true; //It can be erased
+     else
+        return false; //We always need it
 }
 
 //***************************************************************************

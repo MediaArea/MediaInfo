@@ -99,8 +99,7 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     }
     else if (Option_Lower==_T("file_duplicate"))
     {
-        File_Duplicate_Set(Value);
-        return _T("");
+        return File_Duplicate_Set(Value);
     }
     else if (Option_Lower==_T("file_duplicate_get"))
     {
@@ -216,13 +215,61 @@ bool MediaInfo_Config_MediaInfo::File_Filter_HasChanged ()
 // Duplicate
 //***************************************************************************
 
-void MediaInfo_Config_MediaInfo::File_Duplicate_Set (const Ztring &Value)
+Ztring MediaInfo_Config_MediaInfo::File_Duplicate_Set (const Ztring &Value)
 {
     //Preparing for File__Duplicate...
     CS.Enter();
     File__Duplicate_List.push_back(Value);
+
+    //Handling Memory index
+    Ztring ToReturn;
+    ZtringList List=Value;
+    for (size_t Pos=0; Pos<List.size(); Pos++)
+    {
+        //Form= "(-)Data", if "-" the value will be removed
+        Ztring &Value=List[Pos];
+        bool ToRemove=false;
+        if (Value.find(_T('-'))==0)
+        {
+            Value.erase(Value.begin());
+            ToRemove=true;
+        }
+
+        //Testing if this is information about a target
+        if (List[Pos].find(_T("memory:"))==0 || List[Pos].find(_T("file:"))==0)
+        {
+            //Searching if already exist
+            size_t Memory_Pos=File__Duplicate_Memory_Indexes.Find(List[Pos]);
+            if (!ToRemove && Memory_Pos==Error)
+            {
+                //Does not exist yet (and adding is wanted)
+                Memory_Pos=File__Duplicate_Memory_Indexes.Find(_T(""));
+                if (Memory_Pos!=Error)
+                    File__Duplicate_Memory_Indexes[Memory_Pos]=List[Pos]; //A free place is found
+                else
+                {
+                    //Adding the place at the end
+                    Memory_Pos=File__Duplicate_Memory_Indexes.size();
+                    File__Duplicate_Memory_Indexes.push_back(List[Pos]);
+                }
+            }
+            else if (ToRemove)
+            {
+                //Exists yet but Removal is wanted
+                File__Duplicate_Memory_Indexes[Memory_Pos].clear();
+                Memory_Pos=(size_t)-1;
+            }
+
+            ToReturn+=_T(";")+Ztring().From_Number(Memory_Pos);
+        }
+    }
+    if (!ToReturn.empty())
+        ToReturn.erase(ToReturn.begin()); //Remove first ";"
+
     CS.Leave();
-    File_IsSeekable_Set(false); //If duplicateion, we can not seek anymore
+    File_IsSeekable_Set(false); //If duplication, we can not seek anymore
+
+    return ToReturn;
 }
 
 Ztring MediaInfo_Config_MediaInfo::File_Duplicate_Get (size_t AlreadyRead_Pos)
@@ -239,6 +286,20 @@ bool MediaInfo_Config_MediaInfo::File_Duplicate_Get_AlwaysNeeded (size_t Already
     CriticalSectionLocker CSL(CS);
     bool Temp=AlreadyRead_Pos>=File__Duplicate_List.size();
     return !Temp; //True if there is something to read
+}
+
+size_t MediaInfo_Config_MediaInfo::File__Duplicate_Memory_Indexes_Get (const Ztring &Value)
+{
+    CriticalSectionLocker CSL(CS);
+    return File__Duplicate_Memory_Indexes.Find(Value);
+}
+
+void MediaInfo_Config_MediaInfo::File__Duplicate_Memory_Indexes_Erase (const Ztring &Value)
+{
+    CriticalSectionLocker CSL(CS);
+    size_t Pos=File__Duplicate_Memory_Indexes.Find(Value);
+    if (Pos!=Error)
+        File__Duplicate_Memory_Indexes[Pos].clear();
 }
 
 //***************************************************************************

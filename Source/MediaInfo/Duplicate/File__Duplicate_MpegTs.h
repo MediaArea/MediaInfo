@@ -44,7 +44,7 @@ public :
     File__Duplicate_MpegTs(const Ztring &Target);
 
     //Set
-    void   Configure (const Ztring &Value, bool ToRemove);
+    bool   Configure (const Ztring &Value, bool ToRemove);
 
     //Write
     bool   Write (int16u PID, const int8u* ToAdd=NULL, size_t ToAdd_Size=0);

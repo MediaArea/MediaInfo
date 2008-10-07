@@ -67,9 +67,12 @@ public :
     bool          File_Filter_Get     ();
     bool          File_Filter_HasChanged();
 
-    void          File_Duplicate_Set  (const Ztring &Value);
+    Ztring        File_Duplicate_Set  (const Ztring &Value);
     Ztring        File_Duplicate_Get  (size_t AlreadyRead_Pos); //Requester must say how many Get() it already read
     bool          File_Duplicate_Get_AlwaysNeeded (size_t AlreadyRead_Pos); //Requester must say how many Get() it already read
+
+    size_t        File__Duplicate_Memory_Indexes_Get (const Ztring &ToFind);
+    void          File__Duplicate_Memory_Indexes_Erase (const Ztring &ToFind);
 
     //Specific
     void          File_MpegTs_ForceMenu_Set (bool NewValue);
@@ -85,6 +88,7 @@ private :
     bool                    File_Filter_HasChanged_;
 
     std::vector<Ztring>     File__Duplicate_List;
+    ZtringList              File__Duplicate_Memory_Indexes;
 
     //Specific
     bool                    File_MpegTs_ForceMenu;

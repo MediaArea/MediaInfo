@@ -90,35 +90,88 @@ void File__Duplicate::File__Duplicate_Set (const Ztring &Value)
     //WARNING: program_number & pointer must be in ***DECIMAL*** format.
     //Example: "451;memory://123456789:1316"
     ZtringList List(Value);
-    bool ToRemove=false;
+    bool Orders_ToRemove_Global=false;
 
     //Searching Target
-    std::vector<ZtringList::iterator> Targets;
-    std::vector<ZtringList::iterator> Orders;
+    std::vector<ZtringList::iterator> Targets_ToAdd;
+    std::vector<ZtringList::iterator> Targets_ToRemove;
+    std::vector<ZtringList::iterator> Orders_ToAdd;
+    std::vector<ZtringList::iterator> Orders_ToRemove;
     for (ZtringList::iterator Current=List.begin(); Current<List.end(); Current++)
     {
+        //Detecting if we want to remove
+        bool ToRemove=false;
+        if (Current->find(_T('-'))==0)
+        {
+            ToRemove=true;
+            Current->erase(Current->begin());
+        }
+
+        //Managing targets
         if (Current->find(_T("file:"))==0
          || Current->find(_T("memory:"))==0)
-            Targets.push_back(Current);
+            (ToRemove?Targets_ToRemove:Targets_ToAdd).push_back(Current);
+        //Backward compatibility
         else if (*Current==_T("0"))
-            ToRemove=true;
+            Orders_ToRemove_Global=true;
+        //Managing orders
         else
-            Orders.push_back(Current);
+            (ToRemove?Orders_ToRemove:Orders_ToAdd).push_back(Current);
     }
 
-    //For each target
-    for (std::vector<ZtringList::iterator>::iterator Target=Targets.begin(); Target<Targets.end(); Target++)
+    //Backward compatibility
+    if (Orders_ToRemove_Global) //with "0"
     {
+        for (std::vector<ZtringList::iterator>::iterator Order=Orders_ToAdd.begin(); Order<Orders_ToAdd.end(); Order++)
+            Orders_ToRemove.push_back(*Order);
+        Orders_ToAdd.clear();
+    }
+
+    //For each target to add
+    for (std::vector<ZtringList::iterator>::iterator Target=Targets_ToAdd.begin(); Target<Targets_ToAdd.end(); Target++)
+    {
+        //Adding the target if it does not exist yet
         if (Duplicates.find(**Target)==Duplicates.end())
         {
             Duplicates[**Target]=new File__Duplicate_MpegTs(**Target);
-            Duplicates_Speed.resize(Duplicates_Speed.size()+1);
-            Duplicates_Speed[Duplicates_Speed.size()-1]=Duplicates[**Target];
+            size_t Pos=Config->File__Duplicate_Memory_Indexes_Get(**Target);
+            if (Pos!=Error)
+            {
+                if (Pos>=Duplicates_Speed.size())
+                    Duplicates_Speed.resize(Pos+1);
+                Duplicates_Speed[Pos]=Duplicates[**Target];
+            }
         }
 
-        //For each order
-        for (std::vector<ZtringList::iterator>::iterator Order=Orders.begin(); Order<Orders.end(); Order++)
-            Duplicates[**Target]->Configure(**Order, ToRemove);
+        //For each order to add
+        for (std::vector<ZtringList::iterator>::iterator Order=Orders_ToAdd.begin(); Order<Orders_ToAdd.end(); Order++)
+            Duplicates[**Target]->Configure(**Order, false);
+
+        //For each order to remove
+        for (std::vector<ZtringList::iterator>::iterator Order=Orders_ToRemove.begin(); Order<Orders_ToRemove.end(); Order++)
+            Duplicates[**Target]->Configure(**Order, true);
+    }
+
+    //For each target to remove
+    for (std::vector<ZtringList::iterator>::iterator Target=Targets_ToRemove.begin(); Target<Targets_ToRemove.end(); Target++)
+    {
+        std::map<const String, File__Duplicate_MpegTs*>::iterator Pointer=Duplicates.find(**Target);
+        if (Pointer!=Duplicates.end())
+        {
+            //Duplicates_Speed
+            for (std::vector<File__Duplicate_MpegTs*>::iterator Duplicate=Duplicates_Speed.begin(); Duplicate<Duplicates_Speed.end(); Duplicate++)
+                if (*Duplicate==Pointer->second)
+                    *Duplicate=NULL;
+
+            //Duplicates_Speed_FromPID
+            for (std::vector<std::vector<File__Duplicate_MpegTs*> >::iterator Duplicate_FromPID=Duplicates_Speed_FromPID.begin(); Duplicate_FromPID<Duplicates_Speed_FromPID.end(); Duplicate_FromPID++)
+                for (std::vector<File__Duplicate_MpegTs*>::iterator Duplicate=Duplicate_FromPID->begin(); Duplicate<Duplicate_FromPID->end(); Duplicate++)
+                    if (*Duplicate==Pointer->second)
+                        *Duplicate=NULL;
+
+            //Duplicate
+            Duplicates.erase(**Target);
+        }
     }
 
     //Informing the status has changed
@@ -174,7 +227,7 @@ void File__Duplicate::File__Duplicate_Write (int16u PID)
     size_t Size=Duplicates_Speed_FromPID[PID].size();
     bool ToUpdate=false;
     for (size_t Pos=0; Pos<Size; Pos++)
-        if (Dup_FromPID[Pos]->Write(PID, ToAdd, ToAdd_Size))
+        if (Dup_FromPID[Pos] && Dup_FromPID[Pos]->Write(PID, ToAdd, ToAdd_Size))
             ToUpdate=true;
     if (ToUpdate)
     {
@@ -214,7 +267,7 @@ size_t File__Duplicate::Output_Buffer_Get (const String &Code_)
 //---------------------------------------------------------------------------
 size_t File__Duplicate::Output_Buffer_Get (size_t Pos)
 {
-    if (Pos>=Duplicates_Speed.size())
+    if (Pos>=Duplicates_Speed.size() || Duplicates_Speed[Pos]==NULL)
         return 0;
 
     return Duplicates_Speed[Pos]->Output_Buffer_Get();

@@ -207,24 +207,8 @@ void File_MpegTs::Read_Buffer_Continue()
     if (File_Offset==0 && Detect_NonMPEGTS())
         return;
 
-    //File_Filter configuration
-    if (!Streams.empty())
-    {
-        if (Config->File_Filter_HasChanged())
-        {
-            bool Searching_Payload_Start=!Config->File_Filter_Get();
-            for (int32u Pos=0x01; Pos<0x10; Pos++)
-                Streams[Pos].Searching_Payload_Start_Set(Searching_Payload_Start); //base PID depends of File_Filter configuration
-            Streams[0x00].Searching_Payload_Start_Set(true); //program_map
-        }
-
-        //File__Duplicate configuration
-        if (File__Duplicate_HasChanged())
-        {
-            Streams[0x00].ShouldDuplicate=true;
-            Streams[0x00].Searching_Payload_Start_Set(true); //Re-enabling program_map_table
-        }
-    }
+    //Configuration
+    Option_Manage();
 }
 
 //---------------------------------------------------------------------------
@@ -1263,6 +1247,29 @@ bool File_MpegTs::Detect_NonMPEGTS ()
 //***************************************************************************
 // Information
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_MpegTs::Option_Manage()
+{
+    if (!Streams.empty())
+    {
+        //File_Filter configuration
+        if (Config->File_Filter_HasChanged())
+        {
+            bool Searching_Payload_Start=!Config->File_Filter_Get();
+            for (int32u Pos=0x01; Pos<0x10; Pos++)
+                Streams[Pos].Searching_Payload_Start_Set(Searching_Payload_Start); //base PID depends of File_Filter configuration
+            Streams[0x00].Searching_Payload_Start_Set(true); //program_map
+        }
+
+        //File__Duplicate configuration
+        if (File__Duplicate_HasChanged())
+        {
+            Streams[0x00].ShouldDuplicate=true;
+            Streams[0x00].Searching_Payload_Start_Set(true); //Re-enabling program_map_table
+        }
+    }
+}
 
 //---------------------------------------------------------------------------
 void File_MpegTs::HowTo(stream_t StreamKind)

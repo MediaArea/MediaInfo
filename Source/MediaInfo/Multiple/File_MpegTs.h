@@ -51,6 +51,7 @@ protected :
     virtual void Read_Buffer_Finalize (); //virtual for BDAV
 
     //Information
+    void Option_Manage ();
     void HowTo (stream_t StreamKind);
 
 private :

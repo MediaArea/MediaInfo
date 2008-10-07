@@ -770,7 +770,10 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
     }
     else if (OptionLower.find(_T("file_"))==0)
     {
-        return Config.Option(Option, Value);
+        Ztring ToReturn=Config.Option(Option, Value);
+        if (Info)
+            Info->Option_Manage();
+        return ToReturn;
     }
     else
         return MediaInfoLib::Config.Option(Option, Value);
