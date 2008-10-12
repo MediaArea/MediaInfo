@@ -43,13 +43,7 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 void File_Ico::Read_Buffer_Continue()
 {
-    //No need of more
     Finnished();
-}
-
-void File_Ico::HowTo(stream_t)
-{
-    return;
 }
 
 //***************************************************************************

@@ -67,10 +67,6 @@ public :
     size_t Count_Get (stream_t StreamKind, size_t Pos=Error) const;
     void   Language_Set (); //Update language for an existing File__Base
 
-    //Infos
-           ZtringListList Info_Capacities ();
-    static ZtringListList Info_Capacities_Parameters ();
-
 protected :
     //Read
     virtual void Read_File            (); //To overload
@@ -82,9 +78,6 @@ protected :
     //Write
     virtual int Write       (stream_t StreamKind, size_t StreamNumber, const Ztring &Parameter, const Ztring &ToSet, const Ztring &OldValue); //Write the value in memory
     virtual int WriteToDisk (); //Write modified tags on disk
-
-    //How to
-    virtual void HowTo (stream_t StreamType);
 
     //Arrays
 private :

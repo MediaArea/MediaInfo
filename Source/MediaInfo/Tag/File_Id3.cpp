@@ -117,41 +117,6 @@ void File_Id3::FileHeader_Parse()
 }
 
 //***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Id3::HowTo(stream_t StreamKind)
-{
-    switch (StreamKind)
-    {
-        case (Stream_General) :
-            Fill_HowTo("Format", "R");
-            Fill_HowTo("Album", "R");
-            Fill_HowTo("Part/Position", "R");
-            Fill_HowTo("Part/Position_Total", "R");
-            Fill_HowTo("Track", "R");
-            Fill_HowTo("Track/Position", "R");
-            Fill_HowTo("Track/Position_Total", "R");
-            break;
-        case (Stream_Video) :
-            break;
-        case (Stream_Audio) :
-            break;
-        case (Stream_Text) :
-            break;
-        case (Stream_Chapters) :
-            break;
-        case (Stream_Image) :
-            break;
-        case (Stream_Menu) :
-            break;
-        case (Stream_Max) :
-            break;
-    }
-}
-
-//***************************************************************************
 // C++
 //***************************************************************************
 

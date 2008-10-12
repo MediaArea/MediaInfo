@@ -53,10 +53,8 @@ public :
 protected :
     //Format
     void Read_Buffer_Continue ();
+    void Read_Buffer_Continue_Once ();
     void Read_Buffer_Finalize ();
-
-    //Information
-    void HowTo (stream_t StreamKind);
 
 public :
     File_Mpeg4v();

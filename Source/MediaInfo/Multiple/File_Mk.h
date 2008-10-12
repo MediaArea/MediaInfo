@@ -44,9 +44,6 @@ protected :
     //Formats
     void Read_Buffer_Finalize ();
 
-    //Information
-    void HowTo (stream_t StreamKind);
-
 public :
     File_Mk();
     ~File_Mk();

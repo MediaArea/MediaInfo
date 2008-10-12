@@ -92,6 +92,7 @@ void File_Rm::Header_Parse()
     {
         Name=Elements::TAG;
         Element_Offset-=4;
+        Size=0;
     }
     else
     {
@@ -191,6 +192,7 @@ void File_Rm::DATA()
     Finnished();
     return;
 
+    /*
     //Parsing
     int32u num_packets;
     int16u length;
@@ -235,6 +237,7 @@ void File_Rm::DATA()
 
         Element_End();
     }
+    */
 }
 
 //---------------------------------------------------------------------------
@@ -728,54 +731,6 @@ void File_Rm::RMMD()
 void File_Rm::TAG()
 {
     Element_Name("Id3v1 Tag");
-}
-
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Rm::HowTo(stream_t StreamKind)
-{
-    switch (StreamKind)
-    {
-        case (Stream_General) :
-            Fill_HowTo("Format", "R");
-            Fill_HowTo("BitRate", "R");
-            Fill_HowTo("Performer", "R");
-            Fill_HowTo("Copyright", "R");
-            Fill_HowTo("Comment", "R");
-            Fill_HowTo("Duration", "R");
-            break;
-        case (Stream_Video) :
-            Fill_HowTo("Codec", "R");
-            Fill_HowTo("Width", "R");
-            Fill_HowTo("Height", "R");
-            Fill_HowTo("Resolution", "R");
-            Fill_HowTo("FrameRate", "R");
-            Fill_HowTo("BitRate", "R");
-            Fill_HowTo("Delay", "R");
-            Fill_HowTo("Duration", "R");
-            break;
-        case (Stream_Audio) :
-            Fill_HowTo("Codec", "R");
-            Fill_HowTo("SamplingRate", "R");
-            Fill_HowTo("Channel(s)", "R");
-            Fill_HowTo("BitRate", "R");
-            Fill_HowTo("Delay", "R");
-            Fill_HowTo("Duration", "R");
-            break;
-        case (Stream_Text) :
-            break;
-        case (Stream_Chapters) :
-            break;
-        case (Stream_Image) :
-            break;
-        case (Stream_Menu) :
-            break;
-        case (Stream_Max) :
-            break;
-    }
 }
 
 } //NameSpace

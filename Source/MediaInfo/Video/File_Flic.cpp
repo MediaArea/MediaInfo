@@ -49,7 +49,7 @@ void File_Flic::FileHeader_Parse()
 {
     //Parsing
     int32u DelayBetweenFrames;
-    int16u Type, Frames, Width, Height, BitsPerPixel, AspectX, AspectY;
+    int16u Type, Frames, Width, Height, BitsPerPixel, AspectX=0, AspectY=0;
     Skip_L4(                                                    "Size of FLIC including this header");
     Get_L2 (Type,                                               "File type");
     Get_L2 (Frames,                                             "Number of frames in first segment");
@@ -133,41 +133,6 @@ void File_Flic::FileHeader_Parse()
 
         Finnished();
     FILLING_END();
-}
-
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Flic::HowTo(stream_t StreamKind)
-{
-    switch (StreamKind)
-    {
-        case (Stream_General) :
-            Fill_HowTo("Format", "R");
-            break;
-        case (Stream_Video) :
-            Fill_HowTo("Codec", "R");
-            Fill_HowTo("BitRate", "R");
-            Fill_HowTo("Width", "R");
-            Fill_HowTo("Height", "R");
-            Fill_HowTo("DisplayAspectRatio", "R");
-            Fill_HowTo("FrameRate", "R");
-            break;
-        case (Stream_Audio) :
-            break;
-        case (Stream_Text) :
-            break;
-        case (Stream_Chapters) :
-            break;
-        case (Stream_Image) :
-            break;
-        case (Stream_Menu) :
-            break;
-        case (Stream_Max) :
-            break;
-    }
 }
 
 } //NameSpace

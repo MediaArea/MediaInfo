@@ -42,9 +42,6 @@ class File_Rar : public File__Analyze
 protected :
     //Format
     void Read_Buffer_Continue ();
-
-    //Information
-    void HowTo (stream_t StreamKind);
 };
 
 } //NameSpace

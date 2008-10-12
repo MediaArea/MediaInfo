@@ -201,50 +201,6 @@ int File__Base::Set (stream_t StreamKind, size_t StreamNumber, const Ztring &Par
 }
 
 //---------------------------------------------------------------------------
-ZtringListList File__Base::Info_Capacities()
-{
-    //Ask to format parser to fill information
-    Clear();
-
-    //Fill
-    ZtringListList ToReturn;
-    size_t ToReturn_Pos;
-    for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
-    {
-        HowTo((stream_t)StreamKind);
-        ToReturn_Pos=0;
-        for (size_t Pos=0; Pos<MediaInfoLib::Config.Info_Get((stream_t)StreamKind).size(); Pos++)
-            if (Pos<MediaInfoLib::Config.Info_Get((stream_t)StreamKind).size() && ((size_t)Info_Options)<MediaInfoLib::Config.Info_Get((stream_t)StreamKind)[Pos].size() && MediaInfoLib::Config.Info_Get((stream_t)StreamKind)[Pos][Info_Options][InfoOption_ShowInSupported]==_T('Y'))
-            {
-                ToReturn(StreamKind, ToReturn_Pos)=Get((stream_t)StreamKind, 0, Pos, Info_HowTo);
-                ToReturn_Pos++;
-            }
-    }
-
-    return ToReturn;
-}
-
-//---------------------------------------------------------------------------
-ZtringListList File__Base::Info_Capacities_Parameters()
-{
-    //Fill
-    ZtringListList ToReturn;
-    size_t ToReturn_Pos;
-    for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
-    {
-        ToReturn_Pos=0;
-        for (size_t Pos=0; Pos<MediaInfoLib::Config.Info_Get((stream_t)StreamKind).size(); Pos++)
-            if (Pos<MediaInfoLib::Config.Info_Get((stream_t)StreamKind).size() && ((size_t)Info_Options)<MediaInfoLib::Config.Info_Get((stream_t)StreamKind)[Pos].size() && MediaInfoLib::Config.Info_Get((stream_t)StreamKind)[Pos][Info_Options][InfoOption_ShowInSupported]==_T('Y'))
-            {
-                ToReturn(StreamKind, ToReturn_Pos)=MediaInfoLib::Config.Info_Get((stream_t)StreamKind)[Pos][Info_Name];
-                ToReturn_Pos++;
-            }
-    }
-
-    return ToReturn;
-}
-
-//---------------------------------------------------------------------------
 void File__Base::Language_Set()
 {
 /*
@@ -329,12 +285,6 @@ int File__Base::Write(stream_t, size_t, const Ztring &, const Ztring &, const Zt
 int File__Base::WriteToDisk()
 {
     return -1;
-}
-
-//---------------------------------------------------------------------------
-void File__Base::HowTo(stream_t)
-{
-    return;
 }
 
 } //NameSpace

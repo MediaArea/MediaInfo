@@ -291,30 +291,6 @@ void File_MpcSv8::ST()
     Skip_XX(Element_Size,                                       "Data");
 }
 
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_MpcSv8::HowTo(stream_t StreamKind)
-{
-        if (StreamKind==Stream_General)
-    {
-        Fill_HowTo("Format", "R");
-        Fill_HowTo("OverallBitRate", "R");
-        Fill_HowTo("Duration", "R");
-    }
-    else if (StreamKind==Stream_Audio)
-    {
-        Fill_HowTo("Codec", "R");
-        Fill_HowTo("BitRate", "R");
-        Fill_HowTo("Channel(s)", "R");
-        Fill_HowTo("SamplingRate", "R");
-        Fill_HowTo("SamplingCount", "R");
-        Fill_HowTo("Resolution", "R");
-    }
-}
-
 } //NameSpace
 
 #endif //MEDIAINFO_MPCSV8_YES

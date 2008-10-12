@@ -463,7 +463,7 @@ void File__Analyze::Get_UUID(int128u &Info)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_EB(int64u &Info, const char* Name)
+void File__Analyze::Get_EB(int64u &Info)
 {
     //Element size
     INTEGRITY_SIZE_ATLEAST_INT(1);
@@ -560,7 +560,7 @@ void File__Analyze::Get_EB(int64u &Info, const char* Name)
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_ES(int64s &Info, const char* Name)
+void File__Analyze::Get_ES(int64s &Info)
 {
     //Element size
     INTEGRITY_SIZE_ATLEAST_INT(1);
@@ -655,7 +655,7 @@ void File__Analyze::Get_ES(int64s &Info, const char* Name)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_VS(int64u &Info, const char* Name)
+void File__Analyze::Get_VS(int64u &Info)
 {
     //Element size
     Info=0;
@@ -688,7 +688,7 @@ void File__Analyze::Get_VS(int64u &Info, const char* Name)
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Skip_VS(const char* Name)
+void File__Analyze::Skip_VS()
 {
     //Element size
     int64u Info=0;
@@ -725,7 +725,7 @@ void File__Analyze::Skip_VS(const char* Name)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_SE(int32s &Info, const char* Name)
+void File__Analyze::Get_SE(int32s &Info)
 {
     INTEGRITY_SIZE_ATLEAST_BUFFER();
     int LeadingZeroBits=0;
@@ -742,7 +742,7 @@ void File__Analyze::Get_SE(int32s &Info, const char* Name)
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Skip_SE(const char* Name)
+void File__Analyze::Skip_SE()
 {
     INTEGRITY(BS->Remain(), "Size is wrong", 0)
     int LeadingZeroBits=0;
@@ -752,7 +752,7 @@ void File__Analyze::Skip_SE(const char* Name)
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_UE(int32u &Info, const char* Name)
+void File__Analyze::Get_UE(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_BUFFER();
     int LeadingZeroBits=0;
@@ -769,7 +769,7 @@ void File__Analyze::Get_UE(int32u &Info, const char* Name)
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Skip_UE(const char* Name)
+void File__Analyze::Skip_UE()
 {
     INTEGRITY(BS->Remain(), "Size is wrong", 0)
     int LeadingZeroBits=0;
@@ -783,7 +783,7 @@ void File__Analyze::Skip_UE(const char* Name)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_SI(int32s &Info, const char* Name)
+void File__Analyze::Get_SI(int32s &Info)
 {
     INTEGRITY_SIZE_ATLEAST_BUFFER();
 
@@ -807,14 +807,14 @@ void File__Analyze::Get_SI(int32s &Info, const char* Name)
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Skip_SI(const char* Name)
+void File__Analyze::Skip_SI()
 {
     int32s Info;
-    Get_SI(Info, Name);
+    Get_SI(Info);
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_UI(int32u &Info, const char* Name)
+void File__Analyze::Get_UI(int32u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_BUFFER();
     Info=1;
@@ -834,10 +834,10 @@ void File__Analyze::Get_UI(int32u &Info, const char* Name)
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Skip_UI(const char* Name)
+void File__Analyze::Skip_UI()
 {
     int32u Info;
-    Get_UI(Info, Name);
+    Get_UI(Info);
 }
 
 //***************************************************************************
@@ -845,7 +845,7 @@ void File__Analyze::Skip_UI(const char* Name)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Get_VL(int32u Call(int8u Size, int32u ToCall), int32u &Info, const char* Name)
+void File__Analyze::Get_VL(int32u Call(int8u Size, int32u ToCall), int32u &Info)
 {
     //Element size
     Info=0;
@@ -872,10 +872,10 @@ void File__Analyze::Get_VL(int32u Call(int8u Size, int32u ToCall), int32u &Info,
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Skip_VL(int32u Call(int8u Size, int32u ToCall), const char* Name)
+void File__Analyze::Skip_VL(int32u Call(int8u Size, int32u ToCall))
 {
     int32u Info;
-    Get_VL(Call, Info, Name);
+    Get_VL(Call, Info);
 }
 
 //***************************************************************************

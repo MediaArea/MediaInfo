@@ -47,34 +47,6 @@ void File_Bzip2::Read_Buffer_Continue()
 }
 
 //***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Bzip2::HowTo(stream_t StreamKind)
-{
-    switch (StreamKind)
-    {
-        case (Stream_General) :
-            break;
-        case (Stream_Video) :
-            break;
-        case (Stream_Audio) :
-            break;
-        case (Stream_Text) :
-            break;
-        case (Stream_Chapters) :
-            break;
-        case (Stream_Image) :
-            break;
-        case (Stream_Menu) :
-            break;
-        case (Stream_Max) :
-            break;
-    }
-}
-
-//***************************************************************************
 // C++
 //***************************************************************************
 

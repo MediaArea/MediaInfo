@@ -84,8 +84,8 @@ const char* Wm_BannerImageData_Type(int32u Type)
 }
 
 #define UUID(NAME, PART1, PART2, PART3, PART4, PART5) \
-    const int64u NAME   =0x##PART3##PART2##PART1##LL; \
-    const int64u NAME##2=0x##PART4##PART5##LL; \
+    const int64u NAME   =0x##PART3##PART2##PART1##ULL; \
+    const int64u NAME##2=0x##PART4##PART5##ULL; \
 
 namespace Elements
 {
@@ -751,11 +751,12 @@ void File_Wm::Header_CodecList()
 
     //Parsing
     Ztring CodecName, CodecDescription;
-    int32u Count;
-    int16u Type, CodecNameLength, CodecDescriptionLength, CodecInformationLength;
+    int32u Count32;
+    int16u Count, Type, CodecNameLength, CodecDescriptionLength, CodecInformationLength;
     Skip_UUID(                                                  "Reserved");
-    Get_L4 (Count,                                              "Codec Entries Count");
-    for (int32u Pos=0; Pos<Count; Pos++)
+    Get_L4 (Count32,                                            "Codec Entries Count");
+    Count=(int16u)Count32;
+    for (int16u Pos=0; Pos<Count; Pos++)
     {
         Element_Begin("Codec Entry");
         Get_L2 (Type,                                           "Type"); Param_Info(Wm_CodecList_Kind(Type));

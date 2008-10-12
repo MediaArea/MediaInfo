@@ -88,23 +88,6 @@ void File_Amr::Read_Buffer_Finalize()
     Fill(Stream_Audio, 0, Audio_Format_Profile, Profile);
 }
 
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Amr::HowTo(stream_t StreamKind)
-{
-        if (StreamKind==Stream_General)
-    {
-        Fill_HowTo("Format", "R");
-    }
-    else if (StreamKind==Stream_Audio)
-    {
-        Fill_HowTo("Codec", "R");
-    }
-}
-
 } //NameSpace
 
 #endif //MEDIAINFO_AMR_YES

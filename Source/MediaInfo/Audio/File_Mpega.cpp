@@ -1191,29 +1191,6 @@ bool File_Mpega::Detect_NonMPEGA ()
 }
 
 //***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Mpega::HowTo(stream_t StreamKind)
-{
-         if (StreamKind==Stream_General)
-    {
-        Fill_HowTo("Format", "R");
-        Fill_HowTo("BitRate", "R");
-        Fill_HowTo("Duration", "R");
-    }
-    else if (StreamKind==Stream_Audio)
-    {
-        Fill_HowTo("Codec", "R");
-        Fill_HowTo("BitRate", "R");
-        Fill_HowTo("Channel(s)", "R");
-        Fill_HowTo("ChannelPositions", "R");
-        Fill_HowTo("SamplingRate", "R");
-    }
-}
-
-//***************************************************************************
 // C++
 //***************************************************************************
 

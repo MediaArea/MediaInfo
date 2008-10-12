@@ -46,9 +46,6 @@ protected :
     //Format
     void Read_Buffer_Continue ();
 
-    //Information
-    void HowTo (stream_t StreamKind);
-
 public :
     File_Dts();
 

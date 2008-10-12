@@ -558,29 +558,6 @@ void File_Mpeg4_AudioSpecificConfig::ALS ()
     Finnished();
 }
 
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Mpeg4_AudioSpecificConfig::HowTo(stream_t StreamKind)
-{
-        if (StreamKind==Stream_General)
-    {
-        Fill_HowTo("Format", "R");
-        Fill_HowTo("BitRate", "R");
-        Fill_HowTo("Duration", "R");
-    }
-    else if (StreamKind==Stream_Audio)
-    {
-        Fill_HowTo("Codec", "R");
-        Fill_HowTo("BitRate", "R");
-        Fill_HowTo("Channel(s)", "R");
-        Fill_HowTo("SamplingRate", "R");
-        Fill_HowTo("Resolution", "R");
-    }
-}
-
 } //NameSpace
 
 #endif //MEDIAINFO_MPEG4_YES

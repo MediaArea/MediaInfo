@@ -48,10 +48,6 @@ private :
     void Header();
     void Footer();
     void Lyrics();
-
-protected :
-    //Information
-    void HowTo (stream_t StreamKind);
 };
 
 } //NameSpace

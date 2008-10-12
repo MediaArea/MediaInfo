@@ -192,24 +192,7 @@ void File_TwinVQ::_____char(const char* Parameter)
     Fill(Stream_General, 0, Parameter, Value);
 }
 
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_TwinVQ::HowTo(stream_t StreamKind)
-{
-        if (StreamKind==Stream_General)
-    {
-        Fill_HowTo("Format", "R");
-    }
-    else if (StreamKind==Stream_Audio)
-    {
-        Fill_HowTo("Codec", "R");
-    }
-}
-
-} //NameSpace
+} //Namespace
 
 #endif //MEDIAINFO_TWINVQ_YES
 

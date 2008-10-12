@@ -83,7 +83,7 @@ const float32 Vc1_PixelAspectRatio[]=
 };
 
 //---------------------------------------------------------------------------
-const float32 Vc1_FrameRate_enr(int8u Code)
+float32 Vc1_FrameRate_enr(int8u Code)
 {
     switch (Code)
     {
@@ -99,7 +99,7 @@ const float32 Vc1_FrameRate_enr(int8u Code)
 }
 
 //---------------------------------------------------------------------------
-const float32 Vc1_FrameRate_dr(int8u Code)
+float32 Vc1_FrameRate_dr(int8u Code)
 {
     switch (Code)
     {
@@ -423,6 +423,11 @@ void File_Vc1::FrameHeader()
                 Param_Info(Vc1_Type[Vc1_FieldTypeTable[ptype_][0]]); Element_Info(Vc1_Type[Vc1_FieldTypeTable[ptype_][0]]); //First field
                 Param_Info(Vc1_Type[Vc1_FieldTypeTable[ptype_][1]]); Element_Info(Vc1_Type[Vc1_FieldTypeTable[ptype_][1]]); //Second field
                 ptype=Vc1_FieldTypeTable[ptype_][0]; //Saving the ptype from the first field
+            }
+            else
+            {
+                Trusted_IsNot("ptype is out of range");
+                ptype=0; //Error
             }
         }
         else
@@ -961,35 +966,6 @@ bool File_Vc1::Detect_NonVC1 ()
 
     //Seems OK
     return false;
-}
-
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Vc1::HowTo(stream_t StreamKind)
-{
-    switch (StreamKind)
-    {
-        case (Stream_General) :
-            Fill_HowTo("Format", "R");
-            break;
-        case (Stream_Video) :
-            break;
-        case (Stream_Audio) :
-            break;
-        case (Stream_Text) :
-            break;
-        case (Stream_Chapters) :
-            break;
-        case (Stream_Image) :
-            break;
-        case (Stream_Menu) :
-            break;
-        case (Stream_Max) :
-            break;
-    }
 }
 
 } //NameSpace

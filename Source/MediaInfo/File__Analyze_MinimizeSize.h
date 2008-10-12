@@ -31,10 +31,11 @@ protected :
     //***************************************************************************
 
     //Buffer
-    virtual void Read_Buffer_Init (); //Temp, should be in File__Base caller
-    virtual void Read_Buffer_Continue (); //Temp, should be in File__Base caller
-    virtual void Read_Buffer_Unsynched (); //Temp, should be in File__Base caller
-    virtual void Read_Buffer_Finalize (); //Temp, should be in File__Base caller
+    virtual void Read_Buffer_Init ()          {}; //Temp, should be in File__Base caller
+    virtual void Read_Buffer_Continue ()      {}; //Temp, should be in File__Base caller
+    virtual void Read_Buffer_Continue_Once () {}; //Temp, should be in File__Base caller
+    virtual void Read_Buffer_Unsynched ()       ; //Temp, should be in File__Base caller
+    virtual void Read_Buffer_Finalize ()      {}; //Temp, should be in File__Base caller
     bool Buffer_Parse();
 
     //***************************************************************************
@@ -358,10 +359,14 @@ public :
     // EBML
     //***************************************************************************
 
-    void Get_EB (int64u &Info, const char* Name);
-    void Get_ES (int64s &Info, const char* Name);
-    void Skip_EB(              const char* Name);
-    void Skip_ES(              const char* Name);
+    void Get_EB (int64u &Info);
+    void Get_ES (int64s &Info);
+    inline void Get_EB (int64u &Info, const char*) {Get_EB(Info);}
+    inline void Get_ES (int64s &Info, const char*) {Get_ES(Info);}
+    void Skip_EB();
+    void Skip_ES();
+    inline void Skip_EB(              const char*) {Skip_EB();}
+    inline void Skip_ES(              const char*) {Skip_ES();}
     #define Info_EB(_INFO, _NAME) int64u _INFO; Get_EB(_INFO, _NAME)
     #define Info_ES(_INFO, _NAME) int64s _INFO; Get_ES(_INFO, _NAME)
 
@@ -369,18 +374,24 @@ public :
     // Variable Size Value
     //***************************************************************************
 
-    void Get_VS (int64u &Info, const char* Name);
-    void Skip_VS(              const char* Name);
+    void Get_VS (int64u &Info);
+    inline void Get_VS (int64u &Info, const char*) {Get_VS(Info);}
+    void Skip_VS();
+    inline void Skip_VS(              const char*) {Skip_VS();}
     #define Info_VS(_INFO, _NAME) int64u _INFO; Get_VS(_INFO, _NAME)
 
     //***************************************************************************
     // Exp-Golomb
     //***************************************************************************
 
-    void Get_UE (int32u &Info, const char* Name);
-    void Get_SE (int32s &Info, const char* Name);
-    void Skip_UE(              const char* Name);
-    void Skip_SE(              const char* Name);
+    void Get_UE (int32u &Info);
+    void Get_SE (int32s &Info);
+    inline void Get_UE (int32u &Info, const char*) {Get_UE(Info);}
+    inline void Get_SE (int32s &Info, const char*) {Get_SE(Info);}
+    void Skip_UE();
+    void Skip_SE();
+    inline void Skip_UE(              const char*) {Skip_UE();}
+    inline void Skip_SE(              const char*) {Skip_SE();}
     #define Info_UE(_INFO, _NAME) int32u _INFO; Get_UE(_INFO, _NAME)
     #define Info_SE(_INFO, _NAME) int32s _INFO; Get_SE(_INFO, _NAME)
 
@@ -388,10 +399,14 @@ public :
     // Interleaved Exp-Golomb
     //***************************************************************************
 
-    void Get_UI (int32u &Info, const char* Name);
-    void Get_SI (int32s &Info, const char* Name);
-    void Skip_UI(              const char* Name);
-    void Skip_SI(              const char* Name);
+    void Get_UI (int32u &Info);
+    void Get_SI (int32s &Info);
+    inline void Get_UI (int32u &Info, const char*) {Get_UI(Info);}
+    inline void Get_SI (int32s &Info, const char*) {Get_SI(Info);}
+    void Skip_UI();
+    void Skip_SI();
+    inline void Skip_UI(              const char*) {Skip_UI();}
+    inline void Skip_SI(              const char*) {Skip_SI();}
     #define Info_UI(_INFO, _NAME) int32u _INFO; Get_UI(_INFO, _NAME)
     #define Info_SI(_INFO, _NAME) int32s _INFO; Get_SI(_INFO, _NAME)
 
@@ -399,8 +414,10 @@ public :
     // Variable Length Code
     //***************************************************************************
 
-    void Get_VL (int32u Call(int8u Size, int32u ToCall), int32u &Info, const char* Name);
-    void Skip_VL(int32u Call(int8u Size, int32u ToCall),               const char* Name);
+    void Get_VL (int32u Call(int8u Size, int32u ToCall), int32u &Info);
+    inline void Get_VL (int32u Call(int8u Size, int32u ToCall), int32u &Info, const char*) {Get_VL(Call, Info);};
+    void Skip_VL(int32u Call(int8u Size, int32u ToCall));
+    inline void Skip_VL(int32u Call(int8u Size, int32u ToCall),               const char*) {Skip_VL(Call);};
     #define Info_VL(_CALL, _INFO, _NAME) int32u _INFO; Get_VL(_CALL, _INFO, _NAME)
 
     //***************************************************************************
@@ -469,7 +486,7 @@ public :
     #define Info_UTF16L(_BYTES, _INFO, _NAME) Ztring _INFO; Get_UTF16L(_BYTES, _INFO, _NAME)
 
     //***************************************************************************
-    // PAscal strings
+    // Pascal strings
     //***************************************************************************
 
     void Get_PA (std::string &Info);
@@ -677,8 +694,6 @@ public :
     #ifdef NEED_SIZET
     inline void Fill (stream_t StreamKind, size_t StreamPos, const char* Parameter, size_t         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
     #endif //NEED_SIZET
-    void Fill_HowTo (stream_t StreamKind, size_t StreamPos, const char* Parameter, const char* Value);
-    inline void Fill_HowTo (const char* Parameter, const char* Value) {Fill_HowTo(StreamKind_Last, StreamPos_Last, Parameter, Value);} //With the last set
     ZtringListList Fill_Temp;
     void Fill_Flush ();
 
@@ -779,6 +794,7 @@ protected :
     bool MustParseTheHeaderFile;    //There is an header part, must parse it
     bool Synched;                   //Data is synched
     size_t Trusted;
+    size_t Trusted_Multiplier;
 
     //Elements
     size_t Element_Level;           //Current level

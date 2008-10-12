@@ -74,6 +74,7 @@ File__Analyze::File__Analyze ()
     MustParseTheHeaderFile=true;
     Synched=false;
     Trusted=Error;
+    Trusted_Multiplier=1;
 
     //Header
     Header_Size=0;
@@ -236,7 +237,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         ToAdd_Size-=(size_t)(File_GoTo-File_Offset);
     }
 
-    if (Buffer_Temp) //There is buffered data from before
+    if (Buffer_Size) //There is buffered data from before
     {
         //Allocating new buffer if needed
         if (Buffer_Size+ToAdd_Size>Buffer_Size_Max)
@@ -268,7 +269,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 
     //Preparing
     Buffer_Offset=0;
-    Trusted=Buffer_Size>2*8*1024?Buffer_Size/8/1024:2; //Never less than 2 acceptable errors
+    Trusted=(Buffer_Size>2*8*1024?Buffer_Size/8/1024:2)*Trusted_Multiplier; //Never less than 2 acceptable errors
 
     //Parsing
     if (Buffer_Size>=Buffer_MinimumSize || File_Offset+Buffer_Size==File_Size) //Parsing only if we have enough buffer
@@ -344,7 +345,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     else if (Buffer_Temp!=NULL)
     {
         //Buffer_Temp is no more needed
-        delete[] Buffer_Temp; Buffer_Temp=NULL;
+        Buffer_Size=0;
     }
     
     //Reserving unused data
@@ -415,12 +416,21 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     Read_Buffer_Continue();
     if (File_GoTo!=(int64u)-1)
         return; //Finnished
+    if (!File_Offset)
+    {
+        Read_Buffer_Continue_Once();
+        if (File_GoTo!=(int64u)-1)
+            return; //Finnished
 
-    //Header
-    if (MustParseTheHeaderFile && !FileHeader_Manage())
-        return; //Wait for more data
-    if (File_GoTo!=(int64u)-1)
-        return; //Finnished
+        //Header
+        if (MustParseTheHeaderFile)
+        {
+            if (!FileHeader_Manage())
+                return; //Wait for more data
+            if (File_GoTo!=(int64u)-1)
+                return; //Finnished
+        }
+    }
 
     //Parsing;
     while (Buffer_Parse());
@@ -482,26 +492,11 @@ void File__Analyze::Open_Buffer_Finalize (File__Analyze* Sub)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Read_Buffer_Init ()
-{
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Read_Buffer_Continue ()
-{
-}
-
-//---------------------------------------------------------------------------
 void File__Analyze::Read_Buffer_Unsynched()
 {
     Synched=false;
     File_GoTo=(int64u)-1;
     Buffer_Clear();
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Read_Buffer_Finalize ()
-{
 }
 
 //---------------------------------------------------------------------------
@@ -1358,6 +1353,13 @@ void File__Analyze::Trusted_IsNot (const char* Reason)
 //---------------------------------------------------------------------------
 void File__Analyze::Finnished ()
 {
+    if (Buffer_Temp)
+    {
+        //Buffer_Temp is no more needed
+        delete[] Buffer_Temp; Buffer_Temp=NULL;
+        Buffer_Size=0;
+    }
+
     if (NewFinnishMethod)
     {
         IsFinnished=true;

@@ -45,9 +45,6 @@ protected :
     void Read_Buffer_Continue ();
     void Read_Buffer_Finalize ();
 
-    //Information
-    void HowTo (stream_t StreamKind);
-
 public :
     File_MpcSv8();
 

@@ -48,9 +48,6 @@ int main (int argc, MediaInfoLib::Char *argv[])
     To_Display += _T("\r\n\r\nInfo_Parameters\r\n");
     To_Display += MI.Option(_T("Info_Parameters")).c_str();
 
-    To_Display += _T("\r\n\r\nInfo_Capacities\r\n");
-    To_Display += MI.Option(_T("Info_Capacities")).c_str();
-
     To_Display += _T("\r\n\r\nInfo_Codecs\r\n");
     To_Display += MI.Option(_T("Info_Codecs")).c_str();
 

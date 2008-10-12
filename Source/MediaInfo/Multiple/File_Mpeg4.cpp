@@ -414,60 +414,6 @@ void File_Mpeg4::Descriptors()
 }
 
 //***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Mpeg4::HowTo(stream_t StreamKind)
-{
-    switch (StreamKind)
-    {
-        case (Stream_General) :
-            Fill_HowTo("Format", "R");
-            Fill_HowTo("Duration", "R");
-            Fill_HowTo("Album", "R");
-            Fill_HowTo("Part/Track_Total", "R");
-            Fill_HowTo("Movie", "R");
-            Fill_HowTo("Track", "R");
-            Fill_HowTo("Track/Position", "R");
-            Fill_HowTo("Performer", "R");
-            Fill_HowTo("Encoded_Application", "R");
-            Fill_HowTo("Encoded_Date", "R");
-            Fill_HowTo("Encoded_Library", "R");
-            Fill_HowTo("Comment", "R");
-            Fill_HowTo("ContentType", "R");
-            Fill_HowTo("Cover", "R");
-            Fill_HowTo("Cover_Datas", "N");
-            break;
-        case (Stream_Video) :
-            Fill_HowTo("Codec", "R");
-            Fill_HowTo("BitRate", "R");
-            Fill_HowTo("Width", "R");
-            Fill_HowTo("Height", "R");
-            Fill_HowTo("DisplayAspectRatio", "N");
-            Fill_HowTo("FrameRate", "R");
-            break;
-        case (Stream_Audio) :
-            Fill_HowTo("Codec", "R");
-            Fill_HowTo("BitRate", "R");
-            Fill_HowTo("Channel(s)", "N");
-            Fill_HowTo("SamplingRate", "R");
-            Fill_HowTo("Resolution", "N");
-            break;
-        case (Stream_Text) :
-            break;
-        case (Stream_Chapters) :
-            break;
-        case (Stream_Image) :
-            break;
-        case (Stream_Menu) :
-            break;
-        case (Stream_Max) :
-            break;
-    }
-}
-
-//***************************************************************************
 // C++
 //***************************************************************************
 

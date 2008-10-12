@@ -261,26 +261,6 @@ void File__Analyze::Clear (stream_t StreamKind)
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Fill_HowTo (stream_t StreamKind, size_t StreamPos, const char* Parameter, const char* Value)
-{
-    //Integrity
-    if (StreamKind>Stream_Max)
-        return;
-
-    Ztring Param; Param.From_UTF8(Parameter);
-
-    //Test if stream is already created
-    while (Count_Get(StreamKind)<=StreamPos)
-        Stream_Prepare(StreamKind);
-
-    //Test if parameter exists
-    if ((*Stream)[StreamKind][StreamPos].Find(Param)==Error)
-        return;
-
-   //(*Stream)[StreamKind][StreamPos](Param, Info_HowTo).From_UTF8(Value);
-}
-
-//---------------------------------------------------------------------------
 void File__Analyze::Fill_Flush()
 {
     Stream_Prepare(Stream_Max); //clear filling

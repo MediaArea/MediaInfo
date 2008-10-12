@@ -71,10 +71,11 @@ protected :
     //***************************************************************************
 
     //Buffer
-    virtual void Read_Buffer_Init (); //Temp, should be in File__Base caller
-    virtual void Read_Buffer_Continue (); //Temp, should be in File__Base caller
-    virtual void Read_Buffer_Unsynched (); //Temp, should be in File__Base caller
-    virtual void Read_Buffer_Finalize (); //Temp, should be in File__Base caller
+    virtual void Read_Buffer_Init ()          {}; //Temp, should be in File__Base caller
+    virtual void Read_Buffer_Continue ()      {}; //Temp, should be in File__Base caller
+    virtual void Read_Buffer_Continue_Once () {}; //Temp, should be in File__Base caller
+    virtual void Read_Buffer_Unsynched ()       ; //Temp, should be in File__Base caller
+    virtual void Read_Buffer_Finalize ()      {}; //Temp, should be in File__Base caller
     bool Buffer_Parse();
 
     //***************************************************************************
@@ -654,8 +655,6 @@ public :
     #ifdef NEED_SIZET
     inline void Fill (stream_t StreamKind, size_t StreamPos, const char* Parameter, size_t         Value, int8u Radix=10, bool Replace=false) {Fill(StreamKind, StreamPos, Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase(), Replace);}
     #endif //NEED_SIZET
-    void Fill_HowTo (stream_t StreamKind, size_t StreamPos, const char* Parameter, const char* Value);
-    inline void Fill_HowTo (const char* Parameter, const char* Value) {Fill_HowTo(StreamKind_Last, StreamPos_Last, Parameter, Value);} //With the last set
     ZtringListList Fill_Temp;
     void Fill_Flush ();
 
@@ -754,6 +753,7 @@ protected :
     bool MustParseTheHeaderFile;    //There is an header part, must parse it
     bool Synched;                   //Data is synched
     size_t Trusted;
+    size_t Trusted_Multiplier;
 
     //Elements
     size_t Element_Level;           //Current level

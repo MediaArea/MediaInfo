@@ -37,7 +37,7 @@ namespace MediaInfoLib
 {
 
 //---------------------------------------------------------------------------
-const char* Dirac_base_video_format(int8u base_video_format)
+const char* Dirac_base_video_format(intu base_video_format)
 {
     switch (base_video_format)
     {
@@ -132,17 +132,17 @@ const char* Dirac_chroma_format(int32u chroma_format)
 }
 
 //---------------------------------------------------------------------------
-void Dirac_base_video_format(int8u base_video_format,
-                            int32u &frame_width,
-                            int32u &frame_height,
-                            int32u &chroma_format,
-                            int32u &source_sampling,
-                            int32u &clean_width,
-                            int32u &clean_height,
-                            int32u &clean_left_offset,
-                            int32u &clean_top_offset,
-                            float32 &frame_rate,
-                            float32 &pixel_aspect_ratio)
+void Dirac_base_video_format(int32u   base_video_format,
+                             int32u  &frame_width,
+                             int32u  &frame_height,
+                             int32u  &chroma_format,
+                             int32u  &source_sampling,
+                             int32u  &clean_width,
+                             int32u  &clean_height,
+                             int32u  &clean_left_offset,
+                             int32u  &clean_top_offset,
+                             float32 &frame_rate,
+                             float32 &pixel_aspect_ratio)
 {
     switch (base_video_format)
     {
@@ -813,7 +813,7 @@ bool File_Dirac::Synchronize()
         Frame_Count=0;
 
         //Temp
-        Dirac_base_video_format((int8u)-1, frame_width, frame_height, chroma_format, source_sampling,
+        Dirac_base_video_format((int32u)-1, frame_width, frame_height, chroma_format, source_sampling,
                                 clean_width, clean_height, clean_left_offset, clean_top_offset,
                                 frame_rate, pixel_aspect_ratio);
 
@@ -877,34 +877,6 @@ bool File_Dirac::Detect_NonDirac ()
 
     //Seems OK
     return false;
-}
-
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Dirac::HowTo(stream_t StreamKind)
-{
-    switch (StreamKind)
-    {
-        case (Stream_General) :
-            break;
-        case (Stream_Video) :
-            break;
-        case (Stream_Audio) :
-            break;
-        case (Stream_Text) :
-            break;
-        case (Stream_Chapters) :
-            break;
-        case (Stream_Image) :
-            break;
-        case (Stream_Menu) :
-            break;
-        case (Stream_Max) :
-            break;
-    }
 }
 
 //***************************************************************************

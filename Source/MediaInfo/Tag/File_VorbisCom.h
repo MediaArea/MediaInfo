@@ -58,10 +58,6 @@ private :
     int32u user_comment_list_length;
     Ztring Chapter_Pos;
     Ztring Chapter_Time;
-
-protected :
-    //Information
-    void HowTo (stream_t StreamKind);
 };
 
 //***************************************************************************

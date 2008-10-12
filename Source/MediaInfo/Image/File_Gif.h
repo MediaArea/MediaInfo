@@ -39,10 +39,6 @@ namespace MediaInfoLib
 
 class File_Gif : public File__Analyze
 {
-protected :
-    //Information
-    void HowTo (stream_t StreamKind);
-
 private :
     //Buffer
     void FileHeader_Parse ();

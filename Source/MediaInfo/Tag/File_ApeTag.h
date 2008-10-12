@@ -51,10 +51,6 @@ private :
 
     //Temp
     std::string Key;
-
-protected :
-    //Information
-    void HowTo (stream_t StreamKind);
 };
 
 } //NameSpace

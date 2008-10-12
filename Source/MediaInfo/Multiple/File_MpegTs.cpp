@@ -112,54 +112,10 @@ Ztring Decimal_Hexa(int64u Number)
 File_MpegTs::File_MpegTs()
 :File__Duplicate()
 {
-    /*Config.File_Filter_Set(83);
-    File__Duplicate_Set(_T("83;file"));
-    Config.File_Filter_Set(451);
-    File__Duplicate_Set(_T("451;file"));
-    Config.File_Filter_Set(452);
-    File__Duplicate_Set(_T("452;file"));
-    Config.File_Filter_Set(453);
-    File__Duplicate_Set(_T("453;file"));
-    Config.File_Filter_Set(454);
-    File__Duplicate_Set(_T("454;file"));
-    Config.File_Filter_Set(455);
-    File__Duplicate_Set(_T("455;file"));
-    Config.File_Filter_Set(456);
-    File__Duplicate_Set(_T("456;file"));
-    Config.File_Filter_Set(457);
-    File__Duplicate_Set(_T("457;file"));
-    Config.File_Filter_Set(459);
-    File__Duplicate_Set(_T("459;file"));
-    Config.File_Filter_Set(460);
-    File__Duplicate_Set(_T("460;file"));
-    Config.File_Filter_Set(461);
-    File__Duplicate_Set(_T("461;file"));
-    Config.File_Filter_Set(463);
-    File__Duplicate_Set(_T("463;file"));
-    Config.File_Filter_Set(464);
-    File__Duplicate_Set(_T("464;file"));*/
-    //Config.File_Filter_Set(1);
-    //File__Duplicate_Set(_T("1;file"));
-    //Config.File_Filter_Set(451);
-    //File__Duplicate_Set(_T("451;file"));
-    /*Config.File_Filter_Set(451);
-    File__Duplicate_Set(_T("451;file"));
-    Config.File_Filter_Set(452);
-    File__Duplicate_Set(_T("452;file")); */
-    //File__Duplicate_Set(_T("program_number=1;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\1.ts"));
-    //File__Duplicate_Set(_T("program_map_PID=1000;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\1.ts"));
-    //File__Duplicate_Set(_T("elementary_PID=1001;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\1.ts"));
-    //File__Duplicate_Set(_T("elementary_PID=1002;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\1.ts"));
-    //File__Duplicate_Set(_T("program_number=1;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\2.ts"));
-    //File__Duplicate_Set(_T("elementary_PID=1001;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\2.ts"));
-    //File__Duplicate_Set(_T("elementary_PID=1003;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\2.ts"));
-    //File__Duplicate_Set(_T("program_number=1;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\3.ts"));
-    //File__Duplicate_Set(_T("elementary_PID=1001;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\3.ts"));
-    //File__Duplicate_Set(_T("elementary_PID=2063;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\3.ts"));
-    //File__Duplicate_Set(_T("2;file://D:\\test 2008-02-06 - TS\\multitrack audio streams\\2.ts"));
-    //File__Duplicate_Set(_T("452;file://e:\\test\\xxx.ts"));
+    //Config
+    Trusted_Multiplier=2;
 
-    //temp
+    //Internal config
     TS_Size=188;
     BDAV_Size=0; //No BDAV header
 }
@@ -169,42 +125,10 @@ File_MpegTs::File_MpegTs()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_MpegTs::Read_Buffer_Continue()
+void File_MpegTs::Read_Buffer_Continue_Once()
 {
-    /*
-    //Tests
-    static int Step=0;
-    if (Step==1 && File_Offset>30000000)
-        Step++;
-    if (Step==3 && File_Offset>60000000)
-        Step++;
-    if (Step==0)
-    {
-        Config.File_Filter_Set(452);
-        File__Duplicate_Set(_T("452;file://e:\\test\\xxx.ts"));
-        Step++;
-    }
-    else if (Step==2)
-    {
-        Config.File_Filter_Set(453);
-        File__Duplicate_Set(_T("452"));
-        File__Duplicate_Set(_T("453;file://e:\\test\\xxx.ts"));
-        Step++;
-    }
-    else if (Step==4)
-    {
-        Config.File_Filter_Set(452);
-        File__Duplicate_Set(_T("453"));
-        File__Duplicate_Set(_T("452;file://e:\\test\\xxx.ts"));
-        Step++;
-    }
-    */
-    
-    //We can accept a lost of synchronisation loss
-    Trusted*=2;
-
     //Integrity
-    if (File_Offset==0 && Detect_NonMPEGTS())
+    if (Detect_NonMPEGTS())
         return;
 
     //Configuration
@@ -392,7 +316,7 @@ void File_MpegTs::Read_Buffer_Finalize()
 bool File_MpegTs::Header_Begin()
 {
     //Must have enough buffer for having header
-    if (Buffer_Offset+4+BDAV_Size>Buffer_Size)
+    if (Buffer_Offset+BDAV_Size+4>Buffer_Size)
         return false;
 
     //Quick test of synchro
@@ -737,23 +661,7 @@ void File_MpegTs::PSI_program_map_table()
     for (std::map<int16u, File_Mpeg_Psi::stream>::iterator Stream=Parser->Streams.begin(); Stream!=Parser->Streams.end(); Stream++)
     {
         //Retrieving info
-        int32u elementary_PID=Stream->first;
-
-        //Enabling what we know parsing
-        //Streams[elementary_PID].stream_type=program_map_Values_Temp->second.stream_type;
-        //Streams[elementary_PID].KindOfStream=program_map_Values_Temp->second.KindOfStream;
-        //Streams[elementary_PID].Info=program_map_Values_Temp->second.Info;
-        /*
-        if (Mpeg_Psi_stream_Kind(Streams[elementary_PID].stream_type)!=Stream_Max  //Known
-         || Streams[elementary_PID].KindOfStream!=Stream_Max
-         || (Streams[elementary_PID].stream_type>=0x80 && Streams[elementary_PID].stream_type<=0xFF) //Private
-           )
-        {
-            Streams[elementary_PID].TS_Kind=pes;
-            Streams[elementary_PID].TS_Needed=true;
-            Streams[elementary_PID].PES_Needed=true;
-        }
-        */
+        int16u elementary_PID=Stream->first;
 
         //Scrambling
         if (Stream->second.CA_PID)
@@ -1268,31 +1176,6 @@ void File_MpegTs::Option_Manage()
             Streams[0x00].ShouldDuplicate=true;
             Streams[0x00].Searching_Payload_Start_Set(true); //Re-enabling program_map_table
         }
-    }
-}
-
-//---------------------------------------------------------------------------
-void File_MpegTs::HowTo(stream_t StreamKind)
-{
-    switch (StreamKind)
-    {
-        case (Stream_General) :
-            Fill_HowTo("Format", "R");
-            break;
-        case (Stream_Video) :
-            break;
-        case (Stream_Audio) :
-            break;
-        case (Stream_Text) :
-            break;
-        case (Stream_Chapters) :
-            break;
-        case (Stream_Image) :
-            break;
-        case (Stream_Menu) :
-            break;
-        case (Stream_Max) :
-            break;
     }
 }
 

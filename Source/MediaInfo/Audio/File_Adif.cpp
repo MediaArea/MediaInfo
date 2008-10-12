@@ -226,29 +226,6 @@ void File_Adif::Data_Parse_Fill()
     File__Tags_Helper::Data_GoTo(File_Size, "ADIF");
 }
 
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Adif::HowTo(stream_t StreamKind)
-{
-        if (StreamKind==Stream_General)
-    {
-        Fill_HowTo("Format", "R");
-        Fill_HowTo("BitRate", "R");
-        Fill_HowTo("Duration", "R");
-    }
-    else if (StreamKind==Stream_Audio)
-    {
-        Fill_HowTo("Codec", "R");
-        Fill_HowTo("BitRate", "R");
-        Fill_HowTo("Channel(s)", "R");
-        Fill_HowTo("SamplingRate", "R");
-        Fill_HowTo("Resolution", "R");
-    }
-}
-
 } //NameSpace
 
 #endif //MEDIAINFO_ADIF_YES

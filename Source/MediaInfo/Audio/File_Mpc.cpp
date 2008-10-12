@@ -198,32 +198,7 @@ void File_Mpc::FileHeader_Parse()
     FILLING_END();
 }
 
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Mpc::HowTo(stream_t StreamKind)
-{
-        if (StreamKind==Stream_General)
-    {
-        Fill_HowTo("Format", "R");
-        Fill_HowTo("OverallBitRate", "R");
-        Fill_HowTo("Duration", "R");
-        Fill_HowTo("Encoded_Library", "R");
-    }
-    else if (StreamKind==Stream_Audio)
-    {
-        Fill_HowTo("Codec", "R");
-        Fill_HowTo("BitRate", "R");
-        Fill_HowTo("Channel(s)", "R");
-        Fill_HowTo("SamplingRate", "R");
-        Fill_HowTo("SamplingCount", "R");
-        Fill_HowTo("Resolution", "R");
-    }
-}
-
-} //NameSpace
+} //Namespace
 
 #endif //MEDIAINFO_MPC_YES
 

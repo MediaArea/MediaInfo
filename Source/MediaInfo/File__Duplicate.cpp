@@ -222,7 +222,6 @@ void File__Duplicate::File__Duplicate_Write (int16u PID)
     const int8u* ToAdd=Buffer+Buffer_Offset-(size_t)Header_Size;
     size_t ToAdd_Size=(size_t)(Element_Size+Header_Size);
 
-    //int16u PID=CC2(ToAdd+1)&0x1FFF;
     std::vector<File__Duplicate_MpegTs*> &Dup_FromPID=Duplicates_Speed_FromPID[PID];
     size_t Size=Duplicates_Speed_FromPID[PID].size();
     bool ToUpdate=false;

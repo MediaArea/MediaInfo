@@ -318,65 +318,6 @@ bool File_Ogg::Synchronize()
     return true;
 }
 
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Ogg::HowTo(stream_t StreamKind)
-{
-    switch (StreamKind)
-    {
-        case (Stream_General) :
-            Fill_HowTo("Format", "R");
-            Fill_HowTo("BitRate", "R");
-            Fill_HowTo("Duration", "R");
-            Fill_HowTo("Album", "R ALBUM");
-            Fill_HowTo("Movie", "R TITLE");
-            Fill_HowTo("Movie/More", "R VERSION");
-            Fill_HowTo("Track", "R TITLE");
-            Fill_HowTo("Track/More", "R VERSION");
-            Fill_HowTo("Artist", "R ARTIST");
-            Fill_HowTo("Encoded_Date", "R DATE");
-            Fill_HowTo("Recorded_Location", "R LOCATION");
-            Fill_HowTo("Copyright", "R COPYRIGHT");
-            Fill_HowTo("Comment", "R DESCRIPTION or COMMENT");
-            break;
-        case (Stream_Video) :
-            Fill_HowTo("Codec", "R");
-            Fill_HowTo("BitRate", "R");
-            Fill_HowTo("Width", "R");
-            Fill_HowTo("Height", "R");
-            Fill_HowTo("DisplayAspectRatio", "R");
-            Fill_HowTo("FrameRate", "R");
-            break;
-        case (Stream_Audio) :
-            Fill_HowTo("Codec", "R");
-            Fill_HowTo("BitRate", "R");
-            Fill_HowTo("Channel(s)", "R");
-            Fill_HowTo("SamplingRate", "R");
-            Fill_HowTo("Language", "R LANGUAGE");
-            Fill_HowTo("Language/String", "R");
-            Fill_HowTo("Language/Info", "R");
-            break;
-        case (Stream_Text) :
-            Fill_HowTo("Codec", "R");
-            Fill_HowTo("Language", "R");
-            Fill_HowTo("Language/String", "R LANGUAGE");
-            Fill_HowTo("Language/Info", "R");
-            break;
-        case (Stream_Chapters) :
-            Fill_HowTo("Total", "R");
-            break;
-        case (Stream_Image) :
-            break;
-        case (Stream_Menu) :
-            break;
-        case (Stream_Max) :
-            break;
-    }
-}
-
 } //NameSpace
 
 #endif //MEDIAINFO_OGG_YES

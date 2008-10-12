@@ -51,10 +51,6 @@ private :
     Ztring Id3v1_Comment;
     Ztring Id3v1_Track;
     Ztring Id3v1_Genre;
-
-protected :
-    //Information
-    void HowTo (stream_t StreamKind);
 };
 
 } //NameSpace

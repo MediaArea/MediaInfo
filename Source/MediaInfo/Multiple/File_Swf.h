@@ -44,10 +44,6 @@ public :
     int32u FileLength;;
     int8u  Version;
 
-protected :
-    //Information
-    void HowTo (stream_t StreamKind);
-
 public :
     File_Swf();
     

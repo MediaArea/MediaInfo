@@ -51,9 +51,6 @@ protected :
     //Format
     void Read_Buffer_Finalize ();
 
-    //Information
-    void HowTo (stream_t StreamKind);
-
 public :
     //Constructor/Destructor
     File_Cdxa();

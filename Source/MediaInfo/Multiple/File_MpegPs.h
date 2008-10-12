@@ -43,22 +43,17 @@ class File_MpegPs : public File__Analyze
 public :
     //In
     bool   FromTS;                  //Indicate if stream comes from TS
-    int32u stream_type_FromTS;      //ID from TS
-    int32u descriptor_tag_FromTS;   //Descriptor from TS
+    int8u  stream_type_FromTS;      //ID from TS
+    int8u  descriptor_tag_FromTS;   //Descriptor from TS
     int8u  MPEG_Version;            //MPEG_Version from TS
 
 protected :
     //Format
-    void Read_Buffer_Init ();
-    void Read_Buffer_Continue ();
+    void Read_Buffer_Continue_Once ();
     void Read_Buffer_Finalize ();
-
-    //Information
-    void HowTo (stream_t StreamKind);
 
 public :
     File_MpegPs();
-    ~File_MpegPs();
 
 private :
     //Buffer

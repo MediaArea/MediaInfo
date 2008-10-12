@@ -284,41 +284,9 @@ void File_Flac::PICTURE()
     //Filling
     Fill(Stream_General, 0, General_Cover, "Yes");
     Fill(Stream_General, 0, General_Cover_Description, Description);
-    Fill(Stream_General, 0, General_Cover_Type, Id3v2_PictureType(PictureType));
+    Fill(Stream_General, 0, General_Cover_Type, Id3v2_PictureType((int8u)PictureType));
     Fill(Stream_General, 0, General_Cover_Mime, MimeType);
     Fill(Stream_General, 0, General_Cover_Data, Data_Base64);
-}
-
-//***************************************************************************
-// Helpers
-//***************************************************************************
-
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Flac::HowTo(stream_t StreamKind)
-{
-         if (StreamKind==Stream_General)
-    {
-        Fill_HowTo("Format", "R");
-        Fill_HowTo("BitRate", "R");
-        Fill_HowTo("Title", "R");
-        Fill_HowTo("Title/More", "R");
-        Fill_HowTo("Duration", "R");
-        Fill_HowTo("Author", "R");
-        Fill_HowTo("Album", "R");
-        Fill_HowTo("Track", "R");
-        Fill_HowTo("Comment", "R");
-    }
-    else if (StreamKind==Stream_Audio)
-    {
-        Fill_HowTo("BitRate", "R");
-        Fill_HowTo("Channel(s)", "R");
-        Fill_HowTo("SamplingRate", "R");
-        Fill_HowTo("Codec", "R");
-    }
 }
 
 } //NameSpace

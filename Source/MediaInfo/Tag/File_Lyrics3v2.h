@@ -60,10 +60,6 @@ private :
     void IND();
     void INF();
     void LYR();
-
-protected :
-    //Information
-    void HowTo (stream_t StreamKind);
 };
 
 //***************************************************************************

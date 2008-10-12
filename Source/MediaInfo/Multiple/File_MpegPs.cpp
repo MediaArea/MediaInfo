@@ -179,6 +179,9 @@ extern stream_t    Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier);
 File_MpegPs::File_MpegPs()
 :File__Analyze()
 {
+    //Config
+    Trusted_Multiplier=2;
+
     //In
     FromTS=false;
     stream_type_FromTS=0x00; //No info
@@ -190,28 +193,15 @@ File_MpegPs::File_MpegPs()
     video_stream_Unlimited=false;
 }
 
-//---------------------------------------------------------------------------
-File_MpegPs::~File_MpegPs()
-{
-}
-
 //***************************************************************************
 // Format
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_MpegPs::Read_Buffer_Init()
+void File_MpegPs::Read_Buffer_Continue_Once()
 {
-}
-
-//---------------------------------------------------------------------------
-void File_MpegPs::Read_Buffer_Continue()
-{
-    //We can accept a lost of synchronisation loss
-    Trusted*=2;
-
     //Integrity
-    if (File_Offset==0 && Detect_NonMPEGPS())
+    if (Detect_NonMPEGPS())
         return;
 }
 
@@ -2508,54 +2498,7 @@ File__Analyze* File_MpegPs::ChooseParser_NULL()
     return Handle;
 }
 
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_MpegPs::HowTo(stream_t StreamKind)
-{
-    switch (StreamKind)
-    {
-        case (Stream_General) :
-            Fill_HowTo("Format", "R");
-            Fill_HowTo("OverallBitRate", "R");
-            Fill_HowTo("Duration", "R");
-            Fill_HowTo("Encoded_Application", "R");
-            break;
-        case (Stream_Video) :
-            Fill_HowTo("Codec", "R");
-            Fill_HowTo("BitRate", "R");
-            Fill_HowTo("Width", "R");
-            Fill_HowTo("Height", "R");
-            Fill_HowTo("DisplayAspectRatio", "R");
-            Fill_HowTo("FrameRate", "R");
-            Fill_HowTo("Delay", "R");
-            break;
-        case (Stream_Audio) :
-            Fill_HowTo("Codec", "R");
-            Fill_HowTo("BitRate", "R");
-            Fill_HowTo("Channel(s)", "R");
-            Fill_HowTo("SamplingRate", "R");
-            Fill_HowTo("Resolution", "R");
-            Fill_HowTo("Delay", "R");
-            break;
-        case (Stream_Text) :
-            Fill_HowTo("Codec", "R");
-            Fill_HowTo("Delay", "R");
-            break;
-        case (Stream_Chapters) :
-            break;
-        case (Stream_Image) :
-            break;
-        case (Stream_Menu) :
-            break;
-        case (Stream_Max) :
-            break;
-    }
-}
-
-} //NameSpace
+} //Namespace
 
 #endif //MEDIAINFO_MPEGPS_YES
 

@@ -346,7 +346,7 @@ bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Siz
     //section_length
     FromTS.Offset+=1+pointer_field+1;
     FromTS.Begin=FromTS.Offset-1;
-    int8u section_length=CC2(FromTS.Buffer+FromTS.Offset)&0x0FFF;
+    int16u section_length=CC2(FromTS.Buffer+FromTS.Offset)&0x0FFF;
     FromTS.End=4+adaptation_field_length+section_length;
     if (FromTS.End>FromTS.Size-4)
         return false; //Problem

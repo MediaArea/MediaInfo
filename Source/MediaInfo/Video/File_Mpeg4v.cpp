@@ -185,6 +185,9 @@ const char* Mpeg4v_Profile_Level(int32u Profile_Level)
 File_Mpeg4v::File_Mpeg4v()
 :File__Analyze()
 {
+    //Config
+    Trusted_Multiplier=2;
+
     //In
     Frame_Count_Valid=30;
     FrameIsAlwaysComplete=false;
@@ -212,16 +215,16 @@ void File_Mpeg4v::OnlyVOP()
 //---------------------------------------------------------------------------
 void File_Mpeg4v::Read_Buffer_Continue()
 {
-    //We can accept a lost of synchronisation loss
-    Trusted*=2;
-
-    //Integrity
-    if (File_Offset==0 && Detect_NonMPEG4V())
-        return;
-
     //We want to count the number of VOP in this bufffer
-    if (Buffer_Offset==0)
-        RIFF_VOP_Count=0;
+    RIFF_VOP_Count=0;
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4v::Read_Buffer_Continue_Once()
+{
+    //Integrity
+    if (Detect_NonMPEG4V())
+        return;
 }
 
 //---------------------------------------------------------------------------
@@ -1507,36 +1510,6 @@ void File_Mpeg4v::Init()
     NextCode_Add(0x20); //video_object_layer_start
     for (int8u Pos=0xB7; Pos!=0x00; Pos++)
         Streams[Pos].Searching_Payload=true; //Testing other mpeg4v elements and MPEG-PS
-}
-
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Mpeg4v::HowTo(stream_t StreamKind)
-{
-    switch (StreamKind)
-    {
-        case (Stream_General) :
-            Fill_HowTo("Format", "R");
-            break;
-        case (Stream_Video) :
-            Fill_HowTo("Codec", "R");
-            break;
-        case (Stream_Audio) :
-            break;
-        case (Stream_Text) :
-            break;
-        case (Stream_Chapters) :
-            break;
-        case (Stream_Image) :
-            break;
-        case (Stream_Menu) :
-            break;
-        case (Stream_Max) :
-            break;
-    }
 }
 
 //***************************************************************************

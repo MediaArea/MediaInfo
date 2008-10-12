@@ -39,9 +39,6 @@ protected :
     //In
     bool audioMuxVersionA;
 
-    //Information
-    void HowTo (stream_t StreamKind);
-
 public :
     File_Latm();
 

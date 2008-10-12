@@ -1121,7 +1121,7 @@ void File__Analyze::FileSize_FileSize123(const Ztring &Value, stream_t StreamKin
         Pow3++;
     }
     //--Count of digits
-    int32u I2, I3, I4;
+    int8u I2, I3, I4;
          if (F1>=100)
     {
         I2=0;

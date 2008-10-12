@@ -39,10 +39,6 @@ namespace MediaInfoLib
 
 class File_Rle : public File__Analyze
 {
-protected :
-    //Information
-    void HowTo (stream_t StreamKind);
-
 private :
     //Buffer
     bool Header_Begin();

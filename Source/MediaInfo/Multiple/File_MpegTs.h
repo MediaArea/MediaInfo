@@ -47,12 +47,11 @@ public :
 
 protected :
     //Formats
-    void Read_Buffer_Continue ();
+    void Read_Buffer_Continue_Once ();
     virtual void Read_Buffer_Finalize (); //virtual for BDAV
 
     //Information
     void Option_Manage ();
-    void HowTo (stream_t StreamKind);
 
 private :
     //Buffer

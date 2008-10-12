@@ -1039,14 +1039,14 @@ void File_Mpegv::group_start()
         //Calculating
         if (Time_Begin_Seconds!=Error || Time_Begin_Seconds_IsFrozen)
         {
-            if (Time_Begin_Seconds==60*60*Hours+60*Minutes+Seconds
+            if (Time_Begin_Seconds==(size_t)(60*60*Hours+60*Minutes+Seconds)
              && Time_Begin_Frames ==Frames)
             {
                 //Same as before, there is a problem at starting of the time
                 Time_Begin_Seconds_IsFrozen=true;
                 SizeToAnalyse_Begin=SizeToAnalyse_End*10; //10s
                 Time_Begin_Seconds=Error;
-                Time_Begin_Frames =(int8u)Error;
+                Time_Begin_Frames =(int8u)-1;
                 Searching_TimeStamp_Start_DoneOneTime=false;
             }
             else if (Time_Begin_Seconds_IsFrozen)
@@ -1055,7 +1055,7 @@ void File_Mpegv::group_start()
                 Time_Begin_Seconds_IsFrozen=false;
                 SizeToAnalyse_Begin=SizeToAnalyse_End*2; //2s
                 Time_Begin_Seconds=Error;
-                Time_Begin_Frames =(int8u)Error;
+                Time_Begin_Frames =(int8u)-1;
                 Searching_TimeStamp_Start_DoneOneTime=true;
             }
         }
@@ -1264,42 +1264,6 @@ void File_Mpegv::Detect_EOF()
 
         //Jumping
         Data_GoTo(File_Size-(IsSub?0:SizeToAnalyse_End), "MPEG-V");
-    }
-}
-
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Mpegv::HowTo(stream_t StreamKind)
-{
-    switch (StreamKind)
-    {
-        case (Stream_General) :
-            Fill_HowTo("Format", "R");
-            Fill_HowTo("Encoded_Application", "R");
-            break;
-        case (Stream_Video) :
-            Fill_HowTo("Codec", "R");
-            Fill_HowTo("BitRate", "R");
-            Fill_HowTo("Width", "R");
-            Fill_HowTo("Height", "R");
-            Fill_HowTo("DisplayAspectRatio", "R");
-            Fill_HowTo("FrameRate", "R");
-            break;
-        case (Stream_Audio) :
-            break;
-        case (Stream_Text) :
-            break;
-        case (Stream_Chapters) :
-            break;
-        case (Stream_Image) :
-            break;
-        case (Stream_Menu) :
-            break;
-        case (Stream_Max) :
-            break;
     }
 }
 

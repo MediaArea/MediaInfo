@@ -73,20 +73,6 @@ void File_Bmp::Read_Buffer_Continue()
     Finnished();
 }
 
-void File_Bmp::HowTo(stream_t StreamKind)
-{
-         if (StreamKind==Stream_General)
-    {
-        Fill_HowTo("Format", "R");
-    }
-    else if (StreamKind==Stream_Image)
-    {
-        Fill_HowTo("Codec", "Raw");
-    }
-
-    return;
-}
-
 } //NameSpace
 
 #endif

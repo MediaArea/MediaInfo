@@ -194,7 +194,6 @@ public :
         ///                 Form: Author TagSeparator Title TagSeparator Year
         ///       * "Info_Parameters": Information about what are known unique names for parameters \n
         ///       * "Info_Parameters_CSV": Information about what are known unique names for parameters, in CSV format \n
-        ///       * "Info_Capacities": Information about which parameters per format are supported \n
         ///       * "Info_Codecs": Information about which codec is known \n
         ///       * "Info_Version": Information about the version of MediaInfoLib
         ///       * "Info_Url": Information about where to find the last version

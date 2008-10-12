@@ -777,7 +777,7 @@ void File_Riff::AVI__hdlr_strl_indx_StandardIndex(int32u Entry_Count, int32u Chu
 }
 
 //---------------------------------------------------------------------------
-void File_Riff::AVI__hdlr_strl_indx_FieldIndex(int32u Entry_Count, int32u ChunkId)
+void File_Riff::AVI__hdlr_strl_indx_FieldIndex(int32u Entry_Count, int32u)
 {
     Element_Name("Field Index");
 

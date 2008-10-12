@@ -285,29 +285,6 @@ bool File_Adts::Synchronize()
     return true;
 }
 
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Adts::HowTo(stream_t StreamKind)
-{
-        if (StreamKind==Stream_General)
-    {
-        Fill_HowTo("Format", "R");
-        Fill_HowTo("BitRate", "R");
-        Fill_HowTo("Duration", "R");
-    }
-    else if (StreamKind==Stream_Audio)
-    {
-        Fill_HowTo("Codec", "R");
-        Fill_HowTo("BitRate", "R");
-        Fill_HowTo("Channel(s)", "R");
-        Fill_HowTo("SamplingRate", "R");
-        Fill_HowTo("Resolution", "R");
-    }
-}
-
 } //NameSpace
 
 #endif //MEDIAINFO_ADTS_YES

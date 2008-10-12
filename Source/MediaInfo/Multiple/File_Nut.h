@@ -39,10 +39,6 @@ namespace MediaInfoLib
 
 class File_Nut : public File__Analyze
 {
-protected :
-    //Information
-    void HowTo (stream_t StreamKind);
-
 private :
     //Buffer
     void Header_Parse();

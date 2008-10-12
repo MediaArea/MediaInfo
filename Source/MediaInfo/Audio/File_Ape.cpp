@@ -220,32 +220,6 @@ bool File_Ape::Header_Begin()
     return true;
 }
 
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Ape::HowTo(stream_t StreamKind)
-{
-         if (StreamKind==Stream_General)
-    {
-        Fill_HowTo("Format", "R");
-        Fill_HowTo("BitRate", "R");
-        Fill_HowTo("Duration", "R");
-        Fill_HowTo("Author", "R");
-        Fill_HowTo("Album", "R");
-        Fill_HowTo("Track", "R");
-        Fill_HowTo("Comment", "R");
-    }
-    else if (StreamKind==Stream_Audio)
-    {
-        Fill_HowTo("BitRate", "R");
-        Fill_HowTo("Channel(s)", "R");
-        Fill_HowTo("SamplingRate", "R");
-        Fill_HowTo("Codec", "R");
-    }
-}
-
 } //NameSpace
 
 #endif //MEDIAINFO_APE_YES

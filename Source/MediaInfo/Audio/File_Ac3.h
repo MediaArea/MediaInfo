@@ -42,10 +42,6 @@ public :
     //External info
     size_t Delay;
 
-protected :
-    //Information
-    void HowTo (stream_t StreamKind);
-
 public :
     File_Ac3();
 

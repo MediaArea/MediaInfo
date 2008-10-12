@@ -40,10 +40,6 @@ namespace MediaInfoLib
 
 class File_Flac : public File__Analyze, public File__Tags_Helper
 {
-protected :
-    //Information
-    void HowTo (stream_t StreamKind);
-
 public :
     File_Flac();
 

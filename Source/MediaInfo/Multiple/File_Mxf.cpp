@@ -60,31 +60,6 @@ void File_Mxf::Read_Buffer_Continue()
     Finnished();
 }
 
-//---------------------------------------------------------------------------
-void File_Mxf::HowTo(stream_t StreamKind)
-{
-    switch (StreamKind)
-    {
-        case (Stream_General) :
-            Fill_HowTo("Format", "R");
-            break;
-        case (Stream_Video) :
-            break;
-        case (Stream_Audio) :
-            break;
-        case (Stream_Text) :
-            break;
-        case (Stream_Chapters) :
-            break;
-        case (Stream_Image) :
-            break;
-        case (Stream_Menu) :
-            break;
-        case (Stream_Max) :
-            break;
-    }
-}
-
 } //NameSpace
 
 #endif //MEDIAINFO_AAC_*
