@@ -154,8 +154,8 @@ Advanced mode;進階模式
 Album;專輯
 Album_ReplayGain_Gain;專輯播放增益
 Album_ReplayGain_Peak;專輯播放增益尖峰值
-Alignment_Aligned
-Alignment_Split
+Alignment_Aligned;對齊交錯訊號
+Alignment_Split;跨越交錯訊號
 All;全部
 Archival_Location;檔案位置
 Arranger;編曲
@@ -224,7 +224,7 @@ Codec_Profile;編解碼器設定
 Codec_Url;編解碼器的網址
 CodecID;編解碼器識別字
 CodecID_Description;編解碼器描述
-Collection
+Collection;收藏
 Colorimetry;比色法
 Comment;註釋
 CommissionedBy;委託
@@ -263,7 +263,7 @@ Encoded_Application;使用編碼程式
 Encoded_Date;編碼日期
 Encoded_Library;編碼函式庫
 Encoded_Library_Settings;編碼設定
-Encoded_Original
+Encoded_Original;來源
 EncodedBy;編碼者
 Error_File;讀取檔案錯誤
 ExecutiveProducer;監製
@@ -325,154 +325,154 @@ FrameRate_Maximum;最大畫面頻率
 FrameRate_Original;原始畫面頻率
 General;一般
 Genre;類型
-Genre_000;藍調
-Genre_001;古典搖滾
-Genre_002;鄉村
-Genre_003;舞曲
-Genre_004;迪士可
-Genre_005;放客
-Genre_006;頹廢
-Genre_007;嘻哈
-Genre_008;爵士
-Genre_009;金屬
-Genre_010;新世紀
-Genre_011;老歌
-Genre_012;其它
-Genre_013;流行樂
-Genre_014;節奏藍調
-Genre_015;饒舌
-Genre_016;雷鬼
-Genre_017;搖滾
-Genre_018
-Genre_019
-Genre_020;另類
-Genre_021
-Genre_022
-Genre_023
-Genre_024;原聲帶
-Genre_025
-Genre_026
-Genre_027
-Genre_028;人聲
-Genre_029;爵士+放客
-Genre_030;融合
-Genre_031
-Genre_032;古典樂
-Genre_033
-Genre_034
-Genre_035;浩室
-Genre_036;遊戲
-Genre_037;音效素材
-Genre_038
-Genre_039
-Genre_040;另類搖滾
-Genre_041;貝斯
-Genre_042;靈魂樂
-Genre_043;龐克
-Genre_044
-Genre_045
-Genre_046
-Genre_047
-Genre_048
-Genre_049
-Genre_050
-Genre_051
-Genre_052
-Genre_053
-Genre_054
-Genre_055
-Genre_056
-Genre_057
-Genre_058
-Genre_059
-Genre_060
-Genre_061
-Genre_062
-Genre_063
-Genre_064
-Genre_065
-Genre_066
-Genre_067
-Genre_068
-Genre_069
-Genre_070
-Genre_071
-Genre_072
-Genre_073
-Genre_074
-Genre_075
-Genre_076
-Genre_077;音樂劇
-Genre_078
-Genre_079;硬式搖滾
-Genre_080
-Genre_081
-Genre_082
-Genre_083
-Genre_084
-Genre_085
+Genre_000;藍調 (Blues)
+Genre_001;古典搖滾 (Classic Rock)
+Genre_002;鄉村 (Country)
+Genre_003;舞曲 (Dance)
+Genre_004;迪士可 (Disco)
+Genre_005;放客 (Funk)
+Genre_006;頹廢 (Grunge)
+Genre_007;嘻哈 (Hip-Hop)
+Genre_008;爵士 (Jazz)
+Genre_009;金屬 (Metal)
+Genre_010;新世紀 (New Age)
+Genre_011;老歌 (Oldies)
+Genre_012;其它類型 (Other)
+Genre_013;流行樂 (Pop)
+Genre_014;節奏藍調 (R&B)
+Genre_015;饒舌 (Rap)
+Genre_016;雷鬼 (Reggae)
+Genre_017;搖滾 (Rock)
+Genre_018;Techno
+Genre_019;Industrial
+Genre_020;另類 (Alternative)
+Genre_021;Ska
+Genre_022;Death Metal
+Genre_023;Pranks
+Genre_024;原聲帶 (Soundtrack)
+Genre_025;Euro-Techno
+Genre_026;Ambient
+Genre_027;Trip-Hop
+Genre_028;人聲 (Vocal)
+Genre_029;爵士+放客 (Jazz+Funk)
+Genre_030;融合 (Fusion)
+Genre_031;Trance
+Genre_032;古典樂 (Classical)
+Genre_033;Instrumental
+Genre_034;Acid
+Genre_035;浩室 (House)
+Genre_036;遊戲 (Game)
+Genre_037;音效素材 (Sound Clip)
+Genre_038;Gospel
+Genre_039;Noise
+Genre_040;另類搖滾 (AlternRock)
+Genre_041;貝斯 (Bass)
+Genre_042;靈魂樂 (Soul)
+Genre_043;龐克 (Punk)
+Genre_044;Space
+Genre_045;Meditative
+Genre_046;Instrumental Pop
+Genre_047;Instrumental Rock
+Genre_048;Ethnic
+Genre_049;Gothic
+Genre_050;Darkwave
+Genre_051;Techno-Industrial
+Genre_052;Electronic
+Genre_053;Pop-Folk
+Genre_054;Eurodance
+Genre_055;Dream
+Genre_056;Southern Rock
+Genre_057;Comedy
+Genre_058;Cult
+Genre_059;Gangsta
+Genre_060;排行榜 (Top 40)
+Genre_061;Christian Rap
+Genre_062;Pop/Funk
+Genre_063;Jungle
+Genre_064;Native American
+Genre_065;Cabaret
+Genre_066;New Wave
+Genre_067;Psychadelic
+Genre_068;Rave
+Genre_069;Showtunes
+Genre_070;Trailer
+Genre_071;Lo-Fi
+Genre_072;Tribal
+Genre_073;Acid Punk
+Genre_074;Acid Jazz
+Genre_075;Polka
+Genre_076;Retro
+Genre_077;音樂劇 (Musical)
+Genre_078;搖滾 (Rock & Roll)
+Genre_079;Hard Rock
+Genre_080;Folk
+Genre_081;Folk-Rock
+Genre_082;National Folk
+Genre_083;Swing
+Genre_084;Fast Fusion
+Genre_085;Bebob
 Genre_086;拉丁
-Genre_087
-Genre_088
-Genre_089
-Genre_090
-Genre_091
-Genre_092
-Genre_093
-Genre_094
-Genre_095
-Genre_096
-Genre_097
-Genre_098
-Genre_099
-Genre_100
-Genre_101;演說
-Genre_102
-Genre_103;歌劇
-Genre_104
-Genre_105;奏鳴曲
-Genre_106;交響樂
-Genre_107
-Genre_108
-Genre_109
-Genre_110
-Genre_111
-Genre_112
-Genre_113;探戈
-Genre_114;森巴
-Genre_115;民俗樂
-Genre_116
-Genre_117
-Genre_118;節奏靈魂
-Genre_119;自由風
-Genre_120
-Genre_121
-Genre_122
-Genre_123
-Genre_124
-Genre_125
-Genre_126
-Genre_127
-Genre_128
-Genre_129
-Genre_130
-Genre_131
-Genre_132;英式搖滾
-Genre_133
-Genre_134
-Genre_135
-Genre_136
-Genre_137
-Genre_138
-Genre_139
-Genre_140
-Genre_141
-Genre_142
-Genre_143
-Genre_144;鞭打金屬
-Genre_145;動漫歌曲
-Genre_146;日本流行樂
-Genre_147
+Genre_087;Revival
+Genre_088;Celtic
+Genre_089;Bluegrass
+Genre_090;Avantgarde
+Genre_091;Gothic Rock
+Genre_092;Progressive Rock
+Genre_093;Psychedelic Rock
+Genre_094;Symphonic Rock
+Genre_095;Slow Rock
+Genre_096;Big Band
+Genre_097;Chorus
+Genre_098;Easy Listening
+Genre_099;Acoustic
+Genre_100;Humour
+Genre_101;演說 (Speech)
+Genre_102;Chanson
+Genre_103;歌劇 (Opera)
+Genre_104;Chamber Music
+Genre_105;奏鳴曲 (Sonata)
+Genre_106;交響樂 (Symphony)
+Genre_107;Booty Bass
+Genre_108;Primus
+Genre_109;Porn Groove
+Genre_110;Satire
+Genre_111;Slow Jam
+Genre_112;Club
+Genre_113;探戈 (Tango)
+Genre_114;森巴 (Samba)
+Genre_115;Folklore
+Genre_116;Ballad
+Genre_117;Power Ballad
+Genre_118;Rhythmic Soul
+Genre_119;Freestyle
+Genre_120;Duet
+Genre_121;Punk Rock
+Genre_122;Drum Solo
+Genre_123;A capella
+Genre_124;Euro-House
+Genre_125;Dance Hall
+Genre_126;Goa
+Genre_127;Drum & Bass
+Genre_128;Club-House
+Genre_129;Hardcore
+Genre_130;Terror
+Genre_131;Indie
+Genre_132;Britpop
+Genre_133;Negerpunk
+Genre_134;Polsk Punk
+Genre_135;Beat
+Genre_136;Christian Gangsta Rap
+Genre_137;重金屬 (Heavy Metal)
+Genre_138;Black Metal
+Genre_139;Crossover
+Genre_140;Contemporary Christian
+Genre_141;Christian Rock 
+Genre_142;Merengue
+Genre_143;Salsa
+Genre_144;Trash Metal
+Genre_145;動畫歌曲 (Anime)
+Genre_146;日本流行樂 (JPop)
+Genre_147;Synthpop
 Go to WebSite;前往網站
 h;時
 Header file;建立標頭檔案
@@ -497,9 +497,9 @@ Interlaced_TFF;前場優先
 Interlaced_BFF;後場優先
 Interlaced_PPF;漸進式
 Interlaced_Progressive;漸進式
-Interleave_Duration
-Interleave_Preload
-Interleave_VideoFrames
+Interleave_Duration;交錯訊號, 持續時間
+Interleave_Preload;交錯訊號, 預先載入時間
+Interleave_VideoFrames;交錯訊號, 持續時間
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -718,7 +718,7 @@ Movie;電影名稱
 ms;毫秒
 MSDI;MSDI
 MuxingMode;合成模式
-MuxingMode_PackedBitstream
+MuxingMode_PackedBitstream;Packed bitstream
 Name;名稱
 Nationality;國籍
 New;新增
@@ -729,7 +729,7 @@ One output file per input file;一個輸入檔對應一個輸出檔
 Open;開啟
 Options;選項
 Options_Hint;偏好設定
-Original
+Original;來源
 Other;其它
 Output;輸出
 Output format;輸出格式
@@ -738,23 +738,23 @@ OverallBitRate_Maximum;最大整體流量
 OverallBitRate_Minimum;最小整體流量
 OverallBitRate_Mode;整體流量模式
 OverallBitRate_Nominal;正常整體流量
-Part
-Part_Count
+Part;部分
+Part_Count;總數
 Performer;演出者
 Period;時期
-Phone
+Phone;電話
 PixelAspectRatio;像素長寬比例
 PlayCounter;播放計數器
 Played_Count;已播放數
 Played_First_Date;首次播放
 Played_Last_Date;前次播放
 PlayTime;播放長度
-Position;曲目順序
-Position_Total;曲目總和
+Position;順序
+Position_Total;總數
 Preferences;偏好設定
 Producer;製作
-ProductionDesigner
-ProductionStudio
+ProductionDesigner;美術指導
+ProductionStudio;製作中心
 Publisher;發布者
 Purchased_Date;購買日期
 Quote character;引號字元
@@ -782,8 +782,8 @@ ServiceChannel;服務頻道
 ServiceName;服務名稱
 ServiceProvider;服務提供者
 ServiceType;服務類型
-Set
-Set_Count
+Set;集合
+Set_Count;集合數
 Setup;設定
 Sheet;表格
 Sheet (Complete);表格 (完整)
@@ -795,28 +795,28 @@ Sort;排序
 SoundEngineer;音響工程師
 Standard;標準
 Stream;串流
-Stream_MoreInfo
+Stream_MoreInfo;更多有關此串流的資訊
 StreamCount;此串流數量
 StreamID;串流ID
 StreamKind;串流類型
-StreamKindID
-StreamKindPos
+StreamKindID;串流識別字
+StreamKindPos;串流識別字
 StreamSize;串流大小
-StreamSize_Proportion
+StreamSize_Proportion;此串流的比例
 Subject;主題
-SubTrack
+SubTrack;子音軌
 Summary;摘要
 Supported formats;支援格式
 Supported?;是否支援?
 Synopsys;摘要
-SystemId;系統ID
+SystemId;識別字
 Tagged_Application;標記程式
 Tagged_Date;標記日期
 Technician;技師
 TermsOfUse;使用條款
 Text;文字
 Text - Custom;文字 - 自訂
-Text (HTML); 文字 (HTML)
+Text (HTML);文字 (網頁)
 Text stream(s);字幕串流
 Text streams;字幕串流
 Text_Codec_List;字幕編解碼器
@@ -830,8 +830,8 @@ Thousands separator;千位分隔符號
 Title;標題
 Title_More;標題, 詳細資訊
 Total;總和
-Track;曲名
-Track_Count
+Track;音軌
+Track_Count;音軌數
 Translator;翻譯
 Tree;樹狀圖
 Tree & Text;樹狀圖與文字
@@ -842,7 +842,7 @@ Video stream(s);視訊串流
 Video_Codec_List;視訊編解碼器
 Video_Delay;視訊延遲
 Video_No;無視訊
-Video0_Delay
+Video0_Delay;視訊0延遲
 Video1;第一視訊串流
 VideoCount;視訊串流數
 View;檢視
@@ -866,5 +866,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
