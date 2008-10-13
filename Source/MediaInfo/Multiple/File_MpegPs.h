@@ -49,7 +49,7 @@ public :
 
 protected :
     //Format
-    void Read_Buffer_Continue_Once ();
+    bool FileHeader_Begin ();
     void Read_Buffer_Finalize ();
 
 public :

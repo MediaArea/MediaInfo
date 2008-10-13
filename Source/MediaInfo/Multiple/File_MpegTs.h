@@ -47,7 +47,7 @@ public :
 
 protected :
     //Formats
-    void Read_Buffer_Continue_Once ();
+    bool FileHeader_Begin ();
     virtual void Read_Buffer_Finalize (); //virtual for BDAV
 
     //Information

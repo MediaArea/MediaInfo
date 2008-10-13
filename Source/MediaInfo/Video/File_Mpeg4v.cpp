@@ -213,18 +213,20 @@ void File_Mpeg4v::OnlyVOP()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+bool File_Mpeg4v::FileHeader_Begin()
+{
+    //Integrity
+    if (File_Offset==0 && Detect_NonMPEG4V())
+        return false;
+
+    return true;
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4v::Read_Buffer_Continue()
 {
     //We want to count the number of VOP in this bufffer
     RIFF_VOP_Count=0;
-}
-
-//---------------------------------------------------------------------------
-void File_Mpeg4v::Read_Buffer_Continue_Once()
-{
-    //Integrity
-    if (Detect_NonMPEG4V())
-        return;
 }
 
 //---------------------------------------------------------------------------

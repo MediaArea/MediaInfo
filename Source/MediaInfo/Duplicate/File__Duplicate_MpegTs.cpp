@@ -394,7 +394,10 @@ bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Siz
         return false; //Problem
 
     //Copying
-    ToModify.Buffer=new int8u[FromTS.Size];
+    if (ToModify.Buffer!=NULL && ToModify.Size<FromTS.Size)
+        {delete ToModify.Buffer; ToModify.Buffer=NULL;}
+    if (ToModify.Buffer==NULL)
+        ToModify.Buffer=new int8u[FromTS.Size];
     std::memcpy(ToModify.Buffer, FromTS.Buffer, FromTS.Begin+8); //Only up to last_section_number included
     ToModify.Offset=FromTS.Offset;
     ToModify.Begin=FromTS.Begin;

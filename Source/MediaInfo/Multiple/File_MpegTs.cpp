@@ -125,14 +125,16 @@ File_MpegTs::File_MpegTs()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_MpegTs::Read_Buffer_Continue_Once()
+bool File_MpegTs::FileHeader_Begin()
 {
     //Integrity
-    if (Detect_NonMPEGTS())
-        return;
+    if (File_Offset==0 && Detect_NonMPEGTS())
+        return false;
 
     //Configuration
     Option_Manage();
+
+    return true;
 }
 
 //---------------------------------------------------------------------------

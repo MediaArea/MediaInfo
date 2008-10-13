@@ -52,8 +52,8 @@ public :
 
 protected :
     //Format
+    bool FileHeader_Begin ();
     void Read_Buffer_Continue ();
-    void Read_Buffer_Continue_Once ();
     void Read_Buffer_Finalize ();
 
 public :

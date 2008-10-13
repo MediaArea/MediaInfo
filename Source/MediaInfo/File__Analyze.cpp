@@ -237,7 +237,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         ToAdd_Size-=(size_t)(File_GoTo-File_Offset);
     }
 
-    if (Buffer_Size) //There is buffered data from before
+    if (Buffer_Temp) //There is buffered data from before
     {
         //Allocating new buffer if needed
         if (Buffer_Size+ToAdd_Size>Buffer_Size_Max)
@@ -345,7 +345,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     else if (Buffer_Temp!=NULL)
     {
         //Buffer_Temp is no more needed
-        Buffer_Size=0;
+        delete[] Buffer_Temp; Buffer_Temp=NULL;
     }
     
     //Reserving unused data
@@ -416,20 +416,14 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     Read_Buffer_Continue();
     if (File_GoTo!=(int64u)-1)
         return; //Finnished
-    if (!File_Offset)
+
+    //Header
+    if (MustParseTheHeaderFile)
     {
-        Read_Buffer_Continue_Once();
+        if (!FileHeader_Manage())
+            return; //Wait for more data
         if (File_GoTo!=(int64u)-1)
             return; //Finnished
-
-        //Header
-        if (MustParseTheHeaderFile)
-        {
-            if (!FileHeader_Manage())
-                return; //Wait for more data
-            if (File_GoTo!=(int64u)-1)
-                return; //Finnished
-        }
     }
 
     //Parsing;
@@ -1353,13 +1347,6 @@ void File__Analyze::Trusted_IsNot (const char* Reason)
 //---------------------------------------------------------------------------
 void File__Analyze::Finnished ()
 {
-    if (Buffer_Temp)
-    {
-        //Buffer_Temp is no more needed
-        delete[] Buffer_Temp; Buffer_Temp=NULL;
-        Buffer_Size=0;
-    }
-
     if (NewFinnishMethod)
     {
         IsFinnished=true;

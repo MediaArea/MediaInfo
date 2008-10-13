@@ -198,11 +198,13 @@ File_MpegPs::File_MpegPs()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_MpegPs::Read_Buffer_Continue_Once()
+bool File_MpegPs::FileHeader_Begin()
 {
     //Integrity
-    if (Detect_NonMPEGPS())
-        return;
+    if (File_Offset==0 && Detect_NonMPEGPS())
+        return false;
+
+    return true;
 }
 
 //---------------------------------------------------------------------------
