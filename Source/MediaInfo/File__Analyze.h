@@ -774,11 +774,12 @@ private :
 protected :
     //Buffer
     const int8u* Buffer;
-    int8u* Buffer_Temp;
 public : //TO CHANGE
     size_t Buffer_Size;
 protected :
-    size_t Buffer_Size_Max;
+    int8u* Buffer_Temp;
+    size_t Buffer_Temp_Size;
+    size_t Buffer_Temp_Size_Max;
     size_t Buffer_Offset; //Temporary usage in this parser
     size_t Buffer_Offset_Temp; //Temporary usage in this parser
     size_t Buffer_MinimumSize;

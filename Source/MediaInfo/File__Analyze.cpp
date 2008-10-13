@@ -60,7 +60,8 @@ File__Analyze::File__Analyze ()
     Buffer=NULL;
     Buffer_Temp=NULL;
     Buffer_Size=0;
-    Buffer_Size_Max=0;
+    Buffer_Temp_Size=0;
+    Buffer_Temp_Size_Max=0;
     Buffer_Offset=0;
     Buffer_Offset_Temp=0;
     Buffer_MinimumSize=0;
@@ -237,17 +238,17 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         ToAdd_Size-=(size_t)(File_GoTo-File_Offset);
     }
 
-    if (Buffer_Temp) //There is buffered data from before
+    if (Buffer_Temp_Size) //There is buffered data from before
     {
         //Allocating new buffer if needed
-        if (Buffer_Size+ToAdd_Size>Buffer_Size_Max)
+        if (Buffer_Temp_Size+ToAdd_Size>Buffer_Temp_Size_Max)
         {
             int8u* Old=Buffer_Temp;
-            size_t Buffer_Size_Max_ToAdd=ToAdd_Size>32768?ToAdd_Size:32768;
-            if (Buffer_Size_Max_ToAdd<Buffer_Size_Max) Buffer_Size_Max_ToAdd=Buffer_Size_Max;
-            Buffer_Size_Max+=Buffer_Size_Max_ToAdd;
-            Buffer_Temp=new int8u[Buffer_Size_Max];
-            std::memcpy(Buffer_Temp, Old, Buffer_Size);
+            size_t Buffer_Temp_Size_Max_ToAdd=ToAdd_Size>32768?ToAdd_Size:32768;
+            if (Buffer_Temp_Size_Max_ToAdd<Buffer_Temp_Size_Max) Buffer_Temp_Size_Max_ToAdd=Buffer_Temp_Size_Max;
+            Buffer_Temp_Size_Max+=Buffer_Temp_Size_Max_ToAdd;
+            Buffer_Temp=new int8u[Buffer_Temp_Size_Max];
+            std::memcpy(Buffer_Temp, Old, Buffer_Temp_Size);
             delete[] Old; //Old=NULL;
         }
 
@@ -255,11 +256,12 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         if (ToAdd_Size>0)
         {
             std::memcpy(Buffer_Temp+Buffer_Size, ToAdd, ToAdd_Size);
-            Buffer_Size+=ToAdd_Size;
+            Buffer_Temp_Size+=ToAdd_Size;
         }
         
         //Buffer
         Buffer=Buffer_Temp;
+        Buffer_Size=Buffer_Temp_Size;
     }
     else
     {
@@ -331,23 +333,31 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     //Buffer handling
     if (Buffer_Offset!=Buffer_Size) //all is not used
     {
-        if (Buffer_Temp==NULL) //If there was no copy
+        if (Buffer_Temp_Size==0) //If there was no copy
         {
-            size_t Buffer_Size_Max_ToAdd=ToAdd_Size-Buffer_Offset>32768?ToAdd_Size-Buffer_Offset:32768;
-            if (Buffer_Size_Max_ToAdd<Buffer_Size_Max) Buffer_Size_Max_ToAdd=Buffer_Size_Max;
-            Buffer_Size_Max=Buffer_Size_Max_ToAdd;
-            Buffer_Temp=new int8u[Buffer_Size_Max];
-            std::memcpy(Buffer_Temp, ToAdd+Buffer_Offset, ToAdd_Size-Buffer_Offset);
+            if (Buffer_Temp!=NULL && Buffer_Temp_Size_Max<ToAdd_Size-Buffer_Offset)
+            {
+                delete[] Buffer_Temp; Buffer_Temp=NULL; Buffer_Temp_Size=0; Buffer_Temp_Size_Max=0;
+            }
+            if (Buffer_Temp==NULL)
+            {
+                size_t Buffer_Temp_Size_Max_ToAdd=ToAdd_Size-Buffer_Offset>32768?ToAdd_Size-Buffer_Offset:32768;
+                if (Buffer_Temp_Size_Max_ToAdd<Buffer_Temp_Size_Max) Buffer_Temp_Size_Max_ToAdd=Buffer_Temp_Size_Max;
+                Buffer_Temp_Size_Max=Buffer_Temp_Size_Max_ToAdd;
+                Buffer_Temp=new int8u[Buffer_Temp_Size_Max];
+            }
+            Buffer_Temp_Size=ToAdd_Size-Buffer_Offset;
+            std::memcpy(Buffer_Temp, ToAdd+Buffer_Offset, Buffer_Temp_Size);
         }
-        else
+        else //Already a copy, just moving it
+        {
             std::memmove(Buffer_Temp, Buffer_Temp+Buffer_Offset, Buffer_Size-Buffer_Offset);
+            Buffer_Temp_Size=Buffer_Size-Buffer_Offset;
+        }
     }
-    else if (Buffer_Temp!=NULL)
-    {
-        //Buffer_Temp is no more needed
-        delete[] Buffer_Temp; Buffer_Temp=NULL;
-    }
-    
+    else if (Buffer_Temp_Size)
+        Buffer_Temp_Size=0;
+
     //Reserving unused data
     if ((int64u)-1-Buffer_Offset<File_Offset) //In case of unknown filesize, File_Offset may be (int64u)-1
         Buffer_Offset=(size_t)((int64u)-1-File_Offset);
@@ -527,10 +537,9 @@ bool File__Analyze::Buffer_Parse()
 void File__Analyze::Buffer_Clear()
 {
     //Buffer
-    delete[] Buffer_Temp; Buffer_Temp=NULL;
     BS->Attach(NULL, 0);
     Buffer_Size=0;
-    Buffer_Size_Max=0;
+    Buffer_Temp_Size=0;
     Buffer_Offset=0;
     Buffer_Offset_Temp=0;
     Buffer_MinimumSize=0;
