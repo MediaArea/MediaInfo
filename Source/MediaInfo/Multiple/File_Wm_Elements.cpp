@@ -320,12 +320,13 @@ void File_Wm::Header_StreamProperties_Audio ()
     
     //Parsing
     int32u SamplingRate, BytesPerSec;
-    int16u CodecID, Channels, Data_Size;
+    int16u CodecID, Channels, Data_Size, Resolution;
     Get_L2 (CodecID,                                            "Codec ID");
     Get_L2 (Channels,                                           "Number of Channels");
     Get_L4 (SamplingRate,                                       "Samples Per Second");
     Get_L4 (BytesPerSec,                                        "Average Number of Bytes Per Second");
     Skip_L2(                                                    "Block Alignment");
+    Get_L2 (Resolution,                                         "Bits / Sample");
     Get_L2 (Data_Size,                                          "Codec Specific Data Size");
 
     //Filling
@@ -339,6 +340,7 @@ void File_Wm::Header_StreamProperties_Audio ()
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplingRate);
     Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, BytesPerSec*8);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, Resolution);
 
     //Parsing
     if (Data_Size>0)
