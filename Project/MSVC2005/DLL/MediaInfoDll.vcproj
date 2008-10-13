@@ -42,7 +42,9 @@
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../Shared/Include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MEDIAINFODLL_EXPORTS"
+				StringPooling="true"
 				RuntimeLibrary="0"
+				RuntimeTypeInfo="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
