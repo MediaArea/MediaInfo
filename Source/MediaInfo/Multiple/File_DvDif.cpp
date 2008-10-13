@@ -210,6 +210,8 @@ void File_DvDif::Header_Parse()
 
     Header_Fill_Code(SectionType, Dv_sct[SectionType]);
     Header_Fill_Size(80);
+
+    Trusted=4; //We must not accept errors in the header (mainly because of problems in Multiple parsing)
 }
 
 //---------------------------------------------------------------------------
