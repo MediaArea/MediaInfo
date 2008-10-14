@@ -1113,6 +1113,7 @@ void File_Mpeg4::moov_mvhd()
     //Parsing
     Ztring Date_Created, Date_Modified;
     int64u Duration;
+    float32 a, b, u, c, d, v, x, y, w;
     int32u TimeScale, Rate;
     int16u Volume;
     Get_DATE1904_DEPENDOFVERSION(Date_Created,                  "Creation time");
@@ -1122,7 +1123,17 @@ void File_Mpeg4::moov_mvhd()
     Get_B4 (Rate,                                               "Preferred rate"); Param_Info(Ztring::ToZtring(((float32)Rate)/0x10000));
     Get_B2 (Volume,                                             "Preferred volume"); Param_Info(Ztring::ToZtring(((float32)Volume)/0x100));
     Skip_XX(10,                                                 "Reserved");
-    Skip_XX(36,                                                 "Matrix structure");
+    Element_Begin("Matrix structure", 36);
+        Get_BFP4(16, a,                                         "a (width scale)");
+        Get_BFP4(16, b,                                         "b (width rotate)");
+        Get_BFP4( 2, u,                                         "u (width angle)");
+        Get_BFP4(16, c,                                         "c (height rotate)");
+        Get_BFP4(16, d,                                         "d (height scale)");
+        Get_BFP4( 2, v,                                         "v (height angle)");
+        Get_BFP4(16, x,                                         "x (position left)");
+        Get_BFP4(16, y,                                         "y (position top)");
+        Get_BFP4( 2, w,                                         "w (divider)");
+    Element_End();
     Skip_B4(                                                    "Preview time");
     Skip_B4(                                                    "Preview duration");
     Skip_B4(                                                    "Poster time");
@@ -1707,13 +1718,13 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
             Fill(Stream_Video, StreamPos_Last, Video_Encryption, "Encrypted");
         Fill(Stream_Video, StreamPos_Last, Video_Width, BigEndian2int16u(Buffer+Buffer_Offset+24), 10, true);
         Fill(Stream_Video, StreamPos_Last, Video_Height, BigEndian2int16u(Buffer+Buffer_Offset+26), 10, true);
-        if (moov_trak_tkhd_Width && moov_trak_tkhd_Height)
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)moov_trak_tkhd_Width)/moov_trak_tkhd_Height, 3);
+        if (moov_trak_tkhd_Width && moov_trak_tkhd_Height && Retrieve(Stream_General, 0, General_CodecID).find(_T("3gp"))==std::string::npos) //3GP files seems to not support DAR
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)moov_trak_tkhd_Width)/moov_trak_tkhd_Height, 3, true);
 
         //Specific
         if (Codec=="dvc " || Codec=="DVC " || Codec=="dvcp" || Codec=="DVCP" || Codec=="dvpn" || Codec=="DVPN" || Codec=="dvpp" || Codec=="DVPP")
         {
-            if (!moov_trak_tkhd_Width && !moov_trak_tkhd_Height)
+            if (!moov_trak_tkhd_Width && !moov_trak_tkhd_Height && Retrieve(Stream_General, 0, General_CodecID).find(_T("3gp"))==std::string::npos) //3GP files seems to not support DAR
                 Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)4)/3, 3, true);
             else
                 Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)moov_trak_tkhd_Width)/moov_trak_tkhd_Height, 3, true);
