@@ -226,8 +226,8 @@ void File_MpegTs::Read_Buffer_Finalize()
                 }
 
                 //Common
-                Fill(StreamKind_Last, StreamPos_Last, "ID", StreamID);
-                Fill(StreamKind_Last, StreamPos_Last, "ID/String", Decimal_Hexa(StreamID));
+                Fill(StreamKind_Last, StreamPos_Last, "ID", StreamID, 10, true);
+                Fill(StreamKind_Last, StreamPos_Last, "ID/String", Decimal_Hexa(StreamID), true);
 
                 for (size_t Pos=0; Pos<Streams[StreamID].program_numbers.size(); Pos++)
                 {
