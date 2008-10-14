@@ -118,6 +118,15 @@ File_MpegTs::File_MpegTs()
     //Internal config
     TS_Size=188;
     BDAV_Size=0; //No BDAV header
+
+    //Data
+    format_identifier=0xFFFFFFFF;
+    MpegTs_JumpTo_Begin=MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
+    MpegTs_JumpTo_End=8*1024*1024;
+
+    //Count
+    program_Count=0;
+    elementary_PID_Count=0;
 }
 
 //***************************************************************************
