@@ -12,6 +12,7 @@ Version 0.7.7.7, 2008-
 + Support of VP5 file format
 + MPEG-4 Visual and MPEG Video: can now display the custom matrices data
 + WM: interlacement detection for VC-1 based codecs (WMV3...)
++ #2148321, PNG: more info
 + PureBasic binding
 + Delphi binding: dynamic load (by default) of the library, thanks to Icebob
 x #2142995, MPEG-4: handling the Display Aspect Ratio from the track Header (tkhd)

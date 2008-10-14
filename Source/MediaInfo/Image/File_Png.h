@@ -40,8 +40,16 @@ namespace MediaInfoLib
 class File_Png : public File__Analyze
 {
 protected :
-    //Format
-    void Read_Buffer_Continue ();
+    //Buffer
+    void FileHeader_Parse ();
+    void Header_Parse();
+    void Data_Parse();
+
+    //Elements
+    void IDAT();
+    void IEND();
+    void IHDR();
+    void PLTE();
 };
 
 } //NameSpace
