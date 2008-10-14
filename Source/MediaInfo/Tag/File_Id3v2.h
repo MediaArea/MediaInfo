@@ -77,35 +77,37 @@ private :
     void T__X();
     void W___();
     void W__X();
-    void AENC()   {};
+    void AENC()   {Skip_XX(Element_Size, "Data");};
     void APIC();
-    void ASPI()   {};
+    void ASPI()   {Skip_XX(Element_Size, "Data");};
     void COMM();
-    void COMR()   {};
-    void ENCR()   {};
-    void EQU2()   {};
-    void EQUA()   {};
-    void ETCO()   {};
-    void GEOB()   {};
-    void GRID()   {};
-    void IPLS()   {};
-    void LINK()   {};
+    void COMR()   {Skip_XX(Element_Size, "Data");};
+    void ENCR()   {Skip_XX(Element_Size, "Data");};
+    void EQU2()   {Skip_XX(Element_Size, "Data");};
+    void EQUA()   {Skip_XX(Element_Size, "Data");};
+    void ETCO()   {Skip_XX(Element_Size, "Data");};
+    void GEOB()   {Skip_XX(Element_Size, "Data");};
+    void GRID()   {Skip_XX(Element_Size, "Data");};
+    void IPLS()   {Skip_XX(Element_Size, "Data");};
+    void LINK()   {Skip_XX(Element_Size, "Data");};
     void MCDI()   {T___();}
-    void MLLT()   {};
-    void OWNE()   {};
-    void PCNT()   {};
-    void POPM()   {};
-    void POSS()   {};
+    void MLLT()   {Skip_XX(Element_Size, "Data");};
+    void OWNE()   {Skip_XX(Element_Size, "Data");};
+    void PCNT()   {Skip_XX(Element_Size, "Data");};
+    void POPM()   {Skip_XX(Element_Size, "Data");};
+    void POSS()   {Skip_XX(Element_Size, "Data");};
     void PRIV();
-    void RBUF()   {};
-    void RVA2()   {};
-    void RVRB()   {};
-    void SEEK()   {};
-    void SIGN()   {};
+    void RBUF()   {Skip_XX(Element_Size, "Data");};
+    void RGAD();
+    void RVA2()   {Skip_XX(Element_Size, "Data");};
+    void RVRB()   {Skip_XX(Element_Size, "Data");};
+    void SEEK()   {Skip_XX(Element_Size, "Data");};
+    void SIGN()   {Skip_XX(Element_Size, "Data");};
     void SYLT();
-    void SYTC()   {};
+    void SYTC()   {Skip_XX(Element_Size, "Data");};
     void TALB()   {T___();}
     void TBPM()   {T___();}
+    void TCMP()   {Skip_XX(Element_Size, "Data");};
     void TCOM()   {T___();}
     void TCON()   {T___();}
     void TCOP()   {T___();}
@@ -148,7 +150,9 @@ private :
     void TRSN()   {T___();}
     void TRSO()   {T___();}
     void TSIZ()   {T___();}
+    void TSO2()   {T___();}
     void TSOA()   {T___();}
+    void TSOC()   {T___();}
     void TSOP()   {T___();}
     void TSOT()   {T___();}
     void TSRC()   {T___();}
@@ -156,8 +160,8 @@ private :
     void TSST()   {T___();}
     void TXXX();
     void TYER()   {T___();}
-    void UFID()   {};
-    void USER()   {};
+    void UFID()   {Skip_XX(Element_Size, "Data");};
+    void USER()   {Skip_XX(Element_Size, "Data");};
     void USLT();
     void WCOM()   {W___();}
     void WCOP()   {W___();}
@@ -168,28 +172,29 @@ private :
     void WPAY()   {W___();}
     void WPUB()   {W___();}
     void WXXX();
-    void BUF()    {};
-    void CNT()    {};
+    void BUF()    {Skip_XX(Element_Size, "Data");};
+    void CNT()    {Skip_XX(Element_Size, "Data");};
     void COM()    {COMM();};
-    void CRA()    {};
-    void CRM()    {};
-    void EQU()    {};
-    void ETC()    {};
-    void GEO()    {};
-    void IPL()    {};
-    void LNK()    {};
-    void MCI()    {};
-    void MLL()    {};
+    void CRA()    {Skip_XX(Element_Size, "Data");};
+    void CRM()    {Skip_XX(Element_Size, "Data");};
+    void EQU()    {Skip_XX(Element_Size, "Data");};
+    void ETC()    {Skip_XX(Element_Size, "Data");};
+    void GEO()    {Skip_XX(Element_Size, "Data");};
+    void IPL()    {Skip_XX(Element_Size, "Data");};
+    void LNK()    {Skip_XX(Element_Size, "Data");};
+    void MCI()    {Skip_XX(Element_Size, "Data");};
+    void MLL()    {Skip_XX(Element_Size, "Data");};
     void PIC_()   {APIC();};
-    void POP()    {};
-    void REV()    {};
-    void RVA()    {};
-    void SLT()    {};
-    void STC()    {};
+    void POP()    {Skip_XX(Element_Size, "Data");};
+    void REV()    {Skip_XX(Element_Size, "Data");};
+    void RVA()    {Skip_XX(Element_Size, "Data");};
+    void SLT()    {Skip_XX(Element_Size, "Data");};
+    void STC()    {Skip_XX(Element_Size, "Data");};
     void TAL()    {T___();}
     void TBP()    {T___();}
     void TCM()    {T___();}
     void TCO()    {T___();}
+    void TCP()    {Skip_XX(Element_Size, "Data");};
     void TCR()    {T___();}
     void TDA()    {T___();}
     void TDY()    {T___();}
@@ -222,8 +227,8 @@ private :
     void TXT()    {T___();}
     void TXX()    {TXXX();};
     void TYE()    {T___();}
-    void UFI()    {};
-    void ULT()    {};
+    void UFI()    {Skip_XX(Element_Size, "Data");};
+    void ULT()    {Skip_XX(Element_Size, "Data");};
     void WAF()    {W___();}
     void WAR()    {W___();};
     void WAS()    {W___();};
@@ -231,6 +236,7 @@ private :
     void WCP()    {W___();};
     void WPB()    {W___();};
     void WXX()    {WXXX();};
+    void XRVA()   {RVA2();}
 
     //Temp
     Ztring Year, Month, Day, Hour, Minute;
@@ -272,6 +278,7 @@ namespace Id3
     const int32u POSS=0x504F5353;
     const int32u PRIV=0x50524956;
     const int32u RBUF=0x52425546;
+    const int32u RGAD=0x52474144;
     const int32u RVA2=0x52564132;
     const int32u RVRB=0x52565242;
     const int32u SEEK=0x5345454B;
@@ -280,6 +287,7 @@ namespace Id3
     const int32u SYTC=0x53595443;
     const int32u TALB=0x54414C42;
     const int32u TBPM=0x5442504D;
+    const int32u TCMP=0x54434D50;
     const int32u TCOM=0x54434F4D;
     const int32u TCON=0x54434F4E;
     const int32u TCOP=0x54434F50;
@@ -322,7 +330,9 @@ namespace Id3
     const int32u TRSN=0x5452534E;
     const int32u TRSO=0x5452534F;
     const int32u TSIZ=0x5453495A;
+    const int32u TSO2=0x54534F32;
     const int32u TSOA=0x54534F41;
+    const int32u TSOC=0x54534F43;
     const int32u TSOP=0x54534F50;
     const int32u TSOT=0x54534F54;
     const int32u TSRC=0x54535243;
@@ -342,6 +352,7 @@ namespace Id3
     const int32u WPAY=0x57504159;
     const int32u WPUB=0x57505542;
     const int32u WXXX=0x57585858;
+    const int32u XRVA=0x58525641;
     const int32u BUF=0x425546;
     const int32u CNT=0x434E56;
     const int32u COM=0x434F4D;
@@ -354,7 +365,7 @@ namespace Id3
     const int32u LNK=0x4C4E4B;
     const int32u MCI=0x4D4349;
     const int32u MLL=0x4D4C4C;
-	const int32u PIC_=0x504943; //PIC is used by shared libs in GCC
+    const int32u PIC_=0x504943; //PIC is used by shared libs in GCC
     const int32u POP=0x504F50;
     const int32u REV=0x524556;
     const int32u RVA=0x525641;
@@ -364,6 +375,7 @@ namespace Id3
     const int32u TBP=0x544250;
     const int32u TCM=0x54434D;
     const int32u TCO=0x54434F;
+    const int32u TCP=0x544350;
     const int32u TCR=0x544352;
     const int32u TDA=0x544441;
     const int32u TDY=0x544459;

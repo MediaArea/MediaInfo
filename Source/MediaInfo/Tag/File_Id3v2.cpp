@@ -106,6 +106,30 @@ const char* Id3v2_TextEnc[]=
     "UTF-8",
 };
 
+const char* Id3v2_RGAD_Name_code[]=
+{
+    "",
+    "Radio Gain Adjustment",
+    "Audiophile Gain Adjustment",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
+const char* Id3v2_RGAD_Originator_code[]=
+{
+    "",
+    "Pre-set by artist/producer/mastering engineer",
+    "Set by user",
+    "Determined automatically",
+    "",
+    "",
+    "",
+    "",
+};
+
 //***************************************************************************
 // Format
 //***************************************************************************
@@ -366,6 +390,7 @@ void File_Id3v2::Data_Parse()
         ELEMENT_CASE(POSS, "Position synchronisation frame");
         ELEMENT_CASE(PRIV, "Private frame");
         ELEMENT_CASE(RBUF, "Recommended buffer size");
+        ELEMENT_CASE(RGAD, "Replay Gain Adjustment");
         ELEMENT_CASE(RVA2, "Relative volume adjustment (2)");
         ELEMENT_CASE(RVRB, "Reverb");
         ELEMENT_CASE(SEEK, "Seek frame");
@@ -374,6 +399,7 @@ void File_Id3v2::Data_Parse()
         ELEMENT_CASE(SYTC, "Synchronised tempo codes");
         ELEMENT_CASE(TALB, "Album/Movie/Show title");
         ELEMENT_CASE(TBPM, "BPM (beats per minute)");
+        ELEMENT_CASE(TCMP, "iTunes Compilation Flag");
         ELEMENT_CASE(TCOM, "Composer");
         ELEMENT_CASE(TCON, "Content type");
         ELEMENT_CASE(TCOP, "Copyright message");
@@ -416,7 +442,9 @@ void File_Id3v2::Data_Parse()
         ELEMENT_CASE(TRSN, "Internet radio station name");
         ELEMENT_CASE(TRSO, "Internet radio station owner");
         ELEMENT_CASE(TSIZ, "Size");
+        ELEMENT_CASE(TSO2, "Performer order");
         ELEMENT_CASE(TSOA, "Album sort order");
+        ELEMENT_CASE(TSOC, "Composer sort order");
         ELEMENT_CASE(TSOP, "Performer sort order");
         ELEMENT_CASE(TSOT, "Title sort order");
         ELEMENT_CASE(TSRC, "ISRC (international standard recording code)");
@@ -436,6 +464,7 @@ void File_Id3v2::Data_Parse()
         ELEMENT_CASE(WPAY, "Payment");
         ELEMENT_CASE(WPUB, "Publishers official webpage");
         ELEMENT_CASE(WXXX, "User defined URL link frame");
+        ELEMENT_CASE(XRVA, "Relative volume adjustment (2)");
         ELEMENT_CASE(BUF,  "Recommended buffer size");
         ELEMENT_CASE(CNT,  "Play counter");
         ELEMENT_CASE(COM,  "Comments");
@@ -458,6 +487,7 @@ void File_Id3v2::Data_Parse()
         ELEMENT_CASE(TBP,  "BPM (Beats Per Minute)");
         ELEMENT_CASE(TCM,  "Composer");
         ELEMENT_CASE(TCO,  "Content type");
+        ELEMENT_CASE(TCP,  "iTunes Compilation Flag");
         ELEMENT_CASE(TCR,  "Copyright message");
         ELEMENT_CASE(TDA,  "Date");
         ELEMENT_CASE(TDY,  "Playlist delay");
@@ -607,7 +637,6 @@ void File_Id3v2::T__X()
                 break;
         default: //Unknown
                 Skip_XX(Element_Size-Element_Offset,            "Unknown");
-                return;
         ;
     }
 }
@@ -713,6 +742,44 @@ void File_Id3v2::COMM()
 
 //---------------------------------------------------------------------------
 //
+void File_Id3v2::RGAD()
+{
+    //Parsing
+    float32 Peak_Amplitude;
+    Get_BF4 (Peak_Amplitude,                                    "Peak Amplitude");
+    while (Element_Offset+2<=Element_Size)
+    {
+        Element_Begin("Gain Adjustement", 2);
+        int16u Replay_Gain_Adjustment;
+        int8u  Name_code;
+        bool   Sign_bit;
+        BS_Begin();
+        Get_S1 (3, Name_code,                                   "Name code"); Param_Info(Id3v2_RGAD_Name_code[Name_code]);
+        Info_S1(3, Originator_code,                             "Originator code"); Param_Info(Id3v2_RGAD_Originator_code[Originator_code]);
+        Get_SB (Sign_bit,                                       "Sign bit");
+        Get_S2 (9, Replay_Gain_Adjustment,                      "Replay Gain Adjustment"); Param_Info ((Sign_bit?-1:1)*(float)Replay_Gain_Adjustment/10, 1, " dB");
+        BS_End();
+        Element_End();
+
+        FILLING_BEGIN();
+            switch (Name_code)
+            {
+                case 1 : if (Retrieve(Stream_Audio, 0, Audio_ReplayGain_Gain).empty()) //this tag is not precise, we prefer other RG tags
+                            Fill(Stream_Audio, 0, Audio_ReplayGain_Gain, (Sign_bit?-1:1)*(float)Replay_Gain_Adjustment/10, 1);
+                case 2 : if (Retrieve(Stream_General, 0, General_Album_ReplayGain_Gain).empty()) //this tag is not precise, we prefer other RG tags
+                            Fill(Stream_General, 0, General_Album_ReplayGain_Gain, (Sign_bit?-1:1)*(float)Replay_Gain_Adjustment/10, 1);
+            }
+        FILLING_END();
+    }
+
+    FILLING_BEGIN();
+        if (Peak_Amplitude && Retrieve(Stream_Audio, 0, Audio_ReplayGain_Peak).empty()) //this tag is not precise, we prefer other RG tags
+            Fill(Stream_Audio, 0, Audio_ReplayGain_Peak, Peak_Amplitude, 6);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+//
 void File_Id3v2::PRIV()
 {
     //Parsing
@@ -729,8 +796,10 @@ void File_Id3v2::USLT()
     T__X();
 
     //Filling
-    if (Element_Values(0).empty())
-        Element_Values(0)=_T("Lyrics");
+    if (!Element_Values(0).empty())
+        Element_Values(1)=Element_Values(0)+MediaInfoLib::Config.Language_Get(_T(": "))+Element_Values(1);
+    Element_Values(0)=_T("Lyrics");
+
     Fill_Name();
 }
 
@@ -867,20 +936,22 @@ void File_Id3v2::Fill_Name()
         case Id3::TRSN : Fill(Stream_General, 0, General_ServiceName, Element_Value); break;
         case Id3::TRSO : Fill(Stream_General, 0, General_ServiceProvider, Element_Value); break;
         case Id3::TSIZ : Fill(Stream_General, 0, "Size", Element_Value); break;
+        case Id3::TSO2 : Fill(Stream_General, 0, General_Performer_Sort, Element_Value); break;
         case Id3::TSOA : Fill(Stream_General, 0, General_Album_Sort, Element_Value); break;
+        case Id3::TSOC : Fill(Stream_General, 0, "Composer/Sort", Element_Value); break;
         case Id3::TSOP : Fill(Stream_General, 0, General_Performer_Sort, Element_Value); break;
         case Id3::TSOT : Fill(Stream_General, 0, General_Track_Sort, Element_Value); break;
         case Id3::TSRC : Fill(Stream_General, 0, General_ISRC, Element_Value); break;
         case Id3::TSSE : Fill(Stream_General, 0, General_Encoded_Library_Settings, Element_Value); break;
         case Id3::TSST : Fill(Stream_General, 0, "Set subtitle", Element_Value); break;
-        case Id3::TXXX :      if (Element_Values(0)==_T("first_played_timestamp")) Fill(Stream_General, 0, "Played_First_Date",     Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/10000));
-                         else if (Element_Values(0)==_T("last_played_timestamp"))  Fill(Stream_General, 0, "Played_Last_Date",      Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/10000));
-                         else if (Element_Values(0)==_T("play_count"))             Fill(Stream_General, 0, "Played_Count",          Element_Values(1).To_int64u());
-                         else if (Element_Values(0)==_T("added_timestamp"))        Fill(Stream_General, 0, "Added_Date",            Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/10000));
-                         else if (Element_Values(0)==_T("replaygain_album_gain"))  Fill(Stream_General, 0, "Album_ReplayGain_Gain", Element_Values(1).To_float64(), 2);
-                         else if (Element_Values(0)==_T("replaygain_album_peak"))  Fill(Stream_General, 0, "Album_ReplayGain_Peak", Element_Values(1).To_float64(), 6);
-                         else if (Element_Values(0)==_T("replaygain_track_gain"))  Fill(Stream_Audio,   0, "ReplayGain_Gain",       Element_Values(1).To_float64(), 2);
-                         else if (Element_Values(0)==_T("replaygain_track_peak"))  Fill(Stream_Audio,   0, "ReplayGain_Peak",       Element_Values(1).To_float64(), 6);
+        case Id3::TXXX :      if (Element_Values(0)==_T("first_played_timestamp")) Fill(Stream_General, 0, General_Played_First_Date,       Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/10000));
+                         else if (Element_Values(0)==_T("last_played_timestamp"))  Fill(Stream_General, 0, General_Played_Last_Date,        Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/10000));
+                         else if (Element_Values(0)==_T("play_count"))             Fill(Stream_General, 0, General_Played_Count,            Element_Values(1).To_int64u());
+                         else if (Element_Values(0)==_T("added_timestamp"))        Fill(Stream_General, 0, General_Added_Date,              Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/10000));
+                         else if (Element_Values(0)==_T("replaygain_album_gain"))  Fill(Stream_General, 0, General_Album_ReplayGain_Gain,   Element_Values(1).To_float64(), 2, true);
+                         else if (Element_Values(0)==_T("replaygain_album_peak"))  Fill(Stream_General, 0, General_Album_ReplayGain_Peak,   Element_Values(1).To_float64(), 6, true);
+                         else if (Element_Values(0)==_T("replaygain_track_gain"))  Fill(Stream_Audio,   0, Audio_ReplayGain_Gain,           Element_Values(1).To_float64(), 2, true);
+                         else if (Element_Values(0)==_T("replaygain_track_peak"))  Fill(Stream_Audio,   0, Audio_ReplayGain_Peak,           Element_Values(1).To_float64(), 6, true);
                          else
                             Fill(Stream_General, 0, Element_Values(0).To_UTF8().c_str(), Element_Values(1));
                          break;
