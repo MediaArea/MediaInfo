@@ -240,6 +240,17 @@ void File__Analyze::Get_BF10(float80 &Info)
 }
 
 //---------------------------------------------------------------------------
+void File__Analyze::Get_BFP4(size_t Bits, float32 &Info)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(4);
+    BS_Begin();
+    int32u Integer=BS->Get4(Bits);
+    int32u Fraction=BS->Get4(32-Bits);
+    BS_End(); //Does Element_Offset+=4
+    Info=Integer+((float32)Fraction)/(1<<(32-Bits));
+}
+
+//---------------------------------------------------------------------------
 void File__Analyze::Peek_B1(int8u  &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(1);

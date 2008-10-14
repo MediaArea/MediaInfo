@@ -222,7 +222,7 @@ public :
     inline void Info (const Ztring&, size_t =0) {}
 
     //***************************************************************************
-    // Big Endian
+    // Big Endian (Integer, Float, Fixed-Point)
     //***************************************************************************
 
     void Get_B1   (int8u   &Info);
@@ -237,6 +237,7 @@ public :
     void Get_BF4  (float32 &Info);
     void Get_BF8  (float64 &Info);
     void Get_BF10 (float80 &Info);
+    void Get_BFP4 (size_t Bits, float32 &Info);
     inline void Get_B1   (int8u   &Info, const char*) {Get_B1(Info);}
     inline void Get_B2   (int16u  &Info, const char*) {Get_B2(Info);}
     inline void Get_B3   (int32u  &Info, const char*) {Get_B3(Info);}
@@ -249,6 +250,7 @@ public :
     inline void Get_BF4  (float32 &Info, const char*) {Get_BF4(Info);}
     inline void Get_BF8  (float64 &Info, const char*) {Get_BF8(Info);}
     inline void Get_BF10 (float80 &Info, const char*) {Get_BF10(Info);}
+    inline void Get_BFP4 (size_t Bits, float32 &Info, const char*) {Get_BFP4(Bits, Info);}
     void Peek_B1  (int8u   &Info);
     void Peek_B2  (int16u  &Info);
     void Peek_B3  (int32u  &Info);
@@ -261,6 +263,7 @@ public :
     void Peek_BF4 (float32 &Info);
     void Peek_BF8 (float64 &Info);
     void Peek_BF10(float64 &Info);
+    void Peek_BFP4(size_t Bits, float64 &Info);
     inline void Skip_B1  (               const char*) {Element_Offset+=1;}
     inline void Skip_B2  (               const char*) {Element_Offset+=2;}
     inline void Skip_B3  (               const char*) {Element_Offset+=3;}
@@ -272,6 +275,7 @@ public :
     inline void Skip_BF4 (               const char*) {Element_Offset+=4;}
     inline void Skip_BF8 (               const char*) {Element_Offset+=8;}
     inline void Skip_B16 (               const char*) {Element_Offset+=16;}
+    inline void Skip_BFP4(size_t Bits,                const char*) {Element_Offset+=4;};
     #define Info_B1(_INFO, _NAME)   int8u   _INFO; Get_B1 (_INFO, _NAME)
     #define Info_B2(_INFO, _NAME)   int16u  _INFO; Get_B2 (_INFO, _NAME)
     #define Info_B3(_INFO, _NAME)   int32u  _INFO; Get_B3 (_INFO, _NAME)
@@ -284,6 +288,7 @@ public :
     #define Info_BF4(_INFO, _NAME)  float32 _INFO; Get_BF4(_INFO, _NAME)
     #define Info_BF8(_INFO, _NAME)  float64 _INFO; Get_BF8(_INFO, _NAME)
     #define Info_BF10(_INFO, _NAME) float80 _INFO; Get_BF8(_INFO, _NAME)
+    #define Info_BFP4(_BITS, _INFO, _NAME) float32 _INFO; Get_BFP4(_BITS, _INFO, _NAME)
 
     //***************************************************************************
     // Little Endian

@@ -143,15 +143,30 @@ namespace Elements
     const int32u AVI__INFO=0x494E464F;
     const int32u AVI__INFO_IARL=0x4941524C;
     const int32u AVI__INFO_IART=0x49415254;
+    const int32u AVI__INFO_IAS1=0x49415331;
+    const int32u AVI__INFO_IAS2=0x49415332;
+    const int32u AVI__INFO_IAS3=0x49415333;
+    const int32u AVI__INFO_IAS4=0x49415334;
+    const int32u AVI__INFO_IAS5=0x49415335;
+    const int32u AVI__INFO_IAS6=0x49415336;
+    const int32u AVI__INFO_IAS7=0x49415337;
+    const int32u AVI__INFO_IAS8=0x49415338;
+    const int32u AVI__INFO_IAS9=0x49415339;
+    const int32u AVI__INFO_ICDS=0x49434453;
     const int32u AVI__INFO_ICMS=0x49434D53;
     const int32u AVI__INFO_ICMT=0x49434D54;
+    const int32u AVI__INFO_ICNT=0x49434E54;
     const int32u AVI__INFO_ICOP=0x49434F50;
+    const int32u AVI__INFO_ICNM=0x49434E4D;
     const int32u AVI__INFO_ICRD=0x49435244;
     const int32u AVI__INFO_ICRP=0x49435250;
     const int32u AVI__INFO_IDIM=0x4944494D;
     const int32u AVI__INFO_IDIT=0x49444954;
     const int32u AVI__INFO_IDPI=0x49445049;
+    const int32u AVI__INFO_IDST=0x49445354;
+    const int32u AVI__INFO_IEDT=0x49454454;
     const int32u AVI__INFO_IENG=0x49454E47;
+    const int32u AVI__INFO_IFRM=0x4946524D;
     const int32u AVI__INFO_IGNR=0x49474E52;
     const int32u AVI__INFO_IID3=0x49494433;
     const int32u AVI__INFO_IKEY=0x494B4559;
@@ -160,16 +175,25 @@ namespace Elements
     const int32u AVI__INFO_ILYC=0x494C5943;
     const int32u AVI__INFO_IMED=0x494D4544;
     const int32u AVI__INFO_IMP3=0x494D5033;
+    const int32u AVI__INFO_IMUS=0x494D5553;
     const int32u AVI__INFO_INAM=0x494E414D;
     const int32u AVI__INFO_IPLT=0x49504C54;
+    const int32u AVI__INFO_IPDS=0x49504453;
     const int32u AVI__INFO_IPRD=0x49505244;
+    const int32u AVI__INFO_IPRT=0x49505254;
+    const int32u AVI__INFO_IPRO=0x4950524F;
     const int32u AVI__INFO_IRTD=0x49525444;
     const int32u AVI__INFO_ISBJ=0x4953424A;
+    const int32u AVI__INFO_ISGN=0x4953474E;
+    const int32u AVI__INFO_ISTD=0x49535444;
+    const int32u AVI__INFO_ISTR=0x49535452;
     const int32u AVI__INFO_ISFT=0x49534654;
     const int32u AVI__INFO_ISHP=0x49534850;
     const int32u AVI__INFO_ISRC=0x49535243;
     const int32u AVI__INFO_ISRF=0x49535246;
     const int32u AVI__INFO_ITCH=0x49544348;
+    const int32u AVI__INFO_IWEB=0x49574542;
+    const int32u AVI__INFO_IWRI=0x49575249;
     const int32u AVI__INFO_JUNK=0x4A554E4B;
     const int32u AVI__JUNK=0x4A554E4B;
     const int32u AVI__movi=0x6D6F7669;
@@ -1584,41 +1608,71 @@ void File_Riff::AVI__INFO_xxxx()
 
     //Filling
     stream_t StreamKind=Stream_General;
-    Ztring Name;
+    size_t StreamPos=0;
+    size_t Parameter=(size_t)-1;
     switch (Element_Code)
     {
-        case Elements::AVI__INFO_IARL : Name="Archival_Location"; break;
-        case Elements::AVI__INFO_IART : Name="Director"; break;
-        case Elements::AVI__INFO_ICMS : Name="CommissionedBy"; break;
-        case Elements::AVI__INFO_ICMT : Name="Comment"; break;
-        case Elements::AVI__INFO_ICOP : Name="Copyright"; break;
-        case Elements::AVI__INFO_ICRD : Name="Recorded_Date"; Value.Date_From_String(Value.To_Local().c_str()); break;
-        case Elements::AVI__INFO_ICRP : Name="Cropped"; break;
-        case Elements::AVI__INFO_IDIM : Name="Dimensions"; break;
-        case Elements::AVI__INFO_IDIT : Name="Mastered_Date", Value.Date_From_String(Value.To_Local().c_str()); break;
-        case Elements::AVI__INFO_IDPI : Name="DotsPerInch"; break;
-        case Elements::AVI__INFO_IENG : Name="Engineer"; break;
-        case Elements::AVI__INFO_IGNR : Name="Genre"; break;
-        case Elements::AVI__INFO_IKEY : Name="Keywords"; break;
-        case Elements::AVI__INFO_ILGT : Name="Ligthness"; break;
-        case Elements::AVI__INFO_ILNG : Name="Language"; StreamKind=Stream_Audio; break;
-        case Elements::AVI__INFO_IMED : Name="Medium"; break;
-        case Elements::AVI__INFO_INAM : Name="Title"; break;
-        case Elements::AVI__INFO_IPLT : Name="NumColors"; break;
-        case Elements::AVI__INFO_IPRD : Name="Product"; break;
-        case Elements::AVI__INFO_IRTD : Name="LawRating"; break;
-        case Elements::AVI__INFO_ISBJ : Name="Subject"; break;
-        case Elements::AVI__INFO_ISFT : Name="Encoded_Application"; break;
-        case Elements::AVI__INFO_ISHP : Name="Sharpness"; break;
-        case Elements::AVI__INFO_ISRC : Name="Encoded_Original/DistributedBy"; break;
-        case Elements::AVI__INFO_ISRF : Name="Encoded_Original"; break;
-        case Elements::AVI__INFO_ITCH : Name="EncodedBy"; break;
-        default: Name.From_CC4((int32u)Element_Code);
+        case Elements::AVI__INFO_IARL : Parameter=General_Archival_Location; break;
+        case Elements::AVI__INFO_IART : Parameter=General_Director; break;
+        case Elements::AVI__INFO_IAS1 : Parameter=Audio_Language; StreamKind=Stream_Audio; StreamPos=0; break;
+        case Elements::AVI__INFO_IAS2 : Parameter=Audio_Language; StreamKind=Stream_Audio; StreamPos=1; break;
+        case Elements::AVI__INFO_IAS3 : Parameter=Audio_Language; StreamKind=Stream_Audio; StreamPos=2; break;
+        case Elements::AVI__INFO_IAS4 : Parameter=Audio_Language; StreamKind=Stream_Audio; StreamPos=3; break;
+        case Elements::AVI__INFO_IAS5 : Parameter=Audio_Language; StreamKind=Stream_Audio; StreamPos=4; break;
+        case Elements::AVI__INFO_IAS6 : Parameter=Audio_Language; StreamKind=Stream_Audio; StreamPos=5; break;
+        case Elements::AVI__INFO_IAS7 : Parameter=Audio_Language; StreamKind=Stream_Audio; StreamPos=6; break;
+        case Elements::AVI__INFO_IAS8 : Parameter=Audio_Language; StreamKind=Stream_Audio; StreamPos=7; break;
+        case Elements::AVI__INFO_IAS9 : Parameter=Audio_Language; StreamKind=Stream_Audio; StreamPos=8; break;
+        case Elements::AVI__INFO_ICDS : Parameter=General_CostumeDesigner; break;
+        case Elements::AVI__INFO_ICMS : Parameter=General_CommissionedBy; break;
+        case Elements::AVI__INFO_ICMT : Parameter=General_Comment; break;
+        case Elements::AVI__INFO_ICNM : Parameter=General_DirectorOfPhotography; break;
+        case Elements::AVI__INFO_ICNT : Parameter=General_Movie_Country; break;
+        case Elements::AVI__INFO_ICOP : Parameter=General_Copyright; break;
+        case Elements::AVI__INFO_ICRD : Parameter=General_Recorded_Date; Value.Date_From_String(Value.To_Local().c_str()); break;
+        case Elements::AVI__INFO_ICRP : Parameter=General_Cropped; break;
+        case Elements::AVI__INFO_IDIM : Parameter=General_Dimensions; break;
+        case Elements::AVI__INFO_IDIT : Parameter=General_Mastered_Date; Value.Date_From_String(Value.To_Local().c_str()); break;
+        case Elements::AVI__INFO_IDPI : Parameter=General_DotsPerInch; break;
+        case Elements::AVI__INFO_IDST : Parameter=General_DistributedBy; break;
+        case Elements::AVI__INFO_IEDT : Parameter=General_EditedBy; break;
+        case Elements::AVI__INFO_IENG : Parameter=General_EncodedBy; break;
+        case Elements::AVI__INFO_IGNR : Parameter=General_Genre; break;
+        case Elements::AVI__INFO_IFRM : Parameter=General_Part_Position_Total; break;
+        case Elements::AVI__INFO_IKEY : Parameter=General_Keywords; break;
+        case Elements::AVI__INFO_ILGT : Parameter=General_Ligthness; break;
+        case Elements::AVI__INFO_ILNG : Parameter=Audio_Language; StreamKind=Stream_Audio; break;
+        case Elements::AVI__INFO_IMED : Parameter=General_OriginalSourceMedium; break;
+        case Elements::AVI__INFO_IMUS : Parameter=General_MusicBy; break;
+        case Elements::AVI__INFO_INAM : Parameter=General_Title; break;
+        case Elements::AVI__INFO_IPDS : Parameter=General_ProductionDesigner; break;
+        case Elements::AVI__INFO_IPLT : Parameter=General_OriginalSourceForm_NumColors; break;
+        case Elements::AVI__INFO_IPRD : Parameter=General_OriginalSourceForm_Name; break;
+        case Elements::AVI__INFO_IPRO : Parameter=General_Producer; break;
+        case Elements::AVI__INFO_IPRT : Parameter=General_Part_Position; break;
+        case Elements::AVI__INFO_IRTD : Parameter=General_LawRating; break;
+        case Elements::AVI__INFO_ISBJ : Parameter=General_Subject; break;
+        case Elements::AVI__INFO_ISFT : Parameter=General_Encoded_Application; break;
+        case Elements::AVI__INFO_ISGN : Parameter=General_Genre; break;
+        case Elements::AVI__INFO_ISHP : Parameter=General_OriginalSourceForm_Sharpness; break;
+        case Elements::AVI__INFO_ISRC : Parameter=General_OriginalSourceForm_DistributedBy; break;
+        case Elements::AVI__INFO_ISRF : Parameter=General_OriginalSourceForm; break;
+        case Elements::AVI__INFO_ISTD : Parameter=General_ProductionStudio; break;
+        case Elements::AVI__INFO_ISTR : Parameter=General_Performer; break;
+        case Elements::AVI__INFO_ITCH : Parameter=General_EncodedBy; break;
+        case Elements::AVI__INFO_IWEB : Parameter=General_Movie_Url; break;
+        case Elements::AVI__INFO_IWRI : Parameter=General_WrittenBy; break;
+        default                       : ;
     }
-    Element_Name(Name);
+    Element_Name(MediaInfoLib::Config.Info_Get(StreamKind, Parameter, Info_Name));
     Element_Info(Value);
     if (!Value.empty())
-        Fill(StreamKind, 0, Name.To_Local().c_str(), Value);
+    {
+        if (Parameter!=(size_t)-1)
+            Fill(StreamKind, StreamPos, Parameter, Value);
+        else
+            Fill(StreamKind, StreamPos, Ztring().From_CC4((int32u)Element_Code).To_Local().c_str(), Value, true);
+    }
 }
 
 //---------------------------------------------------------------------------
