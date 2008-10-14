@@ -798,7 +798,7 @@ Ztring File_DvDif::rectime()
     int8u Temp;
     int64u Time=0;
     int8u Frames=0;
-    Mark_1();
+    Skip_SB(                                                    "Unknown");
     Mark_1();
     Get_S1 (2, Temp,                                            "Frames (Tens)");
     Frames+=Temp*10;
