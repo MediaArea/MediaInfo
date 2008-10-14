@@ -790,6 +790,8 @@ void File_Mpeg_Descriptors::Read_Buffer_Init()
 //---------------------------------------------------------------------------
 void File_Mpeg_Descriptors::Header_Parse()
 {
+    if (Element_Offset+2>Element_Size)
+        return; //Not enough data
     int8u descriptor_tag, descriptor_length;
     Get_B1 (descriptor_tag,                                     "descriptor_tag");
     Get_B1 (descriptor_length,                                  "descriptor_length");
