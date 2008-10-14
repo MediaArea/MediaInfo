@@ -1158,6 +1158,8 @@ void File_Mpeg4::moov_trak()
     FILLING_BEGIN();
         Fill_Flush();
         moov_trak_tkhd_TrackID=(int32u)-1;
+        moov_trak_tkhd_Width=0;
+        moov_trak_tkhd_Height=0;
         Stream_Prepare(Stream_Max); //clear filling
     FILLING_END();
 }
@@ -1705,11 +1707,16 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
             Fill(Stream_Video, StreamPos_Last, Video_Encryption, "Encrypted");
         Fill(Stream_Video, StreamPos_Last, Video_Width, BigEndian2int16u(Buffer+Buffer_Offset+24), 10, true);
         Fill(Stream_Video, StreamPos_Last, Video_Height, BigEndian2int16u(Buffer+Buffer_Offset+26), 10, true);
+        if (moov_trak_tkhd_Width && moov_trak_tkhd_Height)
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)moov_trak_tkhd_Width)/moov_trak_tkhd_Height, 3);
 
         //Specific
         if (Codec=="dvc " || Codec=="DVC " || Codec=="dvcp" || Codec=="DVCP" || Codec=="dvpn" || Codec=="DVPN" || Codec=="dvpp" || Codec=="DVPP")
         {
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)4)/3, 3, true);
+            if (!moov_trak_tkhd_Width && !moov_trak_tkhd_Height)
+                Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)4)/3, 3, true);
+            else
+                Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)moov_trak_tkhd_Width)/moov_trak_tkhd_Height, 3, true);
         }
 
         //Descriptors or a list (we can see both!)
@@ -2113,6 +2120,7 @@ void File_Mpeg4::moov_trak_tkhd()
 
     //Parsing
     Ztring Date_Created, Date_Modified;
+    float32 a, b, u, c, d, v, x, y, w;
     int64u Duration;
     int16u Volume;
         Skip_Flags(Flags, 0,                                    "Track Enabled");
@@ -2130,9 +2138,19 @@ void File_Mpeg4::moov_trak_tkhd()
     Skip_B2(                                                    "Alternate group");
     Get_B2 (Volume,                                             "Volume"); Param_Info(Ztring::ToZtring(((float)Volume)/256));
     Skip_B2(                                                    "Reserved");
-    Skip_XX(36,                                                 "Matrix structure");
-    Skip_B4(                                                    "Track width");
-    Skip_B4(                                                    "Track height");
+    Element_Begin("Matrix structure", 36);
+        Get_BFP4(16, a,                                         "a (width scale)");
+        Get_BFP4(16, b,                                         "b (width rotate)");
+        Get_BFP4( 2, u,                                         "u (width angle)");
+        Get_BFP4(16, c,                                         "c (height rotate)");
+        Get_BFP4(16, d,                                         "d (height scale)");
+        Get_BFP4( 2, v,                                         "v (height angle)");
+        Get_BFP4(16, x,                                         "x (position left)");
+        Get_BFP4(16, y,                                         "y (position top)");
+        Get_BFP4( 2, w,                                         "w (divider)");
+    Element_End();
+    Get_BFP4(16, moov_trak_tkhd_Width,                          "Track width");
+    Get_BFP4(16, moov_trak_tkhd_Height,                         "Track height");
 
     FILLING_BEGIN();
         //Case of header is after main part
@@ -2146,6 +2164,9 @@ void File_Mpeg4::moov_trak_tkhd()
                 Stream.erase(Temp);
             }
         }
+
+        moov_trak_tkhd_Width*=a;
+        moov_trak_tkhd_Height*=d;
 
         Fill(StreamKind_Last, StreamPos_Last, "Encoded_Date", Date_Created);
         Fill(StreamKind_Last, StreamPos_Last, "Tagged_Date", Date_Modified);

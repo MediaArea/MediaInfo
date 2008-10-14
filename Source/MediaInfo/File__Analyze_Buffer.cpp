@@ -251,6 +251,20 @@ void File__Analyze::Get_BF10(float80 &Info, const char* Name)
 }
 
 //---------------------------------------------------------------------------
+void File__Analyze::Get_BFP4(size_t Bits, float32 &Info, const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(4);
+    BS_Begin();
+    int32u Integer=BS->Get4(Bits);
+    int32u Fraction=BS->Get4(32-Bits);
+    BS_End();
+    Element_Offset-=4; //Because of BS_End()
+    Info=Integer+((float32)Fraction)/(1<<(32-Bits));
+    if (Config_Details>0) Param(Name, Info);
+    Element_Offset+=4;
+}
+
+//---------------------------------------------------------------------------
 void File__Analyze::Peek_B1(int8u  &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(1);
@@ -376,6 +390,14 @@ void File__Analyze::Skip_B16(const char* Name)
     INTEGRITY_SIZE_ATLEAST(16);
     if (Config_Details>0) Param(Name, BigEndian2int128u(Buffer+Buffer_Offset+(size_t)Element_Offset));
     Element_Offset+=16;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_BF4(const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST(4);
+    if (Config_Details>0) Param(Name, BigEndian2float32(Buffer+Buffer_Offset+(size_t)Element_Offset));
+    Element_Offset+=4;
 }
 
 //***************************************************************************

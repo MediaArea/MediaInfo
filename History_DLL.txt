@@ -14,6 +14,7 @@ Version 0.7.7.7, 2008-
 + WM: interlacement detection for VC-1 based codecs (WMV3...)
 + PureBasic binding
 + Delphi binding: dynamic load (by default) of the library, thanks to Icebob
+x #2142995, MPEG-4: handling the Display Aspect Ratio from the track Header (tkhd)
 x #2109107, Tags in Flac or Ogg: modification of the tag types priorities
 x #2120224, MPEG-4: some specific files were not parsed completely (missing info)
 x MPEG-TS with Dirac: some specific files were not parsed completely (missing info)
