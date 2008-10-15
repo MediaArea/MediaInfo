@@ -997,21 +997,31 @@ void File_Mpeg_Psi::Table_42()
     while (Element_Offset<Element_Size)
     {
         Element_Begin();
-        Get_B2 (    program_number,                             "service_id");
-        BS_Begin();
-        Skip_S1( 6,                                             "reserved_future_use");
-        Skip_SB(                                                "EIT_schedule_flag");
-        Skip_SB(                                                "EIT_present_following_flag");
-        Skip_S1( 3,                                             "running_status");
-        Skip_SB(                                                "free_CA_mode");
-        Get_S2 (12, Descriptors_Size,                           "ES_info_length");
-        BS_End();
+        int64u Test;
+        Peek_B5(Test);
+        if (Test!=0xFFFFFFFFFFULL)
+        {
+            Get_B2 (    program_number,                             "service_id");
+            BS_Begin();
+            Skip_S1( 6,                                             "reserved_future_use");
+            Skip_SB(                                                "EIT_schedule_flag");
+            Skip_SB(                                                "EIT_present_following_flag");
+            Skip_S1( 3,                                             "running_status");
+            Skip_SB(                                                "free_CA_mode");
+            Get_S2 (12, Descriptors_Size,                           "ES_info_length");
+            BS_End();
 
-        //Descriptors
-        if (Descriptors_Size>0)
-            Descriptors();
+            //Descriptors
+            if (Descriptors_Size>0)
+                Descriptors();
 
-        Element_End(Ztring::ToZtring_From_CC2(program_number), 5+Descriptors_Size);
+            Element_End(Ztring::ToZtring_From_CC2(program_number), 5+Descriptors_Size);
+        }
+        else
+        {
+            Skip_XX(Element_Size-Element_Offset,                    "Junk");
+            Element_End("Junk");
+        }
     }
 }
 
