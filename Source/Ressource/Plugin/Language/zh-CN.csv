@@ -241,6 +241,8 @@ Count;数量
 Country;国家(地区)
 Cover;封面
 Cover_Datas;封面数据
+Cover_Mime
+Cover_Type
 Custom;自定义
 Customize;自定义
 Date;日期
@@ -700,6 +702,7 @@ LawRating
 LCCN
 Library
 List;列表
+Lyrics
 Lyricist;作词
 Mastered_Date;母带完成日期
 MasteredBy;母带制做

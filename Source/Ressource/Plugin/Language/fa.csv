@@ -241,6 +241,8 @@ Count;تعداد
 Country;کشور
 Cover;جلد
 Cover_Datas;تاریخ جلد
+Cover_Mime
+Cover_Type
 Custom;بر حسب عادت
 Customize;دلبخواه کردن
 Date;تاریخ
@@ -700,6 +702,7 @@ LawRating
 LCCN
 Library
 List;لیست
+Lyrics
 Lyricist;لایریکس
 Mastered_Date;تاریخ کارفرمایی
 MasteredBy;کارفرما
@@ -867,4 +870,4 @@ WrittenBy;نوشته شده توسط
 Yes;بله
 Your system;سیستم شما
 ZZ_Automatic_Percent;46
-ZZ_AutomaticLanguage_Percent;85
+ZZ_AutomaticLanguage_Percent;84

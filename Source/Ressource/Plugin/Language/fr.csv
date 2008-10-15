@@ -241,6 +241,8 @@ Count;Nombre
 Country;Pays
 Cover;Couverture
 Cover_Datas;Couverture
+Cover_Mime;Couverture, MIME
+Cover_Type;Couverture, origine
 Custom;Partie personnalisée
 Customize;Personnaliser
 Date;Date
@@ -700,6 +702,7 @@ LawRating;Classé
 LCCN;LCCN
 Library;Bibliotheque utilisée
 List;Liste
+Lyrics;Paroles
 Lyricist;Parolier
 Mastered_Date;Date de création
 MasteredBy;Créé par

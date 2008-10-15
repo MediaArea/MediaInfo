@@ -241,6 +241,8 @@ Count
 Country;Tara
 Cover;Coperta
 Cover_Datas;Date de pe coperta
+Cover_Mime
+Cover_Type
 Custom;Particularizat
 Customize;Particularizare
 Date;Data
@@ -700,6 +702,7 @@ LawRating
 LCCN
 Library;Biblioteca muxing
 List
+Lyrics
 Lyricist;Textier
 Mastered_Date;Data realizarii
 MasteredBy;Realizat de

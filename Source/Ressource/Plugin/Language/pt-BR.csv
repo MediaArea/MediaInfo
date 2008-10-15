@@ -241,6 +241,8 @@ Count;Número
 Country;País
 Cover;Capa
 Cover_Datas;Dados da capa
+Cover_Mime
+Cover_Type
 Custom;Personalizado
 Customize;Personalizar
 Date;Data
@@ -700,6 +702,7 @@ LawRating;Classificação
 LCCN;LCCN
 Library;Biblioteca de multiplexão
 List;Lista
+Lyrics
 Lyricist;Compositor
 Mastered_Date;Data de criação
 MasteredBy;Criado por

@@ -241,6 +241,8 @@ Count;Telling
 Country;Land
 Cover;Hoes
 Cover_Datas;Covergegevens
+Cover_Mime
+Cover_Type
 Custom;Aangepast
 Customize;Aanpassen
 Date;Datum
@@ -700,6 +702,7 @@ LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
 List
+Lyrics
 Lyricist;Tekstschrijver
 Mastered_Date;Datum van master
 MasteredBy;Gemastered door

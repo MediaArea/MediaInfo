@@ -241,6 +241,8 @@ Count;Numërimi
 Country;Vendi
 Cover;Cover
 Cover_Datas;Cover datas
+Cover_Mime
+Cover_Type
 Custom;Me porosi
 Customize;Porosite
 Date;Data
@@ -700,6 +702,7 @@ LawRating;Vlerësimi ligjor
 LCCN;LCCN
 Library;Muxing library
 List;Lista
+Lyrics
 Lyricist;Shkrimtari
 Mastered_Date;Datë e masterizimit
 MasteredBy;Masterizuar nga
@@ -866,5 +869,5 @@ Written_Location;Vendndodhje e shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

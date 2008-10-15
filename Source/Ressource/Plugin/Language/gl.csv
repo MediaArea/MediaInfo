@@ -241,6 +241,8 @@ Count;Cantidade
 Country;País
 Cover;Carátula
 Cover_Datas;Datos carátula
+Cover_Mime
+Cover_Type
 Custom;Personalizado
 Customize;Personalizar
 Date;Data
@@ -700,6 +702,7 @@ LawRating;Valoración legal
 LCCN;LCCN
 Library;Bibliografía
 List
+Lyrics
 Lyricist;Letrista
 Mastered_Date;Data de edición
 MasteredBy;Editado por

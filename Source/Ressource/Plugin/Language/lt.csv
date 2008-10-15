@@ -241,6 +241,8 @@ Count;Kiekis
 Country;Šalis
 Cover;Viršelis
 Cover_Datas;Viršelio duomenys
+Cover_Mime
+Cover_Type
 Custom;Išplėstinis
 Customize;Pritaikyti
 Date;Data
@@ -700,6 +702,7 @@ LawRating;Law reitingas
 LCCN;LCCN
 Library;Muxing biblioteka
 List;Sąrašas
+Lyrics
 Lyricist;Lyrikas
 Mastered_Date;Sukūrimo data
 MasteredBy;Sukūrė

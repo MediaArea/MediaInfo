@@ -241,6 +241,8 @@ Count;数
 Country;国
 Cover;カバー
 Cover_Datas;カバーデータ
+Cover_Mime
+Cover_Type
 Custom;カスタム
 Customize;カスタマイズ
 Date;日付
@@ -700,6 +702,7 @@ LawRating;レイティング
 LCCN;LCCN
 Library;ライブラリ
 List;リスト
+Lyrics
 Lyricist;作詞
 Mastered_Date;マスタリング日
 MasteredBy;マスタリング by 

@@ -241,6 +241,8 @@ Count;Contatore
 Country;Stato
 Cover;Copertina
 Cover_Datas;Dati copertina
+Cover_Mime
+Cover_Type
 Custom;Personalizzato
 Customize;Personalizza
 Date;Data
@@ -700,6 +702,7 @@ LawRating;Law Rating
 LCCN;LCCN
 Library;Libreria
 List;Lista
+Lyrics
 Lyricist;Testo
 Mastered_Date;Data di incisione 
 MasteredBy;Inciso da
@@ -866,5 +869,5 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si 
 Your system;Il tuo sistema
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97

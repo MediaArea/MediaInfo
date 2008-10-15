@@ -241,6 +241,8 @@ Count;所有種類
 Country;國家
 Cover;封面
 Cover_Datas;封面資料
+Cover_Mime
+Cover_Type
 Custom;自訂
 Customize;自訂
 Date;日期
@@ -700,6 +702,7 @@ LawRating;分級
 LCCN;LCCN
 Library;合成函式庫
 List;清單
+Lyrics
 Lyricist;作詞者
 Mastered_Date;後製日期
 MasteredBy;後製者
@@ -866,5 +869,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

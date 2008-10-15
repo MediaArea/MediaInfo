@@ -241,6 +241,8 @@ Count;Conteo
 Country;País
 Cover;Tapa
 Cover_Datas;Datos de la Tapa
+Cover_Mime
+Cover_Type
 Custom;Personalizado
 Customize;Personalizar
 Date;Fecha
@@ -700,6 +702,7 @@ LawRating;Ley de calificación
 LCCN;LCCN
 Library;Librería Musical
 List;Lista
+Lyrics
 Lyricist;Autor de Letra
 Mastered_Date;Fecha de edición
 MasteredBy;Editado por

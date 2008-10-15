@@ -241,6 +241,8 @@ Count;개수
 Country;국가
 Cover;표지
 Cover_Datas;표지 정보
+Cover_Mime
+Cover_Type
 Custom;커스텀
 Customize;커스터마이즈
 Date;날짜
@@ -700,6 +702,7 @@ LawRating;법률 등급
 LCCN;LCCN
 Library;Muxing 라이브러리
 List;목록
+Lyrics
 Lyricist;작사
 Mastered_Date;마스터 날짜
 MasteredBy;마스터
@@ -866,5 +869,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

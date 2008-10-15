@@ -241,6 +241,8 @@ Count;Sayım
 Country;Ülke
 Cover;Kapak
 Cover_Datas;Kapak verileri
+Cover_Mime
+Cover_Type
 Custom;Özel
 Customize;Özelleştir
 Date;Tarih
@@ -700,6 +702,7 @@ LawRating;Kanun oranı
 LCCN;LCCN
 Library;Muxing kütüphanesi
 List;Liste
+Lyrics
 Lyricist;Söz yazarı
 Mastered_Date;Sahip olma tarihi
 MasteredBy;Sahibi
@@ -866,5 +869,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96

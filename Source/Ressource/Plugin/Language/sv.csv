@@ -241,6 +241,8 @@ Count; Antal
 Country; Land
 Cover; Omslag
 Cover_Datas; Omslagsinformation
+Cover_Mime
+Cover_Type
 Custom; Anpassad
 Customize; Anpassa
 Date; Datum
@@ -700,6 +702,7 @@ LawRating; Åldersgräns
 LCCN; LCCN
 Library; Muxningsbibliotek
 List
+Lyrics
 Lyricist; Texter från
 Mastered_Date; Masterdatum
 MasteredBy; Mastrad av

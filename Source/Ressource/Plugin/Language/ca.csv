@@ -241,6 +241,8 @@ Count;Còmput
 Country;País
 Cover;Portada
 Cover_Datas;Informació de la portada
+Cover_Mime
+Cover_Type
 Custom;Personal
 Customize;Personalitzar
 Date;Data
@@ -700,6 +702,7 @@ LawRating;Classificació
 LCCN;LCCN
 Library;Llibreria
 List
+Lyrics
 Lyricist;transcrptor del text
 Mastered_Date;Data de masterització
 MasteredBy;Masteritzat per

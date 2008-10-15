@@ -241,6 +241,8 @@ Count;Anzahl
 Country;Land 
 Cover;Cover
 Cover_Datas;Cover-Daten
+Cover_Mime
+Cover_Type
 Custom;Benutzerdefiniert
 Customize;Anpassen
 Date;Datum
@@ -700,6 +702,7 @@ LawRating;Altersfreigabe
 LCCN;LCCN 
 Library;Muxing-Bibliothek
 List;Liste
+Lyrics
 Lyricist;Liedtexter
 Mastered_Date;Mastering-Datum
 MasteredBy;Gemastert von 

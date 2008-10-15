@@ -241,6 +241,8 @@ Count;Кількість
 Country;Країна
 Cover;Обкладинка
 Cover_Datas;Дані обкладинки
+Cover_Mime
+Cover_Type
 Custom;Вибірково
 Customize;Формат виведення
 Date;Дата
@@ -700,6 +702,7 @@ LawRating;Легальний статус
 LCCN;LCCN
 Library;Бібліотека
 List
+Lyrics
 Lyricist;Лірика
 Mastered_Date;Дата мастерингу
 MasteredBy;Мастеринг

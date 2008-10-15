@@ -241,6 +241,8 @@ Count;Számláló
 Country;Ország
 Cover;Borító
 Cover_Datas;Borító adatai
+Cover_Mime
+Cover_Type
 Custom;Egyedi
 Customize;Testreszabás
 Date;Dátum
@@ -700,6 +702,7 @@ LawRating;Korhatár
 LCCN;LCCN
 Library;Keverőkönyvtár
 List
+Lyrics
 Lyricist;Szövegíró
 Mastered_Date;Mesterpéldány kelte
 MasteredBy;Mesterpéldány

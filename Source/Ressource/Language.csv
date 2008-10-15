@@ -241,6 +241,8 @@ Count;Count;Nombre;Anzahl;Számláló;Contatore;Кол-во;Conteo;Cantidade;Tel
 Country;Country;Pays;Land ;Ország;Stato;Страна;País;País;Land;Kraj;Tara; Land;Ülke;國家;国家(地区);国;Country;Χώρα;국가;País;País;Šalis;País;ประเทศ;Країна;國家(地區);کشور;Vendi
 Cover;Cover;Couverture;Cover;Borító;Copertina;Обложка;Tapa;Carátula;Hoes;Okładka;Coperta; Omslag;Kapak;封面;封面;カバー;Obal;Cover;표지;Capa;Portada;Viršelis;Capa;Cover;Обкладинка;封面;جلد;Cover
 Cover_Datas;Cover datas;Couverture;Cover-Daten;Borító adatai;Dati copertina;Обложка (данные);Datos de la Tapa;Datos carátula;Covergegevens;Dane okładki;Date de pe coperta; Omslagsinformation;Kapak verileri;封面資料;封面数据;カバーデータ;Cover datas;Cover datas;표지 정보;Dados da capa;Informació de la portada;Viršelio duomenys;Dados da capa;Cover datas;Дані обкладинки;封面日期;تاریخ جلد;Cover datas
+Cover_Mime;Cover MIME;Couverture, MIME;;;;;;;;;;;;;;;;;;;;;;;;;;
+Cover_Type;Cover type;Couverture, origine;;;;;;;;;;;;;;;;;;;;;;;;;;
 Custom;Custom;Partie personnalisée;Benutzerdefiniert;Egyedi;Personalizzato;Выборочно;Personalizado;Personalizado;Aangepast;Własne;Particularizat; Anpassad;Özel;自訂;自定义;カスタム;Vlastní;Προσαρμοσμένη;커스텀;Personalizado;Personal;Išplėstinis;Personalizado;กำหนดเอง;Вибірково;自定義;بر حسب عادت;Me porosi
 Customize;Customize;Personnaliser;Anpassen;Testreszabás;Personalizza;Формат вывода;Personalizar;Personalizar;Aanpassen;Dostosowanie;Particularizare; Anpassa;Özelleştir;自訂;自定义;カスタマイズ;Přizpůsobit;Προσαρμόστε;커스터마이즈;Personalizar;Personalitzar;Pritaikyti;Personalizar;กำหนดเอง;Формат виведення;自定義;دلبخواه کردن;Porosite
 Date;Date;Date;Datum;Dátum;Data;Дата;Fecha;Data;Datum;Data;Data; Datum;Tarih;日期;日期;日付;Datum;Ημερομηνία;날짜;Data;Data;Data;Data;วันที่;Дата;日期;تاریخ;Data
@@ -633,7 +635,7 @@ Language_no;Norwegian Nynorsk;Norvégien Nynorsk;Norwegisch;norvég;Norvegese;No
 Language_nr;Ndebele;Ndébélé du Sud;Süd-Ndebele; ;Ndebele, South;Ndebele;;Ndebele;Ndebele;;; Ndebele;Ndebele;南恩德貝勒語;;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;;Ndebele
 Language_nv;Navaho;Navaho;Navajo;navaho;Navajo;Navaho;;Navaho;Navaho;;; Navaho;Navaho;納瓦霍語;;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;;Navaho
 Language_ny;Nyanja;Nyanja;Chichewa; ;Chichewa;Nyanja;;Nyanja;Nyanja;;; Nyanja;Nyanja;尼揚賈語;;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;;Nyanja
-Language_oc;Occitan;Occitan;Okzitanisch;okcitán;Occitano;Occitan;Occitano;Occitan;Occitaans;;; Occitan;Occitan;奧克西坦語;;Occitan;Occitan;Occitan;Occitan;Occitano;Occitan;Occitan;Occitano;ออกซิตัน	;Occitan;Occitan;;Occitan
+Language_oc;Occitan;Occitan;Okzitanisch;okcitán;Occitano;Occitan;Occitano;Occitan;Occitaans;;; Occitan;Occitan;奧克西坦語;;Occitan;Occitan;Occitan;Occitan;Occitano;Occitan;Occitan;Occitano;"ออกซิตัน	";Occitan;Occitan;;Occitan
 Language_oj;Ojibwa;Ojibwa;Ojibwa; ;Ojibwa;Ojibwa;;Ojibwa;Ojibwa;;; Ojibwa;Ojibwa;奧吉布瓦語;;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;;Ojibwa
 Language_om;Oromo;Galla;Oromo; ;Oromo;Oromo;Oromo;Oromo;Oromo;;; Oromo;Oromo;澳洛莫語;;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;;Oromo
 Language_or;Oriya;Oriya;Orija; ;Oriya;Oriya;Oriya;Oriya;Oriya;;; Oriya;Oriya;奧里雅語;;Oriya;Oriya;Oriya;Oriya;Oriya;Oriya;Oriya;Oriya;โอริยา;Oriya;Oriya;;Oriya
@@ -700,6 +702,7 @@ LawRating;Law rating;Classé;Altersfreigabe ;Korhatár;Law Rating;Огранич
 LCCN;LCCN;LCCN;LCCN ;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;; LCCN;LCCN;LCCN;;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;;LCCN
 Library;Muxing library;Bibliotheque utilisée;Muxing-Bibliothek;Keverőkönyvtár;Libreria;Библиотека;Librería Musical;Bibliografía;Muxing library;Bibloteka multipleksu;Biblioteca muxing; Muxningsbibliotek;Muxing kütüphanesi;合成函式庫;;ライブラリ;Muxing library;Muxing library;Muxing 라이브러리;Biblioteca multiplex;Llibreria;Muxing biblioteka;Biblioteca de multiplexão;Muxing library;Бібліотека;Muxing library;;Muxing library
 List;List;Liste;Liste;;Lista;Список;Lista;;;;;;Liste;清單;列表;リスト;;;목록;;;Sąrašas;Lista;รายการ;;列表;لیست;Lista
+Lyrics;Lyrics;Paroles;;;;;;;;;;;;;;;;;;;;;;;;;;
 Lyricist;Lyricist;Parolier;Liedtexter;Szövegíró;Testo;Либретто;Autor de Letra;Letrista;Tekstschrijver;Słowa;Textier; Texter från;Söz yazarı;作詞者;作词;作詞;Lyricist;Lyricist;작사;Liricísta;transcrptor del text;Lyrikas;Compositor;Lyricist;Лірика;作詞;لایریکس;Shkrimtari
 Mastered_Date;Mastered date;Date de création;Mastering-Datum;Mesterpéldány kelte;Data di incisione ;Дата мастеринга;Fecha de edición;Data de edición;Datum van master;Data nagrania;Data realizarii; Masterdatum;Sahip olma tarihi;後製日期;母带完成日期;マスタリング日;Mastered date;Mastered date;마스터 날짜;Data de criação;Data de masterització;Sukūrimo data;Data de criação;Mastered date;Дата мастерингу;複製日期;تاریخ کارفرمایی;Datë e masterizimit
 MasteredBy;Mastered by;Créé par;Gemastert von ;Mesterpéldány;Inciso da;Мастеринг от;Editado por;Editado por;Gemastered door;Nagrane przez;Realizat de; Mastrad av;Sahibi;後製者;母带制做;マスタリング by ;Mastered by;Mastered by;마스터;Criado por;Masteritzat per;Sukūrė;Criado por;Mastered by;Мастеринг;複製人;کارفرما;Masterizuar nga

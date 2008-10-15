@@ -241,6 +241,8 @@ Count;Count
 Country;ประเทศ
 Cover;Cover
 Cover_Datas;Cover datas
+Cover_Mime
+Cover_Type
 Custom;กำหนดเอง
 Customize;กำหนดเอง
 Date;วันที่
@@ -700,6 +702,7 @@ LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
 List;รายการ
+Lyrics
 Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by

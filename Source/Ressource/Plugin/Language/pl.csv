@@ -241,6 +241,8 @@ Count;Liczba
 Country;Kraj
 Cover;Okładka
 Cover_Datas;Dane okładki
+Cover_Mime
+Cover_Type
 Custom;Własne
 Customize;Dostosowanie
 Date;Data
@@ -700,6 +702,7 @@ LawRating
 LCCN;LCCN
 Library;Bibloteka multipleksu
 List
+Lyrics
 Lyricist;Słowa
 Mastered_Date;Data nagrania
 MasteredBy;Nagrane przez

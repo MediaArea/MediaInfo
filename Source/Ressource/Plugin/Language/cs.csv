@@ -241,6 +241,8 @@ Count;Count
 Country;Country
 Cover;Obal
 Cover_Datas;Cover datas
+Cover_Mime
+Cover_Type
 Custom;Vlastní
 Customize;Přizpůsobit
 Date;Datum
@@ -700,6 +702,7 @@ LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
 List
+Lyrics
 Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
