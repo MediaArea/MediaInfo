@@ -733,6 +733,7 @@ Nationality;ملیت
 New;جدید
 Newest version;کنترل برای نسخه جدید برنامه
 No;خیر
+Not yet
 NumColors
 OK;موافق
 One output file per input file;یک فایل خروجی برطبق فایل ورودی
@@ -880,4 +881,4 @@ WrittenBy;نوشته شده توسط
 Yes;بله
 Your system;سیستم شما
 ZZ_Automatic_Percent;46
-ZZ_AutomaticLanguage_Percent;84
+ZZ_AutomaticLanguage_Percent;83

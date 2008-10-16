@@ -733,6 +733,7 @@ Nationality;Nationaliteit
 New;Nieuw
 Newest version;Controleer op nieuwste versies (vereist Internetverbinding)
 No;Nee
+Not yet
 NumColors
 OK;OK
 One output file per input file;Eén exportbestand per invoerbestand
@@ -879,5 +880,5 @@ Written_Location;Locatie van schrijven
 WrittenBy;Geschreven door
 Yes;Ja
 Your system;Uw systeem
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;85
+ZZ_Automatic_Percent;84
+ZZ_AutomaticLanguage_Percent;84
