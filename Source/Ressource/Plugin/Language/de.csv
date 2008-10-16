@@ -244,7 +244,7 @@ Cover;Cover
 Cover_Datas;Cover-Daten
 Cover_Mime;Cover-MIME
 Cover_Type;Cover-Typ
-Cropped; Schnitt-Dimensionen
+Cropped;Schnitt-Dimensionen
 Custom;Benutzerdefiniert
 Customize;Anpassen
 Date;Datum
@@ -296,7 +296,7 @@ Folder (Recursively);Verzeichnis (rekursiv)
 Folder_Hint;Verzeichnis zum Betrachten auswählen
 FolderName;Verzeichnisname
 Format;Format
-Format_Description; Format-Beschreibung
+Format_Description;Format-Beschreibung
 Format_Info;Format-Details
 Format_Profile;Format-Profile
 Format_Settings;Format-Einstellungen
@@ -318,7 +318,7 @@ Format_Settings_ITU;Format-Einstellungen, ITU
 Format_Settings_SBR;Formateinstellungen, SBR
 Format_Settings_PS;Format-Einstellungen, PS
 Format_Settings_Pulldown;Format-Einstellungen, Pulldown
-Format_Version; Format-Version
+Format_Version;Format-Version
 Format_Url;Web-Link zum Format
 FrameCount;Anzahl der Frames
 FrameRate;Bildwiederholungsrate
@@ -747,7 +747,7 @@ Other;Andere
 Output;Ausgabe
 Output format;Ausgabeformat
 OverallBitRate;Gesamte Bitrate
-OverallBitRate_Maximum; Maximum der Gesamtbitrate
+OverallBitRate_Maximum;Maximum der Gesamtbitrate
 OverallBitRate_Minimum;Minimum der Gesamtbitrate
 OverallBitRate_Mode;Modus der Gesamtbitrate
 OverallBitRate_Nominal;nominale Gesamtbitrate
