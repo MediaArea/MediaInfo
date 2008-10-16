@@ -154,7 +154,7 @@ Advanced mode;Erweiterter Modus
 Album;Album
 Album_ReplayGain_Gain;Album replay gain
 Album_ReplayGain_Peak;Album replay gain peak
-Alignment
+Alignment;Ausrichtung
 Alignment_Aligned;Ausgerichtet an Interleaves
 Alignment_Split;Aufteilung über Interleaves
 All;Alle
@@ -242,9 +242,9 @@ Count;Anzahl
 Country;Land 
 Cover;Cover
 Cover_Datas;Cover-Daten
-Cover_Mime
-Cover_Type
-Cropped
+Cover_Mime;Cover-MIME
+Cover_Type;Cover-Typ
+Cropped; Schnitt-Dimensionen
 Custom;Benutzerdefiniert
 Customize;Anpassen
 Date;Datum
@@ -254,13 +254,13 @@ Delay;Verzögerung
 Delete;Löschen
 Description;Beschreibung 
 Digitized_Date;Digitalisierungs-Datum
-Dimensions
+Dimensions;Dimensionen
 Director;Regisseur 
 DirectorOfPhotography;Chefkameramann 
 DisplayAspectRatio;Bildseitenverhältnis
 DistributedBy;Vertrieb durch 
 Donate;MediaInfo unterstützen
-DotsPerInch
+DotsPerInch;DPI
 Duration;Dauer
 Edit;Bearbeiten
 EditedBy;Bearbeitet von 
@@ -495,7 +495,7 @@ Image;Bild
 Image stream(s);Bild-Stream(s)
 Image_Codec_List;Bild-Codecs
 ImageCount;Anzahl der Bild-Streams
-Info
+Info;Info
 Instruments;Instrumente 
 Interlacement;Interlace
 Interlaced_Interlaced;Interlaced
@@ -705,9 +705,9 @@ Language_zu;Zulu
 LawRating;Altersfreigabe 
 LCCN;LCCN 
 Library;Muxing-Bibliothek
-Ligthness
+Ligthness;Helligkeit
 List;Liste
-Lyrics
+Lyrics;Liedtext
 Lyricist;Liedtexter
 Mastered_Date;Mastering-Datum
 MasteredBy;Gemastert von 
@@ -725,7 +725,7 @@ More;Mehr
 Movie;Filmname
 ms;ms
 MSDI;MSDI 
-MusicBy
+MusicBy;Musik von
 MuxingMode;Muxing-Modus
 MuxingMode_PackedBitstream;Packed bitstream
 Name;Name
@@ -733,15 +733,15 @@ Nationality;Nationalität
 New;Neu
 Newest version;Auf neuere Version überprüfen (benötigt Internet-Verbindung)
 No;Nein
-NumColors
+NumColors;Farbanzahl
 OK;OK
 One output file per input file;Je eine eigene Ausgabedatei pro Eingabedatei
 Open;Öffnen
 Options;Optionen
 Options_Hint;Voreinstellungen
-Original;Original 
-OriginalSourceForm
-OriginalSourceMedium
+Original;Original
+OriginalSourceForm;Originale Source-Form
+OriginalSourceMedium;Originales Source-Medium
 Other;Andere
 Output;Ausgabe
 Output format;Ausgabeformat
@@ -797,7 +797,7 @@ ServiceType;Service-Typ
 Set;Mediensatz
 Set_Count;Nummer im Mediensatz
 Setup;Setup
-Sharpness
+Sharpness;Schärfe
 Sheet;Tabelle
 Sheet (Complete);Tabelle (komplett)
 Shell extension;Shell-Erweiterung (bei Rechtsklick im Explorer erscheint ein Media Info Eintrag...)
@@ -879,5 +879,5 @@ Written_Location;Ort des Schreibbeginns
 WrittenBy;Geschrieben von
 Yes;Ja
 Your system;Deine Systeminformationen
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
