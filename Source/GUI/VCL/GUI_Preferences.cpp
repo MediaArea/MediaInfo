@@ -515,7 +515,7 @@ void __fastcall TPreferencesF::GUI_Configure()
     Sheet_Delete->Caption=Prefs->Translate(_T("Delete")).c_str();
     Sheet_New->Caption=(Prefs->Translate(_T("New"))+_T("...")).c_str();
     //-Tree
-    Tree_NotYet->Caption=(Prefs->Translate(_T("Not Yet"))+_T("...")).c_str();
+    Tree_NotYet->Caption=(Prefs->Translate(_T("Not yet"))+_T("...")).c_str();
     //-Custom
     Custom_Caption->Caption=Prefs->Translate(_T("Choose custom text")).c_str();
     Custom_Edit->Caption=(Prefs->Translate(_T("Edit"))+_T("...")).c_str();

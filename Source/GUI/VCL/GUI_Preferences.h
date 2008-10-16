@@ -42,7 +42,7 @@ __published:    // IDE-managed Components
     TTntButton *OK;
     TTntTreeView *Tree;
     TTntButton *Cancel;
-    TTntPageControl *Tree_NotYet;
+    TTntPageControl *Page;
     TTntTabSheet *Setup;
     TTntLabel *Langue_C;
     TTntLabel *Output_C;
@@ -67,7 +67,7 @@ __published:    // IDE-managed Components
     TTntButton *Sheet_Edit;
     TTntButton *Sheet_New;
     TTntTabSheet *Customize_TreeText;
-    TTntLabel *Label13;
+    TTntLabel *Tree_NotYet;
     TTntTabSheet *Customize_Custom;
     TTntLabel *Custom_Caption;
     TTntButton *Custom_New;

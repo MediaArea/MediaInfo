@@ -72,7 +72,7 @@ object PreferencesF: TPreferencesF
     ModalResult = 2
     TabOrder = 2
   end
-  object Tree_NotYet: TTntPageControl
+  object Page: TTntPageControl
     Left = 149
     Top = 0
     Width = 517
@@ -311,7 +311,7 @@ object PreferencesF: TPreferencesF
     object Customize_TreeText: TTntTabSheet
       Caption = 'Tree && Text'
       ImageIndex = 6
-      object Label13: TTntLabel
+      object Tree_NotYet: TTntLabel
         Left = 362
         Top = 78
         Width = 43
