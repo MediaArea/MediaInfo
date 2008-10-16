@@ -131,6 +131,7 @@ public :
     const Ztring   &Library_Get (infolibrary_format_t Format, const Ztring &Value, infolibrary_t KindOfLibraryInfo=InfoLibrary_Version);
 
     const Ztring   &Iso639_Get (const Ztring &Value);
+    const Ztring    Iso639_Find (const Ztring &Value);
 
     const Ztring   &Info_Get (stream_t KindOfStream, const Ztring &Value, info_t KindOfInfo=Info_Text);
     const Ztring   &Info_Get (stream_t KindOfStream, size_t Pos, info_t KindOfInfo=Info_Text);

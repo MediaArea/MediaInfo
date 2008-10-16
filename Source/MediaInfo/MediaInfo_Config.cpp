@@ -1077,6 +1077,23 @@ const Ztring &MediaInfo_Config::Iso639_Get (const Ztring &Value)
 }
 
 //---------------------------------------------------------------------------
+const Ztring MediaInfo_Config::Iso639_Find (const Ztring &Value)
+{
+    Translation Info;
+    File__Base_DefaultLanguage (Info);
+    Ztring Value_Lower(Value);
+    transform(Value_Lower.begin(), Value_Lower.end(), Value_Lower.begin(), (int(*)(int))tolower); //(int(*)(int)) is a patch for unix
+
+    for (Translation::iterator Trans=Info.begin(); Trans!=Info.end(); Trans++)
+    {
+        transform(Trans->second.begin(), Trans->second.end(), Trans->second.begin(), (int(*)(int))tolower); //(int(*)(int)) is a patch for unix
+        if (Trans->second==Value_Lower && Trans->first.find(_T("Language_"))==0)
+            return Trans->first.substr(9, string::npos);
+    }
+    return Ztring();
+}
+
+//---------------------------------------------------------------------------
 const Ztring &MediaInfo_Config::Info_Get (stream_t KindOfStream, const Ztring &Value, info_t KindOfInfo)
 {
     //Loading codec table if not yet done

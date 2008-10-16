@@ -217,6 +217,11 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
             {
                 if (Language.size()==3 && !MediaInfoLib::Config.Iso639_Get(Language).empty())
                     Language=MediaInfoLib::Config.Iso639_Get(Language);
+                if (Language.size()>3 && !MediaInfoLib::Config.Iso639_Find(Language).empty())
+                {
+                    Language=MediaInfoLib::Config.Iso639_Find(Language);
+                    Fill(StreamKind, Pos, "Language", Language, true); //Forcing ISO-639
+                }
                 //Translate
                 if (Language.size()==2)
                 {
@@ -225,7 +230,7 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
                     Fill(StreamKind, Pos, "Language/String", Z3.find(_T("Language_"))==0?Language:Z3);
                 }
                 else
-                    Fill(StreamKind, Pos, "Language/String", Language);
+                    Fill(StreamKind, Pos, "Language/String", Retrieve(StreamKind, Pos, "Language"));
             }
         }
         
