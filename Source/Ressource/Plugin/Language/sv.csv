@@ -154,6 +154,7 @@ Advanced mode; Avancerat läge
 Album; Album
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned
 Alignment_Split
 All; Alla
@@ -243,6 +244,7 @@ Cover; Omslag
 Cover_Datas; Omslagsinformation
 Cover_Mime
 Cover_Type
+Cropped
 Custom; Anpassad
 Customize; Anpassa
 Date; Datum
@@ -252,11 +254,13 @@ Delay; Fördröjning
 Delete; Radera
 Description; Beskrivning
 Digitized_Date; Digitaliserat datum
+Dimensions
 Director; Regissör
 DirectorOfPhotography; Chefkameraman
 DisplayAspectRatio; Bildförhållande
 DistributedBy; Distribuerad av
 Donate; Donera
+DotsPerInch
 Duration
 Edit; Redigera
 EditedBy; Redigerad av
@@ -701,6 +705,7 @@ Language_zu; Zulu
 LawRating; Åldersgräns
 LCCN; LCCN
 Library; Muxningsbibliotek
+Ligthness
 List
 Lyrics
 Lyricist; Texter från
@@ -720,6 +725,7 @@ More; Mer
 Movie; filmnamn
 ms; ms
 MSDI; MSDI
+MusicBy
 MuxingMode
 MuxingMode_PackedBitstream
 Name; Namn
@@ -727,12 +733,15 @@ Nationality; Nationalitet
 New; Ny
 Newest version; Sök efter nyare version (kräver Internetanslutning)
 No; Nej
+NumColors
 OK; OK
 One output file per input file; En utdatafil per indatafil
 Open; Öppna
 Options; Alternativ
 Options_Hint; Inställningar
 Original; Original
+OriginalSourceForm
+OriginalSourceMedium
 Other; Övrigt
 Output; Utdata
 Output format; Utdataformat
@@ -788,6 +797,7 @@ ServiceType
 Set; Set
 Set_Count; Antal set
 Setup; Ställ in
+Sharpness
 Sheet; Tabell
 Sheet (Complete); Tabell (Komplett)
 Shell extension; Shell extension (högerklicka i explorer så kommer ett Media Info alternativ...)
@@ -869,5 +879,5 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;85
+ZZ_Automatic_Percent;84
+ZZ_AutomaticLanguage_Percent;84

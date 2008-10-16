@@ -154,6 +154,7 @@ Advanced mode;Išplėstinis režimas
 Album;Albumas
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned
 Alignment_Split
 All;Visi
@@ -243,6 +244,7 @@ Cover;Viršelis
 Cover_Datas;Viršelio duomenys
 Cover_Mime
 Cover_Type
+Cropped
 Custom;Išplėstinis
 Customize;Pritaikyti
 Date;Data
@@ -252,11 +254,13 @@ Delay;Atidėti
 Delete;Pašalinti
 Description;Aprašymas
 Digitized_Date;Skaitmeninė data
+Dimensions
 Director;Direktorius
 DirectorOfPhotography;Fotografijos direktorius
 DisplayAspectRatio;Rodyti aspekto santykį
 DistributedBy;Platintojas
 Donate;Aukoti
+DotsPerInch
 Duration;Trukmė
 Edit;Redaguoti
 EditedBy;Redagavo
@@ -701,6 +705,7 @@ Language_zu;Zulu
 LawRating;Law reitingas
 LCCN;LCCN
 Library;Muxing biblioteka
+Ligthness
 List;Sąrašas
 Lyrics
 Lyricist;Lyrikas
@@ -720,6 +725,7 @@ More;Daugiau
 Movie;Filmo pavadinimas
 ms;ms
 MSDI;MSDI
+MusicBy
 MuxingMode;Muxing rėžimas
 MuxingMode_PackedBitstream
 Name;Pavadinimas
@@ -727,12 +733,15 @@ Nationality;Tautybė
 New;Naujas
 Newest version;Tikrinti naujausių versijų (reikalinga interneto jungtis)
 No;Ne
+NumColors
 OK;Gerai
 One output file per input file;Vienas įšėjimo failas per įėjimo failą
 Open;Atverti
 Options;Pasirinktys
 Options_Hint;Nuostatos
 Original;Originalas
+OriginalSourceForm
+OriginalSourceMedium
 Other;Kita
 Output;Išėjimas
 Output format;Išėjimo formatas
@@ -788,6 +797,7 @@ ServiceType
 Set;Nustatyti
 Set_Count;Nustatyti kiekį
 Setup;Sąranka
+Sharpness
 Sheet;Lapas
 Sheet (Complete);Lapas (Pilnas)
 Shell extension;Apvalkalo plėtinys (explorer'yje dešinys paspaudimas ten kur bus Media Info pasirinktis)
@@ -869,5 +879,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;94
-ZZ_AutomaticLanguage_Percent;94
+ZZ_Automatic_Percent;93
+ZZ_AutomaticLanguage_Percent;93

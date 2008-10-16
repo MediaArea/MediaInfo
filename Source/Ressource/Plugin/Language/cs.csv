@@ -154,6 +154,7 @@ Advanced mode;Více detailů
 Album;Album
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned
 Alignment_Split
 All;Vše
@@ -243,6 +244,7 @@ Cover;Obal
 Cover_Datas;Cover datas
 Cover_Mime
 Cover_Type
+Cropped
 Custom;Vlastní
 Customize;Přizpůsobit
 Date;Datum
@@ -252,11 +254,13 @@ Delay;Delay
 Delete;Odstranit
 Description;Description
 Digitized_Date;Digitized date
+Dimensions
 Director;Director
 DirectorOfPhotography;Director of photography
 DisplayAspectRatio;Poměr stran
 DistributedBy;Distributed by
 Donate;Zaslat finanční dar
+DotsPerInch
 Duration
 Edit;Upravit
 EditedBy;Upravil
@@ -701,6 +705,7 @@ Language_zu;Zulu
 LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
+Ligthness
 List
 Lyrics
 Lyricist;Lyricist
@@ -720,6 +725,7 @@ More;Více
 Movie;Název filmu
 ms;ms
 MSDI;MSDI
+MusicBy
 MuxingMode
 MuxingMode_PackedBitstream
 Name;Název
@@ -727,12 +733,15 @@ Nationality;Nationality
 New;Nový
 Newest version;Při spuštění kontrolovat nové verze
 No;Ne
+NumColors
 OK;OK
 One output file per input file;One output file per input file
 Open;Otevřít
 Options;Nastavení
 Options_Hint;Předvolby
 Original;Originál
+OriginalSourceForm
+OriginalSourceMedium
 Other;Různé
 Output;Výstup
 Output format;Zobrazit jako
@@ -788,6 +797,7 @@ ServiceType
 Set;Nastavit
 Set_Count;Set count
 Setup;Hlavní
+Sharpness
 Sheet;List
 Sheet (Complete);List (Complete)
 Shell extension;Integrovat do kontextového menu Průzkumníka (pravé tlačítko myši)
@@ -869,5 +879,5 @@ Written_Location;Written location
 WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
-ZZ_Automatic_Percent;87
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;86
+ZZ_AutomaticLanguage_Percent;86

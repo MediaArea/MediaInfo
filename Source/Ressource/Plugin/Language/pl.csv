@@ -154,6 +154,7 @@ Advanced mode;Tryb zaawansowany
 Album;Album
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned
 Alignment_Split
 All;Wszystkie
@@ -243,6 +244,7 @@ Cover;Okładka
 Cover_Datas;Dane okładki
 Cover_Mime
 Cover_Type
+Cropped
 Custom;Własne
 Customize;Dostosowanie
 Date;Data
@@ -252,11 +254,13 @@ Delay;Opóźnienie
 Delete;Usuń
 Description;Opis
 Digitized_Date;Cyfowa data
+Dimensions
 Director;Reżyser
 DirectorOfPhotography;Zdjęcia
 DisplayAspectRatio;Proporcje
 DistributedBy;Rozpowszechniamie
 Donate;Darowizna
+DotsPerInch
 Duration
 Edit;Edytuj
 EditedBy;Edytowany przez
@@ -701,6 +705,7 @@ Language_zu
 LawRating
 LCCN;LCCN
 Library;Bibloteka multipleksu
+Ligthness
 List
 Lyrics
 Lyricist;Słowa
@@ -720,6 +725,7 @@ More;Więcej
 Movie;Nazwa filmu
 ms;ms
 MSDI;MSDI
+MusicBy
 MuxingMode
 MuxingMode_PackedBitstream
 Name;Nazwa
@@ -727,12 +733,15 @@ Nationality;Narodowość
 New;Nowy
 Newest version;Sprawdź czy są nowe wersje (wmagane jest połączenie z siecią)
 No;Nie
+NumColors
 OK;Ok
 One output file per input file;Jeden plik wyjściowy na wejściowy
 Open;Otwórz
 Options;Opcje
 Options_Hint;Preferencje
 Original;Oryginalny
+OriginalSourceForm
+OriginalSourceMedium
 Other;Inny
 Output;Wyjście
 Output format;Wyjściowy format
@@ -788,6 +797,7 @@ ServiceType
 Set;Zestaw
 Set_Count;Liczba zestawu
 Setup;Ustawienia
+Sharpness
 Sheet;Karta
 Sheet (Complete);Karta (komplet)
 Shell extension;Rozszerzenie powłoki (menu kontekstowe w eksploratorze)
@@ -869,5 +879,5 @@ Written_Location;Lokalizacja
 WrittenBy;Napisany przez
 Yes;Tak
 Your system;System
-ZZ_Automatic_Percent;46
-ZZ_AutomaticLanguage_Percent;83
+ZZ_Automatic_Percent;45
+ZZ_AutomaticLanguage_Percent;82

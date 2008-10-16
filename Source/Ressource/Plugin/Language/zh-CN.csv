@@ -154,6 +154,7 @@ Advanced mode;高级模式
 Album;专辑
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned
 Alignment_Split
 All;全部
@@ -243,6 +244,7 @@ Cover;封面
 Cover_Datas;封面数据
 Cover_Mime
 Cover_Type
+Cropped
 Custom;自定义
 Customize;自定义
 Date;日期
@@ -252,11 +254,13 @@ Delay;延迟
 Delete;删除
 Description;说明
 Digitized_Date;数字化日期
+Dimensions
 Director;导演
 DirectorOfPhotography;摄影导演
 DisplayAspectRatio;画面比例
 DistributedBy;发行
 Donate;赞助
+DotsPerInch
 Duration;长度
 Edit;编辑
 EditedBy;编辑
@@ -701,6 +705,7 @@ Language_zu
 LawRating
 LCCN
 Library
+Ligthness
 List;列表
 Lyrics
 Lyricist;作词
@@ -720,6 +725,7 @@ More;更多
 Movie;电影
 ms
 MSDI
+MusicBy
 MuxingMode;混合模式
 MuxingMode_PackedBitstream
 Name;名称
@@ -727,12 +733,15 @@ Nationality;国藉
 New;新建
 Newest version;检查新版本(需要网络连接)
 No;否
+NumColors
 OK;确定
 One output file per input file;一个输入文件对应一个输出文件
 Open;打开
 Options;选项
 Options_Hint;参数设定
 Original;源
+OriginalSourceForm
+OriginalSourceMedium
 Other;其它
 Output;输出
 Output format;输出格式
@@ -788,6 +797,7 @@ ServiceType
 Set;设置
 Set_Count;设置项目
 Setup;设置
+Sharpness
 Sheet;表格
 Sheet (Complete);表格(完整)
 Shell extension;[资源管理器]右键菜单 (为多媒体文件的右键菜单添加 MediaInfo 选项)
@@ -869,5 +879,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;49
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;48
+ZZ_AutomaticLanguage_Percent;86

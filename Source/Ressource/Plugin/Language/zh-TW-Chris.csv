@@ -154,6 +154,7 @@ Advanced mode;高級模式
 Album;唱片
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned
 Alignment_Split
 All;全部
@@ -243,6 +244,7 @@ Cover;封面
 Cover_Datas;封面日期
 Cover_Mime
 Cover_Type
+Cropped
 Custom;自定義
 Customize;自定義
 Date;日期
@@ -252,11 +254,13 @@ Delay;延遲
 Delete;刪除
 Description;說明
 Digitized_Date;數字化日期
+Dimensions
 Director;導演
 DirectorOfPhotography;攝影導演
 DisplayAspectRatio;畫面比例
 DistributedBy;發行
 Donate;贊助
+DotsPerInch
 Duration;持續的時間
 Edit;編輯
 EditedBy;編輯
@@ -701,6 +705,7 @@ Language_zu;Zulu
 LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
+Ligthness
 List;列表
 Lyrics
 Lyricist;作詞
@@ -720,6 +725,7 @@ More;更多
 Movie;電影
 ms;ms
 MSDI;MSDI
+MusicBy
 MuxingMode;混合模式
 MuxingMode_PackedBitstream
 Name;名稱
@@ -727,12 +733,15 @@ Nationality;國藉
 New;新建
 Newest version;檢查新版本(需要網絡連接)
 No;放棄
+NumColors
 OK;確定
 One output file per input file;一個輸入文件對應一個輸出文件
 Open;打開
 Options;選項
 Options_Hint;參數設定
 Original;初始
+OriginalSourceForm
+OriginalSourceMedium
 Other;其它
 Output;輸出
 Output format;輸出格式
@@ -788,6 +797,7 @@ ServiceType
 Set;設置
 Set_Count;設置項目
 Setup;設置
+Sharpness
 Sheet;表格
 Sheet (Complete);表格(完整)
 Shell extension;[資源管理器]右鍵菜單 (為多媒體文件的右鍵菜單添加 MediaInfo 選項)
@@ -869,5 +879,5 @@ Written_Location;寫入地點
 WrittenBy;作者
 Yes;確定
 Your system;您的系統
-ZZ_Automatic_Percent;94
-ZZ_AutomaticLanguage_Percent;94
+ZZ_Automatic_Percent;93
+ZZ_AutomaticLanguage_Percent;93

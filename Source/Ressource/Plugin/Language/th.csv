@@ -154,6 +154,7 @@ Advanced mode;โหมดขั้นสูง
 Album;อัลบั้ม
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned
 Alignment_Split
 All;ทั้งหมด
@@ -243,6 +244,7 @@ Cover;Cover
 Cover_Datas;Cover datas
 Cover_Mime
 Cover_Type
+Cropped
 Custom;กำหนดเอง
 Customize;กำหนดเอง
 Date;วันที่
@@ -252,11 +254,13 @@ Delay;Delay
 Delete;ลบ
 Description;รายละเอียด
 Digitized_Date;Digitized date
+Dimensions
 Director;ผู้กำกับการแสดง
 DirectorOfPhotography;ผู้กำกับการถ่ายภาพ
 DisplayAspectRatio;อัตราการแสดงผล
 DistributedBy;เผยแพร่โดย
 Donate;บริจาค
+DotsPerInch
 Duration;ระยะเวลา
 Edit;แก้ไข
 EditedBy;แก้ไขโดย
@@ -701,6 +705,7 @@ Language_zu;ซูลู
 LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
+Ligthness
 List;รายการ
 Lyrics
 Lyricist;Lyricist
@@ -720,6 +725,7 @@ More;เพิ่มเติม
 Movie;ชื่อภาพยนตร์
 ms;ms
 MSDI;MSDI
+MusicBy
 MuxingMode;โหมด Muxing
 MuxingMode_PackedBitstream
 Name;ชื่อ
@@ -727,12 +733,15 @@ Nationality;Nationality
 New;ใหม่
 Newest version;ตรวจสอบเวอร์ชันใหม่ล่าสุด (ต้องการการเชื่อมต่ออินเตอร์เน็ต)
 No;ไม่ใช่
+NumColors
 OK;ตกลง
 One output file per input file;หนึ่งไฟล์ผลลัพธ์ต่อไฟล์นำเข้า
 Open;เปิด
 Options;ตัวเลือก
 Options_Hint;การปรับแต่ง
 Original;ต้นฉบับ
+OriginalSourceForm
+OriginalSourceMedium
 Other;อื่นๆ
 Output;ผลลัพธ์
 Output format;รูปแบบผลลัพธ์
@@ -788,6 +797,7 @@ ServiceType
 Set;กำหนด
 Set_Count;Set count
 Setup;ติดตั้ง
+Sharpness
 Sheet;ชีต
 Sheet (Complete);Sheet (Complete)
 Shell extension;ลงทะเบียนชนิดไฟล์ (เมื่อคลิกขวาใน explorer จะแสดงตัวเลือกของ Media)
@@ -869,5 +879,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;94
-ZZ_AutomaticLanguage_Percent;94
+ZZ_Automatic_Percent;92
+ZZ_AutomaticLanguage_Percent;92

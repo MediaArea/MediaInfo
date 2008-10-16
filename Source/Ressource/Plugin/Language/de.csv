@@ -154,6 +154,7 @@ Advanced mode;Erweiterter Modus
 Album;Album
 Album_ReplayGain_Gain;Album replay gain
 Album_ReplayGain_Peak;Album replay gain peak
+Aligment
 Alignment_Aligned;Ausgerichtet an Interleaves
 Alignment_Split;Aufteilung über Interleaves
 All;Alle
@@ -243,6 +244,7 @@ Cover;Cover
 Cover_Datas;Cover-Daten
 Cover_Mime
 Cover_Type
+Cropped
 Custom;Benutzerdefiniert
 Customize;Anpassen
 Date;Datum
@@ -252,11 +254,13 @@ Delay;Verzögerung
 Delete;Löschen
 Description;Beschreibung 
 Digitized_Date;Digitalisierungs-Datum
+Dimensions
 Director;Regisseur 
 DirectorOfPhotography;Chefkameramann 
 DisplayAspectRatio;Bildseitenverhältnis
 DistributedBy;Vertrieb durch 
 Donate;MediaInfo unterstützen
+DotsPerInch
 Duration;Dauer
 Edit;Bearbeiten
 EditedBy;Bearbeitet von 
@@ -701,6 +705,7 @@ Language_zu;Zulu
 LawRating;Altersfreigabe 
 LCCN;LCCN 
 Library;Muxing-Bibliothek
+Ligthness
 List;Liste
 Lyrics
 Lyricist;Liedtexter
@@ -720,6 +725,7 @@ More;Mehr
 Movie;Filmname
 ms;ms
 MSDI;MSDI 
+MusicBy
 MuxingMode;Muxing-Modus
 MuxingMode_PackedBitstream;Packed bitstream
 Name;Name
@@ -727,12 +733,15 @@ Nationality;Nationalität
 New;Neu
 Newest version;Auf neuere Version überprüfen (benötigt Internet-Verbindung)
 No;Nein
+NumColors
 OK;OK
 One output file per input file;Je eine eigene Ausgabedatei pro Eingabedatei
 Open;Öffnen
 Options;Optionen
 Options_Hint;Voreinstellungen
 Original;Original 
+OriginalSourceForm
+OriginalSourceMedium
 Other;Andere
 Output;Ausgabe
 Output format;Ausgabeformat
@@ -741,7 +750,7 @@ OverallBitRate_Maximum; Maximum der Gesamtbitrate
 OverallBitRate_Minimum;Minimum der Gesamtbitrate
 OverallBitRate_Mode;Modus der Gesamtbitrate
 OverallBitRate_Nominal;nominale Gesamtbitrate
-Part;Teil 
+Part;Teil
 Part_Count;Gesamtanzahl
 Performer;Künstler
 Period;Zeitspanne
@@ -788,10 +797,11 @@ ServiceType;Service-Typ
 Set;Mediensatz
 Set_Count;Nummer im Mediensatz
 Setup;Setup
+Sharpness
 Sheet;Tabelle
 Sheet (Complete);Tabelle (komplett)
 Shell extension;Shell-Erweiterung (bei Rechtsklick im Explorer erscheint ein Media Info Eintrag...)
-Shell InfoTip;Shell InfoTip bewege den Mauszeiger im Explorer über eine Datei und Infos werden angezeigt)
+Shell InfoTip;Shell InfoTip (bewege den Mauszeiger im Explorer über eine Datei und Infos werden angezeigt)
 Show menu;Menü anzeigen
 Show toolbar;Toolbar anzeigen
 Sort;Sortiert nach 
@@ -869,5 +879,5 @@ Written_Location;Ort des Schreibbeginns
 WrittenBy;Geschrieben von
 Yes;Ja
 Your system;Deine Systeminformationen
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

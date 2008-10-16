@@ -154,6 +154,7 @@ Advanced mode;Bővített mód
 Album;Album
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned
 Alignment_Split
 All;Mind
@@ -243,6 +244,7 @@ Cover;Borító
 Cover_Datas;Borító adatai
 Cover_Mime
 Cover_Type
+Cropped
 Custom;Egyedi
 Customize;Testreszabás
 Date;Dátum
@@ -252,11 +254,13 @@ Delay;Késleltetés
 Delete;Törlés
 Description;Leírás
 Digitized_Date;Digitalizálás dátuma
+Dimensions
 Director;Rendező
 DirectorOfPhotography;Fényképezte
 DisplayAspectRatio;Képarány
 DistributedBy;Terjesztő
 Donate;Adomány
+DotsPerInch
 Duration
 Edit;Szerkesztés
 EditedBy;Szerkesztő
@@ -701,6 +705,7 @@ Language_zu;zulu
 LawRating;Korhatár
 LCCN;LCCN
 Library;Keverőkönyvtár
+Ligthness
 List
 Lyrics
 Lyricist;Szövegíró
@@ -720,6 +725,7 @@ More;Több
 Movie;Film
 ms;emp
 MSDI;MSDI
+MusicBy
 MuxingMode
 MuxingMode_PackedBitstream
 Name;Név
@@ -727,12 +733,15 @@ Nationality;Nemzetiség
 New;Új
 Newest version;Frissítés keresése (Internet kapcsolat szükséges)
 No;Nem
+NumColors
 OK;OK
 One output file per input file;Bemeneti fájlonként egy kimeneti fájl
 Open;Megnyit
 Options;Beállítások
 Options_Hint;Beállítások
 Original;Eredeti
+OriginalSourceForm
+OriginalSourceMedium
 Other;Egyéb
 Output;Kimenet
 Output format;Kimeneti formátum
@@ -788,6 +797,7 @@ ServiceType
 Set
 Set_Count
 Setup;Beállítások
+Sharpness
 Sheet;Táblázat
 Sheet (Complete);Táblázat (teljes)
 Shell extension;Rendszerhéj-kiterjesztés (az Intézőben a helyzetérzékeny menüben Media Info menüpont...)
@@ -869,5 +879,5 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;Igen
 Your system;Rendszer
-ZZ_Automatic_Percent;63
-ZZ_AutomaticLanguage_Percent;82
+ZZ_Automatic_Percent;62
+ZZ_AutomaticLanguage_Percent;81

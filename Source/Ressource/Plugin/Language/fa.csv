@@ -154,6 +154,7 @@ Advanced mode;مد پیشرفته
 Album;آلبوم
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned
 Alignment_Split
 All;همه
@@ -243,6 +244,7 @@ Cover;جلد
 Cover_Datas;تاریخ جلد
 Cover_Mime
 Cover_Type
+Cropped
 Custom;بر حسب عادت
 Customize;دلبخواه کردن
 Date;تاریخ
@@ -252,11 +254,13 @@ Delay;انتظار
 Delete;حذف
 Description;توضیحات
 Digitized_Date;تاریخ رقمی شده
+Dimensions
 Director;دایرکتور
 DirectorOfPhotography;دایرکتور عکاسی
 DisplayAspectRatio;نمایش نسبت نمود
 DistributedBy;توزیع شده توسط
 Donate;کمک نقدی کردن
+DotsPerInch
 Duration;مدت
 Edit;ویرایش
 EditedBy;ویرایش شده توسط
@@ -701,6 +705,7 @@ Language_zu
 LawRating
 LCCN
 Library
+Ligthness
 List;لیست
 Lyrics
 Lyricist;لایریکس
@@ -720,6 +725,7 @@ More;بیشتر
 Movie;نام فیلم
 ms
 MSDI
+MusicBy
 MuxingMode
 MuxingMode_PackedBitstream
 Name;نام
@@ -727,12 +733,15 @@ Nationality;ملیت
 New;جدید
 Newest version;کنترل برای نسخه جدید برنامه
 No;خیر
+NumColors
 OK;موافق
 One output file per input file;یک فایل خروجی برطبق فایل ورودی
 Open;باز کردن
 Options;خصوصیات
 Options_Hint;تنظیمات
 Original;اصلی
+OriginalSourceForm
+OriginalSourceMedium
 Other;دیگر
 Output;خروجی
 Output format;فرمت خروجی
@@ -788,6 +797,7 @@ ServiceType
 Set;تعیین
 Set_Count;تعیین تعداد
 Setup;ستاپ
+Sharpness
 Sheet;ورق
 Sheet (Complete);ورق (Complete)
 Shell extension

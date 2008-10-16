@@ -154,6 +154,7 @@ Advanced mode;Mode Avancé
 Album;Album
 Album_ReplayGain_Gain;Gain en lecture de l'album
 Album_ReplayGain_Peak;Crête de gain en lecture de l'album
+Aligment;Alignement
 Alignment_Aligned;Alignée sur les interleaves
 Alignment_Split;Eparpillé à travers les interleaves
 All;Tout
@@ -243,6 +244,7 @@ Cover;Couverture
 Cover_Datas;Couverture
 Cover_Mime;Couverture, MIME
 Cover_Type;Couverture, origine
+Cropped;Dimensions du retaillage
 Custom;Partie personnalisée
 Customize;Personnaliser
 Date;Date
@@ -252,11 +254,13 @@ Delay;Délai
 Delete;Supprimer
 Description;Description 
 Digitized_Date;Date de numérisation
+Dimensions;Dimensions
 Director;Directeur artistique
 DirectorOfPhotography;Responsable de la photographie
 DisplayAspectRatio;Format à l'écran
 DistributedBy;Dirstribué par
 Donate;Faire un don
+DotsPerInch;Point par pouce
 Duration;Durée
 Edit;Modifier
 EditedBy;Édité par
@@ -701,6 +705,7 @@ Language_zu;Zoulou
 LawRating;Classé
 LCCN;LCCN
 Library;Bibliotheque utilisée
+Ligthness;Luminosité
 List;Liste
 Lyrics;Paroles
 Lyricist;Parolier
@@ -717,9 +722,10 @@ MenuID;ID de menu
 mn;mn
 Mood;Humeur
 More;Plus
-Movie;Film
+Movie;Nom du film
 ms;ms
 MSDI;MSDI
+MusicBy;Musique par
 MuxingMode;Type de muxing
 MuxingMode_PackedBitstream;Packed bitstream
 Name;Nom
@@ -727,12 +733,15 @@ Nationality;Nationalité
 New;Nouveau
 Newest version;Vérifier s'il y a une nouvelle version
 No;Non
+NumColors;Nombre de couleurs
 OK;OK
 One output file per input file;Erreur de lecture du fichier
 Open;Ouvrir
 Options;Options
 Options_Hint;Préférences
 Original;Original
+OriginalSourceForm;Format d'origine
+OriginalSourceMedium;Support d'origine
 Other;Autre
 Output;Sortie
 Output format;Format de sortie
@@ -788,6 +797,7 @@ ServiceType;Type de service
 Set;Ensemble
 Set_Count;Nombre d'ensemble
 Setup;Configuration
+Sharpness;Netteté
 Sheet;Tableau
 Sheet (Complete);Tableau (Complet)
 Shell extension;Extension Shell (clic droit sur le fichier, il y aura un menu 'Media Info')
@@ -862,7 +872,7 @@ WebSite_Url;http://mediainfo.sourceforge.net/
 WebSite_Video;Aller sur le site web du codec vidéo
 WebSite_Video_More;Aller sur le site web (%Url%) du codec vidéo
 Width;Largeur
-WriteMe;M'écrire
+WriteMe;écrire  l'auteur
 WriteToTranslator;Ecrire au traducteur
 Written_Date;Date d'écriture
 Written_Location;Lieu d'écriture

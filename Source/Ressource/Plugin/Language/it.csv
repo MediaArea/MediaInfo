@@ -154,6 +154,7 @@ Advanced mode;Modalità avanzata
 Album;Album
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned;Audio allineato 
 Alignment_Split;Audio splittato
 All;Tutti
@@ -243,6 +244,7 @@ Cover;Copertina
 Cover_Datas;Dati copertina
 Cover_Mime
 Cover_Type
+Cropped
 Custom;Personalizzato
 Customize;Personalizza
 Date;Data
@@ -252,11 +254,13 @@ Delay;Ritardo
 Delete;Elimina
 Description;Decrizione
 Digitized_Date;Data di digitalizzazione
+Dimensions
 Director;Regista
 DirectorOfPhotography;Direttore della fotografia
 DisplayAspectRatio;AspectRatio
 DistributedBy;Distribuito da
 Donate;Dona
+DotsPerInch
 Duration;Durata
 Edit;Modifica
 EditedBy;Modificato da
@@ -701,6 +705,7 @@ Language_zu;Zulu
 LawRating;Law Rating
 LCCN;LCCN
 Library;Libreria
+Ligthness
 List;Lista
 Lyrics
 Lyricist;Testo
@@ -720,6 +725,7 @@ More;Altro
 Movie;Film
 ms;ms
 MSDI;MSDI
+MusicBy
 MuxingMode;Modalità di muxing
 MuxingMode_PackedBitstream
 Name;Nome
@@ -727,12 +733,15 @@ Nationality;Nazionalità
 New;Nuovo
 Newest version;Cerca l'ultima versione, richiede una connessione internet
 No;No
+NumColors
 OK;Ok
 One output file per input file;Un file di output per ogni file di input
 Open;Apri
 Options;Opzioni
 Options_Hint;Preferenze
 Original;Originale
+OriginalSourceForm
+OriginalSourceMedium
 Other;Altri
 Output;Output
 Output format;Formato di output
@@ -788,6 +797,7 @@ ServiceType
 Set;Imposta
 Set_Count;Imposta contatore
 Setup;Installazione
+Sharpness
 Sheet;Scheda
 Sheet (Complete);Scheda (completa)
 Shell extension;Aggiungi  'Apri con Media Info' la menù contestuale
@@ -869,5 +879,5 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si 
 Your system;Il tuo sistema
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96

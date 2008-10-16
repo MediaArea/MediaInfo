@@ -154,6 +154,7 @@ Advanced mode;Geavanceerde modus
 Album;Album
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned
 Alignment_Split
 All;Alles
@@ -243,6 +244,7 @@ Cover;Hoes
 Cover_Datas;Covergegevens
 Cover_Mime
 Cover_Type
+Cropped
 Custom;Aangepast
 Customize;Aanpassen
 Date;Datum
@@ -252,11 +254,13 @@ Delay;Vertraging
 Delete;Verwijderen
 Description;Beschrijving
 Digitized_Date;Digitaliseringsdatum
+Dimensions
 Director;Regisseur
 DirectorOfPhotography;Cinematograaf
 DisplayAspectRatio;Beeldverhouding
 DistributedBy;Gedistribueerd door
 Donate;Doneren
+DotsPerInch
 Duration
 Edit;Bewerken
 EditedBy;Bewerkt door
@@ -701,6 +705,7 @@ Language_zu;Zoeloe
 LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
+Ligthness
 List
 Lyrics
 Lyricist;Tekstschrijver
@@ -720,6 +725,7 @@ More;Meer
 Movie;Naam van film
 ms;ms
 MSDI;MSDI
+MusicBy
 MuxingMode
 MuxingMode_PackedBitstream
 Name;Naam
@@ -727,12 +733,15 @@ Nationality;Nationaliteit
 New;Nieuw
 Newest version;Controleer op nieuwste versies (vereist Internetverbinding)
 No;Nee
+NumColors
 OK;OK
 One output file per input file;Eén exportbestand per invoerbestand
 Open;Openen
 Options;Opties
 Options_Hint;Voorkeuren
 Original;Origineel
+OriginalSourceForm
+OriginalSourceMedium
 Other;Ander
 Output;Uitvoer
 Output format;Uitvoerformaat
@@ -788,6 +797,7 @@ ServiceType
 Set;Set
 Set_Count;Set count
 Setup;Setup
+Sharpness
 Sheet;Blad
 Sheet (Complete);Blad (Compleet)
 Shell extension;Shell-extensie (in explorer rechtsklikmenu zal een Media Info optie te zien zijn...)
@@ -869,5 +879,5 @@ Written_Location;Locatie van schrijven
 WrittenBy;Geschreven door
 Yes;Ja
 Your system;Uw systeem
-ZZ_Automatic_Percent;86
-ZZ_AutomaticLanguage_Percent;86
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;85

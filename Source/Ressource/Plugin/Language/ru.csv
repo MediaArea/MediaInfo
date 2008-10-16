@@ -154,6 +154,7 @@ Advanced mode;Расширенный режим
 Album;Альбом
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned;Соединение по промежуткам
 Alignment_Split;Разделение по промежуткам
 All;Все
@@ -243,6 +244,7 @@ Cover;Обложка
 Cover_Datas;Обложка (данные)
 Cover_Mime
 Cover_Type
+Cropped
 Custom;Выборочно
 Customize;Формат вывода
 Date;Дата
@@ -252,11 +254,13 @@ Delay;Задержка
 Delete;Удалить
 Description;Описание
 Digitized_Date;Дата оцифровки
+Dimensions
 Director;Режиссёр
 DirectorOfPhotography;Оператор
 DisplayAspectRatio;Соотношение кадра
 DistributedBy;Распространитель
 Donate;Пожертвовать
+DotsPerInch
 Duration;Продолжительность
 Edit;Изменить
 EditedBy;Изменено
@@ -701,6 +705,7 @@ Language_zu;Zulu
 LawRating;Ограничения
 LCCN;LCCN
 Library;Библиотека
+Ligthness
 List;Список
 Lyrics
 Lyricist;Либретто
@@ -720,6 +725,7 @@ More;Ещё...
 Movie;Фильм
 ms;мс
 MSDI;MSDI
+MusicBy
 MuxingMode;Режим смешивания
 MuxingMode_PackedBitstream
 Name;Имя
@@ -727,12 +733,15 @@ Nationality;Национальность
 New;Новый...
 Newest version;Проверить на обновление (требуется подключение к интернету)
 No;Нет
+NumColors
 OK;OK
 One output file per input file;Один файл на каждый исходный
 Open;Открыть
 Options;Параметры
 Options_Hint;Настройки программы
 Original;Настоящий
+OriginalSourceForm
+OriginalSourceMedium
 Other;Прочее
 Output;Выход
 Output format;Формат вывода
@@ -788,6 +797,7 @@ ServiceType
 Set;Настройка
 Set_Count;Кол-во
 Setup;Настройка
+Sharpness
 Sheet;Таблица
 Sheet (Complete);Таблица (полная)
 Shell extension;Расширение проводника (пункт в меню по правой кнопке)
@@ -869,5 +879,5 @@ Written_Location;Место написания
 WrittenBy;Написано
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96

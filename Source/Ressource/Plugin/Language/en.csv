@@ -154,6 +154,7 @@ Advanced mode;Advanced mode
 Album;Album
 Album_ReplayGain_Gain;Album replay gain
 Album_ReplayGain_Peak;Album replay gain peak
+Aligment;Aligment
 Alignment_Aligned;Aligned on interleaves
 Alignment_Split;Split accross interleaves
 All;All
@@ -192,7 +193,7 @@ Chapters stream(s);Chapters stream(s)
 Chapters_Codec_List;Chapters Codecs
 Chapters_No;No chapters
 ChaptersCount;Count of chapter streams
-CheckNewVersion;Check new version
+CheckNewVersion;Check for new version
 Choose custom;Choose custom
 Choose custom sheet;Choose your desired custom sheet
 Choose custom text;Choose your desired custom text
@@ -243,6 +244,7 @@ Cover;Cover
 Cover_Datas;Cover datas
 Cover_Mime;Cover MIME
 Cover_Type;Cover type
+Cropped;Crop dimensions
 Custom;Custom
 Customize;Customize
 Date;Date
@@ -252,11 +254,13 @@ Delay;Delay
 Delete;Delete
 Description;Description
 Digitized_Date;Digitized date
+Dimensions;Dimensions
 Director;Director
 DirectorOfPhotography;Director of photography
 DisplayAspectRatio;Display aspect ratio
 DistributedBy;Distributed by
 Donate;Donate
+DotsPerInch;Dots per inch
 Duration;Duration
 Edit;Edit
 EditedBy;Edited by
@@ -701,6 +705,7 @@ Language_zu;Zulu
 LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
+Ligthness;Ligthness
 List;List
 Lyrics;Lyrics
 Lyricist;Lyricist
@@ -720,6 +725,7 @@ More;More
 Movie;Movie name
 ms;ms
 MSDI;MSDI
+MusicBy;Music by
 MuxingMode;Muxing mode
 MuxingMode_PackedBitstream;Packed bitstream
 Name;Name
@@ -727,12 +733,15 @@ Nationality;Nationality
 New;New
 Newest version;Check for newest versions (require Internet connection)
 No;No
+NumColors;Number of colors
 OK;OK
 One output file per input file;One output file per input file
 Open;Open
 Options;Options
 Options_Hint;Preferences
 Original;Original
+OriginalSourceForm;Original source form
+OriginalSourceMedium;Original source medium
 Other;Other
 Output;Output
 Output format;Output format
@@ -756,8 +765,8 @@ Position;Position
 Position_Total;Total
 Preferences;Preferences
 Producer;Producer
-ProductionDesigner;ProductionDesigner
-ProductionStudio;ProductionStudio
+ProductionDesigner;Production designer
+ProductionStudio;Production studio
 Publisher;Publisher
 Purchased_Date;purchased date
 Quote character;Quote character
@@ -788,6 +797,7 @@ ServiceType;Service type
 Set;Set
 Set_Count;Set count
 Setup;Setup
+Sharpness;Sharpness
 Sheet;Sheet
 Sheet (Complete);Sheet (Complete)
 Shell extension;Shell extension (in explorer right click there will be a Media Info option)
@@ -862,7 +872,7 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Go to the web site of this video codec
 WebSite_Video_More;Go to the web site (%Url%) to find this video codec
 Width;Width
-WriteMe;Write me
+WriteMe;Write mail to author
 WriteToTranslator;Write to translator
 Written_Date;Written date
 Written_Location;Written location

@@ -154,6 +154,7 @@ Advanced mode;Mod avansat
 Album;Album
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned
 Alignment_Split
 All;Toate
@@ -243,6 +244,7 @@ Cover;Coperta
 Cover_Datas;Date de pe coperta
 Cover_Mime
 Cover_Type
+Cropped
 Custom;Particularizat
 Customize;Particularizare
 Date;Data
@@ -252,11 +254,13 @@ Delay;Intarziere
 Delete;Sterge
 Description;Descriere
 Digitized_Date;Data digitizarii
+Dimensions
 Director;Director
 DirectorOfPhotography;Director de film
 DisplayAspectRatio;Raport imagine
 DistributedBy;Distribuit de
 Donate;Donatii
+DotsPerInch
 Duration
 Edit;Editare
 EditedBy;Editat de
@@ -701,6 +705,7 @@ Language_zu
 LawRating
 LCCN
 Library;Biblioteca muxing
+Ligthness
 List
 Lyrics
 Lyricist;Textier
@@ -720,6 +725,7 @@ More;Mai mult(e)
 Movie;Numele filmului
 ms
 MSDI
+MusicBy
 MuxingMode
 MuxingMode_PackedBitstream
 Name;Nume
@@ -727,12 +733,15 @@ Nationality;Nationalitate
 New;Nou
 Newest version;Verificati existenta unei versiuni noi (necesita conexiune Internet)
 No;Nu
+NumColors
 OK;OK
 One output file per input file;Un fisier destinatie pentru fiecare fisier sursa
 Open;Deschide
 Options;Optiuni
 Options_Hint;Preferinte
 Original;Original
+OriginalSourceForm
+OriginalSourceMedium
 Other;Altele
 Output;Iesire
 Output format;Format iesire
@@ -788,6 +797,7 @@ ServiceType
 Set;Seteaza
 Set_Count;Seteaza numaratorul
 Setup;Setari
+Sharpness
 Sheet;Afisare
 Sheet (Complete);Afisare (completa)
 Shell extension; Extenise (in explorer executati click dreapta)
@@ -870,4 +880,4 @@ WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
 ZZ_Automatic_Percent;38
-ZZ_AutomaticLanguage_Percent;77
+ZZ_AutomaticLanguage_Percent;76

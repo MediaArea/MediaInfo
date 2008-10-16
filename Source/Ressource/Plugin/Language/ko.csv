@@ -154,6 +154,7 @@ Advanced mode;고급 모드
 Album;앨범
 Album_ReplayGain_Gain;앨범 재생 게인
 Album_ReplayGain_Peak;앨범 재생 게인 피크
+Aligment
 Alignment_Aligned;인터리브에 정렬
 Alignment_Split;인터리브로 분할
 All;전체
@@ -243,6 +244,7 @@ Cover;표지
 Cover_Datas;표지 정보
 Cover_Mime
 Cover_Type
+Cropped
 Custom;커스텀
 Customize;커스터마이즈
 Date;날짜
@@ -252,11 +254,13 @@ Delay;딜레이
 Delete;삭제
 Description;설명
 Digitized_Date;디지털화 날짜
+Dimensions
 Director;감독
 DirectorOfPhotography;촬영 감독
 DisplayAspectRatio;화면 종횡비
 DistributedBy;배포
 Donate;기부하기
+DotsPerInch
 Duration;길이
 Edit;편집
 EditedBy;편집
@@ -701,6 +705,7 @@ Language_zu;Zulu
 LawRating;법률 등급
 LCCN;LCCN
 Library;Muxing 라이브러리
+Ligthness
 List;목록
 Lyrics
 Lyricist;작사
@@ -720,6 +725,7 @@ More;상세
 Movie;영화 이름
 ms;미리초
 MSDI;MSDI
+MusicBy
 MuxingMode;먹싱 모드
 MuxingMode_PackedBitstream;팩드 비트스트림
 Name;이름
@@ -727,12 +733,15 @@ Nationality;국적
 New;새로 만들기
 Newest version;최신 버전 확인 (인터넷 연결이 필요함)
 No;아니오
+NumColors
 OK;확인
 One output file per input file;입력 파일 마다 하나의 출력 파일
 Open;열기
 Options;옵션
 Options_Hint;환경 설정
 Original;원본
+OriginalSourceForm
+OriginalSourceMedium
 Other;기타
 Output;출력
 Output format;출력 형식
@@ -788,6 +797,7 @@ ServiceType;서비스 종류
 Set;세트
 Set_Count;세트 개수
 Setup;설정
+Sharpness
 Sheet;시트
 Sheet (Complete);시트 (전체)
 Shell extension;쉘 익스텐션 (탐색기 마우스 오른쪽 버튼 메뉴에 Media Info를 추가합니다)
@@ -869,5 +879,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

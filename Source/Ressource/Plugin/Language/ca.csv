@@ -154,6 +154,7 @@ Advanced mode;Mode avançat
 Album;Àlbum
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned
 Alignment_Split
 All;Tot
@@ -243,6 +244,7 @@ Cover;Portada
 Cover_Datas;Informació de la portada
 Cover_Mime
 Cover_Type
+Cropped
 Custom;Personal
 Customize;Personalitzar
 Date;Data
@@ -252,11 +254,13 @@ Delay;Retard
 Delete;Esborra
 Description;Descripció
 Digitized_Date;Data de la digitalització
+Dimensions
 Director;Director
 DirectorOfPhotography;Director de fotografia
 DisplayAspectRatio;Relació d'aspecte
 DistributedBy;Distribuït per
 Donate;Donació
+DotsPerInch
 Duration
 Edit;Edita
 EditedBy;Editat per
@@ -701,6 +705,7 @@ Language_zu;Zulu
 LawRating;Classificació
 LCCN;LCCN
 Library;Llibreria
+Ligthness
 List
 Lyrics
 Lyricist;transcrptor del text
@@ -720,6 +725,7 @@ More;Més
 Movie;Nom de la pel·lícula
 ms;ms
 MSDI;MSDI
+MusicBy
 MuxingMode
 MuxingMode_PackedBitstream
 Name;Nom
@@ -727,12 +733,15 @@ Nationality;Nacionalitat
 New;Nou
 Newest version;Cerca actualitzacions (requereix connexió a Internet)
 No;Cancel·la
+NumColors
 OK;D'acord
 One output file per input file;Un arxiu de sortida per arxiu d'entrada
 Open;Obre
 Options;Opcions
 Options_Hint;Preferències
 Original;Original
+OriginalSourceForm
+OriginalSourceMedium
 Other;Altres
 Output;Sortida
 Output format;Format de sortida
@@ -788,6 +797,7 @@ ServiceType
 Set;Unitats
 Set_Count;Nombre d'unitats
 Setup;Configura
+Sharpness
 Sheet;Fulla
 Sheet (Complete);Fulla (Completa)
 Shell extension;Veure l'opció Media Info al menú contextual del botó dret del ratolí a l'explorador.
@@ -869,5 +879,5 @@ Written_Location;Inseriu el lloc de gravació
 WrittenBy;Escrit per
 Yes;Sí
 Your system;El vostre sistema
-ZZ_Automatic_Percent;88
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;87
+ZZ_AutomaticLanguage_Percent;87

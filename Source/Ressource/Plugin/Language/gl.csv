@@ -154,6 +154,7 @@ Advanced mode;Modo avanzado
 Album;Albúm
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned
 Alignment_Split
 All;Todo
@@ -243,6 +244,7 @@ Cover;Carátula
 Cover_Datas;Datos carátula
 Cover_Mime
 Cover_Type
+Cropped
 Custom;Personalizado
 Customize;Personalizar
 Date;Data
@@ -252,11 +254,13 @@ Delay;Retraso
 Delete;Borrar
 Description;Descrición
 Digitized_Date;Data de dixitalización
+Dimensions
 Director;Director
 DirectorOfPhotography;Director de fotografía
 DisplayAspectRatio;Relación de aspecto
 DistributedBy;Distribuido por
 Donate;Doar
+DotsPerInch
 Duration;Duración
 Edit;Editar
 EditedBy;Editado por
@@ -701,6 +705,7 @@ Language_zu;Zulu
 LawRating;Valoración legal
 LCCN;LCCN
 Library;Bibliografía
+Ligthness
 List
 Lyrics
 Lyricist;Letrista
@@ -720,6 +725,7 @@ More;Máis info
 Movie;Nome da película
 ms;ms
 MSDI;MSDI
+MusicBy
 MuxingMode
 MuxingMode_PackedBitstream
 Name;Nome
@@ -727,12 +733,15 @@ Nationality;Nacionalidade
 New;Novo
 Newest version;Buscar nova versión (require conexión a Internet)
 No;No
+NumColors
 OK;OK
 One output file per input file;Un arquivo de saída por un de entrada
 Open;Abrir
 Options;Opcións
 Options_Hint;Preferencias
 Original;Orixinal
+OriginalSourceForm
+OriginalSourceMedium
 Other;Outro
 Output;Saída
 Output format;Formato de saída
@@ -788,6 +797,7 @@ ServiceType
 Set;Configurar
 Set_Count;Establecer cantidade
 Setup;Configuración
+Sharpness
 Sheet;Folla
 Sheet (Complete);Folla (Completa)
 Shell extension;Shell extension (ao picar co botón dereito do rato aparecerá unha opción Media Info ...)
@@ -869,5 +879,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;86
-ZZ_AutomaticLanguage_Percent;86
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;85

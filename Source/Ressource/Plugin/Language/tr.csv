@@ -154,6 +154,7 @@ Advanced mode;Gelişmiş kip
 Album;Albüm
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned
 Alignment_Split
 All;Tümü
@@ -243,6 +244,7 @@ Cover;Kapak
 Cover_Datas;Kapak verileri
 Cover_Mime
 Cover_Type
+Cropped
 Custom;Özel
 Customize;Özelleştir
 Date;Tarih
@@ -252,11 +254,13 @@ Delay;Gecikme
 Delete;Sil
 Description;Açıklama
 Digitized_Date;Sayısallaştırılmış tarih
+Dimensions
 Director;Yönetmen
 DirectorOfPhotography;Fotoğrafçılık yönetmeni
 DisplayAspectRatio;En-Boy oranı
 DistributedBy;Dağıtan
 Donate;Bağış
+DotsPerInch
 Duration;Süre
 Edit;Düzenle
 EditedBy;Düzenleyen
@@ -701,6 +705,7 @@ Language_zu;Zulu
 LawRating;Kanun oranı
 LCCN;LCCN
 Library;Muxing kütüphanesi
+Ligthness
 List;Liste
 Lyrics
 Lyricist;Söz yazarı
@@ -720,6 +725,7 @@ More;Daha
 Movie;Film adı
 ms;ms
 MSDI;MSDI
+MusicBy
 MuxingMode;Çoklamalı mod
 MuxingMode_PackedBitstream
 Name;İsim
@@ -727,12 +733,15 @@ Nationality;Uyruk
 New;Yeni
 Newest version;Yeni sürümleri kontrol et (Internet bağlantısı gerekir)
 No;Hayır
+NumColors
 OK;TAMAM
 One output file per input file;Girdi dosyası başına bir çıktı dosyası
 Open;Aç
 Options;Seçenekler
 Options_Hint;Tercihler
 Original;Orjinal
+OriginalSourceForm
+OriginalSourceMedium
 Other;Diğer
 Output;Çıktı
 Output format;Çıktı biçimi
@@ -788,6 +797,7 @@ ServiceType
 Set;Ayar
 Set_Count;Ayar sayısı
 Setup;Kurulum
+Sharpness
 Sheet;Sayfa
 Sheet (Complete);Sayfa (Tam)
 Shell extension;Sistem uzantısı (gezginde sağ tuş tıklamada Media Info seçeneği olacak...)
@@ -869,5 +879,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;95
+ZZ_AutomaticLanguage_Percent;95

@@ -154,6 +154,7 @@ Advanced mode;Mënyrë e avancuar
 Album;Albumi
 Album_ReplayGain_Gain;Replay gain i albumit
 Album_ReplayGain_Peak;Piku i replay gain të albumit
+Aligment
 Alignment_Aligned;I radhitur te gërshetimet
 Alignment_Split;I ndarë te gërshetimet
 All;Gjithçka
@@ -243,6 +244,7 @@ Cover;Cover
 Cover_Datas;Cover datas
 Cover_Mime
 Cover_Type
+Cropped
 Custom;Me porosi
 Customize;Porosite
 Date;Data
@@ -252,11 +254,13 @@ Delay;Vonesë
 Delete;Fshije
 Description;Përshkrimi
 Digitized_Date;Datë e shifruar
+Dimensions
 Director;Regjisori
 DirectorOfPhotography;Regjisori i fotografisë
 DisplayAspectRatio;Raporti i aspektit në ekran
 DistributedBy;Shpërndarë nga
 Donate;Jep kontribut
+DotsPerInch
 Duration;Kohëzgjatje
 Edit;Edito
 EditedBy;Edituar nga
@@ -701,6 +705,7 @@ Language_zu;Zulu
 LawRating;Vlerësimi ligjor
 LCCN;LCCN
 Library;Muxing library
+Ligthness
 List;Lista
 Lyrics
 Lyricist;Shkrimtari
@@ -720,6 +725,7 @@ More;Akoma
 Movie;Emri i filmit
 ms;ms
 MSDI;MSDI
+MusicBy
 MuxingMode;Mënyrë e muksimit
 MuxingMode_PackedBitstream;Rrymë e bitit e paketuar
 Name;Emri
@@ -727,12 +733,15 @@ Nationality;Kombësia
 New;E re
 Newest version;Verifiko versionin më të ri (nevojitet lidhje me internet)
 No;Jo
+NumColors
 OK;OK
 One output file per input file;Një skedë output për skedë input
 Open;Hap
 Options;Mundësi
 Options_Hint;Pëlqimet
 Original;Origjinal
+OriginalSourceForm
+OriginalSourceMedium
 Other;Tjetër
 Output;Outputi
 Output format;Formati i outputit
@@ -788,6 +797,7 @@ ServiceType;Lloji i shërbimit
 Set;Vendos
 Set_Count;Vendos numërimin
 Setup;Ndërtimi
+Sharpness
 Sheet;Fletë
 Sheet (Complete);Fletë (Plot)
 Shell extension;Shto në bazë (kur në Explorer klikohet me të djathtën do të jetë mundësia Media Info)
@@ -869,5 +879,5 @@ Written_Location;Vendndodhje e shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

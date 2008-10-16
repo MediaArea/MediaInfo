@@ -154,6 +154,7 @@ Advanced mode;Розширений режим
 Album;Альбом
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
+Aligment
 Alignment_Aligned
 Alignment_Split
 All;Все
@@ -243,6 +244,7 @@ Cover;Обкладинка
 Cover_Datas;Дані обкладинки
 Cover_Mime
 Cover_Type
+Cropped
 Custom;Вибірково
 Customize;Формат виведення
 Date;Дата
@@ -252,11 +254,13 @@ Delay;Затримка
 Delete;Видалити
 Description;Опис
 Digitized_Date;Дата оцифровування
+Dimensions
 Director;Режисер
 DirectorOfPhotography;Оператор
 DisplayAspectRatio
 DistributedBy;Розповсюджувач
 Donate;Пожертвування
+DotsPerInch
 Duration
 Edit;Редагувати
 EditedBy;Змінено
@@ -701,6 +705,7 @@ Language_zu;Zulu
 LawRating;Легальний статус
 LCCN;LCCN
 Library;Бібліотека
+Ligthness
 List
 Lyrics
 Lyricist;Лірика
@@ -720,6 +725,7 @@ More;Ще
 Movie;Назва фільму
 ms;мс
 MSDI;MSDI
+MusicBy
 MuxingMode
 MuxingMode_PackedBitstream
 Name;Назва
@@ -727,12 +733,15 @@ Nationality;Національність
 New;Новий
 Newest version;Перевірити наявність нової версії (необхідне підключення до Інтернету)
 No;Ні
+NumColors
 OK;Так
 One output file per input file;Один вхідний на кожний вихідний файл
 Open;Відкрити
 Options;Настроювання
 Options_Hint;Настроювання програми
 Original;Оригінальний
+OriginalSourceForm
+OriginalSourceMedium
 Other;Інше
 Output;Виведення
 Output format;Формат виведення
@@ -788,6 +797,7 @@ ServiceType
 Set;Конфігурація
 Set_Count;Кількість конфігурацій
 Setup;Настроювання
+Sharpness
 Sheet;Таблиця
 Sheet (Complete);Таблиця (повна)
 Shell extension;Контекстне меню провідника
@@ -869,5 +879,5 @@ Written_Location;Місце написання
 WrittenBy;Написано
 Yes;Так
 Your system;Ваша система
-ZZ_Automatic_Percent;86
-ZZ_AutomaticLanguage_Percent;86
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;85
