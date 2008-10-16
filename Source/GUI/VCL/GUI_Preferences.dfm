@@ -72,21 +72,17 @@ object PreferencesF: TPreferencesF
     ModalResult = 2
     TabOrder = 2
   end
-  object Page: TTntPageControl
+  object Tree_NotYet: TTntPageControl
     Left = 149
     Top = 0
     Width = 517
     Height = 157
-    ActivePage = Setup
+    ActivePage = Customize_TreeText
     MultiLine = True
     TabOrder = 3
     object Setup: TTntTabSheet
       Caption = 'General'
       OnShow = Setup_GeneralShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Langue_C: TTntLabel
         Left = 0
         Top = 9
@@ -107,7 +103,7 @@ object PreferencesF: TPreferencesF
         Width = 113
         Height = 22
         Style = csDropDownList
-        ItemHeight = 0
+        ItemHeight = 14
         TabOrder = 0
         OnChange = General_Language_SelChange
       end
@@ -186,10 +182,6 @@ object PreferencesF: TPreferencesF
       Caption = 'Advanced'
       ImageIndex = 1
       OnShow = Setup_AdvancedShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object CB_ShowToolBar: TTntCheckBox
         Left = 0
         Top = 26
@@ -222,10 +214,6 @@ object PreferencesF: TPreferencesF
       Caption = 'Language'
       ImageIndex = 3
       OnShow = Customize_LanguageShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Language_Caption: TTntLabel
         Left = 0
         Top = 0
@@ -266,7 +254,7 @@ object PreferencesF: TPreferencesF
         Width = 242
         Height = 22
         Style = csDropDownList
-        ItemHeight = 0
+        ItemHeight = 14
         TabOrder = 0
         OnChange = Language_SelChange
       end
@@ -275,10 +263,6 @@ object PreferencesF: TPreferencesF
       Caption = 'Sheet'
       ImageIndex = 4
       OnShow = Customize_SheetShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Sheet_Caption: TTntLabel
         Left = 0
         Top = 0
@@ -292,7 +276,7 @@ object PreferencesF: TPreferencesF
         Width = 242
         Height = 22
         Style = csDropDownList
-        ItemHeight = 0
+        ItemHeight = 14
         TabOrder = 0
         OnChange = Sheet_SelChange
       end
@@ -327,10 +311,6 @@ object PreferencesF: TPreferencesF
     object Customize_TreeText: TTntTabSheet
       Caption = 'Tree && Text'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label13: TTntLabel
         Left = 362
         Top = 78
@@ -343,10 +323,6 @@ object PreferencesF: TPreferencesF
       Caption = 'Custom Text'
       ImageIndex = 6
       OnShow = Customize_CustomShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Custom_Caption: TTntLabel
         Left = 0
         Top = 0
@@ -387,7 +363,7 @@ object PreferencesF: TPreferencesF
         Width = 242
         Height = 22
         Style = csDropDownList
-        ItemHeight = 0
+        ItemHeight = 14
         TabOrder = 3
         OnChange = Custom_SelChange
       end
@@ -395,10 +371,6 @@ object PreferencesF: TPreferencesF
     object Customize: TTntTabSheet
       Caption = 'Customize'
       ImageIndex = 7
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
   end
 end

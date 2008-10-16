@@ -654,6 +654,10 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         }
         Page_Tree_Tree->FullExpand();
         Page_Tree_Tree->Visible=true;
+
+        //Specific in case of no file
+        if (I->Count_Get()==0)
+            Page_Tree_Tree->Items->AddChild(NULL, Prefs->Translate(_T("At least one file")).c_str());
     }
 
     //Text
@@ -668,6 +672,10 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         else
             I->Option_Static(_T("Inform"));
         Page_Text_Text->Text=I->Inform().c_str();
+
+        //Specific in case of no file
+        if (FilesCount==0)
+            Page_Text_Text->Text=Prefs->Translate(_T("At least one file")).c_str();
     }
 
     //HTML
@@ -693,7 +701,14 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             Page_HTML_HTML->Navigate(ToShow);
         }
         else
-            Page_HTML_HTML->Navigate(L"about:blank");
+        {
+            Ztring TempA; TempA=Prefs->Translate(_T("At least one file"));
+            WideString Temp;
+            Temp+=L"about:<html><body>";
+            Temp+=TempA.To_Unicode().c_str();
+            Temp+=L"</body></html>";
+            Page_HTML_HTML->Navigate(Temp);
+        }
     }
 
     //Custom
@@ -701,6 +716,8 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     {
         I->Option_Static(_T("Inform"), Prefs->Details[Custom].Read());
         Ztring S1=I->Inform();
+        if (S1.empty())
+            S1=Prefs->Translate(_T("At least one file")).c_str();
         if (S1.size()>1 && S1[0]=='<' && S1[1]=='h')
         {
             //Supposing this is HTML
@@ -1190,6 +1207,10 @@ void __fastcall TMainF::Page_Easy_FileChange(TObject *Sender)
         MI_Pos++;
     }
     FormResize(NULL); //Resize GroupBoxes
+
+    //Specific in case of no file
+    if (I->Count_Get()==0)
+        Page_Easy_G1_Codec->Caption=Prefs->Translate(_T("At least one file")).c_str();
 }
 
 //---------------------------------------------------------------------------

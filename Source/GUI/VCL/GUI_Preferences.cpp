@@ -479,6 +479,7 @@ void __fastcall TPreferencesF::GUI_Configure()
     Tree->Items->Item[6]->Text=Prefs->Translate(_T("Language")).c_str();
     //-General
     General_Language_More->Caption=(Prefs->Translate(_T("More"))+_T("...")).c_str();
+    Langue_C->Caption=Prefs->Translate(_T("Language")).c_str();
     Output_C->Caption=Prefs->Translate(_T("Output format")).c_str();
     General_Output_More->Caption=(Prefs->Translate(_T("More"))+_T("...")).c_str();
     CB_CheckUpdate->Caption=Prefs->Translate(_T("Newest version")).c_str();
@@ -514,6 +515,7 @@ void __fastcall TPreferencesF::GUI_Configure()
     Sheet_Delete->Caption=Prefs->Translate(_T("Delete")).c_str();
     Sheet_New->Caption=(Prefs->Translate(_T("New"))+_T("...")).c_str();
     //-Tree
+    Tree_NotYet->Caption=(Prefs->Translate(_T("Not Yet"))+_T("...")).c_str();
     //-Custom
     Custom_Caption->Caption=Prefs->Translate(_T("Choose custom text")).c_str();
     Custom_Edit->Caption=(Prefs->Translate(_T("Edit"))+_T("...")).c_str();

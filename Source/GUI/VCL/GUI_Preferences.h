@@ -42,7 +42,7 @@ __published:    // IDE-managed Components
     TTntButton *OK;
     TTntTreeView *Tree;
     TTntButton *Cancel;
-    TTntPageControl *Page;
+    TTntPageControl *Tree_NotYet;
     TTntTabSheet *Setup;
     TTntLabel *Langue_C;
     TTntLabel *Output_C;
