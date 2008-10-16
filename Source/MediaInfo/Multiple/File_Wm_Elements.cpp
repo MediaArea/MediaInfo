@@ -1171,7 +1171,7 @@ void File_Wm::Data()
     Skip_UUID(                                                  "File ID");
     Skip_L8(                                                    "Total Data Packets");
     Skip_L1(                                                    "Alignment");
-    Skip_L1(                                                    "Packet Aligment");
+    Skip_L1(                                                    "Packet Alignment");
 
     //Filling
     Fill(Stream_General, 0, General_HeaderSize, File_Offset+Buffer_Offset-24);

@@ -442,11 +442,11 @@ void File_Jpeg::APP1_EXIF()
 {
     //Parsing
     Element_Begin("Exif");
-        int32u Aligment;
-        Get_C4(Aligment,                                        "Aligment");
-        if (Aligment==0x49492A00)
+        int32u Alignment;
+        Get_C4(Alignment,                                       "Alignment");
+        if (Alignment==0x49492A00)
             Skip_B4(                                            "First_IFD");
-        if (Aligment==0x4D4D2A00)
+        if (Alignment==0x4D4D2A00)
             Skip_L4(                                            "First_IFD");
     Element_End();
 }
