@@ -941,7 +941,7 @@ void File_Mpegv::extension_start()
                     BS_End();
 
                     FILLING_BEGIN();
-                        if (progressive_sequence==0)
+                        if (progressive_frame==0)
                         {
                             if (picture_structure==3)           //Frame
                             {

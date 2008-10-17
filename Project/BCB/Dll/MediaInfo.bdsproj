@@ -318,11 +318,11 @@
           <Debugging Name="DebugSourceDirs"></Debugging>
         </Debugging>
         <Parameters>
-          <Parameters Name="RunParams"></Parameters>
+          <Parameters Name="RunParams">Example.ogg</Parameters>
           <Parameters Name="Launcher"></Parameters>
           <Parameters Name="UseLauncher">False</Parameters>
           <Parameters Name="DebugCWD"></Parameters>
-          <Parameters Name="HostApplication">F:\Programmation\MediaInfoLib\Release\BCB\Dll\MediaInfo_GUI.exe</Parameters>
+          <Parameters Name="HostApplication">F:\Programmation\MediaInfoLib\Release\BCB\Dll\MediaInfo.exe</Parameters>
           <Parameters Name="RemoteHost"></Parameters>
           <Parameters Name="RemotePath"></Parameters>
           <Parameters Name="RemoteParams"></Parameters>

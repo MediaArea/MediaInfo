@@ -24,6 +24,7 @@ x MPEG-TS with Dirac: some specific files were not parsed completely (missing in
 x MPEG-4: Crash on MPEG-4 Visual format without DecDecoder stuff
 x Command line: was not reading custom template in UTF-8 codepage
 x DV: some files were not well detected
+x MPEG Video: some files were badly detected with 3:2 pulldown
 
 Version 0.7.7.6, 2008-09-12
 ---------------

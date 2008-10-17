@@ -230,7 +230,10 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
                     Fill(StreamKind, Pos, "Language/String", Z3.find(_T("Language_"))==0?Language:Z3);
                 }
                 else
-                    Fill(StreamKind, Pos, "Language/String", Retrieve(StreamKind, Pos, "Language"));
+                {
+                    Language=Retrieve(StreamKind, Pos, "Language");
+                    Fill(StreamKind, Pos, "Language/String", Language);
+                }
             }
         }
         
