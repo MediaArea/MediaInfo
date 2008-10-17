@@ -13,9 +13,26 @@ Known bugs
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
 
-Version 0.7.7.7, 2008-
+Version 0.7.7.7, 2008-10-17
 ---------------
 + Chinese Traditional, Albanian, Korean, German languages updated
++ Support of VP5 file format
++ MPEG-4 Visual and MPEG Video: can now display the custom matrices data
++ WM: interlacement detection for VC-1 based codecs (WMV3...)
++ #2148321, PNG: more info
++ AVI: Better association of abcAVI tags to MediaInfo tags
++ PureBasic binding
++ Delphi binding: dynamic load (by default) of the library, thanks to Icebob
+x #2142995, MPEG-4: handling the Display Aspect Ratio from the track Header (tkhd)
+x #2141277, MPEG-PS/TS: Audio ID was hex for MPEG-PS but decimal for MPEG-TS streams
+x #2109107, Tags in Flac or Ogg: modification of the tag types priorities
+x #2120224, MPEG-4: some specific files were not parsed completely (missing info)
+x MPEG-TS with Dirac: some specific files were not parsed completely (missing info)
+x MPEG-4: Crash on MPEG-4 Visual format without DecDecoder stuff
+x Command line: was not reading custom template in UTF-8 codepage
+x DV: some files were not well detected
+x MPEG Video: some files were badly detected with 3:2 pulldown
+x AVS (Chinese): some corrections, thanks to Tom's translation of documents
 
 Version 0.7.7.6, 2008-09-12
 ---------------
