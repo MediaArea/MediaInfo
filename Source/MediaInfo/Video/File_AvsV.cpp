@@ -689,7 +689,11 @@ void File_AvsV::picture_start_Fill()
     else
         Fill(Stream_Video, 0, Video_PixelAspectRatio, 1);
     Fill(Stream_Video, 0, Video_Colorimetry, AvsV_chroma_format[chroma_format]);
-    if (Frame_Count>0) //Only if we have at least one progressive_frame definition
+    if (progressive_frame_Count && progressive_frame_Count!=Frame_Count)
+    {
+        //This is mixed
+    }
+    else if (Frame_Count>0) //Only if we have at least one progressive_frame definition
     {
         if (progressive_sequence || progressive_frame_Count==Frame_Count)
         {

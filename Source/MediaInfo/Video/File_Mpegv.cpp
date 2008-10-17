@@ -605,9 +605,13 @@ void File_Mpegv::slice_start_Fill()
         Fill(Stream_Video, 0, Video_ScanType, "Progressive");
         Fill(Stream_Video, 0, Video_Interlacement, "PPF");
     }
+    else if (progressive_frame_Count && progressive_frame_Count!=Frame_Count)
+    {
+        //This is mixed
+    }
     else if (Frame_Count>0) //Only if we have at least one progressive_frame definition
     {
-        if (progressive_sequence || progressive_frame)
+        if (progressive_sequence || progressive_frame_Count==Frame_Count)
         {
             Fill(Stream_Video, 0, Video_ScanType, "Progressive");
             Fill(Stream_Video, 0, Video_Interlacement, "PPF");
@@ -916,6 +920,7 @@ void File_Mpegv::extension_start()
                 break;
         case 8 :{ //Picture Coding
                     //Parsing
+                    bool progressive_frame;
                     Skip_S1( 4,                                 "f_code_forward_horizontal");
                     Skip_S1( 4,                                 "f_code_forward_vertical");
                     Skip_S1( 4,                                 "f_code_backward_horizontal");
@@ -971,6 +976,8 @@ void File_Mpegv::extension_start()
                                 FirstFieldFound=!FirstFieldFound;
                             }
                         }
+                        else
+                            progressive_frame_Count++;
 
                         if (picture_structure==2) //Bottom, and we want to add a frame only one time if 2 fields
                             Time_End_Frames--; //One frame
@@ -1129,6 +1136,7 @@ bool File_Mpegv::Synchronize()
     {
         //Count of a Packets
         Frame_Count=0;
+        progressive_frame_Count=0;
         Interlaced_Top=0;
         Interlaced_Bottom=0;
 
@@ -1155,7 +1163,6 @@ bool File_Mpegv::Synchronize()
         load_intra_quantiser_matrix=false;
         load_non_intra_quantiser_matrix=false;
         progressive_sequence=true; //progressive by default
-        progressive_frame=true; //progressive by default
         top_field_first=false;
         repeat_first_field=false;
         FirstFieldFound=false;

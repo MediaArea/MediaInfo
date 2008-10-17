@@ -73,6 +73,7 @@ private :
 
     //Count
     size_t Frame_Count;
+    size_t progressive_frame_Count;
     size_t Interlaced_Top;
     size_t Interlaced_Bottom;
 
@@ -101,7 +102,6 @@ private :
     bool   load_intra_quantiser_matrix;
     bool   load_non_intra_quantiser_matrix;
     bool   progressive_sequence;
-    bool   progressive_frame;
     bool   top_field_first;
     bool   repeat_first_field;
     bool   FirstFieldFound;
