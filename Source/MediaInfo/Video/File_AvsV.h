@@ -73,6 +73,9 @@ private :
     
     //Count of a Packets
     size_t Frame_Count;
+    size_t progressive_frame_Count;
+    size_t Interlaced_Top;
+    size_t Interlaced_Bottom;
 
     //From user_data
     Ztring Library;

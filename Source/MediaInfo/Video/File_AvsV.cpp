@@ -634,6 +634,19 @@ void File_AvsV::picture_start()
         Skip_XX(Element_Size-Element_Offset,                    "Unknown");
 
     FILLING_BEGIN();
+        if (progressive_frame==false)
+        {
+            if (picture_structure==true)           //Frame
+            {
+                if (top_field_first)
+                    Interlaced_Top++;
+                else
+                    Interlaced_Bottom++;
+            }
+        }
+        else
+            progressive_frame_Count++;
+
         //NextCode
         NextCode_Test();
         NextCode_Clear();
@@ -668,16 +681,34 @@ void File_AvsV::picture_start_Fill()
     Fill(Stream_Video, 0, Video_Codec_Profile, AvsV_profile(profile_id)+AvsV_level(level_id));
     Fill(Stream_Video, StreamPos_Last, Video_Width, horizontal_size);
     Fill(Stream_Video, StreamPos_Last, Video_Height, vertical_size);
-    Fill(Stream_Video, 0, Video_FrameRate, AvsV_frame_rate[frame_rate_code]);
-    if (display_horizontal_size && display_vertical_size)
-        Fill(Stream_Video, 0, Video_DisplayAspectRatio, ((float32)display_horizontal_size)/display_vertical_size/**horizontal_size/vertical_size*/);
-    else if (aspect_ratio!=1)
+    Fill(Stream_Video, 0, Video_FrameRate, AvsV_frame_rate[frame_rate_code]/(progressive_sequence?1:2));
+    if (aspect_ratio!=1)
         Fill(Stream_Video, 0, Video_DisplayAspectRatio, AvsV_aspect_ratio[aspect_ratio]);
+    else if (display_horizontal_size && display_vertical_size)
+        Fill(Stream_Video, 0, Video_DisplayAspectRatio, ((float32)display_horizontal_size)/display_vertical_size);
     else
         Fill(Stream_Video, 0, Video_PixelAspectRatio, 1);
     Fill(Stream_Video, 0, Video_Colorimetry, AvsV_chroma_format[chroma_format]);
-    Fill(Stream_Video, 0, Video_ScanType, progressive_sequence?"Progressive":"Interlaced");
-        Fill(Stream_Video, 0, Video_BitRate_Nominal, bit_rate*8);
+    if (Frame_Count>0) //Only if we have at least one progressive_frame definition
+    {
+        if (progressive_sequence || progressive_frame_Count==Frame_Count)
+        {
+            Fill(Stream_Video, 0, Video_ScanType, "Progressive");
+            Fill(Stream_Video, 0, Video_Interlacement, "PPF");
+        }
+        else
+        {
+            Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
+            if ((Interlaced_Top && Interlaced_Bottom) || (!Interlaced_Top && !Interlaced_Bottom))
+                Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
+            else
+            {
+                Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Top?"TFF":"BFF");
+                Fill(Stream_Video, 0, Video_Interlacement, Interlaced_Top?"TFF":"BFF");
+            }
+        }
+    }
+    Fill(Stream_Video, 0, Video_BitRate_Nominal, bit_rate*8);
 
     //From extensions
     Fill(Stream_Video, 0, Video_Standard, AvsV_video_format[video_format]);
@@ -820,6 +851,9 @@ void File_AvsV::Init()
 
     //Count of a Packets
     Frame_Count=0;
+    progressive_frame_Count=0;
+    Interlaced_Top=0;
+    Interlaced_Bottom=0;
 
     //Temp
     bit_rate=0;
