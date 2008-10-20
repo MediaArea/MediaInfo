@@ -242,6 +242,7 @@ Count;Nombre
 Country;Pays
 Cover;Couverture
 Cover_Datas;Couverture
+Cover_Description;Couverture, description
 Cover_Mime;Couverture, MIME
 Cover_Type;Couverture, origine
 Cropped;Dimensions du retaillage

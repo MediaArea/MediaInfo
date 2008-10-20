@@ -242,6 +242,7 @@ Count;Anzahl
 Country;Land 
 Cover;Cover
 Cover_Datas;Cover-Daten
+Cover_Description
 Cover_Mime;Cover-MIME
 Cover_Type;Cover-Typ
 Cropped;Schnitt-Dimensionen
@@ -880,5 +881,5 @@ Written_Location;Ort des Schreibbeginns
 WrittenBy;Geschrieben von
 Yes;Ja
 Your system;Deine Systeminformationen
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

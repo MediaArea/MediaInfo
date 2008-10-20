@@ -242,6 +242,7 @@ Count;Count
 Country;Country
 Cover;Cover
 Cover_Datas;Cover datas
+Cover_Description;Cover description
 Cover_Mime;Cover MIME
 Cover_Type;Cover type
 Cropped;Crop dimensions

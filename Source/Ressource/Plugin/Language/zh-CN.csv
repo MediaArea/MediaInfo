@@ -242,6 +242,7 @@ Count;数量
 Country;国家(地区)
 Cover;封面
 Cover_Datas;封面数据
+Cover_Description
 Cover_Mime
 Cover_Type
 Cropped

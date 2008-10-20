@@ -242,6 +242,7 @@ Count;개수
 Country;국가
 Cover;표지
 Cover_Datas;표지 정보
+Cover_Description
 Cover_Mime
 Cover_Type
 Cropped
