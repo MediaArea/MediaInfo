@@ -154,9 +154,9 @@ Advanced mode;Mënyrë e avancuar
 Album;Albumi
 Album_ReplayGain_Gain;Replay gain i albumit
 Album_ReplayGain_Peak;Piku i replay gain të albumit
-Alignment
-Alignment_Aligned;I radhitur te gërshetimet
-Alignment_Split;I ndarë te gërshetimet
+Alignment;Radhitje
+Alignment_Aligned;Radhitur te gërshetimet
+Alignment_Split;Ndarë te gërshetimet
 All;Gjithçka
 Archival_Location;Vendndodhje e arkivimit
 Arranger;Radhitësi
@@ -242,9 +242,9 @@ Count;Numërimi
 Country;Vendi
 Cover;Cover
 Cover_Datas;Cover datas
-Cover_Mime
-Cover_Type
-Cropped
+Cover_Mime;MIME i cover-it
+Cover_Type;Lloji i cover-it
+Cropped;Dimensionet e prerjes
 Custom;Me porosi
 Customize;Porosite
 Date;Data
@@ -254,13 +254,13 @@ Delay;Vonesë
 Delete;Fshije
 Description;Përshkrimi
 Digitized_Date;Datë e shifruar
-Dimensions
+Dimensions;Dimensione
 Director;Regjisori
 DirectorOfPhotography;Regjisori i fotografisë
 DisplayAspectRatio;Raporti i aspektit në ekran
 DistributedBy;Shpërndarë nga
 Donate;Jep kontribut
-DotsPerInch
+DotsPerInch;Pika për inç
 Duration;Kohëzgjatje
 Edit;Edito
 EditedBy;Edituar nga
@@ -705,9 +705,9 @@ Language_zu;Zulu
 LawRating;Vlerësimi ligjor
 LCCN;LCCN
 Library;Muxing library
-Ligthness
+Ligthness;Dritësi
 List;Lista
-Lyrics
+Lyrics;Fjalët
 Lyricist;Shkrimtari
 Mastered_Date;Datë e masterizimit
 MasteredBy;Masterizuar nga
@@ -725,7 +725,7 @@ More;Akoma
 Movie;Emri i filmit
 ms;ms
 MSDI;MSDI
-MusicBy
+MusicBy;Muzikë nga
 MuxingMode;Mënyrë e muksimit
 MuxingMode_PackedBitstream;Rrymë e bitit e paketuar
 Name;Emri
@@ -733,16 +733,16 @@ Nationality;Kombësia
 New;E re
 Newest version;Verifiko versionin më të ri (nevojitet lidhje me internet)
 No;Jo
-Not yet
-NumColors
+Not yet;Ende jo
+NumColors;Numri i ngjyrave
 OK;OK
 One output file per input file;Një skedë output për skedë input
 Open;Hap
 Options;Mundësi
 Options_Hint;Pëlqimet
 Original;Origjinal
-OriginalSourceForm
-OriginalSourceMedium
+OriginalSourceForm;Formë origjinale e burimit
+OriginalSourceMedium;Mediumi origjinal i burimit
 Other;Tjetër
 Output;Outputi
 Output format;Formati i outputit
@@ -798,7 +798,7 @@ ServiceType;Lloji i shërbimit
 Set;Vendos
 Set_Count;Vendos numërimin
 Setup;Ndërtimi
-Sharpness
+Sharpness;Mprehtësi
 Sheet;Fletë
 Sheet (Complete);Fletë (Plot)
 Shell extension;Shto në bazë (kur në Explorer klikohet me të djathtën do të jetë mundësia Media Info)
@@ -880,5 +880,5 @@ Written_Location;Vendndodhje e shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
