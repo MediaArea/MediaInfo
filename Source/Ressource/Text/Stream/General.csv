@@ -206,7 +206,7 @@ Encoded_Library_Settings;;;Y YT;;;Parameters used by the software;;Technical
 Cropped;;;Y YT;;;Describes whether an image has been cropped and, if so, how it was cropped.;;Technical
 Dimensions;;;Y YT;;;Specifies the size of the original subject of the file. eg 8.5 in h, 11 in w;;Technical
 DotsPerInch;;;Y YT;;;Stores dots per inch setting of the digitizer used to produce the file;;Technical
-Ligthness;;;Y YT;;;Describes the changes in lightness settings on the digitizer required to produce the file;;Technical
+Lightness;;;Y YT;;;Describes the changes in lightness settings on the digitizer required to produce the file;;Technical
 OriginalSourceMedium;;;Y YT;;;Original medium of the material, e.g. vinyl, Audio-CD, Super8 or BetaMax;;Technical
 OriginalSourceForm;;;Y YT;;;Original form of the material, e.g. slide, paper, map;;Technical
 OriginalSourceForm/NumColors;;;Y YT;;;Number of colors requested when digitizing, e.g. 256 for images or 32 bit RGB for video;;Technical

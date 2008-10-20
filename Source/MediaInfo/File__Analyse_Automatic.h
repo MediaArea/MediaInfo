@@ -242,7 +242,7 @@ enum general
     General_Cropped,
     General_Dimensions,
     General_DotsPerInch,
-    General_Ligthness,
+    General_Lightness,
     General_OriginalSourceMedium,
     General_OriginalSourceForm,
     General_OriginalSourceForm_NumColors,

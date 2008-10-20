@@ -1640,7 +1640,7 @@ void File_Riff::AVI__INFO_xxxx()
         case Elements::AVI__INFO_IGNR : Parameter=General_Genre; break;
         case Elements::AVI__INFO_IFRM : Parameter=General_Part_Position_Total; break;
         case Elements::AVI__INFO_IKEY : Parameter=General_Keywords; break;
-        case Elements::AVI__INFO_ILGT : Parameter=General_Ligthness; break;
+        case Elements::AVI__INFO_ILGT : Parameter=General_Lightness; break;
         case Elements::AVI__INFO_ILNG : Parameter=Audio_Language; StreamKind=Stream_Audio; break;
         case Elements::AVI__INFO_IMED : Parameter=General_OriginalSourceMedium; break;
         case Elements::AVI__INFO_IMUS : Parameter=General_MusicBy; break;
