@@ -639,7 +639,7 @@ Language_no;Norwegian Nynorsk;Norvégien Nynorsk;Norwegisch;norvég;Norvegese;No
 Language_nr;Ndebele;Ndébélé du Sud;Süd-Ndebele; ;Ndebele, South;Ndebele;;Ndebele;Ndebele;;; Ndebele;Ndebele;南恩德貝勒語;;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;;Ndebele
 Language_nv;Navaho;Navaho;Navajo;navaho;Navajo;Navaho;;Navaho;Navaho;;; Navaho;Navaho;納瓦霍語;;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;;Navaho
 Language_ny;Nyanja;Nyanja;Chichewa; ;Chichewa;Nyanja;;Nyanja;Nyanja;;; Nyanja;Nyanja;尼揚賈語;;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;;Nyanja
-Language_oc;Occitan;Occitan;Okzitanisch;okcitán;Occitano;Occitan;Occitano;Occitan;Occitaans;;; Occitan;Occitan;奧克西坦語;;Occitan;Occitan;Occitan;Occitan;Occitano;Occitan;Occitan;Occitano;ออกซิตัน	;Occitan;Occitan;;Occitan
+Language_oc;Occitan;Occitan;Okzitanisch;okcitán;Occitano;Occitan;Occitano;Occitan;Occitaans;;; Occitan;Occitan;奧克西坦語;;Occitan;Occitan;Occitan;Occitan;Occitano;Occitan;Occitan;Occitano;"ออกซิตัน	";Occitan;Occitan;;Occitan
 Language_oj;Ojibwa;Ojibwa;Ojibwa; ;Ojibwa;Ojibwa;;Ojibwa;Ojibwa;;; Ojibwa;Ojibwa;奧吉布瓦語;;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;;Ojibwa
 Language_om;Oromo;Galla;Oromo; ;Oromo;Oromo;Oromo;Oromo;Oromo;;; Oromo;Oromo;澳洛莫語;;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;;Oromo
 Language_or;Oriya;Oriya;Orija; ;Oriya;Oriya;Oriya;Oriya;Oriya;;; Oriya;Oriya;奧里雅語;;Oriya;Oriya;Oriya;Oriya;Oriya;Oriya;Oriya;Oriya;โอริยา;Oriya;Oriya;;Oriya
@@ -705,7 +705,7 @@ Language_zu;Zulu;Zoulou;Zulu;zulu;Zulu;Zulu;zulú;Zulu;Zoeloe;;; Zulu;Zulu;祖�
 LawRating;Law rating;Classé;Altersfreigabe ;Korhatár;Law Rating;Ограничения;Ley de calificación;Valoración legal;Law rating;;; Åldersgräns;Kanun oranı;分級;;レイティング;Law rating;Law rating;법률 등급;Classificação;Classificació;Law reitingas;Classificação;Law rating;Легальний статус;Law rating;;Vlerësimi ligjor
 LCCN;LCCN;LCCN;LCCN ;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;; LCCN;LCCN;LCCN;;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;;LCCN
 Library;Muxing library;Bibliotheque utilisée;Muxing-Bibliothek;Keverőkönyvtár;Libreria;Библиотека;Librería Musical;Bibliografía;Muxing library;Bibloteka multipleksu;Biblioteca muxing; Muxningsbibliotek;Muxing kütüphanesi;合成函式庫;;ライブラリ;Muxing library;Muxing library;Muxing 라이브러리;Biblioteca multiplex;Llibreria;Muxing biblioteka;Biblioteca de multiplexão;Muxing library;Бібліотека;Muxing library;;Muxing library
-Ligthness;Ligthness;Luminosité;Helligkeit;;;;;;;;;;;;;;;;;;;;;;;;;Dritësi
+Lightness;Lightness;Luminosité;Helligkeit;;;;;;;;;;;;;;;;;;;;;;;;;Dritësi
 List;List;Liste;Liste;;Lista;Список;Lista;;;;;;Liste;清單;列表;リスト;;;목록;;;Sąrašas;Lista;รายการ;;列表;لیست;Lista
 Lyrics;Lyrics;Paroles;Liedtext;;;;;;;;;;;;;;;;;;;;;;;;;Fjalët
 Lyricist;Lyricist;Parolier;Liedtexter;Szövegíró;Testo;Либретто;Autor de Letra;Letrista;Tekstschrijver;Słowa;Textier; Texter från;Söz yazarı;作詞者;作词;作詞;Lyricist;Lyricist;작사;Liricísta;transcrptor del text;Lyrikas;Compositor;Lyricist;Лірика;作詞;لایریکس;Shkrimtari
