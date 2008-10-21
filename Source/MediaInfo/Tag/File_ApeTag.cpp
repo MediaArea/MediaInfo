@@ -136,11 +136,11 @@ void File_ApeTag::Data_Parse()
     transform(Key.begin(), Key.end(), Key.begin(), (int(*)(int))toupper); //(int(*)(int)) is a patch for unix
          if (Key=="ALBUM")          Fill(Stream_General, 0, General_Album, Value);
     else if (Key=="ARTIST")         Fill(Stream_General, 0, General_Performer, Value);
-    else if (Key=="AUTHOR")         Fill(Stream_General, 0, General_Performer, Value);
+    else if (Key=="AUTHOR")         Fill(Stream_General, 0, General_WrittenBy, Value);
     else if (Key=="BAND")           Fill(Stream_General, 0, General_Performer, Value);
     else if (Key=="COMMENT")        Fill(Stream_General, 0, General_Comment, Value);
     else if (Key=="COMMENTS")       Fill(Stream_General, 0, General_Comment, Value);
-    else if (Key=="COMPOSER")       Fill(Stream_General, 0, General_WrittenBy, Value);
+    else if (Key=="COMPOSER")       Fill(Stream_General, 0, General_Composer, Value);
     else if (Key=="CONTENTGROUP")   Fill(Stream_General, 0, General_Genre, Value);
     else if (Key=="COPYRIGHT")      Fill(Stream_General, 0, General_Copyright, Value);
     else if (Key=="DISK")
@@ -171,7 +171,7 @@ void File_ApeTag::Data_Parse()
     else if (Key=="WWW")            Fill(Stream_General, 0, General_Title_Url, Value);
     else if (Key=="YEAR")           Fill(Stream_General, 0, General_Recorded_Date, Value);
     else if (Key=="CONTENT GROUP DESCRIPTION") Fill(Stream_General, 0, General_Title, Value);
-    else if (Key=="ORIGINAL ALBUM/MOVIE/SHOW TITLE") Fill(Stream_General, 0, General_Title, Value);
+    else if (Key=="ORIGINAL ALBUM/MOVIE/SHOW TITLE") Fill(Stream_General, 0, General_Original_Album, Value);
     else if (Key=="ORIGINAL ARTIST(S)/PERFORMER(S)") Fill(Stream_General, 0, General_Original_Performer, Value);
     else                            Fill(Stream_General, 0, Key.c_str(), Value);
 }
