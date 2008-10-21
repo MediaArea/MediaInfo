@@ -123,6 +123,8 @@ File_Wvpk::File_Wvpk()
     block_index_FirstFrame=0;
     block_index_LastFrame=0;
     SamplingRate=(int8u)-1;
+    num_channels=0;
+    channel_mask=0;
 }
 
 //***************************************************************************
@@ -255,7 +257,7 @@ void File_Wvpk::Data_Parse()
                 Skip_Flags(flags, 23,                           "sampling rate");
                 Skip_Flags(flags, 24,                           "sampling rate");
                 Skip_Flags(flags, 25,                           "sampling rate");
-                Skip_Flags(flags, 26,                           "sampling rate"); SamplingRate=(int8u)(((flags>>23)&0xF)); Element_Info(Wvpk_SamplingRate[SamplingRate]);
+                Skip_Flags(flags, 26,                           "sampling rate"); SamplingRate=(int8u)(((flags>>23)&0xF)); Param_Info(Wvpk_SamplingRate[SamplingRate]);
                 Skip_Flags(flags, 27,                           "reserved");
                 Skip_Flags(flags, 28,                           "reserved");
                 Skip_Flags(flags, 29,                           "use IIR for negative hybrid noise shaping");
@@ -273,13 +275,18 @@ void File_Wvpk::Data_Parse()
         Element_End();
 
         //Sub-block
-        int32u word_size;
         int8u id;
         while (Element_Offset<Element_Size)
         {
             Element_Begin();
-            Get_L1 (id,                                         "id"); Element_Info(Wvpk_id(id&0x2F));
-            if (id&0x80)
+            int32u word_size;
+            bool large, odd_size;
+            BS_Begin();
+            Get_SB (large,                                      "large");
+            Get_SB (odd_size,                                   "odd_size");
+            Get_S1 (6, id,                                      "id"); Element_Info(Wvpk_id(id));
+            BS_End();
+            if (large)
             {
                 Get_L3 (word_size,                              "word_size");
             }
@@ -289,8 +296,20 @@ void File_Wvpk::Data_Parse()
                 Get_L1 (word_size1,                             "word_size");
                 word_size=word_size1;
             }
-            Element_Name(Wvpk_id(id&0x2F));
-            Skip_XX(word_size*2,                                "data");
+            if (word_size==0 && odd_size)
+                Size=0; //Problem!
+            else
+                Size=word_size*2-(odd_size?1:0);
+            Element_Name(Wvpk_id(id));
+            switch (id)
+            {
+                case 0x0D : id_0D(); break;
+                case 0x25 : id_25(); break;
+                default   : if (word_size)
+                                Skip_XX(Size,                   "data");
+            }
+            if (odd_size)
+                Skip_XX(1,                                      "padding");
             Element_End();
         }
     }
@@ -314,7 +333,93 @@ void File_Wvpk::Data_Parse_Fill()
     }
 
     Fill(Stream_Audio, 0, Audio_Resolution, Wvpk_Resolution[(resolution1?1:0)*2+(resolution0?1:0)]);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, mono?1:2);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, num_channels?num_channels:(mono?1:2));
+    if (channel_mask)
+    {
+        Ztring Channels_Positions, Channels_Positions2;
+        if (channel_mask&0x00C7)
+        {
+            int8u Count=0;
+            Channels_Positions+=_T("Front:");
+            if (channel_mask&0x0001)
+            {
+                Channels_Positions+=_T(" L");
+                Count++;
+            }
+            if (channel_mask&0x0004)
+            {
+                Channels_Positions+=_T(" C");
+                Count++;
+            }
+            if (channel_mask&0x0040)
+            {
+                Channels_Positions+=_T(" C");
+                Count++;
+            }
+            if (channel_mask&0x0080)
+            {
+                Channels_Positions+=_T(" C");
+                Count++;
+            }
+            if (channel_mask&0x0002)
+            {
+                Channels_Positions+=_T(" R");
+                Count++;
+            }
+            Channels_Positions2+=Ztring::ToZtring(Count);
+        }
+        if (channel_mask&0x0600)
+        {
+            int8u Count=0;
+            if (!Channels_Positions.empty())
+                Channels_Positions+=_T(", ");
+            Channels_Positions+=_T("Middle:");
+            if (channel_mask&0x0200)
+            {
+                Channels_Positions+=_T(" L");
+                Count++;
+            }
+            if (channel_mask&0x0400)
+            {
+                Channels_Positions+=_T(" R");
+                Count++;
+            }
+            Channels_Positions2+=_T('.')+Ztring::ToZtring(Count);
+        }
+        if (channel_mask&0x0130)
+        {
+            int8u Count=0;
+            if (!Channels_Positions.empty())
+                Channels_Positions+=_T(", ");
+            Channels_Positions+=_T("Rear:");
+            if (channel_mask&0x0010)
+            {
+                Channels_Positions+=_T(" L");
+                Count++;
+            }
+            if (channel_mask&0x0100)
+            {
+                Channels_Positions+=_T(" C");
+                Count++;
+            }
+            if (channel_mask&0x0020)
+            {
+                Channels_Positions+=_T(" R");
+                Count++;
+            }
+            Channels_Positions2+=_T('/')+Ztring::ToZtring(Count);
+        }
+        if (channel_mask&0x0008)
+        {
+            if (!Channels_Positions.empty())
+                Channels_Positions+=_T(", ");
+            Channels_Positions+=_T("LFE");
+            Channels_Positions2+=_T(".1");
+        }
+        Fill(Stream_Audio, 0, Audio_ChannelPositions, Channels_Positions);
+        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Channels_Positions2);
+    }
+
     if (SamplingRate<15)
     {
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Wvpk_SamplingRate[SamplingRate]);
@@ -323,10 +428,145 @@ void File_Wvpk::Data_Parse_Fill()
     }
     Fill(Stream_Audio, 0, Audio_Format_Settings, hybrid?"Hybrid lossy":"Lossless");
     Fill(Stream_Audio, 0, Audio_Codec_Settings, hybrid?"hybrid lossy":"lossless");
+    Fill(Stream_Audio, 0, Audio_Encoded_Library_Settings, Encoded_Library_Settings);
 
     //Going to end of file
     if (File_Size>512*1024)
         File__Tags_Helper::Data_GoTo(File_Size-512*1024, "WavPack");
+}
+
+//---------------------------------------------------------------------------
+void File_Wvpk::id_0D()
+{
+    //Parsing
+    Get_L1 (num_channels,                                       "num_channels");
+    switch (Size)
+    {
+        case 1 :
+                    break;
+        case 2 :
+                    {
+                    int8u channel_mask_1;
+                    Get_L1 (channel_mask_1,                     "channel_mask");
+                    channel_mask=channel_mask_1;
+                    }
+                    break;
+        case 3 :
+                    {
+                    int16u channel_mask_2;
+                    Get_L2 (channel_mask_2,                     "channel_mask");
+                    channel_mask=channel_mask_2;
+                    }
+                    break;
+        case 4 :
+                    Get_L3 (channel_mask,                       "channel_mask");
+                    break;
+        case 5 :
+                    Get_L4 (channel_mask,                       "channel_mask");
+                    break;
+        default :   Skip_XX(Size,                               "unknown");
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Wvpk::id_25()
+{
+    //Parsing
+    int32u flags;
+    int8u  extra=1;
+    Get_L3 (flags,                                              "flags");
+        Skip_Flags(flags,  0,                                   "");
+        Skip_Flags(flags,  1,                                   "fast mode");
+        Skip_Flags(flags,  2,                                   "");
+        Skip_Flags(flags,  3,                                   "high quality mode");
+
+        Skip_Flags(flags,  4,                                   "very high quality mode");
+        Skip_Flags(flags,  5,                                   "bitrate is kbps, not bits/sample");
+        Skip_Flags(flags,  6,                                   "automatic noise shaping");
+        Skip_Flags(flags,  7,                                   "shaping mode specified");
+
+        Skip_Flags(flags,  8,                                   "joint-stereo mode specified");
+        Skip_Flags(flags,  9,                                   "dynamic noise shaping");
+        Skip_Flags(flags, 10,                                   "create executable");
+        Skip_Flags(flags, 11,                                   "create correction file");
+
+        Skip_Flags(flags, 12,                                   "maximize bybrid compression");
+        Skip_Flags(flags, 13,                                   "");
+        Skip_Flags(flags, 14,                                   "");
+        Skip_Flags(flags, 15,                                   "calc noise in hybrid mode");
+
+        Skip_Flags(flags, 16,                                   "lossy mode");
+        Skip_Flags(flags, 17,                                   "extra processing mode");
+        Skip_Flags(flags, 18,                                   "no wvx stream w/ floats & big ints");
+        Skip_Flags(flags, 19,                                   "store MD5 signature");
+
+        Skip_Flags(flags, 20,                                   "merge blocks of equal redundancy (for lossyWAV)");
+        Skip_Flags(flags, 21,                                   "");
+        Skip_Flags(flags, 22,                                   "");
+        Skip_Flags(flags, 23,                                   "optimize for mono streams posing as stereo");
+    if (flags&0x20000 && Size>=4)
+    {
+        Get_L1(extra,                                           "extra");
+    }
+
+    if ((flags&0x20000 && Size>4) || (!(flags&0x20000) && Size>3))
+        Skip_XX(Size-3-(flags&0x20000?1:0),                     "unknown");
+
+    //Filling
+    if (flags&0x000001)
+        Encoded_Library_Settings+=_T(" -?");
+    if (flags&0x000002)
+        Encoded_Library_Settings+=_T(" -f");
+    if (flags&0x000004)
+        Encoded_Library_Settings+=_T(" -?");
+    if (flags&0x000008)
+        Encoded_Library_Settings+=_T(" -h");
+    if (flags&0x000010)
+        Encoded_Library_Settings+=_T(" -hh");
+    if (flags&0x000020)
+        Encoded_Library_Settings+=_T(" -?(bitrate is kbps, not bits/sample)");
+    if (flags&0x000040)
+        Encoded_Library_Settings+=_T(" -?(automatic noise shaping)");
+    if (flags&0x000080)
+        Encoded_Library_Settings+=_T(" -sn");
+    if (flags&0x000100)
+        Encoded_Library_Settings+=_T(" -jn");
+    if (flags&0x000200)
+        Encoded_Library_Settings+=_T(" -use-dns");
+    if (flags&0x000400)
+        Encoded_Library_Settings+=_T(" -e");
+    if (flags&0x000800)
+        Encoded_Library_Settings+=_T(" -c");
+    if (flags&0x001000)
+        Encoded_Library_Settings+=_T(" -cc");
+    if (flags&0x002000)
+        Encoded_Library_Settings+=_T(" -?");
+    if (flags&0x004000)
+        Encoded_Library_Settings+=_T(" -?");
+    if (flags&0x008000)
+        Encoded_Library_Settings+=_T(" -n");
+    if (flags&0x010000)
+        Encoded_Library_Settings+=_T(" -?(lossy mode)");
+    if (flags&0x020000)
+    {
+        Encoded_Library_Settings+=_T(" -x");
+        if (extra)
+            Encoded_Library_Settings+=Ztring::ToZtring(extra);
+    }
+    if (flags&0x04000)
+        Encoded_Library_Settings+=_T(" -?");
+    if (flags&0x080000)
+        Encoded_Library_Settings+=_T(" -m");
+    if (flags&0x100000)
+        Encoded_Library_Settings+=_T(" --merge-blocks");
+    if (flags&0x200000)
+        Encoded_Library_Settings+=_T(" -?");
+    if (flags&0x400000)
+        Encoded_Library_Settings+=_T(" -?");
+    if (flags&0x800000)
+        Encoded_Library_Settings+=_T(" --optimize-mono");
+    if (!Encoded_Library_Settings.empty())
+        Encoded_Library_Settings.erase(Encoded_Library_Settings.begin());
 }
 
 //***************************************************************************

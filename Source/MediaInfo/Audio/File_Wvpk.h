@@ -58,6 +58,8 @@ private :
     void Header_Parse();
     void Data_Parse();
     void Data_Parse_Fill();
+    void id_0D();
+    void id_25();
 
     //Temp - Global
     size_t Frame_Count;
@@ -74,6 +76,10 @@ private :
     bool   joint_stereo;
     bool   cross_channel_decorrelation;
     int8u  SamplingRate;
+    int8u  num_channels;
+    int32u channel_mask;
+    int32u Size;
+    Ztring Encoded_Library_Settings;
 
     //Helpers
     bool Synchronize();

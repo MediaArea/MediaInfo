@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.7.8, 2008-
+---------------
++ #2182135, Wavpack: support of multichannel files
+
 Version 0.7.7.7, 2008-10-17
 ---------------
 + Support of VP5 file format
