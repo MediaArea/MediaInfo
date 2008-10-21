@@ -84,7 +84,7 @@ const char*  DTS_ChannelPositions[]=
     "Front: L C C R, Surround: L R",
     "Front: L C R, Rear: L R",
     "Front: L R, Middle: L R, Rear: L R",
-    "Front: L C R, Middle: L R, surround: L R",
+    "Front: L C R, Middle: L R, Surround: L R",
     "Front: L R, Middle: L R, Surround: L C C R",
     "Front: L C R, Middle: L R, Surround: L C R",
 };
