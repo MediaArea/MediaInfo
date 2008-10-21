@@ -56,7 +56,6 @@ public :
     // Open
     //***************************************************************************
 
-    int     Open_File (const Ztring &File_Name); //1 if succeed, 0 if problem with format
     void    Open_Buffer_Init        (                    int64u File_Size, int64u File_Offset=0);
     void    Open_Buffer_Init        (File__Analyze* Sub);
     void    Open_Buffer_Init        (File__Analyze* Sub, int64u File_Size, int64u File_Offset=0);

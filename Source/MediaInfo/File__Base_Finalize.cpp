@@ -65,9 +65,8 @@ void File__Analyze::General_Fill()
 
         //FileSize
         File F(File_Name);
-        int64u FileSize=F.Size_Get();
-        if (FileSize)
-            Fill (Stream_General, 0, General_FileSize, FileSize);
+        if (File_Size!=(int64u)-1)
+            Fill (Stream_General, 0, General_FileSize, File_Size);
         Fill (Stream_General, 0, General_File_Created_Date, F.Created_Get());
         Fill (Stream_General, 0, General_File_Modified_Date, F.Modified_Get());
     }

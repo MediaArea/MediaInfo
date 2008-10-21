@@ -43,7 +43,7 @@ class File_Unknown : public File__Analyze
 {
 protected :
     //Formats
-    void Read_File ();
+    void Read_Buffer_Init ();
 };
 
 } //NameSpace

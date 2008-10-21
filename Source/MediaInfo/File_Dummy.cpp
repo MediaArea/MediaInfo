@@ -41,7 +41,7 @@ namespace MediaInfoLib
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Dummy::Read_File()
+void File_Dummy::Read_Buffer_Init()
 {
     File_Name=_T("D:\\Example\\"); File_Name+=KindOfDummy;
          if (KindOfDummy==_T("Album"))
@@ -109,6 +109,8 @@ void File_Dummy::Read_File()
         Fill(Stream_Chapters, 0, Chapters_Total, "16");
         Fill(Stream_Chapters, 0, Chapters_Language, "en");
     }
+
+    Finnished();
 }
 
 //***************************************************************************

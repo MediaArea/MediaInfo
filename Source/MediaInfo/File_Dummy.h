@@ -45,7 +45,7 @@ public :
 
 protected :
     //Format
-    void Read_File ();
+    void Read_Buffer_Init ();
 
 private :
     void Fill_Dummy_General();

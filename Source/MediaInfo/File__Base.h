@@ -69,7 +69,6 @@ public :
 
 protected :
     //Read
-    virtual void Read_File            (); //To overload
     virtual void Read_Buffer_Init     (); //To overload
     virtual void Read_Buffer_Unsynched(); //To overload
     virtual void Read_Buffer_Continue (); //To overload

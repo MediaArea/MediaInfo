@@ -129,35 +129,6 @@ File__Analyze::~File__Analyze ()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-int File__Analyze::Open_File (const Ztring &File_Name_)
-{
-    if (!Stream)
-    {
-        Stream=new std::vector<std::vector<ZtringList> >;
-        Stream->resize(Stream_Max);
-        Stream_More=new std::vector<std::vector<ZtringListList> >;
-        Stream_More->resize(Stream_Max);
-        Stream_MustBeDeleted=true;
-    }
-
-    //Preparing
-    Clear();
-    File_Name=File_Name_;
-
-    //Analyzing
-    Read_File();
-
-    //Finalizing
-    if (Count_Get(Stream_General)>0)
-    {
-        Finalize();
-        return 1;
-    }
-    else
-        return 0;
-}
-
-//---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
 {
     if (!Stream)
@@ -178,6 +149,13 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
     if (!IsSub)
         IsSub=Config->File_IsSub_Get();
 
+    //Format
+    if (!Buffer_Init_Done)
+    {
+        Read_Buffer_Init();
+        Buffer_Init_Done=true;
+    }
+
     //Integrity
     if (File_Offset>=File_Size)
     {
@@ -189,13 +167,6 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
     //Jump handling
     if (!Buffer_Init_Done || File_GoTo!=(int64u)-1)
         Read_Buffer_Unsynched();
-
-    //Format
-    if (!Buffer_Init_Done)
-    {
-        Read_Buffer_Init();
-        Buffer_Init_Done=true;
-    }
 }
 
 void File__Analyze::Open_Buffer_Init (File__Analyze* Sub)

@@ -145,11 +145,8 @@ int MediaInfo_Internal::Format_Test()
     if (Info==NULL)
         return 0;
     Info->Init(&Config, &Details, &Stream, &Stream_More);
-
-    //Test the format with filename
-    if (Info->Open_File(File_Name)>0)
-        return 1;
-
+    Info->File_Name=File_Name;
+    
     //Test the format with buffer
     //-Test is already test with failure
     if (File_AlreadyBuffered && File_Size==0)
@@ -224,7 +221,6 @@ int MediaInfo_Internal::Format_Test_FillBuffer_Init()
 
     //Init
     Buffer_Size_Max=Buffer_NormalSize;
-    File_Size=0;
     File_Offset=0;
     Buffer=NULL;
 
@@ -239,7 +235,8 @@ int MediaInfo_Internal::Format_Test_FillBuffer_Init()
 
 
     //FileSize
-    File_Size=((File*)File_Handle)->Size_Get();
+    if (File_Size==0) //If not provided by Open_Buffer_Init()
+        File_Size=((File*)File_Handle)->Size_Get();
 
     //Buffer
     delete[] Buffer; Buffer=new int8u[Buffer_Size_Max];
@@ -266,6 +263,9 @@ int MediaInfo_Internal::Format_Test_FillBuffer_Continue()
     //Seek (if needed)
     if (Info->File_GoTo!=(int64u)-1 && Info->File_GoTo<File_Size)
     {
+        if (Info->File_GoTo>=((File*)File_Handle)->Size_Get())
+            //Seek requested, but on a file bigger in theory than what is in the real file, we can't do this
+            return -1;
         if (((File*)File_Handle)->GoTo(Info->File_GoTo))
         {
             File_Offset=Info->File_GoTo;
@@ -341,6 +341,9 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
     }
     Info->Init(&Config, &Details, &Stream, &Stream_More);
     Info->Open_Buffer_Init(File_Size_, File_Offset_);
+
+    //Saving the real file size, in case the user provide the theoritical file size, to be used instead of the real file size
+    File_Size=File_Size_;
 
     return 1;
 }
@@ -606,13 +609,8 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
     else if (OptionLower==_T("create_dummy"))
     {
         CreateDummy (Value);
-        if (Info && Info->Open_File(_T(""))>0)
-            return _T("Y");
-        else
-        {
-            delete Info; Info=NULL;
-            return _T("");
-        }
+        delete Info; Info=NULL;
+        return _T("");
     }
     else if (Option==_T("info_capacities"))
     {
