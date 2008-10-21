@@ -242,7 +242,7 @@ Count;数量
 Country;国家(地区)
 Cover;封面
 Cover_Datas;封面数据
-Cover_Description
+Cover_Description;封面描述
 Cover_Mime;封面MIME
 Cover_Type;封面type
 Cropped;公司规模
@@ -273,7 +273,7 @@ Encoded_Library_Settings;编码设置
 Encoded_Original;编码源
 EncodedBy;编码
 Error_File;读文件时出错
-ExecutiveProducer;执行制片人
+ExecutiveProducer;监制
 Exit;退出
 Exit_Hint;退出程序
 Export;导出
@@ -728,13 +728,13 @@ ms;片名
 MSDI
 MusicBy;音乐制作
 MuxingMode;混合模式
-MuxingMode_PackedBitstream
+MuxingMode_PackedBitstream;Packed bitstream
 Name;名称
 Nationality;国藉
 New;新建
 Newest version;检查新版本(需要网络连接)
 No;否
-Not yet
+Not yet;尚无
 NumColors
 OK;确定
 One output file per input file;一个输入文件对应一个输出文件

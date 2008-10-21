@@ -242,7 +242,7 @@ Count;所有種類
 Country;國家
 Cover;封面
 Cover_Datas;封面資料
-Cover_Description
+Cover_Description;封面描述
 Cover_Mime;封面MIME
 Cover_Type;封面type
 Cropped;公司規模
@@ -734,7 +734,7 @@ Nationality;國籍
 New;新增
 Newest version;檢查最新的版本 (需要網路連線)
 No;否
-Not yet
+Not yet;尚无
 NumColors
 OK;確認
 One output file per input file;一個輸入檔對應一個輸出檔
