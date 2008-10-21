@@ -79,7 +79,7 @@
  KibiByte1; Кибибайт
  KibiByte2; Кибибайт
  KibiByte3; Кибибайт
- KiBps; КибиБит/сек
+ KiBps; Кибибайт/сек
  KiloBit1; Килобит
  KiloBit2; Килобит
  KiloBit3; Килобит
@@ -89,7 +89,7 @@
  MB; МБайт
  Mb; Мбит
  Mbps; Мбит/сек
- MBps; МебиБайт
+ MBps; Мегабайт/сек
  MebiBit1; Мебибит
  MebiBit2; Мебибит
  MebiBit3; Мебибит
@@ -103,9 +103,9 @@
  MegaByte2; Мегабайт
  MegaByte3; Мегабайт
  MHz; МГц
- MiB; Мегабит
+ MiB; Мегабайт
  Mib; Мегабит
- MiBps; МБит/сек
+ MiBps; МБайт/сек
  milisecond1; миллисекунда
  milisecond2; миллисекунд
  milisecond3; миллисекунд
