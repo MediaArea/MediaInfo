@@ -105,13 +105,13 @@ void File_VorbisCom::Comment()
         else if (Key==_T("ALBUM ARTIST"))           {if (Value!=Retrieve(Stream_General, 0, General_Performer)) Fill(Stream_General, 0, General_Performer, Value);}
         else if (Key==_T("ALBUM"))                  Fill(Stream_General, 0, General_Album, Value);
         else if (Key==_T("ARTIST"))                 {if (Value!=Retrieve(Stream_General, 0, General_Performer)) Fill(Stream_General, 0, General_Performer, Value);}
-        else if (Key==_T("AUTHOR"))                 Fill(Stream_General, 0, General_Performer, Value);
+        else if (Key==_T("AUTHOR"))                 Fill(Stream_General, 0, General_WrittenBy, Value);
         else if (Key==_T("COMMENT"))                Fill(Stream_General, 0, General_Comment, Value);
         else if (Key==_T("COMMENTS"))               Fill(Stream_General, 0, General_Comment, Value);
         else if (Key==_T("CONTACT"))                Fill(Stream_General, 0, General_Publisher, Value);
         else if (Key==_T("COPYRIGHT"))              Fill(Stream_General, 0, General_Copyright, Value);
         else if (Key==_T("DATE"))                   Fill(Stream_General, 0, General_Recorded_Date, Value);
-        else if (Key==_T("DESCRIPTION"))            Fill(Stream_General, 0, General_Comment, Value);
+        else if (Key==_T("DESCRIPTION"))            Fill(Stream_General, 0, General_Description, Value);
         else if (Key==_T("ENCODER"))                Fill(Stream_General, 0, General_Encoded_Application, Value);
         else if (Key==_T("ENCODED_USING"))          Fill(Stream_General, 0, General_Encoded_Application, Value);
         else if (Key==_T("ENCODER_URL"))            Fill(Stream_General, 0, General_Encoded_Application_Url, Value);
