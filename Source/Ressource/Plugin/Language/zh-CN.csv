@@ -152,8 +152,8 @@ Address;地址
 Advanced;高级
 Advanced mode;高级模式
 Album;专辑
-Album_ReplayGain_Gain
-Album_ReplayGain_Peak
+Album_ReplayGain_Gain;专辑回放增益
+Album_ReplayGain_Peak;专辑回放增益峰值
 Alignment
 Alignment_Aligned
 Alignment_Split
@@ -224,14 +224,14 @@ Codec_Settings_ITU;编解码器设置, ITU
 Codec_Profile;编解码器简介
 Codec_Url;编解码器网址
 CodecID;编解码器ID
-CodecID_Description
+CodecID_Description;编码描述
 Collection;收集
 Colorimetry;比色法
 Comment;评论
 CommissionedBy;评论人
 CompleteName;完整名称
 Composer;作曲
-CompressionRatio
+CompressionRatio;压缩比
 Conductor;指挥
 Container and general information;文件格式和一般信息
 ContentType;内容类型
@@ -243,9 +243,9 @@ Country;国家(地区)
 Cover;封面
 Cover_Datas;封面数据
 Cover_Description
-Cover_Mime
-Cover_Type
-Cropped
+Cover_Mime;封面MIME
+Cover_Type;封面type
+Cropped;公司规模
 Custom;自定义
 Customize;自定义
 Date;日期
@@ -255,13 +255,13 @@ Delay;延迟
 Delete;删除
 Description;说明
 Digitized_Date;数字化日期
-Dimensions
+Dimensions;规模
 Director;导演
 DirectorOfPhotography;摄影导演
 DisplayAspectRatio;画面比例
 DistributedBy;发行
 Donate;赞助
-DotsPerInch
+DotsPerInch;点/英寸(DPI)
 Duration;长度
 Edit;编辑
 EditedBy;编辑
@@ -324,8 +324,8 @@ Format_Url;编解码器网址
 FrameCount;总帧数
 FrameRate;帧率
 FrameRate_Mode;帧率模式
-FrameRate_Mode_CFR
-FrameRate_Mode_VFR
+FrameRate_Mode_CFR;恒定
+FrameRate_Mode_VFR;可变
 FrameRate_Minimum;最小帧率
 FrameRate_Nominal;额定帧率
 FrameRate_Maximum;最大帧率
@@ -703,18 +703,18 @@ Language_yo
 Language_za
 Language_zh;简体中文
 Language_zu
-LawRating
-LCCN
+LawRating;级别
+LCCN;LCCN
 Library
-Lightness
+Lightness;高亮
 List;列表
-Lyrics
+Lyrics;歌词
 Lyricist;作词
 Mastered_Date;母带完成日期
 MasteredBy;母带制做
 MediaInfo_About;支持多种格式的多媒体文件:\r\nMatroska, OGG (包括 OGM)\r\nMPEG-1 (包括 VCD)\r\nMPEG-2 (包括 DVD, SVCD)\r\nMPEG-4 (包括 iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (包括 WMV, WMA)\r\nMicrosoft RIFF (包括 AVI, WAV)\r\n纯声音格式 (AC3, DTS, AAC, AU, AIFF...)
 Menu;菜单
-Menu stream(s)
+Menu stream(s);目录串
 Menu_Codec_List;菜单编解码器
 Menu_No;没有菜单
 MenuCount;菜单数
@@ -724,9 +724,9 @@ mn;分
 Mood;情绪
 More;更多
 Movie;电影
-ms
+ms;片名
 MSDI
-MusicBy
+MusicBy;音乐制作
 MuxingMode;混合模式
 MuxingMode_PackedBitstream
 Name;名称
@@ -742,8 +742,8 @@ Open;打开
 Options;选项
 Options_Hint;参数设定
 Original;源
-OriginalSourceForm
-OriginalSourceMedium
+OriginalSourceForm;资源来源
+OriginalSourceMedium;资源媒介
 Other;其它
 Output;输出
 Output format;输出格式
@@ -752,14 +752,14 @@ OverallBitRate_Maximum;最大混合码率
 OverallBitRate_Minimum;最小混合码率
 OverallBitRate_Mode;混合码率模式
 OverallBitRate_Nominal;额定混合码率
-Part
-Part_Count
+Part;部
+Part_Count;总计
 Performer;艺术家
-Period
+Period;时代
 Phone;电话
 PixelAspectRatio;画面比例(像素)
 PlayCounter;播放计数器
-Played_Count
+Played_Count;已播放时间
 Played_First_Date
 Played_Last_Date
 PlayTime;播放时间
@@ -778,8 +778,8 @@ Recorded_Date;录制日期
 Recorded_Location;录制地点
 Released_Date;发布日期
 RemixedBy;重新混合
-ReplayGain_Gain
-ReplayGain_Peak
+ReplayGain_Gain;回放增益
+ReplayGain_Peak;回放增益峰值
 Resolution;分辨率
 s;秒
 SamplingRate;采样率
@@ -792,14 +792,14 @@ see below;请看下面列出的内容
 Send HeaderFile;发送头文件: http://sourceforge.net/projects/mediainfo/
 Separator_Columns;列分隔符
 Separator_Lines;换行符
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
+ServiceChannel;服务频道号码
+ServiceName;服务名
+ServiceProvider;服务提供
+ServiceType;服务类型
 Set;设置
 Set_Count;设置项目
 Setup;设置
-Sharpness
+Sharpness;锐利
 Sheet;表格
 Sheet (Complete);表格(完整)
 Shell extension;[资源管理器]右键菜单 (为多媒体文件的右键菜单添加 MediaInfo 选项)
@@ -814,10 +814,10 @@ Stream_MoreInfo;更多信息
 StreamCount;此类型流的数量
 StreamID;流ID
 StreamKind;类型
-StreamKindID
-StreamKindPos
+StreamKindID;流ID
+StreamKindPos;流ID
 StreamSize;大小
-StreamSize_Proportion
+StreamSize_Proportion;流属性
 Subject;主题
 SubTrack;子轨道
 Summary;摘要
@@ -881,5 +881,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;48
-ZZ_AutomaticLanguage_Percent;86
+ZZ_Automatic_Percent;52
+ZZ_AutomaticLanguage_Percent;90
