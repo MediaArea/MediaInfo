@@ -919,7 +919,7 @@ void File_Id3v2::Fill_Name()
         case Id3::TMED : Fill(Stream_General, 0, "Media Type", Element_Value); break;
         case Id3::TMOO : Fill(Stream_General, 0, "Mood", Element_Value); break;
         case Id3::TOAL : Fill(Stream_General, 0, "Original/Album", Element_Value); break;
-        case Id3::TOFN : Fill(Stream_General, 0, "Original/Filename", Element_Value); break;
+        case Id3::TOFN : Fill(Stream_General, 0, "Original/FileName", Element_Value); break;
         case Id3::TOLY : Fill(Stream_General, 0, "Original/Lyricist", Element_Value); break;
         case Id3::TOPE : Fill(Stream_General, 0, "Original/Performer", Element_Value); break;
         case Id3::TORY : Normalize_Date(Element_Value); Fill(Stream_General, 0, "Original/Released_Date", Element_Value); break;
@@ -999,7 +999,7 @@ void File_Id3v2::Fill_Name()
         case Id3::TLE  : break;
         case Id3::TMT  : Fill(Stream_General, 0, "Media type", Element_Value); break;
         case Id3::TOA  : Fill(Stream_General, 0, "Original/Performer", Element_Value); break;
-        case Id3::TOF  : Fill(Stream_General, 0, "Original/Filename", Element_Value); break;
+        case Id3::TOF  : Fill(Stream_General, 0, "Original/FileName", Element_Value); break;
         case Id3::TOL  : Fill(Stream_General, 0, "Original/Lyricist", Element_Value); break;
         case Id3::TOR  : Normalize_Date(Element_Value); Fill(Stream_General, 0, "Original/Released_Date", Element_Value); break;
         case Id3::TOT  : Fill(Stream_General, 0, "Original/Album", Element_Value); break;
