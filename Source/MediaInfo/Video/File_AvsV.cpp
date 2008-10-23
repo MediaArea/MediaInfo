@@ -682,12 +682,18 @@ void File_AvsV::picture_start_Fill()
     Fill(Stream_Video, StreamPos_Last, Video_Width, horizontal_size);
     Fill(Stream_Video, StreamPos_Last, Video_Height, vertical_size);
     Fill(Stream_Video, 0, Video_FrameRate, AvsV_frame_rate[frame_rate_code]/(progressive_sequence?1:2));
-    if (aspect_ratio!=1)
-        Fill(Stream_Video, 0, Video_DisplayAspectRatio, AvsV_aspect_ratio[aspect_ratio]);
+    if (aspect_ratio==0)
+        ;//Forbidden
+    else if (aspect_ratio==1)
+            Fill(Stream_Video, 0, Video_PixelAspectRatio, 1.000);
     else if (display_horizontal_size && display_vertical_size)
-        Fill(Stream_Video, 0, Video_DisplayAspectRatio, ((float32)display_horizontal_size)/display_vertical_size);
-    else
-        Fill(Stream_Video, 0, Video_PixelAspectRatio, 1);
+    {
+        if (vertical_size && AvsV_aspect_ratio[aspect_ratio])
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, (float)horizontal_size/vertical_size
+                                                                         *AvsV_aspect_ratio[aspect_ratio]/((float)display_horizontal_size/display_vertical_size));
+    }
+    else if (AvsV_aspect_ratio[aspect_ratio])
+        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, AvsV_aspect_ratio[aspect_ratio]);
     Fill(Stream_Video, 0, Video_Colorimetry, AvsV_chroma_format[chroma_format]);
     if (progressive_frame_Count && progressive_frame_Count!=Frame_Count)
     {
