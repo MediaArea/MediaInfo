@@ -14,7 +14,7 @@ Known bugs
 
 Version 0.7.7.8, 2008-
 ---------------
-+ Albanian, Chinese (Simplified), Chinese (Traditional) languages updated
++ Albanian, Chinese (Simplified) languages updated
 
 Version 0.7.7.7, 2008-10-17
 ---------------
