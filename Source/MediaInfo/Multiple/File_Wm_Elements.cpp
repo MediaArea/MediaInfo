@@ -968,7 +968,7 @@ void File_Wm::Header_ExtendedContentDescription()
             else if (Name==_T("WM/ArtistSortOrder"))
                 Fill(Stream_General, 0, General_Performer_Sort, Value);
             else if (Name==_T("WM/AuthorURL"))
-                Fill(Stream_General, 0, General_Performer_Url, Value);
+                Fill(Stream_General, 0, "Author/Url", Value);
             else if (Name==_T("WM/BeatsPerMinute"))
                 Fill(Stream_General, 0, General_BPM, Value);
             else if (Name==_T("WM/Binary"))
@@ -995,7 +995,7 @@ void File_Wm::Header_ExtendedContentDescription()
             else if (Name==_T("WM/Language"))
                 Language_ForAll=Value;
             else if (Name==_T("WM/MediaCredits"))
-                Fill(Stream_General, 0, General_ServiceName, Value);
+                Fill(Stream_General, 0, General_ThanksTo, Value);
             else if (Name==_T("WM/MediaPrimaryClassID")) {}
             else if (Name==_T("WM/MCDI")) {}
             else if (Name==_T("WM/ModifiedBy"))
@@ -1042,7 +1042,7 @@ void File_Wm::Header_ExtendedContentDescription()
                 }
             }
             else if (Name==_T("WM/Writer"))
-                Fill(Stream_General, 0, "Lyristic", Value);
+                Fill(Stream_General, 0, General_WrittenBy, Value);
             else if (Name==_T("WM/Year"))
                 Fill(Stream_General, 0, General_Recorded_Date, Value);
             else
