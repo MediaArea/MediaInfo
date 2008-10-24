@@ -154,6 +154,7 @@ Advanced mode;進階模式
 Album;專輯
 Album_ReplayGain_Gain;專輯播放增益
 Album_ReplayGain_Peak;專輯播放增益尖峰值
+Alignment
 Alignment_Aligned;對齊交錯訊號
 Alignment_Split;跨越交錯訊號
 All;全部
@@ -241,6 +242,10 @@ Count;所有種類
 Country;國家
 Cover;封面
 Cover_Datas;封面資料
+Cover_Description
+Cover_Mime
+Cover_Type
+Cropped
 Custom;自訂
 Customize;自訂
 Date;日期
@@ -250,11 +255,13 @@ Delay;延遲
 Delete;刪除
 Description;敘述
 Digitized_Date;數位化日期
+Dimensions
 Director;導演
 DirectorOfPhotography;攝影導演
 DisplayAspectRatio;顯示長寬比例
 DistributedBy;發布者
 Donate;贊助
+DotsPerInch
 Duration;時間長度
 Edit;編輯
 EditedBy;編輯者
@@ -699,7 +706,9 @@ Language_zu;祖魯語
 LawRating;分級
 LCCN;LCCN
 Library;合成函式庫
+Lightness
 List;清單
+Lyrics
 Lyricist;作詞者
 Mastered_Date;後製日期
 MasteredBy;後製者
@@ -717,6 +726,7 @@ More;更多
 Movie;電影名稱
 ms;毫秒
 MSDI;MSDI
+MusicBy
 MuxingMode;合成模式
 MuxingMode_PackedBitstream;Packed bitstream
 Name;名稱
@@ -724,12 +734,16 @@ Nationality;國籍
 New;新增
 Newest version;檢查最新的版本 (需要網路連線)
 No;否
+Not yet
+NumColors
 OK;確認
 One output file per input file;一個輸入檔對應一個輸出檔
 Open;開啟
 Options;選項
 Options_Hint;偏好設定
 Original;來源
+OriginalSourceForm
+OriginalSourceMedium
 Other;其它
 Output;輸出
 Output format;輸出格式
@@ -785,6 +799,7 @@ ServiceType;服務類型
 Set;集合
 Set_Count;集合數
 Setup;設定
+Sharpness
 Sheet;表格
 Sheet (Complete);表格 (完整)
 Shell extension;快顯功能表 (在檔案總管裡, 按右鍵會出現 MediaInfo 的選項)
@@ -866,5 +881,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98
