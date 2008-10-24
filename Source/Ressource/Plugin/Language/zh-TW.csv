@@ -154,9 +154,9 @@ Advanced mode;進階模式
 Album;專輯
 Album_ReplayGain_Gain;專輯播放增益
 Album_ReplayGain_Peak;專輯播放增益尖峰值
-Alignment
+Alignment;排列方式
 Alignment_Aligned;對齊交錯訊號
-Alignment_Split;跨越交錯訊號
+Alignment_Split;橫越交錯訊號
 All;全部
 Archival_Location;檔案位置
 Arranger;編曲
@@ -242,10 +242,10 @@ Count;所有種類
 Country;國家
 Cover;封面
 Cover_Datas;封面資料
-Cover_Description
-Cover_Mime
-Cover_Type
-Cropped
+Cover_Description;封面描述
+Cover_Mime;封面 MIME
+Cover_Type;封面類型
+Cropped;裁切維度
 Custom;自訂
 Customize;自訂
 Date;日期
@@ -255,13 +255,13 @@ Delay;延遲
 Delete;刪除
 Description;敘述
 Digitized_Date;數位化日期
-Dimensions
+Dimensions;維度
 Director;導演
 DirectorOfPhotography;攝影導演
 DisplayAspectRatio;顯示長寬比例
 DistributedBy;發布者
 Donate;贊助
-DotsPerInch
+DotsPerInch;每吋點數 (DPI)
 Duration;時間長度
 Edit;編輯
 EditedBy;編輯者
@@ -517,198 +517,198 @@ Known parameters;已知參數
 Label;標籤
 Language;語系
 Language___;多重語系
-Language_aa;伊索匹亞語
-Language_ab;阿布哈茲語
-Language_ae;古波斯語
-Language_af;南非語
-Language_ak;阿坎語
-Language_am;阿姆哈拉語
-Language_an;阿拉貢語
-Language_ar;阿拉伯語
-Language_as;阿薩姆語
-Language_av;阿瓦爾語
-Language_ay;艾馬拉語
-Language_az;亞塞拜然語
-Language_ba;巴什噶爾語
-Language_be;白俄羅斯語
-Language_bg;保加利亞語
-Language_bh;比哈爾語
-Language_bi;必斯拉馬語
-Language_bm;班巴拉語
-Language_bn;孟加拉語
-Language_bo;西藏語
-Language_br;布里多尼語
-Language_bs;波斯尼亞語
-Language_ca;加泰隆尼亞語
-Language_ce;車臣語
-Language_ch;查莫羅語
-Language_co;科西嘉語
-Language_cr;克里語
-Language_cs;捷克語
-Language_cu;古教會斯拉夫語
-Language_cv;楚瓦什語
-Language_cy;威爾斯語
-Language_da;丹麥語
-Language_de;德語
-Language_dv;迪維希語
-Language_dz;不丹語
-Language_ee;埃維語
-Language_el;希臘語
-Language_en;英語
-Language_eo;世界語
-Language_es;西班牙語
-Language_et;愛沙尼亞語
-Language_eu;巴斯克語
-Language_fa;波斯語
-Language_ff;富拉赫語
-Language_fi;芬蘭語
-Language_fj;斐濟語
-Language_fo;法羅斯語
-Language_fr;法語
-Language_fy;弗利然群島語
-Language_ga;愛爾蘭語
-Language_gd;蘇格蘭蓋爾語
-Language_gl;加里西亞語
-Language_gn;巴拉圭語
-Language_gu;古吉拉特語
-Language_gv;曼島語
-Language_ha;豪撒語
-Language_he;希伯來語
-Language_hi;印地語
-Language_ho;希里木托語
-Language_hr;克羅埃西亞語
-Language_ht;海地語
-Language_hu;匈牙利語
-Language_hy;亞美尼亞語
-Language_hz;赫雷羅語
-Language_ia;國際語
-Language_id;印尼語
-Language_ie;國際語
-Language_ig;伊格博語
-Language_ii;四川彝語
-Language_ik;因紐必語
+Language_aa;伊索匹亞語 (Afar)
+Language_ab;阿布哈茲語 (Abkhazian)
+Language_ae;古波斯語 (Avestan)
+Language_af;南非語 (Afrikaans)
+Language_ak;阿坎語 (Akan)
+Language_am;阿姆哈拉語 (Amharic)
+Language_an;阿拉貢語 (Aragonese)
+Language_ar;阿拉伯語 (Arabic)
+Language_as;阿薩姆語 (Assamese)
+Language_av;阿瓦爾語 (Avaric)
+Language_ay;艾馬拉語 (Aymara)
+Language_az;亞塞拜然語 (Azerbaijani)
+Language_ba;巴什噶爾語 (Bashkir)
+Language_be;白俄羅斯語 (Belarusian)
+Language_bg;保加利亞語 (Bulgarian)
+Language_bh;比哈爾語 (Bihari)
+Language_bi;必斯拉馬語 (Bislama)
+Language_bm;班巴拉語 (Bambara)
+Language_bn;孟加拉語 (Bengali)
+Language_bo;西藏語 (Tibetan)
+Language_br;布里多尼語 (Breton)
+Language_bs;波斯尼亞語 (Bosnian)
+Language_ca;加泰隆尼亞語 (Catalan)
+Language_ce;車臣語 (Chechen)
+Language_ch;查莫羅語 (Chamorro)
+Language_co;科西嘉語 (Corsican)
+Language_cr;克里語 (Cree)
+Language_cs;捷克語 (Czech)
+Language_cu;古教會斯拉夫語 (Slave)
+Language_cv;楚瓦什語 (Chuvash)
+Language_cy;威爾斯語 (Welsh)
+Language_da;丹麥語 (Danish)
+Language_de;德語 (German)
+Language_dv;迪維希語 (Divehi)
+Language_dz;不丹語 (Dzongkha)
+Language_ee;埃維語 (Ewe)
+Language_el;希臘語 (Greek)
+Language_en;英語 (English)
+Language_eo;世界語 (Esperanto)
+Language_es;西班牙語 (Spanish)
+Language_et;愛沙尼亞語 (Estonian)
+Language_eu;巴斯克語 (Basque)
+Language_fa;波斯語 (Persian)
+Language_ff;富拉赫語 (Fulah)
+Language_fi;芬蘭語 (Finnish)
+Language_fj;斐濟語 (Fijian)
+Language_fo;法羅斯語 (Faroese)
+Language_fr;法語 (French)
+Language_fy;弗利然群島語 (Frisian)
+Language_ga;愛爾蘭語 (Irish)
+Language_gd;蘇格蘭蓋爾語 (Gaelic)
+Language_gl;加里西亞語 (Galician)
+Language_gn;巴拉圭語 (Guarani)
+Language_gu;古吉拉特語 (Gujarati)
+Language_gv;曼島語 (Manx)
+Language_ha;豪撒語 (Hausa)
+Language_he;希伯來語 (Hebrew)
+Language_hi;印地語 (Hindi)
+Language_ho;希里木托語 (Hiri Motu)
+Language_hr;克羅埃西亞語 (Croatian)
+Language_ht;海地語 (Haitian)
+Language_hu;匈牙利語 (Hungarian)
+Language_hy;亞美尼亞語 (Armenian)
+Language_hz;赫雷羅語 (Herero)
+Language_ia;國際語 (Auxiliary Language Association)
+Language_id;印尼語 (Indonesian)
+Language_ie;國際語 (Interlingue)
+Language_ig;伊格博語 (Igbo)
+Language_ii;四川彝語 (Sichuan Yi)
+Language_ik;因紐必語 (Inupiaq)
 Language_Info;語系資訊
-Language_io;伊多語
-Language_is;冰島語
-Language_it;義大利語
-Language_iu;伊努特語
-Language_ja;日語
-Language_jv;爪哇語
-Language_ka;喬治亞語
-Language_kg;剛果語
-Language_ki;基庫尤語
-Language_kj;貢耶瑪語
-Language_kk;哈薩克語
-Language_kl;格陵蘭島語
-Language_km;高棉語
-Language_kn;坎納達語
-Language_ko;韓語
-Language_kr;卡努里語
-Language_ks;克什米爾語
-Language_ku;庫德語
-Language_kv;科米語
-Language_kw;康瓦耳語
-Language_ky;吉爾吉斯語
-Language_la;拉丁語
-Language_lb;盧森堡語
-Language_lg;干達語
-Language_li;林堡語
-Language_ln;班圖語
-Language_lo;寮國語
-Language_lt;立陶宛語
-Language_lu;盧巴卡丹加語
-Language_lv;拉脫維亞語
-Language_mg;馬達加西語
-Language_mh;馬紹爾語
-Language_mi;毛利語
-Language_mk;馬其頓語
-Language_ml;馬拉雅拉姆語
-Language_mn;蒙古語
-Language_mo;摩達維亞語
-Language_mr;馬拉塔語
-Language_ms;馬來語
-Language_mt;馬爾他語
-Language_my;緬甸語
-Language_na;諾魯語
-Language_nb;挪威波克默爾語
-Language_nd;北恩德貝勒語
-Language_ne;尼泊爾語
-Language_ng;恩東加語
-Language_nl;荷蘭語
-Language_nn;新挪威語
-Language_no;挪威語
-Language_nr;南恩德貝勒語
-Language_nv;納瓦霍語
-Language_ny;尼揚賈語
-Language_oc;奧克西坦語
-Language_oj;奧吉布瓦語
-Language_om;澳洛莫語
-Language_or;奧里雅語
-Language_os;奧塞梯語
-Language_pa;旁遮普語
-Language_pi;巴利語
-Language_pl;波蘭語
-Language_ps;阿富汗語
-Language_pt;葡萄牙語
-Language_qu;印加語
-Language_rm;羅曼語
-Language_rn;可蘭地語
-Language_ro;羅馬尼亞語
-Language_ru;俄語
-Language_rw;盧安達語
-Language_sa;梵語
-Language_sc;薩丁尼亞語
-Language_sd;信德語
-Language_se;薩米語
-Language_sg;桑戈語
-Language_si;錫蘭語
-Language_sk;斯洛伐克語
-Language_sl;斯洛維尼亞語
-Language_sm;薩摩亞語
-Language_sn;紹納語
-Language_so;索馬利語
-Language_sq;阿爾巴尼亞語
-Language_sr;塞爾維亞語
-Language_ss;史瓦濟蘭語
-Language_st;索托語
-Language_su;巽他語
-Language_sv;瑞典語
-Language_sw;斯華西里語
-Language_ta;坦米爾語
-Language_te;泰盧固語
-Language_tg;塔吉克語
-Language_th;泰語
-Language_ti;達米亞語
-Language_tk;土庫曼語
-Language_tl;菲律賓語
-Language_tn;茨瓦納語
-Language_to;東加語
-Language_tr;土耳其語
-Language_ts;聰加語
-Language_tt;韃靼語
-Language_tw;奇族語
-Language_ty;大溪地語
-Language_ug;維吾爾語
-Language_uk;烏克蘭語
-Language_ur;晤魯都語
-Language_uz;烏茲別克語
-Language_ve;文達語
-Language_vi;越南語
-Language_vo;沃拉卜克語
-Language_wa;華隆語
-Language_wo;沃洛夫語
-Language_xh;科薩語
-Language_yi;意地緒語
-Language_yo;庫哇語
-Language_za;壯語
-Language_zh;華語
-Language_zu;祖魯語
+Language_io;伊多語 (Ido)
+Language_is;冰島語 (Icelandic)
+Language_it;義大利語 (Italian)
+Language_iu;伊努特語 (Inuktitut)
+Language_ja;日語 (Japanese)
+Language_jv;爪哇語 (Javanese)
+Language_ka;喬治亞語 (Georgian)
+Language_kg;剛果語 (Kongo)
+Language_ki;基庫尤語 (Kikuyu)
+Language_kj;貢耶瑪語 (Kuanyama)
+Language_kk;哈薩克語 (Kazakh)
+Language_kl;格陵蘭島語 (Kalaallisut)
+Language_km;高棉語 (Khmer)
+Language_kn;坎納達語 (Kannada)
+Language_ko;韓語 (Korean)
+Language_kr;卡努里語 (Kanuri)
+Language_ks;克什米爾語 (Kashmiri)
+Language_ku;庫德語 (Kurdish)
+Language_kv;科米語 (Komi)
+Language_kw;康瓦耳語 (Cornish)
+Language_ky;吉爾吉斯語 (Kirghiz)
+Language_la;拉丁語 (Latin)
+Language_lb;盧森堡語 (Luxembourgish)
+Language_lg;干達語 (Ganda)
+Language_li;林堡語 (Limburgish)
+Language_ln;班圖語 (Lingala)
+Language_lo;寮國語 (Lao)
+Language_lt;立陶宛語 (Lithuanian)
+Language_lu;盧巴卡丹加語 (Luba-Katanga)
+Language_lv;拉脫維亞語 (Latvian)
+Language_mg;馬達加西語 (Malagasy)
+Language_mh;馬紹爾語 (Marshallese)
+Language_mi;毛利語 (Maori)
+Language_mk;馬其頓語 (Macedonian)
+Language_ml;馬拉雅拉姆語 (Malayalam)
+Language_mn;蒙古語 (Mongolian)
+Language_mo;摩達維亞語 (Moldavian)
+Language_mr;馬拉塔語 (Marathi)
+Language_ms;馬來語 (Malay)
+Language_mt;馬爾他語 (Maltese)
+Language_my;緬甸語 (Burmese)
+Language_na;諾魯語 (Nauru)
+Language_nb;挪威波克默爾語 (Norwegian Bokmal)
+Language_nd;北恩德貝勒語 (Ndebele)
+Language_ne;尼泊爾語 (Nepali)
+Language_ng;恩東加語 (Ndonga)
+Language_nl;荷蘭語 (Dutch)
+Language_nn;新挪威語 (Norwegian Bokmal)
+Language_no;挪威語 (Norwegian Nynorsk)
+Language_nr;南恩德貝勒語 (Ndebele)
+Language_nv;納瓦霍語 (Navaho)
+Language_ny;尼揚賈語 (Nyanja)
+Language_oc;奧克西坦語 (Occitan)
+Language_oj;奧吉布瓦語 (Ojibwa)
+Language_om;澳洛莫語 (Oromo)
+Language_or;奧里雅語 (Oriya)
+Language_os;奧塞梯語 (Ossetic)
+Language_pa;旁遮普語 (Panjabi)
+Language_pi;巴利語 (Pali)
+Language_pl;波蘭語 (Polish)
+Language_ps;阿富汗語 (Pushto)
+Language_pt;葡萄牙語 (Portuguese)
+Language_qu;印加語 (Quechua)
+Language_rm;羅曼語 (Raeto-Romance)
+Language_rn;可蘭地語 (Rundi)
+Language_ro;羅馬尼亞語 (Romanian)
+Language_ru;俄語 (Russian)
+Language_rw;盧安達語 (Kinyarwanda)
+Language_sa;梵語 (Sanskrit)
+Language_sc;薩丁尼亞語 (Sardinian)
+Language_sd;信德語 (Sindhi)
+Language_se;薩米語 (Northern Sami)
+Language_sg;桑戈語 (Sango)
+Language_si;錫蘭語 (Sinhala)
+Language_sk;斯洛伐克語 (Slovak)
+Language_sl;斯洛維尼亞語 (Slovenian)
+Language_sm;薩摩亞語 (Samoan)
+Language_sn;紹納語 (Shona)
+Language_so;索馬利語 (Somali)
+Language_sq;阿爾巴尼亞語 (Albanian)
+Language_sr;塞爾維亞語 (Serbian)
+Language_ss;史瓦濟蘭語 (Swati)
+Language_st;索托語 (Sotho)
+Language_su;巽他語 (Sundanese)
+Language_sv;瑞典語 (Swedish)
+Language_sw;斯華西里語 (Swahili)
+Language_ta;坦米爾語 (Tamil)
+Language_te;泰盧固語 (Telugu)
+Language_tg;塔吉克語 (Tajik)
+Language_th;泰語 (Thai)
+Language_ti;達米亞語 (Tigrinya)
+Language_tk;土庫曼語 (Turkmen)
+Language_tl;菲律賓語 (Tagalog)
+Language_tn;茨瓦納語 (Tswana)
+Language_to;東加語 (Tonga)
+Language_tr;土耳其語 (Turkish)
+Language_ts;聰加語 (Tsonga)
+Language_tt;韃靼語 (Tatar)
+Language_tw;奇族語 (Twi)
+Language_ty;大溪地語 (Tahitian)
+Language_ug;維吾爾語 (Uighur)
+Language_uk;烏克蘭語 (Ukrainian)
+Language_ur;晤魯都語 (Urdu)
+Language_uz;烏茲別克語 (Uzbek)
+Language_ve;文達語 (Venda)
+Language_vi;越南語 (Vietnamese)
+Language_vo;沃拉卜克語 (Volapuk)
+Language_wa;華隆語 (Walloon)
+Language_wo;沃洛夫語 (Wolof)
+Language_xh;科薩語 (Xhosa)
+Language_yi;意地緒語 (Yiddish)
+Language_yo;庫哇語 (Yoruba)
+Language_za;壯語 (Zhuang)
+Language_zh;華語 (Chinese)
+Language_zu;祖魯語 (Zulu)
 LawRating;分級
 LCCN;LCCN
 Library;合成函式庫
-Lightness
+Lightness;亮度
 List;清單
-Lyrics
+Lyrics;歌詞
 Lyricist;作詞者
 Mastered_Date;後製日期
 MasteredBy;後製者
@@ -726,7 +726,7 @@ More;更多
 Movie;電影名稱
 ms;毫秒
 MSDI;MSDI
-MusicBy
+MusicBy;配樂者
 MuxingMode;合成模式
 MuxingMode_PackedBitstream;Packed bitstream
 Name;名稱
@@ -734,16 +734,16 @@ Nationality;國籍
 New;新增
 Newest version;檢查最新的版本 (需要網路連線)
 No;否
-Not yet
-NumColors
+Not yet;還沒好
+NumColors;色彩數
 OK;確認
 One output file per input file;一個輸入檔對應一個輸出檔
 Open;開啟
 Options;選項
 Options_Hint;偏好設定
 Original;來源
-OriginalSourceForm
-OriginalSourceMedium
+OriginalSourceForm;來源格式
+OriginalSourceMedium;來源媒介
 Other;其它
 Output;輸出
 Output format;輸出格式
@@ -799,7 +799,7 @@ ServiceType;服務類型
 Set;集合
 Set_Count;集合數
 Setup;設定
-Sharpness
+Sharpness;銳利度
 Sheet;表格
 Sheet (Complete);表格 (完整)
 Shell extension;快顯功能表 (在檔案總管裡, 按右鍵會出現 MediaInfo 的選項)
@@ -881,5 +881,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
