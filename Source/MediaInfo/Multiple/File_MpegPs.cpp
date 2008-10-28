@@ -1628,7 +1628,7 @@ void File_MpegPs::audio_stream()
 
     //Disabling this Streams
     if (                                        (Streams[start_code].Parser->File_GoTo !=(int64u)-1 || Streams[start_code].Parser->File_Offset ==Streams[start_code].Parser->File_Size)
-      && !(Streams[start_code].Parser2!=NULL && (Streams[start_code].Parser3->File_GoTo==(int64u)-1 || Streams[start_code].Parser2->File_Offset==Streams[start_code].Parser2->File_Size)))
+      && !(Streams[start_code].Parser2!=NULL && (Streams[start_code].Parser2->File_GoTo==(int64u)-1 || Streams[start_code].Parser2->File_Offset==Streams[start_code].Parser2->File_Size)))
     {
         Streams[start_code].Searching_Payload=false;
         if (audio_stream_Count>0)
