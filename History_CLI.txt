@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.7.8, 2008-
+---------------
++ You can now use a language file (ie --Language=file://en.csv)
+x Language=raw is without ugly artifacts
 
 Version 0.7.7.7, 2008-10-17
 ---------------

@@ -137,7 +137,9 @@ CL_OPTION(Inform)
 //---------------------------------------------------------------------------
 CL_OPTION(Language)
 {
-    MI.Menu_Language(_T("raw"));
+    size_t Egal_Pos=Argument.find(_T('='));
+    if (Egal_Pos!=String::npos)
+        MI.Menu_Language(Argument.substr(Egal_Pos+1));
 
     return 0;
 }
