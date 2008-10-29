@@ -133,13 +133,37 @@ void MediaInfo_Config::Init()
 // Info
 //***************************************************************************
 
-Ztring MediaInfo_Config::Option (const String &Option, const String &Value)
+Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
 {
     String Option_Lower(Option);
     size_t Egal_Pos=Option_Lower.find(_T('='));
     if (Egal_Pos==string::npos)
         Egal_Pos=Option_Lower.size();
     transform(Option_Lower.begin(), Option_Lower.begin()+Egal_Pos, Option_Lower.begin(), (int(*)(int))tolower); //(int(*)(int)) is a patch for unix
+
+    //Parsing pointer to a file
+    Ztring Value;
+    if (Value_Raw.find(_T("file://"))==0)
+    {
+        //Open
+        Ztring FileName(Value_Raw, 7, Ztring::npos);
+        File F(FileName.c_str());
+
+        //Read
+        int8u* Buffer=new int8u[(size_t)F.Size_Get()+1];
+        Buffer[(size_t)F.Size_Get()]='\0';
+        F.Read(Buffer, (size_t)F.Size_Get());
+        F.Close();
+        Ztring FromFile; FromFile.From_UTF8((char*)Buffer);
+        if (FromFile.empty())
+             FromFile.From_Local((char*)Buffer);
+        delete[] Buffer; //Buffer=NULL;
+
+        //Merge
+        Value=FromFile;
+    }
+    else
+        Value=Value_Raw;
 
          if (Option_Lower.empty())
     {
@@ -668,7 +692,12 @@ void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
     {
         Language_Raw=true;
         Language.clear();
-        Language.Write(_T("  Config_Text_Separator"), _T(" : ")); //Exception for ":"
+        //Exceptions
+        Language.Write(_T("  Config_Text_ColumnSize"), _T("32"));
+        Language.Write(_T("  Config_Text_Separator"), _T(" : "));
+        Language.Write(_T("  Config_Text_NumberTag"), _T(" #"));
+        Language.Write(_T("  Config_Text_FloatSeparator"), _T("."));
+        Language.Write(_T("  Config_Text_ThousandsSeparator"), _T(""));
     }
     //-Add custom language to English language
     else
@@ -859,27 +888,6 @@ void MediaInfo_Config::Inform_Set (const ZtringListList &NewValue)
     }
 
     CriticalSectionLocker CSL(CS);;
-
-    //Parsing pointer to a file
-    if (Custom_View(0, 0).find(_T("file://"))==0)
-    {
-        //Open
-        Ztring FileName(Custom_View(0, 0), 7, Ztring::npos);
-        File F(FileName.c_str());
-
-        //Read
-        int8u* Buffer=new int8u[(size_t)F.Size_Get()+1];
-        Buffer[(size_t)F.Size_Get()]='\0';
-        F.Read(Buffer, (size_t)F.Size_Get());
-        F.Close();
-        Ztring FromFile; FromFile.From_UTF8((char*)Buffer);
-        if (FromFile.empty())
-             FromFile.From_Local((char*)Buffer);
-        delete[] Buffer; //Buffer=NULL;
-
-        //Merge
-        Custom_View=FromFile;
-    }
 
     //Parsing pointers to files in streams
     for (size_t Pos=0; Pos<Custom_View.size(); Pos++)
