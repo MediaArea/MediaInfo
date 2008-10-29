@@ -270,7 +270,14 @@ int Preferences::RefreshFilesList(List_t KindOfList)
             Ztring Local=Lang(_T("  Language_Name"));
             if (Local.size()==0)
                 Local=FilesList[KindOfList][Pos].SubString(BaseFolder+FolderNames[KindOfList]+_T("\\"), _T(".csv"));
-            FilesList[Language_List].push_back(Local);
+            if (Local.find(_T("(Chris)"))==Ztring::npos) //quick method for no more showing Chris translation (deprecated)
+                FilesList[Language_List].push_back(Local);
+            else
+            {
+                //quick method for no more showing Chris translation (deprecated)
+                FilesList[KindOfList].erase(FilesList[KindOfList].begin()+Pos);
+                Pos--;
+            }
         }
     }
 
