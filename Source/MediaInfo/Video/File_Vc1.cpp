@@ -224,6 +224,7 @@ File_Vc1::File_Vc1()
     Frame_Count_Valid=30;
     FrameIsAlwaysComplete=false;
     From_WMV3=false;
+    Only_0D=false;
 }
 
 //---------------------------------------------------------------------------
@@ -257,8 +258,8 @@ void File_Vc1::Read_Buffer_Finalize()
 bool File_Vc1::Header_Begin()
 {
     //Specific
-    if (From_WMV3)
-        return true;
+    if (From_WMV3 || Only_0D)
+        return FrameIsAlwaysComplete;
 
     //Must have enough buffer for having header
     if (Buffer_Offset+4>Buffer_Size)
@@ -292,6 +293,12 @@ void File_Vc1::Header_Parse()
         Header_Fill_Size(Buffer_Size);
         Header_Fill_Code(0x0F, Ztring().From_CC1(0x0F));
         Init();
+        return;
+    }
+    if (Only_0D)
+    {
+        Header_Fill_Size(Buffer_Size);
+        Header_Fill_Code(0x0D, Ztring().From_CC1(0x0D));
         return;
     }
 
@@ -785,6 +792,9 @@ void File_Vc1::SequenceHeader()
         Streams[0x0D].Searching_Payload=true;
         Streams[0x0E].Searching_Payload=true;
     FILLING_END();
+
+    if (From_WMV3)
+        Finnished();
 }
 
 //---------------------------------------------------------------------------

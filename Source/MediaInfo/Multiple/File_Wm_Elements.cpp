@@ -305,7 +305,8 @@ void File_Wm::Header_StreamProperties ()
                                                                     StreamKind_Last=Stream_Max; StreamPos_Last=(size_t)-1; break;
         }
     Element_End();
-    Skip_XX(ErrorCorrectionTypeLength,                          "Error Correction Data");
+    if (ErrorCorrectionTypeLength)
+        Skip_XX(ErrorCorrectionTypeLength,                      "Error Correction Data");
 
     //Filling
     Stream[Stream_Number].StreamKind=StreamKind_Last;
@@ -432,13 +433,20 @@ void File_Wm::Header_StreamProperties_Video ()
         Open_Buffer_Init(Stream[Stream_Number].Parser);
         if (Compression==CC4("WMV3"))
             ((File_Vc1*)Stream[Stream_Number].Parser)->From_WMV3=true;
+        ((File_Vc1*)Stream[Stream_Number].Parser)->FrameIsAlwaysComplete=true; //Warning: this is not always the case, see data parsing
         if (Data_Size>40)
         {
             Open_Buffer_Continue(Stream[Stream_Number].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Data_Size-40));
-            Open_Buffer_Finalize(Stream[Stream_Number].Parser);
-            Merge (*Stream[Stream_Number].Parser, Stream_Video, 0, StreamPos_Last);
+            if (Stream[Stream_Number].Parser->File_Offset==Stream[Stream_Number].Parser->File_Size)
+            {
+                Open_Buffer_Finalize(Stream[Stream_Number].Parser);
+                Merge (*Stream[Stream_Number].Parser, Stream_Video, 0, StreamPos_Last);
+                delete Stream[Stream_Number].Parser; Stream[Stream_Number].Parser=NULL;
+            }
+            else
+                ((File_Vc1*)Stream[Stream_Number].Parser)->Only_0D=true;
+            Element_Offset+=Data_Size-40;
         }
-        delete Stream[Stream_Number].Parser; Stream[Stream_Number].Parser=NULL;
     }
     #endif
     #if defined(MEDIAINFO_MPEGV_YES)
@@ -1207,9 +1215,10 @@ void File_Wm::Data_Packet()
     //Counting
     Packet_Count++;
     Element_Info(Packet_Count);
+    size_t Element_Show_Count=0;
 
     //Parsing
-    PacketLength=0; SizeOfMediaObject=0;
+    int32u PacketLength=0, SizeOfMediaObject=0;
     int8u  Flags, ErrorCorrectionData_Length, ErrorCorrectionLengthType, SequenceType, PaddingLengthType, PacketLengthType;
     bool   ErrorCorrectionPresent;
     Element_Begin("Error Correction");
@@ -1284,7 +1293,7 @@ void File_Wm::Data_Packet()
     for (NumberPayloads_Pos=0; NumberPayloads_Pos<NumberPayloads; NumberPayloads_Pos++)
     {
         Element_Begin("Payload");
-        int32u ReplicatedDataLength;
+        int32u ReplicatedDataLength=0, PayloadLength=0;
         int8u  StreamNumber;
         Get_L1 (StreamNumber,                                   "Stream Number");
         StreamNumber&=0x7F; //For KeyFrame
@@ -1294,21 +1303,21 @@ void File_Wm::Data_Packet()
             case 1 : Skip_L1(                                   "Media Object Number"); break;
             case 2 : Skip_L2(                                   "Media Object Number"); break;
             case 3 : Skip_L4(                                   "Media Object Number"); break;
-            default: ;
+            default: Trusted_IsNot("Media Object Number"); return; //Problem
         }
         switch (OffsetIntoMediaObjectLengthType)
         {
             case 1 : Skip_L1(                                   "Offset Into Media Object"); break;
             case 2 : Skip_L2(                                   "Offset Into Media Object"); break;
             case 3 : Skip_L4(                                   "Offset Into Media Object"); break;
-            default: ;
+            default: Trusted_IsNot("Offset Into Media Object"); return; //Problem
         }
         switch (ReplicatedDataLengthType)
         {
             case 1 : {int8u  Data; Get_L1(Data,                 "Replicated Data Length"); ReplicatedDataLength=Data;} break;
             case 2 : {int16u Data; Get_L2(Data,                 "Replicated Data Length"); ReplicatedDataLength=Data;} break;
             case 3 :               Get_L4(ReplicatedDataLength, "Replicated Data Length");                             break;
-            default: ;
+            default: Trusted_IsNot("Replicated Data Length"); return; //Problem
         }
         if (ReplicatedDataLengthType!=0 && ReplicatedDataLength>0)
         {
@@ -1349,30 +1358,64 @@ void File_Wm::Data_Packet()
         {
             switch (PayloadLengthType)
             {
-                case 1 : {int8u  Data; Get_L1(Data,                 "Payload Length"); SizeOfMediaObject=Data;} break;
-                case 2 : {int16u Data; Get_L2(Data,                 "Payload Length"); SizeOfMediaObject=Data;} break;
-                case 3 :               Get_L4(SizeOfMediaObject,    "Payload Length");                          break;
-                default: return; //Problem
+                case 1 : {int8u  Data; Get_L1(Data,             "Payload Length"); PayloadLength=Data;} break;
+                case 2 : {int16u Data; Get_L2(Data,             "Payload Length"); PayloadLength=Data;} break;
+                case 3 :               Get_L4(PayloadLength,    "Payload Length");                      break;
+                default: Trusted_IsNot("Payload Length"); return; //Problem
             }
+        }
+        else if (Element_Size-Element_Offset>Data_Parse_Padding)
+            PayloadLength=(int32u)(Element_Size-(Element_Offset+Data_Parse_Padding));
+        else
+        {
+            Trusted_IsNot("Padding size problem");
+            return; //Problem
+        }
+        if (Element_Offset+PayloadLength+Data_Parse_Padding>Element_Size)
+        {
+            Trusted_IsNot("Payload Length problem");
+            return; //problem
         }
 
         //Analyzing
         if (Stream[StreamNumber].Parser && Stream[StreamNumber].SearchingPayload)
         {
+            //Handling of spanned on multiple chunks
+            bool FrameIsAlwaysComplete=true;
+            if (PayloadLength!=SizeOfMediaObject)
+            {
+                if (SizeOfMediaObject_BytesAlreadyParsed==0)
+                    SizeOfMediaObject_BytesAlreadyParsed=SizeOfMediaObject-PayloadLength;
+                else
+                    SizeOfMediaObject_BytesAlreadyParsed-=PayloadLength;
+                if (SizeOfMediaObject_BytesAlreadyParsed!=0)
+                    FrameIsAlwaysComplete=false;
+                else
+                    Element_Show_Count++;
+            }
+            else
+                Element_Show_Count++;
+
+            //Codec specific
+            #if defined(MEDIAINFO_VC1_YES)
+            if (Retrieve(Stream[StreamNumber].StreamKind, Stream[StreamNumber].StreamPos, "Format")==_T("VC-1"))
+                ((File_Vc1*)Stream[StreamNumber].Parser)->FrameIsAlwaysComplete=FrameIsAlwaysComplete;
+            #endif
+
             Open_Buffer_Init(Stream[StreamNumber].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
-            Open_Buffer_Continue(Stream[StreamNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)SizeOfMediaObject);
-            if (Stream[StreamNumber].Parser->File_GoTo!=(int64u)-1
-             && (Stream[StreamNumber].StreamKind==Stream_Video && Stream[StreamNumber].PresentationTime_Count>=300))
+            Open_Buffer_Continue(Stream[StreamNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)PayloadLength);
+            if ((Stream[StreamNumber].Parser->File_GoTo!=(int64u)-1 || Stream[StreamNumber].Parser->File_Offset==Stream[StreamNumber].Parser->File_Size)
+             || (Stream[StreamNumber].StreamKind==Stream_Video && Stream[StreamNumber].PresentationTime_Count>=300))
             {
                 Stream[StreamNumber].SearchingPayload=false;
                 Streams_Count--;
             }
 
-            Element_Offset+=SizeOfMediaObject;
+            Element_Offset+=PayloadLength;
         }
         else
         {
-            Skip_XX(SizeOfMediaObject,                          "Data");
+            Skip_XX(PayloadLength,                              "Data");
             if (Stream[StreamNumber].SearchingPayload
              && (Stream[StreamNumber].StreamKind==Stream_Video && Stream[StreamNumber].PresentationTime_Count>=300))
             {
@@ -1392,6 +1435,9 @@ void File_Wm::Data_Packet()
         Info("Data, Jumping to end of chunk");
         File_GoTo=Data_AfterTheDataChunk;
     }
+
+    if (Element_Show_Count>0)
+        Element_Show();
 }
 
 //---------------------------------------------------------------------------

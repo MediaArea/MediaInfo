@@ -59,6 +59,7 @@ File_Wm::File_Wm()
     //Stream
     Packet_Count=0;
     MaximumDataPacketSize=0;
+    SizeOfMediaObject_BytesAlreadyParsed=0;
     FileProperties_Preroll=0;
     Codec_Description_Count=0;
     Stream_Number=0;

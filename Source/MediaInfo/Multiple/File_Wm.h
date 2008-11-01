@@ -154,8 +154,7 @@ private :
     size_t Packet_Count;
     size_t Streams_Count;
     int64u Data_AfterTheDataChunk;
-    int32u PacketLength;
-    int32u SizeOfMediaObject;
+    int32u SizeOfMediaObject_BytesAlreadyParsed;
     int32u FileProperties_Preroll;
     int8u  ReplicatedDataLengthType;
     int8u  OffsetIntoMediaObjectLengthType;
