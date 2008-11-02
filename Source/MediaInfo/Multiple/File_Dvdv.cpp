@@ -62,7 +62,7 @@ const char*  IFO_Format_V[]=
     "",
 };
 
-const char*  IFO_Format_Profile_V[]=
+const char*  IFO_Format_Version_V[]=
 {
     "Version 1",
     "Version 2",
@@ -591,7 +591,7 @@ void File_Dvdv::Video()
         {
             Stream_Prepare(Stream_Video);
             Fill(Stream_Video, StreamPos_Last, Video_Format, IFO_Format_V[Codec]);
-            Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, IFO_Format_Profile_V[Codec]);
+            Fill(Stream_Video, StreamPos_Last, Video_Format_Version, IFO_Format_Version_V[Codec]);
             Fill(Stream_Video, StreamPos_Last, Video_Codec, IFO_CodecV[Codec]);
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, IFO_AspectRatio[AspectRatio]);
             Fill(Stream_Video, StreamPos_Last, Video_Width, IFO_Width[Resolution]);
