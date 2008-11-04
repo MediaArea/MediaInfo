@@ -280,20 +280,14 @@ void File_Dts::Data_Parse_Fill()
 {
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "DTS");
+    if (DTS_HD_Unknown_Size) //DTS-HD, TODO : Find a better way
+        Fill(Stream_General, 0, General_Format_Profile, "HD");
     Stream_Prepare(Stream_Audio);
-
-    if (DTS_HD_Unknown_Size==0) //DTS-HD, TODO : Find a better way
-    {
-        Fill(Stream_Audio, 0, Audio_Format, "DTS");
-        Fill(Stream_Audio, 0, Audio_Codec, "DTS");
-        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
-    }
-    else
-    {
-        Fill(Stream_Audio, 0, Audio_Format, "DTS-HD");
-        Fill(Stream_Audio, 0, Audio_Codec, "DTS-HD");
-        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
-    }
+    Fill(Stream_Audio, 0, Audio_Format, "DTS");
+    if (DTS_HD_Unknown_Size) //DTS-HD, TODO : Find a better way
+        Fill(Stream_Audio, 0, Audio_Format_Profile, "HD");
+    Fill(Stream_Audio, 0, Audio_Codec, DTS_HD_Unknown_Size?"DTS-HD":"DTS");
+    Fill(Stream_Audio, 0, Audio_BitRate_Mode, DTS_HD_Unknown_Size?"VBR":"CBR"); //DTS-HD, TODO : Find a better way
 
     if (ExtendedCoding && (ExtensionAudioDescriptor==2 || ExtensionAudioDescriptor==3))
         Fill(Stream_Audio, 0, Audio_SamplingRate, 96000);

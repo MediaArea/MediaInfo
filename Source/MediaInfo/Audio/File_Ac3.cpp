@@ -426,8 +426,12 @@ void File_Ac3::Data_Parse_Fill()
     {
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "AC-3");
+        if (IsTrueHD)
+            Fill(Stream_General, 0, General_Format_Profile, "TrueHD");
         Stream_Prepare(Stream_Audio);
-        Fill(Stream_Audio, 0, Audio_Format, IsTrueHD?"TrueHD":"AC-3");
+        Fill(Stream_Audio, 0, Audio_Format, "AC-3");
+        if (IsTrueHD)
+            Fill(Stream_Audio, 0, Audio_Format_Profile, "TrueHD");
         Fill(Stream_Audio, 0, Audio_Codec, IsTrueHD?"TrueHD":"AC3");
 
         Fill(Stream_Audio, 0, Audio_SamplingRate, AC3_SamplingRate[fscod]);
