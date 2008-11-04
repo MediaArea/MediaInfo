@@ -48,6 +48,7 @@ public :
     bool     From_ATSC;
 
     //Out
+    int32u   registration_format_identifier;
     std::map<std::string, ZenLib::Ztring> Infos;
     int8u    descriptor_tag;
     int16u   CA_PID;
@@ -140,7 +141,7 @@ private :
     void Descriptor_25() {Skip_XX(Element_Size, "Data");};
     void Descriptor_26() {Skip_XX(Element_Size, "Data");};
     void Descriptor_27() {Skip_XX(Element_Size, "Data");};
-    void Descriptor_28() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_28();
     void Descriptor_29() {Skip_XX(Element_Size, "Data");};
     void Descriptor_2A() {Skip_XX(Element_Size, "Data");};
     void Descriptor_2B() {Skip_XX(Element_Size, "Data");};
@@ -238,6 +239,7 @@ private :
 namespace Mpeg_Descriptors
 {
     const int32u AC_3=0x41432D33; //Exactly AC-3
+    const int32u BSSD=0x42535344; //PCM
     const int32u CUEI=0x43554549; //SCTE
     const int32u DTS1=0x44545331; //DTS
     const int32u DTS2=0x44545332; //DTS

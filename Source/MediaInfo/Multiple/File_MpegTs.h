@@ -68,6 +68,7 @@ private :
         std::map<std::string, ZenLib::Ztring>       Infos;
         int8u                                       stream_type;
         int8u                                       descriptor_tag;
+        int32u                                      format_identifier;
         File_Mpeg_Psi::ts_kind                      TS_Kind;
         std::vector<int16u>                         program_numbers;
         int64u                                      TimeStamp_Start;

@@ -706,6 +706,7 @@ void File_MpegTs::PSI_program_map_table()
                     Streams[elementary_PID].Infos=Stream->second.Infos;
                 Streams[elementary_PID].stream_type=Stream->second.stream_type;
                 Streams[elementary_PID].descriptor_tag=Stream->second.descriptor_tag;
+                Streams[elementary_PID].format_identifier=Stream->second.format_identifier;
                 Streams[elementary_PID].ES_Parser=Stream->second.ES_Parser; Stream->second.ES_Parser=NULL;
                 Streams[elementary_PID].Searching_Payload_Start_Set(true);
                 Streams[elementary_PID].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
@@ -922,6 +923,7 @@ void File_MpegTs::PES()
                 ((File_MpegPs*)Streams[pid].Parser)->FromTS=true;
                 ((File_MpegPs*)Streams[pid].Parser)->stream_type_FromTS=Streams[pid].stream_type;
                 ((File_MpegPs*)Streams[pid].Parser)->descriptor_tag_FromTS=Streams[pid].descriptor_tag;
+                ((File_MpegPs*)Streams[pid].Parser)->format_identifier_FromTS=Streams[pid].format_identifier;
                 ((File_MpegPs*)Streams[pid].Parser)->MPEG_Version=2;
                 Streams[pid].Searching_Payload_Continue_Set(true);
             #else

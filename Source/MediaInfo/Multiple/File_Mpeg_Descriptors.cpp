@@ -45,6 +45,10 @@ namespace MediaInfoLib
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+//Extern
+extern const char* Avc_profile_idc(int8u profile_idc);
+
+//---------------------------------------------------------------------------
 const char* Mpeg_Descriptors_audio_type(int8u ID)
 {
     switch (ID)
@@ -579,6 +583,7 @@ const char* Mpeg_Descriptors_format_identifier(int32u format_identifier)
     switch (format_identifier)
     {
         case Mpeg_Descriptors::AC_3 : return "AC3";
+        case Mpeg_Descriptors::BSSD : return "PCM (AES3)";
         case Mpeg_Descriptors::CUEI : return "SCTE 35 2003 - Digital Program Insertion Cueing Message for Cable";
         case Mpeg_Descriptors::DTS1 : return "DTS (512)";
         case Mpeg_Descriptors::DTS2 : return "DTS (1024)";
@@ -778,6 +783,7 @@ void File_Mpeg_Descriptors::Read_Buffer_Init()
     table_id=0x00;
 
     //Out
+    registration_format_identifier=0x00000000;
     descriptor_tag=0x00;
     CA_PID=0x0000;
     ES_ID=0x0000;
@@ -815,14 +821,6 @@ void File_Mpeg_Descriptors::Data_Parse()
 {
     #define ELEMENT_CASE(_NAME, _DETAIL) \
         case 0x##_NAME : Element_Name(_DETAIL); Descriptor_##_NAME(); break;
-
-    //Configuring
-    if (Element_Code>=0x40)
-    {
-             if (format_identifier==Mpeg_Descriptors::GA94
-              || format_identifier==Mpeg_Descriptors::S14A)
-            table_id=0xC0; //Forcing it to ATSC
-    }
 
     //Parsing
          if (table_id> 0x00 && table_id<0x40)
@@ -1142,17 +1140,18 @@ void File_Mpeg_Descriptors::Descriptor_03()
 void File_Mpeg_Descriptors::Descriptor_05()
 {
     //Parsing
-    Get_B4 (format_identifier,                                  "format_identifier"); Element_Info(Mpeg_Descriptors_format_identifier(format_identifier));
+    Get_B4 (registration_format_identifier,                     "format_identifier"); Element_Info(Mpeg_Descriptors_format_identifier(registration_format_identifier)); Param_Info(Mpeg_Descriptors_format_identifier(registration_format_identifier));
 
     //Filling
     switch (format_identifier)
     {
-        case Mpeg_Descriptors::AC_3 : Param_Info(_T("AC3")); StreamKind=Stream_Audio; Infos["Codec"]=_T("AC3"); break;
+        case Mpeg_Descriptors::AC_3 : StreamKind=Stream_Audio; Infos["Codec"]=_T("AC3"); break;
+        case Mpeg_Descriptors::BSSD : StreamKind=Stream_Audio; Infos["Codec"]=_T("PCM"); break;
         case Mpeg_Descriptors::DTS1 :
         case Mpeg_Descriptors::DTS2 :
-        case Mpeg_Descriptors::DTS3 : Param_Info(_T("DTS")); StreamKind=Stream_Audio; Infos["Codec"]=_T("DTS"); break;
-        case Mpeg_Descriptors::VC_1 : Param_Info(_T("VC-1")); StreamKind=Stream_Video; Infos["Codec"]=_T("VC-1"); break;
-        case Mpeg_Descriptors::drac : Param_Info(_T("Dirac")); StreamKind=Stream_Video; Infos["Codec"]=_T("Dirac"); break;
+        case Mpeg_Descriptors::DTS3 : StreamKind=Stream_Audio; Infos["Codec"]=_T("DTS"); break;
+        case Mpeg_Descriptors::VC_1 : StreamKind=Stream_Video; Infos["Codec"]=_T("VC-1"); break;
+        case Mpeg_Descriptors::drac : StreamKind=Stream_Video; Infos["Codec"]=_T("Dirac"); break;
         default : ;
     }
 }
@@ -1251,6 +1250,36 @@ void File_Mpeg_Descriptors::Descriptor_1F()
         if (Element_Offset!=Element_Size)
             Skip_B1(                                            "FlexMuxChannel");
     }
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::Descriptor_28()
+{
+    //Parsing
+    int8u profile_idc, level_idc;
+    Get_B1 (profile_idc,                                        "profile_idc"); Param_Info(Avc_profile_idc(profile_idc));
+    BS_Begin();
+    Element_Begin("constraints");
+        Skip_SB(                                                "constraint_set0_flag");
+        Skip_SB(                                                "constraint_set1_flag");
+        Skip_SB(                                                "constraint_set2_flag");
+        Skip_SB(                                                "constraint_set3_flag");
+        Skip_SB(                                                "reserved_zero_4bits");
+        Skip_SB(                                                "reserved_zero_4bits");
+        Skip_SB(                                                "reserved_zero_4bits");
+        Skip_SB(                                                "reserved_zero_4bits");
+    Element_End();
+    BS_End();
+    Get_B1 (level_idc,                                          "level_idc");
+    BS_Begin();
+    Skip_SB(                                                    "AVC_still_present");
+    Skip_SB(                                                    "AVC_24_hour_picture_flag");
+    Skip_S1(6,                                                  "reserved");
+    BS_End();
+
+    //Filling
+    if (StreamKind!=Stream_General)
+        Infos["Format_Profile"]=Ztring().From_Local(Avc_profile_idc(profile_idc))+_T("@")+Ztring().From_Number(((float)level_idc)/10, 1);
 }
 
 //---------------------------------------------------------------------------
@@ -1641,7 +1670,8 @@ void File_Mpeg_Descriptors::Descriptor_81()
     Get_S1 (7, textlen,                                         "textlen");
     Get_S1 (1, text_code,                                       "text_code"); if (text_code) Param_Info("Unicode");
     BS_End();
-    Get_Local(textlen, Text,                                    "test");
+    if (textlen)
+        Get_Local(textlen, Text,                                "text");
 
     //Parsing
     if (Element_Offset==Element_Size) return;

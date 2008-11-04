@@ -249,6 +249,9 @@
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_XM_NO) && !defined(MEDIAINFO_XM_YES)
     #define MEDIAINFO_XM_YES
 #endif
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_AES3_NO) && !defined(MEDIAINFO_AES3_YES)
+    #define MEDIAINFO_AES3_YES
+#endif
 #endif
 
 //---------------------------------------------------------------------------

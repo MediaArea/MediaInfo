@@ -129,18 +129,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Source\MediaInfo\Audio\File_Aac.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adpcm.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Source\MediaInfo\Video\File_AvsV.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\Source\MediaInfo\File_Dummy.cpp"
 				>
 			</File>
@@ -220,6 +208,10 @@
 				Name="Audio"
 				>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Aac.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Ac3.cpp"
 					>
 				</File>
@@ -228,7 +220,15 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adpcm.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adts.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Aes3.cpp"
 					>
 				</File>
 				<File
@@ -321,6 +321,10 @@
 				>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Avc.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_AvsV.cpp"
 					>
 				</File>
 				<File
@@ -576,10 +580,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Source\MediaInfo\Video\File_AvsV.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\Source\MediaInfo\File_Dummy.h"
 				>
 			</File>
@@ -676,6 +676,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adts.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Aes3.h"
 					>
 				</File>
 				<File
@@ -888,6 +892,10 @@
 				>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Avc.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_AvsV.h"
 					>
 				</File>
 				<File

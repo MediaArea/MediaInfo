@@ -142,9 +142,13 @@ const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
                             case 0x80 : return "BluRay - PCM";
                             case 0x81 : return "BluRay - AC-3";
                             case 0x82 : return "BluRay - DTS";
-                            case 0x83 : return "BluRay - E-AC-3";
-                            case 0x86 : return "BluRay - DTS";
+                            case 0x83 : return "BluRay - AC-3 (TrueHD)";
+                            case 0x84 : return "BluRay - E-AC-3";
+                            case 0x85 : return "BluRay - DTS (HD-HRA)";
+                            case 0x86 : return "BluRay - DTS (HD-MA)";
                             case 0x90 : return "BluRay - PGS";
+                            case 0xA1 : return "BluRay - AC-3";
+                            case 0xA2 : return "BluRay - DTS";
                             case 0xEA : return "BluRay - VC-1";
                             default   : return "Bluray - Unknown";
                         }
@@ -199,9 +203,13 @@ const char* Mpeg_Psi_stream_Format(int8u ID, int32u format_identifier)
                             case 0x80 : return "PCM";
                             case 0x81 : return "AC-3";
                             case 0x82 : return "DTS";
-                            case 0x83 : return "E-AC-3";
-                            case 0x86 : return "DTS";
+                            case 0x83 : return "AC-3"; // (TrueHD)"
+                            case 0x84 : return "E-AC-3";
+                            case 0x85 : return "DTS"; //" (HD-HRA)"
+                            case 0x86 : return "DTS"; //" (HD-MA)"
                             case 0x90 : return "PGS";
+                            case 0xA1 : return "AC-3";
+                            case 0xA2 : return "DTS";
                             case 0xEA : return "VC-1";
                             default   : return "";
                         }
@@ -314,8 +322,12 @@ stream_t Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier)
                             case 0x81 : return Stream_Audio;
                             case 0x82 : return Stream_Audio;
                             case 0x83 : return Stream_Audio;
+                            case 0x84 : return Stream_Audio;
+                            case 0x85 : return Stream_Audio;
                             case 0x86 : return Stream_Audio;
                             case 0x90 : return Stream_Text;
+                            case 0xA1 : return Stream_Audio;
+                            case 0xA2 : return Stream_Audio;
                             case 0xEA : return Stream_Video;
                             default   : return Stream_Max;
                         }
@@ -1357,7 +1369,7 @@ void File_Mpeg_Psi::Descriptors()
     if (Stream_Current) //Only if an ID is registered
     {
         Streams[Stream_Current].Infos=Descriptors.Infos;
-        Streams[Stream_Current].format_identifier=Descriptors.format_identifier; //General
+        Streams[Stream_Current].format_identifier=Descriptors.registration_format_identifier; //General
         if (Streams[Stream_Current].descriptor_tag==0x00)
             Streams[Stream_Current].descriptor_tag=Descriptors.descriptor_tag;
         if (Streams[Stream_Current].CA_PID==0x0000)
@@ -1367,7 +1379,7 @@ void File_Mpeg_Psi::Descriptors()
     }
     else if (program_number) //This is about a program, not a stream
     {
-        Programs[program_number].format_identifier=Descriptors.format_identifier;
+        Programs[program_number].format_identifier=Descriptors.registration_format_identifier;
         for (std::map<std::string, ZenLib::Ztring>::iterator Info=Descriptors.Infos.begin(); Info!=Descriptors.Infos.end(); Info++)
             Programs[program_number].Infos[Info->first]=Info->second;
     }
