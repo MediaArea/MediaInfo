@@ -37,23 +37,70 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Constants
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+int32u Pcm_VOB_Frequency[]=
+{
+    48000,
+    32000,
+        0,
+        0,
+};
+
+const char* Pcm_VOB_ChannelsPositions(int8u NumberOfChannelsMinusOne)
+{
+    switch (NumberOfChannelsMinusOne)
+    {
+        case  0 : return "Front: C";                                    //1 channel
+        case  1 : return "Front: L R";                                  //2 channels
+        case  2 : return "Front: L R, LFE";                             //3 channels (not sure)
+        case  3 : return "Front: L R, Rear: L R";                       //4 channels
+        case  4 : return "Front: L R, Rear: L R, LFE";                  //5 channels (not sure)
+        case  5 : return "Front: L R C, Rear: L R, LFE";                //6 channels
+        case  6 : return "Front: L R C, Middle: L R, Rear: L R";        //7 channels
+        case  7 : return "Front: L R C, Middle: L R, Rear: L R, LFE";   //8 channels
+        default : return "";
+    }
+}
+
+const char* Pcm_VOB_ChannelsPositions2(int8u NumberOfChannelsMinusOne)
+{
+    switch (NumberOfChannelsMinusOne)
+    {
+        case  0 : return "2/0";                                         //1 channel
+        case  1 : return "2/0";                                         //2 channels
+        case  2 : return "3/0.1";                                       //3 channels (not sure)
+        case  3 : return "3/0.1";                                       //4 channels
+        case  4 : return "3/2.1";                                       //5 channels (not sure)
+        case  5 : return "3/2.1";                                       //6 channels
+        case  6 : return "3.2/2.1";                                     //7 channels
+        case  7 : return "3.2/2.1";                                     //8 channels
+        default : return "";
+    }
+}
+
+//***************************************************************************
 // Format
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Pcm::Read_Buffer_Continue()
 {
-    //It is impossible to detect... Default is no detection, only filling
+    if (Codec!=_T("VOB")
+     && Codec!=_T("EVOB")) //No need of data
+    {
+        //Filling
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "PCM");
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "PCM");
+        Fill(Stream_Audio, 0, Audio_Codec, "PCM");
 
-    //Filling
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "PCM");
-    Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, 0, Audio_Format, "PCM");
-    Fill(Stream_Audio, 0, Audio_Codec, "PCM");
-
-    Info("PCM, Jumping to end of file");
-    Finnished();
+        //Finnished
+        Finnished();
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -148,6 +195,66 @@ void File_Pcm::Read_Buffer_Finalize()
     }
     Fill(Stream_Audio, 0, Audio_Resolution, Resolution);
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
+}
+
+//***************************************************************************
+// Buffer
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Pcm::Header_Parse()
+{
+    //Filling
+    Header_Fill_Code(0, "Block");
+    Header_Fill_Size(Element_Size);
+}
+
+//---------------------------------------------------------------------------
+void File_Pcm::Data_Parse()
+{
+    //Parsing
+    if (Codec==_T("VOB") || Codec==_T("EVOB"))
+        VOB();
+    else
+        Skip_XX(Element_Size,                                   "Data"); //It is impossible to detect... Default is no detection, only filling
+
+    Info("PCM, Jumping to end of file");
+    Finnished();
+}
+
+//***************************************************************************
+// Elements
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Pcm::VOB()
+{
+    //Parsing
+    int8u Frequency, NumberOfChannelsMinusOne;
+    Skip_B1(                                                    "Frame number");
+    Skip_B2(                                                    "Unknown");
+    BS_Begin();
+    Skip_S1(4,                                                  "Unknown");
+    Skip_S1(4,                                                  "Current frame");
+    Skip_S1(2,                                                  "Unknown");
+    Get_S1 (2, Frequency,                                       "Frequency");
+    Skip_SB(                                                    "Unknown");
+    Get_S1 (3, NumberOfChannelsMinusOne,                        "Number of channels (minus 1)");
+    BS_End();
+    Skip_B1(                                                    "Start code");
+    Skip_XX(Element_Size-Element_Offset,                        "Data");
+
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "PCM");
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "PCM");
+        Fill(Stream_Audio, 0, Audio_Codec, "PCM");
+        Fill(Stream_Audio, 0, Audio_SamplingRate, Pcm_VOB_Frequency[Frequency]);
+        Fill(Stream_Audio, 0, Audio_Channel_s_, NumberOfChannelsMinusOne+1);
+        Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannelsMinusOne));
+        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannelsMinusOne));
+    FILLING_END();
 }
 
 //***************************************************************************

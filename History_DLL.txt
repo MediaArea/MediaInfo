@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.7.8, 2008-
 ---------------
++ #2216498, LPCM in VOB: more attributes (channels count, resolution)
 + #2182135, Wavpack: support of multichannel files
 + Wavpack: Encoder settings
 + WMV with "WVC1" codec identifier: video interlacement

@@ -47,6 +47,15 @@ protected :
     //Format
     void Read_Buffer_Continue ();
     void Read_Buffer_Finalize ();
+
+private :
+    //Buffer
+    void Header_Parse();
+    void Data_Parse();
+
+    //Elements
+    void VOB();
+
 };
 
 } //NameSpace

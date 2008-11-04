@@ -45,6 +45,7 @@ public :
     bool   FromTS;                  //Indicate if stream comes from TS
     int8u  stream_type_FromTS;      //ID from TS
     int8u  descriptor_tag_FromTS;   //Descriptor from TS
+    int32u format_identifier_FromTS;//Registration from TS
     int8u  MPEG_Version;            //MPEG_Version from TS
 
 protected :
@@ -184,6 +185,7 @@ private :
     File__Analyze* ChooseParser_SDDS();
     File__Analyze* ChooseParser_AAC();
     File__Analyze* ChooseParser_PCM();
+    File__Analyze* ChooseParser_AES3();
     File__Analyze* ChooseParser_RLE();
     File__Analyze* ChooseParser_PGS();
     File__Analyze* ChooseParser_NULL();

@@ -65,6 +65,9 @@
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
+#if defined(MEDIAINFO_AES3_YES)
+    #include "MediaInfo/Audio/File_Aes3.h"
+#endif
 #if defined(MEDIAINFO_LATM_YES)
     #include "MediaInfo/Audio/File_Latm.h"
 #endif
@@ -186,6 +189,7 @@ File_MpegPs::File_MpegPs()
     FromTS=false;
     stream_type_FromTS=0x00; //No info
     descriptor_tag_FromTS=0x00; //No info
+    format_identifier_FromTS=0x00000000; //No info
     MPEG_Version=0; //No info
 
     //Temp
@@ -814,7 +818,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
             Element_Begin("p_STD_buffer_flag");
             BS_Begin();
             Mark_0();
-            Mark_1();
+            Skip_SB(                                            "Should be 1"); //But I saw a file with "0"
             Skip_SB(                                            "P-STD_buffer_scale");
             Skip_S2(13,                                         "P-STD_buffer_size");
             BS_End();
@@ -1319,56 +1323,67 @@ void File_MpegPs::private_stream_1()
 void File_MpegPs::private_stream_1_Choose_DVD_ID()
 {
     //Parsing
-    int16u Next;
-    int8u  CodecID, Count;
+    int8u  CodecID;
     Get_B1 (CodecID,                                        "CodecID");
-    Get_B1 (Count,                                          "Count of next frame headers");
-    Get_B2 (Next,                                           "Next frame offset minus 1");
 
     //Testing
-    if (Count>0 && 4+(int64u)Next+4<=Element_Size)
+    //PCM
+    if (CodecID>=0xA0 && CodecID<=0xAF && Element_Size>=7 && Buffer[Buffer_Offset+6]==0x80)
     {
-        //Subtitles
-             if (CodecID>=0x20 && CodecID<=0x3F)
-            ; //Seems to not work with subtitles, to be confirmed
-        //AC3
-        else if (CodecID>=0x80 && CodecID<=0x87)
-        {
-            if (CC2(Buffer+Buffer_Offset+4+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+3+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+2+Next)!=0x0B77)
-                return;
-        }
-        //DTS
-        else if (CodecID>=0x88 && CodecID<=0x8F)
-        {
-            if (CC4(Buffer+Buffer_Offset+4+Next)!=0x7FFE8001 && CC4(Buffer+Buffer_Offset+3+Next)!=0x7FFE8001 && CC4(Buffer+Buffer_Offset+2+Next)!=0x7FFE8001)
-                return;
-        }
-        //DTS
-        else if (CodecID>=0x98 && CodecID<=0x9F)
-        {
-            if (CC4(Buffer+Buffer_Offset+4+Next)!=0x7FFE8001 && CC4(Buffer+Buffer_Offset+3+Next)!=0x7FFE8001 && CC4(Buffer+Buffer_Offset+2+Next)!=0x7FFE8001)
-                return;
-        }
-        //PCM
-        else if (CodecID>=0xA0 && CodecID<=0xAF)
-            ;
-        //MLP
-        else if (CodecID>=0xB0 && CodecID<=0xBF)
-            if (CC2(Buffer+Buffer_Offset+4+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+3+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+2+Next)!=0x0B77)
-                return;
-        //AC3+
-        else if (CodecID>=0xC0 && CodecID<=0xCF)
-        {
-            if (CC2(Buffer+Buffer_Offset+4+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+3+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+2+Next)!=0x0B77)
-                return;
-        }
-
         private_stream_1_IsDvdVideo=true;
+        private_stream_1_Offset=1;
+    }
+    else
+    {
+        int16u Next;
+        int8u  Count;
+        Get_B1 (Count,                                          "Count of next frame headers");
+        Get_B2 (Next,                                           "Next frame offset minus 1");
+
+        if (Count>0 && 4+(int64u)Next+4<=Element_Size)
+        {
+            //Subtitles
+                 if (CodecID>=0x20 && CodecID<=0x3F)
+                ; //Seems to not work with subtitles, to be confirmed
+            //AC3
+            else if (CodecID>=0x80 && CodecID<=0x87)
+            {
+                if (CC2(Buffer+Buffer_Offset+4+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+3+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+2+Next)!=0x0B77)
+                    return;
+            }
+            //DTS
+            else if (CodecID>=0x88 && CodecID<=0x8F)
+            {
+                if (CC4(Buffer+Buffer_Offset+4+Next)!=0x7FFE8001 && CC4(Buffer+Buffer_Offset+3+Next)!=0x7FFE8001 && CC4(Buffer+Buffer_Offset+2+Next)!=0x7FFE8001)
+                    return;
+            }
+            //DTS
+            else if (CodecID>=0x98 && CodecID<=0x9F)
+            {
+                if (CC4(Buffer+Buffer_Offset+4+Next)!=0x7FFE8001 && CC4(Buffer+Buffer_Offset+3+Next)!=0x7FFE8001 && CC4(Buffer+Buffer_Offset+2+Next)!=0x7FFE8001)
+                    return;
+            }
+            //PCM
+            else if (CodecID>=0xA0 && CodecID<=0xAF)
+                ;
+            //MLP
+            else if (CodecID>=0xB0 && CodecID<=0xBF)
+                if (CC2(Buffer+Buffer_Offset+4+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+3+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+2+Next)!=0x0B77)
+                    return;
+            //AC3+
+            else if (CodecID>=0xC0 && CodecID<=0xCF)
+            {
+                if (CC2(Buffer+Buffer_Offset+4+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+3+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+2+Next)!=0x0B77)
+                    return;
+            }
+
+            private_stream_1_IsDvdVideo=true;
+            private_stream_1_Offset=4;
+        }
     }
 
     //Filling
     private_stream_1_ID=CodecID;
-    private_stream_1_Offset=4;
 }
 
 //---------------------------------------------------------------------------
@@ -1376,14 +1391,22 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
 {
     if (FromTS)
     {
+        if (format_identifier_FromTS==0x42535344) //"BSSD"
+        {
+            return ChooseParser_AES3(); //AES3 (SMPTE 320M)
+        }
         switch (stream_type_FromTS)
         {
             case 0x80 : return ChooseParser_PCM(); //PCM
             case 0x81 :
             case 0x83 :
-            case 0x87 : return ChooseParser_AC3(); //AC3/AC3+
+            case 0x84 :
+            case 0x87 :
+            case 0xA1 : return ChooseParser_AC3(); //AC3/AC3+
             case 0x82 :
-            case 0x86 : return ChooseParser_DTS(); //DTS
+            case 0x85 :
+            case 0x86 :
+            case 0xA2 : return ChooseParser_DTS(); //DTS
             case 0x90 : return ChooseParser_PGS(); //PGS from Bluray
             case 0xEA : return ChooseParser_NULL(); //VC1()
             default   : switch (descriptor_tag_FromTS)
@@ -2489,6 +2512,22 @@ File__Analyze* File_MpegPs::ChooseParser_PGS()
         Handle->Stream_Prepare(Stream_Text);
         Handle->Fill(Stream_Text, StreamPos_Last, Text_Format, "PGS");
         Handle->Fill(Stream_Text, StreamPos_Last, Text_Codec, "PGS");
+        return Handle;
+    #endif
+}
+
+//---------------------------------------------------------------------------
+File__Analyze* File_MpegPs::ChooseParser_AES3()
+{
+    //Filling
+    #if defined(MEDIAINFO_AES3_YES)
+        File__Analyze* Handle=new File_Aes3();
+        return Handle;
+    #else
+        //Filling
+        File__Analyze* Handle=new File__Analyze();
+        Open_Buffer_Init(Handle);
+        Handle->Stream_Prepare(Stream_Audio);
         return Handle;
     #endif
 }
