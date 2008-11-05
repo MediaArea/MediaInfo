@@ -145,12 +145,12 @@ File_Dts::File_Dts()
     Frame_Count=0;
 
     //Temp - Technical info
+    Primary_Frame_Byte_Size_minus_1=0;
+    HD_size=0;
+    SyncCode=0x7FFE;
     Word=true;
     BigEndian=true;
-
-    //Temp - Unknown
-    DTS_HD_Unknown_Size=0;
-    SyncCode=0x7FFE;
+    channel_arrangement_XCh=(int8u)-1;
 }
 
 //---------------------------------------------------------------------------
@@ -172,23 +172,16 @@ bool File_Dts::Header_Begin()
     if (Buffer_Offset+4>Buffer_Size)
         return false;
 
-    //DTS-HD: Saving offset
-    size_t DTS_HD_Offset=Buffer_Offset;
-
     //Quick test of synchro
-    if (Synched && CC4(Buffer+Buffer_Offset)!=SyncCode)
+    if (Synched && CC4(Buffer+Buffer_Offset)!=SyncCode && CC4(Buffer+Buffer_Offset)!=0x64582025)
     {
-        Info("DTS, Synchronisation lost"); //Should not //TODO: find a better way to detect DTS
+        Info("DTS, Synchronisation lost"); //No error, this may be normal
         Synched=false;
     }
 
     //Synchro
     if (!Synched && !Synchronize())
         return false;
-
-    //DTS-HD: Saving difference
-    if (Buffer_Offset-DTS_HD_Offset && Frame_Count>0)
-        DTS_HD_Unknown_Size=Buffer_Offset-DTS_HD_Offset;
 
     //All should be OK...
     return true;
@@ -198,58 +191,88 @@ bool File_Dts::Header_Begin()
 void File_Dts::Header_Parse()
 {
     //Parsing
-    int16u Primary_Frame_Byte_Size_minus_1;
-    int8u  EncoderSoftwareRevision;
-    bool   crc_present;
-    Skip_B4(                                                    "Sync");
-    BS_Begin();
-    Info_SB(    FrameType,                                      "Frame Type"); Param_Info(DTS_FrameType[FrameType]);
-    Skip_S1( 5,                                                 "Deficit Sample Count");
-    Get_SB (    crc_present,                                    "CRC Present");
-    Skip_S1( 7,                                                 "Number of PCM Sample Blocks");
-    Get_S2 (14, Primary_Frame_Byte_Size_minus_1,                "Primary Frame Byte Size minus 1");
-    Primary_Frame_Byte_Size_minus_1+=1;
-    if (!Word) Primary_Frame_Byte_Size_minus_1=Primary_Frame_Byte_Size_minus_1*8/14*2; Param_Info(Ztring::ToZtring(Primary_Frame_Byte_Size_minus_1)+_T(" bytes")); //Word is on 14 bits!
-    Get_S1 ( 6, channel_arrangement,                            "Audio Channel Arrangement"); Param_Info(Ztring::ToZtring(DTS_Channels[channel_arrangement])+_T(" channels"));
-    Get_S1 ( 4, sample_frequency,                               "Core Audio Sampling Frequency"); Param_Info(Ztring::ToZtring(DTS_SamplingRate[sample_frequency])+_T(" Hz"));
-    Get_S1 ( 5, bit_rate,                                       "Transmission Bit Rate"); Param_Info(Ztring::ToZtring(DTS_BitRate[bit_rate])+_T(" bps"));
-    Skip_SB(                                                    "Embedded Down Mix Enabled");
-    Skip_SB(                                                    "Embedded Dynamic Range");
-    Skip_SB(                                                    "Embedded Time Stamp");
-    Skip_SB(                                                    "Auxiliary Data");
-    Skip_SB(                                                    "HDCD");
-    Get_S1 ( 3, ExtensionAudioDescriptor,                       "Extension Audio Descriptor"); Param_Info(DTS_ExtensionAudioDescriptor[ExtensionAudioDescriptor]);
-    Get_SB (    ExtendedCoding,                                 "Extended Coding");
-    Skip_SB(                                                    "Audio Sync Word Insertion");
-    Get_S1 ( 2, lfe_effects,                                    "Low Frequency Effects");
-    Skip_SB(                                                    "Predictor History");
-    if (crc_present)
-        Skip_S2(16,                                             "Header CRC Check");
-    Skip_SB(                                                    "Multirate Interpolator");
-    Get_S1 ( 4, EncoderSoftwareRevision,                        "Encoder Software Revision");
-    Skip_S1( 2,                                                 "Copy History");
-    Get_S1 ( 2, bits_per_sample,                                "Source PCM Resolution"); Param_Info(Ztring::ToZtring(DTS_Resolution[bits_per_sample])+_T(" bits"));
-    Skip_SB(                                                    "ES");
-    Skip_SB(                                                    "Front Sum/Difference");
-    Skip_SB(                                                    "Surrounds Sum/Difference");
-    Skip_S1( 4,                                                 "Dialog Normalisation Parameter");
-    switch (EncoderSoftwareRevision)
+    if (CC4(Buffer+Buffer_Offset)==SyncCode)
     {
-        case 6 :
-                Skip_S1( 4,                                     "Dialog Normalisation Parameter");
-                break;
-        case 7 :
-                Skip_S1( 4,                                     "Dialog Normalisation Parameter");
-                break;
-        default :
-                Skip_S1( 4,                                     "Unspecified");
-                break;
-    }
-    BS_End();
+        //Frame
+        int8u  EncoderSoftwareRevision;
+        bool   crc_present;
+        Skip_B4(                                                    "Sync");
+        BS_Begin();
+        Info_SB(    FrameType,                                      "Frame Type"); Param_Info(DTS_FrameType[FrameType]);
+        Skip_S1( 5,                                                 "Deficit Sample Count");
+        Get_SB (    crc_present,                                    "CRC Present");
+        Skip_S1( 7,                                                 "Number of PCM Sample Blocks");
+        Get_S2 (14, Primary_Frame_Byte_Size_minus_1,                "Primary Frame Byte Size minus 1");
+        Primary_Frame_Byte_Size_minus_1+=1;
+        if (!Word) Primary_Frame_Byte_Size_minus_1=Primary_Frame_Byte_Size_minus_1*8/14*2; Param_Info(Ztring::ToZtring(Primary_Frame_Byte_Size_minus_1)+_T(" bytes")); //Word is on 14 bits!
+        Get_S1 ( 6, channel_arrangement,                            "Audio Channel Arrangement"); Param_Info(Ztring::ToZtring(DTS_Channels[channel_arrangement])+_T(" channels"));
+        Get_S1 ( 4, sample_frequency,                               "Core Audio Sampling Frequency"); Param_Info(Ztring::ToZtring(DTS_SamplingRate[sample_frequency])+_T(" Hz"));
+        Get_S1 ( 5, bit_rate,                                       "Transmission Bit Rate"); Param_Info(Ztring::ToZtring(DTS_BitRate[bit_rate])+_T(" bps"));
+        Skip_SB(                                                    "Embedded Down Mix Enabled");
+        Skip_SB(                                                    "Embedded Dynamic Range");
+        Skip_SB(                                                    "Embedded Time Stamp");
+        Skip_SB(                                                    "Auxiliary Data");
+        Skip_SB(                                                    "HDCD");
+        Get_S1 ( 3, ExtensionAudioDescriptor,                       "Extension Audio Descriptor"); Param_Info(DTS_ExtensionAudioDescriptor[ExtensionAudioDescriptor]);
+        Get_SB (    ExtendedCoding,                                 "Extended Coding");
+        Skip_SB(                                                    "Audio Sync Word Insertion");
+        Get_S1 ( 2, lfe_effects,                                    "Low Frequency Effects");
+        Skip_SB(                                                    "Predictor History");
+        if (crc_present)
+            Skip_S2(16,                                             "Header CRC Check");
+        Skip_SB(                                                    "Multirate Interpolator");
+        Get_S1 ( 4, EncoderSoftwareRevision,                        "Encoder Software Revision");
+        Skip_S1( 2,                                                 "Copy History");
+        Get_S1 ( 2, bits_per_sample,                                "Source PCM Resolution"); Param_Info(Ztring::ToZtring(DTS_Resolution[bits_per_sample])+_T(" bits"));
+        Get_SB (    ES,                                             "ES");
+        Skip_SB(                                                    "Front Sum/Difference");
+        Skip_SB(                                                    "Surrounds Sum/Difference");
+        Skip_S1( 4,                                                 "Dialog Normalisation Parameter");
+        switch (EncoderSoftwareRevision)
+        {
+            case 6 :
+                    Skip_S1( 4,                                     "Dialog Normalisation Parameter");
+                    break;
+            case 7 :
+                    Skip_S1( 4,                                     "Dialog Normalisation Parameter");
+                    break;
+            default :
+                    Skip_S1( 4,                                     "Unspecified");
+                    break;
+        }
+        BS_End();
 
-    //Filling
-    Header_Fill_Size(Primary_Frame_Byte_Size_minus_1+DTS_HD_Unknown_Size); //TODO: change this, for DTS-HD
-    Header_Fill_Code(0, "Frame");
+        //Filling
+        Header_Fill_Size(Primary_Frame_Byte_Size_minus_1);
+        Header_Fill_Code(0, "Frame");
+    }
+    else //if (CC4(Buffer+Buffer_Offset)!=0x64582025)
+    {
+        int16u header_size;
+        bool isBlownUpHeader;
+        Skip_B4(                                                    "magic");
+        Skip_B1(                                                    "unknown");
+        BS_Begin();
+        Skip_S1(2,                                                  "index");
+        Get_SB (isBlownUpHeader,                                    "isBlownUpHeader");
+        if (isBlownUpHeader)
+        {
+            Get_S2 (12, header_size,                                "header_size");
+            Get_S3 (20, HD_size,                                    "size");
+        }
+        else
+        {
+            Get_S2 ( 8, header_size,                                "header_size");
+            Get_S3 (16, HD_size,                                    "size");
+        }
+        HD_size++;
+        BS_End();
+        Skip_XX(header_size+1-Element_Offset,                       "Unknown");
+
+        //Filling
+        Header_Fill_Size(HD_size);
+        Header_Fill_Code(1, "HD");
+    }
 }
 
 //***************************************************************************
@@ -262,17 +285,19 @@ void File_Dts::Data_Parse()
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
         Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
-    Frame_Count++;
+    if (Element_Code==0)
+        Frame_Count++;
 
     //Name
     Element_Info(Ztring::ToZtring(Frame_Count));
 
     //Parsing
-    Skip_XX(Element_Size,                                       "Data");
-
-    //Filling
-    if (Count_Get(Stream_Audio)==0 && Frame_Count>=Frame_Count_Valid)
-        Data_Parse_Fill();
+    switch(Element_Code)
+    {
+        case 0  : Core(); break;
+        case 1  : HD(); break;
+        default : Skip_XX(Element_Size,                         "Data");
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -280,29 +305,39 @@ void File_Dts::Data_Parse_Fill()
 {
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "DTS");
-    if (DTS_HD_Unknown_Size) //DTS-HD, TODO : Find a better way
-        Fill(Stream_General, 0, General_Format_Profile, "HD");
+    Fill(Stream_General, 0, General_Format_Profile, Profile);
     Stream_Prepare(Stream_Audio);
     Fill(Stream_Audio, 0, Audio_Format, "DTS");
-    if (DTS_HD_Unknown_Size) //DTS-HD, TODO : Find a better way
-        Fill(Stream_Audio, 0, Audio_Format_Profile, "HD");
-    Fill(Stream_Audio, 0, Audio_Codec, DTS_HD_Unknown_Size?"DTS-HD":"DTS");
-    Fill(Stream_Audio, 0, Audio_BitRate_Mode, DTS_HD_Unknown_Size?"VBR":"CBR"); //DTS-HD, TODO : Find a better way
-
-    if (ExtendedCoding && (ExtensionAudioDescriptor==2 || ExtensionAudioDescriptor==3))
-        Fill(Stream_Audio, 0, Audio_SamplingRate, 96000);
-    else
-        Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_SamplingRate[sample_frequency]);
-    if (DTS_HD_Unknown_Size==0 && bit_rate<29)
-        Fill(Stream_Audio, 0, Audio_BitRate, DTS_BitRate[bit_rate]);
+    if (Profile.empty() && ES)
+        Profile="ES";
+    Fill(Stream_Audio, 0, Audio_Format_Profile, Profile);
+    Fill(Stream_Audio, 0, Audio_Codec, Profile.find(_T("HD"))==0?"DTS-HD":"DTS");
+    Fill(Stream_Audio, 0, Audio_BitRate_Mode, Profile.find(_T("MA"))==0?"VBR":"CBR");
+    Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_SamplingRate[sample_frequency]);
+    if (bit_rate<29)
+    {
+        float64 BitRate=(float64)DTS_BitRate[bit_rate];
+        if (Primary_Frame_Byte_Size_minus_1 && Profile==_T("HRA"))
+            BitRate*=1+((float64)HD_size)/Primary_Frame_Byte_Size_minus_1; //HD block are not in the nominal bitrate
+        if (Profile!=_T("MA"))
+            Fill(Stream_Audio, 0, Audio_BitRate, BitRate, 0);
+    }
     else if (bit_rate==29)
         Fill(Stream_Audio, 0, Audio_BitRate, "Open");
     else if (bit_rate==30)
         Fill(Stream_Audio, 0, Audio_BitRate, "Variable");
     else if (bit_rate==31)
         Fill(Stream_Audio, 0, Audio_BitRate, "LossLess");
-    if (ExtendedCoding && (ExtensionAudioDescriptor==0 || ExtensionAudioDescriptor==3))
+    if ((ExtendedCoding && (ExtensionAudioDescriptor==0 || ExtensionAudioDescriptor==3)))
     {
+        switch(channel_arrangement_XCh)
+        {
+            case 1 :
+                    Fill(Stream_Audio, 0, Audio_Channel_s_, 7);
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Rear: L C R")+(lfe_effects?_T(", LFE"):_T("")));
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Ztring("3/3")+(lfe_effects?_T(".1"):_T("")));
+            default:;
+        }
     }
     else
     {
@@ -338,6 +373,183 @@ void File_Dts::Data_Parse_Fill()
 }
 
 //***************************************************************************
+// Elements
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Dts::Core()
+{
+    //Looking for extensions
+    int64u Core_Size=Element_Size, XCh_Sync=Element_Size, XXCh_Sync=Element_Size, X96k_Sync=Element_Size;
+    if (ExtendedCoding)
+    {
+        //XCh
+        if (ExtensionAudioDescriptor==0 || ExtensionAudioDescriptor==3)
+            for (size_t Pos=0; Pos+4<=Element_Size; Pos++)
+                if (CC4(Buffer+Buffer_Offset+Pos)==0x5A5A5A5A)
+                    XCh_Sync=Pos;
+
+        //XCh
+        //if (ExtensionAudioDescriptor==?)
+            for (size_t Pos=0; Pos+4<=Element_Size; Pos++)
+                if (CC4(Buffer+Buffer_Offset+Pos)==0x47004A03)
+                    XXCh_Sync=Pos;
+
+        //X96k
+        if (ExtensionAudioDescriptor==2)
+            for (size_t Pos=0; Pos+4<=Element_Size; Pos++)
+                if (CC4(Buffer+Buffer_Offset+Pos)==0x1D95F262)
+                    X96k_Sync=Pos;
+
+        //Finding core size
+        if (XCh_Sync<Core_Size)
+            Core_Size=XCh_Sync;
+        if (XXCh_Sync<Core_Size)
+            Core_Size=XXCh_Sync;
+        if (X96k_Sync<Core_Size)
+            Core_Size=X96k_Sync;
+    }
+
+    //Parsing
+    Skip_XX(Core_Size,                                          "Core data");
+    if (ExtendedCoding && (ExtensionAudioDescriptor==2 || ExtensionAudioDescriptor==3))
+        X96k(XCh_Sync-Element_Offset);
+    if (ExtendedCoding && (ExtensionAudioDescriptor==0 || ExtensionAudioDescriptor==3))
+        XCh();
+    if (ExtendedCoding && XXCh_Sync!=Element_Size) //ExtensionAudioDescriptor==?
+        XXCh();
+
+    //Filling
+    FILLING_BEGIN();
+        if (Count_Get(Stream_Audio)==0 && Frame_Count>=Frame_Count_Valid && (Profile.empty() || Profile==_T("ES")))
+            Data_Parse_Fill();
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Dts::HD()
+{
+    //Parsing
+    int32u Magic;
+    Get_B4 (Magic,                                              "Magic");
+    switch (Magic)
+    {
+        case 0x0A801821 : XSA();  break;
+        case 0x1D95F262 : X96k(Element_Size-4); break;
+        case 0x41A29547 : XLL();  break;
+        case 0x47004A03 : XXCh(); break;
+        case 0x5A5A5A5A : XCh();  break;
+        case 0x655E315E : XBR();  break;
+        default :
+                    //Magic value is unknown
+                    Profile="HD";
+                    Element_Begin("Unknown");
+                    Skip_XX(Element_Size-4,                      "Data");
+                    Element_End();
+    }
+
+    //Filling
+    FILLING_BEGIN();
+        if (Count_Get(Stream_Audio)==0 && Frame_Count>=Frame_Count_Valid)
+            Data_Parse_Fill();
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Dts::XCh()
+{
+    //Parsing
+    Element_Begin("XCh (6.1 channels)");
+    int16u XChFSIZE;
+    int8u  AMODE;
+    Skip_B4(                                                    "Synchro");
+    BS_Begin();
+    Get_S2 (10, XChFSIZE,                                       "Primary Frame Byte Size");
+    Get_S1 ( 4, AMODE,                                          "Extension Channel Arrangement");
+    BS_End();
+    if (XChFSIZE==Element_Size-(Element_Offset-6))
+        XChFSIZE--; //Compatibility reason (from specs)
+    Skip_XX(XChFSIZE+1-6,                                       "XCh data");
+    Element_End();
+
+    FILLING_BEGIN();
+        channel_arrangement_XCh=AMODE;
+        if (Profile.empty())
+            Profile=Element_Code==0?"ES":"HRA"; //0 is for Core, 1 for HD block
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Dts::XXCh()
+{
+    Element_Begin("XXCh (7.1 channels)");
+    Skip_XX(Element_Size-4,                                     "Data");
+    Element_End();
+
+    FILLING_BEGIN();
+        if (Profile.empty())
+            Profile=Element_Code==0?"ES":"HRA"; //0 is for Core, 1 for HD block
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Dts::X96k(int64u Size)
+{
+    //Parsing
+    Element_Begin("X96k (96 KHz)");
+    int16u FSIZE96;
+    int8u  REVNO;
+    Skip_B4(                                                    "Synchro");
+    BS_Begin();
+    Get_S2 (12, FSIZE96,                                        "96 kHz Extension Frame Byte Data Size");
+    Get_S1 ( 4, REVNO,                                          "Revision Number");
+    BS_End();
+    Skip_XX(Size-6,                                             "X96k data"); //FSIZE96 is until end, not X96k size
+    Element_End();
+
+    FILLING_BEGIN();
+        sample_frequency=14; //96KHz
+        Profile=Element_Code==0?"96/24":"HRA"; //0 is for Core, 1 for HD block
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Dts::XLL()
+{
+    Element_Begin("XLL (LossLess)");
+    Skip_XX(Element_Size-4,                                     "Data");
+    Element_End();
+
+    FILLING_BEGIN();
+        Profile="MA";
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Dts::XBR()
+{
+    Element_Begin("XBR (high BitRate)");
+    Skip_XX(Element_Size-4,                                     "Data");
+    Element_End();
+
+    FILLING_BEGIN();
+        Profile="HRA";
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Dts::XSA()
+{
+    Element_Begin("XSA (low bitrate)");
+    Skip_XX(Element_Size-4,                                     "Data");
+    Element_End();
+
+    FILLING_BEGIN();
+        Profile="Express";
+    FILLING_END();
+}
+
+//***************************************************************************
 // Helpers
 //***************************************************************************
 
@@ -350,6 +562,7 @@ bool File_Dts::Synchronize()
       && !(LittleEndian2int16u(Buffer+Buffer_Offset+0)==0x7FFE && LittleEndian2int16u(Buffer+Buffer_Offset+2)==0x8001) //16 bits and little endian bitstream
       && !(BigEndian2int16u   (Buffer+Buffer_Offset+0)==0x1FFF && BigEndian2int16u   (Buffer+Buffer_Offset+2)==0xE800 && (BigEndian2int16u   (Buffer+Buffer_Offset+4)&0xFFF0)==0x07F0) //14 bits and big    endian bitstream
       && !(LittleEndian2int16u(Buffer+Buffer_Offset+0)==0x1FFF && LittleEndian2int16u(Buffer+Buffer_Offset+2)==0xE800 && (LittleEndian2int16u(Buffer+Buffer_Offset+4)&0xFFF0)==0x07F0) //14 bits and little endian bitstream
+      && CC4(Buffer+Buffer_Offset)!=0x64582025 //TODO: 14 bit HD detection
       )
         Buffer_Offset++;
     if (Buffer_Offset+6>Buffer_Size)

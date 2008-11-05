@@ -56,11 +56,26 @@ private :
     void Data_Parse();
     void Data_Parse_Fill();
 
+    //Elements
+    void Core();
+    void HD();
+    void XCh();
+    void XXCh();
+    void X96k(int64u Size);
+    void XLL();
+    void XBR();
+    void XSA();
+
     //Count
     size_t Frame_Count;
 
     //Temp - Technical info
+    Ztring Profile;
+    int32u SyncCode;
+    int16u Primary_Frame_Byte_Size_minus_1;
+    int32u HD_size;
     int8u  channel_arrangement;
+    int8u  channel_arrangement_XCh;
     int8u  sample_frequency;
     int8u  bit_rate;
     int8u  lfe_effects;
@@ -69,10 +84,8 @@ private :
     bool   ExtendedCoding;
     bool   Word;
     bool   BigEndian;
-
-    //Temp - Unknown
-    size_t DTS_HD_Unknown_Size;
-    int32u SyncCode;
+    bool   ES;
+    std::map<int32u, int64u> HD_Sizes;
 
     //Helpers
     bool Synchronize();
