@@ -171,7 +171,7 @@ void File_Aes3::Data_Parse()
                     Param("5", Info[5]);
                 }
 
-                Element_Offset+=5;
+                Element_Offset+=6;
                 Element_End();
             }
         }
@@ -205,7 +205,7 @@ void File_Aes3::Data_Parse()
                     Param("5", Info[5]);
                 }
 
-                Element_Offset+=5;
+                Element_Offset+=7;
                 Element_End();
             }
         }
@@ -226,6 +226,8 @@ void File_Aes3::Data_Parse()
     Fill(Stream_Audio, 0, Audio_ChannelPositions, Aes3_ChannelsPositions(number_channels));
     Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Aes3_ChannelsPositions2(number_channels));
     Fill(Stream_Audio, 0, Audio_Resolution, 16+4*bits_per_samples);
+
+    Fill(Stream_Audio, 0, Audio_BitRate, );
 
     if (Block_Count>=1)
     {
