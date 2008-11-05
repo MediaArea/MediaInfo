@@ -242,7 +242,7 @@ Count;Count;Nombre;Anzahl;Számláló;Contatore;Кол-во;Conteo;Cantidade;Tel
 Country;Country;Pays;Land ;Ország;Stato;Страна;País;País;Land;Kraj;Tara; Land;Ülke;國家;国家(地区);国;Country;Χώρα;국가;País;País;Šalis;País;ประเทศ;Країна;کشور;Vendi
 Cover;Cover;Couverture;Cover;Borító;Copertina;Обложка;Tapa;Carátula;Hoes;Okładka;Coperta; Omslag;Kapak;封面;封面;カバー;Obal;Cover;표지;Capa;Portada;Viršelis;Capa;Cover;Обкладинка;جلد;Cover
 Cover_Datas;Cover datas;Couverture;Cover-Daten;Borító adatai;Dati copertina;Обложка (данные);Datos de la Tapa;Datos carátula;Covergegevens;Dane okładki;Date de pe coperta; Omslagsinformation;Kapak verileri;封面資料;封面数据;カバーデータ;Cover datas;Cover datas;표지 정보;Dados da capa;Informació de la portada;Viršelio duomenys;Dados da capa;Cover datas;Дані обкладинки;تاریخ جلد;Cover datas
-Cover_Description;Cover description;Couverture, description;;;;;;;;;;;;封面描述;封面描述
+Cover_Description;Cover description;Couverture, description;;;;;;;;;;;;封面描述;封面描述;;;;;;;;;;;;
 Cover_Mime;Cover MIME;Couverture, MIME;Cover-MIME;;;;;;;;;;;封面 MIME;封面MIME;;;;;;;;;;;;MIME i cover-it
 Cover_Type;Cover type;Couverture, origine;Cover-Typ;;;;;;;;;;;封面類型;封面type;;;;;;;;;;;;Lloji i cover-it
 Cropped;Crop dimensions;Dimensions du retaillage;Schnitt-Dimensionen;;;;;;;;;;;裁切維度;公司规模;;;;;;;;;;;;Dimensionet e prerjes
@@ -640,7 +640,7 @@ Language_no;Norwegian Nynorsk;Norvégien Nynorsk;Norwegisch;norvég;Norvegese;No
 Language_nr;Ndebele;Ndébélé du Sud;Süd-Ndebele; ;Ndebele, South;Ndebele;;Ndebele;Ndebele;;; Ndebele;Ndebele;南恩德貝勒語 (Ndebele);;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;Ndebele;;Ndebele
 Language_nv;Navaho;Navaho;Navajo;navaho;Navajo;Navaho;;Navaho;Navaho;;; Navaho;Navaho;納瓦霍語 (Navaho);;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;Navaho;;Navaho
 Language_ny;Nyanja;Nyanja;Chichewa; ;Chichewa;Nyanja;;Nyanja;Nyanja;;; Nyanja;Nyanja;尼揚賈語 (Nyanja);;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;Nyanja;;Nyanja
-Language_oc;Occitan;Occitan;Okzitanisch;okcitán;Occitano;Occitan;Occitano;Occitan;Occitaans;;; Occitan;Occitan;奧克西坦語 (Occitan);;Occitan;Occitan;Occitan;Occitan;Occitano;Occitan;Occitan;Occitano;ออกซิตัน	;Occitan;;Occitan
+Language_oc;Occitan;Occitan;Okzitanisch;okcitán;Occitano;Occitan;Occitano;Occitan;Occitaans;;; Occitan;Occitan;奧克西坦語 (Occitan);;Occitan;Occitan;Occitan;Occitan;Occitano;Occitan;Occitan;Occitano;"ออกซิตัน	";Occitan;;Occitan
 Language_oj;Ojibwa;Ojibwa;Ojibwa; ;Ojibwa;Ojibwa;;Ojibwa;Ojibwa;;; Ojibwa;Ojibwa;奧吉布瓦語 (Ojibwa);;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;Ojibwa;;Ojibwa
 Language_om;Oromo;Galla;Oromo; ;Oromo;Oromo;Oromo;Oromo;Oromo;;; Oromo;Oromo;澳洛莫語 (Oromo);;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;Oromo;;Oromo
 Language_or;Oriya;Oriya;Orija; ;Oriya;Oriya;Oriya;Oriya;Oriya;;; Oriya;Oriya;奧里雅語 (Oriya);;Oriya;Oriya;Oriya;Oriya;Oriya;Oriya;Oriya;Oriya;โอริยา;Oriya;;Oriya
@@ -739,6 +739,40 @@ NumColors;Number of colors;Nombre de couleurs;Farbanzahl;;;;;;;;;;;色彩數;色
 OK;OK;OK;OK;OK;Ok;OK;OK;OK;OK;Ok;OK; OK;TAMAM;確認;确定;OK;OK;OK;확인;OK;D'acord;Gerai;OK;ตกลง;Так;موافق;OK
 One output file per input file;One output file per input file;Erreur de lecture du fichier;Je eine eigene Ausgabedatei pro Eingabedatei;Bemeneti fájlonként egy kimeneti fájl;Un file di output per ogni file di input;Один файл на каждый исходный;Un archivo de salida por uno de entrada;Un arquivo de saída por un de entrada;Eén exportbestand per invoerbestand;Jeden plik wyjściowy na wejściowy;Un fisier destinatie pentru fiecare fisier sursa; En utdatafil per indatafil;Girdi dosyası başına bir çıktı dosyası;一個輸入檔對應一個輸出檔;一个输入文件对应一个输出文件;単一ファイルで出力;One output file per input file;Ένα αρχείο εξόδου για κάθε αρχείο εισόδου;입력 파일 마다 하나의 출력 파일;Um arquivo de saída por um de entrada;Un arxiu de sortida per arxiu d'entrada;Vienas įšėjimo failas per įėjimo failą;Um arquivo de saída por um de entrada;หนึ่งไฟล์ผลลัพธ์ต่อไฟล์นำเข้า;Один вхідний на кожний вихідний файл;یک فایل خروجی برطبق فایل ورودی;Një skedë output për skedë input
 Open;Open;Ouvrir;Öffnen;Megnyit;Apri;Открыть;Abrir;Abrir;Openen;Otwórz;Deschide; Öppna;Aç;開啟;打开;開く;Otevřít;Άνοιγμα;열기;Abrir;Obre;Atverti;Abrir;เปิด;Відкрити;باز کردن;Hap
+OpenCandy_01;Downloading ________;Téléchargement de _____;________ wird heruntergeladen.;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_02;__% Complete;____% Terminé;__ % abgeschlossen;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_03;Internet connection interrupted;Connexion Internet interrompue;Internetverbindung unterbrochen;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_04;________ download complete;Téléchargement de ____ terminé.;________ vollständig heruntergeladen;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_05;Click to install ________;Cliquez ici pour installer ______;Hier klicken, um ________ zu installieren;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_06;Are you sure you wish to cancel the install?\r\nIf you wish to postpone the install until later, select 'No'.\r\nNote: You may select Exit from the menu to defer installation until after the next time you reboot.;"Êtes-vous sûr de vouloir annuler l'installation?\r\nSi vous souhaitez reporter l'installation à plus tard, sélectionnez ""Non"".\r\nRemarque: Vous pouvez choisir ""Quitter"" depuis le menu pour reporter l'installation au prochain redémarrage.";Möchten Sie die Installation wirklich abbrechen?\r\nWenn Sie die Installation zu einem späteren Zeitpunkt vornehmen möchten, wählen Sie „Nein“.\r\nHinweis: Sie können im Menü „Beenden“ auswählen, um die Installation bis zum nächsten Neustart zu verschieben.;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_07;Download of ________ has been paused.\r\nClick on the tray icon to resume downloading.;Le téléchargement de ______ a été mis en pause.\r\nCliquez sur l'icone dans la barre d'état pour reprendre le téléchargement.;Download von ________ wurde angehalten.\r\nKlicken Sie auf das Taskleistensymbol, um den Download fortzusetzen.;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_08;A critical error has occurred. Installation of _________ will be aborted.;Une erreur critique est survenue. L'installation de ______ va être annulée.;Es ist ein kritischer Fehler aufgetretenInstallation von _________ wird abgebrochen.;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_09;Pause download;Mettre le téléchargement en pause.;Download anhalten;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_10;Cancel install;Annuler l'installation;Installation abbrechen;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_11;Resume download;Reprendre le téléchargement;Download fortsetzen;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_12;Exit Installer;Quitter l'installation;Installationsprogramm beenden
+OpenCandy_13;___________ - Recommended by ____________;________ - recommandé par __________;___________ – Empfohlen von ____________
+OpenCandy_14;Downloading _________;Téléchargement de _____;_________ wird heruntergeladen
+OpenCandy_15;___________, the software recommended to you by ___________, is now downloading at your requestWe will let you know when it is ready to be installed.;_________, le logiciel recommandé par _______, est en cours de téléchargement selon votre demande. Nous vous ferons savoir quand il sera prêt à être installé.;___________, die Software, die Ihnen von ___________ empfohlen wurde, wird jetzt auf Ihren Wunsch heruntergeladenWir geben Ihnen Bescheid, wenn sie zur Installation bereit ist.
+OpenCandy_16;___________ is ready for installation;_______ est prêt à être installé.;___________ ist zur Installation bereit.
+OpenCandy_17;"___________ is now fully downloaded. Please click on ""Install"" to proceed.";"_______ est maintenant entièrement téléchargé. Cliquez sur ""Installer"" pour continuer.";Der Download von ___________ ist jetzt abgeschlossenKlicken Sie zum Fortfahren bitte auf „Installieren“.
+OpenCandy_18;___________ of ___________ downloaded;_______ sur _______ téléchargé;___________ von ___________ heruntergeladen
+OpenCandy_19;Powered by OpenCandy;Un service de OpenCandy;Powered by OpenCandy
+OpenCandy_20;Learn more at OpenCandy.com;En savoir plus : OpenCandy.com;Weitere Informationen unter OpenCandy.com
+OpenCandy_21;Install;Installer;Installieren
+OpenCandy_22;Installation of ___________;Installation de _______;Installation von ___________
+OpenCandy_23;This will cancel the installation of ___________\r\nAre you sure you wish to exit?;Ceci va annuler l'installation de _______.\r\Êtes-vous sûr de vouloir quitter?;Damit wird die Installation von ___________ abgebrochen.\r\nMöchten Sie das Programm wirklich beenden?
+OpenCandy_24;Pause;Interrompre;Anhalten
+OpenCandy_25;Your download has been pausedClick 'Resume' when you are ready to continue.;Votre téléchargement a été interrompu. Cliquez sur 'Reprendre' lorsque vous êtes prêts à continuer.;Ihr Download wurde angehaltenKlicken Sie zum Fortfahren auf „Fortsetzen“.
+OpenCandy_26;Resume;Reprendre;Fortsetzen
+OpenCandy_27;Install Now;Installer Maintenant;Jetzt installieren
+OpenCandy_28;Pause Download;Interrompre le Téléchargement;Download anhalten;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_29;Resume Download;Reprendre le Téléchargement;Download fortsetzen;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_30;Cancel Install;Annuler l'installation;Installation abbrechen;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_31;Please choose an installation option;Veuillez choisir une option d'installation;Wählen Sie bitte eine Installationsoption aus;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_32;Install ___________;Installer _______;___________ installieren;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_33;Don't Install;Ne pas installer;Nicht installieren;;;;;;;;;;;;;;;;;;;;;;;;
+OpenCandy_34;Please select an install option;Veuillez sélectionner une option d'installation;Wählen Sie bitte eine Installationsoption aus;;;;;;;;;;;;;;;;;;;;;;;;
 Options;Options;Options;Optionen;Beállítások;Opzioni;Параметры;Opciones;Opcións;Opties;Opcje;Optiuni; Alternativ;Seçenekler;選項;选项;オプション;Nastavení;Επιλογές;옵션;Opções;Opcions;Pasirinktys;Opções;ตัวเลือก;Настроювання;خصوصیات;Mundësi
 Options_Hint;Preferences;Préférences;Voreinstellungen;Beállítások;Preferenze;Настройки программы;Preferencias;Preferencias;Voorkeuren;Preferencje;Preferinte; Inställningar;Tercihler;偏好設定;参数设定;詳細設定;Předvolby;Προτιμήσεις;환경 설정;Preferências;Preferències;Nuostatos;Preferências;การปรับแต่ง;Настроювання програми;تنظیمات;Pëlqimet
 Original;Original;Original;Original;Eredeti;Originale;Настоящий;Original;Orixinal;Origineel;Oryginalny;Original; Original;Orjinal;來源;源;オリジナル;Originál;Original;원본;Original;Original;Originalas;Original;ต้นฉบับ;Оригінальний;اصلی;Origjinal
@@ -881,5 +915,5 @@ Written_Location;Written location;Lieu d'écriture;Ort des Schreibbeginns;Írás
 WrittenBy;Written by;Ecrit par;Geschrieben von;Írta;Realizzato da;Написано;Escrito por;Escrito por;Geschreven door;Napisany przez;Scris de; Skrivet av;Yazan;撰寫人;作者;著者;Napsal;Γραμμένο από;제작자;Escrito por;Escrit per;Parašė;Escrito por;เขียนโดย;Написано;نوشته شده توسط;Shkruar nga
 Yes;Yes;Oui;Ja;Igen;Si ;Да;Si;Si;Ja;Tak;Da; Ja;Evet;是;是;はい;Ano;Ναι;예;Sim;Sí;Taip;Sim;ใช่;Так;بله;Po
 Your system;Your system;Votre système;Deine Systeminformationen;Rendszer;Il tuo sistema;Ваша система;Tu sistema;O teu sistema;Uw systeem;System;Sistemul dvs; Ditt system;Sisteminiz;您的系統;您的系统;システム情報;Instalované kodeky;Το σύστημά σας;이 시스템;Seu sistema;El vostre sistema;Jūsų sistema;Seu sistema;ระบบของคุณ;Ваша система;سیستم شما;Sistemi yt
-ZZ_Automatic_Percent;100;100;99;62;96;96;71;85;84;45;38;84;95;100;53;93;86;86;98;86;86;93;94;92;85;46;99
-ZZ_AutomaticLanguage_Percent;100;100;99;81;96;96;93;85;84;82;76;84;95;100;91;93;86;86;98;86;86;93;94;92;85;83;99
+ZZ_Automatic_Percent;100;100;99;63;92;92;68;81;81;43;36;81;91;96;51;89;82;83;94;83;83;89;91;89;82;44;96
+ZZ_AutomaticLanguage_Percent;100;100;99;82;92;92;89;81;81;79;73;81;91;96;87;89;82;83;94;83;83;89;91;89;82;80;96
