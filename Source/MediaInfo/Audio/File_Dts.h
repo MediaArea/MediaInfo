@@ -59,17 +59,18 @@ private :
     //Elements
     void Core();
     void HD();
-    void XCh();
-    void XXCh();
+    void XCh(int64u Size);
+    void XXCh(int64u Size);
     void X96k(int64u Size);
-    void XLL();
-    void XBR();
-    void XSA();
+    void XLL(int64u Size);
+    void XBR(int64u Size);
+    void XSA(int64u Size);
 
     //Count
     size_t Frame_Count;
 
     //Temp - Technical info
+    std::vector<ZenLib::int32u> Asset_Sizes;
     Ztring Profile;
     int32u SyncCode;
     int16u Primary_Frame_Byte_Size_minus_1;
@@ -86,6 +87,12 @@ private :
     bool   BigEndian;
     bool   ES;
     std::map<int32u, int64u> HD_Sizes;
+
+    //Temp - HD
+    int16u HD_SpeakerActivityMask;
+    int8u  HD_BitResolution;
+    int8u  HD_MaximumSampleRate;
+    int8u  HD_TotalNumberChannels;
 
     //Helpers
     bool Synchronize();

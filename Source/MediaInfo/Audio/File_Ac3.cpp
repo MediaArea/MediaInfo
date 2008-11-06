@@ -79,10 +79,10 @@ const char*  AC3_ChannelPositions[]=
     "C",
     "L R",
     "L C R",
-    "Front: L R,   Rear: C",
-    "Front: L C R, Rear: C",
-    "Front: L R,   Rear: L R",
-    "Front: L C R, Rear: L R",
+    "Front: L R,   Surround: C",
+    "Front: L C R, Surround: C",
+    "Front: L R,   Surround: L R",
+    "Front: L C R, Surround: L R",
 };
 
 //---------------------------------------------------------------------------

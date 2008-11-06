@@ -81,7 +81,7 @@ const char*  DTS_ChannelPositions[]=
     "Front: L C R, Surround: C",
     "Front: L R, Surround: L R",
     "Front: L C R, Surround: L R",
-    "Front: L C C R, Surround: L R",
+    "Front: L R, Middle: L R, Surround: L R",
     "Front: L C R, Rear: L R",
     "Front: L R, Middle: L R, Rear: L R",
     "Front: L C R, Middle: L R, Surround: L R",
@@ -101,7 +101,7 @@ const char*  DTS_ChannelPositions2[]=
     "3/1",
     "2/2",
     "3/2",
-    "4/2",
+    "2.2/2",
     "3/2",
     "2.2/2",
     "3.2/2",
@@ -109,7 +109,7 @@ const char*  DTS_ChannelPositions2[]=
     "3.2/3",
 };
 
-const char*  DTS_ExtensionAudioDescriptor[]=
+const char* DTS_ExtensionAudioDescriptor[]=
 {
     "Channel Extension",
     "Reserved",
@@ -119,8 +119,194 @@ const char*  DTS_ExtensionAudioDescriptor[]=
     "",
     "",
     "",
+};
+
+const char* DTS_HD_RefClockCode[]=
+{
+    "1/32000",
+    "1/44100",
+    "1/48000",
     "",
+};
+
+std::string DTS_HD_SpeakerActivityMask (int16u SpeakerActivityMask)
+{
+    std::string Text;
+    if ((SpeakerActivityMask&0x0003)==0x0003)
+        Text+="Front: L C R";
+    else
+    {
+        if (SpeakerActivityMask&0x0001)
+            Text+="Front: C";
+        if (SpeakerActivityMask&0x0002)
+            Text+="Front: L, R";
+    }
+        
+    if ((SpeakerActivityMask&0x0014)==0x0014)
+        Text+=", Surround: L C R";
+    else
+    {
+        if (SpeakerActivityMask&0x0004)
+            Text+=", Surround: L R";
+        if (SpeakerActivityMask&0x0010)
+            Text+=", Surround: C";
+    }
+       
+    if ((SpeakerActivityMask&0x00A0)==0x00A0)
+        Text+=", High: L C R";
+    else
+    {
+        if (SpeakerActivityMask&0x0020)
+            Text+=", High: L R";
+        if (SpeakerActivityMask&0x0080)
+            Text+=", High: C";
+    }
+
+    if ((SpeakerActivityMask&0x0840)==0x0840)
+        Text+=", Surround: L C C R";
+    else
+    {
+        if (SpeakerActivityMask&0x0800)
+            Text+=", Surround: L R"; //In theory: Surround Side: L R
+        if (SpeakerActivityMask&0x0040)
+            Text+=", Surround: C C"; //In theory: Surround Rear: L R
+    }
+        
+    if (SpeakerActivityMask&0x0100)
+        Text+=", TopCtrSrrd";
+    if (SpeakerActivityMask&0x0200)
+        Text+=", Ctr: L R";
+    if (SpeakerActivityMask&0x0400)
+        Text+=", Wide: L R";
+    if (SpeakerActivityMask&0x2000)
+        Text+=", HiSide: L R";
+
+    if ((SpeakerActivityMask&0xC000)==0x0C00)
+        Text+=", HiRear: L C R";
+    else
+    {
+        if (SpeakerActivityMask&0x4000)
+            Text+=", HiRear: C";
+        if (SpeakerActivityMask&0x8000)
+            Text+=", HiRear: L R";
+    }
+        
+    if (SpeakerActivityMask&0x0008)
+        Text+=", LFE";
+    if (SpeakerActivityMask&0x1000)
+        Text+=", LFE2";
+
+    return Text;
+}
+
+std::string DTS_HD_SpeakerActivityMask2 (int16u SpeakerActivityMask)
+{
+    std::string Text;
+    if ((SpeakerActivityMask&0x0003)==0x0003)
+        Text+="3";
+    else
+    {
+        if (SpeakerActivityMask&0x0001)
+            Text+="1";
+        if (SpeakerActivityMask&0x0002)
+            Text+="2";
+    }
+        
+    if ((SpeakerActivityMask&0x0014)==0x0014)
+        Text+="/3";
+    else
+    {
+        if (SpeakerActivityMask&0x0004)
+            Text+="/2";
+        if (SpeakerActivityMask&0x0010)
+            Text+="/1";
+    }
+       
+    if ((SpeakerActivityMask&0x00A0)==0x00A0)
+        Text+=".3";
+    else
+    {
+        if (SpeakerActivityMask&0x0020)
+            Text+=".2";
+        if (SpeakerActivityMask&0x0080)
+            Text+=".2";
+    }
+
+    if ((SpeakerActivityMask&0x0840)==0x0840)
+        Text+="/4";
+    else
+    {
+        if (SpeakerActivityMask&0x0800)
+            Text+="/2";
+        if (SpeakerActivityMask&0x0040)
+            Text+="/2";
+    }
+        
+    if (SpeakerActivityMask&0x0100)
+        Text+=".1";
+    if (SpeakerActivityMask&0x0200)
+        Text+=".2";
+    if (SpeakerActivityMask&0x0400)
+        Text+=".2";
+    if (SpeakerActivityMask&0x2000)
+        Text+=".2";
+
+    if ((SpeakerActivityMask&0xC000)==0x0C00)
+        Text+=".3";
+    else
+    {
+        if (SpeakerActivityMask&0x4000)
+            Text+=".1";
+        if (SpeakerActivityMask&0x8000)
+            Text+=".2";
+    }
+        
+    if (SpeakerActivityMask&0x0008)
+        Text+=".1";
+    if (SpeakerActivityMask&0x1000)
+        Text+=".1";
+
+    return Text;
+}
+
+const char* DTS_HD_TypeDescriptor[]=
+{
+    "Music",
+    "Effects",
+    "Dialog",
+    "Commentary",
+    "Visually Impaired",
+    "Hearing  Impaired",
+    "Isolated Music Object",
+    "Music and Effects",
+    "Dialog and Commentary",
+    "Effects and Commentary",
+    "Isolated Music Object and Commentary",
+    "Isolated Music Object and Effects",
+    "Karaoke",
+    "Music, Effects, Dialog",
+    "Complete Audio Presentation",
     "",
+};
+
+int32u DTS_HD_MaximumSampleRate[]=
+{
+      8000,
+     16000,
+     32000,
+     64000,
+    128000,
+     22050,
+     44100,
+     88200,
+    176400,
+    352800,
+     12000,
+     24000,
+     48000,
+     96000,
+    192000,
+    384000,
 };
 //---------------------------------------------------------------------------
 
@@ -151,6 +337,12 @@ File_Dts::File_Dts()
     Word=true;
     BigEndian=true;
     channel_arrangement_XCh=(int8u)-1;
+
+    //Temp - HD
+    HD_SpeakerActivityMask=(int16u)-1;
+    HD_BitResolution=(int8u)-1;
+    HD_MaximumSampleRate=(int8u)-1;
+    HD_TotalNumberChannels=(int8u)-1;
 }
 
 //---------------------------------------------------------------------------
@@ -191,7 +383,131 @@ bool File_Dts::Header_Begin()
 void File_Dts::Header_Parse()
 {
     //Parsing
-    if (CC4(Buffer+Buffer_Offset)==SyncCode)
+    if (CC4(Buffer+Buffer_Offset)==0x64582025) //TODO: 14-bits
+    {
+        //HD
+        int16u header_size;
+        int8u  SubStreamIndex, NumAssets, NumAudioPresent;
+        bool isBlownUpHeader, StaticFieldsPresent;
+        Skip_B4(                                                "Magic");
+        Skip_B1(                                                "Unknown");
+        BS_Begin();
+        Get_S1 (2, SubStreamIndex,                              "Substream index");
+        Get_SB (isBlownUpHeader,                                "Is blown up header");
+        if (isBlownUpHeader)
+        {
+            Get_S2 (12, header_size,                            "Header size"); header_size++; Param_Info(header_size, " bytes");
+            Get_S3 (20, HD_size,                                "HD block size"); HD_size++; Param_Info(HD_size, " bytes");
+        }
+        else
+        {
+            Get_S2 ( 8, header_size,                            "Header size"); header_size++; Param_Info(header_size, " bytes");
+            Get_S3 (16, HD_size,                                "HD block size"); HD_size++; Param_Info(HD_size, " bytes");
+        }
+        TESTELSE_SB_GET(StaticFieldsPresent,                    "Static fields present");
+            std::vector<int32u> ActiveExSSMasks;
+            Info_S1(2, RefClockCode,                            "Reference clock code"); Param_Info(DTS_HD_RefClockCode[RefClockCode]);
+            Info_S1(3, ExSSFrameDurationCode,                   "ExSS frame duration code"); Param_Info(ExSSFrameDurationCode+1);
+            TEST_SB_SKIP(                                       "Timestamp flag");
+                Skip_S5(36,                                     "Timestamp");
+            TEST_SB_END();
+            Get_S1 (3, NumAudioPresent,                         "Num audio present"); NumAudioPresent++; Param_Info(NumAudioPresent, " channels");
+            Get_S1 (3, NumAssets,                               "Num assets"); NumAssets++; Param_Info(NumAssets, " assets");
+            Element_Begin("Active masks");
+            for (int8u Pos=0; Pos<NumAudioPresent; Pos++)
+            {
+                int32u ActiveExSSMask;
+                Get_S4 (SubStreamIndex+1, ActiveExSSMask,       "Active ExSS mask");
+                ActiveExSSMasks.push_back(ActiveExSSMask);
+            }
+            Element_End();
+            Element_Begin("Active masks 2");
+            for (int8u Pos=0; Pos<NumAudioPresent; Pos++)
+                for (int8u Pos2=0; Pos2<SubStreamIndex+1; Pos2++)
+                    if (ActiveExSSMasks[Pos]%2)
+                        Skip_S1(8,                              "Active ExSS Mask");
+            Element_End();
+            TEST_SB_SKIP(                                       "Mix metadata Enabled");
+                int8u Bits4MixOutMask, NumMixOutConfigs;
+                Skip_S1(2,                                      "Mix metadata adjustment level");
+                Get_S1 (2, Bits4MixOutMask,                     "Bits4Mix out mask");
+                Get_S1 (2, NumMixOutConfigs,                    "Number of mix out configs");
+                for (int8u Pos=0; Pos<NumAudioPresent-1; Pos++)
+                    Skip_S1(Bits4MixOutMask,                    "MixOutChMask");
+            TEST_SB_END();
+        TESTELSE_SB_ELSE("Static fields present");
+            NumAudioPresent=1;
+            NumAssets=1;
+        TESTELSE_SB_END();
+        Asset_Sizes.clear();
+        Element_Begin("Sizes");
+        for (int8u Pos=0; Pos<NumAssets; Pos++)
+        {
+            int32u Size;
+            if (isBlownUpHeader)
+                Get_S3 (20, Size,                               "Size");
+            else
+                Get_S3 (16, Size,                               "Size");
+            Asset_Sizes.push_back(Size+1);
+        }
+        Element_End();
+        for (int8u Pos=0; Pos<NumAssets; Pos++)
+        {
+            Element_Begin("Asset");
+            int16u AssetSize;
+            Get_S2 (9, AssetSize,                               "Asset size");
+            AssetSize++;  Param_Info(AssetSize, " bytes?");
+            Skip_S1(3,                                          "Descriptor data for asset index");
+            if (StaticFieldsPresent)
+            {
+                TEST_SB_SKIP(                                   "Asset type descriptor present");
+                    Info_S1( 4, TypeDescriptor,                 "Asset type descriptor"); Param_Info(DTS_HD_TypeDescriptor[TypeDescriptor]);
+                TEST_SB_END();
+                TEST_SB_SKIP(                                   "Language descriptor present");
+                    Info_S3(24, LanguageDescriptor,             "Language descriptor"); Param_Info(Ztring().From_CC3(LanguageDescriptor));
+                TEST_SB_END();
+                TEST_SB_SKIP(                                   "Info text present");
+                    int16u InfoTextByteSize;
+                    Get_S2(10, InfoTextByteSize,                "Info text size"); InfoTextByteSize++; Param_Info(InfoTextByteSize, "bytes");
+                    for (int16u Pos=0; Pos<InfoTextByteSize; Pos++)
+                        Skip_S1(8,                              "Info text");
+                TEST_SB_END();
+                Get_S1 (5, HD_BitResolution,                    "Bit resolution"); HD_BitResolution++; Param_Info(HD_BitResolution, " bits");
+                Get_S1 (4, HD_MaximumSampleRate,                "Maximum sample rate"); Param_Info(DTS_HD_MaximumSampleRate[HD_MaximumSampleRate], " Hz");
+                Get_S1 (8, HD_TotalNumberChannels,              "Total number of channels"); HD_TotalNumberChannels++; Param_Info(HD_TotalNumberChannels, " channels");
+                TEST_SB_SKIP(                                   "1 to 1 map channels to speakers");
+                    int8u SpeakerActivityMaskBits, SpeakerRemapSetsCount;
+                    if (HD_TotalNumberChannels>2)
+                        Skip_SB(                                "Embedded stereo flag"); //else is 0
+                    if (HD_TotalNumberChannels>6)
+                        Skip_SB(                                "Embedded 6 Channels flag"); //else is 0
+                    TESTELSE_SB_SKIP(                           "Speaker mask enabled");
+                        Get_S1 (2, SpeakerActivityMaskBits,     "Speaker activity mask bits"); Param_Info(4+SpeakerActivityMaskBits*4, " bits");
+                        SpeakerActivityMaskBits=4+SpeakerActivityMaskBits*4;
+                        Get_S2 (SpeakerActivityMaskBits, HD_SpeakerActivityMask, "Speaker activity mask"); Param_Info(DTS_HD_SpeakerActivityMask(HD_SpeakerActivityMask).c_str());
+                    TESTELSE_SB_ELSE(                           "Speaker mask enabled");
+                        SpeakerActivityMaskBits=0;
+                    TESTELSE_SB_END();
+                    Get_S1 (3, SpeakerRemapSetsCount,           "Speaker remap sets count");
+                    for (int8u Pos=0; Pos<SpeakerRemapSetsCount; Pos++)
+                        Skip_S2(SpeakerActivityMaskBits,        "Standard speaker layout mask");
+                    for (int8u Pos=0; Pos<SpeakerRemapSetsCount; Pos++)
+                    {
+                        int8u NumDecCh4Remap;
+                        Get_S1(5, NumDecCh4Remap,               "NumDecCh4Remap");
+                    }
+                TEST_SB_END();
+                Element_End();
+            }
+        }
+        BS_End();
+        Skip_XX(header_size-Element_Offset,                   "Unknown");
+
+        //Filling
+        Header_Fill_Size(HD_size);
+        Header_Fill_Code(1, "HD");
+    }
+    else
     {
         //Frame
         int8u  EncoderSoftwareRevision;
@@ -246,33 +562,6 @@ void File_Dts::Header_Parse()
         Header_Fill_Size(Primary_Frame_Byte_Size_minus_1);
         Header_Fill_Code(0, "Frame");
     }
-    else //if (CC4(Buffer+Buffer_Offset)!=0x64582025)
-    {
-        int16u header_size;
-        bool isBlownUpHeader;
-        Skip_B4(                                                    "magic");
-        Skip_B1(                                                    "unknown");
-        BS_Begin();
-        Skip_S1(2,                                                  "index");
-        Get_SB (isBlownUpHeader,                                    "isBlownUpHeader");
-        if (isBlownUpHeader)
-        {
-            Get_S2 (12, header_size,                                "header_size");
-            Get_S3 (20, HD_size,                                    "size");
-        }
-        else
-        {
-            Get_S2 ( 8, header_size,                                "header_size");
-            Get_S3 (16, HD_size,                                    "size");
-        }
-        HD_size++;
-        BS_End();
-        Skip_XX(header_size+1-Element_Offset,                       "Unknown");
-
-        //Filling
-        Header_Fill_Size(HD_size);
-        Header_Fill_Code(1, "HD");
-    }
 }
 
 //***************************************************************************
@@ -311,7 +600,7 @@ void File_Dts::Data_Parse_Fill()
     if (Profile.empty() && ES)
         Profile="ES";
     Fill(Stream_Audio, 0, Audio_Format_Profile, Profile);
-    Fill(Stream_Audio, 0, Audio_Codec, Profile.find(_T("HD"))==0?"DTS-HD":"DTS");
+    Fill(Stream_Audio, 0, Audio_Codec, (Profile.find(_T("MA"))==0 || Profile.find(_T("HRA"))==0)?"DTS-HD":"DTS");
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, Profile.find(_T("MA"))==0?"VBR":"CBR");
     Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_SamplingRate[sample_frequency]);
     if (bit_rate<29)
@@ -365,6 +654,20 @@ void File_Dts::Data_Parse_Fill()
     }
     Fill(Stream_Audio, 0, Audio_Resolution, DTS_Resolution[bits_per_sample]);
 
+    //Priority on HD data
+    if (HD_SpeakerActivityMask!=(int16u)-1)
+    {
+        Fill(Stream_Audio, 0, Audio_ChannelPositions, DTS_HD_SpeakerActivityMask(HD_SpeakerActivityMask).c_str(), Unlimited, true, true);
+        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, DTS_HD_SpeakerActivityMask2(HD_SpeakerActivityMask).c_str(), Unlimited, true, true);
+    }
+    if(HD_BitResolution!=(int8u)-1)
+        Fill(Stream_Audio, 0, Audio_Resolution, HD_BitResolution, 10, true);
+    if(HD_MaximumSampleRate!=(int8u)-1)
+        Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_HD_MaximumSampleRate[HD_MaximumSampleRate], 10, true);
+    if(HD_TotalNumberChannels!=(int8u)-1)
+        Fill(Stream_Audio, 0, Audio_Channel_s_, HD_TotalNumberChannels, 10, true);
+    
+
     if (File_Offset+Buffer_Size<File_Size)
     {
         Info("DTS detected");
@@ -396,7 +699,7 @@ void File_Dts::Core()
                     XXCh_Sync=Pos;
 
         //X96k
-        if (ExtensionAudioDescriptor==2)
+        if (ExtensionAudioDescriptor==2 || ExtensionAudioDescriptor==3)
             for (size_t Pos=0; Pos+4<=Element_Size; Pos++)
                 if (CC4(Buffer+Buffer_Offset+Pos)==0x1D95F262)
                     X96k_Sync=Pos;
@@ -413,11 +716,23 @@ void File_Dts::Core()
     //Parsing
     Skip_XX(Core_Size,                                          "Core data");
     if (ExtendedCoding && (ExtensionAudioDescriptor==2 || ExtensionAudioDescriptor==3))
+    {
+        Element_Begin();
         X96k(XCh_Sync-Element_Offset);
+        Element_End();
+    }
     if (ExtendedCoding && (ExtensionAudioDescriptor==0 || ExtensionAudioDescriptor==3))
-        XCh();
-    if (ExtendedCoding && XXCh_Sync!=Element_Size) //ExtensionAudioDescriptor==?
-        XXCh();
+    {
+        Element_Begin();
+        XCh(Element_Size-Element_Offset);
+        Element_End();
+    }
+    if (ExtendedCoding && ExtensionAudioDescriptor==6)
+    {
+        Element_Begin();
+        XXCh(Element_Size-Element_Offset);
+        Element_End();
+    }
 
     //Filling
     FILLING_BEGIN();
@@ -430,22 +745,26 @@ void File_Dts::Core()
 void File_Dts::HD()
 {
     //Parsing
-    int32u Magic;
-    Get_B4 (Magic,                                              "Magic");
-    switch (Magic)
+    for (size_t Pos=0; Pos<Asset_Sizes.size(); Pos++)
     {
-        case 0x0A801821 : XSA();  break;
-        case 0x1D95F262 : X96k(Element_Size-4); break;
-        case 0x41A29547 : XLL();  break;
-        case 0x47004A03 : XXCh(); break;
-        case 0x5A5A5A5A : XCh();  break;
-        case 0x655E315E : XBR();  break;
-        default :
-                    //Magic value is unknown
-                    Profile="HD";
-                    Element_Begin("Unknown");
-                    Skip_XX(Element_Size-4,                      "Data");
-                    Element_End();
+        Element_Begin();
+        int32u Magic;
+        Get_B4 (Magic,                                          "Magic");
+        switch (Magic)
+        {
+            case 0x0A801821 : XSA(Asset_Sizes[Pos]-4);  break;
+            case 0x1D95F262 : X96k(Asset_Sizes[Pos]-4); break;
+            case 0x41A29547 : XLL(Asset_Sizes[Pos]-4);  break;
+            case 0x47004A03 : XXCh(Asset_Sizes[Pos]-4); break;
+            case 0x5A5A5A5A : XCh(Asset_Sizes[Pos]-4);  break;
+            case 0x655E315E : XBR(Asset_Sizes[Pos]-4);  break;
+            default :
+                        //Magic value is unknown
+                        if (Profile.empty())
+                            Profile="HD";
+                        Skip_XX(Asset_Sizes[Pos]-4,              "Data");
+        }
+        Element_End();
     }
 
     //Filling
@@ -456,10 +775,10 @@ void File_Dts::HD()
 }
 
 //---------------------------------------------------------------------------
-void File_Dts::XCh()
+void File_Dts::XCh(int64u Size)
 {
     //Parsing
-    Element_Begin("XCh (6.1 channels)");
+    Element_Name("XCh (6.1 channels)");
     int16u XChFSIZE;
     int8u  AMODE;
     Skip_B4(                                                    "Synchro");
@@ -470,7 +789,6 @@ void File_Dts::XCh()
     if (XChFSIZE==Element_Size-(Element_Offset-6))
         XChFSIZE--; //Compatibility reason (from specs)
     Skip_XX(XChFSIZE+1-6,                                       "XCh data");
-    Element_End();
 
     FILLING_BEGIN();
         channel_arrangement_XCh=AMODE;
@@ -480,11 +798,10 @@ void File_Dts::XCh()
 }
 
 //---------------------------------------------------------------------------
-void File_Dts::XXCh()
+void File_Dts::XXCh(int64u Size)
 {
-    Element_Begin("XXCh (7.1 channels)");
-    Skip_XX(Element_Size-4,                                     "Data");
-    Element_End();
+    Element_Name("XXCh (7.1 channels)");
+    Skip_XX(Size,                                               "Data");
 
     FILLING_BEGIN();
         if (Profile.empty())
@@ -496,7 +813,7 @@ void File_Dts::XXCh()
 void File_Dts::X96k(int64u Size)
 {
     //Parsing
-    Element_Begin("X96k (96 KHz)");
+    Element_Name("X96k (96 KHz)");
     int16u FSIZE96;
     int8u  REVNO;
     Skip_B4(                                                    "Synchro");
@@ -505,7 +822,6 @@ void File_Dts::X96k(int64u Size)
     Get_S1 ( 4, REVNO,                                          "Revision Number");
     BS_End();
     Skip_XX(Size-6,                                             "X96k data"); //FSIZE96 is until end, not X96k size
-    Element_End();
 
     FILLING_BEGIN();
         sample_frequency=14; //96KHz
@@ -514,11 +830,10 @@ void File_Dts::X96k(int64u Size)
 }
 
 //---------------------------------------------------------------------------
-void File_Dts::XLL()
+void File_Dts::XLL(int64u Size)
 {
-    Element_Begin("XLL (LossLess)");
-    Skip_XX(Element_Size-4,                                     "Data");
-    Element_End();
+    Element_Name("XLL (LossLess)");
+    Skip_XX(Size,                                               "Data");
 
     FILLING_BEGIN();
         Profile="MA";
@@ -526,11 +841,10 @@ void File_Dts::XLL()
 }
 
 //---------------------------------------------------------------------------
-void File_Dts::XBR()
+void File_Dts::XBR(int64u Size)
 {
-    Element_Begin("XBR (high BitRate)");
-    Skip_XX(Element_Size-4,                                     "Data");
-    Element_End();
+    Element_Name("XBR (BitRate extension)");
+    Skip_XX(Size,                                               "Data");
 
     FILLING_BEGIN();
         Profile="HRA";
@@ -538,11 +852,10 @@ void File_Dts::XBR()
 }
 
 //---------------------------------------------------------------------------
-void File_Dts::XSA()
+void File_Dts::XSA(int64u Size)
 {
-    Element_Begin("XSA (low bitrate)");
-    Skip_XX(Element_Size-4,                                     "Data");
-    Element_End();
+    Element_Name("XSA (low bitrate)");
+    Skip_XX(Size,                                               "Data");
 
     FILLING_BEGIN();
         Profile="Express";
