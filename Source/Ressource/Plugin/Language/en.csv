@@ -755,7 +755,7 @@ OpenCandy_13;___________ - Recommended by ____________
 OpenCandy_14;Downloading _________
 OpenCandy_15;___________, the software recommended to you by ___________, is now downloading at your requestWe will let you know when it is ready to be installed.
 OpenCandy_16;___________ is ready for installation
-OpenCandy_17;___________ is now fully downloaded. Please click on ""Install"" to proceed.
+OpenCandy_17;"___________ is now fully downloaded. Please click on """"Install"""" to proceed."
 OpenCandy_18;___________ of ___________ downloaded
 OpenCandy_19;Powered by OpenCandy
 OpenCandy_20;Learn more at OpenCandy.com
@@ -763,7 +763,7 @@ OpenCandy_21;Install
 OpenCandy_22;Installation of ___________
 OpenCandy_23;This will cancel the installation of ___________\r\nAre you sure you wish to exit?
 OpenCandy_24;Pause
-OpenCandy_25;Your download has been pausedClick 'Resume' when you are ready to continue.
+OpenCandy_25;Your download has been paused. Click 'Resume' when you are ready to continue.
 OpenCandy_26;Resume
 OpenCandy_27;Install Now
 OpenCandy_28;Pause Download
