@@ -32,9 +32,9 @@
  day1; giorno
  day2; giorni
  day3; giorni
- dB1
- dB2
- dB3
+ dB1;dB
+ dB2;dB
+ dB3;dB
  file1; file
  file2; file
  file3; file
@@ -147,14 +147,14 @@ About_Hint;Come contattare l'autore e ottenere l'ultima versione
 Accompaniment;Accompagnamento
 Actor;Attore
 Actor_Character;Personaggio
-Added_Date
+Added_Date;Data
 Address;Indirizzo
 Advanced;Modalità avanzata
 Advanced mode;Modalità avanzata
 Album;Album
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
-Alignment
+Alignment;Allineamento
 Alignment_Aligned;Audio allineato 
 Alignment_Split;Audio splittato
 All;Tutti
@@ -242,10 +242,10 @@ Count;Contatore
 Country;Stato
 Cover;Copertina
 Cover_Datas;Dati copertina
-Cover_Description
-Cover_Mime
-Cover_Type
-Cropped
+Cover_Description;Descrizione della copertina
+Cover_Mime;Copertina MIME
+Cover_Type;Tipo di copertina
+Cropped;Dimenzioni  di crop
 Custom;Personalizzato
 Customize;Personalizza
 Date;Data
@@ -255,13 +255,13 @@ Delay;Ritardo
 Delete;Elimina
 Description;Decrizione
 Digitized_Date;Data di digitalizzazione
-Dimensions
+Dimensions;Dimensioni
 Director;Regista
 DirectorOfPhotography;Direttore della fotografia
 DisplayAspectRatio;AspectRatio
 DistributedBy;Distribuito da
 Donate;Dona
-DotsPerInch
+DotsPerInch;Punti per pollice
 Duration;Durata
 Edit;Modifica
 EditedBy;Modificato da
@@ -706,10 +706,10 @@ Language_zu;Zulu
 LawRating;Law Rating
 LCCN;LCCN
 Library;Libreria
-Lightness
+Lightness;Luminosità
 List;Lista
-Lyrics
-Lyricist;Testo
+Lyrics;Testo
+Lyricist;Autore del testo
 Mastered_Date;Data di incisione 
 MasteredBy;Inciso da
 MediaInfo_About;Ottieni informazioni dettagliate\r\nsu file multimediali:\r\nMatroska, OGG e OGM\r\nMPEG1 (VCD)\r\nMPEG2 (DVD e SVCD)\r\nMPEG4 e Itunes M4A\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV e WMA)\r\nMicrosoft RIFF (AVI e WAV)\r\nFile audio (AC3,DTS,AAC,AU,AIFF...)
@@ -726,7 +726,7 @@ More;Altro
 Movie;Film
 ms;ms
 MSDI;MSDI
-MusicBy
+MusicBy;Composto da
 MuxingMode;Modalità di muxing
 MuxingMode_PackedBitstream
 Name;Nome
@@ -734,49 +734,49 @@ Nationality;Nazionalità
 New;Nuovo
 Newest version;Cerca l'ultima versione, richiede una connessione internet
 No;No
-Not yet
-NumColors
+Not yet;Non ancora
+NumColors;Profondità dei colori
 OK;Ok
 One output file per input file;Un file di output per ogni file di input
 Open;Apri
-OpenCandy_01
-OpenCandy_02
-OpenCandy_03
-OpenCandy_04
-OpenCandy_05
-OpenCandy_06
-OpenCandy_07
-OpenCandy_08
-OpenCandy_09
-OpenCandy_10
-OpenCandy_11
-OpenCandy_12
-OpenCandy_13
-OpenCandy_14
-OpenCandy_15
-OpenCandy_16
-OpenCandy_17
-OpenCandy_18
-OpenCandy_19
-OpenCandy_20
-OpenCandy_21
-OpenCandy_22
-OpenCandy_23
-OpenCandy_24
-OpenCandy_25
-OpenCandy_26
-OpenCandy_27
-OpenCandy_28
-OpenCandy_29
-OpenCandy_30
-OpenCandy_31
-OpenCandy_32
-OpenCandy_33
-OpenCandy_34
+OpenCandy_01;Scaricamento ________
+OpenCandy_02;__% completato
+OpenCandy_03;Connessione internet interrotta
+OpenCandy_04;________ scaricamento completato
+OpenCandy_05;Clicca per installare ________
+OpenCandy_06;Sei sicuro di annullare l'installazione?\r\nSe vuoi postporre l'installazione, seleziona 'No'.\r\nNota: Puoi selezionare Esci dal menù per annullare l'installazione sino al nuovo riavvio.
+OpenCandy_07;Scaricamento di  ________ è stato messo in pausa.\r\nClicca sull'icona nelal tray icon per riprendere.
+OpenCandy_08;ERRORE CRITICO. L'installazione di _________ è stata annullata.
+OpenCandy_09;Pausa
+OpenCandy_10;Annulla installazione
+OpenCandy_11;Riprendi
+OpenCandy_12;Esci dall'installazione
+OpenCandy_13;___________ - Raccomandato da ____________
+OpenCandy_14;Scaricamento di _________
+OpenCandy_15;___________, programma raccomandato da ___________, è in scaricamento. Verrai avvisato quando sarà pronto per l'installazione.
+OpenCandy_16;___________ è pronto per l'installazione
+OpenCandy_17;___________ è stato scaricato. Clicca su ""Installa"" per procedere.
+OpenCandy_18;___________ di ___________ scaricati
+OpenCandy_19;Powered by OpenCandy
+OpenCandy_20;Maggiori informazioni su OpenCandy.com
+OpenCandy_21;Installa
+OpenCandy_22;Installazione di  ___________
+OpenCandy_23;Questo annullerà l'installazione di ___________\r\nSei sicuro?
+OpenCandy_24;Pausa
+OpenCandy_25;Lo scaricamento è stato messo in pausa. Clicca su 'Riprendi' per continuare.
+OpenCandy_26;Riprendi
+OpenCandy_27;Installa ora
+OpenCandy_28;Pausa
+OpenCandy_29;Riprendi
+OpenCandy_30;Annulla installazione
+OpenCandy_31;Seleziona opzioni installazione
+OpenCandy_32;Installa
+OpenCandy_33;Non installare
+OpenCandy_34;Seleziona opzioni installazione
 Options;Opzioni
 Options_Hint;Preferenze
 Original;Originale
-OriginalSourceForm
+OriginalSourceForm;Form Sorgente 
 OriginalSourceMedium
 Other;Altri
 Output;Output
@@ -793,9 +793,9 @@ Period;Periodo
 Phone;Telefono
 PixelAspectRatio;Rapporto pixel
 PlayCounter;Riprodotto per
-Played_Count
-Played_First_Date
-Played_Last_Date
+Played_Count;Visualizzato 
+Played_First_Date;Visualizzato per la prima volta
+Played_Last_Date;Visualizzato l'ultima volta
 PlayTime;Durata
 Position;Posizione
 Position_Total;Totale
@@ -833,7 +833,7 @@ ServiceType
 Set;Imposta
 Set_Count;Imposta contatore
 Setup;Installazione
-Sharpness
+Sharpness;Nitidezza
 Sheet;Scheda
 Sheet (Complete);Scheda (completa)
 Shell extension;Aggiungi  'Apri con Media Info' la menù contestuale
@@ -915,5 +915,5 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si 
 Your system;Il tuo sistema
-ZZ_Automatic_Percent;92
-ZZ_AutomaticLanguage_Percent;92
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

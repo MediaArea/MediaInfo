@@ -587,7 +587,7 @@ Language_ie
 Language_ig
 Language_ii
 Language_ik
-Language_Info
+Language_Info;语言信息
 Language_io
 Language_is
 Language_it
@@ -704,7 +704,7 @@ Language_za
 Language_zh;简体中文
 Language_zu
 LawRating;分级
-LCCN;LCCN
+LCCN
 Library;合成函数库
 Lightness;高亮
 List;列表
@@ -714,7 +714,7 @@ Mastered_Date;母带完成日期
 MasteredBy;母带制做
 MediaInfo_About;支持多种格式的多媒体文件:\r\nMatroska, OGG (包括 OGM)\r\nMPEG-1 (包括 VCD)\r\nMPEG-2 (包括 DVD, SVCD)\r\nMPEG-4 (包括 iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (包括 WMV, WMA)\r\nMicrosoft RIFF (包括 AVI, WAV)\r\n纯声音格式 (AC3, DTS, AAC, AU, AIFF...)
 Menu;菜单
-Menu stream(s);目录串
+Menu stream(s);菜单
 Menu_Codec_List;菜单编解码器
 Menu_No;没有菜单
 MenuCount;菜单数
@@ -728,7 +728,7 @@ ms;片名
 MSDI
 MusicBy;音乐制作
 MuxingMode;混合模式
-MuxingMode_PackedBitstream;Packed bitstream
+MuxingMode_PackedBitstream;打包的比特流
 Name;名称
 Nationality;国藉
 New;新建
@@ -739,40 +739,40 @@ NumColors;色深
 OK;确定
 One output file per input file;一个输入文件对应一个输出文件
 Open;打开
-OpenCandy_01
-OpenCandy_02
-OpenCandy_03
-OpenCandy_04
-OpenCandy_05
-OpenCandy_06
-OpenCandy_07
-OpenCandy_08
-OpenCandy_09
-OpenCandy_10
-OpenCandy_11
-OpenCandy_12
-OpenCandy_13
-OpenCandy_14
-OpenCandy_15
-OpenCandy_16
-OpenCandy_17
-OpenCandy_18
-OpenCandy_19
-OpenCandy_20
-OpenCandy_21
-OpenCandy_22
-OpenCandy_23
-OpenCandy_24
-OpenCandy_25
-OpenCandy_26
-OpenCandy_27
-OpenCandy_28
-OpenCandy_29
-OpenCandy_30
-OpenCandy_31
-OpenCandy_32
-OpenCandy_33
-OpenCandy_34
+OpenCandy_01;正在下载 ________
+OpenCandy_02;__% 已完成
+OpenCandy_03;网络连接中断
+OpenCandy_04;________ 完成下载
+OpenCandy_05;点击开始安装 ________
+OpenCandy_06;确定要取消安装吗？\r\n如果要继续安装，请点击'否'。\r\n提示：你可以点击菜单中的‘退出’，当下次启动电脑的时候再安装。
+OpenCandy_07;________ 的下载被暂停。\r\n请点击任务栏右侧托盘中的图标继续下载。
+OpenCandy_08;发生了一个严重的错误。_________ 的安装被中止。
+OpenCandy_09;暂停下载
+OpenCandy_10;取消安装
+OpenCandy_11;继续下载
+OpenCandy_12;退出安装程序
+OpenCandy_13;___________ - 由 ____________ 推荐
+OpenCandy_14;正在下载 _________
+OpenCandy_15;正在下载___________（由 ___________ 推荐）。当下载完成后我们会通知你。 
+OpenCandy_16;___________ 可以开始安装了。
+OpenCandy_17;___________ 已下载完成，请点击""安装""继续。
+OpenCandy_18;___________个（共___________个）已下载。
+OpenCandy_19;使用OpenCandy实现
+OpenCandy_20;访问OpenCandy.com了解更多信息。
+OpenCandy_21;安装
+OpenCandy_22;安装 ___________
+OpenCandy_23;将取消安装 ___________\r\n确定要退出吗？
+OpenCandy_24;暂停
+OpenCandy_25;下载已经被暂停。点击'继续'可以继续下载。
+OpenCandy_26;继续
+OpenCandy_27;立即安装
+OpenCandy_28;暂停下载
+OpenCandy_29;继续下载
+OpenCandy_30;取消下载
+OpenCandy_31;请选择一个安装选项
+OpenCandy_32;安装 ___________
+OpenCandy_33;不安装
+OpenCandy_34;请选择一个安装选项
 Options;选项
 Options_Hint;参数设定
 Original;源
@@ -915,5 +915,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;51
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;55
+ZZ_AutomaticLanguage_Percent;91

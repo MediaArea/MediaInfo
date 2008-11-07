@@ -32,9 +32,9 @@
  day1; gün
  day2; gün
  day3; gün
- dB1
- dB2
- dB3
+ dB1;dB
+ dB2;dB
+ dB3;dB
  file1; dosya
  file2; dosya
  file3; dosya
@@ -124,9 +124,9 @@
  text stream1; yazı akışı
  text stream2; yazı akışı
  text stream3; yazı akışı
- video frames1
- video frames2
- video frames3
+ video frames1;görüntü karesi
+ video frames2;görüntü karesi
+ video frames3;görüntü karesi
  video stream1; görüntü akışı
  video stream2; görüntü akışı
  video stream3; görüntü akışı
@@ -147,16 +147,16 @@ About_Hint;Son sürümü bulmak ve benle nasıl bağlantı kurmanız için
 Accompaniment;Refakat
 Actor;Oyuncu
 Actor_Character;Oynayan karakter
-Added_Date
+Added_Date;Eklenme tarihi
 Address;Adres
 Advanced;Gelişmiş
 Advanced mode;Gelişmiş kip
 Album;Albüm
-Album_ReplayGain_Gain
-Album_ReplayGain_Peak
-Alignment
-Alignment_Aligned
-Alignment_Split
+Album_ReplayGain_Gain;Albüm tekrar çalma kazancı
+Album_ReplayGain_Peak;Albüm tekrar çalma kazanç ucu
+Alignment;Hizalama
+Alignment_Aligned;Boşluklarda sıraya dizilmiş
+Alignment_Split;Boşlukları karşılıklı böl
 All;Tümü
 Archival_Location;Arşiv konumu
 Arranger;Düzenleyici
@@ -242,10 +242,10 @@ Count;Sayım
 Country;Ülke
 Cover;Kapak
 Cover_Datas;Kapak verileri
-Cover_Description
-Cover_Mime
-Cover_Type
-Cropped
+Cover_Description;Kapak açıklaması
+Cover_Mime;Kapak MIME
+Cover_Type;Kapak türü
+Cropped;Kırpma boyutları
 Custom;Özel
 Customize;Özelleştir
 Date;Tarih
@@ -255,13 +255,13 @@ Delay;Gecikme
 Delete;Sil
 Description;Açıklama
 Digitized_Date;Sayısallaştırılmış tarih
-Dimensions
+Dimensions;Boyutlar
 Director;Yönetmen
 DirectorOfPhotography;Fotoğrafçılık yönetmeni
 DisplayAspectRatio;En-Boy oranı
 DistributedBy;Dağıtan
 Donate;Bağış
-DotsPerInch
+DotsPerInch;İnç başına nokta
 Duration;Süre
 Edit;Düzenle
 EditedBy;Düzenleyen
@@ -270,7 +270,7 @@ Encoded_Application;Yapım uygulaması
 Encoded_Date;Kodlanmış tarih
 Encoded_Library;Yapım kütüphanesi
 Encoded_Library_Settings;Kodlama ayarları
-Encoded_Original;Orjinal
+Encoded_Original;Orijinal
 EncodedBy;Kodlayan
 Error_File;Dosya okunurken hata
 ExecutiveProducer;İdari yapımcı
@@ -504,9 +504,9 @@ Interlaced_TFF;En Üst Alanın İlki
 Interlaced_BFF;En Alt Alanın İlki
 Interlaced_PPF;Aşamalı
 Interlaced_Progressive;Aşamalı
-Interleave_Duration
-Interleave_Preload
-Interleave_VideoFrames
+Interleave_Duration;Boşluk, süre
+Interleave_Preload;Boşluk, önyükleme süresi
+Interleave_VideoFrames;Boşluk, süre
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -706,9 +706,9 @@ Language_zu;Zulu
 LawRating;Kanun oranı
 LCCN;LCCN
 Library;Muxing kütüphanesi
-Lightness
+Lightness;Canlılık
 List;Liste
-Lyrics
+Lyrics;Şarkı Sözleri
 Lyricist;Söz yazarı
 Mastered_Date;Sahip olma tarihi
 MasteredBy;Sahibi
@@ -726,16 +726,16 @@ More;Daha
 Movie;Film adı
 ms;ms
 MSDI;MSDI
-MusicBy
+MusicBy;Müziği yapan
 MuxingMode;Çoklamalı mod
-MuxingMode_PackedBitstream
+MuxingMode_PackedBitstream;Paketlenmiş bit akışı
 Name;İsim
 Nationality;Uyruk
 New;Yeni
 Newest version;Yeni sürümleri kontrol et (Internet bağlantısı gerekir)
 No;Hayır
-Not yet
-NumColors
+Not yet;Henüz değil
+NumColors;Renk sayısı
 OK;TAMAM
 One output file per input file;Girdi dosyası başına bir çıktı dosyası
 Open;Aç
@@ -775,9 +775,9 @@ OpenCandy_33
 OpenCandy_34
 Options;Seçenekler
 Options_Hint;Tercihler
-Original;Orjinal
-OriginalSourceForm
-OriginalSourceMedium
+Original;Orijinal
+OriginalSourceForm;Orijinal kaynak formu
+OriginalSourceMedium;Orijinal kaynak ortamı
 Other;Diğer
 Output;Çıktı
 Output format;Çıktı biçimi
@@ -793,9 +793,9 @@ Period;Dönem
 Phone;Telefon
 PixelAspectRatio;Piksel oranı
 PlayCounter;Oynatma Sayacı
-Played_Count
-Played_First_Date
-Played_Last_Date
+Played_Count;Oynatma süresi
+Played_First_Date;İlk oynatma
+Played_Last_Date;Son oynatma
 PlayTime;Oynatma Süresi
 Position;Konum
 Position_Total;Toplam
@@ -812,8 +812,8 @@ Recorded_Date;Kaydedildiği tarih
 Recorded_Location;Kaydedildiği yer
 Released_Date;Yayım tarihi
 RemixedBy;Remiksleyen
-ReplayGain_Gain
-ReplayGain_Peak
+ReplayGain_Gain;Tekrar oynatma kazancı
+ReplayGain_Peak;Tekrar oynatma kazancı ucu
 Resolution;Çözünürlük
 s;s
 SamplingRate;Örnekleme oranı
@@ -826,14 +826,14 @@ see below;aşağı bakın
 Send HeaderFile;Lütfen Header dosyasını buraya gönderin : http://sourceforge.net/projects/mediainfo/ (Bug bölümü)
 Separator_Columns;sütun ayırıcı
 Separator_Lines;satır ayırıcı
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
+ServiceChannel;Hizmet kanal numarası
+ServiceName;Hizmet adı
+ServiceProvider;Hizmet sağlayıcısı
+ServiceType;Hizmet türü
 Set;Ayar
 Set_Count;Ayar sayısı
 Setup;Kurulum
-Sharpness
+Sharpness;Keskinlik
 Sheet;Sayfa
 Sheet (Complete);Sayfa (Tam)
 Shell extension;Sistem uzantısı (gezginde sağ tuş tıklamada Media Info seçeneği olacak...)
@@ -851,7 +851,7 @@ StreamKind;Akış çeşidi
 StreamKindID;Akış tanımlayıcısı
 StreamKindPos;Akış tanımlayıcısı
 StreamSize;Akış boyutu
-StreamSize_Proportion
+StreamSize_Proportion;Bu akış oranı
 Subject;Konu
 SubTrack;Altİz
 Summary;Özet
@@ -915,5 +915,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;91
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96
