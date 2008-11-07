@@ -397,6 +397,7 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Adif.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adif" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Adpcm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adpcm" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Adts.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adts" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aes3.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Aes3" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Amr.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Amr" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Amv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Amv" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Ape.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ape" FORMNAME="" DESIGNCLASS=""/>
