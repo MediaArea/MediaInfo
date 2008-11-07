@@ -41,7 +41,7 @@ class File_Aes3 : public File__Analyze
 {
 public :
     //In
-    ZenLib::Ztring Codec;
+    int64u PTS;
 
 protected :
     //Buffer
@@ -58,6 +58,8 @@ private:
     int8u  bits_per_samples;
 
     size_t Block_Count;
+    int64u Block_Last_Size;
+    int64u Block_Last_PTS;
 };
 
 } //NameSpace

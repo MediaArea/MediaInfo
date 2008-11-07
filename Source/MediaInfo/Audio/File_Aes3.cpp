@@ -42,8 +42,8 @@ const char* Aes3_ChannelsPositions(int8u number_channels)
     {
         case  0 : return "Front: L R";                                  //2 channels
         case  1 : return "Front: L R C, LFE";                           //4 channels
-        case  2 : return "Front: L R C, Rear: L R, LFE";                //6 channels
-        case  3 : return "Front: L R C, Middle: L R, Rear: L R, LFE";   //8 channels
+        case  2 : return "Front: L R C, Surround: L R, LFE";            //6 channels
+        case  3 : return "Front: L R C, Surround: L C C R, LFE";        //8 channels
         default : return "";
     }
 }
@@ -55,7 +55,7 @@ const char* Aes3_ChannelsPositions2(int8u number_channels)
         case  0 : return "2/0";                                         //2 channels
         case  1 : return "3/0.1";                                       //4 channels
         case  2 : return "3/2.1";                                       //6 channels
-        case  3 : return "3.2/2.1";                                     //8 channels
+        case  3 : return "3/4.1";                                       //8 channels
         default : return "";
     }
 }
@@ -68,7 +68,13 @@ const char* Aes3_ChannelsPositions2(int8u number_channels)
 File_Aes3::File_Aes3()
 :File__Analyze()
 {
+    //In
+    PTS=(int64u)-1;
+
+    //Temp
     Block_Count=0;
+    Block_Last_PTS=(int32u)-1;
+    Block_Last_Size=(int64u)-1;
 }
 
 //***************************************************************************
@@ -215,22 +221,55 @@ void File_Aes3::Data_Parse()
             Skip_XX(Element_Size,                           "Data");
     }
 
-    //Filling
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "AES3");
-    Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, 0, Audio_Format, "PCM");
-    Fill(Stream_Audio, 0, Audio_Format_Profile, "AES3");
-    Fill(Stream_Audio, 0, Audio_Codec, "AES3");
-    Fill(Stream_Audio, 0, Audio_Channel_s_, 2+2*number_channels);
-    Fill(Stream_Audio, 0, Audio_ChannelPositions, Aes3_ChannelsPositions(number_channels));
-    Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Aes3_ChannelsPositions2(number_channels));
-    Fill(Stream_Audio, 0, Audio_Resolution, 16+4*bits_per_samples);
+    FILLING_BEGIN();
+    FILLING_END();
 
-    Fill(Stream_Audio, 0, Audio_BitRate, );
 
-    if (Block_Count>=1)
+    if (PTS==(int64u)-1)
+        Block_Count=2; //We don't have PTS, don't need more
+    else if (Block_Count==1)
     {
+        Block_Last_PTS=PTS;
+        Block_Last_Size=Element_Size;
+    }
+
+    if (Block_Count>=2)
+    {
+        //Filling
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "AES3");
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "PCM");
+        Fill(Stream_Audio, 0, Audio_Format_Profile, "AES3");
+        Fill(Stream_Audio, 0, Audio_Codec, "AES3");
+        Fill(Stream_Audio, 0, Audio_Channel_s_, 2+2*number_channels);
+        Fill(Stream_Audio, 0, Audio_ChannelPositions, Aes3_ChannelsPositions(number_channels));
+        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Aes3_ChannelsPositions2(number_channels));
+        Fill(Stream_Audio, 0, Audio_Resolution, 16+4*bits_per_samples);
+        if (PTS!=(int32u)-1 && Block_Last_PTS!=(int32u)-1 && PTS!=Block_Last_PTS)
+        {
+            //Rounding
+            int64u BitRate=Block_Last_Size*8*90*1000/(PTS-Block_Last_PTS);
+            int64u SamplingRate=BitRate*(4+bits_per_samples)/(5+bits_per_samples)/(2+2*number_channels)/(16+4*bits_per_samples);
+            if (SamplingRate>  7840 && SamplingRate<  8160) SamplingRate=  8000;
+            if (SamplingRate> 15680 && SamplingRate< 16320) SamplingRate= 16000;
+            if (SamplingRate> 31360 && SamplingRate< 32640) SamplingRate= 32000;
+            if (SamplingRate> 62720 && SamplingRate< 65280) SamplingRate= 64000;
+            if (SamplingRate> 10804 && SamplingRate< 11246) SamplingRate= 11025;
+            if (SamplingRate> 21609 && SamplingRate< 22491) SamplingRate= 22050;
+            if (SamplingRate> 43218 && SamplingRate< 44982) SamplingRate= 44100;
+            if (SamplingRate> 86436 && SamplingRate< 89964) SamplingRate= 88200;
+            if (SamplingRate> 11760 && SamplingRate< 12240) SamplingRate= 12000;
+            if (SamplingRate> 23520 && SamplingRate< 24480) SamplingRate= 24000;
+            if (SamplingRate> 47040 && SamplingRate< 48960) SamplingRate= 48000;
+            if (SamplingRate> 94080 && SamplingRate< 97920) SamplingRate= 96000;
+            if (SamplingRate>188160 && SamplingRate<195840) SamplingRate=192000;
+            BitRate=SamplingRate/(4+bits_per_samples)*(5+bits_per_samples)*(2+2*number_channels)*(16+4*bits_per_samples);
+
+            Fill(Stream_Audio, 0, Audio_SamplingRate, SamplingRate);
+            Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
+        }
+
         Info("AES3, Jumping to end of file");
         Finnished();
     }

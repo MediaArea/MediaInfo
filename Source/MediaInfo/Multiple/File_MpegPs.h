@@ -166,6 +166,7 @@ private :
     int8u  stream_id_extension;
     bool   video_stream_Unlimited;
     int8u  video_stream_Unlimited_start_code;
+    int64u PTS;
 
     //Helpers
     bool Synchronize();

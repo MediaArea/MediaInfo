@@ -254,6 +254,7 @@ void File_Pcm::VOB()
         Fill(Stream_Audio, 0, Audio_Channel_s_, NumberOfChannelsMinusOne+1);
         Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannelsMinusOne));
         Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannelsMinusOne));
+        Fill(Stream_Audio, 0, Audio_BitRate, Pcm_VOB_Frequency[Frequency]*(NumberOfChannelsMinusOne+1)*16);
     FILLING_END();
 }
 
