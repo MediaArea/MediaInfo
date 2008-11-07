@@ -47,9 +47,9 @@ public:
     ~Core();
 
     //Menu
-    void    Menu_File_Open_File             (const MediaInfoLib::String &FileName);
+    size_t  Menu_File_Open_File             (const MediaInfoLib::String &FileName);
     void    Menu_File_Open_Files_Begin      ();
-    void    Menu_File_Open_Files_Continue   (const MediaInfoLib::String &FileName);
+    size_t  Menu_File_Open_Files_Continue   (const MediaInfoLib::String &FileName);
     void    Menu_File_Open_Directory        (const MediaInfoLib::String &DirectoryName);
     void    Menu_View_Easy                  ();
     void    Menu_View_Sheet                 ();

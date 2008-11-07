@@ -64,10 +64,10 @@ void Core::Data_Prepare()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void Core::Menu_File_Open_File (const String& FileName)
+size_t Core::Menu_File_Open_File (const String& FileName)
 {
     Menu_File_Open_Files_Begin();
-    Menu_File_Open_Files_Continue(FileName);
+    return Menu_File_Open_Files_Continue(FileName);
 }
 
 //---------------------------------------------------------------------------
@@ -77,12 +77,12 @@ void Core::Menu_File_Open_Files_Begin ()
 }
 
 //---------------------------------------------------------------------------
-void Core::Menu_File_Open_Files_Continue (const String &FileName)
+size_t Core::Menu_File_Open_Files_Continue (const String &FileName)
 {
     //MI->Option(_T("File_Filter"), _T("452"));
     //MI->Option(_T("File_Duplicate"), _T("452;file")); //Activate it
     //MI->Open(FileName);
-    MI->Open(FileName);
+    return MI->Open(FileName);
     /*#ifndef WIN32
     for (size_t Pos=0; Pos<128; Pos++)
         MI->Open(FileName);

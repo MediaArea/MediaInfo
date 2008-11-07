@@ -71,8 +71,9 @@ int main(int argc, char* argv_ansi[])
 
     //Parse files
     MI.Menu_File_Open_Files_Begin();
+    size_t Files_Count=0;
     for (size_t Pos=0; Pos<List.size(); Pos++)
-        MI.Menu_File_Open_Files_Continue(List[Pos]);
+        Files_Count+=MI.Menu_File_Open_Files_Continue(List[Pos]);
 
     //Output
     STRINGOUT(MI.Inform_Get());
@@ -80,7 +81,7 @@ int main(int argc, char* argv_ansi[])
     //Output, in a file if needed
     LogFile_Action(MI.Inform_Get());
     
-    return 0;
+    return Files_Count;
 }
 //---------------------------------------------------------------------------
 
