@@ -15,6 +15,14 @@ Known bugs
 Version 0.7.7.8, 2008-
 ---------------
 + Albanian, Chinese (Simplified), Chinese Traditional), Turkish, Italian, German languages updated
++ #2216498, LPCM in VOB: more attributes (channels count, sampling rate, bitrate)
++ #2182135, Wavpack: support of multichannel files
++ AVC: detection of the newest profiles
++ DTS: detection of DTS-ES, DTS-HRA, DTS-MA
++ AES3 PCM in MPEG-TS detection
++ Wavpack: Encoder settings
++ WMV with "WVC1" codec identifier: video interlacement
+x #2186682, MPEG-2 Video: Wrong PAR and DAR for Panasonic MPEG2 Files
 
 Version 0.7.7.7, 2008-10-17
 ---------------
