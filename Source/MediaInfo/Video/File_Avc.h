@@ -142,7 +142,7 @@ private :
     bool   CpbDpbDelaysPresentFlag;
     bool   mb_adaptive_frame_field_flag;
     bool   pic_order_present_flag;
-    
+
     //PS
     struct stream
     {

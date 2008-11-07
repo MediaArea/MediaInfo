@@ -44,13 +44,17 @@ const char* Avc_profile_idc(int8u profile_idc)
 {
     switch (profile_idc)
     {
+        case  44 : return "CAVLC 4:4:4 Intra";
         case  66 : return "Baseline";
         case  77 : return "Main";
+        case  83 : return "Scalable Baseline";
+        case  86 : return "Scalable High";
         case  88 : return "Extended";
         case 100 : return "High";
         case 110 : return "High 10";
         case 122 : return "High 4:2:2";
         case 144 : return "High 4:4:4";
+        case 244 : return "High 4:4:4 Predictive";
         default  : return "Unknown";
     }
 }
@@ -1086,10 +1090,13 @@ void File_Avc::seq_parameter_set()
     Element_End();
     Get_S1 ( 8, level_idc,                                      "level_idc");
     Skip_UE(                                                    "seq_parameter_set_id");
-    if (profile_idc==0x64
-     || profile_idc==0x6E
-     || profile_idc==0x7A
-     || profile_idc==0x90) //High profiles
+    if (profile_idc==100
+     || profile_idc==110
+     || profile_idc==122
+     || profile_idc==244
+     || profile_idc== 44
+     || profile_idc== 83
+     || profile_idc== 86) //High profiles
     {
         Element_Begin("high profile specific");
         Get_UE (chroma_format_idc,                              "chroma_format_idc");
