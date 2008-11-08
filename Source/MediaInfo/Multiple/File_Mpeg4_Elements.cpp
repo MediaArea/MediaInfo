@@ -1602,18 +1602,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec, true);
         }
-        #ifdef MEDIAINFO_AVC_YES
-        if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("AVC"))
-        {
-            if (Stream[moov_trak_tkhd_TrackID].Parser)
-                delete Stream[moov_trak_tkhd_TrackID].Parser; //Stream[moov_trak_tkhd_TrackID].Parser=NULL
-            Stream[moov_trak_tkhd_TrackID].Parser=new File_Avc;
-            Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
-            ((File_Avc*)Stream[moov_trak_tkhd_TrackID].Parser)->MustParse_SPS_PPS=true;
-            ((File_Avc*)Stream[moov_trak_tkhd_TrackID].Parser)->SizedBlocks=true;
-            mdat_MustParse=true; //Data is in MDAT
-        }
-        #endif
         #if defined(MEDIAINFO_AMR_YES)
         if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("AMR"))
         {
