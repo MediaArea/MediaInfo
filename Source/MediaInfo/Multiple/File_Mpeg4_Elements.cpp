@@ -1823,7 +1823,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
     if (Version==1)
     {
         Skip_B1(                                                "bsid");
-        #ifdef MEDIAINFO_AVC_YES
+        #ifdef MEDIAINFO_AC3_YES
             if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
             {
                 if (Stream[moov_trak_tkhd_TrackID].Parser)
