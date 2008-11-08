@@ -14,7 +14,7 @@ Known bugs
 
 Version 0.7.7.8, 2008-
 ---------------
-+ Albanian, Chinese (Simplified), Chinese Traditional), Turkish, Italian, German languages updated
++ Albanian, Chinese (Simplified), Chinese Traditional), Turkish, Italian, German, Polish languages updated
 + #2216498, LPCM in VOB: more attributes (channels count, sampling rate, bitrate)
 + #2182135, Wavpack: support of multichannel files
 + AVC: detection of the newest profiles
