@@ -1825,10 +1825,11 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
                 }
             #else
                 if (bsid<=0x08)
-                    Fill(Stream_Audio, StreamKind_Last, "AC-3");
+                    Fill(Stream_Audio, StreamKind_Last, Audio_Format, "AC-3");
                 if (bsid>0x0A && bsid<=0x10)
-                    Fill(Stream_Audio, StreamKind_Last, "E-AC-3");
+                    Fill(Stream_Audio, StreamKind_Last, Audio_Format,  "E-AC-3");
             #endif
+            Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "Nero");
             return;
         }
         else
@@ -1856,7 +1857,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
     #else
         Skip_XX(Element_Size,                                   "AC-3 Data");
 
-        Fill(Stream_Audio, StreamKind_Last, "AC-3");
+        Fill(Stream_Audio, StreamKind_Last, Audio_Format,  "AC-3");
     #endif
 }
 
