@@ -39,7 +39,7 @@ void File__Base_DefaultLanguage (Translation &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_Local(
-    "﻿   Junk;x\n"
+    "  Junk;x\n"
     "  Author_Email;Zen@mediaarea.net\n"
     "  Author_Name;Zen\n"
     "  Author_OldNames;Initial translator\n"
