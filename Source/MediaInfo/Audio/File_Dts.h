@@ -58,13 +58,16 @@ private :
 
     //Elements
     void Core();
+    void Core_XCh(int64u Size);
+    void Core_XXCh(int64u Size);
+    void Core_X96k(int64u Size);
     void HD();
-    void XCh(int64u Size);
-    void XXCh(int64u Size);
-    void X96k(int64u Size);
-    void XLL(int64u Size);
-    void XBR(int64u Size);
-    void XSA(int64u Size);
+    void HD_XCh(int64u Size);
+    void HD_XXCh(int64u Size);
+    void HD_X96k(int64u Size);
+    void HD_XLL(int64u Size);
+    void HD_XBR(int64u Size);
+    void HD_XSA(int64u Size);
 
     //Count
     size_t Frame_Count;
@@ -93,6 +96,7 @@ private :
     int8u  HD_BitResolution;
     int8u  HD_MaximumSampleRate;
     int8u  HD_TotalNumberChannels;
+    bool   Core_Exists;
 
     //Helpers
     bool Synchronize();

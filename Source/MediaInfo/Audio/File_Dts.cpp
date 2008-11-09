@@ -343,6 +343,7 @@ File_Dts::File_Dts()
     HD_BitResolution=(int8u)-1;
     HD_MaximumSampleRate=(int8u)-1;
     HD_TotalNumberChannels=(int8u)-1;
+    Core_Exists=false;
 }
 
 //---------------------------------------------------------------------------
@@ -423,16 +424,16 @@ void File_Dts::Header_Parse()
             Element_End();
             Element_Begin("Active masks 2");
             for (int8u Pos=0; Pos<NumAudioPresent; Pos++)
-                for (int8u Pos2=0; Pos2<SubStreamIndex+1; Pos2++)
+                for (int8u Pos2=0; Pos2<SubStreamIndex+1; Pos2+=2)
                     if (ActiveExSSMasks[Pos]%2)
                         Skip_S1(8,                              "Active ExSS Mask");
             Element_End();
             TEST_SB_SKIP(                                       "Mix metadata Enabled");
                 int8u Bits4MixOutMask, NumMixOutConfigs;
                 Skip_S1(2,                                      "Mix metadata adjustment level");
-                Get_S1 (2, Bits4MixOutMask,                     "Bits4Mix out mask");
-                Get_S1 (2, NumMixOutConfigs,                    "Number of mix out configs");
-                for (int8u Pos=0; Pos<NumAudioPresent-1; Pos++)
+                Get_S1 (2, Bits4MixOutMask,                     "Bits4Mix out mask"); Bits4MixOutMask=4+Bits4MixOutMask*4; Param_Info(Bits4MixOutMask, " bits");
+                Get_S1 (2, NumMixOutConfigs,                    "Number of mix out configs"); NumMixOutConfigs++; Param_Info(NumMixOutConfigs, " configs");
+                for (int8u Pos=0; Pos<NumMixOutConfigs; Pos++)
                     Skip_S1(Bits4MixOutMask,                    "MixOutChMask");
             TEST_SB_END();
         TESTELSE_SB_ELSE("Static fields present");
@@ -445,10 +446,14 @@ void File_Dts::Header_Parse()
         {
             int32u Size;
             if (isBlownUpHeader)
-                Get_S3 (20, Size,                               "Size");
+            {
+                Get_S3 (20, Size,                               "Size"); Size++; Param_Info(Size, " bytes");
+            }
             else
-                Get_S3 (16, Size,                               "Size");
-            Asset_Sizes.push_back(Size+1);
+            {
+                Get_S3 (16, Size,                               "Size"); Size++; Param_Info(Size, " bytes");
+            }
+            Asset_Sizes.push_back(Size);
         }
         Element_End();
         for (int8u Pos=0; Pos<NumAssets; Pos++)
@@ -495,6 +500,7 @@ void File_Dts::Header_Parse()
                     {
                         int8u NumDecCh4Remap;
                         Get_S1(5, NumDecCh4Remap,               "NumDecCh4Remap");
+                        //Not finnished!
                     }
                 TEST_SB_END();
                 Element_End();
@@ -574,7 +580,7 @@ void File_Dts::Data_Parse()
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
         Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
-    if (Element_Code==0)
+    if (Element_Code==0 || !Core_Exists)
         Frame_Count++;
 
     //Name
@@ -603,13 +609,12 @@ void File_Dts::Data_Parse_Fill()
     Fill(Stream_Audio, 0, Audio_Codec, (Profile.find(_T("MA"))==0 || Profile.find(_T("HRA"))==0)?"DTS-HD":"DTS");
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, Profile.find(_T("MA"))==0?"VBR":"CBR");
     Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_SamplingRate[sample_frequency]);
-    if (bit_rate<29)
+    if (Profile!=_T("MA") && Profile!=_T("Express") bit_rate<29)
     {
         float64 BitRate=(float64)DTS_BitRate[bit_rate];
         if (Primary_Frame_Byte_Size_minus_1 && Profile==_T("HRA"))
             BitRate*=1+((float64)HD_size)/Primary_Frame_Byte_Size_minus_1; //HD block are not in the nominal bitrate
-        if (Profile!=_T("MA"))
-            Fill(Stream_Audio, 0, Audio_BitRate, BitRate, 0);
+        Fill(Stream_Audio, 0, Audio_BitRate, BitRate, 0);
     }
     else if (bit_rate==29)
         Fill(Stream_Audio, 0, Audio_BitRate, "Open");
@@ -617,7 +622,7 @@ void File_Dts::Data_Parse_Fill()
         Fill(Stream_Audio, 0, Audio_BitRate, "Variable");
     else if (bit_rate==31)
         Fill(Stream_Audio, 0, Audio_BitRate, "LossLess");
-    if ((ExtendedCoding && (ExtensionAudioDescriptor==0 || ExtensionAudioDescriptor==3)))
+    if ((ExtendedCoding && (ExtensionAudioDescriptor==0 || ExtensionAudioDescriptor==3 || ExtensionAudioDescriptor==6)))
     {
         switch(channel_arrangement_XCh)
         {
@@ -625,6 +630,12 @@ void File_Dts::Data_Parse_Fill()
                     Fill(Stream_Audio, 0, Audio_Channel_s_, 7);
                     Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Rear: L C R")+(lfe_effects?_T(", LFE"):_T("")));
                     Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Ztring("3/3")+(lfe_effects?_T(".1"):_T("")));
+                    break;
+            case 2 :
+                    Fill(Stream_Audio, 0, Audio_Channel_s_, 8);
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Rear: L C C R")+(lfe_effects?_T(", LFE"):_T("")));
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Ztring("3/4")+(lfe_effects?_T(".1"):_T("")));
+                    break;
             default:;
         }
     }
@@ -668,11 +679,8 @@ void File_Dts::Data_Parse_Fill()
         Fill(Stream_Audio, 0, Audio_Channel_s_, HD_TotalNumberChannels, 10, true);
     
 
-    if (File_Offset+Buffer_Size<File_Size)
-    {
-        Info("DTS detected");
-        Finnished();
-    }
+    Info("DTS detected");
+    Finnished();
 }
 
 //***************************************************************************
@@ -682,6 +690,9 @@ void File_Dts::Data_Parse_Fill()
 //---------------------------------------------------------------------------
 void File_Dts::Core()
 {
+    //It exists (not in XSA streams)
+    Core_Exists=true;
+
     //Looking for extensions
     int64u Core_Size=Element_Size, XCh_Sync=Element_Size, XXCh_Sync=Element_Size, X96k_Sync=Element_Size;
     if (ExtendedCoding)
@@ -692,8 +703,8 @@ void File_Dts::Core()
                 if (CC4(Buffer+Buffer_Offset+Pos)==0x5A5A5A5A)
                     XCh_Sync=Pos;
 
-        //XCh
-        //if (ExtensionAudioDescriptor==?)
+        //XXCh
+        if (ExtensionAudioDescriptor==6)
             for (size_t Pos=0; Pos+4<=Element_Size; Pos++)
                 if (CC4(Buffer+Buffer_Offset+Pos)==0x47004A03)
                     XXCh_Sync=Pos;
@@ -718,19 +729,22 @@ void File_Dts::Core()
     if (ExtendedCoding && (ExtensionAudioDescriptor==2 || ExtensionAudioDescriptor==3))
     {
         Element_Begin();
-        X96k(XCh_Sync-Element_Offset);
+        Skip_B4(                                                "Magic");
+        Core_X96k(XCh_Sync-Element_Offset);
         Element_End();
     }
     if (ExtendedCoding && (ExtensionAudioDescriptor==0 || ExtensionAudioDescriptor==3))
     {
         Element_Begin();
-        XCh(Element_Size-Element_Offset);
+        Skip_B4(                                                "Magic");
+        Core_XCh(Element_Size-Element_Offset);
         Element_End();
     }
     if (ExtendedCoding && ExtensionAudioDescriptor==6)
     {
         Element_Begin();
-        XXCh(Element_Size-Element_Offset);
+        Skip_B4(                                                "Magic");
+        Core_XXCh(Element_Size-Element_Offset);
         Element_End();
     }
 
@@ -742,27 +756,101 @@ void File_Dts::Core()
 }
 
 //---------------------------------------------------------------------------
+void File_Dts::Core_XCh(int64u Size)
+{
+    //Parsing
+    Element_Name("XCh (6.1 channels)");
+    int16u XChFSIZE;
+    int8u  AMODE;
+    BS_Begin();
+    Get_S2 (10, XChFSIZE,                                       "Primary Frame Byte Size");
+    Get_S1 ( 4, AMODE,                                          "Extension Channel Arrangement");
+    BS_End();
+    if (XChFSIZE==Element_Size-(Element_Offset-6))
+        XChFSIZE--; //Compatibility reason (from specs)
+    Skip_XX(XChFSIZE+1-6,                                       "XCh data");
+
+    FILLING_BEGIN();
+        channel_arrangement_XCh=AMODE;
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Dts::Core_XXCh(int64u Size)
+{
+    Element_Name("XXCh (6.1 or 7.1 channels)");
+    int8u ChannelsAdded;
+    BS_Begin();
+    Skip_S1 (8,                                                 "?");
+    Get_S1  (2, ChannelsAdded,                                  "Channels added?");
+    Skip_S1 (6,                                                 "?");
+    BS_End();
+    Skip_XX(Size-2,                                             "Data");
+
+    FILLING_BEGIN();
+        channel_arrangement_XCh=ChannelsAdded;
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Dts::Core_X96k(int64u Size)
+{
+    //Parsing
+    Element_Name("X96k (96 KHz)");
+    int16u FSIZE96;
+    int8u  REVNO;
+    BS_Begin();
+    Get_S2 (12, FSIZE96,                                        "96 kHz Extension Frame Byte Data Size");
+    Get_S1 ( 4, REVNO,                                          "Revision Number");
+    BS_End();
+    Skip_XX(Size-2,                                             "X96k data"); //FSIZE96 is until end, not X96k size
+
+    FILLING_BEGIN();
+        sample_frequency=14; //96KHz
+        Profile="96/24";
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
 void File_Dts::HD()
 {
     //Parsing
-    for (size_t Pos=0; Pos<Asset_Sizes.size(); Pos++)
+    while (Element_Offset<Element_Size)
+
     {
+        //Looking for size
+        int64u Next=Element_Offset;
+        while (Next+4<=Element_Size)
+        {
+            Next++;
+            int32u CC=CC4(Buffer+Buffer_Offset+(size_t)Next);
+            if (CC==0x0A801921
+             || CC==0x1D95F262
+             || CC==0x41A29547
+             || CC==0x47004A03
+             || CC==0x5A5A5A5A
+             || CC==0x655E315E)
+                break;
+        }
+        if (Next+4>Element_Size)
+            Next=Element_Size;
+
         Element_Begin();
         int32u Magic;
         Get_B4 (Magic,                                          "Magic");
         switch (Magic)
         {
-            case 0x0A801821 : XSA(Asset_Sizes[Pos]-4);  break;
-            case 0x1D95F262 : X96k(Asset_Sizes[Pos]-4); break;
-            case 0x41A29547 : XLL(Asset_Sizes[Pos]-4);  break;
-            case 0x47004A03 : XXCh(Asset_Sizes[Pos]-4); break;
-            case 0x5A5A5A5A : XCh(Asset_Sizes[Pos]-4);  break;
-            case 0x655E315E : XBR(Asset_Sizes[Pos]-4);  break;
+            case 0x0A801921 : HD_XSA(Next-Element_Offset);  break;
+            case 0x1D95F262 : HD_X96k(Next-Element_Offset); break;
+            case 0x41A29547 : HD_XLL(Next-Element_Offset);  break;
+            case 0x47004A03 : HD_XXCh(Next-Element_Offset); break;
+            case 0x5A5A5A5A : HD_XCh(Next-Element_Offset);  break;
+            case 0x655E315E : HD_XBR(Next-Element_Offset);  break;
             default :
                         //Magic value is unknown
                         if (Profile.empty())
                             Profile="HD";
-                        Skip_XX(Asset_Sizes[Pos]-4,              "Data");
+                        Skip_XX(Next-Element_Offset,            "Data");
         }
         Element_End();
     }
@@ -775,62 +863,53 @@ void File_Dts::HD()
 }
 
 //---------------------------------------------------------------------------
-void File_Dts::XCh(int64u Size)
+void File_Dts::HD_XCh(int64u Size)
 {
     //Parsing
     Element_Name("XCh (6.1 channels)");
-    int16u XChFSIZE;
-    int8u  AMODE;
-    Skip_B4(                                                    "Synchro");
-    BS_Begin();
-    Get_S2 (10, XChFSIZE,                                       "Primary Frame Byte Size");
-    Get_S1 ( 4, AMODE,                                          "Extension Channel Arrangement");
-    BS_End();
-    if (XChFSIZE==Element_Size-(Element_Offset-6))
-        XChFSIZE--; //Compatibility reason (from specs)
-    Skip_XX(XChFSIZE+1-6,                                       "XCh data");
-
-    FILLING_BEGIN();
-        channel_arrangement_XCh=AMODE;
-        if (Profile.empty())
-            Profile=Element_Code==0?"ES":"HRA"; //0 is for Core, 1 for HD block
-    FILLING_END();
-}
-
-//---------------------------------------------------------------------------
-void File_Dts::XXCh(int64u Size)
-{
-    Element_Name("XXCh (7.1 channels)");
     Skip_XX(Size,                                               "Data");
 
     FILLING_BEGIN();
+        channel_arrangement_XCh=1;
         if (Profile.empty())
-            Profile=Element_Code==0?"ES":"HRA"; //0 is for Core, 1 for HD block
+            Profile="HRA";
     FILLING_END();
 }
 
 //---------------------------------------------------------------------------
-void File_Dts::X96k(int64u Size)
+void File_Dts::HD_XXCh(int64u Size)
+{
+    Element_Name("XXCh (6.1 or 7.1 channels)");
+    int8u ChannelsAdded;
+    BS_Begin();
+    Skip_S1 (8,                                                 "?");
+    Get_S1  (2, ChannelsAdded,                                  "Channels added?");
+    Skip_S1 (6,                                                 "?");
+    BS_End();
+    Skip_XX(Size-2,                                             "Data");
+
+    FILLING_BEGIN();
+        channel_arrangement_XCh=ChannelsAdded;
+        if (Profile.empty())
+            Profile="HRA";
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Dts::HD_X96k(int64u Size)
 {
     //Parsing
     Element_Name("X96k (96 KHz)");
-    int16u FSIZE96;
-    int8u  REVNO;
-    Skip_B4(                                                    "Synchro");
-    BS_Begin();
-    Get_S2 (12, FSIZE96,                                        "96 kHz Extension Frame Byte Data Size");
-    Get_S1 ( 4, REVNO,                                          "Revision Number");
-    BS_End();
-    Skip_XX(Size-6,                                             "X96k data"); //FSIZE96 is until end, not X96k size
+    Skip_XX(Size,                                               "Data");
 
     FILLING_BEGIN();
         sample_frequency=14; //96KHz
-        Profile=Element_Code==0?"96/24":"HRA"; //0 is for Core, 1 for HD block
+        Profile="HRA";
     FILLING_END();
 }
 
 //---------------------------------------------------------------------------
-void File_Dts::XLL(int64u Size)
+void File_Dts::HD_XLL(int64u Size)
 {
     Element_Name("XLL (LossLess)");
     Skip_XX(Size,                                               "Data");
@@ -841,7 +920,7 @@ void File_Dts::XLL(int64u Size)
 }
 
 //---------------------------------------------------------------------------
-void File_Dts::XBR(int64u Size)
+void File_Dts::HD_XBR(int64u Size)
 {
     Element_Name("XBR (BitRate extension)");
     Skip_XX(Size,                                               "Data");
@@ -852,7 +931,7 @@ void File_Dts::XBR(int64u Size)
 }
 
 //---------------------------------------------------------------------------
-void File_Dts::XSA(int64u Size)
+void File_Dts::HD_XSA(int64u Size)
 {
     Element_Name("XSA (low bitrate)");
     Skip_XX(Size,                                               "Data");
