@@ -1168,10 +1168,11 @@ void __fastcall TMainF::Page_Easy_FileChange(TObject *Sender)
                 Ztring Z1=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T("Count"));
                 Ztring Z2=Ztring(_T(" "))+I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text);
                 Z2.MakeLowerCase();
+                int A=I->Count_Get(Page_Position, (stream_t)KindOfStream);
                 if (I->Count_Get(Page_Position, (stream_t)KindOfStream)>1)
-                    Z2+=_T(" stream1");
-                else
                     Z2+=_T(" stream2");
+                else
+                    Z2+=_T(" stream1");
                 Ztring Z3=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T("_Format_WithHint_List"));
                 Page_Easy_X_List[KindOfStream]->Caption=(I->Get(Page_Position, Stream_General, 0, Z1)+Prefs->Translate(Z2)+Prefs->Translate(_T(": "))+I->Get(Page_Easy_File->ItemIndex, Stream_General, 0, Z3)).c_str();
             }

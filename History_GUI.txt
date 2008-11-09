@@ -23,6 +23,8 @@ Version 0.7.7.8, 2008-
 + Wavpack: Encoder settings
 + WMV with "WVC1" codec identifier: video interlacement
 x #2186682, MPEG-2 Video: Wrong PAR and DAR for Panasonic MPEG2 Files
+x Error of singular/plural form in the main view
+x Errors in the Polish two plurals forms routine
 
 Version 0.7.7.7, 2008-10-17
 ---------------
