@@ -152,8 +152,8 @@ Address;Indirizzo
 Advanced;Modalità avanzata
 Advanced mode;Modalità avanzata
 Album;Album
-Album_ReplayGain_Gain
-Album_ReplayGain_Peak
+Album_ReplayGain_Gain;Album replay gain
+Album_ReplayGain_Peak;Album replay gain peak
 Alignment;Allineamento
 Alignment_Aligned;Audio allineato 
 Alignment_Split;Audio splittato
@@ -728,7 +728,7 @@ ms;ms
 MSDI;MSDI
 MusicBy;Composto da
 MuxingMode;Modalità di muxing
-MuxingMode_PackedBitstream
+MuxingMode_PackedBitstream;Packet Bitstream
 Name;Nome
 Nationality;Nazionalità
 New;Nuovo
@@ -755,7 +755,7 @@ OpenCandy_13;___________ - Raccomandato da ____________
 OpenCandy_14;Scaricamento di _________
 OpenCandy_15;___________, programma raccomandato da ___________, è in scaricamento. Verrai avvisato quando sarà pronto per l'installazione.
 OpenCandy_16;___________ è pronto per l'installazione
-OpenCandy_17;___________ è stato scaricato. Clicca su ""Installa"" per procedere.
+OpenCandy_17;___________ è stato scaricato. Clicca su """"Installa"""" per procedere.
 OpenCandy_18;___________ di ___________ scaricati
 OpenCandy_19;Powered by OpenCandy
 OpenCandy_20;Maggiori informazioni su OpenCandy.com
@@ -777,7 +777,7 @@ Options;Opzioni
 Options_Hint;Preferenze
 Original;Originale
 OriginalSourceForm;Form Sorgente 
-OriginalSourceMedium
+OriginalSourceMedium;Supporto originale
 Other;Altri
 Output;Output
 Output format;Formato di output
@@ -812,8 +812,8 @@ Recorded_Date;Data di registrazione
 Recorded_Location;Luogo di registrazione
 Released_Date;Data di distribuzione
 RemixedBy;Remixato da 
-ReplayGain_Gain
-ReplayGain_Peak
+ReplayGain_Gain;Replay gain
+ReplayGain_Peak;Replau gain peak
 Resolution;Risoluzione
 s;s
 SamplingRate;SamplingRate
@@ -826,10 +826,10 @@ see below;continua...
 Send HeaderFile;Invia l'header a http://sourceforge.net/projects/mediainfo/ (Sezione bug)
 Separator_Columns;Separatore colonne
 Separator_Lines;Separatore di linea
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
+ServiceChannel;Service channel number
+ServiceName;Service name
+ServiceProvider;Service provider
+ServiceType;Service type
 Set;Imposta
 Set_Count;Imposta contatore
 Setup;Installazione
@@ -915,5 +915,5 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si 
 Your system;Il tuo sistema
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
