@@ -794,7 +794,7 @@ Ztring MediaInfo_Config::Language_Get (const Ztring &Count, const Ztring &Value,
         size_t CountI=Count.To_int32u();
         size_t Pos3=CountI/100;
         int8u  Pos2=(int8u)((CountI-Pos3)/10);
-        int8u  Pos1=(int8u)(CountI-Pos3-Pos2);
+        int8u  Pos1=(int8u)(CountI-Pos3*100-Pos2*10);
         if (Pos3==0)
         {
             if (Pos2==0)
