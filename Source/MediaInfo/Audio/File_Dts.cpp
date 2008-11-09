@@ -609,7 +609,7 @@ void File_Dts::Data_Parse_Fill()
     Fill(Stream_Audio, 0, Audio_Codec, (Profile.find(_T("MA"))==0 || Profile.find(_T("HRA"))==0)?"DTS-HD":"DTS");
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, Profile.find(_T("MA"))==0?"VBR":"CBR");
     Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_SamplingRate[sample_frequency]);
-    if (Profile!=_T("MA") && Profile!=_T("Express") bit_rate<29)
+    if (Profile!=_T("MA") && Profile!=_T("Express") && bit_rate<29)
     {
         float64 BitRate=(float64)DTS_BitRate[bit_rate];
         if (Primary_Frame_Byte_Size_minus_1 && Profile==_T("HRA"))
