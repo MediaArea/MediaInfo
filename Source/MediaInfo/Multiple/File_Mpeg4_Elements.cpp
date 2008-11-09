@@ -186,6 +186,7 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_btrt=0x62747274;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_chan=0x6368616E;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_dac3=0x64616333;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_dec3=0x64656333;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_damr=0x64616D72;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_esds=0x65736473;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave=0x77617665;
@@ -1803,27 +1804,102 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
 {
-    Element_Name("AC-3 (Nero)");
+    Element_Name("AC-3");
 
     //Parsing
-    int8u Version;
-    Get_B1 (Version,                                            "Version");
-    if (Version==1)
+    if (Retrieve(Stream_Audio, StreamPos_Last, Audio_CodecID)==_T("sac3"))
     {
-        Skip_B1(                                                "bsid");
-        #ifdef MEDIAINFO_AC3_YES
-            if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
-            {
-                if (Stream[moov_trak_tkhd_TrackID].Parser)
-                    delete Stream[moov_trak_tkhd_TrackID].Parser; //Stream[moov_trak_tkhd_TrackID].Parser=NULL
-                Stream[moov_trak_tkhd_TrackID].Parser=new File_Ac3;
-                mdat_MustParse=true; //Data is in MDAT
-            }
-
-        #endif
+        Element_Info("Nero specific");
+        int8u Version;
+        Get_B1 (Version,                                        "Version");
+        if (Version==1)
+        {
+            int8u bsid;
+            Get_B1 (bsid,                                       "bsid");
+            Skip_XX(Element_Size-Element_Offset,                "unknown");
+            #ifdef MEDIAINFO_AC3_YES
+                if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
+                {
+                    Stream[moov_trak_tkhd_TrackID].Parser=new File_Ac3;
+                    mdat_MustParse=true; //Data is in MDAT
+                }
+            #else
+                if (bsid<=0x08)
+                    Fill(Stream_Audio, StreamKind_Last, "AC-3");
+                if (bsid>0x0A && bsid<=0x10)
+                    Fill(Stream_Audio, StreamKind_Last, "E-AC-3");
+            #endif
+            return;
+        }
+        else
+        {
+            Skip_XX(Element_Size,                               "Data");
+            return;
+        }
     }
-    else
-        Skip_XX(Element_Size,                                   "Data");
+    BS_Begin();
+    Skip_S1(2,                                                  "fscod");
+    Skip_S1(5,                                                  "bsid");
+    Skip_S1(3,                                                  "bsmod");
+    Skip_S1(3,                                                  "acmod");
+    Skip_SB(                                                    "lfeon");
+    Skip_S1(5,                                                  "bit_rate_code");
+    Skip_S1(5,                                                  "reserved");
+    BS_End();
+
+    #ifdef MEDIAINFO_AC3_YES
+        if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
+        {
+            Stream[moov_trak_tkhd_TrackID].Parser=new File_Ac3;
+            mdat_MustParse=true; //Data is in MDAT
+        }
+    #else
+        Skip_XX(Element_Size,                                   "AC-3 Data");
+
+        Fill(Stream_Audio, StreamKind_Last, "AC-3");
+    #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dec3()
+{
+    Element_Name("E-AC-3");
+
+    //Parsing
+    BS_Begin();
+    int8u num_ind_sub;
+    Skip_S2(13,                                                 "data_rate");
+    Get_S1 ( 3, num_ind_sub,                                    "num_ind_sub");
+    for (int8u Pos=0; Pos<num_ind_sub; Pos++)
+    {
+        Element_Begin("independent substream");
+        int8u num_dep_sub;
+        Skip_S1(2,                                              "fscod");
+        Skip_S1(5,                                              "bsid");
+        Skip_S1(5,                                              "bsmod");
+        Skip_S1(3,                                              "acmod");
+        Skip_SB(                                                "lfeon");
+        Skip_S1(3,                                              "reserved");
+        Get_S1 (4, num_dep_sub,                                 "num_dep_sub");
+        if (num_dep_sub>0)
+            Skip_S2(9,                                          "chan_loc");
+        else
+            Skip_SB(                                            "reserved");
+        Element_End();
+    }
+    BS_End();
+
+    #ifdef MEDIAINFO_AC3_YES
+        if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
+        {
+            Stream[moov_trak_tkhd_TrackID].Parser=new File_Ac3;
+            mdat_MustParse=true; //Data is in MDAT
+        }
+    #else
+        Skip_XX(Element_Size,                                   "E-AC-3 Data");
+
+        Fill(Stream_Audio, StreamKind_Last, "E-AC-3");
+    #endif
 }
 
 //---------------------------------------------------------------------------

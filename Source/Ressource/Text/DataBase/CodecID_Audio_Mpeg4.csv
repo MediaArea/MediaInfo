@@ -1,7 +1,9 @@
 .mp3;MPEG Audio;;;
+ac-3;AC-3;;;
 alac;ALAC;;Apple Lossless Format;http://www.apple.com/quicktime/download/standalone.html
 alaw;ADPCM;;;http://www.apple.com/quicktime/download/standalone.html
 dvca;DV Audio;;;http://www.apple.com/quicktime/download/standalone.html
+ec-3;E-AC-3;;;
 enca;(Encrypted);;;
 fl32;PCM ; ;;http://www.apple.com/quicktime/download/standalone.html
 fl64;PCM;;;http://www.apple.com/quicktime/download/standalone.html

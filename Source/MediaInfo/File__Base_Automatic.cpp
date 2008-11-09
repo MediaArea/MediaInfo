@@ -1,4 +1,4 @@
-// Helpers - Automaticly generated methods for MediaInfo
+﻿// Helpers - Automaticly generated methods for MediaInfo
 // Copyright (C) 2005-2007 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software; you can redistribute it and/or
@@ -1979,9 +1979,11 @@ void File__Base_CodecID_Audio_Mpeg4 (InfoMap &Info)
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_Local(
     ".mp3;MPEG Audio\n"
+    "ac-3;AC-3\n"
     "alac;ALAC;;Apple Lossless Format;http://www.apple.com/quicktime/download/standalone.html\n"
     "alaw;ADPCM;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "dvca;DV Audio;;;http://www.apple.com/quicktime/download/standalone.html\n"
+    "ec-3;E-AC-3\n"
     "enca;(Encrypted)\n"
     "fl32;PCM ; ;;http://www.apple.com/quicktime/download/standalone.html\n"
     "fl64;PCM;;;http://www.apple.com/quicktime/download/standalone.html\n"
