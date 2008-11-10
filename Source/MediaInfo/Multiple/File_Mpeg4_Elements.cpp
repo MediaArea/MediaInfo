@@ -1768,8 +1768,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_avcC()
             }
 
             //Parsing
-            Open_Buffer_Init((File_Avc*)Stream[moov_trak_tkhd_TrackID].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
-            Open_Buffer_Continue((File_Avc*)Stream[moov_trak_tkhd_TrackID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+            Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+            Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
 
             ((File_Avc*)Stream[moov_trak_tkhd_TrackID].Parser)->SizedBlocks=true;  //Now this is SizeBlocks
         #else
@@ -1853,8 +1853,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
         }
 
         //Parsing
-        Open_Buffer_Init((File_Avc*)Stream[moov_trak_tkhd_TrackID].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
-        Open_Buffer_Continue((File_Avc*)Stream[moov_trak_tkhd_TrackID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+        Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
     #else
         Skip_XX(Element_Size,                                   "AC-3 Data");
 
@@ -1872,8 +1872,13 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dec3()
         if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
         {
             Stream[moov_trak_tkhd_TrackID].Parser=new File_Ac3;
+            ((File_Ac3*)Stream[moov_trak_tkhd_TrackID].Parser)->MustParse_dec3=true;
             mdat_MustParse=true; //Data is in MDAT
         }
+
+        //Parsing
+        Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+        Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
     #else
         Skip_XX(Element_Size,                                   "E-AC-3 Data");
 
