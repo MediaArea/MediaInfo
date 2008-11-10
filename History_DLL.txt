@@ -18,6 +18,7 @@ Version 0.7.7.8, 2008-
 + WMV with "WVC1" codec identifier: video interlacement
 + MPEG-4: E-AC-3 support
 x #2186682, MPEG-2 Video: Wrong PAR and DAR for Panasonic MPEG2 Files
+x MPEG-4: some AC-3 and AAC specific files reported wrong channels value
 
 Version 0.7.7.7, 2008-10-17
 ---------------

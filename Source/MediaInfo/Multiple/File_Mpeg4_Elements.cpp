@@ -328,6 +328,7 @@ void File_Mpeg4::Data_Parse()
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_btrt)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_chan)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_dac3)
+                                ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_dec3)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_damr)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_esds)
                                 LIST(moov_trak_mdia_minf_stbl_stsd_xxxx_wave)
@@ -1809,7 +1810,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
 {
     Element_Name("AC-3");
-    Fill(Stream_Audio, StreamKind_Last, Audio_Format, "", Unlimited, true, true); //Remove the value (is always wrong in the stsd atom)
+    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, "", Unlimited, true, true); //Remove the value (is always wrong in the stsd atom)
 
     //Parsing
     if (Retrieve(Stream_Audio, StreamPos_Last, Audio_CodecID)==_T("sac3"))
@@ -1865,7 +1866,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dec3()
 {
     Element_Name("E-AC-3");
-    Fill(Stream_Audio, StreamKind_Last, Audio_Format, "", Unlimited, true, true); //Remove the value (is always wrong in the stsd atom)
+    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, "", Unlimited, true, true); //Remove the value (is always wrong in the stsd atom)
 
     #ifdef MEDIAINFO_AC3_YES
         if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
@@ -1901,6 +1902,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_esds()
     INTEGRITY_VERSION(0);
 
     FILLING_BEGIN();
+        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, "", Unlimited, true, true); //Remove the value (is always wrong in the stsd atom)
         Descriptors();
     FILLING_END();
 }
