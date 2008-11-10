@@ -12,19 +12,19 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
-Version 0.7.7.8, 2008-
+Version 0.7.7.8, 2008-11-10
 ---------------
 + Albanian, Chinese (Simplified), Chinese Traditional), Turkish, Italian, German, Polish languages updated
 + #2216498, LPCM in VOB: more attributes (channels count, sampling rate, bitrate)
 + #2182135, Wavpack: support of multichannel files
 + AVC: detection of the newest profiles
-+ DTS: detection of DTS-ES, DTS-HRA, DTS-MA
++ DTS: detection of DTS-HRA, DTS-MA, DTS-Express, thanks to http://madshi.net
 + AES3 PCM in MPEG-TS detection
 + Wavpack: Encoder settings
 + WMV with "WVC1" codec identifier: video interlacement
++ MPEG-4: E-AC-3 support
 x #2186682, MPEG-2 Video: Wrong PAR and DAR for Panasonic MPEG2 Files
-x Error of singular/plural form in the main view
-x Errors in the Polish two plurals forms routine
+x MPEG-4: some AC-3 and AAC specific files reported wrong channels value
 
 Version 0.7.7.7, 2008-10-17
 ---------------
