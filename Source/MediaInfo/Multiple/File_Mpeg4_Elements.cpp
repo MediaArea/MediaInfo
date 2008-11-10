@@ -1907,7 +1907,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_esds()
     INTEGRITY_VERSION(0);
 
     FILLING_BEGIN();
-        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, "", Unlimited, true, true); //Remove the value (is always wrong in the stsd atom)
         Descriptors();
     FILLING_END();
 }
