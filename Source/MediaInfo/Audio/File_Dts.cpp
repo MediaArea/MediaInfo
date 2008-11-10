@@ -343,6 +343,7 @@ File_Dts::File_Dts()
     HD_BitResolution=(int8u)-1;
     HD_MaximumSampleRate=(int8u)-1;
     HD_TotalNumberChannels=(int8u)-1;
+    HD_ExSSFrameDurationCode=(int8u)-1;
     Core_Exists=false;
 }
 
@@ -408,7 +409,7 @@ void File_Dts::Header_Parse()
         TESTELSE_SB_GET(StaticFieldsPresent,                    "Static fields present");
             std::vector<int32u> ActiveExSSMasks;
             Info_S1(2, RefClockCode,                            "Reference clock code"); Param_Info(DTS_HD_RefClockCode[RefClockCode]);
-            Info_S1(3, ExSSFrameDurationCode,                   "ExSS frame duration code"); Param_Info(ExSSFrameDurationCode+1);
+            Get_S1 (3, HD_ExSSFrameDurationCode,                "ExSS frame duration code"); HD_ExSSFrameDurationCode++; Param_Info(HD_ExSSFrameDurationCode);
             TEST_SB_SKIP(                                       "Timestamp flag");
                 Skip_S5(36,                                     "Timestamp");
             TEST_SB_END();
@@ -609,11 +610,47 @@ void File_Dts::Data_Parse_Fill()
     Fill(Stream_Audio, 0, Audio_Codec, (Profile.find(_T("MA"))==0 || Profile.find(_T("HRA"))==0)?"DTS-HD":"DTS");
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, Profile.find(_T("MA"))==0?"VBR":"CBR");
     Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_SamplingRate[sample_frequency]);
-    if (Profile!=_T("MA") && Profile!=_T("Express") && bit_rate<29)
+    if (Profile!=_T("MA") && bit_rate<29)
     {
-        float64 BitRate=(float64)DTS_BitRate[bit_rate];
-        if (Primary_Frame_Byte_Size_minus_1 && Profile==_T("HRA"))
-            BitRate*=1+((float64)HD_size)/Primary_Frame_Byte_Size_minus_1; //HD block are not in the nominal bitrate
+        float64 BitRate;
+        if (Profile==_T("Express"))
+            BitRate=0; //No core bitrate
+        else
+            BitRate=(float64)DTS_BitRate[bit_rate];
+        if (HD_ExSSFrameDurationCode!=(int8u)-1)
+        {
+            int32u SamplePerFrames=HD_ExSSFrameDurationCode;
+            switch (HD_MaximumSampleRate)
+            {
+                case  0 : //  8000
+                case 10 : // 12000
+                                SamplePerFrames*= 128; break;
+                case  1 : // 16000
+                case  5 : // 22050
+                case 11 : // 24000
+                                SamplePerFrames*= 256; break;
+                case  2 : // 32000
+                case  6 : // 44100
+                case 12 : // 48000
+                                SamplePerFrames*= 512; break;
+                case  3 : // 64000
+                case  7 : // 88200
+                case 13 : // 96000
+                                SamplePerFrames*=1024; break;
+                case  4 : //128000
+                case  8 : //176400
+                case 14 : //192000
+                                SamplePerFrames*=2048; break;
+                case  9 : //352800
+                case 15 : //384000
+                                SamplePerFrames*=4096; break;
+                default     :   SamplePerFrames=    0; break; //Can never happen (4 bits)
+            }
+            if (SamplePerFrames)
+                BitRate+=HD_size*8*DTS_HD_MaximumSampleRate[HD_MaximumSampleRate]/SamplePerFrames;
+        }
+        //if (Primary_Frame_Byte_Size_minus_1 && Profile==_T("HRA"))
+        //    BitRate*=1+((float64)HD_size)/Primary_Frame_Byte_Size_minus_1; //HD block are not in the nominal bitrate
         Fill(Stream_Audio, 0, Audio_BitRate, BitRate, 0);
     }
     else if (bit_rate==29)

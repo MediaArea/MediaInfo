@@ -96,6 +96,7 @@ private :
     int8u  HD_BitResolution;
     int8u  HD_MaximumSampleRate;
     int8u  HD_TotalNumberChannels;
+    int8u  HD_ExSSFrameDurationCode;
     bool   Core_Exists;
 
     //Helpers
