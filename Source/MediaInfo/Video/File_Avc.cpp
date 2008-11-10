@@ -368,7 +368,7 @@ void File_Avc::Header_Parse()
             case 3:     Get_B4 (Size,                           "size");
                     break;
             default:    Trusted_IsNot("No size of NALU defined");
-                        Size=Buffer_Size-Buffer_Offset;
+                        Size=(int32u)(Buffer_Size-Buffer_Offset);
         }
         BS_Begin();
         Mark_0 ();

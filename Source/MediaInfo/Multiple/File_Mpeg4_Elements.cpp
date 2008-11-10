@@ -2216,7 +2216,7 @@ void File_Mpeg4::moov_trak_tkhd()
         //Case of header is after main part
         if (StreamKind_Last!=Stream_Max)
         {
-            std::map<int32u, stream>::iterator Temp=Stream.find((size_t)-1);
+            std::map<int32u, stream>::iterator Temp=Stream.find((int32u)-1);
             if (Temp!=Stream.end())
             {
                 Stream[moov_trak_tkhd_TrackID]=Temp->second;
