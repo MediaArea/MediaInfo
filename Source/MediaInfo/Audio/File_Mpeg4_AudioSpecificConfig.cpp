@@ -359,7 +359,8 @@ void File_Mpeg4_AudioSpecificConfig::audioSpecificConfig ()
         //Filling
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "AAC");
-        Stream_Prepare(Stream_Audio);
+        if (Count_Get(Stream_Audio)==0) //May be done elsewhere
+            Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, StreamPos_Last, Audio_Format, MP4_Format(audioObjectType));
         Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, "Version 4");
         Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, MP4_Format_Profile(audioObjectType));
@@ -397,7 +398,150 @@ void File_Mpeg4_AudioSpecificConfig::GASpecificConfig ()
     Get_SB (   extensionFlag,                                   "extensionFlag");
     if (channelConfiguration==0)
     {
-        //TODO...
+        Element_Begin("Extension");
+        int8u Channels=0, Channels_Front=0, Channels_Side=0, Channels_Back=0, Channels_LFE=0;
+        int8u num_front_channel_elements, num_side_channel_elements, num_back_channel_elements, num_lfe_channel_elements, num_assoc_data_elements, num_valid_cc_elements, comment_field_bytes;
+        Skip_S1(4,                                              "element_instance_tag");
+        Skip_S1(2,                                              "object_type");
+        Skip_S1(4,                                              "sf_index");
+        Get_S1 (4, num_front_channel_elements,                  "num_front_channel_elements");
+        Get_S1 (4, num_side_channel_elements,                   "num_side_channel_elements");
+        Get_S1 (4, num_back_channel_elements,                   "num_back_channel_elements");
+        Get_S1 (2, num_lfe_channel_elements,                    "num_lfe_channel_elements");
+        Get_S1 (3, num_assoc_data_elements,                     "num_assoc_data_elements");
+        Get_S1 (4, num_valid_cc_elements,                       "num_valid_cc_elements");
+        TEST_SB_SKIP(                                           "mono_mixdown_present");
+            Skip_S1(4,                                          "mono_mixdown_element_number");
+        TEST_SB_END();
+        TEST_SB_SKIP(                                           "stereo_mixdown_present");
+            Skip_S1(4,                                          "stereo_mixdown_element_number");
+        TEST_SB_END();
+        TEST_SB_SKIP(                                           "matrix_mixdown_idx_present");
+            Skip_S1(2,                                          "matrix_mixdown_idx");
+            Skip_SB(                                            "pseudo_surround_enable");
+        TEST_SB_END();
+        for (int8u Pos=0; Pos<num_front_channel_elements; Pos++)
+        {
+            Element_Begin("Front channel");
+            bool front_element_is_cpe;
+            Get_SB (   front_element_is_cpe,                    "front_element_is_cpe");
+            Skip_S1(4,                                          "front_element_tag_select");
+            if (front_element_is_cpe)
+            {
+                Channels_Front+=2;
+                Channels+=2;
+            }
+            else
+            {
+                Channels_Front++;
+                Channels++;
+            }
+            Element_End();
+        }
+        for (int8u Pos=0; Pos<num_side_channel_elements; Pos++)
+        {
+            Element_Begin("Side channel");
+            bool side_element_is_cpe;
+            Get_SB (   side_element_is_cpe,                     "side_element_is_cpe");
+            Skip_S1(4,                                          "side_element_tag_select");
+            if (side_element_is_cpe)
+            {
+                Channels_Side+=2;
+                Channels+=2;
+            }
+            else
+            {
+                Channels_Side++;
+                Channels++;
+            }
+            Element_End();
+        }
+        for (int8u Pos=0; Pos<num_back_channel_elements; Pos++)
+        {
+            Element_Begin("Back channel");
+            bool back_element_is_cpe;
+            Get_SB (   back_element_is_cpe,                     "back_element_is_cpe");
+            Skip_S1(4,                                          "back_element_tag_select");
+            if (back_element_is_cpe)
+            {
+                Channels_Back+=2;
+                Channels+=2;
+            }
+            else
+            {
+                Channels_Back++;
+                Channels++;
+            }
+            Element_End();
+        }
+        for (int8u Pos=0; Pos<num_lfe_channel_elements; Pos++)
+        {
+            Element_Begin("LFE");
+            Skip_S1(4,                                          "lfe_element_tag_select");
+            Channels_LFE++;
+            Channels++;
+            Element_End();
+        }
+        for (int8u Pos=0; Pos<num_assoc_data_elements; Pos++)
+        {
+            Element_Begin("assoc_data_element");
+            Skip_S1(4,                                          "assoc_data_element_tag_select");
+            Element_End();
+        }
+        for (int8u Pos=0; Pos<num_valid_cc_elements; Pos++)
+        {
+            Element_Begin("valid_cc_element");
+            Skip_SB(                                            "cc_element_is_ind_sw");
+            Skip_S1(4,                                          "valid_cc_element_tag_select");
+            Element_End();
+        }
+        BS_End(); //Byte align
+        Get_B1 (comment_field_bytes,                            "comment_field_bytes");
+        if (comment_field_bytes)
+            Skip_XX(comment_field_bytes,                        "comment_field_data");
+        BS_Begin(); //The stream needs continuity in the bitstream
+        Element_End();
+
+        //Filling
+        Ztring Channels_Positions, Channels_Positions2;
+        switch (Channels_Front)
+        {
+            case  0 : break;
+            case  1 : Channels_Positions+=_T("Front: C"); break;
+            case  2 : Channels_Positions+=_T("Front: L R"); break;
+            case  3 : Channels_Positions+=_T("Front: L C R"); break;
+            default : Channels_Positions+=_T("Front: "); Channels_Positions+=Ztring::ToZtring(Channels_Front); //Which config?
+        }
+        switch (Channels_Side)
+        {
+            case  0 : break;
+            case  1 : Channels_Positions+=_T(", Side: C"); break;
+            case  2 : Channels_Positions+=_T(", Side: L R"); break;
+            case  3 : Channels_Positions+=_T(", Side: L C R"); break;
+            default : Channels_Positions+=_T(", Side: "); Channels_Positions+=Ztring::ToZtring(Channels_Side); //Which config?
+        }
+        switch (Channels_Back)
+        {
+            case  0 : break;
+            case  1 : Channels_Positions+=_T(", Rear: C"); break;
+            case  2 : Channels_Positions+=_T(", Rear: L R"); break;
+            case  3 : Channels_Positions+=_T(", Rear: L C R"); break;
+            default : Channels_Positions+=_T(", Rear: "); Channels_Positions+=Ztring::ToZtring(Channels_Back); //Which config?
+        }
+        switch (Channels_LFE)
+        {
+            case  0 : break;
+            case  1 : Channels_Positions+=_T(", LFE"); break;
+            default : Channels_Positions+=_T(", LFE= "); Channels_Positions+=Ztring::ToZtring(Channels_LFE); //Which config?
+        }
+        Channels_Positions2=Ztring::ToZtring(Channels_Front)+_T('/')+
+                            Ztring::ToZtring(Channels_Side)+
+                            (Channels_Back?(_T('/')+Ztring::ToZtring(Channels_Back)):Ztring())+
+                            (Channels_LFE? (_T('.')+Ztring::ToZtring(Channels_LFE )):Ztring());
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels_Front+Channels_Side+Channels_Back+Channels_LFE);
+        Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, Channels_Positions);
+        Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions_String2, Channels_Positions2);
     }
     if (audioObjectType==06 || audioObjectType==20)
         Skip_S1(3,                                              "layerNr");
