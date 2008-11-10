@@ -64,6 +64,7 @@ AC_ARG_ENABLE(ac3,     AC_HELP_STRING([--disable-ac3],     [Disable Audio - AC-3
 AC_ARG_ENABLE(adif,    AC_HELP_STRING([--disable-adif],    [Disable Audio - ADIF]),                                       MediaInfoAdif=$enableval,    MediaInfoAdif=depend)
 AC_ARG_ENABLE(adpcm,   AC_HELP_STRING([--disable-adpcm],   [Disable Audio - ADPCM]),                                      MediaInfoAdpcm=$enableval,   MediaInfoAdpcm=depend)
 AC_ARG_ENABLE(adts,    AC_HELP_STRING([--disable-adts],    [Disable Audio - ADTS]),                                       MediaInfoAdts=$enableval,    MediaInfoAdts=depend)
+AC_ARG_ENABLE(aes3,    AC_HELP_STRING([--disable-aes3],    [Disable Audio - AES3]),                                       MediaInfoAdts=$enableval,    MediaInfoAes3=depend)
 AC_ARG_ENABLE(latm,    AC_HELP_STRING([--disable-latm],    [Disable Audio - LATM]),                                       MediaInfoAdts=$enableval,    MediaInfoAdts=depend)
 AC_ARG_ENABLE(amr,     AC_HELP_STRING([--disable-amr],     [Disable Audio - AMR]),                                        MediaInfoAmr=$enableval,     MediaInfoAmr=depend)
 AC_ARG_ENABLE(amv,     AC_HELP_STRING([--disable-amv],     [Disable Audio - AMV]),                                        MediaInfoAmv=$enableval,     MediaInfoAmv=depend)
@@ -133,6 +134,7 @@ if test "$MediaInfoZip"     = "no";  then AC_DEFINE(MEDIAINFO_ZIP_NO)     fi; if
 if test "$MediaInfoAc3"     = "no";  then AC_DEFINE(MEDIAINFO_AC3_NO)     fi; if test "$MediaInfoAc3"     = "yes"; then AC_DEFINE(MEDIAINFO_AC3_YES)     fi
 if test "$MediaInfoAdif"    = "no";  then AC_DEFINE(MEDIAINFO_ADIF_NO)    fi; if test "$MediaInfoAdif"    = "yes"; then AC_DEFINE(MEDIAINFO_ADIF_YES)    fi
 if test "$MediaInfoAdts"    = "no";  then AC_DEFINE(MEDIAINFO_ADTS_NO)    fi; if test "$MediaInfoAdts"    = "yes"; then AC_DEFINE(MEDIAINFO_ADTS_YES)    fi
+if test "$MediaInfoAes3"    = "no";  then AC_DEFINE(MEDIAINFO_AES3_NO)    fi; if test "$MediaInfoAes3"    = "yes"; then AC_DEFINE(MEDIAINFO_AES3_YES)    fi
 if test "$MediaInfoAmr"     = "no";  then AC_DEFINE(MEDIAINFO_AMR_NO)     fi; if test "$MediaInfoAmr"     = "yes"; then AC_DEFINE(MEDIAINFO_AMR_YES)     fi
 if test "$MediaInfoApe"     = "no";  then AC_DEFINE(MEDIAINFO_APE_NO)     fi; if test "$MediaInfoApe"     = "yes"; then AC_DEFINE(MEDIAINFO_APE_YES)     fi
 if test "$MediaInfoDts"     = "no";  then AC_DEFINE(MEDIAINFO_DTS_NO)     fi; if test "$MediaInfoDts"     = "yes"; then AC_DEFINE(MEDIAINFO_DTS_YES)     fi
@@ -334,6 +336,7 @@ Mcho "Zip    " "$MediaInfoZip"
 Mcho "Ac3    " "$MediaInfoAc3"
 Mcho "Adif   " "$MediaInfoAdif"
 Mcho "Adts   " "$MediaInfoAdts"
+Mcho "Aes3   " "$MediaInfoAes3"
 Mcho "Latm   " "$MediaInfoLatm"
 Mcho "Amr    " "$MediaInfoAmr"
 Mcho "Ape    " "$MediaInfoApe"
