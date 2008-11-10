@@ -630,8 +630,12 @@ void File_Mpeg4::mdat()
                     }
 
                     //Configuring mdat_Pos
-                    mdat_Pos[Position].StreamID=Temp->first;
-                    mdat_Pos[Position].Size=Temp->second.stsz[stsz_Pos];
+                    if (Position>=File_Offset+Buffer_Offset
+                     && Position<=File_Offset+Buffer_Offset+Element_TotalSize_Get())
+                    {
+                        mdat_Pos[Position].StreamID=Temp->first;
+                        mdat_Pos[Position].Size=Temp->second.stsz[stsz_Pos];
+                    }
 
                     //Positionning
                     Position+=Temp->second.stsz[stsz_Pos];
@@ -1830,7 +1834,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
                 if (bsid>0x0A && bsid<=0x10)
                     Fill(Stream_Audio, StreamKind_Last, Audio_Format,  "E-AC-3");
             #endif
-            Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "Nero");
             return;
         }
         else
