@@ -247,6 +247,8 @@ File_Ac3::File_Ac3()
 {
     //In
     Frame_Count_Valid=2;
+    MustParse_dac3=false;
+    MustParse_dec3=false;
 
     //Configuration
     File_MaximumOffset=32*1024;
@@ -270,6 +272,19 @@ File_Ac3::File_Ac3()
     numblks=0;
     lfeon=false;
     IsTrueHD=false;
+    dxc3_Parsed=false;
+}
+
+//***************************************************************************
+// Format
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Ac3::Read_Buffer_Finalize()
+{
+    //In case of partial data, and finalizing is forced
+    if (Count_Get(Stream_Audio)==0 && dxc3_Parsed)
+        Data_Parse_Fill();
 }
 
 //***************************************************************************
@@ -279,6 +294,10 @@ File_Ac3::File_Ac3()
 //---------------------------------------------------------------------------
 bool File_Ac3::Header_Begin()
 {
+    //Specific
+    if (MustParse_dac3 || MustParse_dec3)
+        return true;
+
     //Must have enough buffer for having header
     if (Buffer_Offset+2>Buffer_Size)
         return false;
@@ -305,6 +324,14 @@ bool File_Ac3::Header_Begin()
 //---------------------------------------------------------------------------
 void File_Ac3::Header_Parse()
 {
+    //Specific
+    if (MustParse_dac3 || MustParse_dec3)
+    {
+        Header_Fill_Size(Element_Size);
+        Header_Fill_Code(0, MustParse_dec3?"E-AC-3":"AC-3");
+        return;
+    }
+
     //Parsing
     Skip_B2(                                                    "syncword");
 
@@ -397,6 +424,18 @@ void File_Ac3::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Ac3::Data_Parse()
 {
+    //Specific
+    if (MustParse_dac3)
+    {
+        dac3();
+        return;
+    }
+    if (MustParse_dec3)
+    {
+        dec3();
+        return;
+    }
+
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
         Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
@@ -510,6 +549,51 @@ void File_Ac3::Data_Parse_Fill()
         Info("AC-3 detected", 1);
         Finnished();
     }
+}
+
+//---------------------------------------------------------------------------
+void File_Ac3::dac3()
+{
+    BS_Begin();
+    Get_S1 (2, fscod,                                           "fscod");
+    Get_S1 (5, bsid,                                            "bsid");
+    Get_S1 (3, bsmod,                                           "bsmod");
+    Get_S1 (3, acmod,                                           "acmod");
+    Get_SB (   lfeon,                                           "lfeon");
+    Get_S1 (5, frmsizecod,                                      "bit_rate_code"); frmsizecod*=2;
+    Skip_S1(5,                                                  "reserved");
+    BS_End();
+
+    MustParse_dac3=false;
+    dxc3_Parsed=true;
+}
+
+//---------------------------------------------------------------------------
+void File_Ac3::dec3()
+{
+    //Parsing
+    BS_Begin();
+    int8u num_ind_sub;
+    Skip_S2(13,                                                 "data_rate");
+    Get_S1 ( 3, num_ind_sub,                                    "num_ind_sub");
+    for (int8u Pos=0; Pos<num_ind_sub; Pos++)
+    {
+        Element_Begin("independent substream");
+        int8u num_dep_sub;
+        Get_S1 (2, fscod,                                       "fscod");
+        Get_S1 (5, bsid,                                        "bsid");
+        Get_S1 (3, bsmod,                                       "bsmod");
+        Get_S1 (3, acmod,                                       "acmod");
+        Get_SB (   lfeon,                                       "lfeon");
+        Skip_S1(3,                                              "reserved");
+        Get_S1 (4, num_dep_sub,                                 "num_dep_sub");
+        if (num_dep_sub>0)
+            Skip_S2(9,                                          "chan_loc");
+        else
+            Skip_SB(                                            "reserved");
+        Element_End();
+    }
+    BS_End();
 }
 
 //***************************************************************************

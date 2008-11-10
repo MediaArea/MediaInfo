@@ -38,9 +38,15 @@ class File_Ac3 : public File__Analyze
 public :
     //Configuration
     size_t Frame_Count_Valid;
+    bool   MustParse_dac3;
+    bool   MustParse_dec3;
 
     //External info
     size_t Delay;
+
+protected :
+    //Format
+    void Read_Buffer_Finalize ();
 
 public :
     File_Ac3();
@@ -51,6 +57,8 @@ private :
     void Header_Parse();
     void Data_Parse();
     void Data_Parse_Fill();
+    void dac3();
+    void dec3();
 
     //Temp - Global
     size_t Frame_Count;
@@ -68,6 +76,7 @@ private :
     int8u  numblks;
     bool   lfeon;
     bool   IsTrueHD;
+    bool   dxc3_Parsed;
 
     //Helpers
     bool Synchronize();

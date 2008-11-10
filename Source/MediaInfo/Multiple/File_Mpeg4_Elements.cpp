@@ -1805,6 +1805,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
 {
     Element_Name("AC-3");
+    Fill(Stream_Audio, StreamKind_Last, Audio_Format, "", Unlimited, true, true); //Remove the value (is always wrong in the stsd atom)
 
     //Parsing
     if (Retrieve(Stream_Audio, StreamPos_Last, Audio_CodecID)==_T("sac3"))
@@ -1838,26 +1839,22 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
             return;
         }
     }
-    BS_Begin();
-    Skip_S1(2,                                                  "fscod");
-    Skip_S1(5,                                                  "bsid");
-    Skip_S1(3,                                                  "bsmod");
-    Skip_S1(3,                                                  "acmod");
-    Skip_SB(                                                    "lfeon");
-    Skip_S1(5,                                                  "bit_rate_code");
-    Skip_S1(5,                                                  "reserved");
-    BS_End();
 
     #ifdef MEDIAINFO_AC3_YES
         if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
         {
             Stream[moov_trak_tkhd_TrackID].Parser=new File_Ac3;
+            ((File_Ac3*)Stream[moov_trak_tkhd_TrackID].Parser)->MustParse_dac3=true;
             mdat_MustParse=true; //Data is in MDAT
         }
+
+        //Parsing
+        Open_Buffer_Init((File_Avc*)Stream[moov_trak_tkhd_TrackID].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+        Open_Buffer_Continue((File_Avc*)Stream[moov_trak_tkhd_TrackID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
     #else
         Skip_XX(Element_Size,                                   "AC-3 Data");
 
-        Fill(Stream_Audio, StreamKind_Last, Audio_Format,  "AC-3");
+        Fill(Stream_Audio, StreamKind_Last, Audio_Format, "AC-3");
     #endif
 }
 
@@ -1865,30 +1862,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dec3()
 {
     Element_Name("E-AC-3");
-
-    //Parsing
-    BS_Begin();
-    int8u num_ind_sub;
-    Skip_S2(13,                                                 "data_rate");
-    Get_S1 ( 3, num_ind_sub,                                    "num_ind_sub");
-    for (int8u Pos=0; Pos<num_ind_sub; Pos++)
-    {
-        Element_Begin("independent substream");
-        int8u num_dep_sub;
-        Skip_S1(2,                                              "fscod");
-        Skip_S1(5,                                              "bsid");
-        Skip_S1(5,                                              "bsmod");
-        Skip_S1(3,                                              "acmod");
-        Skip_SB(                                                "lfeon");
-        Skip_S1(3,                                              "reserved");
-        Get_S1 (4, num_dep_sub,                                 "num_dep_sub");
-        if (num_dep_sub>0)
-            Skip_S2(9,                                          "chan_loc");
-        else
-            Skip_SB(                                            "reserved");
-        Element_End();
-    }
-    BS_End();
+    Fill(Stream_Audio, StreamKind_Last, Audio_Format, "", Unlimited, true, true); //Remove the value (is always wrong in the stsd atom)
 
     #ifdef MEDIAINFO_AC3_YES
         if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
@@ -1899,7 +1873,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dec3()
     #else
         Skip_XX(Element_Size,                                   "E-AC-3 Data");
 
-        Fill(Stream_Audio, StreamKind_Last, "E-AC-3");
+        Fill(Stream_Audio, StreamKind_Last, Audio_Format, "E-AC-3");
+        Fill(Stream_Audio, StreamKind_Last, Audio_Format, "", Unlimited, true, true); //Remove the value (is always wrong in the stsd atom)
     #endif
 }
 
