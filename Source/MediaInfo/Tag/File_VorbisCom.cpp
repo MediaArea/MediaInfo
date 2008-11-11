@@ -58,9 +58,10 @@ void File_VorbisCom::FileHeader_Parse()
 {
     //Parsing
     Element_Begin("Vorbis comment header");
+        Ztring vendor_string;
         int32u vendor_length;
         Get_L4 (vendor_length,                                  "vendor_length");
-        Skip_Local(vendor_length,                               "vendor_string");
+        Get_Local(vendor_length, vendor_string,                 "vendor_string");
         Get_L4 (user_comment_list_length,                       "user_comment_list_length");
     Element_End();
 
@@ -70,6 +71,74 @@ void File_VorbisCom::FileHeader_Parse()
             Stream_Prepare(StreamKind);
         if (StreamGoal!=Stream_General && StreamGoal!=StreamKind)
             Stream_Prepare(StreamGoal);
+
+        //vendor_string
+        if (StreamKind!=Stream_Audio && vendor_string.find(_T("Xiph.Org libVorbis"))==0)
+            vendor_string.clear(); //string was set "by default"
+        Ztring Library_Name, Library_Version, Library_Date;
+        Ztring vendor_string_Without=vendor_string; vendor_string_Without.FindAndReplace(_T(";"), _T(""), 0, Ztring_Recursive);
+        Library_Version=MediaInfoLib::Config.Library_Get(InfoLibrary_Format_VorbisCom, vendor_string_Without, InfoLibrary_Version);
+        Library_Date=MediaInfoLib::Config.Library_Get(InfoLibrary_Format_VorbisCom, vendor_string_Without, InfoLibrary_Date);
+        if (Library_Version.empty())
+        {
+            if (vendor_string.find(_T(" I "))!=std::string::npos)
+            {
+                Library_Name=vendor_string.SubString(_T(""), _T(" I "));
+                Library_Date=vendor_string.SubString(_T(" I "), _T(""));
+                if (Library_Date.size()>9)
+                {
+                    Library_Version=Library_Date.substr(9, std::string::npos);
+                    if (Library_Version.find(_T("("))==std::string::npos)
+                    {
+                        Library_Version.FindAndReplace(_T(" "), _T("."), 0, Ztring_Recursive);
+                        Library_Date.resize(8);
+                    }
+                }
+            }
+            else if (vendor_string.size()>9 && Ztring(vendor_string.substr(vendor_string.size()-8, std::string::npos)).To_int32u()>20000000)
+            {
+                Library_Name=vendor_string.substr(0, vendor_string.size()-9);
+                Library_Date=vendor_string.substr(vendor_string.size()-8, std::string::npos);
+                if (!Library_Name.empty())
+                {
+                    std::string::size_type Pos=Library_Name.rfind(_T(' '));
+                    if (Pos<Library_Name.size()-2 && Library_Name[Pos+1]>=_T('0') && Library_Name[Pos+1]<=_T('9'))
+                    {
+                        Library_Version=Library_Name.substr(Pos+1, std::string::npos);
+                        Library_Name.resize(Pos);
+                    }
+                }
+            }
+            else if (vendor_string.find(_T("aoTuV "))!=std::string::npos)
+            {
+                Library_Name=_T("aoTuV");
+                Library_Version=vendor_string.SubString(_T("aoTuV "), _T("["));
+                Library_Date=vendor_string.SubString(_T("["), _T("]"));
+            }
+            else if (vendor_string.find(_T("Lancer "))!=std::string::npos)
+            {
+                Library_Name=_T("Lancer");
+                Library_Date=vendor_string.SubString(_T("["), _T("]"));
+            }
+            if (Library_Version.empty())
+                Library_Version=Library_Date;
+            if (Library_Date.size()==8)
+            {
+                Library_Date.insert(Library_Date.begin()+6, _T('-'));
+                Library_Date.insert(Library_Date.begin()+4, _T('-'));
+                Library_Date.insert(0, _T("UTC "));
+            }
+        }
+        if (vendor_string.find(_T("libFLAC"))!=std::string::npos) Library_Name="libFLAC";
+        if (vendor_string.find(_T("libVorbis I"))!=std::string::npos) Library_Name="libVorbis";
+        if (vendor_string.find(_T("libTheora I"))!=std::string::npos) Library_Name="libTheora";
+        if (vendor_string.find(_T("AO; aoTuV"))==0) Library_Name="aoTuV";
+        if (vendor_string.find(_T("BS; Lancer"))==0) Library_Name="Lancer";
+
+        Fill(StreamKind, 0, "Encoded_Library", vendor_string);
+        Fill(StreamKind, 0, "Encoded_Library/Name", Library_Name);
+        Fill(StreamKind, 0, "Encoded_Library/Version", Library_Version);
+        Fill(StreamKind, 0, "Encoded_Library/Date", Library_Date);
 
         //Comments
         for (int32u Pos=0; Pos<user_comment_list_length; Pos++)

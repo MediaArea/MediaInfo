@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.7.9, 2008-
+---------------
++ #2259421, FLAC and OGG: Encoding library name and version
+
 Version 0.7.7.8, 2008-11-10
 ---------------
 + #2216498, LPCM in VOB: more attributes (channels count, sampling rate, bitrate)

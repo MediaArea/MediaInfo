@@ -78,6 +78,7 @@ void File__Base_Format                  (InfoMap &Info);
 void File__Base_Library_DivX            (InfoMap &Info);
 void File__Base_Library_XviD            (InfoMap &Info);
 void File__Base_Library_MainConcept_Avc (InfoMap &Info);
+void File__Base_Library_VorbisCom       (InfoMap &Info);
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -1065,6 +1066,7 @@ const Ztring &MediaInfo_Config::Library_Get (infolibrary_format_t Format, const 
             case InfoLibrary_Format_DivX : File__Base_Library_DivX(Library[Format]); break;
             case InfoLibrary_Format_XviD : File__Base_Library_XviD(Library[Format]); break;
             case InfoLibrary_Format_MainConcept_Avc : File__Base_Library_MainConcept_Avc(Library[Format]); break;
+            case InfoLibrary_Format_VorbisCom : File__Base_Library_VorbisCom(Library[Format]); break;
             default: ;
         }
     }

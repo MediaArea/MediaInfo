@@ -292,6 +292,32 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
     //StreamKind
     Fill(StreamKind, Pos, General_StreamKind, MediaInfoLib::Config.Info_Get(StreamKind).Read(General_StreamKind, Info_Text));
     Fill(StreamKind, Pos, General_StreamKind_String, MediaInfoLib::Config.Language_Get(MediaInfoLib::Config.Info_Get(StreamKind).Read(General_StreamKind, Info_Text)), true);
+
+    //Encoded_Library
+    if (!Retrieve(StreamKind, Pos, "Encoded_Library").empty())
+    {
+        const Ztring& Name=Retrieve(StreamKind, Pos, "Encoded_Library/Name");
+        const Ztring& Version=Retrieve(StreamKind, Pos, "Encoded_Library/Version");
+        const Ztring& Date=Retrieve(StreamKind, Pos, "Encoded_Library/Date");
+        if (!Name.empty())
+        {
+            Ztring String=Name;
+            if (!Version.empty())
+            {
+                String+=_T(" ");
+                String+=Version;
+            }
+            if (!Date.empty())
+            {
+                String+=_T(" (");
+                String+=Date;
+                String+=_T(")");
+            }
+            Fill(StreamKind, Pos, "Encoded_Library/String", String);
+        }
+        else
+            Fill(StreamKind, Pos, "Encoded_Library/String", Retrieve(StreamKind, Pos, "Encoded_Library"));
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -308,32 +334,6 @@ void File__Analyze::Finalize_General(size_t)
         Fill(Stream_General, 0, General_Format_Info, MediaInfoLib::Config.Format_Get(Format, InfoFormat_Info));
         Fill(Stream_General, 0, General_Format_Url, MediaInfoLib::Config.Format_Get(Format, InfoFormat_Url));
         Fill(Stream_General, 0, General_Format_Extensions, MediaInfoLib::Config.Format_Get(Format, InfoFormat_Extensions));
-    }
-
-    //Encoded_Library
-    if (!Retrieve(Stream_General, 0, General_Encoded_Library).empty())
-    {
-        const Ztring& Name=Retrieve(Stream_General, 0, General_Encoded_Library_Name);
-        const Ztring& Version=Retrieve(Stream_General, 0, General_Encoded_Library_Version);
-        const Ztring& Date=Retrieve(Stream_General, 0, General_Encoded_Library_Date);
-        if (!Name.empty())
-        {
-            Ztring String=Name;
-            if (!Version.empty())
-            {
-                String+=_T(" ");
-                String+=Version;
-            }
-            if (!Date.empty())
-            {
-                String+=_T(" (");
-                String+=Date;
-                String+=_T(")");
-            }
-            Fill(Stream_General, 0, General_Encoded_Library_String, String);
-        }
-        else
-            Fill(Stream_General, 0, General_Encoded_Library_String, Retrieve(Stream_General, 0, General_Encoded_Library));
     }
 }
 
@@ -470,31 +470,6 @@ void File__Analyze::Finalize_Video(size_t Pos)
             Duration=Retrieve(Stream_Video, Pos, "FrameCount").To_int64u()*1000/FrameRate;
         if (Duration)
            Fill(Stream_Video, Pos, "Duration", Duration);
-    }
-    //Encoded_Library
-    if (!Retrieve(Stream_Video, Pos, Video_Encoded_Library).empty())
-    {
-        const Ztring& Name=Retrieve(Stream_Video, Pos, Video_Encoded_Library_Name);
-        const Ztring& Version=Retrieve(Stream_Video, Pos, Video_Encoded_Library_Version);
-        const Ztring& Date=Retrieve(Stream_Video, Pos, Video_Encoded_Library_Date);
-        if (!Name.empty())
-        {
-            Ztring String=Name;
-            if (!Version.empty())
-            {
-                String+=_T(" ");
-                String+=Version;
-            }
-            if (!Date.empty())
-            {
-                String+=_T(" (");
-                String+=Date;
-                String+=_T(")");
-            }
-            Fill(Stream_Video, Pos, Video_Encoded_Library_String, String);
-        }
-        else
-            Fill(Stream_Video, Pos, Video_Encoded_Library_String, Retrieve(Stream_Video, Pos, Video_Encoded_Library));
     }
     //Format_Settings_CABAC
     if (!Retrieve(Stream_Video, Pos, Video_Format_Settings_CABAC).empty())

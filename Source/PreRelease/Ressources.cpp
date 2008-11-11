@@ -244,6 +244,11 @@ ZenLib::Ztring Ressources_Create()
         return Result;
     Out+=Contents;
 
+    Result=Ressources_Create_Item(L"DataBase", L"Library_VorbisCom", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
     Result=Ressources_Create_Item(L"MediaInfo", L"Summary", L"ZtringListList", Contents);
     if (!Result.empty())
         return Result;

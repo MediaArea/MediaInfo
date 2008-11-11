@@ -39,7 +39,7 @@ void File__Base_DefaultLanguage (Translation &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_Local(
-    "  Junk;x\n"
+    "﻿   Junk;x\n"
     "  Author_Email;Zen@mediaarea.net\n"
     "  Author_Name;Zen\n"
     "  Author_OldNames;Initial translator\n"
@@ -3903,7 +3903,11 @@ void File__Base_Audio (ZtringListList &Info)
     "Interleave_Preload;;;N YI;;;How much time is buffered before the first video frame\n"
     "Interleave_Preload/String;;;Y NT;;;How much time is buffered before the first video frame (with measurement)\n"
     "Title;;;Y YI;;;Name of the track\n"
-    "Encoded_Library;;;Y YT;;;Software used to create the file\n"
+    "Encoded_Library;;;N YT;;;Software used to create the file\n"
+    "Encoded_Library/String;;;Y NT;;;Software used to create the file\n"
+    "Encoded_Library/Name;;;N NT;;;Info from the software\n"
+    "Encoded_Library/Version;;;N NT;;;Version of software\n"
+    "Encoded_Library/Date;;;N NT;;;Release date of software\n"
     "Encoded_Library_Settings;;;Y YT;;;Parameters used by the software\n"
     "Language;;;N YT;;;Language (ISO 639-1, 2 letters)\n"
     "Language/String;;;Y NT;;;Language (full)\n"
@@ -3985,6 +3989,12 @@ void File__Base_Text (ZtringListList &Info)
     "StreamSize/String5;;;N NT;;;With proportion\n"
     "StreamSize_Proportion;;;N NT;;;Stream size divided by file size\n"
     "Title;;;Y YI;;;Name of the track\n"
+    "Encoded_Library;;;N YT;;;Software used to create the file\n"
+    "Encoded_Library/String;;;Y NT;;;Software used to create the file\n"
+    "Encoded_Library/Name;;;N NT;;;Info from the software\n"
+    "Encoded_Library/Version;;;N NT;;;Version of software\n"
+    "Encoded_Library/Date;;;N NT;;;Release date of software\n"
+    "Encoded_Library_Settings;;;Y YT;;;Parameters used by the software\n"
     "Language;;;N YT;;;Language (2 letters)\n"
     "Language/String;;;Y NT;;;Language (full)\n"
     "Language_More;;;Y YT;;;More info about Language (director's comment...)\n"
@@ -4069,6 +4079,12 @@ void File__Base_Image (ZtringListList &Info)
     "StreamSize/String4;;;N NT\n"
     "StreamSize/String5;;;N NT;;;With proportion\n"
     "StreamSize_Proportion;;;N NT;;;Stream size divided by file size\n"
+    "Encoded_Library;;;N YT;;;Software used to create the file\n"
+    "Encoded_Library/String;;;Y NT;;;Software used to create the file\n"
+    "Encoded_Library/Name;;;N NT;;;Info from the software\n"
+    "Encoded_Library/Version;;;N NT;;;Version of software\n"
+    "Encoded_Library/Date;;;N NT;;;Release date of software\n"
+    "Encoded_Library_Settings;;;Y YT;;;Parameters used by the software\n"
     "Language;;;N YT;;;Language (2 letters)\n"
     "Language/String;;;Y NT;;;Language (full)\n"
     "Summary;;;N NT\n"
@@ -4406,7 +4422,9 @@ void File__Base_Library_DivX (InfoMap &Info)
     "2396;6.7 Beta;UTC 2007-08-26\n"
     "2432;6.7.0;UTC 2007-09-20\n"
     "2510;6.8.0;UTC 2007-12-04\n"
-    "2559;6.8.2;UTC 2008-05-15\n"
+    "2521;6.8.0 Converter 6.6\n"
+    "2559;6.8.2;UTC 2008-05-17\n"
+    "2676;6.8.3;UTC 2008-06-07\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
@@ -4474,6 +4492,45 @@ void File__Base_Library_MainConcept_Avc (InfoMap &Info)
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_Local(
     "2.0.1889;2.0.1889;UTC 2006-01-11\n"
+    ));
+    Info.Separator_Set(0, ZenLib::EOL);
+}
+
+//---------------------------------------------------------------------------
+void File__Base_Library_VorbisCom (InfoMap &Info)
+{
+    Info.Separator_Set(0, _T("\n"));
+    Info.Write(Ztring().From_Local(
+    "Main source;http://wiki.hydrogenaudio.org/index.php?title=Recommended_Ogg_Vorbis\n"
+    "Xiphophorus libVorbis I 20000508;1.0 Beta 1/2;UTC 2000-05-08\n"
+    "Xiphophorus libVorbis I 20001031;1.0 Beta 3;UTC 2000-10-31\n"
+    "Xiphophorus libVorbis I 20010225;1.0 Beta 4;UTC 2001-02-25\n"
+    "Xiphophorus libVorbis I 20010615;1.0 RC1;UTC 2000-16-15\n"
+    "Xiphophorus libVorbis I 20010813;1.0 RC2;UTC 2000-18-13\n"
+    "Xiphophorus libVorbis I 20010816 (gtune 1);1.0 RC2 (GTune 1);UTC 2001-08-16\n"
+    "Xiphophorus libVorbis I 20011014 (GTune 2);1.0 RC2 (GTune 2);UTC 2001-10-14\n"
+    "Xiphophorus libVorbis I 20011217;1.0 RC3;UTC 2001-12-17\n"
+    "Xiphophorus libVorbis I 20011231;1.0 RC3;UTC 2001-12-31\n"
+    "Xiph.Org libVorbis I 20020717;1.0;UTC 2002-07-17\n"
+    "Xiph.Org/Sjeng.Org libVorbis I 20020717 (GTune 3, beta 1);1.0 (GTune 3 Beta 1);UTC 2002-07-17\n"
+    "Xiph.Org libVorbis I 20030308;1.0.1 (CVS);UTC 2003-03-08\n"
+    "Xiph.Org libVorbis I 20030909;1.0.1;UTC 2003-09-09\n"
+    "Xiph.Org/Sjeng.Org libVorbis I 20030909 (GTune 3, beta 2) EXPERIMENTAL;1.0 (GTune 3 Beta 2);UTC 2003-09-09\n"
+    "Xiph.Org libVorbis I 20031230 (1.0.1);1.0.1 (CVS);UTC 2003-12-30\n"
+    "Xiph.Org/Sjeng.Org libVorbis I 20031230 (GTune 3, beta 2);1.0.1 (GTune 3 Beta 2);UTC 2003-12-30\n"
+    "AO aoTuV b2 [20040420] (based on Xiph.Org's 1.0.1);Beta 2;UTC 2004-04-20\n"
+    "Xiph.Org libVorbis I 20040629;1.1;UTC 2004-06-29\n"
+    "Xiph.Org libVorbis I 20040920;1.1 (with impulse_trigger_profile);UTC 2004-09-20\n"
+    "AO aoTuV b3 [20041120] (based on Xiph.Org's libVorbis);Beta 3;UTC 2004-11-20\n"
+    "Xiph.Org libVorbis I 20050304;1.1.1/1.1.2;UTC 2005-03-04\n"
+    "AO aoTuV b4 [20050617] (based on Xiph.Org's libVorbis);Beta 4;UTC 2005-06-17\n"
+    "BS Lancer [20050709] (based on aoTuV b4 [20050617]);(aoTuV Beta 4);UTC 2005-07-09\n"
+    "AO aoTuV b4a [20051105] (based on Xiph.Org's libVorbis);Beta 4.5;UTC 2005-11-05\n"
+    "AO aoTuV b4b [20051117] (based on Xiph.Org's libVorbis);Beta 4.51;UTC 2005-11-17\n"
+    "BS Lancer [20051121] (based on aoTuV b4b [20051117]);(aoTuV Beta 4.51);UTC 2005-11-21\n"
+    "AO aoTuV pre-beta5 [20060321] (based on Xiph.Org's libVorbis);Beta 5 (preBeta);UTC 2006-03-21\n"
+    "AO aoTuV b5 [20061024] (based on Xiph.Org's libVorbis);Beta 5;UTC 2006-10-24\n"
+    "Xiph.Org libVorbis I 20070622;1.2;UTC 2007-06-22\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }

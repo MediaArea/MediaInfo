@@ -107,9 +107,13 @@ Interleave_Duration/String;;;Y NT;;;Between how much time and video frames the s
 Interleave_Preload;;;N YI;;;How much time is buffered before the first video frame
 Interleave_Preload/String;;;Y NT;;;How much time is buffered before the first video frame (with measurement)
 Title;;;Y YI;;;Name of the track
-Encoded_Library;;;Y YT;;;Software used to create the file
-Encoded_Library_Settings;;;Y YT;;;Parameters used by the software
-Language;;;N YT;;;Language (ISO 639-1, 2 letters)
+Encoded_Library;;;N YT;;;Software used to create the file
+Encoded_Library/String;;;Y NT;;;Software used to create the file
+Encoded_Library/Name;;;N NT;;;Info from the software
+Encoded_Library/Version;;;N NT;;;Version of software;;
+Encoded_Library/Date;;;N NT;;;Release date of software;;
+Encoded_Library_Settings;;;Y YT;;;Parameters used by the software;;
+Language;;;N YT;;;Language (ISO 639-1, 2 letters);;
 Language/String;;;Y NT;;;Language (full);;
 Language_More;;;Y YT;;;More info about Language (e.g. Swiss German or Director's Comment);;
 Encoded_Date;;;Y YT;;;UTC time that the encoding of this item was completed began.;;Temporal

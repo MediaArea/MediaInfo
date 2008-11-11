@@ -191,6 +191,7 @@ enum infolibrary_format_t
     InfoLibrary_Format_DivX,        ///<
     InfoLibrary_Format_XviD,        ///<
     InfoLibrary_Format_MainConcept_Avc, ///<
+    InfoLibrary_Format_VorbisCom,   ///<
     InfoLibrary_Format_Max
 };
 

@@ -63,6 +63,12 @@ StreamSize/String4;;;N NT;;;
 StreamSize/String5;;;N NT;;;With proportion
 StreamSize_Proportion;;;N NT;;;Stream size divided by file size
 Title;;;Y YI;;;Name of the track;;
+Encoded_Library;;;N YT;;;Software used to create the file;;
+Encoded_Library/String;;;Y NT;;;Software used to create the file;;
+Encoded_Library/Name;;;N NT;;;Info from the software;;
+Encoded_Library/Version;;;N NT;;;Version of software;;
+Encoded_Library/Date;;;N NT;;;Release date of software;;
+Encoded_Library_Settings;;;Y YT;;;Parameters used by the software;;
 Language;;;N YT;;;Language (2 letters);;
 Language/String;;;Y NT;;;Language (full);;
 Language_More;;;Y YT;;;More info about Language (director's comment...);;
