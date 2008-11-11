@@ -378,6 +378,13 @@ File_Flv::File_Flv()
 {
     //Internal
     Stream.resize(3); //Null, Video, Audio
+
+    //Temp
+    Searching_Duration=false;
+    PreviousTagSize=(int32u)-1;
+    meta_filesize=(int64u)-1;
+    meta_duration=0;
+    LastFrame_Time=(int32u)-1;
 }
 
 //***************************************************************************
@@ -403,6 +410,19 @@ void File_Flv::Read_Buffer_Finalize()
         Fill(Stream_Video, 0, Video_Delay, Stream[Stream_Video].Delay+Retrieve(Stream_Video, 0, Video_Delay).To_int32u(), 10, true);
     if (Stream[Stream_Audio].Delay!=(int32u)-1)
         Fill(Stream_Audio, 0, Audio_Delay, Stream[Stream_Audio].Delay+Retrieve(Stream_Audio, 0, Audio_Delay).To_int32u(), 10, true);
+
+    //Duration
+    if (meta_duration!=0 && LastFrame_Time!=(int32u)-1)
+    {
+        if (meta_duration>=LastFrame_Time && meta_duration<=LastFrame_Time*1.02)
+            Fill(Stream_General, 0, General_Duration, meta_duration, 0);
+        else
+            Fill(Stream_General, 0, General_Duration, LastFrame_Time);
+    }
+    else if (meta_duration!=0)
+        Fill(Stream_General, 0, General_Duration, meta_duration, 0);
+    else if (LastFrame_Time!=(int32u)-1)
+        Fill(Stream_General, 0, General_Duration, LastFrame_Time);
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
@@ -461,12 +481,30 @@ void File_Flv::FileHeader_Parse()
 }
 
 //---------------------------------------------------------------------------
+bool File_Flv::Header_Begin()
+{
+    if (Searching_Duration && File_Offset+Buffer_Offset==File_Size-4 && Buffer_Size!=4)
+        return false;
+    return true;
+}
+
+//---------------------------------------------------------------------------
 void File_Flv::Header_Parse()
 {
+    if (Searching_Duration && File_Offset+Buffer_Offset==File_Size-4)
+    {
+        Get_B4 (PreviousTagSize,                                "PreviousTagSize");
+
+        //Filling
+        Header_Fill_Code((int64u)-1, "End");
+        Header_Fill_Size(4);
+        return;
+    }
+
     //Parsing
     int32u BodyLength;
     int8u Type;
-    Skip_B4(                                                    "PreviousTagSize");
+    Get_B4 (PreviousTagSize,                                    "PreviousTagSize");
     if (File_Offset+Buffer_Offset+4<File_Size)
     {
         int32u Timestamp_Base;
@@ -479,6 +517,8 @@ void File_Flv::Header_Parse()
 
         //Filling
         Time=(((int32u)Timestamp_Extended)<<24)|Timestamp_Base;
+        if (File_Offset+Buffer_Offset+Element_Offset+BodyLength+4==File_Size && Time!=0)
+            LastFrame_Time=Time;
     }
     else
     {
@@ -501,11 +541,22 @@ void File_Flv::Data_Parse()
         case 0x09 : video(); break;
         case 0x12 : meta(); break;
         case 0xFA : Rm(); break;
-        default : break;
+        case (int64u)-1 : Data_GoTo(File_Size-PreviousTagSize-8, "FLV"); return; //When searching the last frame
+        default : if (Searching_Duration) Finnished(); //This is surely a bad en of file, don't try anymore
+
     }
 
     if (!video_stream_Count && !audio_stream_Count && video_stream_FrameRate_Detected && MediaInfoLib::Config.ParseSpeed_Get()<1) //All streams are parsed
-        Finnished();
+    {
+        if (!Searching_Duration && (meta_filesize==(int64u)-1 || meta_filesize==0 || meta_filesize==File_Size) && Element_Code!=0x00)
+        {
+            //Trying to find the last frame for duration
+            Searching_Duration=true;
+            Data_GoTo(File_Size-4, "FLV");
+        }
+        else
+            Finnished();
+    }
 }
 
 //***************************************************************************
@@ -961,18 +1012,20 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
             {
                 float64 Value;
                 Get_BF8(Value,                                 "Value");
+                if (Value==0)
+                    break;
                 std::string ToFill;
                 Ztring ValueS;
                 stream_t StreamKind=Stream_General;
                      if (0) ;
                 else if (StringData=="width") {ToFill="Width"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0); video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
                 else if (StringData=="height") {ToFill="Height"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0); video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
-                else if (StringData=="duration") {ToFill="Duration"; ValueS.From_Number(Value*1000, 0);}
+                else if (StringData=="duration") meta_duration=Value*1000;
                 else if (StringData=="audiodatarate") {ToFill="BitRate"; StreamKind=Stream_Audio; ValueS.From_Number(Value*1000, 0);}
                 else if (StringData=="framerate") {ToFill="FrameRate"; StreamKind=Stream_Video; ValueS.From_Number(Value, 3); video_stream_FrameRate_Detected=true; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
                 else if (StringData=="datasize") {}
                 else if (StringData=="lasttimestamp") {}
-                else if (StringData=="filesize") {}
+                else if (StringData=="filesize") {meta_filesize=Value;}
                 else if (StringData=="audiosize") {ToFill="StreamSize"; StreamKind=Stream_Audio; ValueS.From_Number(Value, 0);}
                 else if (StringData=="videosize") {ToFill="StreamSize"; StreamKind=Stream_Video; ValueS.From_Number(Value, 0);; video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag
                 else if (StringData=="videodatarate") {ToFill="BitRate"; StreamKind=Stream_Video; ValueS.From_Number(Value*1000, 0); video_stream_Count=true;} //1 file with FrameRate tag and video stream but no video present tag

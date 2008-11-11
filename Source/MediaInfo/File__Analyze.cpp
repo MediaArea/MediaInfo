@@ -737,8 +737,11 @@ bool File__Analyze::Data_Manage()
 
     //If no need of more
     if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || File_Offset==File_Size || File_Offset==(int64u)-1 || (IsFinnished && !ShouldContinueParsing))
+    {
+        Element_Offset=0;
         return false;
-
+    }
+    
     //Next element
     if (!Element_WantNextLevel)
     {

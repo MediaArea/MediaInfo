@@ -50,6 +50,7 @@ public :
 private :
     //Buffer
     void FileHeader_Parse ();
+    bool Header_Begin();
     void Header_Parse();
     void Data_Parse();
 
@@ -100,6 +101,11 @@ private :
     int32u Time;
     int8u  meta_Level;
     std::map<int8u, bool> meta_LevelFinnished;
+    bool Searching_Duration;
+    int32u PreviousTagSize;
+    int64u meta_filesize;
+    float64 meta_duration;
+    int32u LastFrame_Time;
 };
 
 } //NameSpace
