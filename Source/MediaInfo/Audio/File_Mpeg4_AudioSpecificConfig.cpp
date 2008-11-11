@@ -400,10 +400,10 @@ void File_Mpeg4_AudioSpecificConfig::GASpecificConfig ()
     {
         Element_Begin("Extension");
         int8u Channels=0, Channels_Front=0, Channels_Side=0, Channels_Back=0, Channels_LFE=0;
-        int8u num_front_channel_elements, num_side_channel_elements, num_back_channel_elements, num_lfe_channel_elements, num_assoc_data_elements, num_valid_cc_elements, comment_field_bytes;
+        int8u sf_index, num_front_channel_elements, num_side_channel_elements, num_back_channel_elements, num_lfe_channel_elements, num_assoc_data_elements, num_valid_cc_elements, comment_field_bytes;
         Skip_S1(4,                                              "element_instance_tag");
         Skip_S1(2,                                              "object_type");
-        Skip_S1(4,                                              "sf_index");
+        Get_S1 (4, sf_index,                                    "sf_index");
         Get_S1 (4, num_front_channel_elements,                  "num_front_channel_elements");
         Get_S1 (4, num_side_channel_elements,                   "num_side_channel_elements");
         Get_S1 (4, num_back_channel_elements,                   "num_back_channel_elements");
@@ -538,10 +538,13 @@ void File_Mpeg4_AudioSpecificConfig::GASpecificConfig ()
                             Ztring::ToZtring(Channels_Side)+
                             (Channels_Back?(_T('/')+Ztring::ToZtring(Channels_Back)):Ztring())+
                             (Channels_LFE? (_T('.')+Ztring::ToZtring(Channels_LFE )):Ztring());
+
+        //Filling
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels_Front+Channels_Side+Channels_Back+Channels_LFE);
         Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, Channels_Positions);
         Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions_String2, Channels_Positions2);
+        samplingFrequency=MP4_SamplingRate[sf_index];
     }
     if (audioObjectType==06 || audioObjectType==20)
         Skip_S1(3,                                              "layerNr");
@@ -630,7 +633,6 @@ void File_Mpeg4_AudioSpecificConfig::PS ()
     bool PS;
     Skip_S1(11,                                                 "Unknown");
     Get_SB (    PS,                                             "PS present");
-    Skip_S1( 4,                                                 "Unknown");
     Element_End();
 
     FILLING_BEGIN();
