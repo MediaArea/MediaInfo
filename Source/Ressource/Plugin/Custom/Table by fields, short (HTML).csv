@@ -16,7 +16,7 @@ File_Begin;
 File_Middle;(unused)\r\n
 File_End;
 ;
-General;<tr><td colspan="3" class="RowHead">File</td><td class="Name" colspan="7">%FileName%.%FileExtension%</td></tr><tr bgcolor="#DFDFDF"><td class="RowIndent"></td><td colspan="2" class="RowHead">Cont</td><td>$if(%Format%,%Format%,<center>?</center>)</td><td colspan="4" align="center">($if(%FileSize%,%FileSize/String2%,size ?)$if(%PlayTime%, ~ %PlayTime/String%))</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
+General;<tr><td colspan="3" class="RowHead">File</td><td class="Name" colspan="7">%FileName%.%FileExtension%</td></tr><tr bgcolor="#DFDFDF"><td class="RowIndent"></td><td colspan="2" class="RowHead">Cont</td><td>$if(%Format%,%Format%,<center>?</center>)</td><td colspan="4" align="center">($if(%FileSize%,%FileSize/String2%,size ?)$if(%Duration%, ~ %Duration/String%))</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
 General_Begin;
 General_Middle;(unused)\r\n
 General_End;

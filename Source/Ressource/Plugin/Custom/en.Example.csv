@@ -1,4 +1,4 @@
-General;General           : %FileName%\r\nFormat            : %Format%$if(%OveralBitRate%, at %OveralBitRate_String%)\r\nLength            : %FileSize_String% for %PlayTime_String1%\r\n\r\n
+General;General           : %FileName%\r\nFormat            : %Format%$if(%OverallBitRate%, at %OverallBitRate_String%)\r\nLength            : %FileSize_String% for %Duration_String1%\r\n\r\n
 Video;Video #%ID%          : %Format_String%$if(%BitRate%, at %BitRate_String%)\r\nAspect            : %Width% x %Height% (%AspectRatio%) at %FrameRate% fps\r\n\r\n
 Audio;Audio #%ID%          : %Format_String%$if(%BitRate%, at %BitRate_String%)\r\nInfos             : %Channels% channel(s), %SamplingRate_String%\r\n$if(%Language%,Language          : %Language%\r\n)\r\n
 Text;Text #%ID%           : %Format_String%\r\n$if(%Language%,Language          : %Language%\r\n)\r\n

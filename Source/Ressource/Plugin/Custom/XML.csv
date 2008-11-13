@@ -16,7 +16,7 @@ File_Begin;<File CompleteFileName='ToDo'>\r\n
 File_Middle;
 File_End;</File>\r\n
 
-General;<Stream ID='%StreamKindID%'><Tag ID='Format/String'>%Format%</Tag>\r\n<Tag ID='OveralBitRate/String'>%OveralBitRate/String%</Tag>\r\n<Tag ID='FileSize/String'>%FileSize/String%</Tag>\r\n</Stream>\r\n
+General;<Stream ID='%StreamKindID%'><Tag ID='Format/String'>%Format%</Tag>\r\n<Tag ID='OverallBitRate/String'>%OverallBitRate/String%</Tag>\r\n<Tag ID='FileSize/String'>%FileSize/String%</Tag>\r\n</Stream>\r\n
 General_Begin;<StreamKind ID='General'>\r\n
 General_Middle;
 General_End;</StreamKind>\r\n
