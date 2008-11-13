@@ -197,6 +197,9 @@ File_MpegPs::File_MpegPs()
     video_stream_Unlimited=false;
     Parsing_End_ForDTS=false;
 
+    //From packets
+    program_mux_rate=(int32u)-1;
+
     BookMark_Set(); //for stream parsing in phase 2
 }
 
@@ -219,6 +222,9 @@ void File_MpegPs::Read_Buffer_Finalize()
 {
     if (Streams.empty())
         return; //Not initialized
+
+    PTS=0; //Will be used for BitRate calculation
+    DTS=0; //Will be used for Duration calculation
 
     //For each Streams
     for (size_t StreamID=0; StreamID<0x100; StreamID++)
@@ -245,6 +251,21 @@ void File_MpegPs::Read_Buffer_Finalize()
         Streams.clear();
         Streams_Private1.clear();
         Streams_Extension.clear();
+    }
+
+    //Bitrate coherancy
+    if (PTS>0 && PTS!=(int64u)-1 && DTS!=0 && File_Size!=(int64u)-1 && File_Size>SizeToAnalyze)
+    {
+        int64u BitRate_FromDuration=File_Size*8000*90/DTS;
+        int64u BitRate_FromBitRates=PTS;
+
+        if (BitRate_FromDuration>=BitRate_FromBitRates*3 )
+        {
+            //Clearing durations
+            for (size_t StreamKind=0; StreamKind<=Stream_Text; StreamKind++)
+                for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
+                    Fill((stream_t)StreamKind, StreamPos, "Duration", "", Unlimited, true, true);
+        }
     }
 }
 
@@ -320,11 +341,27 @@ void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Tem
                         Duration+=Ztring::ToZtring(Temp.FrameCount_AfterLast_TimeStamp_End*90*1000/FrameRate, 0).To_int64u();
                 }
                 if (Duration)
+                {
                     Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration/90, 10, true);
+                    if (Duration>DTS)
+                        DTS=Duration; //Saving maximum Duration
+                }
             }
         }
         if (Temp.TimeStamp_Start.PTS.TimeStamp!=(int64u)-1)
             Fill(StreamKind_Last, StreamPos_Last, "Delay", Temp.TimeStamp_Start.PTS.TimeStamp/90, 10, true);
+    }
+
+    //Bitrate calculation
+    if (PTS!=(int64u)-1 && (StreamKind_Last==Stream_Video || StreamKind_Last==Stream_Audio))
+    {
+        int64u BitRate=Retrieve(StreamKind_Last, StreamPos_Last, "BitRate").To_int64u();
+        if (BitRate==0)
+            BitRate=Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Nominal").To_int64u();
+        if (BitRate==0)
+            PTS=(int64u)-1;
+        else
+            PTS+=BitRate; //Saving global BitRate
     }
 }
 //***************************************************************************
