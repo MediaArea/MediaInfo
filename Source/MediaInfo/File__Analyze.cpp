@@ -394,6 +394,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     #endif
     
     //Parsing specific
+    Frame_Count_InThisBlock=0; //Out
     Read_Buffer_Continue();
     if (File_GoTo!=(int64u)-1)
         return; //Finnished

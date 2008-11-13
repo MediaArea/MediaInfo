@@ -64,6 +64,16 @@ public :
     void    Open_Buffer_Finalize    (bool NoBufferModification=false);
     void    Open_Buffer_Finalize    (File__Analyze* Sub);
 
+    //***************************************************************************
+    // In/Out (for parsers)
+    //***************************************************************************
+
+    //In
+
+    //Out
+    size_t Frame_Count_InThisBlock;
+
+
 protected :
     //***************************************************************************
     // Buffer

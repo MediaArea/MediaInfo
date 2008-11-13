@@ -66,6 +66,7 @@ private :
     void Header_Parse_PES_packet_MPEG2(int8u start_code);
     void Data_Parse();
     void Detect_EOF();
+    bool BookMark_Needed();
 
     //Packet
     void MPEG_program_end();    //0xB9
@@ -107,18 +108,22 @@ private :
     {
         struct Mpeg_TimeStamp
         {
-            int64u PTS;
-            int64u DTS;
-            bool PTS_Is_Valid;
-            bool DTS_Is_Valid;
-
-            Mpeg_TimeStamp ()
+            struct Mpeg_TimeStamp_TS
             {
-                PTS=0;
-                DTS=0;
-                PTS_Is_Valid=false;
-                DTS_Is_Valid=false;
-            }
+                int64u File_Pos;
+                int64u TimeStamp;
+                int64u Is_Valid;
+
+                Mpeg_TimeStamp_TS()
+                {
+                    File_Pos=(int64u)-1;
+                    TimeStamp=(int64u)-1;
+                    Is_Valid=false;
+                }
+            };
+
+            Mpeg_TimeStamp_TS PTS;
+            Mpeg_TimeStamp_TS DTS;
         };
 
         int8u          stream_type;
@@ -133,6 +138,7 @@ private :
         bool           Searching_Payload;
         bool           Searching_TimeStamp_Start;
         bool           Searching_TimeStamp_End;
+        size_t         FrameCount_AfterLast_TimeStamp_End;
 
         ps_stream()
         {
@@ -146,6 +152,7 @@ private :
             Searching_Payload=false;
             Searching_TimeStamp_Start=false;
             Searching_TimeStamp_End=false;
+            FrameCount_AfterLast_TimeStamp_End=0;
         }
 
         ~ps_stream()
@@ -167,6 +174,8 @@ private :
     bool   video_stream_Unlimited;
     int8u  video_stream_Unlimited_start_code;
     int64u PTS;
+    int64u DTS;
+    bool   Parsing_End_ForDTS;
 
     //Helpers
     bool Synchronize();

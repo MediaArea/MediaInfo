@@ -417,7 +417,8 @@ void File_Mpegv::picture_start()
     Frame_Count++;
     if (Frame_Count==4)
         File_MaximumOffset*=Frame_Count_Valid; //We are nearly sure this is a Mpegv stream, augmenting parsing limit
-
+    Frame_Count_InThisBlock++;
+    
     //Name
     Element_Name("picture_start");
     Element_Info(Ztring(_T("Field ")+Ztring::ToZtring(Frame_Count)));
