@@ -192,10 +192,6 @@ File_Mpeg4v::File_Mpeg4v()
     Frame_Count_Valid=30;
     FrameIsAlwaysComplete=false;
 
-    //Out
-    RIFF_VOP_Count=0;
-    RIFF_VOP_Count_Max=0;
-
     //Temp
     video_object_layer_start_IsParsed=false;
 }
@@ -220,13 +216,6 @@ bool File_Mpeg4v::FileHeader_Begin()
         return false;
 
     return true;
-}
-
-//---------------------------------------------------------------------------
-void File_Mpeg4v::Read_Buffer_Continue()
-{
-    //We want to count the number of VOP in this bufffer
-    RIFF_VOP_Count=0;
 }
 
 //---------------------------------------------------------------------------
@@ -894,6 +883,7 @@ void File_Mpeg4v::vop_start()
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
         Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
     Frame_Count++;
+    Frame_Count_InThisBlock++;
 
     //Name
     Element_Name("vop_start");
@@ -1076,13 +1066,6 @@ void File_Mpeg4v::vop_start()
     else if (vop_coding_type==2) BVOP_Count++; //Type B
     else if (vop_coding_type==3) SVOP_Count++; //Type S
 
-    //Specific
-    if (File_Name.empty())
-    {
-        RIFF_VOP_Count++;
-        if (RIFF_VOP_Count>RIFF_VOP_Count_Max)
-            RIFF_VOP_Count_Max=RIFF_VOP_Count;
-    }
 
     FILLING_BEGIN();
         //NextCode

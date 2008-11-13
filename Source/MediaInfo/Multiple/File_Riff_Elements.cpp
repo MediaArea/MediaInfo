@@ -1856,7 +1856,7 @@ void File_Riff::AVI__movi_xxxx___dc()
 
     //Specific
     #if defined(MEDIAINFO_MPEG4V_YES)
-        if (Stream[Stream_ID].Specific_IsMpeg4v && ((File_Mpeg4v*)Stream[Stream_ID].Parser)->RIFF_VOP_Count>1)
+        if (Stream[Stream_ID].Specific_IsMpeg4v && ((File_Mpeg4v*)Stream[Stream_ID].Parser)->Frame_Count_InThisBlock>1)
         {
             Stream[Stream_ID].SearchingPayload=false;
             stream_Count--;

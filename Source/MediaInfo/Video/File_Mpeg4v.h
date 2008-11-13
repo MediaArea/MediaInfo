@@ -46,14 +46,9 @@ public :
     bool   FrameIsAlwaysComplete;
     void   OnlyVOP(); //Data has only VOPs in it (configuration is elsewhere)
 
-    //Out
-    size_t RIFF_VOP_Count;     //RIFF limited : count the number of VOP in this chunk
-    size_t RIFF_VOP_Count_Max; //RIFF limited : count the number of VOP in this chunk
-
 protected :
     //Format
     bool FileHeader_Begin ();
-    void Read_Buffer_Continue ();
     void Read_Buffer_Finalize ();
 
 public :

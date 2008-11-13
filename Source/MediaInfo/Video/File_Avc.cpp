@@ -604,7 +604,10 @@ void File_Avc::slice_header()
         if (File_Offset+Buffer_Offset+Element_Size==File_Size)
             Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
         if (pic_order_cnt_type!=0)
+        {
             Frame_Count++;
+            Frame_Count_InThisBlock++;
+        }
         else
             Frame_Count=TemporalReference.size();
 

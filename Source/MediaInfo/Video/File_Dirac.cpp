@@ -731,6 +731,7 @@ void File_Dirac::picture()
 
         //Filling only if not already done
         Frame_Count++;
+        Frame_Count_InThisBlock++;
         if (Frame_Count>=Frame_Count_Valid && Count_Get(Stream_Video)==0)
             picture_Fill();
     FILLING_END();

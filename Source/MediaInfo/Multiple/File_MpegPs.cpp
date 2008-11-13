@@ -1036,6 +1036,7 @@ bool File_MpegPs::BookMark_Needed()
     }
     if (ToJump!=(int64u)-1)
     {
+        Info("MPEG-PS, Jumping to nearly end of file");
         Parsing_End_ForDTS=true;
         File_GoTo=ToJump;
         return true;
