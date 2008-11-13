@@ -1274,7 +1274,8 @@ void File_Mpegv::Detect_EOF()
         Time_End_Frames=(int8u)-1;
 
         //Waiting for a group_start
-        Streams[0x00].Searching_TimeStamp_End=false; //picture_start
+        if (!IsSub)
+            Streams[0x00].Searching_TimeStamp_End=false; //picture_start
         Streams[0xB5].Searching_TimeStamp_End=false; //extension_start
 
         //Jumping
