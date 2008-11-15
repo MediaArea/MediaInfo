@@ -22,16 +22,16 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#include <MediaInfo/Setup.h>
+#include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include <ZenLib/Utils.h>
-#include <ZenLib/File.h>
-#include <ZenLib/FileName.h>
+#include "ZenLib/Utils.h"
+#include "ZenLib/File.h"
+#include "ZenLib/FileName.h"
 #include "MediaInfo/File__Analyze.h"
 using namespace ZenLib;
 //---------------------------------------------------------------------------

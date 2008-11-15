@@ -19,7 +19,7 @@
 
 //---------------------------------------------------------------------------
 // Compilation conditions
-#include <MediaInfo/Setup.h>
+#include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -28,8 +28,8 @@
 //---------------------------------------------------------------------------
 #include "MediaInfoList_Internal.h"
 #include "MediaInfo/MediaInfo_Config.h"
-#include <ZenLib/ZtringListList.h>
-#include <ZenLib/Dir.h>
+#include "ZenLib/ZtringListList.h"
+#include "ZenLib/Dir.h"
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 

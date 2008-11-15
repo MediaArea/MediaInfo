@@ -23,7 +23,7 @@
 
 //---------------------------------------------------------------------------
 // Compilation conditions
-#include <MediaInfo/Setup.h>
+#include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -31,8 +31,8 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Duplicate/File__Duplicate__Writer.h"
 #include "MediaInfo/MediaInfo_Config.h"
-#include <ZenLib/ZtringList.h>
-#include <ZenLib/File.h>
+#include "ZenLib/ZtringList.h"
+#include "ZenLib/File.h"
 #include <cstring>
 using namespace ZenLib;
 //---------------------------------------------------------------------------

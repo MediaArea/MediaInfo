@@ -19,7 +19,7 @@
 
 //---------------------------------------------------------------------------
 // Compilation conditions
-#include <MediaInfo/Setup.h>
+#include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -33,9 +33,9 @@
 #include "MediaInfo/Multiple/File_Ogg_SubElement.h"
 #include "MediaInfo/Audio/File_Vorbis.h"
 #include "MediaInfo/Tag/File_VorbisCom.h"
-#include <ZenLib/ZtringListList.h>
-#include <ZenLib/BitStream.h>
-#include <ZenLib/Utils.h>
+#include "ZenLib/ZtringListList.h"
+#include "ZenLib/BitStream.h"
+#include "ZenLib/Utils.h"
 #include <cmath>
 #include <memory>
 #if defined(MEDIAINFO_FLAC_YES)

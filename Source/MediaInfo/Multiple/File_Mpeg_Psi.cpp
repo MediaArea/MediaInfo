@@ -19,7 +19,7 @@
 
 //---------------------------------------------------------------------------
 // Compilation conditions
-#include <MediaInfo/Setup.h>
+#include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -54,12 +54,12 @@ const char* Mpeg_Psi_ATSC_table_type(int16u ID)
         case 0x0003 : return "Cable VCT with current_next_indicator==0";
         case 0x0004 : return "Channel ETT";
         case 0x0005 : return "DCCSCT";
-        case 0x0010 : return "Short-form Virtual Channel Table—VCM Subtyp";
-        case 0x0011 : return "Short-form Virtual Channel Table—DCM Subtyp";
-        case 0x0012 : return "Short-form Virtual Channel Table—ICM Subtyp";
-        case 0x0020 : return "Network Information Table—CDS Table Subtype";
-        case 0x0021 : return "Network Information Table—MMS Table Subtype";
-        case 0x0030 : return "Network Text Tabl e—SNS Subtype";
+        case 0x0010 : return "Short-form Virtual Channel Table-VCM Subtyp";
+        case 0x0011 : return "Short-form Virtual Channel Table-DCM Subtyp";
+        case 0x0012 : return "Short-form Virtual Channel Table-ICM Subtyp";
+        case 0x0020 : return "Network Information Table-CDS Table Subtype";
+        case 0x0021 : return "Network Information Table-MMS Table Subtype";
+        case 0x0030 : return "Network Text Tabl e-SNS Subtype";
         default :
             if (ID>=0x0100
              && ID<=0x017F) return "Event Information Table (EIT)";
@@ -476,7 +476,7 @@ const char* Mpeg_Psi_atsc_service_type(int8u service_type)
 // Init: int32u CRC_32 = 0xFFFFFFFF;
 // for each data byte do
 //     CRC_32=(CRC_32<<8) ^ CRC_32_Table[(CRC_32>>24)^(data_byte)];
-static int32u CRC_32_Table[256] =
+int32u Psi_CRC_32_Table[256] =
 {
   0x00000000, 0x04C11DB7, 0x09823B6E, 0x0D4326D9,
   0x130476DC, 0x17C56B6B, 0x1A864DB2, 0x1E475005,
@@ -623,7 +623,7 @@ void File_Mpeg_Psi::Header_Parse()
 
         while(CRC_32_Buffer<Buffer+Buffer_Offset+(size_t)Element_Offset+section_length) //from table_id to the end, CRC_32 included
         {
-            CRC_32=(CRC_32<<8) ^ CRC_32_Table[(CRC_32>>24)^(*CRC_32_Buffer)];
+            CRC_32=(CRC_32<<8) ^ Psi_CRC_32_Table[(CRC_32>>24)^(*CRC_32_Buffer)];
             CRC_32_Buffer++;
         }
         CRC_32=0;

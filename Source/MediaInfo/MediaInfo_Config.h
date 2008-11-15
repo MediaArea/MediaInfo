@@ -27,11 +27,11 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include <MediaInfo/MediaInfo_Internal_Const.h>
-#include <ZenLib/CriticalSection.h>
-#include <ZenLib/ZtringListList.h>
-#include <ZenLib/Translation.h>
-#include <ZenLib/InfoMap.h>
+#include "MediaInfo/MediaInfo_Internal_Const.h"
+#include "ZenLib/CriticalSection.h"
+#include "ZenLib/ZtringListList.h"
+#include "ZenLib/Translation.h"
+#include "ZenLib/InfoMap.h"
 #include <map>
 #include <vector>
 using namespace ZenLib;

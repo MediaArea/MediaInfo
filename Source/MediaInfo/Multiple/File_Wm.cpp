@@ -23,7 +23,7 @@
 
 //---------------------------------------------------------------------------
 // Compilation conditions
-#include <MediaInfo/Setup.h>
+#include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -38,7 +38,7 @@
 #if defined(MEDIAINFO_MPEGPS_YES)
     #include "MediaInfo/Multiple/File_MpegPs.h"
 #endif
-#include <ZenLib/Utils.h>
+#include "ZenLib/Utils.h"
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 

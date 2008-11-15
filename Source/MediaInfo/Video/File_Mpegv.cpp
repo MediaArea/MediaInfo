@@ -19,7 +19,7 @@
 
 //---------------------------------------------------------------------------
 // Compilation conditions
-#include <MediaInfo/Setup.h>
+#include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -115,8 +115,8 @@ const char* Mpegv_profile_and_level_indication_level[]=
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Video/File_Mpegv.h"
-#include <ZenLib/BitStream.h>
-#include <ZenLib/Utils.h>
+#include "ZenLib/BitStream.h"
+#include "ZenLib/Utils.h"
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 

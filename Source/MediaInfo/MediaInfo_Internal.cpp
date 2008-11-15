@@ -19,7 +19,7 @@
 
 //---------------------------------------------------------------------------
 // Compilation conditions
-#include <MediaInfo/Setup.h>
+#include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -30,9 +30,9 @@
 #include "MediaInfo/MediaInfo_Config.h"
 #include "MediaInfo/File__Base.h"
 #include "MediaInfo/File__MultipleParsing.h"
-#include <ZenLib/FileName.h>
-#include <ZenLib/File.h>
-#include <ZenLib/InfoMap.h>
+#include "ZenLib/FileName.h"
+#include "ZenLib/File.h"
+#include "ZenLib/InfoMap.h"
 #include <vector>
 #include <cstring>
 using namespace ZenLib;

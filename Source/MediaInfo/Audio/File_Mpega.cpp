@@ -23,7 +23,7 @@
 
 //---------------------------------------------------------------------------
 // Compilation conditions
-#include <MediaInfo/Setup.h>
+#include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -227,8 +227,8 @@ const int8u Mpega_SlotSize[4]= //A frame is coposed of slots
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Audio/File_Mpega.h"
-#include <ZenLib/BitStream.h>
-#include <ZenLib/Utils.h>
+#include "ZenLib/BitStream.h"
+#include "ZenLib/Utils.h"
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 

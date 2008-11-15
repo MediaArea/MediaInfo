@@ -19,7 +19,7 @@
 
 //---------------------------------------------------------------------------
 // Compilation conditions
-#include <MediaInfo/Setup.h>
+#include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -31,8 +31,8 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Swf.h"
-#include <ZenLib/Utils.h>
-#include <ZenLib/BitStream.h>
+#include "ZenLib/Utils.h"
+#include "ZenLib/BitStream.h"
 #include <zlib.h>
 using namespace ZenLib;
 //---------------------------------------------------------------------------

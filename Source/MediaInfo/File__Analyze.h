@@ -25,9 +25,9 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Base.h"
 #include "MediaInfo/File__Analyse_Automatic.h"
-#include <ZenLib/BitStream.h>
-#include <ZenLib/int128u.h>
-#include <ZenLib/ZtringListList.h>
+#include "ZenLib/BitStream.h"
+#include "ZenLib/int128u.h"
+#include "ZenLib/ZtringListList.h"
 #include <vector>
 using namespace ZenLib;
 //---------------------------------------------------------------------------

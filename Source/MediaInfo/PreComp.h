@@ -22,19 +22,19 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#if !defined(_WIN32)
+#ifdef ZENLIB_USEWX
     #include <wx/wxprec.h>
     #ifdef WX_PRECOMP
         #include <string>
         #include <sstream>
         #include <vector>
     #endif
-#else //_WIN32
+#else //ZENLIB_USEWX
     #if defined(__BORLANDC__) ||defined(__VISUALC__)
         #include <string>
         #include <sstream>
         #include <vector>
     #endif
-#endif //_WIN32
+#endif //ZENLIB_USEWX
 //---------------------------------------------------------------------------
 

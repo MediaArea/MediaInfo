@@ -65,7 +65,7 @@
 
 //---------------------------------------------------------------------------
 //Needed in the whole library
-#include <ZenLib/Conf.h>
+#include "ZenLib/Conf.h"
 
 //***************************************************************************
 // Compilation conditions

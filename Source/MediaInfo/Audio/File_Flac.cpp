@@ -19,7 +19,7 @@
 
 //---------------------------------------------------------------------------
 // Compilation conditions
-#include <MediaInfo/Setup.h>
+#include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -32,7 +32,7 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Audio/File_Flac.h"
 #include "MediaInfo/Tag/File_VorbisCom.h"
-#include <ZenLib/Base64/base64.h>
+#include "ZenLib/Base64/base64.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

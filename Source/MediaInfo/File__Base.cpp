@@ -18,7 +18,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#include <MediaInfo/Setup.h>
+#include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -27,7 +27,7 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Base.h"
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
-#include <ZenLib/File.h>
+#include "ZenLib/File.h"
 #include <cstring>
 //---------------------------------------------------------------------------
 
