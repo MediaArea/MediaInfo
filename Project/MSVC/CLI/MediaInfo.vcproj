@@ -391,6 +391,14 @@
 					RelativePath="..\..\..\Source\Common\Core.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\..\Source\Common\Preferences.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\Common\Utils.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
