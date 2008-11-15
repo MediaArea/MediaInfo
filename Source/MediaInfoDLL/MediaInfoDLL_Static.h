@@ -23,8 +23,8 @@
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-#ifndef MediaInfoDLLH
-#define MediaInfoDLLH
+#ifndef MediaInfoDLL_StaticH
+#define MediaInfoDLL_StaticH
 
 /*-------------------------------------------------------------------------*/
 #if defined(_WIN32) && !defined(__MINGW32__) //MinGW32 does not support _declspec
