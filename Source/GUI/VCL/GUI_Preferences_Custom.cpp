@@ -92,7 +92,7 @@ void __fastcall TPreferences_CustomF::OKClick(TObject *Sender)
 
 int TPreferences_CustomF::Run(const Ztring &Name)
 {
-    EditedCustom.Load(Prefs->BaseFolder+Prefs->FolderNames[Custom]+_T("\\")+Name+_T(".csv"));
+    EditedCustom.Load(Prefs->BaseFolder+Prefs->FolderNames[Prefs_Custom]+_T("\\")+Name+_T(".csv"));
 
     ListeChange(NULL);
 

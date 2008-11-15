@@ -32,7 +32,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include <ZenLib/ZtringListListF.h>
+#include "ZenLib/ZtringListListF.h"
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -52,15 +52,15 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-enum List_t
+enum Prefs_t
 {
-    Language,           //List of words in the good language ("Name;Translation")
-    Sheet,              //Customized Sheet ("StreamKind|Name;Percentage of view")
-    Tree,               //Customized Tree  ("StreamKind|Name;Y or N")
-    Custom,             //Customized Text  ("StreamKind;Text for this streamKind")
-    Language_English,   //List of words in English ("Name;Translation")
-    Language_List,      //List of language translation in their language("Name;Translation")
-    List_Max,
+    Prefs_Language,           //List of words in the good language ("Name;Translation")
+    Prefs_Sheet,              //Customized Sheet ("StreamKind|Name;Percentage of view")
+    Prefs_Tree,               //Customized Tree  ("StreamKind|Name;Y or N")
+    Prefs_Custom,             //Customized Text  ("StreamKind;Text for this streamKind")
+    Prefs_Language_English,   //List of words in English ("Name;Translation")
+    Prefs_Language_List,      //List of language translation in their language("Name;Translation")
+    Prefs_Max,
 };
 
 //---------------------------------------------------------------------------
@@ -73,19 +73,19 @@ public:
     //Infos
     ZenLib::Ztring          BaseFolder; //Folder of the Configuration files
     ZenLib::ZtringListListF Config;     //Configuration file
-    ZenLib::ZtringList      FilesList[List_Max];  //List of available files for an Item
-    ZenLib::ZtringListListF Details[List_Max];
+    ZenLib::ZtringList      FilesList[Prefs_Max];  //List of available files for an Item
+    ZenLib::ZtringListListF Details[Prefs_Max];
 
     //Useful functions about preferences
     int Config_Create       ();
     int Config_Load         (); //Load the configuration, or create it if no exist. 1=Loaded, 2=Created
     int Config_Save         ();
     int Config_Remove       ();
-    int RefreshFilesList    (List_t KindOfList);
-    int Create              (List_t KindOfList, const ZenLib::Ztring &Name);
-    int Copy                (List_t KindOfList, const ZenLib::Ztring &From, const ZenLib::Ztring &To);
-    int Load                (List_t KindOfList, const ZenLib::Ztring &Name);
-    int Remove              (List_t KindOfList, const ZenLib::Ztring &Name);
+    int RefreshFilesList    (Prefs_t KindOfList);
+    int Create              (Prefs_t KindOfList, const ZenLib::Ztring &Name);
+    int Copy                (Prefs_t KindOfList, const ZenLib::Ztring &From, const ZenLib::Ztring &To);
+    int Load                (Prefs_t KindOfList, const ZenLib::Ztring &Name);
+    int Remove              (Prefs_t KindOfList, const ZenLib::Ztring &Name);
 
     //Related to user preferences - Action only if Preferences are OK
     int InternetCheck       (); //Test if there is new update

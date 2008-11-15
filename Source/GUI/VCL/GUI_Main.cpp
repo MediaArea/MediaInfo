@@ -335,7 +335,7 @@ void __fastcall TMainF::FormResize(TObject *Sender)
         for (int Pos=0; Pos<Page_Sheet_Sheet->ColCount; Pos++)
         {
             Ztring Z1=_T("Column"); Z1+=Ztring::ToZtring(Pos);
-            Total+=Prefs->Details[Sheet](Z1, 4).To_int32s();
+            Total+=Prefs->Details[Prefs_Sheet](Z1, 4).To_int32s();
         }
         if (Total==0)
             Total=100;
@@ -343,7 +343,7 @@ void __fastcall TMainF::FormResize(TObject *Sender)
         for (int Pos=0; Pos<Page_Sheet_Sheet->ColCount; Pos++)
         {
             Ztring Z1=_T("Column"); Z1+=Ztring::ToZtring(Pos);
-            Page_Sheet_Sheet->ColWidths[Pos]=Prefs->Details[Sheet](Z1, 4).To_int32s()*Page_Sheet_Sheet->ClientWidth/Total-1;
+            Page_Sheet_Sheet->ColWidths[Pos]=Prefs->Details[Prefs_Sheet](Z1, 4).To_int32s()*Page_Sheet_Sheet->ClientWidth/Total-1;
         }
     }
 
@@ -403,10 +403,10 @@ void __fastcall TMainF::Translate()
 {
     //Menu - Language
     M_Language->Clear();
-    for (size_t Pos=0; Pos<Prefs->FilesList[Language].size(); Pos++)
+    for (size_t Pos=0; Pos<Prefs->FilesList[Prefs_Language].size(); Pos++)
     {
         TTntMenuItem* MenuItem=new TTntMenuItem(NULL);
-        MenuItem->Caption=Prefs->FilesList[Language_List](Pos).c_str(); //Special case : Languages, should show the name of language in the local version
+        MenuItem->Caption=Prefs->FilesList[Prefs_Language_List](Pos).c_str(); //Special case : Languages, should show the name of language in the local version
         MenuItem->OnClick=M_LanguageClick;
         M_Language->Add(MenuItem);
     }
@@ -513,7 +513,7 @@ void __fastcall TMainF::Translate()
     OpenDialog1->Title=Prefs->Translate(_T("Choose files")).c_str();
 
     //MediaInfo
-    I->Option_Static(_T("Language"), Prefs->Details[Language].Read());
+    I->Option_Static(_T("Language"), Prefs->Details[Prefs_Language].Read());
 }
 
 //---------------------------------------------------------------------------
@@ -546,15 +546,15 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             //Configure
             Page_Sheet_Sheet->RowCount=1+FilesCount;
             Page_Sheet_Sheet->FixedRows=1;
-            Page_Sheet_Sheet->ColCount=Prefs->Details[Sheet](_T("ColumnsCount")).To_int32s();
+            Page_Sheet_Sheet->ColCount=Prefs->Details[Prefs_Sheet](_T("ColumnsCount")).To_int32s();
             for (int Pos=0; Pos<Page_Sheet_Sheet->ColCount; Pos++)
             {
                 Ztring Z1=_T("Column"); Z1+=Ztring::ToZtring(Pos);
                 //Searching kind of stream
                 stream_t S;
                 ZenLib::Char C=_T('G');
-                if (Prefs->Details[Sheet](Z1, 1).size())
-                    C=Prefs->Details[Sheet](Z1, 1)[0];
+                if (Prefs->Details[Prefs_Sheet](Z1, 1).size())
+                    C=Prefs->Details[Prefs_Sheet](Z1, 1)[0];
                 switch (C)
                 {
                   case _T('G'): S=Stream_General; break;
@@ -564,9 +564,9 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                   case _T('C'): S=Stream_Chapters; break;
                   default: S=Stream_General;
                 }
-                Page_Sheet_Sheet->Cells[Pos][0]=I->Get(0, S, Prefs->Details[Sheet](Z1, 2).To_int32u(), Prefs->Details[Sheet](Z1, 3), Info_Name_Text).c_str();
+                Page_Sheet_Sheet->Cells[Pos][0]=I->Get(0, S, Prefs->Details[Prefs_Sheet](Z1, 2).To_int32u(), Prefs->Details[Prefs_Sheet](Z1, 3), Info_Name_Text).c_str();
                 if (C!=_T('G'))
-                    Page_Sheet_Sheet->Cells[Pos][0]=WideString((Prefs->Details[Sheet](Z1, 1)+Prefs->Details[Sheet](Z1, 2)).c_str())+WideString(' ')+Page_Sheet_Sheet->Cells[Pos][0];
+                    Page_Sheet_Sheet->Cells[Pos][0]=WideString((Prefs->Details[Prefs_Sheet](Z1, 1)+Prefs->Details[Prefs_Sheet](Z1, 2)).c_str())+WideString(' ')+Page_Sheet_Sheet->Cells[Pos][0];
                 FormResize(NULL);
             }
             //Show all available files
@@ -577,8 +577,8 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                     //Searching Stream kind
                     stream_t S;
                     ZenLib::Char C=_T('G');
-                    if (Prefs->Details[Sheet](Z1, 1).size())
-                        C=Prefs->Details[Sheet](Z1, 1)[0];
+                    if (Prefs->Details[Prefs_Sheet](Z1, 1).size())
+                        C=Prefs->Details[Prefs_Sheet](Z1, 1)[0];
                     switch (C)
                     {
                       case _T('G'): S=Stream_General; break;
@@ -589,7 +589,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                       default: S=Stream_General;
                     }
                     //Showing
-                    Page_Sheet_Sheet->Cells[Pos][1+FilePos]=I->Get(FilePos, S, Prefs->Details[Sheet](Z1, 2).To_int32u(), Prefs->Details[Sheet](Z1, 3)).c_str();
+                    Page_Sheet_Sheet->Cells[Pos][1+FilePos]=I->Get(FilePos, S, Prefs->Details[Prefs_Sheet](Z1, 2).To_int32u(), Prefs->Details[Prefs_Sheet](Z1, 3)).c_str();
                 }
         }
         else
@@ -714,7 +714,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     //Custom
     else if (Page==Page_Custom)
     {
-        I->Option_Static(_T("Inform"), Prefs->Details[Custom].Read());
+        I->Option_Static(_T("Inform"), Prefs->Details[Prefs_Custom].Read());
         Ztring S1=I->Inform();
         if (S1.empty())
             S1=Prefs->Translate(_T("At least one file")).c_str();
@@ -1117,10 +1117,10 @@ void __fastcall TMainF::M_Help_SupportedFormatsClick(TObject *Sender)
 void __fastcall TMainF::M_LanguageClick(TObject *Sender)
 {
     //Special case : Languages, should show the name of language in the local version
-    Ztring Title=Prefs->FilesList[Language](((TTntMenuItem*)Sender)->MenuIndex);
+    Ztring Title=Prefs->FilesList[Prefs_Language](((TTntMenuItem*)Sender)->MenuIndex);
 
     //Load
-    Prefs->Load(Language, Title);
+    Prefs->Load(Prefs_Language, Title);
     Translate();
 }
 
@@ -1168,7 +1168,6 @@ void __fastcall TMainF::Page_Easy_FileChange(TObject *Sender)
                 Ztring Z1=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T("Count"));
                 Ztring Z2=Ztring(_T(" "))+I->Get(Page_Position, (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text);
                 Z2.MakeLowerCase();
-                int A=I->Count_Get(Page_Position, (stream_t)KindOfStream);
                 if (I->Count_Get(Page_Position, (stream_t)KindOfStream)>1)
                     Z2+=_T(" stream2");
                 else

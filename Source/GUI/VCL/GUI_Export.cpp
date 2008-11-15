@@ -96,7 +96,7 @@ void TExportF::Name_Adapt()
     }
     else if (Export->ActivePage==Export_Custom)
     {
-        if (Prefs->Details[Custom](Stream_Max+2, 1).size()>0 && Prefs->Details[Custom](Stream_Max+2, 1)[0]==_T('<')) //test if HTML
+        if (Prefs->Details[Prefs_Custom](Stream_Max+2, 1).size()>0 && Prefs->Details[Prefs_Custom](Stream_Max+2, 1)[0]==_T('<')) //test if HTML
         {
             FN.Extension_Set(_T("html"));
             SaveDialog1->DefaultExt=_T("html");
@@ -261,15 +261,15 @@ void TExportF::Export_Run()
     {
         ZtringListListF SheetF;
         //Configure
-        for (size_t Pos=0; Pos<Prefs->Details[Sheet].size(); Pos++)
+        for (size_t Pos=0; Pos<Prefs->Details[Prefs_Sheet].size(); Pos++)
         {
             Ztring Z1=_T("Column"); Z1+=Ztring::ToZtring(Pos);
             //Searching kind of stream
             stream_t S;
             ZenLib::Char C=_T('G');
-            if (Prefs->Details[Sheet].Find(Z1)==(size_t)-1)
+            if (Prefs->Details[Prefs_Sheet].Find(Z1)==(size_t)-1)
                 break;
-            C=Prefs->Details[Sheet](Z1, 1)[0];
+            C=Prefs->Details[Prefs_Sheet](Z1, 1)[0];
             switch (C)
             {
               case _T('G'): S=Stream_General; break;
@@ -279,21 +279,21 @@ void TExportF::Export_Run()
               case _T('C'): S=Stream_Chapters; break;
               default: S=Stream_General;
             }
-            SheetF(0, Pos)=ToExport->Get(0, S, Prefs->Details[Sheet](Z1, 2).To_int32u(), Prefs->Details[Sheet](Z1, 3), Info_Name_Text);
+            SheetF(0, Pos)=ToExport->Get(0, S, Prefs->Details[Prefs_Sheet](Z1, 2).To_int32u(), Prefs->Details[Prefs_Sheet](Z1, 3), Info_Name_Text);
             if (C!=_T('G'))
-                SheetF(0, Pos)=Prefs->Details[Sheet](Z1, 1)+Prefs->Details[Sheet](Z1, 2)+_T(" ")+SheetF(0, Pos);
+                SheetF(0, Pos)=Prefs->Details[Prefs_Sheet](Z1, 1)+Prefs->Details[Prefs_Sheet](Z1, 2)+_T(" ")+SheetF(0, Pos);
         }
         //Show all available files
         for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
-            for (size_t Pos=0; Pos<Prefs->Details[Sheet].size(); Pos++)
+            for (size_t Pos=0; Pos<Prefs->Details[Prefs_Sheet].size(); Pos++)
             {
                 Ztring Z1=_T("Column"); Z1+=Ztring::ToZtring(Pos);
                 //Searching Stream kind
                 stream_t S;
                 ZenLib::Char C=_T('G');
-                if (Prefs->Details[Sheet].Find(Z1)==(size_t)-1)
+                if (Prefs->Details[Prefs_Sheet].Find(Z1)==(size_t)-1)
                     break;
-                C=Prefs->Details[Sheet](Z1, 1)[0];
+                C=Prefs->Details[Prefs_Sheet](Z1, 1)[0];
                 switch (C)
                 {
                   case _T('G'): S=Stream_General; break;
@@ -304,7 +304,7 @@ void TExportF::Export_Run()
                   default: S=Stream_General;
                 }
                 //Showing
-                SheetF(1+FilePos, Pos)=ToExport->Get(FilePos, S, Prefs->Details[Sheet](Z1, 2).To_int32u(), Prefs->Details[Sheet](Z1, 3));
+                SheetF(1+FilePos, Pos)=ToExport->Get(FilePos, S, Prefs->Details[Prefs_Sheet](Z1, 2).To_int32u(), Prefs->Details[Prefs_Sheet](Z1, 3));
             }
 
         //Separators
@@ -347,15 +347,15 @@ void TExportF::Export_Run()
     }
     else if (Export->ActivePage==Export_Custom)
     {
-        ToExport->Option_Static(_T("Inform"), Prefs->Details[Custom].Read());
+        ToExport->Option_Static(_T("Inform"), Prefs->Details[Prefs_Custom].Read());
         if (Custom_One->State==cbChecked)
         {
             for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
             {
                 Ztring Z1=ToExport->Inform(FilePos).c_str();
                 //Put begin and end of file
-                Z1=Prefs->Details[Custom](Stream_Max+2, 1)+Z1; //Begin
-                Z1+=Prefs->Details[Custom](Stream_Max+4, 1); //End
+                Z1=Prefs->Details[Prefs_Custom](Stream_Max+2, 1)+Z1; //Begin
+                Z1+=Prefs->Details[Prefs_Custom](Stream_Max+4, 1); //End
                 Z1.FindAndReplace(_T("\\r\\n"),_T( "\r\n"), 0, Ztring_Recursive);
                 Text=Z1.c_str();;//Write file
                 File F;

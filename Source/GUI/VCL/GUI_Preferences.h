@@ -111,8 +111,8 @@ __published:    // IDE-managed Components
 private:    // User declarations
 public:        // User declarations
     __fastcall TPreferencesF(TComponent* Owner);
-    void __fastcall ComboBox_Update(TTntComboBox *CB, List_t List);
-    void __fastcall ComboBox_SelChange(TTntComboBox *CB, List_t List);
+    void __fastcall ComboBox_Update(TTntComboBox *CB, Prefs_t List);
+    void __fastcall ComboBox_SelChange(TTntComboBox *CB, Prefs_t List);
     void __fastcall GUI_Configure();
 };
 //---------------------------------------------------------------------------

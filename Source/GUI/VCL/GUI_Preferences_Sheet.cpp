@@ -64,7 +64,7 @@ __fastcall TPreferences_SheetF::TPreferences_SheetF(TComponent* Owner)
 
 int TPreferences_SheetF::Run(const Ztring &Name)
 {
-    EditedSheet.Load(Prefs->BaseFolder+Prefs->FolderNames[Sheet]+_T("\\")+Name+_T(".csv"));
+    EditedSheet.Load(Prefs->BaseFolder+Prefs->FolderNames[Prefs_Sheet]+_T("\\")+Name+_T(".csv"));
     ColumnsCount->ItemIndex=EditedSheet(_T("ColumnsCount"), 1).To_int32s();
     Columns_Adapt();
     for (int Pos=0; Pos<Columns_Count; Pos++)

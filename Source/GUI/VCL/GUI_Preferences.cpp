@@ -61,14 +61,14 @@ __fastcall TPreferencesF::TPreferencesF(TComponent* Owner)
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TPreferencesF::ComboBox_Update(TTntComboBox *CB, List_t List)
+void __fastcall TPreferencesF::ComboBox_Update(TTntComboBox *CB, Prefs_t List)
 {
     //List Update
     Prefs->RefreshFilesList(List);
 
     //Special case : Languages, should show the name of language in the local version
     if (CB==General_Language_Sel)
-        List=Language_List;
+        List=Prefs_Language_List;
 
     //ComboBox Listing
     CB->Items->Clear();
@@ -77,14 +77,14 @@ void __fastcall TPreferencesF::ComboBox_Update(TTntComboBox *CB, List_t List)
 
     //Special case : Languages, should show the name of language in the local version
     if (CB==General_Language_Sel)
-        List=Language;
+        List=Prefs_Language;
 
     //Selecting
     CB->ItemIndex=Prefs->FilesList[List].Find(Prefs->Config(Prefs->FolderNames(List)));
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TPreferencesF::ComboBox_SelChange(TTntComboBox *CB, List_t List)
+void __fastcall TPreferencesF::ComboBox_SelChange(TTntComboBox *CB, Prefs_t List)
 {
     Prefs->Config(Prefs->FolderNames(List))=GUI_Text(CB->Text);
     Prefs->Load(List, GUI_Text(CB->Text));
@@ -94,11 +94,11 @@ void __fastcall TPreferencesF::ComboBox_SelChange(TTntComboBox *CB, List_t List)
 void __fastcall TPreferencesF::General_Language_SelChange(TObject *Sender)
 {
     //Config
-    size_t Language_Pos=Prefs->FilesList[Language_List].Find(GUI_Text(General_Language_Sel->Text)); //Special case : Languages, should show the name of language in the local version
+    size_t Language_Pos=Prefs->FilesList[Prefs_Language_List].Find(GUI_Text(General_Language_Sel->Text)); //Special case : Languages, should show the name of language in the local version
     if (Language_Pos==(size_t)-1)
         return;
-    Prefs->Config(Prefs->FolderNames(Language))=Prefs->FilesList[Language](Language_Pos); //ComboBox_SelChange(General_Language_Sel, Language);
-    Prefs->Load(Language, Prefs->FilesList[Language](Language_Pos)); //ComboBox_SelChange(General_Language_Sel, Language);
+    Prefs->Config(Prefs->FolderNames(Prefs_Language))=Prefs->FilesList[Prefs_Language](Language_Pos); //ComboBox_SelChange(General_Language_Sel, Language);
+    Prefs->Load(Prefs_Language, Prefs->FilesList[Prefs_Language](Language_Pos)); //ComboBox_SelChange(General_Language_Sel, Language);
 
     Language_Sel->ItemIndex=General_Language_Sel->ItemIndex;
 
@@ -155,7 +155,7 @@ void __fastcall TPreferencesF::General_Output_SelChange(TObject *Sender)
 void __fastcall TPreferencesF::Language_SelChange(TObject *Sender)
 {
     //Delete button
-    if (GUI_Text(Language_Sel->Text)==Prefs->DefaultNames[Language])
+    if (GUI_Text(Language_Sel->Text)==Prefs->DefaultNames[Prefs_Language])
         Language_Delete->Enabled=false;
     else
         Language_Delete->Enabled=true;
@@ -164,7 +164,7 @@ void __fastcall TPreferencesF::Language_SelChange(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Customize_SheetShow(TObject *Sender)
 {
-    ComboBox_Update(Sheet_Sel, Sheet);
+    ComboBox_Update(Sheet_Sel, Prefs_Sheet);
     Sheet_SelChange(NULL);
 }
 
@@ -172,7 +172,7 @@ void __fastcall TPreferencesF::Customize_SheetShow(TObject *Sender)
 void __fastcall TPreferencesF::Sheet_SelChange(TObject *Sender)
 {
     //Delete button
-    if (GUI_Text(Sheet_Sel->Text)==Prefs->DefaultNames[Sheet])
+    if (GUI_Text(Sheet_Sel->Text)==Prefs->DefaultNames[Prefs_Sheet])
         Sheet_Delete->Enabled=false;
     else
         Sheet_Delete->Enabled=true;
@@ -184,8 +184,8 @@ void __fastcall TPreferencesF::Sheet_SelChange(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Sheet_DeleteClick(TObject *Sender)
 {
-    Prefs->Remove(Sheet, GUI_Text(Sheet_Sel->Text));
-    ComboBox_Update(Sheet_Sel, Sheet);
+    Prefs->Remove(Prefs_Sheet, GUI_Text(Sheet_Sel->Text));
+    ComboBox_Update(Sheet_Sel, Prefs_Sheet);
 }
 
 //---------------------------------------------------------------------------
@@ -203,11 +203,11 @@ void __fastcall TPreferencesF::Sheet_NewClick(TObject *Sender)
     if (!InputQuery(_T("New sheet"), _T("Enter name of new sheet"), S1))
         return;
 
-    Prefs->Create(Sheet, Ztring().From_Local(S1.c_str()));
-    ComboBox_Update(Sheet_Sel, Sheet);
+    Prefs->Create(Prefs_Sheet, Ztring().From_Local(S1.c_str()));
+    ComboBox_Update(Sheet_Sel, Prefs_Sheet);
 
     //Selecting and edit
-    Sheet_Sel->ItemIndex=Prefs->FilesList[Sheet].Find(Ztring().From_Local(S1.c_str()));
+    Sheet_Sel->ItemIndex=Prefs->FilesList[Prefs_Sheet].Find(Ztring().From_Local(S1.c_str()));
     Sheet_EditClick(Sender);
 }
 
@@ -215,7 +215,7 @@ void __fastcall TPreferencesF::Sheet_NewClick(TObject *Sender)
 void __fastcall TPreferencesF::Custom_SelChange(TObject *Sender)
 {
     //Delete button
-    if (GUI_Text(Custom_Sel->Text)==Prefs->DefaultNames[Custom])
+    if (GUI_Text(Custom_Sel->Text)==Prefs->DefaultNames[Prefs_Custom])
         Custom_Delete->Enabled=false;
     else
         Custom_Delete->Enabled=true;
@@ -317,21 +317,21 @@ void __fastcall TPreferencesF::Language_NewClick(TObject *Sender)
     if (!InputQuery(_T("New language"), _T("Enter name of new language"), S1))
         return;
 
-    Prefs->Create(Language, Ztring().From_Local(S1.c_str()));
-    ComboBox_Update(General_Language_Sel, Language);
-    ComboBox_Update(Language_Sel, Language);
+    Prefs->Create(Prefs_Language, Ztring().From_Local(S1.c_str()));
+    ComboBox_Update(General_Language_Sel, Prefs_Language);
+    ComboBox_Update(Language_Sel, Prefs_Language);
 
     //Selecting and edit
-    Language_Sel->ItemIndex=Prefs->FilesList[Language].Find(Ztring().From_Local(S1.c_str()));
+    Language_Sel->ItemIndex=Prefs->FilesList[Prefs_Language].Find(Ztring().From_Local(S1.c_str()));
     Language_EditClick(Sender);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Language_DeleteClick(TObject *Sender)
 {
-    Prefs->Remove(Language, GUI_Text(Language_Sel->Text));
-    ComboBox_Update(General_Language_Sel, Language);
-    ComboBox_Update(Language_Sel, Language);
+    Prefs->Remove(Prefs_Language, GUI_Text(Language_Sel->Text));
+    ComboBox_Update(General_Language_Sel, Prefs_Language);
+    ComboBox_Update(Language_Sel, Prefs_Language);
 }
 
 //---------------------------------------------------------------------------
@@ -341,19 +341,19 @@ void __fastcall TPreferencesF::Custom_NewClick(TObject *Sender)
     if (!InputQuery(_T("New Output"), _T("Enter name of new Output"), S1))
         return;
 
-    Prefs->Create(Custom, Ztring().From_Local(S1.c_str()));
-    ComboBox_Update(Custom_Sel, Custom);
+    Prefs->Create(Prefs_Custom, Ztring().From_Local(S1.c_str()));
+    ComboBox_Update(Custom_Sel, Prefs_Custom);
 
     //Selecting and edit
-    Custom_Sel->ItemIndex=Prefs->FilesList[Custom].Find(Ztring().From_Local(S1.c_str()));
+    Custom_Sel->ItemIndex=Prefs->FilesList[Prefs_Custom].Find(Ztring().From_Local(S1.c_str()));
     Custom_EditClick(Sender);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Custom_DeleteClick(TObject *Sender)
 {
-    Prefs->Remove(Custom, GUI_Text(Custom_Sel->Text));
-    ComboBox_Update(Custom_Sel, Custom);
+    Prefs->Remove(Prefs_Custom, GUI_Text(Custom_Sel->Text));
+    ComboBox_Update(Custom_Sel, Prefs_Custom);
 }
 
 //---------------------------------------------------------------------------
@@ -428,7 +428,7 @@ void __fastcall TPreferencesF::FormShow(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Setup_GeneralShow(TObject *Sender)
 {
-    ComboBox_Update(General_Language_Sel, Language);
+    ComboBox_Update(General_Language_Sel, Prefs_Language);
     CB_CheckUpdate->Checked=Prefs->Config(_T("CheckUpdate")).To_int32s();
     CB_InscrireShell->Checked=Prefs->Config(_T("ShellExtension")).To_int32s(); //Lecture Shell extension
     CB_InfoTip->Checked=Prefs->Config(_T("ShellInfoTip")).To_int32s(); //Lecture Shell extension
@@ -445,14 +445,14 @@ void __fastcall TPreferencesF::Setup_AdvancedShow(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Customize_LanguageShow(TObject *Sender)
 {
-    ComboBox_Update(Language_Sel, Language);
+    ComboBox_Update(Language_Sel, Prefs_Language);
     Language_SelChange(NULL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Customize_CustomShow(TObject *Sender)
 {
-    ComboBox_Update(Custom_Sel, Custom);
+    ComboBox_Update(Custom_Sel, Prefs_Custom);
     Custom_SelChange(NULL);
 }
 

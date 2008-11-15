@@ -117,8 +117,8 @@ int Preferences::Config_Load()
 
     //Default language
     if (!File::Exists(BaseFolder+_T("Language\\en.csv")))
-        Create(Language, _T("en"));
-    Load(Language_English, _T("en"));
+        Create(Prefs_Language, _T("en"));
+    Load(Prefs_Language_English, _T("en"));
 
     //Configuration
     Config.Load(BaseFolder+_T("MediaInfo.cfg"));
@@ -128,14 +128,14 @@ int Preferences::Config_Load()
         Retour=2;
     }
 
-    RefreshFilesList(Language);
-    Load(Language, Config(FolderNames[Language]));
-    RefreshFilesList(Sheet);
-    Load(Sheet, Config(FolderNames[Sheet]));
-    RefreshFilesList(Tree);
-    Load(Tree, Config(FolderNames[Tree]));
-    RefreshFilesList(Custom);
-    Load(Custom, Config(FolderNames[Custom]));
+    RefreshFilesList(Prefs_Language);
+    Load(Prefs_Language, Config(FolderNames[Prefs_Language]));
+    RefreshFilesList(Prefs_Sheet);
+    Load(Prefs_Sheet, Config(FolderNames[Prefs_Sheet]));
+    RefreshFilesList(Prefs_Tree);
+    Load(Prefs_Tree, Config(FolderNames[Prefs_Tree]));
+    RefreshFilesList(Prefs_Custom);
+    Load(Prefs_Custom, Config(FolderNames[Prefs_Custom]));
 
     //Shell Extension
     ExplorerShell();
@@ -165,17 +165,17 @@ int Preferences::Config_Remove()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-int Preferences::Create(List_t KindOfList, const ZenLib::Ztring &Name)
+int Preferences::Create(Prefs_t KindOfList, const ZenLib::Ztring &Name)
 {
     switch (KindOfList)
     {
-        case Language :
+        case Prefs_Language :
             Details[KindOfList]=MediaInfoLib::MediaInfo::Option_Static(_T("Language_Get")).c_str();
             if (Name!=_T("en"))
                 for (size_t Pos=0; Pos<Details[KindOfList].size(); Pos++)
                     Details[KindOfList](Pos, 1)=_T("");
             break;
-        case Sheet :
+        case Prefs_Sheet :
             Details[KindOfList]=_T(
                 "ColumnsCount;5\r\n"
                 "Column0;General;0;CompleteName;30\r\n"
@@ -184,9 +184,9 @@ int Preferences::Create(List_t KindOfList, const ZenLib::Ztring &Name)
                 "Column3;General;0;Audio_Codec_List;10\r\n"
                 "Column4;General;0;Text_Codec_List;10");
             break;
-        case Tree :
+        case Prefs_Tree :
             break;
-        case Custom :
+        case Prefs_Custom :
             Details[KindOfList]=_T(
                 "General;General           : %FileName%\\r\\nFormat            : %Format%$if(%OveralBitRate%, at %OveralBitRate/String%)\\r\\nLength            : %FileSize/String1% for %PlayTime/String1%\\r\\n\\r\\n\r\n"
                 "Video;Video #%StreamKindID%          : %Codec/String%$if(%BitRate%, at %BitRate/String%)\\r\\nAspect            : %Width% x %Height% (%AspectRatio%) at %fps% fps\\r\\n\\r\\n\r\n"
@@ -222,13 +222,13 @@ int Preferences::Create(List_t KindOfList, const ZenLib::Ztring &Name)
 }
 
 //---------------------------------------------------------------------------
-int Preferences::Copy(List_t KindOfList, const ZenLib::Ztring &From, const ZenLib::Ztring &To)
+int Preferences::Copy(Prefs_t KindOfList, const ZenLib::Ztring &From, const ZenLib::Ztring &To)
 {
     return File::Copy(BaseFolder+FolderNames[KindOfList]+_T("\\")+From+_T(".csv"), BaseFolder+_T("MediaInfo.")+FolderNames[KindOfList]+_T(".")+To+_T(".csv"));
 }
 
 //---------------------------------------------------------------------------
-int Preferences::Load(List_t KindOfList, const ZenLib::Ztring &Name)
+int Preferences::Load(Prefs_t KindOfList, const ZenLib::Ztring &Name)
 {
     //Test if the file exists
     if (!File::Exists(BaseFolder+FolderNames[KindOfList]+_T("\\")+Name+_T(".csv")))
@@ -240,9 +240,9 @@ int Preferences::Load(List_t KindOfList, const ZenLib::Ztring &Name)
 }
 
 //---------------------------------------------------------------------------
-int Preferences::Remove(List_t KindOfList, const ZenLib::Ztring &Name)
+int Preferences::Remove(Prefs_t KindOfList, const ZenLib::Ztring &Name)
 {
-    Ztring Lang; if (KindOfList==Custom) Lang=Config(_T("Language"))+_T("."); //Special case : if Custom; we add Language in the file name
+    Ztring Lang; if (KindOfList==Prefs_Custom) Lang=Config(_T("Language"))+_T("."); //Special case : if Custom; we add Language in the file name
     return File::Delete(BaseFolder+FolderNames[KindOfList]+_T("\\")+Lang+Name+_T(".csv"));
 }
 
@@ -251,7 +251,7 @@ int Preferences::Remove(List_t KindOfList, const ZenLib::Ztring &Name)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-int Preferences::RefreshFilesList(List_t KindOfList)
+int Preferences::RefreshFilesList(Prefs_t KindOfList)
 {
     //Default available?
     if (!File::Exists(BaseFolder+FolderNames[KindOfList]+_T("\\")+DefaultNames[KindOfList]+_T(".csv")))
@@ -259,10 +259,10 @@ int Preferences::RefreshFilesList(List_t KindOfList)
 
     //Listing
     FilesList[KindOfList]=Dir::GetAllFileNames(BaseFolder+FolderNames[KindOfList]+_T("\\")+_T("*.csv"));
-    if (KindOfList==Language)
+    if (KindOfList==Prefs_Language)
     {
         //Special case : Languages, should show the name of language in the local version
-        FilesList[Language_List].clear();
+        FilesList[Prefs_Language_List].clear();
         for (size_t Pos=0; Pos<FilesList[KindOfList].size(); Pos++)
         {
             ZtringListListF Lang;
@@ -271,7 +271,7 @@ int Preferences::RefreshFilesList(List_t KindOfList)
             if (Local.size()==0)
                 Local=FilesList[KindOfList][Pos].SubString(BaseFolder+FolderNames[KindOfList]+_T("\\"), _T(".csv"));
             if (Local.find(_T("(Chris)"))==Ztring::npos) //quick method for no more showing Chris translation (deprecated)
-                FilesList[Language_List].push_back(Local);
+                FilesList[Prefs_Language_List].push_back(Local);
             else
             {
                 //quick method for no more showing Chris translation (deprecated)
@@ -496,13 +496,13 @@ int Preferences::ShellToolTip()
 //---------------------------------------------------------------------------
 ZenLib::Ztring &Preferences::Translate(ZenLib::Ztring Name)
 {
-    size_t Pos=Details[Language].Find(Name, 0, 0, _T("=="), Ztring_CaseSensitive);
+    size_t Pos=Details[Prefs_Language].Find(Name, 0, 0, _T("=="), Ztring_CaseSensitive);
 
     //If not in the language, search for English language
-    if (Pos==-1 || Details[Language][Pos].size()<2)
-        return Details[Language_English](Name);
+    if (Pos==-1 || Details[Prefs_Language][Pos].size()<2)
+        return Details[Prefs_Language_English](Name);
     else
-        return Details[Language](Pos)(1);
+        return Details[Prefs_Language](Pos)(1);
 }
 
 
