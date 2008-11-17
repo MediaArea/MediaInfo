@@ -32,15 +32,15 @@
  day1; dia
  day2; dies
  day3; dies
- dB1
- dB2
- dB3
+ dB1; dB1
+ dB2; dB2
+ dB3; dB3
  file1; arxiu
  file2; arxius
  file3; arxius
- frame1
- frame2
- frame3
+ frame1; fotograma1
+ frame2; fotograma2
+ frame3; fotograma1
  fps1; fps
  fps2; fps
  fps3; fps
@@ -147,16 +147,16 @@ About_Hint;Quant a l'ajuda
 Accompaniment;Banda Sonora
 Actor;Actor
 Actor_Character;Personatge
-Added_Date
+Added_Date; Data d'actualització
 Address;Adreça
 Advanced;Avançat
 Advanced mode;Mode avançat
 Album;Àlbum
 Album_ReplayGain_Gain
 Album_ReplayGain_Peak
-Alignment
-Alignment_Aligned
-Alignment_Split
+Alignment; Alineació
+Alignment_Aligned; Alignment_Aligned
+Alignment_Split;Alignment_Split
 All;Tot
 Archival_Location;Arxivat a
 Arranger;Compositor
@@ -242,12 +242,12 @@ Count;Còmput
 Country;País
 Cover;Portada
 Cover_Datas;Informació de la portada
-Cover_Description
-Cover_Mime
-Cover_Type
-Cropped
+Cover_Description; Descripció de la portada
+Cover_Mime; Codificació de la portada
+Cover_Type; Tipus de portada
+Cropped; Retallat
 Custom;Personal
-Customize;Personalitzar
+Customize;Personalitza
 Date;Data
 Debug;Errada
 Decimal point;Punt decimal
@@ -255,14 +255,14 @@ Delay;Retard
 Delete;Esborra
 Description;Descripció
 Digitized_Date;Data de la digitalització
-Dimensions
+Dimensions; Mides
 Director;Director
 DirectorOfPhotography;Director de fotografia
 DisplayAspectRatio;Relació d'aspecte
 DistributedBy;Distribuït per
 Donate;Donació
-DotsPerInch
-Duration
+DotsPerInch; Punts per polçada
+Duration; Durada
 Edit;Edita
 EditedBy;Editat per
 EMail;Adreça electrònica
@@ -297,12 +297,12 @@ Folder (Recursively);Carpeta general
 Folder_Hint;Tria la carpeta general
 FolderName;Nom de la carpeta
 Format;Format
-Format_Description
-Format_Info
-Format_Profile
-Format_Settings
-Format_Settings_PacketBitStream
-Format_Settings_BVOP
+Format_Description; Descripció
+Format_Info; Info
+Format_Profile; Perfil
+Format_Settings; Configuració
+Format_Settings_PacketBitStream; Bitstream
+Format_Settings_BVOP; BVOP
 Format_Settings_QPel
 Format_Settings_GMC
 Format_Settings_Matrix
@@ -319,9 +319,9 @@ Format_Settings_ITU
 Format_Settings_SBR
 Format_Settings_PS
 Format_Settings_Pulldown
-Format_Version
-Format_Url
-FrameCount
+Format_Version; Versió
+Format_Url; Enllaç
+FrameCount; Comptador
 FrameRate;Imatges per segon
 FrameRate_Mode
 FrameRate_Mode_CFR
@@ -706,10 +706,10 @@ Language_zu;Zulu
 LawRating;Classificació
 LCCN;LCCN
 Library;Llibreria
-Lightness
-List
-Lyrics
-Lyricist;transcrptor del text
+Lightness; Iluminació
+List; Llista
+Lyrics; Lletres
+Lyricist;transcriptor del text
 Mastered_Date;Data de masterització
 MasteredBy;Masteritzat per
 MediaInfo_About;Proporciona informació detallada\r\nquant a un arxiu multimèdia:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (fins i tot VCD)\r\nMPEG2 (fins i tot DVD i SVCD)\r\nMPEG4 (també l'Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (també WMV, WMA)\r\nMicrosoft RIFF (inclouent AVI, WAV)\r\nArxius només sonors (AC3, DTS, AAC, AU, AIFF...)
@@ -719,7 +719,7 @@ Menu_Codec_List;Menú de codecs
 Menu_No;Sense menú
 MenuCount;Nombre de pistes al menú
 Menu_Hint;Més possibilitats
-MenuID
+MenuID; MenuID
 mn;mn
 Mood;humor
 More;Més
@@ -793,9 +793,9 @@ Period;Període
 Phone;Telèfon
 PixelAspectRatio;Relació d'aspecte
 PlayCounter;Comptador
-Played_Count
-Played_First_Date
-Played_Last_Date
+Played_Count;Temps reproduït
+Played_First_Date;Data de la primera reproducció
+Played_Last_Date;Darrera data de reproducció
 PlayTime;Duració
 Position;Posició
 Position_Total
@@ -812,8 +812,8 @@ Recorded_Date;Data d'enregistrament
 Recorded_Location;Lloc de gravació
 Released_Date;Data de llançament
 RemixedBy;Remesclat per
-ReplayGain_Gain
-ReplayGain_Peak
+ReplayGain_Gain; Ganància
+ReplayGain_Peak; Límit
 Resolution;Resolució
 s;seg
 SamplingRate;Freqüència de mostratge
@@ -826,14 +826,14 @@ see below;Mireu mes avall
 Send HeaderFile
 Separator_Columns;Separador de columnes
 Separator_Lines;Separador de línies
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
+ServiceChannel; Canal
+ServiceName; Nom
+ServiceProvider; Proveïdor
+ServiceType; Tipus
 Set;Unitats
 Set_Count;Nombre d'unitats
 Setup;Configura
-Sharpness
+Sharpness; Contrast
 Sheet;Fulla
 Sheet (Complete);Fulla (Completa)
 Shell extension;Veure l'opció Media Info al menú contextual del botó dret del ratolí a l'explorador.
@@ -848,10 +848,10 @@ Stream_MoreInfo;Més informació pel que fa a aquesta pista
 StreamCount;Comptador d'aquest tipus de pistes
 StreamID;ID de Pista
 StreamKind;Tipus de pista
-StreamKindID
-StreamKindPos
-StreamSize
-StreamSize_Proportion
+StreamKindID; StreamID
+StreamKindPos; StreamPOS
+StreamSize;StreamSize
+StreamSize_Proportion;StreamSize_Proportion
 Subject;Subjecte
 SubTrack;transició
 Summary;Sumari
@@ -915,5 +915,5 @@ Written_Location;Inseriu el lloc de gravació
 WrittenBy;Escrit per
 Yes;Sí
 Your system;El vostre sistema
-ZZ_Automatic_Percent;83
-ZZ_AutomaticLanguage_Percent;83
+ZZ_Automatic_Percent;88
+ZZ_AutomaticLanguage_Percent;88
