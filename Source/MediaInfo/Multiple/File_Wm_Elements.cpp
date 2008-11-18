@@ -1333,7 +1333,7 @@ void File_Wm::Data_Packet()
 
                 //Presentation time delta
                 std::map<int16u, stream>::iterator Strea=Stream.find(StreamNumber);
-                if (Strea->second.StreamKind==Stream_Video)
+                if (Strea!=Stream.end() && Strea->second.StreamKind==Stream_Video)
                 {
                     if (Strea->second.PresentationTime_Old==0)
                         Strea->second.PresentationTime_Old=FileProperties_Preroll;
