@@ -11,7 +11,7 @@
 
 Name:			libmediainfo%{_SO_nr}
 Version:		0.7.7.8
-Release:		0.pm.1
+Release:		1
 Summary:		Supplies technical and tag information about a video or audio file
 Group:			System/Libraries
 License:		GPL
@@ -124,6 +124,8 @@ done
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Wed Nov 19 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.8-0.pm.2
+- rebuild with modified sources from author to fix gui problem
 * Mon Nov 17 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.8-0.pm.1
 - update to 0.7.7.8
 * Mon Dec 10 2007 Toni Graffy <toni@links2linux.de> - 0.7.5.6-0.pm.1
