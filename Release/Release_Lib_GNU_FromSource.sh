@@ -31,7 +31,8 @@ cp ../Project/GNU/Library/ltmain.sh MediaInfo_Lib_GNU_FromSource/Project/GNU/Lib
 cp ../Project/GNU/Library/Makefile.am MediaInfo_Lib_GNU_FromSource/Project/GNU/Library/
 cp ../Project/GNU/Library/Makefile.in MediaInfo_Lib_GNU_FromSource/Project/GNU/Library/
 cp ../Project/GNU/Library/missing MediaInfo_Lib_GNU_FromSource/Project/GNU/Library/
-cp ../Project/GNU/Library/MediaInfoLib-config.in MediaInfo_Lib_GNU_FromSource/Project/GNU/Library/
+cp ../Project/GNU/Library/libmediainfo.pc.in MediaInfo_Lib_GNU_FromSource/Project/GNU/Library/
+cp ../Project/GNU/Library/libmediainfo-config.in MediaInfo_Lib_GNU_FromSource/Project/GNU/Library/
 
 #-----------------------------------------------------------------------
 # Copying : Source

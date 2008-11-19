@@ -28,6 +28,11 @@
     #pragma hdrstop
 #endif
 //---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+#if defined(MEDIAINFO_MPEGPS_YES) || defined(MEDIAINFO_MPEGTS_YES)
+//---------------------------------------------------------------------------
+
 //---------------------------------------------------------------------------
 #include "MediaInfo/Duplicate/File__Duplicate_MpegTs.h"
 #include "MediaInfo/MediaInfo_Config.h"
@@ -394,4 +399,6 @@ size_t File__Duplicate_MpegTs::Output_Buffer_Get (unsigned char** Output_Buffer)
 }
 
 } //NameSpace
+
+#endif
 

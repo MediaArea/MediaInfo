@@ -9,6 +9,8 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.7.9, 2008-
 ---------------
++ Better Linux integration
++ rpm stuff (thanks to oc2pus http://packman.links2linux.org)
 + #2259421, FLAC and OGG: Encoding library name and version
 + FLV: version 10 support
 + FLV: duration of files without metatags

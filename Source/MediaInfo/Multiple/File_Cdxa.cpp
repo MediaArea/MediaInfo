@@ -32,7 +32,7 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Cdxa.h"
 #include "ZenLib/Utils.h"
-#include "MediaInfo/MediaInfo.h"
+#include "MediaInfo/MediaInfo_Internal.h"
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 

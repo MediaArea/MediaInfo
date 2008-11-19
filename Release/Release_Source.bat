@@ -9,6 +9,7 @@ mkdir MediaInfo_Lib_Source
 rem --- Copying : Include ---
 xcopy ..\Source\MediaInfo\MediaInfo.h MediaInfo_Lib_Source\Include\MediaInfo\
 xcopy ..\Source\MediaInfo\MediaInfoList.h MediaInfo_Lib_Source\Include\MediaInfo\
+xcopy ..\Source\MediaInfo\MediaInfo_Const.h MediaInfo_Lib_Source\Include\MediaInfo\
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.h MediaInfo_Lib_Source\Include\MediaInfoDLL\
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.def MediaInfo_Lib_Source\Include\MediaInfoDLL\
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.pas MediaInfo_Lib_Source\Include\MediaInfoDLL\
@@ -20,10 +21,10 @@ xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.java MediaInfo_Lib_Source\Include\Medi
 rem --- Copying : Documentation ---
 mkdir Doc
 cd ..\Source\Doc
-..\..\..\Shared\Binary\Win32\Doxygen\Doxygen Doxygen
+..\..\..\Shared\Binary\Win32\Doxygen\Doxygen Doxyfile
 cd ..\..\Release
 mkdir MediaInfo_Lib_Source\Doc\
-xcopy Doc\*.* MediaInfo_Lib_Source\Doc\
+xcopy Doc\*.*  MediaInfo_Lib_Source\Doc\
 rmdir Doc /S /Q
 xcopy ..\Source\Doc\*.html MediaInfo_Lib_Source\ /S
 
@@ -113,7 +114,9 @@ copy ..\*.cvsignore MediaInfo_Lib_Source\
 rem --- Compressing Archive ---
 if "%2"=="SkipCompression" goto SkipCompression
 move MediaInfo_Lib_Source MediaInfoLib
-..\..\Shared\Binary\Win32\7-zip\7z a -r -t7z -mx9 MediaInfo_Lib_Source.7z MediaInfoLib\*
+..\..\Shared\Binary\Win32\7-zip\7z a -r -ttar -mx9 MediaInfo_Lib_Source.tar MediaInfoLib\*
+..\..\Shared\Binary\Win32\7-zip\7z a -r -tbzip2 -mx9 MediaInfo_Lib_Source.tar.bz2 MediaInfo_Lib_Source.tar
+del MediaInfo_Lib_Source.tar
 move MediaInfoLib MediaInfo_Lib_Source
 :SkipCompression
 

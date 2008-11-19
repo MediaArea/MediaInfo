@@ -28,8 +28,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include "MediaInfo/MediaInfo_Internal.h"
-#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+#include "MediaInfo/MediaInfo_Const.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

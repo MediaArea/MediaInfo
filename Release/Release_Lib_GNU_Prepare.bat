@@ -9,7 +9,8 @@ rem --- Copying : Projects ---
 xcopy ..\Project\GNU\Library\autogen MediaInfo_Lib_GNU_Prepare\Project\GNU\Library\ /S
 xcopy ..\Project\GNU\Library\configure.ac MediaInfo_Lib_GNU_Prepare\Project\GNU\Library\ /S
 xcopy ..\Project\GNU\Library\Makefile.am MediaInfo_Lib_GNU_Prepare\Project\GNU\Library\ /S
-xcopy ..\Project\GNU\Library\MediaInfoLib-config.in MediaInfo_Lib_GNU_Prepare\Project\GNU\Library\ /S
+xcopy ..\Project\GNU\Library\libmediainfo.pc.in MediaInfo_Lib_GNU_Prepare\Project\GNU\Library\ /S
+xcopy ..\Project\GNU\Library\libmediainfo-config.in MediaInfo_Lib_GNU_Prepare\Project\GNU\Library\ /S
 
 rem --- Copying : Release ---
 xcopy Release_Lib_GNU_FromSource.sh MediaInfo_Lib_GNU_Prepare\Release\
@@ -18,6 +19,7 @@ rem --- Copying : Sources ---
 xcopy ..\Source\MediaInfo\*.h MediaInfo_Lib_GNU_Prepare\Source\MediaInfo\ /S
 xcopy ..\Source\MediaInfo\*.cpp MediaInfo_Lib_GNU_Prepare\Source\MediaInfo\ /S
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.cpp MediaInfo_Lib_GNU_Prepare\Source\MediaInfoDLL\ /S
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.h MediaInfo_Lib_GNU_Prepare\Source\MediaInfoDLL\ /S
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL_Static.h MediaInfo_Lib_GNU_Prepare\Source\MediaInfoDLL\ /S
 
 rem --- Copying : Information files ---

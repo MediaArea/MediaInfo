@@ -117,52 +117,6 @@ enum fileoptions_t
     FileOption_Max          =0x04
 };
 
-/// @brief Used with Format info
-enum infoformat_t
-{
-    InfoFormat_Name,                ///<
-    InfoFormat_LongName,            ///<
-    InfoFormat_Family,              ///<
-    InfoFormat_KindofFormat,        ///<
-    InfoFormat_Parser,              ///<
-    InfoFormat_Info,                ///<
-    InfoFormat_Extensions,          ///<
-    InfoFormat_Url,                 ///<
-    InfoFormat_Max
-};
-
-/// @brief Used with Codec info
-enum infocodec_t
-{
-    InfoCodec_Codec,                ///<
-    InfoCodec_Name,                 ///<
-    InfoCodec_KindOfCode,           ///<
-    InfoCodec_KindOfStream,         ///<
-    InfoCodec_KindofCodec,          ///<
-    InfoCodec_BitRate_Mode,         ///<
-    InfoCodec_Description,          ///<
-    InfoCodec_Url,                  ///<
-    InfoCodec_Max
-};
-
-/// @brief Used with Encoder info
-enum infoencoder_t
-{
-    InfoEncoder_Name,               ///<
-    InfoEncoder_LongName,           ///<
-    InfoEncoder_Date,               ///<
-    InfoEncoder_Max
-};
-
-/// @brief Used by BlockMethod
-enum blockmethod_t
-{
-    BlockMethod_Now,                ///< Return now, without parsing (init only)
-    BlockMethod_Often,              ///< Return as often as possible
-    BlockMethod_Local,              ///< Return after local parsing (no Internet connection)
-    BlockMethod_Needed,             ///< Return when a user interaction is needed
-    BlockMethod_Max
-};
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------

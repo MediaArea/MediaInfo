@@ -25,9 +25,10 @@ cp ../Source/Example/*.cpp MediaInfo_DLL_GNU_FromSource/Source/Example/
 cp ../Source/Example/*.java MediaInfo_DLL_GNU_FromSource/Source/Example/
 cp ../Source/Example/*.py MediaInfo_DLL_GNU_FromSource/Source/Example/
 mkdir -p MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL
-cp ../Source/MediaInfoDLL/*.h MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
-cp ../Source/MediaInfoDLL/*.java MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
-cp ../Source/MediaInfoDLL/*.py MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
+cp ../Source/MediaInfoDLL/MediaInfoDLL.h MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
+cp ../Source/MediaInfoDLL/MediaInfoDLL_Static.h MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
+cp ../Source/MediaInfoDLL/MediaInfoDLL.java MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
+cp ../Source/MediaInfoDLL/MediaInfoDLL.py MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
 
 #-----------------------------------------------------------------------
 # Copying : Release
@@ -39,6 +40,7 @@ chmod u+x MediaInfo_DLL_GNU_FromSource/Release/*.sh
 #-----------------------------------------------------------------------
 # Copying : Information
 cp ReadMe_DLL_Linux.txt MediaInfo_DLL_GNU_FromSource/Release/
+dos2unix MediaInfo_DLL_GNU_FromSource/Release/ReadMe_DLL_Linux.txt
 cp ReadMe_DLL_Mac.txt MediaInfo_DLL_GNU_FromSource/Release/
 
 

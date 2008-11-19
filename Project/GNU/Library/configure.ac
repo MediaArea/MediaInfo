@@ -15,7 +15,7 @@ AC_CANONICAL_BUILD
 dnl -------------------------------------------------------------------------
 dnl Name and version
 dnl
-AM_INIT_AUTOMAKE(MediaInfoLib,0)
+AM_INIT_AUTOMAKE(libmediainfo,0)
 
 dnl -------------------------------------------------------------------------
 dnl Autotools init
@@ -180,10 +180,14 @@ dnl #########################################################################
 dnl -------------------------------------------------------------------------
 dnl Unicode
 dnl
-if test -e ../../../../ZenLib/Project/GNU/Library/ZenLib-config; then
-	enable_unicode="$(../../../../ZenLib/Project/GNU/Library/ZenLib-config Unicode)"
+if test -e ../../../../ZenLib/Project/GNU/Library/libzen-config; then
+	enable_unicode="$(../../../../ZenLib/Project/GNU/Library/libzen-config Unicode)"
 else
-	AC_MSG_ERROR([Compiled ZenLib is not found])
+	if pkg-config --exists libzen; then
+		enable_unicode="$(pkg-config --variable=Unicode libzen)"
+	else
+		AC_MSG_ERROR([libzen configuration is not found])
+	fi
 fi
 
 dnl #########################################################################
@@ -239,15 +243,25 @@ dnl ZenLib
 dnl
 if test -e ../../../../ZenLib/Project/GNU/Library/libzen.la; then
 	with_zenlib="builtin"
+	CXXFLAGS="$CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/libzen-config CXXFLAGS)"
+	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/libzen-config CXXFLAGS)"
+	if test "$enable_shared" = "yes"; then
+		LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
+	fi
+	MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
 else
-	AC_MSG_ERROR([ZenLib is not found])
+	if pkg-config --exists libzen; then
+		with_zenlib="system"
+		CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libzen)"
+		MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags libzen)"
+		if test "$enable_shared" = "yes"; then
+			LIBS="$LIBS $(pkg-config --libs libzen)"
+		fi
+		MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(pkg-config --libs libzen)"
+	else
+		AC_MSG_ERROR([libzen configuration is not found])
+	fi
 fi
-CXXFLAGS="$CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/ZenLib-config CXXFLAGS)"
-MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/ZenLib-config CXXFLAGS)"
-if test "$enable_shared" = "yes"; then
-	LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/ZenLib-config LIBS)"
-fi
-MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(../../../../ZenLib/Project/GNU/Library/ZenLib-config LIBS)"
 
 dnl #########################################################################
 dnl ### C/C++ compiler options used to compile
@@ -296,7 +310,8 @@ dnl #########################################################################
 AC_SUBST(MediaInfoLib_CXXFLAGS)
 AC_SUBST(MediaInfoLib_LIBS)
 AC_SUBST(MediaInfoLib_Unicode)
-AC_CONFIG_FILES(MediaInfoLib-config, [chmod u+x MediaInfoLib-config])
+AC_CONFIG_FILES(libmediainfo-config, [chmod u+x libmediainfo-config])
+AC_CONFIG_FILES(libmediainfo.pc)
 
 AC_OUTPUT(Makefile)
 
