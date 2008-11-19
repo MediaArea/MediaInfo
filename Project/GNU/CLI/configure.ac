@@ -40,15 +40,11 @@ AC_ARG_ENABLE(gprof,        AC_HELP_STRING([--enable-gprof],        [Enable gpro
 dnl -------------------------------------------------------------------------
 dnl Arguments - With
 dnl
-AC_ARG_WITH(wxwidgets,      AC_HELP_STRING([--with-wxwidgets],      [Do not use WxWidgets]),                    , with_wxwidgets=no)
-AC_ARG_WITH(wx_static,      AC_HELP_STRING([--with-wx-static],      [Use WxWidgets static libs]),               , with_wx_static=no)
-AC_ARG_WITH(dll,            AC_HELP_STRING([--with-dll],            [Use DLL instead of static link]),          , with_dll=no)
+AC_ARG_WITH(dll,            AC_HELP_STRING([--with-dll],            [Do not link to libmediainfo, dynamic loading]), , with_dll=no)
 
 dnl -------------------------------------------------------------------------
 dnl External options
 dnl
-m4_include(wxwin.m4)
-AM_OPTIONS_WXCONFIG
 
 dnl #########################################################################
 dnl ### Options from elsewhere
@@ -57,116 +53,25 @@ dnl #########################################################################
 dnl -------------------------------------------------------------------------
 dnl Unicode
 dnl
-if test -e ../../../../ZenLib/Project/GNU/Library/ZenLib-config; then
-	enable_unicode="$(../../../../ZenLib/Project/GNU/Library/ZenLib-config Unicode)"
+if test -e ../../../../ZenLib/Project/GNU/Library/libzen-config; then
+	enable_unicode="$(../../../../ZenLib/Project/GNU/Library/libzen-config Unicode)"
 else
-	AC_MSG_ERROR([Compiled ZenLib is not found])
+	if pkg-config --exists libzen; then
+		enable_unicode="$(pkg-config --variable=Unicode libzen)"
+	else
+		AC_MSG_ERROR([libzen configuration is not found])
+	fi
 fi
 
 dnl #########################################################################
 dnl ### Parsing options
 dnl #########################################################################
 
-dnl -------------------------------------------------------------------------
-dnl WxWidgets (v2)
-dnl
-
-dnl Download and compile
-WxBuiltInCompile()
-{
-	if test -e ../../../../Shared/Project/WxWidgets/Compile.sh; then
-		cd ../../../../Shared/Project/WxWidgets
-		chmod u+x Compile.sh
-		./Compile.sh --enable-unicode=$enable_unicode --enable-static=yes --enable-gui=$with_wx_gui --host=$host
-		cd $Home
-		if test -e ../../../../Shared/Source/WxWidgets/Compile/wx-config; then
-			if test "x$(../../../../Shared/Source/WxWidgets/Compile/wx-config --unicode=$enable_unicode --version)" = "x"; then
-				with_wxwidgets="no"
-			else
-				dnl Compiled builtin lib found!
-				with_wxwidgets="builtin"
-			fi
-		else
-			dnl Problem while compiling
-			with_wxwidgets="no"
-		fi
-	else
-		with_wxwidgets="no"
-	fi
-}
-
-dnl Search for a good build, else built it
-WxBuiltInSearchGoodBuild()
-{
-	if test -e ../../../../Shared/Source/WxWidgets/Compile/wx-config; then
-		dnl There is already a compiled version
-		if test "x$(../../../../Shared/Source/WxWidgets/Compile/wx-config --unicode=$enable_unicode --static=$with_wx_static --version)" = "x"; then
-			if test "x$(../../../../Shared/Source/WxWidgets/Compile/wx-config --unicode=$enable_unicode --version)" = "x"; then
-				dnl Not well compiled, try to compile again
-				WxBuiltInCompile
-			else
-				dnl Already compiled builtin lib found!
-				with_wxwidgets="builtin"
-			fi
-		else
-			dnl Already compiled builtin lib found!
-			with_wxwidgets="builtin"
-		fi
-	else
-		dnl Not yet compiled, try to compile
-		WxBuiltInCompile
-	fi
-}
-
-dnl The test
-if test "$with_wxwidgets" = "yes"; then
-    dnl Searching system libs
-    AM_PATH_WXCONFIG(2.8.0, WxSystemLibs=1, WxSystemLibs=0, [base], --unicode=$enable_unicode --static=$with_wx_static)
-    if test "$WxSystemLibs" != 1; then
-        dnl Searching builtin libs
-		WxBuiltInSearchGoodBuild
-	else
-        dnl System lib found!
-		with_wxwidgets="system"
-	fi
-	
-	if test "$with_wxwidgets" = "no"; then
-		AC_MSG_ERROR([
-			wxWidgets must be installed on your system.
-	 
-			Please check that wx-config is in path, the directory
-			where wxWidgets libraries are installed (returned by
-			'wx-config --libs' or 'wx-config --static --libs' command)
-			is in LD_LIBRARY_PATH or equivalent variable and
-			wxWidgets version is 2.8.0 or above, and the compilation 
-			is compatible with 
-			--unicode=$enable_unicode --static=$with_wx_static
-			])
-	fi
-	if test "$with_wxwidgets" = "system"; then
-		if test "${with_wx_config+set}" = set; then
-			ZenLib_Wx_Config=$with_wx_config;
-		else
-			ZenLib_Wx_Config="wx-config"
-		fi
-	fi
-	if test "$with_wxwidgets" = "builtin"; then
-       ZenLib_Wx_Config="../../../../Shared/Source/WxWidgets/Compile/wx-config"
-	fi
-fi
 
 dnl #########################################################################
 dnl ### MediaInfo flags
 dnl #########################################################################
 
-dnl -------------------------------------------------------------------------
-dnl WxWidgets
-dnl
-if test "$with_wxwidgets" != "no"; then
-	CFLAGS="$CFLAGS $($ZenLib_Wx_Config --unicode=$enable_unicode --cflags)"
-	CXXFLAGS="$CXXFLAGS $($ZenLib_Wx_Config --unicode=$enable_unicode --cxxflags)"
-	LIBS="$LIBS $($ZenLib_Wx_Config --unicode=$enable_unicode --libs)"
-fi
 
 dnl #########################################################################
 dnl ### C/C++ compiler options used to compile
@@ -212,15 +117,29 @@ dnl #########################################################################
 dnl ### Needed libs
 dnl #########################################################################
 
+dnl 	LIBS="$LIBS -lz -lpthread $sharedstatedir/libmediainfo.a $sharedstatedir/libzen.a "
+
 dnl -------------------------------------------------------------------------
 dnl MediaInfoLib
 dnl
 if test "$with_dll" != "yes"; then
-	if test ! -e ../../../../MediaInfoLib/Project/GNU/Library/libmediainfo.la; then
-		AC_MSG_ERROR([MediaInfoLib is not found])
+	with_dll="no"
+	if test -e ../../../../MediaInfoLib/Project/GNU/Library/libmediainfo.la; then
+		with_mediainfolib="builtin"
+		CXXFLAGS="$CXXFLAGS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config CXXFLAGS)"
+		LIBS="$LIBS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config LIBS)"
+	else
+		if pkg-config --exists libmediainfo; then
+			with_mediainfolib="system"
+			CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libmediainfo)"
+			LIBS="$LIBS $(pkg-config --libs libmediainfo)"
+		else
+			AC_MSG_ERROR([libmediainfo configuration is not found])
+		fi
 	fi
-	CXXFLAGS="$CXXFLAGS $(../../../../MediaInfoLib/Project/GNU/Library/MediaInfoLib-config CXXFLAGS)"
-	LIBS="$LIBS $(../../../../MediaInfoLib/Project/GNU/Library/MediaInfoLib-config LIBS)"
+else
+	with_dll="yes"
+	with_mediainfolib="system"
 fi
 
 dnl -------------------------------------------------------------------------
@@ -228,11 +147,17 @@ dnl ZenLib
 dnl
 if test -e ../../../../ZenLib/Project/GNU/Library/libzen.la; then
 	with_zenlib="builtin"
+	CXXFLAGS="$CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/libzen-config CXXFLAGS)"
+	LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
 else
-	AC_MSG_ERROR([ZenLib is not found])
+	if pkg-config --exists libzen; then
+		with_zenlib="system"
+		CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libzen)"
+		LIBS="$LIBS $(pkg-config --libs libzen)"
+	else
+		AC_MSG_ERROR([libzen configuration is not found])
+	fi
 fi
-CXXFLAGS="$CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/ZenLib-config CXXFLAGS)"
-LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/ZenLib-config LIBS)"
 
 dnl #########################################################################
 dnl ### Output
@@ -248,10 +173,10 @@ echo ""
 echo "Configured MediaInfo for '$build'"
 echo ""
 echo "  Unicode?                                                $enable_unicode"
-echo "  Using ZenLib?                                           $with_zenlib"
-echo "  Using WxWidgets?                                        $with_wxwidgets"
+echo "  Using libzen?                                           $with_zenlib"
+echo "  Using libmediainfo?                                     $with_mediainfolib"
 echo ""
-echo "  Using DLL instead of static lib?                        $with_dll"
+echo "  libmediainfo dynamicly loaded?                          $with_dll"
 echo ""
 echo "  CXXFLAGS: $CXXFLAGS"
 echo "  LIBS: $LIBS"

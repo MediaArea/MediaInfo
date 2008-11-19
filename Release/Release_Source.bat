@@ -1,7 +1,8 @@
 @echo off
 
 rem --- Clean up ---
-del MediaInfo_Source.7z
+del MediaInfo_Source.tar.bz2
+del MediaInfo_Source.tar
 rmdir MediaInfo_Source /S /Q
 mkdir MediaInfo_Source
 
@@ -17,6 +18,7 @@ xcopy ..\Source\*.csv MediaInfo_Source\Source\ /S
 xcopy ..\Source\*.ico MediaInfo_Source\Source\ /S
 xcopy ..\Source\*.nsi MediaInfo_Source\Source\ /S
 xcopy ..\Source\*.sh  MediaInfo_Source\Source\ /S
+xcopy ..\Source\*.png MediaInfo_Source\Source\ /S
 xcopy ..\Source\*.xpm MediaInfo_Source\Source\ /S
 
 @rem --- Copying : Projects ---
@@ -68,7 +70,9 @@ xcopy ..\*.cvsignore MediaInfo_Source\
 rem --- Compressing Archive ---
 if "%2"=="SkipCompression" goto SkipCompression
 move MediaInfo_Source MediaInfo
-..\..\Shared\Binary\Win32\7-zip\7z a -r -t7z -mx9 MediaInfo_Source.7z MediaInfo\*
+..\..\Shared\Binary\Win32\7-zip\7z a -r -ttar -mx9 MediaInfo_Source.tar MediaInfo\*
+..\..\Shared\Binary\Win32\7-zip\7z a -r -tbzip2 -mx9 MediaInfo_Source.tar.bz2 MediaInfo_Source.tar
+del MediaInfo_Source.tar
 move MediaInfo MediaInfo_Source
 :SkipCompression
 

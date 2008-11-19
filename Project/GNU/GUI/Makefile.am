@@ -1,6 +1,6 @@
 AUTOMAKE_OPTIONS = foreign
 
-bin_PROGRAMS = mediainfo_gui
+bin_PROGRAMS = mediainfo-gui
 mediainfo_gui_SOURCES = \
     ../../../Source/GUI/Common/GUI_Main_Common_Core.cpp \
     ../../../Source/GUI/Common/GUI_Main_Easy_Box_Core.cpp \
@@ -18,6 +18,6 @@ mediainfo_gui_SOURCES = \
     ../../../Source/GUI/WxWidgets/GUI_Main_Tree.cpp \
     ../../../Source/Common/Core.cpp
 
-#mediainfo_gui_LDFLAGS     = -no-undefined -version-info 0:0:0
+#mediainfo-gui_LDFLAGS     = -no-undefined -version-info 0:0:0
 
 INCLUDES = -I../../../Source -I../../../../MediaInfoLib/Source -I../../../../ZenLib/Source

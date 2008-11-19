@@ -13,9 +13,9 @@ mkdir   MediaInfo_GUI_$1_$2
 
 #-----------------------------------------------------------------------
 # Copying : Exe
-cp ../Project/GNU/GUI/mediainfo_gui MediaInfo_GUI_$1_$2/mediainfo_gui
+cp ../Project/GNU/GUI/mediainfo-gui MediaInfo_GUI_$1_$2/mediainfo-gui
 cd MediaInfo_GUI_$1_$2
-strip mediainfo_gui
+strip mediainfo-gui
 cd ..
 
 #-----------------------------------------------------------------------

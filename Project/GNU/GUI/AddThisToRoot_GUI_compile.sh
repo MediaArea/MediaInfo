@@ -67,7 +67,7 @@ if test -e MediaInfo/Project/GNU/GUI/configure; then
  if test -e Makefile; then
   make clean
   make
-  if test -e mediainfo_gui; then
+  if test -e mediainfo-gui; then
    echo MediaInfo compiled
   else
    echo Problem while compiling MediaInfo
