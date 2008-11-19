@@ -36,6 +36,7 @@ dnl Arguments - Enable
 dnl
 AC_ARG_ENABLE(debug,        AC_HELP_STRING([--enable-debug],        [Enable full debug]),                       , enable_debug=no)
 AC_ARG_ENABLE(gprof,        AC_HELP_STRING([--enable-gprof],        [Enable gprof log]),                        , enable_gprof=no)
+AC_ARG_ENABLE(staticlibs,   AC_HELP_STRING([--enable-staticlibs],   [Use static libmediainfo and libzen]),      , enable_staticlibs=no)
 
 dnl -------------------------------------------------------------------------
 dnl Arguments - With
@@ -130,9 +131,14 @@ if test "$with_dll" != "yes"; then
 		LIBS="$LIBS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config LIBS)"
 	else
 		if pkg-config --exists libmediainfo; then
-			with_mediainfolib="system"
 			CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libmediainfo)"
-			LIBS="$LIBS $(pkg-config --libs libmediainfo)"
+			if test "$enable_staticlibs" = "yes"; then
+				with_mediainfolib="system (static)"
+				LIBS="$LIBS $(pkg-config --variable=Libs_Static libmediainfo)"
+			else
+				with_mediainfolib="system"
+				LIBS="$LIBS $(pkg-config --libs libmediainfo)"
+			fi
 		else
 			AC_MSG_ERROR([libmediainfo configuration is not found])
 		fi
@@ -151,9 +157,14 @@ if test -e ../../../../ZenLib/Project/GNU/Library/libzen.la; then
 	LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
 else
 	if pkg-config --exists libzen; then
-		with_zenlib="system"
 		CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libzen)"
-		LIBS="$LIBS $(pkg-config --libs libzen)"
+		if test "$enable_staticlibs" = "yes"; then
+			with_zenlib="system (static)"
+			LIBS="$LIBS $(pkg-config --variable=Libs_Static libzen)"
+		else
+			with_zenlib="system"
+			LIBS="$LIBS $(pkg-config --libs libzen)"
+		fi
 	else
 		AC_MSG_ERROR([libzen configuration is not found])
 	fi
