@@ -43,8 +43,13 @@ namespace MediaInfoLib
 class File_Mpeg_Psi : public File__Analyze
 {
 public :
-    //Configuration
+    //In
     bool   From_TS;
+
+    //Out
+    bool   WantItAgain;
+
+
 
     enum ts_kind
     {

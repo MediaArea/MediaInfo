@@ -552,8 +552,11 @@ int32u Psi_CRC_32_Table[256] =
 File_Mpeg_Psi::File_Mpeg_Psi()
 :File__Analyze()
 {
-    //Configuration
+    //In
     From_TS=true; //Default is from TS
+
+    //Out
+    WantItAgain=false;
 
     //Temp
     Stream_Current=0x0000;
@@ -760,6 +763,19 @@ void File_Mpeg_Psi::Data_Parse()
 
     Element_Size+=4;
     Skip_B4(                                                    "CRC32");
+
+    switch(table_id)
+    {
+        case 0x40 :
+        case 0x41 :
+        case 0x42 :
+        case 0x46 :
+        case 0x4E :
+        case 0x4F :
+                    WantItAgain=true;
+                    break;
+        default   : ;
+    }
 
     Finnished();
 }
@@ -1041,6 +1057,12 @@ void File_Mpeg_Psi::Table_42()
 void File_Mpeg_Psi::Table_46()
 {
     Table_42();
+
+    //Clear info, this is another stream
+    Streams.clear();
+    Programs.clear();
+    ES_Elements.clear();
+    Infos.clear();
 }
 
 //---------------------------------------------------------------------------
@@ -1086,6 +1108,12 @@ void File_Mpeg_Psi::Table_4E()
 void File_Mpeg_Psi::Table_4F()
 {
     Table_4E();
+
+    //Clear info, this is another stream
+    Streams.clear();
+    Programs.clear();
+    ES_Elements.clear();
+    Infos.clear();
 }
 
 //---------------------------------------------------------------------------

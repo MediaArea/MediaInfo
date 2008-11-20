@@ -1172,7 +1172,8 @@ void File_Mpeg_Descriptors::Descriptor_09()
     Skip_S1( 3,                                                 "reserved");
     Get_S2 (13, CA_PID,                                         "CA_PID");
     BS_End();
-    Skip_XX(Element_Size-Element_Offset,                        "private_data_byte");
+    if (Element_Size-Element_Offset>0)
+        Skip_XX(Element_Size-Element_Offset,                    "private_data_byte");
 }
 
 //---------------------------------------------------------------------------

@@ -573,7 +573,7 @@ void File_MpegTs::PSI()
         }
 
         //Disabling this PID
-        if (Streams[pid].Parser->File_Offset==Streams[pid].Parser->File_Size) //some methods can modify this value for saying that we must no delete
+        if (!((File_Mpeg_Psi*)Streams[pid].Parser)->WantItAgain)
         {
             delete Streams[pid].Parser; Streams[pid].Parser=NULL;
             Streams[pid].Searching_Payload_Start_Set(pid==0x0000 && File_Offset<0x8000);
@@ -793,7 +793,7 @@ void File_MpegTs::PSI_program_map_table()
         if (Pos!=PID_PMTs[pid].List.end())
             PID_PMTs[pid].List.erase(Pos);
         if (!PID_PMTs[pid].List.empty())
-            Streams[pid].Parser->File_Offset=File_Offset; //Disabling the tag "finnished", we want it again!
+            ((File_Mpeg_Psi*)Streams[pid].Parser)->WantItAgain=true; //Disabling the tag "finnished", we want it again!
     }
 }
 
@@ -828,11 +828,11 @@ void File_MpegTs::PSI_atsc_psip()
             Streams[Stream->first].Searching_Payload_Start_Set(true);
         }
         if (Streams[Stream->first].Parser)
-            Streams[Stream->first].Parser->File_Offset=File_Offset; //Disabling the tag "finnished", we want it again!
+            ((File_Mpeg_Psi*)Streams[pid].Parser)->WantItAgain=true; //Disabling the tag "finnished", we want it again!
     }
 
     if (Streams[0x1FFB].Parser)
-        Streams[0x1FFB].Parser->File_Offset=File_Offset; //Disabling the tag "finnished", we want it again!
+        ((File_Mpeg_Psi*)Streams[0x1FFB].Parser)->WantItAgain=true; //Disabling the tag "finnished", we want it again!
 
     for (std::map<int16u, File_Mpeg_Descriptors::program>::iterator Psi_Program=Parser->Programs.begin(); Psi_Program!=Parser->Programs.end(); Psi_Program++)
     {
@@ -1128,6 +1128,10 @@ void File_MpegTs::Detect_EOF()
                         Streams[StreamID].TimeStamp_End=(int64u)-1;
                     if (Streams[StreamID].TimeStamp_Start!=(int64u)-1)
                         Streams[StreamID].Searching_TimeStamp_End_Set(!Streams[StreamID].Searching_TimeStamp_Start); //Searching only for a start found
+
+                    //Specific
+                    if (Streams[StreamID].TS_Kind>=File_Mpeg_Psi::ts_outofspec)
+                        Streams[StreamID].Searching_Payload_Start_Set(false); //Does not search for DVB/ATSC anymore
                 }
             }
         }
