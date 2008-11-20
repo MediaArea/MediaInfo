@@ -446,6 +446,7 @@ void TExportF::GUI_Configure()
     CSV_Stream_Chapters_Caption->Caption=Prefs->Translate(_T("How many chapters streams?")).c_str();
     CSV_Stream_Chapters_Warning->Caption=Prefs->Translate(_T("Warning : more streams in the files")).c_str();
     CSV_Separator_Col_Caption->Caption=Prefs->Translate(_T("Separator_Columns")).c_str();
+    CSV_Decimal_Caption->Caption=Prefs->Translate(_T("Decimal point")).c_str();
     CSV_Separator_Line_Caption->Caption=Prefs->Translate(_T("Separator_Lines")).c_str();
     CSV_Quote_Caption->Caption=Prefs->Translate(_T("Quote character")).c_str();
     CSV_Advanced->Caption=Prefs->Translate(_T("Advanced mode")).c_str();

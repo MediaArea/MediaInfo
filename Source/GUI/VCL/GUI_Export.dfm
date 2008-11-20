@@ -48,16 +48,12 @@ object ExportF: TExportF
       Top = 17
       Width = 608
       Height = 224
-      ActivePage = Export_Sheet
+      ActivePage = Export_CSV
       MultiLine = True
       TabOrder = 0
       OnChange = ExportChange
       object Export_CSV: TTntTabSheet
         Caption = 'CSV'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object CSV_Stream_Video_Caption: TTntLabel
           Left = 0
           Top = 9
@@ -322,10 +318,6 @@ object ExportF: TExportF
       end
       object Export_Sheet: TTntTabSheet
         Caption = 'Sheet'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Sheet_Quote_Caption: TTntLabel
           Left = 0
           Top = 9
@@ -389,10 +381,6 @@ object ExportF: TExportF
       object Export_Text: TTntTabSheet
         Caption = 'Text'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Text_Advanced: TTntCheckBox
           Left = 0
           Top = 9
@@ -405,10 +393,6 @@ object ExportF: TExportF
       object Export_HTML: TTntTabSheet
         Caption = 'HTML'
         ImageIndex = 2
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object HTML_Advanced: TTntCheckBox
           Left = 0
           Top = 9
@@ -421,10 +405,6 @@ object ExportF: TExportF
       object Export_Custom: TTntTabSheet
         Caption = 'Custom'
         ImageIndex = 3
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Custom_One: TTntCheckBox
           Left = 0
           Top = 9
