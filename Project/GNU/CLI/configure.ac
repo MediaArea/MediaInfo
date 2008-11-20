@@ -118,17 +118,20 @@ dnl #########################################################################
 dnl ### Needed libs
 dnl #########################################################################
 
-dnl 	LIBS="$LIBS -lz -lpthread $sharedstatedir/libmediainfo.a $sharedstatedir/libzen.a "
-
 dnl -------------------------------------------------------------------------
 dnl MediaInfoLib
 dnl
 if test "$with_dll" != "yes"; then
 	with_dll="no"
 	if test -e ../../../../MediaInfoLib/Project/GNU/Library/libmediainfo.la; then
-		with_mediainfolib="builtin"
 		CXXFLAGS="$CXXFLAGS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config CXXFLAGS)"
-		LIBS="$LIBS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config LIBS)"
+		if test "$enable_staticlibs" = "yes"; then
+			with_mediainfolib="builtin (static)"
+			LIBS="$LIBS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config LIBS_Static)"
+		else
+			with_mediainfolib="builtin"
+			LIBS="$LIBS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config LIBS)"
+		fi
 	else
 		if pkg-config --exists libmediainfo; then
 			CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libmediainfo)"
@@ -152,12 +155,19 @@ dnl -------------------------------------------------------------------------
 dnl ZenLib
 dnl
 if test -e ../../../../ZenLib/Project/GNU/Library/libzen.la; then
-	with_zenlib="builtin"
 	CXXFLAGS="$CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/libzen-config CXXFLAGS)"
-	LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
+	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/libzen-config CXXFLAGS)"
+	if test "$enable_staticlibs" = "yes"; then
+		with_zenlib="builtin (static)"
+		LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS_Static)"
+	else
+		with_zenlib="builtin"
+		LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
+	fi
 else
 	if pkg-config --exists libzen; then
 		CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libzen)"
+		MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags libzen)"
 		if test "$enable_staticlibs" = "yes"; then
 			with_zenlib="system (static)"
 			LIBS="$LIBS $(pkg-config --variable=Libs_Static libzen)"

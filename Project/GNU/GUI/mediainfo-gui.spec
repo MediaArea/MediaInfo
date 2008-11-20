@@ -75,7 +75,7 @@ popd
 
 %install
 pushd Project/GNU/GUI
-	%makeinstall
+	%__make install-strip DESTDIR=%{buildroot}
 popd
 
 # icon

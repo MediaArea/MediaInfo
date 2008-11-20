@@ -60,7 +60,7 @@ export CXXFLAGS="$RPM_OPT_FLAGS"
 pushd Project/GNU/CLI
 	%__chmod +x autogen
 	./autogen
-	%configure --exec-prefix=%{buildroot}%{_bindir}
+	%configure
 
 	%__make %{?jobs:-j%{jobs}}
 popd
