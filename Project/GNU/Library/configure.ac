@@ -44,6 +44,7 @@ dnl Enable
 dnl
 AC_ARG_ENABLE(debug,   AC_HELP_STRING([--enable-debug],    [Enable full debug]),                                          ,                            enable_debug=no)
 AC_ARG_ENABLE(gprof,   AC_HELP_STRING([--enable-gprof],    [Enable gprof log]),                                           ,                            enable_gprof=no)
+AC_ARG_ENABLE(staticlibs,      AC_HELP_STRING([--enable-staticlibs],    [Use static libmediainfo and libzen]),            ,                            enable_staticlibs=no)
 AC_ARG_ENABLE(minimize-size,   AC_HELP_STRING([--enable-minimize-size], [Enable size optimisations]),                     MediaInfoMinimizeSize=$enableval, MediaInfoMinimizeSize=depend)
 AC_ARG_ENABLE(all,     AC_HELP_STRING([--disable-all],     [Disable all parsers]),                                        MediaInfoAll=$enableval,     MediaInfoAll=depend)
 AC_ARG_ENABLE(archive, AC_HELP_STRING([--disable-archive], [Disable all archive parsers]),                                MediaInfoArchive=$enableval, MediaInfoArchive=depend)
@@ -242,22 +243,34 @@ dnl -------------------------------------------------------------------------
 dnl ZenLib
 dnl
 if test -e ../../../../ZenLib/Project/GNU/Library/libzen.la; then
-	with_zenlib="builtin"
 	CXXFLAGS="$CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/libzen-config CXXFLAGS)"
 	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/libzen-config CXXFLAGS)"
-	if test "$enable_shared" = "yes"; then
+	if test "$enable_staticlibs" = "yes"; then
+		with_zenlib="builtin (static)"
+		LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS_Static)"
+	else
+		with_zenlib="builtin"
 		LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
+		MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
+		MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS_Static)"
+		dnl MediaInfoLib_PC_Libs="$MediaInfoLib_PC_Libs $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
+		dnl MediaInfoLib_PC_Libs_Static="$MediaInfoLib_PC_Libs_Static $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS_Static)"
 	fi
-	MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
 else
 	if pkg-config --exists libzen; then
-		with_zenlib="system"
 		CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libzen)"
 		MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags libzen)"
-		if test "$enable_shared" = "yes"; then
+		if test "$enable_staticlibs" = "yes"; then
+			with_zenlib="system (static)"
+			LIBS="$LIBS $(pkg-config --variable=Libs_Static libzen)"
+		else
+			with_zenlib="system"
 			LIBS="$LIBS $(pkg-config --libs libzen)"
+			MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(pkg-config --libs libzen)"
+			MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static $(pkg-config --variable=Libs_Static libzen)"
+			dnl MediaInfoLib_PC_Libs="$MediaInfoLib_PC_Libs $(pkg-config --libs libzen)"
+			dnl MediaInfoLib_PC_Libs_Static="$MediaInfoLib_PC_Libs_Static $(pkg-config --variable=Libs_Static libzen)"
 		fi
-		MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(pkg-config --libs libzen)"
 	else
 		AC_MSG_ERROR([libzen configuration is not found])
 	fi
@@ -302,6 +315,9 @@ dnl ### MediaInfoLib flags
 dnl #########################################################################
 
 MediaInfoLib_LIBS=" -L$(pwd) -lmediainfo $MediaInfoLib_LIBS"
+MediaInfoLib_LIBS_Static=" $(pwd)/libmediainfo.a $MediaInfoLib_LIBS_Static"
+MediaInfoLib_PC_Libs=" -lmediainfo $MediaInfoLib_PC_Libs"
+MediaInfoLib_PC_Libs_Static=" ${libdir}/.libs/libmediainfo.a $MediaInfoLib_PC_Libs_Static"
 
 dnl #########################################################################
 dnl ### Output
@@ -309,6 +325,9 @@ dnl #########################################################################
 
 AC_SUBST(MediaInfoLib_CXXFLAGS)
 AC_SUBST(MediaInfoLib_LIBS)
+AC_SUBST(MediaInfoLib_LIBS_Static)
+dnl AC_SUBST(MediaInfoLib_PC_Libs)
+dnl AC_SUBST(MediaInfoLib_PC_Libs_Static)
 AC_SUBST(MediaInfoLib_Unicode)
 AC_CONFIG_FILES(libmediainfo-config, [chmod u+x libmediainfo-config])
 AC_CONFIG_FILES(libmediainfo.pc)
@@ -336,7 +355,7 @@ echo ""
 echo "  Create static lib?                                      $enable_static"
 echo "  Create shared lib?                                      $enable_shared"
 echo ""
-Mcho "Minimimize size" "$MediaInfoMinimizeSize"
+Mcho "Minimize size" "$MediaInfoMinimizeSize"
 Mcho "All    " "$MediaInfoAll"
 Mcho "Archive" "$MediaInfoArchive"
 Mcho "Audio  " "$MediaInfoAudio"
@@ -393,5 +412,3 @@ Mcho "Mpegv  " "$MediaInfoMpegv"
 echo ""
 echo "  CXXFLAGS: $CXXFLAGS"
 echo "  LIBS: $LIBS"
-echo "  MediaInfoLib_CXXFLAGS: $CXXFLAGS"
-echo "  MediaInfoLib_LIBS: $MediaInfoLib_LIBS"

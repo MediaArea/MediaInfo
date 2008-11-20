@@ -4,6 +4,9 @@ fi
 if test "$1" = "LIBS"; then
 echo @MediaInfoLib_LIBS@
 fi
+if test "$1" = "LIBS_Static"; then
+echo @MediaInfoLib_LIBS_Static@
+fi
 if test "$1" = "Unicode"; then
 echo @MediaInfoLib_Unicode@
 fi

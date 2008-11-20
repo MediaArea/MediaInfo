@@ -57,8 +57,6 @@ Requires:	libmediainfo%{_SO_nr} = %{version}
 %description -n libmediainfo-devel
 Include files and mandatory librariesfor development.
 
-%debug_package
-
 %prep
 %setup -q -n MediaInfoLib
 dos2unix     *.txt *.html Doc/*
@@ -72,10 +70,7 @@ export CXXFLAGS="$RPM_OPT_FLAGS"
 pushd Project/GNU/Library
 	%__chmod +x autogen
 	./autogen
-	%configure \
-		--without-subdirs \
-		--disable-maintainer \
-		--enable-shared
+	%configure --enable-shared
 
 	%__make clean
 	%__make %{?jobs:-j%{jobs}}
