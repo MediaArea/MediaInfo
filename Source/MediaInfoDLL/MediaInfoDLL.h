@@ -192,6 +192,12 @@ static size_t MediaInfoDLL_Load()
             Module=dlopen("./"MEDIAINFODLL_NAME, RTLD_LAZY);
         if (!Module)
             Module=dlopen("/usr/local/lib/"MEDIAINFODLL_NAME, RTLD_LAZY);
+        if (!Module)
+            Module=dlopen("/usr/local/lib64/"MEDIAINFODLL_NAME, RTLD_LAZY);
+        if (!Module)
+            Module=dlopen("/usr/lib/"MEDIAINFODLL_NAME, RTLD_LAZY);
+        if (!Module)
+            Module=dlopen("/usr/lib64/"MEDIAINFODLL_NAME, RTLD_LAZY);
     #endif
     if (!Module)
         return -1;
