@@ -25,11 +25,7 @@ BuildRequires: 	gcc-c++
 BuildRequires:	libmediainfo-devel
 BuildRequires:	libzen-devel
 BuildRequires:	pkgconfig
-%if %is_mandrake
-BuildRequires:	wxGTK2.8-devel
-%else
 BuildRequires:	wxGTK-devel
-%endif
 BuildRequires: 	zlib-devel
 
 %description
@@ -87,10 +83,7 @@ popd
 %__install -dm 755 %{buildroot}/%{_datadir}/applications
 %__install -m 644 Project/GNU/GUI/mediainfo-gui.desktop \
 	%{buildroot}/%{_datadir}/applications
-%__install -dm 755 %{_kde_prefix}/share/apps/konqueror/servicemenus
-%__install -m 644 Project/GNU/GUI/mediainfo-gui.kde3.desktop \
-	%{buildroot}/%{_kde_prefix}/share/apps/konqueror/servicemenus
-%__install -dm 755 %{_kde_prefix}/share/apps/konqueror/servicemenus
+%__install -dm 755 %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/
 %__install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
 	%{buildroot}/%{_datadir}/kde4/services/ServiceMenus/
 
@@ -103,7 +96,8 @@ popd
 %doc Licence.html History_GUI.txt
 %{_bindir}/mediainfo-gui
 %{_datadir}/applications/*.desktop
-%{_datadir}/pixmaps/*.png
+%{_datadir}/icons/hicolor/128x128/apps/*.png
+%{_datadir}/kde4/services/ServiceMenus/*.desktop
 
 %changelog
 * Tue Nov 18 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.8-0.pm.2
