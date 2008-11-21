@@ -24,8 +24,7 @@ xcopy ..\Project\GNU\GUI\configure.ac MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\
 xcopy ..\Project\GNU\GUI\Makefile.am MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S
 xcopy ..\Project\GNU\GUI\wxwin.m4 MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S
 xcopy ..\Project\GNU\GUI\AddThisToRoot_GUI_compile.sh MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S
-xcopy ..\Project\GNU\GUI\mediainfo-gui.spec MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S
-xcopy ..\Project\GNU\GUI\mediainfo-gui.desktop MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S
+xcopy ..\Project\GNU\GUI\mediainfo-gui.* MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S
 copy ..\Source\Ressource\Image\MediaInfo.png MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\mediainfo.png
 
 rem --- Copying : Release ---
