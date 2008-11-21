@@ -16,6 +16,8 @@ mediainfo_gui_SOURCES = \
     ../../../Source/GUI/WxWidgets/GUI_Main_Sheet.cpp \
     ../../../Source/GUI/WxWidgets/GUI_Main_Text.cpp \
     ../../../Source/GUI/WxWidgets/GUI_Main_Tree.cpp \
+    ../../../Source/CLI/CommandLine_Parser.cpp \
+    ../../../Source/CLI/Help.cpp \
     ../../../Source/Common/Core.cpp
 
 #mediainfo-gui_LDFLAGS     = -no-undefined -version-info 0:0:0

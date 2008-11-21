@@ -20,6 +20,8 @@
 //---------------------------------------------------------------------------
 #include "GUI/Common/GUI_Main_Easy_Box_Core.h"
 #include "GUI/Common/GUI_Main_Easy_Core.h"
+#include "ZenLib/Conf.h"
+using namespace ZenLib;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -129,8 +131,8 @@ String GUI_Main_Easy_Box_Core::Text_Get()
     if (Parent_Core->StreamsCount_Get(Stream_General)==0)
     {
         //Empty box
-        Temp+=_T("\r\n");
-        Temp+=_T("\r\n");
+        Temp+=EOL;
+        Temp+=EOL;
     }
     else if (StreamKind==Stream_General)
     {
@@ -147,7 +149,7 @@ String GUI_Main_Easy_Box_Core::Text_Get()
                 else
                     Z2+=_T(" streams");//_T(" stream2");
                 String Z3=String(C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T("_Format_WithHint_List"));
-                Temp+=_T("\r\n");
+                Temp+=EOL;
                 Temp+=(C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, Z1)+/*Prefs->Translate(*/Z2/*)*/+/*Prefs->Translate(*/_T(": ")/*)*/+C->MI->Get(Parent_Core->FilesPos_Get(), Stream_General, 0, Z3)).c_str();
             }
 
@@ -162,7 +164,7 @@ String GUI_Main_Easy_Box_Core::Text_Get()
         String Title=C->MI->Get(Parent_Core->FilesPos_Get(), StreamKind, StreamPos, _T("Title"));
         if (!Title.empty())
         {
-            Temp+=_T("\r\n");
+            Temp+=EOL;
             Temp+=Title;
         }
     }
@@ -199,7 +201,7 @@ String GUI_Main_Easy_Box_Core::Tags_Get()
             Z2+=/*Prefs->Translate(*/_T(": ")/*)*/;
             Z2+=Z1;
             if (Lines>0)
-                Temp+=_T("\r\n");
+                Temp+=EOL;
             Temp+=Z2;
 
             Lines++;
@@ -224,7 +226,7 @@ String GUI_Main_Easy_Box_Core::Button_Get()
 //---------------------------------------------------------------------------
 bool GUI_Main_Easy_Box_Core::Button_Show()
 {
-    if (Parent_Core->FormatUrl_Get(StreamKind, StreamPos).empty())
+    if (Parent_Core->CodecID_Url_Get(StreamKind, StreamPos).empty())
         return false;
     else
         return true;
@@ -233,7 +235,7 @@ bool GUI_Main_Easy_Box_Core::Button_Show()
 //---------------------------------------------------------------------------
 String GUI_Main_Easy_Box_Core::Button_Click()
 {
-    return Parent_Core->FormatUrl_Get(StreamKind, StreamPos);
+    return Parent_Core->CodecID_Url_Get(StreamKind, StreamPos);
 }
 
 

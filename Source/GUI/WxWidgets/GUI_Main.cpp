@@ -28,6 +28,10 @@
 #include "GUI/WxWidgets/GUI_Main.h"
 #include "GUI/WxWidgets/GUI_Main_FileDrop.h"
 #include "Common/Core.h"
+#include "CLI/CommandLine_Parser.h"
+#include <vector>
+#include <algorithm>
+using namespace std;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -36,13 +40,32 @@
 #endif
 //---------------------------------------------------------------------------
 
+//---------------------------------------------------------------------------
+//Get command line args in main()
+#ifdef UNICODE
+    #ifdef _WIN32
+        #include <windows.h>
+        #define GETCOMMANDLINE() \
+            MediaInfoLib::Char** argv=CommandLineToArgvW(GetCommandLineW(), &argc); \
+
+    #else //WIN32
+        #define GETCOMMANDLINE() \
+            MediaInfoLib::Char** argv=argv_ansi; \
+
+    #endif //WIN32
+#else //UNICODE
+    #define GETCOMMANDLINE() \
+        MediaInfoLib::Char** argv=argv_ansi; \
+
+#endif //UNICODE
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 // Constructor
-GUI_Main::GUI_Main(const wxPoint& pos, const wxSize& size, long style)
+GUI_Main::GUI_Main(int argc, MediaInfoLib::Char** argv_ansi, const wxPoint& pos, const wxSize& size, long style)
 :wxFrame(NULL, -1, _T("MediaInfo"), pos, size, style)
 {
     //Set the frame icon
@@ -80,6 +103,31 @@ GUI_Main::GUI_Main(const wxPoint& pos, const wxSize& size, long style)
     OnMenu_View_Easy(*EventTemp);
     delete EventTemp; //This is done to be GCC-compatible...
     Menu_Debug_Demux_None->Check(); //Default to no Debug Demux
+
+    //Command line
+    GETCOMMANDLINE();
+    vector<String> List;
+    for (int Pos=1; Pos<argc; Pos++)
+    {
+        //First part of argument (before "=") should be case insensitive
+        String Argument(argv[Pos]);
+        size_t Egal_Pos=Argument.find(_T('='));
+        if (Egal_Pos==string::npos)
+            Egal_Pos=Argument.size();
+        transform(Argument.begin(), Argument.begin()+Egal_Pos, Argument.begin(), (int(*)(int))tolower); //(int(*)(int)) is a patch for unix
+        int Return=Parse (*C, Argument);
+        if (Return<0)
+            return; //no more tasks to do
+        if (Return>0)
+            List.push_back(argv[Pos]); //Append the filename to the list of filenames to parse
+    }
+
+    //Parse files
+    C->Menu_File_Open_Files_Begin();
+    size_t Files_Count=0;
+    for (size_t Pos=0; Pos<List.size(); Pos++)
+        Files_Count+=C->Menu_File_Open_Files_Continue(List[Pos]);
+    View_Refresh();
 }
 
 //---------------------------------------------------------------------------

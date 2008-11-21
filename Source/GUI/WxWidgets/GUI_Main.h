@@ -59,7 +59,7 @@ class GUI_Main_Common_Core;
 class GUI_Main : public wxFrame
 {
 public:
-    GUI_Main (const wxPoint& pos, const wxSize& size, long style = wxDEFAULT_FRAME_STYLE);
+    GUI_Main (int argc, MediaInfoLib::Char** argv, const wxPoint& pos, const wxSize& size, long style = wxDEFAULT_FRAME_STYLE);
     ~GUI_Main ();
 
     //Menu - List

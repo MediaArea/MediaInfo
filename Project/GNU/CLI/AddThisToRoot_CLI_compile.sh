@@ -78,7 +78,7 @@ if test -e MediaInfo/Project/GNU/CLI/configure; then
  cd MediaInfo/Project/GNU/CLI/
  test -e Makefile && rm Makefile
  chmod u+x configure
- ./configure $*
+ ./configure --enable-staticlibs $*
  if test -e Makefile; then
   make clean
   Zen_Make
