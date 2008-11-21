@@ -227,17 +227,19 @@ if test "$have_libz" != "yes"; then
 		fi
 	fi
 	CXXFLAGS="$CXXFLAGS -I../../../../Shared/Source/ZLib"
-	if test "$enable_shared" = "yes"; then
-		LIBS="$LIBS -L../../../../Shared/Source/ZLib"
-	fi
-	MediaInfoLib_LIBS="$MediaInfoLib_LIBS -L../../../../Shared/Source/ZLib"
+	LIBS="$LIBS -L../../../../Shared/Source/ZLib"
+	MediaInfoLib_LIBS="$MediaInfoLib_LIBS -L../../../../Shared/Source/ZLib -lz"
+	MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static -L../../../../Shared/Source/ZLib -lz"
+	dnl MediaInfoLib_PC_Libs="$MediaInfoLib_PC_Libs -L../../../../Shared/Source/ZLib -lz"
+	dnl MediaInfoLib_PC_Libs_Static="$MediaInfoLib_PC_Libs_Static -L../../../../Shared/Source/ZLib -lz"
 else
     with_zlib="system"
-fi
-if test "$enable_shared" = "yes"; then
     LIBS="$LIBS -lz"
+    MediaInfoLib_LIBS="$MediaInfoLib_LIBS -lz"
+    MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static -lz"
+    dnl MediaInfoLib_PC_Libs="$MediaInfoLib_PC_Libs -lz"
+    dnl MediaInfoLib_PC_Libs_Static="$MediaInfoLib_PC_Libs_Static -lz"
 fi
-MediaInfoLib_LIBS="$MediaInfoLib_LIBS -lz"
 
 dnl -------------------------------------------------------------------------
 dnl ZenLib
@@ -315,7 +317,7 @@ dnl ### MediaInfoLib flags
 dnl #########################################################################
 
 MediaInfoLib_LIBS=" -L$(pwd) -lmediainfo $MediaInfoLib_LIBS"
-MediaInfoLib_LIBS_Static=" $(pwd)/libmediainfo.a $MediaInfoLib_LIBS_Static"
+MediaInfoLib_LIBS_Static=" $(pwd)/.libs/libmediainfo.a $MediaInfoLib_LIBS_Static"
 MediaInfoLib_PC_Libs=" -lmediainfo $MediaInfoLib_PC_Libs"
 MediaInfoLib_PC_Libs_Static=" ${libdir}/.libs/libmediainfo.a $MediaInfoLib_PC_Libs_Static"
 
