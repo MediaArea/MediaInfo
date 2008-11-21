@@ -79,14 +79,20 @@ pushd Project/GNU/GUI
 popd
 
 # icon
-%__install -dm 755 %{buildroot}%{_datadir}/pixmaps
+%__install -dm 755 %{buildroot}%{_datadir}/icons/hicolor/128x128/apps
 %__install -m 644 Source/Ressource/Image/MediaInfo.png \
-	%{buildroot}%{_datadir}/pixmaps/%{name}.png
+	%{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 
 # menu-entry
 %__install -dm 755 %{buildroot}/%{_datadir}/applications
 %__install -m 644 Project/GNU/GUI/mediainfo-gui.desktop \
 	%{buildroot}/%{_datadir}/applications
+%__install -dm 755 %{_kde_prefix}/share/apps/konqueror/servicemenus
+%__install -m 644 Project/GNU/GUI/mediainfo-gui.kde3.desktop \
+	%{buildroot}/%{_kde_prefix}/share/apps/konqueror/servicemenus
+%__install -dm 755 %{_kde_prefix}/share/apps/konqueror/servicemenus
+%__install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
+	%{buildroot}/%{_datadir}/kde4/services/ServiceMenus/
 
 %clean
 [ -d "%{buildroot}" -a "%{buildroot}" != "" ] && %__rm -rf "%{buildroot}"
