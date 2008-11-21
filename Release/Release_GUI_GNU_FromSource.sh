@@ -34,13 +34,15 @@ cp ../Project/GNU/GUI/missing MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/wxwin.m4 MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/mediainfo-gui.spec  MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/mediainfo-gui.desktop MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
-cp ../Project/GNU/GUI/mediainfo.png MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 
 #-----------------------------------------------------------------------
 # Copying : Source
 mkdir -p MediaInfo_GUI_GNU_FromSource/Source/Common
 cp -r ../Source/Common/*.h MediaInfo_GUI_GNU_FromSource/Source/Common/
 cp -r ../Source/Common/*.cpp MediaInfo_GUI_GNU_FromSource/Source/Common/
+mkdir -p MediaInfo_GUI_GNU_FromSource/Source/CLI
+cp -r ../Source/CLI/*.h MediaInfo_GUI_GNU_FromSource/Source/CLI/
+cp -r ../Source/CLI/*.cpp MediaInfo_GUI_GNU_FromSource/Source/CLI/
 mkdir -p MediaInfo_GUI_GNU_FromSource/Source/GUI/Common
 cp -r ../Source/GUI/Common/*.h MediaInfo_GUI_GNU_FromSource/Source/GUI/Common/
 cp -r ../Source/GUI/Common/*.cpp MediaInfo_GUI_GNU_FromSource/Source/GUI/Common/
@@ -48,6 +50,7 @@ mkdir -p MediaInfo_GUI_GNU_FromSource/Source/GUI/WxWidgets
 cp -r ../Source/GUI/WxWidgets/*.h MediaInfo_GUI_GNU_FromSource/Source/GUI/WxWidgets/
 cp -r ../Source/GUI/WxWidgets/*.cpp MediaInfo_GUI_GNU_FromSource/Source/GUI/WxWidgets/
 mkdir -p MediaInfo_GUI_GNU_FromSource/Source/Ressource/Image/Menu
+cp -r ../Source/Ressource/Image/*.png MediaInfo_GUI_GNU_FromSource/Source/Ressource/Image/
 cp -r ../Source/Ressource/Image/*.xpm MediaInfo_GUI_GNU_FromSource/Source/Ressource/Image/
 cp -r ../Source/Ressource/Image/Menu/*.xpm MediaInfo_GUI_GNU_FromSource/Source/Ressource/Image/Menu/
 

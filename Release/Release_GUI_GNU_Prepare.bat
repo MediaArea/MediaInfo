@@ -9,10 +9,13 @@ mkdir MediaInfo_GUI_GNU_Prepare
 rem --- Copying : Sources ---
 xcopy ..\Source\Common\*.cpp MediaInfo_GUI_GNU_Prepare\Source\Common\ /S
 xcopy ..\Source\Common\*.h MediaInfo_GUI_GNU_Prepare\Source\Common\ /S
+xcopy ..\Source\CLI\*.cpp MediaInfo_GUI_GNU_Prepare\Source\CLI\ /S
+xcopy ..\Source\CLI\*.h MediaInfo_GUI_GNU_Prepare\Source\CLI\ /S
 xcopy ..\Source\GUI\Common\*.cpp MediaInfo_GUI_GNU_Prepare\Source\GUI\Common\ /S
 xcopy ..\Source\GUI\Common\*.h MediaInfo_GUI_GNU_Prepare\Source\GUI\Common\ /S
 xcopy ..\Source\GUI\WxWidgets\*.cpp MediaInfo_GUI_GNU_Prepare\Source\GUI\WxWidgets\ /S
 xcopy ..\Source\GUI\WxWidgets\*.h MediaInfo_GUI_GNU_Prepare\Source\GUI\WxWidgets\ /S
+xcopy ..\Source\*.png MediaInfo_GUI_GNU_Prepare\Source\ /S
 xcopy ..\Source\*.xpm MediaInfo_GUI_GNU_Prepare\Source\ /S
 
 rem --- Copying : Projects ---
