@@ -86,14 +86,20 @@ private :
     void moov_trak_edts_elst();
     void moov_trak_mdia();
     void moov_trak_mdia_hdlr();
+    void moov_trak_mdia_imap();
+    void moov_trak_mdia_imap_sean();
+    void moov_trak_mdia_imap_sean___in();
+    void moov_trak_mdia_imap_sean___in___ty();
+    void moov_trak_mdia_imap_sean___in_dtst();
+    void moov_trak_mdia_imap_sean___in_obid();
     void moov_trak_mdia_mdhd();
     void moov_trak_mdia_minf();
     void moov_trak_mdia_minf_dinf();
-    void moov_trak_mdia_minf_dinf_url();
-    void moov_trak_mdia_minf_dinf_urn();
+    void moov_trak_mdia_minf_dinf_url_();
+    void moov_trak_mdia_minf_dinf_urn_();
     void moov_trak_mdia_minf_dinf_dref();
-    void moov_trak_mdia_minf_dinf_dref_url();
-    void moov_trak_mdia_minf_dinf_dref_urn();
+    void moov_trak_mdia_minf_dinf_dref_alis();
+    void moov_trak_mdia_minf_dinf_dref_rsrc();
     void moov_trak_mdia_minf_hint();
     void moov_trak_mdia_minf_hdlr();
     void moov_trak_mdia_minf_hmhd();
@@ -117,7 +123,9 @@ private :
     void moov_trak_mdia_minf_stbl_stsd_xxxx_dec3();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_damr();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_esds();
+    void moov_trak_mdia_minf_stbl_stsd_xxxx_idfm();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_wave();
+    void moov_trak_mdia_minf_stbl_stsd_xxxx_wave_enda();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_wave_xxxx();
     void moov_trak_mdia_minf_stbl_stsh();
@@ -134,6 +142,7 @@ private :
     void moov_trak_tref_ipir();
     void moov_trak_tref_hint();
     void moov_trak_tref_mpod();
+    void moov_trak_tref_ssrc();
     void moov_trak_tref_sync();
     void moov_trak_tref_tmcd();
     void moov_udta();
@@ -204,6 +213,7 @@ private :
     std::vector<std::string>                moov_udta_meta_keys_List;
     size_t                                  moov_udta_meta_keys_ilst_Pos;
     char                                    Language_Result[4];
+    int32u                                  TimeScale;
 
     //Data
     struct stream

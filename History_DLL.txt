@@ -14,6 +14,7 @@ Version 0.7.7.9, 2008-
 + #2259421, FLAC and OGG: Encoding library name and version
 + FLV: version 10 support
 + FLV: duration of files without metatags
++ MPEG-4: Delay (useful when multiple videos are present)
 x MPEG-PS: Trying to have a better precision for duration
 x WMV: crash with some malformed files
 x MPEG-TS: some channel names where not shown

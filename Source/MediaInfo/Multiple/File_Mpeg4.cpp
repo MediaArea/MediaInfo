@@ -114,6 +114,7 @@ File_Mpeg4::File_Mpeg4()
     mdat_MustParse=false;
     moov_Done=false;
     moov_trak_mdia_mdhd_TimeScale=0;
+    TimeScale=1;
 }
 
 //***************************************************************************

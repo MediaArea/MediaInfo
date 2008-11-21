@@ -462,14 +462,14 @@ public :
     inline void Skip_C6(              const char*) {Element_Offset+=6;}
     inline void Skip_C7(              const char*) {Element_Offset+=7;}
     inline void Skip_C8(              const char*) {Element_Offset+=8;}
-    #define Info_C1(_INFO, _NAME) Ztring _INFO; Get_C1(_INFO, _NAME)
-    #define Info_C2(_INFO, _NAME) Ztring _INFO; Get_C2(_INFO, _NAME)
-    #define Info_C3(_INFO, _NAME) Ztring _INFO; Get_C3(_INFO, _NAME)
-    #define Info_C4(_INFO, _NAME) Ztring _INFO; Get_C4(_INFO, _NAME)
-    #define Info_C5(_INFO, _NAME) Ztring _INFO; Get_C5(_INFO, _NAME)
-    #define Info_C6(_INFO, _NAME) Ztring _INFO; Get_C6(_INFO, _NAME)
-    #define Info_C7(_INFO, _NAME) Ztring _INFO; Get_C7(_INFO, _NAME)
-    #define Info_C8(_INFO, _NAME) Ztring _INFO; Get_C8(_INFO, _NAME)
+    #define Info_C1(_INFO, _NAME) int8u  _INFO; Get_C1(_INFO, _NAME)
+    #define Info_C2(_INFO, _NAME) int16u _INFO; Get_C2(_INFO, _NAME)
+    #define Info_C3(_INFO, _NAME) int32u _INFO; Get_C3(_INFO, _NAME)
+    #define Info_C4(_INFO, _NAME) int32u _INFO; Get_C4(_INFO, _NAME)
+    #define Info_C5(_INFO, _NAME) int64u _INFO; Get_C5(_INFO, _NAME)
+    #define Info_C6(_INFO, _NAME) int64u _INFO; Get_C6(_INFO, _NAME)
+    #define Info_C7(_INFO, _NAME) int64u _INFO; Get_C7(_INFO, _NAME)
+    #define Info_C8(_INFO, _NAME) int64u _INFO; Get_C8(_INFO, _NAME)
 
     //***************************************************************************
     // Text
