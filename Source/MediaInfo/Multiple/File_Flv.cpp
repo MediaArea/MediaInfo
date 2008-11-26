@@ -628,9 +628,6 @@ void File_Flv::video()
         return;
     }
 
-    if (FrameType!=1) //Not a KeyFrame
-        return;
-
     FILLING_BEGIN();
         //Filling
         if (Retrieve(Stream_Video, 0, Video_Format).empty())
@@ -784,7 +781,7 @@ void File_Flv::video_AVC()
 {
     int8u AVCPacketType;
     Get_B1 (AVCPacketType,                                      "AVCPacketType"); Param_Info(Flv_AVCPacketType(AVCPacketType));
-    Skip_B3(                                                    "CompositionTime");
+    Skip_B3(                                                    "CompositionTime"); Param_Info(Ztring::ToZtring((int32s)(CompositionTime+0xFF000000)));
 
     switch (AVCPacketType)
     {
