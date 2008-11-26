@@ -117,6 +117,7 @@ void MediaInfo_Config::Init()
     ParseSpeed=(float32)0.01;
     Details=0;
     Language_Raw=false;
+    ReadByHuman=true;
     Demux=0;
     LineSeparator=_T("\r\n");
     ColumnSeparator=_T(";");
@@ -267,6 +268,15 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     {
         ShowFiles_Set(Value.c_str());
         return _T("");
+    }
+    else if (Option_Lower==_T("readbyhuman"))
+    {
+        ReadByHuman_Set(Value.To_int8u());
+        return _T("");
+    }
+    else if (Option_Lower==_T("readbyhuman_get"))
+    {
+        return ReadByHuman_Get()?_T("1"):_T("0");
     }
     else if (Option_Lower==_T("lineseparator"))
     {
@@ -548,6 +558,19 @@ float32 MediaInfo_Config::ParseSpeed_Get ()
 {
     CriticalSectionLocker CSL(CS);;
     return ParseSpeed;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config::ReadByHuman_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);;
+    ReadByHuman=NewValue;
+}
+
+bool MediaInfo_Config::ReadByHuman_Get ()
+{
+    CriticalSectionLocker CSL(CS);;
+    return ReadByHuman;
 }
 
 //---------------------------------------------------------------------------

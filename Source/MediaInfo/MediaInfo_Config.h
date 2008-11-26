@@ -76,6 +76,9 @@ public :
           size_t    ShowFiles_AudioOnly_Get ();
           size_t    ShowFiles_TextOnly_Get ();
 
+          void      ReadByHuman_Set (bool NewValue);
+          bool      ReadByHuman_Get ();
+
           void      ParseSpeed_Set (float32 NewValue);
           float32   ParseSpeed_Get ();
 
@@ -168,6 +171,7 @@ private :
     float32         ParseSpeed;
     float           Details;
     bool            Language_Raw;
+    bool            ReadByHuman;
     int8u           Demux;
     Ztring          Version;
     Ztring          ColumnSeparator;

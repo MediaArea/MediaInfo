@@ -144,7 +144,7 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind)
         Finalize_Final_All(StreamKind, Pos, Z1, Z2, Z3, Z4);
 
     //Codec_List
-    if (StreamKind!=Stream_General && !Z1.empty())
+    if (StreamKind!=Stream_General && !Z1.empty() && MediaInfoLib::Config.ReadByHuman_Get())
     {
         Z1.resize(Z1.size()-3); //Delete extra " / "
         Z2.resize(Z2.size()-3); //Delete extra " / "
@@ -212,7 +212,7 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
                 Clear(StreamKind, Pos, "Language");
                 Language.clear();
             }
-            if (!Language.empty())
+            if (!Language.empty() && MediaInfoLib::Config.ReadByHuman_Get())
             {
                 if (Language.size()==3 && !MediaInfoLib::Config.Iso639_Get(Language).empty())
                     Language=MediaInfoLib::Config.Iso639_Get(Language);
@@ -235,19 +235,22 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
                 }
             }
         }
-        
+
         //Codec_List
-        Z1+=Retrieve(StreamKind, Pos, "Codec/String")+_T(" / ");
-        Z2+=Retrieve(StreamKind, Pos, "Language/String")+_T(" / ");
-        Z3+=Retrieve(StreamKind, Pos, "Format")+_T(" / ");
-        Z4+=Retrieve(StreamKind, Pos, "Format");
-        if (!Retrieve(StreamKind, Pos, "CodecID/Hint").empty())
+        if (MediaInfoLib::Config.ReadByHuman_Get())
         {
-            Z4+=_T(" (");
-            Z4+=Retrieve(StreamKind, Pos, "CodecID/Hint");
-            Z4+=_T(")");
+            Z1+=Retrieve(StreamKind, Pos, "Codec/String")+_T(" / ");
+            Z2+=Retrieve(StreamKind, Pos, "Language/String")+_T(" / ");
+            Z3+=Retrieve(StreamKind, Pos, "Format")+_T(" / ");
+            Z4+=Retrieve(StreamKind, Pos, "Format");
+            if (!Retrieve(StreamKind, Pos, "CodecID/Hint").empty())
+            {
+                Z4+=_T(" (");
+                Z4+=Retrieve(StreamKind, Pos, "CodecID/Hint");
+                Z4+=_T(")");
+            }
+            Z4+=_T(" / ");
         }
-        Z4+=_T(" / ");
     }
 
     //Counts
@@ -258,7 +261,7 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
         Fill(StreamKind, Pos, "StreamKindPos", Pos+1);
 
     //BitRate / OverallBitRate
-    if (!Retrieve(StreamKind, Pos, StreamKind==Stream_General?"OverallBitRate_Mode":"BitRate_Mode").empty())
+    if (!Retrieve(StreamKind, Pos, StreamKind==Stream_General?"OverallBitRate_Mode":"BitRate_Mode").empty() && MediaInfoLib::Config.ReadByHuman_Get())
     {
         const Ztring &UnTranslated=Retrieve(StreamKind, Pos, StreamKind==Stream_General?"OverallBitRate_Mode":"BitRate_Mode");
         Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("BitRate_Mode_"))+UnTranslated);
@@ -266,35 +269,38 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
     }
 
     //Strings
-    size_t List_Measure_Pos=Error;
-    do
+    if (MediaInfoLib::Config.ReadByHuman_Get())
     {
-        List_Measure_Pos=MediaInfoLib::Config.Info_Get(StreamKind).Find_Filled(Info_Measure, List_Measure_Pos+1);
-        if (List_Measure_Pos!=Error)
+        size_t List_Measure_Pos=Error;
+        do
         {
-            const Ztring &List_Measure_Value=MediaInfoLib::Config.Info_Get(StreamKind).Read(List_Measure_Pos, Info_Measure);
-            const Ztring &List_Name_Value=MediaInfoLib::Config.Info_Get(StreamKind).Read(List_Measure_Pos, Info_Name);
-                 if (List_Measure_Value==_T(" byte"))
-                FileSize_FileSize123(List_Name_Value, StreamKind, Pos);
-            else if (List_Measure_Value==_T(" bps") || List_Measure_Value==_T(" Hz"))
-                Kilo_Kilo123(List_Name_Value, StreamKind, Pos);
-            else if (List_Measure_Value==_T(" ms"))
-                Duration_Duration123(List_Name_Value, StreamKind, Pos);
-            else if (List_Measure_Value==_T("Yes"))
-                YesNo_YesNo(List_Name_Value, StreamKind, Pos);
-            else
-                Value_Value123(List_Name_Value, StreamKind, Pos);
-        }
+            List_Measure_Pos=MediaInfoLib::Config.Info_Get(StreamKind).Find_Filled(Info_Measure, List_Measure_Pos+1);
+            if (List_Measure_Pos!=Error)
+            {
+                const Ztring &List_Measure_Value=MediaInfoLib::Config.Info_Get(StreamKind).Read(List_Measure_Pos, Info_Measure);
+                const Ztring &List_Name_Value=MediaInfoLib::Config.Info_Get(StreamKind).Read(List_Measure_Pos, Info_Name);
+                     if (List_Measure_Value==_T(" byte"))
+                    FileSize_FileSize123(List_Name_Value, StreamKind, Pos);
+                else if (List_Measure_Value==_T(" bps") || List_Measure_Value==_T(" Hz"))
+                    Kilo_Kilo123(List_Name_Value, StreamKind, Pos);
+                else if (List_Measure_Value==_T(" ms"))
+                    Duration_Duration123(List_Name_Value, StreamKind, Pos);
+                else if (List_Measure_Value==_T("Yes"))
+                    YesNo_YesNo(List_Name_Value, StreamKind, Pos);
+                else
+                    Value_Value123(List_Name_Value, StreamKind, Pos);
+            }
 
+        }
+        while (List_Measure_Pos!=Error);
     }
-    while (List_Measure_Pos!=Error);
 
     //StreamKind
     Fill(StreamKind, Pos, General_StreamKind, MediaInfoLib::Config.Info_Get(StreamKind).Read(General_StreamKind, Info_Text));
     Fill(StreamKind, Pos, General_StreamKind_String, MediaInfoLib::Config.Language_Get(MediaInfoLib::Config.Info_Get(StreamKind).Read(General_StreamKind, Info_Text)), true);
 
     //Encoded_Library
-    if (!Retrieve(StreamKind, Pos, "Encoded_Library").empty())
+    if (!Retrieve(StreamKind, Pos, "Encoded_Library").empty() && MediaInfoLib::Config.ReadByHuman_Get())
     {
         const Ztring& Name=Retrieve(StreamKind, Pos, "Encoded_Library/Name");
         const Ztring& Version=Retrieve(StreamKind, Pos, "Encoded_Library/Version");
@@ -367,7 +373,7 @@ void File__Analyze::Finalize_Video(size_t Pos)
         Fill(Stream_Video, Pos, Video_ScanOrder_String, Translated.find(_T("Interlaced_"))?Translated:UnTranslated);
     }
     //Interlacement
-    if (!Retrieve(Stream_Video, Pos, "Interlacement").empty())
+    if (!Retrieve(Stream_Video, Pos, "Interlacement").empty() && MediaInfoLib::Config.ReadByHuman_Get())
     {
         const Ztring &Z1=Retrieve(Stream_Video, Pos, "Interlacement");
         if (Z1.size()==3)
@@ -404,7 +410,7 @@ void File__Analyze::Finalize_Video(size_t Pos)
             Fill(Stream_Video, Pos, "DisplayAspectRatio", ((float32)Width)/Height);
     }
     //Display Aspect Ratio
-    if (!Retrieve(Stream_Video, Pos, "DisplayAspectRatio").empty())
+    if (!Retrieve(Stream_Video, Pos, "DisplayAspectRatio").empty() && MediaInfoLib::Config.ReadByHuman_Get())
     {
         float F1=Retrieve(Stream_Video, Pos, "DisplayAspectRatio").To_float32();
         Ztring C1;
