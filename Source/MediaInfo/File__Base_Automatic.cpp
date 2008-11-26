@@ -4119,6 +4119,8 @@ void File__Base_Menu (ZtringListList &Info)
     "Codec/String;;;N NT;;;Deprecated\n"
     "Codec/Info;;;N NT;;;Deprecated\n"
     "Codec/Url;;;N NT;;;Deprecated\n"
+    "List_StreamKind;;;N YT;;;List of programs available\n"
+    "List_StreamPos;;;N YT;;;List of programs available\n"
     "List;;;N YT;;;List of programs available\n"
     "List/String;;;Y NT\n"
     "Title;;;Y YI;;;Name of this menu\n"

@@ -17,6 +17,8 @@ Codec;;;N YT;;;Deprecated
 Codec/String;;;N NT;;;Deprecated;;
 Codec/Info;;;N NT;;;Deprecated;;
 Codec/Url;;;N NT;;;Deprecated;;
+List_StreamKind;;;N YT;;;List of programs available;;
+List_StreamPos;;;N YT;;;List of programs available;;
 List;;;N YT;;;List of programs available;;
 List/String;;;Y NT;;;;;
 Title;;;Y YI;;;Name of this menu;;

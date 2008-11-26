@@ -737,6 +737,8 @@ enum menu
     Menu_Codec_String,
     Menu_Codec_Info,
     Menu_Codec_Url,
+    Menu_List_StreamKind,
+    Menu_List_StreamPos,
     Menu_List,
     Menu_List_String,
     Menu_Title,
