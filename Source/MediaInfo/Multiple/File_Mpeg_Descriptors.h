@@ -108,8 +108,8 @@ private :
     void Descriptor_04() {Skip_XX(Element_Size, "Data");};
     void Descriptor_05();
     void Descriptor_06();
-    void Descriptor_07() {Skip_XX(Element_Size, "Data");};
-    void Descriptor_08() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_07();
+    void Descriptor_08();
     void Descriptor_09();
     void Descriptor_0A();
     void Descriptor_0B() {Skip_XX(Element_Size, "Data");};
@@ -118,7 +118,7 @@ private :
     void Descriptor_0E();
     void Descriptor_0F();
     void Descriptor_10();
-    void Descriptor_11() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_11();
     void Descriptor_12() {Skip_XX(Element_Size, "Data");};
     void Descriptor_13() {Skip_XX(Element_Size, "Data");};
     void Descriptor_14() {Skip_XX(Element_Size, "Data");};

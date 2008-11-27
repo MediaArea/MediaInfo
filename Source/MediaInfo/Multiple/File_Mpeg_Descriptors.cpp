@@ -1164,6 +1164,28 @@ void File_Mpeg_Descriptors::Descriptor_06()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::Descriptor_07()
+{
+    //Parsing
+    BS_Begin();
+    Skip_S1(14,                                                 "horizontal_size");
+    Skip_S1(14,                                                 "vertical_size");
+    Skip_S1( 4,                                                 "aspect_ratio_information"); //Same as ISO/IEC 13818-2
+    BS_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::Descriptor_08()
+{
+    //Parsing
+    BS_Begin();
+    Skip_S1(14,                                                 "horizontal_offset");
+    Skip_S1(14,                                                 "vertical_offset");
+    Skip_S1( 4,                                                 "window_priority");
+    BS_End();
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg_Descriptors::Descriptor_09()
 {
     //Parsing
@@ -1221,6 +1243,16 @@ void File_Mpeg_Descriptors::Descriptor_10()
     Info_S3(22, sb_leak_rate,                                   "sb_leak_rate"); Param_Info(sb_leak_rate*400, " bps");
     Skip_S1( 2,                                                 "reserved");
     Info_S3(22, sb_size,                                        "sb_size"); Param_Info(sb_size, " bytes");
+    BS_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::Descriptor_11()
+{
+    //Parsing
+    BS_Begin();
+    Skip_S1( 7,                                                 "reserved");
+    Skip_SB(                                                    "leak_valid_flag");
     BS_End();
 }
 
