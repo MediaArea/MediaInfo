@@ -147,11 +147,13 @@ private :
     {
         int16u                                      pid;
         std::map<std::string, ZenLib::Ztring>       Infos;
-        ZtringList                                  List;
+        ZtringList                                  List_ID;
+        ZtringList                                  List_StreamKind;
+        ZtringList                                  List_StreamPos;
         ZtringList                                  Language;
         ZtringList                                  Format;
         ZtringList                                  Codec;
-        ZtringList                                  Text;
+        ZtringList                                  Text_ID;
 
         program()
         {

@@ -236,7 +236,9 @@ void File_MpegTs::Read_Buffer_Finalize()
                     Fill(StreamKind_Last, StreamPos_Last, "MenuID/String", Decimal_Hexa(Streams[StreamID].program_numbers[Pos]));
 
                     //Menu
-                    Programs[Streams[StreamID].program_numbers[Pos]].List.push_back(Ztring::ToZtring(StreamID));
+                    Programs[Streams[StreamID].program_numbers[Pos]].List_ID.push_back(Ztring::ToZtring(StreamID));
+                    Programs[Streams[StreamID].program_numbers[Pos]].List_StreamKind.push_back(Ztring::ToZtring(StreamKind_Last));
+                    Programs[Streams[StreamID].program_numbers[Pos]].List_StreamPos.push_back(Ztring::ToZtring(StreamPos_Last));
                     Ztring Format=Retrieve(StreamKind_Last, StreamPos_Last, "Format");
                     Programs[Streams[StreamID].program_numbers[Pos]].Format.push_back(Format);
                     Ztring Codec=Retrieve(StreamKind_Last, StreamPos_Last, "Codec");
@@ -252,7 +254,7 @@ void File_MpegTs::Read_Buffer_Finalize()
                         Menu_Temp+=Language;
                     }
                     Menu_Temp+=_T(")");
-                    Programs[Streams[StreamID].program_numbers[Pos]].Text.push_back(Menu_Temp);
+                    Programs[Streams[StreamID].program_numbers[Pos]].Text_ID.push_back(Menu_Temp);
                 }
             }
         }
@@ -295,10 +297,14 @@ void File_MpegTs::Read_Buffer_Finalize()
             Fill(StreamKind_Last, StreamPos_Last, "MenuID/String", Decimal_Hexa(Program->first));
             Fill(StreamKind_Last, StreamPos_Last, "ID", Programs[Program->first].pid);
             Fill(StreamKind_Last, StreamPos_Last, "ID/String", Decimal_Hexa(Programs[Program->first].pid));
-            Program->second.List.Separator_Set(0, _T(" / "));
-            Fill(StreamKind_Last, StreamPos_Last, "List", Program->second.List.Read());
-            Program->second.Text.Separator_Set(0, _T(" / "));
-            Fill(StreamKind_Last, StreamPos_Last, "List/String", Program->second.Text.Read());
+            Program->second.List_ID.Separator_Set(0, _T(" / "));
+            Fill(StreamKind_Last, StreamPos_Last, "List", Program->second.List_ID.Read());
+            Program->second.List_StreamKind.Separator_Set(0, _T(" / "));
+            Fill(StreamKind_Last, StreamPos_Last, "List_StreamKind", Program->second.List_StreamKind.Read());
+            Program->second.List_StreamPos.Separator_Set(0, _T(" / "));
+            Fill(StreamKind_Last, StreamPos_Last, "List_StreamPos", Program->second.List_StreamPos.Read());
+            Program->second.Text_ID.Separator_Set(0, _T(" / "));
+            Fill(StreamKind_Last, StreamPos_Last, "List/String", Program->second.Text_ID.Read());
             Program->second.Language.Separator_Set(0, _T(" / "));
             Fill(StreamKind_Last, StreamPos_Last, "Language", Program->second.Language.Read());
             Program->second.Codec.Separator_Set(0, _T(" / "));
