@@ -1030,7 +1030,7 @@ bool File_MpegTs::Synchronize()
         Stream_Prepare(Stream_General);
 
         //Continue, again, for Duplicate and Filter
-        Read_Buffer_Continue();
+        Option_Manage();
     }
     Synched=true;
     return true;
