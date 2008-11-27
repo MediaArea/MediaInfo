@@ -781,7 +781,7 @@ void File_Flv::video_AVC()
 {
     int8u AVCPacketType;
     Get_B1 (AVCPacketType,                                      "AVCPacketType"); Param_Info(Flv_AVCPacketType(AVCPacketType));
-    Skip_B3(                                                    "CompositionTime"); Param_Info(Ztring::ToZtring((int32s)(CompositionTime+0xFF000000)));
+    Info_B3(CompositionTime,                                    "CompositionTime"); Param_Info(Ztring::ToZtring((int32s)(CompositionTime+0xFF000000)));
 
     switch (AVCPacketType)
     {
