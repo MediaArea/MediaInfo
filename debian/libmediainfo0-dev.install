@@ -1,0 +1,8 @@
+usr/lib/lib*.a
+usr/lib/lib*.so
+usr/lib/*.la
+usr/lib/pkgconfig/*
+usr/include/MediaInfo/*
+usr/include/MediaInfoDLL/*
+usr/share/doc/libmediainfo0-dev/Documentation.html
+usr/share/doc/libmediainfo0-dev/Doc/*

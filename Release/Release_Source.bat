@@ -7,26 +7,29 @@ mkdir MediaInfo_Lib_Source
 
 
 rem --- Copying : Include ---
-xcopy ..\Source\MediaInfo\MediaInfo.h MediaInfo_Lib_Source\Include\MediaInfo\
-xcopy ..\Source\MediaInfo\MediaInfoList.h MediaInfo_Lib_Source\Include\MediaInfo\
-xcopy ..\Source\MediaInfo\MediaInfo_Const.h MediaInfo_Lib_Source\Include\MediaInfo\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.h MediaInfo_Lib_Source\Include\MediaInfoDLL\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.def MediaInfo_Lib_Source\Include\MediaInfoDLL\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.pas MediaInfo_Lib_Source\Include\MediaInfoDLL\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.cs MediaInfo_Lib_Source\Include\MediaInfoDLL\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.jsl MediaInfo_Lib_Source\Include\MediaInfoDLL\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.vb MediaInfo_Lib_Source\Include\MediaInfoDLL\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.java MediaInfo_Lib_Source\Include\MediaInfoDLL\
+rem xcopy ..\Source\MediaInfo\MediaInfo.h MediaInfo_Lib_Source\Include\MediaInfo\
+rem xcopy ..\Source\MediaInfo\MediaInfoList.h MediaInfo_Lib_Source\Include\MediaInfo\
+rem xcopy ..\Source\MediaInfo\MediaInfo_Const.h MediaInfo_Lib_Source\Include\MediaInfo\
+rem xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.h MediaInfo_Lib_Source\Include\MediaInfoDLL\
+rem xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.def MediaInfo_Lib_Source\Include\MediaInfoDLL\
+rem xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.pas MediaInfo_Lib_Source\Include\MediaInfoDLL\
+rem xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.cs MediaInfo_Lib_Source\Include\MediaInfoDLL\
+rem xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.jsl MediaInfo_Lib_Source\Include\MediaInfoDLL\
+rem xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.vb MediaInfo_Lib_Source\Include\MediaInfoDLL\
+rem xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.java MediaInfo_Lib_Source\Include\MediaInfoDLL\
 
 rem --- Copying : Documentation ---
-mkdir Doc
-cd ..\Source\Doc
-..\..\..\Shared\Binary\Win32\Doxygen\Doxygen Doxyfile
-cd ..\..\Release
-mkdir MediaInfo_Lib_Source\Doc\
-xcopy Doc\*.*  MediaInfo_Lib_Source\Doc\
-rmdir Doc /S /Q
-xcopy ..\Source\Doc\*.html MediaInfo_Lib_Source\ /S
+rem mkdir Doc
+rem cd ..\Source\Doc
+rem ..\..\..\Shared\Binary\Win32\Doxygen\Doxygen Doxyfile
+rem cd ..\..\Release
+rem mkdir MediaInfo_Lib_Source\Doc\
+rem xcopy ..\Doc\*.*  MediaInfo_Lib_Source\Doc\
+rem rmdir ..\Doc /S /Q
+rem xcopy ..\Source\Doc\*.html MediaInfo_Lib_Source\ /S
+
+@rem --- Copying : debian ---
+xcopy ..\debian\* MediaInfo_Lib_Source\debian\ /S
 
 @rem --- Copying : Sources ---
 xcopy ..\Source\*.cpp MediaInfo_Lib_Source\Source\ /S
@@ -42,6 +45,7 @@ xcopy ..\Source\*.txt MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.csv MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.dfm MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.au3 MediaInfo_Lib_Source\Source\ /S
+xcopy ..\Source\*.pb MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.py MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\Doc\* MediaInfo_Lib_Source\Source\Doc\ /S
 
@@ -115,7 +119,7 @@ rem --- Compressing Archive ---
 if "%2"=="SkipCompression" goto SkipCompression
 move MediaInfo_Lib_Source MediaInfoLib
 ..\..\Shared\Binary\Win32\7-zip\7z a -r -ttar -mx9 MediaInfo_Lib_Source.tar MediaInfoLib\*
-..\..\Shared\Binary\Win32\7-zip\7z a -r -tbzip2 -mx9 MediaInfo_Lib_Source.tar.bz2 MediaInfo_Lib_Source.tar
+..\..\Shared\Binary\Win32\7-zip\7z a -r -tbzip2 -mx9 libmediainfo_.tar.bz2 MediaInfo_Lib_Source.tar
 del MediaInfo_Lib_Source.tar
 move MediaInfoLib MediaInfo_Lib_Source
 :SkipCompression

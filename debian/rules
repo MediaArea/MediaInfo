@@ -1,0 +1,120 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+# shared library versions
+version=`ls src/.libs/lib*.so.* | \
+ awk '{if (match($$0,/[0-9]+\.[0-9]+\.[0-9]+$$/)) print substr($$0,RSTART)}'`
+major=`ls src/.libs/lib*.so.* | \
+ awk '{if (match($$0,/\.so\.[0-9]+$$/)) print substr($$0,RSTART+4)}'`
+
+
+configure: configure-stamp
+configure-stamp:
+	dh_testdir
+	# Add here commands to configure the package.
+
+	fromdos      *.txt *.html Source/Doc/*.html
+	chmod 644    *.txt *.html Source/Doc/*.html
+	cd Source/Doc && doxygen Doxyfile
+	cp Source/Doc/*.html ./
+	cd Project/GNU/Library && chmod u+x autogen
+	cd Project/GNU/Library && ./autogen
+	cd Project/GNU/Library && ./configure --enable-shared --prefix=/usr
+
+	touch $@
+
+
+build: build-stamp
+build-stamp: configure-stamp  
+	dh_testdir
+
+	# Add here commands to compile the package.
+	cd Project/GNU/Library && $(MAKE)
+
+	touch $@
+
+clean: 
+	dh_testdir
+	dh_testroot
+
+	# Add here commands to clean up after the build process.
+	# $(MAKE) clean
+
+	dh_clean 
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k 
+	dh_installdirs
+
+	# Add here commands to install the package into debian/tmp
+	cd Project/GNU/Library && $(MAKE) DESTDIR=$(CURDIR)/debian/tmp install-strip
+	install -dm 755 $(CURDIR)/debian/tmp/usr/include/MediaInfo
+	install -m 644 Source/MediaInfo/MediaInfo.h $(CURDIR)/debian/tmp/usr/include/MediaInfo
+	install -m 644 Source/MediaInfo/MediaInfoList.h $(CURDIR)/debian/tmp/usr/include/MediaInfo
+	install -m 644 Source/MediaInfo/MediaInfo_Const.h $(CURDIR)/debian/tmp/usr/include/MediaInfo
+	install -dm 755 $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
+	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.cs $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
+	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.def $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
+	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.h $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
+	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.java $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
+	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.pas $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
+	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.pb $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
+	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.py $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
+
+	sed -i -e 's|Version: |Version: %{version}|g' Project/GNU/Library/libmediainfo.pc
+	install -dm 755 $(CURDIR)/debian/tmp/usr/lib/pkgconfig
+	install -m 644 Project/GNU/Library/libmediainfo.pc $(CURDIR)/debian/tmp/usr/lib/pkgconfig
+
+	install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0
+	install -m 644 Release/ReadMe_DLL_Linux.txt $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0/ReadMe.txt
+	install -m 644 History_DLL.txt $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0/History.txt
+	install -m 644 License.html $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0
+	install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev
+	install -m 644 Documentation.html $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev
+	install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev/Doc
+	install -m 644 Doc/* $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev/Doc
+
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_install --sourcedir=debian/tmp
+	dh_installchangelogs 
+	dh_installdocs
+	dh_installexamples
+#	dh_install
+#	dh_installmenu
+#	dh_installdebconf	
+#	dh_installlogrotate
+#	dh_installemacsen
+#	dh_installpam
+#	dh_installmime
+#	dh_installinit
+#	dh_installcron
+#	dh_installinfo
+	dh_installman
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+#	dh_perl
+#	dh_python
+	dh_makeshlibs
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install configure

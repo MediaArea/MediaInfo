@@ -6,7 +6,7 @@
 
 PROJECT_NAME           = MediaInfoLib
 PROJECT_NUMBER         = 0.7
-OUTPUT_DIRECTORY       = ../../Release/Doc/
+OUTPUT_DIRECTORY       = ./
 OUTPUT_LANGUAGE        = English
 REPEAT_BRIEF           = YES
 ABBREVIATE_BRIEF       = 
@@ -54,7 +54,7 @@ COLS_IN_ALPHA_INDEX    = 5
 #---------------------------------------------------------------------------
 
 GENERATE_HTML          = YES
-HTML_OUTPUT            = ../../Release/Doc
+HTML_OUTPUT            = ../../Doc
 HTML_FILE_EXTENSION    = .html
 HTML_HEADER            = 
 HTML_FOOTER            = 

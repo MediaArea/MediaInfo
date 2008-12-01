@@ -11,6 +11,7 @@ Version 0.7.7.9, 2008-
 ---------------
 + Better Linux integration
 + rpm stuff (thanks to oc2pus http://packman.links2linux.org)
++ deb stuff
 + #2259421, FLAC and OGG: Encoding library name and version
 + FLV: version 10 support
 + FLV: duration of files without metatags
