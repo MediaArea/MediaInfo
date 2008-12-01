@@ -161,7 +161,7 @@ void GUI_Main_Easy_Box::OnClick(wxCommandEvent&)
     #if defined (_WINDOWS)
         ShellExecute(NULL, _T("open"), Button_Click().c_str(), NULL, NULL, 0); //wxExecute(_T("cmd /C start ")+Button_Click());
     #elif defined (_MACOS) || defined (_MACOSX)
-        wxExecute(_T("open ")+Button_Click());
+        wxExecute((_T("open ")+Button_Click()).c_str());
     #else
         wxExecute(_T("xdg-open ")+Button_Click());
     #endif
