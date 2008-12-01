@@ -77,7 +77,7 @@ popd
 %files
 %defattr(-,root,root,-)
 %doc Release/ReadMe_CLI_Linux.txt
-%doc Licence.html History_CLI.txt
+%doc License.html History_CLI.txt
 %{_bindir}/mediainfo
 
 %changelog

@@ -93,7 +93,7 @@ popd
 %files
 %defattr(-,root,root,-)
 %doc Release/ReadMe_GUI_Linux.txt
-%doc Licence.html History_GUI.txt
+%doc License.html History_GUI.txt
 %{_bindir}/mediainfo-gui
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/128x128/apps/*.png
