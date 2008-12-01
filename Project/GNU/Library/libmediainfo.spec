@@ -16,13 +16,14 @@ Summary:		Supplies technical and tag information about a video or audio file
 Group:			System/Libraries
 License:		GPL
 URL:			http://mediainfo.sourceforge.net/
-Source0:		MediaInfo_%{version}_Lib_Source.tar.bz2
+Source0:		libmediainfo_%{version}.tar.bz2
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	dos2unix
 BuildRequires: 	gcc-c++
-BuildRequires:	libzen-devel
+BuildRequires:	libzen0-devel
 BuildRequires:	pkgconfig
 BuildRequires: 	zlib-devel
+BuildRequires:	doxygen
 
 %description
 MediaInfo supplies technical and tag information about a video or
@@ -49,23 +50,30 @@ What format (container) does MediaInfo support?
 
 This package contains the shared library for MediaInfo(-gui).
 
-%package -n libmediainfo-devel
+%package -n libmediainfo%{_SO_nr}-devel
 Summary:	Include files and mandatory librariesfor development
 Group:		Development/Libraries/C and C++
 Requires:	libmediainfo%{_SO_nr} = %{version}
 
-%description -n libmediainfo-devel
+%description -n libmediainfo%{_SO_nr}-devel
 Include files and mandatory librariesfor development.
 
 %prep
 %setup -q -n MediaInfoLib
-dos2unix     *.txt *.html Doc/*
-%__chmod 644 *.txt *.html Doc/*
+cp           Release/ReadMe_DLL_Linux.txt ReadMe.txt
+mv           History_DLL.txt History.txt
+dos2unix     *.txt *.html Source/Doc/*.html
+%__chmod 644 *.txt *.html Source/Doc/*.html
 
 %build
 export CFLAGS="$RPM_OPT_FLAGS"
 export CPPFLAGS="$RPM_OPT_FLAGS"
 export CXXFLAGS="$RPM_OPT_FLAGS"
+
+pushd Source/Doc/
+	doxygen Doxyfile
+popd
+cp Source/Doc/*.html ./
 
 pushd Project/GNU/Library
 	%__chmod +x autogen
@@ -103,12 +111,12 @@ done
 
 %files
 %defattr(-,root,root,-)
-%doc *.txt *.html
+%doc History.txt License.html ReadMe.txt
 %{_libdir}/libmediainfo.so.*
 
-%files -n libmediainfo-devel
+%files -n libmediainfo%{_SO_nr}-devel
 %defattr(-,root,root,-)
-%doc Doc/*
+%doc Changes.txt Documentation.html Doc/*
 %dir %{_includedir}/MediaInfo
 %{_includedir}/MediaInfo/*
 %dir %{_includedir}/MediaInfoDLL
