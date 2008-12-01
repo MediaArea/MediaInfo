@@ -1,0 +1,53 @@
+Source: mediainfo
+Priority: optional
+Maintainer: Jerome Martinez <zen@mediaarea.net>
+Build-Depends: debhelper (>= 5), tofrodos, libmediainfo0-dev, libzen0-dev, libwxgtk2.6-dev, zlib1g-dev, pkg-config
+Standards-Version: 3.7.3
+Section: libs
+Homepage: http://mediainfo.sourceforge.net
+
+Package: mediainfo
+Section: utils
+Architecture: any
+Depends: libmediainfo0, libzen0, zlib1g
+Description: MediaInfo supplies information about a video or audio file
+ MediaInfo supplies technical and tag information about a video or audio file
+ .
+ What information can I get from MediaInfo?
+ General: title, author, director, album, track number, date, duration...
+ Video: codec, aspect, fps, bitrate...
+ Audio: codec, sample rate, channels, language, bitrate...
+ Text: language of subtitle
+ Chapters: number of chapters, list of chapters
+ .
+ What format (container) does MediaInfo support?
+ Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1, MPEG-2,
+        MPEG-4, DVD (VOB)...
+ (Codecs: DivX, XviD, MSMPEG4, ASP, H.264, AVC...)
+ Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF...
+ Subtitles: SRT, SSA, ASS, SAMI...
+ .
+ This package includes the command line interface
+
+Package: mediainfo-gui
+Section: utils
+Architecture: any
+Depends: libmediainfo0, libzen0, libwxgtk2.6-0, zlib1g
+Description: MediaInfo supplies information about a video or audio file
+ MediaInfo supplies technical and tag information about a video or audio file
+ .
+ What information can I get from MediaInfo?
+ General: title, author, director, album, track number, date, duration...
+ Video: codec, aspect, fps, bitrate...
+ Audio: codec, sample rate, channels, language, bitrate...
+ Text: language of subtitle
+ Chapters: number of chapters, list of chapters
+ .
+ What format (container) does MediaInfo support?
+ Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1, MPEG-2,
+        MPEG-4, DVD (VOB)...
+ (Codecs: DivX, XviD, MSMPEG4, ASP, H.264, AVC...)
+ Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF...
+ Subtitles: SRT, SSA, ASS, SAMI...
+ .
+ This package includes the graphical user interface

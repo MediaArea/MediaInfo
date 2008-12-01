@@ -41,7 +41,7 @@ xcopy ..\Project\*.def MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.idl MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.rgs MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.bat MediaInfo_Source\Project\ /S
-xcopy ..\Project\BCB\*.res MediaInfo_Source\Project\BCB /S
+xcopy ..\Project\BCB\MediaInfo*.res MediaInfo_Source\Project\BCB /S
 xcopy ..\Project\MSVC\*.rc MediaInfo_Source\Project\MSVC\ /S
 xcopy ..\Project\GNU\* MediaInfo_Source\Project\GNU\ /S
 
@@ -55,6 +55,9 @@ xcopy MSVC\*.txt MediaInfo_Source\Release\MSVC\ /S
 xcopy GCC_MinGW32\*.txt MediaInfo_Source\Release\GCC_MinGW32\ /S
 xcopy GCC_Linux_i386\*.txt MediaInfo_Source\Release\GCC_Linux_i386\ /S
 xcopy Make_GCC.sh MediaInfo_Source\Release\
+
+@rem --- Copying : debian ---
+xcopy ..\debian\* MediaInfo_Source\debian\ /S
 
 rem --- Copying : Information files ---
 xcopy ..\*.txt MediaInfo_Source\
@@ -71,7 +74,7 @@ rem --- Compressing Archive ---
 if "%2"=="SkipCompression" goto SkipCompression
 move MediaInfo_Source MediaInfo
 ..\..\Shared\Binary\Win32\7-zip\7z a -r -ttar -mx9 MediaInfo_Source.tar MediaInfo\*
-..\..\Shared\Binary\Win32\7-zip\7z a -r -tbzip2 -mx9 MediaInfo_Source.tar.bz2 MediaInfo_Source.tar
+..\..\Shared\Binary\Win32\7-zip\7z a -r -tbzip2 -mx9 mediainfo_.tar.bz2 MediaInfo_Source.tar
 del MediaInfo_Source.tar
 move MediaInfo MediaInfo_Source
 :SkipCompression
