@@ -892,7 +892,7 @@ void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay_ChapStrin
 
     FILLING_BEGIN();
         if (TimecodeScale!=0 && ChapterTimeStart!=(int64u)-1)
-            Fill(StreamKind_Last, StreamPos_Last, Ztring::ToZtring(Chapter_Pos).To_Local().c_str(), Ztring().Duration_From_Milliseconds(ChapterTimeStart/TimecodeScale)+_T(" ")+ChapterString, true);
+            Fill(StreamKind_Last, StreamPos_Last, Ztring::ToZtring(Chapter_Pos).To_Local().c_str(), Ztring().Duration_From_Milliseconds(ChapterTimeStart/TimecodeScale)+_T(" - ")+ChapterString, true);
     FILLING_END();
 }
 
