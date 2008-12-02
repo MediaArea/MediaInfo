@@ -324,6 +324,17 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
         else
             Fill(StreamKind, Pos, "Encoded_Library/String", Retrieve(StreamKind, Pos, "Encoded_Library"));
     }
+
+    //Bits/(Pixel*Frame)
+    if (StreamKind==Stream_Video && (!Retrieve(Stream_Video, Pos, Video_BitRate).empty() || !Retrieve(Stream_Video, Pos, Video_BitRate_Nominal).empty()))
+    {
+        float32 BitRate=Retrieve(Stream_Video, Pos, Video_BitRate).To_float32();
+        if (BitRate==0)
+            BitRate=Retrieve(Stream_Video, Pos, Video_BitRate_Nominal).To_float32();
+        float F1=(float)Retrieve(Stream_Video, Pos, "Width").To_int32s()*(float)Retrieve(Stream_Video, Pos, "Height").To_int32s()*Retrieve(Stream_Video, Pos, "FrameRate").To_float32();
+        if (F1)
+            Fill(Stream_Video, Pos, Video_Bits__Pixel_Frame_, BitRate/F1);
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -446,16 +457,6 @@ void File__Analyze::Finalize_Video(size_t Pos)
     {
         Fill(Stream_Video, Pos, "FrameRate", Retrieve(Stream_Video, Pos, "FrameRate_Nominal"), true);
         Clear(Stream_Video, Pos, "FrameRate_Nominal");
-    }
-    //Bits/(Pixel*Frame)
-    if (!Retrieve(Stream_Video, Pos, Video_BitRate).empty() || !Retrieve(Stream_Video, Pos, Video_BitRate_Nominal).empty())
-    {
-        float32 BitRate=Retrieve(Stream_Video, Pos, Video_BitRate).To_float32();
-        if (BitRate==0)
-            BitRate=Retrieve(Stream_Video, Pos, Video_BitRate_Nominal).To_float32();
-        float F1=(float)Retrieve(Stream_Video, Pos, "Width").To_int32s()*(float)Retrieve(Stream_Video, Pos, "Height").To_int32s()*Retrieve(Stream_Video, Pos, "FrameRate").To_float32();
-        if (F1)
-            Fill(Stream_Video, Pos, Video_Bits__Pixel_Frame_, BitRate/F1);
     }
     //FrameCount
     if (Retrieve(Stream_Video, Pos, "FrameCount").empty())
@@ -779,7 +780,7 @@ void File__Analyze::Finalize_Final()
         Fill(Stream_Video, 0, Video_BitRate_Nominal, "", Unlimited, true, true);
     }
     //-Video bitrate if we have all audio bitrates and overal bitrate
-    if (Count_Get(Stream_Video)==1 && Retrieve(Stream_General, 0, General_OverallBitRate).size()>4 && Retrieve(Stream_Video, 0, Video_BitRate).empty() && Retrieve(Stream_General, 0, General_Duration).To_int64u()>=10000) //BitRate is > 10 000 and Duration>10s, to avoid strange behavior
+    if (Count_Get(Stream_Video)==1 && Retrieve(Stream_General, 0, General_OverallBitRate).size()>4 && Retrieve(Stream_Video, 0, Video_BitRate).empty() && Retrieve(Stream_General, 0, General_Duration).To_int64u()>=1000) //BitRate is > 10 000 and Duration>10s, to avoid strange behavior
     {
         double GeneralBitRate_Ratio=0.98;  //Default container overhead=2%
         int32u GeneralBitRate_Minus=5000;  //5000 bps because of a "classic" stream overhead
