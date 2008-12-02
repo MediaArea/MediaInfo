@@ -87,6 +87,7 @@ private :
     int16u temporal_reference;
     int16u display_horizontal_size;
     int16u display_vertical_size;
+    int16u vbv_delay;
     int8u  Time_Begin_Frames;
     int8u  Time_End_Frames;
     int8u  aspect_ratio_information;

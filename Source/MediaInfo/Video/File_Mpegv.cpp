@@ -429,7 +429,7 @@ void File_Mpegv::picture_start()
     Get_S2 (10, temporal_reference,                             "temporal_reference");
     Get_S1 ( 3, picture_coding_type,                            "picture_coding_type"); Param_Info(Mpegv_picture_coding_type[picture_coding_type]);
     Element_Info(Mpegv_picture_coding_type[picture_coding_type]);
-    Skip_S2(16,                                                 "vbv_delay");
+    Get_S2 (16, vbv_delay,                                      "vbv_delay");
     if (picture_coding_type==2 || picture_coding_type==3) //P or B
     {
         Skip_S1(1,                                              "full_pel_forward_vector");
@@ -597,13 +597,12 @@ void File_Mpegv::slice_start_Fill()
         Fill(Stream_Video, StreamPos_Last, Video_FrameRate, Mpegv_frame_rate[frame_rate_code]);
 
     //BitRate
-    if (bit_rate_value==0x3FFFF)
+    if (vbv_delay==0xFFFF || (MPEG_Version==1 && bit_rate_value==0x3FFFF))
         Fill(Stream_Video, 0, Video_BitRate_Mode, "VBR");
-    else
-    {
+    else if ((MPEG_Version==1 && bit_rate_value!=0x3FFFF) || MPEG_Version==2)
         Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
+    if (bit_rate_value!=0x3FFFF)
         Fill(Stream_Video, 0, Video_BitRate_Nominal, bit_rate_value*400);
-    }
 
     //Interlacement
     if (MPEG_Version==1)
