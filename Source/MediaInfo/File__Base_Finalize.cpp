@@ -118,7 +118,7 @@ void File__Analyze::Finalize__All(stream_t StreamKind)
 void File__Analyze::Finalize__All(stream_t StreamKind, size_t Pos)
 {
     //BitRate
-    if (Retrieve(StreamKind, Pos, "BitRate").empty() && !Retrieve(StreamKind, Pos, "StreamSize").empty() && !Retrieve(StreamKind, Pos, "Duration").empty())
+    if (StreamKind!=Stream_Chapters && Retrieve(StreamKind, Pos, "BitRate").empty() && !Retrieve(StreamKind, Pos, "StreamSize").empty() && !Retrieve(StreamKind, Pos, "Duration").empty())
     {
         int64u Duration=Retrieve(StreamKind, Pos, "Duration").To_int64u();
         int64u StreamSize=Retrieve(StreamKind, Pos, "StreamSize").To_int64u();
