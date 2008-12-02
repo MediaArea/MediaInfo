@@ -1,7 +1,7 @@
 Source: mediainfo
 Priority: optional
 Maintainer: Jerome Martinez <zen@mediaarea.net>
-Build-Depends: debhelper (>= 5), tofrodos, libmediainfo0-dev, libzen0-dev, libwxgtk2.6-dev, zlib1g-dev, pkg-config
+Build-Depends: debhelper (>= 5), tofrodos, libmediainfo0-dev, libzen0-dev, libwxgtk2.6-dev, zlib1g-dev, pkg-config, automake, autoconf, libtool
 Standards-Version: 3.7.3
 Section: libs
 Homepage: http://mediainfo.sourceforge.net
