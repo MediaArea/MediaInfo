@@ -76,6 +76,7 @@ xcopy ..\Project\*.cbp MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.resx MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.rc MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\BCB\*.h MediaInfo_Lib_Source\Project\BCB\ /S
+xcopy ..\Project\CMake\*.txt MediaInfo_Lib_Source\Project\CMake\ /S
 xcopy ..\Project\MSVC\*.h MediaInfo_Lib_Source\Project\MSVC\ /S
 xcopy ..\Project\BCB\*.res MediaInfo_Lib_Source\Project\BCB /S
 xcopy ..\Project\Delphi\*.res MediaInfo_Lib_Source\Project\Delphi /S
