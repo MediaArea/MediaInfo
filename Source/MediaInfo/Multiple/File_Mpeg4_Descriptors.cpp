@@ -35,6 +35,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Mpeg4_Descriptors.h"
+#if defined(MEDIAINFO_OGG_YES)
+    #include "MediaInfo/Multiple/File_Ogg.h"
+#endif
 #if defined(MEDIAINFO_MPEG4_YES)
     #include "MediaInfo/Audio/File_Mpeg4_AudioSpecificConfig.h"
 #endif
@@ -676,6 +679,10 @@ void File_Mpeg4_Descriptors::Descriptor_04()
                         break;
             case 0xDD :
             case 0xDE : //OGG
+                        #if defined(MEDIAINFO_OGG_YES)
+                            Parser=new File_Ogg;
+                            ((File_Ogg*)Parser)->SizedBlocks=true;
+                        #endif
                         break;
             default: ;
         }

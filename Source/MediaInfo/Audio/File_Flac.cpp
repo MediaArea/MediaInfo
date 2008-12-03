@@ -240,7 +240,7 @@ void File_Flac::VORBIS_COMMENT()
 
     //Parsing
     File_VorbisCom VorbisCom;
-    VorbisCom.StreamKind=Stream_Audio;
+    VorbisCom.StreamKind_Specific=Stream_Audio;
     Open_Buffer_Init(&VorbisCom, File_Size, File_Offset+Buffer_Offset);
     Open_Buffer_Continue(&VorbisCom, Buffer+Buffer_Offset, (size_t)Element_Size);
     Open_Buffer_Finalize(&VorbisCom);

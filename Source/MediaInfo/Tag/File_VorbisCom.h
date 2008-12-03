@@ -41,8 +41,9 @@ class File_VorbisCom : public File__Analyze
 {
 public :
     //In
-    stream_t StreamKind;
-    stream_t StreamGoal; //This tag is only for the kind of track in StreamGoal
+    stream_t StreamKind_Specific; //Always in this stream kind whatever is the configuration
+    stream_t StreamKind_Multiple; //Specific stream kind depend if there is multiple streams or not
+    stream_t StreamKind_Common;   //Stream kind for common values
 
 public :
     File_VorbisCom();

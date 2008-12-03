@@ -40,6 +40,10 @@ namespace MediaInfoLib
 
 class File_Ogg : public File__Analyze
 {
+public :
+    //In
+    bool   SizedBlocks;
+
 protected :
     //Formats
     void Read_Buffer_Finalize ();

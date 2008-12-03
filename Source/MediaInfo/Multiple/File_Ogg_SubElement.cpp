@@ -63,7 +63,8 @@ File_Ogg_SubElement::File_Ogg_SubElement()
 
     //In
     StreamKind=Stream_General;
-    IsStandAlone=true;
+    MultipleStreams=false;
+    InAnotherContainer=false;
     absolute_granule_position_Resolution=0;
 }
 
@@ -513,8 +514,9 @@ void File_Ogg_SubElement::Comment_vorbis()
         return;
 
     File_VorbisCom Vorbis;
-    Vorbis.StreamKind=StreamKind;
-    Vorbis.StreamGoal=IsStandAlone?Stream_General:StreamKind;
+    Vorbis.StreamKind_Specific=StreamKind;
+    Vorbis.StreamKind_Multiple=MultipleStreams?StreamKind:Stream_General;
+    Vorbis.StreamKind_Common=InAnotherContainer?StreamKind:Stream_General;
 
     //Open
     Open_Buffer_Init(&Vorbis, File_Size, File_Offset+Buffer_Offset+6);

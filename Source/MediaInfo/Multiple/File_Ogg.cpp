@@ -45,6 +45,9 @@ namespace MediaInfoLib
 File_Ogg::File_Ogg()
 :File__Analyze()
 {
+    //In
+    SizedBlocks=false;
+
     //Temp - Global
     StreamsToDo=0;
     Parsing_End=false;
@@ -84,6 +87,10 @@ void File_Ogg::Read_Buffer_Finalize()
 //---------------------------------------------------------------------------
 bool File_Ogg::Header_Begin()
 {
+    //Specific case
+    if (SizedBlocks)
+        return true;
+
     //Synchro
     if (!Synched && !Synchronize())
         return false;
@@ -99,6 +106,19 @@ bool File_Ogg::Header_Begin()
 //---------------------------------------------------------------------------
 void File_Ogg::Header_Parse()
 {
+    //Specific case
+    if (SizedBlocks)
+    {
+        int16u Size;
+        Get_B2 (Size,                                           "Size");
+
+        Chunk_Sizes.clear();
+        Chunk_Sizes.push_back(Size);
+        Header_Fill_Size(2+Size);
+        Header_Fill_Code(0, Ztring::ToZtring(0, 16));
+        return;
+    }
+
     //Parsing
     int64u absolute_granule_position;
     int32u stream_serial_number, page_sequence_no;
@@ -147,10 +167,11 @@ void File_Ogg::Data_Parse()
     if (Stream[Element_Code].Parser==NULL)
     {
         Stream[Element_Code].Parser=new File_Ogg_SubElement;
-        ((File_Ogg_SubElement*)Stream[Element_Code].Parser)->IsStandAlone=Stream.size()==1;
+        ((File_Ogg_SubElement*)Stream[Element_Code].Parser)->InAnotherContainer=SizedBlocks;
         Open_Buffer_Init(Stream[Element_Code].Parser);
         StreamsToDo++;
     }
+    ((File_Ogg_SubElement*)Stream[Element_Code].Parser)->MultipleStreams=Stream.size()>1; //has no sens for the first init, must check allways
 
     //Parsing
     File_Ogg_SubElement* Parser=(File_Ogg_SubElement*)Stream[Element_Code].Parser;
@@ -180,7 +201,8 @@ void File_Ogg::Data_Parse()
                 Merge(*Parser, Stream_General, 0, 0);
                 Stream[Element_Code].StreamKind=((File_Ogg_SubElement*)Parser)->StreamKind;
                 Stream[Element_Code].StreamPos=Count_Get(Stream[Element_Code].StreamKind)-1;
-                Stream[Element_Code].absolute_granule_position_Resolution=((File_Ogg_SubElement*)Stream[Element_Code].Parser)->absolute_granule_position_Resolution;
+                if (!SizedBlocks)
+                    Stream[Element_Code].absolute_granule_position_Resolution=((File_Ogg_SubElement*)Stream[Element_Code].Parser)->absolute_granule_position_Resolution;
                 StreamsToDo--;
             }
 
@@ -204,6 +226,8 @@ void File_Ogg::Data_Parse()
         }
         Parsing_End=true;
     }
+
+    Element_Show();
 }
 
 

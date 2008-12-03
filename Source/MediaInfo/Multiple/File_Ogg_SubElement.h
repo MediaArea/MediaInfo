@@ -42,7 +42,8 @@ class File_Ogg_SubElement : public File__Analyze
 public :
     //In
     stream_t StreamKind;
-    bool     IsStandAlone; //This stream is the only one in the file
+    bool     MultipleStreams;
+    bool     InAnotherContainer;
     int64u   absolute_granule_position_Resolution;
 
 protected :
