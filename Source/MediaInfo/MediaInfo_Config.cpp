@@ -732,6 +732,8 @@ void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
         for (size_t Pos=0; Pos<NewValue.size(); Pos++)
             if (NewValue[Pos].size()>=2)
                 Language.Write(NewValue[Pos][0], NewValue[Pos][1]);
+            else if (NewValue[Pos].size()==1)
+                Language.Write(NewValue[Pos][0], _T(""));
     }
 
     //Fill Info
