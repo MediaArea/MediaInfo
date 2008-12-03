@@ -20,6 +20,7 @@ Version 0.7.7.9, 2008-
 x MPEG-PS: Trying to have a better precision for duration
 x WMV: crash with some malformed files
 x MPEG-TS: some channel names where not shown
+x MPEG Video (version 2): some streams were misdetected as CBR
 
 Version 0.7.7.8, 2008-11-10
 ---------------
