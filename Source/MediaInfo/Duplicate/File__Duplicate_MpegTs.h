@@ -75,6 +75,7 @@ public :
         size_t          Begin; //After pointer_field
         size_t          End;   //Before CRC
         size_t          Size;
+        int8u           continuity_counter;
         int8u           version_number;
         int8u           FromTS_version_number_Last;
         bool            ConfigurationHasChanged;
@@ -86,7 +87,7 @@ public :
             Begin=0;
             End=0;
             Size=0;
-            version_number=0xFF;
+            continuity_counter=0xFF;
             version_number=0xFF;
             FromTS_version_number_Last=0xFF;
             ConfigurationHasChanged=true;
