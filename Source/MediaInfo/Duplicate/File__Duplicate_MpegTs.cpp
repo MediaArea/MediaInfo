@@ -269,9 +269,31 @@ bool File__Duplicate_MpegTs::Manage_PMT (const int8u* ToAdd, size_t ToAdd_Size)
 
 bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Size, std::map<int16u, buffer> &ToModify_)
 {
-    FromTS.Buffer=ToAdd;
-    FromTS.Size=ToAdd_Size;
-    FromTS.Offset=0;
+    //Managing big chunks
+    int16u PID=BigEndian2int16u(ToAdd+1)&0x1FFF;
+    if (PID==0)
+        int A=0;
+    if (ToAdd[1]&0x40) //payload_unit_start_indicator
+    {
+        FromTS.Buffer=ToAdd;
+        FromTS.Size=ToAdd_Size;
+        FromTS.Offset=0;
+    }
+    else
+    {
+        if (BigBuffers.find(PID)==BigBuffers.end())
+            return false; //Start is missing
+        int A=BigBuffers[PID].Buffer_Size;
+        int B=BigBuffers[PID].Buffer_Size_Max;
+        if (ToAdd_Size<4 || BigBuffers[PID].Buffer_Size+ToAdd_Size-4>BigBuffers[PID].Buffer_Size_Max)
+            return false; //Problem
+        std::memcpy(BigBuffers[PID].Buffer+BigBuffers[PID].Buffer_Size, ToAdd+4, ToAdd_Size-4);
+        BigBuffers[PID].Buffer_Size+=ToAdd_Size-4;
+
+        FromTS.Buffer=BigBuffers[PID].Buffer;
+        FromTS.Size=BigBuffers[PID].Buffer_Size;
+        FromTS.Offset=0;
+    }
 
     //adaptation_field_length
     int8u adaptation_field_length=0;
@@ -288,7 +310,18 @@ bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Siz
     int16u section_length=CC2(FromTS.Buffer+FromTS.Offset)&0x0FFF;
     FromTS.End=4+adaptation_field_length+section_length;
     if (FromTS.End>FromTS.Size-4)
-        return false; //Problem
+    {
+        //Waiting for more data
+        if (BigBuffers[PID].Buffer==NULL)
+        {
+            //Saving the data (not done at the beginning)
+            BigBuffers[PID].Buffer_Size=FromTS.Size;
+            BigBuffers[PID].Buffer_Size_Max=FromTS.End+188;
+            BigBuffers[PID].Buffer=new int8u[BigBuffers[PID].Buffer_Size_Max];
+            std::memcpy(BigBuffers[PID].Buffer, ToAdd, ToAdd_Size);
+        }
+        return false;
+    }
 
     //Positionning just after section_length
     FromTS.Offset+=2;
@@ -321,6 +354,11 @@ bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Siz
             continuity_counter=0x00;
         ToModify.Buffer[3]&=0xF0;
         ToModify.Buffer[3]|=continuity_counter;
+
+        //Managing big chunks
+        if (BigBuffers.find(PID)!=BigBuffers.end())
+            BigBuffers.erase(BigBuffers.find(PID));
+
         Writer.Write(ToModify.Buffer, ToModify.Size);
         return false;
     }
@@ -353,6 +391,10 @@ bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Siz
     ToModify.Offset+=5;
     FromTS.Offset+=5;
 
+    //Managing big chunks
+    if (BigBuffers.find(PID)!=BigBuffers.end())
+        BigBuffers.erase(BigBuffers.find(PID));
+
     return true;
 }
 
@@ -360,8 +402,14 @@ void File__Duplicate_MpegTs::Parsing_End (std::map<int16u, buffer> &ToModify_)
 {
     buffer &ToModify=ToModify_[StreamID];
 
+    //Managing big chunks
+    if (ToModify.Offset>184)
+        return; //Big chunks as output are not supported
+    if (ToModify.Size>188)
+        ToModify.Size=188;
+
     ToModify.End=ToModify.Offset;
-    if (ToModify.End>ToModify.Size)
+    if (ToModify.End+4>ToModify.Size)
         return; //There was an error somewhere!
 
     //section_length

@@ -87,6 +87,7 @@ public :
             End=0;
             Size=0;
             version_number=0xFF;
+            version_number=0xFF;
             FromTS_version_number_Last=0xFF;
             ConfigurationHasChanged=true;
         }
@@ -114,6 +115,20 @@ public :
         }
     };
 
+    struct buffer_big
+    {
+        int8u*          Buffer;
+        size_t          Buffer_Size;
+        size_t          Buffer_Size_Max;
+
+        buffer_big()
+        {
+            Buffer=NULL;
+            Buffer_Size=0;
+            Buffer_Size_Max=0;
+        }
+    };
+
     //Data
     bool Manage_PAT(const int8u* ToAdd, size_t ToAdd_Size);
     bool Manage_PMT(const int8u* ToAdd, size_t ToAdd_Size);
@@ -122,6 +137,7 @@ public :
     buffer_const                FromTS;
     std::map<int16u, buffer>    PAT;
     std::map<int16u, buffer>    PMT;
+    std::map<int16u, buffer_big> BigBuffers; //key is pid
 
     //Helpers
     bool Parsing_Begin(const int8u* ToAdd, size_t ToAdd_Size, std::map<int16u, buffer> &ToModify);
