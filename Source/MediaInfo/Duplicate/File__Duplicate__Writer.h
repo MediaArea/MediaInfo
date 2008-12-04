@@ -55,7 +55,7 @@ public :
 
     //Output buffer
     size_t Output_Buffer_Get ();
-    size_t Output_Buffer_Get (unsigned char** Output_Buffer=NULL);
+    size_t Output_Buffer_Get (unsigned char** Output_Buffer);
 
 private :
     //Buffer

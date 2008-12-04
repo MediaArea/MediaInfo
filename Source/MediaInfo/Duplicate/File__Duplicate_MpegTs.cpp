@@ -271,8 +271,6 @@ bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Siz
 {
     //Managing big chunks
     int16u PID=BigEndian2int16u(ToAdd+1)&0x1FFF;
-    if (PID==0)
-        int A=0;
     if (ToAdd[1]&0x40) //payload_unit_start_indicator
     {
         FromTS.Buffer=ToAdd;
@@ -283,8 +281,6 @@ bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Siz
     {
         if (BigBuffers.find(PID)==BigBuffers.end())
             return false; //Start is missing
-        int A=BigBuffers[PID].Buffer_Size;
-        int B=BigBuffers[PID].Buffer_Size_Max;
         if (ToAdd_Size<4 || BigBuffers[PID].Buffer_Size+ToAdd_Size-4>BigBuffers[PID].Buffer_Size_Max)
             return false; //Problem
         std::memcpy(BigBuffers[PID].Buffer+BigBuffers[PID].Buffer_Size, ToAdd+4, ToAdd_Size-4);
