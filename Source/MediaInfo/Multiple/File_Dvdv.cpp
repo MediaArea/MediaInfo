@@ -598,6 +598,8 @@ void File_Dvdv::Video()
             Fill(Stream_Video, StreamPos_Last, Video_Height, IFO_Height[Standard][Resolution]);
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate, IFO_FrameRate[Standard]);
             Fill(Stream_Video, StreamPos_Last, Video_BitRate_Mode, IFO_BitRate_Mode[BitRate_Mode]);
+            Fill(Stream_Video, StreamPos_Last, "ID", _T("0xE0"));
+            Fill(Stream_Video, StreamPos_Last, "ID/String", _T("0xE0"));
         }
     FILLING_END();
 }
@@ -680,6 +682,18 @@ void File_Dvdv::Audio()
                     Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, AC3_ChannelPositions2[ChannelsK]);
                 }
             #endif //MEDIAINFO_AC3_YES
+
+            int8u trackID;
+            switch (Codec)
+            {
+                case 0: trackID = 0x80+(int8u)StreamPos_Last; break; // AC3
+                case 4: trackID = 0xA0+(int8u)StreamPos_Last; break; // LPCM
+                case 6: trackID = 0x88+(int8u)StreamPos_Last; break; // DTS
+            }
+
+            Ztring ID_String; ID_String=_T("0x"); ID_String+=Ztring::ToZtring(trackID, 16);
+            Fill(Stream_Audio, StreamPos_Last, "ID", ID_String);
+            Fill(Stream_Audio, StreamPos_Last, "ID/String", ID_String);
         }
     FILLING_END();
 }
@@ -713,8 +727,14 @@ void File_Dvdv::Text()
             Fill(Stream_Text, StreamPos_Last, Text_Resolution, IFO_Resolution_T[Codec]);
             Fill(Stream_Text, StreamPos_Last, Text_Codec, IFO_CodecT[Codec]);
             Fill(Stream_Text, StreamPos_Last, Text_Language, Language);
+
             if (Language_Extension<16)
-                Fill(Stream_Text, StreamPos_Last, Text_Language_More, IFO_Language_MoreT[Language_Extension]);
+                 Fill(Stream_Text, StreamPos_Last, Text_Language_More, IFO_Language_MoreT[Language_Extension]);
+
+            int8u trackID = 0x20+StreamPos_Last;
+            Ztring ID_String; ID_String=_T("0x"); ID_String+=Ztring::ToZtring(trackID, 16);
+            Fill(Stream_Text, StreamPos_Last, "ID", ID_String);
+            Fill(Stream_Text, StreamPos_Last, "ID/String", ID_String);
         }
     FILLING_END();
 }
