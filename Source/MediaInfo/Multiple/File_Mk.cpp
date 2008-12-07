@@ -31,11 +31,23 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Mk.h"
+#if defined(MEDIAINFO_OGG_YES)
+    #include "MediaInfo/Multiple/File_Ogg.h"
+#endif
 #if defined(MEDIAINFO_MPEG4V_YES)
     #include "MediaInfo/Video/File_Mpeg4v.h"
 #endif
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
+#endif
+#if defined(MEDIAINFO_VC1_YES)
+    #include "MediaInfo/Video/File_Vc1.h"
+#endif
+#if defined(MEDIAINFO_DIRAC_YES)
+    #include "MediaInfo/Video/File_Dirac.h"
+#endif
+#if defined(MEDIAINFO_MPEGV_YES)
+    #include "MediaInfo/Video/File_Mpegv.h"
 #endif
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
@@ -51,6 +63,15 @@
 #endif
 #if defined(MEDIAINFO_AAC_YES)
     #include "MediaInfo/Audio/File_Aac.h"
+#endif
+#if defined(MEDIAINFO_FLAC_YES)
+    #include "MediaInfo/Audio/File_Flac.h"
+#endif
+#if defined(MEDIAINFO_WVPK_YES)
+    #include "MediaInfo/Audio/File_Wvpk.h"
+#endif
+#if defined(MEDIAINFO_TTA_YES)
+    #include "MediaInfo/Audio/File_Tta.h"
 #endif
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
@@ -2520,18 +2541,39 @@ void File_Mk::CodecID_Manage()
         }
     }
     #endif
+    #if defined(MEDIAINFO_VC1_YES)
+    else if (CodecID.find(_T("VC-1"))==0)
+    {
+        Stream[TrackNumber].Parser=new File_Vc1;
+        ((File_Vc1*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+        ((File_Vc1*)Stream[TrackNumber].Parser)->Frame_Count_Valid=1;
+    }
+    #endif
+    #if defined(MEDIAINFO_DIRAC_YES)
+    else if (Format==_T("Dirac"))
+    {
+        Stream[TrackNumber].Parser=new File_Dirac;
+        ((File_Dirac*)Stream[TrackNumber].Parser)->Frame_Count_Valid=1;
+    }
+    #endif
+    #if defined(MEDIAINFO_MPEGV_YES)
+    else if (Format==_T("MPEG Video"))
+    {
+        Stream[TrackNumber].Parser=new File_Mpegv;
+        ((File_Mpegv*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+        ((File_Mpegv*)Stream[TrackNumber].Parser)->Frame_Count_Valid=1;
+    }
+    #endif
     #if defined(MEDIAINFO_AC3_YES)
-    else if (Format==_T("AC-3"))
+    else if (Format==_T("AC-3") || Format==_T("E-AC-3"))
     {
         Stream[TrackNumber].Parser=new File_Ac3;
-        //((File_Ac3*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
     }
     #endif
     #if defined(MEDIAINFO_DTS_YES)
     else if (Format==_T("DTS"))
     {
         Stream[TrackNumber].Parser=new File_Dts;
-        //((File_Dts*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
     }
     #endif
     #if defined(MEDIAINFO_MPEG4_YES)
@@ -2547,11 +2589,35 @@ void File_Mk::CodecID_Manage()
         ((File_Aac*)Stream[TrackNumber].Parser)->Codec=CodecID;
     }
     #endif
+    #if defined(MEDIAINFO_OGG_YES)
+    else if (Format==_T("Vorbis"))
+    {
+        Stream[TrackNumber].Parser=new File_Ogg;
+        ((File_Ogg*)Stream[TrackNumber].Parser)->XiphLacing=true;
+    }
+    #endif
     #if defined(MEDIAINFO_MPEGA_YES)
     else if (Format==_T("MPEG Audio"))
     {
         Stream[TrackNumber].Parser=new File_Mpega;
-        //((File_Mpega*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
+    }
+    #endif
+    #if defined(MEDIAINFO_FLAC_YES)
+    else if (Format==_T("Flac"))
+    {
+        Stream[TrackNumber].Parser=new File_Flac;
+    }
+    #endif
+    #if defined(MEDIAINFO_WVPK_YES)
+    else if (Format==_T("WavPack"))
+    {
+        Stream[TrackNumber].Parser=new File_Wvpk;
+    }
+    #endif
+    #if defined(MEDIAINFO_TTA_YES)
+    else if (Format==_T("TTA"))
+    {
+        Stream[TrackNumber].Parser=new File_Tta;
     }
     #endif
     #if defined(MEDIAINFO_PCM_YES)

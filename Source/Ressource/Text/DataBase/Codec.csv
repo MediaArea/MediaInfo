@@ -706,6 +706,7 @@ ZMBV;Zip;4CC;V;;;Zip Motion Blocks Video;
 ZPEG;Video Zipper;4CC;V;RGB;;Metheus Video Zipper;
 ZYGO;ZyGo;4CC;V;;;ZyGo Video;
 V_UNCOMPRESSED;Raw;Mk;V;;;Raw uncompressed video frames;
+V_DIRAC;Dirac;Mk;V;;;;http://diracvideo.org/
 V_MPEG4/ISO/SP;MPEG-4 Visual SP;Mk;V;MPEG-4V;;Simple Profile;http://www.divx.com
 V_MPEG4/ISO/ASP;MPEG-4 Visual ASP;Mk;V;MPEG-4V;;Advanced Simple Profile;http://www.xvid.org/Downloads.15.0.html
 V_MPEG4/ISO/AP;MPEG-4 Visual AP;Mk;V;MPEG-4V;;Advanced Profile;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
@@ -729,6 +730,9 @@ A_AC3;AC3;Mk;A;AC3;;Dolby AC3;
 A_AC3/BSID9;AC3;Mk;A;AC3;;Dolby AC3;
 A_AC3/BSID10;AC3;Mk;A;AC3;;Dolby AC3;
 A_DTS;DTS;Mk;A;DTS;;;
+A_EAC3;EAC3;Mk;A;EAC3;;Dolby Enhanced AC3
+A_FLAC;Flac;Mk;A;Flac;;;http://flac.sourceforge.net
+A_TTA1;TTA;Mk;A;TTA;;The True Audio Lossless Codec;http://true-audio.com
 A_VORBIS;Vorbis;Mk;A;Vorbis;VBR;;http://www.vorbis.com
 A_WAVPACK4;WavePack;Mk;A;Real;VBR;;http://www.wavepack.com
 A_REAL/14_4;RealAudio 1;Mk;A;Real;;Real Audio 1 (14.4);http://www.real.com

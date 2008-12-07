@@ -1,4 +1,5 @@
 V_UNCOMPRESSED;RGB;;Raw uncompressed video frames;
+V_DIRAC;Dirac;;;http://diracvideo.org/
 V_MPEG4/IS0/SP;MPEG-4 Visual;;There is a zero instead of a O, may be a problem;http://www.divx.com
 V_MPEG4/IS0/ASP;MPEG-4 Visual;;There is a zero instead of a O, may be a problem;http://www.xvid.org/Downloads.15.0.html
 V_MPEG4/IS0/AP;MPEG-4 Visual;;There is a zero instead of a O, may be a problem;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow

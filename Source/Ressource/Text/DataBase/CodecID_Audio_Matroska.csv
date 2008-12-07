@@ -8,6 +8,9 @@ A_AC3;AC-3;;;
 A_AC3/BSID9;AC-3;;;
 A_AC3/BSID10;AC-3;;;
 A_DTS;DTS;;;
+A_EAC3;E-AC-3
+A_FLAC;Flac;;;http://flac.sourceforge.net
+A_TTA1;TTA;;The True Audio Lossless Codec;http://true-audio.com
 A_VORBIS;Vorbis;;;http://www.vorbis.com
 A_WAVPACK4;WavPack;;;http://www.wavepack.com
 A_REAL/14_4;VSELP;;Real Audio 1 (14.4);http://www.real.com
