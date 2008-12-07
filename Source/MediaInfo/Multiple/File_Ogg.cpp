@@ -197,7 +197,7 @@ void File_Ogg::Data_Parse()
     if (Stream[Element_Code].Parser==NULL)
     {
         Stream[Element_Code].Parser=new File_Ogg_SubElement;
-        ((File_Ogg_SubElement*)Stream[Element_Code].Parser)->InAnotherContainer=SizedBlocks;
+        ((File_Ogg_SubElement*)Stream[Element_Code].Parser)->InAnotherContainer=SizedBlocks|SizedBlocks;
         Open_Buffer_Init(Stream[Element_Code].Parser);
         StreamsToDo++;
     }
@@ -231,7 +231,7 @@ void File_Ogg::Data_Parse()
                 Merge(*Parser, Stream_General, 0, 0);
                 Stream[Element_Code].StreamKind=((File_Ogg_SubElement*)Parser)->StreamKind;
                 Stream[Element_Code].StreamPos=Count_Get(Stream[Element_Code].StreamKind)-1;
-                if (!SizedBlocks)
+                if (!SizedBlocks && !XiphLacing)
                     Stream[Element_Code].absolute_granule_position_Resolution=((File_Ogg_SubElement*)Stream[Element_Code].Parser)->absolute_granule_position_Resolution;
                 StreamsToDo--;
             }
