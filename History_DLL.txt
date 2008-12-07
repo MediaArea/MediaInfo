@@ -18,6 +18,7 @@ Version 0.7.7.9, 2008-
 + MPEG-4: Delay (useful when multiple videos are present)
 + Dirac: profiles updated from the latest specification
 + MPEG-4: more precise detection of OGG based codecs
++ MKV: better newest codecs handling
 x MPEG-PS: Trying to have a better precision for duration
 x WMV: crash with some malformed files
 x MPEG-TS: some channel names where not shown
