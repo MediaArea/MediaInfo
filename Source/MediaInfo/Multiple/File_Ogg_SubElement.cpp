@@ -311,7 +311,7 @@ void File_Ogg_SubElement::Identification_theora()
     //Parsing
     int32u Version, PICW=0, PICH=0, FRN=0, FRD=0, PARN=0, PARD=0, NOMBR=0;
     Get_B3 (Version,                                        "Version");
-    if (Version==0x030200) //Version 3.2.x
+    if ((Version&0x030200)==0x030200) //Version 3.2.x
     {
         Skip_B2(                                            "FMBW");
         Skip_B2(                                            "FMBH");
@@ -337,7 +337,7 @@ void File_Ogg_SubElement::Identification_theora()
     Stream_Prepare(Stream_Video);
     Fill(Stream_Video, StreamPos_Last, Video_Format, "Theora");
     Fill(Stream_Video, StreamPos_Last, Video_Codec, "Theora");
-    if (Version!=0x030200) //Version 3.2.x
+    if ((Version&0x030200)==0x030200) //Version 3.2.x
         return;
     Fill(Stream_Video, StreamPos_Last, Video_FrameRate, ((float)FRN)/FRD, 3);
     float PixelRatio=1;
