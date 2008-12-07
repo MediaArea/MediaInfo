@@ -43,6 +43,7 @@ class File_Ogg : public File__Analyze
 public :
     //In
     bool   SizedBlocks;
+    bool   XiphLacing;
 
 protected :
     //Formats

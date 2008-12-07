@@ -47,6 +47,7 @@ File_Ogg::File_Ogg()
 {
     //In
     SizedBlocks=false;
+    XiphLacing=false;
 
     //Temp - Global
     StreamsToDo=0;
@@ -88,7 +89,7 @@ void File_Ogg::Read_Buffer_Finalize()
 bool File_Ogg::Header_Begin()
 {
     //Specific case
-    if (SizedBlocks)
+    if (SizedBlocks || XiphLacing)
         return true;
 
     //Synchro
@@ -115,6 +116,35 @@ void File_Ogg::Header_Parse()
         Chunk_Sizes.clear();
         Chunk_Sizes.push_back(Size);
         Header_Fill_Size(2+Size);
+        Header_Fill_Code(0, Ztring::ToZtring(0, 16));
+        return;
+    }
+    if (XiphLacing)
+    {
+        if (Chunk_Sizes.empty())
+        {
+            int8u CountMinus1;
+            Get_B1 (CountMinus1,                                    "Number of frames minus one");
+
+            int64u UsedSize=0;
+            for (size_t Pos=0; Pos<CountMinus1; Pos++)
+            {
+                int32u Size=0;
+                int8u Size8;
+                do
+                {
+                    Get_B1 (Size8,              "Size");
+                    Size+=Size8;
+                }
+                while (Size8==0xFF);
+                Param_Info(Size);
+                Chunk_Sizes.push_back(Size);
+                UsedSize+=Size;
+            }
+            Chunk_Sizes.push_back(Element_Size-UsedSize-1);
+        }
+
+        Header_Fill_Size(Element_Size);
         Header_Fill_Code(0, Ztring::ToZtring(0, 16));
         return;
     }
