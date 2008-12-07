@@ -141,7 +141,7 @@ void File_Ogg::Header_Parse()
                 Chunk_Sizes.push_back(Size);
                 UsedSize+=Size;
             }
-            Chunk_Sizes.push_back(Element_Size-UsedSize-1);
+            Chunk_Sizes.push_back((size_t)(Element_Size-UsedSize-1));
         }
 
         Header_Fill_Size(Element_Size);
