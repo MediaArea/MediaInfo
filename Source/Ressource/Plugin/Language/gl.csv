@@ -27,8 +27,8 @@
  chapter2; capítulos
  chapter3; capítulos
  chapters stream1; pistas de capítulo
- chapters stream2; pistas de capítulos
- chapters stream3; pistas de capítulos
+ chapters stream2; pistas de capítulo
+ chapters stream3; pistas de capítulo
  day1; día
  day2; días
  day3; días
@@ -160,7 +160,7 @@ Alignment_Split
 All;Todo
 Archival_Location;Localización de arquivos
 Arranger;Arranxador
-ArtDirector;ArtDirector
+ArtDirector;Director Artístico
 AspectRatio;Relación de aspecto
 AssistantDirector;Director asistente
 at;en
@@ -177,11 +177,11 @@ BarCode;Código de Barras
 Basic;Básico
 Basic_Note;Nota : para máis información sobre este arquivo selecciona outra vista (Folla, Árbore...)
 BitRate;Bit rate
-BitRate_Maximum
-BitRate_Minimum
+BitRate_Maximum;BitRate máximo
+BitRate_Minimum;BitRate mínimo
 BitRate_Mode;Tipo de Bitrate
-BitRate_Mode_CBR
-BitRate_Mode_VBR
+BitRate_Mode_CBR;BitRate constante
+BitRate_Mode_VBR;BitRate variable
 BitRate_Nominal
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 Cancel;Cancelar
@@ -202,11 +202,11 @@ Choose file(s);Escolle os archivos para abrir
 Choose filename;Elixe o nome do arquivo
 Choose language;Escolle a linguaxe
 Choregrapher;Coreografía
-Chroma
+Chroma;Croma
 Close;Pechar
 Close all before open;Pechar todo antes de abrir
 Codec;Codec
-Codec_Description
+Codec_Description; Descrición do codec
 Codec_Info;Info do codec
 Codec_Settings;Configuración do codec
 Codec_Settings_PacketBitStream
@@ -221,7 +221,7 @@ Codec_Settings_Endianness
 Codec_Settings_Sign
 Codec_Settings_Law
 Codec_Settings_ITU
-Codec_Profile;Codec profile
+Codec_Profile;Perfil del codec
 Codec_Url;Web do codec
 CodecID
 CodecID_Description
@@ -231,7 +231,7 @@ Comment;Comentario
 CommissionedBy;Encargado por
 CompleteName;Nome completo
 Composer;Compositor
-CompressionRatio
+CompressionRatio;Ratio de compresión
 Conductor;Condutor
 Container and general information;Contedor e información xeral
 ContentType;Tipo de contido
@@ -261,7 +261,7 @@ DirectorOfPhotography;Director de fotografía
 DisplayAspectRatio;Relación de aspecto
 DistributedBy;Distribuido por
 Donate;Doar
-DotsPerInch
+DotsPerInch;Puntos por polgada
 Duration;Duración
 Edit;Editar
 EditedBy;Editado por
@@ -279,14 +279,14 @@ Exit_Hint;Saír
 Export;Exportar
 Export_Hint;Exportar nun formato personalizado
 Extensions;Extensións usadas habitualmente
-Family
+Family;Familia
 Fax;Fax
 File;Arquivo
 File size;Tamaño do arquivo
 File_Append;Engadir ao arquivo existente (Deben ter os mesmos parámetros)
-File_Created_Date
+File_Created_Date;Data de creación
 File_Hint;Selecciona un arquivo multimedia para analizar
-File_Modified_Date
+File_Modified_Date;Data de modificación
 FileExtension;Extensión do arquivo
 FileName;Nome do arquivo
 FileSize;Tamaño do arquivo
@@ -299,8 +299,8 @@ FolderName;Nome da carpeta
 Format;Formato
 Format_Description
 Format_Info;Info do codec
-Format_Profile
-Format_Settings
+Format_Profile;Perfil do formato
+Format_Settings;Axustes do formato
 Format_Settings_PacketBitStream
 Format_Settings_BVOP
 Format_Settings_QPel
@@ -319,8 +319,8 @@ Format_Settings_ITU
 Format_Settings_SBR
 Format_Settings_PS
 Format_Settings_Pulldown
-Format_Version
-Format_Url
+Format_Version;Versión do formato
+Format_Url;Web do formato
 FrameCount
 FrameRate;Frame rate
 FrameRate_Mode
@@ -485,7 +485,7 @@ h;h
 Header file;Crear un arquivo cabeceira
 Height;Alto
 Help;Axuda
-Hint
+Hint;Pista
 How many audio streams?;Cantas pistas de audio?
 How many chapters streams?;Cantos capítulos?
 How many text streams?;Cantas pistas de texto?
@@ -498,12 +498,12 @@ Image_Codec_List;Codecs de imaxe
 ImageCount;Nº de pistas de imaxe
 Info
 Instruments;Instrumentos
-Interlacement
-Interlaced_Interlaced
+Interlacement;Entrelazado
+Interlaced_Interlaced;Entrelazado
 Interlaced_TFF
 Interlaced_BFF
 Interlaced_PPF
-Interlaced_Progressive
+Interlaced_Progressive;Entrelazado progresivo
 Interleave_Duration
 Interleave_Preload
 Interleave_VideoFrames
@@ -707,8 +707,8 @@ LawRating;Valoración legal
 LCCN;LCCN
 Library;Bibliografía
 Lightness
-List
-Lyrics
+List;Lista
+Lyrics;Letra
 Lyricist;Letrista
 Mastered_Date;Data de edición
 MasteredBy;Editado por
@@ -734,7 +734,7 @@ Nationality;Nacionalidade
 New;Novo
 Newest version;Buscar nova versión (require conexión a Internet)
 No;No
-Not yet
+Not yet;Aínda non dispoñible
 NumColors
 OK;OK
 One output file per input file;Un arquivo de saída por un de entrada
@@ -793,9 +793,9 @@ Period;Período
 Phone;Teléfono
 PixelAspectRatio;Pixel ratio
 PlayCounter;Contador
-Played_Count
-Played_First_Date
-Played_Last_Date
+Played_Count;Nº de reproduccións
+Played_First_Date;Primeira reproducción
+Played_Last_Date;Última reproducción
 PlayTime;Duración
 Position;Posición
 Position_Total
@@ -826,23 +826,23 @@ see below;ver abaixo
 Send HeaderFile;Por favor envíame o arquivo de cabeceira aquí : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;Separador de columnas
 Separator_Lines;Separador de liñas
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
+ServiceChannel;Canle
+ServiceName;Nome
+ServiceProvider;Provedor
+ServiceType;Tipo
 Set;Configurar
 Set_Count;Establecer cantidade
 Setup;Configuración
-Sharpness
+Sharpness;Brillo
 Sheet;Folla
 Sheet (Complete);Folla (Completa)
 Shell extension;Shell extension (ao picar co botón dereito do rato aparecerá unha opción Media Info ...)
-Shell InfoTip
+Shell InfoTip;Shell InfoTip (no explorer, situa o rato sobre o arquivo para ver a información)
 Show menu;Mostrar menú
 Show toolbar;Mostrar barra de ferramentas
 Sort;Ordear por
 SoundEngineer;Enxeñeiro de son
-Standard
+Standard;Estándar
 Stream;Pista
 Stream_MoreInfo;Máis información sobre esta pista
 StreamCount;Pistas desta clase
@@ -915,5 +915,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;81
-ZZ_AutomaticLanguage_Percent;81
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;85
