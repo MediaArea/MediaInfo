@@ -1894,8 +1894,6 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
     Skip_L4(                                                    "YPelsPerMeter");
     Skip_L4(                                                    "ClrUsed");
     Skip_L4(                                                    "ClrImportant");
-    if (Data_Remain())
-        Skip_XX(Data_Remain(),                                  "Unknown");
 
     FILLING_BEGIN()
         Ztring Codec;
@@ -1929,6 +1927,16 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
         CodecID_Manage();
 
     FILLING_END()
+
+    if (Data_Remain())
+    {
+        Element_Begin("Private data");
+        if (Stream[TrackNumber].Parser)
+            Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        else
+            Skip_XX(Data_Remain(),                                  "Unknown");
+        Element_End();
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -2542,7 +2550,7 @@ void File_Mk::CodecID_Manage()
     }
     #endif
     #if defined(MEDIAINFO_VC1_YES)
-    else if (CodecID.find(_T("VC-1"))==0)
+    else if (Format==_T("VC-1"))
     {
         Stream[TrackNumber].Parser=new File_Vc1;
         ((File_Vc1*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
@@ -2562,6 +2570,13 @@ void File_Mk::CodecID_Manage()
         Stream[TrackNumber].Parser=new File_Mpegv;
         ((File_Mpegv*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
         ((File_Mpegv*)Stream[TrackNumber].Parser)->Frame_Count_Valid=1;
+    }
+    #endif
+    #if defined(MEDIAINFO_OGG_YES)
+    else if (Format==_T("Theora"))
+    {
+        Stream[TrackNumber].Parser=new File_Ogg;
+        ((File_Ogg*)Stream[TrackNumber].Parser)->XiphLacing=true;
     }
     #endif
     #if defined(MEDIAINFO_AC3_YES)
@@ -2612,12 +2627,13 @@ void File_Mk::CodecID_Manage()
     else if (Format==_T("WavPack"))
     {
         Stream[TrackNumber].Parser=new File_Wvpk;
+        ((File_Wvpk*)Stream[TrackNumber].Parser)->FromMKV=true;
     }
     #endif
     #if defined(MEDIAINFO_TTA_YES)
     else if (Format==_T("TTA"))
     {
-        Stream[TrackNumber].Parser=new File_Tta;
+        //Stream[TrackNumber].Parser=new File_Tta; //Parser is not needed, because header is useless and dropped (the parser analyses only the header)
     }
     #endif
     #if defined(MEDIAINFO_PCM_YES)

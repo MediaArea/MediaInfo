@@ -41,8 +41,10 @@ namespace MediaInfoLib
 class File_Wvpk : public File__Analyze, public File__Tags_Helper
 {
 public :
-    //Configuration
+    //In
     size_t Frame_Count_Valid;
+    bool   FromMKV;
+    bool   FromMKV_CodecPrivateParsed;
 
 protected :
     //Format
@@ -79,6 +81,7 @@ private :
     int8u  num_channels;
     int32u channel_mask;
     int32u Size;
+    int16u version;
     Ztring Encoded_Library_Settings;
 
     //Helpers

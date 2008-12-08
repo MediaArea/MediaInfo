@@ -298,6 +298,10 @@ void File_Ogg_SubElement::Identification_vorbis()
         Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, BitRate_Nominal);
     if (BitRate_Minimum!=0 && BitRate_Minimum<0x80000000) //This is a signed value, and negative values are not OK
         Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Minimum, BitRate_Minimum);
+    if (BitRate_Maximum==0 && BitRate_Nominal!=0 && BitRate_Minimum==0)
+        Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Mode, "CBR");
+    else if (BitRate_Maximum>BitRate_Nominal*1.1 && BitRate_Minimum<BitRate_Nominal*0.9)
+        Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Mode, "VBR");
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplingRate);
     absolute_granule_position_Resolution=SamplingRate;

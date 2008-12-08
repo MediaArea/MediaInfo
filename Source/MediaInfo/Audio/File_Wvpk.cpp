@@ -112,8 +112,10 @@ File_Wvpk::File_Wvpk()
     //File__Tags_Helper
     Base=this;
 
-    //Configuration
+    //In
     Frame_Count_Valid=2;
+    FromMKV=false;
+    FromMKV_CodecPrivateParsed=false;
 
     //Temp - Global
     Frame_Count=0;
@@ -135,13 +137,17 @@ File_Wvpk::File_Wvpk()
 void File_Wvpk::Read_Buffer_Continue()
 {
     //Tags
-    if (!File__Tags_Helper::Read_Buffer_Continue())
-        return;
+    if (!FromMKV && !File__Tags_Helper::Read_Buffer_Continue())
+            return;
 }
 
 //---------------------------------------------------------------------------
 void File_Wvpk::Read_Buffer_Finalize()
 {
+    //Specific case
+    if (FromMKV)
+        return;
+
     //Duration
     if (SamplingRate<15)
     {
@@ -166,6 +172,10 @@ void File_Wvpk::Read_Buffer_Finalize()
 //---------------------------------------------------------------------------
 bool File_Wvpk::Header_Begin()
 {
+    //Specific cases
+    if (FromMKV)
+        return true;
+        
     if (!File__Tags_Helper::Header_Begin())
         return false;
 
@@ -190,6 +200,14 @@ bool File_Wvpk::Header_Begin()
 //---------------------------------------------------------------------------
 void File_Wvpk::Header_Parse()
 {
+    //Specific cases
+    if (FromMKV)
+    {
+        Header_Fill_Size(Element_Size);
+        Header_Fill_Code(0, "Block");
+        return;
+    }
+
     //Parsing
     int32u ckSize;
     Skip_C4(                                                    "ckID");
@@ -207,20 +225,35 @@ void File_Wvpk::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Wvpk::Data_Parse()
 {
+    //Specific
+    if (FromMKV && !FromMKV_CodecPrivateParsed)
+    {
+        //Parsing
+        Get_L2 (version,                                        "version");
+
+        FILLING_BEGIN();
+        FromMKV_CodecPrivateParsed=true;
+        FILLING_END();
+        return;
+    }
+
     //Counting
     Frame_Count++;
 
     //Parsing
-    int16u version;
     Element_Begin("Header", 32);
-    Get_L2 (version,                                            "version");
+    if (!FromMKV)
+        Get_L2 (version,                                        "version");
     if (version/0x100==0x4)
     {
         int32u total_samples, block_index, block_samples, flags;
-        Skip_L1(                                                "track_no");
-        Skip_L1(                                                "index_no");
-        Get_L4 (total_samples,                                  "total_samples");
-        Get_L4 (block_index,                                    "block_index");
+        if (!FromMKV)
+        {
+            Skip_L1(                                            "track_no");
+            Skip_L1(                                            "index_no");
+            Get_L4 (total_samples,                              "total_samples");
+            Get_L4 (block_index,                                "block_index");
+        }
         Get_L4 (block_samples,                                  "block_samples");
         if (block_samples!=0) //empty frames have other values empty
         {
@@ -329,6 +362,10 @@ void File_Wvpk::Data_Parse_Fill()
         Fill(Stream_General, 0, General_Format, "WavPack");
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "WavPack");
+        Ztring Version_Minor=Ztring::ToZtring(version%0x100);
+        if (Version_Minor.size()==1)
+            Version_Minor.insert(Version_Minor.begin(), _T('0'));
+        Fill(Stream_Audio, 0, Audio_Format_Profile, Ztring::ToZtring(version/0x100)+_T('.')+Version_Minor);
         Fill(Stream_Audio, 0, Audio_Codec, "Wavpack");
     }
 
@@ -420,7 +457,7 @@ void File_Wvpk::Data_Parse_Fill()
         Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Channels_Positions2);
     }
 
-    if (SamplingRate<15)
+    if (!FromMKV && SamplingRate<15)
     {
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Wvpk_SamplingRate[SamplingRate]);
         if (total_samples_FirstFrame!=0xFFFFFFFF) //--> this is a valid value
