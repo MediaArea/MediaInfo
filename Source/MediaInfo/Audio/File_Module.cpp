@@ -73,7 +73,7 @@ void File_Module::FileHeader_Parse()
             case 0x3663684E : //6CHN
             case 0x3863684E : //8CHN
                                 break;
-            default : Finnished();
+            default : Finished();
                       return;
         }
     FILLING_END()
@@ -84,7 +84,7 @@ void File_Module::FileHeader_Parse()
 
         Stream_Prepare(Stream_Audio);
 
-        Finnished();
+        Finished();
     FILLING_END();
 }
 

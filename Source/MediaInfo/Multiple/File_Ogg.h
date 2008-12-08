@@ -91,7 +91,7 @@ private :
     bool continued_NextFrame;
     std::map<int64u, stream> Stream;
     std::vector<size_t>      Chunk_Sizes;
-    bool                     Chunk_Sizes_Finnished;
+    bool                     Chunk_Sizes_Finished;
 
     //Helpers
     bool   Synchronize();

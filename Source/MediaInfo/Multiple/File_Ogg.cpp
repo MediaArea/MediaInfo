@@ -54,7 +54,7 @@ File_Ogg::File_Ogg()
     Parsing_End=false;
     
     //Temp - Stream
-    Chunk_Sizes_Finnished=true;
+    Chunk_Sizes_Finished=true;
     packet_type=0;
 }
 
@@ -176,12 +176,12 @@ void File_Ogg::Header_Parse()
         if (packet_lacing_value!=0xFF)
         {
             Chunk_Sizes.push_back(0);
-            Chunk_Sizes_Finnished=true;
+            Chunk_Sizes_Finished=true;
         }
         else
-            Chunk_Sizes_Finnished=false;
+            Chunk_Sizes_Finished=false;
     }
-    if (Chunk_Sizes_Finnished)
+    if (Chunk_Sizes_Finished)
         Chunk_Sizes.resize(Chunk_Sizes.size()-1); //Keep out the last value
 
     //Filling
@@ -221,7 +221,7 @@ void File_Ogg::Data_Parse()
             if (continued || Parser->File_Offset!=Parser->File_Size)
                 Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, Chunk_Sizes[Chunk_Sizes_Pos]);
             if (Chunk_Sizes_Pos<Chunk_Sizes.size()-1
-             || (Chunk_Sizes_Pos==Chunk_Sizes.size()-1 && Chunk_Sizes_Finnished))
+             || (Chunk_Sizes_Pos==Chunk_Sizes.size()-1 && Chunk_Sizes_Finished))
                 Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, 0); //Purge old datas
 
             if (Parser->File_GoTo!=(int64u)-1)
@@ -269,7 +269,7 @@ void File_Ogg::Read_Buffer_Continue()
     //Integrity test
     if (Buffer_Size<4 || CC4(Buffer)!=CC4("OggS"))
     {
-        Finnished();
+        Finished();
         return;
     }
 
@@ -311,7 +311,7 @@ void File_Ogg::Read_Buffer_Continue()
 
 
     //No need of more
-    Finnished();
+    Finished();
 }
 */
 

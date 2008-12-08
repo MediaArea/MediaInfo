@@ -1071,7 +1071,7 @@ void File_Mk::Segment_Cluster()
         if (Stream_Count==0)
         {
             //Jumping
-            Finnished();//Skip_XX(Element_TotalSize_Get(),                        "Data");
+            Finished();//Skip_XX(Element_TotalSize_Get(),                        "Data");
             return;
         }
     }
@@ -1183,7 +1183,7 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
             Element_End(); //Block
             Element_End(); //BlockGroup
             Info("BlockGroup, Jumping to end of cluster");
-            Finnished(); //File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
+            Finished(); //File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
         }
 
         //Demux

@@ -58,7 +58,7 @@ void File_Bmp::Read_Buffer_Continue()
 
     if (CC2(Buffer)!=CC2("BM"))
     {
-        Finnished();
+        Finished();
         return;
     }
 
@@ -70,7 +70,7 @@ void File_Bmp::Read_Buffer_Continue()
     Fill(Stream_Image, 0, Image_Codec, "BMP");
 
     //No need of more
-    Finnished();
+    Finished();
 }
 
 } //NameSpace

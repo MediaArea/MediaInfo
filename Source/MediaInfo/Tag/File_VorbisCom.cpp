@@ -146,7 +146,7 @@ void File_VorbisCom::FileHeader_Parse()
             Comment();
 
         //Positionning
-        Finnished();
+        Finished();
     FILLING_END();
 }
 

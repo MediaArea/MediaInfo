@@ -1015,7 +1015,7 @@ void File_MpegPs::Detect_EOF()
         //Jumping
         Info("MPEG-PS, Jumping to end of file");
         if (FromTS)
-            Finnished();
+            Finished();
         else
         {
             File_GoTo=File_Size-SizeToAnalyze;
@@ -1236,7 +1236,7 @@ void File_MpegPs::system_header_start()
     Skip_SB(                                                    "packet_rate_restriction_flag");
     Skip_S1( 7,                                                 "reserved_byte");
     bool one=false;
-    if (Element_IsNotFinnished())
+    if (Element_IsNotFinished())
         Peek_SB(one);
     while (one)
     {
@@ -1283,7 +1283,7 @@ void File_MpegPs::system_header_start()
                 extension_stream_Count=(int8u)-1;
         FILLING_END();
 
-        if (Element_IsNotFinnished())
+        if (Element_IsNotFinished())
             Peek_SB(one);
         else
             one=false;
@@ -2379,7 +2379,7 @@ bool File_MpegPs::Detect_NonMPEGPS ()
     //Detect mainly DAT files, and the parser is not enough precise to detect them later
     if (CC4(Buffer)==CC4("RIFF"))
     {
-        Finnished();
+        Finished();
         return true;
     }
 
@@ -2388,7 +2388,7 @@ bool File_MpegPs::Detect_NonMPEGPS ()
         Buffer_Offset++;
     if (Buffer_Offset<188 && Buffer[Buffer_Offset+188]==0x47 && Buffer[Buffer_Offset+188*2]==0x47 && Buffer[Buffer_Offset+188*3]==0x47)
     {
-        Finnished();
+        Finished();
         return true;
     }
     Buffer_Offset=0;

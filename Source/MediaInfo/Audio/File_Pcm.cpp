@@ -98,8 +98,8 @@ void File_Pcm::Read_Buffer_Continue()
         Fill(Stream_Audio, 0, Audio_Format, "PCM");
         Fill(Stream_Audio, 0, Audio_Codec, "PCM");
 
-        //Finnished
-        Finnished();
+        //Finished
+        Finished();
     }
 }
 
@@ -219,7 +219,7 @@ void File_Pcm::Data_Parse()
         Skip_XX(Element_Size,                                   "Data"); //It is impossible to detect... Default is no detection, only filling
 
     Info("PCM, Jumping to end of file");
-    Finnished();
+    Finished();
 }
 
 //***************************************************************************

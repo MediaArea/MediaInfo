@@ -1242,7 +1242,7 @@ bool File_Mpegv::Detect_NonMPEGV ()
     //Detect mainly DAT files, and the parser is not enough precise to detect them later
     if (CC4(Buffer)==CC4("RIFF"))
     {
-        Finnished();
+        Finished();
         return true;
     }
 
@@ -1251,7 +1251,7 @@ bool File_Mpegv::Detect_NonMPEGV ()
         Buffer_Offset++;
     if (Buffer_Offset<188 && Buffer[Buffer_Offset+188]==0x47 && Buffer[Buffer_Offset+188*2]==0x47 && Buffer[Buffer_Offset+188*3]==0x47)
     {
-        Finnished();
+        Finished();
         return true;
     }
     Buffer_Offset=0;

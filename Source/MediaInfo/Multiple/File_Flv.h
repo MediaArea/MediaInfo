@@ -100,7 +100,7 @@ private :
     std::vector<int32u> video_stream_FrameRate;
     int32u Time;
     int8u  meta_Level;
-    std::map<int8u, bool> meta_LevelFinnished;
+    std::map<int8u, bool> meta_LevelFinished;
     bool Searching_Duration;
     int32u PreviousTagSize;
     int64u meta_filesize;

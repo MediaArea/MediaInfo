@@ -717,7 +717,7 @@ void File_Dts::Data_Parse_Fill()
     
 
     Info("DTS detected");
-    Finnished();
+    Finished();
 }
 
 //***************************************************************************
@@ -1056,7 +1056,7 @@ bool File_Dts::Synchronize()
         //14-bits and Little endian are not yet supported
         if (!Word || !BigEndian)
         {
-            Finnished();
+            Finished();
             return false;
         }
 
@@ -1079,7 +1079,7 @@ bool File_Dts::Detect_NonDTS ()
     //Detect WAV files, the parser can't detect it easily, there is only 70 bytes of begining for sayint WAV
     if (CC4(Buffer)==CC4("RIFF"))
     {
-        Finnished();
+        Finished();
         return true;
     }
 

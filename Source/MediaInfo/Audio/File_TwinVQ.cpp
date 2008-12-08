@@ -103,7 +103,7 @@ void File_TwinVQ::FileHeader_Parse()
         //Integrity
         if (magic!=CC4("TWIN"))
         {
-            Finnished();
+            Finished();
             return;
         }
 
@@ -160,7 +160,7 @@ void File_TwinVQ::COMM()
 void File_TwinVQ::DATA()
 {
     //This is the end of the parsing (DATA chunk format is unknown)
-    Finnished();
+    Finished();
 }
 
 //---------------------------------------------------------------------------

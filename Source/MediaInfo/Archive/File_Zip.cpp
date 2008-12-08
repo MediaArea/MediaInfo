@@ -51,7 +51,7 @@ void File_Zip::Read_Buffer_Continue()
     //Header
     if (CC4(Buffer)!=0x504B0304 && (CC4(Buffer)!=CC4("PK00") || CC4(Buffer+4)!=0x504B0304))
     {
-        Finnished();
+        Finished();
         return;
     }
 
@@ -60,7 +60,7 @@ void File_Zip::Read_Buffer_Continue()
     Fill(Stream_General, 0, General_Format, "ZIP");
 
     //No need of more
-    Finnished();
+    Finished();
 }
 
 } //NameSpace

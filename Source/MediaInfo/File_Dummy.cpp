@@ -110,7 +110,7 @@ void File_Dummy::Read_Buffer_Init()
         Fill(Stream_Chapters, 0, Chapters_Language, "en");
     }
 
-    Finnished();
+    Finished();
 }
 
 //***************************************************************************

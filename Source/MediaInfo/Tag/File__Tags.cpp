@@ -274,7 +274,7 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
             }
         }
 
-        //Finnished
+        //Finished
         return true;
 }
 
@@ -408,7 +408,7 @@ bool File__Tags_Helper::Header_Begin()
         Base->Element_End();
     }
 
-    return true; //Finnished! Should be end of file
+    return true; //Finished! Should be end of file
 }
 
 void File__Tags_Helper::Read_Buffer_Finalize()

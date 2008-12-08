@@ -86,7 +86,7 @@ void File_Adif::Read_Buffer_Continue ()
     //Test
     if (CC4(Buffer+Buffer_Offset)!=CC4("ADIF"))
     {
-        Finnished();
+        Finished();
         return;
     }
 }

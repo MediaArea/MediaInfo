@@ -306,7 +306,7 @@ void File_Swf::FileHeader_Parse()
         //Integrity
         if (Signature!=0x465753 && Signature!=0x435753) //FWS or CWS
         {
-            Finnished();
+            Finished();
             return;
         }
 
@@ -426,7 +426,7 @@ void File_Swf::Data_Parse()
     }
 
     //We want currently only one item for validation
-    Finnished();
+    Finished();
 }
 
 //***************************************************************************
@@ -526,7 +526,7 @@ bool File_Swf::Decompress()
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "ShockWave");
         Stream_Prepare(Stream_Video);
-        Finnished();
+        Finished();
         return true;
     }
 
@@ -540,7 +540,7 @@ bool File_Swf::Decompress()
     {
         delete[] Dest; //Dest=NULL
         Trusted_IsNot("Error while decompressing");
-        Finnished();
+        Finished();
         return false;
     }
 
@@ -554,7 +554,7 @@ bool File_Swf::Decompress()
     Merge(MI, Stream_General, 0, 0);
     delete[] Dest; //Dest=NULL;
 
-    Finnished();
+    Finished();
     return true;
 }
 

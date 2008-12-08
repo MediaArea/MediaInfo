@@ -98,7 +98,7 @@ void File_Flac::FileHeader_Parse()
         //Integrity
         if (Signature!=CC4("fLaC"))
         {
-            Finnished();
+            Finished();
             return;
         }
 

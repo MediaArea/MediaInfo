@@ -52,7 +52,7 @@ void File_Rar::Read_Buffer_Continue()
     //Header
     if (CC4(Buffer)!=CC4("RAR!"))
     {
-        Finnished();
+        Finished();
         return;
     }
 
@@ -61,7 +61,7 @@ void File_Rar::Read_Buffer_Continue()
     Fill(Stream_General, 0, General_Format, "RAR");
 
     //No need of more
-    Finnished();
+    Finished();
 }
 
 } //NameSpace

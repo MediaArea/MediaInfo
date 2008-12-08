@@ -73,7 +73,7 @@ void File_Gif::FileHeader_Parse()
     FILLING_BEGIN();
         if (Header!=_T("GIF"))
         {
-            Finnished();
+            Finished();
             return;
         }
 
@@ -87,7 +87,7 @@ void File_Gif::FileHeader_Parse()
         Fill(Stream_Image, 0, Image_Format, Header+Version);
         Fill(Stream_Image, 0, Image_Codec, Header+Version);
 
-        Finnished();
+        Finished();
     FILLING_END();
 }
 

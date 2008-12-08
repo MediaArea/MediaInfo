@@ -137,7 +137,7 @@ void File_Jpeg::FileHeader_Parse()
     FILLING_BEGIN();
         if (identifier!=0xFFD8)
         {
-            Finnished();
+            Finished();
             return;
         }
     FILLING_END();
@@ -305,7 +305,7 @@ void File_Jpeg::SOS()
     Skip_B1(                                                    "Successive approximation bit position");
 
     //Filling
-    Finnished(); //No need of more
+    Finished(); //No need of more
 }
 
 //---------------------------------------------------------------------------

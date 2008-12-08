@@ -637,7 +637,7 @@ void File_Vc1::FrameHeader_Fill()
     {
         Element_End();
         Info("VC-1, Jumping to end of file");
-        Finnished();
+        Finished();
     }
 }
 
@@ -795,7 +795,7 @@ void File_Vc1::SequenceHeader()
     FILLING_END();
 
     if (From_WMV3)
-        Finnished();
+        Finished();
 }
 
 //---------------------------------------------------------------------------
@@ -951,7 +951,7 @@ bool File_Vc1::Detect_NonVC1 ()
     //Detect mainly DAT files, and the parser is not enough precise to detect them later
     if (CC4(Buffer)==CC4("RIFF"))
     {
-        Finnished();
+        Finished();
         return true;
     }
 
@@ -960,7 +960,7 @@ bool File_Vc1::Detect_NonVC1 ()
         Buffer_Offset++;
     if (Buffer_Offset<188 && CC1(Buffer+Buffer_Offset+188)==0x47 && CC1(Buffer+Buffer_Offset+188*2)==0x47 && CC1(Buffer+Buffer_Offset+188*3)==0x47)
     {
-        Finnished();
+        Finished();
         return true;
     }
     Buffer_Offset=0;
@@ -970,7 +970,7 @@ bool File_Vc1::Detect_NonVC1 ()
         Buffer_Offset++;
     if (Buffer_Offset<192 && CC1(Buffer+Buffer_Offset+192+4)==0x47 && CC1(Buffer+Buffer_Offset+192*2+4)==0x47 && CC1(Buffer+Buffer_Offset+192*3+4)==0x47)
     {
-        Finnished();
+        Finished();
         return true;
     }
     Buffer_Offset=0;

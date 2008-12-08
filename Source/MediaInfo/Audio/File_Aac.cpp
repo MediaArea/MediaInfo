@@ -52,7 +52,7 @@ void File_Aac::Read_Buffer_Continue()
     Fill(Stream_General, 0, Audio_Format, "AAC");
     Fill(Stream_General, 0, Audio_Codec, "AAC");
 
-    Finnished();
+    Finished();
 }
 
 //---------------------------------------------------------------------------

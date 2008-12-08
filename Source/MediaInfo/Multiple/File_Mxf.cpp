@@ -49,7 +49,7 @@ void File_Mxf::Read_Buffer_Continue()
     //Header
     if (CC4(Buffer)!=0x060E2B34)
     {
-        Finnished();
+        Finished();
         return;
     }
 
@@ -57,7 +57,7 @@ void File_Mxf::Read_Buffer_Continue()
     Fill(Stream_General, 0, General_Format, "MXF");
 
     //No need of more
-    Finnished();
+    Finished();
 }
 
 } //NameSpace

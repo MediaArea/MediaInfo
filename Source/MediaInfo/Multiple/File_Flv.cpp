@@ -455,7 +455,7 @@ void File_Flv::FileHeader_Parse()
         //Integrity
         if (Signature!="FLV" || Version==0 || Size<9)
         {
-            Finnished();
+            Finished();
             return;
         }
 
@@ -474,7 +474,7 @@ void File_Flv::FileHeader_Parse()
 
         if (Version>1)
         {
-            Finnished();
+            Finished();
             return; //Version more than 1 is not supported
         }
     FILLING_END();
@@ -542,7 +542,7 @@ void File_Flv::Data_Parse()
         case 0x12 : meta(); break;
         case 0xFA : Rm(); break;
         case (int64u)-1 : Data_GoTo(File_Size-PreviousTagSize-8, "FLV"); return; //When searching the last frame
-        default : if (Searching_Duration) Finnished(); //This is surely a bad en of file, don't try anymore
+        default : if (Searching_Duration) Finished(); //This is surely a bad en of file, don't try anymore
 
     }
 
@@ -555,7 +555,7 @@ void File_Flv::Data_Parse()
             Data_GoTo(File_Size-4, "FLV");
         }
         else
-            Finnished();
+            Finished();
     }
 }
 
@@ -1095,8 +1095,8 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 std::string StringData2;
                 int16u StringLength2;
                 meta_Level++;
-                meta_LevelFinnished[meta_Level]=false;
-                while (!meta_LevelFinnished[meta_Level])
+                meta_LevelFinished[meta_Level]=false;
+                while (!meta_LevelFinished[meta_Level])
                 {
                     if (Element_Offset>=Element_Size)
                         break;
@@ -1144,14 +1144,14 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 for (int32u Pos=0; Pos<ECMAArrayLength; Pos++)
                 {
                     meta_SCRIPTDATAVARIABLE();
-                    if (meta_LevelFinnished[meta_Level])
-                        Pos=ECMAArrayLength; //Finnished
+                    if (meta_LevelFinished[meta_Level])
+                        Pos=ECMAArrayLength; //Finished
                 }
             }
             break;
         case 0x09 :
             Element_Info("EndOfObject");
-            meta_LevelFinnished[meta_Level]=true;
+            meta_LevelFinished[meta_Level]=true;
             break;
         case 0x0A : //SCRIPTDATAVARIABLE[n]
         case 0x0E : //RecordSet - SCRIPTDATAVARIABLE[n]

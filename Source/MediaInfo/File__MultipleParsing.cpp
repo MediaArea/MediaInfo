@@ -476,7 +476,7 @@ void File__MultipleParsing::Data_Parse()
         Open_Buffer_Continue(Parser[Pos], Buffer+Buffer_Offset, (size_t)Element_Size);
 
         //Testing if the parser failed
-        if (Parser[Pos]->Count_Get(Stream_General)==0 && (Parser[Pos]->File_GoTo==Parser[Pos]->File_Size || Parser[Pos]->IsFinnished))
+        if (Parser[Pos]->Count_Get(Stream_General)==0 && (Parser[Pos]->File_GoTo==Parser[Pos]->File_Size || Parser[Pos]->IsFinished))
         {
             delete Parser[Pos];
             Parser.erase(Parser.begin()+Pos);
@@ -504,8 +504,8 @@ void File__MultipleParsing::Data_Parse()
                File_GoTo=Parser[0]->File_GoTo;
 
             //Ending if requested
-            if (Parser.size()==1 && (Parser[Pos]->File_GoTo==Parser[Pos]->File_Size || Parser[Pos]->IsFinnished))
-               Finnished();
+            if (Parser.size()==1 && (Parser[Pos]->File_GoTo==Parser[Pos]->File_Size || Parser[Pos]->IsFinished))
+               Finished();
         }
     }
 }
@@ -528,7 +528,7 @@ void File__MultipleParsing::Data_Parse()
         Open_Buffer_Continue(Parser[Pos], Buffer+Buffer_Offset, (size_t)Element_Size);
 
         //Testing if the parser failed
-        if (Parser[Pos]->Count_Get(Stream_General)==0 && (Parser[Pos]->File_GoTo==Parser[Pos]->File_Size || Parser[Pos]->IsFinnished))
+        if (Parser[Pos]->Count_Get(Stream_General)==0 && (Parser[Pos]->File_GoTo==Parser[Pos]->File_Size || Parser[Pos]->IsFinished))
         {
             delete Parser[Pos];
             Parser.erase(Parser.begin()+Pos);
@@ -553,8 +553,8 @@ void File__MultipleParsing::Data_Parse()
                File_GoTo=Parser[0]->File_GoTo;
 
             //Ending if requested
-            if (Parser.size()==1 && (Parser[Pos]->File_GoTo==Parser[Pos]->File_Size || Parser[Pos]->IsFinnished))
-               Finnished();
+            if (Parser.size()==1 && (Parser[Pos]->File_GoTo==Parser[Pos]->File_Size || Parser[Pos]->IsFinished))
+               Finished();
         }
     }
 }

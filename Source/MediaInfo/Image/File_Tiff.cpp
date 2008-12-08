@@ -61,7 +61,7 @@ void File_Tiff::Read_Buffer_Continue()
     //Header
     if (CC4(Buffer)!=0x49492A00 && CC4(Buffer)!=0x4D4D002A)
     {
-        Finnished();
+        Finished();
         return;
     }
 
@@ -73,7 +73,7 @@ void File_Tiff::Read_Buffer_Continue()
     Fill(Stream_Image, 0, Image_Codec, "TIFF");
 
     //No need of more
-    Finnished();
+    Finished();
 }
 
 } //NameSpace

@@ -171,7 +171,7 @@ void File_Cdxa::FileHeader_Parse()
      ||                 CC4(Buffer+Buffer_Offset+0x24)!=CC4("data")
        )
     {
-        Finnished();
+        Finished();
         return;
     }
 
@@ -246,7 +246,7 @@ void File_Cdxa::Data_Parse()
     if (MI==NULL)
     {
         //Where is the header? --> Problem
-        Finnished();
+        Finished();
         return;
     }
 
@@ -265,7 +265,7 @@ void File_Cdxa::Data_Parse()
 
     //Sending the buffer to MediaInfo
     if (MI->Open_Buffer_Continue(Buffer+Buffer_Offset, (size_t)(Element_Size-CRC_Size))==0)
-        Finnished(); //Get out of the loop, there was an error during the parsing
+        Finished(); //Get out of the loop, there was an error during the parsing
 
     //Testing if MediaInfo always need data
     File_GoTo=MI->Open_Buffer_Continue_GoTo_Get();

@@ -57,7 +57,7 @@ void File_Skm::FileHeader_Parse()
         //Integrity
         if (Signature!=CC5("DMSKM"))
         {
-            Finnished();
+            Finished();
             return;
         }
 
@@ -150,7 +150,7 @@ void File_Skm::Data_Parse()
         {
             Open_Buffer_Finalize(Stream.Parser);
             Merge(*Stream.Parser);
-            Finnished();
+            Finished();
         }
     #endif
 }

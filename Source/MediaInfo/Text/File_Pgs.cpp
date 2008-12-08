@@ -45,7 +45,7 @@ bool File_Pgs::Header_Begin()
 {
     if (!File_Name.empty())
     {
-        Finnished();
+        Finished();
         return false;
     }
 
@@ -57,7 +57,7 @@ bool File_Pgs::Header_Begin()
     Fill(Stream_Text, 0, Text_Codec, "PGS");
 
     Info("PGS, Jumping to end of file");
-    Finnished();
+    Finished();
     return false;
 }
 

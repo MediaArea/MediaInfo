@@ -608,7 +608,7 @@ void File_Mpeg_Psi::Header_Parse()
     if ((size_t)(pointer_field+section_length)<Element_Offset+4) //We must have 4 more byte for CRC
     {
         Element_WaitForMoreData();
-        Finnished(); //Error, we exit
+        Finished(); //Error, we exit
         return;
     }
     if (Element_Size<Element_Offset+section_length)
@@ -644,7 +644,7 @@ void File_Mpeg_Psi::Data_Parse()
     if(CRC_32!=0)
     {
         Skip_XX(Element_Size,                                   "Data (CRC failed)");
-        Finnished();
+        Finished();
         return;
     }
 
@@ -777,7 +777,7 @@ void File_Mpeg_Psi::Data_Parse()
         default   : ;
     }
 
-    Finnished();
+    Finished();
 }
 
 //---------------------------------------------------------------------------

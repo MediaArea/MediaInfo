@@ -484,7 +484,7 @@ void File_Riff::AIFF_SSND()
 
     //Filling
     Fill(Stream_Audio, 0, Audio_StreamSize, Element_TotalSize_Get());
-    Finnished();
+    Finished();
 }
 
 //---------------------------------------------------------------------------
@@ -522,7 +522,7 @@ void File_Riff::AVI_()
     if (Count_Get(Stream_General)>0)
     {
         Element_Info("Problem: 2 AVI chunks, this is not normal");
-        Finnished();
+        Finished();
         return;
     }
 
@@ -1890,7 +1890,7 @@ void File_Riff::AVI__movi_xxxx___wb()
     if (Stream[Stream_ID].PacketPos>=4 //For having the chunk alignement
      && (Stream[Stream_ID].Parser==NULL
       || Stream[Stream_ID].Parser->File_Offset==File_Size
-      || Stream[Stream_ID].Parser->IsFinnished
+      || Stream[Stream_ID].Parser->IsFinished
       || Stream[Stream_ID].PacketPos>=300
       || Element_Size>50000)) //For PCM, we disable imediatly
     {
@@ -1926,7 +1926,7 @@ void File_Riff::AVI__movi_StreamJump()
             Element_End();
         Info("movi, Jumping to end of chunk");
         if (SecondPass)
-            Finnished(); //The rest is already parsed
+            Finished(); //The rest is already parsed
         else
             File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
     }
@@ -1944,7 +1944,7 @@ void File_Riff::AVI__movi_StreamJump()
                 File_GoTo=ToJump; //Not just after
         }
         else
-            Finnished();
+            Finished();
     }
 }
 
@@ -2033,7 +2033,7 @@ void File_Riff::MTrk()
     Stream_Prepare(Stream_Audio);
     Fill(Stream_Audio, StreamPos_Last, Audio_Format, "MIDI");
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "Midi");
-    Finnished();
+    Finished();
 }
 
 //---------------------------------------------------------------------------

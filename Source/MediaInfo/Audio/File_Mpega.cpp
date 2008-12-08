@@ -635,7 +635,7 @@ void File_Mpega::Data_Parse_Fill()
     //Testing errors
     if (sampling_frequency_Count.size()>1 || mode_Count.size()>1)
     {
-        //Finnished();
+        //Finished();
         //return; //More than one sampling_frequency of mode, not normal
     }
 
@@ -838,7 +838,7 @@ bool File_Mpega::Header_Encoders()
 void File_Mpega::Header_Encoders_Lame()
 {
     Peek_Local(8, Encoded_Library);
-    if (Encoded_Library>=_T("LAME3.90") && Element_IsNotFinnished())
+    if (Encoded_Library>=_T("LAME3.90") && Element_IsNotFinished())
     {
         int8u Flags, BitRate;
         Get_Local(9, Encoded_Library,                           "Encoded_Library");
@@ -1168,21 +1168,21 @@ bool File_Mpega::Detect_NonMPEGA ()
     //Detect WAV files, the parser can't detect it easily, there is only 70 bytes of begining for sayint WAV
     if (CC4(Buffer)==CC4("RIFF"))
     {
-        Finnished();
+        Finished();
         return true;
     }
 
     //Detect SWF files (one case with no possibility to detect false-positive...
     if (CC3(Buffer)==CC3("FWS"))
     {
-        Finnished();
+        Finished();
         return true;
     }
 
     //Detect FLV files (one case with no possibility to detect false-positive...
     if (CC3(Buffer)==CC3("FLV"))
     {
-        Finnished();
+        Finished();
         return true;
     }
 

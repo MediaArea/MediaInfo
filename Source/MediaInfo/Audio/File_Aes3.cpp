@@ -166,7 +166,8 @@ void File_Aes3::Data_Parse()
                 Info[4]=(Reverse8(Buffer[Buffer_Pos+3])>>4) | ((Reverse8(Buffer[Buffer_Pos+4])<<4)&0xF0);
                 Info[5]=(Reverse8(Buffer[Buffer_Pos+4])>>4) | ((Reverse8(Buffer[Buffer_Pos+5])<<4)&0xF0);
 
-                //Details
+
+                //Details
                 if (Config_Details>0)
                 {
                     Param("0", Info[0]);
@@ -271,7 +272,7 @@ void File_Aes3::Data_Parse()
         }
 
         Info("AES3, Jumping to end of file");
-        Finnished();
+        Finished();
     }
 }
 

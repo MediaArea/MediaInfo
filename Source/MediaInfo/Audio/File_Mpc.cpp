@@ -174,7 +174,7 @@ void File_Mpc::FileHeader_Parse()
         //Integrity
         if (Signature!=CC3("MP+") || Version!=7)
         {
-            Finnished();
+            Finished();
             return;
         }
 

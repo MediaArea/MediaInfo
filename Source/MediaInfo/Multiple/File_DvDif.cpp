@@ -363,7 +363,7 @@ void File_DvDif::Aux()
     Skip_XX(2,                                                  "Unused");
 
     if (Count_Get(Stream_General))
-        Finnished(); //Here because we currently must be at the end of an element
+        Finished(); //Here because we currently must be at the end of an element
 }
 
 //---------------------------------------------------------------------------

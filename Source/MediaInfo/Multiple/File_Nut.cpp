@@ -83,7 +83,7 @@ void File_Nut::Header_Parse()
         //Frame
         Header_Fill_Code(0, "Frame");
         Header_Fill_Size(0);
-        Finnished();
+        Finished();
     }
     */
 }
@@ -105,7 +105,7 @@ void File_Nut::FileHeader_Parse()
         //Integrity
         if (file_id_string!="nut/multimedia container")
         {
-            Finnished();
+            Finished();
             return;
         }
 
@@ -113,7 +113,7 @@ void File_Nut::FileHeader_Parse()
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "Nut");
 
-        Finnished();
+        Finished();
     FILLING_END();
 }
 

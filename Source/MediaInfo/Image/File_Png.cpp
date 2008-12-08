@@ -84,7 +84,7 @@ void File_Png::FileHeader_Parse()
     FILLING_BEGIN();
         if (ByteOrder!=0x0D0A1A0A)
         {
-            Finnished();
+            Finished();
             return;
         }
 
@@ -103,7 +103,7 @@ void File_Png::FileHeader_Parse()
                 Stream_Prepare(Stream_Image);
                 Fill(Stream_Image, 0, Image_Codec, "MNG");
                 Fill(Stream_Image, 0, Image_Format, "MNG");
-                Finnished();
+                Finished();
                 break;
             case 0x8B4A4E47 :
                 Stream_Prepare(Stream_General);
@@ -112,10 +112,10 @@ void File_Png::FileHeader_Parse()
                 Stream_Prepare(Stream_Image);
                 Fill(Stream_Image, 0, Image_Format, "JNG");
                 Fill(Stream_Image, 0, Image_Codec, "JNG");
-                Finnished();
+                Finished();
                 break;
             default:
-                Finnished();
+                Finished();
         }
     FILLING_END();
 }

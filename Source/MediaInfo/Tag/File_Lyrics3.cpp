@@ -52,7 +52,7 @@ void File_Lyrics3::Read_Buffer_Continue()
     Lyrics();
     Footer();
 
-    Finnished();
+    Finished();
 }
 
 //***************************************************************************

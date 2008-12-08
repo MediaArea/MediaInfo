@@ -54,7 +54,7 @@ void File_ScreamTracker3::FileHeader_Parse()
     FILLING_BEGIN();
         if (Mark!=0x1A)
         {
-            Finnished();
+            Finished();
             return;
         }
     FILLING_END()
@@ -82,7 +82,7 @@ void File_ScreamTracker3::FileHeader_Parse()
     FILLING_BEGIN();
         if (Signature!=0x5343524D)
         {
-            Finnished();
+            Finished();
             return;
         }
     FILLING_END()
@@ -117,7 +117,7 @@ void File_ScreamTracker3::FileHeader_Parse()
 
         Stream_Prepare(Stream_Audio);
 
-        Finnished();
+        Finished();
     FILLING_END();
 
 }

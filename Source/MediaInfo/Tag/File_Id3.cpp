@@ -58,7 +58,7 @@ void File_Id3::FileHeader_Parse()
     if (ID!=CC3("TAG"))
     {
         Element_WaitForMoreData();
-        Finnished();
+        Finished();
         return;
     }
     Get_Local (30, Id3v1_Title,                                 "Title");

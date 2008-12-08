@@ -50,7 +50,7 @@ void File_7z::Read_Buffer_Continue()
     //Header
     if (CC2(Buffer)!=CC2("7z") || CC4(Buffer+2)!=0xBCAF271C)
     {
-        Finnished();
+        Finished();
         return;
     }
 
@@ -59,7 +59,7 @@ void File_7z::Read_Buffer_Continue()
     Fill(Stream_General, 0, General_Format, "7-Zip");
 
     //No need of more
-    Finnished();
+    Finished();
 }
 
 } //NameSpace

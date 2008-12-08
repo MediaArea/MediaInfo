@@ -382,7 +382,7 @@ void File_Mpeg4_AudioSpecificConfig::audioSpecificConfig ()
     FILLING_END();
 
     BS_End();
-    Finnished();
+    Finished();
 }
 
 //---------------------------------------------------------------------------
@@ -701,7 +701,7 @@ void File_Mpeg4_AudioSpecificConfig::ALS ()
         Skip_XX(Element_Size-Element_Offset,                    "Unknown");
 
     //NO need more
-    Finnished();
+    Finished();
 }
 
 } //NameSpace

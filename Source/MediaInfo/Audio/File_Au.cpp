@@ -122,7 +122,7 @@ void File_Au::FileHeader_Parse()
     FILLING_BEGIN();
         if (magic!=0x2E736E64) //.snd
         {
-            Finnished();
+            Finished();
             return;
         }
     FILLING_END()
@@ -157,7 +157,7 @@ void File_Au::FileHeader_Parse()
         Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
         Fill(Stream_General, 0, General_Comment, arbitrary);
 
-        Finnished();
+        Finished();
     FILLING_END();
 }
 

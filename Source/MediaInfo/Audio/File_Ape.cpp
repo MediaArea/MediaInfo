@@ -182,7 +182,7 @@ void File_Ape::FileHeader_Parse()
         //Integrity
         if (Identifier!=CC4("MAC "))
         {
-            Finnished();
+            Finished();
             return;
         }
 
@@ -190,7 +190,7 @@ void File_Ape::FileHeader_Parse()
         int32u Samples=(TotalFrames-1)*SamplesPerFrame+FinalFrameSamples;
         if (Samples==0 || SampleRate==0 || Channels==0 || Resolution==0)
         {
-            Finnished();
+            Finished();
             return;
         }
 

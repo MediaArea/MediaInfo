@@ -138,7 +138,7 @@ void File_Rm::Data_Parse()
             default           : ;
         }
 
-        Finnished();
+        Finished();
         return;
     }
 
@@ -224,7 +224,7 @@ void File_Rm::DATA()
     NAME_VERSION("Data");
 
     //Currently, we stop here, enough info
-    Finnished();
+    Finished();
     return;
 
     /*

@@ -54,7 +54,7 @@ void File_ImpulseTracker::FileHeader_Parse()
     FILLING_BEGIN();
         if (Signature!=0x494D504D)
         {
-            Finnished();
+            Finished();
             return;
         }
     FILLING_END()
@@ -109,7 +109,7 @@ void File_ImpulseTracker::FileHeader_Parse()
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Stereo?2:1);
         
-        Finnished();
+        Finished();
     FILLING_END();
 }
 

@@ -128,7 +128,7 @@ void File_Other::Read_Buffer_Continue()
     Fill(Stream_General, 0, General_Format, Format);
     Fill(Stream_General, 0, General_Format_Url, Url);
     Fill(Stream_General, 0, General_Format_Extensions, Extensions);
-    Finnished();
+    Finished();
 }
 
 } //NameSpace

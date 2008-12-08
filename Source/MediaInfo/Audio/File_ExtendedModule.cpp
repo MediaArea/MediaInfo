@@ -54,7 +54,7 @@ void File_ExtendedModule::FileHeader_Parse()
     FILLING_BEGIN();
         if (Signature!="Extended Module: ")
         {
-            Finnished();
+            Finished();
             return;
         }
     FILLING_END()
@@ -65,7 +65,7 @@ void File_ExtendedModule::FileHeader_Parse()
     FILLING_BEGIN();
         if (Mark!=0x1A)
         {
-            Finnished();
+            Finished();
             return;
         }
     FILLING_END()
@@ -98,7 +98,7 @@ void File_ExtendedModule::FileHeader_Parse()
             Stream_Prepare(Stream_Audio);
         }
 
-        Finnished();
+        Finished();
     FILLING_END();
 }
 

@@ -547,7 +547,7 @@ void File_Ac3::Data_Parse_Fill()
     {
         //No more need data
         Info("AC-3 detected", 1);
-        Finnished();
+        Finished();
     }
 }
 

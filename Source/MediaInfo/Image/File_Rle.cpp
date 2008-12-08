@@ -45,7 +45,7 @@ bool File_Rle::Header_Begin()
 {
     if (!File_Name.empty())
     {
-        Finnished();
+        Finished();
         return false;
     }
 
@@ -57,7 +57,7 @@ bool File_Rle::Header_Begin()
     Fill(Stream_Text, 0, Text_Codec, "RLE");
 
     Info("RLE, Jumping to end of file");
-    Finnished();
+    Finished();
     return false;
 }
 

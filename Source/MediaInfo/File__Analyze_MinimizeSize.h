@@ -110,7 +110,7 @@ protected :
     bool EOF_AlreadyDetected;
 
     //Data - Helpers
-    inline void Data_Finnished(const char*)                                     {Data_GoTo(File_Size);}
+    inline void Data_Finished(const char*)                                     {Data_GoTo(File_Size);}
     void Data_GoTo     (int64u GoTo);
     inline void Data_GoTo     (int64u GoTo, const char*)                        {Data_GoTo(GoTo);}
 
@@ -725,7 +725,7 @@ public :
     //***************************************************************************
 
     //Actions
-    void Finnished();
+    void Finished();
     int64u Element_Code_Get (size_t Level);
     int64u Element_TotalSize_Get (size_t LevelLess=0);
     bool Element_IsComplete_Get ();
@@ -739,7 +739,7 @@ public :
 
     //Status
     bool Element_IsOK ();
-    bool Element_IsNotFinnished ();
+    bool Element_IsNotFinished ();
     bool Element_IsWaitingForMoreData ();
 
     //Begin
@@ -898,7 +898,7 @@ public :
 
     //Temp
     bool NewFinnishMethod;
-    bool IsFinnished;
+    bool IsFinished;
     bool ShouldContinueParsing;
 };
 

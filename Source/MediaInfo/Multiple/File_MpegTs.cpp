@@ -567,7 +567,7 @@ void File_MpegTs::PSI()
     //Filling
     if (Streams[pid].Parser->File_Offset==Streams[pid].Parser->File_Size)
     {
-        //Finnished, we can fill data
+        //Finished, we can fill data
         switch (Streams[pid].TS_Kind)
         {
             case File_Mpeg_Psi::program_association_table : PSI_program_association_table(); break;
@@ -994,7 +994,7 @@ bool File_MpegTs::Synchronize()
         }
         //Managing first Synch attempt
         else if (!File_Name.empty() && File_Offset+Buffer_Size>=188*4+BDAV_Size*5 && Count_Get(Stream_General)==0)
-            Finnished(); //This is not a TS file, ending
+            Finished(); //This is not a TS file, ending
 
         return false;
     }
@@ -1160,14 +1160,14 @@ bool File_MpegTs::Detect_NonMPEGTS ()
     //Detect mainly DAT files, and the parser is not enough precise to detect them later
     if (CC4(Buffer)==CC4("RIFF"))
     {
-        Finnished();
+        Finished();
         return true;
     }
 
     //Detect MPEG-4 files, and the parser is not enough precise to detect them later if there is a lot of 0x47 in the size chunks
     if (CC4(Buffer+4)==CC4("ftyp") || CC4(Buffer+4)==CC4("moov") || CC4(Buffer+4)==CC4("mdat"))
     {
-        Finnished();
+        Finished();
         return true;
     }
 

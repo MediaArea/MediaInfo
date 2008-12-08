@@ -54,7 +54,7 @@ void File_Amr::Read_Buffer_Continue()
         //Header
         if (!(CC5(Buffer)==CC5("#!AMR")))
         {
-            Finnished();
+            Finished();
             return;
         }
     }
@@ -68,7 +68,7 @@ void File_Amr::Read_Buffer_Continue()
     Fill(Stream_Audio, 0, Audio_Codec, "AMR");
 
     //No need of more
-    Finnished();
+    Finished();
 }
 
 //---------------------------------------------------------------------------

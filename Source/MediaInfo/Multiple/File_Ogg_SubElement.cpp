@@ -221,7 +221,7 @@ void File_Ogg_SubElement::Data_Parse()
         case 0x82 : Setup(); break;
         case (int64u)-1 : OutOfSpecs(); break;
         default   : Skip_XX(Element_Size,                       "Data");
-                    Finnished();
+                    Finished();
     }
 }
 
@@ -258,7 +258,7 @@ void File_Ogg_SubElement::Identification()
     ELEMENT_CASE(FLAC1)
     else
     {
-        Finnished();
+        Finished();
         return;
     }
 
@@ -489,17 +489,17 @@ void File_Ogg_SubElement::Comment()
     ELEMENT_CASE(audio)
     ELEMENT_CASE(text)
     else
-        Finnished();
+        Finished();
 
     //Must finnish?
     #undef ELEMENT_CASE
     #ifdef __BORLANDC__ //Borland converts int64u to int32u
         #define ELEMENT_CASE(_NAME) \
-            else if (ID_Identification==Ogg::_NAME##1*0x100000000LL+Ogg::_NAME##2) Finnished();
+            else if (ID_Identification==Ogg::_NAME##1*0x100000000LL+Ogg::_NAME##2) Finished();
 
     #else //__BORLANDC__
         #define ELEMENT_CASE(_NAME) \
-            else if (ID_Identification==Ogg::_NAME) Finnished();
+            else if (ID_Identification==Ogg::_NAME) Finished();
 
     #endif //__BORLANDC__
 
@@ -535,7 +535,7 @@ void File_Ogg_SubElement::Comment_vorbis()
         Element_Offset++;
 
     if (Element_Offset==Element_Size)
-        Finnished();
+        Finished();
 
     //Parsing Setup
     while (CC1(Buffer+Buffer_Offset+(size_t)Element_Offset)==0x00)
@@ -597,7 +597,7 @@ void File_Ogg_SubElement::Setup()
     //ELEMENT_CASE(video)
     //ELEMENT_CASE(audio)
     //ELEMENT_CASE(text)
-    Finnished();
+    Finished();
 }
 
 //---------------------------------------------------------------------------
@@ -625,7 +625,7 @@ void File_Ogg_SubElement::FLAC1()
     #if defined(MEDIAINFO_FLAC_YES)
         if (Flac==NULL)
         {
-            Finnished();
+            Finished();
             return;
         }
         Open_Buffer_Init(Flac, File_Size, File_Offset+Buffer_Offset+Element_Offset);
@@ -633,12 +633,12 @@ void File_Ogg_SubElement::FLAC1()
         if (Flac->File_Offset==Flac->File_Size)
         {
             Merge(*Flac, Stream_Audio, 0, 0);
-            Finnished();
+            Finished();
         }
 
     #else
         Skip_XX(Element_Size,                                   "Flac data");
-        Finnished();
+        Finished();
     #endif
 }
 

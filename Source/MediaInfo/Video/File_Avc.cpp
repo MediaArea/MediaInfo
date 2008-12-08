@@ -759,7 +759,7 @@ void File_Avc::slice_header_Fill()
         NextCode_Clear();
 
         Info("AVC, Jumping to end of file");
-        Finnished();
+        Finished();
     }
 }
 
@@ -1521,7 +1521,7 @@ void File_Avc::SPS_PPS()
     if (MustParse_SPS_PPS_Only)
     {
         slice_header_Fill();
-        Finnished();
+        Finished();
     }
 }
 
@@ -1621,7 +1621,7 @@ bool File_Avc::Detect_NonAVC ()
     //Detect mainly DAT files, and the parser is not enough precise to detect them later
     if (CC4(Buffer)==CC4("RIFF"))
     {
-        Finnished();
+        Finished();
         return true;
     }
 
@@ -1630,7 +1630,7 @@ bool File_Avc::Detect_NonAVC ()
         Buffer_Offset++;
     if (Buffer_Offset<188 && CC1(Buffer+Buffer_Offset+188)==0x47 && CC1(Buffer+Buffer_Offset+188*2)==0x47 && CC1(Buffer+Buffer_Offset+188*3)==0x47)
     {
-        Finnished();
+        Finished();
         return true;
     }
     Buffer_Offset=0;

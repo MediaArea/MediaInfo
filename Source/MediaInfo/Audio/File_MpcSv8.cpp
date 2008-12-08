@@ -146,7 +146,7 @@ void File_MpcSv8::FileHeader_Parse()
         //Integrity
         if (Magic_Number!=CC4("MPCK"))
         {
-            Finnished();
+            Finished();
             return;
         }
 
