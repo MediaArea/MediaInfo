@@ -80,7 +80,7 @@ xcopy ..\Source\Example\HowToUse_Dll.* MediaInfoDLL_Win32\Developpers\Source\Exa
 xcopy Example.ogg MediaInfoDLL_Win32\Developpers\
 
 rem --- Copying : Information files ---
-copy ..\Licence.html MediaInfoDLL_Win32\Developpers\
+copy ..\License.html MediaInfoDLL_Win32\Developpers\
 copy ..\History_DLL.txt MediaInfoDLL_Win32\Developpers\History.txt
 copy ReadMe_DLL_Windows.txt MediaInfoDLL_Win32\ReadMe.txt
 

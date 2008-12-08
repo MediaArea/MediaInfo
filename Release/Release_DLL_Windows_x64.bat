@@ -61,7 +61,7 @@ xcopy ..\Source\Example\HowToUse_Dll.* MediaInfoDLL_Windows_x64\Developpers\Sour
 xcopy Example.ogg MediaInfoDLL_Windows_x64\Developpers\
 
 rem --- Copying : Information files ---
-copy ..\Licence.html MediaInfoDLL_Windows_x64\Developpers\
+copy ..\License.html MediaInfoDLL_Windows_x64\Developpers\
 copy ..\History_DLL.txt MediaInfoDLL_Windows_x64\Developpers\History.txt
 copy ReadMe_DLL_Windows.txt MediaInfoDLL_Windows_x64\ReadMe.txt
 

@@ -2,11 +2,11 @@ MediaInfo.Dll - http://mediainfo.sourceforge.net
 Copyright (c) 2002-2008, Jerome Martinez, zen@mediaarea.net
 
 This program is freeware (LGLPv3).
-See licence.html for more information
+See License.html for more information
 
 Anyone may use, copy and distribute this program free of charge.
 Anyone may modify this program and distribute modifications
-under the terms of the LGPLv3 licence.
+under the terms of the LGPLv3 License.
 
 Exception for binary distribution:
 MediaInfo.dll is the only one important file, which you must put in your software folder

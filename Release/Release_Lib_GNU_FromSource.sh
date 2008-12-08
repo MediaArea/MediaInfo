@@ -69,7 +69,7 @@ cp -r ../Source/MediaInfoDLL/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaInfo
 
 #-----------------------------------------------------------------------
 # Copying : Information
-cp ../Licence.html MediaInfo_Lib_GNU_FromSource/
+cp ../License.html MediaInfo_Lib_GNU_FromSource/
 cp ../History_DLL.txt MediaInfo_Lib_GNU_FromSource/
 test -d MediaInfo_Lib_GNU_FromSource/Release || mkdir MediaInfo_Lib_GNU_FromSource/Release
 cp ReadMe_DLL_Linux.txt MediaInfo_Lib_GNU_FromSource/Release/

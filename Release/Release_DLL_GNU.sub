@@ -23,7 +23,7 @@ cd ..
 
 #-----------------------------------------------------------------------
 # Copying : Information file
-cp ../Licence.html MediaInfo_DLL_$1_$2/
+cp ../License.html MediaInfo_DLL_$1_$2/
 cp ../History_DLL.txt MediaInfo_DLL_$1_$2/History.txt
 cp ReadMe_DLL_$1.txt MediaInfo_DLL_$1_$2/ReadMe.txt
 
