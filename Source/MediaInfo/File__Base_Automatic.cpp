@@ -1008,7 +1008,7 @@ void File__Base_Container (InfoMap &Info)
     "MPEG Video;;;V;Mpegv;;mpgv mpv mp1v m1v mp2v m2v\n"
     "MPEG-4 Visual;;;V;Mpeg4;;mp4v\n"
     "VC-1;;;V;Vc1;;vc1\n"
-    "Theroa;;;V\n"
+    "Theora;;;V\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
@@ -1090,7 +1090,7 @@ void File__Base_Format (InfoMap &Info)
     "MPEG Video;;;V;Mpegv;;mpgv mpv mp1v m1v mp2v m2v\n"
     "MPEG-4 Visual;;;V;Mpeg4;;mp4v\n"
     "VC-1;;;V;Vc1;;vc1\n"
-    "Theroa;;;V\n"
+    "Theora;;;V\n"
     "AVS Video;;;V;AvsV;Audio Video Standart, Video part;;http://www.avs.org.cn/\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
@@ -1179,10 +1179,10 @@ void File__Base_CodecID_Video_Matroska (InfoMap &Info)
     "V_MPEG4/MS/V3;MPEG-4 Visual;MS MPEG-4 v3;MS MPEG-4 v3;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow\n"
     "V_MPEG1;MPEG Video;;MPEG 1 or 2 Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow\n"
     "V_MPEG2;MPEG Video;;MPEG 1 or 2 Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow\n"
-    "V_REAL/RV10;Real 1;;RealVideo 1.0 aka RealVideo 5;http://www.real.com\n"
-    "V_REAL/RV20;Real 2;;RealVideo 2.0 aka G2 and RealVideo G2+SVT;http://www.real.com\n"
-    "V_REAL/RV30;Real 3;;RealVideo 3.0 aka RealVideo 8;http://www.real.com\n"
-    "V_REAL/RV40;Real 4;;RealVideo 4.0 aka RealVideo 9;http://www.real.com\n"
+    "V_REAL/RV10;RealVideo 1;;RealVideo 1.0 aka RealVideo 5;http://www.real.com\n"
+    "V_REAL/RV20;RealVideo 2;;RealVideo 2.0 aka G2 and RealVideo G2+SVT;http://www.real.com\n"
+    "V_REAL/RV30;RealVideo 3;;RealVideo 3.0 aka RealVideo 8;http://www.real.com\n"
+    "V_REAL/RV40;RealVideo 4;;RealVideo 4.0 aka RealVideo 9;http://www.real.com\n"
     "V_THEORA;Theora;;;http://www.theora.org\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
