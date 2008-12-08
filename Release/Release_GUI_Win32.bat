@@ -19,7 +19,7 @@ xcopy MSVC\DLL\MediaInfo_InfoTip.dll MediaInfo_GUI_Win32\ /S
 xcopy ..\Source\Ressource\Plugin\* MediaInfo_GUI_Win32\Plugin\ /S
 
 @rem --- Copying : Information files ---
-copy ..\Licence.html MediaInfo_GUI_Win32\
+copy ..\License.html MediaInfo_GUI_Win32\
 copy ..\History_GUI.txt MediaInfo_GUI_Win32\History.txt
 copy ReadMe_GUI_Windows.txt MediaInfo_GUI_Win32\ReadMe.txt
 

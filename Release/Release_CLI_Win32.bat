@@ -13,7 +13,7 @@ rem --- Copying : Plugins ---
 xcopy ..\Source\Ressource\Plugin\Custom\* MediaInfo_CLI_Win32\Plugin\Custom\ /S
 
 rem --- Copying : Information files ---
-copy ..\Licence.html MediaInfo_CLI_Win32\
+copy ..\License.html MediaInfo_CLI_Win32\
 copy ..\History_CLI.txt MediaInfo_CLI_Win32\History.txt
 copy Readme_CLI_Windows.txt MediaInfo_CLI_Win32\ReadMe.txt
 

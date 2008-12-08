@@ -13,7 +13,7 @@ cp ../Project/GNU/GUI/MediaInfo MediaInfo_GUI_GNU/MediaInfo
 
 #-----------------------------------------------------------------------
 # Copying : Information file
-cp ../Licence.html MediaInfo_GUI_GNU/
+cp ../License.html MediaInfo_GUI_GNU/
 cp ../History_GUI.txt MediaInfo_GUI_GNU/History.txt
 cp ReadMe_GUI_Linux.txt MediaInfo_GUI_GNU/ReadMe.txt
 
