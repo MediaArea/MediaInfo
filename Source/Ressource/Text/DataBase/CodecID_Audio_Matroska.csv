@@ -12,7 +12,7 @@ A_EAC3;E-AC-3
 A_FLAC;Flac;;;http://flac.sourceforge.net
 A_TTA1;TTA;;The True Audio Lossless Codec;http://true-audio.com
 A_VORBIS;Vorbis;;;http://www.vorbis.com
-A_WAVPACK4;WavPack;;;http://www.wavepack.com
+A_WAVPACK4;WavPack;;;http://www.wavpack.com
 A_REAL/14_4;VSELP;;Real Audio 1 (14.4);http://www.real.com
 A_REAL/28_8;G.728;;Real Audio 2 (28.8);http://www.real.com
 A_REAL/COOK;Cooker;;Real Audio Cook Codec (codename: Gecko);http://www.real.com
