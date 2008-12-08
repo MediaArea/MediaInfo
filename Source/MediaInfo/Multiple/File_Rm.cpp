@@ -62,12 +62,33 @@ namespace Elements
 }
 
 //***************************************************************************
+// Constructor/Destructor
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+File_Rm::File_Rm()
+:File__Analyze()
+{
+    //In
+    FromMKV_StreamType=Stream_Max;
+}
+
+//***************************************************************************
 // Buffer
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Rm::Header_Parse()
 {
+    //Specific case
+    if (FromMKV_StreamType!=Stream_Max)
+    {
+        //Filling
+        Header_Fill_Code(0, _T("Real Media Header"));
+        Header_Fill_Size(Element_Size);
+        return;
+    }
+
     //Parsing
     int32u Name, Size;
     Get_C4 (Name,                                               "Name");
@@ -98,7 +119,7 @@ void File_Rm::Header_Parse()
     {
         Get_B4 (Size,                                           "Size");
     }
-    
+
     //Filling
     Header_Fill_Code(Name, Ztring().From_CC4(Name));
     Header_Fill_Size(Size);
@@ -107,6 +128,20 @@ void File_Rm::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Rm::Data_Parse()
 {
+    //Specific case
+    if (FromMKV_StreamType!=Stream_Max)
+    {
+        switch (FromMKV_StreamType)
+        {
+            case Stream_Video : MDPR_realvideo(); break;
+            case Stream_Audio : MDPR_realaudio(); break;
+            default           : ;
+        }
+
+        Finnished();
+        return;
+    }
+
     //Parsing
     DATA_BEGIN
     ATOM( RMF)
@@ -353,7 +388,7 @@ void File_Rm::MDPR()
         if (MDPR_IsStream)
         {
             Fill(StreamKind_Last, StreamPos_Last, "ID", stream_number);
-            Fill(StreamKind_Last, StreamPos_Last, "BitRate", avg_bit_rate);
+            Fill(StreamKind_Last, StreamPos_Last, "BitRate", avg_bit_rate, 10, true);
             Fill(StreamKind_Last, StreamPos_Last, "Delay", start_time);
             Fill(StreamKind_Last, StreamPos_Last, "Duration", duration);
         }
@@ -380,7 +415,8 @@ void File_Rm::MDPR_realvideo()
 
     //Filling
     Stream_Prepare(Stream_Video);
-    CodecID_Fill(Ztring().From_CC4(Codec), Stream_Video, StreamPos_Last, InfoCodecID_Format_Real);
+    if (FromMKV_StreamType==Stream_Max) //Using the one from the container
+        CodecID_Fill(Ztring().From_CC4(Codec), Stream_Video, StreamPos_Last, InfoCodecID_Format_Real);
     Fill(Stream_Video, StreamPos_Last, Video_Codec, Ztring().From_CC4(Codec));
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width); //Width
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height); //Height
@@ -394,7 +430,7 @@ void File_Rm::MDPR_realaudio()
     //Parsing
     Ztring FourCC3="lpcJ"; //description of this codec : http://focus.ti.com/lit/an/spra136/spra136.pdf http://en.wikipedia.org/wiki/VSELP
     Ztring FourCC4;
-    int32u FourCC5=0;
+    int32u FourCC5=0, BytesPerMinute=0;
     int16u Version, Samplerate=8000, Samplesize=16, Channels=0;
     Skip_C4(                                                    "Header signature");
     Get_B2 (Version,                                            "Version");
@@ -440,7 +476,7 @@ void File_Rm::MDPR_realaudio()
         Skip_B2(                                                "Codec flavor");
         Skip_B4(                                                "Coded frame size");
         Skip_B4(                                                "AudioBytes");
-        Skip_B4(                                                "BytesPerMinute");
+        Get_B4 (BytesPerMinute,                                 "BytesPerMinute");
         Skip_B4(                                                "Unknown");
         Skip_B2(                                                "Sub packet h");
         Skip_B2(                                                "Frame size");
@@ -494,22 +530,27 @@ void File_Rm::MDPR_realaudio()
     Stream_Prepare(Stream_Audio);
     if (Version==3)
     {
-        CodecID_Fill(FourCC3, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Real);
+        if (FromMKV_StreamType==Stream_Max) //Using the one from the container
+            CodecID_Fill(FourCC3, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Real);
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, FourCC3);
     }
     if (Version==4)
     {
-        CodecID_Fill(FourCC4, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Real);
+        if (FromMKV_StreamType==Stream_Max) //Using the one from the container
+            CodecID_Fill(FourCC4, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Real);
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, FourCC4);
     }
     if (Version==5)
     {
-        CodecID_Fill(Ztring().From_CC4(FourCC5), Stream_Audio, StreamPos_Last, InfoCodecID_Format_Real);
+        if (FromMKV_StreamType==Stream_Max) //Using the one from the container
+            CodecID_Fill(Ztring().From_CC4(FourCC5), Stream_Audio, StreamPos_Last, InfoCodecID_Format_Real);
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Ztring().From_CC4(FourCC5));
     }
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Samplerate);
     Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, Samplesize);
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
+    if (BytesPerMinute)
+        Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, BytesPerMinute*8/60, 10, true);
 }
 
 //---------------------------------------------------------------------------

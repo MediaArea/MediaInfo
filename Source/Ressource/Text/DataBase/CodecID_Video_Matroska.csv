@@ -12,8 +12,8 @@ V_MPEG4/MS/V2;MPEG-4 Visual;MS MPEG-4 v2;MS MPEG-4 v2;http://ffdshow.sourceforge
 V_MPEG4/MS/V3;MPEG-4 Visual;MS MPEG-4 v3;MS MPEG-4 v3;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
 V_MPEG1;MPEG Video;;MPEG 1 or 2 Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
 V_MPEG2;MPEG Video;;MPEG 1 or 2 Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-V_REAL/RV10;Real 1;;RealVideo 1.0 aka RealVideo 5;http://www.real.com
-V_REAL/RV20;Real 2;;RealVideo 2.0 aka G2 and RealVideo G2+SVT;http://www.real.com
-V_REAL/RV30;Real 3;;RealVideo 3.0 aka RealVideo 8;http://www.real.com
-V_REAL/RV40;Real 4;;RealVideo 4.0 aka RealVideo 9;http://www.real.com
+V_REAL/RV10;RealVideo 1;;RealVideo 1.0 aka RealVideo 5;http://www.real.com
+V_REAL/RV20;RealVideo 2;;RealVideo 2.0 aka G2 and RealVideo G2+SVT;http://www.real.com
+V_REAL/RV30;RealVideo 3;;RealVideo 3.0 aka RealVideo 8;http://www.real.com
+V_REAL/RV40;RealVideo 4;;RealVideo 4.0 aka RealVideo 9;http://www.real.com
 V_THEORA;Theora;;;http://www.theora.org

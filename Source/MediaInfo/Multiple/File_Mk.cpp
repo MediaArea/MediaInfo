@@ -34,6 +34,9 @@
 #if defined(MEDIAINFO_OGG_YES)
     #include "MediaInfo/Multiple/File_Ogg.h"
 #endif
+#if defined(MEDIAINFO_RM_YES)
+    #include "MediaInfo/Multiple/File_Rm.h"
+#endif
 #if defined(MEDIAINFO_MPEG4V_YES)
     #include "MediaInfo/Video/File_Mpeg4v.h"
 #endif
@@ -2573,10 +2576,17 @@ void File_Mk::CodecID_Manage()
     }
     #endif
     #if defined(MEDIAINFO_OGG_YES)
-    else if (Format==_T("Theora"))
+    else if (Format==_T("Theora")  || Format==_T("Vorbis"))
     {
         Stream[TrackNumber].Parser=new File_Ogg;
         ((File_Ogg*)Stream[TrackNumber].Parser)->XiphLacing=true;
+    }
+    #endif
+    #if defined(MEDIAINFO_RM_YES)
+    else if (CodecID.find(_T("V_REAL/"))==0)
+    {
+        Stream[TrackNumber].Parser=new File_Rm;
+        ((File_Rm*)Stream[TrackNumber].Parser)->FromMKV_StreamType=Stream_Video;
     }
     #endif
     #if defined(MEDIAINFO_AC3_YES)
@@ -2602,13 +2612,6 @@ void File_Mk::CodecID_Manage()
     {
         Stream[TrackNumber].Parser=new File_Aac;
         ((File_Aac*)Stream[TrackNumber].Parser)->Codec=CodecID;
-    }
-    #endif
-    #if defined(MEDIAINFO_OGG_YES)
-    else if (Format==_T("Vorbis"))
-    {
-        Stream[TrackNumber].Parser=new File_Ogg;
-        ((File_Ogg*)Stream[TrackNumber].Parser)->XiphLacing=true;
     }
     #endif
     #if defined(MEDIAINFO_MPEGA_YES)
@@ -2641,6 +2644,13 @@ void File_Mk::CodecID_Manage()
     {
         Stream[TrackNumber].Parser=new File_Pcm;
         ((File_Pcm*)Stream[TrackNumber].Parser)->Codec=CodecID;
+    }
+    #endif
+    #if defined(MEDIAINFO_RM_YES)
+    else if (CodecID.find(_T("A_REAL/"))==0)
+    {
+        Stream[TrackNumber].Parser=new File_Rm;
+        ((File_Rm*)Stream[TrackNumber].Parser)->FromMKV_StreamType=Stream_Audio;
     }
     #endif
 

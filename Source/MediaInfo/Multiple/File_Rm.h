@@ -39,6 +39,13 @@ namespace MediaInfoLib
 
 class File_Rm : public File__Analyze
 {
+public :
+    //In
+    stream_t FromMKV_StreamType;
+
+public :
+    File_Rm();
+
 private :
     //Buffer
     void Header_Parse();
