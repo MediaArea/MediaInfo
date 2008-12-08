@@ -13,7 +13,6 @@ SetCompressor /FINAL /SOLID lzma
 !include "MUI.nsh"
 !define MUI_ABORTWARNING
 !define MUI_ICON "..\..\Source\Ressource\Image\MediaInfo.ico"
-!define MUI_UNICON "..\..\Source\Ressource\Image\MediaInfo.ico"
 
 ; Language Selection Dialog Settings
 !define MUI_LANGDLL_REGISTRY_ROOT "${PRODUCT_UNINST_ROOT_KEY}"
@@ -62,7 +61,7 @@ VIProductVersion "${PRODUCT_VERSION}"
 VIAddVersionKey "ProductName" "${PRODUCT_NAME}" 
 VIAddVersionKey "Comments" "All about your audio and video files"
 VIAddVersionKey "CompanyName" "${PRODUCT_VERSION}"
-VIAddVersionKey "LegalTrademarks" "GPL licence" 
+VIAddVersionKey "LegalTrademarks" "GPL license" 
 VIAddVersionKey "LegalCopyright" "" 
 VIAddVersionKey "FileDescription" "All about your audio and video files"
 VIAddVersionKey "FileVersion" "${PRODUCT_VERSION}"
@@ -90,7 +89,7 @@ Section "SectionPrincipale" SEC01
   File "..\..\Release\MSVC\DLL\MediaInfo_InfoTip.dll"
   File "..\..\..\MediaInfoLib\Release\MSVC2005\DLL\MediaInfo.dll"
   File "/oname=History.txt" "..\..\History_GUI.txt"
-  File "..\..\Licence.html"
+  File "..\..\License.html"
   File  "/oname=ReadMe.txt""..\..\Release\ReadMe_GUI_Windows.txt"
   SetOverwrite try
   SetOutPath "$INSTDIR\Plugin\Custom"
@@ -133,6 +132,8 @@ Section Uninstall
   Delete "$INSTDIR\History.txt"
   Delete "$INSTDIR\Licence.txt"
   Delete "$INSTDIR\Licence.html"
+  Delete "$INSTDIR\License.txt"
+  Delete "$INSTDIR\License.html"
   Delete "$INSTDIR\ReadMe.Windows.txt"
   Delete "$INSTDIR\ReadMe.txt"
   Delete "$INSTDIR\Plugin\MediaInfo.cfg"
