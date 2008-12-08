@@ -100,6 +100,17 @@ Section "SectionPrincipale" SEC01
   File "..\Ressource\Plugin\Sheet\*.csv"
   SetOutPath "$INSTDIR\Plugin\Tree"
   File "..\Ressource\Plugin\Tree\*.csv"
+
+  # Delete files that might be present from older installation
+  Delete "$INSTDIR\History_GUI.txt"
+  Delete "$INSTDIR\History.txt"
+  Delete "$INSTDIR\License.txt"
+  Delete "$INSTDIR\Licence.txt"
+  Delete "$INSTDIR\Licence.html"
+  Delete "$INSTDIR\License.txt"
+  Delete "$INSTDIR\License.html"
+  Delete "$INSTDIR\ReadMe_Windows.txt"
+  Delete "$INSTDIR\ReadMe.txt"
 SectionEnd
 
 Section -AdditionalIcons
@@ -128,13 +139,8 @@ Section Uninstall
   Delete "$INSTDIR\MediaInfo.exe"
   Delete "$INSTDIR\MediaInfo_InfoTip.dll"
   Delete "$INSTDIR\MediaInfo.dll"
-  Delete "$INSTDIR\History.GUI.txt"
   Delete "$INSTDIR\History.txt"
-  Delete "$INSTDIR\Licence.txt"
-  Delete "$INSTDIR\Licence.html"
-  Delete "$INSTDIR\License.txt"
   Delete "$INSTDIR\License.html"
-  Delete "$INSTDIR\ReadMe.Windows.txt"
   Delete "$INSTDIR\ReadMe.txt"
   Delete "$INSTDIR\Plugin\MediaInfo.cfg"
   Delete "$INSTDIR\Plugin\Custom\*.csv"
