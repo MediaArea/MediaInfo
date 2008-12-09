@@ -10,7 +10,7 @@
 %define _SO_nr	0
 
 Name:			libmediainfo%{_SO_nr}
-Version:		0.7.7.8
+Version:		0.7.8
 Release:		1
 Summary:		Supplies technical and tag information about a video or audio file
 Group:			System/Libraries
@@ -127,6 +127,8 @@ done
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Tue Dec 9 2008 Jerome Martinez <zen@mediaarea.net> - 0.7.8-0
+- New package system
 * Wed Nov 19 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.8-0.pm.2
 - rebuild with modified sources from author to fix gui problem
 * Mon Nov 17 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.8-0.pm.1
