@@ -206,7 +206,7 @@ else
 	have_libz="no"
 fi
 if test "$have_libz" != "yes"; then
-	if test -e ../../../../Shared/Source/ZLib/libz.a; then
+	if test -e ../../../../Shared/Source/ZLib/libz.a || test -e ../../../../Shared/Source/ZLib/libz.la; then
 		with_zlib="builtin"
 	else
 		AC_MSG_NOTICE([zlib is not found, trying to download and compile it])
@@ -215,7 +215,7 @@ if test "$have_libz" != "yes"; then
 			chmod u+x Compile.sh
 			./Compile.sh
 			cd $Home
-			if test -e ../../../../Shared/Source/ZLib/libz.a; then
+			if test -e ../../../../Shared/Source/ZLib/libz.a || test -e ../../../../Shared/Source/ZLib/libz.la; then
 				with_zlib="builtin"
 			else
 				with_zlib="no"
@@ -286,9 +286,9 @@ dnl -------------------------------------------------------------------------
 dnl Unicode
 dnl
 if test "$enable_unicode" = "yes"; then
-	AC_DEFINE(UNICODE)
-	MediaInfoLib_Unicode="yes"
+	CXXFLAGS="$CXXFLAGS -DUNICODE"
 	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS -DUNICODE"
+	MediaInfoLib_Unicode="yes"
 else
 	MediaInfoLib_Unicode="no"
 fi
@@ -348,7 +348,7 @@ fi
 }
 
 echo ""
-echo "Configured MediaInfoLib for '$build'"
+echo "Configured MediaInfoLib for '$host'"
 echo ""
 echo "  Unicode?                                                $enable_unicode"
 echo "  Using ZenLib?                                           $with_zenlib"
