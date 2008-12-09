@@ -213,7 +213,7 @@ if test "$have_libz" != "yes"; then
 		if test -e ../../../../Shared/Project/ZLib/Compile.sh; then
 			cd ../../../../Shared/Project/ZLib
 			chmod u+x Compile.sh
-			./Compile.sh
+			./Compile.sh --host=$host_alias
 			cd $Home
 			if test -e ../../../../Shared/Source/ZLib/libz.a || test -e ../../../../Shared/Source/ZLib/libz.la; then
 				with_zlib="builtin"
