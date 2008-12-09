@@ -7,6 +7,26 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.8, 2008-11-09
+-------------
++ Changing version schema, only 3 numbers (next versions will 0.7.9, 0.7.10...)
++ Better Linux integration
++ rpm stuff (thanks to oc2pus http://packman.links2linux.org)
++ deb stuff
++ #2259421, FLAC and OGG: Encoding library name and version
++ FLV: version 10 support
++ FLV: duration of files without metatags
++ MPEG-4: Delay (useful when multiple videos are present)
++ Dirac: profiles updated from the latest specification
++ MPEG-4: more precise detection of OGG based codecs
++ MKV: better newest codecs handling
++ MKV: RealVideo/Audio support improvements
++ mipsel CPU support
+x MPEG-PS: Trying to have a better precision for duration
+x WMV: crash with some malformed files
+x MPEG-TS: some channel names where not shown
+x MPEG Video (version 2): some streams were misdetected as CBR
+
 Version 0.7.7.8, 2008-11-10
 ---------------
 + #2219839, return code is now the count of analyzed files
