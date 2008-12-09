@@ -21,7 +21,7 @@ rem xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.java MediaInfo_Lib_Source\Include\
 rem --- Copying : Documentation ---
 rem mkdir Doc
 rem cd ..\Source\Doc
-rem ..\..\..\Shared\Binary\Win32\Doxygen\Doxygen Doxyfile
+rem ..\..\..\Shared\Binary\Windows_i386\Doxygen\Doxygen Doxyfile
 rem cd ..\..\Release
 rem mkdir MediaInfo_Lib_Source\Doc\
 rem xcopy ..\Doc\*.*  MediaInfo_Lib_Source\Doc\
@@ -119,8 +119,8 @@ copy ..\*.cvsignore MediaInfo_Lib_Source\
 rem --- Compressing Archive ---
 if "%2"=="SkipCompression" goto SkipCompression
 move MediaInfo_Lib_Source MediaInfoLib
-..\..\Shared\Binary\Win32\7-zip\7z a -r -ttar -mx9 MediaInfo_Lib_Source.tar MediaInfoLib\*
-..\..\Shared\Binary\Win32\7-zip\7z a -r -tbzip2 -mx9 libmediainfo_.tar.bz2 MediaInfo_Lib_Source.tar
+..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -ttar -mx9 MediaInfo_Lib_Source.tar MediaInfoLib\*
+..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -tbzip2 -mx9 libmediainfo_.tar.bz2 MediaInfo_Lib_Source.tar
 del MediaInfo_Lib_Source.tar
 move MediaInfoLib MediaInfo_Lib_Source
 :SkipCompression
