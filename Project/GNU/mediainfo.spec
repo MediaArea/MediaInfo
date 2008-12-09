@@ -125,9 +125,12 @@ popd
 %__install -dm 755 %{buildroot}/%{_datadir}/applications
 %__install -m 644 Project/GNU/GUI/mediainfo-gui.desktop \
 	%{buildroot}/%{_datadir}/applications
+%__install -dm 755 %{buildroot}/%{_datadir}/apps/konqueror/servicemenus
+%__install -m 644 Project/GNU/GUI/mediainfo-gui.kde3.desktop \
+	%{buildroot}/%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop
 %__install -dm 755 %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/
 %__install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
-	%{buildroot}/%{_datadir}/kde4/services/ServiceMenus/
+	%{buildroot}/%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop
 
 %clean
 [ -d "%{buildroot}" -a "%{buildroot}" != "" ] && %__rm -rf "%{buildroot}"
