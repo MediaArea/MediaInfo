@@ -64,7 +64,7 @@ xcopy ..\..\Shared\Project\WxWidgets\*.sh MediaInfo_GUI_GNU_Prepare\Shared\Proje
 
 rem --- Compressing Archive ---
 if "%2"=="SkipCompression" goto SkipCompression
-..\..\Shared\Binary\Win32\7-Zip\7z a -r -t7z -mx9 MediaInfo_GUI_GNU_Prepare.7z MediaInfo_GUI_GNU_Prepare\*
+..\..\Shared\Binary\Windows_i386\7-Zip\7z a -r -t7z -mx9 MediaInfo_GUI_GNU_Prepare.7z MediaInfo_GUI_GNU_Prepare\*
 :SkipCompression
 
 rem --- Clean up ---
