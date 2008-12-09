@@ -1,3 +1,14 @@
+; OpenCandy Start
+; Request application privileges for Windows Vista
+RequestExecutionLevel admin
+
+; Variables
+!include nsDialogs.nsh
+Var ProductName
+Var Key
+Var Secret
+; OpenCandy End
+
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_VERSION "0.7.8"
@@ -13,6 +24,7 @@ SetCompressor /FINAL /SOLID lzma
 !include "MUI.nsh"
 !define MUI_ABORTWARNING
 !define MUI_ICON "..\..\Source\Ressource\Image\MediaInfo.ico"
+!define MUI_UNICON "..\..\Source\Ressource\Image\MediaInfo.ico"
 
 ; Language Selection Dialog Settings
 !define MUI_LANGDLL_REGISTRY_ROOT "${PRODUCT_UNINST_ROOT_KEY}"
@@ -21,8 +33,19 @@ SetCompressor /FINAL /SOLID lzma
 
 ; Directory page
 !insertmacro MUI_PAGE_DIRECTORY
+
+; OpenCandy Start
+!include "OCSetupHlp.nsh"
+; OpenCandy End
+
 ; Instfiles page
 !insertmacro MUI_PAGE_INSTFILES
+; OpenCandy Start
+; Declare the OpenCandy Offer page
+PageEx custom
+ PageCallbacks OpenCandyPageStartFn OpenCandyPageLeaveFn
+PageExEnd
+; OpenCandy End
 ; Finish page
 !define MUI_FINISHPAGE_RUN "$INSTDIR\MediaInfo.exe"
 !insertmacro MUI_PAGE_FINISH
@@ -56,7 +79,7 @@ SetCompressor /FINAL /SOLID lzma
 !insertmacro MUI_LANGUAGE "TradChinese"
 !insertmacro MUI_LANGUAGE "Turkish"
 
-; Info
+;; Info
 VIProductVersion "${PRODUCT_VERSION}.0"
 VIAddVersionKey "ProductName" "${PRODUCT_NAME}" 
 VIAddVersionKey "Comments" "All about your audio and video files"
@@ -78,11 +101,32 @@ ShowUnInstDetails nevershow
 
 Function .onInit
   !insertmacro MUI_LANGDLL_DISPLAY
+
+; OpenCandy Start
+  Strcpy $ProductName "MediaInfo"
+  Strcpy $Key "e6a82db2cb6c37c6c3d7c094ea601b78"
+  Strcpy $Secret "3470285a721b274d1a36f8c6f67b9161"
+
+  !insertmacro OpenCandyInit $ProductName $Key $Secret
+; OpenCandy End
 FunctionEnd
+
+; OpenCandy Start
+Function .onInstSuccess
+  !insertmacro OpenCandyOnInstSuccess
+FunctionEnd
+
+Function .onGUIEnd
+  !insertmacro OpenCandyOnGuiEnd
+FunctionEnd
+; OpenCandy End
 
 Section "SectionPrincipale" SEC01
   SetOverwrite ifnewer
   SetOutPath "$INSTDIR"
+; OpenCandy Start
+  !insertmacro OpenCandyInstallDownloadManager
+; OpenCandy End
   CreateDirectory "$SMPROGRAMS\MediaInfo"
   CreateShortCut "$SMPROGRAMS\MediaInfo\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe"
   File "..\..\Release\BCB\GUI\MediaInfo.exe"
@@ -100,17 +144,6 @@ Section "SectionPrincipale" SEC01
   File "..\Ressource\Plugin\Sheet\*.csv"
   SetOutPath "$INSTDIR\Plugin\Tree"
   File "..\Ressource\Plugin\Tree\*.csv"
-
-  # Delete files that might be present from older installation
-  Delete "$INSTDIR\History_GUI.txt"
-  Delete "$INSTDIR\History.txt"
-  Delete "$INSTDIR\License.txt"
-  Delete "$INSTDIR\Licence.txt"
-  Delete "$INSTDIR\Licence.html"
-  Delete "$INSTDIR\License.txt"
-  Delete "$INSTDIR\License.html"
-  Delete "$INSTDIR\ReadMe_Windows.txt"
-  Delete "$INSTDIR\ReadMe.txt"
 SectionEnd
 
 Section -AdditionalIcons
@@ -139,8 +172,13 @@ Section Uninstall
   Delete "$INSTDIR\MediaInfo.exe"
   Delete "$INSTDIR\MediaInfo_InfoTip.dll"
   Delete "$INSTDIR\MediaInfo.dll"
+  Delete "$INSTDIR\History.GUI.txt"
   Delete "$INSTDIR\History.txt"
+  Delete "$INSTDIR\Licence.txt"
+  Delete "$INSTDIR\Licence.html"
+  Delete "$INSTDIR\License.txt"
   Delete "$INSTDIR\License.html"
+  Delete "$INSTDIR\ReadMe.Windows.txt"
   Delete "$INSTDIR\ReadMe.txt"
   Delete "$INSTDIR\Plugin\MediaInfo.cfg"
   Delete "$INSTDIR\Plugin\Custom\*.csv"
@@ -150,6 +188,10 @@ Section Uninstall
   Delete "$SMPROGRAMS\MediaInfo\Uninstall.lnk"
   Delete "$SMPROGRAMS\MediaInfo\Website.lnk"
   Delete "$SMPROGRAMS\MediaInfo\MediaInfo.lnk"
+
+; OpenCandy Start
+  !insertmacro OpenCandyProductUninstall "e6a82db2cb6c37c6c3d7c094ea601b78" ; Product Key
+; OpenCandy End
 
   RMDir "$SMPROGRAMS\MediaInfo"
   RMDir "$INSTDIR\Plugin\Custom"
