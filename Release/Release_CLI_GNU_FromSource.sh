@@ -92,6 +92,8 @@ mkdir -p MediaInfo_CLI_GNU_FromSource/Shared/Project/_Common
 cp -r ../../Shared/Project/_Common/*.sh MediaInfo_CLI_GNU_FromSource/Shared/Project/_Common
 mkdir -p MediaInfo_CLI_GNU_FromSource/Shared/Project/ZLib
 cp -r ../../Shared/Project/ZLib/*.sh MediaInfo_CLI_GNU_FromSource/Shared/Project/ZLib
+mkdir -p MediaInfo_CLI_GNU_FromSource/Shared/Project/ZLib/Template/projects/GNU
+cp -r ../../Shared/Project/ZLib/Template/projects/GNU/* MediaInfo_CLI_GNU_FromSource/Shared/Project/ZLib/Template/projects/GNU
 mkdir -p MediaInfo_CLI_GNU_FromSource/Shared/Project/WxWidgets
 cp -r ../../Shared/Project/WxWidgets/*.sh MediaInfo_CLI_GNU_FromSource/Shared/Project/WxWidgets
 
