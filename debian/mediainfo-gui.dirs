@@ -1,2 +1,5 @@
 usr/bin
 usr/share/doc/mediainfo-gui
+usr/share/applications
+usr/share/apps/konqueror/servicemenus
+usr/share/kde4/services/ServiceMenus

@@ -119,7 +119,7 @@ popd
 	%{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %__install -dm 755 %{buildroot}%{_datadir}/pixmaps
 %__install -m 644 Source/Ressource/Image/MediaInfo.xpm \
-	%{buildroot}%{_datadir}/pixmaps/%{name}.png
+	%{buildroot}%{_datadir}/pixmaps/%{name}.xpm
 
 # menu-entry
 %__install -dm 755 %{buildroot}/%{_datadir}/applications
@@ -147,7 +147,9 @@ popd
 %doc License.html History_GUI.txt
 %{_bindir}/mediainfo-gui
 %{_datadir}/applications/*.desktop
+%{_datadir}/pixmaps/*.xpm
 %{_datadir}/icons/hicolor/128x128/apps/*.png
+%{_datadir}/apps/konqueror/servicemenus/*.desktop
 %{_datadir}/kde4/services/ServiceMenus/*.desktop
 
 %changelog
