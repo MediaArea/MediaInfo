@@ -480,6 +480,7 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aes3.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Aes3" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\CLI\CommandLine_Parser.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="CommandLine_Parser" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\CLI\CommandLine_Parser.h"/>
         <FILE FILENAME="..\..\..\Source\CLI\Help.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Help" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\CLI\Help.h"/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Extract.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Extract" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>

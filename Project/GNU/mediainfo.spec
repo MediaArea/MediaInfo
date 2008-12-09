@@ -9,7 +9,7 @@
 %define _prefix	/usr
 
 Name:			mediainfo
-Version:		0.7.7.8
+Version:		0.7.8
 Release:		1
 Summary:		Supplies technical and tag information about a video or audio file
 Group:			Productivity/Multimedia/Other
@@ -151,6 +151,8 @@ popd
 %{_datadir}/kde4/services/ServiceMenus/*.desktop
 
 %changelog
+* Tue Dec 09 2008 Jerome Martinez <zen@mediaarea.net> - 0.7.8-0
+- New packaging
 * Tue Nov 18 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.8-0.pm.2
 - changed package layout, reflecting new upstream tar-balls
 - rebuild using libzen(-devel) and libmediainfo(-devel)
