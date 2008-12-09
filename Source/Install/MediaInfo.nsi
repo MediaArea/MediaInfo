@@ -57,10 +57,10 @@ SetCompressor /FINAL /SOLID lzma
 !insertmacro MUI_LANGUAGE "Turkish"
 
 ; Info
-VIProductVersion "${PRODUCT_VERSION}"
+VIProductVersion "${PRODUCT_VERSION}.0"
 VIAddVersionKey "ProductName" "${PRODUCT_NAME}" 
 VIAddVersionKey "Comments" "All about your audio and video files"
-VIAddVersionKey "CompanyName" "${PRODUCT_VERSION}"
+VIAddVersionKey "CompanyName" "MediaArea.net"
 VIAddVersionKey "LegalTrademarks" "GPL license" 
 VIAddVersionKey "LegalCopyright" "" 
 VIAddVersionKey "FileDescription" "All about your audio and video files"
@@ -70,7 +70,7 @@ BrandingText " "
 ; Modern UI end
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "..\..\Release\MediaInfo_GUI_Win32.exe"
+OutFile "..\..\Release\MediaInfo_GUI_${PRODUCT_VERSION}_Windows_i386.exe"
 InstallDir "$PROGRAMFILES\MediaInfo"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails nevershow
