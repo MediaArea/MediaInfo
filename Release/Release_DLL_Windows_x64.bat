@@ -41,16 +41,16 @@ xcopy ..\Project\MSVB\Example\*.res* MediaInfoDLL_Windows_x64\Developpers\Projec
 xcopy "..\Project\MSVB\Example\My Project\*.*" "MediaInfoDLL_Windows_x64\Developpers\Project\MSVB\Example\My Project\"
 xcopy ..\Project\MSVC\*.sln MediaInfoDLL_Windows_x64\Developpers\Project\MSVC\
 xcopy ..\Project\MSVC\Example\HowToUse_Dll.vcproj MediaInfoDLL_Windows_x64\Developpers\Project\MSVC\Example\
-xcopy ..\Project\GCC\Example\Make* MediaInfoDLL_Win32\Developpers\Project\GCC\Example\
-xcopy ..\Project\Java\Example\*.java MediaInfoDLL_Win32\Developpers\Project\Java\Example\
-xcopy ..\Project\Java\Example\*.txt MediaInfoDLL_Win32\Developpers\Project\Java\Example\
-xcopy ..\Project\Java\Example\*.bat MediaInfoDLL_Win32\Developpers\Project\Java\Example\
-xcopy ..\Project\Java\Example\*.sh MediaInfoDLL_Win32\Developpers\Project\Java\Example\
-xcopy ..\Project\NetBeans\Example\*.xml MediaInfoDLL_Win32\Developpers\Project\NetBeans\Example\ /s
-xcopy ..\Project\NetBeans\Example\*.properties MediaInfoDLL_Win32\Developpers\Project\NetBeans\Example\ /s
-xcopy ..\Project\NetBeans\Example\*.mf MediaInfoDLL_Win32\Developpers\Project\NetBeans\Example\
-xcopy ..\Project\NetBeans\Example\*.txt MediaInfoDLL_Win32\Developpers\Project\NetBeans\Example\
-xcopy ..\Project\NetBeans\Example\src\*.java MediaInfoDLL_Win32\Developpers\Project\NetBeans\Example\src\
+xcopy ..\Project\GCC\Example\Make* MediaInfoDLL_Windows_x64\Developpers\Project\GCC\Example\
+xcopy ..\Project\Java\Example\*.java MediaInfoDLL_Windows_x64\Developpers\Project\Java\Example\
+xcopy ..\Project\Java\Example\*.txt MediaInfoDLL_Windows_x64\Developpers\Project\Java\Example\
+xcopy ..\Project\Java\Example\*.bat MediaInfoDLL_Windows_x64\Developpers\Project\Java\Example\
+xcopy ..\Project\Java\Example\*.sh MediaInfoDLL_Windows_x64\Developpers\Project\Java\Example\
+xcopy ..\Project\NetBeans\Example\*.xml MediaInfoDLL_Windows_x64\Developpers\Project\NetBeans\Example\ /s
+xcopy ..\Project\NetBeans\Example\*.properties MediaInfoDLL_Windows_x64\Developpers\Project\NetBeans\Example\ /s
+xcopy ..\Project\NetBeans\Example\*.mf MediaInfoDLL_Windows_x64\Developpers\Project\NetBeans\Example\
+xcopy ..\Project\NetBeans\Example\*.txt MediaInfoDLL_Windows_x64\Developpers\Project\NetBeans\Example\
+xcopy ..\Project\NetBeans\Example\src\*.java MediaInfoDLL_Windows_x64\Developpers\Project\NetBeans\Example\src\
 
 rem --- Copying : Libs ---
 xcopy ..\Release\MSVCx64\DLL\MediaInfo.lib MediaInfoDLL_Windows_x64\Developpers\Release\MSVC\DLL\
@@ -73,8 +73,8 @@ xcopy ..\..\MediaInfo\Project\MSVC\ShellExtension\*.bat MediaInfoDLL_Windows_x64
 
 rem --- Compressing Archive ---
 cd MediaInfoDLL_Windows_x64\
-..\..\..\Shared\Binary\Win32\7-Zip\7z a -r -t7z -mx9 ..\MediaInfo_DLL_Windows_x64.7z *
-..\..\..\Shared\Binary\Win32\7-Zip\7z a -r -tzip ..\MediaInfo_DLL_Windows_x64.zip *
+..\..\..\Shared\Binary\Windows_i386\7-Zip\7z a -r -t7z -mx9 ..\MediaInfo_DLL_Windows_x64.7z *
+..\..\..\Shared\Binary\Windows_i386\7-Zip\7z a -r -tzip ..\MediaInfo_DLL_Windows_x64.zip *
 cd ..
 
 rem --- Clean up ---
