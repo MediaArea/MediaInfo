@@ -63,7 +63,7 @@ install: build
 	install -m 644 License.html $(CURDIR)/debian/tmp/usr/share/doc/mediainfo-gui
 
 	install -dm 755 $(CURDIR)/debian/tmp/usr/share/pixmaps
-	install -m 644 Source/Ressource/Image/MediaInfo.xpm $(CURDIR)/debian/tmp/usr/share/pixmaps/mediainfo.xpm
+	install -m 644 Source/Ressource/Image/MediaInfo.png $(CURDIR)/debian/tmp/usr/share/pixmaps/mediainfo.png
 	install -dm 755 $(CURDIR)/debian/tmp/usr/share/icons/hicolor/128x128/apps
 	install -m 644 Source/Ressource/Image/MediaInfo.png $(CURDIR)/debian/tmp/usr/share/icons/hicolor/128x128/apps
 
