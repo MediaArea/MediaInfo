@@ -412,6 +412,8 @@ int Preferences::ExplorerShell()
         ".3gpp;mpeg4File\r\n"
         ".swf;FlashFile\r\n"
         ".flv;FlashVideoFile");
+        ".rmvb;FlashVideoFile");
+        ".tp;FlashVideoFile");
 
     bool IsChanged=false;
     int32s ShellExtension=Config.Read(_T("ShellExtension")).To_int32s();
