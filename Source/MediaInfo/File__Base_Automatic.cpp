@@ -4492,6 +4492,9 @@ void File__Base_Library_XviD (InfoMap &Info)
     "45;1.2.0.dev45;UTC 2006-07-10\n"
     "46;1.1.2;UTC 2006-11-01\n"
     "47;1.2.0.dev47;UTC 2006-11-01\n"
+    "48;1.2.0.dev48\n"
+    "49;1.2.0.dev49\n"
+    "50;1.2.1;UTC 2008-12-04\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
