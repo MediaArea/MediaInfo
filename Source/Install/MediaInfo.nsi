@@ -302,6 +302,9 @@ Section Uninstall
   ReadRegStr $1 HKCR ".flv" ""
   DeleteRegKey HKCR "$1\Shell\Media Info"
   DeleteRegKey HKCR "$1\Shell\MediaInfo"
+  ReadRegStr $1 HKCR ".m2ts" ""
+  DeleteRegKey HKCR "$1\Shell\Media Info"
+  DeleteRegKey HKCR "$1\Shell\MediaInfo"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
