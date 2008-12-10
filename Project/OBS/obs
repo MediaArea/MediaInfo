@@ -1,0 +1,92 @@
+#! /bin/sh
+
+#-----------------------------------------------------------------------
+# $1=mediainfo Package version,
+# $2=libmediainfo Package version,
+# $3=libzen Package version,
+# $4=,
+# $5=,
+# $6=,
+# $7=Platform, $8=CPU, $9=CPU target
+Download_Packages()
+{
+#-----------------------------------------------------------------------
+# Downloading
+wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/mediainfo/mediainfo$dash$mediainfov-$1$9.$type \
+ --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
+mv mediainfo$dash$mediainfov-$1$9.$type \
+ download/mediainfo/$mediainfov/mediainfo$dash$mediainfov-$destversion$9.$7.$type
+
+wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/mediainfo/mediainfo-gui$dash$mediainfov-$1$9.$type \
+ --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
+mv mediainfo-gui$dash$mediainfov-$1$9.$type \
+ download/mediainfo/$mediainfov/mediainfo-gui$dash$mediainfov-$destversion$9.$7.$type
+
+wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/libmediainfo/libmediainfo0$dash$libmediainfov-$2$9.$type \
+ --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
+mv libmediainfo0$dash$libmediainfov-$2$9.$type \
+ download/mediainfo/$mediainfov/libmediainfo0$dash$libmediainfov-$destversion$9.$7.$type
+
+wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/libmediainfo/libmediainfo0-$devext$dash$libmediainfov-$2$9.$type \
+ --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
+mv libmediainfo0-$devext$dash$libmediainfov-$2$9.$type \
+ download/mediainfo/$mediainfov/libmediainfo0-$devext$dash$libmediainfov-$destversion$9.$7.$type
+
+wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/libzen/libzen0$dash$libzenv-$3$9.$type \
+ --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
+mv libzen0$dash$libzenv-$3$9.$type \
+ download/mediainfo/$mediainfov/libzen0$dash$libzenv-$destversion$9.$7.$type
+
+wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/libzen/libzen0-$devext$dash$libzenv-$3$9.$type \
+ --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
+mv libzen0-$devext$dash$libzenv-$3$9.$type \
+ download/mediainfo/$mediainfov/libzen0-$devext$dash$libzenv-$destversion$9.$7.$type
+}
+
+#-----------------------------------------------------------------------
+# $1=MI version, $2=ZL version, $3=Package version
+Download_Global()
+{
+#-----------------------------------------------------------------------
+# Clean up
+rm download/mediainfo/$mediainfov/*.rpm -rf
+rm download/mediainfo/$mediainfov/*.deb -rf
+mkdir download/mediainfo/$mediainfov
+
+#-----------------------------------------------------------------------
+# Downloading
+type="deb"
+devext="dev"
+dash="_"
+Download_Packages 1  1  1  x x x   Debian_Etch   i586   _i386
+Download_Packages 1  1  1  x x x   Debian_Etch   x86_64 _amd64
+
+type="rpm"
+devext="devel"
+dash="-"
+Download_Packages $1 $2 $3 x x x   CentOS_5      i586   .i386
+Download_Packages $1 $2 $3 x x x   CentOS_5      x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   Fedora_8      i586   .i386
+Download_Packages $1 $2 $3 x x x   Fedora_8      x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   Fedora_9      i586   .i386
+Download_Packages $1 $2 $3 x x x   Fedora_9      x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   RHEL_5        i586   .i386
+Download_Packages $1 $2 $3 x x x   RHEL_5        x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   openSUSE_10.2 i586   .i586
+Download_Packages $1 $2 $3 x x x   openSUSE_10.2 x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   openSUSE_10.3 i586   .i586
+Download_Packages $1 $2 $3 x x x   openSUSE_10.3 x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   openSUSE_11.0 i586   .i586
+Download_Packages $1 $2 $3 x x x   openSUSE_11.0 x86_64 .x86_64
+
+}
+
+
+mediainfov="0.7.7.8"
+libmediainfov="0.7.7.8"
+libzenv="0.3.4.0"
+destversion="1"
+
+Download_Global 16.1 24.1 117.1
+
+
