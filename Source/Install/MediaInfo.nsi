@@ -104,7 +104,6 @@ Section "SectionPrincipale" SEC01
   # Delete files that might be present from older installation
   Delete "$INSTDIR\History_GUI.txt"
   Delete "$INSTDIR\History.txt"
-  Delete "$INSTDIR\License.txt"
   Delete "$INSTDIR\Licence.txt"
   Delete "$INSTDIR\Licence.html"
   Delete "$INSTDIR\License.txt"
