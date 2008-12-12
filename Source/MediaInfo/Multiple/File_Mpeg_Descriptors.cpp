@@ -1262,15 +1262,19 @@ void File_Mpeg_Descriptors::Descriptor_1D()
     //Parsing
     Skip_B1(                                                    "Scope_of_IOD_label");
     Skip_B1(                                                    "IOD_label");
-    File_Mpeg4_Descriptors MI;
-    MI.Parser_DoNotFreeIt=true;
-    Open_Buffer_Init(&MI, File_Offset+Buffer_Offset+Element_Size, File_Offset+Buffer_Offset+Element_Offset);
-    Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-    Open_Buffer_Finalize(&MI);
+    #ifdef MEDIAINFO_MPEG4_YES
+        File_Mpeg4_Descriptors MI;
+        MI.Parser_DoNotFreeIt=true;
+        Open_Buffer_Init(&MI, File_Offset+Buffer_Offset+Element_Size, File_Offset+Buffer_Offset+Element_Offset);
+        Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        Open_Buffer_Finalize(&MI);
 
-    //Parser from Descriptor
-    if (MI.Parser)
-        ES_Elements[MI.ES_ID].Parser=MI.Parser;
+        //Parser from Descriptor
+        if (MI.Parser)
+            ES_Elements[MI.ES_ID].Parser=MI.Parser;
+    #else
+        Skip_XX(Element_Size-Element_Offset,                    "MPEG-4 Descriptor");
+    #endif
 }
 
 //---------------------------------------------------------------------------

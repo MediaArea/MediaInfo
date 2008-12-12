@@ -265,7 +265,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
             Buffer_Clear();
             Element_Show(); //If Element_Level is >0, we must show what is in the details buffer
             while (Element_Level>0)
-                Element_End(); //This is finnished, must flush
+                Element_End(); //This is Finished, must flush
             return;
         }
     }
@@ -437,7 +437,7 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
     //Format
     Read_Buffer_Finalize();
 
-    //Element must be finnished
+    //Element must be Finished
     while (Element_Level>0)
         Element_End();
 
@@ -806,7 +806,7 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
 
     if (IsSub)
     {
-        Info(Ztring(ParserName)+(ShouldContinueParsing?_T(" detected"):_T(", parsing finnished")), 1);
+        Info(Ztring(ParserName)+(ShouldContinueParsing?_T(" detected"):_T(", parsing Finished")), 1);
         Finished();
         return;
     }
@@ -816,7 +816,7 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
 
     if (GoTo==File_Size)
     {
-        Info(Ztring(ParserName)+_T(", parsing finnished"));
+        Info(Ztring(ParserName)+_T(", parsing Finished"));
         Finished();
     }
     else
@@ -899,7 +899,6 @@ void File__Analyze::Element_Begin(const Ztring &Name, int64u Size)
 {
     //Level
     Element_Level++;
-    Header_Size=0;
 
     //Element
     Element[Element_Level].Code=0;
@@ -934,7 +933,6 @@ void File__Analyze::Element_Begin(int64u Size)
 {
     //Level
     Element_Level++;
-    Header_Size=0;
 
     //Element
     Element[Element_Level].Code=0;
