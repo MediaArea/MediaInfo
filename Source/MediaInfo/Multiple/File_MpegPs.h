@@ -202,6 +202,10 @@ private :
 
     //File__Analyze helpers
     void Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Temp);
+
+    //Output buffer
+    size_t Output_Buffer_Get (const String &Value);
+    size_t Output_Buffer_Get (size_t Pos);
 };
 
 } //NameSpace
