@@ -116,7 +116,13 @@ bool File_Skm::Header_Parse_Fill_Size()
         Buffer_Offset_Temp=Buffer_Offset+4;
     while (Buffer_Offset_Temp+4<=Buffer_Size
         && CC3(Buffer+Buffer_Offset_Temp)!=0x000001)
-        Buffer_Offset_Temp++;
+    {
+        Buffer_Offset_Temp+=2;
+        while(Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp]!=0x00)
+            Buffer_Offset_Temp+=2;
+        if (Buffer[Buffer_Offset_Temp-1]==0x00)
+            Buffer_Offset_Temp--;
+    }
 
     //Must wait more data?
     if (Buffer_Offset_Temp+4>Buffer_Size)

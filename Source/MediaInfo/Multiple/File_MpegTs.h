@@ -210,6 +210,11 @@ private :
 
     //Friends
     friend class File_Bdav;
+
+    //Output buffer
+    size_t Output_Buffer_Get (const String &Value);
+    size_t Output_Buffer_Get (size_t Pos);
+    std::vector<int16u> Output_Buffer_Get_Pos;
 };
 
 } //NameSpace
