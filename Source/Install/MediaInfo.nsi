@@ -114,6 +114,7 @@ Section -AdditionalIcons
   WriteIniStr "$INSTDIR\${PRODUCT_NAME}.url" "InternetShortcut" "URL" "${PRODUCT_WEB_SITE}"
   CreateShortCut "$SMPROGRAMS\MediaInfo\Website.lnk" "$INSTDIR\${PRODUCT_NAME}.url"
   CreateShortCut "$SMPROGRAMS\MediaInfo\Uninstall.lnk" "$INSTDIR\uninst.exe"
+  CreateShortCut "$SMPROGRAMS\MediaInfo\History.lnk" "$INSTDIR\History.txt"
 SectionEnd
 
 Section -Post
@@ -146,6 +147,7 @@ Section Uninstall
   Delete "$SMPROGRAMS\MediaInfo\Uninstall.lnk"
   Delete "$SMPROGRAMS\MediaInfo\Website.lnk"
   Delete "$SMPROGRAMS\MediaInfo\MediaInfo.lnk"
+  Delete "$SMPROGRAMS\MediaInfo\History.lnk"
 
   RMDir "$SMPROGRAMS\MediaInfo"
   RMDir "$INSTDIR\Plugin\Custom"
