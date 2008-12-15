@@ -103,13 +103,10 @@ Section "SectionPrincipale" SEC01
 
   # Delete files that might be present from older installation
   Delete "$INSTDIR\History_GUI.txt"
-  Delete "$INSTDIR\History.txt"
   Delete "$INSTDIR\Licence.txt"
   Delete "$INSTDIR\Licence.html"
   Delete "$INSTDIR\License.txt"
-  Delete "$INSTDIR\License.html"
   Delete "$INSTDIR\ReadMe_Windows.txt"
-  Delete "$INSTDIR\ReadMe.txt"
 SectionEnd
 
 Section -AdditionalIcons
