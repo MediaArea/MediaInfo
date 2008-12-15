@@ -164,7 +164,7 @@ ArtDirector;RegjisorArtistik
 AspectRatio;Raporti i aspektit
 AssistantDirector;RegjisorAsistent
 at;në
-At least one file;(Duhet të hapni të paktën një skedë)
+At least one file;(Duhet të hapet të paktën një skedë)
 Audio;Audio
 Audio stream(s);Rrymat e audios
 Audio_Codec_List;Kodekët e audios
@@ -240,9 +240,9 @@ Copyright;Copyright
 CostumeDesigner;Modeluesi i kostumit
 Count;Numërimi
 Country;Vendi
-Cover;Cover
-Cover_Datas;Cover datas
-Cover_Description
+Cover;Cover-i
+Cover_Datas;Të dhënat e cover-it
+Cover_Description;Përshkrimi i cover-it
 Cover_Mime;MIME i cover-it
 Cover_Type;Lloji i cover-it
 Cropped;Dimensionet e prerjes
@@ -274,7 +274,7 @@ Encoded_Original;Origjinal
 EncodedBy;Koduar nga
 Error_File;Gabim gjatë leximit të skedës
 ExecutiveProducer;Producenti ekzekutiv
-Exit;Dil
+Exit;Dalje
 Exit_Hint;Mbylle Programin
 Export;Eksporto
 Export_Hint;Eksportoni në format të porositur
@@ -739,40 +739,40 @@ NumColors;Numri i ngjyrave
 OK;OK
 One output file per input file;Një skedë output për skedë input
 Open;Hap
-OpenCandy_01
-OpenCandy_02
-OpenCandy_03
-OpenCandy_04
-OpenCandy_05
-OpenCandy_06
-OpenCandy_07
-OpenCandy_08
-OpenCandy_09
-OpenCandy_10
-OpenCandy_11
-OpenCandy_12
-OpenCandy_13
-OpenCandy_14
-OpenCandy_15
-OpenCandy_16
-OpenCandy_17
-OpenCandy_18
-OpenCandy_19
-OpenCandy_20
-OpenCandy_21
-OpenCandy_22
-OpenCandy_23
-OpenCandy_24
-OpenCandy_25
-OpenCandy_26
-OpenCandy_27
-OpenCandy_28
-OpenCandy_29
-OpenCandy_30
-OpenCandy_31
-OpenCandy_32
-OpenCandy_33
-OpenCandy_34
+OpenCandy_01;Shkarkimi i ________
+OpenCandy_02;__ % Përfunduar
+OpenCandy_03;Lidhja me internetin e ndërprerë
+OpenCandy_04;Shkarkimi i ________ i përfunduar
+OpenCandy_05;Kliko për të instaluar ________
+OpenCandy_06;A jeni i sigurt se doni të anuloni instalimin?\r\nNëse do e shtyni instalimin për më vonë, zgjidheni 'Jo'.\r\nShënim: Mund të zgjidhni Dalje nga menyja për të ndryshuar instalimin herën tjetër që kompjuteri do të rinisë.
+OpenCandy_07;Shkarkimi i ________ është pushuar.\r\nKlikoni mbi ikonën në shirit për të rimarrë shkarkimin.
+OpenCandy_08;Ka ndodhur një gabim kritik. Instalimi i _________ do të ndërpritet.
+OpenCandy_09;Pusho shkarkimin
+OpenCandy_10;Anulo shkarkimin
+OpenCandy_11;Rimerre shkarkimin
+OpenCandy_12;Dalje nga Instaluesi
+OpenCandy_13;___________ - Rekomanduar nga ____________
+OpenCandy_14;Shkarkimi i _________
+OpenCandy_15;___________, softueri që ju është rekomanduar nga ___________, po shkarkohet me kërkesën tuaj.\r\nNe do ju tregojmë kur ai të jetë gati të instalohet.
+OpenCandy_16;___________ është gati të instalohet
+OpenCandy_17;___________ është shkarkuar plotësisht. Ju lutemi klikoni """"Instalo"""" për të vijuar.
+OpenCandy_18;___________ nga ___________ e shkarkuar
+OpenCandy_19;Sponsorizuar nga OpenCandy
+OpenCandy_20;Mësoni më tepër në OpenCandy.com
+OpenCandy_21;Instalo
+OpenCandy_22;Instalimi i ___________
+OpenCandy_23;Kjo do anulojë instalimin e ___________\r\nA jeni i sigurt se doni të dilni?
+OpenCandy_24;Pusho
+OpenCandy_25;Shkarkimi juaj është pushuar. Klikoni 'Rimerre' kur të jeni gati për të vijuar.
+OpenCandy_26;Rimerre
+OpenCandy_27;Instalo Tani
+OpenCandy_28;Pusho Shkarkimin
+OpenCandy_29;Rimerre Shkarkimin
+OpenCandy_30;Anulo Instalimin
+OpenCandy_31;Ju lutemi zgjidheni mundësinë e instalimit
+OpenCandy_32;Instalo ___________
+OpenCandy_33;Mos Instalo
+OpenCandy_34;Ju lutemi zgjidheni një mundësi instalimi
 Options;Mundësi
 Options_Hint;Pëlqimet
 Original;Origjinal
@@ -915,5 +915,5 @@ Written_Location;Vendndodhje e shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100

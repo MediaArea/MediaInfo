@@ -12,6 +12,10 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
+Version 0.7.9, 200
+-------------
++ Albanian language updated
+
 Version 0.7.8, 2008-12-09
 -------------
 + Changing version schema, only 3 numbers (next versions will 0.7.9, 0.7.10...)
