@@ -773,6 +773,8 @@ OpenCandy_31;Please choose an installation option;Veuillez choisir une option d'
 OpenCandy_32;Install ___________;Installer _______;___________ installieren;;Installa;Установка ___________;;;;;;;;;安装 ___________;;;;___________ 설치;;;;;;;;Instalo ___________
 OpenCandy_33;Don't Install;Ne pas installer;Nicht installieren;;Non installare;Не устанавливать;;;;;;;;;不安装;;;;설치하지 않음;;;;;;;;Mos Instalo
 OpenCandy_34;Please select an install option;Veuillez sélectionner une option d'installation;Wählen Sie bitte eine Installationsoption aus;;Seleziona opzioni installazione;Выберите параметры установки;;;;;;;;;请选择一个安装选项;;;;설치 옵션을 선택해주십시오.;;;;;;;;Ju lutemi zgjidheni një mundësi instalimi
+OpenCandy_35;______ recommends this software;______ recommande ce logiciel;_____ empfiehlt diese software
+OpenCandy_36;Your current installation will not be interrupted;Votre installation en cours ne sera pas interrompue;Ihre aktuelle Installation wird nicht unterbrochen
 Options;Options;Options;Optionen;Beállítások;Opzioni;Параметры;Opciones;Opcións;Opties;Opcje;Optiuni; Alternativ;Seçenekler;選項;选项;オプション;Nastavení;Επιλογές;옵션;Opções;Opcions;Pasirinktys;Opções;ตัวเลือก;Настроювання;خصوصیات;Mundësi
 Options_Hint;Preferences;Préférences;Voreinstellungen;Beállítások;Preferenze;Настройки программы;Preferencias;Preferencias;Voorkeuren;Preferencje;Preferinte; Inställningar;Tercihler;偏好設定;参数设定;詳細設定;Předvolby;Προτιμήσεις;환경 설정;Preferências;Preferències;Nuostatos;Preferências;การปรับแต่ง;Настроювання програми;تنظیمات;Pëlqimet
 Original;Original;Original;Original;Eredeti;Originale;Оригинал;Original;Orixinal;Origineel;Oryginalny;Original; Original;Orijinal;來源;源;オリジナル;Originál;Original;원본;Original;Original;Originalas;Original;ต้นฉบับ;Оригінальний;اصلی;Origjinal
@@ -915,5 +917,5 @@ Written_Location;Written location;Lieu d'écriture;Ort des Schreibbeginns;Írás
 WrittenBy;Written by;Ecrit par;Geschrieben von;Írta;Realizzato da;Написано;Escrito por;Escrito por;Geschreven door;Napisany przez;Scris de; Skrivet av;Yazan;撰寫人;作者;著者;Napsal;Γραμμένο από;제작자;Escrito por;Escrit per;Parašė;Escrito por;เขียนโดย;Написано;نوشته شده توسط;Shkruar nga
 Yes;Yes;Oui;Ja;Igen;Si ;Да;Si;Si;Ja;Tak;Da; Ja;Evet;是;是;はい;Ano;Ναι;예;Sim;Sí;Taip;Sim;ใช่;Так;بله;Po
 Your system;Your system;Votre système;Deine Systeminformationen;Rendszer;Il tuo sistema;Ваша система;Tu sistema;O teu sistema;Uw systeem;System;Sistemul dvs; Ditt system;Sisteminiz;您的系統;您的系统;システム情報;Instalované kodeky;Το σύστημά σας;이 시스템;Seu sistema;El vostre sistema;Jūsų sistema;Seu sistema;ระบบของคุณ;Ваша система;سیستم شما;Sistemi yt
-ZZ_Automatic_Percent;100;100;100;60;100;99;68;85;81;83;36;81;96;96;55;89;82;83;100;83;88;89;91;89;82;44;100
-ZZ_AutomaticLanguage_Percent;100;100;100;78;100;99;89;85;81;96;73;81;96;96;91;89;82;83;100;83;88;89;91;89;82;80;100
+ZZ_Automatic_Percent;100;100;100;60;99;99;68;85;81;83;36;81;96;96;55;89;82;83;99;82;88;89;91;89;82;44;99
+ZZ_AutomaticLanguage_Percent;100;100;100;78;99;99;89;85;81;95;73;81;96;96;91;89;82;83;99;82;88;89;91;89;82;80;99

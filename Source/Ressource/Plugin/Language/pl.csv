@@ -773,6 +773,8 @@ OpenCandy_31
 OpenCandy_32
 OpenCandy_33
 OpenCandy_34
+OpenCandy_35
+OpenCandy_36
 Options;Opcje
 Options_Hint;Preferencje
 Original;Oryginalny
@@ -916,4 +918,4 @@ WrittenBy;Napisany przez
 Yes;Tak
 Your system;System
 ZZ_Automatic_Percent;83
-ZZ_AutomaticLanguage_Percent;96
+ZZ_AutomaticLanguage_Percent;95

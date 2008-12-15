@@ -773,6 +773,8 @@ OpenCandy_31;Please choose an installation option
 OpenCandy_32;Install ___________
 OpenCandy_33;Don't Install
 OpenCandy_34;Please select an install option
+OpenCandy_35;______ recommends this software
+OpenCandy_36;Your current installation will not be interrupted
 Options;Options
 Options_Hint;Preferences
 Original;Original

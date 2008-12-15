@@ -773,6 +773,8 @@ OpenCandy_31;Seleziona opzioni installazione
 OpenCandy_32;Installa
 OpenCandy_33;Non installare
 OpenCandy_34;Seleziona opzioni installazione
+OpenCandy_35
+OpenCandy_36
 Options;Opzioni
 Options_Hint;Preferenze
 Original;Originale
@@ -915,5 +917,5 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si 
 Your system;Il tuo sistema
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99
