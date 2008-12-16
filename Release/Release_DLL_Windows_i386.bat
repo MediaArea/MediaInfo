@@ -35,6 +35,7 @@ xcopy ..\Project\BCB\Example\*.res* MediaInfoDLL_Windows_i386\Developpers\Projec
 xcopy ..\Project\BCB\Example\*.dfm MediaInfoDLL_Windows_i386\Developpers\Project\BCB\Example\
 xcopy ..\Project\BCB\Example\*.h MediaInfoDLL_Windows_i386\Developpers\Project\BCB\Example\
 xcopy ..\Project\BCB\Example\*.cpp MediaInfoDLL_Windows_i386\Developpers\Project\BCB\Example\
+xcopy ..\Project\CodeBlocks\Example\*.cbp MediaInfoDLL_Windows_i386\Developpers\Project\CodeBlocks\Example\
 xcopy ..\Project\Delphi\Example\*.dpr MediaInfoDLL_Windows_i386\Developpers\Project\Delphi\Example\
 xcopy ..\Project\Delphi\Example\*.dfm MediaInfoDLL_Windows_i386\Developpers\Project\Delphi\Example\
 xcopy ..\Project\Delphi\Example\*.res MediaInfoDLL_Windows_i386\Developpers\Project\Delphi\Example\
