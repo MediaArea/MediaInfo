@@ -200,7 +200,7 @@ static size_t MediaInfoDLL_Load()
             Module=dlopen("/usr/lib64/"MEDIAINFODLL_NAME, RTLD_LAZY);
     #endif
     if (!Module)
-        return -1;
+        return (size_t)-1;
 
     /* Load methods */
     size_t Errors=0;
@@ -216,10 +216,10 @@ static size_t MediaInfoDLL_Load()
     MEDIAINFO_ASSIGN(Count_Get,"Count_Get")
     MEDIAINFO_ASSIGN(Count_Get_Files,"Count_Get_Files")
     if (Errors>1) //Normal for Count_Get_Files, MediaInfo has no one.
-       return -1;
+       return (size_t)-1;
 
     Module_Count++;
-    return 1;
+    return (size_t)1;
 }
 
 static size_t MediaInfoDLL_IsLoaded()
@@ -367,7 +367,7 @@ public :
     String        Option (const String &Option, const String &Value=_T(""))  {MEDIAINFO_TEST_STRING; return MediaInfo_Option (Handle, Option.c_str(), Value.c_str());};
     static String Option_Static (const String &Option, const String &Value=_T(""))  {MEDIAINFO_TEST_STRING_STATIC; return MediaInfo_Option (NULL, Option.c_str(), Value.c_str());};
     size_t                  State_Get ()  {MEDIAINFO_TEST_INT; return MediaInfo_State_Get(Handle);};
-    size_t                  Count_Get (stream_t StreamKind, size_t StreamNumber=-1)  {MEDIAINFO_TEST_INT; return MediaInfo_Count_Get(Handle, (MediaInfo_stream_C)StreamKind, StreamNumber);};
+    size_t                  Count_Get (stream_t StreamKind, size_t StreamNumber=(size_t)-1)  {MEDIAINFO_TEST_INT; return MediaInfo_Count_Get(Handle, (MediaInfo_stream_C)StreamKind, StreamNumber);};
 
     bool IsReady() {return (Handle && Module)?true:false;}
 
@@ -396,7 +396,7 @@ public :
     String        Option (const String &Option, const String &Value=_T(""))  {MEDIAINFO_TEST_STRING; return MediaInfoList_Option (Handle, Option.c_str(), Value.c_str());};
     static String Option_Static (const String &Option, const String &Value=_T(""))  {MEDIAINFO_TEST_STRING_STATIC; return MediaInfoList_Option (NULL, Option.c_str(), Value.c_str());};
     size_t        State_Get ()  {MEDIAINFO_TEST_INT; return MediaInfoList_State_Get(Handle);};
-    size_t        Count_Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber=-1)  {MEDIAINFO_TEST_INT; return MediaInfoList_Count_Get(Handle, FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber);};
+    size_t        Count_Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber=Error-1)  {MEDIAINFO_TEST_INT; return MediaInfoList_Count_Get(Handle, FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber);};
     size_t        Count_Get ()  {MEDIAINFO_TEST_INT; return MediaInfoList_Count_Get_Files(Handle);};
 
     bool IsReady() {return (Handle && Module)?true:false;}
