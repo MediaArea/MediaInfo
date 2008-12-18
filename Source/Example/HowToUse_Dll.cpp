@@ -33,9 +33,9 @@ using namespace MediaInfoLib;
 
 #ifdef __MINGW32__
     #ifdef _UNICODE
-        #define itot _itow
+        #define _itot _itow
     #else //_UNICODE
-        #define itot itoa
+        #define _itot itoa
     #endif //_UNICODE
 #endif //__MINGW32
 
