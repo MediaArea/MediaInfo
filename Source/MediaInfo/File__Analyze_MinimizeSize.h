@@ -30,6 +30,8 @@ public :
     //***************************************************************************
 
     //In
+    int64u PTS; //In nanoseconds
+    int64u DTS; //In nanoseconds
 
     //Out
     size_t Frame_Count_InThisBlock;
