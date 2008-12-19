@@ -1,3 +1,6 @@
+; Request application privileges for Windows Vista
+RequestExecutionLevel admin
+
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_VERSION "0.7.8"
@@ -129,8 +132,7 @@ SectionEnd
 
 
 Section Uninstall
-  Exec 'regsvr32 "$INSTDIR\MediaInfo_InfoTip.dll" /u /s'
-  Sleep 1000
+  UnRegDLL "$INSTDIR\MediaInfo_InfoTip.dll"
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
   Delete "$INSTDIR\MediaInfo.exe"
