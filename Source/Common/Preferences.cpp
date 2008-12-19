@@ -411,8 +411,8 @@ int Preferences::ExplorerShell()
         ".3gp;mpeg4File\r\n"
         ".3gpp;mpeg4File\r\n"
         ".swf;FlashFile\r\n"
-        ".flv;FlashVideoFile");
-        ".rmvb;FlashVideoFile");
+        ".flv;FlashVideoFile\r\n";
+        ".rmvb;FlashVideoFile\r\n";
         ".tp;FlashVideoFile");
 
     bool IsChanged=false;

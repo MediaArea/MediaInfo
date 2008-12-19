@@ -94,6 +94,13 @@
           <property category="win32.*.win32b.bcc32" name="option.D.arg.1" value="UNICODE"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.10" value="ZENLIB_STANDARDx"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.11" value="MEDIAINFO_MINIMIZESIZEx"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.12" value="MEDIAINFO_ALL_NO"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.13" value="MEDIAINFO_MPEGTS_YES"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.14" value="MEDIAINFO_MPEGPS_YES"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.15" value="MEDIAINFO_MPEG4_YES"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.16" value="MEDIAINFO_MPEGV_YES"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.17" value="MEDIAINFO_MPEG4V_YES"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.18" value="MEDIAINFO_AVC_YES"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.2" value="_UNICODE"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.3" value="_DEBUG"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.4" value="__WXMSW__"/>
@@ -378,7 +385,6 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base_Automatic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Automatic" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base_Finalize.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Finalize" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base_Inform.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Inform" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.h"/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__MultipleParsing.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__MultipleParsing" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Dummy.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dummy" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Other.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Other" FORMNAME="" DESIGNCLASS=""/>
@@ -480,7 +486,10 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aes3.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Aes3" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\CLI\CommandLine_Parser.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="CommandLine_Parser" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\CLI\CommandLine_Parser.h"/>
         <FILE FILENAME="..\..\..\Source\CLI\Help.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Help" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\CLI\Help.h"/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Extract.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Extract" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Extract.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Extract" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Extract.h"/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Avc_Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Avc_Duplicate" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.h"/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_MpegTs_Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpegTs_Duplicate" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
