@@ -29,6 +29,8 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Duplicate.h"
 #include "MediaInfo/Multiple/File_Mpeg_Psi.h"
+#include "MediaInfo/Duplicate/File__Duplicate_MpegTs.h"
+#include "MediaInfo/Duplicate/File__Duplicate__Writer.h"
 #include <map>
 #include <vector>
 //---------------------------------------------------------------------------
@@ -44,13 +46,14 @@ class File_MpegTs : public File__Duplicate
 {
 public :
     File_MpegTs();
+    ~File_MpegTs();
 
 protected :
     //Formats
     bool FileHeader_Begin ();
     virtual void Read_Buffer_Finalize (); //virtual for BDAV
 
-    //Information
+    //Options
     void Option_Manage ();
 
 private :
@@ -210,6 +213,18 @@ private :
 
     //Friends
     friend class File_Bdav;
+
+    //File__Duplicate
+    void   File__Duplicate_Delete();
+    void   File__Duplicate_Read_Buffer_Finalize ();
+    bool   File__Duplicate_Set  (const Ztring &Value); //Fill a new File__Duplicate value
+    bool   File__Duplicate_Get_From_PID (int16u PID);
+    void   File__Duplicate_Write (int16u PID);
+    bool                                                File__Duplicate_HasChanged_;
+    size_t                                              Config_File_Duplicate_Get_AlwaysNeeded_Count;
+    std::vector<File__Duplicate_MpegTs*>                Duplicates_Speed;
+    std::vector<std::vector<File__Duplicate_MpegTs*> >  Duplicates_Speed_FromPID;
+    std::map<const String, File__Duplicate_MpegTs*>     Duplicates;
 
     //Output buffer
     size_t Output_Buffer_Get (const String &Value);

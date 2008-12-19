@@ -10,7 +10,7 @@
 %define _SO_nr	0
 
 Name:			libmediainfo%{_SO_nr}
-Version:		0.7.8
+Version:		0.7.9
 Release:		1
 Summary:		Supplies technical and tag information about a video or audio file
 Group:			System/Libraries

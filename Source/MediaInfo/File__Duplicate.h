@@ -1,4 +1,4 @@
-// File__Duplicate - Duplication of some formats
+// File__Extract - Extract of some formats
 // Copyright (C) 2007-2008 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -24,7 +24,6 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
-#include "MediaInfo/Duplicate/File__Duplicate_MpegTs.h"
 #include "MediaInfo/Duplicate/File__Duplicate__Writer.h"
 #include "ZenLib/ZtringListList.h"
 #include <map>
@@ -46,33 +45,18 @@ public :
     virtual ~File__Duplicate();
 
 protected :
-    //Formats
-    virtual void Read_Buffer_Finalize ();
-
-    //Set
-    void   File__Duplicate_Set  (const Ztring &Value); //Fill a new File__Duplicate value
+    virtual bool File__Duplicate_Set  (const Ztring &Value)=0; //Fill a new File__Duplicate value
 
     //Get
     bool   File__Duplicate_Get  ();
-    bool   File__Duplicate_Get_From_PID (int16u PID);
 
     //Modifications
     bool   File__Duplicate_HasChanged();
 
-    //Write
-    void   File__Duplicate_Write (int16u PID);
-
-    //Output buffer
-    size_t Output_Buffer_Get (const String &Value);
-    size_t Output_Buffer_Get (size_t Pos);
-
 private :
-    bool                                       File__Duplicate_HasChanged_;
-    size_t                                     Config_File_Duplicate_Get_AlwaysNeeded_Count;
-
-    std::vector<File__Duplicate_MpegTs*>               Duplicates_Speed;
-    std::vector<std::vector<File__Duplicate_MpegTs*> > Duplicates_Speed_FromPID;
-    std::map<const String, File__Duplicate_MpegTs*>    Duplicates;
+    bool   File__Duplicate_HasChanged_;
+    bool   File__Duplicate_Needed;
+    size_t Config_File_Duplicate_Get_AlwaysNeeded_Count;
 };
 
 

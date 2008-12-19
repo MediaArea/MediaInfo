@@ -41,7 +41,7 @@ namespace MediaInfoLib
 {
 
 //---------------------------------------------------------------------------
-const Char*  MediaInfo_Version=_T("MediaInfoLib - v0.7.8");
+const Char*  MediaInfo_Version=_T("MediaInfoLib - v0.7.9BETA");
 const Char*  MediaInfo_Url=_T("http://mediainfo.sourceforge.net");
       Ztring EmptyZtring;       //Use it when we can't return a reference to a true Ztring
 const Ztring EmptyZtring_Const; //Use it when we can't return a reference to a true Ztring, const version
@@ -271,7 +271,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     }
     else if (Option_Lower==_T("readbyhuman"))
     {
-        ReadByHuman_Set(Value.To_int8u());
+        ReadByHuman_Set(Value.To_int8u()?true:false);
         return _T("");
     }
     else if (Option_Lower==_T("readbyhuman_get"))

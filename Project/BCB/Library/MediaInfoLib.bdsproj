@@ -275,6 +275,7 @@
         <FILE FILENAME="..\..\..\Source\MediaInfo\Image\File_Tiff.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Tiff" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Text\File_OtherText.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_OtherText" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_Avc.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Avc" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_Avc_Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Avc_Duplicate" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_AvsV.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_AvsV" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_Flic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Flic" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Video\File_Mpeg4v.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4v" FORMNAME="" DESIGNCLASS=""/>
@@ -282,6 +283,7 @@
         <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Aac.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Aac" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Ac3.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ac3" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Adpcm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Adpcm" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Aes3.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Aes3" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Amr.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Amr" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Amv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Amv" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Audio\File_Ape.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ape" FORMNAME="" DESIGNCLASS=""/>
@@ -333,6 +335,7 @@
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Mpeg_Psi.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg_Psi" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_MpegPs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpegPs" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_MpegTs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpegTs" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_MpegTs_Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpegTs_Duplicate" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Mxf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mxf" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Nut.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Nut" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Ogg.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ogg" FORMNAME="" DESIGNCLASS=""/>

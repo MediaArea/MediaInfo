@@ -526,6 +526,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_Avc_Duplicate.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_AvsV.cpp"
 					>
 				</File>
@@ -635,6 +639,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_MpegTs.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_MpegTs_Duplicate.cpp"
 					>
 				</File>
 				<File

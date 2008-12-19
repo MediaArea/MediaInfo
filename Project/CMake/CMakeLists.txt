@@ -2,7 +2,7 @@ project(mediainfo)
 
 set(MEDIAINFO_MAJOR_VERSION 0)
 set(MEDIAINFO_MINOR_VERSION 7)
-set(MEDIAINFO_PATCH_VERSION 79)
+set(MEDIAINFO_PATCH_VERSION 9)
 set(MEDIAINFO_VERSION ${MEDIAINFO_MAJOR_VERSION}.${MEDIAINFO_MINOR_VERSION}.${MEDIAINFO_PATCH_VERSION})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../)
@@ -90,6 +90,7 @@ set(mediainfo_SRCS
 	MediaInfo/Multiple/File_Mpeg_Psi.cpp
 	MediaInfo/Multiple/File_MpegPs.cpp
 	MediaInfo/Multiple/File_MpegTs.cpp
+	MediaInfo/Multiple/File_MpegTs_Duplicate.cpp
 	MediaInfo/Multiple/File_Mxf.cpp
 	MediaInfo/Multiple/File_Nut.cpp
 	MediaInfo/Multiple/File_Ogg.cpp
@@ -111,6 +112,7 @@ set(mediainfo_SRCS
 	MediaInfo/Text/File_OtherText.cpp
 	MediaInfo/Text/File_Pgs.cpp
 	MediaInfo/Video/File_Avc.cpp
+	MediaInfo/Video/File_Avc_Duplicate.cpp
 	MediaInfo/Video/File_AvsV.cpp
 	MediaInfo/Video/File_Dirac.cpp
 	MediaInfo/Video/File_Flic.cpp

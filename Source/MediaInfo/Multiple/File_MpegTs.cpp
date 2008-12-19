@@ -129,6 +129,11 @@ File_MpegTs::File_MpegTs()
     elementary_PID_Count=0;
 }
 
+File_MpegTs::~File_MpegTs ()
+{
+    File__Duplicate_Delete();
+}
+
 //***************************************************************************
 // Format
 //***************************************************************************
@@ -317,7 +322,7 @@ void File_MpegTs::Read_Buffer_Finalize()
         }
     }
 
-    File__Duplicate::Read_Buffer_Finalize();
+    File__Duplicate_Read_Buffer_Finalize();
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
@@ -1173,78 +1178,6 @@ bool File_MpegTs::Detect_NonMPEGTS ()
 
     //Seems OK
     return false;
-}
-
-//***************************************************************************
-// Information
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_MpegTs::Option_Manage()
-{
-    if (!Streams.empty())
-    {
-        //File_Filter configuration
-        if (Config->File_Filter_HasChanged())
-        {
-            bool Searching_Payload_Start=!Config->File_Filter_Get();
-            for (int32u Pos=0x01; Pos<0x10; Pos++)
-                Streams[Pos].Searching_Payload_Start_Set(Searching_Payload_Start); //base PID depends of File_Filter configuration
-            Streams[0x00].Searching_Payload_Start_Set(true); //program_map
-        }
-
-        //File__Duplicate configuration
-        if (File__Duplicate_HasChanged())
-        {
-            Streams[0x00].ShouldDuplicate=true;
-            Streams[0x00].Searching_Payload_Start_Set(true); //Re-enabling program_map_table
-        }
-    }
-}
-
-//***************************************************************************
-// Output_Buffer
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-size_t File_MpegTs::Output_Buffer_Get (const String &Code)
-{
-    if (size_t Size=File__Duplicate::Output_Buffer_Get(Code))
-        return Size;
-
-    //Parsing Parsers
-    for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos].Parser)
-            if (size_t Size=Streams[Pos].Parser->Output_Buffer_Get(Code))
-                return Size;
-
-    return 0;
-}
-
-//---------------------------------------------------------------------------
-size_t File_MpegTs::Output_Buffer_Get (size_t Pos_)
-{
-    //Optimization
-    //if (Output_Buffer_Get_Pos.size()>Pos_ && Output_Buffer_Get_Pos[Pos_]!=(int16u)-1)
-    //    return Streams[Output_Buffer_Get_Pos[Pos_]].Parser->Output_Buffer_Get(Pos_);
-
-    if (size_t Size=File__Duplicate::Output_Buffer_Get(Pos_))
-        return Size;
-
-    //Parsing Parsers
-    for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos].Parser)
-            if (size_t Size=Streams[Pos].Parser->Output_Buffer_Get(Pos_))
-            {
-                //Optimization
-                //if (Output_Buffer_Get_Pos.size()<=Pos_)
-                //    Output_Buffer_Get_Pos.resize(Pos_+1, (int16u)-1);
-                //Output_Buffer_Get_Pos[Pos_]=Pos;
-
-                return Size;
-            }
-
-    return 0;
 }
 
 } //NameSpace

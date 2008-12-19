@@ -24,6 +24,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#include "MediaInfo/File__Duplicate.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -33,7 +34,7 @@ namespace MediaInfoLib
 // Class File_Avc
 //***************************************************************************
 
-class File_Avc : public File__Analyze
+class File_Avc : public File__Duplicate
 {
 public :
     //In
@@ -48,6 +49,9 @@ protected :
     //Format
     void Read_Buffer_Continue ();
     void Read_Buffer_Finalize ();
+
+    //Options
+    void Option_Manage ();
 
 public :
     File_Avc();
@@ -147,10 +151,12 @@ private :
     struct stream
     {
         bool   Searching_Payload;
+        bool   ShouldDuplicate;
 
         stream()
         {
             Searching_Payload=false;
+            ShouldDuplicate=false;
         }
     };
     std::vector<stream> Streams;
@@ -175,6 +181,20 @@ private :
     bool Header_Parser_QuickSearch();
     bool Detect_NonAVC();
     void Init();
+
+    //File__Duplicate
+    bool   File__Duplicate_Set  (const Ztring &Value); //Fill a new File__Duplicate value
+    void   File__Duplicate_Write (int64u Element_Code, int32u frame_num=(int32u)-1);
+    File__Duplicate__Writer Writer;
+    int8u  Duplicate_Buffer[1024*1024];
+    size_t Duplicate_Buffer_Size;
+    size_t frame_num_Old;
+    bool   SPS_PPS_AlreadyDone;
+    bool   FLV;
+
+    //Output buffer
+    size_t Output_Buffer_Get (const String &Value);
+    size_t Output_Buffer_Get (size_t Pos);
 };
 
 } //NameSpace

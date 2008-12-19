@@ -218,7 +218,7 @@ const int8u Avc_SubHeightC[]=
 
 //---------------------------------------------------------------------------
 File_Avc::File_Avc()
-:File__Analyze()
+:File__Duplicate()
 {
     //In
     Frame_Count_Valid=8; //Currently no 3:2 pulldown detection
@@ -440,7 +440,11 @@ void File_Avc::Data_Parse()
     {
         if (CC3(Buffer+Buffer_Offset+(size_t)Element_Offset_3Bytes)==0x000003)
             ThreeByte_List.push_back(Element_Offset_3Bytes+2);
-        Element_Offset_3Bytes++;
+        Element_Offset_3Bytes+=2;
+        while(Element_Offset_3Bytes<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset_3Bytes]!=0x00)
+            Element_Offset_3Bytes+=2;
+        if (Element_Offset_3Bytes<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset_3Bytes-1]==0x00 || Element_Offset_3Bytes>=Element_Size)
+            Element_Offset_3Bytes--;
     }
     if (!ThreeByte_List.empty())
     {
@@ -503,6 +507,9 @@ void File_Avc::Data_Parse()
         Buffer_3Bytes=NULL; //Same as Buffer...
         Element_Offset+=ThreeByte_List.size();
     }
+
+    //Extract
+    File__Duplicate_Write(Element_Code);
 }
 
 //***************************************************************************
@@ -623,6 +630,9 @@ void File_Avc::slice_header()
         if (Frame_Count>=Frame_Count_Valid && Retrieve(Stream_Video, 0, Video_Format).empty())
             slice_header_Fill();
     FILLING_END();
+
+    //Extract
+    File__Duplicate_Write(Element_Code, pic_order_cnt_type==0?pic_order_cnt_lsb:frame_num);
 }
 
 //---------------------------------------------------------------------------
@@ -761,8 +771,13 @@ void File_Avc::slice_header_Fill()
     {
         NextCode_Clear();
 
+        //Autorisation of other streams
+        for (int8u Pos=0x00; Pos<0x20; Pos++)
+            Streams[Pos].Searching_Payload=false; //Coded slice...
+
         Info("AVC, Jumping to end of file");
-        Finished();
+        if (!Streams[(size_t)Element_Code].ShouldDuplicate)
+            Finished();
     }
 }
 
@@ -1306,7 +1321,10 @@ void File_Avc::pic_parameter_set()
 
         //Autorisation of other streams
         for (int8u Pos=0x01; Pos<=0x06; Pos++)
+        {
             Streams[Pos].Searching_Payload=true; //Coded slice...
+            Streams[Pos].ShouldDuplicate=true;
+        }
 
         //Setting as OK
         PPS_IsParsed=true;
@@ -1602,6 +1620,10 @@ bool File_Avc::Header_Parser_QuickSearch()
         if (Streams[start_code].Searching_Payload)
             return true;
 
+        //Searching start
+        if (Streams[start_code].ShouldDuplicate)
+            return true;
+
         //Getting size
         Buffer_Offset+=4;
         while(Buffer_Offset+4<=Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
@@ -1704,7 +1726,7 @@ void File_Avc::Init()
     CpbDpbDelaysPresentFlag=false;
     mb_adaptive_frame_field_flag=false;
     pic_order_present_flag=false;
-    
+
     //Default values
     Streams.resize(0x100);
     Streams[0x06].Searching_Payload=true; //sei
@@ -1713,8 +1735,12 @@ void File_Avc::Init()
     Streams[0x0C].Searching_Payload=true; //filler_data
     for (int8u Pos=0xB9; Pos!=0x00; Pos++)
         Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
+
+    //Options
+    Option_Manage();
 }
 
 } //NameSpace
 
 #endif //MEDIAINFO_AVC_YES
+

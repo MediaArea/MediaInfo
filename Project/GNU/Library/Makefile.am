@@ -80,6 +80,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Multiple/File_Mpeg_Psi.cpp \
                        ../../../Source/MediaInfo/Multiple/File_MpegPs.cpp \
                        ../../../Source/MediaInfo/Multiple/File_MpegTs.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_MpegTs_Duplicate.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Mxf.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Nut.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Ogg.cpp \
@@ -101,6 +102,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Text/File_OtherText.cpp \
                        ../../../Source/MediaInfo/Text/File_Pgs.cpp \
                        ../../../Source/MediaInfo/Video/File_Avc.cpp \
+                       ../../../Source/MediaInfo/Video/File_Avc_Duplicate.cpp \
                        ../../../Source/MediaInfo/Video/File_AvsV.cpp \
                        ../../../Source/MediaInfo/Video/File_Dirac.cpp \
                        ../../../Source/MediaInfo/Video/File_Flic.cpp \
