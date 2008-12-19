@@ -146,8 +146,7 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
 
     //Preparing
     File_Size=File_Size_;
-    if (File_Offset!=File_Size)
-        File_Offset=File_Offset_;
+    File_Offset=File_Offset_;
     Element[0].Next=File_Size;
 
     //Options
