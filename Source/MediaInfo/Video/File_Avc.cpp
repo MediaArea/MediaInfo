@@ -508,8 +508,9 @@ void File_Avc::Data_Parse()
         Element_Offset+=ThreeByte_List.size();
     }
 
-    //Extract
-    File__Duplicate_Write(Element_Code);
+    //Duplicate
+    if (Streams[(size_t)Element_Code].ShouldDuplicate)
+        File__Duplicate_Write(Element_Code);
 }
 
 //***************************************************************************
@@ -631,8 +632,9 @@ void File_Avc::slice_header()
             slice_header_Fill();
     FILLING_END();
 
-    //Extract
-    File__Duplicate_Write(Element_Code, pic_order_cnt_type==0?pic_order_cnt_lsb:frame_num);
+    //Duplicate
+    if (Streams[(size_t)Element_Code].ShouldDuplicate)
+        File__Duplicate_Write(Element_Code, pic_order_cnt_type==0?pic_order_cnt_lsb:frame_num);
 }
 
 //---------------------------------------------------------------------------
@@ -1199,7 +1201,11 @@ void File_Avc::seq_parameter_set()
         //Autorisation of other streams
         Streams[0x06].Searching_Payload=true; //sei
         for (int8u Pos=0x08; Pos<=0x1F; Pos++)
+        {
             Streams[Pos].Searching_Payload=true; //pic_parameter_set, access_unit_delimiter, end_of_seq, end_of_stream, filler_data, reserved
+            if (Streams[0x07].ShouldDuplicate)
+                Streams[Pos].ShouldDuplicate=true;
+        }
 
         //Setting as OK
         SPS_IsParsed=true;
@@ -1323,7 +1329,8 @@ void File_Avc::pic_parameter_set()
         for (int8u Pos=0x01; Pos<=0x06; Pos++)
         {
             Streams[Pos].Searching_Payload=true; //Coded slice...
-            Streams[Pos].ShouldDuplicate=true;
+            if (Streams[0x08].ShouldDuplicate)
+                Streams[Pos].ShouldDuplicate=true;
         }
 
         //Setting as OK

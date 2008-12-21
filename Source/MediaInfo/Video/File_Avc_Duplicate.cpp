@@ -49,7 +49,12 @@ namespace MediaInfoLib
 void File_Avc::Option_Manage()
 {
     //File__Duplicate configuration
-    File__Duplicate_HasChanged();
+    if (File__Duplicate_HasChanged())
+    {
+        //Autorisation of other streams
+        Streams[0x07].ShouldDuplicate=true;
+    }
+
 }
 
 //***************************************************************************
