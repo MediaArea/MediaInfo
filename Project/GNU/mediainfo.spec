@@ -155,7 +155,13 @@ popd
 %{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/*.png
 %{_datadir}/icons/hicolor/128x128/apps/*.png
+%dir %{_datadir}/apps
+%dir %{_datadir}/apps/konqueror
+%dir %{_datadir}/apps/konqueror/servicemenus
 %{_datadir}/apps/konqueror/servicemenus/*.desktop
+%dir %{_datadir}/kde4
+%dir %{_datadir}/kde4/services
+%dir %{_datadir}/kde4/services/ServiceMenus
 %{_datadir}/kde4/services/ServiceMenus/*.desktop
 
 %changelog
