@@ -477,8 +477,8 @@ void File_Mpeg4::Data_Parse()
         ATOM_END
     ATOM(pckg)
     ATOM(pnot)
-    ATOM(skip)
-    ATOM(wide)
+    LIST_SKIP(skip)
+    LIST_SKIP(wide)
     DATA_END
 }
 
