@@ -86,8 +86,8 @@
           <property category="node" name="displayname" value="All Configurations"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.1" value="WIN32"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.2" value="_WIN32"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.3" value="UNICODEx"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.4" value="_UNICODEx"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.3" value="UNICODE"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.4" value="_UNICODE"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.5" value="MEDIAINFO_MINIMIZESIZE"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.6" value="ZENLIB_STANDARDx"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.merge" value="1"/>
@@ -418,6 +418,7 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Mpega.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpega" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Pcm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Pcm" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_ScreamTracker3.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_ScreamTracker3" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Speex.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Speex" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Tta.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Tta" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_TwinVQ.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_TwinVQ" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Vorbis.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Vorbis" FORMNAME="" DESIGNCLASS=""/>
@@ -426,7 +427,6 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate__Writer.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate__Writer" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate__Writer.h"/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate_MpegTs" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.h"/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Pgs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Pgs" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Speex.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Speex" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
