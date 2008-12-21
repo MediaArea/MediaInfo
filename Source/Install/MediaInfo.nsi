@@ -3,7 +3,7 @@ RequestExecutionLevel admin
 
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
-!define PRODUCT_VERSION "0.7.8"
+!define PRODUCT_VERSION "0.7.9BETA"
 !define PRODUCT_WEB_SITE "http://mediainfo.sourceforge.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\MediaInfo.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
