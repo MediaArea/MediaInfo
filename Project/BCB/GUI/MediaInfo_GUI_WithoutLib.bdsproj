@@ -322,6 +322,7 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Flic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Flic" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Mpeg4v.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpeg4v" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Mpegv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mpegv" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Theora.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Theora" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Vc1.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Vc1" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wininet.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wininet" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\ZLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZLib" FORMNAME="" DESIGNCLASS=""/>

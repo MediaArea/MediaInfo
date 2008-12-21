@@ -479,10 +479,10 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Aes3.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Aes3" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\CLI\CommandLine_Parser.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="CommandLine_Parser" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\CLI\CommandLine_Parser.h"/>
         <FILE FILENAME="..\..\..\Source\CLI\Help.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Help" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\CLI\Help.h"/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Extract.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Extract" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Extract.h"/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Avc_Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Avc_Duplicate" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.h"/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_MpegTs_Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpegTs_Duplicate" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Theora.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Theora" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
