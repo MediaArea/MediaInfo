@@ -299,6 +299,10 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
     Fill(StreamKind, Pos, General_StreamKind, MediaInfoLib::Config.Info_Get(StreamKind).Read(General_StreamKind, Info_Text));
     Fill(StreamKind, Pos, General_StreamKind_String, MediaInfoLib::Config.Language_Get(MediaInfoLib::Config.Info_Get(StreamKind).Read(General_StreamKind, Info_Text)), true);
 
+    //ID
+    if (!Retrieve(StreamKind, Pos, "ID").empty() && Retrieve(StreamKind, Pos, "ID/String").empty())
+        Fill(StreamKind, Pos, "ID/String", Retrieve(StreamKind, Pos, "ID"));
+
     //Encoded_Library
     if (!Retrieve(StreamKind, Pos, "Encoded_Library").empty() && MediaInfoLib::Config.ReadByHuman_Get())
     {
