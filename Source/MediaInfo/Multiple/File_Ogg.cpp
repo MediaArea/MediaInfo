@@ -89,7 +89,10 @@ void File_Ogg::Read_Buffer_Finalize()
             if (Stream_Temp->second.StreamKind==Stream_Audio, Stream_Temp->second.absolute_granule_position_Resolution==0)
                 Stream_Temp->second.absolute_granule_position_Resolution=Retrieve(Stream_Audio, Stream_Temp->second.StreamPos, Audio_SamplingRate).To_int64u();
             if (Stream_Temp->second.absolute_granule_position && Stream_Temp->second.absolute_granule_position_Resolution)
-                Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, "Duration", float64_int64s(((float64)(Stream_Temp->second.absolute_granule_position))*1000/Stream_Temp->second.absolute_granule_position_Resolution), 10, true);
+            {
+                if (Stream_Temp->second.StreamKind==Stream_Audio)
+                    Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, "Duration", float64_int64s(((float64)(Stream_Temp->second.absolute_granule_position))*1000/Stream_Temp->second.absolute_granule_position_Resolution), 10, true);
+            }
             if (!IsSub)
             {
                 Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, "ID", Stream_Temp->first);

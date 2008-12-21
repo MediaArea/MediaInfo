@@ -41,6 +41,10 @@ namespace MediaInfoLib
 class File_Flac : public File__Analyze, public File__Tags_Helper
 {
 public :
+    //In
+    bool VorbisHeader;
+
+public :
     File_Flac();
 
 private :

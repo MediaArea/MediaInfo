@@ -56,6 +56,10 @@ File_Flac::File_Flac()
     //File__Tags_Helper
     Base=this;
 
+    //In
+    VorbisHeader=false;
+    
+    //Temp
     Last_metadata_block=false;
 }
 
@@ -92,6 +96,14 @@ void File_Flac::FileHeader_Parse()
 {
     //Parsing
     int32u Signature;
+    if (VorbisHeader)
+    {
+        Skip_B1(                                                "Signature");
+        Skip_Local(4,                                           "Signature");
+        Skip_B1(                                                "Major version");
+        Skip_B1(                                                "Minor version");
+        Skip_B2(                                                "Number of header");
+    }
     Get_C4 (Signature,                                          "Signature");
 
     FILLING_BEGIN();

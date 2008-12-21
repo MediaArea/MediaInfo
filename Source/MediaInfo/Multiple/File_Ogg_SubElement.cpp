@@ -37,14 +37,20 @@
 #include "ZenLib/Utils.h"
 #include <cmath>
 #include <memory>
+#if defined(MEDIAINFO_DIRAC_YES)
+    #include "MediaInfo/Video/File_Dirac.h"
+#endif
+#if defined(MEDIAINFO_FLAC_YES)
+    #include "MediaInfo/Audio/File_Flac.h"
+#endif
+#if defined(MEDIAINFO_SPEEX_YES)
+    #include "MediaInfo/Audio/File_Speex.h"
+#endif
 #if defined(MEDIAINFO_THEORA_YES)
     #include "MediaInfo/Video/File_Theora.h"
 #endif
 #if defined(MEDIAINFO_VORBIS_YES)
     #include "MediaInfo/Audio/File_Vorbis.h"
-#endif
-#if defined(MEDIAINFO_FLAC_YES)
-    #include "MediaInfo/Audio/File_Flac.h"
 #endif
 using namespace ZenLib;
 using namespace std;
@@ -70,13 +76,27 @@ namespace Elements
 {
     const int32u fLaC=0x664C6143;
 
-    OGG_ID(vorbis,   01766F, 72626973, 7)
-    OGG_ID(theora,   807468, 656F7261, 7)
-    OGG_ID(video,    017669, 64656F00, 7)
-    OGG_ID(audio,    016175, 64696F00, 7)
-    OGG_ID(text,     017465, 78740000, 7)
-    OGG_ID(FLAC,         7F, 464C4143, 5)
-    OGG_ID(fLaC,   664C6143, 00000000, 8)
+    //http://wiki.xiph.org/index.php/MIMETypesCodecs
+    OGG_ID(CELT,     43454C54, 20202020, 8)
+    OGG_ID(CMML,     434D4D4C, 00000000, 8)
+    OGG_ID(BBCD,           42, 42434400, 5)
+    OGG_ID(FLAC,           7F, 464C4143, 5)
+    OGG_ID(JNG,      8B4A4E47, 0D0A1A0A, 8)
+    OGG_ID(kate,     806B6174, 65000000, 8)
+    OGG_ID(OggMIDI,  4D67674D, 49444900, 8)
+    OGG_ID(MNG,      8A4D4E47, 0D0A1A0A, 8)
+    OGG_ID(PCM,      50434D20, 20202020, 8)
+    OGG_ID(PNG,      89504E47, 0D0A1A0A, 8)
+    OGG_ID(Speex,    53706565, 78202020, 8)
+    OGG_ID(theora,     807468, 656F7261, 7)
+    OGG_ID(vorbis,     01766F, 72626973, 7)
+    OGG_ID(YUV4MPEG, 59555634, 4D504547, 8)
+
+    //Not Xiph registered, but found
+    OGG_ID(video,     017669, 64656F00, 7)
+    OGG_ID(audio,     016175, 64696F00, 7)
+    OGG_ID(text,      017465, 78740000, 7)
+    OGG_ID(fLaC,           0, 664C6143, 4)
 }
 
 //***************************************************************************
@@ -272,12 +292,23 @@ void File_Ogg_SubElement::Identification()
     #endif //__BORLANDC__
 
     if (0) ;
-    ELEMENT_CASE(vorbis)
+    ELEMENT_CASE(CELT)
+    ELEMENT_CASE(CMML)
+    ELEMENT_CASE(BBCD)
+    ELEMENT_CASE(FLAC)
+    ELEMENT_CASE(JNG)
+    ELEMENT_CASE(kate)
+    ELEMENT_CASE(OggMIDI)
+    ELEMENT_CASE(MNG)
+    ELEMENT_CASE(PCM)
+    ELEMENT_CASE(PNG)
+    ELEMENT_CASE(Speex)
     ELEMENT_CASE(theora)
+    ELEMENT_CASE(vorbis)
+    ELEMENT_CASE(YUV4MPEG)
     ELEMENT_CASE(video)
     ELEMENT_CASE(audio)
     ELEMENT_CASE(text)
-    ELEMENT_CASE(FLAC)
     ELEMENT_CASE(fLaC)
     else
     {
@@ -286,35 +317,199 @@ void File_Ogg_SubElement::Identification()
         return;
     }
 
+    //Parsing
+    Default();
+
     //Filling
     StreamKind=StreamKind_Last;
     Identified=true;
 }
 
 //---------------------------------------------------------------------------
-void File_Ogg_SubElement::Identification_vorbis()
+void File_Ogg_SubElement::Identification_CELT()
 {
-    Element_Info("Vorbis");
+    #if defined(MEDIAINFO__YES)
+        StreamKind_Last=Stream_Audio;
+        Parser=new File_Celt;
+    #else
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "celt");
+        Fill(Stream_Audio, 0, Audio_Codec, "celt");
+    #endif
+}
 
-    Parser=new File_Vorbis();
-    StreamKind_Last=Stream_Audio;
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_CMML()
+{
+    #if defined(MEDIAINFO__YES)
+        StreamKind_Last=Stream_Text;
+        Parser=new File_Cmml;
+    #else
+        Stream_Prepare(Stream_Text);
+        Fill(Stream_Text, 0, Text_Format, "cmml");
+        Fill(Stream_Text, 0, Text_Codec, "cmml");
+    #endif
+}
 
-    //Parsing
-    Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset);
-    Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_BBCD()
+{
+    #if defined(MEDIAINFO_DIRAC_YES)
+        StreamKind_Last=Stream_Video;
+        Parser=new File_Dirac;
+        ((File_Dirac*)Parser)->Ignore_End_of_Sequence=true;
+    #else
+        Stream_Prepare(Stream_Video);
+        Fill(Stream_Video, 0, Video_Format, "Dirac");
+        Fill(Stream_Video, 0, Video_Codec, "Dirac");
+    #endif
+    WithType=false;
+}
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_FLAC()
+{
+    #if defined(MEDIAINFO_FLAC_YES)
+        StreamKind_Last=Stream_Audio;
+        Parser=new File_Flac;
+        ((File_Flac*)Parser)->VorbisHeader=true;
+    #else
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "FLAC");
+        Fill(Stream_Audio, 0, Audio_Codec, "FLAC");
+    #endif
+    WithType=false;
+}
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_JNG()
+{
+    #if defined(MEDIAINFO__YES)
+        StreamKind_Last=Stream_Video;
+        Parser=new File_Jng;
+    #else
+        Stream_Prepare(Stream_Video);
+        Fill(Stream_Video, 0, Video_Format, "JNG");
+        Fill(Stream_Video, 0, Video_Codec, "JNG");
+    #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_kate()
+{
+    #if defined(MEDIAINFO__YES)
+        StreamKind_Last=Stream_Audio;
+        Parser=new File_Kate;
+    #else
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "JNG");
+        Fill(Stream_Audio, 0, Audio_Codec, "JNG");
+    #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_OggMIDI()
+{
+    #if defined(MEDIAINFO__YES)
+        StreamKind_Last=Stream_Text;
+        Parser=new File_Kate;
+    #else
+        Stream_Prepare(Stream_Text);
+        Fill(Stream_Text, 0, Text_Format, "Kate");
+        Fill(Stream_Text, 0, Text_Codec, "Kate");
+    #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_MNG()
+{
+    #if defined(MEDIAINFO__YES)
+        StreamKind_Last=Stream_Video;
+        Parser=new File_Mng;
+    #else
+        Stream_Prepare(Stream_Video);
+        Fill(Stream_Video, 0, Video_Format, "MNG");
+        Fill(Stream_Video, 0, Video_Codec, "MNG");
+    #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_PCM()
+{
+    #if defined(MEDIAINFO__YES)
+        StreamKind_Last=Stream_Audio;
+        Parser=new File_Pcm;
+    #else
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "PCM");
+        Fill(Stream_Audio, 0, Audio_Codec, "PCM");
+    #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_PNG()
+{
+    #if defined(MEDIAINFO__YES)
+        StreamKind_Last=Stream_Video;
+        Parser=new File_Png;
+    #else
+        Stream_Prepare(Stream_Video);
+        Fill(Stream_Video, 0, Video_Format, "PNG");
+        Fill(Stream_Video, 0, Video_Codec, "PNG");
+    #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_Speex()
+{
+    #if defined(MEDIAINFO_SPEEX_YES)
+        StreamKind_Last=Stream_Audio;
+        Parser=new File_Speex;
+    #else
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "Speex");
+        Fill(Stream_Audio, 0, Audio_Codec, "Speex");
+    #endif
+    WithType=false;
 }
 
 //---------------------------------------------------------------------------
 void File_Ogg_SubElement::Identification_theora()
 {
-    Element_Info("Theora");
+    #if defined(MEDIAINFO_THEORA_YES)
+        StreamKind_Last=Stream_Video;
+        Parser=new File_Theora;
+    #else
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Video, 0, Text_Format, "Theora");
+        Fill(Stream_Video, 0, Text_Codec, "Theora");
+    #endif
+}
 
-    Parser=new File_Theora();
-    StreamKind_Last=Stream_Video;
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_vorbis()
+{
+    #if defined(MEDIAINFO_VORBIS_YES)
+        StreamKind_Last=Stream_Audio;
+        Parser=new File_Vorbis;
+    #else
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Text_Format, "Vorbis");
+        Fill(Stream_Audio, 0, Text_Codec, "Vorbis");
+    #endif
+}
 
-    //Parsing
-    Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset);
-    Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_YUV4MPEG()
+{
+    #if defined(MEDIAINFO__YES)
+        StreamKind_Last=Stream_Video;
+        Parser=new File_Yuv;
+    #else
+        Stream_Prepare(Stream_Video);
+        Fill(Stream_Video, 0, Video_Format, "YUV");
+        Fill(Stream_Video, 0, Video_Codec, "YUV");
+    #endif
 }
 
 //---------------------------------------------------------------------------
@@ -338,6 +533,8 @@ void File_Ogg_SubElement::Identification_video()
     Skip_L2(                                                    "Reserved");
     Get_L4 (Width,                                              "Width");
     Get_L4 (Height,                                             "Height");
+    if (Element_Offset<Element_Size)
+        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
 
     //Filling
     Stream_Prepare(Stream_Video);
@@ -371,6 +568,8 @@ void File_Ogg_SubElement::Identification_audio()
     Get_L2 (Channels,                                           "Channels");
     Skip_L2(                                                    "BlockAlign");
     Get_L4 (AvgBytesPerSec,                                     "AvgBytesPerSec");
+    if (Element_Offset<Element_Size)
+        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
 
     //Filling
     Stream_Prepare(Stream_Audio);
@@ -394,6 +593,8 @@ void File_Ogg_SubElement::Identification_text()
     Skip_B1   (                                                 "Signature");
     Skip_Local(6,                                               "Signature");
     Skip_L2(                                                    "Reserved");
+    if (Element_Offset<Element_Size)
+        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
 
     //Filling
     Stream_Prepare(Stream_Text);
@@ -402,57 +603,17 @@ void File_Ogg_SubElement::Identification_text()
 }
 
 //---------------------------------------------------------------------------
-void File_Ogg_SubElement::Identification_FLAC()
-{
-    Element_Info("Flac");
-
-    //Integrity
-    if (Element_Offset+2>Element_Size)
-        return;
-
-    //Parsing
-    Skip_B1(                                                    "Signature");
-    Skip_Local(4,                                               "Signature");
-    Skip_B1(                                                    "Major version");
-    Skip_B1(                                                    "Minor version");
-    Skip_B2(                                                    "Number of header");
-
-    FILLING_BEGIN();
-        #if defined(MEDIAINFO_FLAC_YES)
-            Parser=new File_Flac;
-            StreamKind_Last=Stream_Audio;
-            Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset+Element_Offset);
-            Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-        #else
-            Stream_Prepare(Stream_Audio);
-            Fill(Stream_Audio, 0, Text_Format, "FLAC");
-            Fill(Stream_Audio, 0, Text_Codec, "FLAC");
-        #endif
-        WithType=false;
-    FILLING_END();
-}
-
-//---------------------------------------------------------------------------
 void File_Ogg_SubElement::Identification_fLaC()
 {
-    //Parsing
-    int32u Signature;
-    Get_C4 (Signature,                                          "Signature");
-
-    FILLING_BEGIN();
-        if (Signature==Elements::fLaC)
-        {
-            #if defined(MEDIAINFO_FLAC_YES)
-                Parser=new File_Flac;
-            #endif
-            Stream_Prepare(Stream_Audio);
-            Fill(Stream_Audio, 0, Audio_Format, "FLAC");
-            Fill(Stream_Audio, 0, Audio_Codec, "FLAC");
-            Fill(Stream_Audio, 0, Audio_MuxingMode, "pre-FLAC 1.1.1");
-            WithType=false;
-        }
-        Default();
-    FILLING_END();
+    #if defined(MEDIAINFO_FLAC_YES)
+        Parser=new File_Flac;
+        StreamKind_Last=Stream_Audio;
+    #endif
+    Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, 0, Audio_Format, "FLAC");
+    Fill(Stream_Audio, 0, Audio_Codec, "FLAC");
+    Fill(Stream_Audio, 0, Audio_MuxingMode, "pre-FLAC 1.1.1");
+    WithType=false;
 }
 
 //---------------------------------------------------------------------------
@@ -488,9 +649,9 @@ void File_Ogg_SubElement::Comment()
 //---------------------------------------------------------------------------
 void File_Ogg_SubElement::Default()
 {
-    Element_Name("Setup");
+    Element_Name("Frame");
 
-    if (Parser!=NULL)
+    if (Parser)
     {
         Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset);
         Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
@@ -505,9 +666,9 @@ void File_Ogg_SubElement::Default()
             Finished();
         }
     }
-    else
+    else if (Element_Offset<Element_Size)
     {
-        Skip_XX(Element_Size,                                   "Unknown");
+        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
         Finished();
     }
 }

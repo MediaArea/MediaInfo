@@ -405,6 +405,7 @@ File_Dirac::File_Dirac()
 {
     //In
     Frame_Count_Valid=1;
+    Ignore_End_of_Sequence=false;
 }
 
 //***************************************************************************
@@ -632,7 +633,8 @@ void File_Dirac::End_of_Sequence()
     Element_Name("End of Sequence");
 
     //Parsing
-    picture_Fill();
+    if (!Ignore_End_of_Sequence)
+        picture_Fill();
 }
 
 //---------------------------------------------------------------------------

@@ -9,6 +9,9 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.9, 200
 -------------
++ OGG: Dirac support
++ OGG: Speex support
++ OGG: other formats (JNG, Kate, MIDI, PCM...) detection
 
 Version 0.7.8, 2008-12-09
 -------------

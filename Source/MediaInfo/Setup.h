@@ -249,12 +249,15 @@
 #endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_WVPK_NO) && !defined(MEDIAINFO_WVPK_YES)
     #define MEDIAINFO_WVPK_YES
+#endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_XM_NO) && !defined(MEDIAINFO_XM_YES)
     #define MEDIAINFO_XM_YES
 #endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_AES3_NO) && !defined(MEDIAINFO_AES3_YES)
     #define MEDIAINFO_AES3_YES
 #endif
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_SPEEX_NO) && !defined(MEDIAINFO_SPEEX_YES)
+    #define MEDIAINFO_SPEEX_YES
 #endif
 
 //---------------------------------------------------------------------------
