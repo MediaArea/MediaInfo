@@ -24,6 +24,9 @@ BuildRequires:	libzen0-devel
 BuildRequires:	pkgconfig
 BuildRequires:	wxGTK-devel
 BuildRequires: 	zlib-devel
+%if 0%{?suse_version}
+BuildRequires:	update-desktop-files
+%endif
 
 %description
 MediaInfo supplies technical and tag information about a video or
@@ -125,6 +128,9 @@ popd
 %__install -dm 755 %{buildroot}/%{_datadir}/applications
 %__install -m 644 Project/GNU/GUI/mediainfo-gui.desktop \
 	%{buildroot}/%{_datadir}/applications
+%if 0%{?suse_version}
+  %suse_update_desktop_file -n mediainfo-gui AudioVideo AudioVideoEditing
+%endif
 %__install -dm 755 %{buildroot}/%{_datadir}/apps/konqueror/servicemenus
 %__install -m 644 Project/GNU/GUI/mediainfo-gui.kde3.desktop \
 	%{buildroot}/%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop
