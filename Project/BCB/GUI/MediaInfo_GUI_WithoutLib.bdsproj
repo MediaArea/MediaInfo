@@ -426,6 +426,7 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate__Writer.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate__Writer" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate__Writer.h"/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate_MpegTs" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.h"/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Pgs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Pgs" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Speex.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Speex" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
