@@ -232,12 +232,16 @@ void __fastcall TMainF::FormShow(TObject *Sender)
     GUI_Configure();
 
     //File(s) in command line
-    if (ParamCount()>=1)
-    {
-        for (int I1=1; I1<=ParamCount(); I1++)
+    #ifdef UNICODE
+        int argc;
+        MediaInfoLib::Char** argv=CommandLineToArgvW(GetCommandLineW(), &argc);
+        for (int I1=1; I1<argc; I1++)
+            I->Open(argv[I1]);
+    #else
+        for (int I1=1; I1<ParamCount(); I1++)
             I->Open(Ztring().From_Local(ParamStr(I1).c_str()));
-        Refresh();
-    }
+    #endif
+    Refresh();
 }
 
 //---------------------------------------------------------------------------
