@@ -1,3 +1,6 @@
+// File_Vorbis - Info for Vorbis files
+// Copyright (C) 2007-2008 Jerome Martinez, Zen@MediaArea.net
+//
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -40,10 +43,20 @@ namespace MediaInfoLib
 
 class File_Vorbis : public File__Analyze
 {
+public :
+    File_Vorbis();
+
 private :
     //Buffer
     void Header_Parse();
     void Data_Parse();
+
+    //Elements
+    void Identification();
+    void Setup();
+
+    //Temp
+    int8u Identification_Done;
 };
 
 } //NameSpace

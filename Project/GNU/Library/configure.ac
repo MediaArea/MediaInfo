@@ -110,6 +110,7 @@ AC_ARG_ENABLE(avsV,    AC_HELP_STRING([--disable-avsv],    [Disable Video - AVS 
 AC_ARG_ENABLE(flic,    AC_HELP_STRING([--disable-flic],    [Disable Video - FLIC (fli, flc)]),                            MediaInfoFlic=$enableval,    MediaInfoFlic=depend)
 AC_ARG_ENABLE(mpeg4v,  AC_HELP_STRING([--disable-mpeg4v],  [Disable Video - MPEG-4 Video based formats (DivX, XviD...)]), MediaInfoMpeg4v=$enableval,  MediaInfoMpeg4v=depend)
 AC_ARG_ENABLE(mpegv,   AC_HELP_STRING([--disable-mpegv],   [Disable Video - MPEG-Video]),                                 MediaInfoMpegv=$enableval,   MediaInfoMpegv=depend)
+AC_ARG_ENABLE(theora,  AC_HELP_STRING([--disable-theora],  [Disable Video - Theora]),                                     MediaInfoTheora=$enableval,  MediaInfoTheora=depend)
 AC_ARG_ENABLE(vc1,     AC_HELP_STRING([--disable-vc1],     [Disable Video - VC-1]),                                       MediaInfoVc1=$enableval,     MediaInfoVc1=depend)
 
 dnl -------------------------------------------------------------------------
@@ -411,6 +412,8 @@ Mcho "AvsV   " "$MediaInfoAvsV"
 Mcho "Flic   " "$MediaInfoFlic"
 Mcho "Mpeg4v " "$MediaInfoMpeg4v"
 Mcho "Mpegv  " "$MediaInfoMpegv"
+Mcho "Mpegv  " "$MediaInfoTheora"
+Mcho "Mpegv  " "$MediaInfoVc1"
 echo ""
 echo "  CXXFLAGS: $CXXFLAGS"
 echo "  LIBS: $LIBS"

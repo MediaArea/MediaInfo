@@ -38,6 +38,15 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Constants
+//***************************************************************************
+
+namespace Elements
+{
+    const int32u OggS=0x4F676753;
+}
+
+//***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
 
@@ -69,12 +78,28 @@ void File_Ogg::Read_Buffer_Finalize()
     while (Stream_Temp!=Stream.end())
     {
         //Filling
-        if (Stream_Temp->second.absolute_granule_position_Resolution)
-            Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, "Duration", float64_int64s(((float64)(Stream_Temp->second.absolute_granule_position))*1000/Stream_Temp->second.absolute_granule_position_Resolution));
+        if (Stream_Temp->second.Parser)
+        {
+            Merge(*Stream_Temp->second.Parser);
+            Merge(*Stream_Temp->second.Parser, Stream_General, 0, 0);
+            Stream_Temp->second.StreamKind=((File_Ogg_SubElement*)Stream_Temp->second.Parser)->StreamKind;
+            Stream_Temp->second.StreamPos=Count_Get(Stream_Temp->second.StreamKind)-1;
+            if (!SizedBlocks && !XiphLacing)
+                Stream_Temp->second.absolute_granule_position_Resolution=((File_Ogg_SubElement*)Stream_Temp->second.Parser)->absolute_granule_position_Resolution;
+            if (Stream_Temp->second.StreamKind==Stream_Audio, Stream_Temp->second.absolute_granule_position_Resolution==0)
+                Stream_Temp->second.absolute_granule_position_Resolution=Retrieve(Stream_Audio, Stream_Temp->second.StreamPos, Audio_SamplingRate).To_int64u();
+            if (Stream_Temp->second.absolute_granule_position && Stream_Temp->second.absolute_granule_position_Resolution)
+                Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, "Duration", float64_int64s(((float64)(Stream_Temp->second.absolute_granule_position))*1000/Stream_Temp->second.absolute_granule_position_Resolution), 10, true);
+            if (!IsSub)
+            {
+                Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, "ID", Stream_Temp->first);
+                Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, "ID/String", Ztring::ToZtring(Stream_Temp->first)+_T(" (0x")+Ztring::ToZtring(Stream_Temp->first, 16)+_T(')'));
+            }
+        }
         Stream_Temp++;
     }
 
-    Fill(Stream_General, 0, General_Format, "OGG");
+    Fill(Stream_General, 0, General_Format, "OGG", Unlimited, true, true);
 
     //No more need
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
@@ -97,7 +122,7 @@ bool File_Ogg::Header_Begin()
         return false;
 
     //Quick test of synchro
-    if (CC4(Buffer+Buffer_Offset)!=Ogg::OggS && !Synchronize())
+    if (CC4(Buffer+Buffer_Offset)!=Elements::OggS && !Synchronize())
         return false;
 
     //All should be OK...
@@ -196,6 +221,8 @@ void File_Ogg::Data_Parse()
     //If first chunk of a stream
     if (Stream[Element_Code].Parser==NULL)
     {
+        if (Parsing_End)
+            return; //Maybe multitracks concatained, not supported
         Stream[Element_Code].Parser=new File_Ogg_SubElement;
         ((File_Ogg_SubElement*)Stream[Element_Code].Parser)->InAnotherContainer=SizedBlocks|SizedBlocks;
         Open_Buffer_Init(Stream[Element_Code].Parser);
@@ -227,12 +254,8 @@ void File_Ogg::Data_Parse()
             if (Parser->File_GoTo!=(int64u)-1)
             {
                 Open_Buffer_Finalize(Parser);
-                Merge(*Parser);
-                Merge(*Parser, Stream_General, 0, 0);
-                Stream[Element_Code].StreamKind=((File_Ogg_SubElement*)Parser)->StreamKind;
-                Stream[Element_Code].StreamPos=Count_Get(Stream[Element_Code].StreamKind)-1;
-                if (!SizedBlocks && !XiphLacing)
-                    Stream[Element_Code].absolute_granule_position_Resolution=((File_Ogg_SubElement*)Stream[Element_Code].Parser)->absolute_granule_position_Resolution;
+                if (Count_Get(Stream_General)==0)
+                    Stream_Prepare(Stream_General);
                 StreamsToDo--;
             }
 
@@ -260,62 +283,6 @@ void File_Ogg::Data_Parse()
     Element_Show();
 }
 
-
-/*
-void File_Ogg::Read_Buffer_Continue()
-{
-    ShouldStop=false;
-
-    //Integrity test
-    if (Buffer_Size<4 || CC4(Buffer)!=CC4("OggS"))
-    {
-        Finished();
-        return;
-    }
-
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "Ogg");
-
-    //Buffer
-    while (!ShouldStop)
-    {
-        ChunkHeader_Analyse();
-        if (!ShouldStop)
-        {
-            ChunkData_Analyse();
-        }
-    }
-
-    //Some headers my have not comments, but Analysing start withs comments... We analyse this chunks now
-    while (!ChunkHeader_ID.empty())
-        Identification_Analyse(ChunkHeader_ID[0]);
-
-
-    //Finding last frame time
-    Buffer_Offset=End_Size-14;
-    while (Buffer_Offset>0 && CC4(End+Buffer_Offset)!=CC4("OggS"))
-        Buffer_Offset--;
-    if (Buffer_Offset==0)
-        return 1; //Time not found, but begin is OK...
-    int64u Size=LittleEndian2int64u(End+Buffer_Offset+6);
-    Ztring ID; ID.From_Number(LittleEndian2int32u(End+Buffer_Offset+14));
-    size_t Duration=0;
-    for (size_t Pos=0; Pos<Audio.size(); Pos++)
-        if (Retrieve(Stream_Audio, Pos, _T("ID"))==ID && Retrieve(Stream_Audio, Pos, _T("SamplingRate")).To_int32u()!=0)
-            Duration=Size*1000/Retrieve(Stream_Audio, Pos, _T("SamplingRate")).To_int32u();
-    for (size_t Pos=0; Pos<Video.size(); Pos++)
-        if (Retrieve(Stream_Video, Pos, _T("ID"))==ID && Retrieve(Stream_Video, Pos, _T("FrameRate")). To_float32()!=0)
-            Duration=Size*1000/Retrieve(Stream_Video, Pos, _T("FrameRate")).To_int32u();
-    if (Duration)
-        Fill(Stream_General, 0, General_Duration, Duration);
-
-
-    //No need of more
-    Finished();
-}
-*/
-
-
 //***************************************************************************
 // Helpers
 //***************************************************************************
@@ -327,7 +294,7 @@ bool File_Ogg::Synchronize()
     if (Buffer_Offset_Temp==0) //Buffer_Offset_Temp is not 0 if Synchronize() has already parsed first bytes
         Buffer_Offset_Temp=Buffer_Offset;
     while (Buffer_Offset_Temp+4<=Buffer_Size
-        && CC4(Buffer+Buffer_Offset_Temp)!=Ogg::OggS)
+        && CC4(Buffer+Buffer_Offset_Temp)!=Elements::OggS)
         Buffer_Offset_Temp++;
 
     //Not synched case

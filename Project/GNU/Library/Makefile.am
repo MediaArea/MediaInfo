@@ -108,6 +108,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Video/File_Flic.cpp \
                        ../../../Source/MediaInfo/Video/File_Mpeg4v.cpp \
                        ../../../Source/MediaInfo/Video/File_Mpegv.cpp \
+                       ../../../Source/MediaInfo/Video/File_Theora.cpp \
                        ../../../Source/MediaInfo/Video/File_Vc1.cpp \
                        ../../../Source/MediaInfoDLL/MediaInfoDLL.cpp
 

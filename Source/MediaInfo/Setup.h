@@ -172,6 +172,9 @@
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_AVSV_NO) && !defined(MEDIAINFO_AVSV_YES)
     #define MEDIAINFO_AVSV_YES
 #endif
+#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_THORA_NO) && !defined(MEDIAINFO_THEORA_YES)
+    #define MEDIAINFO_THEORA_YES
+#endif
 
 //---------------------------------------------------------------------------
 // Audio

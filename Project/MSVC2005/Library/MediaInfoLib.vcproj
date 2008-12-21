@@ -348,6 +348,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_Theora.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Vc1.cpp"
 					>
 				</File>
@@ -588,10 +592,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adpcm.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\Source\MediaInfo\File_Dummy.h"
 				>
 			</File>
@@ -688,6 +688,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adif.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Adpcm.h"
 					>
 				</File>
 				<File
@@ -928,6 +932,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Mpegv.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_Theora.h"
 					>
 				</File>
 				<File
