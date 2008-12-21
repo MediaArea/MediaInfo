@@ -113,7 +113,7 @@ void File_Theora::Identification()
         Stream_Prepare(Stream_Video);
         Fill(Stream_Video, StreamPos_Last, Video_Format, "Theora");
         Fill(Stream_Video, StreamPos_Last, Video_Codec, "Theora");
-        if ((Version&0x030200)!=0x030200) //Version 3.2.x                           e
+        if ((Version&0x030200)!=0x030200) //Version 3.2.x
             return;
         Fill(Stream_Video, StreamPos_Last, Video_FrameRate, ((float)FRN)/FRD, 3);
         float PixelRatio=1;
