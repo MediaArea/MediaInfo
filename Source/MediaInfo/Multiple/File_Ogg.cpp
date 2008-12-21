@@ -293,51 +293,61 @@ void File_Ogg::Data_Parse()
 //---------------------------------------------------------------------------
 bool File_Ogg::Synchronize()
 {
-    //Look for first Sync word
-    if (Buffer_Offset_Temp==0) //Buffer_Offset_Temp is not 0 if Synchronize() has already parsed first bytes
-        Buffer_Offset_Temp=Buffer_Offset;
-    while (Buffer_Offset_Temp+4<=Buffer_Size
-        && CC4(Buffer+Buffer_Offset_Temp)!=Elements::OggS)
-        Buffer_Offset_Temp++;
+    //Synchronizing
+    while (Buffer_Offset+4<=Buffer_Size)
+    {
+        while (Buffer_Offset+4<=Buffer_Size)
+        {
+            if (CC4(Buffer+Buffer_Offset)==Elements::OggS)
+                break;
+            Buffer_Offset++;
+        }
+
+        if (Buffer_Offset+4<=Buffer_Size) //Testing if size is coherant
+        {
+            //Retrieving some info
+            if (Buffer_Offset+27>Buffer_Size)
+                return false; //Need more data
+            int8u page_segments=CC1(Buffer+Buffer_Offset+26);
+            if (Buffer_Offset+27+page_segments>Buffer_Size)
+                return false; //Need more data
+            size_t Size=0;
+            for (int8u Pos=0; Pos<page_segments; Pos++)
+                Size+=CC1(Buffer+Buffer_Offset+27+Pos);
+
+            //Testing
+            if (Buffer_Offset+27+page_segments+Size+4>Buffer_Size)
+                return false; //Need more data
+            if (CC4(Buffer+Buffer_Offset+27+page_segments+Size)!=Elements::OggS)
+                Buffer_Offset++;
+            else
+                break;
+        }
+    }
 
     //Not synched case
-    if (!Synched && Buffer_Offset_Temp+4>Buffer_Size)
+    if (!Synched && Buffer_Offset+4>Buffer_Size)
     {
-        if (Buffer_Offset_Temp+3==Buffer_Size)
+        if (Buffer_Offset+3==Buffer_Size)
         {
-            if (CC3(Buffer+Buffer_Offset_Temp)!=CC3("Ogg"))
+            if (CC3(Buffer+Buffer_Offset)!=CC3("Ogg"))
             {
-                Buffer_Offset_Temp++;
-                if (CC2(Buffer+Buffer_Offset_Temp)!=CC2("Og"))
+                Buffer_Offset++;
+                if (CC2(Buffer+Buffer_Offset)!=CC2("Og"))
                 {
-                    Buffer_Offset_Temp++;
-                    if (CC1(Buffer+Buffer_Offset_Temp)!=CC1("O"))
-                        Buffer_Offset_Temp++;
+                    Buffer_Offset++;
+                    if (CC1(Buffer+Buffer_Offset)!=CC1("O"))
+                        Buffer_Offset++;
                 }
             }
         }
 
-        Buffer_Offset=Buffer_Offset_Temp;
-        Buffer_Offset_Temp=0;
+        Buffer_Offset=Buffer_Offset;
+        Buffer_Offset=0;
         return false;
-    }
-
-    //Must wait more data?
-    if (Buffer_Offset_Temp+4>Buffer_Size)
-        return false;
-
-    //Error in stream?
-    if (Buffer_Offset_Temp-Buffer_Offset>0)
-    {
-        if (Synched)
-            Trusted_IsNot("Sync error");
-        else
-            Info("Synchronization");
     }
 
     //OK, we continue
-    Buffer_Offset=Buffer_Offset_Temp;
-    Buffer_Offset_Temp=0;
     Synched=true;
     return true;
 }
