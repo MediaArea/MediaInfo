@@ -205,7 +205,6 @@ private :
     size_t elementary_PID_Count;
 
     //Temp
-    bool Parsing_End;
     size_t BDAV_Size;
     size_t TS_Size;
     int64u MpegTs_JumpTo_Begin;

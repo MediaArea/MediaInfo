@@ -953,15 +953,13 @@ void File_MpegTs::PES()
         Open_Buffer_Init(Streams[pid].Parser, File_Size, File_Offset+Buffer_Offset);
         Open_Buffer_Continue(Streams[pid].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
-        //if (Element[Element_Level].ToShow.NoShow && payload_unit_start_indicator)
-        //    Element[Element_Level].ToShow.NoShow=false; //Show it because this is the first interesssant payload
-
         //Need anymore?
         if (Streams[pid].Parser->File_GoTo!=(int64u)-1 || Streams[pid].Parser->File_Offset==Streams[pid].Parser->File_Size)
         {
             Streams[pid].Searching_Payload_Start_Set(false);
             Streams[pid].Searching_Payload_Continue_Set(false);
-            elementary_PID_Count--;
+            if (elementary_PID_Count)
+                elementary_PID_Count--;
         }
     }
     else
@@ -1102,20 +1100,20 @@ void File_MpegTs::Detect_EOF()
     if (File_Offset+Buffer_Size>=MpegTs_JumpTo_Begin && Programs.empty() && format_identifier!=0xFFFFFFFF)
     {
         //Activating all streams as PES, in case of PAT/PMT are missing (ofen in .trp files)
-        if (!Streams.empty())
+        Streams.clear();
+        Streams.resize(0x2000);
+        for (size_t StreamID=0x20; StreamID<0x1FFF; StreamID++)
         {
-            for (size_t StreamID=0x20; StreamID<0x1FFF; StreamID++)
-            {
-                Streams[StreamID].Searching_Payload_Start_Set(true);
-                Streams[StreamID].Searching_TimeStamp_Start_Set(true);
-                Streams[StreamID].TS_Kind=File_Mpeg_Psi::pes;
-            }
+            Streams[StreamID].TS_Kind=File_Mpeg_Psi::pes;
+            Streams[StreamID].Searching_Payload_Start_Set(true);
+            Streams[StreamID].Searching_TimeStamp_Start_Set(File_Size!=(int64u)-1); //Only if not unlimited
+            if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
+                Streams[StreamID].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
         }
         format_identifier=0xFFFFFFFF;
         File_GoTo=0;
         Fill(Stream_General, 0, General_Format_Profile, "No PAT/PMT");
     }
-
 
     //Jump to the end of the file
     if (File_Offset+Buffer_Offset>0x8000 && File_Offset+Buffer_Offset+MpegTs_JumpTo_End<File_Size && (
