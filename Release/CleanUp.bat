@@ -1,8 +1,8 @@
 @rem echo off
 @rem --- General ---
 cd ..
-del *.~* *.obj *.o *.tds *.dcu *.ddp *.opt *.ncb *.suo *.plg *.aps *.user *.win *.layout *.local *.depend *.identcache *.tgs *.tgw /Q /S
-del *.~* *.obj *.o *.tds *.dcu *.ddp *.opt *.ncb *.suo *.plg *.aps *.user *.win *.layout *.local *.depend  *.identcache *.tgs *.tgw /AH /Q /S
+del *.~* *.obj *.o *.tds *.dcu *.ddp *.opt *.ncb *.suo *.ilk *.idb *.pdb *.pch *.plg *.aps *.user *.win *.layout *.local *.depend *.identcache *.tgs *.tgw /Q /S
+del *.~* *.obj *.o *.tds *.dcu *.ddp *.opt *.ncb *.suo *.ilk *.idb *.pdb *.pch *.plg *.aps *.user *.win *.layout *.local *.depend  *.identcache *.tgs *.tgw /AH /Q /S
 del *.ogg *.ogm *.avi *.mkv /Q /S
 del *.ogg *.ogm *.avi *.mkv /AH /Q /S
 cd Release
