@@ -69,10 +69,30 @@ const char* Swf_Format_Audio[]=
     "PCM",
     "ADPCM",
     "MPEG Audio",
-    "",
-    "",
+    "PCM",
     "Nellymoser",
     "Nellymoser",
+    "Nellymoser",
+    "",
+    "",
+    "",
+    "",
+    "Speex",
+    "",
+    "",
+    "",
+    "",
+};
+
+const char* Swf_Format_Version_Audio[]=
+{
+    "",
+    "",
+    "Version 1",
+    "",
+    "",
+    "",
+    "",
     "",
     "",
     "",
@@ -84,11 +104,11 @@ const char* Swf_Format_Audio[]=
     "",
 };
 
-const char* Swf_Format_Version_Audio[]=
+const char* Swf_Format_Profile_Audio[]=
 {
     "",
     "",
-    "Version 1 / Layer 3",
+    "Layer 3",
     "",
     "",
     "",
@@ -124,16 +144,56 @@ const char* Swf_SoundFormat[]=
     "",
 };
 
-const char* Swf_CodecID[]=
+const char* Swf_Format_Video[]=
 {
     "",
     "",
-    "H263",
+    "H.263",
+    "Screen video",
+    "VP6",
+    "VP6",
+    "Screen video 2",
+    "AVC",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
+const char* Swf_Format_Profile_Video[]=
+{
+    "",
+    "",
+    "",
+    "",
+    "",
+    "Alpha channel",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
+const char* Swf_Codec_Video[]=
+{
+    "",
+    "",
+    "Sorenson H263",
     "Screen video",
     "On2 VP6",
     "On2 VP6 with alpha channel",
     "Screen video 2",
-    "",
+    "AVC",
     "",
     "",
     "",
@@ -219,8 +279,38 @@ File_Swf::File_Swf()
 :File__Analyze()
 {
     //In
+    Frame_Count_Valid=128;
     FileLength=0;
     Version=0;
+
+    //Temp
+    Frame_Count=0;
+    Width=0;
+    Height=0;
+    FrameCount=0;
+    FrameRate=0;
+}
+
+//***************************************************************************
+// Format
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Swf::Read_Buffer_Finalize()
+{
+    if (Count_Get(Stream_Video)==0)
+    {
+        Stream_Prepare(Stream_Video);
+        Fill(Stream_Video, 0, Video_Width, Width/20);
+        Fill(Stream_Video, 0, Video_Height, Height/20);
+    }
+    if (Count_Get(Stream_Video)==1)
+    {
+        if (FrameRate)
+            Fill(Stream_Video, 0, Video_FrameRate, FrameRate);
+        if (FrameCount)
+            Fill(Stream_Video, 0, Video_FrameCount, FrameCount);
+    }
 }
 
 //***************************************************************************
@@ -277,8 +367,6 @@ void File_Swf::FileHeader_Parse()
     //Parsing
     //Parsing - BitStream
     int32u Nbits, Xmin, Xmax, Ymin, Ymax;
-    int16u FrameCount;
-    float32 FrameRate;
     BS_Begin();
     Get_BS (5, Nbits,                                           "Nbits");
     Get_BS (Nbits, Xmin,                                        "Xmin");
@@ -313,11 +401,8 @@ void File_Swf::FileHeader_Parse()
         //Filling
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "ShockWave");
-        Stream_Prepare(Stream_Video);
-        Fill(Stream_Video, StreamPos_Last, Video_Width, (Xmax-Xmin)/20);
-        Fill(Stream_Video, StreamPos_Last, Video_Height, (Ymax-Ymin)/20);
-        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate);
-        Fill(Stream_Video, StreamPos_Last, Video_FrameCount, FrameCount);
+        Width=Xmax-Xmin;
+        Height=Ymax-Ymin;
     FILLING_END();
 }
 
@@ -425,8 +510,9 @@ void File_Swf::Data_Parse()
         default : ;
     }
 
-    //We want currently only one item for validation
-    Finished();
+    Frame_Count++;
+    if (Frame_Count>=Frame_Count_Valid)
+        Finished();
 }
 
 //***************************************************************************
@@ -453,6 +539,7 @@ void File_Swf::DefineSound()
     Fill(Stream_Audio, StreamPos_Last, Audio_ID, SoundId);
     Fill(Stream_Audio, StreamPos_Last, Audio_Format, Swf_Format_Audio[SoundFormat]);
     Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, Swf_Format_Version_Audio[SoundFormat]);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, Swf_Format_Profile_Audio[SoundFormat]);
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Swf_SoundFormat[SoundFormat]);
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Swf_SoundRate[SoundRate]);
     Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, Swf_SoundSize[SoundSize]);
@@ -463,6 +550,7 @@ void File_Swf::DefineSound()
 void File_Swf::SoundStreamHead()
 {
     //Parsing
+    int16u StreamSoundSampleCount;
     int8u  StreamSoundCompression, StreamSoundRate, StreamSoundType, StreamSoundSize;
     BS_Begin();
     Skip_S1(4,                                                  "Reserved");
@@ -474,15 +562,21 @@ void File_Swf::SoundStreamHead()
     Get_S1 (1, StreamSoundSize,                                 "StreamSoundSize"); Param_Info(Swf_SoundSize[StreamSoundSize], " bits");
     Get_S1 (1, StreamSoundType,                                 "StreamSoundType"); Param_Info(Swf_SoundType[StreamSoundType], " channel(s)");
     BS_End();
-    Skip_L2(                                                    "StreamSoundSampleCount");
+    Get_L2 (StreamSoundSampleCount,                             "StreamSoundSampleCount");
     if (StreamSoundCompression==2)
         Skip_L2(                                                "LatencySeek");
 
-    Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Swf_SoundFormat[StreamSoundCompression]);
-    Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Swf_SoundRate[StreamSoundRate]);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, Swf_SoundSize[StreamSoundSize]);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Swf_SoundType[StreamSoundType]);
+    if (StreamSoundSampleCount>0)
+    {
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format, Swf_Format_Audio[StreamSoundCompression]);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, Swf_Format_Version_Audio[StreamSoundCompression]);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, Swf_Format_Profile_Audio[StreamSoundCompression]);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Swf_SoundFormat[StreamSoundCompression]);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Swf_SoundRate[StreamSoundRate]);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, Swf_SoundSize[StreamSoundSize]);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Swf_SoundType[StreamSoundType]);
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -505,12 +599,12 @@ void File_Swf::DefineVideoStream()
         CodecID=0; //Should never happen (FLV is only 4-bit sized)
 
     Stream_Prepare(Stream_Video);
-    Fill(Stream_Audio, StreamPos_Last, Audio_ID, CharacterID);
+    Fill(Stream_Video, StreamPos_Last, Video_ID, CharacterID);
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Format, Swf_Format_Audio[CodecID]);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, Swf_Format_Version_Audio[CodecID]);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Swf_CodecID[CodecID]);
+    Fill(Stream_Video, StreamPos_Last, Video_Format, Swf_Format_Video[CodecID]);
+    Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, Swf_Format_Profile_Video[CodecID]);
+    Fill(Stream_Video, StreamPos_Last, Video_Codec, Swf_Codec_Video[CodecID]);
 }
 
 //***************************************************************************
@@ -560,5 +654,5 @@ bool File_Swf::Decompress()
 
 } //NameSpace
 
-#endif //MEDIAINFO_AAC_*
+#endif //MEDIAINFO_SWF_*
 

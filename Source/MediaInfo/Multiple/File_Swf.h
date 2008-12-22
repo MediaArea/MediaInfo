@@ -41,8 +41,13 @@ class File_Swf : public File__Analyze
 {
 public :
     //In
+    size_t Frame_Count_Valid;
     int32u FileLength;;
     int8u  Version;
+
+protected :
+    //Format
+    void Read_Buffer_Finalize ();
 
 public :
     File_Swf();
@@ -122,6 +127,13 @@ private :
 
     //Helpers
     bool Decompress();
+
+    //Temp
+    size_t  Frame_Count;
+    int32u  Width;
+    int32u  Height;
+    int16u  FrameCount;
+    float32 FrameRate;
 };
 
 } //NameSpace
