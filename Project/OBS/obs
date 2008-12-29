@@ -60,6 +60,12 @@ devext="dev"
 dash="_"
 Download_Packages 1  1  1  x x x   Debian_Etch   i586   _i386
 Download_Packages 1  1  1  x x x   Debian_Etch   x86_64 _amd64
+Download_Packages 1  1  1  x x x   xUbuntu_7.10  i586   _i386
+Download_Packages 1  1  1  x x x   xUbuntu_7.10  x86_64 _amd64
+Download_Packages 1  1  1  x x x   xUbuntu_8.04  i586   _i386
+Download_Packages 1  1  1  x x x   xUbuntu_8.04  x86_64 _amd64
+Download_Packages 1  1  1  x x x   xUbuntu_8.10  i586   _i386
+Download_Packages 1  1  1  x x x   xUbuntu_8.10  x86_64 _amd64
 
 type="rpm"
 devext="devel"
@@ -70,23 +76,25 @@ Download_Packages $1 $2 $3 x x x   Fedora_8      i586   .i386
 Download_Packages $1 $2 $3 x x x   Fedora_8      x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   Fedora_9      i586   .i386
 Download_Packages $1 $2 $3 x x x   Fedora_9      x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   Fedora_10     i586   .i386
+Download_Packages $1 $2 $3 x x x   Fedora_10     x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   Mandriva_2008 i586   .i586
+Download_Packages $1 $2 $3 x x x   Mandriva_2008 x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   RHEL_5        i586   .i386
 Download_Packages $1 $2 $3 x x x   RHEL_5        x86_64 .x86_64
-Download_Packages $1 $2 $3 x x x   openSUSE_10.2 i586   .i586
-Download_Packages $1 $2 $3 x x x   openSUSE_10.2 x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   openSUSE_10.3 i586   .i586
 Download_Packages $1 $2 $3 x x x   openSUSE_10.3 x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   openSUSE_11.0 i586   .i586
 Download_Packages $1 $2 $3 x x x   openSUSE_11.0 x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   openSUSE_11.1 i586   .i586
+Download_Packages $1 $2 $3 x x x   openSUSE_11.1 x86_64 .x86_64
 
 }
 
 
-mediainfov="0.7.7.8"
-libmediainfov="0.7.7.8"
-libzenv="0.3.4.0"
+mediainfov="0.7.8"
+libmediainfov="0.7.8"
+libzenv="0.3.5"
 destversion="1"
 
-Download_Global 16.1 24.1 117.1
-
-
+Download_Global 27.1 10.1 8.1
