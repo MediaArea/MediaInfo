@@ -255,12 +255,13 @@ void File_MpegPs::Read_Buffer_Finalize()
     }
 
     //Bitrate coherancy
-    if (PTS>0 && PTS!=(int64u)-1 && DTS!=0 && File_Size!=(int64u)-1 && File_Size>SizeToAnalyze)
+    if (PTS>0 && PTS!=(int64u)-1 && DTS!=0 && File_Size!=(int64u)-1)
     {
         int64u BitRate_FromDuration=File_Size*8000*90/DTS;
         int64u BitRate_FromBitRates=PTS;
 
-        if (BitRate_FromDuration>=BitRate_FromBitRates*3 )
+        if (BitRate_FromDuration>=BitRate_FromBitRates*3
+         || BitRate_FromDuration<=BitRate_FromBitRates/10)
         {
             //Clearing durations
             for (size_t StreamKind=0; StreamKind<=Stream_Text; StreamKind++)
