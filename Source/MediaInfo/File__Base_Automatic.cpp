@@ -3412,7 +3412,7 @@ void File__Base_General (ZtringListList &Info)
     "StreamKindID;;;N NI;;;Number of the stream (base=0)\n"
     "StreamKindPos;;;N NI;;;When multiple streams, number of the stream (base=1)\n"
     "Inform;;;N NT;;;Last **Inform** call\n"
-    "ID;;;Y YI;;;The ID for this stream in this file\n"
+    "ID;;;N YI;;;The ID for this stream in this file\n"
     "ID/String;;;Y NT;;;The ID for this stream in this file\n"
     "UniqueID;;;N YI;;;The unique ID for this stream, should be copied with stream copy\n"
     "GeneralCount;1;;N NI;;;Number of general streams\n"

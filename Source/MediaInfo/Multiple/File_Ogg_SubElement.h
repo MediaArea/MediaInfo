@@ -80,6 +80,8 @@ private :
     void Identification_audio();
     void Identification_text();
     void Identification_fLaC();
+    void Identification_fishead();
+    void Identification_fisbone();
     void Comment();
     void Default();
 

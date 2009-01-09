@@ -65,6 +65,8 @@ File_Ogg::File_Ogg()
     //Temp - Stream
     Chunk_Sizes_Finished=true;
     packet_type=0;
+    continued=false;
+    eos=false;
 }
 
 //***************************************************************************
@@ -187,7 +189,7 @@ void File_Ogg::Header_Parse()
     Get_L1 (flags,                                              "header_type_flag");
         Get_Flags (flags, 0, continued,                         "continued packet");
         Skip_Flags(flags, 1,                                    "first page of logical bitstream (bos)");
-        Skip_Flags(flags, 2,                                    "last page of logical bitstream (eos)");
+        Get_Flags (flags, 2, eos,                               "last page of logical bitstream (eos)");
     Get_L8 (absolute_granule_position,                          "absolute granule position");
     Get_L4 (stream_serial_number,                               "stream serial number");
     Get_L4 (page_sequence_no,                                   "page sequence no");
@@ -254,7 +256,12 @@ void File_Ogg::Data_Parse()
              || (Chunk_Sizes_Pos==Chunk_Sizes.size()-1 && Chunk_Sizes_Finished))
                 Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, 0); //Purge old datas
 
+            Element_Offset+=Chunk_Sizes[Chunk_Sizes_Pos];
+            continued=false; //If there is another chunk, this can not be a continued chunk
             if (Parser->File_GoTo!=(int64u)-1)
+                Chunk_Sizes_Pos=Chunk_Sizes.size();
+
+            if (Parser->File_GoTo!=(int64u)-1 || (Element_Offset==Element_Size && eos))
             {
                 Open_Buffer_Finalize(Parser);
                 if (Count_Get(Stream_General)==0)
@@ -262,10 +269,6 @@ void File_Ogg::Data_Parse()
                 StreamsToDo--;
             }
 
-            Element_Offset+=Chunk_Sizes[Chunk_Sizes_Pos];
-            continued=false; //If there is another chunk, this can not be a continued chunk
-            if (Parser->File_GoTo!=(int64u)-1)
-                Chunk_Sizes_Pos=Chunk_Sizes.size();
         }
 
     //End of stream

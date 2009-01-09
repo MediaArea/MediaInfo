@@ -97,6 +97,10 @@ namespace Elements
     OGG_ID(audio,     016175, 64696F00, 7)
     OGG_ID(text,      017465, 78740000, 7)
     OGG_ID(fLaC,           0, 664C6143, 4)
+
+    //Ogg Skeleton
+    OGG_ID(fishead, 66697368, 65616400, 8)
+    OGG_ID(fisbone, 66697362, 6F6E6500, 8)
 }
 
 //***************************************************************************
@@ -310,6 +314,8 @@ void File_Ogg_SubElement::Identification()
     ELEMENT_CASE(audio)
     ELEMENT_CASE(text)
     ELEMENT_CASE(fLaC)
+    ELEMENT_CASE(fishead)
+    ELEMENT_CASE(fisbone)
     else
     {
         Skip_XX(Element_Size,                                   "Unkown");
@@ -322,7 +328,11 @@ void File_Ogg_SubElement::Identification()
 
     //Filling
     StreamKind=StreamKind_Last;
-    Identified=true;
+    if (0) ;
+    ELEMENT_CASE(fishead)
+    ELEMENT_CASE(fisbone)
+    else
+        Identified=true;
 }
 
 //---------------------------------------------------------------------------
@@ -614,6 +624,61 @@ void File_Ogg_SubElement::Identification_fLaC()
     Fill(Stream_Audio, 0, Audio_Codec, "FLAC");
     Fill(Stream_Audio, 0, Audio_MuxingMode, "pre-FLAC 1.1.1");
     WithType=false;
+}
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_fishead()
+{
+    //Quick workaroud for Identification bool
+    if (Element_Offset==Element_Size)
+        return;
+
+    Element_Info("Skeleton");
+
+    //Parsing
+    int16u VersionMajor;
+    Skip_Local(7,                                               "Signature");
+    Skip_B1   (                                                 "Signature");
+    Get_L2 (VersionMajor,                                       "Version major");
+    if (VersionMajor==3)
+    {
+        Skip_L2(                                                "Version minor");
+        Skip_L8(                                                "Presentationtime numerator");
+        Skip_L8(                                                "Presentationtime denominator");
+        Skip_L8(                                                "Basetime numerator");
+        Skip_L8(                                                "Basetime denominator");
+        Skip_L16(                                               "UTC");
+        Skip_L4(                                                "UTC");
+    }
+    if (Element_Offset<Element_Size)
+        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
+}
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_fisbone()
+{
+    //Quick workaroud for Identification bool
+    if (Element_Offset==Element_Size)
+        return;
+
+    Element_Info("Skeleton");
+
+    //Parsing
+    int32u Offset;
+    Skip_Local(7,                                               "Signature");
+    Skip_B1   (                                                 "Signature");
+    Get_L4 (Offset,                                             "Offset to message header fields");
+    Skip_L4(                                                    "Serial number");
+    Skip_L4(                                                    "Number of header packets");
+    Skip_L8(                                                    "Granulerate numerator");
+    Skip_L8(                                                    "Granulerate denominator");
+    Skip_L8(                                                    "Basegranule");
+    Skip_L4(                                                    "Preroll");
+    Skip_L1(                                                    "Granuleshift");
+    if (Element_Offset<8+Offset)
+        Skip_XX(8+Offset-Element_Offset,                        "Unknown");
+    if (Element_Offset<Element_Size)
+        Skip_Local(Element_Size-Element_Offset,                 "Unknown");
 }
 
 //---------------------------------------------------------------------------

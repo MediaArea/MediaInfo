@@ -5,7 +5,7 @@ StreamKind/String;;;N NI;;;Stream type name
 StreamKindID;;;N NI;;;Number of the stream (base=0)
 StreamKindPos;;;N NI;;;When multiple streams, number of the stream (base=1)
 Inform;;;N NT;;;Last **Inform** call
-ID;;;Y YI;;;The ID for this stream in this file
+ID;;;N YI;;;The ID for this stream in this file
 ID/String;;;Y NT;;;The ID for this stream in this file
 UniqueID;;;N YI;;;The unique ID for this stream, should be copied with stream copy
 GeneralCount;1;;N NI;;;Number of general streams

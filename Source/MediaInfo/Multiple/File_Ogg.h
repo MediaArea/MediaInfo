@@ -88,6 +88,7 @@ private :
 
     int8u packet_type;
     bool continued;
+    bool eos;
     bool continued_NextFrame;
     std::map<int64u, stream> Stream;
     std::vector<size_t>      Chunk_Sizes;
