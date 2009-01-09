@@ -233,6 +233,9 @@ const char* Mpegv_extension_start_code_identifier[]=
 File_Mpegv::File_Mpegv()
 :File__Analyze()
 {
+    //Config
+    Trusted_Multiplier=2;
+
     //In
     MPEG_Version=1;
     Frame_Count_Valid=32;

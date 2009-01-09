@@ -243,7 +243,7 @@ bool File_Adts::Synchronize()
                     return false; //Need more data
 
                 //Testing
-                if ((CC2(Buffer+Buffer_Offset+aac_frame_length)&0xFFF6)!=0xFFF0)
+                if (aac_frame_length<=7 || (CC2(Buffer+Buffer_Offset+aac_frame_length)&0xFFF6)!=0xFFF0)
                     Buffer_Offset++;
                 else
                     break; //while()
