@@ -174,8 +174,10 @@ void File_VorbisCom::Comment()
              if (Key==_T("ADDED_TIMESTAMP"))        Fill(StreamKind_Common,   0, "Added_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/1000));
         else if (Key==_T("ALBUM ARTIST"))           {if (Value!=Retrieve(StreamKind_Common,   0, "Performer")) Fill(StreamKind_Common,   0, "Performer", Value);}
         else if (Key==_T("ALBUM"))                  Fill(StreamKind_Common,   0, "Album", Value);
+        else if (Key==_T("ALBUM_COMMENT"))          Fill(StreamKind_Common,   0, "Comment", Value);
         else if (Key==_T("ARTIST"))                 {if (Value!=Retrieve(StreamKind_Common,   0, "Performer")) Fill(StreamKind_Common,   0, "Performer", Value);}
         else if (Key==_T("AUTHOR"))                 Fill(StreamKind_Common,   0, "WrittenBy", Value);
+        else if (Key==_T("CLASS"))                  Fill(StreamKind_Common,   0, "ContentType", Value);
         else if (Key==_T("COMMENT"))                Fill(StreamKind_Common,   0, "Comment", Value);
         else if (Key==_T("COMMENTS"))               Fill(StreamKind_Common,   0, "Comment", Value);
         else if (Key==_T("CONTACT"))                Fill(StreamKind_Common,   0, "Publisher", Value);
@@ -203,7 +205,9 @@ void File_VorbisCom::Comment()
         else if (Key==_T("REPLAYGAIN_TRACK_GAIN"))  Fill(StreamKind_Specific, 0, "ReplayGain_Gain",       Value.To_float64(), 2);
         else if (Key==_T("REPLAYGAIN_TRACK_PEAK"))  Fill(StreamKind_Specific, 0, "ReplayGain_Peak",       Value.To_float64(), 6);
         else if (Key==_T("TITLE"))                  Fill(StreamKind_Common,   0, "Title", Value);
-        else if (Key==_T("TRACKNUMBER"))            Fill(StreamKind_Common,   0, "Track/Position", Value);
+        else if (Key==_T("TOTALTRACKS"))            Fill(StreamKind_Common,   0, "Track/Position_Total", Value);
+        else if (Key==_T("TRACK_COMMENT"))          Fill(StreamKind_Multiple, 0, "Comment", Value);
+        else if (Key==_T("TRACKNUMBER"))            Fill(StreamKind_Multiple, 0, "Track/Position", Value);
         else if (Key==_T("VERSION"))                Fill(StreamKind_Common,   0, "Track/More", Value);
         else if (Key.find(_T("CHAPTER"))==0)
         {
