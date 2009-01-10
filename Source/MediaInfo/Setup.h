@@ -259,6 +259,9 @@
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_SPEEX_NO) && !defined(MEDIAINFO_SPEEX_YES)
     #define MEDIAINFO_SPEEX_YES
 #endif
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_PS2A_NO) && !defined(MEDIAINFO_PS2A_YES)
+    #define MEDIAINFO_PS2A_YES
+#endif
 
 //---------------------------------------------------------------------------
 // Text

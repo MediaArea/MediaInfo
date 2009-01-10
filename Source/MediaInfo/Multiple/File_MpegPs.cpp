@@ -71,6 +71,9 @@
 #if defined(MEDIAINFO_LATM_YES)
     #include "MediaInfo/Audio/File_Latm.h"
 #endif
+#if defined(MEDIAINFO_PS2A_YES)
+    #include "MediaInfo/Audio/File_Ps2Audio.h"
+#endif
 #if defined(MEDIAINFO_RLE_YES)
     #include "MediaInfo/Image/File_Rle.h"
 #endif
@@ -1481,16 +1484,64 @@ void File_MpegPs::private_stream_1()
 //---------------------------------------------------------------------------
 void File_MpegPs::private_stream_1_Choose_DVD_ID()
 {
+    private_stream_1_IsDvdVideo=false;
+
+    if (Element_Size<4)
+        return;
+
     //Parsing
     int8u  CodecID;
-    Get_B1 (CodecID,                                        "CodecID");
+    Get_B1 (CodecID,                                            "CodecID");
 
     //Testing
-    //PCM
-    if (CodecID>=0xA0 && CodecID<=0xAF && Element_Size>=7 && Buffer[Buffer_Offset+6]==0x80)
+    //Subtitles (CVD)
+         if (CodecID>=0x00 && CodecID<=0x0F)
     {
         private_stream_1_IsDvdVideo=true;
         private_stream_1_Offset=1;
+    }
+    //Subtitles (DVD)
+    else if (CodecID>=0x20 && CodecID<=0x3F)
+    {
+        private_stream_1_IsDvdVideo=true;
+        private_stream_1_Offset=1;
+    }
+    //Subtitles (SVCD)
+    else if (CodecID>=0x70 && CodecID<=0x7F)
+    {
+        private_stream_1_IsDvdVideo=true;
+        private_stream_1_Offset=1;
+    }
+    //PCM
+    else if (CodecID>=0xA0 && CodecID<=0xAF && Element_Size>=7 && Buffer[Buffer_Offset+6]==0x80)
+    {
+        private_stream_1_IsDvdVideo=true;
+        private_stream_1_Offset=1;
+    }
+    //PS2-MPG
+    else if (CodecID==0xFF)
+    {
+        int16u StreamID;
+        int8u  SubID;
+        Get_B1 (SubID,                                          "CodeID (part 2)");
+        Get_B2 (StreamID,                                       "Stream ID");
+
+             if ((SubID&0xFE)==0xA0) //0xFFA0 or 0xFFA1
+        {
+            //PS2-MPG PCM/ADPCM
+            private_stream_1_Offset=4;
+            private_stream_1_ID=(int8u)StreamID; //ID is maybe 2 byte long, but private_stream_1_ID is an int8u
+            return;
+        }
+        else if (SubID==0x90) //0xFF90
+        {
+            //PS2-MPG AC-3 or subtitles
+            private_stream_1_Offset=4;
+            private_stream_1_ID=(int8u)StreamID; //ID is maybe 2 byte long, but private_stream_1_ID is an int8u
+            return;
+        }
+        else
+            return;
     }
     else
     {
@@ -1501,8 +1552,14 @@ void File_MpegPs::private_stream_1_Choose_DVD_ID()
 
         if (Count>0 && 4+(int64u)Next+4<=Element_Size)
         {
-            //Subtitles
+            //Subtitles (CVD)
+                 if (CodecID>=0x00 && CodecID<=0x0F)
+                ; //Seems to not work with subtitles, to be confirmed
+            //Subtitles (DVD)
                  if (CodecID>=0x20 && CodecID<=0x3F)
+                ; //Seems to not work with subtitles, to be confirmed
+            //Subtitles (SVCD)
+                 if (CodecID>=0x70 && CodecID<=0x7F)
                 ; //Seems to not work with subtitles, to be confirmed
             //AC3
             else if (CodecID>=0x80 && CodecID<=0x87)
@@ -1527,14 +1584,18 @@ void File_MpegPs::private_stream_1_Choose_DVD_ID()
                 ;
             //MLP
             else if (CodecID>=0xB0 && CodecID<=0xBF)
+            {
                 if (CC2(Buffer+Buffer_Offset+4+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+3+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+2+Next)!=0x0B77)
                     return;
+            }
             //AC3+
             else if (CodecID>=0xC0 && CodecID<=0xCF)
             {
                 if (CC2(Buffer+Buffer_Offset+4+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+3+Next)!=0x0B77 && CC2(Buffer+Buffer_Offset+2+Next)!=0x0B77)
                     return;
             }
+            else
+                return;
 
             private_stream_1_IsDvdVideo=true;
             private_stream_1_Offset=4;
@@ -1586,10 +1647,16 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
                         }
         }
     }
-    else
+    else if (private_stream_1_IsDvdVideo)
     {
-        //Subtitles
+        //Subtitles (CVD)
+             if (private_stream_1_ID>=0x00 && private_stream_1_ID<=0x0F)
+            return ChooseParser_RLE();
+        //Subtitles (DVD)
              if (private_stream_1_ID>=0x20 && private_stream_1_ID<=0x3F)
+            return ChooseParser_RLE();
+        //Subtitles (SVCD)
+             if (private_stream_1_ID>=0x70 && private_stream_1_ID<=0x7F)
             return ChooseParser_RLE();
         //AC3
         else if (private_stream_1_ID>=0x80 && private_stream_1_ID<=0x87)
@@ -1609,6 +1676,21 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
         //AC3+
         else if (private_stream_1_ID>=0xC0 && private_stream_1_ID<=0xCF)
             return ChooseParser_AC3();
+        else
+            return ChooseParser_NULL();
+    }
+    else
+    {
+             if (Element_Size>2 && CC2(Buffer+Buffer_Offset)==0x0B77)
+            return ChooseParser_AC3(); //AC3/AC3+
+        else if (Element_Size>4 && CC4(Buffer+Buffer_Offset)==0x7FFE8001)
+            return ChooseParser_DTS(); //DTS
+        else if (Element_Size>2 && (CC2(Buffer+Buffer_Offset)&0xFFFE)==0xFFA0) //0xFFA0 or 0xFFA1
+            return ChooseParser_PS2(); //PS2-MPG PCM/ADPCM
+        else if (Element_Size>6 && CC2(Buffer+Buffer_Offset)==0xFF90 && CC2(Buffer+Buffer_Offset+4)==0x0B77)
+            return ChooseParser_AC3(); //PS2-MPG AC-3
+        else if (Element_Size>6 && CC2(Buffer+Buffer_Offset)==0xFF90 && CC2(Buffer+Buffer_Offset+4)==0x0000)
+            return ChooseParser_RLE(); //PS2-MPG Subtitles
         else
             return ChooseParser_NULL();
     }
@@ -1703,6 +1785,9 @@ void File_MpegPs::private_stream_1_Element_Info()
         //AC3+
         else if (private_stream_1_ID>=0xC0 && private_stream_1_ID<=0xCF)
             Element_Info("AC3+");
+        //PS2
+        else if (private_stream_1_ID>=0xC0 && private_stream_1_ID<=0xCF)
+            Element_Info("PS2");
     }
 }
 
@@ -2713,6 +2798,21 @@ File__Analyze* File_MpegPs::ChooseParser_AES3()
         Handle->Stream_Prepare(Stream_Audio);
         Handle->Fill(Stream_Audio, 0, Audio_Format, "AES3");
         Handle->Fill(Stream_Audio, 0, Audio_Codec,  "AES3");
+    #endif
+    return Handle;
+}
+
+//---------------------------------------------------------------------------
+File__Analyze* File_MpegPs::ChooseParser_PS2()
+{
+    //Filling
+    #if defined(MEDIAINFO_PS2A_YES)
+        File__Analyze* Handle=new File_Ps2Audio();
+    #else
+        //Filling
+        File__Analyze* Handle=new File_Unknown();
+        Open_Buffer_Init(Handle);
+        Handle->Stream_Prepare(Stream_Audio);
     #endif
     return Handle;
 }

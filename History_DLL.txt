@@ -13,6 +13,7 @@ Version 0.7.9, 200
 + OGG: Speex support
 + OGG: other formats (JNG, Kate, MIDI, PCM...) detection
 + SWF: detection of more audio streams
++ MPEG-PS: Handling of PlayStation2 audio
 x #2474280, OGG: handling of files with Skeleton Metadata
 x #2445654, OGG: better false-positives detection
 
