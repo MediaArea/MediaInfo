@@ -8,13 +8,17 @@ AU;;;A;Au;uLaw/AU Audio File;au;
 DTS;;;A;Dts;Digital Theater Systems;dts;
 DTS-HD;;;A;Dts;Digital Theater Systems;dts;
 E-AC-3;;;A;Ac3;Audio Coding 3;dd+;
+Extended Module;;;A;ExtendedModule;;xm;
 FLAC;;;A;Flac;Free Lossless Audio Codec;flac;http://flac.sourceforge.net/
+Impulse Tracker;;;A;ImpulseTracker;;it;
 MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface;;
+Module;;;A;Module;;mod;
 Monkey's Audio;;;A;Ape;;ape mac;http://www.monkeysaudio.com/
 MPEG Audio;;;A;Mpega;;m1a mpa1 mp1 m2a mpa2 mp2 mp3;
 MusePack SV7;;;A;Mpc;;mpc;http://www.musepack.net
 MusePack SV8;;;A;Mpc;;mp+;http://www.musepack.net
 RIFF-MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface;;
+Scream Tracker 3;;;A;S3m;;s3m;
 TrueHD;;;A;Ac3;;dts;
 TwinVQ;;;A;TwinVQ;Transform domain Weighted INterleave Vector Quantization;vqf;http://www.twinvq.org/english/index_en.html
 Vorbis;;;A;;;;
@@ -71,4 +75,3 @@ MPEG Video;;;V;Mpegv;;mpgv mpv mp1v m1v mp2v m2v;
 MPEG-4 Visual;;;V;Mpeg4;;mp4v;
 VC-1;;;V;Vc1;;vc1;
 Theora;;;V;;;;
-AVS Video;;;V;AvsV;Audio Video Standart, Video part;;http://www.avs.org.cn/

@@ -121,8 +121,6 @@ public :
           Ztring    Inform_Get ();
           Ztring    Inform_Get (const Ztring &Value);
 
-    const Ztring   &Container_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name);
-
     const Ztring   &Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name);
           InfoMap  &Format_Get(); //Should not be, but too difficult to hide it
 

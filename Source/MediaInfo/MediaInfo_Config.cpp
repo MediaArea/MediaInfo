@@ -48,7 +48,6 @@ const Ztring EmptyZtring_Const; //Use it when we can't return a reference to a t
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-void File__Base_Container               (InfoMap &Info);
 void File__Base_CodecID_General_Mpeg4   (InfoMap &Info);
 void File__Base_CodecID_Video_Matroska  (InfoMap &Info);
 void File__Base_CodecID_Video_Mpeg4     (InfoMap &Info);
@@ -953,18 +952,6 @@ Ztring MediaInfo_Config::Inform_Get (const Ztring &Value)
     if (Pos==Error || 1>=Custom_View[Pos].size())
         return EmptyString_Get();
     return Custom_View[Pos][1];
-}
-
-//---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Container_Get (const Ztring &Value, infoformat_t KindOfFormatInfo)
-{
-    //Loading codec table if not yet done
-    CS.Enter();
-    if (Container.empty())
-        File__Base_Container(Container);
-    CS.Leave();
-
-    return Container.Get(Value, KindOfFormatInfo);
 }
 
 //---------------------------------------------------------------------------
