@@ -945,21 +945,13 @@ void File__Analyze::Get_SE(int32s &Info, const char* Name)
     int LeadingZeroBits=0;
     while(BS->Remain()>0 && BS->Get(1)==0)
         LeadingZeroBits++;
+    INTEGRITY(LeadingZeroBits<=32, "(Problem)", 0)
     double InfoD=pow(2, (float)LeadingZeroBits)-1+BS->Get(LeadingZeroBits);
-    if (InfoD<=(int32u)-1)
-        Info=(int32s)(pow(-1, InfoD+1)*(int32u)ceil(InfoD/2));
-    else
-    {
-        Trusted_IsNot("(Problem)");
-        Info=0;
-    }
+    INTEGRITY(InfoD<int32u(-1), "(Problem)", 0)
+    Info=(int32s)(pow(-1, InfoD+1)*(int32u)ceil(InfoD/2));
+
     if (Config_Details>0)
-    {
-         if (InfoD<=(int32u)-1)
-            Param(Name, Info);
-         else
-            Param(Name, "(Problem)");
-    }
+        Param(Name, Info);
 }
 
 //---------------------------------------------------------------------------
@@ -971,11 +963,10 @@ void File__Analyze::Skip_SE(const char* Name)
         LeadingZeroBits++;
     if (Config_Details>0)
     {
+        INTEGRITY(LeadingZeroBits<=32, "(Problem)", 0)
         double InfoD=pow(2, (float)LeadingZeroBits)-1+BS->Get(LeadingZeroBits);
-        if (InfoD<=(int32u)-1)
-            Param(Name, (int32s)(pow(-1, InfoD+1)*(int32u)ceil(InfoD/2)));
-        else
-            Param(Name, "(Problem)");
+        INTEGRITY(InfoD<int32u(-1), "(Problem)", 0)
+        Param(Name, (int32s)(pow(-1, InfoD+1)*(int32u)ceil(InfoD/2)));
     }
     else
         BS->Skip(LeadingZeroBits);
@@ -988,21 +979,12 @@ void File__Analyze::Get_UE(int32u &Info, const char* Name)
     int LeadingZeroBits=0;
     while(BS->Remain()>0 && BS->Get(1)==0)
         LeadingZeroBits++;
+    INTEGRITY(LeadingZeroBits<=32, "(Problem)", 0)
     double InfoD=pow(2, (float)LeadingZeroBits);
-    if (InfoD<=(int32u)-1)
-        Info=(int32u)InfoD-1+BS->Get(LeadingZeroBits);
-    else
-    {
-        Trusted_IsNot("(Problem)");
-        Info=0;
-    }
+    Info=(int32u)InfoD-1+BS->Get(LeadingZeroBits);
+
     if (Config_Details>0)
-    {
-         if (InfoD<=(int32u)-1)
-            Param(Name, Info);
-         else
-            Param(Name, "(Problem)");
-    }
+        Param(Name, Info);
 }
 
 //---------------------------------------------------------------------------
@@ -1014,11 +996,9 @@ void File__Analyze::Skip_UE(const char* Name)
         LeadingZeroBits++;
     if (Config_Details>0)
     {
+        INTEGRITY(LeadingZeroBits<=32, "(Problem)", 0)
         double InfoD=pow(2, (float)LeadingZeroBits);
-        if (InfoD<=(int32u)-1)
-            Param(Name, (int32u)InfoD-1+BS->Get(LeadingZeroBits));
-        else
-            Param(Name, "(Problem)");
+        Param(Name, (int32u)InfoD-1+BS->Get(LeadingZeroBits));
     }
     else
         BS->Skip(LeadingZeroBits);
