@@ -26,6 +26,8 @@ Wave;;;A;Riff;;wav;
 WavPack;;;A;Wvpk;;wv wvc;http://www.wavpack.com
 7-Zip;;;C;7z;;7z;http://7-zip.org
 ACE;;;C;Ace;;ace;http://winace.com
+ELF;;;C;Elf;;so;
+MZ;;;C;Mz;;exe dll;
 RAR;;;C;Rar;From Rarlabs;rar;http://rarlabs.com
 ZIP;;;C;Zip;;zip;http://winzip.com
 Bitmap;;;I;Bmp;;bmp;

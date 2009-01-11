@@ -14,6 +14,7 @@ Version 0.7.9, 200
 + OGG: other formats (JNG, Kate, MIDI, PCM...) detection
 + SWF: detection of more audio streams
 + MPEG-PS: Handling of PlayStation2 audio
++ #2474119, Minimal MZ (PE) and ELF detection
 x #2474280, OGG: handling of files with Skeleton Metadata
 x #2445654, OGG: better false-positives detection
 x Floating point overflow correction

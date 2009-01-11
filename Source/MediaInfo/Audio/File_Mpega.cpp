@@ -1186,6 +1186,13 @@ bool File_Mpega::Detect_NonMPEGA ()
         return true;
     }
 
+    //Detect ELF files (one case with no possibility to detect false-positive...
+    if (CC4(Buffer)==0x7F454C46)
+    {
+        Finished();
+        return true;
+    }
+
     //Seems OK
     return false;
 }

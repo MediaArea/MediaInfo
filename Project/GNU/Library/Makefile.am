@@ -26,7 +26,9 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Archive/File_7z.cpp \
                        ../../../Source/MediaInfo/Archive/File_Ace.cpp \
                        ../../../Source/MediaInfo/Archive/File_Bzip2.cpp \
+                       ../../../Source/MediaInfo/Archive/File_Elf.cpp \
                        ../../../Source/MediaInfo/Archive/File_Gzip.cpp \
+                       ../../../Source/MediaInfo/Archive/File_Mz.cpp \
                        ../../../Source/MediaInfo/Archive/File_Rar.cpp \
                        ../../../Source/MediaInfo/Archive/File_Tar.cpp \
                        ../../../Source/MediaInfo/Archive/File_Zip.cpp \

@@ -633,7 +633,15 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Archive\File_Elf.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Archive\File_Gzip.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Archive\File_Mz.cpp"
 					>
 				</File>
 				<File
@@ -1149,7 +1157,15 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Archive\File_Elf.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Archive\File_Gzip.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Archive\File_Mz.h"
 					>
 				</File>
 				<File

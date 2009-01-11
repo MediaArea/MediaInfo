@@ -220,8 +220,14 @@
 #if defined(MEDIAINFO_BZIP2_YES)
     #include "MediaInfo/Archive/File_Bzip2.h"
 #endif
+#if defined(MEDIAINFO_ELF_YES)
+    #include "MediaInfo/Archive/File_Elf.h"
+#endif
 #if defined(MEDIAINFO_GZIP_YES)
     #include "MediaInfo/Archive/File_Gzip.h"
+#endif
+#if defined(MEDIAINFO_MZ_YES)
+    #include "MediaInfo/Archive/File_Mz.h"
 #endif
 #if defined(MEDIAINFO_RAR_YES)
     #include "MediaInfo/Archive/File_Rar.h"
@@ -441,8 +447,14 @@ void MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_BZIP2_YES)
         else if (Parser==_T("Bzip2"))       Info=new File_Bzip2();
     #endif
+    #if defined(MEDIAINFO_ELF_YES)
+        else if (Parser==_T("Elf"))         Info=new File_Elf();
+    #endif
     #if defined(MEDIAINFO_GZIP_YES)
         else if (Parser==_T("Gzip"))        Info=new File_Gzip();
+    #endif
+    #if defined(MEDIAINFO_MZ_YES)
+        else if (Parser==_T("Mz"))          Info=new File_Mz();
     #endif
     #if defined(MEDIAINFO_RAR_YES)
         else if (Parser==_T("Rar"))         Info=new File_Rar();
@@ -644,8 +656,14 @@ int MediaInfo_Internal::ListFormats()
     #if defined(MEDIAINFO_BZIP2_YES)
         delete Info; Info=new File_Bzip2();              if (ApplyMethod()>0) return 1;
     #endif
+    #if defined(MEDIAINFO_ELF_YES)
+        delete Info; Info=new File_Elf();                if (ApplyMethod()>0) return 1;
+    #endif
     #if defined(MEDIAINFO_GZIP_YES)
         delete Info; Info=new File_Gzip();               if (ApplyMethod()>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_MZ_YES)
+        delete Info; Info=new File_Mz();                 if (ApplyMethod()>0) return 1;
     #endif
     #if defined(MEDIAINFO_RAR_YES)
         delete Info; Info=new File_Rar();                if (ApplyMethod()>0) return 1;
@@ -682,7 +700,7 @@ bool MediaInfo_Internal::LibraryIsModified ()
      || defined(MEDIAINFO_AC3_NO) || defined(MEDIAINFO_ADIF_NO) || defined(MEDIAINFO_ADTS_NO) || defined(MEDIAINFO_AMR_NO) || defined(MEDIAINFO_DTS_NO) || defined(MEDIAINFO_FLAC_NO) || defined(MEDIAINFO_APE_NO) || defined(MEDIAINFO_MPC_NO) || defined(MEDIAINFO_MPCSV8_NO) || defined(MEDIAINFO_MPEGA_NO) || defined(MEDIAINFO_TWINVQ_NO) || defined(MEDIAINFO_XM_NO) || defined(MEDIAINFO_MOD_NO) || defined(MEDIAINFO_S3M_NO) || defined(MEDIAINFO_IT_NO) || defined(MEDIAINFO_AES3_NO) || defined(MEDIAINFO_SPEEX_NO) || defined(MEDIAINFO_PS2A_NO) \
      || defined(MEDIAINFO_OTHERTEXT_NO) \
      || defined(MEDIAINFO_PNG_NO) || defined(MEDIAINFO_JPEG_NO) || defined(MEDIAINFO_BMP_NO) || defined(MEDIAINFO_ICO_NO) || defined(MEDIAINFO_GIF_NO) || defined(MEDIAINFO_TIFF_NO) \
-     || defined(MEDIAINFO_7Z_NO) || defined(MEDIAINFO_ZIP_NO) || defined(MEDIAINFO_RAR_NO) || defined(MEDIAINFO_ACE_NO) \
+     || defined(MEDIAINFO_7Z_NO) || defined(MEDIAINFO_ZIP_NO) || defined(MEDIAINFO_RAR_NO) || defined(MEDIAINFO_ACE_NO) || defined(MEDIAINFO_ELF_NO) || defined(MEDIAINFO_MZ_NO) \
      || defined(MEDIAINFO_OTHER_NO) || defined(MEDIAINFO_DUMMY_NO)
         return true;
     #else

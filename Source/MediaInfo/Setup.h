@@ -307,8 +307,14 @@
 #if !defined(MEDIAINFO_ARCHIVE_NO) && !defined(MEDIAINFO_BZIP2_NO) && !defined(MEDIAINFO_BZIP2_YES)
     #define MEDIAINFO_BZIP2_YES
 #endif
+#if !defined(MEDIAINFO_ARCHIVE_NO) && !defined(MEDIAINFO_ELF_NO) && !defined(MEDIAINFO_ELF_YES)
+    #define MEDIAINFO_ELF_YES
+#endif
 #if !defined(MEDIAINFO_ARCHIVE_NO) && !defined(MEDIAINFO_GZIP_NO) && !defined(MEDIAINFO_GZIP_YES)
     #define MEDIAINFO_GZIP_YES
+#endif
+#if !defined(MEDIAINFO_ARCHIVE_NO) && !defined(MEDIAINFO_MZ_NO) && !defined(MEDIAINFO_MZ_YES)
+    #define MEDIAINFO_MZ_YES
 #endif
 #if !defined(MEDIAINFO_ARCHIVE_NO) && !defined(MEDIAINFO_RAR_NO) && !defined(MEDIAINFO_RAR_YES)
     #define MEDIAINFO_RAR_YES
