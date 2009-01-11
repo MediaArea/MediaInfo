@@ -296,7 +296,9 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_7z.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_7z" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Ace.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Ace" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Bzip2.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Bzip2" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Elf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Elf" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Gzip.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Gzip" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Mz.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Mz" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Rar.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Rar" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Tar.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Tar" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive\File_Zip.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Zip" FORMNAME="" DESIGNCLASS=""/>
