@@ -1068,7 +1068,7 @@ void File__Base_Format (InfoMap &Info)
     "Flash Video;;;M;Flv;;flv;http://www.macromedia.com/go/getflashplayer\n"
     "Google Video;;;M;Riff;Hack of AVI;gvi;http://video.google.com/playerdownload.html\n"
     "Matroska;;;M;Mk;;mkv mka mks;http://packs.matroska.org/\n"
-    "MPEG Program;;;M;MpegPs;;mpeg mpg vob\n"
+    "MPEG Program;;;M;MpegPs;;mpeg mpg vob pss\n"
     "MPEG Transport;;;M;MpegTs;;ts m2t m2s m4t m4s ts tp trp\n"
     "MPEG-4;;;M;Mpeg4;;mp4 m4v m4a m4p 3gpp 3gp 3gpp2 3g2 k3g jpm jpx mqv\n"
     "MTV;;;M;Other;Chinese hack of MPEG-1 layer 3;mtv;http://en.wikipedia.org/wiki/Chinese_MP4/MTV_Player\n"
