@@ -8,7 +8,7 @@
 //
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR .  See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
@@ -168,6 +168,7 @@ namespace Elements
     const int64u moov_trak=0x7472616B;
     const int64u moov_trak_edts=0x65647473;
     const int64u moov_trak_edts_elst=0x656C7374;
+    const int64u moov_trak_load=0x6C6F6164;
     const int64u moov_trak_mdia=0x6D646961;
     const int64u moov_trak_mdia_hdlr=0x68646C72;
     const int64u moov_trak_mdia_hdlr_MPEG=0x4D504547;
@@ -191,6 +192,10 @@ namespace Elements
     const int64u moov_trak_mdia_minf_dinf_dref_rsrc=0x72737263;
     const int64u moov_trak_mdia_minf_dinf_dref_url_=0x75726C20;
     const int64u moov_trak_mdia_minf_dinf_derf_urn_=0x75726E20;
+    const int64u moov_trak_mdia_minf_gmhd=0x676D6864;
+    const int64u moov_trak_mdia_minf_gmhd_gmin=0x676D696E;
+    const int64u moov_trak_mdia_minf_gmhd_tmcd=0x746D6364;
+    const int64u moov_trak_mdia_minf_gmhd_tmcd_tcmi=0x74636D69;
     const int64u moov_trak_mdia_minf_hint=0x68696E74;
     const int64u moov_trak_mdia_minf_hdlr=0x68646C72;
     const int64u moov_trak_mdia_minf_hmhd=0x686D6864;
@@ -206,6 +211,8 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_mp4a=0x6D703461;
     const int64u moov_trak_mdia_minf_stbl_stsd_mp4s=0x6D703473;
     const int64u moov_trak_mdia_minf_stbl_stsd_mp4v=0x6D703476;
+    const int64u moov_trak_mdia_minf_stbl_stsd_tmcd=0x746D6364;
+    const int64u moov_trak_mdia_minf_stbl_stsd_tmcd_name=0x6E616D65;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_alac=0x616C6163;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_avcC=0x61766343;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_btrt=0x62747274;
@@ -341,6 +348,7 @@ void File_Mpeg4::Data_Parse()
                 ATOM_BEGIN
                 ATOM(moov_trak_edts_elst)
                 ATOM_END
+            ATOM(moov_trak_load)
             LIST(moov_trak_mdia)
                 ATOM_BEGIN
                 ATOM(moov_trak_mdia_hdlr)
@@ -372,6 +380,14 @@ void File_Mpeg4::Data_Parse()
                             ATOM_END
                         ATOM_END
                     ATOM(moov_trak_mdia_minf_hdlr)
+                    LIST(moov_trak_mdia_minf_gmhd)
+                        ATOM_BEGIN
+                        ATOM(moov_trak_mdia_minf_gmhd_gmin)
+                        LIST(moov_trak_mdia_minf_gmhd_tmcd)
+                            ATOM_BEGIN
+                            ATOM(moov_trak_mdia_minf_gmhd_tmcd_tcmi)
+                            ATOM_END
+                        ATOM_END
                     ATOM(moov_trak_mdia_minf_hint)
                     ATOM(moov_trak_mdia_minf_hmhd)
                     ATOM(moov_trak_mdia_minf_nmhd)
@@ -384,6 +400,10 @@ void File_Mpeg4::Data_Parse()
                         ATOM(moov_trak_mdia_minf_stbl_stsc)
                         LIST(moov_trak_mdia_minf_stbl_stsd)
                             ATOM_BEGIN
+                            LIST(moov_trak_mdia_minf_stbl_stsd_tmcd)
+                                ATOM_BEGIN
+                                ATOM(moov_trak_mdia_minf_stbl_stsd_tmcd_name)
+                                ATOM_END
                             LIST_DEFAULT(moov_trak_mdia_minf_stbl_stsd_xxxx)
                                 ATOM_BEGIN
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_alac)
@@ -1277,6 +1297,23 @@ void File_Mpeg4::moov_trak_edts_elst()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_load()
+{
+    Element_Name("Preload");
+
+    //Parsing
+    Info_B4(PreloadTime,                                        "Preload time"); Param_Info(PreloadTime*1000/TimeScale, " ms");
+    Info_B4(PreloadFlags,                                       "Flags");
+        Skip_Flags(PreloadFlags, 0,                             "PreloadAlways");
+        Skip_Flags(PreloadFlags, 1,                             "TrackEnabledPreload");
+    Info_B4(HintFlags,                                          "Hint flags");
+        Skip_Flags(HintFlags,  2,                               "KeepInBuffer");
+        Skip_Flags(HintFlags,  8,                               "HighQuality");
+        Skip_Flags(HintFlags, 20,                               "SingleFieldPlayback");
+        Skip_Flags(HintFlags, 26,                               "DeinterlaceFields");
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia()
 {
     Element_Name("Media");
@@ -1505,6 +1542,59 @@ void File_Mpeg4::moov_trak_mdia_minf_dinf_dref_rsrc()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_gmhd()
+{
+    Element_Name("Generic Media Header");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_gmhd_gmin()
+{
+    NAME_VERSION_FLAG("Generic Media Info");
+
+    //Parsing
+    Skip_B2(                                                    "Graphics mode");
+    Skip_B2(                                                    "Opcolor (red)");
+    Skip_B2(                                                    "Opcolor (green)");
+    Skip_B2(                                                    "Opcolor (blue)");
+    Skip_B2(                                                    "Balance");
+    Skip_B2(                                                    "Reserved");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_gmhd_tmcd()
+{
+    Element_Name("TimeCode");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_gmhd_tmcd_tcmi()
+{
+    NAME_VERSION_FLAG("TimeCode Media Information");
+
+    //Parsing
+    int8u FontNameSize;
+    Skip_B2(                                                    "Text font");
+    Info_B2(TextFace,                                           "Text face");
+        Skip_Flags(TextFace, 0,                                 "Bold");
+        Skip_Flags(TextFace, 1,                                 "Italic");
+        Skip_Flags(TextFace, 2,                                 "Underline");
+        Skip_Flags(TextFace, 3,                                 "Outline");
+        Skip_Flags(TextFace, 4,                                 "Shadow");
+        Skip_Flags(TextFace, 5,                                 "Condense");
+        Skip_Flags(TextFace, 6,                                 "Extend");
+    Skip_BFP4(16,                                               "Text size");
+    Skip_B2(                                                    "Text color (red)");
+    Skip_B2(                                                    "Text color (green)");
+    Skip_B2(                                                    "Text color (blue)");
+    Skip_B2(                                                    "Background color (red)");
+    Skip_B2(                                                    "Background color (green)");
+    Skip_B2(                                                    "Background color (blue)");
+    Get_B1 (FontNameSize,                                       "Font name size");
+    Skip_Local(FontNameSize,                                    "Font name");
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_hint()
 {
     NAME_VERSION_FLAG("Hint");
@@ -1677,6 +1767,40 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd()
 
     //Parsing
     Skip_B4(                                                    "Count");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tmcd()
+{
+    Element_Name("TimeCode");
+
+    //Parsing
+    Skip_B4(                                                    "Reserved");
+    Skip_B2(                                                    "Reserved");
+    Skip_B2(                                                    "Data reference index");
+    Skip_B4(                                                    "Reserved (Flags)");
+    Info_B4(TimeCodeFlags,                                      "Flags (timecode)");
+        Skip_Flags(TimeCodeFlags, 0,                            "Drop frame");
+        Skip_Flags(TimeCodeFlags, 1,                            "24 hour max ");
+        Skip_Flags(TimeCodeFlags, 2,                            "Negative times OK");
+        Skip_Flags(TimeCodeFlags, 3,                            "Counter");
+    Skip_B4(                                                    "Time scale");
+    Skip_B4(                                                    "Frame duration");
+    Skip_B1(                                                    "Number of frames");
+    Skip_B1(                                                    "Unknown");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tmcd_name()
+{
+    Element_Name("Name (TimeCode)");
+
+    //Parsing
+    Ztring Value;
+    int16u Size, Language;
+    Get_B2(Size,                                                "Size");
+    Get_B2(Language,                                            "Language"); Param_Info(Language_Get(Language));
+    Get_Local(Size, Value,                                      "Value");
 }
 
 //---------------------------------------------------------------------------

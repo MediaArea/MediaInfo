@@ -84,6 +84,7 @@ private :
     void moov_trak();
     void moov_trak_edts();
     void moov_trak_edts_elst();
+    void moov_trak_load();
     void moov_trak_mdia();
     void moov_trak_mdia_hdlr();
     void moov_trak_mdia_imap();
@@ -100,6 +101,10 @@ private :
     void moov_trak_mdia_minf_dinf_dref();
     void moov_trak_mdia_minf_dinf_dref_alis();
     void moov_trak_mdia_minf_dinf_dref_rsrc();
+    void moov_trak_mdia_minf_gmhd();
+    void moov_trak_mdia_minf_gmhd_gmin();
+    void moov_trak_mdia_minf_gmhd_tmcd();
+    void moov_trak_mdia_minf_gmhd_tmcd_tcmi();
     void moov_trak_mdia_minf_hint();
     void moov_trak_mdia_minf_hdlr();
     void moov_trak_mdia_minf_hmhd();
@@ -112,6 +117,8 @@ private :
     void moov_trak_mdia_minf_stbl_stdp();
     void moov_trak_mdia_minf_stbl_stsc();
     void moov_trak_mdia_minf_stbl_stsd();
+    void moov_trak_mdia_minf_stbl_stsd_tmcd();
+    void moov_trak_mdia_minf_stbl_stsd_tmcd_name();
     void moov_trak_mdia_minf_stbl_stsd_xxxx();
     void moov_trak_mdia_minf_stbl_stsd_xxxxSound();
     void moov_trak_mdia_minf_stbl_stsd_xxxxVideo();
