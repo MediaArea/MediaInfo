@@ -37,6 +37,13 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Const
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+extern const char* Id3v2_PictureType(int8u Type); //In Tag/File_Id3v2.cpp
+
+//***************************************************************************
 // Format
 //***************************************************************************
 
@@ -183,12 +190,12 @@ void File_VorbisCom::Comment()
         else if (Key==_T("COMMENTS"))               Fill(StreamKind_Common,   0, "Comment", Value);
         else if (Key==_T("CONTACT"))                Fill(StreamKind_Common,   0, "Publisher", Value);
         else if (Key==_T("COPYRIGHT"))              Fill(StreamKind_Common,   0, "Copyright", Value);
-        else if (Key==_T("DATE"))                   Fill(StreamKind_Common,   0, "Recorded_Date", Value);
+        else if (Key==_T("DATE"))                   Fill(StreamKind_Common,   0, "Recorded_Date", Value, true);
         else if (Key==_T("DESCRIPTION"))            Fill(StreamKind_Common,   0, "Description", Value);
         else if (Key==_T("ENCODER"))                Fill(StreamKind_Common,   0, "Encoded_Application", Value);
         else if (Key==_T("ENCODED_USING"))          Fill(StreamKind_Common,   0, "Encoded_Application", Value);
         else if (Key==_T("ENCODER_URL"))            Fill(StreamKind_Common,   0, "Encoded_Application/Url", Value);
-        else if (Key==_T("ENSEMBLE"))               Fill(StreamKind_Common,   0, "Accompaniment", Value);
+        else if (Key==_T("ENSEMBLE"))               {if (Value!=Retrieve(StreamKind_Common,   0, "Performer")) Fill(StreamKind_Common,   0, "Accompaniment", Value);}
         else if (Key==_T("GENRE"))                  Fill(StreamKind_Common,   0, "Genre", Value);
         else if (Key==_T("FIRST_PLAYED_TIMESTAMP")) Fill(StreamKind_Common,   0, "Played_First_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/10000));
         else if (Key==_T("ISRC"))                   Fill(StreamKind_Multiple, 0, "ISRC", Value);
@@ -201,6 +208,7 @@ void File_VorbisCom::Comment()
         else if (Key==_T("ORGANIZATION"))           Fill(StreamKind_Common,   0, "Producer", Value);
         else if (Key==_T("PERFORMER"))              Fill(StreamKind_Common,   0, "Performer", Value);
         else if (Key==_T("PLAY_COUNT"))             Fill(StreamKind_Multiple, 0, "Played_Count", Value.To_int64u());
+        else if (Key==_T("RATING"))                 Fill(StreamKind_Multiple, 0, "Rating", Value);
         else if (Key==_T("REPLAYGAIN_ALBUM_GAIN"))  Fill(StreamKind_Common,   0, "Album_ReplayGain_Gain", Value.To_float64(), 2);
         else if (Key==_T("REPLAYGAIN_ALBUM_PEAK"))  Fill(StreamKind_Common,   0, "Album_ReplayGain_Peak", Value.To_float64(), 6);
         else if (Key==_T("REPLAYGAIN_TRACK_GAIN"))  Fill(StreamKind_Specific, 0, "ReplayGain_Gain",       Value.To_float64(), 2);
@@ -210,6 +218,18 @@ void File_VorbisCom::Comment()
         else if (Key==_T("TRACK_COMMENT"))          Fill(StreamKind_Multiple, 0, "Comment", Value);
         else if (Key==_T("TRACKNUMBER"))            Fill(StreamKind_Multiple, 0, "Track/Position", Value);
         else if (Key==_T("VERSION"))                Fill(StreamKind_Common,   0, "Track/More", Value);
+        else if (Key==_T("YEAR"))                   {if (Value!=Retrieve(StreamKind_Common,   0, "Recorded_Date")) Fill(StreamKind_Common,   0, "Recorded_Date", Value);}
+        else if (Key.find(_T("COVERART"))==0)
+        {
+                 if (Key==_T("COVERARTCOUNT"))
+                ;
+            else if (Key.find(_T("COVERARTMIME"))==0)
+                Fill(Stream_General, 0, General_Cover_Mime, Value);
+            else if (Key.find(_T("COVERARTFILELINK"))==0)
+                Fill(Stream_General, 0, General_Cover_Data, _T("file://")+Value);
+            else if (Key.find(_T("COVERARTTYPE"))==0)
+                Fill(Stream_General, 0, General_Cover_Type, Id3v2_PictureType(Value.To_int8u()));
+        }
         else if (Key.find(_T("CHAPTER"))==0)
         {
             if (Count_Get(Stream_Chapters)==0)
