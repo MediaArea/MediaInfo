@@ -400,6 +400,19 @@ void File__Analyze::Skip_BF4(const char* Name)
     Element_Offset+=4;
 }
 
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_BFP4(size_t Bits, const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST(4);
+    BS_Begin();
+    int32u Integer=BS->Get4(Bits);
+    int32u Fraction=BS->Get4(32-Bits);
+    BS_End();
+    Element_Offset-=4; //Because of BS_End()
+    if (Config_Details>0) Param(Name, Integer+((float32)Fraction)/(1<<(32-Bits)));
+    Element_Offset+=4;
+}
+
 //***************************************************************************
 // Little Endian
 //***************************************************************************
@@ -664,7 +677,7 @@ void File__Analyze::Get_EB(int64u &Info, const char* Name)
 {
     //Element size
     INTEGRITY_SIZE_ATLEAST_INT(1);
-    if (Buffer[Buffer_Offset+Element_Offset]==0xFF)
+    if (Buffer[Buffer_Offset+(size_t)Element_Offset]==0xFF)
     {
         Info=File_Size-(File_Offset+Buffer_Offset+Element_Offset);
         if (Config_Details>0) Param(Name, "Unlimited");
@@ -1377,7 +1390,7 @@ void File__Analyze::Skip_UTF16L(int64u Bytes, const char* Name)
 void File__Analyze::Skip_PA(const char* Name)
 {
     INTEGRITY_SIZE_ATLEAST(1);
-    int8u Size=Buffer[Buffer_Offset+Element_Offset];
+    int8u Size=Buffer[Buffer_Offset+(size_t)Element_Offset];
     int8u Pad=Size%2?0:1;
     INTEGRITY_SIZE_ATLEAST(1+Size+Pad);
     if (Config_Details>0) Param(Name, Ztring().From_Local((const char*)(Buffer+Buffer_Offset+(size_t)Element_Offset+1), (size_t)Size));
