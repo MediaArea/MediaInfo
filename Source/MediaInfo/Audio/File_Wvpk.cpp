@@ -121,7 +121,7 @@ File_Wvpk::File_Wvpk()
     Frame_Count=0;
 
     //Temp - Technical info
-    total_samples_FirstFrame=0xFFFFFFFF;
+    total_samples_FirstFrame=(int32u)-1;
     block_index_FirstFrame=0;
     block_index_LastFrame=0;
     SamplingRate=(int8u)-1;
@@ -241,7 +241,7 @@ void File_Wvpk::Data_Parse()
     Frame_Count++;
 
     //Parsing
-    Element_Begin("Header", 32);
+    Element_Begin("Block Header");
     if (!FromMKV)
         Get_L2 (version,                                        "version");
     if (version/0x100==0x4)
@@ -257,12 +257,15 @@ void File_Wvpk::Data_Parse()
         Get_L4 (block_samples,                                  "block_samples");
         if (block_samples!=0) //empty frames have other values empty
         {
-            if (block_index==0) //Only the frame with block_index==0
-                total_samples_FirstFrame=total_samples; //Note: total_samples is not trustable for a cutted file
-            if (Frame_Count==1)
-                block_index_FirstFrame=block_index; //Save the block_index of the first block
-            block_index_LastFrame=block_index;
-            block_samples_LastFrame=block_samples;
+            if (!FromMKV)
+            {
+                if (block_index==0) //Only the frame with block_index==0
+                    total_samples_FirstFrame=total_samples; //Note: total_samples is not trustable for a cutted file
+                if (Frame_Count==1)
+                    block_index_FirstFrame=block_index; //Save the block_index of the first block
+                block_index_LastFrame=block_index;
+                block_samples_LastFrame=block_samples;
+            }
             Get_L4 (flags,                                      "flags");
                 Get_Flags (flags,  0, resolution0,              "resolution0");
                 Get_Flags (flags,  1, resolution1,              "resolution1");
@@ -299,7 +302,7 @@ void File_Wvpk::Data_Parse()
         }
         else
         {
-            Skip_L4(                                            "flags_empty");
+            Skip_L4(                                            "flags (empty)");
 
             //Counting
             Frame_Count--; //This is not a real frame
@@ -460,7 +463,7 @@ void File_Wvpk::Data_Parse_Fill()
     if (!FromMKV && SamplingRate<15)
     {
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, Wvpk_SamplingRate[SamplingRate]);
-        if (total_samples_FirstFrame!=0xFFFFFFFF) //--> this is a valid value
+        if (total_samples_FirstFrame!=(int32u)-1) //--> this is a valid value
             Fill(Stream_Audio, 0, Audio_Duration, ((int64u)total_samples_FirstFrame)*1000/Wvpk_SamplingRate[SamplingRate]);
     }
     Fill(Stream_Audio, 0, Audio_Format_Settings, hybrid?"Hybrid lossy":"Lossless");
