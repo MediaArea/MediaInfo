@@ -10,10 +10,10 @@
 3IV0;MPEG-4 Visual;3ivX;3ivX pre-1.0;http://www.3ivx.com/download/
 3IV1;MPEG-4 Visual;3ivX;3ivX 1.0-3.5;http://www.3ivx.com/download/
 3IV2;MPEG-4 Visual;3ivX;3ivX 4.0;http://www.3ivx.com/download/
-3IVD;MPEG-4 Visual;3ivX;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+3IVD;MPEG-4 Visual;3ivX;;http://ffdshow-tryout.sourceforge.net/
 3IVX;MPEG-4 Visual;3ivX;;http://www.3ivx.com/download/
 3VID;MPEG-4 Visual;3ivX;;http://www.3ivx.com/download/
-8BPS;RGB;Apple;QuickTime Planar RGB with Alpha-channel;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+8BPS;RGB;Apple;QuickTime Planar RGB with Alpha-channel;http://ffdshow-tryout.sourceforge.net/
 AAS4;RLE;Autodesk;;http://mirror01.iptelecom.net.ua/~video/codecs/Autodesk.Animator.v1.11.Codec.exe
 AASC;RLE;Autodesk;;http://mirror01.iptelecom.net.ua/~video/codecs/Autodesk.Animator.v1.11.Codec.exe
 ABYR;Kensigton low;Kensington;Low resolution, low frame rate (6fps) for digital cameras;
@@ -41,7 +41,7 @@ AUR2;YUV;;Auravision Aura 2 - YUV 422;
 AURA;YUV;;Auravision Aura 1 - YUV 411;
 AUVX;AUVX;;USH GmbH;
 AV1X;Avid 1:1;;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
-AVC1;AVC;;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+AVC1;AVC;;;http://ffdshow-tryout.sourceforge.net/
 AVD1;Digital Video;Avid;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
 AVDJ;M-JPEG;Avid;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
 AVDN;Avid HD;;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
@@ -49,7 +49,7 @@ AVDV;Digital Video;Avid;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW
 AVI1;M-JPEG;MainConcept;;
 AVI2;M-JPEG;MainConcept;;
 AVID;M-JPEG;Avid;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
-AVIS;AviSynth;;Wrapper for AviSynth (Dummy);http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+AVIS;AviSynth;;Wrapper for AviSynth (Dummy);http://ffdshow-tryout.sourceforge.net/
 AVMP;Avid IMX;;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
 AVR ;M-JPEG;Avid NuVista;Avid ABVB/NuVista M-JPEG with Alpha-channel;
 AVRn;M-JPEG;Avid M-JPEG;;http://mirror01.iptelecom.net.ua/~video/codecs/Avid.VfW.codec.v2.0d2.exe
@@ -65,7 +65,7 @@ BINK;Bink;;;
 BIT ;RGB;RGB;;
 BITM;H.261;Microsoft;;
 BLOX;Blox;;Jan Jezabek BLOX MPEG;http://www.ii.uj.edu.pl/~jezabek/blox/blox-0.1.0b.zip
-BLZ0;MPEG-4 Visual;DivX;DivX for Blizzard Decoder Filter;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+BLZ0;MPEG-4 Visual;DivX;DivX for Blizzard Decoder Filter;http://ffdshow-tryout.sourceforge.net/
 BT20;MediaStream;;Conexant ProSummer MediaStream;
 BTCV;Composite;;Conexant Composite Video;
 BTVC;Composite;;Conexant Composite Video;
@@ -89,8 +89,8 @@ CLLC;Canopus;;Canopus LossLess;
 CLPL;YUV;;Format similar to YV12 but including a level of indirection.;
 CM10;MediaShow;;CyberLink Corporation;http://www.cyberlink.com
 CMYK;CMYK;;Common Data Format in Printing;
-COL0;MPEG-4 Visual;;Hacked MS MPEG-4 v3;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-COL1;MPEG-4 Visual;;Hacked MS MPEG-4 v3;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+COL0;MPEG-4 Visual;;Hacked MS MPEG-4 v3;http://ffdshow-tryout.sourceforge.net/
+COL1;MPEG-4 Visual;;Hacked MS MPEG-4 v3;http://ffdshow-tryout.sourceforge.net/
 CPLA;YUV;;Weitek YUV 4:2:0 Planar;
 CRAM;MS Video;;Microsoft Video 1;
 CSCD;CamStudio;;RenderSoft CamStudio lossless (LZO & GZIP compression);
@@ -111,12 +111,12 @@ DCL1;Data Connextion;;Conferencing;
 DCT0;WniWni;;;
 DFSC;VFW;;DebugMode FrameServer VFW;
 DIB ;RGB;;;
-DIV1;MPEG-4 Visual;FFMpeg;Hacked MS MPEG-4 V1;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-DIV2;MPEG-4 Visual;MS MPEG-4 1/2;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+DIV1;MPEG-4 Visual;FFMpeg;Hacked MS MPEG-4 V1;http://ffdshow-tryout.sourceforge.net/
+DIV2;MPEG-4 Visual;MS MPEG-4 1/2;;http://ffdshow-tryout.sourceforge.net/
 DIV3;MPEG-4 Visual;DivX 3 Low;;http://www.divx.com
 DIV4;MPEG-4 Visual;DivX 3 Fast;;http://www.divx.com
 DIV5;MPEG-4 Visual;DivX 5;;http://www.divx.com
-DIV6;MPEG-4 Visual;MS MPEG-4 v3;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+DIV6;MPEG-4 Visual;MS MPEG-4 v3;;http://ffdshow-tryout.sourceforge.net/
 DIVX;MPEG-4 Visual;DivX 4;Project Mayo;http://mediaarea.net/DIVX
 divx;MPEG-4 Visual;DivX;Mainly used by Google;http://www.divx.com
 DJPG;M-JPEG;Broadway 101;Data Translation, Inc.;
@@ -184,15 +184,15 @@ ESCP;Escape;;Eidos Escape;
 ETV1;eTreppid 1;;eTreppid Video 1;
 ETV2;eTreppid 2;;eTreppid Video 2;
 ETVC;eTreppid C;;eTreppid Video C;
-FFDS;FFDS;;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-FFV1;FFV1;;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-FFVH;FFVH;;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+FFDS;FFDS;;;http://ffdshow-tryout.sourceforge.net/
+FFV1;FFV1;;;http://ffdshow-tryout.sourceforge.net/
+FFVH;FFVH;;;http://ffdshow-tryout.sourceforge.net/
 FLIC;FLI/FLC;Autodesk;;
 FLJP;DField M-JPEG;;D-Vision Field Encoded M-JPEG with LSI (or Targa emulation);
-FLV1;FFDS;;FFDShow supported;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+FLV1;FFDS;;FFDShow supported;http://ffdshow-tryout.sourceforge.net/
 FLV4;VP6;On2;;http://www.on2.com
 FMJP;M-JPEG;D-Vision;;
-FMP4;MPEG-4 Visual;;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+FMP4;MPEG-4 Visual;;;http://ffdshow-tryout.sourceforge.net/
 FPS1;FRAPS;;;http://www.fraps.com/
 FRLE;M-JPEG;SoftLab-Nsk;SoftLab-NSK Y16 + Alpha RLE;
 FRWA;M-JPEG;SoftLab-Nsk;SoftLab-NSK Vision Forward M-JPEG with Alpha-channel;
@@ -200,7 +200,7 @@ FRWD;M-JPEG;SoftLab-Nsk;SoftLab-NSK Vision Forward M-JPEG;
 FRWT;M-JPEG;SoftLab-Nsk;SoftLab-NSK Vision Forward M-JPEG with Alpha-channel;
 FRWU;M-JPEG;SoftLab-Nsk;SoftLab-NSK Vision Forward Uncompressed;
 FVF1;Itered Fractal;;;
-FVFW;FVFW;;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+FVFW;FVFW;;;http://ffdshow-tryout.sourceforge.net/
 FXT1;3DFX;;;
 G2M2;GoToMeeting2;;Citrix Systems, Inc.;http://www.gotomeeting.com/
 G2M3;GoToMeeting3;;Citrix Systems, Inc.;http://www.gotomeeting.com/
@@ -278,7 +278,7 @@ IY41;YUV;;Lead 16bpp. Interlaced version of Y41P (line order 0, 2, 4,....,1, 3, 
 IYU1;YUV;;IEEE1394 12bpp. 12 bit format used in mode 2 of the IEEE 1394 Digital Camera 1.04 spec;http://www.fourcc.org/indexyuv.htm
 IYU2;YUV;;IEEE1394 24bpp. 24 bit format used in mode 2 of the IEEE 1394 Digital Camera 1.04 spec;
 IYUV;YUV;;Intel Indeo iYUV 4:2:0;
-JBYR;Kensington;;Kensington Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+JBYR;Kensington;;Kensington Video;http://ffdshow-tryout.sourceforge.net/
 JFIF;M-JPEG;;;
 JPEG;M-JPEG;;;http://www.apple.com/quicktime/download/standalone.html
 JPG;M-JPEG;;;http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.Lossless.JPEG.codec.v2.10.27.exe
@@ -328,18 +328,18 @@ ML20;Webcam;;Mimic MSN Messenger Webcam;
 MMES;MPEG Video;Matrox;I-frame;
 MMIF;MPEG Video;Matrox;I-frame;
 MNVD;MindVid;;MindBend MindVid LossLess;
-MP2V;MPEG Video;;Media Excel MPEG-2 Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-MP2v;MPEG Video;;MPEG-2 Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-MP41;S-Mpeg 4 v1;;Microsoft MPEG-4 V1 (enhansed H263);http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+MP2V;MPEG Video;;Media Excel MPEG-2 Video;http://ffdshow-tryout.sourceforge.net/
+MP2v;MPEG Video;;MPEG-2 Video;http://ffdshow-tryout.sourceforge.net/
+MP41;S-Mpeg 4 v1;;Microsoft MPEG-4 V1 (enhansed H263);http://ffdshow-tryout.sourceforge.net/
 MP42;S-Mpeg 4 v2;;Microsoft MPEG-4 V2;http://www.apple.com/quicktime/download/standalone.html
 MP43;S-Mpeg 4 v3;;Microsoft MPEG-4 V3;
 MP4S;MPEG-4 Visual;MS MPEG-4 v3;Microsoft MPEG-4 (Windows Media 7.0);
-MP4V;MPEG-4 Visual;;Apple QuickTime MPEG-4 native;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-MPEG;MPEG Video;;Chromatic MPEG 1 Video I Frame;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-mpeg;MPEG Video;;MPEG-1 Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-MPG1;MPEG Video;Ffmpeg;(MPEG-1/2) FFmpeg;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-MPG2;MPEG Video;Ffmpeg;(MPEG-1/2) FFmpeg;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-mpg2;MPEG Video;Ffmpeg;(MPEG-1/2) FFmpeg;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+MP4V;MPEG-4 Visual;;Apple QuickTime MPEG-4 native;http://ffdshow-tryout.sourceforge.net/
+MPEG;MPEG Video;;Chromatic MPEG 1 Video I Frame;http://ffdshow-tryout.sourceforge.net/
+mpeg;MPEG Video;;MPEG-1 Video;http://ffdshow-tryout.sourceforge.net/
+MPG1;MPEG Video;Ffmpeg;(MPEG-1/2) FFmpeg;http://ffdshow-tryout.sourceforge.net/
+MPG2;MPEG Video;Ffmpeg;(MPEG-1/2) FFmpeg;http://ffdshow-tryout.sourceforge.net/
+mpg2;MPEG Video;Ffmpeg;(MPEG-1/2) FFmpeg;http://ffdshow-tryout.sourceforge.net/
 MPG3;MPEG-4 Visual;FFmpeg DivX 3;(MPEG-4) MS MPEG-4 v3;
 MPG4;MPEG-4 Visual;MS MPEG-4 v1;Microsoft MPEG-4 v1;
 MPGI;MPEG Video;Sigma;Sigma Design MPEG-1 I-frame;
@@ -464,7 +464,7 @@ RV20;RealVideo 2;;H263, RealVideo 6;http://www.real.com
 RV30;RealVideo 3;;Between H263 and H264, RealVideo 8;http://www.real.com
 RV40;RealVideo 4;;H264, RealVideo 9;http://www.real.com
 RVX ;RDX;;Intel RDX;
-S263;H.263;;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+S263;H.263;;;http://ffdshow-tryout.sourceforge.net/
 S422;YUV;VideoCap C210;VideoCap C210;
 SAN3;MPEG-4 Visual;;Direct copy of DivX 3.11;
 SANM;Smush v2;;LucasArts;http://www.lucasarts.com/
@@ -492,7 +492,7 @@ smc ;SMC;;Apple Graphics (SMC);http://www.apple.com/quicktime/download/standalon
 SMSC;Radius;;;
 SMSD;Radius;;;
 SMSV;Wavelet Video;;WorldConnect Wavelet Streaming Video;
-SNOW;Snow;;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+SNOW;Snow;;;http://ffdshow-tryout.sourceforge.net/
 SP40;YUV;SunPlus;SunPlus YUV;
 SP44;MegaCam;;SunPlus Aiptek MegaCam
 SP53;MegaCam;;SunPlus Aiptek MegaCam
@@ -611,17 +611,17 @@ WJPG;M-JPEG;Winbond ;Winbond JPEG (AverMedia USB devices);
 WMV1;WMV1;;Windows Media Video 7;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
 WMV2;WMV2;;Windows Media Video 8;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
 WMV3;VC-1;WMV3;Windows Media Video 9;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
-WMVA;VC-1;WMV;Windows Media Video;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+WMVA;VC-1;WMV;Windows Media Video;http://ffdshow-tryout.sourceforge.net/
 WMVP;WMV3;;Windows Media Video V9;
 WNIX;WniWni;;WniWni;
 WNV1;WinNov;;WinNov Videum Hardware Compression;http://www.winnov.com/
 WNVA;WinNov;;WinNov Videum Hardware Compression;http://www.winnov.com/
 WRLE;RGB;Apple;Apple QuickTime BMP;
 WRPR;AVideoTools;;VideoTools VideoServer Client (wrapper for AviSynth);
-WV1F;;;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+WV1F;;;;http://ffdshow-tryout.sourceforge.net/
 WVC1;VC-1;Microsoft;;
 WVLT;IllusionHope Wavelet 9/7;;IllusionHope Wavelet 9/7;
-WVP2;;;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+WVP2;;;;http://ffdshow-tryout.sourceforge.net/
 WZCD;iScan;;CORE Co. Ltd.;
 WZDC;iSnap;;CORE Co. Ltd.;
 X263;H.263;Xirlink;;
