@@ -305,7 +305,8 @@ void File_Riff::Data_Parse()
                 ATOM_DEFAULT_ALONE(AVI__movi_xxxx)
             ATOM_DEFAULT(AVI__movi_xxxx)
             ATOM_END_DEFAULT
-        ATOM_END
+        ATOM_DEFAULT(AVI__xxxx)
+        ATOM_END_DEFAULT
     LIST(AVIX) //OpenDML
         ATOM_BEGIN
         ATOM(AVIX_idx1)
@@ -1945,6 +1946,21 @@ void File_Riff::AVI__movi_StreamJump()
         }
         else
             Finished();
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__xxxx()
+{
+    Stream_ID=(int32u)(Element_Code&0xFFFF0000);
+
+    if (Stream_ID==0x69780000) //ix..
+    {
+        //AVI Standard Index Chunk
+        AVI__hdlr_strl_indx();
+        Stream_ID=(int32u)(Element_Code&0x0000FFFF)<<16;
+        AVI__movi_StreamJump();
+        return;
     }
 }
 

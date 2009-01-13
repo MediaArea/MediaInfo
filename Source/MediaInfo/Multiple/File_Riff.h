@@ -188,6 +188,7 @@ private :
     void AVI__movi_rec__xxxx ();
     void AVI__movi_StreamJump ();
     void AVI__GMET ();
+    void AVI__xxxx ();
     void AVIX ();
     void AVIX_idx1 ();
     void AVIX_movi ();
