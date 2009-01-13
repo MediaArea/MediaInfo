@@ -175,6 +175,7 @@ void File_VorbisCom::Comment()
         else if (Key==_T("ALBUM ARTIST"))           {if (Value!=Retrieve(StreamKind_Common,   0, "Performer")) Fill(StreamKind_Common,   0, "Performer", Value);}
         else if (Key==_T("ALBUM"))                  Fill(StreamKind_Common,   0, "Album", Value);
         else if (Key==_T("ALBUM_COMMENT"))          Fill(StreamKind_Common,   0, "Comment", Value);
+        else if (Key==_T("ALBUMARTIST"))            {if (Value!=Retrieve(StreamKind_Common,   0, "Performer")) Fill(StreamKind_Common,   0, "Performer", Value);}
         else if (Key==_T("ARTIST"))                 {if (Value!=Retrieve(StreamKind_Common,   0, "Performer")) Fill(StreamKind_Common,   0, "Performer", Value);}
         else if (Key==_T("AUTHOR"))                 Fill(StreamKind_Common,   0, "WrittenBy", Value);
         else if (Key==_T("CLASS"))                  Fill(StreamKind_Common,   0, "ContentType", Value);
