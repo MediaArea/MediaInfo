@@ -91,6 +91,7 @@ private :
             ES_Parser=NULL;
             stream_type=0x00;
             descriptor_tag=0x00;
+            format_identifier=0x00000000;
             TS_Kind=File_Mpeg_Psi::unknown;
             TimeStamp_Start=(int64u)-1;
             TimeStamp_End=(int64u)-1;
