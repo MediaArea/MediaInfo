@@ -63,7 +63,7 @@ const char* Elf_osabi(int8u osabi)
     }
 }
 
-const char* Elf_type(int8u type)
+const char* Elf_type(int16u type)
 {
     switch (type)
     {
@@ -75,7 +75,7 @@ const char* Elf_type(int8u type)
     }
 }
 
-const char* Elf_machine(int8u machine)
+const char* Elf_machine(int16u machine)
 {
     switch (machine)
     {
@@ -169,7 +169,7 @@ void File_Elf::FileHeader_Parse()
     //Parsing
     int32u magic, version4;
     int16u type, machine;
-    int8u  classs, data, version1, osabi, abiversion, brand;
+    int8u  classs, data, version1, osabi, abiversion;
     Get_B4 (magic,                                              "magic");
     if (magic!=0x7F454C46) //"ELF"
     {
