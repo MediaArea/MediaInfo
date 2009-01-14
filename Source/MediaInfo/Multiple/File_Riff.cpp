@@ -67,6 +67,8 @@ namespace Elements
     const int32u ON2_=0x4F4E3220;
     const int32u ON2f=0x4F4E3266;
     const int32u RIFF=0x52494646;
+    const int32u SMV0=0x534D5630;
+    const int32u SMV0_xxxx=0x534D563A;
     const int32u W3DI=0x57334449;
 }
 
@@ -93,6 +95,7 @@ File_Riff::File_Riff()
     dmlh_TotalFrame=0;
     Idx1_Offset=(int64u)-1;
     movi_Size=0;
+    SMV_BlockSize=0;
     stream_Count=0;
     rec__Present=false;
     NeedOldIndex=true;
@@ -320,7 +323,7 @@ void File_Riff::Read_Buffer_Finalize ()
                     if (Retrieve(Stream_Video, 0, Video_FrameRate).To_float32())
                     {
                         Fill(Stream_Audio, StreamPos_Last, "Interleave_Duration", (float)Stream[0x30300000].PacketCount/Temp->second.PacketCount*1000/Retrieve(Stream_Video, 0, Video_FrameRate).To_float32(), 0);
-                        Fill(Stream_Audio, StreamPos_Last, "Interleave_Duration/String", Retrieve(Stream_Audio, StreamPos_Last, "Interleave_Duration")+_T(" ")+MediaInfoLib::Config.Language_Get(_T("ms"))+(Retrieve(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames").empty()?Ztring():(_T(" (")+MediaInfoLib::Config.Language_Get(Retrieve(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames"), _T(" video frames"))+_T(")"))), 0);
+                        //Fill(Stream_Audio, StreamPos_Last, "Interleave_Duration/String", Retrieve(Stream_Audio, StreamPos_Last, "Interleave_Duration")+_T(" ")+MediaInfoLib::Config.Language_Get(_T("ms"))+(Retrieve(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames").empty()?Ztring():(_T(" (")+MediaInfoLib::Config.Language_Get(Retrieve(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames"), _T(" video frames"))+_T(")"))), 0);
                     }
                     int64u Audio_FirstBytes=0;
                     for (std::map<int64u, stream_structure>::iterator Stream_Structure_Temp=Stream_Structure.begin(); Stream_Structure_Temp!=Stream_Structure.end(); Stream_Structure_Temp++)
@@ -396,9 +399,26 @@ void File_Riff::Header_Parse()
         }
     }
 
+    //Special case : SMV file detected
+    if (SMV_BlockSize)
+    {
+        //Filling
+        Header_Fill_Code(Elements::SMV0_xxxx, "SMV Block");
+        Header_Fill_Size(SMV_BlockSize);
+        return;
+    }
+
     //Parsing
     int32u Size, Name;
     Get_C4 (Name,                                               "Name");
+    if (Name==Elements::SMV0)
+    {
+        //SMV specific
+        //Filling
+        Header_Fill_Code(Elements::SMV0, "SMV header");
+        Header_Fill_Size(51);
+        return;
+    }
     if (Name==Elements::FORM
      || Name==Elements::MThd)
         IsBigEndian=true; //Swap from Little to Big Endian for "FORM" files (AIFF...)

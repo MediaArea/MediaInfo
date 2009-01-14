@@ -224,6 +224,8 @@ namespace Elements
     const int32u RMP3_INFO_ILYC=0x494C5943;
     const int32u RMP3_INFO_IMP3=0x494D5033;
     const int32u RMP3_INFO_JUNK=0x4A554E4B;
+    const int32u SMV0=0x534D5630;
+    const int32u SMV0_xxxx=0x534D563A;
     const int32u WAVE=0x57415645;
     const int32u WAVE_data=0x64617461;
     const int32u WAVE_fact=0x66616374;
@@ -339,6 +341,8 @@ void File_Riff::Data_Parse()
             ATOM_DEFAULT(RMP3_INFO_xxxx)
             ATOM_END_DEFAULT
         ATOM_END
+    ATOM(SMV0)
+    ATOM(SMV0_xxxx)
     ATOM(W3DI)
     LIST(WAVE)
         ATOM_BEGIN
@@ -2121,6 +2125,108 @@ void File_Riff::RMP3_data()
 
     //Positionning
     Element_Offset+=Element_TotalSize_Get();
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::SMV0()
+{
+    //Parsing
+    int8u Version;
+    Skip_C1(                                                    "Identifier (continuing)");
+    Get_C1 (Version,                                            "Version");
+    Skip_C3(                                                    "Identifier (continuing)");
+    if (Version=='1')
+    {
+        int32u Width, Height, FrameRate, BlockSize, FrameCount;
+        Get_B3 (Width,                                          "Width");
+        Get_B3 (Height,                                         "Height");
+        Skip_B3(                                                "0x000010");
+        Skip_B3(                                                "0x000001");
+        Get_B3 (BlockSize,                                      "Block size");
+        Get_B3 (FrameRate,                                      "Frame rate");
+        Get_B3 (FrameCount,                                     "Frame count");
+        Skip_B3(                                                "0x000000");
+        Skip_B3(                                                "0x000000");
+        Skip_B3(                                                "0x000000");
+        Skip_B3(                                                "0x010101");
+        Skip_B3(                                                "0x010101");
+        Skip_B3(                                                "0x010101");
+        Skip_B3(                                                "0x010101");
+
+        //Filling
+        Stream_Prepare(Stream_Video);
+        Fill(Stream_Video, 0, Video_MuxingMode, "SMV");
+        Fill(Stream_Video, 0, Video_Width, Width);
+        Fill(Stream_Video, 0, Video_Height, Height);
+        Fill(Stream_Video, 0, Video_FrameRate, FrameRate);
+        Fill(Stream_Video, 0, Video_FrameCount, FrameCount);
+
+        Finished();
+    }
+    else if (Version=='2')
+    {
+        int32u Width, Height, FrameRate;
+        Get_L3 (Width,                                          "Width");
+        Get_L3 (Height,                                         "Height");
+        Skip_L3(                                                "0x000010");
+        Skip_L3(                                                "0x000001");
+        Get_L3 (SMV_BlockSize,                                  "Block size");
+        Get_L3 (FrameRate,                                      "Frame rate");
+        Get_L3 (SMV_FrameCount,                                 "Frame count");
+        Skip_L3(                                                "0x000001");
+        Skip_L3(                                                "0x000000");
+        Skip_L3(                                                "Frame rate");
+        Skip_L3(                                                "0x010101");
+        Skip_L3(                                                "0x010101");
+        Skip_L3(                                                "0x010101");
+        Skip_L3(                                                "0x010101");
+
+        //Filling
+        SMV_BlockSize+=3;
+        SMV_FrameCount++;
+        Stream_Prepare(Stream_Video);
+        Fill(Stream_Video, 0, Video_Format, "MJPEG");
+        Fill(Stream_Video, 0, Video_Codec,  "MJPEG");
+        Fill(Stream_Video, 0, Video_MuxingMode, "SMV");
+        Fill(Stream_Video, 0, Video_Width, Width);
+        Fill(Stream_Video, 0, Video_Height, Height);
+        Fill(Stream_Video, 0, Video_FrameRate, FrameRate);
+        Fill(Stream_Video, 0, Video_FrameCount, SMV_FrameCount);
+        Fill(Stream_Video, 0, Video_StreamSize, SMV_BlockSize*SMV_FrameCount);
+    }
+    else
+        Finished();
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::SMV0_xxxx()
+{
+    //Parsing
+    int32u Size;
+    Get_L3 (Size,                                              "Size");
+    #if defined(MEDIAINFO_JPEG_YES)
+        //Creating the parser
+        File_Jpeg MI;
+
+        //Parsing
+        Open_Buffer_Init(&MI);
+        Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, Size);
+        Open_Buffer_Finalize(&MI);
+
+        //Filling
+        Merge(MI, Stream_Video, 0, StreamPos_Last);
+
+        //Positioning
+        Element_Offset+=Size;
+    #else
+        //Parsing
+        Skip_XX(Size,                                           "JPEG data");
+    #endif
+    Skip_XX(Element_Size-Element_Offset,                        "Padding");
+
+    //Filling
+    Data_GoTo(File_Offset+Buffer_Offset+(size_t)Element_Size+(SMV_FrameCount-1)*SMV_BlockSize, "SMV");
+    SMV_BlockSize=0;
 }
 
 //---------------------------------------------------------------------------

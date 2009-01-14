@@ -117,6 +117,8 @@ private :
     int32u dmlh_TotalFrame; //Count of frames in the whole AVI file (with odml too)
     int64u Idx1_Offset;     //Pos of the data part (AVI) for Idx1 chunk
     int64u movi_Size;       //Size of the data part (AVI and AVIX)
+    int32u SMV_BlockSize;   //Size of a SMV block, 0 if not SMV
+    int32u SMV_FrameCount;  //Frame count of a SMV block, 0 if not SMV
     int8u  stream_Count;    //How many stream we have to parse
     bool   rec__Present;    //True if synchro element is present
     bool   Alignement_ExtraByte;
@@ -212,6 +214,8 @@ private :
     void RMP3_INFO_IMP3() {AVI__INFO_IMP3();}
     void RMP3_INFO_JUNK() {AVI__INFO_JUNK ();}
     void RMP3_INFO_xxxx() {AVI__INFO_xxxx ();}
+    void SMV0 ();
+    void SMV0_xxxx ();
     void WAVE ();
     void WAVE_data ();
     void WAVE_fact ();
