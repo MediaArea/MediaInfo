@@ -3689,6 +3689,7 @@ void File__Base_Video (ZtringListList &Info)
     "Delay/String1;;;N NT;;;Delay with measurement\n"
     "Delay/String2;;;N NT;;;Delay with measurement\n"
     "Delay/String3;;;N NT;;;format : HH:MM:SS.MMM\n"
+    "Delay_Settings;;;N NT;;;Delay settings (in case of timecode for example)\n"
     "StreamSize;; byte;N YI;;;Stream size in bytes\n"
     "StreamSize/String;;;Y NT;;;Streamsize in with percentage value\n"
     "StreamSize/String1;;;N NT;;;Streamsize with measurement\n"

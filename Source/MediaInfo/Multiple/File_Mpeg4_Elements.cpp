@@ -50,6 +50,7 @@
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
+#include "MediaInfo/Multiple/File_Mpeg4_TimeCode.h"
 #include <zlib.h>
 //---------------------------------------------------------------------------
 
@@ -1574,6 +1575,8 @@ void File_Mpeg4::moov_trak_mdia_minf_gmhd_tmcd_tcmi()
 
     //Parsing
     int8u FontNameSize;
+    bool IsVisual;
+        Get_Flags (Flags,    0, IsVisual,                       "IsVisual");
     Skip_B2(                                                    "Text font");
     Info_B2(TextFace,                                           "Text face");
         Skip_Flags(TextFace, 0,                                 "Bold");
@@ -1592,6 +1595,10 @@ void File_Mpeg4::moov_trak_mdia_minf_gmhd_tmcd_tcmi()
     Skip_B2(                                                    "Background color (blue)");
     Get_B1 (FontNameSize,                                       "Font name size");
     Skip_Local(FontNameSize,                                    "Font name");
+
+    FILLING_BEGIN();
+        Stream[moov_trak_tkhd_TrackID].TimeCode_IsVisual=IsVisual;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -1775,19 +1782,43 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tmcd()
     Element_Name("TimeCode");
 
     //Parsing
+    int32u TimeScale, FrameDuration;
+    bool DropFrame, H24, NegativeTimes;
     Skip_B4(                                                    "Reserved");
     Skip_B2(                                                    "Reserved");
     Skip_B2(                                                    "Data reference index");
     Skip_B4(                                                    "Reserved (Flags)");
     Info_B4(TimeCodeFlags,                                      "Flags (timecode)");
-        Skip_Flags(TimeCodeFlags, 0,                            "Drop frame");
-        Skip_Flags(TimeCodeFlags, 1,                            "24 hour max ");
-        Skip_Flags(TimeCodeFlags, 2,                            "Negative times OK");
+        Get_Flags (TimeCodeFlags, 0, DropFrame,                 "Drop frame");
+        Get_Flags (TimeCodeFlags, 1, H24,                       "24 hour max ");
+        Get_Flags (TimeCodeFlags, 2, NegativeTimes,             "Negative times OK");
         Skip_Flags(TimeCodeFlags, 3,                            "Counter");
-    Skip_B4(                                                    "Time scale");
-    Skip_B4(                                                    "Frame duration");
+    Get_B4 (TimeScale,                                          "Time scale");
+    Get_B4 (FrameDuration,                                      "Frame duration");
     Skip_B1(                                                    "Number of frames");
     Skip_B1(                                                    "Unknown");
+
+    FILLING_BEGIN();
+        //Bug in one file
+        if (TimeScale==25 && FrameDuration==100)
+            TimeScale=2500;
+
+        //For each track in the file (but only the last one will be used!)
+        for (std::map<int32u, stream>::iterator Strea=Stream.begin(); Strea!=Stream.end(); Strea++)
+            if (Strea->second.TimeCode_TrackID==moov_trak_tkhd_TrackID)
+            {
+                Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Delay_Settings", Ztring(_T("DropFrame="))+(DropFrame?_T("Yes"):_T("No")));
+                Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Delay_Settings", Ztring(_T("24HourMax="))+(H24?_T("Yes"):_T("No")));
+                Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Delay_Settings", Ztring(_T("IsVisual="))+(Stream[moov_trak_tkhd_TrackID].TimeCode_IsVisual?_T("Yes"):_T("No")));
+                Stream[moov_trak_tkhd_TrackID].Parser=new File_Mpeg4_TimeCode;
+                mdat_MustParse=true; //Data is in MDAT
+                ((File_Mpeg4_TimeCode*)Stream[moov_trak_tkhd_TrackID].Parser)->StreamKind=Strea->second.StreamKind;
+                ((File_Mpeg4_TimeCode*)Stream[moov_trak_tkhd_TrackID].Parser)->FrameRate=((float64)TimeScale)/FrameDuration;
+                ((File_Mpeg4_TimeCode*)Stream[moov_trak_tkhd_TrackID].Parser)->NegativeTimes=NegativeTimes;
+                Stream[moov_trak_tkhd_TrackID].StreamKind=Strea->second.StreamKind;
+                Stream[moov_trak_tkhd_TrackID].StreamPos=Strea->second.StreamPos;
+            }
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -1801,6 +1832,12 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tmcd_name()
     Get_B2(Size,                                                "Size");
     Get_B2(Language,                                            "Language"); Param_Info(Language_Get(Language));
     Get_Local(Size, Value,                                      "Value");
+
+    FILLING_BEGIN();
+        for (std::map<int32u, stream>::iterator Strea=Stream.begin(); Strea!=Stream.end(); Strea++)
+            if (Strea->second.TimeCode_TrackID==moov_trak_tkhd_TrackID)
+                Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Title", Value);
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -2593,8 +2630,12 @@ void File_Mpeg4::moov_trak_tref_tmcd()
     Element_Name("TimeCode");
 
     //Parsing
-    while (Element_Offset<Element_Size)
-        Skip_B4(                                                "track-ID");
+    int32u TrackID;
+    Get_B4(TrackID,                                             "track-ID");
+
+    FILLING_BEGIN();
+        Stream[moov_trak_tkhd_TrackID].TimeCode_TrackID=TrackID;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

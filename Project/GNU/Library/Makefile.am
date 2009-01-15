@@ -81,6 +81,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Multiple/File_Mpeg4.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Mpeg4_Descriptors.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Mpeg4_Elements.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_Mpeg4_TimeCode.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Mpeg_Descriptors.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Mpeg_Psi.cpp \
                        ../../../Source/MediaInfo/Multiple/File_MpegPs.cpp \

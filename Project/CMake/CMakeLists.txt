@@ -91,6 +91,7 @@ set(mediainfo_SRCS
 	MediaInfo/Multiple/File_Mpeg4.cpp
 	MediaInfo/Multiple/File_Mpeg4_Descriptors.cpp
 	MediaInfo/Multiple/File_Mpeg4_Elements.cpp
+	MediaInfo/Multiple/File_Mpeg4_TimeCode.cpp
 	MediaInfo/Multiple/File_Mpeg_Descriptors.cpp
 	MediaInfo/Multiple/File_Mpeg_Psi.cpp
 	MediaInfo/Multiple/File_MpegPs.cpp

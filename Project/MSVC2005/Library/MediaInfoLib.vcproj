@@ -448,6 +448,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Mpeg4_TimeCode.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Mpeg_Descriptors.cpp"
 					>
 				</File>
@@ -892,6 +896,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Mpeg4.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Mpeg4_TimeCode.h"
 					>
 				</File>
 				<File

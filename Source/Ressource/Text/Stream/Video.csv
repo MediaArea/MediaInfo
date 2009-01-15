@@ -106,10 +106,11 @@ Delay/String;;;N NT;;;Delay with measurement
 Delay/String1;;;N NT;;;Delay with measurement
 Delay/String2;;;N NT;;;Delay with measurement
 Delay/String3;;;N NT;;;format : HH:MM:SS.MMM
+Delay_Settings;;;N NT;;;Delay settings (in case of timecode for example)
 StreamSize;; byte;N YI;;;Stream size in bytes
 StreamSize/String;;;Y NT;;;Streamsize in with percentage value
 StreamSize/String1;;;N NT;;;Streamsize with measurement
-StreamSize/String2;;;N NT;;;Streamsize with measurement
+StreamSize/String2;;;N NT;;;Streamsize with measurement;;
 StreamSize/String3;;;N NT;;;Streamsize with measurement;;
 StreamSize/String4;;;N NT;;;Streamsize with measurement;;
 StreamSize/String5;;;N NT;;;Streamsize in with percentage value;;

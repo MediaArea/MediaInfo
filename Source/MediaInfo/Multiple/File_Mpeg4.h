@@ -236,12 +236,16 @@ private :
         };
         std::vector<stsc_struct> stsc;
         std::vector<int64u>     stsz;
+        int32u                  TimeCode_TrackID;
+        bool                    TimeCode_IsVisual;
 
         stream()
         {
             Parser=NULL;
             StreamKind=Stream_Max;
             StreamPos=0;
+            TimeCode_TrackID=(int32u)-1;
+            TimeCode_IsVisual=false;
         }
 
         ~stream()

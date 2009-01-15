@@ -394,6 +394,7 @@ enum video
     Video_Delay_String1,
     Video_Delay_String2,
     Video_Delay_String3,
+    Video_Delay_Settings,
     Video_StreamSize,
     Video_StreamSize_String,
     Video_StreamSize_String1,
