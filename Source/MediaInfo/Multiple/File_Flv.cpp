@@ -385,6 +385,7 @@ File_Flv::File_Flv()
     meta_filesize=(int64u)-1;
     meta_duration=0;
     LastFrame_Time=(int32u)-1;
+    LastFrame_Type=(int8u)-1;
 }
 
 //***************************************************************************
@@ -412,17 +413,18 @@ void File_Flv::Read_Buffer_Finalize()
         Fill(Stream_Audio, 0, Audio_Delay, Stream[Stream_Audio].Delay+Retrieve(Stream_Audio, 0, Audio_Delay).To_int32u(), 10, true);
 
     //Duration
-    if (meta_duration!=0 && LastFrame_Time!=(int32u)-1)
+    int64u Duration_Final=(int64u)meta_duration;
+    float64 FrameRate=Retrieve(Stream_Video, 0, Video_FrameRate).To_float64();
+    if (LastFrame_Time!=(int32u)-1)
+        Duration_Final=LastFrame_Time+((LastFrame_Type==9 && FrameRate)?((int64u)(1000/FrameRate)):0);
+    if (Duration_Final)
     {
-        if (meta_duration>=LastFrame_Time && meta_duration<=LastFrame_Time*1.02)
-            Fill(Stream_General, 0, General_Duration, meta_duration, 0);
-        else
-            Fill(Stream_General, 0, General_Duration, LastFrame_Time);
+        Fill(Stream_General, 0, General_Duration, Duration_Final);
+        if (Count_Get(Stream_Video))
+            Fill(Stream_Video, 0, Video_Duration, Duration_Final);
+        if (Count_Get(Stream_Audio))
+            Fill(Stream_Audio, 0, Audio_Duration, Duration_Final);
     }
-    else if (meta_duration!=0)
-        Fill(Stream_General, 0, General_Duration, meta_duration, 0);
-    else if (LastFrame_Time!=(int32u)-1)
-        Fill(Stream_General, 0, General_Duration, LastFrame_Time);
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
@@ -518,7 +520,10 @@ void File_Flv::Header_Parse()
         //Filling
         Time=(((int32u)Timestamp_Extended)<<24)|Timestamp_Base;
         if (File_Offset+Buffer_Offset+Element_Offset+BodyLength+4==File_Size && Time!=0)
+        {
             LastFrame_Time=Time;
+            LastFrame_Type=Type;
+        }
     }
     else
     {

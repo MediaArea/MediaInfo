@@ -716,6 +716,7 @@ void File_Mpegv::slice_start_Fill()
 
     //Jumping
     Detect_EOF();
+    EOF_AlreadyDetected=true;
 }
 
 //---------------------------------------------------------------------------
@@ -1250,6 +1251,13 @@ bool File_Mpegv::Detect_NonMPEGV ()
 
     //Detect mainly DAT files, and the parser is not enough precise to detect them later
     if (CC4(Buffer)==CC4("RIFF"))
+    {
+        Finished();
+        return true;
+    }
+
+    //Detect DPG files, and the parser is not enough precise to detect them later
+    if (CC4(Buffer)==0x44504730) //"DPG0"
     {
         Finished();
         return true;

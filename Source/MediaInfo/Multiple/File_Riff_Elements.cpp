@@ -2154,8 +2154,9 @@ void File_Riff::SMV0()
         Skip_B3(                                                "0x010101");
 
         //Filling
+        Fill(Stream_General, 0, General_Format_Profile, "SMV v1");
         Stream_Prepare(Stream_Video);
-        Fill(Stream_Video, 0, Video_MuxingMode, "SMV");
+        Fill(Stream_Video, 0, Video_MuxingMode, "SMV v1");
         Fill(Stream_Video, 0, Video_Width, Width);
         Fill(Stream_Video, 0, Video_Height, Height);
         Fill(Stream_Video, 0, Video_FrameRate, FrameRate);
@@ -2184,10 +2185,11 @@ void File_Riff::SMV0()
         //Filling
         SMV_BlockSize+=3;
         SMV_FrameCount++;
+        Fill(Stream_General, 0, General_Format_Profile, "SMV v2");
         Stream_Prepare(Stream_Video);
         Fill(Stream_Video, 0, Video_Format, "MJPEG");
         Fill(Stream_Video, 0, Video_Codec,  "MJPEG");
-        Fill(Stream_Video, 0, Video_MuxingMode, "SMV");
+        Fill(Stream_Video, 0, Video_MuxingMode, "SMV v2");
         Fill(Stream_Video, 0, Video_Width, Width);
         Fill(Stream_Video, 0, Video_Height, Height);
         Fill(Stream_Video, 0, Video_FrameRate, FrameRate);
@@ -2244,9 +2246,24 @@ void File_Riff::WAVE_data()
 {
     Element_Name("Raw datas");
 
+    if (Element_TotalSize_Get()<100)
+        return; //This is maybe embeded in another container, and there is only the header (What is the junk?)
+
     //Parsing
     Element_Code=CC4("00wb");
     AVI__movi_xxxx();
+
+    FILLING_BEGIN();
+        Fill(Stream_Audio, 0, Audio_StreamSize, Element_TotalSize_Get());
+        int64u Duration=Retrieve(Stream_Audio, 0, Audio_Duration).To_int64u();
+        int64u BitRate=Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
+        if (Duration)
+        {
+            int64u BitRate_New=Element_TotalSize_Get()*8*1000/Duration;
+            if (BitRate_New<BitRate*0.95 || BitRate_New>BitRate*1.05)
+                Fill(Stream_Audio, 0, Audio_BitRate, BitRate_New, 10, true); //Correcting the bitrate, it was false in the header
+        }
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -2255,9 +2272,14 @@ void File_Riff::WAVE_fact()
     Element_Name("Sample count");
 
     //Parsing
-    Skip_L4(                                                    "SamplesCount");
-    if(Element_Offset<Element_Size)
-        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
+    int32u SamplesCount;
+    Get_L4 (SamplesCount,                                       "SamplesCount");
+
+    FILLING_BEGIN();
+        int32u SamplingRate=Retrieve(Stream_Audio, 0, Audio_SamplingRate).To_int32u();
+        if (SamplingRate)
+            Fill(Stream_Audio, 0, Audio_Duration, ((int64u)SamplesCount*1000)/SamplingRate);
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

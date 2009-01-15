@@ -106,6 +106,7 @@ private :
     int64u meta_filesize;
     float64 meta_duration;
     int32u LastFrame_Time;
+    int8u  LastFrame_Type;
 };
 
 } //NameSpace

@@ -170,11 +170,10 @@ void File_Riff::Read_Buffer_Finalize ()
             }
 
             //Alignment
-            if (StreamKind_Last==Stream_Audio)
+            if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)>0) //Only if this is not a WAV file
             {
-                if (Count_Get(Stream_Video)>0) //Only if this is not a WAV file
-                    Fill(Stream_Audio, StreamPos_Last, Audio_Alignment, Temp->second.ChunksAreComplete?"Aligned":"Split");
-                    Fill(Stream_Audio, StreamPos_Last, Audio_Alignment_String, MediaInfoLib::Config.Language_Get(Temp->second.ChunksAreComplete?_T("Alignment_Aligned"):_T("Alignment_Split")));
+                Fill(Stream_Audio, StreamPos_Last, Audio_Alignment, Temp->second.ChunksAreComplete?"Aligned":"Split");
+                Fill(Stream_Audio, StreamPos_Last, Audio_Alignment_String, MediaInfoLib::Config.Language_Get(Temp->second.ChunksAreComplete?_T("Alignment_Aligned"):_T("Alignment_Split")));
             }
 
             //Delay

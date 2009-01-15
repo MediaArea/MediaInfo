@@ -134,6 +134,15 @@ void File__Analyze::Finalize__All(stream_t StreamKind, size_t Pos)
         Fill(StreamKind, Pos, "BitRate", Retrieve(StreamKind, Pos, "BitRate_Nominal"), true);
         Clear(StreamKind, Pos, "BitRate_Nominal");
     }
+
+    //Duration
+    if (StreamKind!=Stream_Chapters && Retrieve(StreamKind, Pos, "Duration").empty() && !Retrieve(StreamKind, Pos, "StreamSize").empty() && !Retrieve(StreamKind, Pos, "BitRate").empty() && Count_Get(Stream_Video)+Count_Get(Stream_Audio)>1) //If only one stream, duration will be copied later, useful for exact bitrate calculation
+    {
+        int64u BitRate=Retrieve(StreamKind, Pos, "BitRate").To_int64u();
+        int64u StreamSize=Retrieve(StreamKind, Pos, "StreamSize").To_int64u();
+        if (BitRate>0 && StreamSize>0)
+            Fill(StreamKind, Pos, "Duration", StreamSize*8*1000/BitRate);
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -266,6 +275,15 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
         const Ztring &UnTranslated=Retrieve(StreamKind, Pos, StreamKind==Stream_General?"OverallBitRate_Mode":"BitRate_Mode");
         Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("BitRate_Mode_"))+UnTranslated);
         Fill(StreamKind, Pos, StreamKind==Stream_General?"OverallBitRate_Mode/String":"BitRate_Mode/String", Translated.find(_T("BitRate_Mode_"))?Translated:UnTranslated);
+    }
+
+    //Duration
+    if (StreamKind!=Stream_Chapters && Retrieve(StreamKind, Pos, "Duration").empty() && !Retrieve(StreamKind, Pos, "StreamSize").empty() && !Retrieve(StreamKind, Pos, "BitRate").empty()) //If not done the first time or by other routine
+    {
+        int64u BitRate=Retrieve(StreamKind, Pos, "BitRate").To_int64u();
+        int64u StreamSize=Retrieve(StreamKind, Pos, "StreamSize").To_int64u();
+        if (BitRate>0 && StreamSize>0)
+            Fill(StreamKind, Pos, "Duration", StreamSize*8*1000/BitRate);
     }
 
     //Strings
