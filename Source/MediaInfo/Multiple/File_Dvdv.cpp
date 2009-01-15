@@ -731,7 +731,7 @@ void File_Dvdv::Text()
             if (Language_Extension<16)
                  Fill(Stream_Text, StreamPos_Last, Text_Language_More, IFO_Language_MoreT[Language_Extension]);
 
-            int8u trackID = 0x20+StreamPos_Last;
+            int8u trackID = 0x20+(int8u)StreamPos_Last;
             Ztring ID_String; ID_String=_T("0x"); ID_String+=Ztring::ToZtring(trackID, 16);
             Fill(Stream_Text, StreamPos_Last, "ID", ID_String);
             Fill(Stream_Text, StreamPos_Last, "ID/String", ID_String);
