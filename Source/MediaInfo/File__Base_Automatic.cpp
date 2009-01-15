@@ -984,6 +984,7 @@ void File__Base_Format (InfoMap &Info)
     "CDXA;;;M;Cdxa;;dat\n"
     "Digital Video;;;M;DvdDif;;dv\n"
     "DivX;;;M;Riff;Hack of AVI;divx;http://www.divx.com\n"
+    "DPG;;;M;Dpg;Nintendo DS;dpg\n"
     "DVD Video;;;M;Dvdv;;ifo\n"
     "Flash Video;;;M;Flv;;flv;http://www.macromedia.com/go/getflashplayer\n"
     "Google Video;;;M;Riff;Hack of AVI;gvi;http://video.google.com/playerdownload.html\n"

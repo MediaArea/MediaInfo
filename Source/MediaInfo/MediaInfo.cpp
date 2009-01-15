@@ -293,7 +293,7 @@ String MediaInfo::Option_Static (const String &Option, const String &Value)
     else if (Option==_T("Info_Version"))
     {
         Ztring ToReturn=MediaInfoLib::Config.Info_Version_Get();
-        #if defined(MEDIAINFO_VIDEO_NO) || defined(MEDIAINFO_AUDIO_NO) || defined(MEDIAINFO_RIFF_NO) || defined(MEDIAINFO_OGG_NO) || defined(MEDIAINFO_MPEGPS_NO) || defined(MEDIAINFO_MPEGA_NO) || defined(MEDIAINFO_WM_NO) || defined(MEDIAINFO_QT_NO) || defined(MEDIAINFO_RM_NO) || defined(MEDIAINFO_DVDIF_NO) || defined(MEDIAINFO_DVDV_NO) || defined(MEDIAINFO_AAC_NO) || defined(MEDIAINFO_MK_NO) || defined(MEDIAINFO_APE_NO) || defined(MEDIAINFO_FLAC_NO) || defined(MEDIAINFO_SNDFILE_NO) || defined(MEDIAINFO_FLV_NO) || defined(MEDIAINFO_SWF_NO) || defined(MEDIAINFO_SPEEX_NO) || defined(MEDIAINFO_PS2A_NO)
+        #if defined(MEDIAINFO_VIDEO_NO) || defined(MEDIAINFO_AUDIO_NO) || defined(MEDIAINFO_RIFF_NO) || defined(MEDIAINFO_OGG_NO) || defined(MEDIAINFO_MPEGPS_NO) || defined(MEDIAINFO_MPEGA_NO) || defined(MEDIAINFO_WM_NO) || defined(MEDIAINFO_QT_NO) || defined(MEDIAINFO_RM_NO) || defined(MEDIAINFO_DVDIF_NO) || defined(MEDIAINFO_DVDV_NO) || defined(MEDIAINFO_AAC_NO) || defined(MEDIAINFO_MK_NO) || defined(MEDIAINFO_APE_NO) || defined(MEDIAINFO_FLAC_NO) || defined(MEDIAINFO_SNDFILE_NO) || defined(MEDIAINFO_FLV_NO) || defined(MEDIAINFO_SWF_NO) || defined(MEDIAINFO_SPEEX_NO) || defined(MEDIAINFO_PS2A_NO) || defined(MEDIAINFO_DPG_NO)
             ToReturn+=_T(" modified");
         #endif
         return ToReturn;

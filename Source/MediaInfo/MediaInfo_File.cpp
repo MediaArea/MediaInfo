@@ -88,6 +88,9 @@
 #if defined(MEDIAINFO_WM_YES)
     #include "MediaInfo/Multiple/File_Wm.h"
 #endif
+#if defined(MEDIAINFO_DPG_YES)
+    #include "MediaInfo/Multiple/File_Dpg.h"
+#endif
 
 //---------------------------------------------------------------------------
 // Video
@@ -320,6 +323,9 @@ void MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_WM_YES)
         else if (Parser==_T("Wm"))          Info=new File_Wm();
     #endif
+    #if defined(MEDIAINFO_DPG_YES)
+        else if (Parser==_T("Dpg"))         Info=new File_Dpg();
+    #endif
 
     // Video
     #if defined(MEDIAINFO_AVC_YES)
@@ -529,6 +535,9 @@ int MediaInfo_Internal::ListFormats()
     #if defined(MEDIAINFO_WM_YES)
         delete Info; Info=new File_Wm();                 if (ApplyMethod()>0) return 1;
     #endif
+    #if defined(MEDIAINFO_DPG_YES)
+        delete Info; Info=new File_Dpg();                if (ApplyMethod()>0) return 1;
+    #endif
 
     // Video
     #if defined(MEDIAINFO_AVC_YES)
@@ -695,7 +704,7 @@ int MediaInfo_Internal::ListFormats()
 bool MediaInfo_Internal::LibraryIsModified ()
 {
     #if defined(MEDIAINFO_MULTI_NO) || defined(MEDIAINFO_VIDEO_NO) || defined(MEDIAINFO_AUDIO_NO) || defined(MEDIAINFO_TEXT_NO) || defined(MEDIAINFO_IMAGE_NO) || defined(MEDIAINFO_ARCHIVE_NO) \
-     || defined(MEDIAINFO_MK_NO) || defined(MEDIAINFO_OGG_NO) || defined(MEDIAINFO_RIFF_NO) || defined(MEDIAINFO_MPEG4_NO) || defined(MEDIAINFO_MPEGPS_NO) || defined(MEDIAINFO_MPEGTS_NO) || defined(MEDIAINFO_FLV_NO) || defined(MEDIAINFO_SWF_NO) || defined(MEDIAINFO_MXF_NO) || defined(MEDIAINFO_NUT_NO) || defined(MEDIAINFO_WM_NO) || defined(MEDIAINFO_QT_NO) || defined(MEDIAINFO_RM_NO) || defined(MEDIAINFO_DVDIF_NO) || defined(MEDIAINFO_DVDV_NO) || defined(MEDIAINFO_CDXA_NO) \
+     || defined(MEDIAINFO_MK_NO) || defined(MEDIAINFO_OGG_NO) || defined(MEDIAINFO_RIFF_NO) || defined(MEDIAINFO_MPEG4_NO) || defined(MEDIAINFO_MPEGPS_NO) || defined(MEDIAINFO_MPEGTS_NO) || defined(MEDIAINFO_FLV_NO) || defined(MEDIAINFO_SWF_NO) || defined(MEDIAINFO_MXF_NO) || defined(MEDIAINFO_NUT_NO) || defined(MEDIAINFO_WM_NO) || defined(MEDIAINFO_QT_NO) || defined(MEDIAINFO_RM_NO) || defined(MEDIAINFO_DVDIF_NO) || defined(MEDIAINFO_DVDV_NO) || defined(MEDIAINFO_CDXA_NO) || defined(MEDIAINFO_DPG_NO) \
      || defined(MEDIAINFO_AVC_NO) || defined(MEDIAINFO_MPEG4V_NO) || defined(MEDIAINFO_MPEGV_NO) || defined(MEDIAINFO_FLIC_NO) || defined(MEDIAINFO_THEORA_NO) \
      || defined(MEDIAINFO_AC3_NO) || defined(MEDIAINFO_ADIF_NO) || defined(MEDIAINFO_ADTS_NO) || defined(MEDIAINFO_AMR_NO) || defined(MEDIAINFO_DTS_NO) || defined(MEDIAINFO_FLAC_NO) || defined(MEDIAINFO_APE_NO) || defined(MEDIAINFO_MPC_NO) || defined(MEDIAINFO_MPCSV8_NO) || defined(MEDIAINFO_MPEGA_NO) || defined(MEDIAINFO_TWINVQ_NO) || defined(MEDIAINFO_XM_NO) || defined(MEDIAINFO_MOD_NO) || defined(MEDIAINFO_S3M_NO) || defined(MEDIAINFO_IT_NO) || defined(MEDIAINFO_AES3_NO) || defined(MEDIAINFO_SPEEX_NO) || defined(MEDIAINFO_PS2A_NO) \
      || defined(MEDIAINFO_OTHERTEXT_NO) \

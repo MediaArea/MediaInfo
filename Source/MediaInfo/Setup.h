@@ -148,6 +148,9 @@
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_WM_NO) && !defined(MEDIAINFO_WM_YES)
     #define MEDIAINFO_WM_YES
 #endif
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_DPG_NO) && !defined(MEDIAINFO_DPG_YES)
+    #define MEDIAINFO_DPG_YES
+#endif
 
 //---------------------------------------------------------------------------
 // Video

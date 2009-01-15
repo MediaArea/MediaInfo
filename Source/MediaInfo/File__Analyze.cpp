@@ -387,6 +387,9 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
         else
             Element[Element_Level].ToShow.NoShow=true; //We don't want to show this item because there is no info in it
     #endif
+
+    //Positioning
+    //Element_Offset+=ToAdd_Size;
 }
 
 //---------------------------------------------------------------------------

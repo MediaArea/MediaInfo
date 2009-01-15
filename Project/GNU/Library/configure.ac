@@ -95,6 +95,8 @@ AC_ARG_ENABLE(rle,     AC_HELP_STRING([--disable-rle],     [Disable Image - Run-
 AC_ARG_ENABLE(tiff,    AC_HELP_STRING([--disable-tiff],    [Disable Image - TIFF]),                                       MediaInfoTiff=$enableval,    MediaInfoTiff=depend)
 AC_ARG_ENABLE(bdav,    AC_HELP_STRING([--disable-bdav],    [Disable Multiple - BluRay Disc]),                             MediaInfoBdav=$enableval,    MediaInfoBdav=depend)
 AC_ARG_ENABLE(cdxa,    AC_HELP_STRING([--disable-cdxa],    [Disable Multiple - CDXA (CD mode 2)]),                        MediaInfoCdxa=$enableval,    MediaInfoCdxa=depend)
+AC_ARG_ENABLE(dpg,     AC_HELP_STRING([--disable-dpg],     [Disable Multiple - DPG (Nintendo DS)]),                       MediaInfoDpg=$enableval,     MediaInfoDpg=depend)
+AC_ARG_ENABLE(dvdif,   AC_HELP_STRING([--disable-dvdif],   [Disable Multiple - DV DIF (Digital Video)]),                  MediaInfoDvDif=$enableval,   MediaInfoDvDif=depend)
 AC_ARG_ENABLE(dvdv,    AC_HELP_STRING([--disable-dvdv],    [Disable Multiple - DVD-Video]),                               MediaInfoDvdv=$enableval,    MediaInfoDvdv=depend)
 AC_ARG_ENABLE(flv,     AC_HELP_STRING([--disable-flv],     [Disable Multiple - FLV (Flash video)]),                       MediaInfoFlv=$enableval,     MediaInfoFlv=depend)
 AC_ARG_ENABLE(mk,      AC_HELP_STRING([--disable-mk],      [Disable Multiple - Matroska]),                                MediaInfoMk=$enableval,      MediaInfoMk=depend)
@@ -168,6 +170,8 @@ if test "$MediaInfoPng"     = "no";  then AC_DEFINE(MEDIAINFO_PNG_NO)     fi; if
 if test "$MediaInfoTiff"    = "no";  then AC_DEFINE(MEDIAINFO_TIFF_NO)    fi; if test "$MediaInfoTiff"    = "yes"; then AC_DEFINE(MEDIAINFO_TIFF_YES)    fi
 if test "$MediaInfoBdav"    = "no";  then AC_DEFINE(MEDIAINFO_BDAV_NO)    fi; if test "$MediaInfoBdav"    = "yes"; then AC_DEFINE(MEDIAINFO_BDAV_YES)    fi
 if test "$MediaInfoCdxa"    = "no";  then AC_DEFINE(MEDIAINFO_CDXA_NO)    fi; if test "$MediaInfoCdxa"    = "yes"; then AC_DEFINE(MEDIAINFO_CDXA_YES)    fi
+if test "$MediaInfoDpg"     = "no";  then AC_DEFINE(MEDIAINFO_DPG_NO)     fi; if test "$MediaInfoDpg"     = "yes"; then AC_DEFINE(MEDIAINFO_DPG_YES)     fi
+if test "$MediaInfoDvDif"   = "no";  then AC_DEFINE(MEDIAINFO_DVDIF_NO)   fi; if test "$MediaInfoDvDif"   = "yes"; then AC_DEFINE(MEDIAINFO_DVDIF_YES)   fi
 if test "$MediaInfoDvdv"    = "no";  then AC_DEFINE(MEDIAINFO_DVDV_NO)    fi; if test "$MediaInfoDvdv"    = "yes"; then AC_DEFINE(MEDIAINFO_DVDV_YES)    fi
 if test "$MediaInfoFlv"     = "no";  then AC_DEFINE(MEDIAINFO_FLV_NO)     fi; if test "$MediaInfoFlv"     = "yes"; then AC_DEFINE(MEDIAINFO_FLV_YES)     fi
 if test "$MediaInfoMk"      = "no";  then AC_DEFINE(MEDIAINFO_MK_NO)      fi; if test "$MediaInfoMk"      = "yes"; then AC_DEFINE(MEDIAINFO_MK_YES)      fi
@@ -417,6 +421,8 @@ Mcho "Png    " "$MediaInfoPng"
 Mcho "Tiff   " "$MediaInfoTiff"
 Mcho "Bdav   " "$MediaInfoBdav"
 Mcho "Cdxa   " "$MediaInfoCdxa"
+Mcho "Dpg    " "$MediaInfoDpg"
+Mcho "DvDif  " "$MediaInfoDvDif"
 Mcho "Dvdv   " "$MediaInfoDvdv"
 Mcho "Flv    " "$MediaInfoFlv"
 Mcho "Mk     " "$MediaInfoMk"

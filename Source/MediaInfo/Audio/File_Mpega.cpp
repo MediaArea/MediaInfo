@@ -624,7 +624,7 @@ void File_Mpega::Data_Parse()
             Data_Parse_Fill();
 
         //Detect Id3v1 tags inside a frame
-        if (File_Offset+Buffer_Offset+(size_t)Element_Size>File_Size-File_EndTagSize)
+        if (!IsSub && File_Offset+Buffer_Offset+(size_t)Element_Size>File_Size-File_EndTagSize)
             File__Analyze::Data_GoTo(File_Size-File_EndTagSize, "Tags inside a frame, parsing the tags");
     FILLING_END();
 }
@@ -1165,29 +1165,10 @@ bool File_Mpega::Detect_NonMPEGA ()
     if (Buffer_Size<4)
         return true; //Must wait for more data
 
-    //Detect WAV files, the parser can't detect it easily, there is only 70 bytes of begining for sayint WAV
-    if (CC4(Buffer)==CC4("RIFF"))
-    {
-        Finished();
-        return true;
-    }
-
-    //Detect SWF files (one case with no possibility to detect false-positive...
-    if (CC3(Buffer)==CC3("FWS"))
-    {
-        Finished();
-        return true;
-    }
-
-    //Detect FLV files (one case with no possibility to detect false-positive...
-    if (CC3(Buffer)==CC3("FLV"))
-    {
-        Finished();
-        return true;
-    }
-
-    //Detect ELF files (one case with no possibility to detect false-positive...
-    if (CC4(Buffer)==0x7F454C46)
+    //Detecting WAV/SWF/FLV/ELF/DPG files
+    int32u Magic4=CC4(Buffer);
+    int32u Magic3=Magic4>>8;
+    if (Magic4==0x52494646 || Magic3==0x465753 || Magic3==0x464C56 || Magic4==0x7F454C46 || Magic4==0x44504730)
     {
         Finished();
         return true;

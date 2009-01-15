@@ -416,6 +416,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Dpg.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_DvDif.cpp"
 					>
 				</File>
@@ -864,6 +868,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Cdxa.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Dpg.h"
 					>
 				</File>
 				<File
