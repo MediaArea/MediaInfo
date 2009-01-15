@@ -369,6 +369,7 @@ int Preferences::ExplorerShell()
         ".mks;MKSFile\r\n"
         ".ogg;OGGFile\r\n"
         ".ogm;OGMFile\r\n"
+        ".ogv;OGMFile\r\n"
         ".wav;WAVFile\r\n"
         ".avi;AVIFile\r\n"
         ".divx;AVIFile\r\n"
@@ -413,7 +414,9 @@ int Preferences::ExplorerShell()
         ".swf;FlashFile\r\n"
         ".flv;FlashVideoFile\r\n";
         ".rmvb;FlashVideoFile\r\n";
-        ".tp;FlashVideoFile");
+        ".tp;FlashVideoFile\r\n");
+        ".smv;SMVFile\r\n");
+        ".dpg;DPGFile");
 
     bool IsChanged=false;
     int32s ShellExtension=Config.Read(_T("ShellExtension")).To_int32s();

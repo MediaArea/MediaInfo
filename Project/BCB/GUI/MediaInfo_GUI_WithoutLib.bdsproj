@@ -374,6 +374,7 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList_Internal.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfoList_Internal" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList_Internal.h"/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Bdav.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Bdav" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Cdxa.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Cdxa" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Dpg.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dpg" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_DvDif.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_DvDif" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Dvdv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dvdv" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Flv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Flv" FORMNAME="" DESIGNCLASS=""/>

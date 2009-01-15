@@ -651,3 +651,25 @@ HKCR
         }
     }
 }
+
+HKCR
+{
+    NoRemove .dpg
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .smv
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}

@@ -487,6 +487,7 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Duplicate" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.h"/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_MpegTs_Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpegTs_Duplicate" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Theora.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Theora" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Dpg.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dpg" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
