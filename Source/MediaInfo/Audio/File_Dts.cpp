@@ -39,6 +39,95 @@ using namespace ZenLib;
 namespace MediaInfoLib
 {
 
+#define MEDIAINFO_DEBUG
+//---------------------------------------------------------------------------
+//To clarify the code
+namespace MediaInfo_Debug_MediaInfo
+{
+#ifdef MEDIAINFO_DEBUG
+    #define MEDIAINFO_DEBUG_WANTED
+    #include <stdio.h>
+    FILE* F;
+    std::string Debug;
+
+    #undef MEDIAINFO_DEBUG
+    #define MEDIAINFO_DEBUG(_TOAPPEND) \
+        F=fopen("MediaInfo_Debug.txt", "a+t"); \
+        Debug.clear(); \
+        Debug+=ToString((size_t)this); \
+        Debug.resize(11, ' '); \
+        _TOAPPEND; \
+        Debug+="\r\n"; \
+        fwrite(Debug.c_str(), Debug.size(), 1, F); \
+        fclose(F);
+#else // MEDIAINFO_DEBUG
+    #define MEDIAINFO_DEBUG(_TOAPPEND)
+#endif // MEDIAINFO_DEBUG
+
+#ifdef MEDIAINFO_DEBUG_WANTED
+    #define MEDIAINFO_DEBUG_STATIC(_TOAPPEND) \
+        F=fopen("MediaInfo_Debug.txt", "a+t"); \
+        Debug.clear(); \
+        Debug.resize(11, ' '); \
+        _TOAPPEND; \
+        Debug+="\r\n"; \
+        fwrite(Debug.c_str(), Debug.size(), 1, F); \
+        fclose(F);
+#else // MEDIAINFO_DEBUG_WANTED
+    #define MEDIAINFO_DEBUG_STATIC(_TOAPPEND)
+#endif // MEDIAINFO_DEBUG_WANTED
+
+#ifdef MEDIAINFO_DEBUG_WANTED
+#define EXECUTE_VOID(_METHOD,_DEBUGB) \
+        ((MediaInfo_Internal*)Internal)->_METHOD; \
+        MEDIAINFO_DEBUG(_DEBUGB)
+#else //MEDIAINFO_DEBUG_WANTED
+#define EXECUTE_VOID(_METHOD,_DEBUGB) \
+        ((MediaInfo_Internal*)Internal)->_METHOD;
+#endif //MEDIAINFO_DEBUG_WANTED
+
+#ifdef MEDIAINFO_DEBUG_WANTED
+#define EXECUTE_INT(_METHOD,_DEBUGB) \
+        int64u ToReturn=((MediaInfo_Internal*)Internal)->_METHOD; \
+        MEDIAINFO_DEBUG(_DEBUGB) \
+        return ToReturn;
+#else //MEDIAINFO_DEBUG_WANTED
+#define EXECUTE_INT(_METHOD, _DEBUGB) \
+        return ((MediaInfo_Internal*)Internal)->_METHOD;
+#endif //MEDIAINFO_DEBUG_WANTED
+
+#ifdef MEDIAINFO_DEBUG_WANTED
+#define EXECUTE_STRING(_METHOD,_DEBUGB) \
+        Ztring ToReturn=((MediaInfo_Internal*)Internal)->_METHOD; \
+        MEDIAINFO_DEBUG(_DEBUGB) \
+        return ToReturn;
+#else //MEDIAINFO_DEBUG_WANTED
+#define EXECUTE_STRING(_METHOD,_DEBUGB) \
+        return ((MediaInfo_Internal*)Internal)->_METHOD;
+#endif //MEDIAINFO_DEBUG_WANTED
+
+#ifdef MEDIAINFO_DEBUG_BUFFER_SAVE
+    #include <stdio.h>
+    FILE* Buffer_Stream=fopen("MediaInfo_Debug_Stream.raw", "a+b"); \
+    FILE* Buffer_Sizes=fopen("MediaInfo_Debug_Stream.sizes", "a+b"); \
+
+    #undef MEDIAINFO_DEBUG_BUFFER_SAVE
+    #define MEDIAINFO_DEBUG_BUFFER_SAVE(_BUFFER, _SIZE) \
+        fwrite(_BUFFER, _SIZE, 1, Buffer_Stream); \
+        fwrite((char*)&_SIZE, sizeof(size_t), 1, Buffer_Sizes);
+#else // MEDIAINFO_DEBUG_BUFFER_SAVE
+    #define MEDIAINFO_DEBUG_BUFFER_SAVE(_BUFFER, _SIZE)
+#endif // MEDIAINFO_DEBUG_BUFFER_SAVE
+
+}
+using namespace MediaInfo_Debug_MediaInfo;
+
+inline std::string ToString(int64u Integer)
+{
+    return Ztring::ToZtring(Integer).To_Local();
+}
+
+
 //---------------------------------------------------------------------------
 const char*  DTS_FrameType[]=
 {
@@ -856,10 +945,9 @@ void File_Dts::HD()
 
     {
         //Looking for size
-        int64u Next=Element_Offset;
+        int64u Next=Element_Offset+4;
         while (Next+4<=Element_Size)
         {
-            Next++;
             int32u CC=CC4(Buffer+Buffer_Offset+(size_t)Next);
             if (CC==0x0A801921
              || CC==0x1D95F262
@@ -868,6 +956,7 @@ void File_Dts::HD()
              || CC==0x5A5A5A5A
              || CC==0x655E315E)
                 break;
+            Next++;
         }
         if (Next+4>Element_Size)
             Next=Element_Size;
