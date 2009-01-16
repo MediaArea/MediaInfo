@@ -42,7 +42,6 @@ if os.name == "posix":
     MediaInfoDLL_Handler = CDLL("libmediainfo.so.0")
 else:
     MediaInfoDLL_Handler = windll.MediaInfo
-print MediaInfoDLL_Handler   
 
 # types --> C Python:
 # size_t			c_void_p (is better, 4 on i386, 8 on x86_64)
