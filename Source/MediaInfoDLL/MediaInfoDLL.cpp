@@ -23,7 +23,7 @@
 
 //---------------------------------------------------------------------------
 // For user: you can disable or enable it
-//#define MEDIAINFO_DEBUG
+#define MEDIAINFO_DEBUG
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -578,7 +578,7 @@ size_t          __stdcall MediaInfo_State_Get(void* Handle)
 size_t          __stdcall MediaInfo_Count_Get(void* Handle, MediaInfo_stream_t StreamKind, size_t StreamNumber)
 {
     StreamKind=(MediaInfo_stream_t)(((size_t)StreamKind)&0xFF);
-    MANAGE_INT(MediaInfo, Count_Get((stream_t)StreamKind, StreamNumber), Debug+="Count_Get, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+="\r\n";, Debug+="Count_Get, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
+    MANAGE_INT(MediaInfo, Count_Get((stream_t)StreamKind, StreamNumber), Debug+="Count_Get, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", StreamKind=";Debug+=ZenLib::Ztring::ToZtring((size_t)StreamKind).To_Local().c_str();Debug+=", StreamNumber=";Debug+=ZenLib::Ztring::ToZtring((size_t)StreamNumber).To_Local().c_str();Debug+="\r\n", Debug+="Count_Get, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
 }
 
 //---------------------------------------------------------------------------
