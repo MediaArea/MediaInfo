@@ -13,9 +13,11 @@ cd ..\Source\Doc
 ..\..\..\Shared\Binary\Windows_i386\Doxygen\doxygen
 cd ..\..\Release
 mkdir MediaInfoDLL_Windows_i386\Developpers\Doc\
-copy Doc\*.* MediaInfoDLL_Windows_i386\Developpers\Doc\
+copy ..\Doc\*.* MediaInfoDLL_Windows_i386\Developpers\Doc\
 rmdir Doc /S /Q
 xcopy ..\Source\Doc\*.html MediaInfoDLL_Windows_i386\Developpers\ /S
+mkdir MediaInfoDLL_Windows_i386\Developpers\List_Of_Parameters
+copy ..\Source\Ressource\Text\Stream\*.csv MediaInfoDLL_Windows_i386\Developpers\List_Of_Parameters
 
 rem --- Copying : Include ---
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.h MediaInfoDLL_Windows_i386\Developpers\Source\MediaInfoDLL\
