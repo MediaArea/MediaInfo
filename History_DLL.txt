@@ -18,6 +18,7 @@ Version 0.7.9, 200
 + SMV (WAV/ADPCM+JPG files) file format support
 + DPG (Nintendo DS) file format support
 + QuickTime: TimeCode track analysis
+x Python binding update for more compatibilty
 x #2474280, OGG: handling of files with Skeleton Metadata
 x #2445654, OGG: better false-positives detection
 x #2493685, AVI: Wrong video duration for some malformed 4GB+ AVI/DV files
