@@ -12,59 +12,59 @@ mkdir Doc
 cd ..\Source\Doc
 ..\..\..\Shared\Binary\Doxygen
 cd ..\..\Release
-mkdir MediaInfoDLL_Windows_x64\Developpers\Doc\
-copy ..\Doc\*.* MediaInfoDLL_Windows_x64\Developpers\Doc\
+mkdir MediaInfoDLL_Windows_x64\Developers\Doc\
+copy ..\Doc\*.* MediaInfoDLL_Windows_x64\Developers\Doc\
 rmdir Doc /S /Q
-xcopy ..\Source\Doc\*.html MediaInfoDLL_Windows_x64\Developpers\ /S
-mkdir MediaInfoDLL_Windows_x64\Developpers\List_Of_Parameters
-copy ..\Source\Ressource\Text\Stream\*.csv MediaInfoDLL_Windows_x64\Developpers\List_Of_Parameters
+xcopy ..\Source\Doc\*.html MediaInfoDLL_Windows_x64\Developers\ /S
+mkdir MediaInfoDLL_Windows_x64\Developers\List_Of_Parameters
+copy ..\Source\Ressource\Text\Stream\*.csv MediaInfoDLL_Windows_x64\Developers\List_Of_Parameters
 
 rem --- Copying : Include ---
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.h MediaInfoDLL_Windows_x64\Developpers\Source\MediaInfoDLL\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL_Static.h MediaInfoDLL_Windows_x64\Developpers\Source\MediaInfoDLL\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.def MediaInfoDLL_Windows_x64\Developpers\Source\MediaInfoDLL\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.pas MediaInfoDLL_Windows_x64\Developpers\Source\MediaInfoDLL\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.cs MediaInfoDLL_Windows_x64\Developpers\Source\MediaInfoDLL\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.jsl MediaInfoDLL_Windows_x64\Developpers\Source\MediaInfoDLL\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.vb MediaInfoDLL_Windows_x64\Developpers\Source\MediaInfoDLL\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.java MediaInfoDLL_Windows_x64\Developpers\Source\MediaInfoDLL\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.py MediaInfoDLL_Windows_x64\Developpers\Source\MediaInfoDLL\
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.h MediaInfoDLL_Windows_x64\Developers\Source\MediaInfoDLL\
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL_Static.h MediaInfoDLL_Windows_x64\Developers\Source\MediaInfoDLL\
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.def MediaInfoDLL_Windows_x64\Developers\Source\MediaInfoDLL\
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.pas MediaInfoDLL_Windows_x64\Developers\Source\MediaInfoDLL\
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.cs MediaInfoDLL_Windows_x64\Developers\Source\MediaInfoDLL\
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.jsl MediaInfoDLL_Windows_x64\Developers\Source\MediaInfoDLL\
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.vb MediaInfoDLL_Windows_x64\Developers\Source\MediaInfoDLL\
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.java MediaInfoDLL_Windows_x64\Developers\Source\MediaInfoDLL\
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.py MediaInfoDLL_Windows_x64\Developers\Source\MediaInfoDLL\
 
 @rem --- Copying : Projects ---
-xcopy ..\Project\MSCS\*.sln MediaInfoDLL_Windows_x64\Developpers\Project\MSCS\
-xcopy ..\Project\MSCS\Example\*.cs MediaInfoDLL_Windows_x64\Developpers\Project\MSCS\Example\
-xcopy ..\Project\MSCS\Example\*.csproj MediaInfoDLL_Windows_x64\Developpers\Project\MSCS\Example\
-xcopy ..\Project\MSCS\Example\*.res* MediaInfoDLL_Windows_x64\Developpers\Project\MSCS\Example\
-xcopy ..\Project\MSCS\Example\*.ico MediaInfoDLL_Windows_x64\Developpers\Project\MSCS\Example\
-xcopy ..\Project\MSVB\*.sln MediaInfoDLL_Windows_x64\Developpers\Project\MSVB\
-xcopy ..\Project\MSVB\Example\*.vb MediaInfoDLL_Windows_x64\Developpers\Project\MSVB\Example\
-xcopy ..\Project\MSVB\Example\*.vbproj MediaInfoDLL_Windows_x64\Developpers\Project\MSVB\Example\
-xcopy ..\Project\MSVB\Example\*.res* MediaInfoDLL_Windows_x64\Developpers\Project\MSVB\Example\
-xcopy "..\Project\MSVB\Example\My Project\*.*" "MediaInfoDLL_Windows_x64\Developpers\Project\MSVB\Example\My Project\"
-xcopy ..\Project\MSVC\*.sln MediaInfoDLL_Windows_x64\Developpers\Project\MSVC\
-xcopy ..\Project\MSVC\Example\HowToUse_Dll.vcproj MediaInfoDLL_Windows_x64\Developpers\Project\MSVC\Example\
-xcopy ..\Project\GCC\Example\Make* MediaInfoDLL_Windows_x64\Developpers\Project\GCC\Example\
-xcopy ..\Project\Java\Example\*.java MediaInfoDLL_Windows_x64\Developpers\Project\Java\Example\
-xcopy ..\Project\Java\Example\*.txt MediaInfoDLL_Windows_x64\Developpers\Project\Java\Example\
-xcopy ..\Project\Java\Example\*.bat MediaInfoDLL_Windows_x64\Developpers\Project\Java\Example\
-xcopy ..\Project\Java\Example\*.sh MediaInfoDLL_Windows_x64\Developpers\Project\Java\Example\
-xcopy ..\Project\NetBeans\Example\*.xml MediaInfoDLL_Windows_x64\Developpers\Project\NetBeans\Example\ /s
-xcopy ..\Project\NetBeans\Example\*.properties MediaInfoDLL_Windows_x64\Developpers\Project\NetBeans\Example\ /s
-xcopy ..\Project\NetBeans\Example\*.mf MediaInfoDLL_Windows_x64\Developpers\Project\NetBeans\Example\
-xcopy ..\Project\NetBeans\Example\*.txt MediaInfoDLL_Windows_x64\Developpers\Project\NetBeans\Example\
-xcopy ..\Project\NetBeans\Example\src\*.java MediaInfoDLL_Windows_x64\Developpers\Project\NetBeans\Example\src\
+xcopy ..\Project\MSCS\*.sln MediaInfoDLL_Windows_x64\Developers\Project\MSCS\
+xcopy ..\Project\MSCS\Example\*.cs MediaInfoDLL_Windows_x64\Developers\Project\MSCS\Example\
+xcopy ..\Project\MSCS\Example\*.csproj MediaInfoDLL_Windows_x64\Developers\Project\MSCS\Example\
+xcopy ..\Project\MSCS\Example\*.res* MediaInfoDLL_Windows_x64\Developers\Project\MSCS\Example\
+xcopy ..\Project\MSCS\Example\*.ico MediaInfoDLL_Windows_x64\Developers\Project\MSCS\Example\
+xcopy ..\Project\MSVB\*.sln MediaInfoDLL_Windows_x64\Developers\Project\MSVB\
+xcopy ..\Project\MSVB\Example\*.vb MediaInfoDLL_Windows_x64\Developers\Project\MSVB\Example\
+xcopy ..\Project\MSVB\Example\*.vbproj MediaInfoDLL_Windows_x64\Developers\Project\MSVB\Example\
+xcopy ..\Project\MSVB\Example\*.res* MediaInfoDLL_Windows_x64\Developers\Project\MSVB\Example\
+xcopy "..\Project\MSVB\Example\My Project\*.*" "MediaInfoDLL_Windows_x64\Developers\Project\MSVB\Example\My Project\"
+xcopy ..\Project\MSVC\*.sln MediaInfoDLL_Windows_x64\Developers\Project\MSVC\
+xcopy ..\Project\MSVC\Example\HowToUse_Dll.vcproj MediaInfoDLL_Windows_x64\Developers\Project\MSVC\Example\
+xcopy ..\Project\GCC\Example\Make* MediaInfoDLL_Windows_x64\Developers\Project\GCC\Example\
+xcopy ..\Project\Java\Example\*.java MediaInfoDLL_Windows_x64\Developers\Project\Java\Example\
+xcopy ..\Project\Java\Example\*.txt MediaInfoDLL_Windows_x64\Developers\Project\Java\Example\
+xcopy ..\Project\Java\Example\*.bat MediaInfoDLL_Windows_x64\Developers\Project\Java\Example\
+xcopy ..\Project\Java\Example\*.sh MediaInfoDLL_Windows_x64\Developers\Project\Java\Example\
+xcopy ..\Project\NetBeans\Example\*.xml MediaInfoDLL_Windows_x64\Developers\Project\NetBeans\Example\ /s
+xcopy ..\Project\NetBeans\Example\*.properties MediaInfoDLL_Windows_x64\Developers\Project\NetBeans\Example\ /s
+xcopy ..\Project\NetBeans\Example\*.mf MediaInfoDLL_Windows_x64\Developers\Project\NetBeans\Example\
+xcopy ..\Project\NetBeans\Example\*.txt MediaInfoDLL_Windows_x64\Developers\Project\NetBeans\Example\
+xcopy ..\Project\NetBeans\Example\src\*.java MediaInfoDLL_Windows_x64\Developers\Project\NetBeans\Example\src\
 
 rem --- Copying : Libs ---
-xcopy ..\Release\MSVCx64\DLL\MediaInfo.lib MediaInfoDLL_Windows_x64\Developpers\Release\MSVC\DLL\
-xcopy ..\Release\MSVCx64\DLL\MediaInfod.lib MediaInfoDLL_Windows_x64\Developpers\Release\MSVC\DLL\
+xcopy ..\Release\MSVCx64\DLL\MediaInfo.lib MediaInfoDLL_Windows_x64\Developers\Release\MSVC\DLL\
+xcopy ..\Release\MSVCx64\DLL\MediaInfod.lib MediaInfoDLL_Windows_x64\Developers\Release\MSVC\DLL\
 
 rem --- Copying : Examples ---
-xcopy ..\Source\Example\HowToUse_Dll.* MediaInfoDLL_Windows_x64\Developpers\Source\Example\
-xcopy Example.ogg MediaInfoDLL_Windows_x64\Developpers\
+xcopy ..\Source\Example\HowToUse_Dll.* MediaInfoDLL_Windows_x64\Developers\Source\Example\
+xcopy Example.ogg MediaInfoDLL_Windows_x64\Developers\
 
 rem --- Copying : Information files ---
-copy ..\License.html MediaInfoDLL_Windows_x64\Developpers\
-copy ..\History_DLL.txt MediaInfoDLL_Windows_x64\Developpers\History.txt
+copy ..\License.html MediaInfoDLL_Windows_x64\Developers\
+copy ..\History_DLL.txt MediaInfoDLL_Windows_x64\Developers\History.txt
 copy ReadMe_DLL_Windows.txt MediaInfoDLL_Windows_x64\ReadMe.txt
 
 rem --- Copying : DLL ---
