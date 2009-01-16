@@ -262,7 +262,7 @@ static void MediaInfoDLL_UnLoad()
 #include <sstream>
 //---------------------------------------------------------------------------
 
-namespace MediaInfoLib
+namespace MediaInfoDLL
 {
 
 //---------------------------------------------------------------------------

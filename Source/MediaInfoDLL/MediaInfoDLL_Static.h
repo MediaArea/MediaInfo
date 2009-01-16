@@ -289,7 +289,7 @@ MEDIAINFO_EXP size_t            __stdcall MediaInfoListA_Count_Get_Files (void* 
 #include <string>
 //---------------------------------------------------------------------------
 
-namespace MediaInfoLib
+namespace MediaInfoDLL
 {
 
 //---------------------------------------------------------------------------
