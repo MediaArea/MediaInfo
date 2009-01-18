@@ -1697,7 +1697,7 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
 }
 
 //---------------------------------------------------------------------------
-ZenLib::Char* File_MpegPs::private_stream_1_ChooseExtension()
+const ZenLib::Char* File_MpegPs::private_stream_1_ChooseExtension()
 {
     if (FromTS)
     {
@@ -2181,7 +2181,7 @@ void File_MpegPs::extension_stream()
 }
 
 //---------------------------------------------------------------------------
-ZenLib::Char* File_MpegPs::extension_stream_ChooseExtension()
+const ZenLib::Char* File_MpegPs::extension_stream_ChooseExtension()
 {
     //AC3
         if ((stream_id_extension>=0x55 && stream_id_extension<=0x5F)

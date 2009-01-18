@@ -84,14 +84,14 @@ private :
     //private_stream_1 specific
     void           private_stream_1_Choose_DVD_ID();
     File__Analyze* private_stream_1_ChooseParser();
-    ZenLib::Char*  private_stream_1_ChooseExtension();
+    const ZenLib::Char* private_stream_1_ChooseExtension();
     void           private_stream_1_Element_Info();
     int8u          private_stream_1_ID;
     size_t         private_stream_1_Offset;
     bool           private_stream_1_IsDvdVideo;
 
     //extension_stream specific
-    ZenLib::Char*  extension_stream_ChooseExtension();
+    const ZenLib::Char*  extension_stream_ChooseExtension();
 
     //Count
     int8u video_stream_Count;
