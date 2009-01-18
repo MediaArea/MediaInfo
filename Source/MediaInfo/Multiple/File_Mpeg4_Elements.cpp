@@ -1475,7 +1475,7 @@ void File_Mpeg4::moov_trak_mdia_mdhd()
     Skip_B2(                                                    "Quality");
 
     FILLING_BEGIN();
-        Fill(StreamKind_Last, StreamPos_Last, "Language", Language_Get(Language));
+        Fill(StreamKind_Last, StreamPos_Last, "Language", MediaInfoLib::Config.Iso639_Get(Language_Get(Language)));
         if (moov_trak_mdia_mdhd_TimeScale)
         {
             moov_trak_mdia_mdhd_Duration=(int32u)(((float)Duration)/moov_trak_mdia_mdhd_TimeScale*1000);

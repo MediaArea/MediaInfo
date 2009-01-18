@@ -1208,7 +1208,7 @@ void File_Mpeg_Descriptors::Descriptor_0A()
     Get_B1 (audio_type,                                         "audio_type"); Param_Info(Mpeg_Descriptors_audio_type(audio_type));
 
     //Filling
-    Infos["Language"]=ISO_639_language_code;
+    Infos["Language"]=MediaInfoLib::Config.Iso639_Get(ISO_639_language_code);
     if (audio_type)
         Infos["Language_More"]=Mpeg_Descriptors_audio_type(audio_type);
 }
@@ -1391,7 +1391,7 @@ void File_Mpeg_Descriptors::Descriptor_50()
 
     //Filling
     if (StreamKind!=Stream_General)
-        Infos["Language"]=ISO_639_language_code;
+        Infos["Language"]=MediaInfoLib::Config.Iso639_Get(ISO_639_language_code);
 }
 
 //---------------------------------------------------------------------------
@@ -1443,7 +1443,7 @@ void File_Mpeg_Descriptors::Descriptor_56()
         BS_End();
 
         //Filling
-        Infos["Language"]=ISO_639_language_code;
+        Infos["Language"]=MediaInfoLib::Config.Iso639_Get(ISO_639_language_code);
         //TODO: this stream is teletext. Be careful, multiple stream in a PID
     }
 }
@@ -1461,7 +1461,7 @@ void File_Mpeg_Descriptors::Descriptor_59()
         Skip_B2(                                                    "ancillary_page_id");
 
         //Filling
-        Infos["Language"]=ISO_639_language_code;
+        Infos["Language"]=MediaInfoLib::Config.Iso639_Get(ISO_639_language_code);
         //TODO: this stream is subtitle. Be careful, multiple stream in a PID
     }
 }

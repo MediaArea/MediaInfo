@@ -1095,7 +1095,13 @@ const Ztring &MediaInfo_Config::Iso639_Get (const Ztring &Value)
         File__Base_Iso639(Iso639);
     CS.Leave();
 
-    return Iso639.Get(Value, 1);
+    const Ztring& Language=Iso639.Get(Ztring(Value).MakeLowerCase(), 1);
+    if (!Language.empty())
+        return Language;
+    else if (Value==_T("   ") || Value==_T("  "))
+        return EmptyZtring;
+    else
+        return Value;
 }
 
 //---------------------------------------------------------------------------
