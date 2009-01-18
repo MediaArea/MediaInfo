@@ -1,5 +1,5 @@
 // File_Flic - Info for Flic files
-// Copyright (C) 2004-2008 Jerome Martinez, Zen@MediaArea.net
+// Copyright (C) 2004-2009 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by

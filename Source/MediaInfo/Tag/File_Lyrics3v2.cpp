@@ -1,5 +1,5 @@
 // File_Lyrics3v2 - Info for Lyrics3v2 tagged files
-// Copyright (C) 2005-2008 Jerome Martinez, Zen@MediaArea.net
+// Copyright (C) 2005-2009 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
