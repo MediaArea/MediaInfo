@@ -516,7 +516,7 @@ Known formats;Žinomi formatai
 Known parameters;Žinomi parametrai
 Label;Etiketė
 Language;Kalba
-Language___;Daugiakalbis
+Language_More
 Language_aa;Afarų
 Language_ab;Abchazų
 Language_ae;Avestanų
@@ -555,6 +555,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Greek
 Language_en;Anglų
+Language_en-gb
+Language_en-us
 Language_eo;Esperanto
 Language_es;Ispanų
 Language_et;Estų
@@ -628,6 +630,7 @@ Language_mo;Moldavian
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
+Language_mul;Daugiakalbis
 Language_my;Burmese
 Language_na;Nauru
 Language_nb;Norwegian Bokmal
@@ -650,6 +653,7 @@ Language_pi;Pali
 Language_pl;Polish
 Language_ps;Pushto
 Language_pt;Portuguese
+Language_pt-br
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
@@ -702,6 +706,8 @@ Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Kinų
+Language_zh-cn
+Language_zh-tw
 Language_zu;Zulu
 LawRating;Law reitingas
 LCCN;LCCN

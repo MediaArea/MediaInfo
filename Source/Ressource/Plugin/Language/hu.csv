@@ -516,7 +516,7 @@ Known formats;Ismert formátumok
 Known parameters;Ismert paraméterek
 Label;Címke
 Language;Nyelv
-Language___;Többnyelvű
+Language_More
 Language_aa;afar
 Language_ab;abház
 Language_ae
@@ -555,6 +555,8 @@ Language_dz;dzonka
 Language_ee
 Language_el;görög
 Language_en;angol
+Language_en-gb
+Language_en-us
 Language_eo;eszperantó
 Language_es;spanyol
 Language_et;észt
@@ -628,6 +630,7 @@ Language_mo;moldáv
 Language_mr;marathi
 Language_ms;maláj
 Language_mt;máltai
+Language_mul;Többnyelvű
 Language_my;burmai
 Language_na; 
 Language_nb;norvég bokmál
@@ -650,6 +653,7 @@ Language_pi; 
 Language_pl;lengyel
 Language_ps; 
 Language_pt;portugál
+Language_pt-br
 Language_qu;kecsua
 Language_rm;rétoromán
 Language_rn; 
@@ -702,6 +706,8 @@ Language_yi;jiddis
 Language_yo; 
 Language_za; 
 Language_zh;kínai
+Language_zh-cn
+Language_zh-tw
 Language_zu;zulu
 LawRating;Korhatár
 LCCN;LCCN
@@ -917,5 +923,5 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;Igen
 Your system;Rendszer
-ZZ_Automatic_Percent;60
+ZZ_Automatic_Percent;59
 ZZ_AutomaticLanguage_Percent;78

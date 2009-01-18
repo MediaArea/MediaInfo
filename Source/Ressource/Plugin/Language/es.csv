@@ -516,7 +516,7 @@ Known formats;Formatos conocidos
 Known parameters;Parámetros conocidos
 Label;Etiqueta
 Language;Idioma
-Language___;Idiomas múltiples
+Language_More
 Language_aa;afar
 Language_ab;abjaso
 Language_ae
@@ -555,6 +555,8 @@ Language_dz;Dzongkha
 Language_ee
 Language_el;griego
 Language_en;inglés
+Language_en-gb
+Language_en-us
 Language_eo;Esperanto
 Language_es;español
 Language_et;estonio
@@ -628,6 +630,7 @@ Language_mo;moldavo
 Language_mr;márata
 Language_ms;malayo
 Language_mt;maltés
+Language_mul;Idiomas múltiples
 Language_my;birmano
 Language_na;nauruano
 Language_nb
@@ -650,6 +653,7 @@ Language_pi
 Language_pl;polaco
 Language_ps;Pashtu
 Language_pt;portugués
+Language_pt-br
 Language_qu;Quechua
 Language_rm;retorrománico
 Language_rn;rundí
@@ -702,6 +706,8 @@ Language_yi;Yídish
 Language_yo;Yoruba
 Language_za
 Language_zh;chino
+Language_zh-cn
+Language_zh-tw
 Language_zu;zulú
 LawRating;Ley de calificación
 LCCN;LCCN
@@ -917,5 +923,5 @@ Written_Location;Escrito en
 WrittenBy;Escrito por
 Yes;Si
 Your system;Tu sistema
-ZZ_Automatic_Percent;68
+ZZ_Automatic_Percent;67
 ZZ_AutomaticLanguage_Percent;89

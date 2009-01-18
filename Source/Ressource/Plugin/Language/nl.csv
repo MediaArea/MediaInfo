@@ -516,7 +516,7 @@ Known formats;Bekende formaten
 Known parameters;Bekende parameters
 Label;Label
 Language;Taal
-Language___;Meerdere talen
+Language_More
 Language_aa;Afar
 Language_ab;Abchazisch
 Language_ae;Avestaans
@@ -555,6 +555,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Grieks
 Language_en;Engels
+Language_en-gb
+Language_en-us
 Language_eo;Esperanto
 Language_es;Spaans
 Language_et;Estisch
@@ -628,6 +630,7 @@ Language_mo;Moldavisch
 Language_mr;Marathi
 Language_ms;Maleis
 Language_mt;Maltees
+Language_mul;Meerdere talen
 Language_my;Burmees
 Language_na;Nauruaans
 Language_nb;Noors Bokmal
@@ -650,6 +653,7 @@ Language_pi;Pali
 Language_pl;Pools
 Language_ps;Pasjtoe
 Language_pt;Portugees
+Language_pt-br
 Language_qu;Quechua
 Language_rm;Reto-Romaans
 Language_rn;Kirundi
@@ -702,6 +706,8 @@ Language_yi;Jiddisch
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Chinees
+Language_zh-cn
+Language_zh-tw
 Language_zu;Zoeloe
 LawRating;Law rating
 LCCN;LCCN

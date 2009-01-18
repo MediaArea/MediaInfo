@@ -516,7 +516,7 @@ Known formats;รูปแบบที่รู้จัก
 Known parameters;พารามิเตอร์ที่รู้จัก
 Label;ป้ายชื่อ
 Language;ภาษา
-Language___;Multiple languages
+Language_More
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -555,6 +555,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;กรีก
 Language_en;อังกฤษ
+Language_en-gb
+Language_en-us
 Language_eo;Esperanto
 Language_es;สเปน
 Language_et;เอสโตเนีย
@@ -628,6 +630,7 @@ Language_mo;มอลเดเวีย
 Language_mr;มาราฐี
 Language_ms;มาเลย์
 Language_mt;มัลตีส
+Language_mul;Multiple languages
 Language_my;พม่า
 Language_na;นาอูรู
 Language_nb;Norwegian Bokmal
@@ -650,6 +653,7 @@ Language_pi;บาลี
 Language_pl;โปแลนด์
 Language_ps;Pushto
 Language_pt;โปรตุเกส
+Language_pt-br
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
@@ -702,6 +706,8 @@ Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;จีน
+Language_zh-cn
+Language_zh-tw
 Language_zu;ซูลู
 LawRating;Law rating
 LCCN;LCCN
@@ -917,5 +923,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;89
+ZZ_Automatic_Percent;88
 ZZ_AutomaticLanguage_Percent;89

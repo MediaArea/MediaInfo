@@ -516,7 +516,7 @@ Known formats;已知格式
 Known parameters;已知參數
 Label;標籤
 Language;語系
-Language___;多重語系
+Language_More
 Language_aa;伊索匹亞語 (Afar)
 Language_ab;阿布哈茲語 (Abkhazian)
 Language_ae;古波斯語 (Avestan)
@@ -555,6 +555,8 @@ Language_dz;不丹語 (Dzongkha)
 Language_ee;埃維語 (Ewe)
 Language_el;希臘語 (Greek)
 Language_en;英語 (English)
+Language_en-gb
+Language_en-us
 Language_eo;世界語 (Esperanto)
 Language_es;西班牙語 (Spanish)
 Language_et;愛沙尼亞語 (Estonian)
@@ -628,6 +630,7 @@ Language_mo;摩達維亞語 (Moldavian)
 Language_mr;馬拉塔語 (Marathi)
 Language_ms;馬來語 (Malay)
 Language_mt;馬爾他語 (Maltese)
+Language_mul;多重語系
 Language_my;緬甸語 (Burmese)
 Language_na;諾魯語 (Nauru)
 Language_nb;挪威波克默爾語 (Norwegian Bokmal)
@@ -650,6 +653,7 @@ Language_pi;巴利語 (Pali)
 Language_pl;波蘭語 (Polish)
 Language_ps;阿富汗語 (Pushto)
 Language_pt;葡萄牙語 (Portuguese)
+Language_pt-br
 Language_qu;印加語 (Quechua)
 Language_rm;羅曼語 (Raeto-Romance)
 Language_rn;可蘭地語 (Rundi)
@@ -702,6 +706,8 @@ Language_yi;意地緒語 (Yiddish)
 Language_yo;庫哇語 (Yoruba)
 Language_za;壯語 (Zhuang)
 Language_zh;華語 (Chinese)
+Language_zh-cn
+Language_zh-tw
 Language_zu;祖魯語 (Zulu)
 LawRating;分級
 LCCN;LCCN
@@ -917,5 +923,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;96
+ZZ_Automatic_Percent;95
 ZZ_AutomaticLanguage_Percent;96

@@ -516,7 +516,7 @@ Known formats;使用可能なフォーマット
 Known parameters;使用可能なパラメータ
 Label;ラベル
 Language;言語
-Language___;複数言語
+Language_More
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -555,6 +555,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Greek
 Language_en;英語
+Language_en-gb
+Language_en-us
 Language_eo;Esperanto
 Language_es;エスパーニャ
 Language_et;Estonian
@@ -628,6 +630,7 @@ Language_mo;Moldavian
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
+Language_mul;複数言語
 Language_my;Burmese
 Language_na;Nauru
 Language_nb;Norwegian Bokmal
@@ -650,6 +653,7 @@ Language_pi;Pali
 Language_pl;Polish
 Language_ps;Pushto
 Language_pt;Portuguese
+Language_pt-br
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
@@ -702,6 +706,8 @@ Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Chinese
+Language_zh-cn
+Language_zh-tw
 Language_zu;Zulu
 LawRating;レイティング
 LCCN;LCCN
@@ -917,5 +923,5 @@ Written_Location;作成所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;89
+ZZ_Automatic_Percent;88
 ZZ_AutomaticLanguage_Percent;89

@@ -516,7 +516,7 @@ Known formats;已知格式
 Known parameters;已知参数
 Label;标签
 Language;语言
-Language___;多国语言
+Language_More
 Language_aa
 Language_ab
 Language_ae
@@ -555,6 +555,8 @@ Language_dz
 Language_ee
 Language_el
 Language_en
+Language_en-gb
+Language_en-us
 Language_eo
 Language_es
 Language_et
@@ -628,6 +630,7 @@ Language_mo
 Language_mr
 Language_ms
 Language_mt
+Language_mul;多国语言
 Language_my
 Language_na
 Language_nb
@@ -650,6 +653,7 @@ Language_pi
 Language_pl
 Language_ps
 Language_pt
+Language_pt-br
 Language_qu
 Language_rm
 Language_rn
@@ -702,6 +706,8 @@ Language_yi
 Language_yo
 Language_za
 Language_zh;简体中文
+Language_zh-cn
+Language_zh-tw
 Language_zu
 LawRating;分级
 LCCN
@@ -755,7 +761,7 @@ OpenCandy_13;___________ - 由 ____________ 推荐
 OpenCandy_14;正在下载 _________
 OpenCandy_15;正在下载___________（由 ___________ 推荐）。当下载完成后我们会通知你。 
 OpenCandy_16;___________ 可以开始安装了。
-OpenCandy_17;___________ 已下载完成，请点击"安装"继续。
+OpenCandy_17;___________ 已下载完成，请点击'安装'继续。
 OpenCandy_18;___________个（共___________个）已下载。
 OpenCandy_19;使用OpenCandy实现
 OpenCandy_20;访问OpenCandy.com了解更多信息。
@@ -917,5 +923,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;55
+ZZ_Automatic_Percent;54
 ZZ_AutomaticLanguage_Percent;91

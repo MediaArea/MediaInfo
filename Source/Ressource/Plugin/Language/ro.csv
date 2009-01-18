@@ -516,7 +516,7 @@ Known formats;Formate cunoscute
 Known parameters;Parametrii cunoscuti
 Label;Eticheta
 Language;Traducere
-Language___;Mai multe traduceri
+Language_More
 Language_aa
 Language_ab
 Language_ae
@@ -555,6 +555,8 @@ Language_dz
 Language_ee
 Language_el
 Language_en
+Language_en-gb
+Language_en-us
 Language_eo
 Language_es
 Language_et
@@ -628,6 +630,7 @@ Language_mo
 Language_mr
 Language_ms
 Language_mt
+Language_mul;Mai multe traduceri
 Language_my
 Language_na
 Language_nb
@@ -650,6 +653,7 @@ Language_pi
 Language_pl
 Language_ps
 Language_pt
+Language_pt-br
 Language_qu
 Language_rm
 Language_rn
@@ -702,6 +706,8 @@ Language_yi
 Language_yo
 Language_za
 Language_zh
+Language_zh-cn
+Language_zh-tw
 Language_zu
 LawRating
 LCCN

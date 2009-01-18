@@ -516,7 +516,7 @@ Known formats;Известные форматы
 Known parameters;Известные параметры
 Label;Метка
 Language;Язык
-Language___;Многоязычность
+Language_More
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -555,6 +555,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Greek
 Language_en;English
+Language_en-gb
+Language_en-us
 Language_eo;Esperanto
 Language_es;Spanish
 Language_et;Estonian
@@ -628,6 +630,7 @@ Language_mo;Moldavian
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
+Language_mul;Многоязычность
 Language_my;Burmese
 Language_na;Nauru
 Language_nb;Norwegian Bokmal
@@ -650,6 +653,7 @@ Language_pi;Pali
 Language_pl;Polish
 Language_ps;Pushto
 Language_pt;Portuguese
+Language_pt-br
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
@@ -702,6 +706,8 @@ Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Chinese
+Language_zh-cn
+Language_zh-tw
 Language_zu;Zulu
 LawRating;Ограничения прав
 LCCN;LCCN
@@ -755,7 +761,7 @@ OpenCandy_13;___________ - рекомендовано ____________
 OpenCandy_14;Загружается _________
 OpenCandy_15;___________, программа, рекомендованная ___________, сейчас загружается по Вашему запросу. Мы дадим знать, когда она будет готова для установки.
 OpenCandy_16;___________ готова для установки
-OpenCandy_17;___________ полностью загружена. Нажмите "Установка" для начала процесса.
+OpenCandy_17;___________ полностью загружена. Нажмите 'Установка' для начала процесса.
 OpenCandy_18;___________ из ___________ загружено
 OpenCandy_19;Разработано OpenCandy
 OpenCandy_20;Дополнительная информация на OpenCandy.com
@@ -917,5 +923,5 @@ Written_Location;Место написания
 WrittenBy;Написано
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;99
+ZZ_Automatic_Percent;98
 ZZ_AutomaticLanguage_Percent;99

@@ -516,7 +516,7 @@ Known formats;알고 있는 포맷
 Known parameters;알고 있는 파라미터
 Label;라벨
 Language;언어
-Language___;Multiple languages
+Language_More
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -555,6 +555,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Greek
 Language_en;English
+Language_en-gb
+Language_en-us
 Language_eo;Esperanto
 Language_es;Spanish
 Language_et;Estonian
@@ -628,6 +630,7 @@ Language_mo;Moldavian
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
+Language_mul;Multiple languages
 Language_my;Burmese
 Language_na;Nauru
 Language_nb;Norwegian Bokmal
@@ -650,6 +653,7 @@ Language_pi;Pali
 Language_pl;Polish
 Language_ps;Pushto
 Language_pt;Portuguese
+Language_pt-br
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
@@ -702,6 +706,8 @@ Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Chinese
+Language_zh-cn
+Language_zh-tw
 Language_zu;Zulu
 LawRating;법률 등급
 LCCN;LCCN
@@ -755,7 +761,7 @@ OpenCandy_13;___________ - ____________ 추천
 OpenCandy_14;_________ 다운로드 중
 OpenCandy_15;요청하신 ___________, ___________가 추천한 소프트웨어,가 다운로드 중입니다. 설치 준비가 완료되면 알려드리겠습니다.
 OpenCandy_16;___________ 설치가 준비되었습니다.
-OpenCandy_17;___________가 다운로드되었습니다. 설치를 진행하시려면 "설치"를 눌러주십시오.
+OpenCandy_17;___________가 다운로드되었습니다. 설치를 진행하시려면 '설치'를 눌러주십시오.
 OpenCandy_18;___________ / ___________ 다운로드
 OpenCandy_19;Powered by OpenCandy
 OpenCandy_20;Learn more at OpenCandy.com

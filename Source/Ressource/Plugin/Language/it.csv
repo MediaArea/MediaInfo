@@ -516,7 +516,7 @@ Known formats;Formati conosciuti
 Known parameters;Parametri conosciuti
 Label;Etichetta
 Language;Lingua
-Language___;Multilingua
+Language_More
 Language_aa;Afar
 Language_ab;Abkhaziano
 Language_ae;Avestano
@@ -555,6 +555,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Greco
 Language_en;Inglese
+Language_en-gb
+Language_en-us
 Language_eo;Esperanto
 Language_es;Spagnolo
 Language_et;Estone
@@ -628,6 +630,7 @@ Language_mo;Moldavo
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
+Language_mul;Multilingua
 Language_my;Burmese
 Language_na;Nauru
 Language_nb;Norvegese Bokmål
@@ -650,6 +653,7 @@ Language_pi;Pali
 Language_pl;Polacco
 Language_ps;Pashto
 Language_pt;Portoghese
+Language_pt-br
 Language_qu;Quechua
 Language_rm;Romancio
 Language_rn;Rundi
@@ -702,6 +706,8 @@ Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Cinese
+Language_zh-cn
+Language_zh-tw
 Language_zu;Zulu
 LawRating;Law Rating
 LCCN;LCCN
@@ -755,7 +761,7 @@ OpenCandy_13;___________ - Raccomandato da ____________
 OpenCandy_14;Scaricamento di _________
 OpenCandy_15;___________, programma raccomandato da ___________, è in scaricamento. Verrai avvisato quando sarà pronto per l'installazione.
 OpenCandy_16;___________ è pronto per l'installazione
-OpenCandy_17;___________ è stato scaricato. Clicca su "Installa" per procedere.
+OpenCandy_17;___________ è stato scaricato. Clicca su 'Installa' per procedere.
 OpenCandy_18;___________ di ___________ scaricati
 OpenCandy_19;Powered by OpenCandy
 OpenCandy_20;Maggiori informazioni su OpenCandy.com

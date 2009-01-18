@@ -516,7 +516,7 @@ Known formats;Formats connus
 Known parameters;Paramètres connus
 Label;Label
 Language;Langue
-Language___;Langues multiples
+Language_More;Langue, plus d'info
 Language_aa;Afar
 Language_ab;Abkhaze
 Language_ae;Avestique
@@ -555,6 +555,8 @@ Language_dz;Dzongkha
 Language_ee;Éwé
 Language_el;Grec
 Language_en;Anglais
+Language_en-gb;Anglais (Royaume-Uni)
+Language_en-us;Anglais (Etats-Unis)
 Language_eo;Espéranto
 Language_es;Espagnol
 Language_et;Estonien
@@ -628,6 +630,7 @@ Language_mo;Moldave
 Language_mr;Marathe
 Language_ms;Malais
 Language_mt;Maltais
+Language_mul;Langues multiples
 Language_my;Birman
 Language_na;Nauruan
 Language_nb;Norwegian bokmål
@@ -650,6 +653,7 @@ Language_pi;Pali
 Language_pl;Polonais
 Language_ps;Pachto
 Language_pt;Portugais
+Language_pt-br;Portugais (Brésil)
 Language_qu;Quechua
 Language_rm;Rhéto-roman
 Language_rn;Rundi
@@ -702,6 +706,8 @@ Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Chinois
+Language_zh-cn;Chinois (Chine)
+Language_zh-tw;Chinois (Taiwan)
 Language_zu;Zoulou
 LawRating;Classé
 LCCN;LCCN
@@ -744,7 +750,7 @@ OpenCandy_02;____% Terminé
 OpenCandy_03;Connexion Internet interrompue
 OpenCandy_04;Téléchargement de ____ terminé.
 OpenCandy_05;Cliquez ici pour installer ______
-OpenCandy_06;Êtes-vous sûr de vouloir annuler l'installation?\r\nSi vous souhaitez reporter l'installation à plus tard, sélectionnez "Non".\r\nRemarque: Vous pouvez choisir "Quitter" depuis le menu pour reporter l'installation au prochain redémarrage.
+OpenCandy_06;Êtes-vous sûr de vouloir annuler l'installation?\r\nSi vous souhaitez reporter l'installation à plus tard, sélectionnez 'Non'.\r\nRemarque: Vous pouvez choisir 'Quitter' depuis le menu pour reporter l'installation au prochain redémarrage.
 OpenCandy_07;Le téléchargement de ______ a été mis en pause.\r\nCliquez sur l'icone dans la barre d'état pour reprendre le téléchargement.
 OpenCandy_08;Une erreur critique est survenue. L'installation de ______ va être annulée.
 OpenCandy_09;Mettre le téléchargement en pause.
@@ -755,7 +761,7 @@ OpenCandy_13;________ - recommandé par __________
 OpenCandy_14;Téléchargement de _____
 OpenCandy_15;_________, le logiciel recommandé par _______, est en cours de téléchargement selon votre demande. Nous vous ferons savoir quand il sera prêt à être installé.
 OpenCandy_16;_______ est prêt à être installé.
-OpenCandy_17;_______ est maintenant entièrement téléchargé. Cliquez sur "Installer" pour continuer.
+OpenCandy_17;_______ est maintenant entièrement téléchargé. Cliquez sur 'Installer' pour continuer.
 OpenCandy_18;_______ sur _______ téléchargé
 OpenCandy_19;Un service de OpenCandy
 OpenCandy_20;En savoir plus : OpenCandy.com
