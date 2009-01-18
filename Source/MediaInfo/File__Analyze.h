@@ -509,6 +509,7 @@ public :
     void Get_Flags (int64u ValueToPut,          int8u &Info, const char* Name);
     void Skip_Flags(int64u Flags, size_t Order,              const char* Name);
     void Skip_Flags(int64u ValueToPut,                       const char* Name);
+    #define Info_Flags(_FLAGS, _ORDER, _INFO, _NAME) bool _INFO; Get_Flags (_FLAGS, _ORDER, _INFO, _NAME)
 
     //***************************************************************************
     // BitStream
