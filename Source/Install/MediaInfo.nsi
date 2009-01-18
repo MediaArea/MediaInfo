@@ -3,9 +3,10 @@ RequestExecutionLevel admin
 
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
-!define PRODUCT_VERSION "0.7.9BETA"
+!define PRODUCT_VERSION "0.7.9"
 !define PRODUCT_VERSION4 "0.7.9.0"
 !define PRODUCT_WEB_SITE "http://mediainfo.sourceforge.net"
+!define PRODUCT_REGISTRY "Software\MediaArea.net\MediaInfo"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\MediaInfo.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
@@ -411,6 +412,7 @@ Section Uninstall
   DeleteRegKey /ifempty HKCR "$1\Shell"
   DeleteRegKey /ifempty HKCR "$1"
 
+  DeleteRegKey HKCR "${PRODUCT_REGISTRY}"
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
   SetAutoClose true
