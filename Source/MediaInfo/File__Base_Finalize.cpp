@@ -216,7 +216,8 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
         {
             Ztring Language=Retrieve(StreamKind, Pos, "Language");
             Language.MakeLowerCase();
-            if (Language.size()==3 && Language==_T("und"))
+            if (Language.size()==3 && (Language==_T("mis") || Language==_T("und") || Language==_T("???") || Language==_T("   "))
+             || Language.size()==2 && Language==_T("  "))
             {
                 Clear(StreamKind, Pos, "Language");
                 Language.clear();
@@ -224,14 +225,17 @@ void File__Analyze::Finalize_Final_All(stream_t StreamKind, size_t Pos, Ztring &
             if (!Language.empty() && MediaInfoLib::Config.ReadByHuman_Get())
             {
                 if (Language.size()==3 && !MediaInfoLib::Config.Iso639_Get(Language).empty())
+                {
                     Language=MediaInfoLib::Config.Iso639_Get(Language);
+                    Fill(StreamKind, Pos, "Language", Language, true); //Forcing ISO-639
+                }
                 if (Language.size()>3 && !MediaInfoLib::Config.Iso639_Find(Language).empty())
                 {
                     Language=MediaInfoLib::Config.Iso639_Find(Language);
                     Fill(StreamKind, Pos, "Language", Language, true); //Forcing ISO-639
                 }
                 //Translate
-                if (Language.size()==2)
+                if (Language.size()==2 || Language.size()==3)
                 {
                     Ztring Temp=_T("Language_"); Temp+=Language;
                     const Ztring& Z3=MediaInfoLib::Config.Language_Get(Temp);

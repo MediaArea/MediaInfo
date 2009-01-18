@@ -199,7 +199,7 @@ void File_VorbisCom::Comment()
         else if (Key==_T("GENRE"))                  Fill(StreamKind_Common,   0, "Genre", Value);
         else if (Key==_T("FIRST_PLAYED_TIMESTAMP")) Fill(StreamKind_Common,   0, "Played_First_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/10000));
         else if (Key==_T("ISRC"))                   Fill(StreamKind_Multiple, 0, "ISRC", Value);
-        else if (Key==_T("LANGUAGE"))               Fill(StreamKind_Specific, 0, "Language", Value);
+        else if (Key==_T("LANGUAGE"))               {if (Value.find(_T("Director"))==0) Fill(StreamKind_Specific, 0, "Language_More", Value); else if (!Value.SubString(_T("["), _T("]")).empty()) Fill(StreamKind_Specific, 0, "Language", Value.SubString(_T("["), _T("]"))); else Fill(StreamKind_Specific, 0, "Language", Value);}
         else if (Key==_T("LAST_PLAYED_TIMESTAMP"))  Fill(StreamKind_Multiple, 0, "Played_Last_Date", Ztring().Date_From_Milliseconds_1601(Value.To_int64u()/10000));
         else if (Key==_T("LICENCE"))                Fill(StreamKind_Common,   0, "TermsOfUse", Value);
         else if (Key==_T("LYRICS"))                 Fill(StreamKind_Common,   0, "Lyrics", Value);

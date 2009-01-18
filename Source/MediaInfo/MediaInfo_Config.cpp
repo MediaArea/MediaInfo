@@ -1095,13 +1095,7 @@ const Ztring &MediaInfo_Config::Iso639_Get (const Ztring &Value)
         File__Base_Iso639(Iso639);
     CS.Leave();
 
-    const Ztring& Language=Iso639.Get(Ztring(Value).MakeLowerCase(), 1);
-    if (!Language.empty())
-        return Language;
-    else if (Value==_T("   ") || Value==_T("  "))
-        return EmptyZtring;
-    else
-        return Value;
+    return Iso639.Get(Ztring(Value).MakeLowerCase(), 1);;
 }
 
 //---------------------------------------------------------------------------
@@ -1110,11 +1104,11 @@ const Ztring MediaInfo_Config::Iso639_Find (const Ztring &Value)
     Translation Info;
     File__Base_DefaultLanguage (Info);
     Ztring Value_Lower(Value);
-    transform(Value_Lower.begin(), Value_Lower.end(), Value_Lower.begin(), (int(*)(int))tolower); //(int(*)(int)) is a patch for unix
+    Value_Lower.MakeLowerCase();
 
     for (Translation::iterator Trans=Info.begin(); Trans!=Info.end(); Trans++)
     {
-        transform(Trans->second.begin(), Trans->second.end(), Trans->second.begin(), (int(*)(int))tolower); //(int(*)(int)) is a patch for unix
+        Trans->second.MakeLowerCase();
         if (Trans->second==Value_Lower && Trans->first.find(_T("Language_"))==0)
             return Trans->first.substr(9, string::npos);
     }

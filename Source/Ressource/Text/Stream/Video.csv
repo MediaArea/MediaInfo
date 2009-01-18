@@ -126,9 +126,9 @@ Encoded_Library/Name;;;N NT;;;Info from the software;;
 Encoded_Library/Version;;;N NT;;;Version of software;;
 Encoded_Library/Date;;;N NT;;;Release date of software;;
 Encoded_Library_Settings;;;Y YT;;;Parameters used by the software;;
-Language;;;N YT;;;Language (ISO 639-1, 2 letters);;
+Language;;;N YT;;;Language (2-letter ISO 639-1 if exists, else 3-letter ISO 639-2, and with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn);;
 Language/String;;;Y NT;;;Language (full);;
-Language_More;;;Y YT;;;More info about Language (e.g. Swiss German);;
+Language_More;;;Y YT;;;More info about Language (e.g. Director's Comment);;
 Encoded_Date;;;Y YT;;;UTC time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;UTC time that the tags were done for this item.;;Temporal
 Encryption;;;Y YT;;;;;

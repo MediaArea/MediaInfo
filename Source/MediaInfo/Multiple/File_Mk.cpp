@@ -902,7 +902,7 @@ void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay_ChapLangu
     Ztring Data=Local_Get();
 
     FILLING_BEGIN();
-        Fill(StreamKind_Last, StreamPos_Last, "Language", MediaInfoLib::Config.Iso639_Get(Data), true);
+        Fill(StreamKind_Last, StreamPos_Last, "Language", Data, true);
     FILLING_END();
 }
 
@@ -1610,7 +1610,7 @@ void File_Mk::Segment_Tags_Tag_SimpleTag_TagLanguage()
     Get_Local(Element_Size, Data,                              "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        Fill(StreamKind_Last, StreamPos_Last, "Language", MediaInfoLib::Config.Iso639_Get(Data));
+        Fill(StreamKind_Last, StreamPos_Last, "Language", Data);
     FILLING_END();
 }
 
@@ -2009,7 +2009,7 @@ void File_Mk::Segment_Tracks_TrackEntry_Language()
     Get_Local(Element_Size, Data,                               "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        Fill(StreamKind_Last, StreamPos_Last, "Language", MediaInfoLib::Config.Iso639_Get(Data));
+        Fill(StreamKind_Last, StreamPos_Last, "Language", Data);
     FILLING_END();
 }
 
