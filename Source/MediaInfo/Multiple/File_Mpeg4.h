@@ -117,8 +117,11 @@ private :
     void moov_trak_mdia_minf_stbl_stdp();
     void moov_trak_mdia_minf_stbl_stsc();
     void moov_trak_mdia_minf_stbl_stsd();
+    void moov_trak_mdia_minf_stbl_stsd_text();
     void moov_trak_mdia_minf_stbl_stsd_tmcd();
     void moov_trak_mdia_minf_stbl_stsd_tmcd_name();
+    void moov_trak_mdia_minf_stbl_stsd_tx3g();
+    void moov_trak_mdia_minf_stbl_stsd_tx3g_ftab();
     void moov_trak_mdia_minf_stbl_stsd_xxxx();
     void moov_trak_mdia_minf_stbl_stsd_xxxxSound();
     void moov_trak_mdia_minf_stbl_stsd_xxxxVideo();

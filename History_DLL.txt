@@ -18,6 +18,7 @@ Version 0.7.9, 200
 + SMV (WAV/ADPCM+JPG files) file format support
 + DPG (Nintendo DS) file format support
 + QuickTime: TimeCode track analysis
++ MPEG-4 subtitles: difference between 'text' and 'tx3g' codecIDs
 x Python binding update for more compatibilty
 x #2474280, OGG: handling of files with Skeleton Metadata
 x #2445654, OGG: better false-positives detection

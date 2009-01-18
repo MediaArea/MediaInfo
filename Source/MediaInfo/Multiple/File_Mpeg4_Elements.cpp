@@ -212,8 +212,11 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_mp4a=0x6D703461;
     const int64u moov_trak_mdia_minf_stbl_stsd_mp4s=0x6D703473;
     const int64u moov_trak_mdia_minf_stbl_stsd_mp4v=0x6D703476;
+    const int64u moov_trak_mdia_minf_stbl_stsd_text=0x74657874;
     const int64u moov_trak_mdia_minf_stbl_stsd_tmcd=0x746D6364;
     const int64u moov_trak_mdia_minf_stbl_stsd_tmcd_name=0x6E616D65;
+    const int64u moov_trak_mdia_minf_stbl_stsd_tx3g=0x74783367;
+    const int64u moov_trak_mdia_minf_stbl_stsd_tx3g_ftab=0x66746162;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_alac=0x616C6163;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_avcC=0x61766343;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_btrt=0x62747274;
@@ -401,9 +404,14 @@ void File_Mpeg4::Data_Parse()
                         ATOM(moov_trak_mdia_minf_stbl_stsc)
                         LIST(moov_trak_mdia_minf_stbl_stsd)
                             ATOM_BEGIN
+                            ATOM(moov_trak_mdia_minf_stbl_stsd_text)
                             LIST(moov_trak_mdia_minf_stbl_stsd_tmcd)
                                 ATOM_BEGIN
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_tmcd_name)
+                                ATOM_END
+                            LIST(moov_trak_mdia_minf_stbl_stsd_tx3g)
+                                ATOM_BEGIN
+                                ATOM(moov_trak_mdia_minf_stbl_stsd_tx3g_ftab)
                                 ATOM_END
                             LIST_DEFAULT(moov_trak_mdia_minf_stbl_stsd_xxxx)
                                 ATOM_BEGIN
@@ -1375,8 +1383,6 @@ void File_Mpeg4::moov_trak_mdia_hdlr()
                 if (StreamKind_Last!=Stream_Text)
                 {
                     Stream_Prepare(Stream_Text);
-                    CodecID_Fill(_T("tx3g"), Stream_Text, StreamPos_Last, InfoCodecID_Format_Mpeg4);
-                    Fill(StreamKind_Last, StreamPos_Last, Text_Codec, "tx3g");
                 }
                 break;
             case Elements::moov_trak_mdia_hdlr_subp :
@@ -1777,6 +1783,61 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_text()
+{
+    Element_Name("Text (Apple)");
+
+    //Parsing
+    int8u TextName_Size;
+    Skip_B4(                                                    "Reserved");
+    Skip_B2(                                                    "Reserved");
+    Skip_B2(                                                    "Data reference index");
+    Info_B4(Flags,                                              "Display flags");
+        Skip_Flags(Flags,  1,                                   "Don't auto scale");
+        Skip_Flags(Flags,  3,                                   "Use movie background color");
+        Skip_Flags(Flags,  5,                                   "Scroll in");
+        Skip_Flags(Flags,  6,                                   "Scroll out");
+        Skip_Flags(Flags,  7,                                   "Horizontal scroll");
+        Skip_Flags(Flags,  8,                                   "Reverse scroll");
+        Skip_Flags(Flags,  9,                                   "Continuous scroll");
+        Skip_Flags(Flags, 12,                                   "Drop shadow");
+        Skip_Flags(Flags, 13,                                   "Anti-alias");
+        Skip_Flags(Flags, 14,                                   "Key text");
+    Skip_B4(                                                    "Text justification");
+    Skip_B2(                                                    "Background color (Red)");
+    Skip_B2(                                                    "Background color (Green)");
+    Skip_B2(                                                    "Background color (Blue)");
+    Element_Begin("Default text box");
+        Skip_B2(                                                "top");
+        Skip_B2(                                                "left");
+        Skip_B2(                                                "bottom");
+        Skip_B2(                                                "right");
+    Element_End();
+    Skip_B8(                                                    "Reserved");
+    Skip_B2(                                                    "Font number");
+    Info_B2(FontFace,                                           "Font face");
+        Skip_Flags(FontFace, 0,                                 "Bold");
+        Skip_Flags(FontFace, 1,                                 "Italic");
+        Skip_Flags(FontFace, 2,                                 "Underline");
+        Skip_Flags(FontFace, 3,                                 "Outline");
+        Skip_Flags(FontFace, 4,                                 "Shadow");
+        Skip_Flags(FontFace, 5,                                 "Condense");
+        Skip_Flags(FontFace, 6,                                 "Extend");
+    Skip_B1(                                                    "Reserved");
+    Skip_B1(                                                    "Reserved"); //Specs say 16-bits, but not in coherency with my test sample
+    Skip_B2(                                                    "Foreground color (Red)");
+    Skip_B2(                                                    "Foreground color (Green)");
+    Skip_B2(                                                    "Foreground color (Blue)");
+    Get_B1 (TextName_Size,                                      "Text name size");
+    Skip_Local(TextName_Size,                                   "Text name");
+
+    FILLING_BEGIN();
+        CodecID_Fill(_T("text"), Stream_Text, StreamPos_Last, InfoCodecID_Format_Mpeg4);
+        Fill(StreamKind_Last, StreamPos_Last, Text_Codec, "text", Unlimited, true, true);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tmcd()
 {
     Element_Name("TimeCode");
@@ -1838,6 +1899,88 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tmcd_name()
             if (Strea->second.TimeCode_TrackID==moov_trak_tkhd_TrackID)
                 Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Title", Value);
     FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tx3g()
+{
+    Element_Name("Text");
+
+    //Parsing
+    Skip_B4(                                                    "Reserved");
+    Skip_B2(                                                    "Reserved");
+    Skip_B2(                                                    "Data reference index");
+    Info_B4(Flags,                                              "displayFlags");
+        Skip_Flags(Flags,  5,                                   "Scroll in");
+        Skip_Flags(Flags,  6,                                   "Scroll out");
+        Skip_Flags(Flags,  7,                                   "Horizontal scroll");
+        Skip_Flags(Flags,  8,                                   "Reverse scroll");
+        Skip_Flags(Flags, 10,                                   "Continuous karaoke");
+        Skip_Flags(Flags, 17,                                   "write text vertically");
+        Skip_Flags(Flags, 18,                                   "fill text region");
+    Skip_B1(                                                    "horizontal-justification");
+    Skip_B1(                                                    "vertical-justification");
+    Skip_B1(                                                    "background-color-rgba (red)");
+    Skip_B1(                                                    "background-color-rgba (green)");
+    Skip_B1(                                                    "background-color-rgba (blue)");
+    Skip_B1(                                                    "background-color-rgba (alpha)");
+    Element_Begin("default-text-box");
+        if (Element_Size>42 && CC4(Buffer+Buffer_Offset+38)==Elements::moov_trak_mdia_minf_stbl_stsd_tx3g_ftab)
+        {
+            Skip_B1(                                            "top"); //Specs say 16-bits, but not in coherency with a test sample
+            Skip_B1(                                            "left"); //Specs say 16-bits, but not in coherency with a test sample
+            Skip_B1(                                            "bottom"); //Specs say 16-bits, but not in coherency with a test sample
+            Skip_B1(                                            "right"); //Specs say 16-bits, but not in coherency with a test sample
+        }
+        else
+        {
+            Skip_B2(                                            "top");
+            Skip_B2(                                            "left");
+            Skip_B2(                                            "bottom");
+            Skip_B2(                                            "right");
+        }
+    Element_End();
+    Element_Begin("default-style");
+        Skip_B2(                                                "startChar");
+        Skip_B2(                                                "endChar");
+        Skip_B2(                                                "font-ID");
+        Skip_B1(                                                "face-style-flags");
+        Skip_B1(                                                "font-size");
+        Skip_B1(                                                "text-color-rgba (red)");
+        Skip_B1(                                                "text-color-rgba (green)");
+        Skip_B1(                                                "text-color-rgba (blue)");
+        Skip_B1(                                                "text-color-rgba (alpha)");
+    Element_End();
+
+    FILLING_BEGIN();
+        CodecID_Fill(_T("tx3g"), Stream_Text, StreamPos_Last, InfoCodecID_Format_Mpeg4);
+        Fill(StreamKind_Last, StreamPos_Last, Text_Codec, "tx3g", Unlimited, true, true);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tx3g_ftab()
+{
+    Element_Name("Font table");
+
+    //Found strange data in one file, but no specs about this
+    if (Element_Size==0x17-8 && (BigEndian2int16u(Buffer+Buffer_Offset)!=1 || BigEndian2int16u(Buffer+Buffer_Offset+4)!=0x17-8-5))
+    {
+        Skip_XX(Element_Size,                                   "Unknown");
+        return;
+    }
+
+    //Parsing
+    int16u entry_count;
+    Get_B2 (entry_count,                                        "entry-count");
+
+    for (int16u Pos=0; Pos<entry_count; Pos++)
+    {
+        int8u FontName_Length;
+        Skip_B2(                                                "font-ID");
+        Get_B1 (FontName_Length,                                "font-name-length");
+        Skip_Local(FontName_Length,                             "font-name");
+    }
 }
 
 //---------------------------------------------------------------------------

@@ -2273,6 +2273,7 @@ void File__Base_CodecID_Text_Mpeg4 (InfoMap &Info)
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_Local(
     "subp;VobSub;;The same subtitle format used on DVDs\n"
+    "text;Apple text;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "tx3g;Timed text;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "enct;(Encrypted)\n"
     ));
