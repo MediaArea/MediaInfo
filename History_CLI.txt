@@ -7,25 +7,24 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.8, 2008-12-09
+Version 0.7.9, 2009-01-19
 -------------
-+ Changing version schema, only 3 numbers (next versions will 0.7.9, 0.7.10...)
-+ Better Linux integration
-+ rpm stuff (thanks to oc2pus http://packman.links2linux.org)
-+ deb stuff
-+ #2259421, FLAC and OGG: Encoding library name and version
-+ FLV: version 10 support
-+ FLV: duration of files without metatags
-+ MPEG-4: Delay (useful when multiple videos are present)
-+ Dirac: profiles updated from the latest specification
-+ MPEG-4: more precise detection of OGG based codecs
-+ MKV: better newest codecs handling
-+ MKV: RealVideo/Audio support improvements
-+ mipsel CPU support
-x MPEG-PS: Trying to have a better precision for duration
-x WMV: crash with some malformed files
-x MPEG-TS: some channel names where not shown
-x MPEG Video (version 2): some streams were misdetected as CBR
++ OGG: Dirac support
++ OGG: Speex support
++ OGG: other formats (JNG, Kate, MIDI, PCM...) detection
++ SWF: detection of more audio streams
++ MPEG-PS: Handling of PlayStation2 audio
++ #2474119, Minimal MZ (PE) and ELF detection
++ SMV (WAV/ADPCM+JPG files) file format support
++ DPG (Nintendo DS) file format support
++ QuickTime: TimeCode track analysis
++ MPEG-4 subtitles: difference between 'text' and 'tx3g' codecIDs
+x Python binding update for more compatibilty
+x #2474280, OGG: handling of files with Skeleton Metadata
+x #2445654, OGG: better false-positives detection
+x #2493685, AVI: Wrong video duration for some malformed 4GB+ AVI/DV files
+x #2516007, "Language" raw tag was sometimes 3 letter long instead of 2-letter long
+x Floating point overflow correction
 
 Version 0.7.7.8, 2008-11-10
 ---------------
