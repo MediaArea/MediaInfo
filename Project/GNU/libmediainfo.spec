@@ -8,6 +8,8 @@
 
 %define _prefix	/usr
 %define _SO_nr	0
+%define libzen_version	0.3.6
+%define libzen_SO_nr	0
 
 Name:			libmediainfo%{_SO_nr}
 Version:		0.7.9
@@ -20,10 +22,11 @@ Source0:		libmediainfo_%{version}.tar.bz2
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	dos2unix
 BuildRequires: 	gcc-c++
-BuildRequires:	libzen0-devel
+BuildRequires:	libzen0-devel = %{libzen_version}
 BuildRequires:	pkgconfig
 BuildRequires: 	zlib-devel
 BuildRequires:	doxygen
+Requires:	libzen%{libzen_SO_nr} = %{libzen_version}
 
 %description
 MediaInfo supplies technical and tag information about a video or
@@ -54,6 +57,7 @@ This package contains the shared library for MediaInfo(-gui).
 Summary:	Include files and mandatory librariesfor development
 Group:		Development/Libraries/C and C++
 Requires:	libmediainfo%{_SO_nr} = %{version}
+Requires:	libzen%{libzen_SO_nr} = %{libzen_version}
 
 %description -n libmediainfo%{_SO_nr}-devel
 Include files and mandatory librariesfor development.
@@ -127,14 +131,6 @@ done
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
-* Tue Dec 9 2008 Jerome Martinez <zen@mediaarea.net> - 0.7.8-0
-- New package system
-* Wed Nov 19 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.8-0.pm.2
-- rebuild with modified sources from author to fix gui problem
-* Mon Nov 17 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.8-0.pm.1
-- update to 0.7.7.8
-* Mon Dec 10 2007 Toni Graffy <toni@links2linux.de> - 0.7.5.6-0.pm.1
-- libZenLib and libMediaInfoLib are renamed to libzen and libmediainfo
-- install *-config files manually
-- added devel-subpackages
-- split off from MediaInfo package
+* Tue Jan 01 2009 Jerome Martinez <zen@mediaarea.net> - 0.7.9-0
+- See History.txt for more info and real dates
+- Previous packages made by Toni Graffy <toni@links2linux.de>

@@ -6,6 +6,6 @@ Version: 0.7.9-1
 Maintainer: Jerome Martinez <zen@mediaarea.net>
 Homepage: http://mediainfo.sourceforge.net
 Standards-Version: 3.7.3
-Build-Depends: debhelper (>= 5), doxygen, tofrodos, libzen0-dev, zlib1g-dev, pkg-config, automake, autoconf, libtool
+Build-Depends: debhelper (>= 5), doxygen, tofrodos, libzen0-dev (>= 0.3.6), zlib1g-dev, pkg-config, automake, autoconf, libtool
 Files: 
  00000000000000000000000000000000 000000 libmediainfo_0.7.9.tar.bz2
