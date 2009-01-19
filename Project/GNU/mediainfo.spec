@@ -7,9 +7,10 @@
 # norootforbuild
 
 %define _prefix	/usr
+%define libzen_version	0.3.6
 
 Name:			mediainfo
-Version:		0.7.8
+Version:		0.7.9
 Release:		1
 Summary:		Supplies technical and tag information about a video or audio file
 Group:			Productivity/Multimedia/Other
@@ -20,13 +21,15 @@ BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	dos2unix
 BuildRequires: 	gcc-c++
 BuildRequires:	libmediainfo0-devel
-BuildRequires:	libzen0-devel
+BuildRequires:	libzen0-devel = %libzen_version
 BuildRequires:	pkgconfig
 BuildRequires:	wxGTK-devel
 BuildRequires: 	zlib-devel
 %if 0%{?suse_version}
 BuildRequires:	update-desktop-files
 %endif
+Requires:	libzen0 = %{libzen_version}
+Requires:	libmediainfo0 = %{version}
 
 %description
 MediaInfo supplies technical and tag information about a video or
@@ -54,6 +57,8 @@ What format (container) does MediaInfo support?
 %package gui
 Summary:	GUI for mediainfo
 Group:		Productivity/Multimedia/Other
+Requires:	libzen0 = %{libzen_version}
+Requires:	libmediainfo0 = %{version}
 
 %description gui
 This package contains a Frontend for mediainfo.
@@ -165,57 +170,6 @@ popd
 %{_datadir}/kde4/services/ServiceMenus/*.desktop
 
 %changelog
-* Tue Dec 09 2008 Jerome Martinez <zen@mediaarea.net> - 0.7.8-0
-- New packaging
-* Tue Nov 18 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.8-0.pm.2
-- changed package layout, reflecting new upstream tar-balls
-- rebuild using libzen(-devel) and libmediainfo(-devel)
-- renamed package to mediainfo (obsoletes MediaInfo)
-- added subpackage gui (obsoletes MediaInfo-gui)
-- using desktop file from tarball (includes french localisation)
-* Mon Nov 10 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.8-0.pm.1
-- update to 0.7.7.8
-* Fri Oct 17 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.7-0.pm.1
-- update to 0.7.7.7
-* Fri Sep 12 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.6-0.pm.1
-- update to 0.7.7.6
-* Fri Aug 22 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.5-0.pm.1
-- update to 0.7.7.5
-* Fri Jul 11 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.4-0.pm.1
-- update to 0.7.7.4
-* Fri Jun 26 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.3-0.pm.1
-- update to 0.7.7.3
-* Fri Jun 13 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.2-0.pm.1
-- update to 0.7.7.2
-* Fri May 30 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.1-0.pm.1
-- update to 0.7.7.1
-* Fri May 16 2008 Toni Graffy <toni@links2linux.de> - 0.7.7.0-0.pm.1
-- update to 0.7.7.0
-* Mon Apr 28 2008 Toni Graffy <toni@links2linux.de> - 0.7.6.4-0.pm.1
-- update to 0.7.6.4
-* Sat Apr 12 2008 Toni Graffy <toni@links2linux.de> - 0.7.6.3-0.pm.1
-- update to 0.7.6.3
-* Fri Mar 28 2008 Toni Graffy <toni@links2linux.de> - 0.7.6.2-0.pm.1
-- update to 0.7.6.2
-* Fri Mar 14 2008 Toni Graffy <toni@links2linux.de> - 0.7.6.1-0.pm.1
-- update to 0.7.6.1
-* Fri Feb 29 2008 Toni Graffy <toni@links2linux.de> - 0.7.6.0-0.pm.1
-- update to 0.7.6.0
-* Fri Feb 08 2008 Toni Graffy <toni@links2linux.de> - 0.7.5.9-0.pm.1
-- update to 0.7.5.9
-* Fri Feb 01 2008 Toni Graffy <toni@links2linux.de> - 0.7.5.8-0.pm.1
-- update to 0.7.5.8
-* Wed Jan 09 2008 Toni Graffy <toni@links2linux.de> - 0.7.5.7-0.pm.1
-- update to 0.7.5.7
-* Mon Dec 10 2007 Toni Graffy <toni@links2linux.de> - 0.7.5.6-0.pm.1
-- update to 0.7.5.6
-* Fri Nov 09 2007 Toni Graffy <toni@links2linux.de> - 0.7.5.5-0.pm.1
-- update to 0.7.5.5
-- libMatroska and libEbml are no more used
-- The script now look for /usr/lib/libz.a and /usr/include/zlib.h before
-  downloading at the official zlib website.
-  --> If you have the development package of zlib, no more downloads!
-* Sat Nov 03 2007 Toni Graffy <toni@links2linux.de> - 0.7.5.4-0.pm.1
-- update to 0.7.5.4
-* Fri Nov 02 2007 Toni Graffy <toni@links2linux.de> - 0.7.5.3-0.pm.1
-- initial build 0.7.5.3
+* Tue Jan 01 2009 Jerome Martinez <zen@mediaarea.net> - 0.7.9-0
+- See History.txt for more info and real dates
+- Previous packages made by Toni Graffy <toni@links2linux.de>
