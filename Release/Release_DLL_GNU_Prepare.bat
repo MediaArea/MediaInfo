@@ -44,7 +44,7 @@ xcopy ..\..\Shared\Project\ZLib\*.sh MediaInfo_DLL_GNU_Prepare\Shared\Project\ZL
 
 rem --- Compressing Archive ---
 if "%2"=="SkipCompression" goto SkipCompression
-..\..\Shared\Binary\Win32\7-Zip\7z a -r -t7z -mx9 MediaInfo_DLL_GNU_Prepare.7z MediaInfo_DLL_GNU_Prepare\*
+..\..\Shared\Binary\Windows_i386\7-Zip\7z a -r -t7z -mx9 MediaInfo_DLL_GNU_Prepare.7z MediaInfo_DLL_GNU_Prepare\*
 :SkipCompression
 
 rem --- Clean up ---
