@@ -204,7 +204,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../Shared/Include"
-				PreprocessorDefinitions="_WIN32;WIN32"
+				PreprocessorDefinitions="_WIN32;WIN32;MEDIAINFO_DLL"
 				RuntimeLibrary="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
