@@ -40,10 +40,12 @@
 //---------------------------------------------------------------------------
 #ifdef MEDIAINFO_DLL
     #include "MediaInfoDLL/MediaInfoDLL.h"
+    #define MediaInfoNameSpace MediaInfoDLL
 #else
     #include "MediaInfo/MediaInfoList.h"
+    #define MediaInfoNameSpace MediaInfoLib
 #endif
-using namespace MediaInfoLib;
+using namespace MediaInfoNameSpace;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -59,7 +61,7 @@ class GUI_Main_Common_Core;
 class GUI_Main : public wxFrame
 {
 public:
-    GUI_Main (int argc, MediaInfoLib::Char** argv, const wxPoint& pos, const wxSize& size, long style = wxDEFAULT_FRAME_STYLE);
+    GUI_Main (int argc, MediaInfoNameSpace::Char** argv, const wxPoint& pos, const wxSize& size, long style = wxDEFAULT_FRAME_STYLE);
     ~GUI_Main ();
 
     //Menu - List

@@ -30,10 +30,12 @@
 //---------------------------------------------------------------------------
 #ifdef MEDIAINFO_DLL
     #include "MediaInfoDLL/MediaInfoDLL.h"
+    #define MediaInfoNameSpace MediaInfoDLL
 #else
     #include "MediaInfo/MediaInfoList.h"
+    #define MediaInfoNameSpace MediaInfoLib
 #endif
-using namespace MediaInfoLib;
+using namespace MediaInfoNameSpace;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -61,15 +63,15 @@ public:
     size_t  FilesPos_Get        ();
 
     //Actions - Per File
-    MediaInfoLib::String  FileName_Get        ();
+    MediaInfoNameSpace::String  FileName_Get        ();
 
     //Actions - Per StreamKind
     size_t  StreamsCount_Get    (stream_t StreamKind);
 
     //Actions - Per Stream
-    MediaInfoLib::String  Summary_Get         (stream_t StreamKind, size_t StreamPos);
-    MediaInfoLib::String  Inform_Get          (stream_t StreamKind, size_t StreamPos);
-    MediaInfoLib::String  CodecID_Url_Get     (stream_t StreamKind, size_t StreamPos);
+    MediaInfoNameSpace::String  Summary_Get         (stream_t StreamKind, size_t StreamPos);
+    MediaInfoNameSpace::String  Inform_Get          (stream_t StreamKind, size_t StreamPos);
+    MediaInfoNameSpace::String  CodecID_Url_Get     (stream_t StreamKind, size_t StreamPos);
 
 //protected: //Should be protected, but Borland VCL does NOT accept multiple classes, so we need of data
     //Internal

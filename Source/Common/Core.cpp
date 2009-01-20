@@ -31,7 +31,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-const MediaInfoLib::Char* MEDIAINFO_TITLE=_T("MediaInfo - http://mediainfo.sourceforge.net");
+const MediaInfoNameSpace::Char* MEDIAINFO_TITLE=_T("MediaInfo - http://mediainfo.sourceforge.net");
 ZenLib::Ztring Text_Temp;
 using namespace ZenLib;
 //---------------------------------------------------------------------------
@@ -43,7 +43,7 @@ using namespace ZenLib;
 //---------------------------------------------------------------------------
 Core::Core()
 {
-    MI=new MediaInfoLib::MediaInfoList;
+    MI=new MediaInfoNameSpace::MediaInfoList;
 
     Details=0;
 }

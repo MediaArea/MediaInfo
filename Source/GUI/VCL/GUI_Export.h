@@ -31,9 +31,11 @@
 #include <Dialogs.hpp>
 #include "TntDialogs.hpp"
 #ifdef MEDIAINFO_DLL
-    #include "MediaInfoDLL/MediaInfoDLL_Static.h"
+    #include "MediaInfoDLL/MediaInfoDLL.h"
+    #define MediaInfoNameSpace MediaInfoDLL
 #else
     #include "MediaInfo/MediaInfoList.h"
+    #define MediaInfoNameSpace MediaInfoLib
 #endif
 #include <ZenLib/Ztring.h>
 //---------------------------------------------------------------------------
@@ -94,12 +96,12 @@ __published:    // IDE-managed Components
 private:    // User declarations
     void Name_Adapt();
     void Export_Run();
-    void CSV_Stream_Change (TTntComboBox* Box, TTntLabel* Label, MediaInfoLib::stream_t Stream);
+    void CSV_Stream_Change (TTntComboBox* Box, TTntLabel* Label, MediaInfoNameSpace::stream_t Stream);
     void GUI_Configure();
-    MediaInfoLib::MediaInfoList *ToExport;
+    MediaInfoNameSpace::MediaInfoList *ToExport;
 public:        // User declarations
     __fastcall TExportF(TComponent* Owner);
-    int Run(MediaInfoLib::MediaInfoList &MI, ZenLib::Ztring DefaultFolder);
+    int Run(MediaInfoNameSpace::MediaInfoList &MI, ZenLib::Ztring DefaultFolder);
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TExportF *ExportF;

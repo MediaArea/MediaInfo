@@ -43,7 +43,7 @@ TExportF *ExportF;
 #include <ZenLib/ZtringListListF.h>
 #include <ZenLib/FileName.h>
 #include <ZenLib/File.h>
-using namespace MediaInfoLib;
+using namespace MediaInfoNameSpace;
 using namespace ZenLib;
 #ifdef _UNICODE
     #define ZEN_UNICODE(A) A.c_bstr()
@@ -114,7 +114,7 @@ void TExportF::Name_Adapt()
 }
 //---------------------------------------------------------------------------
 
-int TExportF::Run(MediaInfoLib::MediaInfoList &MI, ZenLib::Ztring DefaultFolder)
+int TExportF::Run(MediaInfoNameSpace::MediaInfoList &MI, ZenLib::Ztring DefaultFolder)
 {
     //Aquistion of datas
     if (Name->Text.Length()==0)

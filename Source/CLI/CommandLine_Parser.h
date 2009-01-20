@@ -31,15 +31,15 @@
 //
 //***************************************************************************
 
-int Parse(Core &I, MediaInfoLib::String &Argument);
+int Parse(Core &I, MediaInfoNameSpace::String &Argument);
 
 
 //---------------------------------------------------------------------------
 #define CL_METHOD(_NAME) \
-    int _NAME(Core &MI, const MediaInfoLib::String &Argument)
+    int _NAME(Core &MI, const MediaInfoNameSpace::String &Argument)
 
 #define CL_OPTION(_NAME) \
-    int _NAME(Core &MI, const MediaInfoLib::String &Argument)
+    int _NAME(Core &MI, const MediaInfoNameSpace::String &Argument)
 
 CL_OPTION(Full);
 CL_OPTION(Help);

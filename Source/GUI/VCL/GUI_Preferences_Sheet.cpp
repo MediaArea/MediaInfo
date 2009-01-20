@@ -41,7 +41,13 @@
 
 //---------------------------------------------------------------------------
 #include "Common/Preferences.h"
-#include <MediaInfo/MediaInfo.h>
+#ifdef MEDIAINFO_DLL
+    #include "MediaInfoDLL/MediaInfoDLL.h"
+    #define MediaInfoNameSpace MediaInfoDLL
+#else
+    #include "MediaInfo/MediaInfoList.h"
+    #define MediaInfoNameSpace MediaInfoLib
+#endif
 //---------------------------------------------------------------------------
 
 
@@ -199,15 +205,15 @@ void __fastcall TPreferences_SheetF::Column_Kind0Change(TObject *Sender)
     //Fill Column_Parameter
     Column_Parameter[Pos]->Items->Clear();
     if (Column_Kind[Pos]->ItemIndex==0) //General
-        Infos_Parameters[Pos].Write(Ztring(MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("General"))+_T("\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("General"))+_T("\r\n"), _T("\r\n\r\n")));
     if (Column_Kind[Pos]->ItemIndex==1) //Video
-        Infos_Parameters[Pos].Write(Ztring(MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Video"))+_T("\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Video"))+_T("\r\n"), _T("\r\n\r\n")));
     if (Column_Kind[Pos]->ItemIndex==2) //Audio
-        Infos_Parameters[Pos].Write(Ztring(MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Audio"))+_T("\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Audio"))+_T("\r\n"), _T("\r\n\r\n")));
     if (Column_Kind[Pos]->ItemIndex==3) //Text
-        Infos_Parameters[Pos].Write(Ztring(MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Text"))+_T("\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Text"))+_T("\r\n"), _T("\r\n\r\n")));
     if (Column_Kind[Pos]->ItemIndex==4) //Chapters
-        Infos_Parameters[Pos].Write(Ztring(MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Chapters"))+_T("\r\n"), _T("")));
+        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Chapters"))+_T("\r\n"), _T("")));
     for (size_t Info_Pos=0; Info_Pos<Infos_Parameters[Pos].size(); Info_Pos++)
         Column_Parameter[Pos]->Items->Add(Infos_Parameters[Pos].Read(Info_Pos, 0).c_str());
     Column_Parameter[Pos]->ItemIndex=0;

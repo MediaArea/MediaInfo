@@ -55,7 +55,7 @@ public:
 
     //Temp
     std::map<wxTreeItemIdValue, size_t> TextPos;
-    MediaInfoLib::String Text;
+    MediaInfoNameSpace::String Text;
 
     //wxWidgets
     DECLARE_EVENT_TABLE() //Any class wishing to process wxWindows events must use this macro

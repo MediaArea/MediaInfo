@@ -34,7 +34,13 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include <MediaInfo/MediaInfo.h>
+#ifdef MEDIAINFO_DLL
+    #include "MediaInfoDLL/MediaInfoDLL.h"
+    #define MediaInfoNameSpace MediaInfoDLL
+#else
+    #include "MediaInfo/MediaInfoList.h"
+    #define MediaInfoNameSpace MediaInfoLib
+#endif
 #include "Common/Preferences.h"
 //---------------------------------------------------------------------------
 
@@ -67,15 +73,15 @@ void __fastcall TPreferences_CustomF::ListeChange(TObject *Sender)
     //Manage list of options
     Infos->Items->Clear();
          if (Liste->ItemIndex==0)
-        Infos_Parameters.Write(Ztring(MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("General"))+_T("\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("General"))+_T("\r\n"), _T("\r\n\r\n")));
     else if (Liste->ItemIndex==1)
-        Infos_Parameters.Write(Ztring(MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Video"))+_T("\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Video"))+_T("\r\n"), _T("\r\n\r\n")));
     else if (Liste->ItemIndex==2)
-        Infos_Parameters.Write(Ztring(MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Audio"))+_T("\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Audio"))+_T("\r\n"), _T("\r\n\r\n")));
     else if (Liste->ItemIndex==3)
-        Infos_Parameters.Write(Ztring(MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Text"))+_T("\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Text"))+_T("\r\n"), _T("\r\n\r\n")));
     else if (Liste->ItemIndex==4)
-        Infos_Parameters.Write(Ztring(MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Chapters"))+_T("\r\n"), _T("")));
+        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(Prefs->Translate(_T("Chapters"))+_T("\r\n"), _T("")));
     else
         Infos_Parameters.clear();
 
@@ -144,7 +150,7 @@ void __fastcall TPreferences_CustomF::HelpClick(TObject *Sender)
                 "Known reserved character : \\\, \\[, \\], \\, (comma), \\;, \\(; \\)\r\n"
                 "\r\n"
                 "Known parameters are :\r\n";
-    Memo->Text=Memo->Text+MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV")).c_str();
+    Memo->Text=Memo->Text+MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV")).c_str();
     Form->ShowModal();
 }
 

@@ -51,14 +51,16 @@ TMainF *MainF;
 #include "Common/Preferences.h"
 #include "Common/Utils.h"
 #ifdef MEDIAINFO_DLL
-    #include "MediaInfoDLL/MediaInfoDLL_Static.h"
+    #include "MediaInfoDLL/MediaInfoDLL.h"
+    #define MediaInfoNameSpace MediaInfoDLL
 #else
     #include "MediaInfo/MediaInfoList.h"
+    #define MediaInfoNameSpace MediaInfoLib
 #endif
 #include <ZenLib/File.h>
 #include <ZenLib/FileName.h>
 #include <ZenLib/OS_Utils.h>
-using namespace MediaInfoLib;
+using namespace MediaInfoNameSpace;
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -234,7 +236,7 @@ void __fastcall TMainF::FormShow(TObject *Sender)
     //File(s) in command line
     #ifdef UNICODE
         int argc;
-        MediaInfoLib::Char** argv=CommandLineToArgvW(GetCommandLineW(), &argc);
+        MediaInfoNameSpace::Char** argv=CommandLineToArgvW(GetCommandLineW(), &argc);
         for (int I1=1; I1<argc; I1++)
             I->Open(argv[I1]);
     #else

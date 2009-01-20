@@ -37,9 +37,11 @@
 #include <ZenLib/HTTP_Client.h>
 using namespace ZenLib;
 #ifdef MEDIAINFO_DLL
-    #include "MediaInfoDLL/MediaInfoDLL_Static.h"
+    #include "MediaInfoDLL/MediaInfoDLL.h"
+    #define MediaInfoNameSpace MediaInfoDLL
 #else
-    #include "MediaInfo/MediaInfo.h"
+    #include "MediaInfo/MediaInfoList.h"
+    #define MediaInfoNameSpace MediaInfoLib
 #endif
 //---------------------------------------------------------------------------
 
@@ -170,7 +172,7 @@ int Preferences::Create(Prefs_t KindOfList, const ZenLib::Ztring &Name)
     switch (KindOfList)
     {
         case Prefs_Language :
-            Details[KindOfList]=MediaInfoLib::MediaInfo::Option_Static(_T("Language_Get")).c_str();
+            Details[KindOfList]=MediaInfoNameSpace::MediaInfo::Option_Static(_T("Language_Get")).c_str();
             if (Name!=_T("en"))
                 for (size_t Pos=0; Pos<Details[KindOfList].size(); Pos++)
                     Details[KindOfList](Pos, 1)=_T("");
@@ -412,10 +414,10 @@ int Preferences::ExplorerShell()
         ".3gp;mpeg4File\r\n"
         ".3gpp;mpeg4File\r\n"
         ".swf;FlashFile\r\n"
-        ".flv;FlashVideoFile\r\n";
-        ".rmvb;FlashVideoFile\r\n";
-        ".tp;FlashVideoFile\r\n");
-        ".smv;SMVFile\r\n");
+        ".flv;FlashVideoFile\r\n"
+        ".rmvb;FlashVideoFile\r\n"
+        ".tp;FlashVideoFile\r\n"
+        ".smv;SMVFile\r\n"
         ".dpg;DPGFile");
 
     bool IsChanged=false;

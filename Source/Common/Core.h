@@ -29,10 +29,12 @@
 //---------------------------------------------------------------------------
 #ifdef MEDIAINFO_DLL
     #include "MediaInfoDLL/MediaInfoDLL.h"
+    #define MediaInfoNameSpace MediaInfoDLL
 #else
     #include "MediaInfo/MediaInfoList.h"
+    #define MediaInfoNameSpace MediaInfoLib
 #endif
-using namespace MediaInfoLib;
+using namespace MediaInfoNameSpace;
 //---------------------------------------------------------------------------
 
 //***************************************************************************
@@ -47,42 +49,42 @@ public:
     ~Core();
 
     //Menu
-    size_t  Menu_File_Open_File             (const MediaInfoLib::String &FileName);
+    size_t  Menu_File_Open_File             (const MediaInfoNameSpace::String &FileName);
     void    Menu_File_Open_Files_Begin      ();
-    size_t  Menu_File_Open_Files_Continue   (const MediaInfoLib::String &FileName);
-    void    Menu_File_Open_Directory        (const MediaInfoLib::String &DirectoryName);
+    size_t  Menu_File_Open_Files_Continue   (const MediaInfoNameSpace::String &FileName);
+    void    Menu_File_Open_Directory        (const MediaInfoNameSpace::String &DirectoryName);
     void    Menu_View_Easy                  ();
     void    Menu_View_Sheet                 ();
     void    Menu_View_Tree                  ();
     void    Menu_View_HTML                  ();
     void    Menu_View_Text                  ();
-    void    Menu_Option_Preferences_Inform  (const MediaInfoLib::String &Inform);
-    void    Menu_Option_Preferences_Option  (const MediaInfoLib::String &Param, const MediaInfoLib::String &Value);
+    void    Menu_Option_Preferences_Inform  (const MediaInfoNameSpace::String &Inform);
+    void    Menu_Option_Preferences_Option  (const MediaInfoNameSpace::String &Param, const MediaInfoNameSpace::String &Value);
     void    Menu_Debug_Complete             (bool Value);
     void    Menu_Debug_Details              (float Value);
-    void    Menu_Debug_Demux                (const MediaInfoLib::String &Value);
+    void    Menu_Debug_Demux                (const MediaInfoNameSpace::String &Value);
     void    Menu_Help_Version               ();
     void    Menu_Help_Info_Formats          ();
     void    Menu_Help_Info_Codecs           ();
     void    Menu_Help_Info_Parameters       ();
-    void    Menu_Language                   (const MediaInfoLib::String &Language);
+    void    Menu_Language                   (const MediaInfoNameSpace::String &Language);
 
     //Datas
-    MediaInfoLib::String &Inform_Get();
+    MediaInfoNameSpace::String &Inform_Get();
     enum kind {Kind_Easy, Kind_Sheet, Kind_Tree, Kind_HTML, Kind_Text};
     kind    Kind_Get();
-    MediaInfoLib::String  Inform_Get          (size_t Pos, stream_t StreamKind, size_t StreamPos);
+    MediaInfoNameSpace::String  Inform_Get          (size_t Pos, stream_t StreamKind, size_t StreamPos);
 
     //Temp
     void    Data_Prepare();
-    MediaInfoLib::String &Text_Get() {return Text;};
+    MediaInfoNameSpace::String &Text_Get() {return Text;};
 
 protected:
-    MediaInfoLib::MediaInfoList* MI;
-    MediaInfoLib::String  Text;
+    MediaInfoNameSpace::MediaInfoList* MI;
+    MediaInfoNameSpace::String  Text;
     kind    Kind;
     float   Details;
-    MediaInfoLib::String  Demux;
+    MediaInfoNameSpace::String  Demux;
 
     friend class GUI_Main_Common_Core;
     friend class GUI_Main_Easy_Core;

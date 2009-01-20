@@ -26,11 +26,11 @@
     #ifdef _WIN32
         #include <windows.h>
         #define GETCOMMANDLINE() \
-            MediaInfoLib::Char** argv=CommandLineToArgvW(GetCommandLineW(), &argc); \
+            MediaInfoNameSpace::Char** argv=CommandLineToArgvW(GetCommandLineW(), &argc); \
 
     #else //WIN32
         #define GETCOMMANDLINE() \
-            std::vector<MediaInfoLib::String> argv; \
+            std::vector<MediaInfoNameSpace::String> argv; \
             for (int Pos=0; Pos<argc; Pos++) \
             { \
                     ZenLib::Ztring A; \
@@ -41,7 +41,7 @@
     #endif //WIN32
 #else //UNICODE
     #define GETCOMMANDLINE() \
-        MediaInfoLib::Char** argv=argv_ansi; \
+        MediaInfoNameSpace::Char** argv=argv_ansi; \
 
 #endif //UNICODE
 

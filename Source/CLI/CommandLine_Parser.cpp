@@ -57,7 +57,7 @@ ZenLib::Ztring LogFile_FileName;
 // Main
 //***************************************************************************
 
-int Parse(Core &MI, MediaInfoLib::String &Argument)
+int Parse(Core &MI, MediaInfoNameSpace::String &Argument)
 {
     if (0);
     OPTION("--full",                                        Full)
@@ -179,8 +179,8 @@ CL_OPTION(Default)
     size_t Egal_Pos=Argument.find(_T('='));
     if (Egal_Pos<2)
         return 0;
-    MediaInfoLib::String Option(Argument, 2, Egal_Pos-2);
-    MediaInfoLib::String Value;
+    MediaInfoNameSpace::String Option(Argument, 2, Egal_Pos-2);
+    MediaInfoNameSpace::String Value;
     if (Egal_Pos!=std::string::npos)
         Value.assign(Argument, Egal_Pos+1, std::string::npos);
     else

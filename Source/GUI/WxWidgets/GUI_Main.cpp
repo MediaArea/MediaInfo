@@ -46,16 +46,16 @@ using namespace std;
     #ifdef _WIN32
         #include <windows.h>
         #define GETCOMMANDLINE() \
-            MediaInfoLib::Char** argv=CommandLineToArgvW(GetCommandLineW(), &argc); \
+            MediaInfoNameSpace::Char** argv=CommandLineToArgvW(GetCommandLineW(), &argc); \
 
     #else //WIN32
         #define GETCOMMANDLINE() \
-            MediaInfoLib::Char** argv=argv_ansi; \
+            MediaInfoNameSpace::Char** argv=argv_ansi; \
 
     #endif //WIN32
 #else //UNICODE
     #define GETCOMMANDLINE() \
-        MediaInfoLib::Char** argv=argv_ansi; \
+        MediaInfoNameSpace::Char** argv=argv_ansi; \
 
 #endif //UNICODE
 
@@ -65,7 +65,7 @@ using namespace std;
 
 //---------------------------------------------------------------------------
 // Constructor
-GUI_Main::GUI_Main(int argc, MediaInfoLib::Char** argv_ansi, const wxPoint& pos, const wxSize& size, long style)
+GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint& pos, const wxSize& size, long style)
 :wxFrame(NULL, -1, _T("MediaInfo"), pos, size, style)
 {
     //Set the frame icon
