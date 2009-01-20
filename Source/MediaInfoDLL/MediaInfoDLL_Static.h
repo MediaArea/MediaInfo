@@ -305,7 +305,10 @@ namespace MediaInfoDLL
     #undef  __T
     #define __T(__x) __x
 #endif
-typedef std::basic_string<Char, std::char_traits<Char>, std::allocator<Char> > String;
+typedef std::basic_string<Char>        String;
+typedef std::basic_stringstream<Char>  StringStream;
+typedef std::basic_istringstream<Char> tiStringStream;
+typedef std::basic_ostringstream<Char> toStringStream;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
