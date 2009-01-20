@@ -31,7 +31,7 @@
 #include "CommandLine_Parser.h"
 #include "Help.h"
 using namespace std;
-using namespace MediaInfoLib;
+using namespace MediaInfoNameSpace;
 //---------------------------------------------------------------------------
 
 //***************************************************************************
