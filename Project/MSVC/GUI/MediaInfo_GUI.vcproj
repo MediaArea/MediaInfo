@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MediaInfod.lib ZenLibd.lib zlibd.lib wxmsw28ud.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib comctl32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib rpcrt4.lib"
+				AdditionalDependencies="MediaInfod.lib ZenLibd.lib zlibd.lib wxbase28ud.lib wxmsw28ud_core.lib wxmsw28ud_html.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib comctl32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib rpcrt4.lib"
 				OutputFile="../../../Release/MSVC/GUI/MediaInfo_GUId.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../../../Shared/Library/MSVC;../../../../MediaInfoLib/Release/MSVC/DLL"
@@ -139,7 +139,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ZenLib.lib zlib.lib MediaInfo.lib wxmsw28u.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib comctl32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib rpcrt4.lib"
+				AdditionalDependencies="ZenLib.lib zlib.lib MediaInfo.lib wxbase28u.lib wxmsw28u_core.lib wxmsw28u_html.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib comctl32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib rpcrt4.lib"
 				OutputFile="../../../Release/MSVC/GUI/MediaInfo_GUI.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="../../../../Shared/Library/MSVC;../../../../MediaInfoLib/Release/MsVC/Library"
