@@ -27,18 +27,18 @@ HRESULT CMediaInfoShellExt_::GetInfoTip (DWORD, LPWSTR* ppwszTip)
 
     //Creating tooltip
 	ToolTip=_T("MediaInfo:\n");
-	MediaInfoLib::MediaInfo I;
+	MediaInfoDLL::MediaInfo I;
 	I.Option(_T("Inform"), _T("Summary"));
     I.Open(FileName);
-    for (size_t StreamKind=0; StreamKind<(size_t)MediaInfoLib::Stream_Max; StreamKind++)
-        for (size_t StreamPos=0; StreamPos<I.Count_Get((MediaInfoLib::stream_t)StreamKind); StreamPos++)
+    for (size_t StreamKind=0; StreamKind<(size_t)MediaInfoDLL::Stream_Max; StreamKind++)
+        for (size_t StreamPos=0; StreamPos<I.Count_Get((MediaInfoDLL::stream_t)StreamKind); StreamPos++)
         {
             if (StreamKind>0)
             {
-                ToolTip+=I.Get((MediaInfoLib::stream_t)StreamKind, StreamPos, _T("StreamKind"));
+                ToolTip+=I.Get((MediaInfoDLL::stream_t)StreamKind, StreamPos, _T("StreamKind"));
                 ToolTip+=_T(": ");
             }
-            ToolTip+=I.Get((MediaInfoLib::stream_t)StreamKind, StreamPos, _T("Inform"));
+            ToolTip+=I.Get((MediaInfoDLL::stream_t)StreamKind, StreamPos, _T("Inform"));
             ToolTip+=_T("\r\n");
         }
     if (ToolTip.size()>2)
