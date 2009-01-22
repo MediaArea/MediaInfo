@@ -162,18 +162,28 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, const char* Par
     }
 
     //Handling of unknown parameters
-    Ztring &Target=(*Stream_More)[StreamKind][StreamPos](Ztring().From_UTF8(Parameter), Info_Text);
-    if (Target.empty() || Replace)
+    if (Value.empty())
     {
-        Target=Value; //First value
-        (*Stream_More)[StreamKind][StreamPos](Ztring().From_UTF8(Parameter), Info_Options)=_T("Y NT");
+        if (!Replace)
+        {
+            size_t Pos=(*Stream_More)[StreamKind][StreamPos].Find(Ztring().From_UTF8(Parameter), Info_Name);
+            if (Pos!=(size_t)-1)
+                (*Stream_More)[StreamKind][StreamPos][Pos].clear(); //Empty value --> clear other values
+        }
     }
-    else if (Value.empty())
-        Target.clear(); //Empty value --> clear other values
     else
     {
-        Target+=MediaInfoLib::Config.TagSeparator_Get();
-        Target+=Value;
+        Ztring &Target=(*Stream_More)[StreamKind][StreamPos](Ztring().From_UTF8(Parameter), Info_Text);
+        if (Target.empty() || Replace)
+        {
+            Target=Value; //First value
+            (*Stream_More)[StreamKind][StreamPos](Ztring().From_UTF8(Parameter), Info_Options)=_T("Y NT");
+        }
+        else
+        {
+            Target+=MediaInfoLib::Config.TagSeparator_Get();
+            Target+=Value;
+        }
     }
 }
 
