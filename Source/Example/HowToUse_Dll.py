@@ -365,7 +365,7 @@ print MI.Option_Static(u"Info_Codecs")
 #An example of how to use the library
 print
 print "Open"
-MI.Open(u"test.avi")
+MI.Open(u"Example.ogg")
 
 print
 print "Inform with Complete=false"
