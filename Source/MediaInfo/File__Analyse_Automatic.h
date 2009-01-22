@@ -1,5 +1,5 @@
 // Enums - Automaticly generated enums for MediaInfo
-// Copyright (C) 2008-2009 Jerome Martinez, Zen@MediaArea.net
+// Copyright (C) 2008-2008 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -395,6 +395,12 @@ enum video
     Video_Delay_String2,
     Video_Delay_String3,
     Video_Delay_Settings,
+    Video_Delay_Original,
+    Video_Delay_Original_String,
+    Video_Delay_Original_String1,
+    Video_Delay_Original_String2,
+    Video_Delay_Original_String3,
+    Video_Delay_Original_Settings,
     Video_StreamSize,
     Video_StreamSize_String,
     Video_StreamSize_String1,
