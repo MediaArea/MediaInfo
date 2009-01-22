@@ -41,7 +41,6 @@
 
 using System;
 using System.Runtime.InteropServices;
-using System.IO;
 
 namespace MediaInfoLib
 {
@@ -123,17 +122,17 @@ namespace MediaInfoLib
         {
             Handle = MediaInfo_New();
             if (Environment.OSVersion.ToString().IndexOf("Windows")==-1)
-                IsWindows=true;
+                MustUseAnsi=false;
             else
             {
-                IsWindows=false;
+                MustUseAnsi=true;
                 Option("CharSet", "UTF-8");
             }
         }
         ~MediaInfo() { MediaInfo_Delete(Handle); }
         public int Open(String FileName)
         {
-            if (IsWindows)
+            if (MustUseAnsi)
             {
                 IntPtr FileName_Ptr=Marshal.StringToHGlobalAnsi(FileName);
                 int ToReturn=(int)MediaInfoA_Open(Handle, FileName_Ptr);
@@ -146,14 +145,14 @@ namespace MediaInfoLib
         public void Close() { MediaInfo_Close(Handle); }
         public String Inform()
         {
-            if (IsWindows)
+            if (MustUseAnsi)
                 return Marshal.PtrToStringAnsi(MediaInfoA_Inform(Handle, (IntPtr)0));
             else
                 return Marshal.PtrToStringUni(MediaInfo_Inform(Handle, (IntPtr)0));
         }
         public String Get(StreamKind StreamKind, int StreamNumber, String Parameter, InfoKind KindOfInfo, InfoKind KindOfSearch)
         {
-            if (IsWindows)
+            if (MustUseAnsi)
             {
                 IntPtr Parameter_Ptr=Marshal.StringToHGlobalAnsi(Parameter);
                 String ToReturn=Marshal.PtrToStringAnsi(MediaInfoA_Get(Handle, (IntPtr)StreamKind, (IntPtr)StreamNumber, Parameter_Ptr, (IntPtr)KindOfInfo, (IntPtr)KindOfSearch));
@@ -165,14 +164,14 @@ namespace MediaInfoLib
         }
         public String Get(StreamKind StreamKind, int StreamNumber, int Parameter, InfoKind KindOfInfo)
         {
-            if (IsWindows)
+            if (MustUseAnsi)
                 return Marshal.PtrToStringAnsi(MediaInfoA_GetI(Handle, (IntPtr)StreamKind, (IntPtr)StreamNumber, (IntPtr)Parameter, (IntPtr)KindOfInfo));
             else
                 return Marshal.PtrToStringUni(MediaInfo_GetI(Handle, (IntPtr)StreamKind, (IntPtr)StreamNumber, (IntPtr)Parameter, (IntPtr)KindOfInfo));
         }
         public String Option(String Option, String Value)
         {
-            if (IsWindows)
+            if (MustUseAnsi)
             {
                 IntPtr Option_Ptr=Marshal.StringToHGlobalAnsi(Option);
                 IntPtr Value_Ptr=Marshal.StringToHGlobalAnsi(Value);
@@ -187,7 +186,7 @@ namespace MediaInfoLib
         public int State_Get() { return (int)MediaInfo_State_Get(Handle); }
         public int Count_Get(StreamKind StreamKind, int StreamNumber) { return (int)MediaInfo_Count_Get(Handle, (IntPtr)StreamKind, (IntPtr)StreamNumber); }
         private IntPtr Handle;
-        private bool IsWindows;
+        private bool MustUseAnsi;
 
         //Default values, if you know how to set default values in C#, say me
         public String Get(StreamKind StreamKind, int StreamNumber, String Parameter, InfoKind KindOfInfo) { return Get(StreamKind, StreamNumber, Parameter, KindOfInfo, InfoKind.Name); }
@@ -196,6 +195,22 @@ namespace MediaInfoLib
         public String Option(String Option_) { return Option(Option_, ""); }
         public int Count_Get(StreamKind StreamKind) { return Count_Get(StreamKind, -1); }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public class MediaInfoList
     {
