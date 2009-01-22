@@ -122,7 +122,7 @@ namespace MediaInfoLib
         {
             Handle = MediaInfo_New();
             if (Environment.OSVersion.ToString().IndexOf("Windows")==-1)
-                MustUseAnsi=false;
+                MustUseAnsi=true;
             else
             {
                 MustUseAnsi=true;
