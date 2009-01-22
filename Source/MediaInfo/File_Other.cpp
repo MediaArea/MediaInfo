@@ -66,7 +66,6 @@ void File_Other::Read_Buffer_Continue()
     else if (CC4(Buffer)==CC4("COSO")) {Format=_T("Amiga Hippel-COSO");}
     else if (CC3(Buffer)==CC3("LSX")) {Format=_T("Amiga LZX");}
     else if (CC4(Buffer)==CC4("MOVI")) {Format=_T("Silicon Graphics movie");}
-    else if (CC3(Buffer)==0x1F0700) {Format=_T("DIF");}
     else if (CC4(Buffer+10)==CC4("Vivo")) {Format=_T("Vivo");}
     else if (CC4(Buffer+1)==CC4("VRML")) {Format=_T("VRML");}
     else if (CC5(Buffer)==CC5("HVQM4")) {Format=_T("GameCube Movie");}
