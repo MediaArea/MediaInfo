@@ -124,10 +124,7 @@ namespace MediaInfoLib
             if (Environment.OSVersion.ToString().IndexOf("Windows")==-1)
                 MustUseAnsi=true;
             else
-            {
-                MustUseAnsi=true;
-                Option("CharSet", "UTF-8");
-            }
+                MustUseAnsi=false;
         }
         ~MediaInfo() { MediaInfo_Delete(Handle); }
         public int Open(String FileName)
