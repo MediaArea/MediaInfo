@@ -60,6 +60,7 @@ private :
     void Header();
     void Subcode();
     void Subcode_Ssyb(int8u syb_num);
+    void Subcode_Ssyb_TC();
     void Aux();
     void Audio();
     void Video();
@@ -72,6 +73,7 @@ private :
     void audio_recdate();
     void audio_rectime();
     void video_source();
+    void video_control_Fill();
     void video_control();
     void video_recdate();
     void video_rectime();
@@ -87,6 +89,7 @@ private :
     size_t FrameSize_Theory; //The size of a frame
     int64u Duration;
     int8u  DIFBlockNumber;
+    int8u  FSC;
     int8u  Subcode_First;
     bool   dsf;
     bool   dsf_IsValid;
@@ -94,6 +97,10 @@ private :
     bool   tf1;
     bool   tf2;
     bool   tf3;
+    int8u  aspect;
+    bool   Interlaced;
+
+    int8u DIFBlockNumbers[2][8];
 };
 
 } //NameSpace

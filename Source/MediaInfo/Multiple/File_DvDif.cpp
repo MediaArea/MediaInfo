@@ -50,6 +50,34 @@ const char*  Dv_sct[]=
 };
 
 //---------------------------------------------------------------------------
+const char* Dv_Ssyb_Pc0(int8u Pc0)
+{
+    switch (Pc0)
+    {
+        case 0x13 : return "Timecode";
+        case 0x14 : return "Binary group";
+        case 0x50 :
+        case 0x60 : return "Source";
+        case 0x51 :
+        case 0x61 : return "Source control";
+        default   : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char*  Dv_Disp[]=
+{
+    "4/3",
+    "",
+    "16/9",
+    "Letterbox",
+    "",
+    "",
+    "",
+    "16/9",
+};
+
+//---------------------------------------------------------------------------
 const int32u  Dv_Audio_SamplingRate[]=
 {
     48000,
@@ -63,6 +91,13 @@ const int32u  Dv_Audio_SamplingRate[]=
 };
 
 //---------------------------------------------------------------------------
+const char*  Dv_StereoMode[]=
+{
+    "Multi-Stero",
+    "Lumped",
+};
+
+//---------------------------------------------------------------------------
 const int32u  Dv_Audio_Resolution[]=
 {
     16,
@@ -73,13 +108,6 @@ const int32u  Dv_Audio_Resolution[]=
     0,
     0,
     0,
-};
-
-//---------------------------------------------------------------------------
-const char*  Dv_StereoMode[]=
-{
-    "Multi-Stero",
-    "Lumped",
 };
 
 //---------------------------------------------------------------------------
@@ -143,7 +171,7 @@ File_DvDif::File_DvDif()
 :File__Analyze()
 {
     //In
-    Frame_Count_Valid=8;
+    Frame_Count_Valid=14;
     AuxToAnalyze=0x00; //No Aux to analyze
 
     //Temp
@@ -156,6 +184,14 @@ File_DvDif::File_DvDif()
     tf1=false; //Valid by default, for direct analyze
     tf2=false; //Valid by default, for direct analyze
     tf3=false; //Valid by default, for direct analyze
+    DIFBlockNumbers[0][1]=1; //SubCode
+    DIFBlockNumbers[1][1]=1; //SubCode
+    DIFBlockNumbers[0][2]=2; //Aux
+    DIFBlockNumbers[1][2]=2; //Aux
+    DIFBlockNumbers[0][3]=8; //Audio
+    DIFBlockNumbers[1][3]=8; //Audio
+    DIFBlockNumbers[0][4]=134; //Video
+    DIFBlockNumbers[1][4]=134; //Video
 }
 
 //***************************************************************************
@@ -186,8 +222,6 @@ void File_DvDif::Read_Buffer_Finalize()
 //---------------------------------------------------------------------------
 void File_DvDif::Header_Parse()
 {
-    Trusted=1; //We must not accept errors in the header (mainly because of problems in Multiple parsing)
-
     if (AuxToAnalyze!=0x00)
     {
         Header_Fill_Code(AuxToAnalyze, Ztring::ToZtring(AuxToAnalyze, 16));
@@ -196,22 +230,24 @@ void File_DvDif::Header_Parse()
     }
 
     //Parsing
-    int8u SectionType;
+    int8u SCT;
     BS_Begin();
-    Get_S1 (3, SectionType,                                     "Section Type");
-    Skip_S1(5,                                                  "Section Type (more)"); //11111 if Header or Subcode, 10110 if Vaux, Audio or Video
-    Skip_S1(4,                                                  "DIF sequence number"); //0-9 for 525/60; 0-11 for 625/50
-    Skip_S1(1,                                                  "Channel number");
-    Mark_1();
-    Mark_1();
-    Mark_1();
+    //0
+    Get_S1 (3, SCT,                                             "SCT - Section Type"); Param_Info(Dv_sct[SCT]);
+    Skip_SB(                                                    "Reserved");
+    Skip_S1(4,                                                  "Arb - Arbitrary bits");
+    //1
+    Skip_S1(4,                                                  "Dseq - DIF sequence number"); //0-9 for 525/60; 0-11 for 625/50
+    Get_S1 (1, FSC,                                             "FSC - Channel number");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
     BS_End();
+    //2
     Get_B1 (DIFBlockNumber,                                     "DIF block number"); //Video: 0-134, Audio: 0-8
 
-    Header_Fill_Code(SectionType, Dv_sct[SectionType]);
+    Header_Fill_Code(SCT, Dv_sct[SCT]);
     Header_Fill_Size(80);
-
-    Trusted=4; //We must not accept errors in the header (mainly because of problems in Multiple parsing)
 }
 
 //---------------------------------------------------------------------------
@@ -221,6 +257,37 @@ void File_DvDif::Data_Parse()
     {
         Element();
         return;
+    }
+
+    //Integrity
+    int8u Number=DIFBlockNumbers[FSC][(size_t)Element_Code]+1;
+    switch (Element_Code)
+    {
+        case 0 : //Header
+                    if (DIFBlockNumber!=0)
+                        Trusted_IsNot("Wrong order");
+                    break;
+        case 1 : //Subcode
+                    if (Number!=DIFBlockNumber && !(Number==2 && DIFBlockNumber==0))
+                        Trusted_IsNot("Wrong order");
+                    DIFBlockNumbers[FSC][1]=DIFBlockNumber;
+                    break;
+        case 2 : //Aux
+                    if (Number!=DIFBlockNumber && !(Number==3 && DIFBlockNumber==0))
+                        Trusted_IsNot("Wrong order");
+                    DIFBlockNumbers[FSC][2]=DIFBlockNumber;
+                    break;
+        case 3 : //Audio
+                    if (Number!=DIFBlockNumber && !(Number==9 && DIFBlockNumber==0))
+                        Trusted_IsNot("Wrong order");
+                    DIFBlockNumbers[FSC][3]=DIFBlockNumber;
+                    break;
+        case 4 : //Video
+                    if (Number!=DIFBlockNumber && !(Number==135 && DIFBlockNumber==0))
+                        Trusted_IsNot("Wrong order");
+                    DIFBlockNumbers[FSC][4]=DIFBlockNumber;
+                    break;
+        default: ;
     }
 
     Element_Info(DIFBlockNumber);
@@ -234,6 +301,10 @@ void File_DvDif::Data_Parse()
         case 4 : Video(); break;
         default: Skip_XX(Element_Size,                          "Unknown");
     }
+
+    //If small file
+    if (FrameCount>=1 && File_Offset+Buffer_Offset+Element_Size==File_Size)
+        video_control_Fill();
 }
 
 //***************************************************************************
@@ -244,45 +315,51 @@ void File_DvDif::Data_Parse()
 void File_DvDif::Header()
 {
     BS_Begin();
-    Get_SB (   dsf,                                             "dsf"); //0=NTSC, 1=PAL
+    //3
+    Get_SB (   dsf,                                             "DSF - DIF sequence flag"); //0=NTSC, 1=PAL
     Mark_0();
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
 
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Get_S1 (3, apt,                                             "apt"); //Track application ID, 0=4:2:0, 1=not 4:2:0
+    //4
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Get_S1 (3, apt,                                             "APT"); //Track application ID, 0=4:2:0, 1=not 4:2:0
 
-    Get_SB (   tf1,                                             "tfl - Audio data is not valid");
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Skip_S1(3,                                                  "apl - Audio application ID");
+    //5
+    Get_SB (   tf1,                                             "TF1 - Audio data is not valid");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_S1(3,                                                  "AP1 - Audio application ID");
 
-    Get_SB (  tf2,                                              "tf2 - Video data is not valid");
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Skip_S1(3,                                                  "ap2 - Video application ID");
+    //6
+    Get_SB (  tf2,                                              "TF2 - Video data is not valid");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_S1(3,                                                  "AP3 - Video application ID");
 
-    Get_SB (  tf3,                                              "tf3 - Subcode is not valid");
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Skip_S1(3,                                                  "ap3 - Subcode application ID");
+    //7
+    Get_SB (  tf3,                                              "TF3 - Subcode is not valid");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_S1(3,                                                  "AP3 - Subcode application ID");
 
+    //8-79
     BS_End();
-    Skip_XX(72,                                                 "Unused");
+    Skip_XX(72,                                                 "Reserved"); //Should be filled with 0xFF
 
     FILLING_BEGIN();
         dsf_IsValid=true;
@@ -295,6 +372,8 @@ void File_DvDif::Header()
             tf2=false;
             tf3=false;
         }
+
+        Subcode_First=false;
     FILLING_END();
 }
 
@@ -311,48 +390,81 @@ void File_DvDif::Subcode()
         Subcode_Ssyb(syb_num);
     Skip_XX(29,                                                 "Unused");
 
-    Subcode_First=!Subcode_First; //First --> Second, or Second --> First (only 2 Subcodes)
+    Subcode_First=true; //First --> Second Subcode
 }
 
 //---------------------------------------------------------------------------
 void File_DvDif::Subcode_Ssyb(int8u syb_num)
 {
     Element_Begin("ssyb");
+
     BS_Begin();
-    Skip_S1(1,                                                  "FR ID"); //1=first half, 0=second
-    if (Subcode_First && syb_num==0)
-        Skip_S1( 3,                                             "ap3 - Subcode application ID");
-    else if (!Subcode_First && syb_num==5)
-    {
-        Skip_S1(1,                                              "Unknown");
-        Skip_S1(1,                                              "Unknown");
-        Skip_S1(1,                                              "Unknown");
-    }
+    //ID0-ID1
+    Skip_SB(                                                    "FR - Identification of half of channel"); //1=first half, 0=second
+    if (syb_num==0)
+        Skip_S1( 3,                                             "AP3 - Subcode application ID");
+    else if (Subcode_First && syb_num==5)
+        Skip_S1(3,                                              "APT - track application ID");
     else
-        Skip_S1(3,                                              "apt - track application ID");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
+    {
+        Skip_SB(                                                "Reserved");
+        Skip_SB(                                                "Reserved");
+        Skip_SB(                                                "Reserved");
+    }
+    Skip_S1(8,                                                  "Arbitrary bits");
+    Skip_S1(4,                                                  "Syb - SSYSB number");
 
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(4,                                                  "syb_num");
-
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
+    //FFh
     BS_End();
+    Skip_B1(                                                    "FFh");
 
-    Skip_B5(                                                    "Unknown");
+    //PC0
+    int8u PC0;
+    Get_B1 (PC0,                                                "PC0 - Pack header"); Element_Info(Dv_Ssyb_Pc0(PC0)); Param_Info(Dv_Ssyb_Pc0(PC0));
+
+    switch (PC0)
+    {
+        case 0x13 : Subcode_Ssyb_TC(); break; //Timecode
+        default   : Skip_XX(4,                                  "Unknown");
+    }
+
     Element_End();
+}
+
+//---------------------------------------------------------------------------
+void File_DvDif::Subcode_Ssyb_TC()
+{
+    BS_Begin();
+    Skip_SB(                                                    "CF - Color fame");
+    if (dsf)    //625/50
+        Skip_SB(                                                "Arbitrary bit");
+    else        //525/60
+        Skip_SB(                                                "DP - Drop frame"); //525/60
+    Skip_S1(2,                                                  "Frames (Tens)");
+    Skip_S1(4,                                                  "Frames (Units)");
+
+    if (dsf)    //625/50
+        Skip_SB(                                                "BGF0 - Binary group flag");
+    else        //525/60
+        Skip_SB(                                                "PC - Biphase mark polarity correction"); //0=even; 1=odd
+    Skip_S1(3,                                                  "Seconds (Tens)");
+    Skip_S1(4,                                                  "Seconds (Units)");
+
+    if (dsf)    //625/50
+        Skip_SB(                                                "BGF2 - Binary group flag");
+    else        //525/60
+        Skip_SB(                                                "BGF0 - Binary group flag");
+    Skip_S1(3,                                                  "Minutes (Tens)");
+    Skip_S1(4,                                                  "Minutes (Units)");
+
+    if (dsf)    //625/50
+        Skip_SB(                                                "PC - Biphase mark polarity correction"); //0=even; 1=odd
+    else        //525/60
+        Skip_SB(                                                "BGF1 - Binary group flag");
+    Skip_SB(                                                    "BGF2 - Binary group flag");
+    Skip_S1(2,                                                  "Hours (Tens)");
+    Skip_S1(4,                                                  "Hours (Units)");
+    BS_End();
 }
 
 //---------------------------------------------------------------------------
@@ -462,24 +574,26 @@ void File_DvDif::audio_source()
 
     int8u stype, SamplingRate, Resolution;
     BS_Begin();
-    Skip_SB(                                                    "Locked mode");
-    Mark_1();
-    Skip_S1(6,                                                  "Samples in this frame - min. samples");
+    //PC1
+    Skip_SB(                                                    "LF - Locked mode");
+    Skip_SB(                                                    "Reserved");
+    Skip_S1(6,                                                  "AF - Samples in this frame");
 
-    Info_S1(1, StereoMode,                                      "Stereo mode"); Param_Info(Dv_StereoMode[StereoMode]);
-    Info_S1(2, ChannelsPerBlock,                                "Channels per block"); Param_Info(Dv_ChannelsPerBlock[ChannelsPerBlock]);
-    Info_S1(1, Pair,                                            "Pair"); Param_Info(Dv_Pair[Pair]);
-    Skip_S1(4,                                                  "Audio mode");
+    //PC2
+    Info_S1(1, StereoMode,                                      "SM - Stereo mode"); Param_Info(Dv_StereoMode[StereoMode]);
+    Info_S1(2, ChannelsPerBlock,                                "CHN - Channels per block"); Param_Info(Dv_ChannelsPerBlock[ChannelsPerBlock]);
+    Info_S1(1, Pair,                                            "PA - Pair"); Param_Info(Dv_Pair[Pair]);
+    Skip_S1(4,                                                  "AM - Audio mode");
 
-    Skip_SB(                                                    "Res?");
-    Skip_SB(                                                    "Multi-language?");
-    Get_SB (   dsf,                                             "System"); Param_Info(dsf?"50 fields":"60 fields"); //As dsf
-    Get_S1 (5, stype,                                           "stype"); Param_Info(stype==0?"2 channels":(stype==2?"4 channels":"Unknown")); //0=25 Mbps, 2=50 Mbps
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "ML - Multi-language");
+    Get_SB (   dsf,                                             "50/60"); Param_Info(dsf?"PAL":"NTSC"); //As dsf
+    Get_S1 (5, stype,                                           "STYPE - audio blocks per video frame"); Param_Info(stype==0?"2 channels":(stype==2?"4 channels":"Unknown")); //0=25 Mbps, 2=50 Mbps
 
-    Skip_SB(                                                    "Emphasis off");
-    Skip_SB(                                                    "Time constant of emphasis");
-    Get_S1 (3, SamplingRate,                                    "Sampling rate"); Param_Info(Dv_Audio_SamplingRate[SamplingRate]);
-    Get_S1 (3, Resolution,                                      "Resolution"); Param_Info(Dv_Audio_Resolution[Resolution]);
+    Skip_SB(                                                    "EF - Emphasis off");
+    Skip_SB(                                                    "TC - Time constant of emphasis");
+    Get_S1 (3, SamplingRate,                                    "SMP - Sampling rate"); Param_Info(Dv_Audio_SamplingRate[SamplingRate]);
+    Get_S1 (3, Resolution,                                      "QU - Resolution"); Param_Info(Dv_Audio_Resolution[Resolution]);
     BS_End();
 
     FILLING_BEGIN();
@@ -521,21 +635,29 @@ void File_DvDif::audio_control()
 
     BS_Begin();
 
-    Info_S1(2, CopyGenerationManagementSystem,                  "Copy generation management system (CGMS)"); Param_Info(Dv_CopyGenerationManagementSystem[CopyGenerationManagementSystem]);
-    Info_S1(2, InputType,                                       "Input type"); Param_Info(Dv_InputType[InputType]);
-    Info_S1(2, CompressionTimes,                                "Compression times"); Param_Info(Dv_CompressionTimes[CompressionTimes]);
-    Info_S1(2, Emphasis,                                        "Emphasis"); Param_Info(Dv_Emphasis[Emphasis]);
+    //PC1
+    Info_S1(2, CopyGenerationManagementSystem,                  "CGMS - Copy generation management system"); Param_Info(Dv_CopyGenerationManagementSystem[CopyGenerationManagementSystem]);
+    Info_S1(2, InputType,                                       "ISR - Input type"); Param_Info(Dv_InputType[InputType]);
+    Info_S1(2, CompressionTimes,                                "CMP - Compression times"); Param_Info(Dv_CompressionTimes[CompressionTimes]);
+    Info_S1(2, Emphasis,                                        "EFC - Emphasis"); Param_Info(Dv_Emphasis[Emphasis]);
 
-    Skip_SB(                                                    "Non-recording start point");
-    Skip_SB(                                                    "Non-recording end point");
-    Skip_S1(3,                                                  "Recording mode"); //1=Original
-    Skip_S1(3,                                                  "Unknown");
+    //PC2
+    Skip_SB(                                                    "REC S Non-recording start point");
+    Skip_SB(                                                    "REC E - Non-recording end point");
+    Skip_SB(                                                    "FADE S - Recording mode"); //1=Original
+    Skip_SB(                                                    "FADE E - Unknown");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Reserved");
 
-    Skip_S1(1,                                                  "Direction"); //1=Forward
-    Skip_S1(7,                                                  "Speed"); //0x20 for 4:2:0
+    //PC3
+    Skip_SB(                                                    "DRF - Direction"); //1=Forward
+    Skip_S1(7,                                                  "SPD - Speed");
 
-    Mark_1();
-    Skip_S1(7,                                                  "Category");
+    //PC4
+    Skip_SB(                                                    "Reserved");
+    Skip_S1(7,                                                  "GEN - Category");
 
     BS_End();
 }
@@ -581,30 +703,24 @@ void File_DvDif::video_source()
 
     int8u stype;
     BS_Begin();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
+    //PC1
+    Skip_S1(4,                                                  "TVCH (tens of units, 0–9)");
+    Skip_S1(4,                                                  "TVCH (units, 0–9)");
 
-    Skip_SB(                                                    "Color");
-    Skip_SB(                                                    "CLF is not valid");
-    Skip_S1(2,                                                  "color frames id");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
+    //PC2
+    Skip_SB(                                                    "B/W - Black and White"); //0=Black and White, 1=Color
+    Skip_SB(                                                    "EN - Color Frames is not valid");
+    Skip_S1(2,                                                  "CLF - Color frames id");
+    Skip_S1(4,                                                  "TVCH (hundreds of units, 0–9)");
 
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Get_SB (   dsf,                                             "System"); Param_Info(dsf?"PAL":"NTSC"); //As dsf
-    Get_S1 (4, stype,                                           "stype"); //0=not 4:2:2, 4=4:2:2
+    //PC3
+    Skip_S1(2,                                                  "SRC");
+    Get_SB (   dsf,                                             "50/60 - System"); Param_Info(dsf?"PAL":"NTSC"); //As dsf
+    Get_S1 (4, stype,                                           "STYPE - Signal type of video signal"); //0=not 4:2:2, 4=4:2:2
 
+    //PC4
     BS_End();
-    Skip_B1(                                                    "VISC");
+    Skip_B1(                                                    "TUN/VISC");
 
     FILLING_BEGIN();
         dsf_IsValid=true;
@@ -647,63 +763,57 @@ void File_DvDif::video_control()
 
     Element_Name("video_control");
 
-    int8u aspect;
-    bool Interlaced;
-
     BS_Begin();
-    Info_S1(2, CopyGenerationManagementSystem,                  "Copy generation management system(CGMS)"); Param_Info(Dv_CopyGenerationManagementSystem[CopyGenerationManagementSystem]);
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
+    //PC1
+    Info_S1(2, CopyGenerationManagementSystem,                  "CGMS - Copy generation management system"); Param_Info(Dv_CopyGenerationManagementSystem[CopyGenerationManagementSystem]);
+    Skip_S1(2,                                                  "ISR");
+    Skip_S1(2,                                                  "CMP");
+    Skip_S2(2,                                                  "SS");
 
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Get_S1 (3, aspect,                                          "aspect"); //0=4/3, 2=16/9, 3=letterbox, 7=16/9
+    //PC2
+    Skip_SB(                                                    "REC S");
+    Skip_SB(                                                    "Reserved");
+    Skip_S1(2,                                                  "REC M");
+    Skip_SB(                                                    "Reserved");
+    Get_S1 (3, aspect,                                          "DISP - Aspect ratio"); Param_Info(Dv_Disp[aspect]);
 
-    Skip_SB(                                                    "Frame (if not, Field)"); //1=Frame, 0=Field
-    Skip_SB(                                                    "First Field"); //0=Field 2, 1=Field 1
-    Skip_SB(                                                    "Frame Change"); //0=Same picture as before
-    Get_SB (   Interlaced,                                      "Interlaced"); //1=Interlaced
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
+    //PC3
+    Skip_SB(                                                    "FF - Frame/Field"); //1=Frame, 0=Field
+    Skip_SB(                                                    "FS - First/second field"); //0=Field 2, 1=Field 1, if FF=0 x is output twice, if FF=1, Field x fisrst, other second
+    Skip_SB(                                                    "FC - Frame Change"); //0=Same picture as before
+    Get_SB (   Interlaced,                                      "IL - Interlaced"); //1=Interlaced
+    Skip_SB(                                                    "SF");
+    Skip_SB(                                                    "SC");
+    Skip_S1(2,                                                  "BCS");
 
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
-    Skip_S1(1,                                                  "Unknown");
+    //PC4
+    Skip_SB(                                                    "Reserved");
+    Skip_S1(7,                                                  "GEN - Category");
 
     BS_End();
 
     FILLING_BEGIN();
         FrameCount++;
         if (FrameCount>=Frame_Count_Valid || AuxToAnalyze)
-        {
-            Stream_Prepare(Stream_General);
-            Fill(Stream_General, 0, General_Format, "Digital Video");
-
-            Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive");
-            Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"PFF");
-            switch (aspect)
-            {
-                case 0 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 4.0/3.0); break;
-                case 2 :
-                case 7 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 16.0/9.0); break;
-                default: ;
-            }
-        }
+            video_control_Fill();
     FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_DvDif::video_control_Fill()
+{
+    Stream_Prepare(Stream_General);
+    Fill(Stream_General, 0, General_Format, "Digital Video");
+
+    Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive");
+    Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"PFF");
+    switch (aspect)
+    {
+        case 0 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 4.0/3.0); break;
+        case 2 :
+        case 7 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 16.0/9.0); break;
+        default: ;
+    }
 }
 
 //---------------------------------------------------------------------------
