@@ -109,7 +109,10 @@ private :
     bool   repeat_first_field;
     bool   FirstFieldFound;
     bool   sequence_header_IsParsed;
-    
+    bool   group_start_IsParsed;
+    bool   group_start_closed_gop;
+    bool   group_start_broken_link;
+
     //From user_data
     Ztring Library;
     Ztring Library_Name;

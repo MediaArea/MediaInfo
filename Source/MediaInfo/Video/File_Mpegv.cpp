@@ -287,6 +287,17 @@ void File_Mpegv::Read_Buffer_Finalize()
             Fill(Stream_Video, 0, Video_Duration, Time_End-Time_Begin);
     }
 
+    //Delay
+    if (group_start_IsParsed)
+    {
+        size_t Time_Begin=Time_Begin_Seconds*1000;
+        if (FrameRate)
+            Time_Begin+=(size_t)(Time_Begin_Frames*1000/FrameRate);
+        Fill(Stream_Video, 0, Video_Delay, Time_Begin);
+        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("closed_gop="))+(group_start_closed_gop?_T("1"):_T("0")));
+        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("broken_link="))+(group_start_broken_link?_T("1"):_T("0")));
+    }
+
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Streams.clear();
@@ -1028,6 +1039,7 @@ void File_Mpegv::group_start()
 
     //Reading
     int8u Hours, Minutes, Seconds, Frames;
+    bool closed_gop, broken_link;
     BS_Begin();
     Skip_SB(                                                    "time_code_drop_frame_flag");
     Get_S1 ( 5, Hours,                                          "time_code_time_code_hours");
@@ -1035,8 +1047,8 @@ void File_Mpegv::group_start()
     Skip_SB(                                                    "time_code_marker_bit");
     Get_S1 ( 6, Seconds,                                        "time_code_time_code_seconds");
     Get_S1 ( 6, Frames,                                         "time_code_time_code_pictures");
-    Skip_SB(                                                    "closed_gop");
-    Skip_SB(                                                    "broken_link");
+    Get_SB (    closed_gop,                                     "closed_gop");
+    Get_SB (    broken_link,                                    "broken_link");
     BS_End();
     Ztring Time;
     Time+=Ztring::ToZtring(Hours);
@@ -1096,6 +1108,12 @@ void File_Mpegv::group_start()
         {
             Time_End_Seconds=60*60*Hours+60*Minutes+Seconds;
             Time_End_Frames =Frames;
+        }
+        if (!group_start_IsParsed)
+        {
+            group_start_IsParsed=true;
+            group_start_closed_gop=closed_gop;
+            group_start_broken_link=broken_link;
         }
 
         //Autorisation of other streams
@@ -1184,6 +1202,7 @@ bool File_Mpegv::Synchronize()
         repeat_first_field=false;
         FirstFieldFound=false;
         TemporalReference_Offset=0;
+        group_start_IsParsed=false;
 
         //Default stream values
         Streams.resize(0x100);
