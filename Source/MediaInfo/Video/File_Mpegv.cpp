@@ -294,6 +294,7 @@ void File_Mpegv::Read_Buffer_Finalize()
         if (FrameRate)
             Time_Begin+=(size_t)(Time_Begin_Frames*1000/FrameRate);
         Fill(Stream_Video, 0, Video_Delay, Time_Begin);
+        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("drop_frame_flag="))+(group_start_drop_frame_flag?_T("1"):_T("0")));
         Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("closed_gop="))+(group_start_closed_gop?_T("1"):_T("0")));
         Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("broken_link="))+(group_start_broken_link?_T("1"):_T("0")));
     }
@@ -1039,12 +1040,12 @@ void File_Mpegv::group_start()
 
     //Reading
     int8u Hours, Minutes, Seconds, Frames;
-    bool closed_gop, broken_link;
+    bool drop_frame_flag, closed_gop, broken_link;
     BS_Begin();
-    Skip_SB(                                                    "time_code_drop_frame_flag");
+    Get_SB (    drop_frame_flag,                                "time_code_drop_frame_flag");
     Get_S1 ( 5, Hours,                                          "time_code_time_code_hours");
     Get_S1 ( 6, Minutes,                                        "time_code_time_code_minutes");
-    Skip_SB(                                                    "time_code_marker_bit");
+    Mark_1();
     Get_S1 ( 6, Seconds,                                        "time_code_time_code_seconds");
     Get_S1 ( 6, Frames,                                         "time_code_time_code_pictures");
     Get_SB (    closed_gop,                                     "closed_gop");
@@ -1112,6 +1113,7 @@ void File_Mpegv::group_start()
         if (!group_start_IsParsed)
         {
             group_start_IsParsed=true;
+            group_start_drop_frame_flag=drop_frame_flag;
             group_start_closed_gop=closed_gop;
             group_start_broken_link=broken_link;
         }

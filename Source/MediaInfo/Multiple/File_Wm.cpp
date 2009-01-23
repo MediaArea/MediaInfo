@@ -173,6 +173,16 @@ void File_Wm::Read_Buffer_Finalize()
             Open_Buffer_Finalize(Temp->second.Parser);
             Merge(*Temp->second.Parser, Temp->second.StreamKind, 0, Temp->second.StreamPos);
         }
+
+        //Delay (in case of MPEG-PS)
+        if (Temp->second.StreamKind==Stream_Video)
+        {
+            Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Delay_Original", Retrieve(Temp->second.StreamKind, Temp->second.StreamPos, "Delay"));
+            Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Delay_Original_Settings", Retrieve(Temp->second.StreamKind, Temp->second.StreamPos, "Delay_Settings"));
+        }
+        Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Delay", "", Unlimited, true, true);
+        Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Delay_Settings", "", Unlimited, true, true);
+
         Temp++;
     }
 

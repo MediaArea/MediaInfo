@@ -110,6 +110,7 @@ private :
     bool   FirstFieldFound;
     bool   sequence_header_IsParsed;
     bool   group_start_IsParsed;
+    bool   group_start_drop_frame_flag;
     bool   group_start_closed_gop;
     bool   group_start_broken_link;
 
