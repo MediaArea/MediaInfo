@@ -184,6 +184,7 @@ File_DvDif::File_DvDif()
     tf1=false; //Valid by default, for direct analyze
     tf2=false; //Valid by default, for direct analyze
     tf3=false; //Valid by default, for direct analyze
+    TimeCode_First=(int64u)-1;
     DIFBlockNumbers[0][1]=1; //SubCode
     DIFBlockNumbers[1][1]=1; //SubCode
     DIFBlockNumbers[0][2]=2; //Aux
@@ -213,6 +214,13 @@ void File_DvDif::Read_Buffer_Finalize()
     }
     if (!File_Name.empty() && Duration)
         Fill(Stream_General, 0, General_Duration, Duration);
+
+    //Delay
+    if (TimeCode_First!=(int64u)-1)
+    {
+        Fill(Stream_Video, 0, Video_Delay, TimeCode_First);
+        Fill(Stream_Audio, 0, Audio_Delay, TimeCode_First);
+    }
 }
 
 //***************************************************************************
@@ -418,53 +426,10 @@ void File_DvDif::Subcode_Ssyb(int8u syb_num)
     BS_End();
     Skip_B1(                                                    "FFh");
 
-    //PC0
-    int8u PC0;
-    Get_B1 (PC0,                                                "PC0 - Pack header"); Element_Info(Dv_Ssyb_Pc0(PC0)); Param_Info(Dv_Ssyb_Pc0(PC0));
-
-    switch (PC0)
-    {
-        case 0x13 : Subcode_Ssyb_TC(); break; //Timecode
-        default   : Skip_XX(4,                                  "Unknown");
-    }
+    //An Element
+    Element();
 
     Element_End();
-}
-
-//---------------------------------------------------------------------------
-void File_DvDif::Subcode_Ssyb_TC()
-{
-    BS_Begin();
-    Skip_SB(                                                    "CF - Color fame");
-    if (dsf)    //625/50
-        Skip_SB(                                                "Arbitrary bit");
-    else        //525/60
-        Skip_SB(                                                "DP - Drop frame"); //525/60
-    Skip_S1(2,                                                  "Frames (Tens)");
-    Skip_S1(4,                                                  "Frames (Units)");
-
-    if (dsf)    //625/50
-        Skip_SB(                                                "BGF0 - Binary group flag");
-    else        //525/60
-        Skip_SB(                                                "PC - Biphase mark polarity correction"); //0=even; 1=odd
-    Skip_S1(3,                                                  "Seconds (Tens)");
-    Skip_S1(4,                                                  "Seconds (Units)");
-
-    if (dsf)    //625/50
-        Skip_SB(                                                "BGF2 - Binary group flag");
-    else        //525/60
-        Skip_SB(                                                "BGF0 - Binary group flag");
-    Skip_S1(3,                                                  "Minutes (Tens)");
-    Skip_S1(4,                                                  "Minutes (Units)");
-
-    if (dsf)    //625/50
-        Skip_SB(                                                "PC - Biphase mark polarity correction"); //0=even; 1=odd
-    else        //525/60
-        Skip_SB(                                                "BGF1 - Binary group flag");
-    Skip_SB(                                                    "BGF2 - Binary group flag");
-    Skip_S1(2,                                                  "Hours (Tens)");
-    Skip_S1(4,                                                  "Hours (Units)");
-    BS_End();
 }
 
 //---------------------------------------------------------------------------
@@ -517,7 +482,7 @@ void File_DvDif::Element()
         Get_B1 (PackType,                                       "Pack Type");
     else
         PackType=AuxToAnalyze; //Forced by parser
-    Element_Name(Ztring().From_Number(PackType, 16));
+
     switch(PackType)
     {
         case 0x13 : timecode(); break;
@@ -529,7 +494,8 @@ void File_DvDif::Element()
         case 0x61 : video_control(); break;
         case 0x62 : video_recdate(); break;
         case 0x63 : video_rectime(); break;
-        case 0xFF : Skip_B4(                                    "Unused"); break;
+        case 0xFF : Element_Name(Ztring().From_Number(PackType, 16));
+                    Skip_B4(                                    "Unused"); break;
         default: Skip_B4(                                       "Unknown");
     }
     Element_End();
@@ -540,25 +506,55 @@ void File_DvDif::timecode()
 {
     Element_Name("timecode");
 
+    //PArsing
+    int8u Temp;
+    int64u Time=0;
+    int8u Frames=0;
     BS_Begin();
-    Skip_SB(                                                    "Sync");
-    Skip_SB(                                                    "Drop frame");
-    Skip_S1(2,                                                  "Frames (Tens)");
-    Skip_S1(4,                                                  "Frames (Units)");
+    Skip_SB(                                                    "CF - Color fame");
+    if (dsf)    //625/50
+        Skip_SB(                                                "Arbitrary bit");
+    else        //525/60
+        Skip_SB(                                                "DP - Drop frame"); //525/60
+    Get_S1 (2, Temp,                                            "Frames (Tens)");
+    Frames+=Temp*10;
+    Get_S1 (4, Temp,                                            "Frames (Units)");
+    Frames+=Temp;
+    if (Temp!=0xF)
+        Time+=(int64u)(Frames/(dsf?25.000:29.970));
 
-    Skip_SB(                                                    "Biphase mark polarity correction"); //0=even; 1=odd
-    Skip_S1(3,                                                  "Seconds (Tens)");
-    Skip_S1(4,                                                  "Seconds (Units)");
+    if (dsf)    //625/50
+        Skip_SB(                                                "BGF0 - Binary group flag");
+    else        //525/60
+        Skip_SB(                                                "PC - Biphase mark polarity correction"); //0=even; 1=odd
+    Get_S1 (3, Temp,                                            "Seconds (Tens)");
+    Time+=Temp*10*1000;
+    Get_S1 (4, Temp,                                            "Seconds (Units)");
+    Time+=Temp*1000;
 
-    Skip_SB(                                                    "Binary group flag BGF0");
-    Skip_S1(3,                                                  "Minutes (Tens)");
-    Skip_S1(4,                                                  "Minutes (Units)");
+    if (dsf)    //625/50
+        Skip_SB(                                                "BGF2 - Binary group flag");
+    else        //525/60
+        Skip_SB(                                                "BGF0 - Binary group flag");
+    Get_S1 (3, Temp,                                            "Minutes (Tens)");
+    Time+=Temp*10*60*1000;
+    Get_S1 (4, Temp,                                            "Minutes (Units)");
+    Time+=Temp*60*1000;
 
-    Skip_SB(                                                    "Binary group flag BGF1");
-    Skip_SB(                                                    "Binary group flag BGF2");
-    Skip_S1(2,                                                  "Hours (Tens)");
-    Skip_S1(4,                                                  "Hours (Units)");
+    if (dsf)    //625/50
+        Skip_SB(                                                "PC - Biphase mark polarity correction"); //0=even; 1=odd
+    else        //525/60
+        Skip_SB(                                                "BGF1 - Binary group flag");
+    Skip_SB(                                                    "BGF2 - Binary group flag");
+    Get_S1 (2, Temp,                                            "Hours (Tens)");
+    Time+=Temp*10*60*60*1000;
+    Get_S1 (4, Temp,                                            "Hours (Units)");
+    Time+=Temp*60*60*1000;
+    Element_Info(Ztring().Duration_From_Milliseconds(Time));
     BS_End();
+
+    if (TimeCode_First==(int64u)-1 && Time!=167185000) //if all bits are set to 1, this is not a valid timestamp
+        TimeCode_First=Time;
 }
 
 //---------------------------------------------------------------------------
@@ -883,6 +879,8 @@ Ztring File_DvDif::recdate()
 
     BS_End();
 
+    if (Month>12 || Day>31)
+        return Ztring(); //If all bits are set to 1, this is invalid
     Ztring MonthString;
     if (Month<10)
         MonthString=_T("0");
@@ -936,7 +934,10 @@ Ztring File_DvDif::rectime()
 
     BS_End();
 
-    return Ztring().Duration_From_Milliseconds(Time);
+    if (Time!=167185000)
+        return Ztring().Duration_From_Milliseconds(Time);
+    else
+        return Ztring(); //If all bits are set to 1, this is invalid
 }
 
 } //NameSpace

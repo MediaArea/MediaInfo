@@ -243,7 +243,6 @@ void File_Riff::Read_Buffer_Finalize ()
                     for (size_t Pos=0; Pos<Temp->second.Parser->Count_Get(Stream_Audio); Pos++)
                     {
                         Stream_Prepare(Stream_Audio);
-                        Open_Buffer_Finalize(Temp->second.Parser);
                         Merge(*Temp->second.Parser, Stream_Audio, Pos, StreamPos_Last);
                     }
                 }

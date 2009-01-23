@@ -60,7 +60,6 @@ private :
     void Header();
     void Subcode();
     void Subcode_Ssyb(int8u syb_num);
-    void Subcode_Ssyb_TC();
     void Aux();
     void Audio();
     void Video();
@@ -99,6 +98,7 @@ private :
     bool   tf3;
     int8u  aspect;
     bool   Interlaced;
+    int64u TimeCode_First;
 
     int8u DIFBlockNumbers[2][8];
 };
