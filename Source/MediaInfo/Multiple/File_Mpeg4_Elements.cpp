@@ -1338,12 +1338,12 @@ void File_Mpeg4::moov_trak_mdia_hdlr()
     NAME_VERSION_FLAG("Handler Reference");
 
     //Parsing
-    Ztring Manufacturer, Title;
-    int32u SubType;
+    Ztring Title;
+    int32u SubType, Manufacturer;
     int8u Size;
     Skip_C4(                                                    "Component type");
     Get_C4 (SubType,                                            "Component subtype");
-    Skip_C4(                                                    "Component manufacturer");
+    Get_C4 (Manufacturer,                                       "Component manufacturer");
     Skip_B4(                                                    "Component flags");
     Skip_B4(                                                    "Component flags mask");
     Peek_B1(Size);
@@ -1397,6 +1397,13 @@ void File_Mpeg4::moov_trak_mdia_hdlr()
                 mdat_MustParse=true; //Data is in MDAT
                 break;
             default: ;
+        }
+        if (Manufacturer!=0x00000000)
+        {
+            if (Vendor==0x00000000)
+                Vendor=Manufacturer;
+            else if (Vendor!=Manufacturer)
+                Vendor=0xFFFFFFFF; //Two names, this is two much
         }
 
         Stream[moov_trak_tkhd_TrackID].StreamKind=StreamKind_Last;
@@ -2005,7 +2012,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
     Skip_B2(                                                    "Data reference index");
     Get_B2 (Version,                                            "Version");
     Skip_B2(                                                    "Revision level");
-    Skip_B4(                                                    "Vendor");
+    Skip_C4(                                                    "Vendor");
     Get_B2 (Channels,                                           "Number of channels");
     Get_B2 (SampleSize,                                         "Sample size");
     Get_B2 (ID,                                                 "Compression ID");
@@ -2132,7 +2139,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
     Skip_B2(                                                    "Data reference index");
     Skip_B2(                                                    "Version");
     Skip_B2(                                                    "Revision level");
-    Skip_B4(                                                    "Vendor");
+    Skip_C4(                                                    "Vendor");
     Skip_B4(                                                    "Temporal quality");
     Skip_B4(                                                    "Spatial quality");
     Get_B2 (Width,                                              "Width");
@@ -2908,7 +2915,7 @@ void File_Mpeg4::moov_udta_MCPS()
     Get_Local(Element_Size, Encoder,                            "Value");
 
     //Filling
-    Fill(Stream_General, 0, General_Encoded_Library, Encoder);
+    //Fill(Stream_General, 0, General_Encoded_Library, Encoder);
 }
 
 //---------------------------------------------------------------------------

@@ -98,6 +98,20 @@ namespace Elements
     const int64u moov_meta__year=0x79656172;
 }
 
+//---------------------------------------------------------------------------
+Ztring Mpeg4_Encoded_Library(int32u Vendor)
+{
+    switch (Vendor)
+    {
+        case 0x33495658 : return _T("3ivX");                //3IVX
+        case 0x6170706C : return _T("Apple QuickTime");     //appl
+        case 0x6E696B6F : return _T("Nikon");               //niko
+        case 0x6F6C796D : return _T("Olympus");             //olym
+        case 0x6F6D6E65 : return _T("Omneon");              //omne
+        default: return Ztring().From_CC4(Vendor);
+    }
+}
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -115,6 +129,7 @@ File_Mpeg4::File_Mpeg4()
     moov_Done=false;
     moov_trak_mdia_mdhd_TimeScale=0;
     TimeScale=1;
+    Vendor=0x00000000;
 }
 
 //***************************************************************************
@@ -154,6 +169,8 @@ void File_Mpeg4::Read_Buffer_Finalize()
 
         Temp++;
     }
+    if (Vendor!=0x00000000 && Vendor!=0xFFFFFFFF)
+        Fill(Stream_General, 0, General_Encoded_Library, Mpeg4_Encoded_Library(Vendor));
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data

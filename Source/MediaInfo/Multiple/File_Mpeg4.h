@@ -224,6 +224,7 @@ private :
     size_t                                  moov_udta_meta_keys_ilst_Pos;
     char                                    Language_Result[4];
     int32u                                  TimeScale;
+    int32u                                  Vendor;
 
     //Data
     struct stream
