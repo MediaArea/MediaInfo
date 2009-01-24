@@ -117,12 +117,13 @@
           <property category="win32.*.win32b.bcc32" name="option.I.arg.15" value="..\..\..\..\ZenLib\Source\"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.16" value="..\..\..\..\ZenLib\Source\ZenLib\HTTP_Client"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.17" value="..\..\..\..\ZenLib\Source\ZenLib"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.18" value="..\..\..\..\Shared\Include"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.19" value="..\..\..\Source\GUI\WxWidgets"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.18" value="..\..\..\..\Shared\Include\Borland"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.19" value="..\..\..\..\Shared\Include"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.2" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.20" value="$(BDS)\include"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.21" value="$(BDS)\include\dinkumware"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.22" value="$(BDS)\include\vcl"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.20" value="..\..\..\Source\GUI\WxWidgets"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.21" value="$(BDS)\include"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.22" value="$(BDS)\include\dinkumware"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.23" value="$(BDS)\include\vcl"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.3" value="..\..\..\Source\GUI\Common"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.4" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="..\..\..\Source\"/>
@@ -349,7 +350,9 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_OtherText.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_OtherText" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\Unicows.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="Unicows" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wininet.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wininet" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\WxWidgetsd.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="WxWidgetsd" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wxbase28ud.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxbase28ud" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wxmsw28ud_core.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxmsw28ud_core" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wxmsw28ud_html.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxmsw28ud_html" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\ZLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZLib" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Conf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Conf" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\CriticalSection.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="CriticalSection" FORMNAME="" DESIGNCLASS=""/>
