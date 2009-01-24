@@ -1,5 +1,5 @@
 //Icons
-aaaaaaaa                        ICON "../../../Source/Ressource/Image/MediaInfo.ico"
+aaaaaaaa                        ICON "../../../Source/Ressource/Image/MediaInfo_TinyOnly.ico"
 File_Open_File                  ICON "../../../Source/Ressource/Image/Menu/File_Open_File.ico"
 File_Open_Directory             ICON "../../../Source/Ressource/Image/Menu/File_Open_Directory.ico"
 Help_About                      ICON "../../../Source/Ressource/Image/Menu/Help_About.ico"
