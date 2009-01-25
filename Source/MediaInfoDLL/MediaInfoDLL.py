@@ -28,7 +28,6 @@
 #
 
 
-import platform
 import os
 from ctypes import *
 if os.name == "nt" or os.name == "dos" or os.name == "os2" or os.name == "ce":
