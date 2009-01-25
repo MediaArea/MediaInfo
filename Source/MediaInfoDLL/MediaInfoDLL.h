@@ -396,7 +396,7 @@ public :
     String        Option (const String &Option, const String &Value=_T(""))  {MEDIAINFO_TEST_STRING; return MediaInfoList_Option (Handle, Option.c_str(), Value.c_str());};
     static String Option_Static (const String &Option, const String &Value=_T(""))  {MEDIAINFO_TEST_STRING_STATIC; return MediaInfoList_Option (NULL, Option.c_str(), Value.c_str());};
     size_t        State_Get ()  {MEDIAINFO_TEST_INT; return MediaInfoList_State_Get(Handle);};
-    size_t        Count_Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber=Error-1)  {MEDIAINFO_TEST_INT; return MediaInfoList_Count_Get(Handle, FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber);};
+    size_t        Count_Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber=(size_t)-1)  {MEDIAINFO_TEST_INT; return MediaInfoList_Count_Get(Handle, FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber);};
     size_t        Count_Get ()  {MEDIAINFO_TEST_INT; return MediaInfoList_Count_Get_Files(Handle);};
 
     bool IsReady() {return (Handle && Module)?true:false;}
