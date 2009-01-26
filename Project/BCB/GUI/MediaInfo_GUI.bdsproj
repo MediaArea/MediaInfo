@@ -216,7 +216,7 @@
           <VersionInfo Name="AutoIncBuild">False</VersionInfo>
           <VersionInfo Name="MajorVer">0</VersionInfo>
           <VersionInfo Name="MinorVer">7</VersionInfo>
-          <VersionInfo Name="Release">9</VersionInfo>
+          <VersionInfo Name="Release">10</VersionInfo>
           <VersionInfo Name="Build">0</VersionInfo>
           <VersionInfo Name="Debug">False</VersionInfo>
           <VersionInfo Name="PreRelease">False</VersionInfo>
@@ -229,7 +229,7 @@
         <VersionInfoKeys>
           <VersionInfoKeys Name="CompanyName">http://mediainfo.sourceforge.net</VersionInfoKeys>
           <VersionInfoKeys Name="FileDescription">Read info about media files</VersionInfoKeys>
-          <VersionInfoKeys Name="FileVersion">0.7.9.0</VersionInfoKeys>
+          <VersionInfoKeys Name="FileVersion">0.7.10.0</VersionInfoKeys>
           <VersionInfoKeys Name="InternalName">MediaInfo_GUI - BCB with DLL</VersionInfoKeys>
           <VersionInfoKeys Name="LegalCopyright">GPL</VersionInfoKeys>
           <VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
