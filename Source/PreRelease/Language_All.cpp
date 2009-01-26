@@ -22,7 +22,7 @@ Ztring Language_All_Run ()
                 Dest(Pos, 1)=Origin(Pos, Lang);
                 if (Dest(Pos, 1).size()>0)
                     Automatic++;
-                if (Dest(Pos, 1).size()>0 || Dest(Pos, 0).find(_T("Language_"))==0 || Dest(Pos, 0).find(_T("Genre_"))==0)
+                if (Dest(Pos, 1).size()>0 || Dest(Pos, 0).find(_T("Language_"))==0 || Dest(Pos, 0).find(_T("Genre_"))==0 || Dest(Pos, 0).find(_T("OpenCandy_"))==0)
                     Automatic_Language++;
             }
             Dest((L"ZZ_Automatic_Percent"), 1).From_Number(Automatic*100/Origin.size());
