@@ -32,19 +32,16 @@ import os
 from ctypes import *
 if os.name == "nt" or os.name == "dos" or os.name == "os2" or os.name == "ce":
 	MediaInfoDLL_Handler = windll.MediaInfo
-	MustUseAnsi=0
+	MustUseAnsi = 0
 else:
 	MediaInfoDLL_Handler = CDLL("libmediainfo.so.0")
-	if sizeof(c_wchar_p) == 4:
-		MustUseAnsi = 0
-	else:
-		MustUseAnsi = 1
+	MustUseAnsi = 1
 
 
 # types --> C Python:
-# size_t			c_void_p (is better, 4 on i386, 8 on x86_64)
+# size_t			c_size_t
 # unsigned char*	c_char_p
-# enum				c_void_p (is better, 4 on i386, 8 on x86_64)
+# enum				c_size_t
 # const wchar_t*	c_wchar_p,
 # NULL				None,
 # these functions need strings in unicode format 
@@ -92,22 +89,22 @@ class MediaInfo:
 	#MEDIAINFO_EXP size_t	    __stdcall MediaInfo_Open (void* Handle, const wchar_t* File);
 	MediaInfo_Open = MediaInfoDLL_Handler.MediaInfo_Open
 	MediaInfo_Open.argtype = [c_void_p, c_wchar_p]
-	MediaInfo_Open.restype = c_void_p
+	MediaInfo_Open.restype = c_size_t
 	MediaInfoA_Open = MediaInfoDLL_Handler.MediaInfoA_Open
 	MediaInfoA_Open.argtype = [c_void_p, c_char_p]
-	MediaInfoA_Open.restype = c_void_p
+	MediaInfoA_Open.restype = c_size_t
 
 	#/** @brief Wrapper for MediaInfoLib::MediaInfo::Open (with a buffer) */
 	#MEDIAINFO_EXP size_t	    __stdcall MediaInfo_Open_Buffer (void* Handle, const unsigned char* Begin, size_t Begin_Size, const unsigned char* End, size_t End_Size); /*return Handle*/
 	MediaInfo_Open_Buffer = MediaInfoDLL_Handler.MediaInfo_Open_Buffer
-	MediaInfo_Open_Buffer.argtype = [c_void_p, c_void_p, c_void_p, c_void_p, c_void_p]  
-	MediaInfo_Open_Buffer.restype = c_void_p
+	MediaInfo_Open_Buffer.argtype = [c_void_p, c_void_p, c_size_t, c_void_p, c_size_t]  
+	MediaInfo_Open_Buffer.restype = c_size_t
 
 	#/** @brief Wrapper for MediaInfoLib::MediaInfo::Save */
 	#MEDIAINFO_EXP size_t	    __stdcall MediaInfo_Save (void* Handle);
 	MediaInfo_Save = MediaInfoDLL_Handler.MediaInfo_Save
 	MediaInfo_Save.argtype = [c_void_p]
-	MediaInfo_Save.restype = c_void_p   
+	MediaInfo_Save.restype = c_size_t   
 
 	#/** @brief Wrapper for MediaInfoLib::MediaInfo::Close */
 	#MEDIAINFO_EXP void	      __stdcall MediaInfo_Close (void* Handle);
@@ -118,47 +115,47 @@ class MediaInfo:
 	#/** @brief Wrapper for MediaInfoLib::MediaInfo::Inform */
 	#MEDIAINFO_EXP const wchar_t*    __stdcall MediaInfo_Inform (void* Handle, size_t Reserved); /*Default : Reserved=0*/
 	MediaInfo_Inform = MediaInfoDLL_Handler.MediaInfo_Inform
-	MediaInfo_Inform.argtype = [c_void_p, c_void_p]
+	MediaInfo_Inform.argtype = [c_void_p, c_size_t]
 	MediaInfo_Inform.restype = c_wchar_p
 	MediaInfoA_Inform = MediaInfoDLL_Handler.MediaInfoA_Inform
-	MediaInfoA_Inform.argtype = [c_void_p, c_void_p]
+	MediaInfoA_Inform.argtype = [c_void_p, c_size_t]
 	MediaInfoA_Inform.restype = c_char_p
 
 	#/** @brief Wrapper for MediaInfoLib::MediaInfo::Get */
 	#MEDIAINFO_EXP const wchar_t*    __stdcall MediaInfo_GetI (void* Handle, MediaInfo_stream_C StreamKind, size_t StreamNumber, size_t Parameter, MediaInfo_info_C InfoKind); /*Default : InfoKind=Info_Text*/
 	MediaInfo_GetI = MediaInfoDLL_Handler.MediaInfo_GetI
-	MediaInfo_GetI.argtype = [c_void_p, c_void_p, c_void_p, c_void_p, c_void_p]
+	MediaInfo_GetI.argtype = [c_void_p, c_size_t, c_size_t, c_size_t, c_size_t]
 	MediaInfo_GetI.restype = c_wchar_p
 	MediaInfoA_GetI = MediaInfoDLL_Handler.MediaInfoA_GetI
-	MediaInfoA_GetI.argtype = [c_void_p, c_void_p, c_void_p, c_void_p, c_void_p]
+	MediaInfoA_GetI.argtype = [c_void_p, c_size_t, c_size_t, c_size_t, c_size_t]
 	MediaInfoA_GetI.restype = c_char_p
 
 	#/** @brief Wrapper for MediaInfoLib::MediaInfo::Get */
 	#MEDIAINFO_EXP const wchar_t*    __stdcall MediaInfo_Get (void* Handle, MediaInfo_stream_C StreamKind, size_t StreamNumber, const wchar_t* Parameter, MediaInfo_info_C InfoKind, MediaInfo_info_C SearchKind); /*Default : InfoKind=Info_Text, SearchKind=Info_Name*/
 	MediaInfo_Get = MediaInfoDLL_Handler.MediaInfo_Get
-	MediaInfo_Get.argtype = [c_void_p, c_void_p, c_void_p, c_wchar_p, c_void_p, c_void_p]
+	MediaInfo_Get.argtype = [c_void_p, c_size_t, c_size_t, c_wchar_p, c_size_t, c_size_t]
 	MediaInfo_Get.restype = c_wchar_p
 	MediaInfoA_Get = MediaInfoDLL_Handler.MediaInfoA_Get
-	MediaInfoA_Get.argtype = [c_void_p, c_void_p, c_void_p, c_wchar_p, c_void_p, c_void_p]
+	MediaInfoA_Get.argtype = [c_void_p, c_size_t, c_size_t, c_wchar_p, c_size_t, c_size_t]
 	MediaInfoA_Get.restype = c_char_p
 
 	#/** @brief Wrapper for MediaInfoLib::MediaInfo::Set */
 	#MEDIAINFO_EXP size_t	    __stdcall MediaInfo_SetI (void* Handle, const wchar_t* ToSet, MediaInfo_stream_C StreamKind, size_t StreamNumber, size_t Parameter, const wchar_t* OldParameter);
 	MediaInfo_SetI = MediaInfoDLL_Handler.MediaInfo_SetI
-	MediaInfo_SetI.argtype = [c_void_p, c_wchar_p, c_void_p, c_void_p, c_void_p, c_wchar_p]
+	MediaInfo_SetI.argtype = [c_void_p, c_wchar_p, c_size_t, c_size_t, c_size_t, c_wchar_p]
 	MediaInfo_SetI.restype = c_void_p
 	MediaInfoA_SetI = MediaInfoDLL_Handler.MediaInfoA_SetI
-	MediaInfoA_SetI.argtype = [c_void_p, c_char_p, c_void_p, c_void_p, c_void_p, c_wchar_p]
+	MediaInfoA_SetI.argtype = [c_void_p, c_char_p, c_size_t, c_size_t, c_size_t, c_wchar_p]
 	MediaInfoA_SetI.restype = c_void_p
 
 	#/** @brief Wrapper for MediaInfoLib::MediaInfo::Set */
 	#MEDIAINFO_EXP size_t	    __stdcall MediaInfo_Set (void* Handle, const wchar_t* ToSet, MediaInfo_stream_C StreamKind, size_t StreamNumber, const wchar_t* Parameter, const wchar_t* OldParameter);
 	MediaInfo_Set = MediaInfoDLL_Handler.MediaInfo_Set
-	MediaInfo_Set.argtype = [c_void_p, c_wchar_p, c_void_p, c_void_p, c_wchar_p, c_wchar_p]
-	MediaInfo_Set.restype = c_void_p
+	MediaInfo_Set.argtype = [c_void_p, c_wchar_p, c_size_t, c_size_t, c_wchar_p, c_wchar_p]
+	MediaInfo_Set.restype = c_size_t
 	MediaInfoA_Set = MediaInfoDLL_Handler.MediaInfoA_Set
-	MediaInfoA_Set.argtype = [c_void_p, c_char_p, c_void_p, c_void_p, c_wchar_p, c_wchar_p]
-	MediaInfoA_Set.restype = c_void_p
+	MediaInfoA_Set.argtype = [c_void_p, c_char_p, c_size_t, c_size_t, c_wchar_p, c_wchar_p]
+	MediaInfoA_Set.restype = c_size_t
 
 	#/** @brief Wrapper for MediaInfoLib::MediaInfo::Option */
 	#MEDIAINFO_EXP const wchar_t*    __stdcall MediaInfo_Option (void* Handle, const wchar_t* Option, const wchar_t* Value);
@@ -173,13 +170,13 @@ class MediaInfo:
 	#MEDIAINFO_EXP size_t	    __stdcall MediaInfo_State_Get (void* Handle);
 	MediaInfo_State_Get = MediaInfoDLL_Handler.MediaInfo_State_Get
 	MediaInfo_State_Get.argtype = [c_void_p]
-	MediaInfo_State_Get.restype = c_void_p
+	MediaInfo_State_Get.restype = c_size_t
 
 	#/** @brief Wrapper for MediaInfoLib::MediaInfo::Count_Get */
 	#MEDIAINFO_EXP size_t	    __stdcall MediaInfo_Count_Get (void* Handle, MediaInfo_stream_C StreamKind, size_t StreamNumber); /*Default : StreamNumber=-1*/
 	MediaInfo_Count_Get = MediaInfoDLL_Handler.MediaInfo_Count_Get
-	MediaInfo_Count_Get.argtype = [c_void_p, c_void_p, c_void_p]
-	MediaInfo_Count_Get.restype = c_void_p
+	MediaInfo_Count_Get.argtype = [c_void_p, c_size_t, c_size_t]
+	MediaInfo_Count_Get.restype = c_size_t
 
 	Handle = c_void_p(0)
 	MustUseAnsi = 0
@@ -187,11 +184,14 @@ class MediaInfo:
 	#Handling
 	def __init__(self):
 		self.Handle=self.MediaInfo_New()
+		self.MediaInfoA_Option(self.Handle, "CharSet", "UTF-8")
 	def __del__(self):
 		self.MediaInfo_Delete(self.Handle)
 	def Open(self, File):
-		if MustUseAnsi:
-			return self.MediaInfoA_Open (self.Handle, File.encode("utf_8"));
+		if type(File)==str:
+			return self.MediaInfoA_Open (self.Handle, File);
+		elif MustUseAnsi:
+			return self.MediaInfoA_Open (self.Handle, File.encode("utf-8"));
 		else:
 			return self.MediaInfo_Open (self.Handle, File);
 	def Open_Buffer(self, Begin, Begin_Size, End=None, End_Size=0):
@@ -208,7 +208,9 @@ class MediaInfo:
 		else:
 			return self.MediaInfo_Inform(self.Handle, 0)
 	def Get(self, StreamKind, StreamNumber, Parameter, InfoKind=Info.Text, SearchKind=Info.Name):
-		if MustUseAnsi:
+		if type(Parameter)==str:
+			return unicode(self.MediaInfoA_Get(self.Handle, StreamKind, StreamNumber, Parameter, InfoKind, SearchKind), "utf_8") 
+		elif MustUseAnsi:
 			return unicode(self.MediaInfoA_Get(self.Handle, StreamKind, StreamNumber, Parameter.encode("utf-8"), InfoKind, SearchKind), "utf_8") 
 		else:
 			return self.MediaInfo_Get(self.Handle, StreamKind, StreamNumber, Parameter, InfoKind, SearchKind)
@@ -218,7 +220,13 @@ class MediaInfo:
 		else:
 			return self.MediaInfo_GetI(self.Handle, StreamKind, StreamNumber, Parameter, InfoKind)
 	def Set(self, ToSet, StreamKind, StreamNumber, Parameter, OldParameter=u""):
-		if MustUseAnsi:
+		if type(Parameter)==str and type(OldParameter)==unicode:
+			Parameter=Parameter.decode("utf-8")
+		if type(Parameter)==unicode and type(OldParameter)==str:
+			OldParameter=OldParameter.decode("utf-8")
+		if type(Parameter)==str:
+			return self.MediaInfoA_Set(self.Handle, ToSet, StreamKind, StreamNumber, Parameter, OldParameter)
+		elif MustUseAnsi:
 			return self.MediaInfoA_Set(self.Handle, ToSet, StreamKind, StreamNumber, Parameter.encode("utf-8"), OldParameter.encode("utf-8"))
 		else:
 			return self.MediaInfo_Set(self.Handle, ToSet, StreamKind, StreamNumber, Parameter, OldParameter)
@@ -230,12 +238,24 @@ class MediaInfo:
 
 	#Options
 	def Option(self, Option, Value=u""):
-		if MustUseAnsi:
+		if type(Option)==str and type(Value)==unicode:
+			Option=Option.decode("utf-8")
+		if type(Option)==unicode and type(Value)==str:
+			Value=Value.decode("utf-8")
+		if type(Option)==str:
+			return unicode(self.MediaInfoA_Option(self.Handle, Option.encode("utf-8"), Value.encode("utf-8")), "utf_8") 
+		elif MustUseAnsi:
 			return unicode(self.MediaInfoA_Option(self.Handle, Option.encode("utf-8"), Value.encode("utf-8")), "utf_8") 
 		else:
 			return self.MediaInfo_Option(self.Handle, Option, Value)
 	def Option_Static(self, Option, Value=u""):
-		if MustUseAnsi:
+		if type(Option)==str and type(Value)==unicode:
+			Option=Option.decode("utf-8")
+		if type(Option)==unicode and type(Value)==str:
+			Value=Value.decode("utf-8")
+		if type(Option)==str:
+			return unicode(self.MediaInfoA_Option(None, Option, Value), "utf_8") 
+		elif MustUseAnsi:
 			return unicode(self.MediaInfoA_Option(None, Option.encode("utf-8"), Value.encode("utf-8")), "utf_8") 
 		else:
 			return self.MediaInfo_Option(None, Option, Value)
