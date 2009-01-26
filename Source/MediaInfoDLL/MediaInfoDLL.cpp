@@ -409,6 +409,9 @@ void*           __stdcall MediaInfo_New ()
     {
         MI_Handle[NULL]=new MI_List; //Generic Handle
         MI_Handle[NULL]->Ansi.clear();
+
+        //Localisation
+        setlocale(LC_ALL, """""");
     }
     v07Mode=true; //Application is compatible with v0.7+ interface
 
