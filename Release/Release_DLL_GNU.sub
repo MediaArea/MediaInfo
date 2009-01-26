@@ -34,7 +34,7 @@ doxygen
 cd ../../Release
 mkdir MediaInfo_DLL_$1_$2/Developpers
 cp ../Source/Doc/Documentation.html MediaInfo_DLL_$1_$2/Developpers/
-mv Doc MediaInfo_DLL_$1_$2/Developpers/
+mv ../Doc MediaInfo_DLL_$1_$2/Developpers/
 
 #-----------------------------------------------------------------------
 # Copying : Developpers, Source
@@ -43,6 +43,9 @@ mkdir MediaInfo_DLL_$1_$2/Developpers/Source/Example
 cp ../Source/Example/*.cpp MediaInfo_DLL_$1_$2/Developpers/Source/Example/
 mkdir MediaInfo_DLL_$1_$2/Developpers/Include
 mkdir MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo
+cp ../Source/MediaInfo/MediaInfo.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo/
+cp ../Source/MediaInfo/MediaInfoList.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfo/
+mkdir MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL
 cp ../Source/MediaInfoDLL/MediaInfoDLL.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL_Static.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL.java MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
