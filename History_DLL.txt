@@ -11,6 +11,7 @@ Version 0.7.10, 2009-
 -------------
 + Mono (C#/Linux) binding
 + MPEG-4: Encoding library name
+x Output was unstranslated and weird when $LANG is not set
 x C++ binding error in 0.7.9
 x Python binding improved and corrected (no more crash with Linux)
 
