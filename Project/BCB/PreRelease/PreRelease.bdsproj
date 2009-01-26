@@ -187,9 +187,10 @@
         <FILE FILENAME="..\..\..\Source\PreRelease\Language_Others.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Language_Others" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\PreRelease\VCL\PreRelease_.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="PreRelease_" FORMNAME="Form1" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\PreRelease\VCL\PreRelease_.h"/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\ZenLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZenLib" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\WxWidgets.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="WxWidgets" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\Zlib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="Zlib" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Ztring.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Ztring" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wxmsw28u_core.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxmsw28u_core" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wxbase28u.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxbase28u" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
