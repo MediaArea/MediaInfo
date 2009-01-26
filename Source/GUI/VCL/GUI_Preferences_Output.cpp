@@ -43,7 +43,17 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include "MediaInfo/MediaInfo.h"
+#ifdef MEDIAINFO_DLL
+    #include "MediaInfoDLL/MediaInfoDLL.h"
+    #define MediaInfoNameSpace MediaInfoDLL
+#elif defined MEDIAINFO_STATIC
+    #include "MediaInfoDLL/MediaInfoDLL_Static.h"
+    #define MediaInfoNameSpace MediaInfoDLL
+#else
+    #include "MediaInfo/MediaInfoList.h"
+    #define MediaInfoNameSpace MediaInfoLib
+#endif
+using namespace MediaInfoNameSpace;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -77,15 +87,15 @@ void __fastcall TPreferences_OutputF::ListeChange(TObject *Sender)
     //Gestion texte
     Infos->Items->Clear();
     if (Liste->ItemIndex==0)
-        Infos_Parameters.Write(Ztring(MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(_T("General\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(_T("General\r\n"), _T("\r\n\r\n")));
     if (Liste->ItemIndex==1)
-        Infos_Parameters.Write(Ztring(MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(_T("Video\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(_T("Video\r\n"), _T("\r\n\r\n")));
     if (Liste->ItemIndex==2)
-        Infos_Parameters.Write(Ztring(MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(_T("Audio\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(_T("Audio\r\n"), _T("\r\n\r\n")));
     if (Liste->ItemIndex==3)
-        Infos_Parameters.Write(Ztring(MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(_T("Text\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(_T("Text\r\n"), _T("\r\n\r\n")));
     if (Liste->ItemIndex==4)
-        Infos_Parameters.Write(Ztring(MediaInfoLib::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(_T("Chapters\r\n"), _T("\r\n\r\n")));
+        Infos_Parameters.Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(_T("Info_Parameters_CSV"))).SubString(_T("Chapters\r\n"), _T("\r\n\r\n")));
 
     for (size_t Pos=0; Pos<Infos_Parameters.size(); Pos++)
         Infos->Items->Add(Infos_Parameters.Read(Pos, 0).c_str());
