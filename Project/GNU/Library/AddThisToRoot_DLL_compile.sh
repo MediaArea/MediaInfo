@@ -26,7 +26,7 @@ if test -e ZenLib/Project/GNU/Library/configure; then
  cd ZenLib/Project/GNU/Library/
  test -e Makefile && rm Makefile
  chmod u+x configure
- ./configure $ZenLib_Options --enable-shared --disable-static --libdir=/usr/lib $*
+ ./configure $ZenLib_Options --libdir=/usr/lib $*
  if test -e Makefile; then
   make clean
   Zen_Make
