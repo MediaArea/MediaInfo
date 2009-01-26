@@ -14,6 +14,7 @@ Known bugs
 
 Version 0.7.10, 2009-
 -------------
++ Spanish translation updated
 + Mono (C#/Linux) binding
 + MPEG-4: Encoding library name
 x #2532983: Access violation on Win9X
