@@ -32,7 +32,7 @@ copy ReadMe_DLL_Mac.txt MediaInfo_Lib_GNU_Prepare\Release\
 rem --- Compressing Archive ---
 if "%2"=="SkipCompression" goto SkipCompression
 move MediaInfo_Lib_GNU_Prepare MediaInfoLib
-..\..\Shared\Binary\Win32\7-Zip\7z a -r -t7z -mx9 MediaInfo_Lib_GNU_Prepare.7z MediaInfoLib\*
+..\..\Shared\Binary\Windows_i386\7-Zip\7z a -r -t7z -mx9 MediaInfo_Lib_GNU_Prepare.7z MediaInfoLib\*
 move MediaInfoLib MediaInfo_Lib_GNU_Prepare
 :SkipCompression
 

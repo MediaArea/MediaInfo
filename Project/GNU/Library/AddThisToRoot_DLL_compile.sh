@@ -26,7 +26,7 @@ if test -e ZenLib/Project/GNU/Library/configure; then
  cd ZenLib/Project/GNU/Library/
  test -e Makefile && rm Makefile
  chmod u+x configure
- ./configure $ZenLib_Options $*
+ ./configure $ZenLib_Options --enable-shared --disable-static --libdir=/usr/lib $*
  if test -e Makefile; then
   make clean
   Zen_Make
@@ -52,7 +52,7 @@ if test -e MediaInfoLib/Project/GNU/Library/configure; then
  cd MediaInfoLib/Project/GNU/Library/
  test -e Makefile && rm Makefile
  chmod u+x configure
- ./configure --enable-shared --disable-static $*
+ ./configure --enable-shared --disable-static --libdir=/usr/lib $*
  if test -e Makefile; then
   make clean
   Zen_Make
@@ -76,4 +76,5 @@ cd $Home
 # Going home
 cd $Home
 echo "MediaInfo shared object is in MediaInfoLib/Project/GNU/Library/.libs"
-echo "For installing, cd MediaInfoLib/Project/GNU/Library && make install"
+echo "For installing ZenLib, cd ZenLib/Project/GNU/Library && make install"
+echo "For installing MediaInfoLib, cd MediaInfoLib/Project/GNU/Library && make install"

@@ -194,11 +194,12 @@
         <FILE FILENAME="..\..\..\Source\PreRelease\VCL\PreRelease_.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="PreRelease_" FORMNAME="Form1" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\PreRelease\VCL\PreRelease_.h"/>
         <FILE FILENAME="..\..\..\Source\PreRelease\Ressources.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Ressources" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\PreRelease\OldFiles.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="OldFiles" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\WxWidgetsd.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="WxWidgetsd" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\ZenLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZenLib" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\Zlib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="Zlib" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Ztring.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Ztring" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\PreRelease\Enums.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Enums" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wxmsw28ud_core.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxmsw28ud_core" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wxbase28ud.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxbase28ud" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>

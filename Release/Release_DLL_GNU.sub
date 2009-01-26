@@ -1,7 +1,7 @@
 #! /bin/sh
 
 #-----------------------------------------------------------------------
-# $1=OS, $2=Platform
+# $1=OS, $2=Platform, $3=so name, $4=so.0 name, $5=so.0.0.0 name
 Release_DLL()
 {
 
@@ -14,11 +14,11 @@ mkdir   MediaInfo_DLL_$1_$2
 
 #-----------------------------------------------------------------------
 # Copying : so
-cp -P ../Project/GNU/Library/.libs/libmediainfo.so MediaInfo_DLL_$1_$2/
-cp -P ../Project/GNU/Library/.libs/libmediainfo.so.0 MediaInfo_DLL_$1_$2/
-cp ../Project/GNU/Library/.libs/libmediainfo.so.0.0.0 MediaInfo_DLL_$1_$2/
+cp -P ../Project/GNU/Library/.libs/libmediainfo.$3 MediaInfo_DLL_$1_$2/
+cp -P ../Project/GNU/Library/.libs/libmediainfo.$4 MediaInfo_DLL_$1_$2/
+cp ../Project/GNU/Library/.libs/libmediainfo.$5 MediaInfo_DLL_$1_$2/
 cd MediaInfo_DLL_$1_$2
-strip libmediainfo.so.0.0.0
+strip libmediainfo.$5
 cd ..
 
 #-----------------------------------------------------------------------

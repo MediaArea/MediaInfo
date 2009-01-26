@@ -6,4 +6,4 @@
 
 #-----------------------------------------------------------------------
 # Launch
-Release_DLL Mac Universal
+Release_DLL Mac Universal dylib 0.dylib 0.0.0.dylib

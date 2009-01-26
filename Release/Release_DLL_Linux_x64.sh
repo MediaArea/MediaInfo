@@ -6,4 +6,4 @@
 
 #-----------------------------------------------------------------------
 # Launch
-Release_DLL Linux x64
+Release_DLL Linux x64 so so.0 so.0.0.0

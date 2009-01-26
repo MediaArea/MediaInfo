@@ -6,4 +6,4 @@
 
 #-----------------------------------------------------------------------
 # Launch
-Release_DLL Mac PPC
+Release_DLL Mac PPC dylib 0.dylib 0.0.0.dylib
