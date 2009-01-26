@@ -1,5 +1,5 @@
 ﻿   Junk;x
-  Author_Email;elega@argentina.com
+  Author_Email;elega@elega.com.ar
   Author_Name;elega
   Author_OldNames;Traductor Inicial
   Language_ISO639;es
@@ -32,15 +32,15 @@
  day1;día
  day2;días
  day3;días
- dB1
- dB2
- dB3
+ dB1;dB
+ dB2;dB
+ dB3;dB
  file1;archivo
  file2;archivos
  file3;archivos
- frame1
- frame2
- frame3
+ frame1;marco
+ frame2;marcos
+ frame3;marcos
  fps1;fps
  fps2;fps
  fps3;fps
@@ -124,16 +124,16 @@
  text stream1;Primera pista de texto
  text stream2;Segunda pista de texto
  text stream3;Tercera pista de texto
- video frames1
- video frames2
- video frames3
- video stream1;Primera pista de video
- video stream2;Segunda pista de video
- video stream3;Tercera pista de video
- warppoint0
- warppoint1
- warppoint2
- warppoint3
+ video frames1;fotograma de video
+ video frames2;fotogramas de video
+ video frames3;fotogramas de video
+ video stream1;pista de video
+ video stream2;pista de video
+ video stream3;pista de video
+ warppoint0;No warppoints
+ warppoint1;warppoints
+ warppoint2;warppoints
+ warppoint3;warppoints
  week1;semana
  week2;semanas
  week3;semanas
@@ -143,20 +143,20 @@
 , ;,
 : ;";"
 About;Acerca de 
-About_Hint;Cómo ponerse en contacto conmigo y encontrar la última versión
+About_Hint;Ponerse en contacto con el autor y encontrar la última versión
 Accompaniment;Acompañamiento
 Actor;Actor
 Actor_Character;Personaje
-Added_Date
+Added_Date;Datos agregados
 Address;Dirección
 Advanced;Avanzado
 Advanced mode;Modo Avanzado
 Album;Álbum
-Album_ReplayGain_Gain
-Album_ReplayGain_Peak
-Alignment
-Alignment_Aligned
-Alignment_Split
+Album_ReplayGain_Gain;Ganancia de repetición del álbum
+Album_ReplayGain_Peak;Ganancia máxima de repetición del álbum
+Alignment;Alineación
+Alignment_Aligned;Alineación entrelazado
+Alignment_Split;Dividir a través entrelazado
 All;Todo
 Archival_Location;Ubicación del archivo
 Arranger;Adaptador
@@ -164,28 +164,28 @@ ArtDirector;Director de arte
 AspectRatio;Relación de aspecto
 AssistantDirector;Asistente de director
 at;en
-At least one file;Por lo menos un archivo
+At least one file;(Abrir por lo menos un archivo)
 Audio;Audio
 Audio stream(s);Pista(s) de audio
 Audio_Codec_List;Códecs de audio
 Audio_No;Sin audio
-Audio1;Primera pista de audio
-Audio2;Segunda pista de audio
+Audio1;Pista de audio
+Audio2;Pista de audio
 AudioCount;Cantidad de pistas de audio
 Author;Autor
 BarCode;Código de Barras
 Basic;Básico
 Basic_Note;Nota: para obtener más información acerca de éste archivo, debe seleccionar una vista diferente (Hoja, árbol ...)
-BitRate;Bitrate
-BitRate_Maximum;Bitrate máximo
-BitRate_Minimum;Bitrate mínimo
-BitRate_Mode;Tipo de Bitrate
-BitRate_Mode_CBR
-BitRate_Mode_VBR
-BitRate_Nominal;Bitrate nominal
-Bits-(Pixel*Frame);Bits/(Pixel*cuadros)
+BitRate;Tasa de bits
+BitRate_Maximum;Tasa de bits máxima
+BitRate_Minimum;Tasa de bits mínima
+BitRate_Mode;Tipo de tasa de bits
+BitRate_Mode_CBR;Constante
+BitRate_Mode_VBR;Variable
+BitRate_Nominal;Tasa de bits nominal
+Bits-(Pixel*Frame);Bits/(Pixel*cuadro)
 Cancel;Cancelar
-Channel(s);Canales(es)
+Channel(s);Canal(es)
 ChannelPositions;Posiciones del canal
 Chapter(s);Capítulo(s)
 Chapters;Capítulos
@@ -224,14 +224,14 @@ Codec_Settings_ITU;Ajustes del códec, ITU
 Codec_Profile;Perfil del códec
 Codec_Url;Vínculo web del códec
 CodecID;ID Códec
-CodecID_Description
+CodecID_Description;Descripción del códec
 Collection;Colección
-Colorimetry
+Colorimetry;Espacio de color
 Comment;Comentarios
 CommissionedBy;Encargado por
 CompleteName;Nombre completo
 Composer;Compositor
-CompressionRatio
+CompressionRatio;Tasa de compresión
 Conductor;Conductor
 Container and general information;Información general
 ContentType;Tipo de Contenido
@@ -240,12 +240,12 @@ Copyright;Derechos de autor
 CostumeDesigner;Diseñador
 Count;Conteo
 Country;País
-Cover;Tapa
-Cover_Datas;Datos de la Tapa
-Cover_Description
-Cover_Mime
-Cover_Type
-Cropped
+Cover;Portada
+Cover_Datas;Datos de portada
+Cover_Description;Descripción de portada
+Cover_Mime;Portada MIME
+Cover_Type;Tipo de portada
+Cropped;Dimensiones
 Custom;Personalizado
 Customize;Personalizar
 Date;Fecha
@@ -255,20 +255,20 @@ Delay;Demora
 Delete;Eliminar
 Description;Descripción
 Digitized_Date;Fecha de digitalización
-Dimensions
+Dimensions;Dimensiones
 Director;Director
 DirectorOfPhotography;Director de fotografía
 DisplayAspectRatio;Relación de aspecto
 DistributedBy;Distribuído por
 Donate;Donación
-DotsPerInch
+DotsPerInch;Puntos por pulgada
 Duration;Duración
 Edit;Editar
 EditedBy;Editado por
 EMail;E-Mail
-Encoded_Application;Codificando
+Encoded_Application;Aplicación de codifición
 Encoded_Date;Fecha de codificación
-Encoded_Library;Codificando librería
+Encoded_Library;Librería de codificación
 Encoded_Library_Settings;Opciones de codificación
 Encoded_Original;Original
 EncodedBy;Codificado por
@@ -277,7 +277,7 @@ ExecutiveProducer;Productor ejecutivo
 Exit;Salir
 Exit_Hint;Salir del programa
 Export;Exportar
-Export_Hint;Exportar en un formato personalizado
+Export_Hint;Exportar a un formato personalizado
 Extensions;Extensiones usadas habitualmente
 Family;Familia
 Fax;Fax
@@ -306,8 +306,8 @@ Format_Settings_BVOP;Ajustes del formato, BVOP
 Format_Settings_QPel;Ajustes del formato, Qpel
 Format_Settings_GMC;Ajustes del formato, GMC
 Format_Settings_Matrix;Ajustes del formato, Matrix
-Format_Settings_Matrix_Custom
-Format_Settings_Matrix_Default
+Format_Settings_Matrix_Custom;Personlizado
+Format_Settings_Matrix_Default;Predeterminado
 Format_Settings_Floor;Ajustes del formato, Floor
 Format_Settings_CABAC;Ajustes del formato, CABAC
 Format_Settings_Firm;Ajustes del formato, Firm
@@ -320,12 +320,12 @@ Format_Settings_SBR;Ajustes del formato, SBR
 Format_Settings_PS;Ajustes del formato, PS
 Format_Settings_Pulldown;Ajustes del formato, Pulldown
 Format_Version;Formato de la versión
-Format_Url
-FrameCount
+Format_Url;Vínculo web  del formato
+FrameCount;Contador de cuadro
 FrameRate;Velocidad de cuadro
 FrameRate_Mode;Modo de velocidad de cuadro
-FrameRate_Mode_CFR
-FrameRate_Mode_VFR
+FrameRate_Mode_CFR;Constante
+FrameRate_Mode_VFR;Variable
 FrameRate_Minimum;Velocidad de cuadro Mínima
 FrameRate_Nominal;Velocidad de cuadro Nominal
 FrameRate_Maximum;Velocidad de cuadro Máxima
@@ -482,10 +482,10 @@ Genre_146
 Genre_147
 Go to WebSite;Ir al sitio Web
 h;h
-Header file;Archivo de cabecera
+Header file;Cabecera
 Height;Alto
 Help;Ayuda
-Hint
+Hint;Pista
 How many audio streams?;¿Cuántas reproducciones de pistas de audio?
 How many chapters streams?;¿Cuántas reproducciones de pistas de capítulos?
 How many text streams?;¿Cuántas reproducciones de pistas de texto?
@@ -498,15 +498,15 @@ Image_Codec_List;Lista de códecs
 ImageCount;Cantidad de imágenes
 Info;Info
 Instruments;Instrumentos
-Interlacement;Interlacement
+Interlacement;Entrelazamiento
 Interlaced_Interlaced;Entrelazado
-Interlaced_TFF;Campo Superior Primero
-Interlaced_BFF;Campo Inferior Primero
+Interlaced_TFF;Campo superior primero
+Interlaced_BFF;Campo inferior primero
 Interlaced_PPF;Progresivo
 Interlaced_Progressive;Progresivo
-Interleave_Duration
-Interleave_Preload
-Interleave_VideoFrames
+Interleave_Duration;Entrelazado, duración
+Interleave_Preload;Entrelazado, duración de precarga
+Interleave_VideoFrames;Entrelazado, duración
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -517,205 +517,205 @@ Known parameters;Parámetros conocidos
 Label;Etiqueta
 Language;Idioma
 Language_More
-Language_aa;afar
-Language_ab;abjaso
-Language_ae
-Language_af;Afrikaans
-Language_ak
-Language_am;amárico
-Language_an
-Language_ar;árabe
-Language_as;assamés
-Language_av
-Language_ay;aymara
-Language_az;azerí
+Language_aa;Afar
+Language_ab;Abjaso
+Language_ae;Avestan
+Language_af;Africano
+Language_ak;Akan
+Language_am;Amárico
+Language_an;Aragonés
+Language_ar;Arabe
+Language_as;Assamés
+Language_av;Avaric
+Language_ay;Aymara
+Language_az;Azerí
 Language_ba;Bashkir
-Language_be;bielorruso
-Language_bg;búlgaro
-Language_bh;biharí
+Language_be;Bielorruso
+Language_bg;Búlgaro
+Language_bh;Biharí
 Language_bi;Bislama
-Language_bm
-Language_bn;bengalí
-Language_bo;tibetano
-Language_br;bretón
-Language_bs
-Language_ca;catalán
-Language_ce;checheno
-Language_ch
+Language_bm;Bambara
+Language_bn;Bengalí
+Language_bo;Tibetano
+Language_br;Bretón
+Language_bs;Bosnio
+Language_ca;Catalán
+Language_ce;Checheno
+Language_ch;Chamorro
 Language_co;Corso
-Language_cr
-Language_cs;checo
-Language_cu
-Language_cv
-Language_cy;galés
-Language_da;danés
-Language_de;alemán
-Language_dv
+Language_cr;Cree
+Language_cs;Checo
+Language_cu;Esclavo
+Language_cv;Chuvash
+Language_cy;Galés
+Language_da;Danés
+Language_de;Alemán
+Language_dv;Divehi
 Language_dz;Dzongkha
-Language_ee
-Language_el;griego
-Language_en;inglés
+Language_ee;Ewe
+Language_el;Griego
+Language_en;Inglés
 Language_en-gb
 Language_en-us
 Language_eo;Esperanto
-Language_es;español
-Language_et;estonio
+Language_es;Español
+Language_et;Estonio
 Language_eu;Euskera
-Language_fa;farsi
-Language_ff;finés
-Language_fi
-Language_fj;fijiano
-Language_fo;feroés
-Language_fr;francés
-Language_fy;frisón
-Language_ga;irlandés
-Language_gd;gaélico escocés
-Language_gl;gallego
-Language_gn;guaraní
-Language_gu;guyaratí
-Language_gv;manés
+Language_fa;Farsi
+Language_ff;Finés
+Language_fi;Finnish
+Language_fj;Fijiano
+Language_fo;Feroés
+Language_fr;Francés
+Language_fy;Frisón
+Language_ga;Iirlandés
+Language_gd;Gaélico escocés
+Language_gl;Gallego
+Language_gn;Guaraní
+Language_gu;Guyaratí
+Language_gv;Manés
 Language_ha;Hausa
-Language_he;hebreo
-Language_hi;hindi
-Language_ho
-Language_hr;croata
-Language_ht
-Language_hu;húngaro
-Language_hy;armenio
-Language_hz
+Language_he;Hebreo
+Language_hi;Hindi
+Language_ho;Hiri Motu
+Language_hr;Croata
+Language_ht;Haitiano
+Language_hu;Húngaro
+Language_hy;Armenio
+Language_hz;Herero
 Language_ia;Interlingua
-Language_id;indonesio
+Language_id;Indonesio
 Language_ie;Interlingue
-Language_ig
-Language_ii
+Language_ig;Igbo
+Language_ii;Sichuan Yi
 Language_ik;Inupiak
-Language_Info
-Language_io
-Language_is;islandés
-Language_it;italiano
+Language_Info;Información de lenguaje
+Language_io;Ido
+Language_is;Islandés
+Language_it;Italiano
 Language_iu;Inuktitut
-Language_ja;japonés
-Language_jv;javanés
-Language_ka;georgiano
-Language_kg
-Language_ki
-Language_kj
-Language_kk;kazajo
+Language_ja;Japonés
+Language_jv;Javanés
+Language_ka;Georgiano
+Language_kg;Kongo
+Language_ki;Kikuyo
+Language_kj;Kuanyama
+Language_kk;Kazajo
 Language_kl;Kalaallisut
-Language_km;camboyano
-Language_kn;kannada
-Language_ko;coreano
-Language_kr
-Language_ks;cachemir
-Language_ku;kurdo
-Language_kv
-Language_kw;córnico
-Language_ky;kirguís
+Language_km;Camboyano
+Language_kn;Kannada
+Language_ko;Coreano
+Language_kr;Kanuri
+Language_ks;Cachemir
+Language_ku;Kurdo
+Language_kv;Komi
+Language_kw;Córnico
+Language_ky;Kirguís
 Language_la;Latín
-Language_lb;luxemburgués
-Language_lg
-Language_li
+Language_lb;Luxemburgués
+Language_lg;Ganda
+Language_li;Liumburgish
 Language_ln;Lingala
-Language_lo;laosiano
-Language_lt;lituano
-Language_lu
-Language_lv;letón
-Language_mg;malgache
-Language_mh
-Language_mi;maorí
-Language_mk;macedonio
-Language_ml;malayalam
-Language_mn;mongol
-Language_mo;moldavo
-Language_mr;márata
-Language_ms;malayo
-Language_mt;maltés
+Language_lo;Laosiano
+Language_lt;Lituano
+Language_lu;Luba-Katanga
+Language_lv;Letón
+Language_mg;Malgache
+Language_mh;Marshallese
+Language_mi;Maorí
+Language_mk;Macedonio
+Language_ml;Malayalam
+Language_mn;Mongol
+Language_mo;Moldavo
+Language_mr;Márata
+Language_ms;Malayo
+Language_mt;Maltés
 Language_mul;Idiomas múltiples
-Language_my;birmano
-Language_na;nauruano
-Language_nb
-Language_nd
-Language_ne;nepalí
-Language_ng
-Language_nl;neerlandés
-Language_nn
-Language_no;noruego
-Language_nr
-Language_nv
-Language_ny
+Language_my;Birmano
+Language_na;Nauruano
+Language_nb;Noruego Bokmal
+Language_nd;Ndebele
+Language_ne;Nepalí
+Language_ng;Ndonga
+Language_nl;Holandés
+Language_nn;Noruego Bokmal
+Language_no;Noruego Nynorsk
+Language_nr;Ndebele
+Language_nv;Navajo
+Language_ny;Nyanja
 Language_oc;Occitano
-Language_oj
+Language_oj;Ojibwa
 Language_om;Oromo
 Language_or;Oriya
-Language_os
-Language_pa;panyabí
-Language_pi
-Language_pl;polaco
+Language_os;Osético
+Language_pa;Panyabí
+Language_pi;Pali
+Language_pl;Polaco
 Language_ps;Pashtu
-Language_pt;portugués
+Language_pt;Portugués
 Language_pt-br
 Language_qu;Quechua
-Language_rm;retorrománico
-Language_rn;rundí
-Language_ro;rumano
-Language_ru;ruso
-Language_rw;ruandés
-Language_sa;sánscrito
-Language_sc
+Language_rm;Retorrománico
+Language_rn;Rundí
+Language_ro;Rumano
+Language_ru;Ruso
+Language_rw;Ruandés
+Language_sa;Sánscrito
+Language_sc;Sardo
 Language_sd;Shindi
-Language_se
-Language_sg;sango
-Language_si;cinaglés
-Language_sk;eslovaco
-Language_sl;esloveno
-Language_sm;samoano
+Language_se;Sami septentrional
+Language_sg;Sango
+Language_si;Cinaglés
+Language_sk;Eslovaco
+Language_sl;Esloveno
+Language_sm;Samoano
 Language_sn;Shona
-Language_so;somalí
-Language_sq;albanés
-Language_sr;serbio
-Language_ss;swazi
+Language_so;Somalí
+Language_sq;Albanés
+Language_sr;Serbio
+Language_ss;Swazi
 Language_st;Seshoto
-Language_su;sudanés
-Language_sv;sueco
+Language_su;Sudanés
+Language_sv;Sueco
 Language_sw;Suajili
-Language_ta;tamil
-Language_te;telugú
-Language_tg;tayiko
-Language_th;tailandés
+Language_ta;Tamil
+Language_te;Telugú
+Language_tg;Tayiko
+Language_th;Tailandés
 Language_ti;Tigriña
-Language_tk;turcomano
+Language_tk;Turcomano
 Language_tl;Tagalo
 Language_tn;Tswana
-Language_to;tongano
-Language_tr;turco
+Language_to;Tongano
+Language_tr;Turco
 Language_ts;Tsonga
-Language_tt;tártaro
+Language_tt;Tártaro
 Language_tw;Twi
-Language_ty
-Language_ug
-Language_uk;ucraniano
-Language_ur;urdú
-Language_uz;uzbeko
-Language_ve
-Language_vi;vietnamita
+Language_ty;Tahitiano
+Language_ug;Uighur
+Language_uk;Ucraniano
+Language_ur;Urdú
+Language_uz;Uzbeko
+Language_ve;Venda
+Language_vi;Vietnamita
 Language_vo;Volapük
-Language_wa
+Language_wa;Walloon
 Language_wo;Wolof
 Language_xh;Xhosa
 Language_yi;Yídish
 Language_yo;Yoruba
-Language_za
-Language_zh;chino
+Language_za;Zhuang
+Language_zh;Chino
 Language_zh-cn
 Language_zh-tw
-Language_zu;zulú
+Language_zu;Zulú
 LawRating;Ley de calificación
 LCCN;LCCN
-Library;Librería Musical
-Lightness
+Library;Librería musical
+Lightness;Claridad
 List;Lista
-Lyrics
-Lyricist;Autor de Letra
+Lyrics;Letras
+Lyricist;Autor de letra
 Mastered_Date;Fecha de edición
 MasteredBy;Editado por
 MediaInfo_About;Muestra información detallada\r\nde un archivo multimedia:\r\nMastroska, OGG, (incluyendo OGM)\r\n\MPEG1 (incluyendo VCD)\r\nMPEG2 (incluyendo DVD y SVCD)\r\nMPEG4 (incluyendo Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (incluyendo WMV, WMA)\r\nMicrosoft RIFF (incluyendo AVI, WAV)\r\nSólo formatos de sonido (AC3, DTS, AAC, AU, AIFF...)
@@ -732,7 +732,7 @@ More;Más
 Movie;Película
 ms;ms
 MSDI;MSDI
-MusicBy
+MusicBy;Música de
 MuxingMode;Modo Muxing
 MuxingMode_PackedBitstream
 Name;Nombre
@@ -740,8 +740,8 @@ Nationality;Nacionalidad
 New;Nuevo
 Newest version;Buscar nueva actualización (requiere conexión a Internet)
 No;No
-Not yet
-NumColors
+Not yet;Aún no
+NumColors;Número de colores
 OK;OK
 One output file per input file;Un archivo de salida por uno de entrada
 Open;Abrir
@@ -784,15 +784,16 @@ OpenCandy_36
 Options;Opciones
 Options_Hint;Preferencias
 Original;Original
-OriginalSourceForm
-OriginalSourceMedium
+OriginalSourceForm;Fuente original de
+OriginalSourceMedium;Fuente original medio
 Other;Otro
 Output;Salida
 Output format;Formato de salida
-OverallBitRate;Bitrate total
-OverallBitRate_Maximum;Bitrate total Máximo
-OverallBitRate_Minimum;Bitrate total Mínimo
-OverallBitRate_Mode;Modo Bitrate total
+OverallBitRate;Tasa de bits total
+OverallBitRate_Maximum;Tasa de bits máxima
+OverallBitRate_Minimum;Tasa de bits total mínima
+OverallBitRate_Mode;Tipo de tasa de bits
+OverallBitRate_Nominal
 OverallBitRate_Nominal;Bitrate total Nominal
 Part;Parte
 Part_Count;Cantidad de partes
@@ -801,9 +802,9 @@ Period;Período
 Phone;Teléfono
 PixelAspectRatio;Relación de aspecto
 PlayCounter;Contador
-Played_Count
-Played_First_Date
-Played_Last_Date
+Played_Count;Tiempo reproduccido
+Played_First_Date;Primera reproducida
+Played_Last_Date;Última reproducida
 PlayTime;Duración
 Position;Posición
 Position_Total;Total
@@ -813,18 +814,18 @@ ProductionDesigner;Diseño de Producción
 ProductionStudio;Estudio de Producción
 Publisher;Editor
 Purchased_Date;Fecha Compra
-Quote character;Carácter de cuota
+Quote character;Carácter de comillas
 RadioStation;Estación de radio
-Rating;Rating
+Rating;Puntaje
 Recorded_Date;Fecha de grabación
 Recorded_Location;Lugar de grabación
 Released_Date;Fecha de Lanzamiento
 RemixedBy;Mezcaldo por
-ReplayGain_Gain
-ReplayGain_Peak
+ReplayGain_Gain;Repetición de ganancia
+ReplayGain_Peak;Repetición de ganancia máxima
 Resolution;Resolución
 s;seg.
-SamplingRate;Velocidad de la muestra
+SamplingRate;Velocidad de muestreo
 Save;Guardar
 ScanType;Tipo de exploración
 ScanOrder;Orden de la exploración
@@ -834,14 +835,14 @@ see below;Ver más abajo
 Send HeaderFile;Por favor enviarme el archivo aquí: http://sourceforge.net/projects/mediainfo/ (Sección Bug)
 Separator_Columns;Separador de colúmnas
 Separator_Lines;Separador de líneas
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
+ServiceChannel;Número del canal de servicio
+ServiceName;Nombre del servicio
+ServiceProvider;Proveedor de servicios
+ServiceType;Tipo de servicio
 Set;Unidades
 Set_Count;Número de unidades
 Setup;Configurar
-Sharpness
+Sharpness;Nitidez
 Sheet;Hoja
 Sheet (Complete);Hoja (Completa)
 Shell extension;Extensión Shell (Al hacer clic derecho en el explorador habrá una opción MediaInfo)
@@ -856,10 +857,10 @@ Stream_MoreInfo;Más información acerca de la pista
 StreamCount;Cantidad de pistas de éste tipo
 StreamID;ID de Pista
 StreamKind;Clase de pista
-StreamKindID
-StreamKindPos
+StreamKindID;Identificador de pista
+StreamKindPos;Identificador de pista
 StreamSize;Tamaño de pista
-StreamSize_Proportion
+StreamSize_Proportion;Proporción de ésta pista
 Subject;Asunto
 SubTrack;SubPista
 Summary;Sumario
@@ -900,7 +901,7 @@ Video_Codec_List;Códecs de video
 Video_Delay;Demora del video
 Video_No;Sin video
 Video0_Delay;Demora del video
-Video1;Primera pista de video
+Video1;Pista de video
 VideoCount;Cantidad de pistra de video
 View;Ver
 View_Hint;Cambiar el modo en que se ve la información
@@ -916,12 +917,12 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Ir al sitio web de éste códec de video
 WebSite_Video_More;Ir al sitio web (%Url%) para buscar éste códec de video
 Width;Ancho
-WriteMe;Escríbame
+WriteMe;Escribir un mail al autor
 WriteToTranslator;Escribir al traductor
 Written_Date;Escrito el
 Written_Location;Escrito en
 WrittenBy;Escrito por
 Yes;Si
 Your system;Tu sistema
-ZZ_Automatic_Percent;67
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;79
+ZZ_AutomaticLanguage_Percent;96
