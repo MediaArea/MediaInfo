@@ -39,6 +39,9 @@ using namespace ZenLib;
 #ifdef MEDIAINFO_DLL
     #include "MediaInfoDLL/MediaInfoDLL.h"
     #define MediaInfoNameSpace MediaInfoDLL
+#elif defined MEDIAINFO_STATIC
+    #include "MediaInfoDLL/MediaInfoDLL_Static.h"
+    #define MediaInfoNameSpace MediaInfoDLL
 #else
     #include "MediaInfo/MediaInfoList.h"
     #define MediaInfoNameSpace MediaInfoLib
