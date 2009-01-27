@@ -787,7 +787,7 @@ void File_Dts::Core()
 
     //Filling
     FILLING_BEGIN();
-        if (Count_Get(Stream_Audio)==0 && Frame_Count>=Frame_Count_Valid && (Profile.empty() || Profile==_T("ES")))
+        if (Count_Get(Stream_Audio)==0 && Frame_Count>=Frame_Count_Valid)
             Data_Parse_Fill();
     FILLING_END();
 }
