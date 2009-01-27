@@ -11,6 +11,7 @@ Version 0.7.10, 2009-
 -------------
 + Mono (C#/Linux) binding
 + MPEG-4: Encoding library name
++ #2474280, OGG: Old version of Dirac identifier support
 x #2529963: Infinite loop on one file
 x Output was unstranslated and weird when $LANG is not set
 x C++ binding error in 0.7.9

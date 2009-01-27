@@ -254,7 +254,10 @@ void File_Ogg::Data_Parse()
                 Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, Chunk_Sizes[Chunk_Sizes_Pos]);
             if (Chunk_Sizes_Pos<Chunk_Sizes.size()-1
              || (Chunk_Sizes_Pos==Chunk_Sizes.size()-1 && Chunk_Sizes_Finished))
+            {
+                Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset+Chunk_Sizes[Chunk_Sizes_Pos]);
                 Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, 0); //Purge old datas
+            }
 
             Element_Offset+=Chunk_Sizes[Chunk_Sizes_Pos];
             continued=false; //If there is another chunk, this can not be a continued chunk

@@ -83,6 +83,7 @@ namespace Elements
     OGG_ID(FLAC,           7F, 464C4143, 5)
     OGG_ID(JNG,      8B4A4E47, 0D0A1A0A, 8)
     OGG_ID(kate,     806B6174, 65000000, 8)
+    OGG_ID(KW_DIRAC, 4B572D44, 49524143, 8)
     OGG_ID(OggMIDI,  4D67674D, 49444900, 8)
     OGG_ID(MNG,      8A4D4E47, 0D0A1A0A, 8)
     OGG_ID(PCM,      50434D20, 20202020, 8)
@@ -302,6 +303,7 @@ void File_Ogg_SubElement::Identification()
     ELEMENT_CASE(FLAC)
     ELEMENT_CASE(JNG)
     ELEMENT_CASE(kate)
+    ELEMENT_CASE(KW_DIRAC)
     ELEMENT_CASE(OggMIDI)
     ELEMENT_CASE(MNG)
     ELEMENT_CASE(PCM)
@@ -415,6 +417,13 @@ void File_Ogg_SubElement::Identification_kate()
         Fill(Stream_Audio, 0, Audio_Format, "JNG");
         Fill(Stream_Audio, 0, Audio_Codec, "JNG");
     #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Identification_KW_DIRAC()
+{
+    Identification_BBCD();
+    Fill(Stream_Video, 0, Video_CodecID, "KW-DIRAC", Unlimited, true, true);
 }
 
 //---------------------------------------------------------------------------

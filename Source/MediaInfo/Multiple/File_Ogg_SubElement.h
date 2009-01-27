@@ -68,6 +68,7 @@ private :
     void Identification_FLAC();
     void Identification_JNG();
     void Identification_kate();
+    void Identification_KW_DIRAC();
     void Identification_OggMIDI();
     void Identification_MNG();
     void Identification_PCM();

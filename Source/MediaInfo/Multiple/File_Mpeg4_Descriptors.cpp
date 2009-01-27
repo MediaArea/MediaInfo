@@ -723,7 +723,7 @@ void File_Mpeg4_Descriptors::Descriptor_05()
     }
 
     //Parsing
-    Open_Buffer_Init(Parser, File_Offset+Buffer_Offset+Element_Size, File_Offset+Buffer_Offset);
+    Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset);
     Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
     if (!Parser_DoNotFreeIt
      || StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC")) //File_Mpeg4_AudioSpecificConfig is only for DecConfig
