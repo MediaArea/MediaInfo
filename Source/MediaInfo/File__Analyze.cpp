@@ -691,6 +691,9 @@ void File__Analyze::Header_Fill_Code(int64u Code)
 //---------------------------------------------------------------------------
 void File__Analyze::Header_Fill_Size(int64u Size)
 {
+    if (Size==0)
+        Trusted_IsNot("Header can't be 0");
+
     if (Element[Element_Level].UnTrusted)
         return;
 

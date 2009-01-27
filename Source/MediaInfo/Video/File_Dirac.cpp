@@ -478,7 +478,7 @@ void File_Dirac::Header_Parse()
 
     //Filling
     Header_Fill_Code(Parse_Code, Ztring().From_CC1(Parse_Code));
-    Header_Fill_Size(Next_Parse_Offset);
+    Header_Fill_Size((Parse_Code==0x10 && Next_Parse_Offset==0)?13:Next_Parse_Offset); //Speacial case if this is the End Of Sequence
 }
 
 //---------------------------------------------------------------------------
