@@ -237,12 +237,6 @@ void __fastcall TMainF::FormShow(TObject *Sender)
     GUI_Configure();
 
     //File(s) in command line
-    if (ParamCount()>=1)
-    {
-        for (int I1=1; I1<=ParamCount(); I1++)
-            I->Open(Ztring().From_Local(ParamStr(I1).c_str()));
-        Refresh();
-    }
     #ifdef UNICODE
         if (IsWin9X())
         {
