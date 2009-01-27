@@ -14,8 +14,8 @@ mkdir   MediaInfo_DLL_$1_$2
 
 #-----------------------------------------------------------------------
 # Copying : so
-cp -P ../Project/GNU/Library/.libs/libmediainfo.$3 MediaInfo_DLL_$1_$2/
-cp -P ../Project/GNU/Library/.libs/libmediainfo.$4 MediaInfo_DLL_$1_$2/
+cp -R ../Project/GNU/Library/.libs/libmediainfo.$3 MediaInfo_DLL_$1_$2/
+cp -R ../Project/GNU/Library/.libs/libmediainfo.$4 MediaInfo_DLL_$1_$2/
 cp ../Project/GNU/Library/.libs/libmediainfo.$5 MediaInfo_DLL_$1_$2/
 cd MediaInfo_DLL_$1_$2
 strip libmediainfo.$5
