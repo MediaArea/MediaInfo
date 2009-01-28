@@ -14,6 +14,7 @@ Version 0.7.10, 2009-
 + #2474280, OGG: Old version of Dirac identifier support
 + MPEG-TS: Encoded date for HDV
 + DVR-MS: Delay between two tracks
++ WAV: EBU Broadcast Wave format v1 support
 x #2529963: Infinite loop on one file
 x #2473140, DTS: error preventing 96/24 DTS detection
 x Output was unstranslated and weird when $LANG is not set

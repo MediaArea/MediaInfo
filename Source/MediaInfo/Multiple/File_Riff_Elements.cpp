@@ -227,6 +227,7 @@ namespace Elements
     const int32u SMV0=0x534D5630;
     const int32u SMV0_xxxx=0x534D563A;
     const int32u WAVE=0x57415645;
+    const int32u WAVE_bext=0x62657874;
     const int32u WAVE_data=0x64617461;
     const int32u WAVE_fact=0x66616374;
     const int32u WAVE_fmt_=0x666D7420;
@@ -346,10 +347,13 @@ void File_Riff::Data_Parse()
     ATOM(W3DI)
     LIST(WAVE)
         ATOM_BEGIN
-        ATOM(WAVE_fmt_)
-        ATOM(WAVE_fact)
+        LIST(WAVE_bext)
+            ATOM_BEGIN
+            ATOM_END
         LIST(WAVE_data)
             break;
+        ATOM(WAVE_fact)
+        ATOM(WAVE_fmt_)
         ATOM_END
     DATA_END
 
@@ -911,6 +915,8 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, AvgBytesPerSec*8);
     if (BitsPerSample) Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, BitsPerSample);
     Stream[Stream_ID].AvgBytesPerSec=AvgBytesPerSec; //Saving bitrate for each stream
+    if (SamplesPerSec && TimeReference!=(int64u)-1)
+        Fill(Stream_Audio, 0, Audio_Delay, TimeReference/SamplesPerSec);
 
     //Creating the parser
          if (0);
@@ -2239,6 +2245,35 @@ void File_Riff::WAVE()
     //Filling
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "Wave");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::WAVE_bext()
+{
+    Element_Name("Broadcast extension");
+
+    //Parsing
+    Ztring Description, Originator, OriginationDate, OriginationTime, History;
+    int16u Version;
+    Get_Local(256, Description,                                 "Description");
+    Get_Local( 32, Originator,                                  "Originator");
+    Skip_Local(32,                                              "OriginatorReference");
+    Get_Local( 10, OriginationDate,                             "OriginationDate");
+    Get_Local(  8, OriginationTime,                             "OriginationTime");
+    Get_L8   (     TimeReference,                               "TimeReference"); //To be divided by SamplesPerSec
+    Get_L2   (     Version,                                     "Version");
+    if (Version==1)
+        Skip_XX(64,                                             "UMID");
+    Skip_XX  (602-Element_Offset,                               "Reserved");
+    if (Element_Offset<Element_Size)
+        Get_Local(Element_Size-Element_Offset, History,         "History");
+
+    FILLING_BEGIN();
+        Fill(Stream_General, 0, General_Description, Description);
+        Fill(Stream_General, 0, General_Producer, Originator);
+        Fill(Stream_General, 0, General_Encoded_Date, _T("UTC ")+OriginationDate+_T(' ')+OriginationTime);
+        Fill(Stream_General, 0, General_Encoded_Library_Settings, History);
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

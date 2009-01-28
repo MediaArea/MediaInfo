@@ -117,6 +117,7 @@ private :
     int32u dmlh_TotalFrame; //Count of frames in the whole AVI file (with odml too)
     int64u Idx1_Offset;     //Pos of the data part (AVI) for Idx1 chunk
     int64u movi_Size;       //Size of the data part (AVI and AVIX)
+    int64u TimeReference;   //Only used by Brodcast extension
     int32u SMV_BlockSize;   //Size of a SMV block, 0 if not SMV
     int32u SMV_FrameCount;  //Frame count of a SMV block, 0 if not SMV
     int8u  stream_Count;    //How many stream we have to parse
@@ -217,6 +218,7 @@ private :
     void SMV0 ();
     void SMV0_xxxx ();
     void WAVE ();
+    void WAVE_bext ();
     void WAVE_data ();
     void WAVE_fact ();
     void WAVE_fmt_ ();

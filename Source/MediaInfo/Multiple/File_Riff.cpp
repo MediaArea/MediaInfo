@@ -95,6 +95,7 @@ File_Riff::File_Riff()
     dmlh_TotalFrame=0;
     Idx1_Offset=(int64u)-1;
     movi_Size=0;
+    TimeReference=(int64u)-1;
     SMV_BlockSize=0;
     stream_Count=0;
     rec__Present=false;
