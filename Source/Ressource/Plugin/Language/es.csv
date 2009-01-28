@@ -516,7 +516,7 @@ Known formats;Formatos conocidos
 Known parameters;Parámetros conocidos
 Label;Etiqueta
 Language;Idioma
-Language_More
+Language_More;Idioma, más información
 Language_aa;Afar
 Language_ab;Abjaso
 Language_ae;Avestan
@@ -555,8 +555,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Griego
 Language_en;Inglés
-Language_en-gb
-Language_en-us
+Language_en-gb;Inglés (Gran Bretaña)
+Language_en-us;Inglés (Estado Unidos)
 Language_eo;Esperanto
 Language_es;Español
 Language_et;Estonio
@@ -653,7 +653,7 @@ Language_pi;Pali
 Language_pl;Polaco
 Language_ps;Pashtu
 Language_pt;Portugués
-Language_pt-br
+Language_pt-br;Portugués (Brasil)
 Language_qu;Quechua
 Language_rm;Retorrománico
 Language_rn;Rundí
@@ -706,8 +706,8 @@ Language_yi;Yídish
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Chino
-Language_zh-cn
-Language_zh-tw
+Language_zh-cn;Chino (China)
+Language_zh-tw;Chino (Taiwan)
 Language_zu;Zulú
 LawRating;Ley de calificación
 LCCN;LCCN
@@ -734,7 +734,7 @@ ms;ms
 MSDI;MSDI
 MusicBy;Música de
 MuxingMode;Modo Muxing
-MuxingMode_PackedBitstream
+MuxingMode_PackedBitstream;Flujo de bits empaquetado
 Name;Nombre
 Nationality;Nacionalidad
 New;Nuevo
@@ -745,42 +745,42 @@ NumColors;Número de colores
 OK;OK
 One output file per input file;Un archivo de salida por uno de entrada
 Open;Abrir
-OpenCandy_01
-OpenCandy_02
-OpenCandy_03
-OpenCandy_04
-OpenCandy_05
-OpenCandy_06
-OpenCandy_07
-OpenCandy_08
-OpenCandy_09
-OpenCandy_10
-OpenCandy_11
-OpenCandy_12
-OpenCandy_13
-OpenCandy_14
-OpenCandy_15
-OpenCandy_16
-OpenCandy_17
-OpenCandy_18
-OpenCandy_19
-OpenCandy_20
-OpenCandy_21
-OpenCandy_22
-OpenCandy_23
-OpenCandy_24
-OpenCandy_25
-OpenCandy_26
-OpenCandy_27
-OpenCandy_28
-OpenCandy_29
-OpenCandy_30
-OpenCandy_31
-OpenCandy_32
-OpenCandy_33
-OpenCandy_34
-OpenCandy_35
-OpenCandy_36
+OpenCandy_01;Descargando ________
+OpenCandy_02;__% Completo
+OpenCandy_03;Se interrumpió la conexión a internet
+OpenCandy_04;________ descarga completa
+OpenCandy_05;Haga clic para instalar
+OpenCandy_06;¿Esta seguro que desea cancelar la instalación?\r\nSi desea posponer la instalación para más adelante, seleccione 'No'.\r\nNota: Usted puede seleccionar Salir desde el menú para posponer la instalación hasta la próxima vez que reinicie.
+OpenCandy_07;La descarga de ________  ha sido pausada.\r\nHaga clic en el icono de la bandeja para reanudar la descarga.
+OpenCandy_08;Un error crítico ha ocurrido. La instalación de _________ será cancelada.
+OpenCandy_09;Descarga pausada
+OpenCandy_10;Cancelar instalación
+OpenCandy_11;Reanudar instalación
+OpenCandy_12;Salir de la instalaciión
+OpenCandy_13;___________ - Recomendado por ____________
+OpenCandy_14;Descargando _________
+OpenCandy_15;___________, el software recomendado por ___________, ahora se está descargando conforme a su solicitud. Le haremos saber cuándo esté listo para ser instalado.
+OpenCandy_16;___________ está listo para la instalación
+OpenCandy_17;___________ ha sido descargado. Por favor, haga clic en «Instalar» para proceder.
+OpenCandy_18;___________ de ___________ descargado
+OpenCandy_19;Accionado por OpenCandy
+OpenCandy_20;Obtenga más información en OpenCandy.com
+OpenCandy_21;Instalar
+OpenCandy_22;Instalación de ___________
+OpenCandy_23;Ésto cancelará la instalación de ___________\r\n¿Estás seguro que desea salir?
+OpenCandy_24;Pausa
+OpenCandy_25;La descarga ha sido detenida. Haga clic en «Reanudar» cuando esté listo para continuar.
+OpenCandy_26;Reanudar
+OpenCandy_27;Instalar ahora
+OpenCandy_28;Pausar descarga
+OpenCandy_29;Reanudar descarga
+OpenCandy_30;Cancelar instalación
+OpenCandy_31;Por favor, elija una opción de instalación
+OpenCandy_32;Instalar ___________
+OpenCandy_33;No instalar
+OpenCandy_34;Por favor, elija una opción de instalación
+OpenCandy_35;______ recomienda éste software
+OpenCandy_36;Su instalación actual no será interrumpida
 Options;Opciones
 Options_Hint;Preferencias
 Original;Original
@@ -792,8 +792,7 @@ Output format;Formato de salida
 OverallBitRate;Tasa de bits total
 OverallBitRate_Maximum;Tasa de bits máxima
 OverallBitRate_Minimum;Tasa de bits total mínima
-OverallBitRate_Mode;Tipo de tasa de bits
-OverallBitRate_Nominal
+OverallBitRate_Mode;Modo de tasa de bits
 OverallBitRate_Nominal;Bitrate total Nominal
 Part;Parte
 Part_Count;Cantidad de partes
@@ -924,5 +923,5 @@ Written_Location;Escrito en
 WrittenBy;Escrito por
 Yes;Si
 Your system;Tu sistema
-ZZ_Automatic_Percent;79
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;84
+ZZ_AutomaticLanguage_Percent;100
