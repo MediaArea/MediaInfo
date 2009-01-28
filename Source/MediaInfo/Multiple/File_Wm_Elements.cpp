@@ -772,6 +772,7 @@ void File_Wm::Header_CodecList()
     Skip_UUID(                                                  "Reserved");
     Get_L4 (Count32,                                            "Codec Entries Count");
     Count=(int16u)Count32;
+    CodecInfos.resize(Count);
     for (int16u Pos=0; Pos<Count; Pos++)
     {
         Element_Begin("Codec Entry");
@@ -790,15 +791,13 @@ void File_Wm::Header_CodecList()
         Element_End();
 
         //Filling
-        Stream[Pos+1].Info["CodecID_Description"]=CodecName;
+        CodecInfos[Pos].Type=Type;
+        CodecInfos[Pos].Info=CodecName;
         if (!CodecDescription.empty())
         {
-            Stream[Pos+1].Info["CodecID_Description"]+=_T(" - ");
-            Stream[Pos+1].Info["CodecID_Description"]+=CodecDescription;
+            CodecInfos[Pos].Info+=_T(" - ");
+            CodecInfos[Pos].Info+=CodecDescription;
         }
-        Stream[Pos+1].Info["Codec_Description"]=CodecName;
-        Stream[Pos+1].Info["Codec_Description"]+=_T(" - ");
-        Stream[Pos+1].Info["Codec_Description"]+=CodecDescription;
 
         Codec_Description_Count++;
     }

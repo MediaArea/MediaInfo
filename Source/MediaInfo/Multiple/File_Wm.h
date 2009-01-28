@@ -149,9 +149,15 @@ private :
             delete Parser3; //Parser3=NULL
         }
     };
+    struct codecinfo
+    {
+        int16u  Type;
+        Ztring  Info;
+    };
     std::map<int16u, stream>    Stream;
     int16u                      Stream_Number; //In header: current pos, in Data: Count of enabled parsers
     std::vector<ZenLib::Ztring> Languages;
+    std::vector<codecinfo>      CodecInfos;
     Ztring                      Language_ForAll;
     int32u                      Data_Parse_Padding;
     int32u                      MaximumDataPacketSize;

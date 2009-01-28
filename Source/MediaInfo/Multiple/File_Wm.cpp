@@ -89,12 +89,18 @@ void File_Wm::Read_Buffer_Finalize()
     std::map<int16u, stream>::iterator Temp=Stream.begin();
     while (Temp!=Stream.end())
     {
-        std::map<std::string, ZenLib::Ztring>::iterator Info_Temp=Temp->second.Info.begin();
-        while (Info_Temp!=Temp->second.Info.end())
+        for (std::map<std::string, ZenLib::Ztring>::iterator Info_Temp=Temp->second.Info.begin(); Info_Temp!=Temp->second.Info.end(); Info_Temp++)
+            Fill(Temp->second.StreamKind, Temp->second.StreamPos, Info_Temp->first.c_str(), Info_Temp->second, true);
+
+        //Codec Info
+        for (size_t Pos=0; Pos<CodecInfos.size(); Pos++)
         {
-            if (Codec_Description_Count==Stream.size() || Info_Temp->first!="CodecID_Description") //With some files, There are only x Codec desecription and !x streams, no coherancy
-                Fill(Temp->second.StreamKind, Temp->second.StreamPos, Info_Temp->first.c_str(), Info_Temp->second, true);
-            Info_Temp++;
+            if (CodecInfos[Pos].Type==1 && Temp->second.StreamKind==Stream_Video
+             || CodecInfos[Pos].Type==2 && Temp->second.StreamKind==Stream_Audio)
+            {
+                Fill(Temp->second.StreamKind, Temp->second.StreamPos, "CodecID_Description", CodecInfos[Pos].Info, true);
+                Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Codec_Description", CodecInfos[Pos].Info, true);
+            }
         }
 
         if (Temp->second.StreamKind==Stream_Video)
