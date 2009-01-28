@@ -1815,13 +1815,83 @@ void File_MpegPs::private_stream_2()
     Element_Name("private_stream_2");
 
     //Filling
-    Stream_Prepare(Stream_Menu);
-    Fill(Stream_Menu, StreamPos_Last, Menu_Format, "DVD-Video");
-    Fill(Stream_Menu, StreamPos_Last, Menu_Codec, "DVD-Video");
+    if (FromTS)
+    {
+        switch (format_identifier_FromTS)
+        {
+            case 0x54534856 : //TSHV
+                                switch (stream_type_FromTS)
+                                {
+                                    case 0xA0 : private_stream_2_TSHV_A0(); break;
+                                    case 0xA1 : private_stream_2_TSHV_A1(); break;
+                                    default   : Skip_XX(Element_Size, "Unknown");
+                                }
+            default         : Skip_XX(Element_Size,             "Unknown");
+        }
 
-    //Disabling this Streams
-    Streams[0xBF].Searching_Payload=false;
-    private_stream_2_Count=false;
+        //Disabling the program
+        Finished();
+    }
+    else //DVD?
+    {
+        Stream_Prepare(Stream_Menu);
+        Fill(Stream_Menu, StreamPos_Last, Menu_Format, "DVD-Video");
+        Fill(Stream_Menu, StreamPos_Last, Menu_Codec, "DVD-Video");
+
+        //Disabling this Stream
+        Streams[0xBF].Searching_Payload=false;
+        private_stream_2_Count=false;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_MpegPs::private_stream_2_TSHV_A0()
+{
+    Element_Name("Digital Video A0");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Unknown");
+}
+
+//---------------------------------------------------------------------------
+void File_MpegPs::private_stream_2_TSHV_A1()
+{
+    Element_Name("Digital Video A1");
+
+    //Parsing
+    int8u day, month, year, second, minute, hour;
+    Skip_XX(31,                                                 "Unknown");
+    BS_Begin();
+    Skip_S1(2,                                                  "Unknown");
+    Skip_S1(6,                                                  "timecode_frame");
+    Skip_S1(1,                                                  "Unknown");
+    Skip_S1(7,                                                  "timecode_second");
+    Skip_S1(1,                                                  "Unknown");
+    Skip_S1(7,                                                  "timecode_minute");
+    Skip_S1(2,                                                  "Unknown");
+    Skip_S1(6,                                                  "timecode_hour");
+    Skip_S1(8,                                                  "Unknown");
+    Skip_S1(2,                                                  "Unknown");
+    Get_S1 (6, day,                                             "day");
+    Skip_S1(3,                                                  "Unknown");
+    Get_S1 (5, month,                                           "month");
+    Get_S1 (8, year,                                            "year");
+    Skip_S1(8,                                                  "Unknown");
+    Skip_S1(1,                                                  "Unknown");
+    Get_S1 (7, second,                                          "second");
+    Skip_S1(1,                                                  "Unknown");
+    Get_S1 (7, minute,                                          "minute");
+    Skip_S1(2,                                                  "Unknown");
+    Get_S1 (6, hour,                                            "hour");
+    Skip_S1(2,                                                  "Unknown");
+    Skip_S1(1,                                                  "scene_start");
+    Skip_S1(5,                                                  "Unknown");
+    BS_End();
+    Skip_XX(Element_Size-Element_Offset,                        "Unknown");
+
+    FILLING_BEGIN();
+        Fill(Stream_General, 0, General_Encoded_Date, Ztring().Date_From_Numbers(year/0x10*10+year%0x10, month/0x10*10+month%0x10, day/0x10*10+day%0x10, hour/0x10*10+hour%0x10, minute/0x10*10+minute%0x10, second/0x10*10+second%0x10));
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -2227,6 +2297,9 @@ bool File_MpegPs::Synchronize()
 
         if (Buffer_Offset+6<=Buffer_Size)//Testing if size is coherant
         {
+            if (FromTS)
+                break; //while //From TS, so trustable
+
             int8u start_code=Buffer[Buffer_Offset+3];
             if (start_code!=0xB9 && start_code!=0xBA)
             {
@@ -2319,6 +2392,9 @@ bool File_MpegPs::Synchronize()
             Streams[0xBD].Searching_Payload=true;            //private_stream_1
             Streams[0xBD].Searching_TimeStamp_Start=true;    //private_stream_1
             Streams[0xBD].Searching_TimeStamp_End=true;      //private_stream_1
+            Streams[0xBF].Searching_Payload=true;            //private_stream_2
+            Streams[0xBF].Searching_TimeStamp_Start=true;    //private_stream_2
+            Streams[0xBF].Searching_TimeStamp_End=true;      //private_stream_2
             for (int8u Pos=0xC0; Pos<=0xEF; Pos++)
             {
                 Streams[Pos].Searching_Payload=true;         //audio_stream or video_stream

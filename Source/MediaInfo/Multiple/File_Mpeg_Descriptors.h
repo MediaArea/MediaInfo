@@ -248,6 +248,7 @@ namespace Mpeg_Descriptors
     const int32u HDMV=0x48444D56; //BluRay
     const int32u S14A=0x53313441; //ATSC - Satellite
     const int32u SCTE=0x53435445; //SCTE
+    const int32u TSHV=0x54534856; //TSHV
     const int32u VC_1=0x56432D31; //Exactly VC-1
     const int32u drac=0x64726163; //Dirac
 

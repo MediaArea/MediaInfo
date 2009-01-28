@@ -190,6 +190,11 @@ void File_MpegTs::Read_Buffer_Finalize()
                 if ((Streams[StreamID].StreamIsRegistred || format_identifier==Mpeg_Descriptors::HDMV) && Mpeg_Psi_stream_Kind(Streams[StreamID].stream_type, format_identifier)!=Stream_Max)
                 {
                     StreamKind_Last=Mpeg_Psi_stream_Kind(Streams[StreamID].stream_type, format_identifier);
+                    if (StreamKind_Last==Stream_General) //Only information, no streams
+                    {
+                        Merge (*Streams[StreamID].Parser, Stream_General, 0, 0);
+                        StreamKind_Last=Stream_Max;
+                    }
                     Stream_Prepare(StreamKind_Last);
                 }
             }
@@ -290,7 +295,7 @@ void File_MpegTs::Read_Buffer_Finalize()
     }
 
     //Fill General
-    Fill(Stream_General, 0, General_Format, "MPEG-TS");
+    Fill(Stream_General, 0, General_Format, "MPEG-TS", Unlimited, true, true);
 
     //Fill Menu
     if (Programs.size()>1 || Config->File_MpegTs_ForceMenu_Get())

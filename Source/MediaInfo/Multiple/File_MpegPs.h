@@ -90,6 +90,10 @@ private :
     size_t         private_stream_1_Offset;
     bool           private_stream_1_IsDvdVideo;
 
+    //private_stream_2 specific
+    void           private_stream_2_TSHV_A0();
+    void           private_stream_2_TSHV_A1();
+
     //extension_stream specific
     const ZenLib::Char*  extension_stream_ChooseExtension();
 
