@@ -180,7 +180,10 @@ void File_Wm::Read_Buffer_Finalize()
             Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Delay_Original", Retrieve(Temp->second.StreamKind, Temp->second.StreamPos, "Delay"));
             Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Delay_Original_Settings", Retrieve(Temp->second.StreamKind, Temp->second.StreamPos, "Delay_Settings"));
         }
-        Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Delay", "", Unlimited, true, true);
+        if (Temp->second.TimeCode_First!=(int64u)-1)
+            Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Delay", Temp->second.TimeCode_First, 10, true);
+        else
+            Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Delay", "", Unlimited, true, true);
         Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Delay_Settings", "", Unlimited, true, true);
 
         Temp++;

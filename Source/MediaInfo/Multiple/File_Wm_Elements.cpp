@@ -134,6 +134,8 @@ namespace Elements
     UUID(Index,                                                 D6E229D3, 35DA, 11D1, 9034, 00A0C90349BE)
     UUID(MediaIndex,                                            FEB103F8, 12AD, 4C64, 840F, 2A1D2F7AD48C)
     UUID(TimecodeIndex,                                         3CB73FD0, 0C4A, 4803, 953D, EDF7B6228F0C)
+
+    UUID(Payload_Extension_System_TimeStamp,                    1135BEB7, 3A39, 478A, 98D9, 15C76B00EB69);
 }
 
 const char* Wm_StreamType(int128u Kind)
@@ -576,13 +578,17 @@ void File_Wm::Header_HeaderExtension_ExtendedStreamProperties()
     for (int16u Pos=0; Pos<PayloadExtensionSystemCount; Pos++)
     {
         Element_Begin("Payload Extension System");
+        stream::payload_extension_system Payload_Extension_System;
         int32u ExtensionSystemInfoLength;
-        Skip_UUID(                                              "Extension System ID");
-        Skip_L2(                                                "Extension Data Size");
+        Get_UUID(Payload_Extension_System.ID,                   "Extension System ID");
+        Get_L2 (Payload_Extension_System.Size,                  "Extension Data Size");
         Get_L4 (ExtensionSystemInfoLength,                      "Extension System Info Length");
         if (ExtensionSystemInfoLength>0)
             Skip_XX(ExtensionSystemInfoLength,                  "Extension System Info");
         Element_End();
+
+        //Filling
+        Stream[StreamNumber].Payload_Extension_Systems.push_back(Payload_Extension_System);
     }
     if (Element_Offset<Element_Size)
         Skip_XX(Element_Size-Element_Offset,                    "Stream Properties Object");
@@ -776,8 +782,8 @@ void File_Wm::Header_CodecList()
         Get_UTF16L(CodecDescriptionLength*2, CodecDescription,  "Codec Description");
         Get_L2 (CodecInformationLength,                         "Codec Information Length");
         if (Type==2 && CodecInformationLength==2) //Audio and 2CC
-            Skip_B2(                                            "2CC"); //Not used, we have it elsewhere
-        else if (Type==1 && CodecInformationLength==4) //Audio and 2CC
+            Skip_L2(                                            "2CC"); //Not used, we have it elsewhere
+        else if (Type==1 && CodecInformationLength==4) //Video and 4CC
             Skip_C4(                                            "4CC"); //Not used, we have it elsewhere
         else
             Skip_XX(CodecInformationLength,                     "Codec Information");
@@ -1296,8 +1302,8 @@ void File_Wm::Data_Packet()
         int32u ReplicatedDataLength=0, PayloadLength=0;
         int8u  StreamNumber;
         Get_L1 (StreamNumber,                                   "Stream Number");
-        StreamNumber&=0x7F; //For KeyFrame
-        Element_Info(StreamNumber);
+        Stream_Number=StreamNumber&0x7F; //For KeyFrame
+        Element_Info(Stream_Number);
         switch (MediaObjectNumberLengthType)
         {
             case 1 : Skip_L1(                                   "Media Object Number"); break;
@@ -1327,12 +1333,10 @@ void File_Wm::Data_Packet()
                 Get_L4 (SizeOfMediaObject,                      "Size Of Media Object");
                 Get_L4 (PresentationTime,                       "Presentation Time");
                 if (ReplicatedDataLength>8)
-                {
-                    Skip_XX(ReplicatedDataLength-8,             "Payload Extension");
-                }
+                    Data_Packet_ReplicatedData(ReplicatedDataLength-8);
 
                 //Presentation time delta
-                std::map<int16u, stream>::iterator Strea=Stream.find(StreamNumber);
+                std::map<int16u, stream>::iterator Strea=Stream.find(Stream_Number);
                 if (Strea!=Stream.end() && Strea->second.StreamKind==Stream_Video)
                 {
                     if (Strea->second.PresentationTime_Old==0)
@@ -1351,7 +1355,9 @@ void File_Wm::Data_Packet()
                 //TODO
             }
             else
+            {
                 Skip_XX(ReplicatedDataLength,                   "Replicated Data");
+            }
         }
 
         if (MultiplePayloadsPresent)
@@ -1378,7 +1384,7 @@ void File_Wm::Data_Packet()
         }
 
         //Analyzing
-        if (Stream[StreamNumber].Parser && Stream[StreamNumber].SearchingPayload)
+        if (Stream[Stream_Number].Parser && Stream[Stream_Number].SearchingPayload)
         {
             //Handling of spanned on multiple chunks
             bool FrameIsAlwaysComplete=true;
@@ -1398,28 +1404,29 @@ void File_Wm::Data_Packet()
 
             //Codec specific
             #if defined(MEDIAINFO_VC1_YES)
-            if (Retrieve(Stream[StreamNumber].StreamKind, Stream[StreamNumber].StreamPos, "Format")==_T("VC-1"))
-                ((File_Vc1*)Stream[StreamNumber].Parser)->FrameIsAlwaysComplete=FrameIsAlwaysComplete;
+            if (Retrieve(Stream[Stream_Number].StreamKind, Stream[Stream_Number].StreamPos, "Format")==_T("VC-1"))
+                ((File_Vc1*)Stream[Stream_Number].Parser)->FrameIsAlwaysComplete=FrameIsAlwaysComplete;
             #endif
 
-            Open_Buffer_Init(Stream[StreamNumber].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
-            Open_Buffer_Continue(Stream[StreamNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)PayloadLength);
-            if ((Stream[StreamNumber].Parser->File_GoTo!=(int64u)-1 || Stream[StreamNumber].Parser->File_Offset==Stream[StreamNumber].Parser->File_Size)
-             || (Stream[StreamNumber].StreamKind==Stream_Video && Stream[StreamNumber].PresentationTime_Count>=300))
+            Open_Buffer_Init(Stream[Stream_Number].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+            Open_Buffer_Continue(Stream[Stream_Number].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)PayloadLength);
+            if ((Stream[Stream_Number].Parser->File_GoTo!=(int64u)-1 || Stream[Stream_Number].Parser->File_Offset==Stream[Stream_Number].Parser->File_Size)
+             || (Stream[Stream_Number].StreamKind==Stream_Video && Stream[Stream_Number].PresentationTime_Count>=300))
             {
-                Stream[StreamNumber].SearchingPayload=false;
+                Stream[Stream_Number].SearchingPayload=false;
                 Streams_Count--;
             }
 
             Element_Offset+=PayloadLength;
+            Element_Show();
         }
         else
         {
             Skip_XX(PayloadLength,                              "Data");
-            if (Stream[StreamNumber].SearchingPayload
-             && (Stream[StreamNumber].StreamKind==Stream_Video && Stream[StreamNumber].PresentationTime_Count>=300))
+            if (Stream[Stream_Number].SearchingPayload
+             && (Stream[Stream_Number].StreamKind==Stream_Video && Stream[Stream_Number].PresentationTime_Count>=300))
             {
-                Stream[StreamNumber].SearchingPayload=false;
+                Stream[Stream_Number].SearchingPayload=false;
                 Streams_Count--;
             }
         }
@@ -1438,6 +1445,62 @@ void File_Wm::Data_Packet()
 
     if (Element_Show_Count>0)
         Element_Show();
+}
+
+//---------------------------------------------------------------------------
+void File_Wm::Data_Packet_ReplicatedData(int32u Size)
+{
+    Element_Begin("Replicated Data", Size);
+    int64u Element_Offset_Final=Element_Offset+Size;
+    for (size_t Pos=0; Pos<Stream[Stream_Number].Payload_Extension_Systems.size(); Pos++)
+    {
+        Element_Begin();
+        #ifndef __BORLANDC__
+            switch (Stream[Stream_Number].Payload_Extension_Systems[Pos].ID.hi)
+        #else //__BORLANDC__
+            switch (Stream[Stream_Number].Payload_Extension_Systems[Pos].ID.hi&0xFFFFFFFF) //Borland does not like int64u for const?
+        #endif //__BORLANDC__
+        {
+            case Elements::Payload_Extension_System_TimeStamp :     Data_Packet_ReplicatedData_TimeStamp(); break;
+            default :                                               //Not enough info to validate this algorithm
+                                                                    //if (Stream[Stream_Number].Payload_Extension_Systems[Pos].Size!=(int16u)-1)
+                                                                    //{
+                                                                    //    Element_Name("Unknown");
+                                                                    //    Skip_XX(Stream[Stream_Number].Payload_Extension_Systems[Pos].Size, "Unknown");
+                                                                    //}
+                                                                    //else
+                                                                        Pos=Stream[Stream_Number].Payload_Extension_Systems.size(); //Disabling the rest, all is unknown
+        }
+        Element_End();
+    }
+
+    if (Element_Offset<Element_Offset_Final)
+    {
+        Element_Begin("Other chunks");
+        Skip_XX(Element_Offset_Final-Element_Offset, "Unknown");
+        Element_End();
+    }
+    Element_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Wm::Data_Packet_ReplicatedData_TimeStamp()
+{
+    Element_Name("TimeStamp");
+
+    //Parsing
+    Skip_L2(                                                    "Unknown");
+    Skip_L4(                                                    "Unknown");
+    Skip_L4(                                                    "Unknown");
+    Info_L8(TS0,                                                "TS0"); if (TS0!=(int64u)-1) Param_Info(TS0/10000);
+    Info_L8(TS1,                                                "TS1"); if (TS1!=(int64u)-1) Param_Info(TS1/10000);
+    Skip_L4(                                                    "Unknown");
+    Skip_L4(                                                    "Unknown");
+    Skip_L4(                                                    "Unknown");
+    Skip_L4(                                                    "Unknown");
+
+    if (Stream[Stream_Number].TimeCode_First==(int64u)-1 && TS0!=(int64u)-1)
+        Stream[Stream_Number].TimeCode_First=TS0/10000;
 }
 
 //---------------------------------------------------------------------------

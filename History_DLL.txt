@@ -13,6 +13,7 @@ Version 0.7.10, 2009-
 + MPEG-4: Encoding library name
 + #2474280, OGG: Old version of Dirac identifier support
 + MPEG-TS: Encoded date for HDV
++ DVR-MS: Delay between two tracks
 x #2529963: Infinite loop on one file
 x #2473140, DTS: error preventing 96/24 DTS detection
 x Output was unstranslated and weird when $LANG is not set
