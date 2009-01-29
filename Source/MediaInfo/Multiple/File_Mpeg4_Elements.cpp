@@ -204,8 +204,11 @@ namespace Elements
     const int64u moov_trak_mdia_minf_smhd=0x736D6864;
     const int64u moov_trak_mdia_minf_stbl=0x7374626C;
     const int64u moov_trak_mdia_minf_stbl_ctts=0x63747473;
+    const int64u moov_trak_mdia_minf_stbl_cslg=0x63736C67;
+    const int64u moov_trak_mdia_minf_stbl_sdtp=0x73647470;
     const int64u moov_trak_mdia_minf_stbl_stco=0x7374636F;
     const int64u moov_trak_mdia_minf_stbl_stdp=0x73746470;
+    const int64u moov_trak_mdia_minf_stbl_stps=0x73747073;
     const int64u moov_trak_mdia_minf_stbl_stsc=0x73747363;
     const int64u moov_trak_mdia_minf_stbl_stsd=0x73747364;
     const int64u moov_trak_mdia_minf_stbl_stsd_alac=0x616C6163;
@@ -220,7 +223,9 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_alac=0x616C6163;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_avcC=0x61766343;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_btrt=0x62747274;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_clap=0x636C6170;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_chan=0x6368616E;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_colr=0x636F6C72;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_dac3=0x64616333;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_dec3=0x64656333;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_damr=0x64616D72;
@@ -232,6 +237,7 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_idfm_priv=0x70726976;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_idfm_subs=0x73756273;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_idfm_cspc=0x63737063;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_pasp=0x70617370;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave=0x77617665;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave_enda=0x656E6461;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma=0x66726D61;
@@ -242,8 +248,8 @@ namespace Elements
     const int64u moov_trak_mdia_minf_vmhd=0x766D6864;
     const int64u moov_trak_tapt=0x74617074;
     const int64u moov_trak_tapt_clef=0x636C6566;
-    const int64u moov_trak_tapt_prof=0x70726F66;
     const int64u moov_trak_tapt_enof=0x656E6F66;
+    const int64u moov_trak_tapt_prof=0x70726F66;
     const int64u moov_trak_tkhd=0x746B6864;
     const int64u moov_trak_tref=0x74726566;
     const int64u moov_trak_tref_dpnd=0x64706E64;
@@ -398,9 +404,12 @@ void File_Mpeg4::Data_Parse()
                     ATOM(moov_trak_mdia_minf_smhd)
                     LIST(moov_trak_mdia_minf_stbl)
                         ATOM_BEGIN
+                        ATOM(moov_trak_mdia_minf_stbl_cslg)
                         ATOM(moov_trak_mdia_minf_stbl_ctts)
+                        ATOM(moov_trak_mdia_minf_stbl_sdtp)
                         ATOM(moov_trak_mdia_minf_stbl_stco)
                         ATOM(moov_trak_mdia_minf_stbl_stdp)
+                        ATOM(moov_trak_mdia_minf_stbl_stps)
                         ATOM(moov_trak_mdia_minf_stbl_stsc)
                         LIST(moov_trak_mdia_minf_stbl_stsd)
                             ATOM_BEGIN
@@ -419,11 +428,14 @@ void File_Mpeg4::Data_Parse()
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_avcC)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_btrt)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_chan)
+                                ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_clap)
+                                ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_colr)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_dac3)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_dec3)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_damr)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_esds)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_idfm)
+                                ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_pasp)
                                 LIST(moov_trak_mdia_minf_stbl_stsd_xxxx_wave)
                                     ATOM_BEGIN
                                     ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_esds)
@@ -1695,9 +1707,30 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_cslg()
+{
+    Element_Name("Composition Shift Least Greatest");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Unknown");
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_ctts()
 {
     Element_Name("Composition Time To Sample");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Unknown");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_sdtp()
+{
+    Element_Name("Sample Dependency");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Unknown");
 }
 
 //---------------------------------------------------------------------------
@@ -1738,6 +1771,15 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stdp()
     {
         Skip_B2(                                                "priority");
     }
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stps()
+{
+    Element_Name("Partial Sync Sample");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Unknown");
 }
 
 //---------------------------------------------------------------------------
@@ -2267,6 +2309,34 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_chan()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_clap()
+{
+    Element_Name("Clean Aperture");
+
+    //Parsing
+    Skip_B4(                                                    "apertureWidth_N");
+    Skip_B4(                                                    "apertureWidth_D");
+    Skip_B4(                                                    "apertureHeight_N");
+    Skip_B4(                                                    "apertureHeight_D");
+    Skip_B4(                                                    "horizOff_N");
+    Skip_B4(                                                    "horizOff_D");
+    Skip_B4(                                                    "vertOff_N");
+    Skip_B4(                                                    "vertOff_D");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_colr()
+{
+    Element_Name("Color Parameter");
+
+    //Parsing
+    Skip_C4(                                                    "Color parameter type");
+    Skip_B2(                                                    "Primaries index");
+    Skip_B2(                                                    "Transfer function index");
+    Skip_B2(                                                    "Matrix index");
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
 {
     Element_Name("AC-3");
@@ -2379,6 +2449,16 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_idfm()
     Info_C4(Description,                                        "Description"); Param_Info(Mpeg4_Description(Description));
 }
 
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_pasp()
+{
+    Element_Name("Pixel Aspect Ratio");
+
+    //Parsing
+    int32u hSpacing, vSpacing;
+    Get_B4 (hSpacing,                                           "hSpacing");
+    Get_B4 (vSpacing,                                           "vSpacing");
+}
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave()
 {
@@ -2630,21 +2710,37 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_tapt()
 {
+    Element_Name("Aperture Mode Dimensions");
 }
 
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_tapt_clef()
 {
+    NAME_VERSION_FLAG("Clean Aperture Dimensions");
+
+    //Parsing
+    Skip_B4(                                                    "cleanApertureWidth"); //BFP4, but how many bits?
+    Skip_B4(                                                    "cleanApertureHeight"); //BFP4, but how many bits?
 }
 
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_tapt_prof()
 {
+    NAME_VERSION_FLAG("Production Aperture Dimensions");
+
+    //Parsing
+    Skip_B4(                                                    "productionApertureWidth"); //BFP4, but how many bits?
+    Skip_B4(                                                    "productionApertureHeight"); //BFP4, but how many bits?
 }
 
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_tapt_enof()
 {
+    NAME_VERSION_FLAG("Encoded Pixels Dimensions");
+
+    //Parsing
+    Skip_B4(                                                    "encodedApertureWidth"); //BFP4, but how many bits?
+    Skip_B4(                                                    "encodedApertureHeight"); //BFP4, but how many bits?
 }
 
 //---------------------------------------------------------------------------
