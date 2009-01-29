@@ -12,7 +12,7 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
-Version 0.7.10, 2009-
+Version 0.7.10, 2009-01-30
 -------------
 + Spanish translation updated
 + Mono (C#/Linux) binding
@@ -21,6 +21,7 @@ Version 0.7.10, 2009-
 + MPEG-TS: Encoded date for HDV
 + DVR-MS: Delay between two tracks
 + WAV: EBU Broadcast Wave format v1 support
++ CMP4: Basic support
 x #2529963: Infinite loop on one file
 x #2473140, DTS: error preventing 96/24 DTS detection
 x MPEG-4: Better support of Aspect ratio
