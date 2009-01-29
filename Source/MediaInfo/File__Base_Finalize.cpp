@@ -422,6 +422,17 @@ void File__Analyze::Finalize_Video(size_t Pos)
     }
     //Display Aspect Ratio and Pixel Aspect Ratio
     AspectRatio_AspectRatio(Pos, Video_DisplayAspectRatio, Video_PixelAspectRatio, Video_DisplayAspectRatio_String);
+    AspectRatio_AspectRatio(Pos, Video_DisplayAspectRatio_Original, Video_PixelAspectRatio_Original, Video_DisplayAspectRatio_Original_String);
+    if (Retrieve(Stream_Video, Pos, Video_DisplayAspectRatio)==Retrieve(Stream_Video, Pos, Video_DisplayAspectRatio_Original))
+    {
+        Clear(Stream_Video, Pos, Video_DisplayAspectRatio_Original);
+        Clear(Stream_Video, Pos, Video_DisplayAspectRatio_Original_String);
+    }
+    if (Retrieve(Stream_Video, Pos, Video_PixelAspectRatio)==Retrieve(Stream_Video, Pos, Video_PixelAspectRatio_Original))
+    {
+        Clear(Stream_Video, Pos, Video_PixelAspectRatio_Original);
+        Clear(Stream_Video, Pos, Video_PixelAspectRatio_Original_String);
+    }
     //Standard
     if (Retrieve(Stream_Video, Pos, "Standard").empty() && Retrieve(Stream_Video, Pos, "Width")==_T("720"))
     {
@@ -1244,7 +1255,7 @@ void File__Analyze::AspectRatio_AspectRatio(size_t Pos, size_t DisplayAspectRati
             Fill(Stream_Video, Pos, PixelAspectRatio, DAR/(((float32)Width)/Height));
     }
     //Display Aspect Ratio by default (thinking that PAR is 1.000)
-    if (Retrieve(Stream_Video, Pos, DisplayAspectRatio).empty())
+    if (Retrieve(Stream_Video, Pos, DisplayAspectRatio).empty() && DisplayAspectRatio==Video_DisplayAspectRatio) //Only if this is Video_DisplayAspectRatio
     {
         float Width =Retrieve(Stream_Video, Pos, Video_Width ).To_float32();
         float Height=Retrieve(Stream_Video, Pos, Video_Height).To_float32();
