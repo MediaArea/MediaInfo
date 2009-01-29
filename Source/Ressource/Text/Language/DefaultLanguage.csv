@@ -1,4 +1,4 @@
-﻿   Junk;x
+   Junk;x
   Author_Email;Zen@mediaarea.net
   Author_Name;Zen
   Author_OldNames;Initial translator
@@ -259,6 +259,7 @@ Dimensions;Dimensions
 Director;Director
 DirectorOfPhotography;Director of photography
 DisplayAspectRatio;Display aspect ratio
+DisplayAspectRatio_Original;Original display aspect ratio
 DistributedBy;Distributed by
 Donate;Donate
 DotsPerInch;Dots per inch
@@ -270,7 +271,7 @@ Encoded_Application;Writing application
 Encoded_Date;Encoded date
 Encoded_Library;Writing library
 Encoded_Library_Settings;Encoding settings
-Encoded_Original;Original
+Encoded_Original;Original support
 EncodedBy;Encoded by
 Error_File;Error while reading file
 ExecutiveProducer;Executive producer
@@ -799,7 +800,8 @@ Part_Count;Total count
 Performer;Performer
 Period;Period
 Phone;Phone
-PixelAspectRatio;Pixel Aspect Ratio
+PixelAspectRatio;Pixel aspect ratio
+PixelAspectRatio_Original;Original pixel aspect ratio
 PlayCounter;PlayCounter
 Played_Count;Times played
 Played_First_Date;First played

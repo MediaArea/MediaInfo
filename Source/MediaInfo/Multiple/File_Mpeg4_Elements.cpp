@@ -1284,6 +1284,7 @@ void File_Mpeg4::moov_trak()
         moov_trak_tkhd_TrackID=(int32u)-1;
         moov_trak_tkhd_Width=0;
         moov_trak_tkhd_Height=0;
+        moov_trak_tkhd_DisplayAspectRatio=0;
         Stream_Prepare(Stream_Max); //clear filling
     FILLING_END();
 }
@@ -2212,10 +2213,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
             Fill(Stream_Video, StreamPos_Last, Video_Encryption, "iTunes");
         if (Codec=="enca")
             Fill(Stream_Video, StreamPos_Last, Video_Encryption, "Encrypted");
-        Fill(Stream_Video, StreamPos_Last, Video_Width, BigEndian2int16u(Buffer+Buffer_Offset+24), 10, true);
-        Fill(Stream_Video, StreamPos_Last, Video_Height, BigEndian2int16u(Buffer+Buffer_Offset+26), 10, true);
-        if (moov_trak_tkhd_Width && moov_trak_tkhd_Height && Retrieve(Stream_General, 0, General_CodecID).find(_T("3gp"))==std::string::npos) //3GP files seems to not support DAR
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)moov_trak_tkhd_Width)/moov_trak_tkhd_Height, 3, true);
+        Fill(Stream_Video, StreamPos_Last, Video_Width, Width, 10, true);
+        Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 10, true);
+        if (moov_trak_tkhd_DisplayAspectRatio)
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, moov_trak_tkhd_DisplayAspectRatio, 3, true);
 
         //Descriptors or a list (we can see both!)
         if (Element_Offset+8<=Element_Size
@@ -2795,12 +2796,11 @@ void File_Mpeg4::moov_trak_tkhd()
             }
         }
 
-        moov_trak_tkhd_Width*=a;
-        moov_trak_tkhd_Height*=d;
-
         Fill(StreamKind_Last, StreamPos_Last, "Encoded_Date", Date_Created);
         Fill(StreamKind_Last, StreamPos_Last, "Tagged_Date", Date_Modified);
         Fill(StreamKind_Last, StreamPos_Last, "ID", moov_trak_tkhd_TrackID, 10, true);
+        if (moov_trak_tkhd_Height*d)
+            moov_trak_tkhd_DisplayAspectRatio=(moov_trak_tkhd_Width*a)/(moov_trak_tkhd_Height*d);
     FILLING_END();
 }
 

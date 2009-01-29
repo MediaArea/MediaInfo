@@ -424,15 +424,13 @@ void File__Analyze::Finalize_Video(size_t Pos)
     AspectRatio_AspectRatio(Pos, Video_DisplayAspectRatio, Video_PixelAspectRatio, Video_DisplayAspectRatio_String);
     AspectRatio_AspectRatio(Pos, Video_DisplayAspectRatio_Original, Video_PixelAspectRatio_Original, Video_DisplayAspectRatio_Original_String);
     if (Retrieve(Stream_Video, Pos, Video_DisplayAspectRatio)==Retrieve(Stream_Video, Pos, Video_DisplayAspectRatio_Original))
-    {
         Clear(Stream_Video, Pos, Video_DisplayAspectRatio_Original);
+    if (Retrieve(Stream_Video, Pos, Video_DisplayAspectRatio_String)==Retrieve(Stream_Video, Pos, Video_DisplayAspectRatio_Original_String))
         Clear(Stream_Video, Pos, Video_DisplayAspectRatio_Original_String);
-    }
     if (Retrieve(Stream_Video, Pos, Video_PixelAspectRatio)==Retrieve(Stream_Video, Pos, Video_PixelAspectRatio_Original))
-    {
         Clear(Stream_Video, Pos, Video_PixelAspectRatio_Original);
+    if (Retrieve(Stream_Video, Pos, Video_PixelAspectRatio_String)==Retrieve(Stream_Video, Pos, Video_PixelAspectRatio_Original_String))
         Clear(Stream_Video, Pos, Video_PixelAspectRatio_Original_String);
-    }
     //Standard
     if (Retrieve(Stream_Video, Pos, "Standard").empty() && Retrieve(Stream_Video, Pos, "Width")==_T("720"))
     {
