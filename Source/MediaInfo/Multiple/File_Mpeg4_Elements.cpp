@@ -2217,15 +2217,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
         if (moov_trak_tkhd_Width && moov_trak_tkhd_Height && Retrieve(Stream_General, 0, General_CodecID).find(_T("3gp"))==std::string::npos) //3GP files seems to not support DAR
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)moov_trak_tkhd_Width)/moov_trak_tkhd_Height, 3, true);
 
-        //Specific
-        if (Codec=="dvc " || Codec=="DVC " || Codec=="dvcp" || Codec=="DVCP" || Codec=="dvpn" || Codec=="DVPN" || Codec=="dvpp" || Codec=="DVPP")
-        {
-            if (!moov_trak_tkhd_Width && !moov_trak_tkhd_Height && Retrieve(Stream_General, 0, General_CodecID).find(_T("3gp"))==std::string::npos) //3GP files seems to not support DAR
-                Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)4)/3, 3, true);
-            else
-                Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)moov_trak_tkhd_Width)/moov_trak_tkhd_Height, 3, true);
-        }
-
         //Descriptors or a list (we can see both!)
         if (Element_Offset+8<=Element_Size
              && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+0)>='A' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+0)<='z'
@@ -2458,6 +2449,15 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_pasp()
     int32u hSpacing, vSpacing;
     Get_B4 (hSpacing,                                           "hSpacing");
     Get_B4 (vSpacing,                                           "vSpacing");
+
+    FILLING_BEGIN();
+        if (vSpacing)
+        {
+            float64 PixelAspectRatio=(float64)hSpacing/vSpacing;
+            Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio, PixelAspectRatio, 3, true);
+            Clear(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio); //Pixel Aspect Ratio has priority
+        }
+    FILLING_END();
 }
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave()
