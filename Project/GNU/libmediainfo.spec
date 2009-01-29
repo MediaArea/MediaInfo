@@ -8,7 +8,7 @@
 
 %define _prefix	/usr
 %define _SO_nr	0
-%define libzen_version	0.3.6
+%define libzen_version	0.3.7
 %define libzen_SO_nr	0
 
 Name:			libmediainfo%{_SO_nr}
