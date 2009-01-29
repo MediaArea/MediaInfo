@@ -34,7 +34,7 @@
         #define MEDIAINFODLL_NAME  "MediaInfo.dll"
     #endif //_DEBUG
 #elif defined(__APPLE__) && defined(__MACH__)
-    #define MEDIAINFODLL_NAME  "libmediainfo.dynlib.0"
+    #define MEDIAINFODLL_NAME  "libmediainfo.0.dylib"
     #define __stdcall
 #else
     #define MEDIAINFODLL_NAME  "libmediainfo.so.0"
