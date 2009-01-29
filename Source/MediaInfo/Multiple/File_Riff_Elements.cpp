@@ -208,6 +208,9 @@ namespace Elements
     const int32u AVIX_idx1=0x69647831;
     const int32u AVIX_movi=0x6D6F7669;
     const int32u AVIX_movi_rec_=0x72656320;
+    const int32u CADP=0x43414450;
+    const int32u CMJP=0x434D4A50;
+    const int32u CMP4=0x434D5034;
     const int32u IDVX=0x49445658;
     const int32u JUNK=0x4A554E4B;
     const int32u menu=0x6D656E75;
@@ -320,6 +323,13 @@ void File_Riff::Data_Parse()
             ATOM_DEFAULT(AVIX_movi_xxxx)
             ATOM_END_DEFAULT
         ATOM_END
+    LIST(CADP)
+        ATOM_BEGIN
+        ATOM_END
+    LIST(CMJP)
+        ATOM_BEGIN
+        ATOM_END
+    ATOM(CMP4)
     ATOM(IDVX)
     LIST_SKIP(JUNK)
     LIST_SKIP(menu)
@@ -1327,6 +1337,7 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     else if (Ztring().From_CC4(Compression)==_T("MJPG"))
     {
         Stream[Stream_ID].Parser=new File_Jpeg;
+        ((File_Jpeg*)Stream[Stream_ID].Parser)->StreamKind=Stream_Video;
     }
     #endif
     #if defined(MEDIAINFO_DVDIF_YES)
@@ -2009,6 +2020,72 @@ void File_Riff::AVIX_movi_rec__xxxx()
 void File_Riff::AVIX_movi_xxxx()
 {
     AVI__movi_xxxx();
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::CADP()
+{
+    Element_Name("CMP4 - ADPCM");
+
+    //Parsing
+    int32u Codec;
+    Get_C4 (Codec,                                              "Codec");
+    Skip_XX(Element_TotalSize_Get()-Element_Offset,             "Data");
+
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_Audio);
+        if (Codec==0x41647063) //Adpc
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format, "ADPCM");
+        Fill(Stream_Audio, StreamPos_Last, Audio_StreamSize, Element_TotalSize_Get());
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::CMJP()
+{
+    Element_Name("CMP4 - MJPEG");
+
+    //Parsing
+    #ifdef MEDIAINFO_JPEG_YES
+        Stream_ID=0;
+        Stream[Stream_ID].Parser=new File_Jpeg;
+        ((File_Jpeg*)Stream[Stream_ID].Parser)->StreamKind=Stream_Video;
+        Open_Buffer_Init(Stream[Stream_ID].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+        Open_Buffer_Continue(Stream[Stream_ID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        Open_Buffer_Finalize(Stream[Stream_ID].Parser);
+        Element_Offset=Element_Size;
+        Skip_XX(Element_TotalSize_Get()-Element_Offset,         "Other data");
+
+        FILLING_BEGIN();
+            Stream_Prepare(Stream_Video);
+            Fill(Stream_Video, StreamPos_Last, Video_StreamSize, Element_TotalSize_Get());
+            Merge(*Stream[Stream_ID].Parser, StreamKind_Last, 0, StreamPos_Last);
+        FILLING_END();
+    #else
+        Skip_XX(Element_TotalSize_Get(),                        "Data");
+
+        FILLING_BEGIN();
+            Stream_Prepare(Stream_Video);
+            Fill(Stream_Video, StreamKind_Last, Video_Format, "MJPEG");
+            Fill(Stream_Video, StreamKind_Last, Video_StreamSize, Element_TotalSize_Get());
+        FILLING_END();
+    #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::CMP4()
+{
+    Element_Name("CMP4 - Header");
+
+    //Parsing
+    Ztring Title;
+    Get_Local(Element_Size, Title,                              "Title");
+
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, "Format", "CMP4");
+        Fill(Stream_General, 0, "Title", Title);
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

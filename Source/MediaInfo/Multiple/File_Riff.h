@@ -198,6 +198,9 @@ private :
     void AVIX_movi_xxxx ();
     void AVIX_movi_rec_ ();
     void AVIX_movi_rec__xxxx ();
+    void CADP ();
+    void CMJP ();
+    void CMP4 ();
     void IDVX ();
     void JUNK ();
     void menu ();

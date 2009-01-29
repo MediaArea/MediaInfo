@@ -648,6 +648,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0x6C : //M-JPEG
                         #if defined(MEDIAINFO_JPEG_YES)
                             Parser=new File_Jpeg;
+                            ((File_Jpeg*)Parser)->StreamKind=Stream_Video;
                         #endif
                         break;
             case 0x6D : //PNG

@@ -39,9 +39,16 @@ namespace MediaInfoLib
 
 class File_Jpeg : public File__Analyze
 {
+public :
+    //In
+    stream_t StreamKind;
+
+    //Constructor/Destructor
+    File_Jpeg();
+
 private :
     //Buffer
-    void FileHeader_Parse ();
+    bool FileHeader_Begin ();
     void Header_Parse();
     void Data_Parse();
 
@@ -118,6 +125,9 @@ private :
     void JPGC() {Skip_XX(Element_Size, "Data");};
     void JPGD() {Skip_XX(Element_Size, "Data");};
     void COM () {Skip_XX(Element_Size, "Data");};
+
+    //Temp
+    int8u Height_Multiplier;
 };
 
 } //NameSpace

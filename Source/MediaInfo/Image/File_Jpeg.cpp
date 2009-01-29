@@ -122,25 +122,34 @@ namespace Elements
 }
 
 //***************************************************************************
+// Constructor/Destructor
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+File_Jpeg::File_Jpeg()
+{
+    //In
+    StreamKind=Stream_Image;
+
+    //Temp
+    Height_Multiplier=1;
+}
+
+//***************************************************************************
 // Buffer
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Jpeg::FileHeader_Parse()
+bool File_Jpeg::FileHeader_Begin()
 {
-    //Parsing
-    Element_Begin("FFD8 - Start Of Image", 10);
-    int16u identifier;
-    Get_B2 (identifier,                                         "identifier");
-    Element_End();
-
-    FILLING_BEGIN();
-        if (identifier!=0xFFD8)
-        {
-            Finished();
-            return;
-        }
-    FILLING_END();
+    if (Buffer_Size<2)
+        return false;
+    if (CC2(Buffer)!=0xFFD8) //SOI
+    {
+        Finished();
+        return false;
+    }
+    return true;
 }
 
 //---------------------------------------------------------------------------
@@ -279,13 +288,15 @@ void File_Jpeg::SOF_()
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "JPEG");
-        Stream_Prepare(Stream_Image);
-        Fill(Stream_Image, 0, Image_Format, "JPEG");
-        Fill(Stream_Image, 0, Image_Codec, "JPEG");
-        Fill(Stream_Image, 0, Image_Codec_String, "JPEG"); //To Avoid automatic filling
-        Fill(Stream_Image, 0, Image_Resolution, Resolution);
-        Fill(Stream_Image, 0, Image_Height, Height);
-        Fill(Stream_Image, 0, Image_Width, Width);
+        if (Count_Get(StreamKind)==0)
+            Stream_Prepare(StreamKind);
+        Fill(StreamKind, 0, "Format", StreamKind==Stream_Image?"JPEG":"M-JPEG");
+        Fill(StreamKind, 0, "Codec", StreamKind==Stream_Image?"JPEG":"M-JPEG");
+        if (StreamKind==Stream_Image)
+            Fill(Stream_Image, 0, Image_Codec_String, "JPEG"); //To Avoid automatic filling
+        Fill(StreamKind, 0, "Resolution", Resolution*3);
+        Fill(StreamKind, 0, "Height", Height*Height_Multiplier);
+        Fill(StreamKind, 0, "Width", Width);
     FILLING_END();
 }
 
@@ -343,20 +354,14 @@ void File_Jpeg::APP0_AVI1()
     Element_End();
 
     FILLING_BEGIN();
-        if (Count_Get(Stream_General)==0 && File_Name.empty())
-        {
-            Stream_Prepare(Stream_General);
-            Fill(Stream_General, 0, General_Format, "JPEG");
+        if (Count_Get(Stream_Video)==0)
             Stream_Prepare(Stream_Video);
-            Fill(Stream_Video, 0, Video_Format, "M-JPEG");
-            Fill(Stream_Video, 0, Video_Codec, "M-JPEG");
-        }
 
         switch (FieldOrder)
         {
             case 0x00 : Fill(Stream_Video, 0, Video_Interlacement, "PPF"); Fill(Stream_Video, 0, Video_ScanType, "Progressive"); break;
-            case 0x01 : Fill(Stream_Video, 0, Video_Interlacement, "TFF"); Fill(Stream_Video, 0, Video_ScanType, "Interlaced"); Fill(Stream_Video, 0, Video_ScanOrder, "TFF"); break;
-            case 0x02 : Fill(Stream_Video, 0, Video_Interlacement, "BFF"); Fill(Stream_Video, 0, Video_ScanType, "Interlaced"); Fill(Stream_Video, 0, Video_ScanOrder, "BFF"); break;
+            case 0x01 : Fill(Stream_Video, 0, Video_Interlacement, "TFF"); Fill(Stream_Video, 0, Video_ScanType, "Interlaced"); Fill(Stream_Video, 0, Video_ScanOrder, "TFF"); Height_Multiplier=2; break;
+            case 0x02 : Fill(Stream_Video, 0, Video_Interlacement, "BFF"); Fill(Stream_Video, 0, Video_ScanType, "Interlaced"); Fill(Stream_Video, 0, Video_ScanOrder, "BFF"); Height_Multiplier=2; break;
             default   : ;
         }
     FILLING_END();
