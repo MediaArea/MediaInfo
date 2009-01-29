@@ -420,47 +420,8 @@ void File__Analyze::Finalize_Video(size_t Pos)
         if (Retrieve(Stream_Video, Pos, "Interlacement/String").empty())
             Fill(Stream_Video, Pos, "Interlacement/String", Z1);
     }
-    //Display Aspect Ratio from Pixel Aspect Ratio
-    if (Retrieve(Stream_Video, Pos, "DisplayAspectRatio").empty() && !Retrieve(Stream_Video, Pos, "PixelAspectRatio").empty())
-    {
-        float PAR   =Retrieve(Stream_Video, Pos, "PixelAspectRatio").To_float32();
-        float Width =Retrieve(Stream_Video, Pos, "Width"           ).To_float32();
-        float Height=Retrieve(Stream_Video, Pos, "Height"          ).To_float32();
-        if (PAR && Height && Width)
-            Fill(Stream_Video, Pos, "DisplayAspectRatio", ((float32)Width)/Height*PAR, 3);
-    }
-    //Pixel Aspect Ratio from Display Aspect Ratio
-    if (Retrieve(Stream_Video, Pos, "PixelAspectRatio").empty() && !Retrieve(Stream_Video, Pos, "DisplayAspectRatio").empty())
-    {
-        float DAR   =Retrieve(Stream_Video, Pos, "DisplayAspectRatio").To_float32();
-        float Width =Retrieve(Stream_Video, Pos, "Width"             ).To_float32();
-        float Height=Retrieve(Stream_Video, Pos, "Height"            ).To_float32();
-        if (DAR && Height && Width)
-            Fill(Stream_Video, Pos, "PixelAspectRatio", DAR/(((float32)Width)/Height));
-    }
-    //Display Aspect Ratio by default (thinking that PAR is 1.000)
-    if (Retrieve(Stream_Video, Pos, "DisplayAspectRatio").empty())
-    {
-        float Width =Retrieve(Stream_Video, Pos, "Width" ).To_float32();
-        float Height=Retrieve(Stream_Video, Pos, "Height").To_float32();
-        if (Height && Width)
-            Fill(Stream_Video, Pos, "DisplayAspectRatio", ((float32)Width)/Height);
-    }
-    //Display Aspect Ratio
-    if (!Retrieve(Stream_Video, Pos, "DisplayAspectRatio").empty() && MediaInfoLib::Config.ReadByHuman_Get())
-    {
-        float F1=Retrieve(Stream_Video, Pos, "DisplayAspectRatio").To_float32();
-        Ztring C1;
-             if (0);
-        else if (F1>1.23 && F1<1.27) C1=_T("5/4");
-        else if (F1>1.30 && F1<1.37) C1=_T("4/3");
-        else if (F1>1.70 && F1<1.85) C1=_T("16/9");
-        else if (F1>2.10 && F1<2.22) C1=_T("2.2");
-        else if (F1>2.23 && F1<2.30) C1=_T("2.25");
-        else if (F1>2.30 && F1<2.40) C1=_T("2.35");
-        else              C1.From_Number(F1);
-        Fill(Stream_Video, Pos, "DisplayAspectRatio/String", C1);
-    }
+    //Display Aspect Ratio and Pixel Aspect Ratio
+    AspectRatio_AspectRatio(Pos, Video_DisplayAspectRatio, Video_PixelAspectRatio, Video_DisplayAspectRatio_String);
     //Standard
     if (Retrieve(Stream_Video, Pos, "Standard").empty() && Retrieve(Stream_Video, Pos, "Width")==_T("720"))
     {
@@ -1258,6 +1219,53 @@ void File__Analyze::Value_Value123(const Ztring &Value, stream_t StreamKind, siz
 
     //Filling
     Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), MediaInfoLib::Config.Language_Get(Retrieve(StreamKind, StreamPos, List_Pos), List[List_Pos][Info_Measure]), true);
+}
+
+//---------------------------------------------------------------------------
+//Aspect ratio handling
+void File__Analyze::AspectRatio_AspectRatio(size_t Pos, size_t DisplayAspectRatio, size_t PixelAspectRatio, size_t DisplayAspectRatio_String)
+{
+    //Display Aspect Ratio from Pixel Aspect Ratio
+    if (Retrieve(Stream_Video, Pos, DisplayAspectRatio).empty() && !Retrieve(Stream_Video, Pos, PixelAspectRatio).empty())
+    {
+        float PAR   =Retrieve(Stream_Video, Pos, PixelAspectRatio).To_float32();
+        float Width =Retrieve(Stream_Video, Pos, Video_Width     ).To_float32();
+        float Height=Retrieve(Stream_Video, Pos, Video_Height    ).To_float32();
+        if (PAR && Height && Width)
+            Fill(Stream_Video, Pos, DisplayAspectRatio, ((float32)Width)/Height*PAR, 3);
+    }
+    //Pixel Aspect Ratio from Display Aspect Ratio
+    if (Retrieve(Stream_Video, Pos, PixelAspectRatio).empty() && !Retrieve(Stream_Video, Pos, DisplayAspectRatio).empty())
+    {
+        float DAR   =Retrieve(Stream_Video, Pos, DisplayAspectRatio).To_float32();
+        float Width =Retrieve(Stream_Video, Pos, Video_Width       ).To_float32();
+        float Height=Retrieve(Stream_Video, Pos, Video_Height      ).To_float32();
+        if (DAR && Height && Width)
+            Fill(Stream_Video, Pos, PixelAspectRatio, DAR/(((float32)Width)/Height));
+    }
+    //Display Aspect Ratio by default (thinking that PAR is 1.000)
+    if (Retrieve(Stream_Video, Pos, DisplayAspectRatio).empty())
+    {
+        float Width =Retrieve(Stream_Video, Pos, Video_Width ).To_float32();
+        float Height=Retrieve(Stream_Video, Pos, Video_Height).To_float32();
+        if (Height && Width)
+            Fill(Stream_Video, Pos, DisplayAspectRatio, ((float32)Width)/Height);
+    }
+    //Display Aspect Ratio
+    if (!Retrieve(Stream_Video, Pos, DisplayAspectRatio).empty() && MediaInfoLib::Config.ReadByHuman_Get())
+    {
+        float F1=Retrieve(Stream_Video, Pos, DisplayAspectRatio).To_float32();
+        Ztring C1;
+             if (0);
+        else if (F1>1.23 && F1<1.27) C1=_T("5/4");
+        else if (F1>1.30 && F1<1.37) C1=_T("4/3");
+        else if (F1>1.70 && F1<1.85) C1=_T("16/9");
+        else if (F1>2.10 && F1<2.22) C1=_T("2.2");
+        else if (F1>2.23 && F1<2.30) C1=_T("2.25");
+        else if (F1>2.30 && F1<2.40) C1=_T("2.35");
+        else              C1.From_Number(F1);
+        Fill(Stream_Video, Pos, DisplayAspectRatio_String, C1);
+    }
 }
 
 //---------------------------------------------------------------------------

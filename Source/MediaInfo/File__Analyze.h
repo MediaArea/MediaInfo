@@ -750,6 +750,7 @@ protected :
     void FileSize_FileSize123   (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
     void Kilo_Kilo123           (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
     void Value_Value123         (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
+    void AspectRatio_AspectRatio(size_t Pos, size_t DisplayAspectRatio, size_t PixelAspectRatio, size_t DisplayAspectRatio_String);
     void YesNo_YesNo            (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
     void CodecID_Fill           (const Ztring &Value, stream_t StreamKind, size_t StreamPos, infocodecid_format_t Format);
 
