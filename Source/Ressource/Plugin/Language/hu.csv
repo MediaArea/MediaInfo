@@ -259,6 +259,7 @@ Dimensions
 Director;Rendező
 DirectorOfPhotography;Fényképezte
 DisplayAspectRatio;Képarány
+DisplayAspectRatio_Original
 DistributedBy;Terjesztő
 Donate;Adomány
 DotsPerInch
@@ -800,6 +801,7 @@ Performer;Előadó
 Period;Korszak
 Phone;Telefon
 PixelAspectRatio;Képpont arány
+PixelAspectRatio_Original;Képpont arány
 PlayCounter
 Played_Count
 Played_First_Date

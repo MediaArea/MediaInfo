@@ -259,6 +259,7 @@ Dimensions;維度
 Director;導演
 DirectorOfPhotography;攝影導演
 DisplayAspectRatio;顯示長寬比例
+DisplayAspectRatio_Original
 DistributedBy;發布者
 Donate;贊助
 DotsPerInch;每吋點數 (DPI)
@@ -800,6 +801,7 @@ Performer;演出者
 Period;時期
 Phone;電話
 PixelAspectRatio;像素長寬比例
+PixelAspectRatio_Original;像素長寬比例
 PlayCounter;播放計數器
 Played_Count;已播放數
 Played_First_Date;首次播放
@@ -924,4 +926,4 @@ WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
 ZZ_Automatic_Percent;95
-ZZ_AutomaticLanguage_Percent;100
+ZZ_AutomaticLanguage_Percent;99

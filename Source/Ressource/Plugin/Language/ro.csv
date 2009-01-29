@@ -259,6 +259,7 @@ Dimensions
 Director;Director
 DirectorOfPhotography;Director de film
 DisplayAspectRatio;Raport imagine
+DisplayAspectRatio_Original
 DistributedBy;Distribuit de
 Donate;Donatii
 DotsPerInch
@@ -800,6 +801,7 @@ Performer;Cantaret
 Period;Perioada
 Phone;Telefon
 PixelAspectRatio;Dimensiune pixel
+PixelAspectRatio_Original;Dimensiune pixel
 PlayCounter;Numar redari
 Played_Count
 Played_First_Date

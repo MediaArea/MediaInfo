@@ -259,6 +259,7 @@ Dimensions
 Director;ディレクター
 DirectorOfPhotography;フォトディレクター
 DisplayAspectRatio;解像度
+DisplayAspectRatio_Original
 DistributedBy;ディストリビュート by
 Donate;寄付
 DotsPerInch
@@ -800,6 +801,7 @@ Performer;パフォーマー
 Period;ピリオド
 Phone;電話
 PixelAspectRatio;ピクセル比
+PixelAspectRatio_Original;ピクセル比
 PlayCounter;再生数
 Played_Count
 Played_First_Date

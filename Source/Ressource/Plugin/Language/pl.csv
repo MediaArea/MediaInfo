@@ -259,6 +259,7 @@ Dimensions;Wymiary
 Director;Reżyser
 DirectorOfPhotography;Zdjęcia
 DisplayAspectRatio;Proporcje obrazu
+DisplayAspectRatio_Original
 DistributedBy;Rozpowszechniamie
 Donate;Darowizna
 DotsPerInch;punktów na cal
@@ -800,6 +801,7 @@ Performer;Wykonawca
 Period;Okres
 Phone;Telefon
 PixelAspectRatio;Proporcje pikseli
+PixelAspectRatio_Original;Proporcje pikseli
 PlayCounter;Licznik odtwarzania
 Played_Count;Odtwarzany razy
 Played_First_Date;Pierwszy raz

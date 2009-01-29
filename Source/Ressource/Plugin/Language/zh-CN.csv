@@ -259,6 +259,7 @@ Dimensions;规模
 Director;导演
 DirectorOfPhotography;摄影导演
 DisplayAspectRatio;画面比例
+DisplayAspectRatio_Original
 DistributedBy;发行
 Donate;赞助
 DotsPerInch;点/英寸(DPI)
@@ -800,6 +801,7 @@ Performer;艺术家
 Period;时代
 Phone;电话
 PixelAspectRatio;画面比例(像素)
+PixelAspectRatio_Original;画面比例(像素)
 PlayCounter;播放计数器
 Played_Count;已播放时间
 Played_First_Date

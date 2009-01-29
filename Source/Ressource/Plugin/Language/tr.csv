@@ -259,6 +259,7 @@ Dimensions;Boyutlar
 Director;Yönetmen
 DirectorOfPhotography;Fotoğrafçılık yönetmeni
 DisplayAspectRatio;En-Boy oranı
+DisplayAspectRatio_Original
 DistributedBy;Dağıtan
 Donate;Bağış
 DotsPerInch;İnç başına nokta
@@ -800,6 +801,7 @@ Performer;Sanatçı
 Period;Dönem
 Phone;Telefon
 PixelAspectRatio;Piksel oranı
+PixelAspectRatio_Original;Piksel oranı
 PlayCounter;Oynatma Sayacı
 Played_Count;Oynatma süresi
 Played_First_Date;İlk oynatma
@@ -924,4 +926,4 @@ WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
 ZZ_Automatic_Percent;95
-ZZ_AutomaticLanguage_Percent;100
+ZZ_AutomaticLanguage_Percent;99

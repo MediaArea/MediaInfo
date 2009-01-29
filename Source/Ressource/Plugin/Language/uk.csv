@@ -259,6 +259,7 @@ Dimensions
 Director;Режисер
 DirectorOfPhotography;Оператор
 DisplayAspectRatio
+DisplayAspectRatio_Original
 DistributedBy;Розповсюджувач
 Donate;Пожертвування
 DotsPerInch
@@ -800,6 +801,7 @@ Performer;Виконавець
 Period;Період
 Phone;Телефон
 PixelAspectRatio
+PixelAspectRatio_Original
 PlayCounter;Лічильник
 Played_Count
 Played_First_Date
@@ -924,4 +926,4 @@ WrittenBy;Написано
 Yes;Так
 Your system;Ваша система
 ZZ_Automatic_Percent;81
-ZZ_AutomaticLanguage_Percent;86
+ZZ_AutomaticLanguage_Percent;85

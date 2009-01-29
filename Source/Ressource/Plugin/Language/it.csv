@@ -259,6 +259,7 @@ Dimensions;Dimensioni
 Director;Regista
 DirectorOfPhotography;Direttore della fotografia
 DisplayAspectRatio;AspectRatio
+DisplayAspectRatio_Original
 DistributedBy;Distribuito da
 Donate;Dona
 DotsPerInch;Punti per pollice
@@ -800,6 +801,7 @@ Performer;Esecutore
 Period;Periodo
 Phone;Telefono
 PixelAspectRatio;Rapporto pixel
+PixelAspectRatio_Original;Rapporto pixel
 PlayCounter;Riprodotto per
 Played_Count;Visualizzato 
 Played_First_Date;Visualizzato per la prima volta
@@ -924,4 +926,4 @@ WrittenBy;Realizzato da
 Yes;Si 
 Your system;Il tuo sistema
 ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;100
+ZZ_AutomaticLanguage_Percent;99

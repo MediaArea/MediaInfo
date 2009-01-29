@@ -259,6 +259,7 @@ Dimensions
 Director;Direktorius
 DirectorOfPhotography;Fotografijos direktorius
 DisplayAspectRatio;Rodyti aspekto santykį
+DisplayAspectRatio_Original
 DistributedBy;Platintojas
 Donate;Aukoti
 DotsPerInch
@@ -800,6 +801,7 @@ Performer;Atlikėjas
 Period;Laikotarpis
 Phone;Telefonas
 PixelAspectRatio;Pikselių aspekto koeficientas
+PixelAspectRatio_Original;Pikselių aspekto koeficientas
 PlayCounter;Rodymo skaitiklis
 Played_Count
 Played_First_Date

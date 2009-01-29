@@ -259,6 +259,7 @@ Dimensions
 Director;دایرکتور
 DirectorOfPhotography;دایرکتور عکاسی
 DisplayAspectRatio;نمایش نسبت نمود
+DisplayAspectRatio_Original
 DistributedBy;توزیع شده توسط
 Donate;کمک نقدی کردن
 DotsPerInch
@@ -800,6 +801,7 @@ Performer;ایفا کننده
 Period;دوره
 Phone;تلفن
 PixelAspectRatio;Pixel Aspect Ratio
+PixelAspectRatio_Original;Pixel Aspect Ratio
 PlayCounter;تعداد پخش
 Played_Count
 Played_First_Date

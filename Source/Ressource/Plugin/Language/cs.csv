@@ -259,6 +259,7 @@ Dimensions
 Director;Director
 DirectorOfPhotography;Director of photography
 DisplayAspectRatio;Poměr stran
+DisplayAspectRatio_Original
 DistributedBy;Distributed by
 Donate;Zaslat finanční dar
 DotsPerInch
@@ -800,6 +801,7 @@ Performer;Performer
 Period;Period
 Phone;Phone
 PixelAspectRatio;Poměr pixelů
+PixelAspectRatio_Original;Poměr pixelů
 PlayCounter;PlayCounter
 Played_Count
 Played_First_Date

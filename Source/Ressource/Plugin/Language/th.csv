@@ -259,6 +259,7 @@ Dimensions
 Director;ผู้กำกับการแสดง
 DirectorOfPhotography;ผู้กำกับการถ่ายภาพ
 DisplayAspectRatio;อัตราการแสดงผล
+DisplayAspectRatio_Original
 DistributedBy;เผยแพร่โดย
 Donate;บริจาค
 DotsPerInch
@@ -800,6 +801,7 @@ Performer;Performer
 Period;Period
 Phone;โทรศัพท์
 PixelAspectRatio;Pixel Aspect Ratio
+PixelAspectRatio_Original;Pixel Aspect Ratio
 PlayCounter;PlayCounter
 Played_Count
 Played_First_Date

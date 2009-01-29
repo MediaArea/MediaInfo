@@ -259,6 +259,7 @@ Dimensions
 Director;Director
 DirectorOfPhotography;Director of photography
 DisplayAspectRatio;Λόγος εικόνας
+DisplayAspectRatio_Original
 DistributedBy;Distributed by
 Donate;Δωρεές
 DotsPerInch
@@ -800,6 +801,7 @@ Performer;Performer
 Period;Περίοδος
 Phone;Τηλέφωνο
 PixelAspectRatio;Λόγος εικονοστοιχείου
+PixelAspectRatio_Original;Λόγος εικονοστοιχείου
 PlayCounter;PlayCounter
 Played_Count
 Played_First_Date
@@ -924,4 +926,4 @@ WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
 ZZ_Automatic_Percent;82
-ZZ_AutomaticLanguage_Percent;87
+ZZ_AutomaticLanguage_Percent;86

@@ -259,6 +259,7 @@ Dimensions;Dimensionen
 Director;Regisseur
 DirectorOfPhotography;Chefkameramann 
 DisplayAspectRatio;Bildseitenverhältnis
+DisplayAspectRatio_Original
 DistributedBy;Vertrieb durch
 Donate;MediaInfo unterstützen
 DotsPerInch;DPI
@@ -800,6 +801,7 @@ Performer;Künstler
 Period;Zeitalter
 Phone;Telefon
 PixelAspectRatio;Pixelverhältnis
+PixelAspectRatio_Original;Pixelverhältnis
 PlayCounter;Wiedergabezähler
 Played_Count;mal gespielt
 Played_First_Date;erstmals gespielt
@@ -924,4 +926,4 @@ WrittenBy;Geschrieben von
 Yes;Ja
 Your system;Deine Systeminformationen
 ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;100
+ZZ_AutomaticLanguage_Percent;99

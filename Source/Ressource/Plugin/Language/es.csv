@@ -259,6 +259,7 @@ Dimensions;Dimensiones
 Director;Director
 DirectorOfPhotography;Director de fotografía
 DisplayAspectRatio;Relación de aspecto
+DisplayAspectRatio_Original
 DistributedBy;Distribuído por
 Donate;Donación
 DotsPerInch;Puntos por pulgada
@@ -800,6 +801,7 @@ Performer;Intérprete
 Period;Período
 Phone;Teléfono
 PixelAspectRatio;Relación de aspecto
+PixelAspectRatio_Original;Relación de aspecto
 PlayCounter;Contador
 Played_Count;Tiempo reproduccido
 Played_First_Date;Primera reproducida
@@ -923,5 +925,5 @@ Written_Location;Escrito en
 WrittenBy;Escrito por
 Yes;Si
 Your system;Tu sistema
-ZZ_Automatic_Percent;84
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;83
+ZZ_AutomaticLanguage_Percent;99

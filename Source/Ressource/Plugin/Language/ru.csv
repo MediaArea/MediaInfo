@@ -259,6 +259,7 @@ Dimensions;Размеры
 Director;Режиссёр
 DirectorOfPhotography;Оператор
 DisplayAspectRatio;Соотношение кадра
+DisplayAspectRatio_Original
 DistributedBy;Распространитель
 Donate;Пожертвовать
 DotsPerInch;Точек на дюйм
@@ -800,6 +801,7 @@ Performer;Исполнитель
 Period;Период
 Phone;Телефон
 PixelAspectRatio;Соотношение пикселей
+PixelAspectRatio_Original;Соотношение пикселей
 PlayCounter;Счётчик воспроизведения
 Played_Count;Воспроизведено раз
 Played_First_Date;Первое воспроизведение

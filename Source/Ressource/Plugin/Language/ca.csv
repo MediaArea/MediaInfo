@@ -259,6 +259,7 @@ Dimensions; Mides
 Director;Director
 DirectorOfPhotography;Director de fotografia
 DisplayAspectRatio;Relació d'aspecte
+DisplayAspectRatio_Original
 DistributedBy;Distribuït per
 Donate;Donació
 DotsPerInch; Punts per polçada
@@ -800,6 +801,7 @@ Performer;Intèrpret
 Period;Període
 Phone;Telèfon
 PixelAspectRatio;Relació d'aspecte
+PixelAspectRatio_Original;Relació d'aspecte
 PlayCounter;Comptador
 Played_Count;Temps reproduït
 Played_First_Date;Data de la primera reproducció

@@ -259,6 +259,7 @@ Dimensions;영역
 Director;감독
 DirectorOfPhotography;촬영 감독
 DisplayAspectRatio;화면 종횡비
+DisplayAspectRatio_Original
 DistributedBy;배포
 Donate;기부하기
 DotsPerInch;인치당 도트
@@ -800,6 +801,7 @@ Performer;연기자
 Period;시대
 Phone;전화
 PixelAspectRatio;픽셀 종횡비
+PixelAspectRatio_Original;픽셀 종횡비
 PlayCounter;재생 횟수
 Played_Count;재생 횟수
 Played_First_Date;최초 재생
@@ -924,4 +926,4 @@ WrittenBy;제작자
 Yes;예
 Your system;이 시스템
 ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;100
+ZZ_AutomaticLanguage_Percent;99

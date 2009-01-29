@@ -259,6 +259,7 @@ Dimensions;Dimensions
 Director;Directeur artistique
 DirectorOfPhotography;Responsable de la photographie
 DisplayAspectRatio;Format à l'écran
+DisplayAspectRatio_Original;Format à l'écran d'origine
 DistributedBy;Dirstribué par
 Donate;Faire un don
 DotsPerInch;Point par pouce
@@ -800,6 +801,7 @@ Performer;Interprète
 Period;Période
 Phone;Téléphone
 PixelAspectRatio;Taille du pixel
+PixelAspectRatio_Original;Taille originale du pixel
 PlayCounter;Compteur de lecture
 Played_Count;Nombre de lectures
 Played_First_Date;Première lecture

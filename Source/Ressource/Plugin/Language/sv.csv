@@ -259,6 +259,7 @@ Dimensions
 Director; Regissör
 DirectorOfPhotography; Chefkameraman
 DisplayAspectRatio; Bildförhållande
+DisplayAspectRatio_Original
 DistributedBy; Distribuerad av
 Donate; Donera
 DotsPerInch
@@ -800,6 +801,7 @@ Performer; Framträdare
 Period; Period
 Phone; Telefon
 PixelAspectRatio; Pixelförhållande
+PixelAspectRatio_Original; Pixelförhållande
 PlayCounter; Spelräknare
 Played_Count
 Played_First_Date

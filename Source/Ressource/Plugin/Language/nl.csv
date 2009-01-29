@@ -259,6 +259,7 @@ Dimensions
 Director;Regisseur
 DirectorOfPhotography;Cinematograaf
 DisplayAspectRatio;Beeldverhouding
+DisplayAspectRatio_Original
 DistributedBy;Gedistribueerd door
 Donate;Doneren
 DotsPerInch
@@ -800,6 +801,7 @@ Performer;Artiest
 Period;Periode
 Phone;Telefoon
 PixelAspectRatio;Pixelverhouding
+PixelAspectRatio_Original;Pixelverhouding
 PlayCounter;Teller
 Played_Count
 Played_First_Date
@@ -923,5 +925,5 @@ Written_Location;Locatie van schrijven
 WrittenBy;Geschreven door
 Yes;Ja
 Your system;Uw systeem
-ZZ_Automatic_Percent;81
+ZZ_Automatic_Percent;80
 ZZ_AutomaticLanguage_Percent;85

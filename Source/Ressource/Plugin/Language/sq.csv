@@ -259,6 +259,7 @@ Dimensions;Dimensione
 Director;Regjisori
 DirectorOfPhotography;Regjisori i fotografisë
 DisplayAspectRatio;Raporti i aspektit në ekran
+DisplayAspectRatio_Original
 DistributedBy;Shpërndarë nga
 Donate;Jep kontribut
 DotsPerInch;Pika për inç
@@ -800,6 +801,7 @@ Performer;Interpretuesi
 Period;Periudha
 Phone;Telefoni
 PixelAspectRatio;Raporti i aspektit të pikselit
+PixelAspectRatio_Original;Raporti i aspektit të pikselit
 PlayCounter;Njehsori i lojës
 Played_Count;Herët e Luajtura
 Played_First_Date;Luajtur në Fillim
@@ -924,4 +926,4 @@ WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
 ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;100
+ZZ_AutomaticLanguage_Percent;99

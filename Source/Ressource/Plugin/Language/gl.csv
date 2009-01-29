@@ -259,6 +259,7 @@ Dimensions
 Director;Director
 DirectorOfPhotography;Director de fotografía
 DisplayAspectRatio;Relación de aspecto
+DisplayAspectRatio_Original
 DistributedBy;Distribuido por
 Donate;Doar
 DotsPerInch;Puntos por polgada
@@ -800,6 +801,7 @@ Performer;Realizador
 Period;Período
 Phone;Teléfono
 PixelAspectRatio;Pixel ratio
+PixelAspectRatio_Original;Pixel ratio
 PlayCounter;Contador
 Played_Count;Nº de reproduccións
 Played_First_Date;Primeira reproducción
