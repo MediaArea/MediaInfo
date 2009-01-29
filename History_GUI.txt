@@ -17,11 +17,16 @@ Version 0.7.10, 2009-
 + Spanish translation updated
 + Mono (C#/Linux) binding
 + MPEG-4: Encoding library name
-x #2532983: Access violation on Win9X
-x #2534083: Tree view was not working in v0.7.9
-x #2533671: Sheet view was not working in v0.7.9
++ #2474280, OGG: Old version of Dirac identifier support
++ MPEG-TS: Encoded date for HDV
++ DVR-MS: Delay between two tracks
++ WAV: EBU Broadcast Wave format v1 support
+x #2529963: Infinite loop on one file
+x #2473140, DTS: error preventing 96/24 DTS detection
+x MPEG-4: Better support of Aspect ratio
+x Output was unstranslated and weird when $LANG is not set
 x C++ binding error in 0.7.9
-x Python binding improved and corrected (no more crash with Linux x86_64)
+x Python binding improved and corrected (no more crash with Linux)
 
 Version 0.7.9, 2009-01-19
 -------------
