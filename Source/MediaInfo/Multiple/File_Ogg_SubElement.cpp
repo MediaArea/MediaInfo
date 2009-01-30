@@ -413,9 +413,9 @@ void File_Ogg_SubElement::Identification_kate()
         StreamKind_Last=Stream_Audio;
         Parser=new File_Kate;
     #else
-        Stream_Prepare(Stream_Audio);
-        Fill(Stream_Audio, 0, Audio_Format, "JNG");
-        Fill(Stream_Audio, 0, Audio_Codec, "JNG");
+        Stream_Prepare(Stream_Text);
+        Fill(Stream_Text, 0, Text_Format, "Kate");
+        Fill(Stream_Text, 0, Text_Codec, "Kate");
     #endif
 }
 
@@ -431,11 +431,11 @@ void File_Ogg_SubElement::Identification_OggMIDI()
 {
     #if defined(MEDIAINFO__YES)
         StreamKind_Last=Stream_Text;
-        Parser=new File_Kate;
+        Parser=new File_Midi;
     #else
         Stream_Prepare(Stream_Text);
-        Fill(Stream_Text, 0, Text_Format, "Kate");
-        Fill(Stream_Text, 0, Text_Codec, "Kate");
+        Fill(Stream_Audio, 0, Audio_Format, "Midi");
+        Fill(Stream_Audio, 0, Audio_Codec, "Midi");
     #endif
 }
 
