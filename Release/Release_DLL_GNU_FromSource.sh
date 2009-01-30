@@ -27,6 +27,7 @@ cp ../Source/Example/*.py MediaInfo_DLL_GNU_FromSource/Source/Example/
 mkdir -p MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL
 cp ../Source/MediaInfoDLL/MediaInfoDLL.h MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL_Static.h MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
+cp ../Source/MediaInfoDLL/MediaInfoDLL.cs MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL.java MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL.py MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
 
