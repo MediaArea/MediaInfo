@@ -3,7 +3,7 @@
   Author_Name;Kene Lin
   Author_OldNames;Initial translator
   Language_ISO639;zh-TW
-  Language_Name;正體中文
+  Language_Name;中文 (台灣)
   Config_Text_ColumnSize;32
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
@@ -38,9 +38,9 @@
  file1; 檔案
  file2; 檔案
  file3; 檔案
- frame1; 畫面
- frame2; 畫面
- frame3; 畫面
+ frame1; 影格
+ frame2; 影格
+ frame3; 影格
  fps1; fps
  fps2; fps
  fps3; fps
@@ -124,9 +124,9 @@
  text stream1; 字幕串流
  text stream2; 字幕串流
  text stream3; 字幕串流
- video frames1; 視訊畫面
- video frames2; 視訊畫面
- video frames3; 視訊畫面
+ video frames1; 視訊影格
+ video frames2; 視訊影格
+ video frames3; 視訊影格
  video stream1; 視訊串流
  video stream2; 視訊串流
  video stream3; 視訊串流
@@ -183,7 +183,7 @@ BitRate_Mode;流量模式
 BitRate_Mode_CBR;固定常數
 BitRate_Mode_VBR;可變動
 BitRate_Nominal;正常流量
-Bits-(Pixel*Frame);位元/(像素*畫面)
+Bits-(Pixel*Frame);位元/(像素*影格)
 Cancel;取消
 Channel(s);聲道數
 ChannelPositions;聲道位置
@@ -259,7 +259,7 @@ Dimensions;維度
 Director;導演
 DirectorOfPhotography;攝影導演
 DisplayAspectRatio;顯示長寬比例
-DisplayAspectRatio_Original
+DisplayAspectRatio_Original;原始顯示長寬比例
 DistributedBy;發布者
 Donate;贊助
 DotsPerInch;每吋點數 (DPI)
@@ -322,15 +322,15 @@ Format_Settings_PS;格式設定, PS
 Format_Settings_Pulldown;格式設定, Pulldown
 Format_Version;格式版本
 Format_Url;該格式的網址
-FrameCount;畫面數
-FrameRate;畫面頻率
-FrameRate_Mode;畫面頻率模式
+FrameCount;影格數
+FrameRate;影格頻率
+FrameRate_Mode;影格頻率模式
 FrameRate_Mode_CFR;固定常數
 FrameRate_Mode_VFR;可變動
-FrameRate_Minimum;最小畫面頻率
-FrameRate_Nominal;正常畫面頻率
-FrameRate_Maximum;最大畫面頻率
-FrameRate_Original;原始畫面頻率
+FrameRate_Minimum;最小影格頻率
+FrameRate_Nominal;正常影格頻率
+FrameRate_Maximum;最大影格頻率
+FrameRate_Original;原始影格頻率
 General;一般
 Genre;類型
 Genre_000;藍調 (Blues)
@@ -517,7 +517,7 @@ Known formats;已知格式
 Known parameters;已知參數
 Label;標籤
 Language;語系
-Language_More
+Language_More;語系, 詳細資訊
 Language_aa;伊索匹亞語 (Afar)
 Language_ab;阿布哈茲語 (Abkhazian)
 Language_ae;古波斯語 (Avestan)
@@ -556,8 +556,8 @@ Language_dz;不丹語 (Dzongkha)
 Language_ee;埃維語 (Ewe)
 Language_el;希臘語 (Greek)
 Language_en;英語 (English)
-Language_en-gb
-Language_en-us
+Language_en-gb;英語 (英國) (English, Great Britain)
+Language_en-us;英語 (美國) (English, United States)
 Language_eo;世界語 (Esperanto)
 Language_es;西班牙語 (Spanish)
 Language_et;愛沙尼亞語 (Estonian)
@@ -654,7 +654,7 @@ Language_pi;巴利語 (Pali)
 Language_pl;波蘭語 (Polish)
 Language_ps;阿富汗語 (Pushto)
 Language_pt;葡萄牙語 (Portuguese)
-Language_pt-br
+Language_pt-br;葡萄牙語 (巴西) (Portuguese, Brazil)
 Language_qu;印加語 (Quechua)
 Language_rm;羅曼語 (Raeto-Romance)
 Language_rn;可蘭地語 (Rundi)
@@ -707,8 +707,8 @@ Language_yi;意地緒語 (Yiddish)
 Language_yo;庫哇語 (Yoruba)
 Language_za;壯語 (Zhuang)
 Language_zh;華語 (Chinese)
-Language_zh-cn
-Language_zh-tw
+Language_zh-cn;華語 (中國) (Chinese, China)
+Language_zh-tw;華語 (台灣) (Chinese, Taiwan)
 Language_zu;祖魯語 (Zulu)
 LawRating;分級
 LCCN;LCCN
@@ -746,42 +746,42 @@ NumColors;色彩數
 OK;確認
 One output file per input file;一個輸入檔對應一個輸出檔
 Open;開啟
-OpenCandy_01
-OpenCandy_02
-OpenCandy_03
-OpenCandy_04
-OpenCandy_05
-OpenCandy_06
-OpenCandy_07
-OpenCandy_08
-OpenCandy_09
-OpenCandy_10
-OpenCandy_11
-OpenCandy_12
-OpenCandy_13
-OpenCandy_14
-OpenCandy_15
-OpenCandy_16
-OpenCandy_17
-OpenCandy_18
-OpenCandy_19
-OpenCandy_20
-OpenCandy_21
-OpenCandy_22
-OpenCandy_23
-OpenCandy_24
-OpenCandy_25
-OpenCandy_26
-OpenCandy_27
-OpenCandy_28
-OpenCandy_29
-OpenCandy_30
-OpenCandy_31
-OpenCandy_32
-OpenCandy_33
-OpenCandy_34
-OpenCandy_35
-OpenCandy_36
+OpenCandy_01;正在下載 ________
+OpenCandy_02;__% 完成
+OpenCandy_03;網路連線被中斷
+OpenCandy_04;________ 下載完成
+OpenCandy_05;按一下安裝 ________
+OpenCandy_06;您確定要取消安裝嗎?\r\n如果您想稍後再裝, 請選 'No'.\r\n請留意: 您可能從選單上選擇了 "離開", 下次重開機時再繼續安裝.
+OpenCandy_07;________ 的下載已暫停.\r\n請按系統列的圖示以繼續下載.
+OpenCandy_08;發生了嚴重的錯誤. _________ 的下載即將中止.
+OpenCandy_09;暫停下載
+OpenCandy_10;取消安裝
+OpenCandy_11;繼續下載
+OpenCandy_12;離開安裝程式
+OpenCandy_13;___________ - 由 ____________ 推薦
+OpenCandy_14;正在下載 _________
+OpenCandy_15;___________, 由 ___________ 推薦給您的軟體, 正依您的要求下載. 準備好安裝時我們會通知您.
+OpenCandy_16;___________ 已準備好安裝
+OpenCandy_17;___________ 現已下載完全. 請按 "安裝" 繼續.
+OpenCandy_18;已下載 ___________ (總共大小 ___________ )
+OpenCandy_19;由 OpenCandy 提供
+OpenCandy_20;到 OpenCandy.com 了解更多資訊
+OpenCandy_21;安裝
+OpenCandy_22;___________ 安裝
+OpenCandy_23;這會取消 ___________ 的安裝\r\n您確定要離開嗎?
+OpenCandy_24;暫停
+OpenCandy_25;您的下載已暫停. 當您準備好繼續下載時, 請按 '繼續'.
+OpenCandy_26;繼續
+OpenCandy_27;立即安裝
+OpenCandy_28;暫停下載
+OpenCandy_29;繼續下載
+OpenCandy_30;取消安裝
+OpenCandy_31;請選擇安裝選項
+OpenCandy_32;安裝 ___________
+OpenCandy_33;不要安裝
+OpenCandy_34;請選擇安裝選項
+OpenCandy_35;______ 推薦此軟體
+OpenCandy_36;您當前的安裝無法中斷
 Options;選項
 Options_Hint;偏好設定
 Original;來源
@@ -801,7 +801,7 @@ Performer;演出者
 Period;時期
 Phone;電話
 PixelAspectRatio;像素長寬比例
-PixelAspectRatio_Original;像素長寬比例
+PixelAspectRatio_Original;原始像素長寬比例
 PlayCounter;播放計數器
 Played_Count;已播放數
 Played_First_Date;首次播放
@@ -925,5 +925,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;95
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100

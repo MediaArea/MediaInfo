@@ -14,7 +14,7 @@ Known bugs
 
 Version 0.7.10, 2009-01-30
 -------------
-+ Spanish translation updated
++ Spanish, Chinese (Traditional) translations updated
 + Mono (C#/Linux) binding
 + MPEG-4: Encoding library name
 + #2474280, OGG: Old version of Dirac identifier support
