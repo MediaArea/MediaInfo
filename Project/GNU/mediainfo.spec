@@ -7,7 +7,7 @@
 # norootforbuild
 
 %define _prefix	/usr
-%define libzen_version	0.3.6
+%define libzen_version	0.3.7
 
 Name:			mediainfo
 Version:		0.7.10
