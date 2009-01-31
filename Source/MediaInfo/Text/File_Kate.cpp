@@ -41,6 +41,17 @@ using namespace std;
 namespace MediaInfoLib
 {
 
+Ztring Kate_Category(const Ztring &Category)
+{
+    if (Category==_T("TRX"))
+        return _T("Transcript");
+    if (Category==_T("SUB"))
+        return _T("Subtitles");
+    if (Category==_T("LRC"))
+        return _T("Lyrics");
+    return Category;
+}
+
 //***************************************************************************
 // Format
 //***************************************************************************
@@ -95,7 +106,7 @@ void File_Kate::Identification()
         Fill(Stream_Text, 0, Text_Format, "Kate");
         Fill(Stream_Text, 0, Text_Codec,  "Kate");
         Fill(Stream_Text, 0, Text_Language, Language);
-        Fill(Stream_Text, 0, Text_Language_More, Category);
+        Fill(Stream_Text, 0, Text_Language_More, Kate_Category(Category));
     FILLING_END();
 }
 
