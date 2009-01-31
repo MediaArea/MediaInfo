@@ -520,6 +520,14 @@
 				Name="Text"
 				>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Cmml.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Kate.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_OtherText.cpp"
 					>
 				</File>
@@ -994,6 +1002,14 @@
 			<Filter
 				Name="Text"
 				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Cmml.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Kate.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_OtherText.h"
 					>

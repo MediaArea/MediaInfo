@@ -7,7 +7,11 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.10, 2009-
+Version 0.7.11, 2009-
+-------------
++ OGG: Better Kate and CMML codecs support
+
+Version 0.7.10, 2009-01-30
 -------------
 + Mono (C#/Linux) binding
 + MPEG-4: Encoding library name

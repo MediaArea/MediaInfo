@@ -1,5 +1,5 @@
-// File_Ogg_SubElement - Info for OGG files
-// Copyright (C) 2007-2009 Jerome Martinez, Zen@MediaArea.net
+// File_Cmml - Info for Cmml files
+// Copyright (C) 2009-2009 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -14,16 +14,20 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this library. If not, see <http://www.gnu.org/licenses/>.
 //
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+//
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Information about MPEG Transport Stream files, Program Map Section
+// Information about Cmml files
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#ifndef MediaInfo_Ogg_Setup_VorbisH
-#define MediaInfo_Ogg_Setup_VorbisH
+#ifndef MediaInfo_File_CmmlH
+#define MediaInfo_File_CmmlH
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -34,64 +38,25 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Class File_Ogg_SubElement
+// Class File_Cmml
 //***************************************************************************
 
-class File_Ogg_SubElement : public File__Analyze
+class File_Cmml : public File__Analyze
 {
 public :
-    //In
-    stream_t StreamKind;
-    bool     MultipleStreams;
-    bool     InAnotherContainer;
-    int64u   absolute_granule_position_Resolution;
-
-protected :
-    //Formats
-    void Read_Buffer_Init ();
-    void Read_Buffer_Finalize();
-
-public :
-    File_Ogg_SubElement();
-    ~File_Ogg_SubElement();
+    File_Cmml();
 
 private :
     //Buffer
-    bool Header_Begin();
     void Header_Parse();
     void Data_Parse();
 
     //Elements
     void Identification();
-    void Identification_CELT();
-    void Identification_CMML();
-    void Identification_BBCD();
-    void Identification_FLAC();
-    void Identification_JNG();
-    void Identification_kate();
-    void Identification_KW_DIRAC();
-    void Identification_OggMIDI();
-    void Identification_MNG();
-    void Identification_PCM();
-    void Identification_PNG();
-    void Identification_Speex();
-    void Identification_theora();
-    void Identification_vorbis();
-    void Identification_YUV4MPEG();
-    void Identification_video();
-    void Identification_audio();
-    void Identification_text();
-    void Identification_fLaC();
-    void Identification_fishead();
-    void Identification_fisbone();
-    void Comment();
-    void Default();
+    void Configuration();
 
     //Temp
-    File__Analyze*  Parser;
-    size_t          OldSize;
-    bool            Identified;
-    bool            WithType;
+    int8u Identification_Done;
 };
 
 } //NameSpace

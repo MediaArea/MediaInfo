@@ -51,6 +51,7 @@ AC_ARG_ENABLE(archive, AC_HELP_STRING([--disable-archive], [Disable all archive 
 AC_ARG_ENABLE(audio,   AC_HELP_STRING([--disable-audio],   [Disable all audio parsers]),                                  MediaInfoAudio=$enableval,   MediaInfoAudio=depend)
 AC_ARG_ENABLE(image,   AC_HELP_STRING([--disable-image],   [Disable all image parsers]),                                  MediaInfoImage=$enableval,   MediaInfoImage=depend)
 AC_ARG_ENABLE(multi,   AC_HELP_STRING([--disable-multi],   [Disable all multiple parsers]),                               MediaInfoMulti=$enableval,   MediaInfoMulti=depend)
+AC_ARG_ENABLE(tag,     AC_HELP_STRING([--disable-tag],     [Disable all tag parsers]),                                    MediaInfoTag=$enableval,     MediaInfoTag=depend)
 AC_ARG_ENABLE(text,    AC_HELP_STRING([--disable-text],    [Disable all text parsers]),                                   MediaInfoText=$enableval,    MediaInfoText=depend)
 AC_ARG_ENABLE(video,   AC_HELP_STRING([--disable-video],   [Disable all video parsers]),                                  MediaInfoVideo=$enableval,   MediaInfoVideo=depend)
 AC_ARG_ENABLE(7z,      AC_HELP_STRING([--disable-7z],      [Disable Archive - 7z]),                                       MediaInfo7z=$enableval,      MediaInfo7z=depend)
@@ -111,6 +112,15 @@ AC_ARG_ENABLE(rm,      AC_HELP_STRING([--disable-rm],      [Disable Multiple - R
 AC_ARG_ENABLE(skm,     AC_HELP_STRING([--disable-skm],     [Disable Multiple - SKM]),                                     MediaInfoSkm=$enableval,     MediaInfoSkm=depend)
 AC_ARG_ENABLE(swf,     AC_HELP_STRING([--disable-swf],     [Disable Multiple - Shockwave]),                               MediaInfoSwf=$enableval,     MediaInfoSwf=depend)
 AC_ARG_ENABLE(wm,      AC_HELP_STRING([--disable-wm],      [Disable Multiple - Windows Media (ASF, WMV, WMA)]),           MediaInfoWm=$enableval,      MediaInfoWm=depend)
+AC_ARG_ENABLE(apetag,  AC_HELP_STRING([--disable-apetag],  [Disable Tag - ApeTag]),                                       MediaInfoApeTag=$enableval,  MediaInfoApeTag=depend)
+AC_ARG_ENABLE(Id3,     AC_HELP_STRING([--disable-Id3],     [Disable Tag - Id3]),                                          MediaInfoId3=$enableval,     MediaInfoId3=depend)
+AC_ARG_ENABLE(Id3v2,   AC_HELP_STRING([--disable-Id3v2],   [Disable Tag - Id3v2]),                                        MediaInfoId3v2=$enableval,   MediaInfoId3v2=depend)
+AC_ARG_ENABLE(Lyrics3, AC_HELP_STRING([--disable-Lyrics3], [Disable Tag - Lyrics3]),                                      MediaInfoLyrics3=$enableval, MediaInfoLyrics3=depend)
+AC_ARG_ENABLE(Lyrics3v2, AC_HELP_STRING([--disable-Lyrics3v2], [Disable Tag - Lyrics3v2]),                                MediaInfoLyrics3v2=$enableval, MediaInfoLyrics3v2=depend)
+AC_ARG_ENABLE(VorbisCom, AC_HELP_STRING([--disable-VorbisCom], [Disable Tag - VorbisCom]),                                MediaInfoVorbisCom=$enableval, MediaInfoVorbisCom=depend)
+AC_ARG_ENABLE(cmml,    AC_HELP_STRING([--disable-cmml],    [Disable Text - CMML]),                                        MediaInfoCmml=$enableval,    MediaInfoCmml=depend)
+AC_ARG_ENABLE(kate,    AC_HELP_STRING([--disable-kate],    [Disable Text - Kate]),                                        MediaInfoKate=$enableval,    MediaInfoKate=depend)
+AC_ARG_ENABLE(pgs,     AC_HELP_STRING([--disable-pgs] ,    [Disable Text - PGS]),                                         MediaInfoPgs=$enableval,     MediaInfoPgs=depend)
 AC_ARG_ENABLE(avc,     AC_HELP_STRING([--disable-avc],     [Disable Video - AVC/H264]),                                   MediaInfoAvc=$enableval,     MediaInfoAvc=depend)
 AC_ARG_ENABLE(avsV,    AC_HELP_STRING([--disable-avsv],    [Disable Video - AVS (Chinese)]),                              MediaInfoAvsV=$enableval,    MediaInfoAvsV=depend)
 AC_ARG_ENABLE(flic,    AC_HELP_STRING([--disable-flic],    [Disable Video - FLIC (fli, flc)]),                            MediaInfoFlic=$enableval,    MediaInfoFlic=depend)
@@ -133,6 +143,7 @@ if test "$MediaInfoArchive" = "no";  then AC_DEFINE(MEDIAINFO_ARCHIVE_NO) fi
 if test "$MediaInfoAudio"   = "no";  then AC_DEFINE(MEDIAINFO_AUDIO_NO)   fi
 if test "$MediaInfoImage"   = "no";  then AC_DEFINE(MEDIAINFO_IMAGE_NO)   fi
 if test "$MediaInfoMulti"   = "no";  then AC_DEFINE(MEDIAINFO_MULTI_NO)   fi
+if test "$MediaInfoText"    = "no";  then AC_DEFINE(MEDIAINFO_TAG_NO)     fi
 if test "$MediaInfoText"    = "no";  then AC_DEFINE(MEDIAINFO_TEXT_NO)    fi
 if test "$MediaInfoVideo"   = "no";  then AC_DEFINE(MEDIAINFO_VIDEO_NO)   fi
 if test "$MediaInfo7z"      = "no";  then AC_DEFINE(MEDIAINFO_7Z_NO)      fi; if test "$MediaInfo7z"      = "yes"; then AC_DEFINE(MEDIAINFO_7Z_YES)      fi
@@ -186,6 +197,15 @@ if test "$MediaInfoRm"      = "no";  then AC_DEFINE(MEDIAINFO_RM_NO)      fi; if
 if test "$MediaInfoSkm"     = "no";  then AC_DEFINE(MEDIAINFO_SKM_NO)     fi; if test "$MediaInfoSkm"     = "yes"; then AC_DEFINE(MEDIAINFO_SKM_YES)     fi
 if test "$MediaInfoSwf"     = "no";  then AC_DEFINE(MEDIAINFO_SWF_NO)     fi; if test "$MediaInfoSwf"     = "yes"; then AC_DEFINE(MEDIAINFO_SWF_YES)     fi
 if test "$MediaInfoWm"      = "no";  then AC_DEFINE(MEDIAINFO_WM_NO)      fi; if test "$MediaInfoWm"      = "yes"; then AC_DEFINE(MEDIAINFO_WM_YES)      fi
+if test "$MediaInfoApeTag"  = "no";  then AC_DEFINE(MEDIAINFO_APETAG_NO)  fi; if test "$MediaInfoApeTag"  = "yes"; then AC_DEFINE(MEDIAINFO_APETAG_YES)  fi
+if test "$MediaInfoId3"     = "no";  then AC_DEFINE(MEDIAINFO_ID3_NO)     fi; if test "$MediaInfoId3"     = "yes"; then AC_DEFINE(MEDIAINFO_ID3_YES)     fi
+if test "$MediaInfoId3v2"   = "no";  then AC_DEFINE(MEDIAINFO_ID3V2_NO)   fi; if test "$MediaInfoId3v2"   = "yes"; then AC_DEFINE(MEDIAINFO_ID3V2_YES)   fi
+if test "$MediaInfoLyrics3" = "no";  then AC_DEFINE(MEDIAINFO_LYRICS3_NO) fi; if test "$MediaInfoLyrics3" = "yes"; then AC_DEFINE(MEDIAINFO_LYRICS3_YES) fi
+if test "$MediaInfoLyrics3v2" = "no";  then AC_DEFINE(MEDIAINFO_LYRICS3V2_NO) fi; if test "$MediaInfoLyrics3v2" = "yes"; then AC_DEFINE(MEDIAINFO_LYRICS3V2_YES) fi
+if test "$MediaInfoVorbisCom" = "no";  then AC_DEFINE(MEDIAINFO_VORBISCOM_NO) fi; if test "$MediaInfoVorbisCom" = "yes"; then AC_DEFINE(MEDIAINFO_VORBISCOM_YES) fi
+if test "$MediaInfoCmml"    = "no";  then AC_DEFINE(MEDIAINFO_CMML_NO)    fi; if test "$MediaInfoCmml"    = "yes"; then AC_DEFINE(MEDIAINFO_CMML_YES)    fi
+if test "$MediaInfoKate"    = "no";  then AC_DEFINE(MEDIAINFO_KATE_NO)    fi; if test "$MediaInfoKate"    = "yes"; then AC_DEFINE(MEDIAINFO_KATE_YES)    fi
+if test "$MediaInfoPgs"     = "no";  then AC_DEFINE(MEDIAINFO_PGS_NO)     fi; if test "$MediaInfoPgs"     = "yes"; then AC_DEFINE(MEDIAINFO_PGS_YES)     fi
 if test "$MediaInfoAvc"     = "no";  then AC_DEFINE(MEDIAINFO_AVC_NO)     fi; if test "$MediaInfoAvc"     = "yes"; then AC_DEFINE(MEDIAINFO_AVC_YES)     fi
 if test "$MediaInfoAvsV"    = "no";  then AC_DEFINE(MEDIAINFO_AVSV_NO)    fi; if test "$MediaInfoAvsV"    = "yes"; then AC_DEFINE(MEDIAINFO_AVSV_YES)    fi
 if test "$MediaInfoFlic"    = "no";  then AC_DEFINE(MEDIAINFO_FLIC_NO)    fi; if test "$MediaInfoflic"    = "yes"; then AC_DEFINE(MEDIAINFO_FLIC_YES)    fi
@@ -383,6 +403,7 @@ Mcho "Archive" "$MediaInfoArchive"
 Mcho "Audio  " "$MediaInfoAudio"
 Mcho "Image  " "$MediaInfoImage"
 Mcho "Multi  " "$MediaInfoMulti"
+Mcho "Multi  " "$MediaInfoTag"
 Mcho "Text   " "$MediaInfoText"
 Mcho "Video  " "$MediaInfoVideo"
 Mcho "7z     " "$MediaInfo7z"
@@ -437,6 +458,15 @@ Mcho "Rm     " "$MediaInfoRm"
 Mcho "Skm    " "$MediaInfoSkm"
 Mcho "Swf    " "$MediaInfoSwf"
 Mcho "Wm     " "$MediaInfoWm"
+Mcho "ApeTag " "$MediaInfoApeTag"
+Mcho "Id3    " "$MediaInfoId3"
+Mcho "Id3v2  " "$MediaInfoId3v2"
+Mcho "Lyrics3" "$MediaInfoLyrics3"
+Mcho "Lyrics3v2" "$MediaInfoLyrics3v2"
+Mcho "VorbisCom" "$MediaInfoVorbisCom"
+Mcho "Cmml   " "$MediaInfoCmml"
+Mcho "Kate   " "$MediaInfoKate"
+Mcho "Pgs    " "$MediaInfoPgs"
 Mcho "Avc    " "$MediaInfoAvc"
 Mcho "AvsV   " "$MediaInfoAvsV"
 Mcho "Flic   " "$MediaInfoFlic"

@@ -105,6 +105,8 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Tag/File_Lyrics3.cpp \
                        ../../../Source/MediaInfo/Tag/File_Lyrics3v2.cpp \
                        ../../../Source/MediaInfo/Tag/File_VorbisCom.cpp \
+                       ../../../Source/MediaInfo/Text/File_Cmml.cpp \
+                       ../../../Source/MediaInfo/Text/File_Kate.cpp \
                        ../../../Source/MediaInfo/Text/File_OtherText.cpp \
                        ../../../Source/MediaInfo/Text/File_Pgs.cpp \
                        ../../../Source/MediaInfo/Video/File_Avc.cpp \

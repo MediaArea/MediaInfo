@@ -115,6 +115,8 @@ set(mediainfo_SRCS
 	MediaInfo/Tag/File_Lyrics3.cpp
 	MediaInfo/Tag/File_Lyrics3v2.cpp
 	MediaInfo/Tag/File_VorbisCom.cpp
+	MediaInfo/Text/File_Cmml.cpp
+	MediaInfo/Text/File_Kate.cpp
 	MediaInfo/Text/File_OtherText.cpp
 	MediaInfo/Text/File_Pgs.cpp
 	MediaInfo/Video/File_Avc.cpp

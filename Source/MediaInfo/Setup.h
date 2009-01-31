@@ -268,6 +268,12 @@
 
 //---------------------------------------------------------------------------
 // Text
+#if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_CMML_NO) && !defined(MEDIAINFO_CMML_YES)
+    #define MEDIAINFO_CMML_YES
+#endif
+#if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_KATE_NO) && !defined(MEDIAINFO_KATE_YES)
+    #define MEDIAINFO_KATE_YES
+#endif
 #if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_PGS_NO) && !defined(MEDIAINFO_PGS_YES)
     #define MEDIAINFO_PGS_YES
 #endif

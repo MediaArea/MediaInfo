@@ -52,6 +52,12 @@
 #if defined(MEDIAINFO_VORBIS_YES)
     #include "MediaInfo/Audio/File_Vorbis.h"
 #endif
+#if defined(MEDIAINFO_CMML_YES)
+    #include "MediaInfo/Text/File_Cmml.h"
+#endif
+#if defined(MEDIAINFO_KATE_YES)
+    #include "MediaInfo/Text/File_Kate.h"
+#endif
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
@@ -139,6 +145,17 @@ File_Ogg_SubElement::~File_Ogg_SubElement()
 void File_Ogg_SubElement::Read_Buffer_Init()
 {
     Stream_Prepare(Stream_General);
+}
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Read_Buffer_Finalize()
+{
+    Open_Buffer_Finalize(Parser);
+    Merge(*Parser, Stream_General,  0, 0);
+    Merge(*Parser, Stream_Video,    0, 0);
+    Merge(*Parser, Stream_Audio,    0, 0);
+    Merge(*Parser, Stream_Text,     0, 0);
+    Merge(*Parser, Stream_Image,    0, 0);
 }
 
 //***************************************************************************
@@ -353,14 +370,15 @@ void File_Ogg_SubElement::Identification_CELT()
 //---------------------------------------------------------------------------
 void File_Ogg_SubElement::Identification_CMML()
 {
-    #if defined(MEDIAINFO__YES)
+    #if defined(MEDIAINFO_CMML_YES)
         StreamKind_Last=Stream_Text;
         Parser=new File_Cmml;
     #else
         Stream_Prepare(Stream_Text);
-        Fill(Stream_Text, 0, Text_Format, "cmml");
-        Fill(Stream_Text, 0, Text_Codec, "cmml");
+        Fill(Stream_Text, 0, Text_Format, "CMML");
+        Fill(Stream_Text, 0, Text_Codec, "CMML");
     #endif
+    WithType=false;
 }
 
 //---------------------------------------------------------------------------
@@ -409,8 +427,8 @@ void File_Ogg_SubElement::Identification_JNG()
 //---------------------------------------------------------------------------
 void File_Ogg_SubElement::Identification_kate()
 {
-    #if defined(MEDIAINFO__YES)
-        StreamKind_Last=Stream_Audio;
+    #if defined(MEDIAINFO_KATE_YES)
+        StreamKind_Last=Stream_Text;
         Parser=new File_Kate;
     #else
         Stream_Prepare(Stream_Text);
@@ -430,10 +448,10 @@ void File_Ogg_SubElement::Identification_KW_DIRAC()
 void File_Ogg_SubElement::Identification_OggMIDI()
 {
     #if defined(MEDIAINFO__YES)
-        StreamKind_Last=Stream_Text;
+        StreamKind_Last=Stream_Audio;
         Parser=new File_Midi;
     #else
-        Stream_Prepare(Stream_Text);
+        Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "Midi");
         Fill(Stream_Audio, 0, Audio_Codec, "Midi");
     #endif
@@ -696,12 +714,30 @@ void File_Ogg_SubElement::Comment()
     Element_Name("Comment");
 
     //Integrity
-    if (Element_Size<6)
+    if (Element_Size<8)
         return;
 
     //Parsing
-    int64u ID;
-    Get_C6 (ID,                                                 "ID");
+    int64u ID_Identification;
+    Peek_B8(ID_Identification);
+
+    #undef ELEMENT_CASE
+    #ifdef __BORLANDC__ //Borland converts int64u to int32u
+        #define ELEMENT_CASE(_NAME) \
+            else if (ID_Identification>>(64-8*Elements::Identifier_##_NAME##3)==(((((int64u)Elements::Identifier_##_NAME##1)*0x100000000LL+Elements::Identifier_##_NAME##2)&0x00FFFFFFFFFFFFFFLL)<<8))
+
+    #else //__BORLANDC__
+        #define ELEMENT_CASE(_NAME) \
+            else if (ID_Identification>>(64-8*Elements::Identifier_##_NAME##3)==((Elements::Identifier_##_NAME&0x00FFFFFFFFFFFFFFLL)<<8))
+
+    #endif //__BORLANDC__
+
+    int32u ID_Identification_Size;
+    if (0) ;
+    ELEMENT_CASE(kate)      ID_Identification_Size=8;
+    else                    ID_Identification_Size=6; //Default
+    Skip_Local(ID_Identification_Size,                          "ID");
+
 
     //Preparing
     File_VorbisCom Vorbis;
@@ -710,14 +746,18 @@ void File_Ogg_SubElement::Comment()
     Vorbis.StreamKind_Common=InAnotherContainer?StreamKind:Stream_General;
 
     //Parsing
-    Open_Buffer_Init(&Vorbis, File_Size, File_Offset+Buffer_Offset+6);
-    Open_Buffer_Continue(&Vorbis, Buffer+Buffer_Offset+6, (size_t)(Element_Size-6));
+    Open_Buffer_Init(&Vorbis, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+    Open_Buffer_Continue(&Vorbis, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
     Open_Buffer_Finalize(&Vorbis);
 
     //Filling
     Merge(Vorbis, Stream_General,  0, 0);
     Merge(Vorbis, StreamKind,      0, 0);
     Merge(Vorbis, Stream_Chapters, 0, 0);
+
+    //Testing if we must continue
+    if (Identified && (Parser==NULL || Parser->File_Offset==Parser->File_Size || Parser->File_GoTo!=(int64u)-1))
+        Finished();
 }
 
 //---------------------------------------------------------------------------
@@ -729,21 +769,14 @@ void File_Ogg_SubElement::Default()
     {
         Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset);
         Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
-        if (Parser->File_Offset==Parser->File_Size || Parser->File_GoTo!=(int64u)-1)
-        {
-            Open_Buffer_Finalize(Parser);
-            Merge(*Parser, Stream_General,  0, 0);
-            Merge(*Parser, Stream_Video,    0, 0);
-            Merge(*Parser, Stream_Audio,    0, 0);
-            Merge(*Parser, Stream_Text,     0, 0);
-            Merge(*Parser, Stream_Image,    0, 0);
+        if (Identified && (Parser->File_Offset==Parser->File_Size || Parser->File_GoTo!=(int64u)-1))
             Finished();
-        }
     }
     else if (Element_Offset<Element_Size)
     {
         Skip_XX(Element_Size-Element_Offset,                    "Unknown");
-        Finished();
+        if (Identified)
+            Finished();
     }
 }
 

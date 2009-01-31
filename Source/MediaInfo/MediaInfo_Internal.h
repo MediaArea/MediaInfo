@@ -81,6 +81,9 @@ public :
     size_t State_Get ();
     size_t Count_Get (stream_t StreamKind, size_t StreamNumber=(size_t)-1);
 
+    //Internal
+    static bool LibraryIsModified(); //Is the library has been modified? (#defines...)
+
 private :
     friend class File_Cdxa; //Theses classes need access to internal structure for optimization. There is recursivity with theses formats
 
@@ -118,7 +121,6 @@ private :
     int  ListFormats();
     void Buffer_Clear(); //Clear the buffer
     void SelectFromExtension (const String &Parser); //Select File_* from the parser name
-    bool LibraryIsModified(); //Is the library has been modified? (#defines...)
     void CreateDummy (const String& Value); //Create dummy Information
 
     MediaInfo_Internal(const MediaInfo_Internal&); // Copy Constructor

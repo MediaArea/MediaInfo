@@ -82,6 +82,7 @@ void File_Ogg::Read_Buffer_Finalize()
         //Filling
         if (Stream_Temp->second.Parser)
         {
+            Open_Buffer_Finalize(Stream_Temp->second.Parser);
             Merge(*Stream_Temp->second.Parser);
             Merge(*Stream_Temp->second.Parser, Stream_General, 0, 0);
             Stream_Temp->second.StreamKind=((File_Ogg_SubElement*)Stream_Temp->second.Parser)->StreamKind;
@@ -266,7 +267,6 @@ void File_Ogg::Data_Parse()
 
             if (Parser->File_GoTo!=(int64u)-1 || (Element_Offset==Element_Size && eos))
             {
-                Open_Buffer_Finalize(Parser);
                 if (Count_Get(Stream_General)==0)
                     Stream_Prepare(Stream_General);
                 StreamsToDo--;
