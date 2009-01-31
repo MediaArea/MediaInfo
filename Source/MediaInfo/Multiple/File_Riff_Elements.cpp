@@ -1808,6 +1808,14 @@ void File_Riff::AVI__movi_xxxx()
         AVI__movi_StreamJump();
         return;
     }
+    if ((Element_Code&0x0000FFFF)==0x00006978) //..ix (Out of specs, but found in a Adobe After Effects CS4 DV file
+    {
+        //AVI Standard Index Chunk
+        AVI__hdlr_strl_indx();
+        Stream_ID=(int32u)(Element_Code&0xFFFF0000);
+        AVI__movi_StreamJump();
+        return;
+    }
 
     //Finished?
     if (!Stream[Stream_ID].SearchingPayload)
@@ -1980,6 +1988,14 @@ void File_Riff::AVI__xxxx()
         //AVI Standard Index Chunk
         AVI__hdlr_strl_indx();
         Stream_ID=(int32u)(Element_Code&0x0000FFFF)<<16;
+        AVI__movi_StreamJump();
+        return;
+    }
+    if ((Element_Code&0x0000FFFF)==0x00006978) //..ix (Out of specs, but found in a Adobe After Effects CS4 DV file
+    {
+        //AVI Standard Index Chunk
+        AVI__hdlr_strl_indx();
+        Stream_ID=(int32u)(Element_Code&0xFFFF0000);
         AVI__movi_StreamJump();
         return;
     }
