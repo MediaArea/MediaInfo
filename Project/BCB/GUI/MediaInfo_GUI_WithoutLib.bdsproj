@@ -316,6 +316,8 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File_Id3.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Id3" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File_ApeTag.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_ApeTag" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag\File__Tags.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Tags" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Cmml.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Cmml" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Kate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Kate" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_OtherText.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_OtherText" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Avc.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Avc" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Avc_Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Avc_Duplicate" FORMNAME="" DESIGNCLASS=""/>

@@ -347,6 +347,8 @@
         <FILE FILENAME="..\..\..\Source\GUI\WxWidgets\GUI_Main_Sheet.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="GUI_Main_Sheet" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\GUI\WxWidgets\GUI_Main_Sheet.h"/>
         <FILE FILENAME="..\..\..\Source\GUI\WxWidgets\GUI_Main_Text.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="GUI_Main_Text" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\GUI\WxWidgets\GUI_Main_Text.h"/>
         <FILE FILENAME="..\..\..\Source\GUI\WxWidgets\GUI_Main_Tree.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="GUI_Main_Tree" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\GUI\WxWidgets\GUI_Main_Tree.h"/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Cmml.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Cmml" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Kate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Kate" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_OtherText.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_OtherText" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\Unicows.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="Unicows" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wininet.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wininet" FORMNAME="" DESIGNCLASS=""/>
