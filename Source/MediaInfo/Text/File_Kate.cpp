@@ -43,12 +43,31 @@ namespace MediaInfoLib
 
 Ztring Kate_Category(const Ztring &Category)
 {
-    if (Category==_T("TRX"))
-        return _T("Transcript");
+    //http://wiki.xiph.org/index.php/OggText#Categories_of_Text_Codecs
+    if (Category==_T("CC"))
+        return _T("closed captions");
     if (Category==_T("SUB"))
         return _T("Subtitles");
+    if (Category==_T("TAD"))
+        return _T("textual audio descriptions");
+    if (Category==_T("KTV"))
+        return _T("karaoke");
+    if (Category==_T("TIK"))
+        return _T("ticker text");
+    if (Category==_T("AR"))
+        return _T("active regions");
+    if (Category==_T("NB"))
+        return _T("semantic annotations");
+    if (Category==_T("META"))
+        return _T("metadata, mostly machine-readable");
+    if (Category==_T("TRX"))
+        return _T("Transcript");
     if (Category==_T("LRC"))
         return _T("Lyrics");
+    if (Category==_T("LIN"))
+        return _T("linguistic markup");
+    if (Category==_T("CUE"))
+        return _T("cue points");
     return Category;
 }
 
