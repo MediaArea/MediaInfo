@@ -82,7 +82,7 @@ protected :
     virtual bool Header_Begin ()                                                {return true;};
 
     //Header - Parse
-    virtual void Header_Parse ()                                                {};
+    virtual void Header_Parse ();
 
     //Header - Info
     void Header_Fill_Code (int64u Code);

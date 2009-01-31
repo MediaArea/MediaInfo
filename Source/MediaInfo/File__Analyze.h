@@ -122,9 +122,10 @@ protected :
     virtual bool Header_Begin ()                                                {return true;};
 
     //Header - Parse
-    virtual void Header_Parse ()                                                {};
+    virtual void Header_Parse ();
 
     //Header - Info
+    void Header_Fill_Code (int64u Code);
     void Header_Fill_Code (int64u Code, const Ztring &Name);
     void Header_Fill_Size (int64u Size);
 

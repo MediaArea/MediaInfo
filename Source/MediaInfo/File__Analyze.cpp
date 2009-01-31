@@ -464,7 +464,7 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
 void File__Analyze::Open_Buffer_Finalize (File__Analyze* Sub)
 {
     if (Sub==NULL)
-        Sub=this;
+        return;
 
     //Finalize
     Sub->Open_Buffer_Finalize();
@@ -667,6 +667,14 @@ bool File__Analyze::Header_Manage()
 }
 
 //---------------------------------------------------------------------------
+void File__Analyze::Header_Parse()
+{
+    //Filling
+    Header_Fill_Code(0);
+    Header_Fill_Size(Element_Size);
+}
+
+//---------------------------------------------------------------------------
 #ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Header_Fill_Code(int64u Code, const Ztring &Name)
 {
@@ -679,14 +687,13 @@ void File__Analyze::Header_Fill_Code(int64u Code, const Ztring &Name)
         Element[Element_Level-1].ToShow.Name=Name;
     }
 }
+#endif //MEDIAINFO_MINIMIZESIZE
 
-#else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Header_Fill_Code(int64u Code)
 {
     //Filling
     Element[Element_Level-1].Code=Code;
 }
-#endif //MEDIAINFO_MINIMIZESIZE
 
 //---------------------------------------------------------------------------
 void File__Analyze::Header_Fill_Size(int64u Size)
