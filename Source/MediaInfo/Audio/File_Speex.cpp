@@ -153,4 +153,4 @@ void File_Speex::Comment()
 
 } //NameSpace
 
-#endif //MEDIAINFO_MIDI_YES
+#endif //MEDIAINFO_SPEEX_YES
