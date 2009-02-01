@@ -121,14 +121,14 @@ void File_Wm::Read_Buffer_Finalize()
              || (PresentationTime_Deltas_Most.size()==2 && PresentationTime_Deltas_Problem.size()>2))
             {
                 if (Temp->second.AverageTimePerFrame>0)
-                    Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate", ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
+                    Fill(Stream_Video, Temp->second.StreamPos, Video_FrameRate, ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
             }
             else if (PresentationTime_Deltas_Most.size()==1)
             {
                 if (PresentationTime_Deltas_Most.begin()->first>1) //Not 0, we want to remove Delta incremented 1 per 1
-                    Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate", 1000/((float64)PresentationTime_Deltas_Most.begin()->first), 3, true);
+                    Fill(Stream_Video, Temp->second.StreamPos, Video_FrameRate, 1000/((float64)PresentationTime_Deltas_Most.begin()->first), 3, true);
                 if (Temp->second.AverageTimePerFrame>0)
-                    Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate_Nominal", ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
+                    Fill(Stream_Video, Temp->second.StreamPos, Video_FrameRate_Nominal, ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
             }
             else if (PresentationTime_Deltas_Most.size()==2)
             {
@@ -151,15 +151,15 @@ void File_Wm::Read_Buffer_Finalize()
                 else if (FrameRate_Real>24.988*2 && FrameRate_Real<=25.012*2) FrameRate_Real=25.000;
                 else if (FrameRate_Real>29.955*2 && FrameRate_Real<=29.985*2) FrameRate_Real=29.970;
                 else if (FrameRate_Real>30.985*2 && FrameRate_Real<=30.015*2) FrameRate_Real=30.000;
-                Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate", FrameRate_Real, 3, true);
+                Fill(Temp->second.StreamKind, Temp->second.StreamPos, Video_FrameRate, FrameRate_Real, 3, true);
                 if (Temp->second.AverageTimePerFrame>0)
-                    Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate_Nominal", ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
+                    Fill(Stream_Video, Temp->second.StreamPos, Video_FrameRate_Nominal, ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
             }
             else
             {
-                Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate_Mode", "VFR");
+                Fill(Stream_Video, Temp->second.StreamPos, Video_FrameRate_Mode, "VFR");
                 if (Temp->second.AverageTimePerFrame>0)
-                    Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate_Nominal", ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
+                    Fill(Stream_Video, Temp->second.StreamPos, Video_FrameRate_Nominal, ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
             }
         }
         if (Temp->second.AverageBitRate>0)
@@ -184,8 +184,8 @@ void File_Wm::Read_Buffer_Finalize()
         //Delay (in case of MPEG-PS)
         if (Temp->second.StreamKind==Stream_Video)
         {
-            Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Delay_Original", Retrieve(Temp->second.StreamKind, Temp->second.StreamPos, "Delay"));
-            Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Delay_Original_Settings", Retrieve(Temp->second.StreamKind, Temp->second.StreamPos, "Delay_Settings"));
+            Fill(Stream_Video, Temp->second.StreamPos, Video_Delay_Original, Retrieve(Temp->second.StreamKind, Temp->second.StreamPos, "Delay"));
+            Fill(Stream_Video, Temp->second.StreamPos, Video_Delay_Original_Settings, Retrieve(Temp->second.StreamKind, Temp->second.StreamPos, "Delay_Settings"));
         }
         if (Temp->second.TimeCode_First!=(int64u)-1)
             Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Delay", Temp->second.TimeCode_First, 10, true);
