@@ -125,7 +125,8 @@ void File_Wm::Read_Buffer_Finalize()
             }
             else if (PresentationTime_Deltas_Most.size()==1)
             {
-                Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate", 1000/((float64)PresentationTime_Deltas_Most.begin()->first), 3, true);
+                if (PresentationTime_Deltas_Most.begin()->first>1) //Not 0, we want to remove Delta incremented 1 per 1
+                    Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate", 1000/((float64)PresentationTime_Deltas_Most.begin()->first), 3, true);
                 if (Temp->second.AverageTimePerFrame>0)
                     Fill(Temp->second.StreamKind, Temp->second.StreamPos, "FrameRate_Nominal", ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
             }

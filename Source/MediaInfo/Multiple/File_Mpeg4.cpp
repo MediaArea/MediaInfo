@@ -152,35 +152,7 @@ void File_Mpeg4::Read_Buffer_Finalize()
         {
             //Finalizing and Merging
             Open_Buffer_Finalize(Temp->second.Parser);
-            Ztring FrameRate_Temp, PixelAspectRatio_Temp, DisplayAspectRatio_Temp;
-            if (StreamKind_Last==Stream_Video)
-            {
-                PixelAspectRatio_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio); //We want to keep the PixelAspectRatio_Temp of the video stream
-                DisplayAspectRatio_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio); //We want to keep the DisplayAspectRatio_Temp of the video stream
-                FrameRate_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate); //We want to keep the FrameRate of AVI 120 fps
-            }
             Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
-            if (StreamKind_Last==Stream_Video)
-            {
-                if (!PixelAspectRatio_Temp.empty() || !DisplayAspectRatio_Temp.empty())
-                {
-                    if (PixelAspectRatio_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio))
-                        Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio_Original, Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio), true);
-                    Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio, PixelAspectRatio_Temp, true);
-                }
-                if (!DisplayAspectRatio_Temp.empty() || !PixelAspectRatio_Temp.empty())
-                {
-                    if (DisplayAspectRatio_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio))
-                        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio_Original, Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio), true);
-                    Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, DisplayAspectRatio_Temp, true);
-                }
-                if (!FrameRate_Temp.empty())
-                {
-                    if (FrameRate_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate))
-                        Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Original, Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate), true);
-                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_Temp, true);
-                }
-            }
         }
 
         Temp++;
