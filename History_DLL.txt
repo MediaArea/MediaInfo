@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.11, 2009-
 -------------
 + OGG: Better Kate and CMML codecs support
++ AVI: Detecting wrong aspect ratio from a broken AVI header
 
 Version 0.7.10, 2009-01-30
 -------------
