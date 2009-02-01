@@ -151,20 +151,9 @@ void File_Dpg::Read_Buffer_Continue()
             Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)((File_Offset+Buffer_Size<Video_Offset+Video_Size)?Buffer_Size:(Video_Offset+Video_Size-File_Offset)));
             if (Parser->File_Offset==Parser->File_Size || Parser->File_GoTo!=(int64u)-1)
             {
-                //Get the container frame rate
-                Ztring FrameRate=Retrieve(Stream_Video, 0, Video_FrameRate);
-
                 //Merging
                 Open_Buffer_Finalize(Parser);
                 Merge(*Parser, Stream_Video, 0, 0);
-
-                //Filling with container FrameRate
-                const Ztring& FrameRate_Video=Retrieve(Stream_Video, 0, Video_FrameRate);
-                if (FrameRate!=FrameRate_Video)
-                {
-                    Fill(Stream_Video, 0, Video_FrameRate_Original, FrameRate_Video);
-                    Fill(Stream_Video, 0, Video_FrameRate, FrameRate, true);
-                }
 
                 //Finished
                 Info("DPG, parsing finished");

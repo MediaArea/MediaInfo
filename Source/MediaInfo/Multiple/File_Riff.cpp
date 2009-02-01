@@ -136,15 +136,11 @@ void File_Riff::Read_Buffer_Finalize ()
         {
             //Finalizing and Merging (except Video codec and 120 fps hack)
             Open_Buffer_Finalize(Temp->second.Parser);
-            Ztring Codec_Temp;
-            Ztring FrameRate_Temp;
 
             //Hack - Before
+            Ztring Codec_Temp;
             if (StreamKind_Last==Stream_Video)
-            {
                 Codec_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_Codec); //We want to keep the 4CC of AVI
-                FrameRate_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate); //We want to keep the FrameRate of AVI 120 fps
-            }
 
             //Merging
             Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
@@ -154,16 +150,12 @@ void File_Riff::Read_Buffer_Finalize ()
             {
                 if (!Codec_Temp.empty())
                     Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec_Temp, true);
-                if (FrameRate_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate))
-                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Original, Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate), true);
-                if (!FrameRate_Temp.empty())
-                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_Temp, true);
 
                 //120 fps hack
-                int32u FrameRate=FrameRate_Temp.To_int32u();
-                if (FrameRate==120)
+                const Ztring &FrameRate=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate);
+                if (FrameRate.To_int32u()==120)
                 {
-                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_String, MediaInfoLib::Config.Language_Get(FrameRate_Temp+_T(" (24/30)"), _T(" fps")));
+                    Fill(Stream_Video, StreamPos_Last, Video_FrameRate_String, MediaInfoLib::Config.Language_Get(FrameRate+_T(" (24/30)"), _T(" fps")));
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Minimum, 24, 10, true);
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Maximum, 30, 10, true);
                     Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, "VFR");

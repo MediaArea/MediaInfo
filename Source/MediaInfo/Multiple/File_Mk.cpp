@@ -127,28 +127,16 @@ void File_Mk::Read_Buffer_Finalize()
     {
         if (Temp->second.Parser)
         {
-            Ztring Codec_Temp, FrameRate_Temp;
+            Ztring Codec_Temp;
             StreamKind_Last=Temp->second.StreamKind;
             StreamPos_Last=Temp->second.StreamPos;
 
             if (Temp->second.StreamKind==Stream_Video)
-            {
                 Codec_Temp=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Codec); //We want to keep the 4CC
-                FrameRate_Temp=Retrieve(Stream_Video, Temp->second.StreamPos, Video_FrameRate); //We want to keep the FrameRate of AVI 120 fps
-            }
             Open_Buffer_Finalize(Temp->second.Parser);
             Merge(*Temp->second.Parser, Temp->second.StreamKind, 0, Temp->second.StreamPos);
-            if (Temp->second.StreamKind==Stream_Video)
-            {
-                if (!Codec_Temp.empty())
-                    Fill(Stream_Video, Temp->second.StreamPos, Video_Codec, Codec_Temp, true);
-                if (!FrameRate_Temp.empty())
-                {
-                    if (FrameRate_Temp!=Retrieve(Stream_Video, Temp->second.StreamPos, Video_FrameRate))
-                        Fill(Stream_Video, Temp->second.StreamPos, Video_FrameRate_Original, Retrieve(Stream_Video, 0, Video_FrameRate), true);
-                    Fill(Stream_Video, Temp->second.StreamPos, Video_FrameRate, FrameRate_Temp, true);
-                }
-            }
+            if (Temp->second.StreamKind==Stream_Video && !Codec_Temp.empty())
+                Fill(Stream_Video, Temp->second.StreamPos, Video_Codec, Codec_Temp, true);
 
             //Delay
             if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)==1 && Temp->second.Parser->Count_Get(Stream_General)>0)

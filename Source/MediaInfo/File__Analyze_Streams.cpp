@@ -308,7 +308,7 @@ size_t File__Analyze::Merge(File__Base &ToAdd, stream_t StreamKind, size_t Strea
 
     //Specific stuff
     Ztring FrameRate_Temp, PixelAspectRatio_Temp, DisplayAspectRatio_Temp;
-    if (StreamKind_Last==Stream_Video)
+    if (StreamKind==Stream_Video)
     {
         PixelAspectRatio_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_PixelAspectRatio); //We want to keep the PixelAspectRatio_Temp of the video stream
         DisplayAspectRatio_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio); //We want to keep the DisplayAspectRatio_Temp of the video stream
@@ -332,7 +332,7 @@ size_t File__Analyze::Merge(File__Base &ToAdd, stream_t StreamKind, size_t Strea
     }
 
     //Specific stuff
-    if (StreamKind_Last==Stream_Video)
+    if (StreamKind==Stream_Video)
     {
         if (!PixelAspectRatio_Temp.empty() || !DisplayAspectRatio_Temp.empty())
         {
