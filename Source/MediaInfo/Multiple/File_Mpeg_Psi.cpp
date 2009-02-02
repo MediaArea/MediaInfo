@@ -745,7 +745,7 @@ void File_Mpeg_Psi::Data_Parse()
         ELEMENT_CASE(C8, "ATSC - Terrestrial Virtual Channel Table (TVCT)");
         ELEMENT_CASE(C9, "ATSC - Cable Virtual Channel Table (CVCT) / Long-form Virtual Channel Table (L-VCT)");
         ELEMENT_CASE(CA, "ATSC - Rating Region Table (RRT)");
-        ELEMENT_CASE(CB, "ATSC - Event Information Table (RRT)");
+        ELEMENT_CASE(CB, "ATSC - Event Information Table (EIT)");
         ELEMENT_CASE(CC, "ATSC - Extended Text Table (ETT)");
         ELEMENT_CASE(CD, "ATSC - System Time Table (STT)");
         ELEMENT_CASE(CE, "ATSC - Data Event Table (DET)");

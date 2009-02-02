@@ -512,6 +512,8 @@ void File_DvDif::timecode()
     int8u Frames=0;
     BS_Begin();
     Skip_SB(                                                    "CF - Color fame");
+    if (!dsf_IsValid)
+        Skip_SB(                                                "Arbitrary bit or DP");
     if (dsf)    //625/50
         Skip_SB(                                                "Arbitrary bit");
     else        //525/60
@@ -520,7 +522,7 @@ void File_DvDif::timecode()
     Frames+=Temp*10;
     Get_S1 (4, Temp,                                            "Frames (Units)");
     Frames+=Temp;
-    if (Temp!=0xF)
+    if (dsf_IsValid && Temp!=0xF)
         Time+=(int64u)(Frames/(dsf?25.000:29.970));
 
     if (dsf)    //625/50
@@ -532,6 +534,8 @@ void File_DvDif::timecode()
     Get_S1 (4, Temp,                                            "Seconds (Units)");
     Time+=Temp*1000;
 
+    if (!dsf_IsValid)
+        Skip_SB(                                                "BGF2 or BGF0");
     if (dsf)    //625/50
         Skip_SB(                                                "BGF2 - Binary group flag");
     else        //525/60
@@ -541,6 +545,8 @@ void File_DvDif::timecode()
     Get_S1 (4, Temp,                                            "Minutes (Units)");
     Time+=Temp*60*1000;
 
+    if (!dsf_IsValid)
+        Skip_SB(                                                "PC or BGF1");
     if (dsf)    //625/50
         Skip_SB(                                                "PC - Biphase mark polarity correction"); //0=even; 1=odd
     else        //525/60
