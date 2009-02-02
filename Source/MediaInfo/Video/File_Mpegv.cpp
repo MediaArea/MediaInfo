@@ -1178,6 +1178,7 @@ bool File_Mpegv::Synchronize()
         //From picture_start
         display_horizontal_size=0;
         display_vertical_size=0;
+        vbv_delay=0;
         Time_Begin_Seconds=Error;
         Time_Begin_Frames=(int8u)-1;
         Time_End_Seconds=Error;
