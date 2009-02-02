@@ -56,6 +56,9 @@ File__Analyze::File__Analyze ()
     PTS=(int64u)-1;
     DTS=(int64u)-1;
 
+    //Out
+    Frame_Count_InThisBlock=0;
+
     //Configuration
     DataMustAlwaysBeComplete=true;
     MustUseAlternativeParser=false;

@@ -501,9 +501,9 @@ void File__Analyze::Finalize_Audio(size_t Pos)
            Fill(Stream_Audio, Pos, Audio_SamplingCount, ((float64)Duration)/1000*SamplingRate, 0);
     }
     //Duration
-    if (Retrieve(Stream_Audio, Pos, Audio_Duration).empty() && Retrieve(Stream_Audio, Pos, Audio_SamplingRate).To_int64s()!=0)
+    if (Retrieve(Stream_Audio, Pos, Audio_Duration).empty() && Retrieve(Stream_Audio, Pos, Audio_SamplingRate).To_int64u()!=0)
     {
-        int64u Duration=Retrieve(Stream_Audio, Pos, Audio_SamplingCount).To_int64u()*1000/Retrieve(Stream_Audio, Pos, "SamplingRate").To_int64u();
+        int64u Duration=Retrieve(Stream_Audio, Pos, Audio_SamplingCount).To_int64u()*1000/Retrieve(Stream_Audio, Pos, Audio_SamplingRate).To_int64u();
         if (Duration)
            Fill(Stream_Audio, Pos, Audio_Duration, Duration);
     }

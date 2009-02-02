@@ -514,7 +514,9 @@ String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, const Stri
         CS.Leave();
         Ztring InformZtring=Inform(StreamKind, StreamPos);
         CS.Enter();
-        Stream[StreamKind][StreamPos](MediaInfoLib::Config.Info_Get(StreamKind).Find(_T("Inform")))=InformZtring;
+        size_t Pos=MediaInfoLib::Config.Info_Get(StreamKind).Find(_T("Inform"));
+        if (Pos!=Error)
+            Stream[StreamKind][StreamPos](Pos)=InformZtring;
     }
 
     //Case of specific info
