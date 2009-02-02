@@ -170,7 +170,8 @@ void File_Flac::Data_Parse()
 
     if (Last_metadata_block)
     {
-        Fill(Stream_Audio, 0, Audio_StreamSize, File_Size-(File_Offset+Buffer_Offset+Element_Size));
+        if (!IsSub)
+            Fill(Stream_Audio, 0, Audio_StreamSize, File_Size-(File_Offset+Buffer_Offset+Element_Size));
         File__Tags_Helper::Data_GoTo(File_Size, "Flac");
     }
 }
