@@ -244,7 +244,7 @@ Cover;封面
 Cover_Datas;封面数据
 Cover_Description;封面描述
 Cover_Mime;封面MIME
-Cover_Type;封面type
+Cover_Type;封面类型
 Cropped;公司规模
 Custom;自定义
 Customize;自定义
@@ -259,7 +259,7 @@ Dimensions;规模
 Director;导演
 DirectorOfPhotography;摄影导演
 DisplayAspectRatio;画面比例
-DisplayAspectRatio_Original
+DisplayAspectRatio_Original;原始高宽比
 DistributedBy;发行
 Donate;赞助
 DotsPerInch;点/英寸(DPI)
@@ -780,8 +780,8 @@ OpenCandy_31;请选择一个安装选项
 OpenCandy_32;安装 ___________
 OpenCandy_33;不安装
 OpenCandy_34;请选择一个安装选项
-OpenCandy_35
-OpenCandy_36
+OpenCandy_35;______ 推荐使用软件
+OpenCandy_36;您当前的配置将不会被阻止
 Options;选项
 Options_Hint;参数设定
 Original;源
@@ -804,8 +804,8 @@ PixelAspectRatio;画面比例(像素)
 PixelAspectRatio_Original;画面比例(像素)
 PlayCounter;播放计数器
 Played_Count;已播放时间
-Played_First_Date
-Played_Last_Date
+Played_First_Date;首次播放的
+Played_Last_Date;最后播放的
 PlayTime;播放时间
 Position;位置
 Position_Total;总计
@@ -925,5 +925,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;54
+ZZ_Automatic_Percent;55
 ZZ_AutomaticLanguage_Percent;91
