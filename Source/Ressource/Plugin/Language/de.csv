@@ -220,7 +220,7 @@ Codec_Settings_Firm;Codec-Einstellungen für Firm
 Codec_Settings_Endianness;Codec-Einstellungen für Endianess
 Codec_Settings_Sign;Codec-Einstellungen für Sign
 Codec_Settings_Law;Codec-Einstellungen für Law
-Codec_Settings_ITU;Codeceinstellungen für ITU
+Codec_Settings_ITU;Codec-Einstellungen für ITU
 Codec_Profile;Codec-Profile
 Codec_Url;Web-Link zum Codec
 CodecID;Codec-ID
@@ -317,7 +317,7 @@ Format_Settings_RefFrames;Format-Einstellungen für ReFrames
 Format_Settings_Sign;Format-Einstellungen für Sign
 Format_Settings_Law;Format-Einstellungen für Law
 Format_Settings_ITU;Format-Einstellungen für ITU
-Format_Settings_SBR;Formateinstellungen für SBR
+Format_Settings_SBR;Format-Einstellungen für SBR
 Format_Settings_PS;Format-Einstellungen für PS
 Format_Settings_Pulldown;Format-Einstellungen für Pulldown
 Format_Version;Format-Version
@@ -517,7 +517,7 @@ Known formats;Bekannte Formate
 Known parameters;Bekannte Parameter
 Label;Vertriebslabel
 Language;Sprache
-Language_More
+Language_More;Sprache, nähere Info
 Language_aa;Afar
 Language_ab;Abchasisch
 Language_ae;Avestisch
@@ -556,8 +556,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Griechisch
 Language_en;Englisch
-Language_en-gb
-Language_en-us
+Language_en-gb;Englisch (Great Britain)
+Language_en-us;Englisch (United States)
 Language_eo;Esperanto
 Language_es;Spanisch
 Language_et;Estnisch
@@ -654,7 +654,7 @@ Language_pi;Pali
 Language_pl;Polnisch
 Language_ps;Paschtu/Afghanisch
 Language_pt;Portugiesisch
-Language_pt-br
+Language_pt-br;Portugiesich (Brasilien)
 Language_qu;Quechua/Ketschua
 Language_rm;Rätoromanisch
 Language_rn;Kirundi (Rundisch)

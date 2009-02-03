@@ -15,8 +15,8 @@
  bit1;位
  bit2;位
  bit3;位
- bps
- Bps
+ bps; bps
+ Bps; Bps
  Byte1;字节
  Byte2;字节
  Byte3;字节
@@ -32,80 +32,80 @@
  day1;天
  day2;天
  day3;天
- dB1
- dB2
- dB3
+ dB1; dB
+ dB2; dB
+ dB3; dB
  file1;文件
  file2;个文件
  file3;个文件
- frame1
- frame2
- frame3
- fps1
- fps2
- fps3
- GB
- Gb
- Gbps
- GBps
- GHz
- GiB
- GibiByte1
- GibiByte2
- GibiByte3
- GiBps
- GigaBit1
- GigaBit2
- GigaBit3
- GigaByte1
- GigaByte2
- GigaByte3
+ frame1; frame
+ frame2; frames
+ frame3; frames
+ fps1; fps
+ fps2; fps
+ fps3; fps
+ GB; GB
+ Gb; Gb
+ Gbps; Gbps
+ GBps; GBps
+ GHz; GHz
+ GiB; GiB
+ GibiByte1; GibiBytes
+ GibiByte2; GibiBytes
+ GibiByte3; GibiBytes
+ GiBps; GiBps
+ GigaBit1; GigaBit
+ GigaBit2; GigaBits
+ GigaBit3; GigaBits
+ GigaByte1; GigaByte
+ GigaByte2; GigaBytes
+ GigaByte3; GigaBytes
  hour1;小时
  hour2;小时
  hour3;小时
- Hz
+ Hz; Hz
  image stream1;图像流
  image stream2;个图像流
  image stream3;个图像流
- KB
- Kb
- KBps
- Kbps
- KHz
- KiB
- KibiBit1
- KibiBit2
- KibiBit3
- KibiByte1
- KibiByte2
- KibiByte3
- KiBps
- KiloBit1
- KiloBit2
- KiloBit3
- KiloByte1
- KiloByte2
- KiloByte3
- MB
- Mb
- Mbps
- MBps
- MebiBit1
- MebiBit2
- MebiBit3
- MebiByte1
- MebiByte2
- MebiByte3
- MegaBit1
- MegaBit2
- MegaBit3
- MegaByte1
- MegaByte2
- MegaByte3
- MHz
- MiB
- Mib
- MiBps
+ KB; KB
+ Kb; Kb
+ KBps; KBps
+ Kbps; Kbps
+ KHz; KHz
+ KiB; KiB
+ KibiBit1; KibiBit
+ KibiBit2; KibiBits
+ KibiBit3; KibiBits
+ KibiByte1; KibiByte
+ KibiByte2; KibiBytes
+ KibiByte3; KibiBytes
+ KiBps; KiBps
+ KiloBit1; KiloBit
+ KiloBit2; KiloBits
+ KiloBit3; KiloBits
+ KiloByte1; KiloByte
+ KiloByte2; KiloBytes
+ KiloByte3; KiloBytes
+ MB; MB
+ Mb; Mb
+ Mbps; Mbps
+ MBps; MebiBytes
+ MebiBit1; MebiBit
+ MebiBit2; MebiBits
+ MebiBit3; MebiBits
+ MebiByte1; MebiByte
+ MebiByte2; MebiBytes
+ MebiByte3; MebiBytes
+ MegaBit1; MegaBit
+ MegaBit2; MegaBits
+ MegaBit3; MegaBits
+ MegaByte1; MegaByte
+ MegaByte2; MegaBytes
+ MegaByte3; MegaBytes
+ MHz; MHz
+ MiB; MiB
+ Mib; Mib
+ MiBps; MiBps
  milisecond1;毫秒
  milisecond2;毫秒
  milisecond3;毫秒
@@ -130,10 +130,10 @@
  video stream1;视频
  video stream2;个视频
  video stream3;个视频
- warppoint0
- warppoint1
- warppoint2
- warppoint3
+ warppoint0;No warppoints
+ warppoint1; warppoint
+ warppoint2; warppoints
+ warppoint3; warppoints
  week1;周
  week2;周
  week3;周
@@ -333,154 +333,154 @@ FrameRate_Maximum;最大帧率
 FrameRate_Original;原始帧率
 General;概要
 Genre;风格
-Genre_000
-Genre_001
-Genre_002
-Genre_003
-Genre_004
-Genre_005
-Genre_006
-Genre_007
-Genre_008
-Genre_009
-Genre_010
-Genre_011
-Genre_012
-Genre_013
-Genre_014
-Genre_015
-Genre_016
-Genre_017
-Genre_018
-Genre_019
-Genre_020
-Genre_021
-Genre_022
-Genre_023
-Genre_024
-Genre_025
-Genre_026
-Genre_027
-Genre_028
-Genre_029
-Genre_030
-Genre_031
-Genre_032
-Genre_033
-Genre_034
-Genre_035
-Genre_036
-Genre_037
-Genre_038
-Genre_039
-Genre_040
-Genre_041
-Genre_042
-Genre_043
-Genre_044
-Genre_045
-Genre_046
-Genre_047
-Genre_048
-Genre_049
-Genre_050
-Genre_051
-Genre_052
-Genre_053
-Genre_054
-Genre_055
-Genre_056
-Genre_057
-Genre_058
-Genre_059
-Genre_060
-Genre_061
-Genre_062
-Genre_063
-Genre_064
-Genre_065
-Genre_066
-Genre_067
-Genre_068
-Genre_069
-Genre_070
-Genre_071
-Genre_072
-Genre_073
-Genre_074
-Genre_075
-Genre_076
-Genre_077
-Genre_078
-Genre_079
-Genre_080
-Genre_081
-Genre_082
-Genre_083
-Genre_084
-Genre_085
-Genre_086
-Genre_087
-Genre_088
-Genre_089
-Genre_090
-Genre_091
-Genre_092
-Genre_093
-Genre_094
-Genre_095
-Genre_096
-Genre_097
-Genre_098
-Genre_099
-Genre_100
-Genre_101
-Genre_102
-Genre_103
-Genre_104
-Genre_105
-Genre_106
-Genre_107
-Genre_108
-Genre_109
-Genre_110
-Genre_111
-Genre_112
-Genre_113
-Genre_114
-Genre_115
-Genre_116
-Genre_117
-Genre_118
-Genre_119
-Genre_120
-Genre_121
-Genre_122
-Genre_123
-Genre_124
-Genre_125
-Genre_126
-Genre_127
-Genre_128
-Genre_129
-Genre_130
-Genre_131
-Genre_132
-Genre_133
-Genre_134
-Genre_135
-Genre_136
-Genre_137
-Genre_138
-Genre_139
-Genre_140
-Genre_141
-Genre_142
-Genre_143
-Genre_144
-Genre_145
-Genre_146
-Genre_147
+Genre_000;Blues
+Genre_001;Classic Rock
+Genre_002;Country
+Genre_003;Dance
+Genre_004;Disco
+Genre_005;Funk
+Genre_006;Grunge
+Genre_007;Hip-Hop
+Genre_008;Jazz
+Genre_009;Metal
+Genre_010;New Age
+Genre_011;Oldies
+Genre_012;Other
+Genre_013;Pop
+Genre_014;R&B
+Genre_015;Rap
+Genre_016;Reggae
+Genre_017;Rock
+Genre_018;Techno
+Genre_019;Industrial
+Genre_020;Alternative
+Genre_021;Ska
+Genre_022;Death Metal
+Genre_023;Pranks
+Genre_024;Soundtrack
+Genre_025;Euro-Techno
+Genre_026;Ambient
+Genre_027;Trip-Hop
+Genre_028;Vocal
+Genre_029;Jazz+Funk
+Genre_030;Fusion
+Genre_031;Trance
+Genre_032;Classical
+Genre_033;Instrumental
+Genre_034;Acid
+Genre_035;House
+Genre_036;Game
+Genre_037;Sound Clip
+Genre_038;Gospel
+Genre_039;Noise
+Genre_040;AlternRock
+Genre_041;Bass
+Genre_042;Soul
+Genre_043;Punk
+Genre_044;Space
+Genre_045;Meditative
+Genre_046;Instrumental Pop
+Genre_047;Instrumental Rock
+Genre_048;Ethnic
+Genre_049;Gothic
+Genre_050;Darkwave
+Genre_051;Techno-Industrial
+Genre_052;Electronic
+Genre_053;Pop-Folk
+Genre_054;Eurodance
+Genre_055;Dream
+Genre_056;Southern Rock
+Genre_057;Comedy
+Genre_058;Cult
+Genre_059;Gangsta
+Genre_060;Top 40
+Genre_061;Christian Rap
+Genre_062;Pop/Funk
+Genre_063;Jungle
+Genre_064;Native American
+Genre_065;Cabaret
+Genre_066;New Wave
+Genre_067;Psychadelic
+Genre_068;Rave
+Genre_069;Showtunes
+Genre_070;Trailer
+Genre_071;Lo-Fi
+Genre_072;Tribal
+Genre_073;Acid Punk
+Genre_074;Acid Jazz
+Genre_075;Polka
+Genre_076;Retro
+Genre_077;Musical
+Genre_078;Rock & Roll
+Genre_079;Hard Rock
+Genre_080;Folk
+Genre_081;Folk-Rock
+Genre_082;National Folk
+Genre_083;Swing
+Genre_084;Fast Fusion
+Genre_085;Bebob
+Genre_086;Latin
+Genre_087;Revival
+Genre_088;Celtic
+Genre_089;Bluegrass
+Genre_090;Avantgarde
+Genre_091;Gothic Rock
+Genre_092;Progressive Rock
+Genre_093;Psychedelic Rock
+Genre_094;Symphonic Rock
+Genre_095;Slow Rock
+Genre_096;Big Band
+Genre_097;Chorus
+Genre_098;Easy Listening
+Genre_099;Acoustic
+Genre_100;Humour
+Genre_101;Speech
+Genre_102;Chanson
+Genre_103;Opera
+Genre_104;Chamber Music
+Genre_105;Sonata
+Genre_106;Symphony
+Genre_107;Booty Bass
+Genre_108;Primus
+Genre_109;Porn Groove
+Genre_110;Satire
+Genre_111;Slow Jam
+Genre_112;Club
+Genre_113;Tango
+Genre_114;Samba
+Genre_115;Folklore
+Genre_116;Ballad
+Genre_117;Power Ballad
+Genre_118;Rhythmic Soul
+Genre_119;Freestyle
+Genre_120;Duet
+Genre_121;Punk Rock
+Genre_122;Drum Solo
+Genre_123;A capella
+Genre_124;Euro-House
+Genre_125;Dance Hall
+Genre_126;Goa
+Genre_127;Drum & Bass
+Genre_128;Club-House
+Genre_129;Hardcore
+Genre_130;Terror
+Genre_131;Indie
+Genre_132;Britpop
+Genre_133;Negerpunk
+Genre_134;Polsk Punk
+Genre_135;Beat
+Genre_136;Christian Gangsta Rap
+Genre_137;Heavy Metal
+Genre_138;Black Metal
+Genre_139;Crossover
+Genre_140;Contemporary Christian
+Genre_141;Christian Rock 
+Genre_142;Merengue
+Genre_143;Salsa
+Genre_144;Trash Metal
+Genre_145;Anime
+Genre_146;JPop
+Genre_147;Synthpop
 Go to WebSite;访问网站
 h;小时
 Header file;创建头文件
@@ -492,7 +492,7 @@ How many chapters streams?;有多少个段落?
 How many text streams?;有多少个字幕?
 How many video streams?;有多少视频?
 HTML;网页
-ID
+ID;ID
 Image;图像
 Image stream(s);图像流
 Image_Codec_List;图像编解码器列表
@@ -508,210 +508,210 @@ Interlaced_Progressive;逐行扫描
 Interleave_Duration;交错间隔时间
 Interleave_Preload;音频预读时间
 Interleave_VideoFrames;交错帧间隔
-IRCA
-ISBN
-ISRC
+IRCA;IRCA
+ISBN;ISBN
+ISRC;ISRC
 Keywords;关键字
 Known codecs;已知编解码器
 Known formats;已知格式
 Known parameters;已知参数
 Label;标签
 Language;语言
-Language_More
-Language_aa
-Language_ab
-Language_ae
-Language_af
-Language_ak
-Language_am
-Language_an
-Language_ar
-Language_as
-Language_av
-Language_ay
-Language_az
-Language_ba
-Language_be
-Language_bg
-Language_bh
-Language_bi
-Language_bm
-Language_bn
-Language_bo
-Language_br
-Language_bs
-Language_ca
-Language_ce
-Language_ch
-Language_co
-Language_cr
-Language_cs
-Language_cu
-Language_cv
-Language_cy
-Language_da
-Language_de
-Language_dv
-Language_dz
-Language_ee
-Language_el
-Language_en
-Language_en-gb
-Language_en-us
-Language_eo
-Language_es
-Language_et
-Language_eu
-Language_fa
-Language_ff
-Language_fi
-Language_fj
-Language_fo
-Language_fr
-Language_fy
-Language_ga
-Language_gd
-Language_gl
-Language_gn
-Language_gu
-Language_gv
-Language_ha
-Language_he
-Language_hi
-Language_ho
-Language_hr
-Language_ht
-Language_hu
-Language_hy
-Language_hz
-Language_ia
-Language_id
-Language_ie
-Language_ig
-Language_ii
-Language_ik
+Language_More;语言, 详情
+Language_aa;Afar
+Language_ab;Abkhazian
+Language_ae;Avestan
+Language_af;Afrikaans
+Language_ak;Akan
+Language_am;Amharic
+Language_an;Aragonese
+Language_ar;Arabic
+Language_as;Assamese
+Language_av;Avaric
+Language_ay;Aymara
+Language_az;Azerbaijani
+Language_ba;Bashkir
+Language_be;Belarusian
+Language_bg;Bulgarian
+Language_bh;Bihari
+Language_bi;Bislama
+Language_bm;Bambara
+Language_bn;Bengali
+Language_bo;Tibetan
+Language_br;Breton
+Language_bs;Bosnian
+Language_ca;Catalan
+Language_ce;Chechen
+Language_ch;Chamorro
+Language_co;Corsican
+Language_cr;Cree
+Language_cs;Czech
+Language_cu;Slave
+Language_cv;Chuvash
+Language_cy;Welsh
+Language_da;Danish
+Language_de;German
+Language_dv;Divehi
+Language_dz;Dzongkha
+Language_ee;Ewe
+Language_el;Greek
+Language_en;English
+Language_en-gb;English (Great Britain)
+Language_en-us;English (United States)
+Language_eo;Esperanto
+Language_es;Spanish
+Language_et;Estonian
+Language_eu;Basque
+Language_fa;Persian
+Language_ff;Fulah
+Language_fi;Finnish
+Language_fj;Fijian
+Language_fo;Faroese
+Language_fr;French
+Language_fy;Frisian
+Language_ga;Irish
+Language_gd;Gaelic
+Language_gl;Galician
+Language_gn;Guarani
+Language_gu;Gujarati
+Language_gv;Manx
+Language_ha;Hausa
+Language_he;Hebrew
+Language_hi;Hindi
+Language_ho;Hiri Motu
+Language_hr;Croatian
+Language_ht;Haitian
+Language_hu;Hungarian
+Language_hy;Armenian
+Language_hz;Herero
+Language_ia;Auxiliary Language Association
+Language_id;Indonesian
+Language_ie;Interlingue
+Language_ig;Igbo
+Language_ii;Sichuan Yi
+Language_ik;Inupiaq
 Language_Info;语言信息
-Language_io
-Language_is
-Language_it
-Language_iu
-Language_ja
-Language_jv
-Language_ka
-Language_kg
-Language_ki
-Language_kj
-Language_kk
-Language_kl
-Language_km
-Language_kn
-Language_ko
-Language_kr
-Language_ks
-Language_ku
-Language_kv
-Language_kw
-Language_ky
-Language_la
-Language_lb
-Language_lg
-Language_li
-Language_ln
-Language_lo
-Language_lt
-Language_lu
-Language_lv
-Language_mg
-Language_mh
-Language_mi
-Language_mk
-Language_ml
-Language_mn
-Language_mo
-Language_mr
-Language_ms
-Language_mt
+Language_io;Ido
+Language_is;Icelandic
+Language_it;Italian
+Language_iu;Inuktitut
+Language_ja;Japanese
+Language_jv;Javanese
+Language_ka;Georgian
+Language_kg;Kongo
+Language_ki;Kikuyu
+Language_kj;Kuanyama
+Language_kk;Kazakh
+Language_kl;Kalaallisut
+Language_km;Khmer
+Language_kn;Kannada
+Language_ko;Korean
+Language_kr;Kanuri
+Language_ks;Kashmiri
+Language_ku;Kurdish
+Language_kv;Komi
+Language_kw;Cornish
+Language_ky;Kirghiz
+Language_la;Latin
+Language_lb;Luxembourgish
+Language_lg;Ganda
+Language_li;Limburgish
+Language_ln;Lingala
+Language_lo;Lao
+Language_lt;Lithuanian
+Language_lu;Luba-Katanga
+Language_lv;Latvian
+Language_mg;Malagasy
+Language_mh;Marshallese
+Language_mi;Maori
+Language_mk;Macedonian
+Language_ml;Malayalam
+Language_mn;Mongolian
+Language_mo;Moldavian
+Language_mr;Marathi
+Language_ms;Malay
+Language_mt;Maltese
 Language_mul;多国语言
-Language_my
-Language_na
-Language_nb
-Language_nd
-Language_ne
-Language_ng
-Language_nl
-Language_nn
-Language_no
-Language_nr
-Language_nv
-Language_ny
-Language_oc
-Language_oj
-Language_om
-Language_or
-Language_os
-Language_pa
-Language_pi
-Language_pl
-Language_ps
-Language_pt
-Language_pt-br
-Language_qu
-Language_rm
-Language_rn
-Language_ro
-Language_ru
-Language_rw
-Language_sa
-Language_sc
-Language_sd
-Language_se
-Language_sg
-Language_si
-Language_sk
-Language_sl
-Language_sm
-Language_sn
-Language_so
-Language_sq
-Language_sr
-Language_ss
-Language_st
-Language_su
-Language_sv
-Language_sw
-Language_ta
-Language_te
-Language_tg
-Language_th
-Language_ti
-Language_tk
-Language_tl
-Language_tn
-Language_to
-Language_tr
-Language_ts
-Language_tt
-Language_tw
-Language_ty
-Language_ug
-Language_uk
-Language_ur
-Language_uz
-Language_ve
-Language_vi
-Language_vo
-Language_wa
-Language_wo
-Language_xh
-Language_yi
-Language_yo
-Language_za
+Language_my;Burmese
+Language_na;Nauru
+Language_nb;Norwegian Bokmal
+Language_nd;Ndebele
+Language_ne;Nepali
+Language_ng;Ndonga
+Language_nl;Dutch
+Language_nn;Norwegian Bokmal
+Language_no;Norwegian Nynorsk
+Language_nr;Ndebele
+Language_nv;Navaho
+Language_ny;Nyanja
+Language_oc;Occitan
+Language_oj;Ojibwa
+Language_om;Oromo
+Language_or;Oriya
+Language_os;Ossetic
+Language_pa;Panjabi
+Language_pi;Pali
+Language_pl;Polish
+Language_ps;Pushto
+Language_pt;Portuguese
+Language_pt-br;Portuguese (Brazil)
+Language_qu;Quechua
+Language_rm;Raeto-Romance
+Language_rn;Rundi
+Language_ro;Romanian
+Language_ru;Russian
+Language_rw;Kinyarwanda
+Language_sa;Sanskrit
+Language_sc;Sardinian
+Language_sd;Sindhi
+Language_se;Northern Sami
+Language_sg;Sango
+Language_si;Sinhala
+Language_sk;Slovak
+Language_sl;Slovenian
+Language_sm;Samoan
+Language_sn;Shona
+Language_so;Somali
+Language_sq;Albanian
+Language_sr;Serbian
+Language_ss;Swati
+Language_st;Sotho
+Language_su;Sundanese
+Language_sv;Swedish
+Language_sw;Swahili
+Language_ta;Tamil
+Language_te;Telugu
+Language_tg;Tajik
+Language_th;Thai
+Language_ti;Tigrinya
+Language_tk;Turkmen
+Language_tl;Tagalog
+Language_tn;Tswana
+Language_to;Tonga
+Language_tr;Turkish
+Language_ts;Tsonga
+Language_tt;Tatar
+Language_tw;Twi
+Language_ty;Tahitian
+Language_ug;Uighur
+Language_uk;Ukrainian
+Language_ur;Urdu
+Language_uz;Uzbek
+Language_ve;Venda
+Language_vi;Vietnamese
+Language_vo;Volapuk
+Language_wa;Walloon
+Language_wo;Wolof
+Language_xh;Xhosa
+Language_yi;Yiddish
+Language_yo;Yoruba
+Language_za;Zhuang
 Language_zh;简体中文
-Language_zh-cn
-Language_zh-tw
-Language_zu
+Language_zh-cn;中文(中国)
+Language_zh-tw;中文(台湾)
+Language_zu;Zulu
 LawRating;分级
-LCCN
+LCCN;LCCN
 Library;合成函数库
 Lightness;高亮
 List;列表
@@ -732,7 +732,7 @@ Mood;情绪
 More;更多
 Movie;电影
 ms;片名
-MSDI
+MSDI;MSDI
 MusicBy;音乐制作
 MuxingMode;混合模式
 MuxingMode_PackedBitstream;打包的比特流
@@ -897,7 +897,7 @@ Tree & Text;树状图和文本
 Unknown;不详
 Url;相关网址
 Video;视频
-Video stream(s);视频流(s)
+Video stream(s);视频流/多条
 Video_Codec_List;视频编解码器
 Video_Delay;视频延迟
 Video_No;没有视频
@@ -925,5 +925,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;55
-ZZ_AutomaticLanguage_Percent;91
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99
