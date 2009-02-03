@@ -259,7 +259,7 @@ Dimensions;Dimensioni
 Director;Regista
 DirectorOfPhotography;Direttore della fotografia
 DisplayAspectRatio;AspectRatio
-DisplayAspectRatio_Original
+DisplayAspectRatio_Original;AspectRatio originale
 DistributedBy;Distribuito da
 Donate;Dona
 DotsPerInch;Punti per pollice
@@ -517,7 +517,7 @@ Known formats;Formati conosciuti
 Known parameters;Parametri conosciuti
 Label;Etichetta
 Language;Lingua
-Language_More
+Language_More;Lingua, informazioni aggiuntive
 Language_aa;Afar
 Language_ab;Abkhaziano
 Language_ae;Avestano
@@ -556,8 +556,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Greco
 Language_en;Inglese
-Language_en-gb
-Language_en-us
+Language_en-gb;Inglese (Gran Bretagna)
+Language_en-us;Inglese (Americano)
 Language_eo;Esperanto
 Language_es;Spagnolo
 Language_et;Estone
@@ -654,7 +654,7 @@ Language_pi;Pali
 Language_pl;Polacco
 Language_ps;Pashto
 Language_pt;Portoghese
-Language_pt-br
+Language_pt-br;Portoghese (Brasile)
 Language_qu;Quechua
 Language_rm;Romancio
 Language_rn;Rundi
@@ -707,8 +707,8 @@ Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Cinese
-Language_zh-cn
-Language_zh-tw
+Language_zh-cn;Cinese (Cina)
+Language_zh-tw;Cinese (Taiwan)
 Language_zu;Zulu
 LawRating;Law Rating
 LCCN;LCCN
@@ -780,8 +780,8 @@ OpenCandy_31;Seleziona opzioni installazione
 OpenCandy_32;Installa
 OpenCandy_33;Non installare
 OpenCandy_34;Seleziona opzioni installazione
-OpenCandy_35
-OpenCandy_36
+OpenCandy_35;consiglia questo programma
+OpenCandy_36;L'attuale installazione non verrà interrotta
 Options;Opzioni
 Options_Hint;Preferenze
 Original;Originale
@@ -925,5 +925,5 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si 
 Your system;Il tuo sistema
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
