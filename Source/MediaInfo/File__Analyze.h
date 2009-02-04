@@ -735,6 +735,7 @@ protected :
     void Finalize__All      (stream_t StreamKind, size_t Pos);
     void Finalize_General   (size_t Pos);
     void Finalize_Video     (size_t Pos);
+    void Finalize_Video_FrameRate (size_t Pos, video Parameter);
     void Finalize_Audio     (size_t Pos);
     void Finalize_Audio_BitRate (size_t Pos, audio Parameter);
     void Finalize_Text      (size_t Pos);

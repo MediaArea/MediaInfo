@@ -2260,7 +2260,7 @@ void File_Riff::SMV0()
         Fill(Stream_Video, 0, Video_MuxingMode, "SMV v1");
         Fill(Stream_Video, 0, Video_Width, Width);
         Fill(Stream_Video, 0, Video_Height, Height);
-        Fill(Stream_Video, 0, Video_FrameRate, FrameRate);
+        Fill(Stream_Video, 0, Video_FrameRate, (float)FrameRate);
         Fill(Stream_Video, 0, Video_FrameCount, FrameCount);
 
         Finished();

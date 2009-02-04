@@ -1480,6 +1480,9 @@ void File_Avc::hrd_parameters()
 //---------------------------------------------------------------------------
 void File_Avc::SPS_PPS()
 {
+    //Configuring
+    Trusted=1; //No error is accepted
+
     //Parsing
     int8u Profile, Level, seq_parameter_set_count, pic_parameter_set_count;
     Get_B1 (Profile,                                            "Profile");
@@ -1505,8 +1508,7 @@ void File_Avc::SPS_PPS()
         BS_End();
         if (Element_Offset+Size-1>Element_Size)
         {
-            Clear();
-            Finished();
+            Trusted_IsNot("Size is wrong");
             break; //There is an error
         }
         int64u Element_Offset_Save=Element_Offset;

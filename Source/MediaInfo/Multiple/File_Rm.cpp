@@ -421,7 +421,7 @@ void File_Rm::MDPR_realvideo()
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width); //Width
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height); //Height
     Fill(Stream_Video, StreamPos_Last, Video_Resolution, Resolution); //Resolution
-    Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate); //FrameRate
+    Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)FrameRate); //FrameRate
 }
 
 //---------------------------------------------------------------------------

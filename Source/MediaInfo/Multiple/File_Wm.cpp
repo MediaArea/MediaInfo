@@ -139,18 +139,6 @@ void File_Wm::Read_Buffer_Finalize()
                 float64 PresentationTime_Deltas_2_Value=(float64)PresentationTime_Delta_Most->first;
                 float64 PresentationTime_Deltas_2_Count=(float64)PresentationTime_Delta_Most->second;
                 float64 FrameRate_Real=1000/(((PresentationTime_Deltas_1_Value*PresentationTime_Deltas_1_Count)+(PresentationTime_Deltas_2_Value*PresentationTime_Deltas_2_Count))/(PresentationTime_Deltas_1_Count+PresentationTime_Deltas_2_Count));
-                     if (FrameRate_Real> 9.990 && FrameRate_Real<=10.010) FrameRate_Real=10.000;
-                else if (FrameRate_Real>14.990 && FrameRate_Real<=15.010) FrameRate_Real=15.000;
-                else if (FrameRate_Real>23.964 && FrameRate_Real<=23.988) FrameRate_Real=23.976;
-                else if (FrameRate_Real>23.988 && FrameRate_Real<=24.012) FrameRate_Real=24.000;
-                else if (FrameRate_Real>24.988 && FrameRate_Real<=25.012) FrameRate_Real=24.000;
-                else if (FrameRate_Real>29.955 && FrameRate_Real<=29.985) FrameRate_Real=29.970;
-                else if (FrameRate_Real>29.985 && FrameRate_Real<=30.015) FrameRate_Real=30.000;
-                else if (FrameRate_Real>23.964*2 && FrameRate_Real<=23.988*2) FrameRate_Real=23.976;
-                else if (FrameRate_Real>23.988*2 && FrameRate_Real<=24.012*2) FrameRate_Real=24.000;
-                else if (FrameRate_Real>24.988*2 && FrameRate_Real<=25.012*2) FrameRate_Real=25.000;
-                else if (FrameRate_Real>29.955*2 && FrameRate_Real<=29.985*2) FrameRate_Real=29.970;
-                else if (FrameRate_Real>30.985*2 && FrameRate_Real<=30.015*2) FrameRate_Real=30.000;
                 Fill(Temp->second.StreamKind, Temp->second.StreamPos, Video_FrameRate, FrameRate_Real, 3, true);
                 if (Temp->second.AverageTimePerFrame>0)
                     Fill(Stream_Video, Temp->second.StreamPos, Video_FrameRate_Nominal, ((float)10000000)/Temp->second.AverageTimePerFrame, 3, true);
