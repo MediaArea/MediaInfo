@@ -488,6 +488,14 @@ bool File_MpegPs::Header_Parse_Fill_Size()
             return false;
     }
 
+    //Specific case
+    if (video_stream_Unlimited && Buffer_Offset_Temp==Buffer_Offset) //Latest chunk is finished, we must parse the next one
+    {
+        video_stream_Unlimited=false;
+        Header_Parse_Fill_Size();
+        return true;
+    }
+
     //OK, we continue
     Header_Fill_Size(Buffer_Offset_Temp-Buffer_Offset);
     Buffer_Offset_Temp=0;

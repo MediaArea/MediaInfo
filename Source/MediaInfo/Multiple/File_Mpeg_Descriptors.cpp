@@ -795,27 +795,39 @@ void File_Mpeg_Descriptors::Read_Buffer_Init()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+bool File_Mpeg_Descriptors::Header_Begin()
+{
+    if (Buffer_Offset+2>Buffer_Size)
+        return false; //Not enough data
+
+    return true;
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg_Descriptors::Header_Parse()
 {
-    if (Element_Offset+2>Element_Size)
-        return; //Not enough data
-    int8u descriptor_tag, descriptor_length;
+    int8u descriptor_tag=0, descriptor_length=0;
     Get_B1 (descriptor_tag,                                     "descriptor_tag");
     Get_B1 (descriptor_length,                                  "descriptor_length");
 
     //Size
+    if (Element_Size)
+        Header_Fill_Size(Element_Size);
+    if (Element_Offset)
+        Header_Fill_Size(Element_Offset);
+    if (descriptor_length)
+        Header_Fill_Size(descriptor_length);
+
     if (Element_Size<Element_Offset+descriptor_length)
     {
         Element_WaitForMoreData();
         return;
     }
-    //Element[Element_Level-1].IsComplete=true;
 
     //Filling
     Header_Fill_Code(descriptor_tag, Ztring().From_Number(descriptor_tag, 16));
     Header_Fill_Size(2+descriptor_length);
 }
-
 
 //---------------------------------------------------------------------------
 void File_Mpeg_Descriptors::Data_Parse()

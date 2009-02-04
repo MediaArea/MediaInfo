@@ -95,6 +95,7 @@ protected :
 
 private :
     //Buffer
+    bool Header_Begin();
     void Header_Parse();
     void Data_Parse();
 

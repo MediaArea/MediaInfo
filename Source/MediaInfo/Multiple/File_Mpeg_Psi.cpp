@@ -1391,6 +1391,11 @@ void File_Mpeg_Psi::Descriptors()
 {
     if (Descriptors_Size==0)
         return;
+    if (Element_Offset+Descriptors_Size>Element_Size)
+    {
+        Trusted_IsNot("Descriptor size too big");
+        return;
+    }
 
     Element_Begin("Descriptors", Descriptors_Size);
 
