@@ -375,7 +375,6 @@
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\ZtringList.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ZtringList" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\ZtringListList.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ZtringListList" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\ZtringListListF.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ZtringListListF" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\..\ZenLib\Source\ZenLib\ZtringListListF.h"/>
-        <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\ConvertUTF.c" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ConvertUTF" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Buffer.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Buffer" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Streams.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Streams" FORMNAME="" DESIGNCLASS=""/>
