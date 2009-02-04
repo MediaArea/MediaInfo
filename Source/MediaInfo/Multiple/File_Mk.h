@@ -213,6 +213,7 @@ private :
 
     struct stream
     {
+        std::vector<size_t>     TimeCodes;
         File__Analyze*          Parser;
         stream_t                StreamKind;
         size_t                  StreamPos;
@@ -220,6 +221,7 @@ private :
         int32u                  AvgBytesPerSec; //Only used by x_MS/* codecIDs
         float32                 DisplayAspectRatio;
         bool                    SearchingPayload;
+        bool                    SearchingTimeCode;
 
         stream()
         {
@@ -230,6 +232,7 @@ private :
             AvgBytesPerSec=0;
             DisplayAspectRatio=0;
             SearchingPayload=true;
+            SearchingTimeCode=false;
         }
 
         ~stream()
@@ -273,6 +276,7 @@ private :
     int64u  ChapterTimeStart;
     Ztring  ChapterString;
     int32u  Chapter_Pos;
+    int16u  Segment_Cluster_TimeCode_Value;
     bool    Cluster_AlreadyParsed;
 };
 

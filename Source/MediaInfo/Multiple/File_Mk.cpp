@@ -80,6 +80,7 @@
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
 #include <cstring>
+#include <algorithm>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -136,7 +137,36 @@ void File_Mk::Read_Buffer_Finalize()
             Open_Buffer_Finalize(Temp->second.Parser);
             Merge(*Temp->second.Parser, Temp->second.StreamKind, 0, Temp->second.StreamPos);
             if (Temp->second.StreamKind==Stream_Video && !Codec_Temp.empty())
-                Fill(Stream_Video, Temp->second.StreamPos, Video_Codec, Codec_Temp, true);
+                Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec_Temp, true);
+
+            //Video specific
+            if (StreamKind_Last==Stream_Video)
+            {
+                //FrameRate
+                if (Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).empty())
+                {
+                    //Trying to detect VFR
+                    std::vector<int16s> FrameRate_Between;
+                    std::sort(Temp->second.TimeCodes.begin(), Temp->second.TimeCodes.end()); //This is PTS, no DTS --> Some frames are out of order
+                    for (size_t Pos=1; Pos<Temp->second.TimeCodes.size(); Pos++)
+                        FrameRate_Between.push_back(Temp->second.TimeCodes[Pos]-Temp->second.TimeCodes[Pos-1]);
+                    if (FrameRate_Between.size()>31)
+                        FrameRate_Between.resize(31); //We peek 40 frames, and remove the last ones, because this is PTS, no DTS --> Some frames are out of order
+                    std::sort(FrameRate_Between.begin(), FrameRate_Between.end());
+                    if (FrameRate_Between[0]*0.9<FrameRate_Between[FrameRate_Between.size()-1]
+                     && FrameRate_Between[0]*1.1>FrameRate_Between[FrameRate_Between.size()-1])
+                    {
+                        float Time=(float)(Temp->second.TimeCodes[30]-Temp->second.TimeCodes[0])/30; //30 frames for handling 30 fps rounding problems
+                        if (Time)
+                        {
+                            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 1000/Time);
+                            Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, "CFR");
+                        }
+                    }
+                    else
+                        Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, "VFR");
+                }
+            }
 
             //Delay
             if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)==1 && Temp->second.Parser->Count_Get(Stream_General)>0)
@@ -1052,6 +1082,8 @@ void File_Mk::Segment_Cluster()
                 Temp->second.SearchingPayload=false;
                 Stream_Count--;
             }
+            if (Temp->second.StreamKind==Stream_Video && Retrieve(Stream_Video, Temp->second.StreamPos, Video_FrameRate).empty())
+                Temp->second.SearchingTimeCode=true;
             Temp++;
         }
 
@@ -1064,6 +1096,7 @@ void File_Mk::Segment_Cluster()
         }
     }
     Cluster_AlreadyParsed=true;
+    Segment_Cluster_TimeCode_Value=0; //Default
 }
 
 //---------------------------------------------------------------------------
@@ -1081,17 +1114,18 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
     std::vector<int64u> Laces;
     int64u TrackNumber;
     int32u Lacing;
+    int16u TimeCode;
     Get_EB (TrackNumber,                                        "TrackNumber");
 
     //Finished?
     Stream[TrackNumber].PacketCount++;
-    if (!Stream[TrackNumber].SearchingPayload)
+    if (!Stream[TrackNumber].SearchingPayload && !Stream[TrackNumber].SearchingTimeCode)
     {
         Element_DoNotShow();
         return;
     }
 
-    Skip_B2(                                                    "TimeCode");
+    Get_B2 (TimeCode,                                           "TimeCode");
     Element_Begin("Flags", 1);
         BS_Begin();
         Skip_BS(1,                                              "KeyFrame");
@@ -1152,18 +1186,27 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
         Laces.push_back(Element_Size-Element_Offset);
 
     FILLING_BEGIN();
-        //Parsing
-        Open_Buffer_Init(Stream[TrackNumber].Parser, File_Size, File_Offset+Buffer_Offset+Element_Offset);
-        Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-
-        //Filling
-        if (Stream[TrackNumber].Parser->File_Offset==File_Size
-         || Stream[TrackNumber].PacketCount>=300)
+        if (Stream[TrackNumber].SearchingTimeCode)
         {
-            Stream[TrackNumber].SearchingPayload=false;
-            Stream_Count--;
+            Stream[TrackNumber].TimeCodes.push_back(Segment_Cluster_TimeCode_Value+TimeCode);
+            if (Stream[TrackNumber].TimeCodes.size()>40)
+                Stream[TrackNumber].SearchingTimeCode=false;
         }
 
+        //Parsing
+        if (Stream[TrackNumber].SearchingPayload)
+        {
+            Open_Buffer_Init(Stream[TrackNumber].Parser, File_Size, File_Offset+Buffer_Offset+Element_Offset);
+            Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+            if (Stream[TrackNumber].Parser->File_Offset==File_Size || Stream[TrackNumber].PacketCount>=300)
+                Stream[TrackNumber].SearchingPayload=false;
+        }
+        else
+            Skip_XX(Element_Size-Element_Offset,                "Data");
+
+        //Filling
+        if (!Stream[TrackNumber].SearchingPayload && !Stream[TrackNumber].SearchingTimeCode)
+            Stream_Count--;
         if (Stream_Count==0)
         {
             //Jumping
@@ -1302,6 +1345,9 @@ void File_Mk::Segment_Cluster_SimpleBlock()
 void File_Mk::Segment_Cluster_Timecode()
 {
     Element_Name("Timecode");
+
+    //Parsing
+    Segment_Cluster_TimeCode_Value=UInteger_Get();
 }
 
 //---------------------------------------------------------------------------
@@ -1323,6 +1369,9 @@ void File_Mk::Segment_Cues_CuePoint()
 void File_Mk::Segment_Cues_CuePoint_CueTime()
 {
     Element_Name("CueTime");
+
+    //Parsing
+    UInteger_Info();
 }
 
 //---------------------------------------------------------------------------
@@ -1335,12 +1384,18 @@ void File_Mk::Segment_Cues_CuePoint_CueTrackPositions()
 void File_Mk::Segment_Cues_CuePoint_CueTrackPositions_CueTrack()
 {
     Element_Name("CueTrack");
+
+    //Parsing
+    UInteger_Info();
 }
 
 //---------------------------------------------------------------------------
 void File_Mk::Segment_Cues_CuePoint_CueTrackPositions_CueClusterPosition()
 {
     Element_Name("CueClusterPosition");
+
+    //Parsing
+    UInteger_Info();
 }
 
 //---------------------------------------------------------------------------
@@ -1353,6 +1408,9 @@ void File_Mk::Segment_Cues_CuePoint_CueTrackPositions_CueBlockNumber()
 void File_Mk::Segment_Info()
 {
     Element_Name("Info");
+
+    if (Cluster_AlreadyParsed)
+        Skip_XX(Element_TotalSize_Get(),                        "Alreadys parsed, skipping");
 }
 
 //---------------------------------------------------------------------------
@@ -1666,6 +1724,9 @@ void File_Mk::Segment_Tags_Tag_Targets_TrackUID()
 void File_Mk::Segment_Tracks()
 {
     Element_Name("Tracks");
+
+    if (Cluster_AlreadyParsed)
+        Skip_XX(Element_TotalSize_Get(),                        "Alreadys parsed, skipping");
 }
 
 //---------------------------------------------------------------------------
