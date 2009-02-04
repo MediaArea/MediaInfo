@@ -1319,12 +1319,12 @@ void File__Analyze::Trusted_IsNot (const char* Reason)
     if (!Element[Element_Level].UnTrusted)
     {
         Param(Reason, 0);
+        Element_Offset=Element_Size;
+        BS->Attach(NULL, 0);
 
         //Enough data?
         if (!Element[Element_Level].IsComplete)
         {
-            Element_Offset=Element_Size;
-            BS->Attach(NULL, 0);
             Element[Element_Level].WaitForMoreData=true;
             return;
         }

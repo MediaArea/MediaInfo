@@ -1503,13 +1503,17 @@ void File_Avc::SPS_PPS()
         Skip_S1( 2,                                             "nal_ref_idc");
         Skip_S1( 5,                                             "nal_unit_type");
         BS_End();
+        if (Element_Offset+Size-1>Element_Size)
+        {
+            Clear();
+            Finished();
+            break; //There is an error
+        }
         int64u Element_Offset_Save=Element_Offset;
         int64u Element_Size_Save=Element_Size;
         Buffer_Offset+=(size_t)Element_Offset_Save;
         Element_Offset=0;
         Element_Size=Size-1;
-        if (Element_Size>Element_Size_Save)
-            break; //There is an error
         Element_Code=0x07; //seq_parameter_set
         Data_Parse();
         Buffer_Offset-=(size_t)Element_Offset_Save;
