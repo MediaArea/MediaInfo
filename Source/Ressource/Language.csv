@@ -259,7 +259,7 @@ Dimensions;Dimensions;Dimensions;Dimensionen;;Dimensioni;Размеры;Dimensio
 Director;Director;Directeur artistique;Regisseur;Rendező;Regista;Режиссёр;Director;Director;Regisseur;Reżyser;Director; Regissör;Yönetmen;導演;导演;ディレクター;Director;Director;감독;Diretor;Director;Direktorius;Diretor;ผู้กำกับการแสดง;Режисер;دایرکتور;Regjisori
 DirectorOfPhotography;Director of photography;Responsable de la photographie;Chefkameramann ;Fényképezte;Direttore della fotografia;Оператор;Director de fotografía;Director de fotografía;Cinematograaf;Zdjęcia;Director de film; Chefkameraman;Fotoğrafçılık yönetmeni;攝影導演;摄影导演;フォトディレクター;Director of photography;Director of photography;촬영 감독;Diretor de fotografia;Director de fotografia;Fotografijos direktorius;Diretor de fotografia;ผู้กำกับการถ่ายภาพ;Оператор;دایرکتور عکاسی;Regjisori i fotografisë
 DisplayAspectRatio;Display aspect ratio;Format à l'écran;Bildseitenverhältnis;Képarány;AspectRatio;Соотношение кадра;Relación de aspecto;Relación de aspecto;Beeldverhouding;Proporcje obrazu;Raport imagine; Bildförhållande;En-Boy oranı;顯示長寬比例;画面比例;解像度;Poměr stran;Λόγος εικόνας;화면 종횡비;Proporção da imagem;Relació d'aspecte;Rodyti aspekto santykį;Proporção da imagem;อัตราการแสดงผล;;نمایش نسبت نمود;Raporti i aspektit në ekran
-DisplayAspectRatio_Original;Original display aspect ratio;Format à l'écran d'origine;;;AspectRatio originale;;;;;;;;;原始顯示長寬比例;原始高宽比
+DisplayAspectRatio_Original;Original display aspect ratio;Format à l'écran d'origine;Ursprüngliches Bildseitenverhältnis;;AspectRatio originale;;;;;;;;;原始顯示長寬比例;原始高宽比
 DistributedBy;Distributed by;Dirstribué par;Vertrieb durch;Terjesztő;Distribuito da;Распространитель;Distribuído por;Distribuido por;Gedistribueerd door;Rozpowszechniamie;Distribuit de; Distribuerad av;Dağıtan;發布者;发行;ディストリビュート by;Distributed by;Distributed by;배포;Distribuído por;Distribuït per;Platintojas;Distribuído por;เผยแพร่โดย;Розповсюджувач;توزیع شده توسط;Shpërndarë nga
 Donate;Donate;Faire un don;MediaInfo unterstützen;Adomány;Dona;Пожертвовать;Donación;Doar;Doneren;Darowizna;Donatii; Donera;Bağış;贊助;赞助;寄付;Zaslat finanční dar;Δωρεές;기부하기;Doação;Donació;Aukoti;Doação;บริจาค;Пожертвування;کمک نقدی کردن;Jep kontribut
 DotsPerInch;Dots per inch;Point par pouce;DPI;;Punti per pollice;Точек на дюйм;Puntos por pulgada;Puntos por polgada;;punktów na cal;;;İnç başına nokta;每吋點數 (DPI);点/英寸(DPI);;;;인치당 도트;; Punts per polçada;;;;;;Pika për inç
@@ -707,8 +707,8 @@ Language_yi;Yiddish;Yiddish;Jiddisch;jiddis;Yiddish;Yiddish;Yídish;Yiddish;Jidd
 Language_yo;Yoruba;Yoruba;Joruba; ;Yoruba;Yoruba;Yoruba;Yoruba;Yoruba;;; Yoruba;Yoruba;庫哇語 (Yoruba);Yoruba;Yoruba;Yoruba;Yoruba;Yoruba;Iorubá;Yoruba;Yoruba;Iorubá;Yoruba;Yoruba;;Yoruba
 Language_za;Zhuang;Zhuang;Zhuang; ;Zhuang;Zhuang;Zhuang;Zhuang;Zhuang;;; Zhuang;Zhuang;壯語 (Zhuang);Zhuang;Zhuang;Zhuang;Zhuang;Zhuang;Zhuang;Zhuang;Zhuang;Zhuang;Zhuang;Zhuang;;Zhuang
 Language_zh;Chinese;Chinois;Chinesisch;kínai;Cinese;Chinese;Chino;Chinese;Chinees;Chiński;; Chinese;Çince;華語 (Chinese);简体中文;Chinese;Chinese;Chinese;Chinese;Chinês;Xinès;Kinų;Chinês;จีน;Chinese;چینی;Chinese
-Language_zh-cn;Chinese (China);Chinois (Chine);;;Cinese (Cina);;Chino (China);;;;;;;華語 (中國) (Chinese, China);中文(中国)
-Language_zh-tw;Chinese (Taiwan);Chinois (Taiwan);;;Cinese (Taiwan);;Chino (Taiwan);;;;;;;華語 (台灣) (Chinese, Taiwan);中文(台湾)
+Language_zh-cn;Chinese (China);Chinois (Chine);Chinesisch (VR China);;Cinese (Cina);;Chino (China);;;;;;;華語 (中國) (Chinese, China);中文(中国)
+Language_zh-tw;Chinese (Taiwan);Chinois (Taiwan);Chinesisch (Taiwan;;Cinese (Taiwan);;Chino (Taiwan);;;;;;;華語 (台灣) (Chinese, Taiwan);中文(台湾)
 Language_zu;Zulu;Zoulou;Zulu;zulu;Zulu;Zulu;Zulú;Zulu;Zoeloe;Zuluski;; Zulu;Zulu;祖魯語 (Zulu);Zulu;Zulu;Zulu;Zulu;Zulu;Zulu;Zulu;Zulu;Zulu;ซูลู;Zulu;;Zulu
 LawRating;Law rating;Classé;Altersfreigabe;Korhatár;Law Rating;Ограничения прав;Ley de calificación;Valoración legal;Law rating;Mało ceniony;; Åldersgräns;Kanun oranı;分級;分级;レイティング;Law rating;Law rating;법률 등급;Classificação;Classificació;Law reitingas;Classificação;Law rating;Легальний статус;ریتینگ قانون;Vlerësimi ligjor
 LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;; LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;LCCN;;LCCN
@@ -925,5 +925,5 @@ Written_Location;Written location;Lieu d'écriture;Ort des Schreibbeginns;Írás
 WrittenBy;Written by;Ecrit par;Geschrieben von;Írta;Realizzato da;Написано;Escrito por;Escrito por;Geschreven door;Napisany przez;Scris de; Skrivet av;Yazan;撰寫人;作者;著者;Napsal;Γραμμένο από;제작자;Escrito por;Escrit per;Parašė;Escrito por;เขียนโดย;Написано;نوشته شده توسط;Shkruar nga
 Yes;Yes;Oui;Ja;Igen;Si ;Да;Si;Si;Ja;Tak;Da; Ja;Evet;是;是;はい;Ano;Ναι;예;Sim;Sí;Taip;Sim;ใช่;Так;بله;Po
 Your system;Your system;Votre système;Deine Systeminformationen;Rendszer;Il tuo sistema;Ваша система;Tu sistema;O teu sistema;Uw systeem;System;Sistemul dvs; Ditt system;Sisteminiz;您的系統;您的系统;システム情報;Instalované kodeky;Το σύστημά σας;이 시스템;Seu sistema;El vostre sistema;Jūsų sistema;Seu sistema;ระบบของคุณ;Ваша система;سیستم شما;Sistemi yt
-ZZ_Automatic_Percent;100;100;99;59;100;98;83;84;80;82;36;80;95;100;99;88;82;82;99;82;87;89;90;88;81;44;99
-ZZ_AutomaticLanguage_Percent;100;100;99;82;100;99;99;89;85;99;77;85;99;100;99;93;86;86;99;86;92;93;94;93;85;84;99
+ZZ_Automatic_Percent;100;100;99;59;100;98;83;84;80;82;36;80;95;100;99;88;82;82;99;82;87;89;90;88;81;56;99
+ZZ_AutomaticLanguage_Percent;100;100;99;82;100;99;99;89;85;99;77;85;99;100;99;93;86;86;99;86;92;93;94;93;85;90;99

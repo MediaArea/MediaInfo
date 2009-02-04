@@ -259,7 +259,7 @@ Dimensions;Dimensionen
 Director;Regisseur
 DirectorOfPhotography;Chefkameramann 
 DisplayAspectRatio;Bildseitenverhältnis
-DisplayAspectRatio_Original
+DisplayAspectRatio_Original;Ursprüngliches Bildseitenverhältnis
 DistributedBy;Vertrieb durch
 Donate;MediaInfo unterstützen
 DotsPerInch;DPI
@@ -707,8 +707,8 @@ Language_yi;Jiddisch
 Language_yo;Joruba
 Language_za;Zhuang
 Language_zh;Chinesisch
-Language_zh-cn
-Language_zh-tw
+Language_zh-cn;Chinesisch (VR China)
+Language_zh-tw;Chinesisch (Taiwan
 Language_zu;Zulu
 LawRating;Altersfreigabe
 LCCN;LCCN
@@ -925,5 +925,5 @@ Written_Location;Ort des Schreibbeginns
 WrittenBy;Geschrieben von
 Yes;Ja
 Your system;Deine Systeminformationen
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
