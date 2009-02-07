@@ -152,8 +152,8 @@ Address;Адрес
 Advanced;Дополнительно
 Advanced mode;Расширенный режим
 Album;Альбом
-Album_ReplayGain_Gain
-Album_ReplayGain_Peak
+Album_ReplayGain_Gain;Нормализатор звука альбома
+Album_ReplayGain_Peak;Пик нормализатора звука альбома
 Alignment;Выравнивание
 Alignment_Aligned;Соединение по промежуткам
 Alignment_Split;Разделение по промежуткам
@@ -259,7 +259,7 @@ Dimensions;Размеры
 Director;Режиссёр
 DirectorOfPhotography;Оператор
 DisplayAspectRatio;Соотношение кадра
-DisplayAspectRatio_Original
+DisplayAspectRatio_Original;Оришинальное соотношение сторон
 DistributedBy;Распространитель
 Donate;Пожертвовать
 DotsPerInch;Точек на дюйм
@@ -517,7 +517,7 @@ Known formats;Известные форматы
 Known parameters;Известные параметры
 Label;Метка
 Language;Язык
-Language_More
+Language_More;Язык, дополнительно
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -556,8 +556,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Greek
 Language_en;English
-Language_en-gb
-Language_en-us
+Language_en-gb;English (Great Britain)
+Language_en-us;English (United States)
 Language_eo;Esperanto
 Language_es;Spanish
 Language_et;Estonian
@@ -654,7 +654,7 @@ Language_pi;Pali
 Language_pl;Polish
 Language_ps;Pushto
 Language_pt;Portuguese
-Language_pt-br
+Language_pt-br;Portuguese (Brazil)
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
@@ -707,8 +707,8 @@ Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Chinese
-Language_zh-cn
-Language_zh-tw
+Language_zh-cn;Chinese (China)
+Language_zh-tw;Chinese (Taiwan)
 Language_zu;Zulu
 LawRating;Ограничения прав
 LCCN;LCCN
@@ -822,8 +822,8 @@ Recorded_Date;Дата записи
 Recorded_Location;Место записи
 Released_Date;Дата выпуска
 RemixedBy;Ремикс от
-ReplayGain_Gain
-ReplayGain_Peak
+ReplayGain_Gain;Нормализатор звука
+ReplayGain_Peak;Пик нормализатор звука
 Resolution;Разрешение
 s;с
 SamplingRate;Частота
@@ -925,5 +925,5 @@ Written_Location;Место написания
 WrittenBy;Написано
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;98
+ZZ_Automatic_Percent;99
 ZZ_AutomaticLanguage_Percent;99
