@@ -183,7 +183,7 @@ BitRate_Mode;码率模式
 BitRate_Mode_CBR;CBR
 BitRate_Mode_VBR;VBR
 BitRate_Nominal;额定码率
-Bits-(Pixel*Frame)
+Bits-(Pixel*Frame);bits/(pixel*frame)(数据密度)
 Cancel;取消
 Channel(s);声道
 ChannelPositions;声道位置
@@ -925,5 +925,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
