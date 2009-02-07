@@ -556,8 +556,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Grieks
 Language_en;Engels
-Language_en-gb
-Language_en-us
+Language_en-gb;Engels (Groot-Brittannië)
+Language_en-us;Engels (Verenigde Staten)
 Language_eo;Esperanto
 Language_es;Spaans
 Language_et;Estisch
@@ -654,7 +654,7 @@ Language_pi;Pali
 Language_pl;Pools
 Language_ps;Pasjtoe
 Language_pt;Portugees
-Language_pt-br
+Language_pt-br;Portugees (Brazilië)
 Language_qu;Quechua
 Language_rm;Reto-Romaans
 Language_rn;Kirundi
@@ -707,8 +707,8 @@ Language_yi;Jiddisch
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Chinees
-Language_zh-cn
-Language_zh-tw
+Language_zh-cn;Chinees (China)
+Language_zh-tw;Chinees (Taiwan)
 Language_zu;Zoeloe
 LawRating;Wettelijke rating
 LCCN;LCCN
@@ -861,7 +861,7 @@ StreamKind;Soort stroom
 StreamKindID;Stroomidentifier
 StreamKindPos;Stroomidentifier
 StreamSize;Stroomgrootte
-StreamSize_Proportion
+StreamSize_Proportion;Proporties van deze stroom
 Subject;Onderwerp
 SubTrack;Ondertiteling
 Summary;Samenvatting
@@ -925,5 +925,5 @@ Written_Location;Locatie van schrijven
 WrittenBy;Geschreven door
 Yes;Ja
 Your system;Uw systeem
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
