@@ -124,16 +124,16 @@
  text stream1; テキストストリーム
  text stream2; テキストストリーム
  text stream3; テキストストリーム
- video frames1
- video frames2
- video frames3
+ video frames1; ビデオフレーム
+ video frames2; ビデオフレーム
+ video frames3; ビデオフレーム
  video stream1; ビデオストリーム
  video stream2; ビデオストリーム
  video stream3; ビデオストリーム
- warppoint0
- warppoint1
- warppoint2
- warppoint3
+ warppoint0; ワープポイント
+ warppoint1; ワープポイント
+ warppoint2; ワープポイント
+ warppoint3; ワープポイント
  week1; 週
  week2; 週
  week3; 週
@@ -147,16 +147,16 @@ About_Hint;連絡方法と最新版チェック
 Accompaniment;演奏者
 Actor;主演
 Actor_Character;出演名
-Added_Date
+Added_Date;追加日
 Address;アドレス
 Advanced;詳細
 Advanced mode;詳細モード
 Album;アルバム
-Album_ReplayGain_Gain
-Album_ReplayGain_Peak
-Alignment
-Alignment_Aligned
-Alignment_Split
+Album_ReplayGain_Gain;リプレイゲイン ゲイン
+Album_ReplayGain_Peak;リプレイゲイン ピーク
+Alignment;アラインメント
+Alignment_Aligned;アライン
+Alignment_Split;分割
 All;すべて
 Archival_Location;作成された場所
 Arranger;アレンジ者
@@ -180,9 +180,9 @@ BitRate;ビットレート
 BitRate_Maximum;最大
 BitRate_Minimum;最小
 BitRate_Mode;ビットレートモード
-BitRate_Mode_CBR
-BitRate_Mode_VBR
-BitRate_Nominal
+BitRate_Mode_CBR;CBR モード
+BitRate_Mode_VBR;VBR モード
+BitRate_Nominal;ノミナル
 Bits-(Pixel*Frame);ビット/(ピクセル*フレーム)
 Cancel;キャンセル
 Channel(s);チャンネル
@@ -191,7 +191,7 @@ Chapter(s);チャプター
 Chapters;チャプター
 Chapters stream(s);チャプターストリーム
 Chapters_Codec_List;チャプターコーデック
-Chapters_No;チャプターなし
+Chapters_No;チャプター番号
 ChaptersCount;チャプター数
 CheckNewVersion;バージョンチェック
 Choose custom;カスタム選択
@@ -223,15 +223,15 @@ Codec_Settings_Law;Law
 Codec_Settings_ITU;ITU
 Codec_Profile;コーデックのプロファイル
 Codec_Url;コーデックの URL
-CodecID;CodecID
-CodecID_Description
+CodecID;コーデック ID
+CodecID_Description;コーデック ID の説明
 Collection;コレクション
 Colorimetry;カラーリメトリ
 Comment;コメント
 CommissionedBy;コミッショナー
 CompleteName;完全名称
 Composer;コンポーザ
-CompressionRatio
+CompressionRatio;圧縮解像度
 Conductor;コンダクター
 Container and general information;コンテナと全般情報
 ContentType;コンテンツタイプ
@@ -242,10 +242,10 @@ Count;数
 Country;国
 Cover;カバー
 Cover_Datas;カバーデータ
-Cover_Description
-Cover_Mime
-Cover_Type
-Cropped
+Cover_Description;カバー詳細
+Cover_Mime;カバーの Mime
+Cover_Type;カバーの種類
+Cropped;クロップ
 Custom;カスタム
 Customize;カスタマイズ
 Date;日付
@@ -262,7 +262,7 @@ DisplayAspectRatio;解像度
 DisplayAspectRatio_Original
 DistributedBy;ディストリビュート by
 Donate;寄付
-DotsPerInch
+DotsPerInch;ドット/インチ
 Duration;ながさ
 Edit;編集
 EditedBy;編集者
@@ -319,10 +319,10 @@ Format_Settings_Law;Law
 Format_Settings_ITU;ITU
 Format_Settings_SBR;SBR
 Format_Settings_PS;PS
-Format_Settings_Pulldown;Pulldown
+Format_Settings_Pulldown;プルダウン
 Format_Version;バージョン
-Format_Url
-FrameCount
+Format_Url;Url フォーマット
+FrameCount;フレーム数
 FrameRate;フレームレート
 FrameRate_Mode;モード
 FrameRate_Mode_CFR
@@ -505,9 +505,9 @@ Interlaced_TFF;トップファースト(TFF)
 Interlaced_BFF;ボトムファースト(BFF)
 Interlaced_PPF;プログレシッブ(PPF)
 Interlaced_Progressive;プログレシッブ(PPF)
-Interleave_Duration
-Interleave_Preload
-Interleave_VideoFrames
+Interleave_Duration;ドゥレイション
+Interleave_Preload;プリロード
+Interleave_VideoFrames;ビデオフレーム
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -517,7 +517,7 @@ Known formats;使用可能なフォーマット
 Known parameters;使用可能なパラメータ
 Label;ラベル
 Language;言語
-Language_More
+Language_More;さらに
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -525,7 +525,7 @@ Language_af;Afrikaans
 Language_ak;Akan
 Language_am;Amharic
 Language_an;Aragonese
-Language_ar;Arabic
+Language_ar;アラビア語
 Language_as;Assamese
 Language_av;Avaric
 Language_ay;Aymara
@@ -540,7 +540,7 @@ Language_bn;Bengali
 Language_bo;Tibetan
 Language_br;Breton
 Language_bs;Bosnian
-Language_ca;Catalan
+Language_ca;カタルーニャ語
 Language_ce;Chechen
 Language_ch;Chamorro
 Language_co;Corsican
@@ -550,34 +550,34 @@ Language_cu;Slave
 Language_cv;Chuvash
 Language_cy;Welsh
 Language_da;Danish
-Language_de;German
+Language_de;ドイツ語
 Language_dv;Divehi
 Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Greek
 Language_en;英語
-Language_en-gb
-Language_en-us
+Language_en-gb;英語(英国)
+Language_en-us;英語(米国)
 Language_eo;Esperanto
 Language_es;エスパーニャ
 Language_et;Estonian
-Language_eu;Basque
+Language_eu;バスク語
 Language_fa;Persian
 Language_ff;Fulah
 Language_fi;Finnish
 Language_fj;Fijian
 Language_fo;Faroese
-Language_fr;French
+Language_fr;フランス語
 Language_fy;Frisian
 Language_ga;Irish
 Language_gd;Gaelic
-Language_gl;Galician
+Language_gl;ガリシア語
 Language_gn;Guarani
 Language_gu;Gujarati
 Language_gv;Manx
 Language_ha;Hausa
-Language_he;Hebrew
-Language_hi;Hindi
+Language_he;ヘブライ語
+Language_hi;ヒンディ語
 Language_ho;Hiri Motu
 Language_hr;Croatian
 Language_ht;Haitian
@@ -590,10 +590,10 @@ Language_ie;Interlingue
 Language_ig;Igbo
 Language_ii;Sichuan Yi
 Language_ik;Inupiaq
-Language_Info;Language info
+Language_Info;言語情報
 Language_io;Ido
 Language_is;Icelandic
-Language_it;Italian
+Language_it;イタリア語
 Language_iu;Inuktitut
 Language_ja;日本語
 Language_jv;Javanese
@@ -605,7 +605,7 @@ Language_kk;Kazakh
 Language_kl;Kalaallisut
 Language_km;Khmer
 Language_kn;Kannada
-Language_ko;Korean
+Language_ko;韓国語
 Language_kr;Kanuri
 Language_ks;Kashmiri
 Language_ku;Kurdish
@@ -638,7 +638,7 @@ Language_nb;Norwegian Bokmal
 Language_nd;Ndebele
 Language_ne;Nepali
 Language_ng;Ndonga
-Language_nl;Dutch
+Language_nl;オランダ語
 Language_nn;Norwegian Bokmal
 Language_no;Norwegian Nynorsk
 Language_nr;Ndebele
@@ -653,13 +653,13 @@ Language_pa;Panjabi
 Language_pi;Pali
 Language_pl;Polish
 Language_ps;Pushto
-Language_pt;Portuguese
-Language_pt-br
+Language_pt;ポルトガル語(ポルトガル)
+Language_pt-br;BR ポルトガル語(ブラジル)
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
-Language_ro;Romanian
-Language_ru;Russian
+Language_ro;ルーマニア語
+Language_ru;ロシア語
 Language_rw;Kinyarwanda
 Language_sa;Sanskrit
 Language_sc;Sardinian
@@ -706,16 +706,16 @@ Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
-Language_zh;Chinese
-Language_zh-cn
-Language_zh-tw
-Language_zu;Zulu
+Language_zh;中国語
+Language_zh-cn;中国語(簡体)
+Language_zh-tw;中国語(繁体)
+Language_zu;ズールー語
 LawRating;レイティング
 LCCN;LCCN
 Library;ライブラリ
-Lightness
+Lightness;明るさ
 List;リスト
-Lyrics
+Lyrics;歌詞
 Lyricist;作詞
 Mastered_Date;マスタリング日
 MasteredBy;マスタリング by 
@@ -723,70 +723,70 @@ MediaInfo_About; 詳細情報提供者 \r\n マルチメディア ファイル:\
 Menu;メニュー
 Menu stream(s);メニューストリーム
 Menu_Codec_List;メニューコーデック
-Menu_No;メニューなし
+Menu_No;メニュー番号
 MenuCount;メニューストリーム数
-Menu_Hint;さらに
-MenuID
+Menu_Hint;ヒント
+MenuID;ID
 mn;分
 Mood;ムード
 More;さらに
 Movie;映画名
 ms;秒
 MSDI;MSDI
-MusicBy
+MusicBy;演奏者
 MuxingMode;Muxing モード
-MuxingMode_PackedBitstream
+MuxingMode_PackedBitstream;ビット ストリーム パック
 Name;名前
 Nationality;制作国
 New;新規
 Newest version;新バージョンチェック（要インターネット接続）
 No;いいえ
-Not yet
-NumColors
+Not yet;準備中です
+NumColors;色
 OK;OK
-One output file per input file;単一ファイルで出力
+One output file per input file;入力ファイルを単一ファイルで出力
 Open;開く
-OpenCandy_01
-OpenCandy_02
-OpenCandy_03
-OpenCandy_04
-OpenCandy_05
-OpenCandy_06
-OpenCandy_07
-OpenCandy_08
-OpenCandy_09
-OpenCandy_10
-OpenCandy_11
-OpenCandy_12
-OpenCandy_13
-OpenCandy_14
-OpenCandy_15
-OpenCandy_16
-OpenCandy_17
-OpenCandy_18
-OpenCandy_19
-OpenCandy_20
-OpenCandy_21
-OpenCandy_22
-OpenCandy_23
-OpenCandy_24
-OpenCandy_25
-OpenCandy_26
-OpenCandy_27
-OpenCandy_28
-OpenCandy_29
-OpenCandy_30
-OpenCandy_31
-OpenCandy_32
-OpenCandy_33
-OpenCandy_34
-OpenCandy_35
-OpenCandy_36
+OpenCandy_01;オープンキャンディ
+OpenCandy_02;オープンキャンディ
+OpenCandy_03;オープンキャンディ
+OpenCandy_04;オープンキャンディ
+OpenCandy_05;オープンキャンディ
+OpenCandy_06;オープンキャンディ
+OpenCandy_07;オープンキャンディ
+OpenCandy_08;オープンキャンディ
+OpenCandy_09;オープンキャンディ
+OpenCandy_10;オープンキャンディ
+OpenCandy_11;オープンキャンディ
+OpenCandy_12;オープンキャンディ
+OpenCandy_13;オープンキャンディ
+OpenCandy_14;オープンキャンディ
+OpenCandy_15;オープンキャンディ
+OpenCandy_16;オープンキャンディ
+OpenCandy_17;オープンキャンディ
+OpenCandy_18;オープンキャンディ
+OpenCandy_19;オープンキャンディ
+OpenCandy_20;オープンキャンディ
+OpenCandy_21;オープンキャンディ
+OpenCandy_22;オープンキャンディ
+OpenCandy_23;オープンキャンディ
+OpenCandy_24;オープンキャンディ
+OpenCandy_25;オープンキャンディ
+OpenCandy_26;オープンキャンディ
+OpenCandy_27;オープンキャンディ
+OpenCandy_28;オープンキャンディ
+OpenCandy_29;オープンキャンディ
+OpenCandy_30;オープンキャンディ
+OpenCandy_31;オープンキャンディ
+OpenCandy_32;オープンキャンディ
+OpenCandy_33;オープンキャンディ
+OpenCandy_34;オープンキャンディ
+OpenCandy_35;オープンキャンディ
+OpenCandy_36;オープンキャンディ
 Options;オプション
 Options_Hint;詳細設定
 Original;オリジナル
-OriginalSourceForm
-OriginalSourceMedium
+OriginalSourceForm;オリジナル ソース フォーム
+OriginalSourceMedium;中間ソース フォーム
 Other;その他
 Output;出力
 Output format;出力フォーマット
@@ -794,7 +794,7 @@ OverallBitRate;オーバルビットレート
 OverallBitRate_Maximum;最大
 OverallBitRate_Minimum;最小
 OverallBitRate_Mode;OBR モード
-OverallBitRate_Nominal;通常
+OverallBitRate_Nominal;OBR ノミナル
 Part;パート
 Part_Count;合計
 Performer;パフォーマー
@@ -802,10 +802,10 @@ Period;ピリオド
 Phone;電話
 PixelAspectRatio;ピクセル比
 PixelAspectRatio_Original;ピクセル比
-PlayCounter;再生数
-Played_Count
-Played_First_Date
-Played_Last_Date
+PlayCounter;再生数カウンター
+Played_Count;再生数
+Played_First_Date;初再生日
+Played_Last_Date;最終再生日
 PlayTime;再生時間
 Position;ポジション
 Position_Total;合計
@@ -822,8 +822,8 @@ Recorded_Date;録音日
 Recorded_Location;録音した場所
 Released_Date;リリース日
 RemixedBy;リミックス by
-ReplayGain_Gain
-ReplayGain_Peak
+ReplayGain_Gain;リプレイゲイン ゲイン
+ReplayGain_Peak;リプレイ ゲイン ピーク
 Resolution;解像度
 s;秒
 SamplingRate;サンプルレート
@@ -831,25 +831,25 @@ Save;保存
 ScanType;スキャンの種類
 ScanOrder;スキャンの並び
 ScreenplayBy;監督
-Season;季節
+Season;シーズン
 see below;以下詳細
 Send HeaderFile;可能ならヘッダファイルを送信してください: http://sourceforge.net/projects/mediainfo/ (バグセクション)
 Separator_Columns;列の区切り
 Separator_Lines;区切り線
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
+ServiceChannel;チャンネル
+ServiceName;名前
+ServiceProvider;プロバイダ
+ServiceType;種類
 Set;セット
 Set_Count;セット回数
 Setup;セットアップ
-Sharpness
+Sharpness;シャープネス
 Sheet;シート
 Sheet (Complete);シート (完成)
 Shell extension;シェルに統合（右クリックメニューに登録)
 Shell InfoTip;シェルでインフォチップ（対応ファイル上でツールチップを表示）
 Show menu;メニューを表示する
-Show toolbar;ツールバーを表示する
+Show toolbar;ツール バーを表示する
 Sort;並び替え
 SoundEngineer;サウンドエンジニア
 Standard;標準
@@ -858,17 +858,17 @@ Stream_MoreInfo;このストリームの詳細情報
 StreamCount;この種類のストリーム数
 StreamID;ストリーム ID
 StreamKind;ストリーム種
-StreamKindID
-StreamKindPos
+StreamKindID;ID
+StreamKindPos;ポジション
 StreamSize;ストリームサイズ
-StreamSize_Proportion
+StreamSize_Proportion;サイズ整形
 Subject;件名
 SubTrack;サブトラック
 Summary;サマリー
 Supported formats;対応フォーマット
 Supported?;サポート？
-Synopsys;サイノプシス
-SystemId;Id
+Synopsys;Synopsys
+SystemId;システム Id
 Tagged_Application;タギングツール
 Tagged_Date;タグ付け日
 Technician;テクニシャン
@@ -896,27 +896,27 @@ Tree;ツリー
 Tree & Text;ツリーとテキスト
 Unknown;不明
 Url;Url
-Video;Video
-Video stream(s);映像ストリーム
-Video_Codec_List;映像コーデック
-Video_Delay;映像 遅延
-Video_No;映像なし
-Video0_Delay;映像0 遅延
-Video1;プライマリ映像ストリーム
-VideoCount;映像ストリーム数
+Video;ビデオ
+Video stream(s);ビデオストリーム
+Video_Codec_List;ビデオコーデック
+Video_Delay;ビデオ ディレイ
+Video_No;ビデオ番号
+Video0_Delay;ビデオ 0 ディレイ
+Video1;ビデオ 1
+VideoCount;ビデオストリーム数
 View;表示
-View_Hint;表示中の情報を変更する
+View_Hint;ヒントを表示する
 Warning : more streams in the files;警告 : このファイルにはさらなるストリームが含まれています
 Web;Web
-WebSite_Audio;この音声コーデックについて
-WebSite_Audio_More; (%Url%) へ移動してこの音声コーデックを探す
+WebSite_Audio;このオーディオコーデックについて
+WebSite_Audio_More; (%Url%) へ移動してこのオーディオコーデックを探す
 WebSite_General;このファイルを再生可能なプレイヤー
 WebSite_General_More;このファイルを再生可能なプレイヤー
 WebSite_Text;このテキストコーデックについて
 WebSite_Text_More; (%Url%) へ移動してこのテキストコーデックを探す
 WebSite_Url;http://mediainfo.sourceforge.net
-WebSite_Video;この映像コーデックについて
-WebSite_Video_More; (%Url%) へ移動してこの映像コーデックを探す
+WebSite_Video;このビデオコーデックについて
+WebSite_Video_More; (%Url%) へ移動してこのビデオコーデックを探す
 Width;幅
 WriteMe;メール送信
 WriteToTranslator;翻訳者
@@ -925,5 +925,5 @@ Written_Location;作成所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;88
-ZZ_AutomaticLanguage_Percent;93
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98
