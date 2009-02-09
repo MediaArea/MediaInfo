@@ -144,6 +144,8 @@ void File_Wvpk::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Wvpk::Read_Buffer_Finalize()
 {
+    Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
+
     //Specific case
     if (FromMKV)
         return;
@@ -158,7 +160,6 @@ void File_Wvpk::Read_Buffer_Finalize()
         Fill(Stream_Audio, 0, Audio_StreamSize, CompressedSize, 3, true);
         Fill(Stream_Audio, 0, Audio_Duration, Duration, 10, true);
         Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio, 3, true);
-        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
     }
 
     //Tags
