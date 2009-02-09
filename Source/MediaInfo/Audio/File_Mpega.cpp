@@ -620,6 +620,8 @@ void File_Mpega::Data_Parse()
     FILLING_BEGIN();
         //Filling
         LastSync_Offset=File_Offset+Buffer_Offset+Element_Size;
+        if (IsSub && BitRate_Count.size()>1 && !Encoded_Library.empty())
+            Frame_Count_Valid=Frame_Count;
         if (Count_Get(Stream_Audio)==0 && Frame_Count>=Frame_Count_Valid)
             Data_Parse_Fill();
 
