@@ -87,6 +87,23 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Constants
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+const char* Mk_ContentCompAlgo(int64u Algo)
+{
+    switch (Algo)
+    {
+        case 0x00 : return "zlib";
+        case 0x01 : return "bzlib";
+        case 0x02 : return "lzo1x";
+        case 0x03 : return "Header stripping";
+        default   : return "";
+    }
+}
+
+//***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
 
@@ -146,7 +163,7 @@ void File_Mk::Read_Buffer_Finalize()
                 if (Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).empty())
                 {
                     //Trying to detect VFR
-                    std::vector<int16s> FrameRate_Between;
+                    std::vector<int64s> FrameRate_Between;
                     std::sort(Temp->second.TimeCodes.begin(), Temp->second.TimeCodes.end()); //This is PTS, no DTS --> Some frames are out of order
                     for (size_t Pos=1; Pos<Temp->second.TimeCodes.size(); Pos++)
                         FrameRate_Between.push_back(Temp->second.TimeCodes[Pos]-Temp->second.TimeCodes[Pos-1]);
@@ -363,6 +380,21 @@ namespace Elements
     const int64u Segment_Tracks_TrackEntry_Audio_SamplingFrequency=0x35;
     const int64u Segment_Tracks_TrackEntry_CodecDecodeAll=0x2A;
     const int64u Segment_Tracks_TrackEntry_CodecID=0x6;
+    const int64u Segment_Tracks_TrackEntry_ContentEncodings=0x2D80;
+    const int64u Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding=0x2240;
+    const int64u Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Order=0x1031;
+    const int64u Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Scope=0x1032;
+    const int64u Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Type=0x1033;
+    const int64u Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Compression=0x1034;
+    const int64u Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Compression_ContentCompAlgo=0x0254;
+    const int64u Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Compression_ContentCompSettings=0x0255;
+    const int64u Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption=0x1035;
+    const int64u Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentEncAlgo=0x07E1;
+    const int64u Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentEncKeyID=0x07E2;
+    const int64u Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentSignature=0x07E3;
+    const int64u Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentSigKeyID=0x07E4;
+    const int64u Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentSigAlgo=0x07E5;
+    const int64u Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentSigHashAlgo=0x07E6;
     const int64u Segment_Tracks_TrackEntry_CodecName=0x58688;
     const int64u Segment_Tracks_TrackEntry_CodecPrivate=0x23A2;
     const int64u Segment_Tracks_TrackEntry_DefaultDuration=0x3E383;
@@ -402,6 +434,32 @@ namespace Elements
 //---------------------------------------------------------------------------
 void File_Mk::Data_Parse()
 {
+    #define LIS2(_ATOM, _NAME) \
+        case Elements::_ATOM : \
+                if (Level==Element_Level) \
+                { \
+                    Element_Name(_NAME); \
+                    _ATOM(); \
+                    Element_ThisIsAList(); \
+                } \
+
+    #define ATO2(_ATOM, _NAME) \
+                case Elements::_ATOM : \
+                        if (Level==Element_Level) \
+                        { \
+                            if (Element_IsComplete_Get()) \
+                            { \
+                                Element_Name(_NAME); \
+                                _ATOM(); \
+                            } \
+                            else \
+                            { \
+                                Element_WaitForMoreData(); \
+                                return; \
+                            } \
+                        } \
+                        break; \
+
     #define ATOM_END_MK \
         ATOM(CRC32) \
         ATOM(Void) \
@@ -604,6 +662,29 @@ void File_Mk::Data_Parse()
                     ATOM_END_MK
                 ATOM(Segment_Tracks_TrackEntry_CodecDecodeAll)
                 ATOM(Segment_Tracks_TrackEntry_CodecID)
+                LIS2(Segment_Tracks_TrackEntry_ContentEncodings, "ContentEncodings")
+                    ATOM_BEGIN
+                    LIS2(Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding, "ContentEncoding")
+                    ATOM_BEGIN
+                        ATO2(Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Order, "Order")
+                        ATO2(Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Scope, "Scope")
+                        ATO2(Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Type, "Type")
+                        LIS2(Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Compression, "Compression")
+                            ATOM_BEGIN
+                            ATO2(Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Compression_ContentCompAlgo, "Algo")
+                            ATO2(Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Compression_ContentCompSettings, "Settings")
+                            ATOM_END_MK
+                        LIS2(Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption, "Encryption")
+                            ATOM_BEGIN
+                            ATO2(Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentEncAlgo, "Algo")
+                            ATO2(Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentEncKeyID, "KeyID")
+                            ATO2(Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentSignature, "Signature")
+                            ATO2(Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentSigKeyID, "SigKeyID")
+                            ATO2(Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentSigAlgo, "SigAlgo")
+                            ATO2(Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentSigHashAlgo, "SigHashAlgo")
+                            ATOM_END_MK
+                        ATOM_END_MK
+                    ATOM_END_MK
                 ATOM(Segment_Tracks_TrackEntry_CodecName)
                 ATOM(Segment_Tracks_TrackEntry_CodecPrivate)
                 ATOM(Segment_Tracks_TrackEntry_DefaultDuration)
@@ -1144,7 +1225,7 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
             {
                 case 1 : //Xiph lacing
                         {
-                            int64u Element_Offset_Offset=0;
+                            int64u Element_Offset_Virtual=0;
                             for (int8u Pos=0; Pos<FrameCountMinus1; Pos++)
                             {
                                 int32u Size=0;
@@ -1156,26 +1237,33 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
                                 }
                                 while (Size8==0xFF);
                                 Param_Info(Size);
-                                Element_Offset_Offset+=Size;
+                                Element_Offset_Virtual+=Size;
+                                Laces.push_back(Size);
                             }
-                            //Size=Element_Size-Element_Offset-Element_Offset_Offset; Param_Info(Size);
+                            Laces.push_back(Element_Size-Element_Offset-Element_Offset_Virtual); //last lace
                         }
                         break;
                 case 2 : //Fixed-size lacing - No more data
+                        {
+                            int64u Size=(Element_Size-Element_Offset)/(FrameCountMinus1+1);
+                            Laces.resize(FrameCountMinus1+1, Size);
+                        }
                         break;
                 case 3 : //EBML lacing
                         {
-                            int64u Element_Offset_Offset=0, Size;
+                            int64u Element_Offset_Virtual=0, Size;
                             Get_EB (Size,                       "Size");
-                            Element_Offset_Offset+=Size;
+                            Laces.push_back(Size);
+                            Element_Offset_Virtual+=Size;
                             for (int8u Pos=1; Pos<FrameCountMinus1; Pos++)
                             {
                                 int64s Diff;
                                 Get_ES (Diff,                   "Difference");
                                 Size+=Diff; Param_Info(Size);
-                                Element_Offset_Offset+=Size;
+                                Element_Offset_Virtual+=Size;
+                                Laces.push_back(Size);
                             }
-                            //Size=Element_Size-Element_Offset-Element_Offset_Offset; Param_Info(Size);
+                            Laces.push_back(Element_Size-Element_Offset-Element_Offset_Virtual); Param_Info(Size); //last lace
                         }
                         break;
                 default : ; //Should never be here
@@ -1194,15 +1282,34 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
         }
 
         //Parsing
-        if (Stream[TrackNumber].SearchingPayload)
+        for (size_t Pos=0; Pos<Laces.size(); Pos++)
         {
-            Open_Buffer_Init(Stream[TrackNumber].Parser, File_Size, File_Offset+Buffer_Offset+Element_Offset);
-            Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-            if (Stream[TrackNumber].Parser->File_Offset==File_Size || Stream[TrackNumber].PacketCount>=300)
-                Stream[TrackNumber].SearchingPayload=false;
+            //Content compression
+            if (Stream[TrackNumber].ContentCompAlgo!=(int32u)-1 && Stream[TrackNumber].ContentCompAlgo!=3)
+                Stream[TrackNumber].SearchingPayload=false; //Unsupported
+
+            if (Stream[TrackNumber].SearchingPayload)
+            {
+                //Content compression
+                if (Stream[TrackNumber].ContentCompAlgo==3) //Header Stripping
+                {
+                    Element_Offset-=(size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size; //This is an extra array, not in the stream
+                    Open_Buffer_Init(Stream[TrackNumber].Parser, File_Size, File_Offset+Buffer_Offset+Element_Offset);
+                    Open_Buffer_Continue(Stream[TrackNumber].Parser, Stream[TrackNumber].ContentCompSettings_Buffer, (size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size);
+                    Element_Offset+=(size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size;
+                    Demux(Stream[TrackNumber].ContentCompSettings_Buffer, (size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size, Ztring::ToZtring(TrackNumber, 16)+_T(".")+_T("raw"));
+                }
+
+                //Parsing
+                Open_Buffer_Init(Stream[TrackNumber].Parser, File_Size, File_Offset+Buffer_Offset+Element_Offset);
+                Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Laces[Pos]);
+                Element_Offset+=Laces[Pos];
+                if (Stream[TrackNumber].Parser->File_Offset==File_Size || Stream[TrackNumber].PacketCount>=300)
+                    Stream[TrackNumber].SearchingPayload=false;
+            }
+            else
+                Skip_XX(Laces[Pos],                             "Data");
         }
-        else
-            Skip_XX(Element_Size-Element_Offset,                "Data");
 
         //Filling
         if (!Stream[TrackNumber].SearchingPayload && !Stream[TrackNumber].SearchingTimeCode)
@@ -1837,6 +1944,30 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecID()
         CodecID=Data;
         CodecID_Manage();
         CodecPrivate_Manage();
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Compression_ContentCompAlgo()
+{
+    //Parsing
+    int64u Algo=UInteger_Get(); Param_Info(Mk_ContentCompAlgo(Algo));
+
+    FILLING_BEGIN();
+        Stream[TrackNumber].ContentCompAlgo=Algo;
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mk::Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Compression_ContentCompSettings()
+{
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+
+    FILLING_BEGIN();
+        Stream[TrackNumber].ContentCompSettings_Buffer=new int8u[(size_t)Element_Size];
+        std::memcpy(Stream[TrackNumber].ContentCompSettings_Buffer, Buffer+Buffer_Offset, (size_t)Element_Size);
+        Stream[TrackNumber].ContentCompSettings_Buffer_Size=(size_t)Element_Size;
     FILLING_END();
 }
 

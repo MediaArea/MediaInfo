@@ -174,6 +174,21 @@ private :
     void Segment_Tracks_TrackEntry_Audio_SamplingFrequency();
     void Segment_Tracks_TrackEntry_CodecDecodeAll();
     void Segment_Tracks_TrackEntry_CodecID();
+    void Segment_Tracks_TrackEntry_ContentEncodings() {};
+    void Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding() {};
+    void Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Order() {UInteger_Info();};
+    void Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Scope() {UInteger_Info();};
+    void Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Type() {UInteger_Info();};
+    void Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Compression() {};
+    void Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Compression_ContentCompAlgo();
+    void Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Compression_ContentCompSettings();
+    void Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption() {};
+    void Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentEncAlgo() {UInteger_Info();};
+    void Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentEncKeyID() {Skip_XX(Element_Size, "Data");};
+    void Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentSignature() {Skip_XX(Element_Size, "Data");};
+    void Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentSigKeyID() {Skip_XX(Element_Size, "Data");};
+    void Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentSigAlgo() {UInteger_Info();};
+    void Segment_Tracks_TrackEntry_ContentEncodings_ContentEncoding_Encryption_ContentSigHashAlgo() {UInteger_Info();};
     void Segment_Tracks_TrackEntry_CodecName();
     void Segment_Tracks_TrackEntry_CodecPrivate();
     void Segment_Tracks_TrackEntry_CodecPrivate_auds();
@@ -213,7 +228,7 @@ private :
 
     struct stream
     {
-        std::vector<size_t>     TimeCodes;
+        std::vector<int64u>     TimeCodes;
         File__Analyze*          Parser;
         stream_t                StreamKind;
         size_t                  StreamPos;
@@ -222,6 +237,9 @@ private :
         float32                 DisplayAspectRatio;
         bool                    SearchingPayload;
         bool                    SearchingTimeCode;
+        int64u                  ContentCompAlgo;
+        size_t                  ContentCompSettings_Buffer_Size;
+        int8u*                  ContentCompSettings_Buffer;
 
         stream()
         {
@@ -233,6 +251,9 @@ private :
             DisplayAspectRatio=0;
             SearchingPayload=true;
             SearchingTimeCode=false;
+            ContentCompAlgo=(int32u)-1;
+            ContentCompSettings_Buffer_Size=0;
+            ContentCompSettings_Buffer=NULL;
         }
 
         ~stream()
@@ -276,7 +297,7 @@ private :
     int64u  ChapterTimeStart;
     Ztring  ChapterString;
     int32u  Chapter_Pos;
-    int16u  Segment_Cluster_TimeCode_Value;
+    int64u  Segment_Cluster_TimeCode_Value;
     bool    Cluster_AlreadyParsed;
 };
 
