@@ -367,14 +367,8 @@ void File_Dts::Read_Buffer_Finalize()
         Merge(*Parser);
         if (!BigEndian)
             Fill(Stream_Audio, 0, Audio_Format_Profile, "LE");
-
         if (!Word)
-        {
-            int32u BitRate=Retrieve(Stream_Audio, 0, Audio_BitRate).To_int32u();
-            if (BitRate)
-                Fill(Stream_Audio, 0, Audio_BitRate, BitRate*16/14, 10, true);
             Fill(Stream_Audio, 0, Audio_Format_Profile, "14");
-        }
     }
 }
 
