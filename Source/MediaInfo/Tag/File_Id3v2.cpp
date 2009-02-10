@@ -944,7 +944,10 @@ void File_Id3v2::Fill_Name()
         case Id3::TSRC : Fill(Stream_General, 0, General_ISRC, Element_Value); break;
         case Id3::TSSE : Fill(Stream_General, 0, General_Encoded_Library_Settings, Element_Value); break;
         case Id3::TSST : Fill(Stream_General, 0, "Set subtitle", Element_Value); break;
-        case Id3::TXXX :      if (Element_Values(0)==_T("first_played_timestamp")) Fill(Stream_General, 0, General_Played_First_Date,       Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/10000));
+        case Id3::TXXX :      if (Element_Values(0)==_T("CT_GAPLESS_DATA"))        ;
+                         else if (Element_Values(0)==_T("DISCNUMBER"))             Fill(Stream_General, 0, General_Part_Position,           Element_Values(1), true);
+                         else if (Element_Values(0)==_T("DISCTOTAL"))              Fill(Stream_General, 0, General_Part_Position_Total,     Element_Values(1), true);
+                         else if (Element_Values(0)==_T("first_played_timestamp")) Fill(Stream_General, 0, General_Played_First_Date,       Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/10000));
                          else if (Element_Values(0)==_T("last_played_timestamp"))  Fill(Stream_General, 0, General_Played_Last_Date,        Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/10000));
                          else if (Element_Values(0)==_T("play_count"))             Fill(Stream_General, 0, General_Played_Count,            Element_Values(1).To_int64u());
                          else if (Element_Values(0)==_T("added_timestamp"))        Fill(Stream_General, 0, General_Added_Date,              Ztring().Date_From_Milliseconds_1601(Element_Values(1).To_int64u()/10000));
@@ -953,8 +956,6 @@ void File_Id3v2::Fill_Name()
                          else if (Element_Values(0)==_T("replaygain_track_gain"))  Fill(Stream_Audio,   0, Audio_ReplayGain_Gain,           Element_Values(1).To_float64(), 2, true);
                          else if (Element_Values(0)==_T("replaygain_track_peak"))  Fill(Stream_Audio,   0, Audio_ReplayGain_Peak,           Element_Values(1).To_float64(), 6, true);
                          else if (Element_Values(0)==_T("TRACKTOTAL"))             Fill(Stream_General, 0, General_Track_Position_Total,    Element_Values(1), true);
-                         else if (Element_Values(0)==_T("DISCNUMBER"))             Fill(Stream_General, 0, General_Part_Position,           Element_Values(1), true);
-                         else if (Element_Values(0)==_T("DISCTOTAL"))              Fill(Stream_General, 0, General_Part_Position_Total,     Element_Values(1), true);
                          else
                             Fill(Stream_General, 0, Element_Values(0).To_UTF8().c_str(), Element_Values(1));
                          break;

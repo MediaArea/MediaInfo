@@ -173,6 +173,10 @@ void File_ApeTag::Data_Parse()
     else if (Key=="CONTENT GROUP DESCRIPTION") Fill(Stream_General, 0, General_Title, Value);
     else if (Key=="ORIGINAL ALBUM/MOVIE/SHOW TITLE") Fill(Stream_General, 0, General_Original_Album, Value);
     else if (Key=="ORIGINAL ARTIST(S)/PERFORMER(S)") Fill(Stream_General, 0, General_Original_Performer, Value);
+    else if (Key=="MP3GAIN_MINMAX") Fill(Stream_Audio, 0, "MP3Gain, Min/Max", Value);
+    else if (Key=="MP3GAIN_UNDO") Fill(Stream_Audio, 0, "MP3Gain, Undo", Value);
+    else if (Key=="REPLAYGAIN_TRACK_GAIN") Fill(Stream_Audio, 0, Audio_ReplayGain_Gain, Value.To_float64(), 2, true);
+    else if (Key=="REPLAYGAIN_TRACK_PEAK") Fill(Stream_Audio, 0, Audio_ReplayGain_Peak, Value.To_float64(), 6, true);
     else                            Fill(Stream_General, 0, Key.c_str(), Value);
 }
 
