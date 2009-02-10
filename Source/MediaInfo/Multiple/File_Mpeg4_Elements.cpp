@@ -1942,12 +1942,20 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tmcd_name()
     int16u Size, Language;
     Get_B2(Size,                                                "Size");
     Get_B2(Language,                                            "Language"); Param_Info(Language_Get(Language));
+    if (Size)
+    {
+        int8u Junk;
+        Peek_B1(Junk);
+        if (Junk<0x20)
+        {
+            Skip_B1(                                                "Junk");
+            Size--;
+        }
+    }
     Get_Local(Size, Value,                                      "Value");
 
     FILLING_BEGIN();
-        for (std::map<int32u, stream>::iterator Strea=Stream.begin(); Strea!=Stream.end(); Strea++)
-            if (Strea->second.TimeCode_TrackID==moov_trak_tkhd_TrackID)
-                Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Title", Value);
+        Fill(Stream_General, 0, General_OriginalSourceMedium, Value);
     FILLING_END();
 }
 
