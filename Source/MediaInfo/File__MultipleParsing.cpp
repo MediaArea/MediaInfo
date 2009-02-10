@@ -29,9 +29,6 @@
 #include "MediaInfo/File__MultipleParsing.h"
 //---------------------------------------------------------------------------
 // Multiple
-#if defined(MEDIAINFO_BDAV_YES)
-    #include "MediaInfo/Multiple/File_Bdav.h"
-#endif
 #if defined(MEDIAINFO_CDXA_YES)
     #include "MediaInfo/Multiple/File_Cdxa.h"
 #endif
@@ -271,9 +268,6 @@ void File__MultipleParsing::Read_Buffer_Continue()
     {
         File__Analyze* Temp;
         // Multiple
-        #if defined(MEDIAINFO_BDAV_YES)
-            Temp=new File_Bdav(); Parser.push_back(Temp);
-        #endif
         #if defined(MEDIAINFO_CDXA_YES)
             Temp=new File_Cdxa(); Parser.push_back(Temp);
         #endif
@@ -297,6 +291,7 @@ void File__MultipleParsing::Read_Buffer_Continue()
         #endif
         #if defined(MEDIAINFO_MPEGTS_YES)
             Temp=new File_MpegTs(); Parser.push_back(Temp);
+            Temp=new File_MpegTs(); ((File_MpegTs*)Temp)->BDAV_Size=4; Parser.push_back(Temp);
         #endif
         #if defined(MEDIAINFO_MXF_YES)
           Temp=new File_Mxf(); Parser.push_back(Temp);

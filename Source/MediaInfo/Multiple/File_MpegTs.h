@@ -45,6 +45,11 @@ namespace MediaInfoLib
 class File_MpegTs : public File__Duplicate
 {
 public :
+    //In
+    size_t BDAV_Size;
+    size_t TSP_Size;
+
+public :
     File_MpegTs();
     ~File_MpegTs();
 
@@ -206,7 +211,6 @@ private :
     size_t elementary_PID_Count;
 
     //Temp
-    size_t BDAV_Size;
     size_t TS_Size;
     int64u MpegTs_JumpTo_Begin;
     int64u MpegTs_JumpTo_End;

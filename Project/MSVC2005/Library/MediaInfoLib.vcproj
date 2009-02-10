@@ -408,10 +408,6 @@
 				Name="Multiple"
 				>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Bdav.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Cdxa.cpp"
 					>
 				</File>
@@ -874,10 +870,6 @@
 			<Filter
 				Name="Multiple"
 				>
-				<File
-					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Bdav.h"
-					>
-				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Cdxa.h"
 					>

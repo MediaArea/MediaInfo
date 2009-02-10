@@ -37,9 +37,6 @@
 
 //---------------------------------------------------------------------------
 // Multiple
-#if defined(MEDIAINFO_BDAV_YES)
-    #include "MediaInfo/Multiple/File_Bdav.h"
-#endif
 #if defined(MEDIAINFO_CDXA_YES)
     #include "MediaInfo/Multiple/File_Cdxa.h"
 #endif
@@ -272,8 +269,8 @@ void MediaInfo_Internal::SelectFromExtension (const String &Parser)
              if (0) {} //For #defines
 
     // Multiple
-    #if defined(MEDIAINFO_BDAV_YES)
-        else if (Parser==_T("Bdav"))        Info=new File_Bdav();
+    #if defined(MEDIAINFO_MPEGTS_YES)
+        else if (Parser==_T("Bdav"))       {Info=new File_MpegTs(); ((File_MpegTs*)Info)->BDAV_Size=4;}
     #endif
     #if defined(MEDIAINFO_CDXA_YES)
         else if (Parser==_T("Cdxa"))        Info=new File_Cdxa();
@@ -484,9 +481,6 @@ int MediaInfo_Internal::ListFormats()
     delete Info; Info=NULL;
 
     // Multiple
-    #if defined(MEDIAINFO_BDAV_YES)
-        delete Info; Info=new File_Bdav();               if (ApplyMethod()>0) return 1;
-    #endif
     #if defined(MEDIAINFO_CDXA_YES)
         delete Info; Info=new File_Cdxa();               if (ApplyMethod()>0) return 1;
     #endif
@@ -510,6 +504,8 @@ int MediaInfo_Internal::ListFormats()
     #endif
     #if defined(MEDIAINFO_MPEGTS_YES)
         delete Info; Info=new File_MpegTs();             if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_MpegTs(); ((File_MpegTs*)Info)->BDAV_Size=4; if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_MpegTs(); ((File_MpegTs*)Info)->TSP_Size=16; if (ApplyMethod()>0) return 1;
     #endif
     #if defined(MEDIAINFO_MXF_YES)
         delete Info; Info=new File_Mxf();                if (ApplyMethod()>0) return 1;

@@ -352,7 +352,6 @@
         <FILE FILENAME="..\..\..\Source\MediaInfo\Archive\File_Tar.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Tar" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Archive\File_Zip.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Zip" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Wm_Elements.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wm_Elements" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Bdav.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Bdav" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Cdxa.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Cdxa" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Dpg.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dpg" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_DvDif.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_DvDif" FORMNAME="" DESIGNCLASS=""/>

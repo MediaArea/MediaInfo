@@ -116,9 +116,9 @@ File_MpegTs::File_MpegTs()
     Trusted_Multiplier=2;
 
     //Internal config
-    TS_Size=188;
     BDAV_Size=0; //No BDAV header
-
+    TSP_Size=0; //No TSP footer
+    
     //Data
     format_identifier=0xFFFFFFFF;
     MpegTs_JumpTo_Begin=MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
@@ -141,6 +141,9 @@ File_MpegTs::~File_MpegTs ()
 //---------------------------------------------------------------------------
 bool File_MpegTs::FileHeader_Begin()
 {
+    //Configuring
+    TS_Size=188+BDAV_Size+TSP_Size;
+
     //Integrity
     if (File_Offset==0 && Detect_NonMPEGTS())
         return false;
@@ -295,7 +298,7 @@ void File_MpegTs::Read_Buffer_Finalize()
     }
 
     //Fill General
-    Fill(Stream_General, 0, General_Format, "MPEG-TS", Unlimited, true, true);
+    Fill(Stream_General, 0, General_Format, BDAV_Size?"BDAV":(TSP_Size?"MPEG-TS 188+16":"MPEG-TS"), Unlimited, true, true);
 
     //Fill Menu
     if (Programs.size()>1 || Config->File_MpegTs_ForceMenu_Get())
@@ -343,7 +346,7 @@ void File_MpegTs::Read_Buffer_Finalize()
 bool File_MpegTs::Header_Begin()
 {
     //Must have enough buffer for having header
-    if (Buffer_Offset+BDAV_Size+4>Buffer_Size)
+    if (Buffer_Offset+BDAV_Size+TSP_Size+4>Buffer_Size)
         return false;
 
     //Quick test of synchro
@@ -499,6 +502,9 @@ void File_MpegTs::Header_Parse_AdaptationField()
 //---------------------------------------------------------------------------
 void File_MpegTs::Data_Parse()
 {
+    if (TSP_Size)
+        Element_Size-=TSP_Size;
+
     //File__Duplicate
     if (Streams[pid].ShouldDuplicate)
         File__Duplicate_Write(pid);
@@ -547,6 +553,12 @@ void File_MpegTs::Data_Parse()
             break;
 
         default: ;
+    }
+
+    if (TSP_Size)
+    {
+        Element_Size+=TSP_Size;
+        Skip_B4(                                                "TSP"); //TSP supplement
     }
 }
 
@@ -985,13 +997,13 @@ void File_MpegTs::PES()
 bool File_MpegTs::Synchronize()
 {
     //Synchronizing
-    while (           Buffer_Offset+188*3+BDAV_Size*4+1<=Buffer_Size
-      && !(Buffer[Buffer_Offset+188*0+BDAV_Size*1]==0x47
-        && Buffer[Buffer_Offset+188*1+BDAV_Size*2]==0x47
-        && Buffer[Buffer_Offset+188*2+BDAV_Size*3]==0x47
-        && Buffer[Buffer_Offset+188*3+BDAV_Size*4]==0x47))
+    while (           Buffer_Offset+188*3+BDAV_Size*4+TSP_Size*3+1<=Buffer_Size
+      && !(Buffer[Buffer_Offset+188*0+BDAV_Size*1+TSP_Size*0]==0x47
+        && Buffer[Buffer_Offset+188*1+BDAV_Size*2+TSP_Size*1]==0x47
+        && Buffer[Buffer_Offset+188*2+BDAV_Size*3+TSP_Size*2]==0x47
+        && Buffer[Buffer_Offset+188*3+BDAV_Size*4+TSP_Size*3]==0x47))
         Buffer_Offset++;
-    if (Buffer_Offset+188*3+BDAV_Size*4>=Buffer_Size)
+    if (Buffer_Offset+188*3+BDAV_Size*4+TSP_Size*3>=Buffer_Size)
     {
         //No synchro found
         if (Synched)
@@ -1001,7 +1013,7 @@ bool File_MpegTs::Synchronize()
             Synched=false;
         }
         //Managing first Synch attempt
-        else if (!File_Name.empty() && File_Offset+Buffer_Size>=188*4+BDAV_Size*5 && Count_Get(Stream_General)==0)
+        else if (!File_Name.empty() && File_Offset+Buffer_Size>=188*4+BDAV_Size*5+TSP_Size*5 && Count_Get(Stream_General)==0)
             Finished(); //This is not a TS file, ending
 
         return false;
