@@ -44,10 +44,12 @@ public :
 
 protected :
     //Format
+    void Read_Buffer_Finalize();
     void Read_Buffer_Continue ();
 
 public :
     File_Dts();
+    ~File_Dts();
 
 private :
     //Buffer
@@ -102,6 +104,9 @@ private :
     //Helpers
     bool Synchronize();
     bool Detect_NonDTS();
+
+    //14 bits or Little Endian
+    File__Analyze* Parser;
 };
 
 } //NameSpace

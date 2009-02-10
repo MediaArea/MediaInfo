@@ -345,7 +345,39 @@ File_Dts::File_Dts()
     HD_TotalNumberChannels=(int8u)-1;
     HD_ExSSFrameDurationCode=(int8u)-1;
     Core_Exists=false;
+
+    //14 bits or Little Endian
+    Parser=NULL;
 }
+
+//---------------------------------------------------------------------------
+File_Dts::~File_Dts()
+{
+    //14 bits or Little Endian
+    delete Parser;
+}
+
+//---------------------------------------------------------------------------
+void File_Dts::Read_Buffer_Finalize()
+{
+    if (Parser)
+    {
+        Fill(Stream_General, 0, General_Format, "DTS");
+
+        Merge(*Parser);
+        if (!BigEndian)
+            Fill(Stream_Audio, 0, Audio_Format_Profile, "LE");
+
+        if (!Word)
+        {
+            int32u BitRate=Retrieve(Stream_Audio, 0, Audio_BitRate).To_int32u();
+            if (BitRate)
+                Fill(Stream_Audio, 0, Audio_BitRate, BitRate*16/14, 10, true);
+            Fill(Stream_Audio, 0, Audio_Format_Profile, "14");
+        }
+    }
+}
+
 
 //---------------------------------------------------------------------------
 void File_Dts::Read_Buffer_Continue()
@@ -353,6 +385,54 @@ void File_Dts::Read_Buffer_Continue()
     //Integrity
     if (File_Offset==0 && Detect_NonDTS())
         return;
+
+    //Mapping to an understable bitstream if needed
+    if (Synched && (!Word || !BigEndian))
+    {
+        if (Count_Get(Stream_General)==0)
+            Stream_Prepare(Stream_General);
+
+        size_t Dest_Size;
+        if (Word)
+            Dest_Size=Buffer_Size;
+        else
+            Dest_Size=Buffer_Size*14/16;
+        int8u* Dest=new int8u[Dest_Size];
+
+        if (Word)
+        {
+            for (size_t Pos=0; Pos+1<Buffer_Size; Pos+=2)
+            {
+                Dest[Pos+1]=Buffer[Pos  ];
+                Dest[Pos  ]=Buffer[Pos+1];
+            }
+        }
+        else
+        {
+            for (size_t Pos=0; Pos+7<Buffer_Size; Pos+=8)
+            {
+                int64u Value;
+                if (BigEndian)
+                    Value =(((int64u)(   BigEndian2int16u(Buffer+Pos  )&0x3FFF))<<42)
+                         | (((int64u)(   BigEndian2int16u(Buffer+Pos+2)&0x3FFF))<<28)
+                         | (((int64u)(   BigEndian2int16u(Buffer+Pos+4)&0x3FFF))<<14)
+                         | (((int64u)(   BigEndian2int16u(Buffer+Pos+6)&0x3FFF))    );
+                else
+                    Value =(((int64u)(LittleEndian2int16u(Buffer+Pos  )&0x3FFF))<<42)
+                         | (((int64u)(LittleEndian2int16u(Buffer+Pos+2)&0x3FFF))<<28)
+                         | (((int64u)(LittleEndian2int16u(Buffer+Pos+4)&0x3FFF))<<14)
+                         | (((int64u)(LittleEndian2int16u(Buffer+Pos+6)&0x3FFF))    );
+                int56u2BigEndian(Dest+Pos/8*7, Value);
+            }
+        }
+
+        if (Parser==NULL)
+            Parser=new File_Dts;
+        Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset);
+        Open_Buffer_Continue(Parser, Dest, Dest_Size);
+        Demux(Dest, Dest_Size, _T("extract"));
+        Buffer_Offset+=Buffer_Size;
+    }
 }
 
 //***************************************************************************
@@ -367,7 +447,7 @@ bool File_Dts::Header_Begin()
         return false;
 
     //Quick test of synchro
-    if (Synched && CC4(Buffer+Buffer_Offset)!=SyncCode && CC4(Buffer+Buffer_Offset)!=0x64582025)
+    if (Synched && CC4(Buffer+Buffer_Offset)!=SyncCode )
     {
         Info("DTS, Synchronisation lost"); //No error, this may be normal
         Synched=false;
@@ -385,7 +465,7 @@ bool File_Dts::Header_Begin()
 void File_Dts::Header_Parse()
 {
     //Parsing
-    if (CC4(Buffer+Buffer_Offset)==0x64582025) //TODO: 14-bits
+    if (CC4(Buffer+Buffer_Offset)==0x64582025)
     {
         //HD
         int16u header_size;
@@ -986,38 +1066,60 @@ void File_Dts::HD_XSA(int64u Size)
 bool File_Dts::Synchronize()
 {
     //Synchronizing
-    while (Buffer_Offset+6<=Buffer_Size
-      && !(BigEndian2int16u   (Buffer+Buffer_Offset+0)==0x7FFE && BigEndian2int16u   (Buffer+Buffer_Offset+2)==0x8001) //16 bits and big    endian bitstream
-      && !(LittleEndian2int16u(Buffer+Buffer_Offset+0)==0x7FFE && LittleEndian2int16u(Buffer+Buffer_Offset+2)==0x8001) //16 bits and little endian bitstream
-      && !(BigEndian2int16u   (Buffer+Buffer_Offset+0)==0x1FFF && BigEndian2int16u   (Buffer+Buffer_Offset+2)==0xE800 && (BigEndian2int16u   (Buffer+Buffer_Offset+4)&0xFFF0)==0x07F0) //14 bits and big    endian bitstream
-      && !(LittleEndian2int16u(Buffer+Buffer_Offset+0)==0x1FFF && LittleEndian2int16u(Buffer+Buffer_Offset+2)==0xE800 && (LittleEndian2int16u(Buffer+Buffer_Offset+4)&0xFFF0)==0x07F0) //14 bits and little endian bitstream
-      && CC4(Buffer+Buffer_Offset)!=0x64582025 //TODO: 14 bit HD detection
-      )
+    while (Buffer_Offset+6<=Buffer_Size)
+    {
+        int64u Value=CC6(Buffer+Buffer_Offset);
+        if ((Value&0xFFFFFFFFFC00LL)==0x7FFE8001FC00LL  //16 bits and big    endian Core
+         || (Value&0xFFFFFFFF00FCLL)==0xFE7F018000FCLL  //16 bits and little endian Core
+         || (Value&0xFFFFFFFFF7F0LL)==0x1FFFE80007F0LL  //14 bits and big    endian Core
+         || (Value&0xFFFFFFFFF0F7LL)==0xFF1F00E8F007LL  //14 bits and little endian Core
+         || (Value&0xFFFFFFFF0000LL)==0x645820250000LL) //16 bits and big    endian HD
+            break;
         Buffer_Offset++;
+    }
     if (Buffer_Offset+6>Buffer_Size)
     {
         //Parsing last bytes
-        if (Buffer_Offset+6==Buffer_Size)
+        Buffer_Offset++;
+        int64u Value=CC5(Buffer+Buffer_Offset);
+        if ((Value&0xFFFFFFFFFCLL)!=0x7FFE8001FCLL  //16 bits and big    endian Core
+         && (Value&0xFFFFFFFF00LL)!=0xFE7F018000LL  //16 bits and little endian Core
+         && (Value&0xFFFFFFFFF7LL)!=0x1FFFE80007LL  //14 bits and big    endian Core
+         && (Value&0xFFFFFFFFF0LL)!=0xFF1F00E8F0LL  //14 bits and little endian Core
+         && (Value&0xFFFFFFFF00LL)!=0x6458202500LL) //16 bits and big    endian HD
         {
-            if (CC4(Buffer+Buffer_Offset)!=0x7FFE8001) //For 6 bytes instead of 4 (14 bits)
+            Buffer_Offset++;
+            int32u Value=CC4(Buffer+Buffer_Offset);
+            if (Value!=0x7FFE8001  //16 bits and big    endian Core
+             && Value!=0xFE7F0180  //16 bits and little endian Core
+             && Value!=0x1FFFE800  //14 bits and big    endian Core
+             && Value!=0xFF1F00E8  //14 bits and little endian Core
+             && Value!=0x64582025) //16 bits and big    endian HD
             {
                 Buffer_Offset++;
-                if (CC4(Buffer+Buffer_Offset)!=0x7FFE8001) //For 6 bytes instead of 4 (14 bits)
+                Value=CC3(Buffer+Buffer_Offset);
+                if (Value!=0x7FFE80  //16 bits and big    endian Core
+                 && Value!=0xFE7F01  //16 bits and little endian Core
+                 && Value!=0x1FFFE8  //14 bits and big    endian Core
+                 && Value!=0xFF1F00  //14 bits and little endian Core
+                 && Value!=0x645820) //16 bits and big    endian HD
                 {
                     Buffer_Offset++;
-                    if (CC4(Buffer+Buffer_Offset)!=0x7FFE8001)
+                    Value=CC2(Buffer+Buffer_Offset);
+                    if (Value!=0x7FFE  //16 bits and big    endian Core
+                     && Value!=0xFE7F  //16 bits and little endian Core
+                     && Value!=0x1FFF  //14 bits and big    endian Core
+                     && Value!=0xFF1F  //14 bits and little endian Core
+                     && Value!=0x6458) //16 bits and big    endian HD
                     {
                         Buffer_Offset++;
-                        if (CC3(Buffer+Buffer_Offset)!=0x7FFE80)
-                        {
+                        Value=CC1(Buffer+Buffer_Offset);
+                        if (Value!=0x7F  //16 bits and big    endian Core
+                         && Value!=0xFE  //16 bits and little endian Core
+                         && Value!=0x1F  //14 bits and big    endian Core
+                         && Value!=0xFF  //14 bits and little endian Core
+                         && Value!=0x64) //16 bits and big    endian HD
                             Buffer_Offset++;
-                            if (CC2(Buffer+Buffer_Offset)!=0x7FFE)
-                            {
-                                Buffer_Offset++;
-                                if (CC1(Buffer+Buffer_Offset)!=0x7F)
-                                    Buffer_Offset++;
-                            }
-                        }
                     }
                 }
             }
@@ -1033,31 +1135,17 @@ bool File_Dts::Synchronize()
     //Configuring and Delay
     if (Frame_Count==0)
     {
-        if (0) ;
-        else if (BigEndian2int16u   (Buffer+Buffer_Offset)==0x7FFE) //16 bits and big    endian bitstream
+        if (!Synched)
         {
-        }
-        else if (LittleEndian2int16u(Buffer+Buffer_Offset)==0x7FFE) //16 bits and little endian bitstream
-        {
-            BigEndian=false;
-        }
-        else if (BigEndian2int16u   (Buffer+Buffer_Offset)==0x1FFF) //14 bits and big    endian bitstream
-        {
-            Word=false;
-        }
-        else if (LittleEndian2int16u(Buffer+Buffer_Offset)==0x1FFF) //14 bits and little endian bitstream
-        {
-            Word=false;
-            BigEndian=false;
-        }
+            switch (CC1(Buffer+Buffer_Offset))
+            {
+                default   :                              break; //16 bits and big    endian bitstream
+                case 0xFE :             BigEndian=false; break; //16 bits and little endian bitstream
+                case 0x1F : Word=false;                  break; //14 bits and big    endian bitstream
+                case 0xFF : Word=false; BigEndian=false; break; //14 bits and little endian bitstream
+            }
 
-        SyncCode=CC4(Buffer+Buffer_Offset);
-
-        //14-bits and Little endian are not yet supported
-        if (!Word || !BigEndian)
-        {
-            Finished();
-            return false;
+            SyncCode=CC4(Buffer+Buffer_Offset);
         }
 
         //Delay
@@ -1066,6 +1154,8 @@ bool File_Dts::Synchronize()
 
     //Synched is OK
     Synched=true;
+    if (!Word || !BigEndian)
+        return false; //We want to parse again from beginning in this case
     return true;
 }
 
