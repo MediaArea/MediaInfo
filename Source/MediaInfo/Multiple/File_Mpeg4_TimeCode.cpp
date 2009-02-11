@@ -55,13 +55,24 @@ void File_Mpeg4_TimeCode::FileHeader_Parse()
 
     //Filling
     Stream_Prepare(Stream_General);
-    Stream_Prepare(StreamKind);
     if (FrameRate)
     {
         int64s Pos=Position;
         if (NegativeTimes)
             Pos=(int32s)Position;
-        Fill(StreamKind, 0, "Delay", Pos*1000/FrameRate, 0);
+        if (StreamKind==Stream_General)
+        {
+            //No link with a track, we do all
+            Stream_Prepare(Stream_Video);
+            Fill(Stream_Video, 0, Video_Delay, Pos*1000/FrameRate, 0);
+            Stream_Prepare(Stream_Audio);
+            Fill(Stream_Audio, 0, Audio_Delay, Pos*1000/FrameRate, 0);
+        }
+        else
+        {
+            Stream_Prepare(StreamKind);
+            Fill(StreamKind, 0, "Delay", Pos*1000/FrameRate, 0);
+        }
     }
     Finished();
 }

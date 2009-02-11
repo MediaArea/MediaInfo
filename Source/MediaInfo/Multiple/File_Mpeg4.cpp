@@ -152,7 +152,15 @@ void File_Mpeg4::Read_Buffer_Finalize()
         {
             //Finalizing and Merging
             Open_Buffer_Finalize(Temp->second.Parser);
-            Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
+            if (StreamKind_Last==Stream_General)
+            {
+                //Special case for TimeCode without link
+                for (std::map<int32u, stream>::iterator Target=Stream.begin(); Target!=Stream.end(); Target++)
+                    if (Target->second.StreamKind!=Stream_General)
+                        Merge(*Temp->second.Parser, Target->second.StreamKind, 0, Target->second.StreamPos);
+            }
+            else
+                Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
         }
 
         Temp++;

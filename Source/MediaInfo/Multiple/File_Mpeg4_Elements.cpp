@@ -1914,21 +1914,40 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tmcd()
         if (TimeScale==25 && FrameDuration==100)
             TimeScale=2500;
 
-        //For each track in the file (but only the last one will be used!)
+        //Is it general or for a specific stream?
+        bool IsGeneral=true;
         for (std::map<int32u, stream>::iterator Strea=Stream.begin(); Strea!=Stream.end(); Strea++)
             if (Strea->second.TimeCode_TrackID==moov_trak_tkhd_TrackID)
+                IsGeneral=false;
+
+        //For each track in the file (but only the last one will be used!)
+        for (std::map<int32u, stream>::iterator Strea=Stream.begin(); Strea!=Stream.end(); Strea++)
+            if (IsGeneral && Strea->second.StreamKind!=Stream_Max || Strea->second.TimeCode_TrackID==moov_trak_tkhd_TrackID)
             {
-                Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Delay_Settings", Ztring(_T("DropFrame="))+(DropFrame?_T("Yes"):_T("No")));
-                Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Delay_Settings", Ztring(_T("24HourMax="))+(H24?_T("Yes"):_T("No")));
-                Fill(Strea->second.StreamKind, Strea->second.StreamPos, "Delay_Settings", Ztring(_T("IsVisual="))+(Stream[moov_trak_tkhd_TrackID].TimeCode_IsVisual?_T("Yes"):_T("No")));
-                Stream[moov_trak_tkhd_TrackID].Parser=new File_Mpeg4_TimeCode;
-                mdat_MustParse=true; //Data is in MDAT
-                ((File_Mpeg4_TimeCode*)Stream[moov_trak_tkhd_TrackID].Parser)->StreamKind=Strea->second.StreamKind;
-                ((File_Mpeg4_TimeCode*)Stream[moov_trak_tkhd_TrackID].Parser)->FrameRate=((float64)TimeScale)/FrameDuration;
-                ((File_Mpeg4_TimeCode*)Stream[moov_trak_tkhd_TrackID].Parser)->NegativeTimes=NegativeTimes;
-                Stream[moov_trak_tkhd_TrackID].StreamKind=Strea->second.StreamKind;
-                Stream[moov_trak_tkhd_TrackID].StreamPos=Strea->second.StreamPos;
+                if (Strea->second.StreamKind==Stream_Video)
+                {
+                    Fill(Stream_Video, Strea->second.StreamPos, Video_Delay_Settings, Ztring(_T("DropFrame="))+(DropFrame?_T("Yes"):_T("No")));
+                    Fill(Stream_Video, Strea->second.StreamPos, Video_Delay_Settings, Ztring(_T("24HourMax="))+(H24?_T("Yes"):_T("No")));
+                    Fill(Stream_Video, Strea->second.StreamPos, Video_Delay_Settings, Ztring(_T("IsVisual="))+(Stream[moov_trak_tkhd_TrackID].TimeCode_IsVisual?_T("Yes"):_T("No")));
+                }
+                if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
+                {
+                    Stream[moov_trak_tkhd_TrackID].Parser=new File_Mpeg4_TimeCode;
+                    mdat_MustParse=true; //Data is in MDAT
+                    ((File_Mpeg4_TimeCode*)Stream[moov_trak_tkhd_TrackID].Parser)->StreamKind=IsGeneral?Stream_General:Strea->second.StreamKind;
+                    ((File_Mpeg4_TimeCode*)Stream[moov_trak_tkhd_TrackID].Parser)->FrameRate=FrameDuration?(((float64)TimeScale)/FrameDuration):0;
+                    ((File_Mpeg4_TimeCode*)Stream[moov_trak_tkhd_TrackID].Parser)->NegativeTimes=NegativeTimes;
+                    if (!IsGeneral)
+                    {
+                        Stream[moov_trak_tkhd_TrackID].StreamKind=Strea->second.StreamKind;
+                        Stream[moov_trak_tkhd_TrackID].StreamPos=Strea->second.StreamPos;
+                    }
+                }
             }
+
+        //General stuff
+        if (IsGeneral)
+            Stream[moov_trak_tkhd_TrackID].StreamKind=Stream_General;
     FILLING_END();
 }
 
