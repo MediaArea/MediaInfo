@@ -405,6 +405,7 @@ void File_Dts::Read_Buffer_Continue()
         Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset);
         Open_Buffer_Continue(Parser, Dest, Dest_Size);
         Demux(Dest, Dest_Size, _T("extract"));
+        delete[] Dest;
         Buffer_Offset+=Buffer_Size;
     }
 }
