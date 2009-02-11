@@ -952,7 +952,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
           || (FormatTag==0x1 && Retrieve(Stream_General, 0, General_Format)==_T("Wave"))) //Some DTS streams are coded "1"
     {
         Stream[Stream_ID].Parser=new File_Dts;
-        ((File_Dts*)Stream[Stream_ID].Parser)->Frame_Count_Valid=1;
+        ((File_Dts*)Stream[Stream_ID].Parser)->Frame_Count_Valid=2;
         Stream[Stream_ID].Parser->NewFinnishMethod=true;
         Stream[Stream_ID].Parser->ShouldContinueParsing=true;
     }

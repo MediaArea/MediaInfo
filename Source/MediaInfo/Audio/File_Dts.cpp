@@ -319,7 +319,7 @@ File_Dts::File_Dts()
 :File__Analyze()
 {
     //Configuration
-    File_MaximumOffset=64*1024;
+    File_MaximumOffset=32*1024;
 
     //In
     Frame_Count_Valid=8;
@@ -329,22 +329,6 @@ File_Dts::File_Dts()
 
     //Count
     Frame_Count=0;
-
-    //Temp - Technical info
-    Primary_Frame_Byte_Size_minus_1=0;
-    HD_size=0;
-    SyncCode=0x7FFE;
-    Word=true;
-    BigEndian=true;
-    channel_arrangement_XCh=(int8u)-1;
-
-    //Temp - HD
-    HD_SpeakerActivityMask=(int16u)-1;
-    HD_BitResolution=(int8u)-1;
-    HD_MaximumSampleRate=(int8u)-1;
-    HD_TotalNumberChannels=(int8u)-1;
-    HD_ExSSFrameDurationCode=(int8u)-1;
-    Core_Exists=false;
 
     //14 bits or Little Endian
     Parser=NULL;
@@ -360,7 +344,7 @@ File_Dts::~File_Dts()
 //---------------------------------------------------------------------------
 void File_Dts::Read_Buffer_Finalize()
 {
-    if (Parser)
+    if (Parser) //LE or 14-bit
     {
         Fill(Stream_General, 0, General_Format, "DTS");
 
@@ -376,23 +360,15 @@ void File_Dts::Read_Buffer_Finalize()
 //---------------------------------------------------------------------------
 void File_Dts::Read_Buffer_Continue()
 {
-    //Integrity
-    if (File_Offset==0 && Detect_NonDTS())
-        return;
-
     //Mapping to an understable bitstream if needed
     if (Synched && (!Word || !BigEndian))
     {
         if (Count_Get(Stream_General)==0)
             Stream_Prepare(Stream_General);
 
-        size_t Dest_Size;
-        if (Word)
-            Dest_Size=Buffer_Size;
-        else
-            Dest_Size=Buffer_Size*14/16;
+        //Preparing new buffer
+        size_t Dest_Size=Word?Buffer_Size:(Buffer_Size*14/16);
         int8u* Dest=new int8u[Dest_Size];
-
         if (Word)
         {
             for (size_t Pos=0; Pos+1<Buffer_Size; Pos+=2)
@@ -420,8 +396,12 @@ void File_Dts::Read_Buffer_Continue()
             }
         }
 
+        //Parsing
         if (Parser==NULL)
+        {
             Parser=new File_Dts;
+            ((File_Dts*)Parser)->Frame_Count_Valid=Frame_Count_Valid;
+        }
         Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset);
         Open_Buffer_Continue(Parser, Dest, Dest_Size);
         Demux(Dest, Dest_Size, _T("extract"));
@@ -434,6 +414,24 @@ void File_Dts::Read_Buffer_Continue()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+bool File_Dts::FileHeader_Begin()
+{
+    //Must have enough buffer for having header
+    if (Buffer_Size<4)
+        return false; //Must wait for more data
+
+    //False positives detection: Detect WAV files, the parser can't detect it easily, there is only 70 bytes of begining for saying WAV
+    if (CC4(Buffer)==CC4("RIFF"))
+    {
+        Finished();
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//---------------------------------------------------------------------------
 bool File_Dts::Header_Begin()
 {
     //Must have enough buffer for having header
@@ -441,9 +439,9 @@ bool File_Dts::Header_Begin()
         return false;
 
     //Quick test of synchro
-    if (Synched && CC4(Buffer+Buffer_Offset)!=SyncCode )
+    if (Synched && CC4(Buffer+Buffer_Offset)!=0x7FFE8001 && CC4(Buffer+Buffer_Offset)!=0x64582025)
     {
-        Info("DTS, Synchronisation lost"); //No error, this may be normal
+        Trusted_IsNot("DTS, Synchronisation lost");
         Synched=false;
     }
 
@@ -1126,49 +1124,40 @@ bool File_Dts::Synchronize()
         return false;
     }
 
-    //Configuring and Delay
+    //Synched is OK
+    Synched=true;
     if (Frame_Count==0)
     {
-        if (!Synched)
-        {
-            switch (CC1(Buffer+Buffer_Offset))
-            {
-                default   :                              break; //16 bits and big    endian bitstream
-                case 0xFE :             BigEndian=false; break; //16 bits and little endian bitstream
-                case 0x1F : Word=false;                  break; //14 bits and big    endian bitstream
-                case 0xFF : Word=false; BigEndian=false; break; //14 bits and little endian bitstream
-            }
+        //Temp - Technical info
+        Primary_Frame_Byte_Size_minus_1=0;
+        HD_size=0;
+        channel_arrangement_XCh=(int8u)-1;
 
-            SyncCode=CC4(Buffer+Buffer_Offset);
+        //Temp - HD
+        HD_SpeakerActivityMask=(int16u)-1;
+        HD_BitResolution=(int8u)-1;
+        HD_MaximumSampleRate=(int8u)-1;
+        HD_TotalNumberChannels=(int8u)-1;
+        HD_ExSSFrameDurationCode=(int8u)-1;
+        Core_Exists=false;
+
+        //14 bits or Little Endian
+        switch (CC1(Buffer+Buffer_Offset))
+        {
+            default   : Word=true;  BigEndian=true;  break; //16 bits and big    endian bitstream
+            case 0xFE : Word=true;  BigEndian=false; break; //16 bits and little endian bitstream
+            case 0x1F : Word=false; BigEndian=true;  break; //14 bits and big    endian bitstream
+            case 0xFF : Word=false; BigEndian=false; break; //14 bits and little endian bitstream
         }
 
         //Delay
         Delay+=Buffer_Offset;
     }
 
-    //Synched is OK
-    Synched=true;
+    //Specific cases
     if (!Word || !BigEndian)
-        return false; //We want to parse again from beginning in this case
+        Read_Buffer_Continue(); //We want to parse again from beginning in this case
     return true;
-}
-
-//---------------------------------------------------------------------------
-bool File_Dts::Detect_NonDTS ()
-{
-    //Element_Size
-    if (Buffer_Size<4)
-        return true; //Must wait for more data
-
-    //Detect WAV files, the parser can't detect it easily, there is only 70 bytes of begining for sayint WAV
-    if (CC4(Buffer)==CC4("RIFF"))
-    {
-        Finished();
-        return true;
-    }
-
-    //Seems OK
-    return false;
 }
 
 } //NameSpace

@@ -53,6 +53,7 @@ public :
 
 private :
     //Buffer
+    bool FileHeader_Begin();
     bool Header_Begin();
     void Header_Parse();
     void Data_Parse();
@@ -77,7 +78,6 @@ private :
     //Temp - Technical info
     std::vector<ZenLib::int32u> Asset_Sizes;
     Ztring Profile;
-    int32u SyncCode;
     int16u Primary_Frame_Byte_Size_minus_1;
     int32u HD_size;
     int8u  channel_arrangement;
@@ -103,7 +103,6 @@ private :
 
     //Helpers
     bool Synchronize();
-    bool Detect_NonDTS();
 
     //14 bits or Little Endian
     File__Analyze* Parser;
