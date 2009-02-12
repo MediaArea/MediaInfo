@@ -225,6 +225,7 @@ private :
     void WAVE_data ();
     void WAVE_fact ();
     void WAVE_fmt_ ();
+    void WAVE_ID3_ ();
     void W3DI();
 };
 

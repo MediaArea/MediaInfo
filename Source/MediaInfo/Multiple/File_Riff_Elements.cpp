@@ -75,6 +75,9 @@
 #if defined(MEDIAINFO_ID3_YES)
     #include "MediaInfo/Tag/File_Id3.h"
 #endif
+#if defined(MEDIAINFO_ID3V2_YES)
+    #include "MediaInfo/Tag/File_Id3v2.h"
+#endif
 #if defined(MEDIAINFO_DVDIF_YES)
     #include "MediaInfo/Multiple/File_DvDif.h"
 #endif
@@ -234,6 +237,7 @@ namespace Elements
     const int32u WAVE_data=0x64617461;
     const int32u WAVE_fact=0x66616374;
     const int32u WAVE_fmt_=0x666D7420;
+    const int32u WAVE_ID3_=0x49443320;
     const int32u W3DI=0x57334449;
 }
 
@@ -364,6 +368,7 @@ void File_Riff::Data_Parse()
             break;
         ATOM(WAVE_fact)
         ATOM(WAVE_fmt_)
+        ATOM(WAVE_ID3_)
         ATOM_END
     DATA_END
 
@@ -2423,6 +2428,21 @@ void File_Riff::WAVE_fmt_()
 
     Stream[0x30300000].fccType=Elements::AVI__hdlr_strl_strh_auds;
     AVI__hdlr_strl_strf();
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::WAVE_ID3_()
+{
+    Element_Name("ID3v2 tags");
+
+    //Parsing
+    #if defined(MEDIAINFO_ID3V2_YES)
+        File_Id3v2 MI;
+        Open_Buffer_Init(&MI, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
+        Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        Open_Buffer_Finalize(&MI);
+        Merge(MI, Stream_General, 0, 0);
+    #endif
 }
 
 //---------------------------------------------------------------------------
