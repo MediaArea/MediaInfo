@@ -641,6 +641,8 @@ void File_Mpegv::slice_start_Fill()
         {
             Fill(Stream_Video, 0, Video_ScanType, "Progressive");
             Fill(Stream_Video, 0, Video_Interlacement, "PPF");
+            if (!progressive_sequence && !(Interlaced_Top && Interlaced_Bottom) && !(!Interlaced_Top && !Interlaced_Bottom))
+                Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Top?"TFF":"BFF");
         }
         else
         {
@@ -1004,7 +1006,13 @@ void File_Mpegv::extension_start()
                             }
                         }
                         else
+                        {
                             progressive_frame_Count++;
+                            if (top_field_first)
+                                Interlaced_Top++;
+                            else
+                                Interlaced_Bottom++;
+                        }
 
                         if (picture_structure==2) //Bottom, and we want to add a frame only one time if 2 fields
                             Time_End_Frames--; //One frame
