@@ -17,6 +17,7 @@ Version 0.7.11, 2009-02-13
 x #2559346, MKV: Detection of framerate in MKV without framerate header
 x #2474280, OGG: some streams had bad stream size
 x MPEG-TS: some buggy file may corrupt memory
+x MP3/Id3v2: crash with one malformed file
 
 Version 0.7.10, 2009-01-30
 -------------
