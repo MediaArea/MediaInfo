@@ -957,7 +957,7 @@ void File_MpegTs::PES()
             #else
                 //Filling
                 Streams[pid].Parser=new File__Analyze();
-                Open_Buffer_Init();
+                Open_Buffer_Init(Streams[pid].Parser);
                 //Streams_Count--;
             #endif
 
