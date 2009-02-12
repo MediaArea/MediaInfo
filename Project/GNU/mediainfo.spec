@@ -7,10 +7,10 @@
 # norootforbuild
 
 %define _prefix	/usr
-%define libzen_version	0.3.7
+%define libzen_version	0.3.8
 
 Name:			mediainfo
-Version:		0.7.10
+Version:		0.7.11
 Release:		1
 Summary:		Supplies technical and tag information about a video or audio file
 Group:			Productivity/Multimedia/Other
@@ -170,6 +170,6 @@ popd
 %{_datadir}/kde4/services/ServiceMenus/*.desktop
 
 %changelog
-* Tue Jan 01 2009 Jerome Martinez <zen@mediaarea.net> - 0.7.10-0
+* Tue Jan 01 2009 Jerome Martinez <zen@mediaarea.net> - 0.7.11-0
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>
