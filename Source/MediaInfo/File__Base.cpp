@@ -147,7 +147,12 @@ const Ztring &File__Base::Get (stream_t StreamKind, size_t StreamNumber, size_t 
             return MediaInfoLib::Config.EmptyString_Get(); //This parameter is known, but not filled
     }
     else
-        return (*Stream_More)[StreamKind][StreamNumber][Parameter-MediaInfoLib::Config.Info_Get(StreamKind).size()][KindOfInfo];
+    {
+        if ((size_t)(Parameter-MediaInfoLib::Config.Info_Get(StreamKind).size())<(*Stream_More)[StreamKind][StreamNumber].size() && KindOfInfo<(*Stream_More)[StreamKind][StreamNumber][Parameter-MediaInfoLib::Config.Info_Get(StreamKind).size()].size())
+            return (*Stream_More)[StreamKind][StreamNumber][Parameter-MediaInfoLib::Config.Info_Get(StreamKind).size()][KindOfInfo];
+        else
+            return MediaInfoLib::Config.EmptyString_Get(); //Not filled
+    }
 }
 
 //---------------------------------------------------------------------------

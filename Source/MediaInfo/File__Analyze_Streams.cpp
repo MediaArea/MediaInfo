@@ -164,11 +164,11 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, const char* Par
     //Handling of unknown parameters
     if (Value.empty())
     {
-        if (!Replace)
+        if (Replace)
         {
             size_t Pos=(*Stream_More)[StreamKind][StreamPos].Find(Ztring().From_UTF8(Parameter), Info_Name);
             if (Pos!=(size_t)-1)
-                (*Stream_More)[StreamKind][StreamPos][Pos].clear(); //Empty value --> clear other values
+                (*Stream_More)[StreamKind][StreamPos].erase((*Stream_More)[StreamKind][StreamPos].begin()+Pos); //Empty value --> remove the line
         }
     }
     else
