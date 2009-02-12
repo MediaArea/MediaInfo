@@ -12,9 +12,16 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
-Version 0.7.11
+Version 0.7.11, 2009-02-13
 --------------
 + Chinese (Simplified), German, Italian, Persian, Albanian, Dutch, Russian, Hungarian, Japanese translations updated
++ OGG: Better Kate and CMML codecs support
++ AVI: Detecting wrong aspect ratio from a broken AVI header
++ DTS: Handling of Little Endian and 14-bit streams
++ WAV: ID3v2 tags parsing
+x #2559346, MKV: Detection of framerate in MKV without framerate header
+x #2474280, OGG: some streams had bad stream size
+x MPEG-TS: some buggy file may corrupt memory
 
 Version 0.7.10, 2009-01-30
 -------------
