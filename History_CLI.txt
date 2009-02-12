@@ -13,6 +13,7 @@ Version 0.7.11, 2009-02-13
 + AVI: Detecting wrong aspect ratio from a broken AVI header
 + DTS: Handling of Little Endian and 14-bit streams
 + WAV: ID3v2 tags parsing
++ MPEG Video: frame order even for progressive sequence
 x #2559346, MKV: Detection of framerate in MKV without framerate header
 x #2474280, OGG: some streams had bad stream size
 x MPEG-TS: some buggy file may corrupt memory
