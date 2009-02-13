@@ -1073,7 +1073,6 @@ bool File_Dts::Synchronize()
     if (Buffer_Offset+6>Buffer_Size)
     {
         //Parsing last bytes
-        Buffer_Offset++;
         int64u Value=CC5(Buffer+Buffer_Offset);
         if ((Value&0xFFFFFFFFFCLL)!=0x7FFE8001FCLL  //16 bits and big    endian Core
          && (Value&0xFFFFFFFF00LL)!=0xFE7F018000LL  //16 bits and little endian Core
