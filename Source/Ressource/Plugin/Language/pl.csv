@@ -41,9 +41,9 @@
  frame1; klatka
  frame2; klatki
  frame3; klatek
- fps1; f/s
- fps2; f/s
- fps3; f/s
+ fps1; kl/s
+ fps2; kl/s
+ fps3; kl/s
  GB; GB
  Gb; Gb
  Gbps; Gb/s
@@ -121,16 +121,16 @@
  second1; sekunda
  second2; sekundy
  second3; sekund
- text stream1; strumień tekstu
- text stream2; strumienie tekstu
- text stream3; strumieni tekstu
+ text stream1; strumień napisów
+ text stream2; strumienie napisów
+ text stream3; strumieni napisów
  video frames1; klatka wideo
  video frames2; klatki wideo
  video frames3; klatek wideo
  video stream1; strumień wideo
  video stream2; strumienie wideo
  video stream3; strumieni wideo
- warppoint0; Brak punktów podziału
+ warppoint0;Brak punktów podziału
  warppoint1; Punkt podziału
  warppoint2; Punktów podziału
  warppoint3; Punktów podziału
@@ -152,8 +152,8 @@ Address;Adres
 Advanced;Zaawansowane
 Advanced mode;Tryb zaawansowany
 Album;Album
-Album_ReplayGain_Gain;Poziom wysterowania albumu
-Album_ReplayGain_Peak;Szcztowy poziom wysterowania albumu
+Album_ReplayGain_Gain;Poziom wzmocnienia albumu
+Album_ReplayGain_Peak;Współczynnik wzmocnienia albumu
 Alignment;Wyrównanie
 Alignment_Aligned;Wyrównane w przeplocie
 Alignment_Split;Rozdzielone w przeplocie
@@ -163,8 +163,8 @@ Arranger;Aranżer
 ArtDirector;Dyrektor artystyczny
 AspectRatio;Proporcje
 AssistantDirector;Asystent dyrektora
-at;na
-At least one file;(Musisz otworzyć co najmniej jeden plik)
+at;przy
+At least one file;(Musisz wczytać co najmniej jeden plik)
 Audio;Audio
 Audio stream(s);Strumień audio
 Audio_Codec_List;Kodeki audio
@@ -175,7 +175,7 @@ AudioCount;Liczba strumieni audio
 Author;Autor
 BarCode;Kod kreskowy
 Basic;Podstawowy
-Basic_Note;Uwaga: Aby uzyskać wiecej informacji musisz wybrać inny widok (Karta, Drzewo...)
+Basic_Note;Uwaga: Aby uzyskać więcej informacji musisz wybrać inny widok (Karta, Drzewo...)
 BitRate;Przepływność bitów
 BitRate_Maximum;Przwpływność maksymalna
 BitRate_Minimum;Przepływność minimalna
@@ -249,19 +249,19 @@ Cropped;Wymiary spadu
 Custom;Własne szablony
 Customize;Dostosowanie
 Date;Data
-Debug;Doskonalenie programu
+Debug;Odpluskwianie
 Decimal point;Punkt dziesiętny
 Delay;Opóźnienie
 Delete;Usuń
 Description;Opis
-Digitized_Date;Cyfowa data
+Digitized_Date;Dyskretyzowana data
 Dimensions;Wymiary
 Director;Reżyser
 DirectorOfPhotography;Zdjęcia
 DisplayAspectRatio;Proporcje obrazu
-DisplayAspectRatio_Original
-DistributedBy;Rozpowszechniamie
-Donate;Darowizna
+DisplayAspectRatio_Original;Oryginalne proporcje obrazu
+DistributedBy;Rozpowszechnianie
+Donate;Donacja
 DotsPerInch;punktów na cal
 Duration;Czas trwania
 Edit;Edytuj
@@ -489,7 +489,7 @@ Help;Pomoc
 Hint;Wskazówka
 How many audio streams?;Ile strumieni audio?
 How many chapters streams?;Ile strumieni rozdziałów?
-How many text streams?;Ile strumieni tekstu?
+How many text streams?;Ile strumieni napisów?
 How many video streams?;Ile strumieni wideo?
 HTML;HTML
 ID;ID
@@ -500,13 +500,13 @@ ImageCount;Strumieni obrazu
 Info;Informacja
 Instruments;Instrumenty
 Interlacement;Przeplatanie
-Interlaced_Interlaced;Przeplot
+Interlaced_Interlaced;Z przeplotem
 Interlaced_TFF;Górne pole wpierw
 Interlaced_BFF;Dolne pole wpierw
 Interlaced_PPF;Progresywny
 Interlaced_Progressive;Progresywny
 Interleave_Duration;Przeplot, czas trwania
-Interleave_Preload;Przeplot, czas trwania wczytywania
+Interleave_Preload;Przeplot, czas wczytywania
 Interleave_VideoFrames;Przeplot, czas trwania
 IRCA;IRCA
 ISBN;ISBN
@@ -517,7 +517,7 @@ Known formats;Znane formaty
 Known parameters;Znane parametry
 Label;Wytwórnia
 Language;Język
-Language_More
+Language_More;Język, więcej informacji
 Language_aa
 Language_ab;Abhaski
 Language_ae
@@ -541,9 +541,9 @@ Language_bo;Tybetański
 Language_br;Bretoński
 Language_bs;Bośniacki
 Language_ca;Kataloński
-Language_ce
+Language_ce;Czeczeński
 Language_ch
-Language_co
+Language_co;Korsykański
 Language_cr
 Language_cs;Czeski
 Language_cu
@@ -556,8 +556,8 @@ Language_dz
 Language_ee
 Language_el;Grecki
 Language_en;Angielski
-Language_en-gb
-Language_en-us
+Language_en-gb;Angielski (Wielka Brytania)
+Language_en-us;Angielski (Stany Zjednoczone)
 Language_eo;Esperanto
 Language_es;Hiszpański
 Language_et;Estoński
@@ -568,7 +568,7 @@ Language_fi;Fiński
 Language_fj
 Language_fo
 Language_fr;Francuski
-Language_fy
+Language_fy;Fryzyjski
 Language_ga;Irlandzki
 Language_gd;Galijski
 Language_gl;Galicyjski
@@ -577,7 +577,7 @@ Language_gu
 Language_gv
 Language_ha
 Language_he;Hebrajski
-Language_hi
+Language_hi;Hindi
 Language_ho
 Language_hr;Chorwacki
 Language_ht;Haitański
@@ -586,31 +586,31 @@ Language_hy;Armeński
 Language_hz
 Language_ia
 Language_id;Indonezyjski
-Language_ie
+Language_ie;Interlingwa
 Language_ig
 Language_ii
 Language_ik
-Language_Info
+Language_Info;Informacje o języku
 Language_io
 Language_is;Islandzki
 Language_it;Włoski
 Language_iu
 Language_ja;Japoński
-Language_jv
+Language_jv;Jawajski
 Language_ka;Gruziński
 Language_kg
 Language_ki
 Language_kj
-Language_kk
+Language_kk;Kazachski
 Language_kl
 Language_km
 Language_kn
 Language_ko;Koreański
 Language_kr
-Language_ks
+Language_ks;Kaszmirski
 Language_ku;Kurdyjski
 Language_kv
-Language_kw
+Language_kw;Kornwalijski
 Language_ky;Kirgiski
 Language_la;Łaciński
 Language_lb
@@ -631,7 +631,7 @@ Language_mo
 Language_mr
 Language_ms
 Language_mt
-Language_mul;Wielojęzyczny
+Language_mul;Wiele języków
 Language_my
 Language_na
 Language_nb;Norweski Bokmal
@@ -642,14 +642,14 @@ Language_nl;Holenderski
 Language_nn;Norweski Bokmal
 Language_no;Norweski Nynorsk
 Language_nr
-Language_nv
+Language_nv;Nawajski
 Language_ny
 Language_oc
 Language_oj
 Language_om
 Language_or
-Language_os
-Language_pa
+Language_os;Osetyjski
+Language_pa;Pendżabski
 Language_pi
 Language_pl;Polski
 Language_ps
@@ -661,7 +661,7 @@ Language_rn
 Language_ro;Rumuński
 Language_ru;Rosyjski
 Language_rw
-Language_sa
+Language_sa;Sanskryt
 Language_sc
 Language_sd
 Language_se
@@ -669,7 +669,7 @@ Language_sg
 Language_si
 Language_sk;Słowacki
 Language_sl;Słoweński
-Language_sm
+Language_sm;Samoański
 Language_sn
 Language_so;Somalijski
 Language_sq;Albański
@@ -679,7 +679,7 @@ Language_st
 Language_su
 Language_sv;Szwedzki
 Language_sw
-Language_ta
+Language_ta;Tamilski
 Language_te
 Language_tg
 Language_th;Tajski
@@ -692,7 +692,7 @@ Language_tr;Turecki
 Language_ts
 Language_tt;Tatarski
 Language_tw
-Language_ty
+Language_ty;Tahitański
 Language_ug
 Language_uk;Ukraiński
 Language_ur
@@ -707,13 +707,13 @@ Language_yi;Jidisz
 Language_yo
 Language_za
 Language_zh;Chiński
-Language_zh-cn
-Language_zh-tw
+Language_zh-cn;Chiński (Chiny)
+Language_zh-tw;Chiński (Tajwan)
 Language_zu;Zuluski
-LawRating;Mało ceniony
+LawRating;Nisko oceniany
 LCCN;LCCN
 Library;Bibloteka multipleksująca
-Lightness
+Lightness;Jasność
 List;Lista
 Lyrics;Słowa
 Lyricist;Autor słów
@@ -725,7 +725,7 @@ Menu stream(s);Strumienie menu
 Menu_Codec_List;Kodeki menu
 Menu_No;Brak menu
 MenuCount;Liczba strumieni menu
-Menu_Hint;Wiecej możliwosci
+Menu_Hint;Więcej możliwosci
 MenuID;ID menu
 mn; min.
 Mood;Nastrój
@@ -746,42 +746,42 @@ NumColors;Liczba kolorów
 OK;Ok
 One output file per input file;Jeden plik wyjściowy na wejściowy
 Open;Otwórz
-OpenCandy_01
-OpenCandy_02
-OpenCandy_03
-OpenCandy_04
-OpenCandy_05
-OpenCandy_06
-OpenCandy_07
-OpenCandy_08
-OpenCandy_09
-OpenCandy_10
-OpenCandy_11
-OpenCandy_12
-OpenCandy_13
-OpenCandy_14
-OpenCandy_15
-OpenCandy_16
-OpenCandy_17
-OpenCandy_18
-OpenCandy_19
-OpenCandy_20
-OpenCandy_21
-OpenCandy_22
-OpenCandy_23
-OpenCandy_24
-OpenCandy_25
-OpenCandy_26
-OpenCandy_27
-OpenCandy_28
-OpenCandy_29
-OpenCandy_30
-OpenCandy_31
-OpenCandy_32
-OpenCandy_33
-OpenCandy_34
-OpenCandy_35
-OpenCandy_36
+OpenCandy_01;Pobieranie
+OpenCandy_02;      % pobrano
+OpenCandy_03;Utracono połączenie
+OpenCandy_04;            pobieranie zakończone
+OpenCandy_05;Wybierz aby zainstalować
+OpenCandy_06;Na pewno chcesz przerwać instalację?\r\nJeśli chcesz przełożyć instalację na później wybierz 'Nie'.\r\nUwaga: Z menu możesz wybrać 'Wyjście' by odłożyć instalację do ponownego uruchomienia komputera.
+OpenCandy_07;Pobieranie           zostało zapauzowane.\r\nKliknij ikonę w zasobniku, by je wznowić.
+OpenCandy_08;Wystąpił krytyczny błąd. Instalacja          została przerwana.
+OpenCandy_09;Zapauzuj pobieranie
+OpenCandy_10;Anuluj instalację
+OpenCandy_11;Wznów pobieranie
+OpenCandy_12;Opuść instalatora
+OpenCandy_13;        - Polecane przez
+OpenCandy_14;Pobieranie
+OpenCandy_15;           , oprogramowanie polecane przez                 jest pobierane zgodnie z życzeniem. Gdy będzie gotowe do instalacji zostaniesz powiadomiony.
+OpenCandy_16;           mozna już zainstalować.
+OpenCandy_17;           zostało już pobrane. Proszę wybrać 'Instaluj', aby rozpocząć.
+OpenCandy_18;           z           pobrano
+OpenCandy_19;Przygotowany przez OpenCandy
+OpenCandy_20;Dowiedz się więcej na OpenCandy.com
+OpenCandy_21;Instaluj
+OpenCandy_22;Instalacja 
+OpenCandy_23;Instalacja                                 zostanie anulowana.\r\nJesteś pewny, że chcesz przerwać?
+OpenCandy_24;Pauza
+OpenCandy_25;Pobieranie zostało zapauzowane. Wybierz 'Wznów' gdy będziesz chciał kontynuować.
+OpenCandy_26;Wznów
+OpenCandy_27;Zainstaluj
+OpenCandy_28;Pauzuje pobieranie
+OpenCandy_29;Wznawia pobieranie
+OpenCandy_30;Anuluje instalację
+OpenCandy_31;Proszę wybrać opcje instalacji
+OpenCandy_32;Instaluj
+OpenCandy_33;Nie instaluj
+OpenCandy_34;Proszę określić opcje instalacji
+OpenCandy_35;               poleca to oprogramowanie
+OpenCandy_36;Bieżąca instalacja nie będzie przerwana
 Options;Opcje
 Options_Hint;Preferencje
 Original;Oryginalny
@@ -801,29 +801,29 @@ Performer;Wykonawca
 Period;Okres
 Phone;Telefon
 PixelAspectRatio;Proporcje pikseli
-PixelAspectRatio_Original;Proporcje pikseli
+PixelAspectRatio_Original;Oryginalne proporcje pikseli
 PlayCounter;Licznik odtwarzania
 Played_Count;Odtwarzany razy
 Played_First_Date;Pierwszy raz
 Played_Last_Date;Ostatni raz
 PlayTime;Czas trwania
-Position;Pozycja
-Position_Total;Łącznie
+Position;Numer
+Position_Total;Nagrań
 Preferences;Preferencje
 Producer;Producent
 ProductionDesigner;Dekoracje
 ProductionStudio;Studio
 Publisher;Wydawca
-Purchased_Date;Data wydania
+Purchased_Date;Data zakupu
 Quote character;Cudzysłów
 RadioStation;Radiostacja
 Rating;Ocena
 Recorded_Date;Data nagrania
 Recorded_Location;Miejsce nagrania
-Released_Date;Data wydania
-RemixedBy;Remiksowany
-ReplayGain_Gain;Moc sygnału
-ReplayGain_Peak;Szczytowa moc sygnału
+Released_Date;Rok wydania
+RemixedBy;Remiksował
+ReplayGain_Gain;Wzmocnienie
+ReplayGain_Peak;Współczynnik wzmocnienia
 Resolution;Rozdzielczość
 s;s
 SamplingRate;Częstotliwość próbkowania
@@ -833,7 +833,7 @@ ScanOrder;Kolejność skanu
 ScreenplayBy;Scenariusz
 Season;Seria
 see below;zobacz poniżej
-Send HeaderFile;Proszę przesłać plik nagłówka pod adres:http://sourceforge.net/projects/mediainfo/(Bug section)
+Send HeaderFile;Proszę przesłać plik nagłówka pod adres:http://sourceforge.net/projects/mediainfo/ (sekcja błędów)
 Separator_Columns;Separator kolumn
 Separator_Lines;Separator wierszy
 ServiceChannel;Numer kanału usługowego
@@ -847,14 +847,14 @@ Sharpness;Wygładzanie
 Sheet;Karta
 Sheet (Complete);Karta (komplet)
 Shell extension;Rozszerzenie powłoki (menu kontekstowe w eksploratorze)
-Shell InfoTip;Podpowiedź powłoki (w eksploratorze najedź kursorem na plik, wyświetlą się informacje)
+Shell InfoTip;Informacje powłoki (w eksploratorze najedź kursorem na plik, wyświetlą się informacje)
 Show menu;Pokaż menu
 Show toolbar;Pokaż pasek narzędzi
 Sort;Sortowane po
 SoundEngineer;Inżynier dźwięku
 Standard;Standard
 Stream;Strumień
-Stream_MoreInfo;Wiecej informacji o strumieniu
+Stream_MoreInfo;Więcej informacji o strumieniu
 StreamCount;Liczba strumieni
 StreamID;ID strumienia
 StreamKind;Rodzaj strumienia
@@ -870,20 +870,20 @@ Supported?;Obsługiwane?
 Synopsys;Streszczenie
 SystemId;ID
 Tagged_Application;Znakująca aplikacja
-Tagged_Date;Znakująca data
+Tagged_Date;Znakowana data
 Technician;Technik
 TermsOfUse;Zasady korzystania
 Text;Tekst
 Text - Custom;Tekst - własny
 Text (HTML);Tekst (HTML)
-Text stream(s);Strumienie tekstu
-Text streams;Strumienie tekstu
-Text_Codec_List;Kodeki tekstu
-Text_No;Brak tekstu
-Text1;Pierwszy strumień tekstu
-Text2;Drugi strumień tekstu
-Text3;Trzeci strumień tekstu
-TextCount;Strumieni tekstu
+Text stream(s);Strumienie napisów
+Text streams;Strumienie napisów
+Text_Codec_List;Kodeki napisów
+Text_No;Brak napisów
+Text1;Pierwszy strumień napisów
+Text2;Drugi strumień napisów
+Text3;Trzeci strumień napisów
+TextCount;Strumieni napisów
 ThanksTo;Podziękowania dla
 Thousands separator;Separator tysiecy
 Title;Tytuł
@@ -895,7 +895,7 @@ Translator;Tłumacz
 Tree;Drzewo
 Tree & Text;Drzewo i tekst
 Unknown;Nieznany
-Url;Url
+Url;url
 Video;Wideo
 Video stream(s);Strumień(ie) wideo
 Video_Codec_List;Kodeki wideo
@@ -912,8 +912,8 @@ WebSite_Audio;Odwiedź witrynę tego kodeka audio
 WebSite_Audio_More;Odwiedź witrynę (%Url%) aby poszukać kodeka audio
 WebSite_General;Odwiedź witrynę odtwarzacza dla tego pliku
 WebSite_General_More;Odwiedź witrynę odtwarzacza dla tego pliku
-WebSite_Text;Odwiedź witrynę tego kodeka tekstu
-WebSite_Text_More;Odwiedź witrynę (%Url%) aby poszukać kodeka tekstu
+WebSite_Text;Odwiedź witrynę tego kodeka napisów
+WebSite_Text_More;Odwiedź witrynę (%Url%) aby poszukać kodeka napisów
 WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Odwiedź witrynę tego kodeka wideo
 WebSite_Video_More;Odwiedź witrynę (%Url%) aby poszukać kodeka wideo
@@ -922,8 +922,8 @@ WriteMe;Napisz do mnie
 WriteToTranslator;Napisz do tłumacza
 Written_Date;Data
 Written_Location;Lokalizacja
-WrittenBy;Napisany przez
+WrittenBy;Napisał
 Yes;Tak
 Your system;System
-ZZ_Automatic_Percent;82
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;89
+ZZ_AutomaticLanguage_Percent;100

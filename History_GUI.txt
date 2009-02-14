@@ -12,6 +12,10 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
+Version 0.7.12, 2009-
+--------------
++ Polish translations updated
+
 Version 0.7.11, 2009-02-13
 --------------
 + Chinese (Simplified), German, Italian, Persian, Albanian, Dutch, Russian, Hungarian, Japanese translations updated
