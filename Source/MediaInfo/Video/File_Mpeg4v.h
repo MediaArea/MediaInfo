@@ -150,6 +150,7 @@ private :
     bool   sadct;
     bool   quarterpel;
     bool   video_object_layer_start_IsParsed;
+    bool   quant_type;
 
     //From user_data
     Ztring Library;

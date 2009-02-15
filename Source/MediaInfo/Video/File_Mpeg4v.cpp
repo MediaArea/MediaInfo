@@ -470,7 +470,7 @@ void File_Mpeg4v::video_object_layer_start()
             Skip_SB(                                            "composition_method");
             Skip_SB(                                            "linear_composition");
         }
-        TEST_SB_SKIP(                                           "quant_type");
+        TEST_SB_GET (quant_type,                                "quant_type");
             Get_SB (load_intra_quant_mat,                       "load_intra_quant_mat");
             if(load_intra_quant_mat)
                 for (int16u Pos=0; Pos<64; Pos++)
@@ -1162,7 +1162,12 @@ void File_Mpeg4v::vop_start_Fill()
         Fill(Stream_Video, 0, Video_Format_Settings_QPel, "No");
         Fill(Stream_Video, 0, Video_Codec_Settings_QPel, "No");
     }
-    if (load_intra_quant_mat_grayscale || load_nonintra_quant_mat_grayscale)
+    if (!quant_type)
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Default (H.263)");
+        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Default (H.263)");
+    }
+    else if (load_intra_quant_mat_grayscale || load_nonintra_quant_mat_grayscale)
     {
         Fill(Stream_Video, 0, Video_Format_Settings, "Custom Matrix (Gray)");
         Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Custom (Gray)");
@@ -1180,8 +1185,8 @@ void File_Mpeg4v::vop_start_Fill()
     }
     else
     {
-        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Default");
-        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Default");
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Default (MPEG)");
+        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Default (MPEG)");
     }
     if (interlaced)
     {
@@ -1490,6 +1495,7 @@ void File_Mpeg4v::Init()
     halfpel4=false;
     sadct=false;
     quarterpel=false;
+    quant_type=false;
 
     //Default stream values
     Streams.resize(0x100);

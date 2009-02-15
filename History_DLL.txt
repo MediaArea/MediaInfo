@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.12, 2009-
+-------------
++ MPEG-4 Visual: distinction between MPEG and H.263 default matrices
+
 Version 0.7.11, 2009-02-13
 -------------
 + OGG: Better Kate and CMML codecs support
