@@ -8,4 +8,4 @@ Homepage: http://mediainfo.sourceforge.net
 Standards-Version: 3.7.3
 Build-Depends: debhelper (>= 5), doxygen, tofrodos, libzen0-dev (>= 0.3.8), zlib1g-dev, pkg-config, automake, autoconf, libtool
 Files: 
- 00000000000000000000000000000000 000000 libmediainfo_0.7.11.tar.bz2
+ 00000000000000000000000000000000 000000 libmediainfo_0.7.11-1.tar.bz2

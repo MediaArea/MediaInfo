@@ -18,7 +18,7 @@ Summary:		Supplies technical and tag information about a video or audio file
 Group:			System/Libraries
 License:		GPL
 URL:			http://mediainfo.sourceforge.net/
-Source0:		libmediainfo_%{version}.tar.bz2
+Source0:		libmediainfo_%{version}-1.tar.bz2
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	dos2unix
 BuildRequires: 	gcc-c++
