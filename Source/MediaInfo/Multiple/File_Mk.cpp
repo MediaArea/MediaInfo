@@ -160,7 +160,7 @@ void File_Mk::Read_Buffer_Finalize()
             if (StreamKind_Last==Stream_Video)
             {
                 //FrameRate
-                if (Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).empty())
+                if (Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).empty()&& Temp->second.TimeCodes.size()>1)
                 {
                     //Trying to detect VFR
                     std::vector<int64s> FrameRate_Between;
