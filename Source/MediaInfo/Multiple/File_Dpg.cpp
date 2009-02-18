@@ -129,7 +129,7 @@ void File_Dpg::Read_Buffer_Continue()
         #if defined(MEDIAINFO_MPEGA_YES)
             Open_Buffer_Init(Parser, Audio_Offset+Audio_Size, File_Offset+Buffer_Offset);
             Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)((File_Offset+Buffer_Size<Audio_Offset+Audio_Size)?Buffer_Size:(Audio_Offset+Audio_Size-File_Offset)));
-            if (Parser->File_Offset==Parser->File_Size || Parser->File_GoTo!=(int64u)-1)
+            if (Parser->IsFinished || Parser->File_Offset==Parser->File_Size || Parser->File_GoTo!=(int64u)-1)
             {
                 Open_Buffer_Finalize(Parser);
                 Merge(*Parser, Stream_Audio, 0, 0);
