@@ -1195,12 +1195,14 @@ void File_Wm::Data()
     std::map<int16u, stream>::iterator Temp=Stream.begin();
     while (Temp!=Stream.end())
     {
+        #if defined(MEDIAINFO_MPEGA_YES)
         if (IsDvrMs && !Temp->second.Parser && Temp->second.AverageBitRate>=32768)
         {
             Temp->second.Parser=new File_Mpega; //No stream properties, trying to detect it in datas...
             Open_Buffer_Init(Temp->second.Parser);
             ((File_Mpega*)Temp->second.Parser)->Frame_Count_Valid=8;
         }
+        #endif
         if (Temp->second.Parser || Temp->second.StreamKind==Stream_Video) //We need Stream_Video for Frame_Rate computing
         {
             Temp->second.SearchingPayload=true;
