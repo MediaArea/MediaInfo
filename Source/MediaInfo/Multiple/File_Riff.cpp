@@ -269,6 +269,7 @@ void File_Riff::Read_Buffer_Finalize ()
             {
                 //Duration in case it is missing from header (malformed header...)
                 int64u SamplingCount=0;
+                #if defined(MEDIAINFO_MPEGA_YES)
                 if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("MPEG Audio"))
                 {
                     if (Temp->second.Parser && Temp->second.PacketPos==((File_Mpega*)Temp->second.Parser)->Frame_Count_Valid) //Only for stream with one frame per chunk
@@ -279,6 +280,7 @@ void File_Riff::Read_Buffer_Finalize ()
                             SamplingCount=Temp->second.PacketCount*1152; //Layer 2 and 3
                     }
                 }
+                #endif
                 if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("PCM"))
                 {
                     int64u Resolution=Retrieve(Stream_Audio, StreamPos_Last, Audio_Resolution).To_int64u();
