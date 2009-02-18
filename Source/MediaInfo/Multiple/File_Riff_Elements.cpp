@@ -2225,8 +2225,8 @@ void File_Riff::RMP3_data()
         Open_Buffer_Finalize(&MI);
         Merge(MI, Stream_Audio, 0, 0);
     #else
-        Stream_Prepare(Stream_Audio)
-        Fill("Codec", "MPEG1/2 Audio");
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, "Codec", "MPEG1/2 Audio");
     #endif
 
     //Positionning
