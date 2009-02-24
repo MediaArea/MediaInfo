@@ -91,7 +91,7 @@ Section "SectionPrincipale" SEC01
   SetOverwrite ifnewer
   SetOutPath "$INSTDIR"
   CreateDirectory "$SMPROGRAMS\MediaInfo"
-  CreateShortCut "$SMPROGRAMS\MediaInfo\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe"
+  CreateShortCut "$SMPROGRAMS\MediaInfo\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe" "" "" "" "" "" "MediaInfo"
   File "..\..\Release\BCB\GUI\MediaInfo.exe"
   File "..\..\Release\MSVC\DLL\MediaInfo_InfoTip.dll"
   File "..\..\..\MediaInfoLib\Release\MSVC2005\DLL\MediaInfo.dll"
@@ -119,9 +119,9 @@ SectionEnd
 Section -AdditionalIcons
   SetOutPath $INSTDIR
   WriteIniStr "$INSTDIR\${PRODUCT_NAME}.url" "InternetShortcut" "URL" "${PRODUCT_WEB_SITE}"
-  CreateShortCut "$SMPROGRAMS\MediaInfo\Website.lnk" "$INSTDIR\${PRODUCT_NAME}.url"
-  CreateShortCut "$SMPROGRAMS\MediaInfo\Uninstall.lnk" "$INSTDIR\uninst.exe"
-  CreateShortCut "$SMPROGRAMS\MediaInfo\History.lnk" "$INSTDIR\History.txt"
+  CreateShortCut "$SMPROGRAMS\MediaInfo\Website.lnk" "$INSTDIR\${PRODUCT_NAME}.url" "" "" "" "" "" "Website"
+  CreateShortCut "$SMPROGRAMS\MediaInfo\Uninstall.lnk" "$INSTDIR\uninst.exe" "" "" "" "" "" "Uninstall MediaInfo"
+  CreateShortCut "$SMPROGRAMS\MediaInfo\History.lnk" "$INSTDIR\History.txt" "" "" "" "" "" "History"
 SectionEnd
 
 Section -Post
