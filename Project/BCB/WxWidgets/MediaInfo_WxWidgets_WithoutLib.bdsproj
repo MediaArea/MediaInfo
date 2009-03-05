@@ -94,7 +94,17 @@
           <property category="win32.*.win32b.bcc32" name="option.D.arg.1" value="UNICODE"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.10" value="ZENLIB_STANDARDx"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.11" value="MEDIAINFO_MINIMIZESIZEx"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.12" value="MEDIAINFO_ALL_NOx"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.13" value="MEDIAINFO_MPEGA_YES"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.14" value="MEDIAINFO_ID3V2_YES"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.15" value="MEDIAINFO_LYRICS3V2_YES"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.16" value="MEDIAINFO_APETAG_YES"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.17" value="MEDIAINFO_LYRICS3_YES"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.18" value="MEDIAINFO_FLAC_YES"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.19" value="MEDIAINFO_APE_YES"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.2" value="_UNICODE"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.20" value="MEDIAINFO_MPC_YES"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.21" value="MEDIAINFO_ID3_YES"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.3" value="_DEBUG"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.4" value="__WXMSW__"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.5" value="__WXDEBUG__"/>
@@ -379,9 +389,6 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Buffer.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Buffer" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Streams.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Streams" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base_Automatic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Automatic" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base_Finalize.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Finalize" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base_Inform.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Base_Inform" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__MultipleParsing.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__MultipleParsing" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Dummy.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dummy" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Other.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Other" FORMNAME="" DESIGNCLASS=""/>
@@ -492,6 +499,8 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_MpegTs_Duplicate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_MpegTs_Duplicate" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Theora.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Theora" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Dpg.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dpg" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config_Automatic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Config_Automatic" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Finalize.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Finalize" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
