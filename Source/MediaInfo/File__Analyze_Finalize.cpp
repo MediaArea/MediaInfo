@@ -1,4 +1,4 @@
-// File__Base_Inform - Base for other files
+// File__Analyze_Inform - Base for other files
 // Copyright (C) 2002-2009 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it

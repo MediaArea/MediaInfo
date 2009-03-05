@@ -35,7 +35,7 @@ namespace MediaInfoLib
 {
 
 //---------------------------------------------------------------------------
-void File__Base_DefaultLanguage (Translation &Info)
+void MediaInfo_Config_DefaultLanguage (Translation &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -973,7 +973,7 @@ void File__Base_DefaultLanguage (Translation &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Format (InfoMap &Info)
+void MediaInfo_Config_Format (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -1063,7 +1063,7 @@ void File__Base_Format (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_CodecID_General_Mpeg4 (InfoMap &Info)
+void MediaInfo_Config_CodecID_General_Mpeg4 (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -1127,7 +1127,7 @@ void File__Base_CodecID_General_Mpeg4 (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_CodecID_Video_Matroska (InfoMap &Info)
+void MediaInfo_Config_CodecID_Video_Matroska (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -1155,7 +1155,7 @@ void File__Base_CodecID_Video_Matroska (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_CodecID_Video_Mpeg4 (InfoMap &Info)
+void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -1201,7 +1201,7 @@ void File__Base_CodecID_Video_Mpeg4 (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_CodecID_Video_Real (InfoMap &Info)
+void MediaInfo_Config_CodecID_Video_Real (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -1215,7 +1215,7 @@ void File__Base_CodecID_Video_Real (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_CodecID_Video_Riff (InfoMap &Info)
+void MediaInfo_Config_CodecID_Video_Riff (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -1903,7 +1903,7 @@ void File__Base_CodecID_Video_Riff (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_CodecID_Audio_Matroska (InfoMap &Info)
+void MediaInfo_Config_CodecID_Audio_Matroska (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -1944,7 +1944,7 @@ void File__Base_CodecID_Audio_Matroska (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_CodecID_Audio_Mpeg4 (InfoMap &Info)
+void MediaInfo_Config_CodecID_Audio_Mpeg4 (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -1981,7 +1981,7 @@ void File__Base_CodecID_Audio_Mpeg4 (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_CodecID_Audio_Real (InfoMap &Info)
+void MediaInfo_Config_CodecID_Audio_Real (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -2006,7 +2006,7 @@ void File__Base_CodecID_Audio_Real (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_CodecID_Audio_Riff (InfoMap &Info)
+void MediaInfo_Config_CodecID_Audio_Riff (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -2251,7 +2251,7 @@ void File__Base_CodecID_Audio_Riff (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_CodecID_Text_Matroska (InfoMap &Info)
+void MediaInfo_Config_CodecID_Text_Matroska (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -2270,7 +2270,7 @@ void File__Base_CodecID_Text_Matroska (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_CodecID_Text_Mpeg4 (InfoMap &Info)
+void MediaInfo_Config_CodecID_Text_Mpeg4 (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -2283,7 +2283,7 @@ void File__Base_CodecID_Text_Mpeg4 (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_CodecID_Text_Riff (InfoMap &Info)
+void MediaInfo_Config_CodecID_Text_Riff (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -2293,7 +2293,7 @@ void File__Base_CodecID_Text_Riff (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Codec (InfoMap &Info)
+void MediaInfo_Config_Codec (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -3368,7 +3368,7 @@ void File__Base_Codec (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_General (ZtringListList &Info)
+void MediaInfo_Config_General (ZtringListList &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -3623,7 +3623,7 @@ void File__Base_General (ZtringListList &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Video (ZtringListList &Info)
+void MediaInfo_Config_Video (ZtringListList &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -3776,7 +3776,7 @@ void File__Base_Video (ZtringListList &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Audio (ZtringListList &Info)
+void MediaInfo_Config_Audio (ZtringListList &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -3906,7 +3906,7 @@ void File__Base_Audio (ZtringListList &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Text (ZtringListList &Info)
+void MediaInfo_Config_Text (ZtringListList &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -3993,7 +3993,7 @@ void File__Base_Text (ZtringListList &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Chapters (ZtringListList &Info)
+void MediaInfo_Config_Chapters (ZtringListList &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -4023,7 +4023,7 @@ void File__Base_Chapters (ZtringListList &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Image (ZtringListList &Info)
+void MediaInfo_Config_Image (ZtringListList &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -4082,7 +4082,7 @@ void File__Base_Image (ZtringListList &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Menu (ZtringListList &Info)
+void MediaInfo_Config_Menu (ZtringListList &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -4124,7 +4124,7 @@ void File__Base_Menu (ZtringListList &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Iso639 (InfoMap &Info)
+void MediaInfo_Config_Iso639 (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -4342,7 +4342,7 @@ void File__Base_Iso639 (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Library_DivX (InfoMap &Info)
+void MediaInfo_Config_Library_DivX (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -4415,7 +4415,7 @@ void File__Base_Library_DivX (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Library_XviD (InfoMap &Info)
+void MediaInfo_Config_Library_XviD (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -4475,7 +4475,7 @@ void File__Base_Library_XviD (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Library_MainConcept_Avc (InfoMap &Info)
+void MediaInfo_Config_Library_MainConcept_Avc (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -4485,7 +4485,7 @@ void File__Base_Library_MainConcept_Avc (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Library_VorbisCom (InfoMap &Info)
+void MediaInfo_Config_Library_VorbisCom (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
@@ -4524,7 +4524,7 @@ void File__Base_Library_VorbisCom (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
-void File__Base_Summary (ZtringListList &Info)
+void MediaInfo_Config_Summary (ZtringListList &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
