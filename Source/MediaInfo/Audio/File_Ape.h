@@ -41,19 +41,18 @@ namespace MediaInfoLib
 
 class File_Ape : public File__Analyze, public File__Tags_Helper
 {
-protected :
-    //Format
-    void Read_Buffer_Continue ();
-    void Read_Buffer_Finalize ();
-
 public :
+    //Constructor/Destructor
     File_Ape();
 
 private :
-    //Buffer
+    //Buffer - File header
     bool FileHeader_Begin();
     void FileHeader_Parse ();
-    bool Header_Begin ();
+
+    //Buffer - Global
+    void Read_Buffer_Continue ();
+    void Read_Buffer_Finalize ();
 
     //Temp
     int64u Duration;

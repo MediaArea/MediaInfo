@@ -39,9 +39,10 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Constants
+// Infos
 //***************************************************************************
 
+//---------------------------------------------------------------------------
 const char* Elf_osabi(int8u osabi)
 {
     switch (osabi)
@@ -63,6 +64,7 @@ const char* Elf_osabi(int8u osabi)
     }
 }
 
+//---------------------------------------------------------------------------
 const char* Elf_type(int16u type)
 {
     switch (type)
@@ -75,6 +77,7 @@ const char* Elf_type(int16u type)
     }
 }
 
+//---------------------------------------------------------------------------
 const char* Elf_machine(int16u machine)
 {
     switch (machine)
@@ -160,22 +163,38 @@ const char* Elf_machine(int16u machine)
 }
 
 //***************************************************************************
-// Format
+// Static stuff
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Elf::FileHeader_Parse()
+bool File_Elf::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<4)
+        return false; //Must wait for more data
+
+    if (CC4(Buffer)!=0x7F454C46) //".ELF"
+    {
+        Rejected("ELF");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Elf::Read_Buffer_Continue()
 {
     //Parsing
-    int32u magic, version4;
+    int32u version4;
     int16u type, machine;
     int8u  classs, data, version1, osabi, abiversion;
-    Get_B4 (magic,                                              "magic");
-    if (magic!=0x7F454C46) //"ELF"
-    {
-        Finished();
-        return;
-    }
+    Skip_C4(                                                    "magic");
     Get_L1 (classs,                                             "class");
     Get_L1 (data,                                               "data");
     Get_L1 (version1,                                           "version");
@@ -194,23 +213,26 @@ void File_Elf::FileHeader_Parse()
         Get_B2 (machine,                                        "machine"); Param_Info(Elf_machine(machine));
         Get_B4 (version4,                                       "version");
     }
-    if (version1!=version4)
-    {
-        Finished();
-        return;
-    }
+    Skip_XX(Element_Size-Element_Offset,                        "Data");
 
-    //Filling
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "ELF");
-    if (data==1 || data==2) //Known
-    {
-        Fill(Stream_General, 0, General_Format_Profile, Elf_type(type));
-        Fill(Stream_General, 0, General_Format_Profile, Elf_machine(machine));
-    }
+    FILLING_BEGIN();
+        if (version1!=version4)
+        {
+            Rejected("ELF");
+            return;
+        }
 
-    //No need of more
-    Finished();
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "ELF");
+        if (data==1 || data==2) //Known
+        {
+            Fill(Stream_General, 0, General_Format_Profile, Elf_type(type));
+            Fill(Stream_General, 0, General_Format_Profile, Elf_machine(machine));
+        }
+
+        //No need of more
+        Detected("ELF");
+    FILLING_END();
 }
 
 } //NameSpace

@@ -62,6 +62,7 @@ File__Analyze::File__Analyze ()
     //Configuration
     DataMustAlwaysBeComplete=true;
     MustUseAlternativeParser=false;
+    MustSynchronize=false;
 
     //Buffer
     Buffer=NULL;
@@ -73,7 +74,12 @@ File__Analyze::File__Analyze ()
     Buffer_Offset_Temp=0;
     Buffer_MinimumSize=0;
     Buffer_MaximumSize=1024*1024;
-    Buffer_Init_Done=false;
+    Buffer_TotalBytes_FirstSynched=0;
+    Buffer_TotalBytes=0;
+    if (MediaInfoLib::Config.FormatDetection_MaximumOffset_Get())
+        Buffer_TotalBytes_FirstSynched_Max=MediaInfoLib::Config.FormatDetection_MaximumOffset_Get();
+    else
+        Buffer_TotalBytes_FirstSynched_Max=1024*1024;
 
     //EOF
     EOF_AlreadyDetected=false;
@@ -116,7 +122,8 @@ File__Analyze::File__Analyze ()
     BS=new BitStream;
 
     //Temp
-    NewFinnishMethod=false;
+    IsDetected=false;
+    IsRejected=false;
     IsFinished=false;
     ShouldContinueParsing=false;
 }
@@ -156,24 +163,23 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
     if (!IsSub)
         IsSub=Config->File_IsSub_Get();
 
-    //Format
-    if (!Buffer_Init_Done)
-    {
-        Read_Buffer_Init();
-        Buffer_Init_Done=true;
-    }
+    //Buffer - Global
+    Read_Buffer_Init();
 
     //Integrity
-    if (File_Offset>=File_Size)
+    if (!IsDetected && File_Offset>=File_Size)
     {
-        Buffer_Clear();
-        Finished();
+        Rejected();
         return; //There is a problem
     }
 
     //Jump handling
-    if (!Buffer_Init_Done || File_GoTo!=(int64u)-1)
+    if (File_GoTo!=(int64u)-1)
         Read_Buffer_Unsynched();
+
+    //Configuring
+    if (MediaInfoLib::Config.FormatDetection_MaximumOffset_Get())
+        Buffer_TotalBytes_FirstSynched_Max=MediaInfoLib::Config.FormatDetection_MaximumOffset_Get();
 }
 
 void File__Analyze::Open_Buffer_Init (File__Analyze* Sub)
@@ -185,24 +191,20 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_, int
 {
     //Integrity
     if (Sub==NULL)
-        Sub=this;
+        return;
 
     //Parsing
     Sub->Init(Config, Details);
     Sub->IsSub=true;
     Sub->Open_Buffer_Init(File_Size_, File_Offset_);
-
-    //Configuring
-    File_MaximumOffset=MediaInfoLib::Config.FormatDetection_MaximumOffset_Get();
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
     //Integrity
-    if (ToAdd==NULL || File_Offset==File_Size)
+    if (ToAdd==NULL || (IsFinished && IsSub && !ShouldContinueParsing))
         return;
-
     //{File F; F.Open(Ztring(_T("d:\\direct"))+Ztring::ToZtring((size_t)this, 16), File::Access_Write_Append); F.Write(ToAdd, ToAdd_Size);}
 
     //Demand to go elsewhere
@@ -210,10 +212,12 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     {
         if (File_GoTo>File_Offset+ToAdd_Size)
             return; //No need of this piece of data
-
-        //The needed offset is in the new buffer
-        ToAdd+=(size_t)(File_GoTo-File_Offset);
-        ToAdd_Size-=(size_t)(File_GoTo-File_Offset);
+        if (File_GoTo!=File_Offset)
+        {
+            //The needed offset is in the new buffer
+            ToAdd+=(size_t)(File_GoTo-File_Offset);
+            ToAdd_Size-=(size_t)(File_GoTo-File_Offset);
+        }
     }
 
     if (Buffer_Temp_Size) //There is buffered data from before
@@ -254,37 +258,22 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     //Parsing
     if (Buffer_Size>=Buffer_MinimumSize || File_Offset+Buffer_Size==File_Size) //Parsing only if we have enough buffer
         Open_Buffer_Continue_Loop();
+    Buffer_TotalBytes+=Buffer_Offset;
 
-    //Registering the first synch offset
-    if (File_Offset_FirstSynched==(int64u)-1 && Synched)
-        File_Offset_FirstSynched=File_Offset; //This is ~this offset, we don't know precisely the offset synched in the buffer
-
-    //Finished?
-    if ((File_GoTo==File_Size && File_Size!=(int64u)-1)|| File_Offset+Buffer_Offset>=File_Size)
+    //Should parse again?
+    if ((File_GoTo==File_Size && File_Size!=(int64u)-1) || File_Offset+Buffer_Offset>=File_Size)
     {
         if (!BookMark_Code.empty())
             BookMark_Get();
 
-        if (File_GoTo>=File_Size)
+        if (!IsDetected && File_GoTo>=File_Size)
         {
-            File_Offset=File_Size;
-            File_GoTo=File_Size;
-            Buffer_Clear();
+            Finished();
             Element_Show(); //If Element_Level is >0, we must show what is in the details buffer
             while (Element_Level>0)
                 Element_End(); //This is Finished, must flush
             return;
         }
-    }
-
-    //Detection is parsing too much
-    if (!File_Name.empty() && Count_Get(Stream_General)==0 && File_Offset>File_MaximumOffset)
-    {
-        //Starter not found, we abandon
-        Buffer_Clear();
-        File_Offset=File_Size;
-        File_GoTo=File_Size;
-        return;
     }
 
     //Demand to go elsewhere
@@ -348,10 +337,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     //Is it OK?
     if (Buffer_Size>Buffer_MaximumSize)
     {
-        //Buffer too big, we abandon
-        Buffer_Clear();
-        File_Offset=File_Size;
-        File_GoTo=File_Size;
+        Finished();
         return;
     }
 }
@@ -359,9 +345,10 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd, size_t ToAdd_Size)
 {
     if (Sub==NULL)
-        Sub=this;
+        return;
 
     //Sub
+    Sub->Open_Buffer_Init(File_Size, File_Offset);
     #ifndef MEDIAINFO_MINIMIZESIZE
         Sub->Element_Level_Base=Element_Level_Base+Element_Level;
     #endif
@@ -390,9 +377,6 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
         else
             Element[Element_Level].ToShow.NoShow=true; //We don't want to show this item because there is no info in it
     #endif
-
-    //Positioning
-    //Element_Offset+=ToAdd_Size;
 }
 
 //---------------------------------------------------------------------------
@@ -403,20 +387,30 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
         Config_Details=MediaInfoLib::Config.Details_Get();
     #endif
     
-    //Parsing specific
-    Frame_Count_InThisBlock=0; //Out
-    Read_Buffer_Continue();
-    if (File_GoTo!=(int64u)-1)
-        return; //Finished
-
     //Header
     if (MustParseTheHeaderFile)
     {
         if (!FileHeader_Manage())
             return; //Wait for more data
-        if (File_GoTo!=(int64u)-1)
+        if (IsFinished || File_GoTo!=(int64u)-1)
             return; //Finished
     }
+
+    //Synchro
+    if (MustSynchronize && !Synchro_Manage())
+        return; //Wait for more data
+
+    //Parsing specific
+    Frame_Count_InThisBlock=0; //Out
+    Element_Offset=0;
+    Element_Size=Buffer_Size;
+    Element[Element_Level].WaitForMoreData=false;
+    Read_Buffer_Continue();
+    if (Element_IsWaitingForMoreData())
+        return; //Wait for more data
+    Buffer_Offset+=(size_t)Element_Offset;
+    if (IsFinished && !ShouldContinueParsing || Buffer_Offset>=Buffer_Size || File_GoTo!=(int64u)-1)
+        return; //Finished
 
     //Parsing;
     while (Buffer_Parse());
@@ -444,8 +438,10 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
         Open_Buffer_Continue(NULL, 0);
     }
 
-    //Format
+    //Buffer - Global
     Read_Buffer_Finalize();
+    if (!IsDetected)
+        Clear();
 
     //Element must be Finished
     while (Element_Level>0)
@@ -470,6 +466,7 @@ void File__Analyze::Open_Buffer_Finalize (File__Analyze* Sub)
         return;
 
     //Finalize
+    Open_Buffer_Init(Sub);
     Sub->Open_Buffer_Finalize();
 }
 
@@ -504,6 +501,10 @@ bool File__Analyze::Buffer_Parse()
         MustUseAlternativeParser=false; //Reset it if we go out of an element
     }
 
+    //Synchro
+    if (MustSynchronize && !Synchro_Manage())
+        return false; //Wait for more data
+
     //Header
     if (!Header_Manage())
         return false; //Wait for more data
@@ -535,6 +536,130 @@ void File__Analyze::Buffer_Clear()
 }
 
 //***************************************************************************
+// Helpers
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File__Analyze::Synchronize_0x000001()
+{
+    //Synchronizing
+    while (Buffer_Offset+4<=Buffer_Size)
+    {
+        while (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+            Buffer_Offset++;
+        if (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset+1]==0x00)
+            if (Buffer[Buffer_Offset+2]==0x01)
+                break;
+        Buffer_Offset++;
+    }
+    if (Buffer_Offset+4>Buffer_Size)
+    {
+        //Parsing last bytes
+        if (Buffer_Offset+3==Buffer_Size)
+        {
+            if (CC3(Buffer+Buffer_Offset)!=0x000001)
+            {
+                Buffer_Offset++;
+                if (CC2(Buffer+Buffer_Offset)!=0x0000)
+                {
+                    Buffer_Offset++;
+                    if (Buffer[Buffer_Offset]!=0x00)
+                        Buffer_Offset++;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    //Synched is OK
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File__Analyze::FileHeader_Begin_0x000001()
+{
+    //Element_Size
+    if (Buffer_Size<192*4)
+        return true; //Not enough buffer fir a test
+
+    //Detecting WAV/SWF/FLV/ELF/DPG/WM files
+    int32u Magic4=CC4(Buffer);
+    int32u Magic3=Magic4>>8;
+    int16u Magic2=Magic4>>16;
+    if (Magic4==0x52494646 || Magic3==0x465753 || Magic3==0x464C56 || Magic4==0x7F454C46 || Magic4==0x44504730 || Magic4==0x3026B275 || Magic2==0x4D5A)
+    {
+        Rejected();
+        return false;
+    }
+
+    //Detect TS files, and the parser is not enough precise to detect them later
+    size_t Buffer_Offset=0;
+    while (Buffer_Offset<188 && Buffer[Buffer_Offset]!=0x47) //Look for first Sync word
+        Buffer_Offset++;
+    if (Buffer_Offset<188 && Buffer[Buffer_Offset+188]==0x47 && Buffer[Buffer_Offset+188*2]==0x47 && Buffer[Buffer_Offset+188*3]==0x47)
+    {
+        IsFinished=true;
+        return false;
+    }
+    Buffer_Offset=0;
+
+    //Detect BDAV files, and the parser is not enough precise to detect them later
+    while (Buffer_Offset<192 && CC1(Buffer+Buffer_Offset+4)!=0x47) //Look for first Sync word
+        Buffer_Offset++;
+    if (Buffer_Offset<192 && CC1(Buffer+Buffer_Offset+192+4)==0x47 && CC1(Buffer+Buffer_Offset+192*2+4)==0x47 && CC1(Buffer+Buffer_Offset+192*3+4)==0x47)
+    {
+        IsFinished=true;
+        return false;
+    }
+    Buffer_Offset=0;
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File__Analyze::Synchro_Manage()
+{
+    //Testing if synchro is OK
+    if (Synched)
+    {
+        if (!Synched_Test())
+            return false;
+        if (!Synched)
+        {
+            Element[Element_Level].IsComplete=true; //Else the trusting algo will think it
+            Trusted_IsNot("Synchronisation lost");
+        }
+    }
+    //Trying to synchronize
+    if (!Synched)
+    {
+        if (!Synchronize())
+        {
+            if (IsFinished)
+                Finished(); //Finished
+            if (!IsSub && File_Offset_FirstSynched==(int64u)-1 && Buffer_TotalBytes+Buffer_Offset>=Buffer_TotalBytes_FirstSynched_Max)
+                Rejected();
+            return false; //Wait for more data
+        }
+        Synched=true;
+        if (File_Offset_FirstSynched==(int64u)-1)
+        {
+            Synched_Init();
+            Buffer_TotalBytes_FirstSynched+=Buffer_TotalBytes+Buffer_Offset;
+            File_Offset_FirstSynched=File_Offset+Buffer_Offset;
+        }
+    }
+
+    return true;
+}
+
+//***************************************************************************
 // File Header
 //***************************************************************************
 
@@ -543,13 +668,22 @@ bool File__Analyze::FileHeader_Manage()
 {
     //From the parser
     if (!FileHeader_Begin())
+    {
+        if (IsFinished) //Newest parsers set this bool if there is an error
+            Rejected();
         return false; //Wait for more data
+    }
 
     //From the parser
     Element_Size=Buffer_Size;
     Element_Begin("File Header");
     FileHeader_Parse();
     Element_End();
+    if (IsFinished) //Newest parsers set this bool if there is an error
+    {
+        Finished();
+        return false;
+    }
 
     //Testing the parser result
     if (Element_IsWaitingForMoreData() || Element[Element_Level].UnTrusted) //Wait or problem
@@ -618,6 +752,7 @@ bool File__Analyze::Header_Manage()
         Header_Fill_Code(0, "Problem");
         Header_Fill_Size(Element_Size);
     }
+
     if (Element_IsWaitingForMoreData() || (DataMustAlwaysBeComplete && Element[Element_Level-1].Next>File_Offset+Buffer_Size)) //Wait or want to have a comple data chunk
     {
         //The header is not complete, need more data
@@ -826,7 +961,7 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
 
     if (IsSub)
     {
-        Info(Ztring(ParserName)+(ShouldContinueParsing?_T(" detected"):_T(", parsing Finished")), 1);
+        Info(Ztring(ParserName)+(ShouldContinueParsing?_T(" detected"):_T(", parsing finished")), 1);
         Finished();
         return;
     }
@@ -836,8 +971,8 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
 
     if (GoTo==File_Size)
     {
-        Info(Ztring(ParserName)+_T(", parsing Finished"));
-        Finished();
+        Info(Ztring(ParserName)+_T(", parsing finished"));
+        Detected(ParserName);
     }
     else
     {
@@ -858,9 +993,12 @@ void File__Analyze::Data_GoTo (int64u GoTo)
         Element_End(); //Element
 
     if (GoTo==File_Size)
-        Finished();
+        Detected();
     else
+    {
         File_GoTo=GoTo;
+        Synched=false;
+    }
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
@@ -1303,10 +1441,15 @@ void File__Analyze::NextCode_Clear ()
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::NextCode_Test ()
+bool File__Analyze::NextCode_Test ()
 {
     if (NextCode.find(Element_Code)==NextCode.end())
+    {
         Trusted_IsNot("Frames are not in the right order");
+        return false;
+    }
+
+    return true;
 }
 
 //***************************************************************************
@@ -1336,10 +1479,7 @@ void File__Analyze::Trusted_IsNot (const char* Reason)
     }
 
     if (Trusted==0)
-    {
-        Clear();
-        Finished();
-    }
+        Rejected();
 }
 
 //***************************************************************************
@@ -1347,17 +1487,92 @@ void File__Analyze::Trusted_IsNot (const char* Reason)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Finished ()
+#ifndef MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Detected (int64u BeforeEnd, const char* Message)
 {
-    if (NewFinnishMethod)
+    IsDetected=true;
+    if (ShouldContinueParsing)
     {
         IsFinished=true;
-        return;
+        if (Message)
+        {
+            bool MustElementBegin=Element_Level?true:false;
+            if (Element_Level>0)
+                Element_End(); //Element
+            Info(Ztring(Message)+_T(" detected, we continue"));
+            if (MustElementBegin)
+                Element_Level++;
+        }
     }
-
-    File_Offset=File_Size;
-    File_GoTo=File_Size;
+    else if (BeforeEnd==0)
+        Finished(Message);
+    else if (BeforeEnd<File_Size-File_Offset)
+        Data_GoTo(File_Size-BeforeEnd, Message);
 }
+#else //MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Detected (int64u BeforeEnd)
+{
+    IsDetected=true;
+    if (ShouldContinueParsing)
+        ;
+    else if (BeforeEnd==0)
+        Finished();
+    else if (BeforeEnd<File_Size-File_Offset)
+        Data_GoTo(File_Size-BeforeEnd);
+}
+#endif //MEDIAINFO_MINIMIZESIZE
+
+//---------------------------------------------------------------------------
+#ifndef MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Finished (const char* Message)
+{
+    if (Message)
+    {
+        bool MustElementBegin=Element_Level?true:false;
+        if (Element_Level>0)
+            Element_End(); //Element
+        Info(Ztring(Message)+_T(", no need of more, finished"));
+        if (MustElementBegin)
+            Element_Level++;
+    }
+    IsFinished=true;
+    Buffer_Clear();
+}
+#else //MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Finished ()
+{
+    IsFinished=true;
+    Buffer_Clear();
+}
+#endif //MEDIAINFO_MINIMIZESIZE
+
+//---------------------------------------------------------------------------
+#ifndef MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Rejected (const char* Message)
+{
+    if (Message)// && File_Offset+Buffer_Offset+Element_Size<File_Size)
+    {
+        bool MustElementBegin=Element_Level?true:false;
+        if (Element_Level>0)
+            Element_End(); //Element
+        Info(Ztring(Message)+_T(", rejected"));
+        if (MustElementBegin)
+            Element_Level++;
+    }
+    IsRejected=true;
+    IsFinished=true;
+    Clear();
+    Buffer_Clear();
+}
+#else //MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Rejected ()
+{
+    IsRejected=true;
+    IsFinished=true;
+    Clear();
+    Buffer_Clear();
+}
+#endif //MEDIAINFO_MINIMIZESIZE
 
 //---------------------------------------------------------------------------
 int64u File__Analyze::Element_Code_Get (size_t Level)

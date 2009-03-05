@@ -44,10 +44,11 @@ namespace MediaInfoLib
 class File_Cmml : public File__Analyze
 {
 public :
+    //Constructor/Destructor
     File_Cmml();
 
 private :
-    //Buffer
+    //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
 

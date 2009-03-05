@@ -278,7 +278,7 @@ void File__Analyze::Fill_Flush()
 }
 
 //---------------------------------------------------------------------------
-size_t File__Analyze::Merge(File__Base &ToAdd, bool Erase)
+size_t File__Analyze::Merge(File__Analyze &ToAdd, bool Erase)
 {
     size_t Count=0;
     for (size_t StreamKind=(size_t)Stream_General+1; StreamKind<(size_t)Stream_Max; StreamKind++)
@@ -296,7 +296,7 @@ size_t File__Analyze::Merge(File__Base &ToAdd, bool Erase)
 }
 
 //---------------------------------------------------------------------------
-size_t File__Analyze::Merge(File__Base &ToAdd, stream_t StreamKind, size_t StreamPos_From, size_t StreamPos_To, bool Erase)
+size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t StreamPos_From, size_t StreamPos_To, bool Erase)
 {
     //Integrity
     if (&ToAdd==NULL || StreamKind>=Stream_Max || !ToAdd.Stream || StreamPos_From>=(*ToAdd.Stream)[StreamKind].size())

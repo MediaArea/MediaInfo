@@ -46,7 +46,7 @@ public :
     bool   FrameIsAlwaysComplete;
 
 protected :
-    //Format
+    //Buffer - Global
     void Read_Buffer_Continue ();
     void Read_Buffer_Finalize ();
 

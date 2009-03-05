@@ -41,21 +41,15 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Const
+// Infos
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-#if defined(MEDIAINFO_MPC_YES)
 extern const int16u Mpc_SampleFreq[];
-#else //MEDIAINFO_MPC_YES
-const int16u Mpc_SampleFreq[]=
-{
-    44100, //CD
-    48000, //DAT, DVC, ADR
-    37800, //CD-ROM-XA
-    32000, //DSR, DAT-LP, DVC-LP
-};
-#endif //MEDIAINFO_MPC_YES
+
+//***************************************************************************
+// Constants
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 namespace Elements
@@ -84,31 +78,64 @@ File_MpcSv8::File_MpcSv8()
 
 
 //***************************************************************************
-// Format
+// Static stuff
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_MpcSv8::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<4)
+        return false; //Must wait for more data
+
+    if (CC4(Buffer)!=0x4D50434B) //"MPCK"
+    {
+        Rejected("Musepack SV8");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_MpcSv8::Read_Buffer_Continue()
 {
     //Tags
-    if (!File__Tags_Helper::Read_Buffer_Continue())
-        return;
-}
-
-//---------------------------------------------------------------------------
-void File_MpcSv8::Read_Buffer_Finalize()
-{
-    //Tags
-    File__Tags_Helper::Read_Buffer_Finalize();
+    File__Tags_Helper::Read_Buffer_Continue();
 }
 
 //***************************************************************************
-// Buffer
+// Buffer - File header
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_MpcSv8::FileHeader_Parse()
+{
+    //Parsing
+    Skip_C4(                                                    "Magic Number");
+
+    FILLING_BEGIN();
+        File__Tags_Helper::Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "MusePack SV8");
+        File__Tags_Helper::Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "MusePack SV8");
+        Fill(Stream_Audio, 0, Audio_Codec, "SV8");
+    FILLING_END();
+}
+
+//***************************************************************************
+// Buffer - Per element
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 bool File_MpcSv8::Header_Begin()
 {
+    //Tags
     if (!File__Tags_Helper::Header_Begin())
         return false;
 
@@ -134,48 +161,22 @@ void File_MpcSv8::Header_Parse()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_MpcSv8::FileHeader_Parse()
-{
-    //Parsing
-    Element_Begin("SV8 header");
-    int32u Magic_Number;
-    Get_C4 (Magic_Number,                                       "Magic Number");
-    Element_End();
-
-    FILLING_BEGIN();
-        //Integrity
-        if (Magic_Number!=CC4("MPCK"))
-        {
-            Finished();
-            return;
-        }
-
-        //Filling
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "MusePack SV8");
-        Stream_Prepare(Stream_Audio);
-        Fill(Stream_Audio, 0, Audio_Format, "MusePack SV8");
-        Fill(Stream_Audio, 0, Audio_Codec, "SV8");
-    FILLING_END();
-}
-
-//---------------------------------------------------------------------------
 void File_MpcSv8::Data_Parse()
 {
-    #define ELEMENT_CASE(_NAME) \
-        case Elements::_NAME : _NAME(); break;
+    #define CASE_INFO(_NAME, _DETAIL) \
+        case Elements::_NAME : Element_Info(_DETAIL); _NAME(); break;
 
     //Parsing
     switch (Element_Code)
     {
-        ELEMENT_CASE(AP);
-        ELEMENT_CASE(CT);
-        ELEMENT_CASE(EI);
-        ELEMENT_CASE(RG);
-        ELEMENT_CASE(SE);
-        ELEMENT_CASE(SH);
-        ELEMENT_CASE(SO);
-        ELEMENT_CASE(ST);
+        CASE_INFO(AP,                                           "Audio Packet");
+        CASE_INFO(CT,                                           "Chapter-Tag");
+        CASE_INFO(EI,                                           "Encoder Info");
+        CASE_INFO(RG,                                           "Replay Gain");
+        CASE_INFO(SE,                                           "Stream End");
+        CASE_INFO(SH,                                           "Stream Header");
+        CASE_INFO(SO,                                           "Seek Table Offset");
+        CASE_INFO(ST,                                           "Seek Table");
         default : Skip_XX(Element_Size,                         "Data");
     }
 }
@@ -187,26 +188,13 @@ void File_MpcSv8::Data_Parse()
 //---------------------------------------------------------------------------
 void File_MpcSv8::AP()
 {
-    Element_Info("Audio Packet");
-
-    //Jumping
-    File__Tags_Helper::Data_GoTo(File_Size-3, "MpcSv8"); //Looking for end key and tags
-}
-
-//---------------------------------------------------------------------------
-void File_MpcSv8::CT()
-{
-    Element_Info("Chapter-Tag");
-
-    //Parsing
-    Skip_XX(Element_Size,                                       "Data");
+    //No more need data
+    File__Tags_Helper::Detected("MpcSv8");
 }
 
 //---------------------------------------------------------------------------
 void File_MpcSv8::EI()
 {
-    Element_Info("Encoder Info");
-
     //Parsing
     int8u  Quality, Version1, Version2, Version3;
     bool   PNS;
@@ -222,8 +210,6 @@ void File_MpcSv8::EI()
 //---------------------------------------------------------------------------
 void File_MpcSv8::RG()
 {
-    Element_Info("Replay Gain");
-
     //Parsing
     int16u TitleGain, AlbumGain;
     Skip_B1(                                                    "Version");
@@ -234,16 +220,8 @@ void File_MpcSv8::RG()
 }
 
 //---------------------------------------------------------------------------
-void File_MpcSv8::SE()
-{
-    Element_Info("Stream End");
-}
-
-//---------------------------------------------------------------------------
 void File_MpcSv8::SH()
 {
-    Element_Info("Stream Header");
-
     //Parsing
     int64u SampleCount;
     int8u  Version, SampleFrequency, ChannelCount;
@@ -276,19 +254,8 @@ void File_MpcSv8::SH()
 //---------------------------------------------------------------------------
 void File_MpcSv8::SO()
 {
-    Element_Info("Seek Table Offset");
-
     //Parsing
     Skip_VS(                                                    "Offset");
-}
-
-//---------------------------------------------------------------------------
-void File_MpcSv8::ST()
-{
-    Element_Info("Seek Table");
-
-    //Parsing
-    Skip_XX(Element_Size,                                       "Data");
 }
 
 } //NameSpace

@@ -256,7 +256,7 @@ ZenLib::Ztring Ressources_Create()
     Out+=Contents;
 
     //Write file
-    Result=Ressources_Create_Save(L"../Source/MediaInfo/File__Base_Automatic.cpp", Out);
+    Result=Ressources_Create_Save(L"../Source/MediaInfo/MediaInfo_Config_Automatic.cpp", Out);
     if (!Result.empty())
         return Result;
 

@@ -38,29 +38,41 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Static stuff
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Zip::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<4)
+        return false; //Must wait for more data
+
+    if (CC4(Buffer)!=0x504B0304) //"PK.."
+    {
+        Rejected("ZIP");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Zip::Read_Buffer_Continue()
 {
-    //Integrity
-    if (Buffer_Size<=8)
-        return;
+    Skip_B4(                                                    "Magic");
+    Skip_XX(File_Size-4,                                        "Data");
 
-    //Header
-    if (CC4(Buffer)!=0x504B0304 && (CC4(Buffer)!=CC4("PK00") || CC4(Buffer+4)!=0x504B0304))
-    {
-        Finished();
-        return;
-    }
-
-    //Filling
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "ZIP");
-
-    //No need of more
-    Finished();
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "ZIP");
+        Detected("Zip");
+    FILLING_END();
 }
 
 } //NameSpace

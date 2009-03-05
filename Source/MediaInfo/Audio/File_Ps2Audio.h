@@ -36,8 +36,8 @@ namespace MediaInfoLib
 class File_Ps2Audio : public File__Analyze
 {
 private :
-    //Buffer
-    void FileHeader_Parse();
+    //Buffer - Global
+    void Read_Buffer_Continue();
 
     //Elements
     void SSbd();

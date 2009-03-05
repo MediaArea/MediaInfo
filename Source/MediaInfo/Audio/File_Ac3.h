@@ -36,34 +36,35 @@ namespace MediaInfoLib
 class File_Ac3 : public File__Analyze
 {
 public :
-    //Configuration
+    //In
     size_t Frame_Count_Valid;
     bool   MustParse_dac3;
     bool   MustParse_dec3;
 
-    //External info
-    size_t Delay;
-
-protected :
-    //Format
-    void Read_Buffer_Finalize ();
-
-public :
+    //Constructor/Destructor
     File_Ac3();
 
 private :
-    //Buffer
-    bool Header_Begin();
+    //Buffer - Synchro
+    bool Synchronize();
+    bool Synched_Test();
+
+    //Buffer - Global
+    void Read_Buffer_Continue ();
+    void Read_Buffer_Finalize();
+
+    //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
     void Data_Parse_Fill();
+
+    //Elements
     void dac3();
     void dec3();
 
-    //Temp - Global
+    //Temp
     size_t Frame_Count;
-
-    //Temp - Technical info
+    size_t HD_Count;
     int16u chanmap;
     int16u frmsiz;
     int8u  fscod;
@@ -75,11 +76,7 @@ private :
     int8u  dsurmod;
     int8u  numblks;
     bool   lfeon;
-    bool   IsTrueHD;
     bool   dxc3_Parsed;
-
-    //Helpers
-    bool Synchronize();
 };
 
 } //NameSpace

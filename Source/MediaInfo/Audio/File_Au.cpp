@@ -41,9 +41,10 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Constants
+// Infos
 //***************************************************************************
 
+//---------------------------------------------------------------------------
 const char* Au_Format(int32u sample_format)
 {
     switch (sample_format)
@@ -76,6 +77,7 @@ const char* Au_Format(int32u sample_format)
     }
 }
 
+//---------------------------------------------------------------------------
 const char* Au_sample_format(int32u sample_format)
 {
     switch (sample_format)
@@ -109,29 +111,37 @@ const char* Au_sample_format(int32u sample_format)
 }
 
 //***************************************************************************
-// Format
+// Static stuff
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Au::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<4)
+        return false; //Must wait for more data
+
+    if (CC4(Buffer)!=0x2E736E64) //".snd"
+    {
+        Rejected("AU");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Au::FileHeader_Parse()
 {
     //Parsing
-    int32u magic;
-    Get_C4 (magic,                                              "magic");
-
-    FILLING_BEGIN();
-        if (magic!=0x2E736E64) //.snd
-        {
-            Finished();
-            return;
-        }
-    FILLING_END()
-    else
-        return; //Waiting for more data
-
-    //Parsing
     Ztring arbitrary;
     int32u data_start, data_size, sample_format, sample_rate, channels;
+    Skip_B4(                                                    "Magic");
     Get_B4 (data_start,                                         "data_start");
     Get_B4 (data_size,                                          "data_size");
     Get_B4 (sample_format,                                      "sample_format");
@@ -157,7 +167,7 @@ void File_Au::FileHeader_Parse()
         Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
         Fill(Stream_General, 0, General_Comment, arbitrary);
 
-        Finished();
+        Detected();
     FILLING_END();
 }
 

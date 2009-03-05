@@ -49,21 +49,26 @@ public :
     size_t BDAV_Size;
     size_t TSP_Size;
 
-public :
+    //Constructor/Destructor
     File_MpegTs();
     ~File_MpegTs();
 
-protected :
-    //Formats
-    bool FileHeader_Begin ();
-    virtual void Read_Buffer_Finalize (); //virtual for BDAV
+private :
+    //Buffer - File header
+    bool FileHeader_Begin();
+
+    //Buffer - Synchro
+    bool Synchronize();
+    bool Synched_Test();
+    void Synched_Init();
+
+    //Buffer - Global
+    void Read_Buffer_Finalize ();
 
     //Options
     void Option_Manage ();
 
-private :
-    //Buffer
-    bool Header_Begin();
+    //Buffer - Per element
     void Header_Parse();
     void Header_Parse_AdaptationField();
     void Data_Parse();
@@ -201,10 +206,8 @@ private :
     void Null();
 
     //Helpers
-    bool Synchronize();
     bool Header_Parser_QuickSearch();
     void Detect_EOF();
-    bool Detect_NonMPEGTS();
 
     //Count
     size_t program_Count;
@@ -214,9 +217,6 @@ private :
     size_t TS_Size;
     int64u MpegTs_JumpTo_Begin;
     int64u MpegTs_JumpTo_End;
-
-    //Friends
-    friend class File_Bdav;
 
     //File__Duplicate
     void   File__Duplicate_Delete();

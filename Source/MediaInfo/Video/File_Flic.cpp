@@ -97,7 +97,7 @@ void File_Flic::FileHeader_Parse()
             case 0xAF44 :
                             break;
             default     :
-                            Finished();
+                            Rejected("FLIC");
                             return;
         }
 
@@ -131,7 +131,7 @@ void File_Flic::FileHeader_Parse()
         Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
         Fill(Stream_Video, 0, Video_Resolution, BitsPerPixel);
 
-        Finished();
+        Detected();
     FILLING_END();
 }
 

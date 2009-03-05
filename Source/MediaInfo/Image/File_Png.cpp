@@ -45,9 +45,10 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Const
+// Infos
 //***************************************************************************
 
+//---------------------------------------------------------------------------
 const char* Png_Colour_type(int8u Colour_type)
 {
     switch (Colour_type)
@@ -61,6 +62,11 @@ const char* Png_Colour_type(int8u Colour_type)
     }
 }
 
+//***************************************************************************
+// Constants
+//***************************************************************************
+
+//---------------------------------------------------------------------------
 namespace Elements
 {
     const int32u IDAT=0x49444154;
@@ -70,24 +76,39 @@ namespace Elements
 }
 
 //***************************************************************************
-// Buffer
+// Static stuff
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Png::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<8)
+        return false; //Must wait for more data
+
+    if (CC4(Buffer+4)!=0x0D0A1A0A)
+    {
+        Rejected("PNG");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - File header
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Png::FileHeader_Parse()
 {
     //Parsing
-    int32u Signature, ByteOrder;
+    int32u Signature;
     Get_B4 (Signature,                                          "Signature");
-    Get_B4 (ByteOrder,                                          "ByteOrder");
+    Skip_B4(                                                    "ByteOrder");
 
     FILLING_BEGIN();
-        if (ByteOrder!=0x0D0A1A0A)
-        {
-            Finished();
-            return;
-        }
-
         switch (Signature)
         {
             case 0x89504E47 :
@@ -103,7 +124,8 @@ void File_Png::FileHeader_Parse()
                 Stream_Prepare(Stream_Image);
                 Fill(Stream_Image, 0, Image_Codec, "MNG");
                 Fill(Stream_Image, 0, Image_Format, "MNG");
-                Finished();
+
+                Detected();
                 break;
             case 0x8B4A4E47 :
                 Stream_Prepare(Stream_General);
@@ -112,13 +134,18 @@ void File_Png::FileHeader_Parse()
                 Stream_Prepare(Stream_Image);
                 Fill(Stream_Image, 0, Image_Format, "JNG");
                 Fill(Stream_Image, 0, Image_Codec, "JNG");
-                Finished();
+
+                Detected();
                 break;
             default:
-                Finished();
+                Rejected("PNG");
         }
     FILLING_END();
 }
+
+//***************************************************************************
+// Buffer - Per element
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Png::Header_Parse()
@@ -138,17 +165,17 @@ void File_Png::Data_Parse()
 {
     Element_Size-=4; //For CRC
 
-    #define ELEMENT_CASE(_NAME, _DETAIL) \
-        case Elements::_NAME : Element_Name(_DETAIL); _NAME(); break;
+    #define CASE_INFO(_NAME, _DETAIL) \
+        case Elements::_NAME : Element_Info(_DETAIL); _NAME(); break;
 
     //Parsing
     switch (Element_Code)
     {
-        ELEMENT_CASE(IDAT,                          "Image data");
-        ELEMENT_CASE(IEND,                          "Image trailer");
-        ELEMENT_CASE(IHDR,                          "Image header");
-        ELEMENT_CASE(PLTE,                          "Palette table");
-        default : Skip_XX(Element_Size,             "Unknown");
+        CASE_INFO(IDAT,                                         "Image data");
+        CASE_INFO(IEND,                                         "Image trailer");
+        CASE_INFO(IHDR,                                         "Image header");
+        CASE_INFO(PLTE,                                         "Palette table");
+        default : Skip_XX(Element_Size,                         "Unknown");
     }
 
     Element_Size+=4; //For CRC
@@ -160,23 +187,11 @@ void File_Png::Data_Parse()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Png::IDAT()
-{
-    Skip_XX(Element_Size,                                       "Data");
-}
-
-//---------------------------------------------------------------------------
-void File_Png::IEND()
-{
-    Skip_XX(Element_Size,                                       "Data");
-}
-
-//---------------------------------------------------------------------------
 void File_Png::IHDR()
 {
+    //Parsing
     int32u Width, Height;
     int8u  Bit_depth, Colour_type, Compression_method, Interlace_method;
-    //Parsing
     Get_B4 (Width,                                              "Width");
     Get_B4 (Height,                                             "Height");
     Get_B1 (Bit_depth,                                          "Bit depth");
@@ -185,7 +200,7 @@ void File_Png::IHDR()
     Skip_B1(                                                    "Filter method");
     Get_B1 (Interlace_method,                                   "Interlace method");
 
-    FILLING_BEGIN();
+    FILLING_BEGIN_PRECISE();
         Fill(Stream_Image, 0, Image_Width, Width);
         Fill(Stream_Image, 0, Image_Height, Height);
         int8u Resolution;
@@ -204,7 +219,7 @@ void File_Png::IHDR()
         {
             case 0 :
                 Fill(Stream_Image, 0, Image_Format, "LZ77");
-                Fill(Stream_Image, 0, Image_Codec, "LZ77 variant");
+                Fill(Stream_Image, 0, Image_Codec,  "LZ77 variant");
                 break;
             default: ;
         }
@@ -216,13 +231,9 @@ void File_Png::IHDR()
                 break;
             default: ;
         }
-    FILLING_END();
-}
 
-//---------------------------------------------------------------------------
-void File_Png::PLTE()
-{
-    Skip_XX(Element_Size,                                       "Data");
+        Detected("PNG");
+    FILLING_END();
 }
 
 } //NameSpace

@@ -47,18 +47,27 @@ public :
     int8u  descriptor_tag_FromTS;   //Descriptor from TS
     int32u format_identifier_FromTS;//Registration from TS
     int8u  MPEG_Version;            //MPEG_Version from TS
+    bool   Searching_TimeStamp_End;
 
-protected :
-    //Format
-    bool FileHeader_Begin ();
-    void Read_Buffer_Finalize ();
+    //Out
+    bool   HasTimeStamps;
 
-public :
+    //Constructor/Destructor
     File_MpegPs();
 
 private :
-    //Buffer
-    bool Header_Begin();
+    //Buffer - File header
+    bool FileHeader_Begin();
+
+    //Buffer - Synchro
+    bool Synchronize();
+    bool Synched_Test();
+    void Synched_Init();
+
+    //Buffer - Global
+    void Read_Buffer_Finalize ();
+
+    //Buffer - Per element
     void Header_Parse();
     bool Header_Parse_Fill_Size();
     void Header_Parse_PES_packet(int8u start_code);
@@ -182,9 +191,7 @@ private :
     bool   Parsing_End_ForDTS;
 
     //Helpers
-    bool Synchronize();
     bool Header_Parser_QuickSearch();
-    bool Detect_NonMPEGPS();
 
     //Parsers
     File__Analyze* ChooseParser_Mpegv();
@@ -216,3 +223,4 @@ private :
 } //NameSpace
 
 #endif
+

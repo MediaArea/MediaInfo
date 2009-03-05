@@ -40,14 +40,16 @@ namespace MediaInfoLib
 class File_ApeTag : public File__Analyze
 {
 private :
-    //Buffer
+    //Buffer - File header
+    void FileHeader_Parse();
+
+    //Buffer - Per element
     bool Header_Begin();
     void Header_Parse();
     void Data_Parse();
 
     //Elements
-    void Header();
-    void Tag();
+    void HeaderFooter();
 
     //Temp
     std::string Key;

@@ -37,18 +37,12 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-bool File_Pgs::Header_Begin()
+void File_Pgs::Read_Buffer_Continue()
 {
-    if (!File_Name.empty())
-    {
-        Finished();
-        return false;
-    }
-
     //Filling
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "PGS");
@@ -56,9 +50,7 @@ bool File_Pgs::Header_Begin()
     Fill(Stream_Text, 0, Text_Format, "PGS");
     Fill(Stream_Text, 0, Text_Codec, "PGS");
 
-    Info("PGS, Jumping to end of file");
-    Finished();
-    return false;
+    Detected("PGS");
 }
 
 //***************************************************************************

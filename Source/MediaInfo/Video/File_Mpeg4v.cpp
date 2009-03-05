@@ -39,6 +39,11 @@ using namespace ZenLib;
 namespace MediaInfoLib
 {
 
+//***************************************************************************
+// Infos
+//***************************************************************************
+
+//---------------------------------------------------------------------------
 const char* Mpeg4v_Colorimetry[]=
 {
     "",
@@ -47,6 +52,7 @@ const char* Mpeg4v_Colorimetry[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 const char* Mpeg4v_visual_object_type[]=
 {
     "",
@@ -67,6 +73,7 @@ const char* Mpeg4v_visual_object_type[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 const char* Mpeg4v_visual_object_verid[]=
 {
     "",
@@ -87,6 +94,7 @@ const char* Mpeg4v_visual_object_verid[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 const char* Mpeg4v_video_object_layer_verid[]=
 {
     "",
@@ -107,6 +115,7 @@ const char* Mpeg4v_video_object_layer_verid[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 const char* Mpeg4v_vop_coding_type[]=
 {
     "I",
@@ -115,6 +124,7 @@ const char* Mpeg4v_vop_coding_type[]=
     "S",
 };
 
+//---------------------------------------------------------------------------
 const char* Mpeg4v_Profile_Level(int32u Profile_Level)
 {
     switch (Profile_Level)
@@ -175,7 +185,6 @@ const char* Mpeg4v_Profile_Level(int32u Profile_Level)
         default :           return "";
     }
 }
-//---------------------------------------------------------------------------
 
 //***************************************************************************
 // Constructor/Destructor
@@ -187,6 +196,8 @@ File_Mpeg4v::File_Mpeg4v()
 {
     //Config
     Trusted_Multiplier=2;
+    MustSynchronize=true;
+    Buffer_TotalBytes_FirstSynched_Max=0x10000;
 
     //In
     Frame_Count_Valid=30;
@@ -200,29 +211,122 @@ File_Mpeg4v::File_Mpeg4v()
 void File_Mpeg4v::OnlyVOP()
 {
     //Default stream values
-    Init();
+    Synched_Init();
     Streams[0xB6].Searching_Payload=true; //vop_start
 }
 
 //***************************************************************************
-// Format
+// Buffer - Synchro
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-bool File_Mpeg4v::FileHeader_Begin()
+bool File_Mpeg4v::Synched_Test()
 {
-    //Integrity
-    if (File_Offset==0 && Detect_NonMPEG4V())
+    //Must have enough buffer for having header
+    if (Buffer_Offset+3>Buffer_Size)
         return false;
 
+    //Quick test of synchro
+    if (CC3(Buffer+Buffer_Offset)!=0x000001)
+        Synched=false;
+
+    //Quick search
+    if (Synched && !Header_Parser_QuickSearch())
+        return false;
+
+    //We continue
     return true;
 }
+
+//---------------------------------------------------------------------------
+void File_Mpeg4v::Synched_Init()
+{
+    //Count of a Packets
+    Frame_Count=0;
+    IVOP_Count=0;
+    PVOP_Count=0;
+    BVOP_Count=0;
+    SVOP_Count=0;
+    NVOP_Count=0;
+    Interlaced_Top=0;
+    Interlaced_Bottom=0;
+
+    //From VOL, needed in VOP
+    fixed_vop_time_increment=0;
+    object_layer_width=0;
+    object_layer_height=0;
+    vop_time_increment_resolution=0;
+    visual_object_verid=1;
+    profile_and_level_indication=0;
+    no_of_sprite_warping_points=0;
+    aspect_ratio_info=0;
+    par_width=0;
+    par_height=0;
+    bits_per_pixel=8;
+    shape=0;
+    sprite_enable=0;
+    estimation_method=0;
+    chroma_format=(int8u)-1;
+    quarter_sample=false;
+    low_delay=false;
+    load_intra_quant_mat=false;
+    load_nonintra_quant_mat=false;
+    load_intra_quant_mat_grayscale=false;
+    load_nonintra_quant_mat_grayscale=false;
+    interlaced=false;
+    newpred_enable=0;
+    time_size=0;
+    reduced_resolution_vop_enable=0;
+    shape=(int8u)-1;
+    sprite_enable=0;
+    scalability=0;
+    enhancement_type=0;
+    complexity_estimation_disable=0;
+    vop_time_increment_resolution=0;
+    opaque=false;
+    transparent=false;
+    intra_cae=false;
+    inter_cae=false;
+    no_update=false;
+    upsampling=false;
+    intra_blocks=false;
+    inter_blocks=false;
+    inter4v_blocks=false;
+    not_coded_blocks=false;
+    dct_coefs=false;
+    dct_lines=false;
+    vlc_symbols=false;
+    vlc_bits=false;
+    apm=false;
+    npm=false;
+    interpolate_mc_q=false;
+    forw_back_mc_q=false;
+    halfpel2=false;
+    halfpel4=false;
+    sadct=false;
+    quarterpel=false;
+    quant_type=false;
+
+    //Default stream values
+    Streams.resize(0x100);
+    Streams[0x00].Searching_Payload=true; //video_object_start
+    Streams[0x20].Searching_Payload=true; //video_object_layer_start
+    Streams[0xB0].Searching_Payload=true; //visual_object_sequence_start
+    Streams[0xB5].Searching_Payload=true; //visual_object_start
+    NextCode_Add(0x20); //video_object_layer_start
+    for (int8u Pos=0xB7; Pos!=0x00; Pos++)
+        Streams[Pos].Searching_Payload=true; //Testing other mpeg4v elements and MPEG-PS
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Mpeg4v::Read_Buffer_Finalize()
 {
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Retrieve(Stream_Video, 0, Video_Format).empty() && video_object_layer_start_IsParsed)
+    if (!IsDetected && video_object_layer_start_IsParsed)
         vop_start_Fill();
 
     //Purge what is not needed anymore
@@ -231,34 +335,8 @@ void File_Mpeg4v::Read_Buffer_Finalize()
 }
 
 //***************************************************************************
-// Buffer
+// Buffer - Per element
 //***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Mpeg4v::Header_Begin()
-{
-    //Must have enough buffer for having header
-    if (Buffer_Offset+4>Buffer_Size)
-        return false;
-
-    //Quick test of synchro
-    if (Synched && CC3(Buffer+Buffer_Offset)!=0x000001)
-    {
-        Trusted_IsNot("MPEG4-V, Synchronisation lost");
-        Synched=false;
-    }
-
-    //Synchro
-    if (!Synched && !Synchronize())
-        return false;
-
-    //Quick search
-    if (!Header_Parser_QuickSearch())
-        return false;
-
-    //All should be OK...
-    return true;
-}
 
 //---------------------------------------------------------------------------
 void File_Mpeg4v::Header_Parse()
@@ -267,7 +345,7 @@ void File_Mpeg4v::Header_Parse()
     int8u start_code;
     Skip_B3(                                                    "synchro");
     Get_B1 (start_code,                                         "start_code");
-    if (!Header_Parse_Fill_Size())
+    if (!Header_Parser_Fill_Size())
     {
         Element_WaitForMoreData();
         return;
@@ -278,7 +356,7 @@ void File_Mpeg4v::Header_Parse()
 }
 
 //---------------------------------------------------------------------------
-bool File_Mpeg4v::Header_Parse_Fill_Size()
+bool File_Mpeg4v::Header_Parser_Fill_Size()
 {
     //Look for next Sync word
     if (Buffer_Offset_Temp==0) //Buffer_Offset_Temp is not 0 if Header_Parse_Fill_Size() has already parsed first frames
@@ -306,6 +384,37 @@ bool File_Mpeg4v::Header_Parse_Fill_Size()
     Header_Fill_Size(Buffer_Offset_Temp-Buffer_Offset);
     Buffer_Offset_Temp=0;
     return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_Mpeg4v::Header_Parser_QuickSearch()
+{
+    while (           Buffer_Offset+4<=Buffer_Size
+      &&   CC3(Buffer+Buffer_Offset)==0x000001)
+    {
+        //Getting start_code
+        int8u start_code=CC1(Buffer+Buffer_Offset+3);
+
+        //Searching start
+        if (Streams[start_code].Searching_Payload)
+            return true;
+
+        //Getting size
+        Buffer_Offset+=4;
+        while(Buffer_Offset+4<=Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
+        {
+            Buffer_Offset+=2;
+            while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+                Buffer_Offset+=2;
+            if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+                Buffer_Offset--;
+        }
+    }
+
+    if (Buffer_Offset+4<=Buffer_Size)
+        Trusted_IsNot("Mpeg4v, Synchronisation lost");
+    Synched=false;
+    return Synchronize();
 }
 
 //---------------------------------------------------------------------------
@@ -1213,12 +1322,7 @@ void File_Mpeg4v::vop_start_Fill()
     }
 
     //Jumping
-    if (Count_Get(Stream_Video)!=0 && Frame_Count>=Frame_Count_Valid)
-    {
-        Element_End();
-        Info("MPEG-4V, Jumping to end of file");
-        Finished();
-    }
+    Detected("Mpeg4v");
 }
 
 //---------------------------------------------------------------------------
@@ -1319,194 +1423,6 @@ void File_Mpeg4v::reserved()
     Element_Name("reserved");
 }
 
-//***************************************************************************
-// Helpers
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Mpeg4v::Synchronize()
-{
-    //Synchronizing
-    while (Buffer_Offset+4<=Buffer_Size
-        && CC3(Buffer+Buffer_Offset)!=0x000001)
-    {
-        Buffer_Offset+=2;
-        while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
-            Buffer_Offset+=2;
-        if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00)
-            Buffer_Offset--;
-    }
-    if (Buffer_Offset+4>Buffer_Size)
-    {
-        //Parsing last bytes
-        if (Buffer_Offset+3==Buffer_Size)
-        {
-            if (CC3(Buffer+Buffer_Offset)!=0x000001)
-            {
-                Buffer_Offset++;
-                if (CC2(Buffer+Buffer_Offset)!=0x0000)
-                {
-                    Buffer_Offset++;
-                    if (CC1(Buffer+Buffer_Offset)!=0x00)
-                        Buffer_Offset++;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    //Synched is OK
-    Synched=true;
-    Init();
-    return true;
-}
-
-//---------------------------------------------------------------------------
-bool File_Mpeg4v::Header_Parser_QuickSearch()
-{
-    while (           Buffer_Offset+4<=Buffer_Size
-      &&   CC3(Buffer+Buffer_Offset)==0x000001)
-    {
-        //Getting start_code
-        int8u start_code=CC1(Buffer+Buffer_Offset+3);
-
-        //Searching start
-        if (Streams[start_code].Searching_Payload)
-            return true;
-
-        //Getting size
-        Buffer_Offset+=4;
-        while(Buffer_Offset+4<=Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
-        {
-            Buffer_Offset+=2;
-            while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
-                Buffer_Offset+=2;
-            if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
-                Buffer_Offset--;
-        }
-    }
-
-    if (Buffer_Offset+4<=Buffer_Size)
-        Trusted_IsNot("Mpeg4v, Synchronisation lost");
-    Synched=false;
-    return Synchronize();
-}
-
-//---------------------------------------------------------------------------
-bool File_Mpeg4v::Detect_NonMPEG4V ()
-{
-    //File_Size
-    if (File_Size<=188*4)
-        return false; //We can't do detection
-
-    //Element_Size
-    if (Buffer_Size<=188*4)
-        return true; //Must wait for more data
-
-    //Detect mainly DAT files, and the parser is not enough precise to detect them later
-    if (CC4(Buffer)==CC4("RIFF"))
-    {
-        Finished();
-        return true;
-    }
-
-    //Detect TS files, and the parser is not enough precise to detect them later
-    while (Buffer_Offset<188 && CC1(Buffer+Buffer_Offset)!=0x47) //Look for first Sync word
-        Buffer_Offset++;
-    if (Buffer_Offset<188 && CC1(Buffer+Buffer_Offset+188)==0x47 && CC1(Buffer+Buffer_Offset+188*2)==0x47 && CC1(Buffer+Buffer_Offset+188*3)==0x47)
-    {
-        Finished();
-        return true;
-    }
-    Buffer_Offset=0;
-
-    //Seems OK
-    return false;
-}
-
-//---------------------------------------------------------------------------
-void File_Mpeg4v::Init()
-{
-    if (!Streams.empty())
-        return;
-
-    //Count of a Packets
-    Frame_Count=0;
-    IVOP_Count=0;
-    PVOP_Count=0;
-    BVOP_Count=0;
-    SVOP_Count=0;
-    NVOP_Count=0;
-    Interlaced_Top=0;
-    Interlaced_Bottom=0;
-
-    //From VOL, needed in VOP
-    fixed_vop_time_increment=0;
-    object_layer_width=0;
-    object_layer_height=0;
-    vop_time_increment_resolution=0;
-    visual_object_verid=1;
-    profile_and_level_indication=0;
-    no_of_sprite_warping_points=0;
-    aspect_ratio_info=0;
-    par_width=0;
-    par_height=0;
-    bits_per_pixel=8;
-    shape=0;
-    sprite_enable=0;
-    estimation_method=0;
-    chroma_format=(int8u)-1;
-    quarter_sample=false;
-    low_delay=false;
-    load_intra_quant_mat=false;
-    load_nonintra_quant_mat=false;
-    load_intra_quant_mat_grayscale=false;
-    load_nonintra_quant_mat_grayscale=false;
-    interlaced=false;
-    newpred_enable=0;
-    time_size=0;
-    reduced_resolution_vop_enable=0;
-    shape=(int8u)-1;
-    sprite_enable=0;
-    scalability=0;
-    enhancement_type=0;
-    complexity_estimation_disable=0;
-    vop_time_increment_resolution=0;
-    opaque=false;
-    transparent=false;
-    intra_cae=false;
-    inter_cae=false;
-    no_update=false;
-    upsampling=false;
-    intra_blocks=false;
-    inter_blocks=false;
-    inter4v_blocks=false;
-    not_coded_blocks=false;
-    dct_coefs=false;
-    dct_lines=false;
-    vlc_symbols=false;
-    vlc_bits=false;
-    apm=false;
-    npm=false;
-    interpolate_mc_q=false;
-    forw_back_mc_q=false;
-    halfpel2=false;
-    halfpel4=false;
-    sadct=false;
-    quarterpel=false;
-    quant_type=false;
-
-    //Default stream values
-    Streams.resize(0x100);
-    Streams[0x00].Searching_Payload=true; //video_object_start
-    Streams[0x20].Searching_Payload=true; //video_object_layer_start
-    Streams[0xB0].Searching_Payload=true; //visual_object_sequence_start
-    Streams[0xB5].Searching_Payload=true; //visual_object_start
-    NextCode_Add(0x20); //video_object_layer_start
-    for (int8u Pos=0xB7; Pos!=0x00; Pos++)
-        Streams[Pos].Searching_Payload=true; //Testing other mpeg4v elements and MPEG-PS
-}
 
 //***************************************************************************
 // C++
@@ -1514,4 +1430,4 @@ void File_Mpeg4v::Init()
 
 } //NameSpace
 
-#endif //MEDIAINFO_MPEG4V_*
+#endif //MEDIAINFO_MPEG4V_YES

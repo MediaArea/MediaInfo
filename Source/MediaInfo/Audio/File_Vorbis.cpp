@@ -42,6 +42,7 @@ using namespace std;
 namespace MediaInfoLib
 {
 
+//---------------------------------------------------------------------------
 int32u ilog(int32u Value)
 {
     int32u ToReturn=0;
@@ -66,7 +67,7 @@ File_Vorbis::File_Vorbis()
 }
 
 //***************************************************************************
-// Format
+// Buffer - Per element
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -74,7 +75,7 @@ void File_Vorbis::Header_Parse()
 {
     //Filling
     Header_Fill_Code(0, "Vorbis");
-    Header_Fill_Size(Element_Size);
+    Header_Fill_Size(Buffer_Size);
 }
 
 //---------------------------------------------------------------------------
@@ -86,6 +87,10 @@ void File_Vorbis::Data_Parse()
     else
         Identification();
 }
+
+//***************************************************************************
+// Elements
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Vorbis::Identification()
@@ -253,7 +258,7 @@ void File_Vorbis::Setup()
     }
     BS_End_LE();
 
-    Finished();
+    Detected("Vorbis");
 }
 
 //***************************************************************************
@@ -262,4 +267,4 @@ void File_Vorbis::Setup()
 
 } //NameSpace
 
-#endif //MEDIAINFO_MIDI_YES
+#endif //MEDIAINFO_VORBIS_YES

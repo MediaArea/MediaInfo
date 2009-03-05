@@ -78,8 +78,6 @@ const char* Avc_profile_idc(int8u profile_idc)
 #include "MediaInfo/Video/File_Avc.h"
 #include <cstring>
 #include <cmath>
-#undef FILLING_BEGIN
-#define FILLING_BEGIN() if (Element_Offset!=Element_Size){Trusted_IsNot("Size");} else if (Element_IsOK()) {
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -87,12 +85,13 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Constants
+// Infos
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 const size_t Avc_Errors_MaxCount=32;
 
+//---------------------------------------------------------------------------
 const int8u Avc_PixelAspectRatio_Size=17;
 const float32 Avc_PixelAspectRatio[]=
 {
@@ -115,6 +114,7 @@ const float32 Avc_PixelAspectRatio[]=
     (float32)2,
 };
 
+//---------------------------------------------------------------------------
 const char* Avc_video_format[]=
 {
     "Component",
@@ -127,6 +127,7 @@ const char* Avc_video_format[]=
     "Reserved",
 };
 
+//---------------------------------------------------------------------------
 const char* Avc_primary_pic_type[]=
 {
     "I",
@@ -139,6 +140,7 @@ const char* Avc_primary_pic_type[]=
     "I, SI, P, SP, B",
 };
 
+//---------------------------------------------------------------------------
 const char* Avc_slice_type[]=
 {
     "P",
@@ -153,6 +155,7 @@ const char* Avc_slice_type[]=
     "SI",
 };
 
+//---------------------------------------------------------------------------
 const int8u Avc_pic_struct_Size=9;
 const char* Avc_pic_struct[]=
 {
@@ -167,6 +170,7 @@ const char* Avc_pic_struct[]=
     "frame tripling",
 };
 
+//---------------------------------------------------------------------------
 const int8u Avc_NumClockTS[]=
 {
     1,
@@ -180,6 +184,7 @@ const int8u Avc_NumClockTS[]=
     3,
 };
 
+//---------------------------------------------------------------------------
 const char* Avc_ct_type[]=
 {
     "Progressive",
@@ -188,6 +193,7 @@ const char* Avc_ct_type[]=
     "Reserved",
 };
 
+//---------------------------------------------------------------------------
 const char* Avc_Colorimetry_format_idc[]=
 {
     "monochrome",
@@ -196,6 +202,7 @@ const char* Avc_Colorimetry_format_idc[]=
     "4:4:4",
 };
 
+//---------------------------------------------------------------------------
 const int8u Avc_SubWidthC[]=
 {
     1,
@@ -204,6 +211,7 @@ const int8u Avc_SubWidthC[]=
     1,
 };
 
+//---------------------------------------------------------------------------
 const int8u Avc_SubHeightC[]=
 {
     1,
@@ -220,6 +228,10 @@ const int8u Avc_SubHeightC[]=
 File_Avc::File_Avc()
 :File__Duplicate()
 {
+    //Config
+    MustSynchronize=true;
+    Buffer_TotalBytes_FirstSynched_Max=0x10000;
+
     //In
     Frame_Count_Valid=8; //Currently no 3:2 pulldown detection
     FrameIsAlwaysComplete=false;
@@ -235,16 +247,119 @@ File_Avc::File_Avc()
 }
 
 //***************************************************************************
-// Format
+// Buffer - File header
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Avc::Read_Buffer_Continue()
+bool File_Avc::FileHeader_Begin()
 {
-    //Integrity
-    if (File_Offset==0 && Detect_NonAVC())
-        return;
+    if (!File__Analyze::FileHeader_Begin_0x000001())
+        return false;
+
+    if (!MustSynchronize)
+    {
+        Synched_Init();
+        Buffer_TotalBytes_FirstSynched+=0;
+        File_Offset_FirstSynched=File_Offset;
+    }
+
+    //All should be OK
+    return true;
 }
+
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Avc::Synched_Test()
+{
+    //Trailing 0x00
+    while(Buffer_Offset+3<=Buffer_Size && Buffer[Buffer_Offset]==0x00 && CC3(Buffer+Buffer_Offset)!=0x000001)
+        Buffer_Offset++;
+
+    //Must have enough buffer for having header
+    if (Buffer_Offset+3>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if (CC3(Buffer+Buffer_Offset)!=0x000001)
+        Synched=false;
+
+    //Quick search
+    if (Synched && !Header_Parser_QuickSearch())
+        return false;
+
+    //We continue
+    return true;
+}
+
+//---------------------------------------------------------------------------
+void File_Avc::Synched_Init()
+{
+    //Count of a Packets
+    Frame_Count=0;
+    Block_Count=0;
+    frame_num_LastOne=(int32u)-1;
+    Interlaced_Top=0;
+    Interlaced_Bottom=0;
+    Structure_Field=0;
+    Structure_Frame=0;
+    TemporalReference_Offset=0;
+    pic_order_cnt_lsb_Before=(int32u)-1;
+
+    //From seq_parameter_set
+    pic_width_in_mbs_minus1=0;
+    pic_height_in_map_units_minus1=0;
+    log2_max_frame_num_minus4=0;
+    log2_max_pic_order_cnt_lsb_minus4=0;
+    num_units_in_tick=0;
+    time_scale=0;
+    chroma_format_idc=1;
+    frame_crop_left_offset=0;
+    frame_crop_right_offset=0;
+    frame_crop_top_offset=0;
+    frame_crop_bottom_offset=0;
+    num_ref_frames=0;
+    pic_order_cnt_type=0;
+    bit_depth_luma_minus8=0;
+    bit_depth_Colorimetry_minus8=0;
+    sar_width=0;
+    sar_height=0;
+    profile_idc=0;
+    level_idc=0;
+    aspect_ratio_idc=0xFF;
+    video_format=5;
+    cpb_removal_delay_length_minus1=0;
+    dpb_output_delay_length_minus1=0;
+    time_offset_length=0;
+    pic_struct=0;
+    pic_struct_FirstDetected=(int8u)-1;
+    frame_mbs_only_flag=false;
+    timing_info_present_flag=false;
+    pic_struct_present_flag=false;
+    field_pic_flag=false;
+    entropy_coding_mode_flag=false;
+    CpbDpbDelaysPresentFlag=false;
+    mb_adaptive_frame_field_flag=false;
+    pic_order_present_flag=false;
+
+    //Default values
+    Streams.resize(0x100);
+    Streams[0x06].Searching_Payload=true; //sei
+    Streams[0x07].Searching_Payload=true; //seq_parameter_set
+    Streams[0x09].Searching_Payload=true; //access_unit_delimiter
+    Streams[0x0C].Searching_Payload=true; //filler_data
+    for (int8u Pos=0xB9; Pos!=0x00; Pos++)
+        Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
+
+    //Options
+    Option_Manage();
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Avc::Read_Buffer_Finalize()
@@ -253,7 +368,7 @@ void File_Avc::Read_Buffer_Finalize()
         return; //Not initialized
 
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Retrieve(Stream_Video, 0, Video_Format).empty() && (SPS_IsParsed || MustParse_SPS_PPS_Done))
+    if (!IsDetected && (SPS_IsParsed || MustParse_SPS_PPS_Done))
         slice_header_Fill();
 
     //In case of there is enough elements for trusting this is a AVC file, but SPS/PPS are absent
@@ -270,50 +385,8 @@ void File_Avc::Read_Buffer_Finalize()
 }
 
 //***************************************************************************
-// Buffer
+// Buffer - Per element
 //***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Avc::Header_Begin()
-{
-    //Specific case
-    if (MustParse_SPS_PPS)
-    {
-        Synched=true;
-        Init();
-        return true;
-    }
-    if (SizedBlocks)
-        return true;
-
-    //Trailing 0x00
-    if (Synched)
-    {
-        while(Buffer_Offset+3<Buffer_Size && CC1(Buffer+Buffer_Offset)==0x00 && CC3(Buffer+Buffer_Offset)!=0x000001)
-            Buffer_Offset++;
-    }
-
-    //Must have enough buffer for having header
-    if (Buffer_Offset+4>Buffer_Size)
-        return false;
-
-    //Quick test of synchro
-    if (Synched && CC3(Buffer+Buffer_Offset)!=0x000001)
-    {
-        Trusted_IsNot("AVC, Synchronisation lost");
-        Synched=false;
-    }
-
-    //Synchro
-    if (!Synched && !Synchronize())
-        return false;
-
-    //Quick search
-    if (!Header_Parser_QuickSearch())
-        return false;
-
-    return true;
-}
 
 //---------------------------------------------------------------------------
 void File_Avc::Header_Parse()
@@ -336,7 +409,7 @@ void File_Avc::Header_Parse()
         Skip_S1( 2,                                             "nal_ref_idc");
         Get_S1 ( 5, nal_unit_type,                              "nal_unit_type");
         BS_End();
-        if (!Header_Parse_Fill_Size())
+        if (!Header_Parser_Fill_Size())
         {
             Element_WaitForMoreData();
             return;
@@ -385,7 +458,7 @@ void File_Avc::Header_Parse()
 }
 
 //---------------------------------------------------------------------------
-bool File_Avc::Header_Parse_Fill_Size()
+bool File_Avc::Header_Parser_Fill_Size()
 {
     //Look for next Sync word
     if (Buffer_Offset_Temp==0) //Buffer_Offset_Temp is not 0 if Header_Parse_Fill_Size() has already parsed first frames
@@ -417,6 +490,41 @@ bool File_Avc::Header_Parse_Fill_Size()
     Header_Fill_Size(Buffer_Offset_Temp-Buffer_Offset);
     Buffer_Offset_Temp=0;
     return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_Avc::Header_Parser_QuickSearch()
+{
+    while (           Buffer_Offset+4<=Buffer_Size
+      &&   CC3(Buffer+Buffer_Offset)==0x000001)
+    {
+        //Getting start_code
+        int8u start_code=CC1(Buffer+Buffer_Offset+3)&0x1F;
+
+        //Searching start
+        if (Streams[start_code].Searching_Payload)
+            return true;
+
+        //Searching start
+        if (Streams[start_code].ShouldDuplicate)
+            return true;
+
+        //Getting size
+        Buffer_Offset+=4;
+        while(Buffer_Offset+4<=Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
+        {
+            Buffer_Offset+=2;
+            while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+                Buffer_Offset+=2;
+            if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+                Buffer_Offset--;
+        }
+    }
+
+    if (Buffer_Offset+4<=Buffer_Size)
+        Trusted_IsNot("Avc, Synchronisation lost");
+    Synched=false;
+    return Synchronize();
 }
 
 //---------------------------------------------------------------------------
@@ -486,16 +594,8 @@ void File_Avc::Data_Parse()
             if (Element_Code<=0x17)
                 Element_Name("reserved");
             else
-                Element_Name("unspecified");
+                Trusted_IsNot("Unattended element!");
             Skip_XX(Element_Size-Element_Offset, "Data");
-    }
-
-    //In case of there is enough elements for trusting this is a AVC file, but SPS/PPS are absent
-    if (Block_Count<8 && Synched && Element_Offset==Element_Size)
-    {
-        Block_Count++; //We can trust this stream a bit more
-        if (Block_Count>=8 && Count_Get(Stream_General)==0)
-            Stream_Prepare(Stream_General); //We trust it
     }
 
     if (!ThreeByte_List.empty())
@@ -536,7 +636,7 @@ void File_Avc::slice_layer_without_partitioning_IDR()
     //Parsing
     slice_header();
 
-    FILLING_BEGIN();
+    FILLING_BEGIN_PRECISE();
         //NextCode
         for (int8u Pos=0x01; Pos<=0x05; Pos++)
             NextCode_Add(Pos);
@@ -577,7 +677,7 @@ void File_Avc::slice_header()
     else
         Element_Info(bottom_field_flag?"Bottom":"Top");
 
-    FILLING_BEGIN();
+    FILLING_BEGIN_PRECISE();
         //pic_struct
         if (field_pic_flag && pic_struct_FirstDetected==(int8u)-1)
             pic_struct_FirstDetected=bottom_field_flag?2:1; //2=BFF, 1=TFF
@@ -628,7 +728,7 @@ void File_Avc::slice_header()
         //Filling only if not already done
         if (Frame_Count>1 && Count_Get(Stream_General)==0)
             Stream_Prepare(Stream_General);
-        if (Frame_Count>=Frame_Count_Valid && Retrieve(Stream_Video, 0, Video_Format).empty())
+        if (!IsDetected && Frame_Count>=Frame_Count_Valid)
             slice_header_Fill();
     FILLING_END();
 
@@ -776,11 +876,9 @@ void File_Avc::slice_header_Fill()
         //Autorisation of other streams
         for (int8u Pos=0x00; Pos<0x20; Pos++)
             Streams[Pos].Searching_Payload=false; //Coded slice...
-
-        Info("AVC, Jumping to end of file");
-        if (!Streams[(size_t)Element_Code].ShouldDuplicate)
-            Finished();
     }
+    if (!Streams[(size_t)Element_Code].ShouldDuplicate)
+        Detected("Avc");
 }
 
 //---------------------------------------------------------------------------
@@ -931,7 +1029,7 @@ void File_Avc::sei_message_pic_timing(int32u payloadSize)
     }
     BS_End();
 
-    FILLING_BEGIN();
+    FILLING_BEGIN_PRECISE();
         if (pic_struct_FirstDetected==(int8u)-1)
             pic_struct_FirstDetected=pic_struct;
     FILLING_END();
@@ -1193,7 +1291,7 @@ void File_Avc::seq_parameter_set()
 
     }
 
-    FILLING_BEGIN();
+    FILLING_BEGIN_PRECISE();
         //NextCode
         NextCode_Clear();
         NextCode_Add(0x08);
@@ -1319,7 +1417,7 @@ void File_Avc::pic_parameter_set()
     Mark_1(                                                     );
     BS_End();
 
-    FILLING_BEGIN();
+    FILLING_BEGIN_PRECISE();
         //NextCode
         NextCode_Clear();
         NextCode_Add(0x05);
@@ -1477,6 +1575,7 @@ void File_Avc::hrd_parameters()
 //***************************************************************************
 // Specific
 //***************************************************************************
+
 //---------------------------------------------------------------------------
 void File_Avc::SPS_PPS()
 {
@@ -1539,7 +1638,7 @@ void File_Avc::SPS_PPS()
         Buffer_Offset+=(size_t)Element_Offset_Save;
         Element_Offset=0;
         Element_Size=Size-1;
-        if (Element_Size>Element_Size_Save)
+        if (Element_Size>Element_Size_Save-Element_Offset_Save)
             break; //There is an error
         Element_Code=0x08; //pic_parameter_set
         Data_Parse();
@@ -1548,209 +1647,23 @@ void File_Avc::SPS_PPS()
         Element_Size=Element_Size_Save;
         Element_End();
     }
-
-    //Detection of some bugs in the file
-    if (Profile!=profile_idc || Level!=level_idc)
-        MuxingMode=Ztring("Container profile=")+Ztring().From_Local(Avc_profile_idc(Profile))+_T("@")+Ztring().From_Number(((float)Level)/10, 1);
+    if (Element_Offset+1==Element_Size)
+        Skip_B1(                                                "Padding?");
 
     //Filling
-    MustParse_SPS_PPS=false;
-    MustParse_SPS_PPS_Done=true;
-    if (MustParse_SPS_PPS_Only)
-    {
-        slice_header_Fill();
-        Finished();
-    }
-}
+    FILLING_BEGIN_PRECISE();
+        //Detection of some bugs in the file
+        if (Profile!=profile_idc || Level!=level_idc)
+            MuxingMode=Ztring("Container profile=")+Ztring().From_Local(Avc_profile_idc(Profile))+_T("@")+Ztring().From_Number(((float)Level)/10, 1);
 
-//***************************************************************************
-// Helpers
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Avc::Synchronize()
-{
-    //Synchronizing
-    while (Buffer_Offset+4<=Buffer_Size)
-    {
-         while (Buffer_Offset+4<=Buffer_Size
-          && !(CC3(Buffer+Buffer_Offset  )==0x000001
-            && CC1(Buffer+Buffer_Offset+3)< 0x80)) //bit 7 can not be 1
-                 Buffer_Offset++;
-
-        if (Buffer_Offset+4<=Buffer_Size)//Testing if header is coherant
+        MustParse_SPS_PPS=false;
+        MustParse_SPS_PPS_Done=true;
+        if (MustParse_SPS_PPS_Only)
         {
-            int8u nal_unit_type=CC1(Buffer+Buffer_Offset+3);
-            bool nal_ref_idc=(nal_unit_type&0x60)?true:false;
-            nal_unit_type&=0x1F;
-            if (( nal_ref_idc && (nal_unit_type==0x05 || nal_unit_type==0x07 || nal_unit_type==0x08))
-             || (!nal_ref_idc && (nal_unit_type==0x06 || nal_unit_type==0x09 || nal_unit_type==0x10 || nal_unit_type==0x0A || nal_unit_type==0x0B)))
-                 break;
-            else
-                Buffer_Offset++;
+            slice_header_Fill();
+            Detected("Avc");
         }
-    }
-    if (Buffer_Offset+4>Buffer_Size)
-    {
-        //Parsing last bytes
-        if (Buffer_Offset+4==Buffer_Size)
-        {
-            if (CC3(Buffer+Buffer_Offset)!=0x000001)
-            {
-                Buffer_Offset++;
-                if (CC3(Buffer+Buffer_Offset)!=0x000001)
-                {
-                    Buffer_Offset++;
-                    if (CC2(Buffer+Buffer_Offset)!=0x0000)
-                    {
-                        Buffer_Offset++;
-                        if (CC1(Buffer+Buffer_Offset)!=0x00)
-                            Buffer_Offset++;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-    //Synched is OK
-    Synched=true;
-    Init();
-    return true;
-}
-
-//---------------------------------------------------------------------------
-bool File_Avc::Header_Parser_QuickSearch()
-{
-    while (           Buffer_Offset+4<=Buffer_Size
-      &&   CC3(Buffer+Buffer_Offset)==0x000001)
-    {
-        //Getting start_code
-        int8u start_code=CC1(Buffer+Buffer_Offset+3)&0x1F;
-
-        //Searching start
-        if (Streams[start_code].Searching_Payload)
-            return true;
-
-        //Searching start
-        if (Streams[start_code].ShouldDuplicate)
-            return true;
-
-        //Getting size
-        Buffer_Offset+=4;
-        while(Buffer_Offset+4<=Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
-        {
-            Buffer_Offset+=2;
-            while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
-                Buffer_Offset+=2;
-            if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
-                Buffer_Offset--;
-        }
-    }
-
-    if (Buffer_Offset+4<=Buffer_Size)
-        Trusted_IsNot("AVC, Synchronisation lost");
-    Synched=false;
-    return Synchronize();
-}
-
-//---------------------------------------------------------------------------
-bool File_Avc::Detect_NonAVC ()
-{
-    //File_Size
-    if (File_Size<188*4)
-        return false; //We can't do detection
-
-    //Element_Size
-    if (Buffer_Size<188*4)
-        return true; //Must wait for more data
-
-    //Detect mainly DAT files, and the parser is not enough precise to detect them later
-    if (CC4(Buffer)==CC4("RIFF"))
-    {
-        Finished();
-        return true;
-    }
-
-    //Detect TS files, and the parser is not enough precise to detect them later
-    while (Buffer_Offset<188 && CC1(Buffer+Buffer_Offset)!=0x47) //Look for first Sync word
-        Buffer_Offset++;
-    if (Buffer_Offset<188 && CC1(Buffer+Buffer_Offset+188)==0x47 && CC1(Buffer+Buffer_Offset+188*2)==0x47 && CC1(Buffer+Buffer_Offset+188*3)==0x47)
-    {
-        Finished();
-        return true;
-    }
-    Buffer_Offset=0;
-
-    //Seems OK
-    return false;
-}
-
-//---------------------------------------------------------------------------
-void File_Avc::Init()
-{
-    if (!Streams.empty())
-        return;
-
-    //Count of a Packets
-    Frame_Count=0;
-    Block_Count=0;
-    frame_num_LastOne=(int32u)-1;
-    Interlaced_Top=0;
-    Interlaced_Bottom=0;
-    Structure_Field=0;
-    Structure_Frame=0;
-    TemporalReference_Offset=0;
-    pic_order_cnt_lsb_Before=(int32u)-1;
-
-    //From seq_parameter_set
-    pic_width_in_mbs_minus1=0;
-    pic_height_in_map_units_minus1=0;
-    log2_max_frame_num_minus4=0;
-    log2_max_pic_order_cnt_lsb_minus4=0;
-    num_units_in_tick=0;
-    time_scale=0;
-    chroma_format_idc=1;
-    frame_crop_left_offset=0;
-    frame_crop_right_offset=0;
-    frame_crop_top_offset=0;
-    frame_crop_bottom_offset=0;
-    num_ref_frames=0;
-    pic_order_cnt_type=0;
-    bit_depth_luma_minus8=0;
-    bit_depth_Colorimetry_minus8=0;
-    sar_width=0;
-    sar_height=0;
-    profile_idc=0;
-    level_idc=0;
-    aspect_ratio_idc=0xFF;
-    video_format=5;
-    cpb_removal_delay_length_minus1=0;
-    dpb_output_delay_length_minus1=0;
-    time_offset_length=0;
-    pic_struct=0;
-    pic_struct_FirstDetected=(int8u)-1;
-    frame_mbs_only_flag=false;
-    timing_info_present_flag=false;
-    pic_struct_present_flag=false;
-    field_pic_flag=false;
-    entropy_coding_mode_flag=false;
-    CpbDpbDelaysPresentFlag=false;
-    mb_adaptive_frame_field_flag=false;
-    pic_order_present_flag=false;
-
-    //Default values
-    Streams.resize(0x100);
-    Streams[0x06].Searching_Payload=true; //sei
-    Streams[0x07].Searching_Payload=true; //seq_parameter_set
-    Streams[0x09].Searching_Payload=true; //access_unit_delimiter
-    Streams[0x0C].Searching_Payload=true; //filler_data
-    for (int8u Pos=0xB9; Pos!=0x00; Pos++)
-        Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
-
-    //Options
-    Option_Manage();
+    FILLING_END();
 }
 
 } //NameSpace

@@ -41,7 +41,7 @@ namespace MediaInfoLib
 class File_Flv : public File__Analyze
 {
 protected :
-    //Format
+    //Buffer - Global
     void Read_Buffer_Finalize ();
 
 public :

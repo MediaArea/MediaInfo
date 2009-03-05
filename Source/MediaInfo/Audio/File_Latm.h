@@ -35,27 +35,25 @@ namespace MediaInfoLib
 
 class File_Latm : public File__Analyze
 {
-protected :
+public :
     //In
     bool audioMuxVersionA;
 
-public :
+    //Constructor/Destructor
     File_Latm();
 
 private :
-    //Buffer
-    bool Header_Begin();
+    //Buffer - Synchro
+    bool Synchronize();
+    bool Synched_Test();
+
+    //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
 
     //Elements
     void AudioMuxElement(bool muxConfigPresent);
     void StreamMuxConfig();
-
-    //Temp - Technical info
-
-    //Helpers
-    bool Synchronize();
 };
 
 } //NameSpace

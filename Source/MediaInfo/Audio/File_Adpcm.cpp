@@ -51,15 +51,6 @@ void File_Adpcm::Read_Buffer_Continue()
     Stream_Prepare(Stream_Audio);
     Fill(Stream_General, 0, Audio_Format, "ADPCM");
     Fill(Stream_General, 0, Audio_Codec, "ADPCM");
-
-    Info("ADPCM, Jumping to end of file");
-    Finished();
-}
-
-//---------------------------------------------------------------------------
-void File_Adpcm::Read_Buffer_Finalize()
-{
-    //Filling
     Ztring Profile, Firm;
     if (0)
         ;
@@ -82,6 +73,8 @@ void File_Adpcm::Read_Buffer_Finalize()
         Fill(Stream_Audio, 0, Audio_Codec_Settings_Firm, Firm);
     }
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
+
+    Detected("ADPCM");
 }
 
 //***************************************************************************

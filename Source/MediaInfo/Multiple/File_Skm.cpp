@@ -41,27 +41,28 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Buffer
+// Buffer - File header
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Skm::FileHeader_Begin()
+{
+    if (Buffer_Size<5)
+        return false;
+    if (CC5(Buffer)!=0x444D534B4DLL) //DMSKM
+    {
+        Rejected("SKM");
+        return false;
+    }
+    return true;
+}
 
 //---------------------------------------------------------------------------
 void File_Skm::FileHeader_Parse()
 {
-    //Parsing
-    Element_Begin("SKM header");
-    int64u Signature;
-    Get_C5 (Signature,                                          "Signature");
-    Element_End();
+    Skip_C5(                                                    "Signature");
 
     FILLING_BEGIN();
-        //Integrity
-        if (Signature!=CC5("DMSKM"))
-        {
-            Finished();
-            return;
-        }
-
-        //Filling
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "SKM");
     FILLING_END();
@@ -94,7 +95,7 @@ void File_Skm::Header_Parse()
 }
 
 //***************************************************************************
-// Buffer
+// Buffer - Per element
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -150,13 +151,13 @@ void File_Skm::Data_Parse()
         Stream.Parser=new File_Mpeg4v();
         ((File_Mpeg4v*)Stream.Parser)->FrameIsAlwaysComplete=true;
         ((File_Mpeg4v*)Stream.Parser)->OnlyVOP();
-        Open_Buffer_Init(Stream.Parser, File_Size, File_Offset+Buffer_Offset);
+        Open_Buffer_Init(Stream.Parser);
         Open_Buffer_Continue(Stream.Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
         //if (Stream.Parser->Count_Get(Stream_Video)>0)
         {
             Open_Buffer_Finalize(Stream.Parser);
             Merge(*Stream.Parser);
-            Finished();
+            Detected();
         }
     #endif
 }

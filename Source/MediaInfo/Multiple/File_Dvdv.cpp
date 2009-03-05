@@ -307,7 +307,7 @@ void File_Dvdv::FileHeader_Parse()
         //Identifier
         if (Identifier!=CC8("DVDVIDEO"))
         {
-            Finished();
+            Rejected();
             return;
         }
 
@@ -317,9 +317,10 @@ void File_Dvdv::FileHeader_Parse()
             case Dvdv::VMG : VMG(); break;
             case Dvdv::VTS : VTS(); break;
             default        :
-                        Finished();
+                        Rejected();
                         return;
         }
+        IsDetected=true;
     FILLING_END();
 
     Element_End();
@@ -801,7 +802,7 @@ void File_Dvdv::Data_Parse()
     size_t Sector_Pos=(size_t)((File_Offset+Buffer_Offset)/2048);
     if (Sector_Pos>=Sectors.size())
     {
-        Finished();
+        Detected();
         return;
     }
 

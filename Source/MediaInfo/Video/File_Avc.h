@@ -45,29 +45,35 @@ public :
     bool   MustParse_SPS_PPS_Done;
     bool   SizedBlocks;
 
-protected :
-    //Format
-    void Read_Buffer_Continue ();
+    //Constructor/Destructor
+    File_Avc();
+
+private :
+    //Buffer - File header
+    bool FileHeader_Begin();
+
+    //Buffer - Synchro
+    bool Synchronize() {return Synchronize_0x000001();}
+    bool Synched_Test();
+    void Synched_Init();
+    
+    //Buffer - Global
     void Read_Buffer_Finalize ();
+
+    //Buffer - Per element
+    void Header_Parse();
+    bool Header_Parser_QuickSearch();
+    bool Header_Parser_Fill_Size();
+    void Data_Parse();
+
+    //Output buffer
+    size_t Output_Buffer_Get (const String &Value);
+    size_t Output_Buffer_Get (size_t Pos);
 
     //Options
     void Option_Manage ();
 
-public :
-    File_Avc();
-
-private :
-    //Replacement of File__Base
-    const int8u* Buffer_ToSave;
-    size_t Buffer_Size_ToSave;
-
-    //Buffer
-    bool Header_Begin();
-    void Header_Parse();
-    bool Header_Parse_Fill_Size();
-    void Data_Parse();
-
-    //Packets
+    //Elements
     void slice_layer_without_partitioning_IDR();
     void slice_layer_without_partitioning_non_IDR();
     void slice_header();
@@ -92,6 +98,35 @@ private :
 
     //Packets - Specific
     void SPS_PPS();
+
+    //Streams
+    struct stream
+    {
+        bool   Searching_Payload;
+        bool   ShouldDuplicate;
+
+        stream()
+        {
+            Searching_Payload=false;
+            ShouldDuplicate=false;
+        }
+    };
+    std::vector<stream> Streams;
+
+    //Temporal reference
+    struct temporalreference
+    {
+        int32u frame_num;
+        bool   IsTop;
+        bool   IsField;
+    };
+    std::map<int32u, temporalreference> TemporalReference; //int32u is the reference
+    int32u TemporalReference_Offset;
+    int32u pic_order_cnt_lsb_Before;
+
+    //Replacement of File__Analyze
+    const int8u* Buffer_ToSave;
+    size_t Buffer_Size_ToSave;
 
     //Count of a Packets
     size_t Frame_Count;
@@ -147,40 +182,9 @@ private :
     bool   mb_adaptive_frame_field_flag;
     bool   pic_order_present_flag;
 
-    //PS
-    struct stream
-    {
-        bool   Searching_Payload;
-        bool   ShouldDuplicate;
-
-        stream()
-        {
-            Searching_Payload=false;
-            ShouldDuplicate=false;
-        }
-    };
-    std::vector<stream> Streams;
-
-    //Temporal reference
-    struct temporalreference
-    {
-        int32u frame_num;
-        bool   IsTop;
-        bool   IsField;
-    };
-    std::map<int32u, temporalreference> TemporalReference; //int32u is the reference
-    int32u TemporalReference_Offset;
-    int32u pic_order_cnt_lsb_Before;
-
     //Temp
     bool SPS_IsParsed;
     bool PPS_IsParsed;
-
-    //Helpers
-    bool Synchronize();
-    bool Header_Parser_QuickSearch();
-    bool Detect_NonAVC();
-    void Init();
 
     //File__Duplicate
     bool   File__Duplicate_Set  (const Ztring &Value); //Fill a new File__Duplicate value
@@ -191,10 +195,6 @@ private :
     size_t frame_num_Old;
     bool   SPS_PPS_AlreadyDone;
     bool   FLV;
-
-    //Output buffer
-    size_t Output_Buffer_Get (const String &Value);
-    size_t Output_Buffer_Get (size_t Pos);
 };
 
 } //NameSpace

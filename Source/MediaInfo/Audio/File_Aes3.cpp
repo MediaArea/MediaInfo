@@ -36,6 +36,11 @@
 namespace MediaInfoLib
 {
 
+//***************************************************************************
+// Infos
+//***************************************************************************
+
+//---------------------------------------------------------------------------
 const char* Aes3_ChannelsPositions(int8u number_channels)
 {
     switch (number_channels)
@@ -48,6 +53,7 @@ const char* Aes3_ChannelsPositions(int8u number_channels)
     }
 }
 
+//---------------------------------------------------------------------------
 const char* Aes3_ChannelsPositions2(int8u number_channels)
 {
     switch (number_channels)
@@ -68,9 +74,6 @@ const char* Aes3_ChannelsPositions2(int8u number_channels)
 File_Aes3::File_Aes3()
 :File__Analyze()
 {
-    //In
-    PTS=(int64u)-1;
-
     //Temp
     Block_Count=0;
     Block_Last_PTS=(int32u)-1;
@@ -99,6 +102,7 @@ void File_Aes3::Header_Parse()
     Header_Fill_Code(0, "Block");
 }
 
+//---------------------------------------------------------------------------
 static inline int8u Reverse8(int n)
 {
     // Input: bit order is 76543210
@@ -271,8 +275,7 @@ void File_Aes3::Data_Parse()
             Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
         }
 
-        Info("AES3, Jumping to end of file");
-        Finished();
+        Detected("AES3");
     }
 }
 
@@ -282,4 +285,4 @@ void File_Aes3::Data_Parse()
 
 } //NameSpace
 
-#endif //MEDIAINFO_PCM_YES
+#endif //MEDIAINFO_AES3_YES

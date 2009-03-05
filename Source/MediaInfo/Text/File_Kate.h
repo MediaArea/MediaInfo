@@ -44,7 +44,7 @@ namespace MediaInfoLib
 class File_Kate : public File__Analyze
 {
 private :
-    //Buffer
+    //Buffer - Per element
     void Data_Parse();
 
     //Elements

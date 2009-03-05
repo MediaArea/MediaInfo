@@ -37,7 +37,7 @@ namespace MediaInfoLib
 class File_Amv : public File__Analyze
 {
 protected :
-    //Format
+    //Buffer - Global
     void Read_Buffer_Continue ();
 };
 

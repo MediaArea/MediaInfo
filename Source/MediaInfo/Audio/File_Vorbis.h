@@ -44,10 +44,11 @@ namespace MediaInfoLib
 class File_Vorbis : public File__Analyze
 {
 public :
+    //Constructor/Destructor
     File_Vorbis();
 
 private :
-    //Buffer
+    //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
 
@@ -56,7 +57,7 @@ private :
     void Setup();
 
     //Temp
-    int8u Identification_Done;
+    bool Identification_Done;
 };
 
 } //NameSpace

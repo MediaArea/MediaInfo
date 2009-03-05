@@ -39,9 +39,23 @@ namespace MediaInfoLib
 
 class File_Ico : public File__Analyze
 {
-protected :
-    //Format
-    void Read_Buffer_Continue ();
+public:
+    //Constructor/Destructor
+    File_Ico();
+
+private :
+    //Buffer - File header
+    bool FileHeader_Begin();
+    void FileHeader_Parse ();
+
+    //Buffer - Per element
+    void Header_Parse ();
+    void Data_Parse ();
+
+    //Temp
+    int64u IcoDataSize;
+    int16u Type;
+    int16u Count;
 };
 
 } //NameSpace

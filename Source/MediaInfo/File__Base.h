@@ -69,14 +69,14 @@ public :
 
 protected :
     //Read
-    virtual void Read_Buffer_Init     (); //To overload
-    virtual void Read_Buffer_Unsynched(); //To overload
-    virtual void Read_Buffer_Continue (); //To overload
-    virtual void Read_Buffer_Finalize (); //To overload
+    virtual void Read_Buffer_Init     () {} //To overload
+    virtual void Read_Buffer_Unsynched() {} //To overload
+    virtual void Read_Buffer_Continue () {} //To overload
+    virtual void Read_Buffer_Finalize () {} //To overload
 
     //Write
-    virtual int Write       (stream_t StreamKind, size_t StreamNumber, const Ztring &Parameter, const Ztring &ToSet, const Ztring &OldValue); //Write the value in memory
-    virtual int WriteToDisk (); //Write modified tags on disk
+    virtual int Write       (stream_t /*StreamKind*/, size_t /*StreamNumber*/, const Ztring &/*Parameter*/, const Ztring &/*ToSet*/, const Ztring &/*OldValue*/) {return -1;} //Write the value in memory
+    virtual int WriteToDisk () {return -1;} //Write modified tags on disk
 
     //Arrays
 private :
@@ -107,7 +107,6 @@ public :
     int64u File_Offset;
     int64u File_Offset_FirstSynched;
     int64u File_GoTo; //How many byte to skip?
-    int64u File_MaximumOffset;
 
     //Divers
     void Clear();

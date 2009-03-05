@@ -28,8 +28,9 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/MediaInfo_Internal.h"
 #include "MediaInfo/MediaInfo_Config.h"
-#include "MediaInfo/File__Base.h"
+#include "MediaInfo/File__Analyze.h"
 #include "MediaInfo/File__MultipleParsing.h"
+#include "MediaInfo/File_Unknown.h"
 #include "ZenLib/FileName.h"
 #include "ZenLib/File.h"
 #include "ZenLib/InfoMap.h"
@@ -127,10 +128,20 @@ size_t MediaInfo_Internal::Open(const String &File_Name_)
 
     CriticalSectionLocker CSL(CS);
     //Test the theorical format
+    //if (Format_Test()>0)
+    //     return 1;
+
+    //Extension is not the good one, parse with all formats
+    /*
+    delete Info; Info=new File__MultipleParsing;
     if (Format_Test()>0)
          return 1;
 
-    //Extension is not the good one, parse with all formats
+    delete Info; Info=new File_Unknown;
+    if (Format_Test()>0)
+         return 1;
+    return 0;
+    */
     InternalMethod=1;
     size_t ToReturn=ListFormats();
 
@@ -165,23 +176,18 @@ int MediaInfo_Internal::Format_Test()
         else if (Info)
             Info->Open_Buffer_Continue(Buffer, Buffer_Size);
     }
-    while (Info && Info->File_Offset<File_Size);
+    while (Info && !Info->IsFinished);
 
     //-Close
     Format_Test_FillBuffer_Close();
 
     //Finalize
-    if (Info && Info->Count_Get(Stream_General)>0)
-    {
-        Info->Open_Buffer_Finalize();
-        Info->Finalize();
-        delete Info; Info=NULL;
-        return 1;
-    }
+    Info->Open_Buffer_Finalize();
+    Info->Finalize();
 
-    //Cleanup if needed
+    //Cleanup
     delete Info; Info=NULL;
-    return 0;
+    return Stream[Stream_General].empty()?0:1;
 }
 
 //---------------------------------------------------------------------------
@@ -355,12 +361,12 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
     if (Info==NULL)
         return 0;
 
-    Info->Open_Buffer_Continue(Info, ToAdd, ToAdd_Size);
+    Info->Open_Buffer_Continue(ToAdd, ToAdd_Size);
 
-    if (!MultipleParsing_IsDetected && Info->Count_Get(Stream_General)>0)
+    if (!MultipleParsing_IsDetected && Info->IsDetected)
     {
         //Found
-        File__Base* Info_ToDelete=Info;
+        File__Analyze* Info_ToDelete=Info;
         Info=((File__MultipleParsing*)Info)->Parser_Get();
         delete Info_ToDelete; //Info_ToDelete=NULL;
         MultipleParsing_IsDetected=true;

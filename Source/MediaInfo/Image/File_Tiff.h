@@ -39,8 +39,11 @@ namespace MediaInfoLib
 
 class File_Tiff : public File__Analyze
 {
-protected :
-    //Format
+private :
+    //Buffer - File header
+    bool FileHeader_Begin();
+
+    //Buffer - Global
     void Read_Buffer_Continue ();
 };
 

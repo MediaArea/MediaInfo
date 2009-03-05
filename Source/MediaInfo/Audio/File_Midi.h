@@ -40,7 +40,7 @@ namespace MediaInfoLib
 class File_Midi : public File__Analyze
 {
 protected :
-    //Format
+    //Buffer - Global
     void Read_Buffer_Continue ();
 };
 

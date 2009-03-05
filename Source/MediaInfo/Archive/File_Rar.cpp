@@ -39,29 +39,41 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Static stuff
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Rar::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<4)
+        return false; //Must wait for more data
+
+    if (CC4(Buffer)!=0x52415221) //"RAR!"
+    {
+        Rejected("RAR");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Rar::Read_Buffer_Continue()
 {
-    //Integrity
-    if (Buffer_Size<=4)
-        return;
+    Skip_B4(                                                    "Magic");
+    Skip_XX(File_Size-4,                                        "Data");
 
-    //Header
-    if (CC4(Buffer)!=CC4("RAR!"))
-    {
-        Finished();
-        return;
-    }
-
-    //Filling
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "RAR");
-
-    //No need of more
-    Finished();
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "RAR");
+        Detected("RAR");
+    FILLING_END();
 }
 
 } //NameSpace

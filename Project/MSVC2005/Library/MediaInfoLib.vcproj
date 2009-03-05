@@ -101,23 +101,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\MediaInfo\File__Analyze_Finalize.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\MediaInfo\File__Analyze_Streams.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\Source\MediaInfo\File__Base.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Source\MediaInfo\File__Base_Automatic.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Source\MediaInfo\File__Base_Finalize.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Source\MediaInfo\File__Base_Inform.cpp"
 				>
 			</File>
 			<File
@@ -146,6 +138,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\MediaInfo\MediaInfo_Config.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\MediaInfo_Config_Automatic.cpp"
 				>
 			</File>
 			<File

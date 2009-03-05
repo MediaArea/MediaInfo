@@ -44,8 +44,8 @@ public :
     Ztring KindOfDummy;
 
 protected :
-    //Format
-    void Read_Buffer_Init ();
+    //Buffer - File header
+    void FileHeader_Parse ();
 
 private :
     void Fill_Dummy_General();

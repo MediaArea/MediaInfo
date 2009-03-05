@@ -105,7 +105,7 @@ void File_Nut::FileHeader_Parse()
         //Integrity
         if (file_id_string!="nut/multimedia container")
         {
-            Finished();
+            Rejected("Nut");
             return;
         }
 
@@ -113,7 +113,7 @@ void File_Nut::FileHeader_Parse()
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "Nut");
 
-        Finished();
+        Detected();
     FILLING_END();
 }
 

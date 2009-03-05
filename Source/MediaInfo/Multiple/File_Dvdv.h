@@ -42,7 +42,7 @@ namespace MediaInfoLib
 class File_Dvdv : public File__Analyze
 {
 protected :
-    //Format
+    //Buffer - Global
     void Read_Buffer_Finalize();
 
 public :

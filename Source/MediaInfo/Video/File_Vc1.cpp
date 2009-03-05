@@ -32,6 +32,14 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Video/File_Vc1.h"
 #include "ZenLib/BitStream.h"
+#undef FILLING_BEGIN
+#define FILLING_BEGIN() \
+    while (Element_Offset<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset]==0x00) \
+        Element_Offset++; \
+    if (Element_Offset!=Element_Size) \
+        Trusted_IsNot("Size error"); \
+    else if (Element_IsOK()) \
+    {
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -40,7 +48,7 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Constants
+// Infos
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -109,6 +117,7 @@ float32 Vc1_FrameRate_dr(int8u Code)
     }
 }
 
+//---------------------------------------------------------------------------
 const char* Vc1_Type[]=
 {
     "I",
@@ -118,6 +127,7 @@ const char* Vc1_Type[]=
     "Skipped",
 };
 
+//---------------------------------------------------------------------------
 const char* Vc1_PictureFormat[]=
 {
     "Progressive frame",
@@ -126,6 +136,7 @@ const char* Vc1_PictureFormat[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 const int8u Vc1_FieldTypeTable[][2]=
 {
     {0, 0},
@@ -138,6 +149,7 @@ const int8u Vc1_FieldTypeTable[][2]=
     {3, 3},
 };
 
+//---------------------------------------------------------------------------
 int32u Vc1_ptype(int8u Size, int32u Value)
 {
     switch (Size)
@@ -171,6 +183,7 @@ int32u Vc1_ptype(int8u Size, int32u Value)
     }
 };
 
+//---------------------------------------------------------------------------
 int32u Vc1_bfraction(int8u Size, int32u Value)
 {
     switch (Size)
@@ -213,13 +226,17 @@ int32u Vc1_bfraction(int8u Size, int32u Value)
 };
 
 //***************************************************************************
-// Format
+// Constructor/Destructor
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 File_Vc1::File_Vc1()
 :File__Analyze()
 {
+    //Config
+    MustSynchronize=true;
+    Buffer_TotalBytes_FirstSynched_Max=0x10000;
+
     //In
     Frame_Count_Valid=30;
     FrameIsAlwaysComplete=false;
@@ -227,13 +244,94 @@ File_Vc1::File_Vc1()
     Only_0D=false;
 }
 
+//***************************************************************************
+// Buffer - File header
+//***************************************************************************
+
 //---------------------------------------------------------------------------
-void File_Vc1::Read_Buffer_Continue()
+bool File_Vc1::FileHeader_Begin()
 {
-    //Integrity
-    if (File_Offset==0 && Detect_NonVC1())
-        return;
+    if (!File__Analyze::FileHeader_Begin_0x000001())
+        return false;
+
+    if (!MustSynchronize)
+    {
+        Synched_Init();
+        Buffer_TotalBytes_FirstSynched+=0;
+        File_Offset_FirstSynched=File_Offset;
+    }
+
+    //All should be OK
+    return true;
 }
+
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Vc1::Synched_Test()
+{
+    //Must have enough buffer for having header
+    if (Buffer_Offset+3>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if (CC3(Buffer+Buffer_Offset)!=0x000001)
+        Synched=false;
+
+    //Quick search
+    if (Synched && !Header_Parser_QuickSearch())
+        return false;
+
+    //We continue
+    return true;
+}
+
+//---------------------------------------------------------------------------
+void File_Vc1::Synched_Init()
+{
+    //Count
+    Frame_Count=0;
+    Interlaced_Top=0;
+    Interlaced_Bottom=0;
+    PictureFormat_Count.resize(4);
+
+    //Temp
+    coded_width=0;
+    coded_height=0;
+    framerateexp=0;
+    frameratecode_enr=0;
+    frameratecode_dr=0;
+    profile=0;
+    level=0;
+    colordiff_format=0;
+    AspectRatio=0;
+    AspectRatioX=0;
+    AspectRatioY=0;
+    hrd_num_leaky_buckets=0;
+    max_b_frames=7; //Default for advanced profile
+    interlace=false;
+    tfcntrflag=false;
+    framerate_present=false;
+    framerate_form=false;
+    hrd_param_flag=false;
+    finterpflag=false;
+    rangered=false;
+    psf=false;
+    pulldown=false;
+    panscan_flag=false;
+
+    TemporalReference_Offset=0;
+
+    //Default stream values
+    Streams.resize(0x100);
+    Streams[0x0F].Searching_Payload=true;
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Vc1::Read_Buffer_Finalize()
@@ -242,7 +340,7 @@ void File_Vc1::Read_Buffer_Finalize()
         return; //Not initialized
 
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Count_Get(Stream_General)==0 && (Frame_Count>0 || From_WMV3))
+    if (!IsDetected && (Frame_Count>0 || From_WMV3))
         FrameHeader_Fill();
 
     //Purge what is not needed anymore
@@ -255,50 +353,13 @@ void File_Vc1::Read_Buffer_Finalize()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-bool File_Vc1::Header_Begin()
-{
-    //Specific
-    if (From_WMV3 || Only_0D)
-        return FrameIsAlwaysComplete;
-
-    //Must have enough buffer for having header
-    if (Buffer_Offset+4>Buffer_Size)
-        return false;
-
-    //Quick test of synchro
-    if (Synched && CC3(Buffer+Buffer_Offset)!=0x000001)
-    {
-        Trusted_IsNot("VC-1, Synchronisation lost");
-        Synched=false;
-    }
-
-    //Synchro
-    if (!Synched && !Synchronize())
-        return false;
-
-    //Quick search
-    if (!Header_Parser_QuickSearch())
-        return false;
-
-    //All should be OK...
-    return true;
-}
-
-//---------------------------------------------------------------------------
 void File_Vc1::Header_Parse()
 {
     //Specific
-    if (From_WMV3)
+    if (From_WMV3 || Only_0D)
     {
         Header_Fill_Size(Buffer_Size);
-        Header_Fill_Code(0x0F, Ztring().From_CC1(0x0F));
-        Init();
-        return;
-    }
-    if (Only_0D)
-    {
-        Header_Fill_Size(Buffer_Size);
-        Header_Fill_Code(0x0D, Ztring().From_CC1(0x0D));
+        Header_Fill_Code(From_WMV3?0x0F:0x0D, Ztring().From_CC1(From_WMV3?0x0F:0x0D));
         return;
     }
 
@@ -306,7 +367,7 @@ void File_Vc1::Header_Parse()
     int8u start_code;
     Skip_B3(                                                    "synchro");
     Get_B1 (start_code,                                         "start_code");
-    if (!Header_Parse_Fill_Size())
+    if (!Header_Parser_Fill_Size())
     {
         Element_WaitForMoreData();
         return;
@@ -339,7 +400,7 @@ void File_Vc1::Data_Parse()
 }
 
 //---------------------------------------------------------------------------
-bool File_Vc1::Header_Parse_Fill_Size()
+bool File_Vc1::Header_Parser_Fill_Size()
 {
     //Look for next Sync word
     if (Buffer_Offset_Temp==0) //Buffer_Offset_Temp is not 0 if Header_Parse_Fill_Size() has already parsed first frames
@@ -367,6 +428,37 @@ bool File_Vc1::Header_Parse_Fill_Size()
     Header_Fill_Size(Buffer_Offset_Temp-Buffer_Offset);
     Buffer_Offset_Temp=0;
     return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_Vc1::Header_Parser_QuickSearch()
+{
+    while (           Buffer_Offset+4<=Buffer_Size
+      &&   CC3(Buffer+Buffer_Offset)==0x000001)
+    {
+        //Getting start_code
+        int8u start_code=CC1(Buffer+Buffer_Offset+3);
+
+        //Searching start
+        if (Streams[start_code].Searching_Payload)
+            return true;
+
+        //Getting size
+        Buffer_Offset+=4;
+        while(Buffer_Offset+4<=Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
+        {
+            Buffer_Offset+=2;
+            while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+                Buffer_Offset+=2;
+            if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+                Buffer_Offset--;
+        }
+    }
+
+    if (Buffer_Offset+4<=Buffer_Size)
+        Trusted_IsNot("VC-1, Synchronisation lost");
+    Synched=false;
+    return Synchronize();
 }
 
 //***************************************************************************
@@ -639,12 +731,8 @@ void File_Vc1::FrameHeader_Fill()
     }
 
     //Jumping
-    if (Frame_Count>=Frame_Count_Valid)
-    {
-        Element_End();
-        Info("VC-1, Jumping to end of file");
-        Finished();
-    }
+    if (From_WMV3 || Frame_Count>=Frame_Count_Valid)
+        Detected("Vc1");
 }
 
 //---------------------------------------------------------------------------
@@ -686,7 +774,8 @@ void File_Vc1::EntryPointHeader()
     TEST_SB_SKIP(                                               "chroma_sampling");
         Skip_S1( 3,                                             "uv_range");
     TEST_SB_END();
-
+    BS_End();
+    
     FILLING_BEGIN();
         //NextCode
         NextCode_Test();
@@ -798,10 +887,10 @@ void File_Vc1::SequenceHeader()
         //Autorisation of other streams
         Streams[0x0D].Searching_Payload=true;
         Streams[0x0E].Searching_Payload=true;
-    FILLING_END();
 
     if (From_WMV3)
-        Finished();
+        FrameHeader_Fill();
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -837,164 +926,6 @@ void File_Vc1::UserDefinedEntryPointHeader()
 void File_Vc1::UserDefinedSequenceHeader()
 {
     Element_Name("UserDefinedSequenceHeader");
-}
-
-//***************************************************************************
-// Helpers
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Vc1::Synchronize()
-{
-    //Synchronizing
-    while (Buffer_Offset+4<=Buffer_Size
-        && CC3(Buffer+Buffer_Offset)!=0x000001)
-    {
-        Buffer_Offset+=2;
-        while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
-            Buffer_Offset+=2;
-        if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00)
-            Buffer_Offset--;
-    }
-    if (Buffer_Offset+4>Buffer_Size)
-    {
-        //Parsing last bytes
-        if (Buffer_Offset+3==Buffer_Size)
-        {
-            if (CC3(Buffer+Buffer_Offset)!=0x000001)
-            {
-                Buffer_Offset++;
-                if (CC2(Buffer+Buffer_Offset)!=0x0000)
-                {
-                    Buffer_Offset++;
-                    if (CC1(Buffer+Buffer_Offset)!=0x00)
-                        Buffer_Offset++;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    //Synched is OK
-    Synched=true;
-    if (Streams.empty())
-        Init();
-    return true;
-}
-
-//---------------------------------------------------------------------------
-void File_Vc1::Init()
-{
-    //Count
-    Frame_Count=0;
-    Interlaced_Top=0;
-    Interlaced_Bottom=0;
-    PictureFormat_Count.resize(4);
-
-    //Temp
-    coded_width=0;
-    coded_height=0;
-    framerateexp=0;
-    frameratecode_enr=0;
-    frameratecode_dr=0;
-    profile=0;
-    level=0;
-    colordiff_format=0;
-    AspectRatio=0;
-    AspectRatioX=0;
-    AspectRatioY=0;
-    hrd_num_leaky_buckets=0;
-    max_b_frames=7; //Default for advanced profile
-    interlace=false;
-    tfcntrflag=false;
-    framerate_present=false;
-    framerate_form=false;
-    hrd_param_flag=false;
-    finterpflag=false;
-    rangered=false;
-    psf=false;
-    pulldown=false;
-    panscan_flag=false;
-
-    TemporalReference_Offset=0;
-
-    //Default stream values
-    Streams.resize(0x100);
-    Streams[0x0F].Searching_Payload=true;
-}
-
-//---------------------------------------------------------------------------
-bool File_Vc1::Header_Parser_QuickSearch()
-{
-    while (           Buffer_Offset+4<=Buffer_Size
-      &&   CC3(Buffer+Buffer_Offset)==0x000001)
-    {
-        //Getting start_code
-        int8u start_code=CC1(Buffer+Buffer_Offset+3);
-
-        //Searching start
-        if (Streams[start_code].Searching_Payload)
-            return true;
-
-        //Getting size
-        Buffer_Offset+=4;
-        while(Buffer_Offset+4<=Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
-        {
-            Buffer_Offset+=2;
-            while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
-                Buffer_Offset+=2;
-            if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
-                Buffer_Offset--;
-        }
-    }
-
-    if (Buffer_Offset+4<=Buffer_Size)
-        Trusted_IsNot("VC-1, Synchronisation lost");
-    Synched=false;
-    return Synchronize();
-}
-
-//---------------------------------------------------------------------------
-bool File_Vc1::Detect_NonVC1 ()
-{
-    //File_Size
-    if (File_Size<=192*4)
-        return false; //We can't do detection
-
-    //Element_Size
-    if (Buffer_Size<=192*4)
-        return true; //Must wait for more data
-
-    //Detect mainly DAT files, and the parser is not enough precise to detect them later
-    if (CC4(Buffer)==CC4("RIFF"))
-    {
-        Finished();
-        return true;
-    }
-
-    //Detect TS files, and the parser is not enough precise to detect them later
-    while (Buffer_Offset<188 && CC1(Buffer+Buffer_Offset)!=0x47) //Look for first Sync word
-        Buffer_Offset++;
-    if (Buffer_Offset<188 && CC1(Buffer+Buffer_Offset+188)==0x47 && CC1(Buffer+Buffer_Offset+188*2)==0x47 && CC1(Buffer+Buffer_Offset+188*3)==0x47)
-    {
-        Finished();
-        return true;
-    }
-    Buffer_Offset=0;
-
-    //Detect BDAV files, and the parser is not enough precise to detect them later
-    while (Buffer_Offset<192 && CC1(Buffer+Buffer_Offset+4)!=0x47) //Look for first Sync word
-        Buffer_Offset++;
-    if (Buffer_Offset<192 && CC1(Buffer+Buffer_Offset+192+4)==0x47 && CC1(Buffer+Buffer_Offset+192*2+4)==0x47 && CC1(Buffer+Buffer_Offset+192*3+4)==0x47)
-    {
-        Finished();
-        return true;
-    }
-    Buffer_Offset=0;
-
-    //Seems OK
-    return false;
 }
 
 } //NameSpace

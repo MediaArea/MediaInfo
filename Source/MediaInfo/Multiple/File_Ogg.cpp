@@ -38,15 +38,6 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Constants
-//***************************************************************************
-
-namespace Elements
-{
-    const int32u OggS=0x4F676753;
-}
-
-//***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
 
@@ -54,6 +45,10 @@ namespace Elements
 File_Ogg::File_Ogg()
 :File__Analyze()
 {
+    //Configuration
+    MustSynchronize=true;
+    Buffer_TotalBytes_FirstSynched_Max=0x10000;
+
     //In
     SizedBlocks=false;
     XiphLacing=false;
@@ -70,7 +65,106 @@ File_Ogg::File_Ogg()
 }
 
 //***************************************************************************
-// Format
+// Buffer - File header
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Ogg::FileHeader_Begin()
+{
+    //Must have enough buffer for having header
+    if (Buffer_Size<4)
+        return false; //Must wait for more data
+
+    //False positives detection: Detect AVI files, or the parser can synchronize with OggS stream in a AVI chunk
+    if (CC4(Buffer)==0x52494646) //"RIFF"
+    {
+        IsFinished=true;
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Ogg::Synchronize()
+{
+    //Synchronizing
+    while (Buffer_Offset+4<=Buffer_Size)
+    {
+        while (Buffer_Offset+4<=Buffer_Size)
+        {
+            if (CC4(Buffer+Buffer_Offset)==0x4F676753) //"OggS"
+                break;
+            Buffer_Offset++;
+        }
+
+        if (Buffer_Offset+4<=Buffer_Size) //Testing if size is coherant
+        {
+            //Retrieving some info
+            if (Buffer_Offset+27>Buffer_Size)
+                return false; //Need more data
+            int8u page_segments=CC1(Buffer+Buffer_Offset+26);
+            if (Buffer_Offset+27+page_segments>Buffer_Size)
+                return false; //Need more data
+            size_t Size=0;
+            for (int8u Pos=0; Pos<page_segments; Pos++)
+                Size+=CC1(Buffer+Buffer_Offset+27+Pos);
+
+            //Testing
+            if (Buffer_Offset+27+page_segments+Size+4>Buffer_Size)
+                return false; //Need more data
+            if (CC4(Buffer+Buffer_Offset+27+page_segments+Size)!=0x4F676753) //"OggS"
+                Buffer_Offset++;
+            else
+                break;
+        }
+    }
+    if (Buffer_Offset+4>Buffer_Size)
+    {
+        //Parsing last bytes
+        if (Buffer_Offset+3==Buffer_Size)
+        {
+            if (CC3(Buffer+Buffer_Offset)!=0x4F6767) //"Ogg"
+            {
+                Buffer_Offset++;
+                if (CC2(Buffer+Buffer_Offset)!=0x4F67) //"Og"
+                {
+                    Buffer_Offset++;
+                    if (CC1(Buffer+Buffer_Offset)!=0x4F) //"O"
+                        Buffer_Offset++;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    //Synched is OK
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_Ogg::Synched_Test()
+{
+    //Must have enough buffer for having header
+    if (Buffer_Offset+4>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if (CC4(Buffer+Buffer_Offset)!=0x4F676753) //"OggS"
+        Synched=false;
+
+    //We continue
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -91,7 +185,7 @@ void File_Ogg::Read_Buffer_Finalize()
                 Stream_Temp->second.absolute_granule_position_Resolution=((File_Ogg_SubElement*)Stream_Temp->second.Parser)->absolute_granule_position_Resolution;
             if (Stream_Temp->second.StreamKind==Stream_Audio, Stream_Temp->second.absolute_granule_position_Resolution==0)
                 Stream_Temp->second.absolute_granule_position_Resolution=Retrieve(Stream_Audio, Stream_Temp->second.StreamPos, Audio_SamplingRate).To_int64u();
-            if (Stream_Temp->second.absolute_granule_position && Stream_Temp->second.absolute_granule_position_Resolution)
+            if (!IsSub && Stream_Temp->second.absolute_granule_position && Stream_Temp->second.absolute_granule_position_Resolution)
             {
                 if (Stream_Temp->second.StreamKind==Stream_Audio)
                     Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, "Duration", float64_int64s(((float64)(Stream_Temp->second.absolute_granule_position))*1000/Stream_Temp->second.absolute_granule_position_Resolution), 10, true);
@@ -113,27 +207,8 @@ void File_Ogg::Read_Buffer_Finalize()
 }
 
 //***************************************************************************
-// Buffer
+// Buffer - Per element
 //***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Ogg::Header_Begin()
-{
-    //Specific case
-    if (SizedBlocks || XiphLacing)
-        return true;
-
-    //Synchro
-    if (!Synched && !Synchronize())
-        return false;
-
-    //Quick test of synchro
-    if (CC4(Buffer+Buffer_Offset)!=Elements::OggS && !Synchronize())
-        return false;
-
-    //All should be OK...
-    return true;
-}
 
 //---------------------------------------------------------------------------
 void File_Ogg::Header_Parse()
@@ -230,15 +305,15 @@ void File_Ogg::Data_Parse()
         if (Parsing_End)
             return; //Maybe multitracks concatained, not supported
         Stream[Element_Code].Parser=new File_Ogg_SubElement;
-        ((File_Ogg_SubElement*)Stream[Element_Code].Parser)->InAnotherContainer=SizedBlocks|SizedBlocks;
         Open_Buffer_Init(Stream[Element_Code].Parser);
+        ((File_Ogg_SubElement*)Stream[Element_Code].Parser)->InAnotherContainer=SizedBlocks|SizedBlocks;
         StreamsToDo++;
     }
     ((File_Ogg_SubElement*)Stream[Element_Code].Parser)->MultipleStreams=Stream.size()>1; //has no sens for the first init, must check allways
 
     //Parsing
     File_Ogg_SubElement* Parser=(File_Ogg_SubElement*)Stream[Element_Code].Parser;
-    if (Parser->File_GoTo==(int64u)-1)
+    if (Stream[Element_Code].SearchingPayload)
         //For each chunk
         for (size_t Chunk_Sizes_Pos=0; Chunk_Sizes_Pos<Chunk_Sizes.size(); Chunk_Sizes_Pos++)
         {
@@ -250,13 +325,11 @@ void File_Ogg::Data_Parse()
                 Element_Info("Continue");
 
             //Parsing
-            Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset);
             if (continued || Parser->File_Offset!=Parser->File_Size)
                 Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, Chunk_Sizes[Chunk_Sizes_Pos]);
             if (Chunk_Sizes_Pos<Chunk_Sizes.size()-1
              || (Chunk_Sizes_Pos==Chunk_Sizes.size()-1 && Chunk_Sizes_Finished))
             {
-                Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset+Chunk_Sizes[Chunk_Sizes_Pos]);
                 Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, 0); //Purge old datas
             }
 
@@ -265,21 +338,24 @@ void File_Ogg::Data_Parse()
             if (Parser->File_GoTo!=(int64u)-1)
                 Chunk_Sizes_Pos=Chunk_Sizes.size();
 
-            if (Parser->File_GoTo!=(int64u)-1 || (Element_Offset==Element_Size && eos))
+            if (Parser->IsDetected || Parser->File_GoTo!=(int64u)-1 || (Element_Offset==Element_Size && eos))
             {
                 if (Count_Get(Stream_General)==0)
                     Stream_Prepare(Stream_General);
                 StreamsToDo--;
+                Stream[Element_Code].SearchingPayload=false;
+                break;
             }
 
         }
+    else
+        Skip_XX(Element_Size,                                   "Data");
 
     //End of stream
-    if (!Parsing_End && File_Size>2*256*1024 &&
+    if (!Parsing_End &&
         (StreamsToDo==0 || File_Offset+Buffer_Offset+Element_Offset>256*1024))
     {
-        Info("OGG, Jumping to end of file");
-        File_GoTo=File_Size-(IsSub?0:256*1024);
+        Detected(IsSub?0:256*1024, "Ogg");
         std::map<int64u, stream>::iterator Stream_Temp=Stream.begin();
         while (Stream_Temp!=Stream.end())
         {
@@ -290,72 +366,6 @@ void File_Ogg::Data_Parse()
     }
 
     Element_Show();
-}
-
-//***************************************************************************
-// Helpers
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Ogg::Synchronize()
-{
-    //Synchronizing
-    while (Buffer_Offset+4<=Buffer_Size)
-    {
-        while (Buffer_Offset+4<=Buffer_Size)
-        {
-            if (CC4(Buffer+Buffer_Offset)==Elements::OggS)
-                break;
-            Buffer_Offset++;
-        }
-
-        if (Buffer_Offset+4<=Buffer_Size) //Testing if size is coherant
-        {
-            //Retrieving some info
-            if (Buffer_Offset+27>Buffer_Size)
-                return false; //Need more data
-            int8u page_segments=CC1(Buffer+Buffer_Offset+26);
-            if (Buffer_Offset+27+page_segments>Buffer_Size)
-                return false; //Need more data
-            size_t Size=0;
-            for (int8u Pos=0; Pos<page_segments; Pos++)
-                Size+=CC1(Buffer+Buffer_Offset+27+Pos);
-
-            //Testing
-            if (Buffer_Offset+27+page_segments+Size+4>Buffer_Size)
-                return false; //Need more data
-            if (CC4(Buffer+Buffer_Offset+27+page_segments+Size)!=Elements::OggS)
-                Buffer_Offset++;
-            else
-                break;
-        }
-    }
-
-    //Not synched case
-    if (!Synched && Buffer_Offset+4>Buffer_Size)
-    {
-        if (Buffer_Offset+3==Buffer_Size)
-        {
-            if (CC3(Buffer+Buffer_Offset)!=CC3("Ogg"))
-            {
-                Buffer_Offset++;
-                if (CC2(Buffer+Buffer_Offset)!=CC2("Og"))
-                {
-                    Buffer_Offset++;
-                    if (CC1(Buffer+Buffer_Offset)!=CC1("O"))
-                        Buffer_Offset++;
-                }
-            }
-        }
-
-        Buffer_Offset=Buffer_Offset;
-        Buffer_Offset=0;
-        return false;
-    }
-
-    //OK, we continue
-    Synched=true;
-    return true;
 }
 
 } //NameSpace

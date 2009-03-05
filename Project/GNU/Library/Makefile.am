@@ -5,11 +5,9 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/File__Analyze.cpp \
                        ../../../Source/MediaInfo/File__Analyze_Buffer.cpp \
                        ../../../Source/MediaInfo/File__Analyze_Buffer_MinimizeSize.cpp \
+                       ../../../Source/MediaInfo/File__Analyze_Finalize.cpp \
                        ../../../Source/MediaInfo/File__Analyze_Streams.cpp \
                        ../../../Source/MediaInfo/File__Base.cpp \
-                       ../../../Source/MediaInfo/File__Base_Automatic.cpp \
-                       ../../../Source/MediaInfo/File__Base_Finalize.cpp \
-                       ../../../Source/MediaInfo/File__Base_Inform.cpp \
                        ../../../Source/MediaInfo/File__MultipleParsing.cpp \
                        ../../../Source/MediaInfo/File__Duplicate.cpp \
                        ../../../Source/MediaInfo/File_Dummy.cpp \
@@ -17,6 +15,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/File_Unknown.cpp \
                        ../../../Source/MediaInfo/MediaInfo.cpp \
                        ../../../Source/MediaInfo/MediaInfo_Config.cpp \
+                       ../../../Source/MediaInfo/MediaInfo_Config_Automatic.cpp \
                        ../../../Source/MediaInfo/MediaInfo_Config_MediaInfo.cpp \
                        ../../../Source/MediaInfo/MediaInfo_File.cpp \
                        ../../../Source/MediaInfo/MediaInfo_Inform.cpp \

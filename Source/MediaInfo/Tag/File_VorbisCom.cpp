@@ -37,14 +37,14 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Const
+// Infos
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 extern const char* Id3v2_PictureType(int8u Type); //In Tag/File_Id3v2.cpp
 
 //***************************************************************************
-// Format
+// Constructor/Destructor
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -58,20 +58,18 @@ File_VorbisCom::File_VorbisCom()
 }
 
 //***************************************************************************
-// Buffer
+// Buffer - File header
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_VorbisCom::FileHeader_Parse()
 {
     //Parsing
-    Element_Begin("Vorbis comment header");
-        Ztring vendor_string;
-        int32u vendor_length;
-        Get_L4 (vendor_length,                                  "vendor_length");
-        Get_Local(vendor_length, vendor_string,                 "vendor_string");
-        Get_L4 (user_comment_list_length,                       "user_comment_list_length");
-    Element_End();
+    Ztring vendor_string;
+    int32u vendor_length;
+    Get_L4 (vendor_length,                                      "vendor_length");
+    Get_Local(vendor_length, vendor_string,                     "vendor_string");
+    Get_L4 (user_comment_list_length,                           "user_comment_list_length");
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
@@ -148,32 +146,36 @@ void File_VorbisCom::FileHeader_Parse()
         Fill(StreamKind_Specific, 0, "Encoded_Library/Version", Library_Version);
         Fill(StreamKind_Specific, 0, "Encoded_Library/Date", Library_Date);
 
-        //Comments
-        for (int32u Pos=0; Pos<user_comment_list_length; Pos++)
-            Comment();
-
-        //Positionning
-        Finished();
+        IsDetected=true;
     FILLING_END();
 }
 
 //***************************************************************************
-// Elements
+// Buffer - Per element
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_VorbisCom::Comment()
+void File_VorbisCom::Header_Parse()
 {
     //Parsing
-    Ztring comment;
-    Element_Begin("Vorbis comment");
-        int32u user_comment_length;
-        Get_L4 (user_comment_length,                            "length");
-        Get_UTF8(user_comment_length, comment,                  "comment");
-        Element_Info(comment);
-    Element_End();
+    int32u user_comment_length;
+    Get_L4 (user_comment_length,                                "length");
 
-    FILLING_BEGIN();
+    //Filling
+    Header_Fill_Size(Element_Offset+user_comment_length);
+}
+
+//---------------------------------------------------------------------------
+void File_VorbisCom::Data_Parse()
+{
+    user_comment_list_length--;
+
+    //Parsing
+    Ztring comment;
+    Get_UTF8(Element_Size, comment,                             "comment");
+    Element_Name(comment);
+
+    FILLING_BEGIN_PRECISE();
         Ztring Key=comment.SubString(_T(""), _T("="));
         Key.MakeUpperCase();
         Ztring Value=comment.SubString(_T("="), _T(""));
@@ -249,6 +251,9 @@ void File_VorbisCom::Comment()
         }
         else                                Fill(Stream_General, 0, comment.SubString(_T(""), _T("=")).To_Local().c_str(), Value);
     FILLING_END();
+
+    if (user_comment_list_length==0)
+        Detected("VorbisCom");
 }
 
 //***************************************************************************

@@ -42,9 +42,8 @@ namespace MediaInfoLib
 class File_Unknown : public File__Analyze
 {
 protected :
-    //Formats
+    //Buffer - Global
     void Read_Buffer_Init ();
-    void Read_Buffer_Continue ();
 };
 
 } //NameSpace

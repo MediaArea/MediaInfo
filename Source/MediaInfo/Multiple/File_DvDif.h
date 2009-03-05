@@ -43,9 +43,10 @@ public :
     //In
     size_t Frame_Count_Valid;
     int8u  AuxToAnalyze; //Only Aux must be parsed
+    bool   IgnoreAudio;
 
 protected :
-    //Format
+    //Buffer - Global
     void Read_Buffer_Finalize ();
 
 public :

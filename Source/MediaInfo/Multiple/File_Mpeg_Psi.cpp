@@ -40,8 +40,45 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Constants
+// Infos
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+const char* Mpeg_Psi_kind(File_Mpeg_Psi::ts_kind ID)
+{
+    switch (ID)
+    {
+        case File_Mpeg_Psi::program_association_table          : return "Program Association Table";
+        case File_Mpeg_Psi::program_map_table                  : return "Program Map Table";
+        case File_Mpeg_Psi::network_information_table          : return "Network Information Table";
+        case File_Mpeg_Psi::conditional_access_table           : return "Conditional Access Table";
+        case File_Mpeg_Psi::transport_stream_description_table : return "Transport Stream Description Table";
+        case File_Mpeg_Psi::reserved                           : return "reserved";
+        case File_Mpeg_Psi::pes                                : return "PES";
+        case File_Mpeg_Psi::null                               : return "Null";
+        case File_Mpeg_Psi::dvb_nit_st                         : return "DVB - NIT, ST";
+        case File_Mpeg_Psi::dvb_sdt_bat_st                     : return "DVB - SDT, BAT, ST";
+        case File_Mpeg_Psi::dvb_eit                            : return "DVB - EIT";
+        case File_Mpeg_Psi::dvb_rst_st                         : return "DVB - RST, ST";
+        case File_Mpeg_Psi::dvb_tdt_tot_st                     : return "DVB - TDT, TOT, ST";
+        case File_Mpeg_Psi::dvb_mip                            : return "DVB - MIP (no table_id)";
+        case File_Mpeg_Psi::dvb_reserved                       : return "DVB - reserved";
+        case File_Mpeg_Psi::dvb_inband                         : return "DVB - Inband Signalling";
+        case File_Mpeg_Psi::dvb_measurement                    : return "DVB - Measurement";
+        case File_Mpeg_Psi::dvb_dit                            : return "DVB - DIT";
+        case File_Mpeg_Psi::dvb_sit                            : return "DVB - SIT";
+        case File_Mpeg_Psi::arib                               : return "ARIB";
+        case File_Mpeg_Psi::cea_osd                            : return "CEA OSD";
+        case File_Mpeg_Psi::atsc_pate                          : return "ATSC - PAT-E";
+        case File_Mpeg_Psi::atsc_stt_pide                      : return "ATSC - STT, PID-E";
+        case File_Mpeg_Psi::atsc_op                            : return "ATSC - operational and management packets";
+        case File_Mpeg_Psi::atsc_psip                          : return "ATSC - PSIP";
+        case File_Mpeg_Psi::atsc_scte                          : return "ATSC - SCTE Network/System Information Base";
+        case File_Mpeg_Psi::atsc_reserved                      : return "ATSC - reserved";
+        case File_Mpeg_Psi::docsis                             : return "DOCSIS";
+        default : return "";
+    }
+}
 
 //---------------------------------------------------------------------------
 const char* Mpeg_Psi_ATSC_table_type(int16u ID)
@@ -622,7 +659,7 @@ void File_Mpeg_Psi::Header_Parse()
     if ((size_t)(pointer_field+section_length)<Element_Offset+4) //We must have 4 more byte for CRC
     {
         Element_WaitForMoreData();
-        Finished(); //Error, we exit
+        Rejected("PSI"); //Error, we exit
         return;
     }
     if (Element_Size<Element_Offset+section_length)
@@ -791,7 +828,7 @@ void File_Mpeg_Psi::Data_Parse()
         default   : ;
     }
 
-    Finished();
+    Detected();
 }
 
 //---------------------------------------------------------------------------
@@ -1402,10 +1439,10 @@ void File_Mpeg_Psi::Descriptors()
     //Parsing
     File_Mpeg_Descriptors Descriptors;
     Buffer_Offset+=(size_t)Element_Offset; //Positionning
-    Open_Buffer_Init(&Descriptors, File_Size, File_Offset+Buffer_Offset);
     Descriptors.format_identifier=Streams[Stream_Current].format_identifier==0x00000000?Programs[program_number].format_identifier:Streams[Stream_Current].format_identifier; //format_identifier of the stream if exist, else general format_identifier
     Descriptors.StreamKind=Stream_Current?Stream_Max:Stream_General; //Saying if it is General or not
     Descriptors.table_id=table_id;
+    Open_Buffer_Init(&Descriptors);
     Open_Buffer_Continue(&Descriptors, Buffer+Buffer_Offset, Descriptors_Size);
     Buffer_Offset-=(size_t)Element_Offset; //Positionning
     Element_Offset+=Descriptors_Size;
@@ -1523,3 +1560,4 @@ Ztring File_Mpeg_Psi::Time_BCD(int32u Time)
 } //NameSpace
 
 #endif //MEDIAINFO_MPEGTS_YES
+

@@ -30,36 +30,18 @@
 //---------------------------------------------------------------------------
 
 //***************************************************************************
-// Constants
+// Constants (Common)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 #if defined(MEDIAINFO_MPEGA_YES) || defined(MEDIAINFO_MPEGTS_YES) || defined(MEDIAINFO_MPEGPS_YES)
 //---------------------------------------------------------------------------
 
-namespace MediaInfoLib
-{
-
 #include "ZenLib/Conf.h"
 using namespace ZenLib;
 
-//---------------------------------------------------------------------------
-const char* Mpega_Format_Profile_Version[4]=
+namespace MediaInfoLib
 {
-    "Version 2.5",
-    "",
-    "Version 2",
-    "Version 1"
-};
-
-//---------------------------------------------------------------------------
-const char* Mpega_Format_Profile_Layer[4]=
-{
-    "",
-    "Layer 3",
-    "Layer 2",
-    "Layer 1",
-};
 
 //---------------------------------------------------------------------------
 const char* Mpega_Version[4]=
@@ -70,14 +52,7 @@ const char* Mpega_Version[4]=
     "MPA1"
 };
 
-const char* Mpega_Version_String[4]=
-{
-    "MPEG-2.5 Audio",
-    "",
-    "MPEG-2 Audio",
-    "MPEG-1 Audio",
-};
-
+//---------------------------------------------------------------------------
 const char* Mpega_Layer[4]=
 {
     "",
@@ -86,130 +61,6 @@ const char* Mpega_Layer[4]=
     "L1",
 };
 
-const char* Mpega_Layer_String[4]=
-{
-    "",
-    " layer 3",
-    " layer 2",
-    " layer 1",
-};
-
-const int16u Mpega_BitRate[4][4][16]=
-{
-    {{0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0},  //MPEG Audio 2.5 layer X
-     {0,   8,  16,  24,  32,  40,  48,  56,  64,  80,  96, 112, 128, 144, 160,   0},  //MPEG Audio 2.5 layer 3
-     {0,   8,  16,  24,  32,  40,  48,  56,  64,  80,  96, 112, 128, 144, 160,   0},  //MPEG Audio 2.5 layer 2
-     {0,  32,  48,  56,  64,  80,  96, 112, 128, 144, 160, 176, 192, 224, 256,   0}}, //MPEG Audio 2.5 layer 1
-    {{0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0},  //MPEG Audio X layer X
-     {0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0},  //MPEG Audio X layer 3
-     {0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0},  //MPEG Audio X layer 2
-     {0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0}}, //MPEG Audio X layer 1
-    {{0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0},  //MPEG Audio 2 layer X
-     {0,   8,  16,  24,  32,  40,  48,  56,  64,  80,  96, 112, 128, 144, 160,   0},  //MPEG Audio 2 layer 3
-     {0,   8,  16,  24,  32,  40,  48,  56,  64,  80,  96, 112, 128, 144, 160,   0},  //MPEG Audio 2 layer 2
-     {0,  32,  48,  56,  64,  80,  96, 112, 128, 144, 160, 176, 192, 224, 256,   0}}, //MPEG Audio 2 layer 1
-    {{0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0},  //MPEG Audio 1 layer X
-     {0,  32,  40,  48,  56,  64,  80,  96, 112, 128, 160, 192, 224, 256, 320,   0},  //MPEG Audio 1 layer 3
-     {0,  32,  48,  56,  64,  80,  96, 112, 128, 160, 192, 224, 256, 320, 384,   0},  //MPEG Audio 1 layer 2
-     {0,  32,  64,  96, 128, 160, 192, 224, 256, 288, 320, 352, 384, 416, 448,   0}}, //MPEG Audio 1 layer 1
-};
-
-const int16u Mpega_SamplingRate[4][4]=
-{
-    {11025, 12000,  8000, 0}, //MPEG Audio 2.5
-    {    0,     0,     0, 0}, //MPEG Audio X
-    {22050, 24000, 16000, 0}, //MPEG Audio 2
-    {44100, 48000, 32000, 0}, //MPEG Audio 1
-};
-
-const int16u Mpega_Channels[4]=
-{
-    2,
-    2,
-    2,
-    1,
-};
-
-const char* Mpega_Codec_Profile[4]=
-{
-    "",
-    "Joint stereo",
-    "Dual mono",
-    "",
-};
-
-const char* Mpega_Codec_Profile_Extension[]=
-{
-    "",
-    "Intensity Stereo",
-    "MS Stereo",
-    "Intensity Stereo + MS Stereo",
-};
-
-const char* Mpega_Emphasis[]=
-{
-    "",
-    "50/15ms",
-    "Reserved",
-    "CCITT",
-};
-
-const char* Lame_BitRate_Mode[]=
-{
-    "",
-    "CBR",
-    "VBR",
-    "VBR",
-    "VBR",
-    "VBR",
-    "VBR",
-    "",
-    "CBR",
-    "VBR",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-};
-
-const char* Lame_Method[]=
-{
-    "",
-    "CBR",
-    "ABR",
-    "VBR (rh)",
-    "VBR (mtrh)",
-    "VBR (rh)",
-    "VBR",
-    "",
-    "CBR (2-pass)",
-    "ABR (2-pass)",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-};
-
-
-const int8u Mpega_Coefficient[4][4] = //Samples per Frame / 8
-{
-    {  0,  72, 144,  12}, //MPEG Audio 2.5
-    {  0,   0,   0,   0}, //MPEG Audio X
-    {  0,  72, 144,  12}, //MPEG Audio 2
-    {  0, 144, 144,  12}, //MPEG Audio 1
-};
-
-const int8u Mpega_SlotSize[4]= //A frame is coposed of slots
-{
-    0, // Layer X
-    1, // Layer3
-    1, // Layer2
-    4, // Layer1
-};                       
 //---------------------------------------------------------------------------
 } //NameSpace
 
@@ -236,6 +87,172 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Constants
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+const char* Mpega_Format_Profile_Version[4]=
+{
+    "Version 2.5",
+    "",
+    "Version 2",
+    "Version 1"
+};
+
+//---------------------------------------------------------------------------
+const char* Mpega_Format_Profile_Layer[4]=
+{
+    "",
+    "Layer 3",
+    "Layer 2",
+    "Layer 1",
+};
+
+//---------------------------------------------------------------------------
+const char* Mpega_Version_String[4]=
+{
+    "MPEG-2.5 Audio",
+    "",
+    "MPEG-2 Audio",
+    "MPEG-1 Audio",
+};
+
+//---------------------------------------------------------------------------
+const char* Mpega_Layer_String[4]=
+{
+    "",
+    " layer 3",
+    " layer 2",
+    " layer 1",
+};
+
+//---------------------------------------------------------------------------
+const int16u Mpega_BitRate[4][4][16]=
+{
+    {{0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0},  //MPEG Audio 2.5 layer X
+     {0,   8,  16,  24,  32,  40,  48,  56,  64,  80,  96, 112, 128, 144, 160,   0},  //MPEG Audio 2.5 layer 3
+     {0,   8,  16,  24,  32,  40,  48,  56,  64,  80,  96, 112, 128, 144, 160,   0},  //MPEG Audio 2.5 layer 2
+     {0,  32,  48,  56,  64,  80,  96, 112, 128, 144, 160, 176, 192, 224, 256,   0}}, //MPEG Audio 2.5 layer 1
+    {{0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0},  //MPEG Audio X layer X
+     {0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0},  //MPEG Audio X layer 3
+     {0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0},  //MPEG Audio X layer 2
+     {0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0}}, //MPEG Audio X layer 1
+    {{0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0},  //MPEG Audio 2 layer X
+     {0,   8,  16,  24,  32,  40,  48,  56,  64,  80,  96, 112, 128, 144, 160,   0},  //MPEG Audio 2 layer 3
+     {0,   8,  16,  24,  32,  40,  48,  56,  64,  80,  96, 112, 128, 144, 160,   0},  //MPEG Audio 2 layer 2
+     {0,  32,  48,  56,  64,  80,  96, 112, 128, 144, 160, 176, 192, 224, 256,   0}}, //MPEG Audio 2 layer 1
+    {{0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0},  //MPEG Audio 1 layer X
+     {0,  32,  40,  48,  56,  64,  80,  96, 112, 128, 160, 192, 224, 256, 320,   0},  //MPEG Audio 1 layer 3
+     {0,  32,  48,  56,  64,  80,  96, 112, 128, 160, 192, 224, 256, 320, 384,   0},  //MPEG Audio 1 layer 2
+     {0,  32,  64,  96, 128, 160, 192, 224, 256, 288, 320, 352, 384, 416, 448,   0}}, //MPEG Audio 1 layer 1
+};
+
+//---------------------------------------------------------------------------
+const int16u Mpega_SamplingRate[4][4]=
+{
+    {11025, 12000,  8000, 0}, //MPEG Audio 2.5
+    {    0,     0,     0, 0}, //MPEG Audio X
+    {22050, 24000, 16000, 0}, //MPEG Audio 2
+    {44100, 48000, 32000, 0}, //MPEG Audio 1
+};
+
+//---------------------------------------------------------------------------
+const int16u Mpega_Channels[4]=
+{
+    2,
+    2,
+    2,
+    1,
+};
+
+//---------------------------------------------------------------------------
+const char* Mpega_Codec_Profile[4]=
+{
+    "",
+    "Joint stereo",
+    "Dual mono",
+    "",
+};
+
+//---------------------------------------------------------------------------
+const char* Mpega_Codec_Profile_Extension[]=
+{
+    "",
+    "Intensity Stereo",
+    "MS Stereo",
+    "Intensity Stereo + MS Stereo",
+};
+
+//---------------------------------------------------------------------------
+const char* Mpega_Emphasis[]=
+{
+    "",
+    "50/15ms",
+    "Reserved",
+    "CCITT",
+};
+
+//---------------------------------------------------------------------------
+const char* Lame_BitRate_Mode[]=
+{
+    "",
+    "CBR",
+    "VBR",
+    "VBR",
+    "VBR",
+    "VBR",
+    "VBR",
+    "",
+    "CBR",
+    "VBR",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
+//---------------------------------------------------------------------------
+const char* Lame_Method[]=
+{
+    "",
+    "CBR",
+    "ABR",
+    "VBR (rh)",
+    "VBR (mtrh)",
+    "VBR (rh)",
+    "VBR",
+    "",
+    "CBR (2-pass)",
+    "ABR (2-pass)",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+};
+
+//---------------------------------------------------------------------------
+const int8u Mpega_Coefficient[4][4] = //Samples per Frame / 8
+{
+    {  0,  72, 144,  12}, //MPEG Audio 2.5
+    {  0,   0,   0,   0}, //MPEG Audio X
+    {  0,  72, 144,  12}, //MPEG Audio 2
+    {  0, 144, 144,  12}, //MPEG Audio 1
+};
+
+//---------------------------------------------------------------------------
+const int8u Mpega_SlotSize[4]= //A frame is coposed of slots
+{
+    0, // Layer X
+    1, // Layer3
+    1, // Layer2
+    4, // Layer1
+};                       
+
+//***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
 
@@ -247,18 +264,12 @@ File_Mpega::File_Mpega()
     Base=this;
 
     //Configuration
-    File_MaximumOffset=128*1024;
+    Buffer_TotalBytes_FirstSynched_Max=128*1024;
+    MustSynchronize=true;
 
     //In
     Frame_Count_Valid=16;
     FrameIsAlwaysComplete=false;
-
-    //Out
-    Delay=0;
-
-    //Temp - Global
-    Frame_Count=0;
-    LastSync_Offset=(int64u)-1;
 
     //Temp - BitStream info
     Block_Count[0]=0;
@@ -276,39 +287,206 @@ File_Mpega::File_Mpega()
     Emphasis_Count[1]=0;
     Emphasis_Count[2]=0;
     Emphasis_Count[3]=0;
+    Frame_Count=0;
+    Frame_Count_Consecutive=0;
     Scfsi=0;
     Scalefac=0;
     Reservoir=0;
-    Reservoir_Max=0;
-
-    //Temp - VBR handling
-    VBR_Frames=0;
+    LastSync_Offset=(int64u)-1;
     VBR_FileSize=0;
-
-    //Temp - Tags
+    VBR_Frames=0;
+    Reservoir_Max=0;
     Xing_Scale=0;
 }
 
 //***************************************************************************
-// Format
+// Buffer - File header
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Mpega::Read_Buffer_Continue()
+bool File_Mpega::FileHeader_Begin()
+{
+    //Buffer size
+    if (Buffer_Size<4)
+        return File_Size<4; //Must wait for more data
+
+    //Detecting WAV/SWF/FLV/ELF/DPG/WM/MZ files
+    int32u Magic4=CC4(Buffer);
+    int32u Magic3=Magic4>>8;
+    int16u Magic2=Magic4>>16;
+    if (Magic4==0x52494646 || Magic3==0x465753 || Magic3==0x464C56 || Magic4==0x7F454C46 || Magic4==0x44504730 || Magic4==0x3026B275 || Magic2==0x4D5A)
+    {
+        Rejected("MPEG Audio");
+        return false;
+    }
+
+    //Seems OK
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Mpega::Synchronize()
 {
     //Tags
-    if (!File__Tags_Helper::Read_Buffer_Continue())
-        return;
+    bool Tag_Found;
+    if (!File__Tags_Helper::Synchronize(Tag_Found))
+        return false;
+    if (Tag_Found)
+        return true;
 
-    //Integrity
-    if (File_Offset==0 && Detect_NonMPEGA())
-        return;
+    //Synchronizing
+    while (Buffer_Offset+4<=Buffer_Size)
+    {
+        while (Buffer_Offset+4<=Buffer_Size)
+        {
+            if ((CC2(Buffer+Buffer_Offset+0)&0xFFE0)==0xFFE0 && (CC1(Buffer+Buffer_Offset+2)&0xF0)!=0xF0 && (CC1(Buffer+Buffer_Offset+2)&0x0C)!=0x0C)
+                break; //while()
+
+            //Tags
+            bool Tag_Found;
+            if (!File__Tags_Helper::Synchronize(Tag_Found))
+                return false;
+            if (Tag_Found)
+                return true;
+
+            Buffer_Offset++;
+        }
+
+        if (Buffer_Offset+4<=Buffer_Size)//Testing if size is coherant
+        {
+            //Retrieving some info
+            int8u ID                =(CC1(Buffer+Buffer_Offset+1)>>3)&0x03;
+            int8u layer             =(CC1(Buffer+Buffer_Offset+1)>>1)&0x03;
+            int8u bitrate_index     =(CC1(Buffer+Buffer_Offset+2)>>4)&0x0F;
+            int8u sampling_frequency=(CC1(Buffer+Buffer_Offset+2)>>2)&0x03;
+            int8u padding_bit       =(CC1(Buffer+Buffer_Offset+2)>>1)&0x01;
+            //Coherancy
+            if (Mpega_SamplingRate[ID][sampling_frequency]==0 || Mpega_Coefficient[ID][layer]==0 || Mpega_BitRate[ID][layer][bitrate_index]==0 || Mpega_SlotSize[layer]==0)
+                Buffer_Offset++; //False start
+            else
+            {
+                //Testing next start, to be sure
+                size_t Size=(Mpega_Coefficient[ID][layer]*Mpega_BitRate[ID][layer][bitrate_index]*1000/Mpega_SamplingRate[ID][sampling_frequency]+(padding_bit?1:0))*Mpega_SlotSize[layer];
+                if (IsSub && Buffer_Offset+Size==Buffer_Size)
+                    break;
+                if (File_Offset+Buffer_Offset+Size!=File_Size-File_EndTagSize)
+                {
+                    if (Buffer_Offset+Size+4>Buffer_Size)
+                        return false; //Need more data
+
+                    //Tags
+                    bool Tag_Found;
+                    if (!File__Tags_Helper::Synchronize(Tag_Found, Size))
+                        return false;
+                    if (Tag_Found)
+                        return true;
+
+                    //Testing
+                    if ((CC2(Buffer+Buffer_Offset+Size)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+Size+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+Size+2)&0x0C)==0x0C)
+                        Buffer_Offset++;
+                    else
+                    {
+                        //Retrieving some info
+                        int8u ID                =(CC1(Buffer+Buffer_Offset+Size+1)>>3)&0x03;
+                        int8u layer             =(CC1(Buffer+Buffer_Offset+Size+1)>>1)&0x03;
+                        int8u bitrate_index     =(CC1(Buffer+Buffer_Offset+Size+2)>>4)&0x0F;
+                        int8u sampling_frequency=(CC1(Buffer+Buffer_Offset+Size+2)>>2)&0x03;
+                        int8u padding_bit       =(CC1(Buffer+Buffer_Offset+Size+2)>>1)&0x01;
+                        //Coherancy
+                        if (Mpega_SamplingRate[ID][sampling_frequency]==0 || Mpega_Coefficient[ID][layer]==0 || Mpega_BitRate[ID][layer][bitrate_index]==0 || Mpega_SlotSize[layer]==0)
+                            Buffer_Offset++; //False start
+                        else
+                        {
+                            //Testing next start, to be sure
+                            size_t Size2=(Mpega_Coefficient[ID][layer]*Mpega_BitRate[ID][layer][bitrate_index]*1000/Mpega_SamplingRate[ID][sampling_frequency]+(padding_bit?1:0))*Mpega_SlotSize[layer];
+                            if (IsSub && Buffer_Offset+Size+Size2==Buffer_Size)
+                                break;
+                            if (File_Offset+Buffer_Offset+Size+Size2!=File_Size-File_EndTagSize)
+                            {
+                                if (Buffer_Offset+Size+Size2+4>Buffer_Size)
+                                    return false; //Need more data
+
+                                //Tags
+                                bool Tag_Found;
+                                if (!File__Tags_Helper::Synchronize(Tag_Found, Size+Size2))
+                                    return false;
+                                if (Tag_Found)
+                                    return true;
+
+                                //Testing
+                                if ((CC2(Buffer+Buffer_Offset+Size+Size2)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+Size+Size2+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+Size+Size2+2)&0x0C)==0x0C)
+                                    Buffer_Offset++;
+                                else
+                                    break; //while()
+                            }
+                            else
+                                break; //while()
+                        }
+                    }
+                }
+                else
+                    break; //while()
+            }
+        }
+    }
+    if (Buffer_Offset+4>Buffer_Size)
+    {
+        //Parsing last bytes
+        if (Buffer_Offset+3==Buffer_Size)
+        {
+            if ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0)
+            {
+                Buffer_Offset++;
+                if ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0)
+                {
+                    Buffer_Offset++;
+                    if (CC1(Buffer+Buffer_Offset)!=0xFF)
+                        Buffer_Offset++;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    //Synched is OK
+    return true;
 }
+
+//---------------------------------------------------------------------------
+bool File_Mpega::Synched_Test()
+{
+    //Tags
+    if (!File__Tags_Helper::Synched_Test())
+        return false;
+
+    //Must have enough buffer for having header
+    if (Buffer_Offset+3>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+2)&0x0C)==0x0C)
+    {
+        Frame_Count_Consecutive=0; //Reset the frame count, we try to find x consecutive frames
+        Synched=false;
+    }
+
+    //We continue
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Mpega::Read_Buffer_Finalize()
 {
-    if (Count_Get(Stream_Audio)==0)
+    if (!IsDetected)
         return;
 
     //VBR detection without header
@@ -379,13 +557,14 @@ void File_Mpega::Read_Buffer_Finalize()
     }
     if (BitRate>0 && !File_Name.empty())
         Fill(Stream_General, 0, General_Duration, VBR_FileSize*8*1000/BitRate);
-    Fill(Stream_General, 0, General_Encoded_Library, Encoded_Library);
+    if (!Encoded_Library.empty())
+        Fill(Stream_General, 0, General_Encoded_Library, Encoded_Library);
     if (BitRate>0)
     {
         Fill(Stream_General, 0, General_OverallBitRate, BitRate);
         Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
-        if (Delay>100 && BitRate>0)
-            Fill(Stream_Audio, 0, Audio_Delay, (float)Delay*8*1000/BitRate, 0);
+        if (Buffer_TotalBytes_FirstSynched>10 && BitRate>0)
+            Fill(Stream_Audio, 0, Audio_Delay, Buffer_TotalBytes_FirstSynched*8*1000/BitRate, 0);
     }
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, BitRate_Mode);
     Fill(Stream_Audio, 0, Audio_BitRate_Minimum, BitRate_Minimum);
@@ -394,43 +573,11 @@ void File_Mpega::Read_Buffer_Finalize()
         Encoded_Library_Guess();
     Fill(Stream_Audio, 0, Audio_Encoded_Library, Encoded_Library);
     Fill(Stream_Audio, 0, Audio_Encoded_Library_Settings, Encoded_Library_Settings);
-
-    //Tags
-    File__Tags_Helper::Read_Buffer_Finalize();
 }
 
 //***************************************************************************
-// Buffer
+// Buffer - Per element
 //***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Mpega::Header_Begin()
-{
-    if (!File__Tags_Helper::Header_Begin())
-        return false;
-
-    //Must have enough buffer for having header
-    if (Buffer_Offset+4>Buffer_Size)
-        return false;
-
-    //Some file have the padding bit set but there is no padding
-    //if ((CC2(Buffer+Buffer_Offset+Element_Size)&0xFFE0)!=0xFFE0)// && (Buffer[Buffer_Offset+1]&0x18)!=0x08 && (Buffer[Buffer_Offset+1]&0x06)!=0x00)
-    //    Element_Size--;
-
-    //Quick test of synchro
-    if (Synched && ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+2)&0x0C)==0x0C))
-    {
-        Trusted_IsNot("MPEG-A, Synchronisation lost");
-        Frame_Count=0; //Reset the frame count, we try to find x consecutive frames
-        Synched=false;
-    }
-
-    //Synchro
-    if (!Synched && !Synchronize())
-        return false;
-
-    return true;
-}
 
 //---------------------------------------------------------------------------
 void File_Mpega::Header_Parse()
@@ -486,6 +633,12 @@ void File_Mpega::Data_Parse()
         return;
     }
 
+    //Counting
+    if (File_Offset+Buffer_Offset+Element_Size==File_Size-File_EndTagSize)
+        Frame_Count_Valid=Frame_Count_Consecutive; //Finalize MPEG Audio frames in case of there are less than Frame_Count_Valid frames
+    Frame_Count++;
+    Frame_Count_Consecutive++;
+    
     //VBR and library headers
     if (Frame_Count<3) //No need to do it too much
     {
@@ -493,16 +646,11 @@ void File_Mpega::Data_Parse()
         if (Header_VBRI()) return;
     }
 
-    //Counting
-    if (File_Offset+Buffer_Offset+Element_Size==File_Size-File_EndTagSize)
-        Frame_Count_Valid=Frame_Count; //Finalize MPEG Audio frames in case of there are less than Frame_Count_Valid frames
-    Frame_Count++;
-
     //Name
     Element_Info(Ztring::ToZtring(Frame_Count));
 
     //LAME
-    if (Encoded_Library.empty() && (Frame_Count<Frame_Count_Valid || File_Offset+Buffer_Offset+Element_Size==File_Size-File_EndTagSize)) //Can be elsewhere... At the start, or end frame
+    if (Encoded_Library.empty() && (Frame_Count_Consecutive<Frame_Count_Valid || File_Offset+Buffer_Offset+Element_Size==File_Size-File_EndTagSize)) //Can be elsewhere... At the start, or end frame
         Header_Encoders();
 
     //Filling
@@ -539,7 +687,7 @@ void File_Mpega::Data_Parse()
     }
     if (ID==3) //MPEG-1
     {
-        Element_Begin("scfsi");
+    Element_Begin("scfsi");
         for(int8u ch=0; ch<Mpega_Channels[mode]; ch++)
             for(int8u scfsi_band=0; scfsi_band<4; scfsi_band++)
             {
@@ -621,8 +769,8 @@ void File_Mpega::Data_Parse()
         //Filling
         LastSync_Offset=File_Offset+Buffer_Offset+Element_Size;
         if (IsSub && BitRate_Count.size()>1 && !Encoded_Library.empty())
-            Frame_Count_Valid=Frame_Count;
-        if (Count_Get(Stream_Audio)==0 && Frame_Count>=Frame_Count_Valid)
+            Frame_Count_Valid=Frame_Count_Consecutive;
+        if (!IsDetected && Frame_Count_Consecutive>=Frame_Count_Valid)
             Data_Parse_Fill();
 
         //Detect Id3v1 tags inside a frame
@@ -642,9 +790,9 @@ void File_Mpega::Data_Parse_Fill()
     }
 
     //Filling
-    Stream_Prepare(Stream_General);
+    File__Tags_Helper::Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "MPEG Audio");
-    Stream_Prepare(Stream_Audio);
+    File__Tags_Helper::Stream_Prepare(Stream_Audio);
     Fill(Stream_Audio, 0, Audio_Format, "MPEG Audio");
     Fill(Stream_Audio, 0, Audio_Format_Version, Mpega_Format_Profile_Version[ID]);
     Fill(Stream_Audio, 0, Audio_Format_Profile, Mpega_Format_Profile_Layer[layer]);
@@ -657,7 +805,7 @@ void File_Mpega::Data_Parse_Fill()
     Fill(Stream_Audio, 0, Audio_Resolution, 16);
 
     //Jumping
-    File__Tags_Helper::Data_GoTo(File_Size-(File_Size>=16*1024?16*1024:0), "MPEG-A");
+    File__Tags_Helper::Detected(16*1024, "MPEG-A");
     LastSync_Offset=(int64u)-1;
 }
 
@@ -681,7 +829,6 @@ bool File_Mpega::Header_Xing()
         if (CC4(Xing_Header)==CC4("Xing") || CC4(Xing_Header)==CC4("Info"))
         {
             //This is a "tag"
-            File_BeginTagSize+=4+Element_Size;
             Element_Info("Tag (Xing)");
 
             //Parsing
@@ -749,7 +896,6 @@ bool File_Mpega::Header_VBRI()
         if (CC4(Fraunhofer_Header)==CC4("VBRI") && CC2(Fraunhofer_Header+4)==0x0001) //VBRI v1 only
         {
             //This is a "tag"
-            File_BeginTagSize+=4+Element_Size;
 
             Element_Name("Tag (VBRI)");
 
@@ -1026,158 +1172,6 @@ void File_Mpega::Encoded_Library_Guess()
             }
         }
     }
-}
-
-//***************************************************************************
-// Helpers
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Mpega::Synchronize()
-{
-    //Synchronizing
-    while (Buffer_Offset+4<=Buffer_Size)
-    {
-        while (Buffer_Offset+4<=Buffer_Size)
-        {
-            if ((CC2(Buffer+Buffer_Offset+0)&0xFFE0)==0xFFE0 && (CC1(Buffer+Buffer_Offset+2)&0xF0)!=0xF0 && (CC1(Buffer+Buffer_Offset+2)&0x0C)!=0x0C)
-                break; //while()
-
-            //Tags
-            if (File_Offset+Buffer_Offset+File_EndTagSize==File_Size && !File__Tags_Helper::Header_Begin())
-                return false;
-
-            Buffer_Offset++;
-        }
-
-        if (Buffer_Offset+4<=Buffer_Size)//Testing if size is coherant
-        {
-            //Retrieving some info
-            int8u ID                =(CC1(Buffer+Buffer_Offset+1)>>3)&0x03;
-            int8u layer             =(CC1(Buffer+Buffer_Offset+1)>>1)&0x03;
-            int8u bitrate_index     =(CC1(Buffer+Buffer_Offset+2)>>4)&0x0F;
-            int8u sampling_frequency=(CC1(Buffer+Buffer_Offset+2)>>2)&0x03;
-            int8u padding_bit       =(CC1(Buffer+Buffer_Offset+2)>>1)&0x01;
-            //Coherancy
-            if (Mpega_SamplingRate[ID][sampling_frequency]==0 || Mpega_Coefficient[ID][layer]==0 || Mpega_BitRate[ID][layer][bitrate_index]==0 || Mpega_SlotSize[layer]==0)
-                Buffer_Offset++; //False start
-            else
-            {
-                //Testing next start, to be sure
-                size_t Size=(Mpega_Coefficient[ID][layer]*Mpega_BitRate[ID][layer][bitrate_index]*1000/Mpega_SamplingRate[ID][sampling_frequency]+(padding_bit?1:0))*Mpega_SlotSize[layer];
-                if (IsSub && Buffer_Offset+Size==Buffer_Size)
-                    break;
-                if (File_Offset+Buffer_Offset+Size!=File_Size-File_EndTagSize)
-                {
-                    if (Buffer_Offset+Size+4>Buffer_Size)
-                    {
-                        //Delay
-                        if (Frame_Count==0)
-                            Delay+=Buffer_Offset;
-                        return false; //Need more data
-                    }
-
-                    //Testing
-                    if ((CC2(Buffer+Buffer_Offset+Size)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+Size+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+Size+2)&0x0C)==0x0C)
-                        Buffer_Offset++;
-                    else
-                    {
-                        //Retrieving some info
-                        int8u ID                =(CC1(Buffer+Buffer_Offset+Size+1)>>3)&0x03;
-                        int8u layer             =(CC1(Buffer+Buffer_Offset+Size+1)>>1)&0x03;
-                        int8u bitrate_index     =(CC1(Buffer+Buffer_Offset+Size+2)>>4)&0x0F;
-                        int8u sampling_frequency=(CC1(Buffer+Buffer_Offset+Size+2)>>2)&0x03;
-                        int8u padding_bit       =(CC1(Buffer+Buffer_Offset+Size+2)>>1)&0x01;
-                        //Coherancy
-                        if (Mpega_SamplingRate[ID][sampling_frequency]==0 || Mpega_Coefficient[ID][layer]==0 || Mpega_BitRate[ID][layer][bitrate_index]==0 || Mpega_SlotSize[layer]==0)
-                            Buffer_Offset++; //False start
-                        else
-                        {
-                            //Testing next start, to be sure
-                            size_t Size2=(Mpega_Coefficient[ID][layer]*Mpega_BitRate[ID][layer][bitrate_index]*1000/Mpega_SamplingRate[ID][sampling_frequency]+(padding_bit?1:0))*Mpega_SlotSize[layer];
-                            if (FrameIsAlwaysComplete && Buffer_Offset+Size+Size2==Buffer_Size)
-                                break;
-                            if (File_Offset+Buffer_Offset+Size+Size2!=File_Size-File_EndTagSize)
-                            {
-                                if (Buffer_Offset+Size+Size2+4>Buffer_Size)
-                                {
-                                    //Delay
-                                    if (Frame_Count==0)
-                                        Delay+=Buffer_Offset;
-                                    return false; //Need more data
-                                }
-
-                                //Testing
-                                if ((CC2(Buffer+Buffer_Offset+Size+Size2)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+Size+Size2+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+Size+Size2+2)&0x0C)==0x0C)
-                                    Buffer_Offset++;
-                                else
-                                    break; //while()
-                            }
-                            else
-                                break; //while()
-                        }
-                    }
-                }
-                else
-                    break; //while()
-            }
-        }
-    }
-    if (Buffer_Offset+4>Buffer_Size)
-    {
-        //Parsing last bytes
-        if (Buffer_Offset+3==Buffer_Size)
-        {
-            if ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0)
-            {
-                Buffer_Offset++;
-                if ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0)
-                {
-                    Buffer_Offset++;
-                    if (CC1(Buffer+Buffer_Offset)!=0xFF)
-                        Buffer_Offset++;
-                }
-            }
-        }
-
-        //Delay
-        if (Frame_Count==0)
-            Delay+=Buffer_Offset;
-
-        return false;
-    }
-
-    //Delay
-    if (Frame_Count==0)
-        Delay+=Buffer_Offset;
-
-    //Synched is OK
-    Synched=true;
-    return true;
-}
-
-//---------------------------------------------------------------------------
-bool File_Mpega::Detect_NonMPEGA ()
-{
-    //File_Size
-    if (File_Size<4)
-        return false; //We can't do detection
-
-    //Element_Size
-    if (Buffer_Size<4)
-        return true; //Must wait for more data
-
-    //Detecting WAV/SWF/FLV/ELF/DPG files
-    int32u Magic4=CC4(Buffer);
-    int32u Magic3=Magic4>>8;
-    if (Magic4==0x52494646 || Magic3==0x465753 || Magic3==0x464C56 || Magic4==0x7F454C46 || Magic4==0x44504730)
-    {
-        Finished();
-        return true;
-    }
-
-    //Seems OK
-    return false;
 }
 
 //***************************************************************************

@@ -40,30 +40,32 @@ namespace MediaInfoLib
 
 class File_MpcSv8 : public File__Analyze, public File__Tags_Helper
 {
-protected :
-    //Format
-    void Read_Buffer_Continue ();
-    void Read_Buffer_Finalize ();
-
 public :
+    //Constructor/Destructor
     File_MpcSv8();
 
 private :
-    //Buffer
+    //Buffer - File header
+    bool FileHeader_Begin();
+    void FileHeader_Parse();
+    
+    //Buffer - Global
+    void Read_Buffer_Continue();
+
+    //Buffer - Per element
     bool Header_Begin();
     void Header_Parse();
-    void FileHeader_Parse();
     void Data_Parse();
 
     //Elements
     void AP();
-    void CT();
+    void CT() {Skip_XX(Element_Size, "Data");}
     void EI();
     void RG();
-    void SE();
+    void SE() {Skip_XX(Element_Size, "Data");}
     void SH();
     void SO();
-    void ST();
+    void ST() {Skip_XX(Element_Size, "Data");}
 };
 
 } //NameSpace

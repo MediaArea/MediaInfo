@@ -40,26 +40,20 @@ namespace MediaInfoLib
 class File_Aes3 : public File__Analyze
 {
 public :
-    //In
-    int64u PTS;
-
-protected :
-    //Buffer
-    void Header_Parse();
-    void Data_Parse();
-
-public :
     //Constructor/Destructor
     File_Aes3();
 
-private:
-    //Temp
-    int8u  number_channels;
-    int8u  bits_per_samples;
+private :
+    //Buffer - Per element
+    void Header_Parse();
+    void Data_Parse();
 
+    //Temp
     size_t Block_Count;
     int64u Block_Last_Size;
     int64u Block_Last_PTS;
+    int8u  number_channels;
+    int8u  bits_per_samples;
 };
 
 } //NameSpace

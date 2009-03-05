@@ -47,7 +47,7 @@ public :
     File_Speex();
 
 private :
-    //Buffer
+    //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
 

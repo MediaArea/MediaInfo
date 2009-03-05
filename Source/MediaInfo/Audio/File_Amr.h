@@ -44,14 +44,11 @@ public :
     ZenLib::Ztring Codec;
 
 protected :
-    //Format
+    //Buffer - File header
+    bool FileHeader_Begin();
+
+    //Buffer - Global
     void Read_Buffer_Continue ();
-    void Read_Buffer_Finalize ();
-
-private :
-
-    //Elements
-    void Tags();
 };
 
 } //NameSpace

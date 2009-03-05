@@ -37,7 +37,7 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Constructor - Destructor
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -46,35 +46,44 @@ File_Latm::File_Latm()
 {
     //In
     audioMuxVersionA=false;
-
-    //Temp - Technical info
 }
 
 //***************************************************************************
-// Buffer
+// Buffer - Synchro
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-bool File_Latm::Header_Begin()
+bool File_Latm::Synchronize()
+{
+    //Synchronizing
+    while (Buffer_Offset+2<=Buffer_Size
+        && (CC2(Buffer+Buffer_Offset)&0xFFE0)!=0x56E0)
+        Buffer_Offset++;
+    if (Buffer_Offset+2>=Buffer_Size)
+        return false;
+
+    //Synched is OK
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_Latm::Synched_Test()
 {
     //Must have enough buffer for having header
-    if (Buffer_Offset+4>Buffer_Size)
+    if (Buffer_Offset+2>Buffer_Size)
         return false;
 
     //Quick test of synchro
-    if (Synched && (CC2(Buffer+Buffer_Offset)&0xFFE0)!=0x56E0)
-    {
-        Trusted_IsNot("LATM, Synchronisation lost");
+    if ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0x56E0)
         Synched=false;
-    }
 
-    //Synchro
-    if (!Synched && !Synchronize())
-        return false;
-
-    //All should be OK...
+    //We continue
     return true;
 }
+
+//***************************************************************************
+// Buffer - Per element
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Latm::Header_Parse()
@@ -94,10 +103,11 @@ void File_Latm::Header_Parse()
 void File_Latm::Data_Parse()
 {
     AudioMuxElement(true);
+    Detected("LATM");
 }
 
 //***************************************************************************
-// Helpers
+// Elements
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -186,25 +196,6 @@ fillBits; ascLen bslbf
     }
 
     Element_End();
-}
-
-//***************************************************************************
-// Helpers
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Latm::Synchronize()
-{
-    //Synchronizing
-    while (Buffer_Offset+2<=Buffer_Size
-        && (CC2(Buffer+Buffer_Offset)&0xFFE0)!=0x56E0)
-        Buffer_Offset++;
-    if (Buffer_Offset+2>=Buffer_Size)
-        return false;
-
-    //Synched is OK
-    Synched=true;
-    return true;
 }
 
 } //NameSpace

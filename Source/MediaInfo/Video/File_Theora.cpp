@@ -75,6 +75,10 @@ void File_Theora::Data_Parse()
         Identification();
 }
 
+//***************************************************************************
+// Elements
+//***************************************************************************
+
 //---------------------------------------------------------------------------
 void File_Theora::Identification()
 {
@@ -138,7 +142,7 @@ void File_Theora::Setup()
     //Parsing
     Skip_XX(Element_Size,                                       "Unknown");
 
-    Finished();
+    Detected();
 }
 
 //***************************************************************************
@@ -147,4 +151,4 @@ void File_Theora::Setup()
 
 } //NameSpace
 
-#endif //MEDIAINFO_MIDI_YES
+#endif //MEDIAINFO_THEORA_YES

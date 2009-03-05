@@ -39,9 +39,13 @@ namespace MediaInfoLib
 
 class File_Module : public File__Analyze
 {
-private :
-    //Buffer
-    void FileHeader_Parse ();
+public :
+protected :
+    //Buffer - File header
+    bool FileHeader_Begin();
+
+    //Buffer - Global
+    void Read_Buffer_Continue ();
 };
 
 } //NameSpace

@@ -42,7 +42,7 @@ namespace MediaInfoLib
 class File_Other : public File__Analyze
 {
 protected :
-    //Format
+    //Buffer - Global
     void Read_Buffer_Continue ();
 };
 

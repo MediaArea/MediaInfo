@@ -40,17 +40,16 @@ namespace MediaInfoLib
 
 class File_Mpc : public File__Analyze, public File__Tags_Helper
 {
-protected :
-    //Format
-    void Read_Buffer_Continue ();
-    void Read_Buffer_Finalize ();
-
 public :
+    //Constructor/Destructor
     File_Mpc();
 
 private :
-    //Buffer
-    bool Header_Begin();
+    //Buffer - Global
+    void Read_Buffer_Continue();
+
+    //Buffer - File header
+    bool FileHeader_Begin();
     void FileHeader_Parse();
 };
 

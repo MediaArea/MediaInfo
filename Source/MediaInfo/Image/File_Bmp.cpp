@@ -46,31 +46,127 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Infos
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+const char* Bmp_CompressionMethod(int32u CompressionMethod)
+{
+    switch(CompressionMethod)
+    {
+        case 0 : return "RGB";
+        case 1 : return "RLE";
+        case 2 : return "RLE";
+        case 3 : return "Bit field";
+        case 4 : return "JPEG";
+        case 5 : return "PNG";
+        default: return "";
+    }
+}
+
+//***************************************************************************
+// Static stuff
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Bmp::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<2)
+        return false; //Must wait for more data
+
+    if (CC2(Buffer)!=0x424D) //"BM"
+    {
+        Rejected("BMP");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Bmp::Read_Buffer_Continue()
 {
-    //Test
-    if (Buffer_Size<2) //Test if there is enougth bytes
-        return;
+    //Parsing
+    int32u Size, DIB_Size, Offset;
+    Element_Begin("File header", 14);
+        Skip_C2(                                                "Magic");
+        Get_L4 (Size,                                           "Size");
+        Skip_L2(                                                "Reserved");
+        Skip_L2(                                                "Reserved");
+        Get_L4 (Offset,                                         "Offset of data");
+    Element_End();
 
-    if (CC2(Buffer)!=CC2("BM"))
-    {
-        Finished();
-        return;
-    }
+    Element_Begin("DIB header");
+        Peek_L4 (DIB_Size);
+        switch (DIB_Size)
+        {
+            case  40 : BitmapInfoHeader(); break;
+            case  12 : Skip_XX(DIB_Size-4,                      "OS/2 v1 header"); break;
+            case  64 : Skip_XX(DIB_Size-4,                      "OS/2 v2 header"); break;
+            case 108 : Skip_XX(DIB_Size-4,                      "BitmapV4Header"); break;
+            case 124 : Skip_XX(DIB_Size-4,                      "BitmapV5Header"); break;
+            default  : Skip_XX(DIB_Size-4,                      "Unknown header");
+            ;
+        }
+    Element_End();
 
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "Bitmap");
+    Skip_XX(Offset-Element_Offset,                              "Color palette");
+    Skip_XX(File_Size-Offset,                                   "Bitmap data");
 
-    Stream_Prepare(Stream_Image);
-    Fill(Stream_Image, 0, Image_Format, "Bitmap");
-    Fill(Stream_Image, 0, Image_Codec, "BMP");
+    FILLING_BEGIN();
+        if (Size!=File_Size) //"BM"
+        {
+            Rejected("BMP");
+            return;
+        }
 
-    //No need of more
-    Finished();
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "Bitmap");
+        if (Count_Get(Stream_Image)==0)
+            Stream_Prepare(Stream_Image);
+
+        //No need of more
+        Detected("BMP");
+    FILLING_END();
+}
+
+//***************************************************************************
+// Buffer - Elements
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Bmp::BitmapInfoHeader()
+{
+    //Parsing
+    Element_Begin("Bitmap Info header", 40);
+    int32u Width, Height, CompressionMethod;
+    int16u BitsPerPixel;
+    Skip_L4(                                                    "Size");
+    Get_L4 (Width,                                              "Width");
+    Get_L4 (Height,                                             "Height");
+    Skip_L2(                                                    "Color planes");
+    Get_L2 (BitsPerPixel,                                       "Bits per pixel");
+    Get_L4 (CompressionMethod,                                  "Compression method"); Param_Info(Bmp_CompressionMethod(CompressionMethod));
+    Skip_L4(                                                    "Image size");
+    Skip_L4(                                                    "Horizontal resolution");
+    Skip_L4(                                                    "Vertical resolution");
+    Skip_L4(                                                    "Number of colors in the color palette");
+    Skip_L4(                                                    "Number of important colors used");
+
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_Image);
+        Fill(Stream_Image, 0, Image_Width, Width);
+        Fill(Stream_Image, 0, Image_Height, Height);
+        Fill(Stream_Image, 0, Image_Resolution, BitsPerPixel);
+        Fill(Stream_Image, 0, Image_Format, Bmp_CompressionMethod(CompressionMethod));
+        Fill(Stream_Image, 0, Image_Codec, Bmp_CompressionMethod(CompressionMethod));
+    FILLING_END();
 }
 
 } //NameSpace

@@ -47,8 +47,10 @@ public :
     int64u   absolute_granule_position_Resolution;
 
 protected :
-    //Formats
-    void Read_Buffer_Init ();
+    //Buffer - File header
+    void FileHeader_Parse ();
+
+    //Buffer - Globals
     void Read_Buffer_Finalize();
 
 public :

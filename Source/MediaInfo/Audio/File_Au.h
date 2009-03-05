@@ -39,8 +39,9 @@ namespace MediaInfoLib
 
 class File_Au : public File__Analyze
 {
-private :
-    //Buffer
+protected :
+    //Buffer - File header
+    bool FileHeader_Begin();
     void FileHeader_Parse ();
 };
 

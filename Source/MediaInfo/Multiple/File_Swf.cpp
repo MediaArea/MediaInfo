@@ -31,8 +31,6 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Swf.h"
-#include "ZenLib/Utils.h"
-#include "ZenLib/BitStream.h"
 #include <zlib.h>
 using namespace ZenLib;
 //---------------------------------------------------------------------------
@@ -41,21 +39,24 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Constants
+// Infos
 //***************************************************************************
 
+//---------------------------------------------------------------------------
 const int8u  Swf_SoundType[]=
 {
     1,
     2,
 };
 
+//---------------------------------------------------------------------------
 const int8u  Swf_SoundSize[]=
 {
      8,
     16,
 };
 
+//---------------------------------------------------------------------------
 const int16u Swf_SoundRate[]=
 {
      5500,
@@ -64,6 +65,7 @@ const int16u Swf_SoundRate[]=
     44100,
 };
 
+//---------------------------------------------------------------------------
 const char* Swf_Format_Audio[]=
 {
     "PCM",
@@ -84,6 +86,7 @@ const char* Swf_Format_Audio[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 const char* Swf_Format_Version_Audio[]=
 {
     "",
@@ -104,6 +107,7 @@ const char* Swf_Format_Version_Audio[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 const char* Swf_Format_Profile_Audio[]=
 {
     "",
@@ -124,6 +128,7 @@ const char* Swf_Format_Profile_Audio[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 const char* Swf_SoundFormat[]=
 {
     "Uncompressed",
@@ -144,6 +149,7 @@ const char* Swf_SoundFormat[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 const char* Swf_Format_Video[]=
 {
     "",
@@ -164,6 +170,7 @@ const char* Swf_Format_Video[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 const char* Swf_Format_Profile_Video[]=
 {
     "",
@@ -184,6 +191,7 @@ const char* Swf_Format_Profile_Video[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 const char* Swf_Codec_Video[]=
 {
     "",
@@ -203,6 +211,10 @@ const char* Swf_Codec_Video[]=
     "",
     "",
 };
+
+//***************************************************************************
+// Constants
+//***************************************************************************
 
 namespace Elements
 {
@@ -298,6 +310,11 @@ File_Swf::File_Swf()
 //---------------------------------------------------------------------------
 void File_Swf::Read_Buffer_Finalize()
 {
+    if (Count_Get(Stream_General)==0)
+        return;
+    if (!IsDetected)
+        IsDetected=true;
+
     if (Count_Get(Stream_Video)==0)
     {
         Stream_Prepare(Stream_Video);
@@ -324,13 +341,13 @@ bool File_Swf::FileHeader_Begin()
     if (Buffer_Size<8)
         return false;
 
-    if (CC3(Buffer)!=0x435753)
+    if (CC3(Buffer)!=0x435753) //CWS
         return true;
 
     //Compressed file
-    if (File_Size>8*1024*1024)
+    if (File_Size>16*1024*1024)
         return true; //The file is too big, we will not parse all, only say this is SWF
-    if (CC4(Buffer+4)<4*8*1024*1024) //FileLength
+    if (CC4(Buffer+4)<4*16*1024*1024) //FileLength
         return true; //The file is too big, we will not parse all, only say this is SWF
     Buffer_MaximumSize=(size_t)File_Size;
     if (Buffer_Size!=File_Size)
@@ -394,7 +411,7 @@ void File_Swf::FileHeader_Parse()
         //Integrity
         if (Signature!=0x465753 && Signature!=0x435753) //FWS or CWS
         {
-            Finished();
+            Rejected();
             return;
         }
 
@@ -512,7 +529,7 @@ void File_Swf::Data_Parse()
 
     Frame_Count++;
     if (Frame_Count>=Frame_Count_Valid)
-        Finished();
+        Detected();
 }
 
 //***************************************************************************
@@ -620,7 +637,7 @@ bool File_Swf::Decompress()
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "ShockWave");
         Stream_Prepare(Stream_Video);
-        Finished();
+        Detected();
         return true;
     }
 
@@ -634,21 +651,21 @@ bool File_Swf::Decompress()
     {
         delete[] Dest; //Dest=NULL
         Trusted_IsNot("Error while decompressing");
-        Finished();
+        Rejected("SWF");
         return false;
     }
 
     File_Swf MI;
     MI.FileLength=FileLength;
     MI.Version=Version;
-    Open_Buffer_Init(&MI, FileLength-8, File_Offset+Buffer_Offset+8);
+    Open_Buffer_Init(&MI);
     Open_Buffer_Continue(&MI, Dest, FileLength-8);
     Open_Buffer_Finalize(&MI);
     Merge(MI);
     Merge(MI, Stream_General, 0, 0);
     delete[] Dest; //Dest=NULL;
 
-    Finished();
+    Detected();
     return true;
 }
 

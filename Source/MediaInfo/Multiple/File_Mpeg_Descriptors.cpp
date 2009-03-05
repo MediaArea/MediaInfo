@@ -776,7 +776,7 @@ const char* Mpeg_Descriptors_AC3_Priority[]=
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Mpeg_Descriptors::Read_Buffer_Init()
+File_Mpeg_Descriptors::File_Mpeg_Descriptors()
 {
     //In
     format_identifier=0x00000000;
@@ -1278,7 +1278,7 @@ void File_Mpeg_Descriptors::Descriptor_1D()
     #ifdef MEDIAINFO_MPEG4_YES
         File_Mpeg4_Descriptors MI;
         MI.Parser_DoNotFreeIt=true;
-        Open_Buffer_Init(&MI, File_Offset+Buffer_Offset+Element_Size, File_Offset+Buffer_Offset+Element_Offset);
+        Open_Buffer_Init(&MI);
         Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         Open_Buffer_Finalize(&MI);
 

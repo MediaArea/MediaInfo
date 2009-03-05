@@ -37,65 +37,104 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Constants
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Lyrics3v2::Read_Buffer_Continue()
+namespace Elements
 {
-    if (Buffer_Size<26)
-        return;
-
-    Stream_Prepare(Stream_General);
-
-    Header();
+    const int32u AUT=0x415554;
+    const int32u CRC=0x435243;
+    const int32u EAL=0x45414C;
+    const int32u EAR=0x454152;
+    const int32u ETT=0x455454;
+    const int32u IMG=0x494D47;
+    const int32u IND=0x494E44;
+    const int32u INF=0x494E46;
+    const int32u LYR=0x4C5952;
 }
 
 //***************************************************************************
-// Buffer
+// Constructor/Destructor
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+File_Lyrics3v2::File_Lyrics3v2()
+:File__Analyze()
+{
+    //Configuration
+    TotalSize=(int64u)-1;
+}
+
+//***************************************************************************
+// Buffer - File header
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Lyrics3v2::FileHeader_Parse()
+{
+    if (TotalSize==(int64u)-1)
+        TotalSize=Buffer_Size;
+
+    //Parsing
+    Skip_Local(11,                                              "Signature");
+
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_General);
+        TotalSize-=11;
+    FILLING_END();
+}
+
+//***************************************************************************
+// Buffer - Per element
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Lyrics3v2::Header_Parse()
 {
-    if (Buffer_Offset+15>=Buffer_Size) //first 10 is minimum size of a tag, Second 10 is ID3v2 header size
+    if (TotalSize<=15) //First 10 is minimum size of a tag, Second 10 is ID3v2 header size
     {
         //Place for footer
-        Header_Fill_Code(0xFFFFFFFF, "Footer");
-        Header_Fill_Size(Buffer_Size-Buffer_Offset);
+        Header_Fill_Code((int64u)-1, "File Footer");
+        Header_Fill_Size(TotalSize);
         return;
     }
 
     //Parsing
-    Ztring Size;
+    Ztring SizeT;
+    int64u Size;
     int32u Field;
     Get_C3 (Field,                                           "Field");
-    Get_Local(5, Size,                                       "Size");
+    Get_Local(5, SizeT,                                      "Size");
+    Size=8+SizeT.To_int64u();
 
     //Filling
+    if (Size+15>TotalSize)
+        Size=TotalSize-15;
     Header_Fill_Code(Field, Ztring().From_CC3(Field));
-    Header_Fill_Size(8+Size.To_int64u());
+    Header_Fill_Size(Size);
+    TotalSize-=Size;
 }
 
 //---------------------------------------------------------------------------
 void File_Lyrics3v2::Data_Parse()
 {
-    #define ELEMENT_CASE(_NAME) \
-        case Lyrics3v2::_NAME : _NAME(); break;
+    #define CASE_INFO(_NAME, _DETAIL) \
+        case Elements::_NAME : Element_Info(_DETAIL); _NAME(); break;
 
     //Parsing
     switch (Element_Code)
     {
-        ELEMENT_CASE(AUT);
-        ELEMENT_CASE(CRC);
-        ELEMENT_CASE(EAL);
-        ELEMENT_CASE(EAR);
-        ELEMENT_CASE(ETT);
-        ELEMENT_CASE(IMG);
-        ELEMENT_CASE(IND);
-        ELEMENT_CASE(INF);
-        ELEMENT_CASE(LYR);
-        case 0xFFFFFFFF : Footer(); break;
+        CASE_INFO(AUT,                                          "Lyrics Author Name");
+        CASE_INFO(CRC,                                          "CRC");
+        CASE_INFO(EAL,                                          "Extended Album name");
+        CASE_INFO(EAR,                                          "Extended Artist name");
+        CASE_INFO(ETT,                                          "Extended Track Title");
+        CASE_INFO(IMG,                                          "Image location");
+        CASE_INFO(IND,                                          "Indications field");
+        CASE_INFO(INF,                                          "Additional information");
+        CASE_INFO(LYR,                                          "Lyrics");
+        case (int64u)-1 : Footer(); break;
         default : Skip_XX(Element_Size,                         "Data");
     }
 }
@@ -105,51 +144,18 @@ void File_Lyrics3v2::Data_Parse()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Lyrics3v2::Header()
-{
-    //Parsing
-    Element_Offset=0;
-    Element_Size=11;
-    Element_Begin("Header", 11);
-    Skip_Local(11,                                              "Signature");
-    Element_End();
-
-    //Positioning
-    Buffer_Offset+=11;
-}
-
-//---------------------------------------------------------------------------
 void File_Lyrics3v2::Footer()
 {
     //Parsing
-    Element_Info("Footer");
     Skip_Local(6,                                               "Size");
     Skip_Local(9,                                               "Signature");
-}
 
-//---------------------------------------------------------------------------
-void File_Lyrics3v2::AUT()
-{
-    Element_Info("Lyrics Author Name");
-
-    //Parsing
-    Skip_Local(Element_Size,                                    "Value");
-}
-
-//---------------------------------------------------------------------------
-void File_Lyrics3v2::CRC()
-{
-    Element_Info("CRC");
-
-    //Parsing
-    Skip_Local(Element_Size,                                    "Value");
+    Detected("Lyrics3v2");
 }
 
 //---------------------------------------------------------------------------
 void File_Lyrics3v2::EAL()
 {
-    Element_Info("Extended Album name");
-
     //Parsing
     Ztring Value;
     Get_Local(Element_Size, Value,                              "Value");
@@ -161,8 +167,6 @@ void File_Lyrics3v2::EAL()
 //---------------------------------------------------------------------------
 void File_Lyrics3v2::EAR()
 {
-    Element_Info("Extended Artist name");
-
     //Parsing
     Ztring Value;
     Get_Local(Element_Size, Value,                              "Value");
@@ -174,8 +178,6 @@ void File_Lyrics3v2::EAR()
 //---------------------------------------------------------------------------
 void File_Lyrics3v2::ETT()
 {
-    Element_Info("Extended Track Title");
-
     //Parsing
     Ztring Value;
     Get_Local(Element_Size, Value,                              "Value");
@@ -185,19 +187,8 @@ void File_Lyrics3v2::ETT()
 }
 
 //---------------------------------------------------------------------------
-void File_Lyrics3v2::IMG()
-{
-    Element_Info("Image location");
-
-    //Parsing
-    Skip_Local(Element_Size,                                    "Value");
-}
-
-//---------------------------------------------------------------------------
 void File_Lyrics3v2::IND()
 {
-    Element_Info("Indications field");
-
     //Parsing
     if (Element_Size>=1)
         Skip_Local(1,                                           "lyrics present");
@@ -205,14 +196,13 @@ void File_Lyrics3v2::IND()
         Skip_Local(1,                                           "timestamp in lyrics");
     if (Element_Size>=3)
         Skip_Local(1,                                           "inhibits tracks for random selection");
-    //Can be more
+    while (Element_Offset<Element_Size)
+        Skip_Local(1,                                           "unknown");
 }
 
 //---------------------------------------------------------------------------
 void File_Lyrics3v2::INF()
 {
-    Element_Info("Additional information");
-
     //Parsing
     Ztring Value;
     Get_Local(Element_Size, Value,                              "Value");
@@ -224,8 +214,6 @@ void File_Lyrics3v2::INF()
 //---------------------------------------------------------------------------
 void File_Lyrics3v2::LYR()
 {
-    Element_Info("Lyrics");
-
     //Parsing
     Skip_XX(Element_Size,                                       "Value");
 
@@ -240,5 +228,5 @@ void File_Lyrics3v2::LYR()
 
 } //NameSpace
 
-#endif //MEDIAINFO_MPEGA_YES
+#endif //MEDIAINFO_LYRICS3V2_YES
 

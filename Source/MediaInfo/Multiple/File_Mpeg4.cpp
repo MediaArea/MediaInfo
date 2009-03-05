@@ -122,8 +122,7 @@ File_Mpeg4::File_Mpeg4()
 {
     //Configuration
     DataMustAlwaysBeComplete=false;
-    File_MaximumOffset=(int64u)-1;
-    
+
     //Temp
     mdat_MustParse=false;
     moov_Done=false;
@@ -242,66 +241,6 @@ bool File_Mpeg4::BookMark_Needed()
     return true;
 }
 
-//***************************************************************************
-// MDAT Parsing
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-// mdat parsing, for MPEG-PS, must be improved
-//
-void File_Mpeg4::mdat_Parse()
-{
-    /*
-    std::map<int64u, mdat_Pos_Type>::iterator mdat_Pos_Temp=mdat_Pos.begin();
-    while (mdat_Pos_Temp!=mdat_Pos.end())
-    {
-        FLUSH();
-        ELEMENT(1, "Chunk", 0);
-        mdat_Pos_Temp++;
-    }
-    */
-
-    /*
-    #if defined(MEDIAINFO_MPEGPS_YES)
-        if (mdat_Info==NULL)
-            mdat_Info=new File_MpegPs();
-
-        //Calculating buffer size to parse
-        size_t ToParse_Size;
-        if (Buffer_Offset+Buffer_Size<Element_Next[1])
-            ToParse_Size=Buffer_Size-Buffer_Offset;
-        else
-        {
-            ToParse_Size=(size_t)(Element_Next[1]-Buffer_Offset);
-            mdat_MustParse=false; //We no more need
-        }
-
-        Open_Buffer_Init(mdat_Info, Element_Next[1], File_Offset+Buffer_Offset);
-        Open_Buffer_Continue(mdat_Info, Buffer+Buffer_Offset, ToParse_Size);
-        Buffer_Offset+=ToParse_Size;
-        if (mdat_Info->File_GoTo!=(int64u)-1 && mdat_Info->File_Size-mdat_Info->File_GoTo!=(int64u)-1)
-        {
-            //Details
-            if (Config.Details_Get())
-            {
-                Details_Add_Error("------------------------------------------");
-                Details_Add_Error("---   MPEG-4, Jumping to end of file   ---");
-                Details_Add_Error("------------------------------------------");
-            }
-
-            //Jumping
-            File_GoTo=Element_Next[1]-(mdat_Info->File_Size-mdat_Info->File_GoTo);
-            return;
-        }
-
-        if (!mdat_MustParse || File_Offset+Buffer_Offset==Element_Next[1])
-        {
-            Open_Buffer_Finalize(mdat_Info);
-            Merge(*mdat_Info);
-        }
-    #endif */
-}
-
 //---------------------------------------------------------------------------
 //Get language string from 2CC
 char* File_Mpeg4::Language_Get(int x)
@@ -405,9 +344,9 @@ void File_Mpeg4::Descriptors()
     File_Mpeg4_Descriptors MI;
     MI.KindOfStream=StreamKind_Last;
     MI.Parser_DoNotFreeIt=true;
+    Open_Buffer_Init(&MI);
 
     //Parsing
-    Open_Buffer_Init(&MI, File_Offset+Buffer_Offset+Element_Size, File_Offset+Buffer_Offset+Element_Offset);
     Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
     Open_Buffer_Finalize(&MI);
 

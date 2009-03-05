@@ -30,18 +30,16 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Class File_Aac
+// Class File_Mpeg4_AudioSpecificConfig
 //***************************************************************************
 
 class File_Mpeg4_AudioSpecificConfig : public File__Analyze
 {
 private :
-    //Buffer
-    void Header_Parse();
-    void Data_Parse();
+    //Buffer - Global
+    void Read_Buffer_Continue ();
 
     //Elements
-    void audioSpecificConfig();
     void GASpecificConfig();
     void SBR();
     void PS();

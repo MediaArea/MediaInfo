@@ -40,7 +40,10 @@ namespace MediaInfoLib
 class File_Bzip2 : public File__Analyze
 {
 protected :
-    //Format
+    //Buffer - File header
+    bool FileHeader_Begin();
+
+    //Buffer - Global
     void Read_Buffer_Continue ();
 };
 

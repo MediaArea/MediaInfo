@@ -40,7 +40,7 @@ namespace MediaInfoLib
 class File_Tar : public File__Analyze
 {
 protected :
-    //Format
+    //Buffer - Global
     void Read_Buffer_Continue ();
 };
 

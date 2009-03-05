@@ -40,19 +40,18 @@ namespace MediaInfoLib
 
 class File_Tta : public File__Analyze, public File__Tags_Helper
 {
-protected :
-    //Format
-    void Read_Buffer_Continue ();
-    void Read_Buffer_Finalize ();
-
 public :
+    //Constructor/Destructor
     File_Tta();
 
 private :
     //Buffer
-    bool Header_Begin();
-    void Header_Parse();
-    void Data_Parse();
+    bool FileHeader_Begin();
+    void FileHeader_Parse();
+
+    //Buffer - Global
+    void Read_Buffer_Continue ();
+    void Read_Buffer_Finalize ();
 
     //Temp
     int64u Duration;

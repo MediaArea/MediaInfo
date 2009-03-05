@@ -37,27 +37,39 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Static stuff
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_ImpulseTracker::FileHeader_Parse()
+bool File_ImpulseTracker::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<4)
+        return false; //Must wait for more data
+
+    if (CC4(Buffer)!=0x494D504D) //"IMPM"
+    {
+        Rejected("Impulse Tracker");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_ImpulseTracker::Read_Buffer_Continue()
 {
     //Parsing
     Ztring SongName;
-    int32u Signature;
     int16u OrdNum, InsNum, SmpNum, PatNum, Flags, Special;
     int8u  VersionMajor, VersionMinor, SoftwareVersionMajor, SoftwareVersionMinor, IS, TS;
     bool Stereo;
-    Get_B4(Signature,                                           "Signature");
-
-    FILLING_BEGIN();
-        if (Signature!=0x494D504D)
-        {
-            Finished();
-            return;
-        }
-    FILLING_END()
+    Skip_B4(                                                    "Signature");
 
     Get_Local(26, SongName,                                     "Song name");
     Skip_L1(                                                    "Unknown");
@@ -109,7 +121,7 @@ void File_ImpulseTracker::FileHeader_Parse()
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Stereo?2:1);
         
-        Finished();
+        Detected("Impulse Tracker");
     FILLING_END();
 }
 

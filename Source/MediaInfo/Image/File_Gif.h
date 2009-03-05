@@ -39,12 +39,12 @@ namespace MediaInfoLib
 
 class File_Gif : public File__Analyze
 {
-private :
-    //Buffer
-    void FileHeader_Parse ();
-    void Header_Parse();
-    void Data_Parse();
+protected :
+    //Buffer - File header
+    bool FileHeader_Begin();
 
+    //Buffer - Global
+    void Read_Buffer_Continue ();
 };
 
 } //NameSpace

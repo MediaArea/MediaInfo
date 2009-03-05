@@ -173,6 +173,7 @@ File_DvDif::File_DvDif()
     //In
     Frame_Count_Valid=14;
     AuxToAnalyze=0x00; //No Aux to analyze
+    IgnoreAudio=false;
 
     //Temp
     FrameCount=0;
@@ -202,6 +203,9 @@ File_DvDif::File_DvDif()
 //---------------------------------------------------------------------------
 void File_DvDif::Read_Buffer_Finalize()
 {
+    if (!IsDetected)
+        IsDetected=true;
+
     if (!Recorded_Date_Date.empty())
     {
         if (Recorded_Date_Time.size()>4)
@@ -311,7 +315,7 @@ void File_DvDif::Data_Parse()
     }
 
     //If small file
-    if (FrameCount>=1 && File_Offset+Buffer_Offset+Element_Size==File_Size)
+    if (!IsDetected && (FrameCount>=1 && File_Offset+Buffer_Offset+Element_Size==File_Size))
         video_control_Fill();
 }
 
@@ -440,7 +444,7 @@ void File_DvDif::Aux()
     Skip_XX(2,                                                  "Unused");
 
     if (Count_Get(Stream_General))
-        Finished(); //Here because we currently must be at the end of an element
+        Detected(); //Here because we currently must be at the end of an element
 }
 
 //---------------------------------------------------------------------------
@@ -602,7 +606,7 @@ void File_DvDif::audio_source()
 
     FILLING_BEGIN();
         dsf_IsValid=true;
-        if (FrameCount==1 || AuxToAnalyze) //Only the first time
+        if (!IgnoreAudio && (FrameCount==1 || AuxToAnalyze)) //Only the first time
         {
             Stream_Prepare(Stream_Audio);
             Fill(Stream_Audio, 0, Audio_Format, "PCM");
@@ -798,7 +802,7 @@ void File_DvDif::video_control()
 
     FILLING_BEGIN();
         FrameCount++;
-        if (FrameCount>=Frame_Count_Valid || AuxToAnalyze)
+        if (!IsDetected && (FrameCount>=Frame_Count_Valid || AuxToAnalyze))
             video_control_Fill();
     FILLING_END();
 }

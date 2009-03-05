@@ -1,5 +1,5 @@
 //***************************************************************************
-// Class File__Base
+// Class File__Analyze
 //***************************************************************************
 
 class File__Analyze : public File__Base
@@ -37,6 +37,15 @@ public :
     size_t Frame_Count_InThisBlock;
 
 protected :
+    //***************************************************************************
+    // Synchro
+    //***************************************************************************
+
+    virtual bool Synchronize()    {Synched=true; return true;}; //Look for the synchro
+    virtual bool Synched_Test()   {return true;}; //Test is synchro is OK
+    virtual void Synched_Init()   {}; //When synched, we can Init data
+    bool Synchro_Manage();
+
     //***************************************************************************
     // Buffer
     //***************************************************************************
@@ -657,7 +666,7 @@ public :
 
     void NextCode_Add(int64u Code);
     void NextCode_Clear();
-    void NextCode_Test();
+    bool NextCode_Test();
 
     //***************************************************************************
     // Element trusting
@@ -728,7 +737,13 @@ public :
     //***************************************************************************
 
     //Actions
+    void Detected(int64u BeforeEnd=0);
+    void Detected(int64u BeforeEnd, const char* Message) {Detected(BeforeEnd);}
+    void Detected(const char* Message) {Detected();}
     void Finished();
+    void Finished(const char* Message) {Finished();}
+    void Rejected();
+    void Rejected(const char* Message) {Rejected();}
     int64u Element_Code_Get (size_t Level);
     int64u Element_TotalSize_Get (size_t LevelLess=0);
     bool Element_IsComplete_Get ();
@@ -746,7 +761,13 @@ public :
     bool Element_IsWaitingForMoreData ();
 
     //Begin
-    #define FILLING_BEGIN() if (Element_IsOK()) {
+    #define FILLING_BEGIN() if (Element_IsOK()) \
+        {
+
+    #define FILLING_BEGIN_PRECISE() if (Element_Offset!=Element_Size) \
+            Trusted_IsNot("Size error"); \
+        else if (Element_IsOK()) \
+        {
 
     //End
     #define FILLING_END() }
@@ -757,8 +778,8 @@ public :
 
     //Utils
 public :
-    size_t Merge(File__Base &ToAdd, bool Erase=true); //Merge 2 File_Base
-    size_t Merge(File__Base &ToAdd, stream_t StreamKind, size_t StreamPos_From, size_t StreamPos_To, bool Erase=true); //Merge 2 streams
+    size_t Merge(File__Analyze &ToAdd, bool Erase=true); //Merge 2 File_Base
+    size_t Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t StreamPos_From, size_t StreamPos_To, bool Erase=true); //Merge 2 streams
 
     //***************************************************************************
     // Finalize
@@ -836,6 +857,7 @@ protected :
     const int8u* Buffer;
 public : //TO CHANGE
     size_t Buffer_Size;
+    int64u Buffer_TotalBytes_FirstSynched;
 protected :
     int8u* Buffer_Temp;
     size_t Buffer_Temp_Size;
@@ -844,8 +866,18 @@ protected :
     size_t Buffer_Offset_Temp; //Temporary usage in this parser
     size_t Buffer_MinimumSize;
     size_t Buffer_MaximumSize;
-    bool   Buffer_Init_Done;
+    int64u Buffer_TotalBytes;
+    int64u Buffer_TotalBytes_FirstSynched_Max;
     friend class File__Tags_Helper;
+    friend class File__Tags_Helper;
+
+    //***************************************************************************
+    // Helpers
+    //***************************************************************************
+
+    bool FileHeader_Begin_0x000001();
+    bool Synchronize_0x000001();
+
 private :
 
     //***************************************************************************
@@ -903,7 +935,13 @@ public :
 
     //Temp
     bool NewFinnishMethod;
+    bool Refactored;
+    bool IsDetected;
+    bool IsRejected;
     bool IsFinished;
     bool ShouldContinueParsing;
+
+    //Configuration
+    bool MustSynchronize;
 };
 

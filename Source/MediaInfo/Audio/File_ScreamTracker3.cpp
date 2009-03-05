@@ -37,28 +37,39 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Static stuff
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_ScreamTracker3::FileHeader_Parse()
+bool File_ScreamTracker3::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<44)
+        return false; //Must wait for more data
+
+    if (CC1(Buffer+28)!=0x1A || CC4(Buffer+44)!=0x5343524D) //"SCRM"
+    {
+        Rejected("Scream Tracker 3");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_ScreamTracker3::Read_Buffer_Continue()
 {
     //Parsing
     Ztring SongName;
-    int32u Signature;
     int16u OrdNum, InsNum, PatNum, Flags, Special;
-    int8u  Mark, SoftwareVersionMajor, SoftwareVersionMinor, IS, TS;
+    int8u  SoftwareVersionMajor, SoftwareVersionMinor, IS, TS;
     Get_Local(28, SongName,                                     "Song name");
-    Get_L1 (Mark,                                               "0x1A");
-
-    FILLING_BEGIN();
-        if (Mark!=0x1A)
-        {
-            Finished();
-            return;
-        }
-    FILLING_END()
-
+    Skip_L1(                                                    "0x1A");
     Skip_L1(                                                    "Type");
     Skip_L1(                                                    "Unknown");
     Skip_L1(                                                    "Unknown");
@@ -77,16 +88,7 @@ void File_ScreamTracker3::FileHeader_Parse()
     Get_L1 (SoftwareVersionMajor,                               "Cwt/v (Major)");
     Get_L1 (SoftwareVersionMinor,                               "Cwt/v (Minor)");
     Skip_L2(                                                    "File format information");
-    Get_B4(Signature,                                           "Signature");
-
-    FILLING_BEGIN();
-        if (Signature!=0x5343524D)
-        {
-            Finished();
-            return;
-        }
-    FILLING_END()
-
+    Skip_B4(                                                    "Signature");
     Skip_L1(                                                    "global volume");
     Get_L1 (IS,                                                 "Initial Speed");
     Get_L1 (TS,                                                 "Initial Temp");
@@ -117,7 +119,7 @@ void File_ScreamTracker3::FileHeader_Parse()
 
         Stream_Prepare(Stream_Audio);
 
-        Finished();
+        Detected("Scream Tracker 3");
     FILLING_END();
 
 }

@@ -36,31 +36,17 @@ namespace MediaInfoLib
 
 class File_Adif : public File__Analyze, public File__Tags_Helper
 {
-protected :
-    //Format
-    void Read_Buffer_Continue ();
-
 public :
+    //Constructor/Destructor
     File_Adif();
 
 private :
-    //Buffer
+    //Buffer - Global
+    void Read_Buffer_Continue();
+
+    //Buffer - File header
     bool FileHeader_Begin();
     void FileHeader_Parse();
-    void Data_Parse_Fill();
-
-    //Temp
-    Ztring comment_field_data;
-    int32u bitrate;
-    int8u  object_type;
-    int8u  sampling_frequency_index;
-    int8u  num_front_channel_elements;
-    int8u  num_side_channel_elements;
-    int8u  num_back_channel_elements;
-    int8u  num_lfe_channel_elements;
-    int8u  num_assoc_data_elements;
-    int8u  num_valid_cc_elements;
-    bool   bitstream_type;
 };
 
 } //NameSpace

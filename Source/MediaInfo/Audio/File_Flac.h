@@ -44,28 +44,28 @@ public :
     //In
     bool VorbisHeader;
 
-public :
+    //Constructor/Destructor
     File_Flac();
 
 private :
-    //Format
-    void Read_Buffer_Continue();
-    void Read_Buffer_Finalize ();
-
-    //Buffer
+    //Buffer - File header
     bool FileHeader_Begin();
     void FileHeader_Parse();
-    bool Header_Begin();
+
+    //Buffer - Global
+    void Read_Buffer_Continue();
+
+    //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
 
     //Elements
     void STREAMINFO();
-    void PADDING();
+    void PADDING()          {Skip_XX(Element_Size, "Data");}
     void APPLICATION();
-    void SEEKTABLE();
+    void SEEKTABLE()        {Skip_XX(Element_Size, "Data");}
     void VORBIS_COMMENT();
-    void CUESHEET();
+    void CUESHEET()         {Skip_XX(Element_Size, "Data");}
     void PICTURE();
 
     //Temp

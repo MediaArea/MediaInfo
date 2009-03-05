@@ -37,13 +37,101 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Constructor/Destructor
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Ico::Read_Buffer_Continue()
+File_Ico::File_Ico()
 {
-    Finished();
+    IcoDataSize=0;
+}
+
+//***************************************************************************
+// Static stuff
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Ico::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<4)
+        return false; //Must wait for more data
+
+    if (CC2(Buffer) || (LittleEndian2int16u(Buffer+2)!=1 && LittleEndian2int16u(Buffer+2)!=2))
+    {
+        Rejected("ICO");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - File header
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Ico::FileHeader_Parse()
+{
+    //Parsing
+    Skip_L2(                                                    "Reserved");
+    Get_L2 (Type,                                               "Type");
+    Get_L2 (Count,                                              "Count");
+
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, Type==1?"ICO":"CUR");
+    FILLING_END();
+}
+
+//***************************************************************************
+// Buffer - Per element
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Ico::Header_Parse()
+{
+    Header_Fill_Size(16);
+    Header_Fill_Code(0, "Directory");
+}
+
+//---------------------------------------------------------------------------
+void File_Ico::Data_Parse()
+{
+    //Parsing
+    int32u Size, Offset;
+    int16u BitsPerPixel;
+    int8u Width, Height;
+    Get_L1 (Width,                                      "Width");
+    Get_L1 (Height,                                     "Height");
+    Skip_L1(                                            "Colour count");
+    Skip_L1(                                            "Reserved");
+    Skip_L2(                                            Type==1?"Colour planes":"X hotspot");
+    Get_L2 (BitsPerPixel,                               Type==1?"Bits per pixel":"Y hotspot");
+    Get_L4 (Size,                                       "Size of the bitmap data");
+    Get_L4 (Offset,                                     "Offset of the bitmap data");
+
+    FILLING_BEGIN_PRECISE();
+        Stream_Prepare(Stream_Image);
+        Fill(Stream_Image, StreamPos_Last, Image_Width, Width?Width:256);
+        Fill(Stream_Image, StreamPos_Last, Image_Height, Height?Height:256);
+        if (Type==1)
+            Fill(Stream_Image, StreamPos_Last, Image_Resolution, BitsPerPixel);
+        Fill(Stream_Image, StreamPos_Last, Image_StreamSize, Size);
+
+        IcoDataSize+=Size;
+        if (Offset>File_Size || File_Offset+Buffer_Offset+Element_Size+IcoDataSize>File_Size)
+            Rejected("ICO");
+        Count--;
+        if (Count==0)
+        {
+            if (File_Offset+Buffer_Offset+Element_Size+IcoDataSize!=File_Size)
+                Rejected("ICO");
+            else
+                Detected("ICO");
+        }
+    FILLING_END();
 }
 
 //***************************************************************************

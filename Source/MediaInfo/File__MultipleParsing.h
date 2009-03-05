@@ -41,20 +41,18 @@ namespace MediaInfoLib
 class File__MultipleParsing : public File__Analyze
 {
 public :
+    //Out
     File__Analyze* Parser_Get();
 
-protected :
-    //Format
-    void Read_Buffer_Continue ();
-
-public :
+    //Constructor
     File__MultipleParsing();
     ~File__MultipleParsing();
 
 private :
-    //Buffer
-    void Header_Parse();
-    void Data_Parse();
+    //Buffer - Global
+    void Read_Buffer_Init();
+    void Read_Buffer_Continue();
+    void Read_Buffer_Finalize();
 
     //Temp
     std::vector<File__Analyze*> Parser;

@@ -31,13 +31,21 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Video/File_AvsV.h"
+#undef FILLING_BEGIN
+#define FILLING_BEGIN() \
+    while (Element_Offset<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset]==0x00) \
+        Element_Offset++; \
+    if (Element_Offset!=Element_Size) \
+        Trusted_IsNot("Size error"); \
+    else if (Element_IsOK()) \
+    {
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Constants
+// Infos
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -88,6 +96,7 @@ const float32 AvsV_frame_rate[]=
     (float32)0,
 };
 
+//---------------------------------------------------------------------------
 const char* AvsV_chroma_format[]=
 {
     "",
@@ -96,6 +105,7 @@ const char* AvsV_chroma_format[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 const char* AvsV_extension_start_code_identifier[]=
 {
     "",
@@ -150,6 +160,7 @@ const float32 AvsV_aspect_ratio[]=
     (float32)0,
 };
 
+//---------------------------------------------------------------------------
 const char* AvsV_picture_coding_type[]=
 {
     "",
@@ -166,6 +177,9 @@ const char* AvsV_picture_coding_type[]=
 File_AvsV::File_AvsV()
 :File__Analyze()
 {
+    //Config
+    Buffer_TotalBytes_FirstSynched_Max=0x10000;
+
     //In
     Frame_Count_Valid=30;
     FrameIsAlwaysComplete=false;
@@ -175,7 +189,7 @@ File_AvsV::File_AvsV()
 }
 
 //***************************************************************************
-// Format
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -739,12 +753,7 @@ void File_AvsV::picture_start_Fill()
     }
 
     //Jumping
-    if (Frame_Count>=Frame_Count_Valid)
-    {
-        Element_End();
-        Info("AVS Video, Jumping to end of file");
-        Finished();
-    }
+    Detected("AVS Video");
 }
 
 //---------------------------------------------------------------------------
@@ -847,7 +856,7 @@ bool File_AvsV::Detect_NonAvsV ()
     //Detect mainly DAT files, and the parser is not enough precise to detect them later
     if (CC4(Buffer)==CC4("RIFF"))
     {
-        Finished();
+        Rejected();
         return true;
     }
 
@@ -856,7 +865,7 @@ bool File_AvsV::Detect_NonAvsV ()
         Buffer_Offset++;
     if (Buffer_Offset<188 && CC1(Buffer+Buffer_Offset+188)==0x47 && CC1(Buffer+Buffer_Offset+188*2)==0x47 && CC1(Buffer+Buffer_Offset+188*3)==0x47)
     {
-        Finished();
+        Rejected();
         return true;
     }
     Buffer_Offset=0;

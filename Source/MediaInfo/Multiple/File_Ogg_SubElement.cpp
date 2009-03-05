@@ -142,7 +142,7 @@ File_Ogg_SubElement::~File_Ogg_SubElement()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Ogg_SubElement::Read_Buffer_Init()
+void File_Ogg_SubElement::FileHeader_Parse()
 {
     Stream_Prepare(Stream_General);
 }
@@ -281,7 +281,7 @@ void File_Ogg_SubElement::Data_Parse()
             case 0x05 :
             case 0x82 : Default(); break;
             default   : Skip_XX(Element_Size,                       "Unknown");
-                        Finished();
+                        Detected("OggSubElement");
         }
 }
 
@@ -338,9 +338,10 @@ void File_Ogg_SubElement::Identification()
     else
     {
         Skip_XX(Element_Size,                                   "Unkown");
-        Finished();
+        Detected("OggSubElement");
         return;
     }
+    Open_Buffer_Init(Parser);
 
     //Parsing
     Default();
@@ -744,9 +745,9 @@ void File_Ogg_SubElement::Comment()
     Vorbis.StreamKind_Specific=StreamKind;
     Vorbis.StreamKind_Multiple=MultipleStreams?StreamKind:Stream_General;
     Vorbis.StreamKind_Common=InAnotherContainer?StreamKind:Stream_General;
+    Open_Buffer_Init(&Vorbis);
 
     //Parsing
-    Open_Buffer_Init(&Vorbis, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
     Open_Buffer_Continue(&Vorbis, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
     Open_Buffer_Finalize(&Vorbis);
 
@@ -756,8 +757,8 @@ void File_Ogg_SubElement::Comment()
     Merge(Vorbis, Stream_Chapters, 0, 0);
 
     //Testing if we must continue
-    if (Identified && (Parser==NULL || Parser->File_Offset==Parser->File_Size || Parser->File_GoTo!=(int64u)-1))
-        Finished();
+    if (Identified && (Parser==NULL || Parser->IsDetected))
+        Detected("OggSubElement");
 }
 
 //---------------------------------------------------------------------------
@@ -767,16 +768,15 @@ void File_Ogg_SubElement::Default()
 
     if (Parser)
     {
-        Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset);
         Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
-        if (Identified && (Parser->File_Offset==Parser->File_Size || Parser->File_GoTo!=(int64u)-1))
-            Finished();
+        if (Identified && Parser->IsDetected)
+            Detected("OggSubElement");
     }
     else if (Element_Offset<Element_Size)
     {
         Skip_XX(Element_Size-Element_Offset,                    "Unknown");
         if (Identified)
-            Finished();
+            Detected("OggSubElement");
     }
 }
 

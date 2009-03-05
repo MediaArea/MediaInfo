@@ -43,11 +43,12 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Constants
+// Info
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 //From Mpeg_Psi
+extern const char*  Mpeg_Psi_kind(File_Mpeg_Psi::ts_kind ID);
 extern const char*  Mpeg_Psi_stream_type(int8u ID, int32u format_identifier);
 extern const char*  Mpeg_Psi_stream_Format(int8u ID, int32u format_identifier);
 extern const char*  Mpeg_Psi_stream_Codec(int8u ID, int32u format_identifier);
@@ -57,42 +58,6 @@ extern const char*  Mpeg_Descriptors_stream_Codec(int8u descriptor_tag, int32u f
 extern stream_t     Mpeg_Descriptors_stream_Kind(int8u descriptor_tag, int32u format_identifier);
 
 //---------------------------------------------------------------------------
-const char* Mpeg_Psi_kind(File_Mpeg_Psi::ts_kind ID)
-{
-    switch (ID)
-    {
-        case File_Mpeg_Psi::program_association_table          : return "Program Association Table";
-        case File_Mpeg_Psi::program_map_table                  : return "Program Map Table";
-        case File_Mpeg_Psi::network_information_table          : return "Network Information Table";
-        case File_Mpeg_Psi::conditional_access_table           : return "Conditional Access Table";
-        case File_Mpeg_Psi::transport_stream_description_table : return "Transport Stream Description Table";
-        case File_Mpeg_Psi::reserved                           : return "reserved";
-        case File_Mpeg_Psi::pes                                : return "PES";
-        case File_Mpeg_Psi::null                               : return "Null";
-        case File_Mpeg_Psi::dvb_nit_st                         : return "DVB - NIT, ST";
-        case File_Mpeg_Psi::dvb_sdt_bat_st                     : return "DVB - SDT, BAT, ST";
-        case File_Mpeg_Psi::dvb_eit                            : return "DVB - EIT";
-        case File_Mpeg_Psi::dvb_rst_st                         : return "DVB - RST, ST";
-        case File_Mpeg_Psi::dvb_tdt_tot_st                     : return "DVB - TDT, TOT, ST";
-        case File_Mpeg_Psi::dvb_mip                            : return "DVB - MIP (no table_id)";
-        case File_Mpeg_Psi::dvb_reserved                       : return "DVB - reserved";
-        case File_Mpeg_Psi::dvb_inband                         : return "DVB - Inband Signalling";
-        case File_Mpeg_Psi::dvb_measurement                    : return "DVB - Measurement";
-        case File_Mpeg_Psi::dvb_dit                            : return "DVB - DIT";
-        case File_Mpeg_Psi::dvb_sit                            : return "DVB - SIT";
-        case File_Mpeg_Psi::arib                               : return "ARIB";
-        case File_Mpeg_Psi::cea_osd                            : return "CEA OSD";
-        case File_Mpeg_Psi::atsc_pate                          : return "ATSC - PAT-E";
-        case File_Mpeg_Psi::atsc_stt_pide                      : return "ATSC - STT, PID-E";
-        case File_Mpeg_Psi::atsc_op                            : return "ATSC - operational and management packets";
-        case File_Mpeg_Psi::atsc_psip                          : return "ATSC - PSIP";
-        case File_Mpeg_Psi::atsc_scte                          : return "ATSC - SCTE Network/System Information Base";
-        case File_Mpeg_Psi::atsc_reserved                      : return "ATSC - reserved";
-        case File_Mpeg_Psi::docsis                             : return "DOCSIS";
-        default : return "";
-    }
-}
-
 Ztring Decimal_Hexa(int64u Number)
 {
     Ztring Temp;
@@ -103,7 +68,6 @@ Ztring Decimal_Hexa(int64u Number)
     return Temp;
 }
 
-
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -113,6 +77,8 @@ File_MpegTs::File_MpegTs()
 :File__Duplicate()
 {
     //Config
+    MustSynchronize=true;
+    Buffer_TotalBytes_FirstSynched_Max=0x10000;
     Trusted_Multiplier=2;
 
     //Internal config
@@ -135,30 +101,94 @@ File_MpegTs::~File_MpegTs ()
 }
 
 //***************************************************************************
-// Format
+// Buffer - Synchro
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-bool File_MpegTs::FileHeader_Begin()
+bool File_MpegTs::Synchronize()
 {
-    //Configuring
-    TS_Size=188+BDAV_Size+TSP_Size;
-
-    //Integrity
-    if (File_Offset==0 && Detect_NonMPEGTS())
+    //Synchronizing
+    while (       Buffer_Offset+188*7+BDAV_Size*8+TSP_Size*7+1<=Buffer_Size
+      && !(Buffer[Buffer_Offset+188*0+BDAV_Size*1+TSP_Size*0]==0x47
+        && Buffer[Buffer_Offset+188*1+BDAV_Size*2+TSP_Size*1]==0x47
+        && Buffer[Buffer_Offset+188*2+BDAV_Size*3+TSP_Size*2]==0x47
+        && Buffer[Buffer_Offset+188*3+BDAV_Size*4+TSP_Size*3]==0x47
+        && Buffer[Buffer_Offset+188*4+BDAV_Size*5+TSP_Size*4]==0x47
+        && Buffer[Buffer_Offset+188*5+BDAV_Size*6+TSP_Size*5]==0x47
+        && Buffer[Buffer_Offset+188*6+BDAV_Size*7+TSP_Size*6]==0x47
+        && Buffer[Buffer_Offset+188*7+BDAV_Size*8+TSP_Size*7]==0x47))
+        Buffer_Offset++;
+    if (Buffer_Offset+188*7+BDAV_Size*8+TSP_Size*7>=Buffer_Size)
         return false;
 
-    //Configuration
-    Option_Manage();
-
+    //Synched is OK
     return true;
 }
+
+//---------------------------------------------------------------------------
+bool File_MpegTs::Synched_Test()
+{
+    //Must have enough buffer for having header
+    if (Buffer_Offset+BDAV_Size+TSP_Size+4>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if (Buffer[Buffer_Offset+BDAV_Size]!=0x47)
+        Synched=false;
+
+    //Quick search
+    if (Synched && !Header_Parser_QuickSearch())
+        return false;
+
+    //We continue
+    return true;
+}
+
+//---------------------------------------------------------------------------
+void File_MpegTs::Synched_Init()
+{
+    //Default values
+    Streams.resize(0x2000);
+    Streams[0x00].TS_Kind=File_Mpeg_Psi::program_association_table;
+    Streams[0x01].TS_Kind=File_Mpeg_Psi::conditional_access_table;
+    Streams[0x02].TS_Kind=File_Mpeg_Psi::transport_stream_description_table;
+    for (int32u Pos=0x03; Pos<0x10; Pos++)
+        Streams[Pos].TS_Kind=File_Mpeg_Psi::reserved;
+    for (int32u Pos=0x00; Pos<0x10; Pos++)
+        Streams[Pos].Searching_Payload_Start_Set(true);
+
+    //Count
+    program_Count=(size_t)-1;
+    elementary_PID_Count=0;
+
+    //Temp
+    format_identifier=0x00000000;
+    MpegTs_JumpTo_Begin=(File_Offset_FirstSynched==(int64u)-1?0:File_Offset_FirstSynched)+MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
+    MpegTs_JumpTo_End=8*1024*1024;
+    if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
+    {
+        MpegTs_JumpTo_Begin=File_Size;
+        MpegTs_JumpTo_End=File_Size;
+    }
+
+    //There is no start code, so Stream_General is filled here
+    Stream_Prepare(Stream_General);
+
+    //Continue, again, for Duplicate and Filter
+    Option_Manage();
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_MpegTs::Read_Buffer_Finalize()
 {
     if (Streams.empty())
         return; //Not initialized
+    if (!IsDetected)
+        IsDetected=true;
 
     for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
     {
@@ -339,43 +369,28 @@ void File_MpegTs::Read_Buffer_Finalize()
 }
 
 //***************************************************************************
-// Buffer
+// Buffer - File header
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-bool File_MpegTs::Header_Begin()
+bool File_MpegTs::FileHeader_Begin()
 {
-    //Must have enough buffer for having header
-    if (Buffer_Offset+BDAV_Size+TSP_Size+4>Buffer_Size)
-        return false;
+    //Configuring
+    TS_Size=188+BDAV_Size+TSP_Size;
 
-    //Quick test of synchro
-    if (Synched && Buffer[Buffer_Offset+BDAV_Size]!=0x47)
-    {
-        Trusted_IsNot("MPEG-TS, Synchronisation lost");
-        if (File__Duplicate_Get())
-            Trusted++; //We don't want to stop parsing if duplication is requested, TS is not a lot stable, normal...
-        Synched=false;
-    }
+    //Configuration
+    Option_Manage();
 
-    //Synchro
-    if (!Synched && !Synchronize())
-        return false;
-
-    //Quick search
-    if (!Header_Parser_QuickSearch())
-        return false;
-
-    //All should be OK...
     return true;
 }
+
+//***************************************************************************
+// Buffer - Per element
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_MpegTs::Header_Parse()
 {
-    //Filling
-    Header_Fill_Size(TS_Size);
-
     //Parsing
     int8u transport_scrambling_control;
     bool  Adaptation, Data;
@@ -393,22 +408,21 @@ void File_MpegTs::Header_Parse()
     Skip_S1( 4,                                                 "continuity_counter");
     BS_End();
 
-    //Info
-    if (!Streams[pid].program_numbers.empty())
-    {
-        for (size_t Pos=0; Pos<Streams[pid].program_numbers.size(); Pos++)
-            Data_Info(Ztring::ToZtring_From_CC2(Streams[pid].program_numbers[Pos]));
-    }
-    else
-        Data_Info("    ");
-    Data_Info(Mpeg_Psi_kind(Streams[pid].TS_Kind));
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        //Info
+        if (!Streams[pid].program_numbers.empty())
+        {
+            for (size_t Pos=0; Pos<Streams[pid].program_numbers.size(); Pos++)
+                Data_Info(Ztring::ToZtring_From_CC2(Streams[pid].program_numbers[Pos]));
+        }
+        else
+            Data_Info("    ");
+        Data_Info(Mpeg_Psi_kind(Streams[pid].TS_Kind));
+    #endif //MEDIAINFO_MINIMIZESIZE
 
     //Adaptation
     if (Adaptation)
         Header_Parse_AdaptationField();
-
-    //Filling
-    Header_Fill_Code(pid, Ztring().From_CC2(pid));
 
     //Data
     if (Data)
@@ -418,11 +432,14 @@ void File_MpegTs::Header_Parse()
             Streams[pid].Scrambled=true;
     }
     else if (Element_Offset<TS_Size)
-        Skip_XX(TS_Size-Element_Offset,                      "Junk");
+        Skip_XX(TS_Size-Element_Offset,                         "Junk");
+
+    //Filling
+    Header_Fill_Code(pid, Ztring().From_CC2(pid));
+    Header_Fill_Size(TS_Size);
 }
 
 //---------------------------------------------------------------------------
-//
 void File_MpegTs::Header_Parse_AdaptationField()
 {
     int64u Element_Pos_Save=Element_Offset;
@@ -580,14 +597,14 @@ void File_MpegTs::PSI()
         if (!payload_unit_start_indicator)
             return; //This is not the start of the PSI
         Streams[pid].Parser=new File_Mpeg_Psi;
+        Open_Buffer_Init(Streams[pid].Parser);
     }
 
     //Parsing
-    Open_Buffer_Init(Streams[pid].Parser, File_Size, File_Offset+Buffer_Offset);
     Open_Buffer_Continue(Streams[pid].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
     //Filling
-    if (Streams[pid].Parser->File_Offset==Streams[pid].Parser->File_Size)
+    if (Streams[pid].Parser->IsFinished)
     {
         //Finished, we can fill data
         switch (Streams[pid].TS_Kind)
@@ -947,31 +964,29 @@ void File_MpegTs::PES()
     {
             #if defined(MEDIAINFO_MPEGPS_YES)
                 Streams[pid].Parser=new File_MpegPs;
-                Open_Buffer_Init(Streams[pid].Parser);
                 ((File_MpegPs*)Streams[pid].Parser)->FromTS=true;
                 ((File_MpegPs*)Streams[pid].Parser)->stream_type_FromTS=Streams[pid].stream_type;
                 ((File_MpegPs*)Streams[pid].Parser)->descriptor_tag_FromTS=Streams[pid].descriptor_tag;
                 ((File_MpegPs*)Streams[pid].Parser)->format_identifier_FromTS=Streams[pid].format_identifier;
                 ((File_MpegPs*)Streams[pid].Parser)->MPEG_Version=2;
+                Streams[pid].Parser->ShouldContinueParsing=true;
                 Streams[pid].Searching_Payload_Continue_Set(true);
             #else
                 //Filling
                 Streams[pid].Parser=new File__Analyze();
-                Open_Buffer_Init(Streams[pid].Parser);
                 //Streams_Count--;
             #endif
-
+            Open_Buffer_Init(Streams[pid].Parser);
     }
 
     //Open MPEG-PS (PES)
-    if (Streams[pid].Parser && (Streams[pid].Parser->File_GoTo==(int64u)-1 || Streams[pid].Parser->File_GoTo<File_Offset+Buffer_Offset) && Streams[pid].Parser->File_Offset!=Streams[pid].Parser->File_Size)
+    if (Streams[pid].Parser && (Streams[pid].Parser->IsFinished || Streams[pid].Parser->File_GoTo==(int64u)-1 || Streams[pid].Parser->File_GoTo<File_Offset+Buffer_Offset) && Streams[pid].Parser->File_Offset!=Streams[pid].Parser->File_Size)
     {
         //Parsing
-        Open_Buffer_Init(Streams[pid].Parser, File_Size, File_Offset+Buffer_Offset);
         Open_Buffer_Continue(Streams[pid].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
         //Need anymore?
-        if (Streams[pid].Parser->File_GoTo!=(int64u)-1 || Streams[pid].Parser->File_Offset==Streams[pid].Parser->File_Size)
+        if ((Streams[pid].Parser->IsFinished && !((File_MpegPs*)Streams[pid].Parser)->Searching_TimeStamp_End) || Streams[pid].Parser->IsFinished)
         {
             Streams[pid].Searching_Payload_Start_Set(false);
             Streams[pid].Searching_Payload_Continue_Set(false);
@@ -992,69 +1007,6 @@ void File_MpegTs::PES()
 //***************************************************************************
 // Helpers
 //***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_MpegTs::Synchronize()
-{
-    //Synchronizing
-    while (           Buffer_Offset+188*3+BDAV_Size*4+TSP_Size*3+1<=Buffer_Size
-      && !(Buffer[Buffer_Offset+188*0+BDAV_Size*1+TSP_Size*0]==0x47
-        && Buffer[Buffer_Offset+188*1+BDAV_Size*2+TSP_Size*1]==0x47
-        && Buffer[Buffer_Offset+188*2+BDAV_Size*3+TSP_Size*2]==0x47
-        && Buffer[Buffer_Offset+188*3+BDAV_Size*4+TSP_Size*3]==0x47))
-        Buffer_Offset++;
-    if (Buffer_Offset+188*3+BDAV_Size*4+TSP_Size*3>=Buffer_Size)
-    {
-        //No synchro found
-        if (Synched)
-        {
-            //Sync lost
-            Info("MPEG-TS, Synchronisation lost");
-            Synched=false;
-        }
-        //Managing first Synch attempt
-        else if (!File_Name.empty() && File_Offset+Buffer_Size>=188*4+BDAV_Size*5+TSP_Size*5 && Count_Get(Stream_General)==0)
-            Finished(); //This is not a TS file, ending
-
-        return false;
-    }
-
-    //Synched is OK
-    if (Streams.empty())
-    {
-        //Default values
-        Streams.resize(0x2000);
-        Streams[0x00].TS_Kind=File_Mpeg_Psi::program_association_table;
-        Streams[0x01].TS_Kind=File_Mpeg_Psi::conditional_access_table;
-        Streams[0x02].TS_Kind=File_Mpeg_Psi::transport_stream_description_table;
-        for (int32u Pos=0x03; Pos<0x10; Pos++)
-            Streams[Pos].TS_Kind=File_Mpeg_Psi::reserved;
-        for (int32u Pos=0x00; Pos<0x10; Pos++)
-            Streams[Pos].Searching_Payload_Start_Set(true);
-
-        //Count
-        program_Count=(size_t)-1;
-        elementary_PID_Count=0;
-
-        //Temp
-        format_identifier=0x00000000;
-        MpegTs_JumpTo_Begin=(File_Offset_FirstSynched==(int64u)-1?0:File_Offset_FirstSynched)+MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
-        MpegTs_JumpTo_End=8*1024*1024;
-        if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
-        {
-            MpegTs_JumpTo_Begin=File_Size;
-            MpegTs_JumpTo_End=File_Size;
-        }
-
-        //There is no start code, so Stream_General is filled here
-        Stream_Prepare(Stream_General);
-
-        //Continue, again, for Duplicate and Filter
-        Option_Manage();
-    }
-    Synched=true;
-    return true;
-}
 
 //---------------------------------------------------------------------------
 bool File_MpegTs::Header_Parser_QuickSearch()
@@ -1128,6 +1080,7 @@ void File_MpegTs::Detect_EOF()
                 Streams[StreamID].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
         }
         format_identifier=0xFFFFFFFF;
+        IsDetected=true;
         File_GoTo=0;
         Fill(Stream_General, 0, General_Format_Profile, "No PAT/PMT");
     }
@@ -1138,9 +1091,6 @@ void File_MpegTs::Detect_EOF()
     || (program_Count==0 && elementary_PID_Count==0)
     ))
     {
-        //Details
-        Info("MPEG-TS, Jumping to end of file");
-
         if (File_Size!=(int64u)-1) //Only if not unlimited
         {
             //Reactivating interessant TS streams
@@ -1154,6 +1104,11 @@ void File_MpegTs::Detect_EOF()
                         Streams[StreamID].TimeStamp_End=(int64u)-1;
                     if (Streams[StreamID].TimeStamp_Start!=(int64u)-1)
                         Streams[StreamID].Searching_TimeStamp_End_Set(!Streams[StreamID].Searching_TimeStamp_Start); //Searching only for a start found
+                    if (Streams[StreamID].Parser && Streams[StreamID].TS_Kind==File_Mpeg_Psi::pes && ((File_MpegPs*)Streams[StreamID].Parser)->HasTimeStamps)
+                    {
+                        Streams[StreamID].Searching_Payload_Start_Set(true);
+                        ((File_MpegPs*)Streams[StreamID].Parser)->Searching_TimeStamp_End=true;
+                    }
 
                     //Specific
                     if (Streams[StreamID].TS_Kind>=File_Mpeg_Psi::ts_outofspec)
@@ -1162,39 +1117,11 @@ void File_MpegTs::Detect_EOF()
             }
         }
 
-        File_GoTo=File_Size-MpegTs_JumpTo_End;
+        Detected(MpegTs_JumpTo_End, "MPEG-TS");
     }
-}
-
-//---------------------------------------------------------------------------
-bool File_MpegTs::Detect_NonMPEGTS ()
-{
-    //File_Size
-    if (File_Size<=8)
-        return false; //We can't do detection
-
-    //Element_Size
-    if (Buffer_Size<=8)
-        return true; //Must wait for more data
-
-    //Detect mainly DAT files, and the parser is not enough precise to detect them later
-    if (CC4(Buffer)==CC4("RIFF"))
-    {
-        Finished();
-        return true;
-    }
-
-    //Detect MPEG-4 files, and the parser is not enough precise to detect them later if there is a lot of 0x47 in the size chunks
-    if (CC4(Buffer+4)==CC4("ftyp") || CC4(Buffer+4)==CC4("moov") || CC4(Buffer+4)==CC4("mdat"))
-    {
-        Finished();
-        return true;
-    }
-
-    //Seems OK
-    return false;
 }
 
 } //NameSpace
 
 #endif //MEDIAINFO_MPEGTS_YES
+

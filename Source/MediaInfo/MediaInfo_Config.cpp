@@ -48,36 +48,36 @@ const Ztring EmptyZtring_Const; //Use it when we can't return a reference to a t
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-void File__Base_CodecID_General_Mpeg4   (InfoMap &Info);
-void File__Base_CodecID_Video_Matroska  (InfoMap &Info);
-void File__Base_CodecID_Video_Mpeg4     (InfoMap &Info);
-void File__Base_CodecID_Video_Ogg       (InfoMap &Info);
-void File__Base_CodecID_Video_Real      (InfoMap &Info);
-void File__Base_CodecID_Video_Riff      (InfoMap &Info);
-void File__Base_CodecID_Audio_Matroska  (InfoMap &Info);
-void File__Base_CodecID_Audio_Mpeg4     (InfoMap &Info);
-void File__Base_CodecID_Audio_Ogg       (InfoMap &Info);
-void File__Base_CodecID_Audio_Real      (InfoMap &Info);
-void File__Base_CodecID_Audio_Riff      (InfoMap &Info);
-void File__Base_CodecID_Text_Matroska   (InfoMap &Info);
-void File__Base_CodecID_Text_Mpeg4      (InfoMap &Info);
-void File__Base_CodecID_Text_Riff       (InfoMap &Info);
-void File__Base_Codec                   (InfoMap &Info);
-void File__Base_DefaultLanguage         (Translation &Info);
-void File__Base_Iso639                  (InfoMap &Info);
-void File__Base_General                 (ZtringListList &Info);
-void File__Base_Video                   (ZtringListList &Info);
-void File__Base_Audio                   (ZtringListList &Info);
-void File__Base_Text                    (ZtringListList &Info);
-void File__Base_Chapters                (ZtringListList &Info);
-void File__Base_Image                   (ZtringListList &Info);
-void File__Base_Menu                    (ZtringListList &Info);
-void File__Base_Summary                 (ZtringListList &Info);
-void File__Base_Format                  (InfoMap &Info);
-void File__Base_Library_DivX            (InfoMap &Info);
-void File__Base_Library_XviD            (InfoMap &Info);
-void File__Base_Library_MainConcept_Avc (InfoMap &Info);
-void File__Base_Library_VorbisCom       (InfoMap &Info);
+void MediaInfo_Config_CodecID_General_Mpeg4   (InfoMap &Info);
+void MediaInfo_Config_CodecID_Video_Matroska  (InfoMap &Info);
+void MediaInfo_Config_CodecID_Video_Mpeg4     (InfoMap &Info);
+void MediaInfo_Config_CodecID_Video_Ogg       (InfoMap &Info);
+void MediaInfo_Config_CodecID_Video_Real      (InfoMap &Info);
+void MediaInfo_Config_CodecID_Video_Riff      (InfoMap &Info);
+void MediaInfo_Config_CodecID_Audio_Matroska  (InfoMap &Info);
+void MediaInfo_Config_CodecID_Audio_Mpeg4     (InfoMap &Info);
+void MediaInfo_Config_CodecID_Audio_Ogg       (InfoMap &Info);
+void MediaInfo_Config_CodecID_Audio_Real      (InfoMap &Info);
+void MediaInfo_Config_CodecID_Audio_Riff      (InfoMap &Info);
+void MediaInfo_Config_CodecID_Text_Matroska   (InfoMap &Info);
+void MediaInfo_Config_CodecID_Text_Mpeg4      (InfoMap &Info);
+void MediaInfo_Config_CodecID_Text_Riff       (InfoMap &Info);
+void MediaInfo_Config_Codec                   (InfoMap &Info);
+void MediaInfo_Config_DefaultLanguage         (Translation &Info);
+void MediaInfo_Config_Iso639                  (InfoMap &Info);
+void MediaInfo_Config_General                 (ZtringListList &Info);
+void MediaInfo_Config_Video                   (ZtringListList &Info);
+void MediaInfo_Config_Audio                   (ZtringListList &Info);
+void MediaInfo_Config_Text                    (ZtringListList &Info);
+void MediaInfo_Config_Chapters                (ZtringListList &Info);
+void MediaInfo_Config_Image                   (ZtringListList &Info);
+void MediaInfo_Config_Menu                    (ZtringListList &Info);
+void MediaInfo_Config_Summary                 (ZtringListList &Info);
+void MediaInfo_Config_Format                  (InfoMap &Info);
+void MediaInfo_Config_Library_DivX            (InfoMap &Info);
+void MediaInfo_Config_Library_XviD            (InfoMap &Info);
+void MediaInfo_Config_Library_MainConcept_Avc (InfoMap &Info);
+void MediaInfo_Config_Library_VorbisCom       (InfoMap &Info);
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -101,7 +101,7 @@ void MediaInfo_Config::Init()
     }
 
     //Filling
-    FormatDetection_MaximumOffset=1*1024*1024;
+    FormatDetection_MaximumOffset=0;
     MpegTs_MaximumOffset=16*1024*1024;
     Complete=0;
     BlockMethod=0;
@@ -726,7 +726,7 @@ void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
     else
     {
         //Fill base words (with English translation)
-        File__Base_DefaultLanguage(Language);
+        MediaInfo_Config_DefaultLanguage(Language);
         //Add custom language to English language
         for (size_t Pos=0; Pos<NewValue.size(); Pos++)
             if (NewValue[Pos].size()>=2)
@@ -907,7 +907,7 @@ void MediaInfo_Config::Inform_Set (const ZtringListList &NewValue)
 
         //Inform
         if (NewValue==_T("Summary"))
-            File__Base_Summary(Custom_View);
+            MediaInfo_Config_Summary(Custom_View);
         else
             Custom_View=NewValue;
     }
@@ -960,7 +960,7 @@ const Ztring &MediaInfo_Config::Format_Get (const Ztring &Value, infoformat_t Ki
     //Loading codec table if not yet done
     CS.Enter();
     if (Format.empty())
-        File__Base_Format(Format);
+        MediaInfo_Config_Format(Format);
     CS.Leave();
 
     return Format.Get(Value, KindOfFormatInfo);
@@ -972,7 +972,7 @@ InfoMap &MediaInfo_Config::Format_Get ()
     //Loading codec table if not yet done
     CS.Enter();
     if (Format.empty())
-        File__Base_Format(Format);
+        MediaInfo_Config_Format(Format);
     CS.Leave();
 
     return Format;
@@ -984,7 +984,7 @@ const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t Kind
     //Loading codec table if not yet done
     CS.Enter();
     if (Codec.empty())
-        File__Base_Codec(Codec);
+        MediaInfo_Config_Codec(Codec);
     CS.Leave();
 
     return Codec.Get(Value, KindOfCodecInfo);
@@ -996,7 +996,7 @@ const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t Kind
     //Loading codec table if not yet done
     CS.Enter();
     if (Codec.empty())
-        File__Base_Codec(Codec);
+        MediaInfo_Config_Codec(Codec);
     CS.Leave();
 
     //Transform to text
@@ -1027,36 +1027,36 @@ const Ztring &MediaInfo_Config::CodecID_Get (stream_t KindOfStream, infocodecid_
             case Stream_General :
                                     switch (Format)
                                     {
-                                        case InfoCodecID_Format_Mpeg4 : File__Base_CodecID_General_Mpeg4(CodecID[Format][KindOfStream]); break;
+                                        case InfoCodecID_Format_Mpeg4 : MediaInfo_Config_CodecID_General_Mpeg4(CodecID[Format][KindOfStream]); break;
                                         default: ;
                                     }
                                     break;
             case Stream_Video   :
                                     switch (Format)
                                     {
-                                        case InfoCodecID_Format_Matroska : File__Base_CodecID_Video_Matroska(CodecID[Format][KindOfStream]); break;
-                                        case InfoCodecID_Format_Mpeg4    : File__Base_CodecID_Video_Mpeg4(CodecID[Format][KindOfStream]); break;
-                                        case InfoCodecID_Format_Real     : File__Base_CodecID_Video_Real(CodecID[Format][KindOfStream]); break;
-                                        case InfoCodecID_Format_Riff     : File__Base_CodecID_Video_Riff(CodecID[Format][KindOfStream]); break;
+                                        case InfoCodecID_Format_Matroska : MediaInfo_Config_CodecID_Video_Matroska(CodecID[Format][KindOfStream]); break;
+                                        case InfoCodecID_Format_Mpeg4    : MediaInfo_Config_CodecID_Video_Mpeg4(CodecID[Format][KindOfStream]); break;
+                                        case InfoCodecID_Format_Real     : MediaInfo_Config_CodecID_Video_Real(CodecID[Format][KindOfStream]); break;
+                                        case InfoCodecID_Format_Riff     : MediaInfo_Config_CodecID_Video_Riff(CodecID[Format][KindOfStream]); break;
                                         default: ;
                                     }
                                     break;
             case Stream_Audio   :
                                     switch (Format)
                                     {
-                                        case InfoCodecID_Format_Matroska : File__Base_CodecID_Audio_Matroska(CodecID[Format][KindOfStream]); break;
-                                        case InfoCodecID_Format_Mpeg4    : File__Base_CodecID_Audio_Mpeg4(CodecID[Format][KindOfStream]); break;
-                                        case InfoCodecID_Format_Real     : File__Base_CodecID_Audio_Real(CodecID[Format][KindOfStream]); break;
-                                        case InfoCodecID_Format_Riff     : File__Base_CodecID_Audio_Riff(CodecID[Format][KindOfStream]); break;
+                                        case InfoCodecID_Format_Matroska : MediaInfo_Config_CodecID_Audio_Matroska(CodecID[Format][KindOfStream]); break;
+                                        case InfoCodecID_Format_Mpeg4    : MediaInfo_Config_CodecID_Audio_Mpeg4(CodecID[Format][KindOfStream]); break;
+                                        case InfoCodecID_Format_Real     : MediaInfo_Config_CodecID_Audio_Real(CodecID[Format][KindOfStream]); break;
+                                        case InfoCodecID_Format_Riff     : MediaInfo_Config_CodecID_Audio_Riff(CodecID[Format][KindOfStream]); break;
                                         default: ;
                                     }
                                     break;
             case Stream_Text    :
                                     switch (Format)
                                     {
-                                        case InfoCodecID_Format_Matroska : File__Base_CodecID_Text_Matroska(CodecID[Format][KindOfStream]); break;
-                                        case InfoCodecID_Format_Mpeg4    : File__Base_CodecID_Text_Mpeg4(CodecID[Format][KindOfStream]); break;
-                                        case InfoCodecID_Format_Riff     : File__Base_CodecID_Text_Riff(CodecID[Format][KindOfStream]); break;
+                                        case InfoCodecID_Format_Matroska : MediaInfo_Config_CodecID_Text_Matroska(CodecID[Format][KindOfStream]); break;
+                                        case InfoCodecID_Format_Mpeg4    : MediaInfo_Config_CodecID_Text_Mpeg4(CodecID[Format][KindOfStream]); break;
+                                        case InfoCodecID_Format_Riff     : MediaInfo_Config_CodecID_Text_Riff(CodecID[Format][KindOfStream]); break;
                                         default: ;
                                     }
                                     break;
@@ -1075,10 +1075,10 @@ const Ztring &MediaInfo_Config::Library_Get (infolibrary_format_t Format, const 
     {
         switch (Format)
         {
-            case InfoLibrary_Format_DivX : File__Base_Library_DivX(Library[Format]); break;
-            case InfoLibrary_Format_XviD : File__Base_Library_XviD(Library[Format]); break;
-            case InfoLibrary_Format_MainConcept_Avc : File__Base_Library_MainConcept_Avc(Library[Format]); break;
-            case InfoLibrary_Format_VorbisCom : File__Base_Library_VorbisCom(Library[Format]); break;
+            case InfoLibrary_Format_DivX : MediaInfo_Config_Library_DivX(Library[Format]); break;
+            case InfoLibrary_Format_XviD : MediaInfo_Config_Library_XviD(Library[Format]); break;
+            case InfoLibrary_Format_MainConcept_Avc : MediaInfo_Config_Library_MainConcept_Avc(Library[Format]); break;
+            case InfoLibrary_Format_VorbisCom : MediaInfo_Config_Library_VorbisCom(Library[Format]); break;
             default: ;
         }
     }
@@ -1092,7 +1092,7 @@ const Ztring &MediaInfo_Config::Iso639_Get (const Ztring &Value)
     //Loading codec table if not yet done
     CS.Enter();
     if (Iso639.empty())
-        File__Base_Iso639(Iso639);
+        MediaInfo_Config_Iso639(Iso639);
     CS.Leave();
 
     return Iso639.Get(Ztring(Value).MakeLowerCase(), 1);;
@@ -1102,7 +1102,7 @@ const Ztring &MediaInfo_Config::Iso639_Get (const Ztring &Value)
 const Ztring MediaInfo_Config::Iso639_Find (const Ztring &Value)
 {
     Translation Info;
-    File__Base_DefaultLanguage (Info);
+    MediaInfo_Config_DefaultLanguage (Info);
     Ztring Value_Lower(Value);
     Value_Lower.MakeLowerCase();
 
@@ -1123,13 +1123,13 @@ const Ztring &MediaInfo_Config::Info_Get (stream_t KindOfStream, const Ztring &V
     if (Info[KindOfStream].empty())
         switch (KindOfStream)
         {
-            case Stream_General :   File__Base_General(Info[Stream_General]);   Language_Set(Stream_General); break;
-            case Stream_Video :     File__Base_Video(Info[Stream_Video]);       Language_Set(Stream_Video); break;
-            case Stream_Audio :     File__Base_Audio(Info[Stream_Audio]);       Language_Set(Stream_Audio); break;
-            case Stream_Text :      File__Base_Text(Info[Stream_Text]);         Language_Set(Stream_Text); break;
-            case Stream_Chapters :  File__Base_Chapters(Info[Stream_Chapters]); Language_Set(Stream_Chapters); break;
-            case Stream_Image :     File__Base_Image(Info[Stream_Image]);       Language_Set(Stream_Image); break;
-            case Stream_Menu :      File__Base_Menu(Info[Stream_Menu]);         Language_Set(Stream_Menu); break;
+            case Stream_General :   MediaInfo_Config_General(Info[Stream_General]);   Language_Set(Stream_General); break;
+            case Stream_Video :     MediaInfo_Config_Video(Info[Stream_Video]);       Language_Set(Stream_Video); break;
+            case Stream_Audio :     MediaInfo_Config_Audio(Info[Stream_Audio]);       Language_Set(Stream_Audio); break;
+            case Stream_Text :      MediaInfo_Config_Text(Info[Stream_Text]);         Language_Set(Stream_Text); break;
+            case Stream_Chapters :  MediaInfo_Config_Chapters(Info[Stream_Chapters]); Language_Set(Stream_Chapters); break;
+            case Stream_Image :     MediaInfo_Config_Image(Info[Stream_Image]);       Language_Set(Stream_Image); break;
+            case Stream_Menu :      MediaInfo_Config_Menu(Info[Stream_Menu]);         Language_Set(Stream_Menu); break;
             default:;
         }
     CS.Leave();
@@ -1149,13 +1149,13 @@ const Ztring &MediaInfo_Config::Info_Get (stream_t KindOfStream, size_t Pos, inf
     if (Info[KindOfStream].empty())
         switch (KindOfStream)
         {
-            case Stream_General :   File__Base_General(Info[Stream_General]);   Language_Set(Stream_General); break;
-            case Stream_Video :     File__Base_Video(Info[Stream_Video]);       Language_Set(Stream_Video); break;
-            case Stream_Audio :     File__Base_Audio(Info[Stream_Audio]);       Language_Set(Stream_Audio); break;
-            case Stream_Text :      File__Base_Text(Info[Stream_Text]);         Language_Set(Stream_Text); break;
-            case Stream_Chapters :  File__Base_Chapters(Info[Stream_Chapters]); Language_Set(Stream_Chapters); break;
-            case Stream_Image :     File__Base_Image(Info[Stream_Image]);       Language_Set(Stream_Image); break;
-            case Stream_Menu :      File__Base_Menu(Info[Stream_Menu]);         Language_Set(Stream_Menu); break;
+            case Stream_General :   MediaInfo_Config_General(Info[Stream_General]);   Language_Set(Stream_General); break;
+            case Stream_Video :     MediaInfo_Config_Video(Info[Stream_Video]);       Language_Set(Stream_Video); break;
+            case Stream_Audio :     MediaInfo_Config_Audio(Info[Stream_Audio]);       Language_Set(Stream_Audio); break;
+            case Stream_Text :      MediaInfo_Config_Text(Info[Stream_Text]);         Language_Set(Stream_Text); break;
+            case Stream_Chapters :  MediaInfo_Config_Chapters(Info[Stream_Chapters]); Language_Set(Stream_Chapters); break;
+            case Stream_Image :     MediaInfo_Config_Image(Info[Stream_Image]);       Language_Set(Stream_Image); break;
+            case Stream_Menu :      MediaInfo_Config_Menu(Info[Stream_Menu]);         Language_Set(Stream_Menu); break;
             default:;
         }
     CS.Leave();
@@ -1174,13 +1174,13 @@ const ZtringListList &MediaInfo_Config::Info_Get(stream_t KindOfStream)
     if (Info[KindOfStream].empty())
         switch (KindOfStream)
         {
-            case Stream_General :   File__Base_General(Info[Stream_General]);   Language_Set(Stream_General); break;
-            case Stream_Video :     File__Base_Video(Info[Stream_Video]);       Language_Set(Stream_Video); break;
-            case Stream_Audio :     File__Base_Audio(Info[Stream_Audio]);       Language_Set(Stream_Audio); break;
-            case Stream_Text :      File__Base_Text(Info[Stream_Text]);         Language_Set(Stream_Text); break;
-            case Stream_Chapters :  File__Base_Chapters(Info[Stream_Chapters]); Language_Set(Stream_Chapters); break;
-            case Stream_Image :     File__Base_Image(Info[Stream_Image]);       Language_Set(Stream_Image); break;
-            case Stream_Menu :      File__Base_Menu(Info[Stream_Menu]);         Language_Set(Stream_Menu); break;
+            case Stream_General :   MediaInfo_Config_General(Info[Stream_General]);   Language_Set(Stream_General); break;
+            case Stream_Video :     MediaInfo_Config_Video(Info[Stream_Video]);       Language_Set(Stream_Video); break;
+            case Stream_Audio :     MediaInfo_Config_Audio(Info[Stream_Audio]);       Language_Set(Stream_Audio); break;
+            case Stream_Text :      MediaInfo_Config_Text(Info[Stream_Text]);         Language_Set(Stream_Text); break;
+            case Stream_Chapters :  MediaInfo_Config_Chapters(Info[Stream_Chapters]); Language_Set(Stream_Chapters); break;
+            case Stream_Image :     MediaInfo_Config_Image(Info[Stream_Image]);       Language_Set(Stream_Image); break;
+            case Stream_Menu :      MediaInfo_Config_Menu(Info[Stream_Menu]);         Language_Set(Stream_Menu); break;
             default:;
         }
     CS.Leave();
@@ -1194,13 +1194,13 @@ Ztring MediaInfo_Config::Info_Parameters_Get ()
     CriticalSectionLocker CSL(CS);;
 
     //Loading all
-    File__Base_General(Info[Stream_General]);
-    File__Base_Video(Info[Stream_Video]);
-    File__Base_Audio(Info[Stream_Audio]);
-    File__Base_Text(Info[Stream_Text]);
-    File__Base_Chapters(Info[Stream_Chapters]);
-    File__Base_Image(Info[Stream_Image]);
-    File__Base_Menu(Info[Stream_Menu]);
+    MediaInfo_Config_General(Info[Stream_General]);
+    MediaInfo_Config_Video(Info[Stream_Video]);
+    MediaInfo_Config_Audio(Info[Stream_Audio]);
+    MediaInfo_Config_Text(Info[Stream_Text]);
+    MediaInfo_Config_Chapters(Info[Stream_Chapters]);
+    MediaInfo_Config_Image(Info[Stream_Image]);
+    MediaInfo_Config_Menu(Info[Stream_Menu]);
 
     //Building
     ZtringListList ToReturn;
@@ -1233,7 +1233,7 @@ Ztring MediaInfo_Config::Info_Codecs_Get ()
     CriticalSectionLocker CSL(CS);;
 
     //Loading
-    File__Base_Codec(Codec);
+    MediaInfo_Config_Codec(Codec);
 
     //Building
     Ztring ToReturn;

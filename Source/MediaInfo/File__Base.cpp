@@ -57,7 +57,6 @@ File__Base::File__Base ()
     File_Offset=0;
     File_Offset_FirstSynched=(int64u)-1;
     File_GoTo=(int64u)-1;
-    File_MaximumOffset=MediaInfoLib::Config.FormatDetection_MaximumOffset_Get();
 
     //Optimization init
     StreamKind_Last=Stream_Max;
@@ -160,22 +159,6 @@ const Ztring &File__Base::Get (stream_t StreamKind, size_t StreamNumber, const Z
 {
     size_t ParameterI=0;
 
-    //Legacy
-    if (Parameter.find(_T("_String"))!=Error)
-    {
-        Ztring S1=Parameter;
-        S1.FindAndReplace(_T("_String"), _T("/String"));
-        return Get(StreamKind, StreamNumber, S1, KindOfInfo, KindOfSearch);
-    }
-    if (Parameter==_T("Channels"))
-        return Get(StreamKind, StreamNumber, _T("Channel(s)"), KindOfInfo, KindOfSearch);
-    if (Parameter==_T("Artist"))
-        return Get(StreamKind, StreamNumber, _T("Performer"), KindOfInfo, KindOfSearch);
-    if (Parameter==_T("AspectRatio"))
-        return Get(StreamKind, StreamNumber, _T("DisplayAspectRatio"), KindOfInfo, KindOfSearch);
-    if (Parameter==_T("AspectRatio/String"))
-        return Get(StreamKind, StreamNumber, _T("DisplayAspectRatio/String"), KindOfInfo, KindOfSearch);
-
     //Check integrity
     if (StreamKind>=Stream_Max || StreamNumber>=(*Stream)[StreamKind].size() || (ParameterI=MediaInfoLib::Config.Info_Get(StreamKind).Find(Parameter, KindOfSearch))==Error || KindOfInfo>=Info_Max)
         return MediaInfoLib::Config.EmptyString_Get(); //Parameter is unknown
@@ -200,32 +183,12 @@ int File__Base::Set (stream_t StreamKind, size_t StreamNumber, const Ztring &Par
     if (Count_Get(StreamKind)<=StreamNumber)
         return 0;
 
-    //Fill(StreamKind, StreamNumber, Parameter.To_Local().c_str(), ToSet);
-
     return Write(StreamKind, StreamNumber, Parameter, ToSet, OldValue);
 }
 
 //---------------------------------------------------------------------------
 void File__Base::Language_Set()
 {
-/*
-    for (size_t StreamKind=(size_t)Stream_General; StreamKind<(size_t)Stream_Max; StreamKind++)//Note : Optimisation, only the first (*Stream) is, so StreamNumber is only 0
-        for (size_t Pos=0; Pos<MediaInfoLib::Config.Info[StreamKind].size(); Pos++)
-        {
-             //Info_Name_Text
-             const Ztring &Z1=MediaInfoLib::Config.Language_Get(MediaInfoLib::Config.Info_Get((stream_t)StreamKind, Pos, Info_Name));
-             if (Z1.empty())
-                Set((stream_t)StreamKind, 0, Pos, Info_Name_Text, MediaInfoLib::Config.Info_Get((stream_t) StreamKind, Pos, Info_Name));
-             else
-                Set((stream_t)StreamKind, 0, Pos, Info_Name_Text, Z1);
-             //Info_Measure_Text
-             const Ztring Z2=MediaInfoLib::Config.Language_Get(MediaInfoLib::Config.Info_Get((stream_t)StreamKind, Pos, Info_Measure));
-             if (Z2.empty())
-                Set((stream_t)StreamKind, 0, Pos, Info_Measure_Text, MediaInfoLib::Config.Info_Get((stream_t)StreamKind, Pos, Info_Measure);
-             else
-                Set((stream_t)StreamKind, 0, Pos, Info_Measure_Text, Z2);
-        }
-*/
 }
 
 //***************************************************************************
@@ -253,38 +216,6 @@ void File__Base::Clear()
 {
     for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
         (*Stream)[StreamKind].clear();
-}
-
-//---------------------------------------------------------------------------
-void File__Base::Read_Buffer_Init()
-{
-}
-
-//---------------------------------------------------------------------------
-void File__Base::Read_Buffer_Unsynched()
-{
-}
-
-//---------------------------------------------------------------------------
-void File__Base::Read_Buffer_Continue()
-{
-    File_GoTo=File_Size;
-}
-
-//---------------------------------------------------------------------------
-void File__Base::Read_Buffer_Finalize()
-{
-}
-
-//---------------------------------------------------------------------------
-int File__Base::Write(stream_t, size_t, const Ztring &, const Ztring &, const Ztring &)
-{
-    return -1;
-}
-
-int File__Base::WriteToDisk()
-{
-    return -1;
 }
 
 } //NameSpace

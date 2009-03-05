@@ -40,7 +40,7 @@ public :
     File_Wm();
 
 protected :
-    //Format
+    //Buffer - Global
     void Read_Buffer_Finalize ();
 
 private :

@@ -37,13 +37,53 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Tar::Read_Buffer_Continue()
 {
-    Finished();
+    //Parsing
+    Ztring ChecksumO;
+    Skip_Local(100,                                             "File name");
+    Skip_Local(  8,                                             "File mode");
+    Skip_Local(  8,                                             "Owner's numeric user ID");
+    Skip_Local( 12,                                             "Group's numeric user ID");
+    Skip_Local( 12,                                             "File size in bytes");
+    Skip_Local(  8,                                             "Last modification time in numeric Unix time format");
+    Get_Local (  8, ChecksumO,                                  "Checksum for header block");
+    Skip_B1(                                                    "Link indicator (file type)");
+    Skip_Local(100,                                             "Name of linked file");
+    Skip_XX(File_Size-257,                                      "Data");
+
+    FILLING_BEGIN();
+        //Handling Checksum
+        int32u Checksum=ChecksumO.To_int32u(8);
+        int32u ChecksumU=0;
+        int32u ChecksumS=0;
+        for (size_t Pos=0; Pos<257; Pos++)
+        {
+            if (Pos==148)
+            {
+                ChecksumU+=32*8; //8 spaces
+                ChecksumS+=32*8; //8 spaces
+                Pos+=7; //Skiping Checksum
+            }
+            ChecksumU+=(int8u)Buffer[Pos];
+            ChecksumS+=(int8s)Buffer[Pos];
+        }
+
+        if (ChecksumU!=Checksum && ChecksumS!=Checksum)
+        {
+            Rejected("Tar");
+            return;
+        }
+
+        //Filling
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "Tar");
+        Detected("Tar");
+    FILLING_END();
 }
 
 //***************************************************************************

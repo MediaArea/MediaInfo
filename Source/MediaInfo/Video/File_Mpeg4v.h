@@ -46,22 +46,28 @@ public :
     bool   FrameIsAlwaysComplete;
     void   OnlyVOP(); //Data has only VOPs in it (configuration is elsewhere)
 
-protected :
-    //Format
-    bool FileHeader_Begin ();
-    void Read_Buffer_Finalize ();
-
-public :
+    //Constructor/Destructor
     File_Mpeg4v();
 
 private :
-    //Buffer
-    bool Header_Begin();
+    //Buffer - File header
+    bool FileHeader_Begin() {return FileHeader_Begin_0x000001();}
+
+    //Buffer - Synchro
+    bool Synchronize() {return Synchronize_0x000001();}
+    bool Synched_Test();
+    void Synched_Init();
+    
+    //Buffer - Global
+    void Read_Buffer_Finalize ();
+
+    //Buffer - Per element
     void Header_Parse();
-    bool Header_Parse_Fill_Size();
+    bool Header_Parser_QuickSearch();
+    bool Header_Parser_Fill_Size();
     void Data_Parse();
 
-    //Packets
+    //Elements
     void video_object_start();
     void video_object_layer_start();
     void fgs_bp_start();
@@ -87,6 +93,18 @@ private :
     void texture_shape_layer_start();
     void stuffing_start();
     void reserved();
+
+    //Streams
+    struct stream
+    {
+        bool   Searching_Payload;
+
+        stream()
+        {
+            Searching_Payload=false;
+        }
+    };
+    std::vector<stream> Streams;
 
     //Count of a Packets
     size_t Frame_Count;
@@ -159,24 +177,6 @@ private :
     Ztring Library_Date;
     Ztring Matrix_intra;
     Ztring Matrix_nonintra;
-
-    //Streams
-    struct stream
-    {
-        bool   Searching_Payload;
-
-        stream()
-        {
-            Searching_Payload=false;
-        }
-    };
-    std::vector<stream> Streams;
-
-    //Helpers
-    bool Synchronize();
-    bool Header_Parser_QuickSearch();
-    bool Detect_NonMPEG4V();
-    void Init();
 };
 
 } //NameSpace

@@ -37,13 +37,42 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Static stuff
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Bzip2::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<2)
+        return false; //Must wait for more data
+
+    if (CC2(Buffer)!=0x425A) //"BZ"
+    {
+        Rejected("Bzip2");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Bzip2::Read_Buffer_Continue()
 {
-    Finished();
+    //Parsing
+    Skip_B7(                                                    "Magic");
+    Skip_XX(File_Size-2,                                        "Data");
+
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "BZip2");
+        Detected("Bzip2");
+    FILLING_END();
 }
 
 //***************************************************************************

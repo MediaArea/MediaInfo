@@ -15,11 +15,9 @@ set(mediainfo_SRCS
 	MediaInfo/File__Analyze.cpp
 	MediaInfo/File__Analyze_Buffer.cpp
 	MediaInfo/File__Analyze_Buffer_MinimizeSize.cpp
+	MediaInfo/File__Analyze_Finalize.cpp
 	MediaInfo/File__Analyze_Streams.cpp
 	MediaInfo/File__Base.cpp
-	MediaInfo/File__Base_Automatic.cpp
-	MediaInfo/File__Base_Finalize.cpp
-	MediaInfo/File__Base_Inform.cpp
 	MediaInfo/File__MultipleParsing.cpp
 	MediaInfo/File__Duplicate.cpp
 	MediaInfo/File_Dummy.cpp
@@ -27,6 +25,7 @@ set(mediainfo_SRCS
 	MediaInfo/File_Unknown.cpp
 	MediaInfo/MediaInfo.cpp
 	MediaInfo/MediaInfo_Config.cpp
+	MediaInfo/MediaInfo_Config_Automatic.cpp
 	MediaInfo/MediaInfo_Config_MediaInfo.cpp
 	MediaInfo/MediaInfo_File.cpp
 	MediaInfo/MediaInfo_Inform.cpp

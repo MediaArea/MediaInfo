@@ -36,11 +36,16 @@
 namespace MediaInfoLib
 {
 
+//***************************************************************************
+// Infos
+//***************************************************************************
+
 //---------------------------------------------------------------------------
 const int32u ADIF_sampling_frequency[]=
 {96000, 88200, 64000, 48000, 44100, 32000, 24000, 22050,
  16000, 12000, 11025,  8000,  7350,     0,     0,     0,};
 
+//---------------------------------------------------------------------------
 const char* ADIF_Format_Profile[]=
 {
     "Main",
@@ -49,6 +54,7 @@ const char* ADIF_Format_Profile[]=
     "LTP",
 };
 
+//---------------------------------------------------------------------------
 const char* ADIF_object_type[]=
 {
     "A_AAC/MPEG4/MAIN",
@@ -70,32 +76,25 @@ File_Adif::File_Adif()
 }
 
 //***************************************************************************
-// Format
+// Buffer - File header
 //***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Adif::Read_Buffer_Continue ()
-{
-    //Tags
-    if (!File__Tags_Helper::Read_Buffer_Continue())
-        return;
-
-    if (Buffer_Size-Buffer_Offset<4)
-        return;
-
-    //Test
-    if (CC4(Buffer+Buffer_Offset)!=CC4("ADIF"))
-    {
-        Finished();
-        return;
-    }
-}
 
 //---------------------------------------------------------------------------
 bool File_Adif::FileHeader_Begin()
 {
-    if (!File__Tags_Helper::Header_Begin())
+    //Tags
+    if (!File__Tags_Helper::FileHeader_Begin())
         return false;
+
+    if (Buffer_Offset+4>Buffer_Size)
+        return false;
+
+    //Test
+    if (CC4(Buffer+Buffer_Offset)!=0x41444946) //"ADIF"
+    {
+        Rejected("Adif");
+        return false;
+    }
 
     return true;
 }
@@ -104,7 +103,18 @@ bool File_Adif::FileHeader_Begin()
 void File_Adif::FileHeader_Parse()
 {
     //Parsing
+    Ztring comment_field_data;
+    int32u bitrate;
     int8u  num_program_config_elements;
+    int8u  object_type;
+    int8u  sampling_frequency_index;
+    int8u  num_front_channel_elements;
+    int8u  num_side_channel_elements;
+    int8u  num_back_channel_elements;
+    int8u  num_lfe_channel_elements;
+    int8u  num_assoc_data_elements;
+    int8u  num_valid_cc_elements;
+    bool   bitstream_type;
     Skip_C4(                                                    "adif_id");
     BS_Begin();
     TEST_SB_SKIP(                                               "copyright_id_present");
@@ -195,35 +205,36 @@ void File_Adif::FileHeader_Parse()
     BS_End();
 
     FILLING_BEGIN();
-        Data_Parse_Fill();
+        File__Tags_Helper::Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "ADIF");
+        Fill(Stream_General, 0, General_Comment, comment_field_data);
+        File__Tags_Helper::Stream_Prepare(Stream_Audio);
+        Fill (Stream_Audio, 0, Audio_Format, "AAC");
+        Fill (Stream_Audio, 0, Audio_Format_Version, "Version 2");
+        Fill (Stream_Audio, 0, Audio_Format_Profile, ADIF_Format_Profile[object_type]);
+        Fill (Stream_Audio, 0, Audio_Codec, ADIF_object_type[object_type]);
+        Fill(Stream_Audio, 0, Audio_BitRate_Mode, bitstream_type?"VBR":"CBR");
+        if (bitrate>0)
+            Fill(Stream_Audio, 0, bitstream_type?Audio_BitRate_Maximum:Audio_BitRate, bitrate);
+        Fill(Stream_Audio, 0, Audio_SamplingRate, ADIF_sampling_frequency[sampling_frequency_index]);
+        Fill(Stream_Audio, 0, Audio_Channel_s_, num_front_channel_elements+num_side_channel_elements+num_back_channel_elements+num_lfe_channel_elements);
+        Fill(Stream_Audio, 0, Audio_Resolution, 16);
+        Fill(Stream_Audio, 0, Audio_MuxingMode, "ADIF");
+
+        //No more need data
+        File__Tags_Helper::Detected("ADIF");
     FILLING_END();
 }
 
 //***************************************************************************
-// Elements
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Adif::Data_Parse_Fill()
+void File_Adif::Read_Buffer_Continue()
 {
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "ADIF");
-    if (!comment_field_data.empty())
-        Fill(Stream_General, 0, General_Comment, comment_field_data);
-    Stream_Prepare(Stream_Audio);
-    Fill (Stream_Audio, 0, Audio_Format, "AAC");
-    Fill (Stream_Audio, 0, Audio_Format_Version, "Version 2");
-    Fill (Stream_Audio, 0, Audio_Format_Profile, ADIF_Format_Profile[object_type]);
-    Fill (Stream_Audio, 0, Audio_Codec, ADIF_object_type[object_type]);
-    Fill(Stream_Audio, 0, Audio_BitRate_Mode, bitstream_type?"VBR":"CBR");
-    if (bitrate>0) Fill(Stream_Audio, 0, bitstream_type?Audio_BitRate_Maximum:Audio_BitRate, bitrate);
-    Fill(Stream_Audio, 0, Audio_SamplingRate, ADIF_sampling_frequency[sampling_frequency_index]);
-    Fill(Stream_Audio, 0, Audio_Channel_s_, num_front_channel_elements+num_side_channel_elements+num_back_channel_elements+num_lfe_channel_elements);
-    Fill(Stream_Audio, 0, Audio_Resolution, 16);
-    Fill(Stream_Audio, 0, Audio_MuxingMode, "ADIF");
-
-    //Jumping if needed
-    File__Tags_Helper::Data_GoTo(File_Size, "ADIF");
+    //Tags
+    File__Tags_Helper::Read_Buffer_Continue();
 }
 
 } //NameSpace

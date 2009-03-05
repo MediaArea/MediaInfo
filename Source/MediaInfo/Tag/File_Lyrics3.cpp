@@ -37,73 +37,50 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Constructor/Destructor
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+File_Lyrics3::File_Lyrics3()
+:File__Analyze()
+{
+    //Configuration
+    TotalSize=(int64u)-1;
+}
+
+//***************************************************************************
 // Format
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Lyrics3::Read_Buffer_Continue()
 {
-    if (Buffer_Size<20)
+    if (TotalSize==(int64u)-1)
+        TotalSize=Buffer_Size;
+
+    //Coherency
+    if (TotalSize<20)
+    {
+        Rejected("Lyrics3");
+        return;
+    }
+
+    //Buffer size
+    if (Buffer_Size<TotalSize)
         return;
 
-    Stream_Prepare(Stream_General);
-
-    Header();
-    Lyrics();
-    Footer();
-
-    Finished();
-}
-
-//***************************************************************************
-// Elements
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Lyrics3::Header()
-{
-
     //Parsing
     Element_Offset=0;
-    Element_Size=11;
-    Element_Begin("Header", 11);
+    Element_Size=TotalSize;
     Skip_Local(11,                                              "Signature");
-    Element_End();
-
-    //Positionning
-    Buffer_Offset+=11;
-}
-
-//---------------------------------------------------------------------------
-void File_Lyrics3::Footer()
-{
-    //Parsing
-    Element_Offset=0;
-    Element_Size=9;
-    Element_Begin("Footer", 9);
+    Skip_Local(TotalSize-20,                                    "Lyrics");
     Skip_Local(9,                                               "Signature");
-    Element_End();
-
-    //Positionning
-    Buffer_Offset+=9;
-}
-
-//---------------------------------------------------------------------------
-void File_Lyrics3::Lyrics()
-{
-    //Parsing
-    Element_Offset=0;
-    Element_Size=Buffer_Size-20;
-    Element_Begin("Lyrics", Element_Size);
-    Skip_XX(Element_Size,                                       "Value");
-    Element_End();
 
     //Filling
+    Stream_Prepare(Stream_General);
     Stream_Prepare(Stream_Text);
     Fill(Stream_Text, 0, Text_Codec, "Lyrics3");
-
-    //Positionning
-    Buffer_Offset+=(size_t)Element_Size;
+    Detected("Lyric3");
 }
 
 //***************************************************************************
@@ -112,5 +89,5 @@ void File_Lyrics3::Lyrics()
 
 } //NameSpace
 
-#endif //MEDIAINFO_MPEGA_YES
+#endif //MEDIAINFO_LYRICS3_YES
 

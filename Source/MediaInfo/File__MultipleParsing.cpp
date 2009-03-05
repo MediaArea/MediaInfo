@@ -32,6 +32,9 @@
 #if defined(MEDIAINFO_CDXA_YES)
     #include "MediaInfo/Multiple/File_Cdxa.h"
 #endif
+#if defined(MEDIAINFO_DPG_YES)
+    #include "MediaInfo/Multiple/File_Dpg.h"
+#endif
 #if defined(MEDIAINFO_DVDIF_YES)
     #include "MediaInfo/Multiple/File_DvDif.h"
 #endif
@@ -83,6 +86,9 @@
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
 #endif
+#if defined(MEDIAINFO_AVSV_YES)
+    #include "MediaInfo/Video/File_AvsV.h"
+#endif
 #if defined(MEDIAINFO_DIRAC_YES)
     #include "MediaInfo/Video/File_Dirac.h"
 #endif
@@ -125,11 +131,20 @@
 #if defined(MEDIAINFO_DTS_YES)
     #include "MediaInfo/Audio/File_Dts.h"
 #endif
+#if defined(MEDIAINFO_XM_YES)
+    #include "MediaInfo/Audio/File_ExtendedModule.h"
+#endif
 #if defined(MEDIAINFO_FLAC_YES)
     #include "MediaInfo/Audio/File_Flac.h"
 #endif
+#if defined(MEDIAINFO_IT_YES)
+    #include "MediaInfo/Audio/File_ImpulseTracker.h"
+#endif
 #if defined(MEDIAINFO_MIDI_YES)
     #include "MediaInfo/Audio/File_Midi.h"
+#endif
+#if defined(MEDIAINFO_MOD_YES)
+    #include "MediaInfo/Audio/File_Module.h"
 #endif
 #if defined(MEDIAINFO_MPC_YES)
     #include "MediaInfo/Audio/File_Mpc.h"
@@ -142,6 +157,9 @@
 #endif
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
+#endif
+#if defined(MEDIAINFO_S3M_YES)
+    #include "MediaInfo/Audio/File_ScreamTracker3.h"
 #endif
 #if defined(MEDIAINFO_TTA_YES)
     #include "MediaInfo/Audio/File_Tta.h"
@@ -176,9 +194,6 @@
 #if defined(MEDIAINFO_PNG_YES)
     #include "MediaInfo/Image/File_Png.h"
 #endif
-#if defined(MEDIAINFO_RLE_YES)
-    #include "MediaInfo/Image/File_Rle.h"
-#endif
 #if defined(MEDIAINFO_TIFF_YES)
     #include "MediaInfo/Image/File_Tiff.h"
 #endif
@@ -194,8 +209,14 @@
 #if defined(MEDIAINFO_BZIP2_YES)
     #include "MediaInfo/Archive/File_Bzip2.h"
 #endif
+#if defined(MEDIAINFO_ELF_YES)
+    #include "MediaInfo/Archive/File_Elf.h"
+#endif
 #if defined(MEDIAINFO_GZIP_YES)
     #include "MediaInfo/Archive/File_Gzip.h"
+#endif
+#if defined(MEDIAINFO_MZ_YES)
+    #include "MediaInfo/Archive/File_Mz.h"
 #endif
 #if defined(MEDIAINFO_RAR_YES)
     #include "MediaInfo/Archive/File_Rar.h"
@@ -212,12 +233,6 @@
 #if !defined(MEDIAINFO_OTHER_NO)
     #include "MediaInfo/File_Other.h"
 #endif
-#if !defined(MEDIAINFO_UNKNOWN_NO)
-    #include "MediaInfo/File_Unknown.h"
-#endif
-#if !defined(MEDIAINFO_DUMMY_NO)
-    #include "MediaInfo/File_Dummy.h"
-#endif
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -226,17 +241,17 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Parser
+// Out
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 File__Analyze* File__MultipleParsing::Parser_Get()
 {
-    if (Parser.empty())
+    if (Parser.size()!=1)
         return NULL;
 
     File__Analyze* ToReturn=Parser[0]; //The first parser
-    Parser.erase(Parser.begin());
+    Parser.clear();
     return ToReturn;
 }
 
@@ -248,6 +263,203 @@ File__Analyze* File__MultipleParsing::Parser_Get()
 File__MultipleParsing::File__MultipleParsing()
 :File__Analyze()
 {
+    File__Analyze* Temp;
+    // Multiple
+    #if defined(MEDIAINFO_CDXA_YES)
+        Temp=new File_Cdxa(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_DPG_YES)
+        Temp=new File_Dpg(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_DVDIF_YES)
+        Temp=new File_DvDif(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_DVDV_YES)
+        Temp=new File_Dvdv(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_FLV_YES)
+        Temp=new File_Flv(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_MK_YES)
+        Temp=new File_Mk(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_MPEG4_YES)
+        Temp=new File_Mpeg4(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_MPEGPS_YES)
+        Temp=new File_MpegPs(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_MPEGTS_YES)
+        Temp=new File_MpegTs(); Parser.push_back(Temp);
+        Temp=new File_MpegTs(); ((File_MpegTs*)Temp)->BDAV_Size=4; Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_MXF_YES)
+        Temp=new File_Mxf(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_NUT_YES)
+        Temp=new File_Nut(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_OGG_YES)
+        Temp=new File_Ogg(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_RIFF_YES)
+        Temp=new File_Riff(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_RM_YES)
+        Temp=new File_Rm(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_SKM_YES)
+        Temp=new File_Skm(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_SWF_YES)
+        Temp=new File_Swf(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_WM_YES)
+        Temp=new File_Wm(); Parser.push_back(Temp);
+    #endif
+
+    // Video
+    #if defined(MEDIAINFO_AVC_YES)
+        Temp=new File_Avc(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_AVSV_YES)
+        Temp=new File_AvsV(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_DIRAC_YES)
+        Temp=new File_Dirac(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_FLIC_YES)
+        Temp=new File_Flic(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_MPEG4V_YES)
+        Temp=new File_Mpeg4v(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_MPEGV_YES)
+        Temp=new File_Mpegv(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_VC1_YES)
+        Temp=new File_Vc1(); Parser.push_back(Temp);
+    #endif
+
+    // Audio
+    #if defined(MEDIAINFO_AC3_YES)
+        Temp=new File_Ac3(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_ADIF_YES)
+        Temp=new File_Adif(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_ADTS_YES)
+        Temp=new File_Adts(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_AMR_YES)
+        Temp=new File_Amr(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_AMV_YES)
+        Temp=new File_Amv(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_APE_YES)
+        Temp=new File_Ape(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_AU_YES)
+        Temp=new File_Au(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_DTS_YES)
+        Temp=new File_Dts(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_XM_YES)
+        Temp=new File_ExtendedModule(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_IT_YES)
+        Temp=new File_ImpulseTracker(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_FLAC_YES)
+        Temp=new File_Flac(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_MIDI_YES)
+        Temp=new File_Midi(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_MOD_YES)
+        Temp=new File_Module(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_MPC_YES)
+        Temp=new File_Mpc(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_MPCSV8_YES)
+        Temp=new File_MpcSv8(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_MPEGA_YES)
+        Temp=new File_Mpega(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_S3M_YES)
+        Temp=new File_ScreamTracker3(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_TTA_YES)
+        Temp=new File_Tta(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_TWINVQ_YES)
+        Temp=new File_TwinVQ(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_WVPK_YES)
+        Temp=new File_Wvpk(); Parser.push_back(Temp);
+    #endif
+
+    // Text
+    #if defined(MEDIAINFO_OTHERTEXT_YES)
+        Temp=new File_OtherText(); Parser.push_back(Temp);
+    #endif
+
+    // Image
+    #if defined(MEDIAINFO_BMP_YES)
+        Temp=new File_Bmp(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_GIF_YES)
+        Temp=new File_Gif(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_ICO_YES)
+        Temp=new File_Ico(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_JPEG_YES)
+        Temp=new File_Jpeg(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_PNG_YES)
+        Temp=new File_Png(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_TIFF_YES)
+        Temp=new File_Tiff(); Parser.push_back(Temp);
+    #endif
+
+    // Archive
+    #if defined(MEDIAINFO_7Z_YES)
+        Temp=new File_7z(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_ACE_YES)
+        Temp=new File_Ace(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_BZIP2_YES)
+        Temp=new File_Bzip2(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_ELF_YES)
+        Temp=new File_Elf(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_GZIP_YES)
+        Temp=new File_Gzip(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_MZ_YES)
+        Temp=new File_Mz(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_RAR_YES)
+        Temp=new File_Rar(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_TAR_YES)
+        Temp=new File_Tar(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_ZIP_YES)
+        Temp=new File_Zip(); Parser.push_back(Temp);
+    #endif
+
+    #if defined(MEDIAINFO_OTHER_YES)
+        Temp=new File_Other(); Parser.push_back(Temp);
+    #endif
 }
 
 //---------------------------------------------------------------------------
@@ -258,240 +470,57 @@ File__MultipleParsing::~File__MultipleParsing()
 }
 
 //***************************************************************************
-// Format
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__MultipleParsing::Read_Buffer_Continue()
-{
-    if (Parser.empty())
-    {
-        File__Analyze* Temp;
-        // Multiple
-        #if defined(MEDIAINFO_CDXA_YES)
-            Temp=new File_Cdxa(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_DVDIF_YES)
-            Temp=new File_DvDif(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_DVDV_YES)
-            Temp=new File_Dvdv(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_FLV_YES)
-          Temp=new File_Flv(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_MK_YES)
-          Temp=new File_Mk(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_MPEG4_YES)
-          Temp=new File_Mpeg4(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_MPEGPS_YES)
-            Temp=new File_MpegPs(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_MPEGTS_YES)
-            Temp=new File_MpegTs(); Parser.push_back(Temp);
-            Temp=new File_MpegTs(); ((File_MpegTs*)Temp)->BDAV_Size=4; Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_MXF_YES)
-          Temp=new File_Mxf(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_NUT_YES)
-          Temp=new File_Nut(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_OGG_YES)
-            Temp=new File_Ogg(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_RIFF_YES)
-          Temp=new File_Riff(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_RM_YES)
-          Temp=new File_Rm(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_SKM_YES)
-          Temp=new File_Skm(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_SWF_YES)
-          Temp=new File_Swf(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_WM_YES)
-          Temp=new File_Wm(); Parser.push_back(Temp);
-        #endif
-
-        // Video
-        #if defined(MEDIAINFO_AVC_YES)
-            Temp=new File_Avc(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_DIRAC_YES)
-          Temp=new File_Dirac(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_FLIC_YES)
-          Temp=new File_Flic(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_MPEG4V_YES)
-            Temp=new File_Mpeg4v(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_MPEGV_YES)
-            Temp=new File_Mpegv(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_VC1_YES)
-            Temp=new File_Vc1(); Parser.push_back(Temp);
-        #endif
-
-        // Audio
-        #if defined(MEDIAINFO_AC3_YES)
-            Temp=new File_Ac3(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_ADIF_YES)
-            Temp=new File_Adif(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_ADTS_YES)
-            Temp=new File_Adts(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_AMR_YES)
-          Temp=new File_Amr(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_AMV_YES)
-          Temp=new File_Amv(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_APE_YES)
-          Temp=new File_Ape(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_AU_YES)
-          Temp=new File_Au(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_DTS_YES)
-            Temp=new File_Dts(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_FLAC_YES)
-            Temp=new File_Flac(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_MIDI_YES)
-          Temp=new File_Midi(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_MPC_YES)
-          Temp=new File_Mpc(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_MPCSV8_YES)
-          Temp=new File_MpcSv8(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_MPEGA_YES)
-          Temp=new File_Mpega(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_PCM_YES)
-          //Temp=new File_Pcm(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_TTA_YES)
-            Temp=new File_Tta(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_TWINVQ_YES)
-          Temp=new File_TwinVQ(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_WVPK_YES)
-            Temp=new File_Wvpk(); Parser.push_back(Temp);
-        #endif
-
-        // Text
-        #if defined(MEDIAINFO_OTHERTEXT_YES)
-          Temp=new File_OtherText(); Parser.push_back(Temp);
-        #endif
-
-        // Image
-        #if defined(MEDIAINFO_BMP_YES)
-          Temp=new File_Bmp(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_GIF_YES)
-          Temp=new File_Gif(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_ICO_YES)
-          Temp=new File_Ico(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_JPEG_YES)
-            Temp=new File_Jpeg(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_PNG_YES)
-          Temp=new File_Png(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_RLE_YES)
-          //Temp=new File_Rle(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_TIFF_YES)
-          Temp=new File_Tiff(); Parser.push_back(Temp);
-        #endif
-
-        // Archive
-        #if defined(MEDIAINFO_ACE_YES)
-          Temp=new File_Ace(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_7Z_YES)
-          Temp=new File_7z(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_BZIP2_YES)
-          Temp=new File_Bzip2(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_GZIP_YES)
-          Temp=new File_Gzip(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_RAR_YES)
-          Temp=new File_Rar(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_TAR_YES)
-          Temp=new File_Tar(); Parser.push_back(Temp);
-        #endif
-        #if defined(MEDIAINFO_ZIP_YES)
-          Temp=new File_Zip(); Parser.push_back(Temp);
-        #endif
-    }
-}
-
-//***************************************************************************
-// Buffer
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File__MultipleParsing::Header_Parse()
-{
-    //Filling
-    Header_Fill_Size(Buffer_Size);
-    Header_Fill_Code(0, "Block");
-}
-
-//---------------------------------------------------------------------------
-void File__MultipleParsing::Data_Parse()
+void File__MultipleParsing::Read_Buffer_Init()
 {
     //Parsing
     for (size_t Pos=0; Pos<Parser.size(); Pos++)
     {
         //Parsing
-        if (IsSub)
+        if (Buffer_TotalBytes==0)
             Parser[Pos]->Init(Config, Details);
-        else
-            Parser[Pos]->Init(Config, Details, Stream, Stream_More);
-        Open_Buffer_Init(Parser[Pos], File_Size, File_Offset+Buffer_Offset);
-        Open_Buffer_Continue(Parser[Pos], Buffer+Buffer_Offset, (size_t)Element_Size);
+        Parser[Pos]->Open_Buffer_Init(File_Size, File_Offset);
+    }
+}
+
+//---------------------------------------------------------------------------
+void File__MultipleParsing::Read_Buffer_Continue()
+{
+    //Parsing
+    for (size_t Pos=0; Pos<Parser.size(); Pos++)
+    {
+        //Parsing
+        Parser[Pos]->Open_Buffer_Continue(Buffer+Buffer_Offset, (size_t)Element_Size);
 
         //Testing if the parser failed
-        if (Parser[Pos]->Count_Get(Stream_General)==0 && (Parser[Pos]->File_GoTo==Parser[Pos]->File_Size || Parser[Pos]->IsFinished))
+        if (!Parser[Pos]->IsDetected && Parser[Pos]->IsRejected)
         {
             delete Parser[Pos];
             Parser.erase(Parser.begin()+Pos);
             Pos--; //for the next position
+
+            if (Parser.empty())
+                Rejected();
         }
         else
         {
             //If Parser is found, erasing all the other parsers
-            if (Parser.size()>1 && Parser[Pos]->Count_Get(Stream_General)>0)
+            if (Parser[Pos]->IsDetected)
             {
-                if (IsSub)
-                    Stream_Prepare(Stream_General);
-
-                File__Analyze* Temp=Parser[Pos];
-                for (size_t To_Delete_Pos=0; To_Delete_Pos<Parser.size(); To_Delete_Pos++)
-                    if (To_Delete_Pos!=Pos)
-                        delete Parser[To_Delete_Pos]; //Parser[Pos]=NULL
-                Parser.clear();
-                Parser.push_back(Temp);
-                Pos=0;
+                if (Parser.size()>1)
+                {
+                    File__Analyze* Temp=Parser[Pos];
+                    for (size_t To_Delete_Pos=0; To_Delete_Pos<Parser.size(); To_Delete_Pos++)
+                        if (To_Delete_Pos!=Pos)
+                            delete Parser[To_Delete_Pos]; //Parser[Pos]=NULL
+                    Parser.clear();
+                    Parser.push_back(Temp);
+                    Pos=0;
+                }
+                IsDetected=true;
             }
 
             //Positionning if requested
@@ -499,59 +528,26 @@ void File__MultipleParsing::Data_Parse()
                File_GoTo=Parser[0]->File_GoTo;
 
             //Ending if requested
-            if (Parser.size()==1 && (Parser[Pos]->File_GoTo==Parser[Pos]->File_Size || Parser[Pos]->IsFinished))
-               Finished();
+            if (Parser.size()==1 && Parser[Pos]->IsFinished)
+               Detected();
         }
+    }
+}
+
+//---------------------------------------------------------------------------
+void File__MultipleParsing::Read_Buffer_Finalize()
+{
+    //Parsing
+    for (size_t Pos=0; Pos<Parser.size(); Pos++)
+    {
+        Parser[Pos]->Open_Buffer_Finalize();
+        Merge(*(Parser[Pos]));
+        Merge(*(Parser[Pos]), Stream_General, 0, 0);
+        Details=Parser[Pos]->Details;
+        if (Parser[Pos]->IsDetected)
+            IsDetected=true;
     }
 }
 
 } //NameSpace
 
-/*
-//---------------------------------------------------------------------------
-void File__MultipleParsing::Data_Parse()
-{
-    //Parsing
-    for (size_t Pos=0; Pos<Parser.size(); Pos++)
-    {
-        //Parsing
-        if (IsSub)
-            Parser[Pos]->Init(Config, Details);
-        else
-            Parser[Pos]->Init(Config, Details, Stream, Stream_More);
-        Open_Buffer_Init(Parser[Pos], File_Size, File_Offset+Buffer_Offset);
-        Open_Buffer_Continue(Parser[Pos], Buffer+Buffer_Offset, (size_t)Element_Size);
-
-        //Testing if the parser failed
-        if (Parser[Pos]->Count_Get(Stream_General)==0 && (Parser[Pos]->File_GoTo==Parser[Pos]->File_Size || Parser[Pos]->IsFinished))
-        {
-            delete Parser[Pos];
-            Parser.erase(Parser.begin()+Pos);
-            Pos--; //for the next position
-        }
-        else
-        {
-            //If Parser is found, erasing all the other parsers
-            if (Parser.size()>1 && Parser[Pos]->Count_Get(Stream_General)>0)
-            {
-                File__Analyze* Temp=Parser[Pos];
-                for (size_t To_Delete_Pos=0; To_Delete_Pos<Parser.size(); To_Delete_Pos++)
-                    if (To_Delete_Pos!=Pos)
-                        delete Parser[To_Delete_Pos]; //Parser[Pos]=NULL
-                Parser.clear();
-                Parser.push_back(Temp);
-                Pos=0;
-            }
-
-            //Positionning if requested
-            if (Parser.size()==1 && Parser[0]->File_GoTo!=(int64u)-1)
-               File_GoTo=Parser[0]->File_GoTo;
-
-            //Ending if requested
-            if (Parser.size()==1 && (Parser[Pos]->File_GoTo==Parser[Pos]->File_Size || Parser[Pos]->IsFinished))
-               Finished();
-        }
-    }
-}
-
-*/

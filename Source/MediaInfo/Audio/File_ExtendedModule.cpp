@@ -37,39 +37,42 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Static stuff
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_ExtendedModule::FileHeader_Parse()
+bool File_ExtendedModule::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<38)
+        return false; //Must wait for more data
+
+    if (CC8(Buffer)!=0x457874656E646564LL || CC8(Buffer+8)!=0x204D6F64756C653ALL  //"Extended Module: "
+     || CC1(Buffer+16)!=0x20 || CC1(Buffer+37)!=0x1A)
+    {
+        Rejected("Extended Module");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_ExtendedModule::Read_Buffer_Continue()
 {
     //Parsing
     Ztring ModuleName, TrackerName;
-    std::string Signature;
     int32u HeaderSize;
     int16u Length, Channels, Patterns, Instruments, Flags, Tempo, BPM;
-    int8u  Mark, VersionMinor, VersionMajor;
-    Get_String(17, Signature,                                   "Signature");
-
-    FILLING_BEGIN();
-        if (Signature!="Extended Module: ")
-        {
-            Finished();
-            return;
-        }
-    FILLING_END()
-
+    int8u  VersionMinor, VersionMajor;
+    Skip_String(17,                                             "Signature");
     Get_Local(20, ModuleName,                                   "Module name");
-    Get_L1 (Mark,                                               "0x1A");
-
-    FILLING_BEGIN();
-        if (Mark!=0x1A)
-        {
-            Finished();
-            return;
-        }
-    FILLING_END()
-
+    Skip_L1(                                                    "0x1A");
     Get_Local(20, TrackerName,                                  "Tracker name");
     Get_L1 (VersionMinor,                                       "Version (minor)");
     Get_L1 (VersionMajor,                                       "Version (major)");
@@ -98,7 +101,7 @@ void File_ExtendedModule::FileHeader_Parse()
             Stream_Prepare(Stream_Audio);
         }
 
-        Finished();
+        Detected();
     FILLING_END();
 }
 

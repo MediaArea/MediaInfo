@@ -39,53 +39,54 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Buffer - File header
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Amr::FileHeader_Begin()
+{
+    if (!Codec.empty()) //Test of header only if it is a file --> The codec field is empty
+        return true;
+
+    //Testing
+    if (Buffer_Size<5)
+        return false; //Must wait for more data
+    if (CC5(Buffer)!=0x2321414D52LL) //"#!AMR"
+    {
+        Rejected("AMR");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Amr::Read_Buffer_Continue()
 {
-    if (Codec.empty()) //Test of header only if it is a file --> The codec field is empty
-    {
-        //Integrity
-        if (Buffer_Size<=16)
-            return;
-
-        //Header
-        if (!(CC5(Buffer)==CC5("#!AMR")))
-        {
-            Finished();
-            return;
-        }
-    }
-
     //Filling
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "AMR");
-
     Stream_Prepare(Stream_Audio);
     Fill(Stream_Audio, 0, Audio_Format, "AMR");
     Fill(Stream_Audio, 0, Audio_Codec, "AMR");
+    if (!Codec.empty())
+    {
+        Ztring Profile;
+        if (0)
+            ;
+        else if (Codec==_T("samr"))             {Profile=_T("Narrow band");}
+        else if (Codec==_T("sawb"))             {Profile=_T("Wide band");}
+        else if (Codec==_T("A104"))             {Profile=_T("Wide band");}
+        Fill(Stream_Audio, 0, Audio_Format_Profile, Profile);
+    }
 
     //No need of more
-    Finished();
-}
-
-//---------------------------------------------------------------------------
-void File_Amr::Read_Buffer_Finalize()
-{
-    if (Codec.empty())
-        return; //This is only if this is not a file
-
-    //Filling
-    Ztring Profile;
-    if (0)
-        ;
-    else if (Codec==_T("samr"))             {Profile=_T("Narrow band");}
-    else if (Codec==_T("sawb"))             {Profile=_T("Wide band");}
-    else if (Codec==_T("A104"))             {Profile=_T("Wide band");}
-
-    Fill(Stream_Audio, 0, Audio_Format_Profile, Profile);
+    Detected();
 }
 
 } //NameSpace

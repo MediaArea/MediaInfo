@@ -38,7 +38,7 @@ namespace MediaInfoLib
 class File_Mpeg4 : public File__Analyze
 {
 protected :
-    //Format
+    //Buffer - Global
     void Read_Buffer_Finalize();
 
 public :
@@ -49,9 +49,6 @@ private :
     void Header_Parse();
     void Data_Parse();
     bool BookMark_Needed();
-
-    //mdat specific
-    void mdat_Parse();
 
     //Elements
     void free();

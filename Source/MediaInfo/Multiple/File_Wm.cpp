@@ -166,7 +166,12 @@ void File_Wm::Read_Buffer_Finalize()
                     Temp->second.StreamPos=StreamPos_Last;
                 }
             Open_Buffer_Finalize(Temp->second.Parser);
+            Ztring Format_Profile;
+            if (Temp->second.StreamKind==Stream_Video)
+                Format_Profile=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format_Profile);
             Merge(*Temp->second.Parser, Temp->second.StreamKind, 0, Temp->second.StreamPos);
+            if (!Format_Profile.empty() && Format_Profile.find(Retrieve(Stream_Video, Temp->second.StreamPos, Video_Format_Profile))==0)
+                Fill(Stream_Video, Temp->second.StreamPos, Video_Format_Profile, Format_Profile, true);
         }
 
         //Delay (in case of MPEG-PS)

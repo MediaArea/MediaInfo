@@ -42,7 +42,7 @@ public :
     bool     NegativeTimes;
 
 protected :
-    //Format
+    //Buffer - Global
     void FileHeader_Parse ();
 };
 

@@ -40,8 +40,11 @@ namespace MediaInfoLib
 class File_Mz : public File__Analyze
 {
 protected :
-    //Format
-    void FileHeader_Parse ();
+    //Buffer - File header
+    bool FileHeader_Begin();
+
+    //Buffer - Global
+    void Read_Buffer_Continue ();
 };
 
 } //NameSpace

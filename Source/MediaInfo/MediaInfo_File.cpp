@@ -202,9 +202,6 @@
 #if defined(MEDIAINFO_PNG_YES)
     #include "MediaInfo/Image/File_Png.h"
 #endif
-#if defined(MEDIAINFO_RLE_YES)
-    #include "MediaInfo/Image/File_Rle.h"
-#endif
 #if defined(MEDIAINFO_TIFF_YES)
     #include "MediaInfo/Image/File_Tiff.h"
 #endif
@@ -433,9 +430,6 @@ void MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_PNG_YES)
         else if (Parser==_T("Png"))         Info=new File_Png();
     #endif
-    #if defined(MEDIAINFO_RLE_YES)
-        else if (Parser==_T("Rle"))        Info=new File_Rle();
-    #endif
     #if defined(MEDIAINFO_TIFF_YES)
         else if (Parser==_T("Tiff"))        Info=new File_Tiff();
     #endif
@@ -643,9 +637,6 @@ int MediaInfo_Internal::ListFormats()
     #endif
     #if defined(MEDIAINFO_PNG_YES)
         delete Info; Info=new File_Png();                if (ApplyMethod()>0) return 1;
-    #endif
-    #if defined(MEDIAINFO_RLE_YES)
-      //delete Info; Info=new File_Rle();                if (ApplyMethod()>0) return 1;
     #endif
     #if defined(MEDIAINFO_TIFF_YES)
         delete Info; Info=new File_Tiff();               if (ApplyMethod()>0) return 1;

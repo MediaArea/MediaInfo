@@ -63,18 +63,10 @@ namespace MediaInfoLib
 File_Cdxa::File_Cdxa()
 :File__Analyze()
 {
-    //Basic configuration
-    Synched=false;
-    File_MaximumOffset=64*1024;
-    Frame_Count_Valid=16;
+    //Configuration
+    MustSynchronize=true;
 
-    //Buffer
-    Element_Size=0;
-
-    //Temp - Global
-    Frame_Count=0;
-
-    //Pointers
+    //Temp
     MI=NULL;
 }
 
@@ -85,42 +77,8 @@ File_Cdxa::~File_Cdxa()
 }
 
 //***************************************************************************
-// Format
+// Buffer - File header
 //***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Cdxa::Read_Buffer_Finalize ()
-{
-    //If nothing
-    if (MI->Info==NULL|| MI->Count_Get(Stream_General)==0)
-    {
-        Fill(Stream_General, 0, General_Format, "CDXA");
-    }
-    else
-    {
-
-        //General
-        Open_Buffer_Finalize(MI->Info);
-        Merge(*(MI->Info));
-        Merge(*(MI->Info), Stream_General, 0, 0);
-        const Ztring &Format=Retrieve(Stream_General, 0, General_Format);
-        Fill(Stream_General, 0, General_Format, (Ztring(_T("CDXA/"))+Format).c_str(), Unlimited, true);
-        Fill(Stream_General, 0, General_Duration, "", Unlimited, true);
-        Fill(Stream_Video, 0, Video_Duration, "", Unlimited, true);
-    }
-
-    //Purge what is not needed anymore
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-    {
-        delete MI; MI=NULL;
-    }
-}
-
-//***************************************************************************
-// Buffer
-//***************************************************************************
-
-//---------------------------------------------------------------------------
 // RIFF Header, 44 bytes
 // RIFF header                      4 bytes, Pos=0
 // RIFF data size                   4 bytes, Pos=4
@@ -153,30 +111,34 @@ void File_Cdxa::Read_Buffer_Finalize ()
 // 02 Exec_User
 // 01 Reserved
 // 00 Read_User
-//
+
+//---------------------------------------------------------------------------
+bool File_Cdxa::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<0x28)
+        return false; //Must wait for more data
+
+    if (                CC4(Buffer+0x00)!=0x52494646  //"RIFF"
+     || LittleEndian2int32u(Buffer+0x04)!=LittleEndian2int32u(Buffer+0x28)+0x24 //Sizes of chunks
+     ||                 CC4(Buffer+0x08)!=0x43445841  //"CDXA"
+     ||                 CC4(Buffer+0x0C)!=0x666D7420  //"fmt "
+     || LittleEndian2int32u(Buffer+0x10)!=0x10
+     ||                 CC2(Buffer+0x1A)!=0x5841      //"XA"
+     ||                 CC4(Buffer+0x24)!=0x64617461) //"data"
+    {
+        IsFinished=true;
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//---------------------------------------------------------------------------
 void File_Cdxa::FileHeader_Parse()
 {
-    if (Element_Size<44)
-    {
-        Element_WaitForMoreData();
-        return;
-    }
-
     //Parsing
-    if (                CC4(Buffer+Buffer_Offset+0x00)!=CC4("RIFF")
-     || LittleEndian2int32u(Buffer+Buffer_Offset+0x04)!=LittleEndian2int32u(Buffer+Buffer_Offset+0x28)+0x24 //Sizes of chunks
-     ||                 CC4(Buffer+Buffer_Offset+0x08)!=CC4("CDXA")
-     ||                 CC4(Buffer+Buffer_Offset+0x0C)!=CC4("fmt ")
-     || LittleEndian2int32u(Buffer+Buffer_Offset+0x10)!=0x10
-     ||                 CC4(Buffer+Buffer_Offset+0x24)!=CC4("data")
-       )
-    {
-        Finished();
-        return;
-    }
-
-    //Parsing
-    Element_Begin("CDXA header");
     Skip_C4(                                                    "RIFF header");
     Skip_L4(                                                    "RIFF data size");
     Skip_C4(                                                    "CDXA");
@@ -190,40 +152,88 @@ void File_Cdxa::FileHeader_Parse()
     Skip_L4(                                                    "reserved");
     Skip_C4(                                                    "data header");
     Skip_L4(                                                    "data size");
-    Element_End();
 
     FILLING_BEGIN();
-        if (MI==NULL)
-        {
-            MI=new MediaInfo_Internal;
-            MI->Option(_T("File_IsSub"), _T("1"));
-        }
-        
+        MI=new MediaInfo_Internal;
         Stream_Prepare(Stream_General);
+        IsDetected=true;
     FILLING_END();
 }
 
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
 //---------------------------------------------------------------------------
-bool File_Cdxa::Header_Begin()
+bool File_Cdxa::Synchronize()
+{
+    //Synchronizing
+    while (           Buffer_Offset+2352*3+12<=Buffer_Size
+      && !(CC8(Buffer+Buffer_Offset+2352*0)==0x00FFFFFFFFFFFFFFLL && CC4(Buffer+Buffer_Offset+2352*0+8)==0xFFFFFF00
+        && CC8(Buffer+Buffer_Offset+2352*1)==0x00FFFFFFFFFFFFFFLL && CC4(Buffer+Buffer_Offset+2352*1+8)==0xFFFFFF00
+        && CC8(Buffer+Buffer_Offset+2352*2)==0x00FFFFFFFFFFFFFFLL && CC4(Buffer+Buffer_Offset+2352*2+8)==0xFFFFFF00
+        && CC8(Buffer+Buffer_Offset+2352*3)==0x00FFFFFFFFFFFFFFLL && CC4(Buffer+Buffer_Offset+2352*3+8)==0xFFFFFF00))
+        Buffer_Offset++;
+    if (Buffer_Offset+2352*3+12>Buffer_Size)
+        return false;
+
+    //Synched is OK
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_Cdxa::Synched_Test()
 {
     //Must have enough buffer for having header
     if (Buffer_Offset+12>Buffer_Size)
         return false;
 
     //Quick test of synchro
-    if (Synched && !(CC8(Buffer+Buffer_Offset)==0x00FFFFFFFFFFFFFFLL && CC4(Buffer+Buffer_Offset+8)==0xFFFFFF00))
-    {
-        Trusted_IsNot("CDXA, Synchronisation lost");
+    if (!(CC8(Buffer+Buffer_Offset)==0x00FFFFFFFFFFFFFFLL && CC4(Buffer+Buffer_Offset+8)==0xFFFFFF00))
         Synched=false;
-    }
 
-    //Synchro
-    if (!Synched && !Synchronize())
-        return false;
-
-    //All should be OK...
+    //We continue
     return true;
 }
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Cdxa::Read_Buffer_Finalize ()
+{
+    if (!MI)
+        return;
+
+    //If nothing
+    if (MI->Info==NULL || !MI->Info->IsDetected)
+    {
+        Fill(Stream_General, 0, General_Format, "CDXA");
+    }
+    else
+    {
+
+        //General
+        MI->Info->Open_Buffer_Finalize();
+        Merge(*(MI->Info));
+        Merge(*(MI->Info), Stream_General, 0, 0);
+        const Ztring &Format=Retrieve(Stream_General, 0, General_Format);
+        Fill(Stream_General, 0, General_Format, (Ztring(_T("CDXA/"))+Format).c_str(), Unlimited, true);
+        Fill(Stream_General, 0, General_Duration, "", Unlimited, true);
+        Fill(Stream_Video, 0, Video_Duration, "", Unlimited, true);
+    }
+
+    //Purge what is not needed anymore
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+    {
+        delete MI; MI=NULL;
+    }
+}
+
+//***************************************************************************
+// Buffer - Per element
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Cdxa::Header_Parse()
@@ -264,8 +274,7 @@ void File_Cdxa::Data_Parse()
     MI->Open_Buffer_Init(File_Size, File_Offset+Buffer_Offset);
 
     //Sending the buffer to MediaInfo
-    if (MI->Open_Buffer_Continue(Buffer+Buffer_Offset, (size_t)(Element_Size-CRC_Size))==0)
-        Finished(); //Get out of the loop, there was an error during the parsing
+    MI->Open_Buffer_Continue(Buffer+Buffer_Offset, (size_t)(Element_Size-CRC_Size));
 
     //Testing if MediaInfo always need data
     File_GoTo=MI->Open_Buffer_Continue_GoTo_Get();
@@ -284,50 +293,6 @@ void File_Cdxa::Data_Parse()
     //Demux
     Demux(Buffer+Buffer_Offset, (size_t)(Element_Size-CRC_Size), _T("xxx"));
 }
-
-//***************************************************************************
-// Elements
-//***************************************************************************
-
-//***************************************************************************
-// Helpers
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Cdxa::Synchronize()
-{
-    //Synchronizing
-    while (           Buffer_Offset+2352*3+12<=Buffer_Size
-      && !(CC8(Buffer+Buffer_Offset+2352*0)==0x00FFFFFFFFFFFFFFLL && CC4(Buffer+Buffer_Offset+2352*0+8)==0xFFFFFF00
-        && CC8(Buffer+Buffer_Offset+2352*1)==0x00FFFFFFFFFFFFFFLL && CC4(Buffer+Buffer_Offset+2352*1+8)==0xFFFFFF00
-        && CC8(Buffer+Buffer_Offset+2352*2)==0x00FFFFFFFFFFFFFFLL && CC4(Buffer+Buffer_Offset+2352*2+8)==0xFFFFFF00
-        && CC8(Buffer+Buffer_Offset+2352*3)==0x00FFFFFFFFFFFFFFLL && CC4(Buffer+Buffer_Offset+2352*3+8)==0xFFFFFF00))
-        Buffer_Offset++;
-    if (Buffer_Offset+2352*3+12>Buffer_Size)
-    {
-        return false;
-    }
-
-    //Synched is OK
-    Synched=true;
-    return true;
-}
-
-    /*
-//---------------------------------------------------------------------------
-void File_Cdxa::Detect_EOF()
-{
-    //Jump to the end of the file
-    if (File_Size!=(int64u)-1 && File_Size>File_Offset+Buffer_Size+1*1024*1024 && (
-       (File_Offset>1*1024*1024)
-    || (MI!=NULL && MI->Open_Buffer_Continue_GoTo_Get()!=(int64u)-1)
-    ))
-    {
-        Info("CDXA, Jumping to end of file");
-        File_GoTo=File_Size-1*1024*1024;
-    }
-}
-    */
 
 } //NameSpace
 

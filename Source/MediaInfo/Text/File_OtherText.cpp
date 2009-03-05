@@ -227,7 +227,7 @@ void File_OtherText::Read_Buffer_Continue()
     //No need of more
     Element_Begin(Format);
     Element_End();
-    Finished();
+    Detected();
 }
 
 } //NameSpace

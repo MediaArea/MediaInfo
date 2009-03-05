@@ -46,7 +46,7 @@ public :
     int8u  Version;
 
 protected :
-    //Format
+    //Buffer - Global
     void Read_Buffer_Finalize ();
 
 public :

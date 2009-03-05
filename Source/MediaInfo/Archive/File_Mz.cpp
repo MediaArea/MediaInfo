@@ -39,9 +39,10 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Constants
+// Infos
 //***************************************************************************
 
+//---------------------------------------------------------------------------
 const char* Mz_Machine(int16u Machine)
 {
     switch (Machine)
@@ -58,22 +59,37 @@ const char* Mz_Machine(int16u Machine)
 }
 
 //***************************************************************************
-// Format
+// Static stuff
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Mz::FileHeader_Parse()
+bool File_Mz::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<2)
+        return false; //Must wait for more data
+
+    if (CC2(Buffer)!=0x4D5A) //"MZ"
+    {
+        Rejected("MZ");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mz::Read_Buffer_Continue()
 {
     //Parsing
     int32u lfanew;
-    int16u magic;
     Element_Begin("MZ");
-    Get_C2 (magic,                                              "magic");
-    if (magic!=0x4D5A) //"MZ"
-    {
-        Finished();
-        return;
-    }
+    Skip_C2(                                                    "magic");
     Skip_L2(                                                    "cblp");
     Skip_L2(                                                    "cp");
     Skip_L2(                                                    "crlc");
@@ -135,19 +151,20 @@ void File_Mz::FileHeader_Parse()
         Element_End("PE");
     }
 
-    //Filling
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "MZ");
-    if (Characteristics&0x2000)
-        Fill(Stream_General, 0, General_Format_Profile, "DLL");
-    else if (Characteristics&0x0002)
-        Fill(Stream_General, 0, General_Format_Profile, "Executable");
-    Fill(Stream_General, 0, General_Format_Profile, Mz_Machine(Machine));
-    if (TimeDateStamp)
-        Fill(Stream_General, 0, General_Encoded_Date, Ztring().Date_From_Seconds_1970(TimeDateStamp));
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "MZ");
+        if (Characteristics&0x2000)
+            Fill(Stream_General, 0, General_Format_Profile, "DLL");
+        else if (Characteristics&0x0002)
+            Fill(Stream_General, 0, General_Format_Profile, "Executable");
+        Fill(Stream_General, 0, General_Format_Profile, Mz_Machine(Machine));
+        if (TimeDateStamp)
+            Fill(Stream_General, 0, General_Encoded_Date, Ztring().Date_From_Seconds_1970(TimeDateStamp));
 
-    //No need of more
-    Finished();
+        //No need of more
+        Detected("MZ");
+    FILLING_END();
 }
 
 } //NameSpace

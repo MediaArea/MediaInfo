@@ -43,13 +43,12 @@ public :
     //In
     ZenLib::Ztring Codec;
 
-protected :
-    //Format
+private :
+    //Buffer - Global
     void Read_Buffer_Continue ();
     void Read_Buffer_Finalize ();
 
-private :
-    //Buffer
+    //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
 

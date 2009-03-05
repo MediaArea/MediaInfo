@@ -42,20 +42,21 @@ public :
     size_t Frame_Count_Valid;
     bool   FrameIsAlwaysComplete;
 
-    //Out
-    size_t Delay;
-
-protected :
-    //Format
-    void Read_Buffer_Continue ();
-    void Read_Buffer_Finalize ();
-
-public :
+    //Constructor/Destructor
     File_Mpega();
 
 private :
-    //Buffer
-    bool Header_Begin();
+    //Buffer - File header
+    bool FileHeader_Begin();
+
+    //Buffer - Synchro
+    bool Synchronize();
+    bool Synched_Test();
+
+    //Buffer - Global
+    void Read_Buffer_Finalize ();
+
+    //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
     void Data_Parse_Fill();
@@ -67,11 +68,29 @@ private :
     void Header_Encoders_Lame();
     void Encoded_Library_Guess();
 
-    //Temp - Global
+    //Temp
+    Ztring BitRate_Mode;
+    Ztring BitRate_Nominal;
+    Ztring BitRate_Minimum;
+    Ztring Encoded_Library;
+    Ztring Encoded_Library_Settings;
+    std::map<int16u, size_t> BitRate_Count;
+    std::map<int8u, size_t> sampling_frequency_Count;
+    std::map<int8u, size_t> mode_Count;
+    size_t Block_Count[3]; //long, short, mixed
+    size_t Channels_Count[4]; //Stereo, Join Stereo, Dual mono, mono
+    size_t Extension_Count[4]; //No, IS, MS, IS+MS
+    size_t Emphasis_Count[4]; //No, 50/15ms, Reserved, CCITT
     size_t Frame_Count;
+    size_t Frame_Count_Consecutive;
+    size_t Scfsi; //Total
+    size_t Scalefac; //Total
+    size_t Reservoir; //Total
     int64u LastSync_Offset;
-
-    //Temp - Technical info
+    int64u VBR_FileSize;
+    int32u VBR_Frames;
+    int32u Reservoir_Max;
+    int32u Xing_Scale;
     int8u  ID;
     int8u  layer;
     int8u  bitrate_index;
@@ -84,38 +103,7 @@ private :
     bool   copyright;
     bool   original_home;
 
-    //Temp - BitStream info
-    std::map<int16u, size_t> BitRate_Count;
-    size_t Block_Count[3]; //long, short, mixed
-    size_t Channels_Count[4]; //Stereo, Join Stereo, Dual mono, mono
-    size_t Extension_Count[4]; //No, IS, MS, IS+MS
-    size_t Emphasis_Count[4]; //No, 50/15ms, Reserved, CCITT
-    size_t Scfsi; //Total
-    size_t Scalefac; //Total
-    size_t Reservoir; //Total
-    int32u Reservoir_Max;
-
-    //Temp - VBR handling
-    int32u VBR_Frames;
-    int64u VBR_FileSize;
-    Ztring BitRate_Mode;
-    Ztring BitRate_Nominal;
-    Ztring BitRate_Minimum;
-
-    //Temp - Tags in a frame
-    Ztring Encoded_Library;
-    Ztring Encoded_Library_Settings;
-
-    //Temp - Error detection
-    std::map<int8u, size_t> sampling_frequency_Count;
-    std::map<int8u, size_t> mode_Count;
-
-    //Temp - Tags
-    int32u Xing_Scale;
-
     //Helpers
-    bool Synchronize();
-    bool Detect_NonMPEGA();
     bool Element_Name_IsOK();
 };
 

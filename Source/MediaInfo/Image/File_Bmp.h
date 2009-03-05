@@ -40,8 +40,14 @@ namespace MediaInfoLib
 class File_Bmp : public File__Analyze
 {
 protected :
-    //Format
+    //Buffer - File header
+    bool FileHeader_Begin();
+
+    //Buffer - Global
     void Read_Buffer_Continue ();
+
+    //Elements
+    void BitmapInfoHeader();
 };
 
 } //NameSpace

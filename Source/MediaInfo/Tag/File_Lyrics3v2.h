@@ -39,45 +39,34 @@ namespace MediaInfoLib
 
 class File_Lyrics3v2 : public File__Analyze
 {
-protected :
-    //Format
-    void Read_Buffer_Continue ();
+public :
+    //In
+    int64u TotalSize;
+
+    //Constructor/Destructor
+    File_Lyrics3v2();
 
 private :
-    //Buffer
-    void Header_Parse();
-    void Data_Parse();
+    //Buffer - File header
+    void FileHeader_Parse();
+
+    //Buffer - Per element
+    void Header_Parse ();
+    void Data_Parse ();
 
     //Elements
     void Header();
     void Footer();
-    void AUT();
-    void CRC();
+    void AUT() {Skip_Local(Element_Size, "Value");}
+    void CRC() {Skip_Local(Element_Size, "Value");}
     void EAL();
     void EAR();
     void ETT();
-    void IMG();
+    void IMG() {Skip_Local(Element_Size, "Value");}
     void IND();
     void INF();
     void LYR();
 };
-
-//***************************************************************************
-// Const
-//***************************************************************************
-
-namespace Lyrics3v2
-{
-    const int32u AUT=0x415554;
-    const int32u CRC=0x435243;
-    const int32u EAL=0x45414C;
-    const int32u EAR=0x454152;
-    const int32u ETT=0x455454;
-    const int32u IMG=0x494D47;
-    const int32u IND=0x494E44;
-    const int32u INF=0x494E46;
-    const int32u LYR=0x4C5952;
-}
 
 } //NameSpace
 

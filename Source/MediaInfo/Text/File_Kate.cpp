@@ -41,6 +41,11 @@ using namespace std;
 namespace MediaInfoLib
 {
 
+//***************************************************************************
+// Infos
+//***************************************************************************
+
+//---------------------------------------------------------------------------
 Ztring Kate_Category(const Ztring &Category)
 {
     //http://wiki.xiph.org/index.php/OggText#Categories_of_Text_Codecs
@@ -78,7 +83,7 @@ Ztring Kate_Category(const Ztring &Category)
 }
 
 //***************************************************************************
-// Format
+// Buffer - Per element
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -87,8 +92,12 @@ void File_Kate::Data_Parse()
     //Parsing
     Identification();
 
-    Finished();
+    Detected();
 }
+
+//***************************************************************************
+// Elements
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Kate::Identification()
@@ -132,6 +141,7 @@ void File_Kate::Identification()
         Fill(Stream_Text, 0, Text_Codec,  "Kate");
         Fill(Stream_Text, 0, Text_Language, Language);
         Fill(Stream_Text, 0, Text_Language_More, Kate_Category(Category));
+        Detected("Kate");
     FILLING_END();
 }
 

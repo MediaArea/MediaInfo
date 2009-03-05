@@ -40,8 +40,8 @@ namespace MediaInfoLib
 class File_Rle : public File__Analyze
 {
 private :
-    //Buffer
-    bool Header_Begin();
+    //Buffer - Global
+    void Read_Buffer_Continue ();
 };
 
 } //NameSpace

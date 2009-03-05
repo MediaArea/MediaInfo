@@ -41,7 +41,7 @@ namespace MediaInfoLib
 class File_Mk : public File__Analyze
 {
 protected :
-    //Formats
+    //Buffer - Globals
     void Read_Buffer_Finalize ();
 
 public :

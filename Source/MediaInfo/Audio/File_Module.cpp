@@ -37,16 +37,44 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Static stuff
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Module::FileHeader_Parse()
+bool File_Module::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<1084)
+        return false; //Must wait for more data
+
+    int32u Signature=CC4(Buffer+1080);
+    switch (Signature)
+    {
+        case 0x4D2E4B2E : //M.K.
+        case 0x4D214B21 : //M!K!
+        case 0x664C5434 : //FLT4
+        case 0x664C5438 : //FLT8
+        case 0x3663684E : //6CHN
+        case 0x3863684E : //8CHN
+                            break;
+        default         :   Rejected("Module");
+                            return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Module::Read_Buffer_Continue()
 {
     //Parsing
     Ztring ModuleName, SamplesName;
-    int32u Signature;
-    Get_Local(20, ModuleName,                                   "Module name");
+    Get_Local (20, ModuleName,                                  "Module name");
     for (int8u Pos=0; Pos<31; Pos++)
     {
         Element_Begin();
@@ -61,22 +89,7 @@ void File_Module::FileHeader_Parse()
     Skip_B1(                                                    "Number of song positions");
     Skip_B1(                                                    "0x8F");
     Skip_XX(128,                                                "Pattern table");
-    Get_C4 (Signature,                                          "Signature");
-
-    FILLING_BEGIN();
-        switch (Signature)
-        {
-            case 0x4D2E4B2E : //M.K.
-            case 0x4D214B21 : //M!K!
-            case 0x664C5434 : //FLT4
-            case 0x664C5438 : //FLT8
-            case 0x3663684E : //6CHN
-            case 0x3863684E : //8CHN
-                                break;
-            default : Finished();
-                      return;
-        }
-    FILLING_END()
+    Skip_C4(                                                    "Signature");
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
@@ -84,7 +97,7 @@ void File_Module::FileHeader_Parse()
 
         Stream_Prepare(Stream_Audio);
 
-        Finished();
+        Detected();
     FILLING_END();
 }
 

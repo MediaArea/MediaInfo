@@ -41,6 +41,7 @@ class File_Skm : public File__Analyze
 {
 private :
     //Buffer
+    bool FileHeader_Begin();
     void FileHeader_Parse();
     bool Header_Begin();
     void Header_Parse();

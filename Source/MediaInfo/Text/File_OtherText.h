@@ -39,7 +39,7 @@ namespace MediaInfoLib
 
 class File_OtherText : public File__Analyze
 {
-    //Format
+    //Buffer - Global
     void Read_Buffer_Continue ();
 };
 

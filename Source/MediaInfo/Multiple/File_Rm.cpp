@@ -138,7 +138,7 @@ void File_Rm::Data_Parse()
             default           : ;
         }
 
-        Finished();
+        Detected();
         return;
     }
 
@@ -178,6 +178,7 @@ void File_Rm::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Rm::RMF()
 {
+    IsDetected=true;
     NAME_VERSION("Real Media Format");
     INTEGRITY_VERSION(1);
 
@@ -224,7 +225,7 @@ void File_Rm::DATA()
     NAME_VERSION("Data");
 
     //Currently, we stop here, enough info
-    Finished();
+    Detected();
     return;
 
     /*

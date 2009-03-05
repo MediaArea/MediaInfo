@@ -39,15 +39,16 @@ namespace MediaInfoLib
 
 class File_Lyrics3 : public File__Analyze
 {
-protected :
-    //Format
-    void Read_Buffer_Continue ();
+public :
+    //In
+    int64u TotalSize;
+
+    //Constructor/Destructor
+    File_Lyrics3();
 
 private :
-    //Elements
-    void Header();
-    void Footer();
-    void Lyrics();
+    //Buffer - Global
+    void Read_Buffer_Continue ();
 };
 
 } //NameSpace

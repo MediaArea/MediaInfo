@@ -46,19 +46,25 @@ public :
     bool   From_WMV3;
     bool   Only_0D;
 
-protected :
-    //Format
-    void Read_Buffer_Continue ();
-    void Read_Buffer_Finalize ();
-
-public :
+    //Constructor/Destructor
     File_Vc1();
 
 private :
-    //Buffer
-    bool Header_Begin();
+    //Buffer - File header
+    bool FileHeader_Begin();
+
+    //Buffer - Synchro
+    bool Synchronize() {return Synchronize_0x000001();}
+    bool Synched_Test();
+    void Synched_Init();
+
+    //Buffer - Global
+    void Read_Buffer_Finalize ();
+
+    //Buffer - Per element
     void Header_Parse();
-    bool Header_Parse_Fill_Size();
+    bool Header_Parser_QuickSearch();
+    bool Header_Parser_Fill_Size();
     void Data_Parse();
 
     //Elements
@@ -132,14 +138,6 @@ private :
     std::vector<temporalreference>      TemporalReference_Waiting; //First must be I and P-frames, other B-frames
     int16u TemporalReference_Offset;
 
-    //Helpers
-    bool Synchronize();
-    void Init();
-    bool Header_Parser_QuickSearch();
-    bool Detect_NonVC1();
-
-
-
     //Temp
     size_t Width;
     size_t Height;
@@ -147,14 +145,8 @@ private :
     float32 FrameRate;
     size_t BitRate;
 
-    //Temp - Sequence Header
-    //bool interlace;
-    //bool tfcntrflag;
-
     //Error controls
     std::vector<int8u> Frame_ShouldBe;
-
-
 };
 
 } //NameSpace

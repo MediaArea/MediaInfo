@@ -119,6 +119,9 @@ File_Riff::~File_Riff()
 //---------------------------------------------------------------------------
 void File_Riff::Read_Buffer_Finalize ()
 {
+    if (!IsDetected)
+        return;
+
     //For each stream
     std::map<int32u, stream>::iterator Temp=Stream.begin();
     while (Temp!=Stream.end())
@@ -172,41 +175,25 @@ void File_Riff::Read_Buffer_Finalize ()
             //Delay
             if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)==1 && Temp->second.Rate!=0 && Temp->second.Parser->Count_Get(Stream_General)>0)
             {
-                int64u Delay=(int64u)-1;
-                #if defined(MEDIAINFO_MPEGA_YES)
-                    if (MediaInfoLib::Config.Codec_Get(Ztring().From_Number(Temp->second.Compression, 16), InfoCodec_KindofCodec).find(_T("MPEG-"))==0)
-                        Delay=((File_Mpega*)Temp->second.Parser)->Delay;
-                #endif
-                #if defined(MEDIAINFO_AC3_YES)
-                    if (Temp->second.Compression==0x2000)
-                        Delay=((File_Ac3*)Temp->second.Parser)->Delay;
-                #endif
-                #if defined(MEDIAINFO_DTS_YES)
-                    if (Temp->second.Compression==0x2001 || Temp->second.Compression==0x1)
-                        Delay=((File_Dts*)Temp->second.Parser)->Delay;
-                #endif
-                if (Delay==0)
+                     if (Temp->second.Parser->Buffer_TotalBytes_FirstSynched==0)
                 {
-                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, 0, 0, true);
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, 0, 10, true);
                     Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
                 }
-                else if (Delay!=(int64u)-1)
+                else if (Temp->second.Rate!=0)
                 {
-                    if (Temp->second.Rate!=0)
-                    {
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Delay)*1000/Temp->second.Rate, 0, true);
-                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                    }
-                    else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u()!=0)
-                    {
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Delay)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u(), 0, true);
-                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                    }
-                    else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u()!=0)
-                    {
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Delay)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u(), 0, true);
-                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                    }
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Rate, 0, true);
+                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                }
+                else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u()!=0)
+                {
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u(), 0, true);
+                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                }
+                else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u()!=0)
+                {
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u(), 0, true);
+                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
                 }
             }
 
@@ -316,7 +303,17 @@ void File_Riff::Read_Buffer_Finalize ()
                     if (Retrieve(Stream_Video, 0, Video_FrameRate).To_float32())
                     {
                         Fill(Stream_Audio, StreamPos_Last, "Interleave_Duration", (float)Stream[0x30300000].PacketCount/Temp->second.PacketCount*1000/Retrieve(Stream_Video, 0, Video_FrameRate).To_float32(), 0);
-                        Fill(Stream_Audio, StreamPos_Last, "Interleave_Duration/String", Retrieve(Stream_Audio, StreamPos_Last, "Interleave_Duration")+_T(" ")+MediaInfoLib::Config.Language_Get(_T("ms"))+(Retrieve(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames").empty()?Ztring():(_T(" (")+MediaInfoLib::Config.Language_Get(Retrieve(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames"), _T(" video frames"))+_T(")"))), 0);
+                        Ztring Temp;
+                        Temp+=Retrieve(Stream_Audio, StreamPos_Last, "Interleave_Duration");
+                        Temp+=_T(" ");
+                        Temp+=MediaInfoLib::Config.Language_Get(_T("ms"));
+                        if (!Retrieve(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames").empty())
+                        {
+                            Temp+=_T(" (");
+                            Temp+=MediaInfoLib::Config.Language_Get(Retrieve(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames"), _T(" video frames"));
+                            Temp+=_T(")");
+                        }
+                        Fill(Stream_Audio, StreamPos_Last, "Interleave_Duration/String", Temp);
                     }
                     int64u Audio_FirstBytes=0;
                     for (std::map<int64u, stream_structure>::iterator Stream_Structure_Temp=Stream_Structure.begin(); Stream_Structure_Temp!=Stream_Structure.end(); Stream_Structure_Temp++)

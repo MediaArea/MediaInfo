@@ -48,32 +48,44 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Static stuff
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Tiff::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<4)
+        return false; //Must wait for more data
+
+    if (CC4(Buffer)!=0x49492A00 && CC4(Buffer)!=0x4D4D002A)
+    {
+        Rejected("TIFF");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Tiff::Read_Buffer_Continue()
 {
-    //Integrity
-    if (Buffer_Size<4)
-        return;
+    Skip_B4(                                                    "Magic");
+    Skip_XX(File_Size-4,                                        "Data");
 
-    //Header
-    if (CC4(Buffer)!=0x49492A00 && CC4(Buffer)!=0x4D4D002A)
-    {
-        Finished();
-        return;
-    }
-
-    //Filling
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "TIFF");
-    Stream_Prepare(Stream_Image);
-    Fill(Stream_Image, 0, Image_Format, "TIFF");
-    Fill(Stream_Image, 0, Image_Codec, "TIFF");
-
-    //No need of more
-    Finished();
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "TIFF");
+        Stream_Prepare(Stream_Image);
+        Fill(Stream_Image, 0, Image_Format, "TIFF");
+        Fill(Stream_Image, 0, Image_Codec, "TIFF");
+        Detected("TIFF");
+    FILLING_END();
 }
 
 } //NameSpace

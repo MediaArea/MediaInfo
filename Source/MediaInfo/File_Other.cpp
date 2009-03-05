@@ -80,7 +80,6 @@ void File_Other::Read_Buffer_Continue()
     else if (CC3(Buffer)==CC3("SBI")) {Format=_T("SoundBlaster");}
     else if (CC4(Buffer)==CC4("EMOD")) {Format=_T("Ext. MOD");}
     else if (CC3(Buffer)==CC3("TTA")) {Format=_T("True Audio"); Url=_T("http://www.true-audio.com/site.download"); Extensions=_T("tta");}
-    else if (CC4(Buffer)==CC4("wvpk")) {Format=_T("WavPack"); Url=_T("http://www.wavpack.com/downloads.html"); Extensions=_T("wv");}
     //TODO: Other Sound magic numbers
     else if (CC7(Buffer)==CC7("BLENDER")) {Format=_T("Blender"); Url=_T("http://www.blender3d.com"); Extensions=_T("blenders");}
     else if (CC4(Buffer)==CC4("AC10")) {Format=_T("AutoCAD"); Url=_T("http://www.autodesk.com"); Extensions=_T("dwg");}
@@ -121,13 +120,16 @@ void File_Other::Read_Buffer_Continue()
     else if (CC4(Buffer)==CC4("")) {Format=_T("");}
 
     if (Format.empty())
+    {
+        Rejected();
         return;
+    }
 
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, Format);
     Fill(Stream_General, 0, General_Format_Url, Url);
     Fill(Stream_General, 0, General_Format_Extensions, Extensions);
-    Finished();
+    Detected();
 }
 
 } //NameSpace

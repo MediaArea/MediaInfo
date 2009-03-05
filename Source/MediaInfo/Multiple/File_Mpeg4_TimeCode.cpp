@@ -45,7 +45,7 @@ void File_Mpeg4_TimeCode::FileHeader_Parse()
 {
     if (Buffer_Size!=4)
     {
-        Finished();
+        Rejected("TimeCode");
         return;
     }
 
@@ -74,7 +74,7 @@ void File_Mpeg4_TimeCode::FileHeader_Parse()
             Fill(StreamKind, 0, "Delay", Pos*1000/FrameRate, 0);
         }
     }
-    Finished();
+    Detected();
 }
 
 }

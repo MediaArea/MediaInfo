@@ -26,7 +26,7 @@
 //---------------------------------------------------------------------------
 
 //***************************************************************************
-// Constants
+// Infos (Global)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -117,6 +117,14 @@ const char* Mpegv_profile_and_level_indication_level[]=
 #include "MediaInfo/Video/File_Mpegv.h"
 #include "ZenLib/BitStream.h"
 #include "ZenLib/Utils.h"
+#undef FILLING_BEGIN
+#define FILLING_BEGIN() \
+    while (Element_Offset<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset]==0x00) \
+        Element_Offset++; \
+    if (Element_Offset!=Element_Size) \
+        Trusted_IsNot("Size error"); \
+    else if (Element_IsOK()) \
+    {
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -126,7 +134,7 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 
 //***************************************************************************
-// Constants
+// Infos
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -233,43 +241,121 @@ const char* Mpegv_extension_start_code_identifier[]=
 File_Mpegv::File_Mpegv()
 :File__Analyze()
 {
-    //Config
+    //Configuration
     Trusted_Multiplier=2;
+    MustSynchronize=true;
+    Buffer_TotalBytes_FirstSynched_Max=0x10000;
 
     //In
     MPEG_Version=1;
     Frame_Count_Valid=32;
     FrameIsAlwaysComplete=false;
 
-    //temp
+    //Temp
     SizeToAnalyse_Begin=1*1024*1024;
     SizeToAnalyse_End=1*1024*1024;
     Time_Begin_Seconds_IsFrozen=false;
     Searching_TimeStamp_Start_DoneOneTime=false;
     sequence_header_IsParsed=false;
+    Parsing_End_ForDTS=false;
 }
 
 //***************************************************************************
-// Format
+// Buffer - Synchro
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Mpegv::Read_Buffer_Continue()
+bool File_Mpegv::Synched_Test()
 {
-    //Integrity
-    if (File_Offset==0 && Detect_NonMPEGV())
-        return;
+    //Trailing 0xFF
+    while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]==0xFF)
+        Buffer_Offset++;
+
+    //Trailing 0x00
+    while(Buffer_Offset+3<=Buffer_Size && Buffer[Buffer_Offset]==0x00 && CC3(Buffer+Buffer_Offset)!=0x000001)
+        Buffer_Offset++;
+
+    //Must have enough buffer for having header
+    if (Buffer_Offset+3>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if (CC3(Buffer+Buffer_Offset)!=0x000001)
+        Synched=false;
+
+    //Quick search
+    if (Synched && !Header_Parser_QuickSearch())
+        return false;
+
+    //We continue
+    return true;
 }
+
+//---------------------------------------------------------------------------
+void File_Mpegv::Synched_Init()
+{
+    //Temp
+    Frame_Count=0;
+    progressive_frame_Count=0;
+    Interlaced_Top=0;
+    Interlaced_Bottom=0;
+    display_horizontal_size=0;
+    display_vertical_size=0;
+    vbv_delay=0;
+    Time_Begin_Seconds=Error;
+    Time_Begin_Frames=(int8u)-1;
+    Time_End_Seconds=Error;
+    Time_End_Frames=(int8u)-1;
+    bit_rate_value=0;
+    FrameRate=0;
+    horizontal_size_value=0;
+    vertical_size_value=0;
+    bit_rate_extension=0;
+    aspect_ratio_information=0;
+    frame_rate_code=0;
+    profile_and_level_indication_profile=0;
+    profile_and_level_indication_level=0;
+    chroma_format=0;
+    horizontal_size_extension=0;
+    vertical_size_extension=0;
+    frame_rate_extension_n=0;
+    frame_rate_extension_d=0;
+    video_format=5; //Unspecified video format
+    Time_End_NeedComplete=false;
+    load_intra_quantiser_matrix=false;
+    load_non_intra_quantiser_matrix=false;
+    progressive_sequence=true; //progressive by default
+    top_field_first=false;
+    repeat_first_field=false;
+    FirstFieldFound=false;
+    TemporalReference_Offset=0;
+    group_start_IsParsed=false;
+
+    //Default stream values
+    Streams.resize(0x100);
+    Streams[0xB3].Searching_Payload=true;
+    for (int8u Pos=0xBA; Pos!=0x00; Pos++)
+        Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Mpegv::Read_Buffer_Finalize()
 {
-    if (Streams.empty())
-        return; //Not initialized
-
+    if (Trusted==0
+     || !sequence_header_IsParsed
+     || !IsSub && Frame_Count==0)
+        return;
+        
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Count_Get(Stream_General)==0 && sequence_header_IsParsed)
+    if (!IsDetected && sequence_header_IsParsed)
+    {
+        Time_End_Seconds=Error;
         slice_start_Fill();
+    }
 
     //Duration
     if (Time_End_NeedComplete && MediaInfoLib::Config.ParseSpeed_Get()!=1)
@@ -283,7 +369,7 @@ void File_Mpegv::Read_Buffer_Finalize()
             Time_Begin+=(size_t)(Time_Begin_Frames*1000/FrameRate);
             Time_End  +=(size_t)(Time_End_Frames  *1000/FrameRate);
         }
-        if (Count_Get(Stream_Video) && Time_End>Time_Begin)
+        if (Time_End>Time_Begin)
             Fill(Stream_Video, 0, Video_Duration, Time_End-Time_Begin);
     }
 
@@ -305,48 +391,8 @@ void File_Mpegv::Read_Buffer_Finalize()
 }
 
 //***************************************************************************
-// Buffer
+// Buffer - Per element
 //***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Mpegv::Header_Begin()
-{
-    //Trailing 0xFF
-    if (Synched)
-    {
-        while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]==0xFF)
-            Buffer_Offset++;
-    }
-
-    //Trailing 0x00
-    if (Synched)
-    {
-        while(Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset]==0x00 && CC3(Buffer+Buffer_Offset)!=0x000001)
-            Buffer_Offset++;
-    }
-
-    //Must have enough buffer for having header
-    if (Buffer_Offset+4>Buffer_Size)
-        return false;
-
-    //Quick test of synchro
-    if (Synched && CC3(Buffer+Buffer_Offset)!=0x000001)
-    {
-        Trusted_IsNot("MPEG-V, Synchronisation lost");
-        Synched=false;
-    }
-
-    //Synchro
-    if (!Synched && !Synchronize())
-        return false;
-
-    //Quick search
-    if (!Header_Parser_QuickSearch())
-        return false;
-
-    //All should be OK...
-    return true;
-}
 
 //---------------------------------------------------------------------------
 void File_Mpegv::Header_Parse()
@@ -355,7 +401,7 @@ void File_Mpegv::Header_Parse()
     int8u start_code;
     Skip_B3(                                                    "synchro");
     Get_B1 (start_code,                                         "start_code");
-    if (!Header_Parse_Fill_Size())
+    if (!Header_Parser_Fill_Size())
     {
         Element_WaitForMoreData();
         return;
@@ -366,7 +412,7 @@ void File_Mpegv::Header_Parse()
 }
 
 //---------------------------------------------------------------------------
-bool File_Mpegv::Header_Parse_Fill_Size()
+bool File_Mpegv::Header_Parser_Fill_Size()
 {
     //Look for next Sync word
     if (Buffer_Offset_Temp==0) //Buffer_Offset_Temp is not 0 if Header_Parse_Fill_Size() has already parsed first frames
@@ -397,6 +443,43 @@ bool File_Mpegv::Header_Parse_Fill_Size()
 }
 
 //---------------------------------------------------------------------------
+bool File_Mpegv::Header_Parser_QuickSearch()
+{
+    while (           Buffer_Offset+4<=Buffer_Size
+      &&   CC3(Buffer+Buffer_Offset)==0x000001)
+    {
+        //Getting start_code
+        int8u start_code=Buffer[Buffer_Offset+3];
+
+        //Searching start or timestamp
+        if (Streams[start_code].Searching_Payload
+         || Streams[start_code].Searching_TimeStamp_Start
+         || Streams[start_code].Searching_TimeStamp_End)
+            return true;
+
+        //Getting size
+        Buffer_Offset+=4;
+        while (Buffer_Offset+4<=Buffer_Size)
+        {
+            while (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+                Buffer_Offset++;
+            if (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset+1]==0x00)
+                if (Buffer[Buffer_Offset+2]==0x01)
+                    break;
+            Buffer_Offset++;
+        }
+    }
+
+    if(File_Offset+Buffer_Size==File_Size && !IsDetected && Frame_Count>=1)
+        slice_start_Fill(); //End of file, and we have some frames
+    else if (Buffer_Offset+4<=Buffer_Size)
+        Trusted_IsNot("MPEG Video, Synchronisation lost");
+
+    Synched=false;
+    return Synchronize();
+}
+
+//---------------------------------------------------------------------------
 void File_Mpegv::Data_Parse()
 {
     //Parsing
@@ -412,13 +495,33 @@ void File_Mpegv::Data_Parse()
         default:
             if (Element_Code>=0x01
              && Element_Code<=0xAF) slice_start();
-            else if (Element_Code==0xE0 && Element_Size>=2 && CC2(Buffer+Buffer_Offset)==0x0000)
-            {
-                Trusted=0; //This is surely an extract from MPEG-TS
-                Trusted_IsNot("Unattended element");
-            }
             else
                 Trusted_IsNot("Unattended element");
+    }
+}
+
+//***************************************************************************
+// EOF
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mpegv::Detect_EOF()
+{
+    if (IsDetected
+     && (File_Size>SizeToAnalyse_Begin+SizeToAnalyse_End && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End && MediaInfoLib::Config.ParseSpeed_Get()<=0.01
+      || IsSub))
+    {
+        //
+        Time_End_Seconds=Error;
+        Time_End_Frames=(int8u)-1;
+
+        //Autorisation of other streams
+        if (!IsSub)
+            Streams[0x00].Searching_TimeStamp_End=false;
+
+        //Jumping
+        Detected(IsSub?0:SizeToAnalyse_End, "MPEG Video");
+        EOF_AlreadyDetected=true; //Sometimes called from Filling
     }
 }
 
@@ -430,19 +533,66 @@ void File_Mpegv::Data_Parse()
 // Packet "00"
 void File_Mpegv::picture_start()
 {
-    //DETAILLEVEL_SET(0);
+    if (!NextCode_Test())
+        return;
+
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        if (Time_End_Seconds!=Error)
+        {
+            size_t Time_End  =Time_End_Seconds  *1000;
+            if (FrameRate)
+                Time_End  +=(size_t)(Time_End_Frames  *1000/FrameRate);
+            size_t Hours  = Time_End/60/60/1000;
+            size_t Minutes=(Time_End-(Hours*60*60*1000))/60/1000;
+            size_t Seconds=(Time_End-(Hours*60*60*1000)-(Minutes*60*1000))/1000;
+            size_t Milli  =(Time_End-(Hours*60*60*1000)-(Minutes*60*1000)-(Seconds*1000));
+
+            Ztring Time;
+            Time+=Ztring::ToZtring(Hours);
+            Time+=_T(':');
+            Time+=Ztring::ToZtring(Minutes);
+            Time+=_T(':');
+            Time+=Ztring::ToZtring(Seconds);
+            if (FrameRate!=0)
+            {
+                Time+=_T('.');
+                Time+=Ztring::ToZtring(Milli);
+            }
+            Element_Info(Time);
+        }
+    #endif //MEDIAINFO_MINIMIZESIZE
+
+    //Time
+    if (Time_End_Seconds!=Error)
+    {
+        Time_End_Frames++; //One frame
+        if (progressive_sequence && repeat_first_field)
+        {
+            Time_End_Frames++; //Frame repeated a second time
+            if (top_field_first)
+                Time_End_Frames++; //Frame repeated a third time
+        }
+    }
 
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
         Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
     Frame_Count++;
-    if (Frame_Count==4)
-        File_MaximumOffset*=Frame_Count_Valid; //We are nearly sure this is a Mpegv stream, augmenting parsing limit
     Frame_Count_InThisBlock++;
-    
+
     //Name
     Element_Name("picture_start");
     Element_Info(Ztring(_T("Field ")+Ztring::ToZtring(Frame_Count)));
+
+    //Need to parse?
+    if (!Streams[0x00].Searching_Payload)
+    {
+        Skip_XX(Element_Size,                                   "Data");
+        return;
+    }
+
+    if (Frame_Count==4)
+        Buffer_TotalBytes_FirstSynched_Max*=Frame_Count_Valid; //We are nearly sure this is a Mpegv stream, augmenting parsing limit
 
     //Parsing
     int8u picture_coding_type;
@@ -472,47 +622,8 @@ void File_Mpegv::picture_start()
         }
     }
     while (extra_bit_picture);
-
-    //Details
-    if (MediaInfoLib::Config.Details_Get())
-    {
-        if (Time_End_Seconds!=Error)
-        {
-            size_t Time_End  =Time_End_Seconds  *1000;
-            if (FrameRate)
-                Time_End  +=(size_t)(Time_End_Frames  *1000/FrameRate);
-            size_t Hours  = Time_End/60/60/1000;
-            size_t Minutes=(Time_End-(Hours*60*60*1000))/60/1000;
-            size_t Seconds=(Time_End-(Hours*60*60*1000)-(Minutes*60*1000))/1000;
-            size_t Milli  =(Time_End-(Hours*60*60*1000)-(Minutes*60*1000)-(Seconds*1000));
-
-            Ztring Time;
-            Time+=Ztring::ToZtring(Hours);
-            Time+=_T(':');
-            Time+=Ztring::ToZtring(Minutes);
-            Time+=_T(':');
-            Time+=Ztring::ToZtring(Seconds);
-            if (FrameRate!=0)
-            {
-                Time+=_T('.');
-                Time+=Ztring::ToZtring(Milli);
-            }
-            Element_Info(Time);
-        }
-    }
-
-    //Time
-    if (Time_End_Seconds!=Error)
-    {
-        Time_End_Frames++; //One frame
-        if (progressive_sequence && repeat_first_field)
-        {
-            Time_End_Frames++; //Frame repeated a second time
-            if (top_field_first)
-                Time_End_Frames++; //Frame repeated a third time
-        }
-    }
-
+    BS_End();
+    
     FILLING_BEGIN();
         //NextCode
         NextCode_Clear();
@@ -520,11 +631,11 @@ void File_Mpegv::picture_start()
             NextCode_Add(Element_Name_Next);
         NextCode_Add(0xB2);
         NextCode_Add(0xB5);
+        NextCode_Add(0xB8);
 
         //Autorisation of other streams
-        if (Streams[0x00].Searching_Payload)
-            for (int8u Pos=0x01; Pos<=0xAF; Pos++)
-                Streams[Pos].Searching_Payload=true;
+        for (int8u Pos=0x01; Pos<=0x1F; Pos++)
+            Streams[Pos].Searching_Payload=true;
     FILLING_END();
 }
 
@@ -532,7 +643,8 @@ void File_Mpegv::picture_start()
 // Packet "01" --> "AF"
 void File_Mpegv::slice_start()
 {
-    //DETAILLEVEL_SET(1);
+    if (!NextCode_Test())
+        return;
     Element_Name("slice_start");
 
     //Parsing
@@ -540,21 +652,18 @@ void File_Mpegv::slice_start()
 
     FILLING_BEGIN();
         //NextCode
-        NextCode_Test();
         NextCode_Clear();
         NextCode_Add(0x00);
-        for (int8u Element_Name_Next=(int8u)Element_Code; Element_Name_Next<=0x1F; Element_Name_Next++)
-            NextCode_Add(Element_Name_Next);
         NextCode_Add(0xB3);
         NextCode_Add(0xB8);
 
-        //Filling only if not already done
-        if (Frame_Count>=Frame_Count_Valid && Count_Get(Stream_Video)==0)
-            slice_start_Fill();
-
         //Autorisation of other streams
-        for (int8u Pos=0x01; Pos<=0xAF; Pos++)
+        for (int8u Pos=0x01; Pos<=0x1F; Pos++)
             Streams[Pos].Searching_Payload=false;
+
+        //Filling only if not already done
+        if (!IsDetected && Frame_Count>=Frame_Count_Valid)
+            slice_start_Fill();
     FILLING_END();
 }
 
@@ -715,22 +824,18 @@ void File_Mpegv::slice_start_Fill()
     }
 
     //Autorisation of other streams
-    for (int8u Pos=0x00; Pos<0xB9; Pos++)
-    {
+    NextCode_Clear();
+    NextCode_Add(0x00);
+    NextCode_Add(0xB8);
+    for (int8u Pos=0x00; Pos<=0xB9; Pos++)
         Streams[Pos].Searching_Payload=false;
-        Streams[Pos].Searching_TimeStamp_End=false;
-    }
-    Streams[0x00].Searching_Payload=false; //picture_start
-    Streams[0x00].Searching_TimeStamp_End=true; //picture_start
-    Streams[0xB5].Searching_Payload=false; //extension_start
-    Streams[0xB5].Searching_TimeStamp_End=true; //extension_start
-    Streams[0xB8].Searching_Payload=true; //group_start
-    Streams[0xB8].Searching_TimeStamp_End=true; //group_start
-    Streams[0xB9].Searching_Payload=true; //sequence_end
+    Streams[0xB8].Searching_TimeStamp_End=true;
+    if (IsSub)
+        Streams[0x00].Searching_TimeStamp_End=true;
 
-    //Jumping
+    //Detected
+    IsDetected=true;
     Detect_EOF();
-    EOF_AlreadyDetected=true;
 }
 
 //---------------------------------------------------------------------------
@@ -822,7 +927,6 @@ void File_Mpegv::user_data_start()
 // Packet "B3"
 void File_Mpegv::sequence_header()
 {
-    //DETAILLEVEL_SET(0);
     Element_Name("sequence_header");
 
     //Reading
@@ -865,21 +969,22 @@ void File_Mpegv::sequence_header()
 
         //NextCode
         NextCode_Clear();
+        NextCode_Add(0x00);
         NextCode_Add(0xB2);
         NextCode_Add(0xB5);
         NextCode_Add(0xB8);
 
         //Autorisation of other streams
         Streams[0x00].Searching_Payload=true;
-        for (int8u Pos=0xB0; Pos<0xB9; Pos++)
-            Streams[Pos].Searching_Payload=true;
+        Streams[0xB2].Searching_Payload=true;
+        Streams[0xB5].Searching_Payload=true;
         Streams[0xB8].Searching_TimeStamp_Start=true;
         Streams[0xB8].Searching_TimeStamp_End=true;
 
         //Temp
         FrameRate=Mpegv_frame_rate[frame_rate_code];
         SizeToAnalyse_Begin=bit_rate_value*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure to have at least 2 timestamps (for integrity checking)
-        SizeToAnalyse_End=bit_rate_value*50; //standard delay between TimeStamps is 0.7s, we try 1s to be sure
+        SizeToAnalyse_End=bit_rate_value*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure
 
         //Setting as OK
         sequence_header_IsParsed=true;
@@ -890,7 +995,6 @@ void File_Mpegv::sequence_header()
 // Packet "B4"
 void File_Mpegv::sequence_error()
 {
-    //DETAILLEVEL_SET(0);
     Element_Name("sequence_error");
 }
 
@@ -898,7 +1002,6 @@ void File_Mpegv::sequence_error()
 // Packet "B5"
 void File_Mpegv::extension_start()
 {
-    //DETAILLEVEL_SET(0);
     Element_Name("extension_start");
     MPEG_Version=2; //extension_start only exists in MPEG-2 specs
 
@@ -1032,10 +1135,9 @@ void File_Mpegv::extension_start()
 // Packet "B7"
 void File_Mpegv::sequence_end()
 {
-    //DETAILLEVEL_SET(0);
     Element_Name("sequence_end");
 
-    if (Frame_Count>0)
+    if (!IsDetected && sequence_header_IsParsed)
         slice_start_Fill();
 }
 
@@ -1043,7 +1145,8 @@ void File_Mpegv::sequence_end()
 // Packet "B8"
 void File_Mpegv::group_start()
 {
-    //DETAILLEVEL_SET(0);
+    if (!NextCode_Test())
+        return;
     Element_Name("group_start");
 
     //Reading
@@ -1078,6 +1181,7 @@ void File_Mpegv::group_start()
         NextCode_Add(0x00);
         NextCode_Add(0xB2);
         NextCode_Add(0xB5);
+        NextCode_Add(0xB8);
 
         //Calculating
         if (Time_Begin_Seconds!=Error || Time_Begin_Seconds_IsFrozen)
@@ -1128,205 +1232,14 @@ void File_Mpegv::group_start()
 
         //Autorisation of other streams
         if (Searching_TimeStamp_Start_DoneOneTime)
+        {
             Streams[0xB8].Searching_TimeStamp_Start=false; //group_start
+            SizeToAnalyse_Begin=0;
+        }
         else
             Searching_TimeStamp_Start_DoneOneTime=true;
         Streams[0x00].Searching_TimeStamp_End=true; //picture_start
-        Streams[0xB5].Searching_TimeStamp_End=true; //extension_start
     FILLING_END();
-}
-
-//***************************************************************************
-// Helpers
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Mpegv::Synchronize()
-{
-    //Synchronizing
-    while (Buffer_Offset+4<=Buffer_Size)
-    {
-        while (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset]!=0x00)
-            Buffer_Offset++;
-        if (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset+1]==0x00)
-            if (Buffer[Buffer_Offset+2]==0x01)
-                break;
-        Buffer_Offset++;
-    }
-    if (Buffer_Offset+4>Buffer_Size)
-    {
-        //Parsing last bytes
-        if (Buffer_Offset+3==Buffer_Size)
-        {
-            if (CC3(Buffer+Buffer_Offset)!=0x000001)
-            {
-                Buffer_Offset++;
-                if (CC2(Buffer+Buffer_Offset)!=0x0000)
-                {
-                    Buffer_Offset++;
-                    if (Buffer[Buffer_Offset]!=0x00)
-                        Buffer_Offset++;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    //Synched is OK
-    Synched=true;
-    if (Streams.empty())
-    {
-        //Count of a Packets
-        Frame_Count=0;
-        progressive_frame_Count=0;
-        Interlaced_Top=0;
-        Interlaced_Bottom=0;
-
-        //From picture_start
-        display_horizontal_size=0;
-        display_vertical_size=0;
-        vbv_delay=0;
-        Time_Begin_Seconds=Error;
-        Time_Begin_Frames=(int8u)-1;
-        Time_End_Seconds=Error;
-        Time_End_Frames=(int8u)-1;
-        bit_rate_value=0;
-        horizontal_size_value=0;
-        vertical_size_value=0;
-        bit_rate_extension=0;
-        aspect_ratio_information=0;
-        frame_rate_code=0;
-        profile_and_level_indication_profile=0;
-        profile_and_level_indication_level=0;
-        chroma_format=0;
-        horizontal_size_extension=0;
-        vertical_size_extension=0;
-        frame_rate_extension_n=0;
-        frame_rate_extension_d=0;
-        video_format=5; //Unspecified video format
-        Time_End_NeedComplete=false;
-        load_intra_quantiser_matrix=false;
-        load_non_intra_quantiser_matrix=false;
-        progressive_sequence=true; //progressive by default
-        top_field_first=false;
-        repeat_first_field=false;
-        FirstFieldFound=false;
-        TemporalReference_Offset=0;
-        group_start_IsParsed=false;
-
-        //Default stream values
-        Streams.resize(0x100);
-        Streams[0xB3].Searching_Payload=true;
-        for (int8u Pos=0xB9; Pos!=0x00; Pos++)
-            Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
-
-        //Temp
-        FrameRate=0;
-    }
-    return true;
-}
-
-//---------------------------------------------------------------------------
-bool File_Mpegv::Header_Parser_QuickSearch()
-{
-    while (           Buffer_Offset+4<=Buffer_Size
-      &&   CC3(Buffer+Buffer_Offset)==0x000001)
-    {
-        //Getting start_code
-        int8u start_code=Buffer[Buffer_Offset+3];
-
-        //Searching start
-        if (Streams[start_code].Searching_Payload)
-            return true;
-
-        //Searching TimeStamp_End
-        if (Streams[start_code].Searching_TimeStamp_End)
-            return true;
-
-        //Getting size
-        Buffer_Offset+=4;
-        while (Buffer_Offset+4<=Buffer_Size)
-        {
-            while (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset]!=0x00)
-                Buffer_Offset++;
-            if (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset+1]==0x00)
-                if (Buffer[Buffer_Offset+2]==0x01)
-                    break;
-            Buffer_Offset++;
-        }
-    }
-
-    if (Buffer_Offset+4<=Buffer_Size)
-    {
-        if(File_Offset+Buffer_Size==File_Size && Count_Get(Stream_General)==0 && Frame_Count>=2)
-            slice_start_Fill(); //End of file, and we have some frames
-        else
-            Trusted_IsNot("Mpegv, Synchronisation lost");
-    }
-    Synched=false;
-    return Synchronize();
-}
-
-//---------------------------------------------------------------------------
-bool File_Mpegv::Detect_NonMPEGV ()
-{
-    //File_Size
-    if (File_Size<188*4)
-        return false; //We can't do detection
-
-    //Element_Size
-    if (Buffer_Size<188*4)
-        return true; //Must wait for more data
-
-    //Detect mainly DAT files, and the parser is not enough precise to detect them later
-    if (CC4(Buffer)==CC4("RIFF"))
-    {
-        Finished();
-        return true;
-    }
-
-    //Detect DPG files, and the parser is not enough precise to detect them later
-    if (CC4(Buffer)==0x44504730) //"DPG0"
-    {
-        Finished();
-        return true;
-    }
-
-    //Detect TS files, and the parser is not enough precise to detect them later
-    while (Buffer_Offset<188 && Buffer[Buffer_Offset]!=0x47) //Look for first Sync word
-        Buffer_Offset++;
-    if (Buffer_Offset<188 && Buffer[Buffer_Offset+188]==0x47 && Buffer[Buffer_Offset+188*2]==0x47 && Buffer[Buffer_Offset+188*3]==0x47)
-    {
-        Finished();
-        return true;
-    }
-    Buffer_Offset=0;
-
-    //Seems OK
-    return false;
-}
-
-//---------------------------------------------------------------------------
-void File_Mpegv::Detect_EOF()
-{
-    if (Count_Get(Stream_Video)
-     && (File_Size>SizeToAnalyse_Begin+SizeToAnalyse_End && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End && MediaInfoLib::Config.ParseSpeed_Get()<=0.01
-      || File_Name.empty()))
-    {
-        //
-        NextCode_Clear();
-        Time_End_Seconds=Error;
-        Time_End_Frames=(int8u)-1;
-
-        //Waiting for a group_start
-        if (!IsSub)
-            Streams[0x00].Searching_TimeStamp_End=false; //picture_start
-        Streams[0xB5].Searching_TimeStamp_End=false; //extension_start
-
-        //Jumping
-        Data_GoTo(File_Size-(IsSub?0:SizeToAnalyse_End), "MPEG-V");
-    }
 }
 
 } //NameSpace

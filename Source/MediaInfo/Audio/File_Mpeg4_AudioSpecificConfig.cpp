@@ -39,11 +39,16 @@
 namespace MediaInfoLib
 {
 
+//***************************************************************************
+// Infos
+//***************************************************************************
+
 //---------------------------------------------------------------------------
 const int32u MP4_SamplingRate[]=
 {96000, 88200, 64000, 48000, 44100, 32000, 24000, 22050,
  16000, 12000, 11025,  8000,  7350,     0,     0,     0,};
 
+//---------------------------------------------------------------------------
 const char* MP4_ID[]=
 {
     "MPEG-4",
@@ -144,6 +149,7 @@ const char* MP4_Profile(int8u ID)
     }
 }
 
+//---------------------------------------------------------------------------
 const int8u MP4_Channels[]=
 {
     0,
@@ -156,6 +162,7 @@ const int8u MP4_Channels[]=
     8,
 };
 
+//---------------------------------------------------------------------------
 const char* MP4_ChannelConfiguration[]=
 {
     "",
@@ -176,6 +183,7 @@ const char* MP4_ChannelConfiguration[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 const char* MP4_ChannelConfiguration2[]=
 {
     "",
@@ -195,33 +203,18 @@ const char* MP4_ChannelConfiguration2[]=
     "",
     "",
 };
-//---------------------------------------------------------------------------
 
 //***************************************************************************
-// Format
+// Buffer - Global
 //***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Mpeg4_AudioSpecificConfig::Header_Parse()
-{
-    //Filling
-    Header_Fill_Size(Buffer_Size);
-    Header_Fill_Code(0, "audioSpecificConfig");
-}
-
-//---------------------------------------------------------------------------
-void File_Mpeg4_AudioSpecificConfig::Data_Parse()
-{
-    audioSpecificConfig();
-}
 
 //---------------------------------------------------------------------------
 // AAC in ES, 2+ bytes
-void File_Mpeg4_AudioSpecificConfig::audioSpecificConfig ()
+void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
 {
-    Element_Begin("audioSpecificConfig");
-
     //Parsing
+    Element_Offset=0;
+    Element_Size=Buffer_Size;
     int8u samplingFrequencyIndex;
     BS_Begin();
     Get_S1 (5, audioObjectType,                                 "audioObjectType"); Param_Info(MP4_Profile(audioObjectType));
@@ -229,7 +222,7 @@ void File_Mpeg4_AudioSpecificConfig::audioSpecificConfig ()
     {
         int8u audioObjectTypeExt;
         Get_S1 (6, audioObjectTypeExt,                          "audioObjectTypeExt");
-        audioObjectType=32+audioObjectTypeExt; Param_Info(MP4_Profile(audioObjectType));
+        audioObjectType=32+audioObjectTypeExt; Param_Info(audioObjectType); Param_Info(MP4_Profile(audioObjectType));
     }
     if (audioObjectType==36)
     {
@@ -353,7 +346,6 @@ void File_Mpeg4_AudioSpecificConfig::audioSpecificConfig ()
             }
         default : ;
     }
-    Element_End();
 
     FILLING_BEGIN();
         //Filling
@@ -382,7 +374,7 @@ void File_Mpeg4_AudioSpecificConfig::audioSpecificConfig ()
     FILLING_END();
 
     BS_End();
-    Finished();
+    Detected();
 }
 
 //---------------------------------------------------------------------------
@@ -672,10 +664,11 @@ void File_Mpeg4_AudioSpecificConfig::ALS ()
         #if defined(MEDIAINFO_RIFF_YES)
             //Creating the parser
             File_Riff MI;
+            Open_Buffer_Init(&MI);
 
             //Parsing
             size_t Riff_Pos=Riff.find("RIFF");
-            Open_Buffer_Init(&MI, File_Offset+Buffer_Offset+(size_t)Element_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset+Riff_Pos);
+            Skip_XX(Riff_Pos,                                   "Unknown");
             Open_Buffer_Continue(&MI, (const int8u*)Riff.c_str()+Riff_Pos, Riff.size()-Riff_Pos);
             Open_Buffer_Finalize(&MI);
 
@@ -701,7 +694,7 @@ void File_Mpeg4_AudioSpecificConfig::ALS ()
         Skip_XX(Element_Size-Element_Offset,                    "Unknown");
 
     //NO need more
-    Finished();
+    Detected();
 }
 
 } //NameSpace

@@ -45,22 +45,31 @@ public :
     size_t Frame_Count_Valid;
     bool   FrameIsAlwaysComplete;
 
-protected :
-    //Format
-    void Read_Buffer_Continue ();
-    void Read_Buffer_Finalize ();
-
-public :
+    //Constructor/Destructor
     File_Mpegv();
 
 private :
-    //Buffer
-    bool Header_Begin();
+    //Buffer - File header
+    bool FileHeader_Begin() {return FileHeader_Begin_0x000001();}
+
+    //Buffer - Synchro
+    bool Synchronize() {return Synchronize_0x000001();}
+    bool Synched_Test();
+    void Synched_Init();
+    
+    //Buffer - Global
+    void Read_Buffer_Finalize ();
+
+    //Buffer - Per element
     void Header_Parse();
-    bool Header_Parse_Fill_Size();
+    bool Header_Parser_QuickSearch();
+    bool Header_Parser_Fill_Size();
     void Data_Parse();
 
-    //Packets
+    //EOF
+    void Detect_EOF();
+
+    //Elements
     void picture_start();
     void slice_start();
     void slice_start_Fill();
@@ -71,16 +80,47 @@ private :
     void sequence_end();
     void group_start();
 
-    //Count
+    //Streams
+    struct stream
+    {
+        bool   Searching_Payload;
+        bool   Searching_TimeStamp_Start;
+        bool   Searching_TimeStamp_End;
+
+        stream()
+        {
+            Searching_Payload=false;
+            Searching_TimeStamp_Start=false;
+            Searching_TimeStamp_End=false;
+        }
+    };
+    std::vector<stream> Streams;
+
+    //Temporal reference
+    struct temporalreference
+    {
+        bool   top_field_first;
+        bool   repeat_first_field;
+    };
+    std::map<int16u, temporalreference> TemporalReference; //int32u is the reference
+    int16u                              TemporalReference_Offset;
+
+    //Temp
+    Ztring Library;
+    Ztring Library_Name;
+    Ztring Library_Version;
+    Ztring Matrix_intra;
+    Ztring Matrix_nonintra;
     size_t Frame_Count;
     size_t progressive_frame_Count;
     size_t Interlaced_Top;
     size_t Interlaced_Bottom;
-
-    //From picture_start
     size_t Time_Begin_Seconds;
     size_t Time_End_Seconds;
+    int64u SizeToAnalyse_Begin; //Total size of a chunk to analyse, it may be changed by the parser
+    int64u SizeToAnalyse_End; //Total size of a chunk to analyse, it may be changed by the parser
     int32u bit_rate_value;
+    float32 FrameRate;
     int16u horizontal_size_value;
     int16u vertical_size_value;
     int16u bit_rate_extension;
@@ -113,51 +153,9 @@ private :
     bool   group_start_drop_frame_flag;
     bool   group_start_closed_gop;
     bool   group_start_broken_link;
-
-    //From user_data
-    Ztring Library;
-    Ztring Library_Name;
-    Ztring Library_Version;
-    Ztring Matrix_intra;
-    Ztring Matrix_nonintra;
-
-    //Stream
-    struct stream
-    {
-        bool   Searching_Payload;
-        bool   Searching_TimeStamp_Start;
-        bool   Searching_TimeStamp_End;
-
-        stream()
-        {
-            Searching_Payload=false;
-            Searching_TimeStamp_Start=false;
-            Searching_TimeStamp_End=false;
-        }
-    };
-    std::vector<stream> Streams;
-
-    //Temporal reference
-    struct temporalreference
-    {
-        bool   top_field_first;
-        bool   repeat_first_field;
-    };
-    std::map<int16u, temporalreference> TemporalReference; //int32u is the reference
-    int16u TemporalReference_Offset;
-
-    //Temp
-    float32 FrameRate;
-    int64u SizeToAnalyse_Begin; //Total size of a chunk to analyse, it may be changed by the parser
-    int64u SizeToAnalyse_End; //Total size of a chunk to analyse, it may be changed by the parser
     bool   Time_Begin_Seconds_IsFrozen;
     bool   Searching_TimeStamp_Start_DoneOneTime;
-
-    //Helpers
-    bool Synchronize();
-    bool Header_Parser_QuickSearch();
-    void Detect_EOF();
-    bool Detect_NonMPEGV();
+    bool   Parsing_End_ForDTS;
 };
 
 } //NameSpace

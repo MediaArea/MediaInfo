@@ -44,9 +44,8 @@ public :
     ZenLib::Ztring Codec;
 
 protected :
-    //Format
+    //Buffer - Global
     void Read_Buffer_Continue ();
-    void Read_Buffer_Finalize ();
 };
 
 } //NameSpace

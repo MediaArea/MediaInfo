@@ -39,6 +39,10 @@ using namespace ZenLib;
 namespace MediaInfoLib
 {
 
+//***************************************************************************
+// Infos
+//***************************************************************************
+
 //---------------------------------------------------------------------------
 const char*  DTS_FrameType[]=
 {
@@ -46,12 +50,14 @@ const char*  DTS_FrameType[]=
     "Normal",
 };
 
+//---------------------------------------------------------------------------
 const int32u DTS_SamplingRate[]=
 {
         0,  8000,  16000,  32000,      0,      0,  11025,  22050,
     44100,     0,      0,  12000,  24000,  48000,  96000, 192000,
 };
 
+//---------------------------------------------------------------------------
 const int32u DTS_BitRate[]=
 {
       32000,   56000,   64000,   96000,  112000,  128000,  192000,  224000,
@@ -60,15 +66,18 @@ const int32u DTS_BitRate[]=
     1536000, 1920000, 2048000, 3072000, 3840000,       0,       0,       0,
 };
 
+//---------------------------------------------------------------------------
 const int8u DTS_Channels[]=
 {
     1, 2, 2, 2, 2, 3, 3, 4,
     4, 5, 6, 6, 6, 7, 8, 8,
 };
 
+//---------------------------------------------------------------------------
 const int8u DTS_Resolution[]=
 {16, 20, 24, 24};
 
+//---------------------------------------------------------------------------
 const char*  DTS_ChannelPositions[]=
 {
     "Mono",
@@ -89,6 +98,7 @@ const char*  DTS_ChannelPositions[]=
     "Front: L C R, Middle: L R, Surround: L C R",
 };
 
+//---------------------------------------------------------------------------
 const char*  DTS_ChannelPositions2[]=
 {
     "1/0",
@@ -109,6 +119,7 @@ const char*  DTS_ChannelPositions2[]=
     "3.2/3",
 };
 
+//---------------------------------------------------------------------------
 const char* DTS_ExtensionAudioDescriptor[]=
 {
     "Channel Extension",
@@ -121,6 +132,7 @@ const char* DTS_ExtensionAudioDescriptor[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 const char* DTS_HD_RefClockCode[]=
 {
     "1/32000",
@@ -129,6 +141,7 @@ const char* DTS_HD_RefClockCode[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 std::string DTS_HD_SpeakerActivityMask (int16u SpeakerActivityMask)
 {
     std::string Text;
@@ -199,6 +212,7 @@ std::string DTS_HD_SpeakerActivityMask (int16u SpeakerActivityMask)
     return Text;
 }
 
+//---------------------------------------------------------------------------
 std::string DTS_HD_SpeakerActivityMask2 (int16u SpeakerActivityMask)
 {
     std::string Text;
@@ -269,6 +283,7 @@ std::string DTS_HD_SpeakerActivityMask2 (int16u SpeakerActivityMask)
     return Text;
 }
 
+//---------------------------------------------------------------------------
 const char* DTS_HD_TypeDescriptor[]=
 {
     "Music",
@@ -289,6 +304,7 @@ const char* DTS_HD_TypeDescriptor[]=
     "",
 };
 
+//---------------------------------------------------------------------------
 int32u DTS_HD_MaximumSampleRate[]=
 {
       8000,
@@ -308,10 +324,9 @@ int32u DTS_HD_MaximumSampleRate[]=
     192000,
     384000,
 };
-//---------------------------------------------------------------------------
 
 //***************************************************************************
-// Format
+// Constructor/Destructor
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -319,43 +334,171 @@ File_Dts::File_Dts()
 :File__Analyze()
 {
     //Configuration
-    File_MaximumOffset=32*1024;
+    MustSynchronize=true;
+    Buffer_TotalBytes_FirstSynched_Max=32*1024;
 
     //In
-    Frame_Count_Valid=8;
+    Frame_Count_Valid=64;
 
-    //Out
-    Delay=0;
-
-    //Count
-    Frame_Count=0;
-
-    //14 bits or Little Endian
+    //Temp
     Parser=NULL;
+    Frame_Count=0;
+    HD_size=0;
+    Primary_Frame_Byte_Size_minus_1=0;
+    HD_SpeakerActivityMask=(int16u)-1;
+    channel_arrangement=(int8u)-1;
+    channel_arrangement_XCh=(int8u)-1;
+    sample_frequency=(int8u)-1;
+    bit_rate=(int8u)-1;
+    lfe_effects=(int8u)-1;
+    bits_per_sample=(int8u)-1;
+    ExtensionAudioDescriptor=(int8u)-1;
+    HD_BitResolution=(int8u)-1;
+    HD_MaximumSampleRate=(int8u)-1;
+    HD_TotalNumberChannels=(int8u)-1;
+    HD_ExSSFrameDurationCode=(int8u)-1;
+    ExtendedCoding=false;
+    ES=false;
+    Core_Exists=false;
 }
 
 //---------------------------------------------------------------------------
 File_Dts::~File_Dts()
 {
-    //14 bits or Little Endian
+    //Pointers
     delete Parser;
 }
 
-//---------------------------------------------------------------------------
-void File_Dts::Read_Buffer_Finalize()
-{
-    if (Parser) //LE or 14-bit
-    {
-        Fill(Stream_General, 0, General_Format, "DTS");
+//***************************************************************************
+// Buffer - File header
+//***************************************************************************
 
-        Merge(*Parser);
-        if (!BigEndian)
-            Fill(Stream_Audio, 0, Audio_Format_Profile, "LE");
-        if (!Word)
-            Fill(Stream_Audio, 0, Audio_Format_Profile, "14");
+//---------------------------------------------------------------------------
+bool File_Dts::FileHeader_Begin()
+{
+    //Must have enough buffer for having header
+    if (Buffer_Size<4)
+        return false; //Must wait for more data
+
+    //False positives detection: Detect WAV files, the parser can't detect it easily, there is only 70 bytes of begining for saying WAV
+    if (CC4(Buffer)==0x52494646) //"RIFF"
+    {
+        IsFinished=true;
+        return false;
     }
+
+    //All should be OK...
+    return true;
 }
 
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Dts::Synchronize()
+{
+    //Synchronizing
+    while (Buffer_Offset+6<=Buffer_Size)
+    {
+        int64u Value=CC6(Buffer+Buffer_Offset);
+        if ((Value&0xFFFFFFFFFC00LL)==0x7FFE8001FC00LL  //16 bits and big    endian Core
+         || (Value&0xFFFFFFFF00FCLL)==0xFE7F018000FCLL  //16 bits and little endian Core
+         || (Value&0xFFFFFFFFF7F0LL)==0x1FFFE80007F0LL  //14 bits and big    endian Core
+         || (Value&0xFFFFFFFFF0F7LL)==0xFF1F00E8F007LL  //14 bits and little endian Core
+         || (Value&0xFFFFFFFF0000LL)==0x645820250000LL) //16 bits and big    endian HD
+            break;
+        Buffer_Offset++;
+    }
+    if (Buffer_Offset+6>Buffer_Size)
+    {
+        //Parsing last bytes
+        int64u Value=CC5(Buffer+Buffer_Offset);
+        if ((Value&0xFFFFFFFFFCLL)!=0x7FFE8001FCLL  //16 bits and big    endian Core
+         && (Value&0xFFFFFFFF00LL)!=0xFE7F018000LL  //16 bits and little endian Core
+         && (Value&0xFFFFFFFFF7LL)!=0x1FFFE80007LL  //14 bits and big    endian Core
+         && (Value&0xFFFFFFFFF0LL)!=0xFF1F00E8F0LL  //14 bits and little endian Core
+         && (Value&0xFFFFFFFF00LL)!=0x6458202500LL) //16 bits and big    endian HD
+        {
+            Buffer_Offset++;
+            int32u Value=CC4(Buffer+Buffer_Offset);
+            if (Value!=0x7FFE8001  //16 bits and big    endian Core
+             && Value!=0xFE7F0180  //16 bits and little endian Core
+             && Value!=0x1FFFE800  //14 bits and big    endian Core
+             && Value!=0xFF1F00E8  //14 bits and little endian Core
+             && Value!=0x64582025) //16 bits and big    endian HD
+            {
+                Buffer_Offset++;
+                Value=CC3(Buffer+Buffer_Offset);
+                if (Value!=0x7FFE80  //16 bits and big    endian Core
+                 && Value!=0xFE7F01  //16 bits and little endian Core
+                 && Value!=0x1FFFE8  //14 bits and big    endian Core
+                 && Value!=0xFF1F00  //14 bits and little endian Core
+                 && Value!=0x645820) //16 bits and big    endian HD
+                {
+                    Buffer_Offset++;
+                    Value=CC2(Buffer+Buffer_Offset);
+                    if (Value!=0x7FFE  //16 bits and big    endian Core
+                     && Value!=0xFE7F  //16 bits and little endian Core
+                     && Value!=0x1FFF  //14 bits and big    endian Core
+                     && Value!=0xFF1F  //14 bits and little endian Core
+                     && Value!=0x6458) //16 bits and big    endian HD
+                    {
+                        Buffer_Offset++;
+                        Value=CC1(Buffer+Buffer_Offset);
+                        if (Value!=0x7F  //16 bits and big    endian Core
+                         && Value!=0xFE  //16 bits and little endian Core
+                         && Value!=0x1F  //14 bits and big    endian Core
+                         && Value!=0xFF  //14 bits and little endian Core
+                         && Value!=0x64) //16 bits and big    endian HD
+                            Buffer_Offset++;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    //Configuration - 14 bits or Little Endian
+    switch (CC1(Buffer+Buffer_Offset))
+    {
+        default   : Word=true;  BigEndian=true;  break; //16 bits and big    endian bitstream
+        case 0xFE : Word=true;  BigEndian=false; break; //16 bits and little endian bitstream
+        case 0x1F : Word=false; BigEndian=true;  break; //14 bits and big    endian bitstream
+        case 0xFF : Word=false; BigEndian=false; break; //14 bits and little endian bitstream
+    }
+
+    //Synched
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_Dts::Synched_Test()
+{
+    //Must have enough buffer for having header
+    if (Buffer_Offset+4>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    switch (CC4(Buffer+Buffer_Offset))
+    {
+        case 0x7FFE8001 :  //16 bits and big    endian Core
+        case 0xFE7F0180 :  //16 bits and little endian Core
+        case 0x1FFFE800 :  //14 bits and big    endian Core
+        case 0xFF1F00E8 :  //14 bits and little endian Core
+        case 0x64582025 :  //16 bits and big    endian HD
+                            break;
+        default         :   Synched=false;
+    }
+
+    //We continue
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Dts::Read_Buffer_Continue()
@@ -401,70 +544,46 @@ void File_Dts::Read_Buffer_Continue()
         {
             Parser=new File_Dts;
             ((File_Dts*)Parser)->Frame_Count_Valid=Frame_Count_Valid;
+            Open_Buffer_Init(Parser);
         }
-        Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset);
         Open_Buffer_Continue(Parser, Dest, Dest_Size);
+        if (Parser->IsFinished)
+            Detected("DTS");
+
         Demux(Dest, Dest_Size, _T("extract"));
         delete[] Dest;
         Buffer_Offset+=Buffer_Size;
     }
 }
 
-//***************************************************************************
-// Buffer
-//***************************************************************************
-
 //---------------------------------------------------------------------------
-bool File_Dts::FileHeader_Begin()
+void File_Dts::Read_Buffer_Finalize()
 {
-    //Must have enough buffer for having header
-    if (Buffer_Size<4)
-        return false; //Must wait for more data
-
-    //False positives detection: Detect WAV files, the parser can't detect it easily, there is only 70 bytes of begining for saying WAV
-    if (CC4(Buffer)==CC4("RIFF"))
+    if (Parser) //LE or 14-bit
     {
-        Finished();
-        return false;
+        Fill(Stream_General, 0, General_Format, "DTS");
+        Merge(*Parser);
+        if (!BigEndian) Fill(Stream_Audio, 0, Audio_Format_Profile, "LE");
+        if (!Word)      Fill(Stream_Audio, 0, Audio_Format_Profile, "14");
     }
-
-    //All should be OK...
-    return true;
 }
 
-//---------------------------------------------------------------------------
-bool File_Dts::Header_Begin()
-{
-    //Must have enough buffer for having header
-    if (Buffer_Offset+4>Buffer_Size)
-        return false;
-
-    //Quick test of synchro
-    if (Synched && CC4(Buffer+Buffer_Offset)!=0x7FFE8001 && CC4(Buffer+Buffer_Offset)!=0x64582025)
-    {
-        Trusted_IsNot("DTS, Synchronisation lost");
-        Synched=false;
-    }
-
-    //Synchro
-    if (!Synched && !Synchronize())
-        return false;
-
-    //All should be OK...
-    return true;
-}
+//***************************************************************************
+// Buffer - Per element
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Dts::Header_Parse()
 {
     //Parsing
-    if (CC4(Buffer+Buffer_Offset)==0x64582025)
+    int32u Sync;
+    Get_B4 (Sync,                                               "Sync");
+    if (Sync==0x64582025)
     {
         //HD
         int16u header_size;
         int8u  SubStreamIndex, NumAssets, NumAudioPresent;
         bool isBlownUpHeader, StaticFieldsPresent;
-        Skip_B4(                                                "Magic");
         Skip_B1(                                                "Unknown");
         BS_Begin();
         Get_S1 (2, SubStreamIndex,                              "Substream index");
@@ -592,7 +711,6 @@ void File_Dts::Header_Parse()
         //Frame
         int8u  EncoderSoftwareRevision;
         bool   crc_present;
-        Skip_B4(                                                    "Sync");
         BS_Begin();
         Info_SB(    FrameType,                                      "Frame Type"); Param_Info(DTS_FrameType[FrameType]);
         Skip_S1( 5,                                                 "Deficit Sample Count");
@@ -640,7 +758,7 @@ void File_Dts::Header_Parse()
 
         //Filling
         Header_Fill_Size(Primary_Frame_Byte_Size_minus_1);
-        Header_Fill_Code(0, "Frame");
+        Header_Fill_Code(0);
     }
 }
 
@@ -683,7 +801,7 @@ void File_Dts::Data_Parse_Fill()
     Fill(Stream_Audio, 0, Audio_Codec, (Profile.find(_T("MA"))==0 || Profile.find(_T("HRA"))==0)?"DTS-HD":"DTS");
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, Profile.find(_T("MA"))==0?"VBR":"CBR");
     Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_SamplingRate[sample_frequency]);
-    if (Profile!=_T("MA") && bit_rate<29)
+    if (Profile!=_T("MA") && (bit_rate<29 || Profile==_T("Express")))
     {
         float64 BitRate;
         if (Profile==_T("Express"))
@@ -787,10 +905,9 @@ void File_Dts::Data_Parse_Fill()
         Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_HD_MaximumSampleRate[HD_MaximumSampleRate], 10, true);
     if(HD_TotalNumberChannels!=(int8u)-1)
         Fill(Stream_Audio, 0, Audio_Channel_s_, HD_TotalNumberChannels, 10, true);
-    
 
-    Info("DTS detected");
-    Finished();
+    //No more need data
+    Detected("DTS");
 }
 
 //***************************************************************************
@@ -800,6 +917,8 @@ void File_Dts::Data_Parse_Fill()
 //---------------------------------------------------------------------------
 void File_Dts::Core()
 {
+    Element_Name("Frame");
+
     //It exists (not in XSA streams)
     Core_Exists=true;
 
@@ -1051,115 +1170,7 @@ void File_Dts::HD_XSA(int64u Size)
     FILLING_END();
 }
 
-//***************************************************************************
-// Helpers
-//***************************************************************************
-
 //---------------------------------------------------------------------------
-bool File_Dts::Synchronize()
-{
-    //Synchronizing
-    while (Buffer_Offset+6<=Buffer_Size)
-    {
-        int64u Value=CC6(Buffer+Buffer_Offset);
-        if ((Value&0xFFFFFFFFFC00LL)==0x7FFE8001FC00LL  //16 bits and big    endian Core
-         || (Value&0xFFFFFFFF00FCLL)==0xFE7F018000FCLL  //16 bits and little endian Core
-         || (Value&0xFFFFFFFFF7F0LL)==0x1FFFE80007F0LL  //14 bits and big    endian Core
-         || (Value&0xFFFFFFFFF0F7LL)==0xFF1F00E8F007LL  //14 bits and little endian Core
-         || (Value&0xFFFFFFFF0000LL)==0x645820250000LL) //16 bits and big    endian HD
-            break;
-        Buffer_Offset++;
-    }
-    if (Buffer_Offset+6>Buffer_Size)
-    {
-        //Parsing last bytes
-        int64u Value=CC5(Buffer+Buffer_Offset);
-        if ((Value&0xFFFFFFFFFCLL)!=0x7FFE8001FCLL  //16 bits and big    endian Core
-         && (Value&0xFFFFFFFF00LL)!=0xFE7F018000LL  //16 bits and little endian Core
-         && (Value&0xFFFFFFFFF7LL)!=0x1FFFE80007LL  //14 bits and big    endian Core
-         && (Value&0xFFFFFFFFF0LL)!=0xFF1F00E8F0LL  //14 bits and little endian Core
-         && (Value&0xFFFFFFFF00LL)!=0x6458202500LL) //16 bits and big    endian HD
-        {
-            Buffer_Offset++;
-            int32u Value=CC4(Buffer+Buffer_Offset);
-            if (Value!=0x7FFE8001  //16 bits and big    endian Core
-             && Value!=0xFE7F0180  //16 bits and little endian Core
-             && Value!=0x1FFFE800  //14 bits and big    endian Core
-             && Value!=0xFF1F00E8  //14 bits and little endian Core
-             && Value!=0x64582025) //16 bits and big    endian HD
-            {
-                Buffer_Offset++;
-                Value=CC3(Buffer+Buffer_Offset);
-                if (Value!=0x7FFE80  //16 bits and big    endian Core
-                 && Value!=0xFE7F01  //16 bits and little endian Core
-                 && Value!=0x1FFFE8  //14 bits and big    endian Core
-                 && Value!=0xFF1F00  //14 bits and little endian Core
-                 && Value!=0x645820) //16 bits and big    endian HD
-                {
-                    Buffer_Offset++;
-                    Value=CC2(Buffer+Buffer_Offset);
-                    if (Value!=0x7FFE  //16 bits and big    endian Core
-                     && Value!=0xFE7F  //16 bits and little endian Core
-                     && Value!=0x1FFF  //14 bits and big    endian Core
-                     && Value!=0xFF1F  //14 bits and little endian Core
-                     && Value!=0x6458) //16 bits and big    endian HD
-                    {
-                        Buffer_Offset++;
-                        Value=CC1(Buffer+Buffer_Offset);
-                        if (Value!=0x7F  //16 bits and big    endian Core
-                         && Value!=0xFE  //16 bits and little endian Core
-                         && Value!=0x1F  //14 bits and big    endian Core
-                         && Value!=0xFF  //14 bits and little endian Core
-                         && Value!=0x64) //16 bits and big    endian HD
-                            Buffer_Offset++;
-                    }
-                }
-            }
-        }
-
-        //Delay
-        if (Frame_Count==0)
-            Delay+=Buffer_Offset;
-
-        return false;
-    }
-
-    //Synched is OK
-    Synched=true;
-    if (Frame_Count==0)
-    {
-        //Temp - Technical info
-        Primary_Frame_Byte_Size_minus_1=0;
-        HD_size=0;
-        channel_arrangement_XCh=(int8u)-1;
-
-        //Temp - HD
-        HD_SpeakerActivityMask=(int16u)-1;
-        HD_BitResolution=(int8u)-1;
-        HD_MaximumSampleRate=(int8u)-1;
-        HD_TotalNumberChannels=(int8u)-1;
-        HD_ExSSFrameDurationCode=(int8u)-1;
-        Core_Exists=false;
-
-        //14 bits or Little Endian
-        switch (CC1(Buffer+Buffer_Offset))
-        {
-            default   : Word=true;  BigEndian=true;  break; //16 bits and big    endian bitstream
-            case 0xFE : Word=true;  BigEndian=false; break; //16 bits and little endian bitstream
-            case 0x1F : Word=false; BigEndian=true;  break; //14 bits and big    endian bitstream
-            case 0xFF : Word=false; BigEndian=false; break; //14 bits and little endian bitstream
-        }
-
-        //Delay
-        Delay+=Buffer_Offset;
-    }
-
-    //Specific cases
-    if (!Word || !BigEndian)
-        Read_Buffer_Continue(); //We want to parse again from beginning in this case
-    return true;
-}
-
 } //NameSpace
 
 #endif //MEDIAINFO_DTS_YES

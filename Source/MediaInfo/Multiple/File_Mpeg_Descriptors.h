@@ -88,10 +88,8 @@ public :
     };
     program Program;
 
-
-protected :
-    //Formats
-    void Read_Buffer_Init ();
+    //Constructor/Destructor
+    File_Mpeg_Descriptors();
 
 private :
     //Buffer

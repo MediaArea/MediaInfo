@@ -354,6 +354,8 @@ void File_Mpeg4_Descriptors::Header_Parse()
 
     //Filling
     Header_Fill_Code(type, Ztring().From_CC1(type));
+    if (Element_Offset+Size>=Element_Size)
+        Size=(size_t)(Element_Size-Element_Offset); //Found one file with too big size but content is OK, cutting the block
     Header_Fill_Size(Element_Offset+Size);
 }
 
@@ -422,6 +424,8 @@ void File_Mpeg4_Descriptors::Data_Parse()
                  Skip_XX(Element_Size,                          "Data");
                  break;
     }
+
+    IsDetected=true;    
 }
 
 //***************************************************************************
@@ -611,6 +615,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
                         #if defined(MEDIAINFO_AVC_YES)
                             Parser=new File_Avc;
                             ((File_Avc*)Parser)->MustParse_SPS_PPS=true;
+                            ((File_Avc*)Parser)->MustSynchronize=false;
                             ((File_Avc*)Parser)->SizedBlocks=true;
                         #endif
                         break;
@@ -682,13 +687,14 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0xDE : //OGG
                         #if defined(MEDIAINFO_OGG_YES)
                             Parser=new File_Ogg;
+                            Parser->MustSynchronize=false;
                             ((File_Ogg*)Parser)->SizedBlocks=true;
                         #endif
                         break;
             default: ;
         }
-        if (Parser)
-            Open_Buffer_Init(Parser);
+
+        Open_Buffer_Init(Parser);
 
         Element_ThisIsAList();
     FILLING_END();
@@ -715,6 +721,7 @@ void File_Mpeg4_Descriptors::Descriptor_05()
                                 break;
             default: ;
         }
+        Open_Buffer_Init(Parser);
     }
 
     if (Parser==NULL)
@@ -724,7 +731,6 @@ void File_Mpeg4_Descriptors::Descriptor_05()
     }
 
     //Parsing
-    Open_Buffer_Init(Parser, File_Size, File_Offset+Buffer_Offset);
     Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
     if (!Parser_DoNotFreeIt
      || StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC")) //File_Mpeg4_AudioSpecificConfig is only for DecConfig

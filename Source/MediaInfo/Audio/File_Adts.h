@@ -37,37 +37,30 @@ namespace MediaInfoLib
 class File_Adts : public File__Analyze, public File__Tags_Helper
 {
 public :
-    //Configuration
+    //In
     size_t Frame_Count_Valid;
 
-protected :
-    //Format
-    void Read_Buffer_Continue ();
-    void Read_Buffer_Finalize ();
-
-public :
+    //Constructor/Destructor
     File_Adts();
 
 private :
-    //Buffer
-    bool Header_Begin();
+    //Buffer - Synchro
+    bool Synchronize();
+    bool Synched_Test();
+
+    //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
     void Data_Parse_Fill();
 
-    //Temp - Global
+    //Temp
     size_t Frame_Count;
-
-    //Temp - Technical info
+    int16u adts_buffer_fullness;
+    int16u aac_frame_length;
     int8u  profile_ObjectType;
     int8u  sampling_frequency_index;
     int8u  channel_configuration;
-    int16u adts_buffer_fullness;
-    int16u aac_frame_length;
     bool   id;
-    
-    //Helpers
-    bool Synchronize();
 };
 
 } //NameSpace

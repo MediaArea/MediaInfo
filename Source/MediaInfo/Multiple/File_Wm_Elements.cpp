@@ -220,6 +220,7 @@ void File_Wm::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Wm::Header()
 {
+    IsDetected=true;
     Element_Name("Header");
 
     //Parsing
@@ -432,21 +433,27 @@ void File_Wm::Header_StreamProperties_Video ()
     else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_Format)==_T("VC-1"))
     {
         Stream[Stream_Number].Parser=new File_Vc1;
-        Open_Buffer_Init(Stream[Stream_Number].Parser);
         if (Compression==CC4("WMV3"))
+        {
             ((File_Vc1*)Stream[Stream_Number].Parser)->From_WMV3=true;
+            ((File_Vc1*)Stream[Stream_Number].Parser)->MustSynchronize=false;
+        }
         ((File_Vc1*)Stream[Stream_Number].Parser)->FrameIsAlwaysComplete=true; //Warning: this is not always the case, see data parsing
+        Open_Buffer_Init(Stream[Stream_Number].Parser);
         if (Data_Size>40)
         {
             Open_Buffer_Continue(Stream[Stream_Number].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Data_Size-40));
-            if (Stream[Stream_Number].Parser->File_Offset==Stream[Stream_Number].Parser->File_Size)
+            if (Stream[Stream_Number].Parser->IsDetected)
             {
                 Open_Buffer_Finalize(Stream[Stream_Number].Parser);
                 Merge (*Stream[Stream_Number].Parser, Stream_Video, 0, StreamPos_Last);
                 delete Stream[Stream_Number].Parser; Stream[Stream_Number].Parser=NULL;
             }
             else
+            {
                 ((File_Vc1*)Stream[Stream_Number].Parser)->Only_0D=true;
+                ((File_Vc1*)Stream[Stream_Number].Parser)->MustSynchronize=false;
+            }
             Element_Offset+=Data_Size-40;
         }
     }
@@ -455,8 +462,8 @@ void File_Wm::Header_StreamProperties_Video ()
     else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("MPEG-2"))==0)
     {
         Stream[Stream_Number].Parser=new File_Mpegv;
-        Open_Buffer_Init(Stream[Stream_Number].Parser);
         ((File_Mpegv*)Stream[Stream_Number].Parser)->Frame_Count_Valid=30; //For searching Pulldown
+        Open_Buffer_Init(Stream[Stream_Number].Parser);
     }
     #endif
     else if (Data_Size>40) //TODO: see "The Mummy_e"
@@ -1199,8 +1206,8 @@ void File_Wm::Data()
         if (IsDvrMs && !Temp->second.Parser && Temp->second.AverageBitRate>=32768)
         {
             Temp->second.Parser=new File_Mpega; //No stream properties, trying to detect it in datas...
-            Open_Buffer_Init(Temp->second.Parser);
             ((File_Mpega*)Temp->second.Parser)->Frame_Count_Valid=8;
+            Open_Buffer_Init(Temp->second.Parser);
         }
         #endif
         if (Temp->second.Parser || Temp->second.StreamKind==Stream_Video) //We need Stream_Video for Frame_Rate computing
@@ -1409,10 +1416,9 @@ void File_Wm::Data_Packet()
                 ((File_Vc1*)Stream[Stream_Number].Parser)->FrameIsAlwaysComplete=FrameIsAlwaysComplete;
             #endif
 
-            Open_Buffer_Init(Stream[Stream_Number].Parser, File_Size, File_Offset+Buffer_Offset+(size_t)Element_Offset);
             Open_Buffer_Continue(Stream[Stream_Number].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)PayloadLength);
-            if ((Stream[Stream_Number].Parser->File_GoTo!=(int64u)-1 || Stream[Stream_Number].Parser->File_Offset==Stream[Stream_Number].Parser->File_Size)
-             || (Stream[Stream_Number].StreamKind==Stream_Video && Stream[Stream_Number].PresentationTime_Count>=300))
+            if (Stream[Stream_Number].Parser->IsDetected
+             || Stream[Stream_Number].PresentationTime_Count>=300)
             {
                 Stream[Stream_Number].SearchingPayload=false;
                 Streams_Count--;
@@ -1441,6 +1447,7 @@ void File_Wm::Data_Packet()
     if (Streams_Count==0 || Packet_Count>=1000)
     {
         Info("Data, Jumping to end of chunk");
+        IsDetected=true;
         File_GoTo=Data_AfterTheDataChunk;
     }
 

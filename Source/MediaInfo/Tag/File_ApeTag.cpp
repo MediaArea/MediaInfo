@@ -40,14 +40,33 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Format
+// Buffer - File header
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_ApeTag::FileHeader_Parse()
+{
+    //Parsing
+    int64u Signature;
+    Peek_B8(Signature);
+    if (Signature==0x4150455441474558LL) //"APETAGEX"
+        HeaderFooter(); //v2
+
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_General);
+        Stream_Prepare(Stream_Audio);
+    FILLING_END();
+}
+
+//***************************************************************************
+// Buffer - Per element
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 bool File_ApeTag::Header_Begin()
 {
     if (Buffer_Size<0x20)
-        return false; //At least 32 bytes for footer, and we need 32 bytes for header
+        return false; //At least 32 bytes are needed for footer
 
     return true;
 }
@@ -56,10 +75,10 @@ bool File_ApeTag::Header_Begin()
 void File_ApeTag::Header_Parse()
 {
     //Testing if begin or end of tags
-    if (CC8(Buffer+Buffer_Offset)==CC8("APETAGEX"))
+    if (CC8(Buffer+Buffer_Offset)==0x4150455441474558LL) //"APETAGEX"
     {
         //Filling
-        Header_Fill_Code(0xFFFFFFFF, Buffer_Offset+0x20>=Buffer_Size?"Footer":"Header");
+        Header_Fill_Code((int64u)-1, "File Footer");
         Header_Fill_Size(0x20);
         return;
     }
@@ -91,7 +110,7 @@ void File_ApeTag::Header_Parse()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_ApeTag::Header()
+void File_ApeTag::HeaderFooter()
 {
     //Parsing
     int32u Flags;
@@ -107,24 +126,16 @@ void File_ApeTag::Header()
         Skip_Flags(Flags, 30,                                   "Contains a footer");
         Skip_Flags(Flags, 31,                                   "Contains a header");
     Skip_L8(                                                    "Reserved");
-
-    //Filling
-    FILLING_BEGIN();
-        if (Count_Get(Stream_General)==0)
-        {
-            Stream_Prepare(Stream_General);
-            Stream_Prepare(Stream_Audio);
-        }
-    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
 void File_ApeTag::Data_Parse()
 {
     //If footer
-    if (Element_Code==0xFFFFFFFF)
+    if (Element_Code==(int64u)-1)
     {
-        Header();
+        HeaderFooter();
+        Detected("ApeTag");
         return;
     }
 
@@ -186,5 +197,5 @@ void File_ApeTag::Data_Parse()
 
 } //NameSpace
 
-#endif //MEDIAINFO_MPEGA_YES
+#endif //MEDIAINFO_APETAG_YES
 

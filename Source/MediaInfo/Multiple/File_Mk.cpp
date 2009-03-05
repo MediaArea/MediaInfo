@@ -188,41 +188,25 @@ void File_Mk::Read_Buffer_Finalize()
             //Delay
             if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)==1 && Temp->second.Parser->Count_Get(Stream_General)>0)
             {
-                int64u Delay=(int64u)-1;
-                #if defined(MEDIAINFO_MPEGA_YES)
-                    if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("MPEG Audio"))
-                        Delay=((File_Mpega*)Temp->second.Parser)->Delay;
-                #endif
-                #if defined(MEDIAINFO_AC3_YES)
-                    if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AC-3"))
-                        Delay=((File_Ac3*)Temp->second.Parser)->Delay;
-                #endif
-                #if defined(MEDIAINFO_DTS_YES)
-                    if (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("DTS"))
-                        Delay=((File_Dts*)Temp->second.Parser)->Delay;
-                #endif
-                if (Delay==0)
+                     if (Temp->second.Parser->Buffer_TotalBytes_FirstSynched==0)
                 {
-                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, 0, 0, true);
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, 0, 10, true);
                     Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
                 }
-                else if (Delay!=(int64u)-1)
+                else if (Temp->second.AvgBytesPerSec!=0)
                 {
-                    if (Temp->second.AvgBytesPerSec!=0)
-                    {
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Delay)*1000/Temp->second.AvgBytesPerSec, 0, true);
-                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                    }
-                    else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u()!=0)
-                    {
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Delay)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u(), 0, true);
-                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                    }
-                    else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u()!=0)
-                    {
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Delay)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u(), 0, true);
-                        Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                    }
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.AvgBytesPerSec, 0, true);
+                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                }
+                else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u()!=0)
+                {
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u(), 0, true);
+                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                }
+                else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u()!=0)
+                {
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u(), 0, true);
+                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
                 }
             }
         }
@@ -726,7 +710,9 @@ void File_Mk::Data_Parse()
                 ATOM_END_MK
             ATOM_END_MK
         ATOM_END_MK
-    DATA_END
+    DATA_DEFAULT
+        Rejected();
+    DATA_END_DEFAULT
 }
 
 //***************************************************************************
@@ -806,6 +792,7 @@ void File_Mk::Ebml_DocType()
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "Matroska");
+        IsDetected=true;
     FILLING_END();
 }
 
@@ -1172,7 +1159,7 @@ void File_Mk::Segment_Cluster()
         if (Stream_Count==0)
         {
             //Jumping
-            Finished();//Skip_XX(Element_TotalSize_Get(),                        "Data");
+            Detected("Matroska");//Skip_XX(Element_TotalSize_Get(),                        "Data");
             return;
         }
     }
@@ -1294,17 +1281,16 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
                 if (Stream[TrackNumber].ContentCompAlgo==3) //Header Stripping
                 {
                     Element_Offset-=(size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size; //This is an extra array, not in the stream
-                    Open_Buffer_Init(Stream[TrackNumber].Parser, File_Size, File_Offset+Buffer_Offset+Element_Offset);
                     Open_Buffer_Continue(Stream[TrackNumber].Parser, Stream[TrackNumber].ContentCompSettings_Buffer, (size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size);
                     Element_Offset+=(size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size;
                     Demux(Stream[TrackNumber].ContentCompSettings_Buffer, (size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size, Ztring::ToZtring(TrackNumber, 16)+_T(".")+_T("raw"));
                 }
 
                 //Parsing
-                Open_Buffer_Init(Stream[TrackNumber].Parser, File_Size, File_Offset+Buffer_Offset+Element_Offset);
                 Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Laces[Pos]);
                 Element_Offset+=Laces[Pos];
-                if (Stream[TrackNumber].Parser->File_Offset==File_Size || Stream[TrackNumber].PacketCount>=300)
+                if (Stream[TrackNumber].Parser->IsFinished
+                 || Stream[TrackNumber].PacketCount>=300)
                     Stream[TrackNumber].SearchingPayload=false;
             }
             else
@@ -1319,9 +1305,9 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
             //Jumping
             Element_Show();
             Element_End(); //Block
+            Info("Cluster, no need of more");
             Element_End(); //BlockGroup
-            Info("BlockGroup, Jumping to end of cluster");
-            Finished(); //File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
+            Detected("Matroska"); //File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
         }
 
         //Demux
@@ -1986,9 +1972,9 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate()
     Element_Name("CodecPrivate");
 
     //Creating the parser
-    if (Stream[TrackNumber].Parser==NULL)
+    if (Stream.find(TrackNumber)==Stream.end() || Stream[TrackNumber].Parser==NULL)
     {
-        if (Retrieve(Stream[TrackNumber].StreamKind, Stream[TrackNumber].StreamPos, "CodecID").empty())
+        if (Stream.find(TrackNumber)==Stream.end() || Retrieve(Stream[TrackNumber].StreamKind, Stream[TrackNumber].StreamPos, "CodecID").empty())
         {
             //Codec not already known, saving CodecPrivate
             if (CodecPrivate)
@@ -2009,11 +1995,10 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate()
     }
 
     //Parsing
-    Open_Buffer_Init(Stream[TrackNumber].Parser, File_Size, File_Offset+Buffer_Offset);
     Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
     //Filling
-    if (Stream[TrackNumber].Parser->File_Offset==File_Size) //Can be finnished here...
+    if (Stream[TrackNumber].Parser->IsFinished) //Can be finnished here...
     {
         Stream[TrackNumber].SearchingPayload=false;
         Stream_Count--;
@@ -2727,6 +2712,7 @@ void File_Mk::CodecID_Manage()
         ((File_Avc*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
         if (InfoCodecID_Format_Type==InfoCodecID_Format_Matroska)
         {
+            ((File_Avc*)Stream[TrackNumber].Parser)->MustSynchronize=false;
             ((File_Avc*)Stream[TrackNumber].Parser)->MustParse_SPS_PPS=true;
             ((File_Avc*)Stream[TrackNumber].Parser)->SizedBlocks=true;
         }
@@ -2759,6 +2745,7 @@ void File_Mk::CodecID_Manage()
     else if (Format==_T("Theora")  || Format==_T("Vorbis"))
     {
         Stream[TrackNumber].Parser=new File_Ogg;
+        Stream[TrackNumber].Parser->MustSynchronize=false;
         ((File_Ogg*)Stream[TrackNumber].Parser)->XiphLacing=true;
     }
     #endif
@@ -2773,12 +2760,14 @@ void File_Mk::CodecID_Manage()
     else if (Format==_T("AC-3") || Format==_T("E-AC-3"))
     {
         Stream[TrackNumber].Parser=new File_Ac3;
+        ((File_Ac3*)Stream[TrackNumber].Parser)->Frame_Count_Valid=2;
     }
     #endif
     #if defined(MEDIAINFO_DTS_YES)
     else if (Format==_T("DTS"))
     {
         Stream[TrackNumber].Parser=new File_Dts;
+        ((File_Dts*)Stream[TrackNumber].Parser)->Frame_Count_Valid=2;
     }
     #endif
     #if defined(MEDIAINFO_MPEG4_YES)
@@ -2833,9 +2822,8 @@ void File_Mk::CodecID_Manage()
         ((File_Rm*)Stream[TrackNumber].Parser)->FromMKV_StreamType=Stream_Audio;
     }
     #endif
+    Open_Buffer_Init(Stream[TrackNumber].Parser);
 
-    if (Stream[TrackNumber].Parser)
-        Open_Buffer_Init(Stream[TrackNumber].Parser);
     CodecID.clear();
 }
 

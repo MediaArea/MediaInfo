@@ -36,37 +36,29 @@
 namespace MediaInfoLib
 {
 
-//---------------------------------------------------------------------------
-void Mpega_ID3v1_KeepOutSpaces(Ztring &Tag)
-{
-    //Removing trailing spaces
-    while (!Tag.empty() && Tag[Tag.size()-1]==_T(' '))
-        Tag.resize(Tag.size()-1);
-}
-
 //***************************************************************************
-// Format
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Id3::FileHeader_Parse()
+void File_Id3::Read_Buffer_Continue()
 {
-    //Parsing
-    int32u ID;
-    int8u Track=0, Genre;
-    Get_C3    (    ID,                                          "ID");
-    if (ID!=CC3("TAG"))
-    {
-        Element_WaitForMoreData();
-        Finished();
+    //Buffer size
+    if (Buffer_Size<128)
         return;
-    }
-    Get_Local (30, Id3v1_Title,                                 "Title");
-    Get_Local (30, Id3v1_Artist,                                "Artist");
-    Get_Local (30, Id3v1_Album,                                 "Album");
-    Get_Local ( 4, Id3v1_Year,                                  "Year");
-    Get_Local (30, Id3v1_Comment,                               "Comment");
-    if (Id3v1_Comment.size()<29) //Id3v1.1 specifications : Track number addition
+
+    //Parsing
+    Element_Offset=0;
+    Element_Size=Buffer_Size;
+    Ztring Title, Artist, Album, Year, Comment;
+    int8u Track=0, Genre;
+    Skip_C3   (                                                 "ID");
+    Get_Local (30, Title,                                       "Title");
+    Get_Local (30, Artist,                                      "Artist");
+    Get_Local (30, Album,                                       "Album");
+    Get_Local ( 4, Year,                                        "Year");
+    Get_Local (30, Comment,                                     "Comment");
+    if (Comment.size()<29) //Id3v1.1 specifications : Track number addition
     {
         Element_Offset-=2;
         int8u Zero;
@@ -82,37 +74,24 @@ void File_Id3::FileHeader_Parse()
     Get_B1 (Genre,                                              "Genre");
 
     FILLING_BEGIN();
-        Mpega_ID3v1_KeepOutSpaces(Id3v1_Title);
-        Mpega_ID3v1_KeepOutSpaces(Id3v1_Artist);
-        Mpega_ID3v1_KeepOutSpaces(Id3v1_Album);
-        Mpega_ID3v1_KeepOutSpaces(Id3v1_Year);
-        Mpega_ID3v1_KeepOutSpaces(Id3v1_Comment);
-        if (Track!=0)
-            Id3v1_Track.From_Number(Track);
-        else
-            Id3v1_Track.clear();
-        if (Genre!=0 && Genre!=0xFF)
-            Id3v1_Genre.From_Number(Genre);
-        else
-            Id3v1_Genre.clear();
+        Title.TrimRight();
+        Artist.TrimRight();
+        Album.TrimRight();
+        Year.TrimRight();
+        Comment.TrimRight();
 
         Stream_Prepare(Stream_General);
-        Stream_Prepare(Stream_Audio);
+        Fill(Stream_General, 0, General_Album, Album);
+        Fill(Stream_General, 0, General_Track, Title);
+        Fill(Stream_General, 0, General_Performer, Artist);
+        Fill(Stream_General, 0, General_Comment, Comment);
+        Fill(Stream_General, 0, General_Recorded_Date, Year);
+        if (Genre && Genre!=(int8u)-1)
+            Fill(Stream_General, 0, General_Genre, Genre);
+        if (Track)
+            Fill(Stream_General, 0, General_Track_Position, Track);
 
-        if (!Id3v1_Album.empty())
-            Fill(Stream_General, 0, General_Album, Id3v1_Album);
-        if (!Id3v1_Title.empty())
-            Fill(Stream_General, 0, General_Track, Id3v1_Title);
-        if (!Id3v1_Artist.empty())
-            Fill(Stream_General, 0, General_Performer, Id3v1_Artist);
-        if (!Id3v1_Comment.empty())
-            Fill(Stream_General, 0, General_Comment, Id3v1_Comment);
-        if (!Id3v1_Year.empty())
-            Fill(Stream_General, 0, General_Recorded_Date, Id3v1_Year);
-        if (!Id3v1_Genre.empty())
-            Fill(Stream_General, 0, General_Genre, Id3v1_Genre);
-        if (!Id3v1_Track.empty())
-            Fill(Stream_General, 0, General_Track_Position, Id3v1_Track);
+        Detected("Id3");
     FILLING_END();
 }
 
@@ -122,5 +101,5 @@ void File_Id3::FileHeader_Parse()
 
 } //NameSpace
 
-#endif //MEDIAINFO_MPEGA_YES
+#endif //MEDIAINFO_ID3_YES
 

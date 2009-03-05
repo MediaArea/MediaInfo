@@ -89,7 +89,7 @@ void File_Dpg::FileHeader_Parse()
         //Integrity
         if (Signature!=0x44504730 || Zero!=0x00000000) //"DPG0"
         {
-            Finished();
+            Rejected("DPG");
             return;
         }
 
@@ -113,8 +113,9 @@ void File_Dpg::FileHeader_Parse()
             Data_GoTo(Video_Offset, "DPG");
             Parser=new File_Mpegv();
         #else
-            Finished();
+            Detected();
         #endif
+        Open_Buffer_Init(Parser);
     FILLING_END();
 }
 
@@ -127,9 +128,8 @@ void File_Dpg::Read_Buffer_Continue()
     if (Audio_Size)
     {
         #if defined(MEDIAINFO_MPEGA_YES)
-            Open_Buffer_Init(Parser, Audio_Offset+Audio_Size, File_Offset+Buffer_Offset);
             Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)((File_Offset+Buffer_Size<Audio_Offset+Audio_Size)?Buffer_Size:(Audio_Offset+Audio_Size-File_Offset)));
-            if (Parser->IsFinished || Parser->File_Offset==Parser->File_Size || Parser->File_GoTo!=(int64u)-1)
+            if (Parser->IsDetected)
             {
                 Open_Buffer_Finalize(Parser);
                 Merge(*Parser, Stream_Audio, 0, 0);
@@ -137,9 +137,9 @@ void File_Dpg::Read_Buffer_Continue()
                     Audio_Size=0;
                     Data_GoTo(Video_Offset, "DPG");
                     delete Parser; Parser=new File_Mpegv();
+                    Open_Buffer_Init(Parser);
                 #else
-                    Info("DPG, parsing finished");
-                    Finished();
+                    Detected("DPG");
                 #endif
             }
         #endif
@@ -147,17 +147,14 @@ void File_Dpg::Read_Buffer_Continue()
     else
     {
         #if defined(MEDIAINFO_MPEGV_YES)
-            Open_Buffer_Init(Parser, Video_Offset+Video_Size, File_Offset+Buffer_Offset);
             Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)((File_Offset+Buffer_Size<Video_Offset+Video_Size)?Buffer_Size:(Video_Offset+Video_Size-File_Offset)));
-            if (Parser->File_Offset==Parser->File_Size || Parser->File_GoTo!=(int64u)-1)
+            if (Parser->IsDetected)
             {
                 //Merging
                 Open_Buffer_Finalize(Parser);
                 Merge(*Parser, Stream_Video, 0, 0);
 
-                //Finished
-                Info("DPG, parsing finished");
-                Finished();
+                Detected("DPG");
             }
         #endif
     }

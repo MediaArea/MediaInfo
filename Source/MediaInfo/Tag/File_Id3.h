@@ -40,17 +40,8 @@ namespace MediaInfoLib
 class File_Id3 : public File__Analyze
 {
 private :
-    //Buffer
-    void FileHeader_Parse ();
-
-    //Temp - ID3v1
-    Ztring Id3v1_Title;
-    Ztring Id3v1_Artist;
-    Ztring Id3v1_Album;
-    Ztring Id3v1_Year;
-    Ztring Id3v1_Comment;
-    Ztring Id3v1_Track;
-    Ztring Id3v1_Genre;
+    //Buffer - Global
+    void Read_Buffer_Continue ();
 };
 
 } //NameSpace

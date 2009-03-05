@@ -37,24 +37,22 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Buffer
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Ps2Audio::FileHeader_Parse()
+void File_Ps2Audio::Read_Buffer_Continue()
 {
     //Parsing
-    int32u ID;
     while (Element_Offset<Element_Size)
     {
+        int32u ID;
         Peek_B4(ID);
         switch (ID)
         {
             case 0x53536264 :   SSbd(); break;
             case 0x53536864 :   SShd(); break;
-            default         :
-                                Skip_XX(Element_Size-Element_Offset, "Unknown");
-                                Finished();
+            default         :   Rejected("PS2 Audio");
         }
     }
 }
@@ -80,7 +78,7 @@ void File_Ps2Audio::SSbd()
         int32u BitRate=Retrieve(Stream_Audio, 0, Audio_BitRate).To_int32u();
         if (BitRate)
             Fill(Stream_Audio, 0, Audio_Duration, ((int64u)Size)*1000*8/BitRate);
-        Finished();
+        Detected();
     FILLING_END();
 }
 
@@ -124,7 +122,7 @@ void File_Ps2Audio::SShd()
     FILLING_END();
 }
 
-}
+} //NameSpace
 
 #endif //MEDIAINFO_PS2A_YES
 
