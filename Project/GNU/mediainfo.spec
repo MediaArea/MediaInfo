@@ -23,7 +23,11 @@ BuildRequires: 	gcc-c++
 BuildRequires:	libmediainfo0-devel
 BuildRequires:	libzen0-devel = %libzen_version
 BuildRequires:	pkgconfig
+%if 0%{?mandriva_version}
+BuildRequires:	libwxgtku2.8-devel
+%else
 BuildRequires:	wxGTK-devel
+%endif
 BuildRequires: 	zlib-devel
 %if 0%{?suse_version}
 BuildRequires:	update-desktop-files
