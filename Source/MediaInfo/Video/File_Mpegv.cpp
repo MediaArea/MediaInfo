@@ -244,7 +244,7 @@ File_Mpegv::File_Mpegv()
     //Configuration
     Trusted_Multiplier=2;
     MustSynchronize=true;
-    Buffer_TotalBytes_FirstSynched_Max=0x10000;
+    Buffer_TotalBytes_FirstSynched_Max=64*1024;
 
     //In
     MPEG_Version=1;
@@ -590,9 +590,6 @@ void File_Mpegv::picture_start()
         Skip_XX(Element_Size,                                   "Data");
         return;
     }
-
-    if (Frame_Count==4)
-        Buffer_TotalBytes_FirstSynched_Max*=Frame_Count_Valid; //We are nearly sure this is a Mpegv stream, augmenting parsing limit
 
     //Parsing
     int8u picture_coding_type;

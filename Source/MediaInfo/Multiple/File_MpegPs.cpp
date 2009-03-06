@@ -188,7 +188,7 @@ File_MpegPs::File_MpegPs()
 {
     //Configuration
     MustSynchronize=true;
-    Buffer_TotalBytes_FirstSynched_Max=16*1024*1024;
+    Buffer_TotalBytes_FirstSynched_Max=64*1024;
     Trusted_Multiplier=2;
 
     //In
@@ -1112,7 +1112,7 @@ void File_MpegPs::Data_Parse()
 void File_MpegPs::Detect_EOF()
 {
     //In case of problem with some streams
-    if (Buffer_TotalBytes>Buffer_TotalBytes_FirstSynched_Max+SizeToAnalyze)
+    if (Buffer_TotalBytes>Buffer_TotalBytes_FirstSynched+SizeToAnalyze)
     {
         if (!IsDetected)
         {

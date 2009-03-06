@@ -155,6 +155,7 @@ void File_Cdxa::FileHeader_Parse()
 
     FILLING_BEGIN();
         MI=new MediaInfo_Internal;
+        MI->Option(_T("FormatDetection_MaximumOffset"), _T("1048576"));
         Stream_Prepare(Stream_General);
         IsDetected=true;
     FILLING_END();

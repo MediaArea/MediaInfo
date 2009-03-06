@@ -235,7 +235,7 @@ File_Vc1::File_Vc1()
 {
     //Config
     MustSynchronize=true;
-    Buffer_TotalBytes_FirstSynched_Max=0x10000;
+    Buffer_TotalBytes_FirstSynched_Max=64*1024;
 
     //In
     Frame_Count_Valid=30;

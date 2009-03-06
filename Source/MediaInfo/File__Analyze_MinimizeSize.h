@@ -869,7 +869,6 @@ protected :
     int64u Buffer_TotalBytes;
     int64u Buffer_TotalBytes_FirstSynched_Max;
     friend class File__Tags_Helper;
-    friend class File__Tags_Helper;
 
     //***************************************************************************
     // Helpers

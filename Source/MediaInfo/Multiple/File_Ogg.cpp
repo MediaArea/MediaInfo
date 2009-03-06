@@ -47,7 +47,7 @@ File_Ogg::File_Ogg()
 {
     //Configuration
     MustSynchronize=true;
-    Buffer_TotalBytes_FirstSynched_Max=0x10000;
+    Buffer_TotalBytes_FirstSynched_Max=64*1024;
 
     //In
     SizedBlocks=false;

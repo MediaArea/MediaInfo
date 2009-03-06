@@ -197,7 +197,7 @@ File_Mpeg4v::File_Mpeg4v()
     //Config
     Trusted_Multiplier=2;
     MustSynchronize=true;
-    Buffer_TotalBytes_FirstSynched_Max=0x10000;
+    Buffer_TotalBytes_FirstSynched_Max=64*1024;
 
     //In
     Frame_Count_Valid=30;

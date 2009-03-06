@@ -264,7 +264,7 @@ File_Mpega::File_Mpega()
     Base=this;
 
     //Configuration
-    Buffer_TotalBytes_FirstSynched_Max=128*1024;
+    Buffer_TotalBytes_FirstSynched_Max=64*1024;
     MustSynchronize=true;
 
     //In

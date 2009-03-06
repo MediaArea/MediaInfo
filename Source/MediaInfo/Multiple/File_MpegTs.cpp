@@ -78,7 +78,7 @@ File_MpegTs::File_MpegTs()
 {
     //Config
     MustSynchronize=true;
-    Buffer_TotalBytes_FirstSynched_Max=0x10000;
+    Buffer_TotalBytes_FirstSynched_Max=64*1024;
     Trusted_Multiplier=2;
 
     //Internal config
