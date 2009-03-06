@@ -444,6 +444,17 @@ void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Tem
     //By the TS stream_type
     if (StreamKind_Last==Stream_Max)
     {
+        //Disabling stream_private_1 if needed (will be done by Streams_Private1 object)
+        if (Temp.stream_type!=0 && StreamID==0xBD)
+        {
+            bool StreamIsDetected=false;
+            for (size_t Pos=0; Pos<Streams_Private1.size(); Pos++)
+                if (Streams_Private1[Pos].Parser)
+                    StreamIsDetected=true;
+            if (StreamIsDetected)
+                Temp.stream_type=0;
+        }
+
         if (Temp.stream_type!=0)
             Stream_Prepare(Mpeg_Psi_stream_Kind(Temp.stream_type, 0x00000000));
     }
@@ -1466,6 +1477,7 @@ void File_MpegPs::program_stream_map()
     Parser.From_TS=false;
     Open_Buffer_Init(&Parser);
     Open_Buffer_Continue(&Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
+    Open_Buffer_Finalize(&Parser);
 
     //Filling
     std::map<int16u, File_Mpeg_Psi::stream>::iterator Streams_Temp=Parser.Streams.begin();

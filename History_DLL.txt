@@ -11,6 +11,7 @@ Version 0.7.12, 2009-
 -------------
 + Complete refactoring of the code for speed improvements and future features
 + MPEG-4 Visual: distinction between MPEG and H.263 default matrices
+x MPEG-PS: duplicate stream infos with some AC-3 streams (with program map)
 
 Version 0.7.11, 2009-02-13
 -------------
