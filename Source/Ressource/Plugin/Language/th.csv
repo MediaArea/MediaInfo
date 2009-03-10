@@ -1,8 +1,7 @@
-   Junk;x
+  Language_ISO639;th
   Author_Email;ประสิทธิ์ แคภูเขียว<hs3pln@users.sourceforge.net>
   Author_Name;ประสิทธิ์ แคภูเขียว
   Author_OldNames;Initial translator
-  Language_ISO639;th
   Language_Name;ไทย
   Config_Text_ColumnSize;32
   Config_Text_Separator; : 
@@ -926,4 +925,4 @@ WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
 ZZ_Automatic_Percent;88
-ZZ_AutomaticLanguage_Percent;93
+ZZ_AutomaticLanguage_Percent;92
