@@ -1,11 +1,9 @@
-#pragma link "ThemeMgr"
-#pragma link "TntThemeMgr"
 //---------------------------------------------------------------------------
 
 #include <vcl.h>
 #pragma hdrstop
 
-#include "PReRelease/VCL/PreRelease_.h"
+#include "PreRelease/VCL/PreRelease_.h"
 #include "PreRelease/Language_Others.h"
 #include "PreRelease/Language_All.h"
 //---------------------------------------------------------------------------
