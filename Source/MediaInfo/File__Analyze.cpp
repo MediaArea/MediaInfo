@@ -195,7 +195,11 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_, int
         return;
 
     //Parsing
-    Sub->Init(Config, Details);
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        Sub->Init(Config, Details);
+    #else //MEDIAINFO_MINIMIZESIZE
+        Sub->Init(Config);
+    #endif //MEDIAINFO_MINIMIZESIZE
     Sub->IsSub=true;
     Sub->Open_Buffer_Init(File_Size_, File_Offset_);
 }

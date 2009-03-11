@@ -47,7 +47,9 @@ extern MediaInfo_Config Config;
 File__Base::File__Base ()
 {
     //Init pointers
-    Details=NULL;
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        Details=NULL;
+    #endif //MEDIAINFO_MINIMIZESIZE
     Stream=NULL;
     Stream_More=NULL;
     Stream_MustBeDeleted=false;
@@ -79,7 +81,11 @@ File__Base::~File__Base ()
 
 //---------------------------------------------------------------------------
 //Base
+#ifndef MEDIAINFO_MINIMIZESIZE
 void File__Base::Init (MediaInfo_Config_MediaInfo * Config_, Ztring* Details_, std::vector<std::vector<ZtringList> > * Stream_, std::vector<std::vector<ZtringListList> > * Stream_More_)
+#else //MEDIAINFO_MINIMIZESIZE
+void File__Base::Init (MediaInfo_Config_MediaInfo * Config_, std::vector<std::vector<ZtringList> > * Stream_, std::vector<std::vector<ZtringListList> > * Stream_More_)
+#endif //MEDIAINFO_MINIMIZESIZE
 {
     if (Config)
         return; //Already done
@@ -100,7 +106,9 @@ void File__Base::Init (MediaInfo_Config_MediaInfo * Config_, Ztring* Details_, s
     }
 
     Config=Config_;
-    Details=Details_;
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        Details=Details_;
+    #endif //MEDIAINFO_MINIMIZESIZE
 }
 
 //***************************************************************************

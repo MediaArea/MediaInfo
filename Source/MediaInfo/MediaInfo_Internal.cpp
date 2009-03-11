@@ -155,7 +155,11 @@ int MediaInfo_Internal::Format_Test()
     //Integrity
     if (Info==NULL)
         return 0;
-    Info->Init(&Config, &Details, &Stream, &Stream_More);
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        Info->Init(&Config, &Details, &Stream, &Stream_More);
+    #else //MEDIAINFO_MINIMIZESIZE
+        Info->Init(&Config, &Stream, &Stream_More);
+    #endif //MEDIAINFO_MINIMIZESIZE
     Info->File_Name=File_Name;
     
     //Test the format with buffer
@@ -345,7 +349,11 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
         else
             Info=new File__MultipleParsing;
     }
-    Info->Init(&Config, &Details, &Stream, &Stream_More);
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        Info->Init(&Config, &Details, &Stream, &Stream_More);
+    #else //MEDIAINFO_MINIMIZESIZE
+        Info->Init(&Config, &Stream, &Stream_More);
+    #endif //MEDIAINFO_MINIMIZESIZE
     Info->Open_Buffer_Init(File_Size_, File_Offset_);
 
     //Saving the real file size, in case the user provide the theoritical file size, to be used instead of the real file size

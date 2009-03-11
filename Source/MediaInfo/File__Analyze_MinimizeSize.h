@@ -916,24 +916,12 @@ private :
 
     struct element_details
     {
-        struct to_show
-        {
-            int64u Pos;             //Position of the element in the file
-            int64u Size;            //Size of the element (including header and sub-elements)
-            int64u Header_Size;     //Size of the header of the element
-            Ztring Name;            //Name planned for this element
-            Ztring Info;            //More info about the element
-            Ztring Details;         //The main text
-            bool   NoShow;          //Don't show this element
-        };
-
         int64u  Code;               //Code filled in the file
         int64u  Next;               //
         bool    WaitForMoreData;    //This element is not complete, we need more data
         bool    UnTrusted;          //This element has a problem
         bool    IsComplete;         //This element is fully buffered, no need of more
         bool    InLoop;             //This element is in a parsing loop
-        //to_show ToShow;
     };
     std::vector<element_details> Element;
 

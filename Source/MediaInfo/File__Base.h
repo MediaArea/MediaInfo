@@ -47,7 +47,12 @@ public :
     //Constructor/Destructor
     File__Base();
     virtual ~File__Base();
-    void Init(MediaInfo_Config_MediaInfo * Config, Ztring* Details, std::vector<std::vector<ZtringList> > * Stream_=NULL, std::vector<std::vector<ZtringListList> > * Stream_More=NULL);
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        void Init(MediaInfo_Config_MediaInfo * Config, Ztring* Details, std::vector<std::vector<ZtringList> > * Stream_=NULL, std::vector<std::vector<ZtringListList> > * Stream_More=NULL);
+    #else //MEDIAINFO_MINIMIZESIZE
+        void Init(MediaInfo_Config_MediaInfo * Config, std::vector<std::vector<ZtringList> > * Stream_=NULL, std::vector<std::vector<ZtringListList> > * Stream_More=NULL);
+    #endif //MEDIAINFO_MINIMIZESIZE
+
     //Save
     int     Save ();
 
@@ -91,14 +96,22 @@ protected :
     MediaInfo_Config_MediaInfo* Config;
 
     //Details
-    Ztring* Details;
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        Ztring* Details;
+    #endif //MEDIAINFO_MINIMIZESIZE
 
     //Demux
-    void Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName, bool Final=true);
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        void Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName, bool Final=true);
+    #else //MEDIAINFO_MINIMIZESIZE
+        inline void Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName, bool Final=true) {}
+    #endif //MEDIAINFO_MINIMIZESIZE
 
 public :
-    void   Details_Clear();
-    void   Details_Add(const char* Parameter);
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        void   Details_Clear();
+        void   Details_Add(const char* Parameter);
+    #endif //MEDIAINFO_MINIMIZESIZE
     virtual void Option_Manage() {};
 
     //File

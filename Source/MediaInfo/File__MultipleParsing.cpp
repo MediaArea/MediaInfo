@@ -481,7 +481,11 @@ void File__MultipleParsing::Read_Buffer_Init()
     {
         //Parsing
         if (Buffer_TotalBytes==0)
-            Parser[Pos]->Init(Config, Details);
+            #ifndef MEDIAINFO_MINIMIZESIZE
+                Parser[Pos]->Init(Config, Details);
+            #else //MEDIAINFO_MINIMIZESIZE
+                Parser[Pos]->Init(Config);
+            #endif //MEDIAINFO_MINIMIZESIZE
         Parser[Pos]->Open_Buffer_Init(File_Size, File_Offset);
     }
 }
@@ -543,7 +547,6 @@ void File__MultipleParsing::Read_Buffer_Finalize()
         Parser[Pos]->Open_Buffer_Finalize();
         Merge(*(Parser[Pos]));
         Merge(*(Parser[Pos]), Stream_General, 0, 0);
-        Details=Parser[Pos]->Details;
         if (Parser[Pos]->IsAccepted)
             IsAccepted=true;
     }
