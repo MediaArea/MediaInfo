@@ -128,8 +128,8 @@ size_t MediaInfo_Internal::Open(const String &File_Name_)
 
     CriticalSectionLocker CSL(CS);
     //Test the theorical format
-    //if (Format_Test()>0)
-    //     return 1;
+    if (Format_Test()>0)
+         return 1;
 
     //Extension is not the good one, parse with all formats
     /*
@@ -363,7 +363,7 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
 
     Info->Open_Buffer_Continue(ToAdd, ToAdd_Size);
 
-    if (!MultipleParsing_IsDetected && Info->IsDetected)
+    if (!MultipleParsing_IsDetected && Info->IsAccepted)
     {
         //Found
         File__Analyze* Info_ToDelete=Info;

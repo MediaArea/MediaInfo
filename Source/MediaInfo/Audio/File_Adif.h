@@ -41,12 +41,12 @@ public :
     File_Adif();
 
 private :
-    //Buffer - Global
-    void Read_Buffer_Continue();
-
     //Buffer - File header
     bool FileHeader_Begin();
     void FileHeader_Parse();
+
+    //Buffer - Global
+    void Read_Buffer_Continue();
 };
 
 } //NameSpace

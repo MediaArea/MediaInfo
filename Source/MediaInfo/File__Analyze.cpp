@@ -122,9 +122,10 @@ File__Analyze::File__Analyze ()
     BS=new BitStream;
 
     //Temp
-    IsDetected=false;
-    IsRejected=false;
+    IsAccepted=false;
+    IsFilled=false;
     IsFinished=false;
+    IsFinalized=false;
     ShouldContinueParsing=false;
 }
 
@@ -167,9 +168,9 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
     Read_Buffer_Init();
 
     //Integrity
-    if (!IsDetected && File_Offset>=File_Size)
+    if (!IsAccepted && File_Offset>=File_Size)
     {
-        Rejected();
+        Reject();
         return; //There is a problem
     }
 
@@ -266,12 +267,12 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         if (!BookMark_Code.empty())
             BookMark_Get();
 
-        if (!IsDetected && File_GoTo>=File_Size)
+        if (!IsAccepted && File_GoTo>=File_Size)
         {
-            Finished();
+            Finish();
             Element_Show(); //If Element_Level is >0, we must show what is in the details buffer
             while (Element_Level>0)
-                Element_End(); //This is Finished, must flush
+                Element_End(); //This is Finish, must flush
             return;
         }
     }
@@ -337,7 +338,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     //Is it OK?
     if (Buffer_Size>Buffer_MaximumSize)
     {
-        Finished();
+        Finish();
         return;
     }
 }
@@ -348,7 +349,7 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
         return;
 
     //Sub
-    Sub->Open_Buffer_Init(File_Size, File_Offset);
+    Sub->Open_Buffer_Init(File_Size, File_Offset+Buffer_Offset+Element_Offset);
     #ifndef MEDIAINFO_MINIMIZESIZE
         Sub->Element_Level_Base=Element_Level_Base+Element_Level;
     #endif
@@ -393,7 +394,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
         if (!FileHeader_Manage())
             return; //Wait for more data
         if (IsFinished || File_GoTo!=(int64u)-1)
-            return; //Finished
+            return; //Finish
     }
 
     //Synchro
@@ -410,7 +411,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
         return; //Wait for more data
     Buffer_Offset+=(size_t)Element_Offset;
     if (IsFinished && !ShouldContinueParsing || Buffer_Offset>=Buffer_Size || File_GoTo!=(int64u)-1)
-        return; //Finished
+        return; //Finish
 
     //Parsing;
     while (Buffer_Parse());
@@ -420,7 +421,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     {
         Element[Element_Level].WaitForMoreData=false;
         Detect_EOF();
-        if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || File_Offset==File_Size || File_Offset==(int64u)-1 || (IsFinished && !ShouldContinueParsing))
+        if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (IsFinished && !ShouldContinueParsing))
         {
             EOF_AlreadyDetected=true;
             return;
@@ -440,16 +441,16 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
 
     //Buffer - Global
     Read_Buffer_Finalize();
-    if (!IsDetected)
+    if (!IsAccepted)
         Clear();
 
-    //Element must be Finished
+    //Element must be Finish
     while (Element_Level>0)
         Element_End();
 
     //Parsing
     if (!NoBufferModification)
-        Finished();
+        Finish();
     #ifndef MEDIAINFO_MINIMIZESIZE
     if (Details)
         Details->assign(Element[0].ToShow.Details);
@@ -589,7 +590,7 @@ bool File__Analyze::FileHeader_Begin_0x000001()
     int16u Magic2=Magic4>>16;
     if (Magic4==0x52494646 || Magic3==0x465753 || Magic3==0x464C56 || Magic4==0x7F454C46 || Magic4==0x44504730 || Magic4==0x3026B275 || Magic2==0x4D5A)
     {
-        Rejected();
+        Reject();
         return false;
     }
 
@@ -642,9 +643,9 @@ bool File__Analyze::Synchro_Manage()
         if (!Synchronize())
         {
             if (IsFinished)
-                Finished(); //Finished
+                Finish(); //Finish
             if (!IsSub && File_Offset_FirstSynched==(int64u)-1 && Buffer_TotalBytes+Buffer_Offset>=Buffer_TotalBytes_FirstSynched_Max)
-                Rejected();
+                Reject();
             return false; //Wait for more data
         }
         Synched=true;
@@ -670,7 +671,7 @@ bool File__Analyze::FileHeader_Manage()
     if (!FileHeader_Begin())
     {
         if (IsFinished) //Newest parsers set this bool if there is an error
-            Rejected();
+            Reject();
         return false; //Wait for more data
     }
 
@@ -681,7 +682,7 @@ bool File__Analyze::FileHeader_Manage()
     Element_End();
     if (IsFinished) //Newest parsers set this bool if there is an error
     {
-        Finished();
+        Finish();
         return false;
     }
 
@@ -722,7 +723,7 @@ bool File__Analyze::Header_Manage()
         {
             Element[Element_Level].WaitForMoreData=false;
             Detect_EOF();
-            if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || File_Offset==File_Size || File_Offset==(int64u)-1 || (IsFinished && !ShouldContinueParsing))
+            if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (IsFinished && !ShouldContinueParsing))
                 EOF_AlreadyDetected=true;
         }
         return false; //Wait for more data
@@ -892,8 +893,9 @@ bool File__Analyze::Data_Manage()
     Element[Element_Level].IsComplete=true;
 
     //If no need of more
-    if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || File_Offset==File_Size || File_Offset==(int64u)-1 || (IsFinished && !ShouldContinueParsing))
+    if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (IsFinished && !ShouldContinueParsing))
     {
+        Element_End(); //Element
         Element_Offset=0;
         return false;
     }
@@ -932,7 +934,7 @@ bool File__Analyze::Data_Manage()
     {
         Element[Element_Level].WaitForMoreData=false;
         Detect_EOF();
-        if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || File_Offset==File_Size || File_Offset==(int64u)-1 || (IsFinished && !ShouldContinueParsing))
+        if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (IsFinished && !ShouldContinueParsing))
         {
             EOF_AlreadyDetected=true;
             return false;
@@ -955,52 +957,95 @@ void File__Analyze::Data_Info (const Ztring &Parameter)
 
 //---------------------------------------------------------------------------
 #ifndef MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Data_Accept (const char* ParserName)
+{
+    IsAccepted=true;
+
+    if (ParserName)
+        Info(Ztring(ParserName)+_T(", accepted"));
+}
+#endif //MEDIAINFO_MINIMIZESIZE
+
+//---------------------------------------------------------------------------
+#ifndef MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Data_Finish (const char* ParserName)
+{
+    if (ShouldContinueParsing)
+    {
+        IsFinalized=true;
+        if (ParserName)
+            Info(Ztring(ParserName)+_T(", wants to finish, but should continue parsing"));
+        return;
+    }
+
+    if (ParserName)
+        Info(Ztring(ParserName)+_T(", finished"));
+
+    IsFinished=true;
+}
+#endif //MEDIAINFO_MINIMIZESIZE
+
+//---------------------------------------------------------------------------
+#ifndef MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Data_Reject (const char* ParserName)
+{
+    IsAccepted=false;
+    IsFinished=true;
+    Clear();
+
+    if (ParserName)// && File_Offset+Buffer_Offset+Element_Size<File_Size)
+        Info(Ztring(ParserName)+_T(", rejected"));
+}
+#endif //MEDIAINFO_MINIMIZESIZE
+
+//---------------------------------------------------------------------------
+#ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
 {
     Element_Show();
 
-    if (IsSub)
+    if (GoTo==File_Size)
     {
-        Info(Ztring(ParserName)+(ShouldContinueParsing?_T(" detected"):_T(", parsing finished")), 1);
-        Finished();
+        Finish();
         return;
     }
 
-    if (Element_Level>0)
-        Element_End(); //Element
-
-    if (GoTo==File_Size)
+    if (ShouldContinueParsing)
     {
-        Info(Ztring(ParserName)+_T(", parsing finished"));
-        Detected(ParserName);
-    }
-    else
-    {
-        Info(Ztring(ParserName)+_T(", jumping to offset ")+Ztring::ToZtring(GoTo, 16));
-        File_GoTo=GoTo;
-    }
-}
-#else //MEDIAINFO_MINIMIZESIZE
-void File__Analyze::Data_GoTo (int64u GoTo)
-{
-    if (IsSub)
-    {
-        Finished();
+        IsFinalized=true;
+        if (ParserName)
+            Info(Ztring(ParserName)+_T(", wants to go to somewhere, but should continue parsing"));
         return;
     }
 
-    if (Element_Level>0)
-        Element_End(); //Element
-
-    if (GoTo==File_Size)
-        Detected();
-    else
+    if (IsSub)
     {
-        File_GoTo=GoTo;
-        Synched=false;
+        IsFinalized=true;
+        if (ParserName)
+            Info(Ztring(ParserName)+_T(", wants to go to somewhere, but is sub, waiting data"));
+        return;
     }
+
+    Info(Ztring(ParserName)+_T(", jumping to offset ")+Ztring::ToZtring(GoTo, 16));
+    File_GoTo=GoTo;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
+
+//---------------------------------------------------------------------------
+#ifndef MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Data_GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
+{
+    if (GoToFromEnd>File_Size)
+    {
+        if (ParserName)
+            Info(Ztring(ParserName)+_T(", wants to go to somewhere, but not valid"));
+        return;
+    }
+
+    Data_GoTo(File_Size-GoToFromEnd, ParserName);
+}
+#endif //MEDIAINFO_MINIMIZESIZE
+
 
 //***************************************************************************
 // Element
@@ -1479,7 +1524,7 @@ void File__Analyze::Trusted_IsNot (const char* Reason)
     }
 
     if (Trusted==0)
-        Rejected();
+        Reject();
 }
 
 //***************************************************************************
@@ -1488,89 +1533,200 @@ void File__Analyze::Trusted_IsNot (const char* Reason)
 
 //---------------------------------------------------------------------------
 #ifndef MEDIAINFO_MINIMIZESIZE
-void File__Analyze::Detected (int64u BeforeEnd, const char* Message)
+void File__Analyze::Accept (const char* ParserName)
 {
-    IsDetected=true;
+    IsAccepted=true;
+
+    if (ParserName)
+    {
+        bool MustElementBegin=Element_Level?true:false;
+        if (Element_Level>0)
+            Element_End(); //Element
+        Info(Ztring(ParserName)+_T(", accepted"));
+        if (MustElementBegin)
+            Element_Level++;
+    }
+}
+#else //MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Accept ()
+{
+    IsAccepted=true;
+}
+#endif //MEDIAINFO_MINIMIZESIZE
+
+//---------------------------------------------------------------------------
+#ifndef MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Finish (const char* ParserName)
+{
     if (ShouldContinueParsing)
     {
-        IsFinished=true;
-        if (Message)
+        IsFinalized=true;
+        if (ParserName)
         {
             bool MustElementBegin=Element_Level?true:false;
             if (Element_Level>0)
                 Element_End(); //Element
-            Info(Ztring(Message)+_T(" detected, we continue"));
+            Info(Ztring(ParserName)+_T(", wants to finish, but should continue parsing"));
             if (MustElementBegin)
                 Element_Level++;
         }
+        return;
     }
-    else if (BeforeEnd==0)
-        Finished(Message);
-    else if (BeforeEnd<File_Size-File_Offset)
-        Data_GoTo(File_Size-BeforeEnd, Message);
+
+    if (ParserName)
+    {
+        bool MustElementBegin=Element_Level?true:false;
+        if (Element_Level>0)
+            Element_End(); //Element
+        Info(Ztring(ParserName)+_T(", finished"));
+        if (MustElementBegin)
+            Element_Level++;
+    }
+
+    IsFinished=true;
 }
 #else //MEDIAINFO_MINIMIZESIZE
-void File__Analyze::Detected (int64u BeforeEnd)
+void File__Analyze::Finish ()
 {
-    IsDetected=true;
     if (ShouldContinueParsing)
-        ;
-    else if (BeforeEnd==0)
-        Finished();
-    else if (BeforeEnd<File_Size-File_Offset)
-        Data_GoTo(File_Size-BeforeEnd);
+        return;
+
+    IsFinished=true;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
 //---------------------------------------------------------------------------
 #ifndef MEDIAINFO_MINIMIZESIZE
-void File__Analyze::Finished (const char* Message)
+void File__Analyze::Reject (const char* ParserName)
 {
-    if (Message)
+    IsAccepted=false;
+    IsFinished=true;
+    Clear();
+
+    if (ParserName)// && File_Offset+Buffer_Offset+Element_Size<File_Size)
     {
         bool MustElementBegin=Element_Level?true:false;
         if (Element_Level>0)
             Element_End(); //Element
-        Info(Ztring(Message)+_T(", no need of more, finished"));
+        Info(Ztring(ParserName)+_T(", rejected"));
         if (MustElementBegin)
             Element_Level++;
     }
-    IsFinished=true;
-    Buffer_Clear();
 }
 #else //MEDIAINFO_MINIMIZESIZE
-void File__Analyze::Finished ()
+void File__Analyze::Reject ()
 {
+    IsAccepted=false;
     IsFinished=true;
-    Buffer_Clear();
+    Clear();
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
 //---------------------------------------------------------------------------
 #ifndef MEDIAINFO_MINIMIZESIZE
-void File__Analyze::Rejected (const char* Message)
+void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
 {
-    if (Message)// && File_Offset+Buffer_Offset+Element_Size<File_Size)
+    Element_Show();
+
+    if (GoTo==File_Size)
+    {
+        Finish();
+        return;
+    }
+
+    if (ShouldContinueParsing)
+    {
+        IsFinalized=true;
+        if (ParserName)
+        {
+            bool MustElementBegin=Element_Level?true:false;
+            if (Element_Level>0)
+                Element_End(); //Element
+            Info(Ztring(ParserName)+_T(", wants to go to somewhere, but should continue parsing"));
+            if (MustElementBegin)
+                Element_Level++;
+        }
+        return;
+    }
+
+    if (IsSub)
+    {
+        IsFinalized=true;
+        if (ParserName)
+        {
+            bool MustElementBegin=Element_Level?true:false;
+            if (Element_Level>0)
+                Element_End(); //Element
+            Info(Ztring(ParserName)+_T(", wants to go to somewhere, but is sub, waiting data"));
+            if (MustElementBegin)
+                Element_Level++;
+        }
+        return;
+    }
+
+    if (ParserName)
     {
         bool MustElementBegin=Element_Level?true:false;
         if (Element_Level>0)
             Element_End(); //Element
-        Info(Ztring(Message)+_T(", rejected"));
+        Info(Ztring(ParserName)+_T(", jumping to offset ")+Ztring::ToZtring(GoTo, 16));
         if (MustElementBegin)
             Element_Level++;
     }
-    IsRejected=true;
-    IsFinished=true;
-    Clear();
-    Buffer_Clear();
+    File_GoTo=GoTo;
 }
 #else //MEDIAINFO_MINIMIZESIZE
-void File__Analyze::Rejected ()
+void File__Analyze::GoTo (int64u GoTo)
 {
-    IsRejected=true;
-    IsFinished=true;
-    Clear();
-    Buffer_Clear();
+    if (GoTo==File_Size)
+    {
+        Finish();
+        return;
+    }
+
+    if (ShouldContinueParsing)
+    {
+        IsFinalized=true;
+        return;
+    }
+
+    if (IsSub)
+    {
+        IsFinalized=true;
+        return;
+    }
+
+    File_GoTo=GoTo;
+}
+#endif //MEDIAINFO_MINIMIZESIZE
+
+//---------------------------------------------------------------------------
+#ifndef MEDIAINFO_MINIMIZESIZE
+void File__Analyze::GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
+{
+    if (GoToFromEnd>File_Size)
+    {
+        if (ParserName)
+        {
+            bool MustElementBegin=Element_Level?true:false;
+            if (Element_Level>0)
+                Element_End(); //Element
+            Info(Ztring(ParserName)+_T(", wants to go to somewhere, but not valid"));
+            if (MustElementBegin)
+                Element_Level++;
+        }
+        return;
+    }
+
+    GoTo(File_Size-GoToFromEnd, ParserName);
+}
+#else //MEDIAINFO_MINIMIZESIZE
+void File__Analyze::GoToFromEnd (int64u GoToFromEnd)
+{
+    if (GoToFromEnd>File_Size)
+        return;
+
+    GoTo(File_Size-GoToFromEnd);
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
@@ -1703,7 +1859,7 @@ void File__Analyze::BookMark_Get ()
     File_GoTo=(int64u)-1;
     if (!BookMark_Needed())
     {
-        Finished();
+        Finish();
         return;
     }
 

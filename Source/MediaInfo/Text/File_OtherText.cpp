@@ -57,7 +57,7 @@ void File_OtherText::Read_Buffer_Continue()
         //TODO: Order of bytes (big or Little endian)
         if (File.size()<0x100)
         {
-            Finished();
+            Reject("Other text");
             return;
         }
     }
@@ -80,12 +80,12 @@ void File_OtherText::Read_Buffer_Continue()
     }
     else
     {
-        Finished();
+        Reject("Other text");
         return;
     }
     if (Lines.size()<0x10)
     {
-        Finished();
+        Reject("Other text");
         return;
     }
     Lines.resize(0x20);
@@ -227,7 +227,8 @@ void File_OtherText::Read_Buffer_Continue()
     //No need of more
     Element_Begin(Format);
     Element_End();
-    Detected();
+    Accept("Other text");
+    Finish("Other text");
 }
 
 } //NameSpace

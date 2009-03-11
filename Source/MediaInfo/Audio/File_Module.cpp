@@ -57,7 +57,7 @@ bool File_Module::FileHeader_Begin()
         case 0x3663684E : //6CHN
         case 0x3863684E : //8CHN
                             break;
-        default         :   Rejected("Module");
+        default         :   Reject("Module");
                             return false;
     }
 
@@ -97,7 +97,8 @@ void File_Module::Read_Buffer_Continue()
 
         Stream_Prepare(Stream_Audio);
 
-        Detected();
+        Accept("Module");
+        Finish("Module");
     FILLING_END();
 }
 

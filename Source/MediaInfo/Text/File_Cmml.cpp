@@ -42,18 +42,6 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Constructor/Destructor
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-File_Cmml::File_Cmml()
-:File__Analyze()
-{
-    //Internal
-    Identification_Done=false;
-}
-
-//***************************************************************************
 // Buffer - Per element
 //***************************************************************************
 
@@ -69,7 +57,7 @@ void File_Cmml::Header_Parse()
 void File_Cmml::Data_Parse()
 {
     //Parsing
-    if (Identification_Done)
+    if (IsAccepted)
         Configuration();
     else
         Identification();
@@ -99,7 +87,7 @@ void File_Cmml::Identification()
         Fill(Stream_Text, 0, Text_Format, "CMML");
         Fill(Stream_Text, 0, Text_Codec,  "CMML");
 
-        Identification_Done=true;
+        Accept("CMML");
     FILLING_END();
 }
 
@@ -118,7 +106,7 @@ void File_Cmml::Configuration()
         if (!Value.empty())
             Fill(Stream_Text, 0, Text_Title, Value.SubString(_T("<title>"), _T("</title>")));
         if (Data.find(_T("<clip"))!=string::npos)
-            Detected("CMML");
+            Finish("CMML");
     FILLING_END();
 }
 

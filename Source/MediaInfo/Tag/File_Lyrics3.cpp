@@ -61,7 +61,7 @@ void File_Lyrics3::Read_Buffer_Continue()
     //Coherency
     if (TotalSize<20)
     {
-        Rejected("Lyrics3");
+        Reject("Lyrics3");
         return;
     }
 
@@ -80,7 +80,9 @@ void File_Lyrics3::Read_Buffer_Continue()
     Stream_Prepare(Stream_General);
     Stream_Prepare(Stream_Text);
     Fill(Stream_Text, 0, Text_Codec, "Lyrics3");
-    Detected("Lyric3");
+
+    Accept("Lyric3");
+    Finish("Lyrics3");
 }
 
 //***************************************************************************

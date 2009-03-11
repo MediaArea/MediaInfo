@@ -882,7 +882,8 @@ void File_Dirac::picture_Fill()
     if (File_Offset+Buffer_Size<File_Size)
     {
         NextCode_Clear();
-        Detected("Drc");
+        Accept("Dirac");
+        Finish("Dirac");
     }
 }
 

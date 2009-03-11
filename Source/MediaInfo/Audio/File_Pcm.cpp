@@ -101,7 +101,8 @@ void File_Pcm::Read_Buffer_Continue()
         Fill(Stream_Audio, 0, Audio_Codec, "PCM");
 
         //Finished
-        Detected();
+        Accept("PCM");
+        Finish("PCM");
     }
 }
 
@@ -220,7 +221,8 @@ void File_Pcm::Data_Parse()
     else
         Skip_XX(Element_Size,                                   "Data"); //It is impossible to detect... Default is no detection, only filling
 
-    Detected("PCM");
+    Accept("PCM");
+    Finish("PCM");
 }
 
 //***************************************************************************

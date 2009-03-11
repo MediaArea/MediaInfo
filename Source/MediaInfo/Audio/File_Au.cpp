@@ -123,7 +123,7 @@ bool File_Au::FileHeader_Begin()
 
     if (CC4(Buffer)!=0x2E736E64) //".snd"
     {
-        Rejected("AU");
+        Reject("AU");
         return false;
     }
 
@@ -167,7 +167,8 @@ void File_Au::FileHeader_Parse()
         Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
         Fill(Stream_General, 0, General_Comment, arbitrary);
 
-        Detected();
+        Accept("AU");
+        Finish("AU");
     FILLING_END();
 }
 

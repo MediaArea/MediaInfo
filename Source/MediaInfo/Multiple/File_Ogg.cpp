@@ -338,7 +338,9 @@ void File_Ogg::Data_Parse()
             if (Parser->File_GoTo!=(int64u)-1)
                 Chunk_Sizes_Pos=Chunk_Sizes.size();
 
-            if (Parser->IsDetected || Parser->File_GoTo!=(int64u)-1 || (Element_Offset==Element_Size && eos))
+            if (!IsAccepted && Parser->IsAccepted)
+                Accept("OGG");
+            if (Parser->IsFinished || (Element_Offset==Element_Size && eos))
             {
                 if (Count_Get(Stream_General)==0)
                     Stream_Prepare(Stream_General);
@@ -355,7 +357,10 @@ void File_Ogg::Data_Parse()
     if (!Parsing_End &&
         (StreamsToDo==0 || File_Offset+Buffer_Offset+Element_Offset>256*1024))
     {
-        Detected(IsSub?0:256*1024, "Ogg");
+        if (IsSub)
+            Finish("OGG");
+        else
+            GoToFromEnd(256*1024, "OGG");
         std::map<int64u, stream>::iterator Stream_Temp=Stream.begin();
         while (Stream_Temp!=Stream.end())
         {

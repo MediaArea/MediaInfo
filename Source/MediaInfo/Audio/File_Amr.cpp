@@ -53,7 +53,7 @@ bool File_Amr::FileHeader_Begin()
         return false; //Must wait for more data
     if (CC5(Buffer)!=0x2321414D52LL) //"#!AMR"
     {
-        Rejected("AMR");
+        Reject("AMR");
         return false;
     }
 
@@ -66,27 +66,33 @@ bool File_Amr::FileHeader_Begin()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Amr::Read_Buffer_Continue()
+void File_Amr::FileHeader_Parse()
 {
-    //Filling
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "AMR");
-    Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, 0, Audio_Format, "AMR");
-    Fill(Stream_Audio, 0, Audio_Codec, "AMR");
-    if (!Codec.empty())
-    {
-        Ztring Profile;
-        if (0)
-            ;
-        else if (Codec==_T("samr"))             {Profile=_T("Narrow band");}
-        else if (Codec==_T("sawb"))             {Profile=_T("Wide band");}
-        else if (Codec==_T("A104"))             {Profile=_T("Wide band");}
-        Fill(Stream_Audio, 0, Audio_Format_Profile, Profile);
-    }
+    //Parsing
+    if (Codec.empty())
+        Skip_C5(                                                "Signature");
 
-    //No need of more
-    Detected();
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "AMR");
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "AMR");
+        Fill(Stream_Audio, 0, Audio_Codec, "AMR");
+        if (!Codec.empty())
+        {
+            Ztring Profile;
+            if (0)
+                ;
+            else if (Codec==_T("samr"))             {Profile=_T("Narrow band");}
+            else if (Codec==_T("sawb"))             {Profile=_T("Wide band");}
+            else if (Codec==_T("A104"))             {Profile=_T("Wide band");}
+            Fill(Stream_Audio, 0, Audio_Format_Profile, Profile);
+        }
+
+        //No need of more
+        Accept("AMR");
+        Finish("AMR");
+    FILLING_END();
 }
 
 } //NameSpace

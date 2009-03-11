@@ -315,6 +315,13 @@ const char* Mpeg4_Description(int32u Description)
 //---------------------------------------------------------------------------
 void File_Mpeg4::Data_Parse()
 {
+    //mdat
+    if (IsParsing_mdat)
+    {
+        mdat_xxxx();
+        return;
+    }
+
     //Parsing
     DATA_BEGIN
     LIST_SKIP(free)
@@ -625,7 +632,8 @@ void File_Mpeg4::free()
 //---------------------------------------------------------------------------
 void File_Mpeg4::ftyp()
 {
-    IsDetected=true;
+    if (!IsAccepted)
+        Accept("MPEG-4");
     Element_Name("File Type");
 
     if (Count_Get(Stream_General))
@@ -691,7 +699,8 @@ void File_Mpeg4::idsc()
 //---------------------------------------------------------------------------
 void File_Mpeg4::mdat()
 {
-    IsDetected=true;
+    if (!IsAccepted)
+        Accept("MPEG-4");
     Element_Name("Data");
 
     //In case of second pass
@@ -785,6 +794,12 @@ void File_Mpeg4::mdat()
 //---------------------------------------------------------------------------
 void File_Mpeg4::mdat_xxxx()
 {
+    if (!Element_IsComplete_Get())
+    {
+        Element_WaitForMoreData();
+        return;
+    }
+
     Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring((int32u)Element_Code)+_T(".raw"));
 
     if (Stream[(int32u)Element_Code].Parser)
@@ -834,20 +849,23 @@ void File_Mpeg4::mdat_StreamJump()
         ToJump=File_Size;
     if (ToJump>=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-1)) //We want always Element mdat
     {
-        IsDetected=true;
-        File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-1); //Not in this chunk
+        if (!IsAccepted)
+            Accept("MPEG-4");
+        Data_GoTo(File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-1), "MPEG-4"); //Not in this chunk
     }
     else if (ToJump!=File_Offset+Buffer_Offset+Element_Size)
     {
-        IsDetected=true;
-        File_GoTo=ToJump; //Not just after
+        if (!IsAccepted)
+            Accept("MPEG-4");
+        Data_GoTo(ToJump, "MPEG-4"); //Not just after
     }
 }
 
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov()
 {
-    IsDetected=true;
+    if (!IsAccepted)
+        Accept("MPEG-4");
     Element_Name("File header");
 
     if (!Stream.empty())

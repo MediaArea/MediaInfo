@@ -275,7 +275,8 @@ void File_Aes3::Data_Parse()
             Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
         }
 
-        Detected("AES3");
+        Accept("AES3");
+        Finish("AES3");
     }
 }
 

@@ -54,7 +54,7 @@ bool File_Gif::FileHeader_Begin()
 
     if (CC3(Buffer)!=0x474946) //"GIF"
     {
-        Rejected("GIF");
+        Reject("GIF");
         return false;
     }
 
@@ -99,7 +99,8 @@ void File_Gif::Read_Buffer_Continue()
         Fill(Stream_Image, 0, Image_Format, _T("GIF")+Version);
         Fill(Stream_Image, 0, Image_Codec, _T("GIF")+Version);
 
-        Detected("GIF");
+        Accept("GIF");
+        Finish("GIF");
     FILLING_END();
 }
 

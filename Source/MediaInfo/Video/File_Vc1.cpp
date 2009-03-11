@@ -340,7 +340,7 @@ void File_Vc1::Read_Buffer_Finalize()
         return; //Not initialized
 
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (!IsDetected && (Frame_Count>0 || From_WMV3))
+    if (!IsFilled && (Frame_Count>0 || From_WMV3))
         FrameHeader_Fill();
 
     //Purge what is not needed anymore
@@ -637,7 +637,7 @@ void File_Vc1::FrameHeader()
         NextCode_Add(0x0F);
 
         //Filling only if not already done
-        if (Frame_Count>=Frame_Count_Valid && Count_Get(Stream_Video)==0)
+        if (!IsFilled && Frame_Count>=Frame_Count_Valid)
             FrameHeader_Fill();
 
         //Autorisation of other streams
@@ -732,7 +732,11 @@ void File_Vc1::FrameHeader_Fill()
 
     //Jumping
     if (From_WMV3 || Frame_Count>=Frame_Count_Valid)
-        Detected("Vc1");
+    {
+        Accept("Vc1");
+        IsFilled=true;
+        Finish("Vc1");
+    }
 }
 
 //---------------------------------------------------------------------------

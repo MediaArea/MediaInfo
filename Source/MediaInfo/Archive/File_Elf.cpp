@@ -175,7 +175,7 @@ bool File_Elf::FileHeader_Begin()
 
     if (CC4(Buffer)!=0x7F454C46) //".ELF"
     {
-        Rejected("ELF");
+        Reject("ELF");
         return false;
     }
 
@@ -218,7 +218,7 @@ void File_Elf::Read_Buffer_Continue()
     FILLING_BEGIN();
         if (version1!=version4)
         {
-            Rejected("ELF");
+            Reject("ELF");
             return;
         }
 
@@ -231,7 +231,8 @@ void File_Elf::Read_Buffer_Continue()
         }
 
         //No need of more
-        Detected("ELF");
+        Accept("ELF");
+        Finish("ELF");
     FILLING_END();
 }
 

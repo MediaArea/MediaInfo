@@ -159,7 +159,8 @@ void File_Flac::Data_Parse()
             Fill(Stream_Audio, 0, Audio_StreamSize, File_Size-(File_Offset+Buffer_Offset+Element_Size));
 
         //No more need data
-        File__Tags_Helper::Detected("Flac");
+        File__Tags_Helper::Accept("Flac");
+        File__Tags_Helper::Finish("Flac");
     }
 }
 

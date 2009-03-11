@@ -40,9 +40,12 @@ namespace MediaInfoLib
 class File_TwinVQ : public File__Analyze
 {
 private :
-    //Buffer
-    void Header_Parse();
+    //Buffer - File header
+    bool FileHeader_Begin();
     void FileHeader_Parse();
+
+    //Buffer - Per element
+    void Header_Parse();
     void Data_Parse();
 
     //Elements

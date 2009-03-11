@@ -46,9 +46,7 @@ public :
 protected :
     //Buffer - File header
     bool FileHeader_Begin();
-
-    //Buffer - Global
-    void Read_Buffer_Continue ();
+    void FileHeader_Parse ();
 };
 
 } //NameSpace

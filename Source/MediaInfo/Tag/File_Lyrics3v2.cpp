@@ -82,6 +82,8 @@ void File_Lyrics3v2::FileHeader_Parse()
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
         TotalSize-=11;
+
+        Accept("Lyrics3v2");
     FILLING_END();
 }
 
@@ -150,7 +152,7 @@ void File_Lyrics3v2::Footer()
     Skip_Local(6,                                               "Size");
     Skip_Local(9,                                               "Signature");
 
-    Detected("Lyrics3v2");
+    Finish("Lyrics3v2");
 }
 
 //---------------------------------------------------------------------------

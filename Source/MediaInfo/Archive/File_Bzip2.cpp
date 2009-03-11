@@ -49,7 +49,7 @@ bool File_Bzip2::FileHeader_Begin()
 
     if (CC2(Buffer)!=0x425A) //"BZ"
     {
-        Rejected("Bzip2");
+        Reject("Bzip2");
         return false;
     }
 
@@ -71,7 +71,8 @@ void File_Bzip2::Read_Buffer_Continue()
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "BZip2");
-        Detected("Bzip2");
+        Accept("Bzip2");
+        Finish("Bzip2");
     FILLING_END();
 }
 

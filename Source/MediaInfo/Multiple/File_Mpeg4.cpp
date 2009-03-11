@@ -129,6 +129,7 @@ File_Mpeg4::File_Mpeg4()
     moov_trak_mdia_mdhd_TimeScale=0;
     TimeScale=1;
     Vendor=0x00000000;
+    IsParsing_mdat=false;
 }
 
 //***************************************************************************
@@ -180,12 +181,22 @@ void File_Mpeg4::Read_Buffer_Finalize()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+bool File_Mpeg4::Header_Begin()
+{
+    if (!mdat_Pos.empty() && Element_Level==0)
+        Element_Begin();
+
+    return true;
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::Header_Parse()
 {
     //mdat
     if (!mdat_Pos.empty())
     {
         //Filling
+        IsParsing_mdat=true;
         Header_Fill_Code(mdat_Pos.begin()->second.StreamID, Ztring::ToZtring(mdat_Pos.begin()->second.StreamID));
         Header_Fill_Size(mdat_Pos.begin()->second.Size);
         if (Buffer_Offset+mdat_Pos.begin()->second.Size<=Buffer_Size)

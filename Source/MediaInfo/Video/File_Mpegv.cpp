@@ -351,7 +351,7 @@ void File_Mpegv::Read_Buffer_Finalize()
         return;
         
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (!IsDetected && sequence_header_IsParsed)
+    if (!IsFilled && sequence_header_IsParsed)
     {
         Time_End_Seconds=Error;
         slice_start_Fill();
@@ -470,7 +470,7 @@ bool File_Mpegv::Header_Parser_QuickSearch()
         }
     }
 
-    if(File_Offset+Buffer_Size==File_Size && !IsDetected && Frame_Count>=1)
+    if(File_Offset+Buffer_Size==File_Size && !IsFilled && Frame_Count>=1)
         slice_start_Fill(); //End of file, and we have some frames
     else if (Buffer_Offset+4<=Buffer_Size)
         Trusted_IsNot("MPEG Video, Synchronisation lost");
@@ -507,7 +507,7 @@ void File_Mpegv::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Mpegv::Detect_EOF()
 {
-    if (IsDetected
+    if (IsFilled
      && (File_Size>SizeToAnalyse_Begin+SizeToAnalyse_End && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End && MediaInfoLib::Config.ParseSpeed_Get()<=0.01
       || IsSub))
     {
@@ -520,7 +520,7 @@ void File_Mpegv::Detect_EOF()
             Streams[0x00].Searching_TimeStamp_End=false;
 
         //Jumping
-        Detected(IsSub?0:SizeToAnalyse_End, "MPEG Video");
+        GoToFromEnd(SizeToAnalyse_End, "MPEG Video");
         EOF_AlreadyDetected=true; //Sometimes called from Filling
     }
 }
@@ -659,7 +659,7 @@ void File_Mpegv::slice_start()
             Streams[Pos].Searching_Payload=false;
 
         //Filling only if not already done
-        if (!IsDetected && Frame_Count>=Frame_Count_Valid)
+        if (!IsFilled && Frame_Count>=Frame_Count_Valid)
             slice_start_Fill();
     FILLING_END();
 }
@@ -831,7 +831,8 @@ void File_Mpegv::slice_start_Fill()
         Streams[0x00].Searching_TimeStamp_End=true;
 
     //Detected
-    IsDetected=true;
+    Accept("MPEG Video");
+    IsFilled=true;
     Detect_EOF();
 }
 
@@ -1134,7 +1135,7 @@ void File_Mpegv::sequence_end()
 {
     Element_Name("sequence_end");
 
-    if (!IsDetected && sequence_header_IsParsed)
+    if (!IsFilled && sequence_header_IsParsed)
         slice_start_Fill();
 }
 

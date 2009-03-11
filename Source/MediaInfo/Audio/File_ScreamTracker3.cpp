@@ -49,7 +49,7 @@ bool File_ScreamTracker3::FileHeader_Begin()
 
     if (CC1(Buffer+28)!=0x1A || CC4(Buffer+44)!=0x5343524D) //"SCRM"
     {
-        Rejected("Scream Tracker 3");
+        Reject("Scream Tracker 3");
         return false;
     }
 
@@ -119,7 +119,8 @@ void File_ScreamTracker3::Read_Buffer_Continue()
 
         Stream_Prepare(Stream_Audio);
 
-        Detected("Scream Tracker 3");
+        Accept("Scream Tracker 3");
+        Finish("Scream Tracker 3");
     FILLING_END();
 
 }

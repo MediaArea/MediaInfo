@@ -91,7 +91,8 @@ void File_Id3::Read_Buffer_Continue()
         if (Track)
             Fill(Stream_General, 0, General_Track_Position, Track);
 
-        Detected("Id3");
+        Accept("Id3");
+        Finish("Id3");
     FILLING_END();
 }
 

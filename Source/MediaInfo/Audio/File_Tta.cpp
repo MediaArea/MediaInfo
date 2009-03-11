@@ -67,7 +67,7 @@ bool File_Tta::FileHeader_Begin()
         return false;
     if (CC4(Buffer+Buffer_Offset)!=0x54544131) //"TTA1"
     {
-        Rejected("TTA");
+        File__Tags_Helper::Reject("TTA");
         return false;
     }
 
@@ -109,7 +109,8 @@ void File_Tta::FileHeader_Parse()
     Fill(Stream_Audio, 0, Audio_Duration, Duration);
 
     //No more need data
-    File__Tags_Helper::Detected("TTA");
+    File__Tags_Helper::Accept("TTA");
+    File__Tags_Helper::Finish("TTA");
 }
 
 //***************************************************************************
@@ -125,7 +126,7 @@ void File_Tta::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Tta::Read_Buffer_Finalize()
 {
-    if (!IsDetected)
+    if (!IsAccepted)
         return;
 
     //Filling

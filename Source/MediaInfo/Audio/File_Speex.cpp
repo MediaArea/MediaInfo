@@ -124,6 +124,7 @@ void File_Speex::Identification()
                 Fill(Stream_Audio, 0, Audio_BitRate, bitrate);
             Fill(Stream_Audio, 0, Audio_BitRate_Mode, vbr?"VBR":"CBR");
         }
+        Accept("Speex");
     FILLING_END();
 
     //Filling
@@ -148,7 +149,7 @@ void File_Speex::Comment()
             Fill(Stream_Audio, 0, "Comment", value);
     }
 
-    Detected();
+    Finish("Speex");
 }
 
 //***************************************************************************

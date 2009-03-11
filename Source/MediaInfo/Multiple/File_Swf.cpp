@@ -312,8 +312,8 @@ void File_Swf::Read_Buffer_Finalize()
 {
     if (Count_Get(Stream_General)==0)
         return;
-    if (!IsDetected)
-        IsDetected=true;
+    if (!IsAccepted)
+        Accept("SWF");
 
     if (Count_Get(Stream_Video)==0)
     {
@@ -411,9 +411,10 @@ void File_Swf::FileHeader_Parse()
         //Integrity
         if (Signature!=0x465753 && Signature!=0x435753) //FWS or CWS
         {
-            Rejected();
+            Reject("SWF");
             return;
         }
+        Accept("SWF");
 
         //Filling
         Stream_Prepare(Stream_General);
@@ -529,7 +530,7 @@ void File_Swf::Data_Parse()
 
     Frame_Count++;
     if (Frame_Count>=Frame_Count_Valid)
-        Detected();
+        Finish("SWF");
 }
 
 //***************************************************************************
@@ -637,7 +638,7 @@ bool File_Swf::Decompress()
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "ShockWave");
         Stream_Prepare(Stream_Video);
-        Detected();
+        Finish("SWF");
         return true;
     }
 
@@ -651,7 +652,7 @@ bool File_Swf::Decompress()
     {
         delete[] Dest; //Dest=NULL
         Trusted_IsNot("Error while decompressing");
-        Rejected("SWF");
+        Reject("SWF");
         return false;
     }
 
@@ -665,7 +666,7 @@ bool File_Swf::Decompress()
     Merge(MI, Stream_General, 0, 0);
     delete[] Dest; //Dest=NULL;
 
-    Detected();
+    Finish("SWF");
     return true;
 }
 

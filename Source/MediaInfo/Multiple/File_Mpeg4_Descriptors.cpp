@@ -425,7 +425,7 @@ void File_Mpeg4_Descriptors::Data_Parse()
                  break;
     }
 
-    IsDetected=true;    
+    IsAccepted=true;
 }
 
 //***************************************************************************

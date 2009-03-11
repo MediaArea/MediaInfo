@@ -49,7 +49,7 @@ bool File_Ace::FileHeader_Begin()
 
     if (CC7(Buffer)!=0x2A2A4143452A2ALL) //"**ACE**"
     {
-        Rejected("Ace");
+        Reject("Ace");
         return false;
     }
 
@@ -71,7 +71,8 @@ void File_Ace::Read_Buffer_Continue()
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "ACE");
-        Detected("Ace");
+        Accept("Ace");
+        Finish("Ace");
     FILLING_END();
 }
 

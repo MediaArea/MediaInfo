@@ -57,10 +57,9 @@ bool File_Tiff::FileHeader_Begin()
     //Element_Size
     if (Buffer_Size<4)
         return false; //Must wait for more data
-
     if (CC4(Buffer)!=0x49492A00 && CC4(Buffer)!=0x4D4D002A)
     {
-        Rejected("TIFF");
+        Reject("TIFF");
         return false;
     }
 
@@ -84,7 +83,9 @@ void File_Tiff::Read_Buffer_Continue()
         Stream_Prepare(Stream_Image);
         Fill(Stream_Image, 0, Image_Format, "TIFF");
         Fill(Stream_Image, 0, Image_Codec, "TIFF");
-        Detected("TIFF");
+
+        Accept("TIFF");
+        Finish("TIFF");
     FILLING_END();
 }
 

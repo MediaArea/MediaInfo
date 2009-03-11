@@ -161,8 +161,11 @@ protected :
     bool EOF_AlreadyDetected;
 
     //Data - Helpers
-    void Data_Finished(const char* Message)                                    {Data_GoTo(File_Size, Message);};
-    void Data_GoTo     (int64u GoTo, const char* Message);
+    void Data_Accept        (const char* ParserName);
+    void Data_Reject        (const char* ParserName);
+    void Data_Finish        (const char* ParserName);
+    void Data_GoTo          (int64u GoTo, const char* ParserName);
+    void Data_GoToFromEnd   (int64u GoToFromEnd, const char* ParserName);
 
     //***************************************************************************
     // Elements
@@ -699,10 +702,11 @@ public :
     //***************************************************************************
 
     //Actions
-    void Detected(int64u BeforeEnd=0, const char* Message=NULL);
-    void Detected(const char* Message) {Detected(0, Message);}
-    void Finished(const char* Message=NULL);
-    void Rejected(const char* Message=NULL);
+    void Accept        (const char* ParserName=NULL);
+    void Reject        (const char* ParserName=NULL);
+    void Finish        (const char* ParserName=NULL);
+    void GoTo          (int64u GoTo, const char* ParserName=NULL);
+    void GoToFromEnd   (int64u GoToFromEnd, const char* ParserName=NULL);
     int64u Element_Code_Get (size_t Level);
     int64u Element_TotalSize_Get (size_t LevelLess=0);
     bool Element_IsComplete_Get ();
@@ -720,16 +724,25 @@ public :
     bool Element_IsWaitingForMoreData ();
 
     //Begin
-    #define FILLING_BEGIN() if (Element_IsOK()) \
+    #define FILLING_BEGIN() \
+        if (Element_IsOK()) \
         {
 
-    #define FILLING_BEGIN_PRECISE() if (Element_Offset!=Element_Size) \
+    #define FILLING_BEGIN_PRECISE() \
+        if (Element_Offset!=Element_Size) \
             Trusted_IsNot("Size error"); \
         else if (Element_IsOK()) \
         {
 
+    //Else
+    #define FILLING_ELSE() \
+        } \
+        else \
+        { \
+
     //End
-    #define FILLING_END() }
+    #define FILLING_END() \
+        }
 
     //***************************************************************************
     // Merging
@@ -890,9 +903,10 @@ public :
     virtual bool BookMark_Needed()                                              {return false;};
 
     //Temp
-    bool IsDetected;
-    bool IsRejected;
+    bool IsAccepted;
+    bool IsFilled;
     bool IsFinished;
+    bool IsFinalized;
     bool ShouldContinueParsing;
 
     //Configuration

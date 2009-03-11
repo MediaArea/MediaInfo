@@ -145,14 +145,18 @@ void File_Mk::Read_Buffer_Finalize()
     {
         if (Temp->second.Parser)
         {
-            Ztring Codec_Temp;
+            Ztring Duration_Temp, Codec_Temp;
             StreamKind_Last=Temp->second.StreamKind;
             StreamPos_Last=Temp->second.StreamPos;
 
             if (Temp->second.StreamKind==Stream_Video)
+            {
+                Duration_Temp=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration); //Duration from stream is sometimes false
                 Codec_Temp=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Codec); //We want to keep the 4CC
+            }
             Open_Buffer_Finalize(Temp->second.Parser);
             Merge(*Temp->second.Parser, Temp->second.StreamKind, 0, Temp->second.StreamPos);
+            Fill(Stream_Video, StreamPos_Last, Video_Duration, Duration_Temp, true);
             if (Temp->second.StreamKind==Stream_Video && !Codec_Temp.empty())
                 Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec_Temp, true);
 
@@ -173,7 +177,9 @@ void File_Mk::Read_Buffer_Finalize()
                     if (FrameRate_Between[0]*0.9<FrameRate_Between[FrameRate_Between.size()-1]
                      && FrameRate_Between[0]*1.1>FrameRate_Between[FrameRate_Between.size()-1])
                     {
-                        float Time=(float)(Temp->second.TimeCodes[30]-Temp->second.TimeCodes[0])/30; //30 frames for handling 30 fps rounding problems
+                        float Time=0;
+                        if (Temp->second.TimeCodes.size()>30)
+                            Time=(float)(Temp->second.TimeCodes[30]-Temp->second.TimeCodes[0])/30; //30 frames for handling 30 fps rounding problems
                         if (Time)
                         {
                             Fill(Stream_Video, StreamPos_Last, Video_FrameRate, 1000/Time);
@@ -711,7 +717,7 @@ void File_Mk::Data_Parse()
             ATOM_END_MK
         ATOM_END_MK
     DATA_DEFAULT
-        Rejected();
+        Reject("Matroska");
     DATA_END_DEFAULT
 }
 
@@ -792,7 +798,7 @@ void File_Mk::Ebml_DocType()
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "Matroska");
-        IsDetected=true;
+        Accept("Matroska");
     FILLING_END();
 }
 
@@ -1159,7 +1165,7 @@ void File_Mk::Segment_Cluster()
         if (Stream_Count==0)
         {
             //Jumping
-            Detected("Matroska");//Skip_XX(Element_TotalSize_Get(),                        "Data");
+            Finish("Matroska");//Skip_XX(Element_TotalSize_Get(),                        "Data");
             return;
         }
     }
@@ -1289,7 +1295,8 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
                 //Parsing
                 Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Laces[Pos]);
                 Element_Offset+=Laces[Pos];
-                if (Stream[TrackNumber].Parser->IsFinished
+                if (Stream[TrackNumber].Parser->IsFilled
+                 || Stream[TrackNumber].Parser->IsFinished
                  || Stream[TrackNumber].PacketCount>=300)
                     Stream[TrackNumber].SearchingPayload=false;
             }
@@ -1307,7 +1314,7 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
             Element_End(); //Block
             Info("Cluster, no need of more");
             Element_End(); //BlockGroup
-            Detected("Matroska"); //File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
+            Finish("Matroska"); //File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
         }
 
         //Demux

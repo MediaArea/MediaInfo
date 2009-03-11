@@ -178,6 +178,7 @@ File_AvsV::File_AvsV()
 :File__Analyze()
 {
     //Config
+    MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
 
     //In
@@ -189,16 +190,62 @@ File_AvsV::File_AvsV()
 }
 
 //***************************************************************************
-// Buffer - Global
+// Buffer - Synchro
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_AvsV::Read_Buffer_Continue()
+bool File_AvsV::Synched_Test()
 {
-    //Integrity
-    if (File_Offset==0 && Detect_NonAvsV())
-        return;
+    //Must have enough buffer for having header
+    if (Buffer_Offset+3>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if (CC3(Buffer+Buffer_Offset)!=0x000001)
+        Synched=false;
+
+    //Quick search
+    if (Synched && !Header_Parser_QuickSearch())
+        return false;
+
+    //We continue
+    return true;
 }
+
+//---------------------------------------------------------------------------
+void File_AvsV::Synched_Init()
+{
+    //Count of a Packets
+    Frame_Count=0;
+    progressive_frame_Count=0;
+    Interlaced_Top=0;
+    Interlaced_Bottom=0;
+
+    //Temp
+    bit_rate=0;
+    horizontal_size=0;
+    vertical_size=0;
+    display_horizontal_size=0;
+    display_vertical_size=0;
+    profile_id=0;
+    level_id=0;
+    chroma_format=0;
+    aspect_ratio=0;
+    frame_rate_code=0;
+    video_format=5; //Unspecified video format
+    progressive_sequence=false;
+    low_delay=false;
+
+    //Default stream values
+    Streams.resize(0x100);
+    Streams[0xB0].Searching_Payload=true; //video_sequence_start
+    for (int8u Pos=0xB9; Pos!=0x00; Pos++)
+        Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_AvsV::Read_Buffer_Finalize()
@@ -213,34 +260,8 @@ void File_AvsV::Read_Buffer_Finalize()
 }
 
 //***************************************************************************
-// Buffer
+// Buffer - Per element
 //***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_AvsV::Header_Begin()
-{
-    //Must have enough buffer for having header
-    if (Buffer_Offset+4>Buffer_Size)
-        return false;
-
-    //Quick test of synchro
-    if (Synched && CC3(Buffer+Buffer_Offset)!=0x000001)
-    {
-        Trusted_IsNot("AVS Video, Synchronisation lost");
-        Synched=false;
-    }
-
-    //Synchro
-    if (!Synched && !Synchronize())
-        return false;
-
-    //Quick search
-    if (!Header_Parser_QuickSearch())
-        return false;
-
-    //All should be OK...
-    return true;
-}
 
 //---------------------------------------------------------------------------
 void File_AvsV::Header_Parse()
@@ -249,7 +270,7 @@ void File_AvsV::Header_Parse()
     int8u start_code;
     Skip_B3(                                                    "synchro");
     Get_B1 (start_code,                                         "start_code");
-    if (!Header_Parse_Fill_Size())
+    if (!Header_Parser_Fill_Size())
     {
         Element_WaitForMoreData();
         return;
@@ -260,7 +281,38 @@ void File_AvsV::Header_Parse()
 }
 
 //---------------------------------------------------------------------------
-bool File_AvsV::Header_Parse_Fill_Size()
+bool File_AvsV::Header_Parser_QuickSearch()
+{
+    while (           Buffer_Offset+4<=Buffer_Size
+      &&   CC3(Buffer+Buffer_Offset)==0x000001)
+    {
+        //Getting start_code
+        int8u start_code=CC1(Buffer+Buffer_Offset+3);
+
+        //Searching start
+        if (Streams[start_code].Searching_Payload)
+            return true;
+
+        //Getting size
+        Buffer_Offset+=4;
+        while(Buffer_Offset+4<=Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
+        {
+            Buffer_Offset+=2;
+            while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+                Buffer_Offset+=2;
+            if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+                Buffer_Offset--;
+        }
+    }
+
+    if (Buffer_Offset+4<=Buffer_Size)
+        Trusted_IsNot("AVS Video, Synchronisation lost");
+    Synched=false;
+    return Synchronize();
+}
+
+//---------------------------------------------------------------------------
+bool File_AvsV::Header_Parser_Fill_Size()
 {
     //Look for next Sync word
     if (Buffer_Offset_Temp==0) //Buffer_Offset_Temp is not 0 if Header_Parse_Fill_Size() has already parsed first frames
@@ -752,8 +804,9 @@ void File_AvsV::picture_start_Fill()
         Fill(Stream_Video, 0, Video_Encoded_Library_Date, Library_Date);
     }
 
-    //Jumping
-    Detected("AVS Video");
+    //No need of more
+    Accept("AVS Video");
+    Finish("AVS Video");
 }
 
 //---------------------------------------------------------------------------
@@ -772,140 +825,6 @@ void File_AvsV::reserved()
     //Parsing
     if (Element_Size)
         Skip_XX(Element_Size,                                   "reserved");
-}
-
-//***************************************************************************
-// Helpers
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_AvsV::Synchronize()
-{
-    //Synchronizing
-    while (Buffer_Offset+4<=Buffer_Size
-        && CC3(Buffer+Buffer_Offset)!=0x000001)
-        Buffer_Offset++;
-    if (Buffer_Offset+4>Buffer_Size)
-    {
-        //Parsing last bytes
-        if (Buffer_Offset+3==Buffer_Size)
-        {
-            if (CC3(Buffer+Buffer_Offset)!=0x000001)
-            {
-                Buffer_Offset++;
-                if (CC2(Buffer+Buffer_Offset)!=0x0000)
-                {
-                    Buffer_Offset++;
-                    if (CC1(Buffer+Buffer_Offset)!=0x00)
-                        Buffer_Offset++;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    //Synched is OK
-    Synched=true;
-    Init();
-    return true;
-}
-
-//---------------------------------------------------------------------------
-bool File_AvsV::Header_Parser_QuickSearch()
-{
-    while (           Buffer_Offset+4<=Buffer_Size
-      &&   CC3(Buffer+Buffer_Offset)==0x000001)
-    {
-        //Getting start_code
-        int8u start_code=CC1(Buffer+Buffer_Offset+3);
-
-        //Searching start
-        if (Streams[start_code].Searching_Payload)
-            return true;
-
-        //Getting size
-        Buffer_Offset+=4;
-        while(Buffer_Offset+4<=Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
-        {
-            Buffer_Offset+=2;
-            while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
-                Buffer_Offset+=2;
-            if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
-                Buffer_Offset--;
-        }
-    }
-
-    if (Buffer_Offset+4<=Buffer_Size)
-        Trusted_IsNot("AVS Video, Synchronisation lost");
-    Synched=false;
-    return Synchronize();
-}
-
-//---------------------------------------------------------------------------
-bool File_AvsV::Detect_NonAvsV ()
-{
-    //File_Size
-    if (File_Size<=188*4)
-        return false; //We can't do detection
-
-    //Element_Size
-    if (Buffer_Size<=188*4)
-        return true; //Must wait for more data
-
-    //Detect mainly DAT files, and the parser is not enough precise to detect them later
-    if (CC4(Buffer)==CC4("RIFF"))
-    {
-        Rejected();
-        return true;
-    }
-
-    //Detect TS files, and the parser is not enough precise to detect them later
-    while (Buffer_Offset<188 && CC1(Buffer+Buffer_Offset)!=0x47) //Look for first Sync word
-        Buffer_Offset++;
-    if (Buffer_Offset<188 && CC1(Buffer+Buffer_Offset+188)==0x47 && CC1(Buffer+Buffer_Offset+188*2)==0x47 && CC1(Buffer+Buffer_Offset+188*3)==0x47)
-    {
-        Rejected();
-        return true;
-    }
-    Buffer_Offset=0;
-
-    //Seems OK
-    return false;
-}
-
-//---------------------------------------------------------------------------
-void File_AvsV::Init()
-{
-    if (!Streams.empty())
-        return;
-
-    //Count of a Packets
-    Frame_Count=0;
-    progressive_frame_Count=0;
-    Interlaced_Top=0;
-    Interlaced_Bottom=0;
-
-    //Temp
-    bit_rate=0;
-    horizontal_size=0;
-    vertical_size=0;
-    display_horizontal_size=0;
-    display_vertical_size=0;
-    profile_id=0;
-    level_id=0;
-    chroma_format=0;
-    aspect_ratio=0;
-    frame_rate_code=0;
-    video_format=5; //Unspecified video format
-    progressive_sequence=false;
-    low_delay=false;
-
-    //Default stream values
-    Streams.resize(0x100);
-    Streams[0xB0].Searching_Payload=true; //video_sequence_start
-    for (int8u Pos=0xB9; Pos!=0x00; Pos++)
-        Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
 }
 
 //***************************************************************************

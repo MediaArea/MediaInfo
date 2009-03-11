@@ -146,7 +146,7 @@ void File_VorbisCom::FileHeader_Parse()
         Fill(StreamKind_Specific, 0, "Encoded_Library/Version", Library_Version);
         Fill(StreamKind_Specific, 0, "Encoded_Library/Date", Library_Date);
 
-        IsDetected=true;
+        Accept("VorbisCom");
     FILLING_END();
 }
 
@@ -253,7 +253,7 @@ void File_VorbisCom::Data_Parse()
     FILLING_END();
 
     if (user_comment_list_length==0)
-        Detected("VorbisCom");
+        Finish("VorbisCom");
 }
 
 //***************************************************************************

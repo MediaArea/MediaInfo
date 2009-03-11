@@ -40,8 +40,9 @@ namespace MediaInfoLib
 class File_Mxf : public File__Analyze
 {
 protected :
-    //Buffer - Global
-    void Read_Buffer_Continue ();
+    //Buffer - File header
+    bool FileHeader_Begin();
+    void FileHeader_Parse();
 };
 
 } //NameSpace

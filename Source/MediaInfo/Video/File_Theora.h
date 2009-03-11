@@ -43,10 +43,6 @@ namespace MediaInfoLib
 
 class File_Theora : public File__Analyze
 {
-public :
-    //Constructor/Destructor
-    File_Theora();
-
 private :
     //Buffer - Per element
     void Header_Parse();
@@ -55,9 +51,6 @@ private :
     //Elements
     void Identification();
     void Setup();
-
-    //Temp
-    bool Identification_Done;
 };
 
 } //NameSpace

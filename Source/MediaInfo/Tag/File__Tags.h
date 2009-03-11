@@ -68,10 +68,11 @@ public :
     size_t Stream_Prepare(stream_t StreamKind);
 
     //End
-    void Data_GoTo    (int64u GoTo, const char* Message);
-    void Detected     (int64u BeforeEnd=0, const char* Message=NULL);
-    void Detected     (const char* Message) {Detected(0, Message);}
-    void Finished     (const char* Message=NULL);
+    void GoTo           (int64u GoTo, const char* ParserName=NULL);
+    void GoToFromEnd    (int64u GoToFromEnd=0, const char* ParserName=NULL);
+    void Accept         (const char* ParserName);
+    void Reject         (const char* ParserName);
+    void Finish         (const char* ParserName);
 
 private :
     //Temp

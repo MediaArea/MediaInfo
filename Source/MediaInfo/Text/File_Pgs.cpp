@@ -50,7 +50,8 @@ void File_Pgs::Read_Buffer_Continue()
     Fill(Stream_Text, 0, Text_Format, "PGS");
     Fill(Stream_Text, 0, Text_Codec, "PGS");
 
-    Detected("PGS");
+    Accept("PGS");
+    Finish("PGS");
 }
 
 //***************************************************************************

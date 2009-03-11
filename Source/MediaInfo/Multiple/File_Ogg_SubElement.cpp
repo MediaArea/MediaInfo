@@ -281,7 +281,7 @@ void File_Ogg_SubElement::Data_Parse()
             case 0x05 :
             case 0x82 : Default(); break;
             default   : Skip_XX(Element_Size,                       "Unknown");
-                        Detected("OggSubElement");
+                        Finish("OggSubElement");
         }
 }
 
@@ -338,7 +338,8 @@ void File_Ogg_SubElement::Identification()
     else
     {
         Skip_XX(Element_Size,                                   "Unkown");
-        Detected("OggSubElement");
+        Accept("OggSubElement");
+        Finish("OggSubElement");
         return;
     }
     Open_Buffer_Init(Parser);
@@ -353,6 +354,7 @@ void File_Ogg_SubElement::Identification()
     ELEMENT_CASE(fisbone)
     else
         Identified=true;
+    Accept("OggSubElement");
 }
 
 //---------------------------------------------------------------------------
@@ -757,8 +759,8 @@ void File_Ogg_SubElement::Comment()
     Merge(Vorbis, Stream_Chapters, 0, 0);
 
     //Testing if we must continue
-    if (Identified && (Parser==NULL || Parser->IsDetected))
-        Detected("OggSubElement");
+    if (Identified && (Parser==NULL || Parser->IsFinished))
+        Finish("OggSubElement");
 }
 
 //---------------------------------------------------------------------------
@@ -769,14 +771,14 @@ void File_Ogg_SubElement::Default()
     if (Parser)
     {
         Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
-        if (Identified && Parser->IsDetected)
-            Detected("OggSubElement");
+        if (Identified && Parser->IsFinished)
+            Finish("OggSubElement");
     }
     else if (Element_Offset<Element_Size)
     {
         Skip_XX(Element_Size-Element_Offset,                    "Unknown");
         if (Identified)
-            Detected("OggSubElement");
+            Finish("OggSubElement");
     }
 }
 

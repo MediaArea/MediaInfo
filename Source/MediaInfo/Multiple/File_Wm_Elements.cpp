@@ -220,7 +220,7 @@ void File_Wm::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Wm::Header()
 {
-    IsDetected=true;
+    Accept("Windows Media");
     Element_Name("Header");
 
     //Parsing
@@ -443,7 +443,7 @@ void File_Wm::Header_StreamProperties_Video ()
         if (Data_Size>40)
         {
             Open_Buffer_Continue(Stream[Stream_Number].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Data_Size-40));
-            if (Stream[Stream_Number].Parser->IsDetected)
+            if (Stream[Stream_Number].Parser->IsFinished)
             {
                 Open_Buffer_Finalize(Stream[Stream_Number].Parser);
                 Merge (*Stream[Stream_Number].Parser, Stream_Video, 0, StreamPos_Last);
@@ -1417,7 +1417,7 @@ void File_Wm::Data_Packet()
             #endif
 
             Open_Buffer_Continue(Stream[Stream_Number].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)PayloadLength);
-            if (Stream[Stream_Number].Parser->IsDetected
+            if (Stream[Stream_Number].Parser->IsFinished
              || Stream[Stream_Number].PresentationTime_Count>=300)
             {
                 Stream[Stream_Number].SearchingPayload=false;
@@ -1447,8 +1447,7 @@ void File_Wm::Data_Packet()
     if (Streams_Count==0 || Packet_Count>=1000)
     {
         Info("Data, Jumping to end of chunk");
-        IsDetected=true;
-        File_GoTo=Data_AfterTheDataChunk;
+        GoTo(Data_AfterTheDataChunk, "Windows Media");
     }
 
     if (Element_Show_Count>0)

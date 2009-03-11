@@ -43,10 +43,6 @@ namespace MediaInfoLib
 
 class File_Cmml : public File__Analyze
 {
-public :
-    //Constructor/Destructor
-    File_Cmml();
-
 private :
     //Buffer - Per element
     void Header_Parse();
@@ -55,9 +51,6 @@ private :
     //Elements
     void Identification();
     void Configuration();
-
-    //Temp
-    int8u Identification_Done;
 };
 
 } //NameSpace

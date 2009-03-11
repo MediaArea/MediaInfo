@@ -30,7 +30,7 @@
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-#if defined(MEDIAINFO_AVC_YES) || defined(MEDIAINFO_MPEGTS_YES)
+#if defined(MEDIAINFO_AVC_YES) || defined(MEDIAINFO_MPEGPS_YES) || defined(MEDIAINFO_MPEGTS_YES)
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -368,7 +368,7 @@ void File_Avc::Read_Buffer_Finalize()
         return; //Not initialized
 
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (!IsDetected && (SPS_IsParsed || MustParse_SPS_PPS_Done))
+    if (!IsFilled && (SPS_IsParsed || MustParse_SPS_PPS_Done))
         slice_header_Fill();
 
     //In case of there is enough elements for trusting this is a AVC file, but SPS/PPS are absent
@@ -728,7 +728,7 @@ void File_Avc::slice_header()
         //Filling only if not already done
         if (Frame_Count>1 && Count_Get(Stream_General)==0)
             Stream_Prepare(Stream_General);
-        if (!IsDetected && Frame_Count>=Frame_Count_Valid)
+        if (!IsFilled && Frame_Count>=Frame_Count_Valid)
             slice_header_Fill();
     FILLING_END();
 
@@ -877,8 +877,11 @@ void File_Avc::slice_header_Fill()
         for (int8u Pos=0x00; Pos<0x20; Pos++)
             Streams[Pos].Searching_Payload=false; //Coded slice...
     }
+
+    Accept("Avc");
+    IsFilled=true;
     if (!Streams[(size_t)Element_Code].ShouldDuplicate)
-        Detected("Avc");
+        Finish("Avc");
 }
 
 //---------------------------------------------------------------------------
@@ -1661,7 +1664,7 @@ void File_Avc::SPS_PPS()
         if (MustParse_SPS_PPS_Only)
         {
             slice_header_Fill();
-            Detected("Avc");
+            Finish("Avc");
         }
     FILLING_END();
 }

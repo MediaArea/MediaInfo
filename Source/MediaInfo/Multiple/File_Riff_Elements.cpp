@@ -387,6 +387,7 @@ void File_Riff::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Riff::AIFC()
 {
+    Data_Accept("AIFF Compressed");
     Element_Name("AIFF Compressed");
 
     //Filling
@@ -431,6 +432,7 @@ void File_Riff::AIFC_xxxx()
 //---------------------------------------------------------------------------
 void File_Riff::AIFF()
 {
+    Accept("AIFF");
     Element_Name("AIFF");
 
     //Filling
@@ -506,9 +508,11 @@ void File_Riff::AIFF_SSND()
 {
     Element_Name("Sound Data");
 
+    Skip_XX(Element_TotalSize_Get(),                            "Data");
+    
     //Filling
     Fill(Stream_Audio, 0, Audio_StreamSize, Element_TotalSize_Get());
-    Detected();
+    Finish("AIFF");
 }
 
 //---------------------------------------------------------------------------
@@ -540,7 +544,7 @@ void File_Riff::AIFF_xxxx()
 //---------------------------------------------------------------------------
 void File_Riff::AVI_()
 {
-    IsDetected=true;
+    Accept("AVI");
     Element_Name("AVI");
 
     //Test if there is only one AVI chunk
@@ -1911,7 +1915,7 @@ void File_Riff::AVI__movi_xxxx___wb()
     //Finalize (if requested)
     if ( Stream[Stream_ID].PacketPos>=4 //For having the chunk alignement
      && (Stream[Stream_ID].Parser==NULL
-      || Stream[Stream_ID].Parser->IsFinished
+      || Stream[Stream_ID].Parser->IsFilled
       || Stream[Stream_ID].PacketPos>=300)
       || Element_Size>50000) //For PCM, we disable imediatly
     {
@@ -1947,9 +1951,9 @@ void File_Riff::AVI__movi_StreamJump()
             Element_End();
         Info("movi, Jumping to end of chunk");
         if (SecondPass)
-            Detected(); //The rest is already parsed
+            Finish("AVI"); //The rest is already parsed
         else
-            File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
+            GoTo(File_Offset+Buffer_Offset+Element_TotalSize_Get(), "AVI");
     }
     else if (Stream_Structure_Temp!=Stream_Structure.end())
     {
@@ -1965,7 +1969,7 @@ void File_Riff::AVI__movi_StreamJump()
                 File_GoTo=ToJump; //Not just after
         }
         else
-            Detected();
+            Finish("AVI");
     }
 }
 
@@ -2032,7 +2036,6 @@ void File_Riff::AVIX_movi_xxxx()
 //---------------------------------------------------------------------------
 void File_Riff::CADP()
 {
-    IsDetected=true;
     Element_Name("CMP4 - ADPCM");
 
     //Parsing
@@ -2051,7 +2054,6 @@ void File_Riff::CADP()
 //---------------------------------------------------------------------------
 void File_Riff::CMJP()
 {
-    IsDetected=true;
     Element_Name("CMP4 - MJPEG");
 
     //Parsing
@@ -2084,7 +2086,7 @@ void File_Riff::CMJP()
 //---------------------------------------------------------------------------
 void File_Riff::CMP4()
 {
-    IsDetected=true;
+    Accept("CMP4");
     Element_Name("CMP4 - Header");
 
     //Parsing
@@ -2127,34 +2129,44 @@ void File_Riff::menu()
 //---------------------------------------------------------------------------
 void File_Riff::MThd()
 {
-    IsDetected=true;
     Element_Name("MIDI header");
 
     //Parsing
     Skip_B2(                                                    "format");
     Skip_B2(                                                    "ntrks");
     Skip_B2(                                                    "division");
+
+    FILLING_BEGIN_PRECISE();
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "MIDI");
+
+        Accept("MIDI");
+    FILLING_ELSE();
+        Reject("MIDI");
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
 void File_Riff::MTrk()
 {
-    IsDetected=true;
     Element_Name("MIDI Track");
 
-    //Filling
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "MIDI");
-    Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Format, "MIDI");
-    Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "Midi");
-    Detected();
+    //Parsing
+    Skip_XX(Element_TotalSize_Get(),                            "Data");
+
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format, "MIDI");
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "Midi");
+
+        Finish("MIDI");
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
 void File_Riff::PAL_()
 {
-    IsDetected=true;
+    Accept("RIFF Palette");
     Element_Name("Format: RIFF Palette");
 
     //Filling
@@ -2165,7 +2177,7 @@ void File_Riff::PAL_()
 //---------------------------------------------------------------------------
 void File_Riff::RDIB()
 {
-    IsDetected=true;
+    Accept("RIFF DIB");
     Element_Name("Format: RIFF DIB");
 
     //Filling
@@ -2176,7 +2188,7 @@ void File_Riff::RDIB()
 //---------------------------------------------------------------------------
 void File_Riff::RMID()
 {
-    IsDetected=true;
+    Accept("RIFF MIDI");
     Element_Name("Format: RIFF MIDI");
 
     //Filling
@@ -2187,7 +2199,7 @@ void File_Riff::RMID()
 //---------------------------------------------------------------------------
 void File_Riff::RMMP()
 {
-    IsDetected=true;
+    Accept("RIFF MMP");
     Element_Name("Format: RIFF MMP");
 
     //Filling
@@ -2198,7 +2210,7 @@ void File_Riff::RMMP()
 //---------------------------------------------------------------------------
 void File_Riff::RMP3()
 {
-    IsDetected=true;
+    Accept("RMP3");
     Element_Name("Format: RMP3");
 
     //Filling
@@ -2230,7 +2242,7 @@ void File_Riff::RMP3_data()
 //---------------------------------------------------------------------------
 void File_Riff::SMV0()
 {
-    IsDetected=true;
+    Accept("SMV");
 
     //Parsing
     int8u Version;
@@ -2264,7 +2276,7 @@ void File_Riff::SMV0()
         Fill(Stream_Video, 0, Video_FrameRate, (float)FrameRate);
         Fill(Stream_Video, 0, Video_FrameCount, FrameCount);
 
-        Detected();
+        Finish("SMV");
     }
     else if (Version=='2')
     {
@@ -2299,7 +2311,7 @@ void File_Riff::SMV0()
         Fill(Stream_Video, 0, Video_StreamSize, SMV_BlockSize*SMV_FrameCount);
     }
     else
-        Detected();
+        Finish("SMV");
 }
 
 //---------------------------------------------------------------------------
@@ -2336,7 +2348,7 @@ void File_Riff::SMV0_xxxx()
 //---------------------------------------------------------------------------
 void File_Riff::WAVE()
 {
-    IsDetected=true;
+    Accept("Wave");
     Element_Name("Format: Wave");
 
     //Filling

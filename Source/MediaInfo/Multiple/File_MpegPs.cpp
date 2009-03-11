@@ -371,8 +371,8 @@ void File_MpegPs::Read_Buffer_Finalize()
 {
     if (Streams.empty())
         return; //Not initialized
-    if (!IsDetected)
-        IsDetected=true;
+    if (!IsAccepted)
+        Accept("MPEG-PS");
 
     PTS=0; //Will be used for BitRate calculation
     DTS=0; //Will be used for Duration calculation
@@ -396,7 +396,7 @@ void File_MpegPs::Read_Buffer_Finalize()
             Stream_Prepare(Stream_General);
         else
         {
-            Rejected("MPEG-PS");
+            Reject("MPEG-PS");
             return;
         }
     }
@@ -1125,9 +1125,9 @@ void File_MpegPs::Detect_EOF()
     //In case of problem with some streams
     if (Buffer_TotalBytes>Buffer_TotalBytes_FirstSynched+SizeToAnalyze)
     {
-        if (!IsDetected)
+        if (!IsAccepted)
         {
-            Rejected("MPEG-PS");
+            Reject("MPEG-PS");
             return;
         }
 
@@ -1174,9 +1174,15 @@ void File_MpegPs::Detect_EOF()
          }
 
         //Jumping
-        Detected((IsSub && FromTS)?0:SizeToAnalyze, "MPEG-PS");
+        if (!IsAccepted)
+            Accept("MPEG-PS");
+        if (IsSub)
+            Finish("MPEG-PS");
+        else
+            GoToFromEnd(SizeToAnalyze, "MPEG-PS");
         video_stream_Unlimited=false;
         Synched=false;
+        Searching_TimeStamp_End=true;
     }
 }
 
@@ -1228,7 +1234,7 @@ bool File_MpegPs::BookMark_Needed()
             Streams_Extension[StreamID].Searching_Payload=true;
         }
     }
-    if (IsDetected && ToJump!=(int64u)-1)
+    if (IsAccepted && ToJump!=(int64u)-1)
     {
         Info("MPEG-PS, Jumping to nearly end of file");
         Parsing_End_ForDTS=true;
@@ -1363,7 +1369,8 @@ void File_MpegPs::pack_start()
             Streams[Pos].Searching_TimeStamp_Start=true; //audio_stream or video_stream
             Streams[Pos].Searching_TimeStamp_End=true;   //audio_stream or video_stream
         }
-        IsDetected=true;
+        if (!IsAccepted)
+            Accept("MPEG-PS");
     FILLING_END();
 }
 
@@ -1528,7 +1535,8 @@ void File_MpegPs::private_stream_1()
         Streams_Private1[private_stream_1_ID].Parser=private_stream_1_ChooseParser();
         Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start=true;
         Open_Buffer_Init(Streams_Private1[private_stream_1_ID].Parser);
-        IsDetected=true;
+        if (!IsAccepted)
+            Accept("MPEG-PS");
     }
     if (Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start)
     {
@@ -1615,7 +1623,7 @@ void File_MpegPs::private_stream_1()
     }
 
     //Disabling this Streams
-    if (Streams_Private1[private_stream_1_ID].Parser->IsFinished || (!Parsing_End_ForDTS && Streams_Private1[private_stream_1_ID].Parser->IsDetected))
+    if (Streams_Private1[private_stream_1_ID].Parser->IsFinished || (!Parsing_End_ForDTS && Streams_Private1[private_stream_1_ID].Parser->IsFilled))
     {
         Streams_Private1[private_stream_1_ID].Searching_Payload=false;
         if (private_stream_1_Count>0)
@@ -1968,7 +1976,9 @@ void File_MpegPs::private_stream_2()
         }
 
         //Disabling the program
-        Detected();
+        if (!IsAccepted)
+            Accept("MPEG-PS");
+        Finish("MPEG-PS");
     }
     else //DVD?
     {
@@ -2074,7 +2084,8 @@ void File_MpegPs::audio_stream()
             Streams[start_code].Parser->Stream_Prepare(Stream_Audio); //We are sure this is audio
         }
         Open_Buffer_Init(Streams[start_code].Parser);
-        IsDetected=true;
+        if (!IsAccepted)
+            Accept("MPEG-PS");
     }
 
     //Parsing
@@ -2115,7 +2126,7 @@ void File_MpegPs::audio_stream()
     }
 
     //Disabling this Streams
-    if (Streams[start_code].Parser->IsFinished || (!Parsing_End_ForDTS && Streams[start_code].Parser->IsDetected))
+    if (Streams[start_code].Parser->IsFinished || (!Parsing_End_ForDTS && Streams[start_code].Parser->IsFilled))
     {
         Streams[start_code].Searching_Payload=false;
         if (audio_stream_Count>0)
@@ -2167,7 +2178,8 @@ void File_MpegPs::video_stream()
             Streams[start_code].Parser=ChooseParser_Mpegv(); //Trying by default
         Streams[start_code].Parser->ShouldContinueParsing=true;
         Open_Buffer_Init(Streams[start_code].Parser);
-        IsDetected=true;
+        if (!IsAccepted)
+            Accept("MPEG-PS");
     }
 
     //PTS/DTS
@@ -2275,7 +2287,7 @@ void File_MpegPs::video_stream()
     }
 
     //Disabling this Streams
-    if (Streams[start_code].Parser->IsFinished || (!Parsing_End_ForDTS && Streams[start_code].Parser->IsDetected))
+    if (Streams[start_code].Parser->IsFinished || (!Parsing_End_ForDTS && Streams[start_code].Parser->IsFilled))
     {
         Streams[start_code].Searching_Payload=false;
         if (video_stream_Count>0)
@@ -2330,7 +2342,8 @@ void File_MpegPs::LATM()
     Streams[start_code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "AAC");
     Streams[start_code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "AAC");
     Streams[start_code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "LATM");
-    Streams[start_code].Parser->Detected();
+    Streams[start_code].Parser->Accept();
+    Streams[start_code].Parser->Finish();
 
     //Disabling this Streams
     Streams[start_code].Searching_Payload=false;
@@ -2380,7 +2393,8 @@ void File_MpegPs::extension_stream()
             Streams_Extension[Extension].Parser=new File__Analyze();
         Streams_Extension[Extension].Searching_TimeStamp_Start=true;
         Open_Buffer_Init(Streams_Extension[Extension].Parser);
-        IsDetected=true;
+        if (!IsAccepted)
+            Accept("MPEG-PS");
     }
     if (Streams_Extension[Extension].Searching_TimeStamp_Start)
     {
@@ -2397,7 +2411,7 @@ void File_MpegPs::extension_stream()
         Streams_Extension[Extension].FrameCount_AfterLast_TimeStamp_End+=Streams_Extension[Extension].Parser->Frame_Count_InThisBlock;
 
     //Disabling this Streams
-    if (Streams_Extension[Extension].Parser->IsDetected ||(!Parsing_End_ForDTS && Streams_Extension[Extension].Parser->IsDetected))
+    if (Streams_Extension[Extension].Parser->IsFinished ||(!Parsing_End_ForDTS && Streams_Extension[Extension].Parser->IsFilled))
     {
         Streams_Extension[Extension].Searching_Payload=false;
         if (extension_stream_Count>0)

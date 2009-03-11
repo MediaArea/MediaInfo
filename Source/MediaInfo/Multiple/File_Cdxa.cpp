@@ -127,7 +127,7 @@ bool File_Cdxa::FileHeader_Begin()
      ||                 CC2(Buffer+0x1A)!=0x5841      //"XA"
      ||                 CC4(Buffer+0x24)!=0x64617461) //"data"
     {
-        IsFinished=true;
+        Reject("CDXA");
         return false;
     }
 
@@ -157,7 +157,7 @@ void File_Cdxa::FileHeader_Parse()
         MI=new MediaInfo_Internal;
         MI->Option(_T("FormatDetection_MaximumOffset"), _T("1048576"));
         Stream_Prepare(Stream_General);
-        IsDetected=true;
+        Accept("CDXA");
     FILLING_END();
 }
 
@@ -208,7 +208,7 @@ void File_Cdxa::Read_Buffer_Finalize ()
         return;
 
     //If nothing
-    if (MI->Info==NULL || !MI->Info->IsDetected)
+    if (MI->Info==NULL || !MI->Info->IsAccepted)
     {
         Fill(Stream_General, 0, General_Format, "CDXA");
     }
@@ -257,7 +257,7 @@ void File_Cdxa::Data_Parse()
     if (MI==NULL)
     {
         //Where is the header? --> Problem
-        Finished();
+        Reject("CDXA");
         return;
     }
 

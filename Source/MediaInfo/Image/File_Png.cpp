@@ -88,7 +88,7 @@ bool File_Png::FileHeader_Begin()
 
     if (CC4(Buffer+4)!=0x0D0A1A0A)
     {
-        Rejected("PNG");
+        Reject("PNG");
         return false;
     }
 
@@ -116,6 +116,8 @@ void File_Png::FileHeader_Parse()
                 Fill(Stream_General, 0, General_Format, "PNG");
 
                 Stream_Prepare(Stream_Image);
+
+                Accept("PNG");
                 break;
             case 0x8A4E4E47 :
                 Stream_Prepare(Stream_General);
@@ -125,7 +127,8 @@ void File_Png::FileHeader_Parse()
                 Fill(Stream_Image, 0, Image_Codec, "MNG");
                 Fill(Stream_Image, 0, Image_Format, "MNG");
 
-                Detected();
+                Accept("PNG");
+                Finish("PNG");
                 break;
             case 0x8B4A4E47 :
                 Stream_Prepare(Stream_General);
@@ -135,10 +138,11 @@ void File_Png::FileHeader_Parse()
                 Fill(Stream_Image, 0, Image_Format, "JNG");
                 Fill(Stream_Image, 0, Image_Codec, "JNG");
 
-                Detected();
+                Accept("PNG");
+                Finish("PNG");
                 break;
             default:
-                Rejected("PNG");
+                Reject("PNG");
         }
     FILLING_END();
 }
@@ -232,7 +236,7 @@ void File_Png::IHDR()
             default: ;
         }
 
-        Detected("PNG");
+        Finish("PNG");
     FILLING_END();
 }
 

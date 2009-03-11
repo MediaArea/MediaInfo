@@ -50,7 +50,7 @@ bool File_Zip::FileHeader_Begin()
 
     if (CC4(Buffer)!=0x504B0304) //"PK.."
     {
-        Rejected("ZIP");
+        Reject("ZIP");
         return false;
     }
 
@@ -71,7 +71,8 @@ void File_Zip::Read_Buffer_Continue()
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "ZIP");
-        Detected("Zip");
+        Accept("Zip");
+        Finish("Zip");
     FILLING_END();
 }
 

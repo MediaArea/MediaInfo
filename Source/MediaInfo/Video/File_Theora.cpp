@@ -42,18 +42,6 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Constructor/Destructor
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-File_Theora::File_Theora()
-:File__Analyze()
-{
-    //Internal
-    Identification_Done=false;
-}
-
-//***************************************************************************
 // Format
 //***************************************************************************
 
@@ -69,7 +57,7 @@ void File_Theora::Header_Parse()
 void File_Theora::Data_Parse()
 {
     //Parsing
-    if (Identification_Done)
+    if (IsAccepted)
         Setup();
     else
         Identification();
@@ -130,8 +118,7 @@ void File_Theora::Identification()
             Fill(Stream_Video, StreamPos_Last, Video_BitRate_Nominal, NOMBR);
     FILLING_END();
 
-    //Filling
-    Identification_Done=true;
+    Accept("Theora");
 }
 
 //---------------------------------------------------------------------------
@@ -142,7 +129,7 @@ void File_Theora::Setup()
     //Parsing
     Skip_XX(Element_Size,                                       "Unknown");
 
-    Detected();
+    Finish("Theora");
 }
 
 //***************************************************************************

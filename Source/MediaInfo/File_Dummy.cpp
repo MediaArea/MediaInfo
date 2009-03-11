@@ -110,7 +110,7 @@ void File_Dummy::FileHeader_Parse()
         Fill(Stream_Chapters, 0, Chapters_Language, "en");
     }
 
-    Detected();
+    Accept();
 }
 
 //***************************************************************************

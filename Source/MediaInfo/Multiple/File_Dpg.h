@@ -45,8 +45,11 @@ public :
     ~File_Dpg();
 
 private :
-    //Buffer
+    //Buffer - File header
+    bool FileHeader_Begin();
     void FileHeader_Parse();
+
+    //Buffer
     void Read_Buffer_Continue();
 
     //Elements

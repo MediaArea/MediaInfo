@@ -49,7 +49,7 @@ bool File_ImpulseTracker::FileHeader_Begin()
 
     if (CC4(Buffer)!=0x494D504D) //"IMPM"
     {
-        Rejected("Impulse Tracker");
+        Reject("Impulse Tracker");
         return false;
     }
 
@@ -121,7 +121,8 @@ void File_ImpulseTracker::Read_Buffer_Continue()
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Stereo?2:1);
         
-        Detected("Impulse Tracker");
+        Accept("Impulse Tracker");
+        Finish("Impulse Tracker");
     FILLING_END();
 }
 

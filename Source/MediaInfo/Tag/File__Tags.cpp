@@ -42,6 +42,7 @@
 #if defined(MEDIAINFO_LYRICS3V2_YES)
     #include "MediaInfo/Tag/File_Lyrics3v2.h"
 #endif //MEDIAINFO_LYRICS3V2_YES
+    #include "MediaInfo/File_Unknown.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -106,7 +107,7 @@ bool File__Tags_Helper::Synchronize(bool &Tag_Found, size_t Synchro_Offset)
 
     if (SearchingForEndTags)
     {
-        Data_GoTo(0, "Tags detected");
+        GoTo(0, "Tags detected");
         return false;
     }
 
@@ -161,7 +162,11 @@ bool File__Tags_Helper::Synched_Test()
             {
                 if (Base->Buffer_Offset+10>Base->Buffer_Size)
                     return false;
-                Parser=new File_Id3v2;
+                #ifdef MEDIAINFO_ID3V2_YES
+                    Parser=new File_Id3v2;
+                #else
+                    Parser=new File_Unknown;
+                #endif
                 int32u Size=BigEndian2int32u(Base->Buffer+Base->Buffer_Offset+6);
                 Parser_Buffer_Size=(((Size>>0)&0x7F)
                                   | ((Size>>1)&0x3F80)
@@ -175,27 +180,43 @@ bool File__Tags_Helper::Synched_Test()
             }
             else if (ID==0x544147) //"TAG"
             {
-                Parser=new File_Id3;
+                #ifdef MEDIAINFO_ID3_YES
+                    Parser=new File_Id3;
+                #else
+                    Parser=new File_Unknown;
+                #endif
                 Parser_Buffer_Size=128;
                 Base->Element_Begin("Id3");
             }
             else if (Base->File_Offset+Base->Buffer_Offset==Lyrics3_Offset)
             {
-                Parser=new File_Lyrics3;
-                ((File_Lyrics3*)Parser)->TotalSize=Lyrics3_Size;
+                #ifdef MEDIAINFO_LYRICS3_YES
+                    Parser=new File_Lyrics3;
+                    ((File_Lyrics3*)Parser)->TotalSize=Lyrics3_Size;
+                #else
+                    Parser=new File__Analyze;
+                #endif
                 Parser_Buffer_Size=(size_t)Lyrics3_Size;
                 Base->Element_Begin("Lyrics3");
             }
             else if (Base->File_Offset+Base->Buffer_Offset==Lyrics3v2_Offset)
             {
-                Parser=new File_Lyrics3v2;
-                ((File_Lyrics3v2*)Parser)->TotalSize=Lyrics3v2_Size;
+                #ifdef MEDIAINFO_LYRICS3V2_YES
+                    Parser=new File_Lyrics3v2;
+                    ((File_Lyrics3v2*)Parser)->TotalSize=Lyrics3v2_Size;
+                #else
+                    Parser=new File_Unknown;
+                #endif
                 Parser_Buffer_Size=(size_t)Lyrics3v2_Size;
                 Base->Element_Begin("Lyrics3v2");
             }
             else if (Base->File_Offset+Base->Buffer_Offset==ApeTag_Offset)
             {
-                Parser=new File_ApeTag;
+                #ifdef MEDIAINFO_APE_YES
+                    Parser=new File_ApeTag;
+                #else
+                    Parser=new File_Unknown;
+                #endif
                 Parser_Buffer_Size=(size_t)ApeTag_Size;
                 Base->Element_Begin("ApeTag");
             }
@@ -251,11 +272,11 @@ size_t File__Tags_Helper::Stream_Prepare(stream_t StreamKind)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Tags_Helper::Data_GoTo (int64u GoTo, const char* Message)
+void File__Tags_Helper::GoTo (int64u GoTo, const char* ParserName)
 {
     if (Base->IsSub)
     {
-        Base->Data_GoTo(GoTo, Message);
+        Base->GoTo(GoTo, ParserName);
         return;
     }
 
@@ -284,39 +305,63 @@ void File__Tags_Helper::Data_GoTo (int64u GoTo, const char* Message)
         if (JumpTo_WantedByParser!=(int64u)-1)
         {
             if (JumpTo_WantedByParser<Id3v1_Size+Lyrics3_Size+Lyrics3v2_Size+ApeTag_Size)
-                Base->Data_GoTo(JumpTo_WantedByParser, Message);
+                Base->GoTo(JumpTo_WantedByParser, ParserName);
             else
-                Base->Data_GoTo(JumpTo_WantedByParser-Id3v1_Size-Lyrics3_Size-Lyrics3v2_Size-ApeTag_Size, Message);
+                Base->GoTo(JumpTo_WantedByParser-Id3v1_Size-Lyrics3_Size-Lyrics3v2_Size-ApeTag_Size, ParserName);
         }
         SearchingForEndTags=false;
     }
     else
-        Base->Data_GoTo(GoTo, Message);
+        Base->GoTo(GoTo, ParserName);
 }
 
 //---------------------------------------------------------------------------
-void File__Tags_Helper::Detected (int64u BeforeEnd, const char* Message)
+void File__Tags_Helper::GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
 {
-    if (Base->IsSub)
+    if (GoToFromEnd>Base->File_Size)
     {
-        Base->Detected(BeforeEnd, Message);
+        if (ParserName)
+        {
+            bool MustElementBegin=Base->Element_Level?true:false;
+            if (Base->Element_Level>0)
+                Base->Element_End(); //Element
+            Base->Info(Ztring(ParserName)+_T(", wants to go to somewhere, but not valid"));
+            if (MustElementBegin)
+                Base->Element_Level++;
+        }
+        Finish(ParserName);
         return;
     }
 
-    if (BeforeEnd<Base->File_Size-Base->File_Offset)
-        Data_GoTo(Base->File_Size-BeforeEnd, Message);
-    else
-        Data_GoTo((int64u)-1, Message); //Don't move
-    Base->IsDetected=true;
+    GoTo(Base->File_Size-GoToFromEnd, ParserName);
 }
 
 //---------------------------------------------------------------------------
-void File__Tags_Helper::Finished (const char* Message)
+void File__Tags_Helper::Accept (const char* ParserName)
 {
-    if (Base->IsDetected)
-        Data_GoTo(Base->File_Size, Message);
-    else
-        Base->Finished(Message);
+    Base->Accept(ParserName);
+}
+
+//---------------------------------------------------------------------------
+void File__Tags_Helper::Reject (const char* ParserName)
+{
+    Base->Reject(ParserName);
+}
+
+//---------------------------------------------------------------------------
+void File__Tags_Helper::Finish (const char* ParserName)
+{
+    if (ParserName)
+    {
+        bool MustElementBegin=Base->Element_Level?true:false;
+        if (Base->Element_Level>0)
+            Base->Element_End(); //Element
+        Base->Info(Ztring(ParserName)+_T(", finished but searching tags"));
+        if (MustElementBegin)
+            Base->Element_Level++;
+    }
+
+    GoToFromEnd(0, ParserName);
 }
 
 //---------------------------------------------------------------------------
@@ -329,7 +374,7 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
         {
             if (Base->File_Offset>Base->File_Size-128) //Must be at least at the end less 128 bytes
             {
-                Base->Data_GoTo(Base->File_Size-128-32, "Tags detection"); //32 to be able to quickly see another tag system
+                Base->GoTo(Base->File_Size-128-32, "Tags detection"); //32 to be able to quickly see another tag system
                 TagSizeIsFinal=false;
                 return false;
             }
@@ -337,7 +382,7 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
             if (Base->File_Offset+Base->Buffer_Size<Base->File_Size-125) //Must be at least at the end less 128 bytes plus 3 bytes of tags
             {
                 if (Base->File_Offset!=Base->File_Size-128)
-                    Base->Data_GoTo(Base->File_Size-128-32, "Tags detection"); //32 to be able to quickly see another tag system
+                    Base->GoTo(Base->File_Size-128-32, "Tags detection"); //32 to be able to quickly see another tag system
                 TagSizeIsFinal=false;
                 return false;
             }

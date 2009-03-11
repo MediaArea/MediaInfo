@@ -41,6 +41,18 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Constructor/Destructor
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+File_Skm::File_Skm()
+:File__Analyze()
+{
+    //Configuration
+    MustSynchronize=true;
+}
+
+//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
@@ -51,7 +63,7 @@ bool File_Skm::FileHeader_Begin()
         return false;
     if (CC5(Buffer)!=0x444D534B4DLL) //DMSKM
     {
-        Rejected("SKM");
+        Reject("SKM");
         return false;
     }
     return true;
@@ -65,8 +77,33 @@ void File_Skm::FileHeader_Parse()
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "SKM");
+
+        Accept("SKM");
     FILLING_END();
 }
+
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Skm::Synched_Test()
+{
+    //Must have enough buffer for having header
+    if (Buffer_Offset+3>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if (CC3(Buffer+Buffer_Offset)!=0x000001)
+        Synched=false;
+
+    //We continue
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Per element
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Skm::Header_Parse()
@@ -92,21 +129,6 @@ void File_Skm::Header_Parse()
     //Filling
     Header_Fill_Code(Type, Ztring().From_Number(Type, 16));
     Header_Fill_Size(Element_Offset+BodyLength);
-}
-
-//***************************************************************************
-// Buffer - Per element
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Skm::Header_Begin()
-{
-    //Synchro
-    if (!Synched && !Synchronize())
-        return false;
-
-    //All should be OK...
-    return true;
 }
 
 //---------------------------------------------------------------------------
@@ -157,45 +179,9 @@ void File_Skm::Data_Parse()
         {
             Open_Buffer_Finalize(Stream.Parser);
             Merge(*Stream.Parser);
-            Detected();
+            Finish("SKM");
         }
     #endif
-}
-
-//***************************************************************************
-// Helpers
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Skm::Synchronize()
-{
-    //Synchronizing
-    while (Buffer_Offset+4<=Buffer_Size
-        && CC3(Buffer+Buffer_Offset)!=0x000001)
-        Buffer_Offset++;
-    if (Buffer_Offset+4>Buffer_Size)
-    {
-        //Parsing last bytes
-        if (Buffer_Offset+3==Buffer_Size)
-        {
-            if (CC3(Buffer+Buffer_Offset)!=0x000001)
-            {
-                Buffer_Offset++;
-                if (CC2(Buffer+Buffer_Offset)!=0x0000)
-                {
-                    Buffer_Offset++;
-                    if (CC1(Buffer+Buffer_Offset)!=0x00)
-                        Buffer_Offset++;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    //Synched is OK
-    Synched=true;
-    return true;
 }
 
 } //NameSpace

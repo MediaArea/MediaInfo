@@ -71,7 +71,7 @@ bool File_Mz::FileHeader_Begin()
 
     if (CC2(Buffer)!=0x4D5A) //"MZ"
     {
-        Rejected("MZ");
+        Reject("MZ");
         return false;
     }
 
@@ -163,7 +163,8 @@ void File_Mz::Read_Buffer_Continue()
             Fill(Stream_General, 0, General_Encoded_Date, Ztring().Date_From_Seconds_1970(TimeDateStamp));
 
         //No need of more
-        Detected("MZ");
+        Accept("MZ");
+        Finish("MZ");
     FILLING_END();
 }
 

@@ -96,7 +96,7 @@ void File_Ape::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Ape::Read_Buffer_Finalize()
 {
-    if (!IsDetected)
+    if (!IsAccepted)
         return;
 
     //Filling
@@ -118,6 +118,15 @@ bool File_Ape::FileHeader_Begin()
     if (!File__Tags_Helper::FileHeader_Begin())
         return false;
 
+    //Testing
+    if (Buffer_Offset+4>Buffer_Size)
+        return false;
+    if (CC4(Buffer+Buffer_Offset)!=0x4D414320) //"MAC "
+    {
+        File__Tags_Helper::Reject("APE");
+        return false;
+    }
+
     return true;
 }
 
@@ -125,11 +134,10 @@ bool File_Ape::FileHeader_Begin()
 void File_Ape::FileHeader_Parse()
 {
     //Parsing
-    Element_Begin("APE header");
-    int32u Identifier, SampleRate=0, TotalFrames=0, FinalFrameSamples=0, SamplesPerFrame=0, SeekElements;
+    int32u SampleRate=0, TotalFrames=0, FinalFrameSamples=0, SamplesPerFrame=0, SeekElements;
     int16u Version, CompressionLevel=0, Flags=0, Channels=0, Resolution=0;
     bool Resolution8=false, Resolution24=false, no_wav_header;
-    Get_C4 (Identifier,                                         "Identifier");
+    Skip_C4(                                                    "Identifier");
     Get_L2 (Version,                                            "Version");
     if (Version<3980) //<3.98
     {
@@ -180,21 +188,13 @@ void File_Ape::FileHeader_Parse()
         Get_L2 (Channels,                                       "Channels");
         Get_L4 (SampleRate,                                     "SampleRate");
     }
-    Element_End();
 
     FILLING_BEGIN();
-        //Integrity
-        if (Identifier!=0x4D414320) //"MAC "
-        {
-            Rejected("Ape");
-            return;
-        }
-
         //Coherancy
         int32u Samples=(TotalFrames-1)*SamplesPerFrame+FinalFrameSamples;
         if (Samples==0 || SampleRate==0 || Channels==0 || Resolution==0)
         {
-            Rejected();
+            File__Tags_Helper::Reject("APE");
             return;
         }
 
@@ -212,7 +212,8 @@ void File_Ape::FileHeader_Parse()
         Fill(Stream_Audio, 0, Audio_Duration, Duration);
 
         //No more need data
-        File__Tags_Helper::Detected("APE");
+        File__Tags_Helper::Accept("APE");
+        File__Tags_Helper::Finish("APE");
     FILLING_END();
 }
 

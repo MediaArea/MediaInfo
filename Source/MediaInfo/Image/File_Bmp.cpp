@@ -77,7 +77,7 @@ bool File_Bmp::FileHeader_Begin()
 
     if (CC2(Buffer)!=0x424D) //"BM"
     {
-        Rejected("BMP");
+        Reject("BMP");
         return false;
     }
 
@@ -122,7 +122,7 @@ void File_Bmp::Read_Buffer_Continue()
     FILLING_BEGIN();
         if (Size!=File_Size) //"BM"
         {
-            Rejected("BMP");
+            Reject("BMP");
             return;
         }
 
@@ -132,7 +132,8 @@ void File_Bmp::Read_Buffer_Continue()
             Stream_Prepare(Stream_Image);
 
         //No need of more
-        Detected("BMP");
+        Accept("BMP");
+        Finish("BMP");
     FILLING_END();
 }
 

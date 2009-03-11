@@ -432,6 +432,8 @@ void File_Id3v2::FileHeader_Parse()
 
         Stream_Prepare(Stream_General);
         Stream_Prepare(Stream_Audio);
+
+        Accept("Id3v2");
     FILLING_END();
 }
 
@@ -740,7 +742,7 @@ void File_Id3v2::Data_Parse()
     }
 
     if (!Id3v2_Size)
-        Detected("Id3v2");
+        Finish("Id3v2");
 }
 
 //***************************************************************************

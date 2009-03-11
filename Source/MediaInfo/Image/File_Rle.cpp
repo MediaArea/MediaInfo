@@ -50,7 +50,8 @@ void File_Rle::Read_Buffer_Continue()
     Fill(Stream_Text, 0, Text_Format, "RLE");
     Fill(Stream_Text, 0, Text_Codec, "RLE");
 
-    Detected("RLE");
+    Accept("RLE");
+    Finish("RLE");
 }
 
 //***************************************************************************

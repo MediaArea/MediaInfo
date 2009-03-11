@@ -45,22 +45,28 @@ public :
     size_t Frame_Count_Valid;
     bool   FrameIsAlwaysComplete;
 
-protected :
-    //Buffer - Global
-    void Read_Buffer_Continue ();
-    void Read_Buffer_Finalize ();
-
-public :
+    //constructor/Destructor
     File_AvsV();
 
 private :
-    //Buffer
-    bool Header_Begin();
+    //Buffer - File header
+    bool FileHeader_Begin() {return FileHeader_Begin_0x000001();}
+
+    //Buffer - Synchro
+    bool Synchronize() {return Synchronize_0x000001();}
+    bool Synched_Test();
+    void Synched_Init();
+    
+    //Buffer - Global
+    void Read_Buffer_Finalize ();
+
+    //Buffer - Per element
     void Header_Parse();
-    bool Header_Parse_Fill_Size();
+    bool Header_Parser_QuickSearch();
+    bool Header_Parser_Fill_Size();
     void Data_Parse();
 
-    //Packets
+    //Elements
     void slice();
     void video_sequence_start();
     void video_sequence_end();
@@ -110,12 +116,6 @@ private :
         }
     };
     std::vector<stream> Streams;
-
-    //Helpers
-    bool Synchronize();
-    bool Header_Parser_QuickSearch();
-    bool Detect_NonAvsV();
-    void Init();
 };
 
 } //NameSpace

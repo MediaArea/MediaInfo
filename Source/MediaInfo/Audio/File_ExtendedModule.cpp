@@ -50,7 +50,7 @@ bool File_ExtendedModule::FileHeader_Begin()
     if (CC8(Buffer)!=0x457874656E646564LL || CC8(Buffer+8)!=0x204D6F64756C653ALL  //"Extended Module: "
      || CC1(Buffer+16)!=0x20 || CC1(Buffer+37)!=0x1A)
     {
-        Rejected("Extended Module");
+        Reject("Extended Module");
         return false;
     }
 
@@ -101,7 +101,8 @@ void File_ExtendedModule::Read_Buffer_Continue()
             Stream_Prepare(Stream_Audio);
         }
 
-        Detected();
+        Accept("Extended Module");
+        Finish("Extended Module");
     FILLING_END();
 }
 

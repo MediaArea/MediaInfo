@@ -45,7 +45,7 @@ public :
     File_Tta();
 
 private :
-    //Buffer
+    //Buffer - File header
     bool FileHeader_Begin();
     void FileHeader_Parse();
 

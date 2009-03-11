@@ -75,14 +75,15 @@ void File_Tar::Read_Buffer_Continue()
 
         if (ChecksumU!=Checksum && ChecksumS!=Checksum)
         {
-            Rejected("Tar");
+            Reject("Tar");
             return;
         }
 
         //Filling
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "Tar");
-        Detected("Tar");
+        Accept("Tar");
+        Reject("Tar");
     FILLING_END();
 }
 

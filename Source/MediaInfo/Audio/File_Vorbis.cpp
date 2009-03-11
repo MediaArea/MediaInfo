@@ -55,18 +55,6 @@ int32u ilog(int32u Value)
 }
 
 //***************************************************************************
-// Constructor/Destructor
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-File_Vorbis::File_Vorbis()
-:File__Analyze()
-{
-    //Internal
-    Identification_Done=false;
-}
-
-//***************************************************************************
 // Buffer - Per element
 //***************************************************************************
 
@@ -82,7 +70,7 @@ void File_Vorbis::Header_Parse()
 void File_Vorbis::Data_Parse()
 {
     //Parsing
-    if (Identification_Done)
+    if (IsAccepted)
         Setup();
     else
         Identification();
@@ -137,7 +125,7 @@ void File_Vorbis::Identification()
     FILLING_END();
 
     //Filling
-    Identification_Done=true;
+    Accept("Vorbis");
 }
 
 //---------------------------------------------------------------------------
@@ -258,7 +246,7 @@ void File_Vorbis::Setup()
     }
     BS_End_LE();
 
-    Detected("Vorbis");
+    Finish("Vorbis");
 }
 
 //***************************************************************************

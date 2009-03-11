@@ -67,57 +67,77 @@ File_Dpg::~File_Dpg()
 }
 
 //***************************************************************************
-// Buffer
+// Buffer - File offset
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Dpg::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<0x14)
+        return false; //Must wait for more data
+
+    if (                CC4(Buffer     )!=0x44504730    //"DPG0"
+     || LittleEndian2int32u(Buffer+0x10)!=0)            //Zero
+    {
+        Reject("DPG");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
 
 //---------------------------------------------------------------------------
 void File_Dpg::FileHeader_Parse()
 {
     //Parsing
-    int32u Signature, FrameCount, FrameRate, SamplingRate, Zero;
-    Get_C4 (Signature,                                          "Signature");
+    int32u  FrameCount, FrameRate, SamplingRate;
+    Skip_C4(                                                    "Signature");
     Get_L4 (FrameCount,                                         "Frame count");
     Get_L4 (FrameRate,                                          "Frame rate"); Param_Info(FrameRate/0x100, " fps");
     Get_L4 (SamplingRate,                                       "Sampling rate");
-    Get_L4 (Zero,                                               "0x00000000");
+    Skip_L4(                                                    "0x00000000");
     Get_L4 (Audio_Offset,                                       "Audio Offset");
     Get_L4 (Audio_Size,                                         "Audio Size");
     Get_L4 (Video_Offset,                                       "Video Offset");
     Get_L4 (Video_Size,                                         "Video Size");
 
     FILLING_BEGIN();
-        //Integrity
-        if (Signature!=0x44504730 || Zero!=0x00000000) //"DPG0"
-        {
-            Rejected("DPG");
-            return;
-        }
-
-        //Filling
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "DPG");
+
         Stream_Prepare(Stream_Video);
         Fill(Stream_Video, 0, Video_FrameRate, (float)(FrameRate/0x100), 3);
         Fill(Stream_Video, 0, Video_FrameCount, FrameCount);
         Fill(Stream_Video, 0, Video_StreamSize, Video_Size);
+
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_SamplingRate, SamplingRate);
         Fill(Stream_Audio, 0, Audio_StreamSize, Audio_Size);
 
         //Positionning
         #if defined(MEDIAINFO_MPEGA_YES)
-            Data_GoTo(Audio_Offset, "DPG");
             Parser=new File_Mpega();
+            Open_Buffer_Init(Parser);
+            Accept("DPG");
+            GoTo(Audio_Offset, "DPG");
         #elif defined(MEDIAINFO_MPEGV_YES)
             Audio_Size=0;
-            Data_GoTo(Video_Offset, "DPG");
             Parser=new File_Mpegv();
+            Open_Buffer_Init(Parser);
+            Accept("DPG");
+            GoTo(Video_Offset, "DPG");
         #else
-            Detected();
+            Accept("DPG");
+            Finish("DPG");
         #endif
-        Open_Buffer_Init(Parser);
     FILLING_END();
 }
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Dpg::Read_Buffer_Continue()
@@ -129,7 +149,7 @@ void File_Dpg::Read_Buffer_Continue()
     {
         #if defined(MEDIAINFO_MPEGA_YES)
             Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)((File_Offset+Buffer_Size<Audio_Offset+Audio_Size)?Buffer_Size:(Audio_Offset+Audio_Size-File_Offset)));
-            if (Parser->IsDetected)
+            if (Parser->IsAccepted)
             {
                 Open_Buffer_Finalize(Parser);
                 Merge(*Parser, Stream_Audio, 0, 0);
@@ -139,7 +159,7 @@ void File_Dpg::Read_Buffer_Continue()
                     delete Parser; Parser=new File_Mpegv();
                     Open_Buffer_Init(Parser);
                 #else
-                    Detected("DPG");
+                    Finish("DPG");
                 #endif
             }
         #endif
@@ -148,13 +168,13 @@ void File_Dpg::Read_Buffer_Continue()
     {
         #if defined(MEDIAINFO_MPEGV_YES)
             Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)((File_Offset+Buffer_Size<Video_Offset+Video_Size)?Buffer_Size:(Video_Offset+Video_Size-File_Offset)));
-            if (Parser->IsDetected)
+            if (Parser->IsAccepted)
             {
                 //Merging
                 Open_Buffer_Finalize(Parser);
                 Merge(*Parser, Stream_Video, 0, 0);
 
-                Detected("DPG");
+                Finish("DPG");
             }
         #endif
     }

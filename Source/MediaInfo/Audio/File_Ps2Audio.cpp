@@ -52,7 +52,7 @@ void File_Ps2Audio::Read_Buffer_Continue()
         {
             case 0x53536264 :   SSbd(); break;
             case 0x53536864 :   SShd(); break;
-            default         :   Rejected("PS2 Audio");
+            default         :   Reject("PS2 Audio");
         }
     }
 }
@@ -78,7 +78,8 @@ void File_Ps2Audio::SSbd()
         int32u BitRate=Retrieve(Stream_Audio, 0, Audio_BitRate).To_int32u();
         if (BitRate)
             Fill(Stream_Audio, 0, Audio_Duration, ((int64u)Size)*1000*8/BitRate);
-        Detected();
+        Accept("PS2 Audio");
+        Finish("PS2 Audio");
     FILLING_END();
 }
 

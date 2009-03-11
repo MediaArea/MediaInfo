@@ -46,6 +46,7 @@ public :
 
 private :
     //Buffer
+    bool Header_Begin();
     void Header_Parse();
     void Data_Parse();
     bool BookMark_Needed();
@@ -270,6 +271,7 @@ private :
         int64u Size;
     };
     std::map<int64u, mdat_Pos_Type> mdat_Pos;
+    bool IsParsing_mdat;
 };
 
 } //NameSpace

@@ -91,8 +91,6 @@ void File_Kate::Data_Parse()
 {
     //Parsing
     Identification();
-
-    Detected();
 }
 
 //***************************************************************************
@@ -141,7 +139,8 @@ void File_Kate::Identification()
         Fill(Stream_Text, 0, Text_Codec,  "Kate");
         Fill(Stream_Text, 0, Text_Language, Language);
         Fill(Stream_Text, 0, Text_Language_More, Kate_Category(Category));
-        Detected("Kate");
+        Accept("Kate");
+        Finish("Kate");
     FILLING_END();
 }
 

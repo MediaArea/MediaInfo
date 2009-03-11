@@ -395,9 +395,6 @@ File_Flv::File_Flv()
 //---------------------------------------------------------------------------
 void File_Flv::Read_Buffer_Finalize()
 {
-    if (!IsDetected)
-        IsDetected=true;
-
     if (Stream[Stream_Video].Parser!=NULL)
     {
         Open_Buffer_Finalize(Stream[Stream_Video].Parser);
@@ -460,7 +457,7 @@ void File_Flv::FileHeader_Parse()
         //Integrity
         if (Signature!="FLV" || Version==0 || Size<9)
         {
-            Rejected();
+            Reject("FLV");
             return;
         }
 
@@ -477,9 +474,10 @@ void File_Flv::FileHeader_Parse()
         if (audio_stream_Count)
             Stream_Prepare(Stream_Audio);
 
+        Accept("FLV");
         if (Version>1)
         {
-            Detected();
+            Finish("FLV");
             return; //Version more than 1 is not supported
         }
     FILLING_END();
@@ -549,8 +547,9 @@ void File_Flv::Data_Parse()
         case 0x09 : video(); break;
         case 0x12 : meta(); break;
         case 0xFA : Rm(); break;
-        case (int64u)-1 : Data_GoTo(File_Size-PreviousTagSize-8, "FLV"); return; //When searching the last frame
-        default : if (Searching_Duration) Finished(); //This is surely a bad en of file, don't try anymore
+        case (int64u)-1 : GoTo(File_Size-PreviousTagSize-8, "FLV"); return; //When searching the last frame
+        default : if (Searching_Duration)
+                    Reject("FLV"); //This is surely a bad en of file, don't try anymore
 
     }
 
@@ -560,10 +559,10 @@ void File_Flv::Data_Parse()
         {
             //Trying to find the last frame for duration
             Searching_Duration=true;
-            Detected(4, "FLV");
+            GoToFromEnd(4, "FLV");
         }
         else
-            Detected();
+            Finish("FLV");
     }
 }
 

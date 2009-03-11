@@ -59,7 +59,7 @@ bool File_Ico::FileHeader_Begin()
 
     if (CC2(Buffer) || (LittleEndian2int16u(Buffer+2)!=1 && LittleEndian2int16u(Buffer+2)!=2))
     {
-        Rejected("ICO");
+        Reject("ICO");
         return false;
     }
 
@@ -122,14 +122,17 @@ void File_Ico::Data_Parse()
 
         IcoDataSize+=Size;
         if (Offset>File_Size || File_Offset+Buffer_Offset+Element_Size+IcoDataSize>File_Size)
-            Rejected("ICO");
+            Reject("ICO");
         Count--;
         if (Count==0)
         {
             if (File_Offset+Buffer_Offset+Element_Size+IcoDataSize!=File_Size)
-                Rejected("ICO");
+                Reject("ICO");
             else
-                Detected("ICO");
+            {
+                Accept("ICO");
+                Finish("ICO");
+            }
         }
     FILLING_END();
 }

@@ -86,13 +86,12 @@ bool File_Adif::FileHeader_Begin()
     if (!File__Tags_Helper::FileHeader_Begin())
         return false;
 
+    //Testing
     if (Buffer_Offset+4>Buffer_Size)
         return false;
-
-    //Test
     if (CC4(Buffer+Buffer_Offset)!=0x41444946) //"ADIF"
     {
-        Rejected("Adif");
+        File__Tags_Helper::Reject("Adif");
         return false;
     }
 
@@ -222,7 +221,8 @@ void File_Adif::FileHeader_Parse()
         Fill(Stream_Audio, 0, Audio_MuxingMode, "ADIF");
 
         //No more need data
-        File__Tags_Helper::Detected("ADIF");
+        File__Tags_Helper::Accept("ADIF");
+        File__Tags_Helper::Finish("ADIF");
     FILLING_END();
 }
 

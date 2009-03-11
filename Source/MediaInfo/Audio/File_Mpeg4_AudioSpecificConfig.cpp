@@ -374,7 +374,8 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
     FILLING_END();
 
     BS_End();
-    Detected();
+    Accept("AudioSpecificConfig");
+    Finish("AudioSpecificConfig");
 }
 
 //---------------------------------------------------------------------------
@@ -694,7 +695,8 @@ void File_Mpeg4_AudioSpecificConfig::ALS ()
         Skip_XX(Element_Size-Element_Offset,                    "Unknown");
 
     //NO need more
-    Detected();
+    Accept("AudioSpecificConfig");
+    Finish("AudioSpecificConfig");
 }
 
 } //NameSpace

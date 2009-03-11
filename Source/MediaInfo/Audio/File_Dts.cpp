@@ -547,8 +547,12 @@ void File_Dts::Read_Buffer_Continue()
             Open_Buffer_Init(Parser);
         }
         Open_Buffer_Continue(Parser, Dest, Dest_Size);
+        if (!IsFilled && Parser->IsFilled)
+            IsFilled=true;
+        if (!IsAccepted && Parser->IsAccepted)
+            Accept("DTS 14-bit");
         if (Parser->IsFinished)
-            Detected("DTS");
+            Finish("DTS 14-bit");
 
         Demux(Dest, Dest_Size, _T("extract"));
         delete[] Dest;
@@ -907,7 +911,9 @@ void File_Dts::Data_Parse_Fill()
         Fill(Stream_Audio, 0, Audio_Channel_s_, HD_TotalNumberChannels, 10, true);
 
     //No more need data
-    Detected("DTS");
+    IsFilled=true;
+    Accept("DTS");
+    Finish("DTS");
 }
 
 //***************************************************************************

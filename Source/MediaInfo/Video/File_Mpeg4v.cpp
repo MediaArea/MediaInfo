@@ -326,7 +326,7 @@ void File_Mpeg4v::Synched_Init()
 void File_Mpeg4v::Read_Buffer_Finalize()
 {
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (!IsDetected && video_object_layer_start_IsParsed)
+    if (!IsFilled && video_object_layer_start_IsParsed)
         vop_start_Fill();
 
     //Purge what is not needed anymore
@@ -1322,7 +1322,9 @@ void File_Mpeg4v::vop_start_Fill()
     }
 
     //Jumping
-    Detected("Mpeg4v");
+    Accept("MPEG-4 Visual");
+    IsFilled=true;
+    Finish("MPEG-4 Visual");
 }
 
 //---------------------------------------------------------------------------

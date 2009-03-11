@@ -119,7 +119,7 @@ File_Riff::~File_Riff()
 //---------------------------------------------------------------------------
 void File_Riff::Read_Buffer_Finalize ()
 {
-    if (!IsDetected)
+    if (!IsAccepted)
         return;
 
     //For each stream

@@ -150,7 +150,7 @@ bool File_Mpc::FileHeader_Begin()
     //Test
     if (CC3(Buffer)!=0x4D502B || (CC1(Buffer+3)&0x0F)!=7) //"MP+" version 7
     {
-        Rejected("Musepack SV7");
+        File__Tags_Helper::Reject("Musepack SV7");
         return false;
     }
 
@@ -221,7 +221,8 @@ void File_Mpc::FileHeader_Parse()
             Fill(Stream_Audio, 0, Audio_BitRate, (File_Size-25)*8*Mpc_SampleFreq[SampleFreq]/FrameCount/1152);
 
         //No more need data
-        File__Tags_Helper::Detected("Musepack SV7");
+        File__Tags_Helper::Accept("Musepack SV7");
+        File__Tags_Helper::Finish("Musepack SV7");
     FILLING_END();
 }
 

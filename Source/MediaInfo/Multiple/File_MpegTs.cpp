@@ -187,8 +187,8 @@ void File_MpegTs::Read_Buffer_Finalize()
 {
     if (Streams.empty())
         return; //Not initialized
-    if (!IsDetected)
-        IsDetected=true;
+    if (!IsAccepted)
+        Accept("MPEG-TS");
 
     for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
     {
@@ -690,6 +690,8 @@ void File_MpegTs::PSI_program_association_table()
 
     //Filling
     Fill(Stream_General, 0, General_ID, Parser->transport_stream_id, 16, true);
+    if (!IsAccepted)
+        Accept("MPEG-TS");
 }
 
 //---------------------------------------------------------------------------
@@ -1080,8 +1082,9 @@ void File_MpegTs::Detect_EOF()
                 Streams[StreamID].Searching_TimeStamp_End_Set(File_Size!=(int64u)-1); //Only if not unlimited
         }
         format_identifier=0xFFFFFFFF;
-        IsDetected=true;
-        File_GoTo=0;
+        if (!IsAccepted)
+            Accept("MPEG-TS");
+        GoTo(0, "MPEG-TS");
         Fill(Stream_General, 0, General_Format_Profile, "No PAT/PMT");
     }
 
@@ -1117,7 +1120,8 @@ void File_MpegTs::Detect_EOF()
             }
         }
 
-        Detected(MpegTs_JumpTo_End, "MPEG-TS");
+        Accept("MPEG-TS");
+        GoToFromEnd(MpegTs_JumpTo_End, "MPEG-TS");
     }
 }
 

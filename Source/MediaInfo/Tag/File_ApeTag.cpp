@@ -55,6 +55,8 @@ void File_ApeTag::FileHeader_Parse()
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
         Stream_Prepare(Stream_Audio);
+
+        Accept("ApeTag");
     FILLING_END();
 }
 
@@ -135,7 +137,7 @@ void File_ApeTag::Data_Parse()
     if (Element_Code==(int64u)-1)
     {
         HeaderFooter();
-        Detected("ApeTag");
+        Finish("ApeTag");
         return;
     }
 

@@ -74,7 +74,8 @@ void File_Adpcm::Read_Buffer_Continue()
     }
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
 
-    Detected("ADPCM");
+    Accept("ADPCM");
+    Finish("ADPCM");
 }
 
 //***************************************************************************

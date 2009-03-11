@@ -149,7 +149,7 @@ bool File_Jpeg::FileHeader_Begin()
 
     if (CC2(Buffer)!=0xFFD8) //SOI
     {
-        Rejected("JPEG");
+        Reject("JPEG");
         return false;
     }
 
@@ -289,7 +289,7 @@ void File_Jpeg::SOF_()
     }
 
     FILLING_BEGIN_PRECISE();
-        if (!IsDetected)
+        if (!IsAccepted)
         {
             Stream_Prepare(Stream_General);
             Fill(Stream_General, 0, General_Format, "JPEG");
@@ -302,6 +302,7 @@ void File_Jpeg::SOF_()
             Fill(StreamKind, 0, "Resolution", Resolution*3);
             Fill(StreamKind, 0, "Height", Height*Height_Multiplier);
             Fill(StreamKind, 0, "Width", Width);
+            Accept("JPEG");
         }
     FILLING_END();
 }
@@ -322,7 +323,7 @@ void File_Jpeg::SOS()
     Skip_B1(                                                    "Successive approximation bit position");
 
     FILLING_BEGIN_PRECISE();
-        Detected("JPEG"); //No need of more
+        Finish("JPEG"); //No need of more
     FILLING_END();
 }
 
@@ -362,7 +363,7 @@ void File_Jpeg::APP0_AVI1()
     Element_End();
 
     FILLING_BEGIN();
-        if (!IsDetected)
+        if (!IsAccepted)
         {
             if (Count_Get(Stream_Video)==0)
                 Stream_Prepare(Stream_Video);

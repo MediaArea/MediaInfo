@@ -51,7 +51,7 @@ bool File_Rar::FileHeader_Begin()
 
     if (CC4(Buffer)!=0x52415221) //"RAR!"
     {
-        Rejected("RAR");
+        Reject("RAR");
         return false;
     }
 
@@ -72,7 +72,8 @@ void File_Rar::Read_Buffer_Continue()
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "RAR");
-        Detected("RAR");
+        Accept("RAR");
+        Finish("RAR");
     FILLING_END();
 }
 

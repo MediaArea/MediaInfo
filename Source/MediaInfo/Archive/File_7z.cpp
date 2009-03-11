@@ -49,7 +49,7 @@ bool File_7z::FileHeader_Begin()
 
     if (CC6(Buffer)!=0x377ABCAF271CLL) //"7z...."
     {
-        Rejected("7-Zip");
+        Reject("7-Zip");
         return false;
     }
 
@@ -70,7 +70,8 @@ void File_7z::Read_Buffer_Continue()
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "7-Zip");
-        Detected("7-Zip");
+        Accept("7-Zip");
+        Finish("7-Zip");
     FILLING_END();
 }
 

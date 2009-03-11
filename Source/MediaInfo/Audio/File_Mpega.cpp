@@ -316,7 +316,7 @@ bool File_Mpega::FileHeader_Begin()
     int16u Magic2=Magic4>>16;
     if (Magic4==0x52494646 || Magic3==0x465753 || Magic3==0x464C56 || Magic4==0x7F454C46 || Magic4==0x44504730 || Magic4==0x3026B275 || Magic2==0x4D5A)
     {
-        Rejected("MPEG Audio");
+        File__Tags_Helper::Reject("MPEG Audio");
         return false;
     }
 
@@ -486,7 +486,7 @@ bool File_Mpega::Synched_Test()
 //---------------------------------------------------------------------------
 void File_Mpega::Read_Buffer_Finalize()
 {
-    if (!IsDetected)
+    if (!IsAccepted)
         return;
 
     //VBR detection without header
@@ -633,19 +633,19 @@ void File_Mpega::Data_Parse()
         return;
     }
 
+    //VBR and library headers
+    if (Frame_Count<3) //No need to do it too much
+    {
+        if (!Header_Xing())
+            Header_VBRI();
+    }
+
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size-File_EndTagSize)
         Frame_Count_Valid=Frame_Count_Consecutive; //Finalize MPEG Audio frames in case of there are less than Frame_Count_Valid frames
     Frame_Count++;
     Frame_Count_Consecutive++;
     
-    //VBR and library headers
-    if (Frame_Count<3) //No need to do it too much
-    {
-        if (Header_Xing()) return;
-        if (Header_VBRI()) return;
-    }
-
     //Name
     Element_Info(Ztring::ToZtring(Frame_Count));
 
@@ -770,7 +770,7 @@ void File_Mpega::Data_Parse()
         LastSync_Offset=File_Offset+Buffer_Offset+Element_Size;
         if (IsSub && BitRate_Count.size()>1 && !Encoded_Library.empty())
             Frame_Count_Valid=Frame_Count_Consecutive;
-        if (!IsDetected && Frame_Count_Consecutive>=Frame_Count_Valid)
+        if (!IsFilled && Frame_Count_Consecutive>=Frame_Count_Valid)
             Data_Parse_Fill();
 
         //Detect Id3v1 tags inside a frame
@@ -805,7 +805,9 @@ void File_Mpega::Data_Parse_Fill()
     Fill(Stream_Audio, 0, Audio_Resolution, 16);
 
     //Jumping
-    File__Tags_Helper::Detected(16*1024, "MPEG-A");
+    File__Tags_Helper::Accept("MPEG Audio");
+    IsFilled=true;
+    File__Tags_Helper::GoToFromEnd(16*1024, "MPEG-A");
     LastSync_Offset=(int64u)-1;
 }
 

@@ -203,8 +203,8 @@ File_DvDif::File_DvDif()
 //---------------------------------------------------------------------------
 void File_DvDif::Read_Buffer_Finalize()
 {
-    if (!IsDetected)
-        IsDetected=true;
+    if (!IsAccepted)
+        Accept("DV DIF");
 
     if (!Recorded_Date_Date.empty())
     {
@@ -315,7 +315,7 @@ void File_DvDif::Data_Parse()
     }
 
     //If small file
-    if (!IsDetected && (FrameCount>=1 && File_Offset+Buffer_Offset+Element_Size==File_Size))
+    if (!IsAccepted && (FrameCount>=1 && File_Offset+Buffer_Offset+Element_Size==File_Size))
         video_control_Fill();
 }
 
@@ -444,7 +444,10 @@ void File_DvDif::Aux()
     Skip_XX(2,                                                  "Unused");
 
     if (Count_Get(Stream_General))
-        Detected(); //Here because we currently must be at the end of an element
+    {
+        Accept("DV DIF"); //Here because we currently must be at the end of an element
+        Finish("DV DIF");
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -802,7 +805,7 @@ void File_DvDif::video_control()
 
     FILLING_BEGIN();
         FrameCount++;
-        if (!IsDetected && (FrameCount>=Frame_Count_Valid || AuxToAnalyze))
+        if (!IsAccepted && (FrameCount>=Frame_Count_Valid || AuxToAnalyze))
             video_control_Fill();
     FILLING_END();
 }

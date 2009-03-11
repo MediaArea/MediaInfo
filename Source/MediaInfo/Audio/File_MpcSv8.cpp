@@ -90,7 +90,7 @@ bool File_MpcSv8::FileHeader_Begin()
 
     if (CC4(Buffer)!=0x4D50434B) //"MPCK"
     {
-        Rejected("Musepack SV8");
+        File__Tags_Helper::Reject("Musepack SV8");
         return false;
     }
 
@@ -122,9 +122,12 @@ void File_MpcSv8::FileHeader_Parse()
     FILLING_BEGIN();
         File__Tags_Helper::Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "MusePack SV8");
+
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "MusePack SV8");
         Fill(Stream_Audio, 0, Audio_Codec, "SV8");
+
+        File__Tags_Helper::Accept("MpcSv8");
     FILLING_END();
 }
 
@@ -189,7 +192,7 @@ void File_MpcSv8::Data_Parse()
 void File_MpcSv8::AP()
 {
     //No more need data
-    File__Tags_Helper::Detected("MpcSv8");
+    File__Tags_Helper::Finish("MpcSv8");
 }
 
 //---------------------------------------------------------------------------

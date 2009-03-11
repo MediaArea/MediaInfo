@@ -83,7 +83,8 @@ void File_Aac::Read_Buffer_Continue()
         Fill(Stream_Audio, 0, Audio_Format_Settings_PS, PS?"Yes":"No");
     }
 
-    Detected("AAC");
+    Accept("AAC");
+    Finish("AAC");
 }
 
 //***************************************************************************

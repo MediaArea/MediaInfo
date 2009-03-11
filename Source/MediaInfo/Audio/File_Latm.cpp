@@ -103,7 +103,8 @@ void File_Latm::Header_Parse()
 void File_Latm::Data_Parse()
 {
     AudioMuxElement(true);
-    Detected("LATM");
+    Accept("LATM");
+    Finish("LATM");
 }
 
 //***************************************************************************

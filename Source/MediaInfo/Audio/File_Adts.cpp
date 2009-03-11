@@ -234,7 +234,7 @@ void File_Adts::Data_Parse()
     Skip_XX(Element_Size,                                       "Data");
 
     //Filling
-    if (!IsDetected && Frame_Count>=Frame_Count_Valid)
+    if (!IsAccepted && Frame_Count>=Frame_Count_Valid)
         Data_Parse_Fill();
 }
 
@@ -263,7 +263,8 @@ void File_Adts::Data_Parse_Fill()
     Fill(Stream_Audio, 0, Audio_Resolution, 16);
 
     //No more need data
-    File__Tags_Helper::Detected("ADTS");
+    File__Tags_Helper::Accept("ADTS");
+    File__Tags_Helper::Finish("ADTS");
 }
 
 } //NameSpace

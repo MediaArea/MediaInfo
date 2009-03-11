@@ -121,9 +121,16 @@ protected :
     bool EOF_AlreadyDetected;
 
     //Data - Helpers
-    inline void Data_Finished(const char*)                                     {Data_GoTo(File_Size);}
-    void Data_GoTo     (int64u GoTo);
-    inline void Data_GoTo     (int64u GoTo, const char*)                        {Data_GoTo(GoTo);}
+    void Data_Accept        (const char* ParserName)                            {Accept();}
+    void Data_Accept        ()                                                  {Accept();}
+    void Data_Reject        (const char* ParserName)                            {Reject();}
+    void Data_Reject        ()                                                  {Reject();}
+    void Data_Finish        (const char* ParserName)                            {Finish();}
+    void Data_Finish        ()                                                  {Finish();}
+    void Data_GoTo          (int64u GoTo_, const char* ParserName)              {GoTo(GoTo_);}
+    void Data_GoTo          (int64u GoTo_)                                      {GoTo(GoTo_);}
+    void Data_GoToFromEnd   (int64u GoToFromEnd_, const char* ParserName)       {GoToFromEnd(GoToFromEnd_);}
+    void Data_GoToFromEnd   (int64u GoToFromEnd_)                               {GoToFromEnd(GoToFromEnd_);}
 
     //***************************************************************************
     // Elements
@@ -737,13 +744,16 @@ public :
     //***************************************************************************
 
     //Actions
-    void Detected(int64u BeforeEnd=0);
-    void Detected(int64u BeforeEnd, const char* Message) {Detected(BeforeEnd);}
-    void Detected(const char* Message) {Detected();}
-    void Finished();
-    void Finished(const char* Message) {Finished();}
-    void Rejected();
-    void Rejected(const char* Message) {Rejected();}
+    void Accept        (const char* ParserName)                                 {Accept();}
+    void Accept        ();
+    void Reject        (const char* ParserName)                                 {Reject();}
+    void Reject        ();
+    void Finish        (const char* ParserName)                                 {Finish();}
+    void Finish        ();
+    void GoTo          (int64u GoTo_, const char* ParserName)                   {GoTo(GoTo_);}
+    void GoTo          (int64u GoTo);
+    void GoToFromEnd   (int64u GoToFromEnd_, const char* ParserName)            {GoToFromEnd(GoToFromEnd_);}
+    void GoToFromEnd   (int64u GoToFromEnd);
     int64u Element_Code_Get (size_t Level);
     int64u Element_TotalSize_Get (size_t LevelLess=0);
     bool Element_IsComplete_Get ();
@@ -761,16 +771,25 @@ public :
     bool Element_IsWaitingForMoreData ();
 
     //Begin
-    #define FILLING_BEGIN() if (Element_IsOK()) \
+    #define FILLING_BEGIN() \
+        if (Element_IsOK()) \
         {
 
-    #define FILLING_BEGIN_PRECISE() if (Element_Offset!=Element_Size) \
+    #define FILLING_BEGIN_PRECISE() \
+        if (Element_Offset!=Element_Size) \
             Trusted_IsNot("Size error"); \
         else if (Element_IsOK()) \
         {
 
+    //Else
+    #define FILLING_ELSE() \
+        } \
+        else \
+        { \
+
     //End
-    #define FILLING_END() }
+    #define FILLING_END() \
+        }
 
     //***************************************************************************
     // Merging
@@ -933,11 +952,10 @@ public :
     virtual bool BookMark_Needed()                                              {return false;};
 
     //Temp
-    bool NewFinnishMethod;
-    bool Refactored;
-    bool IsDetected;
-    bool IsRejected;
+    bool IsAccepted;
+    bool IsFilled;
     bool IsFinished;
+    bool IsFinalized;
     bool ShouldContinueParsing;
 
     //Configuration
