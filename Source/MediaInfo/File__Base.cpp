@@ -203,6 +203,7 @@ void File__Base::Language_Set()
 // Demux
 //***************************************************************************
 
+#ifndef MEDIAINFO_MINIMIZESIZE
 void File__Base::Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName, bool)
 {
     if (!MediaInfoLib::Config.Demux_Get())
@@ -215,6 +216,7 @@ void File__Base::Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& S
     F.Open(File_Name+_T('.')+StreamName, File::Access_Write_Append);
     F.Write(Buffer, Buffer_Size);
 }
+#endif //MEDIAINFO_MINIMIZESIZE
 
 //***************************************************************************
 // Divers

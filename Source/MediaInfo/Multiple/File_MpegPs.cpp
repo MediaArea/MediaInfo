@@ -283,7 +283,10 @@ bool File_MpegPs::Synched_Test()
         Buffer_Offset++;
 
     //Trailing 0x00
-    while(Buffer_Offset+3<=Buffer_Size && Buffer[Buffer_Offset]==0x00 && CC3(Buffer+Buffer_Offset)!=0x000001)
+    while(Buffer_Offset+3<=Buffer_Size
+       && Buffer[Buffer_Offset+2]==0x00
+       && Buffer[Buffer_Offset+1]==0x00
+       && Buffer[Buffer_Offset  ]==0x00)
         Buffer_Offset++;
 
     //Must have enough buffer for having header
@@ -291,7 +294,9 @@ bool File_MpegPs::Synched_Test()
         return false;
 
     //Quick test of synchro
-    if (CC3(Buffer+Buffer_Offset)!=0x000001)
+    if (Buffer[Buffer_Offset  ]!=0x00
+     || Buffer[Buffer_Offset+1]!=0x00
+     || Buffer[Buffer_Offset+2]!=0x01)
         Synched=false;
 
     //Quick search
@@ -596,7 +601,10 @@ bool File_MpegPs::Header_Parse_Fill_Size()
     if (Buffer_Offset_Temp==0) //Buffer_Offset_Temp is not 0 if Header_Parse_Fill_Size() has already parsed first frames
         Buffer_Offset_Temp=Buffer_Offset+(video_stream_Unlimited?0:4);
     while (Buffer_Offset_Temp+4<=Buffer_Size
-        && !(CC3(Buffer+Buffer_Offset_Temp)==0x000001 && Buffer[Buffer_Offset_Temp+3]>=0xB9))
+        && (Buffer[Buffer_Offset_Temp  ]!=0x00
+         || Buffer[Buffer_Offset_Temp+1]!=0x00
+         || Buffer[Buffer_Offset_Temp+2]!=0x01
+         || Buffer[Buffer_Offset_Temp+3]< 0xB9))
     {
         Buffer_Offset_Temp+=2;
         while(Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp]!=0x00)

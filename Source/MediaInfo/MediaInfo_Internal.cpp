@@ -42,7 +42,7 @@ using namespace ZenLib;
 namespace MediaInfoLib
 {
 
-const size_t Buffer_NormalSize=/*188*7;//*/32768;
+const size_t Buffer_NormalSize=/*188*7;//*/64*1024;
 
 //---------------------------------------------------------------------------
 extern MediaInfo_Config         Config;
