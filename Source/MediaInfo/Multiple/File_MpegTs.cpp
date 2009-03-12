@@ -920,6 +920,9 @@ void File_MpegTs::PES()
     //Info
     Element_Info(Mpeg_Psi_stream_type(Streams[pid].stream_type, format_identifier));
 
+    //Demux
+    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(pid, 16)+_T(".mpg"));
+
     //Exists
     Streams[pid].StreamIsRegistred=true;
 
@@ -938,9 +941,17 @@ void File_MpegTs::PES()
         return;
     }
 
-    //If unknown stream_type
+    //Parser creation
     if (Streams[pid].Parser==NULL)
     {
+        //Waiting for first payload_unit_start_indicator
+        if (!payload_unit_start_indicator)
+        {
+            Element_DoNotShow(); //We don't want to show this item because there is no interessant info
+            return; //This is not the start of the PES
+        }
+
+        //If unknown stream_type
         if (Mpeg_Psi_stream_Kind(Streams[pid].stream_type, format_identifier)==Stream_Max
          && Streams[pid].stream_type!=0x06 //Exception for private data
          && Streams[pid].stream_type<=0x7F //Exception for private data
@@ -952,58 +963,35 @@ void File_MpegTs::PES()
             elementary_PID_Count--;
             return;
         }
+
+        //Allocating an handle if needed
+        #if defined(MEDIAINFO_MPEGPS_YES)
+            Streams[pid].Parser=new File_MpegPs;
+            ((File_MpegPs*)Streams[pid].Parser)->FromTS=true;
+            ((File_MpegPs*)Streams[pid].Parser)->stream_type_FromTS=Streams[pid].stream_type;
+            ((File_MpegPs*)Streams[pid].Parser)->descriptor_tag_FromTS=Streams[pid].descriptor_tag;
+            ((File_MpegPs*)Streams[pid].Parser)->format_identifier_FromTS=Streams[pid].format_identifier;
+            ((File_MpegPs*)Streams[pid].Parser)->MPEG_Version=2;
+            Streams[pid].Parser->ShouldContinueParsing=true;
+            Streams[pid].Searching_Payload_Continue_Set(true);
+        #else
+            //Filling
+            Streams[pid].Parser=new File_Unknown();
+        #endif
+        Open_Buffer_Init(Streams[pid].Parser);
     }
 
-    //Waiting for first payload_unit_start_indicator
-    if (Streams[pid].Parser==NULL && !payload_unit_start_indicator)
-    {
-        Element_DoNotShow(); //We don't want to show this item because there is no interessant info
-        return; //This is not the start of the PES
-    }
+    //Parsing
+    Open_Buffer_Continue(Streams[pid].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
-    //Allocating an handle if needed
-    if (Streams[pid].Parser==NULL)
-    {
-            #if defined(MEDIAINFO_MPEGPS_YES)
-                Streams[pid].Parser=new File_MpegPs;
-                ((File_MpegPs*)Streams[pid].Parser)->FromTS=true;
-                ((File_MpegPs*)Streams[pid].Parser)->stream_type_FromTS=Streams[pid].stream_type;
-                ((File_MpegPs*)Streams[pid].Parser)->descriptor_tag_FromTS=Streams[pid].descriptor_tag;
-                ((File_MpegPs*)Streams[pid].Parser)->format_identifier_FromTS=Streams[pid].format_identifier;
-                ((File_MpegPs*)Streams[pid].Parser)->MPEG_Version=2;
-                Streams[pid].Parser->ShouldContinueParsing=true;
-                Streams[pid].Searching_Payload_Continue_Set(true);
-            #else
-                //Filling
-                Streams[pid].Parser=new File__Analyze();
-                //Streams_Count--;
-            #endif
-            Open_Buffer_Init(Streams[pid].Parser);
-    }
-
-    //Open MPEG-PS (PES)
-    if (Streams[pid].Parser && (Streams[pid].Parser->IsFinished || Streams[pid].Parser->File_GoTo==(int64u)-1 || Streams[pid].Parser->File_GoTo<File_Offset+Buffer_Offset) && Streams[pid].Parser->File_Offset!=Streams[pid].Parser->File_Size)
-    {
-        //Parsing
-        Open_Buffer_Continue(Streams[pid].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
-
-        //Need anymore?
-        if ((Streams[pid].Parser->IsFinished && !((File_MpegPs*)Streams[pid].Parser)->Searching_TimeStamp_End) || Streams[pid].Parser->IsFinished)
-        {
-            Streams[pid].Searching_Payload_Start_Set(false);
-            Streams[pid].Searching_Payload_Continue_Set(false);
-            if (elementary_PID_Count)
-                elementary_PID_Count--;
-        }
-    }
-    else
+    //Need anymore?
+    if ((Streams[pid].Parser->IsFilled && !Streams[pid].Searching_TimeStamp_End) || Streams[pid].Parser->IsFinished)
     {
         Streams[pid].Searching_Payload_Start_Set(false);
         Streams[pid].Searching_Payload_Continue_Set(false);
+        if (elementary_PID_Count)
+            elementary_PID_Count--;
     }
-
-    //Demux
-    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(pid, 16)+_T(".mpg"));
 }
 
 //***************************************************************************
@@ -1111,6 +1099,7 @@ void File_MpegTs::Detect_EOF()
                     if (Streams[StreamID].Parser && Streams[StreamID].TS_Kind==File_Mpeg_Psi::pes && ((File_MpegPs*)Streams[StreamID].Parser)->HasTimeStamps)
                     {
                         Streams[StreamID].Searching_Payload_Start_Set(true);
+                        Streams[StreamID].Searching_TimeStamp_End=true;
                         ((File_MpegPs*)Streams[StreamID].Parser)->Searching_TimeStamp_End=true;
                     }
 

@@ -381,10 +381,13 @@ bool File_Dts::FileHeader_Begin()
         return false; //Must wait for more data
 
     //False positives detection: Detect WAV files, the parser can't detect it easily, there is only 70 bytes of begining for saying WAV
-    if (CC4(Buffer)==0x52494646) //"RIFF"
+    switch (CC4(Buffer))
     {
-        IsFinished=true;
-        return false;
+        case 0x52494646 : //"RIFF"
+        case 0x000001FD : //MPEG-PS private
+                            IsFinished=true;
+                            return false;
+        default         :   ;
     }
 
     //All should be OK...

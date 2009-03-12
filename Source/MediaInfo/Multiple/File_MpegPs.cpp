@@ -1151,6 +1151,7 @@ void File_MpegPs::Detect_EOF()
         return;
 
     //Jumping if needed
+    IsFilled=true;
     if ((File_Size>SizeToAnalyze && File_Offset+Buffer_Size<File_Size-SizeToAnalyze
      || FromTS) && !Searching_TimeStamp_End)
     {

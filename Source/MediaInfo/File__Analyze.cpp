@@ -195,7 +195,7 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_, int
 void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
     //Integrity
-    if (ToAdd==NULL || (IsFinished && IsSub && !ShouldContinueParsing))
+    if (ToAdd==NULL || IsFinished)
         return;
     //{File F; F.Open(Ztring(_T("d:\\direct"))+Ztring::ToZtring((size_t)this, 16), File::Access_Write_Append); F.Write(ToAdd, ToAdd_Size);}
 
@@ -628,8 +628,9 @@ bool File__Analyze::Synchro_Manage()
             Trusted_IsNot("Synchronisation lost");
         }
     }
+    
     //Trying to synchronize
-    else
+    if (!Synched)
     {
         if (!Synchronize())
         {
