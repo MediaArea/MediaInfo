@@ -220,7 +220,7 @@ void File_Wm::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Wm::Header()
 {
-    Accept("Windows Media");
+    Data_Accept("Windows Media");
     Element_Name("Header");
 
     //Parsing
@@ -1195,7 +1195,7 @@ void File_Wm::Data()
 
     //Filling
     Fill(Stream_General, 0, General_HeaderSize, File_Offset+Buffer_Offset-24);
-    Fill(Stream_General, 0, General_DataSize, Element_Size+24);
+    Fill(Stream_General, 0, General_DataSize, Element_TotalSize_Get()+24);
 
     //For each stream
     Streams_Count=0;

@@ -43,7 +43,6 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
 {
     FileIsSeekable=true;
     File_Filter_HasChanged_=false;
-    File_IsSub=false;
 
     //Specific
     File_MpegTs_ForceMenu=false;
@@ -78,15 +77,6 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==_T("file_forceparser_get"))
     {
         return File_ForceParser_Get();
-    }
-    else if (Option_Lower==_T("file_issub"))
-    {
-        File_IsSub_Set(!(Value==_T("0") || Value.empty()));
-        return _T("");
-    }
-    else if (Option_Lower==_T("file_issub_get"))
-    {
-        return File_IsSub_Get()?"1":"0";
     }
     else if (Option_Lower==_T("file_filter"))
     {
@@ -153,23 +143,6 @@ Ztring MediaInfo_Config_MediaInfo::File_ForceParser_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return File_ForceParser;
-}
-
-//***************************************************************************
-// Is a sub
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void MediaInfo_Config_MediaInfo::File_IsSub_Set (bool NewValue)
-{
-    CriticalSectionLocker CSL(CS);
-    File_IsSub=NewValue;
-}
-
-bool MediaInfo_Config_MediaInfo::File_IsSub_Get ()
-{
-    CriticalSectionLocker CSL(CS);
-    return File_IsSub;
 }
 
 //***************************************************************************

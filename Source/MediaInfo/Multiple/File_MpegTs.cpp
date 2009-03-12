@@ -1086,6 +1086,7 @@ void File_MpegTs::Detect_EOF()
             Accept("MPEG-TS");
         GoTo(0, "MPEG-TS");
         Fill(Stream_General, 0, General_Format_Profile, "No PAT/PMT");
+        return;
     }
 
     //Jump to the end of the file
@@ -1120,7 +1121,8 @@ void File_MpegTs::Detect_EOF()
             }
         }
 
-        Accept("MPEG-TS");
+        if (!IsAccepted)
+            Accept("MPEG-TS");
         GoToFromEnd(MpegTs_JumpTo_End, "MPEG-TS");
     }
 }

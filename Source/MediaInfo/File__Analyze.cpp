@@ -146,23 +146,10 @@ File__Analyze::~File__Analyze ()
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
 {
-    if (!Stream)
-    {
-        Stream=new std::vector<std::vector<ZtringList> >;
-        Stream->resize(Stream_Max);
-        Stream_More=new std::vector<std::vector<ZtringListList> >;
-        Stream_More->resize(Stream_Max);
-        Stream_MustBeDeleted=true;
-    }
-
     //Preparing
     File_Size=File_Size_;
     File_Offset=File_Offset_;
     Element[0].Next=File_Size;
-
-    //Options
-    if (!IsSub)
-        IsSub=Config->File_IsSub_Get();
 
     //Buffer - Global
     Read_Buffer_Init();

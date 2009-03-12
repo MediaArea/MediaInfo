@@ -480,12 +480,11 @@ void File__MultipleParsing::Read_Buffer_Init()
     for (size_t Pos=0; Pos<Parser.size(); Pos++)
     {
         //Parsing
-        if (Buffer_TotalBytes==0)
-            #ifndef MEDIAINFO_MINIMIZESIZE
-                Parser[Pos]->Init(Config, Details, Stream, Stream_More);
-            #else //MEDIAINFO_MINIMIZESIZE
-                Parser[Pos]->Init(Config, Stream, Stream_More);
-            #endif //MEDIAINFO_MINIMIZESIZE
+        #ifndef MEDIAINFO_MINIMIZESIZE
+            Parser[Pos]->Init(Config, Details, Stream, Stream_More);
+        #else //MEDIAINFO_MINIMIZESIZE
+            Parser[Pos]->Init(Config, Stream, Stream_More);
+        #endif //MEDIAINFO_MINIMIZESIZE
         Parser[Pos]->Open_Buffer_Init(File_Size, File_Offset);
     }
 }

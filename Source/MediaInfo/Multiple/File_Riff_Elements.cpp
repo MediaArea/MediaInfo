@@ -1946,7 +1946,6 @@ void File_Riff::AVI__movi_StreamJump()
     {
         //Jumping
         Element_Show();
-        Element_End();
         if (rec__Present)
             Element_End();
         Info("movi, Jumping to end of chunk");
@@ -2348,7 +2347,7 @@ void File_Riff::SMV0_xxxx()
 //---------------------------------------------------------------------------
 void File_Riff::WAVE()
 {
-    Accept("Wave");
+    Data_Accept("Wave");
     Element_Name("Format: Wave");
 
     //Filling
@@ -2399,6 +2398,8 @@ void File_Riff::WAVE_data()
     //Parsing
     Element_Code=CC4("00wb");
     AVI__movi_xxxx();
+    if (File_GoTo==(int64u)-1)
+        Skip_XX(Element_TotalSize_Get()-Element_Offset,         "Data");
 
     FILLING_BEGIN();
         Fill(Stream_Audio, 0, Audio_StreamSize, Element_TotalSize_Get());
@@ -2410,8 +2411,6 @@ void File_Riff::WAVE_data()
             if (BitRate_New<BitRate*0.95 || BitRate_New>BitRate*1.05)
                 Fill(Stream_Audio, 0, Audio_BitRate, BitRate_New, 10, true); //Correcting the bitrate, it was false in the header
         }
-        Skip_XX(Element_TotalSize_Get()-Element_Offset,         "Data");
-        Element_Show();
     FILLING_END();
 }
 
