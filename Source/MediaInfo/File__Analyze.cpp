@@ -629,7 +629,7 @@ bool File__Analyze::Synchro_Manage()
         }
     }
     //Trying to synchronize
-    if (!Synched)
+    else
     {
         if (!Synchronize())
         {
