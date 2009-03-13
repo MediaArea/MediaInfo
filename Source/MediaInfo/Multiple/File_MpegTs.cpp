@@ -412,8 +412,12 @@ void File_MpegTs::Header_Parse()
         //Info
         if (!Streams[pid].program_numbers.empty())
         {
+            Ztring Program_Numbers;
             for (size_t Pos=0; Pos<Streams[pid].program_numbers.size(); Pos++)
-                Data_Info(Ztring::ToZtring_From_CC2(Streams[pid].program_numbers[Pos]));
+                Program_Numbers+=Ztring::ToZtring_From_CC2(Streams[pid].program_numbers[Pos])+_T('/');
+            if (!Program_Numbers.empty())
+                Program_Numbers.resize(Program_Numbers.size()-1);
+            Data_Info(Program_Numbers);
         }
         else
             Data_Info("    ");
