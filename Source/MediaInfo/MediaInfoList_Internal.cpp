@@ -114,7 +114,7 @@ size_t MediaInfoList_Internal::Open(const String &File, const fileoptions_t Opti
     else
     {
         Entry(); //Normal parsing
-        return CountValid;
+        return Count_Get();
     }
 }
 
