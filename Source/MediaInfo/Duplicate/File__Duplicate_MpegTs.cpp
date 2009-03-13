@@ -270,7 +270,7 @@ bool File__Duplicate_MpegTs::Manage_PMT (const int8u* ToAdd, size_t ToAdd_Size)
 bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Size, std::map<int16u, buffer> &ToModify_)
 {
     //Managing big chunks
-    int16u PID=BigEndian2int16u(ToAdd+1)&0x1FFF;
+    int16u PID=((ToAdd[1]&0x1F)<<8)|ToAdd[2]; //BigEndian2int16u(ToAdd+1)&0x1FFF;
     if (ToAdd[1]&0x40) //payload_unit_start_indicator
     {
         FromTS.Buffer=ToAdd;

@@ -276,6 +276,10 @@ size_t File_MpegTs::Output_Buffer_Get (const String &Code)
     if (Stream==Duplicates.end())
         return 0;
 
+    return Stream->second->Output_Buffer_Get();
+
+    //Was used for test (AVC output), but is a lot too slow, must find something else
+    /*
     if (size_t Size=Stream->second->Output_Buffer_Get())
         return Size;
 
@@ -286,6 +290,7 @@ size_t File_MpegTs::Output_Buffer_Get (const String &Code)
                 return Size;
 
     return 0;
+    */
 }
 
 //---------------------------------------------------------------------------
