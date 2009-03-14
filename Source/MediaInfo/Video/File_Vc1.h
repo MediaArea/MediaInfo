@@ -144,6 +144,7 @@ private :
     size_t RatioValue;
     float32 FrameRate;
     size_t BitRate;
+    bool   EntryPoint_Parsed;
 
     //Error controls
     std::vector<int8u> Frame_ShouldBe;

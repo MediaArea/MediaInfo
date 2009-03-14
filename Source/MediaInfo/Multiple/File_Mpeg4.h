@@ -60,6 +60,15 @@ private :
     void mdat_xxxx();
     void mdat_StreamClear();
     void mdat_StreamJump();
+    void mfra();
+    void mfra_mfro();
+    void mfra_tfra();
+    void moof();
+    void moof_mfhd();
+    void moof_traf();
+    void moof_traf_sdtp();
+    void moof_traf_tfhd();
+    void moof_traf_trun();
     void moov();
     void moov_cmov();
     void moov_cmov_cmvd();
@@ -78,6 +87,9 @@ private :
     void moov_meta_ilst_xxxx_mean();
     void moov_meta_ilst_xxxx_name();
     void moov_meta_xml();
+    void moov_mvex();
+    void moov_mvex_mehd();
+    void moov_mvex_trex();
     void moov_mvhd();
     void moov_trak();
     void moov_trak_edts();

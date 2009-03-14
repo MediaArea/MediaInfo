@@ -242,6 +242,9 @@ File_Vc1::File_Vc1()
     FrameIsAlwaysComplete=false;
     From_WMV3=false;
     Only_0D=false;
+
+    //Temp
+    EntryPoint_Parsed=false;
 }
 
 //***************************************************************************
@@ -340,8 +343,11 @@ void File_Vc1::Read_Buffer_Finalize()
         return; //Not initialized
 
     //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (!IsFilled && (Frame_Count>0 || From_WMV3))
+    if (!IsFilled && (Frame_Count>0 || EntryPoint_Parsed || From_WMV3))
+    {
         FrameHeader_Fill();
+        Accept("VC-1");
+    }
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
@@ -788,6 +794,8 @@ void File_Vc1::EntryPointHeader()
 
         //Autorisation of other streams
         Streams[0x0D].Searching_Payload=true;
+
+        EntryPoint_Parsed=true;
     FILLING_END();
 }
 
