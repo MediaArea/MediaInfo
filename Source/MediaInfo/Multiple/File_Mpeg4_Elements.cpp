@@ -632,8 +632,6 @@ void File_Mpeg4::free()
 //---------------------------------------------------------------------------
 void File_Mpeg4::ftyp()
 {
-    if (!IsAccepted)
-        Accept("MPEG-4");
     Element_Name("File Type");
 
     if (Count_Get(Stream_General))
@@ -663,6 +661,8 @@ void File_Mpeg4::ftyp()
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "MPEG-4");
         CodecID_Fill(Ztring().From_CC4(MajorBrand), Stream_General, 0, InfoCodecID_Format_Mpeg4);
+        if (!IsAccepted)
+            Accept("MPEG-4");
     FILLING_END();
 }
 
@@ -700,7 +700,7 @@ void File_Mpeg4::idsc()
 void File_Mpeg4::mdat()
 {
     if (!IsAccepted)
-        Accept("MPEG-4");
+        Data_Accept("MPEG-4");
     Element_Name("Data");
 
     //In case of second pass
@@ -850,13 +850,13 @@ void File_Mpeg4::mdat_StreamJump()
     if (ToJump>=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-1)) //We want always Element mdat
     {
         if (!IsAccepted)
-            Accept("MPEG-4");
+            Data_Accept("MPEG-4");
         Data_GoTo(File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-1), "MPEG-4"); //Not in this chunk
     }
     else if (ToJump!=File_Offset+Buffer_Offset+Element_Size)
     {
         if (!IsAccepted)
-            Accept("MPEG-4");
+            Data_Accept("MPEG-4");
         Data_GoTo(ToJump, "MPEG-4"); //Not just after
     }
 }
@@ -865,7 +865,7 @@ void File_Mpeg4::mdat_StreamJump()
 void File_Mpeg4::moov()
 {
     if (!IsAccepted)
-        Accept("MPEG-4");
+        Data_Accept("MPEG-4");
     Element_Name("File header");
 
     if (!Stream.empty())
