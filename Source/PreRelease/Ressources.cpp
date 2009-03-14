@@ -65,7 +65,7 @@ ZenLib::Ztring Ressources_Create_Item(const Ztring &Directory, const Ztring &Nam
     Result=Ressources_Create_Load(L"../Source/Ressource/Text/_.2.txt", Partial);
     if (!Result.empty())
         return Result;
-    Partial.FindAndReplace(L"%Name%", Ztring(L"File__Base_")+Name);
+    Partial.FindAndReplace(L"%Name%", Ztring(L"MediaInfo_Config_")+Name);
     Partial.FindAndReplace(L"%Class%", Class);
     Contents+=Partial;
 
