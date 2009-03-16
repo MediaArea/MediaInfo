@@ -263,6 +263,8 @@ DistributedBy;توزیع شده توسط
 Donate;کمک نقدی کردن
 DotsPerInch
 Duration;مدت
+Duration_End
+Duration_Start
 Edit;ویرایش
 EditedBy;ویرایش شده توسط
 EMail;پست الکترونیکی
@@ -272,6 +274,7 @@ Encoded_Library;کتابخانه نوشتاری
 Encoded_Library_Settings;تنظیمات انکد
 Encoded_Original;اصلی
 EncodedBy;انکد توسط
+EPG_Positions
 Error_File;خطا هنگام خواندن فایل
 ExecutiveProducer;تولیدکننده اجرایی
 Exit;خروج
@@ -737,6 +740,7 @@ MuxingMode;حالت کثیف
 MuxingMode_PackedBitstream
 Name;نام
 Nationality;ملیت
+NetworkName
 New;جدید
 Newest version;کنترل برای نسخه جدید برنامه
 No;خیر
@@ -784,6 +788,7 @@ OpenCandy_36
 Options;خصوصیات
 Options_Hint;تنظیمات
 Original;اصلی
+OriginalNetworkName
 OriginalSourceForm
 OriginalSourceMedium
 Other;دیگر
@@ -887,6 +892,7 @@ ThanksTo;تشکر از
 Thousands separator;هزاران جدا کننده
 Title;عنوان
 Title_More;عنوان اطلاعات بیشتر
+TimeZone
 Total;کلی
 Track;نام ترک
 Track_Count;تعداد ترک
@@ -925,4 +931,4 @@ WrittenBy;نوشته شده توسط
 Yes;بله
 Your system;سیستم شما
 ZZ_Automatic_Percent;56
-ZZ_AutomaticLanguage_Percent;90
+ZZ_AutomaticLanguage_Percent;89

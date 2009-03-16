@@ -263,6 +263,8 @@ DistributedBy;Terjesztő
 Donate;Adomány
 DotsPerInch
 Duration;Hossz
+Duration_End
+Duration_Start
 Edit;Szerkesztés
 EditedBy;Szerkesztő
 EMail;Email
@@ -272,6 +274,7 @@ Encoded_Library;Kódoló könyvtár
 Encoded_Library_Settings;Kódoló könyvtár beállításai
 Encoded_Original;Eredeti
 EncodedBy;Kódolta
+EPG_Positions
 Error_File;Fájlolvasási hiba
 ExecutiveProducer;Gyártó
 Exit;Kilépés
@@ -737,6 +740,7 @@ MuxingMode;Keverési mód
 MuxingMode_PackedBitstream
 Name;Név
 Nationality;Nemzetiség
+NetworkName
 New;Új
 Newest version;Frissítés keresése (Internet kapcsolat szükséges)
 No;Nem
@@ -784,6 +788,7 @@ OpenCandy_36
 Options;Beállítások
 Options_Hint;Beállítások
 Original;Eredeti
+OriginalNetworkName
 OriginalSourceForm;Eredeti forrás formátuma
 OriginalSourceMedium;Eredeti adathordozója
 Other;Egyéb
@@ -887,6 +892,7 @@ ThanksTo;Köszönetnyilvánítás
 Thousands separator;Ezres elválasztó jel
 Title;Cím
 Title_More;Cím, több adat
+TimeZone
 Total;Összesen
 Track;Sáv
 Track_Count;Sávok száma
@@ -924,5 +930,5 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;Igen
 Your system;Rendszer
-ZZ_Automatic_Percent;90
+ZZ_Automatic_Percent;89
 ZZ_AutomaticLanguage_Percent;96

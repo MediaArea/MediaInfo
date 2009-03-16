@@ -263,6 +263,8 @@ DistributedBy;Dağıtan
 Donate;Bağış
 DotsPerInch;İnç başına nokta
 Duration;Süre
+Duration_End
+Duration_Start
 Edit;Düzenle
 EditedBy;Düzenleyen
 EMail;E-Posta
@@ -272,6 +274,7 @@ Encoded_Library;Yapım kütüphanesi
 Encoded_Library_Settings;Kodlama ayarları
 Encoded_Original;Orijinal
 EncodedBy;Kodlayan
+EPG_Positions
 Error_File;Dosya okunurken hata
 ExecutiveProducer;İdari yapımcı
 Exit;Çıkış
@@ -737,6 +740,7 @@ MuxingMode;Çoklamalı mod
 MuxingMode_PackedBitstream;Paketlenmiş bit akışı
 Name;İsim
 Nationality;Uyruk
+NetworkName
 New;Yeni
 Newest version;Yeni sürümleri kontrol et (Internet bağlantısı gerekir)
 No;Hayır
@@ -784,6 +788,7 @@ OpenCandy_36
 Options;Seçenekler
 Options_Hint;Tercihler
 Original;Orijinal
+OriginalNetworkName
 OriginalSourceForm;Orijinal kaynak formu
 OriginalSourceMedium;Orijinal kaynak ortamı
 Other;Diğer
@@ -887,6 +892,7 @@ ThanksTo;Teşekkürler
 Thousands separator;Binlik basamak ayırıcı 
 Title;Başlık
 Title_More;Başlık, daha fazla bilgi
+TimeZone
 Total;Toplam
 Track;Parça adı
 Track_Count;Parça sayısı
@@ -924,5 +930,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;95
+ZZ_Automatic_Percent;94
 ZZ_AutomaticLanguage_Percent;99

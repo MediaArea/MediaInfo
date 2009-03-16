@@ -263,6 +263,8 @@ DistributedBy;배포
 Donate;기부하기
 DotsPerInch;인치당 도트
 Duration;길이
+Duration_End
+Duration_Start
 Edit;편집
 EditedBy;편집
 EMail;이메일
@@ -272,6 +274,7 @@ Encoded_Library;인코딩 라이브러리
 Encoded_Library_Settings;인코딩 설정
 Encoded_Original;원본
 EncodedBy;인코딩
+EPG_Positions
 Error_File;파일을 읽는 중 에러
 ExecutiveProducer;제작 감독
 Exit;종료
@@ -737,6 +740,7 @@ MuxingMode;먹싱 모드
 MuxingMode_PackedBitstream;팩드 비트스트림
 Name;이름
 Nationality;국적
+NetworkName
 New;새로 만들기
 Newest version;최신 버전 확인 (인터넷 연결이 필요함)
 No;아니오
@@ -784,6 +788,7 @@ OpenCandy_36
 Options;옵션
 Options_Hint;환경 설정
 Original;원본
+OriginalNetworkName
 OriginalSourceForm;원본 소스 폼
 OriginalSourceMedium;원본 소스 미디어
 Other;기타
@@ -887,6 +892,7 @@ ThanksTo;감사
 Thousands separator;천단위 구분자
 Title;제목
 Title_More;제목, 자세히
+TimeZone
 Total;총
 Track;트랙 이름
 Track_Count;트랙 개수
@@ -924,5 +930,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;99
+ZZ_Automatic_Percent;98
 ZZ_AutomaticLanguage_Percent;99

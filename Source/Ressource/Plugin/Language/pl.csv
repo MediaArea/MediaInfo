@@ -263,6 +263,8 @@ DistributedBy;Rozpowszechnianie
 Donate;Donacja
 DotsPerInch;punktów na cal
 Duration;Czas trwania
+Duration_End
+Duration_Start
 Edit;Edytuj
 EditedBy;Edytowany przez
 EMail;email
@@ -272,6 +274,7 @@ Encoded_Library;Biblioteka zapisująca
 Encoded_Library_Settings;Ustawienia kodowania
 Encoded_Original;Oryginalny
 EncodedBy;Kodowane przez
+EPG_Positions
 Error_File;Błąd przy odczycie pliku
 ExecutiveProducer;Kierownik produkcji
 Exit;Wyjście
@@ -737,6 +740,7 @@ MuxingMode;Tryb multipleksowania
 MuxingMode_PackedBitstream;Pakietowy strumień bitów
 Name;Nazwa
 Nationality;Narodowość
+NetworkName
 New;Nowy
 Newest version;Sprawdź czy są nowe wersje (wmagane jest połączenie z siecią)
 No;Nie
@@ -784,6 +788,7 @@ OpenCandy_36;Bieżąca instalacja nie będzie przerwana
 Options;Opcje
 Options_Hint;Preferencje
 Original;Oryginalny
+OriginalNetworkName
 OriginalSourceForm;Forma źródła oryginału
 OriginalSourceMedium;Nosnik źródła oryginału
 Other;Inny
@@ -887,6 +892,7 @@ ThanksTo;Podziękowania dla
 Thousands separator;Separator tysiecy
 Title;Tytuł
 Title_More;Tytuł, wiecej informacji
+TimeZone
 Total;Łącznie
 Track;Tytuł nagrania
 Track_Count;Liczba nagrań
@@ -924,5 +930,5 @@ Written_Location;Lokalizacja
 WrittenBy;Napisał
 Yes;Tak
 Your system;System
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;88
+ZZ_AutomaticLanguage_Percent;99

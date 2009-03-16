@@ -263,6 +263,8 @@ DistributedBy;เผยแพร่โดย
 Donate;บริจาค
 DotsPerInch
 Duration;ระยะเวลา
+Duration_End
+Duration_Start
 Edit;แก้ไข
 EditedBy;แก้ไขโดย
 EMail;อี-เมลล์
@@ -272,6 +274,7 @@ Encoded_Library;การเขียนไลบรารี
 Encoded_Library_Settings;ตั้งค่าการเข้ารหัส
 Encoded_Original;ต้นฉบับ
 EncodedBy;เข้ารหัสโดย
+EPG_Positions
 Error_File;เกิดข้อผิดพลาดขณะที่กำลังไฟล์
 ExecutiveProducer;Executive producer
 Exit;ออก
@@ -737,6 +740,7 @@ MuxingMode;โหมด Muxing
 MuxingMode_PackedBitstream
 Name;ชื่อ
 Nationality;Nationality
+NetworkName
 New;ใหม่
 Newest version;ตรวจสอบเวอร์ชันใหม่ล่าสุด (ต้องการการเชื่อมต่ออินเตอร์เน็ต)
 No;ไม่ใช่
@@ -784,6 +788,7 @@ OpenCandy_36
 Options;ตัวเลือก
 Options_Hint;การปรับแต่ง
 Original;ต้นฉบับ
+OriginalNetworkName
 OriginalSourceForm
 OriginalSourceMedium
 Other;อื่นๆ
@@ -887,6 +892,7 @@ ThanksTo;ขอขอบคุณ
 Thousands separator;ตัวแบ่งหลักพัน
 Title;ชื่อเรื่อง
 Title_More;ชื่อเรื่อง, ข้อมูลเพิ่มเติม
+TimeZone
 Total;ทั้งหมด
 Track;ชื่อแทร็ค
 Track_Count;Track count
@@ -924,5 +930,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;88
+ZZ_Automatic_Percent;87
 ZZ_AutomaticLanguage_Percent;92

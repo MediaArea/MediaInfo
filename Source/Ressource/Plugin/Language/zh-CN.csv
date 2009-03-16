@@ -263,6 +263,8 @@ DistributedBy;发行
 Donate;赞助
 DotsPerInch;点/英寸(DPI)
 Duration;长度
+Duration_End
+Duration_Start
 Edit;编辑
 EditedBy;编辑
 EMail;电子邮件
@@ -272,6 +274,7 @@ Encoded_Library;编码函数库
 Encoded_Library_Settings;编码设置
 Encoded_Original;编码源
 EncodedBy;编码
+EPG_Positions
 Error_File;读文件时出错
 ExecutiveProducer;监制
 Exit;退出
@@ -737,6 +740,7 @@ MuxingMode;混合模式
 MuxingMode_PackedBitstream;打包的比特流
 Name;名称
 Nationality;国藉
+NetworkName
 New;新建
 Newest version;检查新版本(需要网络连接)
 No;否
@@ -784,6 +788,7 @@ OpenCandy_36;您当前的配置将不会被阻止
 Options;选项
 Options_Hint;参数设定
 Original;源
+OriginalNetworkName
 OriginalSourceForm;资源来源
 OriginalSourceMedium;资源媒介
 Other;其它
@@ -887,6 +892,7 @@ ThanksTo;感谢
 Thousands separator;数字分隔符
 Title;标题
 Title_More;更多标题
+TimeZone
 Total;总计
 Track;音轨
 Track_Count;音轨数
@@ -924,5 +930,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

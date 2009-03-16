@@ -263,6 +263,8 @@ DistributedBy; Distribuerad av
 Donate; Donera
 DotsPerInch
 Duration
+Duration_End
+Duration_Start
 Edit; Redigera
 EditedBy; Redigerad av
 EMail; E-Mail
@@ -272,6 +274,7 @@ Encoded_Library; Skrivande bibliotek
 Encoded_Library_Settings; Kodningsinställningar
 Encoded_Original; Original
 EncodedBy; Kodad av
+EPG_Positions
 Error_File; Fel under läsning av fil
 ExecutiveProducer; Verkställande producent
 Exit; Stäng
@@ -737,6 +740,7 @@ MuxingMode
 MuxingMode_PackedBitstream
 Name; Namn
 Nationality; Nationalitet
+NetworkName
 New; Ny
 Newest version; Sök efter nyare version (kräver Internetanslutning)
 No; Nej
@@ -784,6 +788,7 @@ OpenCandy_36
 Options; Alternativ
 Options_Hint; Inställningar
 Original; Original
+OriginalNetworkName
 OriginalSourceForm
 OriginalSourceMedium
 Other; Övrigt
@@ -887,6 +892,7 @@ ThanksTo; Tack till
 Thousands separator; Tusentalsseparator
 Title; titel
 Title_More; Title, mer info
+TimeZone
 Total; Totalt
 Track; Spårnamn
 Track_Count; Antal spår
@@ -924,5 +930,5 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;80
-ZZ_AutomaticLanguage_Percent;85
+ZZ_Automatic_Percent;79
+ZZ_AutomaticLanguage_Percent;84

@@ -263,6 +263,8 @@ DistributedBy;Distributed by
 Donate;Δωρεές
 DotsPerInch
 Duration
+Duration_End
+Duration_Start
 Edit;Επεξεργασία
 EditedBy;Τροποποιημένο από
 EMail;E-Mail
@@ -272,6 +274,7 @@ Encoded_Library;Βιβλιοθήκη κωδικοποιητή
 Encoded_Library_Settings;Ρυθμίσεις κωδικοποιητή
 Encoded_Original;Original
 EncodedBy;Κωδικοποιημένο από
+EPG_Positions
 Error_File;Παρουσιάστηκε σφάλμα κατά το διάβασμα του αρχείου
 ExecutiveProducer;Executive producer
 Exit;Έξοδος
@@ -737,6 +740,7 @@ MuxingMode
 MuxingMode_PackedBitstream
 Name;Όνομα
 Nationality;Nationality
+NetworkName
 New;Νέο
 Newest version;Έλεγχος για νεότερη έκδοση (προϋποθέτει ύπαρξη σύνδεσης στο Διαδύκτιο)
 No;Όχι
@@ -784,6 +788,7 @@ OpenCandy_36
 Options;Επιλογές
 Options_Hint;Προτιμήσεις
 Original;Original
+OriginalNetworkName
 OriginalSourceForm
 OriginalSourceMedium
 Other;Άλλος
@@ -887,6 +892,7 @@ ThanksTo;Ευχαριστώ τους
 Thousands separator;Διαχωριστής χιλιάδων
 Title;Τίτλος
 Title_More;Τίτλος, περισσότερες πληροφορίες
+TimeZone
 Total;Total
 Track;Track name
 Track_Count;Track count
@@ -924,5 +930,5 @@ Written_Location;Τοποθεσία καταγραφής
 WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
-ZZ_Automatic_Percent;82
+ZZ_Automatic_Percent;81
 ZZ_AutomaticLanguage_Percent;86

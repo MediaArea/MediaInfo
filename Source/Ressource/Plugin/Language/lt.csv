@@ -263,6 +263,8 @@ DistributedBy;Platintojas
 Donate;Aukoti
 DotsPerInch
 Duration;Trukmė
+Duration_End
+Duration_Start
 Edit;Redaguoti
 EditedBy;Redagavo
 EMail;El. paštas
@@ -272,6 +274,7 @@ Encoded_Library;Rašymo biblioteka
 Encoded_Library_Settings;Šifravimo nuostatos
 Encoded_Original;Originalus
 EncodedBy;Užšifravo
+EPG_Positions
 Error_File;Klaida nuskaitant failą
 ExecutiveProducer;Išskirtinis prodiuseris
 Exit;Išeiti
@@ -737,6 +740,7 @@ MuxingMode;Muxing rėžimas
 MuxingMode_PackedBitstream
 Name;Pavadinimas
 Nationality;Tautybė
+NetworkName
 New;Naujas
 Newest version;Tikrinti naujausių versijų (reikalinga interneto jungtis)
 No;Ne
@@ -784,6 +788,7 @@ OpenCandy_36
 Options;Pasirinktys
 Options_Hint;Nuostatos
 Original;Originalas
+OriginalNetworkName
 OriginalSourceForm
 OriginalSourceMedium
 Other;Kita
@@ -887,6 +892,7 @@ ThanksTo;Dėkojame
 Thousands separator;Tūkstančių skirtukas
 Title;Antraštė
 Title_More;Antraštė, daugiau info
+TimeZone
 Total;Iš viso
 Track;Takelio pavadinimas
 Track_Count;Takelio kiekis
@@ -924,5 +930,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;93
+ZZ_Automatic_Percent;88
+ZZ_AutomaticLanguage_Percent;92

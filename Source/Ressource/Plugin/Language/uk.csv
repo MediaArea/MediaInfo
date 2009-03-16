@@ -263,6 +263,8 @@ DistributedBy;Розповсюджувач
 Donate;Пожертвування
 DotsPerInch
 Duration
+Duration_End
+Duration_Start
 Edit;Редагувати
 EditedBy;Змінено
 EMail;Е-пошта
@@ -272,6 +274,7 @@ Encoded_Library;Бібліотека кодування
 Encoded_Library_Settings;Настроювання бібліотеки кодування
 Encoded_Original;Оригінальне кодування
 EncodedBy;Закодовано
+EPG_Positions
 Error_File;Помилка файлу
 ExecutiveProducer;Виконавчий продюсер
 Exit;Вихід
@@ -737,6 +740,7 @@ MuxingMode
 MuxingMode_PackedBitstream
 Name;Назва
 Nationality;Національність
+NetworkName
 New;Новий
 Newest version;Перевірити наявність нової версії (необхідне підключення до Інтернету)
 No;Ні
@@ -784,6 +788,7 @@ OpenCandy_36
 Options;Настроювання
 Options_Hint;Настроювання програми
 Original;Оригінальний
+OriginalNetworkName
 OriginalSourceForm
 OriginalSourceMedium
 Other;Інше
@@ -887,6 +892,7 @@ ThanksTo;Подяка
 Thousands separator;Роздільник розрядів
 Title;Назва
 Title_More;Назва, більше інформації
+TimeZone
 Total;Всього
 Track;Доріжка
 Track_Count;Кількість дорожек
@@ -924,5 +930,5 @@ Written_Location;Місце написання
 WrittenBy;Написано
 Yes;Так
 Your system;Ваша система
-ZZ_Automatic_Percent;81
+ZZ_Automatic_Percent;80
 ZZ_AutomaticLanguage_Percent;85

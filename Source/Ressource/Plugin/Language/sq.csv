@@ -263,6 +263,8 @@ DistributedBy;Shpërndarë nga
 Donate;Jep kontribut
 DotsPerInch;Pika për inç
 Duration;Kohëzgjatje
+Duration_End
+Duration_Start
 Edit;Edito
 EditedBy;Edituar nga
 EMail;Posta-E
@@ -272,6 +274,7 @@ Encoded_Library;Librari e shkrimit
 Encoded_Library_Settings;Vendosjet e kodimit
 Encoded_Original;Origjinal
 EncodedBy;Koduar nga
+EPG_Positions
 Error_File;Gabim gjatë leximit të skedës
 ExecutiveProducer;Producenti ekzekutiv
 Exit;Dalje
@@ -737,6 +740,7 @@ MuxingMode;Mënyrë e muksimit
 MuxingMode_PackedBitstream;Rrymë e bitit e paketuar
 Name;Emri
 Nationality;Kombësia
+NetworkName
 New;E re
 Newest version;Verifiko versionin më të ri (nevojitet lidhje me internet)
 No;Jo
@@ -784,6 +788,7 @@ OpenCandy_36;Instalimi juaj aktual nuk do të ndërpritet
 Options;Mundësi
 Options_Hint;Pëlqime
 Original;Origjinal
+OriginalNetworkName
 OriginalSourceForm;Formë origjinale e burimit
 OriginalSourceMedium;Mediumi origjinal i burimit
 Other;Tjetër
@@ -887,6 +892,7 @@ ThanksTo;Falënderime për
 Thousands separator;Ndarësi i mijësheve
 Title;Titulli
 Title_More;Titulli, më tepër info
+TimeZone
 Total;Totali
 Track;Emri i kolonës
 Track_Count;Numri i kolonës
@@ -924,5 +930,5 @@ Written_Location;Vendndodhje e shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

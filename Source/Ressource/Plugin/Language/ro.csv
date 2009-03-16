@@ -263,6 +263,8 @@ DistributedBy;Distribuit de
 Donate;Donatii
 DotsPerInch
 Duration
+Duration_End
+Duration_Start
 Edit;Editare
 EditedBy;Editat de
 EMail;E-mail
@@ -272,6 +274,7 @@ Encoded_Library;Dezvoltator biblioteci
 Encoded_Library_Settings;Setari codare
 Encoded_Original;Original
 EncodedBy;Codificat de
+EPG_Positions
 Error_File;Eroare la citirea fisierului
 ExecutiveProducer;Director executiv
 Exit;Iesire
@@ -737,6 +740,7 @@ MuxingMode
 MuxingMode_PackedBitstream
 Name;Nume
 Nationality;Nationalitate
+NetworkName
 New;Nou
 Newest version;Verificati existenta unei versiuni noi (necesita conexiune Internet)
 No;Nu
@@ -784,6 +788,7 @@ OpenCandy_36
 Options;Optiuni
 Options_Hint;Preferinte
 Original;Original
+OriginalNetworkName
 OriginalSourceForm
 OriginalSourceMedium
 Other;Altele
@@ -887,6 +892,7 @@ ThanksTo;Multumita
 Thousands separator;Separator mii
 Title;Titlu
 Title_More;Titlu, mai multe informatii
+TimeZone
 Total;Total
 Track;Nume pista
 Track_Count;Numar piste
@@ -925,4 +931,4 @@ WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
 ZZ_Automatic_Percent;36
-ZZ_AutomaticLanguage_Percent;77
+ZZ_AutomaticLanguage_Percent;76

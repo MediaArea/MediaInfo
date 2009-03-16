@@ -263,6 +263,8 @@ DistributedBy;ディストリビュート by
 Donate;寄付
 DotsPerInch;ドット/インチ
 Duration;ながさ
+Duration_End
+Duration_Start
 Edit;編集
 EditedBy;編集者
 EMail;E-Mail
@@ -272,6 +274,7 @@ Encoded_Library;使用したライブラリ
 Encoded_Library_Settings;エンコードライブラリの設定
 Encoded_Original;オリジナル
 EncodedBy;エンコード者
+EPG_Positions
 Error_File;ファイル読み込みエラー
 ExecutiveProducer;製作総指揮
 Exit;終了
@@ -737,6 +740,7 @@ MuxingMode;Muxing モード
 MuxingMode_PackedBitstream;ビット ストリーム パック
 Name;名前
 Nationality;制作国
+NetworkName
 New;新規
 Newest version;新バージョンチェック（要インターネット接続）
 No;いいえ
@@ -784,6 +788,7 @@ OpenCandy_36;オープンキャンディ
 Options;オプション
 Options_Hint;詳細設定
 Original;オリジナル
+OriginalNetworkName
 OriginalSourceForm;オリジナル ソース フォーム
 OriginalSourceMedium;中間ソース フォーム
 Other;その他
@@ -887,6 +892,7 @@ ThanksTo;謝辞
 Thousands separator;区切り
 Title;タイトル
 Title_More;タイトルと詳細情報
+TimeZone
 Total;計
 Track;トラック名
 Track_Count;トラック数

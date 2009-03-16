@@ -263,6 +263,8 @@ DistributedBy;Distribuído por
 Donate;Donación
 DotsPerInch;Puntos por pulgada
 Duration;Duración
+Duration_End
+Duration_Start
 Edit;Editar
 EditedBy;Editado por
 EMail;E-Mail
@@ -272,6 +274,7 @@ Encoded_Library;Librería de codificación
 Encoded_Library_Settings;Opciones de codificación
 Encoded_Original;Original
 EncodedBy;Codificado por
+EPG_Positions
 Error_File;Error al leer el archivo
 ExecutiveProducer;Productor ejecutivo
 Exit;Salir
@@ -737,6 +740,7 @@ MuxingMode;Modo Muxing
 MuxingMode_PackedBitstream;Flujo de bits empaquetado
 Name;Nombre
 Nationality;Nacionalidad
+NetworkName
 New;Nuevo
 Newest version;Buscar nueva actualización (requiere conexión a Internet)
 No;No
@@ -784,6 +788,7 @@ OpenCandy_36;Su instalación actual no será interrumpida
 Options;Opciones
 Options_Hint;Preferencias
 Original;Original
+OriginalNetworkName
 OriginalSourceForm;Fuente original de
 OriginalSourceMedium;Fuente original medio
 Other;Otro
@@ -887,6 +892,7 @@ ThanksTo;Gracias a
 Thousands separator;Separador de miles
 Title;Título
 Title_More;Título, más info
+TimeZone
 Total;Total
 Track;Nombre de Pista
 Track_Count;Número de pista
