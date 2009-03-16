@@ -75,6 +75,8 @@ Duration/String;;;Y NT;;;Play time in format : XXx YYy only, YYy omited if zero
 Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
 Duration/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero
 Duration/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM
+Duration_Start;;;Y YT;;;
+Duration_End;;;Y YT;;;
 OverallBitRate_Mode;;;N YT;;;Bit rate mode of all streams (VBR, CBR)
 OverallBitRate_Mode/String;;;Y NT;;;Bit rate mode of all streams (Variable, Constant)
 OverallBitRate;; bps;N YF;;;Bit rate of all streams in bps
@@ -92,8 +94,8 @@ StreamSize/String2;;;N NT;;;
 StreamSize/String3;;;N NT;;;
 StreamSize/String4;;;N NT;;;
 StreamSize/String5;;;N NT;;;With proportion
-StreamSize_Proportion;;;N NT;;;Stream size divided by file size
-HeaderSize;;;N NI;;;
+StreamSize_Proportion;;;N NT;;;Stream size divided by file size;;
+HeaderSize;;;N NI;;;;;
 DataSize;;;N NI;;;;;
 FooterSize;;;N NI;;;;;
 Album_ReplayGain_Gain;; dB;N YT;;;The gain to apply to reach 89dB SPL on playback;;
@@ -232,6 +234,10 @@ Service/Url;;;Y YT;;;;;Legal
 ServiceProvider;;;Y YT;;;;;Legal
 ServiceProviderr/Url;;;Y YT;;;;;Legal
 ServiceType;;;Y YT;;;;;Legal
+NetworkName;;;Y YT;;;;;Legal
+OriginalNetworkName;;;Y YT;;;;;Legal
+Country;;;Y YT;;;;;Legal
+TimeZone;;;Y YT;;;;;Legal
 Cover;;;Y YT;;;Is there a cover;;Info
 Cover_Description;;;Y YT;;;short descriptio, e.g. Earth in space;;Info
 Cover_Type;;;Y YT;;;;;Info
@@ -244,3 +250,5 @@ Added_Date;;;Y YT;;;Date/year the item was added to the owners collection;;Perso
 Played_First_Date;;;Y YT;;;The date, the owner first played an item;;Personal
 Played_Last_Date;;;Y YT;;;The date, the owner last played an item;;Personal
 Played_Count;;;Y YI;;;Number of times an item was played;;Personal
+EPG_Positions_Begin;;;N NI;;;;;
+EPG_Positions_End;;;N NI;;;;;

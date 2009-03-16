@@ -242,11 +242,23 @@ void File__Analyze::Clear (stream_t StreamKind, size_t StreamPos, size_t Paramet
 {
     //Integrity
     if (StreamKind>=Stream_Max
-     || StreamPos>=(*Stream)[StreamKind].size()
-     || Parameter>=(*Stream)[StreamKind][StreamPos].size())
+     || StreamPos>=(*Stream)[StreamKind].size())
         return;
 
-    (*Stream)[StreamKind][StreamPos](Parameter).clear();
+    //Normal
+    if (Parameter<(*Stream)[StreamKind][StreamPos].size())
+    {
+        (*Stream)[StreamKind][StreamPos][Parameter].clear();
+        return;
+    }
+
+    //More
+    Parameter-=(*Stream)[StreamKind][StreamPos].size(); //For having Stream_More position
+    if (Parameter<(*Stream_More)[StreamKind][StreamPos].size())
+    {
+        (*Stream_More)[StreamKind][StreamPos].erase((*Stream_More)[StreamKind][StreamPos].begin()+Parameter);
+        return;
+    }
 }
 
 //---------------------------------------------------------------------------

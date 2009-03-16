@@ -31,3 +31,9 @@ Service/Url;;;Y YT;;;;;Legal
 ServiceProvider;;;Y YT;;;;;Legal
 ServiceProviderr/Url;;;Y YT;;;;;Legal
 ServiceType;;;Y YT;;;;;Legal
+NetworkName;;;Y YT;;;;;Legal
+Original/NetworkName;;;Y YT;;;;;Legal
+Countries;;;Y YT;;;;;Legal
+TimeZones;;;Y YT;;;;;Legal
+EPG_Positions_Begin;;;N NI;;;;;
+EPG_Positions_End;;;N NI;;;;;

@@ -333,9 +333,9 @@ void File_MpegTs::Read_Buffer_Finalize()
     //Fill General
     Fill(Stream_General, 0, General_Format, BDAV_Size?"BDAV":(TSP_Size?"MPEG-TS 188+16":"MPEG-TS"), Unlimited, true, true);
     if (!Complete_Stream.network_name.empty())
-        Fill(Stream_General, 0, "Network_Name", Complete_Stream.network_name);
+        Fill(Stream_General, 0, General_NetworkName, Complete_Stream.network_name);
     if (!Complete_Stream.original_network_name.empty())
-        Fill(Stream_General, 0, "Network_Name_Original", Complete_Stream.original_network_name);
+        Fill(Stream_General, 0, General_OriginalNetworkName, Complete_Stream.original_network_name);
     Ztring Countries;
     Ztring TimeZones;
     for (std::map<Ztring, Ztring>::iterator TimeZone=Complete_Stream.TimeZones.begin(); TimeZone!=Complete_Stream.TimeZones.end(); TimeZone++)
@@ -346,17 +346,17 @@ void File_MpegTs::Read_Buffer_Finalize()
     if (!Countries.empty())
     {
         Countries.resize(Countries.size()-3);
-        Fill(Stream_General, 0, "Countries", Countries);
+        Fill(Stream_General, 0, General_Country, Countries);
     }
     if (!TimeZones.empty())
     {
         TimeZones.resize(TimeZones.size()-3);
-        Fill(Stream_General, 0, "TimeZones", TimeZones);
+        Fill(Stream_General, 0, General_TimeZone, TimeZones);
     }
     if (!Complete_Stream.Start_Time.empty())
-        Fill(Stream_General, 0, "Start_Time", Complete_Stream.Start_Time);
+        Fill(Stream_General, 0, General_Duration_Start, Complete_Stream.Start_Time);
     if (!Complete_Stream.End_Time.empty())
-        Fill(Stream_General, 0, "End_Time", Complete_Stream.End_Time);
+        Fill(Stream_General, 0, General_Duration_End, Complete_Stream.End_Time);
     complete_stream::transport_streams::iterator Transport_Stream=Complete_Stream.Transport_Streams.find(Complete_Stream.transport_stream_id);
     if (Transport_Stream!=Complete_Stream.Transport_Streams.end())
     {
@@ -386,15 +386,19 @@ void File_MpegTs::Read_Buffer_Finalize()
                 }
         }
         if (!EPGs.empty())
+        {
+            Fill(Stream_General, 0, General_EPG_Positions_Begin, Count_Get(Stream_General, 0), 10, true);
             for (std::map<Ztring, Ztring>::iterator EPG=EPGs.begin(); EPG!=EPGs.end(); EPG++)
                 Fill(Stream_General, 0, EPG->first.To_Local().c_str(), EPG->second, true);
+            Fill(Stream_General, 0, General_EPG_Positions_End, Count_Get(Stream_General, 0), 10, true);
+        }
 
         if (!Transport_Stream->second.service_type.empty())
-            Fill(Stream_General, 0, "ServiceType", Transport_Stream->second.service_type, true);
+            Fill(Stream_General, 0, General_ServiceType, Transport_Stream->second.service_type, true);
         if (!Transport_Stream->second.service_name.empty())
-            Fill(Stream_General, 0, "ServiceName", Transport_Stream->second.service_name, true);
+            Fill(Stream_General, 0, General_ServiceName, Transport_Stream->second.service_name, true);
         if (!Transport_Stream->second.service_channel.empty())
-            Fill(Stream_General, 0, "ServiceChannel", Transport_Stream->second.service_channel, true);
+            Fill(Stream_General, 0, General_ServiceChannel, Transport_Stream->second.service_channel, true);
     }
 
     //Fill Menu
@@ -451,7 +455,9 @@ void File_MpegTs::Read_Buffer_Finalize()
                             Texts+=text->second+_T(" - ");
                         if (!Texts.empty())
                             Texts.resize(Texts.size()-3);
-                        EPGs[_T("ServiceProvider")]=Texts;
+                        if (StreamKind_Last==Stream_Max)
+                            Stream_Prepare(Stream_Menu);
+                        Fill(Stream_Menu, StreamPos_Last, Menu_ServiceProvider, Texts, true);
                     }
                     for (complete_stream::source::atsc_epg_blocks::iterator ATSC_EPG_Block=Source->second.ATSC_EPG_Blocks.begin(); ATSC_EPG_Block!=Source->second.ATSC_EPG_Blocks.end(); ATSC_EPG_Block++)
                         for (complete_stream::source::atsc_epg_block::events::iterator Event=ATSC_EPG_Block->second.Events.begin(); Event!=ATSC_EPG_Block->second.Events.end(); Event++)
@@ -469,25 +475,25 @@ void File_MpegTs::Read_Buffer_Finalize()
                 {
                     if (StreamKind_Last==Stream_Max)
                         Stream_Prepare(Stream_Menu);
-                    Fill(Stream_Menu, StreamPos_Last, "ServiceType", Program2->second.service_type, true);
+                    Fill(Stream_Menu, StreamPos_Last, Menu_ServiceType, Program2->second.service_type, true);
                 }
                 if (!Program2->second.service_provider_name.empty())
                 {
                     if (StreamKind_Last==Stream_Max)
                         Stream_Prepare(Stream_Menu);
-                    Fill(Stream_Menu, StreamPos_Last, "ServiceProvider", Program2->second.service_provider_name, true);
+                    Fill(Stream_Menu, StreamPos_Last, Menu_ServiceProvider, Program2->second.service_provider_name, true);
                 }
                 if (!Program2->second.service_name.empty())
                 {
                     if (StreamKind_Last==Stream_Max)
                         Stream_Prepare(Stream_Menu);
-                    Fill(Stream_Menu, StreamPos_Last, "ServiceName", Program2->second.service_name, true);
+                    Fill(Stream_Menu, StreamPos_Last, Menu_ServiceName, Program2->second.service_name, true);
                 }
                 if (!Program2->second.service_channel.empty())
                 {
                     if (StreamKind_Last==Stream_Max)
                         Stream_Prepare(Stream_Menu);
-                    Fill(Stream_Menu, StreamPos_Last, "ServiceChannel", Program2->second.service_channel, true);
+                    Fill(Stream_Menu, StreamPos_Last, Menu_ServiceChannel, Program2->second.service_channel, true);
                 }
             }
         }
@@ -496,8 +502,10 @@ void File_MpegTs::Read_Buffer_Finalize()
         {
             if (StreamKind_Last==Stream_Max)
                 Stream_Prepare(Stream_Menu);
+            Fill(Stream_Menu, StreamPos_Last, Menu_EPG_Positions_Begin, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
             for (std::map<Ztring, Ztring>::iterator EPG=EPGs.begin(); EPG!=EPGs.end(); EPG++)
                 Fill(Stream_Menu, StreamPos_Last, EPG->first.To_UTF8().c_str(), EPG->second, true);
+            Fill(Stream_Menu, StreamPos_Last, Menu_EPG_Positions_End, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
         }
     }
 

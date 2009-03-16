@@ -112,6 +112,8 @@ enum general
     General_Duration_String1,
     General_Duration_String2,
     General_Duration_String3,
+    General_Duration_Start,
+    General_Duration_End,
     General_OverallBitRate_Mode,
     General_OverallBitRate_Mode_String,
     General_OverallBitRate,
@@ -269,6 +271,10 @@ enum general
     General_ServiceProvider,
     General_ServiceProviderr_Url,
     General_ServiceType,
+    General_NetworkName,
+    General_OriginalNetworkName,
+    General_Country,
+    General_TimeZone,
     General_Cover,
     General_Cover_Description,
     General_Cover_Type,
@@ -281,6 +287,8 @@ enum general
     General_Played_First_Date,
     General_Played_Last_Date,
     General_Played_Count,
+    General_EPG_Positions_Begin,
+    General_EPG_Positions_End,
 };
 
 //---------------------------------------------------------------------------
@@ -758,6 +766,12 @@ enum menu
     Menu_ServiceProvider,
     Menu_ServiceProviderr_Url,
     Menu_ServiceType,
+    Menu_NetworkName,
+    Menu_Original_NetworkName,
+    Menu_Countries,
+    Menu_TimeZones,
+    Menu_EPG_Positions_Begin,
+    Menu_EPG_Positions_End,
 };
 
 } //NameSpace
