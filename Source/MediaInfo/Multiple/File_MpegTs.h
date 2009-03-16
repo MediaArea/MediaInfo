@@ -87,6 +87,7 @@ private :
         int64u                                      TimeStamp_Start;
         int64u                                      TimeStamp_End;
         bool                                        StreamIsRegistred;
+        bool                                        StreamIsVersioned;
         bool                                        Scrambled;
         bool                                        Searching;
         bool                                        Searching_Payload_Start;
@@ -94,6 +95,12 @@ private :
         bool                                        Searching_TimeStamp_Start;
         bool                                        Searching_TimeStamp_End;
         bool                                        ShouldDuplicate;
+        struct version
+        {
+            int8u version_number;
+            std::map<int8u, bool> section_numbers; //Key is section_number, true when parsed
+        };
+        std::map<int8u, std::map<int16u, version> > Versions; //Key are table_id and table_id_extension
 
         stream()
         {
@@ -106,6 +113,7 @@ private :
             TimeStamp_Start=(int64u)-1;
             TimeStamp_End=(int64u)-1;
             StreamIsRegistred=false;
+            StreamIsVersioned=false;
             Scrambled=false;
             Searching=false;
             Searching_Payload_Start=false;
@@ -193,6 +201,9 @@ private :
         }
     };
     std::map<int16u, pid_pmts> PID_PMTs;
+
+    //Global infos
+    complete_stream Complete_Stream;
 
     //Elements
     void PSI();

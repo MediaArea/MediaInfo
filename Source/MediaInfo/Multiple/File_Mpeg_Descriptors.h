@@ -35,6 +35,129 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Global object
+//***************************************************************************
+
+struct complete_stream
+{
+    //Global
+    int16u transport_stream_id; //The processed transport_stream_id
+    Ztring original_network_name;
+    Ztring network_name;
+    Ztring Start_Time;
+    Ztring End_Time;
+    std::map<Ztring, Ztring> TimeZones; //Key is country code
+
+    //Per transport_stream
+    struct transport_stream
+    {
+        bool HasChanged;
+        struct program
+        {
+            bool HasChanged;
+            Ztring service_type;
+            Ztring service_name;
+
+            //DVB
+            Ztring service_provider_name;
+            struct dvb_epg_block
+            {
+                struct event
+                {
+                    Ztring  start_time;
+                    Ztring  duration;
+                    struct short_event_
+                    {
+                        Ztring  event_name;
+                        Ztring  text;
+                    };
+                    short_event_ short_event;
+                    Ztring  content;
+                    Ztring  running_status;
+                };
+
+                typedef std::map<int16u, event> events; //Key is event_id
+                events Events; //Key is event_id
+            };
+            typedef std::map<int8u, dvb_epg_block> dvb_epg_blocks; //Key is table_id
+            dvb_epg_blocks DVB_EPG_Blocks; //Key is table_id
+
+            //ATSC
+            Ztring service_channel;
+            int16u source_id;
+
+            //Constructor/Destructor
+            program()
+            {
+                HasChanged=false;
+                source_id=0;
+            }
+        };
+        typedef std::map<int16u, program> programs; //Key is program_number
+        programs Programs; //Key is program_number
+
+        //ATSC
+        int16u source_id; //Global
+        Ztring service_type;
+        Ztring service_name;
+        Ztring service_channel;
+
+        transport_stream()
+        {
+            HasChanged=false;
+            source_id=0;
+        }
+    };
+    typedef std::map<int16u, transport_stream> transport_streams; //Key is transport_stream_id
+    transport_streams Transport_Streams; //Key is transport_stream_id
+
+    //Per PID
+    struct stream
+    {
+        //ATSC
+        int16u table_type;
+
+        //Constructor/Destructor
+        stream()
+        {
+            table_type=0x0000;
+        }
+    };
+    std::map<int16u, stream> Streams; //Key is PID
+
+    //ATSC
+    int8u GPS_UTC_offset;
+    struct source
+    {
+        std::map<int16u, Ztring> texts;
+        struct atsc_epg_block
+        {
+            struct event
+            {
+                int32u  start_time;
+                Ztring  duration;
+                Ztring  title;
+                std::map<int16u, Ztring> texts;
+            };
+
+            typedef std::map<int16u, event> events; //Key is event_id
+            events Events; //Key is event_id
+        };
+        typedef std::map<int16u, atsc_epg_block> atsc_epg_blocks; //Key is table_id
+        atsc_epg_blocks ATSC_EPG_Blocks; //Key is table_id
+    };
+    typedef std::map<int16u, source> sources; //Key is source_id
+    sources Sources; //Key is source_id
+
+    //Constructor/Destructor
+    complete_stream()
+    {
+        transport_stream_id=0;
+        GPS_UTC_offset=0;
+    }
+};
+
+//***************************************************************************
 // Class File_Mpeg_Descriptors
 //***************************************************************************
 
@@ -44,7 +167,11 @@ public :
     //In
     int32u   format_identifier; //Must be filled by the caller
     stream_t StreamKind;
+    complete_stream* Complete_Stream;
+    int16u   transport_stream_id;
     int8u    table_id;
+    int16u   table_id_extension;
+    int16u   xxx_id;
     bool     From_ATSC;
 
     //Out
@@ -148,8 +275,8 @@ private :
     void Descriptor_2D() {Skip_XX(Element_Size, "Data");};
     void Descriptor_2E() {Skip_XX(Element_Size, "Data");};
     void Descriptor_2F();
-    void Descriptor_40() {Skip_XX(Element_Size, "Data");};
-    void Descriptor_41() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_40();
+    void Descriptor_41();
     void Descriptor_42() {Skip_XX(Element_Size, "Data");};
     void Descriptor_43() {Skip_XX(Element_Size, "Data");};
     void Descriptor_44() {Skip_XX(Element_Size, "Data");};
@@ -172,12 +299,12 @@ private :
     void Descriptor_55();
     void Descriptor_56();
     void Descriptor_57() {Skip_XX(Element_Size, "Data");};
-    void Descriptor_58() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_58();
     void Descriptor_59();
-    void Descriptor_5A() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_5A();
     void Descriptor_5B() {Skip_XX(Element_Size, "Data");};
     void Descriptor_5C() {Skip_XX(Element_Size, "Data");};
-    void Descriptor_5D() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_5D();
     void Descriptor_5E() {Skip_XX(Element_Size, "Data");};
     void Descriptor_5F();
     void Descriptor_60() {Skip_XX(Element_Size, "Data");};
@@ -215,7 +342,7 @@ private :
     void Descriptor_80() {Skip_XX(Element_Size, "Data");};
     void Descriptor_81();
     void Descriptor_86();
-    void Descriptor_87() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_87();
     void Descriptor_A0();
     void Descriptor_A1();
     void Descriptor_A2() {Skip_XX(Element_Size, "Data");};
@@ -226,9 +353,12 @@ private :
     void Descriptor_AB() {Skip_XX(Element_Size, "Data");};
 
     //Helpers
-    void ATSC_multiple_string_structure(Ztring &Value);
+    void ATSC_multiple_string_structure(Ztring &Value, const char* Info);
     void Get_DVB_Text(int64u Size, Ztring &Value, const char* Info);
     void Skip_DVB_Text(int64u Size, const char* Info) {Ztring Temp; Get_DVB_Text(Size, Temp, Info);};
+    Ztring Date_MJD(int16u Date);
+    Ztring Time_BCD(int32u Time);
+    Ztring TimeHHMM_BCD(int16u Time);
 };
 
 //***************************************************************************

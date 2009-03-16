@@ -1097,6 +1097,7 @@ void File_MpegPs::Data_Parse()
     if (!Streams[start_code].Searching_Payload)
     {
         Skip_XX(Element_Size,                                   "data");
+        Element_DoNotShow();
         return;
     }
 

@@ -150,8 +150,11 @@ void File_MpegTs::Synched_Init()
     //Default values
     Streams.resize(0x2000);
     Streams[0x00].TS_Kind=File_Mpeg_Psi::program_association_table;
+    Streams[0x00].StreamIsVersioned=true;
     Streams[0x01].TS_Kind=File_Mpeg_Psi::conditional_access_table;
+    Streams[0x01].StreamIsVersioned=true;
     Streams[0x02].TS_Kind=File_Mpeg_Psi::transport_stream_description_table;
+    Streams[0x02].StreamIsVersioned=true;
     for (int32u Pos=0x03; Pos<0x10; Pos++)
         Streams[Pos].TS_Kind=File_Mpeg_Psi::reserved;
     for (int32u Pos=0x00; Pos<0x10; Pos++)
@@ -329,11 +332,76 @@ void File_MpegTs::Read_Buffer_Finalize()
 
     //Fill General
     Fill(Stream_General, 0, General_Format, BDAV_Size?"BDAV":(TSP_Size?"MPEG-TS 188+16":"MPEG-TS"), Unlimited, true, true);
+    if (!Complete_Stream.network_name.empty())
+        Fill(Stream_General, 0, "Network_Name", Complete_Stream.network_name);
+    if (!Complete_Stream.original_network_name.empty())
+        Fill(Stream_General, 0, "Network_Name_Original", Complete_Stream.original_network_name);
+    Ztring Countries;
+    Ztring TimeZones;
+    for (std::map<Ztring, Ztring>::iterator TimeZone=Complete_Stream.TimeZones.begin(); TimeZone!=Complete_Stream.TimeZones.end(); TimeZone++)
+    {
+        Countries+=TimeZone->first+_T(" / ");
+        TimeZones+=TimeZone->second+_T(" / ");
+    }
+    if (!Countries.empty())
+    {
+        Countries.resize(Countries.size()-3);
+        Fill(Stream_General, 0, "Countries", Countries);
+    }
+    if (!TimeZones.empty())
+    {
+        TimeZones.resize(TimeZones.size()-3);
+        Fill(Stream_General, 0, "TimeZones", TimeZones);
+    }
+    if (!Complete_Stream.Start_Time.empty())
+        Fill(Stream_General, 0, "Start_Time", Complete_Stream.Start_Time);
+    if (!Complete_Stream.End_Time.empty())
+        Fill(Stream_General, 0, "End_Time", Complete_Stream.End_Time);
+    complete_stream::transport_streams::iterator Transport_Stream=Complete_Stream.Transport_Streams.find(Complete_Stream.transport_stream_id);
+    if (Transport_Stream!=Complete_Stream.Transport_Streams.end())
+    {
+        //EPG Main (ATSC)
+        std::map<Ztring, Ztring> EPGs;
+        complete_stream::sources::iterator Source=Complete_Stream.Sources.find(Transport_Stream->second.source_id);
+        if (Source!=Complete_Stream.Sources.end())
+        {
+            if (!Source->second.texts.empty())
+            {
+                Ztring Texts;
+                for (std::map<int16u, Ztring>::iterator text=Source->second.texts.begin(); text!=Source->second.texts.end(); text++)
+                    Texts+=text->second+_T(" - ");
+                if (!Texts.empty())
+                    Texts.resize(Texts.size()-3);
+                EPGs[_T("ServiceProvider")]=Texts;
+            }
+            for (complete_stream::source::atsc_epg_blocks::iterator ATSC_EPG_Block=Source->second.ATSC_EPG_Blocks.begin(); ATSC_EPG_Block!=Source->second.ATSC_EPG_Blocks.end(); ATSC_EPG_Block++)
+                for (complete_stream::source::atsc_epg_block::events::iterator Event=ATSC_EPG_Block->second.Events.begin(); Event!=ATSC_EPG_Block->second.Events.end(); Event++)
+                {
+                    Ztring Texts;
+                    for (std::map<int16u, Ztring>::iterator text=Event->second.texts.begin(); text!=Event->second.texts.end(); text++)
+                        Texts+=text->second+_T(" - ");
+                    if (!Texts.empty())
+                        Texts.resize(Texts.size()-3);
+                    EPGs[Ztring().Date_From_Seconds_1970(Event->second.start_time+315964800-Complete_Stream.GPS_UTC_offset)]=Event->second.title+_T(" / ")+Texts+_T(" /  /  / ")+Event->second.duration+_T(" / ");
+                }
+        }
+        if (!EPGs.empty())
+            for (std::map<Ztring, Ztring>::iterator EPG=EPGs.begin(); EPG!=EPGs.end(); EPG++)
+                Fill(Stream_General, 0, EPG->first.To_Local().c_str(), EPG->second, true);
+
+        if (!Transport_Stream->second.service_type.empty())
+            Fill(Stream_General, 0, "ServiceType", Transport_Stream->second.service_type, true);
+        if (!Transport_Stream->second.service_name.empty())
+            Fill(Stream_General, 0, "ServiceName", Transport_Stream->second.service_name, true);
+        if (!Transport_Stream->second.service_channel.empty())
+            Fill(Stream_General, 0, "ServiceChannel", Transport_Stream->second.service_channel, true);
+    }
 
     //Fill Menu
-    if (Programs.size()>1 || Config->File_MpegTs_ForceMenu_Get())
+    for (std::map<int16u, program>::iterator Program=Programs.begin(); Program!=Programs.end(); Program++)
     {
-        for (std::map<int16u, program>::iterator Program=Programs.begin(); Program!=Programs.end(); Program++)
+        StreamKind_Last=Stream_Max;
+        if (Programs.size()>1 || Config->File_MpegTs_ForceMenu_Get())
         {
             Stream_Prepare(Stream_Menu);
             Fill(StreamKind_Last, StreamPos_Last, "MenuID", Program->first);
@@ -357,6 +425,79 @@ void File_MpegTs::Read_Buffer_Finalize()
 
             for (std::map<std::string, ZenLib::Ztring>::iterator Info=Program->second.Infos.begin(); Info!=Program->second.Infos.end(); Info++)
                 Fill(Stream_Menu, StreamPos_Last, Info->first.c_str(), Info->second);
+        }
+
+        //EPG
+        std::map<Ztring, Ztring> EPGs;
+        complete_stream::transport_streams::iterator Transport_Stream=Complete_Stream.Transport_Streams.find(Complete_Stream.transport_stream_id);
+        if (Transport_Stream!=Complete_Stream.Transport_Streams.end())
+        {
+            complete_stream::transport_stream::programs::iterator Program2=Transport_Stream->second.Programs.find(Program->first);
+            if (Program2!=Transport_Stream->second.Programs.end())
+            {
+                //DVB
+                for (complete_stream::transport_stream::program::dvb_epg_blocks::iterator DVB_EPG_Block=Program2->second.DVB_EPG_Blocks.begin(); DVB_EPG_Block!=Program2->second.DVB_EPG_Blocks.end(); DVB_EPG_Block++)
+                    for (complete_stream::transport_stream::program::dvb_epg_block::events::iterator Event=DVB_EPG_Block->second.Events.begin(); Event!=DVB_EPG_Block->second.Events.end(); Event++)
+                        EPGs[Event->second.start_time]=Event->second.short_event.event_name+_T(" / ")+Event->second.short_event.text+_T(" / ")+Event->second.content+_T(" /  / ")+Event->second.duration+_T(" / ")+Event->second.running_status;
+
+                //ATSC
+                complete_stream::sources::iterator Source=Complete_Stream.Sources.find(Program2->second.source_id);
+                if (Source!=Complete_Stream.Sources.end())
+                {
+                    if (!Source->second.texts.empty())
+                    {
+                        Ztring Texts;
+                        for (std::map<int16u, Ztring>::iterator text=Source->second.texts.begin(); text!=Source->second.texts.end(); text++)
+                            Texts+=text->second+_T(" - ");
+                        if (!Texts.empty())
+                            Texts.resize(Texts.size()-3);
+                        EPGs[_T("ServiceProvider")]=Texts;
+                    }
+                    for (complete_stream::source::atsc_epg_blocks::iterator ATSC_EPG_Block=Source->second.ATSC_EPG_Blocks.begin(); ATSC_EPG_Block!=Source->second.ATSC_EPG_Blocks.end(); ATSC_EPG_Block++)
+                        for (complete_stream::source::atsc_epg_block::events::iterator Event=ATSC_EPG_Block->second.Events.begin(); Event!=ATSC_EPG_Block->second.Events.end(); Event++)
+                        {
+                            Ztring Texts;
+                            for (std::map<int16u, Ztring>::iterator text=Event->second.texts.begin(); text!=Event->second.texts.end(); text++)
+                                Texts+=text->second+_T(" - ");
+                            if (!Texts.empty())
+                                Texts.resize(Texts.size()-3);
+                            EPGs[Ztring().Date_From_Seconds_1970(Event->second.start_time+315964800-Complete_Stream.GPS_UTC_offset)]=Event->second.title+_T(" / ")+Texts+_T(" /  /  / ")+Event->second.duration+_T(" / ");
+                        }
+                }
+
+                if (!Program2->second.service_type.empty())
+                {
+                    if (StreamKind_Last==Stream_Max)
+                        Stream_Prepare(Stream_Menu);
+                    Fill(Stream_Menu, StreamPos_Last, "ServiceType", Program2->second.service_type, true);
+                }
+                if (!Program2->second.service_provider_name.empty())
+                {
+                    if (StreamKind_Last==Stream_Max)
+                        Stream_Prepare(Stream_Menu);
+                    Fill(Stream_Menu, StreamPos_Last, "ServiceProvider", Program2->second.service_provider_name, true);
+                }
+                if (!Program2->second.service_name.empty())
+                {
+                    if (StreamKind_Last==Stream_Max)
+                        Stream_Prepare(Stream_Menu);
+                    Fill(Stream_Menu, StreamPos_Last, "ServiceName", Program2->second.service_name, true);
+                }
+                if (!Program2->second.service_channel.empty())
+                {
+                    if (StreamKind_Last==Stream_Max)
+                        Stream_Prepare(Stream_Menu);
+                    Fill(Stream_Menu, StreamPos_Last, "ServiceChannel", Program2->second.service_channel, true);
+                }
+            }
+        }
+
+        if (!EPGs.empty())
+        {
+            if (StreamKind_Last==Stream_Max)
+                Stream_Prepare(Stream_Menu);
+            for (std::map<Ztring, Ztring>::iterator EPG=EPGs.begin(); EPG!=EPGs.end(); EPG++)
+                Fill(Stream_Menu, StreamPos_Last, EPG->first.To_UTF8().c_str(), EPG->second, true);
         }
     }
 
@@ -602,6 +743,8 @@ void File_MpegTs::PSI()
             return; //This is not the start of the PSI
         Streams[pid].Parser=new File_Mpeg_Psi;
         Open_Buffer_Init(Streams[pid].Parser);
+        ((File_Mpeg_Psi*)Streams[pid].Parser)->Complete_Stream=&Complete_Stream;
+        ((File_Mpeg_Psi*)Streams[pid].Parser)->pid=pid;
     }
 
     //Parsing
@@ -622,12 +765,9 @@ void File_MpegTs::PSI()
         }
 
         //Disabling this PID
-        if (!((File_Mpeg_Psi*)Streams[pid].Parser)->WantItAgain)
-        {
-            delete Streams[pid].Parser; Streams[pid].Parser=NULL;
-            Streams[pid].Searching_Payload_Start_Set(pid==0x0000 && File_Offset<0x8000);
-            Streams[pid].Searching_Payload_Continue_Set(false);
-        }
+        delete Streams[pid].Parser; Streams[pid].Parser=NULL;
+        Streams[pid].Searching_Payload_Continue_Set(false);
+        Streams[pid].Searching_Payload_Start_Set(true);
     }
     else
         //Waiting for more data
@@ -653,6 +793,7 @@ void File_MpegTs::PSI_program_association_table()
 
         //Enabling what we know parsing
         Streams[PID].TS_Kind=Program->first!=0x0000?File_Mpeg_Psi::program_map_table:File_Mpeg_Psi::network_information_table;
+        Streams[PID].StreamIsVersioned=true;
         if (Config->File_Filter_Get(Program->first))
         {
             std::vector<int16u>::iterator Pos=find(Streams[PID].program_numbers.begin(), Streams[PID].program_numbers.end(), Program->first);
@@ -693,7 +834,7 @@ void File_MpegTs::PSI_program_association_table()
     }
 
     //Filling
-    Fill(Stream_General, 0, General_ID, Parser->transport_stream_id, 16, true);
+    Fill(Stream_General, 0, General_ID, Parser->table_id_extension, 16, true);
     if (!IsAccepted)
         Accept("MPEG-TS");
 }
@@ -734,6 +875,7 @@ void File_MpegTs::PSI_program_map_table()
                 elementary_PID_Count++;
                 Streams[Stream->second.CA_PID].program_numbers.push_back(Stream->second.program_number);
                 Streams[Stream->second.CA_PID].TS_Kind=File_Mpeg_Psi::conditional_access_table;
+                Streams[Stream->second.CA_PID].StreamIsVersioned=true;
                 Streams[Stream->second.CA_PID].Searching_Payload_Start_Set(true);
             }
         }
@@ -828,6 +970,8 @@ void File_MpegTs::PSI_program_map_table()
                 }
 
                 Streams[Pos].TS_Kind=Kind;
+                if (Kind!=File_Mpeg_Psi::reserved)
+                    Streams[Pos].StreamIsVersioned=true;
                 Streams[Pos].Searching_Payload_Start_Set(true);
             }
 
@@ -876,6 +1020,7 @@ void File_MpegTs::PSI_atsc_psip()
         if (Stream->first>0x10) //Protection again erasing standard PID
         {
             Streams[Stream->first].TS_Kind=Stream->second.Kind;
+            Streams[Stream->first].StreamIsVersioned=true;
             Streams[Stream->first].Searching_Payload_Start_Set(true);
         }
         if (Streams[Stream->first].Parser)
@@ -1018,9 +1163,58 @@ bool File_MpegTs::Header_Parser_QuickSearch()
             //Searching start
             if (Streams[PID].Searching_Payload_Start)
             {
-                int8u Info=Buffer[Buffer_Offset+BDAV_Size+1];
-                if (Info&0x40) //payload_unit_start_indicator
-                    return true;
+                if (Buffer[Buffer_Offset+BDAV_Size+1]&0x40) //payload_unit_start_indicator
+                {
+                    if (Streams[PID].StreamIsVersioned)
+                    {
+                        //Searching version
+                        size_t Version_Pos=BDAV_Size+4;
+                        if (Buffer[Buffer_Offset+BDAV_Size+3]&0x20) //adaptation_field_control (adaptation)
+                            Version_Pos+=1+Buffer[Buffer_Offset+Version_Pos]; //adaptation_field_length
+                        Version_Pos+=Buffer[Buffer_Offset+Version_Pos]; //pointer_field
+                        int8u table_id=Buffer[Buffer_Offset+Version_Pos+1]; //table_id
+                        if (!(Buffer[Buffer_Offset+Version_Pos+2]&0x80)) //section_syntax_indicator
+                            return true; //No version
+                        Version_Pos+=4; //Header size
+                        if (Version_Pos<BDAV_Size+188)
+                        {
+                            int16u table_id_extension=(Buffer[Buffer_Offset+Version_Pos]<<8)|Buffer[Buffer_Offset+Version_Pos+1];
+                            int8u  version_number=(Buffer[Buffer_Offset+Version_Pos+2]&0x3F)>>1;
+                            int8u  section_number=Buffer[Buffer_Offset+Version_Pos+3];
+                            std::map<int8u, std::map<int16u, stream::version> >::iterator Table_ID=Streams[PID].Versions.find(table_id);
+                            if (Table_ID!=Streams[PID].Versions.end())
+                            {
+                                std::map<int16u, stream::version>::iterator Version=Table_ID->second.find(table_id_extension);
+                                if (Version==Table_ID->second.end() || Version->second.version_number!=version_number)
+                                {
+                                    Table_ID->second[table_id_extension].version_number=version_number;
+                                    Table_ID->second[table_id_extension].section_numbers.clear();
+                                    Table_ID->second[table_id_extension].section_numbers[section_number]=true;
+                                    return true; //Version is different
+                                }
+                                else
+                                {
+                                    std::map<int8u, bool>::iterator Section_Number=Version->second.section_numbers.find(section_number);
+                                    if (Section_Number==Version->second.section_numbers.end())
+                                    {
+                                        Version->second.section_numbers[section_number]=true;
+                                        return true; //section is not yet parsed
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Streams[PID].Versions[table_id][table_id_extension].version_number=version_number;
+                                Streams[PID].Versions[table_id][table_id_extension].section_numbers[section_number]=true;
+                                return true; //This table_id was never seen
+                            }
+                        }
+                        else
+                            return true; //Not able to detect version (too far)
+                    }
+                    else
+                        return true; //No version in this PID
+                }
             }
 
             //Searching continue
@@ -1084,7 +1278,7 @@ void File_MpegTs::Detect_EOF()
     //Jump to the end of the file
     if (File_Offset+Buffer_Offset>0x8000 && File_Offset+Buffer_Offset+MpegTs_JumpTo_End<File_Size && (
        (File_Offset+Buffer_Offset>=MpegTs_JumpTo_Begin)
-    || (program_Count==0 && elementary_PID_Count==0)
+    //|| (program_Count==0 && elementary_PID_Count==0)
     ))
     {
         if (File_Size!=(int64u)-1) //Only if not unlimited
@@ -1112,6 +1306,7 @@ void File_MpegTs::Detect_EOF()
                         Streams[StreamID].Searching_Payload_Start_Set(false); //Does not search for DVB/ATSC anymore
                 }
             }
+            Complete_Stream.End_Time.clear();
         }
 
         if (!IsAccepted)
