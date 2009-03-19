@@ -507,6 +507,8 @@ bool File_Dts::Synched_Test()
 void File_Dts::Read_Buffer_Continue()
 {
     //Mapping to an understable bitstream if needed
+    if (MustSynchronize && !Synchro_Manage())
+        return; //Wait for more data
     if (Synched && (!Word || !BigEndian))
     {
         if (Count_Get(Stream_General)==0)

@@ -388,10 +388,6 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
             return; //Finish
     }
 
-    //Synchro
-    if (MustSynchronize && !Synchro_Manage())
-        return; //Wait for more data
-
     //Parsing specific
     Frame_Count_InThisBlock=0; //Out
     Element_Offset=0;
@@ -646,6 +642,14 @@ bool File__Analyze::Synchro_Manage()
             Synched_Init();
             Buffer_TotalBytes_FirstSynched+=Buffer_TotalBytes+Buffer_Offset;
             File_Offset_FirstSynched=File_Offset+Buffer_Offset;
+        }
+
+        if (!Synched_Test())
+            return false;
+        if (!Synched)
+        {
+            Element[Element_Level].IsComplete=true; //Else the trusting algo will think it
+            Trusted_IsNot("Synchronisation lost");
         }
     }
 
