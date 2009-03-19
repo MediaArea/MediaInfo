@@ -44,105 +44,17 @@ class File_Mpeg_Psi : public File__Analyze
 {
 public :
     //In
-    bool   From_TS;
+    bool    From_TS;
     complete_stream* Complete_Stream;
     int16u  pid;
 
-    //Out
-    bool   WantItAgain;
-
-
-
-    enum ts_kind
-    {
-        //MPEG
-        unknown,
-        program_association_table,
-        program_map_table,
-        network_information_table,
-        conditional_access_table,
-        transport_stream_description_table,
-        reserved,
-        pes,
-        null,
-        PCR,
-        
-        //Other
-        ts_outofspec, //Not a real type, only to say that all following is out of MPEG-TS specs
-        dvb_nit_st,
-        dvb_sdt_bat_st,
-        dvb_eit,
-        dvb_rst_st,
-        dvb_tdt_tot_st,
-        dvb_mip,
-        dvb_reserved,
-        dvb_inband,
-        dvb_measurement,
-        dvb_dit,
-        dvb_sit,
-        arib,
-        cea_osd,
-        atsc_pate,
-        atsc_stt_pide,
-        atsc_op,
-        atsc_psip,
-        atsc_scte,
-        atsc_reserved,
-        docsis
-    };
-
-    //About streams
-    struct stream
-    {
-        std::map<std::string, ZenLib::Ztring>       Infos;
-        int32u                                      format_identifier;
-        int16u                                      program_number;
-        ts_kind                                     Kind;
-        int8u                                       stream_type;
-        int8u                                       descriptor_tag;
-        int16u                                      CA_PID;
-        int16u                                      ES_ID;
-        File__Analyze*                              ES_Parser;
-
-        stream()
-        {
-            format_identifier=0x00000000;
-            program_number=0xFFFF;
-            Kind=unknown;
-            stream_type=0x00;
-            descriptor_tag=0x00;
-            CA_PID=0x0000;
-            ES_ID=0x0000;
-            ES_Parser=NULL;
-        }
-
-        ~stream()
-        {
-            delete ES_Parser; //ES_Parser=NULL;
-        }
-    };
-    std::map<int16u, stream> Streams;
-    int16u                   Stream_Current;
-
-    //About Programs
-    std::map<int16u, File_Mpeg_Descriptors::program>    Programs; //Key is program_number
-
-    //About ES
-    std::map<int16u, File_Mpeg_Descriptors::es_element> ES_Elements; //Key is ES_ID
-
-    //About the complete stream
-    std::map<std::string, ZenLib::Ztring>       Infos;
-
-    //About program
-    int16u PCR_PID;
-
     //Temp
-    int16u program_number;
-    bool   section_syntax_indicator;
     int16u transport_stream_id;
     int16u table_id_extension;
-    int8u  version_number;
     int16u xxx_id;
+    int8u  version_number;
+    bool   xxx_id_IsValid;
+    bool   section_syntax_indicator;
 
     //Details
     const char* Mpeg_Psi_Element_Name();
@@ -152,12 +64,10 @@ public :
     ~File_Mpeg_Psi();
 
 private :
-    //Buffer
+    //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
 
-
-private :
     //Elements - Base
     void Table_reserved();
     void Table_iso13818_6();

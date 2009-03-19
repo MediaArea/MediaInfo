@@ -173,10 +173,10 @@ const char* MpegPs_stream_id_extension(int8u stream_id_extension)
 }
 
 //---------------------------------------------------------------------------
-extern const char* Mpeg_Psi_stream_type(int32u ID);
-extern const char* Mpeg_Psi_stream_Format(int8u ID, int32u format_identifier);
-extern const char* Mpeg_Psi_stream_Codec(int8u ID, int32u format_identifier);
-extern stream_t    Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier);
+extern const char* Mpeg_Psi_stream_type_Format(int8u stream_type, int32u format_identifier);
+extern const char* Mpeg_Psi_stream_type_Codec(int8u stream_type, int32u format_identifier);
+extern stream_t    Mpeg_Psi_stream_type_StreamKind(int32u stream_type, int32u format_identifier);
+extern const char* Mpeg_Psi_stream_type_Info(int8u stream_type, int32u format_identifier);
 
 //***************************************************************************
 // Constructor/Destructor
@@ -420,7 +420,7 @@ void File_MpegPs::Read_Buffer_Finalize()
     }
 
     //Bitrate coherancy
-    if (PTS>0 && PTS!=(int64u)-1 && DTS!=0 && File_Size!=(int64u)-1)
+    if (!IsSub && PTS>0 && PTS!=(int64u)-1 && DTS!=0 && File_Size!=(int64u)-1)
     {
         int64u BitRate_FromDuration=File_Size*8000*90/DTS;
         int64u BitRate_FromBitRates=PTS;
@@ -461,7 +461,7 @@ void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Tem
         }
 
         if (Temp.stream_type!=0)
-            Stream_Prepare(Mpeg_Psi_stream_Kind(Temp.stream_type, 0x00000000));
+            Stream_Prepare(Mpeg_Psi_stream_type_StreamKind(Temp.stream_type, 0x00000000));
     }
     //By StreamIsRegistred
     if (StreamKind_Last==Stream_Max)
@@ -483,9 +483,9 @@ void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Tem
         Ztring ID_String; ID_String.From_Number(StreamID); ID_String+=_T(" (0x"); ID_String+=Ztring::ToZtring(StreamID, 16); ID_String+=_T(")");
         Fill(StreamKind_Last, StreamPos_Last, "ID/String", ID_String); //TODO: merge with Decimal_Hexa in file_MpegTs
         if (Retrieve(StreamKind_Last, StreamPos_Last, "Format").empty() && Temp.stream_type!=0)
-            Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Psi_stream_Format(Temp.stream_type, 0x0000));
+            Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Psi_stream_type_Format(Temp.stream_type, 0x0000));
         if (Retrieve(StreamKind_Last, StreamPos_Last, "Codec").empty() && Temp.stream_type!=0)
-            Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Psi_stream_Codec(Temp.stream_type, 0x0000));
+            Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Psi_stream_type_Codec(Temp.stream_type, 0x0000));
 
         int64u Start=(int64u)-1, End=(int64u)-1;
         if (Temp.TimeStamp_Start.DTS.Is_Valid && Temp.TimeStamp_End.DTS.Is_Valid)
@@ -1492,17 +1492,17 @@ void File_MpegPs::program_stream_map()
 
     File_Mpeg_Psi Parser;
     Parser.From_TS=false;
+    Parser.Complete_Stream=new complete_stream;
+    Parser.Complete_Stream->Streams.resize(0x100);
     Open_Buffer_Init(&Parser);
     Open_Buffer_Continue(&Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
     Open_Buffer_Finalize(&Parser);
 
     //Filling
-    std::map<int16u, File_Mpeg_Psi::stream>::iterator Streams_Temp=Parser.Streams.begin();
-    while (Streams_Temp!=Parser.Streams.end())
-    {
-        Streams[Streams_Temp->first].stream_type=Streams_Temp->second.stream_type;
-        Streams_Temp++;
-    }
+    for (int8u Pos=0; Pos<0xFF; Pos++)
+        if (Parser.Complete_Stream->Streams[Pos].stream_type)
+            Streams[Pos].stream_type=Parser.Complete_Stream->Streams[Pos].stream_type;
+    delete Parser.Complete_Stream; //Parser.Complete_Stream=NULL;
 }
 
 //---------------------------------------------------------------------------
@@ -1546,7 +1546,7 @@ void File_MpegPs::private_stream_1()
         Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start=true;
         Open_Buffer_Init(Streams_Private1[private_stream_1_ID].Parser);
         if (!IsAccepted)
-            Accept("MPEG-PS");
+            Data_Accept("MPEG-PS");
     }
     if (Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start)
     {
@@ -1987,8 +1987,7 @@ void File_MpegPs::private_stream_2()
 
         //Disabling the program
         if (!IsAccepted)
-            Accept("MPEG-PS");
-        Finish("MPEG-PS");
+            Data_Accept("MPEG-PS");
     }
     else //DVD?
     {
@@ -2009,6 +2008,10 @@ void File_MpegPs::private_stream_2_TSHV_A0()
 
     //Parsing
     Skip_XX(Element_Size,                                       "Unknown");
+
+    //Filling
+    IsFilled=true;
+    Finish("MPEG-PS");
 }
 
 //---------------------------------------------------------------------------
@@ -2048,7 +2051,13 @@ void File_MpegPs::private_stream_2_TSHV_A1()
     Skip_XX(Element_Size-Element_Offset,                        "Unknown");
 
     FILLING_BEGIN();
-        Fill(Stream_General, 0, General_Encoded_Date, Ztring().Date_From_Numbers(year/0x10*10+year%0x10, month/0x10*10+month%0x10, day/0x10*10+day%0x10, hour/0x10*10+hour%0x10, minute/0x10*10+minute%0x10, second/0x10*10+second%0x10));
+        Ztring Date_Time=Ztring().Date_From_Numbers(year/0x10*10+year%0x10, month/0x10*10+month%0x10, day/0x10*10+day%0x10, hour/0x10*10+hour%0x10, minute/0x10*10+minute%0x10, second/0x10*10+second%0x10);
+        if (Retrieve(Stream_General, 0, General_Encoded_Date).empty())
+        {
+            Fill(Stream_General, 0, General_Encoded_Date, Date_Time);
+            Fill(Stream_General, 0, General_Duration_Start, Date_Time);
+        }
+        Fill(Stream_General, 0, General_Duration_End, Date_Time, true);
     FILLING_END();
 }
 
@@ -2095,7 +2104,7 @@ void File_MpegPs::audio_stream()
         }
         Open_Buffer_Init(Streams[start_code].Parser);
         if (!IsAccepted)
-            Accept("MPEG-PS");
+            Data_Accept("MPEG-PS");
     }
 
     //Parsing
@@ -2189,7 +2198,7 @@ void File_MpegPs::video_stream()
         Streams[start_code].Parser->ShouldContinueParsing=true;
         Open_Buffer_Init(Streams[start_code].Parser);
         if (!IsAccepted)
-            Accept("MPEG-PS");
+            Data_Accept("MPEG-PS");
     }
 
     //PTS/DTS
@@ -2327,6 +2336,8 @@ void File_MpegPs::LATM()
 
     //Exists
     Streams[start_code].StreamIsRegistred=true;
+    if (!IsAccepted)
+        Data_Accept("MPEG-PS");
 
     //Parsing
     /*
@@ -2404,7 +2415,7 @@ void File_MpegPs::extension_stream()
         Streams_Extension[Extension].Searching_TimeStamp_Start=true;
         Open_Buffer_Init(Streams_Extension[Extension].Parser);
         if (!IsAccepted)
-            Accept("MPEG-PS");
+            Data_Accept("MPEG-PS");
     }
     if (Streams_Extension[Extension].Searching_TimeStamp_Start)
     {

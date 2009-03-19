@@ -73,156 +73,19 @@ private :
     void Header_Parse_AdaptationField();
     void Data_Parse();
 
-    //Data
-    struct stream
-    {
-        File__Analyze*                              Parser;
-        File__Analyze*                              ES_Parser;
-        std::map<std::string, ZenLib::Ztring>       Infos;
-        int8u                                       stream_type;
-        int8u                                       descriptor_tag;
-        int32u                                      format_identifier;
-        File_Mpeg_Psi::ts_kind                      TS_Kind;
-        std::vector<int16u>                         program_numbers;
-        int64u                                      TimeStamp_Start;
-        int64u                                      TimeStamp_End;
-        bool                                        StreamIsRegistred;
-        bool                                        StreamIsVersioned;
-        bool                                        Scrambled;
-        bool                                        Searching;
-        bool                                        Searching_Payload_Start;
-        bool                                        Searching_Payload_Continue;
-        bool                                        Searching_TimeStamp_Start;
-        bool                                        Searching_TimeStamp_End;
-        bool                                        ShouldDuplicate;
-        struct version
-        {
-            int8u version_number;
-            std::map<int8u, bool> section_numbers; //Key is section_number, true when parsed
-        };
-        std::map<int8u, std::map<int16u, version> > Versions; //Key are table_id and table_id_extension
-
-        stream()
-        {
-            Parser=NULL;
-            ES_Parser=NULL;
-            stream_type=0x00;
-            descriptor_tag=0x00;
-            format_identifier=0x00000000;
-            TS_Kind=File_Mpeg_Psi::unknown;
-            TimeStamp_Start=(int64u)-1;
-            TimeStamp_End=(int64u)-1;
-            StreamIsRegistred=false;
-            StreamIsVersioned=false;
-            Scrambled=false;
-            Searching=false;
-            Searching_Payload_Start=false;
-            Searching_Payload_Continue=false;
-            Searching_TimeStamp_Start=false;
-            Searching_TimeStamp_End=false;
-            ShouldDuplicate=false;
-        }
-
-        ~stream()
-        {
-            delete Parser; //Parser=NULL;
-            delete ES_Parser; //ES_Parser=NULL;
-        }
-
-        void Searching_Payload_Start_Set(bool ToSet)
-        {
-            Searching_Payload_Start=ToSet;
-            Searching_Test();
-        }
-        void Searching_Payload_Continue_Set(bool ToSet)
-        {
-            Searching_Payload_Continue=ToSet;
-            Searching_Test();
-        }
-        void Searching_TimeStamp_Start_Set(bool ToSet)
-        {
-            Searching_TimeStamp_Start=ToSet;
-            Searching_Test();
-        }
-        void Searching_TimeStamp_End_Set(bool ToSet)
-        {
-            Searching_TimeStamp_End=ToSet;
-            Searching_Test();
-        }
-        void Searching_Test()
-        {
-            if (Searching_Payload_Start
-             || Searching_Payload_Continue
-             || Searching_TimeStamp_Start
-             || Searching_TimeStamp_End)
-                Searching=true;
-             else
-                Searching=false;
-        }
-    };
-    std::vector<stream>         Streams;
-    int32u                      format_identifier;
     int16u                      pid;
     bool                        payload_unit_start_indicator;
 
-    struct program
-    {
-        int16u                                      pid;
-        std::map<std::string, ZenLib::Ztring>       Infos;
-        ZtringList                                  List_ID;
-        ZtringList                                  List_StreamKind;
-        ZtringList                                  List_StreamPos;
-        ZtringList                                  Language;
-        ZtringList                                  Format;
-        ZtringList                                  Codec;
-        ZtringList                                  Text_ID;
-
-        program()
-        {
-            pid=0;
-        }
-
-        ~program()
-        {
-        }
-    };
-    std::map<int16u, program>   Programs;
-
-    struct pid_pmts
-    {
-        std::vector<int16u>                         List;
-
-        pid_pmts()
-        {
-        }
-
-        ~pid_pmts()
-        {
-        }
-    };
-    std::map<int16u, pid_pmts> PID_PMTs;
-
     //Global infos
-    complete_stream Complete_Stream;
+    complete_stream* Complete_Stream;
 
     //Elements
     void PSI();
-    void PSI_program_association_table();
-    void PSI_program_map_table();
-    void PSI_network_information_table();
-    void PSI_atsc_psip();
-    void PSI_dvb_sdt_bat_st();
-    void Reserved();
     void PES();
-    void Null();
 
     //Helpers
     bool Header_Parser_QuickSearch();
     void Detect_EOF();
-
-    //Count
-    size_t program_Count;
-    size_t elementary_PID_Count;
 
     //Temp
     size_t TS_Size;
@@ -235,11 +98,6 @@ private :
     bool   File__Duplicate_Set  (const Ztring &Value); //Fill a new File__Duplicate value
     bool   File__Duplicate_Get_From_PID (int16u PID);
     void   File__Duplicate_Write (int16u PID);
-    bool                                                File__Duplicate_HasChanged_;
-    size_t                                              Config_File_Duplicate_Get_AlwaysNeeded_Count;
-    std::vector<File__Duplicate_MpegTs*>                Duplicates_Speed;
-    std::vector<std::vector<File__Duplicate_MpegTs*> >  Duplicates_Speed_FromPID;
-    std::map<const String, File__Duplicate_MpegTs*>     Duplicates;
 
     //Output buffer
     size_t Output_Buffer_Get (const String &Value);

@@ -47,13 +47,16 @@ namespace MediaInfoLib
 
 void File_MpegTs::File__Duplicate_Delete ()
 {
-    std::map<const String, File__Duplicate_MpegTs*>::iterator Duplicates_Temp=Duplicates.begin();
-    while (Duplicates_Temp!=Duplicates.end())
+    if (Complete_Stream)
     {
-        delete Duplicates_Temp->second; //Duplicates_Temp->second=NULL
-        Duplicates_Temp++;
+        std::map<const String, File__Duplicate_MpegTs*>::iterator Duplicates_Temp=Complete_Stream->Duplicates.begin();
+        while (Duplicates_Temp!=Complete_Stream->Duplicates.end())
+        {
+            delete Duplicates_Temp->second; //Duplicates_Temp->second=NULL
+            Duplicates_Temp++;
+        }
+        Complete_Stream->Duplicates.clear();
     }
-    Duplicates.clear();
 }
 
 //***************************************************************************
@@ -63,7 +66,7 @@ void File_MpegTs::File__Duplicate_Delete ()
 void File_MpegTs::File__Duplicate_Read_Buffer_Finalize ()
 {
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-        Duplicates_Speed_FromPID.clear();
+        Complete_Stream->Duplicates_Speed_FromPID.clear();
 }
 
 //***************************************************************************
@@ -73,22 +76,22 @@ void File_MpegTs::File__Duplicate_Read_Buffer_Finalize ()
 //---------------------------------------------------------------------------
 void File_MpegTs::Option_Manage()
 {
-    if (!Streams.empty())
+    if (Complete_Stream && !Complete_Stream->Streams.empty())
     {
         //File_Filter configuration
         if (Config->File_Filter_HasChanged())
         {
             bool Searching_Payload_Start=!Config->File_Filter_Get();
             for (int32u Pos=0x01; Pos<0x10; Pos++)
-                Streams[Pos].Searching_Payload_Start_Set(Searching_Payload_Start); //base PID depends of File_Filter configuration
-            Streams[0x00].Searching_Payload_Start_Set(true); //program_map
+                Complete_Stream->Streams[Pos].Searching_Payload_Start_Set(Searching_Payload_Start); //base PID depends of File_Filter configuration
+            Complete_Stream->Streams[0x00].Searching_Payload_Start_Set(true); //program_map
         }
 
         //File__Duplicate configuration
         if (File__Duplicate_HasChanged())
         {
-            Streams[0x00].ShouldDuplicate=true;
-            Streams[0x00].Searching_Payload_Start_Set(true); //Re-enabling program_map_table
+            Complete_Stream->Streams[0x00].ShouldDuplicate=true;
+            Complete_Stream->Streams[0x00].Searching_Payload_Start_Set(true); //Re-enabling program_map_table
         }
     }
 }
@@ -165,55 +168,55 @@ bool File_MpegTs::File__Duplicate_Set (const Ztring &Value)
     for (std::vector<ZtringList::iterator>::iterator Target=Targets_ToAdd.begin(); Target<Targets_ToAdd.end(); Target++)
     {
         //Adding the target if it does not exist yet
-        if (Duplicates.find(**Target)==Duplicates.end())
+        if (Complete_Stream->Duplicates.find(**Target)==Complete_Stream->Duplicates.end())
         {
-            Duplicates[**Target]=new File__Duplicate_MpegTs(**Target);
+            Complete_Stream->Duplicates[**Target]=new File__Duplicate_MpegTs(**Target);
             size_t Pos=Config->File__Duplicate_Memory_Indexes_Get(**Target);
             if (Pos!=Error)
             {
-                if (Pos>=Duplicates_Speed.size())
-                    Duplicates_Speed.resize(Pos+1);
-                Duplicates_Speed[Pos]=Duplicates[**Target];
+                if (Pos>=Complete_Stream->Duplicates_Speed.size())
+                    Complete_Stream->Duplicates_Speed.resize(Pos+1);
+                Complete_Stream->Duplicates_Speed[Pos]=Complete_Stream->Duplicates[**Target];
             }
         }
 
         //For each order to add
         for (std::vector<ZtringList::iterator>::iterator Order=Orders_ToAdd.begin(); Order<Orders_ToAdd.end(); Order++)
-            Duplicates[**Target]->Configure(**Order, false);
+            Complete_Stream->Duplicates[**Target]->Configure(**Order, false);
 
         //For each order to remove
         for (std::vector<ZtringList::iterator>::iterator Order=Orders_ToRemove.begin(); Order<Orders_ToRemove.end(); Order++)
-            Duplicates[**Target]->Configure(**Order, true);
+            Complete_Stream->Duplicates[**Target]->Configure(**Order, true);
     }
 
     //For each target to remove
     for (std::vector<ZtringList::iterator>::iterator Target=Targets_ToRemove.begin(); Target<Targets_ToRemove.end(); Target++)
     {
-        std::map<const String, File__Duplicate_MpegTs*>::iterator Pointer=Duplicates.find(**Target);
-        if (Pointer!=Duplicates.end())
+        std::map<const String, File__Duplicate_MpegTs*>::iterator Pointer=Complete_Stream->Duplicates.find(**Target);
+        if (Pointer!=Complete_Stream->Duplicates.end())
         {
             //Duplicates_Speed
-            for (std::vector<File__Duplicate_MpegTs*>::iterator Duplicate=Duplicates_Speed.begin(); Duplicate<Duplicates_Speed.end(); Duplicate++)
+            for (std::vector<File__Duplicate_MpegTs*>::iterator Duplicate=Complete_Stream->Duplicates_Speed.begin(); Duplicate<Complete_Stream->Duplicates_Speed.end(); Duplicate++)
                 if (*Duplicate==Pointer->second)
                     *Duplicate=NULL;
 
             //Duplicates_Speed_FromPID
-            for (std::vector<std::vector<File__Duplicate_MpegTs*> >::iterator Duplicate_FromPID=Duplicates_Speed_FromPID.begin(); Duplicate_FromPID<Duplicates_Speed_FromPID.end(); Duplicate_FromPID++)
+            for (std::vector<std::vector<File__Duplicate_MpegTs*> >::iterator Duplicate_FromPID=Complete_Stream->Duplicates_Speed_FromPID.begin(); Duplicate_FromPID<Complete_Stream->Duplicates_Speed_FromPID.end(); Duplicate_FromPID++)
                 for (std::vector<File__Duplicate_MpegTs*>::iterator Duplicate=Duplicate_FromPID->begin(); Duplicate<Duplicate_FromPID->end(); Duplicate++)
                     if (*Duplicate==Pointer->second)
                         *Duplicate=NULL;
 
             //Duplicate
-            Duplicates.erase(**Target);
+            Complete_Stream->Duplicates.erase(**Target);
         }
     }
 
     //Informing the status has changed
-    File__Duplicate_HasChanged_=true;
-    if (Duplicates_Speed_FromPID.empty())
-        Duplicates_Speed_FromPID.resize(0x2000);
+    Complete_Stream->File__Duplicate_HasChanged_=true;
+    if (Complete_Stream->Duplicates_Speed_FromPID.empty())
+        Complete_Stream->Duplicates_Speed_FromPID.resize(0x2000);
 
-    Duplicates_Speed_FromPID[0x00]=Duplicates_Speed;
+    Complete_Stream->Duplicates_Speed_FromPID[0x00]=Complete_Stream->Duplicates_Speed;
 
     return true;
 }
@@ -224,9 +227,9 @@ bool File_MpegTs::File__Duplicate_Set (const Ztring &Value)
 
 bool File_MpegTs::File__Duplicate_Get_From_PID (int16u PID)
 {
-    if (Duplicates_Speed_FromPID.empty())
+    if (Complete_Stream->Duplicates_Speed_FromPID.empty())
         return false;
-    return !Duplicates_Speed_FromPID[PID].empty();
+    return !Complete_Stream->Duplicates_Speed_FromPID[PID].empty();
 }
 
 //***************************************************************************
@@ -238,29 +241,29 @@ void File_MpegTs::File__Duplicate_Write (int16u PID)
     const int8u* ToAdd=Buffer+Buffer_Offset-(size_t)Header_Size;
     size_t ToAdd_Size=(size_t)(Element_Size+Header_Size);
 
-    std::vector<File__Duplicate_MpegTs*> &Dup_FromPID=Duplicates_Speed_FromPID[PID];
-    size_t Size=Duplicates_Speed_FromPID[PID].size();
+    std::vector<File__Duplicate_MpegTs*> &Dup_FromPID=Complete_Stream->Duplicates_Speed_FromPID[PID];
+    size_t Size=Complete_Stream->Duplicates_Speed_FromPID[PID].size();
     bool ToUpdate=false;
     for (size_t Pos=0; Pos<Size; Pos++)
         if (Dup_FromPID[Pos] && Dup_FromPID[Pos]->Write(PID, ToAdd, ToAdd_Size))
             ToUpdate=true;
     if (ToUpdate)
     {
-        Duplicates_Speed_FromPID.clear();
-        Duplicates_Speed_FromPID.resize(0x2000);
-        Duplicates_Speed_FromPID[0x0000]=Duplicates_Speed;
-        size_t Size=Duplicates_Speed.size();
+        Complete_Stream->Duplicates_Speed_FromPID.clear();
+        Complete_Stream->Duplicates_Speed_FromPID.resize(0x2000);
+        Complete_Stream->Duplicates_Speed_FromPID[0x0000]=Complete_Stream->Duplicates_Speed;
+        size_t Size=Complete_Stream->Duplicates_Speed.size();
         for (size_t Pos=0; Pos<Size; Pos++)
         {
-            File__Duplicate_MpegTs* Dup=Duplicates_Speed[Pos];
-            size_t program_map_PIDs_Size=Duplicates_Speed[Pos]->program_map_PIDs.size();
+            File__Duplicate_MpegTs* Dup=Complete_Stream->Duplicates_Speed[Pos];
+            size_t program_map_PIDs_Size=Complete_Stream->Duplicates_Speed[Pos]->program_map_PIDs.size();
             for (size_t program_map_PIDs_Pos=0; program_map_PIDs_Pos<program_map_PIDs_Size; program_map_PIDs_Pos++)
                 if (Dup->program_map_PIDs[program_map_PIDs_Pos])
-                    Duplicates_Speed_FromPID[program_map_PIDs_Pos].push_back(Dup);
-            size_t elementary_PIDs_Size=Duplicates_Speed[Pos]->program_map_PIDs.size();
+                    Complete_Stream->Duplicates_Speed_FromPID[program_map_PIDs_Pos].push_back(Dup);
+            size_t elementary_PIDs_Size=Complete_Stream->Duplicates_Speed[Pos]->program_map_PIDs.size();
             for (size_t elementary_PIDs_Pos=0; elementary_PIDs_Pos<elementary_PIDs_Size; elementary_PIDs_Pos++)
                 if (Dup->elementary_PIDs[elementary_PIDs_Pos])
-                    Duplicates_Speed_FromPID[elementary_PIDs_Pos].push_back(Dup);
+                    Complete_Stream->Duplicates_Speed_FromPID[elementary_PIDs_Pos].push_back(Dup);
         }
     }
 }
@@ -272,8 +275,8 @@ void File_MpegTs::File__Duplicate_Write (int16u PID)
 //---------------------------------------------------------------------------
 size_t File_MpegTs::Output_Buffer_Get (const String &Code)
 {
-    std::map<const String, File__Duplicate_MpegTs*>::iterator Stream=Duplicates.find(Code);
-    if (Stream==Duplicates.end())
+    std::map<const String, File__Duplicate_MpegTs*>::iterator Stream=Complete_Stream->Duplicates.find(Code);
+    if (Stream==Complete_Stream->Duplicates.end())
         return 0;
 
     return Stream->second->Output_Buffer_Get();
@@ -296,14 +299,14 @@ size_t File_MpegTs::Output_Buffer_Get (const String &Code)
 //---------------------------------------------------------------------------
 size_t File_MpegTs::Output_Buffer_Get (size_t Pos)
 {
-    if (Pos<Duplicates_Speed.size() && Duplicates_Speed[Pos]!=NULL)
-        if (size_t Size=Duplicates_Speed[Pos]->Output_Buffer_Get())
+    if (Pos<Complete_Stream->Duplicates_Speed.size() && Complete_Stream->Duplicates_Speed[Pos]!=NULL)
+        if (size_t Size=Complete_Stream->Duplicates_Speed[Pos]->Output_Buffer_Get())
             return Size;
 
     //Parsing Parsers
-    for (size_t Stream_Pos=0; Stream_Pos<Streams.size(); Stream_Pos++)
-        if (Streams[Stream_Pos].Parser)
-            if (size_t Size=Streams[Stream_Pos].Parser->Output_Buffer_Get(Pos))
+    for (size_t Stream_Pos=0; Stream_Pos<Complete_Stream->Streams.size(); Stream_Pos++)
+        if (Complete_Stream->Streams[Stream_Pos].Parser)
+            if (size_t Size=Complete_Stream->Streams[Stream_Pos].Parser->Output_Buffer_Get(Pos))
             {
                 //Optimization
                 //if (Output_Buffer_Get_Pos.size()<=Pos)

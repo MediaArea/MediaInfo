@@ -32,7 +32,9 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Mpeg_Psi.h"
 #include "MediaInfo/Multiple/File_Mpeg_Descriptors.h"
+#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 #include <memory>
+#include <algorithm>
 using namespace std;
 //---------------------------------------------------------------------------
 
@@ -40,45 +42,22 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Infos
+// Constants
 //***************************************************************************
 
-//---------------------------------------------------------------------------
-const char* Mpeg_Psi_kind(File_Mpeg_Psi::ts_kind ID)
+namespace Elements
 {
-    switch (ID)
-    {
-        case File_Mpeg_Psi::program_association_table          : return "Program Association Table";
-        case File_Mpeg_Psi::program_map_table                  : return "Program Map Table";
-        case File_Mpeg_Psi::network_information_table          : return "Network Information Table";
-        case File_Mpeg_Psi::conditional_access_table           : return "Conditional Access Table";
-        case File_Mpeg_Psi::transport_stream_description_table : return "Transport Stream Description Table";
-        case File_Mpeg_Psi::reserved                           : return "reserved";
-        case File_Mpeg_Psi::pes                                : return "PES";
-        case File_Mpeg_Psi::null                               : return "Null";
-        case File_Mpeg_Psi::dvb_nit_st                         : return "DVB - NIT, ST";
-        case File_Mpeg_Psi::dvb_sdt_bat_st                     : return "DVB - SDT, BAT, ST";
-        case File_Mpeg_Psi::dvb_eit                            : return "DVB - EIT";
-        case File_Mpeg_Psi::dvb_rst_st                         : return "DVB - RST, ST";
-        case File_Mpeg_Psi::dvb_tdt_tot_st                     : return "DVB - TDT, TOT, ST";
-        case File_Mpeg_Psi::dvb_mip                            : return "DVB - MIP (no table_id)";
-        case File_Mpeg_Psi::dvb_reserved                       : return "DVB - reserved";
-        case File_Mpeg_Psi::dvb_inband                         : return "DVB - Inband Signalling";
-        case File_Mpeg_Psi::dvb_measurement                    : return "DVB - Measurement";
-        case File_Mpeg_Psi::dvb_dit                            : return "DVB - DIT";
-        case File_Mpeg_Psi::dvb_sit                            : return "DVB - SIT";
-        case File_Mpeg_Psi::arib                               : return "ARIB";
-        case File_Mpeg_Psi::cea_osd                            : return "CEA OSD";
-        case File_Mpeg_Psi::atsc_pate                          : return "ATSC - PAT-E";
-        case File_Mpeg_Psi::atsc_stt_pide                      : return "ATSC - STT, PID-E";
-        case File_Mpeg_Psi::atsc_op                            : return "ATSC - operational and management packets";
-        case File_Mpeg_Psi::atsc_psip                          : return "ATSC - PSIP";
-        case File_Mpeg_Psi::atsc_scte                          : return "ATSC - SCTE Network/System Information Base";
-        case File_Mpeg_Psi::atsc_reserved                      : return "ATSC - reserved";
-        case File_Mpeg_Psi::docsis                             : return "DOCSIS";
-        default : return "";
-    }
+    const int32u CUEI=0x43554549; //SCTE
+    const int32u GA94=0x47413934; //ATSC - Terrestrial
+    const int32u HDMV=0x48444D56; //BluRay
+    const int32u S14A=0x53313441; //ATSC - Satellite
+    const int32u SCTE=0x53435445; //SCTE
+    const int32u TSHV=0x54534856; //TSHV
 }
+
+//***************************************************************************
+// Infos
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 const char* Mpeg_Psi_ATSC_table_type(int16u ID)
@@ -117,9 +96,195 @@ const char* Mpeg_Psi_ATSC_table_type(int16u ID)
 }
 
 //---------------------------------------------------------------------------
-const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
+const char* Mpeg_Psi_stream_type_Format(int8u stream_type, int32u format_identifier)
 {
-    switch (ID)
+    switch (stream_type)
+    {
+        case 0x01 : return "MPEG Video"; //Version 1
+        case 0x02 : return "MPEG Video"; //Version 2
+        case 0x03 : return "MPEG Audio"; //Version 1
+        case 0x04 : return "MPEG Audio"; //Version 2
+        case 0x0F : return "AAC";
+        case 0x10 : return "MPEG-4 Visual";
+        case 0x11 : return "AAC";
+        case 0x1B : return "AVC";
+        case 0x1C : return "AAC";
+        case 0x1D : return "Timed Text";
+        default :
+            switch (format_identifier)
+            {
+                case Elements::CUEI :
+                case Elements::SCTE : //SCTE
+                case Elements::GA94 :
+                case Elements::S14A : //ATSC
+                        switch (stream_type)
+                        {
+                            case 0x81 : return "AC-3";
+                            case 0x82 : return "Text";
+                            case 0x87 : return "E-AC-3";
+                            default   : return "";
+                        }
+                case Elements::HDMV : //Bluray
+                        switch (stream_type)
+                        {
+                            case 0x80 : return "PCM";
+                            case 0x81 : return "AC-3";
+                            case 0x82 : return "DTS";
+                            case 0x83 : return "AC-3"; // (TrueHD)"
+                            case 0x84 : return "E-AC-3";
+                            case 0x85 : return "DTS"; //" (HD-HRA)"
+                            case 0x86 : return "DTS"; //" (HD-MA)"
+                            case 0x90 : return "PGS";
+                            case 0xA1 : return "AC-3";
+                            case 0xA2 : return "DTS";
+                            case 0xEA : return "VC-1";
+                            default   : return "";
+                        }
+                case 0xFFFFFFFF : //Unknown
+                        return "";
+                default                     :
+                        switch (stream_type)
+                        {
+                            case 0x80 : return "MPEG Video";
+                            case 0x81 : return "AC-3";
+                            case 0x87 : return "E-AC-3";
+                            case 0x88 : return "VC-1";
+                            case 0xD1 : return "Dirac";
+                            default   : return "";
+                        }
+            }
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mpeg_Psi_stream_type_Codec(int8u stream_type, int32u format_identifier)
+{
+    switch (stream_type)
+    {
+        case 0x01 : return "MPEG-1V";
+        case 0x02 : return "MPEG-2V";
+        case 0x03 : return "MPEG-1A";
+        case 0x04 : return "MPEG-2A";
+        case 0x0F : return "AAC";
+        case 0x10 : return "MPEG-4V";
+        case 0x11 : return "AAC";
+        case 0x1B : return "AVC";
+        case 0x1C : return "AAC";
+        case 0x1D : return "Text";
+        default :
+            switch (format_identifier)
+            {
+                case Elements::CUEI :
+                case Elements::SCTE : //SCTE
+                case Elements::GA94 :
+                case Elements::S14A : //ATSC
+                        switch (stream_type)
+                        {
+                            case 0x81 : return "AC3";
+                            case 0x82 : return "Text";
+                            case 0x87 : return "AC3+";
+                            default   : return "";
+                        }
+                case Elements::HDMV : //Bluray
+                        switch (stream_type)
+                        {
+                            case 0x80 : return "PCM";
+                            case 0x81 : return "AC3";
+                            case 0x82 : return "DTS";
+                            case 0x83 : return "AC3+";
+                            case 0x86 : return "DTS";
+                            case 0x90 : return "PGS";
+                            case 0xEA : return "VC1";
+                            default   : return "";
+                        }
+                case 0xFFFFFFFF : //Unknown
+                        return "";
+                default                     :
+                        switch (stream_type)
+                        {
+                            case 0x80 : return "MPEG-2V";
+                            case 0x81 : return "AC3";
+                            case 0x87 : return "AC3+";
+                            case 0x88 : return "VC-1";
+                            case 0xD1 : return "Dirac";
+                            default   : return "";
+                        }
+            }
+    }
+}
+
+//---------------------------------------------------------------------------
+stream_t Mpeg_Psi_stream_type_StreamKind(int32u stream_type, int32u format_identifier)
+{
+    switch (stream_type)
+    {
+        case 0x01 : return Stream_Video;
+        case 0x02 : return Stream_Video;
+        case 0x03 : return Stream_Audio;
+        case 0x04 : return Stream_Audio;
+        case 0x0F : return Stream_Audio;
+        case 0x10 : return Stream_Video;
+        case 0x11 : return Stream_Audio;
+        case 0x1B : return Stream_Video;
+        case 0x1C : return Stream_Audio;
+        case 0x1D : return Stream_Text;
+        default :
+            switch (format_identifier)
+            {
+                case Elements::CUEI :
+                case Elements::SCTE : //SCTE
+                case Elements::GA94 :
+                case Elements::S14A : //ATSC
+                        switch (stream_type)
+                        {
+                            case 0x81 : return Stream_Audio;
+                            case 0x82 : return Stream_Text;
+                            case 0x87 : return Stream_Audio;
+                            default   : return Stream_Max;
+                        }
+                case Elements::HDMV : //Bluray
+                        switch (stream_type)
+                        {
+                            case 0x80 : return Stream_Audio;
+                            case 0x81 : return Stream_Audio;
+                            case 0x82 : return Stream_Audio;
+                            case 0x83 : return Stream_Audio;
+                            case 0x84 : return Stream_Audio;
+                            case 0x85 : return Stream_Audio;
+                            case 0x86 : return Stream_Audio;
+                            case 0x90 : return Stream_Text;
+                            case 0xA1 : return Stream_Audio;
+                            case 0xA2 : return Stream_Audio;
+                            case 0xEA : return Stream_Video;
+                            default   : return Stream_Max;
+                        }
+                case Elements::TSHV : //Digital Video
+                        switch (stream_type)
+                        {
+                            case 0xA0 : return Stream_General;
+                            case 0xA1 : return Stream_General;
+                            default   : return Stream_Max;
+                        }
+                case 0xFFFFFFFF : //Unknown
+                        return Stream_Max;
+                default                     :
+                        switch (stream_type)
+                        {
+                            case 0x80 : return Stream_Video;
+                            case 0x81 : return Stream_Audio;
+                            case 0x87 : return Stream_Audio;
+                            case 0x88 : return Stream_Video;
+                            case 0xD1 : return Stream_Video;
+                            default   : return Stream_Max;
+                        }
+            }
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Mpeg_Psi_stream_type_Info(int8u stream_type, int32u format_identifier)
+{
+    switch (stream_type)
     {
         case 0x00 : return "ITU-T | ISO/IEC Reserved";
         case 0x01 : return "ISO/IEC 11172 Video";
@@ -154,14 +319,14 @@ const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
         case 0x1E : return "Auxiliary video data stream as defined in ISO/IEC 23002-3";
         case 0x7F : return "IPMP stream";
         default :
-            if (ID<=0x7F) return "ITU-T Rec. H.222.0 | ISO/IEC 13818-1 reserved";
+            if (stream_type<=0x7F) return "ITU-T Rec. H.222.0 | ISO/IEC 13818-1 reserved";
             switch (format_identifier)
             {
-                case Mpeg_Descriptors::CUEI :
-                case Mpeg_Descriptors::SCTE : //SCTE
-                case Mpeg_Descriptors::GA94 :
-                case Mpeg_Descriptors::S14A : //ATSC
-                        switch (ID)
+                case Elements::CUEI :
+                case Elements::GA94 :
+                case Elements::S14A : //ATSC
+                case Elements::SCTE : //SCTE
+                        switch (stream_type)
                         {
                             case 0x81 : return "ATSC - AC-3";
                             case 0x82 : return "SCTE - Standard Subtitle";
@@ -173,8 +338,8 @@ const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
                             case 0x95 : return "ATSC - Data Service Table, Network Resources Table";
                             default   : return "ATSC/SCTE - Unknown";
                         }
-                case Mpeg_Descriptors::HDMV : //Bluray
-                        switch (ID)
+                case Elements::HDMV : //Bluray
+                        switch (stream_type)
                         {
                             case 0x80 : return "BluRay - PCM";
                             case 0x81 : return "BluRay - AC-3";
@@ -189,8 +354,8 @@ const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
                             case 0xEA : return "BluRay - VC-1";
                             default   : return "Bluray - Unknown";
                         }
-                case Mpeg_Descriptors::TSHV : //Digital Video
-                        switch (ID)
+                case Elements::TSHV : //Digital Video
+                        switch (stream_type)
                         {
                             case 0xA0 : return "Digital Video - Data 0";
                             case 0xA1 : return "Digital Video - Data 1";
@@ -199,7 +364,7 @@ const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
                 case 0xFFFFFFFF : //Unknown
                         return "";
                 default                     :
-                        switch (ID)
+                        switch (stream_type)
                         {
                             case 0x80 : return "DigiCipher II video";
                             case 0x81 : return "AC-3";
@@ -213,195 +378,9 @@ const char* Mpeg_Psi_stream_type(int8u ID, int32u format_identifier)
 }
 
 //---------------------------------------------------------------------------
-const char* Mpeg_Psi_stream_Format(int8u ID, int32u format_identifier)
+const char* Mpeg_Psi_table_id(int8u table_id)
 {
-    switch (ID)
-    {
-        case 0x01 : return "MPEG Video"; //Version 1
-        case 0x02 : return "MPEG Video"; //Version 2
-        case 0x03 : return "MPEG Audio"; //Version 1
-        case 0x04 : return "MPEG Audio";    //Version 2
-        case 0x0F : return "AAC";
-        case 0x10 : return "MPEG-4 Visual";
-        case 0x11 : return "AAC";
-        case 0x1B : return "AVC";
-        case 0x1C : return "AAC";
-        case 0x1D : return "Timed Text";
-        default :
-            switch (format_identifier)
-            {
-                case Mpeg_Descriptors::CUEI :
-                case Mpeg_Descriptors::SCTE : //SCTE
-                case Mpeg_Descriptors::GA94 :
-                case Mpeg_Descriptors::S14A : //ATSC
-                        switch (ID)
-                        {
-                            case 0x81 : return "AC-3";
-                            case 0x82 : return "Text";
-                            case 0x87 : return "E-AC-3";
-                            default   : return "";
-                        }
-                case Mpeg_Descriptors::HDMV : //Bluray
-                        switch (ID)
-                        {
-                            case 0x80 : return "PCM";
-                            case 0x81 : return "AC-3";
-                            case 0x82 : return "DTS";
-                            case 0x83 : return "AC-3"; // (TrueHD)"
-                            case 0x84 : return "E-AC-3";
-                            case 0x85 : return "DTS"; //" (HD-HRA)"
-                            case 0x86 : return "DTS"; //" (HD-MA)"
-                            case 0x90 : return "PGS";
-                            case 0xA1 : return "AC-3";
-                            case 0xA2 : return "DTS";
-                            case 0xEA : return "VC-1";
-                            default   : return "";
-                        }
-                case 0xFFFFFFFF : //Unknown
-                        return "";
-                default                     :
-                        switch (ID)
-                        {
-                            case 0x80 : return "MPEG Video";
-                            case 0x81 : return "AC-3";
-                            case 0x87 : return "E-AC-3";
-                            case 0x88 : return "VC-1";
-                            case 0xD1 : return "Dirac";
-                            default   : return "";
-                        }
-            }
-    }
-}
-
-//---------------------------------------------------------------------------
-const char* Mpeg_Psi_stream_Codec(int8u ID, int32u format_identifier)
-{
-    switch (ID)
-    {
-        case 0x01 : return "MPEG-1V";
-        case 0x02 : return "MPEG-2V";
-        case 0x03 : return "MPEG-1A";
-        case 0x04 : return "MPEG-2A";
-        case 0x0F : return "AAC";
-        case 0x10 : return "MPEG-4V";
-        case 0x11 : return "AAC";
-        case 0x1B : return "AVC";
-        case 0x1C : return "AAC";
-        case 0x1D : return "Text";
-        default :
-            switch (format_identifier)
-            {
-                case Mpeg_Descriptors::CUEI :
-                case Mpeg_Descriptors::SCTE : //SCTE
-                case Mpeg_Descriptors::GA94 :
-                case Mpeg_Descriptors::S14A : //ATSC
-                        switch (ID)
-                        {
-                            case 0x81 : return "AC3";
-                            case 0x82 : return "Text";
-                            case 0x87 : return "AC3+";
-                            default   : return "";
-                        }
-                case Mpeg_Descriptors::HDMV : //Bluray
-                        switch (ID)
-                        {
-                            case 0x80 : return "PCM";
-                            case 0x81 : return "AC3";
-                            case 0x82 : return "DTS";
-                            case 0x83 : return "AC3+";
-                            case 0x86 : return "DTS";
-                            case 0x90 : return "PGS";
-                            case 0xEA : return "VC1";
-                            default   : return "";
-                        }
-                case 0xFFFFFFFF : //Unknown
-                        return "";
-                default                     :
-                        switch (ID)
-                        {
-                            case 0x80 : return "MPEG-2V";
-                            case 0x81 : return "AC3";
-                            case 0x87 : return "AC3+";
-                            case 0x88 : return "VC-1";
-                            case 0xD1 : return "Dirac";
-                            default   : return "";
-                        }
-            }
-    }
-}
-
-//---------------------------------------------------------------------------
-stream_t Mpeg_Psi_stream_Kind(int32u ID, int32u format_identifier)
-{
-    switch (ID)
-    {
-        case 0x01 : return Stream_Video;
-        case 0x02 : return Stream_Video;
-        case 0x03 : return Stream_Audio;
-        case 0x04 : return Stream_Audio;
-        case 0x0F : return Stream_Audio;
-        case 0x10 : return Stream_Video;
-        case 0x11 : return Stream_Audio;
-        case 0x1B : return Stream_Video;
-        case 0x1C : return Stream_Audio;
-        case 0x1D : return Stream_Text;
-        default :
-            switch (format_identifier)
-            {
-                case Mpeg_Descriptors::CUEI :
-                case Mpeg_Descriptors::SCTE : //SCTE
-                case Mpeg_Descriptors::GA94 :
-                case Mpeg_Descriptors::S14A : //ATSC
-                        switch (ID)
-                        {
-                            case 0x81 : return Stream_Audio;
-                            case 0x82 : return Stream_Text;
-                            case 0x87 : return Stream_Audio;
-                            default   : return Stream_Max;
-                        }
-                case Mpeg_Descriptors::HDMV : //Bluray
-                        switch (ID)
-                        {
-                            case 0x80 : return Stream_Audio;
-                            case 0x81 : return Stream_Audio;
-                            case 0x82 : return Stream_Audio;
-                            case 0x83 : return Stream_Audio;
-                            case 0x84 : return Stream_Audio;
-                            case 0x85 : return Stream_Audio;
-                            case 0x86 : return Stream_Audio;
-                            case 0x90 : return Stream_Text;
-                            case 0xA1 : return Stream_Audio;
-                            case 0xA2 : return Stream_Audio;
-                            case 0xEA : return Stream_Video;
-                            default   : return Stream_Max;
-                        }
-                case Mpeg_Descriptors::TSHV : //Digital Video
-                        switch (ID)
-                        {
-                            case 0xA0 : return Stream_General;
-                            case 0xA1 : return Stream_General;
-                            default   : return Stream_Max;
-                        }
-                case 0xFFFFFFFF : //Unknown
-                        return Stream_Max;
-                default                     :
-                        switch (ID)
-                        {
-                            case 0x80 : return Stream_Video;
-                            case 0x81 : return Stream_Audio;
-                            case 0x87 : return Stream_Audio;
-                            case 0x88 : return Stream_Video;
-                            case 0xD1 : return Stream_Video;
-                            default   : return Stream_Max;
-                        }
-            }
-    }
-}
-
-//---------------------------------------------------------------------------
-const char* File_Mpeg_Psi::Mpeg_Psi_Element_Name() //Part of File_Mpeg_Psi for acceding to Element_Code
-{
-    switch (Element_Code)
+    switch (table_id)
     {
         case 0x00 : return "program_association_section";
         case 0x01 : return "conditional_access_section";
@@ -494,14 +473,14 @@ const char* File_Mpeg_Psi::Mpeg_Psi_Element_Name() //Part of File_Mpeg_Psi for a
         case 0xD7 : return "ATSC - Aggregate Extended Text Table (AETT)";
         case 0xD8 : return "ATSC - Cable Emergency Alert";
         case 0xD9 : return "ATSC - Aggregate Data Event Table";
-        case 0xDA : return "ATSC - Satellite VCT";
+        case 0xDA : return "ATSC - Satellite VCT (SVCT)";
         default :
             if (table_id>=0x06
              && table_id<=0x37) return "ITU-T Rec. H.222.0 | ISO/IEC 13818-1 reserved";
             if (table_id>=0x40
              && table_id<=0x7F) return "DVB - reserved";
             if (table_id>=0x80
-             && table_id<=0x8F) return "CA message : return EMM : return ECM";
+             && table_id<=0x8F) return "CA message";
             if (table_id>=0xC0
              && table_id<=0xDF) return "ATSC/SCTE - reserved";
             if (table_id<=0xFE) return "User Private";
@@ -683,15 +662,10 @@ File_Mpeg_Psi::File_Mpeg_Psi()
     Complete_Stream=NULL;
     pid=0x0000;
 
-    //Out
-    WantItAgain=false;
-
     //Temp
-    Stream_Current=0x0000;
     transport_stream_id=0x0000; //Impossible
-    PCR_PID=0x1FFF; //Default value
     CRC_32=0;
-    program_number=0x0000; //Reserved value
+    xxx_id_IsValid=false;
 }
 
 //---------------------------------------------------------------------------
@@ -711,6 +685,7 @@ void File_Mpeg_Psi::Header_Parse()
     {
         //Filling
         table_id=0xFF; //Make it invalid
+        section_syntax_indicator=false;
         Header_Fill_Code((int64u)-1, "program_stream_map"); //(int64u)-1 for precising "out of scope"
         Header_Fill_Size(Element_Size-4);
         return;
@@ -777,20 +752,20 @@ void File_Mpeg_Psi::Data_Parse()
     if (section_syntax_indicator)
     {
         Element_Size-=4; //Reserving size of CRC32
-        Get_B2(table_id_extension,                              Mpeg_Psi_table_id_extension(table_id)); Element_Info(Ztring(Mpeg_Psi_table_id_extension(table_id))+_T("=")+Ztring::ToZtring_From_CC2(table_id_extension));
+        Get_B2(table_id_extension,                              Mpeg_Psi_table_id_extension(table_id)); Element_Name(Ztring(Mpeg_Psi_table_id_extension(table_id))+_T("=")+Ztring::ToZtring_From_CC2(table_id_extension));
         BS_Begin();
         Skip_S1( 2,                                             "reserved");
         Get_S1 ( 5, version_number,                             "version_number"); Element_Info(_T("Version=")+Ztring::ToZtring(version_number));
         Skip_SB(                                                "current_next_indicator");
         BS_End();
-        Skip_B1(                                                "section_number");
+        Info_B1(section_number,                                 "section_number"); Element_Info(_T("Section=")+Ztring::ToZtring(section_number));
         Skip_B1(                                                "last_section_number");
     }
 
     #define ELEMENT_CASE(_NAME, _DETAIL) \
         case 0x##_NAME : Table_##_NAME(); break;
 
-    Element_Name(Mpeg_Psi_Element_Name());
+    //Element_Name(Mpeg_Psi_Element_Name());
 
     switch (table_id)
     {
@@ -906,37 +881,8 @@ void File_Mpeg_Psi::Data_Parse()
         Skip_B4(                                                "CRC32");
     }
 
-    switch(table_id)
-    {
-        case 0x40 :
-        case 0x41 :
-        case 0x42 :
-        case 0x46 :
-        case 0x4E :
-        case 0x4F :
-        case 0x50 :
-        case 0x51 :
-        case 0x52 :
-        case 0x53 :
-        case 0x54 :
-        case 0x55 :
-        case 0x56 :
-        case 0x57 :
-        case 0x58 :
-        case 0x59 :
-        case 0x5A :
-        case 0x5B :
-        case 0x5C :
-        case 0x5E :
-        case 0xC7 :
-        case 0xCD :
-                    WantItAgain=true;
-                    break;
-        default   : ;
-    }
-
-    Accept("PSI");
-    Finish("PSI");
+    IsAccepted=true; //Accept("PSI");
+    IsFinished=true; //Finish("PSI");
 }
 
 //---------------------------------------------------------------------------
@@ -972,7 +918,7 @@ void File_Mpeg_Psi::program_stream_map()
     Element_Name("program_stream_map");
 
     //Parsing
-    int16u program_stream_info_length, elementary_stream_map_length;
+    int16u elementary_stream_map_length;
     bool single_extension_stream_flag;
     BS_Begin();
     Skip_SB(                                                    "current_next_indicator");
@@ -982,82 +928,87 @@ void File_Mpeg_Psi::program_stream_map()
     Skip_S1( 7,                                                 "reserved");
     Mark_1 ();
     BS_End();
-    Get_B2 (program_stream_info_length,                         "program_stream_info_length");
-
-    //Descriptors
-    if (Element_Offset+program_stream_info_length>Element_Size)
-    {
-        Trusted_IsNot("Integrity error");
-        return;
-    }
-    Descriptors_Size=program_stream_info_length;
+    Get_B2 (Descriptors_Size,                                   "program_stream_info_length");
     Descriptors();
 
     Get_B2 (elementary_stream_map_length,                       "elementary_stream_map_length");
-    if ((int64u)(4+program_stream_info_length+2+elementary_stream_map_length)>Element_Size)
-    {
-        Trusted_IsNot("Integrity error");
-        return;
-    }
-    while (Element_Offset<(int32u)(4+program_stream_info_length+2+elementary_stream_map_length))
+    int16u elementary_stream_map_Pos=0;
+    while (Element_Offset<Element_Size && elementary_stream_map_Pos<elementary_stream_map_length)
     {
         Element_Begin();
         int16u ES_info_length;
-        int8u  stream_type, elementary_stream_id;
-        Get_B1 (stream_type,                                    "stream_type"); Param_Info(Mpeg_Psi_stream_type(stream_type, 0x00000000));
+        int8u stream_type, elementary_stream_id;
+        Get_B1 (stream_type,                                    "stream_type"); Param_Info(Mpeg_Psi_stream_type_Info(stream_type, 0x00000000));
         Get_B1 (elementary_stream_id,                           "elementary_stream_id");
+        xxx_id=elementary_stream_id;
         Get_B2 (ES_info_length,                                 "ES_info_length");
-        Element_Name(Ztring::ToZtring(elementary_stream_id, 16));
-        if (elementary_stream_id==0xFD && !single_extension_stream_flag)
+        Descriptors_Size=ES_info_length;
+        Element_Name(Ztring::ToZtring(xxx_id, 16));
+        if (xxx_id==0xFD && !single_extension_stream_flag)
         {
             Skip_S1(8,                                          "pseudo_descriptor_tag");
             Skip_S1(8,                                          "pseudo_descriptor_length");
             Mark_1();
             Skip_S1(7,                                          "elementary_stream_id_extension");
-            if (ES_info_length>=3)
-                ES_info_length-=3;
+            if (Descriptors_Size>=3)
+                Descriptors_Size-=3;
         }
-        //Descriptors
-        Descriptors_Size=ES_info_length;
         Descriptors();
-
         Element_End(4+ES_info_length);
+        elementary_stream_map_Pos+=4+ES_info_length;
 
-        //Filling
-        Streams[elementary_stream_id].stream_type=stream_type;
-
-        if (Element_Offset==Element_Size)
-            break; //there is a problem
+        FILLING_BEGIN();
+            Complete_Stream->Streams[xxx_id].stream_type=stream_type;
+        FILLING_END();
     }
 }
 
 //---------------------------------------------------------------------------
 void File_Mpeg_Psi::Table_00()
 {
+    if (pid)
+    {
+        Reject("PSI");
+        return;
+    }
+    FILLING_BEGIN();
+        Complete_Stream->transport_stream_id=table_id_extension;
+        Complete_Stream->transport_stream_id_IsValid=true;
+    FILLING_END();
+
+    //Clear
+    Complete_Stream->Transport_Streams[table_id_extension].Programs_NotParsedCount=0;
+    Complete_Stream->Transport_Streams[table_id_extension].Programs.clear();
+
     //Parsing
-    int16u program_number, xxx_PID;
     while (Element_Offset<Element_Size)
     {
         Element_Begin(4);
+        int16u program_number;
         Get_B2 (    program_number,                             "program_number");
         BS_Begin();
         Skip_S1( 3,                                             "reserved");
-        if (program_number==0)
-        {
-            Get_S2 ( 13, xxx_PID,                               "network_PID"); Element_Info(Ztring::ToZtring_From_CC2(xxx_PID));
-            Streams[xxx_PID].Kind=network_information_table;
-        }
-        else
-        {
-            Get_S2 ( 13, xxx_PID,                               "program_map_PID"); Element_Info(Ztring::ToZtring_From_CC2(xxx_PID));
-            Streams[xxx_PID].Kind=program_map_table;
-        }
+        Get_S2 ( 13, xxx_id,                                    program_number?"program_map_PID":"network_PID"); Element_Info(Ztring::ToZtring_From_CC2(xxx_id));
         BS_End();
-
-        //Filling
-        Programs[program_number].pid=xxx_PID;
-        Complete_Stream->transport_stream_id=table_id_extension;
         Element_End(Ztring::ToZtring_From_CC2(program_number));
+
+        FILLING_BEGIN();
+            if (Config->File_Filter_Get(program_number))
+            {
+                if (program_number)
+                {
+                    Complete_Stream->Transport_Streams[table_id_extension].Programs_NotParsedCount++;
+                    Complete_Stream->Transport_Streams[table_id_extension].Programs[program_number].pid=xxx_id;
+                    Complete_Stream->Streams[xxx_id].program_numbers.push_back(program_number);
+                }
+                if (Complete_Stream->Streams[xxx_id].Kind!=complete_stream::stream::psi)
+                {
+                    Complete_Stream->Streams[xxx_id].Kind=complete_stream::stream::psi;
+                    Complete_Stream->Streams[xxx_id].Searching_Payload_Start_Set(true);
+                }
+                Complete_Stream->Streams[xxx_id].ShouldDuplicate=Complete_Stream->File__Duplicate_Get_From_PID(xxx_id);
+            }
+        FILLING_END();
     }
     BS_End();
 }
@@ -1076,8 +1027,16 @@ void File_Mpeg_Psi::Table_01()
 //---------------------------------------------------------------------------
 void File_Mpeg_Psi::Table_02()
 {
+    FILLING_BEGIN();
+        if (!Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].IsParsed)
+        {
+            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs_NotParsedCount--;
+            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].IsParsed=true;
+        }
+    FILLING_END();
+
     //Parsing
-    program_number=table_id_extension;
+    int16u PCR_PID;
     BS_Begin();
     Skip_S1( 3,                                                 "reserved");
     Get_S2 (13, PCR_PID,                                        "PCR_PID");
@@ -1095,32 +1054,84 @@ void File_Mpeg_Psi::Table_02()
         Element_Begin();
         int8u stream_type;
         BS_Begin();
-        Get_S1 ( 8, stream_type,                                "stream_type"); Element_Info(Mpeg_Psi_stream_type(stream_type, Programs[table_id_extension].format_identifier)); Param_Info(Mpeg_Psi_stream_type(stream_type, Streams[Stream_Current].format_identifier));
+        Get_S1 ( 8, stream_type,                                "stream_type"); Element_Info(Mpeg_Psi_stream_type_Info(stream_type, Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].registration_format_identifier)); Param_Info(Mpeg_Psi_stream_type_Info(stream_type, Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].registration_format_identifier));
         Skip_S1( 3,                                             "reserved");
-        Get_S2 (13, Stream_Current,                             "elementary_PID");
+        Get_S2 (13, xxx_id,                                     "elementary_PID");
         Skip_S1( 4,                                             "reserved");
         Get_S2 (12, Descriptors_Size,                           "ES_info_length");
         BS_End();
 
-        //Filling
-        Streams[Stream_Current].stream_type=stream_type;
-        Streams[Stream_Current].program_number=program_number;
-        Streams[Stream_Current].format_identifier=Programs[program_number].format_identifier;
+        FILLING_BEGIN();
+            bool IsAlreadyPresent=false;
+            for (size_t Pos=0; Pos<Complete_Stream->Streams[xxx_id].program_numbers.size(); Pos++)
+                if (Complete_Stream->Streams[xxx_id].program_numbers[Pos]==table_id_extension)
+                    IsAlreadyPresent=true;
+            if (!IsAlreadyPresent)
+            {
+                Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].elementary_PIDs.push_back(xxx_id);
+                Complete_Stream->Streams[xxx_id].program_numbers.push_back(table_id_extension);
+                Complete_Stream->Streams[xxx_id].registration_format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].registration_format_identifier;
+            }
+            if (Complete_Stream->Streams[xxx_id].Kind!=complete_stream::stream::pes)
+            {
+                Complete_Stream->Streams_NotParsedCount++;
+                Complete_Stream->Streams[xxx_id].Kind=complete_stream::stream::pes;
+                Complete_Stream->Streams[xxx_id].stream_type=stream_type;
+                Complete_Stream->Streams[xxx_id].Searching_Payload_Start_Set(true);
+                Complete_Stream->Streams[xxx_id].Searching_TimeStamp_Start_Set(true);
+                Complete_Stream->Streams[xxx_id].Searching_ParserTimeStamp_Start_Set(true);
+                #ifndef MEDIAINFO_MINIMIZESIZE
+                    Complete_Stream->Streams[xxx_id].Element_Info="PES";
+                #endif //MEDIAINFO_MINIMIZESIZE
+                Complete_Stream->Streams[xxx_id].ShouldDuplicate=Complete_Stream->File__Duplicate_Get_From_PID(xxx_id);
+            }
+        FILLING_END();
 
         //Descriptors
+        xxx_id_IsValid=true;
         if (Descriptors_Size>0)
             Descriptors();
 
-        Element_End(Ztring::ToZtring_From_CC2(Stream_Current), 5+Descriptors_Size);
-
-        //Merging ES if present
-        std::map<int16u, File_Mpeg_Descriptors::es_element>::iterator ES_Element=ES_Elements.find(Streams[Stream_Current].ES_ID);
-        if (ES_Element!=ES_Elements.end())
-        {
-            //Transfering the Parser
-            Streams[Stream_Current].ES_Parser=ES_Element->second.Parser; ES_Element->second.Parser=NULL;
-        }
+        Element_End(Ztring::ToZtring_From_CC2(xxx_id), 5+Descriptors_Size);
     }
+
+    FILLING_BEGIN();
+        Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].PCR_PID=PCR_PID;
+        if (Complete_Stream->Streams[PCR_PID].Kind==complete_stream::stream::unknown)
+        {
+            Complete_Stream->Streams[PCR_PID].Kind=complete_stream::stream::pcr;
+            Complete_Stream->Streams[PCR_PID].Searching_TimeStamp_Start_Set(true);
+            #ifndef MEDIAINFO_MINIMIZESIZE
+                Complete_Stream->Streams[PCR_PID].Element_Info="PCR";
+            #endif //MEDIAINFO_MINIMIZESIZE
+        }
+
+        //Sorting
+        sort(Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].elementary_PIDs.begin(), Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].elementary_PIDs.end());
+
+        //Handling ATSC/CEA/DVB
+        if (!Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs_NotParsedCount)
+        {
+            //We know what is each PID, so we can try known values
+            for (size_t Pos=0x10; Pos<0x1FFF; Pos++) //Wanting 0x10-->0x2F (DVB), 0x1ABC (cea_osd), 0x1FF7-->0x1FFF (ATSC)
+            {
+                if (Complete_Stream->Streams[Pos].Kind==complete_stream::stream::unknown)
+                {
+                    Complete_Stream->Streams[Pos].Kind=complete_stream::stream::psi;
+                    Complete_Stream->Streams[Pos].Searching_Payload_Start_Set(true);
+                }
+
+                if (Pos==0x0014)
+                    Pos=0x0015; //Skipping DVB not used
+                if (Pos==0x001B)
+                    Pos=0x001D; //Skipping DVB not used
+                if (Pos==0x002F)
+                    Pos=0x1ABB; //Skipping normal data
+                if (Pos==0x01ABC)
+                    Pos=0x1FF6; //Skipping normal data
+            }
+        }
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -1218,12 +1229,6 @@ void File_Mpeg_Psi::Table_42()
 void File_Mpeg_Psi::Table_46()
 {
     Table_42();
-
-    //Clear info, this is another stream
-    Streams.clear();
-    Programs.clear();
-    ES_Elements.clear();
-    Infos.clear();
 }
 
 //---------------------------------------------------------------------------
@@ -1239,6 +1244,11 @@ void File_Mpeg_Psi::Table_4E()
     Skip_B2(                                                    "original_network_id");
     Skip_B1(                                                    "segment_last_section_number");
     Skip_B1(                                                    "last_table_id");
+    if (Element_Offset==Element_Size)
+    {
+        Element_DoNotShow(); //This is empty!
+        return;
+    }
     while (Element_Offset<Element_Size)
     {
         Element_Begin();
@@ -1256,6 +1266,7 @@ void File_Mpeg_Psi::Table_4E()
         BS_End();
 
         //Descriptors
+        xxx_id_IsValid=true;
         if (Descriptors_Size>0)
             Descriptors();
 
@@ -1273,12 +1284,6 @@ void File_Mpeg_Psi::Table_4E()
 void File_Mpeg_Psi::Table_4F()
 {
     Table_4E();
-
-    //Clear info, this is another stream
-    Streams.clear();
-    Programs.clear();
-    ES_Elements.clear();
-    Infos.clear();
 }
 
 //---------------------------------------------------------------------------
@@ -1351,8 +1356,7 @@ void File_Mpeg_Psi::Table_7F()
     while (Element_Offset<Element_Size)
     {
         Element_Begin();
-        int16u service_id;
-        Get_B2 (    service_id,                                 "service_id");
+        Get_B2 (    xxx_id,                                     "service_id");
         BS_Begin();
         Skip_SB(                                                "DVB_reserved_future_use");
         Info_S1( 3, running_status,                             "running_status"); Param_Info(Mpeg_Psi_running_status[running_status]);
@@ -1360,10 +1364,11 @@ void File_Mpeg_Psi::Table_7F()
         BS_End();
 
         //Descriptors
+        xxx_id_IsValid=true;
         if (Descriptors_Size>0)
             Descriptors();
 
-        Element_End(Ztring::ToZtring_From_CC2(service_id), 5+Descriptors_Size);
+        Element_End(Ztring::ToZtring_From_CC2(xxx_id), 5+Descriptors_Size);
     }
 }
 
@@ -1372,8 +1377,14 @@ void File_Mpeg_Psi::Table_C7()
 {
     //Parsing
     int16u tables_defined;
-    Skip_B1(                                                    "protocol_version");
-    Get_B2 (    tables_defined,                                 "tables_defined");
+    int8u protocol_version;
+    Get_B1 (protocol_version,                                   "protocol_version");
+    if (protocol_version!=0)
+    {
+        Skip_XX(Element_Size-Element_Offset,                    "data");
+        return;
+    }
+    Get_B2 (tables_defined,                                     "tables_defined");
     for (int16u Pos=0; Pos<tables_defined; Pos++)
     {
         int16u table_type, table_type_PID;
@@ -1399,12 +1410,12 @@ void File_Mpeg_Psi::Table_C7()
         Element_End(Ztring::ToZtring_From_CC2(table_type_PID), 11+Descriptors_Size);
 
         FILLING_BEGIN();
-            if (table_type!=0x0001 && table_type!=0x000) //Not activing current_next_indicator='0'
-                Streams[table_type_PID].Kind=atsc_psip;
-            if (table_type&0x200)
-                Complete_Stream->Streams[table_type_PID].table_type=table_type-0x100; //For having the same table_type for both EIT and ETT
-            else
-                Complete_Stream->Streams[table_type_PID].table_type=table_type;
+            if (table_type!=0x0001 && table_type!=0x0003) //Not activing current_next_indicator='0'
+            {
+                Complete_Stream->Streams[table_type_PID].Kind=complete_stream::stream::psi;
+                Complete_Stream->Streams[table_type_PID].Searching_Payload_Start_Set(true);
+            }
+            Complete_Stream->Streams[table_type_PID].table_type=table_type-((table_type&0x200)?0x100:0); //For having the same table_type for both EIT and ETT
         FILLING_END();
     }
     BS_Begin();
@@ -1452,7 +1463,7 @@ void File_Mpeg_Psi::Table_C9()
             Skip_B4(                                            "carrier_frequency");
         }
         Skip_B2(                                                "channel_TSID");
-        Get_B2 (    program_number,                             "program_number");
+        Get_B2 (    xxx_id,                                     "program_number");
         BS_Begin();
         Skip_S1( 2,                                             "ETM_location");
         Skip_SB(                                                table_id==0xDA?"reserved":"access_controlled");
@@ -1476,30 +1487,32 @@ void File_Mpeg_Psi::Table_C9()
         Get_S2 (10, Descriptors_Size,                           "descriptors_length");
         BS_End();
 
+        FILLING_BEGIN();
+            Ztring Channel=Ztring::ToZtring(major_channel_number);
+            if (minor_channel_number)
+                Channel+=_T("-")+Ztring::ToZtring(minor_channel_number);
+            if (minor_channel_number==0 || xxx_id==0xFFFF)
+            {
+                Complete_Stream->Transport_Streams[table_id_extension].Infos["ServiceName"]=short_name;
+                Complete_Stream->Transport_Streams[table_id_extension].Infos["ServiceChannel"]=Channel;
+                Complete_Stream->Transport_Streams[table_id_extension].Infos["ServiceType"]=Mpeg_Psi_atsc_service_type(service_type);
+                Complete_Stream->Transport_Streams[table_id_extension].source_id=source_id;
+            }
+            else if (xxx_id<0x2000)
+            {
+                Complete_Stream->Transport_Streams[table_id_extension].Programs[xxx_id].Infos["ServiceName"]=short_name;
+                Complete_Stream->Transport_Streams[table_id_extension].Programs[xxx_id].Infos["ServiceChannel"]=Channel;
+                Complete_Stream->Transport_Streams[table_id_extension].Programs[xxx_id].Infos["ServiceType"]=Mpeg_Psi_atsc_service_type(service_type);
+                Complete_Stream->Transport_Streams[table_id_extension].Programs[xxx_id].source_id=source_id;
+            }
+        FILLING_END();
+        
         //Descriptors
+        xxx_id_IsValid=true;
         if (Descriptors_Size>0)
             Descriptors();
 
-        Element_End(Ztring::ToZtring_From_CC2(program_number), 18+Descriptors_Size);
-
-        //Filling
-        Ztring Channel=Ztring::ToZtring(major_channel_number);
-        if (minor_channel_number)
-            Channel+=_T("-")+Ztring::ToZtring(minor_channel_number);
-        if (program_number<2000)
-        {
-            Complete_Stream->Transport_Streams[table_id_extension].Programs[program_number].service_name=short_name;
-            Complete_Stream->Transport_Streams[table_id_extension].Programs[program_number].service_channel=Channel;
-            Complete_Stream->Transport_Streams[table_id_extension].Programs[program_number].service_type=Mpeg_Psi_atsc_service_type(service_type);
-            Complete_Stream->Transport_Streams[table_id_extension].Programs[program_number].source_id=source_id;
-        }
-        else if (program_number==0xFFFF)
-        {
-            Complete_Stream->Transport_Streams[table_id_extension].service_name=short_name;
-            Complete_Stream->Transport_Streams[table_id_extension].service_channel=Channel;
-            Complete_Stream->Transport_Streams[table_id_extension].service_type=Mpeg_Psi_atsc_service_type(service_type);
-            Complete_Stream->Transport_Streams[table_id_extension].source_id=source_id;
-        }
+        Element_End(Ztring::ToZtring_From_CC2(xxx_id), 18+Descriptors_Size);
     }
 
     BS_Begin();
@@ -1707,52 +1720,18 @@ void File_Mpeg_Psi::Descriptors()
     //Parsing
     File_Mpeg_Descriptors Descriptors;
     Buffer_Offset+=(size_t)Element_Offset; //Positionning
-    Descriptors.format_identifier=Streams[Stream_Current].format_identifier==0x00000000?Programs[program_number].format_identifier:Streams[Stream_Current].format_identifier; //format_identifier of the stream if exist, else general format_identifier
-    Descriptors.StreamKind=Stream_Current?Stream_Max:Stream_General; //Saying if it is General or not
     Descriptors.Complete_Stream=Complete_Stream;
     Descriptors.transport_stream_id=transport_stream_id;
     Descriptors.table_id=table_id;
     Descriptors.table_id_extension=table_id_extension;
     Descriptors.xxx_id=xxx_id;
+    Descriptors.xxx_id_IsValid=xxx_id_IsValid;
     Open_Buffer_Init(&Descriptors);
     Open_Buffer_Continue(&Descriptors, Buffer+Buffer_Offset, Descriptors_Size);
     Buffer_Offset-=(size_t)Element_Offset; //Positionning
     Element_Offset+=Descriptors_Size;
     Element_End();
-
-    //Filling
-    //About a PID
-    if (Stream_Current) //Only if an ID is registered
-    {
-        Streams[Stream_Current].Infos=Descriptors.Infos;
-        Streams[Stream_Current].format_identifier=Descriptors.registration_format_identifier; //General
-        if (Streams[Stream_Current].descriptor_tag==0x00)
-            Streams[Stream_Current].descriptor_tag=Descriptors.descriptor_tag;
-        if (Streams[Stream_Current].CA_PID==0x0000)
-            Streams[Stream_Current].CA_PID=Descriptors.CA_PID;
-        if (Streams[Stream_Current].ES_ID==0x0000)
-            Streams[Stream_Current].ES_ID=Descriptors.ES_ID;
-    }
-    else if (program_number) //This is about a program, not a stream
-    {
-        Programs[program_number].format_identifier=Descriptors.registration_format_identifier;
-        for (std::map<std::string, ZenLib::Ztring>::iterator Info=Descriptors.Infos.begin(); Info!=Descriptors.Infos.end(); Info++)
-            Programs[program_number].Infos[Info->first]=Info->second;
-    }
-    else
-        for (std::map<std::string, ZenLib::Ztring>::iterator Info=Descriptors.Infos.begin(); Info!=Descriptors.Infos.end(); Info++)
-            Infos[Info->first]=Info->second;
-
-    //About program
-    for (std::map<std::string, ZenLib::Ztring>::iterator Info=Descriptors.Program.Infos.begin(); Info!=Descriptors.Program.Infos.end(); Info++)
-        Programs[program_number].Infos[Info->first]=Info->second;
-
-    //About es_element
-    for (std::map<int16u, File_Mpeg_Descriptors::es_element>::iterator ES_Element=Descriptors.ES_Elements.begin(); ES_Element!=Descriptors.ES_Elements.end(); ES_Element++)
-    {
-        //Transfering the Parser
-        ES_Elements[ES_Element->first].Parser=ES_Element->second.Parser; ES_Element->second.Parser=NULL;
-    }
+    xxx_id_IsValid=false;
 }
 
 //---------------------------------------------------------------------------
