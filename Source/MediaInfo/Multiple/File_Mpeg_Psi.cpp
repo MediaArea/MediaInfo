@@ -1006,7 +1006,11 @@ void File_Mpeg_Psi::Table_00()
                     Complete_Stream->Streams[xxx_id].Kind=complete_stream::stream::psi;
                     Complete_Stream->Streams[xxx_id].Searching_Payload_Start_Set(true);
                 }
-                Complete_Stream->Streams[xxx_id].ShouldDuplicate=Complete_Stream->File__Duplicate_Get_From_PID(xxx_id);
+                //Complete_Stream->Streams[xxx_id].ShouldDuplicate=Complete_Stream->File__Duplicate_Get_From_PID(xxx_id);
+                if (Complete_Stream->File__Duplicate_Get_From_PID(xxx_id))
+                    Complete_Stream->Streams[xxx_id].ShouldDuplicate=true;
+                else
+                    Complete_Stream->Streams[xxx_id].ShouldDuplicate=false;
             }
         FILLING_END();
     }
@@ -1079,11 +1083,15 @@ void File_Mpeg_Psi::Table_02()
                 Complete_Stream->Streams[xxx_id].stream_type=stream_type;
                 Complete_Stream->Streams[xxx_id].Searching_Payload_Start_Set(true);
                 Complete_Stream->Streams[xxx_id].Searching_TimeStamp_Start_Set(true);
-                Complete_Stream->Streams[xxx_id].Searching_ParserTimeStamp_Start_Set(true);
+                //Complete_Stream->Streams[xxx_id].Searching_ParserTimeStamp_Start_Set(true);
                 #ifndef MEDIAINFO_MINIMIZESIZE
                     Complete_Stream->Streams[xxx_id].Element_Info="PES";
                 #endif //MEDIAINFO_MINIMIZESIZE
-                Complete_Stream->Streams[xxx_id].ShouldDuplicate=Complete_Stream->File__Duplicate_Get_From_PID(xxx_id);
+                //Complete_Stream->Streams[xxx_id].ShouldDuplicate=Complete_Stream->File__Duplicate_Get_From_PID(xxx_id);
+                if (Complete_Stream->File__Duplicate_Get_From_PID(xxx_id))
+                    Complete_Stream->Streams[xxx_id].ShouldDuplicate=true;
+                else
+                    Complete_Stream->Streams[xxx_id].ShouldDuplicate=false;
             }
         FILLING_END();
 

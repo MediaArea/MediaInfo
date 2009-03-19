@@ -496,7 +496,9 @@ void File_MpegTs::Read_Buffer_Finalize()
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+    {
         delete Complete_Stream; Complete_Stream=NULL;
+    }
 }
 
 //***************************************************************************
@@ -780,7 +782,7 @@ void File_MpegTs::PES()
          && ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->HasTimeStamps)
         {
             Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(false);
-            Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End_Set(true);
+            //Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End_Set(true);
         }
     #endif
 
@@ -966,7 +968,7 @@ void File_MpegTs::Detect_EOF()
             #endif //MEDIAINFO_MINIMIZESIZE
             Complete_Stream->Streams[StreamID].Searching_TimeStamp_Start_Set(true);
             Complete_Stream->Streams[StreamID].Searching_TimeStamp_End_Set(false);
-            Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_Start_Set(true);
+            //Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_Start_Set(true);
             Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_End_Set(false);
         }
         if (!IsAccepted)
