@@ -14,7 +14,7 @@ Known bugs
 
 Version 0.7.12, 2009-
 --------------
-+ Belarusian translation added
++ Belorusian, Croatian translations added
 + Polish translations updated
 
 Version 0.7.11, 2009-02-13
