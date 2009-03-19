@@ -4,8 +4,8 @@ RequestExecutionLevel admin
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_PUBLISHER "MediaArea.net"
-!define PRODUCT_VERSION "0.7.11"
-!define PRODUCT_VERSION4 "0.7.11.0"
+!define PRODUCT_VERSION "0.7.12"
+!define PRODUCT_VERSION4 "0.7.12.0"
 !define PRODUCT_WEB_SITE "http://mediainfo.sourceforge.net"
 !define COMPANY_REGISTRY "Software\MediaArea.net"
 !define PRODUCT_REGISTRY "Software\MediaArea.net\MediaInfo"
@@ -38,7 +38,9 @@ SetCompressor /FINAL /SOLID lzma
 
 ; Language files
 !insertmacro MUI_LANGUAGE "Albanian"
+!insertmacro MUI_LANGUAGE "Belarussian"
 !insertmacro MUI_LANGUAGE "Catalan"
+!insertmacro MUI_LANGUAGE "Croatian"
 !insertmacro MUI_LANGUAGE "Czech"
 !insertmacro MUI_LANGUAGE "Dutch"
 !insertmacro MUI_LANGUAGE "English"
