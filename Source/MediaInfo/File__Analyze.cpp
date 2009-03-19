@@ -643,14 +643,7 @@ bool File__Analyze::Synchro_Manage()
             Buffer_TotalBytes_FirstSynched+=Buffer_TotalBytes+Buffer_Offset;
             File_Offset_FirstSynched=File_Offset+Buffer_Offset;
         }
-
-        if (!Synched_Test())
-            return false;
-        if (!Synched)
-        {
-            Element[Element_Level].IsComplete=true; //Else the trusting algo will think it
-            Trusted_IsNot("Synchronisation lost");
-        }
+        return Synchro_Manage();
     }
 
     return true;
