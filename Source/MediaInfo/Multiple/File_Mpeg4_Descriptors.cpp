@@ -602,6 +602,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
         }
 
         //Creating parser
+        delete Parser; //Parser=NULL;
         switch (ObjectTypeId)
         {
             case 0x20 : //MPEG-4 Visual
