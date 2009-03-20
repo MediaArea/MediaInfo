@@ -12,10 +12,15 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
-Version 0.7.12, 2009-
+Version 0.7.12, 2009-03-20
 --------------
 + Belarusian, Croatian translations added
 + Polish, Traditional Chinese translations updated
++ Complete refactoring of the code for speed improvements and future features
++ #2686943, MPEG-4: ISMV (IIS Smooth Streaming Media Video) basic support
++ MPEG-4 Visual: distinction between MPEG and H.263 default matrices
++ MPEG-TS: ATSC and DVB EPG support
+x MPEG-PS: duplicate stream infos with some AC-3 streams (with program map)
 
 Version 0.7.11, 2009-02-13
 --------------

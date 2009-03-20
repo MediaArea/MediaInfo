@@ -38,7 +38,7 @@ SetCompressor /FINAL /SOLID lzma
 
 ; Language files
 !insertmacro MUI_LANGUAGE "Albanian"
-!insertmacro MUI_LANGUAGE "Belarussian"
+!insertmacro MUI_LANGUAGE "Belarusian"
 !insertmacro MUI_LANGUAGE "Catalan"
 !insertmacro MUI_LANGUAGE "Croatian"
 !insertmacro MUI_LANGUAGE "Czech"
