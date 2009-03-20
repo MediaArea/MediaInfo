@@ -139,7 +139,7 @@ String MediaInfo_Internal::Inform()
     if (MediaInfoLib::Config.Inform_Get()==_T("HTML"))
         HTML=true;
 
-    if (HTML) Retour+=_T("<html>\n\n<head>\n<META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>\n<body>\n");
+    if (HTML) Retour+=_T("<html>\n\n<head>\n<META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /></head>\n<body>\n");
 
     for (size_t StreamKind=(size_t)Stream_General; StreamKind<Stream_Max; StreamKind++)
     {
@@ -163,6 +163,8 @@ String MediaInfo_Internal::Inform()
             Retour+=MediaInfoLib::Config.LineSeparator_Get();
         }
     }
+
+    if (HTML) Retour+=_T("\n</body>\n</html>\n");
 
     return Retour;
 }
