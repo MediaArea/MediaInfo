@@ -95,7 +95,6 @@ bool File_TwinVQ::FileHeader_Begin()
 void File_TwinVQ::FileHeader_Parse()
 {
     //Parsing
-    int32u magic;
     Skip_C4(                                                    "magic");
     Skip_Local(8,                                               "version");
     Skip_B4(                                                    "subchunks_size");
