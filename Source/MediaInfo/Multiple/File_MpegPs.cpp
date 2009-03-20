@@ -247,23 +247,16 @@ bool File_MpegPs::Synchronize()
                 break;
         Buffer_Offset++;
     }
+
+    //Parsing last bytes if needed
     if (Buffer_Offset+4>Buffer_Size)
     {
-        //Parsing last bytes
-        if (Buffer_Offset+3==Buffer_Size)
-        {
-            if (CC3(Buffer+Buffer_Offset)!=0x000001)
-            {
-                Buffer_Offset++;
-                if (CC2(Buffer+Buffer_Offset)!=0x0000)
-                {
-                    Buffer_Offset++;
-                    if (Buffer[Buffer_Offset]!=0x00)
-                        Buffer_Offset++;
-                }
-            }
-        }
-
+        if (Buffer_Offset+3==Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
+            Buffer_Offset++;
+        if (Buffer_Offset+2==Buffer_Size && CC2(Buffer+Buffer_Offset)!=0x0000)
+            Buffer_Offset++;
+        if (Buffer_Offset+1==Buffer_Size && CC1(Buffer+Buffer_Offset)!=0x00)
+            Buffer_Offset++;
         return false;
     }
 
@@ -2549,19 +2542,15 @@ bool File_MpegPs::Header_Parser_QuickSearch()
                     if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
                         Buffer_Offset--;
                 }
-                //Parsing last bytes
-                if (Buffer_Offset+3==Buffer_Size)
+                //Parsing last bytes if needed
+                if (Buffer_Offset+4>Buffer_Size)
                 {
-                    if (CC3(Buffer+Buffer_Offset)!=0x000001)
-                    {
+                    if (Buffer_Offset+3==Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
                         Buffer_Offset++;
-                        if (CC2(Buffer+Buffer_Offset)!=0x0000)
-                        {
-                            Buffer_Offset++;
-                            if (Buffer[Buffer_Offset]!=0x00)
-                                Buffer_Offset++;
-                        }
-                    }
+                    if (Buffer_Offset+2==Buffer_Size && CC2(Buffer+Buffer_Offset)!=0x0000)
+                        Buffer_Offset++;
+                    if (Buffer_Offset+1==Buffer_Size && CC1(Buffer+Buffer_Offset)!=0x00)
+                        Buffer_Offset++;
                 }
                 break;
 
@@ -2577,19 +2566,14 @@ bool File_MpegPs::Header_Parser_QuickSearch()
                     Buffer_Offset+=6;
                     while(Buffer_Offset+4<=Buffer_Size && !(CC3(Buffer+Buffer_Offset)==0x000001 && Buffer[Buffer_Offset+3]>=0xB9))
                         Buffer_Offset++;
-                    //Parsing last bytes
-                    if (Buffer_Offset+3==Buffer_Size)
+                    if (Buffer_Offset+4>Buffer_Size)
                     {
-                        if (CC3(Buffer+Buffer_Offset)!=0x000001)
-                        {
+                        if (Buffer_Offset+3==Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
                             Buffer_Offset++;
-                            if (CC2(Buffer+Buffer_Offset)!=0x0000)
-                            {
-                                Buffer_Offset++;
-                                if (Buffer[Buffer_Offset]!=0x00)
-                                    Buffer_Offset++;
-                            }
-                        }
+                        if (Buffer_Offset+2==Buffer_Size && CC2(Buffer+Buffer_Offset)!=0x0000)
+                            Buffer_Offset++;
+                        if (Buffer_Offset+1==Buffer_Size && CC1(Buffer+Buffer_Offset)!=0x00)
+                            Buffer_Offset++;
                     }
                 }
         }

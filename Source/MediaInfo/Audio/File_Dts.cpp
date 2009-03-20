@@ -413,56 +413,63 @@ bool File_Dts::Synchronize()
             break;
         Buffer_Offset++;
     }
+
+    //Parsing last bytes if needed
     if (Buffer_Offset+6>Buffer_Size)
     {
-        //Parsing last bytes
-        int64u Value=CC5(Buffer+Buffer_Offset);
-        if ((Value&0xFFFFFFFFFCLL)!=0x7FFE8001FCLL  //16 bits and big    endian Core
-         && (Value&0xFFFFFFFF00LL)!=0xFE7F018000LL  //16 bits and little endian Core
-         && (Value&0xFFFFFFFFF7LL)!=0x1FFFE80007LL  //14 bits and big    endian Core
-         && (Value&0xFFFFFFFFF0LL)!=0xFF1F00E8F0LL  //14 bits and little endian Core
-         && (Value&0xFFFFFFFF00LL)!=0x6458202500LL) //16 bits and big    endian HD
+        if (Buffer_Offset+5==Buffer_Size)
         {
-            Buffer_Offset++;
+            int64u Value=CC5(Buffer+Buffer_Offset);
+            if ((Value&0xFFFFFFFFFCLL)!=0x7FFE8001FCLL  //16 bits and big    endian Core
+             && (Value&0xFFFFFFFF00LL)!=0xFE7F018000LL  //16 bits and little endian Core
+             && (Value&0xFFFFFFFFF7LL)!=0x1FFFE80007LL  //14 bits and big    endian Core
+             && (Value&0xFFFFFFFFF0LL)!=0xFF1F00E8F0LL  //14 bits and little endian Core
+             && (Value&0xFFFFFFFF00LL)!=0x6458202500LL) //16 bits and big    endian HD
+                Buffer_Offset++;
+        }
+        if (Buffer_Offset+4==Buffer_Size)
+        {
             int32u Value=CC4(Buffer+Buffer_Offset);
             if (Value!=0x7FFE8001  //16 bits and big    endian Core
              && Value!=0xFE7F0180  //16 bits and little endian Core
              && Value!=0x1FFFE800  //14 bits and big    endian Core
              && Value!=0xFF1F00E8  //14 bits and little endian Core
              && Value!=0x64582025) //16 bits and big    endian HD
-            {
                 Buffer_Offset++;
-                Value=CC3(Buffer+Buffer_Offset);
-                if (Value!=0x7FFE80  //16 bits and big    endian Core
-                 && Value!=0xFE7F01  //16 bits and little endian Core
-                 && Value!=0x1FFFE8  //14 bits and big    endian Core
-                 && Value!=0xFF1F00  //14 bits and little endian Core
-                 && Value!=0x645820) //16 bits and big    endian HD
-                {
-                    Buffer_Offset++;
-                    Value=CC2(Buffer+Buffer_Offset);
-                    if (Value!=0x7FFE  //16 bits and big    endian Core
-                     && Value!=0xFE7F  //16 bits and little endian Core
-                     && Value!=0x1FFF  //14 bits and big    endian Core
-                     && Value!=0xFF1F  //14 bits and little endian Core
-                     && Value!=0x6458) //16 bits and big    endian HD
-                    {
-                        Buffer_Offset++;
-                        Value=CC1(Buffer+Buffer_Offset);
-                        if (Value!=0x7F  //16 bits and big    endian Core
-                         && Value!=0xFE  //16 bits and little endian Core
-                         && Value!=0x1F  //14 bits and big    endian Core
-                         && Value!=0xFF  //14 bits and little endian Core
-                         && Value!=0x64) //16 bits and big    endian HD
-                            Buffer_Offset++;
-                    }
-                }
-            }
         }
-
+        if (Buffer_Offset+3==Buffer_Size)
+        {
+            int32u Value=CC3(Buffer+Buffer_Offset);
+            if (Value!=0x7FFE80  //16 bits and big    endian Core
+             && Value!=0xFE7F01  //16 bits and little endian Core
+             && Value!=0x1FFFE8  //14 bits and big    endian Core
+             && Value!=0xFF1F00  //14 bits and little endian Core
+             && Value!=0x645820) //16 bits and big    endian HD
+                Buffer_Offset++;
+        }
+        if (Buffer_Offset+2==Buffer_Size)
+        {
+            int16u Value=CC2(Buffer+Buffer_Offset);
+            if (Value!=0x7FFE  //16 bits and big    endian Core
+             && Value!=0xFE7F  //16 bits and little endian Core
+             && Value!=0x1FFF  //14 bits and big    endian Core
+             && Value!=0xFF1F  //14 bits and little endian Core
+             && Value!=0x6458) //16 bits and big    endian HD
+                Buffer_Offset++;
+        }
+        if (Buffer_Offset+1==Buffer_Size)
+        {
+            int8u Value=CC1(Buffer+Buffer_Offset);
+            if (Value!=0x7F  //16 bits and big    endian Core
+             && Value!=0xFE  //16 bits and little endian Core
+             && Value!=0x1F  //14 bits and big    endian Core
+             && Value!=0xFF  //14 bits and little endian Core
+             && Value!=0x64) //16 bits and big    endian HD
+                Buffer_Offset++;
+        }
         return false;
     }
-
+    
     //Configuration - 14 bits or Little Endian
     switch (CC1(Buffer+Buffer_Offset))
     {

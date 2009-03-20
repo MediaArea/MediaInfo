@@ -336,12 +336,12 @@ bool File_Ac3::Synchronize()
                 Buffer_Offset++;
         }
     }
+
+    //Parsing last bytes if needed
     if (Buffer_Offset+2>Buffer_Size)
     {
-        //Parsing last bytes
-       if (CC1(Buffer+Buffer_Offset)!=0x0B)
+        if (Buffer_Offset+1==Buffer_Size && CC1(Buffer+Buffer_Offset)!=0x0B)
             Buffer_Offset++;
-
         return false;
     }
 

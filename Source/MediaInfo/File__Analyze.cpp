@@ -540,25 +540,19 @@ bool File__Analyze::Synchronize_0x000001()
                 break;
         Buffer_Offset++;
     }
+
+    //Parsing last bytes if needed
     if (Buffer_Offset+4>Buffer_Size)
     {
-        //Parsing last bytes
-        if (Buffer_Offset+3==Buffer_Size)
-        {
-            if (CC3(Buffer+Buffer_Offset)!=0x000001)
-            {
-                Buffer_Offset++;
-                if (CC2(Buffer+Buffer_Offset)!=0x0000)
-                {
-                    Buffer_Offset++;
-                    if (Buffer[Buffer_Offset]!=0x00)
-                        Buffer_Offset++;
-                }
-            }
-        }
-
+        if (Buffer_Offset+3==Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
+            Buffer_Offset++;
+        if (Buffer_Offset+2==Buffer_Size && CC2(Buffer+Buffer_Offset)!=0x0000)
+            Buffer_Offset++;
+        if (Buffer_Offset+1==Buffer_Size && CC1(Buffer+Buffer_Offset)!=0x00)
+            Buffer_Offset++;
         return false;
     }
+
 
     //Synched is OK
     return true;
@@ -884,7 +878,8 @@ bool File__Analyze::Data_Manage()
     //If no need of more
     if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (IsFinished && !ShouldContinueParsing))
     {
-        Element_End(); //Element
+        if (!Element_WantNextLevel)
+            Element_End(); //Element
         Element_Offset=0;
         return false;
     }
@@ -902,6 +897,7 @@ bool File__Analyze::Data_Manage()
     }
     if (Buffer_Offset+Element_Offset>Buffer_Size && File_Offset!=File_Size)
         File_GoTo=File_Offset+Buffer_Offset+Element_Offset; //Preparing to go far
+
     Buffer_Offset+=(size_t)Element_Offset;
     Header_Size=0;
     Element_Size=0;

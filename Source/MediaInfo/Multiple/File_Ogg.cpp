@@ -124,26 +124,19 @@ bool File_Ogg::Synchronize()
                 break;
         }
     }
+
+    //Parsing last bytes if needed
     if (Buffer_Offset+4>Buffer_Size)
     {
-        //Parsing last bytes
-        if (Buffer_Offset+3==Buffer_Size)
-        {
-            if (CC3(Buffer+Buffer_Offset)!=0x4F6767) //"Ogg"
-            {
-                Buffer_Offset++;
-                if (CC2(Buffer+Buffer_Offset)!=0x4F67) //"Og"
-                {
-                    Buffer_Offset++;
-                    if (CC1(Buffer+Buffer_Offset)!=0x4F) //"O"
-                        Buffer_Offset++;
-                }
-            }
-        }
-
+        if (Buffer_Offset+3==Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x4F6767) //"Ogg"
+            Buffer_Offset++;
+        if (Buffer_Offset+2==Buffer_Size && CC2(Buffer+Buffer_Offset)!=0x4F67)   //"Og"
+            Buffer_Offset++;
+        if (Buffer_Offset+1==Buffer_Size && CC1(Buffer+Buffer_Offset)!=0x4F)     //"O"
+            Buffer_Offset++;
         return false;
     }
-
+    
     //Synched is OK
     return true;
 }

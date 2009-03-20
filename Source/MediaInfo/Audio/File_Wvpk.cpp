@@ -179,39 +179,24 @@ bool File_Wvpk::Synchronize()
                 Buffer_Offset++;
         }
     }
+
+    //Parsing last bytes if needed
     if (Buffer_Offset+8>Buffer_Size)
     {
-        //Parsing last bytes
-        if (Buffer_Offset+7==Buffer_Size)
-        {
-            if (CC4(Buffer+Buffer_Offset)!=CC4("wvpk"))
-            {
-                Buffer_Offset++;
-                if (CC4(Buffer+Buffer_Offset)!=CC4("wvpk"))
-                {
-                    Buffer_Offset++;
-                    if (CC4(Buffer+Buffer_Offset)!=CC4("wvpk"))
-                    {
-                        Buffer_Offset++;
-                        if (CC4(Buffer+Buffer_Offset)!=CC4("wvpk"))
-                        {
-                            Buffer_Offset++;
-                            if (CC3(Buffer+Buffer_Offset)!=CC3("wvp"))
-                            {
-                                Buffer_Offset++;
-                                if (CC2(Buffer+Buffer_Offset)!=CC2("wv"))
-                                {
-                                    Buffer_Offset++;
-                                    if (CC1(Buffer+Buffer_Offset)!=CC1("w"))
-                                        Buffer_Offset++;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
+        if (Buffer_Offset+7==Buffer_Size && CC4(Buffer+Buffer_Offset)!=0x7776706B) //"wvpk"
+            Buffer_Offset++;
+        if (Buffer_Offset+6==Buffer_Size && CC4(Buffer+Buffer_Offset)!=0x7776706B) //"wvpk"
+            Buffer_Offset++;
+        if (Buffer_Offset+5==Buffer_Size && CC4(Buffer+Buffer_Offset)!=0x7776706B) //"wvpk"
+            Buffer_Offset++;
+        if (Buffer_Offset+4==Buffer_Size && CC4(Buffer+Buffer_Offset)!=0x7776706B) //"wvpk"
+            Buffer_Offset++;
+        if (Buffer_Offset+3==Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x777670)   //"wv"
+            Buffer_Offset++;
+        if (Buffer_Offset+2==Buffer_Size && CC2(Buffer+Buffer_Offset)!=0x7776)     //"wv"
+            Buffer_Offset++;
+        if (Buffer_Offset+1==Buffer_Size && CC1(Buffer+Buffer_Offset)!=0x77)       //"w"
+            Buffer_Offset++;
         return false;
     }
 

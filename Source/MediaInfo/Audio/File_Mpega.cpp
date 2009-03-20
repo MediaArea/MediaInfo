@@ -433,23 +433,16 @@ bool File_Mpega::Synchronize()
             }
         }
     }
+
+    //Parsing last bytes if needed
     if (Buffer_Offset+4>Buffer_Size)
     {
-        //Parsing last bytes
-        if (Buffer_Offset+3==Buffer_Size)
-        {
-            if ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0)
-            {
-                Buffer_Offset++;
-                if ((CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0)
-                {
-                    Buffer_Offset++;
-                    if (CC1(Buffer+Buffer_Offset)!=0xFF)
-                        Buffer_Offset++;
-                }
-            }
-        }
-
+        if (Buffer_Offset+3==Buffer_Size && (CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0)
+            Buffer_Offset++;
+        if (Buffer_Offset+2==Buffer_Size && (CC2(Buffer+Buffer_Offset)&0xFFE0)!=0xFFE0)
+            Buffer_Offset++;
+        if (Buffer_Offset+1==Buffer_Size && CC1(Buffer+Buffer_Offset)!=0x00)
+            Buffer_Offset++;
         return false;
     }
 
