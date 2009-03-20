@@ -483,8 +483,9 @@ bool File_Avc::Header_Parser_Fill_Size()
     }
 
     //Keeping out trailing zeroes
-    while (CC3(Buffer+Buffer_Offset_Temp-1)==0x000000)
-        Buffer_Offset_Temp--;
+    if (Buffer_Offset_Temp+3<=Buffer_Size)
+        while (CC3(Buffer+Buffer_Offset_Temp-1)==0x000000)
+            Buffer_Offset_Temp--;
 
     //OK, we continue
     Header_Fill_Size(Buffer_Offset_Temp-Buffer_Offset);

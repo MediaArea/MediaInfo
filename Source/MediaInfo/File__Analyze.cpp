@@ -1491,11 +1491,17 @@ bool File__Analyze::NextCode_Test ()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+#ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Trusted_IsNot (const char* Reason)
+#else //MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Trusted_IsNot ()
+#endif //MEDIAINFO_MINIMIZESIZE
 {
     if (!Element[Element_Level].UnTrusted)
     {
-        Param(Reason, 0);
+        #ifndef MEDIAINFO_MINIMIZESIZE
+            Param(Reason, 0);
+        #endif //MEDIAINFO_MINIMIZESIZE
         Element_Offset=Element_Size;
         BS->Attach(NULL, 0);
 
@@ -1751,11 +1757,19 @@ void File__Analyze::Element_WaitForMoreData ()
 }
 
 //---------------------------------------------------------------------------
+#ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Element_DoNotTrust (const char* Reason)
+#else //MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Element_DoNotTrust ()
+#endif //MEDIAINFO_MINIMIZESIZE
 {
     Element[Element_Level].WaitForMoreData=false;
     Element[Element_Level].IsComplete=true;
-    Trusted_IsNot(Reason);
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        Trusted_IsNot(Reason);
+    #else //MEDIAINFO_MINIMIZESIZE
+        Trusted_IsNot();
+    #endif //MEDIAINFO_MINIMIZESIZE
 }
 
 //---------------------------------------------------------------------------

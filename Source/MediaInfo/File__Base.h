@@ -104,7 +104,7 @@ protected :
     #ifndef MEDIAINFO_MINIMIZESIZE
         void Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName, bool Final=true);
     #else //MEDIAINFO_MINIMIZESIZE
-        inline void Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName, bool Final=true) {}
+        inline void Demux (const int8u*, size_t, const Ztring&, bool=true) {}
     #endif //MEDIAINFO_MINIMIZESIZE
 
 public :

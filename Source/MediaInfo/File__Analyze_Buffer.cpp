@@ -45,7 +45,6 @@ extern MediaInfo_Config Config;
     if (!(TOVALIDATE)) \
     { \
         Trusted_IsNot(ERRORTEXT); \
-        Element_Offset=Element_Size; \
         return; \
     } \
 
@@ -53,7 +52,6 @@ extern MediaInfo_Config Config;
     if (!(TOVALIDATE)) \
     { \
         Trusted_IsNot(ERRORTEXT); \
-        Element_Offset=Element_Size; \
         Info=0; \
         return; \
     } \
@@ -62,7 +60,6 @@ extern MediaInfo_Config Config;
     if (Element_Offset+_BYTES>Element_Size) \
     { \
         Trusted_IsNot("Size is wrong"); \
-        Element_Offset=Element_Size; \
         return; \
     } \
 
@@ -70,7 +67,6 @@ extern MediaInfo_Config Config;
     if (Element_Offset+_BYTES>Element_Size) \
     { \
         Trusted_IsNot("Size is wrong"); \
-        Element_Offset=Element_Size; \
         Info.clear(); \
         return; \
     } \
@@ -79,7 +75,6 @@ extern MediaInfo_Config Config;
     if (Element_Offset+_BYTES>Element_Size) \
     { \
         Trusted_IsNot("Size is wrong"); \
-        Element_Offset=Element_Size; \
         Info=0; \
         return; \
     } \
@@ -88,7 +83,6 @@ extern MediaInfo_Config Config;
     if (BS->Remain()==0) \
     { \
         Trusted_IsNot("Size is wrong"); \
-        Element_Offset=Element_Size; \
         Info=0; \
         return; \
     } \

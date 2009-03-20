@@ -121,15 +121,15 @@ protected :
     bool EOF_AlreadyDetected;
 
     //Data - Helpers
-    void Data_Accept        (const char* ParserName)                            {Accept();}
+    void Data_Accept        (const char*)                                       {Accept();}
     void Data_Accept        ()                                                  {Accept();}
-    void Data_Reject        (const char* ParserName)                            {Reject();}
+    void Data_Reject        (const char*)                                       {Reject();}
     void Data_Reject        ()                                                  {Reject();}
-    void Data_Finish        (const char* ParserName)                            {Finish();}
+    void Data_Finish        (const char*)                                       {Finish();}
     void Data_Finish        ()                                                  {Finish();}
-    void Data_GoTo          (int64u GoTo_, const char* ParserName)              {GoTo(GoTo_);}
+    void Data_GoTo          (int64u GoTo_, const char*)                         {GoTo(GoTo_);}
     void Data_GoTo          (int64u GoTo_)                                      {GoTo(GoTo_);}
-    void Data_GoToFromEnd   (int64u GoToFromEnd_, const char* ParserName)       {GoToFromEnd(GoToFromEnd_);}
+    void Data_GoToFromEnd   (int64u GoToFromEnd_, const char*)                  {GoToFromEnd(GoToFromEnd_);}
     void Data_GoToFromEnd   (int64u GoToFromEnd_)                               {GoToFromEnd(GoToFromEnd_);}
 
     //***************************************************************************
@@ -302,7 +302,7 @@ public :
     inline void Skip_BF4 (               const char*) {Element_Offset+=4;}
     inline void Skip_BF8 (               const char*) {Element_Offset+=8;}
     inline void Skip_B16 (               const char*) {Element_Offset+=16;}
-    inline void Skip_BFP4(size_t Bits,                const char*) {Element_Offset+=4;};
+    inline void Skip_BFP4(size_t,                     const char*) {Element_Offset+=4;};
     #define Info_B1(_INFO, _NAME)   int8u   _INFO; Get_B1 (_INFO, _NAME)
     #define Info_B2(_INFO, _NAME)   int16u  _INFO; Get_B2 (_INFO, _NAME)
     #define Info_B3(_INFO, _NAME)   int32u  _INFO; Get_B3 (_INFO, _NAME)
@@ -507,11 +507,11 @@ public :
     inline void Get_UTF16L (int64u Bytes, Ztring      &Info, const char*) {Get_UTF16L(Bytes, Info);}
     void Peek_Local (int64u Bytes, Ztring      &Info);
     void Peek_String(int64u Bytes, std::string &Info);
-    void Skip_Local (int64u Bytes,                    const char*) {Element_Offset+=(size_t)Bytes;}
-    void Skip_String(int64u Bytes,                    const char*) {Element_Offset+=(size_t)Bytes;}
-    void Skip_UTF8  (int64u Bytes,                    const char*) {Element_Offset+=(size_t)Bytes;}
-    void Skip_UTF16B(int64u Bytes,                    const char*) {Element_Offset+=(size_t)Bytes;}
-    void Skip_UTF16L(int64u Bytes,                    const char*) {Element_Offset+=(size_t)Bytes;}
+    void Skip_Local (int64u Bytes,                    const char*) {if (Element_Offset+Bytes>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=(size_t)Bytes;}
+    void Skip_String(int64u Bytes,                    const char*) {if (Element_Offset+Bytes>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=(size_t)Bytes;}
+    void Skip_UTF8  (int64u Bytes,                    const char*) {if (Element_Offset+Bytes>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=(size_t)Bytes;}
+    void Skip_UTF16B(int64u Bytes,                    const char*) {if (Element_Offset+Bytes>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=(size_t)Bytes;}
+    void Skip_UTF16L(int64u Bytes,                    const char*) {if (Element_Offset+Bytes>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=(size_t)Bytes;}
     #define Info_Local(_BYTES, _INFO, _NAME)  Ztring _INFO; Get_Local (_BYTES, _INFO, _NAME)
     #define Info_UTF8(_BYTES, _INFO, _NAME)   Ztring _INFO; Get_UTF8  (_BYTES, _INFO, _NAME)
     #define Info_UTF16B(_BYTES, _INFO, _NAME) Ztring _INFO; Get_UTF16B(_BYTES, _INFO, _NAME)
@@ -679,7 +679,8 @@ public :
     // Element trusting
     //***************************************************************************
 
-    void Trusted_IsNot (const char* Reason);
+    void Trusted_IsNot (const char*)                                            {Trusted_IsNot();}
+    void Trusted_IsNot ();
 
     //***************************************************************************
     // Stream filling
@@ -744,22 +745,23 @@ public :
     //***************************************************************************
 
     //Actions
-    void Accept        (const char* ParserName)                                 {Accept();}
+    void Accept        (const char*)                                            {Accept();}
     void Accept        ();
-    void Reject        (const char* ParserName)                                 {Reject();}
+    void Reject        (const char*)                                            {Reject();}
     void Reject        ();
-    void Finish        (const char* ParserName)                                 {Finish();}
+    void Finish        (const char*)                                            {Finish();}
     void Finish        ();
-    void GoTo          (int64u GoTo_, const char* ParserName)                   {GoTo(GoTo_);}
+    void GoTo          (int64u GoTo_, const char*)                              {GoTo(GoTo_);}
     void GoTo          (int64u GoTo);
-    void GoToFromEnd   (int64u GoToFromEnd_, const char* ParserName)            {GoToFromEnd(GoToFromEnd_);}
+    void GoToFromEnd   (int64u GoToFromEnd_, const char*)                       {GoToFromEnd(GoToFromEnd_);}
     void GoToFromEnd   (int64u GoToFromEnd);
     int64u Element_Code_Get (size_t Level);
     int64u Element_TotalSize_Get (size_t LevelLess=0);
     bool Element_IsComplete_Get ();
     void Element_ThisIsAList ();
     void Element_WaitForMoreData ();
-    void Element_DoNotTrust (const char* Reason);
+    void Element_DoNotTrust (const char*)                                       {Element_DoNotTrust();}
+    void Element_DoNotTrust ();
     inline void Element_DoNotShow () {}
     inline void Element_Show () {}
     inline bool Element_Show_Get () {return false;}
