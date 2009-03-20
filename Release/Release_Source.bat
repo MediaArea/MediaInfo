@@ -121,6 +121,7 @@ if "%2"=="SkipCompression" goto SkipCompression
 move MediaInfo_Lib_Source MediaInfoLib
 ..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -ttar -mx9 MediaInfo_Lib_Source.tar MediaInfoLib\*
 ..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -tbzip2 -mx9 libmediainfo_.tar.bz2 MediaInfo_Lib_Source.tar
+..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -tgzip -mx9 libmediainfo_-1.tar.gz MediaInfo_Lib_Source.tar
 del MediaInfo_Lib_Source.tar
 move MediaInfoLib MediaInfo_Lib_Source
 :SkipCompression
