@@ -679,7 +679,7 @@ void File_MpegTs::Data_Parse()
     //Parsing
     if (!Complete_Stream->Streams[pid].Searching_Payload_Start
      && !Complete_Stream->Streams[pid].Searching_Payload_Continue
-     && !Complete_Stream->Streams[pid].Searching_TimeStamp_End
+     && !Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start
      && !Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End)
         Skip_XX(Element_Size,                                   "data");
     else
@@ -778,12 +778,12 @@ void File_MpegTs::PES()
     //Parsing
     Open_Buffer_Continue(Complete_Stream->Streams[pid].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
     #if defined(MEDIAINFO_MPEGPS_YES)
-        if (!Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End
-         && ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->HasTimeStamps)
-        {
-            Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(false);
-            //Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End_Set(true);
-        }
+        //if (!Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End
+        // && ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->HasTimeStamps)
+        //{
+        //    Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(false);
+        //    Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End_Set(true);
+        //}
     #endif
 
     //Need anymore?
