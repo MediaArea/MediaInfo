@@ -263,8 +263,8 @@ DistributedBy;發布者
 Donate;贊助
 DotsPerInch;每吋點數 (DPI)
 Duration;時間長度
-Duration_End
-Duration_Start
+Duration_End;結束時間
+Duration_Start;開始時間
 Edit;編輯
 EditedBy;編輯者
 EMail;電子信箱
@@ -274,7 +274,7 @@ Encoded_Library;編碼函式庫
 Encoded_Library_Settings;編碼設定
 Encoded_Original;來源
 EncodedBy;編碼者
-EPG_Positions
+EPG_Positions;EPG 電子節目表位置 (內部)
 Error_File;讀取檔案錯誤
 ExecutiveProducer;監製
 Exit;離開
@@ -740,7 +740,7 @@ MuxingMode;合成模式
 MuxingMode_PackedBitstream;Packed bitstream
 Name;名稱
 Nationality;國籍
-NetworkName
+NetworkName;網路名稱
 New;新增
 Newest version;檢查最新的版本 (需要網路連線)
 No;否
@@ -788,7 +788,7 @@ OpenCandy_36;您當前的安裝無法中斷
 Options;選項
 Options_Hint;偏好設定
 Original;來源
-OriginalNetworkName
+OriginalNetworkName;來源網路名稱
 OriginalSourceForm;來源格式
 OriginalSourceMedium;來源媒介
 Other;其它
@@ -892,7 +892,7 @@ ThanksTo;感謝
 Thousands separator;千位分隔符號
 Title;標題
 Title_More;標題, 詳細資訊
-TimeZone
+TimeZone;時區
 Total;總和
 Track;音軌
 Track_Count;音軌數
@@ -930,5 +930,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
