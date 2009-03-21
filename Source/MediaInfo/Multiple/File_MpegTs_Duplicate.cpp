@@ -91,7 +91,9 @@ void File_MpegTs::Option_Manage()
         if (File__Duplicate_HasChanged())
         {
             Complete_Stream->Streams[0x00].ShouldDuplicate=true;
-            Complete_Stream->Streams[0x00].Searching_Payload_Start_Set(true); //Re-enabling program_map_table
+            Complete_Stream->Streams[0x00].Versions.clear();
+            for (complete_stream::transport_stream::programs::iterator Program=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.begin(); Program!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.end(); Program++)
+                Complete_Stream->Streams[Program->second.pid].Versions.clear();
         }
     }
 }

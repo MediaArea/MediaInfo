@@ -1087,12 +1087,12 @@ void File_Mpeg_Psi::Table_02()
                 #ifndef MEDIAINFO_MINIMIZESIZE
                     Complete_Stream->Streams[xxx_id].Element_Info="PES";
                 #endif //MEDIAINFO_MINIMIZESIZE
-                //Complete_Stream->Streams[xxx_id].ShouldDuplicate=Complete_Stream->File__Duplicate_Get_From_PID(xxx_id);
-                if (Complete_Stream->File__Duplicate_Get_From_PID(xxx_id))
-                    Complete_Stream->Streams[xxx_id].ShouldDuplicate=true;
-                else
-                    Complete_Stream->Streams[xxx_id].ShouldDuplicate=false;
             }
+            //Complete_Stream->Streams[xxx_id].ShouldDuplicate=Complete_Stream->File__Duplicate_Get_From_PID(xxx_id);
+            if (Complete_Stream->File__Duplicate_Get_From_PID(xxx_id))
+                Complete_Stream->Streams[xxx_id].ShouldDuplicate=true;
+            else
+                Complete_Stream->Streams[xxx_id].ShouldDuplicate=false;
         FILLING_END();
 
         //Descriptors
