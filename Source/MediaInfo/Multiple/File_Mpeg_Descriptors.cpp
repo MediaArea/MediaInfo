@@ -1546,7 +1546,9 @@ void File_Mpeg_Descriptors::Descriptor_09()
                         if (Complete_Stream->Streams[CA_PID].Kind!=complete_stream::stream::psi)
                         {
                             Complete_Stream->Streams[CA_PID].Kind=complete_stream::stream::psi;
-                            Complete_Stream->Streams[CA_PID].Searching_Payload_Start_Set(true);
+                            #ifdef MEDIAINFO_MPEGTS_ALLSTREAMS_YES
+                                Complete_Stream->Streams[CA_PID].Searching_Payload_Start_Set(true);
+                            #endif
                         }
                         break;
             case 0x02 : //program_map_section
@@ -1555,7 +1557,9 @@ void File_Mpeg_Descriptors::Descriptor_09()
                             if (Complete_Stream->Streams[CA_PID].Kind!=complete_stream::stream::psi)
                             {
                                 Complete_Stream->Streams[CA_PID].Kind=complete_stream::stream::psi;
-                                Complete_Stream->Streams[CA_PID].Searching_Payload_Start_Set(true);
+                                #ifdef MEDIAINFO_MPEGTS_ALLSTREAMS_YES
+                                    Complete_Stream->Streams[CA_PID].Searching_Payload_Start_Set(true);
+                                #endif
                             }
                         }
                         break;

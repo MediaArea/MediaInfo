@@ -90,10 +90,31 @@ void File_MpegTs::Option_Manage()
         //File__Duplicate configuration
         if (File__Duplicate_HasChanged())
         {
-            Complete_Stream->Streams[0x00].ShouldDuplicate=true;
-            Complete_Stream->Streams[0x00].Versions.clear();
+            for (size_t Pos=0x0000; Pos<0x2000; Pos++)
+                Complete_Stream->Streams[Pos].ShouldDuplicate=false;
+            Complete_Stream->Streams[0x0000].ShouldDuplicate=true;
+
+            //For each program
             for (complete_stream::transport_stream::programs::iterator Program=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.begin(); Program!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs.end(); Program++)
-                Complete_Stream->Streams[Program->second.pid].Versions.clear();
+            {
+                //Do we want this program?
+                bool Wanted=false;
+                for (std::map<const String, File__Duplicate_MpegTs*>::iterator Duplicate=Complete_Stream->Duplicates.begin(); Duplicate!=Complete_Stream->Duplicates.end(); Duplicate++)
+                {
+                    if (Duplicate->second->Wanted_program_numbers.find(Program->first)!=Duplicate->second->Wanted_program_numbers.end())
+                        Wanted=true;
+                    if (Duplicate->second->Wanted_program_map_PIDs.find(Program->second.pid)!=Duplicate->second->Wanted_program_map_PIDs.end())
+                        Wanted=true;
+                }
+
+                //Enabling it if wanted
+                if (Wanted)
+                {
+                    Complete_Stream->Streams[Program->second.pid].ShouldDuplicate=true;
+                    for (size_t Pos=0; Pos<Program->second.elementary_PIDs.size(); Pos++)
+                        Complete_Stream->Streams[Program->second.elementary_PIDs[Pos]].ShouldDuplicate=true;
+                }
+            }
         }
     }
 }
@@ -306,6 +327,7 @@ size_t File_MpegTs::Output_Buffer_Get (size_t Pos)
             return Size;
 
     //Parsing Parsers
+    /*
     for (size_t Stream_Pos=0; Stream_Pos<Complete_Stream->Streams.size(); Stream_Pos++)
         if (Complete_Stream->Streams[Stream_Pos].Parser)
             if (size_t Size=Complete_Stream->Streams[Stream_Pos].Parser->Output_Buffer_Get(Pos))
@@ -317,6 +339,7 @@ size_t File_MpegTs::Output_Buffer_Get (size_t Pos)
 
                 return Size;
             }
+    */
 
     return 0;
 }

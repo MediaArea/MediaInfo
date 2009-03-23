@@ -85,6 +85,9 @@ Ztring Decimal_Hexa(int64u Number)
 // Constructor/Destructor
 //***************************************************************************
 
+//const size_t BDAV_Size=0;
+//const size_t TSP_Size=0;
+//const size_t TS_Size=188;
 //---------------------------------------------------------------------------
 File_MpegTs::File_MpegTs()
 :File__Duplicate()
@@ -126,7 +129,13 @@ bool File_MpegTs::Synchronize()
         && Buffer[Buffer_Offset+188*5+BDAV_Size*6+TSP_Size*5]==0x47
         && Buffer[Buffer_Offset+188*6+BDAV_Size*7+TSP_Size*6]==0x47
         && Buffer[Buffer_Offset+188*7+BDAV_Size*8+TSP_Size*7]==0x47))
+    {
         Buffer_Offset++;
+        while (       Buffer_Offset+BDAV_Size+1<=Buffer_Size
+            && Buffer[Buffer_Offset+BDAV_Size]!=0x47)
+            Buffer_Offset++;
+    }
+
     if (Buffer_Offset+188*7+BDAV_Size*8+TSP_Size*7>=Buffer_Size)
         return false;
 
@@ -137,37 +146,175 @@ bool File_MpegTs::Synchronize()
 //---------------------------------------------------------------------------
 bool File_MpegTs::Synched_Test()
 {
-    //Must have enough buffer for having header
-    if (Buffer_Offset+BDAV_Size+TSP_Size+4>Buffer_Size)
-        return false;
-
-    //Quick test of synchro
-    if (Buffer[Buffer_Offset+BDAV_Size]!=0x47)
+    while (Buffer_Offset+TS_Size<=Buffer_Size)
     {
-         Synched=false;
-         if (File__Duplicate_Get())
-             Trusted++; //We don't want to stop parsing if duplication is requested, TS is not a lot stable, normal...
-     }
+        //Synchro testing
+        if (Buffer[Buffer_Offset+BDAV_Size]!=0x47)
+        {
+             Synched=false;
+             if (File__Duplicate_Get())
+                 Trusted++; //We don't want to stop parsing if duplication is requested, TS is not a lot stable, normal...
+             return false;
+        }
 
-    //Quick search
-    if (Synched && !Header_Parser_QuickSearch())
-        return false;
+        //Getting PID
+        pid=(Buffer[Buffer_Offset+BDAV_Size+1]&0x1F)<<8
+          |  Buffer[Buffer_Offset+BDAV_Size+2];
 
-    //We continue
-    return true;
+        complete_stream::streams::iterator Stream=Complete_Stream->Streams.begin()+pid;
+        if (Stream->Searching)
+        {
+            payload_unit_start_indicator=Buffer[Buffer_Offset+BDAV_Size+1]&0x40;
+            if (payload_unit_start_indicator)
+            {
+                //Searching start
+                if (Stream->Searching_Payload_Start) //payload_unit_start_indicator
+                {
+                    if (Stream->Kind==complete_stream::stream::psi)
+                    {
+                        //Searching table_id
+                        size_t Version_Pos=BDAV_Size
+                                          +4 //standart header
+                                          +((Buffer[Buffer_Offset+BDAV_Size+3]&0x20)?(1+Buffer[Buffer_Offset+BDAV_Size+4]):0); //adaptation_field_control (adaptation) --> adaptation_field_length
+                        Version_Pos+=1+Buffer[Buffer_Offset+Version_Pos]; //pointer_field
+                        int8u table_id=Buffer[Buffer_Offset+Version_Pos]; //table_id
+                        if (table_id==0xCD) //specifc case for ATSC STT
+                            return true; //Version has no meaning
+                        complete_stream::stream::table_ids::iterator Table_ID=Stream->Table_IDs.begin()+table_id;
+                        if (*Table_ID)
+                        {
+                            //Searching table_id_extension, version_number, section_number
+                            #ifndef MEDIAINFO_MINIMIZESIZE
+                                Stream->Element_Info=Mpeg_Psi_table_id(table_id);
+                            #endif //MEDIAINFO_MINIMIZESIZE
+                            if (!(Buffer[Buffer_Offset+Version_Pos+1]&0x80)) //section_syntax_indicator
+                                return true; //No version
+                            Version_Pos+=3; //Header size
+                            if (Version_Pos+5>=BDAV_Size+188)
+                                return true; //Not able to detect version (too far)
+                            int16u table_id_extension=(Buffer[Buffer_Offset+Version_Pos]<<8)|Buffer[Buffer_Offset+Version_Pos+1];
+                            int8u  version_number=(Buffer[Buffer_Offset+Version_Pos+2]&0x3F)>>1;
+                            int8u  section_number=Buffer[Buffer_Offset+Version_Pos+3];
+                            complete_stream::stream::table_id::table_id_extensions::iterator Table_ID_Extension=(*Table_ID)->Table_ID_Extensions.find(table_id_extension);
+                            if (Table_ID_Extension==(*Table_ID)->Table_ID_Extensions.end())
+                            {
+                                if ((*Table_ID)->Table_ID_Extensions_CanAdd)
+                                {
+                                    (*Table_ID)->Table_ID_Extensions[table_id_extension].version_number=version_number;
+                                    (*Table_ID)->Table_ID_Extensions[table_id_extension].Section_Numbers.resize(0x100);
+                                    (*Table_ID)->Table_ID_Extensions[table_id_extension].Section_Numbers[section_number]=true;
+                                    return true; //table_id_extension is not yet parsed
+                                }
+                            }
+                            else if (Table_ID_Extension->second.version_number!=version_number)
+                            {
+                                Table_ID_Extension->second.version_number=version_number;
+                                Table_ID_Extension->second.Section_Numbers.clear();
+                                Table_ID_Extension->second.Section_Numbers.resize(0x100);
+                                Table_ID_Extension->second.Section_Numbers[section_number]=true;
+                                return true; //tversion is different
+                            }
+                            else if (!Table_ID_Extension->second.Section_Numbers[section_number])
+                            {
+                                Table_ID_Extension->second.Section_Numbers[section_number]=true;
+                                return true; //section is not yet parsed
+                            }
+                        }
+                    }
+                    else
+                        return true; //No version in this pid
+                }
+                else
+                {
+                    //Adaptation layer
+                    if (Stream->Searching_TimeStamp_Start
+                     || Stream->Searching_TimeStamp_End)
+                    {
+                        if ((Buffer[Buffer_Offset+BDAV_Size+3]&0x20)==0x20) //Adaptation is present
+                        {
+                            int8u pid_Adaptation_Info=Buffer[Buffer_Offset+BDAV_Size+5];
+                            if (pid_Adaptation_Info&0x10) //PCR is present
+                            {
+                                int64u program_clock_reference_base=(  (((int64u)Buffer[Buffer_Offset+BDAV_Size+6])<<25)
+                                                                     | (((int64u)Buffer[Buffer_Offset+BDAV_Size+7])<<17)
+                                                                     | (((int64u)Buffer[Buffer_Offset+BDAV_Size+8])<< 9)
+                                                                     | (((int64u)Buffer[Buffer_Offset+BDAV_Size+9])<< 1)
+                                                                     | (((int64u)Buffer[Buffer_Offset+BDAV_Size+10])>>7));
+                                if (Complete_Stream->Streams[pid].Searching_TimeStamp_End)
+                                    Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference_base;
+                                if (Complete_Stream->Streams[pid].Searching_TimeStamp_Start)
+                                {
+                                    //This is the first PCR
+                                    Complete_Stream->Streams[pid].TimeStamp_Start=program_clock_reference_base;
+                                    Complete_Stream->Streams[pid].Searching_TimeStamp_Start_Set(false);
+                                    Complete_Stream->Streams[pid].Searching_TimeStamp_End_Set(true);
+                                    Complete_Stream->Streams_With_StartTimeStampCount++;
+                                }
+
+                                //Test if we can find the TS bitrate
+                                if (!Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[pid].TimeStamp_Start!=(int64u)-1)
+                                {
+                                    if (program_clock_reference_base<Complete_Stream->Streams[pid].TimeStamp_Start)
+                                        program_clock_reference_base+=0x200000000LL; //33 bits, cyclic
+                                    if ((program_clock_reference_base-Complete_Stream->Streams[pid].TimeStamp_Start)/90>8000)
+                                    {
+                                        Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds=true;
+                                        Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount++;
+                                        if (Complete_Stream->Streams_With_StartTimeStampCount>0
+                                         && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
+                                        {
+                                            //We are already parsing 4 seconds (for all PCRs), we don't hope to have more info
+                                            MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
+                                            MpegTs_JumpTo_End=MpegTs_JumpTo_Begin/2;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    //Searching continue and parser timestamp
+                    if (Stream->Searching_ParserTimeStamp_Start
+                     || Stream->Searching_ParserTimeStamp_End)
+                        return true;
+                }
+            }
+            else
+                //Searching continue and parser timestamp
+                if (Stream->Searching_Payload_Continue
+                 || Stream->Searching_ParserTimeStamp_Start
+                 || Stream->Searching_ParserTimeStamp_End)
+                    return true;
+        }
+
+        //File__Duplicate
+        if (Stream->ShouldDuplicate)
+        {
+            Element_Size=TS_Size;
+            File__Duplicate_Write(pid);
+        }
+
+        Buffer_Offset+=TS_Size;
+    }
+
+    return false; //Not enough data
 }
 
 //---------------------------------------------------------------------------
 void File_MpegTs::Synched_Init()
 {
+    //Config->File_Filter_Set(462);
     //Default values
     Complete_Stream=new complete_stream;
     Complete_Stream->Streams.resize(0x2000);
+    Complete_Stream->Streams[0x0000].Searching_Payload_Start_Set(true);
     Complete_Stream->Streams[0x0000].Kind=complete_stream::stream::psi;
+    Complete_Stream->Streams[0x0000].Table_IDs.resize(0x100);
+    Complete_Stream->Streams[0x0000].Table_IDs[0x00]=new complete_stream::stream::table_id; //program_association_section
+    Complete_Stream->Streams[0x0001].Searching_Payload_Start_Set(true);
     Complete_Stream->Streams[0x0001].Kind=complete_stream::stream::psi;
-    Complete_Stream->Streams[0x0002].Kind=complete_stream::stream::psi;
-    for (int32u Pos=0x00; Pos<0x10; Pos++)
-        Complete_Stream->Streams[Pos].Searching_Payload_Start_Set(true);
+    Complete_Stream->Streams[0x0001].Table_IDs.resize(0x100);
+    Complete_Stream->Streams[0x0001].Table_IDs[0x01]=new complete_stream::stream::table_id; //conditional_access_section
 
     //Temp
     MpegTs_JumpTo_Begin=(File_Offset_FirstSynched==(int64u)-1?0:File_Offset_FirstSynched)+MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
@@ -523,6 +670,7 @@ bool File_MpegTs::FileHeader_Begin()
 
 //---------------------------------------------------------------------------
 void File_MpegTs::Header_Parse()
+#ifndef MEDIAINFO_MINIMIZESIZE
 {
     //Parsing
     int8u transport_scrambling_control;
@@ -541,21 +689,19 @@ void File_MpegTs::Header_Parse()
     Skip_S1( 4,                                                 "continuity_counter");
     BS_End();
 
-    #ifndef MEDIAINFO_MINIMIZESIZE
-        //Info
-        if (!Complete_Stream->Streams[pid].program_numbers.empty())
-        {
-            Ztring Program_Numbers;
-            for (size_t Pos=0; Pos<Complete_Stream->Streams[pid].program_numbers.size(); Pos++)
-                Program_Numbers+=Ztring::ToZtring_From_CC2(Complete_Stream->Streams[pid].program_numbers[Pos])+_T('/');
-            if (!Program_Numbers.empty())
-                Program_Numbers.resize(Program_Numbers.size()-1);
-            Data_Info(Program_Numbers);
-        }
-        else
-            Data_Info("    ");
-        Data_Info(Complete_Stream->Streams[pid].Element_Info);
-    #endif //MEDIAINFO_MINIMIZESIZE
+    //Info
+    if (!Complete_Stream->Streams[pid].program_numbers.empty())
+    {
+        Ztring Program_Numbers;
+        for (size_t Pos=0; Pos<Complete_Stream->Streams[pid].program_numbers.size(); Pos++)
+            Program_Numbers+=Ztring::ToZtring_From_CC2(Complete_Stream->Streams[pid].program_numbers[Pos])+_T('/');
+        if (!Program_Numbers.empty())
+            Program_Numbers.resize(Program_Numbers.size()-1);
+        Data_Info(Program_Numbers);
+    }
+    else
+        Data_Info("    ");
+    //Data_Info(Complete_Stream->Streams[pid].Element_Info);
 
     //Adaptation
     if (Adaptation)
@@ -575,9 +721,36 @@ void File_MpegTs::Header_Parse()
     Header_Fill_Code(pid, Ztring().From_CC2(pid));
     Header_Fill_Size(TS_Size);
 }
+#else //MEDIAINFO_MINIMIZESIZE
+{
+    //Parsing
+           payload_unit_start_indicator=Buffer[Buffer_Offset+BDAV_Size+1]&0x40;
+    int8u  transport_scrambling_control=Buffer[Buffer_Offset+BDAV_Size+3]&0xC0;
+    bool   Adaptation=                  Buffer[Buffer_Offset+BDAV_Size+3]&0x20;
+    bool   Data=                        Buffer[Buffer_Offset+BDAV_Size+3]&0x10;
+    Element_Offset+=BDAV_Size+4;
+
+    //Adaptation
+    if (Adaptation)
+        Header_Parse_AdaptationField();
+
+    //Data
+    if (Data)
+    {
+        //Encryption
+        if (transport_scrambling_control>0)
+            Complete_Stream->Streams[pid].IsScrambled=true;
+    }
+
+    //Filling
+    Element[1].Next=File_Offset+Buffer_Offset+TS_Size;  //Header_Fill_Size(TS_Size);
+    Element[1].IsComplete=true;                         //Header_Fill_Size(TS_Size);
+}
+#endif //MEDIAINFO_MINIMIZESIZE
 
 //---------------------------------------------------------------------------
 void File_MpegTs::Header_Parse_AdaptationField()
+#ifndef MEDIAINFO_MINIMIZESIZE
 {
     int64u Element_Pos_Save=Element_Offset;
     Element_Begin("adaptation_field");
@@ -664,6 +837,53 @@ void File_MpegTs::Header_Parse_AdaptationField()
         Skip_XX(Element_Pos_Save+1+Adaptation_Size-Element_Offset, "stuffing_bytes");
     Element_End(1+Adaptation_Size);
 }
+#else //MEDIAINFO_MINIMIZESIZE
+{
+    int8u Adaptation_Size=Buffer[Buffer_Offset+BDAV_Size+4];
+    if (Adaptation_Size)
+    {
+        bool PCR_flag=Buffer[Buffer_Offset+BDAV_Size+5]&0x10;
+        if (PCR_flag)
+        {
+            int64u program_clock_reference_base=(  (((int64u)Buffer[Buffer_Offset+BDAV_Size+6])<<25)
+                                                 | (((int64u)Buffer[Buffer_Offset+BDAV_Size+7])<<17)
+                                                 | (((int64u)Buffer[Buffer_Offset+BDAV_Size+8])<< 9)
+                                                 | (((int64u)Buffer[Buffer_Offset+BDAV_Size+9])<< 1)
+                                                 | (((int64u)Buffer[Buffer_Offset+BDAV_Size+10])>>7));
+            if (Complete_Stream->Streams[pid].Searching_TimeStamp_End)
+                Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference_base;
+            if (Complete_Stream->Streams[pid].Searching_TimeStamp_Start)
+            {
+                //This is the first PCR
+                Complete_Stream->Streams[pid].TimeStamp_Start=program_clock_reference_base;
+                Complete_Stream->Streams[pid].Searching_TimeStamp_Start_Set(false);
+                Complete_Stream->Streams[pid].Searching_TimeStamp_End_Set(true);
+                Complete_Stream->Streams_With_StartTimeStampCount++;
+            }
+
+            //Test if we can find the TS bitrate
+            if (!Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[pid].TimeStamp_Start!=(int64u)-1)
+            {
+                if (program_clock_reference_base<Complete_Stream->Streams[pid].TimeStamp_Start)
+                    program_clock_reference_base+=0x200000000LL; //33 bits, cyclic
+                if ((program_clock_reference_base-Complete_Stream->Streams[pid].TimeStamp_Start)/90>8000)
+                {
+                    Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds=true;
+                    Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount++;
+                    if (Complete_Stream->Streams_With_StartTimeStampCount>0
+                     && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
+                    {
+                        //We are already parsing 4 seconds (for all PCRs), we don't hope to have more info
+                        MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
+                        MpegTs_JumpTo_End=MpegTs_JumpTo_Begin/2;
+                    }
+                }
+            }
+        }
+    }
+    Element_Offset+=1+Adaptation_Size;
+}
+#endif //MEDIAINFO_MINIMIZESIZE
 
 //---------------------------------------------------------------------------
 void File_MpegTs::Data_Parse()
@@ -837,118 +1057,6 @@ void File_MpegTs::PSI()
 //***************************************************************************
 // Helpers
 //***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_MpegTs::Header_Parser_QuickSearch()
-{
-    while (Buffer_Offset+TS_Size<=Buffer_Size)
-    {
-        if (Buffer[Buffer_Offset+BDAV_Size]!=0x47)
-            break;
-
-        //Getting PID
-        int16u PID=CC2(Buffer+Buffer_Offset+BDAV_Size+1)&0x1FFF;
-
-        if (Complete_Stream->Streams[PID].Searching)
-        {
-            //Searching continue and parser timestamp
-            if (Complete_Stream->Streams[PID].Searching_Payload_Continue
-             || Complete_Stream->Streams[PID].Searching_ParserTimeStamp_Start
-             || Complete_Stream->Streams[PID].Searching_ParserTimeStamp_End)
-                return true;
-
-            //Searching start
-            if (Complete_Stream->Streams[PID].Searching_Payload_Start)
-            {
-                if (Buffer[Buffer_Offset+BDAV_Size+1]&0x40) //payload_unit_start_indicator
-                {
-                    if (Complete_Stream->Streams[PID].Kind==complete_stream::stream::psi)
-                    {
-                        //Searching version
-                        size_t Version_Pos=BDAV_Size+4;
-                        if (Buffer[Buffer_Offset+BDAV_Size+3]&0x20) //adaptation_field_control (adaptation)
-                            Version_Pos+=1+Buffer[Buffer_Offset+Version_Pos]; //adaptation_field_length
-                        Version_Pos+=Buffer[Buffer_Offset+Version_Pos]; //pointer_field
-                        int8u table_id=Buffer[Buffer_Offset+Version_Pos+1]; //table_id
-                        #ifndef MEDIAINFO_MINIMIZESIZE
-                            Complete_Stream->Streams[PID].Element_Info=Mpeg_Psi_table_id(table_id);
-                        #endif //MEDIAINFO_MINIMIZESIZE
-                        if (!(Buffer[Buffer_Offset+Version_Pos+2]&0x80)) //section_syntax_indicator
-                            return true; //No version
-                        Version_Pos+=4; //Header size
-                        if (Version_Pos<BDAV_Size+188)
-                        {
-                            int16u table_id_extension=(Buffer[Buffer_Offset+Version_Pos]<<8)|Buffer[Buffer_Offset+Version_Pos+1];
-                            int8u  version_number=(Buffer[Buffer_Offset+Version_Pos+2]&0x3F)>>1;
-                            int8u  section_number=Buffer[Buffer_Offset+Version_Pos+3];
-                            if (table_id==0xCD && table_id_extension==0x0000 && version_number==0x00) //specifc case for ATSC STT
-                                return true; //Version has no meaning
-                            std::map<int8u, std::map<int16u, complete_stream::stream::version> >::iterator Table_ID=Complete_Stream->Streams[PID].Versions.find(table_id);
-                            if (Table_ID!=Complete_Stream->Streams[PID].Versions.end())
-                            {
-                                std::map<int16u, complete_stream::stream::version>::iterator Version=Table_ID->second.find(table_id_extension);
-                                if (Version==Table_ID->second.end() || Version->second.version_number!=version_number)
-                                {
-                                    Table_ID->second[table_id_extension].version_number=version_number;
-                                    Table_ID->second[table_id_extension].section_numbers.clear();
-                                    Table_ID->second[table_id_extension].section_numbers[section_number]=true;
-                                    return true; //Version is different
-                                }
-                                else
-                                {
-                                    std::map<int8u, bool>::iterator Section_Number=Version->second.section_numbers.find(section_number);
-                                    if (Section_Number==Version->second.section_numbers.end())
-                                    {
-                                        Version->second.section_numbers[section_number]=true;
-                                        return true; //section is not yet parsed
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                Complete_Stream->Streams[PID].Versions[table_id][table_id_extension].version_number=version_number;
-                                Complete_Stream->Streams[PID].Versions[table_id][table_id_extension].section_numbers[section_number]=true;
-                                return true; //This table_id was never seen
-                            }
-                        }
-                        else
-                            return true; //Not able to detect version (too far)
-                    }
-                    else
-                        return true; //No version in this PID
-                }
-            }
-
-            //Adaptation layer
-            if (Complete_Stream->Streams[PID].Searching_TimeStamp_Start
-             || Complete_Stream->Streams[PID].Searching_TimeStamp_End)
-            {
-                if ((Buffer[Buffer_Offset+BDAV_Size+3]&0x20)==0x20) //Adaptation is present
-                {
-                    int8u PID_Adaptation_Info=Buffer[Buffer_Offset+BDAV_Size+5];
-                    if (PID_Adaptation_Info&0x10) //PCR is present
-                        return true;
-                }
-            }
-        }
-
-        //File__Duplicate
-        if (Complete_Stream->Streams[PID].ShouldDuplicate)
-        {
-            Element_Size=TS_Size;
-            File__Duplicate_Write(PID);
-        }
-
-        Buffer_Offset+=TS_Size;
-    }
-
-    if (Buffer_Offset==Buffer_Size)
-        return false;
-    if (Buffer_Offset+TS_Size<=Buffer_Size)
-        Trusted_IsNot("MPEG-TS, Synchronisation lost");
-    Synched=false;
-    return Synchronize();
-}
 
 //---------------------------------------------------------------------------
 void File_MpegTs::Detect_EOF()

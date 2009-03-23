@@ -916,6 +916,7 @@ private :
     //Elements
     size_t Element_Level_Base;      //From other parsers
 
+public : //For very quick access, to not use except if you know what you do
     struct element_details
     {
         int64u  Code;               //Code filled in the file
@@ -926,6 +927,8 @@ private :
         bool    InLoop;             //This element is in a parsing loop
     };
     std::vector<element_details> Element;
+
+private :
 
     //NextCode
     std::map<int64u, bool> NextCode;

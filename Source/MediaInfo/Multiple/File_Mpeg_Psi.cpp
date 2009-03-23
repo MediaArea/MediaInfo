@@ -966,11 +966,6 @@ void File_Mpeg_Psi::program_stream_map()
 //---------------------------------------------------------------------------
 void File_Mpeg_Psi::Table_00()
 {
-    if (pid)
-    {
-        Reject("PSI");
-        return;
-    }
     FILLING_BEGIN();
         Complete_Stream->transport_stream_id=table_id_extension;
         Complete_Stream->transport_stream_id_IsValid=true;
@@ -995,22 +990,38 @@ void File_Mpeg_Psi::Table_00()
         FILLING_BEGIN();
             if (Config->File_Filter_Get(program_number))
             {
+                //Setting the PID as program_map_section
+                if (Complete_Stream->Streams[xxx_id].Kind!=complete_stream::stream::psi)
+                {
+                    Complete_Stream->Streams[xxx_id].Searching_Payload_Start_Set(true);
+                    Complete_Stream->Streams[xxx_id].Kind=complete_stream::stream::psi;
+                    Complete_Stream->Streams[xxx_id].Table_IDs.resize(0x100);
+                    Complete_Stream->Streams[xxx_id].Table_IDs[0x02]=new complete_stream::stream::table_id; //program_map_section
+                }
+                if (Complete_Stream->File__Duplicate_Get_From_PID(xxx_id))
+                    Complete_Stream->Streams[xxx_id].ShouldDuplicate=true;
+
+                //Handling a program
                 if (program_number)
                 {
                     Complete_Stream->Transport_Streams[table_id_extension].Programs_NotParsedCount++;
                     Complete_Stream->Transport_Streams[table_id_extension].Programs[program_number].pid=xxx_id;
                     Complete_Stream->Streams[xxx_id].program_numbers.push_back(program_number);
+                    if (Complete_Stream->Streams[xxx_id].Table_IDs[0x02]->Table_ID_Extensions.find(program_number)==Complete_Stream->Streams[xxx_id].Table_IDs[0x02]->Table_ID_Extensions.end())
+                    {
+                        Complete_Stream->Streams[xxx_id].Table_IDs[0x02]->Table_ID_Extensions_CanAdd=false;
+                        Complete_Stream->Streams[xxx_id].Table_IDs[0x02]->Table_ID_Extensions[program_number].version_number=0xFF;
+                        Complete_Stream->Streams[xxx_id].Table_IDs[0x02]->Table_ID_Extensions[program_number].Section_Numbers.clear();
+                        Complete_Stream->Streams[xxx_id].Table_IDs[0x02]->Table_ID_Extensions[program_number].Section_Numbers.resize(0x100);
+                    }
                 }
-                if (Complete_Stream->Streams[xxx_id].Kind!=complete_stream::stream::psi)
+
+                //Handling a network
+                else if (Complete_Stream->Streams[xxx_id].Table_IDs[0x00]==NULL)
                 {
-                    Complete_Stream->Streams[xxx_id].Kind=complete_stream::stream::psi;
-                    Complete_Stream->Streams[xxx_id].Searching_Payload_Start_Set(true);
+                    for (size_t Table_ID=0; Table_ID<0x100; Table_ID++)
+                        Complete_Stream->Streams[xxx_id].Table_IDs[Table_ID]=new complete_stream::stream::table_id; //all
                 }
-                //Complete_Stream->Streams[xxx_id].ShouldDuplicate=Complete_Stream->File__Duplicate_Get_From_PID(xxx_id);
-                if (Complete_Stream->File__Duplicate_Get_From_PID(xxx_id))
-                    Complete_Stream->Streams[xxx_id].ShouldDuplicate=true;
-                else
-                    Complete_Stream->Streams[xxx_id].ShouldDuplicate=false;
             }
         FILLING_END();
     }
@@ -1087,12 +1098,9 @@ void File_Mpeg_Psi::Table_02()
                 #ifndef MEDIAINFO_MINIMIZESIZE
                     Complete_Stream->Streams[xxx_id].Element_Info="PES";
                 #endif //MEDIAINFO_MINIMIZESIZE
+                if (Complete_Stream->File__Duplicate_Get_From_PID(xxx_id))
+                        Complete_Stream->Streams[xxx_id].ShouldDuplicate=true;
             }
-            //Complete_Stream->Streams[xxx_id].ShouldDuplicate=Complete_Stream->File__Duplicate_Get_From_PID(xxx_id);
-            if (Complete_Stream->File__Duplicate_Get_From_PID(xxx_id))
-                Complete_Stream->Streams[xxx_id].ShouldDuplicate=true;
-            else
-                Complete_Stream->Streams[xxx_id].ShouldDuplicate=false;
         FILLING_END();
 
         //Descriptors
@@ -1121,23 +1129,61 @@ void File_Mpeg_Psi::Table_02()
         if (!Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs_NotParsedCount)
         {
             //We know what is each PID, so we can try known values
-            for (size_t Pos=0x10; Pos<0x1FFF; Pos++) //Wanting 0x10-->0x2F (DVB), 0x1ABC (cea_osd), 0x1FF7-->0x1FFF (ATSC)
-            {
-                if (Complete_Stream->Streams[Pos].Kind==complete_stream::stream::unknown)
-                {
-                    Complete_Stream->Streams[Pos].Kind=complete_stream::stream::psi;
-                    Complete_Stream->Streams[Pos].Searching_Payload_Start_Set(true);
-                }
+            #ifdef MEDIAINFO_MPEGTS_ALLSTREAMS_YES
+                for (size_t PID=0x10; PID<0x1FFF; PID++) //Wanting 0x10-->0x2F (DVB), 0x1ABC (cea_osd), 0x1FF7-->0x1FFF (ATSC)
+                    for (size_t Table_ID=0x00; Table_ID<0xFF; Table_ID++)
+                    {
+                        Complete_Stream->Streams[PID].Searching_Payload_Start_Set(true);
+                        Complete_Stream->Streams[PID].Kind=complete_stream::stream::psi;
+                        Complete_Stream->Streams[PID].Table_IDs.resize(0x100);
+                        Complete_Stream->Streams[PID].Table_IDs[Table_ID]=new complete_stream::stream::table_id; //event_information_section - actual_transport_stream, schedule
 
-                if (Pos==0x0014)
-                    Pos=0x0015; //Skipping DVB not used
-                if (Pos==0x001B)
-                    Pos=0x001D; //Skipping DVB not used
-                if (Pos==0x002F)
-                    Pos=0x1ABB; //Skipping normal data
-                if (Pos==0x01ABC)
-                    Pos=0x1FF6; //Skipping normal data
-            }
+                        if (Pos==0x001F)
+                            Pos=0x1ABB; //Skipping normal data
+                        if (Pos==0x01ABC)
+                            Pos=0x1FF6; //Skipping normal data
+                    }
+            else //MEDIAINFO_MPEGTS_ALLSTREAMS_YES
+                if (Complete_Stream->Streams[0x0010].Kind==complete_stream::stream::unknown)
+                {
+                    Complete_Stream->Streams[0x0010].Searching_Payload_Start_Set(true);
+                    Complete_Stream->Streams[0x0010].Kind=complete_stream::stream::psi;
+                    Complete_Stream->Streams[0x0010].Table_IDs.resize(0x100);
+                    Complete_Stream->Streams[0x0010].Table_IDs[0x40]=new complete_stream::stream::table_id; //network_information_section - actual_network
+                }
+                if (Complete_Stream->Streams[0x0011].Kind==complete_stream::stream::unknown)
+                {
+                    Complete_Stream->Streams[0x0011].Searching_Payload_Start_Set(true);
+                    Complete_Stream->Streams[0x0011].Kind=complete_stream::stream::psi;
+                    Complete_Stream->Streams[0x0011].Table_IDs.resize(0x100);
+                    Complete_Stream->Streams[0x0011].Table_IDs[0x42]=new complete_stream::stream::table_id; //service_description_section - actual_transport_stream
+                }
+                if (Complete_Stream->Streams[0x0012].Kind==complete_stream::stream::unknown)
+                {
+                    Complete_Stream->Streams[0x0012].Searching_Payload_Start_Set(true);
+                    Complete_Stream->Streams[0x0012].Kind=complete_stream::stream::psi;
+                    Complete_Stream->Streams[0x0012].Table_IDs.resize(0x100);
+                    Complete_Stream->Streams[0x0012].Table_IDs[0x4E]=new complete_stream::stream::table_id; //event_information_section - actual_transport_stream, present/following
+                    for (size_t Table_ID=0x50; Table_ID<0x60; Table_ID++)
+                        Complete_Stream->Streams[0x0012].Table_IDs[Table_ID]=new complete_stream::stream::table_id; //event_information_section - actual_transport_stream, schedule
+                }
+                if (Complete_Stream->Streams[0x0014].Kind==complete_stream::stream::unknown)
+                {
+                    Complete_Stream->Streams[0x0014].Searching_Payload_Start_Set(true);
+                    Complete_Stream->Streams[0x0014].Kind=complete_stream::stream::psi;
+                    Complete_Stream->Streams[0x0014].Table_IDs.resize(0x100);
+                    Complete_Stream->Streams[0x0014].Table_IDs[0x70]=new complete_stream::stream::table_id; //time_date_section
+                    Complete_Stream->Streams[0x0014].Table_IDs[0x73]=new complete_stream::stream::table_id; //time_offset_section
+                }
+                if (Complete_Stream->Streams[0x1FFB].Kind==complete_stream::stream::unknown)
+                {
+                    Complete_Stream->Streams[0x1FFB].Searching_Payload_Start_Set(true);
+                    Complete_Stream->Streams[0x1FFB].Kind=complete_stream::stream::psi;
+                    Complete_Stream->Streams[0x1FFB].Table_IDs.resize(0x100);
+                    Complete_Stream->Streams[0x1FFB].Table_IDs[0xC7]=new complete_stream::stream::table_id; //Master Guide Table
+                    Complete_Stream->Streams[0x1FFB].Table_IDs[0xCD]=new complete_stream::stream::table_id; //System Time Table
+                }
+            #endif //MEDIAINFO_MPEGTS_ALLSTREAMS_YES
         }
     FILLING_END();
 }
@@ -1418,11 +1464,41 @@ void File_Mpeg_Psi::Table_C7()
         Element_End(Ztring::ToZtring_From_CC2(table_type_PID), 11+Descriptors_Size);
 
         FILLING_BEGIN();
-            if (table_type!=0x0001 && table_type!=0x0003) //Not activing current_next_indicator='0'
+            if (Complete_Stream->Streams[table_type_PID].Kind==complete_stream::stream::unknown && table_type!=0x0001 && table_type!=0x0003) //Not activing current_next_indicator='0'
             {
-                Complete_Stream->Streams[table_type_PID].Kind=complete_stream::stream::psi;
                 Complete_Stream->Streams[table_type_PID].Searching_Payload_Start_Set(true);
+                Complete_Stream->Streams[table_type_PID].Kind=complete_stream::stream::psi;
+                Complete_Stream->Streams[table_type_PID].Table_IDs.resize(0x100);
             }
+            #ifdef MEDIAINFO_MPEGTS_ALLSTREAMS_YES
+                for (int8u table_id=0x00; table_id<0xFF; table_id++)
+                    if (Complete_Stream->Streams[table_type_PID].Table_IDs[table_id]==NULL)
+                        Complete_Stream->Streams[table_type_PID].Table_IDs[table_id]=new complete_stream::stream::table_id; //Master Guide Table
+            #else //MEDIAINFO_MPEGTS_ALLSTREAMS_YES
+                int8u table_id;
+                     if (table_type==0x0000) //Terrestrial VCT with current_next_indicator=1
+                    table_id=0xC8;
+                else if (table_type==0x0002) //Cable VCT with current_next_indicator=1
+                    table_id=0xC9;
+                else if (table_type==0x0004) //Channel ETT
+                    table_id=0xCC;
+                else if (table_type>=0x0100 && table_type<=0x017F) //EIT-0 to EIT-127
+                    table_id=0xCB;
+                else if (table_type>=0x0200 && table_type<=0x027F) //Event ETT-0 to event ETT-127
+                    table_id=0xCC;
+                else if (table_type>=0x0301 && table_type<=0x03FF) //RRT with rating_region 1-255
+                    table_id=0xCA;
+                else if (table_type>=0x1000 && table_type<0x10FF) //Aggregate Event Information Table
+                    table_id=0xD6;
+                else if (table_type>=0x1100 && table_type<0x11FF) //Aggregate Extended Text Table
+                    table_id=0xD7;
+                else if (table_type>=0x1600 && table_type<0x16FF) //Satellite Virtual Channel Table
+                    table_id=0xDA;
+                else
+                    table_id=0xFF;
+                if (table_id!=0xFF && Complete_Stream->Streams[table_type_PID].Table_IDs[table_id]==NULL)
+                    Complete_Stream->Streams[table_type_PID].Table_IDs[table_id]=new complete_stream::stream::table_id; //Master Guide Table
+            #endif //MEDIAINFO_MPEGTS_ALLSTREAMS_YES
             Complete_Stream->Streams[table_type_PID].table_type=table_type-((table_type&0x200)?0x100:0); //For having the same table_type for both EIT and ETT
         FILLING_END();
     }

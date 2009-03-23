@@ -154,12 +154,25 @@ struct complete_stream
             psi,
         };
         std::vector<int16u>                         program_numbers;
-        struct version
+        struct table_id
         {
-            int8u version_number;
-            std::map<int8u, bool> section_numbers; //Key is section_number, true when parsed
+            struct table_id_extension
+            {
+                typedef std::vector<bool>           section_numbers; //Key is section_number
+                section_numbers                     Section_Numbers; //Key is section_number
+                int8u version_number;
+            };
+            typedef std::map<int16u, table_id_extension> table_id_extensions; //Key is table_id_extensions
+            table_id_extensions                     Table_ID_Extensions; //Key is table_id_extensions
+            bool                                    Table_ID_Extensions_CanAdd;
+
+            table_id()
+            {
+                Table_ID_Extensions_CanAdd=true;
+            }
         };
-        std::map<int8u, std::map<int16u, version> > Versions; //Key are table_id and table_id_extension
+        typedef std::vector<table_id*>              table_ids;
+        table_ids                                   Table_IDs; //Key is table_id
         std::map<std::string, Ztring>               Infos;
         #ifndef MEDIAINFO_MINIMIZESIZE
             Ztring Element_Info;
@@ -216,6 +229,8 @@ struct complete_stream
         ~stream()
         {
             delete Parser; //Parser=NULL;
+            for (size_t Pos=0; Pos<Table_IDs.size(); Pos++)
+                delete Table_IDs[Pos]; //Table_IDs[Pos]=NULL;
         }
 
         //Helpers
@@ -259,7 +274,8 @@ struct complete_stream
                     | Searching_ParserTimeStamp_End;
         }
     };
-    std::vector<stream> Streams; //Key is PID
+    typedef std::vector<stream> streams;
+    streams Streams; //Key is PID
     size_t Streams_NotParsedCount;
     size_t Streams_With_StartTimeStampCount;
     size_t Streams_With_EndTimeStampMoreThanxSecondsCount;
