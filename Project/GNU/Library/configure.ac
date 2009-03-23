@@ -111,6 +111,7 @@ AC_ARG_ENABLE(riff,    AC_HELP_STRING([--disable-riff],    [Disable Multiple - R
 AC_ARG_ENABLE(rm,      AC_HELP_STRING([--disable-rm],      [Disable Multiple - Real Media]),                              MediaInfoRm=$enableval,      MediaInfoRm=depend)
 AC_ARG_ENABLE(skm,     AC_HELP_STRING([--disable-skm],     [Disable Multiple - SKM]),                                     MediaInfoSkm=$enableval,     MediaInfoSkm=depend)
 AC_ARG_ENABLE(swf,     AC_HELP_STRING([--disable-swf],     [Disable Multiple - Shockwave]),                               MediaInfoSwf=$enableval,     MediaInfoSwf=depend)
+AC_ARG_ENABLE(tsp,     AC_HELP_STRING([--disable-tsp],     [Disable Multiple - TSP]),                                     MediaInfoTsp=$enableval,     MediaInfoTsp=depend)
 AC_ARG_ENABLE(wm,      AC_HELP_STRING([--disable-wm],      [Disable Multiple - Windows Media (ASF, WMV, WMA)]),           MediaInfoWm=$enableval,      MediaInfoWm=depend)
 AC_ARG_ENABLE(apetag,  AC_HELP_STRING([--disable-apetag],  [Disable Tag - ApeTag]),                                       MediaInfoApeTag=$enableval,  MediaInfoApeTag=depend)
 AC_ARG_ENABLE(Id3,     AC_HELP_STRING([--disable-Id3],     [Disable Tag - Id3]),                                          MediaInfoId3=$enableval,     MediaInfoId3=depend)
@@ -196,6 +197,7 @@ if test "$MediaInfoRiff"    = "no";  then AC_DEFINE(MEDIAINFO_RIFF_NO)    fi; if
 if test "$MediaInfoRm"      = "no";  then AC_DEFINE(MEDIAINFO_RM_NO)      fi; if test "$MediaInfoRm"      = "yes"; then AC_DEFINE(MEDIAINFO_RM_YES)      fi
 if test "$MediaInfoSkm"     = "no";  then AC_DEFINE(MEDIAINFO_SKM_NO)     fi; if test "$MediaInfoSkm"     = "yes"; then AC_DEFINE(MEDIAINFO_SKM_YES)     fi
 if test "$MediaInfoSwf"     = "no";  then AC_DEFINE(MEDIAINFO_SWF_NO)     fi; if test "$MediaInfoSwf"     = "yes"; then AC_DEFINE(MEDIAINFO_SWF_YES)     fi
+if test "$MediaInfoTsp"     = "no";  then AC_DEFINE(MEDIAINFO_TSP_NO)     fi; if test "$MediaInfoTsp"     = "yes"; then AC_DEFINE(MEDIAINFO_TSP_YES)     fi
 if test "$MediaInfoWm"      = "no";  then AC_DEFINE(MEDIAINFO_WM_NO)      fi; if test "$MediaInfoWm"      = "yes"; then AC_DEFINE(MEDIAINFO_WM_YES)      fi
 if test "$MediaInfoApeTag"  = "no";  then AC_DEFINE(MEDIAINFO_APETAG_NO)  fi; if test "$MediaInfoApeTag"  = "yes"; then AC_DEFINE(MEDIAINFO_APETAG_YES)  fi
 if test "$MediaInfoId3"     = "no";  then AC_DEFINE(MEDIAINFO_ID3_NO)     fi; if test "$MediaInfoId3"     = "yes"; then AC_DEFINE(MEDIAINFO_ID3_YES)     fi
@@ -457,7 +459,8 @@ Mcho "Riff   " "$MediaInfoRiff"
 Mcho "Rm     " "$MediaInfoRm"
 Mcho "Skm    " "$MediaInfoSkm"
 Mcho "Swf    " "$MediaInfoSwf"
-Mcho "Wm     " "$MediaInfoWm"
+Mcho "Wm     " "$MediaInfoTsp"
+Mcho "Mxf    " "$MediaInfoWm"
 Mcho "ApeTag " "$MediaInfoApeTag"
 Mcho "Id3    " "$MediaInfoId3"
 Mcho "Id3v2  " "$MediaInfoId3v2"

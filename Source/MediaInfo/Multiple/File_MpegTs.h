@@ -46,8 +46,12 @@ class File_MpegTs : public File__Duplicate
 {
 public :
     //In
-    size_t BDAV_Size;
-    size_t TSP_Size;
+    #ifdef MEDIAINFO_BDAV_NO
+        size_t BDAV_Size;
+    #endif
+    #ifdef MEDIAINFO_TSP_NO
+        size_t TSP_Size;
+    #endif
 
     //Constructor/Destructor
     File_MpegTs();
@@ -88,7 +92,9 @@ private :
     void Detect_EOF();
 
     //Temp
-    size_t TS_Size;
+    #if defined(MEDIAINFO_BDAV_YES) || defined(MEDIAINFO_TSP_YES)
+        size_t TS_Size;
+    #endif
     int64u MpegTs_JumpTo_Begin;
     int64u MpegTs_JumpTo_End;
 

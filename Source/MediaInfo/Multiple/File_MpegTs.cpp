@@ -52,6 +52,20 @@ namespace Elements
 }
 
 //***************************************************************************
+// Depends of configuration
+//***************************************************************************
+
+#if !defined(MEDIAINFO_BDAV_YES)
+    const size_t BDAV_Size=0;
+#endif
+#if !defined(MEDIAINFO_TSP_YES)
+    const size_t TSP_Size=0;
+#endif
+#if !defined(MEDIAINFO_BDAV_YES) && !defined(MEDIAINFO_TSP_YES)
+    const size_t TS_Size=188;
+#endif
+
+//***************************************************************************
 // Info
 //***************************************************************************
 
@@ -85,9 +99,6 @@ Ztring Decimal_Hexa(int64u Number)
 // Constructor/Destructor
 //***************************************************************************
 
-//const size_t BDAV_Size=0;
-//const size_t TSP_Size=0;
-//const size_t TS_Size=188;
 //---------------------------------------------------------------------------
 File_MpegTs::File_MpegTs()
 :File__Duplicate()
@@ -656,7 +667,16 @@ void File_MpegTs::Read_Buffer_Finalize()
 bool File_MpegTs::FileHeader_Begin()
 {
     //Configuring
-    TS_Size=188+BDAV_Size+TSP_Size;
+    #if defined(MEDIAINFO_BDAV_YES) || defined(MEDIAINFO_TSP_YES)
+        TS_Size=188
+        #if !defined(MEDIAINFO_BDAV_YES)
+            +BDAV_Size
+        #endif
+        #if !defined(MEDIAINFO_TSP_YES)
+            +TSP_Size
+        #endif
+        ;
+    #endif
 
     //Configuration
     Option_Manage();
@@ -998,12 +1018,12 @@ void File_MpegTs::PES()
     //Parsing
     Open_Buffer_Continue(Complete_Stream->Streams[pid].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
     #if defined(MEDIAINFO_MPEGPS_YES)
-        //if (!Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End
-        // && ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->HasTimeStamps)
-        //{
-        //    Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(false);
-        //    Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End_Set(true);
-        //}
+        if (!Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End
+         && ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->HasTimeStamps)
+        {
+            Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(false);
+            Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End_Set(true);
+        }
     #endif
 
     //Need anymore?
