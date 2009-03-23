@@ -46,10 +46,10 @@ class File_MpegTs : public File__Duplicate
 {
 public :
     //In
-    #ifdef MEDIAINFO_BDAV_NO
+    #ifdef MEDIAINFO_BDAV_YES
         size_t BDAV_Size;
     #endif
-    #ifdef MEDIAINFO_TSP_NO
+    #ifdef MEDIAINFO_TSP_YES
         size_t TSP_Size;
     #endif
 

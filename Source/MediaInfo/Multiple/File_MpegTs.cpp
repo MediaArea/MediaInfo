@@ -109,8 +109,12 @@ File_MpegTs::File_MpegTs()
     Trusted_Multiplier=2;
 
     //Internal config
-    BDAV_Size=0; //No BDAV header
-    TSP_Size=0; //No TSP footer
+    #if defined(MEDIAINFO_BDAV_YES)
+        BDAV_Size=0; //No BDAV header
+    #endif
+    #if defined(MEDIAINFO_TSP_YES)
+        TSP_Size=0; //No TSP footer
+    #endif
     
     //Data
     MpegTs_JumpTo_Begin=MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
