@@ -831,14 +831,8 @@ void File__Analyze::Header_Fill_Size(int64u Size)
         Size=Element_Offset; //At least what we read before!!!
         
     //Filling
-    Element[Element_Level-1].Next=File_Offset+Buffer_Offset+Size;
-    if (Element[Element_Level-1].Next>Element[Element_Level-2].Next)
-    {
-        Element[Element_Level-1].Next=Element[Element_Level-2].Next;
-        Element[Element_Level-1].IsComplete=false;
-    }
-    else
-        Element[Element_Level-1].IsComplete=true;
+    Element[Element_Level-1].Next=(File_Offset+Buffer_Offset+Size>Element[Element_Level-2].Next)?Element[Element_Level-2].Next:File_Offset+Buffer_Offset+Size;
+    Element[Element_Level-1].IsComplete=true;
 
     //ToShow
     #ifndef MEDIAINFO_MINIMIZESIZE
