@@ -1093,8 +1093,12 @@ void File_Mpeg_Psi::Table_02()
                 Complete_Stream->Streams[xxx_id].Kind=complete_stream::stream::pes;
                 Complete_Stream->Streams[xxx_id].stream_type=stream_type;
                 Complete_Stream->Streams[xxx_id].Searching_Payload_Start_Set(true);
-                Complete_Stream->Streams[xxx_id].Searching_TimeStamp_Start_Set(true);
-                //Complete_Stream->Streams[xxx_id].Searching_ParserTimeStamp_Start_Set(true);
+                #ifdef MEDIAINFO_MPEGTS_PCR_YES
+                    Complete_Stream->Streams[xxx_id].Searching_TimeStamp_Start_Set(true);
+                #endif //MEDIAINFO_MPEGTS_PCR_YES
+                #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                    //Complete_Stream->Streams[xxx_id].Searching_ParserTimeStamp_Start_Set(true);
+                #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                 #ifndef MEDIAINFO_MINIMIZESIZE
                     Complete_Stream->Streams[xxx_id].Element_Info="PES";
                 #endif //MEDIAINFO_MINIMIZESIZE
@@ -1116,7 +1120,9 @@ void File_Mpeg_Psi::Table_02()
         if (Complete_Stream->Streams[PCR_PID].Kind==complete_stream::stream::unknown)
         {
             Complete_Stream->Streams[PCR_PID].Kind=complete_stream::stream::pcr;
-            Complete_Stream->Streams[PCR_PID].Searching_TimeStamp_Start_Set(true);
+            #ifdef MEDIAINFO_MPEGTS_PCR_YES
+                Complete_Stream->Streams[PCR_PID].Searching_TimeStamp_Start_Set(true);
+            #endif //MEDIAINFO_MPEGTS_PCR_YES
             #ifndef MEDIAINFO_MINIMIZESIZE
                 Complete_Stream->Streams[PCR_PID].Element_Info="PCR";
             #endif //MEDIAINFO_MINIMIZESIZE

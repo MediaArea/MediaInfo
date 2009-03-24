@@ -180,8 +180,10 @@ struct complete_stream
         stream_t                                    StreamKind;
         size_t                                      StreamPos;
         ts_kind                                     Kind;
-        int64u                                      TimeStamp_Start;
-        int64u                                      TimeStamp_End;
+        #ifdef MEDIAINFO_MPEGTS_PCR_YES
+            int64u                                  TimeStamp_Start;
+            int64u                                  TimeStamp_End;
+        #endif //MEDIAINFO_MPEGTS_PCR_YES
         int32u                                      registration_format_identifier;
         int32u                                      FMC_ES_ID;
         int16u                                      table_type; //ATSC
@@ -190,12 +192,14 @@ struct complete_stream
         bool                                        Searching;
         bool                                        Searching_Payload_Start;
         bool                                        Searching_Payload_Continue;
-        bool                                        Searching_TimeStamp_Start;
-        bool                                        Searching_TimeStamp_End;
+        #ifdef MEDIAINFO_MPEGTS_PCR_YES
+            bool                                    Searching_TimeStamp_Start;
+            bool                                    Searching_TimeStamp_End;
+        #endif //MEDIAINFO_MPEGTS_PCR_YES
         #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
             bool                                    Searching_ParserTimeStamp_Start;
             bool                                    Searching_ParserTimeStamp_End;
-        #endif
+        #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
         bool                                        EndTimeStampMoreThanxSeconds;
         bool                                        ShouldDuplicate;
         bool                                        IsRegistered;
@@ -208,8 +212,10 @@ struct complete_stream
             StreamKind=Stream_Max;
             StreamPos=0;
             Kind=unknown;
-            TimeStamp_Start=(int64u)-1;
-            TimeStamp_End=(int64u)-1;
+            #ifdef MEDIAINFO_MPEGTS_PCR_YES
+                TimeStamp_Start=(int64u)-1;
+                TimeStamp_End=(int64u)-1;
+            #endif //MEDIAINFO_MPEGTS_PCR_YES
             registration_format_identifier=0x00000000;
             FMC_ES_ID=0x0000;
             table_type=0x0000;
@@ -218,13 +224,15 @@ struct complete_stream
             Searching=false;
             Searching_Payload_Start=false;
             Searching_Payload_Continue=false;
-            Searching_TimeStamp_Start=false;
-            Searching_TimeStamp_End=false;
+            #ifdef MEDIAINFO_MPEGTS_PCR_YES
+                Searching_TimeStamp_Start=false;
+                Searching_TimeStamp_End=false;
+            #endif //MEDIAINFO_MPEGTS_PCR_YES
             #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                 Searching_ParserTimeStamp_Start=false;
                 Searching_ParserTimeStamp_End=false;
-            #endif
-                EndTimeStampMoreThanxSeconds=false;
+            #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+            EndTimeStampMoreThanxSeconds=false;
             ShouldDuplicate=false;
             IsRegistered=false;
             IsScrambled=false;
@@ -248,16 +256,18 @@ struct complete_stream
             Searching_Payload_Continue=ToSet;
             Searching_Test();
         }
-        void Searching_TimeStamp_Start_Set(bool ToSet)
-        {
-            Searching_TimeStamp_Start=ToSet;
-            Searching_Test();
-        }
-        void Searching_TimeStamp_End_Set(bool ToSet)
-        {
-            Searching_TimeStamp_End=ToSet;
-            Searching_Test();
-        }
+        #ifdef MEDIAINFO_MPEGTS_PCR_YES
+            void Searching_TimeStamp_Start_Set(bool ToSet)
+            {
+                Searching_TimeStamp_Start=ToSet;
+                Searching_Test();
+            }
+            void Searching_TimeStamp_End_Set(bool ToSet)
+            {
+                Searching_TimeStamp_End=ToSet;
+                Searching_Test();
+            }
+        #endif //MEDIAINFO_MPEGTS_PCR_YES
         #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
             void Searching_ParserTimeStamp_Start_Set(bool ToSet)
             {
@@ -269,17 +279,19 @@ struct complete_stream
                 Searching_ParserTimeStamp_End=ToSet;
                 Searching_Test();
             }
-        #endif
+        #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
         void Searching_Test()
         {
             Searching=Searching_Payload_Start
                     | Searching_Payload_Continue
+                    #ifdef MEDIAINFO_MPEGTS_PCR_YES
                     | Searching_TimeStamp_Start
                     | Searching_TimeStamp_End
+                    #endif //MEDIAINFO_MPEGTS_PCR_YES
                     #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                         | Searching_ParserTimeStamp_Start
                         | Searching_ParserTimeStamp_End
-                    #endif
+                    #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                     ;
         }
     };

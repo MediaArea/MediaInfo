@@ -242,58 +242,60 @@ bool File_MpegTs::Synched_Test()
                 else
                 {
                     //Adaptation layer
-                    if (Stream->Searching_TimeStamp_Start
-                     || Stream->Searching_TimeStamp_End)
-                    {
-                        if ((Buffer[Buffer_Offset+BDAV_Size+3]&0x20)==0x20) //Adaptation is present
+                    #ifdef MEDIAINFO_MPEGTS_PCR_YES
+                        if (Stream->Searching_TimeStamp_Start
+                         || Stream->Searching_TimeStamp_End)
                         {
-                            int8u pid_Adaptation_Info=Buffer[Buffer_Offset+BDAV_Size+5];
-                            if (pid_Adaptation_Info&0x10) //PCR is present
+                            if ((Buffer[Buffer_Offset+BDAV_Size+3]&0x20)==0x20) //Adaptation is present
                             {
-                                int64u program_clock_reference_base=(  (((int64u)Buffer[Buffer_Offset+BDAV_Size+6])<<25)
-                                                                     | (((int64u)Buffer[Buffer_Offset+BDAV_Size+7])<<17)
-                                                                     | (((int64u)Buffer[Buffer_Offset+BDAV_Size+8])<< 9)
-                                                                     | (((int64u)Buffer[Buffer_Offset+BDAV_Size+9])<< 1)
-                                                                     | (((int64u)Buffer[Buffer_Offset+BDAV_Size+10])>>7));
-                                if (Complete_Stream->Streams[pid].Searching_TimeStamp_End)
-                                    Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference_base;
-                                if (Complete_Stream->Streams[pid].Searching_TimeStamp_Start)
+                                int8u pid_Adaptation_Info=Buffer[Buffer_Offset+BDAV_Size+5];
+                                if (pid_Adaptation_Info&0x10) //PCR is present
                                 {
-                                    //This is the first PCR
-                                    Complete_Stream->Streams[pid].TimeStamp_Start=program_clock_reference_base;
-                                    Complete_Stream->Streams[pid].Searching_TimeStamp_Start_Set(false);
-                                    Complete_Stream->Streams[pid].Searching_TimeStamp_End_Set(true);
-                                    Complete_Stream->Streams_With_StartTimeStampCount++;
-                                }
-
-                                //Test if we can find the TS bitrate
-                                if (!Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[pid].TimeStamp_Start!=(int64u)-1)
-                                {
-                                    if (program_clock_reference_base<Complete_Stream->Streams[pid].TimeStamp_Start)
-                                        program_clock_reference_base+=0x200000000LL; //33 bits, cyclic
-                                    if ((program_clock_reference_base-Complete_Stream->Streams[pid].TimeStamp_Start)/90>8000)
+                                    int64u program_clock_reference_base=(  (((int64u)Buffer[Buffer_Offset+BDAV_Size+6])<<25)
+                                                                         | (((int64u)Buffer[Buffer_Offset+BDAV_Size+7])<<17)
+                                                                         | (((int64u)Buffer[Buffer_Offset+BDAV_Size+8])<< 9)
+                                                                         | (((int64u)Buffer[Buffer_Offset+BDAV_Size+9])<< 1)
+                                                                         | (((int64u)Buffer[Buffer_Offset+BDAV_Size+10])>>7));
+                                    if (Complete_Stream->Streams[pid].Searching_TimeStamp_End)
+                                        Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference_base;
+                                    if (Complete_Stream->Streams[pid].Searching_TimeStamp_Start)
                                     {
-                                        Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds=true;
-                                        Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount++;
-                                        if (Complete_Stream->Streams_With_StartTimeStampCount>0
-                                         && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
+                                        //This is the first PCR
+                                        Complete_Stream->Streams[pid].TimeStamp_Start=program_clock_reference_base;
+                                        Complete_Stream->Streams[pid].Searching_TimeStamp_Start_Set(false);
+                                        Complete_Stream->Streams[pid].Searching_TimeStamp_End_Set(true);
+                                        Complete_Stream->Streams_With_StartTimeStampCount++;
+                                    }
+
+                                    //Test if we can find the TS bitrate
+                                    if (!Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[pid].TimeStamp_Start!=(int64u)-1)
+                                    {
+                                        if (program_clock_reference_base<Complete_Stream->Streams[pid].TimeStamp_Start)
+                                            program_clock_reference_base+=0x200000000LL; //33 bits, cyclic
+                                        if ((program_clock_reference_base-Complete_Stream->Streams[pid].TimeStamp_Start)/90>8000)
                                         {
-                                            //We are already parsing 4 seconds (for all PCRs), we don't hope to have more info
-                                            MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
-                                            MpegTs_JumpTo_End=MpegTs_JumpTo_Begin/2;
+                                            Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds=true;
+                                            Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount++;
+                                            if (Complete_Stream->Streams_With_StartTimeStampCount>0
+                                             && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
+                                            {
+                                                //We are already parsing 4 seconds (for all PCRs), we don't hope to have more info
+                                                MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
+                                                MpegTs_JumpTo_End=MpegTs_JumpTo_Begin/2;
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
-                    }
+                    #endif //MEDIAINFO_MPEGTS_PCR_YES
 
                     //Searching continue and parser timestamp
                     #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                         if (Stream->Searching_ParserTimeStamp_Start
                          || Stream->Searching_ParserTimeStamp_End)
                             return true;
-                    #endif
+                    #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                 }
             }
             else
@@ -302,7 +304,7 @@ bool File_MpegTs::Synched_Test()
                 #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                      || Stream->Searching_ParserTimeStamp_Start
                      || Stream->Searching_ParserTimeStamp_End
-                #endif
+                #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                  )
                     return true;
         }
@@ -433,19 +435,21 @@ void File_MpegTs::Read_Buffer_Finalize()
                 Complete_Stream->Streams[StreamID].StreamKind=StreamKind_Last;
                 Complete_Stream->Streams[StreamID].StreamPos=StreamPos_Last;
 
-                //TimeStamp (PCR)
-                if (/*Retrieve(StreamKind_Last, StreamPos_Last, "Duration").empty()
-                 && */Complete_Stream->Streams[StreamID].TimeStamp_Start!=(int64u)-1
-                 && Complete_Stream->Streams[StreamID].TimeStamp_End!=(int64u)-1)
-                {
-                    if (Complete_Stream->Streams[StreamID].TimeStamp_End<Complete_Stream->Streams[StreamID].TimeStamp_Start)
-                        Complete_Stream->Streams[StreamID].TimeStamp_End+=0x200000000LL; //33 bits, cyclic
-                    int64u Duration=Complete_Stream->Streams[StreamID].TimeStamp_End-Complete_Stream->Streams[StreamID].TimeStamp_Start;
-                    if (Duration!=0 && Duration!=(int64u)-1)
-                        Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration/90, 10, true);
-                    else
-                        Fill(StreamKind_Last, StreamPos_Last, "Duration", "", 0, true, true); //Clear it
-                }
+                #ifdef MEDIAINFO_MPEGTS_PCR_YES
+                    //TimeStamp (PCR)
+                    if (/*Retrieve(StreamKind_Last, StreamPos_Last, "Duration").empty()
+                     && */Complete_Stream->Streams[StreamID].TimeStamp_Start!=(int64u)-1
+                     && Complete_Stream->Streams[StreamID].TimeStamp_End!=(int64u)-1)
+                    {
+                        if (Complete_Stream->Streams[StreamID].TimeStamp_End<Complete_Stream->Streams[StreamID].TimeStamp_Start)
+                            Complete_Stream->Streams[StreamID].TimeStamp_End+=0x200000000LL; //33 bits, cyclic
+                        int64u Duration=Complete_Stream->Streams[StreamID].TimeStamp_End-Complete_Stream->Streams[StreamID].TimeStamp_Start;
+                        if (Duration!=0 && Duration!=(int64u)-1)
+                            Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration/90, 10, true);
+                        else
+                            Fill(StreamKind_Last, StreamPos_Last, "Duration", "", 0, true, true); //Clear it
+                    }
+                #endif //MEDIAINFO_MPEGTS_PCR_YES
 
                 //Encryption
                 if (Complete_Stream->Streams[StreamID].IsScrambled)
@@ -470,20 +474,22 @@ void File_MpegTs::Read_Buffer_Finalize()
         }
 
         //PCR
-        if (Complete_Stream->Streams[StreamID].Kind==complete_stream::stream::pcr)
-        {
-            if (Complete_Stream->Streams[StreamID].TimeStamp_Start!=(int64u)-1
-             && Complete_Stream->Streams[StreamID].TimeStamp_End!=(int64u)-1)
+        #ifdef MEDIAINFO_MPEGTS_PCR_YES
+            if (Complete_Stream->Streams[StreamID].Kind==complete_stream::stream::pcr)
             {
-                if (Complete_Stream->Streams[StreamID].TimeStamp_End<Complete_Stream->Streams[StreamID].TimeStamp_Start)
-                    Complete_Stream->Streams[StreamID].TimeStamp_End+=0x200000000LL; //33 bits, cyclic
-                int64u Duration=Complete_Stream->Streams[StreamID].TimeStamp_End-Complete_Stream->Streams[StreamID].TimeStamp_Start;
-                if (Duration!=0 && Duration!=(int64u)-1)
-                    Fill(Stream_General, 0, General_Duration, Duration/90, 10, true);
-                else
-                    Fill(Stream_General, 0, General_Duration, "", 0, true, true); //Clear it
+                if (Complete_Stream->Streams[StreamID].TimeStamp_Start!=(int64u)-1
+                 && Complete_Stream->Streams[StreamID].TimeStamp_End!=(int64u)-1)
+                {
+                    if (Complete_Stream->Streams[StreamID].TimeStamp_End<Complete_Stream->Streams[StreamID].TimeStamp_Start)
+                        Complete_Stream->Streams[StreamID].TimeStamp_End+=0x200000000LL; //33 bits, cyclic
+                    int64u Duration=Complete_Stream->Streams[StreamID].TimeStamp_End-Complete_Stream->Streams[StreamID].TimeStamp_Start;
+                    if (Duration!=0 && Duration!=(int64u)-1)
+                        Fill(Stream_General, 0, General_Duration, Duration/90, 10, true);
+                    else
+                        Fill(Stream_General, 0, General_Duration, "", 0, true, true); //Clear it
+                }
             }
-        }
+        #endif //MEDIAINFO_MPEGTS_PCR_YES
 
         delete Complete_Stream->Streams[StreamID].Parser; Complete_Stream->Streams[StreamID].Parser=NULL;
     }
@@ -800,42 +806,46 @@ void File_MpegTs::Header_Parse_AdaptationField()
         BS_End();
         if (PCR_flag)
         {
-            BS_Begin();
-            int64u program_clock_reference_base;
-            Get_S8 (33, program_clock_reference_base,           "program_clock_reference_base"); Param_Info_From_Milliseconds(program_clock_reference_base/90);
-            if (Complete_Stream->Streams[pid].Searching_TimeStamp_End)
-                Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference_base;
-            if (Complete_Stream->Streams[pid].Searching_TimeStamp_Start)
-            {
-                //This is the first PCR
-                Complete_Stream->Streams[pid].TimeStamp_Start=program_clock_reference_base;
-                Complete_Stream->Streams[pid].Searching_TimeStamp_Start_Set(false);
-                Complete_Stream->Streams[pid].Searching_TimeStamp_End_Set(true);
-                Complete_Stream->Streams_With_StartTimeStampCount++;
-            }
-            Data_Info_From_Milliseconds(program_clock_reference_base/90);
-            Skip_S1( 6,                                         "reserved");
-            Skip_S2( 9,                                         "program_clock_reference_extension");
-            BS_End();
-
-            //Test if we can find the TS bitrate
-            if (!Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[pid].TimeStamp_Start!=(int64u)-1)
-            {
-                if (program_clock_reference_base<Complete_Stream->Streams[pid].TimeStamp_Start)
-                    program_clock_reference_base+=0x200000000LL; //33 bits, cyclic
-                if ((program_clock_reference_base-Complete_Stream->Streams[pid].TimeStamp_Start)/90>8000)
+            #ifdef MEDIAINFO_MPEGTS_PCR_YES
+                BS_Begin();
+                int64u program_clock_reference_base;
+                Get_S8 (33, program_clock_reference_base,           "program_clock_reference_base"); Param_Info_From_Milliseconds(program_clock_reference_base/90);
+                if (Complete_Stream->Streams[pid].Searching_TimeStamp_End)
+                    Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference_base;
+                if (Complete_Stream->Streams[pid].Searching_TimeStamp_Start)
                 {
-                    Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds=true;
-                    Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount++;
-                    if (Complete_Stream->Streams_With_StartTimeStampCount>0
-                     && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
+                    //This is the first PCR
+                    Complete_Stream->Streams[pid].TimeStamp_Start=program_clock_reference_base;
+                    Complete_Stream->Streams[pid].Searching_TimeStamp_Start_Set(false);
+                    Complete_Stream->Streams[pid].Searching_TimeStamp_End_Set(true);
+                    Complete_Stream->Streams_With_StartTimeStampCount++;
+                }
+                Data_Info_From_Milliseconds(program_clock_reference_base/90);
+                Skip_S1( 6,                                         "reserved");
+                Skip_S2( 9,                                         "program_clock_reference_extension");
+                BS_End();
+
+                //Test if we can find the TS bitrate
+                if (!Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[pid].TimeStamp_Start!=(int64u)-1)
+                {
+                    if (program_clock_reference_base<Complete_Stream->Streams[pid].TimeStamp_Start)
+                        program_clock_reference_base+=0x200000000LL; //33 bits, cyclic
+                    if ((program_clock_reference_base-Complete_Stream->Streams[pid].TimeStamp_Start)/90>8000)
                     {
-                        //We are already parsing 4 seconds (for all PCRs), we don't hope to have more info
-                        MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
-                        MpegTs_JumpTo_End=MpegTs_JumpTo_Begin/2;
+                        Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds=true;
+                        Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount++;
+                        if (Complete_Stream->Streams_With_StartTimeStampCount>0
+                         && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
+                        {
+                            //We are already parsing 4 seconds (for all PCRs), we don't hope to have more info
+                            MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
+                            MpegTs_JumpTo_End=MpegTs_JumpTo_Begin/2;
+                        }
                     }
                 }
-            }
+            #else //MEDIAINFO_MPEGTS_PCR_YES
+                Skip_B6(                                        "program_clock_reference");
+            #endif //MEDIAINFO_MPEGTS_PCR_YES
         }
         if (OPCR_flag)
         {
@@ -869,47 +879,49 @@ void File_MpegTs::Header_Parse_AdaptationField()
 #else //MEDIAINFO_MINIMIZESIZE
 {
     int8u Adaptation_Size=Buffer[Buffer_Offset+BDAV_Size+4];
-    if (Adaptation_Size)
-    {
-        bool PCR_flag=(Buffer[Buffer_Offset+BDAV_Size+5]&0x10)!=0;
-        if (PCR_flag)
+    #ifdef MEDIAINFO_MPEGTS_PCR_YES
+        if (Adaptation_Size)
         {
-            int64u program_clock_reference_base=(  (((int64u)Buffer[Buffer_Offset+BDAV_Size+6])<<25)
-                                                 | (((int64u)Buffer[Buffer_Offset+BDAV_Size+7])<<17)
-                                                 | (((int64u)Buffer[Buffer_Offset+BDAV_Size+8])<< 9)
-                                                 | (((int64u)Buffer[Buffer_Offset+BDAV_Size+9])<< 1)
-                                                 | (((int64u)Buffer[Buffer_Offset+BDAV_Size+10])>>7));
-            if (Complete_Stream->Streams[pid].Searching_TimeStamp_End)
-                Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference_base;
-            if (Complete_Stream->Streams[pid].Searching_TimeStamp_Start)
+            bool PCR_flag=(Buffer[Buffer_Offset+BDAV_Size+5]&0x10)!=0;
+            if (PCR_flag)
             {
-                //This is the first PCR
-                Complete_Stream->Streams[pid].TimeStamp_Start=program_clock_reference_base;
-                Complete_Stream->Streams[pid].Searching_TimeStamp_Start_Set(false);
-                Complete_Stream->Streams[pid].Searching_TimeStamp_End_Set(true);
-                Complete_Stream->Streams_With_StartTimeStampCount++;
-            }
-
-            //Test if we can find the TS bitrate
-            if (!Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[pid].TimeStamp_Start!=(int64u)-1)
-            {
-                if (program_clock_reference_base<Complete_Stream->Streams[pid].TimeStamp_Start)
-                    program_clock_reference_base+=0x200000000LL; //33 bits, cyclic
-                if ((program_clock_reference_base-Complete_Stream->Streams[pid].TimeStamp_Start)/90>8000)
+                int64u program_clock_reference_base=(  (((int64u)Buffer[Buffer_Offset+BDAV_Size+6])<<25)
+                                                     | (((int64u)Buffer[Buffer_Offset+BDAV_Size+7])<<17)
+                                                     | (((int64u)Buffer[Buffer_Offset+BDAV_Size+8])<< 9)
+                                                     | (((int64u)Buffer[Buffer_Offset+BDAV_Size+9])<< 1)
+                                                     | (((int64u)Buffer[Buffer_Offset+BDAV_Size+10])>>7));
+                if (Complete_Stream->Streams[pid].Searching_TimeStamp_End)
+                    Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference_base;
+                if (Complete_Stream->Streams[pid].Searching_TimeStamp_Start)
                 {
-                    Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds=true;
-                    Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount++;
-                    if (Complete_Stream->Streams_With_StartTimeStampCount>0
-                     && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
+                    //This is the first PCR
+                    Complete_Stream->Streams[pid].TimeStamp_Start=program_clock_reference_base;
+                    Complete_Stream->Streams[pid].Searching_TimeStamp_Start_Set(false);
+                    Complete_Stream->Streams[pid].Searching_TimeStamp_End_Set(true);
+                    Complete_Stream->Streams_With_StartTimeStampCount++;
+                }
+
+                //Test if we can find the TS bitrate
+                if (!Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds && Complete_Stream->Streams[pid].TimeStamp_Start!=(int64u)-1)
+                {
+                    if (program_clock_reference_base<Complete_Stream->Streams[pid].TimeStamp_Start)
+                        program_clock_reference_base+=0x200000000LL; //33 bits, cyclic
+                    if ((program_clock_reference_base-Complete_Stream->Streams[pid].TimeStamp_Start)/90>8000)
                     {
-                        //We are already parsing 4 seconds (for all PCRs), we don't hope to have more info
-                        MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
-                        MpegTs_JumpTo_End=MpegTs_JumpTo_Begin/2;
+                        Complete_Stream->Streams[pid].EndTimeStampMoreThanxSeconds=true;
+                        Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount++;
+                        if (Complete_Stream->Streams_With_StartTimeStampCount>0
+                         && Complete_Stream->Streams_With_StartTimeStampCount==Complete_Stream->Streams_With_EndTimeStampMoreThanxSecondsCount)
+                        {
+                            //We are already parsing 4 seconds (for all PCRs), we don't hope to have more info
+                            MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
+                            MpegTs_JumpTo_End=MpegTs_JumpTo_Begin/2;
+                        }
                     }
                 }
             }
         }
-    }
+    #endif //MEDIAINFO_MPEGTS_PCR_YES
     Element_Offset+=1+Adaptation_Size;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
@@ -931,7 +943,7 @@ void File_MpegTs::Data_Parse()
      #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
          && !Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start
          && !Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End
-     #endif
+     #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
      )
         Skip_XX(Element_Size,                                   "data");
     else
@@ -980,7 +992,7 @@ void File_MpegTs::PES()
         Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(false);
         #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
             Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(false);
-        #endif
+        #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
         Skip_XX(Element_Size-Element_Offset,                    "Scrambled data");
 
         //Demux
@@ -1010,7 +1022,7 @@ void File_MpegTs::PES()
             Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(false);
             #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                 Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(false);
-            #endif
+            #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
             Complete_Stream->Streams_NotParsedCount--;
             return;
         }
@@ -1040,13 +1052,13 @@ void File_MpegTs::PES()
             Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(false);
             Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End_Set(true);
         }
-    #endif
+    #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
 
     //Need anymore?
     if ((Complete_Stream->Streams[pid].Parser->IsFilled
      #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
         && !Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End
-     #endif
+     #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
      )
      || Complete_Stream->Streams[pid].Parser->IsFinished)
     {
@@ -1114,12 +1126,14 @@ void File_MpegTs::Detect_EOF()
             #ifndef MEDIAINFO_MINIMIZESIZE
                 Complete_Stream->Streams[StreamID].Element_Info="PES";
             #endif //MEDIAINFO_MINIMIZESIZE
-            Complete_Stream->Streams[StreamID].Searching_TimeStamp_Start_Set(true);
-            Complete_Stream->Streams[StreamID].Searching_TimeStamp_End_Set(false);
+            #ifdef MEDIAINFO_MPEGTS_PCR_YES
+                Complete_Stream->Streams[StreamID].Searching_TimeStamp_Start_Set(true);
+                Complete_Stream->Streams[StreamID].Searching_TimeStamp_End_Set(false);
+            #endif //MEDIAINFO_MPEGTS_PCR_YES
             #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                 //Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_Start_Set(true);
                 Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_End_Set(false);
-            #endif
+            #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
         }
         if (!IsAccepted)
             Accept("MPEG-TS");
@@ -1134,26 +1148,32 @@ void File_MpegTs::Detect_EOF()
     //|| (program_Count==0 && elementary_PID_Count==0)
     ))
     {
-        if (File_Size!=(int64u)-1) //Only if not unlimited
-        {
-            //Reactivating interessant TS streams
-            if (!Complete_Stream->Streams.empty())
+        #ifdef MEDIAINFO_MPEGTS_PCR_YES
+            if (File_Size!=(int64u)-1) //Only if not unlimited
             {
-                //End timestamp is out of date
-                for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+                //Reactivating interessant TS streams
+                if (!Complete_Stream->Streams.empty())
                 {
                     //End timestamp is out of date
-                    Complete_Stream->Streams[StreamID].TimeStamp_End=(int64u)-1;
-                    if (Complete_Stream->Streams[StreamID].TimeStamp_Start!=(int64u)-1)
-                        Complete_Stream->Streams[StreamID].Searching_TimeStamp_End_Set(true); //Searching only for a start found
+                    for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+                    {
+                        //End timestamp is out of date
+                        Complete_Stream->Streams[StreamID].TimeStamp_End=(int64u)-1;
+                        if (Complete_Stream->Streams[StreamID].TimeStamp_Start!=(int64u)-1)
+                            Complete_Stream->Streams[StreamID].Searching_TimeStamp_End_Set(true); //Searching only for a start found
+                    }
                 }
+                Complete_Stream->End_Time.clear();
             }
-            Complete_Stream->End_Time.clear();
-        }
+        #endif //MEDIAINFO_MPEGTS_PCR_YES
 
         if (!IsAccepted)
             Accept("MPEG-TS");
-        GoToFromEnd(MpegTs_JumpTo_End, "MPEG-TS");
+        #if !defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
+            GoToFromEnd(47, "MPEG-TS"); //TODO: Should be changed later (when Finalize stuff will be split) 
+        #else //!defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
+            GoToFromEnd(MpegTs_JumpTo_End, "MPEG-TS");
+        #endif //!defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
     }
 }
 

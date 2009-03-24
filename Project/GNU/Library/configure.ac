@@ -104,7 +104,8 @@ AC_ARG_ENABLE(mk,      AC_HELP_STRING([--disable-mk],      [Disable Multiple - M
 AC_ARG_ENABLE(mpeg4,   AC_HELP_STRING([--disable-mpeg4],   [Disable Multiple - MPEG-4 based formats (MOV, AAC...)]),      MediaInfoMpeg4=$enableval,   MediaInfoMpeg4=depend)
 AC_ARG_ENABLE(mpegps,  AC_HELP_STRING([--disable-mpegps],  [Disable Multiple - MPEG-PS]),                                 MediaInfoMpegPs=$enableval,  MediaInfoMpegPs=depend)
 AC_ARG_ENABLE(mpegts,  AC_HELP_STRING([--disable-mpegts],  [Disable Multiple - MPEG-TS]),                                 MediaInfoMpegTs=$enableval,  MediaInfoMpegTs=depend)
-AC_ARG_ENABLE(mpegts-PesTimeStamp, AC_HELP_STRING([--disable-mpegts-PesTimeStamp],  [Disable Multiple - MPEG-TS (parser time stamp)]), MediaInfoMpegTsPesTimeStamp=$enableval, MediaInfoMpegTsPesTimeStamp=depend)
+AC_ARG_ENABLE(mpegts-pcr, AC_HELP_STRING([--disable-mpegts-pcr],  [Disable Multiple - MPEG-TS (PCR)]), MediaInfoMpegTsPcr=$enableval, MediaInfoMpegTsPcr=depend)
+AC_ARG_ENABLE(mpegts-pestimestamp, AC_HELP_STRING([--disable-mpegts-pestimestamp],  [Disable Multiple - MPEG-TS (parser time stamp)]), MediaInfoMpegTsPesTimeStamp=$enableval, MediaInfoMpegTsPesTimeStamp=depend)
 AC_ARG_ENABLE(mxf,     AC_HELP_STRING([--disable-mxf],     [Disable Multiple - MXF]),                                     MediaInfoMxf=$enableval,     MediaInfoMxf=depend)
 AC_ARG_ENABLE(nut,     AC_HELP_STRING([--disable-nut],     [Disable Multiple - Nut]),                                     MediaInfoNut=$enableval,     MediaInfoNut=depend)
 AC_ARG_ENABLE(ogg,     AC_HELP_STRING([--disable-ogg],     [Disable Multiple - OGG (ogg, ogm)]),                          MediaInfoOgg=$enableval,     MediaInfoOgg=depend)
@@ -191,7 +192,8 @@ if test "$MediaInfoMk"      = "no";  then AC_DEFINE(MEDIAINFO_MK_NO)      fi; if
 if test "$MediaInfoMpeg4"   = "no";  then AC_DEFINE(MEDIAINFO_MPEG4_NO)   fi; if test "$MediaInfoMpeg4"   = "yes"; then AC_DEFINE(MEDIAINFO_MPEG4_YES)   fi
 if test "$MediaInfoMpegPs"  = "no";  then AC_DEFINE(MEDIAINFO_MPEGPS_NO)  fi; if test "$MediaInfoMpegPs"  = "yes"; then AC_DEFINE(MEDIAINFO_MPEGPS_YES)  fi
 if test "$MediaInfoMpegTs"  = "no";  then AC_DEFINE(MEDIAINFO_MPEGTS_NO)  fi; if test "$MediaInfoMpegTs"  = "yes"; then AC_DEFINE(MEDIAINFO_MPEGTS_YES)  fi
-if test "$MediaInfoMpegTsPesTimeStamp"  = "no"; then AC_DEFINE(MEDIAINFO_MPEGTS_PESTIMESTAMP_NO)  fi; if test "$MediaInfoMpegTs" = "yes"; then AC_DEFINE(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES) fi
+if test "$MediaInfoMpegTsPcr" = "no"; then AC_DEFINE(MEDIAINFO_MPEGTS_PCR_NO)  fi; if test "$MediaInfoMpegTs" = "yes"; then AC_DEFINE(MEDIAINFO_MPEGTS_PCR_YES) fi
+if test "$MediaInfoMpegTsPesTimeStamp" = "no"; then AC_DEFINE(MEDIAINFO_MPEGTS_PESTIMESTAMP_NO)  fi; if test "$MediaInfoMpegTs" = "yes"; then AC_DEFINE(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES) fi
 if test "$MediaInfoMxf"     = "no";  then AC_DEFINE(MEDIAINFO_MXF_NO)     fi; if test "$MediaInfoMxf"     = "yes"; then AC_DEFINE(MEDIAINFO_MXF_YES)     fi
 if test "$MediaInfoNut"     = "no";  then AC_DEFINE(MEDIAINFO_NUT_NO)     fi; if test "$MediaInfoNut"     = "yes"; then AC_DEFINE(MEDIAINFO_NUT_YES)     fi
 if test "$MediaInfoOgg"     = "no";  then AC_DEFINE(MEDIAINFO_OGG_NO)     fi; if test "$MediaInfoOgg"     = "yes"; then AC_DEFINE(MEDIAINFO_OGG_YES)     fi
@@ -454,6 +456,7 @@ Mcho "Mk     " "$MediaInfoMk"
 Mcho "Mpeg4  " "$MediaInfoMpeg4"
 Mcho "MpegPs " "$MediaInfoMpegPs"
 Mcho "MpegTs " "$MediaInfoMpegTs"
+Mcho "MpegTs (PCR)" "$MediaInfoMpegTsPcr"
 Mcho "MpegTs (Parser time stamp)" "$MediaInfoMpegTsPesTimeStamp"
 Mcho "Mxf    " "$MediaInfoMxf"
 Mcho "Nut    " "$MediaInfoNut"
@@ -462,7 +465,7 @@ Mcho "Riff   " "$MediaInfoRiff"
 Mcho "Rm     " "$MediaInfoRm"
 Mcho "Skm    " "$MediaInfoSkm"
 Mcho "Swf    " "$MediaInfoSwf"
-Mcho "Wm     " "$MediaInfoTsp"
+Mcho "Tsp    " "$MediaInfoTsp"
 Mcho "Mxf    " "$MediaInfoWm"
 Mcho "ApeTag " "$MediaInfoApeTag"
 Mcho "Id3    " "$MediaInfoId3"
