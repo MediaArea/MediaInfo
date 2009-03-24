@@ -179,7 +179,7 @@ bool File_MpegTs::Synched_Test()
         complete_stream::streams::iterator Stream=Complete_Stream->Streams.begin()+pid;
         if (Stream->Searching)
         {
-            payload_unit_start_indicator=Buffer[Buffer_Offset+BDAV_Size+1]&0x40;
+            payload_unit_start_indicator=(Buffer[Buffer_Offset+BDAV_Size+1]&0x40)!=0;
             if (payload_unit_start_indicator)
             {
                 //Searching start
@@ -753,10 +753,10 @@ void File_MpegTs::Header_Parse()
 #else //MEDIAINFO_MINIMIZESIZE
 {
     //Parsing
-           payload_unit_start_indicator=Buffer[Buffer_Offset+BDAV_Size+1]&0x40;
-    int8u  transport_scrambling_control=Buffer[Buffer_Offset+BDAV_Size+3]&0xC0;
-    bool   Adaptation=                  Buffer[Buffer_Offset+BDAV_Size+3]&0x20;
-    bool   Data=                        Buffer[Buffer_Offset+BDAV_Size+3]&0x10;
+           payload_unit_start_indicator=(Buffer[Buffer_Offset+BDAV_Size+1]&0x40)!=0;
+    int8u  transport_scrambling_control= Buffer[Buffer_Offset+BDAV_Size+3]&0xC0;
+    bool   Adaptation=                  (Buffer[Buffer_Offset+BDAV_Size+3]&0x20)!=0;
+    bool   Data=                        (Buffer[Buffer_Offset+BDAV_Size+3]&0x10)!=0;
     Element_Offset+=BDAV_Size+4;
 
     //Adaptation
@@ -871,7 +871,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
     int8u Adaptation_Size=Buffer[Buffer_Offset+BDAV_Size+4];
     if (Adaptation_Size)
     {
-        bool PCR_flag=Buffer[Buffer_Offset+BDAV_Size+5]&0x10;
+        bool PCR_flag=(Buffer[Buffer_Offset+BDAV_Size+5]&0x10)!=0;
         if (PCR_flag)
         {
             int64u program_clock_reference_base=(  (((int64u)Buffer[Buffer_Offset+BDAV_Size+6])<<25)
