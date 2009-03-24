@@ -1143,7 +1143,7 @@ void File_Mpeg_Psi::Table_02()
                         if (Pos==0x01ABC)
                             Pos=0x1FF6; //Skipping normal data
                     }
-            else //MEDIAINFO_MPEGTS_ALLSTREAMS_YES
+            #else //MEDIAINFO_MPEGTS_ALLSTREAMS_YES
                 if (Complete_Stream->Streams[0x0010].Kind==complete_stream::stream::unknown)
                 {
                     Complete_Stream->Streams[0x0010].Searching_Payload_Start_Set(true);

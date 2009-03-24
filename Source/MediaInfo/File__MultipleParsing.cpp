@@ -265,6 +265,9 @@ File__MultipleParsing::File__MultipleParsing()
 {
     File__Analyze* Temp;
     // Multiple
+    #if defined(MEDIAINFO_BDAV_YES)
+        Temp=new File_MpegTs(); ((File_MpegTs*)Temp)->BDAV_Size=4; Parser.push_back(Temp);
+    #endif
     #if defined(MEDIAINFO_CDXA_YES)
         Temp=new File_Cdxa(); Parser.push_back(Temp);
     #endif
@@ -291,7 +294,6 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_MPEGTS_YES)
         Temp=new File_MpegTs(); Parser.push_back(Temp);
-        Temp=new File_MpegTs(); ((File_MpegTs*)Temp)->BDAV_Size=4; Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_MXF_YES)
         Temp=new File_Mxf(); Parser.push_back(Temp);

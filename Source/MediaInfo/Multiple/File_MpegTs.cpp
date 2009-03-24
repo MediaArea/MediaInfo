@@ -673,10 +673,10 @@ bool File_MpegTs::FileHeader_Begin()
     //Configuring
     #if defined(MEDIAINFO_BDAV_YES) || defined(MEDIAINFO_TSP_YES)
         TS_Size=188
-        #if !defined(MEDIAINFO_BDAV_YES)
+        #if defined(MEDIAINFO_BDAV_YES)
             +BDAV_Size
         #endif
-        #if !defined(MEDIAINFO_TSP_YES)
+        #if defined(MEDIAINFO_TSP_YES)
             +TSP_Size
         #endif
         ;
