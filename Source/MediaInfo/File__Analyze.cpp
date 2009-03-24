@@ -1363,9 +1363,9 @@ void File__Analyze::Param(const Ztring& Parameter, const Ztring& Value)
         Element[Element_Level].ToShow.Details+=_T(": ");
         Element[Element_Level].ToShow.Details.resize(Element[Element_Level].ToShow.Details.size()+Padding_Value-Param.size()-Element_Level+1, _T(' '));
         Ztring Value2(Value);
-        Value2.FindAndReplace(_T("\r\n"), _T(" / "));
-        Value2.FindAndReplace(_T("\r"), _T(" / "));
-        Value2.FindAndReplace(_T("\n"), _T(" / "));
+        Value2.FindAndReplace(_T("\r\n"), _T(" / "), 0, Ztring_Recursive);
+        Value2.FindAndReplace(_T("\r"), _T(" / "), 0, Ztring_Recursive);
+        Value2.FindAndReplace(_T("\n"), _T(" / "), 0, Ztring_Recursive);
         Element[Element_Level].ToShow.Details+=Value2;
     }
 }
