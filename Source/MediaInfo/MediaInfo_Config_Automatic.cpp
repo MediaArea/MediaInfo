@@ -1063,6 +1063,8 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "VC-1;;;V;Vc1;;vc1\n"
     "Theora;;;V\n"
     "AVS Video;;;V;AvsV;Audio Video Standart, Video part;;http://www.avs.org.cn/\n"
+    "Shorten;;;A;;;shn;http://etree.org/shnutils/shorten/\n"
+    "TAK;;;A;;;tak;http://thbeck.de/Tak/Tak.html\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
@@ -4431,6 +4433,7 @@ void MediaInfo_Config_Library_DivX (InfoMap &Info)
     "2521;6.8.0 Converter 6.6\n"
     "2559;6.8.2;UTC 2008-05-17\n"
     "2676;6.8.3;UTC 2008-06-07\n"
+    "2816;6.8.5\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
@@ -4491,6 +4494,7 @@ void MediaInfo_Config_Library_XviD (InfoMap &Info)
     "48;1.2.0.dev48\n"
     "49;1.2.0.dev49\n"
     "50;1.2.1;UTC 2008-12-04\n"
+    "55;1.3.0.dev55\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
