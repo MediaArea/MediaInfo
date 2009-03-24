@@ -112,7 +112,7 @@ enum infooptions_t
 enum fileoptions_t
 {
     FileOption_Nothing      =0x00,
-    FileOption_Recursive    =0x01,  ///< Browse folders recursively
+    FileOption_NoRecursive  =0x01,  ///< Do not browse folders recursively
     FileOption_CloseAll     =0x02,  ///< Close all files before open
     FileOption_Max          =0x04
 };

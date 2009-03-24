@@ -86,7 +86,7 @@ size_t MediaInfoList_Internal::Open(const String &File, const fileoptions_t Opti
     //TODO
 
     //Get all filenames
-    ZtringList List=Dir::GetAllFileNames(File);
+    ZtringList List=Dir::GetAllFileNames(File, (Options&FileOption_NoRecursive)?Dir::Nothing:Dir::Parse_SubDirs);
 
     //Registering files
     CS.Enter();
