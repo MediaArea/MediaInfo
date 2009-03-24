@@ -192,8 +192,10 @@ struct complete_stream
         bool                                        Searching_Payload_Continue;
         bool                                        Searching_TimeStamp_Start;
         bool                                        Searching_TimeStamp_End;
-        bool                                        Searching_ParserTimeStamp_Start;
-        bool                                        Searching_ParserTimeStamp_End;
+        #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+            bool                                    Searching_ParserTimeStamp_Start;
+            bool                                    Searching_ParserTimeStamp_End;
+        #endif
         bool                                        EndTimeStampMoreThanxSeconds;
         bool                                        ShouldDuplicate;
         bool                                        IsRegistered;
@@ -218,9 +220,11 @@ struct complete_stream
             Searching_Payload_Continue=false;
             Searching_TimeStamp_Start=false;
             Searching_TimeStamp_End=false;
-            Searching_ParserTimeStamp_Start=false;
-            Searching_ParserTimeStamp_End=false;
-            EndTimeStampMoreThanxSeconds=false;
+            #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                Searching_ParserTimeStamp_Start=false;
+                Searching_ParserTimeStamp_End=false;
+            #endif
+                EndTimeStampMoreThanxSeconds=false;
             ShouldDuplicate=false;
             IsRegistered=false;
             IsScrambled=false;
@@ -254,24 +258,29 @@ struct complete_stream
             Searching_TimeStamp_End=ToSet;
             Searching_Test();
         }
-        void Searching_ParserTimeStamp_Start_Set(bool ToSet)
-        {
-            Searching_ParserTimeStamp_Start=ToSet;
-            Searching_Test();
-        }
-        void Searching_ParserTimeStamp_End_Set(bool ToSet)
-        {
-            Searching_ParserTimeStamp_End=ToSet;
-            Searching_Test();
-        }
+        #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+            void Searching_ParserTimeStamp_Start_Set(bool ToSet)
+            {
+                Searching_ParserTimeStamp_Start=ToSet;
+                Searching_Test();
+            }
+            void Searching_ParserTimeStamp_End_Set(bool ToSet)
+            {
+                Searching_ParserTimeStamp_End=ToSet;
+                Searching_Test();
+            }
+        #endif
         void Searching_Test()
         {
             Searching=Searching_Payload_Start
                     | Searching_Payload_Continue
                     | Searching_TimeStamp_Start
                     | Searching_TimeStamp_End
-                    | Searching_ParserTimeStamp_Start
-                    | Searching_ParserTimeStamp_End;
+                    #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                        | Searching_ParserTimeStamp_Start
+                        | Searching_ParserTimeStamp_End
+                    #endif
+                    ;
         }
     };
     typedef std::vector<stream> streams;
