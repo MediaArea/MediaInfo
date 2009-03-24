@@ -7,6 +7,11 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.13, 2009-
+-------------
++ SHN (Shorten) detection
++ TAK (Tom's lossless audio compressor) detection
+
 Version 0.7.12, 2009-03-20
 -------------
 + Complete refactoring of the code for speed improvements and future features

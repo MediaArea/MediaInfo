@@ -117,6 +117,27 @@ void File_Other::Read_Buffer_Continue()
     else if (CC6(Buffer)==CC6("Z\0W\0F\0"))
                 {Format=_T("ZWF");
                 Stream_Prepare(Stream_Audio); Fill(Stream_Audio, 0, Audio_Format, "ZWF");}
+    else if (CC4(Buffer)==0x616A6B67) //"ajkg"
+    {
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "Shorten");
+        Fill(Stream_General, 0, General_Format_Version, CC1(Buffer+4));
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "Shorten");
+        Accept();
+        Finish();
+        return;
+    }
+    else if (CC4(Buffer)==0x7442614B) //"tBaK"
+    {
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "TAK");
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "TAK");
+        Accept();
+        Finish();
+        return;
+    }
     else if (CC4(Buffer)==CC4("")) {Format=_T("");}
 
     if (Format.empty())
