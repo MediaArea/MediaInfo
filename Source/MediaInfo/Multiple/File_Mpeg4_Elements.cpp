@@ -286,8 +286,10 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_idfm_cspc=0x63737063;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_pasp=0x70617370;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave=0x77617665;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave_acbf=0x61636266;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave_enda=0x656E6461;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma=0x66726D61;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave_srcq=0x73726371;
     const int64u moov_trak_mdia_minf_stbl_stsh=0x73747368;
     const int64u moov_trak_mdia_minf_stbl_stss=0x73747373;
     const int64u moov_trak_mdia_minf_stbl_stsz=0x7374737A;
@@ -513,8 +515,10 @@ void File_Mpeg4::Data_Parse()
                                 LIST(moov_trak_mdia_minf_stbl_stsd_xxxx_wave)
                                     ATOM_BEGIN
                                     ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_esds)
+                                    ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_wave_acbf)
                                     ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_wave_enda)
                                     ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma)
+                                    ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_wave_srcq)
                                     ATOM_DEFAULT(moov_trak_mdia_minf_stbl_stsd_xxxx_wave_xxxx)
                                     ATOM_END_DEFAULT
                                 ATOM_END
@@ -2814,6 +2818,15 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_acbf()
+{
+    Element_Name("Audio Bitrate Control Mode");
+
+    //Parsing
+    Skip_B4(                                                    "Bit Rate Control Mode");
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_enda()
 {
     Skip_B2(                                                    "Unknown");
@@ -2851,6 +2864,15 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma()
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec, true);
         FILLING_END();
     }
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_srcq()
+{
+    Element_Name("Source Quality");
+
+    //Parsing
+    Skip_B4(                                                    "Source Quality");
 }
 
 //---------------------------------------------------------------------------

@@ -544,7 +544,7 @@ void File_Riff::AIFF_xxxx()
 //---------------------------------------------------------------------------
 void File_Riff::AVI_()
 {
-    Accept("AVI");
+    Data_Accept("AVI");
     Element_Name("AVI");
 
     //Test if there is only one AVI chunk
@@ -1635,6 +1635,7 @@ void File_Riff::AVI__INFO_xxxx()
     size_t Parameter=(size_t)-1;
     switch (Element_Code)
     {
+        case 0x00000000               : Parameter=General_Comment; break;
         case Elements::AVI__INFO_IARL : Parameter=General_Archival_Location; break;
         case Elements::AVI__INFO_IART : Parameter=General_Director; break;
         case Elements::AVI__INFO_IAS1 : Parameter=Audio_Language; StreamKind=Stream_Audio; StreamPos=0; break;
