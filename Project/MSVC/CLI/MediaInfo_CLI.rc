@@ -1,8 +1,8 @@
 #include <winresrc.h>
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,7,12,0
- PRODUCTVERSION 0,7,12,0
+ FILEVERSION 0,7,13,0
+ PRODUCTVERSION 0,7,13,0
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -19,12 +19,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "http://mediainfo.sourceforge.net"
             VALUE "FileDescription", "MediaInfo Command Line Interface"
-            VALUE "FileVersion", "0, 7, 12, 0"
+            VALUE "FileVersion", "0, 7, 13, 0"
             VALUE "InternalName", "MediaInfoLib - CLI - MSVC 2008"
             VALUE "LegalCopyright", "GPL"
             VALUE "OriginalFilename", "MediaInfo.exe"
             VALUE "ProductName", "MediaInfo_CLI"
-            VALUE "ProductVersion", "0, 7, 12, 0"
+            VALUE "ProductVersion", "0, 7, 13, 0"
         END
     END
     BLOCK "VarFileInfo"

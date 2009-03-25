@@ -48,7 +48,7 @@ int Help()
     TEXTOUT("--Inform=...       Template defined information Display");
     TEXTOUT("--Info-Parameters  Display list of Inform= parameters");
     TEXTOUT("");
-    TEXTOUT("--Language=raw     Display Non-translated words (internal text)");
+    TEXTOUT("--Language=raw     Display non-translated unique identifiers (internal text)");
     TEXTOUT("--LogFile=...      Save the output in the specified file");
 
     return -1;

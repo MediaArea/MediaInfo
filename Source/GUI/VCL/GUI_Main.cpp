@@ -883,7 +883,7 @@ void __fastcall TMainF::M_File_Open_FolderClick(TObject *Sender)
         if (M_Options_CloseAllAuto->Checked)
             M_File_Close_AllClick(Sender);
 
-        I->Open(S1, FileOption_Recursive);
+        I->Open(S1, FileOption_NoRecursive);
         Refresh();
     }
 }
@@ -1440,7 +1440,7 @@ MESSAGE void __fastcall TMainF::HandleDropFiles (TMessage& Msg)
     for (int i=0; i<NbFiles; i++)
     {
         DragQueryFile(hDrop, i, File, 65536-1);
-        I->Open(File, FileOption_Recursive);
+        I->Open(File, FileOption_NoRecursive);
     }
     DragFinish (hDrop);
 

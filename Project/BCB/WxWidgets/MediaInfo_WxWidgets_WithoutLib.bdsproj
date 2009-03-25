@@ -94,12 +94,8 @@
           <property category="win32.*.win32b.bcc32" name="option.D.arg.1" value="UNICODE"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.10" value="ZENLIB_STANDARDx"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.11" value="MEDIAINFO_MINIMIZESIZEx"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.12" value="MEDIAINFO_ALL_NOx"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.13" value="MEDIAINFO_MPEGV_YES"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.14" value="MEDIAINFO_MPEGPS_YES"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.15" value="MEDIAINFO_AC3_YES"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.16" value="MEDIAINFO_DTS_YES"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.17" value="MEDIAINFO_MPEGA_YES"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.12" value="MEDIAINFO_MPEGTS_PESTIMESTAMP_NO"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.13" value="MEDIAINFO_MPEGTS_PCR_NO"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.2" value="_UNICODE"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.3" value="_DEBUG"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.4" value="__WXMSW__"/>
