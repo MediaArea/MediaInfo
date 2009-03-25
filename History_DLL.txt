@@ -12,6 +12,7 @@ Version 0.7.13, 2009-
 + SHN (Shorten) detection
 + TAK (Tom's lossless audio compressor) detection
 + MPEG-TS parser optimizations
++ #2706146, WMV: detection of container wanted aspect ratio
 
 Version 0.7.12, 2009-03-20
 -------------

@@ -668,6 +668,7 @@ void File_Wm::Header_HeaderExtension_Metadata()
     Element_Name("Metadata");
 
     //Parsing
+    float32 AspectRatioX=0, AspectRatioY=0;
     int16u Count;
     Get_L2 (Count,                                              "Description Records Count");
     for (int16u Pos=0; Pos<Count; Pos++)
@@ -699,6 +700,18 @@ void File_Wm::Header_HeaderExtension_Metadata()
 
         if (Name==_T("IsVBR"))
             Stream[StreamNumber].Info["BitRate_Mode"]=(Data_Int64==0)?"CBR":"VBR";
+        else if (Name==_T("AspectRatioX"))
+        {
+            AspectRatioX=Data.To_float32();
+            if (AspectRatioX && AspectRatioY)
+                Stream[StreamNumber].Info["PixelAspectRatio"].From_Number(AspectRatioX/AspectRatioY, 3);
+        }
+        else if (Name==_T("AspectRatioY"))
+        {
+            AspectRatioY=Data.To_float32();
+            if (AspectRatioX && AspectRatioY)
+                Stream[StreamNumber].Info["PixelAspectRatio"].From_Number(AspectRatioX/AspectRatioY, 3);
+        }
         else if (Name==_T("DeviceConformanceTemplate"))
         {
             if (Data!=_T("@"))
@@ -969,7 +982,8 @@ void File_Wm::Header_ExtendedContentDescription()
         //Filling
         if (!Value.empty())
         {
-                 if (Name==_T("ASFLeakyBucketPairs")) {} //Already done elsewhere
+                 if (Name==_T("Agility FPS")) {}
+            else if (Name==_T("ASFLeakyBucketPairs")) {} //Already done elsewhere
             else if (Name==_T("Buffer Average")) {}
             else if (Name==_T("DVR Index Granularity")) {}
             else if (Name==_T("DVR File Version")) {}
