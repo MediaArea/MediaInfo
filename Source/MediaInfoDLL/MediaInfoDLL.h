@@ -107,7 +107,7 @@ typedef enum MediaInfo_infooptions_t
 typedef enum MediaInfo_fileoptions_t
 {
     MediaInfo_FileOption_Nothing        =0x00,
-    MediaInfo_FileOption_Recursive      =0x01,
+    MediaInfo_FileOption_NoRecursive    =0x01,
     MediaInfo_FileOption_CloseAll       =0x02,
     MediaInfo_FileOption_Max            =0x04
 } MediaInfo_fileoptions_C;
@@ -330,7 +330,7 @@ enum infooptions_t
 enum fileoptions_t
 {
     FileOption_Nothing      =0x00,
-    FileOption_Recursive    =0x01,  ///< Browse folders recursively
+    FileOption_NoRecursive  =0x01,  ///< Do not browse folders recursively
     FileOption_CloseAll     =0x02,  ///< Close all files before open
     FileOption_Max          =0x04
 };
