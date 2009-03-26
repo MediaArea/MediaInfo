@@ -70,6 +70,8 @@ namespace Elements
     const int32u SMV0=0x534D5630;
     const int32u SMV0_xxxx=0x534D563A;
     const int32u W3DI=0x57334449;
+    const int32u WAVE=0x57415645;
+    const int32u WAVE_data=0x64617461;
 }
 
 //***************************************************************************
@@ -446,6 +448,9 @@ void File_Riff::Header_Parse()
     }
     else
         Alignement_ExtraByte=false;
+    if ((Name==Elements::WAVE || Name==Elements::WAVE_data)
+     && File_Offset+Buffer_Offset+8+Size==(File_Size%0x100000000LL))
+        Size_Complete=File_Size-(File_Offset+Buffer_Offset+8); //Non standard big files detection
     Header_Fill_Size(Size_Complete+8);
 }
 
