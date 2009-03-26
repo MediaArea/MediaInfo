@@ -4,6 +4,10 @@ EXPORTS
     MediaInfo_Delete               @27
     MediaInfo_Open                 @14
     MediaInfo_Open_Buffer          @15
+    MediaInfo_Open_Buffer_Init     @64
+    MediaInfo_Open_Buffer_Continue @65
+    MediaInfo_Open_Buffer_Continue_GoTo_Get @66
+    MediaInfo_Open_Buffer_Finalize @67
     MediaInfo_Save                 @16
     MediaInfo_Close                @17
     MediaInfo_Inform               @18
@@ -19,6 +23,10 @@ EXPORTS
     MediaInfoA_Delete              @29
     MediaInfoA_Open                @01
     MediaInfoA_Open_Buffer         @06
+    MediaInfoA_Open_Buffer_Init    @68
+    MediaInfoA_Open_Buffer_Continue @69
+    MediaInfoA_Open_Buffer_Continue_GoTo_Get @70
+    MediaInfoA_Open_Buffer_Finalize @71
     MediaInfoA_Save                @10
     MediaInfoA_Close               @02
     MediaInfoA_Inform              @03
@@ -62,4 +70,4 @@ EXPORTS
     MediaInfoListA_State_Get       @60
     MediaInfoListA_Count_Get       @61
     MediaInfoListA_Count_Get_Files @63
-;Last item = 63
+;Last item = 71

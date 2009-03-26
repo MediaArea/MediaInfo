@@ -24,12 +24,14 @@
 
 #ifdef MEDIAINFO_LIBRARY
     #include "MediaInfo/MediaInfo.h" //Staticly-loaded library (.lib or .a or .so)
+    #define MediaInfoNameSpace MediaInfoLib;
 #else //MEDIAINFO_LIBRARY
     #include "MediaInfoDLL/MediaInfoDLL.h" //Dynamicly-loaded library (.dll or .so)
+    #define MediaInfoNameSpace MediaInfoDLL;
 #endif //MEDIAINFO_LIBRARY
 #include <iostream>
 #include <iomanip>
-using namespace MediaInfoLib;
+using namespace MediaInfoNameSpace;
 
 #ifdef __MINGW32__
     #ifdef _UNICODE
@@ -39,11 +41,11 @@ using namespace MediaInfoLib;
     #endif //_UNICODE
 #endif //__MINGW32
 
-int main (int argc, MediaInfoLib::Char *argv[])
+int main (int argc, Char *argv[])
 {
     //Information about MediaInfo
     MediaInfo MI;
-    String To_Display=MI.Option(_T("Info_Version"), _T("0.7.0.0;MediaInfoDLL_Example_MSVC;0.7.0.0")).c_str();
+    String To_Display=MI.Option(_T("Info_Version"), _T("0.7.13;MediaInfoDLL_Example_MSVC;0.7.13")).c_str();
 
     To_Display += _T("\r\n\r\nInfo_Parameters\r\n");
     To_Display += MI.Option(_T("Info_Parameters")).c_str();
@@ -102,4 +104,48 @@ int main (int argc, MediaInfoLib::Char *argv[])
 
     return 1;
 }
+
 //---------------------------------------------------------------------------
+/*
+//Note: you can replace ZenLib::File by your own file management class
+int ExampleWithBuffers (int argc, Char *argv[])
+{
+    //Initilaizing MediaInfo
+    MediaInfo MI;
+
+    //From: preparing an example file for reading
+    ZenLib::File From; From.Open(FileName, ZenLib::File::Access_Read); //You can use something else than a file
+
+    //From: preparing a memory buffer for reading
+    ZenLib::int8u* From_Buffer=new ZenLib::int8u[7*188]; //Note: you can do your own buffer
+    size_t From_Buffer_Size; //The size of the read file buffer
+
+    //Preparing to fill MediaInfo with a buffer
+    MI.Open_Buffer_Init(From.Size_Get(), 0);
+
+    //The parsing loop
+    do
+    {
+        //Reading data somewhere, do what you want for this.
+        From_Buffer_Size=From.Read(From_Buffer, 7*188);
+
+        //Sending the buffer to MediaInfo
+        if (MI.Open_Buffer_Continue(From_Buffer, From_Buffer_Size)==0)
+            break;
+
+        //Testing if MediaInfo request to go elsewhere
+        if (MI.Open_Buffer_Continue_GoTo_Get()!=(ZenLib::int64u)-1)
+        {
+            From.GoTo(MI.Open_Buffer_Continue_GoTo_Get());              //Position the file
+            MI.Open_Buffer_Init(From.Size_Get(), From.Position_Get());  //Informaing MediaInfo we have seek
+        }
+    }
+    while (From_Buffer_Size>0);
+
+    //Finalizing
+    MI.Open_Buffer_Finalize(); //This is the end of the stream, MediaInfo must finnish some work
+
+    //Get() example
+    MediaInfoNameSpace::String Text=MI.Get(Stream_General, 0, _T("Format"));
+}
+*/

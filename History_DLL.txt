@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.13, 2009-
 -------------
++ Exported "stream" interface for analyzing streams in memory (beta)
 + SHN (Shorten) detection
 + TAK (Tom's lossless audio compressor) detection
 + MPEG-TS parser optimizations

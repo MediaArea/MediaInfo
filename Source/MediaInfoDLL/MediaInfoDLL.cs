@@ -89,13 +89,29 @@ namespace MediaInfoLib
         [DllImport("MediaInfo.dll")]
         private static extern IntPtr MediaInfo_New();
         [DllImport("MediaInfo.dll")]
-        private static extern void MediaInfo_Delete(IntPtr Handle);
+        private static extern void   MediaInfo_Delete(IntPtr Handle);
         [DllImport("MediaInfo.dll")]
         private static extern IntPtr MediaInfo_Open(IntPtr Handle, [MarshalAs(UnmanagedType.LPWStr)] string FileName);
         [DllImport("MediaInfo.dll")]
         private static extern IntPtr MediaInfoA_Open(IntPtr Handle, IntPtr FileName);
         [DllImport("MediaInfo.dll")]
-        private static extern void MediaInfo_Close(IntPtr Handle);
+        private static extern IntPtr MediaInfo_Open_Buffer_Init(IntPtr Handle, Int64 File_Size, Int64 File_Offset);
+        [DllImport("MediaInfo.dll")]
+        private static extern IntPtr MediaInfoA_Open(IntPtr Handle, Int64 File_Size, Int64 File_Offset);
+        [DllImport("MediaInfo.dll")]
+        private static extern IntPtr MediaInfo_Open_Buffer_Continue(IntPtr Handle, IntPtr Buffer, IntPtr Buffer_Size);
+        [DllImport("MediaInfo.dll")]
+        private static extern IntPtr MediaInfoA_Open_Buffer_Continue(IntPtr Handle, Int64 File_Size, byte[] Buffer, IntPtr Buffer_Size);
+        [DllImport("MediaInfo.dll")]
+        private static extern Int64  MediaInfo_Open_Buffer_Continue_GoTo_Get(IntPtr Handle);
+        [DllImport("MediaInfo.dll")]
+        private static extern Int64  MediaInfoA_Open_Buffer_Continue_GoTo_Get(IntPtr Handle);
+        [DllImport("MediaInfo.dll")]
+        private static extern IntPtr MediaInfo_Open_Buffer_Finalize(IntPtr Handle);
+        [DllImport("MediaInfo.dll")]
+        private static extern IntPtr MediaInfoA_Open_Buffer_Finalize(IntPtr Handle);
+        [DllImport("MediaInfo.dll")]
+        private static extern void   MediaInfo_Close(IntPtr Handle);
         [DllImport("MediaInfo.dll")]
         private static extern IntPtr MediaInfo_Inform(IntPtr Handle, IntPtr Reserved);
         [DllImport("MediaInfo.dll")]
@@ -131,13 +147,29 @@ namespace MediaInfoLib
         {
             if (MustUseAnsi)
             {
-                IntPtr FileName_Ptr=Marshal.StringToHGlobalAnsi(FileName);
-                int ToReturn=(int)MediaInfoA_Open(Handle, FileName_Ptr);
+                IntPtr FileName_Ptr = Marshal.StringToHGlobalAnsi(FileName);
+                int ToReturn = (int)MediaInfoA_Open(Handle, FileName_Ptr);
                 Marshal.FreeHGlobal(FileName_Ptr);
                 return ToReturn;
             }
             else
                 return (int)MediaInfo_Open(Handle, FileName);
+        }
+        public int Open_Buffer_Init(Int64 File_Size, Int64 File_Offset)
+        {
+            return (int)MediaInfo_Open_Buffer_Init(Handle, File_Size, File_Offset);
+        }
+        public int Open_Buffer_Continue(IntPtr Buffer, IntPtr Buffer_Size)
+        {
+            return (int)MediaInfo_Open_Buffer_Continue(Handle, Buffer, Buffer_Size);
+        }
+        public Int64 Open_Buffer_Continue_GoTo_Get()
+        {
+            return (int)MediaInfo_Open_Buffer_Continue_GoTo_Get(Handle);
+        }
+        public int Open_Buffer_Finalize()
+        {
+            return (int)MediaInfo_Open_Buffer_Finalize(Handle);
         }
         public void Close() { MediaInfo_Close(Handle); }
         public String Inform()

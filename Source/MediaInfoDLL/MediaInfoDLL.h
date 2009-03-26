@@ -60,6 +60,26 @@
 /*-------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------*/
+/*8-bit int                                                                */
+typedef unsigned char       MediaInfo_int8u;
+/*-------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------*/
+/*64-bit int                                                               */
+#if defined(__MINGW32__) || defined(__CYGWIN32__) || defined(__UNIX__) || defined(__MACOSX__)
+    #undef  MAXTYPE_INT
+    #define MAXTYPE_INT 64
+    typedef unsigned long long  MediaInfo_int64u;
+#elif defined(__WIN32__) || defined(_WIN32)
+    #undef  MAXTYPE_INT
+    #define MAXTYPE_INT 64
+    typedef unsigned __int64    MediaInfo_int64u;
+#else
+    #pragma message This machine has no 64-bit integer type?
+#endif
+/*-------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------*/
 /*NULL                                                                      */
 #ifndef NULL
     #define NULL 0
@@ -133,19 +153,22 @@ static size_t Module_Count=0;
 #ifdef MEDIAINFO_GLIBC
 #define MEDIAINFO_ASSIGN(_Name,_Name2) \
     if (!g_module_symbol (Module, "MediaInfo"MEDIAINFO_Ansi"_"_Name2, (gpointer*)&MediaInfo_##_Name)) \
-        Errors++; \
+        Errors++;
+#define MEDIAINFOLIST_ASSIGN(_Name,_Name2) \
     if (!g_module_symbol (Module, "MediaInfoList"MEDIAINFO_Ansi"_"_Name2, (gpointer*)&MediaInfoList_##_Name)) \
         Errors++;
 #elif defined (_WIN32) || defined (WIN32)
 #define MEDIAINFO_ASSIGN(_Name,_Name2) \
     MediaInfo_##_Name=(MEDIAINFO_##_Name)GetProcAddress(Module, "MediaInfo"MEDIAINFO_Ansi"_"_Name2); \
-    if (MediaInfo_##_Name==NULL) Errors++; \
+    if (MediaInfo_##_Name==NULL) Errors++;
+#define MEDIAINFOLIST_ASSIGN(_Name,_Name2) \
     MediaInfoList_##_Name=(MEDIAINFOLIST_##_Name)GetProcAddress(Module, "MediaInfoList"MEDIAINFO_Ansi"_"_Name2); \
     if (MediaInfoList_##_Name==NULL) Errors++;
 #else
 #define MEDIAINFO_ASSIGN(_Name,_Name2) \
     MediaInfo_##_Name=(MEDIAINFO_##_Name)dlsym(Module, "MediaInfo"MEDIAINFO_Ansi"_"_Name2); \
-    if (MediaInfo_##_Name==NULL) Errors++; \
+    if (MediaInfo_##_Name==NULL) Errors++;
+#define MEDIAINFO_ASSIGN(_Name,_Name2) \
     MediaInfoList_##_Name=(MEDIAINFOLIST_##_Name)dlsym(Module, "MediaInfoList"MEDIAINFO_Ansi"_"_Name2); \
     if (MediaInfoList_##_Name==NULL) Errors++;
 #endif
@@ -156,6 +179,10 @@ typedef void (__stdcall *MEDIAINFO_Delete)(void*); static MEDIAINFO_Delete Media
 typedef void (__stdcall *MEDIAINFOLIST_Delete)(void*); static MEDIAINFOLIST_Delete MediaInfoList_Delete;
 typedef size_t (__stdcall *MEDIAINFO_Open)(void*, const MediaInfo_Char*); static MEDIAINFO_Open MediaInfo_Open;
 typedef size_t (__stdcall *MEDIAINFOLIST_Open)(void*, const MediaInfo_Char*, const MediaInfo_fileoptions_C); static MEDIAINFOLIST_Open MediaInfoList_Open;
+typedef size_t (__stdcall *MEDIAINFO_Open_Buffer_Init)(void*, MediaInfo_int64u File_Size, MediaInfo_int64u File_Offset); static MEDIAINFO_Open_Buffer_Init MediaInfo_Open_Buffer_Init;
+typedef size_t (__stdcall *MEDIAINFO_Open_Buffer_Continue)(void*, MediaInfo_int8u* Buffer, size_t Buffer_Size); static MEDIAINFO_Open_Buffer_Continue MediaInfo_Open_Buffer_Continue;
+typedef MediaInfo_int64u (__stdcall *MEDIAINFO_Open_Buffer_Continue_GoTo_Get)(void*); static MEDIAINFO_Open_Buffer_Continue_GoTo_Get MediaInfo_Open_Buffer_Continue_GoTo_Get;
+typedef size_t (__stdcall *MEDIAINFO_Open_Buffer_Finalize)(void*); static MEDIAINFO_Open_Buffer_Finalize MediaInfo_Open_Buffer_Finalize;
 typedef void (__stdcall *MEDIAINFO_Close)(void*); static MEDIAINFO_Close MediaInfo_Close;
 typedef void (__stdcall *MEDIAINFOLIST_Close)(void*, size_t); static MEDIAINFOLIST_Close MediaInfoList_Close;
 typedef const MediaInfo_Char* (__stdcall *MEDIAINFO_Inform)(void*, size_t Reserved); static MEDIAINFO_Inform MediaInfo_Inform;
@@ -204,18 +231,32 @@ static size_t MediaInfoDLL_Load()
 
     /* Load methods */
     size_t Errors=0;
-    MEDIAINFO_ASSIGN(New,"New")
-    MEDIAINFO_ASSIGN(Delete,"Delete")
-    MEDIAINFO_ASSIGN(Open,"Open")
-    MEDIAINFO_ASSIGN(Close,"Close")
-    MEDIAINFO_ASSIGN(Inform,"Inform")
-    MEDIAINFO_ASSIGN(GetI,"GetI")
-    MEDIAINFO_ASSIGN(Get,"Get")
-    MEDIAINFO_ASSIGN(Option,"Option")
-    MEDIAINFO_ASSIGN(State_Get,"State_Get")
-    MEDIAINFO_ASSIGN(Count_Get,"Count_Get")
-    MEDIAINFO_ASSIGN(Count_Get_Files,"Count_Get_Files")
-    if (Errors>1) //Normal for Count_Get_Files, MediaInfo has no one.
+    MEDIAINFO_ASSIGN    (New,"New")
+    MEDIAINFOLIST_ASSIGN(New,"New")
+    MEDIAINFO_ASSIGN    (Delete,"Delete")
+    MEDIAINFOLIST_ASSIGN(Delete,"Delete")
+    MEDIAINFO_ASSIGN    (Open,"Open")
+    MEDIAINFOLIST_ASSIGN(Open,"Open")
+    MEDIAINFO_ASSIGN    (Open_Buffer_Init,"Open_Buffer_Init")
+    MEDIAINFO_ASSIGN    (Open_Buffer_Continue,"Open_Buffer_Continue")
+    MEDIAINFO_ASSIGN    (Open_Buffer_Continue_GoTo_Get,"Open_Buffer_Continue_GoTo_Get")
+    MEDIAINFO_ASSIGN    (Open_Buffer_Finalize,"Open_Buffer_Finalize")
+    MEDIAINFO_ASSIGN    (Close,"Close")
+    MEDIAINFOLIST_ASSIGN(Close,"Close")
+    MEDIAINFO_ASSIGN    (Inform,"Inform")
+    MEDIAINFOLIST_ASSIGN(Inform,"Inform")
+    MEDIAINFO_ASSIGN    (GetI,"GetI")
+    MEDIAINFOLIST_ASSIGN(GetI,"GetI")
+    MEDIAINFO_ASSIGN    (Get,"Get")
+    MEDIAINFOLIST_ASSIGN(Get,"Get")
+    MEDIAINFO_ASSIGN    (Option,"Option")
+    MEDIAINFOLIST_ASSIGN(Option,"Option")
+    MEDIAINFO_ASSIGN    (State_Get,"State_Get")
+    MEDIAINFOLIST_ASSIGN(State_Get,"State_Get")
+    MEDIAINFO_ASSIGN    (Count_Get,"Count_Get")
+    MEDIAINFOLIST_ASSIGN(Count_Get,"Count_Get")
+    MEDIAINFOLIST_ASSIGN(Count_Get_Files,"Count_Get_Files")
+    if (Errors>0)
        return (size_t)-1;
 
     Module_Count++;
@@ -354,7 +395,10 @@ public :
 
     //File
     size_t Open (const String &File) {MEDIAINFO_TEST_INT; return MediaInfo_Open(Handle, File.c_str());};
-    //size_t Open (const unsigned char* Begin, size_t Begin_Size, const unsigned char* End=NULL, size_t End_Size=NULL) {MEDIAINFO_TEST_INT; return MediaInfo_Open_Buffer(Handle, Begin, Begin_Size, End, End_Size);};
+    size_t Open_Buffer_Init (MediaInfo_int64u File_Size, MediaInfo_int64u File_Offset) {MEDIAINFO_TEST_INT; return MediaInfo_Open_Buffer_Init(Handle, File_Size, File_Offset);};
+    size_t Open_Buffer_Continue (MediaInfo_int8u* Buffer, size_t Buffer_Size) {MEDIAINFO_TEST_INT; return MediaInfo_Open_Buffer_Continue(Handle, Buffer, Buffer_Size);};
+    MediaInfo_int64u Open_Buffer_Continue_GoTo_Get () {MEDIAINFO_TEST_INT; return MediaInfo_Open_Buffer_Continue_GoTo_Get(Handle);};
+    size_t Open_Buffer_Finalize () {MEDIAINFO_TEST_INT; return MediaInfo_Open_Buffer_Finalize(Handle);};
     //size_t Save () {MEDIAINFO_TEST_INT; return MediaInfo_Save(Handle);};
     void Close () {MEDIAINFO_TEST_VOID; return MediaInfo_Close(Handle);};
 
@@ -383,7 +427,6 @@ public :
 
     //File
     size_t Open (const String &File, const fileoptions_t Options=FileOption_Nothing) {MEDIAINFO_TEST_INT; return MediaInfoList_Open(Handle, File.c_str(), (MediaInfo_fileoptions_C)Options);};
-    //size_t Open (const unsigned char* Begin, size_t Begin_Size, const unsigned char* End=NULL, size_t End_Size=NULL) {MEDIAINFO_TEST_INT; return MediaInfoList_Open_Buffer(Handle, Begin, Begin_Size, End, End_Size);};
     //size_t Save (size_t FilePos) {MEDIAINFO_TEST_INT; return MediaInfoList_Save(Handle, FilePos);};
     void Close (size_t FilePos=(size_t)-1) {MEDIAINFO_TEST_VOID; return MediaInfoList_Close(Handle, FilePos);};
 
