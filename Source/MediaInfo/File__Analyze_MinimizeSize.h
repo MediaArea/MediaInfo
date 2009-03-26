@@ -291,18 +291,18 @@ public :
     void Peek_BF8 (float64 &Info);
     void Peek_BF10(float64 &Info);
     void Peek_BFP4(size_t Bits, float64 &Info);
-    inline void Skip_B1  (               const char*) {Element_Offset+=1;}
-    inline void Skip_B2  (               const char*) {Element_Offset+=2;}
-    inline void Skip_B3  (               const char*) {Element_Offset+=3;}
-    inline void Skip_B4  (               const char*) {Element_Offset+=4;}
-    inline void Skip_B5  (               const char*) {Element_Offset+=5;}
-    inline void Skip_B6  (               const char*) {Element_Offset+=6;}
-    inline void Skip_B7  (               const char*) {Element_Offset+=7;}
-    inline void Skip_B8  (               const char*) {Element_Offset+=8;}
-    inline void Skip_BF4 (               const char*) {Element_Offset+=4;}
-    inline void Skip_BF8 (               const char*) {Element_Offset+=8;}
-    inline void Skip_B16 (               const char*) {Element_Offset+=16;}
-    inline void Skip_BFP4(size_t,                     const char*) {Element_Offset+=4;};
+    inline void Skip_B1  (               const char*) {if (Element_Offset+1>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=1;}
+    inline void Skip_B2  (               const char*) {if (Element_Offset+2>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=2;}
+    inline void Skip_B3  (               const char*) {if (Element_Offset+3>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=3;}
+    inline void Skip_B4  (               const char*) {if (Element_Offset+4>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=4;}
+    inline void Skip_B5  (               const char*) {if (Element_Offset+5>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=5;}
+    inline void Skip_B6  (               const char*) {if (Element_Offset+6>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=6;}
+    inline void Skip_B7  (               const char*) {if (Element_Offset+7>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=7;}
+    inline void Skip_B8  (               const char*) {if (Element_Offset+8>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=8;}
+    inline void Skip_BF4 (               const char*) {if (Element_Offset+4>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=4;}
+    inline void Skip_BF8 (               const char*) {if (Element_Offset+8>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=8;}
+    inline void Skip_B16 (               const char*) {if (Element_Offset+16>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=16;}
+    inline void Skip_BFP4(size_t,                     const char*) {if (Element_Offset+4>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=4;};
     #define Info_B1(_INFO, _NAME)   int8u   _INFO; Get_B1 (_INFO, _NAME)
     #define Info_B2(_INFO, _NAME)   int16u  _INFO; Get_B2 (_INFO, _NAME)
     #define Info_B3(_INFO, _NAME)   int32u  _INFO; Get_B3 (_INFO, _NAME)
@@ -354,17 +354,17 @@ public :
     void Peek_L16(int128u &Info);
     void Peek_LF4(float32 &Info);
     void Peek_LF8(float64 &Info);
-    inline void Skip_L1  (               const char*) {Element_Offset+=1;}
-    inline void Skip_L2  (               const char*) {Element_Offset+=2;}
-    inline void Skip_L3  (               const char*) {Element_Offset+=3;}
-    inline void Skip_L4  (               const char*) {Element_Offset+=4;}
-    inline void Skip_L5  (               const char*) {Element_Offset+=5;}
-    inline void Skip_L6  (               const char*) {Element_Offset+=6;}
-    inline void Skip_L7  (               const char*) {Element_Offset+=7;}
-    inline void Skip_L8  (               const char*) {Element_Offset+=8;}
-    inline void Skip_LF4 (               const char*) {Element_Offset+=4;}
-    inline void Skip_LF8 (               const char*) {Element_Offset+=8;}
-    inline void Skip_L16 (               const char*) {Element_Offset+=16;}
+    inline void Skip_L1  (               const char*) {if (Element_Offset+1>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=1;}
+    inline void Skip_L2  (               const char*) {if (Element_Offset+2>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=2;}
+    inline void Skip_L3  (               const char*) {if (Element_Offset+3>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=3;}
+    inline void Skip_L4  (               const char*) {if (Element_Offset+4>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=4;}
+    inline void Skip_L5  (               const char*) {if (Element_Offset+5>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=5;}
+    inline void Skip_L6  (               const char*) {if (Element_Offset+6>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=6;}
+    inline void Skip_L7  (               const char*) {if (Element_Offset+7>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=7;}
+    inline void Skip_L8  (               const char*) {if (Element_Offset+8>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=8;}
+    inline void Skip_LF4 (               const char*) {if (Element_Offset+4>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=4;}
+    inline void Skip_LF8 (               const char*) {if (Element_Offset+8>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=8;}
+    inline void Skip_L16 (               const char*) {if (Element_Offset+16>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=16;}
     #define Info_L1(_INFO, _NAME)  int8u   _INFO; Get_L1 (_INFO, _NAME)
     #define Info_L2(_INFO, _NAME)  int16u  _INFO; Get_L2 (_INFO, _NAME)
     #define Info_L3(_INFO, _NAME)  int32u  _INFO; Get_L3 (_INFO, _NAME)
@@ -384,7 +384,7 @@ public :
     void Get_UUID (int128u &Info);
     inline void Get_UUID (int128u &Info, const char*) {Get_UUID(Info);}
     void Peek_UUID(int128u &Info);
-    inline void Skip_UUID(               const char*) {Element_Offset+=16;}
+    inline void Skip_UUID(               const char*) {if (Element_Offset+16>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=16;}
     #define Info_UUID(_INFO, _NAME) int128u _INFO; Get_UUID(_INFO, _NAME)
 
     //***************************************************************************
@@ -472,14 +472,14 @@ public :
     inline void Get_C6 (int64u &Info, const char*) {Get_C6(Info);}
     inline void Get_C7 (int64u &Info, const char*) {Get_C7(Info);}
     inline void Get_C8 (int64u &Info, const char*) {Get_C8(Info);}
-    inline void Skip_C1(              const char*) {Element_Offset+=1;}
-    inline void Skip_C2(              const char*) {Element_Offset+=2;}
-    inline void Skip_C3(              const char*) {Element_Offset+=3;}
-    inline void Skip_C4(              const char*) {Element_Offset+=4;}
-    inline void Skip_C5(              const char*) {Element_Offset+=5;}
-    inline void Skip_C6(              const char*) {Element_Offset+=6;}
-    inline void Skip_C7(              const char*) {Element_Offset+=7;}
-    inline void Skip_C8(              const char*) {Element_Offset+=8;}
+    inline void Skip_C1(              const char*) {if (Element_Offset+1>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=1;}
+    inline void Skip_C2(              const char*) {if (Element_Offset+2>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=2;}
+    inline void Skip_C3(              const char*) {if (Element_Offset+3>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=3;}
+    inline void Skip_C4(              const char*) {if (Element_Offset+4>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=4;}
+    inline void Skip_C5(              const char*) {if (Element_Offset+5>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=5;}
+    inline void Skip_C6(              const char*) {if (Element_Offset+6>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=6;}
+    inline void Skip_C7(              const char*) {if (Element_Offset+7>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=7;}
+    inline void Skip_C8(              const char*) {if (Element_Offset+8>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=8;}
     #define Info_C1(_INFO, _NAME) int8u  _INFO; Get_C1(_INFO, _NAME)
     #define Info_C2(_INFO, _NAME) int16u _INFO; Get_C2(_INFO, _NAME)
     #define Info_C3(_INFO, _NAME) int32u _INFO; Get_C3(_INFO, _NAME)

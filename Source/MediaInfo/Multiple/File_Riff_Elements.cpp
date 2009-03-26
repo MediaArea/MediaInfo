@@ -1235,7 +1235,7 @@ void File_Riff::AVI__hdlr_strl_strf_mids()
 
     //Filling
     Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Format, "MIDO");
+    Fill(Stream_Audio, StreamPos_Last, Audio_Format, "MIDI");
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "Midi");
 }
 
@@ -1244,14 +1244,30 @@ void File_Riff::AVI__hdlr_strl_strf_txts()
 {
     Element_Info("Text");
 
-    //Filling
-    Stream_Prepare(Stream_Text);
+    //Parsing
+    Ztring Format;
+    if (Element_Size)
+    {
+        Get_Local(10, Format,                                   "Format");
+        Skip_XX(22,                                             "Unknown");
+    }
 
-    //Creating the parser
-    #if defined(MEDIAINFO_OTHERTEXT_YES)
-        Stream[Stream_ID].Parser=new File_OtherText;
-        Open_Buffer_Init(Stream[Stream_ID].Parser);
-    #endif
+    FILLING_BEGIN_PRECISE()
+        Stream_Prepare(Stream_Text);
+
+        if (Element_Size==0)
+        {
+            //Creating the parser
+            #if defined(MEDIAINFO_OTHERTEXT_YES)
+                Stream[Stream_ID].Parser=new File_OtherText;
+                Open_Buffer_Init(Stream[Stream_ID].Parser);
+            #endif
+        }
+        else
+        {
+            Fill(Stream_Text, StreamPos_Last, Text_Format, Format);
+        }
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

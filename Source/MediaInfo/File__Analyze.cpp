@@ -806,7 +806,9 @@ void File__Analyze::Header_Fill_Code(int64u Code, const Ztring &Name)
     //ToShow
     if (MediaInfoLib::Config.Details_Get()!=0)
     {
-        Element[Element_Level-1].ToShow.Name=Name;
+        Element_Level--;
+        Element_Name(Name);
+        Element_Level++;
     }
 }
 #endif //MEDIAINFO_MINIMIZESIZE
@@ -1103,8 +1105,7 @@ void File__Analyze::Element_Begin(const Ztring &Name, int64u Size)
     {
         Element[Element_Level].ToShow.Size=Element[Element_Level].Next-(File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get());
         Element[Element_Level].ToShow.Header_Size=0;
-        if (!Name.empty())
-            Element[Element_Level].ToShow.Name=Name;
+        Element_Name(Name);
         Element[Element_Level].ToShow.Info.clear();
         Element[Element_Level].ToShow.Details.clear();
         Element[Element_Level].ToShow.NoShow=false;
@@ -1141,7 +1142,15 @@ void File__Analyze::Element_Name(const Ztring &Name)
     if (MediaInfoLib::Config.Details_Get()!=0)
     {
         if (!Name.empty())
-            Element[Element_Level].ToShow.Name=Name;
+        {
+            Ztring Name2=Name;
+            Name2.FindAndReplace(_T("\r\n"), _T("__"), 0, Ztring_Recursive);
+            Name2.FindAndReplace(_T("\r"), _T("_"), 0, Ztring_Recursive);
+            Name2.FindAndReplace(_T("\n"), _T("_"), 0, Ztring_Recursive);
+            if (Name2[0]==_T(' '))
+                Name2[0]=_T('_');
+            Element[Element_Level].ToShow.Name=Name2;
+        }
         else
             Element[Element_Level].ToShow.Name=_T("(Empty)");
     }
