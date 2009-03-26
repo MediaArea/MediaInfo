@@ -238,13 +238,13 @@
 
 //---------------------------------------------------------------------------
 // Other
-#if !defined(MEDIAINFO_OTHER_NO)
+#if defined(MEDIAINFO_OTHER_YES)
     #include "MediaInfo/File_Other.h"
 #endif
-#if !defined(MEDIAINFO_UNKNOWN_NO)
+#if defined(MEDIAINFO_UNKNOWN_YES)
     #include "MediaInfo/File_Unknown.h"
 #endif
-#if !defined(MEDIAINFO_DUMMY_NO)
+#if defined(MEDIAINFO_DUMMY_YES)
     #include "MediaInfo/File_Dummy.h"
 #endif
 //---------------------------------------------------------------------------
@@ -711,9 +711,9 @@ bool MediaInfo_Internal::LibraryIsModified ()
 //---------------------------------------------------------------------------
 void MediaInfo_Internal::CreateDummy (const String& Value)
 {
-    #if !defined(MEDIAINFO_DUMMY_NO)
-    Info=new File_Dummy();
-    ((File_Dummy*)Info)->KindOfDummy=Value;
+    #if defined(MEDIAINFO_DUMMY_YES)
+        Info=new File_Dummy();
+        ((File_Dummy*)Info)->KindOfDummy=Value;
     #endif
 }
 

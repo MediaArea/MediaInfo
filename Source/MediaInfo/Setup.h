@@ -371,7 +371,7 @@
 //---------------------------------------------------------------------------
 // Other
 #if !defined(MEDIAINFO_DUMMY_NO)
-    #define MEDIAINFO_DUMMY_YES
+    //#define MEDIAINFO_DUMMY_YES
 #endif
 #if !defined(MEDIAINFO_OTHER_NO)
     #define MEDIAINFO_OTHER_YES
