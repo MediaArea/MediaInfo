@@ -2253,7 +2253,7 @@ void MediaInfo_Config_CodecID_Audio_Riff (InfoMap &Info)
     "A109;Speex;;;http://www.speex.org/\n"
     "DFAC;FrameServer;;DebugMode SonicFoundry Vegas FrameServer ACM Codec\n"
     "F1AC;FLAC;;Free Lossless Audio Codec FLAC\n"
-    "FFFE;;Extensible;Extensible wave format\n"
+    "FFFE;PCM;;Extensible\n"
     "FFFF;;In Development;In Development / Unregistered\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
@@ -3364,7 +3364,7 @@ void MediaInfo_Config_Codec (InfoMap &Info)
     "A109;Speex;2CC;A;;;;http://www.speex.org/\n"
     "DFAC;FrameServer;2CC;A;;;DebugMode SonicFoundry Vegas FrameServer ACM Codec\n"
     "F1AC;FLAC;2CC;A;;;Free Lossless Audio Codec FLAC\n"
-    "FFFE;Extensible;2CC;A;;;Extensible wave format\n"
+    "FFFE;PCM;2CC;A;PCM;;Extensible wave format\n"
     "FFFF;In Development;2CC;A;;;In Development / Unregistered\n"
     "S_TEXT/UTF8;UTF-8;Mk;T;;;UTF-8 Plain Text\n"
     "S_TEXT/SSA;SSA;Mk;T;;;Sub Station Alpha\n"

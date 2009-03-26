@@ -16,6 +16,7 @@ Version 0.7.13, 2009-
 + #2706146, WMV: detection of container wanted aspect ratio
 + SWF: better handling of videos
 + WAV: better handling of 4GiB+ files
++ WAV: Extensible Wave support
 x #2712761, AVI: unsupported SalmonSoft text codec makes MediaInfo silently fail
 
 Version 0.7.12, 2009-03-20

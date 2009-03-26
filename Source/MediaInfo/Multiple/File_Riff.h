@@ -162,6 +162,7 @@ private :
     void AVI__hdlr_strl_strf_auds_Aac();
     void AVI__hdlr_strl_strf_auds_Vorbis();
     void AVI__hdlr_strl_strf_auds_Vorbis2();
+    void AVI__hdlr_strl_strf_auds_ExtensibleWave();
     void AVI__hdlr_strl_strf_iavs ();
     void AVI__hdlr_strl_strf_mids ();
     void AVI__hdlr_strl_strf_txts ();

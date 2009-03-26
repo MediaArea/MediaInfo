@@ -730,7 +730,7 @@ A_AC3;AC3;Mk;A;AC3;;Dolby AC3;
 A_AC3/BSID9;AC3;Mk;A;AC3;;Dolby AC3;
 A_AC3/BSID10;AC3;Mk;A;AC3;;Dolby AC3;
 A_DTS;DTS;Mk;A;DTS;;;
-A_EAC3;EAC3;Mk;A;EAC3;;Dolby Enhanced AC3
+A_EAC3;EAC3;Mk;A;EAC3;;Dolby Enhanced AC3;
 A_FLAC;Flac;Mk;A;Flac;;;http://flac.sourceforge.net
 A_TTA1;TTA;Mk;A;TTA;;The True Audio Lossless Codec;http://true-audio.com
 A_VORBIS;Vorbis;Mk;A;Vorbis;VBR;;http://www.vorbis.com
@@ -910,10 +910,10 @@ C;MPEG2 5.1;2CC;A;;;MPEG2 5.1;
 89;Onlive;2CC;A;;;OnLive! Technologies;
 8A;SX20;2CC;A;;;Multitude;
 8B;ADPCM;2CC;A;ADPCM;;Infocom ITS A/S;
-8C;G.729;2CC;A;;;Convedia Corporation;
-91;SBC24;2CC;A;;;Siemens Business Communications Sys 24;
-92;AC3 SPDIF;2CC;A;;;Sonic Foundry AC3 SPDIF;
-93;G723;2CC;A;;;MediaSonic G723;
+8C;G.729;2CC;A;;;Convedia Corporation
+91;SBC24;2CC;A;;;Siemens Business Communications Sys 24
+92;AC3 SPDIF;2CC;A;;;Sonic Foundry AC3 SPDIF
+93;G723;2CC;A;;;MediaSonic G723
 94;Prosody 8KBPS;2CC;A;;;Aculab plc Prosody 8KBPS
 97;ADPCM;2CC;A;ADPCM;;ZyXEL Communications ADPCM
 98;LPCBB;2CC;A;;;Philips Speech Processing LPCBB
@@ -926,10 +926,10 @@ A4;ACELP;2CC;A;;;Racal Recorders
 B0;AAC;2CC;A;AAC;;NEC Corporation
 FF;AAC;2CC;A;AAC;;
 100;ADPCM;2CC;A;ADPCM;;
-101;IRAT;2CC;A;;;BeCubed IRAT
-102;;2CC;A;;;IBM A-law
-103;;2CC;A;;;IBM AVC ADPCM
-111;G723;2CC;A;;;Vivo G723
+101;IRAT;2CC;A;;;BeCubed IRAT;
+102;;2CC;A;;;IBM A-law;
+103;;2CC;A;;;IBM AVC ADPCM;
+111;G723;2CC;A;;;Vivo G723;
 112;SIREN;2CC;A;;;Vivo SIREN;
 120;CELP;2CC;A;;;Philips Speech Processing;
 121;Grundig;2CC;A;;;Philips Speech Processing;
@@ -958,10 +958,10 @@ FF;AAC;2CC;A;AAC;;
 172;A-Law;2CC;A;ADPCM;;Unisys Nap A-law;
 173;16K;2CC;A;;;Unisys Nap 16K;
 174;G.700;2CC;A;;;SyCom Technologies;
-175;ADPCM;2CC;A;ADPCM;;SyCom Technologies;
-176;CELP54;2CC;A;;;SyCom Technologies;
-177;CELP68;2CC;A;;;SyCom Technologies;
-178;ADPCM;2CC;A;ADPCM;;Knowledge Adventure, Inc.;
+175;ADPCM;2CC;A;ADPCM;;SyCom Technologies
+176;CELP54;2CC;A;;;SyCom Technologies
+177;CELP68;2CC;A;;;SyCom Technologies
+178;ADPCM;2CC;A;ADPCM;;Knowledge Adventure, Inc.
 180;AAC;2CC;A;;;Fraunhofer IIS
 190;DTS;2CC;A;;;
 200;ADPCM;2CC;A;ADPCM;;Creative Labs ADPCM
@@ -974,10 +974,10 @@ FF;AAC;2CC;A;AAC;;
 230;VC;2CC;A;;;I-link VC
 240;RAW_SPORT;2CC;A;;;Aureal RAW_SPORT
 241;AC3;2CC;A;;;ESST AC3
-250;HSX;2CC;A;;;Interactive Products, Inc. (IPI) HSX
-251;RPELP;2CC;A;;;Interactive Products, Inc. (IPI) RPELP
-260;CS2;2CC;A;;;Consistent Software CS2
-270;SCX;2CC;A;;;Sony
+250;HSX;2CC;A;;;Interactive Products, Inc. (IPI) HSX;
+251;RPELP;2CC;A;;;Interactive Products, Inc. (IPI) RPELP;
+260;CS2;2CC;A;;;Consistent Software CS2;
+270;SCX;2CC;A;;;Sony;
 271;SCY;2CC;A;;;Sony;
 272;Atrac3;2CC;A;;;Sony;
 273;SPC;2CC;A;;;Sony;
@@ -1010,22 +1010,22 @@ AAC;AAC;2CC;A;AAC;;;
 1104;SBC;2CC;A;;;Lernout & Hauspie SBC 16 kb/s;http://www.microsoft.com/windows/
 1400;NORRIS;2CC;A;;;Norris Communications, Inc.;
 1401;ISIAUDIO;2CC;A;;;ISIAudio;
-1500;MUSICOMPRESS;2CC;A;;;Soundspace Music Compression
-181C;RT24;2CC;A;;;VoxWare RT24 speech codec
-181E;AX24000P;2CC;A;;;Lucent elemedia AX24000P Music codec
-1971;SonicFoundry;2CC;A;;;Lossless
-1C03;ADPCM;2CC;A;ADPCM;;Lucent SX5363S G.723 compliant codec
-1C07;SX8300P;2CC;A;;;Lucent SX8300P speech codec
-1C0C;ADPCM;2CC;A;ADPCM;;Lucent SX5363S G.723 compliant codec
-1F03;DigiTalk;2CC;A;;;CUseeMe DigiTalk (ex-Rocwell)
-1FC4;ALF2CD;2CC;A;;;NCT Soft ALF2CD ACM
-2000;AC3;2CC;A;AC3;CBR;Dolby AC3
-2001;DTS;2CC;A;DTS;;Digital Theater Systems
-2002;Real Audio 1;2CC;A;;;RealAudio 1/2 14.4
-2003;Real Audio 1;2CC;A;;;RealAudio 1/2 28.8
-2004;Real Audio 2;2CC;A;;;RealAudio G2/8 Cook (low bitrate)
-2005;Real Audio 3;2CC;A;;;RealAudio 3/4/5 Music (DNET)
-2006;AAC;2CC;A;AAC;;RealAudio 10 AAC (RAAC)
+1500;MUSICOMPRESS;2CC;A;;;Soundspace Music Compression;
+181C;RT24;2CC;A;;;VoxWare RT24 speech codec;
+181E;AX24000P;2CC;A;;;Lucent elemedia AX24000P Music codec;
+1971;SonicFoundry;2CC;A;;;Lossless;
+1C03;ADPCM;2CC;A;ADPCM;;Lucent SX5363S G.723 compliant codec;
+1C07;SX8300P;2CC;A;;;Lucent SX8300P speech codec;
+1C0C;ADPCM;2CC;A;ADPCM;;Lucent SX5363S G.723 compliant codec;
+1F03;DigiTalk;2CC;A;;;CUseeMe DigiTalk (ex-Rocwell);
+1FC4;ALF2CD;2CC;A;;;NCT Soft ALF2CD ACM;
+2000;AC3;2CC;A;AC3;CBR;Dolby AC3;
+2001;DTS;2CC;A;DTS;;Digital Theater Systems;
+2002;Real Audio 1;2CC;A;;;RealAudio 1/2 14.4;
+2003;Real Audio 1;2CC;A;;;RealAudio 1/2 28.8;
+2004;Real Audio 2;2CC;A;;;RealAudio G2/8 Cook (low bitrate);
+2005;Real Audio 3;2CC;A;;;RealAudio 3/4/5 Music (DNET);
+2006;AAC;2CC;A;AAC;;RealAudio 10 AAC (RAAC);
 2007;AAC+;2CC;A;AAC;;RealAudio 10 AAC+ (RACP);
 3313;AviSynth;2CC;A;;;makeAVIS (fake AVI sound from AviSynth scripts);
 4143;AAC;2CC;A;AAC;;Divio MPEG-4 AAC audio;
@@ -1054,10 +1054,10 @@ A105;ADPCM;2CC;A;ADPCM;;G726;
 A106;AAC;2CC;A;;;;
 A107;ADPCM;2CC;A;ADPCM;;G726;
 A109;Speex;2CC;A;;;;http://www.speex.org/
-DFAC;FrameServer;2CC;A;;;DebugMode SonicFoundry Vegas FrameServer ACM Codec;
-F1AC;FLAC;2CC;A;;;Free Lossless Audio Codec FLAC;
-FFFE;Extensible;2CC;A;;;Extensible wave format;
-FFFF;In Development;2CC;A;;;In Development / Unregistered;
+DFAC;FrameServer;2CC;A;;;DebugMode SonicFoundry Vegas FrameServer ACM Codec
+F1AC;FLAC;2CC;A;;;Free Lossless Audio Codec FLAC
+FFFE;PCM;2CC;A;PCM;;Extensible wave format
+FFFF;In Development;2CC;A;;;In Development / Unregistered
 S_TEXT/UTF8;UTF-8;Mk;T;;;UTF-8 Plain Text
 S_TEXT/SSA;SSA;Mk;T;;;Sub Station Alpha
 S_TEXT/ASS;ASS;Mk;T;;;Advanced Sub Station Alpha

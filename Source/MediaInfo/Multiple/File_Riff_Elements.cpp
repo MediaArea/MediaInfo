@@ -87,6 +87,69 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Infos
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+std::string ExtensibleWave_ChannelMask (int32u ChannelMask)
+{
+    std::string Text;
+    if ((ChannelMask&0x0007)!=0x0000)
+        Text+="Front:";
+    if (ChannelMask&0x0001)
+        Text+=" L";
+    if (ChannelMask&0x0004)
+        Text+=(ChannelMask&0x0001)?", C":" C";
+    if (ChannelMask&0x0002)
+        Text+=(ChannelMask&0x0003)?", R":" R";
+
+    if ((ChannelMask&0x0030)!=0x0000)
+        Text+="/";
+    if (ChannelMask&0x0010)
+        Text+=" L";
+    if (ChannelMask&0x0020)
+        Text+=(ChannelMask&0x0010)?", R":" R";
+
+    if ((ChannelMask&0x0008)!=0x0000)
+        Text+=", LFE";
+
+    return Text;
+}
+
+//---------------------------------------------------------------------------
+std::string ExtensibleWave_ChannelMask2 (int32u ChannelMask)
+{
+    std::string Text;
+    int8u Count=0;
+    if (ChannelMask&0x0001)
+        Count++;
+    if (ChannelMask&0x0004)
+        Count++;
+    if (ChannelMask&0x0002)
+        Count++;
+    if (Count)
+    {
+        Text+=Ztring::ToZtring(Count).To_UTF8();
+        Count=0;
+    }
+
+    if (ChannelMask&0x0010)
+        Count++;
+    if (ChannelMask&0x0020)
+        Count++;
+    if (Count)
+    {
+        Text+="/"+Ztring::ToZtring(Count).To_UTF8();
+        Count=0;
+    }
+
+    if (ChannelMask&0x0008)
+        Text+=".1";
+
+    return Text;
+}
+
+//***************************************************************************
 // Const
 //***************************************************************************
 
@@ -1039,6 +1102,8 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
             AVI__hdlr_strl_strf_auds_Vorbis();
         else if (FormatTag==0x6750) //Vorbis with Config in this chunk
             AVI__hdlr_strl_strf_auds_Vorbis2();
+        else if (FormatTag==0xFFFE) //Extensible Wave
+            AVI__hdlr_strl_strf_auds_ExtensibleWave();
         else Skip_XX(Option_Size,                               "Unknown");
     }
 }
@@ -1135,6 +1200,21 @@ void File_Riff::AVI__hdlr_strl_strf_auds_Vorbis2()
         Skip_XX(Element_Size-Element_Offset,                    "(Vorbis headers)");
     #endif
     Element_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::AVI__hdlr_strl_strf_auds_ExtensibleWave()
+{
+    //Parsing
+    int32u ChannelMask;
+    Skip_L2(                                                    "ValidBitsPerSample / SamplesPerBlock");
+    Get_L4 (ChannelMask,                                        "ChannelMask");
+    Skip_UUID(                                                  "SubFormat");
+
+    FILLING_BEGIN();
+        Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, ExtensibleWave_ChannelMask(ChannelMask));
+        Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions_String2, ExtensibleWave_ChannelMask2(ChannelMask));
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

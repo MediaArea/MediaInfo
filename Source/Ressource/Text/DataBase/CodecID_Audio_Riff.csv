@@ -232,5 +232,5 @@ A107;ADPCM;;G726;
 A109;Speex;;;http://www.speex.org/
 DFAC;FrameServer;;DebugMode SonicFoundry Vegas FrameServer ACM Codec;
 F1AC;FLAC;;Free Lossless Audio Codec FLAC;
-FFFE;;Extensible;Extensible wave format;
+FFFE;PCM;;Extensible;
 FFFF;;In Development;In Development / Unregistered;
