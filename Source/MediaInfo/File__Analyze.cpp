@@ -251,14 +251,16 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     if (Buffer_Size>=Buffer_MinimumSize || File_Offset+Buffer_Size==File_Size) //Parsing only if we have enough buffer
         Open_Buffer_Continue_Loop();
     Buffer_TotalBytes+=Buffer_Offset;
-
+    if (File_GoTo!=(int64u)-1) {
+       int A=0; 
+    }
     //Should parse again?
     if ((File_GoTo==File_Size && File_Size!=(int64u)-1) || File_Offset+Buffer_Offset>=File_Size)
     {
         if (!BookMark_Code.empty())
             BookMark_Get();
 
-        if (!IsAccepted && File_GoTo>=File_Size)
+        if (File_GoTo>=File_Size)
         {
             Finish();
             Element_Show(); //If Element_Level is >0, we must show what is in the details buffer
