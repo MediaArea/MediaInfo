@@ -756,7 +756,7 @@ void File_Ogg_SubElement::Comment()
     //Filling
     Merge(Vorbis, Stream_General,  0, 0);
     Merge(Vorbis, StreamKind,      0, 0);
-    Merge(Vorbis, Stream_Chapters, 0, 0);
+    Merge(Vorbis, Stream_Menu,     0, 0);
 
     //Testing if we must continue
     if (Identified && (Parser==NULL || Parser->IsFinished))

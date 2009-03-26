@@ -226,7 +226,7 @@ void File_Flac::VORBIS_COMMENT()
         Open_Buffer_Finalize(&VorbisCom);
         Merge(VorbisCom, Stream_General,  0, 0);
         Merge(VorbisCom, Stream_Audio,    0, 0);
-        Merge(VorbisCom, Stream_Chapters, 0, 0);
+        Merge(VorbisCom, Stream_Menu,     0, 0);
     #else
         Skip_XX(Element_Offset,                                 "Data");
     #endif

@@ -17,6 +17,8 @@ Version 0.7.13, 2009-
 + SWF: better handling of videos
 + WAV: better handling of 4GiB+ files
 + WAV: Extensible Wave support
++ MKV: Handling of chapters in multiple languages
++ Chapters are moved to menu part for better coherency with MPEG-TS
 x #2712761, AVI: unsupported SalmonSoft text codec makes MediaInfo silently fail
 
 Version 0.7.12, 2009-03-20

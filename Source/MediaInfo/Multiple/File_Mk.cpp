@@ -220,6 +220,33 @@ void File_Mk::Read_Buffer_Finalize()
             Fill(Stream_Video, Temp->second.StreamPos, "DisplayAspectRatio", Temp->second.DisplayAspectRatio, 3, true);
     }
 
+    //Chapters
+    if (TimecodeScale)
+    {
+        for (EditionEntries_Pos=0; EditionEntries_Pos<EditionEntries.size(); EditionEntries_Pos++)
+        {
+            Stream_Prepare(Stream_Menu);
+            for (ChapterAtoms_Pos=0; ChapterAtoms_Pos<EditionEntries[EditionEntries_Pos].ChapterAtoms.size(); ChapterAtoms_Pos++)
+            {
+                if (EditionEntries[EditionEntries_Pos].ChapterAtoms[ChapterAtoms_Pos].ChapterTimeStart!=(int64u)-1)
+                {
+                    Ztring Text;
+                    for (ChapterDisplays_Pos=0; ChapterDisplays_Pos<EditionEntries[EditionEntries_Pos].ChapterAtoms[ChapterAtoms_Pos].ChapterDisplays.size(); ChapterDisplays_Pos++)
+                    {
+                        Ztring PerLanguage;
+                        if (!EditionEntries[EditionEntries_Pos].ChapterAtoms[ChapterAtoms_Pos].ChapterDisplays[ChapterDisplays_Pos].ChapLanguage.empty())
+                            PerLanguage=MediaInfoLib::Config.Iso639_Get(EditionEntries[EditionEntries_Pos].ChapterAtoms[ChapterAtoms_Pos].ChapterDisplays[ChapterDisplays_Pos].ChapLanguage)+_T(':');
+                        PerLanguage+=EditionEntries[EditionEntries_Pos].ChapterAtoms[ChapterAtoms_Pos].ChapterDisplays[ChapterDisplays_Pos].ChapString;
+                        Text+=PerLanguage+_T(" - ");
+                    }
+                    if (Text.size())
+                        Text.resize(Text.size()-3);
+                    Fill(Stream_Menu, StreamPos_Last, Ztring().Duration_From_Milliseconds(EditionEntries[EditionEntries_Pos].ChapterAtoms[ChapterAtoms_Pos].ChapterTimeStart/TimecodeScale).To_UTF8().c_str(), Text);
+                }
+            }
+        }
+    }
+
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Stream.clear();
@@ -907,8 +934,8 @@ void File_Mk::Segment_Chapters_EditionEntry()
     Element_Name("EditionEntry");
 
     //Filling
-    Stream_Prepare(Stream_Chapters);
-    Chapter_Pos=0;
+    EditionEntries_Pos=EditionEntries.size();
+    EditionEntries.resize(EditionEntries_Pos+1);
 }
 
 //---------------------------------------------------------------------------
@@ -917,9 +944,8 @@ void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom()
     Element_Name("ChapterAtom");
 
     //Filling
-    ChapterTimeStart=(int64u)-1;
-    ChapterString=(_T("XXXXXXXX"));
-    Chapter_Pos++;
+    ChapterAtoms_Pos=EditionEntries[EditionEntries_Pos].ChapterAtoms.size();
+    EditionEntries[EditionEntries_Pos].ChapterAtoms.resize(ChapterAtoms_Pos+1);
 }
 
 //---------------------------------------------------------------------------
@@ -974,6 +1000,10 @@ void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapProcess_ChapProcessP
 void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay()
 {
     Element_Name("ChapterDisplay");
+
+    //Filling
+    ChapterDisplays_Pos=EditionEntries[EditionEntries_Pos].ChapterAtoms[ChapterAtoms_Pos].ChapterDisplays.size();
+    EditionEntries[EditionEntries_Pos].ChapterAtoms[ChapterAtoms_Pos].ChapterDisplays.resize(ChapterDisplays_Pos+1);
 }
 
 //---------------------------------------------------------------------------
@@ -994,7 +1024,7 @@ void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay_ChapLangu
     Ztring Data=Local_Get();
 
     FILLING_BEGIN();
-        Fill(StreamKind_Last, StreamPos_Last, "Language", Data, true);
+        EditionEntries[EditionEntries_Pos].ChapterAtoms[ChapterAtoms_Pos].ChapterDisplays[ChapterDisplays_Pos].ChapLanguage=Data;
     FILLING_END();
 }
 
@@ -1004,11 +1034,12 @@ void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterDisplay_ChapStrin
     Element_Name("ChapString");
 
     //Parsing
-    ChapterString=UTF8_Get();
+    Ztring Data=UTF8_Get();
 
     FILLING_BEGIN();
-        if (TimecodeScale!=0 && ChapterTimeStart!=(int64u)-1)
-            Fill(StreamKind_Last, StreamPos_Last, Ztring::ToZtring(Chapter_Pos).To_Local().c_str(), Ztring().Duration_From_Milliseconds(ChapterTimeStart/TimecodeScale)+_T(" - ")+ChapterString, true);
+        EditionEntries[EditionEntries_Pos].ChapterAtoms[ChapterAtoms_Pos].ChapterDisplays[ChapterDisplays_Pos].ChapString=Data;
+        //if (TimecodeScale!=0 && ChapterTimeStart!=(int64u)-1)
+        //    Fill(StreamKind_Last, StreamPos_Last, Ztring::ToZtring(Chapter_Pos).To_Local().c_str(), Ztring().Duration_From_Milliseconds(ChapterTimeStart/TimecodeScale)+_T(" - ")+ChapterString, true);
     FILLING_END();
 }
 
@@ -1072,11 +1103,10 @@ void File_Mk::Segment_Chapters_EditionEntry_ChapterAtom_ChapterTimeStart()
     Element_Name("ChapterTimeStart");
 
     //Parsing
-    ChapterTimeStart=UInteger_Get();
+    int64u Data=UInteger_Get();
 
     FILLING_BEGIN();
-        if (TimecodeScale!=0 && ChapterString!=_T("XXXXXXXX"))
-            Fill(StreamKind_Last, StreamPos_Last, Ztring::ToZtring(Chapter_Pos).To_Local().c_str(), Ztring().Duration_From_Milliseconds(ChapterTimeStart/TimecodeScale)+_T(" ")+ChapterString, true);
+        EditionEntries[EditionEntries_Pos].ChapterAtoms[ChapterAtoms_Pos].ChapterTimeStart=Data;
     FILLING_END();
 }
 

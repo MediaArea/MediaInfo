@@ -3279,7 +3279,7 @@ void File_Mpeg4::moov_udta_chpl()
     int64u Time;
     int8u Size;
     size_t Pos=0;
-    Stream_Prepare(Stream_Chapters);
+    Stream_Prepare(Stream_Menu);
     Skip_B8(                                                    "Unknown");
     Skip_B1(                                                    "Chapter Count");
     while (Element_Offset<Element_Size)
@@ -3292,11 +3292,7 @@ void File_Mpeg4::moov_udta_chpl()
             Value.From_Local(ValueS.c_str()); //Trying Local...
 
         FILLING_BEGIN();
-            Ztring ToAdd;
-            ToAdd+=Ztring().Duration_From_Milliseconds(Time/10000);
-            ToAdd+=_T(" - ");
-            ToAdd+=Value;
-            Fill(StreamKind_Last, StreamPos_Last, Ztring::ToZtring(Pos+1).To_Local().c_str(), ToAdd);
+            Fill(Stream_Menu, StreamPos_Last, Ztring().Duration_From_Milliseconds(Time/10000).To_Local().c_str(), Value);
         FILLING_END();
 
         //Next

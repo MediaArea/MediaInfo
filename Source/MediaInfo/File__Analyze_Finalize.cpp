@@ -54,22 +54,24 @@ void File__Analyze::General_Fill()
     if (Count_Get(Stream_General)==0)
         return;
 
-    //FileName and FileSize
+    //File name and dates
     if (File_Name.size()>0)
     {
-        //FileName
+        //File name
         Fill (Stream_General, 0, General_CompleteName, File_Name);
         Fill (Stream_General, 0, General_FolderName, FileName::Path_Get(File_Name));
         Fill (Stream_General, 0, General_FileName, FileName::Name_Get(File_Name));
         Fill (Stream_General, 0, General_FileExtension, FileName::Extension_Get(File_Name).MakeLowerCase());
 
-        //FileSize
+        //File dates
         File F(File_Name);
-        if (File_Size!=(int64u)-1)
-            Fill (Stream_General, 0, General_FileSize, File_Size);
         Fill (Stream_General, 0, General_File_Created_Date, F.Created_Get());
         Fill (Stream_General, 0, General_File_Modified_Date, F.Modified_Get());
     }
+
+    //File size
+    if (File_Size!=(int64u)-1)
+        Fill (Stream_General, 0, General_FileSize, File_Size);
 }
 
 //***************************************************************************

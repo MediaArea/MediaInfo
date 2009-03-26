@@ -295,11 +295,33 @@ private :
     int64u  TrackVideoDisplayWidth;
     int64u  TrackVideoDisplayHeight;
     int32u  AvgBytesPerSec;
-    int64u  ChapterTimeStart;
-    Ztring  ChapterString;
-    int32u  Chapter_Pos;
     int64u  Segment_Cluster_TimeCode_Value;
     bool    Cluster_AlreadyParsed;
+
+    //Chapters
+    struct chapterdisplay
+    {
+        Ztring ChapLanguage;
+        Ztring ChapString;
+    };
+    struct chapteratom
+    {
+        int64u ChapterTimeStart;
+        std::vector<chapterdisplay> ChapterDisplays;
+
+        chapteratom()
+        {
+            ChapterTimeStart=(int64u)-1;
+        }
+    };
+    struct editionentry
+    {
+        std::vector<chapteratom> ChapterAtoms;
+    };
+    std::vector<editionentry> EditionEntries;
+    size_t EditionEntries_Pos;
+    size_t ChapterAtoms_Pos;
+    size_t ChapterDisplays_Pos;
 };
 
 } //NameSpace

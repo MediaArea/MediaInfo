@@ -871,7 +871,7 @@ void File_Wm::Header_Marker()
     
     //Filling
     if (Count>0)
-        Stream_Prepare(Stream_Chapters);
+        Stream_Prepare(Stream_Menu);
 
     //Parsing
     for (int32u Pos=0; Pos<Count; Pos++)

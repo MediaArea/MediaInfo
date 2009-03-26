@@ -203,7 +203,10 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     if (File_GoTo!=(int64u)-1)
     {
         if (File_GoTo>File_Offset+ToAdd_Size)
+        {
+            File_Offset+=ToAdd_Size;
             return; //No need of this piece of data
+        }
         if (File_GoTo!=File_Offset)
         {
             //The needed offset is in the new buffer

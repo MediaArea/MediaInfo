@@ -234,8 +234,8 @@ void File_VorbisCom::Data_Parse()
         }
         else if (Key.find(_T("CHAPTER"))==0)
         {
-            if (Count_Get(Stream_Chapters)==0)
-                Stream_Prepare(Stream_Chapters);
+            if (Count_Get(Stream_Menu)==0)
+                Stream_Prepare(Stream_Menu);
             if (Key.find(_T("NAME"))==Error)
             {
                 Chapter_Pos=Key.SubString(_T("CHAPTER"), _T(""));
@@ -246,7 +246,7 @@ void File_VorbisCom::Data_Parse()
                 Value.FindAndReplace(_T("\n"), _T(""), Count_Get(Stream_Text)-1); //Some chapters names have extra characters, not needed
                 Value.FindAndReplace(_T("\r"), _T(""), Count_Get(Stream_Text)-1); //Some chapters names have extra characters, not needed
                 Value.FindAndReplace(_T(" "),  _T(""), Count_Get(Stream_Text)-1); //Some chapters names have extra characters, not needed
-                Fill(Stream_Chapters, 0, Chapter_Pos.To_Local().c_str(), Chapter_Time+_T(" ")+Value);
+                Fill(Stream_Menu, 0, Chapter_Time.To_UTF8().c_str(), Value);
             }
         }
         else                                Fill(Stream_General, 0, comment.SubString(_T(""), _T("=")).To_Local().c_str(), Value);

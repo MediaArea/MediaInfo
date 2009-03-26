@@ -1097,8 +1097,6 @@ void File_Dvdv::VTS_C_ADT ()
 
         //Filling
         FILLING_BEGIN();
-            if (Count_Get(Stream_Chapters)<(size_t)VOBidn)
-                Stream_Prepare(Stream_Chapters);
         FILLING_END();
         //Fill(Ztring::ToZtring(CELLidn).To_Local().c_str(), Time_ADT(Start));
     }
