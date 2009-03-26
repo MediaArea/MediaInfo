@@ -93,7 +93,7 @@ private :
     void DefineBitsJPEG3()              {};
     void DefineBitsLossless2()          {};
     void DefineEditText()               {};
-    void DefineSprite()                 {};
+    void DefineSprite();
     void FrameLabel()                   {};
     void DefineMorphShape()             {};
     void SoundStreamHead2()             {SoundStreamHead();};
@@ -130,10 +130,6 @@ private :
 
     //Temp
     size_t  Frame_Count;
-    int32u  Width;
-    int32u  Height;
-    int16u  FrameCount;
-    float32 FrameRate;
 };
 
 } //NameSpace

@@ -13,6 +13,7 @@ Version 0.7.13, 2009-
 + TAK (Tom's lossless audio compressor) detection
 + MPEG-TS parser optimizations
 + #2706146, WMV: detection of container wanted aspect ratio
++ SWF: better handling of videos
 x #2712761, AVI: unsupported SalmonSoft text codec makes MediaInfo silently fail
 
 Version 0.7.12, 2009-03-20

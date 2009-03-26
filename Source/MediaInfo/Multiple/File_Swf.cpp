@@ -291,16 +291,12 @@ File_Swf::File_Swf()
 :File__Analyze()
 {
     //In
-    Frame_Count_Valid=128;
+    Frame_Count_Valid=1024;
     FileLength=0;
     Version=0;
 
     //Temp
     Frame_Count=0;
-    Width=0;
-    Height=0;
-    FrameCount=0;
-    FrameRate=0;
 }
 
 //***************************************************************************
@@ -314,20 +310,6 @@ void File_Swf::Read_Buffer_Finalize()
         return;
     if (!IsAccepted)
         Accept("SWF");
-
-    if (Count_Get(Stream_Video)==0)
-    {
-        Stream_Prepare(Stream_Video);
-        Fill(Stream_Video, 0, Video_Width, Width/20);
-        Fill(Stream_Video, 0, Video_Height, Height/20);
-    }
-    if (Count_Get(Stream_Video)==1)
-    {
-        if (FrameRate)
-            Fill(Stream_Video, 0, Video_FrameRate, FrameRate);
-        if (FrameCount)
-            Fill(Stream_Video, 0, Video_FrameCount, FrameCount);
-    }
 }
 
 //***************************************************************************
@@ -383,7 +365,9 @@ void File_Swf::FileHeader_Parse()
 
     //Parsing
     //Parsing - BitStream
+    float32 FrameRate;
     int32u Nbits, Xmin, Xmax, Ymin, Ymax;
+    int16u FrameCount;
     BS_Begin();
     Get_BS (5, Nbits,                                           "Nbits");
     Get_BS (Nbits, Xmin,                                        "Xmin");
@@ -419,8 +403,13 @@ void File_Swf::FileHeader_Parse()
         //Filling
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "ShockWave");
-        Width=Xmax-Xmin;
-        Height=Ymax-Ymin;
+        Stream_Prepare(Stream_Video);
+        Fill(Stream_Video, 0, Video_Width, (Xmax-Xmin)/20);
+        Fill(Stream_Video, 0, Video_Height, (Ymax-Ymin)/20);
+        if (FrameRate)
+            Fill(Stream_Video, 0, Video_FrameRate, FrameRate);
+        if (FrameCount)
+            Fill(Stream_Video, 0, Video_FrameCount, FrameCount);
     FILLING_END();
 }
 
@@ -457,80 +446,114 @@ void File_Swf::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Swf::Data_Parse()
 {
-    #define ELEMENT_CASE(_NAME, _DETAIL) \
-        case Elements::_NAME : Element_Name(_DETAIL); _NAME(); break;
+    #define LIS2(_ATOM, _NAME) \
+        case Elements::_ATOM : \
+                if (Level==Element_Level) \
+                { \
+                    Element_Name(_NAME); \
+                    _ATOM(); \
+                    Element_ThisIsAList(); \
+                } \
+
+    #define ATO2(_ATOM, _NAME) \
+                case Elements::_ATOM : \
+                        if (Level==Element_Level) \
+                        { \
+                            if (Element_IsComplete_Get()) \
+                            { \
+                                Element_Name(_NAME); \
+                                _ATOM(); \
+                            } \
+                            else \
+                            { \
+                                Element_WaitForMoreData(); \
+                                return; \
+                            } \
+                        } \
+                        break; \
 
     //Parsing
-    switch (Element_Code)
-    {
-        ELEMENT_CASE(End,                           "End");
-        ELEMENT_CASE(ShowFrame,                     "ShowFrame");
-        ELEMENT_CASE(DefineShape,                   "DefineShape");
-        ELEMENT_CASE(PlaceObject,                   "PlaceObject");
-        ELEMENT_CASE(RemoveObject,                  "RemoveObject");
-        ELEMENT_CASE(DefineBits,                    "DefineBits");
-        ELEMENT_CASE(DefineButton,                  "DefineButton");
-        ELEMENT_CASE(JPEGTables,                    "JPEGTables");
-        ELEMENT_CASE(SetBackgroundColor,            "SetBackgroundColor");
-        ELEMENT_CASE(DefineFont,                    "DefineFont");
-        ELEMENT_CASE(DefineText,                    "DefineText");
-        ELEMENT_CASE(DoAction,                      "DoAction");
-        ELEMENT_CASE(DefineFontInfo,                "DefineFontInfo");
-        ELEMENT_CASE(DefineSound,                   "DefineSound");
-        ELEMENT_CASE(StartSound,                    "StartSound");
-        ELEMENT_CASE(DefineButtonSound,             "DefineButtonSound");
-        ELEMENT_CASE(SoundStreamHead,               "SoundStreamHead");
-        ELEMENT_CASE(SoundStreamBlock,              "SoundStreamBlock");
-        ELEMENT_CASE(DefineBitsLossless,            "DefineBitsLossless");
-        ELEMENT_CASE(DefineBitsJPEG2,               "DefineBitsJPEG2");
-        ELEMENT_CASE(DefineShape2,                  "DefineShape2");
-        ELEMENT_CASE(DefineCxform,                  "DefineCxform");
-        ELEMENT_CASE(Protect,                       "Protect");
-        ELEMENT_CASE(PlaceObject2,                  "PlaceObject2");
-        ELEMENT_CASE(RemoveObject2,                 "RemoveObject2");
-        ELEMENT_CASE(DefineShape3,                  "DefineShape3");
-        ELEMENT_CASE(DefineText2,                   "DefineText2");
-        ELEMENT_CASE(DefineButton2,                 "DefineButton2");
-        ELEMENT_CASE(DefineBitsJPEG3,               "DefineBitsJPEG3");
-        ELEMENT_CASE(DefineBitsLossless2,           "DefineBitsLossless2");
-        ELEMENT_CASE(DefineEditText,                "DefineEditText");
-        ELEMENT_CASE(DefineSprite,                  "DefineSprite");
-        ELEMENT_CASE(FrameLabel,                    "FrameLabel");
-        ELEMENT_CASE(DefineMorphShape,              "DefineMorphShape");
-        ELEMENT_CASE(SoundStreamHead2,              "SoundStreamHead2");
-        ELEMENT_CASE(DefineFont2,                   "DefineFont2");
-        ELEMENT_CASE(ExportAssets,                  "ExportAssets");
-        ELEMENT_CASE(ImportAssets,                  "ImportAssets");
-        ELEMENT_CASE(EnableDebugger,                "EnableDebugger");
-        ELEMENT_CASE(DoInitAction,                  "DoInitAction");
-        ELEMENT_CASE(DefineVideoStream,             "DefineVideoStream");
-        ELEMENT_CASE(DefineVideoFrame,              "DefineVideoFrame");
-        ELEMENT_CASE(DefineFontInfo2,               "DefineFontInfo2");
-        ELEMENT_CASE(EnableDebugger2,               "EnableDebugger2");
-        ELEMENT_CASE(ScriptLimits,                  "ScriptLimits");
-        ELEMENT_CASE(SetTabIndex,                   "SetTabIndex");
-        ELEMENT_CASE(FileAttributes,                "FileAttributes");
-        ELEMENT_CASE(PlaceObject3,                  "PlaceObject3");
-        ELEMENT_CASE(ImportAssets2,                 "ImportAssets2");
-        ELEMENT_CASE(DefineFontAlignZones,          "DefineFontAlignZones");
-        ELEMENT_CASE(CSMTextSettings,               "CSMTextSettings");
-        ELEMENT_CASE(DefineFont3,                   "DefineFont3");
-        ELEMENT_CASE(SymbolClass,                   "SymbolClass");
-        ELEMENT_CASE(Metadata,                      "Metadata");
-        ELEMENT_CASE(DefineScalingGrid,             "DefineScalingGrid");
-        ELEMENT_CASE(DoABC,                         "DoABC");
-        ELEMENT_CASE(DefineShape4,                  "DefineShape4");
-        ELEMENT_CASE(DefineMorphShape2,             "DefineMorphShape2");
-        ELEMENT_CASE(DefineSceneAndFrameLabelData,  "DefineSceneAndFrameLabelData");
-        ELEMENT_CASE(DefineBinaryData,              "DefineBinaryData");
-        ELEMENT_CASE(DefineFontName,                "DefineFontName");
-        ELEMENT_CASE(StartSound2,                   "StartSound2");
-        default : ;
-    }
+    DATA_BEGIN
+    ATO2(End,                           "End");
+    ATO2(ShowFrame,                     "ShowFrame");
+    ATO2(DefineShape,                   "DefineShape");
+    ATO2(PlaceObject,                   "PlaceObject");
+    ATO2(RemoveObject,                  "RemoveObject");
+    ATO2(DefineBits,                    "DefineBits");
+    ATO2(DefineButton,                  "DefineButton");
+    ATO2(JPEGTables,                    "JPEGTables");
+    ATO2(SetBackgroundColor,            "SetBackgroundColor");
+    ATO2(DefineFont,                    "DefineFont");
+    ATO2(DefineText,                    "DefineText");
+    ATO2(DoAction,                      "DoAction");
+    ATO2(DefineFontInfo,                "DefineFontInfo");
+    ATO2(DefineSound,                   "DefineSound");
+    ATO2(StartSound,                    "StartSound");
+    ATO2(DefineButtonSound,             "DefineButtonSound");
+    ATO2(SoundStreamHead,               "SoundStreamHead");
+    ATO2(SoundStreamBlock,              "SoundStreamBlock");
+    ATO2(DefineBitsLossless,            "DefineBitsLossless");
+    ATO2(DefineBitsJPEG2,               "DefineBitsJPEG2");
+    ATO2(DefineShape2,                  "DefineShape2");
+    ATO2(DefineCxform,                  "DefineCxform");
+    ATO2(Protect,                       "Protect");
+    ATO2(PlaceObject2,                  "PlaceObject2");
+    ATO2(RemoveObject2,                 "RemoveObject2");
+    ATO2(DefineShape3,                  "DefineShape3");
+    ATO2(DefineText2,                   "DefineText2");
+    ATO2(DefineButton2,                 "DefineButton2");
+    ATO2(DefineBitsJPEG3,               "DefineBitsJPEG3");
+    ATO2(DefineBitsLossless2,           "DefineBitsLossless2");
+    ATO2(DefineEditText,                "DefineEditText");
+    LIS2(DefineSprite,                  "DefineSprite");
+        ATOM_BEGIN
+        ATO2(ShowFrame,                     "ShowFrame");
+        ATO2(PlaceObject,                   "PlaceObject");
+        ATO2(RemoveObject,                  "RemoveObject");
+        ATO2(StartSound,                    "StartSound");
+        ATO2(SoundStreamHead,               "SoundStreamHead");
+        ATO2(SoundStreamBlock,              "SoundStreamBlock");
+        ATO2(PlaceObject2,                  "PlaceObject2");
+        ATO2(RemoveObject2,                 "RemoveObject2");
+        ATO2(FrameLabel,                    "FrameLabel");
+        ATO2(SoundStreamHead2,              "SoundStreamHead2");
+        ATO2(End,                           "End");
+        ATOM_END
+    ATO2(FrameLabel,                    "FrameLabel");
+    ATO2(DefineMorphShape,              "DefineMorphShape");
+    ATO2(SoundStreamHead2,              "SoundStreamHead2");
+    ATO2(DefineFont2,                   "DefineFont2");
+    ATO2(ExportAssets,                  "ExportAssets");
+    ATO2(ImportAssets,                  "ImportAssets");
+    ATO2(EnableDebugger,                "EnableDebugger");
+    ATO2(DoInitAction,                  "DoInitAction");
+    ATO2(DefineVideoStream,             "DefineVideoStream");
+    ATO2(DefineVideoFrame,              "DefineVideoFrame");
+    ATO2(DefineFontInfo2,               "DefineFontInfo2");
+    ATO2(EnableDebugger2,               "EnableDebugger2");
+    ATO2(ScriptLimits,                  "ScriptLimits");
+    ATO2(SetTabIndex,                   "SetTabIndex");
+    ATO2(FileAttributes,                "FileAttributes");
+    ATO2(PlaceObject3,                  "PlaceObject3");
+    ATO2(ImportAssets2,                 "ImportAssets2");
+    ATO2(DefineFontAlignZones,          "DefineFontAlignZones");
+    ATO2(CSMTextSettings,               "CSMTextSettings");
+    ATO2(DefineFont3,                   "DefineFont3");
+    ATO2(SymbolClass,                   "SymbolClass");
+    ATO2(Metadata,                      "Metadata");
+    ATO2(DefineScalingGrid,             "DefineScalingGrid");
+    ATO2(DoABC,                         "DoABC");
+    ATO2(DefineShape4,                  "DefineShape4");
+    ATO2(DefineMorphShape2,             "DefineMorphShape2");
+    ATO2(DefineSceneAndFrameLabelData,  "DefineSceneAndFrameLabelData");
+    ATO2(DefineBinaryData,              "DefineBinaryData");
+    ATO2(DefineFontName,                "DefineFontName");
+    ATO2(StartSound2,                   "StartSound2");
+    DATA_END
 
     Frame_Count++;
     if (Frame_Count>=Frame_Count_Valid)
-        Finish("SWF");
+        Data_Finish("SWF");
 }
 
 //***************************************************************************
@@ -598,13 +621,21 @@ void File_Swf::SoundStreamHead()
 }
 
 //---------------------------------------------------------------------------
+void File_Swf::DefineSprite()
+{
+    //Parsing
+    Skip_B2(                                                    "Character ID of sprite");
+    Skip_B2(                                                    "Number of frames in sprite");
+}
+
+//---------------------------------------------------------------------------
 void File_Swf::DefineVideoStream()
 {
     //Parsing
-    int16u CharacterID, Width, Height;
+    int16u CharacterID, NumFrames, Width, Height;
     int8u  CodecID;
     Get_L2 (CharacterID,                                        "CharacterID");
-    Skip_L2(                                                    "NumFrames");
+    Get_L2 (NumFrames,                                          "NumFrames");
     Get_L2 (Width,                                              "Width");
     Get_L2 (Height,                                             "Height");
     BS_Begin();
@@ -612,7 +643,7 @@ void File_Swf::DefineVideoStream()
     Skip_BS(3,                                                  "VideoFlagsDeblocking");
     Skip_BS(1,                                                  "VideoFlagsSmoothing");
     BS_End();
-    Get_L1 (CodecID,                                            "CodecID");
+    Get_L1 (CodecID,                                            "CodecID"); Param_Info(Swf_Format_Video[CodecID]);
     if (CodecID>=16)
         CodecID=0; //Should never happen (FLV is only 4-bit sized)
 
@@ -623,6 +654,7 @@ void File_Swf::DefineVideoStream()
     Fill(Stream_Video, StreamPos_Last, Video_Format, Swf_Format_Video[CodecID]);
     Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, Swf_Format_Profile_Video[CodecID]);
     Fill(Stream_Video, StreamPos_Last, Video_Codec, Swf_Codec_Video[CodecID]);
+    Fill(Stream_Video, StreamPos_Last, Video_FrameCount, NumFrames);
 }
 
 //***************************************************************************
