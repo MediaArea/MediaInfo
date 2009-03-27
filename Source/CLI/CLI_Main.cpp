@@ -81,7 +81,7 @@ int main(int argc, char* argv_ansi[])
     //Output, in a file if needed
     LogFile_Action(MI.Inform_Get());
     
-    return Files_Count;
+    return Files_Count?0:1;
 }
 //---------------------------------------------------------------------------
 

@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.13, 2009-0
+--------------
+x Returned value has changed, back to the normal behavior
+
 Version 0.7.12, 2009-03-20
 --------------
 + Complete refactoring of the code for speed improvements and future features
