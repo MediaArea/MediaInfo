@@ -727,8 +727,6 @@ void File_Avc::slice_header()
         Element_Info(Ztring::ToZtring(Frame_Count));
 
         //Filling only if not already done
-        if (Frame_Count>1 && Count_Get(Stream_General)==0)
-            Stream_Prepare(Stream_General);
         if (!IsFilled && Frame_Count>=Frame_Count_Valid)
             slice_header_Fill();
     FILLING_END();
@@ -767,6 +765,8 @@ void File_Avc::slice_header_Fill()
     else
         PixelAspectRatio=1; //Unknown
 
+    if (Count_Get(Stream_General)==0)
+        Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "AVC");
     if (Count_Get(Stream_Video)==0)
         Stream_Prepare(Stream_Video);
