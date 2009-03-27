@@ -2,7 +2,7 @@ object MainF: TMainF
   Left = 223
   Top = 273
   Caption = 'MainF'
-  ClientHeight = 571
+  ClientHeight = 591
   ClientWidth = 793
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -38,10 +38,6 @@ object MainF: TMainF
     TabStop = False
     object Page_Easy: TTntTabSheet
       Caption = 'Easy'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Easy_Note: TTntLabel
         Left = 0
         Top = 318
@@ -90,7 +86,7 @@ object MainF: TMainF
         Font.Height = -12
         Font.Name = 'Arial'
         Font.Style = []
-        ItemHeight = 0
+        ItemHeight = 15
         ParentFont = False
         TabOrder = 1
         OnChange = Page_Easy_FileChange
@@ -349,10 +345,6 @@ object MainF: TMainF
       ImageIndex = 2
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Sheet_A_Web: TTntButton
         Left = 566
         Top = 173
@@ -392,7 +384,7 @@ object MainF: TMainF
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 3
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
@@ -414,7 +406,7 @@ object MainF: TMainF
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 5
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
@@ -451,7 +443,7 @@ object MainF: TMainF
         Top = 127
         Width = 561
         Height = 23
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 8
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
@@ -462,7 +454,7 @@ object MainF: TMainF
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 9
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
@@ -473,7 +465,7 @@ object MainF: TMainF
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 10
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
@@ -497,10 +489,6 @@ object MainF: TMainF
       ImageIndex = 1
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Tree_Tree: TTntTreeView
         Left = 0
         Top = 2
@@ -525,10 +513,6 @@ object MainF: TMainF
       Caption = 'Text'
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Text_Text: TTntMemo
         Left = 2
         Top = 2
@@ -554,10 +538,6 @@ object MainF: TMainF
     object Page_HTML: TTntTabSheet
       Caption = 'HTML'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_HTML_HTML: TCppWebBrowser
         Left = 4
         Top = 0
@@ -577,10 +557,6 @@ object MainF: TMainF
       ImageIndex = 4
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Custom_Text: TTntMemo
         Left = 2
         Top = 2
@@ -617,10 +593,6 @@ object MainF: TMainF
     object Page_System: TTntTabSheet
       Caption = 'Your system'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_System_Buttons: TTntGroupBox
         Left = 9
         Top = 0
@@ -696,7 +668,7 @@ object MainF: TMainF
     Left = 0
     Top = 0
     Width = 42
-    Height = 571
+    Height = 591
     Align = alLeft
     ButtonHeight = 39
     ButtonWidth = 39
@@ -712,6 +684,7 @@ object MainF: TMainF
     ShowHint = True
     TabOrder = 1
     Transparent = True
+    ExplicitHeight = 571
     object Tool_File: TTntToolButton
       Left = 0
       Top = 0
@@ -780,12 +753,14 @@ object MainF: TMainF
           Caption = 'File'
           Hint = 'Select a multimedia file to study'
           ImageIndex = 0
+          ShortCut = 16463
           OnClick = M_File_Open_FileClick
         end
         object M_File_Open_Folder: TTntMenuItem
           Caption = 'Folder'
           Hint = 'Select a folder to study'
           ImageIndex = 1
+          ShortCut = 49231
           OnClick = M_File_Open_FolderClick
         end
       end
@@ -793,10 +768,12 @@ object MainF: TMainF
         Caption = 'Close'
         object M_File_Close_File: TTntMenuItem
           Caption = 'File'
+          ShortCut = 16451
           OnClick = M_File_Close_FileClick
         end
         object M_File_Close_All: TTntMenuItem
           Caption = 'All'
+          ShortCut = 49219
           OnClick = M_File_Close_AllClick
         end
       end
@@ -806,6 +783,7 @@ object MainF: TMainF
       object M_File_Export: TTntMenuItem
         Caption = 'Export...'
         ImageIndex = 2
+        ShortCut = 16453
         OnClick = M_File_ExportClick
       end
       object M_File_Z5: TTntMenuItem
@@ -813,6 +791,7 @@ object MainF: TMainF
       end
       object M_File_Exit: TTntMenuItem
         Caption = 'Exit'
+        ShortCut = 16472
         OnClick = M_File_ExitClick
       end
     end
@@ -969,6 +948,7 @@ object MainF: TMainF
         Caption = 'About'
         Hint = 'About MediaInfo'
         ImageIndex = 4
+        ShortCut = 16449
         OnClick = M_Help_AboutClick
       end
       object N2: TTntMenuItem

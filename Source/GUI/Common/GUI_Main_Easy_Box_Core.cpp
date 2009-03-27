@@ -151,9 +151,9 @@ String GUI_Main_Easy_Box_Core::Text_Get()
                 String Z3=String(C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, _T("StreamKind"), Info_Text)+_T("_Format_WithHint_List"));
                 Temp+=EOL;
                 Temp+=(C->MI->Get(Parent_Core->FilesPos_Get(), (stream_t)KindOfStream, 0, Z1)+/*Prefs->Translate(*/Z2/*)*/+/*Prefs->Translate(*/_T(": ")/*)*/+C->MI->Get(Parent_Core->FilesPos_Get(), Stream_General, 0, Z3)).c_str();
+                Lines++;
             }
 
-            Lines++;
             if (Lines>=Lines_Count_Get())
                 KindOfStream=Stream_Max;
         }
