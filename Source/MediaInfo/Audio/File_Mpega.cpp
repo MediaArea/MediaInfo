@@ -983,16 +983,15 @@ void File_Mpega::Header_Encoders_Lame()
     Peek_Local(8, Encoded_Library);
     if (Encoded_Library>=_T("LAME3.90") && Element_IsNotFinished())
     {
-        int8u Flags, BitRate;
+        int8u Flags, EncodingFlags, BitRate, StereoMode;
+        Param_Info(Ztring(_T("V "))+Ztring::ToZtring((100-Xing_Scale)/10));
+        Param_Info(Ztring(_T("q "))+Ztring::ToZtring((100-Xing_Scale)%10));
         Get_Local(9, Encoded_Library,                           "Encoded_Library");
-        Param_Info(Ztring(_T("V"))+Ztring::ToZtring(Xing_Scale&0x0F));
-        Param_Info(Ztring(_T("q"))+Ztring::ToZtring((Xing_Scale>>8)&0x0F));
         Get_B1 (Flags,                                          "Flags");
         if ((Flags&0xF0)<=0x20) //Rev. 0 or 1, http://gabriel.mp3-tech.org/mp3infotag.html and Rev. 2 was seen.
         {
             Param_Info(Lame_Method[Flags&0x0F]);
             BitRate_Mode=Lame_BitRate_Mode[Flags&0x0F];
-            Encoded_Library_Settings.From_Local(Lame_Method[Flags&0x0F]);
             if ((Flags&0x0F)==1 || (Flags&0x0F)==8) //2 possible values for CBR
                 VBR_Frames=0;
         }
@@ -1000,23 +999,81 @@ void File_Mpega::Header_Encoders_Lame()
         Skip_B4(                                                "Peak signal amplitude");
         Skip_B2(                                                "Radio Replay Gain");
         Skip_B2(                                                "Audiophile Replay Gain");
-        Get_B1 (Flags,                                          "Encoding Flags"); Param_Info(Ztring(_T("ATH Type="))+Ztring::ToZtring(Flags&0x0F));
-            Skip_Flags(Flags, 4,                                "nspsytune");
-            Skip_Flags(Flags, 5,                                "nssafejoint");
-            Skip_Flags(Flags, 6,                                "nogap (after)");
-            Skip_Flags(Flags, 7,                                "nogap (before)");
+        Get_B1 (EncodingFlags,                                  "Encoding Flags"); Param_Info(Ztring(_T("ATH Type="))+Ztring::ToZtring(Flags&0x0F));
+            Skip_Flags(EncodingFlags, 4,                        "nspsytune");
+            Skip_Flags(EncodingFlags, 5,                        "nssafejoint");
+            Skip_Flags(EncodingFlags, 6,                        "nogap (after)");
+            Skip_Flags(EncodingFlags, 7,                        "nogap (before)");
         Get_B1 (BitRate,                                        "BitRate");
-        if (BitRate!=0 && BitRate!=0xFF)
-        {
+        Skip_B3(                                                "Encoder delays");
+        BS_Begin();
+        Skip_S1(2,                                              "Source sample frequency");
+        Skip_SB(                                                "unwise settings used");
+        Get_S1 (3, StereoMode,                                  "Stereo mode");
+        Skip_S1(2,                                              "noise shapings");
+        BS_End();
+        Skip_B1(                                                "MP3 Gain");
+        Skip_B2(                                                "Preset and surround info");
+        Skip_B4(                                                "MusicLength");
+        Skip_B2(                                                "MusicCRC");
+        Skip_B2(                                                "CRC-16 of Info Tag");
+
+        FILLING_BEGIN();
+            Encoded_Library_Settings+=_T("-m ");
+            switch(StereoMode)
+            {
+                case 0 : Encoded_Library_Settings+=_T("m"); break;
+                case 1 : Encoded_Library_Settings+=_T("s"); break;
+                case 2 : Encoded_Library_Settings+=_T("d"); break;
+                case 3 : Encoded_Library_Settings+=_T("j"); break;
+                case 4 : Encoded_Library_Settings+=_T("f"); break;
+                case 5 : Encoded_Library_Settings+=_T("a"); break;
+                case 6 : Encoded_Library_Settings+=_T("i"); break;
+                default: ;
+            }
+            if (Xing_Scale<=100) //Xing_Scale is used for LAME quality
+            {
+                Encoded_Library_Settings+=_T( " -V ")+Ztring::ToZtring((100-Xing_Scale)/10);
+                Encoded_Library_Settings+=_T( " -q ")+Ztring::ToZtring((100-Xing_Scale)%10);
+            }
+            if (lowpass)
+                Encoded_Library_Settings+=(Encoded_Library_Settings.empty()?_T("-lowpass "):_T(" -lowpass "))+(lowpass%10?Ztring::ToZtring(((float)lowpass)/10, 1):Ztring::ToZtring(lowpass/10));
             switch (Flags&0x0F)
             {
                 case  2 :
                 case  9 : //ABR
-                    BitRate_Nominal.From_Number(BitRate*1000); break;
-                default :
-                    BitRate_Minimum.From_Number(BitRate*1000); break;
+                            Encoded_Library_Settings+=_T(" --abr"); break;
+                case  3 : //VBR (old/rh)
+                            Encoded_Library_Settings+=_T(" --vbr-old"); break;
+                case  4 : //VBR (new/mtrh)
+                            Encoded_Library_Settings+=_T(" --vbr-new"); break;
+                case  5 : //VBR (?/mt)
+                            Encoded_Library_Settings+=_T(" --vbr-mt"); break;
+                default : ;
             }
-        }
+            if (BitRate!=0x00 && BitRate!=0xFF)
+            {
+                switch (Flags&0x0F)
+                {
+                    case  1 :
+                    case  8 : //CBR
+                        Encoded_Library_Settings+=_T(" -b ")+Ztring::ToZtring(BitRate);
+                        break;
+                    case  2 :
+                    case  9 : //ABR
+                        BitRate_Nominal.From_Number(BitRate*1000);
+                        Encoded_Library_Settings+=_T(" ")+Ztring::ToZtring(BitRate);
+                        break;
+                    case  3 : //VBR (old/rh)
+                    case  4 : //VBR (new/mtrh)
+                    case  5 : //VBR (?/mt)
+                        BitRate_Minimum.From_Number(BitRate*1000);
+                        Encoded_Library_Settings+=_T(" -b ")+Ztring::ToZtring(BitRate);
+                        break;
+                    default : ;
+                }
+            }
+        FILLING_END();
     }
     else
         Get_Local(20, Encoded_Library,                          "Encoded_Library");
