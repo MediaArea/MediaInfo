@@ -236,6 +236,7 @@ private :
         int32u                  AvgBytesPerSec; //Only used by x_MS/* codecIDs
         float32                 DisplayAspectRatio;
         bool                    Searching_Payload;
+        bool                    Searching_TimeStamps;
         bool                    Searching_TimeStamp_Start;
         int64u                  ContentCompAlgo;
         size_t                  ContentCompSettings_Buffer_Size;
@@ -250,6 +251,7 @@ private :
             AvgBytesPerSec=0;
             DisplayAspectRatio=0;
             Searching_Payload=true;
+            Searching_TimeStamps=false;
             Searching_TimeStamp_Start=false;
             ContentCompAlgo=(int32u)-1;
             ContentCompSettings_Buffer_Size=0;

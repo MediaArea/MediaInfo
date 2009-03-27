@@ -1189,7 +1189,7 @@ void File_Mk::Segment_Cluster()
                 Stream_Count--;
             }
             if (Temp->second.StreamKind==Stream_Video && Retrieve(Stream_Video, Temp->second.StreamPos, Video_FrameRate).empty())
-                Temp->second.Searching_TimeStamp_Start=true;
+                Temp->second.Searching_TimeStamps=true;
             Temp++;
         }
 
@@ -1225,7 +1225,7 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
 
     //Finished?
     Stream[TrackNumber].PacketCount++;
-    if (!Stream[TrackNumber].Searching_Payload && !Stream[TrackNumber].Searching_TimeStamp_Start)
+    if (!Stream[TrackNumber].Searching_Payload && !Stream[TrackNumber].Searching_TimeStamps)
     {
         Element_DoNotShow();
         return;
@@ -1299,11 +1299,11 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
         Laces.push_back(Element_Size-Element_Offset);
 
     FILLING_BEGIN();
-        if (Stream[TrackNumber].Searching_TimeStamp_Start)
+        if (Stream[TrackNumber].Searching_TimeStamps)
         {
             Stream[TrackNumber].TimeCodes.push_back(Segment_Cluster_TimeCode_Value+TimeCode);
             if (Stream[TrackNumber].TimeCodes.size()>40)
-                Stream[TrackNumber].Searching_TimeStamp_Start=false;
+                Stream[TrackNumber].Searching_TimeStamps=false;
         }
 
         //Parsing
@@ -1337,7 +1337,7 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
         }
 
         //Filling
-        if (!Stream[TrackNumber].Searching_Payload && !Stream[TrackNumber].Searching_TimeStamp_Start)
+        if (!Stream[TrackNumber].Searching_Payload && !Stream[TrackNumber].Searching_TimeStamps)
             Stream_Count--;
         if (Stream_Count==0)
         {
