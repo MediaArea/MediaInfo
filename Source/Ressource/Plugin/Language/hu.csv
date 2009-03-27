@@ -22,9 +22,9 @@
  channel1; csatorna
  channel2; csatorna
  channel3; csatorna
- chapter1; Fejezet
- chapter2; Fejezet
- chapter3; Fejezet
+ chapter1; fejezet
+ chapter2; fejezet
+ chapter3; fejezet
  chapters stream1; fejezetsáv
  chapters stream2; fejezetsáv
  chapters stream3; fejezetsáv
@@ -151,11 +151,11 @@ Address;Cím
 Advanced;Bővített
 Advanced mode;Bővített mód
 Album;Album
-Album_ReplayGain_Gain
-Album_ReplayGain_Peak
-Alignment
-Alignment_Aligned
-Alignment_Split
+Album_ReplayGain_Gain;Album erősítése
+Album_ReplayGain_Peak;Album csúcserősítése
+Alignment;Igazítás
+Alignment_Aligned;igazított
+Alignment_Split;osztott
 All;Mind
 Archival_Location;Arhiválás helye
 Arranger;Szerkesztő
@@ -181,11 +181,11 @@ BitRate_Minimum;Legkisebb adatsebesség
 BitRate_Mode;Adatsebesség mód
 BitRate_Mode_CBR;állandó
 BitRate_Mode_VBR;változó
-BitRate_Nominal;névleges adatsebesség
-Bits-(Pixel*Frame);bit/(képpont*képkocka)
+BitRate_Nominal;Névleges adatsebesség
+Bits-(Pixel*Frame);Bit/(képpont*képkocka)
 Cancel;Mégsem
-Channel(s);Csatorna
-ChannelPositions;Csatorna helyek
+Channel(s);Csatornák száma
+ChannelPositions;Csatorna kiosztás
 Chapter(s);Fejezet
 Chapters;Fejezet
 Chapters stream(s);Fejezetsávok
@@ -225,7 +225,7 @@ Codec_Url;Kódek weblapja
 CodecID;Kódek azonosító
 CodecID_Description;Kódek leírás
 Collection;Gyűjtemény
-Colorimetry;Színtan
+Colorimetry;Színkódolás
 Comment;Megjegyzés
 CommissionedBy;Megbízó
 CompleteName;Teljes név
@@ -262,7 +262,7 @@ DisplayAspectRatio_Original;Eredeti képarány
 DistributedBy;Terjesztő
 Donate;Adomány
 DotsPerInch
-Duration;Hossz
+Duration;Időtartam
 Duration_End
 Duration_Start
 Edit;Szerkesztés
@@ -308,9 +308,9 @@ Format_Settings_PacketBitStream;Formátum beállítások, Packet bitstream
 Format_Settings_BVOP;Formátum beállítások, BVOP
 Format_Settings_QPel;Formátum beállítások, QPel
 Format_Settings_GMC;Formátum beállítások, GMC
-Format_Settings_Matrix;Formátum beállítások, Matrix
-Format_Settings_Matrix_Custom;Custom
-Format_Settings_Matrix_Default;Default
+Format_Settings_Matrix;Formátum beállítások, mátrix
+Format_Settings_Matrix_Custom;egyedi
+Format_Settings_Matrix_Default;alapérték
 Format_Settings_Floor;Formátum beállítások, Floor
 Format_Settings_CABAC;Formátum beállítások, CABAC
 Format_Settings_Firm;Formátum beállítások, Firm
@@ -326,7 +326,7 @@ Format_Version;Formátum változat
 Format_Url;Formátum weblapja
 FrameCount;Képkockaszám
 FrameRate;Képkockasebesség
-FrameRate_Mode;Frame rate mode
+FrameRate_Mode;Képkockasebességi mód
 FrameRate_Mode_CFR;állandó
 FrameRate_Mode_VFR;változó
 FrameRate_Minimum;Legkisebb képkockasebesség
@@ -484,7 +484,7 @@ Genre_145;anime
 Genre_146;jpop
 Genre_147;synthpop
 Go to WebSite;A weblap meglátogatása
-h; ó
+h; óra
 Header file;Fejléc fájl létrehozása
 Height;Magasság
 Help;Súgó
@@ -499,17 +499,17 @@ Image;Állókép
 Image stream(s);Állóképsávok
 Image_Codec_List;Állóképkódekek
 ImageCount;Állóképsávok száma
-Info;Adatok
+Info;adatok
 Instruments;Hangszerek
-Interlacement;Interlacement
-Interlaced_Interlaced;Váltottsoros
-Interlaced_TFF;Felső mezővel kezdődő
-Interlaced_BFF;Alsó mezővel kezdődő
-Interlaced_PPF;Folytonos
-Interlaced_Progressive;Folytonos
-Interleave_Duration;Interleave, duration
-Interleave_Preload;Interleave, preload duration
-Interleave_VideoFrames;Interleave, duration
+Interlacement;Sorváltás
+Interlaced_Interlaced;váltottsoros
+Interlaced_TFF;felső mezővel kezdődő
+Interlaced_BFF;alsó mezővel kezdődő
+Interlaced_PPF;folytonos
+Interlaced_Progressive;folytonos
+Interleave_Duration;Átfedés hossza
+Interleave_Preload;Átfedés előolvasási hossz
+Interleave_VideoFrames;Átfedés képkockák
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -715,7 +715,7 @@ Language_zu;zulu
 LawRating;Korhatár
 LCCN;LCCN
 Library;Keverőkönyvtár
-Lightness
+Lightness;Fényesség
 List;Lista
 Lyrics;Dalszöveg
 Lyricist;Szövegíró
@@ -737,13 +737,13 @@ ms;emp
 MSDI;MSDI
 MusicBy;Zeneszerző
 MuxingMode;Keverési mód
-MuxingMode_PackedBitstream
+MuxingMode_PackedBitstream;adatcsomag
 Name;Név
 Nationality;Nemzetiség
 NetworkName
 New;Új
 Newest version;Frissítés keresése (Internet kapcsolat szükséges)
-No;Nem
+No;nem
 Not yet;Még nincs
 NumColors;Színek száma
 OK;OK
@@ -808,8 +808,8 @@ PixelAspectRatio;Képpont arány
 PixelAspectRatio_Original;Képpont arány
 PlayCounter;Lejátszás számláló
 Played_Count;Lejátszások száma
-Played_First_Date
-Played_Last_Date
+Played_First_Date;Első lejátszás dátuma
+Played_Last_Date;Utolsó lejátszás dátuma
 PlayTime;Játékidő
 Position;Helyzet
 Position_Total
@@ -832,22 +832,22 @@ Resolution;Felbontás
 s; mp
 SamplingRate;Mintavételezési gyakoriság
 Save;Mentés
-ScanType
-ScanOrder
+ScanType;Sorváltás típusa
+ScanOrder;Sorváltási sorrend
 ScreenplayBy;Forgatókönyvíró
 Season;Évad
 see below;lásd alant
 Send HeaderFile;Kérem, küdje el a fejléc fájlt ide: http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;Oszlop elválasztó
 Separator_Lines;Sor elválasztó
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
-Set
-Set_Count
+ServiceChannel;Szolgáltatás csatornája
+ServiceName;Szolgáltatás neve
+ServiceProvider;Szolgáltató 
+ServiceType;Szolgáltatás típusa
+Set;Sorszám
+Set_Count;Összesen
 Setup;Beállítások
-Sharpness
+Sharpness;Élesség
 Sheet;Táblázat
 Sheet (Complete);Táblázat (teljes)
 Shell extension;Rendszerhéj-kiterjesztés (az Intézőben a helyzetérzékeny menüben Media Info menüpont...)
@@ -863,9 +863,9 @@ StreamCount;A hasonló fajtájú sávok száma
 StreamID;Sávazonosító
 StreamKind;Sáv fajtája
 StreamKindID;Sáv fajta azonosító
-StreamKindPos
-StreamSize
-StreamSize_Proportion
+StreamKindPos;Sáv fajta sorszáma
+StreamSize;Adatfolyam mérete
+StreamSize_Proportion;Adatofolyam aránya
 Subject;Tárgy
 SubTrack;Alsáv
 Summary;Kivonat
@@ -928,7 +928,7 @@ WriteToTranslator;Írjon a fordítónak
 Written_Date;Írás dátuma
 Written_Location;Írás helye
 WrittenBy;Írta
-Yes;Igen
+Yes;igen
 Your system;Rendszer
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;92
+ZZ_AutomaticLanguage_Percent;98
