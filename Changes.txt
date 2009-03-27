@@ -2,9 +2,13 @@ I changed some elements in the interface.
 No break in binary compatibily (no crash), but some details.
 
 
+0.7.12 --> 0.7.13
+-----------------
+- Chapters has now language type per item, another string format, and moved to the menu part
+
 0.7.8 --> 0.7.9
 ---------------
-- Windows DLL C++ namespace has changed from MEdiaInfoLib to MediaInfoDLL
+- Windows DLL C++ namespace has changed from MediaInfoLib to MediaInfoDLL
 
 0.7.6.4 --> 0.7.7.0
 -------------------
