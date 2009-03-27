@@ -1185,11 +1185,11 @@ void File_Mk::Segment_Cluster()
         {
             if (!Temp->second.Parser)
             {
-                Temp->second.SearchingPayload=false;
+                Temp->second.Searching_Payload=false;
                 Stream_Count--;
             }
             if (Temp->second.StreamKind==Stream_Video && Retrieve(Stream_Video, Temp->second.StreamPos, Video_FrameRate).empty())
-                Temp->second.SearchingTimeCode=true;
+                Temp->second.Searching_TimeStamp_Start=true;
             Temp++;
         }
 
@@ -1225,7 +1225,7 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
 
     //Finished?
     Stream[TrackNumber].PacketCount++;
-    if (!Stream[TrackNumber].SearchingPayload && !Stream[TrackNumber].SearchingTimeCode)
+    if (!Stream[TrackNumber].Searching_Payload && !Stream[TrackNumber].Searching_TimeStamp_Start)
     {
         Element_DoNotShow();
         return;
@@ -1299,11 +1299,11 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
         Laces.push_back(Element_Size-Element_Offset);
 
     FILLING_BEGIN();
-        if (Stream[TrackNumber].SearchingTimeCode)
+        if (Stream[TrackNumber].Searching_TimeStamp_Start)
         {
             Stream[TrackNumber].TimeCodes.push_back(Segment_Cluster_TimeCode_Value+TimeCode);
             if (Stream[TrackNumber].TimeCodes.size()>40)
-                Stream[TrackNumber].SearchingTimeCode=false;
+                Stream[TrackNumber].Searching_TimeStamp_Start=false;
         }
 
         //Parsing
@@ -1311,9 +1311,9 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
         {
             //Content compression
             if (Stream[TrackNumber].ContentCompAlgo!=(int32u)-1 && Stream[TrackNumber].ContentCompAlgo!=3)
-                Stream[TrackNumber].SearchingPayload=false; //Unsupported
+                Stream[TrackNumber].Searching_Payload=false; //Unsupported
 
-            if (Stream[TrackNumber].SearchingPayload)
+            if (Stream[TrackNumber].Searching_Payload)
             {
                 //Content compression
                 if (Stream[TrackNumber].ContentCompAlgo==3) //Header Stripping
@@ -1330,14 +1330,14 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
                 if (Stream[TrackNumber].Parser->IsFilled
                  || Stream[TrackNumber].Parser->IsFinished
                  || Stream[TrackNumber].PacketCount>=300)
-                    Stream[TrackNumber].SearchingPayload=false;
+                    Stream[TrackNumber].Searching_Payload=false;
             }
             else
                 Skip_XX(Laces[Pos],                             "Data");
         }
 
         //Filling
-        if (!Stream[TrackNumber].SearchingPayload && !Stream[TrackNumber].SearchingTimeCode)
+        if (!Stream[TrackNumber].Searching_Payload && !Stream[TrackNumber].Searching_TimeStamp_Start)
             Stream_Count--;
         if (Stream_Count==0)
         {
@@ -2039,7 +2039,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate()
     //Filling
     if (Stream[TrackNumber].Parser->IsFinished) //Can be finnished here...
     {
-        Stream[TrackNumber].SearchingPayload=false;
+        Stream[TrackNumber].Searching_Payload=false;
         Stream_Count--;
     }
 
