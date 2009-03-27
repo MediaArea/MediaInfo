@@ -4140,8 +4140,8 @@ void MediaInfo_Config_Menu (ZtringListList &Info)
     "Original/NetworkName;;;Y YT;;;;;Legal\n"
     "Countries;;;Y YT;;;;;Legal\n"
     "TimeZones;;;Y YT;;;;;Legal\n"
-    "EPG_Positions_Begin;;;N NI\n"
-    "EPG_Positions_End;;;N NI\n"
+    "Chapters_Pos_Begin;;;N NI;;;Used by third-party developpers to know about the begining of the chapters list, to be used by Get(Stream_Menu, x, Pos), where Pos is an Integer between Chapters_Pos_Begin and Chapters_Pos_End\n"
+    "Chapters_Pos_End;;;N NI;;;Used by third-party developpers to know about the end of the chapters list (this position excluded)\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }

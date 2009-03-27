@@ -226,6 +226,7 @@ void File_Mk::Read_Buffer_Finalize()
         for (EditionEntries_Pos=0; EditionEntries_Pos<EditionEntries.size(); EditionEntries_Pos++)
         {
             Stream_Prepare(Stream_Menu);
+            Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_Begin, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
             for (ChapterAtoms_Pos=0; ChapterAtoms_Pos<EditionEntries[EditionEntries_Pos].ChapterAtoms.size(); ChapterAtoms_Pos++)
             {
                 if (EditionEntries[EditionEntries_Pos].ChapterAtoms[ChapterAtoms_Pos].ChapterTimeStart!=(int64u)-1)
@@ -244,6 +245,7 @@ void File_Mk::Read_Buffer_Finalize()
                     Fill(Stream_Menu, StreamPos_Last, Ztring().Duration_From_Milliseconds(EditionEntries[EditionEntries_Pos].ChapterAtoms[ChapterAtoms_Pos].ChapterTimeStart/TimecodeScale).To_UTF8().c_str(), Text);
                 }
             }
+            Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_End, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
         }
     }
 

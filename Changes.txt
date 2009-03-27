@@ -5,6 +5,13 @@ No break in binary compatibily (no crash), but some details.
 0.7.12 --> 0.7.13
 -----------------
 - Chapters has now language type per item, another string format, and moved to the menu part
+  Old string format was "Chapter number             : Time - chapter string"
+  New string format is  "Time                       : chapter string / Optional info / Optional info" (optional info is separated by " / ")
+  Note: if the language of the string is available, the string has the form "en:chapter string" (ISO-639 2-letter if available, else 3-letter)
+  Note: if there is multiple languages, they are separated by " - "
+        example of complex string: "Time                       : en:English - fr:Francais / en:More info - fr:plus d'infos"
+  Note: for MPEG-TS EPG (Electronic program), string has this optional info (and Date/Time instead of time only):
+        "UTC YYYY-MM-DD HH:MM:SS          : Name / Description / Content type / Classification / Duration / Running status"
 
 0.7.8 --> 0.7.9
 ---------------

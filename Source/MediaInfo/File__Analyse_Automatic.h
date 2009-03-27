@@ -770,8 +770,8 @@ enum menu
     Menu_Original_NetworkName,
     Menu_Countries,
     Menu_TimeZones,
-    Menu_EPG_Positions_Begin,
-    Menu_EPG_Positions_End,
+    Menu_Chapters_Pos_Begin,
+    Menu_Chapters_Pos_End,
 };
 
 } //NameSpace

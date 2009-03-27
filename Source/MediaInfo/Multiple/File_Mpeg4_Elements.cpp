@@ -3282,6 +3282,7 @@ void File_Mpeg4::moov_udta_chpl()
     Stream_Prepare(Stream_Menu);
     Skip_B8(                                                    "Unknown");
     Skip_B1(                                                    "Chapter Count");
+    Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_Begin, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
     while (Element_Offset<Element_Size)
     {
         Get_B8 (Time,                                           "Time");
@@ -3298,6 +3299,7 @@ void File_Mpeg4::moov_udta_chpl()
         //Next
         Pos++;
     }
+    Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_End, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
 }
 
 //---------------------------------------------------------------------------

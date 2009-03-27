@@ -655,10 +655,10 @@ void File_MpegTs::Read_Buffer_Finalize()
                     {
                         if (StreamKind_Last==Stream_Max)
                             Stream_Prepare(Stream_Menu);
-                        Fill(Stream_Menu, StreamPos_Last, Menu_EPG_Positions_Begin, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
+                        Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_Begin, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
                         for (std::map<Ztring, Ztring>::iterator EPG=EPGs.begin(); EPG!=EPGs.end(); EPG++)
                             Fill(Stream_Menu, StreamPos_Last, EPG->first.To_UTF8().c_str(), EPG->second, true);
-                        Fill(Stream_Menu, StreamPos_Last, Menu_EPG_Positions_End, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
+                        Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_End, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
                         EPGs.clear();
                     }
                 }

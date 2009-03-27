@@ -235,7 +235,10 @@ void File_VorbisCom::Data_Parse()
         else if (Key.find(_T("CHAPTER"))==0)
         {
             if (Count_Get(Stream_Menu)==0)
+            {
                 Stream_Prepare(Stream_Menu);
+                Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_Begin, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
+            }
             if (Key.find(_T("NAME"))==Error)
             {
                 Chapter_Pos=Key.SubString(_T("CHAPTER"), _T(""));
@@ -248,6 +251,7 @@ void File_VorbisCom::Data_Parse()
                 Value.FindAndReplace(_T(" "),  _T(""), Count_Get(Stream_Text)-1); //Some chapters names have extra characters, not needed
                 Fill(Stream_Menu, 0, Chapter_Time.To_UTF8().c_str(), Value);
             }
+            Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_End, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
         }
         else                                Fill(Stream_General, 0, comment.SubString(_T(""), _T("=")).To_Local().c_str(), Value);
     FILLING_END();
