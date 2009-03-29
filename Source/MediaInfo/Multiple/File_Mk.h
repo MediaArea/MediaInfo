@@ -230,6 +230,7 @@ private :
     struct stream
     {
         std::vector<int64u>     TimeCodes;
+        int64u                  TimeCode_Start;
         File__Analyze*          Parser;
         stream_t                StreamKind;
         size_t                  StreamPos;
@@ -245,13 +246,14 @@ private :
 
         stream()
         {
+            TimeCode_Start=(int64u)-1;
             Parser=NULL;
             StreamKind=Stream_Max;
             StreamPos=0;
             PacketCount=0;
             AvgBytesPerSec=0;
             DisplayAspectRatio=0;
-            Searching_Payload=true;
+            Searching_Payload=false;
             Searching_TimeStamps=false;
             Searching_TimeStamp_Start=false;
             ContentCompAlgo=(int32u)-1;

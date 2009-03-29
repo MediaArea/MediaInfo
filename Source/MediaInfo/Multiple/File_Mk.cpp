@@ -119,9 +119,6 @@ File_Mk::File_Mk()
     Duration=0;
     Cluster_AlreadyParsed=false;
 
-    //Stream
-    Stream_Count=0;
-
     //Helpers
     CodecPrivate=NULL;
 }
@@ -192,28 +189,28 @@ void File_Mk::Read_Buffer_Finalize()
             }
 
             //Delay
-            if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)==1 && Temp->second.Parser->Count_Get(Stream_General)>0)
+            if (Temp->second.TimeCode_Start!=(int64u)-1 && TimecodeScale)
             {
-                     if (Temp->second.Parser->Buffer_TotalBytes_FirstSynched==0)
+                //From TimeCode
+                float64 Delay=Temp->second.TimeCode_Start*int64u_float64(TimecodeScale)/1000000.0;
+
+                //From stream format
+                if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)==1 && Temp->second.Parser->Count_Get(Stream_General)>0)
                 {
-                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, 0, 10, true);
-                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                         if (Temp->second.Parser->Buffer_TotalBytes_FirstSynched==0)
+                        ;
+                    else if (Temp->second.AvgBytesPerSec!=0)
+                        Delay+=((float64)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.AvgBytesPerSec;
+                    else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u()!=0)
+                        Delay+=((float64)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
+                    else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u()!=0)
+                        Delay+=((float64)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u();
                 }
-                else if (Temp->second.AvgBytesPerSec!=0)
-                {
-                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.AvgBytesPerSec, 0, true);
+
+                //Filling
+                Fill(StreamKind_Last, StreamPos_Last, "Delay", Delay, 0, true);
+                if (Retrieve(Stream_Video, 0, Video_Delay).empty())
                     Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                }
-                else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u()!=0)
-                {
-                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u(), 0, true);
-                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                }
-                else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u()!=0)
-                {
-                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u(), 0, true);
-                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
-                }
             }
         }
         if (Temp->second.DisplayAspectRatio!=0)
@@ -759,7 +756,7 @@ void File_Mk::Data_Parse()
             ATOM_END_MK
         ATOM_END_MK
     DATA_DEFAULT
-        Reject("Matroska");
+        Finish("Matroska");
     DATA_END_DEFAULT
 }
 
@@ -1200,15 +1197,19 @@ void File_Mk::Segment_Cluster()
     std::map<int64u, stream>::iterator Temp=Stream.begin();
     if (!Cluster_AlreadyParsed)
     {
+        Stream_Count=0;
         while (Temp!=Stream.end())
         {
-            if (!Temp->second.Parser)
-            {
-                Temp->second.Searching_Payload=false;
-                Stream_Count--;
-            }
+            if (Temp->second.Parser)
+                Temp->second.Searching_Payload=true;
+            if (Temp->second.StreamKind==Stream_Video || Temp->second.StreamKind==Stream_Audio)
+                Temp->second.Searching_TimeStamp_Start=true;
             if (Temp->second.StreamKind==Stream_Video && Retrieve(Stream_Video, Temp->second.StreamPos, Video_FrameRate).empty())
                 Temp->second.Searching_TimeStamps=true;
+            if (Temp->second.Searching_Payload
+             || Temp->second.Searching_TimeStamp_Start
+             || Temp->second.Searching_TimeStamps)
+                Stream_Count++;
             Temp++;
         }
 
@@ -1236,144 +1237,162 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
     Element_Name("Block");
 
     //Parsing
-    std::vector<int64u> Laces;
     int64u TrackNumber;
-    int32u Lacing;
-    int16u TimeCode;
     Get_EB (TrackNumber,                                        "TrackNumber");
 
     //Finished?
     Stream[TrackNumber].PacketCount++;
-    if (!Stream[TrackNumber].Searching_Payload && !Stream[TrackNumber].Searching_TimeStamps)
+    if (!Stream[TrackNumber].Searching_Payload && !Stream[TrackNumber].Searching_TimeStamps && !Stream[TrackNumber].Searching_TimeStamp_Start)
     {
         Element_DoNotShow();
         return;
     }
 
+    //Parsing
+    int16u TimeCode;
     Get_B2 (TimeCode,                                           "TimeCode");
-    Element_Begin("Flags", 1);
-        BS_Begin();
-        Skip_BS(1,                                              "KeyFrame");
-        Skip_BS(3,                                              "Reserved");
-        Skip_BS(1,                                              "Invisible");
-        Get_BS (2, Lacing,                                      "Lacing");
-        Skip_BS(1,                                              "Discardable");
-        BS_End();
-    Element_End();
-    if (Lacing>0)
-    {
-        Element_Begin("Lacing");
-            int8u FrameCountMinus1;
-            Get_B1(FrameCountMinus1,                            "Frame count minus 1");
-            switch (Lacing)
-            {
-                case 1 : //Xiph lacing
-                        {
-                            int64u Element_Offset_Virtual=0;
-                            for (int8u Pos=0; Pos<FrameCountMinus1; Pos++)
-                            {
-                                int32u Size=0;
-                                int8u Size8;
-                                do
-                                {
-                                    Get_B1 (Size8,              "Size");
-                                    Size+=Size8;
-                                }
-                                while (Size8==0xFF);
-                                Param_Info(Size);
-                                Element_Offset_Virtual+=Size;
-                                Laces.push_back(Size);
-                            }
-                            Laces.push_back(Element_Size-Element_Offset-Element_Offset_Virtual); //last lace
-                        }
-                        break;
-                case 2 : //Fixed-size lacing - No more data
-                        {
-                            int64u Size=(Element_Size-Element_Offset)/(FrameCountMinus1+1);
-                            Laces.resize(FrameCountMinus1+1, Size);
-                        }
-                        break;
-                case 3 : //EBML lacing
-                        {
-                            int64u Element_Offset_Virtual=0, Size;
-                            Get_EB (Size,                       "Size");
-                            Laces.push_back(Size);
-                            Element_Offset_Virtual+=Size;
-                            for (int8u Pos=1; Pos<FrameCountMinus1; Pos++)
-                            {
-                                int64s Diff;
-                                Get_ES (Diff,                   "Difference");
-                                Size+=Diff; Param_Info(Size);
-                                Element_Offset_Virtual+=Size;
-                                Laces.push_back(Size);
-                            }
-                            Laces.push_back(Element_Size-Element_Offset-Element_Offset_Virtual); Param_Info(Size); //last lace
-                        }
-                        break;
-                default : ; //Should never be here
-            }
-        Element_End();
-    }
-    else
-        Laces.push_back(Element_Size-Element_Offset);
 
     FILLING_BEGIN();
+        if (Stream[TrackNumber].Searching_TimeStamp_Start)
+        {
+            FILLING_BEGIN();
+                Stream[TrackNumber].TimeCode_Start=Segment_Cluster_TimeCode_Value+TimeCode;
+                Stream[TrackNumber].Searching_TimeStamp_Start=false;
+            FILLING_END();
+        }
         if (Stream[TrackNumber].Searching_TimeStamps)
         {
             Stream[TrackNumber].TimeCodes.push_back(Segment_Cluster_TimeCode_Value+TimeCode);
             if (Stream[TrackNumber].TimeCodes.size()>40)
                 Stream[TrackNumber].Searching_TimeStamps=false;
         }
+    FILLING_END();
 
-        //Parsing
-        for (size_t Pos=0; Pos<Laces.size(); Pos++)
+    if (Stream[TrackNumber].Searching_Payload)
+    {
+        std::vector<int64u> Laces;
+        int32u Lacing;
+        Element_Begin("Flags", 1);
+            BS_Begin();
+            Skip_BS(1,                                              "KeyFrame");
+            Skip_BS(3,                                              "Reserved");
+            Skip_BS(1,                                              "Invisible");
+            Get_BS (2, Lacing,                                      "Lacing");
+            Skip_BS(1,                                              "Discardable");
+            BS_End();
+        Element_End();
+        if (Lacing>0)
         {
-            //Content compression
-            if (Stream[TrackNumber].ContentCompAlgo!=(int32u)-1 && Stream[TrackNumber].ContentCompAlgo!=3)
-                Stream[TrackNumber].Searching_Payload=false; //Unsupported
+            Element_Begin("Lacing");
+                int8u FrameCountMinus1;
+                Get_B1(FrameCountMinus1,                            "Frame count minus 1");
+                switch (Lacing)
+                {
+                    case 1 : //Xiph lacing
+                            {
+                                int64u Element_Offset_Virtual=0;
+                                for (int8u Pos=0; Pos<FrameCountMinus1; Pos++)
+                                {
+                                    int32u Size=0;
+                                    int8u Size8;
+                                    do
+                                    {
+                                        Get_B1 (Size8,              "Size");
+                                        Size+=Size8;
+                                    }
+                                    while (Size8==0xFF);
+                                    Param_Info(Size);
+                                    Element_Offset_Virtual+=Size;
+                                    Laces.push_back(Size);
+                                }
+                                Laces.push_back(Element_Size-Element_Offset-Element_Offset_Virtual); //last lace
+                            }
+                            break;
+                    case 2 : //Fixed-size lacing - No more data
+                            {
+                                int64u Size=(Element_Size-Element_Offset)/(FrameCountMinus1+1);
+                                Laces.resize(FrameCountMinus1+1, Size);
+                            }
+                            break;
+                    case 3 : //EBML lacing
+                            {
+                                int64u Element_Offset_Virtual=0, Size;
+                                Get_EB (Size,                       "Size");
+                                Laces.push_back(Size);
+                                Element_Offset_Virtual+=Size;
+                                for (int8u Pos=1; Pos<FrameCountMinus1; Pos++)
+                                {
+                                    int64s Diff;
+                                    Get_ES (Diff,                   "Difference");
+                                    Size+=Diff; Param_Info(Size);
+                                    Element_Offset_Virtual+=Size;
+                                    Laces.push_back(Size);
+                                }
+                                Laces.push_back(Element_Size-Element_Offset-Element_Offset_Virtual); Param_Info(Size); //last lace
+                            }
+                            break;
+                    default : ; //Should never be here
+                }
+            Element_End();
+        }
+        else
+            Laces.push_back(Element_Size-Element_Offset);
 
-            if (Stream[TrackNumber].Searching_Payload)
+        FILLING_BEGIN();
+            //Parsing
+            for (size_t Pos=0; Pos<Laces.size(); Pos++)
             {
                 //Content compression
-                if (Stream[TrackNumber].ContentCompAlgo==3) //Header Stripping
+                if (Stream[TrackNumber].ContentCompAlgo!=(int32u)-1 && Stream[TrackNumber].ContentCompAlgo!=3)
+                    Stream[TrackNumber].Searching_Payload=false; //Unsupported
+
+                if (Stream[TrackNumber].Searching_Payload)
                 {
-                    Element_Offset-=(size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size; //This is an extra array, not in the stream
-                    Open_Buffer_Continue(Stream[TrackNumber].Parser, Stream[TrackNumber].ContentCompSettings_Buffer, (size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size);
-                    Element_Offset+=(size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size;
-                    Demux(Stream[TrackNumber].ContentCompSettings_Buffer, (size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size, Ztring::ToZtring(TrackNumber, 16)+_T(".")+_T("raw"));
+                    //Content compression
+                    if (Stream[TrackNumber].ContentCompAlgo==3) //Header Stripping
+                    {
+                        Element_Offset-=(size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size; //This is an extra array, not in the stream
+                        Open_Buffer_Continue(Stream[TrackNumber].Parser, Stream[TrackNumber].ContentCompSettings_Buffer, (size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size);
+                        Element_Offset+=(size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size;
+                        Demux(Stream[TrackNumber].ContentCompSettings_Buffer, (size_t)Stream[TrackNumber].ContentCompSettings_Buffer_Size, Ztring::ToZtring(TrackNumber, 16)+_T(".")+_T("raw"));
+                    }
+
+                    //Parsing
+                    Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Laces[Pos]);
+                    Element_Offset+=Laces[Pos];
+                    if (Stream[TrackNumber].Parser->IsFilled
+                     || Stream[TrackNumber].Parser->IsFinished
+                     || Stream[TrackNumber].PacketCount>=300)
+                        Stream[TrackNumber].Searching_Payload=false;
                 }
-
-                //Parsing
-                Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Laces[Pos]);
-                Element_Offset+=Laces[Pos];
-                if (Stream[TrackNumber].Parser->IsFilled
-                 || Stream[TrackNumber].Parser->IsFinished
-                 || Stream[TrackNumber].PacketCount>=300)
-                    Stream[TrackNumber].Searching_Payload=false;
+                else
+                    Skip_XX(Laces[Pos],                         "Data");
             }
-            else
-                Skip_XX(Laces[Pos],                             "Data");
-        }
 
-        //Filling
-        if (!Stream[TrackNumber].Searching_Payload && !Stream[TrackNumber].Searching_TimeStamps)
-            Stream_Count--;
-        if (Stream_Count==0)
-        {
-            //Jumping
-            Element_Show();
-            Element_End(); //Block
-            Info("Cluster, no need of more");
-            Element_End(); //BlockGroup
-            Finish("Matroska"); //File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
-        }
+            //Positionning
+            Element_Offset=Element_Size;
+        FILLING_END();
+    }
+    else
+    {
+        Skip_XX(Element_Size-Element_Offset,                    "Data");
+    }
 
-        //Demux
-        Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), Ztring::ToZtring(TrackNumber, 16)+_T(".")+_T("raw"));
+    //Filling
+    if (!Stream[TrackNumber].Searching_Payload && !Stream[TrackNumber].Searching_TimeStamps && !Stream[TrackNumber].Searching_TimeStamp_Start)
+        Stream_Count--;
+    if (Stream_Count==0)
+    {
+        //Jumping
+        Element_Show();
+        Element_End(); //Block
+        Info("Cluster, no need of more");
+        Element_End(); //BlockGroup
+        Finish("Matroska"); //File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
+    }
 
-        //Positionning
-        Element_Offset=Element_Size;
-    FILLING_END();
+    //Demux
+    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), Ztring::ToZtring(TrackNumber, 16)+_T(".")+_T("raw"));
 
     Element_Show(); //For debug
 }
@@ -2296,7 +2315,6 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackNumber()
             Stream[TrackNumber].DisplayAspectRatio=((float)TrackVideoDisplayWidth)/(float)TrackVideoDisplayHeight;
         if (AvgBytesPerSec)
             Stream[TrackNumber].AvgBytesPerSec=AvgBytesPerSec;
-        Stream_Count++;
 
         CodecID_Manage();
         CodecPrivate_Manage();
