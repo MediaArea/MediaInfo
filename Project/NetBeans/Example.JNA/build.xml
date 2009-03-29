@@ -2,8 +2,8 @@
 <!-- You may freely edit this file. See commented blocks below for -->
 <!-- some examples of how to customize the build. -->
 <!-- (If you delete it and reopen the project it will be recreated.) -->
-<project name="NetBeans" default="default" basedir=".">
-    <description>Builds, tests, and runs the project NetBeans.</description>
+<project name="HowToUseDll_-_JNA" default="default" basedir=".">
+    <description>Builds, tests, and runs the project HowToUseDll - JNA.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 
@@ -54,7 +54,7 @@
 
     An example of overriding the target for project execution could look like this:
 
-        <target name="run" depends="NetBeans-impl.jar">
+        <target name="run" depends="HowToUseDll_-_JNA-impl.jar">
             <exec dir="bin" executable="launcher.exe">
                 <arg file="${dist.jar}"/>
             </exec>

@@ -1,7 +1,8 @@
 /**
- * @(#)MediaInfoDLL.java 19.06.06 (dd.mm.yy)
+ * MediaInfoDLL - All info about media files, for DLL (JNA version)
  *
- * Copyright (2006) Bro3
+ * Copyright (C) 2006-2006 Bro3, bro3@users.sourceforge.net
+ * Copyright (C) 2006-2009 Jerome Martinez, Zen@MediaArea.net
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser Public License as published by the Free Software
@@ -15,10 +16,7 @@
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Boston, MA 02111.
  *
- * Contact: bro3@users.sourceforge.net
-* Contact: zenitram@users.sourceforge.net
  **/
-
 
 import org.xvolks.jnative.JNative;
 import org.xvolks.jnative.Type;
@@ -27,92 +25,14 @@ import org.xvolks.jnative.pointers.memory.MemoryBlockFactory;
 import org.xvolks.jnative.exceptions.NativeException;
 import org.xvolks.jnative.pointers.memory.NativeMemoryBlock;
 
-import java.io.*;
-
-
 /**
  * Class to retrieve info about media files.
  * MediaInfo library (http://mediainfo.sourceforge.net) is used
  * by the help of JNative (http://jnative.sourceforge.net)
  * to obtain technical the info about the files.
  *
- * Example:
- *
- * <pre>
- * import java.io.*;
- *  
- * class MediaInfoA_Doc_Example {
- *     
- *     public static void main(String [] argv) {
- *     
- *     try {
- *         String toDisplay = "";
- *         
- *         toDisplay += "Version:" + MediaInfo.Option_Static("Info_Version");
- *         
- *         MediaInfo mi = new MediaInfo();
- * 
- *         if (mi.Open("Mediafile.avi") > 0) {
- *         
- *         toDisplay += "\nFileSize:"+ mi.Get(MediaInfo.Stream_General, 0, "FileSize", MediaInfo.Info_Text, MediaInfo.Info_Name);
- *         toDisplay += "\nPlayTime/String3:"+ mi.Get(0, 0, "PlayTime/String3", 1, 0);
- *         
- *         toDisplay += "\nCodec/Info:";
- *         toDisplay += mi.Get(MediaInfo.Stream_Video, 0, "Codec/Info", MediaInfo.Info_Text, MediaInfo.Info_Name);
- *         
- *         toDisplay += "\nBitRate/String:";
- *         toDisplay += mi.Get(MediaInfo.Stream_Video, 0, "BitRate/String", MediaInfo.Info_Text, MediaInfo.Info_Name);
- *         
- *         toDisplay += "\nAspectRatio:";
- *         toDisplay += mi.Get(MediaInfo.Stream_Video, 0, "AspectRatio", MediaInfo.Info_Text, MediaInfo.Info_Name);
- *         
- *         toDisplay += "\nFrameRate/String:";
- *         toDisplay += mi.Get(MediaInfo.Stream_Video, 0, "FrameRate/String", MediaInfo.Info_Text, MediaInfo.Info_Name);
- *         
- *         toDisplay += "\nFrameCount:";
- *         toDisplay += mi.Get(MediaInfo.Stream_Video, 0, "FrameCount", MediaInfo.Info_Text, MediaInfo.Info_Name);
- *         
- *         
- *         toDisplay += "\nStreamKind:";
- *         toDisplay += mi.Get(MediaInfo.Stream_Audio, 0, "StreamKind", MediaInfo.Info_Text, MediaInfo.Info_Name);
- * 
- *         toDisplay += "\nStreamCount:";
- *         toDisplay += mi.Get(MediaInfo.Stream_Audio, 0, "StreamCount", MediaInfo.Info_Text, MediaInfo.Info_Name);
- *         
- *         toDisplay += "\nCodec/String:";
- *         toDisplay += mi.Get(MediaInfo.Stream_Audio, 0, "Codec/String", MediaInfo.Info_Text, MediaInfo.Info_Name);
- *         
- *         toDisplay += "\nBitRate/String:";
- *         toDisplay += mi.Get(MediaInfo.Stream_Audio, 0, "BitRate/String", MediaInfo.Info_Text, MediaInfo.Info_Name);
- *         
- *         toDisplay += "\nBitRate_Mode:";
- *         toDisplay += mi.Get(MediaInfo.Stream_Audio, 0, "BitRate_Mode", MediaInfo.Info_Text, MediaInfo.Info_Name);
- *         
- *         toDisplay += "\nChannel(s)/String:";
- *         toDisplay += mi.Get(MediaInfo.Stream_Audio, 0, "Channel(s)/String", MediaInfo.Info_Text, MediaInfo.Info_Name);
- *         
- *         toDisplay += "\nSamplingRate/String:";
- *         toDisplay += mi.Get(MediaInfo.Stream_Audio, 0, "SamplingRate/String", MediaInfo.Info_Text, MediaInfo.Info_Name);
- *         
- *         toDisplay += "\nResolution:";
- *         toDisplay += mi.Get(MediaInfo.Stream_Audio, 0, "Resolution", MediaInfo.Info_Text, MediaInfo.Info_Name);
- *         
- *         System.out.println(toDisplay);
- * 
- *         mi.Close();
- *         mi.Delete();
- *         }
- *     }
- *      catch (Exception e) {
- *          System.out.println("Exception:" + e.getMessage());
- *     }
- *    }
- * }
- * </pre>
- *
- *
  * @author bro3@users.sourceforge.net
- * @author zenitram@users.sourceforge.net
+ * @author zen@mediaarea.net
  */
 class MediaInfo
 {
@@ -177,7 +97,7 @@ class MediaInfo
     private void New() throws NativeException, Exception
     {
         /* Getting the handle */
-        new_jnative = new JNative(libraryName, "MediaInfoA_New", true);
+        new_jnative = new JNative(libraryName, "MediaInfoA_New");
         new_jnative.setRetVal(Type.INT);
         new_jnative.invoke();
         handle = new_jnative.getRetVal();
@@ -229,9 +149,6 @@ class MediaInfo
         /* Retrieving data */
         int ret = Integer.parseInt(jnative.getRetVal());
 
-        /* End */
-        //jnative.dispose();
-        
         return ret;
     }
 
@@ -260,10 +177,6 @@ class MediaInfo
 
         /* Retrieving data */
         int ret = Integer.parseInt(jnative.getRetVal());
-        
-        /* End */
-        //jnative.dispose();
-        fileNamePointer.dispose();
 
         return ret;
     }
@@ -289,9 +202,6 @@ class MediaInfo
 
         /* Retrieving data */
         String ret = retrieveString(jnative);
-
-        /* End */
-        //jnative.dispose();
 
         return ret;
     }
@@ -365,9 +275,6 @@ class MediaInfo
         /* Retrieving data */
         String ret = retrieveString(jnative);
 
-        /* End */
-        //jnative.dispose();
-
         return ret;
     }
     
@@ -417,9 +324,6 @@ class MediaInfo
         /* Retrieving data */
         String ret = retrieveString(jnative);
 
-        /* End */
-        //jnative.dispose();
-
         return ret;
     }
     
@@ -466,9 +370,6 @@ class MediaInfo
 
         /* Retrieving data */
         String ret = retrieveString(jnative);
-
-        /* End */
-        //jnative.dispose();
 
         return ret;
     }
@@ -517,9 +418,6 @@ class MediaInfo
         /* Retrieving data */
         String ret = retrieveString(jnative);
 
-        /* End */
-        //jnative.dispose();
-
         return ret;
     }
 
@@ -543,9 +441,6 @@ class MediaInfo
 
         /* Retrieving data */
         int ret = Integer.parseInt(jnative.getRetVal());
-
-        /* End */
-        //jnative.dispose();
 
         return ret;
     }
@@ -590,9 +485,6 @@ class MediaInfo
         /* Retrieving data */
         int retval = Integer.parseInt(jnative.getRetVal());
 
-        /* End */
-        //jnative.dispose();
-
         return retval;
     }
 
@@ -611,12 +503,6 @@ class MediaInfo
         JNative jnative = new JNative(libraryName, "MediaInfoA_Delete");
         jnative.setParameter(0, Type.INT, handle);
         jnative.invoke();
-
-        /* End */
-        jnative.dispose();
-
-        /* disposing the jnative instance that created the handle */
-        new_jnative.dispose();
     }
 
 
@@ -634,9 +520,6 @@ class MediaInfo
         JNative jnative = new JNative(libraryName, "MediaInfoA_Close");
         jnative.setParameter(0, Type.INT, handle);
         jnative.invoke();
-
-        /* End */
-        //jnative.dispose();
     }
 
 
@@ -724,6 +607,8 @@ class MediaInfo
  */
 class HandleNotInitializedException extends Exception
 {
+    private static final long serialVersionUID = 1L;
+
     HandleNotInitializedException(String msg)
     {
         super(msg);
