@@ -54,6 +54,7 @@ private :
     void Data_Parse();
 
     //Elements
+    void Zero();
     void CRC32();
     void Void();
     void Ebml();

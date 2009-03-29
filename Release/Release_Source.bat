@@ -84,15 +84,24 @@ xcopy ..\Project\MSVB\*.rc MediaInfo_Lib_Source\Project\MSVB\ /S
 xcopy "..\Project\MSVB\Example\My Project\*.*" "MediaInfo_Lib_Source\Project\MSVB\Example\My Project\" /Y
 xcopy "..\Project\MSVB\Example VB6\*.*" "MediaInfo_Lib_Source\Project\MSVB\Example VB6\" /Y
 xcopy ..\Project\GNU\* MediaInfo_Lib_Source\Project\GNU\ /S
-xcopy ..\Project\Java\*.bat MediaInfo_Lib_Source\Project\Java\ /S
-xcopy ..\Project\Java\*.sh MediaInfo_Lib_Source\Project\Java\ /S
-xcopy ..\Project\Java\*.java MediaInfo_Lib_Source\Project\Java\ /S
-xcopy ..\Project\Java\*.txt MediaInfo_Lib_Source\Project\Java\ /S
-xcopy ..\Project\NetBeans\Example\*.xml MediaInfo_Lib_Source\Project\NetBeans\Example\ /s
-xcopy ..\Project\NetBeans\Example\*.properties MediaInfo_Lib_Source\Project\NetBeans\Example\ /s
-xcopy ..\Project\NetBeans\Example\*.mf MediaInfo_Lib_Source\Project\NetBeans\Example\
-xcopy ..\Project\NetBeans\Example\*.txt MediaInfo_Lib_Source\Project\NetBeans\Example\
-xcopy ..\Project\NetBeans\Example\src\*.java MediaInfo_Lib_Source\Project\NetBeans\Example\src\
+xcopy ..\Project\Java\Example.JNA\*.bat MediaInfo_Lib_Source\Project\Java\Example.JNA\ /S
+xcopy ..\Project\Java\Example.JNA\*.sh MediaInfo_Lib_Source\Project\Java\Example.JNA\ /S
+xcopy ..\Project\Java\Example.JNA\*.java MediaInfo_Lib_Source\Project\Java\Example.JNA\ /S
+xcopy ..\Project\Java\Example.JNA\*.txt MediaInfo_Lib_Source\Project\Java\Example.JNA\ /S
+xcopy ..\Project\Java\Example.JNative\*.bat MediaInfo_Lib_Source\Project\Java\Example.JNative\ /S
+xcopy ..\Project\Java\Example.JNative\*.sh MediaInfo_Lib_Source\Project\Java\Example.JNative\ /S
+xcopy ..\Project\Java\Example.JNative\*.java MediaInfo_Lib_Source\Project\Java\Example.JNative\ /S
+xcopy ..\Project\Java\Example.JNative\*.txt MediaInfo_Lib_Source\Project\Java\Example.JNative\ /S
+xcopy ..\Project\NetBeans\Example.JNA\*.xml MediaInfo_Lib_Source\Project\NetBeans\Example.JNA\ /s
+xcopy ..\Project\NetBeans\Example.JNA\*.properties MediaInfo_Lib_Source\Project\NetBeans\Example.JNA\ /s
+xcopy ..\Project\NetBeans\Example.JNA\*.mf MediaInfo_Lib_Source\Project\NetBeans\Example.JNA\
+xcopy ..\Project\NetBeans\Example.JNA\*.txt MediaInfo_Lib_Source\Project\NetBeans\Example.JNA\
+xcopy ..\Project\NetBeans\Example.JNA\src\*.java MediaInfo_Lib_Source\Project\NetBeans\Example.JNA\src\
+xcopy ..\Project\NetBeans\Example.JNative\*.xml MediaInfo_Lib_Source\Project\NetBeans\Example.JNative\ /s
+xcopy ..\Project\NetBeans\Example.JNative\*.properties MediaInfo_Lib_Source\Project\NetBeans\Example.JNative\ /s
+xcopy ..\Project\NetBeans\Example.JNative\*.mf MediaInfo_Lib_Source\Project\NetBeans\Example.JNative\
+xcopy ..\Project\NetBeans\Example.JNative\*.txt MediaInfo_Lib_Source\Project\NetBeans\Example.JNative\
+xcopy ..\Project\NetBeans\Example.JNative\src\*.java MediaInfo_Lib_Source\Project\NetBeans\Example.JNative\src\
 
 @rem --- Copying : Release ---
 xcopy *.txt MediaInfo_Lib_Source\Release\

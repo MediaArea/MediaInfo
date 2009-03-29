@@ -22,7 +22,8 @@ xcopy ..\Source\Example\*.cpp MediaInfo_DLL_GNU_Prepare\Source\Example\ /S
 xcopy ..\Source\Example\*.java MediaInfo_DLL_GNU_Prepare\Source\Example\ /S
 xcopy ..\Source\Example\*.py MediaInfo_DLL_GNU_Prepare\Source\Example\ /S
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.cs MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.java MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.JNA.java MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.JNative.java MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.py MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
 
 

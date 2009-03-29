@@ -49,7 +49,8 @@ mkdir MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL
 cp ../Source/MediaInfoDLL/MediaInfoDLL.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL_Static.h MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL.cs MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
-cp ../Source/MediaInfoDLL/MediaInfoDLL.java MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
+cp ../Source/MediaInfoDLL/MediaInfoDLL.JNA.java MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
+cp ../Source/MediaInfoDLL/MediaInfoDLL.JNative.java MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL.py MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
 
 

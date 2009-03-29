@@ -61,7 +61,8 @@ install: build
 	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.cs $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
 	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.def $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
 	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.h $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
-	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.java $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
+	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.JNA.java $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
+	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.JNative.java $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
 	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.py $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
 
 	sed -i -e 's|Version: |Version: %{version}|g' Project/GNU/Library/libmediainfo.pc

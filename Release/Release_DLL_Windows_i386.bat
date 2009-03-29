@@ -27,7 +27,8 @@ xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.pas MediaInfoDLL_Windows_i386\Develope
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.cs MediaInfoDLL_Windows_i386\Developers\Source\MediaInfoDLL\
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.jsl MediaInfoDLL_Windows_i386\Developers\Source\MediaInfoDLL\
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.vb MediaInfoDLL_Windows_i386\Developers\Source\MediaInfoDLL\
-xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.java MediaInfoDLL_Windows_i386\Developers\Source\MediaInfoDLL\
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.JNA.java MediaInfoDLL_Windows_i386\Developers\Source\MediaInfoDLL\
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.JNative.java MediaInfoDLL_Windows_i386\Developers\Source\MediaInfoDLL\
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.py MediaInfoDLL_Windows_i386\Developers\Source\MediaInfoDLL\
 
 @rem --- Copying : Projects ---
@@ -63,15 +64,24 @@ xcopy "..\Project\MSVB\Example VB6\*.*" "MediaInfoDLL_Windows_i386\Developers\Pr
 xcopy ..\Project\MSVC\*.sln MediaInfoDLL_Windows_i386\Developers\Project\MSVC\
 xcopy ..\Project\MSVC\Example\HowToUse_Dll.vcproj MediaInfoDLL_Windows_i386\Developers\Project\MSVC\Example\
 xcopy ..\Project\GCC\Example\Make* MediaInfoDLL_Windows_i386\Developers\Project\GCC\Example\
-xcopy ..\Project\Java\Example\*.java MediaInfoDLL_Windows_i386\Developers\Project\Java\Example\
-xcopy ..\Project\Java\Example\*.txt MediaInfoDLL_Windows_i386\Developers\Project\Java\Example\
-xcopy ..\Project\Java\Example\*.bat MediaInfoDLL_Windows_i386\Developers\Project\Java\Example\
-xcopy ..\Project\Java\Example\*.sh MediaInfoDLL_Windows_i386\Developers\Project\Java\Example\
-xcopy ..\Project\NetBeans\Example\*.xml MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example\ /s
-xcopy ..\Project\NetBeans\Example\*.properties MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example\ /s
-xcopy ..\Project\NetBeans\Example\*.mf MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example\
-xcopy ..\Project\NetBeans\Example\*.txt MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example\
-xcopy ..\Project\NetBeans\Example\src\*.java MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example\src\
+xcopy ..\Project\Java\Example.JNA\*.java MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNA\
+xcopy ..\Project\Java\Example.JNA\*.txt MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNA\
+xcopy ..\Project\Java\Example.JNA\*.bat MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNA\
+xcopy ..\Project\Java\Example.JNA\*.sh MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNA\
+xcopy ..\Project\Java\Example.JNative\*.java MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNative\
+xcopy ..\Project\Java\Example.JNative\*.txt MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNative\
+xcopy ..\Project\Java\Example.JNative\*.bat MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNative\
+xcopy ..\Project\Java\Example.JNative\*.sh MediaInfoDLL_Windows_i386\Developers\Project\Java\Example.JNative\
+xcopy ..\Project\NetBeans\Example.JNA\*.xml MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNA\ /s
+xcopy ..\Project\NetBeans\Example.JNA\*.properties MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNA\ /s
+xcopy ..\Project\NetBeans\Example.JNA\*.mf MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNA\
+xcopy ..\Project\NetBeans\Example.JNA\*.txt MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNA\
+xcopy ..\Project\NetBeans\Example.JNA\src\*.java MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNA\src\
+xcopy ..\Project\NetBeans\Example.JNative\*.xml MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNative\ /s
+xcopy ..\Project\NetBeans\Example.JNative\*.properties MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNative\ /s
+xcopy ..\Project\NetBeans\Example.JNative\*.mf MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNative\
+xcopy ..\Project\NetBeans\Example.JNative\*.txt MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNative\
+xcopy ..\Project\NetBeans\Example.JNative\src\*.java MediaInfoDLL_Windows_i386\Developers\Project\NetBeans\Example.JNative\src\
 
 rem --- Copying : Libs ---
 xcopy ..\Release\BCB\DLL\MediaInfo.lib MediaInfoDLL_Windows_i386\Developers\Release\BCB\DLL\

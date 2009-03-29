@@ -21,6 +21,7 @@ Version 0.7.13, 2009-
 + MKV: Handling of chapters in multiple languages
 + Chapters are moved to menu part for better coherency with MPEG-TS, developers see Changes.txt for more info
 x #2712761, AVI: unsupported SalmonSoft text codec makes MediaInfo silently fail
+x #2719534, MKV: handling "modified" headers (zero padding)
 
 Version 0.7.12, 2009-03-20
 -------------

@@ -261,6 +261,17 @@ void File_Mk::Read_Buffer_Finalize()
 //---------------------------------------------------------------------------
 void File_Mk::Header_Parse()
 {
+    //Test of zero padding
+    int8u Null;
+    Peek_B1(Null);
+    if (Null==0x00)
+    {
+        Skip_B1(                                                "Zero byte");
+        Header_Fill_Code((int32u)-1); //Should be (int64u)-1 but Borland C++ does not like this
+        Header_Fill_Size(1);
+        return;
+    }
+
     //Parsing
     int64u Name, Size;
     Get_EB (Name,                                               "Name");
@@ -275,6 +286,7 @@ void File_Mk::Header_Parse()
 namespace Elements
 {
     //Common
+    const int64u Zero=(int32u)-1; //Should be (int64u)-1 but Borland C++ does not like this
     const int64u CRC32=0x3F;
     const int64u Void=0x6C;
 
@@ -480,6 +492,7 @@ void File_Mk::Data_Parse()
                         break; \
 
     #define ATOM_END_MK \
+        ATOM(Zero) \
         ATOM(CRC32) \
         ATOM(Void) \
         ATOM_END
@@ -753,6 +766,12 @@ void File_Mk::Data_Parse()
 //***************************************************************************
 // Elements
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mk::Zero()
+{
+    Element_Name("ZeroPadding");
+}
 
 //---------------------------------------------------------------------------
 void File_Mk::CRC32()
