@@ -384,6 +384,8 @@ bool File_Mpega::Synchronize()
                         return false;
                     if (Tag_Found)
                         return true;
+                    if (File_Offset+Buffer_Offset+Size==File_Size-File_EndTagSize)
+                        break;
 
                     //Testing
                     if ((CC2(Buffer+Buffer_Offset+Size)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+Size+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+Size+2)&0x0C)==0x0C)
@@ -416,6 +418,8 @@ bool File_Mpega::Synchronize()
                                     return false;
                                 if (Tag_Found)
                                     return true;
+                                if (File_Offset+Buffer_Offset+Size+Size2==File_Size-File_EndTagSize)
+                                    break;
 
                                 //Testing
                                 if ((CC2(Buffer+Buffer_Offset+Size+Size2)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+Size+Size2+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+Size+Size2+2)&0x0C)==0x0C)

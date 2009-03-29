@@ -129,7 +129,7 @@ bool File__Tags_Helper::Synchronize(bool &Tag_Found, size_t Synchro_Offset)
                         else if (Base->File_Offset+Base->Buffer_Size==Base->File_Size)
                         {
                              while (!TagSizeIsFinal && DetectBeginOfEndTags_Test());
-                             Tag_Found=Id3v1_Size || Lyrics3_Size || Lyrics3v2_Size || ApeTag_Size;
+                             Tag_Found=Base->File_Offset+Base->Buffer_Offset==Base->File_Size-File_EndTagSize;
                              return true;
                         }
                         else
