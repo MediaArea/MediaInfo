@@ -1,5 +1,5 @@
 To run MediaInfo, you need JNative
-JNative jar must be downloaded from http://sourceforge.net/projects/jnative.
+JNative jar may be downloaded from http://jnative.sourceforge.net .
 
 Java 1.4.2 users:
 Retroweaver makes it possible to run JNative on Java RE 1.4.2.
