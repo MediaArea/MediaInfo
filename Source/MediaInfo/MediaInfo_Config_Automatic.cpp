@@ -1936,6 +1936,7 @@ void MediaInfo_Config_CodecID_Audio_Matroska (InfoMap &Info)
     "A_REAL/SIPR;G.729;;Real & Sipro Voice Codec;http://www.real.com\n"
     "A_REAL/RALF;RealAudio Lossless;;Real Audio Lossless Format;http://www.real.com\n"
     "A_REAL/ATRC;Atrac;;Real & Sony Atrac3 Codec;http://www.real.com\n"
+    "A_TRUEHD;TrueHD;;Dolby TrueHD;http://www.dolby.com/consumer/technology/trueHD.html\n"
     "A_AAC;AAC\n"
     "A_AAC/MPEG2/MAIN;AAC\n"
     "A_AAC/MPEG2/LC;AAC\n"

@@ -12,6 +12,7 @@ Version 0.7.13, 2009-
 + #2635230, MPEG audio: Lame encoder settings
 + #2706146, WMV: detection of container wanted aspect ratio
 + #2611726, MKV: Audio delay detection
++ #2721811, MKV: TrueHD detection
 + Java: JNA (Java Native Access) binding
 + Exported "stream" interface for analyzing streams in memory (beta)
 + SHN (Shorten) detection

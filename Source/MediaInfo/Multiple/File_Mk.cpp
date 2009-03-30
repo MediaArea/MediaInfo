@@ -1358,6 +1358,7 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
                     }
 
                     //Parsing
+                    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), Ztring::ToZtring(TrackNumber, 16)+_T(".")+_T("raw"));
                     Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Laces[Pos]);
                     Element_Offset+=Laces[Pos];
                     if (Stream[TrackNumber].Parser->IsFilled
@@ -1390,9 +1391,6 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
         Element_End(); //BlockGroup
         Finish("Matroska"); //File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
     }
-
-    //Demux
-    Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), Ztring::ToZtring(TrackNumber, 16)+_T(".")+_T("raw"));
 
     Element_Show(); //For debug
 }
@@ -2833,7 +2831,7 @@ void File_Mk::CodecID_Manage()
     }
     #endif
     #if defined(MEDIAINFO_AC3_YES)
-    else if (Format==_T("AC-3") || Format==_T("E-AC-3"))
+    else if (Format==_T("AC-3") || Format==_T("E-AC-3") || Format==_T("TrueHD"))
     {
         Stream[TrackNumber].Parser=new File_Ac3;
         ((File_Ac3*)Stream[TrackNumber].Parser)->Frame_Count_Valid=2;
