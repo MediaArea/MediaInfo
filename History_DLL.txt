@@ -22,6 +22,7 @@ Version 0.7.13, 2009-
 + WAV: better handling of 4GiB+ files
 + WAV: Extensible Wave support
 + MKV: Handling of chapters in multiple languages
++ Stream size for all streams when 1 video and all audio streams are CBR
 + Chapters are moved to menu part for better coherency with MPEG-TS, developers see Changes.txt for more info
 x #2712761, AVI: unsupported SalmonSoft text codec makes MediaInfo silently fail
 x #2719534, MKV: handling "modified" headers (zero padding)

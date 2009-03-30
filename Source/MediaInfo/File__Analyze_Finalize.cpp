@@ -120,7 +120,7 @@ void File__Analyze::Finalize__All(stream_t StreamKind)
 void File__Analyze::Finalize__All(stream_t StreamKind, size_t Pos)
 {
     //BitRate
-    if (StreamKind!=Stream_Chapters && Retrieve(StreamKind, Pos, "BitRate").empty() && !Retrieve(StreamKind, Pos, "StreamSize").empty() && !Retrieve(StreamKind, Pos, "Duration").empty())
+    if (StreamKind!=Stream_General && StreamKind!=Stream_Chapters && Retrieve(StreamKind, Pos, "BitRate").empty() && !Retrieve(StreamKind, Pos, "StreamSize").empty() && !Retrieve(StreamKind, Pos, "Duration").empty())
     {
         int64u Duration=Retrieve(StreamKind, Pos, "Duration").To_int64u();
         int64u StreamSize=Retrieve(StreamKind, Pos, "StreamSize").To_int64u();
@@ -554,6 +554,15 @@ void File__Analyze::Finalize_Audio(size_t Pos)
         if (!Z1.empty())
             Fill(Stream_Audio, Pos, Audio_BitRate_Mode, Z1);
     }
+    //Stream size
+    if (Retrieve(Stream_Audio, Pos, Audio_StreamSize).empty() && !Retrieve(Stream_Audio, Pos, Audio_BitRate).empty() && !Retrieve(Stream_Audio, Pos, Audio_Duration).empty() && Retrieve(Stream_Audio, Pos, Audio_BitRate_Mode)==_T("CBR"))
+    {
+        int64u Duration=Retrieve(Stream_Audio, Pos, Audio_Duration).To_int64u();
+        int64u BitRate=Retrieve(Stream_Audio, Pos, Audio_BitRate).To_int64u();
+        int64u StreamSize=Duration*BitRate/8/1000;
+        if (StreamSize)
+            Fill(Stream_Audio, Pos, Audio_StreamSize, StreamSize);
+    }
 
     //Well known bitrate values
     Finalize_Audio_BitRate(Pos, Audio_BitRate);
@@ -843,7 +852,6 @@ void File__Analyze::Finalize_Final()
             TextBitRate_Ratio   =0.97;
             TextBitRate_Minus   =0;
         }
-
         if (MediaInfoLib::Config.Format_Get(Retrieve(Stream_General, 0, General_Format), InfoFormat_KindofFormat)==_T("MPEG-4"))
         {
             GeneralBitRate_Ratio=1;
@@ -853,6 +861,17 @@ void File__Analyze::Finalize_Final()
             AudioBitRate_Ratio  =1;
             AudioBitRate_Minus  =0;
             TextBitRate_Ratio   =1;
+            TextBitRate_Minus   =0;
+        }
+        if (Get(Stream_General, 0, _T("Format"))==_T("Matroska"))
+        {
+            GeneralBitRate_Ratio=0.99;
+            GeneralBitRate_Minus=0;
+            VideoBitRate_Ratio  =0.99;
+            VideoBitRate_Minus  =0;
+            AudioBitRate_Ratio  =0.99;
+            AudioBitRate_Minus  =0;
+            TextBitRate_Ratio   =0.99;
             TextBitRate_Minus   =0;
         }
 
@@ -876,7 +895,16 @@ void File__Analyze::Finalize_Final()
                 VideoBitRate-=1000; //Estimation: Text stream are not often big
         }
         if (VideobitRateIsValid && VideoBitRate>=10000) //to avoid strange behavior
-            Fill(Stream_Video, 0, Video_BitRate, VideoBitRate*VideoBitRate_Ratio-VideoBitRate_Minus, 0); //Default container overhead=2%
+        {
+            VideoBitRate=VideoBitRate*VideoBitRate_Ratio-VideoBitRate_Minus;
+            Fill(Stream_Video, 0, Video_BitRate, VideoBitRate, 0); //Default container overhead=2%
+            if (Retrieve(Stream_Video, 0, Video_StreamSize).empty() && !Retrieve(Stream_Video, 0, Video_Duration).empty())
+            {
+                int64u Duration=Retrieve(Stream_Video, 0, Video_Duration).To_int64u();
+                if (Duration)
+                    Fill(Stream_Video, 0, Video_StreamSize, VideoBitRate/8*Duration/1000, 0);
+            }
+        }
     }
     //-General stream size if we have all streamsize
     if (File_Size!=(int64u)-1 && Retrieve(Stream_General, 0, General_StreamSize).empty())

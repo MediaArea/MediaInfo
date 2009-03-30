@@ -552,6 +552,11 @@ void File_Mpega::Read_Buffer_Finalize()
             VBR_FileSize-=File_EndTagSize;
         }
     }
+    if (!IsSub)
+    {
+        Fill(Stream_General, 0, General_StreamSize, File_BeginTagSize+File_EndTagSize);
+        Fill(Stream_Audio, 0, Audio_StreamSize, VBR_FileSize);
+    }
     if (BitRate>0 && !File_Name.empty())
         Fill(Stream_General, 0, General_Duration, VBR_FileSize*8*1000/BitRate);
     if (!Encoded_Library.empty())
