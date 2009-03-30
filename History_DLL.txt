@@ -27,6 +27,7 @@ Version 0.7.13, 2009-
 x #2712761, AVI: unsupported SalmonSoft text codec makes MediaInfo silently fail
 x #2719534, MKV: handling "modified" headers (zero padding)
 x #2720822, MPEG Audio: was freezing with 1 malformed file
+x #2721949, IFO: some stream IDs were false
 
 Version 0.7.12, 2009-03-20
 -------------

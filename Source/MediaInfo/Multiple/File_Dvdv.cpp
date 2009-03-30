@@ -680,18 +680,6 @@ void File_Dvdv::Audio()
                     Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, AC3_ChannelPositions2[ChannelsK]);
                 }
             #endif //MEDIAINFO_AC3_YES
-
-            int8u trackID;
-            switch (Codec)
-            {
-                case 0: trackID = 0x80+(int8u)StreamPos_Last; break; // AC3
-                case 4: trackID = 0xA0+(int8u)StreamPos_Last; break; // LPCM
-                case 6: trackID = 0x88+(int8u)StreamPos_Last; break; // DTS
-            }
-
-            Ztring ID_String; ID_String=_T("0x"); ID_String+=Ztring::ToZtring(trackID, 16);
-            Fill(Stream_Audio, StreamPos_Last, "ID", ID_String);
-            Fill(Stream_Audio, StreamPos_Last, "ID/String", ID_String);
         }
     FILLING_END();
 }
@@ -728,11 +716,6 @@ void File_Dvdv::Text()
 
             if (Language_Extension<16)
                  Fill(Stream_Text, StreamPos_Last, Text_Language_More, IFO_Language_MoreT[Language_Extension]);
-
-            int8u trackID = 0x20+(int8u)StreamPos_Last;
-            Ztring ID_String; ID_String=_T("0x"); ID_String+=Ztring::ToZtring(trackID, 16);
-            Fill(Stream_Text, StreamPos_Last, "ID", ID_String);
-            Fill(Stream_Text, StreamPos_Last, "ID/String", ID_String);
         }
     FILLING_END();
 }
@@ -1277,6 +1260,20 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
                 Element_End();
                 if (Available)
                     Stream_Control_Audio.push_back(Number);
+
+                if (Available && Retrieve(Stream_Audio, Pos, Text_ID).empty() && Sectors[(size_t)((File_Offset+Buffer_Offset)/2048)]==Sector_VTS_PGCI)
+                {
+                    int8u ToAdd=0;
+                    if (Retrieve(Stream_Audio, Pos, Audio_Format)==_T("AC-3"))
+                        ToAdd=0x80;
+                    if (Retrieve(Stream_Audio, Pos, Audio_Format)==_T("DTS"))
+                        ToAdd=0x88;
+                    if (Retrieve(Stream_Audio, Pos, Audio_Format)==_T("LPCM"))
+                        ToAdd=0xA0;
+                    Ztring ID_String; ID_String=_T("0x"); ID_String+=Ztring::ToZtring(ToAdd+Number, 16);
+                    Fill(Stream_Audio, Pos, Audio_ID, ID_String);
+                    Fill(Stream_Audio, Pos, Audio_ID_String, ID_String);
+                }
             }
             Element_End();
             Element_Begin("Subpicture Stream Controls", 32*4);
@@ -1300,6 +1297,13 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
                     Stream_Control_SubPicture_Wide.push_back(Number_Wide);
                     Stream_Control_SubPicture_Letterbox.push_back(Number_Letterbox);
                     Stream_Control_SubPicture_PanScan.push_back(Number_PanScan);
+                }
+
+                if (Available && Retrieve(Stream_Text, Pos, Text_ID).empty() && Sectors[(size_t)((File_Offset+Buffer_Offset)/2048)]==Sector_VTS_PGCI)
+                {
+                    Ztring ID_String; ID_String=_T("0x"); ID_String+=Ztring::ToZtring(0x20+Number_Wide, 16);
+                    Fill(Stream_Text, Pos, Text_ID, ID_String);
+                    Fill(Stream_Text, Pos, Text_ID_String, ID_String);
                 }
             }
             Element_End();
