@@ -196,9 +196,9 @@ String MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
             Ztring A=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Measure_Text); // TODO Bug sinon? voir Ztring
             if ((MediaInfoLib::Config.Complete_Get() || Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==_T('Y')) && Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text)!=_T(""))
             {
-                Ztring Nom=Get((stream_t)StreamKind, 0, Champ_Pos, Info_Name_Text);
+                Ztring Nom=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name_Text);
                 if (Nom==_T(""))
-                    Nom=Get((stream_t)StreamKind, 0, Champ_Pos, Info_Name); //Texte n'existe pas
+                    Nom=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name); //Texte n'existe pas
                 if (!HTML)
                 {
                      int8u Size=MediaInfoLib::Config.Language_Get(_T("  Config_Text_ColumnSize")).To_int8u();
