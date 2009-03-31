@@ -185,13 +185,20 @@ int MediaInfo_Internal::Format_Test()
     //-Close
     Format_Test_FillBuffer_Close();
 
+    //Is this file detected?
+    if (!Info->IsAccepted && Stream[Stream_General].empty())
+    {
+        delete Info; Info=NULL;
+        return 0;
+    }
+
     //Finalize
     Info->Open_Buffer_Finalize();
-    Info->Finalize();
+    Info->Finalize_Global();
 
     //Cleanup
     delete Info; Info=NULL;
-    return Stream[Stream_General].empty()?0:1;
+    return 1;
 }
 
 //---------------------------------------------------------------------------
@@ -384,7 +391,7 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
     if (Info->File_GoTo!=(int64u)-1 && Config.File_IsSeekable_Get()==0)
     {
         Info->Open_Buffer_Finalize(true);
-        Info->Finalize();
+        Info->Finalize_Global();
         Info->File_GoTo=(int64u)-1;
         return 0;
     }
@@ -409,7 +416,7 @@ size_t MediaInfo_Internal::Open_Buffer_Finalize ()
     if (Info!=NULL)
     {
         Info->Open_Buffer_Finalize();
-        Info->Finalize();
+        Info->Finalize_Global();
     }
     return 1;
 }

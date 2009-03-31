@@ -807,25 +807,33 @@ public :
     //***************************************************************************
 
     //End
-    void Finalize();
+    void Finalize_Global();
 
 protected :
 
-    void Finalize__All      (stream_t StreamKind);
-    void Finalize__All      (stream_t StreamKind, size_t Pos);
-    void Finalize_General   (size_t Pos);
-    void Finalize_Video     (size_t Pos);
-    void Finalize_Video_FrameRate (size_t Pos, video Parameter);
-    void Finalize_Audio     (size_t Pos);
-    void Finalize_Audio_BitRate (size_t Pos, audio Parameter);
-    void Finalize_Text      (size_t Pos);
-    void Finalize_Chapters  (size_t Pos);
-    void Finalize_Image     (size_t Pos);
-    void Finalize_Menu      (size_t Pos);
+    void Finalize_StreamOnly();
+    void Finalize_StreamOnly(stream_t StreamKid, size_t StreamPos);
+    void Finalize_StreamOnly_General(size_t StreamPos);
+    void Finalize_StreamOnly_Video(size_t StreamPos);
+    void Finalize_StreamOnly_Audio(size_t StreamPos);
+    void Finalize_StreamOnly_Text(size_t StreamPos);
+    void Finalize_StreamOnly_Chapters(size_t StreamPos);
+    void Finalize_StreamOnly_Image(size_t StreamPos);
+    void Finalize_StreamOnly_Menu(size_t StreamPos);
+    void Finalize_InterStreams();
+    void Finalize_Cosmetic();
+    void Finalize_Cosmetic(stream_t StreamKid, size_t StreamPos);
+    void Finalize_Cosmetic_General(size_t StreamPos);
+    void Finalize_Cosmetic_Video(size_t StreamPos);
+    void Finalize_Cosmetic_Audio(size_t StreamPos);
+    void Finalize_Cosmetic_Text(size_t StreamPos);
+    void Finalize_Cosmetic_Chapters(size_t StreamPos);
+    void Finalize_Cosmetic_Image(size_t StreamPos);
+    void Finalize_Cosmetic_Menu(size_t StreamPos);
+
     void Finalize_Tags      ();
-    void Finalize_Final     ();
-    void Finalize_Final_All (stream_t StreamKind);
-    void Finalize_Final_All (stream_t StreamKind, size_t Pos, Ztring &Codec_List, Ztring &Language_List, Ztring &Format_List, Ztring &Format_WithHint_List);
+    void Finalize_Video_FrameRate (size_t Pos, video Parameter);
+    void Finalize_Audio_BitRate (size_t Pos, audio Parameter);
 
     //Utils - Finalize
     void Duration_Duration123   (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
