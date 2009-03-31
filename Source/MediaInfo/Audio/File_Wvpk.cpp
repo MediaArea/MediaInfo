@@ -235,8 +235,8 @@ bool File_Wvpk::Synched_Test()
 void File_Wvpk::Read_Buffer_Continue()
 {
     //Tags
-    if (!FromMKV && !File__Tags_Helper::Read_Buffer_Continue())
-            return;
+    if (!FromMKV)
+        File__Tags_Helper::Read_Buffer_Continue();
 }
 
 //---------------------------------------------------------------------------
@@ -259,6 +259,8 @@ void File_Wvpk::Read_Buffer_Finalize()
         Fill(Stream_Audio, 0, Audio_Duration, Duration, 10, true);
         Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio, 3, true);
     }
+
+    File__Tags_Helper::Read_Buffer_Finalize();
 }
 
 //***************************************************************************

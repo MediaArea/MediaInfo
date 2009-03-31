@@ -226,17 +226,6 @@ void File_Adif::FileHeader_Parse()
     FILLING_END();
 }
 
-//***************************************************************************
-// Buffer - Global
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Adif::Read_Buffer_Continue()
-{
-    //Tags
-    File__Tags_Helper::Read_Buffer_Continue();
-}
-
 } //NameSpace
 
 #endif //MEDIAINFO_ADIF_YES

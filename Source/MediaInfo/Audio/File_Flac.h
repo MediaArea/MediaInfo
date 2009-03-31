@@ -53,7 +53,8 @@ private :
     void FileHeader_Parse();
 
     //Buffer - Global
-    void Read_Buffer_Continue();
+    void Read_Buffer_Continue()                                                 {File__Tags_Helper::Read_Buffer_Continue();}
+    void Read_Buffer_Finalize()                                                 {File__Tags_Helper::Read_Buffer_Finalize();}
 
     //Buffer - Per element
     void Header_Parse();

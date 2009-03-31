@@ -553,10 +553,7 @@ void File_Mpega::Read_Buffer_Finalize()
         }
     }
     if (!IsSub)
-    {
-        Fill(Stream_General, 0, General_StreamSize, File_BeginTagSize+File_EndTagSize);
         Fill(Stream_Audio, 0, Audio_StreamSize, VBR_FileSize);
-    }
     if (BitRate>0 && !File_Name.empty())
         Fill(Stream_General, 0, General_Duration, VBR_FileSize*8*1000/BitRate);
     if (!Encoded_Library.empty())
@@ -575,6 +572,8 @@ void File_Mpega::Read_Buffer_Finalize()
         Encoded_Library_Guess();
     Fill(Stream_Audio, 0, Audio_Encoded_Library, Encoded_Library);
     Fill(Stream_Audio, 0, Audio_Encoded_Library_Settings, Encoded_Library_Settings);
+
+    File__Tags_Helper::Read_Buffer_Finalize();
 }
 
 //***************************************************************************

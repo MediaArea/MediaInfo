@@ -78,7 +78,7 @@ File__Tags_Helper::File__Tags_Helper()
 }
 
 //***************************************************************************
-// Buffer - Synchro
+// Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -90,6 +90,22 @@ bool File__Tags_Helper::Read_Buffer_Continue()
         File__Tags_Helper::Synched_Test();
     return true;
 }
+
+//---------------------------------------------------------------------------
+void File__Tags_Helper::Read_Buffer_Finalize()
+{
+    if (!Base->IsSub)
+    {
+        if (Base->Retrieve(Stream_Audio, 0, General_StreamSize).empty())
+            Base->Fill(Stream_General, 0, General_StreamSize, TagsSize);
+        if (Base->Retrieve(Stream_Audio, 0, Audio_StreamSize).empty())
+            Base->Fill(Stream_Audio, 0, Audio_StreamSize, Base->File_Size-TagsSize);
+    }
+}
+
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 bool File__Tags_Helper::Synchronize(bool &Tag_Found, size_t Synchro_Offset)

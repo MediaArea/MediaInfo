@@ -106,6 +106,8 @@ void File_Ape::Read_Buffer_Finalize()
 
     Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio);
     Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
+
+    File__Tags_Helper::Read_Buffer_Finalize();
 }
 
 //***************************************************************************
