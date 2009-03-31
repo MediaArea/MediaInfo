@@ -830,7 +830,7 @@ void File__Analyze::Finalize_Final()
         double TextBitRate_Ratio   =0.98;  //Default container overhead=2%
         int32u TextBitRate_Minus   =2000;  //2000 bps because of a "classic" stream overhead
         //Specific value depends of Container
-        if (Get(Stream_General, 0, _T("Format"))==_T("MPEG-PS"))
+        if (Get(Stream_General, 0, _T("Format"))==_T("MPEG-TS"))
         {
             GeneralBitRate_Ratio=0.99;
             GeneralBitRate_Minus=0;
@@ -841,7 +841,7 @@ void File__Analyze::Finalize_Final()
             TextBitRate_Ratio   =0.94;
             TextBitRate_Minus   =0;
         }
-        if (Get(Stream_General, 0, _T("Format"))==_T("MPEG-TS"))
+        if (Get(Stream_General, 0, _T("Format"))==_T("MPEG-PS"))
         {
             GeneralBitRate_Ratio=0.99;
             GeneralBitRate_Minus=0;
