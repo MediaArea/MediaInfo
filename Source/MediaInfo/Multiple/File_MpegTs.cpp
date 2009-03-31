@@ -361,12 +361,12 @@ void File_MpegTs::Update()
         //PES
         if (Complete_Stream->Streams[StreamID].Kind==complete_stream::stream::pes)
         {
-            //More info
-            if (StreamKind_Last!=Stream_Max) //Found by the Parser or stream_type
-            {
-                Complete_Stream->Streams[StreamID].StreamKind=StreamKind_Last;
-                Complete_Stream->Streams[StreamID].StreamPos=StreamPos_Last;
+            StreamKind_Last=Complete_Stream->Streams[StreamID].StreamKind;
+            StreamPos_Last=Complete_Stream->Streams[StreamID].StreamPos;
 
+            //More info
+            if (StreamKind_Last!=Stream_Max)
+            {
                 #ifdef MEDIAINFO_MPEGTS_PCR_YES
                     //TimeStamp (PCR)
                     if (/*Retrieve(StreamKind_Last, StreamPos_Last, "Duration").empty()
@@ -379,7 +379,7 @@ void File_MpegTs::Update()
                         if (Duration!=0 && Duration!=(int64u)-1)
                             Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration/90, 10, true);
                         else
-                            Fill(StreamKind_Last, StreamPos_Last, "Duration", "", 0, true, true); //Clear it
+                            Clear(StreamKind_Last, StreamPos_Last, "Duration");
                     }
                 #endif //MEDIAINFO_MPEGTS_PCR_YES
             }
@@ -398,7 +398,7 @@ void File_MpegTs::Update()
                     if (Duration!=0 && Duration!=(int64u)-1)
                         Fill(Stream_General, 0, General_Duration, Duration/90, 10, true);
                     else
-                        Fill(Stream_General, 0, General_Duration, "", 0, true, true); //Clear it
+                        Clear(Stream_General, 0, General_Duration);
                 }
             }
         #endif //MEDIAINFO_MPEGTS_PCR_YES
@@ -460,9 +460,12 @@ void File_MpegTs::Update()
                                 Texts+=text->second+_T(" - ");
                             if (!Texts.empty())
                                 Texts.resize(Texts.size()-3);
-                            if (StreamKind_Last==Stream_Max)
+                            if (Program->second.StreamPos==(size_t)-1)
+                            {
                                 Stream_Prepare(Stream_Menu);
-                            Fill(Stream_Menu, StreamPos_Last, Menu_ServiceProvider, Texts, true);
+                                Program->second.StreamPos=StreamPos_Last;
+                            }
+                            Fill(Stream_Menu, Program->second.StreamPos, Menu_ServiceProvider, Texts, true);
                         }
                         for (complete_stream::source::atsc_epg_blocks::iterator ATSC_EPG_Block=Source->second.ATSC_EPG_Blocks.begin(); ATSC_EPG_Block!=Source->second.ATSC_EPG_Blocks.end(); ATSC_EPG_Block++)
                             for (complete_stream::source::atsc_epg_block::events::iterator Event=ATSC_EPG_Block->second.Events.begin(); Event!=ATSC_EPG_Block->second.Events.end(); Event++)
@@ -479,7 +482,7 @@ void File_MpegTs::Update()
                     //EPG - Filling
                     if (!EPGs.empty())
                     {
-                        if (StreamKind_Last==Stream_Max)
+                        if (Program->second.StreamPos==(size_t)-1)
                         {
                             Stream_Prepare(Stream_Menu);
                             Program->second.StreamPos=StreamPos_Last;
@@ -493,10 +496,10 @@ void File_MpegTs::Update()
                             Clear(Stream_Menu, Program->second.StreamPos, Menu_Chapters_Pos_Begin);
                             Clear(Stream_Menu, Program->second.StreamPos, Menu_Chapters_Pos_End);
                         }
-                        Fill(Stream_Menu, Program->second.StreamPos, Menu_Chapters_Pos_Begin, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
+                        Fill(Stream_Menu, Program->second.StreamPos, Menu_Chapters_Pos_Begin, Count_Get(Stream_Menu, Program->second.StreamPos), 10, true);
                         for (std::map<Ztring, Ztring>::iterator EPG=EPGs.begin(); EPG!=EPGs.end(); EPG++)
                             Fill(Stream_Menu, Program->second.StreamPos, EPG->first.To_UTF8().c_str(), EPG->second, true);
-                        Fill(Stream_Menu, Program->second.StreamPos, Menu_Chapters_Pos_End, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
+                        Fill(Stream_Menu, Program->second.StreamPos, Menu_Chapters_Pos_End, Count_Get(Stream_Menu, Program->second.StreamPos), 10, true);
                         EPGs.clear();
                     }
                 }
