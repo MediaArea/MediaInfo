@@ -60,6 +60,7 @@ struct complete_stream
             bool HasChanged;
             std::map<std::string, Ztring> Infos;
             std::vector<int16u> elementary_PIDs;
+            size_t StreamPos; //Stream_Menu
             int32u registration_format_identifier;
             int16u pid;
             int16u PCR_PID;
@@ -95,6 +96,7 @@ struct complete_stream
             program()
             {
                 HasChanged=false;
+                StreamPos=(size_t)-1;
                 registration_format_identifier=0x00000000;
                 pid=0x00000;
                 PCR_PID=0x0000;

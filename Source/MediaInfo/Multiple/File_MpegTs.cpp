@@ -124,7 +124,384 @@ File_MpegTs::File_MpegTs()
 
 File_MpegTs::~File_MpegTs ()
 {
+    delete Complete_Stream; Complete_Stream=NULL;
+
     File__Duplicate_Delete();
+}
+
+//***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_MpegTs::Finalize()
+{
+    if (Complete_Stream==NULL || Complete_Stream->Streams.empty())
+        return; //Not initialized
+    if (!IsAccepted)
+        Accept("MPEG-TS");
+
+    //Per stream
+    for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+    {
+        //PES
+        if (Complete_Stream->Streams[StreamID].Kind==complete_stream::stream::pes)
+        {
+            //By the parser
+            StreamKind_Last=Stream_Max;
+            if (Complete_Stream->Streams[StreamID].Parser && Complete_Stream->Streams[StreamID].Parser->IsAccepted)
+            {
+                Complete_Stream->Streams[StreamID].Parser->Open_Buffer_Finalize();
+                Merge (*Complete_Stream->Streams[StreamID].Parser);
+
+                //More from the FMC parser
+                if (Complete_Stream->Streams[StreamID].FMC_ES_ID_IsValid)
+                {
+                    complete_stream::transport_stream::iod_ess::iterator IOD_ES=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.find(Complete_Stream->Streams[StreamID].FMC_ES_ID);
+                    if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end())
+                    {
+                        IOD_ES->second.Parser->Open_Buffer_Finalize();
+                        Merge (*IOD_ES->second.Parser, StreamKind_Last, StreamPos_Last, 0);
+                    }
+                }
+            }
+
+            //By the descriptors
+            if (StreamKind_Last==Stream_Max && Complete_Stream->transport_stream_id_IsValid)
+            {
+                int32u format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[StreamID].program_numbers[0]].registration_format_identifier;
+                if (Complete_Stream->Streams[StreamID].IsRegistered
+                 && Mpeg_Descriptors_registration_format_identifier_StreamKind(format_identifier)!=Stream_Max)
+                {
+                    StreamKind_Last=Mpeg_Descriptors_registration_format_identifier_StreamKind(format_identifier);
+                    Stream_Prepare(StreamKind_Last);
+                    Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Descriptors_registration_format_identifier_Format(format_identifier));
+                    Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Descriptors_registration_format_identifier_Format(format_identifier));
+                }
+            }
+
+            //By the stream_type
+            if (StreamKind_Last==Stream_Max && Complete_Stream->transport_stream_id_IsValid)
+            {
+                int32u format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[StreamID].program_numbers[0]].registration_format_identifier;
+                if ((Complete_Stream->Streams[StreamID].IsRegistered ||  format_identifier==Elements::HDMV) && Mpeg_Psi_stream_type_StreamKind(Complete_Stream->Streams[StreamID].stream_type, format_identifier)!=Stream_Max)
+                {
+                    StreamKind_Last=Mpeg_Psi_stream_type_StreamKind(Complete_Stream->Streams[StreamID].stream_type, format_identifier);
+                    if (StreamKind_Last==Stream_General) //Only information, no streams
+                    {
+                        Merge (*Complete_Stream->Streams[StreamID].Parser, Stream_General, 0, 0);
+                        StreamKind_Last=Stream_Max;
+                    }
+                    Stream_Prepare(StreamKind_Last);
+                    Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Psi_stream_type_Format(Complete_Stream->Streams[StreamID].stream_type, format_identifier));
+                    Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Psi_stream_type_Codec(Complete_Stream->Streams[StreamID].stream_type, format_identifier));
+                }
+            }
+
+            //By the StreamKind
+            if (StreamKind_Last==Stream_Max && Complete_Stream->Streams[StreamID].StreamKind!=Stream_Max && Complete_Stream->Streams[StreamID].IsRegistered)
+            {
+                Stream_Prepare(Complete_Stream->Streams[StreamID].StreamKind);
+            }
+
+            //More info
+            if (StreamKind_Last!=Stream_Max) //Found by the Parser or stream_type
+            {
+                Complete_Stream->Streams[StreamID].StreamKind=StreamKind_Last;
+                Complete_Stream->Streams[StreamID].StreamPos=StreamPos_Last;
+
+                //Encryption
+                if (Complete_Stream->Streams[StreamID].IsScrambled)
+                    Fill(StreamKind_Last, StreamPos_Last, "Encryption", "Encrypted");
+
+                //TS info
+                for (std::map<std::string, ZenLib::Ztring>::iterator Info=Complete_Stream->Streams[StreamID].Infos.begin(); Info!=Complete_Stream->Streams[StreamID].Infos.end(); Info++)
+                {
+                    if (Retrieve(StreamKind_Last, StreamPos_Last, Info->first.c_str()).empty())
+                        Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second);
+                }
+
+                //Common
+                Fill(StreamKind_Last, StreamPos_Last, "ID", StreamID, 10, true);
+                Fill(StreamKind_Last, StreamPos_Last, "ID/String", Decimal_Hexa(StreamID), true);
+                for (size_t Pos=0; Pos<Complete_Stream->Streams[StreamID].program_numbers.size(); Pos++)
+                {
+                    Fill(StreamKind_Last, StreamPos_Last, "MenuID", Complete_Stream->Streams[StreamID].program_numbers[Pos], 10, Pos==0);
+                    Fill(StreamKind_Last, StreamPos_Last, "MenuID/String", Decimal_Hexa(Complete_Stream->Streams[StreamID].program_numbers[Pos]), Pos==0);
+                }
+            }
+        }
+
+        //Desactivating the stream (except for timestamp)
+        Complete_Stream->Streams[StreamID].Searching_Payload_Start_Set(false);
+        Complete_Stream->Streams[StreamID].Searching_Payload_Continue_Set(false);
+    }
+
+    //Fill General
+    Fill(Stream_General, 0, General_Format, BDAV_Size?"BDAV":(TSP_Size?"MPEG-TS 188+16":"MPEG-TS"), Unlimited, true, true);
+    if (Complete_Stream->transport_stream_id_IsValid)
+    {
+        Fill(Stream_General, 0, General_ID, Complete_Stream->transport_stream_id, 16);
+        Fill(Stream_General, 0, General_ID_String, /*Decimal_Hexa(*/Complete_Stream->transport_stream_id/*)*/, 16);
+    }
+    if (!Complete_Stream->network_name.empty())
+        Fill(Stream_General, 0, General_NetworkName, Complete_Stream->network_name);
+    if (!Complete_Stream->original_network_name.empty())
+        Fill(Stream_General, 0, General_OriginalNetworkName, Complete_Stream->original_network_name);
+    Ztring Countries;
+    Ztring TimeZones;
+    for (std::map<Ztring, Ztring>::iterator TimeZone=Complete_Stream->TimeZones.begin(); TimeZone!=Complete_Stream->TimeZones.end(); TimeZone++)
+    {
+        Countries+=TimeZone->first+_T(" / ");
+        TimeZones+=TimeZone->second+_T(" / ");
+    }
+    if (!Countries.empty())
+    {
+        Countries.resize(Countries.size()-3);
+        Fill(Stream_General, 0, General_Country, Countries);
+    }
+    if (!TimeZones.empty())
+    {
+        TimeZones.resize(TimeZones.size()-3);
+        Fill(Stream_General, 0, General_TimeZone, TimeZones);
+    }
+    if (!Complete_Stream->Start_Time.empty())
+        Fill(Stream_General, 0, General_Duration_Start, Complete_Stream->Start_Time);
+    if (!Complete_Stream->End_Time.empty())
+        Fill(Stream_General, 0, General_Duration_End, Complete_Stream->End_Time);
+    complete_stream::transport_streams::iterator Transport_Stream=Complete_Stream->transport_stream_id_IsValid?Complete_Stream->Transport_Streams.find(Complete_Stream->transport_stream_id):Complete_Stream->Transport_Streams.end();
+    if (Transport_Stream!=Complete_Stream->Transport_Streams.end())
+    {
+        //TS info
+        for (std::map<std::string, ZenLib::Ztring>::iterator Info=Transport_Stream->second.Infos.begin(); Info!=Transport_Stream->second.Infos.end(); Info++)
+            Fill(Stream_General, 0, Info->first.c_str(), Info->second);
+
+        //Per source (ATSC)
+        std::map<Ztring, Ztring> EPGs;
+        complete_stream::sources::iterator Source=Complete_Stream->Sources.find(Transport_Stream->second.source_id);
+        if (Source!=Complete_Stream->Sources.end())
+        {
+            if (!Source->second.texts.empty())
+            {
+                Ztring Texts;
+                for (std::map<int16u, Ztring>::iterator text=Source->second.texts.begin(); text!=Source->second.texts.end(); text++)
+                    Texts+=text->second+_T(" - ");
+                if (!Texts.empty())
+                    Texts.resize(Texts.size()-3);
+                Fill(Stream_General, 0, General_ServiceProvider, Texts);
+            }
+        }
+
+        //Per program
+        if (!Transport_Stream->second.Programs.empty()
+         && (Transport_Stream->second.Programs.size()>1
+          || !Transport_Stream->second.Programs.begin()->second.Infos.empty()
+          || !Transport_Stream->second.Programs.begin()->second.DVB_EPG_Blocks.empty()
+          || Complete_Stream->Sources.find(Transport_Stream->second.Programs.begin()->second.source_id)!=Complete_Stream->Sources.end()
+          || Config->File_MpegTs_ForceMenu_Get()))
+            for (complete_stream::transport_stream::programs::iterator Program=Transport_Stream->second.Programs.begin(); Program!=Transport_Stream->second.Programs.end(); Program++)
+            {
+                if (Program->second.IsParsed)
+                {
+                    Stream_Prepare(Stream_Menu);
+                    Program->second.StreamPos=StreamPos_Last;
+                    Fill(Stream_Menu, StreamPos_Last, Menu_ID, Program->second.pid);
+                    Fill(Stream_Menu, StreamPos_Last, Menu_ID_String, Decimal_Hexa(Program->second.pid));
+                    Fill(Stream_Menu, StreamPos_Last, Menu_MenuID, Program->first);
+                    Fill(Stream_Menu, StreamPos_Last, Menu_MenuID_String, Decimal_Hexa(Program->first));
+                    for (std::map<std::string, ZenLib::Ztring>::iterator Info=Program->second.Infos.begin(); Info!=Program->second.Infos.end(); Info++)
+                        Fill(Stream_Menu, StreamPos_Last, Info->first.c_str(), Info->second);
+
+                    //Per PID
+                    Ztring Languages;
+                    for (size_t Pos=0; Pos<Program->second.elementary_PIDs.size(); Pos++)
+                    {
+                        int16u elementary_PID=Program->second.elementary_PIDs[Pos];
+                        if (Complete_Stream->Streams[elementary_PID].IsRegistered)
+                        {
+                            Ztring Format=Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, "Format");
+                            Fill(Stream_Menu, StreamPos_Last, Menu_Format, Format);
+                            Fill(Stream_Menu, StreamPos_Last, Menu_Codec, Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, "Codec"));
+                            Fill(Stream_Menu, StreamPos_Last, Menu_List_StreamKind, Complete_Stream->Streams[elementary_PID].StreamKind);
+                            Fill(Stream_Menu, StreamPos_Last, Menu_List_StreamPos, Complete_Stream->Streams[elementary_PID].StreamPos);
+                            Fill(Stream_Menu, StreamPos_Last, Menu_List, elementary_PID);
+                            Ztring Language=Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, "Language");
+                            Languages+=Language+_T(" / ");
+                            Ztring List_String=Decimal_Hexa(elementary_PID);
+                            List_String+=_T(" (");
+                            List_String+=Format;
+                            if (!Language.empty())
+                            {
+                                List_String+=_T(", ");
+                                List_String+=Language;
+                            }
+                            List_String+=_T(")");
+                            Fill(Stream_Menu, StreamPos_Last, Menu_List_String, List_String);
+                        }
+                    }
+                    if (!Languages.empty())
+                        Languages.resize(Languages.size()-3);
+                    Fill(Stream_Menu, StreamPos_Last, Menu_Language, Languages);
+                }
+            }
+    }
+
+    File__Duplicate_Read_Buffer_Finalize();
+}
+
+//---------------------------------------------------------------------------
+void File_MpegTs::Update()
+{
+    if (Complete_Stream==NULL || Complete_Stream->Streams.empty())
+        return; //Not initialized
+
+    //Per stream
+    for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+    {
+        //PES
+        if (Complete_Stream->Streams[StreamID].Kind==complete_stream::stream::pes)
+        {
+            //More info
+            if (StreamKind_Last!=Stream_Max) //Found by the Parser or stream_type
+            {
+                Complete_Stream->Streams[StreamID].StreamKind=StreamKind_Last;
+                Complete_Stream->Streams[StreamID].StreamPos=StreamPos_Last;
+
+                #ifdef MEDIAINFO_MPEGTS_PCR_YES
+                    //TimeStamp (PCR)
+                    if (/*Retrieve(StreamKind_Last, StreamPos_Last, "Duration").empty()
+                     && */Complete_Stream->Streams[StreamID].TimeStamp_Start!=(int64u)-1
+                     && Complete_Stream->Streams[StreamID].TimeStamp_End!=(int64u)-1)
+                    {
+                        if (Complete_Stream->Streams[StreamID].TimeStamp_End<Complete_Stream->Streams[StreamID].TimeStamp_Start)
+                            Complete_Stream->Streams[StreamID].TimeStamp_End+=0x200000000LL; //33 bits, cyclic
+                        int64u Duration=Complete_Stream->Streams[StreamID].TimeStamp_End-Complete_Stream->Streams[StreamID].TimeStamp_Start;
+                        if (Duration!=0 && Duration!=(int64u)-1)
+                            Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration/90, 10, true);
+                        else
+                            Fill(StreamKind_Last, StreamPos_Last, "Duration", "", 0, true, true); //Clear it
+                    }
+                #endif //MEDIAINFO_MPEGTS_PCR_YES
+            }
+        }
+
+        //PCR
+        #ifdef MEDIAINFO_MPEGTS_PCR_YES
+            if (Complete_Stream->Streams[StreamID].Kind==complete_stream::stream::pcr)
+            {
+                if (Complete_Stream->Streams[StreamID].TimeStamp_Start!=(int64u)-1
+                 && Complete_Stream->Streams[StreamID].TimeStamp_End!=(int64u)-1)
+                {
+                    if (Complete_Stream->Streams[StreamID].TimeStamp_End<Complete_Stream->Streams[StreamID].TimeStamp_Start)
+                        Complete_Stream->Streams[StreamID].TimeStamp_End+=0x200000000LL; //33 bits, cyclic
+                    int64u Duration=Complete_Stream->Streams[StreamID].TimeStamp_End-Complete_Stream->Streams[StreamID].TimeStamp_Start;
+                    if (Duration!=0 && Duration!=(int64u)-1)
+                        Fill(Stream_General, 0, General_Duration, Duration/90, 10, true);
+                    else
+                        Fill(Stream_General, 0, General_Duration, "", 0, true, true); //Clear it
+                }
+            }
+        #endif //MEDIAINFO_MPEGTS_PCR_YES
+    }
+
+    //EPG
+    complete_stream::transport_streams::iterator Transport_Stream=Complete_Stream->transport_stream_id_IsValid?Complete_Stream->Transport_Streams.find(Complete_Stream->transport_stream_id):Complete_Stream->Transport_Streams.end();
+    if (Transport_Stream!=Complete_Stream->Transport_Streams.end())
+    {
+        //Per source (ATSC)
+        std::map<Ztring, Ztring> EPGs;
+        complete_stream::sources::iterator Source=Complete_Stream->Sources.find(Transport_Stream->second.source_id);
+        if (Source!=Complete_Stream->Sources.end())
+        {
+            //EPG
+            for (complete_stream::source::atsc_epg_blocks::iterator ATSC_EPG_Block=Source->second.ATSC_EPG_Blocks.begin(); ATSC_EPG_Block!=Source->second.ATSC_EPG_Blocks.end(); ATSC_EPG_Block++)
+                for (complete_stream::source::atsc_epg_block::events::iterator Event=ATSC_EPG_Block->second.Events.begin(); Event!=ATSC_EPG_Block->second.Events.end(); Event++)
+                {
+                    Ztring Texts;
+                    for (std::map<int16u, Ztring>::iterator text=Event->second.texts.begin(); text!=Event->second.texts.end(); text++)
+                        Texts+=text->second+_T(" - ");
+                    if (!Texts.empty())
+                        Texts.resize(Texts.size()-3);
+                    EPGs[Ztring().Date_From_Seconds_1970(Event->second.start_time+315964800-Complete_Stream->GPS_UTC_offset)]=Event->second.title+_T(" / ")+Texts+_T(" /  /  / ")+Event->second.duration+_T(" / ");
+                }
+            if (!EPGs.empty())
+            {
+                Fill(Stream_General, 0, General_EPG_Positions_Begin, Count_Get(Stream_General, 0), 10, true);
+                for (std::map<Ztring, Ztring>::iterator EPG=EPGs.begin(); EPG!=EPGs.end(); EPG++)
+                    Fill(Stream_General, 0, EPG->first.To_Local().c_str(), EPG->second, true);
+                Fill(Stream_General, 0, General_EPG_Positions_End, Count_Get(Stream_General, 0), 10, true);
+            }
+        }
+
+        //Per program
+        if (!Transport_Stream->second.Programs.empty()
+         && (Transport_Stream->second.Programs.size()>1
+          || !Transport_Stream->second.Programs.begin()->second.Infos.empty()
+          || !Transport_Stream->second.Programs.begin()->second.DVB_EPG_Blocks.empty()
+          || Complete_Stream->Sources.find(Transport_Stream->second.Programs.begin()->second.source_id)!=Complete_Stream->Sources.end()
+          || Config->File_MpegTs_ForceMenu_Get()))
+            for (complete_stream::transport_stream::programs::iterator Program=Transport_Stream->second.Programs.begin(); Program!=Transport_Stream->second.Programs.end(); Program++)
+            {
+                if (Program->second.IsParsed)
+                {
+                    //EPG - DVB
+                    for (complete_stream::transport_stream::program::dvb_epg_blocks::iterator DVB_EPG_Block=Program->second.DVB_EPG_Blocks.begin(); DVB_EPG_Block!=Program->second.DVB_EPG_Blocks.end(); DVB_EPG_Block++)
+                        for (complete_stream::transport_stream::program::dvb_epg_block::events::iterator Event=DVB_EPG_Block->second.Events.begin(); Event!=DVB_EPG_Block->second.Events.end(); Event++)
+                            EPGs[Event->second.start_time]=Event->second.short_event.event_name+_T(" / ")+Event->second.short_event.text+_T(" / ")+Event->second.content+_T(" /  / ")+Event->second.duration+_T(" / ")+Event->second.running_status;
+
+                    //EPG - ATSC
+                    complete_stream::sources::iterator Source=Complete_Stream->Sources.find(Program->second.source_id);
+                    if (Source!=Complete_Stream->Sources.end())
+                    {
+                        if (!Source->second.texts.empty())
+                        {
+                            Ztring Texts;
+                            for (std::map<int16u, Ztring>::iterator text=Source->second.texts.begin(); text!=Source->second.texts.end(); text++)
+                                Texts+=text->second+_T(" - ");
+                            if (!Texts.empty())
+                                Texts.resize(Texts.size()-3);
+                            if (StreamKind_Last==Stream_Max)
+                                Stream_Prepare(Stream_Menu);
+                            Fill(Stream_Menu, StreamPos_Last, Menu_ServiceProvider, Texts, true);
+                        }
+                        for (complete_stream::source::atsc_epg_blocks::iterator ATSC_EPG_Block=Source->second.ATSC_EPG_Blocks.begin(); ATSC_EPG_Block!=Source->second.ATSC_EPG_Blocks.end(); ATSC_EPG_Block++)
+                            for (complete_stream::source::atsc_epg_block::events::iterator Event=ATSC_EPG_Block->second.Events.begin(); Event!=ATSC_EPG_Block->second.Events.end(); Event++)
+                            {
+                                Ztring Texts;
+                                for (std::map<int16u, Ztring>::iterator text=Event->second.texts.begin(); text!=Event->second.texts.end(); text++)
+                                    Texts+=text->second+_T(" - ");
+                                if (!Texts.empty())
+                                    Texts.resize(Texts.size()-3);
+                                EPGs[Ztring().Date_From_Seconds_1970(Event->second.start_time+315964800-Complete_Stream->GPS_UTC_offset)]=Event->second.title+_T(" / ")+Texts+_T(" /  /  / ")+Event->second.duration+_T(" / ");
+                            }
+                    }
+
+                    //EPG - Filling
+                    if (!EPGs.empty())
+                    {
+                        if (StreamKind_Last==Stream_Max)
+                        {
+                            Stream_Prepare(Stream_Menu);
+                            Program->second.StreamPos=StreamPos_Last;
+                        }
+                        size_t Chapters_Pos_Begin=Retrieve(Stream_Menu, Program->second.StreamPos, Menu_Chapters_Pos_Begin).To_int32u();
+                        size_t Chapters_Pos_End=Retrieve(Stream_Menu, Program->second.StreamPos, Menu_Chapters_Pos_End).To_int32u();
+                        if (Chapters_Pos_Begin && Chapters_Pos_End)
+                        {
+                            for (size_t Pos=Chapters_Pos_End-1; Pos>=Chapters_Pos_Begin; Pos--)
+                                Clear(Stream_Menu, Program->second.StreamPos, Pos);
+                            Clear(Stream_Menu, Program->second.StreamPos, Menu_Chapters_Pos_Begin);
+                            Clear(Stream_Menu, Program->second.StreamPos, Menu_Chapters_Pos_End);
+                        }
+                        Fill(Stream_Menu, Program->second.StreamPos, Menu_Chapters_Pos_Begin, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
+                        for (std::map<Ztring, Ztring>::iterator EPG=EPGs.begin(); EPG!=EPGs.end(); EPG++)
+                            Fill(Stream_Menu, Program->second.StreamPos, EPG->first.To_UTF8().c_str(), EPG->second, true);
+                        Fill(Stream_Menu, Program->second.StreamPos, Menu_Chapters_Pos_End, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
+                        EPGs.clear();
+                    }
+                }
+            }
+    }
 }
 
 //***************************************************************************
@@ -361,317 +738,9 @@ void File_MpegTs::Synched_Init()
 //---------------------------------------------------------------------------
 void File_MpegTs::Read_Buffer_Finalize()
 {
-    if (Complete_Stream==NULL || Complete_Stream->Streams.empty())
-        return; //Not initialized
-    if (!IsAccepted)
-        Accept("MPEG-TS");
-
-    //Per stream
-    for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
-    {
-        //PES
-        if (Complete_Stream->Streams[StreamID].Kind==complete_stream::stream::pes)
-        {
-            //By the parser
-            StreamKind_Last=Stream_Max;
-            if (Complete_Stream->Streams[StreamID].Parser && Complete_Stream->Streams[StreamID].Parser->IsAccepted)
-            {
-                Complete_Stream->Streams[StreamID].Parser->Open_Buffer_Finalize();
-                Merge (*Complete_Stream->Streams[StreamID].Parser);
-
-                //More from the FMC parser
-                if (Complete_Stream->Streams[StreamID].FMC_ES_ID_IsValid)
-                {
-                    complete_stream::transport_stream::iod_ess::iterator IOD_ES=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.find(Complete_Stream->Streams[StreamID].FMC_ES_ID);
-                    if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end())
-                    {
-                        IOD_ES->second.Parser->Open_Buffer_Finalize();
-                        Merge (*IOD_ES->second.Parser, StreamKind_Last, StreamPos_Last, 0);
-                    }
-                }
-            }
-
-            //By the descriptors
-            if (StreamKind_Last==Stream_Max && Complete_Stream->transport_stream_id_IsValid)
-            {
-                int32u format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[StreamID].program_numbers[0]].registration_format_identifier;
-                if (Complete_Stream->Streams[StreamID].IsRegistered
-                 && Mpeg_Descriptors_registration_format_identifier_StreamKind(format_identifier)!=Stream_Max)
-                {
-                    StreamKind_Last=Mpeg_Descriptors_registration_format_identifier_StreamKind(format_identifier);
-                    Stream_Prepare(StreamKind_Last);
-                    Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Descriptors_registration_format_identifier_Format(format_identifier));
-                    Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Descriptors_registration_format_identifier_Format(format_identifier));
-                }
-            }
-
-            //By the stream_type
-            if (StreamKind_Last==Stream_Max && Complete_Stream->transport_stream_id_IsValid)
-            {
-                int32u format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[StreamID].program_numbers[0]].registration_format_identifier;
-                if ((Complete_Stream->Streams[StreamID].IsRegistered ||  format_identifier==Elements::HDMV) && Mpeg_Psi_stream_type_StreamKind(Complete_Stream->Streams[StreamID].stream_type, format_identifier)!=Stream_Max)
-                {
-                    StreamKind_Last=Mpeg_Psi_stream_type_StreamKind(Complete_Stream->Streams[StreamID].stream_type, format_identifier);
-                    if (StreamKind_Last==Stream_General) //Only information, no streams
-                    {
-                        Merge (*Complete_Stream->Streams[StreamID].Parser, Stream_General, 0, 0);
-                        StreamKind_Last=Stream_Max;
-                    }
-                    Stream_Prepare(StreamKind_Last);
-                    Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Psi_stream_type_Format(Complete_Stream->Streams[StreamID].stream_type, format_identifier));
-                    Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Psi_stream_type_Codec(Complete_Stream->Streams[StreamID].stream_type, format_identifier));
-                }
-            }
-
-            //By the StreamKind
-            if (StreamKind_Last==Stream_Max && Complete_Stream->Streams[StreamID].StreamKind!=Stream_Max && Complete_Stream->Streams[StreamID].IsRegistered)
-            {
-                Stream_Prepare(Complete_Stream->Streams[StreamID].StreamKind);
-            }
-
-            //More info
-            if (StreamKind_Last!=Stream_Max) //Found by the Parser or stream_type
-            {
-                Complete_Stream->Streams[StreamID].StreamKind=StreamKind_Last;
-                Complete_Stream->Streams[StreamID].StreamPos=StreamPos_Last;
-
-                #ifdef MEDIAINFO_MPEGTS_PCR_YES
-                    //TimeStamp (PCR)
-                    if (/*Retrieve(StreamKind_Last, StreamPos_Last, "Duration").empty()
-                     && */Complete_Stream->Streams[StreamID].TimeStamp_Start!=(int64u)-1
-                     && Complete_Stream->Streams[StreamID].TimeStamp_End!=(int64u)-1)
-                    {
-                        if (Complete_Stream->Streams[StreamID].TimeStamp_End<Complete_Stream->Streams[StreamID].TimeStamp_Start)
-                            Complete_Stream->Streams[StreamID].TimeStamp_End+=0x200000000LL; //33 bits, cyclic
-                        int64u Duration=Complete_Stream->Streams[StreamID].TimeStamp_End-Complete_Stream->Streams[StreamID].TimeStamp_Start;
-                        if (Duration!=0 && Duration!=(int64u)-1)
-                            Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration/90, 10, true);
-                        else
-                            Fill(StreamKind_Last, StreamPos_Last, "Duration", "", 0, true, true); //Clear it
-                    }
-                #endif //MEDIAINFO_MPEGTS_PCR_YES
-
-                //Encryption
-                if (Complete_Stream->Streams[StreamID].IsScrambled)
-                    Fill(StreamKind_Last, StreamPos_Last, "Encryption", "Encrypted");
-
-                //TS info
-                for (std::map<std::string, ZenLib::Ztring>::iterator Info=Complete_Stream->Streams[StreamID].Infos.begin(); Info!=Complete_Stream->Streams[StreamID].Infos.end(); Info++)
-                {
-                    if (Retrieve(StreamKind_Last, StreamPos_Last, Info->first.c_str()).empty())
-                        Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second);
-                }
-
-                //Common
-                Fill(StreamKind_Last, StreamPos_Last, "ID", StreamID, 10, true);
-                Fill(StreamKind_Last, StreamPos_Last, "ID/String", Decimal_Hexa(StreamID), true);
-                for (size_t Pos=0; Pos<Complete_Stream->Streams[StreamID].program_numbers.size(); Pos++)
-                {
-                    Fill(StreamKind_Last, StreamPos_Last, "MenuID", Complete_Stream->Streams[StreamID].program_numbers[Pos], 10, Pos==0);
-                    Fill(StreamKind_Last, StreamPos_Last, "MenuID/String", Decimal_Hexa(Complete_Stream->Streams[StreamID].program_numbers[Pos]), Pos==0);
-                }
-            }
-        }
-
-        //PCR
-        #ifdef MEDIAINFO_MPEGTS_PCR_YES
-            if (Complete_Stream->Streams[StreamID].Kind==complete_stream::stream::pcr)
-            {
-                if (Complete_Stream->Streams[StreamID].TimeStamp_Start!=(int64u)-1
-                 && Complete_Stream->Streams[StreamID].TimeStamp_End!=(int64u)-1)
-                {
-                    if (Complete_Stream->Streams[StreamID].TimeStamp_End<Complete_Stream->Streams[StreamID].TimeStamp_Start)
-                        Complete_Stream->Streams[StreamID].TimeStamp_End+=0x200000000LL; //33 bits, cyclic
-                    int64u Duration=Complete_Stream->Streams[StreamID].TimeStamp_End-Complete_Stream->Streams[StreamID].TimeStamp_Start;
-                    if (Duration!=0 && Duration!=(int64u)-1)
-                        Fill(Stream_General, 0, General_Duration, Duration/90, 10, true);
-                    else
-                        Fill(Stream_General, 0, General_Duration, "", 0, true, true); //Clear it
-                }
-            }
-        #endif //MEDIAINFO_MPEGTS_PCR_YES
-
-        delete Complete_Stream->Streams[StreamID].Parser; Complete_Stream->Streams[StreamID].Parser=NULL;
-    }
-
-    //Fill General
-    Fill(Stream_General, 0, General_Format, BDAV_Size?"BDAV":(TSP_Size?"MPEG-TS 188+16":"MPEG-TS"), Unlimited, true, true);
-    if (Complete_Stream->transport_stream_id_IsValid)
-    {
-        Fill(Stream_General, 0, General_ID, Complete_Stream->transport_stream_id, 16);
-        Fill(Stream_General, 0, General_ID_String, /*Decimal_Hexa(*/Complete_Stream->transport_stream_id/*)*/, 16);
-    }
-    if (!Complete_Stream->network_name.empty())
-        Fill(Stream_General, 0, General_NetworkName, Complete_Stream->network_name);
-    if (!Complete_Stream->original_network_name.empty())
-        Fill(Stream_General, 0, General_OriginalNetworkName, Complete_Stream->original_network_name);
-    Ztring Countries;
-    Ztring TimeZones;
-    for (std::map<Ztring, Ztring>::iterator TimeZone=Complete_Stream->TimeZones.begin(); TimeZone!=Complete_Stream->TimeZones.end(); TimeZone++)
-    {
-        Countries+=TimeZone->first+_T(" / ");
-        TimeZones+=TimeZone->second+_T(" / ");
-    }
-    if (!Countries.empty())
-    {
-        Countries.resize(Countries.size()-3);
-        Fill(Stream_General, 0, General_Country, Countries);
-    }
-    if (!TimeZones.empty())
-    {
-        TimeZones.resize(TimeZones.size()-3);
-        Fill(Stream_General, 0, General_TimeZone, TimeZones);
-    }
-    if (!Complete_Stream->Start_Time.empty())
-        Fill(Stream_General, 0, General_Duration_Start, Complete_Stream->Start_Time);
-    if (!Complete_Stream->End_Time.empty())
-        Fill(Stream_General, 0, General_Duration_End, Complete_Stream->End_Time);
-    complete_stream::transport_streams::iterator Transport_Stream=Complete_Stream->transport_stream_id_IsValid?Complete_Stream->Transport_Streams.find(Complete_Stream->transport_stream_id):Complete_Stream->Transport_Streams.end();
-    if (Transport_Stream!=Complete_Stream->Transport_Streams.end())
-    {
-        //TS info
-        for (std::map<std::string, ZenLib::Ztring>::iterator Info=Transport_Stream->second.Infos.begin(); Info!=Transport_Stream->second.Infos.end(); Info++)
-            Fill(Stream_General, 0, Info->first.c_str(), Info->second);
-
-        //Per source (ATSC)
-        std::map<Ztring, Ztring> EPGs;
-        complete_stream::sources::iterator Source=Complete_Stream->Sources.find(Transport_Stream->second.source_id);
-        if (Source!=Complete_Stream->Sources.end())
-        {
-            if (!Source->second.texts.empty())
-            {
-                Ztring Texts;
-                for (std::map<int16u, Ztring>::iterator text=Source->second.texts.begin(); text!=Source->second.texts.end(); text++)
-                    Texts+=text->second+_T(" - ");
-                if (!Texts.empty())
-                    Texts.resize(Texts.size()-3);
-                Fill(Stream_General, 0, General_ServiceProvider, Texts);
-            }
-
-            //EPG
-            for (complete_stream::source::atsc_epg_blocks::iterator ATSC_EPG_Block=Source->second.ATSC_EPG_Blocks.begin(); ATSC_EPG_Block!=Source->second.ATSC_EPG_Blocks.end(); ATSC_EPG_Block++)
-                for (complete_stream::source::atsc_epg_block::events::iterator Event=ATSC_EPG_Block->second.Events.begin(); Event!=ATSC_EPG_Block->second.Events.end(); Event++)
-                {
-                    Ztring Texts;
-                    for (std::map<int16u, Ztring>::iterator text=Event->second.texts.begin(); text!=Event->second.texts.end(); text++)
-                        Texts+=text->second+_T(" - ");
-                    if (!Texts.empty())
-                        Texts.resize(Texts.size()-3);
-                    EPGs[Ztring().Date_From_Seconds_1970(Event->second.start_time+315964800-Complete_Stream->GPS_UTC_offset)]=Event->second.title+_T(" / ")+Texts+_T(" /  /  / ")+Event->second.duration+_T(" / ");
-                }
-            if (!EPGs.empty())
-            {
-                Fill(Stream_General, 0, General_EPG_Positions_Begin, Count_Get(Stream_General, 0), 10, true);
-                for (std::map<Ztring, Ztring>::iterator EPG=EPGs.begin(); EPG!=EPGs.end(); EPG++)
-                    Fill(Stream_General, 0, EPG->first.To_Local().c_str(), EPG->second, true);
-                Fill(Stream_General, 0, General_EPG_Positions_End, Count_Get(Stream_General, 0), 10, true);
-            }
-        }
-
-        //Per program
-        if (!Transport_Stream->second.Programs.empty()
-         && (Transport_Stream->second.Programs.size()>1
-          || !Transport_Stream->second.Programs.begin()->second.Infos.empty()
-          || !Transport_Stream->second.Programs.begin()->second.DVB_EPG_Blocks.empty()
-          || Complete_Stream->Sources.find(Transport_Stream->second.Programs.begin()->second.source_id)!=Complete_Stream->Sources.end()
-          || Config->File_MpegTs_ForceMenu_Get()))
-            for (complete_stream::transport_stream::programs::iterator Program=Transport_Stream->second.Programs.begin(); Program!=Transport_Stream->second.Programs.end(); Program++)
-            {
-                if (Program->second.IsParsed)
-                {
-                    Stream_Prepare(Stream_Menu);
-                    Fill(Stream_Menu, StreamPos_Last, Menu_ID, Program->second.pid);
-                    Fill(Stream_Menu, StreamPos_Last, Menu_ID_String, Decimal_Hexa(Program->second.pid));
-                    Fill(Stream_Menu, StreamPos_Last, Menu_MenuID, Program->first);
-                    Fill(Stream_Menu, StreamPos_Last, Menu_MenuID_String, Decimal_Hexa(Program->first));
-                    for (std::map<std::string, ZenLib::Ztring>::iterator Info=Program->second.Infos.begin(); Info!=Program->second.Infos.end(); Info++)
-                        Fill(Stream_Menu, StreamPos_Last, Info->first.c_str(), Info->second);
-
-                    //Per PID
-                    Ztring Languages;
-                    for (size_t Pos=0; Pos<Program->second.elementary_PIDs.size(); Pos++)
-                    {
-                        int16u elementary_PID=Program->second.elementary_PIDs[Pos];
-                        if (Complete_Stream->Streams[elementary_PID].IsRegistered)
-                        {
-                            Ztring Format=Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, "Format");
-                            Fill(Stream_Menu, StreamPos_Last, Menu_Format, Format);
-                            Fill(Stream_Menu, StreamPos_Last, Menu_Codec, Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, "Codec"));
-                            Fill(Stream_Menu, StreamPos_Last, Menu_List_StreamKind, Complete_Stream->Streams[elementary_PID].StreamKind);
-                            Fill(Stream_Menu, StreamPos_Last, Menu_List_StreamPos, Complete_Stream->Streams[elementary_PID].StreamPos);
-                            Fill(Stream_Menu, StreamPos_Last, Menu_List, elementary_PID);
-                            Ztring Language=Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, "Language");
-                            Languages+=Language+_T(" / ");
-                            Ztring List_String=Decimal_Hexa(elementary_PID);
-                            List_String+=_T(" (");
-                            List_String+=Format;
-                            if (!Language.empty())
-                            {
-                                List_String+=_T(", ");
-                                List_String+=Language;
-                            }
-                            List_String+=_T(")");
-                            Fill(Stream_Menu, StreamPos_Last, Menu_List_String, List_String);
-                        }
-                    }
-                    if (!Languages.empty())
-                        Languages.resize(Languages.size()-3);
-                    Fill(Stream_Menu, StreamPos_Last, Menu_Language, Languages);
-
-                    //EPG - DVB
-                    for (complete_stream::transport_stream::program::dvb_epg_blocks::iterator DVB_EPG_Block=Program->second.DVB_EPG_Blocks.begin(); DVB_EPG_Block!=Program->second.DVB_EPG_Blocks.end(); DVB_EPG_Block++)
-                        for (complete_stream::transport_stream::program::dvb_epg_block::events::iterator Event=DVB_EPG_Block->second.Events.begin(); Event!=DVB_EPG_Block->second.Events.end(); Event++)
-                            EPGs[Event->second.start_time]=Event->second.short_event.event_name+_T(" / ")+Event->second.short_event.text+_T(" / ")+Event->second.content+_T(" /  / ")+Event->second.duration+_T(" / ")+Event->second.running_status;
-
-                    //EPG - ATSC
-                    complete_stream::sources::iterator Source=Complete_Stream->Sources.find(Program->second.source_id);
-                    if (Source!=Complete_Stream->Sources.end())
-                    {
-                        if (!Source->second.texts.empty())
-                        {
-                            Ztring Texts;
-                            for (std::map<int16u, Ztring>::iterator text=Source->second.texts.begin(); text!=Source->second.texts.end(); text++)
-                                Texts+=text->second+_T(" - ");
-                            if (!Texts.empty())
-                                Texts.resize(Texts.size()-3);
-                            if (StreamKind_Last==Stream_Max)
-                                Stream_Prepare(Stream_Menu);
-                            Fill(Stream_Menu, StreamPos_Last, Menu_ServiceProvider, Texts, true);
-                        }
-                        for (complete_stream::source::atsc_epg_blocks::iterator ATSC_EPG_Block=Source->second.ATSC_EPG_Blocks.begin(); ATSC_EPG_Block!=Source->second.ATSC_EPG_Blocks.end(); ATSC_EPG_Block++)
-                            for (complete_stream::source::atsc_epg_block::events::iterator Event=ATSC_EPG_Block->second.Events.begin(); Event!=ATSC_EPG_Block->second.Events.end(); Event++)
-                            {
-                                Ztring Texts;
-                                for (std::map<int16u, Ztring>::iterator text=Event->second.texts.begin(); text!=Event->second.texts.end(); text++)
-                                    Texts+=text->second+_T(" - ");
-                                if (!Texts.empty())
-                                    Texts.resize(Texts.size()-3);
-                                EPGs[Ztring().Date_From_Seconds_1970(Event->second.start_time+315964800-Complete_Stream->GPS_UTC_offset)]=Event->second.title+_T(" / ")+Texts+_T(" /  /  / ")+Event->second.duration+_T(" / ");
-                            }
-                    }
-
-                    //EPG - Filling
-                    if (!EPGs.empty())
-                    {
-                        if (StreamKind_Last==Stream_Max)
-                            Stream_Prepare(Stream_Menu);
-                        Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_Begin, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
-                        for (std::map<Ztring, Ztring>::iterator EPG=EPGs.begin(); EPG!=EPGs.end(); EPG++)
-                            Fill(Stream_Menu, StreamPos_Last, EPG->first.To_UTF8().c_str(), EPG->second, true);
-                        Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_End, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
-                        EPGs.clear();
-                    }
-                }
-            }
-    }
-
-    File__Duplicate_Read_Buffer_Finalize();
-
-    //Purge what is not needed anymore
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-    {
-        delete Complete_Stream; Complete_Stream=NULL;
-    }
+    Finalize();
+    Update();
+    return;
 }
 
 //***************************************************************************

@@ -58,6 +58,10 @@ public :
     ~File_MpegTs();
 
 private :
+    //Streams management
+    void Finalize();
+    void Update();
+
     //Buffer - File header
     bool FileHeader_Begin();
 
