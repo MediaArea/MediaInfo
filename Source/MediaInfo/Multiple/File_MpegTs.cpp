@@ -134,7 +134,7 @@ File_MpegTs::~File_MpegTs ()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_MpegTs::Finalize()
+void File_MpegTs::Streams_Fill()
 {
     if (Complete_Stream==NULL || Complete_Stream->Streams.empty())
         return; //Not initialized
@@ -230,11 +230,11 @@ void File_MpegTs::Finalize()
                     Fill(StreamKind_Last, StreamPos_Last, "MenuID/String", Decimal_Hexa(Complete_Stream->Streams[StreamID].program_numbers[Pos]), Pos==0);
                 }
             }
-        }
 
-        //Desactivating the stream (except for timestamp)
-        Complete_Stream->Streams[StreamID].Searching_Payload_Start_Set(false);
-        Complete_Stream->Streams[StreamID].Searching_Payload_Continue_Set(false);
+            //Desactivating the stream (except for timestamp)
+            Complete_Stream->Streams[StreamID].Searching_Payload_Start_Set(false);
+            Complete_Stream->Streams[StreamID].Searching_Payload_Continue_Set(false);
+        }
     }
 
     //Fill General
@@ -267,8 +267,6 @@ void File_MpegTs::Finalize()
     }
     if (!Complete_Stream->Start_Time.empty())
         Fill(Stream_General, 0, General_Duration_Start, Complete_Stream->Start_Time);
-    if (!Complete_Stream->End_Time.empty())
-        Fill(Stream_General, 0, General_Duration_End, Complete_Stream->End_Time);
     complete_stream::transport_streams::iterator Transport_Stream=Complete_Stream->transport_stream_id_IsValid?Complete_Stream->Transport_Streams.find(Complete_Stream->transport_stream_id):Complete_Stream->Transport_Streams.end();
     if (Transport_Stream!=Complete_Stream->Transport_Streams.end())
     {
@@ -350,12 +348,19 @@ void File_MpegTs::Finalize()
 }
 
 //---------------------------------------------------------------------------
-void File_MpegTs::Update()
+void File_MpegTs::Streams_Update()
 {
+
     if (Complete_Stream==NULL || Complete_Stream->Streams.empty())
         return; //Not initialized
 
+    //General
+    if (!Complete_Stream->End_Time.empty())
+        Fill(Stream_General, 0, General_Duration_End, Complete_Stream->End_Time, true);
+
     //Per stream
+    bool PCR_Found=false;
+    int64u Duration_Max=0;
     for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
     {
         //PES
@@ -377,7 +382,11 @@ void File_MpegTs::Update()
                             Complete_Stream->Streams[StreamID].TimeStamp_End+=0x200000000LL; //33 bits, cyclic
                         int64u Duration=Complete_Stream->Streams[StreamID].TimeStamp_End-Complete_Stream->Streams[StreamID].TimeStamp_Start;
                         if (Duration!=0 && Duration!=(int64u)-1)
+                        {
                             Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration/90, 10, true);
+                            if (Duration_Max<Duration)
+                                Duration_Max=Duration;
+                        }
                         else
                             Clear(StreamKind_Last, StreamPos_Last, "Duration");
                     }
@@ -396,13 +405,16 @@ void File_MpegTs::Update()
                         Complete_Stream->Streams[StreamID].TimeStamp_End+=0x200000000LL; //33 bits, cyclic
                     int64u Duration=Complete_Stream->Streams[StreamID].TimeStamp_End-Complete_Stream->Streams[StreamID].TimeStamp_Start;
                     if (Duration!=0 && Duration!=(int64u)-1)
+                    {
                         Fill(Stream_General, 0, General_Duration, Duration/90, 10, true);
-                    else
-                        Clear(Stream_General, 0, General_Duration);
+                        PCR_Found=true;
+                    }
                 }
             }
         #endif //MEDIAINFO_MPEGTS_PCR_YES
     }
+    if (!PCR_Found && Duration_Max)
+        Fill(Stream_General, 0, General_Duration, Duration_Max/90, 10, true);
 
     //EPG
     complete_stream::transport_streams::iterator Transport_Stream=Complete_Stream->transport_stream_id_IsValid?Complete_Stream->Transport_Streams.find(Complete_Stream->transport_stream_id):Complete_Stream->Transport_Streams.end();
@@ -735,18 +747,6 @@ void File_MpegTs::Synched_Init()
 }
 
 //***************************************************************************
-// Buffer - Global
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_MpegTs::Read_Buffer_Finalize()
-{
-    Finalize();
-    Update();
-    return;
-}
-
-//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
@@ -808,7 +808,7 @@ void File_MpegTs::Header_Parse()
     }
     else
         Data_Info("    ");
-    //Data_Info(Complete_Stream->Streams[pid].Element_Info);
+    Data_Info(Complete_Stream->Streams[pid].Element_Info);
 
     //Adaptation
     if (Adaptation)

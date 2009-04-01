@@ -61,6 +61,8 @@ public :
     void    Open_Buffer_Init        (File__Analyze* Sub, int64u File_Size, int64u File_Offset=0);
     void    Open_Buffer_Continue    (                    const int8u* Buffer, size_t Buffer_Size);
     void    Open_Buffer_Continue    (File__Analyze* Sub, const int8u* Buffer, size_t Buffer_Size);
+    void    Open_Buffer_Fill        ();
+    void    Open_Buffer_Update      ();
     void    Open_Buffer_Finalize    (bool NoBufferModification=false);
     void    Open_Buffer_Finalize    (File__Analyze* Sub);
 
@@ -77,6 +79,13 @@ public :
 
 
 protected :
+    //***************************************************************************
+    // Streams management
+    //***************************************************************************
+
+    virtual void Streams_Fill()                                                 {};
+    virtual void Streams_Update()                                               {};
+
     //***************************************************************************
     // Synchro
     //***************************************************************************
@@ -913,6 +922,7 @@ public :
     //Temp
     bool IsAccepted;
     bool IsFilled;
+    bool IsUpdated;
     bool IsFinished;
     bool IsFinalized;
     bool ShouldContinueParsing;

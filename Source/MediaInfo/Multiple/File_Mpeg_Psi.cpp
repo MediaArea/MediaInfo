@@ -1769,6 +1769,8 @@ void File_Mpeg_Psi::Table_CD()
             Complete_Stream->Start_Time=Ztring().Date_From_Seconds_1970(system_time+315964800-GPS_UTC_offset);
         Complete_Stream->End_Time=Ztring().Date_From_Seconds_1970(system_time+315964800-GPS_UTC_offset);
         Complete_Stream->GPS_UTC_offset=GPS_UTC_offset;
+        //Complete_Stream->End_Time_IsUpdated=false;
+        IsUpdated=true;
     FILLING_END();
 }
 

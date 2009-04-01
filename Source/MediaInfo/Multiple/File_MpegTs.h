@@ -59,8 +59,8 @@ public :
 
 private :
     //Streams management
-    void Finalize();
-    void Update();
+    void Streams_Fill();
+    void Streams_Update();
 
     //Buffer - File header
     bool FileHeader_Begin();
@@ -69,9 +69,6 @@ private :
     bool Synchronize();
     bool Synched_Test();
     void Synched_Init();
-
-    //Buffer - Global
-    void Read_Buffer_Finalize ();
 
     //Options
     void Option_Manage ();

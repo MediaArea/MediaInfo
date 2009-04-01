@@ -124,6 +124,7 @@ File__Analyze::File__Analyze ()
     //Temp
     IsAccepted=false;
     IsFilled=false;
+    IsUpdated=false;
     IsFinished=false;
     IsFinalized=false;
     ShouldContinueParsing=false;
@@ -357,6 +358,10 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     //Parsing
     Sub->Open_Buffer_Continue(ToAdd, ToAdd_Size);
 
+    //Info from parser
+    if (Sub->IsUpdated)
+        IsUpdated=true;
+
     #ifndef MEDIAINFO_MINIMIZESIZE
         //Details handling
         if (!Sub->Element[0].ToShow.Details.empty())
@@ -420,6 +425,28 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
 }
 
 //---------------------------------------------------------------------------
+void File__Analyze::Open_Buffer_Fill ()
+{
+    if (IsFilled)
+        return;
+
+    Streams_Fill();
+    Streams_Update();
+    IsFilled=true;
+    IsUpdated=false;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Open_Buffer_Update ()
+{
+    if (!IsUpdated)
+        return;
+
+    Streams_Update();
+    IsUpdated=false;
+}
+
+//---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
 {
     //File with unknown size (stream...), finnishing
@@ -431,6 +458,7 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
 
     //Buffer - Global
     Read_Buffer_Finalize();
+    Open_Buffer_Fill();
     if (!IsAccepted)
         Clear();
 
