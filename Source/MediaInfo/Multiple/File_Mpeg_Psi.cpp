@@ -1296,6 +1296,8 @@ void File_Mpeg_Psi::Table_4E()
 {
     //Clearing
     Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events.clear();
+    Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks_IsUpdated=true;
+    IsUpdated=true;
 
     //Parsing
     Get_B2 (transport_stream_id,                                "transport_stream_id");
@@ -1371,6 +1373,8 @@ void File_Mpeg_Psi::Table_70()
         if (Complete_Stream->Start_Time.empty())
             Complete_Stream->Start_Time=_T("UTC ")+Date_MJD(date)+_T(" ")+Time_BCD(time);
         Complete_Stream->End_Time=_T("UTC ")+Date_MJD(date)+_T(" ")+Time_BCD(time);
+        Complete_Stream->End_Time_IsUpdated=true;
+        IsUpdated=true;
     FILLING_END();
 }
 
@@ -1397,6 +1401,8 @@ void File_Mpeg_Psi::Table_73()
         if (Complete_Stream->Start_Time.empty())
             Complete_Stream->Start_Time=_T("UTC ")+Date_MJD(date)+_T(" ")+Time_BCD(time);
         Complete_Stream->End_Time=_T("UTC ")+Date_MJD(date)+_T(" ")+Time_BCD(time);
+        Complete_Stream->End_Time_IsUpdated=true;
+        IsUpdated=true;
     FILLING_END();
 }
 
@@ -1666,6 +1672,8 @@ void File_Mpeg_Psi::Table_CB()
 {
     //Clear
     Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[table_id].Events.clear();
+    Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks_IsUpdated=true;
+    IsUpdated=true;
 
     //Parsing
     int8u num_events_in_section;
@@ -1736,7 +1744,11 @@ void File_Mpeg_Psi::Table_CC()
         if (Complete_Stream->Streams[pid].table_type==4)
             Complete_Stream->Sources[source_id].texts[table_id_extension]=extended_text_message;
         else
+        {
             Complete_Stream->Sources[source_id].ATSC_EPG_Blocks[Complete_Stream->Streams[pid].table_type].Events[event_id].texts[table_id_extension]=extended_text_message;
+            Complete_Stream->Sources[source_id].ATSC_EPG_Blocks_IsUpdated=true;
+            IsUpdated=true;
+        }
     FILLING_END();
 }
 
@@ -1768,9 +1780,9 @@ void File_Mpeg_Psi::Table_CD()
         if (Complete_Stream->Start_Time.empty())
             Complete_Stream->Start_Time=Ztring().Date_From_Seconds_1970(system_time+315964800-GPS_UTC_offset);
         Complete_Stream->End_Time=Ztring().Date_From_Seconds_1970(system_time+315964800-GPS_UTC_offset);
-        Complete_Stream->GPS_UTC_offset=GPS_UTC_offset;
-        //Complete_Stream->End_Time_IsUpdated=false;
+        Complete_Stream->End_Time_IsUpdated=true;
         IsUpdated=true;
+        Complete_Stream->GPS_UTC_offset=GPS_UTC_offset;
     FILLING_END();
 }
 

@@ -359,7 +359,7 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     Sub->Open_Buffer_Continue(ToAdd, ToAdd_Size);
 
     //Info from parser
-    if (Sub->IsUpdated)
+    if (IsFilled && Sub->IsUpdated)
         IsUpdated=true;
 
     #ifndef MEDIAINFO_MINIMIZESIZE

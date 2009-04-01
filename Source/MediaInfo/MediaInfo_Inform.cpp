@@ -32,6 +32,7 @@
 #include "ZenLib/Utils.h"
 #include "MediaInfo/MediaInfo_Internal.h"
 #include "MediaInfo/MediaInfo_Config.h"
+#include "MediaInfo/File__Analyze.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -44,6 +45,11 @@ extern MediaInfo_Config Config;
 //---------------------------------------------------------------------------
 String MediaInfo_Internal::Inform()
 {
+    CriticalSectionLocker CSL(CS);
+
+    if (Info && Info->IsUpdated)
+        Info->Open_Buffer_Update();
+
     #ifndef MEDIAINFO_MINIMIZESIZE
         if (MediaInfoLib::Config.Details_Get())
             return Details;

@@ -387,6 +387,7 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
         MultipleParsing_IsDetected=true;
     }
 
+    #if 0 //temp, for old users
     //The parser wanted seek but the buffer is not seekable
     if (Info->File_GoTo!=(int64u)-1 && Config.File_IsSeekable_Get()==0)
     {
@@ -397,6 +398,25 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
     }
 
     return 1;
+    #else
+    //The parser wanted seek but the buffer is not seekable
+    if (Info->File_GoTo!=(int64u)-1 && Config.File_IsSeekable_Get()==0)
+    {
+        Info->Open_Buffer_Fill();
+        Info->Open_Buffer_Update();
+        Info->File_GoTo=(int64u)-1;
+    }
+
+    if (Info)
+    {
+        size_t ToReturn=Info->IsAccepted<< 0
+                      | Info->IsFilled  << 1
+                      | Info->IsUpdated << 2
+                      | Info->IsFinished<< 3;
+        return ToReturn;
+    }
+    return 0;
+    #endif
 }
 
 //---------------------------------------------------------------------------
@@ -454,6 +474,10 @@ String MediaInfo_Internal::Inform(size_t)
 String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, size_t Parameter, info_t KindOfInfo)
 {
     CriticalSectionLocker CSL(CS);
+
+    if (Info && Info->IsUpdated)
+        Info->Open_Buffer_Update();
+
     //Check integrity
     if (StreamKind>=Stream_Max || StreamNumber>=Stream[StreamKind].size() || Parameter>=MediaInfoLib::Config.Info_Get(StreamKind).size()+Stream_More[StreamKind][StreamNumber].size() || KindOfInfo>=Info_Max)
         return MediaInfoLib::Config.EmptyString_Get(); //Parameter is unknown
@@ -475,6 +499,11 @@ String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, size_t 
 //---------------------------------------------------------------------------
 String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, const String &Parameter, info_t KindOfInfo, info_t KindOfSearch)
 {
+    CriticalSectionLocker CSL(CS);
+
+    if (Info && Info->IsUpdated)
+        Info->Open_Buffer_Update();
+
     //Legacy
     if (Parameter.find(_T("_String"))!=Error)
     {

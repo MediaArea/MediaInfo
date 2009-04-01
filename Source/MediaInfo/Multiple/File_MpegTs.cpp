@@ -355,8 +355,11 @@ void File_MpegTs::Streams_Update()
         return; //Not initialized
 
     //General
-    if (!Complete_Stream->End_Time.empty())
+    if (Complete_Stream->End_Time_IsUpdated)
+    {
         Fill(Stream_General, 0, General_Duration_End, Complete_Stream->End_Time, true);
+        Complete_Stream->End_Time_IsUpdated=false;
+    }
 
     //Per stream
     bool PCR_Found=false;
@@ -456,10 +459,17 @@ void File_MpegTs::Streams_Update()
             {
                 if (Program->second.IsParsed)
                 {
+                    bool EPGs_IsUpdated=false;
+
                     //EPG - DVB
-                    for (complete_stream::transport_stream::program::dvb_epg_blocks::iterator DVB_EPG_Block=Program->second.DVB_EPG_Blocks.begin(); DVB_EPG_Block!=Program->second.DVB_EPG_Blocks.end(); DVB_EPG_Block++)
-                        for (complete_stream::transport_stream::program::dvb_epg_block::events::iterator Event=DVB_EPG_Block->second.Events.begin(); Event!=DVB_EPG_Block->second.Events.end(); Event++)
-                            EPGs[Event->second.start_time]=Event->second.short_event.event_name+_T(" / ")+Event->second.short_event.text+_T(" / ")+Event->second.content+_T(" /  / ")+Event->second.duration+_T(" / ")+Event->second.running_status;
+                    if (Program->second.DVB_EPG_Blocks_IsUpdated)
+                    {
+                        for (complete_stream::transport_stream::program::dvb_epg_blocks::iterator DVB_EPG_Block=Program->second.DVB_EPG_Blocks.begin(); DVB_EPG_Block!=Program->second.DVB_EPG_Blocks.end(); DVB_EPG_Block++)
+                            for (complete_stream::transport_stream::program::dvb_epg_block::events::iterator Event=DVB_EPG_Block->second.Events.begin(); Event!=DVB_EPG_Block->second.Events.end(); Event++)
+                                EPGs[Event->second.start_time]=Event->second.short_event.event_name+_T(" / ")+Event->second.short_event.text+_T(" / ")+Event->second.content+_T(" /  / ")+Event->second.duration+_T(" / ")+Event->second.running_status;
+                        Program->second.DVB_EPG_Blocks_IsUpdated=false;
+                        EPGs_IsUpdated=true;
+                    }
 
                     //EPG - ATSC
                     complete_stream::sources::iterator Source=Complete_Stream->Sources.find(Program->second.source_id);
@@ -479,20 +489,25 @@ void File_MpegTs::Streams_Update()
                             }
                             Fill(Stream_Menu, Program->second.StreamPos, Menu_ServiceProvider, Texts, true);
                         }
-                        for (complete_stream::source::atsc_epg_blocks::iterator ATSC_EPG_Block=Source->second.ATSC_EPG_Blocks.begin(); ATSC_EPG_Block!=Source->second.ATSC_EPG_Blocks.end(); ATSC_EPG_Block++)
-                            for (complete_stream::source::atsc_epg_block::events::iterator Event=ATSC_EPG_Block->second.Events.begin(); Event!=ATSC_EPG_Block->second.Events.end(); Event++)
-                            {
-                                Ztring Texts;
-                                for (std::map<int16u, Ztring>::iterator text=Event->second.texts.begin(); text!=Event->second.texts.end(); text++)
-                                    Texts+=text->second+_T(" - ");
-                                if (!Texts.empty())
-                                    Texts.resize(Texts.size()-3);
-                                EPGs[Ztring().Date_From_Seconds_1970(Event->second.start_time+315964800-Complete_Stream->GPS_UTC_offset)]=Event->second.title+_T(" / ")+Texts+_T(" /  /  / ")+Event->second.duration+_T(" / ");
-                            }
+                        if (Source->second.ATSC_EPG_Blocks_IsUpdated)
+                        {
+                            for (complete_stream::source::atsc_epg_blocks::iterator ATSC_EPG_Block=Source->second.ATSC_EPG_Blocks.begin(); ATSC_EPG_Block!=Source->second.ATSC_EPG_Blocks.end(); ATSC_EPG_Block++)
+                                for (complete_stream::source::atsc_epg_block::events::iterator Event=ATSC_EPG_Block->second.Events.begin(); Event!=ATSC_EPG_Block->second.Events.end(); Event++)
+                                {
+                                    Ztring Texts;
+                                    for (std::map<int16u, Ztring>::iterator text=Event->second.texts.begin(); text!=Event->second.texts.end(); text++)
+                                        Texts+=text->second+_T(" - ");
+                                    if (!Texts.empty())
+                                        Texts.resize(Texts.size()-3);
+                                    EPGs[Ztring().Date_From_Seconds_1970(Event->second.start_time+315964800-Complete_Stream->GPS_UTC_offset)]=Event->second.title+_T(" / ")+Texts+_T(" /  /  / ")+Event->second.duration+_T(" / ");
+                                }
+                            Source->second.ATSC_EPG_Blocks_IsUpdated=false;
+                            EPGs_IsUpdated=true;
+                        }
                     }
 
                     //EPG - Filling
-                    if (!EPGs.empty())
+                    if (EPGs_IsUpdated)
                     {
                         if (Program->second.StreamPos==(size_t)-1)
                         {

@@ -48,6 +48,7 @@ struct complete_stream
     Ztring network_name;
     Ztring Start_Time;
     Ztring End_Time;
+    bool   End_Time_IsUpdated;
     std::map<Ztring, Ztring> TimeZones; //Key is country code
 
     //Per transport_stream
@@ -91,6 +92,7 @@ struct complete_stream
             };
             typedef std::map<int8u, dvb_epg_block> dvb_epg_blocks; //Key is table_id
             dvb_epg_blocks DVB_EPG_Blocks; //Key is table_id
+            bool DVB_EPG_Blocks_IsUpdated;
 
             //Constructor/Destructor
             program()
@@ -104,6 +106,7 @@ struct complete_stream
                 source_id=0x0000;
                 IsParsed=false;
                 IsRegistered=false;
+                DVB_EPG_Blocks_IsUpdated=false;
             }
         };
         typedef std::map<int16u, program> programs; //Key is program_number
@@ -323,6 +326,12 @@ struct complete_stream
         };
         typedef std::map<int16u, atsc_epg_block> atsc_epg_blocks; //Key is table_id
         atsc_epg_blocks ATSC_EPG_Blocks; //Key is table_id
+        bool ATSC_EPG_Blocks_IsUpdated;
+
+        source()
+        {
+            ATSC_EPG_Blocks_IsUpdated=false;
+        }
     };
     typedef std::map<int16u, source> sources; //Key is source_id
     sources Sources; //Key is source_id
@@ -345,6 +354,7 @@ struct complete_stream
     {
         transport_stream_id=0;
         transport_stream_id_IsValid=false;
+        End_Time_IsUpdated=false;
         Streams_NotParsedCount=0;
         Streams_With_StartTimeStampCount=0;
         Streams_With_EndTimeStampMoreThanxSecondsCount=0;
