@@ -1669,6 +1669,12 @@ void File_MpegPs::private_stream_1_Choose_DVD_ID()
         private_stream_1_IsDvdVideo=true;
         private_stream_1_Offset=1;
     }
+    //AC-3 (OTA?)
+    else if (CodecID==0x80 && CC3(Buffer+Buffer_Offset+1)==0x000000 && Element_Size>=6 && CC2(Buffer+Buffer_Offset+4)==0x0B77)
+    {
+        private_stream_1_IsDvdVideo=true; //Not sure
+        private_stream_1_Offset=4;
+    }
     //PCM
     else if (CodecID>=0xA0 && CodecID<=0xAF && Element_Size>=7 && Buffer[Buffer_Offset+6]==0x80)
     {
