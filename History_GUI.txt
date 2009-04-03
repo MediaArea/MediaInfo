@@ -12,9 +12,29 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
-Version 0.7.13, 2009-0
+Version 0.7.13, 2009-04-03
 --------------
 + Hungarian, Albanian translations updated
++ #2635230, MPEG audio: Lame encoder settings
++ #2706146, WMV: detection of container wanted aspect ratio
++ #2611726, MKV: Audio delay detection
++ #2721811, MKV: TrueHD detection
++ Java: JNA (Java Native Access) binding
++ Exported "stream" interface for analyzing streams in memory (beta)
++ SHN (Shorten) detection
++ TAK (Tom's lossless audio compressor) detection
++ MPEG-TS parser optimizations
++ SWF: better handling of videos
++ WAV: better handling of 4GiB+ files
++ WAV: Extensible Wave support
++ MKV: Handling of chapters in multiple languages
++ Stream size for all streams when 1 video and all audio streams are CBR
++ Chapters are moved to menu part for better coherency with MPEG-TS, developers see Changes.txt for more info
+x #2712761, AVI: unsupported SalmonSoft text codec makes MediaInfo silently fail
+x #2719534, MKV: handling "modified" headers (zero padding)
+x #2720822, MPEG Audio: was freezing with 1 malformed file
+x #2721949, IFO: some stream IDs were false
+x #2725808, MPEG-PS: some "OTA" files were detected with TrueHD instead of normal AC-3 audio
 
 Version 0.7.12, 2009-03-20
 --------------
