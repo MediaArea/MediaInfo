@@ -37,7 +37,7 @@
     #define MEDIAINFO_EXP
 #endif //defined(_WIN32) && !defined(__MINGW32__)
 
-#if !defined(_WIN32)
+#if !defined(_WIN32) && !defined(__WIN32__)
     #define __stdcall
 #endif //!defined(_WIN32)
 
@@ -58,7 +58,7 @@
     #undef  MAXTYPE_INT
     #define MAXTYPE_INT 64
     typedef unsigned long long  MediaInfo_int64u;
-#elif defined(__WIN32__)
+#elif defined(__WIN32__) ||  defined(_WIN32)
     #undef  MAXTYPE_INT
     #define MAXTYPE_INT 64
     typedef unsigned __int64    MediaInfo_int64u;
