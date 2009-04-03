@@ -1440,7 +1440,7 @@ MESSAGE void __fastcall TMainF::HandleDropFiles (TMessage& Msg)
     for (int i=0; i<NbFiles; i++)
     {
         DragQueryFile(hDrop, i, File, 65536-1);
-        I->Open(File, FileOption_NoRecursive);
+        I->Open(File);
     }
     DragFinish (hDrop);
 
