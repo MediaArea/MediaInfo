@@ -45,8 +45,6 @@ extern MediaInfo_Config Config;
 //---------------------------------------------------------------------------
 String MediaInfo_Internal::Inform()
 {
-    CriticalSectionLocker CSL(CS);
-
     if (Info && Info->IsUpdated)
         Info->Open_Buffer_Update();
 

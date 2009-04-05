@@ -499,11 +499,6 @@ String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, size_t 
 //---------------------------------------------------------------------------
 String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, const String &Parameter, info_t KindOfInfo, info_t KindOfSearch)
 {
-    CriticalSectionLocker CSL(CS);
-
-    if (Info && Info->IsUpdated)
-        Info->Open_Buffer_Update();
-
     //Legacy
     if (Parameter.find(_T("_String"))!=Error)
     {
