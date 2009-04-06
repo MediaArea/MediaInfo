@@ -301,7 +301,7 @@ bool File_Ac3::Synchronize()
             if (Buffer_Offset+6>Buffer_Size)
                 return false; //Need more data
 
-            int8u bsid =(CC1(Buffer+Buffer_Offset+5)<<3)&0x1F;
+            int8u bsid =CC1(Buffer+Buffer_Offset+5)>>3;
             int16u Size=0;
             if (bsid<=0x08)
             {
