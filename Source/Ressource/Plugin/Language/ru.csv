@@ -871,7 +871,7 @@ SubTrack;Подпоток
 Summary;Сводка
 Supported formats;Поддерживаемые форматы
 Supported?;Поддерживается?
-Synopsis
+Synopsis;Сводка
 SystemId;Идентификатор
 Tagged_Application;Пометившая программа
 Tagged_Date;Дата пометки
