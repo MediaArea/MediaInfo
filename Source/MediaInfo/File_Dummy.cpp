@@ -192,7 +192,7 @@ void File_Dummy::Fill_Dummy_General()
     Fill(Stream_General, 0, General_Service_Url, "Service/URL");
     Fill(Stream_General, 0, General_ContentType, "ContentType");
     Fill(Stream_General, 0, General_Subject, "Subject");
-    Fill(Stream_General, 0, General_Synopsys, "Synopsys");
+    Fill(Stream_General, 0, General_Synopsis, "Synopsis");
     Fill(Stream_General, 0, General_Summary, "Summary");
     Fill(Stream_General, 0, General_Description, "Description");
     Fill(Stream_General, 0, General_Keywords, "Keywords");

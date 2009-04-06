@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.14, 2009-
+-------------
++ #2734021, E-AC3: some files were not detected
+
 Version 0.7.13, 2009-04-03
 -------------
 + #2635230, MPEG audio: Lame encoder settings
