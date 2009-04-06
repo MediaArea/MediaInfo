@@ -180,7 +180,7 @@ Subject;;;Y YT;;;Describes the topic of the file, such as Aerial view of Seattle
 Description;;;Y YT;;;A short description of the contents, such as Two birds flying.;;Classification
 Keywords;;;Y YT;;;Keywords to the item separated by a comma, used for searching.;;Classification
 Summary;;;Y YT;;;A plot outline or a summary of the story.;;Classification
-Codecs s;;;Y YT;;;A description of the story line of the item.;;Classification
+Synopsis;;;Y YT;;;A description of the story line of the item.;;Classification
 Period;;;Y YT;;;Describes the period that the piece is from or about. e.g. Renaissance.;;Classification
 LawRating;;;Y YT;;;Depending on the country it's the format of the rating of a movie (P, R, X in the USA, an age in other countries or a URI defining a logo).;;Classification
 LawRating_Reason;;;Y YT;;;Reason for the law rating;;Classification
