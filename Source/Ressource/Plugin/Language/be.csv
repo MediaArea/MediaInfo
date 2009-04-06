@@ -28,12 +28,12 @@
  chapters stream1; струмень падзелаў
  chapters stream2; струмені падзелаў
  chapters stream3; струмені падзелаў
- day1; д.
- day2; дн.
- day3; дн.
- dB1
- dB2
- dB3
+ day1; дзень
+ day2; дзён
+ day3; дзён
+ dB1; дБ
+ dB2; дБ
+ dB3; дБ
  file1; файл
  file2; файлы
  file3; файлы
@@ -134,17 +134,17 @@
  warppoint2; кропкі пераходу
  warppoint3; кропкі пераходу
  week1; тыд.
- week2; тыд.
- week3; тыд.
+ week2; тыдняў
+ week3; тыдняў
  year1; год
- year2; год
- year3; год
+ year2; гады
+ year3; гадоў
 , ;, 
 : ;: 
 About;Аб праграме
 About_Hint;Як звязацца са мной і знайсці апошнюю версію праграмы
 Accompaniment;Суправаджэнне
-Actor;Выканаўца
+Actor;Актор
 Actor_Character;Роля
 Added_Date;Дата дадання
 Address;Адрас
@@ -226,7 +226,7 @@ CodecID;Ідэнтыфікатар кодэка
 CodecID_Description;Апісанне кодэка
 Collection;Калекцыя
 Colorimetry;Каларыметрыя
-Comment;Падказка
+Comment;Каментар
 CommissionedBy;Даручальнік
 CompleteName;Поўнае імя
 Composer;Кампазітар
@@ -263,8 +263,8 @@ DistributedBy;Распаўсюджвальнік
 Donate;Ахвяраваць
 DotsPerInch;Кропак на дзюйм
 Duration;Працягласць
-Duration_End
-Duration_Start
+Duration_End;Час канчатку
+Duration_Start;Час пачатку
 Edit;Змяніць
 EditedBy;Зменена
 EMail;Пошта
@@ -274,7 +274,7 @@ Encoded_Library;Бібліятэка кадавання
 Encoded_Library_Settings;Налады праграмы
 Encoded_Original;Першапачаткова кадавана
 EncodedBy;Кадаваў
-EPG_Positions
+EPG_Positions;EPG пазіцыіі (унутр)
 Error_File;Памылка ў файле
 ExecutiveProducer;Выканаўчы прадзюсар
 Exit;Выхад
@@ -519,7 +519,7 @@ Known formats;Вядомыя фарматы
 Known parameters;Вядомыя параметры
 Label;Пазнака
 Language;Мова
-Language_More
+Language_More;Яшчэ мовы
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -651,7 +651,7 @@ Language_oj;Ojibwa
 Language_om;Oromo
 Language_or;Oriya
 Language_os;Ossetic
-Language_pa;Panjabi
+Language_pa;Penjabi
 Language_pi;Pali
 Language_pl;Polish
 Language_ps;Pushto
@@ -740,13 +740,13 @@ MuxingMode;Рэжым змешвання
 MuxingMode_PackedBitstream;Сціснуты бітавы струмень
 Name;Імя
 Nationality;Нацыянальнасць
-NetworkName
+NetworkName;Сеткавае імя
 New;Новы...
 Newest version;Праверыць на абнаўленне (патрабуецца падлучэнне да інтэрнэту)
 No;Не
 Not yet;Яшчэ не
 NumColors;Колькасць колераў
-OK;OK
+OK;Добра
 One output file per input file;Адзін файл на кожны зыходны
 Open;Адкрыць
 OpenCandy_01;Загружаецца ________
@@ -783,12 +783,12 @@ OpenCandy_31;Абярыце параметры ўсталёўкі
 OpenCandy_32;Усталёўка ___________
 OpenCandy_33;Не ўсталёўваць
 OpenCandy_34;Абярыце параметры ўсталёўкі
-OpenCandy_35
-OpenCandy_36
+OpenCandy_35;______ рэкамендуюць гэтую праграму
+OpenCandy_36;Ваша бягучая ўсталеўка не будзе перапынена
 Options;Параметры
 Options_Hint;Налады праграмы
 Original;Сапраўдны
-OriginalNetworkName
+OriginalNetworkName;Арыгінальнае сеткавае імя
 OriginalSourceForm;Фармат арыгінала
 OriginalSourceMedium;Носьбіт арыгінала
 Other;Іншае
@@ -801,17 +801,17 @@ OverallBitRate_Mode;Рэжым агульнага бітрэйту
 OverallBitRate_Nominal;Намінальны агульны бітрэйт
 Part;Частка
 Part_Count;Коль-ць частак
-Performer;Выканавец
+Performer;Выканаўца
 Period;Перыяд
 Phone;Тэлефон
 PixelAspectRatio;Суадносіны пікселяў
 PixelAspectRatio_Original;Суадносіны пікселяў
 PlayCounter;Лічыльнік прайгравання
-Played_Count
-Played_First_Date
-Played_Last_Date
+Played_Count;Разоў прайгравалася
+Played_First_Date;Першы раз прайгравалася
+Played_Last_Date;Апошні раз прайгравалася
 PlayTime;Працягласць
-Position;Становішча
+Position;Пазіцыя
 Position_Total;Усяго
 Preferences;Налады
 Producer;Прадзюсар
@@ -826,9 +826,9 @@ Recorded_Date;Дата запісу
 Recorded_Location;Месца запісу
 Released_Date;Дата выпуску
 RemixedBy;Рэмікс ад
-ReplayGain_Gain
-ReplayGain_Peak
-Resolution;Дазвол
+ReplayGain_Gain;Нармалізатар гука
+ReplayGain_Peak;Пік нармалізатара гука
+Resolution;Адрозненне (Resolution)
 s;с
 SamplingRate;Частата
 Save;Захаваць
@@ -840,10 +840,10 @@ see below;гл. ніжэй
 Send HeaderFile;Адправіць загаловак гэтага файла на http://sourceforge.net/projects/mediainfo/ (Падзел памылак)
 Separator_Columns;Падзельнік слупкоў
 Separator_Lines;Падзельнік радкоў
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
+ServiceChannel;Нумар канала сэрвіса
+ServiceName;Назва сэрвіса
+ServiceProvider;Пастаўшчык сэрвіса
+ServiceType;Іып сэрвіса
 Set;Налада
 Set_Count;Коль-ць
 Setup;Налады
@@ -871,7 +871,7 @@ SubTrack;Падпаток
 Summary;Зводка
 Supported formats;Падтрымліваемыя фарматы
 Supported?;Падтрымліваецца?
-Synopsys
+Synopsys;Сінопсіс
 SystemId;Ідэнтыфікатар
 Tagged_Application;Праграма, якая пазначыла
 Tagged_Date;Дата адзнакі
@@ -892,7 +892,7 @@ ThanksTo;Падзякі
 Thousands separator;Падзельнік тысяч
 Title;Загаловак
 Title_More;Загаловак
-TimeZone
+TimeZone;Гадзінная зона
 Total;Усяго
 Track;Сцежка
 Track_Count;Коль-ць дарожак
@@ -902,7 +902,7 @@ Tree & Text;Дрэва і тэкст
 Unknown;Невядома
 Url;Спасылка
 Video;Відэа
-Video stream(s);паток(і)
+Video stream(s);Відэапаток(і)
 Video_Codec_List;Відэакодэкі
 Video_Delay;Затрымка відэа
 Video_No;Відэаструмень №
@@ -930,5 +930,5 @@ Written_Location;Месца напісання
 WrittenBy;Напісана
 Yes;Так
 Your system;Ваша сістэма
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100

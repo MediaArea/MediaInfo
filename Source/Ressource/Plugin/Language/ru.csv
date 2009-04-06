@@ -1,5 +1,5 @@
   Language_ISO639;ru
-  Author_Email
+  Author_Email;solokot@gmail.com
   Author_Name;solokot
   Author_OldNames;lost in history
   Language_Name;Русский
@@ -7,7 +7,7 @@
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
-  Config_Text_ThousandsSeparator; 
+  Config_Text_ThousandsSeparator
  audio stream1; аудиопоток
  audio stream2; аудиопотоки
  audio stream3; аудиопотоки
@@ -158,14 +158,14 @@ Alignment_Aligned;Соединение по промежуткам
 Alignment_Split;Разделение по промежуткам
 All;Все
 Archival_Location;Место хранения
-Arranger;Разместил
+Arranger;Аранжировщик
 ArtDirector;Режиссёр
 AspectRatio;Соотношение
 AssistantDirector;Помощник режиссёра
 at;в
 At least one file;Необходим как минимум один файл
 Audio;Аудио
-Audio stream(s);Аудиопоток(и)
+Audio stream(s);Аудиопотоки
 Audio_Codec_List;Аудиокодеки
 Audio_No;Аудиопоток №
 Audio1;Первый аудиопоток
@@ -208,18 +208,18 @@ Codec;Кодек
 Codec_Description;Описание кодека
 Codec_Info;Подробно о кодеке
 Codec_Settings;Настройки кодека
-Codec_Settings_PacketBitStream;Настройка пакетного потока данных кодека
-Codec_Settings_BVOP;Настройка BVOP кодека
-Codec_Settings_QPel;Настройка QPel кодека
-Codec_Settings_GMC;Настройка GMC кодека
-Codec_Settings_Matrix;Настройка матрицы кодека
-Codec_Settings_Floor;Настройка Floor кодека
-Codec_Settings_CABAC;Настройка CABAC кодека
-Codec_Settings_Firm;Настройка Firm кодека
-Codec_Settings_Endianness;Настройка Endianness кодека
-Codec_Settings_Sign;Настройка Sign кодека
-Codec_Settings_Law;Настройка Law кодека
-Codec_Settings_ITU;Настройка ITU кодека
+Codec_Settings_PacketBitStream;Параметры пакетного потока данных кодека
+Codec_Settings_BVOP;Параметры BVOP кодека
+Codec_Settings_QPel;Параметры QPel кодека
+Codec_Settings_GMC;Параметры GMC кодека
+Codec_Settings_Matrix;Параметры матрицы кодека
+Codec_Settings_Floor;Параметры Floor кодека
+Codec_Settings_CABAC;Параметры CABAC кодека
+Codec_Settings_Firm;Параметры Firm кодека
+Codec_Settings_Endianness;Параметры Endianness кодека
+Codec_Settings_Sign;Параметры Sign кодека
+Codec_Settings_Law;Параметры Law кодека
+Codec_Settings_ITU;Параметры ITU кодека
 Codec_Profile;Профайл кодека
 Codec_Url;Ссылка на кодек
 CodecID;Идентификатор кодека
@@ -263,9 +263,9 @@ DistributedBy;Распространитель
 Donate;Пожертвовать
 DotsPerInch;Точек на дюйм
 Duration;Продолжительность
-Duration_End
-Duration_Start
-Edit;Изменить
+Duration_End;Время окончания
+Duration_Start;Время начала
+Edit;Изменение
 EditedBy;Изменено
 EMail;Почта
 Encoded_Application;Программа-кодировщик
@@ -274,7 +274,7 @@ Encoded_Library;Библиотека кодирования
 Encoded_Library_Settings;Настройки программы
 Encoded_Original;Изначально кодировано
 EncodedBy;Кодировал
-EPG_Positions
+EPG_Positions;Позиции EPG (внутренние)
 Error_File;Ошибка в файле
 ExecutiveProducer;Исполнительный продюсер
 Exit;Выход
@@ -304,23 +304,23 @@ Format_Description;Описание формата
 Format_Info;Подробно о формате
 Format_Profile;Профайл формата
 Format_Settings;Настройки формата
-Format_Settings_PacketBitStream;Настройка пакетного потока данных формата
-Format_Settings_BVOP;Настройка BVOP формата
-Format_Settings_QPel;Настройка QPel формата
-Format_Settings_GMC;Настройка GMC формата
-Format_Settings_Matrix;Настройка матрицы формата
+Format_Settings_PacketBitStream;Параметры пакетного потока данных формата
+Format_Settings_BVOP;Параметры BVOP формата
+Format_Settings_QPel;Параметры QPel формата
+Format_Settings_GMC;Параметры GMC формата
+Format_Settings_Matrix;Параметры матрицы формата
 Format_Settings_Matrix_Custom;Выборочная
 Format_Settings_Matrix_Default;По умолчанию
-Format_Settings_Floor;Настройка Floor формата
-Format_Settings_CABAC;Настройка CABAC формата
-Format_Settings_Firm;Настройка Firm формата
-Format_Settings_Endianness;Настройка Endianness формата
-Format_Settings_RefFrames;Настройка ReFrames формата
-Format_Settings_Sign;Настройка Sign формата
-Format_Settings_Law;Настройка Law формата
-Format_Settings_ITU;Настройка ITU формата
-Format_Settings_SBR;Настройка SBR формата
-Format_Settings_PS;Настройка PS формата
+Format_Settings_Floor;Параметры Floor формата
+Format_Settings_CABAC;Параметры CABAC формата
+Format_Settings_Firm;Параметры Firm формата
+Format_Settings_Endianness;Параметры Endianness формата
+Format_Settings_RefFrames;Параметры ReFrames формата
+Format_Settings_Sign;Параметры Sign формата
+Format_Settings_Law;Параметры Law формата
+Format_Settings_ITU;Параметры ITU формата
+Format_Settings_SBR;Параметры SBR формата
+Format_Settings_PS;Параметры PS формата
 Format_Settings_Pulldown;Выбрать настройки формата
 Format_Version;Версия формата
 Format_Url;Ссылка на формат
@@ -484,7 +484,7 @@ Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Go to WebSite;Перейти на сайт
-h;ч
+h; ч.
 Header file;Создать заголовок
 Height;Высота
 Help;Помощь
@@ -651,7 +651,7 @@ Language_oj;Ojibwa
 Language_om;Oromo
 Language_or;Oriya
 Language_os;Ossetic
-Language_pa;Panjabi
+Language_pa;Penjabi
 Language_pi;Pali
 Language_pl;Polish
 Language_ps;Pushto
@@ -729,18 +729,18 @@ Menu_No;Меню №
 MenuCount;Кол-во потоков меню
 Menu_Hint;Дополнительные возможности
 MenuID;Идентификатор меню
-mn;мин
+mn; м.
 Mood;Настроение
 More;Ещё...
 Movie;Фильм
-ms;мс
+ms; мс.
 MSDI;MSDI
 MusicBy;Композитор
 MuxingMode;Режим смешивания
 MuxingMode_PackedBitstream;Сжатый битовый поток
 Name;Имя
 Nationality;Национальность
-NetworkName
+NetworkName;Название сети
 New;Новый...
 Newest version;Проверить на обновление (требуется подключение к интернету)
 No;Нет
@@ -783,12 +783,12 @@ OpenCandy_31;Выберите параметры установки
 OpenCandy_32;Установка ___________
 OpenCandy_33;Не устанавливать
 OpenCandy_34;Выберите параметры установки
-OpenCandy_35
-OpenCandy_36
+OpenCandy_35;______ рекомендуемая программа
+OpenCandy_36;Ваша текущая установка не будет прерываться
 Options;Параметры
 Options_Hint;Настройки программы
 Original;Оригинал
-OriginalNetworkName
+OriginalNetworkName;Оригинальное название сети
 OriginalSourceForm;Формат оригинала
 OriginalSourceMedium;Носитель оригинала
 Other;Прочее
@@ -829,7 +829,7 @@ RemixedBy;Ремикс от
 ReplayGain_Gain;Нормализатор звука
 ReplayGain_Peak;Пик нормализатор звука
 Resolution;Разрешение
-s;с
+s; с.
 SamplingRate;Частота
 Save;Сохранить
 ScanType;Тип развёртки
@@ -844,7 +844,7 @@ ServiceChannel;Номер канала сервиса
 ServiceName;Название сервиса
 ServiceProvider;Постовщик сервиса
 ServiceType;Тип сервиса
-Set;Настройка
+Set;Установка
 Set_Count;Кол-во
 Setup;Настройка
 Sharpness;Резкость
@@ -874,7 +874,7 @@ Supported?;Поддерживается?
 Synopsys
 SystemId;Идентификатор
 Tagged_Application;Пометившая программа
-Tagged_Date;Дата отметки
+Tagged_Date;Дата пометки
 Technician;Техник
 TermsOfUse;Условия использования
 Text;Текст
@@ -892,7 +892,7 @@ ThanksTo;Благодарности
 Thousands separator;Разделитель тысяч
 Title;Заголовок
 Title_More;Заголовок, дополнительно
-TimeZone
+TimeZone;Часовой пояс
 Total;Всего
 Track;Дорожка
 Track_Count;Кол-во дорожек
@@ -911,7 +911,7 @@ Video1;Первый видеопоток
 VideoCount;Кол-во видеопотоков
 View;Просмотр
 View_Hint;Просмотр
-Warning : more streams in the files;Внимание: в файле есть ещё потоки
+Warning : more streams in the files;Внимание: в файлах есть ещё потоки
 Web;Сайт
 WebSite_Audio;Сайт аудиокодека
 WebSite_Audio_More;Перейти на сайт (%Url%) для поиска этого аудиокодека
@@ -930,5 +930,5 @@ Written_Location;Место написания
 WrittenBy;Написано
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;98
+ZZ_Automatic_Percent;99
 ZZ_AutomaticLanguage_Percent;99
