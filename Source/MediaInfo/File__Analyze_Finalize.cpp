@@ -655,7 +655,9 @@ void File__Analyze::Finalize_Cosmetic_General(size_t StreamPos)
         //File dates
         File F(File_Name);
         Fill (Stream_General, 0, General_File_Created_Date, F.Created_Get());
+        Fill (Stream_General, 0, General_File_Created_Date_Local, F.Created_Local_Get());
         Fill (Stream_General, 0, General_File_Modified_Date, F.Modified_Get());
+        Fill (Stream_General, 0, General_File_Modified_Date_Local, F.Modified_Local_Get());
     }
     
     //Format/Codec

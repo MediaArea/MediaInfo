@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.14, 2009-
 -------------
++ #2738780, local time display for modified/created date
 + WAV: RF64 (Wav files >4 GiB) support
 x #2734021, E-AC3: some files were not detected
 
