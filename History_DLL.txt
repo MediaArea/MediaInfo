@@ -9,7 +9,8 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.14, 2009-
 -------------
-+ #2734021, E-AC3: some files were not detected
++ WAV: RF64 (Wav files >4 GiB) support
+x #2734021, E-AC3: some files were not detected
 
 Version 0.7.13, 2009-04-03
 -------------

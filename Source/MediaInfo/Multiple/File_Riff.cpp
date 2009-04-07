@@ -67,11 +67,13 @@ namespace Elements
     const int32u ON2_=0x4F4E3220;
     const int32u ON2f=0x4F4E3266;
     const int32u RIFF=0x52494646;
+    const int32u RF64=0x52463634;
     const int32u SMV0=0x534D5630;
     const int32u SMV0_xxxx=0x534D563A;
     const int32u W3DI=0x57334449;
     const int32u WAVE=0x57415645;
     const int32u WAVE_data=0x64617461;
+    const int32u WAVE_ds64=0x64733634;
 }
 
 //***************************************************************************
@@ -92,6 +94,8 @@ File_Riff::File_Riff()
     Interleaved1_10=0;
 
     //Temp
+    WAVE_data_Size=0xFFFFFFFF;
+    WAVE_fact_samplesCount=0xFFFFFFFF;
     avih_FrameRate=0;
     avih_TotalFrame=0;
     dmlh_TotalFrame=0;
@@ -418,8 +422,41 @@ void File_Riff::Header_Parse()
         Get_B4 (Size,                                           "Size");
     else
         Get_L4 (Size,                                           "Size");
+
+    //RF64
+    int64u Size_Complete=Size;
+    if (Size==0xFFFFFFFF)
+    {
+        if (Element_Size<0x1C)
+        {
+            Element_WaitForMoreData();
+            return;
+        }
+        if (Name==Elements::RF64 && CC4(Buffer+Buffer_Offset+0x0C)==Elements::WAVE_ds64)
+        {
+            Size_Complete=LittleEndian2int64u(Buffer+Buffer_Offset+0x14);
+            Param_Info(Size_Complete);
+        }
+        else if (Name==Elements::WAVE_data)
+        {
+            Size_Complete=WAVE_data_Size;
+            Param_Info(Size_Complete);
+        }
+    }
+
+    //Alignment
+    if (Size_Complete%2==1)
+    {
+        Size_Complete++; //Always 2-byte aligned
+        Alignement_ExtraByte=true;
+    }
+    else
+        Alignement_ExtraByte=false;
+
+    //Top level chunks
     if (Name==Elements::LIST
      || Name==Elements::RIFF
+     || Name==Elements::RF64
      || Name==Elements::ON2_
      || Name==Elements::FORM)
         Get_C4 (Name,                                           "Real Name");
@@ -440,14 +477,6 @@ void File_Riff::Header_Parse()
 
     //Filling
     Header_Fill_Code(Name, Ztring().From_CC4(Name));
-    int64u Size_Complete=Size;
-    if (Size_Complete%2==1)
-    {
-        Size_Complete++; //Always 2-byte aligned
-        Alignement_ExtraByte=true;
-    }
-    else
-        Alignement_ExtraByte=false;
     if ((Name==Elements::WAVE || Name==Elements::WAVE_data)
      && File_Offset+Buffer_Offset+8+Size==(File_Size%0x100000000LL))
         Size_Complete=File_Size-(File_Offset+Buffer_Offset+8); //Non standard big files detection

@@ -112,6 +112,8 @@ private :
     int64u Interleaved1_10;
 
     //Temp
+    int64u WAVE_data_Size;  //RF64 WAVE_data real chunk size
+    int64u WAVE_fact_samplesCount;  //RF64 WAVE_fact real samplesCount
     float64 avih_FrameRate; //FrameRate of the first video stream in one MOVI chunk
     int32u avih_TotalFrame; //Count of frames in one MOVI chunk
     int32u dmlh_TotalFrame; //Count of frames in the whole AVI file (with odml too)
@@ -224,6 +226,7 @@ private :
     void WAVE ();
     void WAVE_bext ();
     void WAVE_data ();
+    void WAVE_ds64 ();
     void WAVE_fact ();
     void WAVE_fmt_ ();
     void WAVE_ID3_ ();

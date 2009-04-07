@@ -159,6 +159,7 @@ namespace Elements
     const int32u LIST=0x4C495354;
     const int32u ON2_=0x4F4E3220;
     const int32u RIFF=0x52494646;
+    const int32u RF64=0x52463634;
 
     const int32u AIFC=0x41494643;
     const int32u AIFC_COMM=0x434F4D4D;
@@ -298,6 +299,7 @@ namespace Elements
     const int32u WAVE=0x57415645;
     const int32u WAVE_bext=0x62657874;
     const int32u WAVE_data=0x64617461;
+    const int32u WAVE_ds64=0x64733634;
     const int32u WAVE_fact=0x66616374;
     const int32u WAVE_fmt_=0x666D7420;
     const int32u WAVE_ID3_=0x49443320;
@@ -429,6 +431,7 @@ void File_Riff::Data_Parse()
             ATOM_END
         LIST(WAVE_data)
             break;
+        ATOM(WAVE_ds64)
         ATOM(WAVE_fact)
         ATOM(WAVE_fmt_)
         ATOM(WAVE_ID3_)
@@ -2512,18 +2515,37 @@ void File_Riff::WAVE_data()
 }
 
 //---------------------------------------------------------------------------
+void File_Riff::WAVE_ds64()
+{
+    Element_Name("DataSize64");
+
+    //Parsing
+    int32u tableLength;
+    Skip_L8(                                                    "riffSize"); //Is directly read from the header parser
+    Get_L8 (WAVE_data_Size,                                     "dataSize");
+    Get_L8 (WAVE_fact_samplesCount,                             "sampleCount");
+    Get_L4 (tableLength,                                        "tableLength");
+    for (int32u Pos=0; Pos<tableLength; Pos++)
+        Skip_L8(                                                "table[]");
+}
+
+//---------------------------------------------------------------------------
 void File_Riff::WAVE_fact()
 {
     Element_Name("Sample count");
 
     //Parsing
+    int64u SamplesCount64;
     int32u SamplesCount;
     Get_L4 (SamplesCount,                                       "SamplesCount");
+    SamplesCount64=SamplesCount;
+    if (SamplesCount64==0xFFFFFFFF)
+        SamplesCount64=SamplesCount64;
 
     FILLING_BEGIN();
         int32u SamplingRate=Retrieve(Stream_Audio, 0, Audio_SamplingRate).To_int32u();
         if (SamplingRate)
-            Fill(Stream_Audio, 0, Audio_Duration, ((int64u)SamplesCount*1000)/SamplingRate);
+            Fill(Stream_Audio, 0, Audio_Duration, (SamplesCount64*1000)/SamplingRate);
     FILLING_END();
 }
 
