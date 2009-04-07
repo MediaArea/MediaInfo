@@ -288,8 +288,10 @@ File;Archivo
 File size;Tamaño del archivo
 File_Append;Añadir a un archivo existente (Advertencia: tenga cuidado de tener los mismos parámetros)
 File_Created_Date;Fecha de creación del archivo
+File_Created_Date_Local
 File_Hint;Seleccione un archivo multimedia para estudiar
 File_Modified_Date;Última fecha de modificación del archivo
+File_Modified_Date_Local
 FileExtension;Extensión del archivo
 FileName;Nombre del Archivo
 FileSize;Tamaño del archivo

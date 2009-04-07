@@ -288,8 +288,10 @@ File;Skedë
 File size;Masë e skedës
 File_Append;Bashkangjite te skeda ekzistuese (Kujdes : duhet të keni të njëjtët parametra)
 File_Created_Date;Datë e krijimit të skedës
+File_Created_Date_Local
 File_Hint;Studioni një skedë multimediale
 File_Modified_Date;Modifikimi i fundit i skedës
+File_Modified_Date_Local
 FileExtension;Shtojcë e skedës
 FileName;Emri i skedës
 FileSize;Masë e skedës
@@ -930,5 +932,5 @@ Written_Location;Vendndodhje e shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

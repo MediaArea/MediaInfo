@@ -288,8 +288,10 @@ File;Bestand
 File size;Bestandsgrootte
 File_Append;Toevoegen aan bestaande bestand (Waarschuwing : gebruik dezelfde parameters)
 File_Created_Date;Aanmaakdatum bestand
+File_Created_Date_Local
 File_Hint;Kies een te onderzoeken multimediabestand
 File_Modified_Date;Datum laatste bestandswijziging
+File_Modified_Date_Local
 FileExtension;Bestandsextensie
 FileName;Bestandsnaam
 FileSize;Bestandsgrootte

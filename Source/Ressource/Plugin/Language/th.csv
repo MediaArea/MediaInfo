@@ -288,8 +288,10 @@ File;แฟ้ม
 File size;ขนาดไฟล์
 File_Append;เพิ่มเติมไปยังไฟล์ที่มีอยู่ (คำเตือน : โปรดระมัดระวังเมื่อมีตัวแปรเดียวกัน)
 File_Created_Date;วันที่สร้างไฟล์
+File_Created_Date_Local
 File_Hint;เลือกไฟล์มัลติมีเดียเพื่อเรียนรู้
 File_Modified_Date;วันที่แก้ไขไฟล์ล่าสุด
+File_Modified_Date_Local
 FileExtension;ชนิดไฟล์
 FileName;ชื่อไฟล์
 FileSize;ขนาดไฟล์

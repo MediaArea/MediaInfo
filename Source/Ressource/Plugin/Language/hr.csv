@@ -288,8 +288,10 @@ File;Datoteka
 File size;Veličina datoteke
 File_Append;Prikačiti uz postojeću datoteku (Pozor: Pripazite na istovjetne parametere!)
 File_Created_Date;Nadnevak stvaranja datoteke
+File_Created_Date_Local
 File_Hint;Odaberite multimedijalnu datoteku za promotriti
 File_Modified_Date;Nadnevak posljednje izmjene datoteke
+File_Modified_Date_Local
 FileExtension;Nastavak naziva datoteke
 FileName;Naziv datoteke
 FileSize;Veličina datoteke

@@ -288,8 +288,10 @@ File;Arxiu
 File size;Mida d'arxiu
 File_Append;Crida a un arxiu existent (Atenció : tingueu cura. Han de ser els mateixos paràmetres)
 File_Created_Date
+File_Created_Date_Local
 File_Hint;Trieu l'arxiu Multimèdia
 File_Modified_Date
+File_Modified_Date_Local
 FileExtension;Extensió d'arxiu
 FileName;Nom de l'arxiu
 FileSize;Mida de l'arxiu
@@ -930,5 +932,5 @@ Written_Location;Inseriu el lloc de gravació
 WrittenBy;Escrit per
 Yes;Sí
 Your system;El vostre sistema
-ZZ_Automatic_Percent;87
+ZZ_Automatic_Percent;86
 ZZ_AutomaticLanguage_Percent;91

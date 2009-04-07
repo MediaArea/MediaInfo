@@ -288,8 +288,10 @@ File;Failas
 File size;Failo dydis
 File_Append;Prijungtas prie egzistuojančio failo (Dėmesio : nenaudokite tų pačių parametrų)
 File_Created_Date;Failo sukūrimo data
+File_Created_Date_Local
 File_Hint;Pasirinkite daugialypį failą studijavimui
 File_Modified_Date;Failo paskutinio modifikavimo data
+File_Modified_Date_Local
 FileExtension;Failo plėtinys
 FileName;Failo pavadinimas
 FileSize;Failo dydis

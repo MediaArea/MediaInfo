@@ -288,8 +288,10 @@ File;Файл
 File size;Памер файла
 File_Append;Дадаць да файла
 File_Created_Date;Файл створаны
+File_Created_Date_Local
 File_Hint;Аперацыі з файламі
 File_Modified_Date;Файл зменены
+File_Modified_Date_Local
 FileExtension;Пашырэнне
 FileName;Імя файла
 FileSize;Памер файла
@@ -930,5 +932,5 @@ Written_Location;Месца напісання
 WrittenBy;Напісана
 Yes;Так
 Your system;Ваша сістэма
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

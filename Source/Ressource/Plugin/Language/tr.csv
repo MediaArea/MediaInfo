@@ -288,8 +288,10 @@ File;Dosya
 File size;Dosya boyutu
 File_Append;Mevcut dosyaya ekle (Uyarı : aynı parametlere sahip olmak için dikkatli olun)
 File_Created_Date;Dosya oluşturma tarihi
+File_Created_Date_Local
 File_Hint;Çalışmak için çokluortam dosyası seç
 File_Modified_Date;Dosya son değiştirme tarihi
+File_Modified_Date_Local
 FileExtension;Dosya uzantısı
 FileName;Dosya adı
 FileSize;Dosya boyutu

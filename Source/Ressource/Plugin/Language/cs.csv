@@ -288,8 +288,10 @@ File;Soubor
 File size;Velikost souboru
 File_Append;Append to the existing file (Warning : be careful to have the same parameters)
 File_Created_Date
+File_Created_Date_Local
 File_Hint;Otevřít soubor
 File_Modified_Date
+File_Modified_Date_Local
 FileExtension;Přípona souboru
 FileName;Název souboru
 FileSize;Velikost souboru
@@ -931,4 +933,4 @@ WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
 ZZ_Automatic_Percent;81
-ZZ_AutomaticLanguage_Percent;86
+ZZ_AutomaticLanguage_Percent;85

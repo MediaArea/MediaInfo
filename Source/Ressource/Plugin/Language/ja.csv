@@ -288,8 +288,10 @@ File;ファイル
 File size;ファイルサイズ
 File_Append;既存ファイルに上書き (注意 : 同じパラメータは慎重に！)
 File_Created_Date;ファイル作成日
+File_Created_Date_Local
 File_Hint;このファイルの詳細
 File_Modified_Date;ファイル変更日
+File_Modified_Date_Local
 FileExtension;拡張子
 FileName;ファイル名
 FileSize;サイズ
@@ -930,5 +932,5 @@ Written_Location;作成所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97

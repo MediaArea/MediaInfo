@@ -288,8 +288,10 @@ File; Fil
 File size; Filstorlek
 File_Append; Lägg till till existerande fil (Varning : se till att du har använder samma parametrar!)
 File_Created_Date
+File_Created_Date_Local
 File_Hint; Välj en fil att betrakta
 File_Modified_Date
+File_Modified_Date_Local
 FileExtension; Filändelse
 FileName; Filnamn
 FileSize; Filstorlek

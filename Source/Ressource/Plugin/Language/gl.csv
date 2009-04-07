@@ -288,8 +288,10 @@ File;Arquivo
 File size;Tamaño do arquivo
 File_Append;Engadir ao arquivo existente (Deben ter os mesmos parámetros)
 File_Created_Date;Data de creación
+File_Created_Date_Local
 File_Hint;Selecciona un arquivo multimedia para analizar
 File_Modified_Date;Data de modificación
+File_Modified_Date_Local
 FileExtension;Extensión do arquivo
 FileName;Nome do arquivo
 FileSize;Tamaño do arquivo
@@ -930,5 +932,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;84
+ZZ_Automatic_Percent;83
 ZZ_AutomaticLanguage_Percent;88

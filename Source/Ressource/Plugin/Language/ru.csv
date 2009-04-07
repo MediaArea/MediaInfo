@@ -288,8 +288,10 @@ File;Файл
 File size;Размер файла
 File_Append;Добавить к файлу
 File_Created_Date;Файл создан
+File_Created_Date_Local
 File_Hint;Операции с файлами
 File_Modified_Date;Файл изменён
+File_Modified_Date_Local
 FileExtension;Расширение
 FileName;Имя файла
 FileSize;Размер файла

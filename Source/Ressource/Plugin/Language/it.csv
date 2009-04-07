@@ -288,8 +288,10 @@ File;File
 File size;Dimensione
 File_Append;Aggiungi a un file esistente (Attenzione: assicurarsi che abbiano caratteristiche uguali)
 File_Created_Date;Data creazione
+File_Created_Date_Local
 File_Hint;Seleziona più file da aprire
 File_Modified_Date;Data ultima modifica
+File_Modified_Date_Local
 FileExtension;Estensione
 FileName;Nome
 FileSize;Dimensione

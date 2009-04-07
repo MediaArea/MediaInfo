@@ -288,8 +288,10 @@ File;文件
 File size;文件大小
 File_Append;接在现有的文件后面 (警告: 同参数时要小心)
 File_Created_Date;文件创建日期
+File_Created_Date_Local
 File_Hint;选择多媒体文件
 File_Modified_Date;最后修改日期
+File_Modified_Date_Local
 FileExtension;扩展名
 FileName;文件名
 FileSize;文件大小

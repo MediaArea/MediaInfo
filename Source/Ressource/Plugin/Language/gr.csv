@@ -288,8 +288,10 @@ File;Αρχείο
 File size;Μέγεθος αρχείου
 File_Append;Πρόσθεση στο τέλος υπάρχοντος αρχείου (Προειδοποίηση : πρέπει να έχουν όμοιους παραμέτρους)
 File_Created_Date
+File_Created_Date_Local
 File_Hint;Επιλέξτε ένα αρχείο πολυμέσων για εξέταση
 File_Modified_Date
+File_Modified_Date_Local
 FileExtension;Επέκταση αρχείου
 FileName;Όνομα αρχείου
 FileSize;Μέγεθος αρχείου

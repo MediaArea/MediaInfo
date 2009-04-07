@@ -288,8 +288,10 @@ File;Fájl
 File size;Fájlméret
 File_Append;Meglévő fájlhoz hozzáfűzés (Figyelem: ügyeljünk az azonos paraméterekre)
 File_Created_Date;Fájl létrehozásának dátuma
+File_Created_Date_Local
 File_Hint;Adja meg a vizsgálandó fájt
 File_Modified_Date;Fájl módosításának dátuma
+File_Modified_Date_Local
 FileExtension;Fájl kiterjesztés
 FileName;Fájlnév
 FileSize;Fájlméret
@@ -930,5 +932,5 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;igen
 Your system;Rendszer
-ZZ_Automatic_Percent;92
+ZZ_Automatic_Percent;91
 ZZ_AutomaticLanguage_Percent;98

@@ -288,8 +288,10 @@ File;Datei
 File size;Dateigröße
 File_Append;An eine existierende Datei anhängen (Warnung! Auf gleiche Parameter achten!)
 File_Created_Date;Datum der Datei-Erstellung
+File_Created_Date_Local
 File_Hint;Wähle eine Multimedia-Datei zum Betrachten aus
 File_Modified_Date;Datum der letzten Datei-Veränderung
+File_Modified_Date_Local
 FileExtension;Dateierweiterung
 FileName;Dateiname
 FileSize;Dateigröße

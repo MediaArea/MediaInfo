@@ -288,8 +288,10 @@ File;파일
 File size;파일 크기
 File_Append;존재하는 파일에 이어쓰기 (경고 : 같은 파라미터인지 주의하세요)
 File_Created_Date;파일 만든 날짜
+File_Created_Date_Local
 File_Hint;조사할 미디어 파일을 선택
 File_Modified_Date;파일 수정한 날짜
+File_Modified_Date_Local
 FileExtension;파일 확장자
 FileName;파일명
 FileSize;파일 크기

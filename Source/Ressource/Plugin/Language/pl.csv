@@ -288,8 +288,10 @@ File;Plik
 File size;Rozmiar pliku
 File_Append;Dołącz do istniejacego pliku (Ostrzeżenie: Upewnij się, że ma takie same parametry)
 File_Created_Date;Data utworzenia pliku
+File_Created_Date_Local
 File_Hint;Wybierz plik multimedialny do przeanalizowania
 File_Modified_Date;Data ostatniej modyfikacji pliku
+File_Modified_Date_Local
 FileExtension;Rzoszerzenie pliku
 FileName;Nazwa pliku
 FileSize;Rozmiar pliku

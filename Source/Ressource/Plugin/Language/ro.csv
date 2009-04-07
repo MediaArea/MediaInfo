@@ -288,8 +288,10 @@ File;Fisier
 File size;Dimensiune fisier
 File_Append;Adaugare la fisierul existent
 File_Created_Date
+File_Created_Date_Local
 File_Hint;Selectati un fisier multimedia pentru analiza
 File_Modified_Date
+File_Modified_Date_Local
 FileExtension;Extensia fisierului
 FileName;Numele fisierului
 FileSize;Dimensiunea fisierului

@@ -288,8 +288,10 @@ File;فایل
 File size;اندازه فایل
 File_Append
 File_Created_Date;تاریخ ساخت فایل
+File_Created_Date_Local
 File_Hint;انتخاب فایل
 File_Modified_Date;تاریخ آخرین تغییرات فایل
+File_Modified_Date_Local
 FileExtension;پسوند فایل
 FileName;نام فایل
 FileSize;اندازه فابل
