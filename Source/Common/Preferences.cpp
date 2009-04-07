@@ -423,6 +423,8 @@ int Preferences::ExplorerShell()
         ".tp;FlashVideoFile\r\n"
         ".smv;SMVFile\r\n"
         ".dpg;DPGFile");
+        ".evo;EVOFile");
+        ".eac3;EAC3File");
 
     bool IsChanged=false;
     int32s ShellExtension=Config.Read(_T("ShellExtension")).To_int32s();
