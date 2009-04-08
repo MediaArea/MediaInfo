@@ -459,8 +459,6 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
     //Buffer - Global
     Read_Buffer_Finalize();
     Open_Buffer_Fill();
-    if (!IsAccepted)
-        Clear();
 
     //Element must be Finish
     while (Element_Level>0)

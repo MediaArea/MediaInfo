@@ -148,7 +148,6 @@ void File_Flac::Data_Parse()
             Fill(Stream_Audio, 0, Audio_StreamSize, File_Size-(File_Offset+Buffer_Offset+Element_Size));
 
         //No more need data
-        File__Tags_Helper::Accept("Flac");
         File__Tags_Helper::Finish("Flac");
     }
 }
@@ -176,22 +175,26 @@ void File_Flac::STREAMINFO()
     BS_End();
     Skip_B16(                                                   "MD5 signature of the unencoded audio data");
 
-    //Filling
-    if (SampleRate==0)
-        return;
-    File__Tags_Helper::Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "FLAC");
-    File__Tags_Helper::Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, 0, Audio_Format, "FLAC");
-    Fill(Stream_Audio, 0, Audio_Codec, "FLAC");
-    if (FrameSize_Min==FrameSize_Max && FrameSize_Min!=0 ) // 0 means it is unknown
-        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
-     else
-        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
-    Fill(Stream_Audio, 0, Audio_SamplingRate, SampleRate);
-    Fill(Stream_Audio, 0, Audio_Channel_s_, Channels+1);
-    Fill(Stream_Audio, 0, Audio_Resolution, BitPerSample+1);
-    Fill(Stream_Audio, 0, Audio_Duration, Samples*1000/SampleRate);
+    FILLING_BEGIN()
+        if (SampleRate==0)
+            return;
+        File__Tags_Helper::Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "FLAC");
+        File__Tags_Helper::Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "FLAC");
+        Fill(Stream_Audio, 0, Audio_Codec, "FLAC");
+        if (FrameSize_Min==FrameSize_Max && FrameSize_Min!=0 ) // 0 means it is unknown
+            Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
+         else
+            Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
+        Fill(Stream_Audio, 0, Audio_SamplingRate, SampleRate);
+        Fill(Stream_Audio, 0, Audio_Channel_s_, Channels+1);
+        Fill(Stream_Audio, 0, Audio_Resolution, BitPerSample+1);
+        Fill(Stream_Audio, 0, Audio_Duration, Samples*1000/SampleRate);
+
+        File__Tags_Helper::Accept("FLAC");
+        Buffer_MaximumSize=4*1024*1024;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

@@ -75,7 +75,7 @@ void File_VorbisCom::FileHeader_Parse()
         Stream_Prepare(Stream_General);
         if (StreamKind_Specific!=Stream_General)
             Stream_Prepare(StreamKind_Specific);
-        if (StreamKind_Specific!=Stream_General && StreamKind_Multiple!=StreamKind_Specific)
+        if (StreamKind_Multiple!=Stream_General && StreamKind_Multiple!=StreamKind_Specific)
             Stream_Prepare(StreamKind_Multiple);
 
         //vendor_string
@@ -194,6 +194,7 @@ void File_VorbisCom::Data_Parse()
         else if (Key==_T("COPYRIGHT"))              Fill(StreamKind_Common,   0, "Copyright", Value);
         else if (Key==_T("DATE"))                   Fill(StreamKind_Common,   0, "Recorded_Date", Value, true);
         else if (Key==_T("DESCRIPTION"))            Fill(StreamKind_Common,   0, "Description", Value);
+        else if (Key==_T("ENCODEDBY"))              Fill(StreamKind_Common,   0, "EncodedBy", Value);
         else if (Key==_T("ENCODER"))                Fill(StreamKind_Common,   0, "Encoded_Application", Value);
         else if (Key==_T("ENCODED_USING"))          Fill(StreamKind_Common,   0, "Encoded_Application", Value);
         else if (Key==_T("ENCODER_URL"))            Fill(StreamKind_Common,   0, "Encoded_Application/Url", Value);
