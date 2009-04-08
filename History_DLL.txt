@@ -14,6 +14,7 @@ Version 0.7.14, 2009-
 + AVI: Audio delay from the container
 x #2734021, E-AC3: some files were not detected
 x FLAC: some files with big attachments were not well detected
+x MKV: some huge video (3840*2160) were not well parsed (no encoding settings)
 
 Version 0.7.13, 2009-04-03
 -------------
