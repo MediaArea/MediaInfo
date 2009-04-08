@@ -181,24 +181,34 @@ void File_Riff::Read_Buffer_Finalize ()
             //Delay
             if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)==1 && Temp->second.Rate!=0 && Temp->second.Parser->Count_Get(Stream_General)>0)
             {
+                float Delay;
+                bool Delay_IsValid=false;
+
                      if (Temp->second.Parser->Buffer_TotalBytes_FirstSynched==0)
                 {
-                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, 0, 10, true);
-                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                    Delay=0;
+                    Delay_IsValid=true;
                 }
                 else if (Temp->second.Rate!=0)
                 {
-                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Rate, 0, true);
-                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                    Delay=((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Rate;
+                    Delay_IsValid=true;
                 }
                 else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u()!=0)
                 {
-                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u(), 0, true);
-                    Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
+                    Delay=((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
+                    Delay_IsValid=true;
                 }
                 else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u()!=0)
                 {
-                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, ((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u(), 0, true);
+                    Delay=((float)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u();
+                    Delay_IsValid=true;
+                }
+
+                if (Delay_IsValid)
+                {
+                    Delay+=((float)Temp->second.Start)*1000/Temp->second.Rate;
+                    Fill(Stream_Audio, StreamPos_Last, Audio_Delay, Delay, 0, true);
                     Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
                 }
             }

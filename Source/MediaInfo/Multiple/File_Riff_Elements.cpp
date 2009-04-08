@@ -1482,7 +1482,7 @@ void File_Riff::AVI__hdlr_strl_strh()
     Element_Name("Stream header");
 
     //Parsing
-    int32u fccType, fccHandler, Scale, Rate, Length;
+    int32u fccType, fccHandler, Scale, Rate, Start, Length;
     int16u Left, Top, Right, Bottom;
     Get_C4 (fccType,                                            "fccType");
     switch (fccType)
@@ -1499,7 +1499,7 @@ void File_Riff::AVI__hdlr_strl_strh()
     Skip_L4(                                                    "InitialFrames");
     Get_L4 (Scale,                                              "Scale");
     Get_L4 (Rate,                                               "Rate"); //Rate/Scale is stream tick rate in ticks/sec
-    Skip_L4(                                                    "Start");
+    Get_L4 (Start,                                              "Start");
     Get_L4 (Length,                                             "Length");
     Skip_L4(                                                    "SuggestedBufferSize");
     Skip_L4(                                                    "Quality");
@@ -1538,6 +1538,7 @@ void File_Riff::AVI__hdlr_strl_strh()
     Stream[Stream_ID].fccType=fccType;
     Stream[Stream_ID].fccHandler=fccHandler;
     Stream[Stream_ID].Rate=Rate;
+    Stream[Stream_ID].Start=Start;
 }
 
 //---------------------------------------------------------------------------

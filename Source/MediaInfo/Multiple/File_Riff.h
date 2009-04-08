@@ -61,6 +61,7 @@ private :
         int32u                  fccType;
         int32u                  fccHandler;
         int32u                  Rate;
+        int32u                  Start;
         int32u                  Compression;
         stream_t                StreamKind;
         size_t                  StreamPos;
@@ -78,6 +79,7 @@ private :
             fccType=0x00000000;
             fccHandler=0x00000000;
             Rate=0;
+            Start=0;
             Compression=0x00000000;
             StreamKind=Stream_Max;
             StreamPos=0;
