@@ -288,10 +288,10 @@ File;檔案
 File size;檔案大小
 File_Append;接在現存的檔案之後 (注意: 同參數時要小心)
 File_Created_Date;建立日期
-File_Created_Date_Local
+File_Created_Date_Local;建立日期 (本地時間)
 File_Hint;選擇要檢視的多媒體檔案
 File_Modified_Date;最後編輯日期
-File_Modified_Date_Local
+File_Modified_Date_Local;最後編輯日期 (本地時間)
 FileExtension;副檔名
 FileName;檔案
 FileSize;檔案大小
@@ -408,7 +408,7 @@ Genre_067;Psychadelic
 Genre_068;Rave
 Genre_069;Showtunes
 Genre_070;Trailer
-Genre_071;Lo-Fi
+Genre_071;低傳真 (Lo-Fi)
 Genre_072;Tribal
 Genre_073;Acid Punk
 Genre_074;Acid Jazz
@@ -932,5 +932,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
