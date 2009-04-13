@@ -104,7 +104,7 @@ std::string ExtensibleWave_ChannelMask (int32u ChannelMask)
         Text+=(ChannelMask&0x0003)?", R":" R";
 
     if ((ChannelMask&0x0030)!=0x0000)
-        Text+="/";
+        Text+=", Surround:";
     if (ChannelMask&0x0010)
         Text+=" L";
     if (ChannelMask&0x0020)
@@ -996,7 +996,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     CodecID_Fill(Codec, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Riff);
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec); //May be replaced by codec parser
     Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels!=5?Channels:6);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, (Channels!=5 || FormatTag==0xFFFE)?Channels:6);
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplesPerSec);
     Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, AvgBytesPerSec*8);
     if (BitsPerSample) Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, BitsPerSample);
