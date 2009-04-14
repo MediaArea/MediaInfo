@@ -1245,6 +1245,7 @@ void File_MpegTs::Detect_EOF()
                     for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
                     {
                         //End timestamp is out of date
+                        Complete_Stream->Streams[StreamID].Searching_TimeStamp_Start_Set(false); //No more searching start
                         Complete_Stream->Streams[StreamID].TimeStamp_End=(int64u)-1;
                         if (Complete_Stream->Streams[StreamID].TimeStamp_Start!=(int64u)-1)
                             Complete_Stream->Streams[StreamID].Searching_TimeStamp_End_Set(true); //Searching only for a start found
