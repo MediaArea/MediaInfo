@@ -233,6 +233,7 @@ void File_DvDif::Read_Buffer_Finalize()
 
 //---------------------------------------------------------------------------
 void File_DvDif::Header_Parse()
+#ifndef MEDIAINFO_MINIMIZESIZE
 {
     if (AuxToAnalyze!=0x00)
     {
@@ -261,6 +262,31 @@ void File_DvDif::Header_Parse()
     Header_Fill_Code(SCT, Dv_sct[SCT]);
     Header_Fill_Size(80);
 }
+#else //MEDIAINFO_MINIMIZESIZE
+{
+    if (Element_Size<4)
+    {
+        Element_WaitForMoreData();
+        return;
+    }
+
+    if (AuxToAnalyze!=0x00)
+    {
+        Header_Fill_Code(AuxToAnalyze);
+        Header_Fill_Size(4);
+        return;
+    }
+
+    //Parsing
+    int8u SCT     =(Buffer[Buffer_Offset  ]&0xE0)>>5;
+          FSC     =(Buffer[Buffer_Offset+1]&0x08)>>3;
+    DIFBlockNumber= Buffer[Buffer_Offset+2];
+    Element_Offset+=3;
+
+    Header_Fill_Code(SCT);
+    Header_Fill_Size(80);
+}
+#endif //MEDIAINFO_MINIMIZESIZE
 
 //---------------------------------------------------------------------------
 void File_DvDif::Data_Parse()
@@ -272,34 +298,37 @@ void File_DvDif::Data_Parse()
     }
 
     //Integrity
-    int8u Number=DIFBlockNumbers[FSC][(size_t)Element_Code]+1;
-    switch (Element_Code)
+    if (!IsAccepted)
     {
-        case 0 : //Header
-                    if (DIFBlockNumber!=0)
-                        Trusted_IsNot("Wrong order");
-                    break;
-        case 1 : //Subcode
-                    if (Number!=DIFBlockNumber && !(Number==2 && DIFBlockNumber==0))
-                        Trusted_IsNot("Wrong order");
-                    DIFBlockNumbers[FSC][1]=DIFBlockNumber;
-                    break;
-        case 2 : //Aux
-                    if (Number!=DIFBlockNumber && !(Number==3 && DIFBlockNumber==0))
-                        Trusted_IsNot("Wrong order");
-                    DIFBlockNumbers[FSC][2]=DIFBlockNumber;
-                    break;
-        case 3 : //Audio
-                    if (Number!=DIFBlockNumber && !(Number==9 && DIFBlockNumber==0))
-                        Trusted_IsNot("Wrong order");
-                    DIFBlockNumbers[FSC][3]=DIFBlockNumber;
-                    break;
-        case 4 : //Video
-                    if (Number!=DIFBlockNumber && !(Number==135 && DIFBlockNumber==0))
-                        Trusted_IsNot("Wrong order");
-                    DIFBlockNumbers[FSC][4]=DIFBlockNumber;
-                    break;
-        default: ;
+        int8u Number=DIFBlockNumbers[FSC][(size_t)Element_Code]+1;
+        switch (Element_Code)
+        {
+            case 0 : //Header
+                        if (DIFBlockNumber!=0)
+                            Trusted_IsNot("Wrong order");
+                        break;
+            case 1 : //Subcode
+                        if (Number!=DIFBlockNumber && !(Number==2 && DIFBlockNumber==0))
+                            Trusted_IsNot("Wrong order");
+                        DIFBlockNumbers[FSC][1]=DIFBlockNumber;
+                        break;
+            case 2 : //Aux
+                        if (Number!=DIFBlockNumber && !(Number==3 && DIFBlockNumber==0))
+                            Trusted_IsNot("Wrong order");
+                        DIFBlockNumbers[FSC][2]=DIFBlockNumber;
+                        break;
+            case 3 : //Audio
+                        if (Number!=DIFBlockNumber && !(Number==9 && DIFBlockNumber==0))
+                            Trusted_IsNot("Wrong order");
+                        DIFBlockNumbers[FSC][3]=DIFBlockNumber;
+                        break;
+            case 4 : //Video
+                        if (Number!=DIFBlockNumber && !(Number==135 && DIFBlockNumber==0))
+                            Trusted_IsNot("Wrong order");
+                        DIFBlockNumbers[FSC][4]=DIFBlockNumber;
+                        break;
+            default: ;
+        }
     }
 
     Element_Info(DIFBlockNumber);
@@ -310,8 +339,12 @@ void File_DvDif::Data_Parse()
         case 1 : Subcode(); break;
         case 2 : Aux(); break;
         case 3 : Audio(); break;
+        #ifndef MEDIAINFO_MINIMIZESIZE
         case 4 : Video(); break;
         default: Skip_XX(Element_Size,                          "Unknown");
+        #else //MEDIAINFO_MINIMIZESIZE
+        default: ;
+        #endif //MEDIAINFO_MINIMIZESIZE
     }
 
     //If small file
@@ -325,6 +358,7 @@ void File_DvDif::Data_Parse()
 
 //---------------------------------------------------------------------------
 void File_DvDif::Header()
+#ifndef MEDIAINFO_MINIMIZESIZE
 {
     BS_Begin();
     //3
@@ -388,9 +422,34 @@ void File_DvDif::Header()
         Subcode_First=false;
     FILLING_END();
 }
+#else //MEDIAINFO_MINIMIZESIZE
+{
+    dsf=(Buffer[Buffer_Offset  ]&0x80)?true:false;
+    apt=(Buffer[Buffer_Offset+1]&0x07);
+    tf1=(Buffer[Buffer_Offset+2]&0x80)?true:false;
+    tf2=(Buffer[Buffer_Offset+3]&0x80)?true:false;
+    tf3=(Buffer[Buffer_Offset+4]&0x80)?true:false;
+
+    FILLING_BEGIN();
+        dsf_IsValid=true;
+        FrameSize_Theory=(dsf?12:10)*150*80; //12 DIF sequences for PAL, 10 for NTSC
+
+        if (tf1 && tf2 && tf3)
+        {
+            //This is not logic, the header says no audio and no video! We do not trust the header, resetting all
+            tf1=false;
+            tf2=false;
+            tf3=false;
+        }
+
+        Subcode_First=false;
+    FILLING_END();
+}
+#endif //MEDIAINFO_MINIMIZESIZE
 
 //---------------------------------------------------------------------------
 void File_DvDif::Subcode()
+#ifndef MEDIAINFO_MINIMIZESIZE
 {
     if (tf3)
     {
@@ -404,6 +463,17 @@ void File_DvDif::Subcode()
 
     Subcode_First=true; //First --> Second Subcode
 }
+#else //MEDIAINFO_MINIMIZESIZE
+{
+    if (tf3)
+        return;
+
+    for (int8u syb_num=0; syb_num<6; syb_num++)
+        Subcode_Ssyb(syb_num);
+
+    Subcode_First=true; //First --> Second Subcode
+}
+#endif //MEDIAINFO_MINIMIZESIZE
 
 //---------------------------------------------------------------------------
 void File_DvDif::Subcode_Ssyb(int8u syb_num)
