@@ -11,9 +11,10 @@
 	<Default.Personality>  <Projects>
       <Projects Name="MediaInfoLib.lib">Library\MediaInfoLib.bdsproj</Projects>
       <Projects Name="MediaInfo.dll">Dll\MediaInfo.bdsproj</Projects>
+      <Projects Name="MediaInfo_i386.dll">Dll\MediaInfo_i386.bdsproj</Projects>
       <Projects Name="PreRelease.exe">PreRelease\PreRelease.bdsproj</Projects>
       <Projects Name="HowToUse_CLI.exe">Example\HowToUse_CLI.bdsproj</Projects>
-      <Projects Name="Targets">MediaInfoLib.lib MediaInfo.dll PreRelease.exe HowToUse_CLI.exe</Projects>
+      <Projects Name="Targets">MediaInfoLib.lib MediaInfo.dll MediaInfo_i386.dll PreRelease.exe HowToUse_CLI.exe</Projects>
     </Projects>
     <Dependencies/>
   </Default.Personality>
