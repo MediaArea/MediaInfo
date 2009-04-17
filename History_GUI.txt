@@ -12,10 +12,17 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
-Version 0.7.14, 2009-
+Version 0.7.14, 2009-04-17
 --------------
 + Belarusian, Russian, Chinese (Traditional) translations updated
 + 64-bits version of the installer (GUI is still 32-bit, but 64-bit DLL is included)
++ DLL-only installers are available (both 32 and 64 bits)
++ #2738780, local time display for modified/created date
++ WAV: RF64 (Wav files >4 GiB) support
++ AVI: Audio delay from the container
+x #2734021, E-AC-3: some files were not detected
+x FLAC: some files with big attachments were not well detected
+x MKV: some huge video (3840*2160) were not well parsed (no encoding settings)
 
 Version 0.7.13, 2009-04-03
 --------------

@@ -7,6 +7,15 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.14, 2009-04-17
+--------------
++ #2738780, local time display for modified/created date
++ WAV: RF64 (Wav files >4 GiB) support
++ AVI: Audio delay from the container
+x #2734021, E-AC-3: some files were not detected
+x FLAC: some files with big attachments were not well detected
+x MKV: some huge video (3840*2160) were not well parsed (no encoding settings)
+
 Version 0.7.13, 2009-04-03
 --------------
 x Returned value has changed, back to the normal behavior (0 if it is OK)
