@@ -12,6 +12,7 @@ No break in binary compatibily (no crash), but some details.
         example of complex string: "Time                       : en:English - fr:Francais / en:More info - fr:plus d'infos"
   Note: for MPEG-TS EPG (Electronic program), string has this optional info (and Date/Time instead of time only):
         "UTC YYYY-MM-DD HH:MM:SS          : Name / Description / Content type / Classification / Duration / Running status"
+  For third-party software, Chapters_Pos_Begin and Chapters_Pos_End fields are include for informing about the field positions of chapters
 
 0.7.8 --> 0.7.9
 ---------------
