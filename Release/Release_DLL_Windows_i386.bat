@@ -108,9 +108,12 @@ xcopy ..\..\MediaInfo\Project\MSVC\ShellExtension\*.bat MediaInfoDLL_Windows_i38
 
 rem --- Compressing Archive ---
 cd MediaInfoDLL_Windows_i386\
-..\..\..\Shared\Binary\Windows_i386\7-Zip\7z a -r -t7z -mx9 ..\MediaInfo_DLL_Windows_i386.7z *
-..\..\..\Shared\Binary\Windows_i386\7-Zip\7z a -r -tzip ..\MediaInfo_DLL_Windows_i386.zip *
+..\..\..\Shared\Binary\Windows_i386\7-Zip\7z a -r -t7z -mx9 ..\MediaInfo_DLL_Windows_i386_WithoutInstaller.7z *
 cd ..
+
+rem --- Installer ---
+..\..\Shared\Binary\Windows_i386\NSIS\makensis ..\Source\Install\MediaInfo_DLL_Windows_i386.nsi
+
 
 rem --- Clean up ---
 if "%1"=="SkipCleanUp" goto SkipCleanUp
