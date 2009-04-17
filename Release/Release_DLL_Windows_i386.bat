@@ -95,6 +95,7 @@ xcopy Example.ogg MediaInfoDLL_Windows_i386\Developers\
 rem --- Copying : Information files ---
 copy ..\License.html MediaInfoDLL_Windows_i386\Developers\
 copy ..\History_DLL.txt MediaInfoDLL_Windows_i386\Developers\History.txt
+copy ..\Changes.txt MediaInfoDLL_Windows_i386\Developers\
 copy ReadMe_DLL_Windows.txt MediaInfoDLL_Windows_i386\ReadMe.txt
 
 rem --- Copying : Contrib ---
