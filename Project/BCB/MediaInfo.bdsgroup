@@ -10,12 +10,13 @@
 	</PersonalityInfo>
 	<Default.Personality>  <Projects>
       <Projects Name="MediaInfo_GUI.exe">GUI\MediaInfo_GUI.bdsproj</Projects>
+      <Projects Name="MediaInfo_GUI_x64.exe">GUI\MediaInfo_GUI_x64.bdsproj</Projects>
       <Projects Name="MediaInfo_GUI_WithoutLib.exe">GUI\MediaInfo_GUI_WithoutLib.bdsproj</Projects>
       <Projects Name="PreRelease.exe">PreRelease\PreRelease.bdsproj</Projects>
       <Projects Name="MediaInfo_CLI.exe">CLI\MediaInfo_CLI.bdsproj</Projects>
       <Projects Name="MediaInfo_WxWidgets.exe">WxWidgets\MediaInfo_WxWidgets.bdsproj</Projects>
       <Projects Name="MediaInfo_WxWidgets_WithoutLib.exe">WxWidgets\MediaInfo_WxWidgets_WithoutLib.bdsproj</Projects>
-      <Projects Name="Targets">MediaInfo_GUI.exe MediaInfo_GUI_WithoutLib.exe PreRelease.exe MediaInfo_CLI.exe MediaInfo_WxWidgets.exe MediaInfo_WxWidgets_WithoutLib.exe</Projects>
+      <Projects Name="Targets">MediaInfo_GUI.exe MediaInfo_GUI_x64.exe MediaInfo_GUI_WithoutLib.exe PreRelease.exe MediaInfo_CLI.exe MediaInfo_WxWidgets.exe MediaInfo_WxWidgets_WithoutLib.exe</Projects>
     </Projects>
     <Dependencies/>
   </Default.Personality>

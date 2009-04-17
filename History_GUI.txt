@@ -15,6 +15,7 @@ Known bugs
 Version 0.7.14, 2009-
 --------------
 + Belarusian, Russian, Chinese (Traditional) translations updated
++ 64-bits version of the installer (GUI is still 32-bit, but 64-bit DLL is included)
 
 Version 0.7.13, 2009-04-03
 --------------
