@@ -31,7 +31,7 @@ cd ..
 
 rem --- Installer ---
 copy BCB\GUI\MediaInfo_GUI.exe BCB\GUI\MediaInfo.exe
-..\..\Shared\Binary\Windows_i386\NSIS\makensis ..\Source\Install\MediaInfo.nsi
+..\..\Shared\Binary\Windows_i386\NSIS\makensis ..\Source\Install\MediaInfo_GUI_Windows_i386.nsi
 
 rem --- Clean up ---
 if "%1"=="SkipCleanUp" goto SkipCleanUp
