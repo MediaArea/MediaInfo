@@ -422,8 +422,8 @@ int Preferences::ExplorerShell()
         ".rmvb;FlashVideoFile\r\n"
         ".tp;FlashVideoFile\r\n"
         ".smv;SMVFile\r\n"
-        ".dpg;DPGFile");
-        ".evo;EVOFile");
+        ".dpg;DPGFile\r\n"
+        ".evo;EVOFile\r\n"
         ".eac3;EAC3File");
 
     bool IsChanged=false;
