@@ -48,6 +48,7 @@ xcopy ..\Source\*.au3 MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.pb MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.py MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\Doc\* MediaInfo_Lib_Source\Source\Doc\ /S
+xcopy ..\Source\Install\MediaInfo.nsi MediaInfo_Source\Source\Install\
 
 @rem --- Copying : Projects ---
 xcopy ..\Project\*.bpg MediaInfo_Lib_Source\Project\ /S
