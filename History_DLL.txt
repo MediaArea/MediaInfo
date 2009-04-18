@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.15, 20
+-------------
+x DTS: 768/1536 Kbps streams are corrected to the real bitrate (755/1510 Kbps)
+
 Version 0.7.14, 2009-04-17
 -------------
 + #2738780, local time display for modified/created date
