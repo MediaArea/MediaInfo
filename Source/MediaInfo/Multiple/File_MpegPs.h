@@ -48,7 +48,6 @@ public :
     int32u format_identifier_FromTS;//Registration from TS
     int8u  MPEG_Version;            //MPEG_Version from TS
     bool   Searching_TimeStamp_Start;
-    bool   Searching_TimeStamp_End;
 
     //Out
     bool   HasTimeStamps;

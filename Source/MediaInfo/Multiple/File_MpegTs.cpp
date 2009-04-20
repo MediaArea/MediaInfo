@@ -1258,7 +1258,6 @@ void File_MpegTs::Detect_EOF()
                         if (Complete_Stream->Streams[StreamID].Parser)
                         {
                             Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_Start_Set(false); //No more searching start
-                            ((File_MpegPs*)Complete_Stream->Streams[StreamID].Parser)->Searching_TimeStamp_Start=false;
                             if (((File_MpegPs*)Complete_Stream->Streams[StreamID].Parser)->HasTimeStamps)
                                 Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_End_Set(true); //Searching only for a start found
                             Complete_Stream->Streams[StreamID].Parser->Open_Buffer_Unsynch();

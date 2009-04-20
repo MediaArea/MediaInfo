@@ -198,7 +198,6 @@ File_MpegPs::File_MpegPs()
     format_identifier_FromTS=0x00000000; //No info
     MPEG_Version=0; //No info
     Searching_TimeStamp_Start=true;
-    Searching_TimeStamp_End=true;
 
     //Out
     HasTimeStamps=false;
@@ -368,6 +367,8 @@ void File_MpegPs::Synched_Init()
 //---------------------------------------------------------------------------
 void File_MpegPs::Read_Buffer_Unsynched()
 {
+    Searching_TimeStamp_Start=false;
+
     if (Streams.empty())
        return;
 
@@ -754,7 +755,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u start_code)
         PTS=(((int64u)PTS_32)<<30)
           | (((int64u)PTS_29)<<15)
           | (((int64u)PTS_14));
-        if (Searching_TimeStamp_End && Streams[start_code].Searching_TimeStamp_End && start_code!=0xBD && start_code!=0xFD) //0xBD and 0xFD can contain multiple streams, TimeStamp management is in Streams management
+        if (Streams[start_code].Searching_TimeStamp_End && start_code!=0xBD && start_code!=0xFD) //0xBD and 0xFD can contain multiple streams, TimeStamp management is in Streams management
         {
             Streams[start_code].TimeStamp_End.PTS.TimeStamp=PTS;
         }
@@ -786,7 +787,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u start_code)
         PTS=(((int64u)PTS_32)<<30)
           | (((int64u)PTS_29)<<15)
           | (((int64u)PTS_14));
-        if (Searching_TimeStamp_End && Streams[start_code].Searching_TimeStamp_End)
+        if (Streams[start_code].Searching_TimeStamp_End)
         {
             Streams[start_code].TimeStamp_End.PTS.TimeStamp=PTS;
         }
@@ -815,7 +816,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u start_code)
         DTS=(((int64u)DTS_32)<<30)
           | (((int64u)DTS_29)<<15)
           | (((int64u)DTS_14));
-        if (Searching_TimeStamp_End && Streams[start_code].Searching_TimeStamp_End)
+        if (Streams[start_code].Searching_TimeStamp_End)
         {
             Streams[start_code].TimeStamp_End.DTS.File_Pos=File_Offset+Buffer_Offset;
             Streams[start_code].TimeStamp_End.DTS.TimeStamp=DTS;
@@ -893,7 +894,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         PTS=(((int64u)PTS_32)<<30)
           | (((int64u)PTS_29)<<15)
           | (((int64u)PTS_14));
-        if (Searching_TimeStamp_End && Streams[start_code].Searching_TimeStamp_End)
+        if (Streams[start_code].Searching_TimeStamp_End)
         {
             Streams[start_code].TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
             Streams[start_code].TimeStamp_End.PTS.TimeStamp=PTS;
@@ -929,7 +930,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         PTS=(((int64u)PTS_32)<<30)
           | (((int64u)PTS_29)<<15)
           | (((int64u)PTS_14));
-        if (Searching_TimeStamp_End && Streams[start_code].Searching_TimeStamp_End)
+        if (Streams[start_code].Searching_TimeStamp_End)
         {
             Streams[start_code].TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
             Streams[start_code].TimeStamp_End.PTS.TimeStamp=PTS;
@@ -959,7 +960,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         DTS=(((int64u)DTS_32)<<30)
           | (((int64u)DTS_29)<<15)
           | (((int64u)DTS_14));
-        if (Searching_TimeStamp_End && Streams[start_code].Searching_TimeStamp_End)
+        if (Streams[start_code].Searching_TimeStamp_End)
         {
             Streams[start_code].TimeStamp_End.DTS.File_Pos=File_Offset+Buffer_Offset;
             Streams[start_code].TimeStamp_End.DTS.TimeStamp=DTS;
