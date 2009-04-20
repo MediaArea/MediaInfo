@@ -10,7 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.15, 20
 -------------
 x DTS: 768/1536 Kbps streams are corrected to the real bitrate (755/1510 Kbps)
-x MPEG-TS: some stream duration were not well computed (few seconds only)
+x MPEG-TS: some stream durations were not well computed (few seconds only)
 
 Version 0.7.14, 2009-04-17
 -------------
