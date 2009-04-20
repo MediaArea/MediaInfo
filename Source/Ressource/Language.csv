@@ -735,7 +735,7 @@ mn;хв.;mn;mn;min;mn;min.;;mn;mn;mn; perc;min;分;분;mn;mn; min.;mn;mn;mn; м.
 Mood;Настрой;humor;Mood;Stimmung;Mood;Humor;حالت;Humeur;Humor;Mood;Hangnem;Disposizione;ムード;무드;Nuotaika;Stemming;Nastrój;Descrição;Descrição;Mod;Настроение;Gjendje shpirtërore; Humör;Mood;Mizaç;Тональність;情绪;情緒;Raspoloženje
 More;Яшчэ...;Més;Více;Mehr;More;Más;بیشتر;Plus;Máis info;Περισσότερα;Több;Altro;さらに;상세;Daugiau;Meer;Więcej;Mais;Mais;Mai mult(e);Ещё...;Akoma; Mer;เพิ่มเติม;Daha;Ще;更多;更多;Više...
 Movie;Фільм;Nom de la pel·lícula;Název filmu;Filmname;Movie name;Película;نام فیلم;Nom du film;Nome da película;Όνομα ταινίας;Film;Film;映画名;영화 이름;Filmo pavadinimas;Filmnaam;Tytuł filmu;Nome do Filme;Nome do Filme;Numele filmului;Фильм;Emri i filmit; filmnamn;ชื่อภาพยนตร์;Film adı;Назва фільму;电影;電影名稱;Naslov filma
-ms;мс;ms;ms;ms;ms;ms;;ms;ms;ms;emp;ms;秒;미리초;ms;ms;ms;ms;ms;; мс.;ms; ms;ms;ms;мс;片名;毫秒;ms
+ms;мс;ms;ms;ms;ms;ms;;ms;ms;ms;emp;ms;秒;미리초;ms;ms;ms;ms;ms;; мс.;ms; ms;ms;ms;мс;ms;毫秒;ms
 MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;;MSDI;MSDI; MSDI;MSDI;MSDI;MSDI;MSDI;MSDI;MSDI
 MusicBy;Кампазітар;;;Musik von;Music by;Música de;;Musique par;;;Zeneszerző;Composto da;演奏者;음악;;Muziek door;Kompozytor;;;;Композитор;Muzikë nga;;;Müziği yapan;;音乐制作;配樂者;Glazba
 MuxingMode;Рэжым змешвання;;;Muxing-Modus;Muxing mode;Modo Muxing;حالت کثیف;Type de muxing;;;Keverési mód;Modalità di muxing;Muxing モード;먹싱 모드;Muxing rėžimas;Muxingmodus;Tryb multipleksowania;;Modo de Multiplexação;;Режим смешивания;Mënyrë e muksimit;;โหมด Muxing;Çoklamalı mod;;混合模式;合成模式;Muxing mode
@@ -932,5 +932,5 @@ Written_Location;Месца напісання;Inseriu el lloc de gravació;Writ
 WrittenBy;Напісана;Escrit per;Napsal;Geschrieben von;Written by;Escrito por;نوشته شده توسط;Ecrit par;Escrito por;Γραμμένο από;Írta;Realizzato da;著者;제작자;Parašė;Geschreven door;Napisał;Escrito por;Escrito por;Scris de;Написано;Shkruar nga; Skrivet av;เขียนโดย;Yazan;Написано;作者;撰寫人;Napisao
 Yes;Так;Sí;Ano;Ja;Yes;Si;بله;Oui;Si;Ναι;igen;Si ;はい;예;Taip;Ja;Tak;Sim;Sim;Da;Да;Po; Ja;ใช่;Evet;Так;是;是;Da
 Your system;Ваша сістэма;El vostre sistema;Instalované kodeky;Deine Systeminformationen;Your system;Tu sistema;سیستم شما;Votre système;O teu sistema;Το σύστημά σας;Rendszer;Il tuo sistema;システム情報;이 시스템;Jūsų sistema;Uw systeem;System;Seu sistema;Seu sistema;Sistemul dvs;Ваша система;Sistemi yt; Ditt system;ระบบของคุณ;Sisteminiz;Ваша система;您的系统;您的系統;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;99;86;81;99;100;83;56;100;83;81;91;99;97;98;88;99;88;81;89;36;99;99;79;87;94;80;99;99;99
-ZZ_AutomaticLanguage_Percent;99;91;85;99;100;99;89;100;88;86;98;99;97;99;92;99;99;86;94;76;99;99;84;92;99;85;99;99;99
+ZZ_Automatic_Percent;99;86;81;99;100;83;56;100;83;81;91;99;97;98;88;99;88;81;89;36;99;99;79;87;94;80;99;100;99
+ZZ_AutomaticLanguage_Percent;99;91;85;99;100;99;89;100;88;86;98;99;97;99;92;99;99;86;94;76;99;99;84;92;99;85;99;100;99
