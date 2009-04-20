@@ -469,7 +469,11 @@ void File_Riff::Header_Parse()
      || Name==Elements::RF64
      || Name==Elements::ON2_
      || Name==Elements::FORM)
+    {
+        if (Name==Elements::RF64)
+            Fill(Stream_General, 0, General_Format_Profile, "RF64");
         Get_C4 (Name,                                           "Real Name");
+    }
 
     //Integrity
     if (Name==0x00000000)
