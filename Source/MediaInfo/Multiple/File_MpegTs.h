@@ -98,6 +98,7 @@ private :
     #endif
     int64u MpegTs_JumpTo_Begin;
     int64u MpegTs_JumpTo_End;
+    bool   Searching_TimeStamp_Start;
 
     //File__Duplicate
     void   File__Duplicate_Delete();

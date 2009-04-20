@@ -1318,7 +1318,7 @@ void File_MpegPs::pack_start()
         Streams[0xBA].TimeStamp_End.PTS.TimeStamp=(((int64u)SysClock_32)<<30)
                                                 | (((int64u)SysClock_29)<<15)
                                                 | (((int64u)SysClock_14));
-        if (Streams[0xBA].Searching_TimeStamp_Start)
+        if (Searching_TimeStamp_Start && Streams[0xBA].Searching_TimeStamp_Start)
         {
             Streams[0xBA].TimeStamp_Start=Streams[0xBA].TimeStamp_End;
             Streams[0xBA].Searching_TimeStamp_Start=false;
@@ -1355,7 +1355,7 @@ void File_MpegPs::pack_start()
         Streams[0xBA].TimeStamp_End.PTS.TimeStamp=(((int64u)SysClock_32)<<30)
                                                 | (((int64u)SysClock_29)<<15)
                                                 | (((int64u)SysClock_14));
-        if (Streams[0xBA].Searching_TimeStamp_Start)
+        if (Searching_TimeStamp_Start && Streams[0xBA].Searching_TimeStamp_Start)
         {
             Streams[0xBA].TimeStamp_Start=Streams[0xBA].TimeStamp_End;
             Streams[0xBA].Searching_TimeStamp_Start=false;
@@ -1568,9 +1568,9 @@ void File_MpegPs::private_stream_1()
         if (!IsAccepted)
             Data_Accept("MPEG-PS");
     }
-    if (Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start)
+    if (Searching_TimeStamp_Start && Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start)
     {
-        Streams_Private1[private_stream_1_ID].TimeStamp_Start=Streams[0xBD].TimeStamp_End;
+        Streams_Private1[private_stream_1_ID].TimeStamp_Start=Streams[0xBD].TimeStamp_Start;
         Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start=false;
     }
     Streams_Private1[private_stream_1_ID].TimeStamp_End=Streams[0xBD].TimeStamp_End;
@@ -2443,9 +2443,9 @@ void File_MpegPs::extension_stream()
         if (!IsAccepted)
             Data_Accept("MPEG-PS");
     }
-    if (Streams_Extension[Extension].Searching_TimeStamp_Start)
+    if (Searching_TimeStamp_Start && Streams_Extension[Extension].Searching_TimeStamp_Start)
     {
-        Streams_Extension[Extension].TimeStamp_Start=Streams[0xFD].TimeStamp_End;
+        Streams_Extension[Extension].TimeStamp_Start=Streams[0xFD].TimeStamp_Start;
         Streams_Extension[Extension].Searching_TimeStamp_Start=false;
     }
     Streams_Extension[Extension].TimeStamp_End=Streams[0xFD].TimeStamp_End;
