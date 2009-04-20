@@ -66,6 +66,7 @@ private :
     void Synched_Init();
 
     //Buffer - Global
+    void Read_Buffer_Unsynched();
     void Read_Buffer_Finalize ();
 
     //Buffer - Per element

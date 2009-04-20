@@ -164,7 +164,11 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
 
     //Jump handling
     if (File_GoTo!=(int64u)-1)
-        Read_Buffer_Unsynched();
+    {
+        Synched=false;
+        File_GoTo=(int64u)-1;
+        Buffer_Clear();
+    }
 
     //Configuring
     if (MediaInfoLib::Config.FormatDetection_MaximumOffset_Get())
@@ -412,7 +416,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     while (Buffer_Parse());
 
     //Jumping to the end of the file if needed
-    if (!EOF_AlreadyDetected && Count_Get(Stream_General))
+    if (!IsSub && !EOF_AlreadyDetected && Count_Get(Stream_General))
     {
         Element[Element_Level].WaitForMoreData=false;
         Detect_EOF();
@@ -422,6 +426,12 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
             return;
         }
     }
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Open_Buffer_Unsynch ()
+{
+    Read_Buffer_Unsynched();
 }
 
 //---------------------------------------------------------------------------
@@ -490,14 +500,6 @@ void File__Analyze::Open_Buffer_Finalize (File__Analyze* Sub)
 //***************************************************************************
 // Buffer
 //***************************************************************************
-
-//---------------------------------------------------------------------------
-void File__Analyze::Read_Buffer_Unsynched()
-{
-    Synched=false;
-    File_GoTo=(int64u)-1;
-    Buffer_Clear();
-}
 
 //---------------------------------------------------------------------------
 bool File__Analyze::Buffer_Parse()
