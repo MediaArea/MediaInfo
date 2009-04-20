@@ -127,13 +127,11 @@ private :
             {
                 int64u File_Pos;
                 int64u TimeStamp;
-                int64u Is_Valid;
 
                 Mpeg_TimeStamp_TS()
                 {
                     File_Pos=(int64u)-1;
                     TimeStamp=(int64u)-1;
-                    Is_Valid=false;
                 }
             };
 
