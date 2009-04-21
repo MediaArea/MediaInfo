@@ -146,7 +146,7 @@ About_Hint;Kontaktoni dhe gjeni versionin e fundit
 Accompaniment;Shoqëruesi
 Actor;Aktori
 Actor_Character;Personazhi i luajtur
-Added_Date;Datë e shtimit
+Added_Date;Data e shtimit
 Address;Adresa
 Advanced;Avancuar
 Advanced mode;Mënyrë e avancuar
@@ -178,7 +178,7 @@ Basic_Note;Shënim : për më tepër info rreth skedës, mund të zgjidhni një 
 BitRate;Raporti i bitit
 BitRate_Maximum;Raporti maksimal i bitit
 BitRate_Minimum;Raporti minimal i bitit
-BitRate_Mode;Mënyrë e raportit të bitit
+BitRate_Mode;Mënyra e raportit të bitit
 BitRate_Mode_CBR;Konstante
 BitRate_Mode_VBR;Variabël
 BitRate_Nominal;Raporti nominal i bitit
@@ -203,7 +203,7 @@ Choose language;Zgjidheni gjuhën që doni
 Choregrapher;Koreografi
 Chroma;Kroma
 Close;Mbylle
-Close all before open;Mbylli infot gjatë hapjes
+Close all before open;Mbyll infot gjatë hapjes
 Codec;Kodeku
 Codec_Description;Përshkrimi i kodekut
 Codec_Info;Detajet e kodekut
@@ -225,7 +225,7 @@ Codec_Url;Linku në rrjet i kodekut
 CodecID;ID i kodekut
 CodecID_Description;Përshkrimi i kodekut
 Collection;Koleksioni
-Colorimetry;Kolorimetria
+Colorimetry;Kolorimetri
 Comment;Komenti
 CommissionedBy;Autorizuar nga
 CompleteName;Emri i plotë
@@ -250,10 +250,10 @@ Customize;Porosite
 Date;Data
 Debug;Debug
 Decimal point;Pika dhjetore
-Delay;Vonesë
+Delay;Vonesa
 Delete;Fshije
 Description;Përshkrimi
-Digitized_Date;Datë e shifruar
+Digitized_Date;Data e shifruar
 Dimensions;Dimensione
 Director;Regjisori
 DirectorOfPhotography;Regjisori i fotografisë
@@ -263,13 +263,13 @@ DistributedBy;Shpërndarë nga
 Donate;Jep kontribut
 DotsPerInch;Pika për inç
 Duration;Kohëzgjatje
-Duration_End;Kohë e përfundimit
-Duration_Start;Kohë e nisjes
+Duration_End;Koha e përfundimit
+Duration_Start;Koha e nisjes
 Edit;Edito
 EditedBy;Edituar nga
-EMail;Posta-E
+EMail;Posta-e
 Encoded_Application;Aplikimi i shkrimit
-Encoded_Date;Datë e kodimit
+Encoded_Date;Data e kodimit
 Encoded_Library;Librari e shkrimit
 Encoded_Library_Settings;Vendosjet e kodimit
 Encoded_Original;Origjinal
@@ -285,16 +285,16 @@ Extensions;Shtojcat e zakonshme
 Family;Familje
 Fax;Faks
 File;Skedë
-File size;Masë e skedës
+File size;Masa e skedës
 File_Append;Bashkangjite te skeda ekzistuese (Kujdes : duhet të keni të njëjtët parametra)
-File_Created_Date;Datë e krijimit të skedës
-File_Created_Date_Local
+File_Created_Date;Data e krijimit të skedës
+File_Created_Date_Local;Data e krijimit të skedës (lokale)
 File_Hint;Studioni një skedë multimediale
 File_Modified_Date;Modifikimi i fundit i skedës
-File_Modified_Date_Local
-FileExtension;Shtojcë e skedës
+File_Modified_Date_Local;Modifikimi i fundit i skedës
+FileExtension;Shtojca e skedës
 FileName;Emri i skedës
-FileSize;Masë e skedës
+FileSize;Masa e skedës
 Folder;Dosje
 Folder (R);Dosje (R)
 Folder (R)_Hint;Studioni një dosje (me gjithë dosjet si rekursive)
@@ -328,7 +328,7 @@ Format_Version;Versioni i formatit
 Format_Url;Linku në rrjet i formatit
 FrameCount;Numri i kuadrove
 FrameRate;Raporti i kuadrit
-FrameRate_Mode;Mënyrë e raportit të kuadrit
+FrameRate_Mode;Mënyra e raportit të kuadrit
 FrameRate_Mode_CFR;Konstant
 FrameRate_Mode_VFR;Variabël
 FrameRate_Minimum;Raporti minimal i kuadrit
@@ -336,7 +336,7 @@ FrameRate_Nominal;Raporti nominal i kuadrit
 FrameRate_Maximum;Raporti maksimal i kuadrit
 FrameRate_Original;Raporti origjinal i kuadrit
 General;Përgjithësi
-Genre;Gjinia
+Genre;Gjini
 Genre_000;Blues
 Genre_001;Classic Rock
 Genre_002;Country
@@ -502,7 +502,7 @@ Image stream(s);Rrymat e figurës
 Image_Codec_List;Kodekët e figurës
 ImageCount;Numri i rrymave të figurës
 Info;Info
-Instruments;Instrumentat
+Instruments;Instrumenti
 Interlacement;Gërshetimi
 Interlaced_Interlaced;Gërshetohet
 Interlaced_TFF;Më Parë Fusha Sipër
@@ -719,9 +719,9 @@ LCCN;LCCN
 Library;Librari e muksimit
 Lightness;Dritësi
 List;Lista
-Lyrics;Fjalët
+Lyrics;Fjalë
 Lyricist;Shkrimtari
-Mastered_Date;Datë e masterizimit
+Mastered_Date;Data e masterizimit
 MasteredBy;Masterizuar nga
 MediaInfo_About;Jep informacione shumë të detajuara për\r\nskedat multimediale:\r\nMatroska, OGG (përfshirë OGM)\r\nMPEG1 (përfshirë VCD)\r\nMPEG2 (përfshirë DVD dhe SVCD)\r\nMPEG4 (përfshirë Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (përfshirë WMV, WMA)\r\nMicrosoft RIFF (përfshirë AVI, WAV)\r\nFormate zanore (AC3, DTS, AAC, AU, AIFF...)
 Menu;Meny
@@ -738,10 +738,10 @@ Movie;Emri i filmit
 ms;ms
 MSDI;MSDI
 MusicBy;Muzikë nga
-MuxingMode;Mënyrë e muksimit
-MuxingMode_PackedBitstream;Rrymë e bitit e paketuar
+MuxingMode;Mënyra e muksimit
+MuxingMode_PackedBitstream;Rryma e bitit e paketuar
 Name;Emri
-Nationality;Kombësia
+Nationality;Kombësi
 NetworkName;Emri i rrjetit
 New;E re
 Newest version;Verifiko versionin më të ri (nevojitet lidhje me internet)
@@ -757,7 +757,7 @@ OpenCandy_03;Lidhja me internetin e ndërprerë
 OpenCandy_04;Shkarkimi i ________ i përfunduar
 OpenCandy_05;Kliko për të instaluar ________
 OpenCandy_06;A jeni i sigurt se doni të anuloni instalimin?\r\nNëse do e shtyni instalimin për më vonë, zgjidheni 'Jo'.\r\nShënim: Mund të zgjidhni Dalje nga menyja për të ndryshuar instalimin herën tjetër që kompjuteri do të rinisë.
-OpenCandy_07;Shkarkimi i ________ është pushuar.\r\nKlikoni mbi ikonën në shirit për të rimarrë shkarkimin.
+OpenCandy_07;Shkarkimi i ________ është pushuar.\r\nKlikoni mbi ikonën në brez për të rimarrë shkarkimin.
 OpenCandy_08;Ka ndodhur një gabim kritik. Instalimi i _________ do të ndërpritet.
 OpenCandy_09;Pusho shkarkimin
 OpenCandy_10;Anulo shkarkimin
@@ -791,7 +791,7 @@ Options;Mundësi
 Options_Hint;Pëlqime
 Original;Origjinal
 OriginalNetworkName;Emri origjinal i rrjetit
-OriginalSourceForm;Formë origjinale e burimit
+OriginalSourceForm;Forma origjinale e burimit
 OriginalSourceMedium;Mediumi origjinal i burimit
 Other;Tjetër
 Output;Outputi
@@ -799,7 +799,7 @@ Output format;Formati i outputit
 OverallBitRate;Raporti i plotë i bitit
 OverallBitRate_Maximum;Raporti maksimal i plotë i bitit
 OverallBitRate_Minimum;Raporti minimal i plotë i bitit
-OverallBitRate_Mode;Mënyrë e raportit të plotë të bitit
+OverallBitRate_Mode;Mënyra e raportit të plotë të bitit
 OverallBitRate_Nominal;Raporti nominal i plotë i bitit
 Part;Pjesa
 Part_Count;Numri total
@@ -812,7 +812,7 @@ PlayCounter;Njehsori i lojës
 Played_Count;Herët e Luajtura
 Played_First_Date;Luajtur në Fillim
 Played_Last_Date;Luajtur së Fundmi
-PlayTime;Kohë e lojës
+PlayTime;Koha e lojës
 Position;Pozicioni
 Position_Total;Totali
 Preferences;Pëlqime
@@ -820,13 +820,13 @@ Producer;Producenti
 ProductionDesigner;Modeluesi i produksionit
 ProductionStudio;Studio e produksionit
 Publisher;Publikuesi
-Purchased_Date;Datë e blerjes
+Purchased_Date;Data e blerjes
 Quote character;Citimi i personazhit
 RadioStation;Stacioni i radios
 Rating;Vlerësimi
-Recorded_Date;Datë e regjistrimit
+Recorded_Date;Data e regjistrimit
 Recorded_Location;Vendndodhje e regjistrimit
-Released_Date;Datë e lëshimit
+Released_Date;Data e lëshimit
 RemixedBy;Miksuar nga
 ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Piku i replay gain
@@ -836,7 +836,7 @@ SamplingRate;Raporti i shëmbëllimit
 Save;Ruaje
 ScanType;Lloji i skanimit
 ScanOrder;Rendi i skanimit
-ScreenplayBy;Vënia në ekran nga
+ScreenplayBy;Vënë në ekran nga
 Season;Sezoni
 see below;shih poshtë
 Send HeaderFile;Ju lutem dërgoni këtu Kokën e skedës : http://sourceforge.net/projects/mediainfo/ (Sektori Bug)
@@ -855,7 +855,7 @@ Sheet (Complete);Fletë (Plot)
 Shell extension;Shto në bazë (kur në Explorer klikohet me të djathtën do të jetë mundësia Media Info)
 Shell InfoTip;Këshilla Informuese në bazë (në Explorer, çojeni mausin mbi skedë, do të shfaqen info)
 Show menu;Trego menynë
-Show toolbar;Trego shiritin e mjeteve
+Show toolbar;Trego brezin e mjeteve
 Sort;Radhitur nga
 SoundEngineer;Inxhinieri i zërit
 Standard;Standardi
@@ -866,7 +866,7 @@ StreamID;ID i rrymës
 StreamKind;Lloji i rrymës
 StreamKindID;Identifikuesi i rrymës
 StreamKindPos;Identifikuesi i rrymës
-StreamSize;Masë e rrymës
+StreamSize;Masa e rrymës
 StreamSize_Proportion;Proporcioni i rrymës
 Subject;Subjekti
 SubTrack;NënKolona
@@ -876,7 +876,7 @@ Supported?;Përkrahet?
 Synopsis;Konspekti
 SystemId;Id
 Tagged_Application;Aplikimi i etiketimit
-Tagged_Date;Datë e etiketimit
+Tagged_Date;Data e etiketimit
 Technician;Tekniku
 TermsOfUse;Termat e përdorimit
 Text;Tekst
@@ -908,7 +908,7 @@ Video stream(s);Rryma(t) e videos
 Video_Codec_List;Kodekët e videos
 Video_Delay;Vonesë e videos
 Video_No;Pa video
-Video0_Delay;Vonesë e videos
+Video0_Delay;Vonesa e videos
 Video1;Rryma e parë video
 VideoCount;Numri i rrymave të videos
 View;Pamje
@@ -917,8 +917,8 @@ Warning : more streams in the files;Kujdes : në skeda ka më tepër rryma
 Web;Rrjet
 WebSite_Audio;Shko në truallin në rrjet të kodekut për audio
 WebSite_Audio_More;Shko në truallin në rrjet (%Url%) për të gjetur kodekun për audio
-WebSite_General;Shko në truallin në rrjet të një luajtësi për këtë skedë
-WebSite_General_More;Shko në truallin në rrjet të një luajtësi për këtë skedë
+WebSite_General;Shko në truallin në rrjet të luajtësit për këtë skedë
+WebSite_General_More;Shko në truallin në rrjet të luajtësit për këtë skedë
 WebSite_Text;Shko në truallin në rrjet të kodekut për tekst
 WebSite_Text_More;Shko në truallin në rrjet (%Url%) për të gjetur kodekun për tekst
 WebSite_Url;http://mediainfo.sourceforge.net
@@ -927,10 +927,10 @@ WebSite_Video_More;Shko në truallin në rrjet (%Url%) për të gjetur kodekun p
 Width;Gjerësi
 WriteMe;Më shkruaj
 WriteToTranslator;Shkruaji përkthyesit
-Written_Date;Datë e shkrimit
+Written_Date;Data e shkrimit
 Written_Location;Vendndodhje e shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100

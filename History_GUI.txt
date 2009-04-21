@@ -14,7 +14,7 @@ Known bugs
 
 Version 0.7.15, 2009-
 --------------
-+ Chinese (Simplified) translations updated
++ Chinese (Simplified), Albanian translations updated
 
 Version 0.7.14, 2009-04-17
 --------------
