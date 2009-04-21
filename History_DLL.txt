@@ -11,6 +11,7 @@ Version 0.7.15, 20
 -------------
 x DTS: 768/1536 Kbps streams are corrected to the real bitrate (755/1510 Kbps)
 x MPEG-TS: some stream durations were not well computed (few seconds only)
+x AVC: freeze with some malformed encoder settings
 
 Version 0.7.14, 2009-04-17
 -------------

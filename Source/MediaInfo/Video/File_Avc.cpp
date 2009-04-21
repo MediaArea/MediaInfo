@@ -1092,11 +1092,19 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
                 Ztring option;
                 Get_Local (Options_Pos-Options_Pos_Before, option, "option");
                 Options_Pos_Before=Options_Pos;
-                if (Options_Pos_Before+3<=Data.size())
+                do
                 {
-                    Skip_Local(1,                               "separator");
-                    Options_Pos_Before+=1;
+                    Ztring Separator;
+                    Peek_Local(1, Separator);
+                    if (Separator==_T(" "))
+                    {
+                        Skip_Local(1,                               "separator");
+                        Options_Pos_Before+=1;
+                    }
+                    else
+                        break;
                 }
+                while (Options_Pos_Before!=Data.size());
 
                 //Filling
                 if (option!=_T("options:"))
