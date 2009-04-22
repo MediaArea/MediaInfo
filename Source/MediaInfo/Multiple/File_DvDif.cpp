@@ -41,7 +41,7 @@ const char*  Dv_sct[]=
 {
     "Header",
     "Subcode",
-    "Aux",
+    "VAUX",
     "Audio",
     "Video",
     "",
@@ -179,21 +179,16 @@ File_DvDif::File_DvDif()
     FrameCount=0;
     FrameSize_Theory=0;
     Duration=0;
-    Subcode_First=true;
-    apt=0xFF; //Impossible
-    dsf_IsValid=false;
-    tf1=false; //Valid by default, for direct analyze
-    tf2=false; //Valid by default, for direct analyze
-    tf3=false; //Valid by default, for direct analyze
+    DBN_Olds[1]=1; //SubCode
+    DBN_Olds[2]=2; //Vaux
+    DBN_Olds[3]=8; //Audio
+    DBN_Olds[4]=134; //Video
+    DSF_IsValid=false;
+    APT=0xFF; //Impossible
+    TF1=false; //Valid by default, for direct analyze
+    TF2=false; //Valid by default, for direct analyze
+    TF3=false; //Valid by default, for direct analyze
     TimeCode_First=(int64u)-1;
-    DIFBlockNumbers[0][1]=1; //SubCode
-    DIFBlockNumbers[1][1]=1; //SubCode
-    DIFBlockNumbers[0][2]=2; //Aux
-    DIFBlockNumbers[1][2]=2; //Aux
-    DIFBlockNumbers[0][3]=8; //Audio
-    DIFBlockNumbers[1][3]=8; //Audio
-    DIFBlockNumbers[0][4]=134; //Video
-    DIFBlockNumbers[1][4]=134; //Video
 }
 
 //***************************************************************************
@@ -247,17 +242,15 @@ void File_DvDif::Header_Parse()
     BS_Begin();
     //0
     Get_S1 (3, SCT,                                             "SCT - Section Type"); Param_Info(Dv_sct[SCT]);
-    Skip_SB(                                                    "Reserved");
+    Skip_SB(                                                    "Res - Reserved");
     Skip_S1(4,                                                  "Arb - Arbitrary bits");
     //1
-    Skip_S1(4,                                                  "Dseq - DIF sequence number"); //0-9 for 525/60; 0-11 for 625/50
+    Get_S1 (4, Dseq,                                            "Dseq - DIF sequence number"); //0-9 for 525/60; 0-11 for 625/50
     Get_S1 (1, FSC,                                             "FSC - Channel number");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
+    Skip_S1(3,                                                  "Res - Reserved");
     BS_End();
     //2
-    Get_B1 (DIFBlockNumber,                                     "DIF block number"); //Video: 0-134, Audio: 0-8
+    Get_B1 (DBN,                                                "DBN - DIF block number"); //Video: 0-134, Audio: 0-8
 
     Header_Fill_Code(SCT, Dv_sct[SCT]);
     Header_Fill_Size(80);
@@ -279,8 +272,9 @@ void File_DvDif::Header_Parse()
 
     //Parsing
     int8u SCT     =(Buffer[Buffer_Offset  ]&0xE0)>>5;
+          Dseq    =(Buffer[Buffer_Offset+1]&0xF0)>>4;
           FSC     =(Buffer[Buffer_Offset+1]&0x08)>>3;
-    DIFBlockNumber= Buffer[Buffer_Offset+2];
+          DBN     = Buffer[Buffer_Offset+2];
     Element_Offset+=3;
 
     Header_Fill_Code(SCT);
@@ -300,56 +294,67 @@ void File_DvDif::Data_Parse()
     //Integrity
     if (!IsAccepted)
     {
-        int8u Number=DIFBlockNumbers[FSC][(size_t)Element_Code]+1;
+        //DIF Sequence Numbers
+        if (DSF_IsValid)
+        {
+            if (Dseq_Old!=Dseq)
+            {
+                if (!(!DSF && Dseq_Old==10)
+                 && !( DSF && Dseq_Old==12))
+                    Trusted_IsNot("Wrong order");
+                Dseq_Old=Dseq;
+            }
+        }
+
+        //DIF Block Numbers
+        int8u Number=DBN_Olds[(size_t)Element_Code]+1;
         switch (Element_Code)
         {
             case 0 : //Header
-                        if (DIFBlockNumber!=0)
+                        if (DBN!=0)
                             Trusted_IsNot("Wrong order");
                         break;
             case 1 : //Subcode
-                        if (Number!=DIFBlockNumber && !(Number==2 && DIFBlockNumber==0))
+                        if (Number!=DBN && !(Number==2 && DBN==0))
                             Trusted_IsNot("Wrong order");
-                        DIFBlockNumbers[FSC][1]=DIFBlockNumber;
+                        DBN_Olds[1]=DBN;
                         break;
-            case 2 : //Aux
-                        if (Number!=DIFBlockNumber && !(Number==3 && DIFBlockNumber==0))
+            case 2 : //VAUX
+                        if (Number!=DBN && !(Number==3 && DBN==0))
                             Trusted_IsNot("Wrong order");
-                        DIFBlockNumbers[FSC][2]=DIFBlockNumber;
+                        DBN_Olds[2]=DBN;
                         break;
             case 3 : //Audio
-                        if (Number!=DIFBlockNumber && !(Number==9 && DIFBlockNumber==0))
+                        if (Number!=DBN && !(Number==9 && DBN==0))
                             Trusted_IsNot("Wrong order");
-                        DIFBlockNumbers[FSC][3]=DIFBlockNumber;
+                        DBN_Olds[3]=DBN;
                         break;
             case 4 : //Video
-                        if (Number!=DIFBlockNumber && !(Number==135 && DIFBlockNumber==0))
+                        if (Number!=DBN && !(Number==135 && DBN==0))
                             Trusted_IsNot("Wrong order");
-                        DIFBlockNumbers[FSC][4]=DIFBlockNumber;
+                        DBN_Olds[4]=DBN;
                         break;
             default: ;
         }
     }
 
-    Element_Info(DIFBlockNumber);
+    Element_Info(DBN);
 
     switch (Element_Code)
     {
         case 0 : Header(); break;
         case 1 : Subcode(); break;
-        case 2 : Aux(); break;
+        case 2 : VAUX(); break;
         case 3 : Audio(); break;
         #ifndef MEDIAINFO_MINIMIZESIZE
         case 4 : Video(); break;
         default: Skip_XX(Element_Size,                          "Unknown");
-        #else //MEDIAINFO_MINIMIZESIZE
-        default: ;
         #endif //MEDIAINFO_MINIMIZESIZE
     }
 
     //If small file
     if (!IsAccepted && (FrameCount>=1 && File_Offset+Buffer_Offset+Element_Size==File_Size))
-        video_control_Fill();
+        video_sourcecontrol_Fill();
 }
 
 //***************************************************************************
@@ -362,45 +367,27 @@ void File_DvDif::Header()
 {
     BS_Begin();
     //3
-    Get_SB (   dsf,                                             "DSF - DIF sequence flag"); //0=NTSC, 1=PAL
-    Mark_0();
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
+    Get_SB (   DSF,                                             "DSF - DIF Sequence Flag"); //0=NTSC, 1=PAL
+    Skip_SB(                                                    "Zero");
+    Skip_S1(6,                                                  "Reserved");
 
     //4
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Get_S1 (3, apt,                                             "APT"); //Track application ID, 0=4:2:0, 1=not 4:2:0
+    Skip_S1(5,                                                  "Reserved");
+    Get_S1 (3, APT,                                             "APT"); //Track application ID, 0=4:2:0, 1=not 4:2:0
 
     //5
-    Get_SB (   tf1,                                             "TF1 - Audio data is not valid");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
+    Get_SB (   TF1,                                             "TF1 - Audio data is not valid");
+    Skip_S1(4,                                                  "Reserved");
     Skip_S1(3,                                                  "AP1 - Audio application ID");
 
     //6
-    Get_SB (  tf2,                                              "TF2 - Video data is not valid");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Skip_S1(3,                                                  "AP3 - Video application ID");
+    Get_SB (  TF2,                                              "TF2 - Video data is not valid");
+    Skip_S1(4,                                                  "Reserved");
+    Skip_S1(3,                                                  "AP2 - Video application ID");
 
     //7
-    Get_SB (  tf3,                                              "TF3 - Subcode is not valid");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
-    Skip_SB(                                                    "Reserved");
+    Get_SB (  TF3,                                              "TF3 - Subcode is not valid");
+    Skip_S1(4,                                                  "Reserved");
     Skip_S1(3,                                                  "AP3 - Subcode application ID");
 
     //8-79
@@ -408,41 +395,39 @@ void File_DvDif::Header()
     Skip_XX(72,                                                 "Reserved"); //Should be filled with 0xFF
 
     FILLING_BEGIN();
-        dsf_IsValid=true;
-        FrameSize_Theory=(dsf?12:10)*150*80; //12 DIF sequences for PAL, 10 for NTSC
+        DSF_IsValid=true;
+        Dseq_Old=DSF?12:10;
+        FrameSize_Theory=(DSF?12:10)*150*80; //12 DIF sequences for PAL, 10 for NTSC
 
-        if (tf1 && tf2 && tf3)
+        if (TF1 && TF2)
         {
             //This is not logic, the header says no audio and no video! We do not trust the header, resetting all
-            tf1=false;
-            tf2=false;
-            tf3=false;
+            TF1=false;
+            TF2=false;
+            TF3=false;
         }
-
-        Subcode_First=false;
     FILLING_END();
 }
 #else //MEDIAINFO_MINIMIZESIZE
 {
-    dsf=(Buffer[Buffer_Offset  ]&0x80)?true:false;
-    apt=(Buffer[Buffer_Offset+1]&0x07);
-    tf1=(Buffer[Buffer_Offset+2]&0x80)?true:false;
-    tf2=(Buffer[Buffer_Offset+3]&0x80)?true:false;
-    tf3=(Buffer[Buffer_Offset+4]&0x80)?true:false;
+    DSF=(Buffer[Buffer_Offset  ]&0x80)?true:false;
+    APT=(Buffer[Buffer_Offset+1]&0x07);
+    TF1=(Buffer[Buffer_Offset+2]&0x80)?true:false;
+    TF2=(Buffer[Buffer_Offset+3]&0x80)?true:false;
+    TF3=(Buffer[Buffer_Offset+4]&0x80)?true:false;
 
     FILLING_BEGIN();
-        dsf_IsValid=true;
-        FrameSize_Theory=(dsf?12:10)*150*80; //12 DIF sequences for PAL, 10 for NTSC
+        DSF_IsValid=true;
+        Dseq_Old=DSF?12:10;
+        FrameSize_Theory=(DSF?12:10)*150*80; //12 DIF sequences for PAL, 10 for NTSC
 
-        if (tf1 && tf2 && tf3)
+        if (TF1 && TF2)
         {
             //This is not logic, the header says no audio and no video! We do not trust the header, resetting all
-            tf1=false;
-            tf2=false;
-            tf3=false;
+            TF1=false;
+            TF2=false;
+            TF3=false;
         }
-
-        Subcode_First=false;
     FILLING_END();
 }
 #endif //MEDIAINFO_MINIMIZESIZE
@@ -451,27 +436,25 @@ void File_DvDif::Header()
 void File_DvDif::Subcode()
 #ifndef MEDIAINFO_MINIMIZESIZE
 {
-    if (tf3)
+    //Present?
+    if (TF3)
     {
         Skip_XX(Element_Size,                                   "Unused");
         return;
     }
 
+    //Parsing
     for (int8u syb_num=0; syb_num<6; syb_num++)
         Subcode_Ssyb(syb_num);
     Skip_XX(29,                                                 "Unused");
-
-    Subcode_First=true; //First --> Second Subcode
 }
 #else //MEDIAINFO_MINIMIZESIZE
 {
-    if (tf3)
+    if (TF3)
         return;
 
     for (int8u syb_num=0; syb_num<6; syb_num++)
         Subcode_Ssyb(syb_num);
-
-    Subcode_First=true; //First --> Second Subcode
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
@@ -480,35 +463,38 @@ void File_DvDif::Subcode_Ssyb(int8u syb_num)
 {
     Element_Begin("ssyb");
 
+    //Parsing
     BS_Begin();
     //ID0-ID1
     Skip_SB(                                                    "FR - Identification of half of channel"); //1=first half, 0=second
     if (syb_num==0)
         Skip_S1( 3,                                             "AP3 - Subcode application ID");
-    else if (Subcode_First && syb_num==5)
+    else if (DBN==1 && syb_num==5)
         Skip_S1(3,                                              "APT - track application ID");
     else
-    {
-        Skip_SB(                                                "Reserved");
-        Skip_SB(                                                "Reserved");
-        Skip_SB(                                                "Reserved");
-    }
-    Skip_S1(8,                                                  "Arbitrary bits");
+        Skip_S1(3,                                              "Res - Reserved");
+    Skip_S1(8,                                                  "Arb - Arbitrary bits");
     Skip_S1(4,                                                  "Syb - SSYSB number");
-
-    //FFh
     BS_End();
-    Skip_B1(                                                    "FFh");
-
-    //An Element
+    //FFh
+    Skip_B1(                                                    "0xFF");
+    //PC0-PC4
     Element();
 
     Element_End();
 }
 
 //---------------------------------------------------------------------------
-void File_DvDif::Aux()
+void File_DvDif::VAUX()
 {
+    //Present?
+    if (TF2)
+    {
+        Skip_XX(Element_Size,                                   "Unused");
+        return;
+    }
+
+    //Parsing
     for (int8u i=0; i<15; i++)
         Element();
     Skip_XX(2,                                                  "Unused");
@@ -523,30 +509,36 @@ void File_DvDif::Aux()
 //---------------------------------------------------------------------------
 void File_DvDif::Audio()
 {
-    Element_Name("Audio");
-
-    if (tf1)
+    //Present?
+    if (TF1)
     {
         Skip_XX(Element_Size,                                   "Unused");
         return;
     }
 
-    Element();
+    Element_Name("Audio");
 
+    Element(); //First 5 bytes
     Skip_XX(Element_Size-Element_Offset,                        "Unknown");
 }
 
 //---------------------------------------------------------------------------
 void File_DvDif::Video()
 {
-    Element_Name("Video");
-
-    if (tf2)
+    //Present?
+    if (TF2)
     {
         Skip_XX(Element_Size,                                   "Unused");
         return;
     }
 
+    Element_Name("Video");
+
+    //Parsing
+    BS_Begin();
+    Skip_S1(4,                                                  "STA");
+    Skip_S1(4,                                                  "QNO");
+    BS_End();
     Skip_XX(Element_Size-Element_Offset,                        "Unknown");
 }
 
@@ -564,11 +556,11 @@ void File_DvDif::Element()
     {
         case 0x13 : timecode(); break;
         case 0x50 : audio_source(); break;
-        case 0x51 : audio_control(); break;
+        case 0x51 : audio_sourcecontrol(); break;
         case 0x52 : audio_recdate(); break;
         case 0x53 : audio_rectime(); break;
         case 0x60 : video_source(); break;
-        case 0x61 : video_control(); break;
+        case 0x61 : video_sourcecontrol(); break;
         case 0x62 : video_recdate(); break;
         case 0x63 : video_rectime(); break;
         case 0xFF : Element_Name(Ztring().From_Number(PackType, 16));
@@ -589,46 +581,46 @@ void File_DvDif::timecode()
     int8u Frames=0;
     BS_Begin();
     Skip_SB(                                                    "CF - Color fame");
-    if (!dsf_IsValid)
+    if (!DSF_IsValid)
         Skip_SB(                                                "Arbitrary bit or DP");
-    else if (dsf)    //625/50
+    else if (DSF)    //625/50
         Skip_SB(                                                "Arbitrary bit");
-    else        //525/60
+    else            //525/60
         Skip_SB(                                                "DP - Drop frame"); //525/60
     Get_S1 (2, Temp,                                            "Frames (Tens)");
     Frames+=Temp*10;
     Get_S1 (4, Temp,                                            "Frames (Units)");
     Frames+=Temp;
-    if (dsf_IsValid && Temp!=0xF)
-        Time+=(int64u)(Frames/(dsf?25.000:29.970)*1000);
+    if (DSF_IsValid && Temp!=0xF)
+        Time+=(int64u)(Frames/(DSF?25.000:29.970)*1000);
 
-    if (!dsf_IsValid)
+    if (!DSF_IsValid)
         Skip_SB(                                                "BGF0 or PC");
-    else if (dsf)    //625/50
+    else if (DSF)   //625/50
         Skip_SB(                                                "BGF0 - Binary group flag");
-    else        //525/60
+    else            //525/60
         Skip_SB(                                                "PC - Biphase mark polarity correction"); //0=even; 1=odd
     Get_S1 (3, Temp,                                            "Seconds (Tens)");
     Time+=Temp*10*1000;
     Get_S1 (4, Temp,                                            "Seconds (Units)");
     Time+=Temp*1000;
 
-    if (!dsf_IsValid)
+    if (!DSF_IsValid)
         Skip_SB(                                                "BGF2 or BGF0");
-    else if (dsf)    //625/50
+    else if (DSF)    //625/50
         Skip_SB(                                                "BGF2 - Binary group flag");
-    else        //525/60
+    else            //525/60
         Skip_SB(                                                "BGF0 - Binary group flag");
     Get_S1 (3, Temp,                                            "Minutes (Tens)");
     Time+=Temp*10*60*1000;
     Get_S1 (4, Temp,                                            "Minutes (Units)");
     Time+=Temp*60*1000;
 
-    if (!dsf_IsValid)
+    if (!DSF_IsValid)
         Skip_SB(                                                "PC or BGF1");
-    else if (dsf)    //625/50
+    else if (DSF)    //625/50
         Skip_SB(                                                "PC - Biphase mark polarity correction"); //0=even; 1=odd
-    else        //525/60
+    else            //525/60
         Skip_SB(                                                "BGF1 - Binary group flag");
     Skip_SB(                                                    "BGF2 - Binary group flag");
     Get_S1 (2, Temp,                                            "Hours (Tens)");
@@ -645,7 +637,7 @@ void File_DvDif::timecode()
 //---------------------------------------------------------------------------
 void File_DvDif::audio_source()
 {
-    if (tf1)
+    if (TF1)
     {
         Skip_XX(4,                                              "Unused");
         return;
@@ -668,7 +660,7 @@ void File_DvDif::audio_source()
 
     Skip_SB(                                                    "Reserved");
     Skip_SB(                                                    "ML - Multi-language");
-    Get_SB (   dsf,                                             "50/60"); Param_Info(dsf?"PAL":"NTSC"); //As dsf
+    Skip_SB(                                                    "50/60");
     Get_S1 (5, stype,                                           "STYPE - audio blocks per video frame"); Param_Info(stype==0?"2 channels":(stype==2?"4 channels":"Unknown")); //0=25 Mbps, 2=50 Mbps
 
     Skip_SB(                                                    "EF - Emphasis off");
@@ -678,7 +670,6 @@ void File_DvDif::audio_source()
     BS_End();
 
     FILLING_BEGIN();
-        dsf_IsValid=true;
         if (!IgnoreAudio && (FrameCount==1 || AuxToAnalyze)) //Only the first time
         {
             Stream_Prepare(Stream_Audio);
@@ -704,9 +695,9 @@ void File_DvDif::audio_source()
 }
 
 //---------------------------------------------------------------------------
-void File_DvDif::audio_control()
+void File_DvDif::audio_sourcecontrol()
 {
-    if (tf1)
+    if (TF1)
     {
         Skip_XX(4,                                              "Unused");
         return;
@@ -746,7 +737,7 @@ void File_DvDif::audio_control()
 //---------------------------------------------------------------------------
 void File_DvDif::audio_recdate()
 {
-    if (tf1)
+    if (TF1)
     {
         Skip_XX(4,                                              "Unused");
         return;
@@ -760,7 +751,7 @@ void File_DvDif::audio_recdate()
 //---------------------------------------------------------------------------
 void File_DvDif::audio_rectime()
 {
-    if (tf1)
+    if (TF1)
     {
         Skip_XX(4,                                              "Unused");
         return;
@@ -774,7 +765,7 @@ void File_DvDif::audio_rectime()
 //---------------------------------------------------------------------------
 void File_DvDif::video_source()
 {
-    if (tf2)
+    if (TF2)
     {
         Skip_XX(4,                                              "Unused");
         return;
@@ -796,7 +787,7 @@ void File_DvDif::video_source()
 
     //PC3
     Skip_S1(2,                                                  "SRC");
-    Get_SB (   dsf,                                             "50/60 - System"); Param_Info(dsf?"PAL":"NTSC"); //As dsf
+    Skip_SB(                                                    "50/60 - System");
     Get_S1 (4, stype,                                           "STYPE - Signal type of video signal"); //0=not 4:2:2, 4=4:2:2
 
     //PC4
@@ -804,39 +795,38 @@ void File_DvDif::video_source()
     Skip_B1(                                                    "TUN/VISC");
 
     FILLING_BEGIN();
-        dsf_IsValid=true;
         if (FrameCount==0 || AuxToAnalyze) //Only the first time
         {
             Stream_Prepare(Stream_Video);
             Fill(Stream_Video, 0, Video_Format, "Digital Video");
             Fill(Stream_Video, 0, Video_Codec, "DV");
-            Fill(Stream_Video, 0, Video_Standard, dsf?"PAL":"NTSC");
+            Fill(Stream_Video, 0, Video_Standard, DSF?"PAL":"NTSC");
             Fill(Stream_Video, 0, Video_Width, 720);
-            Fill(Stream_Video, 0, Video_Height, dsf?576:480);
-            Fill(Stream_Video, 0, Video_FrameRate, dsf?25.000:29.970);
+            Fill(Stream_Video, 0, Video_Height, DSF?576:480);
+            Fill(Stream_Video, 0, Video_FrameRate, DSF?25.000:29.970);
             Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
 
-            if (dsf==false && stype==4) //NTSC and 4:2:2
+            if (DSF==false && stype==4) //NTSC and 4:2:2
                 Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2");       //NTSC 50 Mbps
-            else if (dsf==false) //NTSC and not 4:2:2 (--> 4:1:1)
+            else if (DSF==false) //NTSC and not 4:2:2 (--> 4:1:1)
                 Fill(Stream_Video, 0, Video_Colorimetry, "4:1:1");       //NTSC 25 Mbps
             else if (stype==4) //PAL and 4:2:2
                 Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2");       //PAL  50 Mbps
-            else if (apt==0) //PAL and 4:2:0
+            else if (APT==0) //PAL and 4:2:0
                 Fill(Stream_Video, 0, Video_Colorimetry, "4:2:0");       //PAL  25 Mbps 4:2:0
-            else if (apt==1) //PAL and not 4:2:0 (--> 4:1:1)
+            else if (APT==1) //PAL and not 4:2:0 (--> 4:1:1)
                 Fill(Stream_Video, 0, Video_Colorimetry, "4:1:1");       //PAL  25 Mbps 4:1:1
 
             if (FrameSize_Theory)
-                Duration=(int64u)(File_Size*1000/(FrameSize_Theory*(dsf?25.000:29.970)));
+                Duration=(int64u)(File_Size*1000/(FrameSize_Theory*(DSF?25.000:29.970)));
         }
     FILLING_END();
 }
 
 //---------------------------------------------------------------------------
-void File_DvDif::video_control()
+void File_DvDif::video_sourcecontrol()
 {
-    if (tf2)
+    if (TF2)
     {
         Skip_XX(4,                                              "Unused");
         return;
@@ -876,12 +866,12 @@ void File_DvDif::video_control()
     FILLING_BEGIN();
         FrameCount++;
         if (!IsAccepted && (FrameCount>=Frame_Count_Valid || AuxToAnalyze))
-            video_control_Fill();
+            video_sourcecontrol_Fill();
     FILLING_END();
 }
 
 //---------------------------------------------------------------------------
-void File_DvDif::video_control_Fill()
+void File_DvDif::video_sourcecontrol_Fill()
 {
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "Digital Video");
@@ -900,7 +890,7 @@ void File_DvDif::video_control_Fill()
 //---------------------------------------------------------------------------
 void File_DvDif::video_recdate()
 {
-    if (tf2)
+    if (TF2)
     {
         Skip_XX(4,                                              "Unused");
         return;
@@ -916,7 +906,7 @@ void File_DvDif::video_recdate()
 //---------------------------------------------------------------------------
 void File_DvDif::video_rectime()
 {
-    if (tf2)
+    if (TF2)
     {
         Skip_XX(4,                                              "Unused");
         return;
@@ -980,7 +970,7 @@ Ztring File_DvDif::recdate()
 //---------------------------------------------------------------------------
 Ztring File_DvDif::rectime()
 {
-    if (!dsf_IsValid)
+    if (!DSF_IsValid)
     {
         Trusted_IsNot("Not in right order");
         return Ztring();
@@ -997,8 +987,8 @@ Ztring File_DvDif::rectime()
     Frames+=Temp*10;
     Get_S1 (4, Temp,                                            "Frames (Units)");
     Frames+=Temp;
-    if (Temp!=0xF)
-        Time+=(int64u)(Frames/(dsf?25.000:29.970));
+    if (Temp!=0xF && DSF_IsValid)
+        Time+=(int64u)(Frames/(DSF?25.000:29.970));
     Mark_1();
     Get_S1 (3, Temp,                                            "Seconds (Tens)");
     Time+=Temp*10*1000;
