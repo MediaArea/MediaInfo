@@ -600,7 +600,7 @@ void File_DvDif::timecode()
     Get_S1 (4, Temp,                                            "Frames (Units)");
     Frames+=Temp;
     if (dsf_IsValid && Temp!=0xF)
-        Time+=(int64u)(Frames/(dsf?25.000:29.970));
+        Time+=(int64u)(Frames/(dsf?25.000:29.970)*1000);
 
     if (!dsf_IsValid)
         Skip_SB(                                                "BGF0 or PC");
