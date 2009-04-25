@@ -44,6 +44,7 @@ public :
     int8u  MPEG_Version;
     size_t Frame_Count_Valid;
     bool   FrameIsAlwaysComplete;
+    bool   TimeCodeIsNotTrustable;
 
     //Constructor/Destructor
     File_Mpegv();

@@ -250,6 +250,7 @@ File_Mpegv::File_Mpegv()
     MPEG_Version=1;
     Frame_Count_Valid=32;
     FrameIsAlwaysComplete=false;
+    TimeCodeIsNotTrustable=false;
 
     //Temp
     SizeToAnalyse_Begin=1*1024*1024;
@@ -1180,6 +1181,9 @@ void File_Mpegv::group_start()
         NextCode_Add(0xB2);
         NextCode_Add(0xB5);
         NextCode_Add(0xB8);
+
+        if (TimeCodeIsNotTrustable)
+            return;
 
         //Calculating
         if (Time_Begin_Seconds!=Error || Time_Begin_Seconds_IsFrozen)

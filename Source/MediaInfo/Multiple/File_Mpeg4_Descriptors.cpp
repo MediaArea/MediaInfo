@@ -731,6 +731,23 @@ void File_Mpeg4_Descriptors::Descriptor_05()
         return;
     }
 
+    //Parser configuration before the parsing
+    switch (ObjectTypeId)
+    {
+            case 0x60 :
+            case 0x61 :
+            case 0x62 :
+            case 0x63 :
+            case 0x64 :
+            case 0x65 :
+            case 0x6A : //MPEG Video
+                    #if defined(MEDIAINFO_MPEGV_YES)
+                        ((File_Mpegv*)Parser)->FirstTimeCodeIsNotTrustable=true;
+                    #endif
+                    break;
+        default: ;
+    }
+
     //Parsing
     Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
     if (!Parser_DoNotFreeIt
@@ -742,6 +759,23 @@ void File_Mpeg4_Descriptors::Descriptor_05()
         Merge(*Parser, StreamKind_Last, 0, StreamPos_Last);
 
         delete Parser; Parser=NULL;
+    }
+
+    //Parser configuration after the parsing
+    switch (ObjectTypeId)
+    {
+            case 0x60 :
+            case 0x61 :
+            case 0x62 :
+            case 0x63 :
+            case 0x64 :
+            case 0x65 :
+            case 0x6A : //MPEG Video
+                    #if defined(MEDIAINFO_MPEGV_YES)
+                        ((File_Mpegv*)Parser)->FirstTimeCodeIsNotTrustable=false;
+                    #endif
+                    break;
+        default: ;
     }
 
     //Positionning
