@@ -35,6 +35,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Riff.h"
+#if defined(MEDIAINFO_DVDIF_YES)
+    #include "MediaInfo/Multiple/File_DvDif.h"
+#endif
 #if defined(MEDIAINFO_OGG_YES)
     #include "MediaInfo/Multiple/File_Ogg.h"
     #include "MediaInfo/Multiple/File_Ogg_SubElement.h"
@@ -77,9 +80,6 @@
 #endif
 #if defined(MEDIAINFO_ID3V2_YES)
     #include "MediaInfo/Tag/File_Id3v2.h"
-#endif
-#if defined(MEDIAINFO_DVDIF_YES)
-    #include "MediaInfo/Multiple/File_DvDif.h"
 #endif
 //---------------------------------------------------------------------------
 
@@ -872,7 +872,7 @@ void File_Riff::AVI__hdlr_strl_indx_StandardIndex(int32u Entry_Count, int32u Chu
         Element_Offset+=8;
 
         //Stream Position and size
-        if (Pos<300)
+        if (Pos<300 || MediaInfoLib::Config.ParseSpeed_Get()==1.00)
         {
             Stream_Structure[BaseOffset+Offset-8].Name=ChunkId&0xFFFF0000;
             Stream_Structure[BaseOffset+Offset-8].Size=Size;
@@ -1443,7 +1443,7 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("DV"))==0)
     {
         Stream[Stream_ID].Parser=new File_DvDif;
-        ((File_DvDif*)Stream[Stream_ID].Parser)->Frame_Count_Valid=1;
+        ((File_DvDif*)Stream[Stream_ID].Parser)->Frame_Count_Valid=2;
         ((File_DvDif*)Stream[Stream_ID].Parser)->IgnoreAudio=true;
     }
     #endif
@@ -1983,7 +1983,7 @@ void File_Riff::AVI__movi_xxxx___dc()
      || Stream[Stream_ID].Specific_IsMpeg4v && ((File_Mpeg4v*)Stream[Stream_ID].Parser)->Frame_Count_InThisBlock>1 //Searching Packet bitstream, no more need if found
     #endif
      || Stream[Stream_ID].Parser->IsFinished
-     || Stream[Stream_ID].PacketPos>=300)
+     || (Stream[Stream_ID].PacketPos>=300 && MediaInfoLib::Config.ParseSpeed_Get()<1.00))
     {
         Stream[Stream_ID].SearchingPayload=false;
         stream_Count--;
@@ -2017,7 +2017,7 @@ void File_Riff::AVI__movi_xxxx___wb()
     if ( Stream[Stream_ID].PacketPos>=4 //For having the chunk alignement
      && (Stream[Stream_ID].Parser==NULL
       || Stream[Stream_ID].Parser->IsFilled
-      || Stream[Stream_ID].PacketPos>=300)
+      || (Stream[Stream_ID].PacketPos>=300 && MediaInfoLib::Config.ParseSpeed_Get()<1.00))
       || Element_Size>50000) //For PCM, we disable imediatly
     {
         Stream[Stream_ID].SearchingPayload=false;
