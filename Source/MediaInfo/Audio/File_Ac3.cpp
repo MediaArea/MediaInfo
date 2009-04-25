@@ -282,7 +282,7 @@ File_Ac3::File_Ac3()
 bool File_Ac3::Synchronize()
 {
     //Specific cases
-    if (MustParse_dac3 || dxc3_Parsed)
+    if (MustParse_dac3)
         return true;
 
     //Synchronizing
