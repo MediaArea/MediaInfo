@@ -154,7 +154,6 @@ private :
     bool   group_start_drop_frame_flag;
     bool   group_start_closed_gop;
     bool   group_start_broken_link;
-    bool   Time_Begin_Seconds_IsFrozen;
     bool   Searching_TimeStamp_Start_DoneOneTime;
     bool   Parsing_End_ForDTS;
 };

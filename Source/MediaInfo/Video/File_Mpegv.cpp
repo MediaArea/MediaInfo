@@ -255,7 +255,6 @@ File_Mpegv::File_Mpegv()
     //Temp
     SizeToAnalyse_Begin=1*1024*1024;
     SizeToAnalyse_End=1*1024*1024;
-    Time_Begin_Seconds_IsFrozen=false;
     Searching_TimeStamp_Start_DoneOneTime=false;
     sequence_header_IsParsed=false;
     Parsing_End_ForDTS=false;
@@ -1186,28 +1185,6 @@ void File_Mpegv::group_start()
             return;
 
         //Calculating
-        if (Time_Begin_Seconds!=Error || Time_Begin_Seconds_IsFrozen)
-        {
-            if (Time_Begin_Seconds==(size_t)(60*60*Hours+60*Minutes+Seconds)
-             && Time_Begin_Frames ==Frames)
-            {
-                //Same as before, there is a problem at starting of the time
-                Time_Begin_Seconds_IsFrozen=true;
-                SizeToAnalyse_Begin=SizeToAnalyse_End*10; //10s
-                Time_Begin_Seconds=Error;
-                Time_Begin_Frames =(int8u)-1;
-                Searching_TimeStamp_Start_DoneOneTime=false;
-            }
-            else if (Time_Begin_Seconds_IsFrozen)
-            {
-                //We consider this is the first valid time_code
-                Time_Begin_Seconds_IsFrozen=false;
-                SizeToAnalyse_Begin=SizeToAnalyse_End*2; //2s
-                Time_Begin_Seconds=Error;
-                Time_Begin_Frames =(int8u)-1;
-                Searching_TimeStamp_Start_DoneOneTime=true;
-            }
-        }
         if (Time_Begin_Seconds==Error)
         {
             Time_Begin_Seconds=60*60*Hours+60*Minutes+Seconds;
