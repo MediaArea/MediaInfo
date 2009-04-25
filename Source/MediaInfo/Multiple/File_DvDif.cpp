@@ -179,6 +179,7 @@ File_DvDif::File_DvDif()
     FrameCount=0;
     FrameSize_Theory=0;
     Duration=0;
+    SCT_Old=4; //Video
     DBN_Olds[1]=1; //SubCode
     DBN_Olds[2]=2; //Vaux
     DBN_Olds[3]=8; //Audio
@@ -198,8 +199,8 @@ File_DvDif::File_DvDif()
 //---------------------------------------------------------------------------
 void File_DvDif::Read_Buffer_Finalize()
 {
-    if (!IsAccepted)
-        Accept("DV DIF");
+    if (!IsAccepted && FrameCount>=1)
+        Header_Fill();
 
     if (!Recorded_Date_Date.empty())
     {
@@ -238,7 +239,6 @@ void File_DvDif::Header_Parse()
     }
 
     //Parsing
-    int8u SCT;
     BS_Begin();
     //0
     Get_S1 (3, SCT,                                             "SCT - Section Type"); Param_Info(Dv_sct[SCT]);
@@ -257,7 +257,7 @@ void File_DvDif::Header_Parse()
 }
 #else //MEDIAINFO_MINIMIZESIZE
 {
-    if (Element_Size<4)
+    if (Element_Size<80)
     {
         Element_WaitForMoreData();
         return;
@@ -271,10 +271,10 @@ void File_DvDif::Header_Parse()
     }
 
     //Parsing
-    int8u SCT     =(Buffer[Buffer_Offset  ]&0xE0)>>5;
-          Dseq    =(Buffer[Buffer_Offset+1]&0xF0)>>4;
-          FSC     =(Buffer[Buffer_Offset+1]&0x08)>>3;
-          DBN     = Buffer[Buffer_Offset+2];
+    SCT =(Buffer[Buffer_Offset  ]&0xE0)>>5;
+    Dseq=(Buffer[Buffer_Offset+1]&0xF0)>>4;
+    FSC =(Buffer[Buffer_Offset+1]&0x08)>>3;
+    DBN = Buffer[Buffer_Offset+2];
     Element_Offset+=3;
 
     Header_Fill_Code(SCT);
@@ -299,8 +299,9 @@ void File_DvDif::Data_Parse()
         {
             if (Dseq_Old!=Dseq)
             {
-                if (!(!DSF && Dseq_Old==10)
-                 && !( DSF && Dseq_Old==12))
+                if (Dseq==0
+                 && !(!DSF && Dseq_Old==9)
+                 && !( DSF && Dseq_Old==11))
                     Trusted_IsNot("Wrong order");
                 Dseq_Old=Dseq;
             }
@@ -308,39 +309,42 @@ void File_DvDif::Data_Parse()
 
         //DIF Block Numbers
         int8u Number=DBN_Olds[(size_t)Element_Code]+1;
-        switch (Element_Code)
+        switch (SCT)
         {
             case 0 : //Header
-                        if (DBN!=0)
+                        if (SCT_Old!=4
+                         || DBN!=0)
                             Trusted_IsNot("Wrong order");
                         break;
             case 1 : //Subcode
-                        if (Number!=DBN && !(Number==2 && DBN==0))
+                        if (!((DBN==0 && SCT_Old==0) || (DBN!=0 && SCT_Old==1))
+                         || Number!=DBN && !(Number==2 && DBN==0))
                             Trusted_IsNot("Wrong order");
-                        DBN_Olds[1]=DBN;
                         break;
             case 2 : //VAUX
-                        if (Number!=DBN && !(Number==3 && DBN==0))
+                        if (!((DBN==0 && SCT_Old==1) || (DBN!=0 && SCT_Old==2))
+                         || Number!=DBN && !(Number==3 && DBN==0))
                             Trusted_IsNot("Wrong order");
-                        DBN_Olds[2]=DBN;
                         break;
             case 3 : //Audio
-                        if (Number!=DBN && !(Number==9 && DBN==0))
+                        if (!((DBN==0 && SCT_Old==2) || (DBN!=0 && SCT_Old==4))
+                         || Number!=DBN && !(Number==9 && DBN==0))
                             Trusted_IsNot("Wrong order");
-                        DBN_Olds[3]=DBN;
                         break;
             case 4 : //Video
-                        if (Number!=DBN && !(Number==135 && DBN==0))
+                        if (!(SCT_Old==3 || SCT_Old==4)
+                         || Number!=DBN && !(Number==135 && DBN==0))
                             Trusted_IsNot("Wrong order");
-                        DBN_Olds[4]=DBN;
                         break;
             default: ;
         }
+        SCT_Old=SCT;
+        DBN_Olds[SCT]=DBN;
     }
 
     Element_Info(DBN);
 
-    switch (Element_Code)
+    switch (SCT)
     {
         case 0 : Header(); break;
         case 1 : Subcode(); break;
@@ -351,10 +355,6 @@ void File_DvDif::Data_Parse()
         default: Skip_XX(Element_Size,                          "Unknown");
         #endif //MEDIAINFO_MINIMIZESIZE
     }
-
-    //If small file
-    if (!IsAccepted && (FrameCount>=1 && File_Offset+Buffer_Offset+Element_Size==File_Size))
-        video_sourcecontrol_Fill();
 }
 
 //***************************************************************************
@@ -396,7 +396,7 @@ void File_DvDif::Header()
 
     FILLING_BEGIN();
         DSF_IsValid=true;
-        Dseq_Old=DSF?12:10;
+        Dseq_Old=DSF?11:9;
         FrameSize_Theory=(DSF?12:10)*150*80; //12 DIF sequences for PAL, 10 for NTSC
 
         if (TF1 && TF2)
@@ -406,10 +406,22 @@ void File_DvDif::Header()
             TF2=false;
             TF3=false;
         }
+
+        FrameCount++;
+        if (Count_Get(Stream_General)==0)
+            Stream_Prepare(Stream_General);
+        if (!IsAccepted && FrameCount>=Frame_Count_Valid)
+            Header_Fill();
     FILLING_END();
 }
 #else //MEDIAINFO_MINIMIZESIZE
 {
+    if (Element_Size<77)
+    {
+        Trusted_IsNot("Size is wrong");
+        return;
+    }
+
     DSF=(Buffer[Buffer_Offset  ]&0x80)?true:false;
     APT=(Buffer[Buffer_Offset+1]&0x07);
     TF1=(Buffer[Buffer_Offset+2]&0x80)?true:false;
@@ -418,7 +430,7 @@ void File_DvDif::Header()
 
     FILLING_BEGIN();
         DSF_IsValid=true;
-        Dseq_Old=DSF?12:10;
+        Dseq_Old=DSF?11:9;
         FrameSize_Theory=(DSF?12:10)*150*80; //12 DIF sequences for PAL, 10 for NTSC
 
         if (TF1 && TF2)
@@ -428,9 +440,36 @@ void File_DvDif::Header()
             TF2=false;
             TF3=false;
         }
+
+        FrameCount++;
+        if (Count_Get(Stream_General)==0)
+            Stream_Prepare(Stream_General);
+        if (!IsAccepted && FrameCount>=Frame_Count_Valid)
+            Header_Fill();
     FILLING_END();
 }
 #endif //MEDIAINFO_MINIMIZESIZE
+
+//---------------------------------------------------------------------------
+void File_DvDif::Header_Fill()
+{
+    if (Count_Get(Stream_General)==0)
+        Stream_Prepare(Stream_General);
+    Fill(Stream_General, 0, General_Format, "Digital Video");
+
+    Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive");
+    Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"PFF");
+    switch (aspect)
+    {
+        case 0 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 4.0/3.0); break;
+        case 2 :
+        case 7 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 16.0/9.0); break;
+        default: ;
+    }
+
+    Accept("DV DIF");
+    Finish("DV DIF");
+}
 
 //---------------------------------------------------------------------------
 void File_DvDif::Subcode()
@@ -498,12 +537,6 @@ void File_DvDif::VAUX()
     for (int8u i=0; i<15; i++)
         Element();
     Skip_XX(2,                                                  "Unused");
-
-    if (Count_Get(Stream_General))
-    {
-        Accept("DV DIF"); //Here because we currently must be at the end of an element
-        Finish("DV DIF");
-    }
 }
 
 //---------------------------------------------------------------------------
@@ -565,7 +598,8 @@ void File_DvDif::Element()
         case 0x63 : video_rectime(); break;
         case 0xFF : Element_Name(Ztring().From_Number(PackType, 16));
                     Skip_B4(                                    "Unused"); break;
-        default: Skip_B4(                                       "Unknown");
+        default   : Element_Name(Ztring().From_Number(PackType, 16));
+                    Skip_B4(                                    "Unknown");
     }
     Element_End();
 }
@@ -575,63 +609,76 @@ void File_DvDif::timecode()
 {
     Element_Name("timecode");
 
+    if (Buffer[Buffer_Offset+(size_t)Element_Offset  ]==0x00
+     && Buffer[Buffer_Offset+(size_t)Element_Offset+1]==0x00
+     && Buffer[Buffer_Offset+(size_t)Element_Offset+2]==0x00
+     && Buffer[Buffer_Offset+(size_t)Element_Offset+3]==0x00
+    )
+    {
+        Skip_XX(4,                                              "All zero");
+        return;
+    }
+
     //PArsing
     int8u Temp;
-    int64u Time=0;
-    int8u Frames=0;
+    int64u MilliSeconds=0;
+    int8u  Frames=0;
+    bool   DropFrame=false;
     BS_Begin();
     Skip_SB(                                                    "CF - Color fame");
     if (!DSF_IsValid)
         Skip_SB(                                                "Arbitrary bit or DP");
     else if (DSF)    //625/50
         Skip_SB(                                                "Arbitrary bit");
-    else            //525/60
-        Skip_SB(                                                "DP - Drop frame"); //525/60
+    else        //525/60
+        Get_SB (DropFrame,                                      "DP - Drop frame"); //525/60
     Get_S1 (2, Temp,                                            "Frames (Tens)");
     Frames+=Temp*10;
     Get_S1 (4, Temp,                                            "Frames (Units)");
     Frames+=Temp;
-    if (DSF_IsValid && Temp!=0xF)
-        Time+=(int64u)(Frames/(DSF?25.000:29.970)*1000);
 
     if (!DSF_IsValid)
         Skip_SB(                                                "BGF0 or PC");
-    else if (DSF)   //625/50
+    else if (DSF)    //625/50
         Skip_SB(                                                "BGF0 - Binary group flag");
-    else            //525/60
+    else        //525/60
         Skip_SB(                                                "PC - Biphase mark polarity correction"); //0=even; 1=odd
     Get_S1 (3, Temp,                                            "Seconds (Tens)");
-    Time+=Temp*10*1000;
+    MilliSeconds+=Temp*10*1000;
     Get_S1 (4, Temp,                                            "Seconds (Units)");
-    Time+=Temp*1000;
+    MilliSeconds+=Temp*1000;
 
     if (!DSF_IsValid)
         Skip_SB(                                                "BGF2 or BGF0");
     else if (DSF)    //625/50
         Skip_SB(                                                "BGF2 - Binary group flag");
-    else            //525/60
+    else        //525/60
         Skip_SB(                                                "BGF0 - Binary group flag");
     Get_S1 (3, Temp,                                            "Minutes (Tens)");
-    Time+=Temp*10*60*1000;
+    MilliSeconds+=Temp*10*60*1000;
     Get_S1 (4, Temp,                                            "Minutes (Units)");
-    Time+=Temp*60*1000;
+    MilliSeconds+=Temp*60*1000;
 
     if (!DSF_IsValid)
         Skip_SB(                                                "PC or BGF1");
     else if (DSF)    //625/50
         Skip_SB(                                                "PC - Biphase mark polarity correction"); //0=even; 1=odd
-    else            //525/60
+    else        //525/60
         Skip_SB(                                                "BGF1 - Binary group flag");
     Skip_SB(                                                    "BGF2 - Binary group flag");
     Get_S1 (2, Temp,                                            "Hours (Tens)");
-    Time+=Temp*10*60*60*1000;
+    MilliSeconds+=Temp*10*60*60*1000;
     Get_S1 (4, Temp,                                            "Hours (Units)");
-    Time+=Temp*60*60*1000;
-    Element_Info(Ztring().Duration_From_Milliseconds(Time));
+    MilliSeconds+=Temp*60*60*1000;
+    Element_Info(Ztring().Duration_From_Milliseconds(MilliSeconds+((DSF_IsValid && Frames!=45)?((int64u)(Frames/(DSF?25.000:29.970)*1000)):0)));
     BS_End();
 
-    if (TimeCode_First==(int64u)-1 && Time!=167185000) //if all bits are set to 1, this is not a valid timestamp
-        TimeCode_First=Time;
+    if (TimeCode_First==(int64u)-1 && MilliSeconds!=167185000) //if all bits are set to 1, this is not a valid timestamp
+    {
+        TimeCode_First=MilliSeconds;
+        if (DSF_IsValid && Frames!=45) //all bits are set to 1
+            TimeCode_First+=(int64u)(Frames/(DSF?25.000:29.970)*1000);
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -795,7 +842,7 @@ void File_DvDif::video_source()
     Skip_B1(                                                    "TUN/VISC");
 
     FILLING_BEGIN();
-        if (FrameCount==0 || AuxToAnalyze) //Only the first time
+        if ((FrameCount==1 || AuxToAnalyze) && Count_Get(Stream_Video)==0) //Only the first time
         {
             Stream_Prepare(Stream_Video);
             Fill(Stream_Video, 0, Video_Format, "Digital Video");
@@ -864,27 +911,9 @@ void File_DvDif::video_sourcecontrol()
     BS_End();
 
     FILLING_BEGIN();
-        FrameCount++;
-        if (!IsAccepted && (FrameCount>=Frame_Count_Valid || AuxToAnalyze))
-            video_sourcecontrol_Fill();
+        if (!IsAccepted && AuxToAnalyze)
+            Header_Fill();
     FILLING_END();
-}
-
-//---------------------------------------------------------------------------
-void File_DvDif::video_sourcecontrol_Fill()
-{
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "Digital Video");
-
-    Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive");
-    Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"PFF");
-    switch (aspect)
-    {
-        case 0 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 4.0/3.0); break;
-        case 2 :
-        case 7 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 16.0/9.0); break;
-        default: ;
-    }
 }
 
 //---------------------------------------------------------------------------
@@ -932,15 +961,15 @@ Ztring File_DvDif::recdate()
     int16u Year=0;
     int8u  Month=0, Day=0;
     Skip_S1(8,                                                  "Time zone specific"); //ds, tm, tens of time zone, units of time zone, 0xFF for Unknwon
-    Mark_1();
-    Mark_1();
+    Skip_SB(                                                    "1");
+    Skip_SB(                                                    "1");
     Get_S1 (2, Temp,                                            "Days (Tens)");
     Day+=Temp*10;
     Get_S1 (4, Temp,                                            "Days (Units)");
     Day+=Temp;
-    Mark_1();
-    Mark_1();
-    Mark_1();
+    Skip_SB(                                                    "1");
+    Skip_SB(                                                    "1");
+    Skip_SB(                                                    "1");
     Get_S1 (1, Temp,                                            "Month (Tens)");
     Month+=Temp*10;
     Get_S1 (4, Temp,                                            "Month (Units)");
@@ -978,29 +1007,39 @@ Ztring File_DvDif::rectime()
 
     BS_Begin();
 
+    if (Buffer[Buffer_Offset+(size_t)Element_Offset  ]==0x00
+     && Buffer[Buffer_Offset+(size_t)Element_Offset+1]==0x00
+     && Buffer[Buffer_Offset+(size_t)Element_Offset+2]==0x00
+     && Buffer[Buffer_Offset+(size_t)Element_Offset+3]==0x00
+    )
+    {
+        Skip_XX(4,                                              "All zero");
+        return Ztring();
+    }
+
     int8u Temp;
     int64u Time=0;
     int8u Frames=0;
     Skip_SB(                                                    "Unknown");
-    Mark_1();
+    Skip_SB(                                                    "1");
     Get_S1 (2, Temp,                                            "Frames (Tens)");
     Frames+=Temp*10;
     Get_S1 (4, Temp,                                            "Frames (Units)");
     Frames+=Temp;
     if (Temp!=0xF && DSF_IsValid)
         Time+=(int64u)(Frames/(DSF?25.000:29.970));
-    Mark_1();
+    Skip_SB(                                                    "1");
     Get_S1 (3, Temp,                                            "Seconds (Tens)");
     Time+=Temp*10*1000;
     Get_S1 (4, Temp,                                            "Seconds (Units)");
     Time+=Temp*1000;
-    Mark_1();
+    Skip_SB(                                                    "1");
     Get_S1 (3, Temp,                                            "Minutes (Tens)");
     Time+=Temp*10*60*1000;
     Get_S1 (4, Temp,                                            "Minutes (Units)");
     Time+=Temp*60*1000;
-    Mark_1();
-    Mark_1();
+    Skip_SB(                                                    "1");
+    Skip_SB(                                                    "1");
     Get_S1 (2, Temp,                                            "Hours (Tens)");
     Time+=Temp*10*60*60*1000;
     Get_S1 (4, Temp,                                            "Hours (Units)");

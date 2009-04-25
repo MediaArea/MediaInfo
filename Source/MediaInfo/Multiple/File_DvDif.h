@@ -59,6 +59,7 @@ private :
 
     //Elements - Main
     void Header();
+    void Header_Fill();
     void Subcode();
     void Subcode_Ssyb(int8u syb_num);
     void VAUX();
@@ -74,7 +75,6 @@ private :
     void audio_rectime();
     void video_source();
     void video_sourcecontrol();
-    void video_sourcecontrol_Fill();
     void video_recdate();
     void video_rectime();
 
@@ -88,6 +88,8 @@ private :
     size_t FrameCount;
     size_t FrameSize_Theory; //The size of a frame
     int64u Duration;
+    int8u  SCT;
+    int8u  SCT_Old;
     int8u  Dseq;
     int8u  Dseq_Old;
     int8u  DBN;
