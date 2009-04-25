@@ -183,7 +183,7 @@ void File_Mpeg4::Read_Buffer_Finalize()
 //---------------------------------------------------------------------------
 bool File_Mpeg4::Header_Begin()
 {
-    if (!mdat_Pos.empty() && Element_Level==0)
+    if (IsParsing_mdat && Element_Level==0)
         Element_Begin();
 
     return true;
@@ -193,10 +193,9 @@ bool File_Mpeg4::Header_Begin()
 void File_Mpeg4::Header_Parse()
 {
     //mdat
-    if (!mdat_Pos.empty())
+    if (IsParsing_mdat)
     {
         //Filling
-        IsParsing_mdat=true;
         Header_Fill_Code(mdat_Pos.begin()->second.StreamID, Ztring::ToZtring(mdat_Pos.begin()->second.StreamID));
         Header_Fill_Size(mdat_Pos.begin()->second.Size);
         if (Buffer_Offset+mdat_Pos.begin()->second.Size<=Buffer_Size)

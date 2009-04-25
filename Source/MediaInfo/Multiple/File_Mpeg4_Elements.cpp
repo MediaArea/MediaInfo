@@ -785,9 +785,9 @@ void File_Mpeg4::mdat()
                 //Adding it
                 size_t SamplesPerChunk_Pos=0;
                 int32u SamplesPerChunk=0;
-                size_t stco_Pos=(size_t)-1; //Chunk Offset
+                size_t Chunk=0;
                 size_t stsc_Pos=0; //Sample to Chunk
-                int64u Position=0;
+                int64u Position=(int64u)-1;
                 for (size_t stsz_Pos=0; stsz_Pos<Temp->second.stsz.size(); stsz_Pos++) //Sample Size
                 {
                     //Changing stco/stsc if needed
@@ -795,48 +795,35 @@ void File_Mpeg4::mdat()
                     {
                         //Reseting
                         SamplesPerChunk_Pos=0;
+                        Chunk++;
 
-                        //Positioning in Chunk Offset
-                        stco_Pos++;
-                        if (stco_Pos>=Temp->second.stco.size())
+                        //Count of sample in this Chunk
+                        if (stsc_Pos+1<Temp->second.stsc.size() && Chunk>=Temp->second.stsc[stsc_Pos+1].FirstChunk || Position==(int64u)-1)
                         {
-                            mdat_Pos.clear();
-                            mdat_MustParse=false;
-                            break; //Problem
-                        }
-                        Position=Temp->second.stco[stco_Pos];
-
-                        //Positioning in Sample to Chunk
-                        if (stsc_Pos+1<Temp->second.stsc.size() && stco_Pos>=Temp->second.stsc[stsc_Pos+1].FirstChunk)
-                            stsc_Pos++;
-                        if (stsc_Pos>=Temp->second.stsc.size())
-                        {
-                            mdat_Pos.clear();
-                            mdat_MustParse=false;
-                            break;; //Problem
-                        }
-                        if (stsc_Pos<Temp->second.stsc.size() && stco_Pos>=Temp->second.stsc[stsc_Pos].FirstChunk-1)
+                            if (Position!=(int64u)-1)
+                                stsc_Pos++;
                             SamplesPerChunk=Temp->second.stsc[stsc_Pos].SamplesPerChunk;
+                        }
+
+                        //Chunk Offset
+                        Position=Temp->second.stco[Chunk-1];
                     }
 
-                    //Configuring mdat_Pos
-                    if (Position>=File_Offset+Buffer_Offset
-                     && Position<=File_Offset+Buffer_Offset+Element_TotalSize_Get())
-                    {
-                        mdat_Pos[Position].StreamID=Temp->first;
-                        mdat_Pos[Position].Size=Temp->second.stsz[stsz_Pos];
-                    }
+                    if (Position==0x21FD881)
+                        int A=0;
+                    mdat_Pos[Position].StreamID=Temp->first;
+                    mdat_Pos[Position].Size=Temp->second.stsz[stsz_Pos];
 
-                    //Positionning
                     Position+=Temp->second.stsz[stsz_Pos];
                     SamplesPerChunk_Pos++;
-               }
+                }
             }
         }
     }
     if (!mdat_Pos.empty() && mdat_Pos.begin()->first<File_Offset+Buffer_Offset+Element_TotalSize_Get())
     {
         //Next piece of data
+        IsParsing_mdat=true;
         mdat_StreamJump();
         return; //Only if have something in this mdat
     }
@@ -923,6 +910,7 @@ void File_Mpeg4::mdat_StreamJump()
         if (!IsAccepted)
             Data_Accept("MPEG-4");
         Data_GoTo(File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-1), "MPEG-4"); //Not in this chunk
+        IsParsing_mdat=false;
     }
     else if (ToJump!=File_Offset+Buffer_Offset+Element_Size)
     {
