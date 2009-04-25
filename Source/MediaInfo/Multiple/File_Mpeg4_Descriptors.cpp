@@ -742,7 +742,7 @@ void File_Mpeg4_Descriptors::Descriptor_05()
             case 0x65 :
             case 0x6A : //MPEG Video
                     #if defined(MEDIAINFO_MPEGV_YES)
-                        ((File_Mpegv*)Parser)->FirstTimeCodeIsNotTrustable=true;
+                        ((File_Mpegv*)Parser)->TimeCodeIsNotTrustable=true;
                     #endif
                     break;
         default: ;
@@ -772,7 +772,7 @@ void File_Mpeg4_Descriptors::Descriptor_05()
             case 0x65 :
             case 0x6A : //MPEG Video
                     #if defined(MEDIAINFO_MPEGV_YES)
-                        ((File_Mpegv*)Parser)->FirstTimeCodeIsNotTrustable=false;
+                        ((File_Mpegv*)Parser)->TimeCodeIsNotTrustable=false;
                     #endif
                     break;
         default: ;
