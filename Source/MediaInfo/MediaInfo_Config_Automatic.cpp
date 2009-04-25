@@ -1177,6 +1177,7 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     "DV10;Digital Voodoo;;Digital Voodoo 10 bit Uncompressed 4:2:2 codec;http://www.digitalvoodoo.net/\n"
     "dvc ;Digital Video;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "dvcp;Digital Video;;;http://www.apple.com/quicktime/download/standalone.html\n"
+    "dvhp;Digital Video;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "DVOO;Digital Voodoo;;Digital Voodoo 8 bit Uncompressed 4:2:2 codec;http://www.digitalvoodoo.net/\n"
     "DVOR;Digital Voodoo;;Digital Voodoo intermediate raw;http://www.digitalvoodoo.net/\n"
     "DVTV;Digital Voodoo;;Digital Voodoo intermediate 2vuy;http://www.digitalvoodoo.net/\n"
