@@ -1772,7 +1772,7 @@ void File_Mpeg_Psi::Table_CD()
     Element_End();
 
     //Descriptors
-    Descriptors_Size=(size_t)(Element_Size-Element_Offset);
+    Descriptors_Size=(int16u)(Element_Size-Element_Offset);
     if (Descriptors_Size>0)
         Descriptors();
 

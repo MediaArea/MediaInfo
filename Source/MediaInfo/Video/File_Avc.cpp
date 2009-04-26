@@ -966,6 +966,7 @@ void File_Avc::sei_message_pic_timing(int32u payloadSize)
         return;   
     }
 
+    /*
     //Parsing
     BS_Begin();
     if (CpbDpbDelaysPresentFlag)
@@ -1037,6 +1038,7 @@ void File_Avc::sei_message_pic_timing(int32u payloadSize)
         if (pic_struct_FirstDetected==(int8u)-1)
             pic_struct_FirstDetected=pic_struct;
     FILLING_END();
+    */
 }
 
 //---------------------------------------------------------------------------

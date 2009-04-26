@@ -55,9 +55,6 @@
         <property category="win32.Debug_Build.win32b.dcc32" name="option.V.enabled" value="1"/>
         <property category="win32.Debug_Build.win32b.ilink32" name="option.D.arg.merge" value="1"/>
         <property category="win32.Debug_Build.win32b.ilink32" name="option.D.enabled" value="1"/>
-        <property category="win32.Debug_Build.win32b.ilink32" name="option.L.arg.1" value="$(BDS)\lib\debug"/>
-        <property category="win32.Debug_Build.win32b.ilink32" name="option.L.arg.merge" value="1"/>
-        <property category="win32.Debug_Build.win32b.ilink32" name="option.L.enabled" value="1"/>
         <property category="win32.Debug_Build.win32b.tasm32" name="option.z.enabled" value="1"/>
         <property category="win32.Debug_Build.win32b.tasm32" name="option.zd.enabled" value="0"/>
         <property category="win32.Debug_Build.win32b.tasm32" name="option.zi.enabled" value="1"/>
@@ -68,9 +65,6 @@
         <property category="win32.Release_Build.win32b.dcc32" name="option.$D.enabled" value="0"/>
         <property category="win32.Release_Build.win32b.dcc32" name="option.$O.enabled" value="1"/>
         <property category="win32.Release_Build.win32b.dcc32" name="option.V.enabled" value="0"/>
-        <property category="win32.Release_Build.win32b.ilink32" name="option.L.arg.1" value="$(BDS)\lib\release"/>
-        <property category="win32.Release_Build.win32b.ilink32" name="option.L.arg.merge" value="1"/>
-        <property category="win32.Release_Build.win32b.ilink32" name="option.L.enabled" value="1"/>
         <property category="win32.Release_Build.win32b.tasm32" name="option.z.enabled" value="0"/>
         <property category="win32.Release_Build.win32b.tasm32" name="option.zd.enabled" value="0"/>
         <property category="win32.Release_Build.win32b.tasm32" name="option.zi.enabled" value="0"/>
@@ -167,18 +161,17 @@
           <property category="win32.*.win32b.idl2cpp" name="option.srcsuffix.arg" value="cpp"/>
           <property category="win32.*.win32b.idl2cpp" name="option.srcsuffix.arg.merge" value="1"/>
           <property category="win32.*.win32b.idl2cpp" name="option.srcsuffix.enabled" value="1"/>
+          <property category="win32.*.win32b.ilink32" name="container.SelectedWarnings.containerenabled" value="1"/>
+          <property category="win32.*.win32b.ilink32" name="option.-w-.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.D.arg" value="&quot;&quot;"/>
           <property category="win32.*.win32b.ilink32" name="option.D.arg.merge" value="1"/>
-          <property category="win32.*.win32b.ilink32" name="option.D.enabled" value="1"/>
+          <property category="win32.*.win32b.ilink32" name="option.D.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.Gi.enabled" value="1"/>
-          <property category="win32.*.win32b.ilink32" name="option.I.arg.1" value="."/>
           <property category="win32.*.win32b.ilink32" name="option.I.arg.merge" value="0"/>
-          <property category="win32.*.win32b.ilink32" name="option.I.enabled" value="1"/>
+          <property category="win32.*.win32b.ilink32" name="option.I.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.L.arg.1" value="..\..\..\Source\MediaInfoDLL"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.2" value="..\..\..\Source\Files"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.3" value="..\..\..\Release\BCB\Lib"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.4" value="$(BDS)\lib\obj"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.5" value="$(BDS)\lib"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.2" value="$(BDS)\lib\obj"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.3" value="$(BDS)\lib"/>
           <property category="win32.*.win32b.ilink32" name="option.L.arg.merge" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.L.enabled" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.Tpd.enabled" value="1"/>
@@ -187,9 +180,12 @@
           <property category="win32.*.win32b.ilink32" name="option.j.arg.1" value="..\..\..\Source\MediaInfoDLL"/>
           <property category="win32.*.win32b.ilink32" name="option.j.arg.merge" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.j.enabled" value="0"/>
-          <property category="win32.*.win32b.ilink32" name="option.outputdir.arg.1" value="..\..\..\Release\BCB\Dll\"/>
-          <property category="win32.*.win32b.ilink32" name="option.outputdir.arg.merge" value="1"/>
-          <property category="win32.*.win32b.ilink32" name="option.outputdir.enabled" value="1"/>
+          <property category="win32.*.win32b.ilink32" name="option.m.enabled" value="0"/>
+          <property category="win32.*.win32b.ilink32" name="option.map_segments.enabled" value="0"/>
+          <property category="win32.*.win32b.ilink32" name="option.outputdir.arg.merge" value="0"/>
+          <property category="win32.*.win32b.ilink32" name="option.outputdir.enabled" value="0"/>
+          <property category="win32.*.win32b.ilink32" name="option.s.enabled" value="0"/>
+          <property category="win32.*.win32b.ilink32" name="option.w.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="param.deffile.1" value="F:\Programmation\MediaInfoLib\Source\MediaInfoDLL\MediaInfoDLL.def"/>
           <property category="win32.*.win32b.ilink32" name="param.deffile.merge" value="1"/>
           <property category="win32.*.win32b.ilink32" name="param.libfiles.1" value="$(LIBRARIES)"/>
@@ -223,9 +219,9 @@
         <FILE FILENAME="MediaInfo.bpf" CONTAINERID="BPF" LOCALCOMMAND="" UNITNAME="MediaInfo" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfoDLL\MediaInfoDLL.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfoDLL.cpp" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\MediaInfoDLL\MediaInfoDLL.h"/>
         <FILE FILENAME="..\..\..\Source\MediaInfoDLL\MediaInfoDLL.def" CONTAINERID="DefTool" LOCALCOMMAND="" UNITNAME="MediaInfoDLL.def" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\Zlib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="Zlib.lib" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Release\BCB\Library\MediaInfoLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="MediaInfoLib" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\ZenLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZenLib" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZenLib" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\Library\Release_Build\MediaInfoLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="MediaInfoLib" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="zlib" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>

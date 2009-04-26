@@ -184,15 +184,15 @@ const int16u AC3_FrameSize[27][4]=
 };
 
 //---------------------------------------------------------------------------
-int16u AC3_FrameSize_Get(int32u frmsizecod, int32u fscod)
+int16u AC3_FrameSize_Get(int8u frmsizecod, int8u fscod)
 {
     bool Padding=(frmsizecod%2)?true:false;
-    int32u frame_size_id=frmsizecod/2;
+    int16u frame_size_id=frmsizecod/2;
 
     if (frame_size_id>26 || fscod>3)
         return 0;
 
-    int32u FrameSize=AC3_FrameSize[frame_size_id][fscod];
+    int16u FrameSize=AC3_FrameSize[frame_size_id][fscod];
     if (fscod==1 && Padding)
         FrameSize+=2; // frame lengths are padded by 1 word (16 bits) at 44100 Hz
     return FrameSize;

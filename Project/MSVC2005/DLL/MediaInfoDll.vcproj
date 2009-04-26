@@ -17,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -40,7 +40,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../Shared/Include"
+				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MEDIAINFODLL_EXPORTS"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -57,9 +57,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MediaInfo.lib ZenLib.lib ZLib.lib"
-				OutputFile="../../../Release/MSVC2005/DLL/MediaInfo.dll"
-				AdditionalLibraryDirectories="../../../Release/MSVC2005/Library;../../../../ZenLib/Release/MSVC2005/Library;../../../../Shared/Library/MSVC2005"
+				AdditionalDependencies="MediaInfo.lib ZenLib.lib zlib.lib"
+				OutputFile="$(OutDir)\MediaInfo.Dll"
+				AdditionalLibraryDirectories="..\..\..\..\MediaInfoLib\Project\MSVC2005\Library\Win32\Release;..\..\..\..\ZenLib\Project\MSVC2005\Library\Win32\Release;..\..\..\..\zlib\projects\MSVC2005\Win32\Release"
 				ModuleDefinitionFile="../../../Source/MediaInfoDLL/MediaInfoDLL.def"
 				SubSystem="2"
 				OptimizeReferences="2"

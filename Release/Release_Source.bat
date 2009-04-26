@@ -1,32 +1,14 @@
 @echo off
 
 rem --- Clean up ---
-del MediaInfo_Lib_Source.7z
+del MediaInfo_Lib_Source.tar
+del libmediainfo_.tar.bz2
+del libmediainfo_-1.tar.gz 
+del libmediainfo__AllInclusive.7z
 rmdir MediaInfo_Lib_Source /S /Q
+rmdir ZenLib /S /Q
+rmdir zlib /S /Q
 mkdir MediaInfo_Lib_Source
-
-
-rem --- Copying : Include ---
-rem xcopy ..\Source\MediaInfo\MediaInfo.h MediaInfo_Lib_Source\Include\MediaInfo\
-rem xcopy ..\Source\MediaInfo\MediaInfoList.h MediaInfo_Lib_Source\Include\MediaInfo\
-rem xcopy ..\Source\MediaInfo\MediaInfo_Const.h MediaInfo_Lib_Source\Include\MediaInfo\
-rem xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.h MediaInfo_Lib_Source\Include\MediaInfoDLL\
-rem xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.def MediaInfo_Lib_Source\Include\MediaInfoDLL\
-rem xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.pas MediaInfo_Lib_Source\Include\MediaInfoDLL\
-rem xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.cs MediaInfo_Lib_Source\Include\MediaInfoDLL\
-rem xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.jsl MediaInfo_Lib_Source\Include\MediaInfoDLL\
-rem xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.vb MediaInfo_Lib_Source\Include\MediaInfoDLL\
-rem xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.java MediaInfo_Lib_Source\Include\MediaInfoDLL\
-
-rem --- Copying : Documentation ---
-rem mkdir Doc
-rem cd ..\Source\Doc
-rem ..\..\..\Shared\Binary\Windows_i386\Doxygen\Doxygen Doxyfile
-rem cd ..\..\Release
-rem mkdir MediaInfo_Lib_Source\Doc\
-rem xcopy ..\Doc\*.*  MediaInfo_Lib_Source\Doc\
-rem rmdir ..\Doc /S /Q
-rem xcopy ..\Source\Doc\*.html MediaInfo_Lib_Source\ /S
 
 @rem --- Copying : debian ---
 xcopy ..\debian\* MediaInfo_Lib_Source\debian\ /S
@@ -125,6 +107,16 @@ copy ..\*.html MediaInfo_Lib_Source\
 rem --- Copying : CVS files ---
 copy ..\*.cvsignore MediaInfo_Lib_Source\
 
+rem --- Copying : ZenLib files ---
+cd ..\..\ZenLib\Release
+call Release_GNU_Prepare.bat SkipCleanUp SkipCompression
+cd ..\..\MediaInfoLib\Release
+move ..\..\ZenLib\Release\ZenLib_GNU_Prepare .\ZenLib
+
+rem --- Copying : zlib files ---
+xcopy ..\..\Shared\Source\zlib .\zlib\ /S
+xcopy ..\..\Shared\Project\zlib\Template .\zlib\ /S
+
 
 rem --- Compressing Archive ---
 if "%2"=="SkipCompression" goto SkipCompression
@@ -133,6 +125,7 @@ move MediaInfo_Lib_Source MediaInfoLib
 ..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -tbzip2 -mx9 libmediainfo_.tar.bz2 MediaInfo_Lib_Source.tar
 ..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -tgzip -mx9 libmediainfo_-1.tar.gz MediaInfo_Lib_Source.tar
 del MediaInfo_Lib_Source.tar
+..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -t7z -mx9 MediaInfo_Lib_Source_AllInclusive.7z MediaInfoLib\* ZenLib\* zlib\*
 move MediaInfoLib MediaInfo_Lib_Source
 :SkipCompression
 
@@ -140,3 +133,5 @@ rem --- Clean up ---
 if "%1"=="SkipCleanUp" goto SkipCleanUp
 rmdir MediaInfo_Lib_Source /S /Q
 :SkipCleanUp
+rmdir ZenLib /S /Q
+rmdir zlib /S /Q

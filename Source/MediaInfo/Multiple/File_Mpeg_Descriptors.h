@@ -190,7 +190,7 @@ struct complete_stream
             int64u                                  TimeStamp_End;
         #endif //MEDIAINFO_MPEGTS_PCR_YES
         int32u                                      registration_format_identifier;
-        int32u                                      FMC_ES_ID;
+        int16u                                      FMC_ES_ID;
         int16u                                      table_type; //ATSC
         int8u                                       stream_type;
         bool                                        FMC_ES_ID_IsValid;

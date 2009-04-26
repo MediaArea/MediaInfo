@@ -940,7 +940,7 @@ bool File_Mpega::Header_Encoders()
             Get_Local( 8, Encoded_Library,                      "Encoded_Library");
         Encoded_Library.Trim(_T('A'));
         Encoded_Library.Trim(_T('U'));
-        Encoded_Library.Trim(0xAA);
+        Encoded_Library.Trim(_T('\xAA'));
         Element_Offset=0; //Reseting it
         return true;
     }
@@ -1089,8 +1089,9 @@ void File_Mpega::Header_Encoders_Lame()
 
 void File_Mpega::Encoded_Library_Guess()
 {
-    return; //TODO: Not yet enough precise
+    //TODO: Not yet enough precise
 
+    /*
     if (Block_Count[1]==0) //No short blocks
     {
         if (mode==2) //Dual Mono
@@ -1163,18 +1164,16 @@ void File_Mpega::Encoded_Library_Guess()
                 {
                     if (original_home)
                     {
-                       /*
-                            //10 last bytes
-                            int sum = get_final_sum(data);
-                            if (sum==0)
-                                return guess = _T("FhG (fastenc, low quality mode)");
-                            else if (sum==10 * 0xFF)
-                                return guess = _T("FhG (l3enc)");
-                            else if (sum==5 * 0x20)
-                                return guess = _T("FhG (fastenc, medium or high quality mode)");
-                            else
-                                return guess = _T("FhG (l3enc or fastenc)");
-                        */
+                        //10 last bytes
+                        //int sum = get_final_sum(data);
+                        //if (sum==0)
+                        //    return guess = _T("FhG (fastenc, low quality mode)");
+                        //else if (sum==10 * 0xFF)
+                        //    return guess = _T("FhG (l3enc)");
+                        //else if (sum==5 * 0x20)
+                        //    return guess = _T("FhG (fastenc, medium or high quality mode)");
+                        //else
+                        //    return guess = _T("FhG (l3enc or fastenc)");
                     }
                     else
                     {
@@ -1215,23 +1214,22 @@ void File_Mpega::Encoded_Library_Guess()
                         }
                         else //Stereo or Mono
                         {
-                            /*
-                            if (data.av_reservoir < 40 && !data.vbr) //ISO based encoders are unable to properly use bit reservoir... average reservoir usage is about 10
-                            {
-                                if (data.padding)
-                                    return guess = _T("Blade");
-                                else
-                                    return guess = _T("dist10 encoder or other encoder");
-                            }
-                            else
-                                return guess = _T("Gogo (before 3.0)");
-                            */
+                            //if (data.av_reservoir < 40 && !data.vbr) //ISO based encoders are unable to properly use bit reservoir... average reservoir usage is about 10
+                            //{
+                            //    if (data.padding)
+                            //        return guess = _T("Blade");
+                            //    else
+                            //        return guess = _T("dist10 encoder or other encoder");
+                            //}
+                            //else
+                            //    return guess = _T("Gogo (before 3.0)");
                         }
                     }
                 }
             }
         }
     }
+    */
 }
 
 //***************************************************************************

@@ -22,9 +22,10 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
 			ConfigurationType="2"
 			CharacterSet="1"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -50,8 +51,9 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="4"
 				DebugInformationFormat="4"
+				DisableSpecificWarnings="4060;4065;4100;4127;4390"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -64,10 +66,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ZLibd.lib ZenLibd.lib MediaInfod.lib"
-				OutputFile="../../../Release/MSVC/Dll/MediaInfod.dll"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="../../../Release/MSVC/Library;../../../../ZenLib/Release/MSVC/Library;../../../../Shared/Library/MSVC"
+				AdditionalDependencies="MediaInfo.lib ZenLib.lib zlib.lib"
+				OutputFile="$(OutDir)\MediaInfo.dll"
+				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
 				ModuleDefinitionFile="../../../Source/MediaInfoDLL/MediaInfoDLL.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -100,9 +101,10 @@
 		<Configuration
 			Name="Debug|x64"
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
 			ConfigurationType="2"
 			CharacterSet="1"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -129,8 +131,9 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="4"
 				DebugInformationFormat="3"
+				DisableSpecificWarnings="4060;4065;4100;4127;4390"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -143,10 +146,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ZLibd.lib ZenLibd.lib MediaInfod.lib"
-				OutputFile="../../../Release/MSVCx64/Dll/MediaInfod.dll"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="../../../Release/MSVCx64/Library;../../../../ZenLib/Release/MSVCx64/Library;../../../../Shared/Library/MSVCx64"
+				AdditionalDependencies="MediaInfo.lib ZenLib.lib zlib.lib"
+				OutputFile="$(OutDir)\MediaInfo.dll"
+				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
 				ModuleDefinitionFile="../../../Source/MediaInfoDLL/MediaInfoDLL.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -179,7 +181,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -208,7 +210,8 @@
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="4"
+				DisableSpecificWarnings="4060;4065;4100;4127;4390"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -221,9 +224,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ZLib.lib ZenLib.lib MediaInfo.lib"
-				OutputFile="../../../Release/MSVC/Dll/MediaInfo.dll"
-				AdditionalLibraryDirectories="../../../Release/MSVC/Library;../../../../ZenLib/Release/MSVC/Library;../../../../Shared/Library/MSVC"
+				AdditionalDependencies="MediaInfo.lib ZenLib.lib zlib.lib"
+				OutputFile="$(OutDir)\MediaInfo.dll"
+				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
 				ModuleDefinitionFile="../../../Source/MediaInfoDLL/MediaInfoDLL.def"
 				SubSystem="2"
 				TargetMachine="1"
@@ -253,7 +256,7 @@
 		<Configuration
 			Name="Release|x64"
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -281,7 +284,8 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MEDIAINFODLL_EXPORTS"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="4"
+				DisableSpecificWarnings="4060;4065;4100;4127;4390"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -294,10 +298,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ZLib.lib ZenLib.lib MediaInfo.lib"
-				OutputFile="../../../Release/MSVCx64/Dll/MediaInfo.dll"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="../../../Release/MSVCx64/Library;../../../../ZenLib/Release/MSVCx64/Library;../../../../Shared/Library/MSVCx64"
+				AdditionalDependencies="MediaInfo.lib ZenLib.lib zlib.lib"
+				OutputFile="$(OutDir)\MediaInfo.dll"
+				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
 				ModuleDefinitionFile="../../../Source/MediaInfoDLL/MediaInfoDLL.def"
 				SubSystem="2"
 				TargetMachine="17"
@@ -326,10 +329,11 @@
 		</Configuration>
 		<Configuration
 			Name="DebugA|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
 			ConfigurationType="2"
-			CharacterSet="1"
+			CharacterSet="2"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -355,8 +359,9 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="4"
 				DebugInformationFormat="4"
+				DisableSpecificWarnings="4060;4065;4100;4127;4390"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -369,10 +374,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ZLibd.lib ZenLibd.lib MediaInfod.lib"
-				OutputFile="../../../Release/MSVC/Dll/MediaInfod.dll"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="../../../Release/MSVC/Library;../../../../ZenLib/Release/MSVC/Library;../../../../Shared/Library/MSVC"
+				AdditionalDependencies="MediaInfo.lib ZenLib.lib zlib.lib"
+				OutputFile="$(OutDir)\MediaInfo.dll"
+				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
 				ModuleDefinitionFile="../../../Source/MediaInfoDLL/MediaInfoDLL.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -404,7 +408,11 @@
 		</Configuration>
 		<Configuration
 			Name="DebugA|x64"
-			ConfigurationType="1"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
+			ConfigurationType="2"
+			CharacterSet="2"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -423,6 +431,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				WarningLevel="4"
+				DisableSpecificWarnings="4060;4065;4100;4127;4390"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -435,6 +445,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="MediaInfo.lib ZenLib.lib zlib.lib"
+				OutputFile="$(OutDir)\MediaInfo.dll"
+				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
+				ModuleDefinitionFile="../../../Source/MediaInfoDLL/MediaInfoDLL.def"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -460,10 +474,10 @@
 		</Configuration>
 		<Configuration
 			Name="ReleaseA|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
 			ConfigurationType="2"
-			CharacterSet="0"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -490,7 +504,8 @@
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="4"
+				DisableSpecificWarnings="4060;4065;4100;4127;4390"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -503,9 +518,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ZLib.lib ZenLibA.lib MediaInfoA.lib"
-				OutputFile="../../../Release/MSVC/Dll/MediaInfoA.dll"
-				AdditionalLibraryDirectories="../../../Release/MSVC/Library;../../../../ZenLib/Release/MSVC/Library;../../../../Shared/Library/MSVC"
+				AdditionalDependencies="MediaInfo.lib ZenLib.lib zlib.lib"
+				OutputFile="$(OutDir)\MediaInfo.dll"
+				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
 				ModuleDefinitionFile="../../../Source/MediaInfoDLL/MediaInfoDLL.def"
 				SubSystem="2"
 				TargetMachine="1"
@@ -534,7 +549,11 @@
 		</Configuration>
 		<Configuration
 			Name="ReleaseA|x64"
-			ConfigurationType="1"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
+			ConfigurationType="2"
+			CharacterSet="2"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -553,6 +572,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				WarningLevel="4"
+				DisableSpecificWarnings="4060;4065;4100;4127;4390"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -565,6 +586,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="MediaInfo.lib ZenLib.lib zlib.lib"
+				OutputFile="$(OutDir)\MediaInfo.dll"
+				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
+				ModuleDefinitionFile="../../../Source/MediaInfoDLL/MediaInfoDLL.def"
 			/>
 			<Tool
 				Name="VCALinkTool"

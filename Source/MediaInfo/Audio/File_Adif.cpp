@@ -105,12 +105,12 @@ void File_Adif::FileHeader_Parse()
     Ztring comment_field_data;
     int32u bitrate;
     int8u  num_program_config_elements;
-    int8u  object_type;
-    int8u  sampling_frequency_index;
-    int8u  num_front_channel_elements;
-    int8u  num_side_channel_elements;
-    int8u  num_back_channel_elements;
-    int8u  num_lfe_channel_elements;
+    int8u  object_type=(int8u)-1;
+    int8u  sampling_frequency_index=(int8u)-1;
+    int8u  num_front_channel_elements=(int8u)-1;
+    int8u  num_side_channel_elements=(int8u)-1;
+    int8u  num_back_channel_elements=(int8u)-1;
+    int8u  num_lfe_channel_elements=(int8u)-1;
     int8u  num_assoc_data_elements;
     int8u  num_valid_cc_elements;
     bool   bitstream_type;
@@ -210,13 +210,16 @@ void File_Adif::FileHeader_Parse()
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill (Stream_Audio, 0, Audio_Format, "AAC");
         Fill (Stream_Audio, 0, Audio_Format_Version, "Version 2");
-        Fill (Stream_Audio, 0, Audio_Format_Profile, ADIF_Format_Profile[object_type]);
+        if (object_type!=(int8u)-1)
+            Fill (Stream_Audio, 0, Audio_Format_Profile, ADIF_Format_Profile[object_type]);
         Fill (Stream_Audio, 0, Audio_Codec, ADIF_object_type[object_type]);
         Fill(Stream_Audio, 0, Audio_BitRate_Mode, bitstream_type?"VBR":"CBR");
         if (bitrate>0)
             Fill(Stream_Audio, 0, bitstream_type?Audio_BitRate_Maximum:Audio_BitRate, bitrate);
-        Fill(Stream_Audio, 0, Audio_SamplingRate, ADIF_sampling_frequency[sampling_frequency_index]);
-        Fill(Stream_Audio, 0, Audio_Channel_s_, num_front_channel_elements+num_side_channel_elements+num_back_channel_elements+num_lfe_channel_elements);
+        if (sampling_frequency_index!=(int8u)-1)
+            Fill(Stream_Audio, 0, Audio_SamplingRate, ADIF_sampling_frequency[sampling_frequency_index]);
+        if (num_front_channel_elements!=(int8u)-1)
+            Fill(Stream_Audio, 0, Audio_Channel_s_, num_front_channel_elements+num_side_channel_elements+num_back_channel_elements+num_lfe_channel_elements);
         Fill(Stream_Audio, 0, Audio_Resolution, 16);
         Fill(Stream_Audio, 0, Audio_MuxingMode, "ADIF");
 

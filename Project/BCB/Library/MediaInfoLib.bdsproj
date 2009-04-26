@@ -14,7 +14,7 @@
 		</Source>
 		<BCBPROJECT>
       <project version="10.0">
-        <property category="build.config" name="active" value="0"/>
+        <property category="build.config" name="active" value="1"/>
         <property category="build.config" name="count" value="1"/>
         <property category="build.config" name="excludedefaultforzero" value="0"/>
         <property category="build.config.0" name="builddir" value="Debug"/>
@@ -28,7 +28,7 @@
         <property category="build.config.1" name="settings.win32b" value="default"/>
         <property category="build.config.1" name="type" value="Toolset"/>
         <property category="build.config.1" name="win32.win32b.builddir" value="Release_Build"/>
-        <property category="build.node" name="lastconfig" value="Debug_Build"/>
+        <property category="build.node" name="lastconfig" value="Release_Build"/>
         <property category="build.node" name="libraries" value="vcl.lib rtl.lib"/>
         <property category="build.node" name="name" value="MediaInfoLib.lib"/>
         <property category="build.node" name="packages" value="vcl;rtl;vclx;xmlrtl;vclie;inet;inetdbbde;inetdbxpress;soaprtl;dbrtl;dsnap;bcbie;vcldb;websnap;webdsnap;vclactnband"/>
@@ -71,9 +71,6 @@
         <property category="win32.Debug_Build.win32b.tlib" name="option.P.arg" value="1024"/>
         <property category="win32.Debug_Build.win32b.tlib" name="option.P.arg.merge" value="1"/>
         <property category="win32.Debug_Build.win32b.tlib" name="option.P.enabled" value="1"/>
-        <property category="win32.Debug_Build.win32b.tlib" name="option.outputdir.arg.1" value="..\..\..\release\bcb\library"/>
-        <property category="win32.Debug_Build.win32b.tlib" name="option.outputdir.arg.merge" value="0"/>
-        <property category="win32.Debug_Build.win32b.tlib" name="option.outputdir.enabled" value="1"/>
         <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.1" value="NDEBUG"/>
         <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.2" value="__MT__"/>
         <property category="win32.Release_Build.win32b.bcc32" name="option.D.arg.3" value="_MT"/>
@@ -97,15 +94,12 @@
         <property category="win32.Release_Build.win32b.tasm32" name="option.zd.enabled" value="0"/>
         <property category="win32.Release_Build.win32b.tasm32" name="option.zi.enabled" value="0"/>
         <property category="win32.Release_Build.win32b.tasm32" name="option.zn.enabled" value="1"/>
-        <property category="win32.Release_Build.win32b.tlib" name="option.P.arg" value="128"/>
+        <property category="win32.Release_Build.win32b.tlib" name="option.P.arg" value="1024"/>
         <property category="win32.Release_Build.win32b.tlib" name="option.P.arg.merge" value="1"/>
         <property category="win32.Release_Build.win32b.tlib" name="option.P.enabled" value="1"/>
         <property category="win32.Release_Build.win32b.tlib" name="option.additional_switches.arg" value=""/>
         <property category="win32.Release_Build.win32b.tlib" name="option.additional_switches.arg.merge" value="1"/>
         <property category="win32.Release_Build.win32b.tlib" name="option.additional_switches.enabled" value="0"/>
-        <property category="win32.Release_Build.win32b.tlib" name="option.outputdir.arg.1" value="..\..\..\release\bcb\library"/>
-        <property category="win32.Release_Build.win32b.tlib" name="option.outputdir.arg.merge" value="0"/>
-        <property category="win32.Release_Build.win32b.tlib" name="option.outputdir.enabled" value="1"/>
         <optionset name="all_configurations">
           <property category="node" name="displayname" value="All Configurations"/>
           <property category="win32.*.win32b.bcc32" name="container.SelectedOptimizations.containerenabled" value="1"/>

@@ -191,8 +191,8 @@ bool File_Elf::FileHeader_Begin()
 void File_Elf::Read_Buffer_Continue()
 {
     //Parsing
-    int32u version4;
-    int16u type, machine;
+    int32u version4=(int32u)-1;
+    int16u type=(int16u)-1, machine=(int16u)-1;
     int8u  classs, data, version1, osabi, abiversion;
     Skip_C4(                                                    "magic");
     Get_L1 (classs,                                             "class");
@@ -216,7 +216,7 @@ void File_Elf::Read_Buffer_Continue()
     Skip_XX(Element_Size-Element_Offset,                        "Data");
 
     FILLING_BEGIN();
-        if (version1!=version4)
+        if (version4!=(int32u)-1 && version1!=version4)
         {
             Reject("ELF");
             return;
@@ -224,11 +224,10 @@ void File_Elf::Read_Buffer_Continue()
 
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "ELF");
-        if (data==1 || data==2) //Known
-        {
+        if (type!=(int16u)-1)
             Fill(Stream_General, 0, General_Format_Profile, Elf_type(type));
+        if (machine!=(int16u)-1)
             Fill(Stream_General, 0, General_Format_Profile, Elf_machine(machine));
-        }
 
         //No need of more
         Accept("ELF");

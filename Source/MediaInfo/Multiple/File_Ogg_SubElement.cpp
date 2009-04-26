@@ -73,7 +73,7 @@ namespace MediaInfoLib
 
 #else //__BORLANDC__
     #define OGG_ID(NAME, PART1, PART2, COUNT) \
-        const int64u Identifier_##NAME=0x##PART1##PART2##LL; \
+        const int64u Identifier_##NAME=0x##PART1##PART2##UL; \
         const size_t Identifier_##NAME##3=0x##COUNT; \
 
 #endif //__BORLANDC__

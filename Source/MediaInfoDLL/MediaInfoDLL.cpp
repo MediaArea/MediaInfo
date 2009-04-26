@@ -153,7 +153,13 @@ const wchar_t* MB2WC(void* Handle, const char* Text)
     if (Handle==NULL || MI_Handle.find(Handle)==MI_Handle.end()) \
         return; \
 
-#define INTEGRITY_INT(_DEBUGA) \
+#define INTEGRITY_SIZE_T(_DEBUGA) \
+    MEDIAINFO_DEBUG(_DEBUGA) \
+    CriticalSectionLocker Locker(Critical); \
+    if (Handle==NULL || MI_Handle.find(Handle)==MI_Handle.end()) \
+        return 0; \
+
+#define INTEGRITY_INT64U(_DEBUGA) \
     MEDIAINFO_DEBUG(_DEBUGA) \
     CriticalSectionLocker Locker(Critical); \
     if (Handle==NULL || MI_Handle.find(Handle)==MI_Handle.end()) \
@@ -189,19 +195,27 @@ const wchar_t* MB2WC(void* Handle, const char* Text)
 #endif //MEDIAINFO_DEBUG
 
 #ifndef MEDIAINFO_DEBUG
-#define EXECUTE_INT(_CLASS,_METHOD,_DEBUGB) \
+#define EXECUTE_SIZE_T(_CLASS,_METHOD,_DEBUGB) \
     try \
     { \
         return ((_CLASS*)Handle)->_METHOD; \
     } catch (...) {return -1;}
 #else //MEDIAINFO_DEBUG
-#define EXECUTE_INT(_CLASS,_METHOD, _DEBUGB) \
+#define EXECUTE_SIZE_T(_CLASS,_METHOD, _DEBUGB) \
     try \
     { \
         size_t ToReturn=((_CLASS*)Handle)->_METHOD; \
         MEDIAINFO_DEBUG(_DEBUGB) \
         return ToReturn; \
-    } catch (...) {MEDIAINFO_DEBUG(Debug+="!!!Exception thrown!!!\r\n";) return -1;}
+    } catch (...) {MEDIAINFO_DEBUG(Debug+="!!!Exception thrown!!!\r\n";) return (size_t)-1;}
+
+#define EXECUTE_INT64U(_CLASS,_METHOD, _DEBUGB) \
+    try \
+    { \
+        int64u ToReturn=((_CLASS*)Handle)->_METHOD; \
+        MEDIAINFO_DEBUG(_DEBUGB) \
+        return ToReturn; \
+    } catch (...) {MEDIAINFO_DEBUG(Debug+="!!!Exception thrown!!!\r\n";) return (size_t)-1;}
 #endif //MEDIAINFO_DEBUG
 
 #ifndef MEDIAINFO_DEBUG
@@ -226,7 +240,7 @@ const wchar_t* MB2WC(void* Handle, const char* Text)
     INTEGRITY_VOID(_DEBUGA) EXECUTE_VOID(_CLASS,_METHOD,_DEBUGB)
 
 #define MANAGE_INT(_CLASS,_METHOD,_DEBUGA,_DEBUGB) \
-    INTEGRITY_INT(_DEBUGA) EXECUTE_INT(_CLASS,_METHOD,_DEBUGB)
+    INTEGRITY_SIZE_T(_DEBUGA) EXECUTE_SIZE_T(_CLASS,_METHOD,_DEBUGB)
 
 #define MANAGE_STRING(_CLASS,_METHOD,_DEBUGA,_DEBUGB) \
     INTEGRITY_STRING(_DEBUGA) EXECUTE_STRING(_CLASS,_METHOD,_DEBUGB)
@@ -481,7 +495,7 @@ void            __stdcall MediaInfo_Delete (void* Handle)
 
 size_t          __stdcall MediaInfo_Open (void* Handle, const wchar_t* File)
 {
-    INTEGRITY_INT(Debug+="Open, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", File=";Debug+=ZenLib::Ztring(File).To_Local();Debug+="\r\n";)
+    INTEGRITY_SIZE_T(Debug+="Open, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", File=";Debug+=ZenLib::Ztring(File).To_Local();Debug+="\r\n";)
 
     if (MI_Handle.find(Handle)==MI_Handle.end())
     {
@@ -490,12 +504,12 @@ size_t          __stdcall MediaInfo_Open (void* Handle, const wchar_t* File)
         return (size_t)M;
     }
 
-    EXECUTE_INT(MediaInfo, Open(File), Debug+="Open, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
+    EXECUTE_SIZE_T(MediaInfo, Open(File), Debug+="Open, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
 }
 
 size_t          __stdcall MediaInfo_Open_Buffer (void* Handle, const unsigned char* Begin, size_t  Begin_Size, const unsigned char* End, size_t  End_Size)
 {
-    INTEGRITY_INT(Debug+="Open_Buffer, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", ";Debug+="\r\n";)
+    INTEGRITY_SIZE_T(Debug+="Open_Buffer, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", ";Debug+="\r\n";)
 
     if (MI_Handle.find(Handle)==MI_Handle.end())
     {
@@ -504,35 +518,35 @@ size_t          __stdcall MediaInfo_Open_Buffer (void* Handle, const unsigned ch
         return (size_t)M;
     }
 
-    EXECUTE_INT(MediaInfo, Open(Begin, Begin_Size, End, End_Size), Debug+="Open_Buffer, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
+    EXECUTE_SIZE_T(MediaInfo, Open(Begin, Begin_Size, End, End_Size), Debug+="Open_Buffer, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
 }
 
 size_t          __stdcall MediaInfo_Open_Buffer_Init (void* Handle, MediaInfo_int64u File_Size, MediaInfo_int64u File_Offset)
 {
-    INTEGRITY_INT(Debug+="Open_Buffer_Init, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", ";Debug+="\r\n";)
+    INTEGRITY_SIZE_T(Debug+="Open_Buffer_Init, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", ";Debug+="\r\n";)
 
-    EXECUTE_INT(MediaInfo, Open_Buffer_Init(File_Size, File_Offset), Debug+="Open_Buffer_Init, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
+    EXECUTE_SIZE_T(MediaInfo, Open_Buffer_Init(File_Size, File_Offset), Debug+="Open_Buffer_Init, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
 }
 
 size_t          __stdcall MediaInfo_Open_Buffer_Continue (void* Handle, MediaInfo_int8u* Buffer, size_t Buffer_Size)
 {
-    INTEGRITY_INT(Debug+="MediaInfo_Open_Buffer_Continue, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", ";Debug+="\r\n";)
+    INTEGRITY_SIZE_T(Debug+="MediaInfo_Open_Buffer_Continue, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", ";Debug+="\r\n";)
 
-    EXECUTE_INT(MediaInfo, Open_Buffer_Continue(Buffer, Buffer_Size), Debug+="MediaInfo_Open_Buffer_Continue, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
+    EXECUTE_SIZE_T(MediaInfo, Open_Buffer_Continue(Buffer, Buffer_Size), Debug+="MediaInfo_Open_Buffer_Continue, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
 }
 
 MediaInfo_int64u __stdcall MediaInfo_Open_Buffer_Continue_GoTo_Get (void* Handle)
 {
-    INTEGRITY_INT(Debug+="MediaInfo_Open_Buffer_Continue_GoTo_Get, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", ";Debug+="\r\n";)
+    INTEGRITY_INT64U(Debug+="MediaInfo_Open_Buffer_Continue_GoTo_Get, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", ";Debug+="\r\n";)
 
-    EXECUTE_INT(MediaInfo, Open_Buffer_Continue_GoTo_Get(), Debug+="MediaInfo_Open_Buffer_Continue_GoTo_Get, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
+    EXECUTE_INT64U(MediaInfo, Open_Buffer_Continue_GoTo_Get(), Debug+="MediaInfo_Open_Buffer_Continue_GoTo_Get, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
 }
 
 size_t          __stdcall MediaInfo_Open_Buffer_Finalize (void* Handle)
 {
-    INTEGRITY_INT(Debug+="MediaInfo_Open_Buffer_Finalize, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", ";Debug+="\r\n";)
+    INTEGRITY_SIZE_T(Debug+="MediaInfo_Open_Buffer_Finalize, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", ";Debug+="\r\n";)
 
-    EXECUTE_INT(MediaInfo, Open_Buffer_Finalize(), Debug+="MediaInfo_Open_Buffer_Finalize, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
+    EXECUTE_SIZE_T(MediaInfo, Open_Buffer_Finalize(), Debug+="MediaInfo_Open_Buffer_Finalize, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
 }
 
 size_t          __stdcall MediaInfo_Save (void* Handle)
@@ -699,7 +713,7 @@ void            __stdcall MediaInfoList_Delete (void* Handle)
 
 size_t          __stdcall MediaInfoList_Open (void* Handle, const wchar_t* File, const MediaInfo_fileoptions_C Options)
 {
-    INTEGRITY_INT(Debug+="Open(L), Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", ";Debug+="\r\n";)
+    INTEGRITY_SIZE_T(Debug+="Open(L), Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+=", ";Debug+="\r\n";)
 
     if (MI_Handle.find(Handle)==MI_Handle.end())
     {
@@ -708,12 +722,12 @@ size_t          __stdcall MediaInfoList_Open (void* Handle, const wchar_t* File,
         return (size_t)M;
     }
 
-    EXECUTE_INT(MediaInfoList, Open(File, (fileoptions_t)Options), Debug+="Open(L), will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
+    EXECUTE_SIZE_T(MediaInfoList, Open(File, (fileoptions_t)Options), Debug+="Open(L), will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
 }
 
 size_t          __stdcall MediaInfoList_Open_Buffer (void* Handle, const unsigned char* Begin, size_t  Begin_Size, const unsigned char* End, size_t  End_Size)
 {
-    INTEGRITY_INT(Debug+="Open_Buffer(L), Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+="\r\n";)
+    INTEGRITY_SIZE_T(Debug+="Open_Buffer(L), Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+="\r\n";)
 
     if (MI_Handle.find(Handle)==MI_Handle.end())
     {

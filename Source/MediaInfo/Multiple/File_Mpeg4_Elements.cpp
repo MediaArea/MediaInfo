@@ -809,8 +809,6 @@ void File_Mpeg4::mdat()
                         Position=Temp->second.stco[Chunk-1];
                     }
 
-                    if (Position==0x21FD881)
-                        int A=0;
                     mdat_Pos[Position].StreamID=Temp->first;
                     mdat_Pos[Position].Size=Temp->second.stsz[stsz_Pos];
 

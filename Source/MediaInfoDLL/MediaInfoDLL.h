@@ -28,11 +28,7 @@
 
 /*-------------------------------------------------------------------------*/
 #if defined (_WIN32) || defined (WIN32)
-    #ifdef _DEBUG
-        #define MEDIAINFODLL_NAME  "MediaInfod.dll"
-    #else    
-        #define MEDIAINFODLL_NAME  "MediaInfo.dll"
-    #endif //_DEBUG
+    #define MEDIAINFODLL_NAME  "MediaInfo.dll"
 #elif defined(__APPLE__) && defined(__MACH__)
     #define MEDIAINFODLL_NAME  "libmediainfo.0.dylib"
     #define __stdcall

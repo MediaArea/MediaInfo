@@ -312,7 +312,7 @@ void File_Wvpk::Data_Parse()
         Get_L2 (version,                                        "version");
     if (version/0x100==0x4)
     {
-        int32u total_samples, block_index, block_samples, flags;
+        int32u total_samples=(int32u)-1, block_index=(int32u)-1, block_samples, flags;
         if (!FromMKV)
         {
             Skip_L1(                                            "track_no");

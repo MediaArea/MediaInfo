@@ -298,8 +298,8 @@ String MediaInfo::Option_Static (const String &Option, const String &Value)
          if (Option==_T("Info_Capacities"))
     {
         return _T("Option disactivated for this version, will come back soon!");
-        MediaInfo_Internal MI;
-        return MI.Option(Option);
+        //MediaInfo_Internal MI;
+        //return MI.Option(Option);
     }
     else if (Option==_T("Info_Version"))
     {

@@ -2269,7 +2269,7 @@ void File_MpegPs::video_stream()
         else
         {
             Element_End();
-            bool WantShow2=Element_Show_Get();
+            //bool WantShow2=Element_Show_Get();
             if (WantShow1)
                 Element_Show();
             Element_Begin("Testing MPEG-4 Video...");
@@ -2296,7 +2296,7 @@ void File_MpegPs::video_stream()
             else
             {
                 Element_End();
-                bool WantShow3=Element_Show_Get();
+                //bool WantShow3=Element_Show_Get();
                 //if (WantShow1 || WantShow2)
                     Element_Show();
                 Element_Begin("Testing AVS Video...");
