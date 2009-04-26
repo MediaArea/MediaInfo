@@ -44,8 +44,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxMSW/include;../../../../wxMSW/include\msvc"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MEDIAINFO_STATIC"
+				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxMSW/include;&quot;../../../../wxMSW/lib/vc_lib/$(PlatformName)/mswud&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -68,87 +68,9 @@
 				AdditionalDependencies="MediaInfo.lib ZenLib.lib zlib.lib wxbase28ud.lib wxmsw28ud_core.lib wxmsw28ud_html.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib comctl32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib rpcrt4.lib"
 				OutputFile="$(OutDir)\MediaInfo.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;..\..\..\..\wxMSW\lib\vc_lib;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\wxMSW\lib\vc_lib\$(PlatformName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|Win32"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="1"
-			WholeProgramOptimization="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="2"
-				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxMSW/include;../../../../wxMSW/include\msvc"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
-				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="../../../../Shared/Include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="ZenLib.lib zlib.lib MediaInfo.lib wxbase28u.lib wxmsw28u_core.lib wxmsw28u_html.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib comctl32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib rpcrt4.lib"
-				OutputFile="$(OutDir)\MediaInfo.exe"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;..\..\..\..\wxMSW\lib\vc_lib;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
-				SubSystem="2"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -200,7 +122,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxMSW/include;../../../../wxMSW/include\msvc"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MEDIAINFO_STATIC"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -223,10 +145,88 @@
 				AdditionalDependencies="MediaInfo.lib ZenLib.lib zlib.lib wxbase28ud.lib wxmsw28ud_core.lib wxmsw28ud_html.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib comctl32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib rpcrt4.lib"
 				OutputFile="$(OutDir)\MediaInfo.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;..\..\..\..\wxMSW\lib\vc_lib;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\wxMSW\lib\vc_lib\$(PlatformName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="1"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxMSW/include;&quot;../../../../wxMSW/lib/vc_lib/$(PlatformName)/mswu&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MEDIAINFO_STATIC"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="../../../../Shared/Include"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="ZenLib.lib zlib.lib MediaInfo.lib wxbase28u.lib wxmsw28u_core.lib wxmsw28u_html.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib comctl32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib rpcrt4.lib"
+				OutputFile="$(OutDir)\MediaInfo.exe"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC\DLL\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\wxMSW\lib\vc_lib\$(PlatformName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -279,7 +279,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxMSW/include;../../../../wxMSW/include\msvc"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MEDIAINFO_STATIC"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -301,7 +301,7 @@
 				AdditionalDependencies="ZenLib.lib zlib.lib MediaInfo.lib wxbase28u.lib wxmsw28u_core.lib wxmsw28u_html.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib comctl32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib rpcrt4.lib"
 				OutputFile="$(OutDir)\MediaInfo.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\MediaInfoLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\wxMSW\lib\vc_lib\$(PlatformName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;..\..\..\..\MediaInfoLib\Project\MSVC\DLL\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\wxMSW\lib\vc_lib\$(PlatformName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC\$(PlatformName)\$(ConfigurationName)&quot;"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
