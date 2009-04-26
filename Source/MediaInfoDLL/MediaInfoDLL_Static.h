@@ -40,6 +40,7 @@
 #if !defined(_WIN32) && !defined(__WIN32__)
     #define __stdcall
 #endif //!defined(_WIN32)
+#include <limits.h>
 
 /*-------------------------------------------------------------------------*/
 /*8-bit int                                                                */
