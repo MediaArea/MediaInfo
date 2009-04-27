@@ -277,6 +277,15 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     {
         return ReadByHuman_Get()?_T("1"):_T("0");
     }
+    else if (Option_Lower==_T("parsespeed"))
+    {
+        ParseSpeed_Set(Value.To_float32());
+        return _T("");
+    }
+    else if (Option_Lower==_T("readbyhuman_get"))
+    {
+        return Ztring::ToZtring(ParseSpeed_Get(), 3);
+    }
     else if (Option_Lower==_T("lineseparator"))
     {
         LineSeparator_Set(Value);
