@@ -74,15 +74,25 @@ xcopy ..\Contrib\*.doc MediaInfo_Source\Contrib\ /S
 rem --- Copying : CVS files ---
 xcopy ..\*.cvsignore MediaInfo_Source\
 
+rem --- Copying : MediaInfoLib files ---
+cd ..\..\MediaInfoLib\Release
+call Release_Source.bat SkipCleanUp SkipCompression
+cd ..\..\MediaInfo\Release
+move ..\..\MediaInfoLib\Release\MediaInfo_Lib_Source .\MediaInfoLib
+
 rem --- Copying : ZenLib files ---
 cd ..\..\ZenLib\Release
-call Release_GNU_Prepare.bat SkipCleanUp SkipCompression
-cd ..\..\MediaInfoLib\Release
-move ..\..\ZenLib\Release\ZenLib_GNU_Prepare .\ZenLib
+call Release_Source.bat SkipCleanUp SkipCompression
+cd ..\..\MediaInfo\Release
+move ..\..\ZenLib\Release\ZenLib_Source .\ZenLib
 
 rem --- Copying : zlib files ---
 xcopy ..\..\Shared\Source\zlib .\zlib\ /S
 xcopy ..\..\Shared\Project\zlib\Template .\zlib\ /S
+
+rem --- Copying : Wx files ---
+xcopy ..\..\Shared\Source\wxMSW .\wxMSW\ /S
+xcopy ..\..\Shared\Project\WxWidgets\Template .\wxMSW\ /S
 
 
 rem --- Compressing Archive ---
@@ -92,7 +102,7 @@ rem ..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -ttar -mx9 MediaInfo_Source.t
 rem ..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -tbzip2 -mx9 mediainfo_.tar.bz2 MediaInfo_Source.tar
 rem ..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -tgzip -mx9 mediainfo_-1.tar.gz MediaInfo_Source.tar
 rem del MediaInfo_Source.tar
-..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -t7z -mx9 mediainfo__AllInclusive.7z MediaInfo\* MediaInfoLib\* ZenLib\* zlib\*
+..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -t7z -mx9 mediainfo__AllInclusive.7z MediaInfo\* MediaInfoLib\* ZenLib\* wxMSW\* zlib\*
 move MediaInfo MediaInfo_Source
 :SkipCompression
 
@@ -100,3 +110,7 @@ rem --- Clean up ---
 if "%1"=="SkipCleanUp" goto SkipCleanUp
 rmdir MediaInfo_Source /S /Q
 :SkipCleanUp
+rmdir MediaInfoLib /S /Q
+rmdir ZenLib /S /Q
+rmdir wxMSW /S /Q
+rmdir zlib /S /Q
