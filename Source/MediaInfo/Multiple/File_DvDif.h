@@ -88,6 +88,7 @@ private :
     size_t FrameCount;
     size_t FrameSize_Theory; //The size of a frame
     int64u Duration;
+    int64u TimeCode_First;
     int8u  SCT;
     int8u  SCT_Old;
     int8u  Dseq;
@@ -103,7 +104,6 @@ private :
     bool   TF3;
     int8u  aspect;
     bool   Interlaced;
-    int64u TimeCode_First;
 
 };
 

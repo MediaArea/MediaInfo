@@ -179,6 +179,7 @@ File_DvDif::File_DvDif()
     FrameCount=0;
     FrameSize_Theory=0;
     Duration=0;
+    TimeCode_First=(int64u)-1;
     SCT_Old=4; //Video
     DBN_Olds[1]=1; //SubCode
     DBN_Olds[2]=2; //Vaux
@@ -189,7 +190,6 @@ File_DvDif::File_DvDif()
     TF1=false; //Valid by default, for direct analyze
     TF2=false; //Valid by default, for direct analyze
     TF3=false; //Valid by default, for direct analyze
-    TimeCode_First=(int64u)-1;
 }
 
 //***************************************************************************
