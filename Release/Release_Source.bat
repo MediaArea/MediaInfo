@@ -109,9 +109,9 @@ copy ..\*.cvsignore MediaInfo_Lib_Source\
 
 rem --- Copying : ZenLib files ---
 cd ..\..\ZenLib\Release
-call Release_GNU_Prepare.bat SkipCleanUp SkipCompression
+call Release_Source.bat SkipCleanUp SkipCompression
 cd ..\..\MediaInfoLib\Release
-move ..\..\ZenLib\Release\ZenLib_GNU_Prepare .\ZenLib
+move ..\..\ZenLib\Release\ZenLib_Source .\ZenLib
 
 rem --- Copying : zlib files ---
 xcopy ..\..\Shared\Source\zlib .\zlib\ /S
@@ -125,7 +125,7 @@ move MediaInfo_Lib_Source MediaInfoLib
 ..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -tbzip2 -mx9 libmediainfo_.tar.bz2 MediaInfo_Lib_Source.tar
 ..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -tgzip -mx9 libmediainfo_-1.tar.gz MediaInfo_Lib_Source.tar
 del MediaInfo_Lib_Source.tar
-..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -t7z -mx9 MediaInfo_Lib_Source_AllInclusive.7z MediaInfoLib\* ZenLib\* zlib\*
+..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -t7z -mx9 libmediainfo__AllInclusive.7z MediaInfoLib\* ZenLib\* zlib\*
 move MediaInfoLib MediaInfo_Lib_Source
 :SkipCompression
 
