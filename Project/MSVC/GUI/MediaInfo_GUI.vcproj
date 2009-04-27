@@ -22,7 +22,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
 			ConfigurationType="1"
 			CharacterSet="1"
 			>
@@ -58,7 +58,8 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="../../../../Shared/Include"
+				PreprocessorDefinitions="_UNICODE;UNICODE;_DEBUG"
+				AdditionalIncludeDirectories="../../../../wxMSW/include"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -98,7 +99,7 @@
 		<Configuration
 			Name="Debug|x64"
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
 			ConfigurationType="1"
 			CharacterSet="1"
 			>
@@ -121,7 +122,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxMSW/include;../../../../wxMSW/include\msvc"
+				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxMSW/include;&quot;../../../../wxMSW/lib/vc_lib/$(PlatformName)/mswud&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -135,7 +136,8 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="../../../../Shared/Include"
+				PreprocessorDefinitions="_UNICODE;UNICODE;_DEBUG"
+				AdditionalIncludeDirectories="../../../../wxMSW/include"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -175,7 +177,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
 			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -212,7 +214,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="../../../../Shared/Include"
+				AdditionalIncludeDirectories="../../../../wxMSW/include"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -253,7 +255,7 @@
 		<Configuration
 			Name="Release|x64"
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)\Intermediate"
 			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -278,7 +280,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxMSW/include;../../../../wxMSW/include\msvc"
+				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxMSW/include;&quot;../../../../wxMSW/lib/vc_lib/$(PlatformName)/mswu&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MEDIAINFO_STATIC"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
@@ -291,7 +293,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="../../../../Shared/Include"
+				AdditionalIncludeDirectories="../../../../wxMSW/include"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -428,6 +430,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\..\..\Source\GUI\WxWidgets\resource.h"
+				>
+			</File>
 			<Filter
 				Name="Common"
 				>
@@ -517,10 +523,31 @@
 			<File
 				RelativePath="..\..\..\Source\GUI\WxWidgets\GUI_Main.rc"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\MediaInfo_GUI.rc"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 	</Files>
