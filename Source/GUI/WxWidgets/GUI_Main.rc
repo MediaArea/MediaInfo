@@ -5,5 +5,7 @@ File_Open_Directory             ICON "../../../Source/Ressource/Image/Menu/File_
 Help_About                      ICON "../../../Source/Ressource/Image/Menu/Help_About.ico"
 
 //WxWidgets
-#include <wx/msw/wx.rc>
+#ifndef _DEBUG
+    #include <wx/msw/wx.rc>
+#endif
 
