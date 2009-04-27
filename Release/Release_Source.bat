@@ -8,6 +8,7 @@ del libmediainfo__AllInclusive.7z
 rmdir MediaInfo_Source /S /Q
 rmdir MediaInfoLib /S /Q
 rmdir ZenLib /S /Q
+rmdir wxMSW /S /Q
 rmdir zlib /S /Q
 mkdir MediaInfo_Source
 
