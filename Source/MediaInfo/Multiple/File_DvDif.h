@@ -104,7 +104,6 @@ private :
     bool   TF3;
     int8u  aspect;
     bool   Interlaced;
-
 };
 
 } //NameSpace
