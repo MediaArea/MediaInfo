@@ -160,7 +160,26 @@ void File_Mpeg4::Read_Buffer_Finalize()
                         Merge(*Temp->second.Parser, Target->second.StreamKind, 0, Target->second.StreamPos);
             }
             else
+            {
+                //Hacks - Before
+                Ztring FrameRate_Temp, FrameRate_Mode_Temp;
+                if (StreamKind_Last==Stream_Video)
+                {
+                    FrameRate_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate);
+                    FrameRate_Mode_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Mode);
+                }
+
                 Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
+
+                //Hacks - After
+                if (StreamKind_Last==Stream_Video)
+                {
+                    if (!FrameRate_Temp.empty() && FrameRate_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate))
+                        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_Temp, true);
+                    if (!FrameRate_Mode_Temp.empty() && FrameRate_Mode_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Mode))
+                        Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, FrameRate_Mode_Temp, true);
+                }
+            }
         }
 
         Temp++;

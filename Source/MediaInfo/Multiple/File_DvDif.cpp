@@ -457,16 +457,6 @@ void File_DvDif::Header_Fill()
         Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "Digital Video");
 
-    Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive");
-    Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"PFF");
-    switch (aspect)
-    {
-        case 0 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 4.0/3.0); break;
-        case 2 :
-        case 7 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 16.0/9.0); break;
-        default: ;
-    }
-
     Accept("DV DIF");
     Finish("DV DIF");
 }
@@ -821,6 +811,7 @@ void File_DvDif::video_source()
     Element_Name("video_source");
 
     int8u stype;
+    bool system;
     BS_Begin();
     //PC1
     Skip_S1(4,                                                  "TVCH (tens of units, 0–9)");
@@ -834,7 +825,7 @@ void File_DvDif::video_source()
 
     //PC3
     Skip_S1(2,                                                  "SRC");
-    Skip_SB(                                                    "50/60 - System");
+    Get_SB (   system,                                          "50/60 - System");
     Get_S1 (4, stype,                                           "STYPE - Signal type of video signal"); //0=not 4:2:2, 4=4:2:2
 
     //PC4
@@ -850,7 +841,7 @@ void File_DvDif::video_source()
             Fill(Stream_Video, 0, Video_Standard, DSF?"PAL":"NTSC");
             Fill(Stream_Video, 0, Video_Width, 720);
             Fill(Stream_Video, 0, Video_Height, DSF?576:480);
-            Fill(Stream_Video, 0, Video_FrameRate, DSF?25.000:29.970);
+            Fill(Stream_Video, 0, Video_FrameRate, system?25.000:29.970);
             Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
 
             if (DSF==false && stype==4) //NTSC and 4:2:2
@@ -911,6 +902,19 @@ void File_DvDif::video_sourcecontrol()
     BS_End();
 
     FILLING_BEGIN();
+        if (FrameCount==1 || AuxToAnalyze) //Only the first time
+        {
+            Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive", Unlimited, true, true);
+            Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"PFF", Unlimited, true, true);
+            switch (aspect)
+            {
+                case 0 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 4.0/3.0, 3, true); break;
+                case 2 :
+                case 7 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 16.0/9.0, 3, true); break;
+                default: ;
+            }
+        }
+
         if (!IsAccepted && AuxToAnalyze)
             Header_Fill();
     FILLING_END();
