@@ -35,6 +35,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Mpeg4.h"
+#if defined(MEDIAINFO_DVDIF_YES)
+    #include "MediaInfo/Multiple/File_DvDif.h"
+#endif
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
 #endif
@@ -2559,6 +2562,18 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 Element_ThisIsAList();
         else if (Element_Offset<Element_Size)
             Descriptors();
+
+        #if defined(MEDIAINFO_DVDIF_YES)
+        if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("Digital Video"))
+        {
+            if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
+            {
+                Stream[moov_trak_tkhd_TrackID].Parser=new File_DvDif;
+                Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
+                mdat_MustParse=true; //Data is in MDAT
+            }
+        }
+        #endif
     FILLING_END();
 }
 
