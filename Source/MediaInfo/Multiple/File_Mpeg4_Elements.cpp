@@ -799,12 +799,18 @@ void File_Mpeg4::mdat()
                         //Reseting
                         SamplesPerChunk_Pos=0;
                         Chunk++;
+                        if (Chunk>Temp->second.stco.size())
+                            break;
 
                         //Count of sample in this Chunk
                         if (stsc_Pos+1<Temp->second.stsc.size() && Chunk>=Temp->second.stsc[stsc_Pos+1].FirstChunk || Position==(int64u)-1)
                         {
                             if (Position!=(int64u)-1)
+                            {
                                 stsc_Pos++;
+                                if (stsc_Pos>=Temp->second.stsc.size())
+                                    break;
+                            }
                             SamplesPerChunk=Temp->second.stsc[stsc_Pos].SamplesPerChunk;
                         }
 
