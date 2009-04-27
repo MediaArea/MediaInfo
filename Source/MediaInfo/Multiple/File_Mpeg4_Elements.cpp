@@ -2542,16 +2542,18 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, moov_trak_tkhd_DisplayAspectRatio, 3, true);
 
         //Specific cases
-        if (Element_Code==0x6F766331) //"ovc1"
-        {
-            File_Vc1 MI;
-            MI.FrameIsAlwaysComplete=true;
-            Open_Buffer_Init(&MI);
-            Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-            Element_Offset=Element_Size;
-            Open_Buffer_Finalize(&MI);
-            Merge(MI, Stream_Video, 0, StreamPos_Last);
-        }
+        #if defined(MEDIAINFO_VC1_YES)
+            if (Element_Code==0x6F766331) //"ovc1"
+            {
+                File_Vc1 MI;
+                MI.FrameIsAlwaysComplete=true;
+                Open_Buffer_Init(&MI);
+                Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+                Element_Offset=Element_Size;
+                Open_Buffer_Finalize(&MI);
+                Merge(MI, Stream_Video, 0, StreamPos_Last);
+            }
+        #endif
 
         //Descriptors or a list (we can see both!)
         if (Element_Offset+8<=Element_Size
@@ -2564,15 +2566,15 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
             Descriptors();
 
         #if defined(MEDIAINFO_DVDIF_YES)
-        if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("Digital Video"))
-        {
-            if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
+            if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("Digital Video"))
             {
-                Stream[moov_trak_tkhd_TrackID].Parser=new File_DvDif;
-                Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
-                mdat_MustParse=true; //Data is in MDAT
+                if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
+                {
+                    Stream[moov_trak_tkhd_TrackID].Parser=new File_DvDif;
+                    Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
+                    mdat_MustParse=true; //Data is in MDAT
+                }
             }
-        }
         #endif
     FILLING_END();
 }
