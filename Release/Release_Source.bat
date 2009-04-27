@@ -99,10 +99,10 @@ xcopy ..\..\Shared\Project\WxWidgets\Template .\wxMSW\ /S
 rem --- Compressing Archive ---
 if "%2"=="SkipCompression" goto SkipCompression
 move MediaInfo_Source MediaInfo
-rem ..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -ttar -mx9 MediaInfo_Source.tar MediaInfo\*
-rem ..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -tbzip2 -mx9 mediainfo_.tar.bz2 MediaInfo_Source.tar
-rem ..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -tgzip -mx9 mediainfo_-1.tar.gz MediaInfo_Source.tar
-rem del MediaInfo_Source.tar
+..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -ttar -mx9 MediaInfo_Source.tar MediaInfo\*
+..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -tbzip2 -mx9 mediainfo_.tar.bz2 MediaInfo_Source.tar
+..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -tgzip -mx9 mediainfo_-1.tar.gz MediaInfo_Source.tar
+del MediaInfo_Source.tar
 ..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -t7z -mx9 mediainfo__AllInclusive.7z MediaInfo\* MediaInfoLib\* ZenLib\* wxMSW\* zlib\*
 move MediaInfo MediaInfo_Source
 :SkipCompression
