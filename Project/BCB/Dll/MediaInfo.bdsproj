@@ -11,7 +11,7 @@
 	<CPlusPlusBuilder.Personality>
 		<BCBPROJECT>
       <project version="10.0">
-        <property category="build.config" name="active" value="0"/>
+        <property category="build.config" name="active" value="1"/>
         <property category="build.config" name="count" value="1"/>
         <property category="build.config" name="excludedefaultforzero" value="0"/>
         <property category="build.config.0" name="builddir" value="Debug"/>
@@ -86,7 +86,7 @@
           <property category="win32.*.win32b.bcc32" name="option.I.arg.3" value="$(BDS)\include\vcl"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.4" value="..\..\..\Source\MediaInfoDLL"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="..\..\..\Source"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="..\..\..\..\Shared\Include"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="..\..\..\..\ZenLib\Source"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.I.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.O2.enabled" value="1"/>

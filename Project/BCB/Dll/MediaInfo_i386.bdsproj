@@ -25,7 +25,6 @@
         <property category="build.config.1" name="settings.win32b" value="default"/>
         <property category="build.config.1" name="type" value="Toolset"/>
         <property category="build.config.1" name="win32.win32b.builddir" value="Release_Build"/>
-        <property category="build.node" name="lastconfig" value="Debug_Build"/>
         <property category="build.node" name="name" value="MediaInfo_i386.dll"/>
         <property category="build.node" name="packages" value="vcl;rtl;dbrtl;adortl;vcldb;vclx;bdertl;vcldbx;ibxpress;dsnap;dsnap;dsnapcon;dsnapcon;bcbsmp;vclie;xmlrtl;inet;inetdbbde;inetdbxpress;inetdb;webdsnap;bcbie;websnap;soaprtl;dbexpress;dbxcds;indycore;indysystem;bcboffice2k;teeui;teedb;tee;TntLibR;dss"/>
         <property category="build.node" name="use_packages" value="0"/>
@@ -98,7 +97,8 @@
           <property category="win32.*.win32b.bcc32" name="option.I.arg.3" value="$(BDS)\include\vcl"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.4" value="..\..\..\Source\MediaInfoDLL"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="..\..\..\Source"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="..\..\..\..\Shared\Include"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="..\..\..\..\ZenLib\Source"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.7" value="..\..\..\..\zlib"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.I.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.O1.enabled" value="0"/>

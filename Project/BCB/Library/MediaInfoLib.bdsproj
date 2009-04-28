@@ -28,7 +28,6 @@
         <property category="build.config.1" name="settings.win32b" value="default"/>
         <property category="build.config.1" name="type" value="Toolset"/>
         <property category="build.config.1" name="win32.win32b.builddir" value="Release_Build"/>
-        <property category="build.node" name="lastconfig" value="Release_Build"/>
         <property category="build.node" name="libraries" value="vcl.lib rtl.lib"/>
         <property category="build.node" name="name" value="MediaInfoLib.lib"/>
         <property category="build.node" name="packages" value="vcl;rtl;vclx;xmlrtl;vclie;inet;inetdbbde;inetdbxpress;soaprtl;dbrtl;dsnap;bcbie;vcldb;websnap;webdsnap;vclactnband"/>
@@ -123,10 +122,11 @@
           <property category="win32.*.win32b.bcc32" name="option.I.arg.1" value="..\..\..\Source\MediaInfo\Duplicate"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.10" value="..\..\..\Source\MediaInfo"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.11" value="..\..\..\Source"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.12" value="..\..\..\..\shared\include"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.13" value="$(BDS)\include"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.14" value="$(BDS)\include\dinkumware"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.15" value="$(BDS)\include\vcl"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.12" value="..\..\..\..\ZenLib\Source"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.13" value="..\..\..\..\zlib"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.14" value="$(BDS)\include"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.15" value="$(BDS)\include\dinkumware"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.16" value="$(BDS)\include\vcl"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.2" value="..\..\..\Source\MediaInfo\Tag"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.3" value="..\..\..\..\ZenLib\Source\ZenLib"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.4" value="..\..\..\Source\MediaInfo\Video"/>
