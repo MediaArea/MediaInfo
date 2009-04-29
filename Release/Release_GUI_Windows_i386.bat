@@ -11,9 +11,9 @@ mkdir MediaInfo_GUI_Windows_i386
 copy BCB\GUI\MediaInfo_GUI.exe BCB\GUI\MediaInfo.exe
 
 @rem --- Copying : Exe ---
-xcopy BCB\GUI\MediaInfo.exe MediaInfo_GUI_Windows_i386\ /S
-xcopy ..\..\MediaInfoLib\Release\MSVC2005\Dll\MediaInfo.dll MediaInfo_GUI_Windows_i386\ /S
-xcopy MSVC\DLL\MediaInfo_InfoTip.dll MediaInfo_GUI_Windows_i386\ /S
+xcopy ..\Project\BCB\GUI\Release_Build\MediaInfo_GUI.exe MediaInfo_GUI_Windows_i386\ /S
+xcopy ..\..\MediaInfoLib\Project\MSVC\DLL\Win32\Release\MediaInfo.dll MediaInfo_GUI_Windows_i386\ /S
+xcopy ..\..\MediaInfoLib\Project\MSVC\ShellExtension\Win32\Release\MediaInfo_InfoTip.dll MediaInfo_GUI_Windows_i386\ /S
 
 @rem --- Copying : Plugins ---
 xcopy ..\Source\Ressource\Plugin\* MediaInfo_GUI_Windows_i386\Plugin\ /S
@@ -30,7 +30,7 @@ cd MediaInfo_GUI_Windows_i386\
 cd ..
 
 rem --- Installer ---
-copy BCB\GUI\MediaInfo_GUI.exe BCB\GUI\MediaInfo.exe
+copy ..\Project\BCB\GUI\Release_Build\MediaInfo_GUI.exe BCB\GUI\MediaInfo.exe
 ..\..\Shared\Binary\Windows_i386\NSIS\makensis ..\Source\Install\MediaInfo_GUI_Windows_i386.nsi
 
 rem --- Clean up ---
