@@ -75,6 +75,9 @@
         <property category="win32.Release_Build.win32b.dcc32" name="option.$D.enabled" value="0"/>
         <property category="win32.Release_Build.win32b.dcc32" name="option.$O.enabled" value="1"/>
         <property category="win32.Release_Build.win32b.dcc32" name="option.V.enabled" value="0"/>
+        <property category="win32.Release_Build.win32b.ilink32" name="container.SelectedWarnings.containerenabled" value="1"/>
+        <property category="win32.Release_Build.win32b.ilink32" name="option.GB.arg.merge" value="1"/>
+        <property category="win32.Release_Build.win32b.ilink32" name="option.GB.enabled" value="0"/>
         <property category="win32.Release_Build.win32b.ilink32" name="option.L.arg.1" value="$(BDS)\lib\release"/>
         <property category="win32.Release_Build.win32b.ilink32" name="option.L.arg.merge" value="1"/>
         <property category="win32.Release_Build.win32b.ilink32" name="option.L.enabled" value="1"/>
@@ -100,9 +103,9 @@
           <property category="win32.*.win32b.bcc32" name="option.I.arg.2" value="..\..\..\Project\BCB\GUI"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.3" value="..\..\..\Source\GUI\VCL"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.4" value="..\..\..\Source"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="..\..\..\..\mediainfolib\source"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="..\..\..\..\shared\include"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.7" value="..\..\..\..\shared\include\tmsunicodecontrols"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="..\..\..\..\MediainfoLib\source"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="..\..\..\..\ZenLib\source"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.7" value="..\..\..\..\TmsUnicodeControls\Packages"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.8" value="$(BDS)\include"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.9" value="$(BDS)\include\dinkumware"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.merge" value="1"/>
@@ -150,13 +153,12 @@
           <property category="win32.*.win32b.ilink32" name="option.Gi.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.Gpd.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.Gpr.enabled" value="0"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.1" value="..\..\..\..\Shared\Library\BCB"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.2" value="..\..\..\Source\Common"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.3" value="..\..\..\Source\GUI\VCL"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.4" value="D:\Programmation\MediaInfo\Project\BCB\GUI"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.5" value="$(BDS)\lib"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.6" value="$(BDS)\lib\obj"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.7" value="$(BDS)\lib\psdk"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.1" value="..\..\..\Source\Common"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.2" value="..\..\..\Source\GUI\VCL"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.3" value="..\..\..\..\TmsUnicodeControls\Packages"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.4" value="$(BDS)\lib"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.5" value="$(BDS)\lib\obj"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.6" value="$(BDS)\lib\psdk"/>
           <property category="win32.*.win32b.ilink32" name="option.L.arg.merge" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.L.enabled" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.Tpd.enabled" value="0"/>
@@ -173,9 +175,8 @@
           <property category="win32.*.win32b.ilink32" name="option.j.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.m.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.map_segments.enabled" value="0"/>
-          <property category="win32.*.win32b.ilink32" name="option.outputdir.arg.1" value="..\..\..\release\bcb\gui"/>
           <property category="win32.*.win32b.ilink32" name="option.outputdir.arg.merge" value="0"/>
-          <property category="win32.*.win32b.ilink32" name="option.outputdir.enabled" value="1"/>
+          <property category="win32.*.win32b.ilink32" name="option.outputdir.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.s.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.w.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="param.libfiles.1" value="$(LIBRARIES)"/>
@@ -195,7 +196,6 @@
         <FILE FILENAME="..\..\..\Source\GUI\VCL\GUI_Main.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="GUI_Main" FORMNAME="MainF" DESIGNCLASS="TTntForm" ADDITIONAL="..\..\..\Source\GUI\VCL\GUI_Main.h"/>
         <FILE FILENAME="..\..\..\Source\Common\Preferences.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Preferences" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\Common\Preferences.h"/>
         <FILE FILENAME="..\..\..\Source\Common\Utilsx.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Utilsx" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Release\BCB\Dll\MediaInfo.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="MediaInfo" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\GUI\VCL\GUI_About.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="GUI_About" FORMNAME="AboutF" DESIGNCLASS="TTntForm" ADDITIONAL="..\..\..\Source\GUI\VCL\GUI_About.h"/>
         <FILE FILENAME="..\..\..\Source\GUI\VCL\GUI_Export.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="GUI_Export" FORMNAME="ExportF" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\GUI\VCL\GUI_Export.h"/>
         <FILE FILENAME="..\..\..\Source\GUI\VCL\GUI_Preferences.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="GUI_Preferences" FORMNAME="PreferencesF" DESIGNCLASS="TTntForm" ADDITIONAL="..\..\..\Source\GUI\VCL\GUI_Preferences.h"/>
@@ -205,10 +205,9 @@
         <FILE FILENAME="..\..\..\Source\GUI\VCL\GUI_Preferences_Sheet.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="GUI_Preferences_Sheet" FORMNAME="Preferences_SheetF" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\GUI\VCL\GUI_Preferences_Sheet.h"/>
         <FILE FILENAME="..\..\..\Source\GUI\VCL\GUI_Web.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="GUI_Web" FORMNAME="WebF" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\GUI\VCL\GUI_Web.h"/>
         <FILE FILENAME="..\..\..\Source\GUI\VCL\Manifest.rc" CONTAINERID="RCCompiler" LOCALCOMMAND="" UNITNAME="Manifest.rc" FORMNAME="Manifest.res" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\Unicows.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="Unicows" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wininet.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wininet" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\ZenLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZenLib" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\Zlib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="Zlib" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZenLib" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Project\BCB\Dll\Release_Build\MediaInfo.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="MediaInfo" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="C:\Program Files\Borland\BDS\4.0\lib\wininet.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wininet" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
@@ -216,7 +215,7 @@
           <VersionInfo Name="AutoIncBuild">False</VersionInfo>
           <VersionInfo Name="MajorVer">0</VersionInfo>
           <VersionInfo Name="MinorVer">7</VersionInfo>
-          <VersionInfo Name="Release">15</VersionInfo>
+          <VersionInfo Name="Release">14</VersionInfo>
           <VersionInfo Name="Build">0</VersionInfo>
           <VersionInfo Name="Debug">False</VersionInfo>
           <VersionInfo Name="PreRelease">False</VersionInfo>
@@ -229,7 +228,7 @@
         <VersionInfoKeys>
           <VersionInfoKeys Name="CompanyName">http://mediainfo.sourceforge.net</VersionInfoKeys>
           <VersionInfoKeys Name="FileDescription">Read info about media files</VersionInfoKeys>
-          <VersionInfoKeys Name="FileVersion">0.7.15.0</VersionInfoKeys>
+          <VersionInfoKeys Name="FileVersion">0.7.14.0</VersionInfoKeys>
           <VersionInfoKeys Name="InternalName">MediaInfo_GUI - BCB with DLL</VersionInfoKeys>
           <VersionInfoKeys Name="LegalCopyright">GPL</VersionInfoKeys>
           <VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>

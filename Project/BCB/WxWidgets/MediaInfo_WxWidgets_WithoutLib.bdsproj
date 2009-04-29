@@ -110,29 +110,30 @@
           <property category="win32.*.win32b.bcc32" name="option.H=.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.H=.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.Hc.enabled" value="1"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.1" value="..\..\..\Source\CLI"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.10" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.11" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.12" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.13" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.14" value="..\..\..\..\MediaInfoLib\Source\MediaInfo"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.15" value="..\..\..\..\ZenLib\Source\"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.16" value="..\..\..\..\ZenLib\Source\ZenLib\HTTP_Client"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.17" value="..\..\..\..\ZenLib\Source\ZenLib"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.18" value="..\..\..\..\Shared\Include\Borland"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.19" value="..\..\..\..\Shared\Include"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.2" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.20" value="..\..\..\Source\GUI\WxWidgets"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.21" value="$(BDS)\include"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.22" value="$(BDS)\include\dinkumware"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.23" value="$(BDS)\include\vcl"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.1" value="..\..\..\..\MediaInfoLib\Source"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.10" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.11" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.12" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Image"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.13" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.14" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.15" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.16" value="..\..\..\Source\CLI"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.17" value="..\..\..\Source"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.18" value="..\..\..\..\ZenLib\Source"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.19" value="..\..\..\..\zlib"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.2" value="..\..\..\Source\Common"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.20" value="..\..\..\..\wxMSW\lib\bcc_lib\mswud"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.21" value="..\..\..\..\wxMSW\include"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.22" value="$(BDS)\include"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.23" value="$(BDS)\include\dinkumware"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.24" value="$(BDS)\include\vcl"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.3" value="..\..\..\Source\GUI\Common"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.4" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="..\..\..\Source\"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="..\..\..\Source\Common"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.7" value="..\..\..\..\MediaInfoLib\Source\"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.8" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.9" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.4" value="..\..\..\Source\GUI\WxWidgets"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.7" value="..\..\..\..\ZenLib\Source\ZenLib\HTTP_Client"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.8" value="..\..\..\..\MediaInfoLib\Source\MediaInfo"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.9" value="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.I.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.Jgi.enabled" value="0"/>
@@ -352,12 +353,6 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Cmml.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Cmml" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Kate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Kate" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_OtherText.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_OtherText" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\Unicows.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="Unicows" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wininet.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wininet" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wxbase28ud.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxbase28ud" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wxmsw28ud_core.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxmsw28ud_core" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wxmsw28ud_html.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxmsw28ud_html" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\ZLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZLib" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Conf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Conf" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\CriticalSection.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="CriticalSection" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Dir.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Dir" FORMNAME="" DESIGNCLASS=""/>
@@ -493,6 +488,10 @@
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Dpg.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dpg" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config_Automatic.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="MediaInfo_Config_Automatic" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Finalize.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File__Analyze_Finalize" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="zlib" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\wxMSW\lib\bcc_lib\wxbase28ud.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxbase28ud" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\wxMSW\lib\bcc_lib\wxmsw28ud_core.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxmsw28ud_core" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\wxMSW\lib\bcc_lib\wxmsw28ud_html.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxmsw28ud_html" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>

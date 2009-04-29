@@ -95,7 +95,8 @@ void GUI_Main_Tree::GUI_Resize()
 void GUI_Main_Tree::Item_Show(const wxTreeItemId &Item)
 {
     wxTreeItemId ItemID;
-    wxFont Font(8, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+    //wxFont Font(8, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+    //wxFont Font(10, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
     size_t Level=0;
     size_t Pos1=TextPos[Item.m_pItem];
     size_t Pos2=0;
@@ -133,7 +134,7 @@ void GUI_Main_Tree::Item_Show(const wxTreeItemId &Item)
             {
                 ItemID=AppendItem(Item, Line.c_str());
                 TextPos[ItemID.m_pItem]=Pos1;
-                SetItemFont(ItemID, Font);
+                //SetItemFont(ItemID, Font);
             }
         }
         else if (Level==LevelBase+2)
