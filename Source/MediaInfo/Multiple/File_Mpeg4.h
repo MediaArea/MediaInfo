@@ -123,6 +123,7 @@ private :
     void moov_trak_mdia_minf_vmhd();
     void moov_trak_mdia_minf_stbl();
     void moov_trak_mdia_minf_stbl_cslg();
+    void moov_trak_mdia_minf_stbl_co64();
     void moov_trak_mdia_minf_stbl_ctts();
     void moov_trak_mdia_minf_stbl_sdtp();
     void moov_trak_mdia_minf_stbl_stco();

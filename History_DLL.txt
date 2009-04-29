@@ -9,6 +9,8 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.15, 20
 -------------
++ MPEG-4: Better handling of 4GiB+ files
++ MPEG-4: audio parts from a DV stream are displayed
 + MPEG-4: better DV analyzing
 + DV: parser improvement (speed, accuracy)
 x DTS: 768/1536 Kbps streams are corrected to the real bitrate (755/1510 Kbps)

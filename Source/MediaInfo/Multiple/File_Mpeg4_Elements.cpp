@@ -253,8 +253,9 @@ namespace Elements
     const int64u moov_trak_mdia_minf_nmhd=0x6E6D6864;
     const int64u moov_trak_mdia_minf_smhd=0x736D6864;
     const int64u moov_trak_mdia_minf_stbl=0x7374626C;
-    const int64u moov_trak_mdia_minf_stbl_ctts=0x63747473;
+    const int64u moov_trak_mdia_minf_stbl_co64=0x636F3634;
     const int64u moov_trak_mdia_minf_stbl_cslg=0x63736C67;
+    const int64u moov_trak_mdia_minf_stbl_ctts=0x63747473;
     const int64u moov_trak_mdia_minf_stbl_sdtp=0x73647470;
     const int64u moov_trak_mdia_minf_stbl_stco=0x7374636F;
     const int64u moov_trak_mdia_minf_stbl_stdp=0x73746470;
@@ -483,6 +484,7 @@ void File_Mpeg4::Data_Parse()
                     ATOM(moov_trak_mdia_minf_smhd)
                     LIST(moov_trak_mdia_minf_stbl)
                         ATOM_BEGIN
+                        ATOM(moov_trak_mdia_minf_stbl_co64)
                         ATOM(moov_trak_mdia_minf_stbl_cslg)
                         ATOM(moov_trak_mdia_minf_stbl_ctts)
                         ATOM(moov_trak_mdia_minf_stbl_sdtp)
@@ -1888,6 +1890,10 @@ void File_Mpeg4::moov_trak_mdia_minf_gmhd_gmin()
 void File_Mpeg4::moov_trak_mdia_minf_gmhd_tmcd()
 {
     Element_Name("TimeCode");
+
+    //Filling
+    Stream_Prepare(Stream_Menu);
+    Fill(Stream_Menu, StreamPos_Last, Menu_Format, "TimeCode");
 }
 
 //---------------------------------------------------------------------------
@@ -2001,6 +2007,32 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl()
     FILLING_BEGIN();
         Buffer_MaximumSize=16*1024*1024; //If we are here, this is really a MPEG-4 file, and some atoms are very bigs...
     FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_co64()
+{
+    NAME_VERSION_FLAG("Chunk offset");
+
+    int64u Offset;
+    int32u Count;
+    Get_B4 (Count,                                              "Number of entries");
+    for (int32u Pos=0; Pos<Count; Pos++)
+    {
+        //Too much slow
+        /*
+        Get_B8 (Offset,                                     "Offset");
+        */
+
+        //Faster
+        if (Element_Offset+8>Element_Size)
+            break; //Problem
+        Offset=BigEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+        Element_Offset+=8;
+
+        if (Pos<300 || MediaInfoLib::Config.ParseSpeed_Get()==1.00)
+            Stream[moov_trak_tkhd_TrackID].stco.push_back(Offset);
+    }
 }
 
 //---------------------------------------------------------------------------

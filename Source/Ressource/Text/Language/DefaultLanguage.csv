@@ -739,6 +739,7 @@ ms;ms
 MSDI;MSDI
 MusicBy;Music by
 MuxingMode;Muxing mode
+MuxingMode_MoreInfo;Muxing mode, more info
 MuxingMode_PackedBitstream;Packed bitstream
 Name;Name
 Nationality;Nationality
@@ -852,8 +853,8 @@ Setup;Setup
 Sharpness;Sharpness
 Sheet;Sheet
 Sheet (Complete);Sheet (Complete)
-Shell extension;Shell extension (in explorer right click there will be a Media Info option)
-Shell InfoTip;Shell InfoTip (in explorer, move the mouse on file, info will be displayed)
+Shell extension;Shell extension (in Explorer, right click there will be a MediaInfo option)
+Shell InfoTip;Shell InfoTip (in Explorer, move the mouse over the file, info will be displayed)
 Show menu;Show menu
 Show toolbar;Show toolbar
 Sort;Sorted by

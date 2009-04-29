@@ -178,8 +178,25 @@ void File_Mpeg4::Read_Buffer_Finalize()
                         Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_Temp, true);
                     if (!FrameRate_Mode_Temp.empty() && FrameRate_Mode_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Mode))
                         Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, FrameRate_Mode_Temp, true);
+
+                    //Special case: DV with Audio in the video stream
+                    for (size_t Pos=0; Pos<Temp->second.Parser->Count_Get(Stream_Audio); Pos++)
+                    {
+                        Stream_Prepare(Stream_Audio);
+                        Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
+                        Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "DV");
+                        Fill(Stream_Audio, StreamPos_Last, Audio_StreamSize, "0"); //Included in the DV stream size
+                        Fill(Stream_Audio, StreamPos_Last, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1)); //Ztring::ToZtring(_T(""));
+                    }
                 }
             }
+        }
+
+        //TimeCode specific
+        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Menu, StreamPos_Last, Menu_Format)==_T("TimeCode"))
+        {
+            Clear(Stream_Menu, StreamPos_Last, "Duration");
+            Clear(Stream_Menu, StreamPos_Last, "StreamSize");
         }
 
         Temp++;

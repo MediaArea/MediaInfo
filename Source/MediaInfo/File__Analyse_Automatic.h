@@ -474,6 +474,7 @@ enum audio
     Audio_Format_Settings_Law,
     Audio_Format_Settings_ITU,
     Audio_MuxingMode,
+    Audio_MuxingMode_MoreInfo,
     Audio_CodecID,
     Audio_CodecID_Info,
     Audio_CodecID_Hint,
