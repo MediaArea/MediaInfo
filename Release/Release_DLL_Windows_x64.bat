@@ -79,9 +79,9 @@ copy ..\Changes.txt MediaInfoDLL_Windows_x64\Developers\
 copy ReadMe_DLL_Windows.txt MediaInfoDLL_Windows_x64\ReadMe.txt
 
 rem --- Copying : DLL ---
-xcopy MSVCx64\Dll\MediaInfo.dll MediaInfoDLL_Windows_x64\
-xcopy ..\..\MediaInfo\Release\MSVCx64\Dll\MediaInfo_InfoTip.dll MediaInfoDLL_Windows_x64\
-xcopy ..\..\MediaInfo\Project\MSVC\ShellExtension\*.bat MediaInfoDLL_Windows_x64\
+xcopy ..\Project\MSVC\DLL\x64\Release\MediaInfo.dll MediaInfoDLL_Windows_x64\
+xcopy ..\Project\MSVC\ShellExtension\x64\Release\MediaInfo_InfoTip.dll MediaInfoDLL_Windows_x64\
+xcopy ..\Project\MSVC\ShellExtension\*.bat MediaInfoDLL_Windows_x64\
 
 
 rem --- Compressing Archive ---

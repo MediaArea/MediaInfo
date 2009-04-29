@@ -4,11 +4,11 @@
 
 
  /* File created by MIDL compiler version 7.00.0500 */
-/* at Sun Apr 26 15:23:44 2009
+/* at Wed Apr 29 11:29:18 2009
  */
 /* Compiler settings for .\MediaInfoShellExt.idl:
-    Oicf, W1, Zp8, env=Win32 (32b run)
-    protocol : dce , ms_ext, c_ext
+    Oicf, W1, Zp8, env=Win64 (32b run)
+    protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 
     VC __declspec() decoration level: 
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
@@ -16,7 +16,7 @@
 */
 //@@MIDL_FILE_HEADING(  )
 
-#if !defined(_M_IA64) && !defined(_M_AMD64)
+#if defined(_M_AMD64)
 
 
 #pragma warning( disable: 4049 )  /* more than 64k source lines */
@@ -28,16 +28,13 @@
 #pragma warning( disable: 4232 )  /* dllimport identity*/
 #pragma warning( disable: 4024 )  /* array to pointer mapping*/
 #pragma warning( disable: 4152 )  /* function/data pointer conversion in expression */
-#pragma warning( disable: 4100 ) /* unreferenced arguments in x86 call */
-
-#pragma optimize("", off ) 
 
 #define USE_STUBLESS_PROXY
 
 
 /* verify that the <rpcproxy.h> version is high enough to compile this file*/
 #ifndef __REDQ_RPCPROXY_H_VERSION__
-#define __REQUIRED_RPCPROXY_H_VERSION__ 440
+#define __REQUIRED_RPCPROXY_H_VERSION__ 475
 #endif
 
 
@@ -91,17 +88,9 @@ extern const MIDL_STUBLESS_PROXY_INFO IMediaInfoShellExt__ProxyInfo;
 
 
 
-#if !defined(__RPC_WIN32__)
+#if !defined(__RPC_WIN64__)
 #error  Invalid build platform for this stub.
 #endif
-
-#if !(TARGET_IS_NT40_OR_LATER)
-#error You need a Windows NT 4.0 or later to run this stub because it uses these features:
-#error   -Oif or -Oicf.
-#error However, your C/C++ compilation flags indicate you intend to run this app on earlier systems.
-#error This app will fail with the RPC_X_WRONG_STUB_VERSION error.
-#endif
-
 
 static const MediaInfoShellExt_MIDL_PROC_FORMAT_STRING MediaInfoShellExt__MIDL_ProcFormatString =
     {
@@ -187,7 +176,7 @@ static const MIDL_STUB_DESC Object_StubDesc =
     0,
     MediaInfoShellExt__MIDL_TypeFormatString.Format,
     1, /* -error bounds_check flag */
-    0x20000, /* Ndr library version */
+    0x50002, /* Ndr library version */
     0,
     0x70001f4, /* MIDL Version 7.0.500 */
     0,
@@ -246,11 +235,10 @@ const ExtendedProxyFileInfo MediaInfoShellExt_ProxyFileInfo =
     0, /* Filler2 */
     0  /* Filler3 */
 };
-#pragma optimize("", on )
 #if _MSC_VER >= 1200
 #pragma warning(pop)
 #endif
 
 
-#endif /* !defined(_M_IA64) && !defined(_M_AMD64)*/
+#endif /* defined(_M_AMD64)*/
 

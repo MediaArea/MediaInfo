@@ -102,9 +102,9 @@ rem --- Copying : Contrib ---
 xcopy ..\Contrib\*.* MediaInfoDLL_Windows_i386\Developers\Contrib\ /S
 
 rem --- Copying : DLL ---
-xcopy MSVC2005\Dll\MediaInfo.dll MediaInfoDLL_Windows_i386\
-xcopy ..\..\MediaInfo\Release\MSVC\Dll\MediaInfo_InfoTip.dll MediaInfoDLL_Windows_i386\
-xcopy ..\..\MediaInfo\Project\MSVC\ShellExtension\*.bat MediaInfoDLL_Windows_i386\
+xcopy ..\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll MediaInfoDLL_Windows_i386\
+xcopy ..\Project\MSVC\ShellExtension\Win32\Release\MediaInfo_InfoTip.dll MediaInfoDLL_Windows_i386\
+xcopy ..\Project\MSVC\ShellExtension\*.bat MediaInfoDLL_Windows_i386\
 
 
 rem --- Compressing Archive ---
