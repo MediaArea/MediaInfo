@@ -234,7 +234,16 @@ void File__Analyze::Clear (stream_t StreamKind, size_t StreamPos, const char* Pa
      || Parameter[0]=='\0')
         return;
 
-    (*Stream)[StreamKind][StreamPos](MediaInfoLib::Config.Info_Get(StreamKind).Find(Ztring().From_Local(Parameter))).clear();
+    size_t Parameter_Pos=MediaInfoLib::Config.Info_Get(StreamKind).Find(Ztring().From_Local(Parameter));
+    if (Parameter_Pos==Error)
+    {
+        Parameter_Pos=(*Stream_More)[StreamKind][StreamPos].Find(Ztring().From_Local(Parameter));
+        if (Parameter_Pos==Error)
+            return;
+        (*Stream_More)[StreamKind][StreamPos](Parameter_Pos, 1).clear();
+    }
+
+    (*Stream)[StreamKind][StreamPos](Parameter_Pos).clear();
 }
 
 //---------------------------------------------------------------------------
