@@ -739,6 +739,7 @@ ms;毫秒
 MSDI;MSDI
 MusicBy;配樂者
 MuxingMode;合成模式
+MuxingMode_MoreInfo
 MuxingMode_PackedBitstream;Packed bitstream
 Name;名稱
 Nationality;國籍
@@ -932,5 +933,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

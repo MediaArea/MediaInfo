@@ -739,6 +739,7 @@ ms;ms
 MSDI;MSDI
 MusicBy;Müziği yapan
 MuxingMode;Çoklamalı mod
+MuxingMode_MoreInfo
 MuxingMode_PackedBitstream;Paketlenmiş bit akışı
 Name;İsim
 Nationality;Uyruk
@@ -933,4 +934,4 @@ WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
 ZZ_Automatic_Percent;94
-ZZ_AutomaticLanguage_Percent;99
+ZZ_AutomaticLanguage_Percent;98

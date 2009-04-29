@@ -739,6 +739,7 @@ ms;ms
 MSDI;MSDI
 MusicBy;Música de
 MuxingMode;Modo Muxing
+MuxingMode_MoreInfo
 MuxingMode_PackedBitstream;Flujo de bits empaquetado
 Name;Nombre
 Nationality;Nacionalidad
@@ -933,4 +934,4 @@ WrittenBy;Escrito por
 Yes;Si
 Your system;Tu sistema
 ZZ_Automatic_Percent;83
-ZZ_AutomaticLanguage_Percent;99
+ZZ_AutomaticLanguage_Percent;98
