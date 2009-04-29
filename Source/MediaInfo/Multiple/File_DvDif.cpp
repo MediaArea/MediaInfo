@@ -238,6 +238,21 @@ void File_DvDif::Header_Parse()
         return;
     }
 
+    //Unsynch problems
+    if (Element_Size<80)
+    {
+        Element_WaitForMoreData();
+        return;
+    }
+    if (Buffer[Buffer_Offset  ]==0x00
+     && Buffer[Buffer_Offset+1]==0x00
+     && Buffer[Buffer_Offset+2]==0x00)
+    {
+        Header_Fill_Code((int64u)-1);
+        Header_Fill_Size(80);
+        return;
+    }
+
     //Parsing
     BS_Begin();
     //0
@@ -270,6 +285,17 @@ void File_DvDif::Header_Parse()
         return;
     }
 
+
+    //Unsynch problems
+    if (Buffer[Buffer_Offset  ]==0x00
+     && Buffer[Buffer_Offset+1]==0x00
+     && Buffer[Buffer_Offset+2]==0x00)
+    {
+        Header_Fill_Code((int64u)-1);
+        Header_Fill_Size(80);
+        return;
+    }
+    
     //Parsing
     SCT =(Buffer[Buffer_Offset  ]&0xE0)>>5;
     Dseq=(Buffer[Buffer_Offset+1]&0xF0)>>4;
@@ -288,6 +314,12 @@ void File_DvDif::Data_Parse()
     if (AuxToAnalyze!=0x00)
     {
         Element();
+        return;
+    }
+
+    if (Element_Code==(int64u)-1)
+    {
+        Skip_XX(Element_Size,                                   "Junk");
         return;
     }
 
