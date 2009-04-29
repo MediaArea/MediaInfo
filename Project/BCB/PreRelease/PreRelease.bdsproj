@@ -28,7 +28,6 @@
         <property category="build.config.1" name="settings.win32b" value="default"/>
         <property category="build.config.1" name="type" value="Toolset"/>
         <property category="build.config.1" name="win32.win32b.builddir" value="Release_Build"/>
-        <property category="build.node" name="lastconfig" value="Debug_Build"/>
         <property category="build.node" name="name" value="PreRelease.exe"/>
         <property category="build.node" name="packages" value="vcl;rtl;vclx;xmlrtl;vclie;inet;inetdbbde;inetdbxpress;soaprtl;dbrtl;dsnap;bcbie;vcldb;websnap;webdsnap;vclactnband"/>
         <property category="build.node" name="sparelibs" value="rtl.lib vcl.lib"/>
@@ -91,14 +90,16 @@
           <property category="win32.*.win32b.bcc32" name="option.H=.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.Hc.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.1" value="..\..\..\..\ZenLib\Source\ZenLib"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.10" value="$(BDS)\include\dinkumware"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.11" value="$(BDS)\include\vcl"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.2" value="..\..\..\Source\PreRelease\VCL"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.3" value="..\..\..\Source\PreRelease"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.4" value="..\..\..\Source\PreRelease\WxWidgets"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="..\..\..\Source"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="..\..\..\..\shared\include"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.7" value="$(BDS)\include"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.8" value="$(BDS)\include\dinkumware"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.9" value="$(BDS)\include\vcl"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="..\..\..\..\ZenLib\Source"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.7" value="..\..\..\..\wxMSW\lib\bcc_lib\mswud"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.8" value="..\..\..\..\wxMSW\include"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.9" value="$(BDS)\include"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.I.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.b.enabled" value="0"/>
@@ -195,10 +196,11 @@
         <FILE FILENAME="..\..\..\Source\PreRelease\Ressources.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Ressources" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\PreRelease\OldFiles.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="OldFiles" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\PreRelease\Enums.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Enums" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wxmsw28ud_core.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxmsw28ud_core" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\Shared\Library\BCB\wxbase28ud.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxbase28ud" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="zlib" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZenLib" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\wxMSW\lib\bcc_lib\wxbase28ud.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxbase28ud" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\wxMSW\lib\bcc_lib\wxmsw28ud_core.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxmsw28ud_core" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\ZenLib\Source\ZenLib\Ztring.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Ztring" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
