@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.15, 20
+Version 0.7.15, 2009-04-30
 -------------
 + Wave64 (.w64) support
 + MPEG-4: Better handling of 4GiB+ files
