@@ -1305,6 +1305,15 @@ void File_Avc::seq_parameter_set()
 
     }
 
+    //Hack for : There is a trailing data, why?
+    if (Element_Offset+4==Element_Size)
+    {
+        int32u ToTest;
+        Peek_B4(ToTest);
+        if (ToTest==0xE30633C0)
+            Skip_B4(                                            "Unknown");
+    }
+
     FILLING_BEGIN_PRECISE();
         //NextCode
         NextCode_Clear();
