@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.15, 20
 -------------
++ Wave64 (.w64) support
 + MPEG-4: Better handling of 4GiB+ files
 + MPEG-4: audio parts from a DV stream are displayed
 + MPEG-4: better DV analyzing

@@ -116,6 +116,7 @@ private :
     //Temp
     int64u WAVE_data_Size;  //RF64 WAVE_data real chunk size
     int64u WAVE_fact_samplesCount;  //RF64 WAVE_fact real samplesCount
+    int64u Alignement_ExtraByte; //Padding from the container
     float64 avih_FrameRate; //FrameRate of the first video stream in one MOVI chunk
     int32u avih_TotalFrame; //Count of frames in one MOVI chunk
     int32u dmlh_TotalFrame; //Count of frames in the whole AVI file (with odml too)
@@ -126,9 +127,9 @@ private :
     int32u SMV_FrameCount;  //Frame count of a SMV block, 0 if not SMV
     int8u  stream_Count;    //How many stream we have to parse
     bool   rec__Present;    //True if synchro element is present
-    bool   Alignement_ExtraByte;
     bool   NeedOldIndex;
     bool   IsBigEndian;
+    bool   IsWave64;
     bool   SecondPass;      //Second pass for streams
     File__Analyze*  DV_FromHeader;
 
@@ -232,6 +233,9 @@ private :
     void WAVE_fact ();
     void WAVE_fmt_ ();
     void WAVE_ID3_ ();
+    void wave ();
+    void wave_data () {WAVE_data();}
+    void wave_fmt_ () {WAVE_fmt_();}
     void W3DI();
 };
 

@@ -23,6 +23,7 @@ TrueHD;;;A;Ac3;;dts;
 TwinVQ;;;A;TwinVQ;Transform domain Weighted INterleave Vector Quantization;vqf;http://www.twinvq.org/english/index_en.html
 Vorbis;;;A;;;;
 Wave;;;A;Riff;;wav;
+Wave64;;;A;Riff;;w64;
 WavPack;;;A;Wvpk;;wv wvc;http://www.wavpack.com
 7-Zip;;;C;7z;;7z;http://7-zip.org
 ACE;;;C;Ace;;ace;http://winace.com

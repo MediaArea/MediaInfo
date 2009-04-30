@@ -67,6 +67,7 @@ namespace Elements
     const int32u ON2_=0x4F4E3220;
     const int32u ON2f=0x4F4E3266;
     const int32u RIFF=0x52494646;
+    const int32u riff=0x72696666;
     const int32u RF64=0x52463634;
     const int32u SMV0=0x534D5630;
     const int32u SMV0_xxxx=0x534D563A;
@@ -107,6 +108,7 @@ File_Riff::File_Riff()
     rec__Present=false;
     NeedOldIndex=true;
     IsBigEndian=false;
+    IsWave64=false;
     SecondPass=false;
     DV_FromHeader=NULL;
 
@@ -425,6 +427,36 @@ void File_Riff::Header_Parse()
         Header_Fill_Size(51);
         return;
     }
+    if (Name==Elements::riff)
+        IsWave64=true;
+    if (IsWave64)
+    {
+        //Wave64 specific
+        int64u Size_Complete;
+        Skip_XX(12,                                             "Name (GUID)");
+        Get_L8 (Size_Complete,                                  "Size");
+
+        //Alignment
+        if (Name!=Elements::riff && Size_Complete%8)
+        {
+            Alignement_ExtraByte=Size_Complete%8;
+            Size_Complete+=Alignement_ExtraByte; //Always 8-byte aligned
+        }
+        else
+            Alignement_ExtraByte=0;
+
+        //Top level chunks
+        if (Name==Elements::riff)
+        {
+            Get_C4 (Name,                                       "Real Name");
+            Skip_XX(12,                                         "Real Name (GUID)");
+        }
+
+        //Filling
+        Header_Fill_Code(Name, Ztring().From_CC4(Name));
+        Header_Fill_Size(Size_Complete);
+        return;
+    }
     if (Name==Elements::FORM
      || Name==Elements::MThd)
         IsBigEndian=true; //Swap from Little to Big Endian for "FORM" files (AIFF...)
@@ -455,13 +487,13 @@ void File_Riff::Header_Parse()
     }
 
     //Alignment
-    if (Size_Complete%2==1)
+    if (Size_Complete%2)
     {
         Size_Complete++; //Always 2-byte aligned
-        Alignement_ExtraByte=true;
+        Alignement_ExtraByte=1;
     }
     else
-        Alignement_ExtraByte=false;
+        Alignement_ExtraByte=0;
 
     //Top level chunks
     if (Name==Elements::LIST

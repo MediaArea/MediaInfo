@@ -1010,6 +1010,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "TwinVQ;;;A;TwinVQ;Transform domain Weighted INterleave Vector Quantization;vqf;http://www.twinvq.org/english/index_en.html\n"
     "Vorbis;;;A\n"
     "Wave;;;A;Riff;;wav\n"
+    "Wave64;;;A;Riff;;w64\n"
     "WavPack;;;A;Wvpk;;wv wvc;http://www.wavpack.com\n"
     "7-Zip;;;C;7z;;7z;http://7-zip.org\n"
     "ACE;;;C;Ace;;ace;http://winace.com\n"

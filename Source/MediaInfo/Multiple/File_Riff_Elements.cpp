@@ -103,12 +103,21 @@ std::string ExtensibleWave_ChannelMask (int32u ChannelMask)
     if (ChannelMask&0x0002)
         Text+=(ChannelMask&0x0003)?", R":" R";
 
-    if ((ChannelMask&0x0030)!=0x0000)
+    if ((ChannelMask&0x0600)!=0x0000)
+        Text+=", Middle:";
+    if (ChannelMask&0x0200)
+        Text+=" L";
+    if (ChannelMask&0x0400)
+        Text+=(ChannelMask&0x0200)?", R":" R";
+
+    if ((ChannelMask&0x0130)!=0x0000)
         Text+=", Surround:";
     if (ChannelMask&0x0010)
         Text+=" L";
+    if (ChannelMask&0x0100)
+        Text+=(ChannelMask&0x0010)?", C":" C";
     if (ChannelMask&0x0020)
-        Text+=(ChannelMask&0x0010)?", R":" R";
+        Text+=(ChannelMask&0x0110)?", R":" R";
 
     if ((ChannelMask&0x0008)!=0x0000)
         Text+=", LFE";
@@ -133,7 +142,19 @@ std::string ExtensibleWave_ChannelMask2 (int32u ChannelMask)
         Count=0;
     }
 
+    if (ChannelMask&0x0200)
+        Count++;
+    if (ChannelMask&0x0400)
+        Count++;
+    if (Count)
+    {
+        Text+="/"+Ztring::ToZtring(Count).To_UTF8();
+        Count=0;
+    }
+
     if (ChannelMask&0x0010)
+        Count++;
+    if (ChannelMask&0x0100)
         Count++;
     if (ChannelMask&0x0020)
         Count++;
@@ -303,6 +324,9 @@ namespace Elements
     const int32u WAVE_fact=0x66616374;
     const int32u WAVE_fmt_=0x666D7420;
     const int32u WAVE_ID3_=0x49443320;
+    const int32u wave=0x77617665;
+    const int32u wave_data=0x64617461;
+    const int32u wave_fmt_=0x666D7420;
     const int32u W3DI=0x57334449;
 }
 
@@ -313,9 +337,8 @@ namespace Elements
 //---------------------------------------------------------------------------
 void File_Riff::Data_Parse()
 {
-    //alignement specific
-    if (Alignement_ExtraByte)
-        Element_Size--;
+    //Alignement specific
+    Element_Size-=Alignement_ExtraByte;
 
     DATA_BEGIN
     LIST(AIFC)
@@ -436,13 +459,19 @@ void File_Riff::Data_Parse()
         ATOM(WAVE_fmt_)
         ATOM(WAVE_ID3_)
         ATOM_END
+    LIST(wave)
+        ATOM_BEGIN
+        LIST(wave_data)
+            break;
+        ATOM(wave_fmt_)
+        ATOM_END
     DATA_END
 
     if (Alignement_ExtraByte)
     {
-        Element_Size++;
+        Element_Size+=Alignement_ExtraByte;
         if (File_GoTo==(size_t)-1)
-            Skip_XX(1,                                          "Alignement");
+            Skip_XX(Alignement_ExtraByte,                       "Alignement");
     }
 }
 
@@ -2574,6 +2603,17 @@ void File_Riff::WAVE_ID3_()
         Open_Buffer_Finalize(&MI);
         Merge(MI, Stream_General, 0, 0);
     #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::wave()
+{
+    Data_Accept("Wave64");
+    Element_Name("Format: Wave64");
+
+    //Filling
+    Stream_Prepare(Stream_General);
+    Fill(Stream_General, 0, General_Format, "Wave64");
 }
 
 //---------------------------------------------------------------------------
