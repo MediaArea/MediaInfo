@@ -71,9 +71,14 @@ namespace MediaInfoLib
         const int32u Identifier_##NAME##2=0x##PART2; \
         const size_t Identifier_##NAME##3=0x##COUNT; \
 
+#elif defined(WINDOWS) //__BORLANDC__
+    #define OGG_ID(NAME, PART1, PART2, COUNT) \
+        const int64u Identifier_##NAME=(int64u)0x##PART1##PART2##UL; \
+        const size_t Identifier_##NAME##3=0x##COUNT; \
+
 #else //__BORLANDC__
     #define OGG_ID(NAME, PART1, PART2, COUNT) \
-        const int64u Identifier_##NAME=0x##PART1##PART2##UL; \
+        const int64u Identifier_##NAME=(int64u)0x##PART1##PART2##LL; \
         const size_t Identifier_##NAME##3=0x##COUNT; \
 
 #endif //__BORLANDC__
