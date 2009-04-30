@@ -7,14 +7,16 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.14, 2009-04-17
---------------
-+ #2738780, local time display for modified/created date
-+ WAV: RF64 (Wav files >4 GiB) support
-+ AVI: Audio delay from the container
-x #2734021, E-AC-3: some files were not detected
-x FLAC: some files with big attachments were not well detected
-x MKV: some huge video (3840*2160) were not well parsed (no encoding settings)
+Version 0.7.15, 2009-04-30
+-------------
++ Wave64 (.w64) support
++ MPEG-4: Better handling of 4GiB+ files
++ MPEG-4: audio parts from a DV stream are displayed
++ MPEG-4: better DV analyzing
++ DV: parser improvement (speed, accuracy)
+x DTS: 768/1536 Kbps streams are corrected to the real bitrate (755/1510 Kbps)
+x MPEG-TS: some stream durations were not well computed (few seconds only)
+x AVC: freeze with some malformed encoder settings
 
 Version 0.7.13, 2009-04-03
 --------------

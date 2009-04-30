@@ -12,9 +12,17 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
-Version 0.7.15, 2009-
---------------
+Version 0.7.15, 2009-04-30
+-------------
 + English, Chinese (Simplified), Albanian translations updated
++ Wave64 (.w64) support
++ MPEG-4: Better handling of 4GiB+ files
++ MPEG-4: audio parts from a DV stream are displayed
++ MPEG-4: better DV analyzing
++ DV: parser improvement (speed, accuracy)
+x DTS: 768/1536 Kbps streams are corrected to the real bitrate (755/1510 Kbps)
+x MPEG-TS: some stream durations were not well computed (few seconds only)
+x AVC: freeze with some malformed encoder settings
 
 Version 0.7.14, 2009-04-17
 --------------
