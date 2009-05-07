@@ -82,8 +82,11 @@ public :
           void      ParseSpeed_Set (float32 NewValue);
           float32   ParseSpeed_Get ();
 
-          void      Details_Set (float NewValue);
-          float     Details_Get ();
+          void      Verbosity_Set (float32 NewValue);
+          float32   Verbosity_Get ();
+
+          void      Details_Set (float32 NewValue);
+          float32   Details_Get ();
 
           void      Demux_Set (int8u NewValue);
           int8u     Demux_Get ();
@@ -167,7 +170,8 @@ private :
     size_t          ShowFiles_AudioOnly;
     size_t          ShowFiles_TextOnly;
     float32         ParseSpeed;
-    float           Details;
+    float32         Verbosity;
+    float32         Details;
     bool            Language_Raw;
     bool            ReadByHuman;
     int8u           Demux;
