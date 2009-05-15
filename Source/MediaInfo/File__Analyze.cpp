@@ -606,6 +606,19 @@ bool File__Analyze::FileHeader_Begin_0x000001()
         return false;
     }
 
+    //Detecting MPEG-4 files (ftyp/mdat/skip/free)
+    Magic4=CC4(Buffer+4);
+    switch (Magic4)
+    {
+        case 0x66747970 : //ftyp
+        case 0x6D646174 : //mdat
+        case 0x736B6970 : //skip
+        case 0x66726565 : //free
+                            Reject();
+                            return false;
+        default         :   break;
+    }
+
     //Detect TS files, and the parser is not enough precise to detect them later
     size_t Buffer_Offset=0;
     while (Buffer_Offset<188 && Buffer[Buffer_Offset]!=0x47) //Look for first Sync word

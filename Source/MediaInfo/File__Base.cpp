@@ -225,7 +225,10 @@ void File__Base::Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& S
 void File__Base::Clear()
 {
     for (size_t StreamKind=0; StreamKind<Stream_Max; StreamKind++)
+    {
         (*Stream)[StreamKind].clear();
+        (*Stream_More)[StreamKind].clear();
+    }
 }
 
 } //NameSpace
