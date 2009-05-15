@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.16, 2009-0
+-------------
+x MPEG-4: Kodak files with EXIF data were not parsed
+
 Version 0.7.15, 2009-04-30
 -------------
 + Wave64 (.w64) support

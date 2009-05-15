@@ -316,6 +316,12 @@ namespace Elements
     const int64u moov_udta_AllF=0x416C6C46;
     const int64u moov_udta_chpl=0x6368706C;
     const int64u moov_udta_cprt=0x63707274;
+    const int64u moov_udta_DcMD=0x44634D44;
+    const int64u moov_udta_DcMD_Cmbo=0x436D626F;
+    const int64u moov_udta_DcMD_DcME=0x44634D45;
+    const int64u moov_udta_DcMD_DcME_Keyw=0x4B657977;
+    const int64u moov_udta_DcMD_DcME_Mtmd=0x4D746D64;
+    const int64u moov_udta_DcMD_DcME_Rate=0x52617465;
     const int64u moov_udta_FIEL=0x4649454C;
     const int64u moov_udta_FXTC=0x46585443;
     const int64u moov_udta_hinf=0x68696E66;
@@ -559,6 +565,16 @@ void File_Mpeg4::Data_Parse()
             ATOM(moov_udta_AllF)
             ATOM(moov_udta_chpl)
             ATOM(moov_udta_cprt)
+            LIST(moov_udta_DcMD)
+                ATOM_BEGIN
+                ATOM(moov_udta_DcMD_Cmbo)
+                LIST(moov_udta_DcMD_DcME)
+                    ATOM_BEGIN
+                    ATOM(moov_udta_DcMD_DcME_Keyw)
+                    ATOM(moov_udta_DcMD_DcME_Mtmd)
+                    ATOM(moov_udta_DcMD_DcME_Rate)
+                    ATOM_END
+                ATOM_END
             ATOM(moov_udta_FIEL)
             ATOM(moov_udta_FXTC)
             ATOM(moov_udta_hinf)
@@ -3359,6 +3375,54 @@ void File_Mpeg4::moov_udta_cprt()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_DcMD()
+{
+    Element_Name("Kodak MetaData");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_DcMD_Cmbo()
+{
+    Element_Name("Camera byte order");
+
+    //Parsing
+    Skip_C2(                                                    "EXIF byte order");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_DcMD_DcME()
+{
+    Element_Name("DcME?");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_DcMD_DcME_Keyw()
+{
+    Element_Name("Keywords?");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_DcMD_DcME_Mtmd()
+{
+    Element_Name("Metadata?");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_DcMD_DcME_Rate()
+{
+    Element_Name("Rate?");
+
+    //Parsing
+    Skip_B2(                                                    "Zero");
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_udta_FIEL()
 {
     Element_Name("FIEL?");
@@ -3612,6 +3676,14 @@ void File_Mpeg4::moov_udta_xxxx()
                         if (Retrieve(Stream_General, 0, Parameter.c_str()).empty())
                             Fill(Stream_General, 0, Parameter.c_str(), Value);
                     FILLING_END();
+
+                    if (Element_Offset+1==Element_Size)
+                    {
+                        int8u Null;
+                        Peek_B1(Null);
+                        if (Null==0x00)
+                            Skip_B1(                            "NULL");
+                    }
                 }
             }
             break;

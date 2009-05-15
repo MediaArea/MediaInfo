@@ -178,6 +178,12 @@ private :
     void moov_udta_AllF();
     void moov_udta_chpl();
     void moov_udta_cprt();
+    void moov_udta_DcMD();
+    void moov_udta_DcMD_Cmbo();
+    void moov_udta_DcMD_DcME();
+    void moov_udta_DcMD_DcME_Keyw();
+    void moov_udta_DcMD_DcME_Mtmd();
+    void moov_udta_DcMD_DcME_Rate();
     void moov_udta_FIEL();
     void moov_udta_FXTC();
     void moov_udta_hinf();
