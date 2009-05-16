@@ -611,7 +611,9 @@ public :
     inline void Skip_S7(size_t Bits,                const char*) {BS->Skip8(Bits);}
     inline void Skip_S8(size_t Bits,                const char*) {BS->Skip8(Bits);}
     void Mark_0 ();
+    void Mark_0_NoTrustError (); //Use it for providing a warning instead of a non-trusting error
     void Mark_1 ();
+    void Mark_1_NoTrustError (); //Use it for providing a warning instead of a non-trusting error
     #define Info_BS(_BITS, _INFO, _NAME) int32u  _INFO; Get_BS(_BITS, _INFO, _NAME)
     #define Info_SB(_INFO, _NAME)        bool    _INFO; Get_SB(       _INFO, _NAME)
     #define Info_S1(_BITS, _INFO, _NAME) int8u   _INFO; Get_S1(_BITS, _INFO, _NAME)

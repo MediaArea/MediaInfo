@@ -1185,6 +1185,13 @@ void File__Analyze::Peek_S8(size_t Bits, int64u &Info)
 }
 
 //---------------------------------------------------------------------------
+void File__Analyze::Mark_0_NoTrustError()
+{
+    INTEGRITY(1<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    BS->GetB();
+}
+
+//---------------------------------------------------------------------------
 void File__Analyze::Mark_0()
 {
     INTEGRITY(1<=BS->Remain(), "Size is wrong", BS->Offset_Get())
@@ -1198,6 +1205,13 @@ void File__Analyze::Mark_1()
     INTEGRITY(1<=BS->Remain(), "Size is wrong", BS->Offset_Get())
     if (!BS->GetB())
         Element_DoNotTrust("Mark bit is wrong");
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Mark_1_NoTrustError()
+{
+    INTEGRITY(1<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    BS->GetB();
 }
 
 } //NameSpace

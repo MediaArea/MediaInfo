@@ -1706,6 +1706,18 @@ void File__Analyze::Mark_0()
 }
 
 //---------------------------------------------------------------------------
+void File__Analyze::Mark_0_NoTrustError()
+{
+    INTEGRITY(1<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    bool Info=BS->GetB();
+    if (Info)
+    {
+        Param("0", Info);
+        Param_Info("Warning: should be 0");
+    }
+}
+
+//---------------------------------------------------------------------------
 void File__Analyze::Mark_1()
 {
     INTEGRITY(1<=BS->Remain(), "Size is wrong", BS->Offset_Get())
@@ -1714,6 +1726,18 @@ void File__Analyze::Mark_1()
     {
         Param("1", Info);
         Element_DoNotTrust("Mark bit is wrong");
+    }
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Mark_1_NoTrustError()
+{
+    INTEGRITY(1<=BS->Remain(), "Size is wrong", BS->Offset_Get())
+    bool Info=BS->GetB();
+    if (!Info)
+    {
+        Param("1", Info);
+        Param_Info("Warning: should be 1");
     }
 }
 

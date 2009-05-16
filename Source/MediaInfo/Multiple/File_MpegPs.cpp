@@ -880,8 +880,8 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         BS_Begin();
         Mark_0();
         Mark_0();
-        Mark_1();
-        Skip_SB(                                                "0"); //Is "1" in one sample
+        Mark_1_NoTrustError(); //Is "0" in one sample
+        Mark_0_NoTrustError(); //Is "1" in one sample
         Get_S1 ( 3, PTS_32,                                     "PTS_32");
         Mark_1();
         Get_S2 (15, PTS_29,                                     "PTS_29");
@@ -918,8 +918,8 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         BS_Begin();
         Mark_0();
         Mark_0();
-        Mark_1();
-        Mark_1();
+        Mark_1_NoTrustError(); //Is "0" in one sample
+        Mark_1_NoTrustError(); //Is "0" in one sample
         Get_S1 ( 3, PTS_32,                                     "PTS_32");
         Mark_1();
         Get_S2 (15, PTS_29,                                     "PTS_29");
@@ -947,7 +947,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         Mark_0();
         Mark_0();
         Mark_0();
-        Mark_1();
+        Mark_1_NoTrustError(); //Is "1" in one sample
         Get_S1 ( 3, DTS_32,                                     "DTS_32");
         Mark_1();
         Get_S2 (15, DTS_29,                                     "DTS_29");
