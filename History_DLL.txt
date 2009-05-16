@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.16, 2009-0
 -------------
 x MPEG-4: Kodak files with EXIF data were not parsed
+x MPEG-4 (Quicktime): some files with compressed header were not well parsed
 
 Version 0.7.15, 2009-04-30
 -------------

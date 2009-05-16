@@ -1172,6 +1172,12 @@ void File_Mpeg4::moov_cmov_cmvd_zlib()
             delete Dest; //Dest=NULL;
             return;
         }
+
+        //Configuring
+        int64u File_Size_Real=File_Size;
+        File_Size=File_Offset+Buffer_Offset+Element_Offset+Dest_Size;
+
+        //Parsing
         File_Mpeg4 MI;
         Open_Buffer_Init(&MI);
         Open_Buffer_Continue(&MI, Dest, Dest_Size);
@@ -1179,6 +1185,9 @@ void File_Mpeg4::moov_cmov_cmvd_zlib()
         Merge(MI);
         Merge(MI, Stream_General, 0, 0);
         delete[] Dest; //Dest=NULL;
+
+        //Configuring
+        File_Size=File_Size_Real;
     FILLING_END();
 }
 
