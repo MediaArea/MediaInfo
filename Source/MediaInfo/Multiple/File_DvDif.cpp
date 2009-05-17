@@ -1397,7 +1397,9 @@ void File_DvDif::Header_Fill()
     Fill(Stream_General, 0, General_Format, "Digital Video");
 
     Accept("DV DIF");
-    //Finish("DV DIF");
+    #ifndef MEDIAINFO_DVDIF_ANALYZE_YES
+        Finish("DV DIF");
+    #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 }
 
 //---------------------------------------------------------------------------
