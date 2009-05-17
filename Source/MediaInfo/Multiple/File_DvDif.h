@@ -187,7 +187,7 @@ private :
         Ztring Date;
         Ztring Time;
 
-        RecZ()
+        recZ_Single()
         {
             FramePos=(int64u)-1;
         }

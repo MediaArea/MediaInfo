@@ -201,7 +201,7 @@ File_DvDif::File_DvDif()
     Frame_AtLeast1DIF=false;
     QU=(int8u)-1;
     CH_IsPresent.resize(8);
-    #endif MEDIAINFO_DVDIF_ANALYZE_YES
+    #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 }
 
 //***************************************************************************
