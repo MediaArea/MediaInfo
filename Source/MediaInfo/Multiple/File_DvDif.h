@@ -114,12 +114,11 @@ private :
     Ztring Errors_Stats;
     Ztring Date;
     Ztring Time;
-    int64u Speed_FrameCount;                            //Global    - Total
-    int64u Speed_FrameCount_Video_STA_Errors;           //Global    - Error 1
-    std::vector<int64u> Speed_FrameCount_Audio_Errors;  //Global    - Error 2
-    int64u Speed_FrameCount_Timecode_Incoherency;       //Global    - Error 3
-    int64u Speed_FrameCount_Contains_NULL;              //Global    - Error 4
-    int64u Speed_Contains_NULL;                         //Per Frame - Error 4
+    int64u Speed_FrameCount;
+    int64u Speed_FrameCount_Video_STA_Errors;
+    std::vector<int64u> Speed_FrameCount_Audio_Errors;
+    int64u Speed_FrameCount_Audio_Invalids;
+    int64u Speed_Contains_NULL;
     int8u  QU;
     bool   QU_FSC; //Validity is with QU
     bool   QU_System; //Validity is with QU
@@ -166,17 +165,12 @@ private :
     dvtime Speed_TimeCode_Last;
     dvtime Speed_TimeCode_Current;
     dvtime Speed_TimeCode_Current_Theory;
-    Ztring Speed_TimeCodeZ_First;
-    Ztring Speed_TimeCodeZ_Last;
-    Ztring Speed_TimeCodeZ_Current;
     dvtime Speed_RecTime_Current;
     dvtime Speed_RecTime_Current_Theory;
     dvtime Speed_RecTime_Current_Theory2;
-    Ztring Speed_RecTimeZ_First;
     Ztring Speed_RecTimeZ_Last;
     Ztring Speed_RecTimeZ_Current;
     dvdate Speed_RecDate_Current;
-    Ztring Speed_RecDateZ_First;
     Ztring Speed_RecDateZ_Last;
     Ztring Speed_RecDateZ_Current;
     std::vector<size_t> Video_STA_Errors; //Per STA type
@@ -187,14 +181,23 @@ private :
     std::vector<std::vector<size_t> > Audio_Errors_Total; //Per Channel and Dseq
     std::vector<std::vector<size_t> > Audio_Invalids; //Per Channel and Dseq
     std::vector<std::vector<size_t> > Audio_Invalids_Total; //Per Channel and Dseq
-    std::vector<Ztring> Speed_TimeCodeZ_Firsts;
-    std::vector<Ztring> Speed_TimeCodeZ_Lasts;
-    std::vector<int64u> Speed_TimeCodeZ_Lasts_Speed_FrameCount;
-    std::vector<Ztring> Speed_RecDateZ_Firsts;
-    std::vector<Ztring> Speed_RecDateZ_Lasts;
-    std::vector<Ztring> Speed_RecTimeZ_Firsts;
-    std::vector<Ztring> Speed_RecTimeZ_Lasts;
-    std::vector<int64u> Speed_RecTimeZ_Lasts_Speed_FrameCount;
+    struct recZ_Single
+    {
+        int64u FramePos;
+        Ztring Date;
+        Ztring Time;
+
+        RecZ()
+        {
+            FramePos=(int64u)-1;
+        }
+    };
+    struct recZ
+    {
+        recZ_Single First;
+        recZ_Single Last;
+    };
+    std::vector<recZ> Speed_RecZ;
     #endif MEDIAINFO_DVDIF_ANALYZE_YES
 };
 
