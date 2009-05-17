@@ -198,7 +198,7 @@ private :
         recZ_Single Last;
     };
     std::vector<recZ> Speed_RecZ;
-    #endif MEDIAINFO_DVDIF_ANALYZE_YES
+    #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 };
 
 } //NameSpace
