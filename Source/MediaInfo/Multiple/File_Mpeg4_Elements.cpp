@@ -1169,25 +1169,77 @@ void File_Mpeg4::moov_cmov_cmvd_zlib()
         int8u* Dest=new int8u[Dest_Size];
         if (uncompress((Bytef*)Dest, &Dest_Size, (const Bytef*)Buffer+Buffer_Offset+4, Source_Size)<0)
         {
+            Skip_XX(Element_Size,                               "Problem during the decompression");
             delete Dest; //Dest=NULL;
             return;
         }
 
-        //Configuring
-        int64u File_Size_Real=File_Size;
+        //Exiting this element
+        Skip_XX(Element_Size,                                   "Will be parsed");
+
+        //Configuring buffer
+        const int8u* Buffer_Sav=Buffer;
+        size_t Buffer_Size_Sav=Buffer_Size;
+        int8u* Buffer_Temp_Sav=Buffer_Temp;
+        size_t Buffer_Temp_Size_Sav=Buffer_Temp_Size;
+        size_t Buffer_Offset_Sav=Buffer_Offset;
+        size_t Buffer_Offset_Temp_Sav=Buffer_Offset_Temp;
+        Buffer=NULL;
+        Buffer_Size=0;
+        Buffer_Temp=NULL;
+        Buffer_Temp_Size=0;
+        Buffer_Offset=0;
+        Buffer_Offset_Temp=0;
+
+        //Configuring level
+        std::vector<int64u> Element_Sizes_Sav;
+        size_t Element_Level_Sav=Element_Level;
+        while(Element_Level)
+        {
+            int64u A=Element_TotalSize_Get();
+            Element_Sizes_Sav.push_back(A);
+            Element_End();
+        }
+
+        //Configuring file size
+        int64u File_Size_Sav=File_Size;
         File_Size=File_Offset+Buffer_Offset+Element_Offset+Dest_Size;
+        Element_Level++;
+        Header_Fill_Size(File_Size);
+        Element_Level--;
 
         //Parsing
-        File_Mpeg4 MI;
-        Open_Buffer_Init(&MI);
-        Open_Buffer_Continue(&MI, Dest, Dest_Size);
-        Open_Buffer_Finalize(&MI);
-        Merge(MI);
-        Merge(MI, Stream_General, 0, 0);
+        Open_Buffer_Continue(Dest, Dest_Size);
         delete[] Dest; //Dest=NULL;
 
-        //Configuring
-        File_Size=File_Size_Real;
+        //Resetting file size
+        File_Size=File_Size_Sav;
+        while(Element_Level)
+            Element_End();
+        Element_Level++;
+        Header_Fill_Size(File_Size);
+        Element_Level--;
+
+        //Configuring level
+        while(Element_Level<Element_Level_Sav)
+        {
+            Element_Begin();
+            Element_Begin();
+            Header_Fill_Size(Element_Sizes_Sav[0]);
+            Element_End();
+            //Ztring(), Element_Sizes_Sav[Element_Level_Sav-1-Element_Level]);
+        }
+
+        //Resetting buffer
+        Buffer=Buffer_Sav;
+        Buffer_Size=Buffer_Size_Sav;
+        Buffer_Temp=Buffer_Temp_Sav;
+        Buffer_Temp_Size=Buffer_Temp_Size_Sav;
+        Buffer_Offset=Buffer_Offset_Sav;
+        Buffer_Offset_Temp=Buffer_Offset_Temp_Sav;
+
+        //Filling
+        Fill(Stream_General, 0, General_Format_Settings, "Compressed header");
     FILLING_END();
 }
 
