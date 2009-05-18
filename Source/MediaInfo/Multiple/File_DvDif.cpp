@@ -1980,7 +1980,7 @@ void File_DvDif::video_sourcecontrol()
     BS_End();
 
     FILLING_BEGIN();
-        if (FrameCount==1 || AuxToAnalyze) //Only the first time
+        if ((FrameCount==1 || AuxToAnalyze) && Retrieve(Stream_Video, 0, Video_ScanType).empty()) //Only the first time
         {
             Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive");
             Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"PFF");
