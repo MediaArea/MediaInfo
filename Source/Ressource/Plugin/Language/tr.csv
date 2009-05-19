@@ -6,7 +6,7 @@
   Config_Text_ColumnSize;32
   Config_Text_Separator; :
   Config_Text_NumberTag; #
-  Config_Text_FloatSeparator;,
+  Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
  audio stream1; seslendirme
  audio stream2; seslendirme
@@ -170,28 +170,28 @@ Audio_Codec_List;Ses kodekleri
 Audio_No;Ses yok
 Audio1;Birinci ses
 Audio2;İkinci ses
-AudioCount;Seslendirme sayısı
-Author;Yazar
+AudioCount;Ses sayısı
+Author;Hazırlayan
 BarCode;BarKod
 Basic;Temel
 Basic_Note;Not : Bu dosya hakkında daha fazla bilgi için farklı görünüm seçmelisiniz (Sayfa, Ağaç...)
 BitRate;Bit oranı
 BitRate_Maximum;En fazla bit oranı
 BitRate_Minimum;En az bit oranı
-BitRate_Mode;Bit oranı kipi
+BitRate_Mode;Bit oranı modu
 BitRate_Mode_CBR;Sabit
 BitRate_Mode_VBR;Değişken
 BitRate_Nominal;Düşük bit oranı
 Bits-(Pixel*Frame);Bit/(Piksel*Kare)
 Cancel;İptal
-Channel(s);Kanal(lar)
+Channel(s);Kanal
 ChannelPositions;Kanal konumları
-Chapter(s);Bölüm(ler)
+Chapter(s);Bölüm
 Chapters;Bölüm
-Chapters stream(s);Bölüm akışı(ları)
+Chapters stream(s);Bölüm akışı
 Chapters_Codec_List;Bölüm Kodekleri
 Chapters_No;Bölüm yok
-ChaptersCount;Bölüm akışı sayısı
+ChaptersCount;Bölüm sayısı
 CheckNewVersion;Yeni sürümü kontrol et
 Choose custom;Özel seç
 Choose custom sheet;İstediğiniz özel sayfayı seçin
@@ -223,7 +223,7 @@ Codec_Settings_ITU;Kodek ayarları, ITU
 Codec_Profile;Kodek profili
 Codec_Url;Kodek için web bağlantısı
 CodecID;Kodek ID
-CodecID_Description;Kodek'in tanımı
+CodecID_Description;Kodek açıklaması
 Collection;Koleksiyon
 Colorimetry;Renkölçüm 
 Comment;Yorum
@@ -232,7 +232,7 @@ CompleteName;Tam isim
 Composer;Besteci
 CompressionRatio;Sıkıştırma oranı
 Conductor;Orkestra şefi
-Container and general information;Konteyner ve genel bilgi
+Container and general information;Kalıp ve genel bilgi
 ContentType;İçerik Türü
 CoProducer;Yardımcı yapımcı
 Copyright;Telif Hakkı
@@ -257,24 +257,24 @@ Digitized_Date;Sayısallaştırılmış tarih
 Dimensions;Boyutlar
 Director;Yönetmen
 DirectorOfPhotography;Fotoğrafçılık yönetmeni
-DisplayAspectRatio;En-Boy oranı
-DisplayAspectRatio_Original
+DisplayAspectRatio;Görüntü en-boy oranı
+DisplayAspectRatio_Original;Orijinal görüntü en-boy oranı
 DistributedBy;Dağıtan
 Donate;Bağış
 DotsPerInch;İnç başına nokta
 Duration;Süre
-Duration_End
-Duration_Start
+Duration_End;Bitiş zamanı
+Duration_Start;Başlangıç zamanı
 Edit;Düzenle
 EditedBy;Düzenleyen
 EMail;E-Posta
 Encoded_Application;Yapım uygulaması
-Encoded_Date;Kodlanmış tarih
+Encoded_Date;Kodlanma tarihi
 Encoded_Library;Yapım kütüphanesi
 Encoded_Library_Settings;Kodlama ayarları
 Encoded_Original;Orijinal
 EncodedBy;Kodlayan
-EPG_Positions
+EPG_Positions;EPG konumu (dahili)
 Error_File;Dosya okunurken hata
 ExecutiveProducer;İdari yapımcı
 Exit;Çıkış
@@ -288,10 +288,10 @@ File;Dosya
 File size;Dosya boyutu
 File_Append;Mevcut dosyaya ekle (Uyarı : aynı parametlere sahip olmak için dikkatli olun)
 File_Created_Date;Dosya oluşturma tarihi
-File_Created_Date_Local
+File_Created_Date_Local;Dosya oluşturma tarihi (yerel)
 File_Hint;Çalışmak için çokluortam dosyası seç
 File_Modified_Date;Dosya son değiştirme tarihi
-File_Modified_Date_Local
+File_Modified_Date_Local;Dosya son değiştirme tarihi (yerel)
 FileExtension;Dosya uzantısı
 FileName;Dosya adı
 FileSize;Dosya boyutu
@@ -521,7 +521,7 @@ Known formats;Bilinen biçimler
 Known parameters;Bilinen parametreler
 Label;Etiket
 Language;Dil
-Language_More
+Language_More;Dil, daha fazla bilgi
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -560,15 +560,15 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Yunanca
 Language_en;İngilizce
-Language_en-gb
-Language_en-us
+Language_en-gb;İngilizce (UK)
+Language_en-us;İngilizce (ABD)
 Language_eo;Esperanto
 Language_es;İspanyolca
 Language_et;Estonian
 Language_eu;Basque
-Language_fa;Persian
+Language_fa;Farsça
 Language_ff;Fulah
-Language_fi;Finnish
+Language_fi;Fince
 Language_fj;Fijian
 Language_fo;Faroese
 Language_fr;Fransızca
@@ -642,9 +642,9 @@ Language_nb;Norwegian Bokmal
 Language_nd;Ndebele
 Language_ne;Nepali
 Language_ng;Ndonga
-Language_nl;Dutch
-Language_nn;Norwegian Nynorsk
-Language_no;Norwegian Bokmal
+Language_nl;Flemenkçe
+Language_nn;Norwegian Bokmal
+Language_no;Norwegian Nynorsk
 Language_nr;Ndebele
 Language_nv;Navaho
 Language_ny;Nyanja
@@ -658,7 +658,7 @@ Language_pi;Pali
 Language_pl;Polonyaca
 Language_ps;Pushto
 Language_pt;Portekizce
-Language_pt-br
+Language_pt-br;Portekizce (Birazilya)
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
@@ -711,8 +711,8 @@ Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Çince
-Language_zh-cn
-Language_zh-tw
+Language_zh-cn;Çince (Çin)
+Language_zh-tw;Çince (Tayvan)
 Language_zu;Zulu
 LawRating;Kanun oranı
 LCCN;LCCN
@@ -728,7 +728,7 @@ Menu;Menü
 Menu stream(s);Menü akışları
 Menu_Codec_List;Menü kodekleri
 Menu_No;Menü yok
-MenuCount;Meni akış sayısı
+MenuCount;Meni sayısı
 Menu_Hint;Daha fazla olasılık
 MenuID;Menü ID
 mn;dk
@@ -739,11 +739,11 @@ ms;ms
 MSDI;MSDI
 MusicBy;Müziği yapan
 MuxingMode;Çoklamalı mod
-MuxingMode_MoreInfo
+MuxingMode_MoreInfo;Çoklamalı mod, daha fazla bilgi
 MuxingMode_PackedBitstream;Paketlenmiş bit akışı
 Name;İsim
 Nationality;Uyruk
-NetworkName
+NetworkName;Ağ adı
 New;Yeni
 Newest version;Yeni sürümleri kontrol et (Internet bağlantısı gerekir)
 No;Hayır
@@ -752,46 +752,46 @@ NumColors;Renk sayısı
 OK;TAMAM
 One output file per input file;Girdi dosyası başına bir çıktı dosyası
 Open;Aç
-OpenCandy_01
-OpenCandy_02
-OpenCandy_03
-OpenCandy_04
-OpenCandy_05
-OpenCandy_06
-OpenCandy_07
-OpenCandy_08
-OpenCandy_09
-OpenCandy_10
-OpenCandy_11
-OpenCandy_12
-OpenCandy_13
-OpenCandy_14
-OpenCandy_15
-OpenCandy_16
-OpenCandy_17
-OpenCandy_18
-OpenCandy_19
-OpenCandy_20
-OpenCandy_21
-OpenCandy_22
-OpenCandy_23
-OpenCandy_24
-OpenCandy_25
-OpenCandy_26
-OpenCandy_27
-OpenCandy_28
-OpenCandy_29
-OpenCandy_30
-OpenCandy_31
-OpenCandy_32
-OpenCandy_33
-OpenCandy_34
-OpenCandy_35
-OpenCandy_36
+OpenCandy_01;İndirilen ________
+OpenCandy_02;__% Tamamlandı
+OpenCandy_03;Internet bağlantısı kopmuş
+OpenCandy_04;________ indirme tamamlandı
+OpenCandy_05;Kurmak için tıklayın ________
+OpenCandy_06;Kur'u iptal etmek istediğinize emin misiniz?\r\nEğer kurmayı sonraya ertelemek isterseniz, 'Hayır'ı seçin.\r\nNot: Bir dahaki seferden sonra yeniden başlatana kadar kurulumu ertelemek için menüden Çıkış'ı seçebilirsiniz.
+OpenCandy_07;Download of ________ has been paused.\r\nClick on the tray icon to resume downloading.
+OpenCandy_08;A critical error has occurred. Installation of _________ will be aborted.
+OpenCandy_09;İndirmeyi duraklat
+OpenCandy_10;Kurulumu iptal et
+OpenCandy_11;İndirmeye devam et
+OpenCandy_12;Kur'dan çık
+OpenCandy_13;___________ - Recommended by ____________
+OpenCandy_14;Downloading _________
+OpenCandy_15;___________, the software recommended to you by ___________, is now downloading at your requestWe will let you know when it is ready to be installed.
+OpenCandy_16;___________ is ready for installation
+OpenCandy_17;___________ is now fully downloaded. Please click on 'Install' to proceed.
+OpenCandy_18;___________ of ___________ downloaded
+OpenCandy_19;OpenCandy tarafından desteklenir
+OpenCandy_20;OpenCandy.com 'dan daha fazlasını öğrenin
+OpenCandy_21;Kur
+OpenCandy_22;Installation of ___________
+OpenCandy_23;This will cancel the installation of ___________\r\nAre you sure you wish to exit?
+OpenCandy_24;Duraklat
+OpenCandy_25;Your download has been paused. Click 'Resume' when you are ready to continue.
+OpenCandy_26;Devam
+OpenCandy_27;Hemen Kur
+OpenCandy_28;İndirmeyi duraklat
+OpenCandy_29;İndirmeye devam et
+OpenCandy_30;Kurulumu iptal et
+OpenCandy_31;Lütfen kurulum seçeneği seçin
+OpenCandy_32;Kur ___________
+OpenCandy_33;Kurma
+OpenCandy_34;Lütfen kurma seçeneği seçin
+OpenCandy_35;______ recommends this software
+OpenCandy_36;Your current installation will not be interrupted
 Options;Seçenekler
 Options_Hint;Tercihler
 Original;Orijinal
-OriginalNetworkName
+OriginalNetworkName;Orijinal ağ adı
 OriginalSourceForm;Orijinal kaynak formu
 OriginalSourceMedium;Orijinal kaynak ortamı
 Other;Diğer
@@ -841,8 +841,8 @@ ScreenplayBy;Senaryo
 Season;Sezon
 see below;aşağı bakın
 Send HeaderFile;Lütfen Header dosyasını buraya gönderin : http://sourceforge.net/projects/mediainfo/ (Bug bölümü)
-Separator_Columns;sütun ayırıcı
-Separator_Lines;satır ayırıcı
+Separator_Columns;Sütun ayırıcı
+Separator_Lines;Satır ayırıcı
 ServiceChannel;Hizmet kanal numarası
 ServiceName;Hizmet adı
 ServiceProvider;Hizmet sağlayıcısı
@@ -874,7 +874,7 @@ SubTrack;Altİz
 Summary;Özet
 Supported formats;Desteklenen biçimler
 Supported?;Desteklenen?
-Synopsis;Synopsis
+Synopsis;Özet
 SystemId;Id
 Tagged_Application;Etiketleme uygulaması
 Tagged_Date;Etiketleme tarihi
@@ -887,15 +887,15 @@ Text stream(s);Yazı akış(lar)ı
 Text streams;Yazı akışı
 Text_Codec_List;Yazı kodekleri
 Text_No;Yazı yok
-Text1;Birinci yazı akışı
-Text2;İkinci yazı akışı
-Text3;Üçüncü yazı akışı
-TextCount;Yazı akışı sayısı
+Text1;Birinci altyazı
+Text2;İkinci altyazı
+Text3;Üçüncü altyazı
+TextCount;Altyazı sayısı
 ThanksTo;Teşekkürler
 Thousands separator;Binlik basamak ayırıcı 
 Title;Başlık
 Title_More;Başlık, daha fazla bilgi
-TimeZone
+TimeZone;Saat dilimi
 Total;Toplam
 Track;Parça adı
 Track_Count;Parça sayısı
@@ -906,7 +906,7 @@ Unknown;Bilinmiyor
 Url;Url
 Video;Görüntü
 Video stream(s);Görüntü akış(lar)ı
-Video_Codec_List;Görüntü Kodekleri
+Video_Codec_List;Görüntü kodekleri
 Video_Delay;Görüntü gecikmesi
 Video_No;Görüntü yok
 Video0_Delay;Görüntü0 gecikmesi
@@ -933,5 +933,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;94
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
