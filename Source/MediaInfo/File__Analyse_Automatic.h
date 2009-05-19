@@ -138,6 +138,7 @@ enum general
     General_Album_ReplayGain_Gain,
     General_Album_ReplayGain_Gain_String,
     General_Album_ReplayGain_Peak,
+    General_Encryption,
     General_Title,
     General_Title_More,
     General_Title_Url,

@@ -3492,6 +3492,7 @@ void MediaInfo_Config_General (ZtringListList &Info)
     "Album_ReplayGain_Gain;; dB;N YT;;;The gain to apply to reach 89dB SPL on playback\n"
     "Album_ReplayGain_Gain/String;;;Y YT\n"
     "Album_ReplayGain_Peak;;;Y YT;;;The maximum absolute peak value of the item\n"
+    "Encryption;;;Y YT\n"
     "Title;;;N NT;;;(Generic)Title of file;;Title\n"
     "Title/More;;;N NT;;;(Generic)More info about the title of file;;Title\n"
     "Title/Url;;;N NT;;;(Generic)Url;;Title\n"

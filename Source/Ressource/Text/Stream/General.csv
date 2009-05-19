@@ -101,6 +101,7 @@ FooterSize;;;N NI;;;;;
 Album_ReplayGain_Gain;; dB;N YT;;;The gain to apply to reach 89dB SPL on playback;;
 Album_ReplayGain_Gain/String;;;Y YT;;;;;
 Album_ReplayGain_Peak;;;Y YT;;;The maximum absolute peak value of the item;;
+Encryption;;;Y YT;;;;;
 Title;;;N NT;;;(Generic)Title of file;;Title
 Title/More;;;N NT;;;(Generic)More info about the title of file;;Title
 Title/Url;;;N NT;;;(Generic)Url;;Title
@@ -253,4 +254,4 @@ Played_First_Date;;;Y YT;;;The date, the owner first played an item;;Personal
 Played_Last_Date;;;Y YT;;;The date, the owner last played an item;;Personal
 Played_Count;;;Y YI;;;Number of times an item was played;;Personal
 EPG_Positions_Begin;;;N NI;;;;;
-EPG_Positions_End;;;N NI;;;;;
+EPG_Positions_End;;;N NI
