@@ -182,11 +182,17 @@ void File_Mpeg4::Read_Buffer_Finalize()
                     //Special case: DV with Audio in the video stream
                     for (size_t Pos=0; Pos<Temp->second.Parser->Count_Get(Stream_Audio); Pos++)
                     {
+                        Fill_Flush();
                         Stream_Prepare(Stream_Audio);
                         Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
                         Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "DV");
+                        Fill(Stream_Audio, StreamPos_Last, Audio_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
                         Fill(Stream_Audio, StreamPos_Last, Audio_StreamSize, "0"); //Included in the DV stream size
                         Fill(Stream_Audio, StreamPos_Last, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1)); //Ztring::ToZtring(_T(""));
+
+                        //Reconfigure
+                        StreamKind_Last=Temp->second.StreamKind;
+                        StreamPos_Last=Temp->second.StreamPos;
                     }
                 }
             }

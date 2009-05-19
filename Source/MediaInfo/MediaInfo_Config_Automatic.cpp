@@ -1172,6 +1172,7 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     Info.Write(Ztring().From_UTF8(
     "avc1;AVC;;Advanced Video Coding;http://www.apple.com/quicktime/download/standalone.html\n"
     "avcp;AVC;;Advanced Video Coding Parameters;http://www.apple.com/quicktime/download/standalone.html\n"
+    "AVdv;Digital Video;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "drac;Dirac;;Dirac Video Coder;http://www.bbc.co.uk/rd/projects/dirac/index.shtml\n"
     "CFHD;Cineform;;CineForm High-Definition (HD) wavelet codec;http://www.cineform.com/\n"
     "cvid;Cinepack;;;http://www.apple.com/quicktime/download/standalone.html\n"
