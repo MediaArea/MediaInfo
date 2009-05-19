@@ -244,7 +244,7 @@ bool File__Tags_Helper::Synched_Test()
         //We continue
         if (Parser)
         {
-            int64u Size_ToParse=Parser_Buffer_Size<Base->Buffer_Size?Parser_Buffer_Size:Base->Buffer_Size;
+            int64u Size_ToParse=(Parser_Buffer_Size<Base->Buffer_Size-Base->Buffer_Offset)?Parser_Buffer_Size:(Base->Buffer_Size-Base->Buffer_Offset);
             Base->Open_Buffer_Continue(Parser, Base->Buffer+Base->Buffer_Offset, (size_t)Size_ToParse);
             Base->Buffer_Offset+=(size_t)Size_ToParse;
             TagsSize+=Size_ToParse;

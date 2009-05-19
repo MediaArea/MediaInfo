@@ -17,6 +17,7 @@ x MPEG-4: Kodak files with EXIF data were not parsed
 x MPEG-4 (Quicktime): some files with compressed header were not well parsed
 x MPEG-4: Some files with a TimeCode track had wrong duration
 x MPEG-PS: some files with wrong timestamp were not well parsed
+x MPEG Audio with APE tags: crash with big tags
 
 Version 0.7.15, 2009-04-30
 -------------
