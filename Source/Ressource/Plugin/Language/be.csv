@@ -288,10 +288,10 @@ File;Файл
 File size;Памер файла
 File_Append;Дадаць да файла
 File_Created_Date;Файл створаны
-File_Created_Date_Local
+File_Created_Date_Local;Файл створаны (лакальна)
 File_Hint;Аперацыі з файламі
 File_Modified_Date;Файл зменены
-File_Modified_Date_Local
+File_Modified_Date_Local;Файл зменены (лакальна)
 FileExtension;Пашырэнне
 FileName;Імя файла
 FileSize;Памер файла
@@ -739,7 +739,7 @@ ms;мс
 MSDI;MSDI
 MusicBy;Кампазітар
 MuxingMode;Рэжым змешвання
-MuxingMode_MoreInfo
+MuxingMode_MoreInfo;Рэжым змешвання, болей інфармацыі
 MuxingMode_PackedBitstream;Сціснуты бітавы струмень
 Name;Імя
 Nationality;Нацыянальнасць
@@ -747,7 +747,7 @@ NetworkName;Сеткавае імя
 New;Новы...
 Newest version;Праверыць на абнаўленне (патрабуецца падлучэнне да інтэрнэту)
 No;Не
-Not yet;Яшчэ не
+Not yet;Яшчэ няма
 NumColors;Колькасць колераў
 OK;Добра
 One output file per input file;Адзін файл на кожны зыходны
@@ -874,7 +874,7 @@ SubTrack;Падпаток
 Summary;Зводка
 Supported formats;Падтрымліваемыя фарматы
 Supported?;Падтрымліваецца?
-Synopsis;Сінопсіс
+Synopsis;Коратка
 SystemId;Ідэнтыфікатар
 Tagged_Application;Праграма, якая пазначыла
 Tagged_Date;Дата адзнакі
@@ -927,11 +927,11 @@ WebSite_Video;Сайт відэакодэка
 WebSite_Video_More;Перайсці на сайт (%Url%) праглядніка для гэтага відэакодэка
 Width;Шырыня
 WriteMe;Напісаць мне
-WriteToTranslator;Напісаць перакладніку
+WriteToTranslator;Напісаць перакладчыку
 Written_Date;Дата напісання
 Written_Location;Месца напісання
 WrittenBy;Напісана
 Yes;Так
 Your system;Ваша сістэма
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100

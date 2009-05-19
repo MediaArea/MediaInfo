@@ -14,7 +14,7 @@ Known bugs
 
 Version 0.7.16, 2009-0
 -------------
-+ Turkish translation updated
++ Turkish, Belorussian translations updated
 x Some shortcuts were removed
 
 Version 0.7.15, 2009-04-30
