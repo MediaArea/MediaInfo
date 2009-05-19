@@ -34,7 +34,10 @@ SetCompressor /FINAL /SOLID lzma
 !define MUI_FINISHPAGE_RUN "$INSTDIR\MediaInfo.exe"
 !insertmacro MUI_PAGE_FINISH
 ; Uninstaller pages
+!insertmacro MUI_UNPAGE_WELCOME
+!insertmacro MUI_UNPAGE_CONFIRM
 !insertmacro MUI_UNPAGE_INSTFILES
+!insertmacro MUI_UNPAGE_FINISH
 
 ; Language files
 !insertmacro MUI_LANGUAGE "Albanian"
