@@ -75,7 +75,7 @@ const char* Wm_BannerImageData_Type(int32u Type)
 {
     switch (Type)
     {
-        case 0x00 : return "";
+    case 0x00 : return "";
         case 0x01 : return "Bitmap";
         case 0x02 : return "JPEG";
         case 0x03 : return "GIF";
@@ -136,6 +136,8 @@ namespace Elements
     UUID(TimecodeIndex,                                         3CB73FD0, 0C4A, 4803, 953D, EDF7B6228F0C)
 
     UUID(Payload_Extension_System_TimeStamp,                    1135BEB7, 3A39, 478A, 98D9, 15C76B00EB69);
+    UUID(Mutex_Language,                                        D6E22A00, 35DA, 11D1, 9034, 00A0C90349BE);
+    UUID(Mutex_Bitrate,                                         D6E22A01, 35DA, 11D1, 9034, 00A0C90349BE);
 }
 
 const char* Wm_StreamType(int128u Kind)
@@ -153,6 +155,20 @@ const char* Wm_StreamType(int128u Kind)
         case Elements::Header_StreamProperties_DegradableJPEG : return "Degradable JPEG";
         case Elements::Header_StreamProperties_FileTransfer :   return "File Transfer";
         case Elements::Header_StreamProperties_Binary :         return "Binary";
+        default :                                               return "Unknown";
+    }
+}
+
+const char* Wm_ExclusionType(int128u ExclusionType)
+{
+    #ifndef __BORLANDC__
+        switch (ExclusionType.hi)
+    #else //__BORLANDC__
+        switch (ExclusionType.hi&0xFFFFFFFF) //Borland does not like int64u for const?
+    #endif //__BORLANDC__
+    {
+        case Elements::Header_StreamProperties_Audio :          return "Language";
+        case Elements::Header_StreamProperties_Video :          return "Bitrate";
         default :                                               return "Unknown";
     }
 }
@@ -291,30 +307,40 @@ void File_Wm::Header_StreamProperties ()
     Stream_Number&=0x007F; //Only 7bits
     Element_Info(Stream_Number);
     Skip_L4(                                                    "Reserved");
-    Element_Begin(StreamTypeLength);
-        #ifndef __BORLANDC__
-            switch (StreamType.hi)
-        #else //__BORLANDC__
-            switch (StreamType.hi&0xFFFFFFFF) //Borland does not like int64u for const?
-        #endif //__BORLANDC__
-        {
-            case Elements::Header_StreamProperties_Audio :          Header_StreamProperties_Audio(); break;
-            case Elements::Header_StreamProperties_Video :          Header_StreamProperties_Video(); break;
-            case Elements::Header_StreamProperties_JFIF :           Header_StreamProperties_JFIF(); break;
-            case Elements::Header_StreamProperties_DegradableJPEG : Header_StreamProperties_DegradableJPEG(); break;
-            case Elements::Header_StreamProperties_FileTransfer :
-            case Elements::Header_StreamProperties_Binary :         Header_StreamProperties_Binary(); break;
-            default :                                               if (StreamTypeLength>0) {Element_Name("Unknown"); Skip_XX(StreamTypeLength, "Type-Specific Data");}
-                                                                    StreamKind_Last=Stream_Max; StreamPos_Last=(size_t)-1; break;
-        }
-    Element_End();
+    #ifndef __BORLANDC__
+        switch (StreamType.hi)
+    #else //__BORLANDC__
+        switch (StreamType.hi&0xFFFFFFFF) //Borland does not like int64u for const?
+    #endif //__BORLANDC__
+    {
+        case Elements::Header_StreamProperties_Audio :          Element_Begin(StreamTypeLength);
+                                                                Header_StreamProperties_Audio();
+                                                                Element_End(); break;
+        case Elements::Header_StreamProperties_Video :          Element_Begin(StreamTypeLength);
+                                                                Header_StreamProperties_Video();
+                                                                Element_End(); break;
+        case Elements::Header_StreamProperties_JFIF :           Element_Begin(StreamTypeLength);
+                                                                Header_StreamProperties_JFIF();
+                                                                Element_End(); break;
+        case Elements::Header_StreamProperties_DegradableJPEG : Element_Begin(StreamTypeLength);
+                                                                Header_StreamProperties_DegradableJPEG();
+                                                                Element_End(); break;
+        case Elements::Header_StreamProperties_FileTransfer :
+        case Elements::Header_StreamProperties_Binary :         Element_Begin(StreamTypeLength);
+                                                                Header_StreamProperties_Binary();
+                                                                StreamKind_Last=Stream_Max; StreamPos_Last=(size_t)-1;
+                                                                Element_End(); break;
+        default :                                               if (StreamTypeLength>0)
+                                                                    Skip_XX(StreamTypeLength, "Type-Specific Data");
+                                                                StreamKind_Last=Stream_Max; StreamPos_Last=(size_t)-1;
+    }
     if (ErrorCorrectionTypeLength)
         Skip_XX(ErrorCorrectionTypeLength,                      "Error Correction Data");
 
     //Filling
     Stream[Stream_Number].StreamKind=StreamKind_Last;
     Stream[Stream_Number].StreamPos=StreamPos_Last;
-    Fill(StreamKind_Last, StreamPos_Last, "ID", Stream_Number);
+    Stream[Stream_Number].Info["ID"].From_Number(Stream_Number);
 }
 
 //---------------------------------------------------------------------------
@@ -597,8 +623,34 @@ void File_Wm::Header_HeaderExtension_ExtendedStreamProperties()
         //Filling
         Stream[StreamNumber].Payload_Extension_Systems.push_back(Payload_Extension_System);
     }
+
+    //Header_StreamProperties
     if (Element_Offset<Element_Size)
-        Skip_XX(Element_Size-Element_Offset,                    "Stream Properties Object");
+    {
+        //This could be everything, but in theory this is only Header_StreamProperties
+        int128u Name;
+        int64u Size;
+        Element_Begin("Stream Properties Object", Element_Size-Element_Offset);
+        Element_Begin("Header", 24);
+            Get_UUID(Name,                                      "Name");
+            Get_L8 (Size,                                       "Size");
+        Element_End();
+        if (Size>=24 && Element_Offset+Size-24==Element_Size)
+        {
+            #ifndef __BORLANDC__
+                switch (Name.hi)
+            #else //__BORLANDC__
+                switch (Name.hi&0xFFFFFFFF) //Borland does not like int64u for const?
+            #endif //__BORLANDC__
+            {
+                case Elements::Header_StreamProperties :    Header_StreamProperties(); break;
+                default :                                   Skip_XX(Size-24, "Unknown");
+            }
+        }
+        else
+            Skip_XX(Element_Size-Element_Offset,                "Problem");
+        Element_End();
+    }
 
     //Filling
     Stream[StreamNumber].LanguageID=LanguageID;
@@ -610,24 +662,52 @@ void File_Wm::Header_HeaderExtension_ExtendedStreamProperties()
 void File_Wm::Header_HeaderExtension_AdvancedMutualExclusion()
 {
     Element_Name("Advanced Mutual Exclusion");
+
+    //Parsing
+    int16u Count;
+    Info_UUID(ExclusionType,                                    "Exclusion Type"); Param_Info(Wm_ExclusionType(ExclusionType));
+    Get_L2 (Count,                                              "Stream Numbers Count");
+    for (int16u Pos=0; Pos<Count; Pos++)
+    {
+        Info_L2(StreamNumber,                                   "Stream Number"); Element_Info(StreamNumber);
+    }
 }
 
 //---------------------------------------------------------------------------
 void File_Wm::Header_HeaderExtension_GroupMutualExclusion()
 {
     Element_Name("Group Mutual Exclusion");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Unknown");
 }
 
 //---------------------------------------------------------------------------
 void File_Wm::Header_HeaderExtension_StreamPrioritization()
 {
     Element_Name("Stream Prioritization");
+
+    //Parsing
+    int16u Count;
+    Get_L2 (Count,                                              "Stream Numbers Count");
+    for (int16u Pos=0; Pos<Count; Pos++)
+    {
+        int16u Flags;
+        Element_Begin("Stream");
+        Info_L2(StreamNumber,                                   "Stream Number"); Element_Info(StreamNumber);
+        Get_L2 (Flags,                                          "Flags");
+            Skip_Flags(Flags, 0,                                "Mandatory");
+        Element_End();
+    }
 }
 
 //---------------------------------------------------------------------------
 void File_Wm::Header_HeaderExtension_BandwidthSharing()
 {
     Element_Name("Bandwidth Sharing");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Unknown");
 }
 
 //---------------------------------------------------------------------------

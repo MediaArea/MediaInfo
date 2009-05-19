@@ -12,6 +12,7 @@ Version 0.7.16, 2009-05-20
 + MPEG-4: More information for Avid DV streams
 + MPEG-4: more complete parsing (raw stream) of files with compressed headers
 + VC-1 and MPEG-Video: displaying the original framerate for streams with 2:3 pulldown
++ WMA: Handling of Mutual Excluded streams
 x MPEG-4: some files with compressed headers were not parsed
 x MPEG-4: Kodak files with EXIF data were not parsed
 x MPEG-4 (Quicktime): some files with compressed header were not well parsed
