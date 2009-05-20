@@ -287,11 +287,11 @@ Fax;Факс
 File;Файл
 File size;Размер файла
 File_Append;Добавить к файлу
-File_Created_Date;Файл создан
-File_Created_Date_Local
+File_Created_Date;Дата файла
+File_Created_Date_Local;Дата файла (местная)
 File_Hint;Операции с файлами
-File_Modified_Date;Файл изменён
-File_Modified_Date_Local
+File_Modified_Date;Дата изменения файла
+File_Modified_Date_Local;Дата изменения файла (местная)
 FileExtension;Расширение
 FileName;Имя файла
 FileSize;Размер файла
@@ -739,7 +739,7 @@ ms; мс.
 MSDI;MSDI
 MusicBy;Композитор
 MuxingMode;Режим смешивания
-MuxingMode_MoreInfo
+MuxingMode_MoreInfo;Режим смешивания, доп. информация
 MuxingMode_PackedBitstream;Сжатый битовый поток
 Name;Имя
 Nationality;Национальность
