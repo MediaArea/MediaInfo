@@ -12,10 +12,20 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
-Version 0.7.16, 2009-0
+Version 0.7.16, 2009-05-20
 -------------
 + Turkish, Belorussian translations updated
++ MPEG-4: More information for Avid DV streams
++ MPEG-4: more complete parsing (raw stream) of files with compressed headers
++ VC-1 and MPEG-Video: displaying the original framerate for streams with 2:3 pulldown
++ WMA: Handling of Mutual Excluded streams
 x Some shortcuts were removed
+x MPEG-4: some files with compressed headers were not parsed
+x MPEG-4: Kodak files with EXIF data were not parsed
+x MPEG-4 (Quicktime): some files with compressed header were not well parsed
+x MPEG-4: Some files with a TimeCode track had wrong duration
+x MPEG-PS: some files with wrong timestamp were not well parsed
+x MPEG Audio with APE tags: crash with big tags
 
 Version 0.7.15, 2009-04-30
 -------------
