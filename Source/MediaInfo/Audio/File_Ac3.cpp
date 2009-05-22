@@ -279,6 +279,28 @@ File_Ac3::File_Ac3()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+bool File_Ac3::FileHeader_Begin()
+{
+    //Must have enough buffer for having header
+    if (Buffer_Size<4)
+        return false; //Must wait for more data
+
+    //False positives detection: detect Matrska files, AC-3 parser is not smart enough
+    if (CC4(Buffer)==0x1A45DFA3) //EBML
+    {
+        IsFinished=true;
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
 bool File_Ac3::Synchronize()
 {
     //Specific cases

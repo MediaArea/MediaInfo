@@ -45,6 +45,9 @@ public :
     File_Ac3();
 
 private :
+    //Buffer - File header
+    bool FileHeader_Begin();
+
     //Buffer - Synchro
     bool Synchronize();
     bool Synched_Test();
