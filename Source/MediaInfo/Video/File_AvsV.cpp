@@ -488,14 +488,15 @@ void File_AvsV::user_data_start()
 
     //But don't accept non-alpha caracters at the beginning (except for "3ivx")
     if (Library_End_Offset-Library_Start_Offset!=4 || CC4(Buffer+Buffer_Offset+Library_Start_Offset)!=0x33697678) //3ivx
-        while (Buffer[Buffer_Offset+Library_Start_Offset]<=0x40)
+        while (Library_Start_Offset<Element_Size && Buffer[Buffer_Offset+Library_Start_Offset]<=0x40)
             Library_Start_Offset++;
 
     //Parsing
     Ztring Temp;
     if (Library_Start_Offset>0)
         Skip_XX(Library_Start_Offset,                           "junk");
-    Get_Local(Library_End_Offset-Library_Start_Offset, Temp,    "data");
+    if (Library_End_Offset-Library_Start_Offset)
+        Get_Local(Library_End_Offset-Library_Start_Offset, Temp,"data");
     if (Element_Offset<Element_Size)
         Skip_XX(Element_Size-Element_Offset,                    "junk");
 
