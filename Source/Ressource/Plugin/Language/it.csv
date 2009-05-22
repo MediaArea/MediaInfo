@@ -854,6 +854,7 @@ Sharpness;Nitidezza
 Sheet;Scheda
 Sheet (Complete);Scheda (completa)
 Shell extension;Aggiungi  'Apri con Media Info' la menù contestuale
+Shell extension, folder
 Shell InfoTip;Informazioni in Explorer (in Explorer, spostarsi sul file e verrà visualizzate le informazioni)
 Show menu;Mostra menù
 Show toolbar;Mostra barra dei menù
@@ -933,5 +934,5 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si 
 Your system;Il tuo sistema
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

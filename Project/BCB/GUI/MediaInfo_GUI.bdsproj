@@ -29,6 +29,7 @@
         <property category="build.config.1" name="type" value="Toolset"/>
         <property category="build.config.1" name="win32.win32b.builddir" value="Release_Build"/>
         <property category="build.node" name="dontverifylibs" value="0"/>
+        <property category="build.node" name="lastconfig" value="Release_Build"/>
         <property category="build.node" name="libraries" value="TMSUnicodeC2006.lib xmlrtl.lib dsnap.lib dbrtl.lib vcldb.lib vclx.lib vclactnband.lib bcbie.lib vcl.lib rtl.lib"/>
         <property category="build.node" name="name" value="MediaInfo_GUI.exe"/>
         <property category="build.node" name="packages" value="vcl;rtl;vclx;xmlrtl;vclie;inet;inetdbbde;inetdbxpress;soaprtl;dbrtl;dsnap;bcbie;vcldb;websnap;webdsnap;vclactnband"/>

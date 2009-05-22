@@ -82,22 +82,21 @@ Preferences::Preferences()
 //---------------------------------------------------------------------------
 int Preferences::Config_Create()
 {
-    Config=_T(
-        "Version;X.X.X.X\r\n"
-        "NewestVersion;X.X.X.X\r\n"
-        "Output;Basic\r\n"
-        "Language;en\r\n"
-        "Sheet;Example\r\n"
-        "Tree;Example\r\n"
-        "Custom;Example\r\n"
-        "CheckUpdate;1\r\n"
-        "ShellExtension;1\r\n"
-        "ShellInfoTip;0\r\n"
-        "ShowToolBar;1\r\n"
-        "ShowMenu;1\r\n"
-        "CloseAllAuto;1\r\n");
-    Config(_T("Version")).FindAndReplace(_T("X.X.X.X"), MediaInfo_Version_GUI);
-    Config(_T("NewestVersion")).FindAndReplace(_T("X.X.X.X"), MediaInfo_Version_GUI);
+    Config.Load(BaseFolder+_T("MediaInfo.cfg"));
+    Config(_T("Version"))=MediaInfo_Version_GUI;
+    Config(_T("NewestVersion"))=MediaInfo_Version_GUI;
+    if (Config(_T("Output")).empty()) Config(_T("Output"))=_T("Basic");
+    if (Config(_T("Language")).empty()) Config(_T("Language"))=_T("en");
+    if (Config(_T("Sheet")).empty()) Config(_T("Sheet"))=_T("Example");
+    if (Config(_T("Tree")).empty()) Config(_T("Tree"))=_T("Example");
+    if (Config(_T("Custom")).empty()) Config(_T("Custom"))=_T("Example");
+    if (Config(_T("CheckUpdate")).empty()) Config(_T("CheckUpdate"))=_T("1");
+    if (Config(_T("ShellExtension")).empty()) Config(_T("ShellExtension"))=_T("1");
+    if (Config(_T("ShellExtension_Folder")).empty()) Config(_T("ShellExtension_Folder"))=_T("0");
+    if (Config(_T("ShellInfoTip")).empty()) Config(_T("ShellInfoTip"))=_T("0");
+    if (Config(_T("ShowToolBar")).empty()) Config(_T("ShowToolBar"))=_T("1");
+    if (Config(_T("ShowMenu")).empty()) Config(_T("ShowMenu"))=_T("1");
+    if (Config(_T("CloseAllAuto")).empty()) Config(_T("CloseAllAuto"))=_T("1");
     Config.Save(BaseFolder+_T("MediaInfo.cfg"));
 
     return 1;
@@ -424,12 +423,16 @@ int Preferences::ExplorerShell()
         ".smv;SMVFile\r\n"
         ".dpg;DPGFile\r\n"
         ".evo;EVOFile\r\n"
-        ".eac3;EAC3File");
+        ".eac3;EAC3File\r\n"
+        "Folder;Folder");
 
     bool IsChanged=false;
     int32s ShellExtension=Config.Read(_T("ShellExtension")).To_int32s();
     for (size_t I1=0; I1<Liste.size(); I1++)
     {
+        if (Liste(I1, 0)==_T("Folder"))
+            ShellExtension=Config.Read(_T("ShellExtension_Folder")).To_int32s();
+
         //Open (or create) a extension. Create only if Sheel extension is wanted
         if (Reg->OpenKey(Liste(I1, 0).c_str(), ShellExtension))
         {
@@ -444,11 +447,14 @@ int Preferences::ExplorerShell()
             }
             Reg->CloseKey();
 
+            if (Liste(I1, 0)==_T("Folder"))
+                Player="Folder";
+
             //Test if MediaInfo shell extension is known
             if (Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), false))
             {
                 //MediaInfo shell extension is known
-                if (Config.Read(_T("ShellExtension")).To_int32s())
+                if (ShellExtension)
                 {
                     //test if good writing
                     AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
@@ -473,7 +479,7 @@ int Preferences::ExplorerShell()
             else
             {
                 //MediaInfo Shell extension is not known
-                if (Config.Read(_T("ShellExtension")).To_int32s())
+                if (ShellExtension)
                 {
                     //Create it
                     Reg->DeleteKey(Player+"\\Shell\\Media Info"); //Delete the lod version if it exists

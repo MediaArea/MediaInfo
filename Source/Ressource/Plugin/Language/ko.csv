@@ -854,6 +854,7 @@ Sharpness;샤프니스
 Sheet;시트
 Sheet (Complete);시트 (전체)
 Shell extension;쉘 익스텐션 (탐색기 마우스 오른쪽 버튼 메뉴에 Media Info를 추가합니다)
+Shell extension, folder
 Shell InfoTip;쉘 인포팁 (탐색기에서 파일에 마우스를 올려 놓으면 정보를 보여줍니다)
 Show menu;메뉴 보기
 Show toolbar;도구 모음 보기
@@ -933,5 +934,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;98
+ZZ_Automatic_Percent;97
 ZZ_AutomaticLanguage_Percent;98

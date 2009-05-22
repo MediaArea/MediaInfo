@@ -77,7 +77,7 @@ object PreferencesF: TPreferencesF
     Top = 0
     Width = 517
     Height = 157
-    ActivePage = Customize_TreeText
+    ActivePage = Setup
     MultiLine = True
     TabOrder = 3
     object Setup: TTntTabSheet
@@ -141,7 +141,7 @@ object PreferencesF: TPreferencesF
         Width = 57
         Height = 23
         Caption = 'More...'
-        TabOrder = 3
+        TabOrder = 6
         OnClick = General_Language_MoreClick
       end
       object General_Output_More: TTntButton
@@ -150,12 +150,12 @@ object PreferencesF: TPreferencesF
         Width = 57
         Height = 22
         Caption = 'More...'
-        TabOrder = 4
+        TabOrder = 7
         OnClick = General_Output_MoreClick
       end
       object CB_InfoTip: TTntCheckBox
         Left = 0
-        Top = 84
+        Top = 100
         Width = 506
         Height = 18
         Caption = 
@@ -174,8 +174,17 @@ object PreferencesF: TPreferencesF
           ' Info" option...)'
         Checked = True
         State = cbChecked
-        TabOrder = 6
+        TabOrder = 3
         OnClick = CB_InscrireShellClick
+      end
+      object CB_InscrireShell_Folder: TCheckBox
+        Left = 16
+        Top = 84
+        Width = 369
+        Height = 17
+        Caption = 'For folders too'
+        TabOrder = 4
+        OnClick = CB_InscrireShell_FolderClick
       end
     end
     object Setup_Advanced: TTntTabSheet

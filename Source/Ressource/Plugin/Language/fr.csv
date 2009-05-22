@@ -854,6 +854,7 @@ Sharpness;Netteté
 Sheet;Tableau
 Sheet (Complete);Tableau (Complet)
 Shell extension;Extension Shell (clic droit sur le fichier, il y aura un menu 'Media Info')
+Shell extension, folder;Pour les répertoires aussi
 Shell InfoTip;Extension bulle d'aide (passez la souris sur un fichier, il y aura toutes les infos)
 Show menu;Montrer le menu
 Show toolbar;Montrer la barre d'outils

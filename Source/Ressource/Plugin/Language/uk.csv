@@ -854,6 +854,7 @@ Sharpness
 Sheet;Таблиця
 Sheet (Complete);Таблиця (повна)
 Shell extension;Контекстне меню провідника
+Shell extension, folder
 Shell InfoTip;Підказка провідника (Не рекомендується! Тестовий режим!)
 Show menu;Показати меню
 Show toolbar;Показати панель
@@ -934,4 +935,4 @@ WrittenBy;Написано
 Yes;Так
 Your system;Ваша система
 ZZ_Automatic_Percent;80
-ZZ_AutomaticLanguage_Percent;85
+ZZ_AutomaticLanguage_Percent;84

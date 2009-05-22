@@ -854,6 +854,7 @@ Sharpness;Wygładzanie
 Sheet;Karta
 Sheet (Complete);Karta (komplet)
 Shell extension;Rozszerzenie powłoki (menu kontekstowe w eksploratorze)
+Shell extension, folder
 Shell InfoTip;Informacje powłoki (w eksploratorze najedź kursorem na plik, wyświetlą się informacje)
 Show menu;Pokaż menu
 Show toolbar;Pokaż pasek narzędzi
@@ -934,4 +935,4 @@ WrittenBy;Napisał
 Yes;Tak
 Your system;System
 ZZ_Automatic_Percent;88
-ZZ_AutomaticLanguage_Percent;99
+ZZ_AutomaticLanguage_Percent;98

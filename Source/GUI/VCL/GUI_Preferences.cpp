@@ -268,6 +268,17 @@ void __fastcall TPreferencesF::CB_InscrireShellClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TPreferencesF::CB_InscrireShell_FolderClick(TObject *Sender)
+{
+    //Shell extension
+    if (CB_InscrireShell_Folder->Checked)
+        Prefs->Config(_T("ShellExtension_Folder"), 1)=_T("1");
+    else
+        Prefs->Config(_T("ShellExtension_Folder"), 1)=_T("0");
+
+}
+
+//---------------------------------------------------------------------------
 void __fastcall TPreferencesF::CB_InfoTipClick(TObject *Sender)
 {
     //ToolTip
@@ -430,6 +441,7 @@ void __fastcall TPreferencesF::Setup_GeneralShow(TObject *Sender)
     ComboBox_Update(General_Language_Sel, Prefs_Language);
     CB_CheckUpdate->Checked=Prefs->Config(_T("CheckUpdate")).To_int32s();
     CB_InscrireShell->Checked=Prefs->Config(_T("ShellExtension")).To_int32s(); //Lecture Shell extension
+    CB_InscrireShell_Folder->Checked=Prefs->Config(_T("ShellExtension_Folder")).To_int32s(); //Lecture Shell extension
     CB_InfoTip->Checked=Prefs->Config(_T("ShellInfoTip")).To_int32s(); //Lecture Shell extension
 }
 
@@ -499,6 +511,7 @@ void __fastcall TPreferencesF::GUI_Configure()
     //-Advanced
     Setup_Advanced->Caption=Prefs->Translate(_T("Advanced")).c_str();
     CB_InscrireShell->Caption=Prefs->Translate(_T("Shell extension")).c_str();
+    CB_InscrireShell_Folder->Caption=Prefs->Translate(_T("Shell extension, folder")).c_str();
     CB_InfoTip->Caption=Prefs->Translate(_T("Shell InfoTip")).c_str();
     CB_ShowToolBar->Caption=Prefs->Translate(_T("Show toolbar")).c_str();
     CB_ShowMenu->Caption=Prefs->Translate(_T("Show menu")).c_str();

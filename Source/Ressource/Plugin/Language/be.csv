@@ -854,6 +854,7 @@ Sharpness;Рэзкасць
 Sheet;Табліца
 Sheet (Complete);Табліца (поўная)
 Shell extension;Пашырэнне правадыра (пункт у меню па правай кнопцы)
+Shell extension, folder
 Shell InfoTip;Паказваць меню
 Show menu;Паказваць меню
 Show toolbar;Паказваць панэль
@@ -933,5 +934,5 @@ Written_Location;Месца напісання
 WrittenBy;Напісана
 Yes;Так
 Your system;Ваша сістэма
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99
