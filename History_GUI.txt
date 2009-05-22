@@ -15,6 +15,7 @@ Known bugs
 Version 0.7.17, 2009-
 -------------
 + Russian translations updated
++ Some tests about the 32 or 64-bit version of the OS are made at install
 + #2790156, Folders context menu option
 x #2664106, prefs overwritten after installing update
 

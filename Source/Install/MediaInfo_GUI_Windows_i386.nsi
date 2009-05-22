@@ -16,6 +16,9 @@ RequestExecutionLevel admin
 ; Compression
 SetCompressor /FINAL /SOLID lzma
 
+; x64 stuff
+!include "x64.nsh"
+
 ; Modern UI
 !include "MUI.nsh"
 !define MUI_ABORTWARNING
@@ -89,6 +92,12 @@ ShowInstDetails nevershow
 ShowUnInstDetails nevershow
 
 Function .onInit
+  ${If} ${RunningX64}
+    MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 'You are trying to install the 32-bit version of ${PRODUCT_NAME} on 64-bit Windows.$\r$\nPlease download and use the 64-bit version instead.$\r$\nContinue with the installation of the 32-bit version?' IDYES noprob
+  Quit
+  noprob:
+  ${Else}
+  ${EndIf}
   !insertmacro MUI_LANGDLL_DISPLAY
 FunctionEnd
 
@@ -132,7 +141,12 @@ SectionEnd
 Section -Post
   WriteUninstaller "$INSTDIR\uninst.exe"
   WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\MediaInfo.exe"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
+  ${If} ${RunningX64}
+    DeleteRegValue HKLM "Software\MediaArea.net\MediaInfo" "DisplayName"
+    WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name) (32-bit)"
+  ${Else}
+    WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
+  ${EndIf}
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\MediaInfo.exe"
