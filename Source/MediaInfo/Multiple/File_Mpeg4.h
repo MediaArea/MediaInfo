@@ -56,6 +56,10 @@ private :
     void ftyp();
     void idat();
     void idsc();
+    void jp2c();
+    void jp2h();
+    void jp2h_ihdr();
+    void jp2h_colr();
     void mdat();
     void mdat_xxxx();
     void mdat_StreamClear();

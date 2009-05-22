@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.17, 2009-
 -------------
 + JPEG 2000 support
++ MPEG-4: support of JPEG 2000 embedded in a MPEG-4 container
 
 Version 0.7.16, 2009-05-20
 -------------

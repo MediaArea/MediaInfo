@@ -56,6 +56,9 @@
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
+#if defined(MEDIAINFO_JPEG_YES)
+    #include "MediaInfo/Image/File_Jpeg.h"
+#endif
 #include "MediaInfo/Multiple/File_Mpeg4_TimeCode.h"
 #include <zlib.h>
 //---------------------------------------------------------------------------
@@ -142,6 +145,10 @@ namespace Elements
     const int64u ftyp_caqv=0x63617176;
     const int64u idat=0x69646174;
     const int64u idsc=0x69647363;
+    const int64u jp2c=0x6A703263;
+    const int64u jp2h=0x6A703268;
+    const int64u jp2h_ihdr=0x69686472;
+    const int64u jp2h_colr=0x636F6C72;
     const int64u mdat=0x6D646174;
     const int64u mfra=0x6D667261;
     const int64u mfra_mfro=0x6D66726F;
@@ -387,6 +394,12 @@ void File_Mpeg4::Data_Parse()
     ATOM(ftyp)
     ATOM(idat)
     ATOM(idsc)
+    ATOM(jp2c)
+    LIST(jp2h)
+        ATOM_BEGIN
+        ATOM(jp2h_ihdr)
+        ATOM(jp2h_colr)
+        ATOM_END
     LIST(mdat)
         ATOM_BEGIN
         ATOM_DEFAULT(mdat_xxxx)
@@ -786,6 +799,52 @@ void File_Mpeg4::idsc()
         Fill(Stream_General, 0, General_Format, "MPEG-4");
         CodecID_Fill(_T("QTI"), Stream_General, 0, InfoCodecID_Format_Mpeg4);
     FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::jp2c()
+{
+    Element_Name("JPEG-2000 content");
+
+    #if defined(MEDIAINFO_JPEG_YES)
+        //Creating the parser
+        File_Jpeg MI;
+        Open_Buffer_Init(&MI);
+
+        //Parsing
+        Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, (size_t)Element_Size);
+        Open_Buffer_Finalize(&MI);
+
+        //Filling
+        Merge(MI);
+        Fill(Stream_General, 0, General_Format, "JPEG 2000", Unlimited, true, true);
+        Fill(Stream_General, 0, General_Format_Profile, "MPEG-4");
+    #endif
+
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::jp2h()
+{
+    Element_Name("JPEG-2000 header");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::jp2h_colr()
+{
+    Element_Name("Color");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::jp2h_ihdr()
+{
+    Element_Name("Header");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
 }
 
 //---------------------------------------------------------------------------
