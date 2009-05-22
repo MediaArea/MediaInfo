@@ -56,6 +56,15 @@ private :
 
     //Elements
     void TEM () {};
+    void SOC () {}
+    void SIZ ();
+    void COD ();
+    void COC () {Skip_XX(Element_Size, "Data");}
+    void QCD ();
+    void QCC () {Skip_XX(Element_Size, "Data");}
+    void RGN () {Skip_XX(Element_Size, "Data");}
+    void SOT () {Skip_XX(Element_Size, "Data");}
+    void SOD ();
     void SOF_();
     void S0F0() {SOF_();};
     void S0F1() {SOF_();};

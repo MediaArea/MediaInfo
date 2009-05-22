@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.17, 2009-
+-------------
++ JPEG 2000 support
+
 Version 0.7.16, 2009-05-20
 -------------
 + MPEG-4: More information for Avid DV streams

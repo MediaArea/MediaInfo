@@ -57,6 +57,15 @@ namespace MediaInfoLib
 namespace Elements
 {
     const int16u TEM =0xFF01;
+    const int16u SOC =0xFF4F; //JPEG-2000
+    const int16u SIZ =0xFF51; //JPEG-2000
+    const int16u COD =0xFF52; //JPEG-2000
+    const int16u COC =0xFF53; //JPEG-2000
+    const int16u QCD =0xFF5C; //JPEG-2000
+    const int16u QCC =0xFF5D; //JPEG-2000
+    const int16u RGN =0xFF5E; //JPEG-2000
+    const int16u SOT =0xFF90; //JPEG-2000
+    const int16u SOD =0xFF93; //JPEG-2000
     const int16u S0F0=0xFFC0;
     const int16u S0F1=0xFFC1;
     const int16u S0F2=0xFFC2;
@@ -82,7 +91,7 @@ namespace Elements
     const int16u RST6=0xFFD6;
     const int16u RST7=0xFFD7;
     const int16u SOI =0xFFD8;
-    const int16u EOI =0xFFD9;
+    const int16u EOI =0xFFD9; //EOC in JPEG-2000
     const int16u SOS =0xFFDA;
     const int16u DQT =0xFFDB;
     const int16u DNL =0xFFDC;
@@ -147,7 +156,8 @@ bool File_Jpeg::FileHeader_Begin()
     if (Buffer_Size<2)
         return false; //Must wait for more data
 
-    if (CC2(Buffer)!=0xFFD8) //SOI
+    if (CC2(Buffer)!=Elements::SOI
+     && CC2(Buffer)!=Elements::SOC)
     {
         Reject("JPEG");
         return false;
@@ -178,6 +188,8 @@ void File_Jpeg::Header_Parse()
         case Elements::RST5 :
         case Elements::RST6 :
         case Elements::RST7 :
+        case Elements::SOC  :
+        case Elements::SOD  :
         case Elements::SOI  :
         case Elements::EOI  :
                     size=0; break;
@@ -199,6 +211,15 @@ void File_Jpeg::Data_Parse()
     switch (Element_Code)
     {
         CASE_INFO(TEM ,                                         "TEM");
+        CASE_INFO(SOC ,                                         "Start of codestream"); //JPEG-2000
+        CASE_INFO(SIZ ,                                         "Image and tile size"); //JPEG-2000
+        CASE_INFO(COD ,                                         "Coding style default"); //JPEG-2000
+        CASE_INFO(COC ,                                         "Coding style component"); //JPEG-2000
+        CASE_INFO(QCD ,                                         "Quantization default"); //JPEG-2000
+        CASE_INFO(QCC ,                                         "Quantization component "); //JPEG-2000
+        CASE_INFO(RGN ,                                         "Region-of-interest"); //JPEG-2000
+        CASE_INFO(SOT ,                                         "Start of tile-part"); //JPEG-2000
+        CASE_INFO(SOD ,                                         "Start of data"); //JPEG-2000
         CASE_INFO(S0F0,                                         "Baseline DCT (Huffman)");
         CASE_INFO(S0F1,                                         "Extended sequential DCT (Huffman)");
         CASE_INFO(S0F2,                                         "Progressive DCT (Huffman)");
@@ -224,7 +245,7 @@ void File_Jpeg::Data_Parse()
         CASE_INFO(RST6,                                         "Restart Interval Termination 6");
         CASE_INFO(RST7,                                         "Restart Interval Termination 7");
         CASE_INFO(SOI ,                                         "Start Of Image");
-        CASE_INFO(EOI ,                                         "End Of Image");
+        CASE_INFO(EOI ,                                         "End Of Image"); //Is EOC (End of codestream) in JPEG-2000
         CASE_INFO(SOS ,                                         "Start Of Scan");
         CASE_INFO(DQT ,                                         "Define Quantization Tables");
         CASE_INFO(DNL ,                                         "Define Number of Lines");
@@ -270,6 +291,98 @@ void File_Jpeg::Data_Parse()
 //***************************************************************************
 // Elements
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Jpeg::SIZ()
+{
+    //Parsing
+    int32u Xsiz, Ysiz;
+    int16u Count;
+    Skip_B2(                                                    "Rsiz - Capability of the codestream");
+    Get_B4 (Xsiz,                                               "Xsiz - Image size X");
+    Get_B4 (Ysiz,                                               "Ysiz - Image size Y");
+    Skip_B4(                                                    "XOsiz - Image offset X");
+    Skip_B4(                                                    "YOsiz - Image offset Y");
+    Skip_B4(                                                    "tileW - Size of tile W");
+    Skip_B4(                                                    "tileH - Size of tile H");
+    Skip_B4(                                                    "XTOsiz - Upper-left tile offset X");
+    Skip_B4(                                                    "YTOsiz - Upper-left tile offset Y");
+    Get_B2 (Count,                                              "Components and initialize related arrays");
+    for (int16u Pos=0; Pos<Count; Pos++)
+    {
+        Element_Begin("Initialize related array");
+        BS_Begin();
+        Skip_SB(                                                "Signed");
+        Info_S1(7, BitDepth,                                    "BitDepth"); Element_Info(BitDepth);
+        BS_End();
+        Skip_B1(                                                "compSubsX");
+        Skip_B1(                                                "compSubsY");
+        Element_End();
+    }
+
+    FILLING_BEGIN_PRECISE();
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "JPEG 2000");
+        if (Count_Get(StreamKind)==0)
+            Stream_Prepare(StreamKind);
+        Fill(StreamKind, 0, "Format", StreamKind==Stream_Image?"JPEG 2000":"M-JPEG 2000");
+        Fill(StreamKind, 0, "Codec", StreamKind==Stream_Image?"JPEG 2000":"M-JPEG 2000");
+        if (StreamKind==Stream_Image)
+            Fill(Stream_Image, 0, Image_Codec_String, "JPEG 2000"); //To Avoid automatic filling
+        Fill(StreamKind, 0, "Width", Xsiz);
+        Fill(StreamKind, 0, "Height", Ysiz);
+        Accept("JPEG 2000");
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Jpeg::COD()
+{
+    //Parsing
+    int8u Style, Levels, Style2;
+    bool PrecinctUsed;
+    Get_B1 (Style,                                              "Scod - Style");
+        Get_Flags (Style, 0, PrecinctUsed,                      "Precinct used");
+        Skip_Flags(Style, 1,                                    "Use SOP (start of packet)");
+        Skip_Flags(Style, 2,                                    "Use EPH (end of packet header)");
+    Skip_B1(                                                    "Progressive order");
+    Skip_B2(                                                    "Number of layers");
+    Skip_B1(                                                    "Multiple component transform");
+    Get_B1 (Levels,                                             "Decomposition levels");
+    Info_B1(DimX,                                               "Code-blocks dimensions X (2^(n+2))"); Param_Info(1<<(DimX+2), " pixels");
+    Info_B1(DimY,                                               "Code-blocks dimensions Y (2^(n+2))"); Param_Info(1<<(DimX+2), " pixels");
+    Get_B1 (Style2,                                             "Style of the code-block coding passes");
+        Skip_Flags(Style, 0,                                    "Selective arithmetic coding bypass");
+        Skip_Flags(Style, 1,                                    "MQ states for all contexts");
+        Skip_Flags(Style, 2,                                    "Regular termination");
+        Skip_Flags(Style, 3,                                    "Vertically stripe-causal context formation");
+        Skip_Flags(Style, 4,                                    "Error resilience info is embedded on MQ termination");
+        Skip_Flags(Style, 5,                                    "Segmentation marker is to be inserted at the end of each normalization coding pass");
+    Skip_B1(                                                    "Filter ID");
+    if (PrecinctUsed)
+        for (int8u Pos=0; Pos<Levels; Pos++)
+        {
+            Element_Begin("Decomposition level");
+            Skip_B1(                                            "?");
+            Element_End();
+        }
+}
+
+//---------------------------------------------------------------------------
+void File_Jpeg::QCD()
+{
+    //Parsing
+    Skip_B1(                                                    "Sqcd - Style");
+    Skip_XX(Element_Size-Element_Offset,                        "QCD data");
+}
+
+//---------------------------------------------------------------------------
+void File_Jpeg::SOD()
+{
+    FILLING_BEGIN_PRECISE();
+        Finish("JPEG-2000"); //No need of more
+    FILLING_END();
+}
 
 //---------------------------------------------------------------------------
 void File_Jpeg::SOF_()
