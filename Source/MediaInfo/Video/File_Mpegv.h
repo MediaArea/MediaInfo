@@ -100,6 +100,7 @@ private :
     //Temporal reference
     struct temporalreference
     {
+        bool   progressive_frame;
         bool   top_field_first;
         bool   repeat_first_field;
     };

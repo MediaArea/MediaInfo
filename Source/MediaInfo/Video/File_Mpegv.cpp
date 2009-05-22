@@ -1095,6 +1095,7 @@ void File_Mpegv::extension_start()
                                     if (temporal_reference<=30)
                                         temporal_reference+=0x400; //10 bits cyclic, avoiding cases of the limit
                                     temporal_reference+=TemporalReference_Offset;
+                                    TemporalReference[temporal_reference].progressive_frame=progressive_frame;
                                     TemporalReference[temporal_reference].top_field_first=top_field_first;
                                     TemporalReference[temporal_reference].repeat_first_field=repeat_first_field;
                                 }
@@ -1118,6 +1119,18 @@ void File_Mpegv::extension_start()
                                 Interlaced_Top++;
                             else
                                 Interlaced_Bottom++;
+                            if (picture_structure==3)           //Frame
+                            {
+                                if (TemporalReference.size()<30)
+                                {
+                                    if (temporal_reference<=30)
+                                        temporal_reference+=0x400; //10 bits cyclic, avoiding cases of the limit
+                                    temporal_reference+=TemporalReference_Offset;
+                                    TemporalReference[temporal_reference].progressive_frame=progressive_frame;
+                                    TemporalReference[temporal_reference].top_field_first=top_field_first;
+                                    TemporalReference[temporal_reference].repeat_first_field=repeat_first_field;
+                                }
+                            }
                         }
 
                         if (picture_structure==2) //Bottom, and we want to add a frame only one time if 2 fields

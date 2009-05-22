@@ -11,6 +11,7 @@ Version 0.7.17, 2009-
 -------------
 + JPEG 2000 support
 + MPEG-4: support of JPEG 2000 embedded in a MPEG-4 container
+x MPEG Video: better detection of 2:3 Pulldown
 
 Version 0.7.16, 2009-05-20
 -------------
