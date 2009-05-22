@@ -424,6 +424,9 @@ int Preferences::ExplorerShell()
         ".dpg;DPGFile\r\n"
         ".evo;EVOFile\r\n"
         ".eac3;EAC3File\r\n"
+        ".dv;EAC3File\r\n"
+        ".jp2;EAC3File\r\n"
+        ".j2k;EAC3File\r\n"
         "Folder;Folder");
 
     bool IsChanged=false;
