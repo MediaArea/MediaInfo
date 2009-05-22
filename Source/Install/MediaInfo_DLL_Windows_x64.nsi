@@ -16,6 +16,9 @@ RequestExecutionLevel admin
 ; Compression
 SetCompressor /FINAL /SOLID lzma
 
+; x64 stuff
+!include "x64.nsh"
+
 ; Modern UI
 !include "MUI.nsh"
 !define MUI_ABORTWARNING
@@ -85,6 +88,12 @@ ShowUnInstDetails nevershow
 
 Function .onInit
   !insertmacro MUI_LANGDLL_DISPLAY
+  ${If} ${RunningX64}
+    SetRegView 64
+  ${Else}
+    MessageBox MB_OK|MB_ICONSTOP 'You are trying to install the 64-bit version of ${PRODUCT_NAME} on 32-bit Windows.$\r$\nPlease download and use the 32-bit version instead.$\r$\nClick OK to quit Setup.'
+    Quit
+  ${EndIf}
 FunctionEnd
 
 !include Library.nsh
@@ -114,6 +123,7 @@ Section Uninstall
   !insertmacro UnInstallLib REGDLL NOTSHARED NOREBOOT_NOTPROTECTED $SYSDIR\MediaInfo.dll
   !insertmacro UnInstallLib REGDLL NOTSHARED NOREBOOT_NOTPROTECTED $SYSDIR\MediaInfo_InfoTip.dll
 
+  SetRegView 64
   DeleteRegKey HKLM "${PRODUCT_REGISTRY}"
   DeleteRegKey /ifempty HKLM "${COMPANY_REGISTRY}"
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
