@@ -18,7 +18,7 @@ Version 0.7.17, 2009-
 
 Version 0.7.16, 2009-05-20
 -------------
-+ Turkish, Belorussian translations updated
++ Turkish, Belarusian translations updated
 + MPEG-4: More information for Avid DV streams
 + MPEG-4: more complete parsing (raw stream) of files with compressed headers
 + VC-1 and MPEG-Video: displaying the original framerate for streams with 2:3 pulldown
