@@ -81,7 +81,7 @@ BrandingText " "
 
 Name "${PRODUCT_NAME}.dll ${PRODUCT_VERSION}"
 OutFile "..\..\Release\MediaInfo_DLL_${PRODUCT_VERSION}_Windows_x64.exe"
-InstallDir "$SYSDIR"
+InstallDir "$PROGRAMFILES\MediaInfo.dll"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails nevershow
 ShowUnInstDetails nevershow
@@ -102,7 +102,7 @@ Section "SectionPrincipale" SEC01
   SetOverwrite ifnewer
   SetOutPath "$INSTDIR"
   !insertmacro InstallLib REGDLL NOTSHARED NOREBOOT_NOTPROTECTED "..\..\Project\MSVC\DLL\x64\Release\MediaInfo.dll" $SYSDIR\MediaInfo.dll $SYSDIR
-  !insertmacro InstallLib REGDLL NOTSHARED NOREBOOT_NOTPROTECTED "..\..\Project\MSVC\ShellExtension\x64\Release\MediaInfo_InfoTip.dll" $SYSDIR\MediaInfo_InfoTip.dll $SYSDIR
+  !insertmacro InstallLib REGDLL NOTSHARED NOREBOOT_NOTPROTECTED "..\..\Project\MSVC\ShellExtension\x64\Release\MediaInfo_InfoTip.dll" $INSTDIR\MediaInfo_InfoTip.dll $INSTDIR
 SectionEnd
 
 Section -Post
@@ -121,7 +121,7 @@ Section Uninstall
   UnRegDLL "$INSTDIR\MediaInfo_InfoTip.dll"
   Delete "$INSTDIR\MediaInfo_uninst.exe"
   !insertmacro UnInstallLib REGDLL NOTSHARED NOREBOOT_NOTPROTECTED $SYSDIR\MediaInfo.dll
-  !insertmacro UnInstallLib REGDLL NOTSHARED NOREBOOT_NOTPROTECTED $SYSDIR\MediaInfo_InfoTip.dll
+  !insertmacro UnInstallLib REGDLL NOTSHARED NOREBOOT_NOTPROTECTED $INSTDIR\MediaInfo_InfoTip.dll
 
   SetRegView 64
   DeleteRegKey HKLM "${PRODUCT_REGISTRY}"
