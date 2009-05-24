@@ -1,5 +1,5 @@
 MediaInfo - http://mediainfo.sourceforge.net
-Copyright (c) 2002-2008, Jerome Martinez, zen@mediaarea.net
+Copyright (c) 2002-2009, Jerome Martinez, zen@mediaarea.net
 
 License
 -------
