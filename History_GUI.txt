@@ -14,7 +14,7 @@ Known bugs
 
 Version 0.7.17, 2009-
 -------------
-+ Russian translations updated
++ Russian, Chinese (Simplified) translations updated
 + Some tests about the 32 or 64-bit version of the OS are made at install
 + #2790156, Folders context menu option
 x #2785604, Build fails on newer GCC versions (>4.4)

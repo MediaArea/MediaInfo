@@ -263,8 +263,8 @@ DistributedBy;发行
 Donate;赞助
 DotsPerInch;点/英寸(DPI)
 Duration;长度
-Duration_End
-Duration_Start
+Duration_End;结束时间
+Duration_Start;开始时间
 Edit;编辑
 EditedBy;编辑
 EMail;电子邮件
@@ -288,10 +288,10 @@ File;文件
 File size;文件大小
 File_Append;接在现有的文件后面 (警告: 同参数时要小心)
 File_Created_Date;文件创建日期
-File_Created_Date_Local
+File_Created_Date_Local;文件创建日期(本地)
 File_Hint;选择多媒体文件
 File_Modified_Date;最后修改日期
-File_Modified_Date_Local
+File_Modified_Date_Local;最后修改日期(本地)
 FileExtension;扩展名
 FileName;文件名
 FileSize;文件大小
@@ -710,9 +710,9 @@ Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
-Language_zh;简体中文
-Language_zh-cn;中文(中国)
-Language_zh-tw;中文(台湾)
+Language_zh;中文
+Language_zh-cn;简体中文
+Language_zh-tw;繁体中文
 Language_zu;Zulu
 LawRating;分级
 LCCN;LCCN
@@ -739,13 +739,13 @@ ms;ms
 MSDI;MSDI
 MusicBy;音乐制作
 MuxingMode;混合模式
-MuxingMode_MoreInfo
+MuxingMode_MoreInfo;详细信息
 MuxingMode_PackedBitstream;打包的比特流
 Name;名称
 Nationality;国藉
-NetworkName
+NetworkName;网络名称
 New;新建
-Newest version;检查新版本(需要网络连接)
+Newest version;查找更新(需要网络连接)
 No;否
 Not yet;尚无
 NumColors;色深
@@ -854,7 +854,7 @@ Sharpness;锐利
 Sheet;表格
 Sheet (Complete);表格(完整)
 Shell extension;[资源管理器]右键菜单 (为多媒体文件的右键菜单添加 MediaInfo 选项)
-Shell extension, folder
+Shell extension, folder;文件夹右键扩展
 Shell InfoTip;[资源管理器]气泡提示 (将鼠标移到文件图标上会显示相关信息)
 Show menu;显示菜单
 Show toolbar;显示工具栏
@@ -934,5 +934,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99
