@@ -28,14 +28,14 @@
 #include "GUI/WxWidgets/GUI_Main_Easy.h"
 #include "GUI/WxWidgets/GUI_Main_Easy_Box.h"
 #include "Common/Core.h"
-#include <wx/choice.h>
+#include <wx/panel.h>
 #include <wx/statbox.h>
 #include <wx/stattext.h>
 #include <wx/button.h>
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-BEGIN_EVENT_TABLE(GUI_Main_Easy, wxChoice)
+BEGIN_EVENT_TABLE(GUI_Main_Easy, wxPanel)
     EVT_CHOICE (26981, GUI_Main_Easy::OnChoice)
 END_EVENT_TABLE()
 //---------------------------------------------------------------------------
