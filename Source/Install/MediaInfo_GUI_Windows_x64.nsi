@@ -106,7 +106,7 @@ Section "SectionPrincipale" SEC01
   SetOverwrite ifnewer
   SetOutPath "$INSTDIR"
   CreateDirectory "$SMPROGRAMS\MediaInfo"
-  CreateShortCut "$SMPROGRAMS\MediaInfo\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe" "" "" "" "" "" "MediaInfo"
+  CreateShortCut "$SMPROGRAMS\MediaInfo\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe" "" "" "" "" "" "MediaInfo ${PRODUCT_VERSION}"
   File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Release_Build\MediaInfo_GUI_x64.exe"
   File "..\..\..\MediaInfoLib\Project\MSVC\ShellExtension\x64\Release\MediaInfo_InfoTip.dll"
   File "..\..\..\MediaInfoLib\Project\MSVC\DLL\x64\Release\MediaInfo.dll"
