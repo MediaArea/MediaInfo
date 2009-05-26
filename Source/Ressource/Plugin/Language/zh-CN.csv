@@ -274,7 +274,7 @@ Encoded_Library;编码函数库
 Encoded_Library_Settings;编码设置
 Encoded_Original;编码源
 EncodedBy;编码
-EPG_Positions
+EPG_Positions;EPG位置(内部)
 Error_File;读文件时出错
 ExecutiveProducer;监制
 Exit;退出
@@ -791,7 +791,7 @@ OpenCandy_36;您当前的配置将不会被阻止
 Options;选项
 Options_Hint;参数设定
 Original;源
-OriginalNetworkName
+OriginalNetworkName;源网络名称
 OriginalSourceForm;资源来源
 OriginalSourceMedium;资源媒介
 Other;其它
@@ -854,7 +854,7 @@ Sharpness;锐利
 Sheet;表格
 Sheet (Complete);表格(完整)
 Shell extension;[资源管理器]右键菜单 (为多媒体文件的右键菜单添加 MediaInfo 选项)
-Shell extension, folder;文件夹右键扩展
+Shell extension, folder;包含文件夹右键
 Shell InfoTip;[资源管理器]气泡提示 (将鼠标移到文件图标上会显示相关信息)
 Show menu;显示菜单
 Show toolbar;显示工具栏
@@ -896,7 +896,7 @@ ThanksTo;感谢
 Thousands separator;数字分隔符
 Title;标题
 Title_More;更多标题
-TimeZone
+TimeZone;时区
 Total;总计
 Track;音轨
 Track_Count;音轨数
@@ -934,5 +934,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
