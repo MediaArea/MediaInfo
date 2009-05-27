@@ -694,7 +694,7 @@ void MediaInfo_Config_DefaultLanguage (Translation &Info)
     "Language_om;Oromo\n"
     "Language_or;Oriya\n"
     "Language_os;Ossetic\n"
-    "Language_pa;Penjabi\n"
+    "Language_pa;Panjabi\n"
     "Language_pi;Pali\n"
     "Language_pl;Polish\n"
     "Language_ps;Pushto\n"
@@ -1171,9 +1171,11 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
 {
     Info.Separator_Set(0, _T("\n"));
     Info.Write(Ztring().From_UTF8(
+    "apch;Digital Video;;ProRes 422 HQ;http://www.apple.com/quicktime/download/standalone.html\n"
+    "apcn;Digital Video;;ProRes 422;http://www.apple.com/quicktime/download/standalone.html\n"
     "avc1;AVC;;Advanced Video Coding;http://www.apple.com/quicktime/download/standalone.html\n"
     "avcp;AVC;;Advanced Video Coding Parameters;http://www.apple.com/quicktime/download/standalone.html\n"
-    "AVdv;Digital Video;;;http://www.apple.com/quicktime/download/standalone.html\n"
+    "AVdv;Digital Video;;Avid;http://www.apple.com/quicktime/download/standalone.html\n"
     "drac;Dirac;;Dirac Video Coder;http://www.bbc.co.uk/rd/projects/dirac/index.shtml\n"
     "CFHD;Cineform;;CineForm High-Definition (HD) wavelet codec;http://www.cineform.com/\n"
     "cvid;Cinepack;;;http://www.apple.com/quicktime/download/standalone.html\n"
