@@ -36,6 +36,9 @@
 #include "ZenLib/InfoMap.h"
 #include <vector>
 #include <cstring>
+#if defined(MEDIAINFO_EIA708_YES)
+    #include "MediaInfo/Text/File_Eia708.h"
+#endif
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -125,6 +128,7 @@ size_t MediaInfo_Internal::Open(const String &File_Name_)
         const Ztring &Parser=Format->second(InfoFormat_Parser);
         SelectFromExtension(Parser);
     }
+    //Info=new File_Eia708;
 
     CriticalSectionLocker CSL(CS);
     //Test the theorical format

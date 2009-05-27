@@ -208,6 +208,13 @@ void File_MpegTs::Streams_Fill()
             //More info
             if (StreamKind_Last!=Stream_Max) //Found by the Parser or stream_type
             {
+                //Special cases
+                if (StreamKind_Last==Stream_Text && Complete_Stream->Streams[StreamID].Parser && Complete_Stream->Streams[StreamID].Parser->Count_Get(Stream_Video))
+                {
+                    StreamKind_Last=Stream_Video;
+                    StreamPos_Last=Count_Get(Stream_Video)-1;
+                }
+
                 Complete_Stream->Streams[StreamID].StreamKind=StreamKind_Last;
                 Complete_Stream->Streams[StreamID].StreamPos=StreamPos_Last;
 
@@ -229,6 +236,28 @@ void File_MpegTs::Streams_Fill()
                 {
                     Fill(StreamKind_Last, StreamPos_Last, "MenuID", Complete_Stream->Streams[StreamID].program_numbers[Pos], 10, Pos==0);
                     Fill(StreamKind_Last, StreamPos_Last, "MenuID/String", Decimal_Hexa(Complete_Stream->Streams[StreamID].program_numbers[Pos]), Pos==0);
+                }
+
+                //Special cases
+                if (StreamKind_Last==Stream_Video && Complete_Stream->Streams[StreamID].Parser && Complete_Stream->Streams[StreamID].Parser->Count_Get(Stream_Text))
+                {
+                    //Video and Text are together
+                    size_t Text_Count=Complete_Stream->Streams[StreamID].Parser->Count_Get(Stream_Text);
+                    for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
+                    {
+                        size_t Pos=Count_Get(Stream_Text)-Text_Count+Text_Pos;
+                        Fill(Stream_Text, Pos, "MuxingMode", "MPEG Video", Unlimited, true, true);
+                        Fill(Stream_Text, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Last+1), true);
+                        Fill(Stream_Text, Pos, Text_StreamSize, 0);
+                        Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
+                        if (ID.find(_T('-'))!=string::npos)
+                            ID.erase(ID.begin(), ID.begin()+ID.find(_T('-')));
+                        Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, StreamPos_Last, Video_ID)+ID, true);
+                        Fill(Stream_Text, Pos, Text_ID_String, Retrieve(Stream_Video, StreamPos_Last, Video_ID_String)+ID, true);
+                        Fill(Stream_Text, Pos, Text_MenuID, Retrieve(Stream_Video, StreamPos_Last, Video_MenuID), true);
+                        Fill(Stream_Text, Pos, Text_MenuID_String, Retrieve(Stream_Video, StreamPos_Last, Video_MenuID_String), true);
+                        Fill(Stream_Text, Pos, Text_Duration, Retrieve(Stream_Video, StreamPos_Last, Video_Duration), true);
+                    }
                 }
             }
 

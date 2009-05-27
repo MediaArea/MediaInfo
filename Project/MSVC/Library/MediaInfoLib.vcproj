@@ -962,6 +962,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Eia608.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Eia708.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Kate.cpp"
 					>
 				</File>
@@ -1475,6 +1483,14 @@
 				>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Cmml.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Eia608.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Eia708.h"
 					>
 				</File>
 				<File

@@ -280,6 +280,12 @@
 #if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_CMML_NO) && !defined(MEDIAINFO_CMML_YES)
     #define MEDIAINFO_CMML_YES
 #endif
+#if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_EIA608_NO) && !defined(MEDIAINFO_EIA608_YES)
+    #define MEDIAINFO_EIA608_YES
+#endif
+#if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_EIA708_NO) && !defined(MEDIAINFO_EIA708_YES)
+    #define MEDIAINFO_EIA708_YES
+#endif
 #if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_KATE_NO) && !defined(MEDIAINFO_KATE_YES)
     #define MEDIAINFO_KATE_YES
 #endif

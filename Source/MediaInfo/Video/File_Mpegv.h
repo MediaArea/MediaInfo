@@ -48,6 +48,7 @@ public :
 
     //Constructor/Destructor
     File_Mpegv();
+    ~File_Mpegv();
 
 private :
     //Buffer - File header
@@ -75,6 +76,10 @@ private :
     void slice_start();
     void slice_start_Fill();
     void user_data_start();
+    void user_data_start_DTG1();
+    void user_data_start_GA94();
+    void user_data_start_GA94_03();
+    void user_data_start_GA94_06();
     void sequence_header();
     void sequence_error();
     void extension_start();
@@ -100,14 +105,35 @@ private :
     //Temporal reference
     struct temporalreference
     {
+        struct cc_data_
+        {
+            int8u cc_type;
+            int8u cc_data[2];
+            bool  cc_valid;
+
+            cc_data_()
+            {
+                cc_valid=false;
+            }
+        };
+        std::vector<cc_data_> GA94_03_CC; //Per cc offset
+
+        bool   IsValid;
         bool   progressive_frame;
         bool   top_field_first;
         bool   repeat_first_field;
+
+        temporalreference()
+        {
+            IsValid=false;
+        }
     };
-    std::map<int16u, temporalreference> TemporalReference; //int32u is the reference
-    int16u                              TemporalReference_Offset;
+    std::vector<temporalreference> TemporalReference; //per temporal_reference
+    size_t                         TemporalReference_Offset;
+    size_t                         TemporalReference_GA94_03_CC_Offset;
 
     //Temp
+    std::vector<File__Analyze*> GA94_03_CC_Parsers;
     Ztring Library;
     Ztring Library_Name;
     Ztring Library_Version;
@@ -132,6 +158,7 @@ private :
     int16u vbv_delay;
     int8u  Time_Begin_Frames;
     int8u  Time_End_Frames;
+    int8u  picture_coding_type;
     int8u  aspect_ratio_information;
     int8u  frame_rate_code;
     int8u  profile_and_level_indication_profile;
@@ -144,6 +171,7 @@ private :
     int8u  video_format;
     int8u  picture_structure;
     bool   Time_End_NeedComplete;
+    bool   GA94_03_IsPresent;
     bool   load_intra_quantiser_matrix;
     bool   load_non_intra_quantiser_matrix;
     bool   progressive_sequence;
@@ -162,3 +190,4 @@ private :
 } //NameSpace
 
 #endif
+

@@ -505,6 +505,13 @@ void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Tem
     //More info
     if (StreamKind_Last!=Stream_Max) //Found
     {
+        //Special cases
+        if (StreamKind_Last==Stream_Text && Temp.Parser && Temp.Parser->Count_Get(Stream_Video))
+        {
+            StreamKind_Last=Stream_Video;
+            StreamPos_Last=Count_Get(Stream_Video)-1;
+        }
+
         //Common
         Fill(StreamKind_Last, StreamPos_Last, "ID", StreamID);
         Ztring ID_String; ID_String.From_Number(StreamID); ID_String+=_T(" (0x"); ID_String+=Ztring::ToZtring(StreamID, 16); ID_String+=_T(")");
@@ -562,6 +569,24 @@ void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Tem
             }
             Fill(StreamKind_Last, StreamPos_Last, "Delay", Temp.TimeStamp_Start.PTS.TimeStamp/90, 10, true);
             Fill(StreamKind_Last, StreamPos_Last, "Delay_Settings", "", Unlimited, true, true);
+        }
+
+        //Special cases
+        if (StreamKind_Last==Stream_Video && Temp.Parser && Temp.Parser->Count_Get(Stream_Text))
+        {
+            //Video and Text are together
+            size_t Text_Count=Temp.Parser->Count_Get(Stream_Text);
+            for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
+            {
+                size_t Pos=Count_Get(Stream_Text)-Text_Count+Text_Pos;
+                Fill(Stream_Text, Pos, "MuxingMode", "MPEG Video");
+                Fill(Stream_Text, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Last+1));
+                Fill(Stream_Text, Pos, Text_StreamSize, 0);
+                Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
+                Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, StreamPos_Last, Video_ID)+_T("-")+ID, true);
+                Fill(Stream_Text, Pos, Text_ID_String, Retrieve(Stream_Video, StreamPos_Last, Video_ID_String)+_T("-")+ID, true);
+                Fill(Stream_Text, Pos, Text_Delay, Retrieve(Stream_Video, StreamPos_Last, Video_Delay), true);
+            }
         }
     }
 
@@ -2630,7 +2655,7 @@ File__Analyze* File_MpegPs::ChooseParser_Mpegv()
     #if defined(MEDIAINFO_MPEGV_YES)
         File__Analyze* Handle=new File_Mpegv;
         ((File_Mpegv*)Handle)->MPEG_Version=MPEG_Version;
-        ((File_Mpegv*)Handle)->Frame_Count_Valid=30;
+        ((File_Mpegv*)Handle)->Frame_Count_Valid=32;
         ((File_Mpegv*)Handle)->ShouldContinueParsing=true;
     #else
         //Filling

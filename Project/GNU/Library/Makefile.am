@@ -105,6 +105,8 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Tag/File_VorbisCom.cpp \
                        ../../../Source/MediaInfo/Text/File_Cmml.cpp \
                        ../../../Source/MediaInfo/Text/File_Kate.cpp \
+                       ../../../Source/MediaInfo/Text/File_Eia608.cpp \
+                       ../../../Source/MediaInfo/Text/File_Eia708.cpp \
                        ../../../Source/MediaInfo/Text/File_OtherText.cpp \
                        ../../../Source/MediaInfo/Text/File_Pgs.cpp \
                        ../../../Source/MediaInfo/Video/File_Avc.cpp \
