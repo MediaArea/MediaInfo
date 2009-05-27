@@ -410,7 +410,7 @@ void File__Analyze::Finalize_InterStreams()
         for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
         {
             float64 TextBitRate=Retrieve(Stream_Text, Pos, Text_BitRate).To_float64();
-            if (TextBitRate>0 && TextBitRate_Ratio)
+            if (TextBitRate_Ratio)
                 VideoBitRate-=TextBitRate/TextBitRate_Ratio+TextBitRate_Minus;
             else
                 VideoBitRate-=1000; //Estimation: Text stream are not often big
@@ -437,7 +437,7 @@ void File__Analyze::Finalize_InterStreams()
             for (size_t Pos=0; Pos<Count_Get((stream_t)StreamKind_Pos); Pos++)
             {
                 int64u StreamXX_StreamSize=Retrieve((stream_t)StreamKind_Pos, Pos, "StreamSize").To_int64u();
-                if (StreamXX_StreamSize>0)
+                if (StreamXX_StreamSize>0 || StreamKind_Pos==Stream_Text)
                     StreamSize-=StreamXX_StreamSize;
                 else
                     StreamSizeIsValid=false;
