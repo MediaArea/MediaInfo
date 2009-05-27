@@ -353,6 +353,7 @@ namespace Elements
     const int64u moov_udta_tags_tseg_tshd=0x74736864;
     const int64u moov_udta_WLOC=0x574C4F43;
     const int64u moov_udta_XMP_=0x584D505F;
+    const int64u PICT=0x50494354;
     const int64u pckg=0x70636B67;
     const int64u pnot=0x706E6F74;
     const int64u skip=0x736B6970;
@@ -628,6 +629,7 @@ void File_Mpeg4::Data_Parse()
             ATOM_DEFAULT (moov_udta_xxxx); //User data
             ATOM_END_DEFAULT
         ATOM_END
+    ATOM(PICT)
     ATOM(pckg)
     ATOM(pnot)
     LIST_SKIP(skip)
@@ -1793,22 +1795,25 @@ void File_Mpeg4::moov_trak_mdia_hdlr()
     Get_C4 (Manufacturer,                                       "Component manufacturer");
     Skip_B4(                                                    "Component flags");
     Skip_B4(                                                    "Component flags mask");
-    Peek_B1(Size);
-    if (Element_Offset+1+Size==Element_Size)
+    if (Element_Offset<Element_Size)
     {
-        Skip_B1(                                                "Component name size");
-        Get_Local(Size, Title,                                  "Component name");
+        Peek_B1(Size);
+        if (Element_Offset+1+Size==Element_Size)
+        {
+            Skip_B1(                                                "Component name size");
+            Get_Local(Size, Title,                                  "Component name");
+        }
+        else
+        {
+            std::string TitleS;
+            Get_String(Element_Size-Element_Offset, TitleS,         "Component name");
+            Title.From_UTF8(TitleS.c_str());
+            if (Title.empty())
+                Title.From_Local(TitleS.c_str()); //Trying Local...
+        }
+        if (Title.find(_T("Handler"))!=std::string::npos || Title.find(_T("vide"))!=std::string::npos || Title.find(_T("soun"))!=std::string::npos)
+            Title.clear(); //This is not a Title
     }
-    else
-    {
-        std::string TitleS;
-        Get_String(Element_Size-Element_Offset, TitleS,         "Component name");
-        Title.From_UTF8(TitleS.c_str());
-        if (Title.empty())
-            Title.From_Local(TitleS.c_str()); //Trying Local...
-    }
-    if (Title.find(_T("Handler"))!=std::string::npos || Title.find(_T("vide"))!=std::string::npos || Title.find(_T("soun"))!=std::string::npos)
-        Title.clear(); //This is not a Title
 
     FILLING_BEGIN();
         if (!Title.empty()) Fill(StreamKind_Last, StreamPos_Last, "Title",    Title);
@@ -3770,15 +3775,21 @@ void File_Mpeg4::moov_udta_xxxx()
 
                 //Parsing
                 Ztring Value;
-                int16u Size, Language;
+                int32u Size32=0;
+                int16u Size16=0, Language;
                 bool IsText=true;
                 if (Element_Size<=4)
                     IsText=false;
                 else
                 {
-                    Peek_B2(Size);
-                    if (4+(int64u)Size>Element_Size)
-                        IsText=false;
+                    Peek_B4(Size32);
+                    if (4+(int64u)Size32>Element_Size)
+                    {
+                        Size32=0;
+                        Peek_B2(Size16);
+                        if (4+(int64u)Size16>Element_Size)
+                            IsText=false;
+                    }
                 }
                 if (!IsText)
                 {
@@ -3788,9 +3799,17 @@ void File_Mpeg4::moov_udta_xxxx()
 
                 while(Element_Offset<Element_Size)
                 {
-                    Get_B2(Size,                                "Size");
-                    Get_B2(Language,                            "Language"); Param_Info(Language_Get(Language));
-                    Get_Local(Size, Value,                      "Value");
+                    if (Size32)
+                    {
+                        Get_Local(Size32, Value,                "Value");
+                        Get_B4 (Size32,                         "Size");
+                    }
+                    else
+                    {
+                        Get_B2 (Size16,                         "Size");
+                        Get_B2 (Language,                       "Language"); Param_Info(Language_Get(Language));
+                        Get_Local(Size16, Value,                "Value");
+                    }
 
                     FILLING_BEGIN();
                         if (Retrieve(Stream_General, 0, Parameter.c_str()).empty())
@@ -3803,6 +3822,20 @@ void File_Mpeg4::moov_udta_xxxx()
                         Peek_B1(Null);
                         if (Null==0x00)
                             Skip_B1(                            "NULL");
+                    }
+                    if (Element_Offset+4<=Element_Size && Size32)
+                    {
+                        int32u Null;
+                        Peek_B4(Null);
+                        if (Null==0x00000000)
+                            Skip_XX(Element_Size-Element_Offset,"Padding");
+                    }
+                    if (Element_Offset+2<=Element_Size && Size16)
+                    {
+                        int16u Null;
+                        Peek_B2(Null);
+                        if (Null==0x0000)
+                            Skip_XX(Element_Size-Element_Offset,"Padding");
                     }
                 }
             }
@@ -3855,6 +3888,15 @@ void File_Mpeg4::moov_udta_xxxx()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::PICT()
+{
+    Element_Name("QuickDraw picture");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::pckg()
 {
     Element_Name("QTCA");
@@ -3878,7 +3920,7 @@ void File_Mpeg4::pnot()
     Info_B4(Date_Modified,                                      "Modification date"); Param_Info(Ztring().Date_From_Seconds_1904(Date_Modified));
     Skip_B2(                                                    "Version number");
     Skip_C4(                                                    "Atom type");
-    Skip_B4(                                                    "Atom index");
+    Skip_B2(                                                    "Atom index");
 }
 
 //---------------------------------------------------------------------------

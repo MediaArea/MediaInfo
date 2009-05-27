@@ -345,6 +345,12 @@ void File_Mpeg4_Descriptors::Header_Parse()
     size_t Size=0;
     int8u type, Size_ToAdd;
     Get_B1(type,                                            "type");
+    if (type==0)
+    {
+        Header_Fill_Code(0x00, "Padding");
+        Header_Fill_Size(1);
+        return;
+    }
     do
     {
         Get_B1(Size_ToAdd,                                  "size");
