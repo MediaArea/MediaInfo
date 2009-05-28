@@ -174,7 +174,7 @@ File_DvDif::File_DvDif()
 :File__Analyze()
 {
     //In
-    Frame_Count_Valid=140;
+    Frame_Count_Valid=14;
     AuxToAnalyze=0x00; //No Aux to analyze
     IgnoreAudio=false;
 
@@ -2068,13 +2068,16 @@ void File_DvDif::closed_captions()
             CC_Parsers.resize(2);
             for (size_t Pos=0; Pos<2; Pos++)
                 CC_Parsers[Pos]=new File_Eia608();
-            //Frame_Count_Valid*=10; //More frames
+            Frame_Count_Valid*=10; //More frames
         }
-        for (size_t Pos=0; Pos<2; Pos++)
+        if (Dseq==0) //CC are duplicated for each DIF sequence!
         {
-            Open_Buffer_Init(CC_Parsers[Pos]);
-            Open_Buffer_Continue(CC_Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, 2);
-            Element_Offset+=2;
+            for (size_t Pos=0; Pos<2; Pos++)
+            {
+                Open_Buffer_Init(CC_Parsers[Pos]);
+                Open_Buffer_Continue(CC_Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, 2);
+                Element_Offset+=2;
+            }
         }
 
     #else
