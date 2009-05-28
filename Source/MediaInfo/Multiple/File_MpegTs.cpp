@@ -246,17 +246,33 @@ void File_MpegTs::Streams_Fill()
                     for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
                     {
                         size_t Pos=Count_Get(Stream_Text)-Text_Count+Text_Pos;
-                        Fill(Stream_Text, Pos, "MuxingMode", "MPEG Video", Unlimited, true, true);
                         Fill(Stream_Text, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Last+1), true);
                         Fill(Stream_Text, Pos, Text_StreamSize, 0);
                         Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
                         if (ID.find(_T('-'))!=string::npos)
-                            ID.erase(ID.begin(), ID.begin()+ID.find(_T('-')));
-                        Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, StreamPos_Last, Video_ID)+ID, true);
+                            ID.erase(ID.begin(), ID.begin()+ID.find(_T('-'))+1);
+                        Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, StreamPos_Last, Video_ID)+_T('-')+ID, true);
                         Fill(Stream_Text, Pos, Text_ID_String, Retrieve(Stream_Video, StreamPos_Last, Video_ID_String)+ID, true);
                         Fill(Stream_Text, Pos, Text_MenuID, Retrieve(Stream_Video, StreamPos_Last, Video_MenuID), true);
                         Fill(Stream_Text, Pos, Text_MenuID_String, Retrieve(Stream_Video, StreamPos_Last, Video_MenuID_String), true);
                         Fill(Stream_Text, Pos, Text_Duration, Retrieve(Stream_Video, StreamPos_Last, Video_Duration), true);
+
+                        //Language from ATSC EIT
+                        size_t ID_Pos;
+                        if (ID==_T("608-0"))
+                            ID_Pos=0;
+                        else if (ID==_T("608-1"))
+                            ID_Pos=1;
+                        else
+                        {
+                            ID_Pos=ID.To_int8u();
+                            if (ID_Pos==0)
+                                ID_Pos=(size_t)-1;
+                            else
+                                ID_Pos--; //EIA-708 begins at 1
+                        }
+                        if (ID_Pos<Complete_Stream->Streams[StreamID].Captions_Language.size())
+                            Fill(Stream_Text, Pos, Text_Language, Complete_Stream->Streams[StreamID].Captions_Language[ID_Pos]);
                     }
                 }
             }

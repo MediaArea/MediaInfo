@@ -76,6 +76,7 @@ private :
     void slice_start();
     void slice_start_Fill();
     void user_data_start();
+    void user_data_start_CC();
     void user_data_start_DTG1();
     void user_data_start_GA94();
     void user_data_start_GA94_03();
@@ -133,6 +134,7 @@ private :
     size_t                         TemporalReference_GA94_03_CC_Offset;
 
     //Temp
+    std::vector<File__Analyze*> DVD_CC_Parsers;
     std::vector<File__Analyze*> GA94_03_CC_Parsers;
     Ztring Library;
     Ztring Library_Name;
@@ -171,7 +173,8 @@ private :
     int8u  video_format;
     int8u  picture_structure;
     bool   Time_End_NeedComplete;
-    bool   GA94_03_IsPresent;
+    bool   DVD_CC_IsPresent;
+    bool   GA94_03_CC_IsPresent;
     bool   load_intra_quantiser_matrix;
     bool   load_non_intra_quantiser_matrix;
     bool   progressive_sequence;

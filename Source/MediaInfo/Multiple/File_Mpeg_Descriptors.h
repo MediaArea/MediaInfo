@@ -179,6 +179,7 @@ struct complete_stream
         typedef std::vector<table_id*>              table_ids;
         table_ids                                   Table_IDs; //Key is table_id
         std::map<std::string, Ztring>               Infos;
+        std::vector<Ztring>                         Captions_Language;
         #ifndef MEDIAINFO_MINIMIZESIZE
             Ztring Element_Info;
         #endif //MEDIAINFO_MINIMIZESIZE

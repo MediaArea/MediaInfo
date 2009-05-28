@@ -293,6 +293,8 @@ File_Mpegv::File_Mpegv()
 //---------------------------------------------------------------------------
 File_Mpegv::~File_Mpegv()
 {
+    for (size_t Pos=0; Pos<DVD_CC_Parsers.size(); Pos++)
+        delete DVD_CC_Parsers[Pos]; //GA94_03_CC_Parsers[Pos]=NULL;
     for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
         delete GA94_03_CC_Parsers[Pos]; //GA94_03_CC_Parsers[Pos]=NULL;
 }
@@ -362,7 +364,8 @@ void File_Mpegv::Synched_Init()
     frame_rate_extension_n=0;
     frame_rate_extension_d=0;
     video_format=5; //Unspecified video format
-    GA94_03_IsPresent=false;
+    DVD_CC_IsPresent=false;
+    GA94_03_CC_IsPresent=false;
     Time_End_NeedComplete=false;
     load_intra_quantiser_matrix=false;
     load_non_intra_quantiser_matrix=false;
@@ -426,6 +429,17 @@ void File_Mpegv::Read_Buffer_Finalize()
         Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("broken_link="))+(group_start_broken_link?_T("1"):_T("0")));
     }
 
+    //DVD captions
+    for (size_t Pos=0; Pos<DVD_CC_Parsers.size(); Pos++)
+        if (DVD_CC_Parsers[Pos] && DVD_CC_Parsers[Pos]->IsAccepted)
+        {
+            Open_Buffer_Finalize(DVD_CC_Parsers[Pos]);
+            Merge(*DVD_CC_Parsers[Pos]);
+            Fill(Stream_Text, StreamPos_Last, Text_ID, _T("DVD-")+Ztring::ToZtring(Pos));
+            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("DVD-Video"));
+        }
+
+    //GA94 captions
     for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
         if (GA94_03_CC_Parsers[Pos] && GA94_03_CC_Parsers[Pos]->IsAccepted)
         {
@@ -433,6 +447,7 @@ void File_Mpegv::Read_Buffer_Finalize()
             Merge(*GA94_03_CC_Parsers[Pos]);
             if (Pos<2)
                 Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
+            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"));
         }
 
     //Purge what is not needed anymore
@@ -561,11 +576,11 @@ void File_Mpegv::Detect_EOF()
      && (File_Size>SizeToAnalyse_Begin+SizeToAnalyse_End && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End && MediaInfoLib::Config.ParseSpeed_Get()<=0.01
       || IsSub))
     {
-        if (GA94_03_IsPresent && Frame_Count<Frame_Count_Valid*10) //10 times the normal test
+        if ((GA94_03_CC_IsPresent || DVD_CC_IsPresent) && Frame_Count<Frame_Count_Valid*10) //10 times the normal test
         {
-            Streams[0x00].Searching_Payload=true;
+            Streams[0x00].Searching_Payload=GA94_03_CC_IsPresent;
             Streams[0xB2].Searching_Payload=true;
-            Streams[0xB3].Searching_Payload=true;
+            Streams[0xB3].Searching_Payload=GA94_03_CC_IsPresent;
             return;
         }
 
@@ -723,7 +738,7 @@ void File_Mpegv::slice_start()
             Streams[Pos].Searching_Payload=false;
 
         //Filling only if not already done
-        if (!IsFilled && (!GA94_03_IsPresent && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
+        if (!IsFilled && (!DVD_CC_IsPresent && !GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
             slice_start_Fill();
     FILLING_END();
 }
@@ -919,6 +934,7 @@ void File_Mpegv::user_data_start()
         Peek_B4(GA94_Identifier);
         switch (GA94_Identifier)
         {
+            case 0x434301F8 :   user_data_start_CC(); return;
             case 0x44544731 :   user_data_start_DTG1(); return;
             case 0x47413934 :   user_data_start_GA94(); return;
         }
@@ -1005,6 +1021,54 @@ void File_Mpegv::user_data_start()
 }
 
 //---------------------------------------------------------------------------
+// Packet "B2", CC (From DVD)
+void File_Mpegv::user_data_start_CC()
+{
+    DVD_CC_IsPresent=true;
+
+    Element_Info("DVD captioning");
+
+    if (Count_Get(Stream_Text))
+        return;
+
+    //Parsing
+    int8u cc_count;
+    Skip_B4(                                                    "identifier");
+    BS_Begin();
+    Skip_SB(                                                    "field 1 then field 2");
+    Get_S1 (7, cc_count,                                        "count");
+    BS_End();
+    for (int8u Pos=0; Pos<cc_count; Pos++)
+    {
+        Element_Begin("cc");
+        int8u cc_type, cc_data_1, cc_data_2;
+        BS_Begin();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Get_S1 (1, cc_type,                                     "cc_type");
+        BS_End();
+
+        while (cc_type>=DVD_CC_Parsers.size())
+            DVD_CC_Parsers.push_back(NULL);
+        if (DVD_CC_Parsers[cc_type]==NULL)
+            DVD_CC_Parsers[cc_type]=new File_Eia608();
+        Open_Buffer_Init(DVD_CC_Parsers[cc_type]);
+        Open_Buffer_Continue(DVD_CC_Parsers[cc_type], Buffer+Buffer_Offset+(size_t)Element_Offset, 2);
+
+        //Demux
+        Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, 2, Ztring::ToZtring(cc_type)+_T(".eia608"));
+
+        Element_Offset+=2;
+        Element_End();
+    }
+}
+
+//---------------------------------------------------------------------------
 // Packet "B2", DTG1
 void File_Mpegv::user_data_start_DTG1()
 {
@@ -1052,7 +1116,7 @@ void File_Mpegv::user_data_start_GA94()
 // Packet "B2", GA94 0x03 (styled captioning)
 void File_Mpegv::user_data_start_GA94_03()
 {
-    GA94_03_IsPresent=true;
+    GA94_03_CC_IsPresent=true;
 
     Element_Info("Styled captioning");
 

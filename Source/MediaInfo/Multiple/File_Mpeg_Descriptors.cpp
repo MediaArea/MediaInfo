@@ -2457,11 +2457,14 @@ void File_Mpeg_Descriptors::Descriptor_86()
     Skip_S1(3,                                                  "reserved");
     Get_S1 (5, number_of_services,                              "number_of_services");
     BS_End();
+    if (number_of_services>=Complete_Stream->Streams[xxx_id].Captions_Language.size())
+        Complete_Stream->Streams[xxx_id].Captions_Language.resize(number_of_services);
     for (int8u Pos=0; Pos<number_of_services; Pos++)
     {
         Element_Begin("service");
+        Ztring language;
         bool digital_cc;
-        Skip_C3(                                                "language");
+        Get_Local(3, language,                                  "language");
         BS_Begin();
         Get_SB (digital_cc,                                     "digital_cc");
         Skip_SB(                                                "reserved");
@@ -2477,6 +2480,9 @@ void File_Mpeg_Descriptors::Descriptor_86()
         Skip_S2(14,                                             "reserved");
         BS_End();
         Element_End();
+
+        if (Complete_Stream->Streams[xxx_id].Captions_Language[Pos].empty()) //We use only the first detected value
+            Complete_Stream->Streams[xxx_id].Captions_Language[Pos]=language;
     }
 }
 

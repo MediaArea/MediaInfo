@@ -579,8 +579,10 @@ void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Tem
             for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
             {
                 size_t Pos=Count_Get(Stream_Text)-Text_Count+Text_Pos;
-                Fill(Stream_Text, Pos, "MuxingMode", "MPEG Video");
-                Fill(Stream_Text, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Last+1));
+                Ztring MuxingMode=Retrieve(Stream_Text, Pos, "MuxingMode");
+                Fill(Stream_Text, Pos, "MuxingMode", Ztring(_T("MPEG Video / "))+MuxingMode, true);
+                if (!IsSub)
+                    Fill(Stream_Text, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Last+1));
                 Fill(Stream_Text, Pos, Text_StreamSize, 0);
                 Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
                 Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, StreamPos_Last, Video_ID)+_T("-")+ID, true);
