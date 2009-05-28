@@ -15,10 +15,12 @@ Version 0.7.17, 2009-
 + JPEG 2000 support
 + MPEG-4: support of JPEG 2000 embedded in a MPEG-4 container
 + MPEG-4: support of ProRes 422 / ProRes 422 HQ codecs
++ MPEG-4, AMR: Vendor and version
 x #2795345, MPEG-4 Visual: crash with some specific user_data
 x #2793960, MKV: some MKV renamed as .ac3 were detected as AC-3
 x #2796417, MPEG-4: Some files with Camera user data were not detected
 x MPEG Video: better detection of 2:3 Pulldown
+x MPEG-4: Forcing AMR to 8KHz/Mono whatever the container says
 
 Version 0.7.16, 2009-05-20
 -------------

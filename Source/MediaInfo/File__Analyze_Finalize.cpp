@@ -602,7 +602,7 @@ void File__Analyze::Finalize_Cosmetic(stream_t StreamKind, size_t Pos)
         Fill(StreamKind, Pos, "ID/String", Retrieve(StreamKind, Pos, "ID"));
 
     //Encoded_Library
-    if (!Retrieve(StreamKind, Pos, "Encoded_Library").empty() && MediaInfoLib::Config.ReadByHuman_Get())
+    if (!Retrieve(StreamKind, Pos, "Encoded_Library").empty() && Retrieve(StreamKind, Pos, "Encoded_Library/String").empty() && MediaInfoLib::Config.ReadByHuman_Get())
     {
         const Ztring& Name=Retrieve(StreamKind, Pos, "Encoded_Library/Name");
         const Ztring& Version=Retrieve(StreamKind, Pos, "Encoded_Library/Version");

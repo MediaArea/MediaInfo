@@ -159,6 +159,7 @@ private :
     void moov_trak_mdia_minf_stbl_stsd_xxxx_wave_acbf();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_wave_enda();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma();
+    void moov_trak_mdia_minf_stbl_stsd_xxxx_wave_samr();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_wave_srcq();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_wave_xxxx();
     void moov_trak_mdia_minf_stbl_stsh();

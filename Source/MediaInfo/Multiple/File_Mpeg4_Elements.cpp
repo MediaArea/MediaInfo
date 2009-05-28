@@ -300,6 +300,7 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave_acbf=0x61636266;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave_enda=0x656E6461;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma=0x66726D61;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave_samr=0x73616D72;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_wave_srcq=0x73726371;
     const int64u moov_trak_mdia_minf_stbl_stsh=0x73747368;
     const int64u moov_trak_mdia_minf_stbl_stss=0x73747373;
@@ -543,6 +544,7 @@ void File_Mpeg4::Data_Parse()
                                     ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_wave_acbf)
                                     ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_wave_enda)
                                     ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma)
+                                    ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_wave_samr)
                                     ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_wave_srcq)
                                     ATOM_DEFAULT(moov_trak_mdia_minf_stbl_stsd_xxxx_wave_xxxx)
                                     ATOM_END_DEFAULT
@@ -2576,9 +2578,12 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
     }
 
     FILLING_BEGIN();
-        //samr bug viewed in one file: codec=AMR-NB but Sampling rate is 1000, impossible
-        if (Element_Code==0x73616D72 && SampleRate==1000) //Element_Code="samr"
+        //samr bug viewed in some files: channels and Sampling rate are wrong
+        if (Element_Code==0x73616D72) //"samr"
+        {
             SampleRate=8000;
+            Channels=1;
+        }
 
         std::string Codec;
         Codec.append(1, (char)((Element_Code&0xFF000000)>>24));
@@ -2948,11 +2953,27 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_damr()
     Element_Name("AMR decode config");
 
     //Parsing
-    Skip_C4(                                                    "Encoder vendor");
-    Skip_B1(                                                    "Encoder version");
+    int32u Vendor;
+    int8u  Version;
+    Get_C4 (Vendor,                                             "Encoder vendor");
+    Get_B1 (Version,                                            "Encoder version");
     Skip_B2(                                                    "Packet modes");
     Skip_B1(                                                    "Number of packet mode changes");
     Skip_B1(                                                    "Samples per packet");
+
+    switch (Vendor)
+    {
+        case 0x46464D50 : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, "FFMpeg"); break;
+        case 0x4D4F544F : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, "Motorola"); break;
+        case 0x50484C50 : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, "Philips"); break;
+        case 0x6170706C : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, "Apple"); break;
+        case 0x6E6F6B69 : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, "Nokia"); break;
+        case 0x6D6F746F : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, "Motorola"); break;
+        default         : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, Ztring().From_CC4(Vendor));
+    }
+    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Version, Version);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library, Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+_T(' ')+Ztring::ToZtring(Version));
+    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_String, Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+(Version?(_T("Revision")+Ztring::ToZtring(Version)):Ztring()));
 }
 
 //---------------------------------------------------------------------------
@@ -3046,6 +3067,28 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma()
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec, true);
         FILLING_END();
     }
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_samr()
+{
+    Element_Name("AMR decode config");
+
+    //Parsing
+    int32u Vendor;
+    int8u  Version;
+    Get_C4 (Vendor,                                             "Encoder vendor");
+    Get_B1 (Version,                                            "Encoder version");
+    Skip_XX(Element_Size-Element_Offset,                        "Unknown");
+
+    switch (Vendor)
+    {
+        case 0x6170706C : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, "Apple"); break;
+        default         : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, Ztring().From_CC4(Vendor));
+    }
+    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Version, Version);
+    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library, Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+_T(' ')+Ztring::ToZtring(Version));
+    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_String, Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+(Version?(_T("Revision")+Ztring::ToZtring(Version)):Ztring()));
 }
 
 //---------------------------------------------------------------------------
