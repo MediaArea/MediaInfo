@@ -54,7 +54,8 @@ protected :
 
 public :
     File_DvDif();
-    
+    ~File_DvDif();
+
 private :
     //Buffer
     void Header_Parse();
@@ -80,12 +81,16 @@ private :
     void video_sourcecontrol();
     void video_recdate();
     void video_rectime();
+    void closed_captions();
 
     //Helpers
     Ztring recdate();
     Ztring rectime();
 
     //Temp
+    #if defined(MEDIAINFO_EIA608_YES)
+        std::vector<File__Analyze*> CC_Parsers;
+    #endif
     Ztring Recorded_Date_Date;
     Ztring Recorded_Date_Time;
     size_t FrameCount;

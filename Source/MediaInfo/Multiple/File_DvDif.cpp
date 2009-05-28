@@ -31,6 +31,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_DvDif.h"
+#if defined(MEDIAINFO_EIA608_YES)
+    #include "MediaInfo/Text/File_Eia608.h"
+#endif
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -171,7 +174,7 @@ File_DvDif::File_DvDif()
 :File__Analyze()
 {
     //In
-    Frame_Count_Valid=14;
+    Frame_Count_Valid=140;
     AuxToAnalyze=0x00; //No Aux to analyze
     IgnoreAudio=false;
 
@@ -203,6 +206,15 @@ File_DvDif::File_DvDif()
     QU=(int8u)-1;
     CH_IsPresent.resize(8);
     #endif //MEDIAINFO_DVDIF_ANALYZE_YES
+}
+
+//---------------------------------------------------------------------------
+File_DvDif::~File_DvDif()
+{
+    #if defined(MEDIAINFO_EIA608_YES)
+        for (size_t Pos=0; Pos<CC_Parsers.size(); Pos++)
+            delete CC_Parsers[Pos]; //CC_Parsers[Pos]=NULL;
+    #endif
 }
 
 //***************************************************************************
@@ -1237,7 +1249,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
 //---------------------------------------------------------------------------
 void File_DvDif::Read_Buffer_Finalize()
 {
-    if (!IsAccepted && FrameCount>=1)
+    if (!IsFilled && FrameCount>=1)
         Header_Fill();
 
     if (!Recorded_Date_Date.empty())
@@ -1259,6 +1271,16 @@ void File_DvDif::Read_Buffer_Finalize()
         Fill(Stream_Video, 0, Video_Delay, TimeCode_First);
         Fill(Stream_Audio, 0, Audio_Delay, TimeCode_First);
     }
+
+    #if defined(MEDIAINFO_EIA608_YES)
+        for (size_t Pos=0; Pos<CC_Parsers.size(); Pos++)
+            if (CC_Parsers[Pos] && CC_Parsers[Pos]->IsAccepted)
+            {
+                Open_Buffer_Finalize(CC_Parsers[Pos]);
+                Merge(*CC_Parsers[Pos]);
+                Fill(Stream_Text, StreamPos_Last, Text_ID, Pos);
+            }
+    #endif
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     //Errors stats
@@ -1486,7 +1508,9 @@ void File_DvDif::Header()
         FrameCount++;
         if (Count_Get(Stream_General)==0)
             Stream_Prepare(Stream_General);
-        if (!IsAccepted && FrameCount>=Frame_Count_Valid)
+        if (!IsAccepted && FrameCount>=10)
+            Accept("DV DIF");
+        if (!IsFilled && FrameCount>=Frame_Count_Valid)
             Header_Fill();
     FILLING_END();
 }
@@ -1520,7 +1544,9 @@ void File_DvDif::Header()
         FrameCount++;
         if (Count_Get(Stream_General)==0)
             Stream_Prepare(Stream_General);
-        if (!IsAccepted && FrameCount>=Frame_Count_Valid)
+        if (!IsAccepted && FrameCount>=10)
+            Accept("DV DIF");
+        if (!IsFilled && FrameCount>=Frame_Count_Valid)
             Header_Fill();
     FILLING_END();
 }
@@ -1533,7 +1559,7 @@ void File_DvDif::Header_Fill()
         Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "Digital Video");
 
-    Accept("DV DIF");
+    IsFilled=true;
     #ifndef MEDIAINFO_DVDIF_ANALYZE_YES
         Finish("DV DIF");
     #endif //MEDIAINFO_DVDIF_ANALYZE_YES
@@ -1664,6 +1690,7 @@ void File_DvDif::Element()
         case 0x61 : video_sourcecontrol(); break;
         case 0x62 : video_recdate(); break;
         case 0x63 : video_rectime(); break;
+        case 0x65 : closed_captions(); break;
         case 0xFF : Element_Name(Ztring().From_Number(PackType, 16));
                     Skip_B4(                                    "Unused"); break;
         default   : Element_Name(Ztring().From_Number(PackType, 16));
@@ -1788,6 +1815,7 @@ void File_DvDif::audio_source()
         if (!IgnoreAudio && (FrameCount==1 || AuxToAnalyze)) //Only the first time
         {
             Stream_Prepare(Stream_Audio);
+            Fill(Stream_Audio, 0, Audio_ID, 0);
             Fill(Stream_Audio, 0, Audio_Format, "PCM");
             Fill(Stream_Audio, 0, Audio_Codec, "PCM");
             Fill(Stream_Audio, 0, Audio_Channel_s_, 2);
@@ -1798,6 +1826,7 @@ void File_DvDif::audio_source()
             if (stype==2 || (Resolution==1 && SamplingRate==2)) //stype=? or (Resolution=12 bits and SamplingRate=32 KHz)
             {
                 Stream_Prepare(Stream_Audio);
+                Fill(Stream_Audio, 1, Audio_ID, 1);
                 Fill(Stream_Audio, 1, Audio_Format, "PCM");
                 Fill(Stream_Audio, 1, Audio_Codec, "PCM");
                 Fill(Stream_Audio, 1, Audio_Channel_s_, 2);
@@ -2028,6 +2057,29 @@ void File_DvDif::video_rectime()
     Ztring Date=rectime();
     if (Recorded_Date_Time.empty())
         Recorded_Date_Time=Date;
+}
+
+//---------------------------------------------------------------------------
+void File_DvDif::closed_captions()
+{
+    #if defined(MEDIAINFO_EIA608_YES)
+        if (CC_Parsers.empty())
+        {
+            CC_Parsers.resize(2);
+            for (size_t Pos=0; Pos<2; Pos++)
+                CC_Parsers[Pos]=new File_Eia608();
+            //Frame_Count_Valid*=10; //More frames
+        }
+        for (size_t Pos=0; Pos<2; Pos++)
+        {
+            Open_Buffer_Init(CC_Parsers[Pos]);
+            Open_Buffer_Continue(CC_Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, 2);
+            Element_Offset+=2;
+        }
+
+    #else
+        Skip_XX(4,                                              "Captions");
+    #endif
 }
 
 //***************************************************************************

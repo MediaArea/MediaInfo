@@ -155,6 +155,7 @@ void File_Riff::Read_Buffer_Finalize ()
 
             //Merging
             Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
+            Fill(StreamKind_Last, StreamPos_Last, "ID", ((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
 
             //Hacks - After
             if (StreamKind_Last==Stream_Video)
@@ -238,11 +239,25 @@ void File_Riff::Read_Buffer_Finalize ()
                 {
                     if (Retrieve(Stream_General, 0, General_Recorded_Date).empty())
                         Fill(Stream_General, 0, General_Recorded_Date, Temp->second.Parser->Retrieve(Stream_General, 0, General_Recorded_Date));
-                    for (size_t Pos=0; Pos<Temp->second.Parser->Count_Get(Stream_Audio); Pos++)
+
+                    //Video and Audio are together
+                    size_t Audio_Count=Temp->second.Parser->Count_Get(Stream_Audio);
+                    for (size_t Audio_Pos=0; Audio_Pos<Audio_Count; Audio_Pos++)
                     {
+                        Fill_Flush();
                         Stream_Prepare(Stream_Audio);
-                        Merge(*Temp->second.Parser, Stream_Audio, Pos, StreamPos_Last);
+                        size_t Pos=Count_Get(Stream_Audio)-1;
+                        Merge(*Temp->second.Parser, Stream_Audio, Audio_Pos, StreamPos_Last);
+                        Fill(Stream_Audio, Pos, Audio_MuxingMode, "DV");
+                        Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
+                        Fill(Stream_Audio, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
+                        Fill(Stream_Audio, Pos, Audio_StreamSize, "0"); //Included in the DV stream size
+                        Ztring ID=Retrieve(Stream_Audio, Pos, Audio_ID);
+                        Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+_T("-")+ID, true);
                     }
+
+                    StreamKind_Last=Stream_Video;
+                    StreamPos_Last=Temp->second.StreamPos;
                 }
             #endif
         }

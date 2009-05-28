@@ -178,31 +178,50 @@ void File_Mpeg4::Read_Buffer_Finalize()
                         Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_Temp, true);
                     if (!FrameRate_Mode_Temp.empty() && FrameRate_Mode_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Mode))
                         Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, FrameRate_Mode_Temp, true);
+                }
 
-                    //Special case: DV with Audio in the video stream
-                    for (size_t Pos=0; Pos<Temp->second.Parser->Count_Get(Stream_Audio); Pos++)
+                //TimeCode specific
+                if (StreamKind_Last==Stream_Video && Retrieve(Stream_Menu, StreamPos_Last, Menu_Format)==_T("TimeCode"))
+                {
+                    Clear(Stream_Menu, StreamPos_Last, "Duration");
+                    Clear(Stream_Menu, StreamPos_Last, "StreamSize");
+                }
+
+                //Special case: DV with Audio or/and Text in the video stream
+                if (StreamKind_Last==Stream_Video && Temp->second.Parser && (Temp->second.Parser->Count_Get(Stream_Audio) || Temp->second.Parser->Count_Get(Stream_Text)))
+                {
+                    //Video and Audio are together
+                    size_t Audio_Count=Temp->second.Parser->Count_Get(Stream_Audio);
+                    for (size_t Audio_Pos=0; Audio_Pos<Audio_Count; Audio_Pos++)
                     {
                         Fill_Flush();
                         Stream_Prepare(Stream_Audio);
-                        Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
-                        Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "DV");
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
-                        Fill(Stream_Audio, StreamPos_Last, Audio_StreamSize, "0"); //Included in the DV stream size
-                        Fill(Stream_Audio, StreamPos_Last, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1)); //Ztring::ToZtring(_T(""));
+                        size_t Pos=Count_Get(Stream_Audio)-1;
+                        Merge(*Temp->second.Parser, Stream_Audio, Audio_Pos, StreamPos_Last);
+                        Fill(Stream_Audio, Pos, Audio_MuxingMode, "DV");
+                        Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
+                        Fill(Stream_Audio, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
+                        Fill(Stream_Audio, Pos, Audio_StreamSize, "0"); //Included in the DV stream size
+                        Ztring ID=Retrieve(Stream_Audio, Pos, Audio_ID);
+                        Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+_T("-")+ID, true);
+                    }
 
-                        //Reconfigure
-                        StreamKind_Last=Temp->second.StreamKind;
-                        StreamPos_Last=Temp->second.StreamPos;
+                    //Video and Text are together
+                    size_t Text_Count=Temp->second.Parser->Count_Get(Stream_Text);
+                    for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
+                    {
+                        Fill_Flush();
+                        Stream_Prepare(Stream_Text);
+                        size_t Pos=Count_Get(Stream_Text)-1;
+                        Merge(*Temp->second.Parser, Stream_Text, Text_Pos, StreamPos_Last);
+                        Fill(Stream_Text, Pos, "MuxingMode", "MPEG Video");
+                        Fill(Stream_Text, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
+                        Fill(Stream_Text, Pos, Text_StreamSize, 0); //Included in the DV stream size
+                        Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
+                        Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+_T("-")+ID, true);
                     }
                 }
             }
-        }
-
-        //TimeCode specific
-        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Menu, StreamPos_Last, Menu_Format)==_T("TimeCode"))
-        {
-            Clear(Stream_Menu, StreamPos_Last, "Duration");
-            Clear(Stream_Menu, StreamPos_Last, "StreamSize");
         }
 
         Temp++;
