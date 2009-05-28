@@ -50,7 +50,7 @@ Ztring Kate_Category(const Ztring &Category)
 {
     //http://wiki.xiph.org/index.php/OggText#Categories_of_Text_Codecs
     if (Category==_T("CC"))
-        return _T("Closed captions");
+        return _T("Closed caption");
     if (Category==_T("SUB"))
         return _T("Subtitles");
     if (Category==_T("TAD"))
