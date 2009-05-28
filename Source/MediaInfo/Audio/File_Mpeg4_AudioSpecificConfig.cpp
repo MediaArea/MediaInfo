@@ -677,14 +677,15 @@ void File_Mpeg4_AudioSpecificConfig::ALS ()
             Merge(MI, StreamKind_Last, 0, StreamPos_Last);
 
             //The RIFF header is for PCM
+            Clear(Stream_Audio, StreamPos_Last, Audio_ID);
             Fill(Stream_Audio, StreamPos_Last, Audio_Format, "ALS", Unlimited, true, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "ALS", Unlimited, true, true);
-            Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, "", Unlimited, true, true);
-            Fill(Stream_Audio, StreamPos_Last, Audio_CodecID_Hint, "", Unlimited, true, true);
-            Fill(Stream_Audio, StreamPos_Last, Audio_CodecID_Url, "", Unlimited, true, true);
-            Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, "", Unlimited, true, true);
-            Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Mode, "", Unlimited, true, true);
-            Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, "", Unlimited, true, true);
+            Clear(Stream_Audio, StreamPos_Last, Audio_CodecID);
+            Clear(Stream_Audio, StreamPos_Last, Audio_CodecID_Hint);
+            Clear(Stream_Audio, StreamPos_Last, Audio_CodecID_Url);
+            Clear(Stream_Audio, StreamPos_Last, Audio_BitRate);
+            Clear(Stream_Audio, StreamPos_Last, Audio_BitRate_Mode);
+            Clear(Stream_Audio, StreamPos_Last, Audio_Codec_CC);
 
         #else
             Skip_XX(Element_Size-Element_Offset,                "(RIFF chunck)");

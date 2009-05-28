@@ -121,7 +121,7 @@ const char* Mpeg4_Descriptors_ObjectTypeIndication(int8u ID)
         case 0x64 : return "Visual ISO/IEC 13818-2 High Profile (MPEG Video)";
         case 0x65 : return "Visual ISO/IEC 13818-2 422 Profile (MPEG Video)";
         case 0x66 : return "Audio ISO/IEC 13818-7 Main Profile (AAC)";
-        case 0x67 : return "Audio ISO/IEC 13818-7 LowComplexity Profile (AAC)";
+        case 0x67 : return "Audio ISO/IEC 13818-7 Low Complexity Profile (AAC)";
         case 0x68 : return "Audio ISO/IEC 13818-7 Scaleable Sampling Rate Profile (AAC)";
         case 0x69 : return "Audio ISO/IEC 13818-3 (MPEG Audio)";
         case 0x6A : return "Visual ISO/IEC 11172-2 (MPEG Video)";
