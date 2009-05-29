@@ -50,38 +50,60 @@ int32u Pcm_VOB_Frequency[]=
 };
 
 //---------------------------------------------------------------------------
-const char* Pcm_VOB_ChannelsPositions(int8u NumberOfChannelsMinusOne)
+const char* Pcm_VOB_ChannelsPositions(int8u NumberOfChannels)
 {
-    switch (NumberOfChannelsMinusOne)
+    switch (NumberOfChannels)
     {
-        case  0 : return "Front: C";                                    //1 channel
-        case  1 : return "Front: L R";                                  //2 channels
-        case  2 : return "Front: L R, LFE";                             //3 channels (not sure)
-        case  3 : return "Front: L R, Rear: L R";                       //4 channels
-        case  4 : return "Front: L R, Rear: L R, LFE";                  //5 channels (not sure)
-        case  5 : return "Front: L R C, Rear: L R, LFE";                //6 channels
-        case  6 : return "Front: L R C, Middle: L R, Rear: L R";        //7 channels
-        case  7 : return "Front: L R C, Middle: L R, Rear: L R, LFE";   //8 channels
+        case  1 : return "Front: C";                                    //1 channel
+        case  2 : return "Front: L R";                                  //2 channels
+        case  3 : return "Front: L R, LFE";                             //3 channels (not sure)
+        case  4 : return "Front: L R, Rear: L R";                       //4 channels
+        case  5 : return "Front: L R, Rear: L R, LFE";                  //5 channels (not sure)
+        case  6 : return "Front: L R C, Rear: L R, LFE";                //6 channels
+        case  7 : return "Front: L R C, Middle: L R, Rear: L R";        //7 channels
+        case  8 : return "Front: L R C, Middle: L R, Rear: L R, LFE";   //8 channels
         default : return "";
     }
 }
 
 //---------------------------------------------------------------------------
-const char* Pcm_VOB_ChannelsPositions2(int8u NumberOfChannelsMinusOne)
+const char* Pcm_VOB_ChannelsPositions2(int8u NumberOfChannels)
 {
-    switch (NumberOfChannelsMinusOne)
+    switch (NumberOfChannels)
     {
-        case  0 : return "2/0";                                         //1 channel
-        case  1 : return "2/0";                                         //2 channels
-        case  2 : return "3/0.1";                                       //3 channels (not sure)
-        case  3 : return "3/0.1";                                       //4 channels
-        case  4 : return "3/2.1";                                       //5 channels (not sure)
-        case  5 : return "3/2.1";                                       //6 channels
-        case  6 : return "3.2/2.1";                                     //7 channels
-        case  7 : return "3.2/2.1";                                     //8 channels
+        case  1 : return "1/0";                                         //1 channel
+        case  2 : return "2/0";                                         //2 channels
+        case  3 : return "3/0.1";                                       //3 channels (not sure)
+        case  4 : return "3/0.1";                                       //4 channels
+        case  5 : return "3/2.1";                                       //5 channels (not sure)
+        case  6 : return "3/2.1";                                       //6 channels
+        case  7 : return "3.2/2.1";                                     //7 channels
+        case  8 : return "3.2/2.1";                                     //8 channels
         default : return "";
     }
 }
+
+//---------------------------------------------------------------------------
+int32u Pcm_M2TS_Frequency[]=
+{
+        0,
+    48000,
+        0,
+        0,
+    96000,
+   192000,
+        0,
+        0,
+};
+
+//---------------------------------------------------------------------------
+int32u Pcm_M2TS_Resolution[]=
+{
+        0,
+       16,
+       20,
+       24,
+};
 
 //***************************************************************************
 // Buffer - Global
@@ -91,7 +113,8 @@ const char* Pcm_VOB_ChannelsPositions2(int8u NumberOfChannelsMinusOne)
 void File_Pcm::Read_Buffer_Continue()
 {
     if (Codec!=_T("VOB")
-     && Codec!=_T("EVOB")) //No need of data
+     && Codec!=_T("EVOB")
+     && Codec!=_T("M2TS")) //No need of data
     {
         //Filling
         Stream_Prepare(Stream_General);
@@ -113,8 +136,9 @@ void File_Pcm::Read_Buffer_Finalize()
     Ztring Firm, Endianness, Sign, ITU, Resolution;
     if (0)
         ;
-    else if (Codec==_T("EVOB"))             {Firm=_T("");       Endianness=_T("Big");    Sign=_T("Signed");   Resolution=_T("");} //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
-    else if (Codec==_T("VOB"))              {Firm=_T("");       Endianness=_T("Big");    Sign=_T("Signed");   Resolution=_T("");} //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
+    else if (Codec==_T("EVOB"))             {Firm=_T("");       Endianness=_T("Big");    Sign=_T("Signed");   Resolution=_T("16");} //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
+    else if (Codec==_T("VOB"))              {Firm=_T("");       Endianness=_T("Big");    Sign=_T("Signed");   Resolution=_T("16");} //PCM Signed 16 bits Big Endian, Interleavement is for 2 samples*2 channels L0-1/L0-0/R0-1/R0-0/L1-1/L1-0/R1-1/R1-0/L0-2/R0-2/L1-2/R1-2, http://wiki.multimedia.cx/index.php?title=PCM
+    else if (Codec==_T("M2TS"))             {Firm=_T("");       Endianness=_T("Big");    Sign=_T("Signed");}                        //PCM Signed         Big Endian
     else if (Codec==_T("A_PCM/INT/BIG"))    {Firm=_T("");       Endianness=_T("Big");}
     else if (Codec==_T("A_PCM/INT/LITTLE")) {Firm=_T("");       Endianness=_T("Little");}
     else if (Codec==_T("A_PCM/INT/FLOAT"))  {Firm=_T("");       Endianness=_T("Float");}
@@ -196,7 +220,8 @@ void File_Pcm::Read_Buffer_Finalize()
         Fill(Stream_Audio, 0, Audio_Codec_Settings, ITU);
         Fill(Stream_Audio, 0, Audio_Codec_Settings_ITU, ITU);
     }
-    Fill(Stream_Audio, 0, Audio_Resolution, Resolution);
+    if (!Resolution.empty())
+        Fill(Stream_Audio, 0, Audio_Resolution, Resolution);
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
 }
 
@@ -218,6 +243,8 @@ void File_Pcm::Data_Parse()
     //Parsing
     if (Codec==_T("VOB") || Codec==_T("EVOB"))
         VOB();
+    if (Codec==_T("M2TS"))
+        M2TS();
     else
         Skip_XX(Element_Size,                                   "Data"); //It is impossible to detect... Default is no detection, only filling
 
@@ -253,11 +280,45 @@ void File_Pcm::VOB()
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "PCM");
         Fill(Stream_Audio, 0, Audio_Codec, "PCM");
+        Fill(Stream_Audio, 0, Audio_MuxingMode, "DVD-Video");
         Fill(Stream_Audio, 0, Audio_SamplingRate, Pcm_VOB_Frequency[Frequency]);
         Fill(Stream_Audio, 0, Audio_Channel_s_, NumberOfChannelsMinusOne+1);
-        Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannelsMinusOne));
-        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannelsMinusOne));
+        Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannelsMinusOne+1));
+        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannelsMinusOne+1));
         Fill(Stream_Audio, 0, Audio_BitRate, Pcm_VOB_Frequency[Frequency]*(NumberOfChannelsMinusOne+1)*16);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Pcm::M2TS()
+{
+    //Parsing
+    int8u Frequency, NumberOfChannelsMinusFive, Resolution;
+    Skip_B2(                                                    "Block size");
+    BS_Begin();
+    Skip_S1(2,                                                  "Unknown");
+    Get_S1 (2, NumberOfChannelsMinusFive,                       "Number of channels (minus 5)");
+    Get_S1 (4, Frequency,                                       "Frequency");
+    Get_S1 (2, Resolution,                                      "Resolution");
+    Skip_S1(6,                                                  "Unknown");
+    BS_End();
+    Skip_XX(Element_Size-Element_Offset,                        "Data");
+
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "PCM");
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "PCM");
+        Fill(Stream_Audio, 0, Audio_Codec, "PCM");
+        Fill(Stream_Audio, 0, Audio_MuxingMode, "Blu-ray");
+        Fill(Stream_Audio, 0, Audio_SamplingRate, Pcm_M2TS_Frequency[Frequency]);
+        Fill(Stream_Audio, 0, Audio_Resolution, Pcm_M2TS_Resolution[Resolution]);
+        Fill(Stream_Audio, 0, Audio_Channel_s_, NumberOfChannelsMinusFive+5);
+        Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannelsMinusFive+5));
+        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannelsMinusFive+5));
+        if (NumberOfChannelsMinusFive%2==0)
+            NumberOfChannelsMinusFive++; //Always by pair
+        Fill(Stream_Audio, 0, Audio_BitRate, Pcm_M2TS_Frequency[Frequency]*(NumberOfChannelsMinusFive+5)*Pcm_M2TS_Resolution[Resolution]);
     FILLING_END();
 }
 

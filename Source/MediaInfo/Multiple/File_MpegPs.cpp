@@ -2879,7 +2879,14 @@ File__Analyze* File_MpegPs::ChooseParser_PCM()
     //Filling
     #if defined(MEDIAINFO_PCM_YES)
         File__Analyze* Handle=new File_Pcm();
-        ((File_Pcm*)Handle)->Codec=private_stream_1_ID==0x83?_T("EVOB"):_T("VOB");
+        Ztring Codec;
+        switch (private_stream_1_ID)
+        {
+            case 0x80 : Codec=_T("M2TS"); break;
+            case 0x83 : Codec=_T("EVOB"); break;
+            default   : Codec=_T("VOB");
+        }
+        ((File_Pcm*)Handle)->Codec=Codec;
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
