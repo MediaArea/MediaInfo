@@ -135,6 +135,9 @@ const char* Mpeg4_Descriptors_ObjectTypeIndication(int8u ID)
         case 0xA4 : return "Dirac";
         case 0xA5 : return "AC-3";
         case 0xA6 : return "E-AC-3";
+        case 0xA9 : return "DTS";
+        case 0xAA : return "DTS-HD High Resolution";
+        case 0xAB : return "DTS-HD Master Audio";
         case 0xD1 : return "Private - EVRC";
         case 0xD3 : return "Private - AC-3";
         case 0xD4 : return "Private - DTS";
@@ -544,7 +547,10 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0xA3 : Fill(StreamKind_Last, StreamPos_Last, "Format", "VC-1", Error, false, true); break;
             case 0xA4 : Fill(StreamKind_Last, StreamPos_Last, "Format", "Dirac", Error, false, true); break;
             case 0xA5 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AC-3", Error, false, true); break;
-            case 0xA6 : Fill(StreamKind_Last, StreamPos_Last, "Format", "E-AC-3", Error, false, true); break; 
+            case 0xA6 : Fill(StreamKind_Last, StreamPos_Last, "Format", "E-AC-3", Error, false, true); break;
+            case 0xA9 : Fill(StreamKind_Last, StreamPos_Last, "Format", "DTS", Error, false, true); break;
+            case 0xAA : Fill(StreamKind_Last, StreamPos_Last, "Format", "DTS", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "HRA", Error, false, true); break; // DTS-HD High Resolution
+            case 0xAB : Fill(StreamKind_Last, StreamPos_Last, "Format", "DTS", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "MA", Error, false, true); break;  // DTS-HD Master Audio
             case 0xD1 : Fill(StreamKind_Last, StreamPos_Last, "Format", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
             case 0xD3 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AC-3", Error, false, true); break;
             case 0xD4 : Fill(StreamKind_Last, StreamPos_Last, "Format", "DTS", Error, false, true); break;
@@ -582,6 +588,9 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0xA4 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "Dirac", Error, false, true); break;
             case 0xA5 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "AC3", Error, false, true); break;
             case 0xA6 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "AC3+", Error, false, true); break;
+            case 0xA9 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "DTS", Error, false, true); break;
+            case 0xAA : 
+            case 0xAB : Fill(StreamKind_Last, StreamPos_Last, "Codec", "DTS-HD", Error, false, true); break;
             case 0xD1 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
             case 0xD3 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "AC3", Error, false, true); break;
             case 0xD4 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "DTS", Error, false, true); break;
@@ -685,6 +694,9 @@ void File_Mpeg4_Descriptors::Descriptor_04()
                             Parser=new File_Ac3;
                         #endif
                         break;
+            case 0xA9 : //DTS
+            case 0xAA : //DTS HRA
+            case 0xAB : //DTS MA
             case 0xD4 : //DTS
                         #if defined(MEDIAINFO_DTS_YES)
                             Parser=new File_Dts;
