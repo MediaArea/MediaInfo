@@ -492,6 +492,8 @@
         <FILE FILENAME="..\..\..\..\wxMSW\lib\bcc_lib\wxbase28ud.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxbase28ud" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\wxMSW\lib\bcc_lib\wxmsw28ud_core.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxmsw28ud_core" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\wxMSW\lib\bcc_lib\wxmsw28ud_html.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wxmsw28ud_html" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Eia608.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Eia608" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_Eia708.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Eia708" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
