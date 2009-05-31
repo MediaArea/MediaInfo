@@ -11,6 +11,7 @@ Version 0.7.17, 2009-
 -------------
 + MPEG-PS/TS: ATSC Closed captions (both EIA-608 and EIA-708) detection
 + MPEG-PS/TS: Language of closed caption (ATSC)
++ DV: camera settings
 + DV: Closed captions detection (raw DV, or in .mp4 and AVI container)
 + JPEG 2000 support
 + MPEG-4: support of JPEG 2000 embedded in a MPEG-4 container

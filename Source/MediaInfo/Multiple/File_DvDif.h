@@ -82,6 +82,8 @@ private :
     void video_recdate();
     void video_rectime();
     void closed_captions();
+    void consumer_camera_1();
+    void consumer_camera_2();
 
     //Helpers
     Ztring recdate();
@@ -104,6 +106,8 @@ private :
     int8u  DBN;
     int8u  DBN_Olds[8];
     int8u  FSC;
+    bool   consumer_camera_1_Parsed;
+    bool   consumer_camera_2_Parsed;
     bool   DSF;
     bool   DSF_IsValid;
     int8u  APT;

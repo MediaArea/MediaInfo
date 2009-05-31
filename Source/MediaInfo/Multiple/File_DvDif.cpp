@@ -165,6 +165,63 @@ const char*  Dv_Emphasis[]=
     "Reserved",
 };
 
+//---------------------------------------------------------------------------
+const char*  Dv_consumer_camera_1_ae_mode[]=
+{
+    "full automatic",
+    "gain priority mode",
+    "shutter priority mode",
+    "iris priority mode",
+    "manual",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "", //no info
+};
+
+//---------------------------------------------------------------------------
+const char*  Dv_consumer_camera_1_wb_mode[]=
+{
+    "automatic",
+    "hold",
+    "one push",
+    "pre-set",
+    "",
+    "",
+    "",
+    "", //no info
+};
+
+//---------------------------------------------------------------------------
+const char* Dv_consumer_camera_1_white_balance(int8u white_balance)
+{
+    switch (white_balance)
+    {
+        case 0x00 : return "candle";
+        case 0x01 : return "incandescent lamp";
+        case 0x02 : return "low color temperature; florescent lamp";
+        case 0x03 : return "high color temperature; florescent lamp";
+        case 0x04 : return "sunlight";
+        case 0x05 : return "cloudy weather";
+        case 0x1F : return ""; //No info
+        default   : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char*  Dv_consumer_camera_1_fcm[]=
+{
+    "auto focus",
+    "manual focus",
+};
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -188,6 +245,8 @@ File_DvDif::File_DvDif()
     DBN_Olds[2]=2; //Vaux
     DBN_Olds[3]=8; //Audio
     DBN_Olds[4]=134; //Video
+    consumer_camera_1_Parsed=false;
+    consumer_camera_2_Parsed=false;
     DSF_IsValid=false;
     APT=0xFF; //Impossible
     TF1=false; //Valid by default, for direct analyze
@@ -1691,6 +1750,8 @@ void File_DvDif::Element()
         case 0x62 : video_recdate(); break;
         case 0x63 : video_rectime(); break;
         case 0x65 : closed_captions(); break;
+        case 0x70 : consumer_camera_1(); break;
+        case 0x71 : consumer_camera_2(); break;
         case 0xFF : Element_Name(Ztring().From_Number(PackType, 16));
                     Skip_B4(                                    "Unused"); break;
         default   : Element_Name(Ztring().From_Number(PackType, 16));
@@ -2062,6 +2123,8 @@ void File_DvDif::video_rectime()
 //---------------------------------------------------------------------------
 void File_DvDif::closed_captions()
 {
+    Element_Name("closed_captions");
+
     #if defined(MEDIAINFO_EIA608_YES)
         if (CC_Parsers.empty())
         {
@@ -2083,6 +2146,55 @@ void File_DvDif::closed_captions()
     #else
         Skip_XX(4,                                              "Captions");
     #endif
+}
+
+//---------------------------------------------------------------------------
+void File_DvDif::consumer_camera_1()
+{
+    Element_Name("consumer_camera_1");
+
+    //Parsing
+    BS_Begin();
+    Mark_1_NoTrustError();
+    Mark_1_NoTrustError();
+    Skip_S1(6,                                                  "iris");
+    Info_S1(4, ae_mode,                                         "ae mode"); Param_Info(Dv_consumer_camera_1_ae_mode[ae_mode]);
+    Skip_S1(4,                                                  "agc(Automatic Gain Control)");
+    Info_S1(3, wb_mode,                                         "wb mode (white balance mode)"); Param_Info(Dv_consumer_camera_1_wb_mode[wb_mode]);
+    Info_S1(5, white_balance,                                   "white balance"); Param_Info(Dv_consumer_camera_1_white_balance(white_balance));
+    Info_S1(1, fcm,                                             "fcm (Focus mode)"); Param_Info(Dv_consumer_camera_1_fcm[fcm]);
+    Skip_S1(7,                                                  "focus (focal point)");
+    BS_End();
+
+    if (!consumer_camera_1_Parsed)
+    {
+        if (ae_mode!=0x0F) Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("ae mode=")+Ztring(Dv_consumer_camera_1_ae_mode[ae_mode]));
+        if (wb_mode!=0x08) Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("wb mode=")+Ztring(Dv_consumer_camera_1_wb_mode[wb_mode]));
+        if (wb_mode!=0x1F) Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("white balance=")+Ztring(Dv_consumer_camera_1_white_balance(white_balance)));
+                           Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("fcm=")+Ztring(Dv_consumer_camera_1_fcm[fcm]));
+        consumer_camera_1_Parsed=true;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_DvDif::consumer_camera_2()
+{
+    Element_Name("consumer_camera_2");
+
+    //Parsing
+    BS_Begin();
+    Mark_1_NoTrustError();
+    Mark_1_NoTrustError();
+    Skip_S1(1,                                                  "vpd");
+    Skip_S1(5,                                                  "vertical panning speed");
+    Skip_S1(1,                                                  "is");
+    Skip_S1(1,                                                  "hpd");
+    Skip_S1(6,                                                  "horizontal panning speed");
+    Skip_S1(8,                                                  "focal length");
+    Skip_S1(1,                                                  "zen");
+    Info_S1(3, zoom_U,                                          "units of e-zoom");
+    Info_S1(4, zoom_D,                                          "1/10 of e-zoom"); if (zoom_D!=0xF) Param_Info(_T("zoom=")+Ztring().From_Number(zoom_U+((float32)zoom_U)/10, 2));
+    BS_End();
 }
 
 //***************************************************************************
