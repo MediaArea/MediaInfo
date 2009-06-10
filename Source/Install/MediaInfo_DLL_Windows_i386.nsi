@@ -20,7 +20,7 @@ SetCompressor /FINAL /SOLID lzma
 !include "x64.nsh"
 
 ; Modern UI
-!include "MUI.nsh"
+!include "MUI2.nsh"
 !define MUI_ABORTWARNING
 !define MUI_ICON "..\..\..\MediaInfo\Source\Ressource\Image\MediaInfo_TinyOnly.ico"
 
@@ -29,13 +29,15 @@ SetCompressor /FINAL /SOLID lzma
 !define MUI_LANGDLL_REGISTRY_KEY "${PRODUCT_UNINST_KEY}"
 !define MUI_LANGDLL_REGISTRY_VALUENAME "NSIS:Language"
 
-; Directory page
+; Installer pages
 !insertmacro MUI_PAGE_DIRECTORY
-
-; Instfiles page
 !insertmacro MUI_PAGE_INSTFILES
+!insertmacro MUI_PAGE_FINISH
 ; Uninstaller pages
+!insertmacro MUI_UNPAGE_WELCOME
+!insertmacro MUI_UNPAGE_CONFIRM
 !insertmacro MUI_UNPAGE_INSTFILES
+!insertmacro MUI_UNPAGE_FINISH
 
 ; Language files
 !insertmacro MUI_LANGUAGE "Albanian"
@@ -65,6 +67,7 @@ SetCompressor /FINAL /SOLID lzma
 !insertmacro MUI_LANGUAGE "Thai"
 !insertmacro MUI_LANGUAGE "TradChinese"
 !insertmacro MUI_LANGUAGE "Turkish"
+!insertmacro MUI_RESERVEFILE_LANGDLL
 
 ; Info
 VIProductVersion "${PRODUCT_VERSION4}"
