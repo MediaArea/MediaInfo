@@ -698,6 +698,8 @@ bool File_Swf::Decompress()
     Merge(MI, Stream_General, 0, 0);
     delete[] Dest; //Dest=NULL;
 
+    if (MI.IsAccepted)
+        Accept("SWF");
     Finish("SWF");
     return true;
 }

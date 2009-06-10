@@ -190,7 +190,7 @@ int MediaInfo_Internal::Format_Test()
     Format_Test_FillBuffer_Close();
 
     //Is this file detected?
-    if (!Info->IsAccepted && Stream[Stream_General].empty())
+    if (!Info->IsAccepted)
     {
         delete Info; Info=NULL;
         return 0;
