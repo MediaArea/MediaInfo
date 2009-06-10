@@ -145,10 +145,12 @@ private :
     void moov_trak_mdia_minf_stbl_stsd_xxxxVideo();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_avcC();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_alac();
+    void moov_trak_mdia_minf_stbl_stsd_xxxx_bitr();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_btrt();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_chan();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_clap();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_colr();
+    void moov_trak_mdia_minf_stbl_stsd_xxxx_d263();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_dac3();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_dec3();
     void moov_trak_mdia_minf_stbl_stsd_xxxx_damr();
@@ -182,6 +184,7 @@ private :
     void moov_udta();
     void moov_udta_AllF();
     void moov_udta_chpl();
+    void moov_udta_clsf();
     void moov_udta_cprt();
     void moov_udta_DcMD();
     void moov_udta_DcMD_Cmbo();
@@ -195,6 +198,9 @@ private :
     void moov_udta_hinv();
     void moov_udta_hnti();
     void moov_udta_hnti_rtp ();
+    void moov_udta_ID32();
+    void moov_udta_kywd();
+    void moov_udta_loci();
     void moov_udta_LOOP();
     void moov_udta_MCPS();
     void moov_udta_meta();
@@ -206,6 +212,7 @@ private :
     void moov_udta_meta_ilst_xxxx_name();
     void moov_udta_ndrm();
     void moov_udta_nsav();
+    void moov_udta_rtng();
     void moov_udta_ptv ();
     void moov_udta_Sel0();
     void moov_udta_tags();
@@ -214,6 +221,7 @@ private :
     void moov_udta_tags_tseg_tshd();
     void moov_udta_WLOC();
     void moov_udta_XMP_();
+    void moov_udta_yrrc();
     void moov_udta_xxxx();
     void PICT();
     void pckg();

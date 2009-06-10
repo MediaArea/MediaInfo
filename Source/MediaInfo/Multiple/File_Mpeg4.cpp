@@ -82,8 +82,10 @@ namespace Elements
     const int64u moov_meta___wrn=0xA977726E;
     const int64u moov_meta___wrt=0xA9777274;
     const int64u moov_meta__aART=0x61415254;
+    const int64u moov_meta__albm=0x616C626D;
     const int64u moov_meta__auth=0x61757468;
     const int64u moov_meta__cpil=0x6370696C;
+    const int64u moov_meta__cprt=0x63707274;
     const int64u moov_meta__covr=0x636F7672;
     const int64u moov_meta__disk=0x6469736B;
     const int64u moov_meta__dscp=0x64736370;
@@ -370,8 +372,10 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta___wrn : Parameter="Warning"; return Method_String;
         case Elements::moov_meta___wrt : Parameter="ScreenplayBy"; return Method_String;
         case Elements::moov_meta__auth : Parameter="Performer"; return Method_String2;
+        case Elements::moov_meta__albm : Parameter="Album"; return Method_String2; //Has a optional track number after the NULL byte
         case Elements::moov_meta__aART : Parameter="Performer"; return Method_String2;
         case Elements::moov_meta__cpil : Parameter.clear(); return Method_None;
+        case Elements::moov_meta__cprt : Parameter="Copyright"; return Method_String2;
         case Elements::moov_meta__disk : Parameter="Part"; return Method_Binary;
         case Elements::moov_meta__dscp : Parameter="Title/More"; return Method_String2;
         case Elements::moov_meta__gnre : Parameter="Genre"; return Method_String2;

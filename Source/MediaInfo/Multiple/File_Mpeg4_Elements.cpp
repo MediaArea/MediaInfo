@@ -168,50 +168,18 @@ namespace Elements
     const int64u moov_iods=0x696F6473;
     const int64u moov_meta=0x6D657461;
     const int64u moov_meta______=0x2D2D2D2D;
-    const int64u moov_meta___ART=0xA9415254;
-    const int64u moov_meta___alb=0xA9616C62;
-    const int64u moov_meta___aut=0xA9617574;
-    const int64u moov_meta___cmt=0xA9636D74;
-    const int64u moov_meta___cpy=0xA9637079;
     const int64u moov_meta___day=0xA9646179;
-    const int64u moov_meta___des=0xA9646573;
-    const int64u moov_meta___dir=0xA9646972;
-    const int64u moov_meta___dis=0xA9646973;
-    const int64u moov_meta___edl=0xA965646C;
-    const int64u moov_meta___fmt=0xA9666D74;
-    const int64u moov_meta___gen=0xA967656E;
-    const int64u moov_meta___hos=0xA9686F73;
-    const int64u moov_meta___inf=0xA9696E66;
-    const int64u moov_meta___key=0xA96B6579;
-    const int64u moov_meta___mak=0xA96D616B;
-    const int64u moov_meta___mod=0xA96D6F64;
-    const int64u moov_meta___nam=0xA96E616D;
-    const int64u moov_meta___prd=0xA9707264;
-    const int64u moov_meta___PRD=0xA9505244;
-    const int64u moov_meta___prf=0xA9707266;
-    const int64u moov_meta___req=0xA9726571;
-    const int64u moov_meta___src=0xA9737263;
-    const int64u moov_meta___swr=0xA9737772;
-    const int64u moov_meta___too=0xA9746F6F;
-    const int64u moov_meta___wrn=0xA977726E;
-    const int64u moov_meta___wrt=0xA9777274;
-    const int64u moov_meta__auth=0x61757468;
-    const int64u moov_meta__cpil=0x6370696C;
-    const int64u moov_meta__covr=0x636F7672;
     const int64u moov_meta__disk=0x6469736B;
-    const int64u moov_meta__dscp=0x64736370;
-    const int64u moov_meta__gnre=0x676E7265;
-    const int64u moov_meta__name=0x6E616D65;
-    const int64u moov_meta__perf=0x70657266;
-    const int64u moov_meta__titl=0x7469746C;
     const int64u moov_meta__trkn=0x74726B6E;
-    const int64u moov_meta__tmpo=0x746D706F;
+    const int64u moov_meta__trng=0x74726E67;
+    const int64u moov_meta__covr=0x636F7672;
+    const int64u moov_meta__gnre=0x676E7265;
+    const int64u moov_meta_bxml=0x62786D6C;
     const int64u moov_meta_hdlr=0x68646C72;
     const int64u moov_meta_hdlr_mdir=0x6D646972;
     const int64u moov_meta_hdlr_mdta=0x6D647461;
     const int64u moov_meta_hdlr_mp7b=0x6D703762;
     const int64u moov_meta_hdlr_mp7t=0x6D703774;
-    const int64u moov_meta_bxml=0x62786D6C;
     const int64u moov_meta_keys=0x6B657973;
     const int64u moov_meta_keys_mdta=0x6D647461;
     const int64u moov_meta_ilst=0x696C7374;
@@ -280,10 +248,12 @@ namespace Elements
     const int64u moov_trak_mdia_minf_stbl_stsd_tx3g_ftab=0x66746162;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_alac=0x616C6163;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_avcC=0x61766343;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_bitr=0x62697472;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_btrt=0x62747274;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_clap=0x636C6170;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_chan=0x6368616E;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_colr=0x636F6C72;
+    const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_d263=0x64323633;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_dac3=0x64616333;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_dec3=0x64656333;
     const int64u moov_trak_mdia_minf_stbl_stsd_xxxx_damr=0x64616D72;
@@ -323,7 +293,7 @@ namespace Elements
     const int64u moov_udta=0x75647461;
     const int64u moov_udta_AllF=0x416C6C46;
     const int64u moov_udta_chpl=0x6368706C;
-    const int64u moov_udta_cprt=0x63707274;
+    const int64u moov_udta_clsf=0x636C7366;
     const int64u moov_udta_DcMD=0x44634D44;
     const int64u moov_udta_DcMD_Cmbo=0x436D626F;
     const int64u moov_udta_DcMD_DcME=0x44634D45;
@@ -336,6 +306,9 @@ namespace Elements
     const int64u moov_udta_hinv=0x68696E76;
     const int64u moov_udta_hnti=0x686E7469;
     const int64u moov_udta_hnti_rtp=0x72747020;
+    const int64u moov_udta_ID32=0x49443332;
+    const int64u moov_udta_kywd=0x6B797764;
+    const int64u moov_udta_loci=0x6C6F6369;
     const int64u moov_udta_LOOP=0x4C4F4F50;
     const int64u moov_udta_MCPS=0x4D435053;
     const int64u moov_udta_meta=0x6D657461;
@@ -347,6 +320,7 @@ namespace Elements
     const int64u moov_udta_ndrm=0x6E64726D;
     const int64u moov_udta_nsav=0x6E736176;
     const int64u moov_udta_ptv =0x70747620;
+    const int64u moov_udta_rtng=0x72746E67;
     const int64u moov_udta_Sel0=0x53656C30;
     const int64u moov_udta_tags=0x74616773;
     const int64u moov_udta_tags_meta=0x6D657461;
@@ -354,6 +328,7 @@ namespace Elements
     const int64u moov_udta_tags_tseg_tshd=0x74736864;
     const int64u moov_udta_WLOC=0x574C4F43;
     const int64u moov_udta_XMP_=0x584D505F;
+    const int64u moov_udta_yrrc=0x79727263;
     const int64u PICT=0x50494354;
     const int64u pckg=0x70636B67;
     const int64u pnot=0x706E6F74;
@@ -432,11 +407,12 @@ void File_Mpeg4::Data_Parse()
         ATOM(moov_iods)
         LIST(moov_meta)
             ATOM_BEGIN
-            ATOM(moov_meta_hdlr)
+            ATOM(moov_meta_bxml)
             LIST(moov_meta_keys)
                 ATOM_BEGIN
                 ATOM(moov_meta_keys_mdta)
                 ATOM_END
+            ATOM(moov_meta_hdlr)
             LIST(moov_meta_ilst)
                 ATOM_BEGIN
                 LIST_DEFAULT (moov_meta_ilst_xxxx)
@@ -446,6 +422,7 @@ void File_Mpeg4::Data_Parse()
                     ATOM (moov_meta_ilst_xxxx_name)
                     ATOM_END
                 ATOM_END_DEFAULT
+            ATOM(moov_meta_xml)
             ATOM_END
         LIST(moov_mvex)
             ATOM_BEGIN
@@ -528,10 +505,12 @@ void File_Mpeg4::Data_Parse()
                                 ATOM_BEGIN
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_alac)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_avcC)
+                                ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_bitr)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_btrt)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_chan)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_clap)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_colr)
+                                ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_d263)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_dac3)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_dec3)
                                 ATOM(moov_trak_mdia_minf_stbl_stsd_xxxx_damr)
@@ -580,7 +559,7 @@ void File_Mpeg4::Data_Parse()
             ATOM_BEGIN
             ATOM(moov_udta_AllF)
             ATOM(moov_udta_chpl)
-            ATOM(moov_udta_cprt)
+            ATOM(moov_udta_clsf)
             LIST(moov_udta_DcMD)
                 ATOM_BEGIN
                 ATOM(moov_udta_DcMD_Cmbo)
@@ -599,6 +578,9 @@ void File_Mpeg4::Data_Parse()
                 ATOM_BEGIN
                 ATOM(moov_udta_hnti_rtp)
                 ATOM_END
+            ATOM(moov_udta_ID32)
+            ATOM(moov_udta_kywd)
+            ATOM(moov_udta_loci)
             ATOM(moov_udta_LOOP)
             ATOM(moov_udta_MCPS)
             LIST(moov_udta_meta)
@@ -617,6 +599,7 @@ void File_Mpeg4::Data_Parse()
             ATOM(moov_udta_ndrm)
             ATOM(moov_udta_nsav)
             ATOM(moov_udta_ptv )
+            ATOM(moov_udta_rtng)
             ATOM(moov_udta_Sel0)
             LIST(moov_udta_tags)
                 ATOM_BEGIN
@@ -628,6 +611,7 @@ void File_Mpeg4::Data_Parse()
                 ATOM_END
             ATOM(moov_udta_WLOC)
             ATOM(moov_udta_XMP_)
+            ATOM(moov_udta_yrrc)
             ATOM_DEFAULT (moov_udta_xxxx); //User data
             ATOM_END_DEFAULT
         ATOM_END
@@ -2741,10 +2725,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
 
         //Descriptors or a list (we can see both!)
         if (Element_Offset+8<=Element_Size
-             && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+0)>='A' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+0)<='z'
-             && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+1)>='A' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+1)<='z'
-             && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+2)>='A' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+2)<='z'
-             && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+3)>='A' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+3)<='z')
+             && (CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+0)>='A' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+0)<='z' || CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+0)>='0' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+0)<='9')
+             && (CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+1)>='A' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+1)<='z' || CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+1)>='0' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+1)<='9')
+             && (CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+2)>='A' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+2)<='z' || CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+2)>='0' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+2)<='9')
+             && (CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+3)>='A' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+3)<='z' || CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+3)>='0' && CC1(Buffer+Buffer_Offset+(size_t)Element_Offset+4+3)<='9'))
                 Element_ThisIsAList();
         else if (Element_Offset<Element_Size)
             Descriptors();
@@ -2809,6 +2793,23 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_avcC()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_bitr()
+{
+    Element_Name("BitRate");
+
+    //Parsing
+    int32u Avg_Bitrate, Max_Bitrate;
+    Get_B4 (Avg_Bitrate,                                        "Avg_Bitrate");
+    Get_B4 (Max_Bitrate,                                        "Max_Bitrate");
+
+    FILLING_BEGIN();
+        if (Avg_Bitrate)
+            Fill(StreamKind_Last, StreamPos_Last, "BitRate", Avg_Bitrate);
+        Fill(StreamKind_Last, StreamPos_Last, "BitRate_Maximum", Max_Bitrate);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_btrt()
 {
     Element_Name("BitRate");
@@ -2860,6 +2861,37 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_colr()
     Skip_B2(                                                    "Primaries index");
     Skip_B2(                                                    "Transfer function index");
     Skip_B2(                                                    "Matrix index");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_d263()
+{
+    Element_Name("H263SpecificBox");
+
+    //Parsing
+    int32u Vendor;
+    int8u  Version, H263_Level, H263_Profile;
+    Get_C4 (Vendor,                                             "Encoder vendor");
+    Get_B1 (Version,                                            "Encoder version");
+    Get_B1 (H263_Level,                                         "H263_Level");
+    Get_B1 (H263_Profile,                                       "H263_Profile");
+
+    Ztring ProfileLevel;
+    switch (H263_Profile)
+    {
+        case 0x00 : ProfileLevel=_T("BaseLine"); break;
+        default   : ProfileLevel.From_Number(H263_Profile);
+    }
+    ProfileLevel+=_T('@');
+    ProfileLevel+=Ztring::ToZtring(((float32)H263_Level)/10, 1);
+    Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, ProfileLevel);
+    switch (Vendor)
+    {
+        default         : Fill(Stream_Video, StreamPos_Last, Video_Encoded_Library_Name, Ztring().From_CC4(Vendor));
+    }
+    Fill(Stream_Video, StreamPos_Last, Video_Encoded_Library_Version, Version);
+    Fill(Stream_Video, StreamPos_Last, Video_Encoded_Library, Retrieve(Stream_Video, StreamPos_Last, Video_Encoded_Library_Name)+_T(' ')+Ztring::ToZtring(Version));
+    Fill(Stream_Video, StreamPos_Last, Video_Encoded_Library_String, Retrieve(Stream_Video, StreamPos_Last, Video_Encoded_Library_Name)+(Version?(_T(" Revision ")+Ztring::ToZtring(Version)):Ztring()));
 }
 
 //---------------------------------------------------------------------------
@@ -2973,7 +3005,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_damr()
     }
     Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Version, Version);
     Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library, Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+_T(' ')+Ztring::ToZtring(Version));
-    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_String, Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+(Version?(_T("Revision")+Ztring::ToZtring(Version)):Ztring()));
+    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_String, Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+(Version?(_T(" Revision ")+Ztring::ToZtring(Version)):Ztring()));
 }
 
 //---------------------------------------------------------------------------
@@ -3528,17 +3560,33 @@ void File_Mpeg4::moov_udta_chpl()
 }
 
 //---------------------------------------------------------------------------
-void File_Mpeg4::moov_udta_cprt()
+void File_Mpeg4::moov_udta_clsf()
 {
-    NAME_VERSION_FLAG("Copyright");
+    NAME_VERSION_FLAG("Classification"); //3GP
 
     //Parsing
-    Ztring Copyright;
-    Skip_B2(                                                    "Language");
-    Get_Local(Element_Size-Element_Offset, Copyright,           "Copyright");
+    Ztring ClassificationInfo;
+    int32u ClassificationEntity;
+    int16u Language, ClassificationTable;
+    Get_C4(ClassificationEntity,                                "ClassificationEntity");
+    Get_C2(ClassificationTable,                                 "ClassificationTable");
+    Get_B2(Language,                                            "Language");
+    bool Utf8=true;
+    if (Element_Offset+2<=Element_Size)
+    {
+        int16u Utf16;
+        Peek_B2(Utf16);
+        if (Utf16==0xFEFF)
+            Utf8=false;
+    }
+    if (Utf8)
+        Get_UTF8(Element_Size-Element_Offset, ClassificationInfo, "ClassificationInfo");
+    else
+        Get_UTF16(Element_Size-Element_Offset, ClassificationInfo, "ClassificationInfo");
 
     FILLING_BEGIN();
-        Fill(Stream_General, 0, General_Copyright, Copyright);
+        Fill(Stream_General, 0, "Classification", Ztring().From_CC4(ClassificationTable));
+        Fill(Stream_General, 0, "Classification_Reason", ClassificationInfo);
     FILLING_END();
 }
 
@@ -3642,6 +3690,69 @@ void File_Mpeg4::moov_udta_hnti_rtp()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_ID32()
+{
+    NAME_VERSION_FLAG("ID3v2"); //3GP
+
+    //Parsing
+    int16u Language;
+    Get_B2(Language,                                            "Language");
+    Skip_XX(Element_Size-Element_Offset,                        "ID3v2data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_kywd()
+{
+    NAME_VERSION_FLAG("Keywords"); //3GP
+
+    //Parsing
+    int16u Language;
+    int8u KeywordCnt;
+    Get_B2(Language,                                            "Language");
+    Get_B1(KeywordCnt,                                          "KeywordCnt");
+    for (int8u Pos=0; Pos<KeywordCnt; Pos++)
+    {
+        Ztring KeywordInfo;
+        int8u  KeywordSize;
+        Get_B1(KeywordSize,                                     "KeywordSize");
+        bool Utf8=true;
+        if (Element_Offset+2<=Element_Size)
+        {
+            int16u Utf16;
+            Peek_B2(Utf16);
+            if (Utf16==0xFEFF)
+                Utf8=false;
+        }
+        if (Utf8)
+            Get_UTF8(KeywordSize, KeywordInfo, "KeywordInfo");
+        else
+            Get_UTF16(KeywordSize, KeywordInfo, "KeywordInfo");
+
+        FILLING_BEGIN();
+            Fill(Stream_General, 0, "Keywords", KeywordInfo);
+        FILLING_END();
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_loci()
+{
+    NAME_VERSION_FLAG("Location Information"); //3GP
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_LOOP()
+{
+    Element_Name("LOOP");
+
+    //Parsing
+    Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_udta_MCPS()
 {
     Element_Name("Mechanical Copyright Protection Society?");
@@ -3652,15 +3763,6 @@ void File_Mpeg4::moov_udta_MCPS()
 
     //Filling
     //Fill(Stream_General, 0, General_Encoded_Library, Encoder);
-}
-
-//---------------------------------------------------------------------------
-void File_Mpeg4::moov_udta_LOOP()
-{
-    Element_Name("LOOP");
-
-    //Parsing
-    Skip_XX(Element_Size,                                       "Data");
 }
 
 //---------------------------------------------------------------------------
@@ -3737,6 +3839,37 @@ void File_Mpeg4::moov_udta_ptv()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_rtng()
+{
+    NAME_VERSION_FLAG("Rating"); //3GP
+
+    //Parsing
+    Ztring RatingInfo;
+    int32u RatingEntity, RatingCriteria;
+    int16u Language;
+    Get_C4(RatingEntity,                                        "RatingEntity");
+    Get_C4(RatingCriteria,                                      "RatingCriteria");
+    Get_B2(Language,                                            "Language");
+    bool Utf8=true;
+    if (Element_Offset+2<=Element_Size)
+    {
+        int16u Utf16;
+        Peek_B2(Utf16);
+        if (Utf16==0xFEFF)
+            Utf8=false;
+    }
+    if (Utf8)
+        Get_UTF8(Element_Size-Element_Offset, RatingInfo, "RatingInfo");
+    else
+        Get_UTF16(Element_Size-Element_Offset, RatingInfo, "RatingInfo");
+
+    FILLING_BEGIN();
+        Fill(Stream_General, 0, General_LawRating, Ztring().From_CC4(RatingCriteria));
+        Fill(Stream_General, 0, General_LawRating_Reason, RatingInfo);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_udta_Sel0()
 {
     Element_Name("Sel0");
@@ -3788,6 +3921,20 @@ void File_Mpeg4::moov_udta_XMP_()
 
     //Parsing
     Skip_XX(Element_Size,                                       "Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_udta_yrrc()
+{
+    NAME_VERSION_FLAG("Recording Year"); //3GP
+
+    //Parsing
+    int16u RecordingYear;
+    Get_B2 (RecordingYear,                                       "RecordingYear");
+
+    FILLING_BEGIN();
+        Fill(Stream_General, 0, General_Released_Date, RecordingYear);
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -3893,7 +4040,18 @@ void File_Mpeg4::moov_udta_xxxx()
                 while(Element_Offset<Element_Size)
                 {
                     Get_B2(Language,                            "Language"); Param_Info(Language_Get(Language));
-                    Get_UTF8(Element_Size-Element_Offset, Value,"Value");
+                    bool Utf8=true;
+                    if (Element_Offset+2<=Element_Size)
+                    {
+                        int16u Utf16;
+                        Peek_B2(Utf16);
+                        if (Utf16==0xFEFF)
+                            Utf8=false;
+                    }
+                    if (Utf8)
+                        Get_UTF8(Element_Size-Element_Offset, Value, "Value");
+                    else
+                        Get_UTF16(Element_Size-Element_Offset, Value, "Value");
 
                     FILLING_BEGIN();
                        if (Retrieve(Stream_General, 0, Parameter.c_str()).empty())
