@@ -342,7 +342,7 @@ Genre_001;古典搖滾 (Classic Rock)
 Genre_002;鄉村 (Country)
 Genre_003;舞曲 (Dance)
 Genre_004;迪士可 (Disco)
-Genre_005;放客 (Funk)
+Genre_005;瘋客 (Funk)
 Genre_006;頹廢 (Grunge)
 Genre_007;嘻哈 (Hip-Hop)
 Genre_008;爵士 (Jazz)
@@ -355,136 +355,136 @@ Genre_014;節奏藍調 (R&B)
 Genre_015;饒舌 (Rap)
 Genre_016;雷鬼 (Reggae)
 Genre_017;搖滾 (Rock)
-Genre_018;Techno
-Genre_019;Industrial
+Genre_018;電音 (Techno)
+Genre_019;工業 (Industrial)
 Genre_020;另類 (Alternative)
-Genre_021;Ska
-Genre_022;Death Metal
-Genre_023;Pranks
+Genre_021;斯卡 (Ska)
+Genre_022;死亡金屬 (Death Metal)
+Genre_023;惡作劇 (Pranks)
 Genre_024;原聲帶 (Soundtrack)
-Genre_025;Euro-Techno
-Genre_026;Ambient
-Genre_027;Trip-Hop
+Genre_025;歐式-電音 (Euro-Techno)
+Genre_026;環境 (Ambient)
+Genre_027;催哈 (Trip-Hop)
 Genre_028;人聲 (Vocal)
-Genre_029;爵士+放客 (Jazz+Funk)
+Genre_029;爵士+瘋客 (Jazz+Funk)
 Genre_030;融合 (Fusion)
-Genre_031;Trance
+Genre_031;玄幻 (Trance)
 Genre_032;古典樂 (Classical)
-Genre_033;Instrumental
-Genre_034;Acid
+Genre_033;器樂 (Instrumental)
+Genre_034;迷幻 (Acid)
 Genre_035;浩室 (House)
 Genre_036;遊戲 (Game)
 Genre_037;音效素材 (Sound Clip)
-Genre_038;Gospel
-Genre_039;Noise
+Genre_038;福音 (Gospel)
+Genre_039;噪音 (Noise)
 Genre_040;另類搖滾 (AlternRock)
 Genre_041;貝斯 (Bass)
 Genre_042;靈魂樂 (Soul)
 Genre_043;龐克 (Punk)
-Genre_044;Space
-Genre_045;Meditative
-Genre_046;Instrumental Pop
-Genre_047;Instrumental Rock
-Genre_048;Ethnic
-Genre_049;Gothic
-Genre_050;Darkwave
-Genre_051;Techno-Industrial
-Genre_052;Electronic
-Genre_053;Pop-Folk
-Genre_054;Eurodance
-Genre_055;Dream
-Genre_056;Southern Rock
-Genre_057;Comedy
-Genre_058;Cult
-Genre_059;Gangsta
+Genre_044;空間 (Space)
+Genre_045;冥想 (Meditative)
+Genre_046;器樂流行 (Instrumental Pop)
+Genre_047;器樂搖滾 (Instrumental Rock)
+Genre_048;民族音樂 (Ethnic)
+Genre_049;歌德 (Gothic)
+Genre_050;黑潮 (Darkwave)
+Genre_051;電音-工業 (Techno-Industrial)
+Genre_052;電子 (Electronic)
+Genre_053;流行-民歌 (Pop-Folk)
+Genre_054;歐式舞曲 (Eurodance)
+Genre_055;夢幻 (Dream)
+Genre_056;南方搖滾 (Southern Rock)
+Genre_057;喜劇 (Comedy)
+Genre_058;狂熱 (Cult)
+Genre_059;幫派 (Gangsta)
 Genre_060;排行榜 (Top 40)
-Genre_061;Christian Rap
-Genre_062;Pop/Funk
-Genre_063;Jungle
-Genre_064;Native American
-Genre_065;Cabaret
-Genre_066;New Wave
-Genre_067;Psychadelic
-Genre_068;Rave
-Genre_069;Showtunes
-Genre_070;Trailer
+Genre_061;基督饒舌 (Christian Rap)
+Genre_062;流行/瘋客 (Pop/Funk)
+Genre_063;叢林 (Jungle)
+Genre_064;美洲原住民 (Native American)
+Genre_065;酒館 (Cabaret)
+Genre_066;新潮 (New Wave)
+Genre_067;迷幻 (Psychedelic)
+Genre_068;銳舞 (Rave)
+Genre_069;秀場音樂 (Showtunes)
+Genre_070;預告片 (Trailer)
 Genre_071;低傳真 (Lo-Fi)
-Genre_072;Tribal
-Genre_073;Acid Punk
-Genre_074;Acid Jazz
-Genre_075;Polka
-Genre_076;Retro
+Genre_072;部落 (Tribal)
+Genre_073;迷幻龐克 (Acid Punk)
+Genre_074;迷幻爵士 (Acid Jazz)
+Genre_075;波卡 (Polka)
+Genre_076;懷舊 (Retro)
 Genre_077;音樂劇 (Musical)
 Genre_078;搖滾 (Rock & Roll)
-Genre_079;Hard Rock
-Genre_080;Folk
-Genre_081;Folk-Rock
+Genre_079;硬式搖滾 (Hard Rock)
+Genre_080;民歌 (Folk)
+Genre_081;民歌搖滾 (Folk-Rock)
 Genre_082;National Folk
-Genre_083;Swing
-Genre_084;Fast Fusion
-Genre_085;Bebob
+Genre_083;搖擺 (Swing)
+Genre_084;快速融合 (Fast Fusion)
+Genre_085;咆勃 (Bebop)
 Genre_086;拉丁 (Latin)
-Genre_087;Revival
-Genre_088;Celtic
-Genre_089;Bluegrass
-Genre_090;Avantgarde
-Genre_091;Gothic Rock
-Genre_092;Progressive Rock
-Genre_093;Psychedelic Rock
-Genre_094;Symphonic Rock
-Genre_095;Slow Rock
-Genre_096;Big Band
-Genre_097;Chorus
-Genre_098;Easy Listening
-Genre_099;Acoustic
+Genre_087;復興 (Revival)
+Genre_088;克爾特 (Celtic)
+Genre_089;藍草 (Bluegrass)
+Genre_090;前衛 (Avantgarde)
+Genre_091;歌德搖滾 (Gothic Rock)
+Genre_092;前衛搖滾 (Progressive Rock)
+Genre_093;迷幻搖滾 (Psychedelic Rock)
+Genre_094;交響搖滾 (Symphonic Rock)
+Genre_095;慢搖滾 (Slow Rock)
+Genre_096;大樂團 (Big Band)
+Genre_097;合唱 (Chorus)
+Genre_098;輕音樂 (Easy Listening)
+Genre_099;原味 (Acoustic)
 Genre_100;幽默 (Humour)
 Genre_101;演說 (Speech)
-Genre_102;Chanson
+Genre_102;法國香頌 (Chanson)
 Genre_103;歌劇 (Opera)
-Genre_104;Chamber Music
+Genre_104;室內樂 (Chamber Music)
 Genre_105;奏鳴曲 (Sonata)
 Genre_106;交響樂 (Symphony)
 Genre_107;Booty Bass
-Genre_108;Primus
-Genre_109;Porn Groove
-Genre_110;Satire
+Genre_108;主教 (Primus)
+Genre_109;情色 (Porn Groove)
+Genre_110;諷刺 (Satire)
 Genre_111;Slow Jam
-Genre_112;Club
+Genre_112;俱樂部 (Club)
 Genre_113;探戈 (Tango)
 Genre_114;森巴 (Samba)
-Genre_115;Folklore
-Genre_116;歌謠 (Ballad)
-Genre_117;Power Ballad
-Genre_118;Rhythmic Soul
-Genre_119;Freestyle
-Genre_120;Duet
-Genre_121;Punk Rock
-Genre_122;Drum Solo
-Genre_123;A capella
-Genre_124;Euro-House
-Genre_125;Dance Hall
-Genre_126;Goa
-Genre_127;Drum & Bass
-Genre_128;Club-House
-Genre_129;Hardcore
-Genre_130;Terror
-Genre_131;Indie
-Genre_132;Britpop
-Genre_133;Negerpunk
-Genre_134;Polsk Punk
-Genre_135;Beat
-Genre_136;Christian Gangsta Rap
+Genre_115;民俗樂 (Folklore)
+Genre_116;抒情 (Ballad)
+Genre_117;強力抒情 (Power Ballad)
+Genre_118;節奏靈魂 (Rhythmic Soul)
+Genre_119;自由風 (Freestyle)
+Genre_120;二重奏 (Duet)
+Genre_121;龐克搖滾 (Punk Rock)
+Genre_122;獨鼓 (Drum Solo)
+Genre_123;無伴奏 (A capella)
+Genre_124;歐式-浩室 (Euro-House)
+Genre_125;舞廳 (Dance Hall)
+Genre_126;果亞 (Goa)
+Genre_127;鼓打貝斯 (Drum & Bass)
+Genre_128;俱樂部-浩室 (Club-House)
+Genre_129;硬派 (Hardcore)
+Genre_130;驚悚 (Terror)
+Genre_131;獨立製作 (Indie)
+Genre_132;英式搖滾 (Britpop)
+Genre_133;黑人龐克 (Negerpunk)
+Genre_134;波蘭龐克 (Polsk Punk)
+Genre_135;打擊樂 (Beat)
+Genre_136;基督幫派饒舌 (Christian Gangsta Rap)
 Genre_137;重金屬 (Heavy Metal)
-Genre_138;Black Metal
-Genre_139;Crossover
-Genre_140;Contemporary Christian
-Genre_141;Christian Rock 
-Genre_142;Merengue
+Genre_138;黑金屬 (Black Metal)
+Genre_139;跨界 (Crossover)
+Genre_140;當代基督 (Contemporary Christian)
+Genre_141;基督搖滾 (Christian Rock)
+Genre_142;美倫格 (Merengue)
 Genre_143;莎莎 (Salsa)
-Genre_144;Trash Metal
+Genre_144;敲擊金屬 (Thrash Metal)
 Genre_145;動畫歌曲 (Anime)
 Genre_146;日本流行樂 (JPop)
-Genre_147;Synthpop
+Genre_147;新潮電子 (Synthpop)
 Go to WebSite;前往網站
 h;時
 Header file;建立標頭檔案
@@ -606,7 +606,7 @@ Language_kg;剛果語 (Kongo)
 Language_ki;基庫尤語 (Kikuyu)
 Language_kj;貢耶瑪語 (Kuanyama)
 Language_kk;哈薩克語 (Kazakh)
-Language_kl;格陵蘭島語 (Kalaallisut)
+Language_kl;格陵蘭語 (Kalaallisut)
 Language_km;高棉語 (Khmer)
 Language_kn;坎納達語 (Kannada)
 Language_ko;韓語 (Korean)
@@ -739,7 +739,7 @@ ms;毫秒
 MSDI;MSDI
 MusicBy;配樂者
 MuxingMode;合成模式
-MuxingMode_MoreInfo
+MuxingMode_MoreInfo;更多有關此合成模式的資訊
 MuxingMode_PackedBitstream;Packed bitstream
 Name;名稱
 Nationality;國籍
@@ -854,7 +854,7 @@ Sharpness;銳利度
 Sheet;表格
 Sheet (Complete);表格 (完整)
 Shell extension;快顯功能表 (在檔案總管裡, 按右鍵會出現 MediaInfo 的選項)
-Shell extension, folder
+Shell extension, folder;也對資料夾使用
 Shell InfoTip;資訊提示 (在檔案總管裡, 將滑鼠移到檔案上會顯示相關訊息)
 Show menu;顯示選單
 Show toolbar;顯示工具列
@@ -934,5 +934,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
