@@ -510,8 +510,10 @@ bool File_Mpegv::Header_Parser_Fill_Size()
 //---------------------------------------------------------------------------
 bool File_Mpegv::Header_Parser_QuickSearch()
 {
-    while (           Buffer_Offset+4<=Buffer_Size
-      &&   CC3(Buffer+Buffer_Offset)==0x000001)
+    while (       Buffer_Offset+4<=Buffer_Size
+      &&   Buffer[Buffer_Offset  ]==0x00
+      &&   Buffer[Buffer_Offset+1]==0x00
+      &&   Buffer[Buffer_Offset+2]==0x01)
     {
         //Getting start_code
         int8u start_code=Buffer[Buffer_Offset+3];
@@ -522,26 +524,19 @@ bool File_Mpegv::Header_Parser_QuickSearch()
          || Streams[start_code].Searching_TimeStamp_End)
             return true;
 
-        //Getting size
+        //Synchronizing
         Buffer_Offset+=4;
-        while (Buffer_Offset+4<=Buffer_Size)
-        {
-            while (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset]!=0x00)
-                Buffer_Offset++;
-            if (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset+1]==0x00)
-                if (Buffer[Buffer_Offset+2]==0x01)
-                    break;
-            Buffer_Offset++;
-        }
+        if (!Synchronize_0x000001())
+            break;
     }
 
-    if(File_Offset+Buffer_Size==File_Size && !IsFilled && Frame_Count>=1)
+    if (!IsSub && File_Offset+Buffer_Size==File_Size && !IsFilled && Frame_Count>=1)
         slice_start_Fill(); //End of file, and we have some frames
     else if (Buffer_Offset+4<=Buffer_Size)
         Trusted_IsNot("MPEG Video, Synchronisation lost");
 
     Synched=false;
-    return Synchronize();
+    return false;
 }
 
 //---------------------------------------------------------------------------
