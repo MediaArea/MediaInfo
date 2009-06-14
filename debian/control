@@ -9,7 +9,7 @@ Homepage: http://mediainfo.sourceforge.net
 Package: libmediainfo0-dev
 Section: libdevel
 Architecture: any
-Depends: libmediainfo0 (>= 0.7.17)
+Depends: libmediainfo0 (>= 0.7.17), libzen0-dev (>= 0.4.2)
 Description: MediaInfo supplies information about a video or audio file
  This package includes the development support files of the libmediainfo
 
