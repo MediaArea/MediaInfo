@@ -427,6 +427,7 @@ int Preferences::ExplorerShell()
         ".dv;EAC3File\r\n"
         ".jp2;EAC3File\r\n"
         ".j2k;EAC3File\r\n"
+        ".h264;H264File\r\n"
         "Folder;Folder");
 
     bool IsChanged=false;
