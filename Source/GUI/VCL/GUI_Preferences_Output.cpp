@@ -43,10 +43,10 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#ifdef MEDIAINFO_DLL
+#ifdef MEDIAINFO_DLL_RUNTIME
     #include "MediaInfoDLL/MediaInfoDLL.h"
     #define MediaInfoNameSpace MediaInfoDLL
-#elif defined MEDIAINFO_STATIC
+#elif defined MEDIAINFO_DLL_STATIC
     #include "MediaInfoDLL/MediaInfoDLL_Static.h"
     #define MediaInfoNameSpace MediaInfoDLL
 #else
