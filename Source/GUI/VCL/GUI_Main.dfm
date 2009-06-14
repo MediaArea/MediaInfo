@@ -2,7 +2,7 @@ object MainF: TMainF
   Left = 223
   Top = 273
   Caption = 'MainF'
-  ClientHeight = 611
+  ClientHeight = 631
   ClientWidth = 793
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -86,7 +86,7 @@ object MainF: TMainF
         Font.Height = -12
         Font.Name = 'Arial'
         Font.Style = []
-        ItemHeight = 0
+        ItemHeight = 15
         ParentFont = False
         TabOrder = 1
         OnChange = Page_Easy_FileChange
@@ -384,7 +384,7 @@ object MainF: TMainF
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 3
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
@@ -406,7 +406,7 @@ object MainF: TMainF
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 5
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
@@ -443,7 +443,7 @@ object MainF: TMainF
         Top = 127
         Width = 561
         Height = 23
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 8
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
@@ -454,7 +454,7 @@ object MainF: TMainF
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 9
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
@@ -465,7 +465,7 @@ object MainF: TMainF
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 10
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
@@ -546,8 +546,8 @@ object MainF: TMainF
         TabOrder = 0
         ControlData = {
           4C0000008E450000CA2700000000000000000000000000000000000000000000
-          000000004C000000000000000000000000000000000000000000000000000000
-          0000000008000000000000004C0000000114020000000000C000000000000046
+          000000004C000000000000000000000001000000E0D057007335CF11AE690800
+          2B2E126208000000000000004C0000000114020000000000C000000000000046
           8000000000000000000000000000000000000000000000000000000000000000
           00000000000000000100000000000000000000000000000000000000}
       end
@@ -584,8 +584,8 @@ object MainF: TMainF
         TabOrder = 1
         ControlData = {
           4C000000021F0000232600000000000000000000000000000000000000000000
-          000000004C000000000000000000000000000000000000000000000000000000
-          0000000008000000000000004C0000000114020000000000C000000000000046
+          000000004C000000000000000000000001000000E0D057007335CF11AE690800
+          2B2E126208000000000000004C0000000114020000000000C000000000000046
           8000000000000000000000000000000000000000000000000000000000000000
           00000000000000000100000000000000000000000000000000000000}
       end
@@ -668,7 +668,7 @@ object MainF: TMainF
     Left = 0
     Top = 0
     Width = 42
-    Height = 611
+    Height = 631
     Align = alLeft
     ButtonHeight = 39
     ButtonWidth = 39
@@ -684,6 +684,7 @@ object MainF: TMainF
     ShowHint = True
     TabOrder = 1
     Transparent = True
+    ExplicitHeight = 611
     object Tool_File: TTntToolButton
       Left = 0
       Top = 0
@@ -880,6 +881,7 @@ object MainF: TMainF
         Caption = 'Preferences...'
         Hint = 'Change your preferences...'
         ImageIndex = 3
+        ShortCut = 32848
         OnClick = M_Options_PreferencesClick
       end
     end
