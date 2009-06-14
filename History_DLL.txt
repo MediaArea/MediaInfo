@@ -23,6 +23,7 @@ x #2801211, MPEG-4/3GP: support of 3GP tags
 x #2795345, MPEG-4 Visual: crash with some specific user_data
 x #2793960, MKV: some MKV renamed as .ac3 were detected as AC-3
 x #2796417, MPEG-4: Some files with Camera user data were not detected
+x so interface was not working since some releases on Linux
 x MPEG Video: better detection of 2:3 Pulldown
 x MPEG-4: Forcing AMR to 8KHz/Mono whatever the container says
 
