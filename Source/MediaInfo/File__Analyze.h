@@ -933,6 +933,10 @@ public :
     //Configuration
     bool MustSynchronize;
 };
+
+//Helpers
+#define DETAILS_INFO(_DATA) _DATA
+
 #endif //MEDIAINFO_MINIMIZESIZE
 
 } //NameSpace

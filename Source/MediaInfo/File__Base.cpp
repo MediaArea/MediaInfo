@@ -204,7 +204,7 @@ void File__Base::Language_Set()
 //***************************************************************************
 
 #ifndef MEDIAINFO_MINIMIZESIZE
-void File__Base::Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName, bool)
+void File__Base::Demux (const int8u* Buffer, size_t Buffer_Size, const Ztring& StreamName)
 {
     if (!MediaInfoLib::Config.Demux_Get())
         return;

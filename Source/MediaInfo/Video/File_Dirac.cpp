@@ -519,8 +519,11 @@ void File_Dirac::Header_Parse()
 //---------------------------------------------------------------------------
 bool File_Dirac::Header_Parser_QuickSearch()
 {
-    while (           Buffer_Offset+13<=Buffer_Size
-      &&   CC4(Buffer+Buffer_Offset)==0x42424344) //"BBCD"
+    while (       Buffer_Offset+13<=Buffer_Size
+      &&   Buffer[Buffer_Offset  ]==0x42
+      &&   Buffer[Buffer_Offset+1]==0x42
+      &&   Buffer[Buffer_Offset+2]==0x43
+      &&   Buffer[Buffer_Offset+3]==0x44) //"BBCD"
     {
         //Getting start_code
         int8u start_code=CC1(Buffer+Buffer_Offset+4);

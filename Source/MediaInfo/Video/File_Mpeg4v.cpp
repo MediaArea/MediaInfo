@@ -389,8 +389,10 @@ bool File_Mpeg4v::Header_Parser_Fill_Size()
 //---------------------------------------------------------------------------
 bool File_Mpeg4v::Header_Parser_QuickSearch()
 {
-    while (           Buffer_Offset+4<=Buffer_Size
-      &&   CC3(Buffer+Buffer_Offset)==0x000001)
+    while (       Buffer_Offset+4<=Buffer_Size
+      &&   Buffer[Buffer_Offset  ]==0x00
+      &&   Buffer[Buffer_Offset+1]==0x00
+      &&   Buffer[Buffer_Offset+2]==0x01)
     {
         //Getting start_code
         int8u start_code=CC1(Buffer+Buffer_Offset+3);
@@ -399,18 +401,14 @@ bool File_Mpeg4v::Header_Parser_QuickSearch()
         if (Streams[start_code].Searching_Payload)
             return true;
 
-        //Getting size
+        //Synchronizing
         Buffer_Offset+=4;
-        while(Buffer_Offset+4<=Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
-        {
-            Buffer_Offset+=2;
-            while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
-                Buffer_Offset+=2;
-            if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
-                Buffer_Offset--;
-        }
+        if (!Synchronize_0x000001())
+            break;
     }
 
+    if (Buffer_Offset+3==Buffer_Size)
+        return false; //Sync is OK, but start_code is not available
     if (Buffer_Offset+4<=Buffer_Size)
         Trusted_IsNot("Mpeg4v, Synchronisation lost");
     Synched=false;

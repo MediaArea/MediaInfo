@@ -153,8 +153,7 @@ protected :
     inline void Element_Begin (const char *, int64u Size=(int64u)-1) {Element_Begin(Size);}
 
     //Elements - Name
-    inline void Element_Name (const Ztring &) {}
-    inline void Element_Name (const char*) {}
+    #define Element_Name(_A)
 
     //Elements - Info
     inline void Element_Info (const Ztring &) {}
@@ -174,7 +173,7 @@ protected :
     #endif //NEED_SIZET
     inline void Element_Info (float32    , int8u =3, const char* =NULL) {}
     inline void Element_Info (float64    , int8u =3, const char* =NULL) {}
-    inline void Element_Info_From_Milliseconds (int64u) {}
+    #define Element_Info_From_Milliseconds(_A)
 
     //Elements - End
     void Element_End ();
@@ -976,3 +975,5 @@ public :
     bool MustSynchronize;
 };
 
+//Helpers
+#define DETAILS_INFO(_DATA)

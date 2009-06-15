@@ -562,28 +562,30 @@ void File__Analyze::Buffer_Clear()
 bool File__Analyze::Synchronize_0x000001()
 {
     //Synchronizing
-    while (Buffer_Offset+4<=Buffer_Size)
+    while(Buffer_Offset+3<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                        || Buffer[Buffer_Offset+1]!=0x00
+                                        || Buffer[Buffer_Offset+2]!=0x01))
     {
-        while (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset]!=0x00)
-            Buffer_Offset++;
-        if (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset+1]==0x00)
-            if (Buffer[Buffer_Offset+2]==0x01)
-                break;
-        Buffer_Offset++;
+        Buffer_Offset+=2;
+        while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+            Buffer_Offset+=2;
+        if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+            Buffer_Offset--;
     }
 
     //Parsing last bytes if needed
-    if (Buffer_Offset+4>Buffer_Size)
-    {
-        if (Buffer_Offset+3==Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
-            Buffer_Offset++;
-        if (Buffer_Offset+2==Buffer_Size && CC2(Buffer+Buffer_Offset)!=0x0000)
-            Buffer_Offset++;
-        if (Buffer_Offset+1==Buffer_Size && CC1(Buffer+Buffer_Offset)!=0x00)
-            Buffer_Offset++;
-        return false;
-    }
+    if (Buffer_Offset+3==Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                      || Buffer[Buffer_Offset+1]!=0x00
+                                      || Buffer[Buffer_Offset+2]!=0x01))
+        Buffer_Offset++;
+    if (Buffer_Offset+2==Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                      || Buffer[Buffer_Offset+1]!=0x00))
+        Buffer_Offset++;
+    if (Buffer_Offset+1==Buffer_Size &&  Buffer[Buffer_Offset  ]!=0x00)
+        Buffer_Offset++;
 
+    if (Buffer_Offset+3>Buffer_Size)
+        return false;
 
     //Synched is OK
     return true;
@@ -1800,7 +1802,8 @@ void File__Analyze::Element_ThisIsAList ()
 //---------------------------------------------------------------------------
 void File__Analyze::Element_WaitForMoreData ()
 {
-    Element[Element_Level].WaitForMoreData=true;
+    if (File_Offset+Buffer_Size<File_Size)
+        Element[Element_Level].WaitForMoreData=true;
 }
 
 //---------------------------------------------------------------------------
