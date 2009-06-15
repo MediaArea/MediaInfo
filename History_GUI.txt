@@ -23,6 +23,7 @@ x #2664106, prefs overwritten after installing update
 Version 0.7.16, 2009-05-20
 -------------
 + Turkish, Belarusian translations updated
++ Installer: Windows 7 support (from NSIS update)
 + MPEG-4: More information for Avid DV streams
 + MPEG-4: more complete parsing (raw stream) of files with compressed headers
 + VC-1 and MPEG-Video: displaying the original framerate for streams with 2:3 pulldown
