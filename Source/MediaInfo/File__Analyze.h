@@ -903,7 +903,6 @@ private :
         bool    WaitForMoreData;    //This element is not complete, we need more data
         bool    UnTrusted;          //This element has a problem
         bool    IsComplete;         //This element is fully buffered, no need of more
-        bool    InLoop;             //This element is in a parsing loop
         to_show ToShow;
     };
     std::vector<element_details> Element;

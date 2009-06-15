@@ -104,7 +104,6 @@ File__Analyze::File__Analyze ()
     Element[0].WaitForMoreData=false;
     Element[0].UnTrusted=false;
     Element[0].IsComplete=false;
-    Element[0].InLoop=false;
     #ifndef MEDIAINFO_MINIMIZESIZE
     if (MediaInfoLib::Config.Details_Get()!=0)
     {
@@ -507,16 +506,11 @@ bool File__Analyze::Buffer_Parse()
     //End of this level?
     if (File_Offset+Buffer_Offset>=Element[Element_Level].Next)
     {
-        if (Element[Element_Level].InLoop)
-            return false; //To next element
-        else
-        {
-            //There is no loop handler, so we make the level down here
-            while (Element_Level>0 && File_Offset+Buffer_Offset>=Element[Element_Level].Next)
-                Element_End(); //This is a buffer restart, must sync to Element level
-            if (File_Offset+Buffer_Offset==File_Size)
-                return false; //End of file
-        }
+        //There is no loop handler, so we make the level down here
+        while (Element_Level>0 && File_Offset+Buffer_Offset>=Element[Element_Level].Next)
+            Element_End(); //This is a buffer restart, must sync to Element level
+        if (File_Offset+Buffer_Offset==File_Size)
+            return false; //End of file
         MustUseAlternativeParser=false; //Reset it if we go out of an element
     }
 
@@ -743,8 +737,7 @@ bool File__Analyze::Header_Manage()
     if (Buffer_Offset>=Buffer_Size)
         return false;
 
-    //From the parser
-    Element[Element_Level].IsComplete=true;
+    //Header begin
     if (!Header_Begin())
     {
         //Jumping to the end of the file if needed
@@ -757,23 +750,27 @@ bool File__Analyze::Header_Manage()
         }
         return false; //Wait for more data
     }
-    Element[Element_Level].UnTrusted=false;
 
     //Going in a lower level
-    Element_Size=Element[Element_Level].Next-(File_Offset+Buffer_Offset+Element_Offset+BS->Offset_Get());
+    Element_Size=Element[Element_Level].Next-(File_Offset+Buffer_Offset+Element_Offset);
+    Element[Element_Level].UnTrusted=false;
     if (Buffer_Offset+Element_Size>Buffer_Size)
     {
         Element_Size=Buffer_Size-Buffer_Offset;
         Element[Element_Level].IsComplete=false;
     }
+    else
+        Element[Element_Level].IsComplete=true;
     if (Element_Size==0)
         return false;
     Element_Offset=0;
     Element_Begin(); //Element
-    Data_Level=Element_Level;
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        Data_Level=Element_Level;
+    #endif //MEDIAINFO_MINIMIZESIZE
     Element_Begin("Header"); //Header
 
-    //From the parser
+    //Header parsing
     Header_Parse();
 
     //Testing the parser result
@@ -793,18 +790,15 @@ bool File__Analyze::Header_Manage()
     }
 
     //Filling
-    #ifndef MEDIAINFO_MINIMIZESIZE
-    if (Element[Element_Level-1].ToShow.Name.empty())
-        Element[Element_Level-1].ToShow.Name=_T("Unknown");
-    #endif //MEDIAINFO_MINIMIZESIZE
     Element[Element_Level].WaitForMoreData=false;
-    Element[Element_Level].UnTrusted=false;
     Element[Element_Level].IsComplete=true;
 
     //ToShow
     #ifndef MEDIAINFO_MINIMIZESIZE
     if (MediaInfoLib::Config.Details_Get()!=0)
     {
+        if (Element[Element_Level-1].ToShow.Name.empty())
+            Element[Element_Level-1].ToShow.Name=_T("Unknown");
         Element[Element_Level].ToShow.Size=Element_Offset;
         Element[Element_Level].ToShow.Header_Size=0;
         Element[Element_Level-1].ToShow.Header_Size=Header_Size;
@@ -812,12 +806,11 @@ bool File__Analyze::Header_Manage()
     #endif //MEDIAINFO_MINIMIZESIZE
 
     //Integrity
-    if (Element[Element_Level-1].Next<(File_Offset+Buffer_Offset+Element_Offset+BS->Offset_Get()))
-        //Size is not good
-        Element[Element_Level-1].Next=File_Offset+Buffer_Offset+Element_Offset+BS->Offset_Get();
+    if (Element[Element_Level-1].Next<(File_Offset+Buffer_Offset+Element_Offset))
+        Element[Element_Level-1].Next=File_Offset+Buffer_Offset+Element_Offset; //Size is not good
 
     //Positionning
-    Element_Size=Element[Element_Level-1].Next-(File_Offset+Buffer_Offset+Element_Offset+BS->Offset_Get());
+    Element_Size=Element[Element_Level-1].Next-(File_Offset+Buffer_Offset+Element_Offset);
     Header_Size=Element_Offset;
     Buffer_Offset+=(size_t)Header_Size;
     Element_Offset=0;
@@ -904,23 +897,26 @@ void File__Analyze::Header_Fill_Size(int64u Size)
 //---------------------------------------------------------------------------
 bool File__Analyze::Data_Manage()
 {
-    Element_Code=Element[Element_Level].Code;
-    //size_t Element_Level_Save=Element_Level;
-    Element_WantNextLevel=false;
-    Data_Parse();
-    BS->Attach(NULL, 0); //Clear it
-    //Element_Level=Element_Level_Save;
-
-    //Testing the parser result
-    if (Element_IsWaitingForMoreData())
+    if (!Element[Element_Level].UnTrusted)
     {
-        //The data is not complete, need more data
-        Element_End(); //Element
-        Buffer_Offset-=(size_t)Header_Size;
-        return false;
-    }
+        Element_Code=Element[Element_Level].Code;
+        //size_t Element_Level_Save=Element_Level;
+        Element_WantNextLevel=false;
+        Data_Parse();
+        BS->Attach(NULL, 0); //Clear it
+        //Element_Level=Element_Level_Save;
 
-    Element[Element_Level].IsComplete=true;
+        //Testing the parser result
+        if (Element_IsWaitingForMoreData())
+        {
+            //The data is not complete, need more data
+            Element_End(); //Element
+            Buffer_Offset-=(size_t)Header_Size;
+            return false;
+        }
+
+        Element[Element_Level].IsComplete=true;
+    }
 
     //If no need of more
     if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (IsFinished && !ShouldContinueParsing))
@@ -1111,7 +1107,6 @@ void File__Analyze::Element_Begin()
     Element[Element_Level].WaitForMoreData=Element[Element_Level-1].WaitForMoreData;
     Element[Element_Level].UnTrusted=Element[Element_Level-1].UnTrusted;
     Element[Element_Level].IsComplete=Element[Element_Level-1].IsComplete;
-    Element[Element_Level].InLoop=Element[Element_Level-1].InLoop;
 
     //ToShow
     #ifndef MEDIAINFO_MINIMIZESIZE
@@ -1148,7 +1143,6 @@ void File__Analyze::Element_Begin(const Ztring &Name, int64u Size)
     Element[Element_Level].WaitForMoreData=false;
     Element[Element_Level].UnTrusted=Element[Element_Level-1].UnTrusted;
     Element[Element_Level].IsComplete=Element[Element_Level-1].IsComplete;
-    Element[Element_Level].InLoop=false;
 
     //ToShow
     Element[Element_Level].ToShow.Pos=File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get(); //TODO: change this, used in Element_End()
@@ -1181,7 +1175,6 @@ void File__Analyze::Element_Begin(int64u Size)
     Element[Element_Level].WaitForMoreData=false;
     Element[Element_Level].UnTrusted=Element[Element_Level-1].UnTrusted;
     Element[Element_Level].IsComplete=Element[Element_Level-1].IsComplete;
-    Element[Element_Level].InLoop=false;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 

@@ -923,9 +923,6 @@ private :
     // Elements
     //***************************************************************************
 
-    //Data
-    size_t Data_Level;              //Current level for Data ("Top level")
-
     //Element
     BitStream* BS;                  //For conversion from bytes to bitstream
 public : //TO CHANGE
@@ -943,7 +940,6 @@ public : //For very quick access, to not use except if you know what you do
         bool    WaitForMoreData;    //This element is not complete, we need more data
         bool    UnTrusted;          //This element has a problem
         bool    IsComplete;         //This element is fully buffered, no need of more
-        bool    InLoop;             //This element is in a parsing loop
     };
     std::vector<element_details> Element;
 
