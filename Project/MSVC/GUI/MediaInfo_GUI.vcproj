@@ -202,7 +202,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxMSW/include;&quot;../../../../wxMSW/lib/vc_lib/$(PlatformName)/mswu&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MEDIAINFO_STATIC"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MEDIAINFO_DLL_RUNTIME"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -281,7 +281,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxMSW/include;&quot;../../../../wxMSW/lib/vc_lib/$(PlatformName)/mswu&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MEDIAINFO_STATIC"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MEDIAINFO_DLL_RUNTIME"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -523,31 +523,10 @@
 			<File
 				RelativePath="..\..\..\Source\GUI\WxWidgets\GUI_Main.rc"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\MediaInfo_GUI.rc"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 	</Files>
