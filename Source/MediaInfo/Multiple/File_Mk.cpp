@@ -246,6 +246,10 @@ void File_Mk::Read_Buffer_Finalize()
         }
     }
 
+    //Attachements
+    for (size_t Pos=0; Pos<AttachedFiles.size(); Pos++)
+        Fill(Stream_General, 0, "Cover", AttachedFiles[Pos]);
+
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Stream.clear();
@@ -881,6 +885,8 @@ void File_Mk::Segment_Attachements()
 void File_Mk::Segment_Attachements_AttachedFile()
 {
     Element_Name("AttachedFile");
+
+    AttachedFiles.resize(AttachedFiles.size()+1);
 }
 
 //---------------------------------------------------------------------------
@@ -892,7 +898,8 @@ void File_Mk::Segment_Attachements_AttachedFile_FileData()
     Skip_XX(Element_TotalSize_Get(),                            "Data");
 
     FILLING_BEGIN();
-        Fill(Stream_General, 0, "Cover", "Yes");
+        if (AttachedFiles[AttachedFiles.size()-1].empty())
+            AttachedFiles[AttachedFiles.size()-1]=_T("Yes");
     FILLING_END();
 }
 
@@ -902,7 +909,12 @@ void File_Mk::Segment_Attachements_AttachedFile_FileDescription()
     Element_Name("FileDescription");
 
     //Parsing
-    UTF8_Info();
+    Ztring Data=Local_Get();
+
+    FILLING_BEGIN();
+        if (!Data.empty())
+            AttachedFiles[AttachedFiles.size()-1]=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
