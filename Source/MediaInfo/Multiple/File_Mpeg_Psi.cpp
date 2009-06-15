@@ -1685,12 +1685,11 @@ void File_Mpeg_Psi::Table_CB()
     {
         Ztring title;
         int32u start_time, length_in_seconds;
-        int16u event_id;
         Element_Begin();
         BS_Begin();
         Skip_SB(                                                table_id==0xD9?"off_air":"reserved");
         Skip_SB(                                                "reserved");
-        Get_S2 (14, event_id,                                   "event_id");
+        Get_S2 (14, xxx_id,                                     "event_id");
         BS_End();
         Get_B4 (    start_time,                                 "start_time"); Param_Info(Ztring().Date_From_Seconds_1970(start_time+315964800)); Element_Info(Ztring().Date_From_Seconds_1970(start_time+315964800-Complete_Stream->GPS_UTC_offset)); //UTC 1980-01-06 00:00:00
         BS_Begin();
@@ -1709,17 +1708,17 @@ void File_Mpeg_Psi::Table_CB()
         if (Descriptors_Size>0)
             Descriptors();
 
-        Element_End(Ztring::ToZtring_From_CC2(event_id));
+        Element_End(Ztring::ToZtring_From_CC2(xxx_id));
 
         FILLING_BEGIN();
-            Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[Complete_Stream->Streams[pid].table_type].Events[event_id].start_time=start_time;
+            Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[Complete_Stream->Streams[pid].table_type].Events[xxx_id].start_time=start_time;
             Ztring duration =(length_in_seconds<36000?_T("0"):_T(""))+Ztring::ToZtring(length_in_seconds/3600)+_T(":");
             length_in_seconds%=3600;
                    duration+=(length_in_seconds<  600?_T("0"):_T(""))+Ztring::ToZtring(length_in_seconds/  60)+_T(":");
             length_in_seconds%=60;
                    duration+=(length_in_seconds<   10?_T("0"):_T(""))+Ztring::ToZtring(length_in_seconds     );
-            Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[Complete_Stream->Streams[pid].table_type].Events[event_id].duration=duration;
-            Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[Complete_Stream->Streams[pid].table_type].Events[event_id].title=title;
+            Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[Complete_Stream->Streams[pid].table_type].Events[xxx_id].duration=duration;
+            Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[Complete_Stream->Streams[pid].table_type].Events[xxx_id].title=title;
         FILLING_END();
     }
 }
