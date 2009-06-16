@@ -29,7 +29,6 @@
         <property category="build.config.1" name="type" value="Toolset"/>
         <property category="build.config.1" name="win32.win32b.builddir" value="Release_Build"/>
         <property category="build.node" name="dontverifylibs" value="0"/>
-        <property category="build.node" name="lastconfig" value="Release_Build"/>
         <property category="build.node" name="libraries" value="TMSUnicodeC2006.lib xmlrtl.lib dsnap.lib dbrtl.lib vcldb.lib vclx.lib vclactnband.lib bcbie.lib vcl.lib rtl.lib"/>
         <property category="build.node" name="name" value="MediaInfo_GUI.exe"/>
         <property category="build.node" name="packages" value="vcl;rtl;vclx;xmlrtl;vclie;inet;inetdbbde;inetdbxpress;soaprtl;dbrtl;dsnap;bcbie;vcldb;websnap;webdsnap;vclactnband"/>
@@ -92,7 +91,7 @@
           <property category="win32.*.win32b.bcc32" name="option.D.arg.2" value="_WIN32"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.3" value="UNICODE"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.4" value="_UNICODE"/>
-          <property category="win32.*.win32b.bcc32" name="option.D.arg.5" value="MEDIAINFO_STATIC"/>
+          <property category="win32.*.win32b.bcc32" name="option.D.arg.5" value="MEDIAINFO_DLL_STATIC"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.D.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.H=.arg.1" value="$(BDS)\lib\vcl100.csm"/>
@@ -207,8 +206,8 @@
         <FILE FILENAME="..\..\..\Source\GUI\VCL\GUI_Web.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="GUI_Web" FORMNAME="WebF" DESIGNCLASS="" ADDITIONAL="..\..\..\Source\GUI\VCL\GUI_Web.h"/>
         <FILE FILENAME="..\..\..\Source\GUI\VCL\Manifest.rc" CONTAINERID="RCCompiler" LOCALCOMMAND="" UNITNAME="Manifest.rc" FORMNAME="Manifest.res" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="ZenLib" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\..\MediaInfoLib\Project\BCB\Dll\Release_Build\MediaInfo.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="MediaInfo" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="C:\Program Files\Borland\BDS\4.0\lib\wininet.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="wininet" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\..\MediaInfoLib\Project\BCB\Dll\Release_Build\MediaInfo.lib" CONTAINERID="LibTool" LOCALCOMMAND="" UNITNAME="MediaInfo" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
