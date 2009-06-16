@@ -991,7 +991,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         Element_End();
         #else //MEDIAINFO_MINIMIZESIZE
         size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
-        PTS_32=((Buffer[Buffer_Pos  ]&0x0E)<<1);
+        PTS_32=                                 ((Buffer[Buffer_Pos  ]&0x0E)>>1);
         PTS_29=( Buffer[Buffer_Pos+1]      <<7)|((Buffer[Buffer_Pos+2]&0xFE)>>1);
         PTS_14=( Buffer[Buffer_Pos+3]      <<7)|((Buffer[Buffer_Pos+4]&0xFE)>>1);
         Element_Offset+=5;
@@ -1036,7 +1036,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         Element_End();
         #else //MEDIAINFO_MINIMIZESIZE
         size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
-        PTS_32=((Buffer[Buffer_Pos  ]&0x0E)<<1);
+        PTS_32=                                 ((Buffer[Buffer_Pos  ]&0x0E)>>1);
         PTS_29=( Buffer[Buffer_Pos+1]      <<7)|((Buffer[Buffer_Pos+2]&0xFE)>>1);
         PTS_14=( Buffer[Buffer_Pos+3]      <<7)|((Buffer[Buffer_Pos+4]&0xFE)>>1);
         Element_Offset+=5;
@@ -1075,7 +1075,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         Element_End();
         #else //MEDIAINFO_MINIMIZESIZE
         Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
-        DTS_32=((Buffer[Buffer_Pos  ]&0x0E)<<1);
+        DTS_32=                                 ((Buffer[Buffer_Pos  ]&0x0E)>>1);
         DTS_29=( Buffer[Buffer_Pos+1]      <<7)|((Buffer[Buffer_Pos+2]&0xFE)>>1);
         DTS_14=( Buffer[Buffer_Pos+3]      <<7)|((Buffer[Buffer_Pos+4]&0xFE)>>1);
         Element_Offset+=5;
