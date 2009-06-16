@@ -859,6 +859,8 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u start_code)
         Get_S2 (15, PTS_29,                                     "PTS_29");
         Mark_1();
         Get_S2 (15, PTS_14,                                     "PTS_14");
+        Mark_1();
+        BS_End();
 
         //Filling
         PTS=(((int64u)PTS_32)<<30)
@@ -876,11 +878,11 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u start_code)
         Element_End();
 
         Element_Begin("DTS");
-        Mark_1();
+        BS_Begin();
         Mark_0();
         Mark_0();
         Mark_0();
-        Mark_1();
+        Mark_1_NoTrustError(); //Is "0" in one sample
         Get_S1 ( 3, DTS_32,                                     "DTS_32");
         Mark_1();
         Get_S2 (15, DTS_29,                                     "DTS_29");
@@ -986,12 +988,12 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         Get_S2 (15, PTS_14,                                     "PTS_14");
         Mark_1();
         BS_End();
-        Element_Info_From_Milliseconds(PTS/90);
-        Element_End();
-        Element_End();
         PTS=(((int64u)PTS_32)<<30)
           | (((int64u)PTS_29)<<15)
           | (((int64u)PTS_14));
+        Element_Info_From_Milliseconds(PTS/90);
+        Element_End();
+        Element_End();
         #else //MEDIAINFO_MINIMIZESIZE
         if (Element_Offset+5>Element_Size)
         {
@@ -1044,11 +1046,11 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         Get_S2 (15, PTS_14,                                     "PTS_14");
         Mark_1();
         BS_End();
-        Element_Info_From_Milliseconds(PTS/90);
-        Element_End();
         PTS=(((int64u)PTS_32)<<30)
           | (((int64u)PTS_29)<<15)
           | (((int64u)PTS_14));
+        Element_Info_From_Milliseconds(PTS/90);
+        Element_End();
         #else //MEDIAINFO_MINIMIZESIZE
         if (Element_Offset+5>Element_Size)
         {
@@ -1094,12 +1096,12 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         Get_S2 (15, DTS_14,                                     "DTS_14");
         Mark_1();
         BS_End();
-        Element_Info_From_Milliseconds(DTS/90);
-        Element_End();
-        Element_End();
         DTS=(((int64u)DTS_32)<<30)
           | (((int64u)DTS_29)<<15)
           | (((int64u)DTS_14));
+        Element_Info_From_Milliseconds(DTS/90);
+        Element_End();
+        Element_End();
         #else //MEDIAINFO_MINIMIZESIZE
         if (Element_Offset+5>Element_Size)
         {
