@@ -125,7 +125,6 @@ File__Analyze::File__Analyze ()
     IsFilled=false;
     IsUpdated=false;
     IsFinished=false;
-    IsFinalized=false;
     ShouldContinueParsing=false;
 }
 
@@ -897,11 +896,11 @@ void File__Analyze::Header_Fill_Size(int64u Size)
 //---------------------------------------------------------------------------
 bool File__Analyze::Data_Manage()
 {
+    Element_WantNextLevel=false;
     if (!Element[Element_Level].UnTrusted)
     {
         Element_Code=Element[Element_Level].Code;
         //size_t Element_Level_Save=Element_Level;
-        Element_WantNextLevel=false;
         Data_Parse();
         BS->Attach(NULL, 0); //Clear it
         //Element_Level=Element_Level_Save;
@@ -1000,7 +999,6 @@ void File__Analyze::Data_Finish (const char* ParserName)
 {
     if (ShouldContinueParsing)
     {
-        IsFinalized=true;
         if (ParserName)
             Info(Ztring(ParserName)+_T(", wants to finish, but should continue parsing"));
         return;
@@ -1040,7 +1038,6 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
 
     if (ShouldContinueParsing)
     {
-        IsFinalized=true;
         if (ParserName)
             Info(Ztring(ParserName)+_T(", wants to go to somewhere, but should continue parsing"));
         return;
@@ -1048,7 +1045,6 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
 
     if (IsSub)
     {
-        IsFinalized=true;
         if (ParserName)
             Info(Ztring(ParserName)+_T(", wants to go to somewhere, but is sub, waiting data"));
         return;
@@ -1598,7 +1594,6 @@ void File__Analyze::Finish (const char* ParserName)
 {
     if (ShouldContinueParsing)
     {
-        IsFinalized=true;
         if (ParserName)
         {
             bool MustElementBegin=Element_Level?true:false;
@@ -1674,7 +1669,6 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
 
     if (ShouldContinueParsing)
     {
-        IsFinalized=true;
         if (ParserName)
         {
             bool MustElementBegin=Element_Level?true:false;
@@ -1689,7 +1683,6 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
 
     if (IsSub)
     {
-        IsFinalized=true;
         if (ParserName)
         {
             bool MustElementBegin=Element_Level?true:false;
@@ -1724,13 +1717,11 @@ void File__Analyze::GoTo (int64u GoTo)
 
     if (ShouldContinueParsing)
     {
-        IsFinalized=true;
         return;
     }
 
     if (IsSub)
     {
-        IsFinalized=true;
         return;
     }
 

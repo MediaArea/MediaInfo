@@ -964,7 +964,6 @@ public :
     bool IsFilled;
     bool IsUpdated;
     bool IsFinished;
-    bool IsFinalized;
     bool ShouldContinueParsing;
 
     //Configuration
