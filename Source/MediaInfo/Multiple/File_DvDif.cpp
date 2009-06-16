@@ -1360,7 +1360,7 @@ void File_DvDif::Read_Buffer_Finalize()
 
 //---------------------------------------------------------------------------
 void File_DvDif::Header_Parse()
-#ifdef MEDIAINFO_MINIMIZESIZE
+#ifndef MEDIAINFO_MINIMIZESIZE
 {
     if (AuxToAnalyze!=0x00)
     {
