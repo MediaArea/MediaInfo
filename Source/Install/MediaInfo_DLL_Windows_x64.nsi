@@ -84,7 +84,7 @@ BrandingText " "
 
 Name "${PRODUCT_NAME}.dll ${PRODUCT_VERSION}"
 OutFile "..\..\Release\MediaInfo_DLL_${PRODUCT_VERSION}_Windows_x64.exe"
-InstallDir "$PROGRAMFILES\MediaInfo.dll"
+InstallDir "$PROGRAMFILES64\MediaInfo.dll"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails nevershow
 ShowUnInstDetails nevershow
