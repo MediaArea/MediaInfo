@@ -228,15 +228,22 @@ String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
         Ztring Retour;
         unsigned int FilePos=0;
         ZtringListList MediaInfo_Custom_View; MediaInfo_Custom_View.Write(Option(_T("Inform_Get")));
-        Retour+=MediaInfo_Custom_View(Stream_Max+2, 1);//Page_Begin
+        bool XML=false;
+        if (MediaInfoLib::Config.Inform_Get()==_T("XML"))
+            XML=true;
+        if (XML) Retour+=_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Mediainfo>\n");
+        else Retour+=MediaInfo_Custom_View(Stream_Max+2, 1);//Page_Begin
         while (FilePos<Info.size())
         {
             Retour+=Inform(FilePos);
             if (FilePos<Info.size()-1)
+            {
                 Retour+=MediaInfo_Custom_View(Stream_Max+3, 1);//Page_Middle
+            }
             FilePos++;
         }
-        Retour+=MediaInfo_Custom_View(Stream_Max+4, 1);//Page_End
+        if (XML) Retour+=_T("</Mediainfo>\n");
+        else Retour+=MediaInfo_Custom_View(Stream_Max+4, 1);//Page_End
         //Retour.FindAndReplace(_T("\\n"),_T( "\n"), 0, Ztring_Recursive);
         return Retour.c_str();
     }

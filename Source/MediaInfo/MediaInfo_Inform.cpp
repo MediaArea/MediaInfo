@@ -140,10 +140,14 @@ String MediaInfo_Internal::Inform()
     //Informations
     Ztring Retour;
     bool HTML=false;
+    bool XML=false;
     if (MediaInfoLib::Config.Inform_Get()==_T("HTML"))
         HTML=true;
+    if (MediaInfoLib::Config.Inform_Get()==_T("XML"))
+        XML=true;
 
     if (HTML) Retour+=_T("<html>\n\n<head>\n<META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /></head>\n<body>\n");
+    if (XML)  Retour+=_T("<File>\n");
 
     for (size_t StreamKind=(size_t)Stream_General; StreamKind<Stream_Max; StreamKind++)
     {
@@ -152,6 +156,7 @@ String MediaInfo_Internal::Inform()
         {
             //Pour chaque stream
             if (HTML) Retour+=_T("<table width=\"100%\" border=\"0\" cellpadding=\"1\" cellspacing=\"2\" style=\"border:1px solid Navy\">\n<tr>\n    <td width=\"150\">");
+            if (XML) Retour+=_T("<");
             Ztring A=Get((stream_t)StreamKind, StreamPos, _T("StreamKind/String"));
             Ztring B=Get((stream_t)StreamKind, StreamPos, _T("StreamKindPos"));
             if (!B.empty())
@@ -159,16 +164,31 @@ String MediaInfo_Internal::Inform()
                 A+=MediaInfoLib::Config.Language_Get(_T("  Config_Text_NumberTag"));
                 A+=B;
             }
+            if (XML)
+            {
+                A.FindAndReplace(_T(" "), _T("_"), 0, Ztring_Recursive);
+                A.FindAndReplace(_T("#"), _T("_"), 0, Ztring_Recursive);
+                if (A.operator()(0)>='0' && A.operator()(0)<='9')
+                    A.insert(0, 1, _T('_'));
+            }
             Retour+=A;
             if (HTML) Retour+=_T("</td>\n  </tr>");
+            if (XML) Retour+=_T(">\n");
             Retour+=MediaInfoLib::Config.LineSeparator_Get();
             Retour+=Inform((stream_t)StreamKind, StreamPos);
             if (HTML) Retour+=_T("</table>\n<br />");
+            if (XML)
+            {
+                Retour+=_T("</");
+                Retour+=A;
+                Retour+=_T(">\n");
+            }
             Retour+=MediaInfoLib::Config.LineSeparator_Get();
         }
     }
 
     if (HTML) Retour+=_T("\n</body>\n</html>\n");
+    if (XML)  Retour+=_T("</File>\n");
 
     return Retour;
 }
@@ -190,8 +210,11 @@ String MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
     {
         Ztring Retour;
         bool HTML=false;
+        bool XML=false;
         if (MediaInfoLib::Config.Inform_Get()==_T("HTML"))
             HTML=true;
+        if (MediaInfoLib::Config.Inform_Get()==_T("XML"))
+            XML=true;
         size_t Size=Count_Get(StreamKind, StreamPos);
         for (size_t Champ_Pos=0; Champ_Pos<Size; Champ_Pos++)
         {
@@ -203,7 +226,7 @@ String MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
                 Ztring Nom=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name_Text);
                 if (Nom==_T(""))
                     Nom=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name); //Texte n'existe pas
-                if (!HTML)
+                if (!HTML && !XML)
                 {
                      int8u Size=MediaInfoLib::Config.Language_Get(_T("  Config_Text_ColumnSize")).To_int8u();
                      if (Size==0)
@@ -218,6 +241,25 @@ String MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
                     Retour+=_T(" :</i></td>\n    <td colspan=\"3\">");
                     Retour+=Valeur;
                     Retour+=_T("</td>\n  </tr>");
+                }
+                else if (XML)
+                {
+                    if (Nom.operator()(0)>='0' && Nom.operator()(0)<='9')
+                        Nom.insert(0, 1, _T('_'));
+                    Nom.FindAndReplace(_T(" "), _T("_"), 0, Ztring_Recursive);
+                    Nom.FindAndReplace(_T("/"), _T("_"), 0, Ztring_Recursive);
+                    Nom.FindAndReplace(_T("("), _T("_"), 0, Ztring_Recursive);
+                    Nom.FindAndReplace(_T(")"), _T("_"), 0, Ztring_Recursive);
+                    Nom.FindAndReplace(_T("*"), _T("_"), 0, Ztring_Recursive);
+                    Nom.FindAndReplace(_T(","), _T("_"), 0, Ztring_Recursive);
+                    Nom.FindAndReplace(_T(":"), _T("_"), 0, Ztring_Recursive);
+                    Retour+=_T("<");
+                    Retour+=Nom;
+                    Retour+=_T(">");
+                    Retour+=Valeur;
+                    Retour+=_T("</");
+                    Retour+=Nom;
+                    Retour+=_T(">");
                 }
                 else
                     Retour+=Nom + MediaInfoLib::Config.Language_Get(_T("  Config_Text_Separator")) + Valeur;
