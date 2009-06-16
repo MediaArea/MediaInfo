@@ -1217,7 +1217,7 @@ void File_Mpeg4::moov_cmov_cmvd_zlib()
         if (uncompress((Bytef*)Dest, &Dest_Size, (const Bytef*)Buffer+Buffer_Offset+4, Source_Size)<0)
         {
             Skip_XX(Element_Size,                               "Problem during the decompression");
-            delete Dest; //Dest=NULL;
+            delete[] Dest; //Dest=NULL;
             return;
         }
 
