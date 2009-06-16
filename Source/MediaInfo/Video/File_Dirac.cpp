@@ -834,7 +834,7 @@ void File_Dirac::picture()
 
     FILLING_BEGIN();
         //Counting
-        if (File_Offset+Buffer_Offset+Element_Size==File_Size && Frame_Count>=Frame_Count_Valid/8)
+        if (File_Offset+Buffer_Offset+Element_Size==File_Size)
             Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
 
         //Name

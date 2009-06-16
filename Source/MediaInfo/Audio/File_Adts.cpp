@@ -113,16 +113,17 @@ bool File_Adts::Synchronize()
              && (CC2(Buffer+Buffer_Offset)&0xFFF6)!=0xFFF0)
             Buffer_Offset++;
 
+        if (File_Offset+Buffer_Offset==0x180F6)
+            int A=0;
+
         if (Buffer_Offset+6<=Buffer_Size)//Testing if size is coherant
         {
-            //Retrieving some info
-            int16u aac_frame_length =(CC3(Buffer+Buffer_Offset+3)>>5)&0x1FFF;
             //Testing next start, to be sure
-            if (1)//File_Offset+Buffer_Offset+aac_frame_length!=File_Size-File_EndTagSize)
+            int16u aac_frame_length=(CC3(Buffer+Buffer_Offset+3)>>5)&0x1FFF;
+            if (IsSub && Buffer_Offset+aac_frame_length==Buffer_Size)
+                break;
+            if (File_Offset+Buffer_Offset+aac_frame_length!=File_Size-File_EndTagSize)
             {
-                if (/*IsSub && */Buffer_Offset+aac_frame_length==Buffer_Size)
-                    break;
-
                 if (Buffer_Offset+aac_frame_length+2>Buffer_Size)
                     return false; //Need more data
 
@@ -130,10 +131,26 @@ bool File_Adts::Synchronize()
                 if (aac_frame_length<=7 || (CC2(Buffer+Buffer_Offset+aac_frame_length)&0xFFF6)!=0xFFF0)
                     Buffer_Offset++;
                 else
-                    break; //while()
+                {
+                    //Testing next start, to be sure
+                    int16u aac_frame_length2=(CC3(Buffer+Buffer_Offset+aac_frame_length+3)>>5)&0x1FFF;
+                    if (File_Offset+Buffer_Offset+aac_frame_length+aac_frame_length2!=File_Size-File_EndTagSize)
+                    {
+                        if (Buffer_Offset+aac_frame_length+aac_frame_length2+2>Buffer_Size)
+                            return false; //Need more data
+
+                        //Testing
+                        if (aac_frame_length<=7 || (CC2(Buffer+Buffer_Offset+aac_frame_length+aac_frame_length2)&0xFFF6)!=0xFFF0)
+                            Buffer_Offset++;
+                        else
+                            break; //while()
+                    }
+                    else
+                        break; //while()
+                }
             }
             else
-                Buffer_Offset++;
+                break; //while()
         }
     }
 
