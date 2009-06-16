@@ -241,10 +241,14 @@ File_DvDif::File_DvDif()
     Duration=0;
     TimeCode_First=(int64u)-1;
     SCT_Old=4; //Video
+    DBN_Olds[0]=0;
     DBN_Olds[1]=1; //SubCode
     DBN_Olds[2]=2; //Vaux
     DBN_Olds[3]=8; //Audio
     DBN_Olds[4]=134; //Video
+    DBN_Olds[5]=0;
+    DBN_Olds[6]=0;
+    DBN_Olds[7]=0;
     consumer_camera_1_Parsed=false;
     consumer_camera_2_Parsed=false;
     DSF_IsValid=false;
@@ -1356,7 +1360,7 @@ void File_DvDif::Read_Buffer_Finalize()
 
 //---------------------------------------------------------------------------
 void File_DvDif::Header_Parse()
-#ifndef MEDIAINFO_MINIMIZESIZE
+#ifdef MEDIAINFO_MINIMIZESIZE
 {
     if (AuxToAnalyze!=0x00)
     {
@@ -2006,15 +2010,15 @@ void File_DvDif::video_source()
             Stream_Prepare(Stream_Video);
             Fill(Stream_Video, 0, Video_Format, "Digital Video");
             Fill(Stream_Video, 0, Video_Codec, "DV");
-            Fill(Stream_Video, 0, Video_Standard, DSF?"PAL":"NTSC");
+            Fill(Stream_Video, 0, Video_Standard, system?"PAL":"NTSC");
             Fill(Stream_Video, 0, Video_Width, 720);
-            Fill(Stream_Video, 0, Video_Height, DSF?576:480);
+            Fill(Stream_Video, 0, Video_Height, system?576:480);
             Fill(Stream_Video, 0, Video_FrameRate, system?25.000:29.970);
             Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
 
-            if (DSF==false && stype==4) //NTSC and 4:2:2
+            if (system==false && stype==4) //NTSC and 4:2:2
                 Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2");       //NTSC 50 Mbps
-            else if (DSF==false) //NTSC and not 4:2:2 (--> 4:1:1)
+            else if (system==false) //NTSC and not 4:2:2 (--> 4:1:1)
                 Fill(Stream_Video, 0, Video_Colorimetry, "4:1:1");       //NTSC 25 Mbps
             else if (stype==4) //PAL and 4:2:2
                 Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2");       //PAL  50 Mbps
