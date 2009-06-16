@@ -45,6 +45,7 @@ int Help()
     TEXTOUT("");
     TEXTOUT("--Full , -f        Full information Display (all internal tags)");
     TEXTOUT("--Output=HTML      Full information Display with HTML tags ");
+    TEXTOUT("--Output=XML       Full information Display with XML tags ");
     TEXTOUT("--Inform=...       Template defined information Display");
     TEXTOUT("--Info-Parameters  Display list of Inform= parameters");
     TEXTOUT("");

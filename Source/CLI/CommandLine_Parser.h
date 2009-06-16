@@ -48,6 +48,7 @@ CL_OPTION(Info_Parameters);
 CL_OPTION(Inform);
 CL_OPTION(Language);
 CL_OPTION(Output_HTML);
+CL_OPTION(Output_XML);
 CL_OPTION(LogFile);
 CL_OPTION(Version);
 CL_OPTION(Default);

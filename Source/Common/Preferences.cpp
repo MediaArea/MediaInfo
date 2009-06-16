@@ -365,6 +365,7 @@ int Preferences::ExplorerShell()
 {
     TRegistry* Reg=new TRegistry;
     Reg->RootKey = HKEY_CLASSES_ROOT;
+    TRegistry* Reg_User=new TRegistry;
 
     ZtringListList Liste;
     Liste=_T(
@@ -495,6 +496,57 @@ int Preferences::ExplorerShell()
                     try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
                     Reg->CloseKey();
                     IsChanged=true;
+                }
+            }
+        }
+
+        //Open (or create) a extension (user). Create only if Sheel extension is wanted
+        Ztring A=Liste(I1, 0);
+        if (Reg_User->OpenKey((Ztring(_T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\"))+Liste(I1, 0)+_T("\\UserChoice")).c_str(), false))
+        {
+            //test if extension is known
+            AnsiString Player=Reg_User->ReadString("Progid");
+            Reg_User->CloseKey();
+
+            //Test if MediaInfo shell extension is known
+            if (Player!="")
+            {
+                if (Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), false))
+                {
+                    //MediaInfo shell extension is known
+                    if (ShellExtension)
+                    {
+                        //test if good writing
+                        AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
+                        AnsiString ShellExtension=Reg->ReadString(_T("")).c_str();
+                        if (ShellExtension!=ShellExtensionToWtrite)
+                        {
+                            //This is not the good shell extension, writing new one
+                            try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
+                            IsChanged=true;
+                        }
+                    }
+                    else
+                    {
+                        //Should not be here, deleting
+                        Reg->CloseKey();
+                        Reg->DeleteKey(Player+"\\Shell\\MediaInfo");
+                        IsChanged=true;
+                    }
+                    Reg->CloseKey();
+                }
+                else
+                {
+                    //MediaInfo Shell extension is not known
+                    if (ShellExtension)
+                    {
+                        //Create it
+                        Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), true);
+                        AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
+                        try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
+                        Reg->CloseKey();
+                        IsChanged=true;
+                    }
                 }
             }
         }

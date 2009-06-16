@@ -70,6 +70,8 @@ int Parse(Core &MI, MediaInfoNameSpace::String &Argument)
     OPTION("--language",                                    Language)
     OPTION("--output=html",                                 Output_HTML)
     OPTION("--output=HTML",                                 Output_HTML)
+    OPTION("--output=xml",                                  Output_XML)
+    OPTION("--output=XML",                                  Output_XML)
     OPTION("--logfile",                                     LogFile)
     OPTION("--version",                                     Version)
     //Obsolete
@@ -149,6 +151,13 @@ CL_OPTION(Output_HTML)
 {
     MI.Menu_View_HTML();
 
+    return 0;
+}
+
+//---------------------------------------------------------------------------
+CL_OPTION(Output_XML)
+{
+    MI.Menu_View_XML();
     return 0;
 }
 
