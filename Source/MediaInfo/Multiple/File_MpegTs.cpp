@@ -1192,12 +1192,9 @@ void File_MpegTs::PES()
     #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
 
     //Need anymore?
-    if ((Complete_Stream->Streams[pid].Parser->IsFilled
-     #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-        && !Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End
-     #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-     )
-     || Complete_Stream->Streams[pid].Parser->IsFinished)
+    if (Complete_Stream->Streams[pid].Searching_Payload_Start
+     && (Complete_Stream->Streams[pid].Parser->IsFilled
+      || Complete_Stream->Streams[pid].Parser->IsFinished))
     {
         Complete_Stream->Streams[pid].Searching_Payload_Start_Set(false);
         Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(false);
@@ -1286,7 +1283,7 @@ void File_MpegTs::Detect_EOF()
     //|| (program_Count==0 && elementary_PID_Count==0)
     ))
     {
-        #ifdef MEDIAINFO_MPEGTS_PCR_YES
+        #if defined(MEDIAINFO_MPEGTS_PCR_YES) ||  defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
             if (File_Size!=(int64u)-1) //Only if not unlimited
             {
                 //Reactivating interessant TS streams
@@ -1311,7 +1308,7 @@ void File_MpegTs::Detect_EOF()
                 }
                 Complete_Stream->End_Time.clear();
             }
-        #endif //MEDIAINFO_MPEGTS_PCR_YES
+        #endif //defined(MEDIAINFO_MPEGTS_PCR_YES) ||  defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
 
         if (!IsAccepted)
             Accept("MPEG-TS");

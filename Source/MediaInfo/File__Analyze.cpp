@@ -999,8 +999,8 @@ void File__Analyze::Data_Finish (const char* ParserName)
 {
     if (ShouldContinueParsing)
     {
-        if (ParserName)
-            Info(Ztring(ParserName)+_T(", wants to finish, but should continue parsing"));
+        //if (ParserName)
+        //    Info(Ztring(ParserName)+_T(", wants to finish, but should continue parsing"));
         return;
     }
 
@@ -1599,7 +1599,7 @@ void File__Analyze::Finish (const char* ParserName)
             bool MustElementBegin=Element_Level?true:false;
             if (Element_Level>0)
                 Element_End(); //Element
-            Info(Ztring(ParserName)+_T(", wants to finish, but should continue parsing"));
+            //Info(Ztring(ParserName)+_T(", wants to finish, but should continue parsing"));
             if (MustElementBegin)
                 Element_Level++;
         }
