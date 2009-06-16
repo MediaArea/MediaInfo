@@ -969,9 +969,9 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
     //Options
     if (PTS_DTS_flags==0x2)
     {
+        #ifndef MEDIAINFO_MINIMIZESIZE
         int16u PTS_29, PTS_14;
         int8u  PTS_32;
-        #ifndef MEDIAINFO_MINIMIZESIZE
         Element_Begin("PTS_DTS_flags");
         Element_Begin("PTS");
         BS_Begin();
@@ -989,18 +989,30 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         Element_Info_From_Milliseconds(PTS/90);
         Element_End();
         Element_End();
+        PTS=(((int64u)PTS_32)<<30)
+          | (((int64u)PTS_29)<<15)
+          | (((int64u)PTS_14));
         #else //MEDIAINFO_MINIMIZESIZE
+        if (Element_Offset+5>Element_Size)
+        {
+            Element_WaitForMoreData();
+            return;
+        }
         size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
-        PTS_32=                                 ((Buffer[Buffer_Pos  ]&0x0E)>>1);
-        PTS_29=( Buffer[Buffer_Pos+1]      <<7)|((Buffer[Buffer_Pos+2]&0xFE)>>1);
-        PTS_14=( Buffer[Buffer_Pos+3]      <<7)|((Buffer[Buffer_Pos+4]&0xFE)>>1);
+        if ((Buffer[Buffer_Pos  ]&0xC1)!=0x01 //bit 5 and 4 are not tested because of one sample with wrong mark bits
+         || (Buffer[Buffer_Pos+2]&0x01)!=0x01
+         || (Buffer[Buffer_Pos+4]&0x01)!=0x01)
+        {
+            Element_DoNotTrust(); //Mark bits are wrong
+            return;
+        }
+        PTS=                                            ((((int64u)Buffer[Buffer_Pos  ]&0x0E))<<29)
+          | ( ((int64u)Buffer[Buffer_Pos+1]      )<<22)|((((int64u)Buffer[Buffer_Pos+2]&0xFE))<<14)
+          | ( ((int64u)Buffer[Buffer_Pos+3]      )<< 7)|((((int64u)Buffer[Buffer_Pos+4]&0xFE))>> 1);
         Element_Offset+=5;
         #endif //MEDIAINFO_MINIMIZESIZE
 
         //Filling
-        PTS=(((int64u)PTS_32)<<30)
-          | (((int64u)PTS_29)<<15)
-          | (((int64u)PTS_14));
         if (Streams[start_code].Searching_TimeStamp_End)
         {
             Streams[start_code].TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
@@ -1015,9 +1027,9 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
     }
     if (PTS_DTS_flags==0x3)
     {
+        #ifndef MEDIAINFO_MINIMIZESIZE
         int16u PTS_29, PTS_14, DTS_29, DTS_14;
         int8u  PTS_32, DTS_32;
-        #ifndef MEDIAINFO_MINIMIZESIZE
         Element_Begin("PTS_DTS_flags");
         Element_Begin("PTS");
         BS_Begin();
@@ -1034,18 +1046,30 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         BS_End();
         Element_Info_From_Milliseconds(PTS/90);
         Element_End();
+        PTS=(((int64u)PTS_32)<<30)
+          | (((int64u)PTS_29)<<15)
+          | (((int64u)PTS_14));
         #else //MEDIAINFO_MINIMIZESIZE
+        if (Element_Offset+5>Element_Size)
+        {
+            Element_WaitForMoreData();
+            return;
+        }
         size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
-        PTS_32=                                 ((Buffer[Buffer_Pos  ]&0x0E)>>1);
-        PTS_29=( Buffer[Buffer_Pos+1]      <<7)|((Buffer[Buffer_Pos+2]&0xFE)>>1);
-        PTS_14=( Buffer[Buffer_Pos+3]      <<7)|((Buffer[Buffer_Pos+4]&0xFE)>>1);
+        if ((Buffer[Buffer_Pos  ]&0xC1)!=0x01 //bit 5 and 4 are not tested because of one sample with wrong mark bits
+         || (Buffer[Buffer_Pos+2]&0x01)!=0x01
+         || (Buffer[Buffer_Pos+4]&0x01)!=0x01)
+        {
+            Element_DoNotTrust(); //Mark bits are wrong
+            return;
+        }
+        PTS=                                            ((((int64u)Buffer[Buffer_Pos  ]&0x0E))<<29)
+          | ( ((int64u)Buffer[Buffer_Pos+1]      )<<22)|((((int64u)Buffer[Buffer_Pos+2]&0xFE))<<14)
+          | ( ((int64u)Buffer[Buffer_Pos+3]      )<< 7)|((((int64u)Buffer[Buffer_Pos+4]&0xFE))>> 1);
         Element_Offset+=5;
         #endif //MEDIAINFO_MINIMIZESIZE
 
         //Filling
-        PTS=(((int64u)PTS_32)<<30)
-          | (((int64u)PTS_29)<<15)
-          | (((int64u)PTS_14));
         if (Streams[start_code].Searching_TimeStamp_End)
         {
             Streams[start_code].TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
@@ -1073,18 +1097,30 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         Element_Info_From_Milliseconds(DTS/90);
         Element_End();
         Element_End();
+        DTS=(((int64u)DTS_32)<<30)
+          | (((int64u)DTS_29)<<15)
+          | (((int64u)DTS_14));
         #else //MEDIAINFO_MINIMIZESIZE
+        if (Element_Offset+5>Element_Size)
+        {
+            Element_WaitForMoreData();
+            return;
+        }
         Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
-        DTS_32=                                 ((Buffer[Buffer_Pos  ]&0x0E)>>1);
-        DTS_29=( Buffer[Buffer_Pos+1]      <<7)|((Buffer[Buffer_Pos+2]&0xFE)>>1);
-        DTS_14=( Buffer[Buffer_Pos+3]      <<7)|((Buffer[Buffer_Pos+4]&0xFE)>>1);
+        if ((Buffer[Buffer_Pos  ]&0xC1)!=0x01 //bit 5 and 4 are not tested because of one sample with wrong mark bits
+         || (Buffer[Buffer_Pos+2]&0x01)!=0x01
+         || (Buffer[Buffer_Pos+4]&0x01)!=0x01)
+        {
+            Element_DoNotTrust(); //Mark bits are wrong
+            return;
+        }
+        DTS=                                            ((((int64u)Buffer[Buffer_Pos  ]&0x0E))<<29)
+          | ( ((int64u)Buffer[Buffer_Pos+1]      )<<22)|((((int64u)Buffer[Buffer_Pos+2]&0xFE))<<14)
+          | ( ((int64u)Buffer[Buffer_Pos+3]      )<< 7)|((((int64u)Buffer[Buffer_Pos+4]&0xFE))>> 1);
         Element_Offset+=5;
         #endif //MEDIAINFO_MINIMIZESIZE
 
         //Filling
-        DTS=(((int64u)DTS_32)<<30)
-          | (((int64u)DTS_29)<<15)
-          | (((int64u)DTS_14));
         if (Streams[start_code].Searching_TimeStamp_End)
         {
             Streams[start_code].TimeStamp_End.DTS.File_Pos=File_Offset+Buffer_Offset;
