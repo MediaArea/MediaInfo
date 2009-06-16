@@ -371,6 +371,8 @@
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Swf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Swf" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Wm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wm" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Text\File_Cmml.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Cmml" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Text\File_Eia608.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Eia608" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Text\File_Eia708.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Eia708" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Text\File_Kate.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Kate" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Text\File_Pgs.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Pgs" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Text\File_OtherText.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_OtherText" FORMNAME="" DESIGNCLASS=""/>
