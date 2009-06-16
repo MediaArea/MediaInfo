@@ -1103,8 +1103,7 @@ void File_MpegTs::Data_Parse()
 void File_MpegTs::PES()
 {
     //Info
-    if (Complete_Stream->transport_stream_id_IsValid)
-        Element_Info(Mpeg_Psi_stream_type_Info(Complete_Stream->Streams[pid].stream_type, Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[0]].registration_format_identifier));
+    DETAILS_INFO(if (Complete_Stream->transport_stream_id_IsValid) Element_Info(Mpeg_Psi_stream_type_Info(Complete_Stream->Streams[pid].stream_type, Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[0]].registration_format_identifier));)
 
     //Demux
     Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(pid, 16)+_T(".mpg"));
@@ -1115,23 +1114,20 @@ void File_MpegTs::PES()
         Complete_Stream->Streams[pid].IsRegistered=true;
         for (size_t Pos=0; Pos<Complete_Stream->Streams[pid].program_numbers.size(); Pos++)
             Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[Pos]].IsRegistered=true;
-    }
 
-    //Case of encrypted streams
-    if (Complete_Stream->Streams[pid].IsScrambled)
-    {
-        //Don't need anymore
-        Complete_Stream->Streams[pid].Searching_Payload_Start_Set(false);
-        Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(false);
-        #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-            Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(false);
-        #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-        Skip_XX(Element_Size-Element_Offset,                    "Scrambled data");
+        //Case of encrypted streams
+        if (Complete_Stream->Streams[pid].IsScrambled)
+        {
+            //Don't need anymore
+            Complete_Stream->Streams[pid].Searching_Payload_Start_Set(false);
+            Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(false);
+            #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(false);
+            #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+            Skip_XX(Element_Size-Element_Offset,                    "Scrambled data");
 
-        //Demux
-        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(pid, 16)+_T(".mpg"));
-
-        return;
+            return;
+        }
     }
 
     //Parser creation
