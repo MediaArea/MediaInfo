@@ -1272,6 +1272,7 @@ void File_Mpeg_Psi::Table_42()
             BS_End();
 
             //Descriptors
+            xxx_id_IsValid=true;
             if (Descriptors_Size>0)
                 Descriptors();
 
@@ -1705,6 +1706,7 @@ void File_Mpeg_Psi::Table_CB()
         BS_End();
 
         //Descriptors
+        xxx_id_IsValid=true;
         if (Descriptors_Size>0)
             Descriptors();
 

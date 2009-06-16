@@ -1463,11 +1463,14 @@ void File_Mpeg_Descriptors::Descriptor_03()
     BS_End();
 
     FILLING_BEGIN()
-        Complete_Stream->Streams[xxx_id].Infos["BitRate_Mode"]=variable_rate_audio_indicator?_T("VBR"):_T("CBR");
-        Complete_Stream->Streams[xxx_id].Infos["Codec"]=Ztring(Mpega_Version[ID])+Ztring(Mpega_Layer[layer]);
-        Complete_Stream->Streams[xxx_id].Infos["Format"]=_T("MPEG Audio");
-        Complete_Stream->Streams[xxx_id].Infos["Format_Version"]=Mpega_Format_Profile_Version[ID];
-        Complete_Stream->Streams[xxx_id].Infos["Format_Profile"]=Mpega_Format_Profile_Layer[layer];
+        if (xxx_id_IsValid)
+        {
+            Complete_Stream->Streams[xxx_id].Infos["BitRate_Mode"]=variable_rate_audio_indicator?_T("VBR"):_T("CBR");
+            Complete_Stream->Streams[xxx_id].Infos["Codec"]=Ztring(Mpega_Version[ID])+Ztring(Mpega_Layer[layer]);
+            Complete_Stream->Streams[xxx_id].Infos["Format"]=_T("MPEG Audio");
+            Complete_Stream->Streams[xxx_id].Infos["Format_Version"]=Mpega_Format_Profile_Version[ID];
+            Complete_Stream->Streams[xxx_id].Infos["Format_Profile"]=Mpega_Format_Profile_Layer[layer];
+        }
     FILLING_END();
 }
 
@@ -1819,9 +1822,12 @@ void File_Mpeg_Descriptors::Descriptor_48()
 
     //Filling
     FILLING_BEGIN();
-        Complete_Stream->Transport_Streams[table_id_extension].Programs[xxx_id].Infos["ServiceName"]=service_name;
-        Complete_Stream->Transport_Streams[table_id_extension].Programs[xxx_id].Infos["ServiceProvider"]=service_provider_name;
-        Complete_Stream->Transport_Streams[table_id_extension].Programs[xxx_id].Infos["ServiceType"]=Mpeg_Descriptors_dvb_service_type(service_type);
+        if (xxx_id_IsValid)
+        {
+            Complete_Stream->Transport_Streams[table_id_extension].Programs[xxx_id].Infos["ServiceName"]=service_name;
+            Complete_Stream->Transport_Streams[table_id_extension].Programs[xxx_id].Infos["ServiceProvider"]=service_provider_name;
+            Complete_Stream->Transport_Streams[table_id_extension].Programs[xxx_id].Infos["ServiceType"]=Mpeg_Descriptors_dvb_service_type(service_type);
+        }
     FILLING_END();
 }
 
@@ -1911,18 +1917,24 @@ void File_Mpeg_Descriptors::Descriptor_54()
         BS_End();
 
         FILLING_BEGIN();
-            Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[xxx_id].content=Ztring().From_UTF8(Mpeg_Descriptors_content_nibble_level_2(content_nibble_level_1, content_nibble_level_2))+_T(", ");
-            Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks_IsUpdated=true;
-            IsUpdated=true;
+            if (xxx_id_IsValid)
+            {
+                Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[xxx_id].content=Ztring().From_UTF8(Mpeg_Descriptors_content_nibble_level_2(content_nibble_level_1, content_nibble_level_2))+_T(", ");
+                Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks_IsUpdated=true;
+                IsUpdated=true;
+            }
         FILLING_END();
     }
 
     FILLING_BEGIN();
-        if (!Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[xxx_id].content.empty())
+        if (xxx_id_IsValid)
         {
-            Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[xxx_id].content.resize(Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[xxx_id].content.size()-2);
-            Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks_IsUpdated=true;
-            IsUpdated=true;
+            if (!Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[xxx_id].content.empty())
+            {
+                Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[xxx_id].content.resize(Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[xxx_id].content.size()-2);
+                Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks_IsUpdated=true;
+                IsUpdated=true;
+            }
         }
     FILLING_END();
 }
@@ -2115,12 +2127,14 @@ void File_Mpeg_Descriptors::Descriptor_5D()
     if (!ServiceProvider.empty())
     {
         ServiceProvider.resize(ServiceProvider.size()-3);
-        Complete_Stream->Transport_Streams[table_id_extension].Programs[xxx_id].Infos["ServiceProvider"]=ServiceProvider;
+        if (xxx_id_IsValid)
+            Complete_Stream->Transport_Streams[table_id_extension].Programs[xxx_id].Infos["ServiceProvider"]=ServiceProvider;
     }
     if (!ServiceName.empty())
     {
         ServiceName.resize(ServiceName.size()-3);
-        Complete_Stream->Transport_Streams[table_id_extension].Programs[xxx_id].Infos["ServiceName"]=ServiceName;
+        if (xxx_id_IsValid)
+            Complete_Stream->Transport_Streams[table_id_extension].Programs[xxx_id].Infos["ServiceName"]=ServiceName;
     }
 }
 
@@ -2457,8 +2471,11 @@ void File_Mpeg_Descriptors::Descriptor_86()
     Skip_S1(3,                                                  "reserved");
     Get_S1 (5, number_of_services,                              "number_of_services");
     BS_End();
-    if (number_of_services>=Complete_Stream->Streams[xxx_id].Captions_Language.size())
-        Complete_Stream->Streams[xxx_id].Captions_Language.resize(number_of_services);
+    if (xxx_id_IsValid)
+    {
+        if (number_of_services>=Complete_Stream->Streams[xxx_id].Captions_Language.size())
+            Complete_Stream->Streams[xxx_id].Captions_Language.resize(number_of_services);
+    }
     for (int8u Pos=0; Pos<number_of_services; Pos++)
     {
         Element_Begin("service");
@@ -2481,8 +2498,11 @@ void File_Mpeg_Descriptors::Descriptor_86()
         BS_End();
         Element_End();
 
-        if (Complete_Stream->Streams[xxx_id].Captions_Language[Pos].empty()) //We use only the first detected value
-            Complete_Stream->Streams[xxx_id].Captions_Language[Pos]=language;
+        if (xxx_id_IsValid)
+        {
+            if (Complete_Stream->Streams[xxx_id].Captions_Language[Pos].empty()) //We use only the first detected value
+                Complete_Stream->Streams[xxx_id].Captions_Language[Pos]=language;
+        }
     }
 }
 
