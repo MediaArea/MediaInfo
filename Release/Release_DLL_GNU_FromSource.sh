@@ -30,6 +30,7 @@ cp ../Source/MediaInfoDLL/MediaInfoDLL_Static.h MediaInfo_DLL_GNU_FromSource/Sou
 cp ../Source/MediaInfoDLL/MediaInfoDLL.cs MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL.java MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL.py MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
+cp ../Source/MediaInfoDLL/MediaInfoDLL3.py MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
 
 #-----------------------------------------------------------------------
 # Copying : Release

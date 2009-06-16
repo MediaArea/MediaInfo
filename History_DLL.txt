@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.17, 2009-
 -------------
++ Python : adaptation for version 3
 + MPEG-PS/TS: ATSC Closed captions (both EIA-608 and EIA-708) detection
 + MPEG-PS/TS: Language of closed caption (ATSC)
 + DV: camera settings

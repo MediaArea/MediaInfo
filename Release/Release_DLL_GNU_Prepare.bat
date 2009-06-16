@@ -25,6 +25,7 @@ xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.cs MediaInfo_DLL_GNU_Prepare\Source\Me
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.JNA.java MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.JNative.java MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.py MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL3.py MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
 
 
 rem --- Preparing Archive : MediaInfoLib ---

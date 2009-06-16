@@ -30,6 +30,7 @@ xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.vb MediaInfoDLL_Windows_i386\Developer
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.JNA.java MediaInfoDLL_Windows_i386\Developers\Source\MediaInfoDLL\
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.JNative.java MediaInfoDLL_Windows_i386\Developers\Source\MediaInfoDLL\
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.py MediaInfoDLL_Windows_i386\Developers\Source\MediaInfoDLL\
+xcopy ..\Source\MediaInfoDLL\MediaInfoDLL3.py MediaInfoDLL_Windows_i386\Developers\Source\MediaInfoDLL\
 
 @rem --- Copying : Projects ---
 xcopy ..\Project\BCB\Example\*.bpf MediaInfoDLL_Windows_i386\Developers\Project\BCB\Example\

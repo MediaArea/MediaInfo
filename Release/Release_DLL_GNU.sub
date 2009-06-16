@@ -53,6 +53,7 @@ cp ../Source/MediaInfoDLL/MediaInfoDLL.cs MediaInfo_DLL_$1_$2/Developpers/Includ
 cp ../Source/MediaInfoDLL/MediaInfoDLL.JNA.java MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL.JNative.java MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL.py MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
+cp ../Source/MediaInfoDLL/MediaInfoDLL3.py MediaInfo_DLL_$1_$2/Developpers/Include/MediaInfoDLL/
 
 
 #-----------------------------------------------------------------------
