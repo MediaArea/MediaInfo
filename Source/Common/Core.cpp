@@ -129,7 +129,7 @@ void Core::Menu_View_XML ()
 //---------------------------------------------------------------------------
 void Core::Menu_View_Text ()
 {
-    MI->Option(_T("Inform"), _T("XML"));
+    MI->Option(_T("Inform"), _T(""));
     Kind=Kind_Text;
     if (Details>0)
         Menu_Debug_Details(Details);
