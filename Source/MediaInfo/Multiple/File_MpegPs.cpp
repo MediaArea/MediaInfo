@@ -214,23 +214,6 @@ File_MpegPs::File_MpegPs()
 }
 
 //***************************************************************************
-// Buffer - File header
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_MpegPs::FileHeader_Begin()
-{
-    if (!File__Analyze::FileHeader_Begin_0x000001())
-        return false;
-
-    if (!MustSynchronize)
-        Synched_Init();
-
-    //All should be OK
-    return true;
-}
-
-//***************************************************************************
 // Buffer - Synchro
 //***************************************************************************
 
@@ -238,27 +221,36 @@ bool File_MpegPs::FileHeader_Begin()
 bool File_MpegPs::Synchronize()
 {
     //Synchronizing
-    while (Buffer_Offset+4<=Buffer_Size)
+    while (Buffer_Offset+4<=Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                         || Buffer[Buffer_Offset+1]!=0x00
+                                         || Buffer[Buffer_Offset+2]!=0x01
+                                         || Buffer[Buffer_Offset+3]< 0xB9))
     {
-        while (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset]!=0x00)
-            Buffer_Offset++;
-        if (Buffer_Offset+4<=Buffer_Size && Buffer[Buffer_Offset+1]==0x00)
-            if (Buffer[Buffer_Offset+2]==0x01 && Buffer[Buffer_Offset+3]>=0xB9)
-                break;
-        Buffer_Offset++;
+        Buffer_Offset+=2;
+        while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]!=0x00)
+            Buffer_Offset+=2;
+        if (Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset-1]==0x00 || Buffer_Offset>=Buffer_Size)
+            Buffer_Offset--;
     }
 
     //Parsing last bytes if needed
-    if (Buffer_Offset+4>Buffer_Size)
-    {
-        if (Buffer_Offset+3==Buffer_Size && CC3(Buffer+Buffer_Offset)!=0x000001)
-            Buffer_Offset++;
-        if (Buffer_Offset+2==Buffer_Size && CC2(Buffer+Buffer_Offset)!=0x0000)
-            Buffer_Offset++;
-        if (Buffer_Offset+1==Buffer_Size && CC1(Buffer+Buffer_Offset)!=0x00)
-            Buffer_Offset++;
+    if (Buffer_Offset+4==Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                      || Buffer[Buffer_Offset+1]!=0x00
+                                      || Buffer[Buffer_Offset+2]!=0x01
+                                      || Buffer[Buffer_Offset+3]< 0xB9))
+        Buffer_Offset++;
+    if (Buffer_Offset+3==Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                      || Buffer[Buffer_Offset+1]!=0x00
+                                      || Buffer[Buffer_Offset+2]!=0x01))
+        Buffer_Offset++;
+    if (Buffer_Offset+2==Buffer_Size && (Buffer[Buffer_Offset  ]!=0x00
+                                      || Buffer[Buffer_Offset+1]!=0x00))
+        Buffer_Offset++;
+    if (Buffer_Offset+1==Buffer_Size &&  Buffer[Buffer_Offset  ]!=0x00)
+        Buffer_Offset++;
+
+    if (Buffer_Offset+3>Buffer_Size)
         return false;
-    }
 
     //Synched is OK
     return true;
@@ -2776,6 +2768,8 @@ bool File_MpegPs::Header_Parser_QuickSearch()
         }
     }
 
+    if (Buffer_Offset+3==Buffer_Size)
+        return false; //Sync is OK, but start_code is not available
     if (Buffer_Offset+4<=Buffer_Size)
         Trusted_IsNot("MPEG-PS, Synchronisation lost");
     Synched=false;

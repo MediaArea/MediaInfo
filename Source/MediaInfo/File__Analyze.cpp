@@ -643,6 +643,8 @@ bool File__Analyze::FileHeader_Begin_0x000001()
 // Synchro
 //***************************************************************************
 
+static int A=0;
+
 //---------------------------------------------------------------------------
 bool File__Analyze::Synchro_Manage()
 {
@@ -676,7 +678,13 @@ bool File__Analyze::Synchro_Manage()
             Buffer_TotalBytes_FirstSynched+=Buffer_TotalBytes+Buffer_Offset;
             File_Offset_FirstSynched=File_Offset+Buffer_Offset;
         }
-        return Synchro_Manage();
+        A++;
+        if (A>20) {
+            int B=0;
+        }
+        bool C=Synchro_Manage();
+        A--;
+        return C;
     }
 
     return true;

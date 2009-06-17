@@ -322,7 +322,9 @@ bool File_Mpegv::Synched_Test()
         return false;
 
     //Quick test of synchro
-    if (CC3(Buffer+Buffer_Offset)!=0x000001)
+    if (Buffer[Buffer_Offset  ]!=0x00
+     || Buffer[Buffer_Offset+1]!=0x00
+     || Buffer[Buffer_Offset+2]!=0x01)
         Synched=false;
 
     //Quick search

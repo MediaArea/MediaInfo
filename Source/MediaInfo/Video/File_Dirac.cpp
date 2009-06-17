@@ -519,7 +519,7 @@ void File_Dirac::Header_Parse()
 //---------------------------------------------------------------------------
 bool File_Dirac::Header_Parser_QuickSearch()
 {
-    while (       Buffer_Offset+13<=Buffer_Size
+    while (       Buffer_Offset+5<=Buffer_Size
       &&   Buffer[Buffer_Offset  ]==0x42
       &&   Buffer[Buffer_Offset+1]==0x42
       &&   Buffer[Buffer_Offset+2]==0x43
@@ -536,7 +536,9 @@ bool File_Dirac::Header_Parser_QuickSearch()
         Buffer_Offset+=BigEndian2int32u(Buffer+Buffer_Offset+5);
     }
 
-    if (Buffer_Offset+13<=Buffer_Size)
+    if (Buffer_Offset+4==Buffer_Size)
+        return false; //Sync is OK, but start_code is not available
+    if (Buffer_Offset+5<=Buffer_Size)
         Trusted_IsNot("Dirac, Synchronisation lost");
     Synched=false;
     return Synchronize();

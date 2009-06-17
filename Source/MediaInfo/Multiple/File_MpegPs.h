@@ -57,7 +57,7 @@ public :
 
 private :
     //Buffer - File header
-    bool FileHeader_Begin();
+    bool FileHeader_Begin() {return FileHeader_Begin_0x000001();}
 
     //Buffer - Synchro
     bool Synchronize();
