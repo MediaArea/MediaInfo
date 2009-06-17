@@ -184,7 +184,6 @@ private :
     int64u SizeToAnalyze; //Total size of a chunk to analyse, it may be changed by the parser
     int8u  stream_id_extension;
     bool   video_stream_Unlimited;
-    int8u  video_stream_Unlimited_start_code;
     int64u PTS;
     int64u DTS;
     bool   Parsing_End_ForDTS;

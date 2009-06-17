@@ -318,7 +318,6 @@ void File_MpegPs::Synched_Init()
 
     //Temp
     stream_id_extension=0x55; //Default is set to VC-1, should never happens, but happens sometimes
-    video_stream_Unlimited_start_code=0xFF;
 
     //Case of extraction from MPEG-TS files
     if (File_Offset==0 && Buffer_Size>=4 && ((CC4(Buffer)&0xFFFFFFF0)==0x000001E0 || (CC4(Buffer)&0xFFFFFFE0)==0x000001C0 || CC4(Buffer)==0x000001BD || CC4(Buffer)==0x000001FA || CC4(Buffer)==0x000001FD))
@@ -774,7 +773,6 @@ void File_MpegPs::Header_Parse_PES_packet(int8u start_code)
             //Next PS packet is not found, we will use all the buffer
             Header_Fill_Size(Buffer_Size-Buffer_Offset); //All the buffer is used
             video_stream_Unlimited=true;
-            video_stream_Unlimited_start_code=start_code;
             Buffer_Offset_Temp=0; //We use the buffer
         }
 }
@@ -1318,10 +1316,8 @@ void File_MpegPs::Data_Parse()
         case 0xFD : extension_stream();
                     break;
         default:
-                 if (start_code>=0xC0
-                  && start_code<=0xDF) audio_stream();
-            else if (start_code>=0xE0
-                  && start_code<=0xEF) video_stream();
+                 if ((start_code&0xE0)==0xC0) audio_stream();
+            else if ((start_code&0xF0)==0xE0) video_stream();
             else
                 Trusted_IsNot("Unattended element!");
     }
