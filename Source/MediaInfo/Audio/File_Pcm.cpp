@@ -293,11 +293,21 @@ void File_Pcm::VOB()
 void File_Pcm::M2TS()
 {
     //Parsing
-    int8u Frequency, NumberOfChannelsMinusFive, Resolution;
+    int8u Unknown, Frequency, NumberOfChannels, Resolution;
     Skip_B2(                                                    "Block size");
     BS_Begin();
-    Skip_S1(2,                                                  "Unknown");
-    Get_S1 (2, NumberOfChannelsMinusFive,                       "Number of channels (minus 5)");
+    Get_S1 (2, Unknown,                                         "Unknown");
+    if (Unknown==0)
+    {
+        Get_S1 (2, NumberOfChannels,                            "Number of channels (plus 1?)");
+        if (NumberOfChannels)
+            NumberOfChannels--;
+    }
+    else
+    {
+        Get_S1 (2, NumberOfChannels,                            "Number of channels (minus 5)");
+        NumberOfChannels+=5;
+    }
     Get_S1 (4, Frequency,                                       "Frequency");
     Get_S1 (2, Resolution,                                      "Resolution");
     Skip_S1(6,                                                  "Unknown");
@@ -313,12 +323,12 @@ void File_Pcm::M2TS()
         Fill(Stream_Audio, 0, Audio_MuxingMode, "Blu-ray");
         Fill(Stream_Audio, 0, Audio_SamplingRate, Pcm_M2TS_Frequency[Frequency]);
         Fill(Stream_Audio, 0, Audio_Resolution, Pcm_M2TS_Resolution[Resolution]);
-        Fill(Stream_Audio, 0, Audio_Channel_s_, NumberOfChannelsMinusFive+5);
-        Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannelsMinusFive+5));
-        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannelsMinusFive+5));
-        if (NumberOfChannelsMinusFive%2==0)
-            NumberOfChannelsMinusFive++; //Always by pair
-        Fill(Stream_Audio, 0, Audio_BitRate, Pcm_M2TS_Frequency[Frequency]*(NumberOfChannelsMinusFive+5)*Pcm_M2TS_Resolution[Resolution]);
+        Fill(Stream_Audio, 0, Audio_Channel_s_, NumberOfChannels);
+        Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannels));
+        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannels));
+        if (NumberOfChannels%2)
+            NumberOfChannels++; //Always by pair
+        Fill(Stream_Audio, 0, Audio_BitRate, Pcm_M2TS_Frequency[Frequency]*(NumberOfChannels)*Pcm_M2TS_Resolution[Resolution]);
     FILLING_END();
 }
 
