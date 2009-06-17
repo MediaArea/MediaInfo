@@ -1163,8 +1163,8 @@ void File_MpegTs::PES()
             if (Searching_TimeStamp_Start)
                 Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(true);
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS=true;
-            ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->stream_type_FromTS=Complete_Stream->Streams[pid].stream_type;
-            ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->format_identifier_FromTS=Complete_Stream->Streams[pid].registration_format_identifier;
+            ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS_stream_type=Complete_Stream->Streams[pid].stream_type;
+            ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS_format_identifier=Complete_Stream->Streams[pid].registration_format_identifier;
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->MPEG_Version=2;
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->Searching_TimeStamp_Start=Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start;
             Complete_Stream->Streams[pid].Parser->ShouldContinueParsing=true;

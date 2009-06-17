@@ -42,11 +42,11 @@ class File_MpegPs : public File__Analyze
 {
 public :
     //In
-    bool   FromTS;                  //Indicate if stream comes from TS
-    int8u  stream_type_FromTS;      //ID from TS
-    int8u  descriptor_tag_FromTS;   //Descriptor from TS
-    int32u format_identifier_FromTS;//Registration from TS
-    int8u  MPEG_Version;            //MPEG_Version from TS
+    bool   FromTS;                      //Indicate if stream comes from TS
+    int8u  FromTS_stream_type;          //ID from TS
+    int32u FromTS_format_identifier;    //Registration from TS
+    int8u  FromTS_descriptor_tag;       //Descriptor from TS
+    int8u  MPEG_Version;                //MPEG Version (or automaticly detected)
     bool   Searching_TimeStamp_Start;
 
     //Out

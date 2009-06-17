@@ -193,9 +193,9 @@ File_MpegPs::File_MpegPs()
 
     //In
     FromTS=false;
-    stream_type_FromTS=0x00; //No info
-    descriptor_tag_FromTS=0x00; //No info
-    format_identifier_FromTS=0x00000000; //No info
+    FromTS_stream_type=0x00; //No info
+    FromTS_format_identifier=0x00000000; //No info
+    FromTS_descriptor_tag=0x00; //No info
     MPEG_Version=0; //No info
     Searching_TimeStamp_Start=true;
 
@@ -1701,9 +1701,9 @@ void File_MpegPs::private_stream_1()
         private_stream_1_Count=1;
         private_stream_2_Count=false;
         extension_stream_Count=0;
-        private_stream_1_ID=stream_type_FromTS;
+        private_stream_1_ID=FromTS_stream_type;
         private_stream_1_Offset=0;
-        Streams_Private1[private_stream_1_ID].stream_type=stream_type_FromTS;
+        Streams_Private1[private_stream_1_ID].stream_type=FromTS_stream_type;
     }
     else
     {
@@ -1747,7 +1747,7 @@ void File_MpegPs::private_stream_1()
 
     //Specific
     #if defined(MEDIAINFO_AES3_YES)
-        if (FromTS && format_identifier_FromTS==0x42535344 && PTS!=(int64u)-1) //"BSSD"
+        if (FromTS && FromTS_format_identifier==0x42535344 && PTS!=(int64u)-1) //"BSSD"
             ((File_Aes3*)Streams_Private1[private_stream_1_ID].Parser)->PTS=PTS;
     #endif
 
@@ -1962,11 +1962,11 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
 {
     if (FromTS)
     {
-        if (format_identifier_FromTS==0x42535344) //"BSSD"
+        if (FromTS_format_identifier==0x42535344) //"BSSD"
         {
             return ChooseParser_AES3(); //AES3 (SMPTE 320M)
         }
-        switch (stream_type_FromTS)
+        switch (FromTS_stream_type)
         {
             case 0x80 : return ChooseParser_PCM(); //PCM
             case 0x81 :
@@ -1980,7 +1980,7 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
             case 0xA2 : return ChooseParser_DTS(); //DTS
             case 0x90 : return ChooseParser_PGS(); //PGS from Bluray
             case 0xEA : return ChooseParser_NULL(); //VC1()
-            default   : switch (descriptor_tag_FromTS)
+            default   : switch (FromTS_descriptor_tag)
                         {
                             case 0x56 : return ChooseParser_NULL(); //Teletext
                             case 0x59 : return ChooseParser_NULL(); //DVB Subtiles
@@ -2160,10 +2160,10 @@ void File_MpegPs::private_stream_2()
     //Filling
     if (FromTS)
     {
-        switch (format_identifier_FromTS)
+        switch (FromTS_format_identifier)
         {
             case 0x54534856 : //TSHV
-                                switch (stream_type_FromTS)
+                                switch (FromTS_stream_type)
                                 {
                                     case 0xA0 : private_stream_2_TSHV_A0(); break;
                                     case 0xA1 : private_stream_2_TSHV_A1(); break;
@@ -2261,7 +2261,7 @@ void File_MpegPs::audio_stream()
         private_stream_1_Count=0;
         private_stream_2_Count=false;
         extension_stream_Count=0;
-        Streams[start_code].stream_type=stream_type_FromTS;
+        Streams[start_code].stream_type=FromTS_stream_type;
     }
 
     //Exists
@@ -2302,7 +2302,7 @@ void File_MpegPs::audio_stream()
         Streams[start_code].FrameCount_AfterLast_TimeStamp_End+=Streams[start_code].Parser->Frame_Count_InThisBlock;
 
     //Testing other parsers in case of need
-    if ((stream_type_FromTS==0 || stream_type_FromTS==6) && Streams[start_code].Parser->Count_Get(Stream_Audio)==0)
+    if ((FromTS_stream_type==0 || FromTS_stream_type==6) && Streams[start_code].Parser->Count_Get(Stream_Audio)==0)
     {
         bool WantShow2=Element_Show_Get();
         Element_Begin("Testing ADTS...");
@@ -2358,7 +2358,7 @@ void File_MpegPs::video_stream()
             private_stream_1_Count=0;
             private_stream_2_Count=false;
             extension_stream_Count=0;
-            Streams[start_code].stream_type=stream_type_FromTS;
+            Streams[start_code].stream_type=FromTS_stream_type;
         }
 
         //Exists
@@ -2405,7 +2405,7 @@ void File_MpegPs::video_stream()
         Streams[start_code].FrameCount_AfterLast_TimeStamp_End+=Streams[start_code].Parser->Frame_Count_InThisBlock;
 
     //Testing other parsers in case of need
-    if ((stream_type_FromTS==0 || stream_type_FromTS==6) && Streams[start_code].Parser->Count_Get(Stream_Video)==0)
+    if ((FromTS_stream_type==0 || FromTS_stream_type==6) && Streams[start_code].Parser->Count_Get(Stream_Video)==0)
     {
         bool WantShow1=Element_Show_Get();
         Element_Begin("Testing AVC...");
@@ -2521,7 +2521,7 @@ void File_MpegPs::LATM()
         private_stream_1_Count=0;
         private_stream_2_Count=false;
         extension_stream_Count=0;
-        Streams[start_code].stream_type=stream_type_FromTS;
+        Streams[start_code].stream_type=FromTS_stream_type;
     }
 
     //Exists
@@ -2801,7 +2801,7 @@ File__Analyze* File_MpegPs::ChooseParser_Mpegv()
         Open_Buffer_Init(Handle);
         Handle->Stream_Prepare(Stream_Video);
         Handle->Fill(Stream_Video, 0, Video_Format, "MPEG Video");
-        switch (stream_type_FromTS)
+        switch (FromTS_stream_type)
         {
             case 0x01 : Handle->Fill(Stream_Video, 0, Video_Codec, "MPEG-1V");
                         Handle->Fill(Stream_Video, 0, Video_Format_Version, "Version 1"); break;
@@ -2901,7 +2901,7 @@ File__Analyze* File_MpegPs::ChooseParser_Mpega()
         Open_Buffer_Init(Handle);
         Handle->Stream_Prepare(Stream_Audio);
         Handle->Fill(Stream_Audio, 0, Audio_Format, "MPEG Audio");
-        switch (stream_type_FromTS)
+        switch (FromTS_stream_type)
         {
             case 0x03 : Handle->Fill(Stream_Audio, 0, Audio_Codec,  "MPEG-1A");
                         Handle->Fill(Stream_Audio, 0, Audio_Format_Version, "Version 1"); break;

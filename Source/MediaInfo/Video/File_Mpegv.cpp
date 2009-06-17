@@ -312,7 +312,9 @@ bool File_Mpegv::Synched_Test()
         Buffer_Offset++;
 
     //Trailing 0x00
-    while(Buffer_Offset+3<=Buffer_Size && Buffer[Buffer_Offset]==0x00 && CC3(Buffer+Buffer_Offset)!=0x000001)
+    while(Buffer_Offset+3<=Buffer_Size && Buffer[Buffer_Offset+2]==0x00
+                                       && Buffer[Buffer_Offset+1]==0x00
+                                       && Buffer[Buffer_Offset  ]==0x00)
         Buffer_Offset++;
 
     //Must have enough buffer for having header
