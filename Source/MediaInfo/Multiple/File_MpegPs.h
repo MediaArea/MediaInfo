@@ -66,6 +66,7 @@ private :
 
     //Buffer - Global
     void Read_Buffer_Unsynched();
+    void Read_Buffer_Continue ();
     void Read_Buffer_Finalize ();
 
     //Buffer - Per element
@@ -184,6 +185,7 @@ private :
     int64u SizeToAnalyze; //Total size of a chunk to analyse, it may be changed by the parser
     int8u  stream_id_extension;
     bool   video_stream_Unlimited;
+    int16u Buffer_DataSizeToParse;
     int64u PTS;
     int64u DTS;
     bool   Parsing_End_ForDTS;
