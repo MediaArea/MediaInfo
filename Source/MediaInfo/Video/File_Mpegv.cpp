@@ -530,20 +530,18 @@ bool File_Mpegv::Header_Parser_QuickSearch()
 
         //Synchronizing
         Buffer_Offset+=4;
+        Synched=false;
         if (!Synchronize_0x000001())
-            break;
+        {
+            if (!IsSub && File_Offset+Buffer_Size==File_Size && !IsFilled && Frame_Count>=1)
+                slice_start_Fill(); //End of file, and we have some frames
+            return false;
+        }
     }
 
-    if (!IsSub && File_Offset+Buffer_Size==File_Size && !IsFilled && Frame_Count>=1)
-    {
-        slice_start_Fill(); //End of file, and we have some frames
-        return false;
-    }
     if (Buffer_Offset+3==Buffer_Size)
         return false; //Sync is OK, but start_code is not available
-    else if (Buffer_Offset+4<=Buffer_Size)
-        Trusted_IsNot("MPEG Video, Synchronisation lost");
-    Synched=false;
+    Trusted_IsNot("MPEG Video, Synchronisation lost");
     return Synchronize();
 }
 

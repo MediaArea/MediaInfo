@@ -525,7 +525,7 @@ bool File__Analyze::Buffer_Parse()
     if (!Data_Manage())
         return false; //Wait for more data
 
-    return true;
+    return Buffer_Offset!=Buffer_Size;
 }
 
 //---------------------------------------------------------------------------
@@ -581,6 +581,7 @@ bool File__Analyze::Synchronize_0x000001()
         return false;
 
     //Synched is OK
+    Synched=true;
     return true;
 }
 

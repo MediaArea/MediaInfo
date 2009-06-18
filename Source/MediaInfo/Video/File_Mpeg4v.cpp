@@ -403,15 +403,14 @@ bool File_Mpeg4v::Header_Parser_QuickSearch()
 
         //Synchronizing
         Buffer_Offset+=4;
+        Synched=false;
         if (!Synchronize_0x000001())
-            break;
+            return false;
     }
 
     if (Buffer_Offset+3==Buffer_Size)
         return false; //Sync is OK, but start_code is not available
-    if (Buffer_Offset+4<=Buffer_Size)
-        Trusted_IsNot("Mpeg4v, Synchronisation lost");
-    Synched=false;
+    Trusted_IsNot("MPEG-4 Visual, Synchronisation lost");
     return Synchronize();
 }
 
