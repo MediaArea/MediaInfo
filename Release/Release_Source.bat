@@ -23,14 +23,14 @@ xcopy ..\Source\*.cs MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.jsl MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.vb MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.java MediaInfo_Lib_Source\Source\ /S
-xcopy ..\Source\*.txt MediaInfo_Lib_Source\Source\ /S
+xcopy ..\Source\Ressource\*.txt MediaInfo_Lib_Source\Source\Ressource\ /S
 xcopy ..\Source\*.csv MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.dfm MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.au3 MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.pb MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.py MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\Doc\* MediaInfo_Lib_Source\Source\Doc\ /S
-xcopy ..\Source\Install\MediaInfo.nsi MediaInfo_Source\Source\Install\
+xcopy ..\Source\Install\*.nsi MediaInfo_Lib_Source\Source\Install\
 
 @rem --- Copying : Projects ---
 xcopy ..\Project\*.bpg MediaInfo_Lib_Source\Project\ /S
