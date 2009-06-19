@@ -133,7 +133,7 @@ void File_Eia608::Read_Buffer_Continue()
                                     case 0x2A : break; //Text Restart
                                     case 0x2B : break; //Resume Text Display.
                                     case 0x2C : break; //Erase Displayed Memory
-                                    case 0x2D : Captions+=_T(" / "); break; //Carriage Return
+                                    case 0x2D : Captions+=L" / "; break; //Carriage Return
                                     case 0x2E : break; //Erase Non-Displayed Memory
                                     case 0x2F : break; //End of Caption
                                     default   : ;
