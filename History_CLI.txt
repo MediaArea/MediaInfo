@@ -9,8 +9,6 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.17, 2009-06-19
 --------------
-+ Russian, Chinese (Simplified), Chinese (Traditional), Ukrainian translations updated
-+ Some tests about the 32 or 64-bit version of the OS are made at install
 + #2790156, Folders context menu option
 + Python : adaptation for version 3
 + XML output (thanks to Steen Jost Jensen)
