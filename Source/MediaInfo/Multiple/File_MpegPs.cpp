@@ -260,10 +260,6 @@ bool File_MpegPs::Synchronize()
 //---------------------------------------------------------------------------
 bool File_MpegPs::Synched_Test()
 {
-    //Video unlimited specific
-    if (video_stream_Unlimited || Buffer_DataSizeToParse)
-        return true; //Already tested, and this can be in a Streams
-
     //Trailing 0xFF
     while(Buffer_Offset<Buffer_Size && Buffer[Buffer_Offset]==0xFF)
         Buffer_Offset++;
@@ -405,6 +401,58 @@ void File_MpegPs::Read_Buffer_Continue()
         {
             Element_Size=Buffer_DataSizeToParse;
             Buffer_DataSizeToParse=0;
+        }
+
+        Element_Begin();
+        Data_Parse();
+        Element_Offset=Element_Size;
+        Element_End();
+    }
+
+    //Video unlimited specific, we didn't wait for the end (because this is... unlimited)
+    if (video_stream_Unlimited)
+    {
+        //Look for next Sync word
+        size_t Buffer_Offset_Temp=0;
+        while (Buffer_Offset_Temp+4<=Buffer_Size
+            && (Buffer[Buffer_Offset_Temp  ]!=0x00
+             || Buffer[Buffer_Offset_Temp+1]!=0x00
+             || Buffer[Buffer_Offset_Temp+2]!=0x01
+             || Buffer[Buffer_Offset_Temp+3]< 0xB9))
+        {
+            Buffer_Offset_Temp+=2;
+            while(Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp]!=0x00)
+                Buffer_Offset_Temp+=2;
+            if (Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp-1]==0x00 || Buffer_Offset_Temp>=Buffer_Size)
+                Buffer_Offset_Temp--;
+        }
+
+        //Parsing last bytes if needed
+        if (Buffer_Offset_Temp+4==Buffer_Size && (Buffer[Buffer_Offset_Temp  ]!=0x00
+                                               || Buffer[Buffer_Offset_Temp+1]!=0x00
+                                               || Buffer[Buffer_Offset_Temp+2]!=0x01))
+            Buffer_Offset_Temp++;
+        if (Buffer_Offset_Temp+3==Buffer_Size && (Buffer[Buffer_Offset_Temp  ]!=0x00
+                                               || Buffer[Buffer_Offset_Temp+1]!=0x00
+                                               || Buffer[Buffer_Offset_Temp+2]!=0x01))
+            Buffer_Offset_Temp++;
+        if (Buffer_Offset_Temp+2==Buffer_Size && (Buffer[Buffer_Offset_Temp  ]!=0x00
+                                               || Buffer[Buffer_Offset_Temp+1]!=0x00))
+            Buffer_Offset_Temp++;
+        if (Buffer_Offset_Temp+1==Buffer_Size &&  Buffer[Buffer_Offset_Temp  ]!=0x00)
+            Buffer_Offset_Temp++;
+
+        if (Buffer_Offset_Temp==Buffer_Size)
+        {
+            Element_Size=Buffer_Size; //All the buffer is used
+        }
+        else
+        {
+            Element_Size=Buffer_Offset_Temp;
+            if (Buffer_Offset_Temp+4<=Buffer_Size)
+                video_stream_Unlimited=false;
+            else
+                Element_IsWaitingForMoreData(); //We don't know if the next bytes are a start_code or data
         }
 
         Element_Begin();
@@ -633,21 +681,6 @@ void File_MpegPs::Header_Parse()
     PTS=(int64u)-1;
     DTS=(int64u)-1;
 
-    //Video unlimited specific, we didn't wait for the end (because this is... unlimited)
-    if (video_stream_Unlimited)
-    {
-        if (!Header_Parse_Fill_Size())
-            //Next PS packet is not found, we will use all the buffer
-            Header_Fill_Size(Buffer_Size); //All the buffer is used
-        else
-            //Next PS packet is found
-            video_stream_Unlimited=false;
-
-        //Parsing
-        Buffer_Offset_Temp=0;
-        return;
-    }
-
     //Parsing
     Skip_B3(                                                    "synchro");
     Get_B1 (start_code,                                         "start_code");
@@ -665,25 +698,6 @@ void File_MpegPs::Header_Parse()
     //Reinit
     PTS=(int64u)-1;
     DTS=(int64u)-1;
-
-    //Video unlimited specific, we didn't wait for the end (because this is... unlimited)
-    if (video_stream_Unlimited)
-    {
-        if (!Header_Parse_Fill_Size())
-        {
-            //Next PS packet is not found, we will use all the buffer
-            //Filling
-            Element[1].Next=File_Offset+Buffer_Size;  //Header_Fill_Size(Buffer_Size);
-            Element[1].IsComplete=true;               //Header_Fill_Size(Buffer_Size);
-        }
-        else
-            //Next PS packet is found
-            video_stream_Unlimited=false;
-
-        //Parsing
-        Buffer_Offset_Temp=0;
-        return;
-    }
 
     //Parsing
     start_code=Buffer[Buffer_Offset+3];
@@ -704,7 +718,7 @@ bool File_MpegPs::Header_Parse_Fill_Size()
 {
     //Look for next Sync word
     if (Buffer_Offset_Temp==0) //Buffer_Offset_Temp is not 0 if Header_Parse_Fill_Size() has already parsed first frames
-        Buffer_Offset_Temp=Buffer_Offset+(video_stream_Unlimited?0:4);
+        Buffer_Offset_Temp=Buffer_Offset+4;
     while (Buffer_Offset_Temp+4<=Buffer_Size
         && (Buffer[Buffer_Offset_Temp  ]!=0x00
          || Buffer[Buffer_Offset_Temp+1]!=0x00
@@ -739,14 +753,6 @@ bool File_MpegPs::Header_Parse_Fill_Size()
             Buffer_Offset_Temp=Buffer_Size; //We are sure that the next bytes are a start
         else
             return false;
-    }
-
-    //Specific case
-    if (video_stream_Unlimited && Buffer_Offset_Temp==Buffer_Offset) //Latest chunk is finished, we must parse the next one
-    {
-        video_stream_Unlimited=false;
-        Header_Parse_Fill_Size();
-        return true;
     }
 
     //OK, we continue
