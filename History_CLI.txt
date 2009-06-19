@@ -7,6 +7,34 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.17, 2009-06-19
+--------------
++ Russian, Chinese (Simplified), Chinese (Traditional), Ukrainian translations updated
++ Some tests about the 32 or 64-bit version of the OS are made at install
++ #2790156, Folders context menu option
++ Python : adaptation for version 3
++ XML output (thanks to Steen Jost Jensen)
++ MPEG-PS/TS: ATSC Closed captions (both EIA-608 and EIA-708) detection
++ MPEG-PS/TS: Language of closed caption (ATSC)
++ DV: camera settings
++ DV: Closed captions detection (raw DV, or in .mp4 and AVI container)
++ JPEG 2000 support
++ MPEG-4: support of JPEG 2000 embedded in a MPEG-4 container
++ MPEG-4: support of ProRes 422 / ProRes 422 HQ codecs
++ MPEG-4, AMR: Vendor and version
++ Blu-ray: support of PCM (Frequency, resolution, bitrate)
++ MPEG-TS: speed improvements
+x #2803396, sometimes crash with tiny (40-79 bytes) files
+x #2801211, MPEG-4/3GP: support of 3GP tags
+x #2795345, MPEG-4 Visual: crash with some specific user_data
+x #2793960, MKV: some MKV renamed as .ac3 were detected as AC-3
+x #2796417, MPEG-4: Some files with Camera user data were not detected
+x #2785604, Build fails on newer GCC versions (>=4.4)
+x #2664106, prefs overwritten after installing update
+x so interface was not working since some releases on Linux
+x MPEG Video: better detection of 2:3 Pulldown
+x MPEG-4: Forcing AMR to 8KHz/Mono whatever the container says
+
 Version 0.7.16, 2009-05-20
 -------------
 + MPEG-4: More information for Avid DV streams
