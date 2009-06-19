@@ -7,8 +7,8 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.17, 2009-
--------------
+Version 0.7.17, 2009-06-19
+--------------
 + Python : adaptation for version 3
 + XML output (thanks to Steen Jost Jensen)
 + MPEG-PS/TS: ATSC Closed captions (both EIA-608 and EIA-708) detection
@@ -20,6 +20,7 @@ Version 0.7.17, 2009-
 + MPEG-4: support of ProRes 422 / ProRes 422 HQ codecs
 + MPEG-4, AMR: Vendor and version
 + Blu-ray: support of PCM (Frequency, resolution, bitrate)
++ MPEG-TS: speed improvements
 x #2803396, sometimes crash with tiny (40-79 bytes) files
 x #2801211, MPEG-4/3GP: support of 3GP tags
 x #2795345, MPEG-4 Visual: crash with some specific user_data
