@@ -19,10 +19,9 @@ xcopy ..\Source\*.h MediaInfo_Source\Source\ /S
 xcopy ..\Source\*.dfm MediaInfo_Source\Source\ /S
 xcopy ..\Source\*.xml MediaInfo_Source\Source\ /S
 xcopy ..\Source\*.rc MediaInfo_Source\Source\ /S
-xcopy ..\Source\*.txt MediaInfo_Source\Source\ /S
 xcopy ..\Source\*.csv MediaInfo_Source\Source\ /S
 xcopy ..\Source\*.ico MediaInfo_Source\Source\ /S
-xcopy ..\Source\Install\MediaInfo.nsi MediaInfo_Source\Source\Install\
+xcopy ..\Source\Install\*.nsi MediaInfo_Source\Source\Install\
 xcopy ..\Source\*.sh  MediaInfo_Source\Source\ /S
 xcopy ..\Source\*.png MediaInfo_Source\Source\ /S
 xcopy ..\Source\*.xpm MediaInfo_Source\Source\ /S
