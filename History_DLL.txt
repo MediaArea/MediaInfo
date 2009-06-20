@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.18, 2009-
+--------------
++ OpenSolaris support
+
 Version 0.7.17, 2009-06-19
 --------------
 + Python : adaptation for version 3

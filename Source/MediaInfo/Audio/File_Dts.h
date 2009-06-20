@@ -24,6 +24,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#ifdef ES
+   #undef ES //Solaris defines this somewhere
+#endif
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

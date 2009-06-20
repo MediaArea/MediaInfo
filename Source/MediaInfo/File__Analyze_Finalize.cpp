@@ -33,6 +33,9 @@
 #include "ZenLib/File.h"
 #include "ZenLib/FileName.h"
 #include "MediaInfo/File__Analyze.h"
+#ifdef SS
+   #undef SS //Solaris defines this somewhere
+#endif
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 

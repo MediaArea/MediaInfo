@@ -32,7 +32,13 @@
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
 #include <vector>
+#ifdef SS
+   #undef SS //Solaris defines this somewhere
+#endif
 using namespace std;
 //---------------------------------------------------------------------------
 
@@ -1151,7 +1157,6 @@ Ztring File_Dvdv::Time_ADT(int32u)
     }
     */
 }
-
 
 void File_Dvdv::Time_BCD(const Ztring &Name)
 {
