@@ -1070,6 +1070,8 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "AVS Video;;;V;AvsV;Audio Video Standart, Video part;;http://www.avs.org.cn/\n"
     "Shorten;;;A;;;shn;http://etree.org/shnutils/shorten/\n"
     "TAK;;;A;;;tak;http://thbeck.de/Tak/Tak.html\n"
+    "Blu-ray PlayList;;;M;Mpls;;mpls\n"
+    "Blu-ray ClipInfo;;;M;Clpi;;clpi\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }

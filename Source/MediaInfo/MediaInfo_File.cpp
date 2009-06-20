@@ -40,6 +40,9 @@
 #if defined(MEDIAINFO_CDXA_YES)
     #include "MediaInfo/Multiple/File_Cdxa.h"
 #endif
+#if defined(MEDIAINFO_CLPI_YES)
+    #include "MediaInfo/Multiple/File_Clpi.h"
+#endif
 #if defined(MEDIAINFO_DVDIF_YES)
     #include "MediaInfo/Multiple/File_DvDif.h"
 #endif
@@ -60,6 +63,9 @@
 #endif
 #if defined(MEDIAINFO_MPEGTS_YES) || defined(MEDIAINFO_BDAV_YES) || defined(MEDIAINFO_TSP_YES)
     #include "MediaInfo/Multiple/File_MpegTs.h"
+#endif
+#if defined(MEDIAINFO_MPLS_YES)
+    #include "MediaInfo/Multiple/File_Mpls.h"
 #endif
 #if defined(MEDIAINFO_MXF_YES)
     #include "MediaInfo/Multiple/File_Mxf.h"
@@ -272,6 +278,9 @@ void MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_CDXA_YES)
         else if (Parser==_T("Cdxa"))        Info=new File_Cdxa();
     #endif
+    #if defined(MEDIAINFO_CLPI_YES)
+        else if (Parser==_T("Clpi"))        Info=new File_Clpi();
+    #endif
     #if defined(MEDIAINFO_DVDIF_YES)
         else if (Parser==_T("DvDif"))        Info=new File_DvDif();
     #endif
@@ -292,6 +301,9 @@ void MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #endif
     #if defined(MEDIAINFO_MPEGTS_YES)
         else if (Parser==_T("MpegTs"))      Info=new File_MpegTs();
+    #endif
+    #if defined(MEDIAINFO_MPLS_YES)
+        else if (Parser==_T("Mpls"))        Info=new File_Mpls();
     #endif
     #if defined(MEDIAINFO_MXF_YES)
         else if (Parser==_T("Mxf"))         Info=new File_Mxf();
@@ -481,6 +493,9 @@ int MediaInfo_Internal::ListFormats()
     #if defined(MEDIAINFO_CDXA_YES)
         delete Info; Info=new File_Cdxa();               if (ApplyMethod()>0) return 1;
     #endif
+    #if defined(MEDIAINFO_CLPI_YES)
+        delete Info; Info=new File_Clpi();               if (ApplyMethod()>0) return 1;
+    #endif
     #if defined(MEDIAINFO_DVDIF_YES)
         delete Info; Info=new File_DvDif();              if (ApplyMethod()>0) return 1;
     #endif
@@ -501,6 +516,9 @@ int MediaInfo_Internal::ListFormats()
     #endif
     #if defined(MEDIAINFO_MPEGTS_YES)
         delete Info; Info=new File_MpegTs();             if (ApplyMethod()>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_MPLI_YES)
+        delete Info; Info=new File_Mpli();               if (ApplyMethod()>0) return 1;
     #endif
     #if defined(MEDIAINFO_MXF_YES)
         delete Info; Info=new File_Mxf();                if (ApplyMethod()>0) return 1;

@@ -854,6 +854,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Clpi.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Dpg.cpp"
 					>
 				</File>
@@ -907,6 +911,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_MpegTs_Duplicate.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Mpls.cpp"
 					>
 				</File>
 				<File
@@ -1362,6 +1370,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Clpi.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Dpg.h"
 					>
 				</File>
@@ -1403,6 +1415,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_MpegTs.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Mpls.h"
 					>
 				</File>
 				<File
