@@ -37,6 +37,9 @@
 
 //---------------------------------------------------------------------------
 // Multiple
+#if defined(MEDIAINFO_BDMV_YES)
+    #include "MediaInfo/Multiple/File_Bdmv.h"
+#endif
 #if defined(MEDIAINFO_CDXA_YES)
     #include "MediaInfo/Multiple/File_Cdxa.h"
 #endif
@@ -63,9 +66,6 @@
 #endif
 #if defined(MEDIAINFO_MPEGTS_YES) || defined(MEDIAINFO_BDAV_YES) || defined(MEDIAINFO_TSP_YES)
     #include "MediaInfo/Multiple/File_MpegTs.h"
-#endif
-#if defined(MEDIAINFO_MPLS_YES)
-    #include "MediaInfo/Multiple/File_Mpls.h"
 #endif
 #if defined(MEDIAINFO_MXF_YES)
     #include "MediaInfo/Multiple/File_Mxf.h"
@@ -275,11 +275,11 @@ void MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_BDAV_YES)
         else if (Parser==_T("Bdav"))       {Info=new File_MpegTs(); ((File_MpegTs*)Info)->BDAV_Size=4;}
     #endif
+    #if defined(MEDIAINFO_BDMV_YES)
+        else if (Parser==_T("Bdmv"))        Info=new File_Bdmv();
+    #endif
     #if defined(MEDIAINFO_CDXA_YES)
         else if (Parser==_T("Cdxa"))        Info=new File_Cdxa();
-    #endif
-    #if defined(MEDIAINFO_CLPI_YES)
-        else if (Parser==_T("Clpi"))        Info=new File_Clpi();
     #endif
     #if defined(MEDIAINFO_DVDIF_YES)
         else if (Parser==_T("DvDif"))        Info=new File_DvDif();
@@ -301,9 +301,6 @@ void MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #endif
     #if defined(MEDIAINFO_MPEGTS_YES)
         else if (Parser==_T("MpegTs"))      Info=new File_MpegTs();
-    #endif
-    #if defined(MEDIAINFO_MPLS_YES)
-        else if (Parser==_T("Mpls"))        Info=new File_Mpls();
     #endif
     #if defined(MEDIAINFO_MXF_YES)
         else if (Parser==_T("Mxf"))         Info=new File_Mxf();
@@ -489,6 +486,9 @@ int MediaInfo_Internal::ListFormats()
     // Multiple
     #if defined(MEDIAINFO_BDAV_YES)
         delete Info; Info=new File_MpegTs(); ((File_MpegTs*)Info)->BDAV_Size=4; if (ApplyMethod()>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_BDMV_YES)
+        delete Info; Info=new File_Bdmv();               if (ApplyMethod()>0) return 1;
     #endif
     #if defined(MEDIAINFO_CDXA_YES)
         delete Info; Info=new File_Cdxa();               if (ApplyMethod()>0) return 1;

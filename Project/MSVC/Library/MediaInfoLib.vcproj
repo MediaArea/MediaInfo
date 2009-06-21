@@ -850,11 +850,11 @@
 				Name="Multiple"
 				>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Cdxa.cpp"
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Bdmv.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Clpi.cpp"
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Cdxa.cpp"
 					>
 				</File>
 				<File
@@ -911,10 +911,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_MpegTs_Duplicate.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Mpls.cpp"
 					>
 				</File>
 				<File
@@ -1366,11 +1362,11 @@
 				Name="Multiple"
 				>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Cdxa.h"
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Bdmv.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Clpi.h"
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Cdxa.h"
 					>
 				</File>
 				<File
@@ -1415,10 +1411,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_MpegTs.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Mpls.h"
 					>
 				</File>
 				<File

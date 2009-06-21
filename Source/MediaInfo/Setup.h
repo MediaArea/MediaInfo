@@ -100,8 +100,8 @@
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_BDAV_NO) && !defined(MEDIAINFO_BDAV_YES)
     #define MEDIAINFO_BDAV_YES
 #endif
-#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_CLPI_NO) && !defined(MEDIAINFO_CLPI_YES)
-    #define MEDIAINFO_CLPI_YES
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_BDMV_NO) && !defined(MEDIAINFO_BDMV_YES)
+    #define MEDIAINFO_BDMV_YES
 #endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_CDXA_NO) && !defined(MEDIAINFO_CDXA_YES)
     #define MEDIAINFO_CDXA_YES
@@ -132,9 +132,6 @@
 #endif
 #if defined(MEDIAINFO_MPEGTS_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_NO) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
     #define MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-#endif
-#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_MPLS_NO) && !defined(MEDIAINFO_MPLS_YES)
-    #define MEDIAINFO_MPLS_YES
 #endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_MXF_NO) && !defined(MEDIAINFO_MXF_YES)
     #define MEDIAINFO_MXF_YES

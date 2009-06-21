@@ -94,8 +94,8 @@ AC_ARG_ENABLE(jpeg,    AC_HELP_STRING([--disable-jpeg],    [Disable Image - JPEG
 AC_ARG_ENABLE(png,     AC_HELP_STRING([--disable-png],     [Disable Image - PNG]),                                        MediaInfoPng=$enableval,     MediaInfoPng=depend)
 AC_ARG_ENABLE(rle,     AC_HELP_STRING([--disable-rle],     [Disable Image - Run-length encoding]),                        MediaInfoRle=$enableval,     MediaInfoRle=depend)
 AC_ARG_ENABLE(tiff,    AC_HELP_STRING([--disable-tiff],    [Disable Image - TIFF]),                                       MediaInfoTiff=$enableval,    MediaInfoTiff=depend)
-AC_ARG_ENABLE(bdav,    AC_HELP_STRING([--disable-bdav],    [Disable Multiple - Blu-ray video (BDAV)]),                    MediaInfoBdav=$enableval,    MediaInfoBdav=depend)
-AC_ARG_ENABLE(clpi,    AC_HELP_STRING([--disable-clpi],    [Disable Multiple - Blu-ray ClipInfo]),                        MediaInfoClpi=$enableval,    MediaInfoClpi=depend)
+AC_ARG_ENABLE(bdav,    AC_HELP_STRING([--disable-bdav],    [Disable Multiple - Blu-ray audio-video (BDAV)]),              MediaInfoBdav=$enableval,    MediaInfoBdav=depend)
+AC_ARG_ENABLE(bdmv,    AC_HELP_STRING([--disable-bdmv],    [Disable Multiple - Blu-ray Movie]),                           MediaInfoBdmv=$enableval,    MediaInfoBdmv=depend)
 AC_ARG_ENABLE(cdxa,    AC_HELP_STRING([--disable-cdxa],    [Disable Multiple - CDXA (CD mode 2)]),                        MediaInfoCdxa=$enableval,    MediaInfoCdxa=depend)
 AC_ARG_ENABLE(dpg,     AC_HELP_STRING([--disable-dpg],     [Disable Multiple - DPG (Nintendo DS)]),                       MediaInfoDpg=$enableval,     MediaInfoDpg=depend)
 AC_ARG_ENABLE(dvdif,   AC_HELP_STRING([--disable-dvdif],   [Disable Multiple - DV DIF (Digital Video)]),                  MediaInfoDvDif=$enableval,   MediaInfoDvDif=depend)
@@ -108,7 +108,6 @@ AC_ARG_ENABLE(mpegps,  AC_HELP_STRING([--disable-mpegps],  [Disable Multiple - M
 AC_ARG_ENABLE(mpegts,  AC_HELP_STRING([--disable-mpegts],  [Disable Multiple - MPEG-TS]),                                 MediaInfoMpegTs=$enableval,  MediaInfoMpegTs=depend)
 AC_ARG_ENABLE(mpegts-pcr, AC_HELP_STRING([--disable-mpegts-pcr],  [Disable Multiple - MPEG-TS (PCR)]), MediaInfoMpegTsPcr=$enableval, MediaInfoMpegTsPcr=depend)
 AC_ARG_ENABLE(mpegts-pestimestamp, AC_HELP_STRING([--disable-mpegts-pestimestamp],  [Disable Multiple - MPEG-TS (parser time stamp)]), MediaInfoMpegTsPesTimeStamp=$enableval, MediaInfoMpegTsPesTimeStamp=depend)
-AC_ARG_ENABLE(Mpls,    AC_HELP_STRING([--disable-Mpls],    [Disable Multiple - Blu-ray PlayList]),                        MediaInfoMpls=$enableval,    MediaInfoMpls=depend)
 AC_ARG_ENABLE(mxf,     AC_HELP_STRING([--disable-mxf],     [Disable Multiple - MXF]),                                     MediaInfoMxf=$enableval,     MediaInfoMxf=depend)
 AC_ARG_ENABLE(nut,     AC_HELP_STRING([--disable-nut],     [Disable Multiple - Nut]),                                     MediaInfoNut=$enableval,     MediaInfoNut=depend)
 AC_ARG_ENABLE(ogg,     AC_HELP_STRING([--disable-ogg],     [Disable Multiple - OGG (ogg, ogm)]),                          MediaInfoOgg=$enableval,     MediaInfoOgg=depend)
@@ -188,8 +187,8 @@ if test "$MediaInfoJpeg"    = "no";  then AC_DEFINE(MEDIAINFO_JPEG_NO)    fi; if
 if test "$MediaInfoPng"     = "no";  then AC_DEFINE(MEDIAINFO_PNG_NO)     fi; if test "$MediaInfoPng"     = "yes"; then AC_DEFINE(MEDIAINFO_PNG_YES)     fi
 if test "$MediaInfoTiff"    = "no";  then AC_DEFINE(MEDIAINFO_TIFF_NO)    fi; if test "$MediaInfoTiff"    = "yes"; then AC_DEFINE(MEDIAINFO_TIFF_YES)    fi
 if test "$MediaInfoBdav"    = "no";  then AC_DEFINE(MEDIAINFO_BDAV_NO)    fi; if test "$MediaInfoBdav"    = "yes"; then AC_DEFINE(MEDIAINFO_BDAV_YES)    fi
+if test "$MediaInfoBdmv"    = "no";  then AC_DEFINE(MEDIAINFO_BDMV_NO)    fi; if test "$MediaInfoBdmv"    = "yes"; then AC_DEFINE(MEDIAINFO_BDMV_YES)    fi
 if test "$MediaInfoCdxa"    = "no";  then AC_DEFINE(MEDIAINFO_CDXA_NO)    fi; if test "$MediaInfoCdxa"    = "yes"; then AC_DEFINE(MEDIAINFO_CDXA_YES)    fi
-if test "$MediaInfoClpi"    = "no";  then AC_DEFINE(MEDIAINFO_CLPI_NO)    fi; if test "$MediaInfoClpi"    = "yes"; then AC_DEFINE(MEDIAINFO_CLPI_YES)    fi
 if test "$MediaInfoDpg"     = "no";  then AC_DEFINE(MEDIAINFO_DPG_NO)     fi; if test "$MediaInfoDpg"     = "yes"; then AC_DEFINE(MEDIAINFO_DPG_YES)     fi
 if test "$MediaInfoDvDif"   = "no";  then AC_DEFINE(MEDIAINFO_DVDIF_NO)   fi; if test "$MediaInfoDvDif"   = "yes"; then AC_DEFINE(MEDIAINFO_DVDIF_YES)   fi
 if test "$MediaInfoDvDifAnalyze" = "no";  then AC_DEFINE(MEDIAINFO_DVDIF_ANALYZE_NO)   fi; if test "$MediaInfoDvDifAnalyze" = "yes"; then AC_DEFINE(MEDIAINFO_DVDIF_ANALYZE_YES) fi
@@ -201,7 +200,6 @@ if test "$MediaInfoMpegPs"  = "no";  then AC_DEFINE(MEDIAINFO_MPEGPS_NO)  fi; if
 if test "$MediaInfoMpegTs"  = "no";  then AC_DEFINE(MEDIAINFO_MPEGTS_NO)  fi; if test "$MediaInfoMpegTs"  = "yes"; then AC_DEFINE(MEDIAINFO_MPEGTS_YES)  fi
 if test "$MediaInfoMpegTsPcr" = "no"; then AC_DEFINE(MEDIAINFO_MPEGTS_PCR_NO)  fi; if test "$MediaInfoMpegTs" = "yes"; then AC_DEFINE(MEDIAINFO_MPEGTS_PCR_YES) fi
 if test "$MediaInfoMpegTsPesTimeStamp" = "no"; then AC_DEFINE(MEDIAINFO_MPEGTS_PESTIMESTAMP_NO)  fi; if test "$MediaInfoMpegTs" = "yes"; then AC_DEFINE(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES) fi
-if test "$MediaInfoMpls"    = "no";  then AC_DEFINE(MEDIAINFO_MPLS_NO)    fi; if test "$MediaInfoMpls"    = "yes"; then AC_DEFINE(MEDIAINFO_MPLS_YES)    fi
 if test "$MediaInfoMxf"     = "no";  then AC_DEFINE(MEDIAINFO_MXF_NO)     fi; if test "$MediaInfoMxf"     = "yes"; then AC_DEFINE(MEDIAINFO_MXF_YES)     fi
 if test "$MediaInfoNut"     = "no";  then AC_DEFINE(MEDIAINFO_NUT_NO)     fi; if test "$MediaInfoNut"     = "yes"; then AC_DEFINE(MEDIAINFO_NUT_YES)     fi
 if test "$MediaInfoOgg"     = "no";  then AC_DEFINE(MEDIAINFO_OGG_NO)     fi; if test "$MediaInfoOgg"     = "yes"; then AC_DEFINE(MEDIAINFO_OGG_YES)     fi
@@ -457,7 +455,7 @@ Mcho "Jpeg   " "$MediaInfoJpeg"
 Mcho "Png    " "$MediaInfoPng"
 Mcho "Tiff   " "$MediaInfoTiff"
 Mcho "Bdav   " "$MediaInfoBdav"
-Mcho "Cpli   " "$MediaInfoCpli"
+Mcho "Bdmv   " "$MediaInfoBdmv"
 Mcho "Cdxa   " "$MediaInfoCdxa"
 Mcho "Dpg    " "$MediaInfoDpg"
 Mcho "DvDif  " "$MediaInfoDvDif"
@@ -470,7 +468,6 @@ Mcho "MpegPs " "$MediaInfoMpegPs"
 Mcho "MpegTs " "$MediaInfoMpegTs"
 Mcho "MpegTs (PCR)" "$MediaInfoMpegTsPcr"
 Mcho "MpegTs (Parser time stamp)" "$MediaInfoMpegTsPesTimeStamp"
-Mcho "Mpls   " "$MediaInfoMpls"
 Mcho "Mxf    " "$MediaInfoMxf"
 Mcho "Nut    " "$MediaInfoNut"
 Mcho "Ogg    " "$MediaInfoOgg"

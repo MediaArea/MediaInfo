@@ -70,8 +70,8 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Image/File_Png.cpp \
                        ../../../Source/MediaInfo/Image/File_Rle.cpp \
                        ../../../Source/MediaInfo/Image/File_Tiff.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_Bdmv.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Cdxa.cpp \
-                       ../../../Source/MediaInfo/Multiple/File_Clpi.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Dpg.cpp \
                        ../../../Source/MediaInfo/Multiple/File_DvDif.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Dvdv.cpp \
@@ -86,7 +86,6 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Multiple/File_MpegPs.cpp \
                        ../../../Source/MediaInfo/Multiple/File_MpegTs.cpp \
                        ../../../Source/MediaInfo/Multiple/File_MpegTs_Duplicate.cpp \
-                       ../../../Source/MediaInfo/Multiple/File_Mpls.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Mxf.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Nut.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Ogg.cpp \

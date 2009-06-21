@@ -82,5 +82,7 @@ Theora;;;V;;;;
 AVS Video;;;V;AvsV;Audio Video Standart, Video part;;http://www.avs.org.cn/
 Shorten;;;A;;;shn;http://etree.org/shnutils/shorten/
 TAK;;;A;;;tak;http://thbeck.de/Tak/Tak.html
-Blu-ray PlayList;;;M;Mpls;;mpls;
-Blu-ray ClipInfo;;;M;Clpi;;clpi;
+Blu-ray Movie object;;;M;Bdmv;;bdmv;
+Blu-ray Index;;;M;Bdmv;;bdmv;
+Blu-ray Playlist;;;M;Bdmv;;mpls;
+Blu-ray Clip info;;;M;Bdmv;;clpi;
