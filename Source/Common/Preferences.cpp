@@ -441,6 +441,9 @@ int Preferences::ExplorerShell()
         ".w64;W64File\r\n"
         ".wv;WCFile\r\n"
         ".wvc;WVCFile\r\n"
+        ".bdmv;BDMVFile\r\n"
+        ".mpls;MPLSFile\r\n"
+        ".clpi;CLPIFile\r\n"
         "Folder;Folder");
 
     bool IsChanged=false;
