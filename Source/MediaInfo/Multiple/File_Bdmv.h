@@ -51,12 +51,26 @@ private :
     void Clpi_Streams_Video();
     void Clpi_Streams_Audio();
     void Clpi_Streams_Text();
-    void Mpls_Playlists();
-    void Mpls_Chapters();
+    void Indx_AppInfoBDMV();
+    void Indx_Indexes();
+    void Indx_Indexes_Index(int8u object_type);
+    void Indx_ExtensionData();
+    void Indx_ExtensionData_IDEX();
+    void Indx_ExtensionData_IDEX_UIAppInfoAVCHD();
+    void Indx_ExtensionData_IDEX_TableOfPlayLists();
+    void Indx_ExtensionData_IDEX_MakersPrivateData();
+    void Mobj_MovieObjects();
+    void Mobj_ExtensionData();
+    void Mpls_AppInfoPlayList();
+    void Mpls_PlayList();
+    void Mpls_PlayList_PlayItem_STN_Video();
+    void Mpls_PlayList_PlayItem_STN_Audio();
+    void Mpls_PlayList_PlayItem_STN_Text();
+    void Mpls_PlayListMarks();
 
     //Temp
-    int8u StreamType;
-    std::map<int32u, size_t> Types;
+    int8u stream_type;
+    std::map<int32u, size_t> Types; //Key is the start adress
 };
 
 } //NameSpace
