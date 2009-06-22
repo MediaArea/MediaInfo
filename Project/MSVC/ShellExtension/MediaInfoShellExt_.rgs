@@ -851,3 +851,36 @@ HKCR
     }
 }
 
+HKCR
+{
+    NoRemove .bdmv
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .mpls
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
+HKCR
+{
+    NoRemove .clpi
+    {
+        NoRemove shellex
+        {
+            ForceRemove {00021500-0000-0000-C000-000000000046} = s '{869C14C8-1830-491F-B575-5F9AB40D2B42}'
+        }
+    }
+}
+
