@@ -163,7 +163,7 @@ ArtDirector;RegjisorArtistik
 AspectRatio;Raporti i aspektit
 AssistantDirector;RegjisorAsistent
 at;në
-At least one file;(Duhet të hapet të paktën një skedë)
+At least one file;(Duhet hapur të paktën një skedë)
 Audio;Audio
 Audio stream(s);Rrymat e audios
 Audio_Codec_List;Kodekët e audios
@@ -235,7 +235,7 @@ Conductor;Dirigjenti
 Container and general information;Mbajtësi dhe info në përgjithësi
 ContentType;Lloji i përmbajtjes
 CoProducer;Koproducent
-Copyright;Copyright
+Copyright;E drejta e autorit
 CostumeDesigner;Modeluesi i kostumit
 Count;Numërimi
 Country;Vendi
@@ -286,7 +286,7 @@ Family;Familje
 Fax;Faks
 File;Skedë
 File size;Masa e skedës
-File_Append;Bashkangjite te skeda ekzistuese (Kujdes : duhet të keni të njëjtët parametra)
+File_Append;Bashkangjite te skeda ekzistuese (Kujdes : duhen pasur të njëjtët parametra)
 File_Created_Date;Data e krijimit të skedës
 File_Created_Date_Local;Data e krijimit të skedës (lokale)
 File_Hint;Studioni një skedë multimediale
@@ -336,7 +336,7 @@ FrameRate_Nominal;Raporti nominal i kuadrit
 FrameRate_Maximum;Raporti maksimal i kuadrit
 FrameRate_Original;Raporti origjinal i kuadrit
 General;Përgjithësi
-Genre;Gjini
+Genre;Zhanri
 Genre_000;Blues
 Genre_001;Classic Rock
 Genre_002;Country
@@ -739,7 +739,7 @@ ms;ms
 MSDI;MSDI
 MusicBy;Muzikë nga
 MuxingMode;Mënyra e muksimit
-MuxingMode_MoreInfo
+MuxingMode_MoreInfo;Mënyra e muksimit, më shumë info
 MuxingMode_PackedBitstream;Rryma e bitit e paketuar
 Name;Emri
 Nationality;Kombësi
@@ -853,9 +853,9 @@ Setup;Ndërtimi
 Sharpness;Mprehtësi
 Sheet;Fletë
 Sheet (Complete);Fletë (Plot)
-Shell extension;Shto në bazë (kur në Explorer klikohet me të djathtën do të jetë mundësia Media Info)
-Shell extension, folder
-Shell InfoTip;Këshilla Informuese në bazë (në Explorer, çojeni mausin mbi skedë, do të shfaqen info)
+Shell extension;Shto në bazë (kur klikon në Explorer me të djathtën do të jepet mundësia Media Info)
+Shell extension, folder;Edhe për dosjet
+Shell InfoTip;Këshilla Informuese në bazë (në Explorer, kur çon mausin mbi skedë do të shfaqen info)
 Show menu;Trego menynë
 Show toolbar;Trego brezin e mjeteve
 Sort;Radhitur nga
@@ -934,5 +934,5 @@ Written_Location;Vendndodhje e shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
