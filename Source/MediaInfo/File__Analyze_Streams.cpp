@@ -26,6 +26,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#include "MediaInfo/MediaInfo_Internal.h"
 #include "MediaInfo/MediaInfo_Config.h"
 #include "ZenLib/File.h"
 #include "ZenLib/BitStream_LE.h"
@@ -296,6 +297,59 @@ void File__Analyze::Fill_Flush()
 {
     Stream_Prepare(Stream_Max); //clear filling
     Fill_Temp.clear();
+}
+
+//---------------------------------------------------------------------------
+size_t File__Analyze::Merge(MediaInfo_Internal &ToAdd, bool Erase)
+{
+    size_t Count=0;
+    for (size_t StreamKind=(size_t)Stream_General; StreamKind<(size_t)Stream_Max; StreamKind++)
+    {
+        size_t StreamPos_Count=ToAdd.Count_Get((stream_t)StreamKind);
+        for (size_t StreamPos=0; StreamPos<StreamPos_Count; StreamPos++)
+        {
+            //Prepare a new stream
+            Stream_Prepare((stream_t)StreamKind);
+
+            //Merge
+            size_t Pos_Count=ToAdd.Count_Get((stream_t)StreamKind, StreamPos);
+            for (size_t Pos=0; Pos<Pos_Count; Pos++)
+            {
+                Fill((stream_t)StreamKind, StreamPos, Ztring(ToAdd.Get((stream_t)StreamKind, StreamPos, Pos, Info_Name)).To_UTF8().c_str(), ToAdd.Get((stream_t)StreamKind, StreamPos, Pos), true);
+            }
+
+            //Clearing duplicates
+            Clear((stream_t)StreamKind, StreamPos, "Count");
+            Clear((stream_t)StreamKind, StreamPos, "StreamCount");
+            Clear((stream_t)StreamKind, StreamPos, "StreamKind");
+            Clear((stream_t)StreamKind, StreamPos, "StreamKind/String");
+            Clear((stream_t)StreamKind, StreamPos, "StreamKindID");
+            Clear((stream_t)StreamKind, StreamPos, "StreamKindPos");
+
+            if ((stream_t)StreamKind==Stream_General)
+            {
+                Clear(Stream_General, StreamPos, (size_t)General_GeneralCount);
+                Clear(Stream_General, StreamPos, (size_t)General_VideoCount);
+                Clear(Stream_General, StreamPos, (size_t)General_AudioCount);
+                Clear(Stream_General, StreamPos, (size_t)General_TextCount);
+                Clear(Stream_General, StreamPos, (size_t)General_ChaptersCount);
+                Clear(Stream_General, StreamPos, (size_t)General_ImageCount);
+                Clear(Stream_General, StreamPos, (size_t)General_MenuCount);
+                Clear(Stream_General, StreamPos, (size_t)General_CompleteName);
+                Clear(Stream_General, StreamPos, (size_t)General_FolderName);
+                Clear(Stream_General, StreamPos, (size_t)General_FileName);
+                Clear(Stream_General, StreamPos, (size_t)General_FileExtension);
+                Clear(Stream_General, StreamPos, (size_t)General_File_Created_Date);
+                Clear(Stream_General, StreamPos, (size_t)General_File_Created_Date_Local);
+                Clear(Stream_General, StreamPos, (size_t)General_File_Modified_Date);
+                Clear(Stream_General, StreamPos, (size_t)General_File_Modified_Date_Local);
+            }
+
+            Count++;
+        }
+    }
+
+    return Count;
 }
 
 //---------------------------------------------------------------------------

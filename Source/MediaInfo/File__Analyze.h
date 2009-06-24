@@ -35,9 +35,12 @@ using namespace ZenLib;
 namespace MediaInfoLib
 {
 
+class MediaInfo_Internal;
+
 #ifdef MEDIAINFO_MINIMIZESIZE
     #include "MediaInfo/File__Analyze_MinimizeSize.h"
 #else
+
 //***************************************************************************
 // Class File__Base
 //***************************************************************************
@@ -762,6 +765,8 @@ public :
 
     //Utils
 public :
+    size_t Merge(MediaInfo_Internal &ToAdd, bool Erase=true); //Merge 2 File_Base
+    size_t Merge(MediaInfo_Internal &ToAdd, stream_t StreamKind, size_t StreamPos_From, size_t StreamPos_To, bool Erase=true); //Merge 2 streams
     size_t Merge(File__Analyze &ToAdd, bool Erase=true); //Merge 2 File_Base
     size_t Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t StreamPos_From, size_t StreamPos_To, bool Erase=true); //Merge 2 streams
 
