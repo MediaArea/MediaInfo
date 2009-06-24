@@ -108,14 +108,14 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     {
         return File_MpegTs_ForceMenu_Get()?"1":"0";
     }
-    else if (Option_Lower==_T("file_bdmv_parsetargetfile"))
+    else if (Option_Lower==_T("file_bdmv_parsetargetedfile"))
     {
-        File_MpegTs_ForceMenu_Set(!(Value==_T("0") || Value.empty()));
+        File_Bdmv_ParseTargetedFile_Set(!(Value==_T("0") || Value.empty()));
         return _T("");
     }
-    else if (Option_Lower==_T("file_bdmv_parsetargetfile_get"))
+    else if (Option_Lower==_T("file_bdmv_parsetargetedfile_get"))
     {
-        return File_MpegTs_ForceMenu_Get()?"1":"0";
+        return File_Bdmv_ParseTargetedFile_Get()?"1":"0";
     }
     else
         return _T("Option not known");

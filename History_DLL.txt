@@ -11,6 +11,7 @@ Version 0.7.18, 2009-
 --------------
 + Blu-ray: BDMV directory parsing
 + Blu-ray: clpi/mpls files support
++ M2TS: Language if the .clpi blu-ray file is found
 + OpenSolaris support
 
 Version 0.7.17, 2009-06-19

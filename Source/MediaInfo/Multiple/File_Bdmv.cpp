@@ -621,13 +621,20 @@ void File_Bdmv::BDMV()
                 MaxDuration_Pos=Pos;
             }
         }
-        MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
+        if (ReadByHuman)
+            MediaInfo::Option_Static(_T("ReadByHuman"), _T("1"));
     }
     
     if (MaxDuration_Pos!=(size_t)-1)
     {
         //Merging
-        Merge(*MIs[MaxDuration_Pos]);
+        MediaInfo_Internal MI;
+        int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
+        MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
+        MI.Open(List[MaxDuration_Pos]); //Open it again for having the M2TS part
+        if (ReadByHuman)
+            MediaInfo::Option_Static(_T("ReadByHuman"), _T("1"));
+        Merge(MI);
 
         Clear(Stream_General, 0, General_Format);
         Clear(Stream_General, 0, General_Format_String);
@@ -647,6 +654,15 @@ void File_Bdmv::BDMV()
         delete MIs[Pos]; //MIs[Pos]=NULL;
     MIs.clear();
 
+    //Detecting some directories
+    if (Dir::Exists(File_Name+PathSeparator+_T("BDSVM"))
+     || Dir::Exists(File_Name+PathSeparator+_T("SLYVM"))
+     || Dir::Exists(File_Name+PathSeparator+_T("ANYVM")))
+        Fill(Stream_General, 0, General_Format_Profile, "BD+");
+    if (Dir::Exists(File_Name+PathSeparator+_T("BDJO")) && !Dir::GetAllFileNames(File_Name+PathSeparator+_T("BDJO")).empty())
+        Fill(Stream_General, 0, General_Format_Profile, "BD-Java");
+
+    //Filling
     File_Name.resize(File_Name.size()-5); //Removing "/BDMV"
     Fill(Stream_General, 0, General_Format, "Blu-ray movie", Unlimited, true, true);
     Fill(Stream_General, 0, General_CompleteName, File_Name, true);
@@ -664,45 +680,50 @@ void File_Bdmv::BDMV()
 void File_Bdmv::Clpi_Streams()
 {
     //Retrieving data from the M2TS file
-    Ztring file=File_Name.substr(File_Name.size()-10, 5);
-    Ztring M2TS_File=File_Name;
-    M2TS_File.resize(M2TS_File.size()-10-1-7);
-    M2TS_File+=_T("STREAM");
-    M2TS_File+=PathSeparator;
-    M2TS_File+=file;
-    M2TS_File+=_T(".m2ts");
-
-    int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
-    MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
-    MediaInfo_Internal MI;
-    if (MI.Open(M2TS_File))
-    {
-        Clear();
-        Merge(MI);
-
-        Clear(Stream_General, 0, General_Format);
-        Clear(Stream_General, 0, General_Format_String);
-        Clear(Stream_General, 0, General_Format_Extensions);
-        Clear(Stream_General, 0, General_Format_Info);
-        Clear(Stream_General, 0, General_Codec);
-        Clear(Stream_General, 0, General_Codec_String);
-        Clear(Stream_General, 0, General_Codec_Extensions);
-        Clear(Stream_General, 0, General_FileSize);
-        Clear(Stream_Video,   0, Video_ScanType_String);
-        Clear(Stream_Video,   0, Video_Bits__Pixel_Frame_);
-    }
-    MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
-
-    //Retrieving PID mapping
     std::map<int16u, stream_t> PIDs_StreamKind;
     std::map<int16u, size_t> PIDs_StreamPos;
-    for (size_t StreamKind=(size_t)Stream_General+1; StreamKind<(size_t)Stream_Max; StreamKind++)
-        for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
+    if (Config->File_Bdmv_ParseTargetedFile_Get())
+    {
+        Ztring file=File_Name.substr(File_Name.size()-10, 5);
+        Ztring M2TS_File=File_Name;
+        M2TS_File.resize(M2TS_File.size()-10-1-7);
+        M2TS_File+=_T("STREAM");
+        M2TS_File+=PathSeparator;
+        M2TS_File+=file;
+        M2TS_File+=_T(".m2ts");
+
+        int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
+        MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
+        MediaInfo_Internal MI;
+        MI.Option(_T("File_Bdmv_ParseTargetedFile"), _T("0"));
+        if (MI.Open(M2TS_File))
         {
-            int16u PID=Retrieve((stream_t)StreamKind, StreamPos, "ID").To_int16u();
-            PIDs_StreamKind[PID]=(stream_t)StreamKind;
-            PIDs_StreamPos[PID]=StreamPos;
+            Clear();
+            Merge(MI);
+
+            Clear(Stream_General, 0, General_Format);
+            Clear(Stream_General, 0, General_Format_String);
+            Clear(Stream_General, 0, General_Format_Extensions);
+            Clear(Stream_General, 0, General_Format_Info);
+            Clear(Stream_General, 0, General_Codec);
+            Clear(Stream_General, 0, General_Codec_String);
+            Clear(Stream_General, 0, General_Codec_Extensions);
+            Clear(Stream_General, 0, General_FileSize);
+            Clear(Stream_Video,   0, Video_ScanType_String);
+            Clear(Stream_Video,   0, Video_Bits__Pixel_Frame_);
         }
+        if (ReadByHuman)
+            MediaInfo::Option_Static(_T("ReadByHuman"), _T("1"));
+
+        //Retrieving PID mapping
+        for (size_t StreamKind=(size_t)Stream_General+1; StreamKind<(size_t)Stream_Max; StreamKind++)
+            for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
+            {
+                int16u PID=Retrieve((stream_t)StreamKind, StreamPos, "ID").To_int16u();
+                PIDs_StreamKind[PID]=(stream_t)StreamKind;
+                PIDs_StreamPos[PID]=StreamPos;
+            }
+    }
 
     //Parsing
     int8u Count;
@@ -1199,7 +1220,7 @@ void File_Bdmv::Mpls_PlayList()
         if (Time_Out>Time_In)
             PlayItems_Duration+=Time_Out-Time_In;
 
-        if (number_of_PlayItems==1 && !File_Name.empty())
+        if (number_of_PlayItems==1 && !File_Name.empty() && Config->File_Bdmv_ParseTargetedFile_Get())
         {
             Ztring CLPI_File=File_Name;
             CLPI_File.resize(CLPI_File.size()-10-1-8);
@@ -1228,7 +1249,8 @@ void File_Bdmv::Mpls_PlayList()
                 Clear(Stream_Video,   0, Video_ScanType_String);
                 Clear(Stream_Video,   0, Video_Bits__Pixel_Frame_);
             }
-            MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
+            if (ReadByHuman)
+                MediaInfo::Option_Static(_T("ReadByHuman"), _T("1"));
         }
     }
 
@@ -1340,7 +1362,7 @@ void File_Bdmv::Mpls_PlayListMarks()
     Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_Begin, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
 
     //Parsing
-    int32u time_Pos0;
+    int32u time_Pos0, time_Pos=1;
     int16u count;
     Get_B2 (count,                                              "count");
     for (int16u Pos=0; Pos<count; Pos++)
@@ -1365,7 +1387,10 @@ void File_Bdmv::Mpls_PlayListMarks()
                         if (Pos==0)
                             time_Pos0=time;
                         if (stream_file_index==0 && type==1) //We currently handle only the first file
-                            Fill(Stream_Menu, 0, Ztring().Duration_From_Milliseconds((time-time_Pos0)/45).To_UTF8().c_str(), _T("Chapter ")+Ztring::ToZtring(Pos+1));
+                        {
+                            Fill(Stream_Menu, 0, Ztring().Duration_From_Milliseconds((time-time_Pos0)/45).To_UTF8().c_str(), _T("Chapter ")+Ztring::ToZtring(time_Pos));
+                            time_Pos++;
+                        }
                     FILLING_END();
                     }
                     break;
