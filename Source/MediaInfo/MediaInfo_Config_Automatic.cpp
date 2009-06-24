@@ -1035,7 +1035,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "AIFF;;;M;Riff;Apple/SGI;aiff aifc\n"
     "AMV;;;M;Riff;Chinese hack of AVI;amv;http://en.wikipedia.org/wiki/AMV_video_format\n"
     "AVI;;;M;Riff;Audio Video Interleave;avi\n"
-    "BDAV;;;M;Bdav;BluRay Video;m2ts\n"
+    "BDAV;;;M;Bdav;Blu-ray Video;m2ts\n"
     "CDXA;;;M;Cdxa;;dat\n"
     "Digital Video;;;M;DvdDif;;dv\n"
     "DivX;;;M;Riff;Hack of AVI;divx;http://www.divx.com\n"
@@ -1073,7 +1073,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "Blu-ray Movie object;;;M;Bdmv;;bdmv\n"
     "Blu-ray Index;;;M;Bdmv;;bdmv\n"
     "Blu-ray Playlist;;;M;Bdmv;;mpls\n"
-    "Blu-ray Clip-info;;;M;Bdmv;;clpi\n"
+    "Blu-ray Clip info;;;M;Bdmv;;clpi\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
