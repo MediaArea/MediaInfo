@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.18, 2009-
 --------------
++ Blu-ray: BDMV directory parsing
 + Blu-ray: clpi/mpls files support
 + OpenSolaris support
 

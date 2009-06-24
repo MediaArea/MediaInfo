@@ -31,6 +31,7 @@
 #include "ZenLib/ZtringListList.h"
 #include "ZenLib/Dir.h"
 using namespace ZenLib;
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -87,6 +88,38 @@ size_t MediaInfoList_Internal::Open(const String &File, const fileoptions_t Opti
 
     //Get all filenames
     ZtringList List=Dir::GetAllFileNames(File, (Options&FileOption_NoRecursive)?Dir::Nothing:Dir::Parse_SubDirs);
+
+    #ifdef MEDIAINFO_BDMV_YES
+        //if there is a BDMV folder, this is blu-ray
+        Ztring ToSearch=Ztring(1, PathSeparator)+_T("BDMV")+PathSeparator+_T("index.bdmv"); //"\BDMV\index.bdmv"
+        for (size_t Pos=0; Pos<List.size(); Pos++)
+        {
+            size_t BDMV_Pos=List[Pos].find(ToSearch);
+            if (BDMV_Pos!=string::npos && BDMV_Pos!=0 && BDMV_Pos+16==List[Pos].size())
+            {
+                //This is a BDMV index, parsing the directory only if index and movie objects are BOTH present
+                Ztring ToSearch=List[Pos];
+                ToSearch.resize(ToSearch.size()-10);
+                ToSearch+=_T("MovieObject.bdmv");  //"%CompletePath%\BDMV\MovieObject.bdmv"
+                if (List.Find(ToSearch)!=string::npos)
+                {
+                    //We want the folder instead of the files
+                    List[Pos].resize(List[Pos].size()-11); //only %CompletePath%\BDMV
+                    Ztring ToSearch=List[Pos];
+
+                    for (size_t Pos=0; Pos<List.size(); Pos++)
+                    {
+                        if (List[Pos].find(ToSearch)==0 && List[Pos]!=ToSearch) //Remove all subdirs of ToSearch but not ToSearch
+                        {
+                            //Removing the file in the blu-ray directory
+                            List.erase(List.begin()+Pos);
+                            Pos--;
+                        }
+                    }
+                }
+            }   
+        }
+    #endif //MEDIAINFO_BDMV_YES
 
     //Registering files
     CS.Enter();

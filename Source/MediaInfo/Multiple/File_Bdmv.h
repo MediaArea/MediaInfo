@@ -39,6 +39,9 @@ namespace MediaInfoLib
 
 class File_Bdmv : public File__Analyze
 {
+public :
+    void BDMV(); //The BDMV directory
+
 private :
     //Buffer - File header
     bool FileHeader_Begin();

@@ -74,6 +74,8 @@ public :
     //Specific
     void          File_MpegTs_ForceMenu_Set (bool NewValue);
     bool          File_MpegTs_ForceMenu_Get ();
+    void          File_Bdmv_ParseTargetedFile_Set (bool NewValue);
+    bool          File_Bdmv_ParseTargetedFile_Get ();
 
 private :
     bool                    FileIsSeekable;
@@ -88,6 +90,7 @@ private :
 
     //Specific
     bool                    File_MpegTs_ForceMenu;
+    bool                    File_Bdmv_ParseTargetedFile;
 
     ZenLib::CriticalSection CS;
 };

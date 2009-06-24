@@ -85,6 +85,7 @@ public :
     static bool LibraryIsModified(); //Is the library has been modified? (#defines...)
 
 private :
+    friend class File_Bdmv; //Theses classes need access to internal structure for optimization. There is recursivity with theses formats
     friend class File_Cdxa; //Theses classes need access to internal structure for optimization. There is recursivity with theses formats
 
     //Format testing

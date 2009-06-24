@@ -36,8 +36,8 @@
 #include "ZenLib/InfoMap.h"
 #include <vector>
 #include <cstring>
-#if defined(MEDIAINFO_EIA708_YES)
-    #include "MediaInfo/Text/File_Eia708.h"
+#if defined(MEDIAINFO_BDMV_YES)
+    #include "MediaInfo/Multiple/File_Bdmv.h"
 #endif
 using namespace ZenLib;
 //---------------------------------------------------------------------------
@@ -101,7 +101,28 @@ size_t MediaInfo_Internal::Open(const String &File_Name_)
     //Test existence of the file
     File_Name=File_Name_;
     if (!File::Exists(File_Name))
+    {
+        #ifdef MEDIAINFO_BDMV_YES
+            if (File_Name.find(Ztring(1, PathSeparator)+_T("BDMV"))+5==File_Name.size())
+            {
+                //Blu-ray stuff
+                delete Info; Info=new File_Bdmv();
+
+                CriticalSectionLocker CSL(CS);
+                //Test the theorical format
+                #ifndef MEDIAINFO_MINIMIZESIZE
+                    Info->Init(&Config, &Details, &Stream, &Stream_More);
+                #else //MEDIAINFO_MINIMIZESIZE
+                    Info->Init(&Config, &Stream, &Stream_More);
+                #endif //MEDIAINFO_MINIMIZESIZE
+                Info->File_Name=File_Name;
+                ((File_Bdmv*)Info)->BDMV();
+                Info->Finalize_Global();
+                return 1;
+            }
+        #endif //MEDIAINFO_BDMV_YES
         return 0;
+    }
 
     //Get the Extension
     Ztring Extension=FileName::Extension_Get(File_Name);
@@ -128,7 +149,6 @@ size_t MediaInfo_Internal::Open(const String &File_Name_)
         const Ztring &Parser=Format->second(InfoFormat_Parser);
         SelectFromExtension(Parser);
     }
-    //Info=new File_Eia708;
 
     CriticalSectionLocker CSL(CS);
     //Test the theorical format
@@ -731,5 +751,4 @@ int MediaInfo_Internal::ApplyMethod()
 }
 
 } //NameSpace
-
 
