@@ -119,7 +119,7 @@ void MediaInfo_Config::Init()
     Language_Raw=false;
     ReadByHuman=true;
     Demux=0;
-    LineSeparator=_T("\r\n");
+    LineSeparator=EOL;
     ColumnSeparator=_T(";");
     TagSeparator=_T(" / ");
     Quote=_T("\"");
