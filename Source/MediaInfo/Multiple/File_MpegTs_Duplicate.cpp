@@ -28,6 +28,11 @@
     #pragma hdrstop
 #endif
 //---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+#if defined(MEDIAINFO_MPEGTS_YES)
+//---------------------------------------------------------------------------
+
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_MpegTs.h"
 #include "MediaInfo/MediaInfo_Config.h"
@@ -345,4 +350,6 @@ size_t File_MpegTs::Output_Buffer_Get (size_t Pos)
 }
 
 } //NameSpace
+
+#endif //MEDIAINFO_MPEGTS_YES
 
