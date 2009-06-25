@@ -310,43 +310,43 @@ int16u Clpi_Video_Height[]=
 //---------------------------------------------------------------------------
 float32 Clpi_Video_FrameRate[]=
 {
-     0.000,
-    23.976,
-    24.000,
-    25.000,
-    29.970,
-     0.000,
-    50.000,
-    59.940,
-     0.000,
-     0.000,
-     0.000,
-     0.000,
-     0.000,
-     0.000,
-     0.000,
-     0.000,
+    (float32) 0.000,
+    (float32)23.976,
+    (float32)24.000,
+    (float32)25.000,
+    (float32)29.970,
+    (float32) 0.000,
+    (float32)50.000,
+    (float32)59.940,
+    (float32) 0.000,
+    (float32) 0.000,
+    (float32) 0.000,
+    (float32) 0.000,
+    (float32) 0.000,
+    (float32) 0.000,
+    (float32) 0.000,
+    (float32) 0.000,
 };
 
 //---------------------------------------------------------------------------
 float32 Clpi_Video_AspectRatio[]=
 {
-    0.000,
-    0.000,
-    1.333,
-    1.778,
-    2.210,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
+    (float32)0.000,
+    (float32)0.000,
+    (float32)1.333,
+    (float32)1.778,
+    (float32)2.210,
+    (float32)0.000,
+    (float32)0.000,
+    (float32)0.000,
+    (float32)0.000,
+    (float32)0.000,
+    (float32)0.000,
+    (float32)0.000,
+    (float32)0.000,
+    (float32)0.000,
+    (float32)0.000,
+    (float32)0.000,
 };
 
 //---------------------------------------------------------------------------
@@ -1362,7 +1362,7 @@ void File_Bdmv::Mpls_PlayListMarks()
     Fill(Stream_Menu, StreamPos_Last, Menu_Chapters_Pos_Begin, Count_Get(Stream_Menu, StreamPos_Last), 10, true);
 
     //Parsing
-    int32u time_Pos0, time_Pos=1;
+    int32u time_Pos0=0, time_Pos=1;
     int16u count;
     Get_B2 (count,                                              "count");
     for (int16u Pos=0; Pos<count; Pos++)
