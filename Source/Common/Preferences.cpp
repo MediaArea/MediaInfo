@@ -50,6 +50,7 @@ using namespace ZenLib;
 
 //---------------------------------------------------------------------------
 Preferences* Prefs=new Preferences;
+int ExplorerShell_Edit  (const AnsiString &Name, bool ShellExtension, bool &IsChanged, TRegistry* Reg);
 //---------------------------------------------------------------------------
 
 //***************************************************************************
@@ -369,160 +370,192 @@ int Preferences::ExplorerShell()
 
     ZtringListList Liste;
     Liste=_T(
-        ".mkv;MKVFile\r\n"
-        ".mka;MKAFile\r\n"
-        ".mks;MKSFile\r\n"
-        ".ogg;OGGFile\r\n"
-        ".ogm;OGMFile\r\n"
-        ".oga;OGAFile\r\n"
-        ".ogv;OGVFile\r\n"
-        ".wav;WAVFile\r\n"
-        ".avi;AVIFile\r\n"
-        ".divx;AVIFile\r\n"
-        ".gvi;AVIFile\r\n"
-        ".mpeg;mpegFile\r\n"
-        ".mpg;mpegFile\r\n"
-        ".mpe;mpegFile\r\n"
-        ".mpgx;mpegFile\r\n"
-        ".mpm;mpegFile\r\n"
-        ".m1s;mpegFile\r\n"
-        ".m1t;mpegFile\r\n"
-        ".vob;mpegFile\r\n"
-        ".m2s;mpegFile\r\n"
-        ".m2t;mpegFile\r\n"
-        ".mp4;mpeg4File\r\n"
-        ".m4a;mpeg4File\r\n"
-        ".m4v;mpeg4File\r\n"
-        ".mpgv;mpegFile\r\n"
-        ".mpv;mpegFile\r\n"
-        ".m1v;mpegFile\r\n"
-        ".m2v;mpegFile\r\n"
-        ".ts;tsFile\r\n"
-        ".m2ts;m2tsFile\r\n"
-        ".mp2;mp3File\r\n"
-        ".mp3;mp3File\r\n"
-        ".mpc;mpcFile\r\n"
-        ".mp+;mpcFile\r\n"
-        ".asf;ASFFile\r\n"
-        ".wmv;WMVFile\r\n"
-        ".wma;WMAFile\r\n"
-        ".mov;MOVFile\r\n"
-        ".qt;QTFile\r\n"
-        ".rm;RMFile\r\n"
-        ".ra;RMFile\r\n"
-        ".ifo;IfoFile\r\n"
-        ".ac3;AC3File\r\n"
-        ".dts;DTSFile\r\n"
-        ".aac;AACFile\r\n"
-        ".ape;APEFile\r\n"
-        ".mac;APEFile\r\n"
-        ".flac;FLACFile\r\n"
         ".3gp;mpeg4File\r\n"
         ".3gpp;mpeg4File\r\n"
-        ".swf;FlashFile\r\n"
-        ".flv;FlashVideoFile\r\n"
-        ".rmvb;FlashVideoFile\r\n"
-        ".tp;FlashVideoFile\r\n"
-        ".smv;SMVFile\r\n"
+        ".aac;AACFile\r\n"
+        ".ac3;AC3File\r\n"
+        ".ape;APEFile\r\n"
+        ".asf;ASFFile\r\n"
+        ".avi;AVIFile\r\n"
+        ".bdmv;BDMVFile\r\n"
+        ".clpi;CLPIFile\r\n"
+        ".divx;AVIFile\r\n"
         ".dpg;DPGFile\r\n"
-        ".evo;EVOFile\r\n"
-        ".eac3;EAC3File\r\n"
+        ".dts;DTSFile\r\n"
         ".dv;EAC3File\r\n"
-        ".jp2;EAC3File\r\n"
-        ".j2k;EAC3File\r\n"
-        ".h264;H264File\r\n"
         ".dvr;DVRFile\r\n"
         ".dvr-ms;DVRMSFile\r\n"
-        ".mod;modFile\r\n"
+        ".eac3;EAC3File\r\n"
+        ".evo;EVOFile\r\n"
+        ".flac;FLACFile\r\n"
+        ".flv;FlashVideoFile\r\n"
+        ".gvi;AVIFile\r\n"
+        ".h264;H264File\r\n"
+        ".ifo;IfoFile\r\n"
         ".isma;ISMAFile\r\n"
         ".ismv;ISMVFile\r\n"
+        ".j2k;EAC3File\r\n"
+        ".jp2;EAC3File\r\n"
+        ".m1s;mpegFile\r\n"
+        ".m1t;mpegFile\r\n"
+        ".m1v;mpegFile\r\n"
+        ".m2s;mpegFile\r\n"
+        ".m2t;mpegFile\r\n"
+        ".m2ts;m2tsFile\r\n"
+        ".m2v;mpegFile\r\n"
+        ".m4a;mpeg4File\r\n"
+        ".m4v;mpeg4File\r\n"
+        ".mac;APEFile\r\n"
+        ".mka;MKAFile\r\n"
+        ".mks;MKSFile\r\n"
+        ".mkv;MKVFile\r\n"
+        ".mod;modFile\r\n"
+        ".mov;MOVFile\r\n"
+        ".mp+;mpcFile\r\n"
+        ".mp2;mp3File\r\n"
+        ".mp3;mp3File\r\n"
+        ".mp4;mpeg4File\r\n"
+        ".mpc;mpcFile\r\n"
+        ".mpe;mpegFile\r\n"
+        ".mpeg;mpegFile\r\n"
+        ".mpg;mpegFile\r\n"
+        ".mpgv;mpegFile\r\n"
+        ".mpgx;mpegFile\r\n"
+        ".mpls;MPLSFile\r\n"
+        ".mpm;mpegFile\r\n"
+        ".mpv;mpegFile\r\n"
+        ".oga;OGAFile\r\n"
+        ".ogg;OGGFile\r\n"
+        ".ogm;OGMFile\r\n"
+        ".ogv;OGVFile\r\n"
+        ".qt;QTFile\r\n"
+        ".ra;RMFile\r\n"
+        ".rm;RMFile\r\n"
+        ".rmvb;FlashVideoFile\r\n"
+        ".smv;SMVFile\r\n"
+        ".swf;FlashFile\r\n"
+        ".tp;FlashVideoFile\r\n"
         ".trp;TRPFile\r\n"
+        ".ts;tsFile\r\n"
         ".tta;TTAFile\r\n"
+        ".vob;mpegFile\r\n"
         ".w64;W64File\r\n"
+        ".wav;WAVFile\r\n"
+        ".wma;WMAFile\r\n"
+        ".wmv;WMVFile\r\n"
         ".wv;WCFile\r\n"
         ".wvc;WVCFile\r\n"
-        ".bdmv;BDMVFile\r\n"
-        ".mpls;MPLSFile\r\n"
-        ".clpi;CLPIFile\r\n"
         "Folder;Folder");
 
+    // Get the Windows version.
+    DWORD Version = GetVersion();
+    DWORD MajorVersion = (DWORD)(LOBYTE(LOWORD(Version)));
+    DWORD MinorVersion = (DWORD)(HIBYTE(LOWORD(Version)));
+
     bool IsChanged=false;
-    int32s ShellExtension=Config.Read(_T("ShellExtension")).To_int32s();
-    for (size_t I1=0; I1<Liste.size(); I1++)
+    if ( MajorVersion>=6 //Windows Vista or more
+     || (MajorVersion==5 && MinorVersion>=1)) //WinXP or more in 5.x family
     {
-        if (Liste(I1, 0)==_T("Folder"))
-            ShellExtension=Config.Read(_T("ShellExtension_Folder")).To_int32s();
-
-        //Open (or create) a extension. Create only if Sheel extension is wanted
-        if (Reg->OpenKey(Liste(I1, 0).c_str(), ShellExtension))
+        //Removing old stuff
+        for (size_t I1=0; I1<Liste.size(); I1++)
         {
-            //test if extension is known
-            AnsiString Player=Reg->ReadString(_T(""));
-            if (Player=="")
+            //Remove shell ext except "Folder"
+            if (Liste(I1, 0)!=_T("Folder") && Reg->OpenKey(Liste(I1, 0).c_str(), false))
             {
-                //extension not known, will use our default
-                Player=Liste(I1, 1).c_str();
-                try {Reg->WriteString(_T(""), Player);} catch (...){}
-                IsChanged=true;
-            }
-            Reg->CloseKey();
+                //test if extension is known
+                AnsiString Player=Reg->ReadString(_T(""));
+                Reg->CloseKey();
 
-            if (Liste(I1, 0)==_T("Folder"))
-                Player="Folder";
-
-            //Test if MediaInfo shell extension is known
-            if (Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), false))
-            {
-                //MediaInfo shell extension is known
-                if (ShellExtension)
+                //Test if old Media Info shell extension is known
+                if (Player!="" && Reg->OpenKey(Player+_T("\\Shell\\Media Info\\Command"), false))
                 {
-                    //test if good writing
-                    AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
-                    AnsiString ShellExtension=Reg->ReadString(_T("")).c_str();
-                    if (ShellExtension!=ShellExtensionToWtrite)
-                    {
-                        //This is not the good shell extension, writing new one
-                        try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
-                        IsChanged=true;
-                    }
+                    //Should not be here, deleting
+                    Reg->CloseKey();
+                    Reg->DeleteKey(Player+"\\Shell\\Media Info");
+                    IsChanged=true;
+                    Reg->CloseKey();
                 }
-                else
+
+                //Test if MediaInfo shell extension is known
+                if (Player!="" && Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), false))
                 {
                     //Should not be here, deleting
                     Reg->CloseKey();
                     Reg->DeleteKey(Player+"\\Shell\\MediaInfo");
-                    Reg->DeleteKey(Player+"\\Shell\\Media Info");
                     IsChanged=true;
-                }
-                Reg->CloseKey();
-            }
-            else
-            {
-                //MediaInfo Shell extension is not known
-                if (ShellExtension)
-                {
-                    //Create it
-                    Reg->DeleteKey(Player+"\\Shell\\Media Info"); //Delete the lod version if it exists
-                    Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), true);
-                    AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
-                    try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
                     Reg->CloseKey();
+                }
+            }
+
+            //Remove shell ext except "Folder" (user part)
+            if (Liste(I1, 0)!=_T("Folder") && Reg_User->OpenKey((Ztring(_T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\"))+Liste(I1, 0)+_T("\\UserChoice")).c_str(), false))
+            {
+                //test if extension is known
+                AnsiString Player=Reg_User->ReadString("Progid");
+                Reg_User->CloseKey();
+
+                //Test if MediaInfo shell extension is known
+                if (Player!="" && Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), false))
+                {
+                    //Should not be here, deleting
+                    Reg->CloseKey();
+                    Reg->DeleteKey(Player+"\\Shell\\MediaInfo");
                     IsChanged=true;
+                    Reg->CloseKey();
                 }
             }
         }
 
-        //Open (or create) a extension (user). Create only if Sheel extension is wanted
-        Ztring A=Liste(I1, 0);
-        if (Reg_User->OpenKey((Ztring(_T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\"))+Liste(I1, 0)+_T("\\UserChoice")).c_str(), false))
+        //Adding/removing to SystemFileAssociations
+        int32s ShellExtension=Config.Read(_T("ShellExtension")).To_int32s();
+        for (size_t I1=0; I1<Liste.size(); I1++)
         {
-            //test if extension is known
-            AnsiString Player=Reg_User->ReadString("Progid");
-            Reg_User->CloseKey();
+            //Remove shell ext except "Folder"
+            if (Liste(I1, 0)!=_T("Folder"))
+                ExplorerShell_Edit((_T("SystemFileAssociations\\")+Liste(I1, 0)).c_str(), ShellExtension, IsChanged, Reg);
+        }
+        ExplorerShell_Edit("SystemFileAssociations\\audio", ShellExtension, IsChanged, Reg);
+        ExplorerShell_Edit("SystemFileAssociations\\Directory.Audio", ShellExtension, IsChanged, Reg);
+        ExplorerShell_Edit("SystemFileAssociations\\Directory.Video", ShellExtension, IsChanged, Reg);
+        ExplorerShell_Edit("SystemFileAssociations\\video", ShellExtension, IsChanged, Reg);
+        ExplorerShell_Edit("Folder", Config.Read(_T("ShellExtension_Folder")).To_int32s(), IsChanged, Reg);
+    }
+    else
+    {
+        int32s ShellExtension=Config.Read(_T("ShellExtension")).To_int32s();
+        for (size_t I1=0; I1<Liste.size(); I1++)
+        {
+            if (Liste(I1, 0)==_T("Folder"))
+                ShellExtension=Config.Read(_T("ShellExtension_Folder")).To_int32s();
 
-            //Test if MediaInfo shell extension is known
-            if (Player!="")
+            //Open (or create) a extension. Create only if Sheel extension is wanted
+            if (Reg->OpenKey(Liste(I1, 0).c_str(), ShellExtension))
             {
+                //test if extension is known
+                AnsiString Player=Reg->ReadString(_T(""));
+                if (Player=="")
+                {
+                    //extension not known, will use our default
+                    Player=Liste(I1, 1).c_str();
+                    try {Reg->WriteString(_T(""), Player);} catch (...){}
+                    IsChanged=true;
+                }
+                Reg->CloseKey();
+
+                if (Liste(I1, 0)==_T("Folder"))
+                    Player="Folder";
+
+                //Test if old Media Info shell extension is known
+                if (Reg->OpenKey(Player+_T("\\Shell\\Media Info\\Command"), false))
+                {
+                    //Should not be here, deleting
+                    Reg->CloseKey();
+                    Reg->DeleteKey(Player+"\\Shell\\Media Info");
+                    IsChanged=true;
+                    Reg->CloseKey();
+                }
+
+                //Test if MediaInfo shell extension is known
                 if (Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), false))
                 {
                     //MediaInfo shell extension is known
@@ -553,6 +586,7 @@ int Preferences::ExplorerShell()
                     if (ShellExtension)
                     {
                         //Create it
+                        Reg->DeleteKey(Player+"\\Shell\\Media Info"); //Delete the lod version if it exists
                         Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), true);
                         AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
                         try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
@@ -561,13 +595,114 @@ int Preferences::ExplorerShell()
                     }
                 }
             }
+
+            //Open (or create) a extension (user). Create only if Shell extension is wanted
+            Ztring A=Liste(I1, 0);
+            if (Reg_User->OpenKey((Ztring(_T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\"))+Liste(I1, 0)+_T("\\UserChoice")).c_str(), false))
+            {
+                //test if extension is known
+                AnsiString Player=Reg_User->ReadString("Progid");
+                Reg_User->CloseKey();
+
+                //Test if MediaInfo shell extension is known
+                if (Player!="")
+                {
+                    if (Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), false))
+                    {
+                        //MediaInfo shell extension is known
+                        if (ShellExtension)
+                        {
+                            //test if good writing
+                            AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
+                            AnsiString ShellExtension=Reg->ReadString(_T("")).c_str();
+                            if (ShellExtension!=ShellExtensionToWtrite)
+                            {
+                                //This is not the good shell extension, writing new one
+                                try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
+                                IsChanged=true;
+                            }
+                        }
+                        else
+                        {
+                            //Should not be here, deleting
+                            Reg->CloseKey();
+                            Reg->DeleteKey(Player+"\\Shell\\MediaInfo");
+                            IsChanged=true;
+                        }
+                        Reg->CloseKey();
+                    }
+                    else
+                    {
+                        //MediaInfo Shell extension is not known
+                        if (ShellExtension)
+                        {
+                            //Create it
+                            Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), true);
+                            AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
+                            try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
+                            Reg->CloseKey();
+                            IsChanged=true;
+                        }
+                    }
+                }
+            }
         }
     }
 
     //end
-    Reg->Free();
+    delete Reg; //Reg=NULL;
+    delete Reg_User; //Reg_User=NULL;
     if (IsChanged)
         SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, NULL, NULL);
+
+    return 1;
+}
+
+//---------------------------------------------------------------------------
+int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsChanged, TRegistry* Reg)
+{
+    if (Reg->OpenKey(Player+"\\Shell\\MediaInfo\\Command", false))
+    {
+        //MediaInfo shell extension is known
+        if (ShellExtension)
+        {
+            //test if good writing
+            AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
+            AnsiString ShellExtension=Reg->ReadString(_T("")).c_str();
+            if (ShellExtension!=ShellExtensionToWtrite)
+            {
+                //This is not the good shell extension, writing new one
+                try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
+                IsChanged=true;
+            }
+        }
+        else
+        {
+            //Should not be here, deleting
+            Reg->CloseKey();
+            Reg->DeleteKey(Player+"\\Shell\\MediaInfo");
+            if (Reg->OpenKey(Player+"\\Shell", false) && !Reg->HasSubKeys())
+            {
+                Reg->CloseKey();
+                Reg->DeleteKey(Player+"\\Shell");
+            }
+            IsChanged=true;
+        }
+        Reg->CloseKey();
+    }
+    else
+    {
+        //MediaInfo Shell extension is not known
+        if (ShellExtension)
+        {
+            //Create it
+            Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), true);
+            AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
+            try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
+            IsChanged=true;
+            Reg->CloseKey();
+        }
+    }
 
     return 1;
 }
