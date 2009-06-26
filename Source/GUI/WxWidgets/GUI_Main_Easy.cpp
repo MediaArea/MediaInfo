@@ -63,7 +63,7 @@ GUI_Main_Easy::GUI_Main_Easy(Core* _C, wxWindow* parent)
     }
 
     //Drag and Drop
-    #if wxUSE_DRAG_AND_DROP
+    #if wxUSE_DRAG_AND_DROP && defined(__WXMAC__)
         SetDropTarget(new FileDrop(C));
         Select->SetDropTarget(new FileDrop(C));
     #endif //wxUSE_DRAG_AND_DROP

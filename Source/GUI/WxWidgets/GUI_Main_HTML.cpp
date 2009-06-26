@@ -44,7 +44,7 @@ GUI_Main_HTML::GUI_Main_HTML(Core* _C, wxWindow* parent)
     SetFonts(wxEmptyString, wxEmptyString, Size);
 
     //Drag and Drop
-    #if wxUSE_DRAG_AND_DROP
+    #if wxUSE_DRAG_AND_DROP && defined(__WXMAC__)
         SetDropTarget(new FileDrop(C));
     #endif //wxUSE_DRAG_AND_DROP
 

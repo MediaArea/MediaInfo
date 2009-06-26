@@ -365,7 +365,7 @@ void GUI_Main::ToolBar_Create()
 {
     //ToolBar
     wxToolBar* ToolBar=CreateToolBar(wxTB_VERTICAL);
-    #if wxUSE_DRAG_AND_DROP
+    #if wxUSE_DRAG_AND_DROP && defined(__WXMAC__)
         ToolBar->SetDropTarget(new FileDrop(C));
     #endif //wxUSE_DRAG_AND_DROP
     ToolBar->SetToolBitmapSize(wxSize(32, 32));

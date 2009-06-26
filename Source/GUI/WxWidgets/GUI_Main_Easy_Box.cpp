@@ -62,7 +62,7 @@ GUI_Main_Easy_Box::GUI_Main_Easy_Box(Core* _C, GUI_Main_Easy* Parent, wxWindow* 
     Button=new wxButton  (this, 26991, wxEmptyString);
 
     //Drag and Drop
-    #if wxUSE_DRAG_AND_DROP
+    #if wxUSE_DRAG_AND_DROP && defined(__WXMAC__)
         SetDropTarget(new FileDrop(_C));
         Box->SetDropTarget(new FileDrop(_C));
         Text->SetDropTarget(new FileDrop(_C));
