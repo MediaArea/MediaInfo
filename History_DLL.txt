@@ -13,6 +13,7 @@ Version 0.7.18, 2009-
 + Blu-ray: clpi/mpls files support
 + M2TS: Language if the .clpi blu-ray file is found
 + OpenSolaris support
++ MPEG-4 Visual: support of Sony SMC (security video) tags
 x Mac OS X: no more double-carriage return in Text view
 
 Version 0.7.17, 2009-06-19

@@ -832,6 +832,18 @@ void File_Mpeg4v::user_data_start()
 {
     Element_Name("user_data_start");
 
+    //Sony SNC files (security video)
+    if (Element_Size>=120 && Element_Size<=140)
+    {
+        int64u SNC_Identifier;
+        Peek_B8(SNC_Identifier);
+        if (SNC_Identifier==0x43616D54696D3A20ULL)
+        {
+            user_data_start_SNC();
+            return;
+        }
+    }
+
     //Rejecting junk from the end
     size_t Library_End_Offset=(size_t)Element_Size;
     while (Library_End_Offset>0
@@ -911,6 +923,32 @@ void File_Mpeg4v::user_data_start()
             }
         }
     FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+// Packet "B2", SNC (From Sony SNC surveillance video)
+void File_Mpeg4v::user_data_start_SNC()
+{
+    Element_Info("Sony SNC");
+
+    if (!user_data_start_SNC_Data.empty())
+    {
+        Skip_XX(Element_Size,                                   "Value");
+        return;
+    }
+
+    //Parsing
+    Ztring Value;
+    Get_Local(Element_Size, Value,                              "Value");
+    ZtringListList List;
+    List.Separator_Set(0, _T("\r\n"));
+    List.Separator_Set(1, _T(": "));
+    List.Write(Value);
+    for (size_t Pos=0; Pos<List.size(); Pos++)
+    {
+        if (List[Pos].size()==2)
+            user_data_start_SNC_Data(List[Pos][0])=List[Pos][1];
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -1318,7 +1356,28 @@ void File_Mpeg4v::vop_start_Fill()
         Fill(Stream_Video, 0, Video_Encoded_Library_Version, Library_Version);
         Fill(Stream_Video, 0, Video_Encoded_Library_Date, Library_Date);
     }
-
+    for (size_t Pos=0; Pos<user_data_start_SNC_Data.size(); Pos++)
+    {
+        if (user_data_start_SNC_Data[Pos][0]==_T("CamTim"))
+            Fill(Stream_General, 0, General_Recorded_Date, Ztring().Date_From_String(user_data_start_SNC_Data[Pos][1].To_UTF8().c_str()));
+        if (user_data_start_SNC_Data[Pos][0]==_T("FrmRate"))
+            Fill(Stream_Video, 0, Video_FrameRate, user_data_start_SNC_Data[Pos][1].To_float32(), 3);
+        if (user_data_start_SNC_Data[Pos][0]==_T("TimStamp"))
+            Fill(Stream_Video, 0, Video_Delay, user_data_start_SNC_Data[Pos][1].To_int64u());
+        Ztring A=user_data_start_SNC_Data[Pos][0];
+        if (user_data_start_SNC_Data[Pos][0]==_T("CamPos") && user_data_start_SNC_Data[Pos][1].size()==16)
+        {
+            Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(user_data_start_SNC_Data[Pos][1].substr( 3, 4)).To_int8u(16));
+            Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(user_data_start_SNC_Data[Pos][1].substr( 7, 4)).To_int8u(16));
+            Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(user_data_start_SNC_Data[Pos][1].substr(11, 4)).To_int8u(16));
+            if (user_data_start_SNC_Data[Pos][1][15]==_T('M'))
+                Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", _T("Move"));
+            else if (user_data_start_SNC_Data[Pos][1][15]==_T('S'))
+                Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", _T("Stop"));
+            else
+                Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(1, user_data_start_SNC_Data[Pos][1][15]));
+        }
+    }
     //Jumping
     Accept("MPEG-4 Visual");
     IsFilled=true;

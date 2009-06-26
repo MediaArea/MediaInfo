@@ -74,6 +74,7 @@ private :
     void visual_object_sequence_start();
     void visual_object_sequence_end();
     void user_data_start();
+    void user_data_start_SNC();
     void group_of_vop_start();
     void video_session_error();
     void visual_object_start();
@@ -177,6 +178,7 @@ private :
     Ztring Library_Date;
     Ztring Matrix_intra;
     Ztring Matrix_nonintra;
+    ZtringListList user_data_start_SNC_Data;
 };
 
 } //NameSpace
