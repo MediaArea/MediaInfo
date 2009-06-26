@@ -26,6 +26,7 @@
     #pragma hdrstop
 #endif
 #include "GUI/WxWidgets/GUI_Main_Text.h"
+#include "GUI/WxWidgets/GUI_Main_FileDrop.h"
 #include "Common/Core.h"
 //---------------------------------------------------------------------------
 
@@ -43,6 +44,11 @@ GUI_Main_Text::GUI_Main_Text(Core* _C, wxWindow* parent)
     wxTextAttr Attr;
     Attr.SetFont(Font);
     SetDefaultStyle(Attr);
+
+    //Drag and Drop
+    #if wxUSE_DRAG_AND_DROP
+        SetDropTarget(new FileDrop(C));
+    #endif //wxUSE_DRAG_AND_DROP
 
     //Update
     GUI_Refresh();

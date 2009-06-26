@@ -26,6 +26,7 @@
     #pragma hdrstop
 #endif
 #include "GUI/WxWidgets/GUI_Main.h"
+#include "GUI/WxWidgets/GUI_Main_FileDrop.h"
 #include "GUI/WxWidgets/GUI_Main_Easy.h"
 #include "GUI/WxWidgets/GUI_Main_Sheet.h"
 #include "GUI/WxWidgets/GUI_Main_Tree.h"
@@ -364,6 +365,9 @@ void GUI_Main::ToolBar_Create()
 {
     //ToolBar
     wxToolBar* ToolBar=CreateToolBar(wxTB_VERTICAL);
+    #if wxUSE_DRAG_AND_DROP
+        ToolBar->SetDropTarget(new FileDrop(C));
+    #endif //wxUSE_DRAG_AND_DROP
     ToolBar->SetToolBitmapSize(wxSize(32, 32));
     ToolBar->AddTool(ID_Menu_File_Open_Files, _T("Open &file(s)"), wxICON(File_Open_File));
     ToolBar->AddTool(ID_Menu_File_Open_Directory, _T("Open &directory"), wxICON(File_Open_Directory));

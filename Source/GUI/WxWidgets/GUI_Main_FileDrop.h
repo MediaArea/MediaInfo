@@ -43,18 +43,17 @@ class GUI_Main;
 class FileDrop : public wxFileDropTarget
 {
 public:
-    FileDrop(Core* C_, GUI_Main* GUI_) {C=C_; GUI=GUI_;};
+    FileDrop(Core* C_) {C=C_;};
     bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
 
 private:
     Core* C;
-    GUI_Main* GUI;
 };
 #else //wxUSE_DRAG_AND_DROP
 class FileDrop
 {
 public:
-    FileDrop(Core* C_, GUI_Main* GUI_) {};
+    FileDrop(Core* C_) {};
     bool OnDropFiles(wxCoord, wxCoord, const wxArrayString&) {return false;};
 };
 #endif //wxUSE_DRAG_AND_DROP

@@ -45,10 +45,10 @@ bool FileDrop::OnDropFiles(wxCoord, wxCoord, const wxArrayString& FileNames)
     for (size_t Pos=0; Pos<FileNames.size(); Pos++)
         C->Menu_File_Open_Files_Continue(FileNames[Pos].c_str());
     wxTimeSpan Span=wxDateTime::UNow()-Begin;
-    GUI->View_Refresh();
-    if (GUI->GetStatusBar()==NULL)
-        GUI->CreateStatusBar();
-    GUI->GetStatusBar()->SetLabel(Span.Format(_T("%Ss %lms")));
+    ((GUI_Main*)C->GUI_Main_Handler)->View_Refresh();
+    if (((GUI_Main*)C->GUI_Main_Handler)->GetStatusBar()==NULL)
+        ((GUI_Main*)C->GUI_Main_Handler)->CreateStatusBar();
+    ((GUI_Main*)C->GUI_Main_Handler)->GetStatusBar()->SetLabel(Span.Format(_T("%Ss %lms")));
     return true;
 }
 #endif //wxUSE_DRAG_AND_DROP

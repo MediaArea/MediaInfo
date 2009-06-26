@@ -27,6 +27,7 @@
 #endif
 #include "GUI/WxWidgets/GUI_Main_Easy_Box.h"
 #include "GUI/WxWidgets/GUI_Main_Easy.h"
+#include "GUI/WxWidgets/GUI_Main_FileDrop.h"
 #include "Common/Core.h"
 #include <wx/choice.h>
 #include <wx/statbox.h>
@@ -59,6 +60,15 @@ GUI_Main_Easy_Box::GUI_Main_Easy_Box(Core* _C, GUI_Main_Easy* Parent, wxWindow* 
     Text=new wxStaticText(this, 26991, wxEmptyString);
     Tags=new wxStaticText(this, 26991, wxEmptyString);
     Button=new wxButton  (this, 26991, wxEmptyString);
+
+    //Drag and Drop
+    #if wxUSE_DRAG_AND_DROP
+        SetDropTarget(new FileDrop(_C));
+        Box->SetDropTarget(new FileDrop(_C));
+        Text->SetDropTarget(new FileDrop(_C));
+        Tags->SetDropTarget(new FileDrop(_C));
+        Button->SetDropTarget(new FileDrop(_C));
+    #endif //wxUSE_DRAG_AND_DROP
 
     //Update
     GUI_Resize();

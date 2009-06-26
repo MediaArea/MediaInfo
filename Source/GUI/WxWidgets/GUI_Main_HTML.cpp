@@ -26,6 +26,7 @@
     #pragma hdrstop
 #endif
 #include "GUI/WxWidgets/GUI_Main_HTML.h"
+#include "GUI/WxWidgets/GUI_Main_FileDrop.h"
 #include "Common/Core.h"
 #include <wx/fs_mem.h>
 //---------------------------------------------------------------------------
@@ -41,6 +42,11 @@ GUI_Main_HTML::GUI_Main_HTML(Core* _C, wxWindow* parent)
 {
     int Size[7]={ 7, 8, 10, 12, 16, 22, 30};
     SetFonts(wxEmptyString, wxEmptyString, Size);
+
+    //Drag and Drop
+    #if wxUSE_DRAG_AND_DROP
+        SetDropTarget(new FileDrop(C));
+    #endif //wxUSE_DRAG_AND_DROP
 
     //Update
     GUI_Refresh();

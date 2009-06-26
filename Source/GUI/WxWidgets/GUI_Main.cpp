@@ -77,6 +77,7 @@ GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint
 
     //Core
     C=new Core;
+    C->GUI_Main_Handler=this;
 
     //Menu and ToolBar
     Menu_Create();
@@ -89,10 +90,9 @@ GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint
     View=NULL;
     CenterOnScreen();
 
-    //Drag n drop
+    //Drag and Drop
     #if wxUSE_DRAG_AND_DROP
-        FD=new FileDrop(C, this);
-        SetDropTarget(FD);
+        SetDropTarget(new FileDrop(C));
     #endif //wxUSE_DRAG_AND_DROP
 
     //Defaults
@@ -134,9 +134,6 @@ GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint
 GUI_Main::~GUI_Main()
 {
     delete C; //C=NULL;
-    #if wxUSE_DRAG_AND_DROP
-        SetDropTarget(NULL);
-    #endif //wxUSE_DRAG_AND_DROP
     delete View; //View=NULL;
 }
 

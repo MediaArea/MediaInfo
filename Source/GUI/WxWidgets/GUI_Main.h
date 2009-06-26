@@ -125,9 +125,6 @@ public:
 
 private:
     //Non-GUI Elements
-    #if wxUSE_DRAG_AND_DROP
-        FileDrop* FD;
-    #endif //wxUSE_DRAG_AND_DROP
     Core* C;
 
     //GUI

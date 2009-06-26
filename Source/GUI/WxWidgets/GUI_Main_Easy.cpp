@@ -27,6 +27,7 @@
 #endif
 #include "GUI/WxWidgets/GUI_Main_Easy.h"
 #include "GUI/WxWidgets/GUI_Main_Easy_Box.h"
+#include "GUI/WxWidgets/GUI_Main_FileDrop.h"
 #include "Common/Core.h"
 #include <wx/panel.h>
 #include <wx/statbox.h>
@@ -60,6 +61,12 @@ GUI_Main_Easy::GUI_Main_Easy(Core* _C, wxWindow* parent)
         for (size_t Pos=0; Pos<Boxes[StreamPos].size(); Pos++)
             Boxes[StreamPos][Pos]=new GUI_Main_Easy_Box(C, this, Pos==0?NULL:Boxes[StreamPos][Pos-1], StreamPos==0?(wxWindow*)Select:(wxWindow*)Boxes[StreamPos-1][0], (stream_t)StreamPos, Pos);
     }
+
+    //Drag and Drop
+    #if wxUSE_DRAG_AND_DROP
+        SetDropTarget(new FileDrop(C));
+        Select->SetDropTarget(new FileDrop(C));
+    #endif //wxUSE_DRAG_AND_DROP
 
     //Update
     GUI_Resize();
