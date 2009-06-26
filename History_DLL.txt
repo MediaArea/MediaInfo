@@ -13,6 +13,7 @@ Version 0.7.18, 2009-
 + Blu-ray: clpi/mpls files support
 + M2TS: Language if the .clpi blu-ray file is found
 + OpenSolaris support
+x Mac OS X: no more double-carriage return in Text view
 
 Version 0.7.17, 2009-06-19
 --------------
