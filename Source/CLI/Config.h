@@ -48,7 +48,7 @@
 
 //---------------------------------------------------------------------------
 //Write to terminal
-inline void TEXTOUT(char* Text)
+inline void TEXTOUT(const char* Text)
 {
     std::cout<<Text<<std::endl;
 }
