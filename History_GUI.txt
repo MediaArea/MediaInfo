@@ -16,6 +16,7 @@ Version 0.7.18, 2009-
 --------------
 + Albanian translations updated
 + Mac OS X: Drag and Drop
+x #2786634, Mac OS X: files with non-US characters were not opened
 
 Version 0.7.17, 2009-06-19
 --------------
