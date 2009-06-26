@@ -2539,7 +2539,7 @@ void File_MpegPs::video_stream()
     }
 
     //Demux
-    //Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(Element_Code, 16)+_T(".mpv"));
+    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(Element_Code, 16)+_T(".mpv"));
 }
 
 //---------------------------------------------------------------------------
