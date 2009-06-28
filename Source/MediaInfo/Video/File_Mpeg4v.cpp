@@ -1377,6 +1377,8 @@ void File_Mpeg4v::vop_start_Fill()
             else
                 Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(1, user_data_start_SNC_Data[Pos][1][15]));
         }
+        if (user_data_start_SNC_Data[Pos][0]==_T("AlmEvent") && user_data_start_SNC_Data[Pos][1].size()==16)
+            Fill(Stream_Video, 0, "Alarm event", user_data_start_SNC_Data[Pos][1]);
     }
     //Jumping
     Accept("MPEG-4 Visual");
