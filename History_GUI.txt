@@ -14,6 +14,7 @@ Known bugs
 
 Version 0.7.18, 2009-
 --------------
++ Danish translation added
 + Albanian translations updated
 + Mac OS X: Drag and Drop
 x #2786634, Mac OS X: files with non-US characters were not opened

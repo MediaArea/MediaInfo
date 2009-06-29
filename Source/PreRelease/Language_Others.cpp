@@ -41,6 +41,7 @@ Ztring Language_Others_Run ()
     Run_File(Dest, L"be");
     Run_File(Dest, L"ca");
     Run_File(Dest, L"cs");
+    Run_File(Dest, L"da");
     Run_File(Dest, L"de");
     Run_File(Dest, L"en");
     Run_File(Dest, L"es");
