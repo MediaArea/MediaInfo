@@ -188,10 +188,10 @@ const char* Mpeg4v_Profile_Level(int32u Profile_Level)
         case B8(11110111) : return "Advanced Simple@L3b";
         case B8(11111000) : return "Fine Granularity Scalable@L0";
         case B8(11111001) : return "Fine Granularity Scalable@L1";
-        case B8(11110010) : return "Fine Granularity Scalable@L2";
-        case B8(11110011) : return "Fine Granularity Scalable@L3";
+        case B8(11111010) : return "Fine Granularity Scalable@L2";
+        case B8(11111011) : return "Fine Granularity Scalable@L3";
         case B8(11111100) : return "Fine Granularity Scalable@L4";
-        case B8(11111101) : return "Fine Granularity Scalable@L4";
+        case B8(11111101) : return "Fine Granularity Scalable@L5";
         default :           return "";
     }
 }
