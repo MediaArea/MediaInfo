@@ -47,8 +47,15 @@ int main(int argc, char* argv_ansi[])
     Core MI;
     MI.Menu_View_Text(); //Default to text with CLI.
 
-    //Retrieve command line (mainly for Unicode) and parse it
+    //Retrieve command line (mainly for Unicode)
     GETCOMMANDLINE();
+
+    //Specific
+    #ifdef __MACOSX__
+        MediaInfo::Option_Static(_T("LineSeparator"), _T("\n")); //if \r, output is broken, why?
+    #endif
+
+    //Parse command line
     vector<String> List;
     for (int Pos=1; Pos<argc; Pos++)
     {
