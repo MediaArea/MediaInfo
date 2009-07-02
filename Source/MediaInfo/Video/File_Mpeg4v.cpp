@@ -132,7 +132,11 @@ const char* Mpeg4v_Profile_Level(int32u Profile_Level)
         case B8(00000001) : return "Simple@L1";
         case B8(00000010) : return "Simple@L2";
         case B8(00000011) : return "Simple@L3";
+        case B8(00000100) : return "Simple@L4a";
+        case B8(00000101) : return "Simple@L5";
+        case B8(00000110) : return "Simple@L6";
         case B8(00001000) : return "Simple@L0";
+        case B8(00001001) : return "Simple@L0b";
         case B8(00010000) : return "Simple Scalable@L0";
         case B8(00010001) : return "Simple Scalable@L1";
         case B8(00010010) : return "Simple Scalable@L2";
