@@ -174,11 +174,11 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, const char* Par
     }
     else
     {
-        Ztring &Target=(*Stream_More)[StreamKind][StreamPos](Ztring().From_UTF8(Parameter), Info_Text);
+        Ztring &Target=(*Stream_More)[StreamKind][StreamPos](Ztring().From_Local(Parameter), Info_Text);
         if (Target.empty() || Replace)
         {
             Target=Value; //First value
-            (*Stream_More)[StreamKind][StreamPos](Ztring().From_UTF8(Parameter), Info_Options)=_T("Y NT");
+            (*Stream_More)[StreamKind][StreamPos](Ztring().From_Local(Parameter), Info_Options)=_T("Y NT");
         }
         else
         {
