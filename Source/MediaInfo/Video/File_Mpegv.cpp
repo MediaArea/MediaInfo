@@ -1042,7 +1042,7 @@ void File_Mpegv::user_data_start_CC()
     for (int8u Pos=0; Pos<cc_count; Pos++)
     {
         Element_Begin("cc");
-        int8u cc_type, cc_data_1, cc_data_2;
+        int8u cc_type;
         BS_Begin();
         Mark_1();
         Mark_1();
