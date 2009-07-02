@@ -221,6 +221,7 @@ public :
     inline void Param      (const char*, int64u) {}
     inline void Param      (const char*, int64s) {}
     inline void Param      (const char*, int128u) {}
+    inline void Param_GUID (const char*, int128u) {}
     inline void Param_UUID (const char*, int128u) {}
     #ifdef NEED_SIZET
     inline void Param      (const char*, size_t Value, intu Radix=16) {}
@@ -385,6 +386,16 @@ public :
     #define Info_L16(_INFO, _NAME) int128u _INFO; Get_L16(_INFO, _NAME)
     #define Info_LF4(_INFO, _NAME) float32 _INFO; Get_LF4(_INFO, _NAME)
     #define Info_LF8(_INFO, _NAME) float64 _INFO; Get_LF8(_INFO, _NAME)
+
+    //***************************************************************************
+    // GUID
+    //***************************************************************************
+
+    void Get_GUID (int128u &Info);
+    inline void Get_GUID (int128u &Info, const char*) {Get_GUID(Info);}
+    void Peek_GUID(int128u &Info);
+    inline void Skip_GUID(               const char*) {if (Element_Offset+16>Element_Size) {Trusted_IsNot(); return;} Element_Offset+=16;}
+    #define Info_GUID(_INFO, _NAME) int128u _INFO; Get_GUID(_INFO, _NAME)
 
     //***************************************************************************
     // UUID

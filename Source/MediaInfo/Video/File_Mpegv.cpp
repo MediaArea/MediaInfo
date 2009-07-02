@@ -30,7 +30,7 @@
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-#if defined(MEDIAINFO_MPEGV_YES) || defined(MEDIAINFO_MPEGTS_YES) || defined(MEDIAINFO_MPEGPS_YES)
+#if defined(MEDIAINFO_MPEGV_YES) || defined(MEDIAINFO_MPEGTS_YES) || defined(MEDIAINFO_MPEGPS_YES) || defined(MEDIAINFO_MXF_YES)
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -870,7 +870,7 @@ void File_Mpegv::slice_start_Fill()
     }
 
     //Profile
-    if (profile_and_level_indication_profile>0 && profile_and_level_indication_profile<8 && profile_and_level_indication_level>0 && profile_and_level_indication_level<16)
+    if (profile_and_level_indication_profile && profile_and_level_indication_level)
     {
         Fill(Stream_Video, 0, Video_Format_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));
         Fill(Stream_Video, 0, Video_Codec_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));

@@ -1042,7 +1042,7 @@ void File_Avc::sei_message_user_data_unregistered(int32u payloadSize)
 
     //Parsing
     int128u uuid_iso_iec_11578;
-    Get_UUID(uuid_iso_iec_11578,                               "uuid_iso_iec_11578");
+    Get_GUID(uuid_iso_iec_11578,                               "uuid_iso_iec_11578");
 
     switch (uuid_iso_iec_11578.hi)
     {

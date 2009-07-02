@@ -261,6 +261,7 @@ public :
     inline void Param      (const char*   Parameter, int64u Value) {Param(Parameter, VALUE(Value));}
     inline void Param      (const char*   Parameter, int64s Value) {Param(Parameter, VALUE(Value));}
     inline void Param      (const char*   Parameter, int128u Value){Param(Parameter, VALUE(Value));}
+    inline void Param_GUID (const char*   Parameter, int128u Value){Param(Parameter, Ztring().From_GUID(Value));}
     inline void Param_UUID (const char*   Parameter, int128u Value){Param(Parameter, Ztring().From_UUID(Value));}
     #ifdef NEED_SIZET
     inline void Param      (const char*   Parameter, size_t Value, intu Radix=16) {Param(Parameter, Ztring::ToZtring(Value, Radix).MakeUpperCase()+_T(" (")+Ztring::ToZtring(Value, 10).MakeUpperCase()+_T(")"));}
@@ -402,6 +403,15 @@ public :
     #define Info_L16(_INFO, _NAME) int128u _INFO; Get_L16(_INFO, _NAME)
     #define Info_LF4(_INFO, _NAME) float32 _INFO; Get_LF4(_INFO, _NAME)
     #define Info_LF8(_INFO, _NAME) float64 _INFO; Get_LF8(_INFO, _NAME)
+
+    //***************************************************************************
+    // GUID
+    //***************************************************************************
+
+    void Get_GUID (int128u &Info, const char* Name);
+    void Peek_GUID(int128u &Info);
+    void Skip_GUID(               const char* Name);
+    #define Info_GUID(_INFO, _NAME) int128u _INFO; Get_GUID(_INFO, _NAME)
 
     //***************************************************************************
     // UUID

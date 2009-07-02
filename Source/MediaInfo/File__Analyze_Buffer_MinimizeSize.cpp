@@ -306,6 +306,13 @@ void File__Analyze::Peek_B8(int64u &Info)
     Info=BigEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
 }
 
+//---------------------------------------------------------------------------
+void File__Analyze::Peek_B16(int128u &Info)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(16);
+    Info=BigEndian2int128u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+}
+
 //***************************************************************************
 // Little Endian
 //***************************************************************************
@@ -457,6 +464,19 @@ void File__Analyze::Peek_L8(int64u &Info)
 }
 
 //***************************************************************************
+// GUID
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_GUID(int128u &Info)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(16);
+    Info.hi=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    Info.lo=BigEndian2int64u   (Buffer+Buffer_Offset+(size_t)Element_Offset+8);
+    Element_Offset+=16;
+}
+
+//***************************************************************************
 // UUID
 //***************************************************************************
 
@@ -464,8 +484,8 @@ void File__Analyze::Peek_L8(int64u &Info)
 void File__Analyze::Get_UUID(int128u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(16);
-    Info.hi=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
-    Info.lo=BigEndian2int64u   (Buffer+Buffer_Offset+(size_t)Element_Offset+8);
+    Info.hi=BigEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    Info.lo=BigEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset+8);
     Element_Offset+=16;
 }
 

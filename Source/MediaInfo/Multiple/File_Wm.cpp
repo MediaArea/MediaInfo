@@ -206,14 +206,14 @@ void File_Wm::Header_Parse()
         //Parsing
         int128u Name;
         int64u Size;
-        Get_UUID(Name,                                              "Name");
+        Get_GUID(Name,                                              "Name");
         Get_L8 (Size,                                               "Size");
 
         //Filling
         #ifndef __BORLANDC__
-            Header_Fill_Code(Name.hi, Ztring().From_UUID(Name));
+            Header_Fill_Code(Name.hi, Ztring().From_GUID(Name));
         #else //__BORLANDC__
-            Header_Fill_Code(Name.hi&0xFFFFFFFF, Ztring().From_UUID(Name)); //Borland does not like int64u for const?
+            Header_Fill_Code(Name.hi&0xFFFFFFFF, Ztring().From_GUID(Name)); //Borland does not like int64u for const?
         #endif //__BORLANDC__
         Header_Fill_Size(Size);
     }

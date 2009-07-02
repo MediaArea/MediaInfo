@@ -1241,7 +1241,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds_ExtensibleWave()
     int32u ChannelMask;
     Skip_L2(                                                    "ValidBitsPerSample / SamplesPerBlock");
     Get_L4 (ChannelMask,                                        "ChannelMask");
-    Skip_UUID(                                                  "SubFormat");
+    Skip_GUID(                                                  "SubFormat");
 
     FILLING_BEGIN();
         Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, ExtensibleWave_ChannelMask(ChannelMask));

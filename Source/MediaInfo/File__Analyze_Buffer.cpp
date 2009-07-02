@@ -315,6 +315,13 @@ void File__Analyze::Peek_B8(int64u &Info)
 }
 
 //---------------------------------------------------------------------------
+void File__Analyze::Peek_B16(int128u &Info)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(16);
+    Info=BigEndian2int128u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+}
+
+//---------------------------------------------------------------------------
 void File__Analyze::Skip_B1(const char* Name)
 {
     INTEGRITY_SIZE_ATLEAST(1);
@@ -641,6 +648,28 @@ void File__Analyze::Skip_L16(const char* Name)
 }
 
 //***************************************************************************
+// GUID
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File__Analyze::Get_GUID(int128u &Info, const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST_INT(16);
+    Info.hi=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    Info.lo=BigEndian2int64u   (Buffer+Buffer_Offset+(size_t)Element_Offset+8);
+    if (Config_Details>0) Param_GUID(Name, Info);
+    Element_Offset+=16;
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Skip_GUID(const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST(16);
+    if (Config_Details>0) Param_GUID(Name, BigEndian2int128u(Buffer+Buffer_Offset+(size_t)Element_Offset));
+    Element_Offset+=16;
+}
+
+//***************************************************************************
 // UUID
 //***************************************************************************
 
@@ -648,8 +677,8 @@ void File__Analyze::Skip_L16(const char* Name)
 void File__Analyze::Get_UUID(int128u &Info, const char* Name)
 {
     INTEGRITY_SIZE_ATLEAST_INT(16);
-    Info.hi=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
-    Info.lo=BigEndian2int64u   (Buffer+Buffer_Offset+(size_t)Element_Offset+8);
+    Info.hi=BigEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    Info.lo=BigEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset+8);
     if (Config_Details>0) Param_UUID(Name, Info);
     Element_Offset+=16;
 }
