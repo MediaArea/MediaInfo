@@ -113,9 +113,6 @@ bool File_Adts::Synchronize()
              && (CC2(Buffer+Buffer_Offset)&0xFFF6)!=0xFFF0)
             Buffer_Offset++;
 
-        if (File_Offset+Buffer_Offset==0x180F6)
-            int A=0;
-
         if (Buffer_Offset+6<=Buffer_Size)//Testing if size is coherant
         {
             //Testing next start, to be sure
