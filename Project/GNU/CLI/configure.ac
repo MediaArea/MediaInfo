@@ -34,13 +34,18 @@ dnl #########################################################################
 dnl -------------------------------------------------------------------------
 dnl Arguments - Enable
 dnl
-AC_ARG_ENABLE(debug,        AC_HELP_STRING([--enable-debug],        [Enable full debug]),                       , enable_debug=no)
-AC_ARG_ENABLE(gprof,        AC_HELP_STRING([--enable-gprof],        [Enable gprof log]),                        , enable_gprof=no)
-AC_ARG_ENABLE(staticlibs,   AC_HELP_STRING([--enable-staticlibs],   [Use static libmediainfo and libzen]),      , enable_staticlibs=no)
+AC_ARG_ENABLE(debug,            AC_HELP_STRING([--enable-debug],            [Enable full debug]),                         , enable_debug=no)
+AC_ARG_ENABLE(gprof,            AC_HELP_STRING([--enable-gprof],            [Enable gprof log]),                          , enable_gprof=no)
+AC_ARG_ENABLE(universal_binary, AC_HELP_STRING([--enable-universal_binary], [Create Mac PPC/i386 Universal binary]),      , enable_universal_binary)
+AC_ARG_ENABLE(arch-ppc,         AC_HELP_STRING([--with-arch-ppc],           [Create Mac PPC Universal binary]),           , enable_arch_ppc=no)
+AC_ARG_ENABLE(arch-i386,        AC_HELP_STRING([--with-arch-i386],          [Create Mac i386 Universal binary]),          , enable_arch_i386=no)
+AC_ARG_ENABLE(staticlibs,       AC_HELP_STRING([--enable-staticlibs],       [Use static libmediainfo and libzen]),        , enable_staticlibs=no)
 
 dnl -------------------------------------------------------------------------
 dnl Arguments - With
 dnl
+AC_ARG_WITH(macosx-sdk,         AC_HELP_STRING([--with-macosx-sdk],         [Force the Mac SDK]),                         , with_macosx_sdk=no)
+AC_ARG_WITH(macosx-version-min, AC_HELP_STRING([--with-macosx-version-min], [Force the Mac Version]),                     , with_macosx_version_min=no)
 AC_ARG_WITH(dll,            AC_HELP_STRING([--with-dll],            [Do not link to libmediainfo, dynamic loading]), , with_dll=no)
 
 dnl -------------------------------------------------------------------------
@@ -93,7 +98,7 @@ dnl -------------------------------------------------------------------------
 dnl Use DLL
 dnl
 if test "$with_dll" = "yes"; then
-	AC_DEFINE(MEDIAINFO_DLL)
+	AC_DEFINE(MEDIAINFO_DLL_RUNTIME)
 	LIBS="$LIBS -ldl"
 fi
 
@@ -122,7 +127,6 @@ dnl -------------------------------------------------------------------------
 dnl MediaInfoLib
 dnl
 if test "$with_dll" != "yes"; then
-	with_dll="no"
 	if test -e ../../../../MediaInfoLib/Project/GNU/Library/libmediainfo.la; then
 		CXXFLAGS="$CXXFLAGS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config CXXFLAGS)"
 		if test "$enable_staticlibs" = "yes"; then
@@ -147,8 +151,7 @@ if test "$with_dll" != "yes"; then
 		fi
 	fi
 else
-	with_dll="yes"
-	with_mediainfolib="system"
+	with_mediainfolib="load at runtime"
 fi
 
 dnl -------------------------------------------------------------------------
@@ -181,6 +184,56 @@ else
 fi
 
 dnl #########################################################################
+dnl ### Compiler specific
+dnl #########################################################################
+
+dnl -------------------------------------------------------------------------
+case "${host}" in
+  powerpc-montavista* )
+    CFLAGS="$CFLAGS -D__MONTAVISTA__"
+    CXXFLAGS="$CXXFLAGS -D__MONTAVISTA__"
+  ;;
+esac
+
+dnl -------------------------------------------------------------------------
+dnl Mac Architecture and SDK
+dnl
+if test "$enable_universal_binary" = "yes"; then
+	enable_arch_ppc=yes
+	enable_arch_i386=yes
+	if test "$with_macosx_sdk" = no ; then
+		with_macosx_sdk="/Developer/SDKs/MacOSX10.4u.sdk"
+	fi
+	if test "$with_macosx_version_min" = no ; then
+		with_macosx_version_min="10.4"
+	fi
+fi
+if test "$enable_arch_ppc" = "yes"; then
+	CXXFLAGS="$CXXFLAGS -arch ppc"
+	CFLAGS="$CFLAGS -arch ppc"
+	LDFLAGS="$LDFLAGS -arch ppc"
+fi
+if test "$enable_arch_i386" = "yes"; then
+	CXXFLAGS="$CXXFLAGS -arch i386"
+	CFLAGS="$CFLAGS -arch i386"
+	LDFLAGS="$LDFLAGS -arch i386"
+fi
+if test "$with_macosx_sdk" = "yes" ; then
+	CXXFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk $CXXFLAGS"
+	CFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk $CFLAGS"
+	LDFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk $LDFLAGS"
+elif test "x$with_macosx_sdk" != xno ; then
+	CXXFLAGS="-isysroot $with_macosx_sdk $CXXFLAGS"
+	CFLAGS="-isysroot $with_macosx_sdk $CFLAGS"
+	LDFLAGS="-isysroot $with_macosx_sdk $LDFLAGS"
+fi
+if test "x$with_macosx_version_min" != xno ; then
+	CXXFLAGS="-mmacosx-version-min=$with_macosx_version_min $CXXFLAGS"
+	CFLAGS="-mmacosx-version-min=$with_macosx_version_min $CFLAGS"
+	LDFLAGS="-mmacosx-version-min=$with_macosx_version_min $LDFLAGS"
+fi
+
+dnl #########################################################################
 dnl ### Output
 dnl #########################################################################
 
@@ -191,13 +244,11 @@ dnl ### Report how we have been configured
 dnl #########################################################################
 
 echo ""
-echo "Configured MediaInfo for '$host'"
+echo "Configured MediaInfo for '$target'"
 echo ""
 echo "  Unicode?                                                $enable_unicode"
 echo "  Using libzen?                                           $with_zenlib"
 echo "  Using libmediainfo?                                     $with_mediainfolib"
-echo ""
-echo "  libmediainfo dynamicly loaded?                          $with_dll"
 echo ""
 echo "  CXXFLAGS: $CXXFLAGS"
 echo "  LIBS: $LIBS"
