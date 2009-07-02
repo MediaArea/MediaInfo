@@ -3200,7 +3200,8 @@ void File_Mxf::Get_UL(int128u &Value, const char* Name)
     #else
     //Parsing
     Element_Begin(Name);
-    Peek_B8(Value.hi);
+    int64u Value_hi, Value_lo;
+    Peek_B8(Value_hi);
     Skip_B1(                                                    "Start (0x06)");
     Skip_B1(                                                    "Length of the remaining key (0x0E)");
     Skip_B1(                                                    "ISO, ORG (0x2B)");
@@ -3209,7 +3210,7 @@ void File_Mxf::Get_UL(int128u &Value, const char* Name)
     Info_B1(RegistryDesignator,                                 "RegistryDesignator"); Param_Info(Mxf_RegistryDesignator(Category, RegistryDesignator));
     Skip_B1(                                                    "0x01");
     Skip_B1(                                                    "Version");
-    Peek_B8(Value.lo);
+    Peek_B8(Value_lo);
     Info_B1(Code1,                                              "Code (1)");
     switch (Code1)
     {
@@ -3338,6 +3339,9 @@ void File_Mxf::Get_UL(int128u &Value, const char* Name)
             Skip_B7(                                            "Unknown");
     }
     Element_End();
+
+    Value.hi=Value_hi;
+    Value.lo=Value_lo;
     #endif
 }
 
