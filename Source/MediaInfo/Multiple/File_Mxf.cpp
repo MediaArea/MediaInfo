@@ -570,7 +570,7 @@ void File_Mxf::Read_Buffer_Finalize_Component(int128u ComponentUID, float32 Edit
 
     //Duration
     if (EditRate)
-        Fill(StreamKind_Last, StreamPos_Last, "Duration", Component->second.Duration/EditRate*1000, 10, true);
+        Fill(StreamKind_Last, StreamPos_Last, "Duration", Component->second.Duration/EditRate*1000, 0, true);
 }
 
 //***************************************************************************
