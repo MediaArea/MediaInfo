@@ -8,11 +8,11 @@
 
 %define _prefix	/usr
 %define _SO_nr	0
-%define libzen_version	0.4.2
+%define libzen_version	0.4.3
 %define libzen_SO_nr	0
 
 Name:			libmediainfo%{_SO_nr}
-Version:		0.7.17
+Version:		0.7.18
 Release:		1
 Summary:		Supplies technical and tag information about a video or audio file
 Group:			System/Libraries
@@ -22,7 +22,7 @@ Source0:		libmediainfo_%{version}-1.tar.gz
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	dos2unix
 BuildRequires: 	gcc-c++
-BuildRequires:	libzen0-devel = %{libzen_version}
+BuildRequires:	libzen0-devel >= %{libzen_version}
 BuildRequires:	pkgconfig
 BuildRequires: 	zlib-devel
 BuildRequires:	doxygen
@@ -131,6 +131,6 @@ done
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
-* Tue Jan 01 2009 Jerome Martinez <zen@mediaarea.net> - 0.7.17-0
+* Tue Jan 01 2009 Jerome Martinez <zen@mediaarea.net> - 0.7.18-0
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>
