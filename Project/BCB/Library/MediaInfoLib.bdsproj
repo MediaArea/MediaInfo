@@ -344,7 +344,7 @@
         <FILE FILENAME="..\..\..\Source\MediaInfo\Archive\File_Rar.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Rar" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Archive\File_Tar.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Tar" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Archive\File_Zip.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Zip" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Wm_Elements.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wm_Elements" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Bdmv.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Bdmv" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Cdxa.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Cdxa" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Dpg.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Dpg" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_DvDif.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_DvDif" FORMNAME="" DESIGNCLASS=""/>
@@ -370,6 +370,7 @@
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Skm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Skm" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Swf.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Swf" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Wm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wm" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\..\..\Source\MediaInfo\Multiple\File_Wm_Elements.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Wm_Elements" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Text\File_Cmml.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Cmml" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Text\File_Eia608.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Eia608" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\..\..\Source\MediaInfo\Text\File_Eia708.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="File_Eia708" FORMNAME="" DESIGNCLASS=""/>
