@@ -424,6 +424,7 @@ int Preferences::ExplorerShell()
         ".mpls;MPLSFile\r\n"
         ".mpm;mpegFile\r\n"
         ".mpv;mpegFile\r\n"
+        ".mxf;WVCFile\r\n"
         ".oga;OGAFile\r\n"
         ".ogg;OGGFile\r\n"
         ".ogm;OGMFile\r\n"
