@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.18, 2009-
+Version 0.7.18, 2009-07-03
 --------------
 + MXF support
 + Blu-ray: BDMV directory parsing
@@ -15,6 +15,7 @@ Version 0.7.18, 2009-
 + M2TS: Language if the .clpi blu-ray file is found
 + OpenSolaris support
 + MPEG-4 Visual: support of Sony SMC (security video) tags
++ MPEG-4 Visual: ASP profile was wrongly displayed
 + Mac OS X: Creation of universal and 10.4 compatible binaries option
 x Mac OS X: no more double-carriage return in Text view
 

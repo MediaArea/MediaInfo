@@ -132,6 +132,8 @@ const char* Mpeg4v_Profile_Level(int32u Profile_Level)
         case B8(00000001) : return "Simple@L1";
         case B8(00000010) : return "Simple@L2";
         case B8(00000011) : return "Simple@L3";
+        case B8(00001000) : return "Simple@L0";
+        case B8(00010000) : return "Simple Scalable@L0";
         case B8(00010001) : return "Simple Scalable@L1";
         case B8(00010010) : return "Simple Scalable@L2";
         case B8(00100001) : return "Core@L1";
@@ -173,15 +175,19 @@ const char* Mpeg4v_Profile_Level(int32u Profile_Level)
         case B8(11100110) : return "Core Studio@L2";
         case B8(11100111) : return "Core Studio@L3";
         case B8(11101000) : return "Core Studio@L4";
-        case B8(11110001) : return "Simple Streaming Video@L1";
-        case B8(11110010) : return "Simple Streaming Video@L2";
-        case B8(11110011) : return "Simple Streaming Video@L3";
-        case B8(11110100) : return "Simple Streaming Video@L4";
-        case B8(11110101) : return "Streaming Video@L1";
-        case B8(11110110) : return "Streaming Video@L2";
-        case B8(11110111) : return "Streaming Video@L3";
-        case B8(11111000) : return "Streaming Video@L4";
-        case B8(11111111) : return "";
+        case B8(11110000) : return "Advanced Simple@L1";
+        case B8(11110001) : return "Advanced Simple@L1";
+        case B8(11110010) : return "Advanced Simple@L2";
+        case B8(11110011) : return "Advanced Simple@L3";
+        case B8(11110100) : return "Advanced Simple@L4";
+        case B8(11110101) : return "Advanced Simple@L5";
+        case B8(11110111) : return "Advanced Simple@L3b";
+        case B8(11111000) : return "Fine Granularity Scalable@L0";
+        case B8(11111001) : return "Fine Granularity Scalable@L1";
+        case B8(11110010) : return "Fine Granularity Scalable@L2";
+        case B8(11110011) : return "Fine Granularity Scalable@L3";
+        case B8(11111100) : return "Fine Granularity Scalable@L4";
+        case B8(11111101) : return "Fine Granularity Scalable@L4";
         default :           return "";
     }
 }
