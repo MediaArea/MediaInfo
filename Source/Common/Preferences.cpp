@@ -514,10 +514,10 @@ int Preferences::ExplorerShell()
             if (Liste(I1, 0)!=_T("Folder"))
                 ExplorerShell_Edit((_T("SystemFileAssociations\\")+Liste(I1, 0)).c_str(), ShellExtension, IsChanged, Reg);
         }
-        ExplorerShell_Edit("SystemFileAssociations\\audio", ShellExtension, IsChanged, Reg);
-        ExplorerShell_Edit("SystemFileAssociations\\Directory.Audio", ShellExtension, IsChanged, Reg);
-        ExplorerShell_Edit("SystemFileAssociations\\Directory.Video", ShellExtension, IsChanged, Reg);
-        ExplorerShell_Edit("SystemFileAssociations\\video", ShellExtension, IsChanged, Reg);
+        ExplorerShell_Edit("SystemFileAssociations\\audio", 0, IsChanged, Reg);
+        ExplorerShell_Edit("SystemFileAssociations\\Directory.Audio", 0, IsChanged, Reg);
+        ExplorerShell_Edit("SystemFileAssociations\\Directory.Video", 0, IsChanged, Reg);
+        ExplorerShell_Edit("SystemFileAssociations\\video", 0, IsChanged, Reg);
         ExplorerShell_Edit("Folder", Config.Read(_T("ShellExtension_Folder")).To_int32s(), IsChanged, Reg);
     }
     else
