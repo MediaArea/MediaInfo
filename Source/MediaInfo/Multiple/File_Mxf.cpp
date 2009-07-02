@@ -135,7 +135,8 @@ namespace Elements
 
     //EssenceCoding
     UUID(EssenceCoding_D10Video,                                060E2B34, 04010101, 04010202, 01020101)
-    UUID(EssenceCoding_JPEG2000,                                060E2B34, 04010107, 04010202, 03010101) //To be confirmed
+    UUID(EssenceCoding_DV,                                      060E2B34, 04010101, 04010202, 02020200)
+    UUID(EssenceCoding_JPEG2000,                                060E2B34, 04010107, 04010202, 03010100) //To be confirmed
     UUID(EssenceCoding_MPEG2Video,                              060E2B34, 04010103, 04010202, 01040300) //To be confirmed
     UUID(EssenceCoding_RV24,                                    060E2B34, 04010101, 04010201, 7F000000) //?
     UUID(EssenceCoding_PCM,                                     060E2B34, 04010101, 04020201, 7F000000) //To be confirmed
@@ -266,6 +267,7 @@ const char* Mxf_EssenceCoding(int128u EssenceContainer)
 
     if (0) {}
     ELEMENT(EssenceCoding_D10Video,                             "D-10 Video")
+    ELEMENT(EssenceCoding_DV,                                   "DV")
     ELEMENT(EssenceCoding_JPEG2000,                             "JPEG-2000")
     ELEMENT(EssenceCoding_PCM,                                  "PCM")
     ELEMENT(EssenceCoding_RV24,                                 "RV24")
@@ -291,6 +293,7 @@ const char* Mxf_EssenceCoding_Format(int128u EssenceContainer)
 
     if (0) {}
     ELEMENT(EssenceCoding_D10Video,                             "MPEG Video")
+    ELEMENT(EssenceCoding_DV,                                   "Digital Video")
     ELEMENT(EssenceCoding_JPEG2000,                             "JPEG-2000")
     ELEMENT(EssenceCoding_MPEG2Video,                           "MPEG Video")
     ELEMENT(EssenceCoding_PCM,                                  "PCM")
@@ -479,7 +482,7 @@ void File_Mxf::Read_Buffer_Finalize_Track(int128u TrackUID)
 
     //TrackNumber
     essences::iterator Temp=Essences.find(Track->second.TrackNumber);
-    if (Temp!=Essences.end())
+    if (Temp!=Essences.end() && Retrieve(StreamKind_Last, StreamPos_Last, "UniqueID").empty()) //if not yet done
     {
         for (std::map<std::string, Ztring>::iterator Info=Temp->second.Infos.begin(); Info!=Temp->second.Infos.end(); Info++)
             Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
@@ -567,7 +570,7 @@ void File_Mxf::Read_Buffer_Finalize_Component(int128u ComponentUID, float32 Edit
 
     //Duration
     if (EditRate)
-        Fill(StreamKind_Last, StreamPos_Last, "Duration", Component->second.Duration/EditRate*1000);
+        Fill(StreamKind_Last, StreamPos_Last, "Duration", Component->second.Duration/EditRate*1000, 10, true);
 }
 
 //***************************************************************************
@@ -655,9 +658,7 @@ void File_Mxf::Header_Parse()
 {
     //Parsing
     int8u Length;
-    //Get_B16(Code,                                               "Code");
-    Peek_B16(Code);
-    Skip_UUID_MXF(                                              "Code");
+    Get_UL(Code,                                                "Code");
     Get_B1(Length,                                              "Length");
     if (Length<0x80)
     {
@@ -894,6 +895,7 @@ void File_Mxf::Data_Parse()
                                     #endif
                                     break;
                 case 0x18000100 : //Digital Video
+                case 0x18000200 : //Digital Video
                                     Essences[Code_Compare4].StreamKind=Stream_Video;
                                     Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
                                     #if defined(MEDIAINFO_DVDIF_YES)
@@ -937,11 +939,11 @@ void File_Mxf::Data_Parse()
     else
         Skip_XX(Element_Size,                                   "Unknown");
 
-    if (File_Offset>=0x4000000 //TODO: 64 MB by default (security), should be changed
+    /*if (File_Offset>=0x4000000 //TODO: 64 MB by default (security), should be changed
      || (Streams_Count==0 && !Descriptors.empty()))
     {
         Finish("MXF");
-    }
+    }*/
 }
 
 //***************************************************************************
@@ -1397,7 +1399,7 @@ void File_Mxf::Primer()
         int16u LocalTag;
         int128u UID;
         Get_B2 (LocalTag,                                       "LocalTag"); Element_Info(Ztring().From_CC2(LocalTag));
-        Get_UUID(UID,                                           "UID"); Element_Info(Ztring().From_UUID(UID));
+        Get_UL (UID,                                            "UID"); Element_Info(Ztring().From_UUID(UID));
         Element_End();
 
         FILLING_BEGIN();
@@ -1735,7 +1737,7 @@ void File_Mxf::ContentStorage_Packages()
     {
         Element_Begin("Package", Length);
         int128u Data;
-        Get_UUID(Data,                                          "Data");
+        Get_UL (Data,                                           "Data");
 
         FILLING_BEGIN();
             if (Data==Preface_PrimaryPackage_Data)
@@ -1758,9 +1760,8 @@ void File_Mxf::ContentStorage_EssenceContainerData()
     Get_B4 (Length,                                             "Length");
     for (int32u Pos=0; Pos<Count; Pos++)
     {
-        Info_UUID(EssenceContainer,                             "EssenceContainer"); Param_Info(Mxf_EssenceContainer(EssenceContainer));
+        Info_UL (EssenceContainer,                              "EssenceContainer"); Param_Info(Mxf_EssenceContainer(EssenceContainer));
     }
-
 }
 
 //---------------------------------------------------------------------------
@@ -1839,7 +1840,7 @@ void File_Mxf::FileDescriptor_ContainerDuration()
 void File_Mxf::FileDescriptor_EssenceContainer()
 {
     //Parsing
-    Info_UUID(EssenceContainer,                                "EssenceContainer"); Param_Info(Mxf_EssenceContainer(EssenceContainer)); Element_Info(Mxf_EssenceContainer(EssenceContainer));
+    Info_UL(EssenceContainer,                                   "EssenceContainer"); Element_Info(Mxf_EssenceContainer(EssenceContainer));
 }
 
 //---------------------------------------------------------------------------
@@ -1847,7 +1848,7 @@ void File_Mxf::FileDescriptor_EssenceContainer()
 void File_Mxf::FileDescriptor_Codec()
 {
     //Parsing
-    Skip_UUID(                                                  "UUID");
+    Skip_UL(                                                    "UUID");
 }
 
 //---------------------------------------------------------------------------
@@ -1949,7 +1950,7 @@ void File_Mxf::GenericPictureEssenceDescriptor_PictureEssenceCoding()
 {
     //Parsing
     int128u Data;
-    Get_Label(Data,                                             "Data"); Element_Info(Mxf_EssenceCoding(Data));
+    Get_UL(Data,                                                "Data"); Element_Info(Mxf_EssenceCoding(Data));
 
     FILLING_BEGIN();
         Descriptors[InstanceUID].Infos["Format"]=Mxf_EssenceCoding_Format(Data);
@@ -2110,7 +2111,7 @@ void File_Mxf::GenericPictureEssenceDescriptor_AlphaTransparency()
 void File_Mxf::GenericPictureEssenceDescriptor_Gamma()
 {
     //Parsing
-    Skip_Label(                                                 "Data");
+    Skip_UL(                                                    "Data");
 }
 
 //---------------------------------------------------------------------------
@@ -2234,7 +2235,7 @@ void File_Mxf::GenericSoundEssenceDescriptor_SoundEssenceCompression()
 {
     //Parsing
     int128u Data;
-    Get_Label(Data,                                             "Data"); Element_Info(Mxf_EssenceContainer(Data));
+    Get_UL(Data,                                                "Data"); Element_Info(Mxf_EssenceContainer(Data));
 
     FILLING_BEGIN();
         Descriptors[InstanceUID].Infos["Format"]=Mxf_EssenceCoding_Format(Data);
@@ -2593,7 +2594,7 @@ void File_Mxf::Preface_LastModifiedDate()
     Get_Timestamp(Value); Element_Info(Value);
 
     FILLING_BEGIN();
-        Fill(Stream_General, 0, General_Encoded_Date, Value);
+        Fill(Stream_General, 0, General_Encoded_Date, Value, true);
     FILLING_END();
 }
 
@@ -2741,7 +2742,7 @@ void File_Mxf::PartitionMetadata()
     Skip_B4(                                                    "IndexSID");
     Skip_B8(                                                    "BodyOffset");
     Skip_B4(                                                    "BodySID");
-    Info_UUID(OperationalPattern,                               "OperationalPattern"); Param_Info(Mxf_OperationalPattern(OperationalPattern));
+    Info_UL(OperationalPattern,                                 "OperationalPattern"); Param_Info(Mxf_OperationalPattern(OperationalPattern));
 
     Element_Begin("EssenceContainers"); //Vector
         int32u Count, Length;
@@ -2749,7 +2750,7 @@ void File_Mxf::PartitionMetadata()
         Get_B4 (Length,                                         "Length");
         for (int32u Pos=0; Pos<Count; Pos++)
         {
-            Info_UUID(EssenceContainer,                         "EssenceContainer"); Param_Info(Mxf_EssenceContainer(EssenceContainer));
+            Info_UL(EssenceContainer,                           "EssenceContainer"); Param_Info(Mxf_EssenceContainer(EssenceContainer));
         }
     Element_End();
 }
@@ -2834,7 +2835,7 @@ void File_Mxf::Preface_EssenceContainers()
     Get_B4 (Length,                                             "Length");
     for (int32u Pos=0; Pos<Count; Pos++)
     {
-        Info_UUID(EssenceContainer,                             "EssenceContainer"); Param_Info(Mxf_EssenceContainer(EssenceContainer));
+        Info_UL(EssenceContainer,                               "EssenceContainer"); Param_Info(Mxf_EssenceContainer(EssenceContainer));
     }
 }
 
@@ -2850,7 +2851,7 @@ void File_Mxf::Preface_DMSchemes()
     for (int32u Pos=0; Pos<Count; Pos++)
     {
         Element_Begin("DMScheme", Length);
-        Skip_UUID(                                              "UUID");
+        Skip_UL(                                                "UUID");
         Element_End();
     }
 }
@@ -2978,7 +2979,7 @@ void File_Mxf::SourcePackage_Descriptor()
 void File_Mxf::StructuralComponent_DataDefinition()
 {
     //Parsing
-    Info_UUID(Data,                                             "Data"); Element_Info(Mxf_Sequence_DataDefinition(Data));
+    Info_UL(Data,                                               "Data"); Element_Info(Mxf_Sequence_DataDefinition(Data));
 }
 
 //---------------------------------------------------------------------------
@@ -3192,20 +3193,23 @@ void File_Mxf::Info_Rational()
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Skip_UL()
-{
-    //Parsing
-    Skip_B16(                                                   "Universal Label");
-}
-
-//---------------------------------------------------------------------------
-void File_Mxf::Info_UL()
+void File_Mxf::Get_UL(int128u &Value, const char* Name)
 {
     #ifdef MEDIAINFO_MINIMIZE_SIZE
-        Skip_UL();
+        Skip_UUID();
     #else
     //Parsing
-    Skip_B8(                                                    "06 0E 2B 34 04 01 01 vv");
+    Element_Begin(Name);
+    Peek_B8(Value.hi);
+    Skip_B1(                                                    "Start (0x06)");
+    Skip_B1(                                                    "Length of the remaining key (0x0E)");
+    Skip_B1(                                                    "ISO, ORG (0x2B)");
+    Skip_B1(                                                    "SMPTE (0x34)");
+    Info_B1(Category,                                           "Category"); Param_Info(Mxf_Category(Category));
+    Info_B1(RegistryDesignator,                                 "RegistryDesignator"); Param_Info(Mxf_RegistryDesignator(Category, RegistryDesignator));
+    Skip_B1(                                                    "0x01");
+    Skip_B1(                                                    "Version");
+    Peek_B8(Value.lo);
     Info_B1(Code1,                                              "Code (1)");
     switch (Code1)
     {
@@ -3304,6 +3308,22 @@ void File_Mxf::Info_UL()
                             }
                             }
                             break;
+                        case 0x03 :
+                            {
+                            Info_B1(Code4,                      "Code (4)");
+                            switch (Code4)
+                            {
+                                case 0x01 :
+                                    Skip_B1(                    "Format?");
+                                    Skip_B1(                    "Essence element count");
+                                    Skip_B1(                    "Essence element type");
+                                    Skip_B1(                    "Essence element number");
+                                    break;
+                                default   :
+                                    Skip_B4(                    "Unknown");
+                            }
+                            }
+                            break;
                         default   :
                             Skip_B5(                            "Unknown");
                     }
@@ -3317,6 +3337,18 @@ void File_Mxf::Info_UL()
         default   :
             Skip_B7(                                            "Unknown");
     }
+    Element_End();
+    #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Skip_UL(const char* Name)
+{
+    #ifdef MEDIAINFO_MINIMIZE_SIZE
+        Skip_UUID();
+    #else
+        int128u Value;
+        Get_UL(Value, Name);
     #endif
 }
 
@@ -3326,35 +3358,6 @@ void File_Mxf::Skip_UMID()
     //Parsing
     Skip_UUID(                                                  "Fixed");
     Skip_UUID(                                                  "UUID");
-}
-
-//---------------------------------------------------------------------------
-void File_Mxf::Skip_UUID_MXF(const char* Name)
-{
-    Element_Begin(Name);
-    int128u UUID;
-    int32u Test;
-    Peek_B16(UUID); Element_Info(Ztring::ToZtring(UUID, 16));
-    Skip_B1(                                                    "Start (0x06)");
-    Skip_B1(                                                    "Length of the remaining key (0x0E)");
-    Skip_B1(                                                    "ISO, ORG (0x2B)");
-    Skip_B1(                                                    "SMPTE (0x34)");
-    Info_B1(Category,                                           "Category"); Param_Info(Mxf_Category(Category));
-    Info_B1(RegistryDesignator,                                 "RegistryDesignator"); Param_Info(Mxf_RegistryDesignator(Category, RegistryDesignator));
-    Skip_B1(                                                    "0x01");
-    Skip_B1(                                                    "Version");
-    Peek_B4(Test);
-    if (Test==0x0D010301)
-    {
-        Skip_B4(                                                "Essence element Universal Labels");
-        Skip_B1(                                                "Format (1)");
-        Skip_B1(                                                "Essence element count");
-        Skip_B1(                                                "Essence element type");
-        Skip_B1(                                                "Essence element number");
-    }
-    else
-        Skip_B8(                                                "Identification");
-    Element_End();
 }
 
 //---------------------------------------------------------------------------

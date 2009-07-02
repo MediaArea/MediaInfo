@@ -267,15 +267,14 @@ protected :
     void Get_Rational(float32 &Value);
     void Skip_Rational();
     void Info_Rational();
-    void Skip_UL();
-    void Info_UL();
-    void Get_Label(int128u &Value, const char* Name) {Get_UUID(Value, Name);}
-    void Skip_Label(const char* Name) {Skip_UUID(Name);}
-    void Skip_UMID();
-    void Skip_UUID_MXF(const char* Name);
     void Get_Timestamp (Ztring &Value);
     void Skip_Timestamp();
     void Info_Timestamp();
+    void Skip_UMID      ();
+
+    void Get_UL (int128u &Value, const char* Name);
+    void Skip_UL(const char* Name);
+    #define Info_UL(_INFO, _NAME) int128u _INFO; Get_UL(_INFO, _NAME)
 
     size_t Streams_Count;
     int128u Code;
