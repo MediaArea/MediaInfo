@@ -70,7 +70,7 @@ xcopy ..\Release\MSVCx64\DLL\MediaInfo.lib MediaInfoDLL_Windows_x64\Developers\R
 xcopy ..\Release\MSVCx64\DLL\MediaInfod.lib MediaInfoDLL_Windows_x64\Developers\Release\MSVC\DLL\
 
 rem --- Copying : Examples ---
-xcopy ..\Source\Example\HowToUse_Dll.* MediaInfoDLL_Windows_x64\Developers\Source\Example\
+xcopy ..\Source\Example\HowToUse_Dll*.* MediaInfoDLL_Windows_x64\Developers\Source\Example\
 xcopy Example.ogg MediaInfoDLL_Windows_x64\Developers\
 
 rem --- Copying : Information files ---

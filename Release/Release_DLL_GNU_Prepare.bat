@@ -18,9 +18,7 @@ xcopy Release_DLL_*.sh MediaInfo_DLL_GNU_Prepare\Release\
 rem --- Copying : Sources ---
 xcopy ..\Source\Doc\Doxyfile MediaInfo_DLL_GNU_Prepare\Source\Doc\ /S
 xcopy ..\Source\Doc\Documentation.html MediaInfo_DLL_GNU_Prepare\Source\Doc\ /S
-xcopy ..\Source\Example\*.cpp MediaInfo_DLL_GNU_Prepare\Source\Example\ /S
-xcopy ..\Source\Example\*.java MediaInfo_DLL_GNU_Prepare\Source\Example\ /S
-xcopy ..\Source\Example\*.py MediaInfo_DLL_GNU_Prepare\Source\Example\ /S
+xcopy ..\Source\Example\HowToUse* MediaInfo_DLL_GNU_Prepare\Source\Example\ /S
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.cs MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.JNA.java MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S
 xcopy ..\Source\MediaInfoDLL\MediaInfoDLL.JNative.java MediaInfo_DLL_GNU_Prepare\Source\MediaInfoDLL\ /S

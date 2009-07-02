@@ -90,7 +90,7 @@ xcopy ..\Release\MSVC\DLL\MediaInfo.lib MediaInfoDLL_Windows_i386\Developers\Rel
 xcopy ..\Release\MSVC\DLL\MediaInfod.lib MediaInfoDLL_Windows_i386\Developers\Release\MSVC\DLL\
 
 rem --- Copying : Examples ---
-xcopy ..\Source\Example\HowToUse_Dll.* MediaInfoDLL_Windows_i386\Developers\Source\Example\
+xcopy ..\Source\Example\HowToUse_Dll*.* MediaInfoDLL_Windows_i386\Developers\Source\Example\
 xcopy Example.ogg MediaInfoDLL_Windows_i386\Developers\
 
 rem --- Copying : Information files ---

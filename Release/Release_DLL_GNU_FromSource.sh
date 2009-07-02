@@ -21,14 +21,13 @@ mkdir -p MediaInfo_DLL_GNU_FromSource/Source/Doc
 cp ../Source/Doc/Doxyfile MediaInfo_DLL_GNU_FromSource/Source/Doc/
 cp ../Source/Doc/Documentation.html MediaInfo_DLL_GNU_FromSource/Source/Doc/
 mkdir -p MediaInfo_DLL_GNU_FromSource/Source/Example
-cp ../Source/Example/*.cpp MediaInfo_DLL_GNU_FromSource/Source/Example/
-cp ../Source/Example/*.java MediaInfo_DLL_GNU_FromSource/Source/Example/
-cp ../Source/Example/*.py MediaInfo_DLL_GNU_FromSource/Source/Example/
+cp ../Source/Example/HowToUse* MediaInfo_DLL_GNU_FromSource/Source/Example/
 mkdir -p MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL
 cp ../Source/MediaInfoDLL/MediaInfoDLL.h MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL_Static.h MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL.cs MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
-cp ../Source/MediaInfoDLL/MediaInfoDLL.java MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
+cp ../Source/MediaInfoDLL/MediaInfoDLL.JNA.java MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
+cp ../Source/MediaInfoDLL/MediaInfoDLL.JNative.java MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL.py MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
 cp ../Source/MediaInfoDLL/MediaInfoDLL3.py MediaInfo_DLL_GNU_FromSource/Source/MediaInfoDLL/
 

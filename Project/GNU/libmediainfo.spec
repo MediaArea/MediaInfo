@@ -120,7 +120,7 @@ done
 
 %files -n libmediainfo%{_SO_nr}-devel
 %defattr(-,root,root,-)
-%doc Changes.txt Documentation.html Doc/*
+%doc Changes.txt Documentation.html Doc/* Source/Example/HowToUse*
 %dir %{_includedir}/MediaInfo
 %{_includedir}/MediaInfo/*
 %dir %{_includedir}/MediaInfoDLL
