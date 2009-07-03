@@ -7,10 +7,10 @@
 # norootforbuild
 
 %define _prefix	/usr
-%define libzen_version	0.4.2
+%define libzen_version	0.4.3
 
 Name:			mediainfo
-Version:		0.7.17
+Version:		0.7.18
 Release:		1
 Summary:		Supplies technical and tag information about a video or audio file
 Group:			Productivity/Multimedia/Other
@@ -21,7 +21,7 @@ BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	dos2unix
 BuildRequires: 	gcc-c++
 BuildRequires:	libmediainfo0-devel
-BuildRequires:	libzen0-devel = %libzen_version
+BuildRequires:	libzen0-devel >= %libzen_version
 BuildRequires:	pkgconfig
 %if 0%{?mandriva_version}
 BuildRequires:	libwxgtku2.8-devel
@@ -61,7 +61,7 @@ What format (container) does MediaInfo support?
 %package gui
 Summary:	GUI for mediainfo
 Group:		Productivity/Multimedia/Other
-Requires:	libzen0 = %{libzen_version}
+Requires:	libzen0 >= %{libzen_version}
 Requires:	libmediainfo0 = %{version}
 
 %description gui
@@ -174,6 +174,6 @@ popd
 %{_datadir}/kde4/services/ServiceMenus/*.desktop
 
 %changelog
-* Tue Jan 01 2009 Jerome Martinez <zen@mediaarea.net> - 0.7.17-0
+* Tue Jan 01 2009 Jerome Martinez <zen@mediaarea.net> - 0.7.18-0
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>
