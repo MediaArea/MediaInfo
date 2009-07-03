@@ -26,7 +26,7 @@ BuildRequires:	libzen0-devel >= %{libzen_version}
 BuildRequires:	pkgconfig
 BuildRequires: 	zlib-devel
 BuildRequires:	doxygen
-Requires:	libzen%{libzen_SO_nr} = %{libzen_version}
+Requires:		libzen%{libzen_SO_nr} >= %{libzen_version}
 
 %description
 MediaInfo supplies technical and tag information about a video or
