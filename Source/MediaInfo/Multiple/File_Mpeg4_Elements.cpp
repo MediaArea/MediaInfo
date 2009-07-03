@@ -1332,8 +1332,7 @@ void File_Mpeg4::moov_iods()
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_meta()
 {
-    NAME_VERSION_FLAG("Metadata");
-    INTEGRITY_VERSION(0);
+    Element_Name("Metadata");
 
     //Filling
     moov_meta_hdlr_Type=0;
@@ -1414,10 +1413,10 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
     int32u Kind, Language;
     Ztring Value;
     Get_B4(Kind,                                                  "Kind"); Param_Info(Mpeg4_Meta_Kind(Kind));
-    Get_B4(Language,                                              "Language");
     switch (Kind)
     {
         case 0x00 : //Binary
+                    Get_B4(Language,                            "Language");
                     switch (Element_Code_Get(Element_Level-1))
                     {
                         case Elements::moov_meta__disk :
@@ -1473,10 +1472,12 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                             }
                             return;
                         default:
+                            Skip_XX(Element_Size,               "To decode!");
                             Value=_T("(Binary)");
                     }
                     break;
         case 0x01 : //UTF-8
+                    Get_B4(Language,                            "Language");
                     switch (Element_Code_Get(Element_Level-1))
                     {
                         case Elements::moov_meta___day :
@@ -1494,10 +1495,12 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                     Value=_T("UTF-16 encoding not yet supported");
                     break;
         case 0x03 : //Mac String
-                    Value=_T("String(Mac) encoding not yet supported");
+                    Get_B4(Language,                            "Language"); //To confirm
+                    Get_Local(Element_Size-Element_Offset, Value, "Value");
                     break;
         case 0x0D : //JPEG
         case 0x0E : //PNG
+                    Get_B4(Language,                            "Language");
                     switch (Element_Code_Get(Element_Level-1))
                     {
                         case Elements::moov_meta__covr :
@@ -1514,6 +1517,7 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                     break;
         case 0x15 : //Signed Integer
                     {
+                    Get_B4(Language,                            "Language");
                     switch (Element_Size-Element_Offset)
                     {
                         case 1 : {int8u  ValueI; Get_B1(ValueI, "Value"); Value.From_Number((int8s) ValueI);}; break;
@@ -1525,10 +1529,13 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                     }
                     break;
         case 0x16 : //Float 32
-                    Value=_T("Float32 encoding not yet supported");
+                    Skip_XX(4,                                  "To decode!");
+                    //Value=_T("Float32 encoding not yet supported");
                     break;
         case 0x17 : //Float 64
-                    Value=_T("Float64 encoding not yet supported");
+                    Skip_XX(8,                                  "To decode!");
+                    Trusted=1000;
+                    //Value=_T("Float64 encoding not yet supported");
                     break;
         default: Value=_T("Unknown kind of value!");
    }
@@ -1551,14 +1558,25 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                 }
                 break;
             case Elements::moov_meta_hdlr_mdta :
-                INTEGRITY(moov_udta_meta_keys_ilst_Pos<moov_udta_meta_keys_List.size(), "Keys atom is not enough large!");
+                if(moov_udta_meta_keys_ilst_Pos<moov_udta_meta_keys_List.size())
                 {
                     std::string Parameter;
                     Metadata_Get(Parameter, moov_udta_meta_keys_List[moov_udta_meta_keys_ilst_Pos]);
-                    if (!Parameter.empty())
+                    if (Parameter=="com.apple.quicktime.version")
+                        Vendor_Version=Value.SubString(_T(""), _T(" "));
+                    else if (Parameter=="com.apple.quicktime.player.version")
+                        Vendor_Version=Value.SubString(_T(""), _T(" "));
+                    else if (Parameter=="com.apple.quicktime.comment")
+                        Fill(Stream_General, 0, General_Comment, Value, true);
+                    else if (Parameter=="com.apple.quicktime.description")
+                        Fill(Stream_General, 0, General_Description, Value, true);
+                    else if (!Parameter.empty())
                         Fill(Stream_General, 0, Parameter.c_str(), Value, true);
                     moov_udta_meta_keys_ilst_Pos++;
                 }
+                else
+                    Param("Keys atom is not enough large!", 0);
+
             case Elements::moov_udta_meta :
                 {
                     std::string Parameter;

@@ -229,7 +229,17 @@ void File_Mpeg4::Read_Buffer_Finalize()
         Temp++;
     }
     if (Vendor!=0x00000000 && Vendor!=0xFFFFFFFF)
-        Fill(Stream_General, 0, General_Encoded_Library, Mpeg4_Encoded_Library(Vendor));
+    {
+        Ztring VendorS=Mpeg4_Encoded_Library(Vendor);
+        if (!Vendor_Version.empty())
+        {
+            VendorS+=_T(' ');    
+            VendorS+=Vendor_Version;    
+        }
+        Fill(Stream_General, 0, General_Encoded_Library, VendorS);
+        Fill(Stream_General, 0, General_Encoded_Library_Name, Mpeg4_Encoded_Library(Vendor));
+        Fill(Stream_General, 0, General_Encoded_Library_Version, Vendor_Version);
+    }
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data

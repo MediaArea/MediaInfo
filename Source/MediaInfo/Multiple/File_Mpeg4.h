@@ -265,6 +265,7 @@ private :
     char                                    Language_Result[4];
     int32u                                  TimeScale;
     int32u                                  Vendor;
+    Ztring                                  Vendor_Version;
 
     //Data
     struct stream
