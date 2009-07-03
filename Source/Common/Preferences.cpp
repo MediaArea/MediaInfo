@@ -506,6 +506,11 @@ int Preferences::ExplorerShell()
                 }
             }
         }
+        ExplorerShell_Edit("SystemFileAssociations\\audio", 0, IsChanged, Reg);
+        ExplorerShell_Edit("SystemFileAssociations\\Directory.Audio", 0, IsChanged, Reg);
+        ExplorerShell_Edit("SystemFileAssociations\\Directory.Video", 0, IsChanged, Reg);
+        ExplorerShell_Edit("SystemFileAssociations\\video", 0, IsChanged, Reg);
+        ExplorerShell_Edit("Folder", 0, IsChanged, Reg);
 
         //Adding/removing to SystemFileAssociations
         int32s ShellExtension=Config.Read(_T("ShellExtension")).To_int32s();
@@ -513,12 +518,8 @@ int Preferences::ExplorerShell()
         {
             //Remove shell ext except "Folder"
             if (Liste(I1, 0)!=_T("Folder"))
-                ExplorerShell_Edit((_T("SystemFileAssociations\\")+Liste(I1, 0)).c_str(), ShellExtension, IsChanged, Reg);
+                ExplorerShell_Edit((_T("Software\\Classes\\SystemFileAssociations\\")+Liste(I1, 0)).c_str(), ShellExtension, IsChanged, Reg_User);
         }
-        ExplorerShell_Edit("SystemFileAssociations\\audio", 0, IsChanged, Reg);
-        ExplorerShell_Edit("SystemFileAssociations\\Directory.Audio", 0, IsChanged, Reg);
-        ExplorerShell_Edit("SystemFileAssociations\\Directory.Video", 0, IsChanged, Reg);
-        ExplorerShell_Edit("SystemFileAssociations\\video", 0, IsChanged, Reg);
         ExplorerShell_Edit("Folder", Config.Read(_T("ShellExtension_Folder")).To_int32s(), IsChanged, Reg);
     }
     else
@@ -673,7 +674,7 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
             if (ShellExtension!=ShellExtensionToWtrite)
             {
                 //This is not the good shell extension, writing new one
-                try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
+                try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){MessageBox(NULL, L"11 - Exception", L"MI", MB_OK);}
                 IsChanged=true;
             }
         }
@@ -699,7 +700,7 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
             //Create it
             Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), true);
             AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
-            try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
+            try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
             IsChanged=true;
             Reg->CloseKey();
         }
@@ -711,7 +712,196 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
 //---------------------------------------------------------------------------
 int Preferences::ShellToolTip()
 {
-    //Done in the GUI for performance. TODO : analyse only if this has changed
+    TRegistry* Reg_User=new TRegistry;
+
+    // Get the Windows version.
+    DWORD Version = GetVersion();
+    DWORD MajorVersion = (DWORD)(LOBYTE(LOWORD(Version)));
+    DWORD MinorVersion = (DWORD)(HIBYTE(LOWORD(Version)));
+
+    bool IsChanged=false;
+    if (!( MajorVersion>=6 //Windows Vista or more
+     || (MajorVersion==5 && MinorVersion>=1))) //WinXP or more in 5.x family
+        return 0; //No supported
+
+
+    int32s ShellInfoTip=Config.Read(_T("ShellInfoTip")).To_int32s();
+
+    ZtringList Liste;
+    Liste=_T(
+        ".3gp;"
+        ".3gpp;"
+        ".aac;"
+        ".ac3;"
+        ".ape;"
+        ".asf;"
+        ".avi;"
+        ".bdmv;"
+        ".clpi;"
+        ".divx;"
+        ".dpg;"
+        ".dts;"
+        ".dv;"
+        ".dvr;"
+        ".dvr-ms;"
+        ".eac3;"
+        ".evo;"
+        ".flac;"
+        ".flv;"
+        ".gvi;"
+        ".h264;"
+        ".ifo;"
+        ".isma;"
+        ".ismv;"
+        ".j2k;"
+        ".jp2;"
+        ".m1s;"
+        ".m1t;"
+        ".m1v;"
+        ".m2s;"
+        ".m2t;"
+        ".m2ts;"
+        ".m2v;"
+        ".m4a;"
+        ".m4v;"
+        ".mac;"
+        ".mka;"
+        ".mks;"
+        ".mkv;"
+        ".mod;"
+        ".mov;"
+        ".mp+;"
+        ".mp2;"
+        ".mp3;"
+        ".mp4;"
+        ".mpc;"
+        ".mpe;"
+        ".mpeg;"
+        ".mpg;"
+        ".mpgv;"
+        ".mpgx;"
+        ".mpls;"
+        ".mpm;"
+        ".mpv;"
+        ".mxf;"
+        ".oga;"
+        ".ogg;"
+        ".ogm;"
+        ".ogv;"
+        ".qt;"
+        ".ra;"
+        ".rm;"
+        ".rmvb;"
+        ".smv;"
+        ".swf;"
+        ".tp;"
+        ".trp;"
+        ".ts;"
+        ".tta;"
+        ".vob;"
+        ".w64;"
+        ".wav;"
+        ".wma;"
+        ".wmv;"
+        ".wv;"
+        ".wvc;"
+                );
+
+    if (Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32", false))
+    {
+        //MediaInfo shell extension is known
+        if (ShellInfoTip)
+        {
+            //test if good writing
+            std::string DLL_Name=static_cast<const char*>(Application->ExeName.data());
+            DLL_Name.resize(DLL_Name.rfind('\\')); //Removing ".exe"
+            DLL_Name+="\\MediaInfo_InfoTip.dll";
+            std::string ShellInfoTipToWtrite="\"" + DLL_Name +"\"";
+            std::string ShellInfoTip_Existing=Reg_User->ReadString(_T("")).c_str();
+            if (ShellInfoTip_Existing!=ShellInfoTipToWtrite)
+            {
+                //This is not the good shell extension, writing new one
+                try {Reg_User->WriteString("", ShellInfoTipToWtrite.c_str());} catch (...){MessageBox(NULL, L"11 - Exception", L"MI", MB_OK);}
+                IsChanged=true;
+            }
+        }
+        else
+        {
+            //Should not be here, deleting
+            Reg_User->CloseKey();
+            Reg_User->DeleteKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32");
+            Reg_User->DeleteKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_");
+            Reg_User->DeleteKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1");
+            for (size_t I1=0; I1<Liste.size(); I1++)
+            {
+                //Remove
+                if (!Liste(I1).empty())
+                    Reg_User->DeleteKey((_T("Software\\Classes\\")+Liste(I1)+_T("\\shellex\\{00021500-0000-0000-C000-000000000046}")).c_str());
+            }
+
+            IsChanged=true;
+        }
+        Reg_User->CloseKey();
+    }
+    else
+    {
+        //MediaInfo Shell extension is not known
+        if (ShellInfoTip)
+        {
+            //Create it
+            Reg_User->CloseKey();
+            Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}", true);
+            try {Reg_User->WriteString("", "MediaInfoShellExt_ Class");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            Reg_User->CloseKey();
+            Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32", true);
+            std::string DLL_Name=static_cast<const char*>(Application->ExeName.data());
+            DLL_Name.resize(DLL_Name.rfind('\\')); //Removing ".exe"
+            DLL_Name+="\\MediaInfo_InfoTip.dll";
+            std::string ShellInfoTipToWtrite="\"" + DLL_Name +"\"";
+            try {Reg_User->WriteString("", ShellInfoTipToWtrite.c_str());} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            try {Reg_User->WriteString("ThreadingModel", "Apartment");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            Reg_User->CloseKey();
+            Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\ProcID", true);
+            try {Reg_User->WriteString("", "MediaInfoShellExt.MediaInfoShellExt_.1");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            Reg_User->CloseKey();
+            Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\TypeLib", true);
+            try {Reg_User->WriteString("", "{BC1AAA9F-D8C5-4EB2-A10A-61B86B7EA77C}");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            Reg_User->CloseKey();
+            Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\VersionIndependentProgID", true);
+            try {Reg_User->WriteString("", "MediaInfoShellExt.MediaInfoShellExt_");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            Reg_User->CloseKey();
+            Reg_User->OpenKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_", true);
+            try {Reg_User->WriteString("", "MediaInfoShellExt_ Class");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            Reg_User->CloseKey();
+            Reg_User->OpenKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_\\CLSID", true);
+            try {Reg_User->WriteString("", "{869C14C8-1830-491F-B575-5F9AB40D2B42}");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            Reg_User->CloseKey();
+            Reg_User->OpenKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_\\CurVer", true);
+            try {Reg_User->WriteString("", "MediaInfoShellExt.MediaInfoShellExt_.1");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            Reg_User->CloseKey();
+            Reg_User->OpenKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1", true);
+            try {Reg_User->WriteString("", "MediaInfoShellExt_ Class");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            Reg_User->CloseKey();
+            Reg_User->OpenKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1\\CLSID", true);
+            try {Reg_User->WriteString("", "{869C14C8-1830-491F-B575-5F9AB40D2B42}");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            Reg_User->CloseKey();
+            for (size_t I1=0; I1<Liste.size(); I1++)
+            {
+                //Add
+                if (!Liste(I1).empty())
+                {
+                    Reg_User->OpenKey((_T("Software\\Classes\\")+Liste(I1)+_T("\\shellex\\{00021500-0000-0000-C000-000000000046}")).c_str(), true);
+                    try {Reg_User->WriteString("", "{869C14C8-1830-491F-B575-5F9AB40D2B42}");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+                    Reg_User->CloseKey();
+                }
+            }
+            IsChanged=true;
+        }
+    }
+
+    delete Reg_User; //Reg_User=NULL;
+    if (IsChanged)
+        SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, NULL, NULL);
     return 1;
 }
 
