@@ -283,15 +283,9 @@ void __fastcall TPreferencesF::CB_InfoTipClick(TObject *Sender)
 {
     //ToolTip
     if (CB_InfoTip->Checked)
-    {
         Prefs->Config(_T("ShellInfoTip"), 1)=_T("1");
-        ShellExecute (NULL, _T("open"), _T("regsvr32"), _T("MediaInfo_InfoTip.dll /s"), NULL, 0);
-    }
     else
-    {
         Prefs->Config(_T("ShellInfoTip"), 1)=_T("0");
-        ShellExecute (NULL, _T("open"), _T("regsvr32"), _T("MediaInfo_InfoTip.dll /s /u"), NULL, 0);
-    }
 }
 
 //---------------------------------------------------------------------------
