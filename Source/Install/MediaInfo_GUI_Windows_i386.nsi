@@ -19,6 +19,9 @@ SetCompressor /FINAL /SOLID lzma
 ; x64 stuff
 !include "x64.nsh"
 
+; MediaInfo stuff
+!include "MediaInfo_Extensions.nsh"
+
 ; Modern UI
 !include "MUI2.nsh"
 !define MUI_ABORTWARNING
@@ -151,11 +154,16 @@ Section -Post
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\MediaInfo.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
+  Exec 'regsvr32 "$INSTDIR\MediaInfo_InfoTip.dll" /s'
+  !insertmacro MediaInfo_Extensions_Install
 SectionEnd
 
 
 Section Uninstall
-  UnRegDLL "$INSTDIR\MediaInfo_InfoTip.dll"
+  !insertmacro MediaInfo_Extensions_Uninstall
+  Exec 'regsvr32 "$INSTDIR\MediaInfo_InfoTip.dll" /u /s'
+  Sleep 3000
+
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
   Delete "$INSTDIR\MediaInfo.exe"
