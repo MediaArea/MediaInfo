@@ -393,20 +393,28 @@ void File_MpegTs::Streams_Fill()
     }
 
     #if defined(MEDIAINFO_BDAV_YES) && defined (MEDIAINFO_BDMV_YES)
-        if (BDAV_Size==4 && Config->File_Bdmv_ParseTargetedFile_Get())
-        {
-            Ztring file=File_Name.substr(File_Name.size()-10, 5);
-            Ztring CLPI_File=File_Name;
-            CLPI_File.resize(CLPI_File.size()-10-1-6);
+		if (BDAV_Size==4 && Config->File_Bdmv_ParseTargetedFile_Get()
+		 && File_Name.size()>10+1+6
+		 && File_Name[File_Name.size()-10-1]==PathSeparator
+		 && File_Name[File_Name.size()-10-2]==_T('M')
+		 && File_Name[File_Name.size()-10-3]==_T('A')
+		 && File_Name[File_Name.size()-10-4]==_T('E')
+		 && File_Name[File_Name.size()-10-5]==_T('R')
+		 && File_Name[File_Name.size()-10-6]==_T('T')
+		 && File_Name[File_Name.size()-10-7]==_T('S'))
+		{
+			Ztring file=File_Name.substr(File_Name.size()-10, 5);
+			Ztring CLPI_File=File_Name;
+			CLPI_File.resize(CLPI_File.size()-(10+1+6));
             CLPI_File+=_T("CLIPINF");
-            CLPI_File+=PathSeparator;
-            CLPI_File+=file;
+			CLPI_File+=PathSeparator;
+			CLPI_File+=file;
             CLPI_File+=_T(".clpi");
 
             int8u ReadByHuman=Ztring(MediaInfo::Option_Static(_T("ReadByHuman_Get"))).To_int8u();
             MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
             MediaInfo_Internal MI;
-            MI.Option(_T("File_Bdmv_ParseTargetedFile"), _T("0"));
+			MI.Option(_T("File_Bdmv_ParseTargetedFile"), _T("0"));
             if (MI.Open(CLPI_File))
             {
                 for (size_t StreamKind=(size_t)Stream_General+1; StreamKind<(size_t)Stream_Max; StreamKind++)
@@ -418,13 +426,13 @@ void File_MpegTs::Streams_Fill()
                         if (Complete_Stream->Streams[PID].StreamKind!=Stream_Max)
                             Fill(Complete_Stream->Streams[PID].StreamKind, Complete_Stream->Streams[PID].StreamPos, "Language", MI.Get((stream_t)StreamKind, StreamPos, _T("Language")));
                     }
-                }
+				}
             }
             MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
         }
     #endif //defined(MEDIAINFO_BDAV_YES) && defined (MEDIAINFO_BDMV_YES)
 
-    File__Duplicate_Read_Buffer_Finalize();
+	File__Duplicate_Read_Buffer_Finalize();
 }
 
 //---------------------------------------------------------------------------

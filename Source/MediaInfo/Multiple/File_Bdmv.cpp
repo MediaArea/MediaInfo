@@ -682,7 +682,7 @@ void File_Bdmv::Clpi_Streams()
     //Retrieving data from the M2TS file
     std::map<int16u, stream_t> PIDs_StreamKind;
     std::map<int16u, size_t> PIDs_StreamPos;
-    if (Config->File_Bdmv_ParseTargetedFile_Get())
+	if (Config->File_Bdmv_ParseTargetedFile_Get() && File_Name.size()>10)
     {
         Ztring file=File_Name.substr(File_Name.size()-10, 5);
         Ztring M2TS_File=File_Name;
