@@ -72,13 +72,14 @@ AC_ARG_ENABLE(adif,    AC_HELP_STRING([--disable-adif],    [Disable Audio - ADIF
 AC_ARG_ENABLE(adpcm,   AC_HELP_STRING([--disable-adpcm],   [Disable Audio - ADPCM]),                                      MediaInfoAdpcm=$enableval,   MediaInfoAdpcm=depend)
 AC_ARG_ENABLE(adts,    AC_HELP_STRING([--disable-adts],    [Disable Audio - ADTS]),                                       MediaInfoAdts=$enableval,    MediaInfoAdts=depend)
 AC_ARG_ENABLE(aes3,    AC_HELP_STRING([--disable-aes3],    [Disable Audio - AES3]),                                       MediaInfoAdts=$enableval,    MediaInfoAes3=depend)
-AC_ARG_ENABLE(latm,    AC_HELP_STRING([--disable-latm],    [Disable Audio - LATM]),                                       MediaInfoAdts=$enableval,    MediaInfoAdts=depend)
+AC_ARG_ENABLE(als,     AC_HELP_STRING([--disable-als],     [Disable Audio - ALS]),                                        MediaInfoAls=$enableval,     MediaInfoAls=depend)
 AC_ARG_ENABLE(amr,     AC_HELP_STRING([--disable-amr],     [Disable Audio - AMR]),                                        MediaInfoAmr=$enableval,     MediaInfoAmr=depend)
 AC_ARG_ENABLE(amv,     AC_HELP_STRING([--disable-amv],     [Disable Audio - AMV]),                                        MediaInfoAmv=$enableval,     MediaInfoAmv=depend)
 AC_ARG_ENABLE(ape,     AC_HELP_STRING([--disable-ape],     [Disable Audio - Monkey Audio (.ape, .mac)]),                  MediaInfoApe=$enableval,     MediaInfoApe=depend)
 AC_ARG_ENABLE(au,      AC_HELP_STRING([--disable-au],      [Disable Audio - Au]),                                         MediaInfoAu=$enableval,      MediaInfoAu=depend)
 AC_ARG_ENABLE(dts,     AC_HELP_STRING([--disable-dts],     [Disable Audio - DTS]),                                        MediaInfoDts=$enableval,     MediaInfoDts=depend)
 AC_ARG_ENABLE(flac,    AC_HELP_STRING([--disable-flac],    [Disable Audio - FLAC format]),                                MediaInfoFlac=$enableval,    MediaInfoFlac=depend)
+AC_ARG_ENABLE(latm,    AC_HELP_STRING([--disable-latm],    [Disable Audio - LATM]),                                       MediaInfoAdts=$enableval,    MediaInfoAdts=depend)
 AC_ARG_ENABLE(midi,    AC_HELP_STRING([--disable-midi],    [Disable Audio - MIDI]),                                       MediaInfoMidi=$enableval,    MediaInfoMidi=depend)
 AC_ARG_ENABLE(mpc,     AC_HELP_STRING([--disable-mpc],     [Disable Audio - Musepack format (.mpc)]),                     MediaInfoMpc=$enableval,     MediaInfoMpc=depend)
 AC_ARG_ENABLE(mpcsv8,  AC_HELP_STRING([--disable-mpc],     [Disable Audio - Musepack format SV8 (.mpc)]),                 MediaInfoMpcSv8=$enableval,  MediaInfoMpcSv8=depend)
@@ -167,16 +168,21 @@ if test "$MediaInfoMz"      = "no";  then AC_DEFINE(MEDIAINFO_MZ_NO)      fi; if
 if test "$MediaInfoRar"     = "no";  then AC_DEFINE(MEDIAINFO_RAR_NO)     fi; if test "$MediaInfoRar"     = "yes"; then AC_DEFINE(MEDIAINFO_RAR_YES)     fi
 if test "$MediaInfoTar"     = "no";  then AC_DEFINE(MEDIAINFO_TAR_NO)     fi; if test "$MediaInfoTar"     = "yes"; then AC_DEFINE(MEDIAINFO_TAR_YES)     fi
 if test "$MediaInfoZip"     = "no";  then AC_DEFINE(MEDIAINFO_ZIP_NO)     fi; if test "$MediaInfoZip"     = "yes"; then AC_DEFINE(MEDIAINFO_ZIP_YES)     fi
+if test "$MediaInfoAac"     = "no";  then AC_DEFINE(MEDIAINFO_AAC_NO)     fi; if test "$MediaInfoAac"     = "yes"; then AC_DEFINE(MEDIAINFO_AAC_YES)     fi
 if test "$MediaInfoAc3"     = "no";  then AC_DEFINE(MEDIAINFO_AC3_NO)     fi; if test "$MediaInfoAc3"     = "yes"; then AC_DEFINE(MEDIAINFO_AC3_YES)     fi
 if test "$MediaInfoAdif"    = "no";  then AC_DEFINE(MEDIAINFO_ADIF_NO)    fi; if test "$MediaInfoAdif"    = "yes"; then AC_DEFINE(MEDIAINFO_ADIF_YES)    fi
+if test "$MediaInfoAdpcm"   = "no";  then AC_DEFINE(MEDIAINFO_ADPCM_NO)   fi; if test "$MediaInfoAdpcm"   = "yes"; then AC_DEFINE(MEDIAINFO_ADPCM_YES)   fi
 if test "$MediaInfoAdts"    = "no";  then AC_DEFINE(MEDIAINFO_ADTS_NO)    fi; if test "$MediaInfoAdts"    = "yes"; then AC_DEFINE(MEDIAINFO_ADTS_YES)    fi
 if test "$MediaInfoAes3"    = "no";  then AC_DEFINE(MEDIAINFO_AES3_NO)    fi; if test "$MediaInfoAes3"    = "yes"; then AC_DEFINE(MEDIAINFO_AES3_YES)    fi
+if test "$MediaInfoAls"     = "no";  then AC_DEFINE(MEDIAINFO_ALS_NO)     fi; if test "$MediaInfoAls"     = "yes"; then AC_DEFINE(MEDIAINFO_ALS_YES)     fi
 if test "$MediaInfoAmr"     = "no";  then AC_DEFINE(MEDIAINFO_AMR_NO)     fi; if test "$MediaInfoAmr"     = "yes"; then AC_DEFINE(MEDIAINFO_AMR_YES)     fi
+if test "$MediaInfoAmv"     = "no";  then AC_DEFINE(MEDIAINFO_AMV_NO)     fi; if test "$MediaInfoAmv"     = "yes"; then AC_DEFINE(MEDIAINFO_AMV_YES)     fi
 if test "$MediaInfoApe"     = "no";  then AC_DEFINE(MEDIAINFO_APE_NO)     fi; if test "$MediaInfoApe"     = "yes"; then AC_DEFINE(MEDIAINFO_APE_YES)     fi
+if test "$MediaInfoAu"      = "no";  then AC_DEFINE(MEDIAINFO_AU_NO)      fi; if test "$MediaInfoAu"      = "yes"; then AC_DEFINE(MEDIAINFO_AU_YES)      fi
 if test "$MediaInfoDts"     = "no";  then AC_DEFINE(MEDIAINFO_DTS_NO)     fi; if test "$MediaInfoDts"     = "yes"; then AC_DEFINE(MEDIAINFO_DTS_YES)     fi
 if test "$MediaInfoFlac"    = "no";  then AC_DEFINE(MEDIAINFO_FLAC_NO)    fi; if test "$MediaInfoFlac"    = "yes"; then AC_DEFINE(MEDIAINFO_FLAC_YES)    fi
-if test "$MediaInfoId3"     = "no";  then AC_DEFINE(MEDIAINFO_ID3_NO)     fi; if test "$MediaInfoId3"     = "yes"; then AC_DEFINE(MEDIAINFO_ID3_YES)     fi
-if test "$MediaInfoId3v2"   = "no";  then AC_DEFINE(MEDIAINFO_ID3V2_NO)   fi; if test "$MediaInfoId3v2"   = "yes"; then AC_DEFINE(MEDIAINFO_ID3V2_YES)   fi
+if test "$MediaInfoLatm"    = "no";  then AC_DEFINE(MEDIAINFO_LATM_NO)    fi; if test "$MediaInfoLatm"    = "yes"; then AC_DEFINE(MEDIAINFO_LATM_YES)    fi
+if test "$MediaInfoMidi"    = "no";  then AC_DEFINE(MEDIAINFO_MIDO_NO)    fi; if test "$MediaInfoMidi"    = "yes"; then AC_DEFINE(MEDIAINFO_MIDI_YES)    fi
 if test "$MediaInfoMpc"     = "no";  then AC_DEFINE(MEDIAINFO_MPC_NO)     fi; if test "$MediaInfoMpc"     = "yes"; then AC_DEFINE(MEDIAINFO_MPC_YES)     fi
 if test "$MediaInfoMpcSv8"  = "no";  then AC_DEFINE(MEDIAINFO_MPCSV8_NO)  fi; if test "$MediaInfoMpcSv8"  = "yes"; then AC_DEFINE(MEDIAINFO_MPCSV8_YES)  fi
 if test "$MediaInfoMpega"   = "no";  then AC_DEFINE(MEDIAINFO_MPEGA_NO)   fi; if test "$MediaInfoMpega"   = "yes"; then AC_DEFINE(MEDIAINFO_MPEGA_YES)   fi
@@ -185,6 +191,8 @@ if test "$MediaInfoPs2a"    = "no";  then AC_DEFINE(MEDIAINFO_PS2A_NO)    fi; if
 if test "$MediaInfoSpeex"   = "no";  then AC_DEFINE(MEDIAINFO_SPEEX_NO)   fi; if test "$MediaInfoSpeex"   = "yes"; then AC_DEFINE(MEDIAINFO_SPEEX_YES)   fi
 if test "$MediaInfoTta"     = "no";  then AC_DEFINE(MEDIAINFO_TTA_NO)     fi; if test "$MediaInfoTta"     = "yes"; then AC_DEFINE(MEDIAINFO_TTA_YES)     fi
 if test "$MediaInfoTwinVQ"  = "no";  then AC_DEFINE(MEDIAINFO_TWINVQ_NO)  fi; if test "$MediaInfoTwinVQ"  = "yes"; then AC_DEFINE(MEDIAINFO_TWINVQ_YES)  fi
+if test "$MediaInfoVorbis"  = "no";  then AC_DEFINE(MEDIAINFO_VORBIS_NO)  fi; if test "$MediaInfoVorbis"  = "yes"; then AC_DEFINE(MEDIAINFO_VORBIS_YES)  fi
+if test "$MediaInfoWvpk"    = "no";  then AC_DEFINE(MEDIAINFO_WVPK_NO)    fi; if test "$MediaInfoWvpk"    = "yes"; then AC_DEFINE(MEDIAINFO_WVPK_YES)    fi
 if test "$MediaInfoBmp"     = "no";  then AC_DEFINE(MEDIAINFO_BMP_NO)     fi; if test "$MediaInfoBmp"     = "yes"; then AC_DEFINE(MEDIAINFO_BMP_YES)     fi
 if test "$MediaInfoGif"     = "no";  then AC_DEFINE(MEDIAINFO_GIF_NO)     fi; if test "$MediaInfoGif"     = "yes"; then AC_DEFINE(MEDIAINFO_GIF_YES)     fi
 if test "$MediaInfoIco"     = "no";  then AC_DEFINE(MEDIAINFO_ICO_NO)     fi; if test "$MediaInfoIco"     = "yes"; then AC_DEFINE(MEDIAINFO_ICO_YES)     fi
@@ -484,17 +492,21 @@ Mcho "Mz     " "$MediaInfoMz"
 Mcho "Rar    " "$MediaInfoRar"
 Mcho "Tar    " "$MediaInfoTar"
 Mcho "Zip    " "$MediaInfoZip"
+Mcho "Aac    " "$MediaInfoAac"
 Mcho "Ac3    " "$MediaInfoAc3"
 Mcho "Adif   " "$MediaInfoAdif"
+Mcho "Adpcm  " "$MediaInfoAdpcm"
 Mcho "Adts   " "$MediaInfoAdts"
 Mcho "Aes3   " "$MediaInfoAes3"
-Mcho "Latm   " "$MediaInfoLatm"
+Mcho "Als    " "$MediaInfoAls"
 Mcho "Amr    " "$MediaInfoAmr"
+Mcho "Amv    " "$MediaInfoAmv"
 Mcho "Ape    " "$MediaInfoApe"
+Mcho "Au     " "$MediaInfoAu"
 Mcho "Dts    " "$MediaInfoDts"
 Mcho "Flac   " "$MediaInfoFlac"
-Mcho "Id3    " "$MediaInfoId3"
-Mcho "Id3v2  " "$MediaInfoId3v2"
+Mcho "Latm   " "$MediaInfoLatm"
+Mcho "Midi    " "$MediaInfoMidi"
 Mcho "Mpc    " "$MediaInfoMpc"
 Mcho "MpcSv8 " "$MediaInfoMpcSv8"
 Mcho "Mpega  " "$MediaInfoMpega"
@@ -503,6 +515,8 @@ Mcho "Ps2a   " "$MediaInfoPs2a"
 Mcho "Speex  " "$MediaInfoSpeex"
 Mcho "Tta    " "$MediaInfoTta"
 Mcho "TwinVQ " "$MediaInfoTwinVQ"
+Mcho "Vorbis " "$MediaInfoVorbis"
+Mcho "Wvpk   " "$MediaInfoWvpk"
 Mcho "Bmp    " "$MediaInfoBmp"
 Mcho "Gif    " "$MediaInfoGif"
 Mcho "Ico    " "$MediaInfoIco"

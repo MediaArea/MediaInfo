@@ -37,6 +37,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Audio/File_Adpcm.cpp \
                        ../../../Source/MediaInfo/Audio/File_Adts.cpp \
                        ../../../Source/MediaInfo/Audio/File_Aes3.cpp \
+                       ../../../Source/MediaInfo/Audio/File_Als.cpp \
                        ../../../Source/MediaInfo/Audio/File_Amr.cpp \
                        ../../../Source/MediaInfo/Audio/File_Amv.cpp \
                        ../../../Source/MediaInfo/Audio/File_Ape.cpp \

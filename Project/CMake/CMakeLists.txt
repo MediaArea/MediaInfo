@@ -47,6 +47,7 @@ set(mediainfo_SRCS
 	MediaInfo/Audio/File_Adpcm.cpp
 	MediaInfo/Audio/File_Adts.cpp
 	MediaInfo/Audio/File_Aes3.cpp
+	MediaInfo/Audio/File_Als.cpp
 	MediaInfo/Audio/File_Amr.cpp
 	MediaInfo/Audio/File_Amv.cpp
 	MediaInfo/Audio/File_Ape.cpp

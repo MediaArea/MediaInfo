@@ -130,6 +130,9 @@
 #if defined(MEDIAINFO_ADTS_YES)
     #include "MediaInfo/Audio/File_Adts.h"
 #endif
+#if defined(MEDIAINFO_ALS_YES)
+    #include "MediaInfo/Audio/File_Als.h"
+#endif
 #if defined(MEDIAINFO_AMR_YES)
     #include "MediaInfo/Audio/File_Amr.h"
 #endif
@@ -354,11 +357,14 @@ void MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #endif
 
     // Audio
+    #if defined(MEDIAINFO_ADTS_YES)
+        else if (Parser==_T("Aac"))         Info=new File_Adts();
+    #endif
     #if defined(MEDIAINFO_AC3_YES)
         else if (Parser==_T("Ac3"))         Info=new File_Ac3();
     #endif
-    #if defined(MEDIAINFO_ADTS_YES)
-        else if (Parser==_T("Aac"))         Info=new File_Adts();
+    #if defined(MEDIAINFO_ALS_YES)
+        else if (Parser==_T("Als"))         Info=new File_Als();
     #endif
     #if defined(MEDIAINFO_AMR_YES)
         else if (Parser==_T("Amr"))         Info=new File_Amr();
@@ -583,6 +589,9 @@ int MediaInfo_Internal::ListFormats()
     #endif
     #if defined(MEDIAINFO_ADTS_YES)
         delete Info; Info=new File_Adts();               if (ApplyMethod()>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_ALS_YES)
+        delete Info; Info=new File_Als();                if (ApplyMethod()>0) return 1;
     #endif
     #if defined(MEDIAINFO_AMR_YES)
         delete Info; Info=new File_Amr();                if (ApplyMethod()>0) return 1;

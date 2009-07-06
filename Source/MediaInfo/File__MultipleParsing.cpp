@@ -116,6 +116,9 @@
 #if defined(MEDIAINFO_ADTS_YES)
     #include "MediaInfo/Audio/File_Adts.h"
 #endif
+#if defined(MEDIAINFO_ALS_YES)
+    #include "MediaInfo/Audio/File_Als.h"
+#endif
 #if defined(MEDIAINFO_AMR_YES)
     #include "MediaInfo/Audio/File_Amr.h"
 #endif
@@ -352,6 +355,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_ADTS_YES)
         Temp=new File_Adts(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_ALS_YES)
+        Temp=new File_Als(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_AMR_YES)
         Temp=new File_Amr(); Parser.push_back(Temp);
