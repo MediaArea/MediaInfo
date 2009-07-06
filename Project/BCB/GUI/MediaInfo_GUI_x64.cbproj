@@ -3,7 +3,7 @@
 			<ProjectGuid>{D8A84D95-04BC-4EE5-A643-F46E3C83EB16}</ProjectGuid>
 			<ProjectType>CppVCLApplication</ProjectType>
 			<MainSource>MediaInfo_GUI_x64.cpp</MainSource>
-			<Config Condition="'$(Config)'==''">Débogage</Config>
+			<Config Condition="'$(Config)'==''">Release</Config>
 			<ProjectVersion>12.0</ProjectVersion>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
