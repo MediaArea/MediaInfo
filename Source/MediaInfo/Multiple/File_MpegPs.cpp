@@ -395,7 +395,7 @@ void File_MpegPs::Read_Buffer_Continue()
         if (Buffer_Size<=Buffer_DataSizeToParse)
         {
             Element_Size=Buffer_Size; //All the buffer is used
-            Buffer_DataSizeToParse-=Buffer_Size;
+            Buffer_DataSizeToParse-=(int16u)Buffer_Size;
         }
         else
         {
@@ -811,7 +811,7 @@ void File_MpegPs::Header_Parse_PES_packet(int8u start_code)
      && ((start_code&0xE0)==0xC0 || (start_code&0xF0)==0xE0))
     {
         Header_Fill_Size(Buffer_Size-Buffer_Offset); //All the buffer is used
-        Buffer_DataSizeToParse=6+PES_packet_length-(Buffer_Size-Buffer_Offset);
+        Buffer_DataSizeToParse=6+PES_packet_length-(int16u)(Buffer_Size-Buffer_Offset);
         Buffer_Offset_Temp=0; //We use the buffer
     }
 }
