@@ -28,56 +28,56 @@
 #include <ComCtrls.hpp>
 #include <Controls.hpp>
 #include <StdCtrls.hpp>
-#include <TntForms.hpp>
-#include <TntComCtrls.hpp>
-#include <TntStdCtrls.hpp>
+#include <Forms.hpp>
+#include <ComCtrls.hpp>
+#include <StdCtrls.hpp>
 #include "GUI_Main.h"
 #include "Common/Preferences.h"
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-class TPreferencesF : public TTntForm
+class TPreferencesF : public TForm
 {
 __published:    // IDE-managed Components
-    TTntButton *OK;
-    TTntTreeView *Tree;
-    TTntButton *Cancel;
-    TTntPageControl *Page;
-    TTntTabSheet *Setup;
-    TTntLabel *Langue_C;
-    TTntLabel *Output_C;
-    TTntComboBox *General_Language_Sel;
-    TTntComboBox *General_Output_Sel;
-    TTntCheckBox *CB_CheckUpdate;
-    TTntButton *General_Language_More;
-    TTntButton *General_Output_More;
-    TTntTabSheet *Setup_Advanced;
-    TTntCheckBox *CB_ShowToolBar;
-    TTntCheckBox *Advanced_CloseAllAuto;
-    TTntTabSheet *Customize_Language;
-    TTntLabel *Language_Caption;
-    TTntButton *Language_New;
-    TTntButton *Language_Delete;
-    TTntButton *Language_Edit;
-    TTntComboBox *Language_Sel;
-    TTntTabSheet *Customize_Sheet;
-    TTntLabel *Sheet_Caption;
-    TTntComboBox *Sheet_Sel;
-    TTntButton *Sheet_Delete;
-    TTntButton *Sheet_Edit;
-    TTntButton *Sheet_New;
-    TTntTabSheet *Customize_TreeText;
-    TTntLabel *Tree_NotYet;
-    TTntTabSheet *Customize_Custom;
-    TTntLabel *Custom_Caption;
-    TTntButton *Custom_New;
-    TTntButton *Custom_Edit;
-    TTntButton *Custom_Delete;
-    TTntComboBox *Custom_Sel;
-    TTntTabSheet *Customize;
-    TTntCheckBox *CB_ShowMenu;
-    TTntCheckBox *CB_InfoTip;
-    TTntCheckBox *CB_InscrireShell;
+    TButton *OK;
+    TTreeView *Tree;
+    TButton *Cancel;
+    TPageControl *Page;
+    TTabSheet *Setup;
+    TLabel *Langue_C;
+    TLabel *Output_C;
+    TComboBox *General_Language_Sel;
+    TComboBox *General_Output_Sel;
+    TCheckBox *CB_CheckUpdate;
+    TButton *General_Language_More;
+    TButton *General_Output_More;
+    TTabSheet *Setup_Advanced;
+    TCheckBox *CB_ShowToolBar;
+    TCheckBox *Advanced_CloseAllAuto;
+    TTabSheet *Customize_Language;
+    TLabel *Language_Caption;
+    TButton *Language_New;
+    TButton *Language_Delete;
+    TButton *Language_Edit;
+    TComboBox *Language_Sel;
+    TTabSheet *Customize_Sheet;
+    TLabel *Sheet_Caption;
+    TComboBox *Sheet_Sel;
+    TButton *Sheet_Delete;
+    TButton *Sheet_Edit;
+    TButton *Sheet_New;
+    TTabSheet *Customize_TreeText;
+    TLabel *Tree_NotYet;
+    TTabSheet *Customize_Custom;
+    TLabel *Custom_Caption;
+    TButton *Custom_New;
+    TButton *Custom_Edit;
+    TButton *Custom_Delete;
+    TComboBox *Custom_Sel;
+    TTabSheet *Customize;
+    TCheckBox *CB_ShowMenu;
+    TCheckBox *CB_InfoTip;
+    TCheckBox *CB_InscrireShell;
     TCheckBox *CB_InscrireShell_Folder;
     void __fastcall General_Language_SelChange(TObject *Sender);
     void __fastcall General_Output_SelChange(TObject *Sender);
@@ -113,8 +113,8 @@ __published:    // IDE-managed Components
 private:    // User declarations
 public:        // User declarations
     __fastcall TPreferencesF(TComponent* Owner);
-    void __fastcall ComboBox_Update(TTntComboBox *CB, Prefs_t List);
-    void __fastcall ComboBox_SelChange(TTntComboBox *CB, Prefs_t List);
+    void __fastcall ComboBox_Update(TComboBox *CB, Prefs_t List);
+    void __fastcall ComboBox_SelChange(TComboBox *CB, Prefs_t List);
     void __fastcall GUI_Configure();
 };
 //---------------------------------------------------------------------------

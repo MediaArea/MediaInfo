@@ -17,7 +17,7 @@ object AboutF: TAboutF
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 14
-  object Translator: TTntLabel
+  object Translator: TLabel
     Left = 272
     Top = 320
     Width = 247
@@ -32,7 +32,7 @@ object AboutF: TAboutF
     Font.Style = []
     ParentFont = False
   end
-  object Memo: TTntMemo
+  object Memo: TMemo
     Left = 136
     Top = 0
     Width = 385
@@ -53,7 +53,7 @@ object AboutF: TAboutF
     ParentFont = False
     TabOrder = 2
   end
-  object OK: TTntButton
+  object OK: TButton
     Left = 439
     Top = 396
     Width = 81
@@ -63,7 +63,7 @@ object AboutF: TAboutF
     ModalResult = 1
     TabOrder = 0
   end
-  object WebSite: TTntButton
+  object WebSite: TButton
     Left = 74
     Top = 312
     Width = 193
@@ -72,7 +72,7 @@ object AboutF: TAboutF
     TabOrder = 1
     OnClick = WebSiteClick
   end
-  object ToolBar1: TTntToolBar
+  object ToolBar1: TToolBar
     Left = 0
     Top = 312
     Width = 73
@@ -94,7 +94,7 @@ object AboutF: TAboutF
       ImageIndex = 0
     end
   end
-  object NewVersion: TTntButton
+  object NewVersion: TButton
     Left = 74
     Top = 339
     Width = 193
@@ -103,7 +103,7 @@ object AboutF: TAboutF
     TabOrder = 4
     OnClick = NewVersionClick
   end
-  object Donate: TTntButton
+  object Donate: TButton
     Left = 74
     Top = 366
     Width = 193
@@ -134,7 +134,7 @@ object AboutF: TAboutF
       ImageIndex = 0
     end
   end
-  object WriteMe: TTntButton
+  object WriteMe: TButton
     Left = 74
     Top = 393
     Width = 193
@@ -143,7 +143,7 @@ object AboutF: TAboutF
     TabOrder = 7
     OnClick = WriteMeClick
   end
-  object WriteToTranslator: TTntButton
+  object WriteToTranslator: TButton
     Left = 328
     Top = 339
     Width = 193

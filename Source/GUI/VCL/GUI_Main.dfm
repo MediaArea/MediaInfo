@@ -17,7 +17,7 @@ object MainF: TMainF
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object Page: TTntPageControl
+  object Page: TPageControl
     Left = 40
     Top = 0
     Width = 690
@@ -36,9 +36,13 @@ object MainF: TMainF
     TabHeight = 20
     TabOrder = 0
     TabStop = False
-    object Page_Easy: TTntTabSheet
+    object Page_Easy: TTabSheet
       Caption = 'Easy'
-      object Page_Easy_Note: TTntLabel
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
+      object Page_Easy_Note: TLabel
         Left = 0
         Top = 318
         Width = 657
@@ -49,21 +53,21 @@ object MainF: TMainF
           'Note : this is a basic view. For more information about this fil' +
           'e, you must select a different view (Sheet, Tree...)'
       end
-      object Page_Easy_A2: TTntGroupBox
+      object Page_Easy_A2: TGroupBox
         Left = 340
         Top = 200
         Width = 340
         Height = 56
         Caption = 'Second audio stream'
         TabOrder = 4
-        object Page_Easy_A2_Codec: TTntLabel
+        object Page_Easy_A2_Codec: TLabel
           Left = 9
           Top = 17
           Width = 36
           Height = 15
           Caption = 'Codec'
         end
-        object Page_Easy_A2_Web: TTntButton
+        object Page_Easy_A2_Web: TButton
           Left = 4
           Top = 32
           Width = 314
@@ -75,7 +79,7 @@ object MainF: TMainF
           OnClick = Page_Easy_WebClick
         end
       end
-      object Page_Easy_File: TTntComboBox
+      object Page_Easy_File: TComboBox
         Left = 0
         Top = 0
         Width = 657
@@ -86,26 +90,26 @@ object MainF: TMainF
         Font.Height = -12
         Font.Name = 'Arial'
         Font.Style = []
-        ItemHeight = 15
+        ItemHeight = 0
         ParentFont = False
         TabOrder = 1
         OnChange = Page_Easy_FileChange
       end
-      object Page_Easy_V1: TTntGroupBox
+      object Page_Easy_V1: TGroupBox
         Left = 0
         Top = 144
         Width = 680
         Height = 56
         Caption = 'First video stream'
         TabOrder = 2
-        object Page_Easy_V1_Codec: TTntLabel
+        object Page_Easy_V1_Codec: TLabel
           Left = 9
           Top = 17
           Width = 36
           Height = 15
           Caption = 'Codec'
         end
-        object Page_Easy_V1_Web: TTntButton
+        object Page_Easy_V1_Web: TButton
           Left = 4
           Top = 32
           Width = 322
@@ -117,21 +121,21 @@ object MainF: TMainF
           OnClick = Page_Easy_WebClick
         end
       end
-      object Page_Easy_A1: TTntGroupBox
+      object Page_Easy_A1: TGroupBox
         Left = 0
         Top = 200
         Width = 340
         Height = 56
         Caption = 'First audio stream'
         TabOrder = 3
-        object Page_Easy_A1_Codec: TTntLabel
+        object Page_Easy_A1_Codec: TLabel
           Left = 9
           Top = 17
           Width = 36
           Height = 15
           Caption = 'Codec'
         end
-        object Page_Easy_A1_Web: TTntButton
+        object Page_Easy_A1_Web: TButton
           Left = 4
           Top = 32
           Width = 322
@@ -143,21 +147,21 @@ object MainF: TMainF
           OnClick = Page_Easy_WebClick
         end
       end
-      object Page_Easy_T2: TTntGroupBox
+      object Page_Easy_T2: TGroupBox
         Left = 228
         Top = 256
         Width = 225
         Height = 56
         Caption = 'Second text stream'
         TabOrder = 5
-        object Page_Easy_T2_Codec: TTntLabel
+        object Page_Easy_T2_Codec: TLabel
           Left = 9
           Top = 16
           Width = 36
           Height = 15
           Caption = 'Codec'
         end
-        object Page_Easy_T2_Web: TTntButton
+        object Page_Easy_T2_Web: TButton
           Left = 4
           Top = 32
           Width = 215
@@ -169,21 +173,21 @@ object MainF: TMainF
           OnClick = Page_Easy_WebClick
         end
       end
-      object Page_Easy_T1: TTntGroupBox
+      object Page_Easy_T1: TGroupBox
         Left = 0
         Top = 256
         Width = 228
         Height = 56
         Caption = 'First text stream'
         TabOrder = 6
-        object Page_Easy_T1_Codec: TTntLabel
+        object Page_Easy_T1_Codec: TLabel
           Left = 9
           Top = 17
           Width = 36
           Height = 15
           Caption = 'Codec'
         end
-        object Page_Easy_T1_Web: TTntButton
+        object Page_Easy_T1_Web: TButton
           Left = 4
           Top = 32
           Width = 215
@@ -195,7 +199,7 @@ object MainF: TMainF
           OnClick = Page_Easy_WebClick
         end
       end
-      object Page_Easy_FileSelect: TTntButton
+      object Page_Easy_FileSelect: TButton
         Left = 658
         Top = 0
         Width = 21
@@ -204,14 +208,14 @@ object MainF: TMainF
         TabOrder = 7
         OnClick = M_File_Open_FileClick
       end
-      object Page_Easy_G1: TTntGroupBox
+      object Page_Easy_G1: TGroupBox
         Left = 0
         Top = 24
         Width = 680
         Height = 121
         Caption = 'Container and general information'
         TabOrder = 0
-        object Page_Easy_G1_Codec: TTntLabel
+        object Page_Easy_G1_Codec: TLabel
           Left = 5
           Top = 16
           Width = 39
@@ -219,7 +223,7 @@ object MainF: TMainF
           AutoSize = False
           Caption = 'Format'
         end
-        object Page_Easy_General_List_V: TTntLabel
+        object Page_Easy_General_List_V: TLabel
           Left = 5
           Top = 32
           Width = 31
@@ -227,7 +231,7 @@ object MainF: TMainF
           AutoSize = False
           Caption = 'Video'
         end
-        object Page_Easy_General_List_A: TTntLabel
+        object Page_Easy_General_List_A: TLabel
           Left = 5
           Top = 48
           Width = 31
@@ -235,7 +239,7 @@ object MainF: TMainF
           AutoSize = False
           Caption = 'Audio'
         end
-        object Page_Easy_General_List_T: TTntLabel
+        object Page_Easy_General_List_T: TLabel
           Left = 5
           Top = 64
           Width = 22
@@ -243,7 +247,7 @@ object MainF: TMainF
           AutoSize = False
           Caption = 'Text'
         end
-        object Page_Easy_General_List_C: TTntLabel
+        object Page_Easy_General_List_C: TLabel
           Left = 5
           Top = 80
           Width = 51
@@ -251,7 +255,7 @@ object MainF: TMainF
           AutoSize = False
           Caption = 'Chapters'
         end
-        object Page_Easy_General_Tag1: TTntLabel
+        object Page_Easy_General_Tag1: TLabel
           Left = 330
           Top = 16
           Width = 28
@@ -259,7 +263,7 @@ object MainF: TMainF
           AutoSize = False
           Caption = 'Tag1'
         end
-        object Page_Easy_General_Tag2: TTntLabel
+        object Page_Easy_General_Tag2: TLabel
           Left = 330
           Top = 32
           Width = 28
@@ -267,7 +271,7 @@ object MainF: TMainF
           AutoSize = False
           Caption = 'Tag2'
         end
-        object Page_Easy_General_Tag3: TTntLabel
+        object Page_Easy_General_Tag3: TLabel
           Left = 330
           Top = 48
           Width = 28
@@ -275,7 +279,7 @@ object MainF: TMainF
           AutoSize = False
           Caption = 'Tag3'
         end
-        object Page_Easy_General_Tag4: TTntLabel
+        object Page_Easy_General_Tag4: TLabel
           Left = 330
           Top = 64
           Width = 28
@@ -283,7 +287,7 @@ object MainF: TMainF
           AutoSize = False
           Caption = 'Tag4'
         end
-        object Page_Easy_General_Tag5: TTntLabel
+        object Page_Easy_General_Tag5: TLabel
           Left = 330
           Top = 80
           Width = 28
@@ -291,7 +295,7 @@ object MainF: TMainF
           AutoSize = False
           Caption = 'Tag5'
         end
-        object Page_Easy_G1_Web: TTntButton
+        object Page_Easy_G1_Web: TButton
           Left = 4
           Top = 96
           Width = 323
@@ -303,7 +307,7 @@ object MainF: TMainF
           OnClick = Page_Easy_WebClick
         end
       end
-      object Page_Easy_DifferentView: TTntButton
+      object Page_Easy_DifferentView: TButton
         Left = 656
         Top = 312
         Width = 27
@@ -313,21 +317,21 @@ object MainF: TMainF
         TabOrder = 8
         OnClick = Page_Easy_DifferentViewClick
       end
-      object Page_Easy_T3: TTntGroupBox
+      object Page_Easy_T3: TGroupBox
         Left = 456
         Top = 256
         Width = 225
         Height = 56
         Caption = 'Third text stream'
         TabOrder = 9
-        object Page_Easy_T3_Codec: TTntLabel
+        object Page_Easy_T3_Codec: TLabel
           Left = 9
           Top = 16
           Width = 36
           Height = 15
           Caption = 'Codec'
         end
-        object Page_Easy_T3_Web: TTntButton
+        object Page_Easy_T3_Web: TButton
           Left = 4
           Top = 32
           Width = 215
@@ -340,12 +344,16 @@ object MainF: TMainF
         end
       end
     end
-    object Page_Sheet: TTntTabSheet
+    object Page_Sheet: TTabSheet
       Caption = 'Sheet'
       ImageIndex = 2
       ParentShowHint = False
       ShowHint = False
-      object Page_Sheet_A_Web: TTntButton
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
+      object Page_Sheet_A_Web: TButton
         Left = 566
         Top = 173
         Width = 38
@@ -356,7 +364,7 @@ object MainF: TMainF
         TabOrder = 0
         OnClick = Page_Sheet_WebClick
       end
-      object Page_Sheet_V_Web: TTntButton
+      object Page_Sheet_V_Web: TButton
         Left = 566
         Top = 152
         Width = 38
@@ -367,7 +375,7 @@ object MainF: TMainF
         TabOrder = 1
         OnClick = Page_Sheet_WebClick
       end
-      object Page_Sheet_G_Web: TTntButton
+      object Page_Sheet_G_Web: TButton
         Left = 566
         Top = 130
         Width = 38
@@ -378,18 +386,18 @@ object MainF: TMainF
         TabOrder = 2
         OnClick = Page_Sheet_WebClick
       end
-      object Page_Sheet_T: TTntComboBox
+      object Page_Sheet_T: TComboBox
         Left = 0
         Top = 198
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 15
+        ItemHeight = 0
         TabOrder = 3
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
       end
-      object Page_Sheet_T_Web: TTntButton
+      object Page_Sheet_T_Web: TButton
         Left = 566
         Top = 199
         Width = 38
@@ -400,18 +408,18 @@ object MainF: TMainF
         TabOrder = 4
         OnClick = Page_Sheet_WebClick
       end
-      object Page_Sheet_C: TTntComboBox
+      object Page_Sheet_C: TComboBox
         Left = 0
         Top = 224
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 15
+        ItemHeight = 0
         TabOrder = 5
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
       end
-      object Page_Sheet_C_Web: TTntButton
+      object Page_Sheet_C_Web: TButton
         Left = 566
         Top = 225
         Width = 38
@@ -422,7 +430,7 @@ object MainF: TMainF
         TabOrder = 6
         OnClick = Page_Sheet_WebClick
       end
-      object Page_Sheet_Text: TTntMemo
+      object Page_Sheet_Text: TMemo
         Left = 0
         Top = 248
         Width = 604
@@ -438,39 +446,39 @@ object MainF: TMainF
         ScrollBars = ssVertical
         TabOrder = 7
       end
-      object Page_Sheet_G: TTntComboBox
+      object Page_Sheet_G: TComboBox
         Left = 0
         Top = 127
         Width = 561
         Height = 23
-        ItemHeight = 15
+        ItemHeight = 0
         TabOrder = 8
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
       end
-      object Page_Sheet_V: TTntComboBox
+      object Page_Sheet_V: TComboBox
         Left = 0
         Top = 149
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 15
+        ItemHeight = 0
         TabOrder = 9
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
       end
-      object Page_Sheet_A: TTntComboBox
+      object Page_Sheet_A: TComboBox
         Left = 0
         Top = 173
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 15
+        ItemHeight = 0
         TabOrder = 10
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
       end
-      object Page_Sheet_Sheet: TTntStringGrid
+      object Page_Sheet_Sheet: TStringGrid
         Left = 0
         Top = 0
         Width = 604
@@ -483,13 +491,17 @@ object MainF: TMainF
         OnSelectCell = Page_Sheet_SheetSelectCell
       end
     end
-    object Page_Tree: TTntTabSheet
+    object Page_Tree: TTabSheet
       Hint = 'Tree form'
       Caption = 'Tree'
       ImageIndex = 1
       ParentShowHint = False
       ShowHint = False
-      object Page_Tree_Tree: TTntTreeView
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
+      object Page_Tree_Tree: TTreeView
         Left = 0
         Top = 2
         Width = 628
@@ -508,12 +520,16 @@ object MainF: TMainF
         TabOrder = 0
       end
     end
-    object Page_Text: TTntTabSheet
+    object Page_Text: TTabSheet
       Hint = 'Text form'
       Caption = 'Text'
       ParentShowHint = False
       ShowHint = False
-      object Page_Text_Text: TTntMemo
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
+      object Page_Text_Text: TMemo
         Left = 3
         Top = 0
         Width = 637
@@ -535,9 +551,13 @@ object MainF: TMainF
         TabOrder = 0
       end
     end
-    object Page_HTML: TTntTabSheet
+    object Page_HTML: TTabSheet
       Caption = 'HTML'
       ImageIndex = 6
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Page_HTML_HTML: TCppWebBrowser
         Left = 4
         Top = 0
@@ -552,12 +572,16 @@ object MainF: TMainF
           00000000000000000100000000000000000000000000000000000000}
       end
     end
-    object Page_Custom: TTntTabSheet
+    object Page_Custom: TTabSheet
       Caption = 'Custom text'
       ImageIndex = 4
       ParentShowHint = False
       ShowHint = False
-      object Page_Custom_Text: TTntMemo
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
+      object Page_Custom_Text: TMemo
         Left = 2
         Top = 2
         Width = 326
@@ -590,16 +614,20 @@ object MainF: TMainF
           00000000000000000100000000000000000000000000000000000000}
       end
     end
-    object Page_System: TTntTabSheet
+    object Page_System: TTabSheet
       Caption = 'Your system'
       ImageIndex = 3
-      object Page_System_Buttons: TTntGroupBox
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
+      object Page_System_Buttons: TGroupBox
         Left = 9
         Top = 0
         Width = 285
         Height = 30
         TabOrder = 0
-        object Page_System_Buttons_Video: TTntRadioButton
+        object Page_System_Buttons_Video: TRadioButton
           Left = 3
           Top = 9
           Width = 70
@@ -610,7 +638,7 @@ object MainF: TMainF
           TabStop = True
           OnClick = Page_System_Buttons_VideoClick
         end
-        object Page_System_Buttons_Audio: TTntRadioButton
+        object Page_System_Buttons_Audio: TRadioButton
           Left = 95
           Top = 9
           Width = 70
@@ -619,7 +647,7 @@ object MainF: TMainF
           TabOrder = 1
           OnClick = Page_System_Buttons_AudioClick
         end
-        object Page_System_Buttons_Text: TTntRadioButton
+        object Page_System_Buttons_Text: TRadioButton
           Left = 190
           Top = 9
           Width = 78
@@ -629,7 +657,7 @@ object MainF: TMainF
           OnClick = Page_System_Buttons_TextClick
         end
       end
-      object Page_System_Sheet: TTntListView
+      object Page_System_Sheet: TListView
         Left = 9
         Top = 30
         Width = 603
@@ -664,7 +692,7 @@ object MainF: TMainF
       end
     end
   end
-  object ToolBar: TTntToolBar
+  object ToolBar: TToolBar
     Left = 0
     Top = 0
     Width = 42
@@ -685,7 +713,7 @@ object MainF: TMainF
     TabOrder = 1
     Transparent = True
     ExplicitHeight = 611
-    object Tool_File: TTntToolButton
+    object Tool_File: TToolButton
       Left = 0
       Top = 0
       Hint = 'Select a multimedia file to study'
@@ -696,7 +724,7 @@ object MainF: TMainF
       Wrap = True
       ShowHint = True
     end
-    object Tool_Folder: TTntToolButton
+    object Tool_Folder: TToolButton
       Left = 0
       Top = 39
       Hint = 'Select a folder to study'
@@ -705,7 +733,7 @@ object MainF: TMainF
       MenuItem = M_File_Open_Folder
       Wrap = True
     end
-    object Tool_Export: TTntToolButton
+    object Tool_Export: TToolButton
       Left = 0
       Top = 78
       Caption = 'Export...'
@@ -713,7 +741,7 @@ object MainF: TMainF
       MenuItem = M_File_Export
       Wrap = True
     end
-    object Tool_Options: TTntToolButton
+    object Tool_Options: TToolButton
       Left = 0
       Top = 117
       Hint = 'Change your preferences...'
@@ -722,7 +750,7 @@ object MainF: TMainF
       MenuItem = M_Options_Preferences
       Wrap = True
     end
-    object Tool_About: TTntToolButton
+    object Tool_About: TToolButton
       Left = 0
       Top = 156
       Hint = 'About MediaInfo'
@@ -731,7 +759,7 @@ object MainF: TMainF
       MenuItem = M_Help_About
       Wrap = True
     end
-    object Tool_View: TTntToolButton
+    object Tool_View: TToolButton
       Left = 0
       Top = 195
       Caption = 'Tool_View'
@@ -739,24 +767,24 @@ object MainF: TMainF
       ImageIndex = 5
     end
   end
-  object MainMenu: TTntMainMenu
+  object MainMenu: TMainMenu
     Images = Menu_Image
     Left = 740
     Top = 76
-    object M_File: TTntMenuItem
+    object M_File: TMenuItem
       Caption = 'File'
       ImageIndex = 0
-      object M_File_Open: TTntMenuItem
+      object M_File_Open: TMenuItem
         Caption = 'Open'
         ImageIndex = 0
-        object M_File_Open_File: TTntMenuItem
+        object M_File_Open_File: TMenuItem
           Caption = 'File'
           Hint = 'Select a multimedia file to study'
           ImageIndex = 0
           ShortCut = 32847
           OnClick = M_File_Open_FileClick
         end
-        object M_File_Open_Folder: TTntMenuItem
+        object M_File_Open_Folder: TMenuItem
           Caption = 'Folder'
           Hint = 'Select a folder to study'
           ImageIndex = 1
@@ -764,84 +792,84 @@ object MainF: TMainF
           OnClick = M_File_Open_FolderClick
         end
       end
-      object M_File_Close: TTntMenuItem
+      object M_File_Close: TMenuItem
         Caption = 'Close'
-        object M_File_Close_File: TTntMenuItem
+        object M_File_Close_File: TMenuItem
           Caption = 'File'
           ShortCut = 32835
           OnClick = M_File_Close_FileClick
         end
-        object M_File_Close_All: TTntMenuItem
+        object M_File_Close_All: TMenuItem
           Caption = 'All'
           ShortCut = 49219
           OnClick = M_File_Close_AllClick
         end
       end
-      object M_File_Z4: TTntMenuItem
+      object M_File_Z4: TMenuItem
         Caption = '-'
       end
-      object M_File_Export: TTntMenuItem
+      object M_File_Export: TMenuItem
         Caption = 'Export...'
         ImageIndex = 2
         ShortCut = 32837
         OnClick = M_File_ExportClick
       end
-      object M_File_Z5: TTntMenuItem
+      object M_File_Z5: TMenuItem
         Caption = '-'
       end
-      object M_File_Exit: TTntMenuItem
+      object M_File_Exit: TMenuItem
         Caption = 'Exit'
         ShortCut = 32856
         OnClick = M_File_ExitClick
       end
     end
-    object M_View: TTntMenuItem
+    object M_View: TMenuItem
       Caption = 'View'
       ImageIndex = 5
-      object M_View_Easy: TTntMenuItem
+      object M_View_Easy: TMenuItem
         AutoCheck = True
         Caption = 'Easy'
         RadioItem = True
         OnClick = M_View_EasyClick
       end
-      object M_View_Sheet: TTntMenuItem
+      object M_View_Sheet: TMenuItem
         AutoCheck = True
         Caption = 'Sheet'
         Hint = 'Sheet form'
         RadioItem = True
         OnClick = M_View_SheetClick
       end
-      object M_View_Tree: TTntMenuItem
+      object M_View_Tree: TMenuItem
         AutoCheck = True
         Caption = 'Tree'
         Hint = 'Tree form'
         RadioItem = True
         OnClick = M_View_TreeClick
       end
-      object M_View_Text: TTntMenuItem
+      object M_View_Text: TMenuItem
         AutoCheck = True
         Caption = 'Text'
         Hint = 'Text form'
         RadioItem = True
         OnClick = M_View_TextClick
       end
-      object M_View_HTML: TTntMenuItem
+      object M_View_HTML: TMenuItem
         AutoCheck = True
         Caption = 'HTML'
         RadioItem = True
         OnClick = M_View_HTMLClick
       end
-      object M_View_Custom: TTntMenuItem
+      object M_View_Custom: TMenuItem
         AutoCheck = True
         Caption = 'Custom'
         Hint = 'Custom form'
         RadioItem = True
         OnClick = M_View_CustomClick
       end
-      object N1: TTntMenuItem
+      object N1: TMenuItem
         Caption = '-'
       end
-      object M_View_System: TTntMenuItem
+      object M_View_System: TMenuItem
         AutoCheck = True
         Caption = 'Your system'
         Hint = 'Give info about you system'
@@ -850,34 +878,34 @@ object MainF: TMainF
         OnClick = M_View_SystemClick
       end
     end
-    object M_Options: TTntMenuItem
+    object M_Options: TMenuItem
       Caption = 'Options'
       ImageIndex = 3
-      object M_Options_ShowToolBar: TTntMenuItem
+      object M_Options_ShowToolBar: TMenuItem
         AutoCheck = True
         Caption = 'Show toolbar'
         Checked = True
         Hint = 'Show toolbar with buttons'
         OnClick = M_Options_ShowToolBarClick
       end
-      object M_Options_ShowMenu: TTntMenuItem
+      object M_Options_ShowMenu: TMenuItem
         AutoCheck = True
         Caption = 'Show menu'
         Checked = True
         Hint = 'Show Menu'
         OnClick = M_Options_ShowMenuClick
       end
-      object N5: TTntMenuItem
+      object N5: TMenuItem
         Caption = '-'
       end
-      object M_Options_CloseAllAuto: TTntMenuItem
+      object M_Options_CloseAllAuto: TMenuItem
         AutoCheck = True
         Caption = 'Close all before Open'
       end
-      object M_Options_Z1: TTntMenuItem
+      object M_Options_Z1: TMenuItem
         Caption = '-'
       end
-      object M_Options_Preferences: TTntMenuItem
+      object M_Options_Preferences: TMenuItem
         Caption = 'Preferences...'
         Hint = 'Change your preferences...'
         ImageIndex = 3
@@ -885,93 +913,93 @@ object MainF: TMainF
         OnClick = M_Options_PreferencesClick
       end
     end
-    object M_Debug: TTntMenuItem
+    object M_Debug: TMenuItem
       Caption = 'Debug'
       ImageIndex = 8
-      object M_Debug_Header: TTntMenuItem
+      object M_Debug_Header: TMenuItem
         Caption = 'Create a header file'
         Hint = 'Create a 10K to send me'
         OnClick = M_Debug_HeaderClick
       end
-      object M_Debug_Advanced: TTntMenuItem
+      object M_Debug_Advanced: TMenuItem
         Caption = 'Advanced mode'
         Hint = 'Give more information about file'
         OnClick = M_Debug_AdvancedClick
       end
-      object N6: TTntMenuItem
+      object N6: TMenuItem
         Caption = '-'
       end
-      object M_Debug_Avanced_More: TTntMenuItem
+      object M_Debug_Avanced_More: TMenuItem
         Caption = 'Advanced mode -->'
         Visible = False
-        object M_Debug_Dummy: TTntMenuItem
+        object M_Debug_Dummy: TMenuItem
           Caption = 'Fill with a realistic movie'
           OnClick = M_Debug_DummyClick
         end
-        object M_Debug_Dummy_Movie: TTntMenuItem
+        object M_Debug_Dummy_Movie: TMenuItem
           Caption = 'Fill with a Dummy movie'
           OnClick = M_Debug_Dummy_MovieClick
         end
       end
-      object N7: TTntMenuItem
+      object N7: TMenuItem
         Caption = '-'
       end
-      object M_Debug_Details0: TTntMenuItem
+      object M_Debug_Details0: TMenuItem
         AutoCheck = True
         Caption = 'Details - 0'
         Checked = True
         RadioItem = True
         OnClick = M_View_TextClick
       end
-      object M_Debug_Details50: TTntMenuItem
+      object M_Debug_Details50: TMenuItem
         AutoCheck = True
         Caption = 'Details - 5'
         RadioItem = True
         OnClick = M_View_TextClick
       end
-      object M_Debug_Details90: TTntMenuItem
+      object M_Debug_Details90: TMenuItem
         AutoCheck = True
         Caption = 'Details - 9'
         RadioItem = True
         OnClick = M_View_TextClick
       end
-      object M_Debug_Details100: TTntMenuItem
+      object M_Debug_Details100: TMenuItem
         AutoCheck = True
         Caption = 'Details - 10'
         RadioItem = True
         OnClick = M_View_TextClick
       end
     end
-    object M_Help: TTntMenuItem
+    object M_Help: TMenuItem
       Caption = 'Help'
       ImageIndex = 4
-      object M_Help_About: TTntMenuItem
+      object M_Help_About: TMenuItem
         Caption = 'About'
         Hint = 'About MediaInfo'
         ImageIndex = 4
         ShortCut = 32833
         OnClick = M_Help_AboutClick
       end
-      object N2: TTntMenuItem
+      object N2: TMenuItem
         Caption = '-'
       end
-      object M_Help_SupportedFormats: TTntMenuItem
+      object M_Help_SupportedFormats: TMenuItem
         Caption = 'Known formats'
         OnClick = M_Help_SupportedFormatsClick
       end
-      object M_Help_SupportedCodecs: TTntMenuItem
+      object M_Help_SupportedCodecs: TMenuItem
         Caption = 'Known codecs'
         OnClick = M_Help_SupportedCodecsClick
       end
-      object M_Help_SupportedParameters: TTntMenuItem
+      object M_Help_SupportedParameters: TMenuItem
         Caption = 'Known parameters'
         OnClick = M_Help_SupportedParametersClick
       end
     end
-    object M_Language: TTntMenuItem
+    object M_Language: TMenuItem
       Caption = 'Language'
       ImageIndex = 7
-      object ToDo1: TTntMenuItem
+      object ToDo1: TMenuItem
         Caption = 'ToDo...'
       end
     end
@@ -981,135 +1009,7 @@ object MainF: TMainF
     Top = 136
     Bitmap = {
       494C010109000E00040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
-      0000000000003600000028000000400000004000000001002000000000000040
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000E7E7E7FFCACACAFFC6C6C6FFDEDEDEFFFBFBFBFF0000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1495,12 +1395,8 @@ object MainF: TMainF
       000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00424D3E000000000000003E000000
-      2800000040000000400000000100010000000000000200000000000000000000
-      000000000000000000000000FFFFFF0000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000FC1F000000000000F007000000000000
+      2800000040000000300000000100010000000000800100000000000000000000
+      000000000000000000000000FFFFFF00FC1F000000000000F007000000000000
       E003000000000000C00100000000000080010000000000008001000000000000
       8000000000000000000000000000000000000000000000000000000000000000
       80010000000000008001000000000000C003000000000000E007000000000000
@@ -1522,519 +1418,7 @@ object MainF: TMainF
     Top = 160
     Bitmap = {
       494C010106000900040020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
-      00000000000036000000280000008000000060000000010020000000000000C0
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3060,24 +2444,8 @@ object MainF: TMainF
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000424D3E000000000000003E000000
-      2800000080000000600000000100010000000000000600000000000000000000
-      000000000000000000000000FFFFFF0000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000FFFFFFFFFFFFFFFF0000000000000000
+      2800000080000000400000000100010000000000000400000000000000000000
+      000000000000000000000000FFFFFF00FFFFFFFFFFFFFFFF0000000000000000
       FC07FFFFFFFFFFFF0000000000000000F001FFFFC3FFFFFF0000000000000000
       E000FFFF803FFFFF0000000000000000E3E07FFF0003FFFF0000000000000000
       E2187FFF00007FFF0000000000000000E2107F8700003FFF0000000000000000
@@ -3112,58 +2480,58 @@ object MainF: TMainF
       FFC001FFFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object ToolBar_View_Menu: TTntPopupMenu
+  object ToolBar_View_Menu: TPopupMenu
     Images = Menu_Image
     Left = 744
     Top = 232
-    object ToolBar_View_Easy: TTntMenuItem
+    object ToolBar_View_Easy: TMenuItem
       AutoCheck = True
       Caption = 'a'
       RadioItem = True
       OnClick = M_View_EasyClick
     end
-    object ToolBar_View_Sheet: TTntMenuItem
+    object ToolBar_View_Sheet: TMenuItem
       AutoCheck = True
       Caption = 'b'
       RadioItem = True
       OnClick = M_View_SheetClick
     end
-    object ToolBar_View_Tree: TTntMenuItem
+    object ToolBar_View_Tree: TMenuItem
       AutoCheck = True
       Caption = 'c'
       RadioItem = True
       OnClick = M_View_TreeClick
     end
-    object ToolBar_View_Text: TTntMenuItem
+    object ToolBar_View_Text: TMenuItem
       AutoCheck = True
       Caption = 'd'
       RadioItem = True
       OnClick = M_View_TextClick
     end
-    object ToolBar_View_HTML: TTntMenuItem
+    object ToolBar_View_HTML: TMenuItem
       AutoCheck = True
       Caption = 'e'
       RadioItem = True
       OnClick = M_View_HTMLClick
     end
-    object ToolBar_View_Custom: TTntMenuItem
+    object ToolBar_View_Custom: TMenuItem
       AutoCheck = True
       Caption = 'f'
       RadioItem = True
       OnClick = M_View_CustomClick
     end
-    object N3: TTntMenuItem
+    object N3: TMenuItem
       Caption = '-'
     end
-    object ToolBar_View_System: TTntMenuItem
+    object ToolBar_View_System: TMenuItem
       Caption = 'Your System'
       ImageIndex = 6
       OnClick = M_View_SystemClick
     end
-    object N4: TTntMenuItem
+    object N4: TMenuItem
       Caption = '-'
     end
-    object ToolBar_View_ShowMenu: TTntMenuItem
+    object ToolBar_View_ShowMenu: TMenuItem
       Caption = 'Show menu'
       Visible = False
       OnClick = M_Options_ShowMenuClick
@@ -3175,7 +2543,7 @@ object MainF: TMainF
     Left = 744
     Top = 184
   end
-  object OpenDialog1: TTntOpenDialog
+  object OpenDialog1: TOpenDialog
     Left = 744
     Top = 264
   end

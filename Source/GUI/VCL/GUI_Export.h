@@ -26,10 +26,10 @@
 #include <StdCtrls.hpp>
 #include <Forms.hpp>
 #include <ComCtrls.hpp>
-#include <TntComCtrls.hpp>
-#include <TntStdCtrls.hpp>
+#include <ComCtrls.hpp>
+#include <StdCtrls.hpp>
 #include <Dialogs.hpp>
-#include "TntDialogs.hpp"
+#include "Dialogs.hpp"
 #ifdef MEDIAINFO_DLL_RUNTIME
     #include "MediaInfoDLL/MediaInfoDLL.h"
     #define MediaInfoNameSpace MediaInfoDLL
@@ -45,50 +45,50 @@
 class TExportF : public TForm
 {
 __published:    // IDE-managed Components
-    TTntButton *Cancel;
-    TTntButton *OK;
+    TButton *Cancel;
+    TButton *OK;
     TGroupBox *Export_Choose;
-    TTntPageControl *Export;
-    TTntTabSheet *Export_CSV;
-    TTntTabSheet *Export_Text;
-    TTntTabSheet *Export_HTML;
-    TTntTabSheet *Export_Custom;
-    TTntGroupBox *Name_Choose;
-    TTntEdit *Name;
-    TTntButton *Name_FileSelect;
-    TTntLabel *CSV_Stream_Video_Caption;
-    TTntComboBox *CSV_Stream_Video;
-    TTntLabel *CSV_Stream_Audio_Caption;
-    TTntComboBox *CSV_Stream_Audio;
-    TTntLabel *CSV_Stream_Text_Caption;
-    TTntComboBox *CSV_Stream_Text;
-    TTntLabel *CSV_Stream_Chapters_Caption;
-    TTntComboBox *CSV_Stream_Chapters;
-    TTntLabel *CSV_Stream_Video_Warning;
-    TTntLabel *CSV_Stream_Audio_Warning;
-    TTntLabel *CSV_Stream_Text_Warning;
-    TTntLabel *CSV_Stream_Chapters_Warning;
-    TTntCheckBox *Text_Advanced;
-    TTntCheckBox *HTML_Advanced;
-    TTntLabel *CSV_Quote_Caption;
-    TTntLabel *CSV_Separator_Col_Caption;
-    TTntComboBox *CSV_Quote;
-    TTntComboBox *CSV_Separator_Col;
-    TTntLabel *CSV_Separator_Line_Caption;
-    TTntComboBox *CSV_Separator_Line;
-    TTntCheckBox *CSV_Advanced;
-    TTntCheckBox *Custom_One;
-    TTntTabSheet *Export_Sheet;
-    TTntLabel *Sheet_Quote_Caption;
-    TTntComboBox *Sheet_Quote;
-    TTntLabel *Sheet_Separator_Col_Caption;
-    TTntComboBox *Sheet_Separator_Col;
-    TTntLabel *Sheet_Separator_Line_Caption;
-    TTntComboBox *Sheet_Separator_Line;
-    TTntCheckBox *File_Append;
-    TTntLabel *CSV_Decimal_Caption;
-    TTntComboBox *CSV_Decimal;
-    TTntSaveDialog *SaveDialog1;
+    TPageControl *Export;
+    TTabSheet *Export_CSV;
+    TTabSheet *Export_Text;
+    TTabSheet *Export_HTML;
+    TTabSheet *Export_Custom;
+    TGroupBox *Name_Choose;
+    TEdit *Name;
+    TButton *Name_FileSelect;
+    TLabel *CSV_Stream_Video_Caption;
+    TComboBox *CSV_Stream_Video;
+    TLabel *CSV_Stream_Audio_Caption;
+    TComboBox *CSV_Stream_Audio;
+    TLabel *CSV_Stream_Text_Caption;
+    TComboBox *CSV_Stream_Text;
+    TLabel *CSV_Stream_Chapters_Caption;
+    TComboBox *CSV_Stream_Chapters;
+    TLabel *CSV_Stream_Video_Warning;
+    TLabel *CSV_Stream_Audio_Warning;
+    TLabel *CSV_Stream_Text_Warning;
+    TLabel *CSV_Stream_Chapters_Warning;
+    TCheckBox *Text_Advanced;
+    TCheckBox *HTML_Advanced;
+    TLabel *CSV_Quote_Caption;
+    TLabel *CSV_Separator_Col_Caption;
+    TComboBox *CSV_Quote;
+    TComboBox *CSV_Separator_Col;
+    TLabel *CSV_Separator_Line_Caption;
+    TComboBox *CSV_Separator_Line;
+    TCheckBox *CSV_Advanced;
+    TCheckBox *Custom_One;
+    TTabSheet *Export_Sheet;
+    TLabel *Sheet_Quote_Caption;
+    TComboBox *Sheet_Quote;
+    TLabel *Sheet_Separator_Col_Caption;
+    TComboBox *Sheet_Separator_Col;
+    TLabel *Sheet_Separator_Line_Caption;
+    TComboBox *Sheet_Separator_Line;
+    TCheckBox *File_Append;
+    TLabel *CSV_Decimal_Caption;
+    TComboBox *CSV_Decimal;
+    TSaveDialog *SaveDialog1;
     void __fastcall Name_FileSelectClick(TObject *Sender);
     void __fastcall ExportChange(TObject *Sender);
     void __fastcall OKClick(TObject *Sender);
@@ -99,7 +99,7 @@ __published:    // IDE-managed Components
 private:    // User declarations
     void Name_Adapt();
     void Export_Run();
-    void CSV_Stream_Change (TTntComboBox* Box, TTntLabel* Label, MediaInfoNameSpace::stream_t Stream);
+    void CSV_Stream_Change (TComboBox* Box, TLabel* Label, MediaInfoNameSpace::stream_t Stream);
     void GUI_Configure();
     MediaInfoNameSpace::MediaInfoList *ToExport;
 public:        // User declarations

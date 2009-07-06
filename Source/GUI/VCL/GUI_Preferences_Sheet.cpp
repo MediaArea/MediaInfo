@@ -33,9 +33,6 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#pragma package(smart_init)
-#pragma link "TntComCtrls"
-#pragma link "TntGrids"
 #pragma resource "*.dfm"
 //---------------------------------------------------------------------------
 
@@ -130,12 +127,12 @@ void TPreferences_SheetF::Columns_Adapt()
         //More Columns
         for (int Pos=Before; Pos<Columns_Count; Pos++)
         {
-            Column_Text[Pos]=new TTntLabel(this);
+            Column_Text[Pos]=new TLabel(this);
             Column_Text[Pos]->Parent=this;
             Column_Text[Pos]->Top=90+25*Pos;
             Column_Text[Pos]->Left=405;
             Column_Text[Pos]->Width=100;
-            Column_Size[Pos]=new TTntComboBox(this);
+            Column_Size[Pos]=new TComboBox(this);
             Column_Size[Pos]->Top=90+25*Pos;
             Column_Size[Pos]->Left=355;
             Column_Size[Pos]->Width=45;
@@ -145,13 +142,13 @@ void TPreferences_SheetF::Columns_Adapt()
             for (int I1=0; I1<100; I1++)
                 Column_Size[Pos]->Items->Add(WideString(I1));
             Column_Size[Pos]->ItemIndex=10;
-            Column_Parameter[Pos]=new TTntComboBox(this);
+            Column_Parameter[Pos]=new TComboBox(this);
             Column_Parameter[Pos]->Top=90+25*Pos;
             Column_Parameter[Pos]->Left=205;
             Column_Parameter[Pos]->Style=Stdctrls::csDropDownList;
             Column_Parameter[Pos]->OnChange=Column_Parameter0Change;
             Column_Parameter[Pos]->Parent=this;
-            Column_Pos[Pos]=new TTntComboBox(this);
+            Column_Pos[Pos]=new TComboBox(this);
             Column_Pos[Pos]->Top=90+25*Pos;
             Column_Pos[Pos]->Left=155;
             Column_Pos[Pos]->Width=45;
@@ -162,7 +159,7 @@ void TPreferences_SheetF::Columns_Adapt()
                 Column_Pos[Pos]->Items->Add(WideString(I1));
             Column_Pos[Pos]->ItemIndex=0;
             Column_Pos0Change(Column_Pos[Pos]);
-            Column_Kind[Pos]=new TTntComboBox(this);
+            Column_Kind[Pos]=new TComboBox(this);
             Column_Kind[Pos]->Top=90+25*Pos;
             Column_Kind[Pos]->Left=5;
             Column_Kind[Pos]->Style=Stdctrls::csDropDownList;

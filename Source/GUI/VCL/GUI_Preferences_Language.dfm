@@ -18,7 +18,7 @@ object Preferences_LanguageF: TPreferences_LanguageF
   OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 14
-  object Grille: TTntStringGrid
+  object Grille: TStringGrid
     Left = 0
     Top = 26
     Width = 673
@@ -534,7 +534,7 @@ object Preferences_LanguageF: TPreferences_LanguageF
       15
       15)
   end
-  object OK: TTntButton
+  object OK: TButton
     Left = 546
     Top = 0
     Width = 81
@@ -545,7 +545,7 @@ object Preferences_LanguageF: TPreferences_LanguageF
     TabOrder = 1
     OnClick = OKClick
   end
-  object Cancel: TTntButton
+  object Cancel: TButton
     Left = 461
     Top = 0
     Width = 81

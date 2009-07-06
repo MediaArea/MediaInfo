@@ -36,13 +36,6 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#pragma package(smart_init)
-#pragma link "SHDocVw_OCX"
-#pragma link "TntComCtrls"
-#pragma link "TntGrids"
-#pragma link "TntMenus"
-#pragma link "TntStdCtrls"
-#pragma link "TntDialogs"
 #pragma resource "*.dfm"
 TMainF *MainF;
 //---------------------------------------------------------------------------
@@ -73,16 +66,16 @@ using namespace ZenLib;
 int Page_Position; //Index of MediaInfo file
 //-Page_Easy
 const int EASY_STREAM_MAX=3;
-TTntGroupBox* Page_Easy_X           [Stream_Max][EASY_STREAM_MAX];
-TTntLabel*    Page_Easy_X_Codec     [Stream_Max][EASY_STREAM_MAX];
-TTntButton*   Page_Easy_X_Web       [Stream_Max][EASY_STREAM_MAX];
+TGroupBox* Page_Easy_X           [Stream_Max][EASY_STREAM_MAX];
+TLabel*    Page_Easy_X_Codec     [Stream_Max][EASY_STREAM_MAX];
+TButton*   Page_Easy_X_Web       [Stream_Max][EASY_STREAM_MAX];
 Ztring        Page_Easy_X_Web_Url   [Stream_Max][EASY_STREAM_MAX];
-TTntLabel*    Page_Easy_X_List      [Stream_Max];
+TLabel*    Page_Easy_X_List      [Stream_Max];
 const int EASY_TAG_MAX=5;
-TTntLabel*    Page_Easy_X_Tag       [EASY_TAG_MAX];
+TLabel*    Page_Easy_X_Tag       [EASY_TAG_MAX];
 //-Page_Sheet
-TTntComboBox* Page_Sheet_X          [Stream_Max];
-TTntButton*   Page_Sheet_X_Web      [Stream_Max];
+TComboBox* Page_Sheet_X          [Stream_Max];
+TButton*   Page_Sheet_X_Web      [Stream_Max];
 Ztring        Page_Sheet_X_Web_Url  [Stream_Max];
 //-Page_System
 bool Page_System_Already=false; //Already done?
@@ -107,7 +100,7 @@ MediaInfoList *I;
 
 //---------------------------------------------------------------------------
 __fastcall TMainF::TMainF(TComponent* Owner)
-    : TTntForm(Owner)
+    : TForm(Owner)
 {
     //Configuration of internal pointers
     //-Easy
@@ -422,7 +415,7 @@ void __fastcall TMainF::Translate()
     M_Language->Clear();
     for (size_t Pos=0; Pos<Prefs->FilesList[Prefs_Language].size(); Pos++)
     {
-        TTntMenuItem* MenuItem=new TTntMenuItem(NULL);
+        TMenuItem* MenuItem=new TMenuItem(NULL);
         MenuItem->Caption=Prefs->FilesList[Prefs_Language_List](Pos).c_str(); //Special case : Languages, should show the name of language in the local version
         MenuItem->OnClick=M_LanguageClick;
         M_Language->Add(MenuItem);
@@ -630,7 +623,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         for (size_t FilePos=0; FilePos<FilesCount; FilePos++)
         {
             //Pour chaque fichier
-            TTntTreeNode* Parent=Page_Tree_Tree->Items->Add(NULL, I->Get(FilePos, Stream_General, 0, _T("CompleteName")).c_str());
+            TTreeNode* Parent=Page_Tree_Tree->Items->Add(NULL, I->Get(FilePos, Stream_General, 0, _T("CompleteName")).c_str());
 
             for (int StreamKind=(int)Stream_General; StreamKind<(int)Stream_Max; StreamKind++)
             {
@@ -647,7 +640,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                         A+=_T(" #");
                         A+=B;
                     }
-                    TTntTreeNode* Node=Page_Tree_Tree->Items->AddChild(Parent, A.c_str());
+                    TTreeNode* Node=Page_Tree_Tree->Items->AddChild(Parent, A.c_str());
                     unsigned ChampsCount=I->Count_Get(FilePos, (stream_t)StreamKind, StreamPos);
                     for (size_t Champ_Pos=0; Champ_Pos<ChampsCount; Champ_Pos++)
                     {
@@ -714,17 +707,16 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             F.Write(S1);
             F.Close();
             //Navigate
-            WideString ToShow=FileName_Temp.c_str();
-            Page_HTML_HTML->Navigate(ToShow);
-        }
+			Page_HTML_HTML->Navigate((MediaInfoNameSpace::Char*)FileName_Temp.c_str());
+		}
         else
         {
             Ztring TempA; TempA=Prefs->Translate(_T("At least one file"));
-            WideString Temp;
+			Ztring Temp;
             Temp+=L"about:<html><body>";
-            Temp+=TempA.To_Unicode().c_str();
+			Temp+=TempA.To_Unicode();
             Temp+=L"</body></html>";
-            Page_HTML_HTML->Navigate(Temp);
+			Page_HTML_HTML->Navigate((MediaInfoNameSpace::Char*)Temp.c_str());
         }
     }
 
@@ -749,17 +741,16 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                 FileName_Temp+=_T(".html");
             }
             F.Create(FileName_Temp, true);
-            F.Write(S1);
+			F.Write(S1);
             F.Close();
             //Navigate
-            WideString ToShow=FileName_Temp.c_str();
-            Page_Custom_HTML->Navigate(ToShow);
+			Page_Custom_HTML->Navigate((MediaInfoNameSpace::Char*)FileName_Temp.c_str());
             FormResize(NULL);
         }
         else
         {
             //Text
-            Page_Custom_Text->Text=S1.c_str();
+			Page_Custom_Text->Text=S1.c_str();
             Page_Custom_Text->Visible=true;
             Page_Custom_HTML->Visible=false;
         }
@@ -812,10 +803,10 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     }
 
     //Form title
-    Ztring Title=GUI_Text(Caption);
+	Ztring Title=GUI_Text(Caption);
     Title=Title.SubString(_T(""), _T(" - "));
          if (FilesCount==0)
-        //0 fichier
+		//0 fichier
         Caption=MEDIAINFO_TITLE;
     else if (FilesCount==1)
         //un fichier
@@ -1134,7 +1125,7 @@ void __fastcall TMainF::M_Help_SupportedFormatsClick(TObject *Sender)
 void __fastcall TMainF::M_LanguageClick(TObject *Sender)
 {
     //Special case : Languages, should show the name of language in the local version
-    Ztring Title=Prefs->FilesList[Prefs_Language](((TTntMenuItem*)Sender)->MenuIndex);
+    Ztring Title=Prefs->FilesList[Prefs_Language](((TMenuItem*)Sender)->MenuIndex);
 
     //Load
     Prefs->Load(Prefs_Language, Title);

@@ -23,14 +23,14 @@ object Preferences_SheetF: TPreferences_SheetF
     Caption = '1'
     Visible = False
   end
-  object Label6: TTntLabel
+  object Label6: TLabel
     Left = 9
     Top = 9
     Width = 93
     Height = 14
     Caption = 'Number of colums :'
   end
-  object Column_Parameter0: TTntComboBox
+  object Column_Parameter0: TComboBox
     Left = 138
     Top = 95
     Width = 156
@@ -41,7 +41,7 @@ object Preferences_SheetF: TPreferences_SheetF
     Visible = False
     OnChange = Column_Parameter0Change
   end
-  object Column_Kind0: TTntComboBox
+  object Column_Kind0: TComboBox
     Left = 0
     Top = 95
     Width = 87
@@ -52,7 +52,7 @@ object Preferences_SheetF: TPreferences_SheetF
     Visible = False
     OnChange = Column_Kind0Change
   end
-  object ColumnsCount: TTntComboBox
+  object ColumnsCount: TComboBox
     Left = 112
     Top = 0
     Width = 44
@@ -62,7 +62,7 @@ object Preferences_SheetF: TPreferences_SheetF
     TabOrder = 2
     OnChange = ColumnsCountChange
   end
-  object OK: TTntButton
+  object OK: TButton
     Left = 655
     Top = 0
     Width = 81
@@ -73,7 +73,7 @@ object Preferences_SheetF: TPreferences_SheetF
     TabOrder = 3
     OnClick = OKClick
   end
-  object Cancel: TTntButton
+  object Cancel: TButton
     Left = 575
     Top = 0
     Width = 81
@@ -83,7 +83,7 @@ object Preferences_SheetF: TPreferences_SheetF
     ModalResult = 2
     TabOrder = 4
   end
-  object Sheet_Show: TTntStringGrid
+  object Sheet_Show: TStringGrid
     Left = 0
     Top = 26
     Width = 733
@@ -94,7 +94,7 @@ object Preferences_SheetF: TPreferences_SheetF
     ScrollBars = ssVertical
     TabOrder = 5
   end
-  object Column_Size0: TTntComboBox
+  object Column_Size0: TComboBox
     Left = 302
     Top = 95
     Width = 52
@@ -103,7 +103,7 @@ object Preferences_SheetF: TPreferences_SheetF
     TabOrder = 6
     Visible = False
   end
-  object Column_Pos0: TTntComboBox
+  object Column_Pos0: TComboBox
     Left = 86
     Top = 95
     Width = 53

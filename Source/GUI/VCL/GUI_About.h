@@ -29,9 +29,9 @@
 #include <ImgList.hpp>
 #include <StdCtrls.hpp>
 #include <ToolWin.hpp>
-#include <TntForms.hpp>
-#include <TntComCtrls.hpp>
-#include <TntStdCtrls.hpp>
+#include <Forms.hpp>
+#include <ComCtrls.hpp>
+#include <StdCtrls.hpp>
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -42,21 +42,21 @@
 // Class
 //***************************************************************************
 
-class TAboutF : public TTntForm
+class TAboutF : public TForm
 {
 __published:    // IDE-managed Components
-    TTntLabel *Translator;
-    TTntMemo *Memo;
-    TTntButton *OK;
-    TTntButton *WebSite;
-    TTntToolBar *ToolBar1;
+    TLabel *Translator;
+    TMemo *Memo;
+    TButton *OK;
+    TButton *WebSite;
+    TToolBar *ToolBar1;
     TToolButton *ToolButton1;
-    TTntButton *NewVersion;
-    TTntButton *Donate;
+    TButton *NewVersion;
+    TButton *Donate;
     TToolBar *ToolBar2;
     TToolButton *ToolButton2;
-    TTntButton *WriteMe;
-    TTntButton *WriteToTranslator;
+    TButton *WriteMe;
+    TButton *WriteToTranslator;
     TImageList *ImageList1;
     TImageList *ImageList2;
     void __fastcall WebSiteClick(TObject *Sender);

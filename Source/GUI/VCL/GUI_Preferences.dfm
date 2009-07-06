@@ -17,7 +17,7 @@ object PreferencesF: TPreferencesF
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 14
-  object OK: TTntButton
+  object OK: TButton
     Left = 544
     Top = 159
     Width = 122
@@ -28,7 +28,7 @@ object PreferencesF: TPreferencesF
     TabOrder = 0
     OnClick = OKClick
   end
-  object Tree: TTntTreeView
+  object Tree: TTreeView
     Left = 0
     Top = -1
     Width = 150
@@ -40,29 +40,20 @@ object PreferencesF: TPreferencesF
     TabOrder = 1
     OnChange = TreeChange
     Items.NodeData = {
-      0102000000230000000000000000000000FFFFFFFFFFFFFFFF00000000010000
-      000553006500740075007000290000000000000000000000FFFFFFFFFFFFFFFF
-      00000000000000000841006400760061006E006300650064002B000000000000
-      0000000000FFFFFFFFFFFFFFFF00000000040000000943007500730074006F00
-      6D0069007A006500230000000000000000000000FFFFFFFFFFFFFFFF00000000
-      0000000005530068006500650074002F0000000000000000000000FFFFFFFFFF
-      FFFFFF00000000000000000B5400720065006500200026002000540065007800
-      74002F0000000000000000000000FFFFFFFFFFFFFFFF00000000000000000B43
-      007500730074006F006D00200074006500780074002900000000000000000000
-      00FFFFFFFFFFFFFFFF0000000000000000084C0061006E006700750061006700
-      6500}
-    Items.Utf8Data = {
-      02000000210000000000000000000000FFFFFFFFFFFFFFFF0000000001000000
-      08EFBBBF5365747570240000000000000000000000FFFFFFFFFFFFFFFF000000
-      00000000000BEFBBBF416476616E636564250000000000000000000000FFFFFF
-      FFFFFFFFFF00000000040000000CEFBBBF437573746F6D697A65210000000000
-      000000000000FFFFFFFFFFFFFFFF000000000000000008EFBBBF536865657427
-      0000000000000000000000FFFFFFFFFFFFFFFF00000000000000000EEFBBBF54
-      72656520262054657874270000000000000000000000FFFFFFFFFFFFFFFF0000
-      0000000000000EEFBBBF437573746F6D20746578742400000000000000000000
-      00FFFFFFFFFFFFFFFF00000000000000000BEFBBBF4C616E6775616765}
+      0302000000280000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000
+      00010000000105530065007400750070002E0000000000000000000000FFFFFF
+      FFFFFFFFFFFFFFFFFF0000000000000000010841006400760061006E00630065
+      006400300000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF0000000004
+      000000010943007500730074006F006D0069007A006500280000000000000000
+      000000FFFFFFFFFFFFFFFFFFFFFFFF0000000000000000010553006800650065
+      007400340000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF0000000000
+      000000010B540072006500650020002600200054006500780074003400000000
+      00000000000000FFFFFFFFFFFFFFFFFFFFFFFF0000000000000000010B430075
+      00730074006F006D00200074006500780074002E0000000000000000000000FF
+      FFFFFFFFFFFFFFFFFFFFFF000000000000000001084C0061006E006700750061
+      0067006500}
   end
-  object Cancel: TTntButton
+  object Cancel: TButton
     Left = 417
     Top = 159
     Width = 121
@@ -72,7 +63,7 @@ object PreferencesF: TPreferencesF
     ModalResult = 2
     TabOrder = 2
   end
-  object Page: TTntPageControl
+  object Page: TPageControl
     Left = 149
     Top = 0
     Width = 517
@@ -80,28 +71,28 @@ object PreferencesF: TPreferencesF
     ActivePage = Setup
     MultiLine = True
     TabOrder = 3
-    object Setup: TTntTabSheet
+    object Setup: TTabSheet
       Caption = 'General'
       OnShow = Setup_GeneralShow
       ExplicitLeft = 0
       ExplicitTop = 0
       ExplicitWidth = 0
       ExplicitHeight = 0
-      object Langue_C: TTntLabel
+      object Langue_C: TLabel
         Left = 0
         Top = 9
         Width = 54
         Height = 14
         Caption = 'Language :'
       end
-      object Output_C: TTntLabel
+      object Output_C: TLabel
         Left = 0
         Top = 34
         Width = 38
         Height = 14
         Caption = 'Output :'
       end
-      object General_Language_Sel: TTntComboBox
+      object General_Language_Sel: TComboBox
         Left = 103
         Top = 0
         Width = 113
@@ -111,7 +102,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 0
         OnChange = General_Language_SelChange
       end
-      object General_Output_Sel: TTntComboBox
+      object General_Output_Sel: TComboBox
         Left = 103
         Top = 26
         Width = 113
@@ -128,7 +119,7 @@ object PreferencesF: TPreferencesF
           'HTML'
           'Custom')
       end
-      object CB_CheckUpdate: TTntCheckBox
+      object CB_CheckUpdate: TCheckBox
         Left = 0
         Top = 52
         Width = 506
@@ -139,7 +130,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 2
         OnClick = CB_CheckUpdateClick
       end
-      object General_Language_More: TTntButton
+      object General_Language_More: TButton
         Left = 216
         Top = 0
         Width = 57
@@ -148,7 +139,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 6
         OnClick = General_Language_MoreClick
       end
-      object General_Output_More: TTntButton
+      object General_Output_More: TButton
         Left = 216
         Top = 26
         Width = 57
@@ -157,7 +148,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 7
         OnClick = General_Output_MoreClick
       end
-      object CB_InfoTip: TTntCheckBox
+      object CB_InfoTip: TCheckBox
         Left = 0
         Top = 100
         Width = 506
@@ -168,7 +159,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 5
         OnClick = CB_InfoTipClick
       end
-      object CB_InscrireShell: TTntCheckBox
+      object CB_InscrireShell: TCheckBox
         Left = 0
         Top = 68
         Width = 506
@@ -191,7 +182,7 @@ object PreferencesF: TPreferencesF
         OnClick = CB_InscrireShell_FolderClick
       end
     end
-    object Setup_Advanced: TTntTabSheet
+    object Setup_Advanced: TTabSheet
       Caption = 'Advanced'
       ImageIndex = 1
       OnShow = Setup_AdvancedShow
@@ -199,7 +190,7 @@ object PreferencesF: TPreferencesF
       ExplicitTop = 0
       ExplicitWidth = 0
       ExplicitHeight = 0
-      object CB_ShowToolBar: TTntCheckBox
+      object CB_ShowToolBar: TCheckBox
         Left = 0
         Top = 26
         Width = 268
@@ -208,7 +199,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 0
         OnClick = CB_ShowToolBarClick
       end
-      object Advanced_CloseAllAuto: TTntCheckBox
+      object Advanced_CloseAllAuto: TCheckBox
         Left = 0
         Top = 59
         Width = 268
@@ -217,7 +208,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 1
         OnClick = Advanced_CloseAllAutoClick
       end
-      object CB_ShowMenu: TTntCheckBox
+      object CB_ShowMenu: TCheckBox
         Left = 0
         Top = 42
         Width = 268
@@ -227,7 +218,7 @@ object PreferencesF: TPreferencesF
         OnClick = CB_ShowMenuClick
       end
     end
-    object Customize_Language: TTntTabSheet
+    object Customize_Language: TTabSheet
       Caption = 'Language'
       ImageIndex = 3
       OnShow = Customize_LanguageShow
@@ -235,14 +226,14 @@ object PreferencesF: TPreferencesF
       ExplicitTop = 0
       ExplicitWidth = 0
       ExplicitHeight = 0
-      object Language_Caption: TTntLabel
+      object Language_Caption: TLabel
         Left = 0
         Top = 0
         Width = 154
         Height = 14
         Caption = 'Choose your desired language :'
       end
-      object Language_New: TTntButton
+      object Language_New: TButton
         Left = 162
         Top = 43
         Width = 80
@@ -251,7 +242,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 3
         OnClick = Language_NewClick
       end
-      object Language_Delete: TTntButton
+      object Language_Delete: TButton
         Left = 0
         Top = 43
         Width = 81
@@ -260,7 +251,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 1
         OnClick = Language_DeleteClick
       end
-      object Language_Edit: TTntButton
+      object Language_Edit: TButton
         Left = 81
         Top = 43
         Width = 81
@@ -269,7 +260,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 2
         OnClick = Language_EditClick
       end
-      object Language_Sel: TTntComboBox
+      object Language_Sel: TComboBox
         Left = 0
         Top = 17
         Width = 242
@@ -280,7 +271,7 @@ object PreferencesF: TPreferencesF
         OnChange = Language_SelChange
       end
     end
-    object Customize_Sheet: TTntTabSheet
+    object Customize_Sheet: TTabSheet
       Caption = 'Sheet'
       ImageIndex = 4
       OnShow = Customize_SheetShow
@@ -288,14 +279,14 @@ object PreferencesF: TPreferencesF
       ExplicitTop = 0
       ExplicitWidth = 0
       ExplicitHeight = 0
-      object Sheet_Caption: TTntLabel
+      object Sheet_Caption: TLabel
         Left = 0
         Top = 0
         Width = 175
         Height = 14
         Caption = 'Choose your desired custom sheet :'
       end
-      object Sheet_Sel: TTntComboBox
+      object Sheet_Sel: TComboBox
         Left = 0
         Top = 17
         Width = 242
@@ -305,7 +296,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 0
         OnChange = Sheet_SelChange
       end
-      object Sheet_Delete: TTntButton
+      object Sheet_Delete: TButton
         Left = 0
         Top = 43
         Width = 81
@@ -314,7 +305,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 1
         OnClick = Sheet_DeleteClick
       end
-      object Sheet_Edit: TTntButton
+      object Sheet_Edit: TButton
         Left = 81
         Top = 43
         Width = 81
@@ -323,7 +314,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 2
         OnClick = Sheet_EditClick
       end
-      object Sheet_New: TTntButton
+      object Sheet_New: TButton
         Left = 162
         Top = 43
         Width = 80
@@ -333,14 +324,14 @@ object PreferencesF: TPreferencesF
         OnClick = Sheet_NewClick
       end
     end
-    object Customize_TreeText: TTntTabSheet
+    object Customize_TreeText: TTabSheet
       Caption = 'Tree && Text'
       ImageIndex = 6
       ExplicitLeft = 0
       ExplicitTop = 0
       ExplicitWidth = 0
       ExplicitHeight = 0
-      object Tree_NotYet: TTntLabel
+      object Tree_NotYet: TLabel
         Left = 362
         Top = 78
         Width = 43
@@ -348,7 +339,7 @@ object PreferencesF: TPreferencesF
         Caption = 'Not yet...'
       end
     end
-    object Customize_Custom: TTntTabSheet
+    object Customize_Custom: TTabSheet
       Caption = 'Custom Text'
       ImageIndex = 6
       OnShow = Customize_CustomShow
@@ -356,14 +347,14 @@ object PreferencesF: TPreferencesF
       ExplicitTop = 0
       ExplicitWidth = 0
       ExplicitHeight = 0
-      object Custom_Caption: TTntLabel
+      object Custom_Caption: TLabel
         Left = 0
         Top = 0
         Width = 166
         Height = 14
         Caption = 'Choose your desired custom text :'
       end
-      object Custom_New: TTntButton
+      object Custom_New: TButton
         Left = 162
         Top = 43
         Width = 80
@@ -372,7 +363,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 0
         OnClick = Custom_NewClick
       end
-      object Custom_Edit: TTntButton
+      object Custom_Edit: TButton
         Left = 81
         Top = 43
         Width = 81
@@ -381,7 +372,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 1
         OnClick = Custom_EditClick
       end
-      object Custom_Delete: TTntButton
+      object Custom_Delete: TButton
         Left = 0
         Top = 43
         Width = 81
@@ -390,7 +381,7 @@ object PreferencesF: TPreferencesF
         TabOrder = 2
         OnClick = Custom_DeleteClick
       end
-      object Custom_Sel: TTntComboBox
+      object Custom_Sel: TComboBox
         Left = 0
         Top = 17
         Width = 242
@@ -401,7 +392,7 @@ object PreferencesF: TPreferencesF
         OnChange = Custom_SelChange
       end
     end
-    object Customize: TTntTabSheet
+    object Customize: TTabSheet
       Caption = 'Customize'
       ImageIndex = 7
       ExplicitLeft = 0

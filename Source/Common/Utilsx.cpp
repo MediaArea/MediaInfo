@@ -110,7 +110,7 @@ void Debug_Header_Create(const ZenLib::Ztring &FileName, void* Handle)
     FB2.Write(Tout, Capture);
 
     //Purge
-    delete Tout;
-    MessageBox(Handle, Prefs->Translate(_T("Send HeaderFile")).c_str(), Prefs->Translate(_T("Header file")).c_str(), 0);
+	delete Tout;
+	Application->MessageBox(Prefs->Translate(_T("Send HeaderFile")).c_str(), Prefs->Translate(_T("Header file")).c_str());
 }
 

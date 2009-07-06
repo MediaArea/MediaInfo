@@ -29,9 +29,6 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#pragma package(smart_init)
-#pragma link "TntComCtrls"
-#pragma link "TntStdCtrls"
 #pragma resource "*.dfm"
 TAboutF *AboutF;
 //---------------------------------------------------------------------------
@@ -54,7 +51,7 @@ const ZenLib::Char* MEDIAINFO_MAILTO=    _T("mailto:zenitram@users.sourceforge.n
 
 //---------------------------------------------------------------------------
 __fastcall TAboutF::TAboutF(TComponent* Owner)
-    : TTntForm(Owner)
+    : TForm(Owner)
 {
 }
 

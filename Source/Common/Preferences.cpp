@@ -326,11 +326,11 @@ void __fastcall ThreadInternetCheck::Execute()
         ZtringListList C3=Download.SubSheet(_T("NewMessage"));
         int Pos=C3.Find(Prefs->Config(_T("Language")), 1);
         if (Pos==-1)
-            Pos=C3.Find(_T("en"), 1);
+			Pos=C3.Find(_T("en"), 1);
         if (Pos==-1)
             return;
         C3(Pos, 2).FindAndReplace(_T("\\r\\n"), _T("\r\n"));
-        Application->MessageBox(AnsiString(C3(Pos, 2).c_str()).c_str(), "New version released!");
+		Application->MessageBox(C3(Pos, 2).c_str(), _T("New version released!"));
         //Inscription version connue pour pas repeter l'avertissement
         int Version_Pos=Prefs->Config.Find(_T("NewestVersion"));
         Prefs->Config(Version_Pos, 1)=NewestVersion;
@@ -370,7 +370,7 @@ int Preferences::ExplorerShell()
 
     ZtringListList Liste;
     Liste=_T(
-        ".3gp;mpeg4File\r\n"
+        /*".3gp;mpeg4File\r\n"
         ".3gpp;mpeg4File\r\n"
         ".aac;AACFile\r\n"
         ".ac3;AC3File\r\n"
@@ -445,7 +445,7 @@ int Preferences::ExplorerShell()
         ".wav;WAVFile\r\n"
         ".wma;WMAFile\r\n"
         ".wmv;WMVFile\r\n"
-        ".wv;WCFile\r\n"
+		".wv;WCFile\r\n"*/
         ".wvc;WVCFile\r\n"
         "Folder;Folder");
 
@@ -466,7 +466,7 @@ int Preferences::ExplorerShell()
             {
                 //test if extension is known
                 AnsiString Player=Reg->ReadString(_T(""));
-                Reg->CloseKey();
+				Reg->CloseKey();
 
                 //Test if old Media Info shell extension is known
                 if (Player!="" && Reg->OpenKey(Player+_T("\\Shell\\Media Info\\Command"), false))
@@ -514,7 +514,7 @@ int Preferences::ExplorerShell()
         ExplorerShell_Edit("Folder", 0, IsChanged, Reg);
 
         //Adding/removing to SystemFileAssociations
-        int32s ShellExtension=Config.Read(_T("ShellExtension")).To_int32s();
+		int32s ShellExtension=Config.Read(_T("ShellExtension")).To_int32s();
         for (size_t I1=0; I1<Liste.size(); I1++)
         {
             //Remove shell ext except "Folder"
@@ -812,14 +812,14 @@ int Preferences::ShellToolTip()
     if (Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32", false))
     {
         //MediaInfo shell extension is known
-        if (ShellInfoTip)
-        {
+		if (ShellInfoTip)
+		{
             //test if good writing
-            std::string DLL_Name=static_cast<const char*>(Application->ExeName.data());
-            DLL_Name.resize(DLL_Name.rfind('\\')); //Removing ".exe"
-            DLL_Name+="\\MediaInfo_InfoTip.dll";
+			std::string DLL_Name=Application->ExeName.c_str();
+			DLL_Name.resize(DLL_Name.rfind('\\')); //Removing ".exe"
+			DLL_Name+="\\MediaInfo_InfoTip.dll";
             std::string ShellInfoTipToWtrite="\"" + DLL_Name +"\"";
-            std::string ShellInfoTip_Existing=Reg_User->ReadString(_T("")).c_str();
+			std::string ShellInfoTip_Existing=Reg_User->ReadString(_T("")).c_str();
             if (ShellInfoTip_Existing!=ShellInfoTipToWtrite)
             {
                 //This is not the good shell extension, writing new one
@@ -831,7 +831,7 @@ int Preferences::ShellToolTip()
         {
             //Should not be here, deleting
             Reg_User->CloseKey();
-            Reg_User->DeleteKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32");
+			Reg_User->DeleteKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32");
             Reg_User->DeleteKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_");
             Reg_User->DeleteKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1");
             for (size_t I1=0; I1<Liste.size(); I1++)
@@ -854,14 +854,14 @@ int Preferences::ShellToolTip()
             Reg_User->CloseKey();
             Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}", true);
             try {Reg_User->WriteString("", "MediaInfoShellExt_ Class");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
-            Reg_User->CloseKey();
-            Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32", true);
-            std::string DLL_Name=static_cast<const char*>(Application->ExeName.data());
+			Reg_User->CloseKey();
+			Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32", true);
+			std::string DLL_Name=Application->ExeName.c_str();
             DLL_Name.resize(DLL_Name.rfind('\\')); //Removing ".exe"
             DLL_Name+="\\MediaInfo_InfoTip.dll";
             std::string ShellInfoTipToWtrite="\"" + DLL_Name +"\"";
             try {Reg_User->WriteString("", ShellInfoTipToWtrite.c_str());} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
-            try {Reg_User->WriteString("ThreadingModel", "Apartment");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+			try {Reg_User->WriteString("ThreadingModel", "Apartment");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
             Reg_User->CloseKey();
             Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\ProcID", true);
             try {Reg_User->WriteString("", "MediaInfoShellExt.MediaInfoShellExt_.1");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}

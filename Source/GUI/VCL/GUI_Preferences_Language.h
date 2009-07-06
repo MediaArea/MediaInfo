@@ -38,19 +38,19 @@
 #include <StdCtrls.hpp>
 #include <Forms.hpp>
 #include <Grids.hpp>
-#include <TntStdCtrls.hpp>
-#include <TntGrids.hpp>
-#include <TntForms.hpp>
+#include <StdCtrls.hpp>
+#include <Grids.hpp>
+#include <Forms.hpp>
 #include <ZenLib/ZtringListListF.h>
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
-class TPreferences_LanguageF : public TTntForm
+class TPreferences_LanguageF : public TForm
 {
 __published:    // IDE-managed Components
-    TTntStringGrid *Grille;
-    TTntButton *OK;
-    TTntButton *Cancel;
+    TStringGrid *Grille;
+    TButton *OK;
+    TButton *Cancel;
     void __fastcall GrilleKeyUp(TObject *Sender, WORD &Key,
           TShiftState Shift);
     void __fastcall OKClick(TObject *Sender);

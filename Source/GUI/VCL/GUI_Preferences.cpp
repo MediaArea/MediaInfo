@@ -36,7 +36,6 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#pragma package(smart_init)
 #pragma resource "*.dfm"
 TPreferencesF *PreferencesF;
 //---------------------------------------------------------------------------
@@ -55,12 +54,12 @@ void GUI_Preferences_Sheet_Kind_Fill(TComboBox* Box);
 
 //---------------------------------------------------------------------------
 __fastcall TPreferencesF::TPreferencesF(TComponent* Owner)
-    : TTntForm(Owner)
+    : TForm(Owner)
 {
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TPreferencesF::ComboBox_Update(TTntComboBox *CB, Prefs_t List)
+void __fastcall TPreferencesF::ComboBox_Update(TComboBox *CB, Prefs_t List)
 {
     //List Update
     Prefs->RefreshFilesList(List);
@@ -83,7 +82,7 @@ void __fastcall TPreferencesF::ComboBox_Update(TTntComboBox *CB, Prefs_t List)
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TPreferencesF::ComboBox_SelChange(TTntComboBox *CB, Prefs_t List)
+void __fastcall TPreferencesF::ComboBox_SelChange(TComboBox *CB, Prefs_t List)
 {
     Prefs->Config(Prefs->FolderNames(List))=GUI_Text(CB->Text);
     Prefs->Load(List, GUI_Text(CB->Text));
@@ -198,7 +197,7 @@ void __fastcall TPreferencesF::Sheet_EditClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Sheet_NewClick(TObject *Sender)
 {
-    AnsiString S1="New";
+	UnicodeString S1=_T("New");
     if (!InputQuery(_T("New sheet"), _T("Enter name of new sheet"), S1))
         return;
 
@@ -317,8 +316,8 @@ void __fastcall TPreferencesF::Advanced_CloseAllAutoClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Language_NewClick(TObject *Sender)
 {
-    AnsiString S1="New";
-    if (!InputQuery(_T("New language"), _T("Enter name of new language"), S1))
+	UnicodeString S1=_T("New");
+	if (!InputQuery(_T("New language"), _T("Enter name of new language"), S1))
         return;
 
     Prefs->Create(Prefs_Language, Ztring().From_Local(S1.c_str()));
@@ -341,8 +340,8 @@ void __fastcall TPreferencesF::Language_DeleteClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Custom_NewClick(TObject *Sender)
 {
-    AnsiString S1=_T("New");
-    if (!InputQuery(_T("New Output"), _T("Enter name of new Output"), S1))
+	UnicodeString S1=_T("New");
+	if (!InputQuery(_T("New Output"), _T("Enter name of new Output"), S1))
         return;
 
     Prefs->Create(Prefs_Custom, Ztring().From_Local(S1.c_str()));

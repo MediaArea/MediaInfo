@@ -30,10 +30,6 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#pragma package(smart_init)
-#pragma link "TntComCtrls"
-#pragma link "TntStdCtrls"
-#pragma link "TntDialogs"
 #pragma resource "*.dfm"
 TExportF *ExportF;
 //---------------------------------------------------------------------------
@@ -46,9 +42,9 @@ TExportF *ExportF;
 using namespace MediaInfoNameSpace;
 using namespace ZenLib;
 #ifdef _UNICODE
-    #define ZEN_UNICODE(A) A.c_bstr()
+	#define ZEN_UNICODE(A) A.w_str()
 #else
-    #define ZEN_UNICODE(A) Ztring().From_Unicode(A.c_bstr()).c_str()
+	#define ZEN_UNICODE(A) Ztring().From_Unicode(A.c_str()).c_str()
 #endif //_UNICODE
 //---------------------------------------------------------------------------
 
@@ -58,14 +54,14 @@ using namespace ZenLib;
 
 //---------------------------------------------------------------------------
 __fastcall TExportF::TExportF(TComponent* Owner)
-    : TForm(Owner)
+	: TForm(Owner)
 {
 }
 
 //---------------------------------------------------------------------------
 void TExportF::Name_Adapt()
 {
-    FileName FN=ZEN_UNICODE(Name->Text);
+	FileName FN=ZEN_UNICODE(Name->Text);
 
     if (FN.Name_Get().size()==0)
         FN.Name_Set(_T("Example"));
@@ -395,7 +391,7 @@ void __fastcall TExportF::OKClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void TExportF::CSV_Stream_Change (TTntComboBox* Box, TTntLabel* Label, stream_t Stream)
+void TExportF::CSV_Stream_Change (TComboBox* Box, TLabel* Label, stream_t Stream)
 {
     //Show warning if needed
     bool Warning=false;

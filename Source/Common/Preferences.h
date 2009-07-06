@@ -40,7 +40,7 @@
 // Here only because this is useful in all MediaInfo
 #ifdef _UNICODE
     static std::wstring String_Void;
-    #define GUI_Text(A) ((A).Length()>0?(A).c_bstr():String_Void.c_str())
+    #define GUI_Text(A) A.w_str()
 #else
     static std::string String_Void;
     #define GUI_Text(A) (A?Ztring().From_Unicode(A.c_bstr()).c_str():String_Void.c_str())

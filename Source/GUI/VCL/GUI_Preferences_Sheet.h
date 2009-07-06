@@ -30,13 +30,13 @@
 #define GUI_Preferences_SheetH
 //---------------------------------------------------------------------------
 #include <Classes.hpp>
-#include <TntControls.hpp>
-#include <TntStdCtrls.hpp>
-#include <TntForms.hpp>
 #include <Controls.hpp>
 #include <StdCtrls.hpp>
-#include <TntComCtrls.hpp>
-#include <TntGrids.hpp>
+#include <Forms.hpp>
+#include <Controls.hpp>
+#include <StdCtrls.hpp>
+#include <ComCtrls.hpp>
+#include <Grids.hpp>
 #include <ComCtrls.hpp>
 #include <Grids.hpp>
 #include <ZenLib/ZtringListListF.h>
@@ -47,15 +47,15 @@ class TPreferences_SheetF : public TForm
 {
 __published:    // IDE-managed Components
     TLabel *Column_Text0;
-    TTntComboBox *Column_Parameter0;
-    TTntComboBox *Column_Kind0;
-    TTntLabel *Label6;
-    TTntComboBox *ColumnsCount;
-    TTntButton *OK;
-    TTntButton *Cancel;
-    TTntStringGrid *Sheet_Show;
-    TTntComboBox *Column_Size0;
-    TTntComboBox *Column_Pos0;
+    TComboBox *Column_Parameter0;
+    TComboBox *Column_Kind0;
+    TLabel *Label6;
+    TComboBox *ColumnsCount;
+    TButton *OK;
+    TButton *Cancel;
+    TStringGrid *Sheet_Show;
+    TComboBox *Column_Size0;
+    TComboBox *Column_Pos0;
     void __fastcall ColumnsCountChange(TObject *Sender);
     void __fastcall Column_Kind0Change(TObject *Sender);
     void __fastcall Column_Parameter0Change(TObject *Sender);
@@ -67,11 +67,11 @@ private:    // User declarations
     ZtringListListF EditedSheet;
     void Columns_Adapt();
     int Columns_Count;
-    TTntComboBox *Column_Kind[SHEETF_COLUMNS];
-    TTntComboBox *Column_Pos[SHEETF_COLUMNS];
-    TTntComboBox *Column_Parameter[SHEETF_COLUMNS];
-    TTntComboBox *Column_Size[SHEETF_COLUMNS];
-    TTntLabel *Column_Text[SHEETF_COLUMNS];
+    TComboBox *Column_Kind[SHEETF_COLUMNS];
+    TComboBox *Column_Pos[SHEETF_COLUMNS];
+    TComboBox *Column_Parameter[SHEETF_COLUMNS];
+    TComboBox *Column_Size[SHEETF_COLUMNS];
+    TLabel *Column_Text[SHEETF_COLUMNS];
     ZtringListList Infos_Parameters[SHEETF_COLUMNS];
 public:        // User declarations
     __fastcall TPreferences_SheetF(TComponent* Owner);
