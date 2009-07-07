@@ -113,6 +113,8 @@ const char* Mpeg4_Descriptors_ObjectTypeIndication(int8u ID)
         case 0x20 : return "Visual ISO/IEC 14496-2 (MPEG-4 Visual)";
         case 0x21 : return "Visual ISO/IEC 14496-10 (AVC)";
         case 0x22 : return "Parameter Sets for Visual ISO/IEC 14496-10 (AVC)";
+        case 0x24 : return "ALS"; //Not sure
+        case 0x2B : return "SAOC"; //Not sure
         case 0x40 : return "Audio ISO/IEC 14496-3 (AAC)";
         case 0x60 : return "Visual ISO/IEC 13818-2 Simple Profile (MPEG Video)";
         case 0x61 : return "Visual ISO/IEC 13818-2 Main Profile (MPEG Video)";
