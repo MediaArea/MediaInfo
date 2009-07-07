@@ -28,6 +28,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#include "MediaInfo/Multiple/File_Mpeg4_Descriptors.h"
 #include <map>
 //---------------------------------------------------------------------------
 
@@ -48,6 +49,7 @@ public :
     int8u  FromTS_descriptor_tag;       //Descriptor from TS
     int8u  MPEG_Version;                //MPEG Version (or automaticly detected)
     bool   Searching_TimeStamp_Start;
+    File_Mpeg4_Descriptors::slconfig* SLConfig;
 
     //Out
     bool   HasTimeStamps;
@@ -89,7 +91,7 @@ private :
     void private_stream_2();    //0xBF
     void audio_stream();        //0xC0 --> 0xDF
     void video_stream();        //0xE0 --> 0xEF
-    void LATM();                //0xFA
+    void SL_packetized_stream();//0xFA
     void extension_stream();    //0xFD
 
     //private_stream_1 specific

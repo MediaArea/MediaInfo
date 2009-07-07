@@ -1666,6 +1666,7 @@ void File_Mpeg_Descriptors::Descriptor_1D()
             Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
             Open_Buffer_Finalize(&MI);
             Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs[MI.ES_ID].Parser=MI.Parser;
+            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs[MI.ES_ID].SLConfig=MI.SLConfig;
         }
     #else
         Skip_XX(Element_Size-Element_Offset,                    "MPEG-4 Descriptor");

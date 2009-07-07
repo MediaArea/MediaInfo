@@ -70,6 +70,7 @@ const char* Mpeg4v_Profile_Level(int32u Profile_Level)
         case B8(01100100) : return "SimpleFBA@L2";
         case B8(01110001) : return "BasicAnimatedTexture@L1";
         case B8(01110010) : return "BasicAnimatedTexture@L2";
+        case B8(01111111) : return "AVC"; //For descriptors
         case B8(10000001) : return "Hybrid@L1";
         case B8(10000010) : return "Hybrid@L2";
         case B8(10010001) : return "AdvancedRealTimeSimple@L1";

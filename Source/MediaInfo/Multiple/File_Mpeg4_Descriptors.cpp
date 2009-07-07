@@ -243,16 +243,16 @@ const char* Mpeg4_Descriptors_AudioProfileLevelIndication(int8u ID)
         case   37 : return "MobileAudioInternetworking@L4";
         case   38 : return "MobileAudioInternetworking@L5";
         case   39 : return "MobileAudioInternetworking@L6";
-		case   40 : return "AAC@L1";
-		case   41 : return "AAC@L2";
-		case   42 : return "AAC@L4";
-		case   43 : return "AAC@L5";
-		case   44 : return "HighEfficiencyAAC@L2";
-		case   45 : return "HighEfficiencyAAC@L3";
-		case   46 : return "HighEfficiencyAAC@L4";
-		case   47 : return "HighEfficiencyAAC@L5";
+        case   40 : return "AAC@L1";
+        case   41 : return "AAC@L2";
+        case   42 : return "AAC@L4";
+        case   43 : return "AAC@L5";
+        case   44 : return "HighEfficiencyAAC@L2";
+        case   45 : return "HighEfficiencyAAC@L3";
+        case   46 : return "HighEfficiencyAAC@L4";
+        case   47 : return "HighEfficiencyAAC@L5";
         case   60 : return "ALSSimple@L1";
-		default   : return "";
+        default   : return "";
     }
 }
 
@@ -263,10 +263,10 @@ extern const char* Mpeg4v_Profile_Level(int32u Profile_Level);
 const char* Mpeg4_Descriptors_GraphicsProfileLevelIndication(int8u ID)
 {
     switch (ID)
-	{
+    {
         case    1 : return "Simple2D@L1";
         case    2 : return "Simple2D+Text@L1";
-		case    3 : return "Simple2D+Text@L2";
+        case    3 : return "Simple2D+Text@L2";
         case    4 : return "Core2D@L1";
         case    5 : return "Core2D@L2";
         case    6 : return "Advanced2D@L1";
@@ -290,6 +290,7 @@ File_Mpeg4_Descriptors::File_Mpeg4_Descriptors()
     //Out
     Parser=NULL;
     ES_ID=0x0000;
+    SLConfig=NULL;
 
     //Temp
     ObjectTypeId=0x00;
@@ -299,7 +300,10 @@ File_Mpeg4_Descriptors::File_Mpeg4_Descriptors()
 File_Mpeg4_Descriptors::~File_Mpeg4_Descriptors()
 {
     if (!Parser_DoNotFreeIt)
+    {
         delete Parser;// Parser=NULL;
+        delete SLConfig;// SL=NULL;
+    }
 }
 
 //***************************************************************************
@@ -392,9 +396,9 @@ void File_Mpeg4_Descriptors::Data_Parse()
         ELEMENT_CASE(68, "DependencyMarkerTag");
         ELEMENT_CASE(69, "FLEXmuxChannelDescrTag");
         default: if (Element_Code>=0xC0)
-                    Element_Info("user private");
+                    Element_Name("user private");
                  else
-                    Element_Info("unknown");
+                    Element_Name("unknown");
                  Skip_XX(Element_Size,                          "Data");
                  break;
     }
@@ -426,7 +430,7 @@ void File_Mpeg4_Descriptors::Descriptor_02()
     Info_B1(ODProfileLevel,                                     "ODProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_ODProfileLevelIndication(ODProfileLevel));
     Info_B1(SceneProfileLevel,                                  "sceneProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_SceneProfileLevelIndication(SceneProfileLevel));
     Info_B1(AudioProfileLevel,                                  "audioProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_AudioProfileLevelIndication(AudioProfileLevel));
-	Info_B1(VisualProfileLevel,                                 "visualProfileLevelIndication"); Param_Info(Mpeg4v_Profile_Level(VisualProfileLevel));
+    Info_B1(VisualProfileLevel,                                 "visualProfileLevelIndication"); Param_Info(Mpeg4v_Profile_Level(VisualProfileLevel));
     Info_B1(GraphicsProfileLevel,                               "graphicsProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_GraphicsProfileLevelIndication(GraphicsProfileLevel));
 
     FILLING_BEGIN();
@@ -444,7 +448,7 @@ void File_Mpeg4_Descriptors::Descriptor_03()
     Get_SB (   streamDependenceFlag,                            "streamDependenceFlag");
     Get_SB (   URL_Flag,                                        "URL_Flag");
     Get_SB (   OCRstreamFlag,                                   "OCRstreamFlag");
-	Skip_S1(5,                                                  "streamPriority");
+    Skip_S1(5,                                                  "streamPriority");
     BS_End();
     if (streamDependenceFlag)
         Skip_B2(                                                "dependsOn_ES_ID");
@@ -768,64 +772,125 @@ void File_Mpeg4_Descriptors::Descriptor_05()
 //---------------------------------------------------------------------------
 void File_Mpeg4_Descriptors::Descriptor_06()
 {
+    SLConfig=new slconfig;
+
     //Parsing
-    int8u predefined, timeStampLength;
-    bool durationFlag, useTimeStampsFlag;
+    int8u predefined;
     Get_B1 (predefined,                                         "predefined"); Param_Info(Mpeg4_Descriptors_Predefined(predefined));
     switch (predefined)
     {
         case 0x00 :
             {
                     BS_Begin();
-                    Skip_SB(                                    "useAccessUnitStartFlag");
-                    Skip_SB(                                    "useAccessUnitEndFlag");
-                    Skip_SB(                                    "useRandomAccessPointFlag");
-                    Skip_SB(                                    "hasRandomAccessUnitsOnlyFlag");
-                    Skip_SB(                                    "usePaddingFlag");
-                    Get_SB (useTimeStampsFlag,                  "useTimeStampsFlag");
-                    Skip_SB(                                    "useIdleFlag");
-                    Get_SB (durationFlag,                       "durationFlag");
+                    Get_SB (SLConfig->useAccessUnitStartFlag,   "useAccessUnitStartFlag");
+                    Get_SB (SLConfig->useAccessUnitEndFlag,     "useAccessUnitEndFlag");
+                    Get_SB (SLConfig->useRandomAccessPointFlag, "useRandomAccessPointFlag");
+                    Get_SB (SLConfig->hasRandomAccessUnitsOnlyFlag, "hasRandomAccessUnitsOnlyFlag");
+                    Get_SB (SLConfig->usePaddingFlag,           "usePaddingFlag");
+                    Get_SB (SLConfig->useTimeStampsFlag,        "useTimeStampsFlag");
+                    Get_SB (SLConfig->useIdleFlag,              "useIdleFlag");
+                    Get_SB (SLConfig->durationFlag,             "durationFlag");
                     BS_End();
-                    Skip_B4(                                    "timeStampResolution");
-                    Skip_B4(                                    "OCRResolution");
-                    Get_B1 (timeStampLength,                    "timeStampLength");
-                    Skip_B1(                                    "OCRLength");
-                    Skip_B1(                                    "AU_Length");
-                    Skip_B1(                                    "instantBitrateLength");
+                    Get_B4 (SLConfig->timeStampResolution,      "timeStampResolution");
+                    Get_B4( SLConfig->OCRResolution,            "OCRResolution");
+                    Get_B1 (SLConfig->timeStampLength,          "timeStampLength");
+                    Get_B1 (SLConfig->AU_Length,                "OCRLength");
+                    Get_B1 (SLConfig->instantBitrateLength,     "AU_Length");
+                    Get_B1 (SLConfig->degradationPriorityLength,"instantBitrateLength");
                     BS_Begin();
-                    Skip_S1(4,                                  "degradationPriorityLength");
-                    Skip_S1(5,                                  "AU_seqNumLength");
-                    Skip_S1(5,                                  "packetSeqNumLength");
+                    Get_S1 (4, SLConfig->degradationPriorityLength, "degradationPriorityLength");
+                    Get_S1 (5, SLConfig->AU_seqNumLength,       "AU_seqNumLength");
+                    Get_S1 (5, SLConfig->packetSeqNumLength,    "packetSeqNumLength");
                     Skip_S1(2,                                  "reserved");
                     BS_End();
             }
             break;
         case 0x01 :
-                    useTimeStampsFlag=false;
-                    durationFlag=false;
-                    timeStampLength=32;
+                    SLConfig->useAccessUnitStartFlag          =false;
+                    SLConfig->useAccessUnitEndFlag            =false;
+                    SLConfig->useRandomAccessPointFlag        =false;
+                    SLConfig->hasRandomAccessUnitsOnlyFlag    =false;
+                    SLConfig->usePaddingFlag                  =false;
+                    SLConfig->useTimeStampsFlag               =false;
+                    SLConfig->useIdleFlag                     =false;
+                    SLConfig->durationFlag                    =false; //-
+                    SLConfig->timeStampResolution             =1000;
+                    SLConfig->OCRResolution                   =0; //-
+                    SLConfig->timeStampLength                 =32;
+                    SLConfig->AU_Length                       =0;
+                    SLConfig->instantBitrateLength            =0; //-
+                    SLConfig->degradationPriorityLength       =0;
+                    SLConfig->AU_seqNumLength                 =0;
+                    SLConfig->packetSeqNumLength              =0;
+
+                    SLConfig->timeScale                       =0; //-
+                    SLConfig->accessUnitDuration              =0; //-
+                    SLConfig->compositionUnitDuration         =0; //-
+
+                    SLConfig->startDecodingTimeStamp          =0; //-
+                    SLConfig->startCompositionTimeStamp       =0; //-
                     break;
         case 0x02 :
-                    useTimeStampsFlag=true;
-                    durationFlag=false;
-                    timeStampLength=32;
+                    SLConfig->useAccessUnitStartFlag          =false;
+                    SLConfig->useAccessUnitEndFlag            =false;
+                    SLConfig->useRandomAccessPointFlag        =false;
+                    SLConfig->hasRandomAccessUnitsOnlyFlag    =false;
+                    SLConfig->usePaddingFlag                  =false;
+                    SLConfig->useTimeStampsFlag               =true;
+                    SLConfig->useIdleFlag                     =false;
+                    SLConfig->durationFlag                    =false;
+                    SLConfig->timeStampResolution             =0; //-
+                    SLConfig->OCRResolution                   =0; //-
+                    SLConfig->timeStampLength                 =32;
+                    SLConfig->AU_Length                       =0;
+                    SLConfig->instantBitrateLength            =0;
+                    SLConfig->degradationPriorityLength       =0;
+                    SLConfig->AU_seqNumLength                 =0;
+                    SLConfig->packetSeqNumLength              =0;
+
+                    SLConfig->timeScale                       =0; //-
+                    SLConfig->accessUnitDuration              =0; //-
+                    SLConfig->compositionUnitDuration         =0; //-
+
+                    SLConfig->startDecodingTimeStamp          =0; //-
+                    SLConfig->startCompositionTimeStamp       =0; //-
                     break;
         default   :
-                    useTimeStampsFlag=false;
-                    durationFlag=false;
-                    timeStampLength=32;
+                    SLConfig->useAccessUnitStartFlag          =false;
+                    SLConfig->useAccessUnitEndFlag            =false;
+                    SLConfig->useRandomAccessPointFlag        =false;
+                    SLConfig->hasRandomAccessUnitsOnlyFlag    =false;
+                    SLConfig->usePaddingFlag                  =false;
+                    SLConfig->useTimeStampsFlag               =false;
+                    SLConfig->useIdleFlag                     =false;
+                    SLConfig->durationFlag                    =false;
+                    SLConfig->timeStampResolution             =0;
+                    SLConfig->OCRResolution                   =0;
+                    SLConfig->timeStampLength                 =0;
+                    SLConfig->AU_Length                       =0;
+                    SLConfig->instantBitrateLength            =0;
+                    SLConfig->degradationPriorityLength       =0;
+                    SLConfig->AU_seqNumLength                 =0;
+                    SLConfig->packetSeqNumLength              =0;
+
+                    SLConfig->timeScale                       =0;
+                    SLConfig->accessUnitDuration              =0;
+                    SLConfig->compositionUnitDuration         =0;
+
+                    SLConfig->startDecodingTimeStamp          =0;
+                    SLConfig->startCompositionTimeStamp       =0;
     }
-    if (durationFlag)
+    if (SLConfig->durationFlag)
     {
-        Skip_B4(                                                "timeScale");
-        Skip_B2(                                                "accessUnitDuration");
-        Skip_B2(                                                "compositionUnitDuration");
+        Get_B4 (SLConfig->timeScale,                            "timeScale");
+        Get_B2 (SLConfig->accessUnitDuration,                   "accessUnitDuration");
+        Get_B2 (SLConfig->compositionUnitDuration,              "compositionUnitDuration");
     }
-    if (!useTimeStampsFlag)
+    if (!SLConfig->useTimeStampsFlag)
     {
         BS_Begin();
-        Skip_S8(timeStampLength,                                "startDecodingTimeStamp");
-        Skip_S8(timeStampLength,                                "startCompositionTimeStamp");
+        Get_S8 (SLConfig->timeStampLength, SLConfig->startDecodingTimeStamp, "startDecodingTimeStamp");
+        Get_S8 (SLConfig->timeStampLength, SLConfig->startCompositionTimeStamp, "startCompositionTimeStamp");
         BS_End();
     }
 }

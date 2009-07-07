@@ -47,6 +47,34 @@ public :
     //Out
     File__Analyze* Parser;
     int16u ES_ID;
+    struct slconfig
+    {
+        bool   useAccessUnitStartFlag;
+        bool   useAccessUnitEndFlag;
+        bool   useRandomAccessPointFlag;
+        bool   hasRandomAccessUnitsOnlyFlag;
+        bool   usePaddingFlag;
+        bool   useTimeStampsFlag;
+        bool   useIdleFlag;
+        bool   durationFlag;
+        int32u timeStampResolution;
+        int32u OCRResolution;
+        int8u  timeStampLength;
+        int8u  OCRLength;
+        int8u  AU_Length;
+        int8u  instantBitrateLength;
+        int8u  degradationPriorityLength;
+        int8u  AU_seqNumLength;
+        int8u  packetSeqNumLength;
+
+        int32u timeScale;
+        int16u accessUnitDuration;
+        int16u compositionUnitDuration;
+
+        int64u startDecodingTimeStamp;
+        int64u startCompositionTimeStamp;
+    };
+    slconfig* SLConfig;
 
 public :
     File_Mpeg4_Descriptors();

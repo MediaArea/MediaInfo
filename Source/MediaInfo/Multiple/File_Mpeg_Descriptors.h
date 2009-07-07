@@ -28,6 +28,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#include "MediaInfo/Multiple/File_Mpeg4_Descriptors.h"
 #include "MediaInfo/Duplicate/File__Duplicate_MpegTs.h"
 #include <map>
 //---------------------------------------------------------------------------
@@ -117,16 +118,19 @@ struct complete_stream
         struct iod_es
         {
             File__Analyze*                              Parser;
+            File_Mpeg4_Descriptors::slconfig*           SLConfig;
 
             //Constructor/Destructor
             iod_es()
             {
                 Parser=NULL;
+                SLConfig=NULL;
             }
 
             ~iod_es()
             {
                 delete Parser; //Parser=NULL;
+                delete SLConfig; //SL=NULL;
             }
         };
         typedef std::map<int16u, iod_es> iod_ess; //Key is ES_ID

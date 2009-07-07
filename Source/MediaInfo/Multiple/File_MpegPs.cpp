@@ -198,6 +198,7 @@ File_MpegPs::File_MpegPs()
     FromTS_descriptor_tag=0x00; //No info
     MPEG_Version=0; //No info
     Searching_TimeStamp_Start=true;
+    SLConfig=NULL;
 
     //Out
     HasTimeStamps=false;
@@ -1357,8 +1358,21 @@ void File_MpegPs::Data_Parse()
         case 0xBD : private_stream_1(); break;
         case 0xBE : padding_stream(); break;
         case 0xBF : private_stream_2(); break;
-        case 0xFA : LATM(); break;
+        case 0xF0 : Element_Name("ECM_Stream"); Skip_XX(Element_Size, "Data"); break;
+        case 0xF1 : Element_Name("EMM_Stream"); Skip_XX(Element_Size, "Data"); break;
+        case 0xF2 : Element_Name("DSMCC_stream"); Skip_XX(Element_Size, "Data"); break;
+        case 0xF3 : Element_Name("ISO/IEC_13522_stream"); Skip_XX(Element_Size, "Data"); break;
+        case 0xF4 : Element_Name("ITU-T Rec. H.222.1 type A"); Skip_XX(Element_Size, "Data"); break;
+        case 0xF5 : Element_Name("ITU-T Rec. H.222.1 type B"); Skip_XX(Element_Size, "Data"); break;
+        case 0xF6 : Element_Name("ITU-T Rec. H.222.1 type C"); Skip_XX(Element_Size, "Data"); break;
+        case 0xF7 : Element_Name("ITU-T Rec. H.222.1 type D"); Skip_XX(Element_Size, "Data"); break;
+        case 0xF8 : Element_Name("ITU-T Rec. H.222.1 type E"); Skip_XX(Element_Size, "Data"); break;
+        case 0xF9 : Element_Name("ancillary_stream"); Skip_XX(Element_Size, "Data"); break;
+        case 0xFA : SL_packetized_stream(); break;
+        case 0xFB : Element_Name("FlexMux_stream"); Skip_XX(Element_Size, "Data"); break;
+        case 0xFC : Element_Name("descriptive data stream"); Skip_XX(Element_Size, "Data"); break;
         case 0xFD : extension_stream(); break;
+        case 0xFF : Element_Name("program_stream_directory"); Skip_XX(Element_Size, "Data"); break;
         default:
                  if ((start_code&0xE0)==0xC0) audio_stream();
             else if ((start_code&0xF0)==0xE0) video_stream();
@@ -1854,7 +1868,6 @@ void File_MpegPs::private_stream_1()
     }
 
     //Demux
-    Element_Show();
     Demux(Buffer+Buffer_Offset+private_stream_1_Offset, (size_t)(Element_Size-private_stream_1_Offset), Ztring::ToZtring(Element_Code, 16)+_T(".")+Ztring::ToZtring(private_stream_1_ID, 16)+private_stream_1_ChooseExtension());
 }
 
@@ -2374,6 +2387,7 @@ void File_MpegPs::audio_stream()
             audio_stream_Count--;
     }
 
+    Element_Show();
     //Demux
     Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(Element_Code, 16)+_T(".mpa"));
 }
@@ -2544,9 +2558,12 @@ void File_MpegPs::video_stream()
 
 //---------------------------------------------------------------------------
 // Packet "FA"
-void File_MpegPs::LATM()
+void File_MpegPs::SL_packetized_stream()
 {
-    Element_Name("LATM");
+    Element_Name("SL-packetized_stream");
+
+    //Demux
+    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(Element_Code, 16)+_T(".latm"));
 
     //For TS streams, which does not have Start chunk
     if (FromTS)
@@ -2565,21 +2582,62 @@ void File_MpegPs::LATM()
         Data_Accept("MPEG-PS");
 
     //Parsing
-    /*
-    size_t Frame_Size=0;
-    int8u  Size_Partial;
-    Element_Begin("Size");
-    do
+    if (SLConfig)
     {
-        Get_B1(Size_Partial,                                    "Size");
-        Frame_Size+=Size_Partial;
+        BS_Begin();
+        int8u paddingBits=0;
+        bool paddingFlag=false, idleFlag=false/*not in spec*/, DegPrioflag=false/*not ins specs*/, OCRflag=false,
+             accessUnitStartFlag=false/*should be "previous-SL packet has accessUnitEndFlag"*/, accessUnitEndFlag=false/*Should be "subsequent-SL packet has accessUnitStartFlag"*/,
+             decodingTimeStampFlag=false/*not in spec*/, compositionTimeStampFlag=false/*not in spec*/,
+             instantBitrateFlag=false/*not in spec*/;
+        if (SLConfig->useAccessUnitStartFlag)
+            Get_SB (accessUnitStartFlag,                        "accessUnitStartFlag");
+        if (SLConfig->useAccessUnitEndFlag)
+            Get_SB (accessUnitEndFlag,                          "accessUnitEndFlag");
+        if (SLConfig->OCRLength>0)
+            Get_SB (OCRflag,                                    "OCRflag");
+        if (SLConfig->useIdleFlag)
+            Get_SB (idleFlag,                                   "idleFlag");
+        if (SLConfig->usePaddingFlag)
+            Get_SB (paddingFlag,                                "paddingFlag");
+        if (paddingFlag)
+            Get_S1(3, paddingBits,                              "paddingBits");
+        if (!idleFlag && (!paddingFlag || paddingBits!=0))
+        {
+            if (SLConfig->packetSeqNumLength>0)
+                Skip_S2(SLConfig->packetSeqNumLength,           "packetSequenceNumber");
+            if (SLConfig->degradationPriorityLength>0)
+                Get_SB (DegPrioflag,                            "DegPrioflag");
+            if (DegPrioflag)
+                Skip_S2(SLConfig->degradationPriorityLength,    "degradationPriority");
+            if (OCRflag)
+                Skip_S8(SLConfig->OCRLength,                    "objectClockReference");
+            if (accessUnitStartFlag)
+            {
+                if (SLConfig->useRandomAccessPointFlag)
+                    Skip_SB(                                    "randomAccessPointFlag");
+                if (SLConfig->AU_seqNumLength >0)
+                    Skip_S2(SLConfig->AU_seqNumLength,          "AU_sequenceNumber");
+                if (SLConfig->useTimeStampsFlag)
+                {
+                    Get_SB (decodingTimeStampFlag,              "decodingTimeStampFlag");
+                    Get_SB (compositionTimeStampFlag,           "compositionTimeStampFlag");
+                }
+                if (SLConfig->instantBitrateLength>0)
+                    Get_SB (instantBitrateFlag,                 "instantBitrateFlag");
+                if (decodingTimeStampFlag)
+                    Skip_S2(SLConfig->timeStampLength,          "decodingTimeStamp");
+                if (compositionTimeStampFlag)
+                    Skip_S2(SLConfig->timeStampLength,          "compositionTimeStamp");
+                if (SLConfig->AU_Length > 0)
+                    Skip_S2(SLConfig->AU_Length,                "accessUnitLength");
+                if (instantBitrateFlag)
+                    Skip_S2(SLConfig->instantBitrateLength,     "instantBitrate");
+            }
+        }
+        BS_End();
+        Skip_XX(Element_Size-Element_Offset,                    "AAC (raw)");
     }
-    while (Size_Partial==0xFF && Element_Offset<Element_Size);
-    Element_Info(Ztring::ToZtring(Frame_Size)+_T(" bytes"));
-    Element_End();
-    Skip_XX(Frame_Size,                                         "LATM data?");
-    Skip_XX(Element_Size-Element_Offset,                        "Data (To be parsed)");
-    */
 
     //Filling
     Streams[start_code].Parser=new File__Analyze();
@@ -2595,9 +2653,6 @@ void File_MpegPs::LATM()
     Streams[start_code].Searching_Payload=false;
     if (audio_stream_Count>0)
         audio_stream_Count--;
-
-    //Demux
-    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(Element_Code, 16)+_T(".latm"));
 }
 
 //---------------------------------------------------------------------------

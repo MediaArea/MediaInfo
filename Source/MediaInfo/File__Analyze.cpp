@@ -373,6 +373,8 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
                 Element[Element_Level].ToShow.Details+=MediaInfoLib::Config.LineSeparator_Get();
 
             //From Sub
+            while(Sub->Element_Level)
+                Sub->Element_End();
             Element[Element_Level].ToShow.Details+=Sub->Element[0].ToShow.Details;
             Sub->Element[0].ToShow.Details.clear();
         }
