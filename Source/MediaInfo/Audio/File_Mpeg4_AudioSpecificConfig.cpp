@@ -85,7 +85,8 @@ const char* MP4_Format(int8u ID)
         case   26 : return "ER HILN";
         case   27 : return "ER Parametric";
         case   28 : return "SSC";
-        case   32 : return "Layer-1";
+        case   29 : return "ParametricStereo";
+		case   32 : return "Layer-1";
         case   33 : return "Layer-2";
         case   34 : return "Layer-3";
         case   35 : return "DST";

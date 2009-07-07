@@ -243,65 +243,30 @@ const char* Mpeg4_Descriptors_AudioProfileLevelIndication(int8u ID)
         case   37 : return "MobileAudioInternetworking@L4";
         case   38 : return "MobileAudioInternetworking@L5";
         case   39 : return "MobileAudioInternetworking@L6";
-        default   : return "";
+		case   40 : return "AAC@L1";
+		case   41 : return "AAC@L2";
+		case   42 : return "AAC@L4";
+		case   43 : return "AAC@L5";
+		case   44 : return "HighEfficiencyAAC@L2";
+		case   45 : return "HighEfficiencyAAC@L3";
+		case   46 : return "HighEfficiencyAAC@L4";
+		case   47 : return "HighEfficiencyAAC@L5";
+        case   60 : return "ALSSimple@L1";
+		default   : return "";
     }
 }
 
 //---------------------------------------------------------------------------
-const char* Mpeg4_Descriptors_VisualProfileLevelIndication(int8u ID)
-{
-    switch (ID)
-    {
-        case    1 : return "Simple@L3";
-        case    2 : return "Simple@L2";
-        case    3 : return "Simple@L1";
-        case    4 : return "SimpleScalable@L1";
-        case    5 : return "SimpleScalable@L2";
-        case    6 : return "Core@L2";
-        case    7 : return "Core@L1";
-        case    8 : return "Main@L4";
-        case    9 : return "Main@L3";
-        case   10 : return "Main@L2";
-        case   11 : return "N-Bit@L2";
-        case   12 : return "Hybrid@L2";
-        case   13 : return "Hybrid@L1";
-        case   14 : return "BasicAnimatedTexture@L2";
-        case   15 : return "BasicAnimatedTexture@L1";
-        case   16 : return "ScalableTexture@L3";
-        case   17 : return "ScalableTexture@L2";
-        case   18 : return "ScalableTexture@L1";
-        case   19 : return "SimpleFaceAnimation@L2";
-        case   20 : return "SimpleFaceAnimation@L1";
-        case   21 : return "SimpleFBA@L2";
-        case   22 : return "SimpleFBA@L1";
-        case   23 : return "AdvancedRealTimeSimple@L4";
-        case   24 : return "AdvancedRealTimeSimple@L3";
-        case   25 : return "AdvancedRealTimeSimple@L2";
-        case   26 : return "AdvancedRealTimeSimple@L1";
-        case   27 : return "CoreScalable@L3";
-        case   28 : return "CoreScalable@L2";
-        case   29 : return "CoreScalable@L1";
-        case   30 : return "AdvancedCodingEfficiency@L4";
-        case   31 : return "AdvancedCodingEfficiency@L3";
-        case   32 : return "AdvancedCodingEfficiency@L2";
-        case   33 : return "AdvancedCoding@EfficiencyL1";
-        case   34 : return "AdvanceCore@L2";
-        case   35 : return "AdvanceCore@L1";
-        case   36 : return "AdvancedScalableTexture@L3";
-        case   37 : return "AdvancedScalableTexture@L2";
-        case   38 : return "AdvancedScalableTexture@L1";
-        default   : return "";
-    }
-}
+extern const char* Mpeg4v_Profile_Level(int32u Profile_Level);
 
 //---------------------------------------------------------------------------
 const char* Mpeg4_Descriptors_GraphicsProfileLevelIndication(int8u ID)
 {
     switch (ID)
-    {
+	{
         case    1 : return "Simple2D@L1";
         case    2 : return "Simple2D+Text@L1";
-        case    3 : return "Simple2D+Text@L2";
+		case    3 : return "Simple2D+Text@L2";
         case    4 : return "Core2D@L1";
         case    5 : return "Core2D@L2";
         case    6 : return "Advanced2D@L1";
@@ -461,7 +426,7 @@ void File_Mpeg4_Descriptors::Descriptor_02()
     Info_B1(ODProfileLevel,                                     "ODProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_ODProfileLevelIndication(ODProfileLevel));
     Info_B1(SceneProfileLevel,                                  "sceneProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_SceneProfileLevelIndication(SceneProfileLevel));
     Info_B1(AudioProfileLevel,                                  "audioProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_AudioProfileLevelIndication(AudioProfileLevel));
-    Info_B1(VisualProfileLevel,                                 "visualProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_VisualProfileLevelIndication(VisualProfileLevel));
+	Info_B1(VisualProfileLevel,                                 "visualProfileLevelIndication"); Param_Info(Mpeg4v_Profile_Level(VisualProfileLevel));
     Info_B1(GraphicsProfileLevel,                               "graphicsProfileLevelIndication"); Param_Info(Mpeg4_Descriptors_GraphicsProfileLevelIndication(GraphicsProfileLevel));
 
     FILLING_BEGIN();
@@ -479,7 +444,7 @@ void File_Mpeg4_Descriptors::Descriptor_03()
     Get_SB (   streamDependenceFlag,                            "streamDependenceFlag");
     Get_SB (   URL_Flag,                                        "URL_Flag");
     Get_SB (   OCRstreamFlag,                                   "OCRstreamFlag");
-    Skip_S1(5,                                                  "streamPriority");
+	Skip_S1(5,                                                  "streamPriority");
     BS_End();
     if (streamDependenceFlag)
         Skip_B2(                                                "dependsOn_ES_ID");
