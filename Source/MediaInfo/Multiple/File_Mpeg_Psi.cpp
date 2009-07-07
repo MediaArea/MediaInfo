@@ -1824,7 +1824,6 @@ void File_Mpeg_Psi::Descriptors()
 
     //Parsing
     File_Mpeg_Descriptors Descriptors;
-    Buffer_Offset+=(size_t)Element_Offset; //Positionning
     Descriptors.Complete_Stream=Complete_Stream;
     Descriptors.transport_stream_id=transport_stream_id;
     Descriptors.table_id=table_id;
@@ -1832,8 +1831,7 @@ void File_Mpeg_Psi::Descriptors()
     Descriptors.xxx_id=xxx_id;
     Descriptors.xxx_id_IsValid=xxx_id_IsValid;
     Open_Buffer_Init(&Descriptors);
-    Open_Buffer_Continue(&Descriptors, Buffer+Buffer_Offset, Descriptors_Size);
-    Buffer_Offset-=(size_t)Element_Offset; //Positionning
+    Open_Buffer_Continue(&Descriptors, Buffer+Buffer_Offset+(size_t)Element_Offset, Descriptors_Size);
     Element_Offset+=Descriptors_Size;
     Element_End();
     xxx_id_IsValid=false;
