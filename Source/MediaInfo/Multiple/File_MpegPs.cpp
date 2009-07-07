@@ -2562,9 +2562,6 @@ void File_MpegPs::SL_packetized_stream()
 {
     Element_Name("SL-packetized_stream");
 
-    //Demux
-    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(Element_Code, 16)+_T(".latm"));
-
     //For TS streams, which does not have Start chunk
     if (FromTS)
     {
@@ -2653,6 +2650,29 @@ void File_MpegPs::SL_packetized_stream()
     Streams[start_code].Searching_Payload=false;
     if (audio_stream_Count>0)
         audio_stream_Count--;
+
+    if (MediaInfoLib::Config.Demux_Get())
+    {
+        int8u A[7];
+        //TODO: Only for 24KHz stuff, should be modified... output is ADTS
+        A[0]=0xFF;
+        A[1]=0xF9;
+        A[2]=0x58;
+        A[3]=0x80;
+        A[4]=0x00;
+        A[5]=0x1F;
+        A[6]=0xFC;
+
+        int32u Size=Element_Size+7;
+        Size=Size<<13;
+        A[3]=A[3]|((int8u)(Size>>24));
+        A[4]=A[4]|((int8u)(Size>>16));
+        A[5]=A[5]|((int8u)(Size>>8));
+
+        //Demux
+        Demux(A, 7, Ztring::ToZtring(Element_Code, 16)+_T(".aac"));
+        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(Element_Code, 16)+_T(".aac"));
+    }
 }
 
 //---------------------------------------------------------------------------
