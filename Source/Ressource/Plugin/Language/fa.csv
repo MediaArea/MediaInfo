@@ -746,9 +746,9 @@ Nationality;مليت
 NetworkName;نام شبکه
 New;جدید
 Newest version;کنترل برای نسخه جدید نیاز به اینترنت
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+NewVersion_Menu;نسخه جدید موجود است
+NewVersion_Question_Title;نسخه جدید انتشار یافت
+NewVersion_Question_Content;نسخه جدید (v%Version%) موجود است, می خواهید آن را دانلود کنید?
 No;خیر
 Not yet;هنوز خیر
 NumColors;تعداد رنگ ها
@@ -937,5 +937,5 @@ Written_Location;مکان نوشته
 WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
