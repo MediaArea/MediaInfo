@@ -746,6 +746,9 @@ Nationality;Narodowość
 NetworkName
 New;Nowy
 Newest version;Sprawdź czy są nowe wersje (wmagane jest połączenie z siecią)
+NewVersion_Menu
+NewVersion_Question_Title
+NewVersion_Question_Content
 No;Nie
 Not yet;Jeszcze nie ma
 NumColors;Liczba kolorów
@@ -934,5 +937,5 @@ Written_Location;Lokalizacja
 WrittenBy;Napisał
 Yes;Tak
 Your system;System
-ZZ_Automatic_Percent;88
+ZZ_Automatic_Percent;87
 ZZ_AutomaticLanguage_Percent;98

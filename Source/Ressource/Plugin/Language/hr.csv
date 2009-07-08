@@ -746,6 +746,9 @@ Nationality;Nacionalnost
 NetworkName
 New;Novo
 Newest version;Provjeriti dostupnost nove inačice (iziskuje vezu s Internetom)
+NewVersion_Menu
+NewVersion_Question_Title
+NewVersion_Question_Content
 No;Ne
 Not yet;Još ne
 NumColors;Broj boja

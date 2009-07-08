@@ -746,6 +746,9 @@ Nationality;制作国
 NetworkName
 New;新規
 Newest version;新バージョンチェック（要インターネット接続）
+NewVersion_Menu
+NewVersion_Question_Title
+NewVersion_Question_Content
 No;いいえ
 Not yet;準備中です
 NumColors;色

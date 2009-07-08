@@ -86,6 +86,8 @@ ZtringListList Page_System_Text; //List of Text codecs
 
 //Temp
 Ztring FileName_Temp; //Temporary file used for HTML presentation
+std::vector<TCustomButton*> Donates;
+TCustomButton*              Donate_Current;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -153,6 +155,18 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     Page_Sheet_X_Web[Stream_Audio]=Page_Sheet_A_Web;
     Page_Sheet_X_Web[Stream_Text]=Page_Sheet_T_Web;
     Page_Sheet_X_Web[Stream_Chapters]=Page_Sheet_C_Web;
+    //-Donate
+    Donates.push_back(Donate_de);
+    Donates.push_back(Donate_en);
+    Donates.push_back(Donate_es);
+    Donates.push_back(Donate_fr);
+    Donates.push_back(Donate_it);
+    Donates.push_back(Donate_ja);
+    Donates.push_back(Donate_pl);
+    Donates.push_back(Donate_zh_CN);
+    Donates.push_back(Donate_zh_TW);
+    Donates.push_back(Donate___);
+    Donate_Current=NULL;
 
     //Configuration of properties
     Page->Top=-6; //Not done with BCB because I want to easy select tabs in it
@@ -406,6 +420,13 @@ void __fastcall TMainF::FormResize(TObject *Sender)
         Page_System_Sheet->Width = Page_System->ClientWidth - 2;
         Page_System_Sheet->Height = Page_System->ClientHeight - Page_System_Sheet->Top - 2;
     }
+
+    //Donate
+    if (Donate_Current)
+    {
+        Donate_Current->Left=-1;
+        Donate_Current->Top=ClientHeight-Donate_Current->Height+1;
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -524,6 +545,38 @@ void __fastcall TMainF::Translate()
 
     //MediaInfo
     I->Option_Static(_T("Language"), Prefs->Details[Prefs_Language].Read());
+
+    //New version
+    M_NewVersion->Caption=(_T(" | ")+Prefs->Translate(_T("NewVersion_Menu"))).c_str();
+    M_NewVersion->Visible=Prefs->NewVersion_Display;
+
+    //Donate
+    #define DONATE(_LANG, _TEXT) else if (Language==_T(_TEXT)) {Donate_Current=Donate_##_LANG; Donate_Current->Visible=true;}
+    for (size_t Pos=0; Pos<Donates.size(); Pos++)
+        Donates[Pos]->Visible=false;
+    Ztring Language=Prefs->Translate(_T("  Language_ISO639"));
+    if (Prefs->Donate_Display)
+    {
+        if (0);
+        DONATE(de, "de")
+        DONATE(en, "en")
+        DONATE(es, "ca")
+        DONATE(es, "es")
+        DONATE(es, "gl")
+        DONATE(fr, "fr")
+        DONATE(it, "it")
+        DONATE(ja, "ja")
+        DONATE(pl, "pl")
+        DONATE(zh_CN, "zh-CN")
+        DONATE(zh_TW, "zh-TW")
+        else
+        {
+            Donate_Current=Donate___;
+            ((TButton*)Donate_Current)->Caption=Prefs->Translate(_T("Donate")).c_str();
+            ((TButton*)Donate_Current)->Width=Prefs->Translate(_T("Donate")).size()*8+32;
+            Donate_Current->Visible=true;
+        }
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -707,16 +760,16 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             F.Write(S1);
             F.Close();
             //Navigate
-			Page_HTML_HTML->Navigate((MediaInfoNameSpace::Char*)FileName_Temp.c_str());
-		}
+            Page_HTML_HTML->Navigate((MediaInfoNameSpace::Char*)FileName_Temp.c_str());
+        }
         else
         {
             Ztring TempA; TempA=Prefs->Translate(_T("At least one file"));
-			Ztring Temp;
+            Ztring Temp;
             Temp+=L"about:<html><body>";
-			Temp+=TempA.To_Unicode();
+            Temp+=TempA.To_Unicode();
             Temp+=L"</body></html>";
-			Page_HTML_HTML->Navigate((MediaInfoNameSpace::Char*)Temp.c_str());
+            Page_HTML_HTML->Navigate((MediaInfoNameSpace::Char*)Temp.c_str());
         }
     }
 
@@ -741,16 +794,16 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                 FileName_Temp+=_T(".html");
             }
             F.Create(FileName_Temp, true);
-			F.Write(S1);
+            F.Write(S1);
             F.Close();
             //Navigate
-			Page_Custom_HTML->Navigate((MediaInfoNameSpace::Char*)FileName_Temp.c_str());
+            Page_Custom_HTML->Navigate((MediaInfoNameSpace::Char*)FileName_Temp.c_str());
             FormResize(NULL);
         }
         else
         {
             //Text
-			Page_Custom_Text->Text=S1.c_str();
+            Page_Custom_Text->Text=S1.c_str();
             Page_Custom_Text->Visible=true;
             Page_Custom_HTML->Visible=false;
         }
@@ -803,10 +856,10 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     }
 
     //Form title
-	Ztring Title=GUI_Text(Caption);
+    Ztring Title=GUI_Text(Caption);
     Title=Title.SubString(_T(""), _T(" - "));
          if (FilesCount==0)
-		//0 fichier
+        //0 fichier
         Caption=MEDIAINFO_TITLE;
     else if (FilesCount==1)
         //un fichier
@@ -1130,6 +1183,9 @@ void __fastcall TMainF::M_LanguageClick(TObject *Sender)
     //Load
     Prefs->Load(Prefs_Language, Title);
     Translate();
+
+    //Refresh global
+    FormResize(NULL);
 }
 
 //***************************************************************************
@@ -1438,5 +1494,73 @@ MESSAGE void __fastcall TMainF::HandleDropFiles (TMessage& Msg)
     Refresh();
 }
 
+//***************************************************************************
+// Donate
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Donate_deClick(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/de/Donate"), NULL, NULL, SW_SHOWNORMAL);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Donate_enClick(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/en/Donate"), NULL, NULL, SW_SHOWNORMAL);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Donate_esClick(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/es/Donate"), NULL, NULL, SW_SHOWNORMAL);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Donate_frClick(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/fr/Donate"), NULL, NULL, SW_SHOWNORMAL);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Donate_itClick(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/it/Donate"), NULL, NULL, SW_SHOWNORMAL);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Donate_jaClick(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/ja/Donate"), NULL, NULL, SW_SHOWNORMAL);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Donate_plClick(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/pl/Donate"), NULL, NULL, SW_SHOWNORMAL);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Donate_zh_CNClick(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/zh_CN/Donate"), NULL, NULL, SW_SHOWNORMAL);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Donate_zh_TWClick(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, _T("http://mediainfo.sourceforge.net/zh_TW/Donate"), NULL, NULL, SW_SHOWNORMAL);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Donate___Click(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, (Ztring(_T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(_T("  Language_ISO639"))+_T("/Donate")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
+
+void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, (Ztring(_T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(_T("  Language_ISO639"))+_T("?NewVersionRequest=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
 //---------------------------------------------------------------------------
 

@@ -746,6 +746,9 @@ Nationality;Nationality
 NetworkName
 New;Nový
 Newest version;Při spuštění kontrolovat nové verze
+NewVersion_Menu
+NewVersion_Question_Title
+NewVersion_Question_Content
 No;Ne
 Not yet
 NumColors
@@ -934,5 +937,5 @@ Written_Location;Written location
 WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
-ZZ_Automatic_Percent;81
+ZZ_Automatic_Percent;80
 ZZ_AutomaticLanguage_Percent;85

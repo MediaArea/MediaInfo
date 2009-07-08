@@ -48,7 +48,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#define MediaInfo_Version_GUI _T("0.7.18")
+#define MediaInfo_Version_GUI _T("0.7.19BETA")
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -98,6 +98,10 @@ public:
     //Info abou Lists
     ZenLib::ZtringList FolderNames;  //List of list_t --> Foldernames
     ZenLib::ZtringList DefaultNames; //List of list_t --> Default Filenames for a kind
+
+    //Donate
+    bool Donate_Display;
+    bool NewVersion_Display;
 };
 
 //General preference for the whole program

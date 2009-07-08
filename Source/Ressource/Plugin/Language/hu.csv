@@ -746,6 +746,9 @@ Nationality;Nemzetiség
 NetworkName
 New;Új
 Newest version;Frissítés keresése (Internet kapcsolat szükséges)
+NewVersion_Menu
+NewVersion_Question_Title
+NewVersion_Question_Content
 No;nem
 Not yet;Még nincs
 NumColors;Színek száma
@@ -935,4 +938,4 @@ WrittenBy;Írta
 Yes;igen
 Your system;Rendszer
 ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;98
+ZZ_AutomaticLanguage_Percent;97

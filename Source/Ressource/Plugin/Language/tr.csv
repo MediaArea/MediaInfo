@@ -746,6 +746,9 @@ Nationality;Uyruk
 NetworkName;Ağ adı
 New;Yeni
 Newest version;Yeni sürümleri kontrol et (Internet bağlantısı gerekir)
+NewVersion_Menu
+NewVersion_Question_Title
+NewVersion_Question_Content
 No;Hayır
 Not yet;Henüz değil
 NumColors;Renk sayısı

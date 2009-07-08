@@ -746,6 +746,9 @@ Nationality;Nationaliteit
 NetworkName
 New;Nieuw
 Newest version;Controleer op nieuwe versies (vereist internetverbinding)
+NewVersion_Menu
+NewVersion_Question_Title
+NewVersion_Question_Content
 No;Nee
 Not yet;Nog niet
 NumColors;Aantal kleuren

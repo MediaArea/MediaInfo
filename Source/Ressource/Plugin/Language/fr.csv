@@ -746,6 +746,9 @@ Nationality;Nationalité
 NetworkName;Nom du réseau
 New;Nouveau
 Newest version;Vérifier s'il y a une nouvelle version
+NewVersion_Menu;Une nouvelle version est disponible
+NewVersion_Question_Title;Une nouvelle version est sortie!
+NewVersion_Question_Content;Une nouvelle version (v%Version%) est disponible, souhaitez-vous la télécharger?
 No;Non
 Not yet;Pas encore
 NumColors;Nombre de couleurs

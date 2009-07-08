@@ -746,6 +746,9 @@ Nationality;Nationalitate
 NetworkName
 New;Nou
 Newest version;Verificati existenta unei versiuni noi (necesita conexiune Internet)
+NewVersion_Menu
+NewVersion_Question_Title
+NewVersion_Question_Content
 No;Nu
 Not yet
 NumColors
@@ -935,4 +938,4 @@ WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
 ZZ_Automatic_Percent;36
-ZZ_AutomaticLanguage_Percent;76
+ZZ_AutomaticLanguage_Percent;75

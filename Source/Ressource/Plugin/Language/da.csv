@@ -746,6 +746,9 @@ Nationality;Nationalitet
 NetworkName;Netværksnavn
 New;Ny
 Newest version;Tjek for nyeste version (kræver internetforbindelse)
+NewVersion_Menu
+NewVersion_Question_Title
+NewVersion_Question_Content
 No;Nej
 Not yet;Ikke endnu
 NumColors;Antal farver
@@ -935,4 +938,4 @@ WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
 ZZ_Automatic_Percent;79
-ZZ_AutomaticLanguage_Percent;100
+ZZ_AutomaticLanguage_Percent;99

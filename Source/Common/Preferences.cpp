@@ -74,6 +74,12 @@ Preferences::Preferences()
         "Example;"
         "Example;"
         "en;");
+
+    //New version
+    NewVersion_Display=false;
+
+    //Donate
+    Donate_Display=true;
 }
 
 //***************************************************************************
@@ -149,6 +155,28 @@ int Preferences::Config_Load()
     //Internet
     if (Retour!=2 && Config(_T("CheckUpdate"))==_T("1"))
         Prefs->InternetCheck();
+
+    //New version menu
+    if (!Prefs->Config(_T("Version")).empty() && Prefs->Config(_T("Version"))!=Prefs->Config(_T("NewestVersion")))
+        Prefs->NewVersion_Display=true;
+
+    //Donate display
+    TRegistry* Reg_User=new TRegistry;
+    try
+    {
+        if (Reg_User->OpenKey(_T("Software\\MediaArea.net\\MediaInfo"), false))
+        {
+            //Test if donation was given
+            int Donated=0;
+            if (Reg_User->ValueExists("Donated"))
+                Donated=Reg_User->ReadInteger("Donated");
+            if (Donated)
+                Donate_Display=false;
+        }
+    }
+    catch (...){}
+
+    delete Reg_User; Reg_User=NULL;
 
     return Retour;
 }
@@ -326,11 +354,17 @@ void __fastcall ThreadInternetCheck::Execute()
         ZtringListList C3=Download.SubSheet(_T("NewMessage"));
         int Pos=C3.Find(Prefs->Config(_T("Language")), 1);
         if (Pos==-1)
-			Pos=C3.Find(_T("en"), 1);
+            Pos=C3.Find(_T("en"), 1);
         if (Pos==-1)
             return;
         C3(Pos, 2).FindAndReplace(_T("\\r\\n"), _T("\r\n"));
-		Application->MessageBox(C3(Pos, 2).c_str(), _T("New version released!"));
+        Ztring Message=Prefs->Translate(_T("NewVersion_Question_Content"));
+        Message.FindAndReplace(_T("%Version%"), NewestVersion);
+        switch(Application->MessageBox(Message.c_str(), Prefs->Translate(_T("NewVersion_Question_Title")).c_str(), MB_YESNO))
+        {
+            case IDYES : ShellExecute(NULL, NULL, (Ztring(_T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(_T("  Language_ISO639"))+_T("?NewVersionRequest=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+            default    : ;
+        }
         //Inscription version connue pour pas repeter l'avertissement
         int Version_Pos=Prefs->Config.Find(_T("NewestVersion"));
         Prefs->Config(Version_Pos, 1)=NewestVersion;
@@ -370,7 +404,7 @@ int Preferences::ExplorerShell()
 
     ZtringListList Liste;
     Liste=_T(
-        /*".3gp;mpeg4File\r\n"
+        ".3gp;mpeg4File\r\n"
         ".3gpp;mpeg4File\r\n"
         ".aac;AACFile\r\n"
         ".ac3;AC3File\r\n"
@@ -445,7 +479,7 @@ int Preferences::ExplorerShell()
         ".wav;WAVFile\r\n"
         ".wma;WMAFile\r\n"
         ".wmv;WMVFile\r\n"
-		".wv;WCFile\r\n"*/
+        ".wv;WCFile\r\n"
         ".wvc;WVCFile\r\n"
         "Folder;Folder");
 
@@ -466,7 +500,7 @@ int Preferences::ExplorerShell()
             {
                 //test if extension is known
                 AnsiString Player=Reg->ReadString(_T(""));
-				Reg->CloseKey();
+                Reg->CloseKey();
 
                 //Test if old Media Info shell extension is known
                 if (Player!="" && Reg->OpenKey(Player+_T("\\Shell\\Media Info\\Command"), false))
@@ -514,7 +548,7 @@ int Preferences::ExplorerShell()
         ExplorerShell_Edit("Folder", 0, IsChanged, Reg);
 
         //Adding/removing to SystemFileAssociations
-		int32s ShellExtension=Config.Read(_T("ShellExtension")).To_int32s();
+        int32s ShellExtension=Config.Read(_T("ShellExtension")).To_int32s();
         for (size_t I1=0; I1<Liste.size(); I1++)
         {
             //Remove shell ext except "Folder"
@@ -812,14 +846,14 @@ int Preferences::ShellToolTip()
     if (Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32", false))
     {
         //MediaInfo shell extension is known
-		if (ShellInfoTip)
-		{
+        if (ShellInfoTip)
+        {
             //test if good writing
-			std::string DLL_Name=Application->ExeName.c_str();
-			DLL_Name.resize(DLL_Name.rfind('\\')); //Removing ".exe"
-			DLL_Name+="\\MediaInfo_InfoTip.dll";
+            std::string DLL_Name=Application->ExeName.c_str();
+            DLL_Name.resize(DLL_Name.rfind('\\')); //Removing ".exe"
+            DLL_Name+="\\MediaInfo_InfoTip.dll";
             std::string ShellInfoTipToWtrite="\"" + DLL_Name +"\"";
-			std::string ShellInfoTip_Existing=Reg_User->ReadString(_T("")).c_str();
+            std::string ShellInfoTip_Existing=Reg_User->ReadString(_T("")).c_str();
             if (ShellInfoTip_Existing!=ShellInfoTipToWtrite)
             {
                 //This is not the good shell extension, writing new one
@@ -831,7 +865,7 @@ int Preferences::ShellToolTip()
         {
             //Should not be here, deleting
             Reg_User->CloseKey();
-			Reg_User->DeleteKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32");
+            Reg_User->DeleteKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32");
             Reg_User->DeleteKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_");
             Reg_User->DeleteKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1");
             for (size_t I1=0; I1<Liste.size(); I1++)
@@ -854,14 +888,14 @@ int Preferences::ShellToolTip()
             Reg_User->CloseKey();
             Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}", true);
             try {Reg_User->WriteString("", "MediaInfoShellExt_ Class");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
-			Reg_User->CloseKey();
-			Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32", true);
-			std::string DLL_Name=Application->ExeName.c_str();
+            Reg_User->CloseKey();
+            Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32", true);
+            std::string DLL_Name=Application->ExeName.c_str();
             DLL_Name.resize(DLL_Name.rfind('\\')); //Removing ".exe"
             DLL_Name+="\\MediaInfo_InfoTip.dll";
             std::string ShellInfoTipToWtrite="\"" + DLL_Name +"\"";
             try {Reg_User->WriteString("", ShellInfoTipToWtrite.c_str());} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
-			try {Reg_User->WriteString("ThreadingModel", "Apartment");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            try {Reg_User->WriteString("ThreadingModel", "Apartment");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
             Reg_User->CloseKey();
             Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\ProcID", true);
             try {Reg_User->WriteString("", "MediaInfoShellExt.MediaInfoShellExt_.1");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}

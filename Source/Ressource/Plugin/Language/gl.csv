@@ -746,6 +746,9 @@ Nationality;Nacionalidade
 NetworkName
 New;Novo
 Newest version;Buscar nova versión (require conexión a Internet)
+NewVersion_Menu
+NewVersion_Question_Title
+NewVersion_Question_Content
 No;No
 Not yet;Aínda non dispoñible
 NumColors
@@ -935,4 +938,4 @@ WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
 ZZ_Automatic_Percent;83
-ZZ_AutomaticLanguage_Percent;88
+ZZ_AutomaticLanguage_Percent;87

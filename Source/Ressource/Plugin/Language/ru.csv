@@ -746,6 +746,9 @@ Nationality;Национальность
 NetworkName;Название сети
 New;Новый...
 Newest version;Проверить на обновление (требуется подключение к интернету)
+NewVersion_Menu
+NewVersion_Question_Title
+NewVersion_Question_Content
 No;Нет
 Not yet;Ещё нет
 NumColors;Количество цветов

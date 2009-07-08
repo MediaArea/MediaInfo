@@ -746,6 +746,9 @@ Nationality;Nationality
 NetworkName
 New;ใหม่
 Newest version;ตรวจสอบเวอร์ชันใหม่ล่าสุด (ต้องการการเชื่อมต่ออินเตอร์เน็ต)
+NewVersion_Menu
+NewVersion_Question_Title
+NewVersion_Question_Content
 No;ไม่ใช่
 Not yet
 NumColors
@@ -935,4 +938,4 @@ WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
 ZZ_Automatic_Percent;87
-ZZ_AutomaticLanguage_Percent;92
+ZZ_AutomaticLanguage_Percent;91

@@ -746,6 +746,9 @@ Nationality;Kombësi
 NetworkName;Emri i rrjetit
 New;E re
 Newest version;Verifiko versionin më të ri (nevojitet lidhje me internet)
+NewVersion_Menu
+NewVersion_Question_Title
+NewVersion_Question_Content
 No;Jo
 Not yet;Ende jo
 NumColors;Numri i ngjyrave
@@ -934,5 +937,5 @@ Written_Location;Vendndodhje e shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

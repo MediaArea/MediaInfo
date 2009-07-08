@@ -746,6 +746,9 @@ Nationality;国藉
 NetworkName;网络名称
 New;新建
 Newest version;查找更新(需要网络连接)
+NewVersion_Menu
+NewVersion_Question_Title
+NewVersion_Question_Content
 No;否
 Not yet;尚无
 NumColors;色深
@@ -934,5 +937,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

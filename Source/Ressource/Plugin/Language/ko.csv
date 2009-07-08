@@ -746,6 +746,9 @@ Nationality;국적
 NetworkName
 New;새로 만들기
 Newest version;최신 버전 확인 (인터넷 연결이 필요함)
+NewVersion_Menu
+NewVersion_Question_Title
+NewVersion_Question_Content
 No;아니오
 Not yet;미정
 NumColors;색상수

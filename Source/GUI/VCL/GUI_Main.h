@@ -38,6 +38,9 @@
 #include <StdCtrls.hpp>
 #include <Dialogs.hpp>
 #include "SHDocVw_OCX.h"
+#include <ExtCtrls.hpp>
+#include <GIFImg.hpp>
+#include <Buttons.hpp>
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -178,6 +181,18 @@ __published:    // IDE-managed Components
     TMenuItem *M_Debug_Details50;
     TMenuItem *M_Debug_Details90;
     TMenuItem *M_Debug_Details100;
+	TSpeedButton *SpeedButton1;
+	TBitBtn *Donate_en;
+    TBitBtn *Donate_fr;
+    TButton *Donate___;
+    TBitBtn *Donate_de;
+    TBitBtn *Donate_es;
+    TBitBtn *Donate_it;
+    TBitBtn *Donate_ja;
+    TBitBtn *Donate_pl;
+    TBitBtn *Donate_zh_CN;
+    TBitBtn *Donate_zh_TW;
+    TMenuItem *M_NewVersion;
     void __fastcall FormResize(TObject *Sender);
     void __fastcall M_Help_AboutClick(TObject *Sender);
     void __fastcall M_Options_PreferencesClick(TObject *Sender);
@@ -220,6 +235,17 @@ __published:    // IDE-managed Components
     void __fastcall M_Options_ShowMenuClick(TObject *Sender);
     void __fastcall M_Debug_Dummy_MovieClick(TObject *Sender);
     void __fastcall M_Debug_DummyClick(TObject *Sender);
+	void __fastcall Donate_enClick(TObject *Sender);
+    void __fastcall Donate_deClick(TObject *Sender);
+    void __fastcall Donate_esClick(TObject *Sender);
+    void __fastcall Donate_frClick(TObject *Sender);
+    void __fastcall Donate_itClick(TObject *Sender);
+    void __fastcall Donate_jaClick(TObject *Sender);
+    void __fastcall Donate_plClick(TObject *Sender);
+    void __fastcall Donate_zh_CNClick(TObject *Sender);
+    void __fastcall Donate_zh_TWClick(TObject *Sender);
+    void __fastcall Donate___Click(TObject *Sender);
+    void __fastcall M_NewVersionClick(TObject *Sender);
 private:    // User declarations
 public:        // User declarations
     MESSAGE void __fastcall HandleDropFiles (TMessage&);
