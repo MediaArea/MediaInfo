@@ -179,8 +179,8 @@ BitRate;流量
 BitRate_Maximum;最大流量
 BitRate_Minimum;最小流量
 BitRate_Mode;流量模式
-BitRate_Mode_CBR;固定常數
-BitRate_Mode_VBR;可變動
+BitRate_Mode_CBR;常數式
+BitRate_Mode_VBR;可變式
 BitRate_Nominal;正常流量
 Bits-(Pixel*Frame);位元/(像素*影格)
 Cancel;取消
@@ -329,8 +329,8 @@ Format_Url;該格式的網址
 FrameCount;影格數
 FrameRate;影格頻率
 FrameRate_Mode;影格頻率模式
-FrameRate_Mode_CFR;固定常數
-FrameRate_Mode_VFR;可變動
+FrameRate_Mode_CFR;常數式
+FrameRate_Mode_VFR;可變式
 FrameRate_Minimum;最小影格頻率
 FrameRate_Nominal;正常影格頻率
 FrameRate_Maximum;最大影格頻率
@@ -746,9 +746,9 @@ Nationality;國籍
 NetworkName;網路名稱
 New;新增
 Newest version;檢查最新的版本 (需要網路連線)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+NewVersion_Menu;有新版本
+NewVersion_Question_Title;有新版本發布!
+NewVersion_Question_Content;有新版本 (v%Version%) 了, 您想下載嗎?
 No;否
 Not yet;還沒好
 NumColors;色彩數
@@ -760,7 +760,7 @@ OpenCandy_02;__% 完成
 OpenCandy_03;網路連線被中斷
 OpenCandy_04;________ 下載完成
 OpenCandy_05;按一下安裝 ________
-OpenCandy_06;您確定要取消安裝嗎?\r\n如果您想稍後再裝, 請選 'No'.\r\n請留意: 您可能從選單上選擇了 ""離開"", 下次重開機時再繼續安裝.
+OpenCandy_06;您確定要取消安裝嗎?\r\n如果您想稍後再裝, 請選 'No'.\r\n請留意: 您可以從選單上選擇 ""離開"", 到下次重開機再繼續安裝.
 OpenCandy_07;________ 的下載已暫停.\r\n請按系統列的圖示以繼續下載.
 OpenCandy_08;發生了嚴重的錯誤. _________ 的下載即將中止.
 OpenCandy_09;暫停下載
@@ -937,5 +937,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
