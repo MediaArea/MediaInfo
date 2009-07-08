@@ -51,6 +51,7 @@ private :
     int8u  audioObjectType;
     int8u  extensionAudioObjectType;
     bool   sbrPresentFlag;
+    bool   psPresentFlag;
 };
 
 } //NameSpace

@@ -140,6 +140,7 @@ const char* MP4_Profile(int8u ID)
         case   26 : return "ER HILN";
         case   27 : return "ER Parametric";
         case   28 : return "SSC";
+        case   29 : return "PS";
         case   31 : return "(escape)";
         case   32 : return "Layer-1";
         case   33 : return "Layer-2";
@@ -241,10 +242,13 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
     Get_S1 (4, channelConfiguration,                            "channelConfiguration"); Param_Info(MP4_ChannelConfiguration[channelConfiguration]);
 
     sbrPresentFlag=false;
-    if (audioObjectType==0x05)
+    psPresentFlag=false;
+    if (audioObjectType==0x05 || audioObjectType==0x29)
     {
         extensionAudioObjectType=audioObjectType;
         sbrPresentFlag=true;
+        if (audioObjectType==0x29)
+            psPresentFlag=false;
         Get_S1 (4, samplingFrequencyIndex,                      "extensionSamplingFrequencyIndex"); Param_Info(MP4_SamplingRate[samplingFrequencyIndex]);
         if (samplingFrequencyIndex==0xF)
         {
@@ -259,6 +263,8 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
             Get_S1 (6, audioObjectTypeExt,                      "audioObjectTypeExt");
             audioObjectType=32+audioObjectTypeExt; Param_Info(MP4_Profile(audioObjectType));
         }
+        if (audioObjectType==22) //BSAC
+            Skip_S1(4,                                          "extensionChannelConfiguration");
     }
     else
         extensionAudioObjectType=0x00;
@@ -370,7 +376,7 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
         Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, 16);
 
         //SBR stuff
-        if (Data_Remain()>=2 && extensionAudioObjectType!=0x05)
+        if (extensionAudioObjectType!=0x05 && Data_BS_Remain()>=16)
             SBR();
     FILLING_END();
 
@@ -614,6 +620,19 @@ void File_Mpeg4_AudioSpecificConfig::SBR ()
         //PS stuff
         if (Data_Remain())
             PS();
+
+        //BSAC stuff
+        //if (extensionAudioObjectType==22)
+        //    BSAC();
+        //if ( extensionAudioObjectType == 22 ) {
+        //    sbrPresentFlag;
+        //    if (sbrPresentFlag == 1) {
+        //        extensionSamplingFrequencyIndex;
+        //        if ( extensionSamplingFrequencyIndex == 0xf )
+        //            extensionSamplingFrequency;
+        //    }
+        //    extensionChannelConfiguration
+        //}
     FILLING_END();
 }
 
@@ -624,13 +643,19 @@ void File_Mpeg4_AudioSpecificConfig::PS ()
 {
     //Parsing
     Element_Begin("PS");
+    int16u syncExtensionType;
     bool PS;
-    Skip_S1(11,                                                 "Unknown");
-    Get_SB (    PS,                                             "PS present");
+    Get_S2 (11, syncExtensionType,                             "syncExtensionType");
+    if (syncExtensionType!=0x548)
+    {
+        Element_End();
+        return;
+    }
+    Get_SB (psPresentFlag,                                     "psPresentFlag");
     Element_End();
 
     FILLING_BEGIN();
-        if (PS)
+        if (psPresentFlag)
         {
             Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 2, 10, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "PS");
