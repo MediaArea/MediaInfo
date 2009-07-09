@@ -37,20 +37,59 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Constructor/Destructor
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+File_Aac::File_Aac()
+{
+    //In
+    #ifdef MEDIAINFO_MPEG4_YES
+        DecSpecificInfoTag=NULL;
+        SLConfig=NULL;
+    #endif
+
+    //libfaad specific
+    #ifdef MEDIAINFO_FAAD_YES
+        hAac=NULL;
+    #endif
+}
+
+//---------------------------------------------------------------------------
+File_Aac::~File_Aac()
+{
+    //libfaad specific
+    #ifdef MEDIAINFO_FAAD_YES
+        NeAACDecClose(hAac); //hAac=NULL;
+    #endif
+}
+
+//***************************************************************************
 // Buffer - Global
 //***************************************************************************
 
 //---------------------------------------------------------------------------
 void File_Aac::Read_Buffer_Continue()
 {
-    //It is impossible to detect... Default is no detection, only filling
+    if (!Codec.empty())
+        From_Codec(); //It is impossible to detect... Default is no detection, only filling
+    else
+        libfaad(); //Trying libfaad if available
+}
 
+//***************************************************************************
+// Helpers
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Aac::From_Codec()
+{
     //Filling
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "AAC");
     Stream_Prepare(Stream_Audio);
-    Fill(Stream_General, 0, Audio_Format, "AAC");
-    Fill(Stream_General, 0, Audio_Codec, "AAC");
+    Fill(Stream_Audio, 0, Audio_Format, "AAC");
+    Fill(Stream_Audio, 0, Audio_Codec, "AAC");
     Ztring Profile;
     int8u Version=0, SBR=2, PS=2;
          if (0);
@@ -85,6 +124,61 @@ void File_Aac::Read_Buffer_Continue()
 
     Accept("AAC");
     Finish("AAC");
+}
+
+//***************************************************************************
+// libfaad specific
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Aac::libfaad()
+{
+    #if defined(MEDIAINFO_FAAD_YES) && defined(MEDIAINFO_MPEG4_YES)
+        unsigned long samplerate;
+        unsigned char channels;
+
+        //Open the library
+        if (hAac==NULL)
+        {
+            hAac = NeAACDecOpen();
+            // Initialise the library using one of the initialization functions
+            char err = NeAACDecInit2(hAac, (unsigned char *)DecSpecificInfoTag->Buffer, DecSpecificInfoTag->Buffer_Size, &samplerate, &channels);
+            if (err != 0)
+            {
+                //
+                // Handle error
+                //
+            }
+        }
+
+        //Decode the frame in buffer
+        void* samplebuffer;
+        NeAACDecFrameInfo hInfo;
+        samplebuffer = NeAACDecDecode(hAac, &hInfo, (unsigned char *)Buffer, Buffer_Size);
+        if ((hInfo.error == 0) && (hInfo.samples > 0))
+        {
+            //
+            // do what you need to do with the decoded samples
+            //
+        }
+        else if (hInfo.error != 0)
+        {
+            //
+            // Some error occurred while decoding this frame
+            //
+        }
+    #else
+        //Filling
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "AAC");
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "AAC");
+        Fill(Stream_Audio, 0, Audio_Codec, "AAC");
+
+        IsFilled=true;
+        Accept("AAC");
+        Finish("AAC");
+    #endif
 }
 
 //***************************************************************************

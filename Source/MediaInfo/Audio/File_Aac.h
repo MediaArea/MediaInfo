@@ -28,6 +28,12 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#ifdef MEDIAINFO_MPEG4_YES
+    #include "MediaInfo/Multiple/File_Mpeg4_Descriptors.h"
+#endif
+#ifdef MEDIAINFO_FAAD_YES
+    #include "neaacdec.h";
+#endif
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -42,10 +48,27 @@ class File_Aac : public File__Analyze
 public :
     //In
     ZenLib::Ztring Codec;
+    #ifdef MEDIAINFO_MPEG4_YES
+        File_Mpeg4_Descriptors::decspecificinfotag* DecSpecificInfoTag;
+        File_Mpeg4_Descriptors::slconfig* SLConfig;
+    #endif
+
+    //Constructor/Destructor
+    File_Aac();
+    ~File_Aac();
 
 protected :
     //Buffer - Global
     void Read_Buffer_Continue ();
+
+    //Helpers
+    void From_Codec();
+
+    //libfaad specific
+    void libfaad();
+    #if defined(MEDIAINFO_FAAD_YES) && defined(MEDIAINFO_MPEG4_YES)
+        NeAACDecHandle hAac;
+    #endif
 };
 
 } //NameSpace

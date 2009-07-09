@@ -292,6 +292,7 @@ File_Mpeg4_Descriptors::File_Mpeg4_Descriptors()
     //Out
     Parser=NULL;
     ES_ID=0x0000;
+    DecSpecificInfoTag=NULL;
     SLConfig=NULL;
 
     //Temp
@@ -304,7 +305,8 @@ File_Mpeg4_Descriptors::~File_Mpeg4_Descriptors()
     if (!Parser_DoNotFreeIt)
     {
         delete Parser;// Parser=NULL;
-        delete SLConfig;// SL=NULL;
+        delete DecSpecificInfoTag; //DecSpecificInfoTag=NULL
+        delete SLConfig;// SLConfig=NULL;
     }
 }
 
@@ -735,6 +737,15 @@ void File_Mpeg4_Descriptors::Descriptor_05()
                     #endif
                     break;
         default: ;
+    }
+
+    //Handling of IOD backup
+    if (ObjectTypeId==0x40) //Audio ISO/IEC 14496-3 (AAC)
+    {
+        DecSpecificInfoTag=new decspecificinfotag;
+        DecSpecificInfoTag->Buffer=new int8u[Element_Size];
+        DecSpecificInfoTag->Buffer_Size=Element_Size;
+        std::memcpy(DecSpecificInfoTag->Buffer, Buffer+Buffer_Offset, Element_Size);
     }
 
     //Parsing

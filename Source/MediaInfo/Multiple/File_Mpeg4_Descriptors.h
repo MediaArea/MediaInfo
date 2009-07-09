@@ -47,6 +47,21 @@ public :
     //Out
     File__Analyze* Parser;
     int16u ES_ID;
+    struct decspecificinfotag
+    {
+        int8u* Buffer;
+        size_t Buffer_Size;
+        decspecificinfotag()
+        {
+            Buffer=NULL;
+            Buffer_Size=0;
+        }
+        ~decspecificinfotag()
+        {
+            delete Buffer; //Buffer=NULL;
+        }
+    };
+
     struct slconfig
     {
         bool   useAccessUnitStartFlag;
@@ -74,6 +89,8 @@ public :
         int64u startDecodingTimeStamp;
         int64u startCompositionTimeStamp;
     };
+
+    decspecificinfotag* DecSpecificInfoTag;
     slconfig* SLConfig;
 
 public :

@@ -50,6 +50,9 @@
 #if defined(MEDIAINFO_DIRAC_YES)
     #include "MediaInfo/Video/File_Dirac.h"
 #endif
+#if defined(MEDIAINFO_AAC_YES)
+    #include "MediaInfo/Audio/File_Aac.h"
+#endif
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
@@ -198,7 +201,10 @@ File_MpegPs::File_MpegPs()
     FromTS_descriptor_tag=0x00; //No info
     MPEG_Version=0; //No info
     Searching_TimeStamp_Start=true;
-    SLConfig=NULL;
+    #ifdef MEDIAINFO_MPEG4_YES
+        DecSpecificInfoTag=NULL;
+        SLConfig=NULL;
+    #endif
 
     //Out
     HasTimeStamps=false;
@@ -2562,24 +2568,8 @@ void File_MpegPs::SL_packetized_stream()
 {
     Element_Name("SL-packetized_stream");
 
-    //For TS streams, which does not have Start chunk
-    if (FromTS)
-    {
-        video_stream_Count=0;
-        audio_stream_Count=1;
-        private_stream_1_Count=0;
-        private_stream_2_Count=false;
-        extension_stream_Count=0;
-        Streams[start_code].stream_type=FromTS_stream_type;
-    }
-
-    //Exists
-    Streams[start_code].StreamIsRegistred=true;
-    if (!IsAccepted)
-        Data_Accept("MPEG-PS");
-
     //Parsing
-    if (SLConfig)
+    if (SLConfig) //LATM
     {
         BS_Begin();
         int8u paddingBits=0;
@@ -2636,21 +2626,48 @@ void File_MpegPs::SL_packetized_stream()
         Skip_XX(Element_Size-Element_Offset,                    "AAC (raw)");
     }
 
-    //Filling
-    Streams[start_code].Parser=new File__Analyze();
-    Open_Buffer_Init(Streams[start_code].Parser);
-    Streams[start_code].Parser->Stream_Prepare(Stream_Audio);
-    Streams[start_code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Format, "AAC");
-    Streams[start_code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "AAC");
-    Streams[start_code].Parser->Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "LATM");
-    Streams[start_code].Parser->Accept();
-    Streams[start_code].Parser->Finish();
+    if (!Streams[start_code].StreamIsRegistred)
+    {
+        //For TS streams, which does not have Start chunk
+        if (FromTS)
+        {
+            video_stream_Count=0;
+            audio_stream_Count=1;
+            private_stream_1_Count=0;
+            private_stream_2_Count=false;
+            extension_stream_Count=0;
+            Streams[start_code].stream_type=FromTS_stream_type;
+        }
+
+        //Exists
+        Streams[start_code].StreamIsRegistred=true;
+
+        //New Streams if needed
+        if (Streams[start_code].Parser==NULL)
+        {
+            Streams[start_code].Parser=ChooseParser_AAC();
+            #ifdef MEDIAINFO_MPEG4_YES
+                ((File_Aac*)Streams[start_code].Parser)->DecSpecificInfoTag=DecSpecificInfoTag;
+                ((File_Aac*)Streams[start_code].Parser)->SLConfig=SLConfig;
+            #endif
+            Open_Buffer_Init(Streams[start_code].Parser);
+            if (!IsAccepted)
+                Data_Accept("MPEG-PS");
+        }
+    }
+
+    //Parsing
+    Open_Buffer_Continue(Streams[start_code].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
     //Disabling this Streams
-    Streams[start_code].Searching_Payload=false;
-    if (audio_stream_Count>0)
-        audio_stream_Count--;
+    if (Streams[start_code].Parser->IsFinished)
+    {
+        Streams[start_code].Searching_Payload=false;
+        if (audio_stream_Count>0)
+            audio_stream_Count--;
+    }
 
+    //Demux
     if (MediaInfoLib::Config.Demux_Get())
     {
         int8u A[7];
@@ -3106,10 +3123,7 @@ File__Analyze* File_MpegPs::ChooseParser_AAC()
     //Filling
     #if defined(MEDIAINFO_ADTS_YES)
         //Filling
-        File__Analyze* Handle=new File_Unknown();
-        Handle->Stream_Prepare(Stream_Audio);
-        Handle->Fill(Stream_Audio, 0, Audio_Format, "AAC");
-        Handle->Fill(Stream_Audio, 0, Audio_Codec,  "AAC");
+        File__Analyze* Handle=new File_Aac();
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();

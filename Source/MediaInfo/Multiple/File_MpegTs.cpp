@@ -1210,8 +1210,13 @@ void File_MpegTs::PES()
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->MPEG_Version=2;
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->Searching_TimeStamp_Start=Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start;
             complete_stream::transport_stream::iod_ess::iterator IOD_ES=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.find(Complete_Stream->Streams[pid].FMC_ES_ID);
-            if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end() && IOD_ES->second.SLConfig)
-                ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->SLConfig=IOD_ES->second.SLConfig;
+            if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end())
+            {
+                #ifdef FILE_MPEG4_YES
+                    ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->DecSpecificInfoTag=IOD_ES->second.DecSpecificInfoTag;
+                    ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->SLConfig=IOD_ES->second.SLConfig;
+                #endif
+            }
             Complete_Stream->Streams[pid].Parser->ShouldContinueParsing=true;
             Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(true);
         #else

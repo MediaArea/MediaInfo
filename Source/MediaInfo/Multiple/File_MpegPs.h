@@ -49,7 +49,10 @@ public :
     int8u  FromTS_descriptor_tag;       //Descriptor from TS
     int8u  MPEG_Version;                //MPEG Version (or automaticly detected)
     bool   Searching_TimeStamp_Start;
-    File_Mpeg4_Descriptors::slconfig* SLConfig;
+    #ifdef MEDIAINFO_MPEG4_YES
+        File_Mpeg4_Descriptors::decspecificinfotag* DecSpecificInfoTag;
+        File_Mpeg4_Descriptors::slconfig* SLConfig;
+    #endif
 
     //Out
     bool   HasTimeStamps;

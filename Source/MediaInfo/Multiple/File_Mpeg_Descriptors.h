@@ -117,20 +117,29 @@ struct complete_stream
         //Per IOD
         struct iod_es
         {
-            File__Analyze*                              Parser;
-            File_Mpeg4_Descriptors::slconfig*           SLConfig;
+            File__Analyze*                                  Parser;
+            #ifdef MEDIAINFO_MPEG4_YES
+                File_Mpeg4_Descriptors::decspecificinfotag* DecSpecificInfoTag;
+                File_Mpeg4_Descriptors::slconfig*           SLConfig;
+            #endif
 
             //Constructor/Destructor
             iod_es()
             {
                 Parser=NULL;
-                SLConfig=NULL;
+                #ifdef MEDIAINFO_MPEG4_YES
+                    DecSpecificInfoTag=NULL;
+                    SLConfig=NULL;
+                #endif
             }
 
             ~iod_es()
             {
                 delete Parser; //Parser=NULL;
-                delete SLConfig; //SL=NULL;
+                #ifdef MEDIAINFO_MPEG4_YES
+                    delete DecSpecificInfoTag; //DecSpecificInfoTag=NULL;
+                    delete SLConfig; //SLConfig=NULL;
+                #endif
             }
         };
         typedef std::map<int16u, iod_es> iod_ess; //Key is ES_ID
