@@ -742,14 +742,18 @@ A_REAL/SIPR;RealAudio 4;Mk;A;Real;;Real & Sipro Voice Codec;http://www.real.com
 A_REAL/RALF;RealAudio Lossless;Mk;A;Real;;Real Audio Lossless Format;http://www.real.com
 A_REAL/ATRC;RealAudio Atrac3;Mk;A;Real;;Real & Sony Atrac3 Codec;http://www.real.com
 A_AAC;AAC;Mk;A;AAC;;;
-A_AAC/MPEG2/MAIN;AAC Main;Mk;A;AAC;;AAC Main Profile;
+A_AAC/MPEG2/MAIN;AAC Main;Mk;A;AAC;;AAC Main;
 A_AAC/MPEG2/LC;AAC LC;Mk;A;AAC;;AAC Low Complexity;
 A_AAC/MPEG2/LC/SBR;AAC LC-SBR;Mk;A;AAC;;AAC Low Complexity with Spectral Band Replication;
 A_AAC/MPEG2/SSR;AAC SSR;Mk;A;AAC;;AAC Scalable Sampling Rate;
-A_AAC/MPEG4/MAIN;AAC Main;Mk;A;AAC;;AAC Main Profile;
+A_AAC/MPEG4/MAIN;AAC Main;Mk;A;AAC;;AAC Low Complexity;
+A_AAC/MPEG4/MAIN/SBR;AAC Main;Mk;A;AAC;;AAC Low Complexity with Spectral Band Replication;
+A_AAC/MPEG4/MAIN/SBR/PS;AAC Main;Mk;A;AAC;;AAC Low Complexity with Spectral Band Replication and Parametric Stereo;
+A_AAC/MPEG4/MAIN/PS;AAC Main;Mk;A;AAC;;AAC Low Complexity with Parametric Stereo;
 A_AAC/MPEG4/LC;AAC LC;Mk;A;AAC;;AAC Low Complexity;
 A_AAC/MPEG4/LC/SBR;AAC LC-SBR;Mk;A;AAC;;AAC Low Complexity with Spectral Band Replication;
 A_AAC/MPEG4/LC/SBR/PS;AAC LC-SBR-PS;Mk;A;AAC;;AAC Low Complexity with Spectral Band Replication and Parametric Stereo;
+A_AAC/MPEG4/LC/PS;AAC LC-PS;Mk;A;AAC;;AAC Low Complexity with Parametric Stereo;
 A_AAC/MPEG4/SSR;AAC SSR;Mk;A;AAC;;AAC Scalable Sampling Rate;
 A_AAC/MPEG4/LTP;AAC LTP;Mk;A;AAC;;AAC Long Term Prediction;
 14_4;VSELP;Real;A;;;EIA/TIA IS-54 VSELP, Real Audio 1 (for streaming 14.4 Kbps);http://www.real.com
@@ -906,10 +910,10 @@ C;MPEG2 5.1;2CC;A;;;MPEG2 5.1;
 84;MVI_MVI2;2CC;A;;;Motion Pixels MVI_MVI2;
 85;ADPCM;2CC;A;ADPCM;;DataFusion Systems (Pty) G726;
 86;GSM6.10;2CC;A;;;DataFusion Systems (Pty) GSM6.10;
-88;ISI AUDIO;2CC;A;;;Iterated Systems AUDIO;
-89;Onlive;2CC;A;;;OnLive! Technologies;
-8A;SX20;2CC;A;;;Multitude;
-8B;ADPCM;2CC;A;ADPCM;;Infocom ITS A/S;
+88;ISI AUDIO;2CC;A;;;Iterated Systems AUDIO
+89;Onlive;2CC;A;;;OnLive! Technologies
+8A;SX20;2CC;A;;;Multitude
+8B;ADPCM;2CC;A;ADPCM;;Infocom ITS A/S
 8C;G.729;2CC;A;;;Convedia Corporation
 91;SBC24;2CC;A;;;Siemens Business Communications Sys 24
 92;AC3 SPDIF;2CC;A;;;Sonic Foundry AC3 SPDIF
@@ -922,10 +926,10 @@ A0;PHONYTALK;2CC;A;;;Malden Electronics PHONYTALK
 A1;GSM;2CC;A;;;Racal Recorders
 A2;G.720a;2CC;A;;;Racal Recorders
 A3;G.723.1;2CC;A;;;Racal Recorders
-A4;ACELP;2CC;A;;;Racal Recorders
-B0;AAC;2CC;A;AAC;;NEC Corporation
-FF;AAC;2CC;A;AAC;;
-100;ADPCM;2CC;A;ADPCM;;
+A4;ACELP;2CC;A;;;Racal Recorders;
+B0;AAC;2CC;A;AAC;;NEC Corporation;
+FF;AAC;2CC;A;AAC;;;
+100;ADPCM;2CC;A;ADPCM;;;
 101;IRAT;2CC;A;;;BeCubed IRAT;
 102;;2CC;A;;;IBM A-law;
 103;;2CC;A;;;IBM AVC ADPCM;
@@ -954,10 +958,10 @@ FF;AAC;2CC;A;AAC;;
 163;WMA Lossless;2CC;A;;;Windows Media Audio 3;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
 163;WMA Pro;2CC;A;;;WMA Pro over S/PDIF;
 170;ADPCM;2CC;A;ADPCM;;Unisys Nap ADPCM;
-171;U-Law;2CC;A;ADPCM;;Unisys Nap U-law;
-172;A-Law;2CC;A;ADPCM;;Unisys Nap A-law;
-173;16K;2CC;A;;;Unisys Nap 16K;
-174;G.700;2CC;A;;;SyCom Technologies;
+171;U-Law;2CC;A;ADPCM;;Unisys Nap U-law
+172;A-Law;2CC;A;ADPCM;;Unisys Nap A-law
+173;16K;2CC;A;;;Unisys Nap 16K
+174;G.700;2CC;A;;;SyCom Technologies
 175;ADPCM;2CC;A;ADPCM;;SyCom Technologies
 176;CELP54;2CC;A;;;SyCom Technologies
 177;CELP68;2CC;A;;;SyCom Technologies
@@ -974,18 +978,18 @@ FF;AAC;2CC;A;AAC;;
 230;VC;2CC;A;;;I-link VC
 240;RAW_SPORT;2CC;A;;;Aureal RAW_SPORT
 241;AC3;2CC;A;;;ESST AC3
-250;HSX;2CC;A;;;Interactive Products, Inc. (IPI) HSX;
-251;RPELP;2CC;A;;;Interactive Products, Inc. (IPI) RPELP;
-260;CS2;2CC;A;;;Consistent Software CS2;
-270;SCX;2CC;A;;;Sony;
-271;SCY;2CC;A;;;Sony;
-272;Atrac3;2CC;A;;;Sony;
-273;SPC;2CC;A;;;Sony;
-280;Telum;2CC;A;;;;
-281;TelumIA;2CC;A;;;;
-285;ADPCM;2CC;A;ADPCM;;Norcom Voice Systems;
-300;FM_TOWNS_SND;2CC;A;;;Fujitsu FM_TOWNS_SND;
-350;Dev;2CC;A;;;Micronas Semiconductors, Inc.;
+250;HSX;2CC;A;;;Interactive Products, Inc. (IPI) HSX
+251;RPELP;2CC;A;;;Interactive Products, Inc. (IPI) RPELP
+260;CS2;2CC;A;;;Consistent Software CS2
+270;SCX;2CC;A;;;Sony
+271;SCY;2CC;A;;;Sony
+272;Atrac3;2CC;A;;;Sony
+273;SPC;2CC;A;;;Sony
+280;Telum;2CC;A;;;
+281;TelumIA;2CC;A;;;
+285;ADPCM;2CC;A;ADPCM;;Norcom Voice Systems
+300;FM_TOWNS_SND;2CC;A;;;Fujitsu FM_TOWNS_SND
+350;Dev;2CC;A;;;Micronas Semiconductors, Inc.
 351;CELP833;2CC;A;;;Micronas Semiconductors, Inc.;
 400;BTV_DIGITAL;2CC;A;;;Brooktree (BTV) DIGITAL;
 401;Music Coder;2CC;A;;;Intel Music Coder;http://www.intel.com/
@@ -1054,13 +1058,13 @@ A105;ADPCM;2CC;A;ADPCM;;G726;
 A106;AAC;2CC;A;;;;
 A107;ADPCM;2CC;A;ADPCM;;G726;
 A109;Speex;2CC;A;;;;http://www.speex.org/
-DFAC;FrameServer;2CC;A;;;DebugMode SonicFoundry Vegas FrameServer ACM Codec
-F1AC;FLAC;2CC;A;;;Free Lossless Audio Codec FLAC
-FFFE;PCM;2CC;A;PCM;;Extensible wave format
-FFFF;In Development;2CC;A;;;In Development / Unregistered
-S_TEXT/UTF8;UTF-8;Mk;T;;;UTF-8 Plain Text
-S_TEXT/SSA;SSA;Mk;T;;;Sub Station Alpha
-S_TEXT/ASS;ASS;Mk;T;;;Advanced Sub Station Alpha
-S_TEXT/USF;USF;Mk;T;;;Universal Subtitle Format
-S_IMAGE/BMP;Bitmap;Mk;T;;;Basic image based subtitle format
-S_VOBSUB;VobSub;Mk;T;;;The same subtitle format used on DVDs
+DFAC;FrameServer;2CC;A;;;DebugMode SonicFoundry Vegas FrameServer ACM Codec;
+F1AC;FLAC;2CC;A;;;Free Lossless Audio Codec FLAC;
+FFFE;PCM;2CC;A;PCM;;Extensible wave format;
+FFFF;In Development;2CC;A;;;In Development / Unregistered;
+S_TEXT/UTF8;UTF-8;Mk;T;;;UTF-8 Plain Text;
+S_TEXT/SSA;SSA;Mk;T;;;Sub Station Alpha;
+S_TEXT/ASS;ASS;Mk;T;;;Advanced Sub Station Alpha;
+S_TEXT/USF;USF;Mk;T;;;Universal Subtitle Format;
+S_IMAGE/BMP;Bitmap;Mk;T;;;Basic image based subtitle format;
+S_VOBSUB;VobSub;Mk;T;;;The same subtitle format used on DVDs;

@@ -773,7 +773,7 @@ void File_Avc::slice_header_Fill()
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
     Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio);
     if (Height!=0)
-        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)Width)/Height*PixelAspectRatio);
+        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, PixelAspectRatio*Width/Height);
     Fill(Stream_Video, 0, Video_Standard, Avc_video_format[video_format]);
     if (timing_info_present_flag)
     {

@@ -140,6 +140,15 @@ void File_Mk::Read_Buffer_Finalize()
         Fill(Stream_General, 0, General_Duration, Duration*int64u_float64(TimecodeScale)/1000000.0, 0);
     for (std::map<int64u, stream>::iterator Temp=Stream.begin(); Temp!=Stream.end(); Temp++)
     {
+        if (Temp->second.DisplayAspectRatio!=0)
+        {
+            Fill(Stream_Video, Temp->second.StreamPos, Video_DisplayAspectRatio, Temp->second.DisplayAspectRatio, 3, true);
+            int64u Width=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Width).To_int64u();
+            int64u Height=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Height).To_int64u();
+            if (Width)
+                Fill(Stream_Video, Temp->second.StreamPos, Video_PixelAspectRatio, Temp->second.DisplayAspectRatio*Height/Width, 3, true);
+        }
+
         if (Temp->second.Parser)
         {
             Ztring Duration_Temp, Codec_Temp;
@@ -213,8 +222,6 @@ void File_Mk::Read_Buffer_Finalize()
                     Fill(Stream_Video, 0, Video_Delay, 0, 10, true);
             }
         }
-        if (Temp->second.DisplayAspectRatio!=0)
-            Fill(Stream_Video, Temp->second.StreamPos, "DisplayAspectRatio", Temp->second.DisplayAspectRatio, 3, true);
     }
 
     //Chapters
