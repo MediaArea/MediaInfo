@@ -642,6 +642,10 @@ void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Tem
             Fill(StreamKind_Last, StreamPos_Last, "Delay_Settings", "", Unlimited, true, true);
         }
 
+        //LATM
+        if (StreamKind_Last==Stream_Audio && StreamID==0xFA)
+            Fill(Stream_Audio, 0, Audio_MuxingMode, "LATM");
+
         //Special cases
         if (StreamKind_Last==Stream_Video && Temp.Parser && Temp.Parser->Count_Get(Stream_Text))
         {
