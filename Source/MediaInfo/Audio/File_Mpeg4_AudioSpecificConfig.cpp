@@ -383,6 +383,36 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
     BS_End();
     Accept("AudioSpecificConfig");
     Finish("AudioSpecificConfig");
+
+    //Handling implicit SBR and PS
+    if (!sbrPresentFlag && samplingFrequency<=24000)
+    {
+        samplingFrequency*=2;
+        sbrPresentFlag=true;
+    }
+    if (!psPresentFlag && Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s_)==_T("1"))
+        psPresentFlag=true;
+
+    FILLING_BEGIN()
+        if (sbrPresentFlag)
+        {
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "SBR");
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_SBR, "Yes", Unlimited, true, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, "No");
+            Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec+_T("/SBR"), true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplingFrequency, 10, true);
+        }
+        if (psPresentFlag)
+        {
+            Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 2, 10, true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "PS");
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, "Yes", Unlimited, true, true);
+            Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec+_T("/PS"), true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, "Front: L R", Unlimited, true, true);
+        }
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -400,10 +430,10 @@ void File_Mpeg4_AudioSpecificConfig::GASpecificConfig ()
     {
         Element_Begin("Extension");
         int8u Channels=0, Channels_Front=0, Channels_Side=0, Channels_Back=0, Channels_LFE=0;
-        int8u sf_index, num_front_channel_elements, num_side_channel_elements, num_back_channel_elements, num_lfe_channel_elements, num_assoc_data_elements, num_valid_cc_elements, comment_field_bytes;
+        int8u num_front_channel_elements, num_side_channel_elements, num_back_channel_elements, num_lfe_channel_elements, num_assoc_data_elements, num_valid_cc_elements, comment_field_bytes;
         Skip_S1(4,                                              "element_instance_tag");
         Skip_S1(2,                                              "object_type");
-        Get_S1 (4, sf_index,                                    "sf_index");
+        Skip_S1(4,                                              "sampling_frequency_index"); //Not used, is often 0
         Get_S1 (4, num_front_channel_elements,                  "num_front_channel_elements");
         Get_S1 (4, num_side_channel_elements,                   "num_side_channel_elements");
         Get_S1 (4, num_back_channel_elements,                   "num_back_channel_elements");
@@ -544,7 +574,6 @@ void File_Mpeg4_AudioSpecificConfig::GASpecificConfig ()
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels_Front+Channels_Side+Channels_Back+Channels_LFE);
         Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, Channels_Positions);
         Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions_String2, Channels_Positions2);
-        samplingFrequency=MP4_SamplingRate[sf_index];
     }
     if (audioObjectType==06 || audioObjectType==20)
         Skip_S1(3,                                              "layerNr");
@@ -605,39 +634,13 @@ void File_Mpeg4_AudioSpecificConfig::SBR ()
     }
     Element_End();
 
-    FILLING_BEGIN();
-        //Filling
-        if (sbrPresentFlag)
-        {
-            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "SBR");
-            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_SBR, "Yes", Unlimited, true, true);
-            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, "No");
-            Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
-            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec+_T("/SBR"), true);
-            Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplingFrequency, 10, true);
-        }
-
-        //PS stuff
-        if (Data_Remain())
-            PS();
-
-        //BSAC stuff
-        //if (extensionAudioObjectType==22)
-        //    BSAC();
-        //if ( extensionAudioObjectType == 22 ) {
-        //    sbrPresentFlag;
-        //    if (sbrPresentFlag == 1) {
-        //        extensionSamplingFrequencyIndex;
-        //        if ( extensionSamplingFrequencyIndex == 0xf )
-        //            extensionSamplingFrequency;
-        //    }
-        //    extensionChannelConfiguration
-        //}
-    FILLING_END();
+    //PS stuff
+    if (Data_Remain())
+        PS();
 }
 
 //---------------------------------------------------------------------------
-// AAC in ES, SBR part, 2 bytes?
+// AAC in ES, PS part, 2 bytes
 // Format is unknown
 void File_Mpeg4_AudioSpecificConfig::PS ()
 {
@@ -654,17 +657,18 @@ void File_Mpeg4_AudioSpecificConfig::PS ()
     Get_SB (psPresentFlag,                                     "psPresentFlag");
     Element_End();
 
-    FILLING_BEGIN();
-        if (psPresentFlag)
-        {
-            Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 2, 10, true);
-            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "PS");
-            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, "Yes", Unlimited, true, true);
-            Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
-            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec+_T("/PS"), true);
-            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, "", Unlimited, true, true);
-        }
-    FILLING_END();
+    //BSAC stuff
+    //if (extensionAudioObjectType==22)
+    //    BSAC();
+    //if ( extensionAudioObjectType == 22 ) {
+    //    sbrPresentFlag;
+    //    if (sbrPresentFlag == 1) {
+    //        extensionSamplingFrequencyIndex;
+    //        if ( extensionSamplingFrequencyIndex == 0xf )
+    //            extensionSamplingFrequency;
+    //    }
+    //    extensionChannelConfiguration
+    //}
 }
 
 //---------------------------------------------------------------------------

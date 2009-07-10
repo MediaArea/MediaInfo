@@ -89,7 +89,7 @@ void File_Aac::From_Codec()
     Fill(Stream_General, 0, General_Format, "AAC");
     Stream_Prepare(Stream_Audio);
     Fill(Stream_Audio, 0, Audio_Format, "AAC");
-    Fill(Stream_Audio, 0, Audio_Codec, "AAC");
+    Fill(Stream_Audio, 0, Audio_Codec, Codec);
     Ztring Profile;
     int8u Version=0, SBR=2, PS=2;
          if (0);
