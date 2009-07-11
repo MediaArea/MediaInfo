@@ -7,7 +7,7 @@
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
-  Config_Text_ThousandsSeparator; .
+  Config_Text_ThousandsSeparator; 
  audio stream1; Audio-Stream
  audio stream2; Audio-Streams
  audio stream3; Audio-Streams
@@ -263,8 +263,8 @@ DistributedBy;Vertrieb durch
 Donate;MediaInfo unterstützen
 DotsPerInch;DPI
 Duration;Dauer
-Duration_End
-Duration_Start
+Duration_End;Endzeit
+Duration_Start;Anfangszeit
 Edit;Bearbeiten
 EditedBy;Bearbeitet von
 EMail;Email
@@ -274,7 +274,7 @@ Encoded_Library;verwendete Encoder-Bibliothek
 Encoded_Library_Settings;Kodierungseinstellungen
 Encoded_Original;Original
 EncodedBy;Kodiert von
-EPG_Positions
+EPG_Positions;EPG Positionen (inter)
 Error_File;Fehler beim Lesen der Datei
 ExecutiveProducer;Ausführender Produzent
 Exit;Beenden
@@ -288,10 +288,10 @@ File;Datei
 File size;Dateigröße
 File_Append;An eine existierende Datei anhängen (Warnung! Auf gleiche Parameter achten!)
 File_Created_Date;Datum der Datei-Erstellung
-File_Created_Date_Local
+File_Created_Date_Local;Fileerstellungsdatum (lokal)
 File_Hint;Wähle eine Multimedia-Datei zum Betrachten aus
 File_Modified_Date;Datum der letzten Datei-Veränderung
-File_Modified_Date_Local
+File_Modified_Date_Local;Fileveranderungsdatum (lokal)
 FileExtension;Dateierweiterung
 FileName;Dateiname
 FileSize;Dateigröße
@@ -739,16 +739,16 @@ ms;ms
 MSDI;MSDI
 MusicBy;Musik von
 MuxingMode;Muxing-Modus
-MuxingMode_MoreInfo
+MuxingMode_MoreInfo;Muxing-Modus, weitere Infos
 MuxingMode_PackedBitstream;Packed bitstream
 Name;Name
 Nationality;Nationalität
-NetworkName
+NetworkName;Netzwerkname
 New;Neu
 Newest version;Auf neuere Version überprüfen (benötigt Internet-Verbindung)
 NewVersion_Menu;Eine neue Version ist verfügbar
-NewVersion_Question_Title;Eine neu Version wurde veröffentlicht
-NewVersion_Question_Content;Eine neue Version (v%Version%) ist verfügbar, möchtest Du sie herunterladen?
+NewVersion_Question_Title;Eine neue Version wurde veröffentlicht!
+NewVersion_Question_Content;Eine neue Version (v%Version%) ist verfügbar, soll sie heruntergeladen werden?
 No;Nein
 Not yet;Noch nicht
 NumColors;Farbanzahl
@@ -794,7 +794,7 @@ OpenCandy_36;Ihre aktuelle Installation wird nicht unterbrochen
 Options;Optionen
 Options_Hint;Voreinstellungen
 Original;Original
-OriginalNetworkName
+OriginalNetworkName;Originaler Netzwerkname
 OriginalSourceForm;Originale Source-Form
 OriginalSourceMedium;Originales Source-Medium
 Other;Andere
@@ -857,7 +857,7 @@ Sharpness;Schärfe
 Sheet;Tabelle
 Sheet (Complete);Tabelle (komplett)
 Shell extension;Shell-Erweiterung (bei Rechtsklick im Explorer erscheint ein Media Info Eintrag...)
-Shell extension, folder
+Shell extension, folder;Auch für Verzeichnisse
 Shell InfoTip;Shell InfoTip (bewege den Mauszeiger im Explorer über eine Datei und Infos werden angezeigt)
 Show menu;Menü anzeigen
 Show toolbar;Toolbar anzeigen
@@ -899,7 +899,7 @@ ThanksTo;Dank an
 Thousands separator;Tausender-Markierung
 Title;Titel
 Title_More;Titel, mehr Informationen
-TimeZone
+TimeZone;Zeitzone
 Total;Gesamt
 Track;Track-Name
 Track_Count;Anzahl der Tracks
@@ -937,5 +937,5 @@ Written_Location;Ort des Schreibbeginns
 WrittenBy;Geschrieben von
 Yes;Ja
 Your system;Deine Systeminformationen
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
