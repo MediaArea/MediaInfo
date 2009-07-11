@@ -58,7 +58,7 @@ public :
         }
         ~decspecificinfotag()
         {
-            delete Buffer; //Buffer=NULL;
+            delete[] Buffer; //Buffer=NULL;
         }
     };
 
