@@ -129,7 +129,7 @@
  video stream1; rrymë video
  video stream2; rrymë video
  video stream3; rrymë video
- warppoint0; Pa pikëdeformime
+ warppoint0;Pa pikëdeformime
  warppoint1; pikëdoformim
  warppoint2; pikëdeformime
  warppoint3; pikëdeformime
@@ -141,8 +141,8 @@
  year3; vite
 , ;, 
 : ;: 
-About;Info
-About_Hint;Kontaktoni dhe gjeni versionin e fundit
+About;Për
+About_Hint;Si të më kontaktosh dhe të gjesh versionin e fundit
 Accompaniment;Shoqëruesi
 Actor;Aktori
 Actor_Character;Personazhi i luajtur
@@ -152,12 +152,12 @@ Advanced;Avancuar
 Advanced mode;Mënyrë e avancuar
 Album;Albumi
 Album_ReplayGain_Gain;Replay gain i albumit
-Album_ReplayGain_Peak;Piku i replay gain të albumit
+Album_ReplayGain_Peak;Piku i replay gain i albumit
 Alignment;Radhitje
 Alignment_Aligned;Radhitur te gërshetimet
 Alignment_Split;Ndarë te gërshetimet
 All;Gjithçka
-Archival_Location;Vendndodhje e arkivimit
+Archival_Location;Vendi i arkivimit
 Arranger;Radhitësi
 ArtDirector;RegjisorArtistik
 AspectRatio;Raporti i aspektit
@@ -174,7 +174,7 @@ AudioCount;Numri i rrymave të audios
 Author;Autori
 BarCode;BarCode
 Basic;Kryesore
-Basic_Note;Shënim : për më tepër info rreth skedës, mund të zgjidhni një pamje tjetër (Fletë, Pemë...) 
+Basic_Note;Shënim : për më shumë info rreth skedës, mund të zgjedhësh një pamje tjetër (Fletë, Pemë...) 
 BitRate;Raporti i bitit
 BitRate_Maximum;Raporti maksimal i bitit
 BitRate_Minimum;Raporti minimal i bitit
@@ -193,17 +193,17 @@ Chapters_Codec_List;Kodekët e Kapitujve
 Chapters_No;Pa kapituj
 ChaptersCount;Numri i rrymave të kapitujve
 CheckNewVersion;Verifiko versionin e ri
-Choose custom;Zgjidheni me porosi
-Choose custom sheet;Zgjidheni me porosi fletën e dëshiruar
-Choose custom text;Zgjidheni me porosi tekstin e dëshiruar
-Choose export format;Zgjidheni formatin e eksportimit të dëshiruar
-Choose file(s);Zgjidhini skedat që doni të hapni
-Choose filename;Zgjidheni emrin e skedës që doni
-Choose language;Zgjidheni gjuhën që doni
+Choose custom;Zgjidhe me porosi
+Choose custom sheet;Zgjidhe me porosi fletën e dëshiruar
+Choose custom text;Zgjidhe me porosi tekstin e dëshiruar
+Choose export format;Zgjidhe formatin e eksportimit të dëshiruar
+Choose file(s);Zgjidhi skedat që do të hapësh
+Choose filename;Zgjidhe emrin e skedës së dëshiruar
+Choose language;Zgjidhe gjuhën e dëshiruar
 Choregrapher;Koreografi
 Chroma;Kroma
 Close;Mbylle
-Close all before open;Mbyll infot gjatë hapjes
+Close all before open;Mbyll infot para hapjes
 Codec;Kodeku
 Codec_Description;Përshkrimi i kodekut
 Codec_Info;Detajet e kodekut
@@ -235,7 +235,7 @@ Conductor;Dirigjenti
 Container and general information;Mbajtësi dhe info në përgjithësi
 ContentType;Lloji i përmbajtjes
 CoProducer;Koproducent
-Copyright;E drejta e autorit
+Copyright;Të drejtat e autorit
 CostumeDesigner;Modeluesi i kostumit
 Count;Numërimi
 Country;Vendi
@@ -280,7 +280,7 @@ ExecutiveProducer;Producenti ekzekutiv
 Exit;Dalje
 Exit_Hint;Mbylle Programin
 Export;Eksporto
-Export_Hint;Eksportoni në format të porositur
+Export_Hint;Eksporto në format të porositur
 Extensions;Shtojcat e zakonshme
 Family;Familje
 Fax;Faks
@@ -289,7 +289,7 @@ File size;Masa e skedës
 File_Append;Bashkangjite te skeda ekzistuese (Kujdes : duhen pasur të njëjtët parametra)
 File_Created_Date;Data e krijimit të skedës
 File_Created_Date_Local;Data e krijimit të skedës (lokale)
-File_Hint;Studioni një skedë multimediale
+File_Hint;Studio një skedë multimediatike
 File_Modified_Date;Modifikimi i fundit i skedës
 File_Modified_Date_Local;Modifikimi i fundit i skedës
 FileExtension;Shtojca e skedës
@@ -297,9 +297,9 @@ FileName;Emri i skedës
 FileSize;Masa e skedës
 Folder;Dosje
 Folder (R);Dosje (R)
-Folder (R)_Hint;Studioni një dosje (me gjithë dosjet si rekursive)
+Folder (R)_Hint;Studio një dosje (me gjithë dosjet si rekursive)
 Folder (Recursively);Dosje (Rekursive)
-Folder_Hint;Studioni një dosje
+Folder_Hint;Studio një dosje
 FolderName;Emri i dosjes
 Format;Formati
 Format_Description;Përshkrimi i formatit
@@ -497,10 +497,10 @@ How many text streams?;Sa rryma të tekstit?
 How many video streams?;Sa rryma të videos?
 HTML;HTML
 ID;ID
-Image;Figurë
-Image stream(s);Rrymat e figurës
-Image_Codec_List;Kodekët e figurës
-ImageCount;Numri i rrymave të figurës
+Image;Imazh
+Image stream(s);Rrymat e imazhit
+Image_Codec_List;Kodekët e imazhit
+ImageCount;Numri i rrymave të imazhit
 Info;Info
 Instruments;Instrumenti
 Interlacement;Gërshetimi
@@ -510,7 +510,7 @@ Interlaced_BFF;Më Parë Fusha Poshtë
 Interlaced_PPF;Progresiv
 Interlaced_Progressive;Progresiv
 Interleave_Duration;Gërshetimi, kohëzgjatje
-Interleave_Preload;Gërshetimi, kohëzgjatje e parahapjes
+Interleave_Preload;Gërshetimi, kohëzgjatje para hapjes
 Interleave_VideoFrames;Gërshetimi, kohëzgjatje
 IRCA;IRCA
 ISBN;ISBN
@@ -723,7 +723,7 @@ Lyrics;Fjalë
 Lyricist;Shkrimtari
 Mastered_Date;Data e masterizimit
 MasteredBy;Masterizuar nga
-MediaInfo_About;Jep informacione shumë të detajuara për\r\nskedat multimediale:\r\nMatroska, OGG (përfshirë OGM)\r\nMPEG1 (përfshirë VCD)\r\nMPEG2 (përfshirë DVD dhe SVCD)\r\nMPEG4 (përfshirë Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (përfshirë WMV, WMA)\r\nMicrosoft RIFF (përfshirë AVI, WAV)\r\nFormate zanore (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About;Jep informacione shumë të detajuara për\r\nskedat multimediatike:\r\nMatroska, OGG (përfshirë OGM)\r\nMPEG1 (përfshirë VCD)\r\nMPEG2 (përfshirë DVD dhe SVCD)\r\nMPEG4 (përfshirë Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (përfshirë WMV, WMA)\r\nMicrosoft RIFF (përfshirë AVI, WAV)\r\nFormate zanore (AC3, DTS, AAC, AU, AIFF...)
 Menu;Meny
 Menu stream(s);Rrymat e menysë
 Menu_Codec_List;Kodekët e menysë
@@ -746,9 +746,9 @@ Nationality;Kombësi
 NetworkName;Emri i rrjetit
 New;E re
 Newest version;Verifiko versionin më të ri (nevojitet lidhje me internet)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+NewVersion_Menu;Ka dalë një version i ri
+NewVersion_Question_Title;Është lëshuar një version i ri!
+NewVersion_Question_Content;Ka dalë një version i ri (v%Version%), do e shkarkosh?
 No;Jo
 Not yet;Ende jo
 NumColors;Numri i ngjyrave
@@ -757,40 +757,40 @@ One output file per input file;Një skedë output për skedë input
 Open;Hap
 OpenCandy_01;Shkarkimi i ________
 OpenCandy_02;__ % Përfunduar
-OpenCandy_03;Lidhja me internetin e ndërprerë
-OpenCandy_04;Shkarkimi i ________ i përfunduar
+OpenCandy_03;Ndërpritet lidhja me internetin
+OpenCandy_04;Përfundon shkarkimi i ________
 OpenCandy_05;Kliko për të instaluar ________
-OpenCandy_06;A jeni i sigurt se doni të anuloni instalimin?\r\nNëse do e shtyni instalimin për më vonë, zgjidheni 'Jo'.\r\nShënim: Mund të zgjidhni Dalje nga menyja për të ndryshuar instalimin herën tjetër që kompjuteri do të rinisë.
-OpenCandy_07;Shkarkimi i ________ është pushuar.\r\nKlikoni mbi ikonën në brez për të rimarrë shkarkimin.
-OpenCandy_08;Ka ndodhur një gabim kritik. Instalimi i _________ do të ndërpritet.
+OpenCandy_06;Je i sigurt se do të anulosh instalimin?\r\nNëse do e shtysh instalimin për më vonë, zgjidhe 'Jo'.\r\nShënim: Mund të zgjedhësh Dalje nga menyja për të ndryshuar instalimin herën tjetër që kompjuteri do të rinisë.
+OpenCandy_07;Pushon shkarkimi i ________.\r\nKliko mbi ikonën në brez për të rimarrë shkarkimin.
+OpenCandy_08;Ka ndodhur një gabim kritik. Do ndërpritet instalimi i _________.
 OpenCandy_09;Pusho shkarkimin
 OpenCandy_10;Anulo shkarkimin
 OpenCandy_11;Rimerre shkarkimin
 OpenCandy_12;Dalje nga Instaluesi
 OpenCandy_13;___________ - Rekomanduar nga ____________
 OpenCandy_14;Shkarkimi i _________
-OpenCandy_15;___________, softueri që ju është rekomanduar nga ___________, po shkarkohet me kërkesën tuaj.\r\nNe do ju tregojmë kur ai të jetë gati të instalohet.
+OpenCandy_15;___________, softueri që të është rekomanduar nga ___________, po shkarkohet me kërkesën tënde.\r\nNe do të tregojmë kur të jetë gati të instalohet.
 OpenCandy_16;___________ është gati të instalohet
-OpenCandy_17;___________ është shkarkuar plotësisht. Ju lutemi klikoni 'Instalo' për të vijuar.
+OpenCandy_17;___________ është shkarkuar plotësisht. Të lutem kliko 'Instalo' për të vijuar.
 OpenCandy_18;___________ nga ___________ e shkarkuar
 OpenCandy_19;Sponsorizuar nga OpenCandy
-OpenCandy_20;Mësoni më tepër në OpenCandy.com
+OpenCandy_20;Mëso më shumë në OpenCandy.com
 OpenCandy_21;Instalo
 OpenCandy_22;Instalimi i ___________
-OpenCandy_23;Kjo do anulojë instalimin e ___________\r\nA jeni i sigurt se doni të dilni?
+OpenCandy_23;Kjo do anulojë instalimin e ___________\r\nJe i sigurt se do të dalësh?
 OpenCandy_24;Pusho
-OpenCandy_25;Shkarkimi juaj është pushuar. Klikoni 'Rimerre' kur të jeni gati për të vijuar.
+OpenCandy_25;Shkarkimi yt është pushuar. Kliko 'Rimerre' kur të jesh gati për të vijuar.
 OpenCandy_26;Rimerre
 OpenCandy_27;Instalo Tani
 OpenCandy_28;Pusho Shkarkimin
 OpenCandy_29;Rimerre Shkarkimin
 OpenCandy_30;Anulo Instalimin
-OpenCandy_31;Ju lutemi zgjidheni mundësinë e instalimit
+OpenCandy_31;Të lutem zgjidhe mundësinë e instalimit
 OpenCandy_32;Instalo ___________
 OpenCandy_33;Mos Instalo
-OpenCandy_34;Ju lutemi zgjidheni një mundësi instalimi
+OpenCandy_34;Të lutem zgjidhe një mundësi instalimi
 OpenCandy_35;______ rekomandon këtë softuer
-OpenCandy_36;Instalimi juaj aktual nuk do të ndërpritet
+OpenCandy_36;Instalimi yt aktual nuk do të ndërpritet
 Options;Mundësi
 Options_Hint;Pëlqime
 Original;Origjinal
@@ -843,7 +843,7 @@ ScanOrder;Rendi i skanimit
 ScreenplayBy;Vënë në ekran nga
 Season;Sezoni
 see below;shih poshtë
-Send HeaderFile;Ju lutem dërgoni këtu Kokën e skedës : http://sourceforge.net/projects/mediainfo/ (Sektori Bug)
+Send HeaderFile;Të lutem dërgoje këtu Kokën e skedës : http://sourceforge.net/projects/mediainfo/ (Seksioni i problemeve)
 Separator_Columns;ndarësi i kolonave
 Separator_Lines;ndarësi i rreshtave
 ServiceChannel;Numri i kanalit të shërbimit
@@ -865,7 +865,7 @@ Sort;Radhitur nga
 SoundEngineer;Inxhinieri i zërit
 Standard;Standardi
 Stream;Rryma
-Stream_MoreInfo;Më tepër info rreth rrymës
+Stream_MoreInfo;Më shumë info rreth rrymës
 StreamCount;Numri i rrymave si ky lloj
 StreamID;ID i rrymës
 StreamKind;Lloji i rrymës
@@ -883,7 +883,7 @@ SystemId;Id
 Tagged_Application;Aplikimi i etiketimit
 Tagged_Date;Data e etiketimit
 Technician;Tekniku
-TermsOfUse;Termat e përdorimit
+TermsOfUse;Detyrimet e përdorimit
 Text;Tekst
 Text - Custom;Tekst - Me porosi
 Text (HTML);Tekst (HTML)
@@ -911,14 +911,14 @@ Url;URL
 Video;Video
 Video stream(s);Rryma(t) e videos
 Video_Codec_List;Kodekët e videos
-Video_Delay;Vonesë e videos
+Video_Delay;Vonesa e videos
 Video_No;Pa video
-Video0_Delay;Vonesa e videos
+Video0_Delay;Vonesa e videos0
 Video1;Rryma e parë video
 VideoCount;Numri i rrymave të videos
 View;Pamje
-View_Hint;Ndryshoni mënyrën si paraqitet informacioni
-Warning : more streams in the files;Kujdes : në skeda ka më tepër rryma
+View_Hint;Ndrysho mënyrën si paraqitet informacioni
+Warning : more streams in the files;Kujdes : në skeda ka më shumë rryma
 Web;Rrjet
 WebSite_Audio;Shko në truallin në rrjet të kodekut për audio
 WebSite_Audio_More;Shko në truallin në rrjet (%Url%) për të gjetur kodekun për audio
@@ -930,12 +930,12 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Shko në truallin në rrjet të kodekut për video
 WebSite_Video_More;Shko në truallin në rrjet (%Url%) për të gjetur kodekun për video
 Width;Gjerësi
-WriteMe;Më shkruaj
+WriteMe;Shkruaji autorit
 WriteToTranslator;Shkruaji përkthyesit
 Written_Date;Data e shkrimit
-Written_Location;Vendndodhje e shkrimit
+Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100

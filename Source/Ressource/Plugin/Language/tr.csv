@@ -746,9 +746,9 @@ Nationality;Uyruk
 NetworkName;Ağ adı
 New;Yeni
 Newest version;Yeni sürümleri kontrol et (Internet bağlantısı gerekir)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+NewVersion_Menu;Yeni sürüm mevcut
+NewVersion_Question_Title;Yeni sürüm yayımlandı!
+NewVersion_Question_Content;Yeni sürüm (s%Version%) mevcut, indirmek istiyor musunuz?
 No;Hayır
 Not yet;Henüz değil
 NumColors;Renk sayısı
@@ -857,7 +857,7 @@ Sharpness;Keskinlik
 Sheet;Sayfa
 Sheet (Complete);Sayfa (Tam)
 Shell extension;Sistem uzantısı (gezginde sağ tuş tıklamada Media Info seçeneği olacak...)
-Shell extension, folder
+Shell extension, folder;Klasörler içinde
 Shell InfoTip;Sistem Bilgisi İpucu (gezginde, fareyi dosya üzerine taşıyın, bilgi görüntülenecek)
 Show menu;Menü göster
 Show toolbar;Araç çubuğu göster
@@ -937,5 +937,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100

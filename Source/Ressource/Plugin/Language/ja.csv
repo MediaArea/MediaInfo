@@ -171,7 +171,7 @@ Audio_No;音声なし
 Audio1;プライマリ音声
 Audio2;セカンダリ音声
 AudioCount;音声数
-Author;制作者
+Author;製作者
 BarCode;バーコード
 Basic;基本
 Basic_Note;メモ : ファイルについてのさらなる情報は別のビューで開かねばなりません(シート、ツリー...)
@@ -254,17 +254,17 @@ Delay;遅延
 Delete;削除
 Description;詳細説明
 Digitized_Date;デジタル日付
-Dimensions
+Dimensions;ディメンション
 Director;ディレクター
 DirectorOfPhotography;フォトディレクター
 DisplayAspectRatio;解像度
-DisplayAspectRatio_Original
+DisplayAspectRatio_Original;元解像度
 DistributedBy;ディストリビュート by
 Donate;寄付
 DotsPerInch;ドット/インチ
 Duration;ながさ
-Duration_End
-Duration_Start
+Duration_End;終了時間
+Duration_Start;開始時間
 Edit;編集
 EditedBy;編集者
 EMail;E-Mail
@@ -274,7 +274,7 @@ Encoded_Library;使用したライブラリ
 Encoded_Library_Settings;エンコードライブラリの設定
 Encoded_Original;オリジナル
 EncodedBy;エンコード者
-EPG_Positions
+EPG_Positions;EPG 位置
 Error_File;ファイル読み込みエラー
 ExecutiveProducer;製作総指揮
 Exit;終了
@@ -295,12 +295,12 @@ File_Modified_Date_Local
 FileExtension;拡張子
 FileName;ファイル名
 FileSize;サイズ
-Folder;フォルダ
-Folder (R);フォルダ(R)
-Folder (R)_Hint;このフォルダの詳細(R)
-Folder (Recursively);フォルダ（サブフォルダ含む）
-Folder_Hint;このフォルダの詳細
-FolderName;フォルダ名
+Folder;フォルダー
+Folder (R);フォルダー(R)
+Folder (R)_Hint;このフォルダーの詳細(R)
+Folder (Recursively);フォルダー（サブフォルダー含む）
+Folder_Hint;このフォルダーの詳細
+FolderName;フォルダー名
 Format;フォーマット
 Format_Description;詳細
 Format_Info;情報
@@ -739,16 +739,16 @@ ms;秒
 MSDI;MSDI
 MusicBy;演奏者
 MuxingMode;Muxing モード
-MuxingMode_MoreInfo
+MuxingMode_MoreInfo;Muxing モード 詳細情報
 MuxingMode_PackedBitstream;ビット ストリーム パック
 Name;名前
 Nationality;制作国
-NetworkName
+NetworkName;ネットワーク名
 New;新規
 Newest version;新バージョンチェック（要インターネット接続）
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+NewVersion_Menu;新バージョンメニュー
+NewVersion_Question_Title;新バージョン確認 タイトル
+NewVersion_Question_Content;新バージョン確認 コンテンツ
 No;いいえ
 Not yet;準備中です
 NumColors;色
@@ -794,7 +794,7 @@ OpenCandy_36;オープンキャンディ
 Options;オプション
 Options_Hint;詳細設定
 Original;オリジナル
-OriginalNetworkName
+OriginalNetworkName;オリジナル ネットワーク名
 OriginalSourceForm;オリジナル ソース フォーム
 OriginalSourceMedium;中間ソース フォーム
 Other;その他
@@ -856,9 +856,9 @@ Setup;セットアップ
 Sharpness;シャープネス
 Sheet;シート
 Sheet (Complete);シート (完成)
-Shell extension;シェルに統合（右クリックメニューに登録)
-Shell extension, folder
-Shell InfoTip;シェルでインフォチップ（対応ファイル上でツールチップを表示）
+Shell extension;シェルに統合 （右クリックメニューに登録)
+Shell extension, folder;シェルに統合 （フォルダー）
+Shell InfoTip;シェルでインフォチップ （対応ファイル上でツールチップを表示）
 Show menu;メニューを表示する
 Show toolbar;ツール バーを表示する
 Sort;並び替え
@@ -899,7 +899,7 @@ ThanksTo;謝辞
 Thousands separator;区切り
 Title;タイトル
 Title_More;タイトルと詳細情報
-TimeZone
+TimeZone;タイムゾーン
 Total;計
 Track;トラック名
 Track_Count;トラック数
@@ -937,5 +937,5 @@ Written_Location;作成所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

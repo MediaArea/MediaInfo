@@ -733,7 +733,7 @@ Menu_Hint;Дадатковыя магчымасці
 MenuID;Ідэнтыфікатар меню
 mn;хв.
 Mood;Настрой
-More;Яшчэ...
+More;Яшчэ
 Movie;Фільм
 ms;мс
 MSDI;MSDI
@@ -744,11 +744,11 @@ MuxingMode_PackedBitstream;Сціснуты бітавы струмень
 Name;Імя
 Nationality;Нацыянальнасць
 NetworkName;Сеткавае імя
-New;Новы...
+New;Новы
 Newest version;Праверыць на абнаўленне (патрабуецца падлучэнне да інтэрнэту)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+NewVersion_Menu;Даступная новая версія
+NewVersion_Question_Title;Новая версія выпушчана!
+NewVersion_Question_Content;Даступная новая версія (v%Version%, жадаеце запампаваць?
 No;Не
 Not yet;Яшчэ няма
 NumColors;Колькасць колераў
@@ -857,7 +857,7 @@ Sharpness;Рэзкасць
 Sheet;Табліца
 Sheet (Complete);Табліца (поўная)
 Shell extension;Пашырэнне правадыра (пункт у меню па правай кнопцы)
-Shell extension, folder
+Shell extension, folder;Для папак таксама
 Shell InfoTip;Паказваць меню
 Show menu;Паказваць меню
 Show toolbar;Паказваць панэль
@@ -937,5 +937,5 @@ Written_Location;Месца напісання
 WrittenBy;Напісана
 Yes;Так
 Your system;Ваша сістэма
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100

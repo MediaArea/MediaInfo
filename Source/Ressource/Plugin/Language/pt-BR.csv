@@ -1,16 +1,16 @@
   Language_ISO639;pt-BR
   Author_Email;brunorex@gmail.com
-  Author_Name;Bruno 'ReX' Barbieri
-  Author_OldNames;Samuel Dias (based on)
+  Author_Name;ReX
+  Author_OldNames;ReX
   Language_Name;Português (Brasil)
   Config_Text_ColumnSize;32
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
-  Config_Text_FloatSeparator;,
+  Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1; faixa(s) de áudio
- audio stream2; faixa(s) de áudio
- audio stream3; faixa(s) de áudio
+ audio stream1; faixa de áudio
+ audio stream2; faixas de áudio
+ audio stream3; faixas de áudio
  bit1; bit
  bit2; bits
  bit3; bits
@@ -19,27 +19,27 @@
  Byte1; Byte
  Byte2; Bytes
  Byte3; Bytes
- channel1; canal/canais
- channel2; canal/canais
- channel3; canal/canais
- chapter1; capítulo(s)
- chapter2; capítulo(s)
- chapter3; capítulo(s)
- chapters stream1; faixa(s) de capítulo
- chapters stream2; faixa(s) de capítulo
- chapters stream3; faixa(s) de capítulo
- day1; dia(s)
- day2; dia(s)
- day3; dia(s)
- dB1
- dB2
- dB3
- file1; arquivo(s)
- file2; arquivo(s)
- file3; arquivo(s)
+ channel1; canal
+ channel2; canais
+ channel3; canais
+ chapter1; capítulo
+ chapter2; capítulos
+ chapter3; capítulos
+ chapters stream1; faixa de capítulo
+ chapters stream2; faixa de capítulos
+ chapters stream3; faixa de capítulos
+ day1; dia
+ day2; dias
+ day3; dias
+ dB1; dB
+ dB2; dB
+ dB3; dB
+ file1; arquivo
+ file2; arquivos
+ file3; arquivo
  frame1; quadro
- frame2; quadro
- frame3; quadro
+ frame2; quadros
+ frame3; quadros
  fps1; fps
  fps2; fps
  fps3; fps
@@ -63,9 +63,9 @@
  hour2; horas
  hour3; horas
  Hz; Hz
- image stream1; faixa(s) de imagem
- image stream2; faixa(s) de imagem
- image stream3; faixa(s) de imagem
+ image stream1; faixa de imagem
+ image stream2; faixa de imagens
+ image stream3; faixa de imagens
  KB; KB
  Kb; Kb
  KBps; KBps
@@ -105,79 +105,79 @@
  MiB; MiB
  Mib; Mib
  MiBps; MiBps
- milisecond1; milissegundo(s)
- milisecond2; milissegundo(s)
- milisecond3; milissegundo(s)
- minute1; minuto(s)
- minute2; minuto(s)
- minute3; minuto(s)
- month1; mês(es)
- month2; mês(es)
- month3; mês(es)
- pixel1; pixel(s)
- pixel2; pixel(s)
- pixel3; pixel(s)
- second1; segundo(s)
- second2; segundo(s)
- second3; segundo(s)
- text stream1; faixa(s) de texto
- text stream2; faixa(s) de texto
- text stream3; faixa(s) de texto
- video frames1
- video frames2
- video frames3
- video stream1; faixa(s) de vídeo
- video stream2; faixa(s) de vídeo
- video stream3; faixa(s) de vídeo
- warppoint0
- warppoint1
- warppoint2
- warppoint3
- week1; semana(s)
- week2; semana(s)
- week3; semana(s)
- year1; ano(s)
- year2; ano(s)
- year3; ano(s)
+ milisecond1; milissegundo
+ milisecond2; milissegundos
+ milisecond3; milissegundos
+ minute1; minuto
+ minute2; minutos
+ minute3; minutos
+ month1; mês
+ month2; meses
+ month3; meses
+ pixel1; pixel
+ pixel2; pixels
+ pixel3; pixels
+ second1; segundo
+ second2; segundos
+ second3; segundos
+ text stream1; faixa de texto
+ text stream2; faixas de texto
+ text stream3; faixas de texto
+ video frames1; quadro de vídeo
+ video frames2; quadros de vídeo
+ video frames3; quadros de vídeo
+ video stream1; faixa de vídeo
+ video stream2; faixas de vídeo
+ video stream3; faixas de vídeo
+ warppoint0;Sem warppoints
+ warppoint1; warppoint
+ warppoint2; warppoints
+ warppoint3; warppoints
+ week1; semana
+ week2; semanas
+ week3; semanas
+ year1; ano
+ year2; anos
+ year3; anos
 , ;, 
 : ;: 
 About;Sobre
-About_Hint;Como me contatar e achar a última versão
+About_Hint;Como me contatar e buscar a versão mais nova
 Accompaniment;Acompanhamento
 Actor;Ator
-Actor_Character;Personagem
-Added_Date
+Actor_Character;Personagem representado
+Added_Date;Data de adição
 Address;Endereço
 Advanced;Avançado
 Advanced mode;Modo avançado
 Album;Álbum
-Album_ReplayGain_Gain
-Album_ReplayGain_Peak
-Alignment
-Alignment_Aligned
-Alignment_Split
+Album_ReplayGain_Gain;Replay gain do álbum
+Album_ReplayGain_Peak;Pico do replay gain do álbum
+Alignment;Alinhamento
+Alignment_Aligned;Alinhado intercalado
+Alignment_Split;Dividir entre as intercalações
 All;Todos
-Archival_Location;Local do arquivo
-Arranger;Arranjo
+Archival_Location;Local de arquivamento
+Arranger;Arranjador
 ArtDirector;Diretor de Arte
-AspectRatio;Proporção da imagem
-AssistantDirector;Diretor Assistente
-at;à(s)
-At least one file;(Você deve abrir pelo menos um arquivo)
+AspectRatio;Proporção de pixels
+AssistantDirector;Diretor assistente
+at;em
+At least one file;(Você deve abrir ao menos um arquivo)
 Audio;Áudio
-Audio stream(s);Faixa(s) de áudio
-Audio_Codec_List;Codec(s) de Áudio
+Audio stream(s);Faixas de áudio
+Audio_Codec_List;Codecs de áudio
 Audio_No;Sem áudio
 Audio1;Primeira faixa de áudio
 Audio2;Segunda faixa de áudio
-AudioCount;Número de faixa(s) de áudio
+AudioCount;Contagem das faixas de áudio
 Author;Autor
-BarCode;Código de Barra
+BarCode;Código de barras
 Basic;Básico
 Basic_Note;Nota : para mais informações do arquivo, selecione um modo de exibição diferente (Formulário, raiz...)
 BitRate;Taxa de bits
-BitRate_Maximum;Taxa de bits máxima 
-BitRate_Minimum;Taxa de bits mínima 
+BitRate_Maximum;Taxa de bits máxima
+BitRate_Minimum;Taxa de bits mínima
 BitRate_Mode;Modo da taxa de bits
 BitRate_Mode_CBR;Constante
 BitRate_Mode_VBR;Variável
@@ -189,11 +189,11 @@ ChannelPositions;Posições dos canais
 Chapter(s);Capítulo(s)
 Chapters;Capítulos
 Chapters stream(s);Faixa(s) de Capítulos
-Chapters_Codec_List;Codecs de Capítulos
+Chapters_Codec_List;Codecs dos Capítulos
 Chapters_No;Sem capítulos
-ChaptersCount;Número de faixas de capítulo
-CheckNewVersion;Verificar nova versão
-Choose custom;Escolha personalizado
+ChaptersCount;Contagem de faixas de capítulo
+CheckNewVersion;Procurar nova versão
+Choose custom;Verificar nova versão
 Choose custom sheet;Personalize o modo formulário
 Choose custom text;Personalize o modo texto
 Choose export format;Escolha o formato de exportação
@@ -202,8 +202,8 @@ Choose filename;Escolha o nome do arquivo
 Choose language;Escolha o idioma
 Choregrapher;Coreógrafo
 Chroma;Saturação
-Close;Fechar
-Close all before open;Fechar todos antes de abrir
+Close;Close
+Close all before open;Fechar tudo antes de abrir
 Codec;Codec
 Codec_Description;Descrição do codec
 Codec_Info;Detalhes do codec
@@ -223,14 +223,14 @@ Codec_Settings_ITU;Conf. do codec, ITU
 Codec_Profile;Perfil do Codec
 Codec_Url;Link para o codec
 CodecID;ID do Codec
-CodecID_Description
+CodecID_Description;Descrição do codec
 Collection;Coleção
 Colorimetry;Colorimetria
 Comment;Comentário
 CommissionedBy;Representado por
 CompleteName;Nome completo
 Composer;Compositor
-CompressionRatio
+CompressionRatio;Taxa de Compressão
 Conductor;Regente
 Container and general information;Container e informações gerais
 ContentType;Conteúdo
@@ -241,10 +241,10 @@ Count;Número
 Country;País
 Cover;Capa
 Cover_Datas;Dados da capa
-Cover_Description
-Cover_Mime
-Cover_Type
-Cropped
+Cover_Description;Descrição da Capa
+Cover_Mime;MIME da Capa
+Cover_Type;Tipo de Capa
+Cropped;Dimensões de corte
 Custom;Personalizado
 Customize;Personalizar
 Date;Data
@@ -254,27 +254,27 @@ Delay;Atraso
 Delete;Excluir
 Description;Descrição
 Digitized_Date;Data de digitalização
-Dimensions
+Dimensions;Dimensões
 Director;Diretor
 DirectorOfPhotography;Diretor de fotografia
 DisplayAspectRatio;Proporção da imagem
-DisplayAspectRatio_Original
+DisplayAspectRatio_Original;Proporção original da imagem
 DistributedBy;Distribuído por
-Donate;Doação
-DotsPerInch
+Donate;Doar
+DotsPerInch;Pontos por polegada
 Duration;Duração
-Duration_End
-Duration_Start
+Duration_End;Tempo de finalização
+Duration_Start;Tempo de ínicio
 Edit;Editar
 EditedBy;Editado por
 EMail;E-Mail
 Encoded_Application;Programa usado
 Encoded_Date;Data da codificação
-Encoded_Library;Biblioteca
-Encoded_Library_Settings;Config. da codificação
+Encoded_Library;Biblioteca usada
+Encoded_Library_Settings;Configurações de codificação
 Encoded_Original;Original
 EncodedBy;Codificado por
-EPG_Positions
+EPG_Positions;Porções EGP (interno)
 Error_File;Erro na leitura do arquivo
 ExecutiveProducer;Produtor Executivo
 Exit;Sair
@@ -288,10 +288,10 @@ File;Arquivo
 File size;Tamanho do arquivo
 File_Append;Anexar a um arquivo existente (Aviso : assegure-se que os parâmetros sejam iguais)
 File_Created_Date;Data de criação
-File_Created_Date_Local
+File_Created_Date_Local;Data de criação (local)
 File_Hint;Selecione um arquivo multimídia para examinar
 File_Modified_Date;Data de modificação
-File_Modified_Date_Local
+File_Modified_Date_Local;Data de modificação (local)
 FileExtension;Extensão do arquivo
 FileName;Nome do arquivo
 FileSize;Tamanho do arquivo
@@ -509,9 +509,9 @@ Interlaced_TFF;Primeiro a área superior
 Interlaced_BFF;Primeiro a área inferior
 Interlaced_PPF;Progressivo
 Interlaced_Progressive;Progressivo
-Interleave_Duration
-Interleave_Preload
-Interleave_VideoFrames
+Interleave_Duration;Intervalo, duração
+Interleave_Preload;Intervalo, duração do pré-carregamento
+Interleave_VideoFrames;Intervalo, duração
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -521,7 +521,7 @@ Known formats;Formatos
 Known parameters;Parâmetros 
 Label;Rótulo
 Language;Idioma
-Language_More
+Language_More;Idioma, mais informações
 Language_aa;Afar
 Language_ab;Abcasiano
 Language_ae;Avestan
@@ -560,8 +560,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Grego
 Language_en;Inglês
-Language_en-gb
-Language_en-us
+Language_en-gb;Inglês (Grã-Bretanha)
+Language_en-us;Inglês (Estados Unidos)
 Language_eo;Esperanto
 Language_es;Espanhol
 Language_et;Estoniano
@@ -658,7 +658,7 @@ Language_pi;Pali
 Language_pl;Polonês
 Language_ps;Pachto 
 Language_pt;Português
-Language_pt-br
+Language_pt-br;Português (Brazil)
 Language_qu;Quechua
 Language_rm;Reto-Romance
 Language_rn;Rundi
@@ -711,15 +711,15 @@ Language_yi;Yiddish
 Language_yo;Iorubá
 Language_za;Zhuang
 Language_zh;Chinês
-Language_zh-cn
-Language_zh-tw
+Language_zh-cn;Chinês (China)
+Language_zh-tw;Chinês (Taiwan)
 Language_zu;Zulu
 LawRating;Classificação
 LCCN;LCCN
 Library;Biblioteca de multiplexão
-Lightness
+Lightness;Iluminação
 List;Lista
-Lyrics
+Lyrics;Letra
 Lyricist;Compositor
 Mastered_Date;Data de criação
 MasteredBy;Criado por
@@ -734,69 +734,69 @@ MenuID;ID no Menu
 mn;mn
 Mood;Descrição
 More;Mais
-Movie;Nome do Filme
+Movie;Nome do Vídeo
 ms;ms
 MSDI;MSDI
-MusicBy
+MusicBy;Música de
 MuxingMode;Modo de Multiplexação
-MuxingMode_MoreInfo
-MuxingMode_PackedBitstream
+MuxingMode_MoreInfo;Modo de multiplexação, mais informações
+MuxingMode_PackedBitstream;Packed bitstream
 Name;Nome
 Nationality;Nacionalidade
-NetworkName
+NetworkName;Nome da rede
 New;Novo
 Newest version;Procurar novas versões (requer conexão com a Internet)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+NewVersion_Menu;Uma nova versão está disponível
+NewVersion_Question_Title;Uma nova versão foi lançada!
+NewVersion_Question_Content;Uma nova verão (v%Version%) está disponível, gostaria de atualizar?
 No;Não
-Not yet
-NumColors
+Not yet;Ainda não
+NumColors;Número de cores
 OK;OK
 One output file per input file;Um arquivo de saída por um de entrada
 Open;Abrir
-OpenCandy_01
-OpenCandy_02
-OpenCandy_03
-OpenCandy_04
-OpenCandy_05
-OpenCandy_06
-OpenCandy_07
-OpenCandy_08
-OpenCandy_09
-OpenCandy_10
-OpenCandy_11
-OpenCandy_12
-OpenCandy_13
-OpenCandy_14
-OpenCandy_15
-OpenCandy_16
-OpenCandy_17
-OpenCandy_18
-OpenCandy_19
-OpenCandy_20
-OpenCandy_21
-OpenCandy_22
-OpenCandy_23
-OpenCandy_24
-OpenCandy_25
-OpenCandy_26
-OpenCandy_27
-OpenCandy_28
-OpenCandy_29
-OpenCandy_30
-OpenCandy_31
-OpenCandy_32
-OpenCandy_33
-OpenCandy_34
-OpenCandy_35
-OpenCandy_36
+OpenCandy_01;Fazendo download
+OpenCandy_02;__% completo
+OpenCandy_03;Conexão com a internet interrompida
+OpenCandy_04;________ download terminado
+OpenCandy_05;Clique para instalar ________
+OpenCandy_06;Tem certeza de que quer cancelar a instalação?\r\nSe deseja fazê-la mais tarde, clique em 'Não'.\r\nNota: Você pode clicar em Sair nos menus para para a instalação até a próxima vez que você reinicializar.
+OpenCandy_07;Processo de download para ________ foi interrompida.\r\nClique no ícone na área de notificação para retomar o mesmo.
+OpenCandy_08;Houve um erro crítico. A instalação de _________ foi abortada.
+OpenCandy_09;Interromper download
+OpenCandy_10;Cancelar instalação
+OpenCandy_11;Continuar download
+OpenCandy_12;Sair do Instalador
+OpenCandy_13;___________ - Recomendado por ____________
+OpenCandy_14;Fazendo download de _________
+OpenCandy_15;___________, o software recomendado a você por ___________, está sendo baixado por sua solicitação. Vamos te informar quando ele puder ser instalado.
+OpenCandy_16;___________ está pronto para a instalação
+OpenCandy_17;___________ foi baixado completamente. Por favor clique em 'Instalar' para continuar.
+OpenCandy_18;Download: ___________ de ___________
+OpenCandy_19;Oferecido por OpenCandy
+OpenCandy_20;Descubra mais em OpenCandy.com
+OpenCandy_21;Instalar
+OpenCandy_22;Instalação de ___________
+OpenCandy_23;Isso vai cancelar a instalação de ___________\r\nTem certeza de que quer sair?
+OpenCandy_24;Interromper
+OpenCandy_25;Seu download foi interrompido. Clique em 'Retomar' quando estiver pronto para continuar.
+OpenCandy_26;Retomar
+OpenCandy_27;Instalar Agora
+OpenCandy_28;Interromper Download
+OpenCandy_29;Continuar Download
+OpenCandy_30;Cancelar Instalação
+OpenCandy_31;Por favor, selecione uma opção de instalação
+OpenCandy_32;Instalar
+OpenCandy_33;Não instalar
+OpenCandy_34;Por favor, selecione uma opção
+OpenCandy_35;______ recomenda esse software
+OpenCandy_36;Sua instalação atual não será interrompida
 Options;Opções
 Options_Hint;Preferências
 Original;Original
-OriginalNetworkName
-OriginalSourceForm
-OriginalSourceMedium
+OriginalNetworkName;Nome original da rede
+OriginalSourceForm;Formato original
+OriginalSourceMedium;Meio original
 Other;Outro
 Output;Saída
 Output format;Formato de saída
@@ -813,9 +813,9 @@ Phone;Telefone
 PixelAspectRatio;Proporção de pixels
 PixelAspectRatio_Original;Proporção de pixels
 PlayCounter;Reproduzido
-Played_Count
-Played_First_Date
-Played_Last_Date
+Played_Count;Vezes reproduzido
+Played_First_Date;Reproduzido pela primeira vez
+Played_Last_Date;Reproduzido pela última vez
 PlayTime;Duração
 Position;Posição
 Position_Total;Total
@@ -832,8 +832,8 @@ Recorded_Date;Data de gravação
 Recorded_Location;Local de gravação
 Released_Date;Data de lançamento
 RemixedBy;Remixado por
-ReplayGain_Gain
-ReplayGain_Peak
+ReplayGain_Gain;Replay gain
+ReplayGain_Peak;Pico do replay gain
 Resolution;Resolução
 s;s
 SamplingRate;Taxa de amostragem
@@ -846,18 +846,18 @@ see below;veja abaixo
 Send HeaderFile;Enviar arquivo de cabeçalho
 Separator_Columns;separador de colunas
 Separator_Lines;separador de linhas
-ServiceChannel
-ServiceName
-ServiceProvider
-ServiceType
+ServiceChannel;Número do canal do serviço
+ServiceName;Nome do serviço
+ServiceProvider;Provedor do serviço
+ServiceType;Tipo de serviço
 Set;Ajustar
 Set_Count;Ajustar contador
-Setup;Configurar
-Sharpness
+Setup;Configurações
+Sharpness;Nitidez
 Sheet;Formulário
 Sheet (Complete);Formulário (Completo)
 Shell extension;Extensão shell (no explorer, botão direito haverá uma opção Media Info)
-Shell extension, folder
+Shell extension, folder;Também para pastas
 Shell InfoTip;Info. Shell (no explorer, mova o mouse sobre o arquivo, a info. será exibida)
 Show menu;Exibir menu
 Show toolbar;Exibir barra de ferramentas
@@ -872,7 +872,7 @@ StreamKind;Tipo da Faixa
 StreamKindID;Tipo da Faixa/ID
 StreamKindPos;Tipo da Faixa/Pos
 StreamSize;Tamanho da Faixa
-StreamSize_Proportion
+StreamSize_Proportion;Proporção dessa faixa
 Subject;Assunto
 SubTrack;Sub-Faixa
 Summary;Sumário
@@ -899,7 +899,7 @@ ThanksTo;Abrigado à
 Thousands separator;Separador de milhar
 Title;Título
 Title_More;Título, mais info.
-TimeZone
+TimeZone;Hora local 
 Total;Total
 Track;Nome da faixa
 Track_Count;Número da faixa
@@ -937,5 +937,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;Seu sistema
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;93
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100

@@ -653,7 +653,7 @@ Language_oj;Ojibwa
 Language_om;Oromo
 Language_or;Oriya
 Language_os;Ossetic
-Language_pa;Penjabi
+Language_pa;Panjabi
 Language_pi;Pali
 Language_pl;Polish
 Language_ps;Pushto
@@ -745,10 +745,10 @@ Name;Имя
 Nationality;Национальность
 NetworkName;Название сети
 New;Новый...
-Newest version;Проверить на обновление (требуется подключение к интернету)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+Newest version;Проверять на обновление (требуется подключение к интернету)
+NewVersion_Menu;Доступна новая версия
+NewVersion_Question_Title;Выпущена новая версия!
+NewVersion_Question_Content;Доступна новая версия %Version%, хотите скачать её?
 No;Нет
 Not yet;Ещё нет
 NumColors;Количество цветов
@@ -857,7 +857,7 @@ Sharpness;Резкость
 Sheet;Таблица
 Sheet (Complete);Таблица (полная)
 Shell extension;Расширение Проводника (пункт в меню по правой кнопке)
-Shell extension, folder
+Shell extension, folder;Расширение Проводника для папок
 Shell InfoTip;Показывать меню
 Show menu;Показывать меню
 Show toolbar;Показывать панель

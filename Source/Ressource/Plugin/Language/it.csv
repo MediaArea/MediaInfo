@@ -263,8 +263,8 @@ DistributedBy;Distribuito da
 Donate;Dona
 DotsPerInch;Punti per pollice
 Duration;Durata
-Duration_End
-Duration_Start
+Duration_End;Fine
+Duration_Start;Inizio
 Edit;Modifica
 EditedBy;Modificato da
 EMail;Email
@@ -274,7 +274,7 @@ Encoded_Library;Compressore
 Encoded_Library_Settings;Impostazioni compressione
 Encoded_Original;Codificatore originale
 EncodedBy;Compresso da
-EPG_Positions
+EPG_Positions;Posizioni EPG (interne)
 Error_File;Errore nella lettura del file 
 ExecutiveProducer;Produttore esecutivo
 Exit;Esci
@@ -288,10 +288,10 @@ File;File
 File size;Dimensione
 File_Append;Aggiungi a un file esistente (Attenzione: assicurarsi che abbiano caratteristiche uguali)
 File_Created_Date;Data creazione
-File_Created_Date_Local
+File_Created_Date_Local;Data creazione (locale)
 File_Hint;Seleziona più file da aprire
 File_Modified_Date;Data ultima modifica
-File_Modified_Date_Local
+File_Modified_Date_Local;Data ultima modifica (locale)
 FileExtension;Estensione
 FileName;Nome
 FileSize;Dimensione
@@ -739,16 +739,16 @@ ms;ms
 MSDI;MSDI
 MusicBy;Composto da
 MuxingMode;Modalità di muxing
-MuxingMode_MoreInfo
+MuxingMode_MoreInfo;Modalità di muxing, informazioni aggiuntive
 MuxingMode_PackedBitstream;Packet Bitstream
 Name;Nome
 Nationality;Nazionalità
-NetworkName
+NetworkName;Nome sul network
 New;Nuovo
 Newest version;Cerca l'ultima versione, richiede una connessione internet
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+NewVersion_Menu;E' disponibile una nuova versione
+NewVersion_Question_Title;E' stata rilasciata una nuova versione!
+NewVersion_Question_Content;E' disponibile una nuova versione (v%Version%), vuoi scaricarla?
 No;No
 Not yet;Non ancora
 NumColors;Profondità dei colori
@@ -794,7 +794,7 @@ OpenCandy_36;L'attuale installazione non verrà interrotta
 Options;Opzioni
 Options_Hint;Preferenze
 Original;Originale
-OriginalNetworkName
+OriginalNetworkName;Nome originale sul network
 OriginalSourceForm;Form Sorgente 
 OriginalSourceMedium;Supporto originale
 Other;Altri
@@ -857,7 +857,7 @@ Sharpness;Nitidezza
 Sheet;Scheda
 Sheet (Complete);Scheda (completa)
 Shell extension;Aggiungi  'Apri con Media Info' la menù contestuale
-Shell extension, folder
+Shell extension, folder;Anche per le cartelle
 Shell InfoTip;Informazioni in Explorer (in Explorer, spostarsi sul file e verrà visualizzate le informazioni)
 Show menu;Mostra menù
 Show toolbar;Mostra barra dei menù
@@ -937,5 +937,5 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si 
 Your system;Il tuo sistema
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99
