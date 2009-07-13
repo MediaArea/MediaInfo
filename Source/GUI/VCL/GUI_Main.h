@@ -39,7 +39,6 @@
 #include <Dialogs.hpp>
 #include "SHDocVw_OCX.h"
 #include <ExtCtrls.hpp>
-#include <GIFImg.hpp>
 #include <Buttons.hpp>
 //---------------------------------------------------------------------------
 
@@ -181,8 +180,8 @@ __published:    // IDE-managed Components
     TMenuItem *M_Debug_Details50;
     TMenuItem *M_Debug_Details90;
     TMenuItem *M_Debug_Details100;
-	TSpeedButton *SpeedButton1;
-	TBitBtn *Donate_en;
+    TSpeedButton *SpeedButton1;
+    TBitBtn *Donate_en;
     TBitBtn *Donate_fr;
     TButton *Donate___;
     TBitBtn *Donate_de;
@@ -235,7 +234,7 @@ __published:    // IDE-managed Components
     void __fastcall M_Options_ShowMenuClick(TObject *Sender);
     void __fastcall M_Debug_Dummy_MovieClick(TObject *Sender);
     void __fastcall M_Debug_DummyClick(TObject *Sender);
-	void __fastcall Donate_enClick(TObject *Sender);
+    void __fastcall Donate_enClick(TObject *Sender);
     void __fastcall Donate_deClick(TObject *Sender);
     void __fastcall Donate_esClick(TObject *Sender);
     void __fastcall Donate_frClick(TObject *Sender);
