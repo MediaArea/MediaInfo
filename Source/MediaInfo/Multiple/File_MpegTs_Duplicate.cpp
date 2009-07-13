@@ -47,24 +47,6 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Constructor/Destructor
-//***************************************************************************
-
-void File_MpegTs::File__Duplicate_Delete ()
-{
-    if (Complete_Stream)
-    {
-        std::map<const String, File__Duplicate_MpegTs*>::iterator Duplicates_Temp=Complete_Stream->Duplicates.begin();
-        while (Duplicates_Temp!=Complete_Stream->Duplicates.end())
-        {
-            delete Duplicates_Temp->second; //Duplicates_Temp->second=NULL
-            Duplicates_Temp++;
-        }
-        Complete_Stream->Duplicates.clear();
-    }
-}
-
-//***************************************************************************
 // Format
 //***************************************************************************
 

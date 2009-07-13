@@ -374,6 +374,16 @@ struct complete_stream
         Streams_With_EndTimeStampMoreThanxSecondsCount=0;
         GPS_UTC_offset=0;
     }
+
+    ~complete_stream()
+    {
+        std::map<const String, File__Duplicate_MpegTs*>::iterator Duplicates_Temp=Duplicates.begin();
+        while (Duplicates_Temp!=Duplicates.end())
+        {
+            delete Duplicates_Temp->second; //Duplicates_Temp->second=NULL
+            Duplicates_Temp++;
+        }
+    }
 };
 
 //***************************************************************************

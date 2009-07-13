@@ -101,7 +101,6 @@ private :
     bool   Searching_TimeStamp_Start;
 
     //File__Duplicate
-    void   File__Duplicate_Delete();
     void   File__Duplicate_Read_Buffer_Finalize ();
     bool   File__Duplicate_Set  (const Ztring &Value); //Fill a new File__Duplicate value
     bool   File__Duplicate_Get_From_PID (int16u PID);

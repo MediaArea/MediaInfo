@@ -128,8 +128,6 @@ File_MpegTs::File_MpegTs()
 File_MpegTs::~File_MpegTs ()
 {
     delete Complete_Stream; Complete_Stream=NULL;
-
-    File__Duplicate_Delete();
 }
 
 //***************************************************************************
@@ -1202,13 +1200,15 @@ void File_MpegTs::PES()
         //Allocating an handle if needed
         #if defined(MEDIAINFO_MPEGPS_YES)
             Complete_Stream->Streams[pid].Parser=new File_MpegPs;
-            if (Searching_TimeStamp_Start)
-                Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(true);
+            #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                if (Searching_TimeStamp_Start)
+                    Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(true);
+                ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->Searching_TimeStamp_Start=Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start;
+            #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS=true;
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS_stream_type=Complete_Stream->Streams[pid].stream_type;
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->FromTS_format_identifier=Complete_Stream->Streams[pid].registration_format_identifier;
             ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->MPEG_Version=2;
-            ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->Searching_TimeStamp_Start=Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start;
             complete_stream::transport_stream::iod_ess::iterator IOD_ES=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.find(Complete_Stream->Streams[pid].FMC_ES_ID);
             if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end())
             {
@@ -1245,7 +1245,9 @@ void File_MpegTs::PES()
     {
         Complete_Stream->Streams[pid].Searching_Payload_Start_Set(false);
         Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(false);
-        Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(false);
+        #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+            Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(false);
+        #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
         if (Complete_Stream->Streams_NotParsedCount)
             Complete_Stream->Streams_NotParsedCount--;
     }
@@ -1347,9 +1349,11 @@ void File_MpegTs::Detect_EOF()
                             Complete_Stream->Streams[StreamID].Searching_TimeStamp_End_Set(true); //Searching only for a start found
                         if (Complete_Stream->Streams[StreamID].Parser)
                         {
-                            Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_Start_Set(false); //No more searching start
-                            if (((File_MpegPs*)Complete_Stream->Streams[StreamID].Parser)->HasTimeStamps)
-                                Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_End_Set(true); //Searching only for a start found
+                            #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                                Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_Start_Set(false); //No more searching start
+                                if (((File_MpegPs*)Complete_Stream->Streams[StreamID].Parser)->HasTimeStamps)
+                                    Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_End_Set(true); //Searching only for a start found
+                            #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                             Complete_Stream->Streams[StreamID].Parser->Open_Buffer_Unsynch();
                         }
                     }
