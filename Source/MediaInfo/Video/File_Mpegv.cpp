@@ -391,6 +391,14 @@ void File_Mpegv::Synched_Init()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void File_Mpegv::Read_Buffer_Unsynched()
+{
+    TemporalReference.clear();
+    TemporalReference_Offset=0;
+    TemporalReference_GA94_03_CC_Offset=0;
+}
+
+//---------------------------------------------------------------------------
 void File_Mpegv::Read_Buffer_Finalize()
 {
     if (Trusted==0
@@ -667,7 +675,7 @@ void File_Mpegv::picture_start()
 
     //Parsing
     BS_Begin();
-    Get_S2 (10, temporal_reference,                             "temporal_reference");
+    Get_S2 (10, temporal_reference,                             "temporal_reference"); Element_Info(temporal_reference);
     Get_S1 ( 3, picture_coding_type,                            "picture_coding_type"); Param_Info(Mpegv_picture_coding_type[picture_coding_type]);
     Element_Info(Mpegv_picture_coding_type[picture_coding_type]);
     Get_S2 (16, vbv_delay,                                      "vbv_delay");
@@ -695,12 +703,10 @@ void File_Mpegv::picture_start()
     BS_End();
     
     FILLING_BEGIN();
+        //Temporal reference
         if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
             TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
         TemporalReference[TemporalReference_Offset+temporal_reference].IsValid=true;
-
-        //if (GA94_03_IsPresent && Frame_Count>Frame_Count_Valid)
-        //    return;
 
         //NextCode
         NextCode_Clear();
@@ -843,7 +849,7 @@ void File_Mpegv::slice_start_Fill()
         }
         std::string TempRef;
         for (size_t Pos=0; Pos<TemporalReference.size(); Pos++)
-            if (TemporalReference[Pos].IsValid)
+            if (TemporalReference[Pos].HasPictureCoding)
             {
                 TempRef+=TemporalReference[Pos].top_field_first?"T":"B";
                 TempRef+=TemporalReference[Pos].repeat_first_field?"3":"2";
@@ -1077,7 +1083,7 @@ void File_Mpegv::user_data_start_DTG1()
 
     //Parsing
     bool active_format_flag;
-    Skip_B4(                                                    "afd_identifier");
+    Skip_C4(                                                    "afd_identifier");
     BS_Begin();
     Mark_0();
     Get_SB (active_format_flag,                                 "active_format_flag");
@@ -1095,6 +1101,7 @@ void File_Mpegv::user_data_start_DTG1()
         Mark_1_NoTrustError();
         Info_S1(4, active_format,                               "active_format"); Param_Info(Mpegv_user_data_DTG1_active_format[active_format]);
     }
+    BS_End();
 }
 
 //---------------------------------------------------------------------------
@@ -1121,6 +1128,20 @@ void File_Mpegv::user_data_start_GA94_03()
 
     Element_Info("Styled captioning");
 
+    //Coherency
+    if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
+        return;
+
+    //Purging too old orphelins
+    if (TemporalReference_GA94_03_CC_Offset+8<TemporalReference_Offset+temporal_reference)
+    {
+        size_t Pos=TemporalReference_Offset+temporal_reference;
+        for(; Pos<TemporalReference.size(); Pos++)
+            if (!TemporalReference[Pos].IsValid)
+                break;
+        TemporalReference_GA94_03_CC_Offset=Pos+1;
+    }
+
     //Parsing
     int8u  cc_count;
     bool   process_em_data_flag, process_cc_data_flag, additional_data_flag;
@@ -1139,7 +1160,7 @@ void File_Mpegv::user_data_start_GA94_03()
         {
             Element_Begin("cc");
             int8u cc_type, cc_data_1, cc_data_2;
-            bool   cc_valid;
+            bool  cc_valid;
             BS_Begin();
             Mark_1();
             Mark_1();
@@ -1316,8 +1337,14 @@ void File_Mpegv::sequence_header()
         if (TemporalReference_Offset>=0x800)
         {
             TemporalReference.erase(TemporalReference.begin(), TemporalReference.begin()+0x400);
-            TemporalReference_Offset-=0x400;
-            TemporalReference_GA94_03_CC_Offset-=0x400;
+            if (0x400<TemporalReference_Offset)
+                TemporalReference_Offset-=0x400;
+            else
+                TemporalReference_Offset=0;
+            if (0x400<TemporalReference_GA94_03_CC_Offset)
+                TemporalReference_GA94_03_CC_Offset-=0x400;
+            else
+                TemporalReference_GA94_03_CC_Offset=0;
         }
 
         if (sequence_header_IsParsed)
@@ -1448,7 +1475,7 @@ void File_Mpegv::extension_start()
                                 TemporalReference[TemporalReference_Offset+temporal_reference].progressive_frame=progressive_frame;
                                 TemporalReference[TemporalReference_Offset+temporal_reference].top_field_first=top_field_first;
                                 TemporalReference[TemporalReference_Offset+temporal_reference].repeat_first_field=repeat_first_field;
-                                TemporalReference[TemporalReference_Offset+temporal_reference].IsValid=true;
+                                TemporalReference[TemporalReference_Offset+temporal_reference].HasPictureCoding=true;
                             }
                             else                                //Field
                             {
@@ -1476,7 +1503,7 @@ void File_Mpegv::extension_start()
                                 TemporalReference[TemporalReference_Offset+temporal_reference].progressive_frame=progressive_frame;
                                 TemporalReference[TemporalReference_Offset+temporal_reference].top_field_first=top_field_first;
                                 TemporalReference[TemporalReference_Offset+temporal_reference].repeat_first_field=repeat_first_field;
-                                TemporalReference[TemporalReference_Offset+temporal_reference].IsValid=true;
+                                TemporalReference[TemporalReference_Offset+temporal_reference].HasPictureCoding=true;
                             }
                         }
 

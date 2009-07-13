@@ -379,16 +379,40 @@ void File_MpegPs::Read_Buffer_Unsynched()
         Streams[StreamID].TimeStamp_End.PTS.TimeStamp=(int64u)-1;
         Streams[StreamID].TimeStamp_End.DTS.TimeStamp=(int64u)-1;
         Streams[StreamID].Searching_TimeStamp_Start=false;
+        if (Streams[StreamID].Parser)
+            Streams[StreamID].Parser->Open_Buffer_Unsynch();
+        if (Streams[StreamID].Parser2)
+            Streams[StreamID].Parser2->Open_Buffer_Unsynch();
+        if (Streams[StreamID].Parser3)
+            Streams[StreamID].Parser3->Open_Buffer_Unsynch();
+        if (Streams[StreamID].Parser4)
+            Streams[StreamID].Parser4->Open_Buffer_Unsynch();
         Streams_Private1[StreamID].TimeStamp_End.PTS.File_Pos=(int64u)-1;
         Streams_Private1[StreamID].TimeStamp_End.DTS.File_Pos=(int64u)-1;
         Streams_Private1[StreamID].TimeStamp_End.PTS.TimeStamp=(int64u)-1;
         Streams_Private1[StreamID].TimeStamp_End.DTS.TimeStamp=(int64u)-1;
         Streams_Private1[StreamID].Searching_TimeStamp_Start=false;
+        if (Streams_Private1[StreamID].Parser)
+            Streams_Private1[StreamID].Parser->Open_Buffer_Unsynch();
+        if (Streams_Private1[StreamID].Parser2)
+            Streams_Private1[StreamID].Parser2->Open_Buffer_Unsynch();
+        if (Streams_Private1[StreamID].Parser3)
+            Streams_Private1[StreamID].Parser3->Open_Buffer_Unsynch();
+        if (Streams_Private1[StreamID].Parser4)
+            Streams_Private1[StreamID].Parser4->Open_Buffer_Unsynch();
         Streams_Extension[StreamID].TimeStamp_End.PTS.File_Pos=(int64u)-1;
         Streams_Extension[StreamID].TimeStamp_End.DTS.File_Pos=(int64u)-1;
         Streams_Extension[StreamID].TimeStamp_End.PTS.TimeStamp=(int64u)-1;
         Streams_Extension[StreamID].TimeStamp_End.DTS.TimeStamp=(int64u)-1;
         Streams_Extension[StreamID].Searching_TimeStamp_Start=false;
+        if (Streams_Extension[StreamID].Parser)
+            Streams_Extension[StreamID].Parser->Open_Buffer_Unsynch();
+        if (Streams_Extension[StreamID].Parser2)
+            Streams_Extension[StreamID].Parser2->Open_Buffer_Unsynch();
+        if (Streams_Extension[StreamID].Parser3)
+            Streams_Extension[StreamID].Parser3->Open_Buffer_Unsynch();
+        if (Streams_Extension[StreamID].Parser4)
+            Streams_Extension[StreamID].Parser4->Open_Buffer_Unsynch();
     }
     video_stream_Unlimited=false;
     Buffer_DataSizeToParse=0;

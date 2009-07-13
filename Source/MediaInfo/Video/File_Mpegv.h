@@ -52,6 +52,7 @@ public :
 
 private :
     //Buffer - File header
+    void Read_Buffer_Unsynched();
     bool FileHeader_Begin() {return FileHeader_Begin_0x000001();}
 
     //Buffer - Synchro
@@ -120,6 +121,8 @@ private :
         std::vector<cc_data_> GA94_03_CC; //Per cc offset
 
         bool   IsValid;
+        bool   HasPictureCoding;
+
         bool   progressive_frame;
         bool   top_field_first;
         bool   repeat_first_field;
@@ -127,6 +130,7 @@ private :
         temporalreference()
         {
             IsValid=false;
+            HasPictureCoding=false;
         }
     };
     std::vector<temporalreference> TemporalReference; //per temporal_reference

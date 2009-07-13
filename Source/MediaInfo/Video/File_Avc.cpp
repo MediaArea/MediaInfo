@@ -78,6 +78,12 @@ const char* Avc_profile_idc(int8u profile_idc)
 #include "MediaInfo/Video/File_Avc.h"
 #include <cstring>
 #include <cmath>
+#if defined(MEDIAINFO_EIA608_YES)
+    #include "MediaInfo/Text/File_Eia608.h"
+#endif
+#if defined(MEDIAINFO_EIA708_YES)
+    #include "MediaInfo/Text/File_Eia708.h"
+#endif
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -220,6 +226,28 @@ const int8u Avc_SubHeightC[]=
     1,
 };
 
+//---------------------------------------------------------------------------
+const char* Avc_user_data_DTG1_active_format[]=
+{
+    //1st value is for 4:3, 2nd is for 16:9
+    "", //Undefined
+    "Reserved",
+    "Not recommended",
+    "Not recommended",
+    "Aspect ratio greater than 16:9", //Use GA94
+    "Reserved",
+    "Reserved",
+    "Reserved",
+    "4:3 full frame image / 16:9 full frame image",
+    "4:3 full frame image / 4:3 pillarbox image",
+    "16:9 letterbox image / 16:9 full frame image",
+    "14:9 letterbox image / 14:9 pillarbox image",
+    "Reserved",
+    "4:3 full frame image, alternative 14:9 center / 4:3 pillarbox image, alternative 14:9 center",
+    "16:9 letterbox image, alternative 14:9 center / 16:9 full frame image, alternative 14:9 center",
+    "16:9 letterbox image, alternative 4:3 center / 16:9 full frame image, alternative 4:3 center",
+};
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -233,7 +261,7 @@ File_Avc::File_Avc()
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
 
     //In
-    Frame_Count_Valid=8; //Currently no 3:2 pulldown detection
+    Frame_Count_Valid=32; //Currently no 3:2 pulldown detection
     FrameIsAlwaysComplete=false;
     MustParse_SPS_PPS=false;
     MustParse_SPS_PPS_Only=false;
@@ -244,6 +272,13 @@ File_Avc::File_Avc()
     SizeOfNALU_Minus1=(int8u)-1;
     SPS_IsParsed=false;
     PPS_IsParsed=false;
+}
+
+//---------------------------------------------------------------------------
+File_Avc::~File_Avc()
+{
+    for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
+        delete GA94_03_CC_Parsers[Pos]; //GA94_03_CC_Parsers[Pos]=NULL;
 }
 
 //***************************************************************************
@@ -306,7 +341,9 @@ void File_Avc::Synched_Init()
     Structure_Field=0;
     Structure_Frame=0;
     TemporalReference_Offset=0;
-    pic_order_cnt_lsb_Before=(int32u)-1;
+    TemporalReference_Offset_Moved=false;
+    TemporalReference_GA94_03_CC_Offset=0;
+    TemporalReference_Offset_pic_order_cnt_lsb_Last=(size_t)-1;
 
     //From seq_parameter_set
     pic_width_in_mbs_minus1=0;
@@ -324,6 +361,7 @@ void File_Avc::Synched_Init()
     pic_order_cnt_type=0;
     bit_depth_luma_minus8=0;
     bit_depth_Colorimetry_minus8=0;
+    pic_order_cnt_lsb=(int32u)-1;
     sar_width=0;
     sar_height=0;
     profile_idc=0;
@@ -335,6 +373,7 @@ void File_Avc::Synched_Init()
     time_offset_length=0;
     pic_struct=0;
     pic_struct_FirstDetected=(int8u)-1;
+    GA94_03_CC_IsPresent=false;
     frame_mbs_only_flag=false;
     timing_info_present_flag=false;
     pic_struct_present_flag=false;
@@ -378,6 +417,17 @@ void File_Avc::Read_Buffer_Finalize()
         Fill(Stream_Video, 0, Video_Format, "AVC");
         Fill(Stream_Video, 0, Video_Codec, "AVC");
     }
+
+    //GA94 captions
+    for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
+        if (GA94_03_CC_Parsers[Pos] && GA94_03_CC_Parsers[Pos]->IsAccepted)
+        {
+            Open_Buffer_Finalize(GA94_03_CC_Parsers[Pos]);
+            Merge(*GA94_03_CC_Parsers[Pos]);
+            if (Pos<2)
+                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
+            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"));
+        }
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
@@ -643,7 +693,8 @@ void File_Avc::slice_layer_without_partitioning_IDR()
 void File_Avc::slice_header()
 {
     //Parsing
-    int32u slice_type, frame_num, pic_order_cnt_lsb=(int32u)-1;
+    pic_order_cnt_lsb=(int32u)-1;
+    int32u slice_type, frame_num;
     bool   bottom_field_flag=0;
     BS_Begin();
     Skip_UE(                                                    "first_mb_in_slice");
@@ -691,37 +742,75 @@ void File_Avc::slice_header()
             else
                 Structure_Frame++;
 
-            if (TemporalReference.size()<30)
+            // trying to know the order
+            // first  1/4: no change
+            // second 1/4: all is after 0
+            // third  1/4: no change
+            // fourth 1/4: all is before max_frame_num
+            size_t max_frame_num=1<<(log2_max_frame_num_minus4+4)<<1;
+            if (TemporalReference_Offset==0 || (!TemporalReference_Offset_Moved && pic_order_cnt_lsb==max_frame_num*3/4))
             {
-                if (pic_order_cnt_lsb_Before!=(int32u)-1)
-                {
-                    if (pic_order_cnt_lsb+8<pic_order_cnt_lsb_Before)
-                        TemporalReference_Offset+=30;
-                }
-                pic_order_cnt_lsb_Before=pic_order_cnt_lsb;
+                TemporalReference_Offset+=max_frame_num;
+                TemporalReference_Offset_Moved=true;
 
-                TemporalReference[TemporalReference_Offset+pic_order_cnt_lsb].frame_num=frame_num;
-                TemporalReference[TemporalReference_Offset+pic_order_cnt_lsb].IsTop=!bottom_field_flag;
-                TemporalReference[TemporalReference_Offset+pic_order_cnt_lsb].IsField=field_pic_flag;
+                //Purging the start
+                if (TemporalReference_Offset==2*max_frame_num)
+                {
+                    size_t Pos=0;
+                    for(; Pos<TemporalReference.size(); Pos++)
+                        if (TemporalReference[Pos].IsValid)
+                            break;
+                    if (Pos && Pos<TemporalReference.size())
+                    {
+                        TemporalReference.erase(TemporalReference.begin(), TemporalReference.begin()+Pos);
+                        if (Pos<TemporalReference_Offset)
+                            TemporalReference_Offset-=Pos;
+                        else
+                            TemporalReference_Offset=0;
+                        if (Pos<TemporalReference_GA94_03_CC_Offset)
+                            TemporalReference_GA94_03_CC_Offset-=Pos;
+                        else
+                            TemporalReference_GA94_03_CC_Offset=0;
+                    }
+                }
+
+                //Purging too big array
+                if (TemporalReference.size()>=max_frame_num*4)
+                {
+                    TemporalReference.erase(TemporalReference.begin(), TemporalReference.begin()+max_frame_num*2);
+                    TemporalReference_Offset-=max_frame_num*2;
+                    if (max_frame_num*2<TemporalReference_GA94_03_CC_Offset)
+                        TemporalReference_GA94_03_CC_Offset-=max_frame_num*2;
+                    else
+                        TemporalReference_GA94_03_CC_Offset=0;
+                }
             }
+            if ( TemporalReference_Offset_Moved && pic_order_cnt_lsb>=max_frame_num/4 && pic_order_cnt_lsb<=max_frame_num/2)
+            {
+                TemporalReference_Offset_Moved=false;
+            }
+
+            TemporalReference_Offset_pic_order_cnt_lsb_Last=TemporalReference_Offset-(TemporalReference_Offset_Moved && pic_order_cnt_lsb>=max_frame_num/2?max_frame_num:0)+pic_order_cnt_lsb;
+
+            if (TemporalReference_Offset_pic_order_cnt_lsb_Last>=TemporalReference.size())
+                TemporalReference.resize(TemporalReference_Offset_pic_order_cnt_lsb_Last+1);
+            TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].frame_num=frame_num;
+            TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].IsTop=!bottom_field_flag;
+            TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].IsField=field_pic_flag;
+            TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].IsValid=true;
         }
 
          //Counting
         if (File_Offset+Buffer_Offset+Element_Size==File_Size)
             Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
-        if (pic_order_cnt_type!=0)
-        {
-            Frame_Count++;
-            Frame_Count_InThisBlock++;
-        }
-        else
-            Frame_Count=TemporalReference.size();
+        Frame_Count++;
+        Frame_Count_InThisBlock++;
 
         //Name
         Element_Info(Ztring::ToZtring(Frame_Count));
 
         //Filling only if not already done
-        if (!IsFilled && Frame_Count>=Frame_Count_Valid)
+        if (!IsFilled && ((!GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid) || Frame_Count>=Frame_Count_Valid*10)) //10 times the normal test
             slice_header_Fill();
     FILLING_END();
 
@@ -773,7 +862,7 @@ void File_Avc::slice_header_Fill()
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
     Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio);
     if (Height!=0)
-        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, PixelAspectRatio*Width/Height);
+        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)Width)/Height*PixelAspectRatio);
     Fill(Stream_Video, 0, Video_Standard, Avc_video_format[video_format]);
     if (timing_info_present_flag)
     {
@@ -801,10 +890,11 @@ void File_Avc::slice_header_Fill()
         Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
     }
     std::string TempRef;
-    for (std::map<int32u, temporalreference>::iterator Temp=TemporalReference.begin(); Temp!=TemporalReference.end(); Temp++)
-    {
-        TempRef+=Temp->second.IsTop?"T":"B";
-    }
+    for (size_t Pos=0; Pos<TemporalReference.size(); Pos++)
+        if (TemporalReference[Pos].IsValid)
+        {
+            TempRef+=TemporalReference[Pos].IsTop?"T":"B";
+        }
     if (TempRef.find("TBTBTBTB")==0)
     {
         Fill(Stream_Video, 0, Video_ScanOrder, "TFF");
@@ -925,6 +1015,7 @@ void File_Avc::sei_message()
     {
         case  0 :   sei_message_buffering_period(payloadSize); break;
         case  1 :   sei_message_pic_timing(payloadSize); break;
+        case  4 :   sei_message_user_data_registered_itu_t_t35(payloadSize); break;
         case  5 :   sei_message_user_data_unregistered(payloadSize); break;
         case  6 :   sei_message_recovery_point(payloadSize); break;
         case 32 :   sei_message_mainconcept(payloadSize); break;
@@ -937,6 +1028,7 @@ void File_Avc::sei_message()
 }
 
 //---------------------------------------------------------------------------
+// SEI - 0
 void File_Avc::sei_message_buffering_period(int32u payloadSize)
 {
     Element_Info("buffering_period");
@@ -949,18 +1041,18 @@ void File_Avc::sei_message_buffering_period(int32u payloadSize)
 }
 
 //---------------------------------------------------------------------------
+// SEI - 1
 void File_Avc::sei_message_pic_timing(int32u payloadSize)
 {
     Element_Info("pic_timing");
 
     //Testing if we can parsing it now
-    //if (!SPS_IsParsed) //There is sometimes one problem in one message, should not untrusting all
+    if (!SPS_IsParsed) //There is sometimes one problem in one message, should not untrusting all
     {
         Skip_XX(payloadSize,                                    "Data");
-        return;   
+        return;
     }
 
-    /*
     //Parsing
     BS_Begin();
     if (CpbDpbDelaysPresentFlag)
@@ -1032,10 +1124,269 @@ void File_Avc::sei_message_pic_timing(int32u payloadSize)
         if (pic_struct_FirstDetected==(int8u)-1)
             pic_struct_FirstDetected=pic_struct;
     FILLING_END();
-    */
 }
 
 //---------------------------------------------------------------------------
+// SEI - 5
+void File_Avc::sei_message_user_data_registered_itu_t_t35(int32u payloadSize)
+{
+    Element_Info("user_data_registered_itu_t_t35");
+
+    //Parsing
+    int8u itu_t_t35_country_code;
+    Get_B1 (itu_t_t35_country_code,                             "itu_t_t35_country_code");
+    if (itu_t_t35_country_code==0xFF)
+        Skip_B1(                                                "itu_t_t35_country_code_extension_byte");
+    if (itu_t_t35_country_code!=0xB5 || Element_Offset+2>=Element_Size)
+    {
+        if (Element_Size-Element_Offset)
+            Skip_XX(Element_Size-Element_Offset,                "Unknown");
+        return;
+    }
+
+    //United-States
+    int16u id;
+    Get_B2 (id,                                                 "id?");
+    if (id!=0x0031 || Element_Offset+4>=Element_Size)
+    {
+        if (Element_Size-Element_Offset)
+            Skip_XX(Element_Size-Element_Offset,                "Unknown");
+        return;
+    }
+
+    int32u Identifier;
+    Peek_B4(Identifier);
+    switch (Identifier)
+    {
+        case 0x44544731 :   sei_message_user_data_registered_itu_t_t35_DTG1(); return;
+        case 0x47413934 :   sei_message_user_data_registered_itu_t_t35_GA94(); return;
+        default         :   if (Element_Size-Element_Offset)
+                                Skip_XX(Element_Size-Element_Offset, "Unknown");
+    }
+}
+
+//---------------------------------------------------------------------------
+// SEI - 5 - DTG1
+void File_Avc::sei_message_user_data_registered_itu_t_t35_DTG1()
+{
+    Element_Info("Active Format Description");
+
+    //Parsing
+    bool active_format_flag;
+    Skip_C4(                                                    "afd_identifier");
+    BS_Begin();
+    Mark_0();
+    Get_SB (active_format_flag,                                 "active_format_flag");
+    Mark_0_NoTrustError();
+    Mark_0_NoTrustError();
+    Mark_0_NoTrustError();
+    Mark_0_NoTrustError();
+    Mark_0_NoTrustError();
+    Mark_1_NoTrustError();
+    if (active_format_flag)
+    {
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Info_S1(4, active_format,                               "active_format"); Param_Info(Avc_user_data_DTG1_active_format[active_format]);
+    }
+    BS_End();
+}
+
+//---------------------------------------------------------------------------
+// SEI - 5 - GA94
+void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94()
+{
+    //Parsing
+    int8u user_data_type_code;
+    Skip_B4(                                                    "GA94_identifier");
+    Get_B1 (user_data_type_code,                                "user_data_type_code");
+    switch (user_data_type_code)
+    {
+        case 0x03 : sei_message_user_data_registered_itu_t_t35_GA94_03(); break;
+        case 0x06 : sei_message_user_data_registered_itu_t_t35_GA94_06(); break;
+        default   : Skip_XX(Element_Size-Element_Offset,        "GA94_reserved_user_data");
+    }
+}
+
+//---------------------------------------------------------------------------
+// SEI - 5 - GA94 - 0x03
+void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03()
+{
+    //Saving date in the right pic_order_cnt_lsb
+    if (pic_order_cnt_lsb!=(int32u)-1)
+    {
+        if (TemporalReference_Offset_pic_order_cnt_lsb_Last<=TemporalReference.size())
+            TemporalReference[TemporalReference_Offset_pic_order_cnt_lsb_Last].GA94_03_CC=TemporalReference_Temp.GA94_03_CC;
+    }
+
+    GA94_03_CC_IsPresent=true;
+
+    Element_Info("Styled captioning");
+
+    //Handling missing frames
+    size_t max_frame_num=1<<(log2_max_frame_num_minus4+4)<<1;
+    if (TemporalReference_GA94_03_CC_Offset+max_frame_num/2<TemporalReference_Offset-(TemporalReference_Offset_Moved && pic_order_cnt_lsb>=max_frame_num/2?max_frame_num:0)+pic_order_cnt_lsb)
+    {
+        size_t Pos=TemporalReference_Offset+pic_order_cnt_lsb;
+        for(; Pos<TemporalReference.size(); Pos++)
+            if (!TemporalReference[Pos].IsValid)
+                break;
+        TemporalReference_GA94_03_CC_Offset=Pos+1;
+    }
+
+    //Parsing
+    int8u  cc_count;
+    bool   process_em_data_flag, process_cc_data_flag, additional_data_flag;
+    BS_Begin();
+    Get_SB (process_em_data_flag,                               "process_em_data_flag");
+    Get_SB (process_cc_data_flag,                               "process_cc_data_flag");
+    Get_SB (additional_data_flag,                               "additional_data_flag");
+    Get_S1 (5, cc_count,                                        "cc_count");
+    BS_End();
+    Skip_B1(                                                    process_em_data_flag?"em_data":"junk"); //Emergency message
+    if (TemporalReference_Temp.GA94_03_CC.size()<cc_count)
+        TemporalReference_Temp.GA94_03_CC.resize(cc_count);
+    if (process_cc_data_flag)
+    {
+        for (int8u Pos=0; Pos<cc_count; Pos++)
+        {
+            Element_Begin("cc");
+            int8u cc_type, cc_data_1, cc_data_2;
+            bool   cc_valid;
+            BS_Begin();
+            Mark_1();
+            Mark_1();
+            Mark_1();
+            Mark_1();
+            Mark_1();
+            Get_SB (   cc_valid,                                    "cc_valid");
+            Get_S1 (2, cc_type,                                     "cc_type");
+            BS_End();
+            Get_B1 (cc_data_1,                                      "cc_data_1");
+            Get_B1 (cc_data_2,                                      "cc_data_2");
+            TemporalReference_Temp.GA94_03_CC[Pos].cc_valid=cc_valid;
+            TemporalReference_Temp.GA94_03_CC[Pos].cc_type=cc_type;
+            TemporalReference_Temp.GA94_03_CC[Pos].cc_data[0]=cc_data_1;
+            TemporalReference_Temp.GA94_03_CC[Pos].cc_data[1]=cc_data_2;
+            Element_End();
+        }
+    }
+    else
+        Skip_XX(cc_count*2,                                         "Junk");
+
+    //Parsing Captions after reordering
+    size_t A=TemporalReference.size();
+    bool CanBeParsed=true;
+    for (size_t GA94_03_CC_Pos=TemporalReference_GA94_03_CC_Offset; GA94_03_CC_Pos<TemporalReference.size(); GA94_03_CC_Pos+=2)
+        if (!TemporalReference[GA94_03_CC_Pos].IsValid)
+            CanBeParsed=false; //There is a missing field/frame
+    if (CanBeParsed)
+    {
+       for (size_t GA94_03_CC_Pos=TemporalReference_GA94_03_CC_Offset; GA94_03_CC_Pos<TemporalReference.size(); GA94_03_CC_Pos+=2)
+            for (int8u Pos=0; Pos<TemporalReference[GA94_03_CC_Pos].GA94_03_CC.size(); Pos++)
+            {
+                if (TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_valid)
+                {
+                    int8u cc_type=TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_type;
+                    size_t Parser_Pos=cc_type;
+                    if (Parser_Pos==3)
+                        Parser_Pos=2; //cc_type 2 and 3 are for the same text
+
+                    while (Parser_Pos>=GA94_03_CC_Parsers.size())
+                        GA94_03_CC_Parsers.push_back(NULL);
+                    if (GA94_03_CC_Parsers[Parser_Pos]==NULL)
+                        GA94_03_CC_Parsers[Parser_Pos]=cc_type<2?(File__Analyze*)new File_Eia608():(File__Analyze*)new File_Eia708();
+                    if (cc_type>=2)
+                        ((File_Eia708*)GA94_03_CC_Parsers[2])->cc_type=cc_type;
+                    Open_Buffer_Init(GA94_03_CC_Parsers[Parser_Pos]);
+                    Open_Buffer_Continue(GA94_03_CC_Parsers[Parser_Pos], TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2);
+
+                    //Demux
+                    if (cc_type<2)
+                        Demux(TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2, Ztring::ToZtring(cc_type)+_T(".eia608"));
+                    else
+                        Demux(TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2, _T("eia708"));
+                }
+            }
+
+        TemporalReference_GA94_03_CC_Offset=TemporalReference.size()+1;
+    }
+
+    BS_Begin();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    BS_End();
+
+    if (additional_data_flag)
+        Skip_XX(Element_Size-Element_Offset,                    "additional_user_data");
+}
+
+//---------------------------------------------------------------------------
+// SEI - 5 - GA94 - 0x03
+void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_06()
+{
+    Element_Info("Bar data");
+
+    //Parsing
+    bool   top_bar_flag, bottom_bar_flag, left_bar_flag, right_bar_flag;
+    BS_Begin();
+    Get_SB (top_bar_flag,                                       "top_bar_flag");
+    Get_SB (bottom_bar_flag,                                    "bottom_bar_flag");
+    Get_SB (left_bar_flag,                                      "left_bar_flag");
+    Get_SB (right_bar_flag,                                     "right_bar_flag");
+    Mark_1_NoTrustError();
+    Mark_1_NoTrustError();
+    Mark_1_NoTrustError();
+    Mark_1_NoTrustError();
+    BS_End();
+    if (top_bar_flag)
+    {
+        Mark_1();
+        Mark_1();
+        Skip_S2(14,                                             "line_number_end_of_top_bar");
+    }
+    if (bottom_bar_flag)
+    {
+        Mark_1();
+        Mark_1();
+        Skip_S2(14,                                             "line_number_start_of_bottom_bar");
+    }
+    if (left_bar_flag)
+    {
+        Mark_1();
+        Mark_1();
+        Skip_S2(14,                                             "pixel_number_end_of_left_bar");
+    }
+    if (right_bar_flag)
+    {
+        Mark_1();
+        Mark_1();
+        Skip_S2(14,                                             "pixel_number_start_of_right_bar");
+    }
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    BS_End();
+
+    if (Element_Size-Element_Offset)
+        Skip_XX(Element_Size-Element_Offset,                    "additional_bar_data");
+}
+
+//---------------------------------------------------------------------------
+// SEI - 5
 void File_Avc::sei_message_user_data_unregistered(int32u payloadSize)
 {
     Element_Info("user_data_unregistered");
@@ -1057,6 +1408,7 @@ void File_Avc::sei_message_user_data_unregistered(int32u payloadSize)
 }
 
 //---------------------------------------------------------------------------
+// SEI - 5 - x264
 void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
 {
     //Parsing
@@ -1168,6 +1520,7 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
 }
 
 //---------------------------------------------------------------------------
+// SEI - 6
 void File_Avc::sei_message_recovery_point(int32u payloadSize)
 {
     Element_Info("recovery_point");
@@ -1182,6 +1535,7 @@ void File_Avc::sei_message_recovery_point(int32u payloadSize)
 }
 
 //---------------------------------------------------------------------------
+// SEI - 32
 void File_Avc::sei_message_mainconcept(int32u payloadSize)
 {
     Element_Info("MainConcept text");

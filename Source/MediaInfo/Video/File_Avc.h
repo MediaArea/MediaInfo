@@ -47,6 +47,7 @@ public :
 
     //Constructor/Destructor
     File_Avc();
+    ~File_Avc();
 
 private :
     //Buffer - File header
@@ -82,9 +83,14 @@ private :
     void pic_parameter_set();
     void sei();
     void sei_message();
-    void sei_message_user_data_unregistered(int32u payloadSize);
     void sei_message_buffering_period(int32u payloadSize);
     void sei_message_pic_timing(int32u payloadSize);
+    void sei_message_user_data_registered_itu_t_t35(int32u payloadSize);
+    void sei_message_user_data_registered_itu_t_t35_DTG1();
+    void sei_message_user_data_registered_itu_t_t35_GA94();
+    void sei_message_user_data_registered_itu_t_t35_GA94_03();
+    void sei_message_user_data_registered_itu_t_t35_GA94_06();
+    void sei_message_user_data_unregistered(int32u payloadSize);
     void sei_message_user_data_unregistered_x264(int32u payloadSize);
     void sei_message_recovery_point(int32u payloadSize);
     void sei_message_mainconcept(int32u payloadSize);
@@ -116,13 +122,39 @@ private :
     //Temporal reference
     struct temporalreference
     {
+        struct cc_data_
+        {
+            int8u cc_type;
+            int8u cc_data[2];
+            bool  cc_valid;
+
+            cc_data_()
+            {
+                cc_valid=false;
+            }
+        };
+        std::vector<cc_data_> GA94_03_CC; //Per cc offset
+
+        bool   IsValid;
+
         int32u frame_num;
         bool   IsTop;
         bool   IsField;
+
+        temporalreference()
+        {
+            IsValid=false;
+        }
     };
-    std::map<int32u, temporalreference> TemporalReference; //int32u is the reference
-    int32u TemporalReference_Offset;
-    int32u pic_order_cnt_lsb_Before;
+    std::vector<temporalreference> TemporalReference; //per pic_order_cnt_lsb
+    temporalreference              TemporalReference_Temp;
+    size_t                         TemporalReference_Offset;
+    bool                           TemporalReference_Offset_Moved;
+    size_t                         TemporalReference_GA94_03_CC_Offset;
+    size_t                         TemporalReference_Offset_pic_order_cnt_lsb_Last;
+
+    //Temp
+    std::vector<File__Analyze*> GA94_03_CC_Parsers;
 
     //Replacement of File__Analyze
     const int8u* Buffer_ToSave;
@@ -160,6 +192,7 @@ private :
     int32u pic_order_cnt_type;
     int32u bit_depth_luma_minus8;
     int32u bit_depth_Colorimetry_minus8;
+    int32u pic_order_cnt_lsb;
     int16u sar_width;
     int16u sar_height;
     int8u  profile_idc;
@@ -172,6 +205,7 @@ private :
     int8u  pic_struct;
     int8u  pic_struct_FirstDetected;
     int8u  SizeOfNALU_Minus1;
+    bool   GA94_03_CC_IsPresent;
     bool   frame_mbs_only_flag;
     bool   timing_info_present_flag;
     bool   fixed_frame_rate_flag;
