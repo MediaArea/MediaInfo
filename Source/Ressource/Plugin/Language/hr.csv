@@ -1,7 +1,7 @@
   Language_ISO639;hr
   Author_Email;domazd@mail.ru
   Author_Name;Dominko Aždajić
-  Author_OldNames;Initial translator
+  Author_OldNames;Dominko Aždajić
   Language_Name;Hrvatski
   Config_Text_ColumnSize;32
   Config_Text_Separator; : 
@@ -26,8 +26,8 @@
  chapter2; poglavlja
  chapter3; poglavlja
  chapters stream1; tok poglavlja
- chapters stream2; tokova poglavlja
- chapters stream3; tokovi poglavlja
+ chapters stream2; toka poglavlja
+ chapters stream3; tokova poglavlja
  day1; dan
  day2; dana
  day3; dana
@@ -149,24 +149,24 @@ Actor_Character;Uloga
 Added_Date;Dodano dana
 Address;Adresa
 Advanced;Prošireno
-Advanced mode;Napredni način
+Advanced mode;Prošireni način
 Album;Album
 Album_ReplayGain_Gain;Pojačavanje izvedbe albuma
-Album_ReplayGain_Peak;Vrhunac pojačavanje izvedbe albuma
+Album_ReplayGain_Peak;Vrhunac pojačanog zvuka izvedbe albuma
 Alignment;Usmjerenje
-Alignment_Aligned;Usmjereno sukladno čimbeniku 'interleave'
+Alignment_Aligned;Usmjerenje sukladno čimbeniku 'interleave'
 Alignment_Split;Rasporediti preko interleavea
 All;Sve
 Archival_Location;Mjesto pohranjivanja
 Arranger;Aranžer
 ArtDirector;Umjetnički ravnatelj
-AspectRatio;Razmjera stranica slike
-AssistantDirector;Pomoćni ravnatelj
+AspectRatio;Omjer stranica slike
+AssistantDirector;Pomoćnik ravnatelja
 at;pri
 At least one file;(Morate otvoriti bar jednu datoteku)
 Audio;Audio
 Audio stream(s);Tokovi zvuka
-Audio_Codec_List;Audio kôdeki
+Audio_Codec_List;Kôdeki zvuka
 Audio_No;Nečujno
 Audio1;Prvi zvučni tok
 Audio2;Drugi zvučni tok
@@ -175,7 +175,7 @@ Author;Autor
 BarCode;Crtičasti kôd
 Basic;Osnovno
 Basic_Note;Napomena: za više informacija o ovoj datoteci morate odabrati različite prikaze (tabela, stablo...)
-BitRate;Tempo protoka podataka
+BitRate;Stopa protoka podataka
 BitRate_Maximum;Maksimum protoka podataka
 BitRate_Minimum;Minimum protoka podataka
 BitRate_Mode;Način protoka podataka
@@ -184,31 +184,31 @@ BitRate_Mode_VBR;Promjenjivo
 BitRate_Nominal;Nominalni protok podataka
 Bits-(Pixel*Frame);Bita/(piksela*sličica)
 Cancel;Poništiti
-Channel(s);Kanal(-i)
-ChannelPositions;Kanalske pozicije
-Chapter(s);Poglavlje(-a)
+Channel(s);Kanali
+ChannelPositions;Položaj kanala
+Chapter(s);Poglavlja
 Chapters;Poglavlja
-Chapters stream(s);Tok(-ovi) poglavlja
+Chapters stream(s);Tokovi poglavlja
 Chapters_Codec_List;Kôdeki poglavlja
 Chapters_No;Bez poglavlja
 ChaptersCount;Broj tokova poglavlja
 CheckNewVersion;Provjeriti dostupnost nove inačice
-Choose custom;Izaberite vlastito
-Choose custom sheet;Izaberite vlastitu tabelu po želji
-Choose custom text;Izaberite vlastiti tekst po želji
-Choose export format;Izaberite izvozni oblik po želji
-Choose file(s);Izaberite datoteke za otvoriti
-Choose filename;Izaberite naziv datoteke po želji
-Choose language;Izaberite jezik po želji
+Choose custom;Izbor po želji zadanih stavki
+Choose custom sheet;Odaberite tabelu
+Choose custom text;Odaberite tekst
+Choose export format;Odaberite izvozni oblik datoteka
+Choose file(s);Odaberite datoteke za otvoriti
+Choose filename;Odaberite naziv datoteke
+Choose language;Odaberite jezik
 Choregrapher;Koreograf
 Chroma;Kromatizam
 Close;Zatvoriti
-Close all before open;Zatvoriti sve prije otvaranja
+Close all before open;Prije otvaranja sve ostale zatvoriti
 Codec;Kôdek
 Codec_Description;Opis kôdeka
 Codec_Info;Pojedinosti o kôdeku
 Codec_Settings;Postavke kôdeka
-Codec_Settings_PacketBitStream;Postavke kôdeka za paket bitstreama
+Codec_Settings_PacketBitStream;Postavke kôdeka za usredotočeni protok podataka
 Codec_Settings_BVOP;Postavke kôdeka za BVOP
 Codec_Settings_QPel;Postavke kôdeka za QPel
 Codec_Settings_GMC;Postavke kôdeka za GMC
@@ -222,15 +222,15 @@ Codec_Settings_Law;Postavke kôdeka za Law
 Codec_Settings_ITU;Postavke kôdeka za ITU
 Codec_Profile;Profili kôdeka
 Codec_Url;Spletna poveznica kôdeka
-CodecID;Kôdek ID
+CodecID;ID kôdeka
 CodecID_Description;Opis kôdeka
 Collection;Zbirka
 Colorimetry;Kolorimetrija
 Comment;Komentar
-CommissionedBy;Po nalogu
+CommissionedBy;Prema nalogu
 CompleteName;Potpuni naziv
 Composer;Skladatelj
-CompressionRatio;Razmjere sažimanja
+CompressionRatio;Omjer sažimanja
 Conductor;Ravnatelj
 Container and general information;Oblik spremnika i opće informacije
 ContentType;Vrsta sadržaja
@@ -244,7 +244,7 @@ Cover_Datas;Podatci na omotu
 Cover_Description;Opis omota
 Cover_Mime;MIME omota
 Cover_Type;Vrsta omota
-Cropped;Razmjere reza
+Cropped;Omjer reza
 Custom;Vlastito
 Customize;Prilagoditi
 Date;Nadnevak
@@ -257,24 +257,24 @@ Digitized_Date;Nadnevak digitaliziranja
 Dimensions;Dimenzije
 Director;Režiser
 DirectorOfPhotography;Ravnatelj fotografije
-DisplayAspectRatio;Razmjere slike
-DisplayAspectRatio_Original;Izvorne razmjere slike
+DisplayAspectRatio;Omjer slike
+DisplayAspectRatio_Original;Izvorni omjer slike
 DistributedBy;Distribucija
-Donate;Potpora MediaInfo novčanim prilogom
+Donate;Potpora razvoju MediaInfo
 DotsPerInch;Točaka po palcu (DPI)
 Duration;Trajanje
-Duration_End
-Duration_Start
+Duration_End;Vrijeme svršetka
+Duration_Start;Vrijeme početka
 Edit;Uređivanje
 EditedBy;Uredio
 EMail;E-pošta
 Encoded_Application;Kodirajući program
 Encoded_Date;Nadnevak kodiranja
-Encoded_Library;Kodirajuća knjižnica
+Encoded_Library;Kodirano pomoću knjižnice
 Encoded_Library_Settings;Postavke kodiranja
 Encoded_Original;Original podržava
 EncodedBy;Kodirao
-EPG_Positions
+EPG_Positions;Položaj EPG-a
 Error_File;Pogreška tijekom učitavanja datoteke
 ExecutiveProducer;Izvršni producent
 Exit;Svršetak
@@ -286,12 +286,12 @@ Family;Obitelj
 Fax;Faks
 File;Datoteka
 File size;Veličina datoteke
-File_Append;Prikačiti uz postojeću datoteku (Pozor: Pripazite na istovjetne parametere!)
+File_Append;Dodati u postojeću datoteku (Pozor: Pripazite na istovjetne parametere!)
 File_Created_Date;Nadnevak stvaranja datoteke
-File_Created_Date_Local
-File_Hint;Odaberite multimedijalnu datoteku za promotriti
+File_Created_Date_Local;Nadnevak nastanka datoteke (mjesni)
+File_Hint;Odaberite multimedijalnu datoteku za proučiti
 File_Modified_Date;Nadnevak posljednje izmjene datoteke
-File_Modified_Date_Local
+File_Modified_Date_Local;Nadnevak zadnje izmjene datoteke (mjesni)
 FileExtension;Nastavak naziva datoteke
 FileName;Naziv datoteke
 FileSize;Veličina datoteke
@@ -312,7 +312,7 @@ Format_Settings_QPel;Postavke oblika datoteke za QPel
 Format_Settings_GMC;Postavke oblika datoteke za GMC
 Format_Settings_Matrix;Postavke oblika datoteke za Matrix
 Format_Settings_Matrix_Custom;Vlastito
-Format_Settings_Matrix_Default;Zadano
+Format_Settings_Matrix_Default;Polazno
 Format_Settings_Floor;Postavke oblika datoteke za Floor
 Format_Settings_CABAC;Postavke oblika datoteke za CABAC
 Format_Settings_Firm;Postavke oblika datoteke za Firm
@@ -331,12 +331,12 @@ FrameRate;Protok sličica
 FrameRate_Mode;Način protoka sličica
 FrameRate_Mode_CFR;Ustaljeno
 FrameRate_Mode_VFR;Izmjenjivo
-FrameRate_Minimum;Minimalni protoka sličica
-FrameRate_Nominal;Nominalni protoka sličica
-FrameRate_Maximum;Maksimalni protoka sličica
-FrameRate_Original;Prvobitni protok sličica
+FrameRate_Minimum;Minimalna stopa protoka sličica
+FrameRate_Nominal;Nominalna stopa protoka sličica
+FrameRate_Maximum;Maksimalna stopa protoka sličica
+FrameRate_Original;Izvorna stopa protoka sličica
 General;Općenito
-Genre;Rod
+Genre;Glazbeni smjer
 Genre_000;Blues
 Genre_001;Klasični rock
 Genre_002;Country
@@ -432,10 +432,10 @@ Genre_091;Gotični rock
 Genre_092;Progresivni rock
 Genre_093;Psihodelični rock
 Genre_094;Simfonijski rock
-Genre_095;Polagani rock
+Genre_095;Lagani rock
 Genre_096;Big Band
 Genre_097;Zbor
-Genre_098;Lagano slušanje
+Genre_098;Umirujuće slušanje
 Genre_099;Akustično
 Genre_100;Humoristično
 Genre_101;Govor
@@ -456,7 +456,7 @@ Genre_115;Folklor
 Genre_116;Balada
 Genre_117;Naglašena balada
 Genre_118;Ritmični Soul
-Genre_119;Freestyle
+Genre_119;Slobodni stil
 Genre_120;Duet
 Genre_121;Punk Rock
 Genre_122;Solo udaraljki
@@ -464,7 +464,7 @@ Genre_123;A capella
 Genre_124;Euro-House
 Genre_125;Dance Hall
 Genre_126;Goa
-Genre_127;Drum & Bass
+Genre_127;Udaraljke i bas
 Genre_128;Club-House
 Genre_129;Hardcore
 Genre_130;Terror
@@ -493,8 +493,8 @@ Help;Pomoć
 Hint;Naznaka
 How many audio streams?;Koliko zvučnih tokova?
 How many chapters streams?;Koliko tokova poglavlja?
-How many text streams?;Koliko tekstualnih tokova?
-How many video streams?;Koliko video-tokova?
+How many text streams?;Koliko tokova teksta?
+How many video streams?;Koliko tokova video-snimke?
 HTML;HTML
 ID;ID
 Image;Slika
@@ -716,17 +716,17 @@ Language_zh-tw;Kineski (Taiwan)
 Language_zu;Zulu
 LawRating;Dopušteno za mladež od
 LCCN;LCCN
-Library;Programska knjižnica Muxing
+Library;Knjižnica multipleksera
 Lightness;Svjetlina
 List;Spisak
 Lyrics;Tekst pjesme
 Lyricist;Tekstopisac
-Mastered_Date;Nadnevak master-snimka
-MasteredBy;Master-snimku načinio
+Mastered_Date;Nadnevak glavne snimke
+MasteredBy;Glavnu snimku napravio
 MediaInfo_About;Pruža vrlo podrobne informacije\r\no multimedijalnim datotekama:\r\nMatroska, OGG (uključujući OGM)\r\nMPEG1 (uključujući VCD)\r\nMPEG2 (uključujući DVD i SVCD)\r\nMPEG4 (uključujući Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (uključujući WMV, WMA)\r\nMicrosoft RIFF (uključujući AVI, WAV)\r\nSamo zvukovnim oblicima (AC3, DTS, AAC, AU, AIFF...)
 Menu;Izbornik
-Menu stream(s);Izbornički tokovi
-Menu_Codec_List;Izbornički kôdeksi
+Menu stream(s);Izbornik - tokovi
+Menu_Codec_List;Izbornik - kôdeksi
 Menu_No;Bez izbornika
 MenuCount;Broj izborničkih tokova
 Menu_Hint;Dodatne mogućnosti
@@ -738,17 +738,17 @@ Movie;Naslov filma
 ms;ms
 MSDI;MSDI
 MusicBy;Glazba
-MuxingMode;Muxing mode
-MuxingMode_MoreInfo
-MuxingMode_PackedBitstream;Packed bitstream
+MuxingMode;Način rada multipleksera
+MuxingMode_MoreInfo;Više informacija o radu multipleksera
+MuxingMode_PackedBitstream;Usredotočeni protok podataka
 Name;Ime
 Nationality;Nacionalnost
-NetworkName
+NetworkName;Naziv mreže
 New;Novo
-Newest version;Provjeriti dostupnost nove inačice (iziskuje vezu s Internetom)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+Newest version;Provjera dostupnosti nove inačice (iziskuje vezu s Internetom)
+NewVersion_Menu;Raspoloživa je novija inačica
+NewVersion_Question_Title;Objavljena je nova inačica!
+NewVersion_Question_Content;Raspoloživa je novija inačica (v%Version%)! Da li bi ste je željeli preuzeti?
 No;Ne
 Not yet;Još ne
 NumColors;Broj boja
@@ -779,7 +779,7 @@ OpenCandy_21;Instalirati
 OpenCandy_22;Instalacija ___________
 OpenCandy_23;Ovim će se poništiti preuzimanje ___________\r\nJeste li sigurni da želite završiti rad programa?
 OpenCandy_24;Stanka
-OpenCandy_25;Vaše preuzimanje je bilo obustavljeno. Ukoliko ste spremni za nastavak kliknite 'Nastaviti'.
+OpenCandy_25;Vaše preuzimanje je bilo obustavljeno. Ukoliko ste spremni za nastavak, kliknite 'Nastaviti'.
 OpenCandy_26;Nastaviti
 OpenCandy_27;Odmah instalirati
 OpenCandy_28;Zaustaviti preuzimanje
@@ -789,51 +789,51 @@ OpenCandy_31;Molim odaberite jednu od mogućnosti instalacije
 OpenCandy_32;Instalirati ___________
 OpenCandy_33;Ne instalirati
 OpenCandy_34;Molim odaberite jednu od mogućnosti instalacije
-OpenCandy_35;______ doporučuje ovaj software
+OpenCandy_35;______ preporučuje ovaj software
 OpenCandy_36;Vaša tekuća instalacija neće biti prekinuta
 Options;Mogućnosti
 Options_Hint;Prilagodbe
 Original;Izvorno
-OriginalNetworkName
+OriginalNetworkName;Izvorni naziv mreže
 OriginalSourceForm;Prvobitni oblik izvora
 OriginalSourceMedium;Prvobitni medij izvora
-Other;Ostali
+Other;Ostalo
 Output;Izlaz
 Output format;Izlazni oblik
-OverallBitRate;Sveukupni bitski tok
-OverallBitRate_Maximum;Maximum sveukupnog bitskog protoka
-OverallBitRate_Minimum;Minimum sveukupnog bitskog protoka
-OverallBitRate_Mode;Sveukupni način bitskog protoka
-OverallBitRate_Nominal;Sveukupni nominalni bitski protok
+OverallBitRate;Ukupni protok podataka
+OverallBitRate_Maximum;Maksimum ukupnog protoka podataka
+OverallBitRate_Minimum;Minimum ukupnog protoka podataka
+OverallBitRate_Mode;Način ukupnog protoka podataka
+OverallBitRate_Nominal;Nominalni ukupni protok podataka
 Part;Dio
 Part_Count;Ukupni broj
 Performer;Izvođač
 Period;Razdoblje
 Phone;Telefon
-PixelAspectRatio;Razmjere piksela
-PixelAspectRatio_Original;Prvobitne razmjere piksela
+PixelAspectRatio;Omjer piksela
+PixelAspectRatio_Original;Izvorni omjer piksela
 PlayCounter;Brojač izvedbi
 Played_Count;puta izvedeno
 Played_First_Date;prvi put izvođeno
 Played_Last_Date;posljednji put izvođeno
 PlayTime;Trajanje izvedbe
-Position;pozicija
+Position;položaj
 Position_Total;ukupno
 Preferences;Prilagodbe
 Producer;Producent
-ProductionDesigner;Designer produkcije
-ProductionStudio;Produkcijski studio
+ProductionDesigner;Designer proizvodnje
+ProductionStudio;Proizvodni studio
 Publisher;Nakladnik
 Purchased_Date;Nadnevak kupovine
 Quote character;Znaci navoda
-RadioStation;Radio-postaja
+RadioStation;Radijska postaja
 Rating;Vrjednovanje
 Recorded_Date;Nadnevak snimanja
 Recorded_Location;Mjesto snimanja
 Released_Date;Nadnevak objavljivanja
 RemixedBy;Remixed by
-ReplayGain_Gain;Pojačavanje izvedbe
-ReplayGain_Peak;Vrhunac pojačavanja izvedbe
+ReplayGain_Gain;Pojačavanje zvuka izvedbe
+ReplayGain_Peak;Vrhunac pojačanog zvuka izvedbe
 Resolution;Razlučivost
 s;s
 SamplingRate;Učestalost uzorkovanja
@@ -850,55 +850,55 @@ ServiceChannel;Broj uslužnog kanala
 ServiceName;Naziv usluge
 ServiceProvider;Pružatelj usluge
 ServiceType;Vrsta usluge
-Set;Medijalni stavak
-Set_Count;Broj u medijalnom stavku
+Set;Medijalni sklop
+Set_Count;Broj u medijalnom sklopu
 Setup;Postavljanje
 Sharpness;Oštrost
 Sheet;Tablica
 Sheet (Complete);Tablica (potpuna)
 Shell extension;Proširenje ljuske sustava (desnim klikom u Pregledniku će se pojaviti mogućnosti Media Info)
-Shell extension, folder
+Shell extension, folder;Za mape također
 Shell InfoTip;Info-naznaka (prelaskom miša preko neke datoteke u Pregledniku će se prikazati informacije o njoj)
 Show menu;Prikazati izbornik
-Show toolbar;Prikazati traku alatki
+Show toolbar;Prikazati alatnu traku
 Sort;Poređano prema
 SoundEngineer;Tonski tehničar
 Standard;Standardno
 Stream;Tok
 Stream_MoreInfo;Više informacija o tom toku
 StreamCount;Broj tokova te vrste
-StreamID;ID toka
+StreamID;Prepoznavanje toka
 StreamKind;Vrsta toka
-StreamKindID;Identifikator toka
-StreamKindPos;Smještaj identifikatora toka
+StreamKindID;Prepoznavatelj toka
+StreamKindPos;Položaj prepoznavatelja toka
 StreamSize;Veličina toka
-StreamSize_Proportion;Razmjere tog toka
+StreamSize_Proportion;Omjeri dotičnog toka
 Subject;Sadržaj
-SubTrack;SubTrack
+SubTrack;Podsnimka
 Summary;Sveukupno
 Supported formats;Podržavani oblici datoteka
 Supported?;Podržavano?
 Synopsis;Sažetak
 SystemId;ID
-Tagged_Application;Označavateljska aplikacija
+Tagged_Application;Označeno aplikacijom
 Tagged_Date;Nadnevak označavanja
 Technician;Tehničar
-TermsOfUse;Smjernice primjene
+TermsOfUse;Uvjeti korištenja
 Text;Tekst
-Text - Custom;Tekst - vlastiti
+Text - Custom;Vlastiti tekst
 Text (HTML);Tekst (HTML)
-Text stream(s);Tekstualni tok(-ovi)
-Text streams;Tekstualni tokovi
-Text_Codec_List;Tekstualni kôdeki
+Text stream(s);Tokovi teksta
+Text streams;Tokovi teksta
+Text_Codec_List;Kôdeki teksta
 Text_No;Bez teksta
-Text1;Prvi tekstualni tok
-Text2;Drugi tekstualni tok
-Text3;Treći tekstualni tok
-TextCount;Broj tekstualnih tokova
-ThanksTo;Zahvala se upućuje
-Thousands separator;Odvajanje tisuća
+Text1;Prvi tok teksta
+Text2;Drugi tok teksta
+Text3;Treći tok teksta
+TextCount;Broj tok teksta
+ThanksTo;Zahvala
+Thousands separator;Razdjelnik tisuća
 Title;Naslov
-Title_More;Naslov, više informacija
+Title_More;Više podataka o naslovu
 TimeZone
 Total;Ukupno
 Track;Naziv snimke
@@ -911,11 +911,11 @@ Url;URL
 Video;Video
 Video stream(s);Video tok(-ovi)
 Video_Codec_List;Video-kôdeki
-Video_Delay;Zaostajanje video-prikaza
-Video_No;Bez video-prikaza
-Video0_Delay;Zaostajanje Video0
-Video1;Prvi video tok
-VideoCount;Broj video tokova
+Video_Delay;Zaostajanje prikaza video-slike
+Video_No;Bez prikaza video-slike
+Video0_Delay;Zaostajanje video0-slike
+Video1;Prvi tok video-slike
+VideoCount;Broj tokova video-slike
 View;Prikaz
 View_Hint;Mijenja mogućnosti prikaza informacije
 Warning : more streams in the files;Pozor!: U datotekama se nalazi više tokova!
@@ -937,5 +937,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

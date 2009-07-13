@@ -899,7 +899,7 @@ ThanksTo;Ringrazio
 Thousands separator;Separatore delle centinaia
 Title;Titolo
 Title_More;Titolo
-TimeZone
+TimeZone;Fuso Orario
 Total;Totale
 Track;Traccia
 Track_Count;Numero tracce
@@ -937,5 +937,5 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si 
 Your system;Il tuo sistema
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
