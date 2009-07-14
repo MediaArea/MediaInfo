@@ -939,11 +939,11 @@ void File_Mxf::Data_Parse()
     else
         Skip_XX(Element_Size,                                   "Unknown");
 
-    /*if (File_Offset>=0x4000000 //TODO: 64 MB by default (security), should be changed
+    if (File_Offset>=0x4000000 //TODO: 64 MB by default (security), should be changed
      || (Streams_Count==0 && !Descriptors.empty()))
     {
         Finish("MXF");
-    }*/
+    }
 }
 
 //***************************************************************************
@@ -1967,6 +1967,8 @@ void File_Mxf::GenericPictureEssenceDescriptor_StoredHeight()
     Get_B4 (Data,                                                "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
+        if (Descriptors[InstanceUID].Infos["ScanType"]==_T("Interlaced"))
+            Data*=2; //This is per field
         Descriptors[InstanceUID].Infos["Height"].From_Number(Data);
     FILLING_END();
 }
@@ -1993,6 +1995,8 @@ void File_Mxf::GenericPictureEssenceDescriptor_SampledHeight()
     Get_B4 (Data,                                                "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
+        if (Descriptors[InstanceUID].Infos["ScanType"]==_T("Interlaced"))
+            Data*=2; //This is per field
         Descriptors[InstanceUID].Infos["Height"].From_Number(Data);
     FILLING_END();
 }

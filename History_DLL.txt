@@ -14,6 +14,7 @@ Version 0.7.19, 2009
 + AVC: Closed captions detection
 x MKV: Original display aspect ratio was not displayed
 x #2817479, Blu-ray/M2Ts: crash with some specific file names
+x MXF: the whole file was parsed, parsing now only the useful part
 
 Version 0.7.18, 2009-07-03
 --------------
