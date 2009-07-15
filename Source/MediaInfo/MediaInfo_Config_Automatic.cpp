@@ -1049,6 +1049,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "RIFF-MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface\n"
     "Scream Tracker 3;;;A;S3m;;s3m\n"
     "Shorten;;;A;;;shn;http://etree.org/shnutils/shorten/\n"
+    "SLS;;;A;;MPEG-4 Scalable Lossless Coding;sls;http://www.chiariglione.org/mpeg/technologies/mp04-sls/index.htm\n"
     "TAK;;;A;;;tak;http://thbeck.de/Tak/Tak.html\n"
     "TrueHD;;;A;Ac3;;dts\n"
     "TwinVQ;;;A;TwinVQ;Transform domain Weighted INterleave Vector Quantization;vqf;http://www.twinvq.org/english/index_en.html\n"

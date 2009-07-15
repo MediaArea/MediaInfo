@@ -253,6 +253,7 @@ const char* Mpeg4_Descriptors_AudioProfileLevelIndication(int8u ID)
         case   45 : return "HighEfficiencyAAC@L3";
         case   46 : return "HighEfficiencyAAC@L4";
         case   47 : return "HighEfficiencyAAC@L5";
+        case   59 : return "HighDefinitionAAC@L1";
         case   60 : return "ALSSimple@L1";
         default   : return "";
     }

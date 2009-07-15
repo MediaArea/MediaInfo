@@ -13,6 +13,7 @@ Version 0.7.19, 2009
 + LA (Lossless Audio, old) support, thanks to Lionel Duchateau
 + AAC: forcing SBR/PS when it is implicit (if <=24KHz, if 1 channel)
 + AVC: Closed captions detection
++ SLS detection, thanks to Lionel Duchateau
 + #2813919, APE: CompressionLevel
 x MKV: Original display aspect ratio was not displayed
 x #2817479, Blu-ray/M2Ts: crash with some specific file names

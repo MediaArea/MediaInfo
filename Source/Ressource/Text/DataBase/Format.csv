@@ -61,6 +61,7 @@ MusePack SV8;;;A;Mpc;;mp+;http://www.musepack.net
 RIFF-MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface;;
 Scream Tracker 3;;;A;S3m;;s3m;
 Shorten;;;A;;;shn;http://etree.org/shnutils/shorten/
+SLS;;;A;;MPEG-4 Scalable Lossless Coding;sls;http://www.chiariglione.org/mpeg/technologies/mp04-sls/index.htm
 TAK;;;A;;;tak;http://thbeck.de/Tak/Tak.html
 TrueHD;;;A;Ac3;;dts;
 TwinVQ;;;A;TwinVQ;Transform domain Weighted INterleave Vector Quantization;vqf;http://www.twinvq.org/english/index_en.html
