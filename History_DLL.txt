@@ -11,6 +11,7 @@ Version 0.7.19, 2009
 --------------
 + ALS raw files support, thanks to Lionel Duchateau
 + LA (Lossless Audio, old) support, thanks to Lionel Duchateau
++ SLS detection, thanks to Lionel Duchateau
 + AAC: forcing SBR/PS when it is implicit (if <=24KHz, if 1 channel)
 + AVC: Closed captions detection
 + #2813919, APE: CompressionLevel
