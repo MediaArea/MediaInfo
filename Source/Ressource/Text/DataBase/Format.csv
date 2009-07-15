@@ -2,7 +2,7 @@ AAC;;;A;;Advanced Audio Codec;aac;
 AC-3;;;A;Ac3;Audio Coding 3;ac3;
 ADIF;;;A;Adif;Audio Data Interchange Format;aac;
 ADTS;;;A;Adts;Audio Data Transport Stream;aac;
-ALS;;;A;;MPEG-4 Audio Lossless Coding;als;http://www.nue.tu-berlin.de/forschung/projekte/lossless/mp4als.html#downloads
+ALS;;;A;Als;MPEG-4 Audio Lossless Coding;als;http://www.nue.tu-berlin.de/forschung/projekte/lossless/mp4als.html#downloads
 AMR;;;A;Amr;Adaptive Multi-Rate;amr;http://www.apple.com/quicktime/download/standalone.html
 AU;;;A;Au;uLaw/AU Audio File;au;
 DTS;;;A;Dts;Digital Theater Systems;dts;
