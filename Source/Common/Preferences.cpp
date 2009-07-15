@@ -362,7 +362,7 @@ void __fastcall ThreadInternetCheck::Execute()
         Message.FindAndReplace(_T("%Version%"), NewestVersion);
         switch(Application->MessageBox(Message.c_str(), Prefs->Translate(_T("NewVersion_Question_Title")).c_str(), MB_YESNO))
         {
-            case IDYES : ShellExecute(NULL, NULL, (Ztring(_T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(_T("  Language_ISO639"))+_T("?NewVersionRequest=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+            case IDYES : ShellExecute(NULL, NULL, (Ztring(_T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(_T("  Language_ISO639"))+_T("?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
             default    : ;
         }
         //Inscription version connue pour pas repeter l'avertissement
