@@ -1277,7 +1277,6 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03()
         Skip_XX(cc_count*2,                                         "Junk");
 
     //Parsing Captions after reordering
-    size_t A=TemporalReference.size();
     bool CanBeParsed=true;
     for (size_t GA94_03_CC_Pos=TemporalReference_GA94_03_CC_Offset; GA94_03_CC_Pos<TemporalReference.size(); GA94_03_CC_Pos+=2)
         if (!TemporalReference[GA94_03_CC_Pos].IsValid)

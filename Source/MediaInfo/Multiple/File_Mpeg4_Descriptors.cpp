@@ -743,9 +743,9 @@ void File_Mpeg4_Descriptors::Descriptor_05()
     if (ObjectTypeId==0x40) //Audio ISO/IEC 14496-3 (AAC)
     {
         DecSpecificInfoTag=new decspecificinfotag;
-        DecSpecificInfoTag->Buffer=new int8u[Element_Size];
-        DecSpecificInfoTag->Buffer_Size=Element_Size;
-        std::memcpy(DecSpecificInfoTag->Buffer, Buffer+Buffer_Offset, Element_Size);
+        DecSpecificInfoTag->Buffer=new int8u[(size_t)Element_Size];
+        DecSpecificInfoTag->Buffer_Size=(size_t)Element_Size;
+        std::memcpy(DecSpecificInfoTag->Buffer, Buffer+Buffer_Offset, (size_t)Element_Size);
     }
 
     //Parsing

@@ -647,7 +647,6 @@ void File_Mpeg4_AudioSpecificConfig::PS ()
     //Parsing
     Element_Begin("PS");
     int16u syncExtensionType;
-    bool PS;
     Get_S2 (11, syncExtensionType,                             "syncExtensionType");
     if (syncExtensionType!=0x548)
     {

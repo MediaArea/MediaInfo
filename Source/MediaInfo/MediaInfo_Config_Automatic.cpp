@@ -990,7 +990,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "AC-3;;;A;Ac3;Audio Coding 3;ac3\n"
     "ADIF;;;A;Adif;Audio Data Interchange Format;aac\n"
     "ADTS;;;A;Adts;Audio Data Transport Stream;aac\n"
-    "ALS;;;A;;MPEG-4 Audio Lossless Coding;als;http://www.nue.tu-berlin.de/forschung/projekte/lossless/mp4als.html#downloads\n"
+    "ALS;;;A;Als;MPEG-4 Audio Lossless Coding;als;http://www.nue.tu-berlin.de/forschung/projekte/lossless/mp4als.html#downloads\n"
     "AMR;;;A;Amr;Adaptive Multi-Rate;amr;http://www.apple.com/quicktime/download/standalone.html\n"
     "AU;;;A;Au;uLaw/AU Audio File;au\n"
     "DTS;;;A;Dts;Digital Theater Systems;dts\n"

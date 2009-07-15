@@ -842,7 +842,7 @@ void File_MpegPs::Header_Parse_PES_packet(int8u start_code)
         }
 
     //Can be cut in small chunks
-    if (PES_packet_length!=0 && Element_Offset<Element_Size && 6+PES_packet_length>Buffer_Size-Buffer_Offset
+    if (PES_packet_length!=0 && Element_Offset<Element_Size && (size_t)(6+PES_packet_length)>Buffer_Size-Buffer_Offset
      && ((start_code&0xE0)==0xC0 || (start_code&0xF0)==0xE0))
     {
         Header_Fill_Size(Buffer_Size-Buffer_Offset); //All the buffer is used
@@ -2708,7 +2708,7 @@ void File_MpegPs::SL_packetized_stream()
         A[5]=0x1F;
         A[6]=0xFC;
 
-        int32u Size=Element_Size+7;
+        int32u Size=(int32u)(Element_Size+7);
         Size=Size<<13;
         A[3]=A[3]|((int8u)(Size>>24));
         A[4]=A[4]|((int8u)(Size>>16));
