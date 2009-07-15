@@ -553,7 +553,9 @@ void File_MpegPs::Read_Buffer_Finalize()
             //Clearing durations
             for (size_t StreamKind=0; StreamKind<=Stream_Text; StreamKind++)
                 for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
-                    Fill((stream_t)StreamKind, StreamPos, "Duration", "", Unlimited, true, true);
+                    Clear((stream_t)StreamKind, StreamPos, "Duration");
+            if (Count_Get(Stream_Video)==1)
+                Clear(Stream_Video, 0, Video_Duration);
         }
     }
 }

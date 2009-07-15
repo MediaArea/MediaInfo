@@ -378,6 +378,7 @@ void File_Mpegv::Synched_Init()
     repeat_first_field=false;
     FirstFieldFound=false;
     group_start_IsParsed=false;
+    bit_rate_value_IsValid=false;
 
     //Default stream values
     Streams.resize(0x100);
@@ -814,7 +815,7 @@ void File_Mpegv::slice_start_Fill()
         Fill(Stream_Video, 0, Video_BitRate_Mode, "VBR");
     else if ((MPEG_Version==1 && bit_rate_value!=0x3FFFF) || MPEG_Version==2)
         Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
-    if (bit_rate_value!=0x3FFFF)
+    if (bit_rate_value_IsValid && bit_rate_value!=0x3FFFF)
         Fill(Stream_Video, 0, Video_BitRate_Nominal, bit_rate_value*400);
 
     //Interlacement
@@ -1297,13 +1298,14 @@ void File_Mpegv::sequence_header()
     Element_Name("sequence_header");
 
     //Reading
+    int32u bit_rate_value_temp;
     bool  load_intra_quantiser_matrix, load_non_intra_quantiser_matrix;
     BS_Begin();
     Get_S2 (12, horizontal_size_value,                          "horizontal_size_value");
     Get_S2 (12, vertical_size_value,                            "vertical_size_value");
     Get_S1 ( 4, aspect_ratio_information,                       "aspect_ratio_information"); if (vertical_size_value && Mpegv_aspect_ratio1[aspect_ratio_information]) Param_Info((float)horizontal_size_value/vertical_size_value/Mpegv_aspect_ratio1[aspect_ratio_information]); Param_Info(Mpegv_aspect_ratio2[aspect_ratio_information]);
     Get_S1 ( 4, frame_rate_code,                                "frame_rate_code"); Param_Info(Mpegv_frame_rate[frame_rate_code]);
-    Get_S3 (18, bit_rate_value,                                 "bit_rate_value"); Param_Info(bit_rate_value*400);
+    Get_S3 (18, bit_rate_value_temp,                            "bit_rate_value"); Param_Info(bit_rate_value*400);
     Mark_1 ();
     Info_S2(10, vbv_buffer_size_value,                          "vbv_buffer_size_value"); Param_Info(16*1024*vbv_buffer_size_value);
     Skip_SB(                                                    "constrained_parameters_flag");
@@ -1345,6 +1347,15 @@ void File_Mpegv::sequence_header()
                 TemporalReference_GA94_03_CC_Offset-=0x400;
             else
                 TemporalReference_GA94_03_CC_Offset=0;
+        }
+
+        //Bit_rate
+        if (bit_rate_value_IsValid && bit_rate_value_temp!=bit_rate_value)
+            bit_rate_value_IsValid=false; //two bit_rate_values, not handled.
+        else if (bit_rate_value==0)
+        {
+            bit_rate_value=bit_rate_value_temp;
+            bit_rate_value_IsValid=true;
         }
 
         if (sequence_header_IsParsed)

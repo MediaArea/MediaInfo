@@ -192,6 +192,7 @@ private :
     bool   group_start_broken_link;
     bool   Searching_TimeStamp_Start_DoneOneTime;
     bool   Parsing_End_ForDTS;
+    bool   bit_rate_value_IsValid;
 };
 
 } //NameSpace
