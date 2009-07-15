@@ -91,7 +91,7 @@ const char* MP4_Format(int8u ID)
         case   34 : return "Layer-3";
         case   35 : return "DST";
         case   36 : return "ALS";
-        case   36 : return "SLS";
+        case   37 : return "SLS";
         default   : return "";
     }
 }
@@ -148,7 +148,7 @@ const char* MP4_Profile(int8u ID)
         case   34 : return "Layer-3";
         case   35 : return "DST";
         case   36 : return "ALS";
-        case   36 : return "SLS";
+        case   37 : return "SLS";
         default   : return "";
     }
 }
