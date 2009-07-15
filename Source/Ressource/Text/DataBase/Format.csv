@@ -51,6 +51,7 @@ E-AC-3;;;A;Ac3;Audio Coding 3;dd+;
 Extended Module;;;A;ExtendedModule;;xm;
 FLAC;;;A;Flac;Free Lossless Audio Codec;flac;http://flac.sourceforge.net/
 Impulse Tracker;;;A;ImpulseTracker;;it;
+LA;;;A;La;Lossless Audio Codec;la;http://www.lossless-audio.com/
 MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface;;
 Module;;;A;Module;;mod;
 Monkey's Audio;;;A;Ape;;ape mac;http://www.monkeysaudio.com/

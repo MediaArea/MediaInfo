@@ -143,6 +143,9 @@
 #if defined(MEDIAINFO_IT_YES)
     #include "MediaInfo/Audio/File_ImpulseTracker.h"
 #endif
+#if defined(MEDIAINFO_LA_YES)
+    #include "MediaInfo/Audio/File_La.h"
+#endif
 #if defined(MEDIAINFO_MIDI_YES)
     #include "MediaInfo/Audio/File_Midi.h"
 #endif
@@ -374,14 +377,14 @@ File__MultipleParsing::File__MultipleParsing()
     #if defined(MEDIAINFO_DTS_YES)
         Temp=new File_Dts(); Parser.push_back(Temp);
     #endif
-    #if defined(MEDIAINFO_XM_YES)
-        Temp=new File_ExtendedModule(); Parser.push_back(Temp);
+    #if defined(MEDIAINFO_FLAC_YES)
+        Temp=new File_Flac(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_IT_YES)
         Temp=new File_ImpulseTracker(); Parser.push_back(Temp);
     #endif
-    #if defined(MEDIAINFO_FLAC_YES)
-        Temp=new File_Flac(); Parser.push_back(Temp);
+    #if defined(MEDIAINFO_LA_YES)
+        Temp=new File_La(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_MIDI_YES)
         Temp=new File_Midi(); Parser.push_back(Temp);
@@ -409,6 +412,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_WVPK_YES)
         Temp=new File_Wvpk(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_XM_YES)
+        Temp=new File_ExtendedModule(); Parser.push_back(Temp);
     #endif
 
     // Text

@@ -271,6 +271,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_La.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_Latm.cpp"
 					>
 				</File>
@@ -787,6 +791,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Audio\File_ImpulseTracker.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Audio\File_La.h"
 					>
 				</File>
 				<File

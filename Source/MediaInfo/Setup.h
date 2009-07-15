@@ -214,6 +214,9 @@
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_LATM_NO) && !defined(MEDIAINFO_LATM_YES)
     #define MEDIAINFO_LATM_YES
 #endif
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_AES3_NO) && !defined(MEDIAINFO_AES3_YES)
+    #define MEDIAINFO_AES3_YES
+#endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_AMR_NO) && !defined(MEDIAINFO_AMR_YES)
     #define MEDIAINFO_AMR_YES
 #endif
@@ -235,6 +238,12 @@
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_IT_NO) && !defined(MEDIAINFO_IT_YES)
     #define MEDIAINFO_IT_YES
 #endif
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_LA_NO) && !defined(MEDIAINFO_LA_YES)
+    #define MEDIAINFO_LA_YES
+#endif
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_LATM_NO) && !defined(MEDIAINFO_LATM_YES)
+    #define MEDIAINFO_LATM_YES
+#endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_MIDO_NO) && !defined(MEDIAINFO_MIDO_YES)
     #define MEDIAINFO_MIDI_YES
 #endif
@@ -253,8 +262,14 @@
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_PCM_NO) && !defined(MEDIAINFO_PCM_YES)
     #define MEDIAINFO_PCM_YES
 #endif
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_PS2A_NO) && !defined(MEDIAINFO_PS2A_YES)
+    #define MEDIAINFO_PS2A_YES
+#endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_S3M_NO) && !defined(MEDIAINFO_S3M_YES)
     #define MEDIAINFO_S3M_YES
+#endif
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_SPEEX_NO) && !defined(MEDIAINFO_SPEEX_YES)
+    #define MEDIAINFO_SPEEX_YES
 #endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_TTA_NO) && !defined(MEDIAINFO_TTA_YES)
     #define MEDIAINFO_TTA_YES
@@ -270,15 +285,6 @@
 #endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_XM_NO) && !defined(MEDIAINFO_XM_YES)
     #define MEDIAINFO_XM_YES
-#endif
-#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_AES3_NO) && !defined(MEDIAINFO_AES3_YES)
-    #define MEDIAINFO_AES3_YES
-#endif
-#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_SPEEX_NO) && !defined(MEDIAINFO_SPEEX_YES)
-    #define MEDIAINFO_SPEEX_YES
-#endif
-#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_PS2A_NO) && !defined(MEDIAINFO_PS2A_YES)
-    #define MEDIAINFO_PS2A_YES
 #endif
 
 //---------------------------------------------------------------------------

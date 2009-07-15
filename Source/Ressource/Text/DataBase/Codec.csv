@@ -814,21 +814,22 @@ MPEG-2A L1;MPEG-2 Audio Layer 1;MediaInfo;A;MPEG-A;;;
 MPEG-2A L2;MPEG-2 Audio Layer 2;MediaInfo;A;MPEG-A;;;
 MPEG-2A L3;MPEG-2 Audio Layer 3;MediaInfo;A;MPEG-A;;;
 MPEG-2.5A;MPEG-2.5 Audio;MediaInfo;A;MPEG-A;;;
-MPEG-2.5A L1;MPEG-2.5 Audio Layer 1;MediaInfo;A;MPEG-A;;;
-MPEG-2.5A L2;MPEG-2.5 Audio Layer 2;MediaInfo;A;MPEG-A;;;
-MPEG-2.5A L3;MPEG-2.5 Audio Layer 3;MediaInfo;A;MPEG-A;;;
-APE;Monkey's Audio;MediaInfo;A;;;;http://www.monkeysaudio.com/
-ALS;ALS;MediaInfo;A;;;MPEG-4 Audio Lossless Coding;http://www.nue.tu-berlin.de/forschung/projekte/lossless/mp4als.html#downloads
-Vodei;Vodei MP;MediaInfo;V;;;Video On Demand Exploration Interface;http://www.vodei.com
-SWF ADPCM;ADPCM;MediaInfo;A;ADPCM;;ADPCM found in SWF/FLV files;http://www.adobe.com
-AC3+;AC3+;MediaInfo;A;AC3;;Dolby Ehanced AC3;
-TrueHD;TrueHD;MediaInfo;A;AC3;;Dolby TrueHD (AC3 based);
-VC-1;VC-1;MediaInfo;V;VC-1;;;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
-0;Unknown;2CC;A;;;;
-1;PCM;2CC;A;PCM;;Microsoft PCM;http://www.microsoft.com/windows/
-2;ADPCM;2CC;A;ADPCM;;Microsoft ADPCM;http://www.microsoft.com/windows/
-3;PCM;2CC;A;PCM;;IEEE FLOAT;http://www.microsoft.com/windows/
-4;VSELP;2CC;A;;;Compaq VSELP;
+MPEG-2.5A L1;MPEG-2.5 Audio Layer 1;MediaInfo;A;MPEG-A;;;;
+MPEG-2.5A L2;MPEG-2.5 Audio Layer 2;MediaInfo;A;MPEG-A;;;;
+MPEG-2.5A L3;MPEG-2.5 Audio Layer 3;MediaInfo;A;MPEG-A;;;;
+APE;Monkey's Audio;MediaInfo;A;;;;http://www.monkeysaudio.com/;
+ALS;ALS;MediaInfo;A;;;MPEG-4 Audio Lossless Coding;http://www.nue.tu-berlin.de/forschung/projekte/lossless/mp4als.html#downloads;
+Vodei;Vodei MP;MediaInfo;V;;;Video On Demand Exploration Interface;http://www.vodei.com;
+SWF ADPCM;ADPCM;MediaInfo;A;ADPCM;;ADPCM found in SWF/FLV files;http://www.adobe.com;
+AC3+;AC3+;MediaInfo;A;AC3;;Dolby Ehanced AC3;;
+TrueHD;TrueHD;MediaInfo;A;AC3;;Dolby TrueHD (AC3 based);;
+VC-1;VC-1;MediaInfo;V;VC-1;;;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx;
+LA;LA;MediaInfo;A;;;Lossless Audio Codec;la;http://www.lossless-audio.com/
+0;Unknown;2CC;A;;;;;
+1;PCM;2CC;A;PCM;;Microsoft PCM;http://www.microsoft.com/windows/;
+2;ADPCM;2CC;A;ADPCM;;Microsoft ADPCM;http://www.microsoft.com/windows/;
+3;PCM;2CC;A;PCM;;IEEE FLOAT;http://www.microsoft.com/windows/;
+4;VSELP;2CC;A;;;Compaq VSELP;;
 5;CVSD;2CC;A;;;IBM CVSD;
 6;A-Law;2CC;A;ADPCM;;CCITT A-Law;http://www.microsoft.com/windows/
 7;U-Law;2CC;A;ADPCM;;CCITT U-Law;http://www.microsoft.com/windows/
@@ -909,7 +910,7 @@ C;MPEG2 5.1;2CC;A;;;MPEG2 5.1;
 83;G729A;2CC;A;;;AT&T G729A;
 84;MVI_MVI2;2CC;A;;;Motion Pixels MVI_MVI2;
 85;ADPCM;2CC;A;ADPCM;;DataFusion Systems (Pty) G726;
-86;GSM6.10;2CC;A;;;DataFusion Systems (Pty) GSM6.10;
+86;GSM6.10;2CC;A;;;DataFusion Systems (Pty) GSM6.10
 88;ISI AUDIO;2CC;A;;;Iterated Systems AUDIO
 89;Onlive;2CC;A;;;OnLive! Technologies
 8A;SX20;2CC;A;;;Multitude
@@ -925,7 +926,7 @@ C;MPEG2 5.1;2CC;A;;;MPEG2 5.1;
 A0;PHONYTALK;2CC;A;;;Malden Electronics PHONYTALK
 A1;GSM;2CC;A;;;Racal Recorders
 A2;G.720a;2CC;A;;;Racal Recorders
-A3;G.723.1;2CC;A;;;Racal Recorders
+A3;G.723.1;2CC;A;;;Racal Recorders;
 A4;ACELP;2CC;A;;;Racal Recorders;
 B0;AAC;2CC;A;AAC;;NEC Corporation;
 FF;AAC;2CC;A;AAC;;;
@@ -957,7 +958,7 @@ FF;AAC;2CC;A;AAC;;;
 162;WMA3;2CC;A;;;Windows Media Audio 3;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
 163;WMA Lossless;2CC;A;;;Windows Media Audio 3;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
 163;WMA Pro;2CC;A;;;WMA Pro over S/PDIF;
-170;ADPCM;2CC;A;ADPCM;;Unisys Nap ADPCM;
+170;ADPCM;2CC;A;ADPCM;;Unisys Nap ADPCM
 171;U-Law;2CC;A;ADPCM;;Unisys Nap U-law
 172;A-Law;2CC;A;ADPCM;;Unisys Nap A-law
 173;16K;2CC;A;;;Unisys Nap 16K
@@ -989,7 +990,7 @@ FF;AAC;2CC;A;AAC;;;
 281;TelumIA;2CC;A;;;
 285;ADPCM;2CC;A;ADPCM;;Norcom Voice Systems
 300;FM_TOWNS_SND;2CC;A;;;Fujitsu FM_TOWNS_SND
-350;Dev;2CC;A;;;Micronas Semiconductors, Inc.
+350;Dev;2CC;A;;;Micronas Semiconductors, Inc.;
 351;CELP833;2CC;A;;;Micronas Semiconductors, Inc.;
 400;BTV_DIGITAL;2CC;A;;;Brooktree (BTV) DIGITAL;
 401;Music Coder;2CC;A;;;Intel Music Coder;http://www.intel.com/
@@ -1021,22 +1022,22 @@ AAC;AAC;2CC;A;AAC;;;
 1C03;ADPCM;2CC;A;ADPCM;;Lucent SX5363S G.723 compliant codec;
 1C07;SX8300P;2CC;A;;;Lucent SX8300P speech codec;
 1C0C;ADPCM;2CC;A;ADPCM;;Lucent SX5363S G.723 compliant codec;
-1F03;DigiTalk;2CC;A;;;CUseeMe DigiTalk (ex-Rocwell);
-1FC4;ALF2CD;2CC;A;;;NCT Soft ALF2CD ACM;
-2000;AC3;2CC;A;AC3;CBR;Dolby AC3;
-2001;DTS;2CC;A;DTS;;Digital Theater Systems;
-2002;Real Audio 1;2CC;A;;;RealAudio 1/2 14.4;
-2003;Real Audio 1;2CC;A;;;RealAudio 1/2 28.8;
-2004;Real Audio 2;2CC;A;;;RealAudio G2/8 Cook (low bitrate);
-2005;Real Audio 3;2CC;A;;;RealAudio 3/4/5 Music (DNET);
-2006;AAC;2CC;A;AAC;;RealAudio 10 AAC (RAAC);
-2007;AAC+;2CC;A;AAC;;RealAudio 10 AAC+ (RACP);
-3313;AviSynth;2CC;A;;;makeAVIS (fake AVI sound from AviSynth scripts);
-4143;AAC;2CC;A;AAC;;Divio MPEG-4 AAC audio;
-4201;Nokia;2CC;A;;;;
-4243;ADPCM;2CC;A;ADPCM;;G726;
-43AC;Lead Speech;2CC;A;;;;
-564C;Lead Vorbis;2CC;A;;;;
+1F03;DigiTalk;2CC;A;;;CUseeMe DigiTalk (ex-Rocwell)
+1FC4;ALF2CD;2CC;A;;;NCT Soft ALF2CD ACM
+2000;AC3;2CC;A;AC3;CBR;Dolby AC3
+2001;DTS;2CC;A;DTS;;Digital Theater Systems
+2002;Real Audio 1;2CC;A;;;RealAudio 1/2 14.4
+2003;Real Audio 1;2CC;A;;;RealAudio 1/2 28.8
+2004;Real Audio 2;2CC;A;;;RealAudio G2/8 Cook (low bitrate)
+2005;Real Audio 3;2CC;A;;;RealAudio 3/4/5 Music (DNET)
+2006;AAC;2CC;A;AAC;;RealAudio 10 AAC (RAAC)
+2007;AAC+;2CC;A;AAC;;RealAudio 10 AAC+ (RACP)
+3313;AviSynth;2CC;A;;;makeAVIS (fake AVI sound from AviSynth scripts)
+4143;AAC;2CC;A;AAC;;Divio MPEG-4 AAC audio
+4201;Nokia;2CC;A;;;
+4243;ADPCM;2CC;A;ADPCM;;G726
+43AC;Lead Speech;2CC;A;;;
+564C;Lead Vorbis;2CC;A;;;
 566F;Vorbis;2CC;A;Vorbis;;;http://www.vorbis.com
 5756;WavPack;2CC;A;;;;http://www.wavpack.com/
 674F;Vorbis;2CC;A;Vorbis;;Mode 1;http://www.vorbis.com

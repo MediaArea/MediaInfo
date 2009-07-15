@@ -154,6 +154,9 @@
 #if defined(MEDIAINFO_IT_YES)
     #include "MediaInfo/Audio/File_ImpulseTracker.h"
 #endif
+#if defined(MEDIAINFO_LA_YES)
+    #include "MediaInfo/Audio/File_La.h"
+#endif
 #if defined(MEDIAINFO_MIDI_YES)
     #include "MediaInfo/Audio/File_Midi.h"
 #endif
@@ -384,8 +387,17 @@ void MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_FLAC_YES)
         else if (Parser==_T("Flac"))        Info=new File_Flac();
     #endif
+    #if defined(MEDIAINFO_IT_YES)
+        else if (Parser==_T("It"))          Info=new File_ImpulseTracker();
+    #endif
+    #if defined(MEDIAINFO_LA_YES)
+        else if (Parser==_T("La"))          Info=new File_La();
+    #endif
     #if defined(MEDIAINFO_MIDI_YES)
         else if (Parser==_T("Midi"))        Info=new File_Midi();
+    #endif
+    #if defined(MEDIAINFO_MOD_YES)
+        else if (Parser==_T("Mod"))         Info=new File_Module();
     #endif
     #if defined(MEDIAINFO_MPC_YES)
         else if (Parser==_T("Mpc"))         Info=new File_Mpc();
@@ -402,6 +414,9 @@ void MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_AU_YES)
         else if (Parser==_T("Au"))          Info=new File_Au();
     #endif
+    #if defined(MEDIAINFO_S3M_YES)
+        else if (Parser==_T("S3m"))         Info=new File_ScreamTracker3();
+    #endif
     #if defined(MEDIAINFO_TTA_YES)
         else if (Parser==_T("Tta"))         Info=new File_Tta();
     #endif
@@ -413,15 +428,6 @@ void MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #endif
     #if defined(MEDIAINFO_XM_YES)
         else if (Parser==_T("Xm"))          Info=new File_ExtendedModule();
-    #endif
-    #if defined(MEDIAINFO_MOD_YES)
-        else if (Parser==_T("Mod"))         Info=new File_Module();
-    #endif
-    #if defined(MEDIAINFO_S3M_YES)
-        else if (Parser==_T("S3m"))         Info=new File_ScreamTracker3();
-    #endif
-    #if defined(MEDIAINFO_IT_YES)
-        else if (Parser==_T("It"))          Info=new File_ImpulseTracker();
     #endif
 
     // Text
@@ -611,8 +617,17 @@ int MediaInfo_Internal::ListFormats()
     #if defined(MEDIAINFO_FLAC_YES)
         delete Info; Info=new File_Flac();               if (ApplyMethod()>0) return 1;
     #endif
+    #if defined(MEDIAINFO_IT_YES)
+        delete Info; Info=new File_ImpulseTracker();     if (ApplyMethod()>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_LA_YES)
+        delete Info; Info=new File_La();                 if (ApplyMethod()>0) return 1;
+    #endif
     #if defined(MEDIAINFO_MIDI_YES)
         delete Info; Info=new File_Midi();               if (ApplyMethod()>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_MOD_YES)
+        delete Info; Info=new File_Module();             if (ApplyMethod()>0) return 1;
     #endif
     #if defined(MEDIAINFO_MPC_YES)
         delete Info; Info=new File_Mpc();                if (ApplyMethod()>0) return 1;
@@ -626,6 +641,9 @@ int MediaInfo_Internal::ListFormats()
     #if defined(MEDIAINFO_PCM_YES)
       //delete Info; Info=new File_Pcm();                if (ApplyMethod()>0) return 1;
     #endif
+    #if defined(MEDIAINFO_S3M_YES)
+        delete Info; Info=new File_ScreamTracker3();      if (ApplyMethod()>0) return 1;
+    #endif
     #if defined(MEDIAINFO_TTA_YES)
         delete Info; Info=new File_Tta();                if (ApplyMethod()>0) return 1;
     #endif
@@ -637,15 +655,6 @@ int MediaInfo_Internal::ListFormats()
     #endif
     #if defined(MEDIAINFO_XM_YES)
         delete Info; Info=new File_ExtendedModule();     if (ApplyMethod()>0) return 1;
-    #endif
-    #if defined(MEDIAINFO_MOD_YES)
-        delete Info; Info=new File_Module();             if (ApplyMethod()>0) return 1;
-    #endif
-    #if defined(MEDIAINFO_S3M_YES)
-        delete Info; Info=new File_ScreamTracker3();      if (ApplyMethod()>0) return 1;
-    #endif
-    #if defined(MEDIAINFO_IT_YES)
-        delete Info; Info=new File_ImpulseTracker();     if (ApplyMethod()>0) return 1;
     #endif
 
     // Text

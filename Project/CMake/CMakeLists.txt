@@ -56,6 +56,7 @@ set(mediainfo_SRCS
 	MediaInfo/Audio/File_ExtendedModule.cpp
 	MediaInfo/Audio/File_Flac.cpp
 	MediaInfo/Audio/File_ImpulseTracker.cpp
+	MediaInfo/Audio/File_La.cpp
 	MediaInfo/Audio/File_Latm.cpp
 	MediaInfo/Audio/File_Midi.cpp
 	MediaInfo/Audio/File_Module.cpp

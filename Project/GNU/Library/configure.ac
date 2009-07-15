@@ -79,7 +79,8 @@ AC_ARG_ENABLE(ape,     AC_HELP_STRING([--disable-ape],     [Disable Audio - Monk
 AC_ARG_ENABLE(au,      AC_HELP_STRING([--disable-au],      [Disable Audio - Au]),                                         MediaInfoAu=$enableval,      MediaInfoAu=depend)
 AC_ARG_ENABLE(dts,     AC_HELP_STRING([--disable-dts],     [Disable Audio - DTS]),                                        MediaInfoDts=$enableval,     MediaInfoDts=depend)
 AC_ARG_ENABLE(flac,    AC_HELP_STRING([--disable-flac],    [Disable Audio - FLAC format]),                                MediaInfoFlac=$enableval,    MediaInfoFlac=depend)
-AC_ARG_ENABLE(latm,    AC_HELP_STRING([--disable-latm],    [Disable Audio - LATM]),                                       MediaInfoAdts=$enableval,    MediaInfoAdts=depend)
+AC_ARG_ENABLE(la,      AC_HELP_STRING([--disable-la],      [Disable Audio - LA (Lossless Audio)]),                        MediaInfoLa=$enableval,      MediaInfoLa=depend)
+AC_ARG_ENABLE(latm,    AC_HELP_STRING([--disable-latm],    [Disable Audio - LATM]),                                       MediaInfoLatm=$enableval,    MediaInfoLatm=depend)
 AC_ARG_ENABLE(midi,    AC_HELP_STRING([--disable-midi],    [Disable Audio - MIDI]),                                       MediaInfoMidi=$enableval,    MediaInfoMidi=depend)
 AC_ARG_ENABLE(mpc,     AC_HELP_STRING([--disable-mpc],     [Disable Audio - Musepack format (.mpc)]),                     MediaInfoMpc=$enableval,     MediaInfoMpc=depend)
 AC_ARG_ENABLE(mpcsv8,  AC_HELP_STRING([--disable-mpc],     [Disable Audio - Musepack format SV8 (.mpc)]),                 MediaInfoMpcSv8=$enableval,  MediaInfoMpcSv8=depend)
@@ -181,6 +182,7 @@ if test "$MediaInfoApe"     = "no";  then AC_DEFINE(MEDIAINFO_APE_NO)     fi; if
 if test "$MediaInfoAu"      = "no";  then AC_DEFINE(MEDIAINFO_AU_NO)      fi; if test "$MediaInfoAu"      = "yes"; then AC_DEFINE(MEDIAINFO_AU_YES)      fi
 if test "$MediaInfoDts"     = "no";  then AC_DEFINE(MEDIAINFO_DTS_NO)     fi; if test "$MediaInfoDts"     = "yes"; then AC_DEFINE(MEDIAINFO_DTS_YES)     fi
 if test "$MediaInfoFlac"    = "no";  then AC_DEFINE(MEDIAINFO_FLAC_NO)    fi; if test "$MediaInfoFlac"    = "yes"; then AC_DEFINE(MEDIAINFO_FLAC_YES)    fi
+if test "$MediaInfoLa"      = "no";  then AC_DEFINE(MEDIAINFO_LA_NO)      fi; if test "$MediaInfoLa"      = "yes"; then AC_DEFINE(MEDIAINFO_LA_YES)      fi
 if test "$MediaInfoLatm"    = "no";  then AC_DEFINE(MEDIAINFO_LATM_NO)    fi; if test "$MediaInfoLatm"    = "yes"; then AC_DEFINE(MEDIAINFO_LATM_YES)    fi
 if test "$MediaInfoMidi"    = "no";  then AC_DEFINE(MEDIAINFO_MIDO_NO)    fi; if test "$MediaInfoMidi"    = "yes"; then AC_DEFINE(MEDIAINFO_MIDI_YES)    fi
 if test "$MediaInfoMpc"     = "no";  then AC_DEFINE(MEDIAINFO_MPC_NO)     fi; if test "$MediaInfoMpc"     = "yes"; then AC_DEFINE(MEDIAINFO_MPC_YES)     fi
@@ -505,8 +507,9 @@ Mcho "Ape    " "$MediaInfoApe"
 Mcho "Au     " "$MediaInfoAu"
 Mcho "Dts    " "$MediaInfoDts"
 Mcho "Flac   " "$MediaInfoFlac"
+Mcho "La     " "$MediaInfoLa"
 Mcho "Latm   " "$MediaInfoLatm"
-Mcho "Midi    " "$MediaInfoMidi"
+Mcho "Midi   " "$MediaInfoMidi"
 Mcho "Mpc    " "$MediaInfoMpc"
 Mcho "MpcSv8 " "$MediaInfoMpcSv8"
 Mcho "Mpega  " "$MediaInfoMpega"
