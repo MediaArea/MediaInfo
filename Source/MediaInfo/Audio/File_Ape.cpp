@@ -61,11 +61,11 @@ const char* Ape_Codec_Settings(int16u Setting)
 {
     switch (Setting)
     {
-        case 1000 : return "fast";
-        case 2000 : return "normal";
-        case 3000 : return "high";
-        case 4000 : return "extra-high";
-        case 5000 : return "insane";
+        case 1000 : return "Fast";
+        case 2000 : return "Normal";
+        case 3000 : return "High";
+        case 4000 : return "Extra-high";
+        case 5000 : return "Insane";
         default   : return "";
     }
 }
@@ -207,6 +207,7 @@ void File_Ape::FileHeader_Parse()
         Fill(Stream_General, 0, General_Format, "Monkey's Audio");
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "Monkey's Audio");
+        Fill(Stream_Audio, 0, Audio_Encoded_Library_Settings, Ape_Codec_Settings(CompressionLevel));
         Fill(Stream_Audio, 0, Audio_Codec, "APE");
         Fill(Stream_Audio, 0, Audio_Resolution, Resolution);
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
