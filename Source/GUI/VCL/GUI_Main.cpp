@@ -1221,6 +1221,8 @@ void __fastcall TMainF::Page_Easy_FileChange(TObject *Sender)
                     Page_Easy_X[KindOfStream][StreamPos]->Visible=Page_Easy_X_Codec[KindOfStream][StreamPos]->Caption.Length();
                 //Web
                 Page_Easy_X_Web_Url[KindOfStream][StreamPos]=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, _T("CodecID/Url")).c_str();
+                if (Page_Easy_X_Web_Url[KindOfStream][StreamPos].empty())
+                    Page_Easy_X_Web_Url[KindOfStream][StreamPos]=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, _T("Format/Url")).c_str();
                 Page_Easy_X_Web[KindOfStream][StreamPos]->Visible=Page_Easy_X_Web_Url[KindOfStream][StreamPos].size();
             }
         }
@@ -1374,6 +1376,8 @@ void __fastcall TMainF::Page_Sheet_Change(TObject *Sender)
     //Fill info
     Page_Sheet_X[KindOfStream]->Hint=I->Get(Page_Position, (stream_t)KindOfStream, I1, _T("CodecID/Info")).c_str();
     Page_Sheet_X_Web_Url[KindOfStream]=I->Get(Page_Position, (stream_t)KindOfStream, I1, _T("CodecID/Url")).c_str();
+    if (Page_Sheet_X_Web_Url[KindOfStream].empty())
+        Page_Sheet_X_Web_Url[KindOfStream]=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, _T("Format/Url")).c_str();
     if (Page_Sheet_X_Web_Url[KindOfStream]==_T(""))
     {
         Page_Sheet_X_Web[KindOfStream]->Enabled=false;
