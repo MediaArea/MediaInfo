@@ -46,6 +46,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Audio/File_ExtendedModule.cpp \
                        ../../../Source/MediaInfo/Audio/File_Flac.cpp \
                        ../../../Source/MediaInfo/Audio/File_ImpulseTracker.cpp \
+                       ../../../Source/MediaInfo/Audio/File_La.cpp \
                        ../../../Source/MediaInfo/Audio/File_Latm.cpp \
                        ../../../Source/MediaInfo/Audio/File_Midi.cpp \
                        ../../../Source/MediaInfo/Audio/File_Module.cpp \
