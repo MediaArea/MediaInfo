@@ -4,8 +4,8 @@ RequestExecutionLevel admin
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_PUBLISHER "MediaArea.net"
-!define PRODUCT_VERSION "0.7.18"
-!define PRODUCT_VERSION4 "0.7.18.0"
+!define PRODUCT_VERSION "0.7.19"
+!define PRODUCT_VERSION4 "0.7.19.0"
 !define PRODUCT_WEB_SITE "http://mediainfo.sourceforge.net"
 !define COMPANY_REGISTRY "Software\MediaArea.net"
 !define PRODUCT_REGISTRY "Software\MediaArea.net\MediaInfo"
@@ -192,6 +192,8 @@ Section Uninstall
 
   DeleteRegKey HKLM "${PRODUCT_REGISTRY}"
   DeleteRegKey /ifempty HKLM "${COMPANY_REGISTRY}"
+  DeleteRegKey HKCU "${PRODUCT_REGISTRY}"
+  DeleteRegKey /ifempty HKCU "${COMPANY_REGISTRY}"
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
   SetAutoClose true
