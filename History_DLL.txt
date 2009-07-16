@@ -15,6 +15,7 @@ Version 0.7.19, 2009
 + AAC: forcing SBR/PS when it is implicit (if <=24KHz, if 1 channel)
 + AVC: Closed captions detection
 + #2813919, APE: CompressionLevel
++ XML output: track names are changed, for a better usability by XML parsers
 x MKV: Original display aspect ratio was not displayed
 x #2817479, Blu-ray/M2Ts: crash with some specific file names
 x MXF: the whole file was parsed, parsing now only the useful part

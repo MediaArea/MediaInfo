@@ -156,33 +156,31 @@ String MediaInfo_Internal::Inform()
         {
             //Pour chaque stream
             if (HTML) Retour+=_T("<table width=\"100%\" border=\"0\" cellpadding=\"1\" cellspacing=\"2\" style=\"border:1px solid Navy\">\n<tr>\n    <td width=\"150\">");
-            if (XML) Retour+=_T("<");
+            if (XML) Retour+=_T("<track type=\"");
             Ztring A=Get((stream_t)StreamKind, StreamPos, _T("StreamKind/String"));
             Ztring B=Get((stream_t)StreamKind, StreamPos, _T("StreamKindPos"));
-            if (!B.empty())
+            if (!XML && !B.empty())
             {
                 A+=MediaInfoLib::Config.Language_Get(_T("  Config_Text_NumberTag"));
                 A+=B;
             }
+            Retour+=A;
             if (XML)
             {
-                A.FindAndReplace(_T(" "), _T("_"), 0, Ztring_Recursive);
-                A.FindAndReplace(_T("#"), _T("_"), 0, Ztring_Recursive);
-                if (A.operator()(0)>='0' && A.operator()(0)<='9')
-                    A.insert(0, 1, _T('_'));
+                Retour+=_T("\"");
+                if (!B.empty())
+                {
+                    Retour+=_T(" streamid=\"");
+                    Retour+=B;
+                    Retour+=_T("\"");
+                }
             }
-            Retour+=A;
             if (HTML) Retour+=_T("</td>\n  </tr>");
             if (XML) Retour+=_T(">\n");
             Retour+=MediaInfoLib::Config.LineSeparator_Get();
             Retour+=Inform((stream_t)StreamKind, StreamPos);
             if (HTML) Retour+=_T("</table>\n<br />");
-            if (XML)
-            {
-                Retour+=_T("</");
-                Retour+=A;
-                Retour+=_T(">\n");
-            }
+            if (XML) Retour+=_T("</track>\n");
             Retour+=MediaInfoLib::Config.LineSeparator_Get();
         }
     }
