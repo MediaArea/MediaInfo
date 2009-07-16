@@ -1377,7 +1377,7 @@ void __fastcall TMainF::Page_Sheet_Change(TObject *Sender)
     Page_Sheet_X[KindOfStream]->Hint=I->Get(Page_Position, (stream_t)KindOfStream, I1, _T("CodecID/Info")).c_str();
     Page_Sheet_X_Web_Url[KindOfStream]=I->Get(Page_Position, (stream_t)KindOfStream, I1, _T("CodecID/Url")).c_str();
     if (Page_Sheet_X_Web_Url[KindOfStream].empty())
-        Page_Sheet_X_Web_Url[KindOfStream]=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, _T("Format/Url")).c_str();
+        Page_Sheet_X_Web_Url[KindOfStream]=I->Get(Page_Position, (stream_t)KindOfStream, I1, _T("Format/Url")).c_str();
     if (Page_Sheet_X_Web_Url[KindOfStream]==_T(""))
     {
         Page_Sheet_X_Web[KindOfStream]->Enabled=false;
@@ -1564,7 +1564,7 @@ void __fastcall TMainF::Donate___Click(TObject *Sender)
 
 void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, (Ztring(_T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(_T("  Language_ISO639"))+_T("?NewVersionRequest=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, (Ztring(_T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(_T("  Language_ISO639"))+_T("?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 //---------------------------------------------------------------------------
 

@@ -35,6 +35,7 @@
 #include <ZenLib/Dir.h>
 #include <ZenLib/File.h>
 #include <ZenLib/HTTP_Client.h>
+#include <ctime>
 using namespace ZenLib;
 #ifdef MEDIAINFO_DLL_RUNTIME
     #include "MediaInfoDLL/MediaInfoDLL.h"
@@ -104,6 +105,9 @@ int Preferences::Config_Create()
     if (Config(_T("ShowToolBar")).empty()) Config(_T("ShowToolBar"))=_T("1");
     if (Config(_T("ShowMenu")).empty()) Config(_T("ShowMenu"))=_T("1");
     if (Config(_T("CloseAllAuto")).empty()) Config(_T("CloseAllAuto"))=_T("1");
+    if (Config(_T("FirstInstall")).empty()) Config(_T("FirstInstall")).From_Number((int64u)time(NULL));
+    if (Config(_T("Donated")).empty()) Config(_T("Donated"))=_T("0");
+    if (Config(_T("Donate_Display")).empty()) Config(_T("Donate_Display"))=_T("1");
     Config.Save(BaseFolder+_T("MediaInfo.cfg"));
 
     return 1;
@@ -175,6 +179,13 @@ int Preferences::Config_Load()
         }
     }
     catch (...){}
+    if (Config(_T("Donated"))==_T("1"))
+        Donate_Display=false;
+    if (Config(_T("Donate_Display"))==_T("0"))
+        Donate_Display=false;
+    if ((int64u)time(NULL)-Config(_T("FirstInstall")).To_int64u()<7*24*60*60)
+        Donate_Display=false;
+
 
     delete Reg_User; Reg_User=NULL;
 
@@ -371,6 +382,18 @@ void __fastcall ThreadInternetCheck::Execute()
         Prefs->Config.Save();
     }
 
+    //Donation button
+    if (Prefs->Config(_T("Donate_Display"))==_T("0") && Download(_T("DonateButton"))==_T("1"))
+    {
+        Prefs->Config(_T("Donate_Display"))=_T("1");
+        Prefs->Config.Save();
+    }
+    if (Prefs->Config(_T("Donate_Display"))==_T("1") && Download(_T("DonateButton"))==_T("0"))
+    {
+        Prefs->Config(_T("Donate_Display"))=_T("0");
+        Prefs->Config.Save();
+    }
+
     //Chargement de pages
     ZtringListList Pages=Download.SubSheet(_T("Url"));
     for (size_t Pos=0; Pos<Pages.size(); Pos++)
@@ -545,7 +568,6 @@ int Preferences::ExplorerShell()
         ExplorerShell_Edit("SystemFileAssociations\\Directory.Audio", 0, IsChanged, Reg);
         ExplorerShell_Edit("SystemFileAssociations\\Directory.Video", 0, IsChanged, Reg);
         ExplorerShell_Edit("SystemFileAssociations\\video", 0, IsChanged, Reg);
-        ExplorerShell_Edit("Folder", 0, IsChanged, Reg);
 
         //Adding/removing to SystemFileAssociations
         int32s ShellExtension=Config.Read(_T("ShellExtension")).To_int32s();
@@ -713,7 +735,7 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
                 IsChanged=true;
             }
         }
-        else
+        else// if (Player!=_T("Folder"))
         {
             //Should not be here, deleting
             Reg->CloseKey();
