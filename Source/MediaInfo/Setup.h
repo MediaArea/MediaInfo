@@ -271,6 +271,9 @@
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_SPEEX_NO) && !defined(MEDIAINFO_SPEEX_YES)
     #define MEDIAINFO_SPEEX_YES
 #endif
+#if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_TAK_NO) && !defined(MEDIAINFO_TAK_YES)
+    #define MEDIAINFO_TAK_YES
+#endif
 #if !defined(MEDIAINFO_AUDIO_NO) && !defined(MEDIAINFO_TTA_NO) && !defined(MEDIAINFO_TTA_YES)
     #define MEDIAINFO_TTA_YES
 #endif

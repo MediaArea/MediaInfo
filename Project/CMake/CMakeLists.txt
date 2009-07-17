@@ -68,6 +68,7 @@ set(mediainfo_SRCS
 	MediaInfo/Audio/File_Ps2Audio.cpp
 	MediaInfo/Audio/File_ScreamTracker3.cpp
 	MediaInfo/Audio/File_Speex.cpp
+	MediaInfo/Audio/File_Tak.cpp
 	MediaInfo/Audio/File_Tta.cpp
 	MediaInfo/Audio/File_TwinVQ.cpp
 	MediaInfo/Audio/File_Vorbis.cpp

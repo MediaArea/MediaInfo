@@ -88,6 +88,7 @@ AC_ARG_ENABLE(mpega,   AC_HELP_STRING([--disable-mpega],   [Disable Audio - MPEG
 AC_ARG_ENABLE(pcm,     AC_HELP_STRING([--disable-pcm],     [Disable Audio - PCM]),                                        MediaInfoPcm=$enableval,     MediaInfoPcm=depend)
 AC_ARG_ENABLE(ps2a,    AC_HELP_STRING([--disable-ps2a],    [Disable Audio - PS2 Audio]),                                  MediaInfoPs2a=$enableval,    MediaInfoPs2a=depend)
 AC_ARG_ENABLE(speex,   AC_HELP_STRING([--disable-speex],   [Disable Audio - Speex]),                                      MediaInfoSpeex=$enableval,   MediaInfoSpeex=depend)
+AC_ARG_ENABLE(tak,     AC_HELP_STRING([--disable-tak],     [Disable Audio - TAK]),                                        MediaInfoTak=$enableval,     MediaInfoTak=depend)
 AC_ARG_ENABLE(tta,     AC_HELP_STRING([--disable-tta],     [Disable Audio - True Audio]),                                 MediaInfoTta=$enableval,     MediaInfoTta=depend)
 AC_ARG_ENABLE(twinvq,  AC_HELP_STRING([--disable-twinvq],  [Disable Audio - TwinVQ]),                                     MediaInfoTwinVQ=$enableval,  MediaInfoTwinVQ=depend)
 AC_ARG_ENABLE(vorbis,  AC_HELP_STRING([--disable-vorbis],  [Disable Audio - Vorbis]),                                     MediaInfovorbis=$enableval,  MediaInfovorbis=depend)
@@ -191,6 +192,7 @@ if test "$MediaInfoMpega"   = "no";  then AC_DEFINE(MEDIAINFO_MPEGA_NO)   fi; if
 if test "$MediaInfoPcm"     = "no";  then AC_DEFINE(MEDIAINFO_PCM_NO)     fi; if test "$MediaInfoPcm"     = "yes"; then AC_DEFINE(MEDIAINFO_PCM_YES)     fi
 if test "$MediaInfoPs2a"    = "no";  then AC_DEFINE(MEDIAINFO_PS2A_NO)    fi; if test "$MediaInfoPs2a"    = "yes"; then AC_DEFINE(MEDIAINFO_PS2A_YES)    fi
 if test "$MediaInfoSpeex"   = "no";  then AC_DEFINE(MEDIAINFO_SPEEX_NO)   fi; if test "$MediaInfoSpeex"   = "yes"; then AC_DEFINE(MEDIAINFO_SPEEX_YES)   fi
+if test "$MediaInfoTak"     = "no";  then AC_DEFINE(MEDIAINFO_TAK_NO)     fi; if test "$MediaInfoTak"     = "yes"; then AC_DEFINE(MEDIAINFO_TAK_YES)     fi
 if test "$MediaInfoTta"     = "no";  then AC_DEFINE(MEDIAINFO_TTA_NO)     fi; if test "$MediaInfoTta"     = "yes"; then AC_DEFINE(MEDIAINFO_TTA_YES)     fi
 if test "$MediaInfoTwinVQ"  = "no";  then AC_DEFINE(MEDIAINFO_TWINVQ_NO)  fi; if test "$MediaInfoTwinVQ"  = "yes"; then AC_DEFINE(MEDIAINFO_TWINVQ_YES)  fi
 if test "$MediaInfoVorbis"  = "no";  then AC_DEFINE(MEDIAINFO_VORBIS_NO)  fi; if test "$MediaInfoVorbis"  = "yes"; then AC_DEFINE(MEDIAINFO_VORBIS_YES)  fi
@@ -516,6 +518,7 @@ Mcho "Mpega  " "$MediaInfoMpega"
 Mcho "Pcm    " "$MediaInfoPcm"
 Mcho "Ps2a   " "$MediaInfoPs2a"
 Mcho "Speex  " "$MediaInfoSpeex"
+Mcho "Tak    " "$MediaInfoTak"
 Mcho "Tta    " "$MediaInfoTta"
 Mcho "TwinVQ " "$MediaInfoTwinVQ"
 Mcho "Vorbis " "$MediaInfoVorbis"

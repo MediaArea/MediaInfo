@@ -167,6 +167,9 @@
 #if defined(MEDIAINFO_S3M_YES)
     #include "MediaInfo/Audio/File_ScreamTracker3.h"
 #endif
+#if defined(MEDIAINFO_TAK_YES)
+    #include "MediaInfo/Audio/File_Tak.h"
+#endif
 #if defined(MEDIAINFO_TTA_YES)
     #include "MediaInfo/Audio/File_Tta.h"
 #endif
@@ -403,6 +406,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_S3M_YES)
         Temp=new File_ScreamTracker3(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_TAK_YES)
+        Temp=new File_Tak(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_TTA_YES)
         Temp=new File_Tta(); Parser.push_back(Temp);

@@ -58,6 +58,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Audio/File_Ps2Audio.cpp \
                        ../../../Source/MediaInfo/Audio/File_ScreamTracker3.cpp \
                        ../../../Source/MediaInfo/Audio/File_Speex.cpp \
+                       ../../../Source/MediaInfo/Audio/File_Tak.cpp \
                        ../../../Source/MediaInfo/Audio/File_Tta.cpp \
                        ../../../Source/MediaInfo/Audio/File_TwinVQ.cpp \
                        ../../../Source/MediaInfo/Audio/File_Vorbis.cpp \
