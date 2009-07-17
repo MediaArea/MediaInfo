@@ -54,7 +54,7 @@ private :
 
     //Buffer - Global
     void Read_Buffer_Continue()                                                 {File__Tags_Helper::Read_Buffer_Continue();}
-    void Read_Buffer_Finalize();
+    void Read_Buffer_Finalize()                                                 {File__Tags_Helper::Read_Buffer_Finalize();}
 
     //Buffer - Per element
     void Header_Parse();
@@ -67,9 +67,6 @@ private :
     void WAVEMETADATA()                                                         {Skip_XX(Element_Size, "Data");}
     void ENCODERINFO();
     void PADDING()                                                              {Skip_XX(Element_Size, "Data");}
-
-    //Temp
-    int8u num_channels;
 };
 
 } //NameSpace

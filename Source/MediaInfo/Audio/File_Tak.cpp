@@ -64,8 +64,6 @@ File_Tak::File_Tak()
 {
     //File__Tags_Helper
     Base=this;
-
-    num_channels=0;
 }
 
 //***************************************************************************
@@ -98,28 +96,6 @@ bool File_Tak::FileHeader_Begin()
 void File_Tak::FileHeader_Parse()
 {
     Skip_C4(                                                    "Signature");
-}
-
-//***************************************************************************
-// Buffer - Global
-//***************************************************************************
-//---------------------------------------------------------------------------
-
-//---------------------------------------------------------------------------
-void File_Tak::Read_Buffer_Finalize()
-{
-    if (!IsAccepted)
-        return;
-
-    //Filling
-/*    int64u CompressedSize=File_Size-TagsSize;
-    float32 CompressionRatio=((float32)UncompressedSize)/CompressedSize;
-
-    Fill(Stream_Audio, 0, Audio_StreamSize, CompressedSize);
-    Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio);
-    Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
-*/
-    File__Tags_Helper::Read_Buffer_Finalize();
 }
 
 //***************************************************************************
@@ -173,52 +149,52 @@ void File_Tak::ENDOFMETADATA()
 void File_Tak::STREAMINFO()
 {
     //Parsing
-    int32u Samples, SampleRate, BitPerSample;
-    int8u num_samples, framesizecode, channels, sampleSize;
+    int32u num_samples_lo, samplerate;
+    int8u  num_samples_hi, framesizecode, channels, samplesize;
 
     Skip_L1 (                                                   "unknown");
     BS_Begin();
-    Get_S1 ( 2, num_samples,                                    "num_samples");
+    Get_S1 ( 2, num_samples_hi,                                 "num_samples");
     Get_S1 ( 3, framesizecode,                                  "framesizecode");
     Skip_S1( 2,                                                 "unknown");
     BS_End();
-    Get_L4 (Samples,                                            "num_samples");
-
-    Get_L3 (SampleRate,                                         "samplerate");
+    Get_L4 (num_samples_lo,                                     "num_samples");
+    Get_L3 (samplerate,                                         "samplerate");
     BS_Begin();
     Skip_S1( 3,                                                 "unknown");
-    Get_S1 ( 2, sampleSize,                                     "samplesize"); // (00 = 8-bit, 01 = 16-bit and 10 = 24-bit)
+    Get_S1 ( 2, samplesize,                                     "samplesize"); // (00 = 8-bit, 01 = 16-bit and 10 = 24-bit)
     Get_S1 ( 2, channels,                                       "channels");  // # of channels - (0 = mono , 1 = stereo)
     BS_End();
     Skip_L3 (                                                   "crc");
 
     FILLING_BEGIN()
-        if (SampleRate==0)
+        //Coherency
+        if (samplerate==0)
             return;
 
+        //Computing
+        int8u BitPerSample;
+        switch (samplesize)
+        {
+            case  0 : BitPerSample =  8; break;
+            case  1 : BitPerSample = 16; break;
+            case  2 : BitPerSample = 24; break;
+            default : BitPerSample =  0;
+        }
+        int64u Samples=((int64u)num_samples_hi)<<32 | num_samples_lo;
+        int32u SamplingRate=(samplerate/16)+6000;
+
+        //Filling
         File__Tags_Helper::Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "TAK");
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "TAK");
         Fill(Stream_Audio, 0, Audio_Codec, "TAK");
-        Fill(Stream_Audio, 0, Audio_SamplingRate, (SampleRate/16)+6000);
-
-        switch (channels)
-        {
-            case 0 : num_channels = 1; break;
-            case 1 : num_channels = 2; break;
-        }
-
-        switch (sampleSize)
-        {
-            case 0 : BitPerSample = 8;  break;
-            case 1 : BitPerSample = 16; break;
-            case 2 : BitPerSample = 24; break;
-        }
-
-        Fill(Stream_Audio, 0, Audio_Channel_s_, num_channels);
-        Fill(Stream_Audio, 0, Audio_Resolution, BitPerSample);
-        Fill(Stream_Audio, 0, Audio_Duration, Samples*1000/(SampleRate/16)+6000);
+        Fill(Stream_Audio, 0, Audio_SamplingRate, SamplingRate);
+        Fill(Stream_Audio, 0, Audio_Channel_s_, channels?2:1);
+        if (BitPerSample)
+            Fill(Stream_Audio, 0, Audio_Resolution, BitPerSample);
+        Fill(Stream_Audio, 0, Audio_Duration, Samples*1000/SamplingRate);
 
         File__Tags_Helper::Accept("TAK");
     FILLING_END();
