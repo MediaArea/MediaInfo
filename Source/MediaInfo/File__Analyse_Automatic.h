@@ -380,6 +380,8 @@ enum video
     Video_DisplayAspectRatio_String,
     Video_DisplayAspectRatio_Original,
     Video_DisplayAspectRatio_Original_String,
+    Video_Rotation,
+    Video_Rotation_String,
     Video_FrameRate_Mode,
     Video_FrameRate_Mode_String,
     Video_FrameRate,

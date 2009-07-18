@@ -3752,6 +3752,8 @@ void MediaInfo_Config_Video (ZtringListList &Info)
     "DisplayAspectRatio/String;;;Y NT;;;Display Aspect ratio\n"
     "DisplayAspectRatio_Original;;;N YF;;;Original (in the raw stream) Display Aspect ratio\n"
     "DisplayAspectRatio_Original/String;;;Y NT;;;Original (in the raw stream) Display Aspect ratio\n"
+    "Rotation;;;N YT;;;Rotation\n"
+    "Rotation/String;;;Y NT;;;Rotation (if not horizontal)\n"
     "FrameRate_Mode;;;N YT;;;Frame rate mode (CFR, VFR)\n"
     "FrameRate_Mode/String;;;Y NT;;;Frame rate mode (Constant, Variable)\n"
     "FrameRate;; fps;N YF;;;Frames per second\n"

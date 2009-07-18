@@ -81,6 +81,8 @@ DisplayAspectRatio;;;N YF;;;Display Aspect ratio
 DisplayAspectRatio/String;;;Y NT;;;Display Aspect ratio
 DisplayAspectRatio_Original;;;N YF;;;Original (in the raw stream) Display Aspect ratio
 DisplayAspectRatio_Original/String;;;Y NT;;;Original (in the raw stream) Display Aspect ratio
+Rotation;;;N YT;;;Rotation
+Rotation/String;;;Y NT;;;Rotation (if not horizontal)
 FrameRate_Mode;;;N YT;;;Frame rate mode (CFR, VFR)
 FrameRate_Mode/String;;;Y NT;;;Frame rate mode (Constant, Variable)
 FrameRate;; fps;N YF;;;Frames per second
@@ -124,8 +126,8 @@ StreamSize/String2;;;N NT;;;Streamsize with measurement
 StreamSize/String3;;;N NT;;;Streamsize with measurement
 StreamSize/String4;;;N NT;;;Streamsize with measurement
 StreamSize/String5;;;N NT;;;Streamsize in with percentage value
-StreamSize_Proportion;;;N NT;;;Stream size divided by file size
-Alignment;;;Y NT;;;How this stream file is aligned in the container
+StreamSize_Proportion;;;N NT;;;Stream size divided by file size;;
+Alignment;;;Y NT;;;How this stream file is aligned in the container;;
 Alignment/String;;;N YT;;;;;
 Title;;;Y YI;;;Name of the track;;
 Encoded_Application;;;Y YT;;;Software. Identifies the name of the software package used to create the file, such as Microsoft WaveEdit.;;Technical

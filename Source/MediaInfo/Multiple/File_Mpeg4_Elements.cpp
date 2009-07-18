@@ -60,6 +60,7 @@
     #include "MediaInfo/Image/File_Jpeg.h"
 #endif
 #include "MediaInfo/Multiple/File_Mpeg4_TimeCode.h"
+#include <cmath>
 #include <zlib.h>
 //---------------------------------------------------------------------------
 
@@ -1725,6 +1726,7 @@ void File_Mpeg4::moov_trak()
         moov_trak_tkhd_Width=0;
         moov_trak_tkhd_Height=0;
         moov_trak_tkhd_DisplayAspectRatio=0;
+        moov_trak_tkhd_Rotation=0;
         Stream_Prepare(Stream_Max); //clear filling
     FILLING_END();
 }
@@ -2726,6 +2728,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
         Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 10, true);
         if (moov_trak_tkhd_DisplayAspectRatio)
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, moov_trak_tkhd_DisplayAspectRatio, 3, true);
+        Fill(Stream_Video, StreamPos_Last, Video_Rotation, moov_trak_tkhd_Rotation, 3);
+        if (moov_trak_tkhd_Rotation)
+            Fill(Stream_Video, StreamPos_Last, Video_Rotation_String, Ztring::ToZtring(moov_trak_tkhd_Rotation, 0)+_T("\xB0")); //degree sign
 
         //Specific cases
         #if defined(MEDIAINFO_VC1_YES)
@@ -3445,6 +3450,9 @@ void File_Mpeg4::moov_trak_tkhd()
         Fill(StreamKind_Last, StreamPos_Last, "ID", moov_trak_tkhd_TrackID, 10, true);
         if (moov_trak_tkhd_Height*d)
             moov_trak_tkhd_DisplayAspectRatio=(moov_trak_tkhd_Width*a)/(moov_trak_tkhd_Height*d);
+        moov_trak_tkhd_Rotation=std::atan2(b, a)*180.0/3.14159;
+        if (moov_trak_tkhd_Rotation<0)
+            moov_trak_tkhd_Rotation+=360;
     FILLING_END();
 }
 
