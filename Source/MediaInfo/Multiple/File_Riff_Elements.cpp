@@ -2541,6 +2541,16 @@ void File_Riff::WAVE_data()
             if (BitRate_New<BitRate*0.95 || BitRate_New>BitRate*1.05)
                 Fill(Stream_Audio, 0, Audio_BitRate, BitRate_New, 10, true); //Correcting the bitrate, it was false in the header
         }
+        else if (BitRate)
+        {
+            int64u Duration;
+            if (IsSub)
+                //Retrieving "data" real size, in case of truncated files and/or wave header in another container
+                Duration=((int64u)LittleEndian2int32u(Buffer+Buffer_Offset-4))*8*1000/BitRate; //TODO: RF64 is not handled
+            else
+                Duration=Element_TotalSize_Get()*8*1000/BitRate;
+            Fill(Stream_Audio, 0, Audio_Duration, Duration, 10, true);
+        }
     FILLING_END();
 }
 

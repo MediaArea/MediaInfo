@@ -1,5 +1,6 @@
 // File_Tak - Info for Tak files
-// Copyright (C) 2003-2009 Jerome Martinez, zen@mediaarea.net
+// Copyright (C) 2009-2009 Lionel Duchateau, kurtnoise@free.fr
+// Copyright (C) 2009-2009 Jerome Martinez, zen@mediaarea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -35,6 +36,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Audio/File_Tak.h"
+#if defined(MEDIAINFO_RIFF_YES)
+    #include "MediaInfo/Multiple/File_Riff.h"
+#endif
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -142,6 +146,8 @@ void File_Tak::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Tak::ENDOFMETADATA()
 {
+    //Filling
+    Fill(Stream_Audio, 0, Audio_StreamSize, File_Size-(File_Offset+Buffer_Offset+Element_Size));
     File__Tags_Helper::Finish("TAK");
 }
 
@@ -164,8 +170,9 @@ void File_Tak::STREAMINFO()
     Skip_S1( 3,                                                 "unknown");
     Get_S1 ( 2, samplesize,                                     "samplesize"); // (00 = 8-bit, 01 = 16-bit and 10 = 24-bit)
     Get_S1 ( 2, channels,                                       "channels");  // # of channels - (0 = mono , 1 = stereo)
+    Skip_SB(                                                    "unknown");
     BS_End();
-    Skip_L3 (                                                   "crc");
+    Skip_L3(                                                    "crc");
 
     FILLING_BEGIN()
         //Coherency
@@ -194,16 +201,95 @@ void File_Tak::STREAMINFO()
         Fill(Stream_Audio, 0, Audio_Channel_s_, channels?2:1);
         if (BitPerSample)
             Fill(Stream_Audio, 0, Audio_Resolution, BitPerSample);
-        Fill(Stream_Audio, 0, Audio_Duration, Samples*1000/SamplingRate);
+        Fill(Stream_Audio, 0, Audio_Duration, Samples*4*1000/SamplingRate); //num_samples is the count of samples divided by 4
 
         File__Tags_Helper::Accept("TAK");
     FILLING_END();
 }
 
 //---------------------------------------------------------------------------
+void File_Tak::SEEKTABLE()
+{
+    //Parsing
+    int16u num_seekpoints;
+    Get_L2 (num_seekpoints,                                     "num_seekpoints");
+    Skip_L1 (                                                   "unknown");
+    Skip_L1 (                                                   "seek interval");
+    Element_Begin("seekpoints");
+    for (int16u Pos; Pos<num_seekpoints; Pos++)
+        Skip_L5 (                                               "seekpoint");
+    Element_End();
+    Skip_L3(                                                    "crc");
+}
+
+//---------------------------------------------------------------------------
+void File_Tak::WAVEMETADATA()
+{
+    //Parsing
+    int32u HeaderLength, FooterLength;
+    Get_L3 (HeaderLength,                                       "HeaderLength");
+    Get_L3 (FooterLength,                                       "FooterLength");
+    #if defined(MEDIAINFO_RIFF_YES)
+        //Creating the parser
+        File_Riff MI;
+        Open_Buffer_Init(&MI);
+
+        //Parsing
+        Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, HeaderLength);
+        Element_Offset+=HeaderLength;
+        Open_Buffer_Finalize(&MI);
+
+        //Filling
+        Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+
+        //The RIFF header is for PCM
+        Clear(Stream_Audio, StreamPos_Last, Audio_ID);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format, "TAK", Unlimited, true, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "TAK", Unlimited, true, true);
+        Clear(Stream_Audio, StreamPos_Last, Audio_CodecID);
+        Clear(Stream_Audio, StreamPos_Last, Audio_CodecID_Hint);
+        Clear(Stream_Audio, StreamPos_Last, Audio_CodecID_Url);
+        Clear(Stream_Audio, StreamPos_Last, Audio_BitRate);
+        Clear(Stream_Audio, StreamPos_Last, Audio_BitRate_Mode);
+        Clear(Stream_Audio, StreamPos_Last, Audio_Codec_CC);
+    #else
+        Skip_XX(HeaderLength,                                   "Wave header");
+    #endif
+    if (FooterLength)
+        Skip_XX(FooterLength,                                   "Wave footer");
+    Skip_L3(                                                    "crc");
+}
+
+//---------------------------------------------------------------------------
 void File_Tak::ENCODERINFO()
 {
-    //
+    //Parsing
+    int8u Revision, Minor, Major, Preset_hi, Preset_lo;
+    Get_L1 (Revision,                                           "Revision");
+    Get_L1 (Minor,                                              "Minor");
+    Get_L1 (Major,                                              "Major");
+    BS_Begin();
+    Get_S1 (4, Preset_hi,                                       "Preset (hi)");
+    Get_S1 (4, Preset_lo,                                       "Preset (lo)");
+    BS_End();
+
+    FILLING_BEGIN();
+        Ztring Version=Ztring::ToZtring(Major)+_T('.')+Ztring::ToZtring(Minor)+_T('.')+Ztring::ToZtring(Revision);
+        Ztring Preset=_T("-p")+Ztring::ToZtring(Preset_lo);
+        switch (Preset_hi)
+        {
+            case 0x00 :                 break;
+            case 0x01 : Preset+=_T('e'); break;
+            case 0x02 : Preset+=_T('m'); break;
+            default   : Preset+=_T('-')+Ztring::ToZtring(Preset_hi, 16); //Unknown
+        }
+
+        Fill(Stream_Audio, 0, Audio_Encoded_Library, "TAK");
+        Fill(Stream_Audio, 0, Audio_Encoded_Library_String, _T("TAK ")+Version);
+        Fill(Stream_Audio, 0, Audio_Encoded_Library_Name, "TAK");
+        Fill(Stream_Audio, 0, Audio_Encoded_Library_Version, Version);
+        Fill(Stream_Audio, 0, Audio_Encoded_Library_Settings, Preset);
+    FILLING_END();
 }
 
 //***************************************************************************

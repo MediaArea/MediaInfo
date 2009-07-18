@@ -1,5 +1,6 @@
 // File_Tak - Info for Tak Audio files
-// Copyright (C) 2003-2009 Jerome Martinez, zen@mediaarea.net
+// Copyright (C) 2009-2009 Lionel Duchateau, kurtnoise@free.fr
+// Copyright (C) 2009-2009 Jerome Martinez, zen@mediaarea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -63,10 +64,10 @@ private :
     //Elements
     void ENDOFMETADATA();
     void STREAMINFO();
-    void SEEKTABLE()                                                            {Skip_XX(Element_Size, "Data");}
-    void WAVEMETADATA()                                                         {Skip_XX(Element_Size, "Data");}
+    void SEEKTABLE();
+    void WAVEMETADATA();
     void ENCODERINFO();
-    void PADDING()                                                              {Skip_XX(Element_Size, "Data");}
+    void PADDING()                                                              {Skip_XX(Element_Size, "Padding");}
 };
 
 } //NameSpace
