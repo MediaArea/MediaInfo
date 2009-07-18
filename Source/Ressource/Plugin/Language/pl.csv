@@ -263,8 +263,8 @@ DistributedBy;Rozpowszechnianie
 Donate;Donacja
 DotsPerInch;punktów na cal
 Duration;Czas trwania
-Duration_End
-Duration_Start
+Duration_End;Czas rozpoczęcia
+Duration_Start;Czas zakończenia
 Edit;Edytuj
 EditedBy;Edytowany przez
 EMail;email
@@ -274,7 +274,7 @@ Encoded_Library;Biblioteka zapisująca
 Encoded_Library_Settings;Ustawienia kodowania
 Encoded_Original;Oryginalny
 EncodedBy;Kodowane przez
-EPG_Positions
+EPG_Positions;Pozycje EPG (wewnętrzne)
 Error_File;Błąd przy odczycie pliku
 ExecutiveProducer;Kierownik produkcji
 Exit;Wyjście
@@ -288,10 +288,10 @@ File;Plik
 File size;Rozmiar pliku
 File_Append;Dołącz do istniejacego pliku (Ostrzeżenie: Upewnij się, że ma takie same parametry)
 File_Created_Date;Data utworzenia pliku
-File_Created_Date_Local
+File_Created_Date_Local;Data utworzenia pliku (lokalna)
 File_Hint;Wybierz plik multimedialny do przeanalizowania
 File_Modified_Date;Data ostatniej modyfikacji pliku
-File_Modified_Date_Local
+File_Modified_Date_Local;Data ostatniej modyfikacji pliku (lokalna)
 FileExtension;Rzoszerzenie pliku
 FileName;Nazwa pliku
 FileSize;Rozmiar pliku
@@ -739,16 +739,16 @@ ms;ms
 MSDI;MSDI
 MusicBy;Kompozytor
 MuxingMode;Tryb multipleksowania
-MuxingMode_MoreInfo
+MuxingMode_MoreInfo;Tryb multipleksowania, więcej informacji
 MuxingMode_PackedBitstream;Pakietowy strumień bitów
 Name;Nazwa
 Nationality;Narodowość
-NetworkName
+NetworkName;Nazwa sieciowa
 New;Nowy
 Newest version;Sprawdź czy są nowe wersje (wmagane jest połączenie z siecią)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+NewVersion_Menu;Dostępna jest nowa wersja
+NewVersion_Question_Title;Ukończona została nowa wersja!
+NewVersion_Question_Content;Dostępna jest nowa wersja programu (v%Version%). Chcesz ją pobrać?
 No;Nie
 Not yet;Jeszcze nie ma
 NumColors;Liczba kolorów
@@ -794,9 +794,9 @@ OpenCandy_36;Bieżąca instalacja nie będzie przerwana
 Options;Opcje
 Options_Hint;Preferencje
 Original;Oryginalny
-OriginalNetworkName
+OriginalNetworkName;Oryginalna nazwa sieciowa
 OriginalSourceForm;Forma źródła oryginału
-OriginalSourceMedium;Nosnik źródła oryginału
+OriginalSourceMedium;Nośnik źródła oryginału
 Other;Inny
 Output;Wyjście
 Output format;Wyjściowy format
@@ -857,7 +857,7 @@ Sharpness;Wygładzanie
 Sheet;Karta
 Sheet (Complete);Karta (komplet)
 Shell extension;Rozszerzenie powłoki (menu kontekstowe w eksploratorze)
-Shell extension, folder
+Shell extension, folder;Także dla folderów
 Shell InfoTip;Informacje powłoki (w eksploratorze najedź kursorem na plik, wyświetlą się informacje)
 Show menu;Pokaż menu
 Show toolbar;Pokaż pasek narzędzi
@@ -899,7 +899,7 @@ ThanksTo;Podziękowania dla
 Thousands separator;Separator tysiecy
 Title;Tytuł
 Title_More;Tytuł, wiecej informacji
-TimeZone
+TimeZone;Strefa czasowa
 Total;Łącznie
 Track;Tytuł nagrania
 Track_Count;Liczba nagrań
@@ -937,5 +937,5 @@ Written_Location;Lokalizacja
 WrittenBy;Napisał
 Yes;Tak
 Your system;System
-ZZ_Automatic_Percent;87
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;89
+ZZ_AutomaticLanguage_Percent;100
