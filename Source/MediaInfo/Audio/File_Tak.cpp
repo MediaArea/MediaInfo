@@ -206,7 +206,7 @@ void File_Tak::STREAMINFO()
         Fill(Stream_Audio, 0, Audio_Channel_s_, channels?2:1);
         if (Tak_samplesize[samplesize])
             Fill(Stream_Audio, 0, Audio_Resolution, Tak_samplesize[samplesize]);
-        Fill(Stream_Audio, 0, Audio_Duration, Samples*1000/SamplingRate); //num_samples is the count of samples divided by 4
+        Fill(Stream_Audio, 0, Audio_Duration, Samples*1000/SamplingRate);
 
         File__Tags_Helper::Accept("TAK");
     FILLING_END();
