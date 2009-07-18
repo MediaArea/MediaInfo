@@ -59,6 +59,18 @@ namespace Elements
 }
 
 //***************************************************************************
+// Const
+//***************************************************************************
+
+int8u Tak_samplesize[]=
+{
+     8,
+    16,
+    24,
+     0,
+};
+
+//***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
 
@@ -155,21 +167,22 @@ void File_Tak::ENDOFMETADATA()
 void File_Tak::STREAMINFO()
 {
     //Parsing
-    int32u num_samples_lo, samplerate;
-    int8u  num_samples_hi, framesizecode, channels, samplesize;
+    int32u num_samples_hi, samplerate;
+    int8u  num_samples_lo, framesizecode, samplesize;
+    bool   channels;
 
     Skip_L1 (                                                   "unknown");
     BS_Begin();
-    Get_S1 ( 2, num_samples_hi,                                 "num_samples");
+    Get_S1 ( 2, num_samples_lo,                                 "num_samples (lo)");
     Get_S1 ( 3, framesizecode,                                  "framesizecode");
     Skip_S1( 2,                                                 "unknown");
     BS_End();
-    Get_L4 (num_samples_lo,                                     "num_samples");
-    Get_L3 (samplerate,                                         "samplerate");
+    Get_L4 (num_samples_hi,                                     "num_samples (hi)"); Param_Info((((int64u)num_samples_hi)<<2 | num_samples_lo), " samples");
+    Get_L3 (samplerate,                                         "samplerate"); Param_Info((samplerate/16)+6000, " Hz");
     BS_Begin();
-    Skip_S1( 3,                                                 "unknown");
-    Get_S1 ( 2, samplesize,                                     "samplesize"); // (00 = 8-bit, 01 = 16-bit and 10 = 24-bit)
-    Get_S1 ( 2, channels,                                       "channels");  // # of channels - (0 = mono , 1 = stereo)
+    Skip_S1( 4,                                                 "unknown");
+    Get_SB (    channels,                                       "channels"); Param_Info(channels?"Stereo":"Mono");
+    Get_S1 ( 2, samplesize,                                     "samplesize"); Param_Info(Tak_samplesize[samplesize]);
     Skip_SB(                                                    "unknown");
     BS_End();
     Skip_L3(                                                    "crc");
@@ -180,15 +193,7 @@ void File_Tak::STREAMINFO()
             return;
 
         //Computing
-        int8u BitPerSample;
-        switch (samplesize)
-        {
-            case  0 : BitPerSample =  8; break;
-            case  1 : BitPerSample = 16; break;
-            case  2 : BitPerSample = 24; break;
-            default : BitPerSample =  0;
-        }
-        int64u Samples=((int64u)num_samples_hi)<<32 | num_samples_lo;
+        int64u Samples=((int64u)num_samples_hi)<<2 | num_samples_lo;
         int32u SamplingRate=(samplerate/16)+6000;
 
         //Filling
@@ -199,9 +204,9 @@ void File_Tak::STREAMINFO()
         Fill(Stream_Audio, 0, Audio_Codec, "TAK");
         Fill(Stream_Audio, 0, Audio_SamplingRate, SamplingRate);
         Fill(Stream_Audio, 0, Audio_Channel_s_, channels?2:1);
-        if (BitPerSample)
-            Fill(Stream_Audio, 0, Audio_Resolution, BitPerSample);
-        Fill(Stream_Audio, 0, Audio_Duration, Samples*4*1000/SamplingRate); //num_samples is the count of samples divided by 4
+        if (Tak_samplesize[samplesize])
+            Fill(Stream_Audio, 0, Audio_Resolution, Tak_samplesize[samplesize]);
+        Fill(Stream_Audio, 0, Audio_Duration, Samples*1000/SamplingRate); //num_samples is the count of samples divided by 4
 
         File__Tags_Helper::Accept("TAK");
     FILLING_END();
@@ -237,21 +242,21 @@ void File_Tak::WAVEMETADATA()
         //Parsing
         Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, HeaderLength);
         Element_Offset+=HeaderLength;
-        Open_Buffer_Finalize(&MI);
+        //Open_Buffer_Finalize(&MI);
 
         //Filling
-        Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+        //Merge(MI, StreamKind_Last, 0, StreamPos_Last);
 
         //The RIFF header is for PCM
-        Clear(Stream_Audio, StreamPos_Last, Audio_ID);
-        Fill(Stream_Audio, StreamPos_Last, Audio_Format, "TAK", Unlimited, true, true);
-        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "TAK", Unlimited, true, true);
-        Clear(Stream_Audio, StreamPos_Last, Audio_CodecID);
-        Clear(Stream_Audio, StreamPos_Last, Audio_CodecID_Hint);
-        Clear(Stream_Audio, StreamPos_Last, Audio_CodecID_Url);
-        Clear(Stream_Audio, StreamPos_Last, Audio_BitRate);
-        Clear(Stream_Audio, StreamPos_Last, Audio_BitRate_Mode);
-        Clear(Stream_Audio, StreamPos_Last, Audio_Codec_CC);
+        //Clear(Stream_Audio, StreamPos_Last, Audio_ID);
+        //Fill(Stream_Audio, StreamPos_Last, Audio_Format, "TAK", Unlimited, true, true);
+        //Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "TAK", Unlimited, true, true);
+        //Clear(Stream_Audio, StreamPos_Last, Audio_CodecID);
+        //Clear(Stream_Audio, StreamPos_Last, Audio_CodecID_Hint);
+        //Clear(Stream_Audio, StreamPos_Last, Audio_CodecID_Url);
+        //Clear(Stream_Audio, StreamPos_Last, Audio_BitRate);
+        //Clear(Stream_Audio, StreamPos_Last, Audio_BitRate_Mode);
+        //Clear(Stream_Audio, StreamPos_Last, Audio_Codec_CC);
     #else
         Skip_XX(HeaderLength,                                   "Wave header");
     #endif
