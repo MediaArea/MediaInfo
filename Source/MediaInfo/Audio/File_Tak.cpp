@@ -221,7 +221,7 @@ void File_Tak::SEEKTABLE()
     Skip_L1 (                                                   "unknown");
     Skip_L1 (                                                   "seek interval");
     Element_Begin("seekpoints");
-    for (int16u Pos; Pos<num_seekpoints; Pos++)
+    for (int16u Pos=0; Pos<num_seekpoints; Pos++)
         Skip_L5 (                                               "seekpoint");
     Element_End();
     Skip_L3(                                                    "crc");
