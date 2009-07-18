@@ -927,7 +927,7 @@ void __fastcall TMainF::M_File_Open_FolderClick(TObject *Sender)
         if (M_Options_CloseAllAuto->Checked)
             M_File_Close_AllClick(Sender);
 
-        I->Open(S1, FileOption_NoRecursive);
+        I->Open(S1);
         Refresh();
     }
 }
