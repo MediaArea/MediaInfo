@@ -258,13 +258,13 @@ Dimensions;영역
 Director;감독
 DirectorOfPhotography;촬영 감독
 DisplayAspectRatio;화면 종횡비
-DisplayAspectRatio_Original
+DisplayAspectRatio_Original;원본 화면 종횡비
 DistributedBy;배포
 Donate;기부하기
 DotsPerInch;인치당 도트
 Duration;길이
-Duration_End
-Duration_Start
+Duration_End;종료 시간
+Duration_Start;시작 시간
 Edit;편집
 EditedBy;편집
 EMail;이메일
@@ -274,7 +274,7 @@ Encoded_Library;인코딩 라이브러리
 Encoded_Library_Settings;인코딩 설정
 Encoded_Original;원본
 EncodedBy;인코딩
-EPG_Positions
+EPG_Positions;EPG 포지션 (내부)
 Error_File;파일을 읽는 중 에러
 ExecutiveProducer;제작 감독
 Exit;종료
@@ -288,10 +288,10 @@ File;파일
 File size;파일 크기
 File_Append;존재하는 파일에 이어쓰기 (경고 : 같은 파라미터인지 주의하세요)
 File_Created_Date;파일 만든 날짜
-File_Created_Date_Local
+File_Created_Date_Local;파일 만든 날짜 (로컬)
 File_Hint;조사할 미디어 파일을 선택
 File_Modified_Date;파일 수정한 날짜
-File_Modified_Date_Local
+File_Modified_Date_Local;파일 수정한 날짜 (로컬)
 FileExtension;파일 확장자
 FileName;파일명
 FileSize;파일 크기
@@ -521,7 +521,7 @@ Known formats;알고 있는 포맷
 Known parameters;알고 있는 파라미터
 Label;라벨
 Language;언어
-Language_More
+Language_More;언어, 추가 정보
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -560,8 +560,8 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Greek
 Language_en;English
-Language_en-gb
-Language_en-us
+Language_en-gb;English (Great Britain)
+Language_en-us;English (United States)
 Language_eo;Esperanto
 Language_es;Spanish
 Language_et;Estonian
@@ -658,7 +658,7 @@ Language_pi;Pali
 Language_pl;Polish
 Language_ps;Pushto
 Language_pt;Portuguese
-Language_pt-br
+Language_pt-br;Portuguese (Brazil)
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
@@ -711,8 +711,8 @@ Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Chinese
-Language_zh-cn
-Language_zh-tw
+Language_zh-cn;Chinese (China)
+Language_zh-tw;Chinese (Taiwan)
 Language_zu;Zulu
 LawRating;법률 등급
 LCCN;LCCN
@@ -739,16 +739,16 @@ ms;미리초
 MSDI;MSDI
 MusicBy;음악
 MuxingMode;먹싱 모드
-MuxingMode_MoreInfo
+MuxingMode_MoreInfo;먹싱 모드, 추가 정보
 MuxingMode_PackedBitstream;팩드 비트스트림
 Name;이름
 Nationality;국적
-NetworkName
+NetworkName;네트워크 이름
 New;새로 만들기
 Newest version;최신 버전 확인 (인터넷 연결이 필요함)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+NewVersion_Menu;새 버전이 있습니다
+NewVersion_Question_Title;새 버전이 릴리즈되었습니다!
+NewVersion_Question_Content;새 버전(v%Version%)이 사용 가능합니다, 다운로드하시겠습니까?
 No;아니오
 Not yet;미정
 NumColors;색상수
@@ -789,12 +789,12 @@ OpenCandy_31;설치 옵션을 선택해주십시오.
 OpenCandy_32;___________ 설치
 OpenCandy_33;설치하지 않음
 OpenCandy_34;설치 옵션을 선택해주십시오.
-OpenCandy_35
-OpenCandy_36
+OpenCandy_35;______에서 이 소프트웨어를 추천합니다.
+OpenCandy_36;현재 설치 과정은 중단되지 않습니다.
 Options;옵션
 Options_Hint;환경 설정
 Original;원본
-OriginalNetworkName
+OriginalNetworkName;원본 네트워크 이름
 OriginalSourceForm;원본 소스 폼
 OriginalSourceMedium;원본 소스 미디어
 Other;기타
@@ -811,7 +811,7 @@ Performer;연기자
 Period;시대
 Phone;전화
 PixelAspectRatio;픽셀 종횡비
-PixelAspectRatio_Original;픽셀 종횡비
+PixelAspectRatio_Original;원본 픽셀 종횡비
 PlayCounter;재생 횟수
 Played_Count;재생 횟수
 Played_First_Date;최초 재생
@@ -857,7 +857,7 @@ Sharpness;샤프니스
 Sheet;시트
 Sheet (Complete);시트 (전체)
 Shell extension;쉘 익스텐션 (탐색기 마우스 오른쪽 버튼 메뉴에 Media Info를 추가합니다)
-Shell extension, folder
+Shell extension, folder;폴더에도 추가
 Shell InfoTip;쉘 인포팁 (탐색기에서 파일에 마우스를 올려 놓으면 정보를 보여줍니다)
 Show menu;메뉴 보기
 Show toolbar;도구 모음 보기
@@ -899,7 +899,7 @@ ThanksTo;감사
 Thousands separator;천단위 구분자
 Title;제목
 Title_More;제목, 자세히
-TimeZone
+TimeZone;시간대
 Total;총
 Track;트랙 이름
 Track_Count;트랙 개수
@@ -937,5 +937,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
