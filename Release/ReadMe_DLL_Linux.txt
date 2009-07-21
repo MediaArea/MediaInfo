@@ -1,5 +1,5 @@
 libmediainfo.so - http://mediainfo.sourceforge.net
-Copyright (c) 2002-2008, Jerome Martinez, zen@mediaarea.net
+Copyright (c) 2002-2009, Jerome Martinez, zen@mediaarea.net
 
 This program is freeware (LGLPv3).
 See License.html for more information
@@ -20,7 +20,13 @@ but a reference to "http://mediainfo.sourceforge.net" in your software would be 
 There are examples for:
 - GNU: GNU Autotools based
 - CodeBlock: Code::Blocks IDE 1.0-RC2
+- MSCS: Mono
+- Java: Netbeans (with JNA or JNative binding)
+- Python 2
+- Python 3
+- C/C++
 Don't forget to put libmediainfo.so* in your library folder and Example.ogg in your executable folder.
+(note: libmediainfo.so* may be in your executable folder too)
 
 Note: versioning method, for people who develop with LoadLibrary method
 - if one of 2 first numbers change, there is no guaranties that the DLL is compatible with old one. You should verify with MediaInfo_Option("Version") if you are compatible

@@ -11,6 +11,7 @@ Version 0.7.20, 2009-
 --------------
 + TAK format support, thanks to Lionel Duchateau
 + #2822681, Quicktime: Rotation display (from iPhone...)
++ ASP.net web application example
 
 Version 0.7.19, 2009-07-17
 --------------

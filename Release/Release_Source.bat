@@ -20,6 +20,8 @@ xcopy ..\Source\*.rc MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.def MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.pas MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.cs MediaInfo_Lib_Source\Source\ /S
+xcopy ..\Source\*.aspx MediaInfo_Lib_Source\Source\ /S
+xcopy ..\Source\*.config MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.jsl MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.vb MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.java MediaInfo_Lib_Source\Source\ /S

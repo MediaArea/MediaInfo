@@ -38,6 +38,10 @@ xcopy ..\Project\MSCS\Example\*.cs MediaInfoDLL_Windows_x64\Developers\Project\M
 xcopy ..\Project\MSCS\Example\*.csproj MediaInfoDLL_Windows_x64\Developers\Project\MSCS\Example\
 xcopy ..\Project\MSCS\Example\*.res* MediaInfoDLL_Windows_x64\Developers\Project\MSCS\Example\
 xcopy ..\Project\MSCS\Example\*.ico MediaInfoDLL_Windows_x64\Developers\Project\MSCS\Example\
+xcopy ..\Project\MSCS\asp_net_web_application\*.cs MediaInfoDLL_Windows_x64\Developers\Project\MSCS\asp_net_web_application\ /S
+xcopy ..\Project\MSCS\asp_net_web_application\*.csproj MediaInfoDLL_Windows_x64\Developers\Project\MSCS\asp_net_web_application\
+xcopy ..\Project\MSCS\asp_net_web_application\*.aspx MediaInfoDLL_Windows_x64\Developers\Project\MSCS\asp_net_web_application\
+xcopy ..\Project\MSCS\asp_net_web_application\*.config MediaInfoDLL_Windows_x64\Developers\Project\MSCS\asp_net_web_application\
 xcopy ..\Project\MSVB\*.sln MediaInfoDLL_Windows_x64\Developers\Project\MSVB\
 xcopy ..\Project\MSVB\Example\*.vb MediaInfoDLL_Windows_x64\Developers\Project\MSVB\Example\
 xcopy ..\Project\MSVB\Example\*.vbproj MediaInfoDLL_Windows_x64\Developers\Project\MSVB\Example\
