@@ -46,6 +46,7 @@ protected :
 
     virtual void Streams_Fill()                                                 {};
     virtual void Streams_Update()                                               {};
+    virtual void Streams_Finish()                                               {};
 
     //***************************************************************************
     // Synchro
@@ -771,6 +772,10 @@ public :
     void Accept        ();
     void Reject        (const char*)                                            {Reject();}
     void Reject        ();
+    void Fill          (const char*)                                            {Fill();}
+    void Fill          ();
+    void Update        (const char*)                                            {Update();}
+    void Update        ();
     void Finish        (const char*)                                            {Finish();}
     void Finish        ();
     void GoTo          (int64u GoTo_, const char*)                              {GoTo(GoTo_);}
@@ -831,9 +836,72 @@ public :
     //***************************************************************************
 
     //End
+    void Streams_Fill_Global();
+    void Streams_Update_Global();
+    void Streams_Finish_Global();
     void Finalize_Global();
 
 protected :
+
+    void Streams_Fill_StreamOnly();
+    void Streams_Fill_StreamOnly(stream_t StreamKid, size_t StreamPos);
+    void Streams_Fill_StreamOnly_General(size_t StreamPos);
+    void Streams_Fill_StreamOnly_Video(size_t StreamPos);
+    void Streams_Fill_StreamOnly_Audio(size_t StreamPos);
+    void Streams_Fill_StreamOnly_Text(size_t StreamPos);
+    void Streams_Fill_StreamOnly_Chapters(size_t StreamPos);
+    void Streams_Fill_StreamOnly_Image(size_t StreamPos);
+    void Streams_Fill_StreamOnly_Menu(size_t StreamPos);
+    void Streams_Fill_InterStreams();
+    void Streams_Fill_Cosmetic();
+    void Streams_Fill_Cosmetic(stream_t StreamKid, size_t StreamPos);
+    void Streams_Fill_Cosmetic_General(size_t StreamPos);
+    void Streams_Fill_Cosmetic_Video(size_t StreamPos);
+    void Streams_Fill_Cosmetic_Audio(size_t StreamPos);
+    void Streams_Fill_Cosmetic_Text(size_t StreamPos);
+    void Streams_Fill_Cosmetic_Chapters(size_t StreamPos);
+    void Streams_Fill_Cosmetic_Image(size_t StreamPos);
+    void Streams_Fill_Cosmetic_Menu(size_t StreamPos);
+
+    void Streams_Update_StreamOnly();
+    void Streams_Update_StreamOnly(stream_t StreamKid, size_t StreamPos);
+    void Streams_Update_StreamOnly_General(size_t StreamPos);
+    void Streams_Update_StreamOnly_Video(size_t StreamPos);
+    void Streams_Update_StreamOnly_Audio(size_t StreamPos);
+    void Streams_Update_StreamOnly_Text(size_t StreamPos);
+    void Streams_Update_StreamOnly_Chapters(size_t StreamPos);
+    void Streams_Update_StreamOnly_Image(size_t StreamPos);
+    void Streams_Update_StreamOnly_Menu(size_t StreamPos);
+    void Streams_Update_InterStreams();
+    void Streams_Update_Cosmetic();
+    void Streams_Update_Cosmetic(stream_t StreamKid, size_t StreamPos);
+    void Streams_Update_Cosmetic_General(size_t StreamPos);
+    void Streams_Update_Cosmetic_Video(size_t StreamPos);
+    void Streams_Update_Cosmetic_Audio(size_t StreamPos);
+    void Streams_Update_Cosmetic_Text(size_t StreamPos);
+    void Streams_Update_Cosmetic_Chapters(size_t StreamPos);
+    void Streams_Update_Cosmetic_Image(size_t StreamPos);
+    void Streams_Update_Cosmetic_Menu(size_t StreamPos);
+
+    void Streams_Finish_StreamOnly();
+    void Streams_Finish_StreamOnly(stream_t StreamKid, size_t StreamPos);
+    void Streams_Finish_StreamOnly_General(size_t StreamPos);
+    void Streams_Finish_StreamOnly_Video(size_t StreamPos);
+    void Streams_Finish_StreamOnly_Audio(size_t StreamPos);
+    void Streams_Finish_StreamOnly_Text(size_t StreamPos);
+    void Streams_Finish_StreamOnly_Chapters(size_t StreamPos);
+    void Streams_Finish_StreamOnly_Image(size_t StreamPos);
+    void Streams_Finish_StreamOnly_Menu(size_t StreamPos);
+    void Streams_Finish_InterStreams();
+    void Streams_Finish_Cosmetic();
+    void Streams_Finish_Cosmetic(stream_t StreamKid, size_t StreamPos);
+    void Streams_Finish_Cosmetic_General(size_t StreamPos);
+    void Streams_Finish_Cosmetic_Video(size_t StreamPos);
+    void Streams_Finish_Cosmetic_Audio(size_t StreamPos);
+    void Streams_Finish_Cosmetic_Text(size_t StreamPos);
+    void Streams_Finish_Cosmetic_Chapters(size_t StreamPos);
+    void Streams_Finish_Cosmetic_Image(size_t StreamPos);
+    void Streams_Finish_Cosmetic_Menu(size_t StreamPos);
 
     void Finalize_StreamOnly();
     void Finalize_StreamOnly(stream_t StreamKid, size_t StreamPos);

@@ -401,7 +401,7 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
             if (Pos<MediaInfoLib::Config.Info_Get(StreamKind).size())
                 Fill(StreamKind, StreamPos_To, Pos, ToFill_Value, true);
             else
-                (*Stream_More)[StreamKind][StreamPos_To].push_back((*ToAdd.Stream_More)[StreamKind][StreamPos_From].Read(Pos-MediaInfoLib::Config.Info_Get(StreamKind).size()));
+                Fill(StreamKind, StreamPos_To, ToAdd.Get(StreamKind, StreamPos_From, Pos, Info_Name).To_UTF8().c_str(), ToFill_Value, true);
             Count++;
         }
     }

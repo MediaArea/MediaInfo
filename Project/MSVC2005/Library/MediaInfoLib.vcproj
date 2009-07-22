@@ -108,6 +108,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\MediaInfo\File__Analyze_Streams_Fill.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\File__Analyze_Streams_Finish.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\File__Analyze_Streams_Update.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\MediaInfo\File__Base.cpp"
 				>
 			</File>

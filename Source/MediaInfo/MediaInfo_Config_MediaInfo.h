@@ -56,6 +56,9 @@ public :
     void          File_IsSeekable_Set (bool NewValue);
     bool          File_IsSeekable_Get ();
 
+    void          File_IsSub_Set (bool NewValue);
+    bool          File_IsSub_Get ();
+
     void          File_ForceParser_Set (const Ztring &NewValue);
     Ztring        File_ForceParser_Get ();
 
@@ -79,6 +82,7 @@ public :
 
 private :
     bool                    FileIsSeekable;
+    bool                    FileIsSub;
     Ztring                  File_ForceParser;
 
     //Extra

@@ -45,9 +45,6 @@ extern MediaInfo_Config Config;
 //---------------------------------------------------------------------------
 String MediaInfo_Internal::Inform()
 {
-    if (Info && Info->IsUpdated)
-        Info->Open_Buffer_Update();
-
     #ifndef MEDIAINFO_MINIMIZESIZE
         if (MediaInfoLib::Config.Details_Get())
             return Details;
