@@ -65,8 +65,6 @@ public :
     void    Open_Buffer_Continue    (                    const int8u* Buffer, size_t Buffer_Size);
     void    Open_Buffer_Continue    (File__Analyze* Sub, const int8u* Buffer, size_t Buffer_Size);
     void    Open_Buffer_Unsynch     ();
-    void    Open_Buffer_Fill        ();
-    void    Open_Buffer_Update      ();
     void    Open_Buffer_Finalize    (bool NoBufferModification=false);
     void    Open_Buffer_Finalize    (File__Analyze* Sub);
 

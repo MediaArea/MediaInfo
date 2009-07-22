@@ -437,28 +437,6 @@ void File__Analyze::Open_Buffer_Unsynch ()
 }
 
 //---------------------------------------------------------------------------
-void File__Analyze::Open_Buffer_Fill ()
-{
-    if (IsFilled)
-        return;
-
-    Streams_Fill();
-    Streams_Update();
-    IsFilled=true;
-    IsUpdated=false;
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Open_Buffer_Update ()
-{
-    if (!IsUpdated)
-        return;
-
-    Streams_Update();
-    IsUpdated=false;
-}
-
-//---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
 {
     //File with unknown size (stream...), finnishing
@@ -470,7 +448,7 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
 
     //Buffer - Global
     Read_Buffer_Finalize();
-    Open_Buffer_Fill();
+    Fill();
     Finalize_Global();
 
     //Element must be Finish
@@ -1591,6 +1569,96 @@ void File__Analyze::Accept (const char* ParserName)
 void File__Analyze::Accept ()
 {
     IsAccepted=true;
+}
+#endif //MEDIAINFO_MINIMIZESIZE
+
+//---------------------------------------------------------------------------
+#ifndef MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Fill (const char* ParserName)
+{
+    if (ParserName)
+    {
+        bool MustElementBegin=Element_Level?true:false;
+        if (Element_Level>0)
+            Element_End(); //Element
+        Info(Ztring(ParserName)+_T(", filling"));
+        if (MustElementBegin)
+            Element_Level++;
+    }
+
+    if (IsFilled)
+        return;
+
+    if (IsAccepted)
+    {
+        Streams_Fill();
+        Streams_Fill_Global();
+    }
+    IsFilled=true;
+
+    if (IsAccepted)
+    {
+        Fill();
+        Streams_Update();
+        Streams_Update_Global();
+    }
+    IsUpdated=false;
+}
+#else //MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Fill ()
+{
+    if (IsFilled)
+        return;
+
+    if (IsAccepted)
+    {
+        Streams_Fill();
+        Streams_Fill_Global();
+    }
+    IsFilled=true;
+
+    if (IsAccepted)
+    {
+        Fill();
+        Streams_Update();
+        Streams_Update_Global();
+    }
+    IsUpdated=false;
+}
+#endif //MEDIAINFO_MINIMIZESIZE
+
+//---------------------------------------------------------------------------
+#ifndef MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Update (const char* ParserName)
+{
+    if (ParserName)
+    {
+        bool MustElementBegin=Element_Level?true:false;
+        if (Element_Level>0)
+            Element_End(); //Element
+        Info(Ztring(ParserName)+_T(", updating"));
+        if (MustElementBegin)
+            Element_Level++;
+    }
+
+    if (IsAccepted)
+    {
+        Fill();
+        Streams_Update();
+        Streams_Update_Global();
+    }
+    IsUpdated=false;
+}
+#else //MEDIAINFO_MINIMIZESIZE
+void File__Analyze::Update ()
+{
+    if (IsAccepted)
+    {
+        Fill();
+        Streams_Update();
+        Streams_Update_Global();
+    }
+    IsUpdated=false;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
