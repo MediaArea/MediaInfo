@@ -1451,13 +1451,8 @@ void File_MpegPs::Detect_EOF()
         //Jumping
         if (!IsAccepted)
             Accept("MPEG-PS");
-        if (IsSub)
-            Finish("MPEG-PS");
-        else
-        {
-            GoToFromEnd(SizeToAnalyze, "MPEG-PS");
-            Read_Buffer_Unsynched();
-        }
+        GoToFromEnd(SizeToAnalyze, "MPEG-PS");
+        Read_Buffer_Unsynched();
     }
 }
 

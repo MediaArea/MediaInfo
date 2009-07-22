@@ -171,6 +171,8 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
     //Configuring
     if (MediaInfoLib::Config.FormatDetection_MaximumOffset_Get())
         Buffer_TotalBytes_FirstSynched_Max=MediaInfoLib::Config.FormatDetection_MaximumOffset_Get();
+    if (Config->File_IsSub_Get())
+        IsSub=true;
 }
 
 void File__Analyze::Open_Buffer_Init (File__Analyze* Sub)
@@ -469,6 +471,7 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
     //Buffer - Global
     Read_Buffer_Finalize();
     Open_Buffer_Fill();
+    Finalize_Global();
 
     //Element must be Finish
     while (Element_Level>0)
