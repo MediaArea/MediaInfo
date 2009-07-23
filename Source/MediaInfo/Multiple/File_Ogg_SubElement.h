@@ -47,11 +47,12 @@ public :
     int64u   absolute_granule_position_Resolution;
 
 protected :
+    //Streams management
+    void Streams_Fill();
+    void Streams_Finish();
+
     //Buffer - File header
     void FileHeader_Parse ();
-
-    //Buffer - Globals
-    void Read_Buffer_Finalize();
 
 public :
     File_Ogg_SubElement();

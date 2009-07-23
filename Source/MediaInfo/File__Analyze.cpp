@@ -1572,6 +1572,14 @@ void File__Analyze::Accept ()
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
+void File__Analyze::Accept (File__Analyze* Parser)
+{
+    if (Parser==NULL)
+        return;
+
+    Parser->Accept();
+}
+
 //---------------------------------------------------------------------------
 #ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Fill (const char* ParserName)
@@ -1629,6 +1637,14 @@ void File__Analyze::Fill ()
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
+void File__Analyze::Fill (File__Analyze* Parser)
+{
+    if (Parser==NULL)
+        return;
+
+    Parser->Fill();
+}
+
 //---------------------------------------------------------------------------
 #ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Update (const char* ParserName)
@@ -1661,6 +1677,14 @@ void File__Analyze::Update ()
     IsUpdated=false;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
+
+void File__Analyze::Update (File__Analyze* Parser)
+{
+    if (Parser==NULL)
+        return;
+
+    Parser->Update();
+}
 
 //---------------------------------------------------------------------------
 #ifndef MEDIAINFO_MINIMIZESIZE
@@ -1723,6 +1747,14 @@ void File__Analyze::Finish ()
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
+void File__Analyze::Finish (File__Analyze* Parser)
+{
+    if (Parser==NULL)
+        return;
+
+    Parser->Finish();
+}
+
 //---------------------------------------------------------------------------
 #ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Reject (const char* ParserName)
@@ -1749,6 +1781,14 @@ void File__Analyze::Reject ()
     Clear();
 }
 #endif //MEDIAINFO_MINIMIZESIZE
+
+void File__Analyze::Reject (File__Analyze* Parser)
+{
+    if (Parser==NULL)
+        return;
+
+    Parser->Reject();
+}
 
 //---------------------------------------------------------------------------
 #ifndef MEDIAINFO_MINIMIZESIZE

@@ -768,14 +768,19 @@ public :
     //Actions
     void Accept        (const char*)                                            {Accept();}
     void Accept        ();
+    void Accept        (File__Analyze* Parser);
     void Reject        (const char*)                                            {Reject();}
     void Reject        ();
+    void Reject        (File__Analyze* Parser);
     void Fill          (const char*)                                            {Fill();}
     void Fill          ();
+    void Fill          (File__Analyze* Parser);
     void Update        (const char*)                                            {Update();}
     void Update        ();
+    void Update        (File__Analyze* Parser);
     void Finish        (const char*)                                            {Finish();}
     void Finish        ();
+    void Finish        (File__Analyze* Parser);
     void GoTo          (int64u GoTo_, const char*)                              {GoTo(GoTo_);}
     void GoTo          (int64u GoTo);
     void GoToFromEnd   (int64u GoToFromEnd_, const char*)                       {GoToFromEnd(GoToFromEnd_);}

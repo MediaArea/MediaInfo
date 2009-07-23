@@ -351,7 +351,7 @@ void File_Mpegv::Streams_Finish()
     for (size_t Pos=0; Pos<DVD_CC_Parsers.size(); Pos++)
         if (DVD_CC_Parsers[Pos] && DVD_CC_Parsers[Pos]->IsAccepted)
         {
-            Open_Buffer_Finalize(DVD_CC_Parsers[Pos]);
+            Finish(DVD_CC_Parsers[Pos]);
             Merge(*DVD_CC_Parsers[Pos]);
             Fill(Stream_Text, StreamPos_Last, Text_ID, _T("DVD-")+Ztring::ToZtring(Pos));
             Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("DVD-Video"));
@@ -361,7 +361,7 @@ void File_Mpegv::Streams_Finish()
     for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
         if (GA94_03_CC_Parsers[Pos] && GA94_03_CC_Parsers[Pos]->IsAccepted)
         {
-            Open_Buffer_Finalize(GA94_03_CC_Parsers[Pos]);
+            Finish(GA94_03_CC_Parsers[Pos]);
             Merge(*GA94_03_CC_Parsers[Pos]);
             if (Pos<2)
                 Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));

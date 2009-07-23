@@ -147,7 +147,6 @@ void File_Riff::Read_Buffer_Finalize ()
         {
             //Finalizing and Merging (except Video codec and 120 fps hack)
             Temp->second.Parser->ShouldContinueParsing=false;
-            Open_Buffer_Finalize(Temp->second.Parser);
 
             //Hack - Before
             Ztring StreamSize, Codec_Temp;
@@ -156,6 +155,7 @@ void File_Riff::Read_Buffer_Finalize ()
             StreamSize=Retrieve(StreamKind_Last, StreamPos_Last, "StreamSize"); //We want to keep the 4CC of AVI
 
             //Merging
+            Finish(Temp->second.Parser);
             Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
             Fill(StreamKind_Last, StreamPos_Last, "ID", ((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
 
@@ -269,7 +269,7 @@ void File_Riff::Read_Buffer_Finalize ()
         {
             Clear(Stream_Video);
             Clear(Stream_Audio);
-            Open_Buffer_Finalize(DV_FromHeader);
+            Finish(DV_FromHeader);
             Merge(*DV_FromHeader);
             Fill(Stream_Video, 0, Video_Format, "Digital Video");
             Fill(Stream_Video, 0, Video_Codec_CC, "dvsd");

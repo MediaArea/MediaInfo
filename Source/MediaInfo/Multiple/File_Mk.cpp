@@ -130,11 +130,11 @@ File_Mk::~File_Mk()
 }
 
 //***************************************************************************
-// Format
+// Streams management
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Mk::Read_Buffer_Finalize()
+void File_Mk::Streams_Finish()
 {
     if (Duration!=0 && TimecodeScale!=0)
         Fill(Stream_General, 0, General_Duration, Duration*int64u_float64(TimecodeScale)/1000000.0, 0);
@@ -160,7 +160,7 @@ void File_Mk::Read_Buffer_Finalize()
                 Duration_Temp=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration); //Duration from stream is sometimes false
                 Codec_Temp=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Codec); //We want to keep the 4CC
             }
-            Open_Buffer_Finalize(Temp->second.Parser);
+            Finish(Temp->second.Parser);
             Merge(*Temp->second.Parser, Temp->second.StreamKind, 0, Temp->second.StreamPos);
             Fill(Stream_Video, StreamPos_Last, Video_Duration, Duration_Temp, true);
             if (Temp->second.StreamKind==Stream_Video && !Codec_Temp.empty())

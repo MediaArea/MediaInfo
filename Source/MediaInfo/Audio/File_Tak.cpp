@@ -243,9 +243,9 @@ void File_Tak::WAVEMETADATA()
         //Parsing
         Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, HeaderLength);
         Element_Offset+=HeaderLength;
-        //Open_Buffer_Finalize(&MI);
 
         //Filling
+        //Finish(&MI);
         //Merge(MI, StreamKind_Last, 0, StreamPos_Last);
 
         //The RIFF header is for PCM

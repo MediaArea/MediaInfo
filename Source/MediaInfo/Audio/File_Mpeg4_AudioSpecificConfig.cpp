@@ -702,9 +702,9 @@ void File_Mpeg4_AudioSpecificConfig::ALS ()
             size_t Riff_Pos=Riff.find("RIFF");
             Skip_XX(Riff_Pos,                                   "Unknown");
             Open_Buffer_Continue(&MI, (const int8u*)Riff.c_str()+Riff_Pos, Riff.size()-Riff_Pos);
-            Open_Buffer_Finalize(&MI);
 
             //Filling
+            Finish(&MI);
             Merge(MI, StreamKind_Last, 0, StreamPos_Last);
 
             //The RIFF header is for PCM

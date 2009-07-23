@@ -389,20 +389,20 @@ File_Flv::File_Flv()
 }
 
 //***************************************************************************
-// Format
+// Streams management
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Flv::Read_Buffer_Finalize()
+void File_Flv::Streams_Finish()
 {
     if (Stream[Stream_Video].Parser!=NULL)
     {
-        Open_Buffer_Finalize(Stream[Stream_Video].Parser);
+        Finish(Stream[Stream_Video].Parser);
         Merge(*Stream[Stream_Video].Parser, Stream_Video, 0, 0);
     }
     if (Stream[Stream_Audio].Parser!=NULL)
     {
-        Open_Buffer_Finalize(Stream[Stream_Audio].Parser);
+        Finish(Stream[Stream_Audio].Parser);
         Merge(*Stream[Stream_Audio].Parser, Stream_Audio, 0, 0);
     }
 
@@ -1237,9 +1237,9 @@ void File_Flv::Rm()
 
     //Parsing
     Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, (size_t)Element_Size);
-    Open_Buffer_Finalize(&MI);
 
     //Filling
+    Finish(&MI);
     Merge(MI, Stream_General, 0, 0);
 }
 

@@ -459,8 +459,8 @@ void File_Wm::Header_StreamProperties_Video ()
             Open_Buffer_Continue(Stream[Stream_Number].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Data_Size-40));
             if (Stream[Stream_Number].Parser->IsFinished)
             {
-                Open_Buffer_Finalize(Stream[Stream_Number].Parser);
-                Merge (*Stream[Stream_Number].Parser, Stream_Video, 0, StreamPos_Last);
+                Finish(Stream[Stream_Number].Parser);
+                Merge(*Stream[Stream_Number].Parser, Stream_Video, 0, StreamPos_Last);
                 delete Stream[Stream_Number].Parser; Stream[Stream_Number].Parser=NULL;
             }
             else

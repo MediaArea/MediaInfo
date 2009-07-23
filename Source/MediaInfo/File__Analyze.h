@@ -727,10 +727,15 @@ public :
 
     //Actions
     void Accept        (const char* ParserName=NULL);
+    void Accept        (File__Analyze* Parser);
     void Reject        (const char* ParserName=NULL);
+    void Reject        (File__Analyze* Parser);
     void Fill          (const char* ParserName=NULL);
+    void Fill          (File__Analyze* Parser);
     void Update        (const char* ParserName=NULL);
+    void Update        (File__Analyze* Parser);
     void Finish        (const char* ParserName=NULL);
+    void Finish        (File__Analyze* Parser);
     void GoTo          (int64u GoTo, const char* ParserName=NULL);
     void GoToFromEnd   (int64u GoToFromEnd, const char* ParserName=NULL);
     int64u Element_Code_Get (size_t Level);

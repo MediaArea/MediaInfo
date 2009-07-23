@@ -1077,9 +1077,9 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
         //Parsing
         Open_Buffer_Init(&MI);
         Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, 0);
-        Open_Buffer_Finalize(&MI);
 
         //Filling
+        Finish(&MI);
         Merge(MI, StreamKind_Last, 0, StreamPos_Last);
     }
     #endif
@@ -1093,9 +1093,9 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
         //Parsing
         Open_Buffer_Init(&MI);
         Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, 0);
-        Open_Buffer_Finalize(&MI);
 
         //Filling
+        Finish(&MI);
         Merge(MI, StreamKind_Last, 0, StreamPos_Last);
     }
     #endif
@@ -1162,7 +1162,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds_Aac()
         File_Mpeg4_AudioSpecificConfig MI;
         Open_Buffer_Init(&MI);
         Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-        Open_Buffer_Finalize(&MI);
+        Finish(&MI);
         Merge(MI, StreamKind_Last, 0, StreamPos_Last);
     #else //MEDIAINFO_MPEG4_YES
         Skip_XX(Element_Size-Element_Offset,                    "(AudioSpecificConfig)");
@@ -1206,7 +1206,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds_Vorbis()
             Element_Offset+=Elements_Size[Pos];
         }
         //Finalizing
-        Open_Buffer_Finalize(&MI);
+        Finish(&MI);
         Merge(MI, StreamKind_Last, 0, StreamPos_Last);
         Element_Show();
     #else //MEDIAINFO_MPEG4_YES
@@ -1225,7 +1225,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds_Vorbis2()
         File_Ogg_SubElement MI;
         Open_Buffer_Continue(Stream[Stream_ID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         Open_Buffer_Continue(Stream[Stream_ID].Parser, Buffer+Buffer_Offset+(size_t)Element_Size, 0);
-        Open_Buffer_Finalize(Stream[Stream_ID].Parser);
+        Finish(Stream[Stream_ID].Parser);
         Merge(*Stream[Stream_ID].Parser, StreamKind_Last, 0, StreamPos_Last);
         Element_Show();
     #else //MEDIAINFO_MPEG4_YES
@@ -1294,7 +1294,7 @@ void File_Riff::AVI__hdlr_strl_strf_iavs()
         Skip_L4(                                                "DVReserved");
         Skip_L4(                                                "DVReserved");
 
-        Open_Buffer_Finalize(DV_FromHeader);
+        Finish(DV_FromHeader);
 
         Stream_Prepare(Stream_Video);
         Stream[Stream_ID].Parser=new File_DvDif;
@@ -1725,7 +1725,7 @@ void File_Riff::AVI__INFO_IID3()
         File_Id3 MI;
         Open_Buffer_Init(&MI);
         Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-        Open_Buffer_Finalize(&MI);
+        Finish(&MI);
         Merge(MI, Stream_General, 0, 0);
     #endif
 }
@@ -2192,13 +2192,13 @@ void File_Riff::CMJP()
         Open_Buffer_Init(Stream[Stream_ID].Parser);
         ((File_Jpeg*)Stream[Stream_ID].Parser)->StreamKind=Stream_Video;
         Open_Buffer_Continue(Stream[Stream_ID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-        Open_Buffer_Finalize(Stream[Stream_ID].Parser);
         Element_Offset=Element_Size;
         Skip_XX(Element_TotalSize_Get()-Element_Offset,         "Other data");
 
         FILLING_BEGIN();
             Stream_Prepare(Stream_Video);
             Fill(Stream_Video, StreamPos_Last, Video_StreamSize, Element_TotalSize_Get());
+            Finish(Stream[Stream_ID].Parser);
             Merge(*Stream[Stream_ID].Parser, StreamKind_Last, 0, StreamPos_Last);
         FILLING_END();
     #else
@@ -2357,7 +2357,7 @@ void File_Riff::RMP3_data()
         File_Mpega MI;
         Open_Buffer_Init(&MI);
         Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-        Open_Buffer_Finalize(&MI);
+        Finish(&MI);
         Merge(MI, Stream_Audio, 0, 0);
     #else
         Stream_Prepare(Stream_Audio);
@@ -2456,9 +2456,9 @@ void File_Riff::SMV0_xxxx()
 
         //Parsing
         Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, Size);
-        Open_Buffer_Finalize(&MI);
 
         //Filling
+        Finish(&MI);
         Merge(MI, Stream_Video, 0, StreamPos_Last);
 
         //Positioning
@@ -2610,7 +2610,7 @@ void File_Riff::WAVE_ID3_()
         File_Id3v2 MI;
         Open_Buffer_Init(&MI);
         Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-        Open_Buffer_Finalize(&MI);
+        Finish(&MI);
         Merge(MI, Stream_General, 0, 0);
     #endif
 }

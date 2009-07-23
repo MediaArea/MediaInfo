@@ -41,8 +41,8 @@ namespace MediaInfoLib
 class File_Mk : public File__Analyze
 {
 protected :
-    //Buffer - Globals
-    void Read_Buffer_Finalize ();
+    //Streams management
+    void Streams_Finish();
 
 public :
     File_Mk();

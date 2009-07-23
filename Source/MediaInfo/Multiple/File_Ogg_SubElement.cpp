@@ -143,6 +143,36 @@ File_Ogg_SubElement::~File_Ogg_SubElement()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Streams_Fill()
+{
+    if (Parser==NULL)
+        return;
+
+    Fill(Parser);
+    Merge(*Parser, Stream_Video,    0, 0);
+    Merge(*Parser, Stream_Audio,    0, 0);
+    Merge(*Parser, Stream_Text,     0, 0);
+    Merge(*Parser, Stream_Image,    0, 0);
+}
+
+//---------------------------------------------------------------------------
+void File_Ogg_SubElement::Streams_Finish()
+{
+    if (Parser==NULL)
+        return;
+
+    Finish(Parser);
+    Merge(*Parser, Stream_Video,    0, 0);
+    Merge(*Parser, Stream_Audio,    0, 0);
+    Merge(*Parser, Stream_Text,     0, 0);
+    Merge(*Parser, Stream_Image,    0, 0);
+}
+
+//***************************************************************************
 // Format
 //***************************************************************************
 
@@ -150,17 +180,6 @@ File_Ogg_SubElement::~File_Ogg_SubElement()
 void File_Ogg_SubElement::FileHeader_Parse()
 {
     Stream_Prepare(Stream_General);
-}
-
-//---------------------------------------------------------------------------
-void File_Ogg_SubElement::Read_Buffer_Finalize()
-{
-    Open_Buffer_Finalize(Parser);
-    Merge(*Parser, Stream_General,  0, 0);
-    Merge(*Parser, Stream_Video,    0, 0);
-    Merge(*Parser, Stream_Audio,    0, 0);
-    Merge(*Parser, Stream_Text,     0, 0);
-    Merge(*Parser, Stream_Image,    0, 0);
 }
 
 //***************************************************************************
