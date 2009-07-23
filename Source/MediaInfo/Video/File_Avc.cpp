@@ -282,6 +282,41 @@ File_Avc::~File_Avc()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Avc::Streams_Finish()
+{
+    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
+    if (Count_Get(Stream_Video)==0  && (SPS_IsParsed || MustParse_SPS_PPS_Done))
+        slice_header_Fill();
+
+    //In case of there is enough elements for trusting this is a AVC file, but SPS/PPS are absent
+    if (Retrieve(Stream_Video, 0, Video_Format).empty() && Block_Count>=8)
+    {
+        Fill(Stream_General, 0, General_Format, "AVC");
+        Fill(Stream_Video, 0, Video_Format, "AVC");
+        Fill(Stream_Video, 0, Video_Codec, "AVC");
+    }
+
+    //GA94 captions
+    for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
+        if (GA94_03_CC_Parsers[Pos] && GA94_03_CC_Parsers[Pos]->IsAccepted)
+        {
+            Open_Buffer_Finalize(GA94_03_CC_Parsers[Pos]);
+            Merge(*GA94_03_CC_Parsers[Pos]);
+            if (Pos<2)
+                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
+            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"));
+        }
+
+    //Purge what is not needed anymore
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+        Streams.clear();
+}
+
+//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
@@ -394,44 +429,6 @@ void File_Avc::Synched_Init()
 
     //Options
     Option_Manage();
-}
-
-//***************************************************************************
-// Buffer - Global
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Avc::Read_Buffer_Finalize()
-{
-    if (Streams.empty())
-        return; //Not initialized
-
-    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (!IsFilled && (SPS_IsParsed || MustParse_SPS_PPS_Done))
-        slice_header_Fill();
-
-    //In case of there is enough elements for trusting this is a AVC file, but SPS/PPS are absent
-    if (Retrieve(Stream_Video, 0, Video_Format).empty() && Block_Count>=8)
-    {
-        Fill(Stream_General, 0, General_Format, "AVC");
-        Fill(Stream_Video, 0, Video_Format, "AVC");
-        Fill(Stream_Video, 0, Video_Codec, "AVC");
-    }
-
-    //GA94 captions
-    for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
-        if (GA94_03_CC_Parsers[Pos] && GA94_03_CC_Parsers[Pos]->IsAccepted)
-        {
-            Open_Buffer_Finalize(GA94_03_CC_Parsers[Pos]);
-            Merge(*GA94_03_CC_Parsers[Pos]);
-            if (Pos<2)
-                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
-            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"));
-        }
-
-    //Purge what is not needed anymore
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-        Streams.clear();
 }
 
 //***************************************************************************
@@ -1677,6 +1674,8 @@ void File_Avc::seq_parameter_set()
 
         //Setting as OK
         SPS_IsParsed=true;
+        if (!IsAccepted)
+            Accept("AVC");
     FILLING_END();
 }
 
@@ -2028,6 +2027,8 @@ void File_Avc::SPS_PPS()
 
         MustParse_SPS_PPS=false;
         MustParse_SPS_PPS_Done=true;
+        if (!IsAccepted)
+            Accept("AVC");
         if (MustParse_SPS_PPS_Only)
         {
             slice_header_Fill();

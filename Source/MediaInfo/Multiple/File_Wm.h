@@ -40,8 +40,8 @@ public :
     File_Wm();
 
 protected :
-    //Buffer - Global
-    void Read_Buffer_Finalize ();
+    //Streams management
+    void Streams_Finish();
 
 private :
     //Buffer

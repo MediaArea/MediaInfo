@@ -71,8 +71,12 @@ File_Wm::File_Wm()
     IsDvrMs=false;
 }
 
+//***************************************************************************
+// Streams management
+//***************************************************************************
+
 //---------------------------------------------------------------------------
-void File_Wm::Read_Buffer_Finalize()
+void File_Wm::Streams_Finish()
 {
     //Encryption management
     /*const Ztring& Encryption=Retrieve(Stream_General, 0, General_Encryption);
@@ -210,11 +214,7 @@ void File_Wm::Header_Parse()
         Get_L8 (Size,                                               "Size");
 
         //Filling
-        #ifndef __BORLANDC__
-            Header_Fill_Code(Name.hi, Ztring().From_GUID(Name));
-        #else //__BORLANDC__
-            Header_Fill_Code(Name.hi&0xFFFFFFFF, Ztring().From_GUID(Name)); //Borland does not like int64u for const?
-        #endif //__BORLANDC__
+        Header_Fill_Code(Name.hi, Ztring().From_GUID(Name));
         Header_Fill_Size(Size);
     }
     else

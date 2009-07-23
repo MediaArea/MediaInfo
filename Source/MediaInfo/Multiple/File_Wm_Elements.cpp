@@ -142,11 +142,7 @@ namespace Elements
 
 const char* Wm_StreamType(int128u Kind)
 {
-    #ifndef __BORLANDC__
-        switch (Kind.hi)
-    #else //__BORLANDC__
-        switch (Kind.hi&0xFFFFFFFF) //Borland does not like int64u for const?
-    #endif //__BORLANDC__
+    switch (Kind.hi)
     {
         case Elements::Header_StreamProperties_Audio :          return "Audio";
         case Elements::Header_StreamProperties_Video :          return "Video";
@@ -161,11 +157,7 @@ const char* Wm_StreamType(int128u Kind)
 
 const char* Wm_ExclusionType(int128u ExclusionType)
 {
-    #ifndef __BORLANDC__
-        switch (ExclusionType.hi)
-    #else //__BORLANDC__
-        switch (ExclusionType.hi&0xFFFFFFFF) //Borland does not like int64u for const?
-    #endif //__BORLANDC__
+    switch (ExclusionType.hi)
     {
         case Elements::Header_StreamProperties_Audio :          return "Language";
         case Elements::Header_StreamProperties_Video :          return "Bitrate";
@@ -307,11 +299,7 @@ void File_Wm::Header_StreamProperties ()
     Stream_Number&=0x007F; //Only 7bits
     Element_Info(Stream_Number);
     Skip_L4(                                                    "Reserved");
-    #ifndef __BORLANDC__
-        switch (StreamType.hi)
-    #else //__BORLANDC__
-        switch (StreamType.hi&0xFFFFFFFF) //Borland does not like int64u for const?
-    #endif //__BORLANDC__
+    switch (StreamType.hi)
     {
         case Elements::Header_StreamProperties_Audio :          Element_Begin(StreamTypeLength);
                                                                 Header_StreamProperties_Audio();
@@ -637,11 +625,7 @@ void File_Wm::Header_HeaderExtension_ExtendedStreamProperties()
         Element_End();
         if (Size>=24 && Element_Offset+Size-24==Element_Size)
         {
-            #ifndef __BORLANDC__
-                switch (Name.hi)
-            #else //__BORLANDC__
-                switch (Name.hi&0xFFFFFFFF) //Borland does not like int64u for const?
-            #endif //__BORLANDC__
+            switch (Name.hi)
             {
                 case Elements::Header_StreamProperties :    Header_StreamProperties(); break;
                 default :                                   Skip_XX(Size-24, "Unknown");
@@ -1556,11 +1540,7 @@ void File_Wm::Data_Packet_ReplicatedData(int32u Size)
     for (size_t Pos=0; Pos<Stream[Stream_Number].Payload_Extension_Systems.size(); Pos++)
     {
         Element_Begin();
-        #ifndef __BORLANDC__
-            switch (Stream[Stream_Number].Payload_Extension_Systems[Pos].ID.hi)
-        #else //__BORLANDC__
-            switch (Stream[Stream_Number].Payload_Extension_Systems[Pos].ID.hi&0xFFFFFFFF) //Borland does not like int64u for const?
-        #endif //__BORLANDC__
+        switch (Stream[Stream_Number].Payload_Extension_Systems[Pos].ID.hi)
         {
             case Elements::Payload_Extension_System_TimeStamp :     Data_Packet_ReplicatedData_TimeStamp(); break;
             default :                                               //Not enough info to validate this algorithm
