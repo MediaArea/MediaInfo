@@ -106,31 +106,11 @@ int32u Pcm_M2TS_Resolution[]=
 };
 
 //***************************************************************************
-// Buffer - Global
+// Streams management
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Pcm::Read_Buffer_Continue()
-{
-    if (Codec!=_T("VOB")
-     && Codec!=_T("EVOB")
-     && Codec!=_T("M2TS")) //No need of data
-    {
-        //Filling
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "PCM");
-        Stream_Prepare(Stream_Audio);
-        Fill(Stream_Audio, 0, Audio_Format, "PCM");
-        Fill(Stream_Audio, 0, Audio_Codec, "PCM");
-
-        //Finished
-        Accept("PCM");
-        Finish("PCM");
-    }
-}
-
-//---------------------------------------------------------------------------
-void File_Pcm::Read_Buffer_Finalize()
+void File_Pcm::Streams_Fill()
 {
     //Filling
     Ztring Firm, Endianness, Sign, ITU, Resolution;
@@ -223,6 +203,30 @@ void File_Pcm::Read_Buffer_Finalize()
     if (!Resolution.empty())
         Fill(Stream_Audio, 0, Audio_Resolution, Resolution);
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Pcm::Read_Buffer_Continue()
+{
+    if (Codec!=_T("VOB")
+     && Codec!=_T("EVOB")
+     && Codec!=_T("M2TS")) //No need of data
+    {
+        //Filling
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "PCM");
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "PCM");
+        Fill(Stream_Audio, 0, Audio_Codec, "PCM");
+
+        //Finished
+        Accept("PCM");
+        Finish("PCM");
+    }
 }
 
 //***************************************************************************

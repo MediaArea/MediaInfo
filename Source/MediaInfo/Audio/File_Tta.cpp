@@ -53,6 +53,24 @@ File_Tta::File_Tta()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Tta::Streams_Finish()
+{
+    //Filling
+    int64u CompressedSize=File_Size-TagsSize;
+    float32 CompressionRatio=((float32)UncompressedSize)/CompressedSize;
+
+    Fill(Stream_Audio, 0, Audio_StreamSize, CompressedSize);
+    Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio);
+    Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
+
+    File__Tags_Helper::Streams_Finish();
+}
+
+//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
@@ -111,27 +129,6 @@ void File_Tta::FileHeader_Parse()
     //No more need data
     File__Tags_Helper::Accept("TTA");
     File__Tags_Helper::Finish("TTA");
-}
-
-//***************************************************************************
-// Buffer - Global
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Tta::Read_Buffer_Finalize()
-{
-    if (!IsAccepted)
-        return;
-
-    //Filling
-    int64u CompressedSize=File_Size-TagsSize;
-    float32 CompressionRatio=((float32)UncompressedSize)/CompressedSize;
-
-    Fill(Stream_Audio, 0, Audio_StreamSize, CompressedSize);
-    Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio);
-    Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
-
-    File__Tags_Helper::Read_Buffer_Finalize();
 }
 
 //***************************************************************************

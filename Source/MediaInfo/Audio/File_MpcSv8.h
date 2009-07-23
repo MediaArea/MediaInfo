@@ -45,6 +45,9 @@ public :
     File_MpcSv8();
 
 private :
+    //Streams management
+    void Streams_Finish()                                                       {File__Tags_Helper::Streams_Finish();}
+
     //Buffer - File header
     bool FileHeader_Begin();
     void FileHeader_Parse();

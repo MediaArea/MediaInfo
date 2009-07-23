@@ -159,6 +159,7 @@ void File_Tak::Data_Parse()
 void File_Tak::ENDOFMETADATA()
 {
     //Filling
+    Fill(Stream_General, 0, General_StreamSize, 0); //File_Offset+Buffer_Offset+Element_Size);
     Fill(Stream_Audio, 0, Audio_StreamSize, File_Size-(File_Offset+Buffer_Offset+Element_Size));
     File__Tags_Helper::Finish("TAK");
 }

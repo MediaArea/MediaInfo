@@ -40,9 +40,11 @@ namespace MediaInfoLib
 class File_Eia608 : public File__Analyze
 {
 private :
+    //Streams management
+    void Streams_Fill();
+
     //Buffer - Global
     void Read_Buffer_Continue();
-    void Read_Buffer_Finalize();
 
     //Temp
     std::wstring Captions;

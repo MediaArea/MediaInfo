@@ -79,7 +79,7 @@ bool File_Flac::FileHeader_Begin()
 
     if (CC4(Buffer+Buffer_Offset+(VorbisHeader?9:0))!=0x664C6143) //"fLaC"
     {
-        IsFinished=true;
+        File__Tags_Helper::Finish("Flac");
         return false;
     }
 
@@ -190,7 +190,8 @@ void File_Flac::STREAMINFO()
         Fill(Stream_Audio, 0, Audio_SamplingRate, SampleRate);
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels+1);
         Fill(Stream_Audio, 0, Audio_Resolution, BitPerSample+1);
-        Fill(Stream_Audio, 0, Audio_Duration, Samples*1000/SampleRate);
+        if (!IsSub)
+            Fill(Stream_Audio, 0, Audio_Duration, Samples*1000/SampleRate);
 
         File__Tags_Helper::Accept("FLAC");
         Buffer_MaximumSize=4*1024*1024;

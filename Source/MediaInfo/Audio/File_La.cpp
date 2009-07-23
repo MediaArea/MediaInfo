@@ -52,6 +52,23 @@ File_La::File_La()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_La::Streams_Finish()
+{
+    //Filling
+    int64u CompressedSize=File_Size-TagsSize;
+    float32 CompressionRatio=((float32)UncompressedSize)/CompressedSize;
+
+    Fill(Stream_Audio, 0, Audio_StreamSize, CompressedSize);
+    Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio);
+
+    File__Tags_Helper::Streams_Finish();
+}
+
+//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
@@ -120,26 +137,6 @@ void File_La::FileHeader_Parse()
     //No more need data
     File__Tags_Helper::Accept("LA");
     File__Tags_Helper::Finish("LA");
-}
-
-//***************************************************************************
-// Buffer - Global
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_La::Read_Buffer_Finalize()
-{
-    if (!IsAccepted)
-        return;
-
-    //Filling
-    int64u CompressedSize=File_Size-TagsSize;
-    float32 CompressionRatio=((float32)UncompressedSize)/CompressedSize;
-
-    Fill(Stream_Audio, 0, Audio_StreamSize, CompressedSize);
-    Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio);
-
-    File__Tags_Helper::Read_Buffer_Finalize();
 }
 
 //***************************************************************************

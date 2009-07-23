@@ -46,6 +46,10 @@ public :
     File_Mpega();
 
 private :
+    //Streams management
+    void Streams_Fill();
+    void Streams_Finish();
+
     //Buffer - File header
     bool FileHeader_Begin();
 
@@ -54,7 +58,7 @@ private :
     bool Synched_Test();
 
     //Buffer - Global
-    void Read_Buffer_Finalize ();
+    void Read_Buffer_Finalize()                                                 {File__Tags_Helper::Read_Buffer_Finalize();}
 
     //Buffer - Per element
     void Header_Parse();
@@ -91,6 +95,7 @@ private :
     int32u VBR_Frames;
     int32u Reservoir_Max;
     int32u Xing_Scale;
+    int32u BitRate; //Average
     int8u  ID;
     int8u  layer;
     int8u  bitrate_index;

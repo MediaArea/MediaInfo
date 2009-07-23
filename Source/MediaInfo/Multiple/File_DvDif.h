@@ -46,11 +46,14 @@ public :
     bool   IgnoreAudio;
 
 protected :
+    //Streams management
+    void Streams_Finish();
+
     //Buffer - Global
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     void Read_Buffer_Continue();
-    #endif //MEDIAINFO_DVDIF_ANALYZE_YES
     void Read_Buffer_Finalize ();
+    #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 
 public :
     File_DvDif();
@@ -63,7 +66,6 @@ private :
 
     //Elements - Main
     void Header();
-    void Header_Fill();
     void Subcode();
     void Subcode_Ssyb(int8u syb_num);
     void VAUX();

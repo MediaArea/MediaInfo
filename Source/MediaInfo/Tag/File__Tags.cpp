@@ -78,6 +78,26 @@ File__Tags_Helper::File__Tags_Helper()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File__Tags_Helper::Streams_Fill()
+{
+}
+
+//---------------------------------------------------------------------------
+void File__Tags_Helper::Streams_Finish()
+{
+    if (!Base->IsSub)
+    {
+        Base->Fill(Stream_General, 0, General_StreamSize, TagsSize+Base->Retrieve(Stream_General, 0, General_StreamSize).To_int64u(), 10, true);
+        if (Base->Retrieve(Stream_Audio, 0, Audio_StreamSize).empty())
+            Base->Fill(Stream_Audio, 0, Audio_StreamSize, Base->File_Size-TagsSize);
+    }
+}
+
+//***************************************************************************
 // Buffer - Global
 //***************************************************************************
 
@@ -94,13 +114,6 @@ bool File__Tags_Helper::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File__Tags_Helper::Read_Buffer_Finalize()
 {
-    if (!Base->IsSub)
-    {
-        if (Base->Retrieve(Stream_Audio, 0, General_StreamSize).empty())
-            Base->Fill(Stream_General, 0, General_StreamSize, TagsSize);
-        if (Base->Retrieve(Stream_Audio, 0, Audio_StreamSize).empty())
-            Base->Fill(Stream_Audio, 0, Audio_StreamSize, Base->File_Size-TagsSize);
-    }
 }
 
 //***************************************************************************

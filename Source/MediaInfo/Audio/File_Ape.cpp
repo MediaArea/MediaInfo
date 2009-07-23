@@ -83,22 +83,12 @@ File_Ape::File_Ape()
 }
 
 //***************************************************************************
-// Buffer - Global
+// Streams management
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Ape::Read_Buffer_Continue()
+void File_Ape::Streams_Finish()
 {
-    //Tags
-    File__Tags_Helper::Read_Buffer_Continue();
-}
-
-//---------------------------------------------------------------------------
-void File_Ape::Read_Buffer_Finalize()
-{
-    if (!IsAccepted)
-        return;
-
     //Filling
     int64u CompressedSize=File_Size-TagsSize;
     float32 CompressionRatio=((float32)UncompressedSize)/CompressedSize;
@@ -107,7 +97,7 @@ void File_Ape::Read_Buffer_Finalize()
     Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio);
     Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
 
-    File__Tags_Helper::Read_Buffer_Finalize();
+    File__Tags_Helper::Streams_Finish();
 }
 
 //***************************************************************************

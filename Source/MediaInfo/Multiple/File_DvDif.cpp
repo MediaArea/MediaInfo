@@ -281,6 +281,48 @@ File_DvDif::~File_DvDif()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_DvDif::Streams_Finish()
+{
+    if (Count_Get(Stream_General)==0)
+        Stream_Prepare(Stream_General);
+    Fill(Stream_General, 0, General_Format, "Digital Video");
+
+    if (!Recorded_Date_Date.empty())
+    {
+        if (Recorded_Date_Time.size()>4)
+        {
+            Recorded_Date_Time.resize(Recorded_Date_Time.size()-4); //Keep out milliseconds
+            Recorded_Date_Date+=_T(" ");
+            Recorded_Date_Date+=Recorded_Date_Time;
+        }
+        Fill(Stream_General, 0, General_Recorded_Date, Recorded_Date_Date);
+    }
+    if (!File_Name.empty() && Duration)
+        Fill(Stream_General, 0, General_Duration, Duration);
+
+    //Delay
+    if (TimeCode_First!=(int64u)-1)
+    {
+        Fill(Stream_Video, 0, Video_Delay, TimeCode_First);
+        Fill(Stream_Audio, 0, Audio_Delay, TimeCode_First);
+    }
+
+    #if defined(MEDIAINFO_EIA608_YES)
+        for (size_t Pos=0; Pos<CC_Parsers.size(); Pos++)
+            if (CC_Parsers[Pos] && CC_Parsers[Pos]->IsAccepted)
+            {
+                CC_Parsers[Pos]->Finish();
+                Merge(*CC_Parsers[Pos]);
+                Fill(Stream_Text, StreamPos_Last, Text_ID, Pos);
+            }
+    #endif
+}
+
+//***************************************************************************
 // Format
 //***************************************************************************
 
@@ -1307,52 +1349,17 @@ void File_DvDif::Errors_Stats_Update_Finnish()
     Fill(Stream_Video, 0, "Errors_Stats_End", Errors_Stats_End);
     Fill(Stream_Video, 0, "FrameCount_Speed", Speed_FrameCount);
 }
-#endif //MEDIAINFO_DVDIF_ANALYZE_YES
 
 //---------------------------------------------------------------------------
 void File_DvDif::Read_Buffer_Finalize()
 {
-    if (!IsFilled && FrameCount>=1)
-        Header_Fill();
-
-    if (!Recorded_Date_Date.empty())
-    {
-        if (Recorded_Date_Time.size()>4)
-        {
-            Recorded_Date_Time.resize(Recorded_Date_Time.size()-4); //Keep out milliseconds
-            Recorded_Date_Date+=_T(" ");
-            Recorded_Date_Date+=Recorded_Date_Time;
-        }
-        Fill(Stream_General, 0, General_Recorded_Date, Recorded_Date_Date);
-    }
-    if (!File_Name.empty() && Duration)
-        Fill(Stream_General, 0, General_Duration, Duration);
-
-    //Delay
-    if (TimeCode_First!=(int64u)-1)
-    {
-        Fill(Stream_Video, 0, Video_Delay, TimeCode_First);
-        Fill(Stream_Audio, 0, Audio_Delay, TimeCode_First);
-    }
-
-    #if defined(MEDIAINFO_EIA608_YES)
-        for (size_t Pos=0; Pos<CC_Parsers.size(); Pos++)
-            if (CC_Parsers[Pos] && CC_Parsers[Pos]->IsAccepted)
-            {
-                Open_Buffer_Finalize(CC_Parsers[Pos]);
-                Merge(*CC_Parsers[Pos]);
-                Fill(Stream_Text, StreamPos_Last, Text_ID, Pos);
-            }
-    #endif
-
-    #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     //Errors stats
     if (!IsFinished)
         Finish();
     Errors_Stats_Update();
     Errors_Stats_Update_Finnish();
-    #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 }
+#endif //MEDIAINFO_DVDIF_ANALYZE_YES
 
 //***************************************************************************
 // Buffer
@@ -1571,10 +1578,10 @@ void File_DvDif::Header()
         FrameCount++;
         if (Count_Get(Stream_General)==0)
             Stream_Prepare(Stream_General);
-        if (!IsAccepted && FrameCount>=10)
+        if (!IsAccepted && (FrameCount>=10 || IsSub))
             Accept("DV DIF");
         if (!IsFilled && FrameCount>=Frame_Count_Valid)
-            Header_Fill();
+            Finish("DV DIF");
     FILLING_END();
 }
 #else //MEDIAINFO_MINIMIZESIZE
@@ -1607,26 +1614,17 @@ void File_DvDif::Header()
         FrameCount++;
         if (Count_Get(Stream_General)==0)
             Stream_Prepare(Stream_General);
-        if (!IsAccepted && FrameCount>=10)
+        if (!IsAccepted && (FrameCount>=10 || IsSub))
             Accept("DV DIF");
         if (!IsFilled && FrameCount>=Frame_Count_Valid)
-            Header_Fill();
+            #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
+                Fill("DV DIF");
+            #else //MEDIAINFO_DVDIF_ANALYZE_YES
+                Finish("DV DIF");
+            #endif //MEDIAINFO_DVDIF_ANALYZE_YES
     FILLING_END();
 }
 #endif //MEDIAINFO_MINIMIZESIZE
-
-//---------------------------------------------------------------------------
-void File_DvDif::Header_Fill()
-{
-    if (Count_Get(Stream_General)==0)
-        Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "Digital Video");
-
-    IsFilled=true;
-    #ifndef MEDIAINFO_DVDIF_ANALYZE_YES
-        Finish("DV DIF");
-    #endif //MEDIAINFO_DVDIF_ANALYZE_YES
-}
 
 //---------------------------------------------------------------------------
 void File_DvDif::Subcode()
@@ -2088,7 +2086,10 @@ void File_DvDif::video_sourcecontrol()
         }
 
         if (!IsAccepted && AuxToAnalyze)
-            Header_Fill();
+        {
+            Accept("DV DIF");
+            Fill("DV DIF");
+        }
     FILLING_END();
 }
 

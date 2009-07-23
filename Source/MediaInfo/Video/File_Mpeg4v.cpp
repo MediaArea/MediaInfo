@@ -656,6 +656,10 @@ void File_Mpeg4v::video_object_layer_start()
 {
     Element_Name("video_object_layer_start");
 
+    //Default
+    Matrix_intra.clear();
+    Matrix_nonintra.clear();
+
     //Parsing
     int8u  video_object_layer_verid=visual_object_verid;
     int8u  shape_extension=0;

@@ -175,7 +175,6 @@ void File_Aac::libfaad()
         Fill(Stream_Audio, 0, Audio_Format, "AAC");
         Fill(Stream_Audio, 0, Audio_Codec, "AAC");
 
-        IsFilled=true;
         Accept("AAC");
         Finish("AAC");
     #endif

@@ -53,6 +53,20 @@ File_Skm::File_Skm()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Skm::Streams_Finish()
+{
+    Stream.Parser->Accept();
+    Stream.Parser->IsFilled=false;
+    Stream.Parser->IsFinished=false;
+    Stream.Parser->Finish();
+    Merge(*Stream.Parser);
+}
+
+//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
@@ -175,12 +189,7 @@ void File_Skm::Data_Parse()
         ((File_Mpeg4v*)Stream.Parser)->OnlyVOP();
         Open_Buffer_Init(Stream.Parser);
         Open_Buffer_Continue(Stream.Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
-        //if (Stream.Parser->Count_Get(Stream_Video)>0)
-        {
-            Open_Buffer_Finalize(Stream.Parser);
-            Merge(*Stream.Parser);
-            Finish("SKM");
-        }
+        Finish("SKM");
     #endif
 }
 

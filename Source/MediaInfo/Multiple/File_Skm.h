@@ -44,6 +44,9 @@ public :
     File_Skm();
 
 private :
+    //Streams management
+    void Streams_Finish();
+
     //Buffer - File header
     bool FileHeader_Begin();
     void FileHeader_Parse();

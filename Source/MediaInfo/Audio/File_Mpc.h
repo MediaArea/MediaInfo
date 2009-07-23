@@ -45,6 +45,9 @@ public :
     File_Mpc();
 
 private :
+    //Streams management
+    void Streams_Finish()                                                       {File__Tags_Helper::Streams_Finish();}
+
     //Buffer - Global
     void Read_Buffer_Continue()                                                 {File__Tags_Helper::Read_Buffer_Continue();}
     void Read_Buffer_Finalize()                                                 {File__Tags_Helper::Read_Buffer_Finalize();}

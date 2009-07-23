@@ -292,7 +292,7 @@ bool File_Ac3::FileHeader_Begin()
     //False positives detection: detect Matroska files, AC-3 parser is not smart enough
     if (CC4(Buffer)==0x1A45DFA3) //EBML
     {
-        IsFinished=true;
+        Finish("AC-3");
         return false;
     }
 

@@ -47,6 +47,10 @@ public :
     ~File_Dts();
 
 private :
+    //Streams management
+    void Streams_Fill();
+    void Streams_Finish();
+
     //Buffer - File header
     bool FileHeader_Begin();
 
@@ -55,13 +59,11 @@ private :
     bool Synched_Test();
 
     //Buffer - Global
-    void Read_Buffer_Finalize();
     void Read_Buffer_Continue ();
 
     //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
-    void Data_Parse_Fill();
 
     //Elements
     void Core();

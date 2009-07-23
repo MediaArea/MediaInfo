@@ -49,6 +49,25 @@ File_Eia708::File_Eia708()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Eia708::Streams_Fill()
+{
+    for (size_t Pos=0; Pos<Captions.size(); Pos++)
+    {
+        if (!Captions[Pos].empty())
+        {
+            Stream_Prepare(Stream_Text);
+            Fill(Stream_Text, StreamPos_Last, Text_Format, "EIA-708");
+            Fill(Stream_Text, StreamPos_Last, Text_ID, Pos);
+            //Fill(Stream_Text, StreamPos_Last, "xxx", Ztring::Ztring().From_Unicode(Captions[Pos]));
+        }
+    }
+}
+
+//***************************************************************************
 // Buffer - Global
 //***************************************************************************
 
@@ -65,21 +84,6 @@ void File_Eia708::Read_Buffer_Continue()
 
         Accept("EIA-708");
         Stream_Prepare(Stream_General);
-    }
-}
-
-//---------------------------------------------------------------------------
-void File_Eia708::Read_Buffer_Finalize()
-{
-    for (size_t Pos=0; Pos<Captions.size(); Pos++)
-    {
-        if (!Captions[Pos].empty())
-        {
-            Stream_Prepare(Stream_Text);
-            Fill(Stream_Text, StreamPos_Last, Text_Format, "EIA-708");
-            Fill(Stream_Text, StreamPos_Last, Text_ID, Pos);
-            //Fill(Stream_Text, StreamPos_Last, "xxx", Ztring::Ztring().From_Unicode(Captions[Pos]));
-        }
     }
 }
 

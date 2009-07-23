@@ -45,13 +45,16 @@ public :
     File_Tta();
 
 private :
+    //Streams management
+    void Streams_Finish();
+
     //Buffer - File header
     bool FileHeader_Begin();
     void FileHeader_Parse();
 
     //Buffer - Global
     void Read_Buffer_Continue()                                                 {File__Tags_Helper::Read_Buffer_Continue();}
-    void Read_Buffer_Finalize ();
+    void Read_Buffer_Finalize()                                                 {File__Tags_Helper::Read_Buffer_Finalize();}
 
     //Temp
     int64u Duration;

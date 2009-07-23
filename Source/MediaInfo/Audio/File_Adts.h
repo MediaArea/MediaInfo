@@ -44,6 +44,9 @@ public :
     File_Adts();
 
 private :
+    //Streams management
+    void Streams_Finish()                                                       {File__Tags_Helper::Streams_Finish();}
+
     //Buffer - Synchro
     bool Synchronize();
     bool Synched_Test();

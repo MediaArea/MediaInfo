@@ -134,6 +134,34 @@ File_Wvpk::File_Wvpk()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Wvpk::Streams_Finish()
+{
+    Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
+
+    //Specific case
+    if (FromMKV)
+        return;
+
+    //Duration
+    if (SamplingRate<15)
+    {
+        int64u Duration=(((int64u)(block_index_LastFrame+block_samples_LastFrame-block_index_FirstFrame))*1000/Wvpk_SamplingRate[SamplingRate]); //Don't forget the last frame with block_samples...
+        int64u CompressedSize=File_Size-TagsSize;
+        int64u UncompressedSize=Duration*(mono?1:2)*Wvpk_Resolution[(resolution1?1:0)*2+(resolution0?1:0)]*Wvpk_SamplingRate[SamplingRate]/8/1000;
+        float32 CompressionRatio=((float32)UncompressedSize)/CompressedSize;
+        Fill(Stream_Audio, 0, Audio_StreamSize, CompressedSize, 3, true);
+        Fill(Stream_Audio, 0, Audio_Duration, Duration, 10, true);
+        Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio, 3, true);
+    }
+
+    File__Tags_Helper::Streams_Finish();
+}
+
+//***************************************************************************
 // Buffer - Synchro
 //***************************************************************************
 
@@ -237,30 +265,6 @@ void File_Wvpk::Read_Buffer_Continue()
     //Tags
     if (!FromMKV)
         File__Tags_Helper::Read_Buffer_Continue();
-}
-
-//---------------------------------------------------------------------------
-void File_Wvpk::Read_Buffer_Finalize()
-{
-    Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
-
-    //Specific case
-    if (FromMKV)
-        return;
-
-    //Duration
-    if (SamplingRate<15)
-    {
-        int64u Duration=(((int64u)(block_index_LastFrame+block_samples_LastFrame-block_index_FirstFrame))*1000/Wvpk_SamplingRate[SamplingRate]); //Don't forget the last frame with block_samples...
-        int64u CompressedSize=File_Size-TagsSize;
-        int64u UncompressedSize=Duration*(mono?1:2)*Wvpk_Resolution[(resolution1?1:0)*2+(resolution0?1:0)]*Wvpk_SamplingRate[SamplingRate]/8/1000;
-        float32 CompressionRatio=((float32)UncompressedSize)/CompressedSize;
-        Fill(Stream_Audio, 0, Audio_StreamSize, CompressedSize, 3, true);
-        Fill(Stream_Audio, 0, Audio_Duration, Duration, 10, true);
-        Fill(Stream_Audio, 0, Audio_CompressionRatio, CompressionRatio, 3, true);
-    }
-
-    File__Tags_Helper::Read_Buffer_Finalize();
 }
 
 //***************************************************************************

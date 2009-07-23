@@ -44,9 +44,11 @@ public :
     ZenLib::Ztring Codec;
 
 private :
+    //Streams management
+    void Streams_Fill();
+
     //Buffer - Global
     void Read_Buffer_Continue ();
-    void Read_Buffer_Finalize ();
 
     //Buffer - Per element
     void Header_Parse();

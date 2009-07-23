@@ -370,6 +370,147 @@ File_Dts::~File_Dts()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Dts::Streams_Fill()
+{
+    if (Count_Get(Stream_General)==0)
+        Stream_Prepare(Stream_General);
+    Fill(Stream_General, 0, General_Format, "DTS");
+    Fill(Stream_General, 0, General_Format_Profile, Profile);
+    Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, 0, Audio_Format, "DTS");
+
+    if (Parser) //LE or 14-bit
+        return; //filled by the parser
+
+    if (Profile.empty() && ES)
+        Profile="ES";
+    Fill(Stream_Audio, 0, Audio_Format_Profile, Profile);
+    Fill(Stream_Audio, 0, Audio_Codec, (Profile.find(_T("MA"))==0 || Profile.find(_T("HRA"))==0)?"DTS-HD":"DTS");
+    Fill(Stream_Audio, 0, Audio_BitRate_Mode, Profile.find(_T("MA"))==0?"VBR":"CBR");
+    Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_SamplingRate[sample_frequency]);
+    if (Profile!=_T("MA") && (bit_rate<29 || Profile==_T("Express")))
+    {
+        float64 BitRate;
+        if (Profile==_T("Express"))
+            BitRate=0; //No core bitrate
+        else
+            BitRate=(float64)DTS_BitRate[bit_rate];
+        if (HD_ExSSFrameDurationCode!=(int8u)-1)
+        {
+            int32u SamplePerFrames=HD_ExSSFrameDurationCode;
+            switch (HD_MaximumSampleRate)
+            {
+                case  0 : //  8000
+                case 10 : // 12000
+                                SamplePerFrames*= 128; break;
+                case  1 : // 16000
+                case  5 : // 22050
+                case 11 : // 24000
+                                SamplePerFrames*= 256; break;
+                case  2 : // 32000
+                case  6 : // 44100
+                case 12 : // 48000
+                                SamplePerFrames*= 512; break;
+                case  3 : // 64000
+                case  7 : // 88200
+                case 13 : // 96000
+                                SamplePerFrames*=1024; break;
+                case  4 : //128000
+                case  8 : //176400
+                case 14 : //192000
+                                SamplePerFrames*=2048; break;
+                case  9 : //352800
+                case 15 : //384000
+                                SamplePerFrames*=4096; break;
+                default     :   SamplePerFrames=    0; break; //Can never happen (4 bits)
+            }
+            if (SamplePerFrames)
+                BitRate+=HD_size*8*DTS_HD_MaximumSampleRate[HD_MaximumSampleRate]/SamplePerFrames;
+        }
+        //if (Primary_Frame_Byte_Size_minus_1 && Profile==_T("HRA"))
+        //    BitRate*=1+((float64)HD_size)/Primary_Frame_Byte_Size_minus_1; //HD block are not in the nominal bitrate
+        Fill(Stream_Audio, 0, Audio_BitRate, BitRate, 0);
+    }
+    else if (bit_rate==29)
+        Fill(Stream_Audio, 0, Audio_BitRate, "Open");
+    else if (bit_rate==30)
+        Fill(Stream_Audio, 0, Audio_BitRate, "Variable");
+    else if (bit_rate==31)
+        Fill(Stream_Audio, 0, Audio_BitRate, "LossLess");
+    if ((ExtendedCoding && (ExtensionAudioDescriptor==0 || ExtensionAudioDescriptor==3 || ExtensionAudioDescriptor==6)))
+    {
+        switch(channel_arrangement_XCh)
+        {
+            case 1 :
+                    Fill(Stream_Audio, 0, Audio_Channel_s_, 7);
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Rear: L C R")+(lfe_effects?_T(", LFE"):_T("")));
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Ztring("3/3")+(lfe_effects?_T(".1"):_T("")));
+                    break;
+            case 2 :
+                    Fill(Stream_Audio, 0, Audio_Channel_s_, 8);
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Rear: L C C R")+(lfe_effects?_T(", LFE"):_T("")));
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Ztring("3/4")+(lfe_effects?_T(".1"):_T("")));
+                    break;
+            default:;
+        }
+    }
+    else
+    {
+        int8u Channels;
+        Ztring ChannelPositions, ChannelPositions2;
+        if (channel_arrangement<16)
+        {
+            Channels=DTS_Channels[channel_arrangement]+(lfe_effects?1:0);
+            ChannelPositions.From_Local(DTS_ChannelPositions[channel_arrangement]);
+            ChannelPositions2.From_Local(DTS_ChannelPositions2[channel_arrangement]);
+        }
+        else
+        {
+            Channels=8;
+            ChannelPositions.From_Local("User defined");
+        }
+        if (lfe_effects)
+        {
+            ChannelPositions+=_T(", LFE");
+            ChannelPositions2+=_T(".1");
+        }
+        Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
+        Fill(Stream_Audio, 0, Audio_ChannelPositions, ChannelPositions);
+        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, ChannelPositions2);
+    }
+    Fill(Stream_Audio, 0, Audio_Resolution, DTS_Resolution[bits_per_sample]);
+
+    //Priority on HD data
+    if (HD_SpeakerActivityMask!=(int16u)-1)
+    {
+        Fill(Stream_Audio, 0, Audio_ChannelPositions, DTS_HD_SpeakerActivityMask(HD_SpeakerActivityMask).c_str(), Unlimited, true, true);
+        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, DTS_HD_SpeakerActivityMask2(HD_SpeakerActivityMask).c_str(), Unlimited, true, true);
+    }
+    if(HD_BitResolution!=(int8u)-1)
+        Fill(Stream_Audio, 0, Audio_Resolution, HD_BitResolution, 10, true);
+    if(HD_MaximumSampleRate!=(int8u)-1)
+        Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_HD_MaximumSampleRate[HD_MaximumSampleRate], 10, true);
+    if(HD_TotalNumberChannels!=(int8u)-1)
+        Fill(Stream_Audio, 0, Audio_Channel_s_, HD_TotalNumberChannels, 10, true);
+}
+
+//---------------------------------------------------------------------------
+void File_Dts::Streams_Finish()
+{
+    if (Parser) //LE or 14-bit
+    {
+        Parser->Finish();
+        Merge(*Parser, Stream_Audio, 0, 0);
+        if (!BigEndian) Fill(Stream_Audio, 0, Audio_Format_Profile, "LE");
+        if (!Word)      Fill(Stream_Audio, 0, Audio_Format_Profile, "14");
+    }
+}
+
+//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
@@ -385,7 +526,7 @@ bool File_Dts::FileHeader_Begin()
     {
         case 0x52494646 : //"RIFF"
         case 0x000001FD : //MPEG-PS private
-                            IsFinished=true;
+                            Finish("DTS");
                             return false;
         default         :   ;
     }
@@ -559,28 +700,14 @@ void File_Dts::Read_Buffer_Continue()
             Open_Buffer_Init(Parser);
         }
         Open_Buffer_Continue(Parser, Dest, Dest_Size);
-        if (!IsFilled && Parser->IsFilled)
-            IsFilled=true;
         if (!IsAccepted && Parser->IsAccepted)
             Accept("DTS 14-bit");
-        if (Parser->IsFinished)
+        if (!IsFinished && Parser->IsFinished)
             Finish("DTS 14-bit");
 
         Demux(Dest, Dest_Size, _T("extract"));
         delete[] Dest;
         Buffer_Offset+=Buffer_Size;
-    }
-}
-
-//---------------------------------------------------------------------------
-void File_Dts::Read_Buffer_Finalize()
-{
-    if (Parser) //LE or 14-bit
-    {
-        Fill(Stream_General, 0, General_Format, "DTS");
-        Merge(*Parser);
-        if (!BigEndian) Fill(Stream_Audio, 0, Audio_Format_Profile, "LE");
-        if (!Word)      Fill(Stream_Audio, 0, Audio_Format_Profile, "14");
     }
 }
 
@@ -803,131 +930,6 @@ void File_Dts::Data_Parse()
     }
 }
 
-//---------------------------------------------------------------------------
-void File_Dts::Data_Parse_Fill()
-{
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "DTS");
-    Fill(Stream_General, 0, General_Format_Profile, Profile);
-    Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, 0, Audio_Format, "DTS");
-    if (Profile.empty() && ES)
-        Profile="ES";
-    Fill(Stream_Audio, 0, Audio_Format_Profile, Profile);
-    Fill(Stream_Audio, 0, Audio_Codec, (Profile.find(_T("MA"))==0 || Profile.find(_T("HRA"))==0)?"DTS-HD":"DTS");
-    Fill(Stream_Audio, 0, Audio_BitRate_Mode, Profile.find(_T("MA"))==0?"VBR":"CBR");
-    Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_SamplingRate[sample_frequency]);
-    if (Profile!=_T("MA") && (bit_rate<29 || Profile==_T("Express")))
-    {
-        float64 BitRate;
-        if (Profile==_T("Express"))
-            BitRate=0; //No core bitrate
-        else
-            BitRate=(float64)DTS_BitRate[bit_rate];
-        if (HD_ExSSFrameDurationCode!=(int8u)-1)
-        {
-            int32u SamplePerFrames=HD_ExSSFrameDurationCode;
-            switch (HD_MaximumSampleRate)
-            {
-                case  0 : //  8000
-                case 10 : // 12000
-                                SamplePerFrames*= 128; break;
-                case  1 : // 16000
-                case  5 : // 22050
-                case 11 : // 24000
-                                SamplePerFrames*= 256; break;
-                case  2 : // 32000
-                case  6 : // 44100
-                case 12 : // 48000
-                                SamplePerFrames*= 512; break;
-                case  3 : // 64000
-                case  7 : // 88200
-                case 13 : // 96000
-                                SamplePerFrames*=1024; break;
-                case  4 : //128000
-                case  8 : //176400
-                case 14 : //192000
-                                SamplePerFrames*=2048; break;
-                case  9 : //352800
-                case 15 : //384000
-                                SamplePerFrames*=4096; break;
-                default     :   SamplePerFrames=    0; break; //Can never happen (4 bits)
-            }
-            if (SamplePerFrames)
-                BitRate+=HD_size*8*DTS_HD_MaximumSampleRate[HD_MaximumSampleRate]/SamplePerFrames;
-        }
-        //if (Primary_Frame_Byte_Size_minus_1 && Profile==_T("HRA"))
-        //    BitRate*=1+((float64)HD_size)/Primary_Frame_Byte_Size_minus_1; //HD block are not in the nominal bitrate
-        Fill(Stream_Audio, 0, Audio_BitRate, BitRate, 0);
-    }
-    else if (bit_rate==29)
-        Fill(Stream_Audio, 0, Audio_BitRate, "Open");
-    else if (bit_rate==30)
-        Fill(Stream_Audio, 0, Audio_BitRate, "Variable");
-    else if (bit_rate==31)
-        Fill(Stream_Audio, 0, Audio_BitRate, "LossLess");
-    if ((ExtendedCoding && (ExtensionAudioDescriptor==0 || ExtensionAudioDescriptor==3 || ExtensionAudioDescriptor==6)))
-    {
-        switch(channel_arrangement_XCh)
-        {
-            case 1 :
-                    Fill(Stream_Audio, 0, Audio_Channel_s_, 7);
-                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Rear: L C R")+(lfe_effects?_T(", LFE"):_T("")));
-                    Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Ztring("3/3")+(lfe_effects?_T(".1"):_T("")));
-                    break;
-            case 2 :
-                    Fill(Stream_Audio, 0, Audio_Channel_s_, 8);
-                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Rear: L C C R")+(lfe_effects?_T(", LFE"):_T("")));
-                    Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Ztring("3/4")+(lfe_effects?_T(".1"):_T("")));
-                    break;
-            default:;
-        }
-    }
-    else
-    {
-        int8u Channels;
-        Ztring ChannelPositions, ChannelPositions2;
-        if (channel_arrangement<16)
-        {
-            Channels=DTS_Channels[channel_arrangement]+(lfe_effects?1:0);
-            ChannelPositions.From_Local(DTS_ChannelPositions[channel_arrangement]);
-            ChannelPositions2.From_Local(DTS_ChannelPositions2[channel_arrangement]);
-        }
-        else
-        {
-            Channels=8;
-            ChannelPositions.From_Local("User defined");
-        }
-        if (lfe_effects)
-        {
-            ChannelPositions+=_T(", LFE");
-            ChannelPositions2+=_T(".1");
-        }
-        Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
-        Fill(Stream_Audio, 0, Audio_ChannelPositions, ChannelPositions);
-        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, ChannelPositions2);
-    }
-    Fill(Stream_Audio, 0, Audio_Resolution, DTS_Resolution[bits_per_sample]);
-
-    //Priority on HD data
-    if (HD_SpeakerActivityMask!=(int16u)-1)
-    {
-        Fill(Stream_Audio, 0, Audio_ChannelPositions, DTS_HD_SpeakerActivityMask(HD_SpeakerActivityMask).c_str(), Unlimited, true, true);
-        Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, DTS_HD_SpeakerActivityMask2(HD_SpeakerActivityMask).c_str(), Unlimited, true, true);
-    }
-    if(HD_BitResolution!=(int8u)-1)
-        Fill(Stream_Audio, 0, Audio_Resolution, HD_BitResolution, 10, true);
-    if(HD_MaximumSampleRate!=(int8u)-1)
-        Fill(Stream_Audio, 0, Audio_SamplingRate, DTS_HD_MaximumSampleRate[HD_MaximumSampleRate], 10, true);
-    if(HD_TotalNumberChannels!=(int8u)-1)
-        Fill(Stream_Audio, 0, Audio_Channel_s_, HD_TotalNumberChannels, 10, true);
-
-    //No more need data
-    IsFilled=true;
-    Accept("DTS");
-    Finish("DTS");
-}
-
 //***************************************************************************
 // Elements
 //***************************************************************************
@@ -998,7 +1000,10 @@ void File_Dts::Core()
     //Filling
     FILLING_BEGIN();
         if (Count_Get(Stream_Audio)==0 && Frame_Count>=Frame_Count_Valid)
-            Data_Parse_Fill();
+        {
+            Accept("DTS");
+            Finish("DTS");
+        }
     FILLING_END();
 }
 
@@ -1105,7 +1110,10 @@ void File_Dts::HD()
     //Filling
     FILLING_BEGIN();
         if (Count_Get(Stream_Audio)==0 && Frame_Count>=Frame_Count_Valid)
-            Data_Parse_Fill();
+        {
+            Accept("DTS");
+            Finish("DTS");
+        }
     FILLING_END();
 }
 

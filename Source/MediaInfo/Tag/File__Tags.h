@@ -51,6 +51,10 @@ public :
     //Constructor/Destructor
     File__Tags_Helper();
 
+    //Streams management
+    void Streams_Fill();
+    void Streams_Finish();
+
     //Buffer - File header
     bool FileHeader_Begin() {return Synched_Test();}
 
