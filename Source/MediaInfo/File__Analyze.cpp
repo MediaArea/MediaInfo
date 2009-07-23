@@ -268,7 +268,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 
         if (File_GoTo>=File_Size)
         {
-            Finish();
+            File_GoTo=File_Size;
             Element_Show(); //If Element_Level is >0, we must show what is in the details buffer
             while (Element_Level>0)
                 Element_End(); //This is Finish, must flush
@@ -1690,6 +1690,16 @@ void File__Analyze::Finish (const char* ParserName)
             Element_Level++;
     }
 
+    if (IsFinished)
+        return;
+
+    if (IsAccepted)
+    {
+        Fill();
+        Update();
+        Streams_Finish();
+        Streams_Finish_Global();
+    }
     IsFinished=true;
 }
 #else //MEDIAINFO_MINIMIZESIZE
@@ -1698,6 +1708,17 @@ void File__Analyze::Finish ()
     if (ShouldContinueParsing)
         return;
 
+
+    if (IsFinished)
+        return;
+
+    if (IsAccepted)
+    {
+        Fill();
+        Update();
+        Streams_Finish();
+        Streams_Finish_Global();
+    }
     IsFinished=true;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
