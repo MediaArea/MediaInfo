@@ -248,6 +248,22 @@ File_Vc1::File_Vc1()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Vc1::Streams_Finish()
+{
+    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
+    if (Count_Get(Stream_Video)==0  && (Frame_Count>0 || EntryPoint_Parsed || From_WMV3))
+        FrameHeader_Fill();
+
+    //Purge what is not needed anymore
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+        Streams.clear();
+}
+
+//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
@@ -330,28 +346,6 @@ void File_Vc1::Synched_Init()
     //Default stream values
     Streams.resize(0x100);
     Streams[0x0F].Searching_Payload=true;
-}
-
-//***************************************************************************
-// Buffer - Global
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Vc1::Read_Buffer_Finalize()
-{
-    if (Streams.empty())
-        return; //Not initialized
-
-    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (!IsFilled && (Frame_Count>0 || EntryPoint_Parsed || From_WMV3))
-    {
-        FrameHeader_Fill();
-        Accept("VC-1");
-    }
-
-    //Purge what is not needed anymore
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-        Streams.clear();
 }
 
 //***************************************************************************
@@ -639,13 +633,15 @@ void File_Vc1::FrameHeader()
         NextCode_Add(0x0D);
         NextCode_Add(0x0F);
 
-        //Filling only if not already done
-        if (!IsFilled && Frame_Count>=Frame_Count_Valid)
-            FrameHeader_Fill();
-
         //Autorisation of other streams
         Streams[0x0D].Searching_Payload=true;
         Streams[0x0F].Searching_Payload=true;
+
+        if (!IsAccepted)
+            Accept("VC-1");
+        //Filling only if not already done
+        if (!IsFilled && Frame_Count>=Frame_Count_Valid)
+            FrameHeader_Fill();
     FILLING_END();
 }
 
@@ -798,6 +794,8 @@ void File_Vc1::EntryPointHeader()
         Streams[0x0D].Searching_Payload=true;
 
         EntryPoint_Parsed=true;
+        if (!IsAccepted)
+            Accept("VC-1");
     FILLING_END();
 }
 
@@ -902,8 +900,12 @@ void File_Vc1::SequenceHeader()
         Streams[0x0D].Searching_Payload=true;
         Streams[0x0E].Searching_Payload=true;
 
-    if (From_WMV3)
-        FrameHeader_Fill();
+        if (From_WMV3)
+        {
+            if (!IsAccepted)
+                Accept("VC-1");
+            FrameHeader_Fill();
+        }
     FILLING_END();
 }
 
