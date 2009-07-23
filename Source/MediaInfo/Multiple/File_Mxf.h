@@ -44,11 +44,11 @@ public :
     File_Mxf();
 
 protected :
-    //Buffer - Globals
-    void Read_Buffer_Finalize ();
-    void Read_Buffer_Finalize_Descriptor (int128u DescriptorUID);
-    void Read_Buffer_Finalize_Track (int128u TrackUID);
-    void Read_Buffer_Finalize_Component (int128u ComponentUID, float32 EditRate);
+    //Streams management
+    void Streams_Finish ();
+    void Streams_Finish_Descriptor (int128u DescriptorUID);
+    void Streams_Finish_Track (int128u TrackUID);
+    void Streams_Finish_Component (int128u ComponentUID, float32 EditRate);
 
     //Buffer - File header
     bool FileHeader_Begin();

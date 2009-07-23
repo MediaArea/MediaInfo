@@ -41,8 +41,8 @@ namespace MediaInfoLib
 class File_Riff : public File__Analyze
 {
 protected :
-    //Buffer - Global
-    void Read_Buffer_Finalize ();
+    //Streams management
+    void Streams_Finish();
 
 public :
     File_Riff();

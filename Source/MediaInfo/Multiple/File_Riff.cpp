@@ -124,12 +124,13 @@ File_Riff::~File_Riff()
     #endif //MEDIAINFO_DVDIF_YES
 }
 
-//---------------------------------------------------------------------------
-void File_Riff::Read_Buffer_Finalize ()
-{
-    if (!IsAccepted)
-        return;
+//***************************************************************************
+// Streams management
+//***************************************************************************
 
+//---------------------------------------------------------------------------
+void File_Riff::Streams_Finish ()
+{
     //For each stream
     std::map<int32u, stream>::iterator Temp=Stream.begin();
     while (Temp!=Stream.end())

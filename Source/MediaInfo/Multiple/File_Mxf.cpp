@@ -368,11 +368,11 @@ File_Mxf::File_Mxf()
 }
 
 //***************************************************************************
-// Buffer - Global
+// Streams management
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Mxf::Read_Buffer_Finalize()
+void File_Mxf::Streams_Finish()
 {
     //Per ContentStorage
     for (contentstorages::iterator ContentStorage=ContentStorages.begin(); ContentStorage!=ContentStorages.end(); ContentStorage++)
@@ -385,13 +385,13 @@ void File_Mxf::Read_Buffer_Finalize()
             if (Package!=Packages.end())
             {
                 //Descriptor
-                Read_Buffer_Finalize_Descriptor(Package->second.Descriptor);
+                Streams_Finish_Descriptor(Package->second.Descriptor);
 
                 //Tracks
                 for(size_t Pos=0; Pos<Package->second.Tracks.size(); Pos++)
                 {
                     //Track
-                    Read_Buffer_Finalize_Track(Package->second.Tracks[Pos]);
+                    Streams_Finish_Track(Package->second.Tracks[Pos]);
                 }
             }
         }
@@ -434,7 +434,7 @@ void File_Mxf::Read_Buffer_Finalize()
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Read_Buffer_Finalize_Descriptor(int128u DescriptorUID)
+void File_Mxf::Streams_Finish_Descriptor(int128u DescriptorUID)
 {
     descriptors::iterator Descriptor=Descriptors.find(DescriptorUID);
     if (Descriptor==Descriptors.end())
@@ -444,7 +444,7 @@ void File_Mxf::Read_Buffer_Finalize_Descriptor(int128u DescriptorUID)
     if (!Descriptor->second.SubDescriptors.empty())
     {
         for (size_t Pos=0; Pos<Descriptor->second.SubDescriptors.size(); Pos++)
-            Read_Buffer_Finalize_Descriptor(Descriptor->second.SubDescriptors[Pos]);
+            Streams_Finish_Descriptor(Descriptor->second.SubDescriptors[Pos]);
         return; //Is not a real descriptor
     }
 
@@ -468,7 +468,7 @@ void File_Mxf::Read_Buffer_Finalize_Descriptor(int128u DescriptorUID)
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Read_Buffer_Finalize_Track(int128u TrackUID)
+void File_Mxf::Streams_Finish_Track(int128u TrackUID)
 {
     tracks::iterator Track=Tracks.find(TrackUID);
     if (Track==Tracks.end())
@@ -488,7 +488,7 @@ void File_Mxf::Read_Buffer_Finalize_Track(int128u TrackUID)
             Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
         Fill(StreamKind_Last, StreamPos_Last, "UniqueID", Temp->first);
 
-        Open_Buffer_Finalize(Temp->second.Parser);
+        Finish(Temp->second.Parser);
         Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
 
         //Bitrate (PCM)
@@ -522,6 +522,7 @@ void File_Mxf::Read_Buffer_Finalize_Track(int128u TrackUID)
                     Fill_Flush();
                     Stream_Prepare(Stream_Audio);
                     size_t Pos=Count_Get(Stream_Audio)-1;
+                    Temp->second.Parser->Finish();
                     Merge(*Temp->second.Parser, Stream_Audio, Audio_Pos, StreamPos_Last);
                     Fill(Stream_Audio, Pos, Audio_MuxingMode, "DV");
                     Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
@@ -558,11 +559,11 @@ void File_Mxf::Read_Buffer_Finalize_Track(int128u TrackUID)
     }
 
     //Sequence
-    Read_Buffer_Finalize_Component(Track->second.Sequence, Track->second.EditRate);
+    Streams_Finish_Component(Track->second.Sequence, Track->second.EditRate);
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Read_Buffer_Finalize_Component(int128u ComponentUID, float32 EditRate)
+void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float32 EditRate)
 {
     components::iterator Component=Components.find(ComponentUID);
     if (Component==Components.end())
