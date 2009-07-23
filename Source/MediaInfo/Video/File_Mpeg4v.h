@@ -50,6 +50,10 @@ public :
     File_Mpeg4v();
 
 private :
+    //Streams management
+    void Streams_Fill();
+    void Streams_Finish();
+
     //Buffer - File header
     bool FileHeader_Begin() {return FileHeader_Begin_0x000001();}
 
@@ -58,9 +62,6 @@ private :
     bool Synched_Test();
     void Synched_Init();
     
-    //Buffer - Global
-    void Read_Buffer_Finalize ();
-
     //Buffer - Per element
     void Header_Parse();
     bool Header_Parser_QuickSearch();
@@ -79,7 +80,6 @@ private :
     void video_session_error();
     void visual_object_start();
     void vop_start();
-    void vop_start_Fill();
     void slice_start();
     void extension_start();
     void fgs_vop_start();

@@ -51,6 +51,7 @@ public :
 
 private :
     //Streams management
+    void Streams_Fill();
     void Streams_Finish();
 
     //Buffer - File header
@@ -72,7 +73,6 @@ private :
     void Slice();
     void Field();
     void FrameHeader();
-    void FrameHeader_Fill();
     void EntryPointHeader();
     void SequenceHeader();
     void UserDefinedSlice();

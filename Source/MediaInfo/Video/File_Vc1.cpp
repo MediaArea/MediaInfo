@@ -252,12 +252,98 @@ File_Vc1::File_Vc1()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void File_Vc1::Streams_Fill()
+{
+    //Calculating - PixelAspectRatio
+    float32 PixelAspectRatio;
+    if (AspectRatio!=0x0F)
+        PixelAspectRatio=Vc1_PixelAspectRatio[AspectRatio];
+    else if (AspectRatioY)
+        PixelAspectRatio=((float)AspectRatioX)/((float)AspectRatioY);
+    else
+        PixelAspectRatio=1; //Unknown
+
+    //Calculating - FrameRate
+    float32 FrameRate=0;
+    if (framerate_present)
+    {
+        if (framerate_form)
+            FrameRate=((float32)(framerateexp+1))/(float32)32;
+        else if (Vc1_FrameRate_dr(frameratecode_dr))
+            FrameRate=Vc1_FrameRate_enr(frameratecode_enr)/Vc1_FrameRate_dr(frameratecode_dr);
+    }
+
+    //Filling
+    Stream_Prepare(Stream_General);
+    Fill(Stream_General, 0, General_Format, "VC-1");
+    Stream_Prepare(Stream_Video);
+    Fill(Stream_Video, 0, Video_Format, "VC-1");
+    Fill(Stream_Video, 0, Video_Codec, From_WMV3?"WMV3":"VC-1"); //For compatibility with the old reaction
+
+    Ztring Profile=Vc1_Profile[profile];
+    if (profile==3)
+        Profile+=_T("@L")+Ztring::ToZtring(level);
+    Fill(Stream_Video, 0, Video_Format_Profile, Profile);
+    Fill(Stream_Video, 0, Video_Codec_Profile, Profile);
+    Fill(Stream_Video, 0, Video_Colorimetry, Vc1_ColorimetryFormat[colordiff_format]);
+    if (coded_width && coded_height)
+    {
+        Fill(Stream_Video, StreamPos_Last, Video_Width, (coded_width+1)*2);
+        Fill(Stream_Video, StreamPos_Last, Video_Height, (coded_height+1)*2);
+    }
+    if (PixelAspectRatio!=0)
+        Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio);
+    if (FrameRate!=0)
+        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate);
+
+    //Interlacement
+    if (!interlace || (PictureFormat_Count[1]==0 && PictureFormat_Count[2]==0)) //No interlaced frame/field
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Progressive");
+        Fill(Stream_Video, 0, Video_Interlacement, "PPF");
+    }
+    else if (PictureFormat_Count[0]>0) //Interlaced and non interlaced frames/fields
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Mixed");
+        Fill(Stream_Video, 0, Video_Interlacement, "Mixed");
+    }
+    else
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
+        Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
+    }
+    if (Frame_Count>0 && interlace)
+        Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Bottom?"BFF":"TFF");
+    std::string TempRef;
+    for (std::map<int16u, temporalreference>::iterator Temp=TemporalReference.begin(); Temp!=TemporalReference.end(); Temp++)
+    {
+        TempRef+=Temp->second.top_field_first?"T":"B";
+        TempRef+=Temp->second.repeat_first_field?"3":"2";
+    }
+    if (TempRef.find('3')!=std::string::npos) //A pulldown maybe is detected
+    {
+        if (TempRef.find("T2T3B2B3T2T3B2B3")!=std::string::npos
+         || TempRef.find("B2B3T2T3B2B3T2T3")!=std::string::npos)
+        {
+            Fill(Stream_Video, 0, Video_ScanOrder, "2:3 Pulldown", Unlimited, true, true);
+            Fill(Stream_Video, 0, Video_FrameRate, Retrieve(Stream_Video, 0, Video_FrameRate).To_float32()*24/30, 3, true); //Real framerate
+            Fill(Stream_Video, 0, Video_ScanType, "Progressive", Unlimited, true, true);
+            Fill(Stream_Video, 0, Video_Interlacement, "PPF", Unlimited, true, true);
+        }
+        if (TempRef.find("T2T2T2T2T2T2T2T2T2T2T2T3B2B2B2B2B2B2B2B2B2B2B2B3")!=std::string::npos
+         || TempRef.find("B2B2B2B2B2B2B2B2B2B2B2B3T2T2T2T2T2T2T2T2T2T2T2T3")!=std::string::npos)
+        {
+            Fill(Stream_Video, 0, Video_ScanOrder, "2:2:2:2:2:2:2:2:2:2:2:3 Pulldown", Unlimited, true, true);
+            Fill(Stream_Video, 0, Video_FrameRate, Retrieve(Stream_Video, 0, Video_FrameRate).To_float32()*24/25, 3, true); //Real framerate
+            Fill(Stream_Video, 0, Video_ScanType, "Progressive", Unlimited, true, true);
+            Fill(Stream_Video, 0, Video_Interlacement, "PPF", Unlimited, true, true);
+        }
+    }
+}
+
+//---------------------------------------------------------------------------
 void File_Vc1::Streams_Finish()
 {
-    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Count_Get(Stream_Video)==0  && (Frame_Count>0 || EntryPoint_Parsed || From_WMV3))
-        FrameHeader_Fill();
-
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Streams.clear();
@@ -641,106 +727,8 @@ void File_Vc1::FrameHeader()
             Accept("VC-1");
         //Filling only if not already done
         if (!IsFilled && Frame_Count>=Frame_Count_Valid)
-            FrameHeader_Fill();
+            Finish("VC-1");
     FILLING_END();
-}
-
-//---------------------------------------------------------------------------
-void File_Vc1::FrameHeader_Fill()
-{
-    //Calculating - PixelAspectRatio
-    float32 PixelAspectRatio;
-    if (AspectRatio!=0x0F)
-        PixelAspectRatio=Vc1_PixelAspectRatio[AspectRatio];
-    else if (AspectRatioY)
-        PixelAspectRatio=((float)AspectRatioX)/((float)AspectRatioY);
-    else
-        PixelAspectRatio=1; //Unknown
-
-    //Calculating - FrameRate
-    float32 FrameRate=0;
-    if (framerate_present)
-    {
-        if (framerate_form)
-            FrameRate=((float32)(framerateexp+1))/(float32)32;
-        else if (Vc1_FrameRate_dr(frameratecode_dr))
-            FrameRate=Vc1_FrameRate_enr(frameratecode_enr)/Vc1_FrameRate_dr(frameratecode_dr);
-    }
-
-    //Filling
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "VC-1");
-    Stream_Prepare(Stream_Video);
-    Fill(Stream_Video, 0, Video_Format, "VC-1");
-    Fill(Stream_Video, 0, Video_Codec, From_WMV3?"WMV3":"VC-1"); //For compatibility with the old reaction
-
-    Ztring Profile=Vc1_Profile[profile];
-    if (profile==3)
-        Profile+=_T("@L")+Ztring::ToZtring(level);
-    Fill(Stream_Video, 0, Video_Format_Profile, Profile);
-    Fill(Stream_Video, 0, Video_Codec_Profile, Profile);
-    Fill(Stream_Video, 0, Video_Colorimetry, Vc1_ColorimetryFormat[colordiff_format]);
-    if (coded_width && coded_height)
-    {
-        Fill(Stream_Video, StreamPos_Last, Video_Width, (coded_width+1)*2);
-        Fill(Stream_Video, StreamPos_Last, Video_Height, (coded_height+1)*2);
-    }
-    if (PixelAspectRatio!=0)
-        Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio);
-    if (FrameRate!=0)
-        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate);
-
-    //Interlacement
-    if (!interlace || (PictureFormat_Count[1]==0 && PictureFormat_Count[2]==0)) //No interlaced frame/field
-    {
-        Fill(Stream_Video, 0, Video_ScanType, "Progressive");
-        Fill(Stream_Video, 0, Video_Interlacement, "PPF");
-    }
-    else if (PictureFormat_Count[0]>0) //Interlaced and non interlaced frames/fields
-    {
-        Fill(Stream_Video, 0, Video_ScanType, "Mixed");
-        Fill(Stream_Video, 0, Video_Interlacement, "Mixed");
-    }
-    else
-    {
-        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
-        Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
-    }
-    if (Frame_Count>0 && interlace)
-        Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Bottom?"BFF":"TFF");
-    std::string TempRef;
-    for (std::map<int16u, temporalreference>::iterator Temp=TemporalReference.begin(); Temp!=TemporalReference.end(); Temp++)
-    {
-        TempRef+=Temp->second.top_field_first?"T":"B";
-        TempRef+=Temp->second.repeat_first_field?"3":"2";
-    }
-    if (TempRef.find('3')!=std::string::npos) //A pulldown maybe is detected
-    {
-        if (TempRef.find("T2T3B2B3T2T3B2B3")!=std::string::npos
-         || TempRef.find("B2B3T2T3B2B3T2T3")!=std::string::npos)
-        {
-            Fill(Stream_Video, 0, Video_ScanOrder, "2:3 Pulldown", Unlimited, true, true);
-            Fill(Stream_Video, 0, Video_FrameRate, Retrieve(Stream_Video, 0, Video_FrameRate).To_float32()*24/30, 3, true); //Real framerate
-            Fill(Stream_Video, 0, Video_ScanType, "Progressive", Unlimited, true, true);
-            Fill(Stream_Video, 0, Video_Interlacement, "PPF", Unlimited, true, true);
-        }
-        if (TempRef.find("T2T2T2T2T2T2T2T2T2T2T2T3B2B2B2B2B2B2B2B2B2B2B2B3")!=std::string::npos
-         || TempRef.find("B2B2B2B2B2B2B2B2B2B2B2B3T2T2T2T2T2T2T2T2T2T2T2T3")!=std::string::npos)
-        {
-            Fill(Stream_Video, 0, Video_ScanOrder, "2:2:2:2:2:2:2:2:2:2:2:3 Pulldown", Unlimited, true, true);
-            Fill(Stream_Video, 0, Video_FrameRate, Retrieve(Stream_Video, 0, Video_FrameRate).To_float32()*24/25, 3, true); //Real framerate
-            Fill(Stream_Video, 0, Video_ScanType, "Progressive", Unlimited, true, true);
-            Fill(Stream_Video, 0, Video_Interlacement, "PPF", Unlimited, true, true);
-        }
-    }
-
-    //Jumping
-    if (From_WMV3 || Frame_Count>=Frame_Count_Valid)
-    {
-        Accept("Vc1");
-        IsFilled=true;
-        Finish("Vc1");
-    }
 }
 
 //---------------------------------------------------------------------------
@@ -904,7 +892,7 @@ void File_Vc1::SequenceHeader()
         {
             if (!IsAccepted)
                 Accept("VC-1");
-            FrameHeader_Fill();
+            Finish("VC-1");
         }
     FILLING_END();
 }

@@ -651,7 +651,7 @@ void File_Avc::Data_Parse()
     }
 
     //Duplicate
-    if (Streams[(size_t)Element_Code].ShouldDuplicate)
+    if (!Streams.empty() && Streams[(size_t)Element_Code].ShouldDuplicate)
         File__Duplicate_Write(Element_Code);
 }
 
@@ -806,14 +806,15 @@ void File_Avc::slice_header()
         //Name
         Element_Info(Ztring::ToZtring(Frame_Count));
 
+
+        //Duplicate
+        if (Streams[(size_t)Element_Code].ShouldDuplicate)
+            File__Duplicate_Write(Element_Code, pic_order_cnt_type==0?pic_order_cnt_lsb:frame_num);
+
         //Filling only if not already done
         if (!IsFilled && ((!GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid) || Frame_Count>=Frame_Count_Valid*10)) //10 times the normal test
             slice_header_Fill();
     FILLING_END();
-
-    //Duplicate
-    if (Streams[(size_t)Element_Code].ShouldDuplicate)
-        File__Duplicate_Write(Element_Code, pic_order_cnt_type==0?pic_order_cnt_lsb:frame_num);
 }
 
 //---------------------------------------------------------------------------

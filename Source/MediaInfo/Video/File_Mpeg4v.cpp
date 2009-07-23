@@ -357,16 +357,158 @@ void File_Mpeg4v::Synched_Init()
 }
 
 //***************************************************************************
-// Buffer - Global
+// Streams management
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Mpeg4v::Read_Buffer_Finalize()
+void File_Mpeg4v::Streams_Fill()
 {
-    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (!IsFilled && video_object_layer_start_IsParsed)
-        vop_start_Fill();
+    //Filling
+    Stream_Prepare(Stream_General);
+    Fill(Stream_General, 0, General_Format, "MPEG-4 Visual");
+    Stream_Prepare(Stream_Video);
+    Fill(Stream_Video, 0, Video_Format, "MPEG-4 Visual");
+    Fill(Stream_Video, 0, Video_Codec, "MPEG-4V");
 
+    if (profile_and_level_indication>0)
+    {
+        Fill(Stream_Video, 0, Video_Format_Profile, Mpeg4v_Profile_Level(profile_and_level_indication));
+        Fill(Stream_Video, 0, Video_Codec_Profile, Mpeg4v_Profile_Level(profile_and_level_indication));
+    }
+
+    if (fixed_vop_time_increment && vop_time_increment_resolution)
+        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, ((float)vop_time_increment_resolution)/fixed_vop_time_increment);
+    if (object_layer_height)
+    {
+        Fill(Stream_Video, StreamPos_Last, Video_Width, object_layer_width);
+        Fill(Stream_Video, StreamPos_Last, Video_Height, object_layer_height);
+        float32 PixelAspectRatio_Value=1.0;
+             if (aspect_ratio_info==0x01) PixelAspectRatio_Value=(float32)1;
+             if (aspect_ratio_info==0x02) PixelAspectRatio_Value=(float32)12/(float32)11;
+        else if (aspect_ratio_info==0x03) PixelAspectRatio_Value=(float32)10/(float32)11;
+        else if (aspect_ratio_info==0x04) PixelAspectRatio_Value=(float32)16/(float32)11;
+        else if (aspect_ratio_info==0x05) PixelAspectRatio_Value=(float32)40/(float32)13;
+        else if (aspect_ratio_info==0x0F && par_height) PixelAspectRatio_Value=((float32)par_width)/par_height;
+        Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio_Value);
+        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)object_layer_width)/object_layer_height*PixelAspectRatio_Value);
+    }
+    Fill(Stream_Video, 0, Video_Resolution, bits_per_pixel*3);
+    if (chroma_format<4)
+        Fill(Stream_Video, 0, Video_Colorimetry, Mpeg4v_Colorimetry[chroma_format]);
+    if (low_delay)
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings_BVOP, "No");
+        Fill(Stream_Video, 0, Video_Codec_Settings_BVOP, "No");
+    }
+    else
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings, "BVOP");
+        Fill(Stream_Video, 0, Video_Format_Settings_BVOP, "Yes");
+        Fill(Stream_Video, 0, Video_Codec_Settings, "BVOP");
+        Fill(Stream_Video, 0, Video_Codec_Settings_BVOP, "Yes");
+    }
+    if (no_of_sprite_warping_points)
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings, Ztring(_T("GMC"))+Ztring::ToZtring(no_of_sprite_warping_points));
+        Fill(Stream_Video, 0, Video_Format_Settings_GMC, no_of_sprite_warping_points);
+        Fill(Stream_Video, 0, Video_Codec_Settings, Ztring(_T("GMC"))+Ztring::ToZtring(no_of_sprite_warping_points));
+        Fill(Stream_Video, 0, Video_Codec_Settings_GMC, no_of_sprite_warping_points);
+    }
+    else
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings_GMC, 0);
+        Fill(Stream_Video, 0, Video_Codec_Settings_GMC, 0);
+    }
+    if (quarter_sample)
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings, "QPel");
+        Fill(Stream_Video, 0, Video_Format_Settings_QPel, "Yes");
+        Fill(Stream_Video, 0, Video_Codec_Settings, "QPel");
+        Fill(Stream_Video, 0, Video_Codec_Settings_QPel, "Yes");
+    }
+    else
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings_QPel, "No");
+        Fill(Stream_Video, 0, Video_Codec_Settings_QPel, "No");
+    }
+    if (!quant_type)
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Default (H.263)");
+        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Default (H.263)");
+    }
+    else if (load_intra_quant_mat_grayscale || load_nonintra_quant_mat_grayscale)
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings, "Custom Matrix (Gray)");
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Custom (Gray)");
+        Fill(Stream_Video, 0, Video_Codec_Settings, "Custom Matrix (Gray)");
+        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Custom (Gray)");
+    }
+    else if (load_intra_quant_mat || load_nonintra_quant_mat)
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings, "Custom Matrix");
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Custom");
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix_Data, Matrix_intra);
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix_Data, Matrix_nonintra);
+        Fill(Stream_Video, 0, Video_Codec_Settings, "Custom Matrix");
+        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Custom");
+    }
+    else
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Default (MPEG)");
+        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Default (MPEG)");
+    }
+    if (interlaced)
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
+        if ((Interlaced_Top && Interlaced_Bottom) || (!Interlaced_Top && !Interlaced_Bottom))
+            Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
+        else
+        {
+            Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Top?"TFF":"BFF");
+            Fill(Stream_Video, 0, Video_Interlacement, Interlaced_Top?"TFF":"BFF");
+        }
+    }
+    else
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Progressive");
+        Fill(Stream_Video, 0, Video_Interlacement, "PPF");
+    }
+    if (!Library.empty())
+    {
+        Fill(Stream_Video, 0, Video_Encoded_Library, Library);
+        Fill(Stream_Video, 0, Video_Encoded_Library_Name, Library_Name);
+        Fill(Stream_Video, 0, Video_Encoded_Library_Version, Library_Version);
+        Fill(Stream_Video, 0, Video_Encoded_Library_Date, Library_Date);
+    }
+    for (size_t Pos=0; Pos<user_data_start_SNC_Data.size(); Pos++)
+    {
+        if (user_data_start_SNC_Data[Pos][0]==_T("CamTim"))
+            Fill(Stream_General, 0, General_Recorded_Date, Ztring().Date_From_String(user_data_start_SNC_Data[Pos][1].To_UTF8().c_str()));
+        if (user_data_start_SNC_Data[Pos][0]==_T("FrmRate"))
+            Fill(Stream_Video, 0, Video_FrameRate, user_data_start_SNC_Data[Pos][1].To_float32(), 3);
+        if (user_data_start_SNC_Data[Pos][0]==_T("TimStamp"))
+            Fill(Stream_Video, 0, Video_Delay, user_data_start_SNC_Data[Pos][1].To_int64u());
+        Ztring A=user_data_start_SNC_Data[Pos][0];
+        if (user_data_start_SNC_Data[Pos][0]==_T("CamPos") && user_data_start_SNC_Data[Pos][1].size()==16)
+        {
+            Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(user_data_start_SNC_Data[Pos][1].substr( 3, 4)).To_int8u(16));
+            Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(user_data_start_SNC_Data[Pos][1].substr( 7, 4)).To_int8u(16));
+            Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(user_data_start_SNC_Data[Pos][1].substr(11, 4)).To_int8u(16));
+            if (user_data_start_SNC_Data[Pos][1][15]==_T('M'))
+                Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", _T("Move"));
+            else if (user_data_start_SNC_Data[Pos][1][15]==_T('S'))
+                Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", _T("Stop"));
+            else
+                Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(1, user_data_start_SNC_Data[Pos][1][15]));
+        }
+        if (user_data_start_SNC_Data[Pos][0]==_T("AlmEvent") && user_data_start_SNC_Data[Pos][1].size()==16)
+            Fill(Stream_Video, 0, "Alarm event", user_data_start_SNC_Data[Pos][1]);
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4v::Streams_Finish()
+{
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Streams.clear();
@@ -811,6 +953,8 @@ void File_Mpeg4v::video_object_layer_start()
 
         //Setting as OK
         video_object_layer_start_IsParsed=true;
+        if (!IsAccepted)
+            Accept("MPEG-4 Visual");
     FILLING_END()
 }
 
@@ -1269,159 +1413,9 @@ void File_Mpeg4v::vop_start()
 
         //Filling only if not already done
         if (Frame_Count>=Frame_Count_Valid && Count_Get(Stream_Video)==0)
-            vop_start_Fill();
+            Finish("MPEG-4 Visual");
 
     FILLING_END();
-}
-
-//---------------------------------------------------------------------------
-void File_Mpeg4v::vop_start_Fill()
-{
-    //Filling
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "MPEG-4 Visual");
-    Stream_Prepare(Stream_Video);
-    Fill(Stream_Video, 0, Video_Format, "MPEG-4 Visual");
-    Fill(Stream_Video, 0, Video_Codec, "MPEG-4V");
-
-    if (profile_and_level_indication>0)
-    {
-        Fill(Stream_Video, 0, Video_Format_Profile, Mpeg4v_Profile_Level(profile_and_level_indication));
-        Fill(Stream_Video, 0, Video_Codec_Profile, Mpeg4v_Profile_Level(profile_and_level_indication));
-    }
-
-    if (fixed_vop_time_increment && vop_time_increment_resolution)
-        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, ((float)vop_time_increment_resolution)/fixed_vop_time_increment);
-    if (object_layer_height)
-    {
-        Fill(Stream_Video, StreamPos_Last, Video_Width, object_layer_width);
-        Fill(Stream_Video, StreamPos_Last, Video_Height, object_layer_height);
-        float32 PixelAspectRatio_Value=1.0;
-             if (aspect_ratio_info==0x01) PixelAspectRatio_Value=(float32)1;
-             if (aspect_ratio_info==0x02) PixelAspectRatio_Value=(float32)12/(float32)11;
-        else if (aspect_ratio_info==0x03) PixelAspectRatio_Value=(float32)10/(float32)11;
-        else if (aspect_ratio_info==0x04) PixelAspectRatio_Value=(float32)16/(float32)11;
-        else if (aspect_ratio_info==0x05) PixelAspectRatio_Value=(float32)40/(float32)13;
-        else if (aspect_ratio_info==0x0F && par_height) PixelAspectRatio_Value=((float32)par_width)/par_height;
-        Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio_Value);
-        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)object_layer_width)/object_layer_height*PixelAspectRatio_Value);
-    }
-    Fill(Stream_Video, 0, Video_Resolution, bits_per_pixel*3);
-    if (chroma_format<4)
-        Fill(Stream_Video, 0, Video_Colorimetry, Mpeg4v_Colorimetry[chroma_format]);
-    if (low_delay)
-    {
-        Fill(Stream_Video, 0, Video_Format_Settings_BVOP, "No");
-        Fill(Stream_Video, 0, Video_Codec_Settings_BVOP, "No");
-    }
-    else
-    {
-        Fill(Stream_Video, 0, Video_Format_Settings, "BVOP");
-        Fill(Stream_Video, 0, Video_Format_Settings_BVOP, "Yes");
-        Fill(Stream_Video, 0, Video_Codec_Settings, "BVOP");
-        Fill(Stream_Video, 0, Video_Codec_Settings_BVOP, "Yes");
-    }
-    if (no_of_sprite_warping_points)
-    {
-        Fill(Stream_Video, 0, Video_Format_Settings, Ztring(_T("GMC"))+Ztring::ToZtring(no_of_sprite_warping_points));
-        Fill(Stream_Video, 0, Video_Format_Settings_GMC, no_of_sprite_warping_points);
-        Fill(Stream_Video, 0, Video_Codec_Settings, Ztring(_T("GMC"))+Ztring::ToZtring(no_of_sprite_warping_points));
-        Fill(Stream_Video, 0, Video_Codec_Settings_GMC, no_of_sprite_warping_points);
-    }
-    else
-    {
-        Fill(Stream_Video, 0, Video_Format_Settings_GMC, 0);
-        Fill(Stream_Video, 0, Video_Codec_Settings_GMC, 0);
-    }
-    if (quarter_sample)
-    {
-        Fill(Stream_Video, 0, Video_Format_Settings, "QPel");
-        Fill(Stream_Video, 0, Video_Format_Settings_QPel, "Yes");
-        Fill(Stream_Video, 0, Video_Codec_Settings, "QPel");
-        Fill(Stream_Video, 0, Video_Codec_Settings_QPel, "Yes");
-    }
-    else
-    {
-        Fill(Stream_Video, 0, Video_Format_Settings_QPel, "No");
-        Fill(Stream_Video, 0, Video_Codec_Settings_QPel, "No");
-    }
-    if (!quant_type)
-    {
-        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Default (H.263)");
-        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Default (H.263)");
-    }
-    else if (load_intra_quant_mat_grayscale || load_nonintra_quant_mat_grayscale)
-    {
-        Fill(Stream_Video, 0, Video_Format_Settings, "Custom Matrix (Gray)");
-        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Custom (Gray)");
-        Fill(Stream_Video, 0, Video_Codec_Settings, "Custom Matrix (Gray)");
-        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Custom (Gray)");
-    }
-    else if (load_intra_quant_mat || load_nonintra_quant_mat)
-    {
-        Fill(Stream_Video, 0, Video_Format_Settings, "Custom Matrix");
-        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Custom");
-        Fill(Stream_Video, 0, Video_Format_Settings_Matrix_Data, Matrix_intra);
-        Fill(Stream_Video, 0, Video_Format_Settings_Matrix_Data, Matrix_nonintra);
-        Fill(Stream_Video, 0, Video_Codec_Settings, "Custom Matrix");
-        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Custom");
-    }
-    else
-    {
-        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Default (MPEG)");
-        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Default (MPEG)");
-    }
-    if (interlaced)
-    {
-        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
-        if ((Interlaced_Top && Interlaced_Bottom) || (!Interlaced_Top && !Interlaced_Bottom))
-            Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
-        else
-        {
-            Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Top?"TFF":"BFF");
-            Fill(Stream_Video, 0, Video_Interlacement, Interlaced_Top?"TFF":"BFF");
-        }
-    }
-    else
-    {
-        Fill(Stream_Video, 0, Video_ScanType, "Progressive");
-        Fill(Stream_Video, 0, Video_Interlacement, "PPF");
-    }
-    if (!Library.empty())
-    {
-        Fill(Stream_Video, 0, Video_Encoded_Library, Library);
-        Fill(Stream_Video, 0, Video_Encoded_Library_Name, Library_Name);
-        Fill(Stream_Video, 0, Video_Encoded_Library_Version, Library_Version);
-        Fill(Stream_Video, 0, Video_Encoded_Library_Date, Library_Date);
-    }
-    for (size_t Pos=0; Pos<user_data_start_SNC_Data.size(); Pos++)
-    {
-        if (user_data_start_SNC_Data[Pos][0]==_T("CamTim"))
-            Fill(Stream_General, 0, General_Recorded_Date, Ztring().Date_From_String(user_data_start_SNC_Data[Pos][1].To_UTF8().c_str()));
-        if (user_data_start_SNC_Data[Pos][0]==_T("FrmRate"))
-            Fill(Stream_Video, 0, Video_FrameRate, user_data_start_SNC_Data[Pos][1].To_float32(), 3);
-        if (user_data_start_SNC_Data[Pos][0]==_T("TimStamp"))
-            Fill(Stream_Video, 0, Video_Delay, user_data_start_SNC_Data[Pos][1].To_int64u());
-        Ztring A=user_data_start_SNC_Data[Pos][0];
-        if (user_data_start_SNC_Data[Pos][0]==_T("CamPos") && user_data_start_SNC_Data[Pos][1].size()==16)
-        {
-            Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(user_data_start_SNC_Data[Pos][1].substr( 3, 4)).To_int8u(16));
-            Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(user_data_start_SNC_Data[Pos][1].substr( 7, 4)).To_int8u(16));
-            Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(user_data_start_SNC_Data[Pos][1].substr(11, 4)).To_int8u(16));
-            if (user_data_start_SNC_Data[Pos][1][15]==_T('M'))
-                Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", _T("Move"));
-            else if (user_data_start_SNC_Data[Pos][1][15]==_T('S'))
-                Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", _T("Stop"));
-            else
-                Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(1, user_data_start_SNC_Data[Pos][1][15]));
-        }
-        if (user_data_start_SNC_Data[Pos][0]==_T("AlmEvent") && user_data_start_SNC_Data[Pos][1].size()==16)
-            Fill(Stream_Video, 0, "Alarm event", user_data_start_SNC_Data[Pos][1]);
-    }
-    //Jumping
-    Accept("MPEG-4 Visual");
-    IsFilled=true;
-    Finish("MPEG-4 Visual");
 }
 
 //---------------------------------------------------------------------------
