@@ -152,6 +152,7 @@ void File_MpegTs::Streams_Fill()
             StreamKind_Last=Stream_Max;
             if (Complete_Stream->Streams[StreamID].Parser && Complete_Stream->Streams[StreamID].Parser->IsAccepted)
             {
+                Complete_Stream->Streams[StreamID].Parser->ShouldContinueParsing=false;
                 Complete_Stream->Streams[StreamID].Parser->Open_Buffer_Finalize();
                 Merge (*Complete_Stream->Streams[StreamID].Parser);
 

@@ -301,6 +301,79 @@ File_Mpegv::~File_Mpegv()
 
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Mpegv::Streams_Finish()
+{
+    if (Trusted==0
+     || !sequence_header_IsParsed
+     || !IsSub && Frame_Count==0)
+        return;
+
+    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
+    if (Count_Get(Stream_Video)==0 && sequence_header_IsParsed)
+    {
+        Time_End_Seconds=Error;
+        slice_start_Fill();
+    }
+
+    //Duration
+    if (Time_End_NeedComplete && MediaInfoLib::Config.ParseSpeed_Get()!=1)
+        Time_End_Seconds=Error;
+    if (Time_End_Seconds!=Error)
+    {
+        size_t Time_Begin=Time_Begin_Seconds*1000;
+        size_t Time_End =Time_End_Seconds*1000;
+        if (FrameRate)
+        {
+            Time_Begin+=(size_t)(Time_Begin_Frames*1000/FrameRate);
+            Time_End  +=(size_t)(Time_End_Frames  *1000/FrameRate);
+        }
+        if (Time_End>Time_Begin)
+            Fill(Stream_Video, 0, Video_Duration, Time_End-Time_Begin);
+    }
+
+    //Delay
+    if (group_start_IsParsed)
+    {
+        size_t Time_Begin=Time_Begin_Seconds*1000;
+        if (FrameRate)
+            Time_Begin+=(size_t)(Time_Begin_Frames*1000/FrameRate);
+        Fill(Stream_Video, 0, Video_Delay, Time_Begin);
+        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("drop_frame_flag="))+(group_start_drop_frame_flag?_T("1"):_T("0")));
+        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("closed_gop="))+(group_start_closed_gop?_T("1"):_T("0")));
+        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("broken_link="))+(group_start_broken_link?_T("1"):_T("0")));
+    }
+
+    //DVD captions
+    for (size_t Pos=0; Pos<DVD_CC_Parsers.size(); Pos++)
+        if (DVD_CC_Parsers[Pos] && DVD_CC_Parsers[Pos]->IsAccepted)
+        {
+            Open_Buffer_Finalize(DVD_CC_Parsers[Pos]);
+            Merge(*DVD_CC_Parsers[Pos]);
+            Fill(Stream_Text, StreamPos_Last, Text_ID, _T("DVD-")+Ztring::ToZtring(Pos));
+            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("DVD-Video"));
+        }
+
+    //GA94 captions
+    for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
+        if (GA94_03_CC_Parsers[Pos] && GA94_03_CC_Parsers[Pos]->IsAccepted)
+        {
+            Open_Buffer_Finalize(GA94_03_CC_Parsers[Pos]);
+            Merge(*GA94_03_CC_Parsers[Pos]);
+            if (Pos<2)
+                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
+            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"));
+        }
+
+    //Purge what is not needed anymore
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+        Streams.clear();
+}
+
+//***************************************************************************
 // Buffer - Synchro
 //***************************************************************************
 
@@ -397,75 +470,6 @@ void File_Mpegv::Read_Buffer_Unsynched()
     TemporalReference.clear();
     TemporalReference_Offset=0;
     TemporalReference_GA94_03_CC_Offset=0;
-}
-
-//---------------------------------------------------------------------------
-void File_Mpegv::Read_Buffer_Finalize()
-{
-    if (Trusted==0
-     || !sequence_header_IsParsed
-     || !IsSub && Frame_Count==0)
-        return;
-        
-    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (!IsFilled && sequence_header_IsParsed)
-    {
-        Time_End_Seconds=Error;
-        slice_start_Fill();
-    }
-
-    //Duration
-    if (Time_End_NeedComplete && MediaInfoLib::Config.ParseSpeed_Get()!=1)
-        Time_End_Seconds=Error;
-    if (Time_End_Seconds!=Error)
-    {
-        size_t Time_Begin=Time_Begin_Seconds*1000;
-        size_t Time_End =Time_End_Seconds*1000;
-        if (FrameRate)
-        {
-            Time_Begin+=(size_t)(Time_Begin_Frames*1000/FrameRate);
-            Time_End  +=(size_t)(Time_End_Frames  *1000/FrameRate);
-        }
-        if (Time_End>Time_Begin)
-            Fill(Stream_Video, 0, Video_Duration, Time_End-Time_Begin);
-    }
-
-    //Delay
-    if (group_start_IsParsed)
-    {
-        size_t Time_Begin=Time_Begin_Seconds*1000;
-        if (FrameRate)
-            Time_Begin+=(size_t)(Time_Begin_Frames*1000/FrameRate);
-        Fill(Stream_Video, 0, Video_Delay, Time_Begin);
-        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("drop_frame_flag="))+(group_start_drop_frame_flag?_T("1"):_T("0")));
-        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("closed_gop="))+(group_start_closed_gop?_T("1"):_T("0")));
-        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("broken_link="))+(group_start_broken_link?_T("1"):_T("0")));
-    }
-
-    //DVD captions
-    for (size_t Pos=0; Pos<DVD_CC_Parsers.size(); Pos++)
-        if (DVD_CC_Parsers[Pos] && DVD_CC_Parsers[Pos]->IsAccepted)
-        {
-            Open_Buffer_Finalize(DVD_CC_Parsers[Pos]);
-            Merge(*DVD_CC_Parsers[Pos]);
-            Fill(Stream_Text, StreamPos_Last, Text_ID, _T("DVD-")+Ztring::ToZtring(Pos));
-            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("DVD-Video"));
-        }
-
-    //GA94 captions
-    for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
-        if (GA94_03_CC_Parsers[Pos] && GA94_03_CC_Parsers[Pos]->IsAccepted)
-        {
-            Open_Buffer_Finalize(GA94_03_CC_Parsers[Pos]);
-            Merge(*GA94_03_CC_Parsers[Pos]);
-            if (Pos<2)
-                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
-            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"));
-        }
-
-    //Purge what is not needed anymore
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-        Streams.clear();
 }
 
 //***************************************************************************
@@ -1382,6 +1386,8 @@ void File_Mpegv::sequence_header()
 
         //Setting as OK
         sequence_header_IsParsed=true;
+        if (IsSub)
+            Accept("MPEG Video");
     FILLING_END();
 }
 

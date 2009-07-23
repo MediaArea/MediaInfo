@@ -446,18 +446,18 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
         Open_Buffer_Continue(NULL, 0);
     }
 
-    //Buffer - Global
-    Read_Buffer_Finalize();
-    Fill();
-    Finalize_Global();
-
     //Element must be Finish
     while (Element_Level>0)
         Element_End();
 
-    //Parsing
+    //Buffer - Global
+    Read_Buffer_Finalize();
+    Fill();
+    Update();
     if (!NoBufferModification)
         Finish();
+    Finalize_Global();
+
     #ifndef MEDIAINFO_MINIMIZESIZE
     if (Details)
         Details->assign(Element[0].ToShow.Details);
