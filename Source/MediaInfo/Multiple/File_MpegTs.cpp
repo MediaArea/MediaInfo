@@ -527,6 +527,14 @@ void File_MpegTs::Streams_Update()
                 }
             if (!EPGs.empty())
             {
+                //Trashing old EPG
+                size_t Begin=Retrieve(Stream_General, 0, General_EPG_Positions_Begin).To_int32u();
+                size_t End=Retrieve(Stream_General, 0, General_EPG_Positions_End).To_int32u();
+                if (Begin && End && Begin<End)
+                    for (size_t Pos=End-1; Pos>=Begin; Pos--)
+                        Clear(Stream_General, 0, Pos);
+
+                //Filling
                 Fill(Stream_General, 0, General_EPG_Positions_Begin, Count_Get(Stream_General, 0), 10, true);
                 for (std::map<Ztring, Ztring>::iterator EPG=EPGs.begin(); EPG!=EPGs.end(); EPG++)
                     Fill(Stream_General, 0, EPG->first.To_Local().c_str(), EPG->second, true);

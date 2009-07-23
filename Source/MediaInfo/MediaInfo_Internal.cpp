@@ -117,7 +117,10 @@ size_t MediaInfo_Internal::Open(const String &File_Name_)
                 #endif //MEDIAINFO_MINIMIZESIZE
                 Info->File_Name=File_Name;
                 ((File_Bdmv*)Info)->BDMV();
-                Info->Finalize_Global();
+                Info->Open_Buffer_Finalize();
+                Info->Fill();
+                Info->Update();
+                Info->Finish();
                 return 1;
             }
         #endif //MEDIAINFO_BDMV_YES
@@ -218,6 +221,9 @@ int MediaInfo_Internal::Format_Test()
 
     //Finalize
     Info->Open_Buffer_Finalize();
+    Info->Fill();
+    Info->Update();
+    Info->Finish();
 
     //Cleanup
     delete Info; Info=NULL;
@@ -415,7 +421,6 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
     if (Info->File_GoTo!=(int64u)-1 && Config.File_IsSeekable_Get()==0)
     {
         Info->Open_Buffer_Finalize(true);
-        Info->Finalize_Global();
         Info->File_GoTo=(int64u)-1;
         return 0;
     }
@@ -425,8 +430,8 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
     //The parser wanted seek but the buffer is not seekable
     if (Info->File_GoTo!=(int64u)-1 && Config.File_IsSeekable_Get()==0)
     {
-        //Info->Open_Buffer_Fill();
-        //Info->Open_Buffer_Update();
+        Info->Fill();
+        Info->Update();
         Info->File_GoTo=(int64u)-1;
     }
 
@@ -459,6 +464,9 @@ size_t MediaInfo_Internal::Open_Buffer_Finalize ()
     if (Info!=NULL)
     {
         Info->Open_Buffer_Finalize();
+        Info->Fill();
+        Info->Update();
+        Info->Finish();
         Info->Finalize_Global();
     }
     return 1;

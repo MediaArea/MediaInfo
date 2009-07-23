@@ -970,10 +970,10 @@ void File__Analyze::Data_Info (const Ztring &Parameter)
 #ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Data_Accept (const char* ParserName)
 {
-    IsAccepted=true;
-
     if (ParserName)
         Info(Ztring(ParserName)+_T(", accepted"));
+
+    Accept();
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
@@ -991,7 +991,7 @@ void File__Analyze::Data_Finish (const char* ParserName)
     if (ParserName)
         Info(Ztring(ParserName)+_T(", finished"));
 
-    IsFinished=true;
+    Finish();
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
@@ -1601,6 +1601,7 @@ void File__Analyze::Fill (const char* ParserName)
         Fill();
         Streams_Update();
         Streams_Update_Global();
+        IsUpdated=true;
     }
     IsUpdated=false;
 }
@@ -1622,6 +1623,7 @@ void File__Analyze::Fill ()
         Fill();
         Streams_Update();
         Streams_Update_Global();
+        IsUpdated=true;
     }
     IsUpdated=false;
 }
@@ -1641,9 +1643,8 @@ void File__Analyze::Update (const char* ParserName)
             Element_Level++;
     }
 
-    if (IsAccepted)
+    if (IsAccepted && IsUpdated)
     {
-        Fill();
         Streams_Update();
         Streams_Update_Global();
     }
@@ -1652,9 +1653,8 @@ void File__Analyze::Update (const char* ParserName)
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Update ()
 {
-    if (IsAccepted)
+    if (IsAccepted && IsUpdated)
     {
-        Fill();
         Streams_Update();
         Streams_Update_Global();
     }
