@@ -292,14 +292,6 @@ void File_Avc::Streams_Finish()
     if (Count_Get(Stream_Video)==0  && (SPS_IsParsed || MustParse_SPS_PPS_Done))
         slice_header_Fill();
 
-    //In case of there is enough elements for trusting this is a AVC file, but SPS/PPS are absent
-    if (Retrieve(Stream_Video, 0, Video_Format).empty() && Block_Count>=8)
-    {
-        Fill(Stream_General, 0, General_Format, "AVC");
-        Fill(Stream_Video, 0, Video_Format, "AVC");
-        Fill(Stream_Video, 0, Video_Codec, "AVC");
-    }
-
     //GA94 captions
     for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
         if (GA94_03_CC_Parsers[Pos] && GA94_03_CC_Parsers[Pos]->IsAccepted)

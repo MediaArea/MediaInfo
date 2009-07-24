@@ -278,8 +278,15 @@ void File_Cdxa::Data_Parse()
     //Sending the buffer to MediaInfo
     MI->Open_Buffer_Continue(Buffer+Buffer_Offset, (size_t)(Element_Size-CRC_Size));
 
+    //Testing if filled
+    if (MI->Info->IsFilled) {
+
+    }
+
     //Testing if MediaInfo always need data
     File_GoTo=MI->Open_Buffer_Continue_GoTo_Get();
+    if (File_GoTo==(int64u)-1 && MI->Info->IsFilled && File_Size!=(int64u)-1 && File_Offset+Buffer_Size<File_Size/2)
+        GoToFromEnd(File_Offset+Buffer_Size);
     if (File_GoTo!=(int64u)-1)
         Info("CDXA, Jumping to end of file");
 

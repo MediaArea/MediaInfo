@@ -865,7 +865,7 @@ void File_Mpegv::slice_start_Fill()
              || TempRef.find("B2B3T2T3B2B3T2T3")!=std::string::npos)
             {
                 Fill(Stream_Video, 0, Video_ScanOrder, "2:3 Pulldown", Unlimited, true, true);
-                Fill(Stream_Video, 0, Video_FrameRate, Retrieve(Stream_Video, 0, Video_FrameRate).To_float32()*24/30, 3, true); //Real framerate
+                Fill(Stream_Video, 0, Video_FrameRate, FrameRate*24/30, 3, true); //Real framerate
                 Fill(Stream_Video, 0, Video_ScanType, "Progressive", Unlimited, true, true);
                 Fill(Stream_Video, 0, Video_Interlacement, "PPF", Unlimited, true, true);
             }
@@ -873,7 +873,7 @@ void File_Mpegv::slice_start_Fill()
              || TempRef.find("B2B2B2B2B2B2B2B2B2B2B2B3T2T2T2T2T2T2T2T2T2T2T2T3")!=std::string::npos)
             {
                 Fill(Stream_Video, 0, Video_ScanOrder, "2:2:2:2:2:2:2:2:2:2:2:3 Pulldown", Unlimited, true, true);
-                Fill(Stream_Video, 0, Video_FrameRate, Retrieve(Stream_Video, 0, Video_FrameRate).To_float32()*24/25, 3, true); //Real framerate
+                Fill(Stream_Video, 0, Video_FrameRate, FrameRate*24/25, 3, true); //Real framerate
                 Fill(Stream_Video, 0, Video_ScanType, "Progressive", Unlimited, true, true);
                 Fill(Stream_Video, 0, Video_Interlacement, "PPF", Unlimited, true, true);
             }
