@@ -334,8 +334,12 @@ bool File_Id3v2::Static_Synchronize_Tags(const int8u* Buffer, size_t Buffer_Offs
     return true;
 }
 
+//***************************************************************************
+// Streams management
+//***************************************************************************
+
 //---------------------------------------------------------------------------
-void File_Id3v2::Read_Buffer_Finalize()
+void File_Id3v2::Streams_Finish()
 {
     if (Count_Get(Stream_General)==0)
         return;

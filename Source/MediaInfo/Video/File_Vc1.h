@@ -142,7 +142,6 @@ private :
     size_t Width;
     size_t Height;
     size_t RatioValue;
-    float32 FrameRate;
     size_t BitRate;
     bool   EntryPoint_Parsed;
 

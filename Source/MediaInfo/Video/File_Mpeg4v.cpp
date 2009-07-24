@@ -1218,7 +1218,7 @@ void File_Mpeg4v::vop_start()
 {
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
-        Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
+        Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
     Frame_Count++;
     Frame_Count_InThisBlock++;
 

@@ -284,11 +284,11 @@ File_Dvdv::File_Dvdv()
 }
 
 //***************************************************************************
-// Format
+// Streams management
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Dvdv::Read_Buffer_Finalize()
+void File_Dvdv::Streams_Finish()
 {
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data

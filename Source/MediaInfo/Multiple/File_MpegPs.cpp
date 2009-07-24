@@ -295,7 +295,7 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp)
     if (Temp.Parser /*&& Temp.Parser->Count_Get(Stream_General)>0*/) //Verifying it is really detected, not only a header
     {
         Temp.Parser->ShouldContinueParsing=false;
-        Open_Buffer_Finalize(Temp.Parser);
+        Finish(Temp.Parser);
         Merge(*Temp.Parser);
     }
     //By the TS stream_type
@@ -1754,9 +1754,9 @@ void File_MpegPs::program_stream_map()
     Parser.Complete_Stream->Streams.resize(0x100);
     Open_Buffer_Init(&Parser);
     Open_Buffer_Continue(&Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
-    Open_Buffer_Finalize(&Parser);
 
     //Filling
+    Finish(&Parser);
     for (int8u Pos=0; Pos<0xFF; Pos++)
         if (Parser.Complete_Stream->Streams[Pos].stream_type)
             Streams[Pos].stream_type=Parser.Complete_Stream->Streams[Pos].stream_type;

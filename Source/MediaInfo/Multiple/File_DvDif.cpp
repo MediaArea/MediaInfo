@@ -320,6 +320,12 @@ void File_DvDif::Streams_Finish()
                 Fill(Stream_Text, StreamPos_Last, Text_ID, Pos);
             }
     #endif
+
+    #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
+        //Errors stats
+        Errors_Stats_Update();
+        Errors_Stats_Update_Finnish();
+    #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 }
 
 //***************************************************************************
@@ -1348,16 +1354,6 @@ void File_DvDif::Errors_Stats_Update_Finnish()
     Fill(Stream_Video, 0, "Errors_Stats", Errors_Stats);
     Fill(Stream_Video, 0, "Errors_Stats_End", Errors_Stats_End);
     Fill(Stream_Video, 0, "FrameCount_Speed", Speed_FrameCount);
-}
-
-//---------------------------------------------------------------------------
-void File_DvDif::Read_Buffer_Finalize()
-{
-    //Errors stats
-    if (!IsFinished)
-        Finish();
-    Errors_Stats_Update();
-    Errors_Stats_Update_Finnish();
 }
 #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 

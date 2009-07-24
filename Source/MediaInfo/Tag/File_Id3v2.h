@@ -47,8 +47,8 @@ public :
     static bool Static_Synchronize_Tags (const int8u* Buffer, size_t Buffer_Offset, size_t Buffer_Size, bool &Tag_Found);
 
 private :
-    //Buffer - Global
-    void Read_Buffer_Finalize ();
+    //Streams management
+    void Streams_Finish();
 
     //Buffer - File header
     void FileHeader_Parse ();

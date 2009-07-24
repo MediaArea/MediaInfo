@@ -45,6 +45,10 @@ public :
     int8u  AuxToAnalyze; //Only Aux must be parsed
     bool   IgnoreAudio;
 
+    //Constructor/Destructor
+    File_DvDif();
+    ~File_DvDif();
+
 protected :
     //Streams management
     void Streams_Finish();
@@ -52,14 +56,8 @@ protected :
     //Buffer - Global
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     void Read_Buffer_Continue();
-    void Read_Buffer_Finalize ();
     #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 
-public :
-    File_DvDif();
-    ~File_DvDif();
-
-private :
     //Buffer
     void Header_Parse();
     void Data_Parse();

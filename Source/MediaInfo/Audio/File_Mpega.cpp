@@ -655,7 +655,7 @@ void File_Mpega::Data_Parse()
 
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size-File_EndTagSize)
-        Frame_Count_Valid=Frame_Count_Consecutive; //Finalize MPEG Audio frames in case of there are less than Frame_Count_Valid frames
+        Frame_Count_Valid=Frame_Count_Consecutive; //Finish MPEG Audio frames in case of there are less than Frame_Count_Valid frames
     Frame_Count++;
     Frame_Count_Consecutive++;
     

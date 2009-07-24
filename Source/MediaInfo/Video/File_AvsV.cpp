@@ -190,6 +190,22 @@ File_AvsV::File_AvsV()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_AvsV::Streams_Finish()
+{
+    //In case of partial data, and finalizing is forced, but with at least one frame
+    if (Retrieve(Stream_Video, 0, Video_Format).empty() && video_sequence_start_IsParsed)
+        picture_start_Fill();
+
+    //Purge what is not needed anymore
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+        Streams.clear();
+}
+
+//***************************************************************************
 // Buffer - Synchro
 //***************************************************************************
 
@@ -241,22 +257,6 @@ void File_AvsV::Synched_Init()
     Streams[0xB0].Searching_Payload=true; //video_sequence_start
     for (int8u Pos=0xB9; Pos!=0x00; Pos++)
         Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
-}
-
-//***************************************************************************
-// Buffer - Global
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_AvsV::Read_Buffer_Finalize()
-{
-    //In case of partial data, and finalizing is forced, but with at least one frame
-    if (Retrieve(Stream_Video, 0, Video_Format).empty() && video_sequence_start_IsParsed)
-        picture_start_Fill();
-
-    //Purge what is not needed anymore
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-        Streams.clear();
 }
 
 //***************************************************************************

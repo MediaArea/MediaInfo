@@ -275,6 +275,18 @@ File_Ac3::File_Ac3()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Ac3::Streams_Finish()
+{
+    //In case of partial data, and finalizing is forced
+    if (!IsAccepted && dxc3_Parsed)
+        Data_Parse_Fill();
+}
+
+//***************************************************************************
 // Buffer - Synchro
 //***************************************************************************
 
@@ -420,14 +432,6 @@ void File_Ac3::Read_Buffer_Continue()
         dec3();
 }
 
-//---------------------------------------------------------------------------
-void File_Ac3::Read_Buffer_Finalize()
-{
-    //In case of partial data, and finalizing is forced
-    if (!IsAccepted && dxc3_Parsed)
-        Data_Parse_Fill();
-}
-
 //***************************************************************************
 // Buffer - Per element
 //***************************************************************************
@@ -529,7 +533,7 @@ void File_Ac3::Data_Parse()
 {
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
-        Frame_Count_Valid=Frame_Count; //Finalize frames in case of there are less than Frame_Count_Valid frames
+        Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
     Frame_Count++;
 
     //Name

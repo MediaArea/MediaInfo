@@ -45,6 +45,9 @@ public :
     File_Ac3();
 
 private :
+    //Streams management
+    void Streams_Finish();
+
     //Buffer - File header
     bool FileHeader_Begin();
 
@@ -54,7 +57,6 @@ private :
 
     //Buffer - Global
     void Read_Buffer_Continue ();
-    void Read_Buffer_Finalize();
 
     //Buffer - Per element
     void Header_Parse();

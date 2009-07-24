@@ -42,8 +42,8 @@ namespace MediaInfoLib
 class File_Dvdv : public File__Analyze
 {
 protected :
-    //Buffer - Global
-    void Read_Buffer_Finalize();
+    //Streams management
+    void Streams_Finish();
 
 public :
     File_Dvdv();

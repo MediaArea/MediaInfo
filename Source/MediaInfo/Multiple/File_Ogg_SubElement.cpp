@@ -775,9 +775,9 @@ void File_Ogg_SubElement::Comment()
 
     //Parsing
     Open_Buffer_Continue(&Vorbis, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-    Open_Buffer_Finalize(&Vorbis);
 
     //Filling
+    Finish(&Vorbis);
     Merge(Vorbis, Stream_General,  0, 0);
     Merge(Vorbis, StreamKind,      0, 0);
     Merge(Vorbis, Stream_Menu,     0, 0);

@@ -413,6 +413,25 @@ File_Dirac::File_Dirac()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Dirac::Streams_Finish()
+{
+    if (Streams.empty())
+        return; //Not initialized
+
+    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
+    if (Count_Get(Stream_General)==0 && Frame_Count>0)
+        picture_Fill();
+
+    //Purge what is not needed anymore
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+        Streams.clear();
+}
+
+//***************************************************************************
 // Buffer - Synchro
 //***************************************************************************
 
@@ -475,25 +494,6 @@ void File_Dirac::Synched_Init()
     //Default stream values
     Streams.resize(0x100);
     Streams[0x00].Searching_Payload=true; //Sequence header
-}
-
-//***************************************************************************
-// Buffer - Global
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Dirac::Read_Buffer_Finalize()
-{
-    if (Streams.empty())
-        return; //Not initialized
-
-    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Count_Get(Stream_General)==0 && Frame_Count>0)
-        picture_Fill();
-
-    //Purge what is not needed anymore
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-        Streams.clear();
 }
 
 //***************************************************************************
