@@ -61,10 +61,6 @@ public :
     File_MpegPs();
 
 private :
-    //Streams management
-    void Streams_Fill();
-    void Streams_Finish();
-
     //Buffer - File header
     bool FileHeader_Begin() {return FileHeader_Begin_0x000001();}
 
@@ -148,8 +144,6 @@ private :
             Mpeg_TimeStamp_TS DTS;
         };
 
-        stream_t       StreamKind;
-        size_t         StreamPos;
         int8u          stream_type;
         int8u          DVD_Identifier;
         File__Analyze* Parser;
@@ -166,8 +160,6 @@ private :
 
         ps_stream()
         {
-            StreamKind=Stream_Max;
-            StreamPos=0;
             stream_type=0;
             DVD_Identifier=0;
             Parser=NULL;
@@ -226,8 +218,7 @@ private :
     File__Analyze* ChooseParser_NULL();
 
     //File__Analyze helpers
-    void Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp);
-    void Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp);
+    void Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Temp);
 
     //Output buffer
     size_t Output_Buffer_Get (const String &Value);
@@ -237,4 +228,5 @@ private :
 } //NameSpace
 
 #endif
+
 
