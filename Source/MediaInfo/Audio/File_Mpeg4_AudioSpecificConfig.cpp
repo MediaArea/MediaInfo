@@ -392,7 +392,7 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
         samplingFrequency*=2;
         sbrPresentFlag=true;
     }
-    if (!psPresentFlag && Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s_)==_T("1"))
+    if (!psPresentFlag && channelConfiguration<=1) //1 channel
         psPresentFlag=true;
 
     FILLING_BEGIN()
@@ -401,8 +401,7 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
             Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "SBR");
             Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_SBR, "Yes", Unlimited, true, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, "No");
-            Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
-            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec+_T("/SBR"), true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Ztring().From_Local(MP4_Profile(audioObjectType))+_T("/SBR"), true);
             Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplingFrequency, 10, true);
         }
         if (psPresentFlag)
@@ -411,7 +410,7 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
             Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "PS");
             Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, "Yes", Unlimited, true, true);
             Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
-            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec+_T("/PS"), true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Ztring().From_Local(MP4_Profile(audioObjectType))+(sbrPresentFlag?_T("/SBR"):_T(""))+_T("/PS"), true);
             Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, "Front: L R", Unlimited, true, true);
         }
     }

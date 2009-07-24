@@ -42,6 +42,9 @@ private :
     //Elements
     void SSbd();
     void SShd();
+
+    //Temp
+    int32u BitRate;
 };
 
 } //NameSpace

@@ -75,7 +75,6 @@ void File_Ps2Audio::SSbd()
 
     FILLING_BEGIN();
         Fill(Stream_Audio, 0, Audio_StreamSize, Size);
-        int32u BitRate=Retrieve(Stream_Audio, 0, Audio_BitRate).To_int32u();
         if (BitRate)
             Fill(Stream_Audio, 0, Audio_Duration, ((int64u)Size)*1000*8/BitRate);
         Accept("PS2 Audio");
@@ -105,6 +104,8 @@ void File_Ps2Audio::SShd()
     Element_End();
 
     FILLING_BEGIN();
+        BitRate=SamplingRate*Channels*16; //Always 16 bits
+
         Stream_Prepare(Stream_General);
         Stream_Prepare(Stream_Audio);
         Ztring FormatS;
@@ -119,7 +120,7 @@ void File_Ps2Audio::SShd()
         Fill(Stream_Audio, 0, Audio_MuxingMode, "PS2");
         Fill(Stream_Audio, 0, Audio_SamplingRate, SamplingRate);
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
-        Fill(Stream_Audio, 0, Audio_BitRate, SamplingRate*Channels*16); //Always 16 bits
+        Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
     FILLING_END();
 }
 
