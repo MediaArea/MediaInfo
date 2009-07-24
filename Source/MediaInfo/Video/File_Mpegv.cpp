@@ -305,20 +305,181 @@ File_Mpegv::~File_Mpegv()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Mpegv::Streams_Finish()
+void File_Mpegv::Streams_Fill()
 {
-    if (Trusted==0
-     || !sequence_header_IsParsed
-     || !IsSub && Frame_Count==0)
-        return;
+    //Filling
+    Stream_Prepare(Stream_General);
+    Stream_Prepare(Stream_Video);
 
-    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Count_Get(Stream_Video)==0 && sequence_header_IsParsed)
+    //Version
+    if (MPEG_Version==2)
     {
-        Time_End_Seconds=Error;
-        slice_start_Fill();
+        Fill(Stream_General, 0, General_Format, "MPEG Video");
+        Fill(Stream_General, 0, General_Format_Version, "Version 2");
+        Fill(Stream_Video, 0, Video_Format, "MPEG Video");
+        Fill(Stream_Video, 0, Video_Format_Version, "Version 2");
+        Fill(Stream_Video, 0, Video_Codec, "MPEG-2V");
+        Fill(Stream_Video, 0, Video_Codec_String, "MPEG-2 Video");
+    }
+    else
+    {
+        Fill(Stream_General, 0, General_Format, "MPEG Video");
+        Fill(Stream_General, 0, General_Format_Version, "Version 1");
+        Fill(Stream_Video, 0, Video_Format, "MPEG Video");
+        Fill(Stream_Video, 0, Video_Format_Version, "Version 1");
+        Fill(Stream_Video, 0, Video_Codec, "MPEG-1V");
+        Fill(Stream_Video, 0, Video_Codec_String, "MPEG-1 Video");
     }
 
+    Fill(Stream_Video, 0, Video_Width, 0x1000*horizontal_size_extension+horizontal_size_value);
+    Fill(Stream_Video, 0, Video_Height, 0x1000*vertical_size_extension+vertical_size_value);
+    Fill(Stream_Video, 0, Video_Colorimetry, Mpegv_Colorimetry_format[chroma_format]);
+
+    //AspectRatio
+    if (MPEG_Version==2)
+    {
+        if (aspect_ratio_information==0)
+            ;//Forbidden
+        else if (aspect_ratio_information==1)
+            Fill(Stream_Video, 0, Video_PixelAspectRatio, 1.000);
+        else if (display_horizontal_size && display_vertical_size)
+        {
+            if (vertical_size_value && Mpegv_aspect_ratio2[aspect_ratio_information])
+                Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, (float)(0x1000*horizontal_size_extension+horizontal_size_value)/(0x1000*vertical_size_extension+vertical_size_value)
+                                                                             *Mpegv_aspect_ratio2[aspect_ratio_information]/((float)display_horizontal_size/display_vertical_size));
+        }
+        else if (Mpegv_aspect_ratio2[aspect_ratio_information])
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, Mpegv_aspect_ratio2[aspect_ratio_information]);
+    }
+    else //Version 1
+    {
+        if (vertical_size_value && Mpegv_aspect_ratio1[aspect_ratio_information])
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, (float)(0x1000*horizontal_size_extension+horizontal_size_value)/(0x1000*vertical_size_extension+vertical_size_value)/Mpegv_aspect_ratio1[aspect_ratio_information]);
+    }
+
+    //FrameRate
+    if (frame_rate_extension_d!=0)
+        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)frame_rate_extension_n/frame_rate_extension_d);
+    else
+        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, Mpegv_frame_rate[frame_rate_code]);
+
+    //BitRate
+    if (vbv_delay==0xFFFF || (MPEG_Version==1 && bit_rate_value==0x3FFFF))
+        Fill(Stream_Video, 0, Video_BitRate_Mode, "VBR");
+    else if ((MPEG_Version==1 && bit_rate_value!=0x3FFFF) || MPEG_Version==2)
+        Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
+    if (bit_rate_value_IsValid && bit_rate_value!=0x3FFFF)
+        Fill(Stream_Video, 0, Video_BitRate_Nominal, bit_rate_value*400);
+
+    //Interlacement
+    if (MPEG_Version==1)
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Progressive");
+        Fill(Stream_Video, 0, Video_Interlacement, "PPF");
+    }
+    else if (progressive_frame_Count && progressive_frame_Count!=Frame_Count)
+    {
+        //This is mixed
+    }
+    else if (Frame_Count>0) //Only if we have at least one progressive_frame definition
+    {
+        if (progressive_sequence || progressive_frame_Count==Frame_Count)
+        {
+            Fill(Stream_Video, 0, Video_ScanType, "Progressive");
+            Fill(Stream_Video, 0, Video_Interlacement, "PPF");
+            if (!progressive_sequence && !(Interlaced_Top && Interlaced_Bottom) && !(!Interlaced_Top && !Interlaced_Bottom))
+                Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Top?"TFF":"BFF");
+        }
+        else
+        {
+            Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
+            if ((Interlaced_Top && Interlaced_Bottom) || (!Interlaced_Top && !Interlaced_Bottom))
+                Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
+            else
+            {
+                Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Top?"TFF":"BFF");
+                Fill(Stream_Video, 0, Video_Interlacement, Interlaced_Top?"TFF":"BFF");
+            }
+        }
+        std::string TempRef;
+        for (size_t Pos=0; Pos<TemporalReference.size(); Pos++)
+            if (TemporalReference[Pos].HasPictureCoding)
+            {
+                TempRef+=TemporalReference[Pos].top_field_first?"T":"B";
+                TempRef+=TemporalReference[Pos].repeat_first_field?"3":"2";
+            }
+        if (TempRef.find('3')!=std::string::npos)
+        {
+            if (TempRef.find("T2T3B2B3T2T3B2B3")!=std::string::npos
+             || TempRef.find("B2B3T2T3B2B3T2T3")!=std::string::npos)
+            {
+                Fill(Stream_Video, 0, Video_ScanOrder, "2:3 Pulldown", Unlimited, true, true);
+                Fill(Stream_Video, 0, Video_FrameRate, FrameRate*24/30, 3, true); //Real framerate
+                Fill(Stream_Video, 0, Video_ScanType, "Progressive", Unlimited, true, true);
+                Fill(Stream_Video, 0, Video_Interlacement, "PPF", Unlimited, true, true);
+            }
+            if (TempRef.find("T2T2T2T2T2T2T2T2T2T2T2T3B2B2B2B2B2B2B2B2B2B2B2B3")!=std::string::npos
+             || TempRef.find("B2B2B2B2B2B2B2B2B2B2B2B3T2T2T2T2T2T2T2T2T2T2T2T3")!=std::string::npos)
+            {
+                Fill(Stream_Video, 0, Video_ScanOrder, "2:2:2:2:2:2:2:2:2:2:2:3 Pulldown", Unlimited, true, true);
+                Fill(Stream_Video, 0, Video_FrameRate, FrameRate*24/25, 3, true); //Real framerate
+                Fill(Stream_Video, 0, Video_ScanType, "Progressive", Unlimited, true, true);
+                Fill(Stream_Video, 0, Video_Interlacement, "PPF", Unlimited, true, true);
+            }
+        }
+    }
+
+    //Profile
+    if (profile_and_level_indication_profile && profile_and_level_indication_level)
+    {
+        Fill(Stream_Video, 0, Video_Format_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));
+        Fill(Stream_Video, 0, Video_Codec_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));
+    }
+
+    //Standard
+    Fill(Stream_Video, 0, Video_Standard, Mpegv_video_format[video_format]);
+
+    //Matrix
+    if (load_intra_quantiser_matrix || load_intra_quantiser_matrix)
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings, "CustomMatrix");
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Custom");
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix_Data, Matrix_intra);
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix_Data, Matrix_nonintra);
+        Fill(Stream_Video, 0, Video_Codec_Settings, "CustomMatrix");
+        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Custom");
+    }
+    else
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Default");
+        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Default");
+    }
+
+    //library
+    if (Library.size()>=8)
+    {
+        Fill(Stream_Video, 0, Video_Encoded_Library, Library);
+        Fill(Stream_Video, 0, Video_Encoded_Library_Name, Library_Name);
+        Fill(Stream_Video, 0, Video_Encoded_Library_Version, Library_Version);
+        Fill(Stream_Video, 0, General_Encoded_Library, Library);
+        Fill(Stream_Video, 0, General_Encoded_Library_Name, Library_Name);
+        Fill(Stream_Video, 0, General_Encoded_Library_Version, Library_Version);
+    }
+
+    //Autorisation of other streams
+    NextCode_Clear();
+    NextCode_Add(0x00);
+    NextCode_Add(0xB8);
+    for (int8u Pos=0x00; Pos<=0xB9; Pos++)
+        Streams[Pos].Searching_Payload=false;
+    Streams[0xB8].Searching_TimeStamp_End=true;
+    if (IsSub)
+        Streams[0x00].Searching_TimeStamp_End=true;
+}
+
+//---------------------------------------------------------------------------
+void File_Mpegv::Streams_Finish()
+{
     //Duration
     if (Time_End_NeedComplete && MediaInfoLib::Config.ParseSpeed_Get()!=1)
         Time_End_Seconds=Error;
@@ -467,6 +628,9 @@ void File_Mpegv::Synched_Init()
 //---------------------------------------------------------------------------
 void File_Mpegv::Read_Buffer_Unsynched()
 {
+    Time_End_Seconds=Error;
+    Time_End_Frames=(int8u)-1;
+
     TemporalReference.clear();
     TemporalReference_Offset=0;
     TemporalReference_GA94_03_CC_Offset=0;
@@ -547,13 +711,20 @@ bool File_Mpegv::Header_Parser_QuickSearch()
         if (!Synchronize_0x000001())
         {
             if (!IsSub && File_Offset+Buffer_Size==File_Size && !IsFilled && Frame_Count>=1)
-                slice_start_Fill(); //End of file, and we have some frames
-            return false;
+            {
+                //End of file, and we have some frames
+                Accept("MPEG Video");
+                Fill("MPEG Video");
+                Detect_EOF();
+                return false;
+            }
         }
     }
 
     if (Buffer_Offset+3==Buffer_Size)
         return false; //Sync is OK, but start_code is not available
+    if (!Synched)
+        return false;
     Trusted_IsNot("MPEG Video, Synchronisation lost");
     return Synchronize();
 }
@@ -751,186 +922,12 @@ void File_Mpegv::slice_start()
 
         //Filling only if not already done
         if (!IsFilled && (!DVD_CC_IsPresent && !GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
-            slice_start_Fill();
+        {
+            //End of file, and we have some frames
+            Accept("MPEG Video");
+            Fill("MPEG Video");
+        }
     FILLING_END();
-}
-
-//---------------------------------------------------------------------------
-void File_Mpegv::slice_start_Fill()
-{
-    //Filling
-    Stream_Prepare(Stream_General);
-    Stream_Prepare(Stream_Video);
-
-    //Version
-    if (MPEG_Version==2)
-    {
-        Fill(Stream_General, 0, General_Format, "MPEG Video");
-        Fill(Stream_General, 0, General_Format_Version, "Version 2");
-        Fill(Stream_Video, 0, Video_Format, "MPEG Video");
-        Fill(Stream_Video, 0, Video_Format_Version, "Version 2");
-        Fill(Stream_Video, 0, Video_Codec, "MPEG-2V");
-        Fill(Stream_Video, 0, Video_Codec_String, "MPEG-2 Video");
-    }
-    else
-    {
-        Fill(Stream_General, 0, General_Format, "MPEG Video");
-        Fill(Stream_General, 0, General_Format_Version, "Version 1");
-        Fill(Stream_Video, 0, Video_Format, "MPEG Video");
-        Fill(Stream_Video, 0, Video_Format_Version, "Version 1");
-        Fill(Stream_Video, 0, Video_Codec, "MPEG-1V");
-        Fill(Stream_Video, 0, Video_Codec_String, "MPEG-1 Video");
-    }
-
-    Fill(Stream_Video, 0, Video_Width, 0x1000*horizontal_size_extension+horizontal_size_value);
-    Fill(Stream_Video, 0, Video_Height, 0x1000*vertical_size_extension+vertical_size_value);
-    Fill(Stream_Video, 0, Video_Colorimetry, Mpegv_Colorimetry_format[chroma_format]);
-
-    //AspectRatio
-    if (MPEG_Version==2)
-    {
-        if (aspect_ratio_information==0)
-            ;//Forbidden
-        else if (aspect_ratio_information==1)
-            Fill(Stream_Video, 0, Video_PixelAspectRatio, 1.000);
-        else if (display_horizontal_size && display_vertical_size)
-        {
-            if (vertical_size_value && Mpegv_aspect_ratio2[aspect_ratio_information])
-                Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, (float)(0x1000*horizontal_size_extension+horizontal_size_value)/(0x1000*vertical_size_extension+vertical_size_value)
-                                                                             *Mpegv_aspect_ratio2[aspect_ratio_information]/((float)display_horizontal_size/display_vertical_size));
-        }
-        else if (Mpegv_aspect_ratio2[aspect_ratio_information])
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, Mpegv_aspect_ratio2[aspect_ratio_information]);
-    }
-    else //Version 1
-    {
-        if (vertical_size_value && Mpegv_aspect_ratio1[aspect_ratio_information])
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, (float)(0x1000*horizontal_size_extension+horizontal_size_value)/(0x1000*vertical_size_extension+vertical_size_value)/Mpegv_aspect_ratio1[aspect_ratio_information]);
-    }
-
-    //FrameRate
-    if (frame_rate_extension_d!=0)
-        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)frame_rate_extension_n/frame_rate_extension_d);
-    else
-        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, Mpegv_frame_rate[frame_rate_code]);
-
-    //BitRate
-    if (vbv_delay==0xFFFF || (MPEG_Version==1 && bit_rate_value==0x3FFFF))
-        Fill(Stream_Video, 0, Video_BitRate_Mode, "VBR");
-    else if ((MPEG_Version==1 && bit_rate_value!=0x3FFFF) || MPEG_Version==2)
-        Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
-    if (bit_rate_value_IsValid && bit_rate_value!=0x3FFFF)
-        Fill(Stream_Video, 0, Video_BitRate_Nominal, bit_rate_value*400);
-
-    //Interlacement
-    if (MPEG_Version==1)
-    {
-        Fill(Stream_Video, 0, Video_ScanType, "Progressive");
-        Fill(Stream_Video, 0, Video_Interlacement, "PPF");
-    }
-    else if (progressive_frame_Count && progressive_frame_Count!=Frame_Count)
-    {
-        //This is mixed
-    }
-    else if (Frame_Count>0) //Only if we have at least one progressive_frame definition
-    {
-        if (progressive_sequence || progressive_frame_Count==Frame_Count)
-        {
-            Fill(Stream_Video, 0, Video_ScanType, "Progressive");
-            Fill(Stream_Video, 0, Video_Interlacement, "PPF");
-            if (!progressive_sequence && !(Interlaced_Top && Interlaced_Bottom) && !(!Interlaced_Top && !Interlaced_Bottom))
-                Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Top?"TFF":"BFF");
-        }
-        else
-        {
-            Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
-            if ((Interlaced_Top && Interlaced_Bottom) || (!Interlaced_Top && !Interlaced_Bottom))
-                Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
-            else
-            {
-                Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Top?"TFF":"BFF");
-                Fill(Stream_Video, 0, Video_Interlacement, Interlaced_Top?"TFF":"BFF");
-            }
-        }
-        std::string TempRef;
-        for (size_t Pos=0; Pos<TemporalReference.size(); Pos++)
-            if (TemporalReference[Pos].HasPictureCoding)
-            {
-                TempRef+=TemporalReference[Pos].top_field_first?"T":"B";
-                TempRef+=TemporalReference[Pos].repeat_first_field?"3":"2";
-            }
-        if (TempRef.find('3')!=std::string::npos)
-        {
-            if (TempRef.find("T2T3B2B3T2T3B2B3")!=std::string::npos
-             || TempRef.find("B2B3T2T3B2B3T2T3")!=std::string::npos)
-            {
-                Fill(Stream_Video, 0, Video_ScanOrder, "2:3 Pulldown", Unlimited, true, true);
-                Fill(Stream_Video, 0, Video_FrameRate, FrameRate*24/30, 3, true); //Real framerate
-                Fill(Stream_Video, 0, Video_ScanType, "Progressive", Unlimited, true, true);
-                Fill(Stream_Video, 0, Video_Interlacement, "PPF", Unlimited, true, true);
-            }
-            if (TempRef.find("T2T2T2T2T2T2T2T2T2T2T2T3B2B2B2B2B2B2B2B2B2B2B2B3")!=std::string::npos
-             || TempRef.find("B2B2B2B2B2B2B2B2B2B2B2B3T2T2T2T2T2T2T2T2T2T2T2T3")!=std::string::npos)
-            {
-                Fill(Stream_Video, 0, Video_ScanOrder, "2:2:2:2:2:2:2:2:2:2:2:3 Pulldown", Unlimited, true, true);
-                Fill(Stream_Video, 0, Video_FrameRate, FrameRate*24/25, 3, true); //Real framerate
-                Fill(Stream_Video, 0, Video_ScanType, "Progressive", Unlimited, true, true);
-                Fill(Stream_Video, 0, Video_Interlacement, "PPF", Unlimited, true, true);
-            }
-        }
-    }
-
-    //Profile
-    if (profile_and_level_indication_profile && profile_and_level_indication_level)
-    {
-        Fill(Stream_Video, 0, Video_Format_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));
-        Fill(Stream_Video, 0, Video_Codec_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));
-    }
-
-    //Standard
-    Fill(Stream_Video, 0, Video_Standard, Mpegv_video_format[video_format]);
-
-    //Matrix
-    if (load_intra_quantiser_matrix || load_intra_quantiser_matrix)
-    {
-        Fill(Stream_Video, 0, Video_Format_Settings, "CustomMatrix");
-        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Custom");
-        Fill(Stream_Video, 0, Video_Format_Settings_Matrix_Data, Matrix_intra);
-        Fill(Stream_Video, 0, Video_Format_Settings_Matrix_Data, Matrix_nonintra);
-        Fill(Stream_Video, 0, Video_Codec_Settings, "CustomMatrix");
-        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Custom");
-    }
-    else
-    {
-        Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Default");
-        Fill(Stream_Video, 0, Video_Codec_Settings_Matrix, "Default");
-    }
-
-    //library
-    if (Library.size()>=8)
-    {
-        Fill(Stream_Video, 0, Video_Encoded_Library, Library);
-        Fill(Stream_Video, 0, Video_Encoded_Library_Name, Library_Name);
-        Fill(Stream_Video, 0, Video_Encoded_Library_Version, Library_Version);
-        Fill(Stream_Video, 0, General_Encoded_Library, Library);
-        Fill(Stream_Video, 0, General_Encoded_Library_Name, Library_Name);
-        Fill(Stream_Video, 0, General_Encoded_Library_Version, Library_Version);
-    }
-
-    //Autorisation of other streams
-    NextCode_Clear();
-    NextCode_Add(0x00);
-    NextCode_Add(0xB8);
-    for (int8u Pos=0x00; Pos<=0xB9; Pos++)
-        Streams[Pos].Searching_Payload=false;
-    Streams[0xB8].Searching_TimeStamp_End=true;
-    if (IsSub)
-        Streams[0x00].Searching_TimeStamp_End=true;
-
-    //Detected
-    Accept("MPEG Video");
-    IsFilled=true;
-    Detect_EOF();
 }
 
 //---------------------------------------------------------------------------
@@ -1545,7 +1542,11 @@ void File_Mpegv::sequence_end()
     Element_Name("sequence_end");
 
     if (!IsFilled && sequence_header_IsParsed)
-        slice_start_Fill();
+    {
+        //End of file, and we have some frames
+        Accept("MPEG Video");
+        Finish("MPEG Video");
+    }
 }
 
 //---------------------------------------------------------------------------

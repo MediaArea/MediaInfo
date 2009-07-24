@@ -50,6 +50,7 @@ public :
 
 private :
     //Streams management
+    void Streams_Fill();
     void Streams_Finish();
 
     //Buffer - File header
@@ -73,7 +74,6 @@ private :
     void user_data_start();
     void extension_start();
     void picture_start();
-    void picture_start_Fill();
     void video_edit();
     void reserved();
     

@@ -554,13 +554,6 @@ void File__Analyze::Finalize_Cosmetic(stream_t StreamKind, size_t Pos)
         }
     }
 
-    //Counts
-    Fill(StreamKind, Pos, "Count", Count_Get(StreamKind, Pos));
-    Fill(StreamKind, Pos, "StreamCount", Count_Get(StreamKind));
-    Fill(StreamKind, Pos, "StreamKindID", Pos);
-    if (Count_Get(StreamKind)>1)
-        Fill(StreamKind, Pos, "StreamKindPos", Pos+1);
-
     //BitRate / OverallBitRate
     if (!Retrieve(StreamKind, Pos, StreamKind==Stream_General?"OverallBitRate_Mode":"BitRate_Mode").empty() && MediaInfoLib::Config.ReadByHuman_Get())
     {
@@ -595,10 +588,6 @@ void File__Analyze::Finalize_Cosmetic(stream_t StreamKind, size_t Pos)
         }
         while (List_Measure_Pos!=Error);
     }
-
-    //StreamKind
-    Fill(StreamKind, Pos, General_StreamKind, MediaInfoLib::Config.Info_Get(StreamKind).Read(General_StreamKind, Info_Text));
-    Fill(StreamKind, Pos, General_StreamKind_String, MediaInfoLib::Config.Language_Get(MediaInfoLib::Config.Info_Get(StreamKind).Read(General_StreamKind, Info_Text)), true);
 
     //ID
     if (!Retrieve(StreamKind, Pos, "ID").empty() && Retrieve(StreamKind, Pos, "ID/String").empty())

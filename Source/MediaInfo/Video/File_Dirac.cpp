@@ -417,15 +417,34 @@ File_Dirac::File_Dirac()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void File_Dirac::Streams_Fill()
+{
+    Stream_Prepare(Stream_General);
+    Fill(Stream_General, 0, General_Format, "Dirac");
+    Stream_Prepare(Stream_Video);
+    Fill(Stream_Video, 0, Video_Format, "Dirac");
+    Fill(Stream_Video, 0, Video_Codec, "Dirac");
+
+    if (clean_width)
+        Fill(Stream_Video, StreamPos_Last, Video_Width, clean_width);
+    if (clean_height)
+        Fill(Stream_Video, StreamPos_Last, Video_Height, clean_height);
+    if (pixel_aspect_ratio)
+    {
+        Fill(Stream_Video, 0, Video_PixelAspectRatio, pixel_aspect_ratio);
+        if (clean_height!=0)
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)clean_width)/clean_height*pixel_aspect_ratio);
+    }
+    if (frame_rate)
+        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, frame_rate);
+    Fill(Stream_Video, 0, Video_Colorimetry, Dirac_chroma_format(chroma_format));
+    Fill(Stream_Video, 0, Video_ScanType, Dirac_source_sampling(source_sampling));
+    Fill(Stream_Video, 0, Video_Interlacement, Dirac_source_sampling(source_sampling));
+}
+
+//---------------------------------------------------------------------------
 void File_Dirac::Streams_Finish()
 {
-    if (Streams.empty())
-        return; //Not initialized
-
-    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Count_Get(Stream_General)==0 && Frame_Count>0)
-        picture_Fill();
-
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Streams.clear();
@@ -697,7 +716,11 @@ void File_Dirac::End_of_Sequence()
 
     //Parsing
     if (!Ignore_End_of_Sequence)
-        picture_Fill();
+    {
+        NextCode_Clear();
+        Accept("Dirac");
+        Finish("Dirac");
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -846,41 +869,12 @@ void File_Dirac::picture()
         Frame_Count++;
         Frame_Count_InThisBlock++;
         if (Frame_Count>=Frame_Count_Valid && Count_Get(Stream_Video)==0)
-            picture_Fill();
+        {
+            NextCode_Clear();
+            Accept("Dirac");
+            Finish("Dirac");
+        }
     FILLING_END();
-}
-
-//---------------------------------------------------------------------------
-void File_Dirac::picture_Fill()
-{
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "Dirac");
-    Stream_Prepare(Stream_Video);
-    Fill(Stream_Video, 0, Video_Format, "Dirac");
-    Fill(Stream_Video, 0, Video_Codec, "Dirac");
-
-    if (clean_width)
-        Fill(Stream_Video, StreamPos_Last, Video_Width, clean_width);
-    if (clean_height)
-        Fill(Stream_Video, StreamPos_Last, Video_Height, clean_height);
-    if (pixel_aspect_ratio)
-    {
-        Fill(Stream_Video, 0, Video_PixelAspectRatio, pixel_aspect_ratio);
-        if (clean_height!=0)
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)clean_width)/clean_height*pixel_aspect_ratio);
-    }
-    if (frame_rate)
-        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, frame_rate);
-    Fill(Stream_Video, 0, Video_Colorimetry, Dirac_chroma_format(chroma_format));
-    Fill(Stream_Video, 0, Video_ScanType, Dirac_source_sampling(source_sampling));
-    Fill(Stream_Video, 0, Video_Interlacement, Dirac_source_sampling(source_sampling));
-
-    if (File_Offset+Buffer_Size<File_Size)
-    {
-        NextCode_Clear();
-        Accept("Dirac");
-        Finish("Dirac");
-    }
 }
 
 //***************************************************************************

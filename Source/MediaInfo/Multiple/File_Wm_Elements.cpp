@@ -1498,6 +1498,7 @@ void File_Wm::Data_Packet()
             if (Stream[Stream_Number].Parser->IsFinished
              || Stream[Stream_Number].PresentationTime_Count>=300)
             {
+                Stream[Stream_Number].Parser->Open_Buffer_Unsynch();
                 Stream[Stream_Number].SearchingPayload=false;
                 Streams_Count--;
             }

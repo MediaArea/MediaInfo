@@ -194,12 +194,75 @@ File_AvsV::File_AvsV()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void File_AvsV::Streams_Fill()
+{
+    //Filling
+    Stream_Prepare(Stream_General);
+    Fill(Stream_General, 0, General_Format, "AVS Video");
+    Stream_Prepare(Stream_Video);
+    Fill(Stream_Video, 0, Video_Format, "AVS Video");
+    Fill(Stream_Video, 0, Video_Codec, "AVS Video");
+
+    //From sequence header
+    Fill(Stream_Video, 0, Video_Format_Profile, AvsV_profile(profile_id)+AvsV_level(level_id));
+    Fill(Stream_Video, 0, Video_Codec_Profile, AvsV_profile(profile_id)+AvsV_level(level_id));
+    Fill(Stream_Video, StreamPos_Last, Video_Width, horizontal_size);
+    Fill(Stream_Video, StreamPos_Last, Video_Height, vertical_size);
+    Fill(Stream_Video, 0, Video_FrameRate, AvsV_frame_rate[frame_rate_code]/(progressive_sequence?1:2));
+    if (aspect_ratio==0)
+        ;//Forbidden
+    else if (aspect_ratio==1)
+            Fill(Stream_Video, 0, Video_PixelAspectRatio, 1.000);
+    else if (display_horizontal_size && display_vertical_size)
+    {
+        if (vertical_size && AvsV_aspect_ratio[aspect_ratio])
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, (float)horizontal_size/vertical_size
+                                                                         *AvsV_aspect_ratio[aspect_ratio]/((float)display_horizontal_size/display_vertical_size));
+    }
+    else if (AvsV_aspect_ratio[aspect_ratio])
+        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, AvsV_aspect_ratio[aspect_ratio]);
+    Fill(Stream_Video, 0, Video_Colorimetry, AvsV_chroma_format[chroma_format]);
+    if (progressive_frame_Count && progressive_frame_Count!=Frame_Count)
+    {
+        //This is mixed
+    }
+    else if (Frame_Count>0) //Only if we have at least one progressive_frame definition
+    {
+        if (progressive_sequence || progressive_frame_Count==Frame_Count)
+        {
+            Fill(Stream_Video, 0, Video_ScanType, "Progressive");
+            Fill(Stream_Video, 0, Video_Interlacement, "PPF");
+        }
+        else
+        {
+            Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
+            if ((Interlaced_Top && Interlaced_Bottom) || (!Interlaced_Top && !Interlaced_Bottom))
+                Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
+            else
+            {
+                Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Top?"TFF":"BFF");
+                Fill(Stream_Video, 0, Video_Interlacement, Interlaced_Top?"TFF":"BFF");
+            }
+        }
+    }
+    Fill(Stream_Video, 0, Video_BitRate_Nominal, bit_rate*8);
+
+    //From extensions
+    Fill(Stream_Video, 0, Video_Standard, AvsV_video_format[video_format]);
+
+    //Library name
+    if (!Library.empty())
+    {
+        Fill(Stream_Video, 0, Video_Encoded_Library, Library);
+        Fill(Stream_Video, 0, Video_Encoded_Library_Name, Library_Name);
+        Fill(Stream_Video, 0, Video_Encoded_Library_Version, Library_Version);
+        Fill(Stream_Video, 0, Video_Encoded_Library_Date, Library_Date);
+    }
+}
+
+//---------------------------------------------------------------------------
 void File_AvsV::Streams_Finish()
 {
-    //In case of partial data, and finalizing is forced, but with at least one frame
-    if (Retrieve(Stream_Video, 0, Video_Format).empty() && video_sequence_start_IsParsed)
-        picture_start_Fill();
-
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Streams.clear();
@@ -367,7 +430,11 @@ void File_AvsV::Data_Parse()
     }
 
     if (File_Offset+Buffer_Offset+Element_Size==File_Size && Frame_Count>0 && Count_Get(Stream_Video)==0) //Finalize frames in case of there are less than Frame_Count_Valid frames
-        picture_start_Fill();
+    {
+        //No need of more
+        Accept("AVS Video");
+        Finish("AVS Video");
+    }
 }
 
 //***************************************************************************
@@ -732,79 +799,12 @@ void File_AvsV::picture_start()
 
         //Filling only if not already done
         if (Frame_Count>=Frame_Count_Valid && Count_Get(Stream_Video)==0)
-            picture_start_Fill();
+        {
+            //No need of more
+            Accept("AVS Video");
+            Finish("AVS Video");
+        }
     FILLING_END();
-}
-
-//---------------------------------------------------------------------------
-void File_AvsV::picture_start_Fill()
-{
-    //Filling
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "AVS Video");
-    Stream_Prepare(Stream_Video);
-    Fill(Stream_Video, 0, Video_Format, "AVS Video");
-    Fill(Stream_Video, 0, Video_Codec, "AVS Video");
-
-    //From sequence header
-    Fill(Stream_Video, 0, Video_Format_Profile, AvsV_profile(profile_id)+AvsV_level(level_id));
-    Fill(Stream_Video, 0, Video_Codec_Profile, AvsV_profile(profile_id)+AvsV_level(level_id));
-    Fill(Stream_Video, StreamPos_Last, Video_Width, horizontal_size);
-    Fill(Stream_Video, StreamPos_Last, Video_Height, vertical_size);
-    Fill(Stream_Video, 0, Video_FrameRate, AvsV_frame_rate[frame_rate_code]/(progressive_sequence?1:2));
-    if (aspect_ratio==0)
-        ;//Forbidden
-    else if (aspect_ratio==1)
-            Fill(Stream_Video, 0, Video_PixelAspectRatio, 1.000);
-    else if (display_horizontal_size && display_vertical_size)
-    {
-        if (vertical_size && AvsV_aspect_ratio[aspect_ratio])
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, (float)horizontal_size/vertical_size
-                                                                         *AvsV_aspect_ratio[aspect_ratio]/((float)display_horizontal_size/display_vertical_size));
-    }
-    else if (AvsV_aspect_ratio[aspect_ratio])
-        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, AvsV_aspect_ratio[aspect_ratio]);
-    Fill(Stream_Video, 0, Video_Colorimetry, AvsV_chroma_format[chroma_format]);
-    if (progressive_frame_Count && progressive_frame_Count!=Frame_Count)
-    {
-        //This is mixed
-    }
-    else if (Frame_Count>0) //Only if we have at least one progressive_frame definition
-    {
-        if (progressive_sequence || progressive_frame_Count==Frame_Count)
-        {
-            Fill(Stream_Video, 0, Video_ScanType, "Progressive");
-            Fill(Stream_Video, 0, Video_Interlacement, "PPF");
-        }
-        else
-        {
-            Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
-            if ((Interlaced_Top && Interlaced_Bottom) || (!Interlaced_Top && !Interlaced_Bottom))
-                Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
-            else
-            {
-                Fill(Stream_Video, 0, Video_ScanOrder, Interlaced_Top?"TFF":"BFF");
-                Fill(Stream_Video, 0, Video_Interlacement, Interlaced_Top?"TFF":"BFF");
-            }
-        }
-    }
-    Fill(Stream_Video, 0, Video_BitRate_Nominal, bit_rate*8);
-
-    //From extensions
-    Fill(Stream_Video, 0, Video_Standard, AvsV_video_format[video_format]);
-
-    //Library name
-    if (!Library.empty())
-    {
-        Fill(Stream_Video, 0, Video_Encoded_Library, Library);
-        Fill(Stream_Video, 0, Video_Encoded_Library_Name, Library_Name);
-        Fill(Stream_Video, 0, Video_Encoded_Library_Version, Library_Version);
-        Fill(Stream_Video, 0, Video_Encoded_Library_Date, Library_Date);
-    }
-
-    //No need of more
-    Accept("AVS Video");
-    Finish("AVS Video");
 }
 
 //---------------------------------------------------------------------------

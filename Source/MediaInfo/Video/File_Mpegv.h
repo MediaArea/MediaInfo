@@ -52,6 +52,7 @@ public :
 
 private :
     //Streams management
+    void Streams_Fill();
     void Streams_Finish();
 
     //Buffer - File header
@@ -75,7 +76,6 @@ private :
     //Elements
     void picture_start();
     void slice_start();
-    void slice_start_Fill();
     void user_data_start();
     void user_data_start_CC();
     void user_data_start_DTG1();

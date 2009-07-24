@@ -75,6 +75,18 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
             Fill(StreamKind_Last, StreamPos_Last, Fill_Temp(Pos, 0).To_UTF8().c_str(), Fill_Temp(Pos, 1));
     Fill_Temp.clear();
 
+    //Filling basic info
+    Fill(StreamKind_Last, StreamPos_Last, "Count", Count_Get(StreamKind_Last, StreamPos_Last));
+    Fill(StreamKind_Last, StreamPos_Last, General_StreamKind, MediaInfoLib::Config.Info_Get(StreamKind_Last).Read(General_StreamKind, Info_Text));
+    Fill(StreamKind_Last, StreamPos_Last, General_StreamKind_String, MediaInfoLib::Config.Language_Get(MediaInfoLib::Config.Info_Get(StreamKind_Last).Read(General_StreamKind, Info_Text)), true);
+    Fill(StreamKind_Last, StreamPos_Last, General_StreamKindID, StreamPos_Last);
+    for (size_t Pos=0; Pos<=StreamPos_Last; Pos++)
+    {
+        Fill(StreamKind_Last, Pos, General_StreamCount, Count_Get(StreamKind_Last), 10, true);
+        if (Count_Get(StreamKind_Last)>1)
+            Fill(StreamKind_Last, Pos, General_StreamKindPos, Pos+1, 10, true);
+    }
+
     return (*Stream)[KindOfStream].size()-1; //The position in the stream count
 }
 
@@ -186,6 +198,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, const char* Par
             Target+=Value;
         }
     }
+    Fill(StreamKind, StreamPos, "Count", Count_Get(StreamKind, StreamPos), 10, true);
 }
 
 //---------------------------------------------------------------------------
@@ -242,6 +255,7 @@ void File__Analyze::Clear (stream_t StreamKind, size_t StreamPos, const char* Pa
         if (Parameter_Pos==Error)
             return;
         (*Stream_More)[StreamKind][StreamPos](Parameter_Pos, 1).clear();
+        return;
     }
 
     (*Stream)[StreamKind][StreamPos](Parameter_Pos).clear();
@@ -393,7 +407,7 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
     //Merging
     size_t Count=0;
     size_t Size=ToAdd.Count_Get(StreamKind, StreamPos_From);
-    for (size_t Pos=0; Pos<Size; Pos++)
+    for (size_t Pos=General_Inform; Pos<Size; Pos++)
     {
         const Ztring &ToFill_Value=ToAdd.Get(StreamKind, StreamPos_From, Pos);
         if (!ToFill_Value.empty() && (Erase || Get(StreamKind, StreamPos_From, Pos).empty()))
@@ -429,6 +443,7 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
         }
     }
 
+    Fill(StreamKind, StreamPos_To, "Count", Count_Get(StreamKind, StreamPos_To), 10, true);
     return 1;
 }
 

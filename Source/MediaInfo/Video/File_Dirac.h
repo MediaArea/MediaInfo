@@ -49,6 +49,7 @@ public :
 
 private :
     //Streams management
+    void Streams_Fill();
     void Streams_Finish();
 
     //Buffer - File header
@@ -82,7 +83,6 @@ private :
     void Intra_Non_Reference_Picture_Low();
     void Reserved();
     void picture();
-    void picture_Fill();
 
     //Streams
     struct stream
