@@ -51,6 +51,7 @@ public :
 
 private :
     //Streams management
+    void Streams_Fill();
     void Streams_Finish();
 
     //Buffer - File header
@@ -78,7 +79,6 @@ private :
     void slice_layer_without_partitioning_IDR();
     void slice_layer_without_partitioning_non_IDR();
     void slice_header();
-    void slice_header_Fill();
     void seq_parameter_set();
     void pic_parameter_set();
     void sei();

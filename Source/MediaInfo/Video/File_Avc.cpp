@@ -286,12 +286,152 @@ File_Avc::~File_Avc()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void File_Avc::Streams_Fill()
+{
+    //Calculating - Pixels
+    int32u Width =(pic_width_in_mbs_minus1       +1)*16;
+    int32u Height=(pic_height_in_map_units_minus1+1)*16*(2-frame_mbs_only_flag);
+    int32u CropUnitX=Avc_SubWidthC [chroma_format_idc];
+    int32u CropUnitY=Avc_SubHeightC[chroma_format_idc]*(2-frame_mbs_only_flag);
+    Width -=(frame_crop_left_offset+frame_crop_right_offset )*CropUnitX;
+    Height-=(frame_crop_top_offset +frame_crop_bottom_offset)*CropUnitY;
+
+    //Calculating - Profile
+    Ztring ProfileS;
+    ProfileS.From_Local(Avc_profile_idc(profile_idc));
+
+    //Calculating - Level
+    Ztring LevelS;
+    LevelS.From_Number(((float)level_idc)/10, 1); //Level is Value*10, can have one digit example 5.1
+
+    //Calculating - PixelAspectRatio
+    float32 PixelAspectRatio;
+    if (aspect_ratio_idc<Avc_PixelAspectRatio_Size)
+        PixelAspectRatio=Avc_PixelAspectRatio[aspect_ratio_idc];
+    else if (sar_height)
+        PixelAspectRatio=((float)sar_width)/sar_height;
+    else
+        PixelAspectRatio=1; //Unknown
+
+    if (Count_Get(Stream_General)==0)
+        Stream_Prepare(Stream_General);
+    Fill(Stream_General, 0, General_Format, "AVC");
+    if (Count_Get(Stream_Video)==0)
+        Stream_Prepare(Stream_Video);
+    Fill(Stream_Video, 0, Video_Format, "AVC");
+    Fill(Stream_Video, 0, Video_Codec, "AVC");
+
+    Fill(Stream_Video, 0, Video_Format_Profile, ProfileS+_T("@L")+LevelS);
+    Fill(Stream_Video, 0, Video_Codec_Profile, ProfileS+_T("@L")+LevelS);
+    Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
+    Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
+    Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio);
+    if (Height!=0)
+        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)Width)/Height*PixelAspectRatio);
+    Fill(Stream_Video, 0, Video_Standard, Avc_video_format[video_format]);
+    if (timing_info_present_flag)
+    {
+        if (!fixed_frame_rate_flag)
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, "VFR");
+        else if (time_scale && num_units_in_tick)
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)time_scale/num_units_in_tick/2);
+    }
+    Fill(Stream_Video, 0, Video_Colorimetry, Avc_Colorimetry_format_idc[chroma_format_idc]);
+
+    //Interlacement
+    if (mb_adaptive_frame_field_flag && Structure_Frame>0) //Interlaced macro-block
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "MBAFF");
+        Fill(Stream_Video, 0, Video_Interlacement, "MBAFF");
+    }
+    else if (frame_mbs_only_flag || Structure_Field==0) //No interlaced frame
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Progressive");
+        Fill(Stream_Video, 0, Video_Interlacement, "PPF");
+    }
+    else
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
+        Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
+    }
+    std::string TempRef;
+    for (size_t Pos=0; Pos<TemporalReference.size(); Pos++)
+        if (TemporalReference[Pos].IsValid)
+        {
+            TempRef+=TemporalReference[Pos].IsTop?"T":"B";
+        }
+    if (TempRef.find("TBTBTBTB")==0)
+    {
+        Fill(Stream_Video, 0, Video_ScanOrder, "TFF");
+        Fill(Stream_Video, 0, Video_Interlacement, "TFF", Unlimited, true, true);
+    }
+    if (TempRef.find("BTBTBTBT")==0)
+    {
+        Fill(Stream_Video, 0, Video_ScanOrder, "BFF");
+        Fill(Stream_Video, 0, Video_Interlacement, "BFF", Unlimited, true, true);
+    }
+
+
+    /*
+    if (frame_mbs_only_flag)
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Progressive");
+        Fill(Stream_Video, 0, Video_Interlacement, "PPF");
+    }
+    if (pic_struct_FirstDetected==1)
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
+        Fill(Stream_Video, 0, Video_ScanOrder, "TFF");
+        Fill(Stream_Video, 0, Video_Interlacement, "TFF");
+    }
+    if (pic_struct_FirstDetected==2)
+    {
+        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
+        Fill(Stream_Video, 0, Video_ScanOrder, "BFF");
+        Fill(Stream_Video, 0, Video_Interlacement, "BFF");
+    }
+    */
+    Fill(Stream_Video, 0, Video_Encoded_Library, Encoded_Library);
+    Fill(Stream_Video, 0, Video_Encoded_Library_Name, Encoded_Library_Name);
+    Fill(Stream_Video, 0, Video_Encoded_Library_Version, Encoded_Library_Version);
+    Fill(Stream_Video, 0, Video_Encoded_Library_Settings, Encoded_Library_Settings);
+    Fill(Stream_Video, 0, Video_BitRate_Nominal, BitRate_Nominal);
+    Fill(Stream_Video, 0, Video_MuxingMode, MuxingMode);
+    if (entropy_coding_mode_flag)
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings, "CABAC");
+        Fill(Stream_Video, 0, Video_Format_Settings_CABAC, "Yes");
+        Fill(Stream_Video, 0, Video_Codec_Settings, "CABAC");
+        Fill(Stream_Video, 0, Video_Codec_Settings_CABAC, "Yes");
+    }
+    else
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings_CABAC, "No");
+        Fill(Stream_Video, 0, Video_Codec_Settings_CABAC, "No");
+    }
+    if (num_ref_frames>0)
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings, Ztring::ToZtring(num_ref_frames)+_T(" Ref Frames"));
+        Fill(Stream_Video, 0, Video_Codec_Settings, Ztring::ToZtring(num_ref_frames)+_T(" Ref Frames"));
+    }
+    Fill(Stream_Video, 0, Video_Format_Settings_RefFrames, num_ref_frames);
+    Fill(Stream_Video, 0, Video_Codec_Settings_RefFrames, num_ref_frames);
+    if (bit_depth_luma_minus8==bit_depth_Colorimetry_minus8)
+        Fill(Stream_Video, 0, Video_Resolution, (bit_depth_luma_minus8+8)*3);
+
+    if (File_Offset+Buffer_Size<File_Size)
+    {
+        NextCode_Clear();
+
+        //Autorisation of other streams
+        for (int8u Pos=0x00; Pos<0x20; Pos++)
+            Streams[Pos].Searching_Payload=false; //Coded slice...
+    }
+}
+
+//---------------------------------------------------------------------------
 void File_Avc::Streams_Finish()
 {
-    //In case of partial data, and finalizing is forced (example: DecConfig in .mp4), but with at least one frame
-    if (Count_Get(Stream_Video)==0  && (SPS_IsParsed || MustParse_SPS_PPS_Done))
-        slice_header_Fill();
-
     //GA94 captions
     for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
         if (GA94_03_CC_Parsers[Pos] && GA94_03_CC_Parsers[Pos]->IsAccepted)
@@ -805,158 +945,13 @@ void File_Avc::slice_header()
 
         //Filling only if not already done
         if (!IsFilled && ((!GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid) || Frame_Count>=Frame_Count_Valid*10)) //10 times the normal test
-            slice_header_Fill();
-    FILLING_END();
-}
-
-//---------------------------------------------------------------------------
-//
-void File_Avc::slice_header_Fill()
-{
-    //Calculating - Pixels
-    int32u Width =(pic_width_in_mbs_minus1       +1)*16;
-    int32u Height=(pic_height_in_map_units_minus1+1)*16*(2-frame_mbs_only_flag);
-    int32u CropUnitX=Avc_SubWidthC [chroma_format_idc];
-    int32u CropUnitY=Avc_SubHeightC[chroma_format_idc]*(2-frame_mbs_only_flag);
-    Width -=(frame_crop_left_offset+frame_crop_right_offset )*CropUnitX;
-    Height-=(frame_crop_top_offset +frame_crop_bottom_offset)*CropUnitY;
-
-    //Calculating - Profile
-    Ztring ProfileS;
-    ProfileS.From_Local(Avc_profile_idc(profile_idc));
-
-    //Calculating - Level
-    Ztring LevelS;
-    LevelS.From_Number(((float)level_idc)/10, 1); //Level is Value*10, can have one digit example 5.1
-
-    //Calculating - PixelAspectRatio
-    float32 PixelAspectRatio;
-    if (aspect_ratio_idc<Avc_PixelAspectRatio_Size)
-        PixelAspectRatio=Avc_PixelAspectRatio[aspect_ratio_idc];
-    else if (sar_height)
-        PixelAspectRatio=((float)sar_width)/sar_height;
-    else
-        PixelAspectRatio=1; //Unknown
-
-    if (Count_Get(Stream_General)==0)
-        Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "AVC");
-    if (Count_Get(Stream_Video)==0)
-        Stream_Prepare(Stream_Video);
-    Fill(Stream_Video, 0, Video_Format, "AVC");
-    Fill(Stream_Video, 0, Video_Codec, "AVC");
-
-    Fill(Stream_Video, 0, Video_Format_Profile, ProfileS+_T("@L")+LevelS);
-    Fill(Stream_Video, 0, Video_Codec_Profile, ProfileS+_T("@L")+LevelS);
-    Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
-    Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
-    Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio);
-    if (Height!=0)
-        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)Width)/Height*PixelAspectRatio);
-    Fill(Stream_Video, 0, Video_Standard, Avc_video_format[video_format]);
-    if (timing_info_present_flag)
-    {
-        if (!fixed_frame_rate_flag)
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, "VFR");
-        else if (time_scale && num_units_in_tick)
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)time_scale/num_units_in_tick/2);
-    }
-    Fill(Stream_Video, 0, Video_Colorimetry, Avc_Colorimetry_format_idc[chroma_format_idc]);
-
-    //Interlacement
-    if (mb_adaptive_frame_field_flag && Structure_Frame>0) //Interlaced macro-block
-    {
-        Fill(Stream_Video, 0, Video_ScanType, "MBAFF");
-        Fill(Stream_Video, 0, Video_Interlacement, "MBAFF");
-    }
-    else if (frame_mbs_only_flag || Structure_Field==0) //No interlaced frame
-    {
-        Fill(Stream_Video, 0, Video_ScanType, "Progressive");
-        Fill(Stream_Video, 0, Video_Interlacement, "PPF");
-    }
-    else
-    {
-        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
-        Fill(Stream_Video, 0, Video_Interlacement, "Interlaced");
-    }
-    std::string TempRef;
-    for (size_t Pos=0; Pos<TemporalReference.size(); Pos++)
-        if (TemporalReference[Pos].IsValid)
         {
-            TempRef+=TemporalReference[Pos].IsTop?"T":"B";
+            Accept("AVC");
+            Fill("AVC");
+            if (!Streams[(size_t)Element_Code].ShouldDuplicate)
+                Finish("AVC");
         }
-    if (TempRef.find("TBTBTBTB")==0)
-    {
-        Fill(Stream_Video, 0, Video_ScanOrder, "TFF");
-        Fill(Stream_Video, 0, Video_Interlacement, "TFF", Unlimited, true, true);
-    }
-    if (TempRef.find("BTBTBTBT")==0)
-    {
-        Fill(Stream_Video, 0, Video_ScanOrder, "BFF");
-        Fill(Stream_Video, 0, Video_Interlacement, "BFF", Unlimited, true, true);
-    }
-
-
-    /*
-    if (frame_mbs_only_flag)
-    {
-        Fill(Stream_Video, 0, Video_ScanType, "Progressive");
-        Fill(Stream_Video, 0, Video_Interlacement, "PPF");
-    }
-    if (pic_struct_FirstDetected==1)
-    {
-        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
-        Fill(Stream_Video, 0, Video_ScanOrder, "TFF");
-        Fill(Stream_Video, 0, Video_Interlacement, "TFF");
-    }
-    if (pic_struct_FirstDetected==2)
-    {
-        Fill(Stream_Video, 0, Video_ScanType, "Interlaced");
-        Fill(Stream_Video, 0, Video_ScanOrder, "BFF");
-        Fill(Stream_Video, 0, Video_Interlacement, "BFF");
-    }
-    */
-    Fill(Stream_Video, 0, Video_Encoded_Library, Encoded_Library);
-    Fill(Stream_Video, 0, Video_Encoded_Library_Name, Encoded_Library_Name);
-    Fill(Stream_Video, 0, Video_Encoded_Library_Version, Encoded_Library_Version);
-    Fill(Stream_Video, 0, Video_Encoded_Library_Settings, Encoded_Library_Settings);
-    Fill(Stream_Video, 0, Video_BitRate_Nominal, BitRate_Nominal);
-    Fill(Stream_Video, 0, Video_MuxingMode, MuxingMode);
-    if (entropy_coding_mode_flag)
-    {
-        Fill(Stream_Video, 0, Video_Format_Settings, "CABAC");
-        Fill(Stream_Video, 0, Video_Format_Settings_CABAC, "Yes");
-        Fill(Stream_Video, 0, Video_Codec_Settings, "CABAC");
-        Fill(Stream_Video, 0, Video_Codec_Settings_CABAC, "Yes");
-    }
-    else
-    {
-        Fill(Stream_Video, 0, Video_Format_Settings_CABAC, "No");
-        Fill(Stream_Video, 0, Video_Codec_Settings_CABAC, "No");
-    }
-    if (num_ref_frames>0)
-    {
-        Fill(Stream_Video, 0, Video_Format_Settings, Ztring::ToZtring(num_ref_frames)+_T(" Ref Frames"));
-        Fill(Stream_Video, 0, Video_Codec_Settings, Ztring::ToZtring(num_ref_frames)+_T(" Ref Frames"));
-    }
-    Fill(Stream_Video, 0, Video_Format_Settings_RefFrames, num_ref_frames);
-    Fill(Stream_Video, 0, Video_Codec_Settings_RefFrames, num_ref_frames);
-    if (bit_depth_luma_minus8==bit_depth_Colorimetry_minus8)
-        Fill(Stream_Video, 0, Video_Resolution, (bit_depth_luma_minus8+8)*3);
-
-    if (File_Offset+Buffer_Size<File_Size)
-    {
-        NextCode_Clear();
-
-        //Autorisation of other streams
-        for (int8u Pos=0x00; Pos<0x20; Pos++)
-            Streams[Pos].Searching_Payload=false; //Coded slice...
-    }
-
-    Accept("Avc");
-    IsFilled=true;
-    if (!Streams[(size_t)Element_Code].ShouldDuplicate)
-        Finish("Avc");
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -2023,10 +2018,7 @@ void File_Avc::SPS_PPS()
         if (!IsAccepted)
             Accept("AVC");
         if (MustParse_SPS_PPS_Only)
-        {
-            slice_header_Fill();
-            Finish("Avc");
-        }
+            Finish("AVC");
     FILLING_END();
 }
 
