@@ -688,18 +688,20 @@ bool File_Swf::Decompress()
         return false;
     }
 
+    Accept("SWF");
+
+    Stream_Prepare(Stream_General);
+
     File_Swf MI;
     MI.FileLength=FileLength;
     MI.Version=Version;
     Open_Buffer_Init(&MI);
     Open_Buffer_Continue(&MI, Dest, FileLength-8);
     Open_Buffer_Finalize(&MI);
-    Merge(MI);
     Merge(MI, Stream_General, 0, 0);
+    Merge(MI);
     delete[] Dest; //Dest=NULL;
 
-    if (MI.IsAccepted)
-        Accept("SWF");
     Finish("SWF");
     return true;
 }

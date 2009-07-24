@@ -87,6 +87,21 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
             Fill(StreamKind_Last, Pos, General_StreamKindPos, Pos+1, 10, true);
     }
 
+    //Filling Lists
+    if (!IsSub && KindOfStream!=Stream_General && Count_Get(KindOfStream)>1)
+    {
+        Ztring Temp;
+        Ztring StreamKind_Text=Get(KindOfStream, 0, General_StreamKind, Info_Text);
+        Temp=Retrieve(Stream_General, 0, Ztring(StreamKind_Text+_T("_Codec_List")).To_Local().c_str())+_T(" / ");
+        Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Codec_List")).To_Local().c_str(), Temp, true);
+        Temp=Retrieve(Stream_General, 0, Ztring(StreamKind_Text+_T("_Language_List")).To_Local().c_str())+_T(" / ");
+        Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Language_List")).To_Local().c_str(), Temp, true);
+        Temp=Retrieve(Stream_General, 0, Ztring(StreamKind_Text+_T("_Format_List")).To_Local().c_str())+_T(" / ");
+        Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Format_List")).To_Local().c_str(), Temp, true);
+        Temp=Retrieve(Stream_General, 0, Ztring(StreamKind_Text+_T("_Format_WithHint_List")).To_Local().c_str())+_T(" / ");
+        Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Format_WithHint_List")).To_Local().c_str(), Temp, true);
+    }
+
     return (*Stream)[KindOfStream].size()-1; //The position in the stream count
 }
 
@@ -133,6 +148,71 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
     {
         Target+=MediaInfoLib::Config.TagSeparator_Get();
         Target+=Value;
+    }
+
+    //Human readable
+    if (!IsSub && MediaInfoLib::Config.ReadByHuman_Get())
+    {
+        //Strings
+        const Ztring &List_Measure_Value=MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure);
+        const Ztring &List_Name_Value=MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Name);
+             if (List_Measure_Value==_T(" byte"))
+            FileSize_FileSize123(List_Name_Value, StreamKind, StreamPos);
+        else if (List_Measure_Value==_T(" bps") || List_Measure_Value==_T(" Hz"))
+            Kilo_Kilo123(List_Name_Value, StreamKind, StreamPos);
+        else if (List_Measure_Value==_T(" ms"))
+            Duration_Duration123(List_Name_Value, StreamKind, StreamPos);
+        else if (List_Measure_Value==_T("Yes"))
+            YesNo_YesNo(List_Name_Value, StreamKind, StreamPos);
+        else
+            Value_Value123(List_Name_Value, StreamKind, StreamPos);
+
+        //Lists
+        if (StreamKind!=Stream_General)
+        {
+            const Ztring& Parameter_Text=MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Name);
+            if (Parameter_Text==_T("Codec/String")
+             || Parameter_Text==_T("Language/String")
+             || Parameter_Text==_T("Format")
+             || Parameter_Text==_T("CodecID/Hint"))
+            {
+                Ztring Temp1, Temp2;
+                for (size_t Pos=0; Pos<(*Stream)[StreamKind].size(); Pos++)
+                {
+                    if (Parameter_Text==_T("CodecID/Hint"))
+                        Temp1+=Retrieve(StreamKind, Pos, "Format")+_T(" / ");
+                    else
+                        Temp1+=Retrieve(StreamKind, Pos, Parameter)+_T(" / ");
+                    if (Parameter_Text==_T("Format")
+                     || Parameter_Text==_T("CodecID/Hint"))
+                    {
+                        Temp2+=Retrieve(StreamKind, Pos, "Format");
+                        if (!Retrieve(StreamKind, Pos, "CodecID/Hint").empty())
+                        {
+                            Temp2+=_T(" (");
+                            Temp2+=Retrieve(StreamKind, Pos, "CodecID/Hint");
+                            Temp2+=_T(")");
+                        }
+                        Temp2+=_T(" / ");
+                    }
+                }
+                if (!Temp1.empty())
+                    Temp1.resize(Temp1.size()-3); //Delete extra " / "
+                if (!Temp2.empty())
+                    Temp2.resize(Temp2.size()-3); //Delete extra " / "
+                Ztring StreamKind_Text=Get(StreamKind, 0, General_StreamKind, Info_Text);
+                if (Parameter_Text==_T("Codec/String"))
+                    Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Codec_List")).To_Local().c_str(), Temp1, true);
+                if (Parameter_Text==_T("Language/String"))
+                    Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Language_List")).To_Local().c_str(), Temp1, true);
+                if (Parameter_Text==_T("Format")
+                 || Parameter_Text==_T("CodecID/Hint"))
+                {
+                    Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Format_List")).To_Local().c_str(), Temp1, true);
+                    Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Format_WithHint_List")).To_Local().c_str(), Temp2, true);
+                }
+            }
+        }
     }
 }
 
@@ -258,7 +338,7 @@ void File__Analyze::Clear (stream_t StreamKind, size_t StreamPos, const char* Pa
         return;
     }
 
-    (*Stream)[StreamKind][StreamPos](Parameter_Pos).clear();
+    Clear(StreamKind, StreamPos, Parameter_Pos);
 }
 
 //---------------------------------------------------------------------------
@@ -273,6 +353,41 @@ void File__Analyze::Clear (stream_t StreamKind, size_t StreamPos, size_t Paramet
     if (Parameter<(*Stream)[StreamKind][StreamPos].size())
     {
         (*Stream)[StreamKind][StreamPos][Parameter].clear();
+
+        //Human readable
+        if (MediaInfoLib::Config.ReadByHuman_Get())
+        {
+            //Strings
+            const Ztring &List_Measure_Value=MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure);
+                 if (List_Measure_Value==_T(" byte"))
+            {
+                for (size_t Pos=Parameter+1; Pos<=Parameter+5; Pos++)
+                    if (Pos<(*Stream)[StreamKind][StreamPos].size())
+                        (*Stream)[StreamKind][StreamPos][Pos].clear();
+            }
+            else if (List_Measure_Value==_T(" bps") || List_Measure_Value==_T(" Hz"))
+            {
+                if (Parameter+1<(*Stream)[StreamKind][StreamPos].size())
+                    (*Stream)[StreamKind][StreamPos][Parameter+1].clear();
+            }
+            else if (List_Measure_Value==_T(" ms"))
+            {
+                for (size_t Pos=Parameter+1; Pos<=Parameter+4; Pos++)
+                    if (Pos<(*Stream)[StreamKind][StreamPos].size())
+                        (*Stream)[StreamKind][StreamPos][Pos].clear();
+            }
+            else if (List_Measure_Value==_T("Yes"))
+            {
+                if (Parameter+1<(*Stream)[StreamKind][StreamPos].size())
+                    (*Stream)[StreamKind][StreamPos][Parameter+1].clear();
+            }
+            else if (!List_Measure_Value.empty())
+            {
+                if (Parameter+1<(*Stream)[StreamKind][StreamPos].size())
+                    (*Stream)[StreamKind][StreamPos][Parameter+1].clear();
+            }
+        }
+
         return;
     }
 

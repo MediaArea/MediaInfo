@@ -1251,7 +1251,8 @@ void File_Mpeg4::moov_cmov_cmvd_zlib()
 
         //Configuring file size
         int64u File_Size_Sav=File_Size;
-        File_Size=File_Offset+Buffer_Offset+Element_Offset+Dest_Size;
+        if (File_Size<File_Offset+Buffer_Offset+Element_Offset+Dest_Size)
+            File_Size=File_Offset+Buffer_Offset+Element_Offset+Dest_Size;
         Element_Level++;
         Header_Fill_Size(File_Size);
         Element_Level--;

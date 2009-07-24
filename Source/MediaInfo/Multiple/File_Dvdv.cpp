@@ -316,6 +316,10 @@ void File_Dvdv::FileHeader_Parse()
             return;
         }
 
+        Accept("DVD Video");
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "DVD Video");
+
         //Versions
         switch (Type)
         {
@@ -325,7 +329,6 @@ void File_Dvdv::FileHeader_Parse()
                         Reject("DVD Video");
                         return;
         }
-        Accept("DVD Video");
     FILLING_END();
 }
 
@@ -413,8 +416,6 @@ void File_Dvdv::VMG()
 
     //Filling
     FILLING_BEGIN();
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "DVD Video");
         Fill(Stream_General, 0, General_Format_Profile, "Menu");
 
         if (Version>0x001F)
@@ -544,8 +545,6 @@ void File_Dvdv::VTS()
 
     //Filling
     FILLING_BEGIN();
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "DVD Video");
         Fill(Stream_General, 0, General_Format_Profile, "Program");
 
         if (Version>0x001F)

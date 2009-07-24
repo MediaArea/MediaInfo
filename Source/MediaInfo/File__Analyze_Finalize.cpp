@@ -56,43 +56,6 @@ void File__Analyze::Finalize_Global()
     Finalize_InterStreams();
     Finalize_StreamOnly();
     Finalize_Cosmetic();
-
-    for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
-    {
-        Ztring Z1, Z2, Z3, Z4; //For Codec_List
-        for (size_t Pos=0; Pos<(*Stream)[StreamKind].size(); Pos++)
-        {
-            //Codec_List
-            if (MediaInfoLib::Config.ReadByHuman_Get())
-            {
-                Z1+=Retrieve((stream_t)StreamKind, Pos, "Codec/String")+_T(" / ");
-                Z2+=Retrieve((stream_t)StreamKind, Pos, "Language/String")+_T(" / ");
-                Z3+=Retrieve((stream_t)StreamKind, Pos, "Format")+_T(" / ");
-                Z4+=Retrieve((stream_t)StreamKind, Pos, "Format");
-                if (!Retrieve((stream_t)StreamKind, Pos, "CodecID/Hint").empty())
-                {
-                    Z4+=_T(" (");
-                    Z4+=Retrieve((stream_t)StreamKind, Pos, "CodecID/Hint");
-                    Z4+=_T(")");
-                }
-                Z4+=_T(" / ");
-            }
-        }
-
-        //Codec_List
-        if (StreamKind!=Stream_General && !Z1.empty() && MediaInfoLib::Config.ReadByHuman_Get())
-        {
-            Z1.resize(Z1.size()-3); //Delete extra " / "
-            Z2.resize(Z2.size()-3); //Delete extra " / "
-            Z3.resize(Z3.size()-3); //Delete extra " / "
-            Z4.resize(Z4.size()-3); //Delete extra " / "
-            Ztring Z9=Get((stream_t)StreamKind, 0, _T("StreamKind"), Info_Text);
-            Fill(Stream_General, 0, Ztring(Z9+_T("_Format_List")).To_Local().c_str(), Z3);
-            Fill(Stream_General, 0, Ztring(Z9+_T("_Format_WithHint_List")).To_Local().c_str(), Z4);
-            Fill(Stream_General, 0, Ztring(Z9+_T("_Codec_List")).To_Local().c_str(), Z1);
-            Fill(Stream_General, 0, Ztring(Z9+_T("_Language_List")).To_Local().c_str(), Z2);
-        }
-    }
 }
 
 //---------------------------------------------------------------------------
@@ -340,7 +303,7 @@ void File__Analyze::Finalize_InterStreams()
     if (Count_Get(Stream_Video)==1 && Retrieve(Stream_Video, 0, Video_BitRate).empty() && Retrieve(Stream_General, 0, General_Duration).To_int64u()<4000)
     {
         Fill(Stream_Video, 0, Video_BitRate, Retrieve(Stream_Video, 0, Video_BitRate_Nominal));
-        Fill(Stream_Video, 0, Video_BitRate_Nominal, "", Unlimited, true, true);
+        Clear(Stream_Video, 0, Video_BitRate_Nominal);
     }
     //-Video bitrate if we have all audio bitrates and overal bitrate
     if (Count_Get(Stream_Video)==1 && Retrieve(Stream_General, 0, General_OverallBitRate).size()>4 && Retrieve(Stream_Video, 0, Video_BitRate).empty() && Retrieve(Stream_General, 0, General_Duration).To_int64u()>=1000) //BitRate is > 10 000 and Duration>10s, to avoid strange behavior
@@ -560,33 +523,6 @@ void File__Analyze::Finalize_Cosmetic(stream_t StreamKind, size_t Pos)
         const Ztring &UnTranslated=Retrieve(StreamKind, Pos, StreamKind==Stream_General?"OverallBitRate_Mode":"BitRate_Mode");
         Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("BitRate_Mode_"))+UnTranslated);
         Fill(StreamKind, Pos, StreamKind==Stream_General?"OverallBitRate_Mode/String":"BitRate_Mode/String", Translated.find(_T("BitRate_Mode_"))?Translated:UnTranslated);
-    }
-
-    //Strings
-    if (MediaInfoLib::Config.ReadByHuman_Get())
-    {
-        size_t List_Measure_Pos=Error;
-        do
-        {
-            List_Measure_Pos=MediaInfoLib::Config.Info_Get(StreamKind).Find_Filled(Info_Measure, List_Measure_Pos+1);
-            if (List_Measure_Pos!=Error)
-            {
-                const Ztring &List_Measure_Value=MediaInfoLib::Config.Info_Get(StreamKind).Read(List_Measure_Pos, Info_Measure);
-                const Ztring &List_Name_Value=MediaInfoLib::Config.Info_Get(StreamKind).Read(List_Measure_Pos, Info_Name);
-                     if (List_Measure_Value==_T(" byte"))
-                    FileSize_FileSize123(List_Name_Value, StreamKind, Pos);
-                else if (List_Measure_Value==_T(" bps") || List_Measure_Value==_T(" Hz"))
-                    Kilo_Kilo123(List_Name_Value, StreamKind, Pos);
-                else if (List_Measure_Value==_T(" ms"))
-                    Duration_Duration123(List_Name_Value, StreamKind, Pos);
-                else if (List_Measure_Value==_T("Yes"))
-                    YesNo_YesNo(List_Name_Value, StreamKind, Pos);
-                else
-                    Value_Value123(List_Name_Value, StreamKind, Pos);
-            }
-
-        }
-        while (List_Measure_Pos!=Error);
     }
 
     //ID
@@ -1014,8 +950,6 @@ void File__Analyze::Duration_Duration123(const Ztring &Value, stream_t StreamKin
     if (List_Pos==Error)
         return;
     const Ztring &Target=Retrieve(StreamKind, StreamPos, List_Pos);
-    if (!Target.empty())
-        return;
     List_Pos=List.Find(Value);
     if (List_Pos==Error || List[List_Pos].size()<=Info_Measure || List[List_Pos][Info_Measure].empty())
         return;
@@ -1148,8 +1082,6 @@ void File__Analyze::FileSize_FileSize123(const Ztring &Value, stream_t StreamKin
     if (List_Pos==Error)
         return;
     const Ztring &Target=Retrieve(StreamKind, StreamPos, List_Pos);
-    if (!Target.empty())
-        return;
     List_Pos=List.Find(Value);
     if (List_Pos==Error || List[List_Pos].size()<=Info_Measure || List[List_Pos][Info_Measure].empty())
         return;
@@ -1215,11 +1147,7 @@ void File__Analyze::Kilo_Kilo123(const Ztring &Value, stream_t StreamKind, size_
 {
     const ZtringListList &List=MediaInfoLib::Config.Info_Get(StreamKind);
     size_t List_Pos=List.Find(Value+_T("/String"));
-    if (List_Pos==Error)
-        return;
     const Ztring &Target=Retrieve(StreamKind, StreamPos, List_Pos);
-    if (!Target.empty())
-        return;
     List_Pos=List.Find(Value);
     if (List_Pos==Error || List[List_Pos].size()<=Info_Measure || List[List_Pos][Info_Measure].empty())
         return;
@@ -1277,8 +1205,6 @@ void File__Analyze::Value_Value123(const Ztring &Value, stream_t StreamKind, siz
     if (List_Pos==Error)
         return;
     const Ztring &Target=Retrieve(StreamKind, StreamPos, List_Pos);
-    if (!Target.empty())
-        return;
     List_Pos=List.Find(Value);
     if (List_Pos==Error || List[List_Pos].size()<=Info_Measure || List[List_Pos][Info_Measure].empty())
         return;
