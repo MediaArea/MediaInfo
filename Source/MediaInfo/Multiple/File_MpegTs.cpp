@@ -153,8 +153,8 @@ void File_MpegTs::Streams_Fill()
             if (Complete_Stream->Streams[StreamID].Parser && Complete_Stream->Streams[StreamID].Parser->IsAccepted)
             {
                 Complete_Stream->Streams[StreamID].Parser->ShouldContinueParsing=false;
-                Complete_Stream->Streams[StreamID].Parser->Open_Buffer_Finalize();
-                Merge (*Complete_Stream->Streams[StreamID].Parser);
+                Finish(Complete_Stream->Streams[StreamID].Parser);
+                Merge(*Complete_Stream->Streams[StreamID].Parser);
 
                 //More from the FMC parser
                 if (Complete_Stream->Streams[StreamID].FMC_ES_ID_IsValid)
@@ -162,8 +162,8 @@ void File_MpegTs::Streams_Fill()
                     complete_stream::transport_stream::iod_ess::iterator IOD_ES=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.find(Complete_Stream->Streams[StreamID].FMC_ES_ID);
                     if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end() && IOD_ES->second.Parser)
                     {
-                        IOD_ES->second.Parser->Open_Buffer_Finalize();
-                        Merge (*IOD_ES->second.Parser, StreamKind_Last, StreamPos_Last, 0);
+                        Finish(IOD_ES->second.Parser);
+                        Merge(*IOD_ES->second.Parser, StreamKind_Last, StreamPos_Last, 0);
                     }
                 }
             }
@@ -430,8 +430,6 @@ void File_MpegTs::Streams_Fill()
             MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
         }
     #endif //defined(MEDIAINFO_BDAV_YES) && defined (MEDIAINFO_BDMV_YES)
-
-    File__Duplicate_Read_Buffer_Finalize();
 }
 
 //---------------------------------------------------------------------------
@@ -627,6 +625,61 @@ void File_MpegTs::Streams_Update()
                 }
             }
     }
+}
+
+//---------------------------------------------------------------------------
+void File_MpegTs::Streams_Finish()
+{
+    /*
+    if (Complete_Stream==NULL || Complete_Stream->Streams.empty())
+        return; //Not initialized
+
+    //Per stream
+    for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+    {
+        //PES
+        if (Complete_Stream->Streams[StreamID].Kind==complete_stream::stream::pes)
+        {
+            //By the parser
+            StreamKind_Last=Stream_Max;
+            if (Complete_Stream->Streams[StreamID].Parser && Complete_Stream->Streams[StreamID].Parser->IsAccepted)
+            {
+                Complete_Stream->Streams[StreamID].Parser->ShouldContinueParsing=false;
+                Finish(Complete_Stream->Streams[StreamID].Parser);
+                Merge (*Complete_Stream->Streams[StreamID].Parser, Complete_Stream->Streams[StreamID].StreamKind, 0, Complete_Stream->Streams[StreamID].StreamPos);
+                Fill(Complete_Stream->Streams[StreamID].StreamKind, Complete_Stream->Streams[StreamID].StreamPos, "Duration", Complete_Stream->Streams[StreamID].Parser->Retrieve(Complete_Stream->Streams[StreamID].StreamKind, 0, "Duration"));
+
+                //More from the FMC parser
+                if (Complete_Stream->Streams[StreamID].FMC_ES_ID_IsValid)
+                {
+                    complete_stream::transport_stream::iod_ess::iterator IOD_ES=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.find(Complete_Stream->Streams[StreamID].FMC_ES_ID);
+                    if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end() && IOD_ES->second.Parser)
+                    {
+                        IOD_ES->second.Parser->Finish();
+                        Merge (*IOD_ES->second.Parser, StreamKind_Last, StreamPos_Last, 0);
+                    }
+                }
+            }
+
+            //More info
+            if (Complete_Stream->Streams[StreamID].StreamKind!=Stream_Max) //Found by the Parser or stream_type
+            {
+                //Special cases
+                if (Complete_Stream->Streams[StreamID].StreamKind==Stream_Video && Complete_Stream->Streams[StreamID].Parser && Complete_Stream->Streams[StreamID].Parser->Count_Get(Stream_Text))
+                {
+                    //Video and Text are together
+                    Ztring VideoString=_T("Muxed in Video #")+Ztring().From_Number(StreamPos_Last+1);
+                    Ztring A=Retrieve(Stream_Text, 0, "MuxingMode_MoreInfo");
+                    for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
+                        if (Retrieve(Stream_Text, Pos, "MuxingMode_MoreInfo")==VideoString)
+                            Fill(Stream_Text, Pos, Text_Duration, Retrieve(Stream_Video, StreamPos_Last, "Duration"), true);
+                }
+            }
+        }
+    }
+    */
+
+    File__Duplicate_Read_Buffer_Finalize();
 }
 
 //***************************************************************************
