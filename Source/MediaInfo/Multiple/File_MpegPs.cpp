@@ -222,6 +222,219 @@ File_MpegPs::File_MpegPs()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_MpegPs::Streams_Finish()
+{
+    PTS=0; //Will be used for BitRate calculation
+    DTS=0; //Will be used for Duration calculation
+
+    //For each Streams
+    for (size_t StreamID=0; StreamID<0x100; StreamID++)
+        Streams_Finish_PerStream(StreamID, Streams[StreamID]);
+
+    //For each private Streams
+    for (size_t StreamID=0; StreamID<0x100; StreamID++)
+        Streams_Finish_PerStream(StreamID, Streams_Private1[StreamID]);
+
+    //For each extesnion Streams
+    for (size_t StreamID=0; StreamID<0x100; StreamID++)
+        Streams_Finish_PerStream(StreamID, Streams_Extension[StreamID]);
+
+    //Fill General
+    if (Count_Get(Stream_General)==0)
+    {
+        if (Count_Get(Stream_Video) || Count_Get(Stream_Audio))
+            Stream_Prepare(Stream_General);
+        else
+        {
+            Reject("MPEG-PS");
+            return;
+        }
+    }
+    Fill(Stream_General, 0, General_Format, "MPEG-PS");
+
+    //Tags in MPEG Video
+    if (Count_Get(Stream_Video)>0)
+        Fill(Stream_General, 0, General_Encoded_Library, Retrieve(Stream_Video, 0, Video_Encoded_Library));
+
+    //Purge what is not needed anymore
+    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
+    {
+        Streams.clear();
+        Streams_Private1.clear();
+        Streams_Extension.clear();
+    }
+
+    //Bitrate coherancy
+    if (!IsSub && PTS>0 && PTS!=(int64u)-1 && DTS!=0 && File_Size!=(int64u)-1)
+    {
+        int64u BitRate_FromDuration=File_Size*8000*90/DTS;
+        int64u BitRate_FromBitRates=PTS;
+
+        if (BitRate_FromDuration>=BitRate_FromBitRates*3
+         || BitRate_FromDuration<=BitRate_FromBitRates/10)
+        {
+            //Clearing durations
+            for (size_t StreamKind=0; StreamKind<=Stream_Text; StreamKind++)
+                for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
+                    Clear((stream_t)StreamKind, StreamPos, "Duration");
+            if (Count_Get(Stream_Video)==1)
+                Clear(Stream_Video, 0, Video_Duration);
+        }
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp)
+{
+    //By the parser
+    StreamKind_Last=Stream_Max;
+    if (Temp.Parser /*&& Temp.Parser->Count_Get(Stream_General)>0*/) //Verifying it is really detected, not only a header
+    {
+        Temp.Parser->ShouldContinueParsing=false;
+        Open_Buffer_Finalize(Temp.Parser);
+        Merge(*Temp.Parser);
+    }
+    //By the TS stream_type
+    if (StreamKind_Last==Stream_Max)
+    {
+        //Disabling stream_private_1 if needed (will be done by Streams_Private1 object)
+        if (Temp.stream_type!=0 && StreamID==0xBD)
+        {
+            bool StreamIsDetected=false;
+            for (size_t Pos=0; Pos<Streams_Private1.size(); Pos++)
+                if (Streams_Private1[Pos].Parser)
+                    StreamIsDetected=true;
+            if (StreamIsDetected)
+                Temp.stream_type=0;
+        }
+
+        if (Temp.stream_type!=0)
+            Stream_Prepare(Mpeg_Psi_stream_type_StreamKind(Temp.stream_type, 0x00000000));
+    }
+    //By StreamIsRegistred
+    if (StreamKind_Last==Stream_Max)
+    {
+        if (Temp.StreamIsRegistred)
+        {
+            if (StreamID>=0xC0 && StreamID<=0xDF)
+                Stream_Prepare(Stream_Audio);
+            if (StreamID>=0xE0 && StreamID<=0xEF)
+                Stream_Prepare(Stream_Video);
+        }
+    }
+
+    //More info
+    if (StreamKind_Last!=Stream_Max) //Found
+    {
+        //Special cases
+        if (StreamKind_Last==Stream_Text && Temp.Parser && Temp.Parser->Count_Get(Stream_Video))
+        {
+            StreamKind_Last=Stream_Video;
+            StreamPos_Last=Count_Get(Stream_Video)-1;
+        }
+
+        //Common
+        Fill(StreamKind_Last, StreamPos_Last, "ID", StreamID);
+        Ztring ID_String; ID_String.From_Number(StreamID); ID_String+=_T(" (0x"); ID_String+=Ztring::ToZtring(StreamID, 16); ID_String+=_T(")");
+        Fill(StreamKind_Last, StreamPos_Last, "ID/String", ID_String); //TODO: merge with Decimal_Hexa in file_MpegTs
+        if (Retrieve(StreamKind_Last, StreamPos_Last, "Format").empty() && Temp.stream_type!=0)
+            Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Psi_stream_type_Format(Temp.stream_type, 0x0000));
+        if (Retrieve(StreamKind_Last, StreamPos_Last, "Codec").empty() && Temp.stream_type!=0)
+            Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Psi_stream_type_Codec(Temp.stream_type, 0x0000));
+
+        int64u Start=(int64u)-1, End=(int64u)-1;
+        if (Temp.TimeStamp_Start.DTS.TimeStamp!=(int64u)-1 && Temp.TimeStamp_End.DTS.TimeStamp!=(int64u)-1)
+        {
+            Start=Temp.TimeStamp_Start.DTS.TimeStamp;
+            End=Temp.TimeStamp_End.DTS.TimeStamp;
+        }
+        else if (Temp.TimeStamp_Start.PTS.TimeStamp!=(int64u)-1 && Temp.TimeStamp_End.PTS.TimeStamp!=(int64u)-1)
+        {
+            Start=Temp.TimeStamp_Start.PTS.TimeStamp;
+            End=Temp.TimeStamp_End.PTS.TimeStamp;
+        }
+        if (Start!=(int64u)-1 && End!=(int64u)-1)
+        {
+            //TimeStamp
+            if (End<Start)
+                End+=0x200000000LL; //33 bits, cyclic
+            int64u Duration=End-Start;
+            if (File_Size!=(int64u)-1 && File_Size>1024*1024*16 && End>=0x200000000LL)
+            {
+                //Testing coherancy
+                if (Duration/90>16*3600*1000)
+                    Duration=0; //Disabling it
+            }
+            if (Duration)
+            {
+                if (StreamKind_Last==Stream_Video)
+                {
+                    float64 FrameRate=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float64();
+                    if (FrameRate!=0)
+                        Duration+=Ztring::ToZtring(Temp.FrameCount_AfterLast_TimeStamp_End*90*1000/FrameRate, 0).To_int64u();
+                }
+                if (Duration)
+                {
+                    Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration/90, 10, true);
+                    if (Duration>DTS)
+                        DTS=Duration; //Saving maximum Duration
+                }
+            }
+        }
+        if (Temp.TimeStamp_Start.PTS.TimeStamp!=(int64u)-1)
+        {
+            if (StreamKind_Last==Stream_Video)
+            {
+                Fill(StreamKind_Last, StreamPos_Last, "Delay_Original", Retrieve(StreamKind_Last, StreamPos_Last, "Delay"));
+                Fill(StreamKind_Last, StreamPos_Last, "Delay_Original_Settings", Retrieve(StreamKind_Last, StreamPos_Last, "Delay_Settings"));
+            }
+            Fill(StreamKind_Last, StreamPos_Last, "Delay", Temp.TimeStamp_Start.PTS.TimeStamp/90, 10, true);
+            Fill(StreamKind_Last, StreamPos_Last, "Delay_Settings", "", Unlimited, true, true);
+        }
+
+        //LATM
+        if (StreamKind_Last==Stream_Audio && StreamID==0xFA)
+            Fill(Stream_Audio, 0, Audio_MuxingMode, "LATM");
+
+        //Special cases
+        if (StreamKind_Last==Stream_Video && Temp.Parser && Temp.Parser->Count_Get(Stream_Text))
+        {
+            //Video and Text are together
+            size_t Text_Count=Temp.Parser->Count_Get(Stream_Text);
+            for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
+            {
+                size_t Pos=Count_Get(Stream_Text)-Text_Count+Text_Pos;
+                Ztring MuxingMode=Retrieve(Stream_Text, Pos, "MuxingMode");
+                Fill(Stream_Text, Pos, "MuxingMode", Ztring(_T("MPEG Video / "))+MuxingMode, true);
+                if (!IsSub)
+                    Fill(Stream_Text, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Last+1));
+                Fill(Stream_Text, Pos, Text_StreamSize, 0);
+                Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
+                Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, StreamPos_Last, Video_ID)+_T("-")+ID, true);
+                Fill(Stream_Text, Pos, Text_ID_String, Retrieve(Stream_Video, StreamPos_Last, Video_ID_String)+_T("-")+ID, true);
+                Fill(Stream_Text, Pos, Text_Delay, Retrieve(Stream_Video, StreamPos_Last, Video_Delay), true);
+            }
+        }
+    }
+
+    //Bitrate calculation
+    if (PTS!=(int64u)-1 && (StreamKind_Last==Stream_Video || StreamKind_Last==Stream_Audio))
+    {
+        int64u BitRate=Retrieve(StreamKind_Last, StreamPos_Last, "BitRate").To_int64u();
+        if (BitRate==0)
+            BitRate=Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Nominal").To_int64u();
+        if (BitRate==0)
+            PTS=(int64u)-1;
+        else
+            PTS+=BitRate; //Saving global BitRate
+    }
+}
+
+//***************************************************************************
 // Buffer - Synchro
 //***************************************************************************
 
@@ -490,220 +703,6 @@ void File_MpegPs::Read_Buffer_Continue()
         Data_Parse();
         Element_Offset=Element_Size;
         Element_End();
-    }
-}
-
-//---------------------------------------------------------------------------
-void File_MpegPs::Read_Buffer_Finalize()
-{
-    if (Streams.empty())
-        return; //Not initialized
-    if (!IsAccepted)
-        Accept("MPEG-PS");
-
-    PTS=0; //Will be used for BitRate calculation
-    DTS=0; //Will be used for Duration calculation
-
-    //For each Streams
-    for (size_t StreamID=0; StreamID<0x100; StreamID++)
-        Read_Buffer_Finalize_PerStream(StreamID, Streams[StreamID]);
-
-    //For each private Streams
-    for (size_t StreamID=0; StreamID<0x100; StreamID++)
-        Read_Buffer_Finalize_PerStream(StreamID, Streams_Private1[StreamID]);
-
-    //For each extesnion Streams
-    for (size_t StreamID=0; StreamID<0x100; StreamID++)
-        Read_Buffer_Finalize_PerStream(StreamID, Streams_Extension[StreamID]);
-
-    //Fill General
-    if (Count_Get(Stream_General)==0)
-    {
-        if (Count_Get(Stream_Video) || Count_Get(Stream_Audio))
-            Stream_Prepare(Stream_General);
-        else
-        {
-            Reject("MPEG-PS");
-            return;
-        }
-    }
-    Fill(Stream_General, 0, General_Format, "MPEG-PS");
-
-    //Tags in MPEG Video
-    if (Count_Get(Stream_Video)>0)
-        Fill(Stream_General, 0, General_Encoded_Library, Retrieve(Stream_Video, 0, Video_Encoded_Library));
-
-    //Purge what is not needed anymore
-    if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
-    {
-        Streams.clear();
-        Streams_Private1.clear();
-        Streams_Extension.clear();
-    }
-
-    //Bitrate coherancy
-    if (!IsSub && PTS>0 && PTS!=(int64u)-1 && DTS!=0 && File_Size!=(int64u)-1)
-    {
-        int64u BitRate_FromDuration=File_Size*8000*90/DTS;
-        int64u BitRate_FromBitRates=PTS;
-
-        if (BitRate_FromDuration>=BitRate_FromBitRates*3
-         || BitRate_FromDuration<=BitRate_FromBitRates/10)
-        {
-            //Clearing durations
-            for (size_t StreamKind=0; StreamKind<=Stream_Text; StreamKind++)
-                for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
-                    Clear((stream_t)StreamKind, StreamPos, "Duration");
-            if (Count_Get(Stream_Video)==1)
-                Clear(Stream_Video, 0, Video_Duration);
-        }
-    }
-}
-
-//---------------------------------------------------------------------------
-void File_MpegPs::Read_Buffer_Finalize_PerStream(size_t StreamID, ps_stream &Temp)
-{
-    //By the parser
-    StreamKind_Last=Stream_Max;
-    if (Temp.Parser /*&& Temp.Parser->Count_Get(Stream_General)>0*/) //Verifying it is really detected, not only a header
-    {
-        Temp.Parser->ShouldContinueParsing=false;
-        Open_Buffer_Finalize(Temp.Parser);
-        Merge(*Temp.Parser);
-    }
-    //By the TS stream_type
-    if (StreamKind_Last==Stream_Max)
-    {
-        //Disabling stream_private_1 if needed (will be done by Streams_Private1 object)
-        if (Temp.stream_type!=0 && StreamID==0xBD)
-        {
-            bool StreamIsDetected=false;
-            for (size_t Pos=0; Pos<Streams_Private1.size(); Pos++)
-                if (Streams_Private1[Pos].Parser)
-                    StreamIsDetected=true;
-            if (StreamIsDetected)
-                Temp.stream_type=0;
-        }
-
-        if (Temp.stream_type!=0)
-            Stream_Prepare(Mpeg_Psi_stream_type_StreamKind(Temp.stream_type, 0x00000000));
-    }
-    //By StreamIsRegistred
-    if (StreamKind_Last==Stream_Max)
-    {
-        if (Temp.StreamIsRegistred)
-        {
-            if (StreamID>=0xC0 && StreamID<=0xDF)
-                Stream_Prepare(Stream_Audio);
-            if (StreamID>=0xE0 && StreamID<=0xEF)
-                Stream_Prepare(Stream_Video);
-        }
-    }
-
-    //More info
-    if (StreamKind_Last!=Stream_Max) //Found
-    {
-        //Special cases
-        if (StreamKind_Last==Stream_Text && Temp.Parser && Temp.Parser->Count_Get(Stream_Video))
-        {
-            StreamKind_Last=Stream_Video;
-            StreamPos_Last=Count_Get(Stream_Video)-1;
-        }
-
-        //Common
-        Fill(StreamKind_Last, StreamPos_Last, "ID", StreamID);
-        Ztring ID_String; ID_String.From_Number(StreamID); ID_String+=_T(" (0x"); ID_String+=Ztring::ToZtring(StreamID, 16); ID_String+=_T(")");
-        Fill(StreamKind_Last, StreamPos_Last, "ID/String", ID_String); //TODO: merge with Decimal_Hexa in file_MpegTs
-        if (Retrieve(StreamKind_Last, StreamPos_Last, "Format").empty() && Temp.stream_type!=0)
-            Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Psi_stream_type_Format(Temp.stream_type, 0x0000));
-        if (Retrieve(StreamKind_Last, StreamPos_Last, "Codec").empty() && Temp.stream_type!=0)
-            Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Psi_stream_type_Codec(Temp.stream_type, 0x0000));
-
-        int64u Start=(int64u)-1, End=(int64u)-1;
-        if (Temp.TimeStamp_Start.DTS.TimeStamp!=(int64u)-1 && Temp.TimeStamp_End.DTS.TimeStamp!=(int64u)-1)
-        {
-            Start=Temp.TimeStamp_Start.DTS.TimeStamp;
-            End=Temp.TimeStamp_End.DTS.TimeStamp;
-        }
-        else if (Temp.TimeStamp_Start.PTS.TimeStamp!=(int64u)-1 && Temp.TimeStamp_End.PTS.TimeStamp!=(int64u)-1)
-        {
-            Start=Temp.TimeStamp_Start.PTS.TimeStamp;
-            End=Temp.TimeStamp_End.PTS.TimeStamp;
-        }
-        if (Start!=(int64u)-1 && End!=(int64u)-1)
-        {
-            //TimeStamp
-            if (End<Start)
-                End+=0x200000000LL; //33 bits, cyclic
-            int64u Duration=End-Start;
-            if (File_Size!=(int64u)-1 && File_Size>1024*1024*16 && End>=0x200000000LL)
-            {
-                //Testing coherancy
-                if (Duration/90>16*3600*1000)
-                    Duration=0; //Disabling it
-            }
-            if (Duration)
-            {
-                if (StreamKind_Last==Stream_Video)
-                {
-                    float64 FrameRate=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float64();
-                    if (FrameRate!=0)
-                        Duration+=Ztring::ToZtring(Temp.FrameCount_AfterLast_TimeStamp_End*90*1000/FrameRate, 0).To_int64u();
-                }
-                if (Duration)
-                {
-                    Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration/90, 10, true);
-                    if (Duration>DTS)
-                        DTS=Duration; //Saving maximum Duration
-                }
-            }
-        }
-        if (Temp.TimeStamp_Start.PTS.TimeStamp!=(int64u)-1)
-        {
-            if (StreamKind_Last==Stream_Video)
-            {
-                Fill(StreamKind_Last, StreamPos_Last, "Delay_Original", Retrieve(StreamKind_Last, StreamPos_Last, "Delay"));
-                Fill(StreamKind_Last, StreamPos_Last, "Delay_Original_Settings", Retrieve(StreamKind_Last, StreamPos_Last, "Delay_Settings"));
-            }
-            Fill(StreamKind_Last, StreamPos_Last, "Delay", Temp.TimeStamp_Start.PTS.TimeStamp/90, 10, true);
-            Fill(StreamKind_Last, StreamPos_Last, "Delay_Settings", "", Unlimited, true, true);
-        }
-
-        //LATM
-        if (StreamKind_Last==Stream_Audio && StreamID==0xFA)
-            Fill(Stream_Audio, 0, Audio_MuxingMode, "LATM");
-
-        //Special cases
-        if (StreamKind_Last==Stream_Video && Temp.Parser && Temp.Parser->Count_Get(Stream_Text))
-        {
-            //Video and Text are together
-            size_t Text_Count=Temp.Parser->Count_Get(Stream_Text);
-            for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
-            {
-                size_t Pos=Count_Get(Stream_Text)-Text_Count+Text_Pos;
-                Ztring MuxingMode=Retrieve(Stream_Text, Pos, "MuxingMode");
-                Fill(Stream_Text, Pos, "MuxingMode", Ztring(_T("MPEG Video / "))+MuxingMode, true);
-                if (!IsSub)
-                    Fill(Stream_Text, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Last+1));
-                Fill(Stream_Text, Pos, Text_StreamSize, 0);
-                Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
-                Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, StreamPos_Last, Video_ID)+_T("-")+ID, true);
-                Fill(Stream_Text, Pos, Text_ID_String, Retrieve(Stream_Video, StreamPos_Last, Video_ID_String)+_T("-")+ID, true);
-                Fill(Stream_Text, Pos, Text_Delay, Retrieve(Stream_Video, StreamPos_Last, Video_Delay), true);
-            }
-        }
-    }
-
-    //Bitrate calculation
-    if (PTS!=(int64u)-1 && (StreamKind_Last==Stream_Video || StreamKind_Last==Stream_Audio))
-    {
-        int64u BitRate=Retrieve(StreamKind_Last, StreamPos_Last, "BitRate").To_int64u();
-        if (BitRate==0)
-            BitRate=Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Nominal").To_int64u();
-        if (BitRate==0)
-            PTS=(int64u)-1;
-        else
-            PTS+=BitRate; //Saving global BitRate
     }
 }
 
@@ -1446,12 +1445,12 @@ void File_MpegPs::Detect_EOF()
         return;
 
     //Jumping if needed
-    IsFilled=true;
+    if (!IsAccepted)
+        Accept("MPEG-PS");
+    Fill("MPEG-PS");
     if (File_Size>SizeToAnalyze && File_Offset+Buffer_Size<File_Size-SizeToAnalyze)
     {
         //Jumping
-        if (!IsAccepted)
-            Accept("MPEG-PS");
         GoToFromEnd(SizeToAnalyze, "MPEG-PS");
         Read_Buffer_Unsynched();
     }
@@ -2274,7 +2273,7 @@ void File_MpegPs::private_stream_2_TSHV_A0()
     Skip_XX(Element_Size,                                       "Unknown");
 
     //Filling
-    IsFilled=true;
+    Accept("MPEG-PS");
     Finish("MPEG-PS");
 }
 

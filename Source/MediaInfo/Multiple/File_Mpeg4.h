@@ -38,8 +38,8 @@ namespace MediaInfoLib
 class File_Mpeg4 : public File__Analyze
 {
 protected :
-    //Buffer - Global
-    void Read_Buffer_Finalize();
+    //Streams management
+    void Streams_Finish();
 
 public :
     File_Mpeg4();

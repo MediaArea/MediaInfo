@@ -755,9 +755,8 @@ void File_Mpeg4_Descriptors::Descriptor_05()
     if (!Parser_DoNotFreeIt
      || StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC")) //File_Mpeg4_AudioSpecificConfig is only for DecConfig
     {
-        Open_Buffer_Finalize(Parser);
-
         //Filling
+        Finish(Parser);
         Merge(*Parser, StreamKind_Last, 0, StreamPos_Last);
 
         delete Parser; Parser=NULL;

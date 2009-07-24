@@ -802,9 +802,9 @@ void File_Mpeg4::jp2c()
 
         //Parsing
         Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, (size_t)Element_Size);
-        Open_Buffer_Finalize(&MI);
 
         //Filling
+        Finish(&MI);
         Merge(MI);
         Fill(Stream_General, 0, General_Format, "JPEG 2000", Unlimited, true, true);
         Fill(Stream_General, 0, General_Format_Profile, "MPEG-4");
@@ -2627,9 +2627,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
 
             //Parsing
             Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, 0);
-            Open_Buffer_Finalize(&MI);
 
             //Filling
+            Finish(&MI);
             Merge(MI, StreamKind_Last, 0, StreamPos_Last);
         }
         #endif
@@ -2643,9 +2643,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
 
             //Parsing
             Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, 0);
-            Open_Buffer_Finalize(&MI);
 
             //Filling
+            Finish(&MI);
             Merge(MI, StreamKind_Last, 0, StreamPos_Last);
         }
         #endif
@@ -2659,9 +2659,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
 
             //Parsing
             Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, 0);
-            Open_Buffer_Finalize(&MI);
 
             //Filling
+            Finish(&MI);
             Merge(MI, StreamKind_Last, 0, StreamPos_Last);
         }
         #endif
@@ -2741,7 +2741,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 Open_Buffer_Init(&MI);
                 Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
                 Element_Offset=Element_Size;
-                Open_Buffer_Finalize(&MI);
+                Finish(&MI);
                 Merge(MI, Stream_Video, 0, StreamPos_Last);
             }
         #endif
@@ -3450,7 +3450,7 @@ void File_Mpeg4::moov_trak_tkhd()
         Fill(StreamKind_Last, StreamPos_Last, "ID", moov_trak_tkhd_TrackID, 10, true);
         if (moov_trak_tkhd_Height*d)
             moov_trak_tkhd_DisplayAspectRatio=(moov_trak_tkhd_Width*a)/(moov_trak_tkhd_Height*d);
-        moov_trak_tkhd_Rotation=std::atan2(b, a)*180.0/3.14159;
+        moov_trak_tkhd_Rotation=(float32)(std::atan2(b, a)*180.0/3.14159);
         if (moov_trak_tkhd_Rotation<0)
             moov_trak_tkhd_Rotation+=360;
     FILLING_END();

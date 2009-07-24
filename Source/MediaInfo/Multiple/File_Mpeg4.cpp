@@ -135,11 +135,11 @@ File_Mpeg4::File_Mpeg4()
 }
 
 //***************************************************************************
-// Format
+// Streams management
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Mpeg4::Read_Buffer_Finalize()
+void File_Mpeg4::Streams_Finish()
 {
     //For each stream
     std::map<int32u, stream>::iterator Temp=Stream.begin();
@@ -153,7 +153,7 @@ void File_Mpeg4::Read_Buffer_Finalize()
         if (Temp->second.Parser)
         {
             //Finalizing and Merging
-            Open_Buffer_Finalize(Temp->second.Parser);
+            Finish(Temp->second.Parser);
             if (StreamKind_Last==Stream_General)
             {
                 //Special case for TimeCode without link
@@ -233,8 +233,8 @@ void File_Mpeg4::Read_Buffer_Finalize()
         Ztring VendorS=Mpeg4_Encoded_Library(Vendor);
         if (!Vendor_Version.empty())
         {
-            VendorS+=_T(' ');    
-            VendorS+=Vendor_Version;    
+            VendorS+=_T(' ');
+            VendorS+=Vendor_Version;
         }
         Fill(Stream_General, 0, General_Encoded_Library, VendorS);
         Fill(Stream_General, 0, General_Encoded_Library_Name, Mpeg4_Encoded_Library(Vendor));
@@ -433,9 +433,9 @@ void File_Mpeg4::Descriptors()
 
     //Parsing
     Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-    Open_Buffer_Finalize(&MI);
 
     //Filling
+    Finish(&MI);
     Merge(MI, StreamKind_Last, 0, StreamPos_Last);
 
     //Position
