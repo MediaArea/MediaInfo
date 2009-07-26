@@ -289,7 +289,7 @@ void File_MpegTs::Streams_Fill()
     if (Complete_Stream->transport_stream_id_IsValid)
     {
         Fill(Stream_General, 0, General_ID, Complete_Stream->transport_stream_id, 16);
-        Fill(Stream_General, 0, General_ID_String, /*Decimal_Hexa(*/Complete_Stream->transport_stream_id/*)*/, 16);
+        Fill(Stream_General, 0, General_ID_String, /*Decimal_Hexa(*/Complete_Stream->transport_stream_id/*)*/, 16, true);
     }
     if (!Complete_Stream->network_name.empty())
         Fill(Stream_General, 0, General_NetworkName, Complete_Stream->network_name);
@@ -351,7 +351,7 @@ void File_MpegTs::Streams_Fill()
                     Stream_Prepare(Stream_Menu);
                     Program->second.StreamPos=StreamPos_Last;
                     Fill(Stream_Menu, StreamPos_Last, Menu_ID, Program->second.pid);
-                    Fill(Stream_Menu, StreamPos_Last, Menu_ID_String, Decimal_Hexa(Program->second.pid));
+                    Fill(Stream_Menu, StreamPos_Last, Menu_ID_String, Decimal_Hexa(Program->second.pid), true);
                     Fill(Stream_Menu, StreamPos_Last, Menu_MenuID, Program->first);
                     Fill(Stream_Menu, StreamPos_Last, Menu_MenuID_String, Decimal_Hexa(Program->first));
                     for (std::map<std::string, ZenLib::Ztring>::iterator Info=Program->second.Infos.begin(); Info!=Program->second.Infos.end(); Info++)

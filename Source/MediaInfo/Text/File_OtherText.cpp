@@ -217,8 +217,8 @@ void File_OtherText::Read_Buffer_Continue()
 
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, Format);
-    Fill(Stream_General, 0, General_Format_Info, FormatMore);
-    Fill(Stream_General, 0, General_Format_Url, Url);
+    Fill(Stream_General, 0, General_Format_Info, FormatMore, true);
+    Fill(Stream_General, 0, General_Format_Url, Url, true);
     Fill(Stream_General, 0, General_Format_Extensions, Extensions);
     Stream_Prepare(Stream_Text);
     Fill(Stream_Text, 0, Text_Format, Format);

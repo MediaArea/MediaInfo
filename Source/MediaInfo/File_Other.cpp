@@ -104,18 +104,18 @@ void File_Other::Read_Buffer_Continue()
     else if (CC2(Buffer)==0x8008) {Format=_T("Lynx");}
     else if (CC7(Buffer)==CC7("\x01ZZZZZ\x01")) {Format=_T("");}
     else if (CC6(Buffer)==CC6("1\x0A\x0D""00:")) {Format=_T("SRT"); Extensions=_T("srt"); Url=_T("http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow");
+                                           Stream_Prepare(Stream_General);
                                            Stream_Prepare(Stream_Text); Fill(Stream_Text, 0, Text_Format, "SRT");}
     else if (CC1(Buffer+0)==CC1("[") && CC1(Buffer+2)==CC1("S") && CC1(Buffer+22)==CC1("o") && CC1(Buffer+24)==CC1("]") //Unicode Text is : "[Script Info]
           || CC1(Buffer+2)==CC1("[") && CC1(Buffer+4)==CC1("S") && CC1(Buffer+24)==CC1("o") && CC1(Buffer+26)==CC1("]"))
                                           {Format=_T("SSA"); Extensions=_T("ssa"); Url=_T("http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow");
+                                           Stream_Prepare(Stream_General);
                                            Stream_Prepare(Stream_Text); Fill(Stream_Text, 0, Text_Format, "SSA");}
-    else if (CC6(Buffer)==CC6("#!AMR\n"))
-                {Format=_T("AMR");
-                Stream_Prepare(Stream_Audio); Fill(Stream_Audio, 0, Audio_Format, "AMR"); Fill(Stream_Audio, 0, Audio_Format_Url, "http://www.apple.com/quicktime/download/standalone.html");}
     else if (CC4(Buffer)==CC4("RIFF") && CC4(Buffer+8)==CC4("AMV ")) {Format=_T("AMV");}
     else if (CC4(Buffer)==0x414D5697) {Format=_T("MTV");}
     else if (CC6(Buffer)==CC6("Z\0W\0F\0"))
                 {Format=_T("ZWF");
+                Stream_Prepare(Stream_General);
                 Stream_Prepare(Stream_Audio); Fill(Stream_Audio, 0, Audio_Format, "ZWF");}
     else if (CC4(Buffer)==0x616A6B67) //"ajkg"
     {
@@ -146,10 +146,13 @@ void File_Other::Read_Buffer_Continue()
         return;
     }
 
-    Stream_Prepare(Stream_General);
+    if (Count_Get(Stream_General)==0)
+        Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, Format);
-    Fill(Stream_General, 0, General_Format_Url, Url);
-    Fill(Stream_General, 0, General_Format_Extensions, Extensions);
+    if (!Url.empty())
+        Fill(Stream_General, 0, General_Format_Url, Url, true);
+    if (!Extensions.empty())
+        Fill(Stream_General, 0, General_Format_Extensions, Extensions, true);
     Accept();
     Finish();
 }

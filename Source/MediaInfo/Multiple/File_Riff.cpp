@@ -362,7 +362,7 @@ void File_Riff::Streams_Finish ()
                     }
                     if (Audio_FirstBytes && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitRate).To_int32u())
                     {
-                        Fill(Stream_Audio, StreamPos_Last, "Interleave_Preload", Audio_FirstBytes*8*1000/Retrieve(Stream_Audio, StreamPos_Last, Audio_BitRate).To_int32u());
+                        Fill(Stream_Audio, StreamPos_Last, "Interleave_Preload", Audio_FirstBytes*1000/Temp->second.AvgBytesPerSec);
                         Fill(Stream_Audio, StreamPos_Last, "Interleave_Preload/String", Retrieve(Stream_Audio, StreamPos_Last, "Interleave_Preload")+_T(" ms"));
                     }
                 }

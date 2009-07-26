@@ -602,7 +602,7 @@ void File_Dvdv::Video()
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate, IFO_FrameRate[Standard]);
             Fill(Stream_Video, StreamPos_Last, Video_BitRate_Mode, IFO_BitRate_Mode[BitRate_Mode]);
             Fill(Stream_Video, StreamPos_Last, "ID", _T("0xE0"));
-            Fill(Stream_Video, StreamPos_Last, "ID/String", _T("0xE0"));
+            Fill(Stream_Video, StreamPos_Last, "ID/String", _T("0xE0"), Unlimited, true);
         }
     FILLING_END();
 }
@@ -1267,6 +1267,9 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
 
                 if (Available && Retrieve(Stream_Audio, Pos, Text_ID).empty() && Sectors[(size_t)((File_Offset+Buffer_Offset)/2048)]==Sector_VTS_PGCI)
                 {
+                    while (Pos>Count_Get(Stream_Audio))
+                        Stream_Prepare(Stream_Audio);
+
                     int8u ToAdd=0;
                     if (Retrieve(Stream_Audio, Pos, Audio_Format)==_T("AC-3"))
                         ToAdd=0x80;
@@ -1276,7 +1279,7 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
                         ToAdd=0xA0;
                     Ztring ID_String; ID_String=_T("0x"); ID_String+=Ztring::ToZtring(ToAdd+Number, 16);
                     Fill(Stream_Audio, Pos, Audio_ID, ID_String);
-                    Fill(Stream_Audio, Pos, Audio_ID_String, ID_String);
+                    Fill(Stream_Audio, Pos, Audio_ID_String, ID_String, true);
                 }
             }
             Element_End();
@@ -1305,9 +1308,12 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
 
                 if (Available && Retrieve(Stream_Text, Pos, Text_ID).empty() && Sectors[(size_t)((File_Offset+Buffer_Offset)/2048)]==Sector_VTS_PGCI)
                 {
+                    while (Pos>Count_Get(Stream_Text))
+                        Stream_Prepare(Stream_Text);
+
                     Ztring ID_String; ID_String=_T("0x"); ID_String+=Ztring::ToZtring(0x20+Number_Wide, 16);
                     Fill(Stream_Text, Pos, Text_ID, ID_String);
-                    Fill(Stream_Text, Pos, Text_ID_String, ID_String);
+                    Fill(Stream_Text, Pos, Text_ID_String, ID_String, true);
                 }
             }
             Element_End();

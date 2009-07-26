@@ -102,6 +102,20 @@ void File_Bmp::Read_Buffer_Continue()
         Get_L4 (Offset,                                         "Offset of data");
     Element_End();
 
+    FILLING_BEGIN();
+        if (Size!=File_Size)
+        {
+            Reject("BMP");
+            return;
+        }
+
+        Accept("BMP");
+
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "Bitmap");
+        Stream_Prepare(Stream_Image);
+    FILLING_END();
+
     Element_Begin("DIB header");
         Peek_L4 (DIB_Size);
         switch (DIB_Size)
@@ -119,22 +133,8 @@ void File_Bmp::Read_Buffer_Continue()
     Skip_XX(Offset-Element_Offset,                              "Color palette");
     Skip_XX(File_Size-Offset,                                   "Bitmap data");
 
-    FILLING_BEGIN();
-        if (Size!=File_Size) //"BM"
-        {
-            Reject("BMP");
-            return;
-        }
-
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "Bitmap");
-        if (Count_Get(Stream_Image)==0)
-            Stream_Prepare(Stream_Image);
-
-        //No need of more
-        Accept("BMP");
-        Finish("BMP");
-    FILLING_END();
+    //No need of more
+    Finish("BMP");
 }
 
 //***************************************************************************
@@ -161,7 +161,6 @@ void File_Bmp::BitmapInfoHeader()
     Skip_L4(                                                    "Number of important colors used");
 
     FILLING_BEGIN();
-        Stream_Prepare(Stream_Image);
         Fill(Stream_Image, 0, Image_Width, Width);
         Fill(Stream_Image, 0, Image_Height, Height);
         Fill(Stream_Image, 0, Image_Resolution, BitsPerPixel);

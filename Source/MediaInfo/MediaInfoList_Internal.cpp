@@ -167,13 +167,10 @@ void MediaInfoList_Internal::Entry()
             ToParse.pop();
             ToParse_AlreadyDone++;
             State=ToParse_AlreadyDone*10000/ToParse_Total;
-            if (!IsInThread && State==10000)
-            {
-                CS.Leave();
-                break; //This is not in a thread, we must stop alone
-            }
         }
         CS.Leave();
+        if (!IsInThread && State==10000)
+            break; //This is not in a thread, we must stop alone
         Yield();
     }
 }

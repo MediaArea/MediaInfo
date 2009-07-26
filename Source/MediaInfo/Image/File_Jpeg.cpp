@@ -328,7 +328,7 @@ void File_Jpeg::SIZ()
         Fill(StreamKind, 0, "Format", StreamKind==Stream_Image?"JPEG 2000":"M-JPEG 2000");
         Fill(StreamKind, 0, "Codec", StreamKind==Stream_Image?"JPEG 2000":"M-JPEG 2000");
         if (StreamKind==Stream_Image)
-            Fill(Stream_Image, 0, Image_Codec_String, "JPEG 2000"); //To Avoid automatic filling
+            Fill(Stream_Image, 0, Image_Codec_String, "JPEG 2000", Unlimited, true, true); //To Avoid automatic filling
         Fill(StreamKind, 0, "Width", Xsiz);
         Fill(StreamKind, 0, "Height", Ysiz);
         Accept("JPEG 2000");
@@ -411,7 +411,7 @@ void File_Jpeg::SOF_()
             Fill(StreamKind, 0, "Format", StreamKind==Stream_Image?"JPEG":"M-JPEG");
             Fill(StreamKind, 0, "Codec", StreamKind==Stream_Image?"JPEG":"M-JPEG");
             if (StreamKind==Stream_Image)
-                Fill(Stream_Image, 0, Image_Codec_String, "JPEG"); //To Avoid automatic filling
+                Fill(Stream_Image, 0, Image_Codec_String, "JPEG", Unlimited, true, true); //To Avoid automatic filling
             Fill(StreamKind, 0, "Resolution", Resolution*3);
             Fill(StreamKind, 0, "Height", Height*Height_Multiplier);
             Fill(StreamKind, 0, "Width", Width);

@@ -319,7 +319,7 @@ void File_Mpegv::Streams_Fill()
         Fill(Stream_Video, 0, Video_Format, "MPEG Video");
         Fill(Stream_Video, 0, Video_Format_Version, "Version 2");
         Fill(Stream_Video, 0, Video_Codec, "MPEG-2V");
-        Fill(Stream_Video, 0, Video_Codec_String, "MPEG-2 Video");
+        Fill(Stream_Video, 0, Video_Codec_String, "MPEG-2 Video", Unlimited, true, true);
     }
     else
     {
@@ -328,7 +328,7 @@ void File_Mpegv::Streams_Fill()
         Fill(Stream_Video, 0, Video_Format, "MPEG Video");
         Fill(Stream_Video, 0, Video_Format_Version, "Version 1");
         Fill(Stream_Video, 0, Video_Codec, "MPEG-1V");
-        Fill(Stream_Video, 0, Video_Codec_String, "MPEG-1 Video");
+        Fill(Stream_Video, 0, Video_Codec_String, "MPEG-1 Video", Unlimited, true, true);
     }
 
     Fill(Stream_Video, 0, Video_Width, 0x1000*horizontal_size_extension+horizontal_size_value);

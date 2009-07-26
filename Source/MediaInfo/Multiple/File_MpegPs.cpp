@@ -340,7 +340,7 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp)
         //Common
         Fill(StreamKind_Last, StreamPos_Last, "ID", StreamID);
         Ztring ID_String; ID_String.From_Number(StreamID); ID_String+=_T(" (0x"); ID_String+=Ztring::ToZtring(StreamID, 16); ID_String+=_T(")");
-        Fill(StreamKind_Last, StreamPos_Last, "ID/String", ID_String); //TODO: merge with Decimal_Hexa in file_MpegTs
+        Fill(StreamKind_Last, StreamPos_Last, "ID/String", ID_String, true); //TODO: merge with Decimal_Hexa in file_MpegTs
         if (Retrieve(StreamKind_Last, StreamPos_Last, "Format").empty() && Temp.stream_type!=0)
             Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Psi_stream_type_Format(Temp.stream_type, 0x0000));
         if (Retrieve(StreamKind_Last, StreamPos_Last, "Codec").empty() && Temp.stream_type!=0)

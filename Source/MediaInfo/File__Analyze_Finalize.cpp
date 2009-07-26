@@ -79,15 +79,6 @@ void File__Analyze::Finalize_StreamOnly()
 //---------------------------------------------------------------------------
 void File__Analyze::Finalize_StreamOnly(stream_t StreamKind, size_t Pos)
 {
-    //BitRate from BitRate_Nominal
-    float32 BitRate=Retrieve(StreamKind, Pos, "BitRate").To_float32();
-    float32 BitRate_Nominal=Retrieve(StreamKind, Pos, "BitRate_Nominal").To_float32();
-    if (BitRate_Nominal>BitRate*0.995 && BitRate_Nominal<BitRate*1.005)
-    {
-        Fill(StreamKind, Pos, "BitRate", Retrieve(StreamKind, Pos, "BitRate_Nominal"), true);
-        Clear(StreamKind, Pos, "BitRate_Nominal");
-    }
-
     //BitRate from Duration and StreamSize
     if (StreamKind!=Stream_General && StreamKind!=Stream_Chapters && Retrieve(StreamKind, Pos, "BitRate").empty() && !Retrieve(StreamKind, Pos, "StreamSize").empty() && !Retrieve(StreamKind, Pos, "Duration").empty())
     {
@@ -128,14 +119,6 @@ void File__Analyze::Finalize_StreamOnly_General(size_t StreamPos)
 //---------------------------------------------------------------------------
 void File__Analyze::Finalize_StreamOnly_Video(size_t Pos)
 {
-    //FrameRate Nominal
-    float32 FrameRate=Retrieve(Stream_Video, Pos, "FrameRate").To_float32();
-    float32 FrameRate_Nominal=Retrieve(Stream_Video, Pos, "FrameRate_Nominal").To_float32();
-    if (FrameRate_Nominal>FrameRate*0.995 && FrameRate_Nominal<FrameRate*1.005)
-    {
-        Fill(Stream_Video, Pos, "FrameRate", Retrieve(Stream_Video, Pos, "FrameRate_Nominal"), true);
-        Clear(Stream_Video, Pos, "FrameRate_Nominal");
-    }
     //FrameCount
     if (Retrieve(Stream_Video, Pos, "FrameCount").empty())
     {
@@ -156,15 +139,6 @@ void File__Analyze::Finalize_StreamOnly_Video(size_t Pos)
         if (Duration)
            Fill(Stream_Video, Pos, "Duration", Duration);
     }
-
-    //Well known framerate values
-    Finalize_Video_FrameRate(Pos, Video_FrameRate);
-    Finalize_Video_FrameRate(Pos, Video_FrameRate_Nominal);
-    Finalize_Video_FrameRate(Pos, Video_FrameRate_Original);
-    if (Retrieve(Stream_Video, Pos, Video_FrameRate_Nominal)==Retrieve(Stream_Video, Pos, Video_FrameRate))
-        Clear(Stream_Video, Pos, Video_FrameRate_Nominal);
-    if (Retrieve(Stream_Video, Pos, Video_FrameRate_Original)==Retrieve(Stream_Video, Pos, Video_FrameRate))
-        Clear(Stream_Video, Pos, Video_FrameRate_Original);
 }
 
 //---------------------------------------------------------------------------
@@ -196,10 +170,6 @@ void File__Analyze::Finalize_StreamOnly_Audio(size_t Pos)
         if (StreamSize)
             Fill(Stream_Audio, Pos, Audio_StreamSize, StreamSize);
     }
-
-    //Well known bitrate values
-    Finalize_Audio_BitRate(Pos, Audio_BitRate);
-    Finalize_Audio_BitRate(Pos, Audio_BitRate_Nominal);
 
     //Delay/Video
     if (Count_Get(Stream_Video)>0 && Retrieve(Stream_Audio, Pos, Audio_Video_Delay).empty() && !Retrieve(Stream_Audio, Pos, Audio_Delay).empty() && !Retrieve(Stream_Video, 0, Video_Delay).empty())
@@ -437,124 +407,6 @@ void File__Analyze::Finalize_Cosmetic()
 //---------------------------------------------------------------------------
 void File__Analyze::Finalize_Cosmetic(stream_t StreamKind, size_t Pos)
 {
-    //Format
-    if (!Retrieve(StreamKind, Pos, "Format").empty())
-    {
-        if (Retrieve(StreamKind, Pos, "Format/Info"  ).empty()) Fill(StreamKind, Pos, "Format/Info"  , MediaInfoLib::Config.Format_Get(Retrieve(StreamKind, Pos, "Format"), InfoFormat_Info));
-        if (Retrieve(StreamKind, Pos, "Format/Url"   ).empty()) Fill(StreamKind, Pos, "Format/Url"   , MediaInfoLib::Config.Format_Get(Retrieve(StreamKind, Pos, "Format"), InfoFormat_Url));
-    }
-
-    if (StreamKind!=Stream_General)
-    {
-        //Codec
-        if (!Retrieve(StreamKind, Pos, "Codec").empty())
-        {
-            const Ztring &C1=MediaInfoLib::Config.Codec_Get(Retrieve(StreamKind, Pos, "Codec"), InfoCodec_Name, (stream_t)StreamKind);
-            if (C1.empty())
-            {
-                if (Retrieve(StreamKind, Pos, "Codec/String").empty()) Fill(StreamKind, Pos, "Codec/String", Retrieve(StreamKind, Pos, "Codec"));
-            }
-            else
-            {
-                if (Retrieve(StreamKind, Pos, "Codec/String").empty()) Fill(StreamKind, Pos, "Codec/String", C1);
-                if (Retrieve(StreamKind, Pos, "Codec/Family").empty()) Fill(StreamKind, Pos, "Codec/Family", MediaInfoLib::Config.Codec_Get(Retrieve(StreamKind, Pos, "Codec"), InfoCodec_KindofCodec, (stream_t)StreamKind));
-                if (Retrieve(StreamKind, Pos, "Codec/Info"  ).empty()) Fill(StreamKind, Pos, "Codec/Info"  , MediaInfoLib::Config.Codec_Get(Retrieve(StreamKind, Pos, "Codec"), InfoCodec_Description, (stream_t)StreamKind));
-                if (Retrieve(StreamKind, Pos, "Codec/Url"   ).empty()) Fill(StreamKind, Pos, "Codec/Url"   , MediaInfoLib::Config.Codec_Get(Retrieve(StreamKind, Pos, "Codec"), InfoCodec_Url, (stream_t)StreamKind));
-            }
-        }
-
-        //Special cases
-        if (StreamKind==Stream_Audio
-         && Retrieve(StreamKind, Pos, "Channel(s)").empty()
-         &&(Retrieve(StreamKind, Pos, "Codec")==_T("samr")
-         || Retrieve(StreamKind, Pos, "Codec")==_T("sawb")
-         || Retrieve(StreamKind, Pos, "Codec")==_T("7A21")
-         || Retrieve(StreamKind, Pos, "Codec")==_T("7A22"))
-            )
-            Fill(StreamKind, Pos, "Channel(s)", 1); //AMR is always with 1 channel
-
-        //CodecID_Description
-        if (!Retrieve(StreamKind, Pos, "CodecID_Description").empty() && Retrieve(StreamKind, Pos, "CodecID_Description")==Retrieve(StreamKind, Pos, "CodecID/Info"))
-            Fill(StreamKind, Pos, "CodecID_Description", "", Unlimited, true, true);
-
-        //Language
-        //-Find 2-digit language
-        if (!Retrieve(StreamKind, Pos, "Language").empty())
-        {
-            Ztring Language=Retrieve(StreamKind, Pos, "Language");
-            Language.MakeLowerCase();
-            if (Language.size()==3 && (Language==_T("mis") || Language==_T("und") || Language==_T("???") || Language==_T("   "))
-             || Language.size()==2 && Language==_T("  "))
-            {
-                Clear(StreamKind, Pos, "Language");
-                Language.clear();
-            }
-            if (!Language.empty() && MediaInfoLib::Config.ReadByHuman_Get())
-            {
-                if (Language.size()==3 && !MediaInfoLib::Config.Iso639_Get(Language).empty())
-                {
-                    Language=MediaInfoLib::Config.Iso639_Get(Language);
-                    Fill(StreamKind, Pos, "Language", Language, true); //Forcing ISO-639
-                }
-                if (Language.size()>3 && !MediaInfoLib::Config.Iso639_Find(Language).empty())
-                {
-                    Language=MediaInfoLib::Config.Iso639_Find(Language);
-                    Fill(StreamKind, Pos, "Language", Language, true); //Forcing ISO-639
-                }
-                //Translate
-                if (Language.size()==2 || Language.size()==3)
-                {
-                    Ztring Temp=_T("Language_"); Temp+=Language;
-                    const Ztring& Z3=MediaInfoLib::Config.Language_Get(Temp);
-                    Fill(StreamKind, Pos, "Language/String", Z3.find(_T("Language_"))==0?Language:Z3);
-                }
-                else
-                {
-                    Language=Retrieve(StreamKind, Pos, "Language");
-                    Fill(StreamKind, Pos, "Language/String", Language);
-                }
-            }
-        }
-    }
-
-    //BitRate / OverallBitRate
-    if (!Retrieve(StreamKind, Pos, StreamKind==Stream_General?"OverallBitRate_Mode":"BitRate_Mode").empty() && MediaInfoLib::Config.ReadByHuman_Get())
-    {
-        const Ztring &UnTranslated=Retrieve(StreamKind, Pos, StreamKind==Stream_General?"OverallBitRate_Mode":"BitRate_Mode");
-        Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("BitRate_Mode_"))+UnTranslated);
-        Fill(StreamKind, Pos, StreamKind==Stream_General?"OverallBitRate_Mode/String":"BitRate_Mode/String", Translated.find(_T("BitRate_Mode_"))?Translated:UnTranslated);
-    }
-
-    //ID
-    if (!Retrieve(StreamKind, Pos, "ID").empty() && Retrieve(StreamKind, Pos, "ID/String").empty())
-        Fill(StreamKind, Pos, "ID/String", Retrieve(StreamKind, Pos, "ID"));
-
-    //Encoded_Library
-    if (!Retrieve(StreamKind, Pos, "Encoded_Library").empty() && Retrieve(StreamKind, Pos, "Encoded_Library/String").empty() && MediaInfoLib::Config.ReadByHuman_Get())
-    {
-        const Ztring& Name=Retrieve(StreamKind, Pos, "Encoded_Library/Name");
-        const Ztring& Version=Retrieve(StreamKind, Pos, "Encoded_Library/Version");
-        const Ztring& Date=Retrieve(StreamKind, Pos, "Encoded_Library/Date");
-        if (!Name.empty())
-        {
-            Ztring String=Name;
-            if (!Version.empty())
-            {
-                String+=_T(" ");
-                String+=Version;
-            }
-            if (!Date.empty())
-            {
-                String+=_T(" (");
-                String+=Date;
-                String+=_T(")");
-            }
-            Fill(StreamKind, Pos, "Encoded_Library/String", String);
-        }
-        else
-            Fill(StreamKind, Pos, "Encoded_Library/String", Retrieve(StreamKind, Pos, "Encoded_Library"));
-    }
-
     //Bits/(Pixel*Frame)
     if (StreamKind==Stream_Video && (!Retrieve(Stream_Video, Pos, Video_BitRate).empty() || !Retrieve(Stream_Video, Pos, Video_BitRate_Nominal).empty()))
     {
@@ -587,81 +439,14 @@ void File__Analyze::Finalize_Cosmetic_General(size_t StreamPos)
         Fill (Stream_General, 0, General_File_Modified_Date, F.Modified_Get());
         Fill (Stream_General, 0, General_File_Modified_Date_Local, F.Modified_Local_Get());
     }
-    
-    //Format/Codec
-    const Ztring &Format=Retrieve(Stream_General, 0, "Format");
-    if (!MediaInfoLib::Config.Format_Get(Format, InfoFormat_Name).empty())
-        Fill(Stream_General, 0, General_Format_Extensions, MediaInfoLib::Config.Format_Get(Format, InfoFormat_Extensions));
-    Fill(Stream_General, 0, "Format/String", Retrieve(Stream_General, 0, General_Format));
-    Fill(Stream_General, 0, "Codec", Retrieve(Stream_General, 0, General_Format));
-    Fill(Stream_General, 0, "Codec/String", Retrieve(Stream_General, 0, General_Format));
-    Fill(Stream_General, 0, "Codec/Info", Retrieve(Stream_General, 0, General_Format_Info));
-    Fill(Stream_General, 0, "Codec/Url", Retrieve(Stream_General, 0, General_Format_Url));
-    Fill(Stream_General, 0, "Codec/Extensions", Retrieve(Stream_General, 0, General_Format_Extensions));
-    Fill(Stream_General, 0, "Codec_Settings", Retrieve(Stream_General, 0, General_Format_Settings));
-
-    //Counts
-    if (Count_Get(Stream_Video))
-        Fill(Stream_General, 0, "VideoCount", Count_Get(Stream_Video));
-    if (Count_Get(Stream_Audio))
-        Fill(Stream_General, 0, "AudioCount", Count_Get(Stream_Audio));
-    if (Count_Get(Stream_Text))
-        Fill(Stream_General, 0, "TextCount", Count_Get(Stream_Text));
-    if (Count_Get(Stream_Image))
-        Fill(Stream_General, 0, "ImageCount", Count_Get(Stream_Image));
-    if (Count_Get(Stream_Chapters))
-        Fill(Stream_General, 0, "ChaptersCount", Count_Get(Stream_Chapters));
-    if (Count_Get(Stream_Menu))
-        Fill(Stream_General, 0, "MenuCount", Count_Get(Stream_Menu));
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Finalize_Cosmetic_Video(size_t Pos)
 {
-    //Format_Settings_Matrix
-    if (!Retrieve(Stream_Video, Pos, Video_Format_Settings_Matrix).empty())
-    {
-        const Ztring &UnTranslated=Retrieve(Stream_Video, Pos, Video_Format_Settings_Matrix);
-        Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("Format_Settings_Matrix_"))+UnTranslated);
-        Fill(Stream_Video, Pos, Video_Format_Settings_Matrix_String, Translated.find(_T("Format_Settings_Matrix_"))?Translated:UnTranslated);
-    }
-
-    //Scan type
-    if (!Retrieve(Stream_Video, Pos, Video_ScanType).empty())
-    {
-        const Ztring &UnTranslated=Retrieve(Stream_Video, Pos, Video_ScanType);
-        Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("Interlaced_"))+UnTranslated);
-        Fill(Stream_Video, Pos, Video_ScanType_String, Translated.find(_T("Interlaced_"))?Translated:UnTranslated);
-    }
-    //Scan order
-    if (!Retrieve(Stream_Video, Pos, Video_ScanOrder).empty())
-    {
-        const Ztring &UnTranslated=Retrieve(Stream_Video, Pos, Video_ScanOrder);
-        Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("Interlaced_"))+UnTranslated);
-        Fill(Stream_Video, Pos, Video_ScanOrder_String, Translated.find(_T("Interlaced_"))?Translated:UnTranslated);
-    }
-    //Interlacement
-    if (!Retrieve(Stream_Video, Pos, "Interlacement").empty() && MediaInfoLib::Config.ReadByHuman_Get())
-    {
-        const Ztring &Z1=Retrieve(Stream_Video, Pos, "Interlacement");
-        if (Z1.size()==3)
-            Fill(Stream_Video, Pos, "Interlacement/String", MediaInfoLib::Config.Language_Get(Ztring(_T("Interlaced_"))+Z1));
-        else
-            Fill(Stream_Video, Pos, "Interlacement/String", MediaInfoLib::Config.Language_Get(Z1));
-        if (Retrieve(Stream_Video, Pos, "Interlacement/String").empty())
-            Fill(Stream_Video, Pos, "Interlacement/String", Z1);
-    }
     //Display Aspect Ratio and Pixel Aspect Ratio
     AspectRatio_AspectRatio(Pos, Video_DisplayAspectRatio, Video_PixelAspectRatio, Video_DisplayAspectRatio_String);
     AspectRatio_AspectRatio(Pos, Video_DisplayAspectRatio_Original, Video_PixelAspectRatio_Original, Video_DisplayAspectRatio_Original_String);
-    if (Retrieve(Stream_Video, Pos, Video_DisplayAspectRatio)==Retrieve(Stream_Video, Pos, Video_DisplayAspectRatio_Original))
-        Clear(Stream_Video, Pos, Video_DisplayAspectRatio_Original);
-    if (Retrieve(Stream_Video, Pos, Video_DisplayAspectRatio_String)==Retrieve(Stream_Video, Pos, Video_DisplayAspectRatio_Original_String))
-        Clear(Stream_Video, Pos, Video_DisplayAspectRatio_Original_String);
-    if (Retrieve(Stream_Video, Pos, Video_PixelAspectRatio)==Retrieve(Stream_Video, Pos, Video_PixelAspectRatio_Original))
-        Clear(Stream_Video, Pos, Video_PixelAspectRatio_Original);
-    if (Retrieve(Stream_Video, Pos, Video_PixelAspectRatio_String)==Retrieve(Stream_Video, Pos, Video_PixelAspectRatio_Original_String))
-        Clear(Stream_Video, Pos, Video_PixelAspectRatio_Original_String);
     //Standard
     if (Retrieve(Stream_Video, Pos, "Standard").empty() && Retrieve(Stream_Video, Pos, "Width")==_T("720"))
     {
@@ -669,13 +454,6 @@ void File__Analyze::Finalize_Cosmetic_Video(size_t Pos)
             Fill(Stream_Video, Pos, "Standard", "PAL");
         else if (Retrieve(Stream_Video, Pos, "Height")==_T("480"))
             Fill(Stream_Video, Pos, "Standard", "NTSC");
-    }
-    //FrameRate_Mode
-    if (!Retrieve(Stream_Video, Pos, Video_FrameRate_Mode).empty())
-    {
-        const Ztring &UnTranslated=Retrieve(Stream_Video, Pos, Video_FrameRate_Mode);
-        Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("FrameRate_Mode_"))+UnTranslated);
-        Fill(Stream_Video, Pos, Video_FrameRate_Mode_String, Translated.find(_T("FrameRate_Mode_"))?Translated:UnTranslated);
     }
 }
 
@@ -949,7 +727,6 @@ void File__Analyze::Duration_Duration123(const Ztring &Value, stream_t StreamKin
     size_t List_Pos=List.Find(Value+_T("/String"));
     if (List_Pos==Error)
         return;
-    const Ztring &Target=Retrieve(StreamKind, StreamPos, List_Pos);
     List_Pos=List.Find(Value);
     if (List_Pos==Error || List[List_Pos].size()<=Info_Measure || List[List_Pos][Info_Measure].empty())
         return;
@@ -1081,7 +858,6 @@ void File__Analyze::FileSize_FileSize123(const Ztring &Value, stream_t StreamKin
     size_t List_Pos=List.Find(Value+_T("/String"));
     if (List_Pos==Error)
         return;
-    const Ztring &Target=Retrieve(StreamKind, StreamPos, List_Pos);
     List_Pos=List.Find(Value);
     if (List_Pos==Error || List[List_Pos].size()<=Info_Measure || List[List_Pos][Info_Measure].empty())
         return;
@@ -1147,7 +923,6 @@ void File__Analyze::Kilo_Kilo123(const Ztring &Value, stream_t StreamKind, size_
 {
     const ZtringListList &List=MediaInfoLib::Config.Info_Get(StreamKind);
     size_t List_Pos=List.Find(Value+_T("/String"));
-    const Ztring &Target=Retrieve(StreamKind, StreamPos, List_Pos);
     List_Pos=List.Find(Value);
     if (List_Pos==Error || List[List_Pos].size()<=Info_Measure || List[List_Pos][Info_Measure].empty())
         return;
@@ -1204,7 +979,6 @@ void File__Analyze::Value_Value123(const Ztring &Value, stream_t StreamKind, siz
     size_t List_Pos=List.Find(Value+_T("/String"));
     if (List_Pos==Error)
         return;
-    const Ztring &Target=Retrieve(StreamKind, StreamPos, List_Pos);
     List_Pos=List.Find(Value);
     if (List_Pos==Error || List[List_Pos].size()<=Info_Measure || List[List_Pos][Info_Measure].empty())
         return;
