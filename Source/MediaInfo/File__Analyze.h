@@ -878,9 +878,9 @@ protected :
     void Finalize_Cosmetic_Image(size_t StreamPos);
     void Finalize_Cosmetic_Menu(size_t StreamPos);
 
-    void Finalize_Tags      ();
-    void Finalize_Video_FrameRate (size_t Pos, video Parameter);
-    void Finalize_Audio_BitRate (size_t Pos, audio Parameter);
+    void Tags ();
+    void Video_FrameRate_Rounding (size_t Pos, video Parameter);
+    void Audio_BitRate_Rounding (size_t Pos, audio Parameter);
 
     //Utils - Finalize
     void Duration_Duration123   (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
