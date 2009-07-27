@@ -370,7 +370,7 @@ void File_MpegTs::Streams_Fill()
                             Fill(Stream_Menu, StreamPos_Last, Menu_List_StreamKind, Complete_Stream->Streams[elementary_PID].StreamKind);
                             Fill(Stream_Menu, StreamPos_Last, Menu_List_StreamPos, Complete_Stream->Streams[elementary_PID].StreamPos);
                             Fill(Stream_Menu, StreamPos_Last, Menu_List, elementary_PID);
-                            Ztring Language=Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, "Language");
+                            Ztring Language=Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, "Language/String");
                             Languages+=Language+_T(" / ");
                             Ztring List_String=Decimal_Hexa(elementary_PID);
                             List_String+=_T(" (");

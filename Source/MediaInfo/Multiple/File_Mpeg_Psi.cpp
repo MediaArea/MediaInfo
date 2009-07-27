@@ -1876,14 +1876,17 @@ void File_Mpeg_Psi::ATSC_multiple_string_structure(Ztring &Value, const char* In
             Element_End(3+number_bytes);
 
             FILLING_BEGIN();
-                string+=segment+_T(" - ");
+                if (segment.find_first_not_of(_T("\t\n "))!=std::string::npos)
+                    string+=segment+_T(" - ");
             FILLING_END();
         }
 
         FILLING_BEGIN();
             if (!string.empty())
                 string.resize(string.size()-3);
-            Value+=Ztring().From_CC3(ISO_639_language_code)+_T(':')+string+_T(" - ");
+            Ztring ISO_639_2=Ztring().From_CC3(ISO_639_language_code);
+            const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_Get(ISO_639_2);
+            Value+=(ISO_639_1.empty()?ISO_639_2:ISO_639_1)+_T(':')+string+_T(" - ");
         FILLING_END();
 
         Element_Info(string);

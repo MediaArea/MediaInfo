@@ -438,7 +438,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                         const Ztring& Z3=MediaInfoLib::Config.Language_Get(Temp);
                         Languages_Translated(Pos)=Z3.find(_T("Language_"))==0?Languages[Pos]:Z3;
                     }
-                    /*else if (Languages[Pos].size()==5 && Languages[Pos][2]==_T('-'))
+                    else if (Languages[Pos].size()==5 && Languages[Pos][2]==_T('-'))
                     {
                         Ztring Temp=_T("Language_"); Temp+=Languages[Pos].substr(0, 2);
                         const Ztring& Z3=MediaInfoLib::Config.Language_Get(Temp);
@@ -452,7 +452,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                         Ztring Temp=_T("Language_"); Temp+=Languages[Pos].substr(0, 2);
                         const Ztring& Z3=MediaInfoLib::Config.Language_Get(Temp);
                         Languages_Translated(Pos)=Z3.find(_T("Language_"))==0?Languages[Pos].substr(0, 2):Z3;
-                    }*/
+                    }
                     else
                         Languages_Translated(Pos)=Languages[Pos];
                 }
@@ -471,6 +471,18 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                 Languages_Translated_Temp.resize(Languages_Translated_Temp.size()-3);
             (*Stream)[StreamKind][StreamPos](Parameter)=Languages_Temp;
             Fill(StreamKind, StreamPos, Parameter+1, Languages_Translated_Temp); //"Language/String"
+        }
+
+        //ServiceName / ServiceProvider
+        if (Retrieve(StreamKind, StreamPos, Parameter, Info_Name)==_T("ServiceName")
+         || Retrieve(StreamKind, StreamPos, Parameter, Info_Name)==_T("ServiceProvider"))
+        {
+            if (Retrieve(StreamKind, StreamPos, Parameter).find(_T(" - "))==string::npos && (Retrieve(StreamKind, StreamPos, Parameter).find(_T(":"))==2 || Retrieve(StreamKind, StreamPos, Parameter).find(_T(":"))==3))
+            {
+                Ztring Temp=Retrieve(StreamKind, StreamPos, Parameter);
+                Temp.erase(0, Retrieve(StreamKind, StreamPos, Parameter).find(_T(":"))+1);
+                (*Stream)[StreamKind][StreamPos](Parameter)=Temp;
+            }
         }
 
         //FrameRate Nominal
