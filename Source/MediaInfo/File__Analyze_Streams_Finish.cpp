@@ -75,7 +75,6 @@ void File__Analyze::Streams_Finish_StreamOnly()
 //---------------------------------------------------------------------------
 void File__Analyze::Streams_Finish_StreamOnly(stream_t StreamKind, size_t Pos)
 {
-    /*
     //BitRate from Duration and StreamSize
     if (StreamKind!=Stream_General && StreamKind!=Stream_Chapters && Retrieve(StreamKind, Pos, "BitRate").empty() && !Retrieve(StreamKind, Pos, "StreamSize").empty() && !Retrieve(StreamKind, Pos, "Duration").empty())
     {
@@ -102,7 +101,6 @@ void File__Analyze::Streams_Finish_StreamOnly(stream_t StreamKind, size_t Pos)
         if (BitRate>0 && Duration>0)
             Fill(StreamKind, Pos, "StreamSize", BitRate*Duration/8/1000);
     }
-    */
 }
 
 //---------------------------------------------------------------------------
@@ -113,7 +111,6 @@ void File__Analyze::Streams_Finish_StreamOnly_General(size_t StreamPos)
 //---------------------------------------------------------------------------
 void File__Analyze::Streams_Finish_StreamOnly_Video(size_t Pos)
 {
-    /*
     //FrameCount from Duration and FrameRate
     if (Retrieve(Stream_Video, Pos, Video_FrameCount).empty())
     {
@@ -142,13 +139,11 @@ void File__Analyze::Streams_Finish_StreamOnly_Video(size_t Pos)
         else if (Retrieve(Stream_Video, Pos, Video_Height)==_T("480"))
             Fill(Stream_Video, Pos, Video_Standard, "NTSC");
     }
-    */
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Streams_Finish_StreamOnly_Audio(size_t Pos)
 {
-    /*
     //SamplingCount
     if (Retrieve(Stream_Audio, Pos, Audio_SamplingCount).empty())
     {
@@ -177,14 +172,6 @@ void File__Analyze::Streams_Finish_StreamOnly_Audio(size_t Pos)
             Fill(Stream_Audio, Pos, Audio_StreamSize, Duration*BitRate/8/1000);
     }
 
-    //Delay/Video
-    if (Count_Get(Stream_Video)>0 && Retrieve(Stream_Audio, Pos, Audio_Video_Delay).empty() && !Retrieve(Stream_Audio, Pos, Audio_Delay).empty() && !Retrieve(Stream_Video, 0, Video_Delay).empty())
-        Fill(Stream_Audio, Pos, Audio_Video_Delay, Retrieve(Stream_Audio, Pos, Audio_Delay).To_int64s()-Retrieve(Stream_Video, 0, Video_Delay).To_int64s());
-
-    //Delay/Video0
-    if (Count_Get(Stream_Video)>0 && Retrieve(Stream_Audio, Pos, Audio_Video0_Delay).empty() && !Retrieve(Stream_Audio, Pos, Audio_Delay).empty() && !Retrieve(Stream_Video, 0, Video_Delay).empty())
-        Fill(Stream_Audio, Pos, Audio_Video0_Delay, Retrieve(Stream_Audio, Pos, Audio_Delay).To_int64s()-Retrieve(Stream_Video, 0, Video_Delay).To_int64s());
-
     //CBR/VBR
     if (Retrieve(Stream_Audio, Pos, Audio_BitRate_Mode).empty() && !Retrieve(Stream_Audio, Pos, Audio_Codec).empty())
     {
@@ -192,7 +179,6 @@ void File__Analyze::Streams_Finish_StreamOnly_Audio(size_t Pos)
         if (!Z1.empty())
             Fill(Stream_Audio, Pos, Audio_BitRate_Mode, Z1);
     }
-    */
 }
 
 //---------------------------------------------------------------------------
@@ -218,7 +204,6 @@ void File__Analyze::Streams_Finish_StreamOnly_Menu(size_t StreamPos)
 //---------------------------------------------------------------------------
 void File__Analyze::Streams_Finish_InterStreams()
 {
-    /*
     //Duration if General not filled
     if (Retrieve(Stream_General, 0, General_Duration).empty())
     {
@@ -393,7 +378,6 @@ void File__Analyze::Streams_Finish_InterStreams()
 
     //Tags
     Tags();
-    */
 }
 
 } //NameSpace

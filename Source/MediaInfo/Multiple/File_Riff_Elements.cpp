@@ -2525,6 +2525,10 @@ void File_Riff::WAVE_data()
         return; //This is maybe embeded in another container, and there is only the header (What is the junk?)
     }
 
+    FILLING_BEGIN();
+        Fill(Stream_Audio, 0, Audio_StreamSize, Element_TotalSize_Get());
+    FILLING_END();
+
     //Parsing
     Element_Code=CC4("00wb");
     AVI__movi_xxxx();
@@ -2532,7 +2536,6 @@ void File_Riff::WAVE_data()
         Skip_XX(Element_TotalSize_Get()-Element_Offset,         "Data");
 
     FILLING_BEGIN();
-        Fill(Stream_Audio, 0, Audio_StreamSize, Element_TotalSize_Get());
         int64u Duration=Retrieve(Stream_Audio, 0, Audio_Duration).To_int64u();
         int64u BitRate=Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
         if (Duration)
