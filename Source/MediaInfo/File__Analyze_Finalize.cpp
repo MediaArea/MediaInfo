@@ -150,16 +150,6 @@ void File__Analyze::Finalize_Cosmetic()
 //---------------------------------------------------------------------------
 void File__Analyze::Finalize_Cosmetic(stream_t StreamKind, size_t Pos)
 {
-    //Bits/(Pixel*Frame)
-    if (StreamKind==Stream_Video && (!Retrieve(Stream_Video, Pos, Video_BitRate).empty() || !Retrieve(Stream_Video, Pos, Video_BitRate_Nominal).empty()))
-    {
-        float32 BitRate=Retrieve(Stream_Video, Pos, Video_BitRate).To_float32();
-        if (BitRate==0)
-            BitRate=Retrieve(Stream_Video, Pos, Video_BitRate_Nominal).To_float32();
-        float F1=(float)Retrieve(Stream_Video, Pos, "Width").To_int32s()*(float)Retrieve(Stream_Video, Pos, "Height").To_int32s()*Retrieve(Stream_Video, Pos, "FrameRate").To_float32();
-        if (F1)
-            Fill(Stream_Video, Pos, Video_Bits__Pixel_Frame_, BitRate/F1);
-    }
 
 }
 
@@ -171,9 +161,6 @@ void File__Analyze::Finalize_Cosmetic_General(size_t StreamPos)
 //---------------------------------------------------------------------------
 void File__Analyze::Finalize_Cosmetic_Video(size_t Pos)
 {
-    //Display Aspect Ratio and Pixel Aspect Ratio
-    AspectRatio_AspectRatio(Pos, Video_DisplayAspectRatio, Video_PixelAspectRatio, Video_DisplayAspectRatio_String);
-    AspectRatio_AspectRatio(Pos, Video_DisplayAspectRatio_Original, Video_PixelAspectRatio_Original, Video_DisplayAspectRatio_Original_String);
 }
 
 //---------------------------------------------------------------------------

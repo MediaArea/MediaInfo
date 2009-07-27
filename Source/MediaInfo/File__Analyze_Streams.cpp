@@ -425,6 +425,50 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             }
         }
 
+        //Delay/Video
+        if (StreamKind==Stream_Video && StreamPos==0 && Parameter==Video_Delay)
+        {
+            for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
+                if (!Retrieve(Stream_Audio, Pos, Audio_Delay).empty())
+                {
+                    Fill(Stream_Audio, Pos, Audio_Video_Delay, Retrieve(Stream_Audio, Pos, Audio_Delay).To_int64s()-Value.To_int64s(), 10, true);
+                    if (Retrieve(Stream_Audio, Pos, Audio_Video_Delay).To_int64u()==0)
+                        for (size_t Param_Pos=Audio_Video_Delay+1; Param_Pos<=Audio_Video_Delay+4; Param_Pos++)
+                            if (Param_Pos<(*Stream)[Stream_Audio][Pos].size())
+                                (*Stream)[Stream_Audio][Pos][Param_Pos].clear();
+                }
+        }
+        if (StreamKind==Stream_Audio && Parameter==Audio_Delay && Count_Get(Stream_Video) && !Retrieve(Stream_Audio, StreamPos, Audio_Delay).empty() && !Retrieve(Stream_Video, 0, Video_Delay).empty())
+        {
+            Fill(Stream_Audio, StreamPos, Audio_Video_Delay, Value.To_int64s()-Retrieve(Stream_Video, 0, Video_Delay).To_int64s(), 10, true);
+            if (Retrieve(Stream_Audio, StreamPos, Audio_Video_Delay).To_int64u()==0)
+                for (size_t Pos=Audio_Video_Delay+1; Pos<=Audio_Video_Delay+4; Pos++)
+                    if (Pos<(*Stream)[Stream_Audio][StreamPos].size())
+                        (*Stream)[StreamKind][StreamPos][Pos].clear();
+        }
+
+        //Delay/Video0
+        if (StreamKind==Stream_Video && StreamPos==0 && Parameter==Video_Delay)
+        {
+            for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
+                if (!Retrieve(Stream_Audio, Pos, Audio_Delay).empty())
+                {
+                    Fill(Stream_Audio, Pos, Audio_Video0_Delay, Retrieve(Stream_Audio, Pos, Audio_Delay).To_int64s()-Value.To_int64s(), 10, true);
+                    if (Retrieve(Stream_Audio, Pos, Audio_Video0_Delay).To_int64u()==0)
+                        for (size_t Param_Pos=Audio_Video0_Delay+1; Param_Pos<=Audio_Video0_Delay+4; Param_Pos++)
+                            if (Param_Pos<(*Stream)[Stream_Audio][Pos].size())
+                                (*Stream)[Stream_Audio][Pos][Param_Pos].clear();
+                }
+        }
+        if (StreamKind==Stream_Audio && Parameter==Audio_Delay && Count_Get(Stream_Video) && !Retrieve(Stream_Audio, StreamPos, Audio_Delay).empty() && !Retrieve(Stream_Video, 0, Video_Delay).empty())
+        {
+            Fill(Stream_Audio, StreamPos, Audio_Video0_Delay, Value.To_int64s()-Retrieve(Stream_Video, 0, Video_Delay).To_int64s(), 10, true);
+            if (Retrieve(Stream_Audio, StreamPos, Audio_Video0_Delay).To_int64u()==0)
+                for (size_t Pos=Audio_Video0_Delay+1; Pos<=Audio_Video0_Delay+4; Pos++)
+                    if (Pos<(*Stream)[Stream_Audio][StreamPos].size())
+                        (*Stream)[StreamKind][StreamPos][Pos].clear();
+        }
+
         //Language
         //-Find 2-digit language
         if (Retrieve(StreamKind, StreamPos, Parameter, Info_Name)==_T("Language"))
@@ -535,18 +579,95 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         }
 
         //Display Aspect Ratio and Pixel Aspect Ratio
-        if (StreamKind==Stream_Video && Parameter==Video_DisplayAspectRatio && Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original)==Value)
-            Clear(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original);
-        if (StreamKind==Stream_Video && Parameter==Video_DisplayAspectRatio_String && Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original_String)==Value)
-            Clear(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original_String);
-        if (StreamKind==Stream_Video && Parameter==Video_DisplayAspectRatio_Original_String && Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_String)==Value)
-            Clear(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original_String);
-        if (StreamKind==Stream_Video && Parameter==Video_PixelAspectRatio && Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio_Original)==Value)
-            Clear(Stream_Video, StreamPos, Video_PixelAspectRatio_Original);
-        if (StreamKind==Stream_Video && Parameter==Video_PixelAspectRatio_String && Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio_Original_String)==Value)
-            Clear(Stream_Video, StreamPos, Video_PixelAspectRatio_Original_String);
-        if (StreamKind==Stream_Video && Parameter==Video_PixelAspectRatio_Original_String && Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio_String)==Value)
-            Clear(Stream_Video, StreamPos, Video_PixelAspectRatio_Original_String);
+        if (StreamKind==Stream_Video && Parameter==Video_DisplayAspectRatio)
+        {
+            float F1=Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio).To_float32();
+            Ztring C1;
+                 if (0);
+            else if (F1>1.23 && F1<1.27) C1=_T("5/4");
+            else if (F1>1.30 && F1<1.37) C1=_T("4/3");
+            else if (F1>1.70 && F1<1.85) C1=_T("16/9");
+            else if (F1>2.10 && F1<2.22) C1=_T("2.2");
+            else if (F1>2.23 && F1<2.30) C1=_T("2.25");
+            else if (F1>2.30 && F1<2.40) C1=_T("2.35");
+            else              C1.From_Number(F1);
+            Fill(Stream_Video, StreamPos, Video_DisplayAspectRatio_String, C1, true);
+
+            Clear                (Stream_Video, StreamPos, Video_PixelAspectRatio  );
+            float DAR   =Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio).To_float32();
+            float Width =Retrieve(Stream_Video, StreamPos, Video_Width             ).To_float32();
+            float Height=Retrieve(Stream_Video, StreamPos, Video_Height            ).To_float32();
+            if (DAR && Height && Width)
+                Fill(Stream_Video, StreamPos, Video_PixelAspectRatio, DAR/(((float32)Width)/Height));
+        }
+        if (StreamKind==Stream_Video && Parameter==Video_PixelAspectRatio && Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio).empty())
+        {
+            Clear                (Stream_Video, StreamPos, Video_DisplayAspectRatio);
+            float PAR   =Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio  ).To_float32();
+            float Width =Retrieve(Stream_Video, StreamPos, Video_Width             ).To_float32();
+            float Height=Retrieve(Stream_Video, StreamPos, Video_Height            ).To_float32();
+            if (PAR && Height && Width)
+                Fill(Stream_Video, StreamPos, Video_DisplayAspectRatio, ((float32)Width)/Height*PAR);
+        }
+        if (StreamKind==Stream_Video && (Parameter==Video_Width || Parameter==Video_Height) && Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio).empty() && !Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio).empty())
+        {
+            float DAR   =Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio).To_float32();
+            float Width =Retrieve(Stream_Video, StreamPos, Video_Width             ).To_float32();
+            float Height=Retrieve(Stream_Video, StreamPos, Video_Height            ).To_float32();
+            if (DAR && Height && Width)
+                Fill(Stream_Video, StreamPos, Video_PixelAspectRatio, DAR/(((float32)Width)/Height));
+        }
+
+        //Original Display Aspect Ratio and Original Pixel Aspect Ratio
+        if (StreamKind==Stream_Video && Parameter==Video_DisplayAspectRatio_Original)
+        {
+            float F1=Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original).To_float32();
+            Ztring C1;
+                 if (0);
+            else if (F1>1.23 && F1<1.27) C1=_T("5/4");
+            else if (F1>1.30 && F1<1.37) C1=_T("4/3");
+            else if (F1>1.70 && F1<1.85) C1=_T("16/9");
+            else if (F1>2.10 && F1<2.22) C1=_T("2.2");
+            else if (F1>2.23 && F1<2.30) C1=_T("2.25");
+            else if (F1>2.30 && F1<2.40) C1=_T("2.35");
+            else              C1.From_Number(F1);
+            Fill(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original_String, C1, true);
+
+            Clear                (Stream_Video, StreamPos, Video_PixelAspectRatio_Original  );
+            float DAR   =Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original).To_float32();
+            float Width =Retrieve(Stream_Video, StreamPos, Video_Width             ).To_float32();
+            float Height=Retrieve(Stream_Video, StreamPos, Video_Height            ).To_float32();
+            if (DAR && Height && Width)
+                Fill(Stream_Video, StreamPos, Video_PixelAspectRatio_Original, DAR/(((float32)Width)/Height));
+        }
+        if (StreamKind==Stream_Video && Parameter==Video_PixelAspectRatio_Original && Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original).empty())
+        {
+            Clear                (Stream_Video, StreamPos, Video_DisplayAspectRatio_Original);
+            float PAR   =Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio_Original  ).To_float32();
+            float Width =Retrieve(Stream_Video, StreamPos, Video_Width             ).To_float32();
+            float Height=Retrieve(Stream_Video, StreamPos, Video_Height            ).To_float32();
+            if (PAR && Height && Width)
+                Fill(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original, ((float32)Width)/Height*PAR);
+        }
+        if (StreamKind==Stream_Video && (Parameter==Video_Width || Parameter==Video_Height) && Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio_Original).empty() && !Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original).empty())
+        {
+            float DAR   =Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original).To_float32();
+            float Width =Retrieve(Stream_Video, StreamPos, Video_Width             ).To_float32();
+            float Height=Retrieve(Stream_Video, StreamPos, Video_Height            ).To_float32();
+            if (DAR && Height && Width)
+                Fill(Stream_Video, StreamPos, Video_PixelAspectRatio_Original, DAR/(((float32)Width)/Height));
+        }
+
+        //Bits/(Pixel*Frame)
+        if (StreamKind==Stream_Video && (Parameter==Video_BitRate || Parameter==Video_BitRate_Nominal || Parameter==Video_Width || Parameter==Video_Height || Parameter==Video_FrameRate))
+        {
+            float32 BitRate=Retrieve(Stream_Video, StreamPos, Video_BitRate).To_float32();
+            if (BitRate==0)
+                BitRate=Retrieve(Stream_Video, StreamPos, Video_BitRate_Nominal).To_float32();
+            float F1=(float)Retrieve(Stream_Video, StreamPos, Video_Width).To_int32s()*(float)Retrieve(Stream_Video, StreamPos, Video_Height).To_int32s()*Retrieve(Stream_Video, StreamPos, Video_FrameRate).To_float32();
+            if (BitRate && F1)
+                Fill(Stream_Video, StreamPos, Video_Bits__Pixel_Frame_, BitRate/F1, 3, true);
+        }
 
         //Special audio cases
         if (StreamKind==Stream_Audio && Parameter==Audio_CodecID
@@ -1440,47 +1561,6 @@ void File__Analyze::Value_Value123(const Ztring &Value, stream_t StreamKind, siz
 //Aspect ratio handling
 void File__Analyze::AspectRatio_AspectRatio(size_t Pos, size_t DisplayAspectRatio, size_t PixelAspectRatio, size_t DisplayAspectRatio_String)
 {
-    //Display Aspect Ratio from Pixel Aspect Ratio
-    if (Retrieve(Stream_Video, Pos, DisplayAspectRatio).empty() && !Retrieve(Stream_Video, Pos, PixelAspectRatio).empty())
-    {
-        float PAR   =Retrieve(Stream_Video, Pos, PixelAspectRatio).To_float32();
-        float Width =Retrieve(Stream_Video, Pos, Video_Width     ).To_float32();
-        float Height=Retrieve(Stream_Video, Pos, Video_Height    ).To_float32();
-        if (PAR && Height && Width)
-            Fill(Stream_Video, Pos, DisplayAspectRatio, ((float32)Width)/Height*PAR, 3);
-    }
-    //Pixel Aspect Ratio from Display Aspect Ratio
-    if (Retrieve(Stream_Video, Pos, PixelAspectRatio).empty() && !Retrieve(Stream_Video, Pos, DisplayAspectRatio).empty())
-    {
-        float DAR   =Retrieve(Stream_Video, Pos, DisplayAspectRatio).To_float32();
-        float Width =Retrieve(Stream_Video, Pos, Video_Width       ).To_float32();
-        float Height=Retrieve(Stream_Video, Pos, Video_Height      ).To_float32();
-        if (DAR && Height && Width)
-            Fill(Stream_Video, Pos, PixelAspectRatio, DAR/(((float32)Width)/Height));
-    }
-    //Display Aspect Ratio by default (thinking that PAR is 1.000)
-    if (Retrieve(Stream_Video, Pos, DisplayAspectRatio).empty() && DisplayAspectRatio==Video_DisplayAspectRatio) //Only if this is Video_DisplayAspectRatio
-    {
-        float Width =Retrieve(Stream_Video, Pos, Video_Width ).To_float32();
-        float Height=Retrieve(Stream_Video, Pos, Video_Height).To_float32();
-        if (Height && Width)
-            Fill(Stream_Video, Pos, DisplayAspectRatio, ((float32)Width)/Height);
-    }
-    //Display Aspect Ratio
-    if (!Retrieve(Stream_Video, Pos, DisplayAspectRatio).empty() && MediaInfoLib::Config.ReadByHuman_Get())
-    {
-        float F1=Retrieve(Stream_Video, Pos, DisplayAspectRatio).To_float32();
-        Ztring C1;
-             if (0);
-        else if (F1>1.23 && F1<1.27) C1=_T("5/4");
-        else if (F1>1.30 && F1<1.37) C1=_T("4/3");
-        else if (F1>1.70 && F1<1.85) C1=_T("16/9");
-        else if (F1>2.10 && F1<2.22) C1=_T("2.2");
-        else if (F1>2.23 && F1<2.30) C1=_T("2.25");
-        else if (F1>2.30 && F1<2.40) C1=_T("2.35");
-        else              C1.From_Number(F1);
-        Fill(Stream_Video, Pos, DisplayAspectRatio_String, C1);
-    }
 }
 
 //---------------------------------------------------------------------------

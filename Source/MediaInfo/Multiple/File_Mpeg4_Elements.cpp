@@ -2727,7 +2727,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
             Fill(Stream_Video, StreamPos_Last, Video_Encryption, "Encrypted");
         Fill(Stream_Video, StreamPos_Last, Video_Width, Width, 10, true);
         Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 10, true);
-        if (moov_trak_tkhd_DisplayAspectRatio)
+        if (moov_trak_tkhd_DisplayAspectRatio && moov_trak_tkhd_DisplayAspectRatio!=((float32)Width)/Height)
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, moov_trak_tkhd_DisplayAspectRatio, 3, true);
         Fill(Stream_Video, StreamPos_Last, Video_Rotation, moov_trak_tkhd_Rotation, 3);
         if (moov_trak_tkhd_Rotation)
@@ -3066,7 +3066,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_pasp()
         {
             float64 PixelAspectRatio=(float64)hSpacing/vSpacing;
             Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio, PixelAspectRatio, 3, true);
-            Clear(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio); //Pixel Aspect Ratio has priority
         }
     FILLING_END();
 }

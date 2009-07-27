@@ -171,6 +171,7 @@ void File_Mpeg4::Streams_Finish()
                     FrameRate_Mode_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Mode);
                 }
 
+                //Temp->second.Parser->Clear(StreamKind_Last, StreamPos_Last, "Delay"); //DV TimeCode is removed
                 Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
 
                 //Hacks - After
@@ -199,6 +200,7 @@ void File_Mpeg4::Streams_Finish()
                         Fill_Flush();
                         Stream_Prepare(Stream_Audio);
                         size_t Pos=Count_Get(Stream_Audio)-1;
+                        //Temp->second.Parser->Clear(Stream_Audio, Audio_Pos, Audio_Delay); //DV TimeCode is removed
                         Merge(*Temp->second.Parser, Stream_Audio, Audio_Pos, StreamPos_Last);
                         Fill(Stream_Audio, Pos, Audio_MuxingMode, "DV");
                         Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));

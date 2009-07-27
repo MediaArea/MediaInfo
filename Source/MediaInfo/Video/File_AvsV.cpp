@@ -212,15 +212,15 @@ void File_AvsV::Streams_Fill()
     if (aspect_ratio==0)
         ;//Forbidden
     else if (aspect_ratio==1)
-            Fill(Stream_Video, 0, Video_PixelAspectRatio, 1.000);
+            Fill(Stream_Video, 0, Video_PixelAspectRatio, 1.000, 3, true);
     else if (display_horizontal_size && display_vertical_size)
     {
         if (vertical_size && AvsV_aspect_ratio[aspect_ratio])
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, (float)horizontal_size/vertical_size
-                                                                         *AvsV_aspect_ratio[aspect_ratio]/((float)display_horizontal_size/display_vertical_size));
+                                                                         *AvsV_aspect_ratio[aspect_ratio]/((float)display_horizontal_size/display_vertical_size), 3, true);
     }
     else if (AvsV_aspect_ratio[aspect_ratio])
-        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, AvsV_aspect_ratio[aspect_ratio]);
+        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, AvsV_aspect_ratio[aspect_ratio], 3, true);
     Fill(Stream_Video, 0, Video_Colorimetry, AvsV_chroma_format[chroma_format]);
     if (progressive_frame_Count && progressive_frame_Count!=Frame_Count)
     {

@@ -113,7 +113,7 @@ void File_Theora::Identification()
             PixelRatio=((float)PARN)/(float)PARN;
         Fill(Stream_Video, StreamPos_Last, Video_Width, PICW);
         Fill(Stream_Video, StreamPos_Last, Video_Height, PICH);
-        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)PICW)/((float)PICH)*PixelRatio, 3);
+        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)PICW)/((float)PICH)*PixelRatio, 3, true);
         if (NOMBR)
             Fill(Stream_Video, StreamPos_Last, Video_BitRate_Nominal, NOMBR);
     FILLING_END();

@@ -292,7 +292,7 @@ void File_Vc1::Streams_Fill()
         Fill(Stream_Video, StreamPos_Last, Video_Height, (coded_height+1)*2);
     }
     if (PixelAspectRatio!=0)
-        Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio);
+        Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio, 3, true);
     if (FrameRate!=0)
         Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate);
 

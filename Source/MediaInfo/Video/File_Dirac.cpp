@@ -431,9 +431,9 @@ void File_Dirac::Streams_Fill()
         Fill(Stream_Video, StreamPos_Last, Video_Height, clean_height);
     if (pixel_aspect_ratio)
     {
-        Fill(Stream_Video, 0, Video_PixelAspectRatio, pixel_aspect_ratio);
+        Fill(Stream_Video, 0, Video_PixelAspectRatio, pixel_aspect_ratio, 3, true);
         if (clean_height!=0)
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)clean_width)/clean_height*pixel_aspect_ratio);
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)clean_width)/clean_height*pixel_aspect_ratio, 3, true);
     }
     if (frame_rate)
         Fill(Stream_Video, StreamPos_Last, Video_FrameRate, frame_rate);

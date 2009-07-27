@@ -795,7 +795,7 @@ void File_Bdmv::Clpi_Streams_Video()
             if (Clpi_Video_FrameRate[FrameRate])
                 Fill(Stream_Video, StreamPos_Last, Video_FrameRate, Clpi_Video_FrameRate[FrameRate]);
             if (Clpi_Video_Height[AspectRatio])
-                Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, Clpi_Video_AspectRatio[AspectRatio]);
+                Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, Clpi_Video_AspectRatio[AspectRatio], 3, true);
         }
     FILLING_END();
 }

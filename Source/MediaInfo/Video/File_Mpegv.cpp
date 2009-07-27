@@ -341,20 +341,20 @@ void File_Mpegv::Streams_Fill()
         if (aspect_ratio_information==0)
             ;//Forbidden
         else if (aspect_ratio_information==1)
-            Fill(Stream_Video, 0, Video_PixelAspectRatio, 1.000);
+            Fill(Stream_Video, 0, Video_PixelAspectRatio, 1.000, 3, true);
         else if (display_horizontal_size && display_vertical_size)
         {
             if (vertical_size_value && Mpegv_aspect_ratio2[aspect_ratio_information])
                 Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, (float)(0x1000*horizontal_size_extension+horizontal_size_value)/(0x1000*vertical_size_extension+vertical_size_value)
-                                                                             *Mpegv_aspect_ratio2[aspect_ratio_information]/((float)display_horizontal_size/display_vertical_size));
+                                                                             *Mpegv_aspect_ratio2[aspect_ratio_information]/((float)display_horizontal_size/display_vertical_size), 3, true);
         }
         else if (Mpegv_aspect_ratio2[aspect_ratio_information])
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, Mpegv_aspect_ratio2[aspect_ratio_information]);
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, Mpegv_aspect_ratio2[aspect_ratio_information], 3, true);
     }
     else //Version 1
     {
         if (vertical_size_value && Mpegv_aspect_ratio1[aspect_ratio_information])
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, (float)(0x1000*horizontal_size_extension+horizontal_size_value)/(0x1000*vertical_size_extension+vertical_size_value)/Mpegv_aspect_ratio1[aspect_ratio_information]);
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, (float)(0x1000*horizontal_size_extension+horizontal_size_value)/(0x1000*vertical_size_extension+vertical_size_value)/Mpegv_aspect_ratio1[aspect_ratio_information], 3, true);
     }
 
     //FrameRate

@@ -1324,14 +1324,14 @@ void File_Riff::AVI__hdlr_strl_strf_iavs()
                                         Fill(Stream_Video, StreamPos_Last, Video_Width,  720);
                  if (FrameRate==25.000) Fill(Stream_Video, StreamPos_Last, Video_Height, 576);
             else if (FrameRate==29.970) Fill(Stream_Video, StreamPos_Last, Video_Height, 480);
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, 4.0/3);
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, 4.0/3, 3, true);
         }
         else if (Codec==_T("dvhd"))
         {
                                         Fill(Stream_Video, StreamPos_Last, Video_Width,  1440);
                  if (FrameRate==25.000) Fill(Stream_Video, StreamPos_Last, Video_Height, 1152);
             else if (FrameRate==30.000) Fill(Stream_Video, StreamPos_Last, Video_Height,  960);
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, 4.0/3);
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, 4.0/3, 3, true);
         }
         Stream_Prepare(Stream_Audio);
         CodecID_Fill(Codec, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Riff);

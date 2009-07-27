@@ -325,9 +325,9 @@ void File_Avc::Streams_Fill()
     Fill(Stream_Video, 0, Video_Codec_Profile, ProfileS+_T("@L")+LevelS);
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
-    Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio);
+    Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio, 3, true);
     if (Height!=0)
-        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)Width)/Height*PixelAspectRatio);
+        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)Width)/Height*PixelAspectRatio, 3, true);
     Fill(Stream_Video, 0, Video_Standard, Avc_video_format[video_format]);
     if (timing_info_present_flag)
     {

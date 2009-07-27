@@ -389,8 +389,8 @@ void File_Mpeg4v::Streams_Fill()
         else if (aspect_ratio_info==0x04) PixelAspectRatio_Value=(float32)16/(float32)11;
         else if (aspect_ratio_info==0x05) PixelAspectRatio_Value=(float32)40/(float32)13;
         else if (aspect_ratio_info==0x0F && par_height) PixelAspectRatio_Value=((float32)par_width)/par_height;
-        Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio_Value);
-        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)object_layer_width)/object_layer_height*PixelAspectRatio_Value);
+        Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio_Value, 3, true);
+        Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)object_layer_width)/object_layer_height*PixelAspectRatio_Value, 3, true);
     }
     Fill(Stream_Video, 0, Video_Resolution, bits_per_pixel*3);
     if (chroma_format<4)

@@ -92,12 +92,12 @@ const char*  IFO_Standard[]=
     "",
 };
 
-const char*  IFO_AspectRatio[]=
+float32  IFO_AspectRatio[]=
 {
-    "1.333",
-    "",
-    "",
-    "1.778",
+    1.333,
+    0.000,
+    0.000,
+    1.778,
 };
 
 const char*  IFO_BitRate_Mode[]=
@@ -596,7 +596,7 @@ void File_Dvdv::Video()
             Fill(Stream_Video, StreamPos_Last, Video_Format, IFO_Format_V[Codec]);
             Fill(Stream_Video, StreamPos_Last, Video_Format_Version, IFO_Format_Version_V[Codec]);
             Fill(Stream_Video, StreamPos_Last, Video_Codec, IFO_CodecV[Codec]);
-            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, IFO_AspectRatio[AspectRatio]);
+            Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, IFO_AspectRatio[AspectRatio], 3, true);
             Fill(Stream_Video, StreamPos_Last, Video_Width, IFO_Width[Resolution]);
             Fill(Stream_Video, StreamPos_Last, Video_Height, IFO_Height[Standard][Resolution]);
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate, IFO_FrameRate[Standard]);

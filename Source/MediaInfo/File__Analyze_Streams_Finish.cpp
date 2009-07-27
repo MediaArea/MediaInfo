@@ -131,6 +131,10 @@ void File__Analyze::Streams_Finish_StreamOnly_Video(size_t Pos)
            Fill(Stream_Video, Pos, Video_Duration, ((float64)FrameCount)*1000/FrameRate, 0);
     }
 
+    //Pixel Aspect Ratio forced to 1.000 if none
+    if (Retrieve(Stream_Video, Pos, Video_PixelAspectRatio).empty())
+        Fill(Stream_Video, Pos, Video_PixelAspectRatio, 1.000);
+
     //Standard
     if (Retrieve(Stream_Video, Pos, Video_Standard).empty() && Retrieve(Stream_Video, Pos, Video_Width)==_T("720"))
     {

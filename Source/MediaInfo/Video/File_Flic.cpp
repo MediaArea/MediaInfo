@@ -124,7 +124,7 @@ void File_Flic::FileHeader_Parse()
                 Fill(Stream_Video, 0, Video_Duration, Frames*DelayBetweenFrames);
             }
             if (AspectY>0)
-                Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, AspectX/AspectY);
+                Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, AspectX/AspectY, 3, true);
         }
         Fill(Stream_Video, 0, Video_FrameCount, Frames);
         Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
