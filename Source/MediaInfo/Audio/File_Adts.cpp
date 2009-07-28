@@ -244,6 +244,10 @@ void File_Adts::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Adts::Data_Parse_Fill()
 {
+    //Handling implicit SBR and PS
+    bool sbrPresentFlag=ADTS_SamplingRate[sampling_frequency_index]<=24000;
+    bool psPresentFlag=channel_configuration<=1; //1 channel
+
     //Filling
     int32u BitRate=(ADTS_SamplingRate[sampling_frequency_index]/1024)*aac_frame_length*8;
     File__Tags_Helper::Stream_Prepare(Stream_General);
@@ -253,8 +257,8 @@ void File_Adts::Data_Parse_Fill()
     Fill(Stream_Audio, 0, Audio_Format_Version, id?"Version 2":"Version 4");
     Fill(Stream_Audio, 0, Audio_Format_Profile, ADTS_Format_Profile[profile_ObjectType]);
     Fill(Stream_Audio, 0, Audio_Codec, ADTS_Profile[profile_ObjectType]);
-    Fill(Stream_Audio, 0, Audio_SamplingRate, ADTS_SamplingRate[sampling_frequency_index]);
-    Fill(Stream_Audio, 0, Audio_Channel_s_, channel_configuration);
+    Fill(Stream_Audio, 0, Audio_SamplingRate, ADTS_SamplingRate[sampling_frequency_index]*(sbrPresentFlag?2:1));
+    Fill(Stream_Audio, 0, Audio_Channel_s_, psPresentFlag?2:channel_configuration);
     Fill(Stream_Audio, 0, Audio_MuxingMode, "ADTS");
     if (adts_buffer_fullness==0x7FF)
         Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
@@ -264,6 +268,21 @@ void File_Adts::Data_Parse_Fill()
         Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
     }
     Fill(Stream_Audio, 0, Audio_Resolution, 16);
+    if (sbrPresentFlag)
+    {
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "SBR");
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_SBR, "Yes", Unlimited, true, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, "No");
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Ztring().From_Local(ADTS_Profile[profile_ObjectType])+_T("/SBR"), true);
+    }
+    if (psPresentFlag)
+    {
+        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 2, 10, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "PS");
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, "Yes", Unlimited, true, true);
+        Ztring Codec=Retrieve(Stream_Audio, StreamPos_Last, Audio_Codec);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Ztring().From_Local(ADTS_Profile[profile_ObjectType])+(sbrPresentFlag?_T("/SBR"):_T(""))+_T("/PS"), true);
+    }
 
     //No more need data
     File__Tags_Helper::Accept("ADTS");
