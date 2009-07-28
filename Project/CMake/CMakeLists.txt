@@ -15,8 +15,8 @@ set(mediainfo_SRCS
 	MediaInfo/File__Analyze.cpp
 	MediaInfo/File__Analyze_Buffer.cpp
 	MediaInfo/File__Analyze_Buffer_MinimizeSize.cpp
-	MediaInfo/File__Analyze_Finalize.cpp
 	MediaInfo/File__Analyze_Streams.cpp
+	MediaInfo/File__Analyze_Streams_Finish.cpp
 	MediaInfo/File__Base.cpp
 	MediaInfo/File__MultipleParsing.cpp
 	MediaInfo/File__Duplicate.cpp
