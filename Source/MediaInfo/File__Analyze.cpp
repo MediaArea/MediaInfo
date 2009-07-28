@@ -199,6 +199,8 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_, int
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
+    Frame_Count_InThisBlock=0; //Out
+
     //Integrity
     if (ToAdd==NULL || IsFinished)
         return;
@@ -1826,6 +1828,8 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
         if (MustElementBegin)
             Element_Level++;
     }
+
+    Open_Buffer_Unsynch();
     File_GoTo=GoTo;
 }
 #else //MEDIAINFO_MINIMIZESIZE
@@ -1847,6 +1851,7 @@ void File__Analyze::GoTo (int64u GoTo)
         return;
     }
 
+    Open_Buffer_Unsynch();
     File_GoTo=GoTo;
 }
 #endif //MEDIAINFO_MINIMIZESIZE

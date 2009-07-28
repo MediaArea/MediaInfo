@@ -1848,11 +1848,10 @@ void File_MpegPs::private_stream_1()
     #endif
 
     //Parsing
-    if (Parsing_End_ForDTS && ((Streams_Private1[private_stream_1_ID].TimeStamp_End.DTS.TimeStamp!=(int64u)-1 && DTS!=(int64u)-1) || (Streams_Private1[private_stream_1_ID].TimeStamp_End.PTS.TimeStamp!=(int64u)-1 && PTS!=(int64u)-1)))
+    if ((Streams_Private1[private_stream_1_ID].TimeStamp_End.DTS.TimeStamp!=(int64u)-1 && DTS!=(int64u)-1) || (Streams_Private1[private_stream_1_ID].TimeStamp_End.PTS.TimeStamp!=(int64u)-1 && PTS!=(int64u)-1))
         Streams_Private1[private_stream_1_ID].FrameCount_AfterLast_TimeStamp_End=0;
     Open_Buffer_Continue(Streams_Private1[private_stream_1_ID].Parser, Buffer+Buffer_Offset+private_stream_1_Offset, (size_t)(Element_Size-private_stream_1_Offset));
-    if (Parsing_End_ForDTS)
-        Streams_Private1[private_stream_1_ID].FrameCount_AfterLast_TimeStamp_End+=Streams_Private1[private_stream_1_ID].Parser->Frame_Count_InThisBlock;
+    Streams_Private1[private_stream_1_ID].FrameCount_AfterLast_TimeStamp_End+=Streams_Private1[private_stream_1_ID].Parser->Frame_Count_InThisBlock;
 
     //Testing other parsers in case of need
     if (Streams_Private1[private_stream_1_ID].Parser->Count_Get(Stream_Audio)==0
@@ -2393,11 +2392,10 @@ void File_MpegPs::audio_stream()
     }
 
     //Parsing
-    if (Parsing_End_ForDTS && ((Streams[start_code].TimeStamp_End.DTS.TimeStamp!=(int64u)-1 && DTS!=(int64u)-1) || (Streams[start_code].TimeStamp_End.PTS.TimeStamp!=(int64u)-1 && PTS!=(int64u)-1)))
+    if ((Streams[start_code].TimeStamp_End.DTS.TimeStamp!=(int64u)-1 && DTS!=(int64u)-1) || (Streams[start_code].TimeStamp_End.PTS.TimeStamp!=(int64u)-1 && PTS!=(int64u)-1))
         Streams[start_code].FrameCount_AfterLast_TimeStamp_End=0;
     Open_Buffer_Continue(Streams[start_code].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
-    if (Parsing_End_ForDTS)
-        Streams[start_code].FrameCount_AfterLast_TimeStamp_End+=Streams[start_code].Parser->Frame_Count_InThisBlock;
+    Streams[start_code].FrameCount_AfterLast_TimeStamp_End+=Streams[start_code].Parser->Frame_Count_InThisBlock;
 
     //Testing other parsers in case of need
     if ((FromTS_stream_type==0 || FromTS_stream_type==6) && Streams[start_code].Parser->Count_Get(Stream_Audio)==0)
@@ -2497,11 +2495,10 @@ void File_MpegPs::video_stream()
         Streams[start_code].Parser->DTS=DTS*1000000/90;
 
     //Parsing
-    if (Parsing_End_ForDTS && ((Streams[start_code].TimeStamp_End.DTS.TimeStamp!=(int64u)-1 && DTS!=(int64u)-1) || (Streams[start_code].TimeStamp_End.PTS.TimeStamp!=(int64u)-1 && PTS!=(int64u)-1)))
+    if ((Streams[start_code].TimeStamp_End.DTS.TimeStamp!=(int64u)-1 && DTS!=(int64u)-1) || (Streams[start_code].TimeStamp_End.PTS.TimeStamp!=(int64u)-1 && PTS!=(int64u)-1))
         Streams[start_code].FrameCount_AfterLast_TimeStamp_End=0;
     Open_Buffer_Continue(Streams[start_code].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
-    if (Parsing_End_ForDTS)
-        Streams[start_code].FrameCount_AfterLast_TimeStamp_End+=Streams[start_code].Parser->Frame_Count_InThisBlock;
+    Streams[start_code].FrameCount_AfterLast_TimeStamp_End+=Streams[start_code].Parser->Frame_Count_InThisBlock;
 
     //Testing other parsers in case of need
     if ((FromTS_stream_type==0 || FromTS_stream_type==6) && Streams[start_code].Parser->Count_Get(Stream_Video)==0)
@@ -2804,11 +2801,10 @@ void File_MpegPs::extension_stream()
     }
 
     //Parsing
-    if (Parsing_End_ForDTS && ((Streams_Extension[Extension].TimeStamp_End.DTS.TimeStamp!=(int64u)-1 && DTS!=(int64u)-1) || (Streams_Extension[Extension].TimeStamp_End.PTS.TimeStamp!=(int64u)-1 && PTS!=(int64u)-1)))
+    if ((Streams_Extension[Extension].TimeStamp_End.DTS.TimeStamp!=(int64u)-1 && DTS!=(int64u)-1) || (Streams_Extension[Extension].TimeStamp_End.PTS.TimeStamp!=(int64u)-1 && PTS!=(int64u)-1))
         Streams_Extension[Extension].FrameCount_AfterLast_TimeStamp_End=0;
     Open_Buffer_Continue(Streams_Extension[Extension].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
-    if (Parsing_End_ForDTS)
-        Streams_Extension[Extension].FrameCount_AfterLast_TimeStamp_End+=Streams_Extension[Extension].Parser->Frame_Count_InThisBlock;
+    Streams_Extension[Extension].FrameCount_AfterLast_TimeStamp_End+=Streams_Extension[Extension].Parser->Frame_Count_InThisBlock;
 
     //Disabling this Streams
     if (Streams_Extension[Extension].Parser->IsFinished ||(!Parsing_End_ForDTS && Streams_Extension[Extension].Parser->IsFilled))

@@ -382,6 +382,11 @@ void File_Eia708::Data_Parse()
 
         Element_End();
     }
+
+    if (!IsFilled && !Captions[service_number].empty())
+    {
+        Finish("EIA-608"); //TODO: multiple captions
+    }
 }
 
 //***************************************************************************

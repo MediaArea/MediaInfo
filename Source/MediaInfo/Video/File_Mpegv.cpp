@@ -308,7 +308,8 @@ File_Mpegv::~File_Mpegv()
 void File_Mpegv::Streams_Fill()
 {
     //Filling
-    Stream_Prepare(Stream_General);
+    if (Count_Get(Stream_General)==0)
+        Stream_Prepare(Stream_General);
     Stream_Prepare(Stream_Video);
 
     //Version
@@ -519,8 +520,8 @@ void File_Mpegv::Streams_Finish()
         }
 
     //GA94 captions
-    for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
-        if (GA94_03_CC_Parsers[Pos] && GA94_03_CC_Parsers[Pos]->IsAccepted)
+    /*for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
+        if (GA94_03_CC_Parsers[Pos] && !GA94_03_CC_Parsers[Pos]->IsFinished && GA94_03_CC_Parsers[Pos]->IsAccepted)
         {
             Finish(GA94_03_CC_Parsers[Pos]);
             Merge(*GA94_03_CC_Parsers[Pos]);
@@ -528,7 +529,7 @@ void File_Mpegv::Streams_Finish()
                 Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
             Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"));
         }
-
+     */
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Streams.clear();
@@ -634,6 +635,11 @@ void File_Mpegv::Read_Buffer_Unsynched()
     TemporalReference.clear();
     TemporalReference_Offset=0;
     TemporalReference_GA94_03_CC_Offset=0;
+
+    //NextCode
+    NextCode_Clear();
+    NextCode_Add(0x00);
+    NextCode_Add(0xB8);
 }
 
 //***************************************************************************
@@ -757,11 +763,11 @@ void File_Mpegv::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Mpegv::Detect_EOF()
 {
-    if (IsFilled
-     && (File_Size>SizeToAnalyse_Begin+SizeToAnalyse_End && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End && MediaInfoLib::Config.ParseSpeed_Get()<=0.01
-      || IsSub))
+    if (IsSub && IsFilled
+     || (!IsSub && File_Size>SizeToAnalyse_Begin+SizeToAnalyse_End && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End && MediaInfoLib::Config.ParseSpeed_Get()<=0.01))
     {
-        if ((GA94_03_CC_IsPresent || DVD_CC_IsPresent) && Frame_Count<Frame_Count_Valid*10) //10 times the normal test
+        if ((GA94_03_CC_IsPresent || DVD_CC_IsPresent) && Frame_Count<Frame_Count_Valid*10 //10 times the normal test
+         && !(!IsSub && File_Size>SizeToAnalyse_Begin*10+SizeToAnalyse_End*10 && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin*10 && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End*10))
         {
             Streams[0x00].Searching_Payload=GA94_03_CC_IsPresent;
             Streams[0xB2].Searching_Payload=true;
@@ -778,7 +784,12 @@ void File_Mpegv::Detect_EOF()
             Streams[0x00].Searching_TimeStamp_End=false;
 
         //Jumping
-        GoToFromEnd(SizeToAnalyse_End, "MPEG Video");
+        //if (!IsAccepted)
+        //    Accept("MPEG Video");
+        //if (!IsFilled)
+        //    Fill("MPEG Video");
+
+        GoToFromEnd(SizeToAnalyse_End*2, "MPEG Video");
         EOF_AlreadyDetected=true; //Sometimes called from Filling
     }
 }
@@ -1205,10 +1216,22 @@ void File_Mpegv::user_data_start_GA94_03()
                         GA94_03_CC_Parsers.push_back(NULL);
                     if (GA94_03_CC_Parsers[Parser_Pos]==NULL)
                         GA94_03_CC_Parsers[Parser_Pos]=cc_type<2?(File__Analyze*)new File_Eia608():(File__Analyze*)new File_Eia708();
-                    if (cc_type>=2)
-                        ((File_Eia708*)GA94_03_CC_Parsers[2])->cc_type=cc_type;
-                    Open_Buffer_Init(GA94_03_CC_Parsers[Parser_Pos]);
-                    Open_Buffer_Continue(GA94_03_CC_Parsers[Parser_Pos], TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2);
+                    if (!GA94_03_CC_Parsers[Parser_Pos]->IsFinished)
+                    {
+                        if (cc_type>=2)
+                            ((File_Eia708*)GA94_03_CC_Parsers[2])->cc_type=cc_type;
+                        Open_Buffer_Init(GA94_03_CC_Parsers[Parser_Pos]);
+                        Open_Buffer_Continue(GA94_03_CC_Parsers[Parser_Pos], TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2);
+
+                        //Finish
+                        if (GA94_03_CC_Parsers[Parser_Pos]->IsFinished)
+                        {
+                            Merge(*GA94_03_CC_Parsers[Parser_Pos]);
+                            if (Parser_Pos<2)
+                                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Parser_Pos));
+                            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"));
+                        }
+                    }
 
                     //Demux
                     if (cc_type<2)
@@ -1383,8 +1406,8 @@ void File_Mpegv::sequence_header()
 
         //Setting as OK
         sequence_header_IsParsed=true;
-        if (IsSub)
-            Accept("MPEG Video");
+        Accept("MPEG Video");
+        Stream_Prepare(Stream_General);
     FILLING_END();
 }
 

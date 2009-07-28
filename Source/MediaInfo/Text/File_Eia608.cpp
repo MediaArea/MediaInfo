@@ -43,6 +43,9 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 void File_Eia608::Streams_Fill()
 {
+    Stream_Prepare(Stream_General);
+    Stream_Prepare(Stream_Text);
+    Fill(Stream_Text, 0, "Format", "EIA-608");
     //Fill(Stream_Text, 0, "xxx", Ztring::Ztring().From_Unicode(Captions));
 }
 
@@ -267,9 +270,7 @@ void File_Eia608::Read_Buffer_Continue()
     if (!IsAccepted && !Captions.empty())
     {
         Accept("EIA-608");
-        Stream_Prepare(Stream_General);
-        Stream_Prepare(Stream_Text);
-        Fill(Stream_Text, 0, "Format", "EIA-608");
+        Finish("EIA-608");
     }
 }
 
