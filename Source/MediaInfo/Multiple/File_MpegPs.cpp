@@ -934,6 +934,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG1(int8u start_code)
           | (((int64u)PTS_14));
         if (Streams[start_code].Searching_TimeStamp_End)
         {
+            Streams[start_code].TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
             Streams[start_code].TimeStamp_End.PTS.TimeStamp=PTS;
         }
         if (Searching_TimeStamp_Start && Streams[start_code].Searching_TimeStamp_Start)
@@ -1806,12 +1807,30 @@ void File_MpegPs::private_stream_1()
         if (!IsAccepted)
             Data_Accept("MPEG-PS");
     }
-    if (Searching_TimeStamp_Start && Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start)
+
+    //PTS
+    if (Streams[0xBD].Searching_TimeStamp_End && PTS!=(int64u)-1)
     {
-        Streams_Private1[private_stream_1_ID].TimeStamp_Start=Streams[0xBD].TimeStamp_Start;
+        Streams_Private1[private_stream_1_ID].TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
+        Streams_Private1[private_stream_1_ID].TimeStamp_End.PTS.TimeStamp=PTS;
+    }
+    if (Searching_TimeStamp_Start && Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start && PTS!=(int64u)-1)
+    {
+        Streams_Private1[private_stream_1_ID].TimeStamp_Start.PTS.TimeStamp=PTS;
         Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start=false;
     }
-    Streams_Private1[private_stream_1_ID].TimeStamp_End=Streams[0xBD].TimeStamp_End;
+
+    //DTS
+    if (Streams[0xBD].Searching_TimeStamp_End && DTS!=(int64u)-1)
+    {
+        Streams_Private1[private_stream_1_ID].TimeStamp_End.DTS.File_Pos=File_Offset+Buffer_Offset;
+        Streams_Private1[private_stream_1_ID].TimeStamp_End.DTS.TimeStamp=DTS;
+    }
+    if (Searching_TimeStamp_Start && Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start && DTS!=(int64u)-1)
+    {
+        Streams_Private1[private_stream_1_ID].TimeStamp_Start.DTS.TimeStamp=DTS;
+        Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start=false;
+    }
 
     //Needed?
     if (Streams_Private1[private_stream_1_ID].Parser->IsFinished)
@@ -2759,12 +2778,30 @@ void File_MpegPs::extension_stream()
         if (!IsAccepted)
             Data_Accept("MPEG-PS");
     }
-    if (Searching_TimeStamp_Start && Streams_Extension[Extension].Searching_TimeStamp_Start)
+
+    //PTS
+    if (Streams[0xFD].Searching_TimeStamp_End && PTS!=(int64u)-1)
     {
-        Streams_Extension[Extension].TimeStamp_Start=Streams[0xFD].TimeStamp_Start;
+        Streams_Extension[Extension].TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
+        Streams_Extension[Extension].TimeStamp_End.PTS.TimeStamp=PTS;
+    }
+    if (Searching_TimeStamp_Start && Streams_Extension[Extension].Searching_TimeStamp_Start && PTS!=(int64u)-1)
+    {
+        Streams_Extension[Extension].TimeStamp_Start.PTS.TimeStamp=PTS;
         Streams_Extension[Extension].Searching_TimeStamp_Start=false;
     }
-    Streams_Extension[Extension].TimeStamp_End=Streams[0xFD].TimeStamp_End;
+
+    //DTS
+    if (Streams[0xFD].Searching_TimeStamp_End && DTS!=(int64u)-1)
+    {
+        Streams_Extension[Extension].TimeStamp_End.DTS.File_Pos=File_Offset+Buffer_Offset;
+        Streams_Extension[Extension].TimeStamp_End.DTS.TimeStamp=DTS;
+    }
+    if (Searching_TimeStamp_Start && Streams_Extension[Extension].Searching_TimeStamp_Start && DTS!=(int64u)-1)
+    {
+        Streams_Extension[Extension].TimeStamp_Start.DTS.TimeStamp=DTS;
+        Streams_Extension[Extension].Searching_TimeStamp_Start=false;
+    }
 
     //Parsing
     if (Parsing_End_ForDTS && ((Streams_Extension[Extension].TimeStamp_End.DTS.TimeStamp!=(int64u)-1 && DTS!=(int64u)-1) || (Streams_Extension[Extension].TimeStamp_End.PTS.TimeStamp!=(int64u)-1 && PTS!=(int64u)-1)))
@@ -2974,8 +3011,6 @@ File__Analyze* File_MpegPs::ChooseParser_Mpeg4v()
     #if defined(MEDIAINFO_MPEG4V_YES)
         File__Analyze* Handle=new File_Mpeg4v;
         ((File_Mpeg4v*)Handle)->Frame_Count_Valid=1;
-        if (!FromTS)
-            ((File_Mpeg4v*)Handle)->FrameIsAlwaysComplete=true;
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
@@ -3011,8 +3046,6 @@ File__Analyze* File_MpegPs::ChooseParser_VC1()
     #if defined(MEDIAINFO_VC1_YES)
         File__Analyze* Handle=new File_Vc1;
         ((File_Vc1*)Handle)->Frame_Count_Valid=30;
-        if (!FromTS)
-            ((File_Vc1*)Handle)->FrameIsAlwaysComplete=true;
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
