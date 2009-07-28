@@ -456,7 +456,6 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
     Update();
     if (!NoBufferModification)
         Finish();
-    Finalize_Global();
 
     #ifndef MEDIAINFO_MINIMIZESIZE
     if (Details)
@@ -1553,7 +1552,8 @@ void File__Analyze::Trusted_IsNot ()
 #ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Accept (const char* ParserName)
 {
-    IsAccepted=true;
+    if (IsAccepted)
+        return;
 
     if (ParserName)
     {
@@ -1564,6 +1564,8 @@ void File__Analyze::Accept (const char* ParserName)
         if (MustElementBegin)
             Element_Level++;
     }
+
+    IsAccepted=true;
 }
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Accept ()
@@ -1584,6 +1586,9 @@ void File__Analyze::Accept (File__Analyze* Parser)
 #ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Fill (const char* ParserName)
 {
+    if (IsFilled)
+        return;
+
     if (ParserName)
     {
         bool MustElementBegin=Element_Level?true:false;
@@ -1594,21 +1599,14 @@ void File__Analyze::Fill (const char* ParserName)
             Element_Level++;
     }
 
-    if (IsFilled)
-        return;
-
     if (IsAccepted)
-    {
         Streams_Fill();
-        Streams_Fill_Global();
-    }
     IsFilled=true;
 
     if (IsAccepted)
     {
         Fill();
         Streams_Update();
-        Streams_Update_Global();
         IsUpdated=true;
     }
     IsUpdated=false;
@@ -1620,17 +1618,13 @@ void File__Analyze::Fill ()
         return;
 
     if (IsAccepted)
-    {
         Streams_Fill();
-        Streams_Fill_Global();
-    }
     IsFilled=true;
 
     if (IsAccepted)
     {
         Fill();
         Streams_Update();
-        Streams_Update_Global();
         IsUpdated=true;
     }
     IsUpdated=false;
@@ -1660,20 +1654,14 @@ void File__Analyze::Update (const char* ParserName)
     }
 
     if (IsAccepted && IsUpdated)
-    {
         Streams_Update();
-        Streams_Update_Global();
-    }
     IsUpdated=false;
 }
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Update ()
 {
     if (IsAccepted && IsUpdated)
-    {
         Streams_Update();
-        Streams_Update_Global();
-    }
     IsUpdated=false;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
@@ -1704,6 +1692,9 @@ void File__Analyze::Finish (const char* ParserName)
         return;
     }
 
+    if (IsFinished)
+        return;
+
     if (ParserName)
     {
         bool MustElementBegin=Element_Level?true:false;
@@ -1713,9 +1704,6 @@ void File__Analyze::Finish (const char* ParserName)
         if (MustElementBegin)
             Element_Level++;
     }
-
-    if (IsFinished)
-        return;
 
     if (IsAccepted)
     {
@@ -1731,7 +1719,6 @@ void File__Analyze::Finish ()
 {
     if (ShouldContinueParsing)
         return;
-
 
     if (IsFinished)
         return;

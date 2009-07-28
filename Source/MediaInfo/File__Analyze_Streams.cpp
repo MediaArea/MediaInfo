@@ -437,6 +437,15 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                             if (Param_Pos<(*Stream)[Stream_Audio][Pos].size())
                                 (*Stream)[Stream_Audio][Pos][Param_Pos].clear();
                 }
+            for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
+                if (!Retrieve(Stream_Text, Pos, Text_Delay).empty())
+                {
+                    Fill(Stream_Text, Pos, Text_Video_Delay, Retrieve(Stream_Text, Pos, Text_Delay).To_int64s()-Value.To_int64s(), 10, true);
+                    if (Retrieve(Stream_Text, Pos, Text_Video_Delay).To_int64u()==0)
+                        for (size_t Param_Pos=Text_Video_Delay+1; Param_Pos<=Text_Video_Delay+4; Param_Pos++)
+                            if (Param_Pos<(*Stream)[Stream_Text][Pos].size())
+                                (*Stream)[Stream_Text][Pos][Param_Pos].clear();
+                }
         }
         if (StreamKind==Stream_Audio && Parameter==Audio_Delay && Count_Get(Stream_Video) && !Retrieve(Stream_Audio, StreamPos, Audio_Delay).empty() && !Retrieve(Stream_Video, 0, Video_Delay).empty())
         {
@@ -444,7 +453,15 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             if (Retrieve(Stream_Audio, StreamPos, Audio_Video_Delay).To_int64u()==0)
                 for (size_t Pos=Audio_Video_Delay+1; Pos<=Audio_Video_Delay+4; Pos++)
                     if (Pos<(*Stream)[Stream_Audio][StreamPos].size())
-                        (*Stream)[StreamKind][StreamPos][Pos].clear();
+                        (*Stream)[Stream_Audio][StreamPos][Pos].clear();
+        }
+        if (StreamKind==Stream_Text && Parameter==Text_Delay && Count_Get(Stream_Video) && !Retrieve(Stream_Text, StreamPos, Text_Delay).empty() && !Retrieve(Stream_Video, 0, Video_Delay).empty())
+        {
+            Fill(Stream_Text, StreamPos, Text_Video_Delay, Value.To_int64s()-Retrieve(Stream_Video, 0, Video_Delay).To_int64s(), 10, true);
+            if (Retrieve(Stream_Text, StreamPos, Text_Video_Delay).To_int64u()==0)
+                for (size_t Pos=Text_Video_Delay+1; Pos<=Text_Video_Delay+4; Pos++)
+                    if (Pos<(*Stream)[Stream_Text][StreamPos].size())
+                        (*Stream)[Stream_Text][StreamPos][Pos].clear();
         }
 
         //Delay/Video0
@@ -459,6 +476,15 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                             if (Param_Pos<(*Stream)[Stream_Audio][Pos].size())
                                 (*Stream)[Stream_Audio][Pos][Param_Pos].clear();
                 }
+            for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
+                if (!Retrieve(Stream_Text, Pos, Text_Delay).empty())
+                {
+                    Fill(Stream_Text, Pos, Text_Video0_Delay, Retrieve(Stream_Text, Pos, Text_Delay).To_int64s()-Value.To_int64s(), 10, true);
+                    if (Retrieve(Stream_Text, Pos, Text_Video0_Delay).To_int64u()==0)
+                        for (size_t Param_Pos=Text_Video0_Delay+1; Param_Pos<=Text_Video0_Delay+4; Param_Pos++)
+                            if (Param_Pos<(*Stream)[Stream_Text][Pos].size())
+                                (*Stream)[Stream_Text][Pos][Param_Pos].clear();
+                }
         }
         if (StreamKind==Stream_Audio && Parameter==Audio_Delay && Count_Get(Stream_Video) && !Retrieve(Stream_Audio, StreamPos, Audio_Delay).empty() && !Retrieve(Stream_Video, 0, Video_Delay).empty())
         {
@@ -466,7 +492,15 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             if (Retrieve(Stream_Audio, StreamPos, Audio_Video0_Delay).To_int64u()==0)
                 for (size_t Pos=Audio_Video0_Delay+1; Pos<=Audio_Video0_Delay+4; Pos++)
                     if (Pos<(*Stream)[Stream_Audio][StreamPos].size())
-                        (*Stream)[StreamKind][StreamPos][Pos].clear();
+                        (*Stream)[Stream_Audio][StreamPos][Pos].clear();
+        }
+        if (StreamKind==Stream_Text && Parameter==Text_Delay && Count_Get(Stream_Video) && !Retrieve(Stream_Text, StreamPos, Text_Delay).empty() && !Retrieve(Stream_Video, 0, Video_Delay).empty())
+        {
+            Fill(Stream_Text, StreamPos, Text_Video0_Delay, Value.To_int64s()-Retrieve(Stream_Video, 0, Video_Delay).To_int64s(), 10, true);
+            if (Retrieve(Stream_Text, StreamPos, Text_Video0_Delay).To_int64u()==0)
+                for (size_t Pos=Text_Video0_Delay+1; Pos<=Text_Video0_Delay+4; Pos++)
+                    if (Pos<(*Stream)[Stream_Text][StreamPos].size())
+                        (*Stream)[Stream_Text][StreamPos][Pos].clear();
         }
 
         //Language
@@ -1555,12 +1589,6 @@ void File__Analyze::Value_Value123(const Ztring &Value, stream_t StreamKind, siz
 
     //Filling
     Fill(StreamKind, StreamPos, Ztring(Value+_T("/String")).To_Local().c_str(), MediaInfoLib::Config.Language_Get(Retrieve(StreamKind, StreamPos, List_Pos), List[List_Pos][Info_Measure]), true);
-}
-
-//---------------------------------------------------------------------------
-//Aspect ratio handling
-void File__Analyze::AspectRatio_AspectRatio(size_t Pos, size_t DisplayAspectRatio, size_t PixelAspectRatio, size_t DisplayAspectRatio_String)
-{
 }
 
 //---------------------------------------------------------------------------

@@ -467,7 +467,6 @@ size_t MediaInfo_Internal::Open_Buffer_Finalize ()
         Info->Fill();
         Info->Update();
         Info->Finish();
-        Info->Finalize_Global();
     }
     return 1;
 }
