@@ -62,6 +62,7 @@ void File_Eia708::Streams_Fill()
             Stream_Prepare(Stream_Text);
             Fill(Stream_Text, StreamPos_Last, Text_Format, "EIA-708");
             Fill(Stream_Text, StreamPos_Last, Text_ID, Pos);
+            Fill(Stream_Text, StreamPos_Last, Text_StreamSize, 0);
             //Fill(Stream_Text, StreamPos_Last, "xxx", Ztring::Ztring().From_Unicode(Captions[Pos]));
         }
     }

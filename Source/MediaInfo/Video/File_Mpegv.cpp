@@ -511,7 +511,7 @@ void File_Mpegv::Streams_Finish()
 
     //DVD captions
     for (size_t Pos=0; Pos<DVD_CC_Parsers.size(); Pos++)
-        if (DVD_CC_Parsers[Pos] && DVD_CC_Parsers[Pos]->IsAccepted)
+        if (DVD_CC_Parsers[Pos] && !DVD_CC_Parsers[Pos]->IsFinished && DVD_CC_Parsers[Pos]->IsFilled)
         {
             Finish(DVD_CC_Parsers[Pos]);
             Merge(*DVD_CC_Parsers[Pos]);
@@ -520,8 +520,8 @@ void File_Mpegv::Streams_Finish()
         }
 
     //GA94 captions
-    /*for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
-        if (GA94_03_CC_Parsers[Pos] && !GA94_03_CC_Parsers[Pos]->IsFinished && GA94_03_CC_Parsers[Pos]->IsAccepted)
+    for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
+        if (GA94_03_CC_Parsers[Pos] && !GA94_03_CC_Parsers[Pos]->IsFinished && GA94_03_CC_Parsers[Pos]->IsFilled)
         {
             Finish(GA94_03_CC_Parsers[Pos]);
             Merge(*GA94_03_CC_Parsers[Pos]);
@@ -529,7 +529,7 @@ void File_Mpegv::Streams_Finish()
                 Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
             Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"));
         }
-     */
+
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Streams.clear();
@@ -1042,6 +1042,8 @@ void File_Mpegv::user_data_start()
 // Packet "B2", CC (From DVD)
 void File_Mpegv::user_data_start_CC()
 {
+            if (File_Offset+Buffer_Offset==0x1A298C3)
+                int A=0;
     DVD_CC_IsPresent=true;
 
     Element_Info("DVD captioning");
@@ -1075,8 +1077,19 @@ void File_Mpegv::user_data_start_CC()
             DVD_CC_Parsers.push_back(NULL);
         if (DVD_CC_Parsers[cc_type]==NULL)
             DVD_CC_Parsers[cc_type]=new File_Eia608();
-        Open_Buffer_Init(DVD_CC_Parsers[cc_type]);
-        Open_Buffer_Continue(DVD_CC_Parsers[cc_type], Buffer+Buffer_Offset+(size_t)Element_Offset, 2);
+        if (!DVD_CC_Parsers[cc_type]->IsFinished)
+        {
+            Open_Buffer_Init(DVD_CC_Parsers[cc_type]);
+            Open_Buffer_Continue(DVD_CC_Parsers[cc_type], Buffer+Buffer_Offset+(size_t)Element_Offset, 2);
+
+            //Finish
+            if (DVD_CC_Parsers[cc_type]->IsFinished)
+            {
+                Merge(*DVD_CC_Parsers[cc_type]);
+                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("DVD-")+Ztring::ToZtring(cc_type));
+                Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("DVD-Video"));
+            }
+        }
 
         //Demux
         Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, 2, Ztring::ToZtring(cc_type)+_T(".eia608"));
@@ -1222,7 +1235,7 @@ void File_Mpegv::user_data_start_GA94_03()
                         Open_Buffer_Continue(GA94_03_CC_Parsers[Parser_Pos], TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2);
 
                         //Finish
-                        if (GA94_03_CC_Parsers[Parser_Pos]->IsFinished)
+                        //if (GA94_03_CC_Parsers[Parser_Pos]->IsFinished)
                         {
                             Merge(*GA94_03_CC_Parsers[Parser_Pos]);
                             if (Parser_Pos<2)

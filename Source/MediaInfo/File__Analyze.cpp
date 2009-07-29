@@ -1605,8 +1605,10 @@ void File__Analyze::Fill (const char* ParserName)
     }
 
     if (IsAccepted)
+    {
         Streams_Fill();
-    IsFilled=true;
+        IsFilled=true;
+    }
 
     if (IsAccepted)
     {
@@ -1623,8 +1625,10 @@ void File__Analyze::Fill ()
         return;
 
     if (IsAccepted)
+    {
         Streams_Fill();
-    IsFilled=true;
+        IsFilled=true;
+    }
 
     if (IsAccepted)
     {

@@ -62,6 +62,7 @@ public :
 
 private :
     //Streams management
+    void Streams_Fill();
     void Streams_Finish();
 
     //Buffer - File header
@@ -146,6 +147,8 @@ private :
             Mpeg_TimeStamp_TS DTS;
         };
 
+        stream_t       StreamKind;
+        size_t         StreamPos;
         int8u          stream_type;
         int8u          DVD_Identifier;
         std::vector<File__Analyze*> Parsers; //Sometimes, we need to do parallel tests
@@ -159,6 +162,8 @@ private :
 
         ps_stream()
         {
+            StreamKind=Stream_Max;
+            StreamPos=0;
             stream_type=0;
             DVD_Identifier=0;
             StreamIsRegistred=false;
@@ -211,6 +216,7 @@ private :
     File__Analyze* ChooseParser_NULL();
 
     //File__Analyze helpers
+    void Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp);
     void Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp);
     void xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count);
 
@@ -222,5 +228,6 @@ private :
 } //NameSpace
 
 #endif
+
 
 
