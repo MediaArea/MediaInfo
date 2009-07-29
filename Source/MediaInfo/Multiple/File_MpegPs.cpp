@@ -1797,63 +1797,28 @@ void File_MpegPs::private_stream_1()
         if (Streams_Private1[private_stream_1_ID].Parsers[Streams_Private1[private_stream_1_ID].Parsers.size()-1])
             Open_Buffer_Init(Streams_Private1[private_stream_1_ID].Parsers[Streams_Private1[private_stream_1_ID].Parsers.size()-1]);
         else
+        {
             Streams_Private1[private_stream_1_ID].Parsers.clear();
-        #if defined(MEDIAINFO_AC3_YES)
-        {
-            File_Ac3* Parser=new File_Ac3;
-            if (Streams_Private1[private_stream_1_ID].stream_type==0 || Streams_Private1[private_stream_1_ID].stream_type==0x06) //None or private
-                Parser->Frame_Count_Valid=2;
-            Open_Buffer_Init(Parser);
-            Streams_Private1[private_stream_1_ID].Parsers.push_back(Parser);
+            #if defined(MEDIAINFO_AC3_YES)
+            {
+                File_Ac3* Parser=new File_Ac3;
+                if (Streams_Private1[private_stream_1_ID].stream_type==0 || Streams_Private1[private_stream_1_ID].stream_type==0x06) //None or private
+                    Parser->Frame_Count_Valid=2;
+                Open_Buffer_Init(Parser);
+                Streams_Private1[private_stream_1_ID].Parsers.push_back(Parser);
+            }
+            #endif
+            #if defined(MEDIAINFO_DTS_YES)
+            {
+                File_Dts* Parser=new File_Dts;
+                if (Streams_Private1[private_stream_1_ID].stream_type==0 || Streams_Private1[private_stream_1_ID].stream_type==0x06) //None or private
+                    Parser->Frame_Count_Valid=2;
+                Open_Buffer_Init(Parser);
+                Streams_Private1[private_stream_1_ID].Parsers.push_back(Parser);
+            }
+            #endif
         }
-        #endif
-        #if defined(MEDIAINFO_DTS_YES)
-        {
-            File_Dts* Parser=new File_Dts;
-            if (Streams_Private1[private_stream_1_ID].stream_type==0 || Streams_Private1[private_stream_1_ID].stream_type==0x06) //None or private
-                Parser->Frame_Count_Valid=2;
-            Open_Buffer_Init(Parser);
-            Streams_Private1[private_stream_1_ID].Parsers.push_back(Parser);
-        }
-        #endif
     }
-
-    //PTS
-    if (Streams[0xBD].Searching_TimeStamp_End && PTS!=(int64u)-1)
-    {
-        Streams_Private1[private_stream_1_ID].TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
-        Streams_Private1[private_stream_1_ID].TimeStamp_End.PTS.TimeStamp=PTS;
-    }
-    if (Searching_TimeStamp_Start && Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start && PTS!=(int64u)-1)
-    {
-        Streams_Private1[private_stream_1_ID].TimeStamp_Start.PTS.TimeStamp=PTS;
-        Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start=false;
-    }
-
-    //DTS
-    if (Streams[0xBD].Searching_TimeStamp_End && DTS!=(int64u)-1)
-    {
-        Streams_Private1[private_stream_1_ID].TimeStamp_End.DTS.File_Pos=File_Offset+Buffer_Offset;
-        Streams_Private1[private_stream_1_ID].TimeStamp_End.DTS.TimeStamp=DTS;
-    }
-    if (Searching_TimeStamp_Start && Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start && DTS!=(int64u)-1)
-    {
-        Streams_Private1[private_stream_1_ID].TimeStamp_Start.DTS.TimeStamp=DTS;
-        Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start=false;
-    }
-
-    //Needed?
-    bool Needed=false;
-    for (size_t Pos=0; Pos<Streams_Private1[private_stream_1_ID].Parsers.size(); Pos++)
-        if (!Streams_Private1[private_stream_1_ID].Parsers[Pos]->IsFinished)
-            Needed=true;
-    if (!Needed)
-    {
-        Skip_XX(Element_Size-Element_Offset,                    "data");
-        return;
-    }
-
-    private_stream_1_Element_Info();
 
     //Specific
     #if defined(MEDIAINFO_AES3_YES)
@@ -2600,30 +2565,6 @@ void File_MpegPs::extension_stream()
             Open_Buffer_Init(Streams_Extension[stream_id_extension].Parsers[0]);
     }
 
-    //PTS
-    if (Streams[0xFD].Searching_TimeStamp_End && PTS!=(int64u)-1)
-    {
-        Streams_Extension[stream_id_extension].TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
-        Streams_Extension[stream_id_extension].TimeStamp_End.PTS.TimeStamp=PTS;
-    }
-    if (Searching_TimeStamp_Start && Streams_Extension[stream_id_extension].Searching_TimeStamp_Start && PTS!=(int64u)-1)
-    {
-        Streams_Extension[stream_id_extension].TimeStamp_Start.PTS.TimeStamp=PTS;
-        Streams_Extension[stream_id_extension].Searching_TimeStamp_Start=false;
-    }
-
-    //DTS
-    if (Streams[0xFD].Searching_TimeStamp_End && DTS!=(int64u)-1)
-    {
-        Streams_Extension[stream_id_extension].TimeStamp_End.DTS.File_Pos=File_Offset+Buffer_Offset;
-        Streams_Extension[stream_id_extension].TimeStamp_End.DTS.TimeStamp=DTS;
-    }
-    if (Searching_TimeStamp_Start && Streams_Extension[stream_id_extension].Searching_TimeStamp_Start && DTS!=(int64u)-1)
-    {
-        Streams_Extension[stream_id_extension].TimeStamp_Start.DTS.TimeStamp=DTS;
-        Streams_Extension[stream_id_extension].Searching_TimeStamp_Start=false;
-    }
-
     //Parsing
     xxx_stream_Parse(Streams_Extension[stream_id_extension], extension_stream_Count);
 
@@ -2654,6 +2595,43 @@ const ZenLib::Char* File_MpegPs::extension_stream_ChooseExtension()
 //---------------------------------------------------------------------------
 void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
 {
+    if (start_code==0xBD || start_code==0xFD)
+    {
+        //PTS
+        if (Streams[start_code].Searching_TimeStamp_End && PTS!=(int64u)-1)
+        {
+            Temp.TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
+            Temp.TimeStamp_End.PTS.TimeStamp=PTS;
+        }
+        if (Searching_TimeStamp_Start && Temp.Searching_TimeStamp_Start && PTS!=(int64u)-1)
+        {
+            Temp.TimeStamp_Start.PTS.TimeStamp=PTS;
+            Temp.Searching_TimeStamp_Start=false;
+        }
+
+        //DTS
+        if (Streams[start_code].Searching_TimeStamp_End && DTS!=(int64u)-1)
+        {
+            Temp.TimeStamp_End.DTS.File_Pos=File_Offset+Buffer_Offset;
+            Temp.TimeStamp_End.DTS.TimeStamp=DTS;
+        }
+        if (Searching_TimeStamp_Start && Temp.Searching_TimeStamp_Start && DTS!=(int64u)-1)
+        {
+            Temp.TimeStamp_Start.DTS.TimeStamp=DTS;
+            Temp.Searching_TimeStamp_Start=false;
+        }
+    }
+
+    //Needed?
+    if (Temp.Parsers.size()==1 && Temp.Parsers[0]->IsFinished)
+    {
+        Skip_XX(Element_Size-Element_Offset,                    "data");
+        return;
+    }
+
+    if (start_code==0xBD)
+        private_stream_1_Element_Info();
+
     if ((Temp.TimeStamp_End.DTS.TimeStamp!=(int64u)-1 && DTS!=(int64u)-1) || (Temp.TimeStamp_End.PTS.TimeStamp!=(int64u)-1 && PTS!=(int64u)-1))
         Temp.FrameCount_AfterLast_TimeStamp_End=0;
 
