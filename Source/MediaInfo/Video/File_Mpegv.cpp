@@ -467,6 +467,18 @@ void File_Mpegv::Streams_Fill()
         Fill(Stream_Video, 0, General_Encoded_Library_Version, Library_Version);
     }
 
+    //Delay
+    if (group_start_IsParsed)
+    {
+        size_t Time_Begin=Time_Begin_Seconds*1000;
+        if (FrameRate)
+            Time_Begin+=(size_t)(Time_Begin_Frames*1000/FrameRate);
+        Fill(Stream_Video, 0, Video_Delay, Time_Begin);
+        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("drop_frame_flag="))+(group_start_drop_frame_flag?_T("1"):_T("0")));
+        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("closed_gop="))+(group_start_closed_gop?_T("1"):_T("0")));
+        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("broken_link="))+(group_start_broken_link?_T("1"):_T("0")));
+    }
+
     //Autorisation of other streams
     NextCode_Clear();
     NextCode_Add(0x00);
@@ -495,18 +507,6 @@ void File_Mpegv::Streams_Finish()
         }
         if (Time_End>Time_Begin)
             Fill(Stream_Video, 0, Video_Duration, Time_End-Time_Begin);
-    }
-
-    //Delay
-    if (group_start_IsParsed)
-    {
-        size_t Time_Begin=Time_Begin_Seconds*1000;
-        if (FrameRate)
-            Time_Begin+=(size_t)(Time_Begin_Frames*1000/FrameRate);
-        Fill(Stream_Video, 0, Video_Delay, Time_Begin);
-        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("drop_frame_flag="))+(group_start_drop_frame_flag?_T("1"):_T("0")));
-        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("closed_gop="))+(group_start_closed_gop?_T("1"):_T("0")));
-        Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("broken_link="))+(group_start_broken_link?_T("1"):_T("0")));
     }
 
     //DVD captions
@@ -784,10 +784,8 @@ void File_Mpegv::Detect_EOF()
             Streams[0x00].Searching_TimeStamp_End=false;
 
         //Jumping
-        //if (!IsAccepted)
-        //    Accept("MPEG Video");
-        //if (!IsFilled)
-        //    Fill("MPEG Video");
+        if (!IsFilled)
+            Fill("MPEG Video");
 
         GoToFromEnd(SizeToAnalyse_End*2, "MPEG Video");
         EOF_AlreadyDetected=true; //Sometimes called from Filling
@@ -1357,7 +1355,18 @@ void File_Mpegv::sequence_header()
     TEST_SB_END();
     BS_End();
 
-    FILLING_BEGIN();
+    //0x00 at the end
+    if (Element_Offset<Element_Size)
+    {
+        int64u NullBytes_Begin=Element_Size-1;
+        while (NullBytes_Begin>Element_Offset && Buffer[Buffer_Offset+(size_t)NullBytes_Begin]==0x00)
+            NullBytes_Begin--;
+
+        if (NullBytes_Begin==Element_Offset)
+            Skip_XX(Element_Size-Element_Offset,                "Padding");
+    }
+
+    FILLING_BEGIN_PRECISE();
         //Temporal reference
         TemporalReference_Offset=TemporalReference.size();
         if (TemporalReference_Offset>=0x800)
