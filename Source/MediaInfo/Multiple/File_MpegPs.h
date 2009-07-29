@@ -100,7 +100,7 @@ private :
     void extension_stream();    //0xFD
 
     //private_stream_1 specific
-    void           private_stream_1_Choose_DVD_ID();
+    bool           private_stream_1_Choose_DVD_ID();
     File__Analyze* private_stream_1_ChooseParser();
     const ZenLib::Char* private_stream_1_ChooseExtension();
     void           private_stream_1_Element_Info();
@@ -148,10 +148,7 @@ private :
 
         int8u          stream_type;
         int8u          DVD_Identifier;
-        File__Analyze* Parser;
-        File__Analyze* Parser2; //Sometimes, we need to do parallel tests
-        File__Analyze* Parser3; //Sometimes, we need to do parallel tests
-        File__Analyze* Parser4; //Sometimes, we need to do parallel tests
+        std::vector<File__Analyze*> Parsers; //Sometimes, we need to do parallel tests
         Mpeg_TimeStamp TimeStamp_Start;
         Mpeg_TimeStamp TimeStamp_End;
         bool           StreamIsRegistred;
@@ -164,10 +161,6 @@ private :
         {
             stream_type=0;
             DVD_Identifier=0;
-            Parser=NULL;
-            Parser2=NULL;
-            Parser3=NULL;
-            Parser4=NULL;
             StreamIsRegistred=false;
             Searching_Payload=false;
             Searching_TimeStamp_Start=false;
@@ -177,10 +170,8 @@ private :
 
         ~ps_stream()
         {
-            delete Parser; //Parser=NULL;
-            delete Parser2; //Parser2=NULL;
-            delete Parser3; //Parser3=NULL;
-            delete Parser4; //Parser4=NULL;
+            for (size_t Pos=0; Pos<Parsers.size(); Pos++)
+                delete Parsers[Pos]; //Parsers[Pos]=NULL;
         }
     };
     std::vector<ps_stream> Streams;
@@ -221,6 +212,7 @@ private :
 
     //File__Analyze helpers
     void Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp);
+    void xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count);
 
     //Output buffer
     size_t Output_Buffer_Get (const String &Value);

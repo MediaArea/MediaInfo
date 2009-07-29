@@ -179,6 +179,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         Target+=MediaInfoLib::Config.TagSeparator_Get();
         Target+=Value;
     }
+    IsUpdated=true;
 
     //Human readable
     if (!IsSub)

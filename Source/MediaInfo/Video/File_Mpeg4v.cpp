@@ -1241,6 +1241,20 @@ void File_Mpeg4v::vop_start()
     }
     while (modulo_time_base_Continue);
     Mark_1 ();
+
+    FILLING_BEGIN();
+        if (time_size==0)
+        {
+            //Filling only if not already done
+            if (Frame_Count>=Frame_Count_Valid && Count_Get(Stream_Video)==0)
+            {
+                Accept("MPEG-4 Visual");
+                Finish("MPEG-4 Visual");
+            }
+            return;
+        }
+    FILLING_END();
+
     Info_S4(time_size, vop_time_increment,                      "vop_time_increment"); if (vop_time_increment_resolution) Param_Info(vop_time_increment*1000/vop_time_increment_resolution, " ms");
     Mark_1 ();
     Get_SB (vop_coded,                                          "vop_coded");

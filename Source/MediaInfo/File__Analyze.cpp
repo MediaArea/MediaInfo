@@ -1554,7 +1554,7 @@ void File__Analyze::Trusted_IsNot ()
 #ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Accept (const char* ParserName)
 {
-    if (IsAccepted)
+    if (IsAccepted || IsFinished)
         return;
 
     if (ParserName)
@@ -1572,6 +1572,9 @@ void File__Analyze::Accept (const char* ParserName)
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Accept ()
 {
+    if (IsAccepted || IsFinished)
+        return;
+
     IsAccepted=true;
 }
 #endif //MEDIAINFO_MINIMIZESIZE

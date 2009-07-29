@@ -254,7 +254,7 @@ void File_Aes3::Data_Parse()
         if (PTS!=(int32u)-1 && Block_Last_PTS!=(int32u)-1 && PTS!=Block_Last_PTS)
         {
             //Rounding
-            int64u BitRate=Block_Last_Size*8*90*1000/(PTS-Block_Last_PTS);
+            int64u BitRate=Block_Last_Size*8*1000*1000000/(PTS-Block_Last_PTS);
             int64u SamplingRate=BitRate*(4+bits_per_samples)/(5+bits_per_samples)/(2+2*number_channels)/(16+4*bits_per_samples);
             if (SamplingRate>  7840 && SamplingRate<  8160) SamplingRate=  8000;
             if (SamplingRate> 15680 && SamplingRate< 16320) SamplingRate= 16000;
