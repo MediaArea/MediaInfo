@@ -1235,7 +1235,7 @@ void File_Mpegv::user_data_start_GA94_03()
                         Open_Buffer_Continue(GA94_03_CC_Parsers[Parser_Pos], TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2);
 
                         //Finish
-                        //if (GA94_03_CC_Parsers[Parser_Pos]->IsFinished)
+                        if (GA94_03_CC_Parsers[Parser_Pos]->IsFinished)
                         {
                             Merge(*GA94_03_CC_Parsers[Parser_Pos]);
                             if (Parser_Pos<2)

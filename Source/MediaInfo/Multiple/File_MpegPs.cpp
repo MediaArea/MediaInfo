@@ -252,7 +252,7 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp)
 {
     //By the parser
     StreamKind_Last=Stream_Max;
-    if (!Temp.Parsers.empty() && Temp.Parsers[0])
+    if (!Temp.Parsers.empty() && Temp.Parsers[0] && Temp.Parsers[0]->IsAccepted)
     {
         Fill(Temp.Parsers[0]);
 

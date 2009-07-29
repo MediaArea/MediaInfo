@@ -101,6 +101,10 @@ private :
     int64u MpegTs_JumpTo_End;
     bool   Searching_TimeStamp_Start;
 
+    //Helpers
+    void Streams_Fill_PerStream(int16u PID, complete_stream::stream &Temp);
+    void Streams_Finish_PerStream(int16u PID, complete_stream::stream &Temp);
+
     //File__Duplicate
     void   File__Duplicate_Read_Buffer_Finalize ();
     bool   File__Duplicate_Set  (const Ztring &Value); //Fill a new File__Duplicate value

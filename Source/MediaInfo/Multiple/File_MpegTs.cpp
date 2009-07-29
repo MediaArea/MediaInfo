@@ -143,146 +143,8 @@ void File_MpegTs::Streams_Fill()
         Accept("MPEG-TS");
 
     //Per stream
-    for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
-    {
-        //PES
-        if (Complete_Stream->Streams[StreamID].Kind==complete_stream::stream::pes)
-        {
-            //By the parser
-            StreamKind_Last=Stream_Max;
-            if (Complete_Stream->Streams[StreamID].Parser && Complete_Stream->Streams[StreamID].Parser->IsAccepted)
-            {
-                Complete_Stream->Streams[StreamID].Parser->ShouldContinueParsing=false;
-                Finish(Complete_Stream->Streams[StreamID].Parser);
-                Merge(*Complete_Stream->Streams[StreamID].Parser);
-
-                //More from the FMC parser
-                if (Complete_Stream->Streams[StreamID].FMC_ES_ID_IsValid)
-                {
-                    complete_stream::transport_stream::iod_ess::iterator IOD_ES=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.find(Complete_Stream->Streams[StreamID].FMC_ES_ID);
-                    if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end() && IOD_ES->second.Parser)
-                    {
-                        Finish(IOD_ES->second.Parser);
-                        Merge(*IOD_ES->second.Parser, StreamKind_Last, StreamPos_Last, 0);
-                    }
-                }
-            }
-
-            //By the descriptors
-            if (StreamKind_Last==Stream_Max && Complete_Stream->transport_stream_id_IsValid)
-            {
-                int32u format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[StreamID].program_numbers[0]].registration_format_identifier;
-                if (Complete_Stream->Streams[StreamID].IsRegistered
-                 && Mpeg_Descriptors_registration_format_identifier_StreamKind(format_identifier)!=Stream_Max)
-                {
-                    StreamKind_Last=Mpeg_Descriptors_registration_format_identifier_StreamKind(format_identifier);
-                    Stream_Prepare(StreamKind_Last);
-                    Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Descriptors_registration_format_identifier_Format(format_identifier));
-                    Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Descriptors_registration_format_identifier_Format(format_identifier));
-                }
-            }
-
-            //By the stream_type
-            if (StreamKind_Last==Stream_Max && Complete_Stream->transport_stream_id_IsValid)
-            {
-                int32u format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[StreamID].program_numbers[0]].registration_format_identifier;
-                if ((Complete_Stream->Streams[StreamID].IsRegistered ||  format_identifier==Elements::HDMV) && Mpeg_Psi_stream_type_StreamKind(Complete_Stream->Streams[StreamID].stream_type, format_identifier)!=Stream_Max)
-                {
-                    StreamKind_Last=Mpeg_Psi_stream_type_StreamKind(Complete_Stream->Streams[StreamID].stream_type, format_identifier);
-                    if (StreamKind_Last==Stream_General) //Only information, no streams
-                    {
-                        Merge (*Complete_Stream->Streams[StreamID].Parser, Stream_General, 0, 0);
-                        StreamKind_Last=Stream_Max;
-                    }
-                    Stream_Prepare(StreamKind_Last);
-                    Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Psi_stream_type_Format(Complete_Stream->Streams[StreamID].stream_type, format_identifier));
-                    Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Psi_stream_type_Codec(Complete_Stream->Streams[StreamID].stream_type, format_identifier));
-                }
-            }
-
-            //By the StreamKind
-            if (StreamKind_Last==Stream_Max && Complete_Stream->Streams[StreamID].StreamKind!=Stream_Max && Complete_Stream->Streams[StreamID].IsRegistered)
-            {
-                Stream_Prepare(Complete_Stream->Streams[StreamID].StreamKind);
-            }
-
-            //More info
-            if (StreamKind_Last!=Stream_Max) //Found by the Parser or stream_type
-            {
-                //Special cases
-                if (StreamKind_Last==Stream_Text && Complete_Stream->Streams[StreamID].Parser && Complete_Stream->Streams[StreamID].Parser->Count_Get(Stream_Video))
-                {
-                    StreamKind_Last=Stream_Video;
-                    StreamPos_Last=Count_Get(Stream_Video)-1;
-                }
-
-                Complete_Stream->Streams[StreamID].StreamKind=StreamKind_Last;
-                Complete_Stream->Streams[StreamID].StreamPos=StreamPos_Last;
-
-                //Encryption
-                if (Complete_Stream->Streams[StreamID].IsScrambled)
-                    Fill(StreamKind_Last, StreamPos_Last, "Encryption", "Encrypted");
-
-                //TS info
-                for (std::map<std::string, ZenLib::Ztring>::iterator Info=Complete_Stream->Streams[StreamID].Infos.begin(); Info!=Complete_Stream->Streams[StreamID].Infos.end(); Info++)
-                {
-                    if (Retrieve(StreamKind_Last, StreamPos_Last, Info->first.c_str()).empty())
-                        Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second);
-                }
-
-                //Common
-                Fill(StreamKind_Last, StreamPos_Last, "ID", StreamID, 10, true);
-                Fill(StreamKind_Last, StreamPos_Last, "ID/String", Decimal_Hexa(StreamID), true);
-                for (size_t Pos=0; Pos<Complete_Stream->Streams[StreamID].program_numbers.size(); Pos++)
-                {
-                    Fill(StreamKind_Last, StreamPos_Last, "MenuID", Complete_Stream->Streams[StreamID].program_numbers[Pos], 10, Pos==0);
-                    Fill(StreamKind_Last, StreamPos_Last, "MenuID/String", Decimal_Hexa(Complete_Stream->Streams[StreamID].program_numbers[Pos]), Pos==0);
-                }
-
-                //Special cases
-                if (StreamKind_Last==Stream_Video && Complete_Stream->Streams[StreamID].Parser && Complete_Stream->Streams[StreamID].Parser->Count_Get(Stream_Text))
-                {
-                    //Video and Text are together
-                    size_t Text_Count=Complete_Stream->Streams[StreamID].Parser->Count_Get(Stream_Text);
-                    for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
-                    {
-                        size_t Pos=Count_Get(Stream_Text)-Text_Count+Text_Pos;
-                        Fill(Stream_Text, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(StreamPos_Last+1), true);
-                        Fill(Stream_Text, Pos, Text_StreamSize, 0);
-                        Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
-                        if (ID.find(_T('-'))!=string::npos)
-                            ID.erase(ID.begin(), ID.begin()+ID.find(_T('-'))+1);
-                        Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, StreamPos_Last, Video_ID)+_T('-')+ID, true);
-                        Fill(Stream_Text, Pos, Text_ID_String, Retrieve(Stream_Video, StreamPos_Last, Video_ID_String)+ID, true);
-                        Fill(Stream_Text, Pos, Text_MenuID, Retrieve(Stream_Video, StreamPos_Last, Video_MenuID), true);
-                        Fill(Stream_Text, Pos, Text_MenuID_String, Retrieve(Stream_Video, StreamPos_Last, Video_MenuID_String), true);
-                        Fill(Stream_Text, Pos, Text_Duration, Retrieve(Stream_Video, StreamPos_Last, Video_Duration), true);
-
-                        //Language from ATSC EIT
-                        size_t ID_Pos;
-                        if (ID==_T("608-0"))
-                            ID_Pos=0;
-                        else if (ID==_T("608-1"))
-                            ID_Pos=1;
-                        else
-                        {
-                            ID_Pos=ID.To_int8u();
-                            if (ID_Pos==0)
-                                ID_Pos=(size_t)-1;
-                            else
-                                ID_Pos--; //EIA-708 begins at 1
-                        }
-                        if (ID_Pos<Complete_Stream->Streams[StreamID].Captions_Language.size())
-                            Fill(Stream_Text, Pos, Text_Language, Complete_Stream->Streams[StreamID].Captions_Language[ID_Pos]);
-                    }
-                }
-            }
-
-            //Desactivating the stream (except for timestamp)
-            Complete_Stream->Streams[StreamID].Searching_Payload_Start_Set(false);
-            Complete_Stream->Streams[StreamID].Searching_Payload_Continue_Set(false);
-        }
-    }
+    for (size_t PID=0; PID<0x2000; PID++)
+        Streams_Fill_PerStream(PID, Complete_Stream->Streams[PID]);
 
     //Fill General
     Fill(Stream_General, 0, General_Format, BDAV_Size?"BDAV":(TSP_Size?"MPEG-TS 188+16":"MPEG-TS"), Unlimited, true, true);
@@ -430,6 +292,122 @@ void File_MpegTs::Streams_Fill()
             MediaInfo::Option_Static(_T("ReadByHuman"), ReadByHuman?_T("1"):_T("0"));
         }
     #endif //defined(MEDIAINFO_BDAV_YES) && defined (MEDIAINFO_BDMV_YES)
+}
+
+//---------------------------------------------------------------------------
+void File_MpegTs::Streams_Fill_PerStream(int16u PID, complete_stream::stream &Temp)
+{
+    //Only PES
+    if (Temp.Kind!=complete_stream::stream::pes)
+        return;
+
+    //By the parser
+    StreamKind_Last=Stream_Max;
+    if (Temp.Parser && Temp.Parser->IsAccepted)
+    {
+        Fill(Temp.Parser);
+        if (Temp.Parser->Count_Get(Stream_Video) && Temp.Parser->Count_Get(Stream_Text))
+        {
+            //Special case: Video and Text are together
+            Stream_Prepare(Stream_Video);
+            Merge(*Temp.Parser, Stream_Video, 0, StreamPos_Last);
+        }
+        else
+            Merge(*Temp.Parser);
+
+        //More from the FMC parser
+        if (Temp.FMC_ES_ID_IsValid)
+        {
+            complete_stream::transport_stream::iod_ess::iterator IOD_ES=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.find(Temp.FMC_ES_ID);
+            if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end() && IOD_ES->second.Parser)
+            {
+                Finish(IOD_ES->second.Parser);
+                Merge(*IOD_ES->second.Parser, StreamKind_Last, StreamPos_Last, 0);
+            }
+        }
+    }
+
+    //By the descriptors
+    if (StreamKind_Last==Stream_Max && Complete_Stream->transport_stream_id_IsValid)
+    {
+        int32u format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Temp.program_numbers[0]].registration_format_identifier;
+        if (Temp.IsRegistered
+         && Mpeg_Descriptors_registration_format_identifier_StreamKind(format_identifier)!=Stream_Max)
+        {
+            StreamKind_Last=Mpeg_Descriptors_registration_format_identifier_StreamKind(format_identifier);
+            Stream_Prepare(StreamKind_Last);
+            Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Descriptors_registration_format_identifier_Format(format_identifier));
+            Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Descriptors_registration_format_identifier_Format(format_identifier));
+        }
+    }
+
+    //By the stream_type
+    if (StreamKind_Last==Stream_Max && Complete_Stream->transport_stream_id_IsValid)
+    {
+        int32u format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Temp.program_numbers[0]].registration_format_identifier;
+        if ((Temp.IsRegistered ||  format_identifier==Elements::HDMV) && Mpeg_Psi_stream_type_StreamKind(Temp.stream_type, format_identifier)!=Stream_Max)
+        {
+            StreamKind_Last=Mpeg_Psi_stream_type_StreamKind(Temp.stream_type, format_identifier);
+            if (StreamKind_Last==Stream_General) //Only information, no streams
+            {
+                Merge (*Temp.Parser, Stream_General, 0, 0);
+                StreamKind_Last=Stream_Max;
+            }
+            Stream_Prepare(StreamKind_Last);
+            Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Psi_stream_type_Format(Temp.stream_type, format_identifier));
+            Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Psi_stream_type_Codec(Temp.stream_type, format_identifier));
+        }
+    }
+
+    //By the StreamKind
+    if (StreamKind_Last==Stream_Max && Temp.StreamKind!=Stream_Max && Temp.IsRegistered)
+    {
+        Stream_Prepare(Temp.StreamKind);
+    }
+
+    //More info
+    if (StreamKind_Last!=Stream_Max) //Found
+    {
+        //Special cases
+        if (StreamKind_Last==Stream_Text && Temp.Parser && Temp.Parser->Count_Get(Stream_Video))
+        {
+            StreamKind_Last=Stream_Video;
+            StreamPos_Last=Count_Get(Stream_Video)-1;
+        }
+
+        Temp.StreamKind=StreamKind_Last;
+        Temp.StreamPos=StreamPos_Last;
+
+        //Encryption
+        if (Temp.IsScrambled)
+            Fill(StreamKind_Last, StreamPos_Last, "Encryption", "Encrypted");
+
+        //TS info
+        for (std::map<std::string, ZenLib::Ztring>::iterator Info=Temp.Infos.begin(); Info!=Temp.Infos.end(); Info++)
+        {
+            if (Retrieve(StreamKind_Last, StreamPos_Last, Info->first.c_str()).empty())
+                Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second);
+        }
+        Temp.Infos.clear();
+
+        //Common
+        Fill(StreamKind_Last, StreamPos_Last, "ID", PID, 10, true);
+        Fill(StreamKind_Last, StreamPos_Last, "ID/String", Decimal_Hexa(PID), true);
+        for (size_t Pos=0; Pos<Temp.program_numbers.size(); Pos++)
+        {
+            Fill(StreamKind_Last, StreamPos_Last, "MenuID", Temp.program_numbers[Pos], 10, Pos==0);
+            Fill(StreamKind_Last, StreamPos_Last, "MenuID/String", Decimal_Hexa(Temp.program_numbers[Pos]), Pos==0);
+        }
+
+        //Special cases
+        if (StreamKind_Last==Stream_Video && Temp.Parser && Temp.Parser->Count_Get(Stream_Text))
+        {
+        }
+    }
+
+    //Desactivating the stream (except for timestamp)
+    Temp.Searching_Payload_Start_Set(false);
+    Temp.Searching_Payload_Continue_Set(false);
 }
 
 //---------------------------------------------------------------------------
@@ -630,56 +608,81 @@ void File_MpegTs::Streams_Update()
 //---------------------------------------------------------------------------
 void File_MpegTs::Streams_Finish()
 {
-    /*
-    if (Complete_Stream==NULL || Complete_Stream->Streams.empty())
-        return; //Not initialized
-
     //Per stream
-    for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
-    {
-        //PES
-        if (Complete_Stream->Streams[StreamID].Kind==complete_stream::stream::pes)
-        {
-            //By the parser
-            StreamKind_Last=Stream_Max;
-            if (Complete_Stream->Streams[StreamID].Parser && Complete_Stream->Streams[StreamID].Parser->IsAccepted)
-            {
-                Complete_Stream->Streams[StreamID].Parser->ShouldContinueParsing=false;
-                Finish(Complete_Stream->Streams[StreamID].Parser);
-                Merge (*Complete_Stream->Streams[StreamID].Parser, Complete_Stream->Streams[StreamID].StreamKind, 0, Complete_Stream->Streams[StreamID].StreamPos);
-                Fill(Complete_Stream->Streams[StreamID].StreamKind, Complete_Stream->Streams[StreamID].StreamPos, "Duration", Complete_Stream->Streams[StreamID].Parser->Retrieve(Complete_Stream->Streams[StreamID].StreamKind, 0, "Duration"));
-
-                //More from the FMC parser
-                if (Complete_Stream->Streams[StreamID].FMC_ES_ID_IsValid)
-                {
-                    complete_stream::transport_stream::iod_ess::iterator IOD_ES=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.find(Complete_Stream->Streams[StreamID].FMC_ES_ID);
-                    if (IOD_ES!=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs.end() && IOD_ES->second.Parser)
-                    {
-                        IOD_ES->second.Parser->Finish();
-                        Merge (*IOD_ES->second.Parser, StreamKind_Last, StreamPos_Last, 0);
-                    }
-                }
-            }
-
-            //More info
-            if (Complete_Stream->Streams[StreamID].StreamKind!=Stream_Max) //Found by the Parser or stream_type
-            {
-                //Special cases
-                if (Complete_Stream->Streams[StreamID].StreamKind==Stream_Video && Complete_Stream->Streams[StreamID].Parser && Complete_Stream->Streams[StreamID].Parser->Count_Get(Stream_Text))
-                {
-                    //Video and Text are together
-                    Ztring VideoString=_T("Muxed in Video #")+Ztring().From_Number(StreamPos_Last+1);
-                    Ztring A=Retrieve(Stream_Text, 0, "MuxingMode_MoreInfo");
-                    for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
-                        if (Retrieve(Stream_Text, Pos, "MuxingMode_MoreInfo")==VideoString)
-                            Fill(Stream_Text, Pos, Text_Duration, Retrieve(Stream_Video, StreamPos_Last, "Duration"), true);
-                }
-            }
-        }
-    }
-    */
+    for (size_t PID=0; PID<0x2000; PID++)
+        Streams_Finish_PerStream(PID, Complete_Stream->Streams[PID]);
 
     File__Duplicate_Read_Buffer_Finalize();
+}
+
+//---------------------------------------------------------------------------
+void File_MpegTs::Streams_Finish_PerStream(int16u PID, complete_stream::stream &Temp)
+{
+    //Only PES
+    if (Temp.Kind!=complete_stream::stream::pes)
+        return;
+
+    //By the parser
+    if (Temp.StreamKind==Stream_Max && !Temp.Parser)
+        Streams_Fill_PerStream(PID, Temp);
+
+    //Init
+    if (Temp.StreamKind==Stream_Max)
+        return;
+    StreamKind_Last=Temp.StreamKind;
+    StreamPos_Last=Temp.StreamPos;
+
+    //By the parser
+    if (Temp.Parser && Temp.Parser->IsAccepted)
+    {
+        Temp.Parser->ShouldContinueParsing=false;
+        Finish(Temp.Parser);
+        Merge(*Temp.Parser, StreamKind_Last, 0, StreamPos_Last);
+
+        //Special cases
+        if (Temp.Parser->Count_Get(Stream_Video) && Temp.Parser->Count_Get(Stream_Text))
+        {
+            //Video and Text are together
+            size_t Text_Count=Temp.Parser->Count_Get(Stream_Text);
+            for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
+            {
+                Stream_Prepare(Stream_Text);
+                Merge(*Temp.Parser, Stream_Text, Text_Pos, StreamPos_Last);
+
+                if (!IsSub)
+                    Fill(Stream_Text, StreamPos_Last, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp.StreamPos+1), true);
+                Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
+                if (ID.find(_T('-'))!=string::npos)
+                    ID.erase(ID.begin(), ID.begin()+ID.find(_T('-'))+1);
+                Fill(Stream_Text, StreamPos_Last, Text_ID, Retrieve(Stream_Video, Temp.StreamPos, Video_ID)+_T('-')+ID, true);
+                Fill(Stream_Text, StreamPos_Last, Text_ID_String, Retrieve(Stream_Video, Temp.StreamPos, Video_ID_String)+ID, true);
+                Fill(Stream_Text, StreamPos_Last, Text_MenuID, Retrieve(Stream_Video, Temp.StreamPos, Video_MenuID), true);
+                Fill(Stream_Text, StreamPos_Last, Text_MenuID_String, Retrieve(Stream_Video, Temp.StreamPos, Video_MenuID_String), true);
+                Fill(Stream_Text, StreamPos_Last, Text_Duration, Retrieve(Stream_Video, Temp.StreamPos, Video_Duration), true);
+                Fill(Stream_Text, StreamPos_Last, Text_Delay, Retrieve(Stream_Video, Temp.StreamPos, Video_Delay), true);
+
+                //Language from ATSC EIT
+                size_t ID_Pos;
+                if (ID==_T("608-0"))
+                    ID_Pos=0;
+                else if (ID==_T("608-1"))
+                    ID_Pos=1;
+                else
+                {
+                    ID_Pos=ID.To_int8u();
+                    if (ID_Pos==0)
+                        ID_Pos=(size_t)-1;
+                    else
+                        ID_Pos--; //EIA-708 begins at 1
+                }
+                if (ID_Pos<Temp.Captions_Language.size())
+                    Fill(Stream_Text, StreamPos_Last, Text_Language, Temp.Captions_Language[ID_Pos]);
+            }
+
+            StreamKind_Last=Temp.StreamKind;
+            StreamPos_Last=Temp.StreamPos;
+        }
+    }
 }
 
 //***************************************************************************
