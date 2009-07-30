@@ -38,6 +38,23 @@ import com.sun.jna.WString;
 
 class MediaInfo
 {
+    static
+    {
+        // libmediainfo for linux depends on libzen
+        try
+        {
+            // We need to load dependencies first, because we know where our native libs are (e.g. Java Web Start Cache).
+            // If we do not, the system will look for dependencies, but only in the library path.
+            String os=System.getProperty("os.name");
+            if (os!=null && !os.toLowerCase().startsWith("windows") && !os.toLowerCase().startsWith("mac"))
+                NativeLibrary.getInstance("zen");
+        }
+        catch (Exception e)
+        {
+            //Logger.getLogger(MediaInfo.class.getName()).warning("Failed to preload libzen");
+        }
+    }
+
     //Internal stuff
     interface MediaInfoDLL_Internal extends Library
     {
