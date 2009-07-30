@@ -2728,7 +2728,6 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
                     Element_Begin("Test");
             #endif //MEDIAINFO_MINIMIZESIZE
             Open_Buffer_Continue(Temp.Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-            Temp.FrameCount_AfterLast_TimeStamp_End+=Temp.Parsers[Pos]->Frame_Count_InThisBlock;
             #ifndef MEDIAINFO_MINIMIZESIZE
                 if (Temp.Parsers.size()>1)
                     Element_End();
@@ -2757,6 +2756,7 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
                 }
             }
         }
+
     Temp.FrameCount_AfterLast_TimeStamp_End+=Temp.Parsers[0]->Frame_Count_InThisBlock;
 
     Element_Show();
