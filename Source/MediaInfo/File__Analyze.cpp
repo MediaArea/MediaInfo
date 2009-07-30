@@ -53,6 +53,7 @@ File__Analyze::File__Analyze ()
     IsSub=false;
 
     //In
+    PTS_DTS_Needed=false;
     PTS=(int64u)-1;
     DTS=(int64u)-1;
 

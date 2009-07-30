@@ -31,6 +31,7 @@ public :
     //***************************************************************************
 
     //In
+    bool   PTS_DTS_Needed;
     int64u PTS; //In nanoseconds
     int64u DTS; //In nanoseconds
 

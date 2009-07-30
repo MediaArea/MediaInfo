@@ -2658,31 +2658,40 @@ const ZenLib::Char* File_MpegPs::extension_stream_ChooseExtension()
 //---------------------------------------------------------------------------
 void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
 {
-    if (start_code==0xBD || start_code==0xFD)
+    switch (start_code)
     {
-        //PTS
-        if (Streams[start_code].Searching_TimeStamp_End && PTS!=(int64u)-1)
-        {
-            Temp.TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
-            Temp.TimeStamp_End.PTS.TimeStamp=PTS;
-        }
-        if (Searching_TimeStamp_Start && Temp.Searching_TimeStamp_Start && PTS!=(int64u)-1)
-        {
-            Temp.TimeStamp_Start.PTS.TimeStamp=PTS;
-            Temp.Searching_TimeStamp_Start=false;
-        }
+        case 0xBD :
+        case 0xFD :
+            //PTS
+            if (PTS!=(int64u)-1)
+            {
+                if (Streams[start_code].Searching_TimeStamp_End)
+                {
+                    Temp.TimeStamp_End.PTS.File_Pos=File_Offset+Buffer_Offset;
+                    Temp.TimeStamp_End.PTS.TimeStamp=PTS;
+                }
+                if (Searching_TimeStamp_Start && Temp.Searching_TimeStamp_Start)
+                {
+                    Temp.TimeStamp_Start.PTS.TimeStamp=PTS;
+                    Temp.Searching_TimeStamp_Start=false;
+                }
+            }
 
-        //DTS
-        if (Streams[start_code].Searching_TimeStamp_End && DTS!=(int64u)-1)
-        {
-            Temp.TimeStamp_End.DTS.File_Pos=File_Offset+Buffer_Offset;
-            Temp.TimeStamp_End.DTS.TimeStamp=DTS;
-        }
-        if (Searching_TimeStamp_Start && Temp.Searching_TimeStamp_Start && DTS!=(int64u)-1)
-        {
-            Temp.TimeStamp_Start.DTS.TimeStamp=DTS;
-            Temp.Searching_TimeStamp_Start=false;
-        }
+            //DTS
+            if (DTS!=(int64u)-1)
+            {
+                if (Streams[start_code].Searching_TimeStamp_End)
+                {
+                    Temp.TimeStamp_End.DTS.File_Pos=File_Offset+Buffer_Offset;
+                    Temp.TimeStamp_End.DTS.TimeStamp=DTS;
+                }
+                if (Searching_TimeStamp_Start && DTS!=(int64u)-1 && Temp.Searching_TimeStamp_Start)
+                {
+                    Temp.TimeStamp_Start.DTS.TimeStamp=DTS;
+                    Temp.Searching_TimeStamp_Start=false;
+                }
+            }
+        default : ;
     }
 
     //Needed?
@@ -2692,45 +2701,60 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
         return;
     }
 
-    if (start_code==0xBD)
-        private_stream_1_Element_Info();
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        if (start_code==0xBD)
+            private_stream_1_Element_Info();
+    #endif //MEDIAINFO_MINIMIZESIZE
 
-    if ((Temp.TimeStamp_End.DTS.TimeStamp!=(int64u)-1 && DTS!=(int64u)-1) || (Temp.TimeStamp_End.PTS.TimeStamp!=(int64u)-1 && PTS!=(int64u)-1))
+    if (1 //Temp.StreamKind==Stream_Video
+    && ((DTS!=(int64u)-1 && Temp.TimeStamp_End.DTS.TimeStamp!=(int64u)-1)
+      || (PTS!=(int64u)-1 && Temp.TimeStamp_End.PTS.TimeStamp!=(int64u)-1)))
         Temp.FrameCount_AfterLast_TimeStamp_End=0;
 
     for (size_t Pos=0; Pos<Temp.Parsers.size(); Pos++)
         if (Temp.Parsers[Pos] && !Temp.Parsers[Pos]->IsFinished)
         {
             //PTS/DTS
-            if (PTS!=(int64u)-1)
-                Temp.Parsers[Pos]->PTS=PTS*1000000/90;
-            if (DTS!=(int64u)-1)
-                Temp.Parsers[Pos]->DTS=DTS*1000000/90;
+            if (Temp.Parsers[Pos]->PTS_DTS_Needed)
+            {
+                if (PTS!=(int64u)-1)
+                    Temp.Parsers[Pos]->PTS=PTS*1000000/90;
+                if (DTS!=(int64u)-1)
+                    Temp.Parsers[Pos]->DTS=DTS*1000000/90;
+            }
 
-            if (Temp.Parsers.size()>1)
-                Element_Begin("Test");
+            #ifndef MEDIAINFO_MINIMIZESIZE
+                if (Temp.Parsers.size()>1)
+                    Element_Begin("Test");
+            #endif //MEDIAINFO_MINIMIZESIZE
             Open_Buffer_Continue(Temp.Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
             Temp.FrameCount_AfterLast_TimeStamp_End+=Temp.Parsers[Pos]->Frame_Count_InThisBlock;
-            if (Temp.Parsers.size()>1)
-                Element_End();
+            #ifndef MEDIAINFO_MINIMIZESIZE
+                if (Temp.Parsers.size()>1)
+                    Element_End();
+            #endif //MEDIAINFO_MINIMIZESIZE
 
-            if ((Temp.Parsers[Pos]->IsAccepted && Temp.Parsers[Pos]->IsFinished) || (!Parsing_End_ForDTS && Temp.Parsers[Pos]->IsFilled))
+            if ((Temp.Parsers[Pos]->IsAccepted && Temp.Parsers[Pos]->IsFinished)
+             || (!Parsing_End_ForDTS && Temp.Parsers[Pos]->IsFilled))
             {
                 if (Temp.Parsers[Pos]->Count_Get(Stream_Video)==0) //TODO: speed improvement, we do this only for CC
                     Temp.Searching_Payload=false;
                 if (xxx_Count>0)
                     xxx_Count--;
             }
-            if (Temp.Parsers.size()>1 && !Temp.Parsers[Pos]->IsAccepted && Temp.Parsers[Pos]->IsFinished)
+            if (Temp.Parsers.size()>1)
             {
-                Temp.Parsers.erase(Temp.Parsers.begin()+Pos);
-                Pos--;
-            }
-            if (Temp.Parsers.size()>1 && Temp.Parsers[Pos]->IsAccepted)
-            {
-                File__Analyze* Parser=Temp.Parsers[Pos];
-                Temp.Parsers.clear();
-                Temp.Parsers.push_back(Parser);
+                if (!Temp.Parsers[Pos]->IsAccepted && Temp.Parsers[Pos]->IsFinished)
+                {
+                    Temp.Parsers.erase(Temp.Parsers.begin()+Pos);
+                    Pos--;
+                }
+                if (Temp.Parsers.size()>1 && Temp.Parsers[Pos]->IsAccepted)
+                {
+                    File__Analyze* Parser=Temp.Parsers[Pos];
+                    Temp.Parsers.clear();
+                    Temp.Parsers.push_back(Parser);
+                }
             }
         }
     Temp.FrameCount_AfterLast_TimeStamp_End+=Temp.Parsers[0]->Frame_Count_InThisBlock;

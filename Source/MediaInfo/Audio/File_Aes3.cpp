@@ -74,6 +74,9 @@ const char* Aes3_ChannelsPositions2(int8u number_channels)
 File_Aes3::File_Aes3()
 :File__Analyze()
 {
+    //Configure
+    PTS_DTS_Needed=true;
+
     //Temp
     Block_Count=0;
     Block_Last_PTS=(int32u)-1;

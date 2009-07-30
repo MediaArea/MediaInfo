@@ -257,6 +257,7 @@ File_Avc::File_Avc()
 :File__Duplicate()
 {
     //Config
+    //PTS_DTS_Needed=true;
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
 
