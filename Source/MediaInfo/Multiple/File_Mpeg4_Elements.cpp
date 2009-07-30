@@ -3447,7 +3447,7 @@ void File_Mpeg4::moov_trak_tkhd()
 
         Fill(StreamKind_Last, StreamPos_Last, "Encoded_Date", Date_Created);
         Fill(StreamKind_Last, StreamPos_Last, "Tagged_Date", Date_Modified);
-        Fill(StreamKind_Last, StreamPos_Last, "ID", moov_trak_tkhd_TrackID, 10, true);
+        Fill(StreamKind_Last, StreamPos_Last, General_ID, moov_trak_tkhd_TrackID, 10, true);
         if (moov_trak_tkhd_Height*d)
             moov_trak_tkhd_DisplayAspectRatio=(moov_trak_tkhd_Width*a)/(moov_trak_tkhd_Height*d);
         moov_trak_tkhd_Rotation=(float32)(std::atan2(b, a)*180.0/3.14159);

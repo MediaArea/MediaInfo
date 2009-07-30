@@ -139,8 +139,6 @@ void File_MpegTs::Streams_Fill()
 {
     if (Complete_Stream==NULL || Complete_Stream->Streams.empty())
         return; //Not initialized
-    if (!IsAccepted)
-        Accept("MPEG-TS");
 
     //Per stream
     for (size_t PID=0; PID<0x2000; PID++)
@@ -226,9 +224,9 @@ void File_MpegTs::Streams_Fill()
                         int16u elementary_PID=Program->second.elementary_PIDs[Pos];
                         if (Complete_Stream->Streams[elementary_PID].IsRegistered)
                         {
-                            Ztring Format=Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, "Format");
+                            Ztring Format=Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, Fill_Parameter(Complete_Stream->Streams[elementary_PID].StreamKind, Generic_Format));
                             Fill(Stream_Menu, StreamPos_Last, Menu_Format, Format);
-                            Fill(Stream_Menu, StreamPos_Last, Menu_Codec, Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, "Codec"));
+                            Fill(Stream_Menu, StreamPos_Last, Menu_Codec, Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, Fill_Parameter(Complete_Stream->Streams[elementary_PID].StreamKind, Generic_Codec)));
                             Fill(Stream_Menu, StreamPos_Last, Menu_List_StreamKind, Complete_Stream->Streams[elementary_PID].StreamKind);
                             Fill(Stream_Menu, StreamPos_Last, Menu_List_StreamPos, Complete_Stream->Streams[elementary_PID].StreamPos);
                             Fill(Stream_Menu, StreamPos_Last, Menu_List, elementary_PID);
@@ -336,8 +334,8 @@ void File_MpegTs::Streams_Fill_PerStream(int16u PID, complete_stream::stream &Te
         {
             StreamKind_Last=Mpeg_Descriptors_registration_format_identifier_StreamKind(format_identifier);
             Stream_Prepare(StreamKind_Last);
-            Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Descriptors_registration_format_identifier_Format(format_identifier));
-            Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Descriptors_registration_format_identifier_Format(format_identifier));
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), Mpeg_Descriptors_registration_format_identifier_Format(format_identifier));
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), Mpeg_Descriptors_registration_format_identifier_Format(format_identifier));
         }
     }
 
@@ -354,8 +352,8 @@ void File_MpegTs::Streams_Fill_PerStream(int16u PID, complete_stream::stream &Te
                 StreamKind_Last=Stream_Max;
             }
             Stream_Prepare(StreamKind_Last);
-            Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Psi_stream_type_Format(Temp.stream_type, format_identifier));
-            Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Psi_stream_type_Codec(Temp.stream_type, format_identifier));
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), Mpeg_Psi_stream_type_Format(Temp.stream_type, format_identifier));
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), Mpeg_Psi_stream_type_Codec(Temp.stream_type, format_identifier));
         }
     }
 
@@ -391,12 +389,12 @@ void File_MpegTs::Streams_Fill_PerStream(int16u PID, complete_stream::stream &Te
         Temp.Infos.clear();
 
         //Common
-        Fill(StreamKind_Last, StreamPos_Last, "ID", PID, 10, true);
-        Fill(StreamKind_Last, StreamPos_Last, "ID/String", Decimal_Hexa(PID), true);
+        Fill(StreamKind_Last, StreamPos_Last, General_ID, PID, 10, true);
+        Fill(StreamKind_Last, StreamPos_Last, General_ID_String, Decimal_Hexa(PID), true);
         for (size_t Pos=0; Pos<Temp.program_numbers.size(); Pos++)
         {
-            Fill(StreamKind_Last, StreamPos_Last, "MenuID", Temp.program_numbers[Pos], 10, Pos==0);
-            Fill(StreamKind_Last, StreamPos_Last, "MenuID/String", Decimal_Hexa(Temp.program_numbers[Pos]), Pos==0);
+            Fill(StreamKind_Last, StreamPos_Last, General_MenuID, Temp.program_numbers[Pos], 10, Pos==0);
+            Fill(StreamKind_Last, StreamPos_Last, General_MenuID_String, Decimal_Hexa(Temp.program_numbers[Pos]), Pos==0);
         }
 
         //Special cases
@@ -440,7 +438,7 @@ void File_MpegTs::Streams_Update()
             {
                 #ifdef MEDIAINFO_MPEGTS_PCR_YES
                     //TimeStamp (PCR)
-                    if (/*Retrieve(StreamKind_Last, StreamPos_Last, "Duration").empty()
+                    if (/*Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration)).empty()
                      && */Complete_Stream->Streams[StreamID].TimeStamp_Start!=(int64u)-1
                      && Complete_Stream->Streams[StreamID].TimeStamp_End!=(int64u)-1)
                     {
@@ -449,12 +447,12 @@ void File_MpegTs::Streams_Update()
                         int64u Duration=Complete_Stream->Streams[StreamID].TimeStamp_End-Complete_Stream->Streams[StreamID].TimeStamp_Start;
                         if (Duration!=0 && Duration!=(int64u)-1)
                         {
-                            Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration/90, 10, true);
+                            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), Duration/90, 10, true);
                             if (Duration_Max<Duration)
                                 Duration_Max=Duration;
                         }
                         else
-                            Clear(StreamKind_Last, StreamPos_Last, "Duration");
+                            Clear(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration));
                     }
                 #endif //MEDIAINFO_MPEGTS_PCR_YES
             }

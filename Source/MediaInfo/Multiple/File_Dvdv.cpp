@@ -601,8 +601,8 @@ void File_Dvdv::Video()
             Fill(Stream_Video, StreamPos_Last, Video_Height, IFO_Height[Standard][Resolution]);
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate, IFO_FrameRate[Standard]);
             Fill(Stream_Video, StreamPos_Last, Video_BitRate_Mode, IFO_BitRate_Mode[BitRate_Mode]);
-            Fill(Stream_Video, StreamPos_Last, "ID", _T("0xE0"));
-            Fill(Stream_Video, StreamPos_Last, "ID/String", _T("0xE0"), Unlimited, true);
+            Fill(Stream_Video, StreamPos_Last, General_ID, _T("0xE0"));
+            Fill(Stream_Video, StreamPos_Last, General_ID_String, _T("0xE0"), Unlimited, true);
         }
     FILLING_END();
 }

@@ -490,104 +490,104 @@ void File_Mpeg4_Descriptors::Descriptor_04()
     FILLING_BEGIN();
         switch (ObjectTypeId)
         {
-            case 0x01 : Fill(StreamKind_Last, StreamPos_Last, "Format", "System", Error, false, true); break;
-            case 0x02 : Fill(StreamKind_Last, StreamPos_Last, "Format", "System Core", Error, false, true); break;
+            case 0x01 : Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), "System", Error, false, true); break;
+            case 0x02 : Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), "System Core", Error, false, true); break;
             //case 0x03 Interaction Stream
             //case 0x05 AFX
             //case 0x06 Font Data
             //case 0x07 Synthesized Texture Stream
-            case 0x08 : Fill(StreamKind_Last, StreamPos_Last, "Format", "Streaming Text", Error, false, true); break;
-            case 0x20 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG-4 Visual", Error, false, true); break;
-            case 0x21 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AVC", Error, false, true); break;
+            case 0x08 : Fill(Stream_Text    , StreamPos_Last, Text_Format, "Streaming Text", Error, false, true); break;
+            case 0x20 : Fill(Stream_Video   , StreamPos_Last, Video_Format, "MPEG-4 Visual", Error, false, true); break;
+            case 0x21 : Fill(Stream_Video   , StreamPos_Last, Video_Format, "AVC", Error, false, true); break;
             //case 0x22 Parameter Sets for AVC
-            case 0x40 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AAC", Error, false, true); break; //MPEG-4 AAC
-            case 0x60 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Simple" , Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 2", Error, false, true); break; //MPEG-2V Simple
-            case 0x61 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Main"   , Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 2", Error, false, true); break; //MPEG-2V Main
-            case 0x62 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "SNR"    , Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 2", Error, false, true); break; //MPEG-2V SNR
-            case 0x63 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Spatial", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 2", Error, false, true); break; //MPEG-2V Spatial
-            case 0x64 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "High"   , Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 2", Error, false, true); break; //MPEG-2V High
-            case 0x65 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "4:2:2"  , Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 2", Error, false, true); break; //MPEG-2V 4:2:2
-            case 0x66 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AAC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Main", Error, false, true); break; //MPEG-2 AAC Main
-            case 0x67 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AAC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "LC", Error, false, true); break; //MPEG-2 AAC LC
-            case 0x68 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AAC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "SSR", Error, false, true); break; //MPEG-2 AAC SSR
-            case 0x69 : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Audio", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "Layer 3", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 2", Error, false, true); break;
-            case 0x6A : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 1", Error, false, true); break;
-            case 0x6B : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Audio", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Version", "Version 1", Error, false, true); break;
-            case 0x6C : Fill(StreamKind_Last, StreamPos_Last, "Format", "M-JPEG", Error, false, true); break;
-            case 0x6D : Fill(StreamKind_Last, StreamPos_Last, "Format", "PNG", Error, false, true); break;
-            case 0x6E : Fill(StreamKind_Last, StreamPos_Last, "Format", "MPEG Video", Error, false, true); break;  
-            case 0xA0 : Fill(StreamKind_Last, StreamPos_Last, "Format", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true); break;
-            case 0xA1 : Fill(StreamKind_Last, StreamPos_Last, "Format", "SMV", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
-            case 0xA2 : Fill(StreamKind_Last, StreamPos_Last, "Format", "3GPP2", Error, false, true); break;
-            case 0xA3 : Fill(StreamKind_Last, StreamPos_Last, "Format", "VC-1", Error, false, true); break;
-            case 0xA4 : Fill(StreamKind_Last, StreamPos_Last, "Format", "Dirac", Error, false, true); break;
-            case 0xA5 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AC-3", Error, false, true); break;
-            case 0xA6 : Fill(StreamKind_Last, StreamPos_Last, "Format", "E-AC-3", Error, false, true); break;
-            case 0xA9 : Fill(StreamKind_Last, StreamPos_Last, "Format", "DTS", Error, false, true); break;
-            case 0xAA : Fill(StreamKind_Last, StreamPos_Last, "Format", "DTS", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "HRA", Error, false, true); break; // DTS-HD High Resolution
-            case 0xAB : Fill(StreamKind_Last, StreamPos_Last, "Format", "DTS", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "Format_Profile", "MA", Error, false, true); break;  // DTS-HD Master Audio
-            case 0xD1 : Fill(StreamKind_Last, StreamPos_Last, "Format", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
-            case 0xD3 : Fill(StreamKind_Last, StreamPos_Last, "Format", "AC-3", Error, false, true); break;
-            case 0xD4 : Fill(StreamKind_Last, StreamPos_Last, "Format", "DTS", Error, false, true); break;
-            case 0xDD : Fill(StreamKind_Last, StreamPos_Last, "Format", "Ogg", Error, false, true); break;
-            case 0xDE : Fill(StreamKind_Last, StreamPos_Last, "Format", "Ogg", Error, false, true); break;
-            case 0xE1 : Fill(StreamKind_Last, StreamPos_Last, "Format", "QCELP", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
+            case 0x40 : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "AAC", Error, false, true); break; //MPEG-4 AAC
+            case 0x60 : Fill(Stream_Video   , StreamPos_Last, Video_Format, "MPEG Video", Error, false, true); Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, "Simple" , Error, false, true); Fill(Stream_Video, StreamPos_Last, Video_Format_Version, "Version 2", Error, false, true); break; //MPEG-2V Simple
+            case 0x61 : Fill(Stream_Video   , StreamPos_Last, Video_Format, "MPEG Video", Error, false, true); Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, "Main"   , Error, false, true); Fill(Stream_Video, StreamPos_Last, Video_Format_Version, "Version 2", Error, false, true); break; //MPEG-2V Main
+            case 0x62 : Fill(Stream_Video   , StreamPos_Last, Video_Format, "MPEG Video", Error, false, true); Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, "SNR"    , Error, false, true); Fill(Stream_Video, StreamPos_Last, Video_Format_Version, "Version 2", Error, false, true); break; //MPEG-2V SNR
+            case 0x63 : Fill(Stream_Video   , StreamPos_Last, Video_Format, "MPEG Video", Error, false, true); Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, "Spatial", Error, false, true); Fill(Stream_Video, StreamPos_Last, Video_Format_Version, "Version 2", Error, false, true); break; //MPEG-2V Spatial
+            case 0x64 : Fill(Stream_Video   , StreamPos_Last, Video_Format, "MPEG Video", Error, false, true); Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, "High"   , Error, false, true); Fill(Stream_Video, StreamPos_Last, Video_Format_Version, "Version 2", Error, false, true); break; //MPEG-2V High
+            case 0x65 : Fill(Stream_Video   , StreamPos_Last, Video_Format, "MPEG Video", Error, false, true); Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, "4:2:2"  , Error, false, true); Fill(Stream_Video, StreamPos_Last, Video_Format_Version, "Version 2", Error, false, true); break; //MPEG-2V 4:2:2
+            case 0x66 : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "AAC", Error, false, true); Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, "Main", Error, false, true); break; //MPEG-2 AAC Main
+            case 0x67 : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "AAC", Error, false, true); Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, "LC", Error, false, true); break; //MPEG-2 AAC LC
+            case 0x68 : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "AAC", Error, false, true); Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, "SSR", Error, false, true); break; //MPEG-2 AAC SSR
+            case 0x69 : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "MPEG Audio", Error, false, true); Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, "Version 2", Error, false, true); Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, "Layer 3", Error, false, true); break;
+            case 0x6A : Fill(Stream_Video   , StreamPos_Last, Video_Format, "MPEG Video", Error, false, true); Fill(Stream_Video, StreamPos_Last, Video_Format_Version, "Version 1", Error, false, true); break;
+            case 0x6B : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "MPEG Audio", Error, false, true); Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, "Version 1", Error, false, true); break;
+            case 0x6C : Fill(Stream_Video   , StreamPos_Last, Video_Format, "M-JPEG", Error, false, true); break;
+            case 0x6D : Fill(Stream_Video   , StreamPos_Last, Video_Format, "PNG", Error, false, true); break;
+            case 0x6E : Fill(Stream_Video   , StreamPos_Last, Video_Format, "MPEG Video", Error, false, true); break;
+            case 0xA0 : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "EVRC", Error, false, true); Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, 8000, 10, true); Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 1, 10, true); break;
+            case 0xA1 : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "SMV", Error, false, true); Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, 8000, 10, true); Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 1, 10, true);  break;
+            case 0xA2 : Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), "3GPP2", Error, false, true); break;
+            case 0xA3 : Fill(Stream_Video   , StreamPos_Last, Video_Format, "VC-1", Error, false, true); break;
+            case 0xA4 : Fill(Stream_Video   , StreamPos_Last, Video_Format, "Dirac", Error, false, true); break;
+            case 0xA5 : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "AC-3", Error, false, true); break;
+            case 0xA6 : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "E-AC-3", Error, false, true); break;
+            case 0xA9 : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "DTS", Error, false, true); break;
+            case 0xAA : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "DTS", Error, false, true); Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, "HRA", Error, false, true); break; // DTS-HD High Resolution
+            case 0xAB : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "DTS", Error, false, true); Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, "MA", Error, false, true); break;  // DTS-HD Master Audio
+            case 0xD1 : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "EVRC", Error, false, true); Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, 8000, 10, true); Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 1, 10, true);  break;
+            case 0xD3 : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "AC-3", Error, false, true); break;
+            case 0xD4 : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "DTS", Error, false, true); break;
+            case 0xDD : Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), "Ogg", Error, false, true); break;
+            case 0xDE : Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), "Ogg", Error, false, true); break;
+            case 0xE1 : Fill(Stream_Audio   , StreamPos_Last, Audio_Format, "QCELP", Error, false, true); Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, 8000, 10, true); Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 1, 10, true);  break;
             default: ;
         }
         switch (ObjectTypeId)
         {
-            case 0x01 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "System", Error, false, true); break;
-            case 0x02 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "System Core", Error, false, true); break;
-            case 0x20 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-4V", Error, false, true); break;
-            case 0x21 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "H264", Error, false, true); break;
-            case 0x40 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "AAC", Error, false, true); break; //MPEG-4 AAC
-            case 0x60 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-2V", Error, false, true); break; //MPEG-2V Simple
-            case 0x61 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-2V", Error, false, true); break; //MPEG-2V Main
-            case 0x62 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-2V", Error, false, true); break; //MPEG-2V SNR
-            case 0x63 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-2V", Error, false, true); break; //MPEG-2V Spatial
-            case 0x64 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-2V", Error, false, true); break; //MPEG-2V High
-            case 0x65 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-2V", Error, false, true); break; //MPEG-2V 4:2:2
-            case 0x66 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "AAC", Error, false, true); break; //MPEG-2 AAC Main
-            case 0x67 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "AAC", Error, false, true); break; //MPEG-2 AAC LC
-            case 0x68 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "AAC", Error, false, true); break; //MPEG-2 AAC SSR
-            case 0x69 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-2A L3", Error, false, true); break;
-            case 0x6A : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-1V", Error, false, true); break;
-            case 0x6B : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-1A", Error, false, true); break;
-            case 0x6C : Fill(StreamKind_Last, StreamPos_Last, "Codec", "M-JPEG", Error, false, true); break;
-            case 0x6D : Fill(StreamKind_Last, StreamPos_Last, "Codec", "PNG", Error, false, true); break;
-            case 0x6E : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-4V", Error, false, true); break; 
-            case 0xA0 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true); break;
-            case 0xA1 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "SMV", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
-            case 0xA2 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "MPEG-4V", Error, false, true); break;
-            case 0xA3 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "VC-1", Error, false, true); break;
-            case 0xA4 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "Dirac", Error, false, true); break;
-            case 0xA5 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "AC3", Error, false, true); break;
-            case 0xA6 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "AC3+", Error, false, true); break;
-            case 0xA9 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "DTS", Error, false, true); break;
+            case 0x01 : Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), "System", Error, false, true); break;
+            case 0x02 : Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), "System Core", Error, false, true); break;
+            case 0x20 : Fill(Stream_Video   , StreamPos_Last, Video_Codec, "MPEG-4V", Error, false, true); break;
+            case 0x21 : Fill(Stream_Video   , StreamPos_Last, Video_Codec, "H264", Error, false, true); break;
+            case 0x40 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "AAC", Error, false, true); break; //MPEG-4 AAC
+            case 0x60 : Fill(Stream_Video   , StreamPos_Last, Video_Codec, "MPEG-2V", Error, false, true); break; //MPEG-2V Simple
+            case 0x61 : Fill(Stream_Video   , StreamPos_Last, Video_Codec, "MPEG-2V", Error, false, true); break; //MPEG-2V Main
+            case 0x62 : Fill(Stream_Video   , StreamPos_Last, Video_Codec, "MPEG-2V", Error, false, true); break; //MPEG-2V SNR
+            case 0x63 : Fill(Stream_Video   , StreamPos_Last, Video_Codec, "MPEG-2V", Error, false, true); break; //MPEG-2V Spatial
+            case 0x64 : Fill(Stream_Video   , StreamPos_Last, Video_Codec, "MPEG-2V", Error, false, true); break; //MPEG-2V High
+            case 0x65 : Fill(Stream_Video   , StreamPos_Last, Video_Codec, "MPEG-2V", Error, false, true); break; //MPEG-2V 4:2:2
+            case 0x66 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "AAC", Error, false, true); break; //MPEG-2 AAC Main
+            case 0x67 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "AAC", Error, false, true); break; //MPEG-2 AAC LC
+            case 0x68 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "AAC", Error, false, true); break; //MPEG-2 AAC SSR
+            case 0x69 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "MPEG-2A L3", Error, false, true); break;
+            case 0x6A : Fill(Stream_Video   , StreamPos_Last, Video_Codec, "MPEG-1V", Error, false, true); break;
+            case 0x6B : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "MPEG-1A", Error, false, true); break;
+            case 0x6C : Fill(Stream_Video   , StreamPos_Last, Video_Codec, "M-JPEG", Error, false, true); break;
+            case 0x6D : Fill(Stream_Video   , StreamPos_Last, Video_Codec, "PNG", Error, false, true); break;
+            case 0x6E : Fill(Stream_Video   , StreamPos_Last, Video_Codec, "MPEG-4V", Error, false, true); break;
+            case 0xA0 : Fill(Stream_Video   , StreamPos_Last, Video_Codec, "EVRC", Error, false, true); break;
+            case 0xA1 : Fill(Stream_Video   , StreamPos_Last, Video_Codec, "SMV", Error, false, true); break;
+            case 0xA2 : Fill(Stream_Video   , StreamPos_Last, Video_Codec, "MPEG-4V", Error, false, true); break;
+            case 0xA3 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "VC-1", Error, false, true); break;
+            case 0xA4 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "Dirac", Error, false, true); break;
+            case 0xA5 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "AC3", Error, false, true); break;
+            case 0xA6 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "AC3+", Error, false, true); break;
+            case 0xA9 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "DTS", Error, false, true); break;
             case 0xAA : 
-            case 0xAB : Fill(StreamKind_Last, StreamPos_Last, "Codec", "DTS-HD", Error, false, true); break;
-            case 0xD1 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "EVRC", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
-            case 0xD3 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "AC3", Error, false, true); break;
-            case 0xD4 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "DTS", Error, false, true); break;
-            case 0xDD : Fill(StreamKind_Last, StreamPos_Last, "Codec", "Ogg", Error, false, true); break;
-            case 0xDE : Fill(StreamKind_Last, StreamPos_Last, "Codec", "Ogg", Error, false, true); break;
-            case 0xE1 : Fill(StreamKind_Last, StreamPos_Last, "Codec", "QCELP", Error, false, true); Fill(StreamKind_Last, StreamPos_Last, "SamplingRate", "8000"); Fill(StreamKind_Last, StreamPos_Last, "Channel(s)", "1", 10, true);  break;
+            case 0xAB : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "DTS-HD", Error, false, true); break;
+            case 0xD1 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "EVRC", Error, false, true); break;
+            case 0xD3 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "AC3", Error, false, true); break;
+            case 0xD4 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "DTS", Error, false, true); break;
+            case 0xDD : Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), "Ogg", Error, false, true); break;
+            case 0xDE : Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), "Ogg", Error, false, true); break;
+            case 0xE1 : Fill(Stream_Audio   , StreamPos_Last, Audio_Codec, "QCELP", Error, false, true); break;
             default: ;
         }
-        Fill(StreamKind_Last, StreamPos_Last, "CodecID", ObjectTypeId, 16, true);
-        Fill(StreamKind_Last, StreamPos_Last, "Codec/CC", ObjectTypeId, 16, true);
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID), ObjectTypeId, 16, true);
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec_CC), ObjectTypeId, 16, true);
 
         //Bitrate mode
         if (AvgBitrate>0
          && !(bufferSizeDB==AvgBitrate && bufferSizeDB==MaxBitrate && bufferSizeDB==0x1000)) //Some buggy data were found
         {
-            Fill(StreamKind_Last, StreamPos_Last, "BitRate_Nominal", AvgBitrate);
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_BitRate_Nominal), AvgBitrate);
             if (MaxBitrate<=AvgBitrate*1.005)
-                Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "CBR");
+                Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_BitRate_Mode), "CBR");
             else
             {
-                Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "VBR");
-                Fill(StreamKind_Last, StreamPos_Last, "BitRate_Maximum", MaxBitrate);
+                Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_BitRate_Mode), "VBR");
+                Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_BitRate_Maximum), MaxBitrate);
             }
         }
 

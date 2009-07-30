@@ -1490,7 +1490,7 @@ void File_Wm::Data_Packet()
 
             //Codec specific
             #if defined(MEDIAINFO_VC1_YES)
-            if (Retrieve(Stream[Stream_Number].StreamKind, Stream[Stream_Number].StreamPos, "Format")==_T("VC-1"))
+            if (Retrieve(Stream[Stream_Number].StreamKind, Stream[Stream_Number].StreamPos, Fill_Parameter(Stream[Stream_Number].StreamKind, Generic_Format))==_T("VC-1"))
                 ((File_Vc1*)Stream[Stream_Number].Parser)->FrameIsAlwaysComplete=FrameIsAlwaysComplete;
             #endif
 

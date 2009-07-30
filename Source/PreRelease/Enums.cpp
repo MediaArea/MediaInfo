@@ -114,6 +114,11 @@ ZenLib::Ztring Enums_Create()
         return Result;
     Out+=Contents;
 
+    Result=Enums_Create_Item(L"Stream", L"Generic", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
     Result=Enums_Create_Item(L"Stream", L"General", Contents);
     if (!Result.empty())
         return Result;

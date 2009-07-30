@@ -76,30 +76,30 @@ void File__Analyze::Streams_Finish_StreamOnly()
 void File__Analyze::Streams_Finish_StreamOnly(stream_t StreamKind, size_t Pos)
 {
     //BitRate from Duration and StreamSize
-    if (StreamKind!=Stream_General && StreamKind!=Stream_Chapters && Retrieve(StreamKind, Pos, "BitRate").empty() && !Retrieve(StreamKind, Pos, "StreamSize").empty() && !Retrieve(StreamKind, Pos, "Duration").empty())
+    if (StreamKind!=Stream_General && StreamKind!=Stream_Chapters && StreamKind!=Stream_Menu && Retrieve(StreamKind, Pos, "BitRate").empty() && !Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_StreamSize)).empty() && !Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).empty())
     {
-        int64u Duration=Retrieve(StreamKind, Pos, "Duration").To_int64u();
-        int64u StreamSize=Retrieve(StreamKind, Pos, "StreamSize").To_int64u();
+        int64u Duration=Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).To_int64u();
+        int64u StreamSize=Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_StreamSize)).To_int64u();
         if (Duration>0 && StreamSize>0)
             Fill(StreamKind, Pos, "BitRate", StreamSize*8*1000/Duration);
     }
 
     //Duration from Bitrate and StreamSize
-    if (StreamKind!=Stream_Chapters && Retrieve(StreamKind, Pos, "Duration").empty() && !Retrieve(StreamKind, Pos, "StreamSize").empty() && !Retrieve(StreamKind, Pos, "BitRate").empty() && Count_Get(Stream_Video)+Count_Get(Stream_Audio)>1) //If only one stream, duration will be copied later, useful for exact bitrate calculation
+    if (StreamKind!=Stream_Chapters && Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).empty() && !Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_StreamSize)).empty() && !Retrieve(StreamKind, Pos, "BitRate").empty() && Count_Get(Stream_Video)+Count_Get(Stream_Audio)>1) //If only one stream, duration will be copied later, useful for exact bitrate calculation
     {
         int64u BitRate=Retrieve(StreamKind, Pos, "BitRate").To_int64u();
-        int64u StreamSize=Retrieve(StreamKind, Pos, "StreamSize").To_int64u();
+        int64u StreamSize=Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_StreamSize)).To_int64u();
         if (BitRate>0 && StreamSize>0)
-            Fill(StreamKind, Pos, "Duration", StreamSize*8*1000/BitRate);
+            Fill(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration), StreamSize*8*1000/BitRate);
     }
 
     //StreamSize from BitRate and Duration
-    if (StreamKind!=Stream_Chapters && Retrieve(StreamKind, Pos, "StreamSize").empty() && !Retrieve(StreamKind, Pos, "BitRate").empty() && !Retrieve(StreamKind, Pos, "Duration").empty()) //If not done the first time or by other routine
+    if (StreamKind!=Stream_Chapters && Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_StreamSize)).empty() && !Retrieve(StreamKind, Pos, "BitRate").empty() && !Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).empty()) //If not done the first time or by other routine
     {
         int64u BitRate=Retrieve(StreamKind, Pos, "BitRate").To_int64u();
-        int64u Duration=Retrieve(StreamKind, Pos, "Duration").To_int64u();
+        int64u Duration=Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).To_int64u();
         if (BitRate>0 && Duration>0)
-            Fill(StreamKind, Pos, "StreamSize", BitRate*Duration/8/1000);
+            Fill(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_StreamSize), BitRate*Duration/8/1000);
     }
 }
 
@@ -216,9 +216,9 @@ void File__Analyze::Streams_Finish_InterStreams()
         for (size_t StreamKind=Stream_Video; StreamKind<Stream_Max; StreamKind++)
             for (size_t Pos=0; Pos<Count_Get((stream_t)StreamKind); Pos++)
             {
-                if (!Retrieve((stream_t)StreamKind, Pos, "Duration").empty())
+                if (!Retrieve((stream_t)StreamKind, Pos, Fill_Parameter((stream_t)StreamKind, Generic_Duration)).empty())
                 {
-                    int64u Duration_Stream=Retrieve((stream_t)StreamKind, Pos, "Duration").To_int64u();
+                    int64u Duration_Stream=Retrieve((stream_t)StreamKind, Pos, Fill_Parameter((stream_t)StreamKind, Generic_Duration)).To_int64u();
                     if (Duration_Stream>Duration)
                         Duration=Duration_Stream;
                 }
@@ -240,7 +240,7 @@ void File__Analyze::Streams_Finish_InterStreams()
             if (StreamKind!=Stream_Chapters && StreamKind!=Stream_Menu) //They have no big size, we never calculate them
                 for (size_t Pos=0; Pos<Count_Get((stream_t)StreamKind); Pos++)
                 {
-                    int64u StreamSize=Retrieve((stream_t)StreamKind, Pos, "StreamSize").To_int64u();
+                    int64u StreamSize=Retrieve((stream_t)StreamKind, Pos, Fill_Parameter((stream_t)StreamKind, Generic_StreamSize)).To_int64u();
                     if (StreamSize>0)
                         StreamSize_Total+=StreamSize;
                     else if (IsOK)
@@ -370,7 +370,7 @@ void File__Analyze::Streams_Finish_InterStreams()
         for (size_t StreamKind_Pos=Stream_General+1; StreamKind_Pos<Stream_Max; StreamKind_Pos++)
             for (size_t Pos=0; Pos<Count_Get((stream_t)StreamKind_Pos); Pos++)
             {
-                int64u StreamXX_StreamSize=Retrieve((stream_t)StreamKind_Pos, Pos, "StreamSize").To_int64u();
+                int64u StreamXX_StreamSize=Retrieve((stream_t)StreamKind_Pos, Pos, Fill_Parameter((stream_t)StreamKind_Pos, Generic_StreamSize)).To_int64u();
                 if (StreamXX_StreamSize>0 || StreamKind_Pos==Stream_Text)
                     StreamSize-=StreamXX_StreamSize;
                 else

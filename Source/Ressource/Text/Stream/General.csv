@@ -8,6 +8,8 @@ Inform;;;N NT;;;Last **Inform** call
 ID;;;N YI;;;The ID for this stream in this file
 ID/String;;;Y NT;;;The ID for this stream in this file
 UniqueID;;;N YI;;;The unique ID for this stream, should be copied with stream copy
+MenuID;;;N YI;;;The menu ID for this stream in this file
+MenuID/String;;;Y NT;;;The menu ID for this stream in this file
 GeneralCount;1;;N NI;;;Number of general streams
 VideoCount;;;N NI;;;Number of video streams
 AudioCount;;;N NI;;;Number of audio streams
@@ -92,8 +94,8 @@ StreamSize/String;;;N NT;;;
 StreamSize/String1;;;N NT;;;
 StreamSize/String2;;;N NT;;;
 StreamSize/String3;;;N NT;;;
-StreamSize/String4;;;N NT;;;
-StreamSize/String5;;;N NT;;;With proportion
+StreamSize/String4;;;N NT;;;;;
+StreamSize/String5;;;N NT;;;With proportion;;
 StreamSize_Proportion;;;N NT;;;Stream size divided by file size;;
 HeaderSize;;;N NI;;;;;
 DataSize;;;N NI;;;;;
@@ -254,4 +256,4 @@ Played_First_Date;;;Y YT;;;The date, the owner first played an item;;Personal
 Played_Last_Date;;;Y YT;;;The date, the owner last played an item;;Personal
 Played_Count;;;Y YI;;;Number of times an item was played;;Personal
 EPG_Positions_Begin;;;N NI;;;;;
-EPG_Positions_End;;;N NI
+EPG_Positions_End;;;N NI;;;;;

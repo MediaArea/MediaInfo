@@ -304,13 +304,13 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp)
         Temp.StreamPos=StreamPos_Last;
 
         //Common
-        Fill(StreamKind_Last, StreamPos_Last, "ID", StreamID);
+        Fill(StreamKind_Last, StreamPos_Last, General_ID, StreamID);
         Ztring ID_String; ID_String.From_Number(StreamID); ID_String+=_T(" (0x"); ID_String+=Ztring::ToZtring(StreamID, 16); ID_String+=_T(")");
-        Fill(StreamKind_Last, StreamPos_Last, "ID/String", ID_String, true); //TODO: merge with Decimal_Hexa in file_MpegTs
-        if (Retrieve(StreamKind_Last, StreamPos_Last, "Format").empty() && Temp.stream_type!=0)
-            Fill(StreamKind_Last, StreamPos_Last, "Format", Mpeg_Psi_stream_type_Format(Temp.stream_type, 0x0000));
-        if (Retrieve(StreamKind_Last, StreamPos_Last, "Codec").empty() && Temp.stream_type!=0)
-            Fill(StreamKind_Last, StreamPos_Last, "Codec", Mpeg_Psi_stream_type_Codec(Temp.stream_type, 0x0000));
+        Fill(StreamKind_Last, StreamPos_Last, General_ID_String, ID_String, true); //TODO: merge with Decimal_Hexa in file_MpegTs
+        if (Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format)).empty() && Temp.stream_type!=0)
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), Mpeg_Psi_stream_type_Format(Temp.stream_type, 0x0000));
+        if (Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec)).empty() && Temp.stream_type!=0)
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), Mpeg_Psi_stream_type_Codec(Temp.stream_type, 0x0000));
 
         if (Temp.TimeStamp_Start.PTS.TimeStamp!=(int64u)-1)
         {
@@ -384,7 +384,7 @@ void File_MpegPs::Streams_Finish()
             //Clearing durations
             for (size_t StreamKind=0; StreamKind<=Stream_Text; StreamKind++)
                 for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
-                    Clear((stream_t)StreamKind, StreamPos, "Duration");
+                    Clear((stream_t)StreamKind, StreamPos, (stream_t)Fill_Parameter((stream_t)StreamKind, Generic_Duration));
             if (Count_Get(Stream_Video)==1)
                 Clear(Stream_Video, 0, Video_Duration);
         }
@@ -475,7 +475,7 @@ void File_MpegPs::Streams_Finish_PerStream(size_t StreamID, ps_stream &Temp)
                 }
                 if (Duration)
                 {
-                    Fill(StreamKind_Last, StreamPos_Last, "Duration", Duration/90, 10, true);
+                    Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), Duration/90, 10, true);
                     if (Duration>DTS)
                         DTS=Duration; //Saving maximum Duration
                 }

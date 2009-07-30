@@ -141,7 +141,7 @@ void File_Riff::Streams_Finish ()
 
         //StreamSize
         if (Temp->second.StreamSize>0)
-            Fill(StreamKind_Last, StreamPos_Last, "StreamSize", Temp->second.StreamSize);
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize), Temp->second.StreamSize);
 
         //Parser specific
         if (Temp->second.Parser)
@@ -153,15 +153,15 @@ void File_Riff::Streams_Finish ()
             Ztring StreamSize, Codec_Temp;
             if (StreamKind_Last==Stream_Video)
                 Codec_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_Codec); //We want to keep the 4CC of AVI
-            StreamSize=Retrieve(StreamKind_Last, StreamPos_Last, "StreamSize"); //We want to keep the 4CC of AVI
+            StreamSize=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize)); //We want to keep the 4CC of AVI
 
             //Merging
             Finish(Temp->second.Parser);
             Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
-            Fill(StreamKind_Last, StreamPos_Last, "ID", ((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
+            Fill(StreamKind_Last, StreamPos_Last, General_ID, ((Temp->first>>24)-'0')*10+(((Temp->first>>16)&0xFF)-'0'));
 
             //Hacks - After
-            Fill(StreamKind_Last, StreamPos_Last, "StreamSize", StreamSize, true);
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize), StreamSize, true);
             if (StreamKind_Last==Stream_Video)
             {
                 if (!Codec_Temp.empty())

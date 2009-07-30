@@ -1424,13 +1424,13 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
         if (Compression==0x00000000)
         {
             CodecID_Fill(_T("RGB "), StreamKind_Last, StreamPos_Last, InfoCodecID_Format_Riff);
-            Fill(StreamKind_Last, StreamPos_Last, "Codec", "RGB"); //Raw RGB, not handled by automatic codec mapping
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), "RGB"); //Raw RGB, not handled by automatic codec mapping
         }
         else
         {
             CodecID_Fill(Ztring().From_CC4(Compression), StreamKind_Last, StreamPos_Last, InfoCodecID_Format_Riff);
-            Fill(StreamKind_Last, StreamPos_Last, "Codec", Ztring().From_CC4(Compression).To_Local().c_str()); //FormatTag, may be replaced by codec parser
-            Fill(StreamKind_Last, StreamPos_Last, "Codec/CC", Ztring().From_CC4(Compression).To_Local().c_str()); //FormatTag
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), Ztring().From_CC4(Compression).To_Local().c_str()); //FormatTag, may be replaced by codec parser
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec_CC), Ztring().From_CC4(Compression).To_Local().c_str()); //FormatTag
         }
         Fill(StreamKind_Last, StreamPos_Last, "Width", Width, 10, true);
         Fill(StreamKind_Last, StreamPos_Last, "Height", Height, 10, true);
@@ -1555,12 +1555,12 @@ void File_Riff::AVI__hdlr_strl_strh()
     {
         case Elements::AVI__hdlr_strl_strh_iavs :
         case Elements::AVI__hdlr_strl_strh_vids :
-            if (FrameRate>0)  Fill(StreamKind_Last, StreamPos_Last, "FrameRate", FrameRate, 3);
+            if (FrameRate>0)  Fill(Stream_Video, StreamPos_Last, "FrameRate", FrameRate, 3);
             if (fccHandler==0x64767364) //For "dvsd" but fccType is wrong
-                Fill(StreamKind_Last, StreamPos_Last, "PixelAspectRatio", 1.000);
+                Fill(Stream_Video, StreamPos_Last, "PixelAspectRatio", 1.000);
         case Elements::AVI__hdlr_strl_strh_txts :
-            if (Right-Left>0) Fill(StreamKind_Last, StreamPos_Last, "Width",  Right-Left);
-            if (Bottom-Top>0) Fill(StreamKind_Last, StreamPos_Last, "Height", Bottom-Top);
+            if (Right-Left>0) Fill(Stream_Text, StreamPos_Last, "Width",  Right-Left, 10, true);
+            if (Bottom-Top>0) Fill(Stream_Text, StreamPos_Last, "Height", Bottom-Top, 10, true);
             break;
         default: ;
     }
@@ -2224,7 +2224,7 @@ void File_Riff::CMP4()
 
     FILLING_BEGIN();
         Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, "Format", "CMP4");
+        Fill(Stream_General, 0, General_Format, "CMP4");
         Fill(Stream_General, 0, "Title", Title);
     FILLING_END();
 }
@@ -2361,7 +2361,7 @@ void File_Riff::RMP3_data()
         Merge(MI, Stream_Audio, 0, 0);
     #else
         Stream_Prepare(Stream_Audio);
-        Fill(Stream_Audio, 0, "Codec", "MPEG1/2 Audio");
+        Fill(Stream_Audio, 0, Audio_Codec, "MPEG1/2 Audio");
     #endif
 
     //Positionning

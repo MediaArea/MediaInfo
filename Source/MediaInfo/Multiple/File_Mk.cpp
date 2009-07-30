@@ -2323,7 +2323,7 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackNumber()
     TrackNumber=UInteger_Get();
 
     FILLING_BEGIN();
-        Fill(StreamKind_Last, StreamPos_Last, "ID", TrackNumber);
+        Fill(StreamKind_Last, StreamPos_Last, General_ID, TrackNumber);
         if (StreamKind_Last!=Stream_Max)
         {
             Stream[TrackNumber].StreamKind=StreamKind_Last;
@@ -2401,7 +2401,7 @@ void File_Mk::Segment_Tracks_TrackEntry_TrackUID()
 
     //Filling
     FILLING_BEGIN();
-        Fill(StreamKind_Last, StreamPos_Last, "UniqueID", UInteger);
+        Fill(StreamKind_Last, StreamPos_Last, General_UniqueID, UInteger);
     FILLING_END();
 }
 
@@ -2782,10 +2782,10 @@ void File_Mk::CodecID_Manage()
     if (TrackType==(int64u)-1 || TrackNumber==(int64u)-1 || CodecID.empty() || Stream[TrackNumber].Parser)
         return; //Not ready (or not needed)
 
-    if (Retrieve(StreamKind_Last, StreamPos_Last, "CodecID").empty())
+    if (Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID)).empty())
     {
         CodecID_Fill(CodecID, StreamKind_Last, StreamPos_Last, InfoCodecID_Format_Matroska);
-        Fill(StreamKind_Last, StreamPos_Last, "Codec", CodecID);
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), CodecID);
     }
 
     //Creating the parser

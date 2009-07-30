@@ -751,6 +751,7 @@ public :
     #endif //NEED_SIZET
     ZtringListList Fill_Temp;
     void Fill_Flush ();
+    size_t Fill_Parameter(stream_t StreamKind, generic StreamPos);
 
     const Ztring &Retrieve (stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo=Info_Text);
     const Ztring &Retrieve (stream_t StreamKind, size_t StreamPos, const char* Parameter, info_t KindOfInfo=Info_Text);
@@ -867,11 +868,11 @@ protected :
     void Audio_BitRate_Rounding (size_t Pos, audio Parameter);
 
     //Utils - Finalize
-    void Duration_Duration123   (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
-    void FileSize_FileSize123   (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
-    void Kilo_Kilo123           (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
-    void Value_Value123         (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
-    void YesNo_YesNo            (const Ztring &Value, stream_t StreamKind, size_t StreamPos);
+    void Duration_Duration123   (stream_t StreamKind, size_t StreamPos, size_t Parameter);
+    void FileSize_FileSize123   (stream_t StreamKind, size_t StreamPos, size_t Parameter);
+    void Kilo_Kilo123           (stream_t StreamKind, size_t StreamPos, size_t Parameter);
+    void Value_Value123         (stream_t StreamKind, size_t StreamPos, size_t Parameter);
+    void YesNo_YesNo            (stream_t StreamKind, size_t StreamPos, size_t Parameter);
     void CodecID_Fill           (const Ztring &Value, stream_t StreamKind, size_t StreamPos, infocodecid_format_t Format);
 
     //***************************************************************************

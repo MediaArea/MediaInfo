@@ -719,7 +719,7 @@ void File_Bdmv::Clpi_Streams()
         for (size_t StreamKind=(size_t)Stream_General+1; StreamKind<(size_t)Stream_Max; StreamKind++)
             for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
             {
-                int16u PID=Retrieve((stream_t)StreamKind, StreamPos, "ID").To_int16u();
+                int16u PID=Retrieve((stream_t)StreamKind, StreamPos, General_ID).To_int16u();
                 PIDs_StreamKind[PID]=(stream_t)StreamKind;
                 PIDs_StreamPos[PID]=StreamPos;
             }
@@ -762,8 +762,8 @@ void File_Bdmv::Clpi_Streams()
         FILLING_BEGIN();
             if (StreamKind_Last!=Stream_Max)
             {
-                Fill(StreamKind_Last, StreamPos_Last, "ID", PID, 10, true);
-                Fill(StreamKind_Last, StreamPos_Last, "ID/String", Bdmv_Decimal_Hexa(PID), true);
+                Fill(StreamKind_Last, StreamPos_Last, General_ID, PID, 10, true);
+                Fill(StreamKind_Last, StreamPos_Last, General_ID_String, Bdmv_Decimal_Hexa(PID), true);
             }
         FILLING_END();
     }
@@ -1201,8 +1201,8 @@ void File_Bdmv::Mpls_PlayList()
                 {
                     if (mPID)
                     {
-                        Fill(StreamKind_Last, StreamPos_Last, "ID", mPID, 10, true);
-                        Fill(StreamKind_Last, StreamPos_Last, "ID/String", Bdmv_Decimal_Hexa(mPID), true);
+                        Fill(StreamKind_Last, StreamPos_Last, General_ID, mPID, 10, true);
+                        Fill(StreamKind_Last, StreamPos_Last, General_ID_String, Bdmv_Decimal_Hexa(mPID), true);
                     }
                     Fill(StreamKind_Last, StreamPos_Last, "Language", language);
                 }

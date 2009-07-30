@@ -89,12 +89,12 @@ void File_Ogg::Streams_Fill()
             if (!IsSub && Stream_Temp->second.absolute_granule_position && Stream_Temp->second.absolute_granule_position_Resolution)
             {
                 if (Stream_Temp->second.StreamKind==Stream_Audio)
-                    Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, "Duration", float64_int64s(((float64)(Stream_Temp->second.absolute_granule_position))*1000/Stream_Temp->second.absolute_granule_position_Resolution), 10, true);
+                    Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, Fill_Parameter(Stream_Temp->second.StreamKind, Generic_Duration), float64_int64s(((float64)(Stream_Temp->second.absolute_granule_position))*1000/Stream_Temp->second.absolute_granule_position_Resolution), 10, true);
             }
             if (!IsSub)
             {
-                Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, "ID", Stream_Temp->first);
-                Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, "ID/String", Ztring::ToZtring(Stream_Temp->first)+_T(" (0x")+Ztring::ToZtring(Stream_Temp->first, 16)+_T(')'), true);
+                Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, General_ID, Stream_Temp->first);
+                Fill(Stream_Temp->second.StreamKind, Stream_Temp->second.StreamPos, General_ID_String, Ztring::ToZtring(Stream_Temp->first)+_T(" (0x")+Ztring::ToZtring(Stream_Temp->first, 16)+_T(')'), true);
             }
         }
         Stream_Temp++;

@@ -325,12 +325,12 @@ void File_Jpeg::SIZ()
         Fill(Stream_General, 0, General_Format, "JPEG 2000");
         if (Count_Get(StreamKind)==0)
             Stream_Prepare(StreamKind);
-        Fill(StreamKind, 0, "Format", StreamKind==Stream_Image?"JPEG 2000":"M-JPEG 2000");
-        Fill(StreamKind, 0, "Codec", StreamKind==Stream_Image?"JPEG 2000":"M-JPEG 2000");
+        Fill(StreamKind, 0, Fill_Parameter(StreamKind, Generic_Format), StreamKind==Stream_Image?"JPEG 2000":"M-JPEG 2000");
+        Fill(StreamKind, 0, Fill_Parameter(StreamKind, Generic_Codec), StreamKind==Stream_Image?"JPEG 2000":"M-JPEG 2000");
         if (StreamKind==Stream_Image)
             Fill(Stream_Image, 0, Image_Codec_String, "JPEG 2000", Unlimited, true, true); //To Avoid automatic filling
-        Fill(StreamKind, 0, "Width", Xsiz);
-        Fill(StreamKind, 0, "Height", Ysiz);
+        Fill(StreamKind, 0, StreamKind==Stream_Image?Image_Width:Video_Width, Xsiz);
+        Fill(StreamKind, 0, StreamKind==Stream_Image?Image_Height:Video_Height, Ysiz);
         Accept("JPEG 2000");
     FILLING_END();
 }
@@ -408,13 +408,13 @@ void File_Jpeg::SOF_()
             Fill(Stream_General, 0, General_Format, "JPEG");
             if (Count_Get(StreamKind)==0)
                 Stream_Prepare(StreamKind);
-            Fill(StreamKind, 0, "Format", StreamKind==Stream_Image?"JPEG":"M-JPEG");
-            Fill(StreamKind, 0, "Codec", StreamKind==Stream_Image?"JPEG":"M-JPEG");
+            Fill(StreamKind, 0, StreamKind==Stream_Image?Image_Format:Video_Format, StreamKind==Stream_Image?"JPEG":"M-JPEG");
+            Fill(StreamKind, 0, StreamKind==Stream_Image?Image_Codec:Video_Codec, StreamKind==Stream_Image?"JPEG":"M-JPEG");
             if (StreamKind==Stream_Image)
                 Fill(Stream_Image, 0, Image_Codec_String, "JPEG", Unlimited, true, true); //To Avoid automatic filling
-            Fill(StreamKind, 0, "Resolution", Resolution*3);
-            Fill(StreamKind, 0, "Height", Height*Height_Multiplier);
-            Fill(StreamKind, 0, "Width", Width);
+            Fill(StreamKind, 0, StreamKind==Stream_Image?Image_Resolution:Video_Resolution, Resolution*3);
+            Fill(StreamKind, 0, StreamKind==Stream_Image?Image_Height:Video_Height, Height*Height_Multiplier);
+            Fill(StreamKind, 0, StreamKind==Stream_Image?Image_Width:Video_Width, Width);
             Accept("JPEG");
         }
     FILLING_END();

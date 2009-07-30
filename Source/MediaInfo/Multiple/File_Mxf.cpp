@@ -482,11 +482,11 @@ void File_Mxf::Streams_Finish_Track(int128u TrackUID)
 
     //TrackNumber
     essences::iterator Temp=Essences.find(Track->second.TrackNumber);
-    if (Temp!=Essences.end() && Retrieve(StreamKind_Last, StreamPos_Last, "UniqueID").empty()) //if not yet done
+    if (Temp!=Essences.end() && Retrieve(StreamKind_Last, StreamPos_Last, General_UniqueID).empty()) //if not yet done
     {
         for (std::map<std::string, Ztring>::iterator Info=Temp->second.Infos.begin(); Info!=Temp->second.Infos.end(); Info++)
             Fill(StreamKind_Last, StreamPos_Last, Info->first.c_str(), Info->second, true);
-        Fill(StreamKind_Last, StreamPos_Last, "UniqueID", Temp->first);
+        Fill(StreamKind_Last, StreamPos_Last, General_UniqueID, Temp->first);
 
         Finish(Temp->second.Parser);
         Merge(*Temp->second.Parser, StreamKind_Last, 0, StreamPos_Last);
@@ -571,7 +571,7 @@ void File_Mxf::Streams_Finish_Component(int128u ComponentUID, float32 EditRate)
 
     //Duration
     if (EditRate)
-        Fill(StreamKind_Last, StreamPos_Last, "Duration", Component->second.Duration/EditRate*1000, 0, true);
+        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), Component->second.Duration/EditRate*1000, 0, true);
 }
 
 //***************************************************************************
