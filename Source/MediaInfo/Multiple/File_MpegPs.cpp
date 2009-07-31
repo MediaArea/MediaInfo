@@ -2782,10 +2782,10 @@ bool File_MpegPs::Header_Parser_QuickSearch()
                 return true;
 
             //private_stream_1 and IsDvdVideo, looking for substream ID
-            if (Buffer_Offset+9>Buffer_Size)
+            if (Buffer_Offset+9>=Buffer_Size)
                 return false; //Need more data
             size_t Data_Offset=Buffer[Buffer_Offset+8];
-            if (Buffer_Offset+9+Data_Offset>Buffer_Size)
+            if (Buffer_Offset+9+Data_Offset>=Buffer_Size)
                 return false; //Need more data
             int8u  private_stream_1_ID=Buffer[Buffer_Offset+9+Data_Offset];
             if (!Streams_Private1[private_stream_1_ID].StreamIsRegistred || Streams_Private1[private_stream_1_ID].Searching_Payload)
