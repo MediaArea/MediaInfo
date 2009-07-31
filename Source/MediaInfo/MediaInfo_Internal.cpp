@@ -416,7 +416,7 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
         MultipleParsing_IsDetected=true;
     }
 
-    #if 1 //temp, for old users
+    #if 0 //temp, for old users
     //The parser wanted seek but the buffer is not seekable
     if (Info->File_GoTo!=(int64u)-1 && Config.File_IsSeekable_Get()==0)
     {
