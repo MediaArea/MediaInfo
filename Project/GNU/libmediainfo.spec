@@ -12,7 +12,7 @@
 %define libzen_SO_nr	0
 
 Name:			libmediainfo%{_SO_nr}
-Version:		0.7.19
+Version:		0.7.20
 Release:		1
 Summary:		Supplies technical and tag information about a video or audio file
 Group:			System/Libraries
@@ -131,6 +131,6 @@ done
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
-* Tue Jan 01 2009 Jerome Martinez <zen@mediaarea.net> - 0.7.19-0
+* Tue Jan 01 2009 Jerome Martinez <zen@mediaarea.net> - 0.7.20-0
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>
