@@ -745,10 +745,10 @@ Name;Név
 Nationality;Nemzetiség
 NetworkName
 New;Új
-Newest version;Frissítés keresése (Internet kapcsolat szükséges)
-NewVersion_Menu
-NewVersion_Question_Title
-NewVersion_Question_Content
+Newest version;Frissítés keresése (internet kapcsolat szükséges)
+NewVersion_Menu;Elérhető egy újabb változat.
+NewVersion_Question_Title;Új változat jelent meg!
+NewVersion_Question_Content;Elérhető egy újabb (v%Version%) változat. Kívánja letölteni?
 No;nem
 Not yet;Még nincs
 NumColors;Színek száma
@@ -938,4 +938,4 @@ WrittenBy;Írta
 Yes;igen
 Your system;Rendszer
 ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;97
+ZZ_AutomaticLanguage_Percent;98
