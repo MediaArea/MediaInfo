@@ -226,6 +226,7 @@ H261;Intel H.261;4CC;V;;;Intel H.261
 H262;Intel H.262;4CC;V;;;Intel H.262
 H263;Intel H.263;4CC;V;;;Intel H.263
 H264;AVC;4CC;V;AVC;;Intel H.264
+h264;AVC;4CC;V;AVC;;Intel H.264
 H265;Intel H.265;4CC;V;;;Intel H.265
 H266;Intel H.266;4CC;V;;;Intel H.266
 H267;Intel H.267;4CC;V;;;Intel H.267
@@ -253,7 +254,7 @@ IMC2;YUV;4CC;V;YUV;;Similar to IMC1, except that the U and V lines are interleav
 IMC3;YUV;4CC;V;YUV;;As IMC1, except that U and V are swapped
 IMC4;YUV;4CC;V;YUV;;As IMC2, except that U and V are swapped
 IMG ;YUV;4CC;V;YUV;;
-IMJG;Accom M-JPEG;4CC;V;;;Accom SphereOUS M-JPEG with Alpha-channel
+IMJG;Accom M-JPEG;4CC;V;;;Accom SphereOUS M-JPEG with Alpha-channel;
 IPDV;I-O DV;4CC;V;;;I-O Data Device Giga AVI DV;
 IPJ2;JPEG2000;4CC;V;;;Image Power JPEG2000;
 IR21;Indeo 2.1;4CC;V;;;Intel Indeo 2.1;
@@ -365,7 +366,7 @@ MSS2;Windows Media;4CC;V;;;Windows Media 9;
 MSUC;MSU;4CC;V;;;MSU LossLess;
 MSUD;MSU;4CC;V;;;MSU LossLess;
 MSV1;Microsoft Video 1;4CC;V;;;Microsoft Video 1;
-MSVC;Microsoft Video 1;4CC;V;;;Microsoft Video 1;
+MSVC;Microsoft Video 1;4CC;V;;;Microsoft Video 1
 MSZH;AVImszh;4CC;V;;;Lossless (ZIP compression)
 MTGA;TGA;4CC;V;RGB;;Motion TGA images (24, 32 bpp)
 MTX1;Matrox M-JPEG;4CC;V;M-JPEG;;Matrox M-JPEG
@@ -413,7 +414,7 @@ NVS8;Nvidia Texture;4CC;V;;;Nvidia Texture Compression Format
 NVS9;Nvidia Texture;4CC;V;;;Nvidia Texture Compression Format
 NVT0;Nvidia Texture;4CC;V;;;Nvidia Texture Compression Format
 NVT1;Nvidia Texture;4CC;V;;;Nvidia Texture Compression Format
-NVT2;Nvidia Texture;4CC;V;;;Nvidia Texture Compression Format
+NVT2;Nvidia Texture;4CC;V;;;Nvidia Texture Compression Format;
 NVT3;Nvidia Texture;4CC;V;;;Nvidia Texture Compression Format;
 NVT4;Nvidia Texture;4CC;V;;;Nvidia Texture Compression Format;
 NVT5;Nvidia Texture;4CC;V;;;Nvidia Texture Compression Format;
@@ -525,7 +526,7 @@ SP53;MegaCam;4CC;V;;;SunPlus Aiptek MegaCam;
 SP54;MegaCam;4CC;V;;;SunPlus Aiptek MegaCam;
 SP55;MegaCam;4CC;V;;;SunPlus Aiptek MegaCam;
 SP56;MegaCam;4CC;V;;;SunPlus Aiptek MegaCam;
-SP57;MegaCam;4CC;V;;;SunPlus Aiptek MegaCam;
+SP57;MegaCam;4CC;V;;;SunPlus Aiptek MegaCam
 SP58;MegaCam;4CC;V;;;SunPlus Aiptek MegaCam
 SP61;MegaCam;4CC;V;;;SunPlus Aiptek MegaCam
 SPIG;Spigot;4CC;V;;;Radius Spigot
@@ -557,7 +558,7 @@ TM2X;Duck 2;4CC;V;;;Duck TrueMotion 2X
 TMIC;TeraLogic;4CC;V;;;TeraLogic Motion Intraframe
 TMOT;Horizons TM S;4CC;V;;;Horizons Technology TrueMotion Video
 TR20;Duck TM RT2;4CC;V;;;Duck TrueMotion RT 2.0
-TRLE;Akula;4CC;V;;;Akula Alpha Pro Custom AVI (LossLess)
+TRLE;Akula;4CC;V;;;Akula Alpha Pro Custom AVI (LossLess);
 TSCC;TechSmith;4CC;V;;;TechSmith Screen Capture;
 TV10;Tecomac;4CC;V;;;Tecomac Low-Bit Rate;
 TVJP;Pinnacle/Truevision;4CC;V;;;TrueVision Field Encoded M-JPEG (Targa emulation);
@@ -574,22 +575,22 @@ UMP4;UB MPEG-4;4CC;V;MPEG-4V;;UB Video MPEG 4;http://www.fourcc.org/indexyuv.htm
 UYNV;YUV;4CC;V;YUV;;Nvidia 16bpp. A direct copy of UYVY registered by Nvidia to work around problems in some olds which did not like hardware which offered more than 2 UYVY surfaces.;http://www.fourcc.org/indexyuv.htm
 UYVP;YUV;4CC;V;YUV;;Evans & Sutherland 24bpp. YCbCr 4:2:2 extended precision 10-bits per component in U0Y0V0Y1 order;
 UYVU;SoftLab YUV;4CC;V;YUV;;SoftLab-NSK Forward YUV;http://www.fourcc.org/indexyuv.htm
-UYVY;YUV;4CC;V;YUV;;Uncompressed 16bpp. YUV 4:2:2 (Y sample at every pixel, U and V sampled at every second pixel horizontally on each line). A macropixel contains 2 pixels in 1 u_int32.
-V210;Optibase;4CC;V;;;Optibase VideoPump 10-bit 4:2:2 Component YCbCr
-V261;VX3000S;4CC;V;;;Lucent VX3000S
-V422;Vitec YUV;4CC;V;YUV;;Vitec Multimedia YUV 4:2:2 as for UYVY, but with different component ordering within the u_int32 macropixel
-V655;Vitec YUV;4CC;V;YUV;;Vitec Multimedia 16 bit YUV 4:2:2 (6:5:5) format
-VBLE;MarcFD VBLE;4CC;V;;;MarcFD VBLE Lossless
-VCR1;ATI Video 1;4CC;V;;;ATI VCR 1.0
-VCR2;ATI Video 2;4CC;V;;;ATI VCR 2.0 (MPEG YV12)
-VCR3;ATI Video 3;4CC;V;;;ATI VCR 3.0
-VCR4;ATI Video 4;4CC;V;;;ATI VCR 4.0
-VCR5;ATI Video 5;4CC;V;;;ATI VCR 5.0
-VCR6;ATI Video 6;4CC;V;;;ATI VCR 6.0
-VCR7;ATI Video 7;4CC;V;;;ATI VCR 7.0
-VCR8;ATI Video 8;4CC;V;;;ATI VCR 8.0
-VCR9;ATI Video 9;4CC;V;;;ATI VCR 9.0
-VCWV;Wavelet;4CC;V;;;VideoCon
+UYVY;YUV;4CC;V;YUV;;Uncompressed 16bpp. YUV 4:2:2 (Y sample at every pixel, U and V sampled at every second pixel horizontally on each line). A macropixel contains 2 pixels in 1 u_int32.;
+V210;Optibase;4CC;V;;;Optibase VideoPump 10-bit 4:2:2 Component YCbCr;
+V261;VX3000S;4CC;V;;;Lucent VX3000S;
+V422;Vitec YUV;4CC;V;YUV;;Vitec Multimedia YUV 4:2:2 as for UYVY, but with different component ordering within the u_int32 macropixel;
+V655;Vitec YUV;4CC;V;YUV;;Vitec Multimedia 16 bit YUV 4:2:2 (6:5:5) format;
+VBLE;MarcFD VBLE;4CC;V;;;MarcFD VBLE Lossless;
+VCR1;ATI Video 1;4CC;V;;;ATI VCR 1.0;
+VCR2;ATI Video 2;4CC;V;;;ATI VCR 2.0 (MPEG YV12);
+VCR3;ATI Video 3;4CC;V;;;ATI VCR 3.0;
+VCR4;ATI Video 4;4CC;V;;;ATI VCR 4.0;
+VCR5;ATI Video 5;4CC;V;;;ATI VCR 5.0;
+VCR6;ATI Video 6;4CC;V;;;ATI VCR 6.0;
+VCR7;ATI Video 7;4CC;V;;;ATI VCR 7.0;
+VCR8;ATI Video 8;4CC;V;;;ATI VCR 8.0;
+VCR9;ATI Video 9;4CC;V;;;ATI VCR 9.0;
+VCWV;Wavelet;4CC;V;;;VideoCon;
 VDCT;VideoMaker RGB;4CC;V;RGB;;Video Maker Pro DIB;
 VDOM;VDOWave;4CC;V;;;VDONet Wave;
 VDOW;VDOLive;4CC;V;;;VDONet Live (H,263);
@@ -813,7 +814,7 @@ MPEG-2A;MPEG-2 Audio;MediaInfo;A;MPEG-A;;;
 MPEG-2A L1;MPEG-2 Audio Layer 1;MediaInfo;A;MPEG-A;;;
 MPEG-2A L2;MPEG-2 Audio Layer 2;MediaInfo;A;MPEG-A;;;
 MPEG-2A L3;MPEG-2 Audio Layer 3;MediaInfo;A;MPEG-A;;;
-MPEG-2.5A;MPEG-2.5 Audio;MediaInfo;A;MPEG-A;;;
+MPEG-2.5A;MPEG-2.5 Audio;MediaInfo;A;MPEG-A;;;;
 MPEG-2.5A L1;MPEG-2.5 Audio Layer 1;MediaInfo;A;MPEG-A;;;;
 MPEG-2.5A L2;MPEG-2.5 Audio Layer 2;MediaInfo;A;MPEG-A;;;;
 MPEG-2.5A L3;MPEG-2.5 Audio Layer 3;MediaInfo;A;MPEG-A;;;;
@@ -829,7 +830,7 @@ LA;LA;MediaInfo;A;;;Lossless Audio Codec;la;http://www.lossless-audio.com/
 1;PCM;2CC;A;PCM;;Microsoft PCM;http://www.microsoft.com/windows/;
 2;ADPCM;2CC;A;ADPCM;;Microsoft ADPCM;http://www.microsoft.com/windows/;
 3;PCM;2CC;A;PCM;;IEEE FLOAT;http://www.microsoft.com/windows/;
-4;VSELP;2CC;A;;;Compaq VSELP;;
+4;VSELP;2CC;A;;;Compaq VSELP;
 5;CVSD;2CC;A;;;IBM CVSD;
 6;A-Law;2CC;A;ADPCM;;CCITT A-Law;http://www.microsoft.com/windows/
 7;U-Law;2CC;A;ADPCM;;CCITT U-Law;http://www.microsoft.com/windows/
@@ -909,7 +910,7 @@ C;MPEG2 5.1;2CC;A;;;MPEG2 5.1;
 82;MSRT24;2CC;A;;;Microsoft MSRT24;
 83;G729A;2CC;A;;;AT&T G729A;
 84;MVI_MVI2;2CC;A;;;Motion Pixels MVI_MVI2;
-85;ADPCM;2CC;A;ADPCM;;DataFusion Systems (Pty) G726;
+85;ADPCM;2CC;A;ADPCM;;DataFusion Systems (Pty) G726
 86;GSM6.10;2CC;A;;;DataFusion Systems (Pty) GSM6.10
 88;ISI AUDIO;2CC;A;;;Iterated Systems AUDIO
 89;Onlive;2CC;A;;;OnLive! Technologies
@@ -925,7 +926,7 @@ C;MPEG2 5.1;2CC;A;;;MPEG2 5.1;
 99;Packed;2CC;A;;;Studer Professional Audio AG Packed
 A0;PHONYTALK;2CC;A;;;Malden Electronics PHONYTALK
 A1;GSM;2CC;A;;;Racal Recorders
-A2;G.720a;2CC;A;;;Racal Recorders
+A2;G.720a;2CC;A;;;Racal Recorders;
 A3;G.723.1;2CC;A;;;Racal Recorders;
 A4;ACELP;2CC;A;;;Racal Recorders;
 B0;AAC;2CC;A;AAC;;NEC Corporation;
@@ -957,7 +958,7 @@ FF;AAC;2CC;A;AAC;;;
 161;WMA2;2CC;A;;;Windows Media Audio 2;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
 162;WMA3;2CC;A;;;Windows Media Audio 3;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
 163;WMA Lossless;2CC;A;;;Windows Media Audio 3;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
-163;WMA Pro;2CC;A;;;WMA Pro over S/PDIF;
+163;WMA Pro;2CC;A;;;WMA Pro over S/PDIF
 170;ADPCM;2CC;A;ADPCM;;Unisys Nap ADPCM
 171;U-Law;2CC;A;ADPCM;;Unisys Nap U-law
 172;A-Law;2CC;A;ADPCM;;Unisys Nap A-law
@@ -989,7 +990,7 @@ FF;AAC;2CC;A;AAC;;;
 280;Telum;2CC;A;;;
 281;TelumIA;2CC;A;;;
 285;ADPCM;2CC;A;ADPCM;;Norcom Voice Systems
-300;FM_TOWNS_SND;2CC;A;;;Fujitsu FM_TOWNS_SND
+300;FM_TOWNS_SND;2CC;A;;;Fujitsu FM_TOWNS_SND;
 350;Dev;2CC;A;;;Micronas Semiconductors, Inc.;
 351;CELP833;2CC;A;;;Micronas Semiconductors, Inc.;
 400;BTV_DIGITAL;2CC;A;;;Brooktree (BTV) DIGITAL;
@@ -1021,7 +1022,7 @@ AAC;AAC;2CC;A;AAC;;;
 1971;SonicFoundry;2CC;A;;;Lossless;
 1C03;ADPCM;2CC;A;ADPCM;;Lucent SX5363S G.723 compliant codec;
 1C07;SX8300P;2CC;A;;;Lucent SX8300P speech codec;
-1C0C;ADPCM;2CC;A;ADPCM;;Lucent SX5363S G.723 compliant codec;
+1C0C;ADPCM;2CC;A;ADPCM;;Lucent SX5363S G.723 compliant codec
 1F03;DigiTalk;2CC;A;;;CUseeMe DigiTalk (ex-Rocwell)
 1FC4;ALF2CD;2CC;A;;;NCT Soft ALF2CD ACM
 2000;AC3;2CC;A;AC3;CBR;Dolby AC3
@@ -1037,7 +1038,7 @@ AAC;AAC;2CC;A;AAC;;;
 4201;Nokia;2CC;A;;;
 4243;ADPCM;2CC;A;ADPCM;;G726
 43AC;Lead Speech;2CC;A;;;
-564C;Lead Vorbis;2CC;A;;;
+564C;Lead Vorbis;2CC;A;;;;
 566F;Vorbis;2CC;A;Vorbis;;;http://www.vorbis.com
 5756;WavPack;2CC;A;;;;http://www.wavpack.com/
 674F;Vorbis;2CC;A;Vorbis;;Mode 1;http://www.vorbis.com

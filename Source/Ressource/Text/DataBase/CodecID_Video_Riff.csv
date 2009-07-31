@@ -219,9 +219,10 @@ H262;MPEG Video;;;
 H263;H.263;;;
 h263;H.263;;;http://www.apple.com/quicktime/download/standalone.html
 H264;AVC;;;
+h264;AVC;;;
 H265;H.265;;;
 H266;H.266;;;
-H267;H.267;;;
+H267;H.267;;
 H268;H.268;;
 H269;H.263;;
 HD10;RGB;BlueFish;BlueFish444 (lossless RGBA, YUV 10-bit)
@@ -237,7 +238,7 @@ IDM0;Wavelets 2;;IDM Motion Wavelets 2.0
 IF09;H.261;Microsoft;
 IFO9;YUV;Intel;
 IGOR;PowerDVD;;
-IJPG;M-JPEG;Intergraph;
+IJPG;M-JPEG;Intergraph;;
 ILVC;Layered Video;Intel;;
 ILVR;H.263+;;;
 IMAC;MotionComp;;Intel hardware motion compensation.;
@@ -253,7 +254,7 @@ IR21;Indeo 2.1;;;
 IRAW;YUV;;;http://www.fourcc.org/indexyuv.htm
 ISME;ISME;;Intel;
 IUYV;YUV;;Lead 16bpp. Interlaced version of UYVY (line order 0, 2, 4,....,1, 3, 5....);
-IV30;Indeo 3;;Intel Indeo Video 3;
+IV30;Indeo 3;;Intel Indeo Video 3
 IV31;Indeo 3;;Intel Indeo Video 3.1
 IV32;Indeo 3;;Intel Indeo Video 3.2
 IV33;Indeo 3;;Intel Indeo Video 3.3
@@ -269,7 +270,7 @@ IV42;Indeo 4;;Intel Indeo Video 4.2
 IV43;Indeo 4;;Intel Indeo Video 4.3
 IV44;Indeo 4;;Intel Indeo Video 4.4
 IV45;Indeo 4;;Intel Indeo Video 4.5
-IV46;Indeo 4;;Intel Indeo Video 4.6
+IV46;Indeo 4;;Intel Indeo Video 4.6;
 IV47;Indeo 4;;Intel Indeo Video 4.7;
 IV48;Indeo 4;;Intel Indeo Video 4.8;
 IV49;Indeo 4;;Intel Indeo Video 4.9;
@@ -301,22 +302,22 @@ LMP2;MPEG-PS;Lead;;
 LOCO;LOCO;;Lossless;
 LSCR;Lead Screen capture;;;
 LSV0;LSV0;;Infinop Inc.;
-LSVC;Vmail;;Vianet Lighting Strike Vmail (Streaming);
-LSVM;Vmail;;Vianet Lighting Strike Vmail (Streaming);
-LSVW;Infinop;;Infinop Lightning Strike multiple bit rate video codec.;
-LSVX;Vmail;;Vianet Lightning Strike Video Codec;
-LZO1;LZO;;LZO compressed (lossless);
-M101;YUV;Matrox;;
-M261;H.261;Microsoft;;
-M263;H.263;Microsoft;;
-M4CC;MPEG-4 Visual;ESS Divo;;
-M4S2;MPEG-4 Visual;FFMpeg;Hacked MS MPEG-4;
-MC12;ATI Motion;;ATI Motion Compensation Format;
-MC24;M-JPEG;MainConcept;;
-MCAM;ATI Motion;;ATI Motion Compensation Format;
-MCZM;RGB;;Theory MicroCosm Lossless 64bit RGB with Alpha-channel;
-MDVD;MicroDVD;;Alex MicroDVD Video (hacked MS MPEG-4);
-MDVF;Digital Video;Pinnacle;Pinnacle DV/DV50/DVHD100;
+LSVC;Vmail;;Vianet Lighting Strike Vmail (Streaming)
+LSVM;Vmail;;Vianet Lighting Strike Vmail (Streaming)
+LSVW;Infinop;;Infinop Lightning Strike multiple bit rate video codec.
+LSVX;Vmail;;Vianet Lightning Strike Video Codec
+LZO1;LZO;;LZO compressed (lossless)
+M101;YUV;Matrox;
+M261;H.261;Microsoft;
+M263;H.263;Microsoft;
+M4CC;MPEG-4 Visual;ESS Divo;
+M4S2;MPEG-4 Visual;FFMpeg;Hacked MS MPEG-4
+MC12;ATI Motion;;ATI Motion Compensation Format
+MC24;M-JPEG;MainConcept;
+MCAM;ATI Motion;;ATI Motion Compensation Format
+MCZM;RGB;;Theory MicroCosm Lossless 64bit RGB with Alpha-channel
+MDVD;MicroDVD;;Alex MicroDVD Video (hacked MS MPEG-4)
+MDVF;Digital Video;Pinnacle;Pinnacle DV/DV50/DVHD100
 MHFY;YUV;;A.M.Paredes mhuffyYUV (LossLess);http://mirror01.iptelecom.net.ua/~video/codecs/Pinnacle.ReelTime.v2.5.software.only.codec.exe
 MJ2C;JPEG2000;;Morgan Multimedia JPEG2000 Compression;http://mirror01.iptelecom.net.ua/~video/codecs/Pinnacle.ReelTime.v2.5.software.only.codec.exe
 MJPA;Pinacle M-JPEG A;;Pinnacle ReelTime MJPG hardware;http://mediaxw.sourceforge.net
@@ -349,7 +350,7 @@ MRLE;RLE;;Microsoft RLE;
 MSS1;Screen Video;Windows;Windows Screen Video;
 MSS2;Windows Media;;Windows Media 9;
 MSUC;MSU;;MSU LossLess;
-MSUD;MSU;;MSU LossLess;
+MSUD;MSU;;MSU LossLess
 MSV1;Microsoft Video 1;;Microsoft Video 1
 MSVC;Microsoft Video 1;;Microsoft Video 1
 MSZH;AVImszh;;Lossless (ZIP compression)
@@ -397,7 +398,7 @@ NVS6;Nvidia Texture;;Nvidia Texture Compression Format
 NVS7;Nvidia Texture;;Nvidia Texture Compression Format
 NVS8;Nvidia Texture;;Nvidia Texture Compression Format
 NVS9;Nvidia Texture;;Nvidia Texture Compression Format
-NVT0;Nvidia Texture;;Nvidia Texture Compression Format
+NVT0;Nvidia Texture;;Nvidia Texture Compression Format;
 NVT1;Nvidia Texture;;Nvidia Texture Compression Format;
 NVT2;Nvidia Texture;;Nvidia Texture Compression Format;
 NVT3;Nvidia Texture;;Nvidia Texture Compression Format;
@@ -493,7 +494,7 @@ SMSC;Radius;;;
 SMSD;Radius;;;
 SMSV;Wavelet Video;;WorldConnect Wavelet Streaming Video;
 SNOW;Snow;;;http://ffdshow-tryout.sourceforge.net/
-SP40;YUV;SunPlus;SunPlus YUV;
+SP40;YUV;SunPlus;SunPlus YUV
 SP44;MegaCam;;SunPlus Aiptek MegaCam
 SP53;MegaCam;;SunPlus Aiptek MegaCam
 SP54;MegaCam;;SunPlus Aiptek MegaCam
@@ -526,21 +527,21 @@ TLST;TeraLogic;;TeraLogic Motion Intraframe
 TM10;Duck;;Duck TrueMotion
 TM20;Duck 2;;Duck TrueMotion 2.0
 TM2A;Duck Archiver 2;;Duck TrueMotion Archiver 2.0
-TM2X;Duck 2;;Duck TrueMotion 2X;
-TMIC;TeraLogic;;TeraLogic Motion Intraframe;
-TMOT;Horizons TM S;;Horizons Technology TrueMotion Video;
-TR20;Duck TM RT2;;Duck TrueMotion RT 2.0;
-TRLE;Akula;;Akula Alpha Pro Custom AVI (LossLess);
-TSCC;TechSmith;;TechSmith Screen Capture;
-tscc;TechSmith;;TechSmith Screen Capture;
-TV10;Tecomac;;Tecomac Low-Bit Rate;
-TVJP;Pinnacle/Truevision;;TrueVision Field Encoded M-JPEG (Targa emulation);
-TVMJ;Pinnacle/Truevision;;Truevision TARGA M-JPEG Hardware (or Targa emulation);
-TY0N;Trident;;Trident Decompression Driver;
-TY2C;Trident;;Trident Decompression Driver;
-TY2N;Trident;;Trident Decompression Driver;
-U<Y ;YUV;Discreet;Discreet UC YUV 4:2:2:4 10 bit;
-U<YA;YUV;Discreet;Discreet UC YUV 4:2:2:4 10 bit (with Alpha-channel);
+TM2X;Duck 2;;Duck TrueMotion 2X
+TMIC;TeraLogic;;TeraLogic Motion Intraframe
+TMOT;Horizons TM S;;Horizons Technology TrueMotion Video
+TR20;Duck TM RT2;;Duck TrueMotion RT 2.0
+TRLE;Akula;;Akula Alpha Pro Custom AVI (LossLess)
+TSCC;TechSmith;;TechSmith Screen Capture
+tscc;TechSmith;;TechSmith Screen Capture
+TV10;Tecomac;;Tecomac Low-Bit Rate
+TVJP;Pinnacle/Truevision;;TrueVision Field Encoded M-JPEG (Targa emulation)
+TVMJ;Pinnacle/Truevision;;Truevision TARGA M-JPEG Hardware (or Targa emulation)
+TY0N;Trident;;Trident Decompression Driver
+TY2C;Trident;;Trident Decompression Driver
+TY2N;Trident;;Trident Decompression Driver
+U<Y ;YUV;Discreet;Discreet UC YUV 4:2:2:4 10 bit
+U<YA;YUV;Discreet;Discreet UC YUV 4:2:2:4 10 bit (with Alpha-channel)
 U263;H.263;UB;UB Video H.263/H.263+/H.263++ Decoder;http://eMajix.com
 UCOD;ClearVideo;;ClearVideo (fractal compression-based);
 ULTI;Ultimotion;;IBM Ultimotion;
@@ -589,7 +590,7 @@ VP61;VP6.1;On2;;
 VP62;VP6.2;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe
 VP70;VP7;On2;;
 VP71;VP7;On2;;
-VP72;VP7;On2;;
+VP72;VP7;On2;
 VQC1;Vector 1;;Vector-quantised 1 (high compression) http://eprints.ecs.soton.ac.uk/archive/00001310/01/VTC97-js.pdf
 VQC2;Vector 2;;Vector-quantised 2 (high robustness against channel errors) http://eprints.ecs.soton.ac.uk/archive/00001310/01/VTC97-js.pdf
 VQJP;VQ630;;Dual-mode digital camera
@@ -605,7 +606,7 @@ VXSP;DVX 1 SP;;Lucent VX1000SP Video
 VYU9;YUV;ATI;
 VYUY;YUV;ATI;
 WBVC;W9960;;Winbond Electronics W9960
-WHAM;Microsoft Video 1;;
+WHAM;Microsoft Video 1;;;
 WINX;Winnov;;;
 WJPG;M-JPEG;Winbond ;Winbond JPEG (AverMedia USB devices);
 WMV1;WMV1;;Windows Media Video 7;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
