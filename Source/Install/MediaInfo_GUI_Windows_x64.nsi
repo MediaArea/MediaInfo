@@ -1,15 +1,6 @@
 ; Request application privileges for Windows Vista
 RequestExecutionLevel admin
 
-; OpenCandy Start
-; Variables
-!include nsDialogs.nsh
-Var ProductName
-Var Key
-Var Secret
-Var RegistryLocation
-; OpenCandy End
-
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_PUBLISHER "MediaArea.net"
@@ -42,18 +33,7 @@ SetCompressor /FINAL /SOLID lzma
 !define MUI_LANGDLL_REGISTRY_VALUENAME "NSIS:Language"
 
 ; Installer pages
-!insertmacro MUI_PAGE_LICENSE "..\..\..\MediaInfoLib\Source\Install\OC\License.GUI.en.txt"
 !insertmacro MUI_PAGE_DIRECTORY
-
-; OpenCandy Start
-!include "OCSetupHlp.nsh"
-; Declare the OpenCandy Offer page
-PageEx custom
- PageCallbacks OpenCandyPageStartFn OpenCandyPageLeaveFn
-PageExEnd
-; OpenCandy End
-
-; Installer pages
 !insertmacro MUI_PAGE_INSTFILES
 !define MUI_FINISHPAGE_RUN "$INSTDIR\MediaInfo.exe"
 !insertmacro MUI_PAGE_FINISH
@@ -114,40 +94,18 @@ ShowInstDetails nevershow
 ShowUnInstDetails nevershow
 
 Function .onInit
-  !insertmacro MUI_LANGDLL_DISPLAY
   ${If} ${RunningX64}
     SetRegView 64
   ${Else}
     MessageBox MB_OK|MB_ICONSTOP 'You are trying to install the 64-bit version of ${PRODUCT_NAME} on 32-bit Windows.$\r$\nPlease download and use the 32-bit version instead.$\r$\nClick OK to quit Setup.'
     Quit
   ${EndIf}
-
-; OpenCandy Start
-  Strcpy $ProductName "MediaInfo"
-  Strcpy $Key "e6a82db2cb6c37c6c3d7c094ea601b78"
-  Strcpy $Secret "3470285a721b274d1a36f8c6f67b9161"
-  Strcpy $RegistryLocation "${PRODUCT_REGISTRY}\OpenCandy"
-
-  !insertmacro OpenCandyInit $ProductName $Key $Secret $RegistryLocation
-; OpenCandy End
+  !insertmacro MUI_LANGDLL_DISPLAY
 FunctionEnd
-
-; OpenCandy Start
-Function .onInstSuccess
-  !insertmacro OpenCandyOnInstSuccess
-FunctionEnd
-
-Function .onGUIEnd
-  !insertmacro OpenCandyOnGuiEnd
-FunctionEnd
-; OpenCandy End
 
 Section "SectionPrincipale" SEC01
   SetOverwrite ifnewer
   SetOutPath "$INSTDIR"
-; OpenCandy Start
-  !insertmacro OpenCandyInstallDLL
-; OpenCandy End
   CreateDirectory "$SMPROGRAMS\MediaInfo"
   CreateShortCut "$SMPROGRAMS\MediaInfo\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe" "" "" "" "" "" "MediaInfo ${PRODUCT_VERSION}"
   File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Release_Build\MediaInfo_GUI_x64.exe"
@@ -220,10 +178,6 @@ Section Uninstall
   Delete "$SMPROGRAMS\MediaInfo\Website.lnk"
   Delete "$SMPROGRAMS\MediaInfo\MediaInfo.lnk"
   Delete "$SMPROGRAMS\MediaInfo\History.lnk"
-
-; OpenCandy Start
-  !insertmacro OpenCandyProductUninstall "e6a82db2cb6c37c6c3d7c094ea601b78" ; Product Key
-; OpenCandy End
 
   RMDir "$SMPROGRAMS\MediaInfo"
   RMDir "$INSTDIR\Plugin\Custom"
