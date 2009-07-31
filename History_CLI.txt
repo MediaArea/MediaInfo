@@ -7,6 +7,16 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.20, 2009-07-31
+--------------
++ TAK format support, thanks to Lionel Duchateau
++ #2822681, Quicktime: Rotation display (from iPhone...)
++ ASP.net web application example
++ Java/JNA, Linux: dynamic load of libzen if not in LD_PATH
+x MPEG-PS: Some durations were a bit too long
+x MPEG-PS: Better handling of PTS/DTS for private and extension streams
+x ADTS: Handling of SBR and/or PS streams
+
 Version 0.7.19, 2009-07-17
 --------------
 + ALS raw files support, thanks to Lionel Duchateau

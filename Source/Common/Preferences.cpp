@@ -106,6 +106,7 @@ int Preferences::Config_Create()
     if (Config(_T("ShowMenu")).empty()) Config(_T("ShowMenu"))=_T("1");
     if (Config(_T("CloseAllAuto")).empty()) Config(_T("CloseAllAuto"))=_T("1");
     if (Config(_T("FirstInstall")).empty()) Config(_T("FirstInstall")).From_Number((int64u)time(NULL));
+    Config(_T("Install")).From_Number((int64u)time(NULL));
     if (Config(_T("Donated")).empty()) Config(_T("Donated"))=_T("0");
     if (Config(_T("Donate_Display")).empty()) Config(_T("Donate_Display"))=_T("1");
     Config.Save(BaseFolder+_T("MediaInfo.cfg"));
@@ -183,7 +184,7 @@ int Preferences::Config_Load()
         Donate_Display=false;
     if (Config(_T("Donate_Display"))==_T("0"))
         Donate_Display=false;
-    if ((int64u)time(NULL)-Config(_T("FirstInstall")).To_int64u()<7*24*60*60)
+    if ((int64u)time(NULL)-Config(_T("Install")).To_int64u()<7*24*60*60)
         Donate_Display=false;
 
 
