@@ -1042,8 +1042,6 @@ void File_Mpegv::user_data_start()
 // Packet "B2", CC (From DVD)
 void File_Mpegv::user_data_start_CC()
 {
-            if (File_Offset+Buffer_Offset==0x1A298C3)
-                int A=0;
     DVD_CC_IsPresent=true;
 
     Element_Info("DVD captioning");
