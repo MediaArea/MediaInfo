@@ -249,10 +249,12 @@ void File__Analyze::Get_BFP4(size_t Bits, float32 &Info, const char* Name)
 {
     INTEGRITY_SIZE_ATLEAST_INT(4);
     BS_Begin();
-    int32u Integer=BS->Get4(Bits);
+    int32s Integer=(int32s)BS->Get4(Bits);
     int32u Fraction=BS->Get4(32-Bits);
     BS_End();
     Element_Offset-=4; //Because of BS_End()
+    if (Integer>=(1<<Bits)/2)
+        Integer-=1<<Bits;
     Info=Integer+((float32)Fraction)/(1<<(32-Bits));
     if (Config_Details>0) Param(Name, Info);
     Element_Offset+=4;
