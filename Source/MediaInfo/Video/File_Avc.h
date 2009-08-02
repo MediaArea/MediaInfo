@@ -168,6 +168,7 @@ private :
     size_t Interlaced_Bottom;
     size_t Structure_Field;
     size_t Structure_Frame;
+    int8u  FrameRate_Divider;
 
     //From seq_parameter_set
     Ztring Encoded_Library;
