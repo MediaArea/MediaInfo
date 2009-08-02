@@ -335,8 +335,12 @@ void File_Avc::Streams_Fill()
         if (!fixed_frame_rate_flag)
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, "VFR");
         else if (time_scale && num_units_in_tick)
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)time_scale/num_units_in_tick/2);
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)time_scale/num_units_in_tick/2/FrameRate_Divider);
     }
+    if (FrameRate_Divider==2)
+        Fill(Stream_Video, StreamPos_Last, Video_Format_Settings, "Frame doubling");
+    if (FrameRate_Divider==3)
+        Fill(Stream_Video, StreamPos_Last, Video_Format_Settings, "Frame tripling");
     Fill(Stream_Video, 0, Video_Colorimetry, Avc_Colorimetry_format_idc[chroma_format_idc]);
 
     //Interlacement
@@ -508,6 +512,7 @@ void File_Avc::Synched_Init()
     Interlaced_Bottom=0;
     Structure_Field=0;
     Structure_Frame=0;
+    FrameRate_Divider=1;
     TemporalReference_Offset=0;
     TemporalReference_Offset_Moved=false;
     TemporalReference_GA94_03_CC_Offset=0;
@@ -1049,10 +1054,18 @@ void File_Avc::sei_message_pic_timing(int32u payloadSize)
     if (pic_struct_present_flag)
     {
         Get_S1 (4, pic_struct,                                  "pic_struct");
-        if (pic_struct>=Avc_pic_struct_Size)
+        switch (pic_struct)
         {
-            Param_Info("Reserved");
-            return; //NumClockTS is unknown
+            case  0 :
+            case  1 :
+            case  2 :
+            case  3 :
+            case  4 :
+            case  5 :
+            case  6 : break;
+            case  7 : FrameRate_Divider=2; break;
+            case  8 : FrameRate_Divider=3; break;
+            default : Param_Info("Reserved"); return; //NumClockTS is unknown
         }
         Param_Info(Avc_pic_struct[pic_struct]);
         int8u NumClockTS=Avc_NumClockTS[pic_struct];
