@@ -94,10 +94,10 @@ const char*  IFO_Standard[]=
 
 float32  IFO_AspectRatio[]=
 {
-    1.333,
-    0.000,
-    0.000,
-    1.778,
+    (float32)1.333,
+    (float32)0.000,
+    (float32)0.000,
+    (float32)1.778,
 };
 
 const char*  IFO_BitRate_Mode[]=
