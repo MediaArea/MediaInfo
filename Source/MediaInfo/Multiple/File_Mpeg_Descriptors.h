@@ -47,9 +47,9 @@ struct complete_stream
     bool   transport_stream_id_IsValid; //The processed transport_stream_id
     Ztring original_network_name;
     Ztring network_name;
-    Ztring Start_Time;
-    Ztring End_Time;
-    bool   End_Time_IsUpdated;
+    Ztring Duration_Start;
+    Ztring Duration_End;
+    bool   Duration_End_IsUpdated;
     std::map<Ztring, Ztring> TimeZones; //Key is country code
 
     //Per transport_stream
@@ -168,7 +168,6 @@ struct complete_stream
             //MPEG
             unknown,
             pes,
-            pcr,
             psi,
         };
         std::vector<int16u>                         program_numbers;
@@ -199,6 +198,7 @@ struct complete_stream
         stream_t                                    StreamKind;
         size_t                                      StreamPos;
         ts_kind                                     Kind;
+        bool                                        IsPCR;
         #ifdef MEDIAINFO_MPEGTS_PCR_YES
             int64u                                  TimeStamp_Start;
             int64u                                  TimeStamp_End;
@@ -231,6 +231,7 @@ struct complete_stream
             StreamKind=Stream_Max;
             StreamPos=0;
             Kind=unknown;
+            IsPCR=false;
             #ifdef MEDIAINFO_MPEGTS_PCR_YES
                 TimeStamp_Start=(int64u)-1;
                 TimeStamp_End=(int64u)-1;
@@ -349,6 +350,7 @@ struct complete_stream
     };
     typedef std::map<int16u, source> sources; //Key is source_id
     sources Sources; //Key is source_id
+    bool Sources_IsUpdated;
 
     //File__Duplicate
     bool                                                File__Duplicate_HasChanged_;
@@ -368,11 +370,12 @@ struct complete_stream
     {
         transport_stream_id=0;
         transport_stream_id_IsValid=false;
-        End_Time_IsUpdated=false;
+        Duration_End_IsUpdated=false;
         Streams_NotParsedCount=0;
         Streams_With_StartTimeStampCount=0;
         Streams_With_EndTimeStampMoreThanxSecondsCount=0;
         GPS_UTC_offset=0;
+        Sources_IsUpdated=false;
     }
 
     ~complete_stream()

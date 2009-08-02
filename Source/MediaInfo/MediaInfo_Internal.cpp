@@ -439,7 +439,7 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
     {
         size_t ToReturn=Info->IsAccepted<< 0
                       | Info->IsFilled  << 1
-                      | Info->IsUpdated << 2
+                      | (Info->IsFilled && Info->IsUpdated) << 2
                       | Info->IsFinished<< 3;
         return ToReturn;
     }
@@ -504,6 +504,9 @@ String MediaInfo_Internal::Inform(size_t)
 String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, size_t Parameter, info_t KindOfInfo)
 {
     CriticalSectionLocker CSL(CS);
+
+    if (Info)
+        Info->IsUpdated=false;
 
     //Check integrity
     if (StreamKind>=Stream_Max || StreamNumber>=Stream[StreamKind].size() || Parameter>=MediaInfoLib::Config.Info_Get(StreamKind).size()+Stream_More[StreamKind][StreamNumber].size() || KindOfInfo>=Info_Max)
@@ -571,6 +574,9 @@ String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, const Stri
         return Get(Stream_General, StreamPos, _T("OverallBitRate_Maximum/String"), KindOfInfo, KindOfSearch);
 
     CS.Enter();
+
+    if (Info)
+        Info->IsUpdated=false;
 
     //Check integrity
     if (StreamKind>=Stream_Max || StreamPos>=Stream[StreamKind].size() || KindOfInfo>=Info_Max)

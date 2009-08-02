@@ -45,6 +45,11 @@ extern MediaInfo_Config Config;
 //---------------------------------------------------------------------------
 String MediaInfo_Internal::Inform()
 {
+    CS.Enter();
+    if (Info)
+        Info->IsUpdated=false;
+    CS.Leave();
+
     #ifndef MEDIAINFO_MINIMIZESIZE
         if (MediaInfoLib::Config.Details_Get())
             return Details;

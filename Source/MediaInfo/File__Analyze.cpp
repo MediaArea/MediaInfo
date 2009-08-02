@@ -365,10 +365,6 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
     //Parsing
     Sub->Open_Buffer_Continue(ToAdd, ToAdd_Size);
 
-    //Info from parser
-    if (IsFilled && Sub->IsUpdated)
-        IsUpdated=true;
-
     #ifndef MEDIAINFO_MINIMIZESIZE
         //Details handling
         if (!Sub->Element[0].ToShow.Details.empty())

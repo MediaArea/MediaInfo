@@ -1116,17 +1116,17 @@ void File_Mpeg_Psi::Table_02()
     }
 
     FILLING_BEGIN();
+        #ifdef MEDIAINFO_MPEGTS_PCR_YES
+        Complete_Stream->Streams[PCR_PID].IsPCR=true;
         Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].PCR_PID=PCR_PID;
         if (Complete_Stream->Streams[PCR_PID].Kind==complete_stream::stream::unknown)
         {
-            Complete_Stream->Streams[PCR_PID].Kind=complete_stream::stream::pcr;
-            #ifdef MEDIAINFO_MPEGTS_PCR_YES
-                Complete_Stream->Streams[PCR_PID].Searching_TimeStamp_Start_Set(true);
-            #endif //MEDIAINFO_MPEGTS_PCR_YES
+            Complete_Stream->Streams[PCR_PID].Searching_TimeStamp_Start_Set(true);
             #ifndef MEDIAINFO_MINIMIZESIZE
                 Complete_Stream->Streams[PCR_PID].Element_Info="PCR";
             #endif //MEDIAINFO_MINIMIZESIZE
         }
+        #endif //MEDIAINFO_MPEGTS_PCR_YES
 
         //Sorting
         sort(Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].elementary_PIDs.begin(), Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].elementary_PIDs.end());
@@ -1371,11 +1371,10 @@ void File_Mpeg_Psi::Table_70()
     Get_B3 (time,                                               "UTC_time (time)"); Param_Info(Time_BCD(time));
 
     FILLING_BEGIN();
-        if (Complete_Stream->Start_Time.empty())
-            Complete_Stream->Start_Time=_T("UTC ")+Date_MJD(date)+_T(" ")+Time_BCD(time);
-        Complete_Stream->End_Time=_T("UTC ")+Date_MJD(date)+_T(" ")+Time_BCD(time);
-        Complete_Stream->End_Time_IsUpdated=true;
-        IsUpdated=true;
+        if (Complete_Stream->Duration_Start.empty())
+            Complete_Stream->Duration_Start=_T("UTC ")+Date_MJD(date)+_T(" ")+Time_BCD(time);
+        Complete_Stream->Duration_End=_T("UTC ")+Date_MJD(date)+_T(" ")+Time_BCD(time);
+        Complete_Stream->Duration_End_IsUpdated=true;
     FILLING_END();
 }
 
@@ -1399,11 +1398,10 @@ void File_Mpeg_Psi::Table_73()
     Skip_B4(                                                    "CRC32");
 
     FILLING_BEGIN();
-        if (Complete_Stream->Start_Time.empty())
-            Complete_Stream->Start_Time=_T("UTC ")+Date_MJD(date)+_T(" ")+Time_BCD(time);
-        Complete_Stream->End_Time=_T("UTC ")+Date_MJD(date)+_T(" ")+Time_BCD(time);
-        Complete_Stream->End_Time_IsUpdated=true;
-        IsUpdated=true;
+        if (Complete_Stream->Duration_Start.empty())
+            Complete_Stream->Duration_Start=_T("UTC ")+Date_MJD(date)+_T(" ")+Time_BCD(time);
+        Complete_Stream->Duration_End=_T("UTC ")+Date_MJD(date)+_T(" ")+Time_BCD(time);
+        Complete_Stream->Duration_End_IsUpdated=true;
     FILLING_END();
 }
 
@@ -1748,7 +1746,7 @@ void File_Mpeg_Psi::Table_CC()
         {
             Complete_Stream->Sources[source_id].ATSC_EPG_Blocks[Complete_Stream->Streams[pid].table_type].Events[event_id].texts[table_id_extension]=extended_text_message;
             Complete_Stream->Sources[source_id].ATSC_EPG_Blocks_IsUpdated=true;
-            IsUpdated=true;
+            Complete_Stream->Sources_IsUpdated=true;
         }
     FILLING_END();
 }
@@ -1778,11 +1776,10 @@ void File_Mpeg_Psi::Table_CD()
         Descriptors();
 
     FILLING_BEGIN();
-        if (Complete_Stream->Start_Time.empty())
-            Complete_Stream->Start_Time=Ztring().Date_From_Seconds_1970(system_time+315964800-GPS_UTC_offset);
-        Complete_Stream->End_Time=Ztring().Date_From_Seconds_1970(system_time+315964800-GPS_UTC_offset);
-        Complete_Stream->End_Time_IsUpdated=true;
-        IsUpdated=true;
+        if (Complete_Stream->Duration_Start.empty())
+            Complete_Stream->Duration_Start=Ztring().Date_From_Seconds_1970(system_time+315964800-GPS_UTC_offset);
+        Complete_Stream->Duration_End=Ztring().Date_From_Seconds_1970(system_time+315964800-GPS_UTC_offset);
+        Complete_Stream->Duration_End_IsUpdated=true;
         Complete_Stream->GPS_UTC_offset=GPS_UTC_offset;
     FILLING_END();
 }

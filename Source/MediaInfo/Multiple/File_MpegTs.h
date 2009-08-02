@@ -77,6 +77,9 @@ private :
     //Buffer - Per element
     void Header_Parse();
     void Header_Parse_AdaptationField();
+    #ifdef MEDIAINFO_MPEGTS_PCR_YES
+    void Header_Parse_AdaptationField_Duration_Update();
+    #endif //MEDIAINFO_MPEGTS_PCR_YES
     void Data_Parse();
 
     int16u                      pid;
@@ -87,6 +90,8 @@ private :
 
     //Elements
     void PSI();
+    void PSI_EPG_Update();
+    void PSI_Duration_End_Update();
     void PES();
 
     //Helpers
