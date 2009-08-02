@@ -43,9 +43,6 @@
 #if defined(MEDIAINFO_CDXA_YES)
     #include "MediaInfo/Multiple/File_Cdxa.h"
 #endif
-#if defined(MEDIAINFO_CLPI_YES)
-    #include "MediaInfo/Multiple/File_Clpi.h"
-#endif
 #if defined(MEDIAINFO_DVDIF_YES)
     #include "MediaInfo/Multiple/File_DvDif.h"
 #endif
@@ -510,9 +507,6 @@ int MediaInfo_Internal::ListFormats()
     #endif
     #if defined(MEDIAINFO_CDXA_YES)
         delete Info; Info=new File_Cdxa();               if (ApplyMethod()>0) return 1;
-    #endif
-    #if defined(MEDIAINFO_CLPI_YES)
-        delete Info; Info=new File_Clpi();               if (ApplyMethod()>0) return 1;
     #endif
     #if defined(MEDIAINFO_DVDIF_YES)
         delete Info; Info=new File_DvDif();              if (ApplyMethod()>0) return 1;

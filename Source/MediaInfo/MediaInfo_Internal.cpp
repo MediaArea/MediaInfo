@@ -307,19 +307,27 @@ int MediaInfo_Internal::Format_Test_FillBuffer_Continue()
     }
 
     //Seek (if needed)
-    if (Info->File_GoTo!=(int64u)-1 && Info->File_GoTo<File_Size)
+    if (Info->File_GoTo!=(int64u)-1)
     {
-        if (Info->File_GoTo>=((File*)File_Handle)->Size_Get())
-            //Seek requested, but on a file bigger in theory than what is in the real file, we can't do this
-            return -1;
-        if (((File*)File_Handle)->GoTo(Info->File_GoTo))
+        if (Info->File_GoTo<File_Size)
         {
-            File_Offset=Info->File_GoTo;
-            Info->Open_Buffer_Init(File_Size, File_Offset);
+            if (Info->File_GoTo>=((File*)File_Handle)->Size_Get())
+                //Seek requested, but on a file bigger in theory than what is in the real file, we can't do this
+                return -1;
+            if (((File*)File_Handle)->GoTo(Info->File_GoTo))
+            {
+                File_Offset=Info->File_GoTo;
+                Info->Open_Buffer_Init(File_Size, File_Offset);
+            }
+            else
+                //File is not seekable
+                return -1;
         }
         else
-            //File is not seekable
+        {
+            Info->Open_Buffer_Finalize();
             return -1;
+        }
     }
 
     //Buffering
