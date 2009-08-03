@@ -419,11 +419,6 @@ void File_MpegTs::Streams_Fill_PerStream(int16u PID, complete_stream::stream &Te
 }
 
 //---------------------------------------------------------------------------
-void File_MpegTs::Streams_Update()
-{
-}
-
-//---------------------------------------------------------------------------
 void File_MpegTs::Streams_Finish()
 {
     //Per stream

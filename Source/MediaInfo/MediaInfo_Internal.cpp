@@ -119,7 +119,6 @@ size_t MediaInfo_Internal::Open(const String &File_Name_)
                 ((File_Bdmv*)Info)->BDMV();
                 Info->Open_Buffer_Finalize();
                 Info->Fill();
-                Info->Update();
                 Info->Finish();
                 return 1;
             }
@@ -222,7 +221,6 @@ int MediaInfo_Internal::Format_Test()
     //Finalize
     Info->Open_Buffer_Finalize();
     Info->Fill();
-    Info->Update();
     Info->Finish();
 
     //Cleanup
@@ -439,7 +437,6 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
     if (Info->File_GoTo!=(int64u)-1 && Config.File_IsSeekable_Get()==0)
     {
         Info->Fill();
-        Info->Update();
         Info->File_GoTo=(int64u)-1;
     }
 
@@ -471,7 +468,6 @@ size_t MediaInfo_Internal::Open_Buffer_Finalize ()
     {
         Info->Open_Buffer_Finalize();
         Info->Fill();
-        Info->Update();
         Info->Finish();
     }
     return 1;

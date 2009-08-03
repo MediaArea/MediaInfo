@@ -452,7 +452,6 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
     //Buffer - Global
     Read_Buffer_Finalize();
     Fill();
-    Update();
     if (!NoBufferModification)
         Finish();
 
@@ -1605,15 +1604,8 @@ void File__Analyze::Fill (const char* ParserName)
     {
         Streams_Fill();
         Status[IsFilled]=true;
-    }
-
-    if (Status[IsAccepted])
-    {
-        Fill();
-        Streams_Update();
         Status[IsUpdated]=true;
     }
-    Status[IsUpdated]=false;
 }
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Fill ()
@@ -1625,15 +1617,8 @@ void File__Analyze::Fill ()
     {
         Streams_Fill();
         Status[IsFilled]=true;
-    }
-
-    if (Status[IsAccepted])
-    {
-        Fill();
-        Streams_Update();
         Status[IsUpdated]=true;
     }
-    Status[IsUpdated]=false;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
@@ -1643,41 +1628,6 @@ void File__Analyze::Fill (File__Analyze* Parser)
         return;
 
     Parser->Fill();
-}
-
-//---------------------------------------------------------------------------
-#ifndef MEDIAINFO_MINIMIZESIZE
-void File__Analyze::Update (const char* ParserName)
-{
-    if (ParserName)
-    {
-        bool MustElementBegin=Element_Level?true:false;
-        if (Element_Level>0)
-            Element_End(); //Element
-        Info(Ztring(ParserName)+_T(", updating"));
-        if (MustElementBegin)
-            Element_Level++;
-    }
-
-    if (Status[IsAccepted] && Status[IsUpdated])
-        Streams_Update();
-    Status[IsUpdated]=false;
-}
-#else //MEDIAINFO_MINIMIZESIZE
-void File__Analyze::Update ()
-{
-    if (Status[IsAccepted] && Status[IsUpdated])
-        Streams_Update();
-    Status[IsUpdated]=false;
-}
-#endif //MEDIAINFO_MINIMIZESIZE
-
-void File__Analyze::Update (File__Analyze* Parser)
-{
-    if (Parser==NULL)
-        return;
-
-    Parser->Update();
 }
 
 //---------------------------------------------------------------------------
@@ -1714,7 +1664,6 @@ void File__Analyze::Finish (const char* ParserName)
     if (Status[IsAccepted])
     {
         Fill();
-        Update();
         Streams_Finish();
         Streams_Finish_Global();
     }
@@ -1732,7 +1681,6 @@ void File__Analyze::Finish ()
     if (Status[IsAccepted])
     {
         Fill();
-        Update();
         Streams_Finish();
         Streams_Finish_Global();
     }

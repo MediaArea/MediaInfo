@@ -44,7 +44,6 @@ protected :
     //***************************************************************************
 
     virtual void Streams_Fill()                                                 {};
-    virtual void Streams_Update()                                               {};
     virtual void Streams_Finish()                                               {};
 
     //***************************************************************************
@@ -777,9 +776,6 @@ public :
     void Fill          (const char*)                                            {Fill();}
     void Fill          ();
     void Fill          (File__Analyze* Parser);
-    void Update        (const char*)                                            {Update();}
-    void Update        ();
-    void Update        (File__Analyze* Parser);
     void Finish        (const char*)                                            {Finish();}
     void Finish        ();
     void Finish        (File__Analyze* Parser);
