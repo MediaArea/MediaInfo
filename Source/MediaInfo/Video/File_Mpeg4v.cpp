@@ -1430,6 +1430,8 @@ void File_Mpeg4v::vop_start()
         NextCode_Add(0xB6); //vop_start
 
         //Filling only if not already done
+        if (Frame_Count==2 && !IsAccepted)
+            Accept("MPEG-4 Visual");
         if (Frame_Count>=Frame_Count_Valid && Count_Get(Stream_Video)==0)
             Finish("MPEG-4 Visual");
 

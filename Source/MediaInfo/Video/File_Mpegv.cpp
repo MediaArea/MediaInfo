@@ -930,12 +930,13 @@ void File_Mpegv::slice_start()
             Streams[Pos].Searching_Payload=false;
 
         //Filling only if not already done
-        if (!IsFilled && (!DVD_CC_IsPresent && !GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
+        if (Frame_Count==2 && !IsAccepted)
         {
-            //End of file, and we have some frames
             Accept("MPEG Video");
-            Fill("MPEG Video");
+            Stream_Prepare(Stream_General);
         }
+        if (!IsFilled && (!DVD_CC_IsPresent && !GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
+            Fill("MPEG Video");
     FILLING_END();
 }
 
@@ -1426,8 +1427,6 @@ void File_Mpegv::sequence_header()
 
         //Setting as OK
         sequence_header_IsParsed=true;
-        Accept("MPEG Video");
-        Stream_Prepare(Stream_General);
     FILLING_END();
 }
 

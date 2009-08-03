@@ -1007,9 +1007,10 @@ void File_Avc::slice_header()
             File__Duplicate_Write(Element_Code, pic_order_cnt_type==0?pic_order_cnt_lsb:frame_num);
 
         //Filling only if not already done
+        if (Frame_Count==2 && !IsAccepted)
+            Accept("AVC");
         if (!IsFilled && ((!GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid) || Frame_Count>=Frame_Count_Valid*10)) //10 times the normal test
         {
-            Accept("AVC");
             Fill("AVC");
             if (!Streams[(size_t)Element_Code].ShouldDuplicate)
                 Finish("AVC");
@@ -1733,8 +1734,6 @@ void File_Avc::seq_parameter_set()
 
         //Setting as OK
         SPS_IsParsed=true;
-        if (!IsAccepted)
-            Accept("AVC");
     FILLING_END();
 }
 

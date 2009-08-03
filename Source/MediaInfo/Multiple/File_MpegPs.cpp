@@ -2748,7 +2748,7 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
                     Temp.Parsers.erase(Temp.Parsers.begin()+Pos);
                     Pos--;
                 }
-                if (Temp.Parsers.size()>1 && Temp.Parsers[Pos]->IsAccepted)
+                else if (Temp.Parsers.size()>1 && Temp.Parsers[Pos]->IsAccepted)
                 {
                     File__Analyze* Parser=Temp.Parsers[Pos];
                     Temp.Parsers.clear();
