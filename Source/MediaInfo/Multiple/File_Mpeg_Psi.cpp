@@ -881,8 +881,8 @@ void File_Mpeg_Psi::Data_Parse()
         Skip_B4(                                                "CRC32");
     }
 
-    IsAccepted=true; //Accept("PSI");
-    IsFinished=true; //Finish("PSI");
+    Status[IsAccepted]=true; //Accept("PSI");
+    Status[IsFinished]=true; //Finish("PSI");
 }
 
 //---------------------------------------------------------------------------
@@ -1672,7 +1672,7 @@ void File_Mpeg_Psi::Table_CB()
     //Clear
     Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[table_id].Events.clear();
     Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks_IsUpdated=true;
-    IsUpdated=true;
+    Status[IsUpdated]=true;
 
     //Parsing
     int8u num_events_in_section;

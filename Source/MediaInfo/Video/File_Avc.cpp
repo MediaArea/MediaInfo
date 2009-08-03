@@ -493,7 +493,7 @@ void File_Avc::Streams_Finish()
 {
     //GA94 captions
     for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
-        if (GA94_03_CC_Parsers[Pos] && GA94_03_CC_Parsers[Pos]->IsAccepted)
+        if (GA94_03_CC_Parsers[Pos] && GA94_03_CC_Parsers[Pos]->Status[IsAccepted])
         {
             Finish(GA94_03_CC_Parsers[Pos]);
             Merge(*GA94_03_CC_Parsers[Pos]);
@@ -1007,9 +1007,9 @@ void File_Avc::slice_header()
             File__Duplicate_Write(Element_Code, pic_order_cnt_type==0?pic_order_cnt_lsb:frame_num);
 
         //Filling only if not already done
-        if (Frame_Count==2 && !IsAccepted)
+        if (Frame_Count==2 && !Status[IsAccepted])
             Accept("AVC");
-        if (!IsFilled && ((!GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid) || Frame_Count>=Frame_Count_Valid*10)) //10 times the normal test
+        if (!Status[IsFilled] && ((!GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid) || Frame_Count>=Frame_Count_Valid*10)) //10 times the normal test
         {
             Fill("AVC");
             if (!Streams[(size_t)Element_Code].ShouldDuplicate)
@@ -2085,7 +2085,7 @@ void File_Avc::SPS_PPS()
 
         MustParse_SPS_PPS=false;
         MustParse_SPS_PPS_Done=true;
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
             Accept("AVC");
         if (MustParse_SPS_PPS_Only)
             Finish("AVC");

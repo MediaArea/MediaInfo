@@ -723,10 +723,10 @@ void File_Vc1::FrameHeader()
         Streams[0x0D].Searching_Payload=true;
         Streams[0x0F].Searching_Payload=true;
 
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
             Accept("VC-1");
         //Filling only if not already done
-        if (!IsFilled && Frame_Count>=Frame_Count_Valid)
+        if (!Status[IsFilled] && Frame_Count>=Frame_Count_Valid)
             Finish("VC-1");
     FILLING_END();
 }
@@ -782,7 +782,7 @@ void File_Vc1::EntryPointHeader()
         Streams[0x0D].Searching_Payload=true;
 
         EntryPoint_Parsed=true;
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
             Accept("VC-1");
     FILLING_END();
 }
@@ -890,7 +890,7 @@ void File_Vc1::SequenceHeader()
 
         if (From_WMV3)
         {
-            if (!IsAccepted)
+            if (!Status[IsAccepted])
                 Accept("VC-1");
             Finish("VC-1");
         }

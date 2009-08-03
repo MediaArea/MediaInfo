@@ -70,7 +70,7 @@ void File_Vorbis::Header_Parse()
 void File_Vorbis::Data_Parse()
 {
     //Parsing
-    if (IsAccepted)
+    if (Status[IsAccepted])
         Setup();
     else
         Identification();

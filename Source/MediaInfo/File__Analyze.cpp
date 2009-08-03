@@ -122,10 +122,10 @@ File__Analyze::File__Analyze ()
     BS=new BitStream;
 
     //Temp
-    IsAccepted=false;
-    IsFilled=false;
-    IsUpdated=false;
-    IsFinished=false;
+    Status[IsAccepted]=false;
+    Status[IsFilled]=false;
+    Status[IsUpdated]=false;
+    Status[IsFinished]=false;
     ShouldContinueParsing=false;
 }
 
@@ -155,7 +155,7 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
     Read_Buffer_Init();
 
     //Integrity
-    if (!IsAccepted && File_Offset>=File_Size)
+    if (!Status[IsAccepted] && File_Offset>=File_Size)
     {
         Reject();
         return; //There is a problem
@@ -203,7 +203,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     Frame_Count_InThisBlock=0; //Out
 
     //Integrity
-    if (ToAdd==NULL || IsFinished)
+    if (ToAdd==NULL || Status[IsFinished])
         return;
     //{File F; F.Open(Ztring(_T("d:\\direct"))+Ztring::ToZtring((size_t)this, 16), File::Access_Write_Append); F.Write(ToAdd, ToAdd_Size);}
 
@@ -397,7 +397,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     {
         if (!FileHeader_Manage())
             return; //Wait for more data
-        if (IsFinished || File_GoTo!=(int64u)-1)
+        if (Status[IsFinished] || File_GoTo!=(int64u)-1)
             return; //Finish
     }
 
@@ -410,7 +410,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     if (Element_IsWaitingForMoreData())
         return; //Wait for more data
     Buffer_Offset+=(size_t)Element_Offset;
-    if (IsFinished && !ShouldContinueParsing || Buffer_Offset>=Buffer_Size || File_GoTo!=(int64u)-1)
+    if (Status[IsFinished] && !ShouldContinueParsing || Buffer_Offset>=Buffer_Size || File_GoTo!=(int64u)-1)
         return; //Finish
 
     //Parsing;
@@ -421,7 +421,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     {
         Element[Element_Level].WaitForMoreData=false;
         Detect_EOF();
-        if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (IsFinished && !ShouldContinueParsing))
+        if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (Status[IsFinished] && !ShouldContinueParsing))
         {
             EOF_AlreadyDetected=true;
             return;
@@ -602,7 +602,7 @@ bool File__Analyze::FileHeader_Begin_0x000001()
         Buffer_Offset++;
     if (Buffer_Offset<188 && Buffer[Buffer_Offset+188]==0x47 && Buffer[Buffer_Offset+188*2]==0x47 && Buffer[Buffer_Offset+188*3]==0x47)
     {
-        IsFinished=true;
+        Status[IsFinished]=true;
         return false;
     }
     Buffer_Offset=0;
@@ -612,7 +612,7 @@ bool File__Analyze::FileHeader_Begin_0x000001()
         Buffer_Offset++;
     if (Buffer_Offset<192 && CC1(Buffer+Buffer_Offset+192+4)==0x47 && CC1(Buffer+Buffer_Offset+192*2+4)==0x47 && CC1(Buffer+Buffer_Offset+192*3+4)==0x47)
     {
-        IsFinished=true;
+        Status[IsFinished]=true;
         return false;
     }
     Buffer_Offset=0;
@@ -645,7 +645,7 @@ bool File__Analyze::Synchro_Manage()
     {
         if (!Synchronize())
         {
-            if (IsFinished)
+            if (Status[IsFinished])
                 Finish(); //Finish
             if (!IsSub && File_Offset_FirstSynched==(int64u)-1 && Buffer_TotalBytes+Buffer_Offset>=Buffer_TotalBytes_FirstSynched_Max)
                 Reject();
@@ -674,7 +674,7 @@ bool File__Analyze::FileHeader_Manage()
     //From the parser
     if (!FileHeader_Begin())
     {
-        if (IsFinished) //Newest parsers set this bool if there is an error
+        if (Status[IsFinished]) //Newest parsers set this bool if there is an error
             Reject();
         return false; //Wait for more data
     }
@@ -684,7 +684,7 @@ bool File__Analyze::FileHeader_Manage()
     Element_Begin("File Header");
     FileHeader_Parse();
     Element_End();
-    if (IsFinished) //Newest parsers set this bool if there is an error
+    if (Status[IsFinished]) //Newest parsers set this bool if there is an error
     {
         Finish();
         return false;
@@ -726,7 +726,7 @@ bool File__Analyze::Header_Manage()
         {
             Element[Element_Level].WaitForMoreData=false;
             Detect_EOF();
-            if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (IsFinished && !ShouldContinueParsing))
+            if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (Status[IsFinished] && !ShouldContinueParsing))
                 EOF_AlreadyDetected=true;
         }
         return false; //Wait for more data
@@ -900,7 +900,7 @@ bool File__Analyze::Data_Manage()
     }
 
     //If no need of more
-    if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (IsFinished && !ShouldContinueParsing))
+    if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (Status[IsFinished] && !ShouldContinueParsing))
     {
         if (!Element_WantNextLevel)
             Element_End(); //Element
@@ -943,7 +943,7 @@ bool File__Analyze::Data_Manage()
     {
         Element[Element_Level].WaitForMoreData=false;
         Detect_EOF();
-        if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (IsFinished && !ShouldContinueParsing))
+        if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (Status[IsFinished] && !ShouldContinueParsing))
         {
             EOF_AlreadyDetected=true;
             return false;
@@ -997,8 +997,8 @@ void File__Analyze::Data_Finish (const char* ParserName)
 #ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Data_Reject (const char* ParserName)
 {
-    IsAccepted=false;
-    IsFinished=true;
+    Status[IsAccepted]=false;
+    Status[IsFinished]=true;
     Clear();
 
     if (ParserName)// && File_Offset+Buffer_Offset+Element_Size<File_Size)
@@ -1551,7 +1551,7 @@ void File__Analyze::Trusted_IsNot ()
 #ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Accept (const char* ParserName)
 {
-    if (IsAccepted || IsFinished)
+    if (Status[IsAccepted] || Status[IsFinished])
         return;
 
     if (ParserName)
@@ -1564,15 +1564,15 @@ void File__Analyze::Accept (const char* ParserName)
             Element_Level++;
     }
 
-    IsAccepted=true;
+    Status[IsAccepted]=true;
 }
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Accept ()
 {
-    if (IsAccepted || IsFinished)
+    if (Status[IsAccepted] || Status[IsFinished])
         return;
 
-    IsAccepted=true;
+    Status[IsAccepted]=true;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
@@ -1588,7 +1588,7 @@ void File__Analyze::Accept (File__Analyze* Parser)
 #ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Fill (const char* ParserName)
 {
-    if (IsFilled)
+    if (Status[IsFilled])
         return;
 
     if (ParserName)
@@ -1601,39 +1601,39 @@ void File__Analyze::Fill (const char* ParserName)
             Element_Level++;
     }
 
-    if (IsAccepted)
+    if (Status[IsAccepted])
     {
         Streams_Fill();
-        IsFilled=true;
+        Status[IsFilled]=true;
     }
 
-    if (IsAccepted)
+    if (Status[IsAccepted])
     {
         Fill();
         Streams_Update();
-        IsUpdated=true;
+        Status[IsUpdated]=true;
     }
-    IsUpdated=false;
+    Status[IsUpdated]=false;
 }
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Fill ()
 {
-    if (IsFilled)
+    if (Status[IsFilled])
         return;
 
-    if (IsAccepted)
+    if (Status[IsAccepted])
     {
         Streams_Fill();
-        IsFilled=true;
+        Status[IsFilled]=true;
     }
 
-    if (IsAccepted)
+    if (Status[IsAccepted])
     {
         Fill();
         Streams_Update();
-        IsUpdated=true;
+        Status[IsUpdated]=true;
     }
-    IsUpdated=false;
+    Status[IsUpdated]=false;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
@@ -1659,16 +1659,16 @@ void File__Analyze::Update (const char* ParserName)
             Element_Level++;
     }
 
-    if (IsAccepted && IsUpdated)
+    if (Status[IsAccepted] && Status[IsUpdated])
         Streams_Update();
-    IsUpdated=false;
+    Status[IsUpdated]=false;
 }
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Update ()
 {
-    if (IsAccepted && IsUpdated)
+    if (Status[IsAccepted] && Status[IsUpdated])
         Streams_Update();
-    IsUpdated=false;
+    Status[IsUpdated]=false;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
@@ -1698,7 +1698,7 @@ void File__Analyze::Finish (const char* ParserName)
         return;
     }
 
-    if (IsFinished)
+    if (Status[IsFinished])
         return;
 
     if (ParserName)
@@ -1711,14 +1711,14 @@ void File__Analyze::Finish (const char* ParserName)
             Element_Level++;
     }
 
-    if (IsAccepted)
+    if (Status[IsAccepted])
     {
         Fill();
         Update();
         Streams_Finish();
         Streams_Finish_Global();
     }
-    IsFinished=true;
+    Status[IsFinished]=true;
 }
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Finish ()
@@ -1726,17 +1726,17 @@ void File__Analyze::Finish ()
     if (ShouldContinueParsing)
         return;
 
-    if (IsFinished)
+    if (Status[IsFinished])
         return;
 
-    if (IsAccepted)
+    if (Status[IsAccepted])
     {
         Fill();
         Update();
         Streams_Finish();
         Streams_Finish_Global();
     }
-    IsFinished=true;
+    Status[IsFinished]=true;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
@@ -1752,8 +1752,8 @@ void File__Analyze::Finish (File__Analyze* Parser)
 #ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Reject (const char* ParserName)
 {
-    IsAccepted=false;
-    IsFinished=true;
+    Status[IsAccepted]=false;
+    Status[IsFinished]=true;
     Clear();
 
     if (ParserName)// && File_Offset+Buffer_Offset+Element_Size<File_Size)
@@ -1769,8 +1769,8 @@ void File__Analyze::Reject (const char* ParserName)
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Reject ()
 {
-    IsAccepted=false;
-    IsFinished=true;
+    Status[IsAccepted]=false;
+    Status[IsFinished]=true;
     Clear();
 }
 #endif //MEDIAINFO_MINIMIZESIZE

@@ -519,7 +519,7 @@ void File__MultipleParsing::Read_Buffer_Continue()
         Parser[Pos]->Open_Buffer_Continue(Buffer+Buffer_Offset, (size_t)Element_Size);
 
         //Testing if the parser failed
-        if (Parser[Pos]->IsFinished && !Parser[Pos]->IsAccepted)
+        if (Parser[Pos]->Status[IsFinished] && !Parser[Pos]->Status[IsAccepted])
         {
             delete Parser[Pos];
             Parser.erase(Parser.begin()+Pos);
@@ -531,7 +531,7 @@ void File__MultipleParsing::Read_Buffer_Continue()
         else
         {
             //If Parser is found, erasing all the other parsers
-            if (Parser[Pos]->IsAccepted)
+            if (Parser[Pos]->Status[IsAccepted])
             {
                 if (Parser.size()>1)
                 {
@@ -543,7 +543,7 @@ void File__MultipleParsing::Read_Buffer_Continue()
                     Parser.push_back(Temp);
                     Pos=0;
                 }
-                IsAccepted=true;
+                Status[IsAccepted]=true;
             }
 
             //Positionning if requested
@@ -551,7 +551,7 @@ void File__MultipleParsing::Read_Buffer_Continue()
                File_GoTo=Parser[0]->File_GoTo;
 
             //Ending if requested
-            if (Parser.size()==1 && Parser[Pos]->IsFinished)
+            if (Parser.size()==1 && Parser[Pos]->Status[IsFinished])
                Accept();
         }
     }
@@ -566,8 +566,8 @@ void File__MultipleParsing::Read_Buffer_Finalize()
         Parser[Pos]->Open_Buffer_Finalize();
         Merge(*(Parser[Pos]));
         Merge(*(Parser[Pos]), Stream_General, 0, 0);
-        if (Parser[Pos]->IsAccepted)
-            IsAccepted=true;
+        if (Parser[Pos]->Status[IsAccepted])
+            Status[IsAccepted]=true;
     }
 }
 

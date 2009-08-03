@@ -282,7 +282,7 @@ File_Ac3::File_Ac3()
 void File_Ac3::Streams_Finish()
 {
     //In case of partial data, and finalizing is forced
-    if (!IsAccepted && dxc3_Parsed)
+    if (!Status[IsAccepted] && dxc3_Parsed)
         Data_Parse_Fill();
 }
 

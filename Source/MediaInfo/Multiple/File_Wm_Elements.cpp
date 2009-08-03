@@ -457,7 +457,7 @@ void File_Wm::Header_StreamProperties_Video ()
         if (Data_Size>40)
         {
             Open_Buffer_Continue(Stream[Stream_Number].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Data_Size-40));
-            if (Stream[Stream_Number].Parser->IsFinished)
+            if (Stream[Stream_Number].Parser->Status[IsFinished])
             {
                 Finish(Stream[Stream_Number].Parser);
                 Merge(*Stream[Stream_Number].Parser, Stream_Video, 0, StreamPos_Last);
@@ -1495,7 +1495,7 @@ void File_Wm::Data_Packet()
             #endif
 
             Open_Buffer_Continue(Stream[Stream_Number].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)PayloadLength);
-            if (Stream[Stream_Number].Parser->IsFinished
+            if (Stream[Stream_Number].Parser->Status[IsFinished]
              || Stream[Stream_Number].PresentationTime_Count>=300)
             {
                 Stream[Stream_Number].Parser->Open_Buffer_Unsynch();

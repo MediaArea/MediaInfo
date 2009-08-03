@@ -57,7 +57,7 @@ void File_Cmml::Header_Parse()
 void File_Cmml::Data_Parse()
 {
     //Parsing
-    if (IsAccepted)
+    if (Status[IsAccepted])
         Configuration();
     else
         Identification();

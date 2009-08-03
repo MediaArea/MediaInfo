@@ -783,7 +783,7 @@ void File_Ogg_SubElement::Comment()
     Merge(Vorbis, Stream_Menu,     0, 0);
 
     //Testing if we must continue
-    if (Identified && (Parser==NULL || Parser->IsFinished))
+    if (Identified && (Parser==NULL || Parser->Status[IsFinished]))
         Finish("OggSubElement");
 }
 
@@ -795,7 +795,7 @@ void File_Ogg_SubElement::Default()
     if (Parser)
     {
         Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
-        if (Identified && Parser->IsFinished)
+        if (Identified && Parser->Status[IsFinished])
             Finish("OggSubElement");
     }
     else if (Element_Offset<Element_Size)

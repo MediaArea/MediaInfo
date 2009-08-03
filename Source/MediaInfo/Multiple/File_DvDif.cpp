@@ -314,7 +314,7 @@ void File_DvDif::Streams_Finish()
 
     #if defined(MEDIAINFO_EIA608_YES)
         for (size_t Pos=0; Pos<CC_Parsers.size(); Pos++)
-            if (CC_Parsers[Pos] && CC_Parsers[Pos]->IsAccepted)
+            if (CC_Parsers[Pos] && CC_Parsers[Pos]->Status[IsAccepted])
             {
                 CC_Parsers[Pos]->Finish();
                 Merge(*CC_Parsers[Pos]);
@@ -645,7 +645,7 @@ void File_DvDif::Read_Buffer_Continue()
         Buffer_Offset+=80;
     }
 
-    if (!IsAccepted)
+    if (!Status[IsAccepted])
         File__Analyze::Buffer_Offset=0;
 }
 
@@ -1049,7 +1049,7 @@ void File_DvDif::Errors_Stats_Update()
 
         //Filling the main text if needed
         if (Speed_FrameCount==1
-         || IsFinished
+         || Status[IsFinished]
          ||                       MediaInfoLib::Config.Verbosity_Get()>=(float32)1.0
          || Infos_AreDetected  && MediaInfoLib::Config.Verbosity_Get()>=(float32)0.5
          || Errors_AreDetected && MediaInfoLib::Config.Verbosity_Get()>=(float32)0.2)
@@ -1457,7 +1457,7 @@ void File_DvDif::Data_Parse()
     }
 
     //Integrity
-    if (!IsAccepted)
+    if (!Status[IsAccepted])
     {
         //DIF Sequence Numbers
         if (DSF_IsValid)
@@ -1575,9 +1575,9 @@ void File_DvDif::Header()
         FrameCount++;
         if (Count_Get(Stream_General)==0)
             Stream_Prepare(Stream_General);
-        if (!IsAccepted && (FrameCount>=10 || IsSub))
+        if (!Status[IsAccepted] && (FrameCount>=10 || IsSub))
             Accept("DV DIF");
-        if (!IsFilled && FrameCount>=Frame_Count_Valid)
+        if (!Status[IsFilled] && FrameCount>=Frame_Count_Valid)
             Finish("DV DIF");
     FILLING_END();
 }
@@ -1611,9 +1611,9 @@ void File_DvDif::Header()
         FrameCount++;
         if (Count_Get(Stream_General)==0)
             Stream_Prepare(Stream_General);
-        if (!IsAccepted && (FrameCount>=10 || IsSub))
+        if (!Status[IsAccepted] && (FrameCount>=10 || IsSub))
             Accept("DV DIF");
-        if (!IsFilled && FrameCount>=Frame_Count_Valid)
+        if (!Status[IsFilled] && FrameCount>=Frame_Count_Valid)
             #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
                 Fill("DV DIF");
             #else //MEDIAINFO_DVDIF_ANALYZE_YES
@@ -2082,7 +2082,7 @@ void File_DvDif::video_sourcecontrol()
             }
         }
 
-        if (!IsAccepted && AuxToAnalyze)
+        if (!Status[IsAccepted] && AuxToAnalyze)
         {
             Accept("DV DIF");
             Fill("DV DIF");

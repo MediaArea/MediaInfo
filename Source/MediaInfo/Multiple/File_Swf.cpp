@@ -308,7 +308,7 @@ void File_Swf::Read_Buffer_Finalize()
 {
     if (Count_Get(Stream_General)==0)
         return;
-    if (!IsAccepted)
+    if (!Status[IsAccepted])
         Accept("SWF");
 }
 

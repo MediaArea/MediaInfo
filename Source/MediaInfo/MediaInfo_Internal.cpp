@@ -207,13 +207,13 @@ int MediaInfo_Internal::Format_Test()
         else if (Info)
             Info->Open_Buffer_Continue(Buffer, Buffer_Size);
     }
-    while (Info && !Info->IsFinished);
+    while (Info && !Info->Status[File__Analyze::IsFinished]);
 
     //-Close
     Format_Test_FillBuffer_Close();
 
     //Is this file detected?
-    if (!Info->IsAccepted)
+    if (!Info->Status[File__Analyze::IsAccepted])
     {
         delete Info; Info=NULL;
         return 0;
@@ -415,7 +415,7 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
 
     Info->Open_Buffer_Continue(ToAdd, ToAdd_Size);
 
-    if (!MultipleParsing_IsDetected && Info->IsAccepted)
+    if (!MultipleParsing_IsDetected && Info->Status[File__Analyze::IsAccepted])
     {
         //Found
         File__Analyze* Info_ToDelete=Info;
@@ -445,11 +445,9 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
 
     if (Info)
     {
-        size_t ToReturn=Info->IsAccepted<< 0
-                      | Info->IsFilled  << 1
-                      | (Info->IsFilled && Info->IsUpdated) << 2
-                      | Info->IsFinished<< 3;
-        return ToReturn;
+        if (!Info->Status[File__Analyze::IsFilled] && Info->Status[File__Analyze::IsUpdated])
+            Info->Status[File__Analyze::IsUpdated]=false; //No updated info until IsFilled is set
+        return Info->Status.to_ulong();
     }
     return 0;
     #endif
@@ -514,7 +512,11 @@ String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamNumber, size_t 
     CriticalSectionLocker CSL(CS);
 
     if (Info)
-        Info->IsUpdated=false;
+    {
+        Info->Status[File__Analyze::IsUpdated]=false;
+        for (size_t Pos=File__Analyze::User_16; Pos<File__Analyze::User_16+16; Pos++)
+            Info->Status[Pos]=false;
+    }
 
     //Check integrity
     if (StreamKind>=Stream_Max || StreamNumber>=Stream[StreamKind].size() || Parameter>=MediaInfoLib::Config.Info_Get(StreamKind).size()+Stream_More[StreamKind][StreamNumber].size() || KindOfInfo>=Info_Max)
@@ -584,7 +586,11 @@ String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, const Stri
     CS.Enter();
 
     if (Info)
-        Info->IsUpdated=false;
+    {
+        Info->Status[File__Analyze::IsUpdated]=false;
+        for (size_t Pos=File__Analyze::User_16; Pos<File__Analyze::User_16+16; Pos++)
+            Info->Status[Pos]=false;
+    }
 
     //Check integrity
     if (StreamKind>=Stream_Max || StreamPos>=Stream[StreamKind].size() || KindOfInfo>=Info_Max)

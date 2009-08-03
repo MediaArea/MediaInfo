@@ -252,7 +252,7 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp)
 {
     //By the parser
     StreamKind_Last=Stream_Max;
-    if (!Temp.Parsers.empty() && Temp.Parsers[0] && Temp.Parsers[0]->IsAccepted)
+    if (!Temp.Parsers.empty() && Temp.Parsers[0] && Temp.Parsers[0]->Status[IsAccepted])
     {
         Fill(Temp.Parsers[0]);
 
@@ -1476,7 +1476,7 @@ void File_MpegPs::Detect_EOF()
     //In case of problem with some streams
     if (Buffer_TotalBytes>Buffer_TotalBytes_FirstSynched+SizeToAnalyze)
     {
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
         {
             Reject("MPEG-PS");
             return;
@@ -1494,7 +1494,7 @@ void File_MpegPs::Detect_EOF()
         return;
 
     //Jumping if needed
-    if (!IsAccepted)
+    if (!Status[IsAccepted])
         Accept("MPEG-PS");
     Fill("MPEG-PS");
     if (File_Size>SizeToAnalyze && File_Offset+Buffer_Size<File_Size-SizeToAnalyze)
@@ -1553,7 +1553,7 @@ bool File_MpegPs::BookMark_Needed()
             Streams_Extension[StreamID].Searching_Payload=true;
         }
     }
-    if (IsAccepted && ToJump!=(int64u)-1)
+    if (Status[IsAccepted] && ToJump!=(int64u)-1)
     {
         Info("MPEG-PS, Jumping to nearly end of file");
         Parsing_End_ForDTS=true;
@@ -1686,7 +1686,7 @@ void File_MpegPs::pack_start()
             Streams[Pos].Searching_TimeStamp_Start=true; //audio_stream or video_stream
             Streams[Pos].Searching_TimeStamp_End=true;   //audio_stream or video_stream
         }
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
             Accept("MPEG-PS");
     FILLING_END();
 }
@@ -1849,7 +1849,7 @@ void File_MpegPs::private_stream_1()
         }
 
         //Registering
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
             Data_Accept("MPEG-PS");
         Streams[start_code].StreamIsRegistred=true;
         Streams_Private1[private_stream_1_ID].StreamIsRegistred=true;
@@ -2247,7 +2247,7 @@ void File_MpegPs::private_stream_2()
         }
 
         //Disabling the program
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
             Data_Accept("MPEG-PS");
     }
     else //DVD?
@@ -2350,7 +2350,7 @@ void File_MpegPs::audio_stream()
         }
 
         //Registering
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
             Data_Accept("MPEG-PS");
         Streams[start_code].StreamIsRegistred=true;
 
@@ -2408,7 +2408,7 @@ void File_MpegPs::video_stream()
         }
 
         //Registering
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
             Data_Accept("MPEG-PS");
         Streams[start_code].StreamIsRegistred=true;
 
@@ -2480,7 +2480,7 @@ void File_MpegPs::SL_packetized_stream()
 
         //Registering
         Streams[start_code].StreamIsRegistred=true;
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
             Data_Accept("MPEG-PS");
         Streams[start_code].Searching_TimeStamp_Start=true;
 
@@ -2610,7 +2610,7 @@ void File_MpegPs::extension_stream()
         }
 
         //Registering
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
             Data_Accept("MPEG-PS");
         Streams[start_code].StreamIsRegistred=true;
         Streams_Extension[stream_id_extension].StreamIsRegistred=true;
@@ -2695,7 +2695,7 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
     }
 
     //Needed?
-    if (Temp.Parsers.size()==1 && Temp.Parsers[0]->IsFinished)
+    if (Temp.Parsers.size()==1 && Temp.Parsers[0]->Status[IsFinished])
     {
         Skip_XX(Element_Size-Element_Offset,                    "data");
         return;
@@ -2712,7 +2712,7 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
         Temp.FrameCount_AfterLast_TimeStamp_End=0;
 
     for (size_t Pos=0; Pos<Temp.Parsers.size(); Pos++)
-        if (Temp.Parsers[Pos] && !Temp.Parsers[Pos]->IsFinished)
+        if (Temp.Parsers[Pos] && !Temp.Parsers[Pos]->Status[IsFinished])
         {
             //PTS/DTS
             if (Temp.Parsers[Pos]->PTS_DTS_Needed)
@@ -2733,8 +2733,8 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
                     Element_End();
             #endif //MEDIAINFO_MINIMIZESIZE
 
-            if ((Temp.Parsers[Pos]->IsAccepted && Temp.Parsers[Pos]->IsFinished)
-             || (!Parsing_End_ForDTS && Temp.Parsers[Pos]->IsFilled))
+            if ((Temp.Parsers[Pos]->Status[IsAccepted] && Temp.Parsers[Pos]->Status[IsFinished])
+             || (!Parsing_End_ForDTS && Temp.Parsers[Pos]->Status[IsFilled]))
             {
                 if (Temp.Parsers[Pos]->Count_Get(Stream_Video)==0) //TODO: speed improvement, we do this only for CC
                     Temp.Searching_Payload=false;
@@ -2743,12 +2743,12 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
             }
             if (Temp.Parsers.size()>1)
             {
-                if (!Temp.Parsers[Pos]->IsAccepted && Temp.Parsers[Pos]->IsFinished)
+                if (!Temp.Parsers[Pos]->Status[IsAccepted] && Temp.Parsers[Pos]->Status[IsFinished])
                 {
                     Temp.Parsers.erase(Temp.Parsers.begin()+Pos);
                     Pos--;
                 }
-                else if (Temp.Parsers.size()>1 && Temp.Parsers[Pos]->IsAccepted)
+                else if (Temp.Parsers.size()>1 && Temp.Parsers[Pos]->Status[IsAccepted])
                 {
                     File__Analyze* Parser=Temp.Parsers[Pos];
                     Temp.Parsers.clear();

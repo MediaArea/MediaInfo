@@ -75,7 +75,7 @@ void File_Eia708::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_Eia708::Read_Buffer_Continue()
 {
-    if (!IsAccepted)
+    if (!Status[IsAccepted])
     {
         if (cc_type!=3)
         {
@@ -384,7 +384,7 @@ void File_Eia708::Data_Parse()
         Element_End();
     }
 
-    if (!IsFilled && !Captions[service_number].empty())
+    if (!Status[IsFilled] && !Captions[service_number].empty())
     {
         Finish("EIA-608"); //TODO: multiple captions
     }

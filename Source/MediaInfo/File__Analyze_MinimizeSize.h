@@ -981,10 +981,29 @@ public :
     virtual bool BookMark_Needed()                                              {return false;};
 
     //Temp
-    bool IsAccepted;
-    bool IsFilled;
-    bool IsUpdated;
-    bool IsFinished;
+    std::bitset<32> Status;
+    enum status
+    {
+        IsAccepted,
+        IsFilled,
+        IsUpdated,
+        IsFinished,
+        Reserved_04,
+        Reserved_05,
+        Reserved_06,
+        Reserved_07,
+        Reserved_08,
+        Reserved_09,
+        Reserved_10,
+        Reserved_11,
+        Reserved_12,
+        Reserved_13,
+        Reserved_14,
+        Reserved_15,
+        User_16,
+        User_17,
+        User_18,
+    };
     bool ShouldContinueParsing;
 
     //Configuration

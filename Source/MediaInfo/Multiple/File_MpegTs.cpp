@@ -292,7 +292,7 @@ void File_MpegTs::Streams_Fill()
         }
     #endif //defined(MEDIAINFO_BDAV_YES) && defined (MEDIAINFO_BDMV_YES)
 
-    //Forcing updates (not done before because IsFilled was not set)
+    //Forcing updates (not done before because Status[IsFilled] was not set)
     PSI_EPG_Update();
     if (Complete_Stream->Duration_End_IsUpdated)
         PSI_Duration_End_Update();
@@ -311,7 +311,7 @@ void File_MpegTs::Streams_Fill_PerStream(int16u PID, complete_stream::stream &Te
 
     //By the parser
     StreamKind_Last=Stream_Max;
-    if (Temp.Parser && Temp.Parser->IsAccepted)
+    if (Temp.Parser && Temp.Parser->Status[IsAccepted])
     {
         Fill(Temp.Parser);
         if (Temp.Parser->Count_Get(Stream_Video) && Temp.Parser->Count_Get(Stream_Text))
@@ -451,7 +451,7 @@ void File_MpegTs::Streams_Finish_PerStream(int16u PID, complete_stream::stream &
     StreamPos_Last=Temp.StreamPos;
 
     //By the parser
-    if (Temp.Parser && Temp.Parser->IsAccepted)
+    if (Temp.Parser && Temp.Parser->Status[IsAccepted])
     {
         Temp.Parser->ShouldContinueParsing=false;
         Finish(Temp.Parser);
@@ -636,7 +636,7 @@ bool File_MpegTs::Synched_Test()
                                     {
                                         Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference_base;
                                         #ifdef MEDIAINFO_MPEGTS_PCR_YES
-                                            if (IsFilled)
+                                            if (Status[IsFilled])
                                                 Header_Parse_AdaptationField_Duration_Update();
                                         #endif //MEDIAINFO_MPEGTS_PCR_YES
                                     }
@@ -876,7 +876,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                 {
                     Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference_base;
                     #ifdef MEDIAINFO_MPEGTS_PCR_YES
-                    if (IsFilled)
+                    if (Status[IsFilled])
                         Header_Parse_AdaptationField_Duration_Update();
                     #endif //MEDIAINFO_MPEGTS_PCR_YES
                 }
@@ -962,7 +962,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                 {
                     Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference_base;
                     #ifdef MEDIAINFO_MPEGTS_PCR_YES
-                    if (IsFilled)
+                    if (Status[IsFilled])
                         Header_Parse_AdaptationField_Duration_Update();
                     #endif //MEDIAINFO_MPEGTS_PCR_YES
                 }
@@ -1028,7 +1028,7 @@ void File_MpegTs::Header_Parse_AdaptationField_Duration_Update()
         }
     }
 
-    IsUpdated=true;
+    Status[IsUpdated]=true;
 }
 #endif //MEDIAINFO_MPEGTS_PCR_YES
 
@@ -1173,8 +1173,8 @@ void File_MpegTs::PES()
 
     //Need anymore?
     if (Complete_Stream->Streams[pid].Searching_Payload_Start
-     && (Complete_Stream->Streams[pid].Parser->IsFilled
-      || Complete_Stream->Streams[pid].Parser->IsFinished))
+     && (Complete_Stream->Streams[pid].Parser->Status[IsFilled]
+      || Complete_Stream->Streams[pid].Parser->Status[IsFinished]))
     {
         Complete_Stream->Streams[pid].Searching_Payload_Start_Set(false);
         Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(false);
@@ -1207,7 +1207,7 @@ void File_MpegTs::PSI()
     Open_Buffer_Continue(Complete_Stream->Streams[pid].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
     //EPG
-    if (IsFilled)
+    if (Status[IsFilled])
     {
         if (Complete_Stream->Sources_IsUpdated || Complete_Stream->Programs_IsUpdated)
             PSI_EPG_Update();
@@ -1216,10 +1216,10 @@ void File_MpegTs::PSI()
     }
 
     //Filling
-    if (Complete_Stream->Streams[pid].Parser->IsFinished)
+    if (Complete_Stream->Streams[pid].Parser->Status[IsFinished])
     {
         //Accept
-        if (!IsAccepted && pid==0x0000 && Complete_Stream->Streams[pid].Parser->IsAccepted)
+        if (!Status[IsAccepted] && pid==0x0000 && Complete_Stream->Streams[pid].Parser->Status[IsAccepted])
             Accept("MPEG-TS");
 
         //Disabling this PID
@@ -1357,7 +1357,7 @@ void File_MpegTs::PSI_EPG_Update()
             }
         }
 
-    IsUpdated=true;
+    Status[IsUpdated]=true;
 }
 
 
@@ -1368,7 +1368,7 @@ void File_MpegTs::PSI_Duration_End_Update()
     Fill(Stream_General, 0, General_Duration_End, Complete_Stream->Duration_End, true);
     Complete_Stream->Duration_End_IsUpdated=false;
 
-    IsUpdated=true;
+    Status[IsUpdated]=true;
 }
 
 //***************************************************************************
@@ -1401,7 +1401,7 @@ void File_MpegTs::Detect_EOF()
                 Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_End_Set(false);
             #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
         }
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
             Accept("MPEG-TS");
         GoTo(0, "MPEG-TS");
         Fill(Stream_General, 0, General_Format_Profile, "No PAT/PMT");
@@ -1443,7 +1443,7 @@ void File_MpegTs::Detect_EOF()
             }
         #endif //defined(MEDIAINFO_MPEGTS_PCR_YES) ||  defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
 
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
             Accept("MPEG-TS");
         Fill("MPEG-TS");
         #if !defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)

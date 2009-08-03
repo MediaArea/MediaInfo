@@ -57,7 +57,7 @@ void File_Theora::Header_Parse()
 void File_Theora::Data_Parse()
 {
     //Parsing
-    if (IsAccepted)
+    if (Status[IsAccepted])
         Setup();
     else
         Identification();

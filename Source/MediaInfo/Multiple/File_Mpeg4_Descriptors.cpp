@@ -409,7 +409,7 @@ void File_Mpeg4_Descriptors::Data_Parse()
                  break;
     }
 
-    IsAccepted=true;
+    Status[IsAccepted]=true;
 }
 
 //***************************************************************************

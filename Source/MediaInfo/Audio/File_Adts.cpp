@@ -237,7 +237,7 @@ void File_Adts::Data_Parse()
     Skip_XX(Element_Size,                                       "Data");
 
     //Filling
-    if (!IsAccepted && Frame_Count>=Frame_Count_Valid)
+    if (!Status[IsAccepted] && Frame_Count>=Frame_Count_Valid)
         Data_Parse_Fill();
 }
 

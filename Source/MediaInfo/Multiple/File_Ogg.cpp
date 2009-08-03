@@ -348,9 +348,9 @@ void File_Ogg::Data_Parse()
             if (Parser->File_GoTo!=(int64u)-1)
                 Chunk_Sizes_Pos=Chunk_Sizes.size();
 
-            if (!IsAccepted && Parser->IsAccepted)
+            if (!Status[IsAccepted] && Parser->Status[IsAccepted])
                 Accept("OGG");
-            if (Parser->IsFinished || (Element_Offset==Element_Size && eos))
+            if (Parser->Status[IsFinished] || (Element_Offset==Element_Size && eos))
             {
                 if (Count_Get(Stream_General)==0)
                     Stream_Prepare(Stream_General);

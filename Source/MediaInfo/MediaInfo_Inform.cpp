@@ -47,7 +47,11 @@ String MediaInfo_Internal::Inform()
 {
     CS.Enter();
     if (Info)
-        Info->IsUpdated=false;
+    {
+        Info->Status[File__Analyze::IsUpdated]=false;
+        for (size_t Pos=File__Analyze::User_16; Pos<File__Analyze::User_16+16; Pos++)
+            Info->Status[Pos]=false;
+    }
     CS.Leave();
 
     #ifndef MEDIAINFO_MINIMIZESIZE

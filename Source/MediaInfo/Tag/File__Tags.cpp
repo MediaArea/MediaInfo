@@ -262,7 +262,7 @@ bool File__Tags_Helper::Synched_Test()
             Base->Buffer_Offset+=(size_t)Size_ToParse;
             TagsSize+=Size_ToParse;
             Parser_Buffer_Size-=(size_t)Size_ToParse;
-            if (Parser->IsFinished || Parser_Buffer_Size==0)
+            if (Parser->Status[File__Analyze::IsFinished] || Parser_Buffer_Size==0)
             {
                 if (Parser->Count_Get(Stream_General)>0)
                 {

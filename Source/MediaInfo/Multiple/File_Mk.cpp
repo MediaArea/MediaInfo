@@ -1381,8 +1381,8 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
                     Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), Ztring::ToZtring(TrackNumber, 16)+_T(".")+_T("raw"));
                     Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Laces[Pos]);
                     Element_Offset+=Laces[Pos];
-                    if (Stream[TrackNumber].Parser->IsFilled
-                     || Stream[TrackNumber].Parser->IsFinished
+                    if (Stream[TrackNumber].Parser->Status[IsFilled]
+                     || Stream[TrackNumber].Parser->Status[IsFinished]
                      || Stream[TrackNumber].PacketCount>=300)
                         Stream[TrackNumber].Searching_Payload=false;
                 }
@@ -2093,7 +2093,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate()
     Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
     //Filling
-    if (Stream[TrackNumber].Parser->IsFinished) //Can be finnished here...
+    if (Stream[TrackNumber].Parser->Status[IsFinished]) //Can be finnished here...
     {
         Stream[TrackNumber].Searching_Payload=false;
         Stream_Count--;

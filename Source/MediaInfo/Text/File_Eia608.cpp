@@ -268,7 +268,7 @@ void File_Eia608::Read_Buffer_Continue()
         }
     }
 
-    if (!IsAccepted && !Captions.empty())
+    if (!Status[IsAccepted] && !Captions.empty())
     {
         Accept("EIA-608");
         Finish("EIA-608");

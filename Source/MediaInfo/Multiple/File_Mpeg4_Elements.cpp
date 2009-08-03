@@ -755,7 +755,7 @@ void File_Mpeg4::ftyp()
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "MPEG-4");
         CodecID_Fill(Ztring().From_CC4(MajorBrand), Stream_General, 0, InfoCodecID_Format_Mpeg4);
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
             Accept("MPEG-4");
     FILLING_END();
 }
@@ -839,7 +839,7 @@ void File_Mpeg4::jp2h_ihdr()
 //---------------------------------------------------------------------------
 void File_Mpeg4::mdat()
 {
-    if (!IsAccepted)
+    if (!Status[IsAccepted])
         Data_Accept("MPEG-4");
     Element_Name("Data");
 
@@ -952,7 +952,7 @@ void File_Mpeg4::mdat_xxxx()
 //---------------------------------------------------------------------------
 void File_Mpeg4::mdat_StreamClear()
 {
-    if (Stream[(int32u)Element_Code].Parser==NULL || Stream[(int32u)Element_Code].Parser->IsFinished)
+    if (Stream[(int32u)Element_Code].Parser==NULL || Stream[(int32u)Element_Code].Parser->Status[IsFinished])
     {
         std::map<int64u, mdat_Pos_Type>::iterator Temp=mdat_Pos.begin();
         while (Temp!=mdat_Pos.end())
@@ -980,14 +980,14 @@ void File_Mpeg4::mdat_StreamJump()
         ToJump=File_Size;
     if (ToJump>=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-1)) //We want always Element mdat
     {
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
             Data_Accept("MPEG-4");
         Data_GoTo(File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-1), "MPEG-4"); //Not in this chunk
         IsParsing_mdat=false;
     }
     else if (ToJump!=File_Offset+Buffer_Offset+Element_Size)
     {
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
             Data_Accept("MPEG-4");
         Data_GoTo(ToJump, "MPEG-4"); //Not just after
     }
@@ -1162,7 +1162,7 @@ void File_Mpeg4::moof_traf_trun()
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov()
 {
-    if (!IsAccepted)
+    if (!Status[IsAccepted])
         Data_Accept("MPEG-4");
     Element_Name("File header");
 

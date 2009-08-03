@@ -511,7 +511,7 @@ void File_Mpegv::Streams_Finish()
 
     //DVD captions
     for (size_t Pos=0; Pos<DVD_CC_Parsers.size(); Pos++)
-        if (DVD_CC_Parsers[Pos] && !DVD_CC_Parsers[Pos]->IsFinished && DVD_CC_Parsers[Pos]->IsFilled)
+        if (DVD_CC_Parsers[Pos] && !DVD_CC_Parsers[Pos]->Status[IsFinished] && DVD_CC_Parsers[Pos]->Status[IsFilled])
         {
             Finish(DVD_CC_Parsers[Pos]);
             Merge(*DVD_CC_Parsers[Pos]);
@@ -521,7 +521,7 @@ void File_Mpegv::Streams_Finish()
 
     //GA94 captions
     for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
-        if (GA94_03_CC_Parsers[Pos] && !GA94_03_CC_Parsers[Pos]->IsFinished && GA94_03_CC_Parsers[Pos]->IsFilled)
+        if (GA94_03_CC_Parsers[Pos] && !GA94_03_CC_Parsers[Pos]->Status[IsFinished] && GA94_03_CC_Parsers[Pos]->Status[IsFilled])
         {
             Finish(GA94_03_CC_Parsers[Pos]);
             Merge(*GA94_03_CC_Parsers[Pos]);
@@ -716,7 +716,7 @@ bool File_Mpegv::Header_Parser_QuickSearch()
         Synched=false;
         if (!Synchronize_0x000001())
         {
-            if (!IsSub && File_Offset+Buffer_Size==File_Size && !IsFilled && Frame_Count>=1)
+            if (!IsSub && File_Offset+Buffer_Size==File_Size && !Status[IsFilled] && Frame_Count>=1)
             {
                 //End of file, and we have some frames
                 Accept("MPEG Video");
@@ -763,7 +763,7 @@ void File_Mpegv::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Mpegv::Detect_EOF()
 {
-    if (IsSub && IsFilled
+    if (IsSub && Status[IsFilled]
      || (!IsSub && File_Size>SizeToAnalyse_Begin+SizeToAnalyse_End && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End && MediaInfoLib::Config.ParseSpeed_Get()<=0.01))
     {
         if ((GA94_03_CC_IsPresent || DVD_CC_IsPresent) && Frame_Count<Frame_Count_Valid*10 //10 times the normal test
@@ -784,7 +784,7 @@ void File_Mpegv::Detect_EOF()
             Streams[0x00].Searching_TimeStamp_End=false;
 
         //Jumping
-        if (!IsFilled)
+        if (!Status[IsFilled])
             Fill("MPEG Video");
 
         GoToFromEnd(SizeToAnalyse_End*2, "MPEG Video");
@@ -930,12 +930,12 @@ void File_Mpegv::slice_start()
             Streams[Pos].Searching_Payload=false;
 
         //Filling only if not already done
-        if (Frame_Count==2 && !IsAccepted)
+        if (Frame_Count==2 && !Status[IsAccepted])
         {
             Accept("MPEG Video");
             Stream_Prepare(Stream_General);
         }
-        if (!IsFilled && (!DVD_CC_IsPresent && !GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
+        if (!Status[IsFilled] && (!DVD_CC_IsPresent && !GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
             Fill("MPEG Video");
     FILLING_END();
 }
@@ -1076,13 +1076,13 @@ void File_Mpegv::user_data_start_CC()
             DVD_CC_Parsers.push_back(NULL);
         if (DVD_CC_Parsers[cc_type]==NULL)
             DVD_CC_Parsers[cc_type]=new File_Eia608();
-        if (!DVD_CC_Parsers[cc_type]->IsFinished)
+        if (!DVD_CC_Parsers[cc_type]->Status[IsFinished])
         {
             Open_Buffer_Init(DVD_CC_Parsers[cc_type]);
             Open_Buffer_Continue(DVD_CC_Parsers[cc_type], Buffer+Buffer_Offset+(size_t)Element_Offset, 2);
 
             //Finish
-            if (DVD_CC_Parsers[cc_type]->IsFinished)
+            if (DVD_CC_Parsers[cc_type]->Status[IsFinished])
             {
                 Merge(*DVD_CC_Parsers[cc_type]);
                 Fill(Stream_Text, StreamPos_Last, Text_ID, _T("DVD-")+Ztring::ToZtring(cc_type));
@@ -1226,7 +1226,7 @@ void File_Mpegv::user_data_start_GA94_03()
                         GA94_03_CC_Parsers.push_back(NULL);
                     if (GA94_03_CC_Parsers[Parser_Pos]==NULL)
                         GA94_03_CC_Parsers[Parser_Pos]=cc_type<2?(File__Analyze*)new File_Eia608():(File__Analyze*)new File_Eia708();
-                    if (!GA94_03_CC_Parsers[Parser_Pos]->IsFinished)
+                    if (!GA94_03_CC_Parsers[Parser_Pos]->Status[IsFinished])
                     {
                         if (cc_type>=2)
                             ((File_Eia708*)GA94_03_CC_Parsers[2])->cc_type=cc_type;
@@ -1234,7 +1234,7 @@ void File_Mpegv::user_data_start_GA94_03()
                         Open_Buffer_Continue(GA94_03_CC_Parsers[Parser_Pos], TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2);
 
                         //Finish
-                        if (GA94_03_CC_Parsers[Parser_Pos]->IsFinished)
+                        if (GA94_03_CC_Parsers[Parser_Pos]->Status[IsFinished])
                         {
                             Merge(*GA94_03_CC_Parsers[Parser_Pos]);
                             if (Parser_Pos<2)
@@ -1583,7 +1583,7 @@ void File_Mpegv::sequence_end()
 {
     Element_Name("sequence_end");
 
-    if (!IsFilled && sequence_header_IsParsed)
+    if (!Status[IsFilled] && sequence_header_IsParsed)
     {
         //End of file, and we have some frames
         Accept("MPEG Video");

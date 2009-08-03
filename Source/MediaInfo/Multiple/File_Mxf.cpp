@@ -922,13 +922,13 @@ void File_Mxf::Data_Parse()
             Open_Buffer_Init(Essences[Code_Compare4].Parser);
         }
 
-        if (!(Essences[Code_Compare4].Parser->IsFinished || Essences[Code_Compare4].Parser->IsFilled))
+        if (!(Essences[Code_Compare4].Parser->Status[IsFinished] || Essences[Code_Compare4].Parser->Status[IsFilled]))
         {
             //Parsing
             Open_Buffer_Continue(Essences[Code_Compare4].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
 
             //Disabling this Streams
-            if (Essences[Code_Compare4].Parser->IsFinished || Essences[Code_Compare4].Parser->IsFilled)
+            if (Essences[Code_Compare4].Parser->Status[IsFinished] || Essences[Code_Compare4].Parser->Status[IsFilled])
             {
                 if (Streams_Count>0)
                     Streams_Count--;

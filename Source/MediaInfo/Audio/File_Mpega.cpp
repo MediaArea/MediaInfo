@@ -783,7 +783,7 @@ void File_Mpega::Data_Parse()
         LastSync_Offset=File_Offset+Buffer_Offset+Element_Size;
         if (IsSub && BitRate_Count.size()>1 && !Encoded_Library.empty())
             Frame_Count_Valid=Frame_Count_Consecutive;
-        if (!IsFilled && Frame_Count_Consecutive>=Frame_Count_Valid)
+        if (!Status[IsFilled] && Frame_Count_Consecutive>=Frame_Count_Valid)
             Data_Parse_Fill();
 
         //Detect Id3v1 tags inside a frame

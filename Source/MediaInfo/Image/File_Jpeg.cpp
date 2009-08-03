@@ -402,7 +402,7 @@ void File_Jpeg::SOF_()
     }
 
     FILLING_BEGIN_PRECISE();
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
         {
             Stream_Prepare(Stream_General);
             Fill(Stream_General, 0, General_Format, "JPEG");
@@ -476,7 +476,7 @@ void File_Jpeg::APP0_AVI1()
     Element_End();
 
     FILLING_BEGIN();
-        if (!IsAccepted)
+        if (!Status[IsAccepted])
         {
             if (Count_Get(Stream_Video)==0)
                 Stream_Prepare(Stream_Video);

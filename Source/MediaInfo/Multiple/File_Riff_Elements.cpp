@@ -2011,7 +2011,7 @@ void File_Riff::AVI__movi_xxxx___dc()
     #if defined(MEDIAINFO_MPEG4V_YES)
      || Stream[Stream_ID].Specific_IsMpeg4v && ((File_Mpeg4v*)Stream[Stream_ID].Parser)->Frame_Count_InThisBlock>1 //Searching Packet bitstream, no more need if found
     #endif
-     || Stream[Stream_ID].Parser->IsFinished
+     || Stream[Stream_ID].Parser->Status[IsFinished]
      || (Stream[Stream_ID].PacketPos>=300 && MediaInfoLib::Config.ParseSpeed_Get()<1.00))
     {
         Stream[Stream_ID].SearchingPayload=false;
@@ -2045,7 +2045,7 @@ void File_Riff::AVI__movi_xxxx___wb()
     //Finish (if requested)
     if ( Stream[Stream_ID].PacketPos>=4 //For having the chunk alignement
      && (Stream[Stream_ID].Parser==NULL
-      || Stream[Stream_ID].Parser->IsFilled
+      || Stream[Stream_ID].Parser->Status[IsFilled]
       || (Stream[Stream_ID].PacketPos>=300 && MediaInfoLib::Config.ParseSpeed_Get()<1.00))
       || Element_Size>50000) //For PCM, we disable imediatly
     {
