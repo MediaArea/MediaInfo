@@ -1029,6 +1029,7 @@ void File_MpegTs::Header_Parse_AdaptationField_Duration_Update()
     }
 
     Status[IsUpdated]=true;
+    Status[User_16]=true;
 }
 #endif //MEDIAINFO_MPEGTS_PCR_YES
 
@@ -1357,7 +1358,10 @@ void File_MpegTs::PSI_EPG_Update()
             }
         }
 
+    Complete_Stream->Sources_IsUpdated=false;
+    Complete_Stream->Programs_IsUpdated=false;
     Status[IsUpdated]=true;
+    Status[User_18]=true;
 }
 
 
@@ -1366,9 +1370,10 @@ void File_MpegTs::PSI_Duration_End_Update()
 {
     //General
     Fill(Stream_General, 0, General_Duration_End, Complete_Stream->Duration_End, true);
-    Complete_Stream->Duration_End_IsUpdated=false;
 
+    Complete_Stream->Duration_End_IsUpdated=false;
     Status[IsUpdated]=true;
+    Status[User_17]=true;
 }
 
 //***************************************************************************
