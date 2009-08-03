@@ -9,7 +9,8 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.21, 2009-
 --------------
-+ AVC: support of frame doubling/tripling
++ AVC: Support of frame doubling/tripling
++ AVC: Colour description
 x #2828430, Quicktime: 180 degrees rotation display was not displayed
 x MPEG-TS: whole files were parsed (long)
 

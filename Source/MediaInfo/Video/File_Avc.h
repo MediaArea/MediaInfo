@@ -206,6 +206,9 @@ private :
     int8u  pic_struct;
     int8u  pic_struct_FirstDetected;
     int8u  SizeOfNALU_Minus1;
+    int8u  colour_primaries;
+    int8u  transfer_characteristics;
+    int8u  matrix_coefficients;
     bool   GA94_03_CC_IsPresent;
     bool   frame_mbs_only_flag;
     bool   timing_info_present_flag;

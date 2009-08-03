@@ -248,6 +248,56 @@ const char* Avc_user_data_DTG1_active_format[]=
     "16:9 letterbox image, alternative 4:3 center / 16:9 full frame image, alternative 4:3 center",
 };
 
+//---------------------------------------------------------------------------
+const char* Avc_colour_primaries(int8u colour_primaries)
+{
+    switch (colour_primaries)
+    {
+        case  1 : return "BT.709-5, BT.1361, IEC 61966-2-4, SMPTE RP177";
+        case  4 : return "BT.470-6 system M, NTSC, FTC 73.682";
+        case  5 : return "BT.470-6 System B, BT.470-6 System G, BT.601-6 625, BT.1358 625, BT.1700 625 PAL, BT.1700 625 SECAM";
+        case  6 : return "BT.601-6 525, BT.1358 525, BT.1700 NTSC, SMPTE 170M";
+        case  7 : return "SMPTE 240M";
+        case  8 : return "Generic film";
+        default : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Avc_transfer_characteristics(int8u transfer_characteristics)
+{
+    switch (transfer_characteristics)
+    {
+        case  1 : return "BT.709-5, BT.1361";
+        case  4 : return "BT.470-6 System M, NTSC, FTC 73.682, BT.1700 625 PAL, BT.1700 625 SECAM";
+        case  5 : return "BT.470-6 System B, BT.470-6 System G";
+        case  6 : return "BT.601-6 525, BT.601-6 625, BT.1358 525, BT.1358 625, BT.1700 NTSC, SMPTE 170M";
+        case  7 : return "SMPTE 240M";
+        case  8 : return "Linear";
+        case  9 : return "Logarithmic (100:1)";
+        case 10 : return "Logarithmic (316.22777:1)";
+        case 11 : return "IEC 61966-2-4";
+        case 12 : return "BT.1361 extended colour gamut system";
+        default : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* Avc_matrix_coefficients(int8u matrix_coefficients)
+{
+    switch (matrix_coefficients)
+    {
+        case  0 : return "RGB";
+        case  1 : return "BT.709-5, BT.1361, IEC 61966-2-4 709, SMPTE RP177";
+        case  4 : return "FTC 73.682";
+        case  5 : return "BT.470-6 System B, BT.470-6 System G, BT.601-6 625, BT.1358 625, BT.1700 625 PAL, BT.1700 625 SECAM, IEC 61966-2-4 601";
+        case  6 : return "BT.601-6 525, BT.1358 525, BT.1700 NTSC, SMPTE 170M";
+        case  7 : return "SMPTE 240M";
+        case  8 : return "YCgCo";
+        default : return "";
+    }
+}
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -376,7 +426,6 @@ void File_Avc::Streams_Fill()
         Fill(Stream_Video, 0, Video_Interlacement, "BFF", Unlimited, true, true);
     }
 
-
     /*
     if (frame_mbs_only_flag)
     {
@@ -423,6 +472,11 @@ void File_Avc::Streams_Fill()
     Fill(Stream_Video, 0, Video_Codec_Settings_RefFrames, num_ref_frames);
     if (bit_depth_luma_minus8==bit_depth_Colorimetry_minus8)
         Fill(Stream_Video, 0, Video_Resolution, (bit_depth_luma_minus8+8)*3);
+
+    //Colour description
+    Fill(Stream_Video, 0, "colour_primaries", Avc_colour_primaries(colour_primaries));
+    Fill(Stream_Video, 0, "transfer_characteristics", Avc_transfer_characteristics(transfer_characteristics));
+    Fill(Stream_Video, 0, "matrix_coefficients", Avc_matrix_coefficients(matrix_coefficients));
 
     if (File_Offset+Buffer_Size<File_Size)
     {
@@ -546,6 +600,9 @@ void File_Avc::Synched_Init()
     time_offset_length=0;
     pic_struct=0;
     pic_struct_FirstDetected=(int8u)-1;
+    colour_primaries=2;
+    transfer_characteristics=2;
+    matrix_coefficients=2;
     GA94_03_CC_IsPresent=false;
     frame_mbs_only_flag=false;
     timing_info_present_flag=false;
@@ -1880,9 +1937,9 @@ void File_Avc::vui_parameters()
         Get_S1 (3, video_format,                                "video_format"); Param_Info(Avc_video_format[video_format]);
         Skip_SB(                                                "video_full_range_flag");
         TEST_SB_SKIP(                                           "colour_description_present_flag");
-            Skip_S1(8,                                          "colour_primaries");
-            Skip_S1(8,                                          "transfer_characteristics");
-            Skip_S1(8,                                          "matrix_coefficients");
+            Get_S1 (8, colour_primaries,                        "colour_primaries"); Param_Info(Avc_colour_primaries(colour_primaries));
+            Get_S1 (8, transfer_characteristics,                "transfer_characteristics"); Param_Info(Avc_transfer_characteristics(transfer_characteristics));
+            Get_S1 (8, matrix_coefficients,                     "matrix_coefficients"); Param_Info(Avc_matrix_coefficients(matrix_coefficients));
         TEST_SB_END();
     TEST_SB_END();
     TEST_SB_SKIP(                                               "chroma_loc_info_present_flag");
