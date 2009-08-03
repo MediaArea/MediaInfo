@@ -1871,7 +1871,7 @@ void File_Mpeg_Descriptors::Descriptor_4D()
                 Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[xxx_id].short_event.event_name=(ISO_639_1.empty()?ISO_639_2:ISO_639_1)+_T(':')+event_name;
                 Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[xxx_id].short_event.text=(ISO_639_1.empty()?ISO_639_2:ISO_639_1)+_T(':')+text;
                 Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks_IsUpdated=true;
-                IsUpdated=true;
+                Complete_Stream->Programs_IsUpdated=true;
             }
         }
     FILLING_END();
@@ -1932,7 +1932,7 @@ void File_Mpeg_Descriptors::Descriptor_54()
             {
                 Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[xxx_id].content=Ztring().From_UTF8(Mpeg_Descriptors_content_nibble_level_2(content_nibble_level_1, content_nibble_level_2))+_T(", ");
                 Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks_IsUpdated=true;
-                IsUpdated=true;
+                Complete_Stream->Programs_IsUpdated=true;
             }
         FILLING_END();
     }
@@ -1944,7 +1944,7 @@ void File_Mpeg_Descriptors::Descriptor_54()
             {
                 Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[xxx_id].content.resize(Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[xxx_id].content.size()-2);
                 Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks_IsUpdated=true;
-                IsUpdated=true;
+                Complete_Stream->Programs_IsUpdated=true;
             }
         }
     FILLING_END();

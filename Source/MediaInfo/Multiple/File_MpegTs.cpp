@@ -121,7 +121,7 @@ File_MpegTs::File_MpegTs()
     
     //Data
     MpegTs_JumpTo_Begin=MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
-    MpegTs_JumpTo_End=8*1024*1024;
+    MpegTs_JumpTo_End=16*1024*1024;
     Searching_TimeStamp_Start=true;
     Complete_Stream=NULL;
 }
@@ -663,7 +663,7 @@ bool File_MpegTs::Synched_Test()
                                             {
                                                 //We are already parsing 4 seconds (for all PCRs), we don't hope to have more info
                                                 MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
-                                                MpegTs_JumpTo_End=MpegTs_JumpTo_Begin/2;
+                                                MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
                                             }
                                         }
                                     }
@@ -722,7 +722,7 @@ void File_MpegTs::Synched_Init()
 
     //Temp
     MpegTs_JumpTo_Begin=(File_Offset_FirstSynched==(int64u)-1?0:File_Offset_FirstSynched)+MediaInfoLib::Config.MpegTs_MaximumOffset_Get();
-    MpegTs_JumpTo_End=8*1024*1024;
+    MpegTs_JumpTo_End=16*1024*1024;
     if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>=File_Size)
     {
         MpegTs_JumpTo_Begin=File_Size;
@@ -907,7 +907,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                         {
                             //We are already parsing 4 seconds (for all PCRs), we don't hope to have more info
                             MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
-                            MpegTs_JumpTo_End=MpegTs_JumpTo_Begin/2;
+                            MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
                         }
                     }
                 }
@@ -989,7 +989,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                         {
                             //We are already parsing 4 seconds (for all PCRs), we don't hope to have more info
                             MpegTs_JumpTo_Begin=File_Offset+Buffer_Offset;
-                            MpegTs_JumpTo_End=MpegTs_JumpTo_Begin/2;
+                            MpegTs_JumpTo_End=MpegTs_JumpTo_Begin;
                         }
                     }
                 }
@@ -1209,7 +1209,7 @@ void File_MpegTs::PSI()
     //EPG
     if (IsFilled)
     {
-        if (Complete_Stream->Sources_IsUpdated)
+        if (Complete_Stream->Sources_IsUpdated || Complete_Stream->Programs_IsUpdated)
             PSI_EPG_Update();
         if (Complete_Stream->Duration_End_IsUpdated)
             PSI_Duration_End_Update();
@@ -1445,6 +1445,7 @@ void File_MpegTs::Detect_EOF()
 
         if (!IsAccepted)
             Accept("MPEG-TS");
+        Fill("MPEG-TS");
         #if !defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
             GoToFromEnd(47, "MPEG-TS"); //TODO: Should be changed later (when Finalize stuff will be split) 
         #else //!defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)

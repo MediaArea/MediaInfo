@@ -1298,7 +1298,7 @@ void File_Mpeg_Psi::Table_4E()
     //Clearing
     Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events.clear();
     Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks_IsUpdated=true;
-    IsUpdated=true;
+    Complete_Stream->Programs_IsUpdated=true;
 
     //Parsing
     Get_B2 (transport_stream_id,                                "transport_stream_id");

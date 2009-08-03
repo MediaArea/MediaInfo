@@ -350,7 +350,8 @@ struct complete_stream
     };
     typedef std::map<int16u, source> sources; //Key is source_id
     sources Sources; //Key is source_id
-    bool Sources_IsUpdated;
+    bool Sources_IsUpdated; //For EPG ATSC
+    bool Programs_IsUpdated; //For EPG DVB
 
     //File__Duplicate
     bool                                                File__Duplicate_HasChanged_;
@@ -376,6 +377,7 @@ struct complete_stream
         Streams_With_EndTimeStampMoreThanxSecondsCount=0;
         GPS_UTC_offset=0;
         Sources_IsUpdated=false;
+        Programs_IsUpdated=false;
     }
 
     ~complete_stream()
