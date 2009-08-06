@@ -324,6 +324,7 @@ void File_DvDif::Streams_Finish()
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
         //Errors stats
+        Status[IsFinished]=true; //We need to fill it before the call to Errors_Stats_Update
         Errors_Stats_Update();
         Errors_Stats_Update_Finnish();
     #endif //MEDIAINFO_DVDIF_ANALYZE_YES
@@ -1147,7 +1148,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
     Ztring Errors_Stats_End_Lines;
 
     //Frames
-    if (Speed_FrameCount)
+    if (Speed_FrameCount && MediaInfoLib::Config.Verbosity_Get()>=(float32)0.5)
         Errors_Stats_End_Lines+=_T("Frame Count: ")+Ztring::ToZtring(Speed_FrameCount)+_T('&');
 
     //One block
@@ -1159,7 +1160,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
     }
 
     //Error 1: Video errors (STA)
-    if (Speed_FrameCount_Video_STA_Errors)
+    if (Speed_FrameCount_Video_STA_Errors && MediaInfoLib::Config.Verbosity_Get()>=(float32)0.3)
         Errors_Stats_End_Lines+=_T("Frame Count with video STA errors: ")+Ztring::ToZtring(Speed_FrameCount_Video_STA_Errors)+_T('&');
     if (!Video_STA_Errors_Total.empty())
     {
@@ -1192,7 +1193,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
     }
 
     //Error 2: Audio errors
-    if (!Audio_Errors_Total.empty())
+    if (!Audio_Errors_Total.empty() && MediaInfoLib::Config.Verbosity_Get()>=(float32)0.3)
     {
         for (size_t Channel=0; Channel<8; Channel++)
         {
@@ -1229,11 +1230,11 @@ void File_DvDif::Errors_Stats_Update_Finnish()
     }
 
     //Error 3: Timecode incoherency
-    if (Speed_FrameCount_Timecode_Incoherency)
+    if (Speed_FrameCount_Timecode_Incoherency && MediaInfoLib::Config.Verbosity_Get()>=(float32)0.3)
         Errors_Stats_End_Lines+=_T("Frame Count with Timecode incoherency errors: ")+Ztring::ToZtring(Speed_FrameCount_Timecode_Incoherency)+_T('&');
 
     //Error 4: Contains NULL DIFs
-    if (Speed_FrameCount_Contains_NULL)
+    if (Speed_FrameCount_Contains_NULL && MediaInfoLib::Config.Verbosity_Get()>=(float32)0.3)
         Errors_Stats_End_Lines+=_T("Frame Count with NULL DIF errors: ")+Ztring::ToZtring(Speed_FrameCount_Contains_NULL)+_T('&');
 
     //One block
@@ -1245,7 +1246,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
     }
 
     //RecDate/RecTime
-    if (!Speed_RecDateZ_Current.empty() && !Speed_RecTimeZ_Current.empty()) //Date and Time must be both available
+    if (!Speed_RecDateZ_Current.empty() && !Speed_RecTimeZ_Current.empty() && MediaInfoLib::Config.Verbosity_Get()>=(float32)0.5) //Date and Time must be both available
     {
         size_t Speed_RecZ_Pos=Speed_RecZ.size();
         if (Speed_RecZ_Pos)
@@ -1298,7 +1299,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
     }
 
     //TimeCode
-    if (!Speed_TimeCodeZ_Current.empty())
+    if (!Speed_TimeCodeZ_Current.empty() && MediaInfoLib::Config.Verbosity_Get()>=(float32)0.5)
     {
         size_t Speed_TimeCodeZ_Pos=Speed_TimeCodeZ.size();
         if (Speed_TimeCodeZ_Pos)
