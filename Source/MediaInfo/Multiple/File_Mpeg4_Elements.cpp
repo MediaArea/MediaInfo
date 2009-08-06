@@ -1999,10 +1999,91 @@ void File_Mpeg4::moov_trak_mdia_minf_dinf_dref()
 //---------------------------------------------------------------------------
 void File_Mpeg4::moov_trak_mdia_minf_dinf_dref_alis()
 {
-    Element_Name("Alias");
+    NAME_VERSION_FLAG("Alias"); //bit 0 = external/internal data
+
+    //Often empty
+    bool IsInternal;
+        Get_Flags (Flags,    0, IsInternal,                     "IsInternal");
+    if (IsInternal)
+        return; //Internal stream, no alias
 
     //Parsing
-    Skip_B4(                                                    "Flags"); //bit 0 = external/internal data
+    Ztring file_name_string, volume_name_string, Directory_Name;
+    int16u record_size, record_version, alias_kind;
+    int8u volume_name_string_length, file_name_string_length;
+    Element_Begin("Mac OS Alias Record");
+    Skip_B4(                                                    "user type name/app creator code");
+    Get_B2 (record_size,                                        "record size");
+    Get_B2 (record_version,                                     "record version");
+    if (record_version!=2)
+    {
+        Skip_XX(Element_Size-Element_Offset,                    "unknown");
+        return;
+    }
+    int64u End=Element_Offset-8+record_size;
+    Get_B2 (alias_kind,                                         "alias kind"); Param_Info(alias_kind?"directory":"file");
+    Get_B1 (volume_name_string_length,                          "volume name string length");
+    if (volume_name_string_length>27)
+        volume_name_string_length=27;
+    Get_Local(volume_name_string_length, volume_name_string,    "volume name string");
+    if (volume_name_string_length<27)
+        Skip_XX(27-volume_name_string_length,                   "volume name string padding");
+    Skip_B4(                                                    "volume created mac local date"); //seconds since beginning 1904 to 2040
+    Skip_B2(                                                    "file system type");
+    Skip_B2(                                                    "drive type");
+    Skip_B4(                                                    "parent directory ID");
+    Get_B1 (file_name_string_length,                            "file name string length");
+    if (file_name_string_length>63)
+        file_name_string_length=63;
+    Get_Local(file_name_string_length, file_name_string,        "file name string");
+    if (file_name_string_length<63)
+        Skip_XX(63-file_name_string_length,                     "file name string padding");
+    Skip_B4(                                                    "file number");
+    Skip_B4(                                                    "file created mac local date");
+    Skip_B4(                                                    "file type name");
+    Skip_B4(                                                    "file creator name");
+    Skip_B2(                                                    "next level up from alias");
+    Skip_B2(                                                    "next level down to target");
+    Skip_B4(                                                    "volume attributes ");
+    Skip_B2(                                                    "volume file system ID");
+    Skip_XX(10,                                                 "Reserved");
+    while(Element_Offset<End)
+    {
+        Trusted++;
+        int16u type, size;
+        Get_B2 (type,                                           "type");
+        Get_B2 (size,                                           "size");
+        switch (type)
+        {
+            case 0x0000 :
+                        Get_Local(size, Directory_Name,         "Directory Name");
+                        break;
+            case 0x0002 :
+                        Skip_Local(size,                        "Absolute Path");
+                        break;
+            case 0xFFFF :
+                        Skip_XX(End-Element_Offset,             "Padding");
+                        break;
+            default     :
+                        Skip_Local(size,                        "Unknown");
+        }
+        if (size%2)
+            Skip_B1(                                            "Padding");
+    }
+    Element_End(record_size);
+
+    if (Element_Offset<Element_Size)
+        Skip_XX(Element_Size-Element_Offset,                    "Padding");
+
+    FILLING_BEGIN();
+        Stream[moov_trak_tkhd_TrackID].File_Name.clear();
+        if (!Directory_Name.empty())
+        {
+            Stream[moov_trak_tkhd_TrackID].File_Name=Directory_Name;
+            Stream[moov_trak_tkhd_TrackID].File_Name+=ZenLib::PathSeparator;
+        }
+        Stream[moov_trak_tkhd_TrackID].File_Name+=file_name_string;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

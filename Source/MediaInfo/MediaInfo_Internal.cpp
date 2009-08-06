@@ -224,7 +224,10 @@ int MediaInfo_Internal::Format_Test()
     Info->Finish();
 
     //Cleanup
-    delete Info; Info=NULL;
+    if (Config.Option(_T("File_IsSub_Get"))==_T("0")) //We need info for the calling parser
+    {
+        delete Info; Info=NULL;
+    }
     return 1;
 }
 

@@ -11,6 +11,7 @@ Version 0.7.21, 2009-
 --------------
 + AVC: Support of frame doubling/tripling
 + AVC: Colour description
++ QuickTime: support of external files parsing
 x #2828430, Quicktime: 180 degrees rotation display was not displayed
 x MPEG-TS: whole files were parsed (long)
 

@@ -121,7 +121,7 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
     }
 
     //File size
-    if (!IsSub && KindOfStream==Stream_General && File_Size!=(int64u)-1)
+    if ((!IsSub || !File_Name.empty()) && KindOfStream==Stream_General && File_Size!=(int64u)-1)
         Fill (Stream_General, 0, General_FileSize, File_Size);
 
     //Fill with already ready data
@@ -427,6 +427,17 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                 Clear(StreamKind, StreamPos, "BitRate_Nominal");
                 Fill(StreamKind, StreamPos, "BitRate", Temp, true);
             }
+        }
+
+        //File size
+        if (StreamKind==Stream_General && Parameter==General_FileSize)
+        {
+            int64u File_Size_Save=File_Size;
+            File_Size=Value.To_int64u();
+            for (size_t Kind=Stream_Video; Kind<Stream_Menu; Kind++)
+                for (size_t Pos=0; Pos<Count_Get((stream_t)Kind); Pos++)
+                    FileSize_FileSize123((stream_t)Kind, Pos, Fill_Parameter((stream_t)Kind, Generic_StreamSize));
+            File_Size=File_Size_Save;
         }
 
         //Delay/Video

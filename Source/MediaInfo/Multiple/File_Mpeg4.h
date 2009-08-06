@@ -271,6 +271,7 @@ private :
     //Data
     struct stream
     {
+        Ztring                  File_Name;
         File__Analyze*          Parser;
         stream_t                StreamKind;
         size_t                  StreamPos;
