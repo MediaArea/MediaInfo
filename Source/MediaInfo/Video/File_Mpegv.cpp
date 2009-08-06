@@ -931,10 +931,7 @@ void File_Mpegv::slice_start()
 
         //Filling only if not already done
         if (Frame_Count==2 && !Status[IsAccepted])
-        {
             Accept("MPEG Video");
-            Stream_Prepare(Stream_General);
-        }
         if (!Status[IsFilled] && (!DVD_CC_IsPresent && !GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
             Fill("MPEG Video");
     FILLING_END();
@@ -1084,6 +1081,8 @@ void File_Mpegv::user_data_start_CC()
             //Finish
             if (DVD_CC_Parsers[cc_type]->Status[IsFinished])
             {
+                if (Count_Get(Stream_General)==0)
+                    Stream_Prepare(Stream_General);
                 Merge(*DVD_CC_Parsers[cc_type]);
                 Fill(Stream_Text, StreamPos_Last, Text_ID, _T("DVD-")+Ztring::ToZtring(cc_type));
                 Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("DVD-Video"));
@@ -1236,6 +1235,8 @@ void File_Mpegv::user_data_start_GA94_03()
                         //Finish
                         if (GA94_03_CC_Parsers[Parser_Pos]->Status[IsFinished])
                         {
+                            if (Count_Get(Stream_General)==0)
+                                Stream_Prepare(Stream_General);
                             Merge(*GA94_03_CC_Parsers[Parser_Pos]);
                             if (Parser_Pos<2)
                                 Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Parser_Pos));
