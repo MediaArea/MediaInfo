@@ -745,7 +745,7 @@ Name;Name
 Nationality;Nationality
 NetworkName;Network name
 New;New
-Newest version;Check for newest versions (require Internet connection)
+Newest version;Check for new versions (requires Internet connection)
 NewVersion_Menu;A new version is available
 NewVersion_Question_Title;A new version was released!
 NewVersion_Question_Content;A new version (v%Version%) is available, would you like to download it?
