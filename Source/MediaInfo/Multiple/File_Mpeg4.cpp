@@ -300,6 +300,9 @@ void File_Mpeg4::Streams_Finish()
                     }
                 }
             }
+            else
+                Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Source_Info", "Missing");
+
         }
 
         Temp++;
