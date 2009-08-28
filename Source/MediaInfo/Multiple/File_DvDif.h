@@ -120,7 +120,9 @@ protected :
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     void Errors_Stats_Update();
     void Errors_Stats_Update_Finnish();
-    Ztring Errors_Stats;
+    Ztring Errors_Stats_03;
+    Ztring Errors_Stats_05;
+    Ztring Errors_Stats_10;
     Ztring Date;
     Ztring Time;
     int64u Speed_FrameCount;                            //Global    - Total
@@ -129,6 +131,7 @@ protected :
     int64u Speed_FrameCount_Timecode_Incoherency;       //Global    - Error 3
     int64u Speed_FrameCount_Contains_NULL;              //Global    - Error 4
     int64u Speed_Contains_NULL;                         //Per Frame - Error 4
+    int64u Speed_FrameCount_Arb_Incoherency;            //Global    - Error 5
     int8u  QU;
     bool   QU_FSC; //Validity is with QU
     bool   QU_System; //Validity is with QU
@@ -229,6 +232,42 @@ protected :
         timeCodeZ_Single Last;
     };
     std::vector<timeCodeZ> Speed_TimeCodeZ;
+    struct timeStampsZ_Single
+    {
+        int64u FramePos;
+        Ztring TimeCode;
+        Ztring Date;
+        Ztring Time;
+
+        timeStampsZ_Single()
+        {
+            FramePos=(int64u)-1;
+        }
+    };
+    struct timeStampsZ
+    {
+        timeStampsZ_Single First;
+        timeStampsZ_Single Last;
+    };
+    std::vector<timeStampsZ> Speed_TimeStampsZ;
+
+
+
+    struct arb
+    {
+        int8u  Value;
+        bool   MultipleValues;
+        bool   IsValid;
+
+        arb() {Clear();}
+
+        void Clear()
+        {
+            MultipleValues=false;
+            IsValid=false;
+        }
+    };
+    arb Arb;
     #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 };
 
