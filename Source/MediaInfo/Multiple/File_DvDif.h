@@ -235,9 +235,9 @@ protected :
     struct timeStampsZ_Single
     {
         int64u FramePos;
+        Ztring Time;
         Ztring TimeCode;
         Ztring Date;
-        Ztring Time;
 
         timeStampsZ_Single()
         {
