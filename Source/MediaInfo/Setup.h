@@ -108,6 +108,9 @@
 #endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_DVDIF_NO) && !defined(MEDIAINFO_DVDIF_YES)
     #define MEDIAINFO_DVDIF_YES
+    #if !defined(MEDIAINFO_DVDIF_ANALYZE_NO) && !defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+        #define MEDIAINFO_DVDIF_ANALYZE_YES
+    #endif
 #endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_DVDV_NO) && !defined(MEDIAINFO_DVDV_YES)
     #define MEDIAINFO_DVDV_YES

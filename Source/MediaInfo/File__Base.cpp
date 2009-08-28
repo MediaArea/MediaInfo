@@ -163,15 +163,20 @@ const Ztring &File__Base::Get (stream_t StreamKind, size_t StreamNumber, size_t 
 }
 
 //---------------------------------------------------------------------------
-const Ztring &File__Base::Get (stream_t StreamKind, size_t StreamNumber, const Ztring &Parameter, info_t KindOfInfo, info_t KindOfSearch)
+const Ztring &File__Base::Get (stream_t StreamKind, size_t StreamPos, const Ztring &Parameter, info_t KindOfInfo, info_t KindOfSearch)
 {
     size_t ParameterI=0;
 
     //Check integrity
-    if (StreamKind>=Stream_Max || StreamNumber>=(*Stream)[StreamKind].size() || (ParameterI=MediaInfoLib::Config.Info_Get(StreamKind).Find(Parameter, KindOfSearch))==Error || KindOfInfo>=Info_Max)
-        return MediaInfoLib::Config.EmptyString_Get(); //Parameter is unknown
+    if (StreamKind>=Stream_Max || StreamPos>=(*Stream)[StreamKind].size() || (ParameterI=MediaInfoLib::Config.Info_Get(StreamKind).Find(Parameter, KindOfSearch))==Error || KindOfInfo>=Info_Max)
+    {
+        ParameterI=(*Stream_More)[StreamKind][StreamPos].Find(Parameter, KindOfSearch);
+        if (ParameterI==Error)
+            return MediaInfoLib::Config.EmptyString_Get(); //Parameter is unknown
+        return (*Stream_More)[StreamKind][StreamPos][ParameterI](KindOfInfo);
+    }
 
-    return Get(StreamKind, StreamNumber, ParameterI, KindOfInfo);
+    return Get(StreamKind, StreamPos, ParameterI, KindOfInfo);
 }
 
 //---------------------------------------------------------------------------

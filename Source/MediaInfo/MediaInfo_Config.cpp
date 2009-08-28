@@ -181,10 +181,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     }
     else if (Option_Lower==_T("complete"))
     {
-        if (Value.empty())
-            Complete_Set(0);
-        else
-            Complete_Set(1);
+        Complete_Set(Value.To_int8u()?true:false);
         return _T("");
     }
     else if (Option_Lower==_T("complete_get"))
@@ -757,6 +754,7 @@ void MediaInfo_Config::Language_Set (const ZtringListList &NewValue)
     //-Add custom language to English language
     else
     {
+        Language_Raw=false;
         //Fill base words (with English translation)
         MediaInfo_Config_DefaultLanguage(Language);
         //Add custom language to English language
