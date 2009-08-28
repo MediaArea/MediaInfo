@@ -2745,12 +2745,18 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
             {
                 if (!Temp.Parsers[Pos]->Status[IsAccepted] && Temp.Parsers[Pos]->Status[IsFinished])
                 {
+                    delete *(Temp.Parsers.begin()+Pos);
                     Temp.Parsers.erase(Temp.Parsers.begin()+Pos);
                     Pos--;
                 }
                 else if (Temp.Parsers.size()>1 && Temp.Parsers[Pos]->Status[IsAccepted])
                 {
                     File__Analyze* Parser=Temp.Parsers[Pos];
+                    for (size_t Pos2=0; Pos2<Temp.Parsers.size(); Pos2++)
+                    {
+                        if (Pos2!=Pos)
+                            delete *(Temp.Parsers.begin()+Pos2);
+                    }
                     Temp.Parsers.clear();
                     Temp.Parsers.push_back(Parser);
                 }
