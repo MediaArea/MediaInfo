@@ -356,31 +356,8 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
         default : ;
     }
 
-    FILLING_BEGIN();
-        //Filling
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "AAC");
-        if (Count_Get(Stream_Audio)==0) //May be done elsewhere
-            Stream_Prepare(Stream_Audio);
-        Fill(Stream_Audio, StreamPos_Last, Audio_Format, MP4_Format(audioObjectType));
-        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, "Version 4");
-        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, MP4_Format_Profile(audioObjectType));
-        if (audioObjectType==2) //LC
-            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_SBR, "No");
-        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, MP4_Profile(audioObjectType));
-        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplingFrequency);
-        if (channelConfiguration)
-        {
-            Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, MP4_Channels[channelConfiguration]);
-            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, MP4_ChannelConfiguration[channelConfiguration]);
-            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions_String2, MP4_ChannelConfiguration2[channelConfiguration]);
-        }
-        Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, 16);
-
-        //SBR stuff
-        if (extensionAudioObjectType!=0x05 && Data_BS_Remain()>=16)
-            SBR();
-    FILLING_END();
+    if (extensionAudioObjectType!=0x05 && Data_BS_Remain()>=16)
+        SBR();
 
     BS_End();
     Accept("AudioSpecificConfig");
@@ -396,6 +373,26 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
         psPresentFlag=true;
 
     FILLING_BEGIN()
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "AAC");
+        if (Count_Get(Stream_Audio)==0) //May be done elsewhere
+            Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format, MP4_Format(audioObjectType));
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Version, "Version 4");
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Profile, MP4_Format_Profile(audioObjectType));
+        if (audioObjectType==2) //LC
+            Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_SBR, "No");
+        if (!sbrPresentFlag && !psPresentFlag)
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, MP4_Profile(audioObjectType));
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplingFrequency);
+        if (channelConfiguration)
+        {
+            Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, MP4_Channels[channelConfiguration]);
+            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, MP4_ChannelConfiguration[channelConfiguration]);
+            Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions_String2, MP4_ChannelConfiguration2[channelConfiguration]);
+        }
+        Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, 16);
+
         if (sbrPresentFlag)
         {
             Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "SBR");
