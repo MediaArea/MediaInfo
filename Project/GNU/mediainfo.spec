@@ -65,8 +65,6 @@ Requires:	libzen0 >= %{libzen_version}
 Requires:	libmediainfo0 = %{version}
 
 %description gui
-This package contains a Frontend for mediainfo.
-
 MediaInfo supplies technical and tag information about a video or
 audio file.
 
@@ -88,6 +86,8 @@ What format (container) does MediaInfo support?
   H.264, AVC...)
 * Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
 * Subtitles: SRT, SSA, ASS, SAMI
+
+This package contains the graphical user interface
 
 %prep
 %setup -q -n MediaInfo
