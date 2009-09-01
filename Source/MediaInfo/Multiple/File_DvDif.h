@@ -118,6 +118,8 @@ protected :
     bool   Interlaced;
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
+    bool Analyze_Activated;
+    
     void Errors_Stats_Update();
     void Errors_Stats_Update_Finnish();
     Ztring Errors_Stats_03;

@@ -86,6 +86,7 @@ set(mediainfo_SRCS
 	MediaInfo/Multiple/File_Cdxa.cpp
 	MediaInfo/Multiple/File_Dpg.cpp
 	MediaInfo/Multiple/File_DvDif.cpp
+	MediaInfo/Multiple/File_DvDif_Analysis.cpp
 	MediaInfo/Multiple/File_Dvdv.cpp
 	MediaInfo/Multiple/File_Flv.cpp
 	MediaInfo/Multiple/File_Mk.cpp

@@ -162,6 +162,8 @@ void MediaInfoList_Internal::Entry()
         if (!ToParse.empty())
         {
             MediaInfo* MI=new MediaInfo();
+            for (std::map<String, String>::iterator Config_MediaInfo_Item=Config_MediaInfo_Items.begin(); Config_MediaInfo_Item!=Config_MediaInfo_Items.end(); Config_MediaInfo_Item++)
+                MI->Option(Config_MediaInfo_Item->first, Config_MediaInfo_Item->second);
             MI->Open(ToParse.front());
             Info.push_back(MI);
             ToParse.pop();
@@ -384,6 +386,11 @@ String MediaInfoList_Internal::Option (const String &Option, const String &Value
     else if (OptionLower==_T("thread"))
     {
         BlockMethod=1;
+        return _T("");
+    }
+    else if (OptionLower.find(_T("file_"))==0)
+    {
+        Config_MediaInfo_Items[Option]=Value;
         return _T("");
     }
     else

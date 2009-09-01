@@ -124,6 +124,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\MediaInfo\Multiple\File_DvDif_Analysis.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\MediaInfo\File_Other.cpp"
 				>
 			</File>

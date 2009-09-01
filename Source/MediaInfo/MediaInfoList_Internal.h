@@ -78,6 +78,7 @@ public :
 private :
     std::vector<MediaInfo*> Info;
     std::queue<String> ToParse;
+    std::map<String, String> Config_MediaInfo_Items; //Config per file
     size_t  ToParse_AlreadyDone;
     size_t  ToParse_Total;
     size_t  CountValid;

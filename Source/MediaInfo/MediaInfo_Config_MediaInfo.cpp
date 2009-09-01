@@ -48,6 +48,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     //Specific
     File_MpegTs_ForceMenu=false;
     File_Bdmv_ParseTargetedFile=true;
+    File_DvDif_Analysis=false;
 }
 
 //***************************************************************************
@@ -126,6 +127,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==_T("file_bdmv_parsetargetedfile_get"))
     {
         return File_Bdmv_ParseTargetedFile_Get()?"1":"0";
+    }
+    else if (Option_Lower==_T("file_dvdif_analysis"))
+    {
+        File_DvDif_Analysis_Set(!(Value==_T("0") || Value.empty()));
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_dvdif_analysis_get"))
+    {
+        return File_DvDif_Analysis_Get()?"1":"0";
     }
     else
         return _T("Option not known");
@@ -341,6 +351,20 @@ bool MediaInfo_Config_MediaInfo::File_Bdmv_ParseTargetedFile_Get ()
 {
     CriticalSectionLocker CSL(CS);
     bool Temp=File_Bdmv_ParseTargetedFile;
+    return Temp;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_DvDif_Analysis_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_DvDif_Analysis=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::File_DvDif_Analysis_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    bool Temp=File_DvDif_Analysis;
     return Temp;
 }
 

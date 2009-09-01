@@ -79,6 +79,8 @@ public :
     bool          File_MpegTs_ForceMenu_Get ();
     void          File_Bdmv_ParseTargetedFile_Set (bool NewValue);
     bool          File_Bdmv_ParseTargetedFile_Get ();
+    void          File_DvDif_Analysis_Set (bool NewValue);
+    bool          File_DvDif_Analysis_Get ();
 
 private :
     bool                    FileIsSeekable;
@@ -95,6 +97,7 @@ private :
     //Specific
     bool                    File_MpegTs_ForceMenu;
     bool                    File_Bdmv_ParseTargetedFile;
+    bool                    File_DvDif_Analysis;
 
     ZenLib::CriticalSection CS;
 };
