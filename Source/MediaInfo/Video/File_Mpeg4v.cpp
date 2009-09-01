@@ -1030,26 +1030,42 @@ void File_Mpeg4v::user_data_start()
         }
     }
 
-    //Rejecting junk from the end
-    size_t Library_End_Offset=(size_t)Element_Size;
-    while (Library_End_Offset>0
-        && (Buffer[Buffer_Offset+Library_End_Offset-1]<0x20
-         || Buffer[Buffer_Offset+Library_End_Offset-1]>0x7D
-         || (Buffer[Buffer_Offset+Library_End_Offset-1]>=0x3A
-          && Buffer[Buffer_Offset+Library_End_Offset-1]<=0x40)))
-        Library_End_Offset--;
-    if (Library_End_Offset==0)
+    //Rejecting junk at the begin
+    size_t Library_Start_Offset=0;
+    while (Library_Start_Offset+4<=Element_Size)
+    {
+        bool OK=true;
+        for (size_t Pos=0; Pos<4; Pos++)
+        {
+            if (Buffer[Buffer_Offset+Library_Start_Offset+Pos]<0x20
+             || Buffer[Buffer_Offset+Library_Start_Offset+Pos]>0x7D
+             || (Buffer[Buffer_Offset+Library_Start_Offset+Pos]>=0x3A
+              && Buffer[Buffer_Offset+Library_Start_Offset+Pos]<=0x40))
+            {
+                OK=false;
+                break;
+            }
+        }
+        if (OK)
+            break;
+        Library_Start_Offset++;
+    }
+    if (Library_Start_Offset+4>Element_Size)
+    {
+        Skip_XX(Element_Size,                                   "junk");
         return; //No good info
+    }
 
     //Accepting good data after junk
-    size_t Library_Start_Offset=Library_End_Offset-1;
-    while (Library_Start_Offset>0 && (Buffer[Buffer_Offset+Library_Start_Offset-1]>=0x20 && Buffer[Buffer_Offset+Library_Start_Offset-1]<=0x7D))
-        Library_Start_Offset--;
-
-    //But don't accept non-alpha caracters at the beginning (except for "3ivx")
-    if (Library_End_Offset-Library_Start_Offset!=4 || CC4(Buffer+Buffer_Offset+Library_Start_Offset)!=0x33697678) //3ivx
-        while (Library_Start_Offset<Element_Size && Buffer[Buffer_Offset+Library_Start_Offset]<=0x40)
-            Library_Start_Offset++;
+    size_t Library_End_Offset=Library_Start_Offset+4;
+    while (Library_Start_Offset<Element_Size
+        && !(Buffer[Buffer_Offset+Library_End_Offset]<0x20
+          || Buffer[Buffer_Offset+Library_End_Offset]>0x7D
+          || (Buffer[Buffer_Offset+Library_End_Offset]>=0x3B
+           && Buffer[Buffer_Offset+Library_End_Offset]<=0x40))
+          || Buffer[Buffer_Offset+Library_End_Offset]==0x0D
+          || Buffer[Buffer_Offset+Library_End_Offset]==0x0A)
+        Library_End_Offset++;
 
     //Parsing
     Ztring Temp;
@@ -1059,6 +1075,12 @@ void File_Mpeg4v::user_data_start()
         Get_Local(Library_End_Offset-Library_Start_Offset, Temp,"data");
     if (Element_Offset<Element_Size)
         Skip_XX(Element_Size-Element_Offset,                    "junk");
+
+    //Cleanup
+    while(Temp.size()>3 && Temp[1]==_T('e') && Temp[2]==_T('n') && Temp[3]==_T('c'))
+        Temp.erase(0, 1);
+    while(Temp.size()>5 && Temp[3]==_T('M') && Temp[4]==_T('P') && Temp[5]==_T('G'))
+        Temp.erase(0, 1);
 
     FILLING_BEGIN();
         if (Temp.size()>=4)

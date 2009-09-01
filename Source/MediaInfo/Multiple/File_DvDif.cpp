@@ -34,6 +34,7 @@
 #if defined(MEDIAINFO_EIA608_YES)
     #include "MediaInfo/Text/File_Eia608.h"
 #endif
+#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -328,10 +329,13 @@ void File_DvDif::Streams_Finish()
     #endif
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
-        //Errors stats
-        Status[IsFinished]=true; //We need to fill it before the call to Errors_Stats_Update
-        Errors_Stats_Update();
-        Errors_Stats_Update_Finnish();
+        if (Config->File_DvDif_Analysis_Get())
+        {
+            //Errors stats
+            Status[IsFinished]=true; //We need to fill it before the call to Errors_Stats_Update
+            Errors_Stats_Update();
+            Errors_Stats_Update_Finnish();
+        }
     #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 }
 
@@ -555,7 +559,14 @@ void File_DvDif::Header()
         if (!Status[IsAccepted] && (FrameCount>=10 || IsSub))
             Accept("DV DIF");
         if (!Status[IsFilled] && FrameCount>=Frame_Count_Valid)
-            Finish("DV DIF");
+            #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
+                if (Config->File_DvDif_Analysis_Get())
+                    Fill("DV DIF");
+                else
+                    Finish("DV DIF");
+            #else //MEDIAINFO_DVDIF_ANALYZE_YES
+                Finish("DV DIF");
+            #endif //MEDIAINFO_DVDIF_ANALYZE_YES
     FILLING_END();
 }
 #else //MEDIAINFO_MINIMIZESIZE
@@ -592,7 +603,10 @@ void File_DvDif::Header()
             Accept("DV DIF");
         if (!Status[IsFilled] && FrameCount>=Frame_Count_Valid)
             #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
-                Fill("DV DIF");
+                if (Config->File_DvDif_Analysis_Get())
+                    Fill("DV DIF");
+                else
+                    Finish("DV DIF");
             #else //MEDIAINFO_DVDIF_ANALYZE_YES
                 Finish("DV DIF");
             #endif //MEDIAINFO_DVDIF_ANALYZE_YES

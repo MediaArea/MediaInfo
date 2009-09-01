@@ -124,9 +124,6 @@ void File__Tags_Helper::Read_Buffer_Finalize()
 bool File__Tags_Helper::Synchronize(bool &Tag_Found, size_t Synchro_Offset)
 {
     //Buffer size
-    if (Base->Buffer_Offset+Synchro_Offset+3>Base->Buffer_Size)
-        return false;
-
     if (Parser)
     {
         Synched_Test();
@@ -141,6 +138,8 @@ bool File__Tags_Helper::Synchronize(bool &Tag_Found, size_t Synchro_Offset)
     }
 
     //ID
+    if (Base->Buffer_Offset+Synchro_Offset+3>Base->Buffer_Size)
+        return false;
     switch (CC3(Base->Buffer+Base->Buffer_Offset+Synchro_Offset))
     {
         case 0x494433 : //"ID3"

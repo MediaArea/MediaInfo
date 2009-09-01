@@ -1020,7 +1020,8 @@ void File_Mpeg_Psi::Table_00()
                 else if (Complete_Stream->Streams[xxx_id].Table_IDs[0x00]==NULL)
                 {
                     for (size_t Table_ID=0; Table_ID<0x100; Table_ID++)
-                        Complete_Stream->Streams[xxx_id].Table_IDs[Table_ID]=new complete_stream::stream::table_id; //all
+                        if (Complete_Stream->Streams[xxx_id].Table_IDs[Table_ID]==NULL)
+                            Complete_Stream->Streams[xxx_id].Table_IDs[Table_ID]=new complete_stream::stream::table_id; //all
                 }
             }
         FILLING_END();
