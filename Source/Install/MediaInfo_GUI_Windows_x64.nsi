@@ -114,6 +114,7 @@ Section "SectionPrincipale" SEC01
   File  "/oname=MediaInfo_i386.dll""..\..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll"
   File "/oname=History.txt" "..\..\History_GUI.txt"
   File "..\..\License.html"
+  File "..\..\License.NoModifications.html"
   File  "/oname=ReadMe.txt""..\..\Release\ReadMe_GUI_Windows.txt"
   SetOverwrite try
   SetOutPath "$INSTDIR\Plugin\Custom"
@@ -168,6 +169,7 @@ Section Uninstall
   Delete "$INSTDIR\MediaInfo_i386.dll"
   Delete "$INSTDIR\History.txt"
   Delete "$INSTDIR\License.html"
+  Delete "$INSTDIR\License.NoModifications.html"
   Delete "$INSTDIR\ReadMe.txt"
   Delete "$INSTDIR\Plugin\MediaInfo.cfg"
   Delete "$INSTDIR\Plugin\Custom\*.csv"
