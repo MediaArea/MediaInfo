@@ -16,9 +16,7 @@ rem --- Copying : Projects ---
 xcopy ..\Project\GNU\CLI\autogen MediaInfo_CLI_GNU_Prepare\Project\GNU\CLI\ /S
 xcopy ..\Project\GNU\CLI\configure.ac MediaInfo_CLI_GNU_Prepare\Project\GNU\CLI\ /S
 xcopy ..\Project\GNU\CLI\Makefile.am MediaInfo_CLI_GNU_Prepare\Project\GNU\CLI\ /S
-xcopy ..\Project\GNU\CLI\wxwin.m4 MediaInfo_CLI_GNU_Prepare\Project\GNU\CLI\ /S
 xcopy ..\Project\GNU\CLI\AddThisToRoot_CLI_compile.sh MediaInfo_CLI_GNU_Prepare\Project\GNU\CLI\ /S
-xcopy ..\Project\GNU\CLI\mediainfo-cli.spec MediaInfo_CLI_GNU_Prepare\Project\GNU\CLI\ /S
 
 rem --- Copying : Release ---
 xcopy Release_CLI_GNU.sub MediaInfo_CLI_GNU_Prepare\Release\
