@@ -132,6 +132,7 @@ protected :
     int64u Speed_FrameCount_Contains_NULL;              //Global    - Error 4
     int64u Speed_Contains_NULL;                         //Per Frame - Error 4
     int64u Speed_FrameCount_Arb_Incoherency;            //Global    - Error 5
+    int64u Speed_FrameCount_Stts_Fluctuation;           //Global    - Error 6
     int8u  QU;
     bool   QU_FSC; //Validity is with QU
     bool   QU_System; //Validity is with QU
@@ -268,6 +269,18 @@ protected :
         }
     };
     arb Arb;
+
+public:
+    //From MPEG-4 container
+    struct stts_part
+    {
+        int64u Pos_Begin;
+        int64u Pos_End;
+        int32u Duration;
+    };
+    typedef std::vector<stts_part> stts;
+    stts* Mpeg4_stts;
+    size_t Mpeg4_stts_Pos;
     #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 };
 

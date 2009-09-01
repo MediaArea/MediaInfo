@@ -3401,6 +3401,13 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
     int32u Min=(int32u)-1;
     int32u Max=0;
     int64u FrameCount=0;
+    #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
+        std::map<int32u, int64u> Duration_FrameCount; //key is duration 
+        int64u Duration_FrameCount_Max=0;
+        int32u Duration_FrameCount_Max_Duration=0;
+        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, "Format")==_T("Digital Video") && Stream[moov_trak_tkhd_TrackID].Parser)
+            ((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts=new File_DvDif::stts;
+    #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 
     for (int32u Pos=0; Pos<NumberOfEntries; Pos++)
     {
@@ -3412,6 +3419,23 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
             FrameCount+=SampleCount;
             if (SampleDuration<Min) Min=SampleDuration;
             if (SampleDuration>Max) Max=SampleDuration;
+            #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
+                if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, "Format")==_T("Digital Video"))
+                {
+                    File_DvDif::stts_part DV_stts_Part;
+                    DV_stts_Part.Pos_Begin=FrameCount-SampleCount;
+                    DV_stts_Part.Pos_End=FrameCount;
+                    DV_stts_Part.Duration=SampleDuration;
+                    ((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts->push_back(DV_stts_Part);
+
+                    Duration_FrameCount[SampleDuration]+=FrameCount;
+                    if (Duration_FrameCount_Max<=Duration_FrameCount[SampleDuration])
+                    {
+                        Duration_FrameCount_Max=Duration_FrameCount[SampleDuration];
+                        Duration_FrameCount_Max_Duration=SampleDuration;
+                    }
+                }
+            #endif //MEDIAINFO_DVDIF_ANALYZE_YES
         FILLING_END();
     }
 
@@ -3434,6 +3458,23 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
                 }
             }
             Fill(Stream_Video, StreamPos_Last, Video_FrameCount, FrameCount);
+            
+            #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
+                if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, "Format")==_T("Digital Video"))
+                {
+                    //Clean up the "normal" value
+                    for (size_t Pos=0; Pos<((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts->size(); Pos++)
+                    {
+                        if (((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts->at(Pos).Duration==Duration_FrameCount_Max_Duration)
+                        {
+                            ((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts->erase(((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts->begin()+Pos);
+                            Pos--;
+                        }
+                    }
+                }
+                if (((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts->empty())
+                    {delete ((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts; ((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts=NULL;}
+            #endif //MEDIAINFO_DVDIF_ANALYZE_YES
         }
     FILLING_END();
 }
