@@ -3471,9 +3471,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
                             Pos--;
                         }
                     }
+
+                    if (((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts->empty())
+                        {delete ((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts; ((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts=NULL;}
                 }
-                if (((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts->empty())
-                    {delete ((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts; ((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts=NULL;}
             #endif //MEDIAINFO_DVDIF_ANALYZE_YES
         }
     FILLING_END();

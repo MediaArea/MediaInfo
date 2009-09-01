@@ -885,7 +885,13 @@ void File_DvDif::Errors_Stats_Update()
             Speed_RecTimeZ_Current+=_T('0')+Speed_RecTime_Current.Seconds%10;
             if (Speed_RecTime_Current.Frames!=45)
             {
-                int32u Milliseconds=Speed_RecTime_Current.Frames*(System?40:33);
+                int32u Milliseconds;
+                if (System_IsValid)
+                    Milliseconds=Speed_RecTime_Current.Frames*(System?40:33);
+                else if (DSF_IsValid)
+                    Milliseconds=Speed_RecTime_Current.Frames*(DSF?40:33);
+                else
+                    Milliseconds=Speed_RecTime_Current.Frames*33;
                 Speed_RecTimeZ_Current+=_T('.');
                 Speed_RecTimeZ_Current+=_T('0')+(Char)(Milliseconds/100);
                 Speed_RecTimeZ_Current+=_T('0')+(Char)((Milliseconds%100)/10);
