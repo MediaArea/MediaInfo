@@ -9,6 +9,9 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.21, 2009-
 --------------
++ More permissive license for redistribution only
+  Redistribution license is intended for companies
+  with legal issues (if they can not deal with LGPL)
 + AVC: Support of frame doubling/tripling
 + AVC: Colour description
 + QuickTime: support of external files parsing
