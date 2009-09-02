@@ -185,6 +185,7 @@ String MediaInfo_Internal::Inform()
             if (XML) Retour+=_T(">\n");
             Retour+=MediaInfoLib::Config.LineSeparator_Get();
             Retour+=Inform((stream_t)StreamKind, StreamPos);
+            Retour.FindAndReplace(_T("\\"), _T("|SC1|"), 0, Ztring_Recursive);
             if (HTML) Retour+=_T("</table>\n<br />");
             if (XML) Retour+=_T("</track>\n");
             Retour+=MediaInfoLib::Config.LineSeparator_Get();
@@ -196,6 +197,7 @@ String MediaInfo_Internal::Inform()
 
     Retour.FindAndReplace(_T("\\r\\n"), _T("\\n"), 0, Ztring_Recursive);
     Retour.FindAndReplace(_T("\\n"), MediaInfoLib::Config.LineSeparator_Get(), 0, Ztring_Recursive);
+    Retour.FindAndReplace(_T("|SC1|"), _T("\\"), 0, Ztring_Recursive);
     return Retour;
 }
 
@@ -240,6 +242,7 @@ String MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
                      Nom.resize(Size, ' ');
                 }
                 Ztring Valeur=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text);
+                Valeur.FindAndReplace(_T("\\"), _T("|SC1|"), 0, Ztring_Recursive);
                 if (HTML)
                 {
                     Retour+=_T("  <tr>\n    <td><i>");
@@ -279,6 +282,7 @@ String MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
 
         Retour.FindAndReplace(_T("\\r\\n"), _T("\\n"), 0, Ztring_Recursive);
         Retour.FindAndReplace(_T("\\n"), MediaInfoLib::Config.LineSeparator_Get(), 0, Ztring_Recursive);
+        Retour.FindAndReplace(_T("|SC1|"), _T("\\"), 0, Ztring_Recursive);
         return Retour;
     }
 

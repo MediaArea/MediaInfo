@@ -976,7 +976,7 @@ void File_DvDif::Errors_Stats_Update()
                 if (Speed_TimeCode_Current_Theory.DropFrame && Speed_TimeCode_Current_Theory.Minutes%10)
                     Speed_TimeCode_Current_Theory.Frames=2; //frames 0 and 1 are dropped for every minutes except 00 10 20 30 40 50
 
-                if (Speed_TimeCode_Current_Theory.Seconds>=60)
+                if (Speed_TimeCode_Current_Theory.Minutes>=60)
                 {
                     Speed_TimeCode_Current_Theory.Minutes=0;
                     Speed_TimeCode_Current_Theory.Hours++;
@@ -1260,7 +1260,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
     */
 
     //TimeStamps (RecDate/RecTime and TimeCode)
-    if (!Speed_RecDateZ_Current.empty() && !Speed_RecTimeZ_Current.empty()) //Date and Time must be both available
+    if (!Speed_RecDateZ_Current.empty() || !Speed_RecTimeZ_Current.empty()) //Date and Time must be both available
     {
         size_t Speed_TimeStampsZ_Pos=Speed_TimeStampsZ.size();
         if (Speed_TimeStampsZ_Pos)
