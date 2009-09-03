@@ -963,10 +963,15 @@ void File_Mpegv::user_data_start()
         bool OK=true;
         for (size_t Pos=0; Pos<4; Pos++)
         {
-            if (Buffer[Buffer_Offset+Library_Start_Offset+Pos]<0x20
-             || Buffer[Buffer_Offset+Library_Start_Offset+Pos]>0x7D
-             || (Buffer[Buffer_Offset+Library_Start_Offset+Pos]>=0x3A
-              && Buffer[Buffer_Offset+Library_Start_Offset+Pos]<=0x40))
+            if (!(Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x20 && Pos
+               || Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x22
+               || Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x27
+               || Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x28
+               || Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x29 && Pos
+               || Buffer[Buffer_Offset+Library_Start_Offset+Pos]>=0x30
+               && Buffer[Buffer_Offset+Library_Start_Offset+Pos]<=0x3F
+               || Buffer[Buffer_Offset+Library_Start_Offset+Pos]>=0x41
+               && Buffer[Buffer_Offset+Library_Start_Offset+Pos]<=0x7D))
             {
                 OK=false;
                 break;
@@ -984,13 +989,13 @@ void File_Mpegv::user_data_start()
 
     //Accepting good data after junk
     size_t Library_End_Offset=Library_Start_Offset+4;
-    while (Library_Start_Offset<Element_Size
-        && !(Buffer[Buffer_Offset+Library_End_Offset]<0x20
-          || Buffer[Buffer_Offset+Library_End_Offset]>0x7D
-          || (Buffer[Buffer_Offset+Library_End_Offset]>=0x3B
-           && Buffer[Buffer_Offset+Library_End_Offset]<=0x40))
-          || Buffer[Buffer_Offset+Library_End_Offset]==0x0D
-          || Buffer[Buffer_Offset+Library_End_Offset]==0x0A)
+    while (Library_End_Offset<Element_Size
+        && (Buffer[Buffer_Offset+Library_End_Offset]==0x0D
+         || Buffer[Buffer_Offset+Library_End_Offset]==0x0A
+         || Buffer[Buffer_Offset+Library_End_Offset]>=0x20
+         && Buffer[Buffer_Offset+Library_End_Offset]<=0x3F
+         || Buffer[Buffer_Offset+Library_End_Offset]>=0x41
+         && Buffer[Buffer_Offset+Library_End_Offset]<=0x7D))
         Library_End_Offset++;
 
     //Parsing
@@ -1005,7 +1010,7 @@ void File_Mpegv::user_data_start()
     //Cleanup
     while(Temp.size()>3 && Temp[1]==_T('e') && Temp[2]==_T('n') && Temp[3]==_T('c'))
         Temp.erase(0, 1);
-    while(Temp.size()>5 && Temp[3]==_T('M') && Temp[4]==_T('P') && Temp[5]==_T('G'))
+    while(Temp.size()>5 && Temp[3]==_T('M') && Temp[4]==_T('P') && Temp[5]==_T('E'))
         Temp.erase(0, 1);
 
     //Cleanup
