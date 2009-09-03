@@ -78,10 +78,19 @@ void File__Analyze::Streams_Finish_StreamOnly(stream_t StreamKind, size_t Pos)
     //BitRate from Duration and StreamSize
     if (StreamKind!=Stream_General && StreamKind!=Stream_Chapters && StreamKind!=Stream_Menu && Retrieve(StreamKind, Pos, "BitRate").empty() && !Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_StreamSize)).empty() && !Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).empty())
     {
-        int64u Duration=Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).To_int64u();
+        float64 Duration=0;
+        if (StreamKind==Stream_Video && !Retrieve(Stream_Video, Pos, Video_FrameCount).empty() && !Retrieve(Stream_Video, Pos, Video_FrameRate).empty())
+        {
+            int64u FrameCount=Retrieve(Stream_Video, Pos, Video_FrameCount).To_int64u();
+            float64 FrameRate=Retrieve(Stream_Video, Pos, Video_FrameRate).To_float64();
+            if (FrameCount && FrameRate)
+                Duration=FrameCount*1000/FrameRate; //More precise (example: 1 frame at 29.97 fps)
+        }
+        if (Duration==0)
+            Duration=Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).To_int64u();
         int64u StreamSize=Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_StreamSize)).To_int64u();
         if (Duration>0 && StreamSize>0)
-            Fill(StreamKind, Pos, "BitRate", StreamSize*8*1000/Duration);
+            Fill(StreamKind, Pos, "BitRate", StreamSize*8*1000/Duration, 0);
     }
 
     //Duration from Bitrate and StreamSize

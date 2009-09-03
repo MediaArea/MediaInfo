@@ -1244,13 +1244,14 @@ void File__Analyze::Audio_BitRate_Rounding(size_t Pos, audio Parameter)
         if (BitRate>= 188160 && BitRate<= 195840) BitRate= 192000;
         if (BitRate>= 259308 && BitRate<= 269892) BitRate= 264600;
         if (BitRate>= 282240 && BitRate<= 293760) BitRate= 288000;
+        if (BitRate>= 345744 && BitRate<= 359856) BitRate= 352800;
         if (BitRate>= 376320 && BitRate<= 391680) BitRate= 384000;
         if (BitRate>= 518616 && BitRate<= 539784) BitRate= 529200;
         if (BitRate>= 564480 && BitRate<= 587520) BitRate= 576000;
         if (BitRate>= 648270 && BitRate<= 674730) BitRate= 661500;
     }
 
-    else if (Codec==_T("PCM") || MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_Name, Stream_Audio).find(_T("PCM"))==0)
+    else if (Codec==_T("PCM") || Codec==_T("QDM2") || MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_Name, Stream_Audio).find(_T("PCM"))==0)
     {
         if (BitRate>=  62720 && BitRate<=  65280) BitRate=  64000;
         if (BitRate>=  86436 && BitRate<=  89964) BitRate=  88200;
