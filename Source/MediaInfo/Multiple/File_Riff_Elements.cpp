@@ -1643,7 +1643,7 @@ void File_Riff::AVI__idx1()
 
     //Parsing
     std::map <int64u, size_t> Stream_Count;
-    while (Element_Offset<Element_Size)
+    while (Element_Offset+16<=Element_Size)
     {
         //Is too slow
         /*
