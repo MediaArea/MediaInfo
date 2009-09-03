@@ -131,6 +131,7 @@ File_Mpeg4::File_Mpeg4()
     mdat_MustParse=false;
     moov_Done=false;
     moov_trak_mdia_mdhd_TimeScale=0;
+    MajorBrand=0x00000000;
     TimeScale=1;
     Vendor=0x00000000;
     IsParsing_mdat=false;
@@ -512,6 +513,7 @@ void File_Mpeg4::Descriptors()
     //Preparing
     File_Mpeg4_Descriptors MI;
     MI.KindOfStream=StreamKind_Last;
+    MI.MajorBrand=MajorBrand;
     MI.Parser_DoNotFreeIt=true;
     Open_Buffer_Init(&MI);
 

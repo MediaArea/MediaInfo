@@ -209,6 +209,18 @@ const char* MP4_ChannelConfiguration2[]=
 };
 
 //***************************************************************************
+// Constructor/Destructor
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+File_Mpeg4_AudioSpecificConfig::File_Mpeg4_AudioSpecificConfig()
+:File__Analyze()
+{
+    //In
+    MajorBrand=0x00000000;
+}
+
+//***************************************************************************
 // Buffer - Global
 //***************************************************************************
 
@@ -364,13 +376,16 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
     Finish("AudioSpecificConfig");
 
     //Handling implicit SBR and PS
-    if (!sbrPresentFlag && samplingFrequency<=24000)
+    if ((MajorBrand&0x33677000)!=0x33677000) //If this is not a 3GP file
     {
-        samplingFrequency*=2;
-        sbrPresentFlag=true;
+        if (!sbrPresentFlag && samplingFrequency<=24000)
+        {
+            samplingFrequency*=2;
+            sbrPresentFlag=true;
+        }
+        if (!psPresentFlag && channelConfiguration<=1) //1 channel
+            psPresentFlag=true;
     }
-    if (!psPresentFlag && channelConfiguration<=1) //1 channel
-        psPresentFlag=true;
 
     FILLING_BEGIN()
         Stream_Prepare(Stream_General);

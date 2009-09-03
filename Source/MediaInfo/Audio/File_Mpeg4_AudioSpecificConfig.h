@@ -35,6 +35,14 @@ namespace MediaInfoLib
 
 class File_Mpeg4_AudioSpecificConfig : public File__Analyze
 {
+public :
+    //In
+    int32u   MajorBrand;
+
+public :
+    //Constructor/Destructor
+    File_Mpeg4_AudioSpecificConfig();
+
 private :
     //Buffer - Global
     void Read_Buffer_Continue ();

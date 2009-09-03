@@ -735,7 +735,6 @@ void File_Mpeg4::ftyp()
     }
 
     //Parsing
-    int32u MajorBrand;
     Get_C4 (MajorBrand,                                         "MajorBrand");
     Skip_B4(                                                    "MajorBrandVersion");
     while (Element_Offset<Element_Size)

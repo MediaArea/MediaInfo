@@ -289,6 +289,7 @@ File_Mpeg4_Descriptors::File_Mpeg4_Descriptors()
 {
     //In
     KindOfStream=Stream_Max;
+    MajorBrand=0x00000000;
     Parser_DoNotFreeIt=false;
 
     //Out
@@ -613,6 +614,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0x40 :
                         #if defined(MEDIAINFO_MPEG4_YES)
                             Parser=new File_Mpeg4_AudioSpecificConfig;
+                            ((File_Mpeg4_AudioSpecificConfig*)Parser)->MajorBrand=MajorBrand;
                         #endif
                         break;
             case 0x60 :
@@ -632,7 +634,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
             case 0x67 :
             case 0x68 : //MPEG-2 AAC
                         #if defined(MEDIAINFO_MPEG4_YES)
-                            Parser=new File_Mpeg4_AudioSpecificConfig; //Should be ADIF, but the only sample I have is AudioSpecificConfig 
+                            Parser=new File_Mpeg4_AudioSpecificConfig; //Should be ADIF, but the only sample I have is AudioSpecificConfig
                         #endif
                         break;
             case 0x69 :
@@ -711,6 +713,7 @@ void File_Mpeg4_Descriptors::Descriptor_05()
             case Stream_Audio :
                                 #if defined(MEDIAINFO_MPEG4_YES)
                                     delete Parser; Parser=new File_Mpeg4_AudioSpecificConfig;
+                                    ((File_Mpeg4_AudioSpecificConfig*)Parser)->MajorBrand=MajorBrand;
                                 #endif
                                 break;
             default: ;

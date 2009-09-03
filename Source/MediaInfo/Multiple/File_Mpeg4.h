@@ -264,6 +264,7 @@ private :
     std::vector<std::string>                moov_udta_meta_keys_List;
     size_t                                  moov_udta_meta_keys_ilst_Pos;
     char                                    Language_Result[4];
+    int32u                                  MajorBrand;
     int32u                                  TimeScale;
     int32u                                  Vendor;
     Ztring                                  Vendor_Version;

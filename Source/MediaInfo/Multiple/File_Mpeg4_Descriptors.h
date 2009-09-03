@@ -42,6 +42,7 @@ class File_Mpeg4_Descriptors : public File__Analyze
 public :
     //In
     stream_t KindOfStream;
+    int32u   MajorBrand;
     bool     Parser_DoNotFreeIt; //If you want to keep the Parser
 
     //Out
@@ -94,6 +95,7 @@ public :
     slconfig* SLConfig;
 
 public :
+    //Constructor/Destructor
     File_Mpeg4_Descriptors();
     ~File_Mpeg4_Descriptors();
 

@@ -18,6 +18,7 @@ Version 0.7.21, 2009-
 x #2828430, Quicktime: 180 degrees rotation display was not displayed
 x MPEG-TS: whole files were parsed (long)
 x MPEG Video / MPEG-4 Visual: new algorithm for library name detection
+x #2844911, AAC in 3GP: false detection of SBR and PS
 
 Version 0.7.20, 2009-07-31
 --------------
