@@ -592,7 +592,7 @@ void File_Mpeg4_Descriptors::Descriptor_04()
         }
 
         //Creating parser
-        delete Parser; //Parser=NULL;
+        delete Parser; Parser=NULL;
         switch (ObjectTypeId)
         {
             case 0x20 : //MPEG-4 Visual
@@ -703,14 +703,14 @@ void File_Mpeg4_Descriptors::Descriptor_05()
         {
             case Stream_Video :
                                 #if defined(MEDIAINFO_MPEG4V_YES)
-                                    Parser=new File_Mpeg4v;
+                                    delete Parser; Parser=new File_Mpeg4v;
                                     ((File_Mpeg4v*)Parser)->Frame_Count_Valid=1;
                                     ((File_Mpeg4v*)Parser)->FrameIsAlwaysComplete=true;
                                 #endif
                                 break;
             case Stream_Audio :
                                 #if defined(MEDIAINFO_MPEG4_YES)
-                                    Parser=new File_Mpeg4_AudioSpecificConfig;
+                                    delete Parser; Parser=new File_Mpeg4_AudioSpecificConfig;
                                 #endif
                                 break;
             default: ;
@@ -744,7 +744,7 @@ void File_Mpeg4_Descriptors::Descriptor_05()
     //Handling of IOD backup
     if (ObjectTypeId==0x40) //Audio ISO/IEC 14496-3 (AAC)
     {
-        DecSpecificInfoTag=new decspecificinfotag;
+        delete DecSpecificInfoTag; DecSpecificInfoTag=new decspecificinfotag;
         DecSpecificInfoTag->Buffer=new int8u[(size_t)Element_Size];
         DecSpecificInfoTag->Buffer_Size=(size_t)Element_Size;
         std::memcpy(DecSpecificInfoTag->Buffer, Buffer+Buffer_Offset, (size_t)Element_Size);
@@ -786,7 +786,7 @@ void File_Mpeg4_Descriptors::Descriptor_05()
 //---------------------------------------------------------------------------
 void File_Mpeg4_Descriptors::Descriptor_06()
 {
-    SLConfig=new slconfig;
+    delete SLConfig; SLConfig=new slconfig;
 
     //Parsing
     int8u predefined;

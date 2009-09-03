@@ -3110,7 +3110,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_damr()
     }
     Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Version, Version);
     Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library, Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+_T(' ')+Ztring::ToZtring(Version));
-    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_String, Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+(Version?(_T(" Revision ")+Ztring::ToZtring(Version)):Ztring()), true);
+    Ztring Encoded_Library_String=Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+(Version?(_T(" Revision ")+Ztring::ToZtring(Version)):Ztring());
+    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_String, Encoded_Library_String, true);
 }
 
 //---------------------------------------------------------------------------
@@ -3406,7 +3407,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
         std::map<int32u, int64u> Duration_FrameCount; //key is duration 
         int64u Duration_FrameCount_Max=0;
         int32u Duration_FrameCount_Max_Duration=0;
-        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, "Format")==_T("Digital Video") && Stream[moov_trak_tkhd_TrackID].Parser)
+        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, "Format")==_T("Digital Video") && Stream[moov_trak_tkhd_TrackID].Parser && ((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts==NULL)
             ((File_DvDif*)Stream[moov_trak_tkhd_TrackID].Parser)->Mpeg4_stts=new File_DvDif::stts;
     #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 
