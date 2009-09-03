@@ -419,11 +419,11 @@ void File_Flv::Streams_Finish()
         Duration_Final=LastFrame_Time+((LastFrame_Type==9 && FrameRate)?((int64u)(1000/FrameRate)):0);
     if (Duration_Final)
     {
-        Fill(Stream_General, 0, General_Duration, Duration_Final);
+        Fill(Stream_General, 0, General_Duration, Duration_Final, 10, true);
         if (Count_Get(Stream_Video))
-            Fill(Stream_Video, 0, Video_Duration, Duration_Final);
+            Fill(Stream_Video, 0, Video_Duration, Duration_Final, 10, true);
         if (Count_Get(Stream_Audio))
-            Fill(Stream_Audio, 0, Audio_Duration, Duration_Final);
+            Fill(Stream_Audio, 0, Audio_Duration, Duration_Final, 10, true);
     }
 
     //Purge what is not needed anymore
@@ -1043,6 +1043,9 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 else if (StringData=="keyframes_filepositions") {}
                 else if (StringData=="audiosamplerate") {ToFill="SamplingRate"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value, 0);}
                 else if (StringData=="audiosamplesize") {ToFill="Resolution"; StreamKind=Stream_Audio; if (Value>0) ValueS.From_Number(Value, 0);}
+                else if (StringData=="totalduration") {ToFill="Duration"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
+                else if (StringData=="totaldatarate") {ToFill="OverallBitRate"; StreamKind=Stream_General; ValueS.From_Number(Value*1000, 0);}
+                else if (StringData=="bytelength") {} //TODO: should test in order to see if file is complete
                 else {StreamKind=Stream_General; ToFill=StringData; ValueS.From_Number(Value);}
                 if (!ValueS.empty()) Element_Info(ValueS);
                 Fill(StreamKind, 0, ToFill.c_str(), ValueS);
@@ -1063,6 +1066,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                 else if (StringData=="hasmetadata") {}
                 else if (StringData=="hasMetadata") {}
                 else if (StringData=="hasCuePoints") {}
+                else if (StringData=="canseekontime") {}
                 else {ToFill=StringData;}
                 Element_Info(Value);
                 Fill(Stream_General, 0, ToFill.c_str(), Value?"Yes":"No");
@@ -1077,6 +1081,7 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                     Ztring Value;
                     Get_UTF8(Value_Size, Value,                 "Value");
                     size_t ToFill=(size_t)-1;
+                    std::string ToFillS;
                          if (0) ;
                     else if (StringData=="creator") {ToFill=General_Encoded_Application;}
                     else if (StringData=="creationdate") {ToFill=General_Encoded_Date; Value.Date_From_String(Value.To_UTF8().c_str());}
@@ -1084,15 +1089,18 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                     else if (StringData=="Encoded_With") {ToFill=General_Encoded_Application;}
                     else if (StringData=="Encoded_By") {ToFill=General_Encoded_Application;}
                     else if (StringData=="metadatacreator") {ToFill=General_Tagged_Application;}
+                    else if (StringData=="sourcedata") {}
+                    else
+                        ToFillS=StringData;
                     if (Value.find(_T('\r'))!=std::string::npos)
                         Value.resize(Value.find(_T('\r')));
                     if (Value.find(_T('\n'))!=std::string::npos)
                         Value.resize(Value.find(_T('\n')));
                     Element_Info(Value);
-                    if (ToFill==(size_t)-1)
-                        Fill(Stream_General, 0, StringData.c_str(), Value);
-                    else
+                    if (ToFill!=(size_t)-1)
                         Fill(Stream_General, 0, ToFill, Value);
+                    else if (!ToFillS.empty())
+                        Fill(Stream_General, 0, StringData.c_str(), Value);
                 }
             }
             break;
