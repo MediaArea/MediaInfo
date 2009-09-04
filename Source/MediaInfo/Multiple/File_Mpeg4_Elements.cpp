@@ -2889,14 +2889,16 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_avcC()
             else
             {
                 //We parse it, but we don't save information: how to do? Multiple formats in one track.
-                Skip_XX(Element_Size,                           "AVC Data (not parsed)");
-                //File_Avc MI;
-                //Open_Buffer_Init(&MI);
-                //MI.MustParse_SPS_PPS=true;
-                //MI.MustSynchronize=false;
+                File_Avc* MI=new File_Avc;
+                Open_Buffer_Init(MI);
+                MI->MustParse_SPS_PPS=true;
+                MI->MustSynchronize=false;
 
                 //Parsing
-                //Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+                Open_Buffer_Continue(MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+
+                //Cleanup
+                delete MI; //MI=NULL
             }
         #else
             Skip_XX(Element_Size,                               "AVC Data");
