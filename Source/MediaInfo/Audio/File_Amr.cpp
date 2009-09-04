@@ -77,7 +77,6 @@ void File_Amr::FileHeader_Parse()
         Fill(Stream_General, 0, General_Format, "AMR");
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "AMR");
-        Fill(Stream_Audio, 0, Audio_Codec, "AMR");
         if (!Codec.empty())
         {
             Ztring Profile;
@@ -88,6 +87,8 @@ void File_Amr::FileHeader_Parse()
             else if (Codec==_T("A104"))             {Profile=_T("Wide band");}
             Fill(Stream_Audio, 0, Audio_Format_Profile, Profile);
         }
+        else
+            Fill(Stream_Audio, 0, Audio_Codec, "AMR");
 
         //No need of more
         Accept("AMR");
