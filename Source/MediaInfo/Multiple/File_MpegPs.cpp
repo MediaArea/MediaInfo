@@ -379,7 +379,7 @@ void File_MpegPs::Streams_Finish()
         int64u BitRate_FromBitRates=PTS;
 
         if (BitRate_FromDuration>=BitRate_FromBitRates*3
-         || BitRate_FromDuration<=BitRate_FromBitRates/10)
+         || BitRate_FromDuration<=BitRate_FromBitRates/20)
         {
             //Clearing durations
             for (size_t StreamKind=0; StreamKind<=Stream_Text; StreamKind++)
