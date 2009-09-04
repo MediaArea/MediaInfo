@@ -7,10 +7,10 @@
 # norootforbuild
 
 %define _prefix	/usr
-%define libzen_version	0.4.3
+%define libzen_version	0.4.4
 
 Name:			mediainfo
-Version:		0.7.20
+Version:		0.7.21
 Release:		1
 Summary:		Supplies technical and tag information about a video or audio file
 Group:			Productivity/Multimedia/Other
