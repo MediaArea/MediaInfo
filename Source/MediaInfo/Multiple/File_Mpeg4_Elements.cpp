@@ -2875,19 +2875,29 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_avcC()
         #ifdef MEDIAINFO_AVC_YES
             if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
             {
-                if (Stream[moov_trak_tkhd_TrackID].Parser)
-                    delete Stream[moov_trak_tkhd_TrackID].Parser; //Stream[moov_trak_tkhd_TrackID].Parser=NULL
                 Stream[moov_trak_tkhd_TrackID].Parser=new File_Avc;
                 Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
                 ((File_Avc*)Stream[moov_trak_tkhd_TrackID].Parser)->MustParse_SPS_PPS=true;
                 Stream[moov_trak_tkhd_TrackID].Parser->MustSynchronize=false;
                 mdat_MustParse=true; //Data is in MDAT
+
+                //Parsing
+                Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+
+                ((File_Avc*)Stream[moov_trak_tkhd_TrackID].Parser)->SizedBlocks=true;  //Now this is SizeBlocks
             }
+            else
+            {
+                //We parse it, but we don't save information: how to do? Multiple formats in one track.
+                Skip_XX(Element_Size,                           "AVC Data (not parsed)");
+                //File_Avc MI;
+                //Open_Buffer_Init(&MI);
+                //MI.MustParse_SPS_PPS=true;
+                //MI.MustSynchronize=false;
 
-            //Parsing
-            Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-
-            ((File_Avc*)Stream[moov_trak_tkhd_TrackID].Parser)->SizedBlocks=true;  //Now this is SizeBlocks
+                //Parsing
+                //Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+            }
         #else
             Skip_XX(Element_Size,                               "AVC Data");
         #endif
@@ -3046,10 +3056,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
             ((File_Ac3*)Stream[moov_trak_tkhd_TrackID].Parser)->Frame_Count_Valid=2;
             ((File_Ac3*)Stream[moov_trak_tkhd_TrackID].Parser)->MustParse_dac3=true;
             mdat_MustParse=true; //Data is in MDAT
-        }
 
-        //Parsing
-        Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+            //Parsing
+            Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        }
     #else
         Skip_XX(Element_Size,                                   "AC-3 Data");
 
@@ -3071,10 +3081,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dec3()
             ((File_Ac3*)Stream[moov_trak_tkhd_TrackID].Parser)->Frame_Count_Valid=2;
             ((File_Ac3*)Stream[moov_trak_tkhd_TrackID].Parser)->MustParse_dec3=true;
             mdat_MustParse=true; //Data is in MDAT
-        }
 
-        //Parsing
-        Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+            //Parsing
+            Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        }
     #else
         Skip_XX(Element_Size,                                   "E-AC-3 Data");
 

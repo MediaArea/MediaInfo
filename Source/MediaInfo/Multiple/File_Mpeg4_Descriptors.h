@@ -44,6 +44,8 @@ public :
     stream_t KindOfStream;
     int32u   MajorBrand;
     bool     Parser_DoNotFreeIt; //If you want to keep the Parser
+    bool     DecSpecificInfoTag_DoNotFreeIt; //If you want to keep the DecSpecificInfoTag
+    bool     SLConfig_DoNotFreeIt; //If you want to keep the SLConfig
 
     //Out
     File__Analyze* Parser;

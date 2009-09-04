@@ -291,6 +291,8 @@ File_Mpeg4_Descriptors::File_Mpeg4_Descriptors()
     KindOfStream=Stream_Max;
     MajorBrand=0x00000000;
     Parser_DoNotFreeIt=false;
+    DecSpecificInfoTag_DoNotFreeIt=false;
+    SLConfig_DoNotFreeIt=false;
 
     //Out
     Parser=NULL;
@@ -306,11 +308,11 @@ File_Mpeg4_Descriptors::File_Mpeg4_Descriptors()
 File_Mpeg4_Descriptors::~File_Mpeg4_Descriptors()
 {
     if (!Parser_DoNotFreeIt)
-    {
         delete Parser;// Parser=NULL;
+    if (!DecSpecificInfoTag_DoNotFreeIt)
         delete DecSpecificInfoTag; //DecSpecificInfoTag=NULL
+    if (!SLConfig_DoNotFreeIt)
         delete SLConfig;// SLConfig=NULL;
-    }
 }
 
 //***************************************************************************

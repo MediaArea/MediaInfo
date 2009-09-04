@@ -1664,6 +1664,8 @@ void File_Mpeg_Descriptors::Descriptor_1D()
         {
             File_Mpeg4_Descriptors MI;
             MI.Parser_DoNotFreeIt=true;
+            MI.DecSpecificInfoTag_DoNotFreeIt=true;
+            MI.SLConfig_DoNotFreeIt=true;
             Open_Buffer_Init(&MI);
             Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
             Finish(&MI);
