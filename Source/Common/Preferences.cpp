@@ -733,7 +733,7 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
             if (ShellExtension!=ShellExtensionToWtrite)
             {
                 //This is not the good shell extension, writing new one
-                try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){MessageBox(NULL, L"11 - Exception", L"MI", MB_OK);}
+                try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
                 IsChanged=true;
             }
         }
@@ -759,7 +759,7 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
             //Create it
             Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), true);
             AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
-            try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
             IsChanged=true;
             Reg->CloseKey();
         }
@@ -882,7 +882,7 @@ int Preferences::ShellToolTip()
             if (ShellInfoTip_Existing!=ShellInfoTipToWtrite)
             {
                 //This is not the good shell extension, writing new one
-                try {Reg_User->WriteString("", ShellInfoTipToWtrite.c_str());} catch (...){MessageBox(NULL, L"11 - Exception", L"MI", MB_OK);}
+                try {Reg_User->WriteString("", ShellInfoTipToWtrite.c_str());} catch (...){}
                 IsChanged=true;
             }
         }
@@ -912,39 +912,39 @@ int Preferences::ShellToolTip()
             //Create it
             Reg_User->CloseKey();
             Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}", true);
-            try {Reg_User->WriteString("", "MediaInfoShellExt_ Class");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            try {Reg_User->WriteString("", "MediaInfoShellExt_ Class");} catch (...){}
             Reg_User->CloseKey();
             Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32", true);
             std::string DLL_Name=Application->ExeName.c_str();
             DLL_Name.resize(DLL_Name.rfind('\\')); //Removing ".exe"
             DLL_Name+="\\MediaInfo_InfoTip.dll";
             std::string ShellInfoTipToWtrite="\"" + DLL_Name +"\"";
-            try {Reg_User->WriteString("", ShellInfoTipToWtrite.c_str());} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
-            try {Reg_User->WriteString("ThreadingModel", "Apartment");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            try {Reg_User->WriteString("", ShellInfoTipToWtrite.c_str());} catch (...){}
+            try {Reg_User->WriteString("ThreadingModel", "Apartment");} catch (...){}
             Reg_User->CloseKey();
             Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\ProcID", true);
-            try {Reg_User->WriteString("", "MediaInfoShellExt.MediaInfoShellExt_.1");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            try {Reg_User->WriteString("", "MediaInfoShellExt.MediaInfoShellExt_.1");} catch (...){}
             Reg_User->CloseKey();
             Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\TypeLib", true);
-            try {Reg_User->WriteString("", "{BC1AAA9F-D8C5-4EB2-A10A-61B86B7EA77C}");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            try {Reg_User->WriteString("", "{BC1AAA9F-D8C5-4EB2-A10A-61B86B7EA77C}");} catch (...){}
             Reg_User->CloseKey();
             Reg_User->OpenKey("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\VersionIndependentProgID", true);
-            try {Reg_User->WriteString("", "MediaInfoShellExt.MediaInfoShellExt_");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            try {Reg_User->WriteString("", "MediaInfoShellExt.MediaInfoShellExt_");} catch (...){}
             Reg_User->CloseKey();
             Reg_User->OpenKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_", true);
-            try {Reg_User->WriteString("", "MediaInfoShellExt_ Class");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            try {Reg_User->WriteString("", "MediaInfoShellExt_ Class");} catch (...){}
             Reg_User->CloseKey();
             Reg_User->OpenKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_\\CLSID", true);
-            try {Reg_User->WriteString("", "{869C14C8-1830-491F-B575-5F9AB40D2B42}");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            try {Reg_User->WriteString("", "{869C14C8-1830-491F-B575-5F9AB40D2B42}");} catch (...){}
             Reg_User->CloseKey();
             Reg_User->OpenKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_\\CurVer", true);
-            try {Reg_User->WriteString("", "MediaInfoShellExt.MediaInfoShellExt_.1");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            try {Reg_User->WriteString("", "MediaInfoShellExt.MediaInfoShellExt_.1");} catch (...){}
             Reg_User->CloseKey();
             Reg_User->OpenKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1", true);
-            try {Reg_User->WriteString("", "MediaInfoShellExt_ Class");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            try {Reg_User->WriteString("", "MediaInfoShellExt_ Class");} catch (...){}
             Reg_User->CloseKey();
             Reg_User->OpenKey("Software\\Classes\\MediaInfoShellExt.MediaInfoShellExt_.1\\CLSID", true);
-            try {Reg_User->WriteString("", "{869C14C8-1830-491F-B575-5F9AB40D2B42}");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+            try {Reg_User->WriteString("", "{869C14C8-1830-491F-B575-5F9AB40D2B42}");} catch (...){}
             Reg_User->CloseKey();
             for (size_t I1=0; I1<Liste.size(); I1++)
             {
@@ -952,7 +952,7 @@ int Preferences::ShellToolTip()
                 if (!Liste(I1).empty())
                 {
                     Reg_User->OpenKey((_T("Software\\Classes\\")+Liste(I1)+_T("\\shellex\\{00021500-0000-0000-C000-000000000046}")).c_str(), true);
-                    try {Reg_User->WriteString("", "{869C14C8-1830-491F-B575-5F9AB40D2B42}");} catch (...){MessageBox(NULL, L"21 - Exception", L"MI", MB_OK);}
+                    try {Reg_User->WriteString("", "{869C14C8-1830-491F-B575-5F9AB40D2B42}");} catch (...){}
                     Reg_User->CloseKey();
                 }
             }
