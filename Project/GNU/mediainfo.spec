@@ -32,8 +32,8 @@ BuildRequires: 	zlib-devel
 %if 0%{?suse_version}
 BuildRequires:	update-desktop-files
 %endif
-Requires:	libzen0 = %{libzen_version}
-Requires:	libmediainfo0 = %{version}
+Requires:	libzen0 >= %{libzen_version}
+Requires:	libmediainfo0 >= %{version}
 
 %description
 MediaInfo supplies technical and tag information about a video or
@@ -62,7 +62,7 @@ What format (container) does MediaInfo support?
 Summary:	GUI for mediainfo
 Group:		Productivity/Multimedia/Other
 Requires:	libzen0 >= %{libzen_version}
-Requires:	libmediainfo0 = %{version}
+Requires:	libmediainfo0 >= %{version}
 
 %description gui
 MediaInfo supplies technical and tag information about a video or
