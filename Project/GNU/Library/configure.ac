@@ -301,15 +301,11 @@ if test "$have_libz" != "yes"; then
 	LIBS="$LIBS -L../../../../Shared/Source/ZLib"
 	MediaInfoLib_LIBS="$MediaInfoLib_LIBS -L../../../../Shared/Source/ZLib -lz"
 	MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static -L../../../../Shared/Source/ZLib -lz"
-	dnl MediaInfoLib_PC_Libs="$MediaInfoLib_PC_Libs -L../../../../Shared/Source/ZLib -lz"
-	dnl MediaInfoLib_PC_Libs_Static="$MediaInfoLib_PC_Libs_Static -L../../../../Shared/Source/ZLib -lz"
 else
     with_zlib="system"
     LIBS="$LIBS -lz"
     MediaInfoLib_LIBS="$MediaInfoLib_LIBS -lz"
     MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static -lz"
-    dnl MediaInfoLib_PC_Libs="$MediaInfoLib_PC_Libs -lz"
-    dnl MediaInfoLib_PC_Libs_Static="$MediaInfoLib_PC_Libs_Static -lz"
 fi
 
 dnl -------------------------------------------------------------------------
@@ -326,8 +322,6 @@ if test -e ../../../../ZenLib/Project/GNU/Library/libzen.la; then
 		LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
 		MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
 		MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS_Static)"
-		dnl MediaInfoLib_PC_Libs="$MediaInfoLib_PC_Libs $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
-		dnl MediaInfoLib_PC_Libs_Static="$MediaInfoLib_PC_Libs_Static $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS_Static)"
 	fi
 else
 	if pkg-config --exists libzen; then
@@ -341,8 +335,6 @@ else
 			LIBS="$LIBS $(pkg-config --libs libzen)"
 			MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(pkg-config --libs libzen)"
 			MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static $(pkg-config --variable=Libs_Static libzen)"
-			dnl MediaInfoLib_PC_Libs="$MediaInfoLib_PC_Libs $(pkg-config --libs libzen)"
-			dnl MediaInfoLib_PC_Libs_Static="$MediaInfoLib_PC_Libs_Static $(pkg-config --variable=Libs_Static libzen)"
 		fi
 	else
 		AC_MSG_ERROR([libzen configuration is not found])
@@ -439,8 +431,6 @@ dnl #########################################################################
 
 MediaInfoLib_LIBS=" -L$(pwd) -lmediainfo $MediaInfoLib_LIBS"
 MediaInfoLib_LIBS_Static=" $(pwd)/.libs/libmediainfo.a $MediaInfoLib_LIBS_Static"
-MediaInfoLib_PC_Libs=" -lmediainfo $MediaInfoLib_PC_Libs"
-MediaInfoLib_PC_Libs_Static=" ${libdir}/.libs/libmediainfo.a $MediaInfoLib_PC_Libs_Static"
 
 dnl #########################################################################
 dnl ### Output
@@ -449,8 +439,6 @@ dnl #########################################################################
 AC_SUBST(MediaInfoLib_CXXFLAGS)
 AC_SUBST(MediaInfoLib_LIBS)
 AC_SUBST(MediaInfoLib_LIBS_Static)
-dnl AC_SUBST(MediaInfoLib_PC_Libs)
-dnl AC_SUBST(MediaInfoLib_PC_Libs_Static)
 AC_SUBST(MediaInfoLib_Unicode)
 AC_CONFIG_FILES(libmediainfo-config, [chmod u+x libmediainfo-config])
 AC_CONFIG_FILES(libmediainfo.pc)

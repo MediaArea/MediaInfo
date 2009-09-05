@@ -284,6 +284,9 @@ File_DvDif::~File_DvDif()
         for (size_t Pos=0; Pos<CC_Parsers.size(); Pos++)
             delete CC_Parsers[Pos]; //CC_Parsers[Pos]=NULL;
     #endif
+    #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
+        delete Mpeg4_stts; //Mpeg4_stts=NULL;
+    #endif
 }
 
 //***************************************************************************

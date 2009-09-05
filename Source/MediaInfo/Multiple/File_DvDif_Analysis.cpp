@@ -399,6 +399,8 @@ void File_DvDif::Read_Buffer_Continue()
                 {
                     //Arb
                     int8u Value=Buffer[Buffer_Offset+0]&0x0F;
+                    if (Value==0xF)
+                        break;    
                     if (Arb.IsValid
                      && Arb.Value!=Value)
                         Arb.MultipleValues=true; //There are 2+ different values
@@ -870,7 +872,7 @@ void File_DvDif::Errors_Stats_Update()
         if (Speed_Contains_NULL)
         {
             Errors_Stats_Line+=_T('4');
-            Errors_Stats_Line_Details+=_T("\t(DIF incoherency, ")+Ztring::ToZtring(Speed_Contains_NULL)+_T(" NULL DIFs)");
+            Errors_Stats_Line_Details+=_T("(DIF incoherency, ")+Ztring::ToZtring(Speed_Contains_NULL)+_T(" NULL DIFs)");
             Speed_FrameCount_Contains_NULL++;
             Errors_AreDetected=true;
         }

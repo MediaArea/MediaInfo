@@ -3,10 +3,10 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 Unicode=@MediaInfoLib_Unicode@
-Libs_Static=${libdir}/libmediainfo.a ${libdir}/libzen.a -lpthread -lz
+Libs_Static=@libdir@/libmediainfo.a ${libdir}/libzen.a -lpthread -lz
 
 Name: libmediainfo
 Version: @PACKAGE_VERSION@
 Description: MediaInfoLib
-Libs: -L${libdir} -lmediainfo -lzen -lz -lpthread
-Cflags: -I${includedir}
+Libs: -L@libdir@ -lmediainfo -lzen -lz -lpthread
+Cflags: -I@includedir@
