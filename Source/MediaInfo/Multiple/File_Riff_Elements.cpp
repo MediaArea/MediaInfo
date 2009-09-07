@@ -81,6 +81,7 @@
 #if defined(MEDIAINFO_ID3V2_YES)
     #include "MediaInfo/Tag/File_Id3v2.h"
 #endif
+#include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -318,12 +319,15 @@ namespace Elements
     const int32u SMV0=0x534D5630;
     const int32u SMV0_xxxx=0x534D563A;
     const int32u WAVE=0x57415645;
+    const int32u WAVE__pmx=0x20786D70;
+    const int32u WAVE_aXML=0x61584D4C;
     const int32u WAVE_bext=0x62657874;
     const int32u WAVE_data=0x64617461;
     const int32u WAVE_ds64=0x64733634;
     const int32u WAVE_fact=0x66616374;
     const int32u WAVE_fmt_=0x666D7420;
     const int32u WAVE_ID3_=0x49443320;
+    const int32u WAVE_iXML=0x69584D4C;
     const int32u wave=0x77617665;
     const int32u wave_data=0x64617461;
     const int32u wave_fmt_=0x666D7420;
@@ -449,6 +453,8 @@ void File_Riff::Data_Parse()
     ATOM(W3DI)
     LIST(WAVE)
         ATOM_BEGIN
+        ATOM(WAVE__pmx)
+        ATOM(WAVE_aXML)
         LIST(WAVE_bext)
             ATOM_BEGIN
             ATOM_END
@@ -458,6 +464,7 @@ void File_Riff::Data_Parse()
         ATOM(WAVE_fact)
         ATOM(WAVE_fmt_)
         ATOM(WAVE_ID3_)
+        ATOM(WAVE_iXML)
         ATOM_END
     LIST(wave)
         ATOM_BEGIN
@@ -2486,6 +2493,25 @@ void File_Riff::WAVE()
 }
 
 //---------------------------------------------------------------------------
+void File_Riff::WAVE__pmx()
+{
+    Element_Name("XMP");
+
+    //Parsing
+    Ztring XML_Data;
+    Get_Local(Element_Size, XML_Data,                           "XML data");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::WAVE_aXML()
+{
+    Element_Name("aXML");
+
+    //Parsing
+    Skip_Local(Element_Size,                                    "XML data");
+}
+
+//---------------------------------------------------------------------------
 void File_Riff::WAVE_bext()
 {
     Element_Name("Broadcast extension");
@@ -2501,7 +2527,7 @@ void File_Riff::WAVE_bext()
     Get_L8   (     TimeReference,                               "TimeReference"); //To be divided by SamplesPerSec
     Get_L2   (     Version,                                     "Version");
     if (Version==1)
-        Skip_XX(64,                                             "UMID");
+        Skip_UUID(                                              "UMID");
     Skip_XX  (602-Element_Offset,                               "Reserved");
     if (Element_Offset<Element_Size)
         Get_Local(Element_Size-Element_Offset, History,         "History");
@@ -2616,6 +2642,15 @@ void File_Riff::WAVE_ID3_()
         Finish(&MI);
         Merge(MI, Stream_General, 0, 0);
     #endif
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::WAVE_iXML()
+{
+    Element_Name("iXML");
+
+    //Parsing
+    Skip_Local(Element_Size,                                    "XML data");
 }
 
 //---------------------------------------------------------------------------
