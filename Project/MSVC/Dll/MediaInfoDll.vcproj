@@ -54,6 +54,7 @@
 				WarningLevel="4"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -134,6 +135,7 @@
 				WarningLevel="4"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -212,6 +214,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -286,6 +289,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -362,6 +366,7 @@
 				WarningLevel="4"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -433,6 +438,7 @@
 				Name="VCCLCompilerTool"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -506,6 +512,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -574,6 +581,7 @@
 				Name="VCCLCompilerTool"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"

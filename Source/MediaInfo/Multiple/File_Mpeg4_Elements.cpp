@@ -3189,9 +3189,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma()
     Element_Name("Data format");
 
     //Parsing
-    std::string Codec;
-    Peek_String(2, Codec);
-    if (Codec=="ms") //Microsoft 2CC
+    int16u Codec_Peek;
+    Peek_B2(Codec_Peek);
+    if (Codec_Peek==0x6D73) //"ms", Microsoft 2CC
     {
         int16u CodecMS;
         Skip_C2(                                                "Codec_MS");
@@ -3205,14 +3205,14 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_frma()
     }
     else
     {
-        Ztring Codec;
-        Get_Local(4, Codec,                                     "Codec");
+        int32u Codec;
+        Get_C4(Codec,                                           "Codec");
 
         FILLING_BEGIN();
-            if (Codec!=_T("mp4a"))
-                CodecID_Fill(Codec, Stream_Audio, StreamPos_Last, InfoCodecID_Format_Mpeg4);
-            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true);
-            Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Codec, true);
+            if (Codec!=0x6D703461) //"mp4a"
+                CodecID_Fill(Ztring().From_CC4(Codec), Stream_Audio, StreamPos_Last, InfoCodecID_Format_Mpeg4);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Ztring().From_CC4(Codec), true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec_CC, Ztring().From_CC4(Codec), true);
         FILLING_END();
     }
 }
@@ -3325,19 +3325,19 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
 {
     NAME_VERSION_FLAG("Sample Size")
 
-    int32u Size, Count;
-    Get_B4 (Size,                                               "Sample Size");
-    Get_B4 (Count,                                              "Number of entries");
+    int32u Sample_Size, Sample_Count;
+    Get_B4 (Sample_Size,                                        "Sample Size");
+    Get_B4 (Sample_Count,                                       "Number of entries");
 
     int64u Stream_Size=0;
 
-    if (Size>0)
+    if (Sample_Size>0)
     {
-        Stream_Size=Size*Count;
+        Stream_Size=Sample_Size*Sample_Count;
 
-        Stream[moov_trak_tkhd_TrackID].stsz.resize((Count<=300 || MediaInfoLib::Config.ParseSpeed_Get()==1.00)?Count:300, Size);
+        Stream[moov_trak_tkhd_TrackID].stsz.resize((Sample_Count<=300 || MediaInfoLib::Config.ParseSpeed_Get()==1.00)?Sample_Count:300, Sample_Size);
 
-        if (Count>1 && Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
+        if (Sample_Count>1 && Retrieve(StreamKind_Last, StreamPos_Last, "BitRate_Mode").empty())
             Fill(StreamKind_Last, StreamPos_Last, "BitRate_Mode", "CBR");
 
         //Detecting wrong stream size with some PCM streams
@@ -3365,7 +3365,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
     {
         int32u Size;
         int32u Size_Min=(int32u)-1, Size_Max=0;
-        for (int32u Pos=0; Pos<Count; Pos++)
+        for (int32u Pos=0; Pos<Sample_Count; Pos++)
         {
             //Too much slow
             /*

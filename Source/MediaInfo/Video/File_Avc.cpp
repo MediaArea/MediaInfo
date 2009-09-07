@@ -619,7 +619,7 @@ void File_Avc::Synched_Init()
     Streams[0x07].Searching_Payload=true; //seq_parameter_set
     Streams[0x09].Searching_Payload=true; //access_unit_delimiter
     Streams[0x0C].Searching_Payload=true; //filler_data
-    for (int8u Pos=0xB9; Pos!=0x00; Pos++)
+    for (int8u Pos=0xFF; Pos>=0xB9; Pos--)
         Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
 
     //Options
@@ -1166,7 +1166,7 @@ void File_Avc::sei_message_pic_timing(int32u payloadSize)
                     Get_S4 (time_offset_length, time_offset,    "time_offset");
                 if (time_scale)
                 {
-                    float32 Milliseconds=((float32)(n_frames*(num_units_in_tick*(1+nuit_field_based_flag))+time_offset))/time_scale;
+                    float32 Milliseconds=((float32)(n_frames*(num_units_in_tick*(1+(nuit_field_based_flag?1:0)))+time_offset))/time_scale;
                     TimeStamp+=_T('.');
                     TimeStamp+=Ztring::ToZtring(Milliseconds);
                 }
@@ -1832,7 +1832,7 @@ void File_Avc::pic_parameter_set()
         bool transform_8x8_mode_flag;
         Get_SB (transform_8x8_mode_flag,                        "transform_8x8_mode_flag");
         TEST_SB_SKIP(                                           "pic_scaling_matrix_present_flag");
-            for (int8u Pos=0; Pos<6+2*transform_8x8_mode_flag; Pos++ )
+        for (int8u Pos=0; Pos<6+(transform_8x8_mode_flag?2:0); Pos++ )
             {
                 TEST_SB_SKIP(                                   "pic_scaling_list_present_flag");
                     scaling_list(Pos<6?16:64);

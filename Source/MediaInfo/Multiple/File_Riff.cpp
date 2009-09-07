@@ -340,17 +340,17 @@ void File_Riff::Streams_Finish ()
                     if (Retrieve(Stream_Video, 0, Video_FrameRate).To_float32())
                     {
                         Fill(Stream_Audio, StreamPos_Last, "Interleave_Duration", (float)Stream[0x30300000].PacketCount/Temp->second.PacketCount*1000/Retrieve(Stream_Video, 0, Video_FrameRate).To_float32(), 0);
-                        Ztring Temp;
-                        Temp+=Retrieve(Stream_Audio, StreamPos_Last, "Interleave_Duration");
-                        Temp+=_T(" ");
-                        Temp+=MediaInfoLib::Config.Language_Get(_T("ms"));
+                        Ztring Interleave_Duration_String;
+                        Interleave_Duration_String+=Retrieve(Stream_Audio, StreamPos_Last, "Interleave_Duration");
+                        Interleave_Duration_String+=_T(" ");
+                        Interleave_Duration_String+=MediaInfoLib::Config.Language_Get(_T("ms"));
                         if (!Retrieve(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames").empty())
                         {
-                            Temp+=_T(" (");
-                            Temp+=MediaInfoLib::Config.Language_Get(Retrieve(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames"), _T(" video frames"));
-                            Temp+=_T(")");
+                            Interleave_Duration_String+=_T(" (");
+                            Interleave_Duration_String+=MediaInfoLib::Config.Language_Get(Retrieve(Stream_Audio, StreamPos_Last, "Interleave_VideoFrames"), _T(" video frames"));
+                            Interleave_Duration_String+=_T(")");
                         }
-                        Fill(Stream_Audio, StreamPos_Last, "Interleave_Duration/String", Temp);
+                        Fill(Stream_Audio, StreamPos_Last, "Interleave_Duration/String", Interleave_Duration_String);
                     }
                     int64u Audio_FirstBytes=0;
                     for (std::map<int64u, stream_structure>::iterator Stream_Structure_Temp=Stream_Structure.begin(); Stream_Structure_Temp!=Stream_Structure.end(); Stream_Structure_Temp++)

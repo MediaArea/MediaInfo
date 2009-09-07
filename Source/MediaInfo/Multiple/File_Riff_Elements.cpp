@@ -2572,7 +2572,6 @@ void File_Riff::WAVE_data()
         }
         else if (BitRate)
         {
-            int64u Duration;
             if (IsSub)
                 //Retrieving "data" real size, in case of truncated files and/or wave header in another container
                 Duration=((int64u)LittleEndian2int32u(Buffer+Buffer_Offset-4))*8*1000/BitRate; //TODO: RF64 is not handled

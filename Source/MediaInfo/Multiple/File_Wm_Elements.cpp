@@ -921,41 +921,38 @@ void File_Wm::Header_ScriptCommand()
 //---------------------------------------------------------------------------
 void File_Wm::Header_Marker()
 {
-    Element_Name("Marker");
+    Element_Name("Markers");
 
     //Parsing
     Skip_GUID(                                                  "Reserved");
-    int32u Count;
-    int16u Length;
-    Get_L4 (Count,                                              "Markers Count");
+    int32u Markers_Count;
+    int16u Name_Length;
+    Get_L4 (Markers_Count,                                      "Markers Count");
     Skip_L2(                                                    "Reserved");
-    Get_L2 (Length,                                             "Name Length");
-    if (Length>0)
-        Skip_UTF16L(Length,                                     "Name");
+    Get_L2 (Name_Length,                                        "Name Length");
+    if (Name_Length>0)
+        Skip_UTF16L(Name_Length,                                "Name");
     
     //Filling
-    if (Count>0)
+    if (Markers_Count>0)
         Stream_Prepare(Stream_Menu);
 
     //Parsing
-    for (int32u Pos=0; Pos<Count; Pos++)
+    for (int32u Pos=0; Pos<Markers_Count; Pos++)
     {
         Element_Begin("Marker");
         Ztring Marker;
-        int32u Length;
+        int32u Marker_Length;
         Skip_L8(                                                "Offset");
         Info_L8(PresentationTime,                               "Presentation Time"); Param_Info_From_Milliseconds(PresentationTime/10000);
         Skip_L2(                                                "Entry Length");
         Info_L4(SendTime,                                       "Send Time"); Param_Info_From_Milliseconds(SendTime);
         Skip_L4(                                                "Flags");
-        Get_L4 (Length,                                         "Marker Description Length");
-        if (Length>0)
-            Get_UTF16L(Length*2, Marker,                        "Marker Description");
+        Get_L4 (Marker_Length,                                  "Marker Description Length");
+        if (Marker_Length>0)
+            Get_UTF16L(Marker_Length*2, Marker,                 "Marker Description");
         Element_End();
-
-        //Fill(
     }
-
 }
 
 //---------------------------------------------------------------------------
@@ -1370,10 +1367,10 @@ void File_Wm::Data_Packet()
     {
         //Parsing
         Element_Begin("Multiple Payloads additional flags");
-            int8u Flags;
-            Get_L1 (Flags,                                          "Flags");
-                Get_Flags ( Flags    &0x3F, NumberPayloads,         "Number of Payloads"); //6 bits
-                Get_Flags ((Flags>>6)&0x03, PayloadLengthType,      "Payload Length Type"); //bits 6 and 7
+            int8u AdditionalFlags;
+            Get_L1 (AdditionalFlags,                                     "Flags");
+                Get_Flags ( AdditionalFlags    &0x3F, NumberPayloads,    "Number of Payloads"); //6 bits
+                Get_Flags ((AdditionalFlags>>6)&0x03, PayloadLengthType, "Payload Length Type"); //bits 6 and 7
         Element_End();
     }
     else

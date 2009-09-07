@@ -441,7 +441,7 @@ void File_Mpegv::Streams_Fill()
     Fill(Stream_Video, 0, Video_Standard, Mpegv_video_format[video_format]);
 
     //Matrix
-    if (load_intra_quantiser_matrix || load_intra_quantiser_matrix)
+    if (load_intra_quantiser_matrix || load_non_intra_quantiser_matrix)
     {
         Fill(Stream_Video, 0, Video_Format_Settings, "CustomMatrix");
         Fill(Stream_Video, 0, Video_Format_Settings_Matrix, "Custom");
@@ -618,7 +618,7 @@ void File_Mpegv::Synched_Init()
     //Default stream values
     Streams.resize(0x100);
     Streams[0xB3].Searching_Payload=true;
-    for (int8u Pos=0xBA; Pos!=0x00; Pos++)
+    for (int8u Pos=0xFF; Pos>=0xB9; Pos--)
         Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
 }
 

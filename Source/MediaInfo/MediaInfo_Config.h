@@ -149,6 +149,7 @@ public :
           Ztring    Info_Url_Get        () const;
 
     const Ztring   &EmptyString_Get() const; //Use it when we can't return a reference to a true string
+    const ZtringListList &EmptyStringListList_Get() const; //Use it when we can't return a reference to a true string list list
 
           void      FormatDetection_MaximumOffset_Set (int64u Value);
           int64u    FormatDetection_MaximumOffset_Get ();

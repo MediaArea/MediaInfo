@@ -209,20 +209,20 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                  || Parameter_Text==_T("CodecID/Hint"))
                 {
                     Ztring Temp1, Temp2;
-                    for (size_t StreamPos=0; StreamPos<(*Stream)[StreamKind].size(); StreamPos++)
+                    for (size_t StreamPos_Local=0; StreamPos_Local<(*Stream)[StreamKind].size(); StreamPos_Local++)
                     {
                         if (Parameter_Text==_T("CodecID/Hint"))
-                            Temp1+=Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format))+_T(" / ");
+                            Temp1+=Retrieve(StreamKind, StreamPos_Local, Fill_Parameter(StreamKind, Generic_Format))+_T(" / ");
                         else
-                            Temp1+=Retrieve(StreamKind, StreamPos, Parameter)+_T(" / ");
+                            Temp1+=Retrieve(StreamKind, StreamPos_Local, Parameter)+_T(" / ");
                         if (Parameter_Text==_T("Format")
                          || Parameter_Text==_T("CodecID/Hint"))
                         {
-                            Temp2+=Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format));
-                            if (!Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_CodecID_Hint)).empty())
+                            Temp2+=Retrieve(StreamKind, StreamPos_Local, Fill_Parameter(StreamKind, Generic_Format));
+                            if (!Retrieve(StreamKind, StreamPos_Local, Fill_Parameter(StreamKind, Generic_CodecID_Hint)).empty())
                             {
                                 Temp2+=_T(" (");
-                                Temp2+=Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_CodecID_Hint));
+                                Temp2+=Retrieve(StreamKind, StreamPos_Local, Fill_Parameter(StreamKind, Generic_CodecID_Hint));
                                 Temp2+=_T(")");
                             }
                             Temp2+=_T(" / ");
@@ -785,9 +785,9 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, const char* Par
     {
         if (Replace)
         {
-            size_t Pos=(*Stream_More)[StreamKind][StreamPos].Find(Ztring().From_UTF8(Parameter), Info_Name);
-            if (Pos!=(size_t)-1)
-                (*Stream_More)[StreamKind][StreamPos].erase((*Stream_More)[StreamKind][StreamPos].begin()+Pos); //Empty value --> remove the line
+            size_t Pos_ToReplace=(*Stream_More)[StreamKind][StreamPos].Find(Ztring().From_UTF8(Parameter), Info_Name);
+            if (Pos_ToReplace!=(size_t)-1)
+                (*Stream_More)[StreamKind][StreamPos].erase((*Stream_More)[StreamKind][StreamPos].begin()+Pos_ToReplace); //Empty value --> remove the line
         }
     }
     else

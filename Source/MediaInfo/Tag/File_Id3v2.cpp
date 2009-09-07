@@ -417,9 +417,11 @@ void File_Id3v2::FileHeader_Parse()
     Param_Info(Id3v2_Size);
     if (ExtendedHeader)
     {
-        int32u Size;
-        Get_B4 (Size,                                           "Size");
-        Skip_XX(Size,                                           "Extended header");
+        Element_Begin("Extended header");
+        int32u Size_Extended;
+        Get_B4 (Size_Extended,                                  "Size");
+        Skip_XX(Size_Extended,                                  "Extended header");
+        Element_End();
     }
 
     FILLING_BEGIN();

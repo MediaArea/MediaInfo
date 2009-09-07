@@ -1632,7 +1632,7 @@ void File_Mpeg_Psi::Table_CA()
     ATSC_multiple_string_structure(rating_region_name,          "rating_region_name");
     Get_B1 (    dimensions_defined,                             "dimensions_defined");
     BS_End();
-    for (int8u Pos=0; Pos<dimensions_defined; Pos++)
+    for (int8u dimension_Pos=0; dimension_Pos<dimensions_defined; dimension_Pos++)
     {
         Element_Begin("dimension");
         Ztring dimension_name;
@@ -1644,7 +1644,7 @@ void File_Mpeg_Psi::Table_CA()
         Skip_SB(                                                "graduated_scale");
         Get_S1 ( 4, values_defined,                             "values_defined");
         BS_End();
-        for (int8u Pos=0; Pos<values_defined; Pos++)
+        for (int8u value_Pos=0; value_Pos<values_defined; value_Pos++)
         {
             Element_Begin("value");
             Ztring abbrev_rating_value, rating_value;
@@ -1843,13 +1843,13 @@ void File_Mpeg_Psi::ATSC_multiple_string_structure(Ztring &Value, const char* In
     int8u number_strings, number_segments;
     Element_Begin(Info);
     Get_B1(number_strings,                                      "number_strings");
-    for (int8u Pos=0; Pos<number_strings; Pos++)
+    for (int8u string_Pos=0; string_Pos<number_strings; string_Pos++)
     {
         Element_Begin("String");
         int32u ISO_639_language_code;
         Get_C3(ISO_639_language_code,                           "ISO_639_language_code");
         Get_B1(number_segments,                                 "number_segments");
-        for (int8u Pos=0; Pos<number_segments; Pos++)
+        for (int8u segment_Pos=0; segment_Pos<number_segments; segment_Pos++)
         {
             Element_Begin("Segment");
             Ztring segment;

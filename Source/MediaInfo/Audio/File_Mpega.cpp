@@ -372,7 +372,8 @@ void File_Mpega::Streams_Finish()
             Divider=576/8;
         else
             Divider=1152/8;
-        BitRate=(int32u)(FrameLength*Mpega_SamplingRate[ID][sampling_frequency]/Divider);
+        if (ID<4 && sampling_frequency<4)
+            BitRate=(int32u)(FrameLength*Mpega_SamplingRate[ID][sampling_frequency]/Divider);
         BitRate_Mode=_T("VBR");
     }
     //if (BitRate_Count.size()>1)
@@ -444,10 +445,10 @@ bool File_Mpega::FileHeader_Begin()
 bool File_Mpega::Synchronize()
 {
     //Tags
-    bool Tag_Found;
-    if (!File__Tags_Helper::Synchronize(Tag_Found))
+    bool Tag_Found_Begin;
+    if (!File__Tags_Helper::Synchronize(Tag_Found_Begin))
         return false;
-    if (Tag_Found)
+    if (Tag_Found_Begin)
         return true;
 
     //Synchronizing
@@ -459,10 +460,10 @@ bool File_Mpega::Synchronize()
                 break; //while()
 
             //Tags
-            bool Tag_Found;
-            if (!File__Tags_Helper::Synchronize(Tag_Found))
+            bool Tag_Found_Synchro;
+            if (!File__Tags_Helper::Synchronize(Tag_Found_Synchro))
                 return false;
-            if (Tag_Found)
+            if (Tag_Found_Synchro)
                 return true;
 
             Buffer_Offset++;
@@ -471,70 +472,70 @@ bool File_Mpega::Synchronize()
         if (Buffer_Offset+4<=Buffer_Size)//Testing if size is coherant
         {
             //Retrieving some info
-            int8u ID                =(CC1(Buffer+Buffer_Offset+1)>>3)&0x03;
-            int8u layer             =(CC1(Buffer+Buffer_Offset+1)>>1)&0x03;
-            int8u bitrate_index     =(CC1(Buffer+Buffer_Offset+2)>>4)&0x0F;
-            int8u sampling_frequency=(CC1(Buffer+Buffer_Offset+2)>>2)&0x03;
-            int8u padding_bit       =(CC1(Buffer+Buffer_Offset+2)>>1)&0x01;
+            int8u ID0                =(CC1(Buffer+Buffer_Offset+1)>>3)&0x03;
+            int8u layer0             =(CC1(Buffer+Buffer_Offset+1)>>1)&0x03;
+            int8u bitrate_index0     =(CC1(Buffer+Buffer_Offset+2)>>4)&0x0F;
+            int8u sampling_frequency0=(CC1(Buffer+Buffer_Offset+2)>>2)&0x03;
+            int8u padding_bit0       =(CC1(Buffer+Buffer_Offset+2)>>1)&0x01;
             //Coherancy
-            if (Mpega_SamplingRate[ID][sampling_frequency]==0 || Mpega_Coefficient[ID][layer]==0 || Mpega_BitRate[ID][layer][bitrate_index]==0 || Mpega_SlotSize[layer]==0)
+            if (Mpega_SamplingRate[ID0][sampling_frequency0]==0 || Mpega_Coefficient[ID0][layer0]==0 || Mpega_BitRate[ID0][layer0][bitrate_index0]==0 || Mpega_SlotSize[layer0]==0)
                 Buffer_Offset++; //False start
             else
             {
                 //Testing next start, to be sure
-                size_t Size=(Mpega_Coefficient[ID][layer]*Mpega_BitRate[ID][layer][bitrate_index]*1000/Mpega_SamplingRate[ID][sampling_frequency]+(padding_bit?1:0))*Mpega_SlotSize[layer];
-                if (IsSub && Buffer_Offset+Size==Buffer_Size)
+                size_t Size0=(Mpega_Coefficient[ID0][layer0]*Mpega_BitRate[ID0][layer0][bitrate_index0]*1000/Mpega_SamplingRate[ID0][sampling_frequency0]+(padding_bit0?1:0))*Mpega_SlotSize[layer0];
+                if (IsSub && Buffer_Offset+Size0==Buffer_Size)
                     break;
-                if (File_Offset+Buffer_Offset+Size!=File_Size-File_EndTagSize)
+                if (File_Offset+Buffer_Offset+Size0!=File_Size-File_EndTagSize)
                 {
-                    if (Buffer_Offset+Size+4>Buffer_Size)
+                    if (Buffer_Offset+Size0+4>Buffer_Size)
                         return false; //Need more data
 
                     //Tags
-                    bool Tag_Found;
-                    if (!File__Tags_Helper::Synchronize(Tag_Found, Size))
+                    bool Tag_Found0;
+                    if (!File__Tags_Helper::Synchronize(Tag_Found0, Size0))
                         return false;
-                    if (Tag_Found)
+                    if (Tag_Found0)
                         return true;
-                    if (File_Offset+Buffer_Offset+Size==File_Size-File_EndTagSize)
+                    if (File_Offset+Buffer_Offset+Size0==File_Size-File_EndTagSize)
                         break;
 
                     //Testing
-                    if ((CC2(Buffer+Buffer_Offset+Size)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+Size+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+Size+2)&0x0C)==0x0C)
+                    if ((CC2(Buffer+Buffer_Offset+Size0)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+Size0+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+Size0+2)&0x0C)==0x0C)
                         Buffer_Offset++;
                     else
                     {
                         //Retrieving some info
-                        int8u ID                =(CC1(Buffer+Buffer_Offset+Size+1)>>3)&0x03;
-                        int8u layer             =(CC1(Buffer+Buffer_Offset+Size+1)>>1)&0x03;
-                        int8u bitrate_index     =(CC1(Buffer+Buffer_Offset+Size+2)>>4)&0x0F;
-                        int8u sampling_frequency=(CC1(Buffer+Buffer_Offset+Size+2)>>2)&0x03;
-                        int8u padding_bit       =(CC1(Buffer+Buffer_Offset+Size+2)>>1)&0x01;
+                        int8u ID1                =(CC1(Buffer+Buffer_Offset+Size0+1)>>3)&0x03;
+                        int8u layer1             =(CC1(Buffer+Buffer_Offset+Size0+1)>>1)&0x03;
+                        int8u bitrate_index1     =(CC1(Buffer+Buffer_Offset+Size0+2)>>4)&0x0F;
+                        int8u sampling_frequency1=(CC1(Buffer+Buffer_Offset+Size0+2)>>2)&0x03;
+                        int8u padding_bit1       =(CC1(Buffer+Buffer_Offset+Size0+2)>>1)&0x01;
                         //Coherancy
-                        if (Mpega_SamplingRate[ID][sampling_frequency]==0 || Mpega_Coefficient[ID][layer]==0 || Mpega_BitRate[ID][layer][bitrate_index]==0 || Mpega_SlotSize[layer]==0)
+                        if (Mpega_SamplingRate[ID1][sampling_frequency1]==0 || Mpega_Coefficient[ID1][layer1]==0 || Mpega_BitRate[ID1][layer1][bitrate_index1]==0 || Mpega_SlotSize[layer1]==0)
                             Buffer_Offset++; //False start
                         else
                         {
                             //Testing next start, to be sure
-                            size_t Size2=(Mpega_Coefficient[ID][layer]*Mpega_BitRate[ID][layer][bitrate_index]*1000/Mpega_SamplingRate[ID][sampling_frequency]+(padding_bit?1:0))*Mpega_SlotSize[layer];
-                            if (IsSub && Buffer_Offset+Size+Size2==Buffer_Size)
+                            size_t Size1=(Mpega_Coefficient[ID1][layer1]*Mpega_BitRate[ID1][layer1][bitrate_index1]*1000/Mpega_SamplingRate[ID1][sampling_frequency1]+(padding_bit1?1:0))*Mpega_SlotSize[layer1];
+                            if (IsSub && Buffer_Offset+Size0+Size1==Buffer_Size)
                                 break;
-                            if (File_Offset+Buffer_Offset+Size+Size2!=File_Size-File_EndTagSize)
+                            if (File_Offset+Buffer_Offset+Size0+Size1!=File_Size-File_EndTagSize)
                             {
-                                if (Buffer_Offset+Size+Size2+4>Buffer_Size)
+                                if (Buffer_Offset+Size0+Size1+4>Buffer_Size)
                                     return false; //Need more data
 
                                 //Tags
-                                bool Tag_Found;
-                                if (!File__Tags_Helper::Synchronize(Tag_Found, Size+Size2))
+                                bool Tag_Found1;
+                                if (!File__Tags_Helper::Synchronize(Tag_Found1, Size0+Size1))
                                     return false;
-                                if (Tag_Found)
+                                if (Tag_Found1)
                                     return true;
-                                if (File_Offset+Buffer_Offset+Size+Size2==File_Size-File_EndTagSize)
+                                if (File_Offset+Buffer_Offset+Size0+Size1==File_Size-File_EndTagSize)
                                     break;
 
                                 //Testing
-                                if ((CC2(Buffer+Buffer_Offset+Size+Size2)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+Size+Size2+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+Size+Size2+2)&0x0C)==0x0C)
+                                if ((CC2(Buffer+Buffer_Offset+Size0+Size1)&0xFFE0)!=0xFFE0 || (CC1(Buffer+Buffer_Offset+Size0+Size1+2)&0xF0)==0xF0 || (CC1(Buffer+Buffer_Offset+Size0+Size1+2)&0x0C)==0x0C)
                                     Buffer_Offset++;
                                 else
                                     break; //while()
@@ -714,6 +715,8 @@ void File_Mpega::Data_Parse()
     for(int8u gr=0; gr<(ID==3?2:1); gr++)
     {
         Element_Begin("granule");
+        if (mode>=4)
+            return;
         for(int8u ch=0; ch<Mpega_Channels[mode]; ch++)
         {
             Element_Begin("channel");
@@ -1057,7 +1060,7 @@ void File_Mpega::Header_Encoders_Lame()
                 Encoded_Library_Settings+=_T( " -q ")+Ztring::ToZtring((100-Xing_Scale)%10);
             }
             if (lowpass)
-                Encoded_Library_Settings+=(Encoded_Library_Settings.empty()?_T("-lowpass "):_T(" -lowpass "))+(lowpass%10?Ztring::ToZtring(((float)lowpass)/10, 1):Ztring::ToZtring(lowpass/10));
+                Encoded_Library_Settings+=(Encoded_Library_Settings.empty()?_T("-lowpass "):_T(" -lowpass "))+((lowpass%10)?Ztring::ToZtring(((float)lowpass)/10, 1):Ztring::ToZtring(lowpass/10));
             switch (Flags&0x0F)
             {
                 case  2 :

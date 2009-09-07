@@ -571,6 +571,7 @@ public :
 
     void Get_BS (size_t Bits, int32u  &Info);
     void Get_SB (             bool    &Info);
+    bool Get_SB ()                                              {bool Temp; Get_SB(Temp); return Temp;}
     void Get_S1 (size_t Bits, int8u   &Info);
     void Get_S2 (size_t Bits, int16u  &Info);
     void Get_S3 (size_t Bits, int32u  &Info);
@@ -591,6 +592,7 @@ public :
     inline void Get_S8 (size_t Bits, int64u  &Info, const char*) {Get_S8(Bits, Info);}
     void Peek_BS(size_t Bits, int32u  &Info);
     void Peek_SB(              bool    &Info);
+    bool Peek_SB()                                              {bool Temp; Peek_SB(Temp); return Temp;}
     void Peek_S1(size_t Bits, int8u   &Info);
     void Peek_S2(size_t Bits, int16u  &Info);
     void Peek_S3(size_t Bits, int32u  &Info);
@@ -646,9 +648,7 @@ public :
 
     #define TEST_SB_SKIP(_NAME) \
         { \
-            bool Temp; \
-            Peek_SB(Temp); \
-            if (!Temp) \
+            if (!Peek_SB()) \
                 Skip_SB(                                        _NAME); \
             else \
             { \
@@ -665,9 +665,7 @@ public :
 
     #define TESTELSE_SB_SKIP(_NAME) \
         { \
-            bool Temp; \
-            Peek_SB(Temp); \
-            if (Temp) \
+            if (Peek_SB()) \
             { \
                 Element_Begin(_NAME); \
                 Skip_SB(                                        _NAME); \

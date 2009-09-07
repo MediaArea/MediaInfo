@@ -356,7 +356,7 @@ void File_MpegTs::Streams_Fill_PerStream(int16u PID, complete_stream::stream &Te
         if ((Temp.IsRegistered ||  format_identifier==Elements::HDMV) && Mpeg_Psi_stream_type_StreamKind(Temp.stream_type, format_identifier)!=Stream_Max)
         {
             StreamKind_Last=Mpeg_Psi_stream_type_StreamKind(Temp.stream_type, format_identifier);
-            if (StreamKind_Last==Stream_General) //Only information, no streams
+            if (StreamKind_Last==Stream_General && Temp.Parser) //Only information, no streams
             {
                 Merge (*Temp.Parser, Stream_General, 0, 0);
                 StreamKind_Last=Stream_Max;
@@ -1293,7 +1293,7 @@ void File_MpegTs::PSI_EPG_Update()
                 }
 
                 //EPG - ATSC
-                complete_stream::sources::iterator Source=Complete_Stream->Sources.find(Program->second.source_id);
+                Source=Complete_Stream->Sources.find(Program->second.source_id);
                 if (Source!=Complete_Stream->Sources.end())
                 {
                     if (!Source->second.texts.empty())

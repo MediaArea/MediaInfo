@@ -352,8 +352,8 @@ void File_Mpeg4v::Synched_Init()
     Streams[0xB0].Searching_Payload=true; //visual_object_sequence_start
     Streams[0xB5].Searching_Payload=true; //visual_object_start
     NextCode_Add(0x20); //video_object_layer_start
-    for (int8u Pos=0xB7; Pos!=0x00; Pos++)
-        Streams[Pos].Searching_Payload=true; //Testing other mpeg4v elements and MPEG-PS
+    for (int8u Pos=0xFF; Pos>=0xB9; Pos--)
+        Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
 }
 
 //***************************************************************************
@@ -697,9 +697,26 @@ void File_Mpeg4v::video_object_layer_start()
     Get_S1 (2, shape,                                           "video_object_layer_shape");
     if (shape==3 && video_object_layer_verid!=1) //Shape=GrayScale
         Get_S1 (4, shape_extension,                             "video_object_layer_shape_extension");
-    if (shape_extension==0 && shape_extension==1 && shape_extension==5 && shape_extension==7 && shape_extension==8) aux_comp_count=1;
-    if (shape_extension==2 && shape_extension==3 && shape_extension==6 && shape_extension==9 && shape_extension==11) aux_comp_count=2;
-    if (shape_extension==4 && shape_extension==10 && shape_extension==12) aux_comp_count=3;
+    switch (shape_extension)
+    {
+        case  0 :
+        case  1 :
+        case  5 :
+        case  7 :
+        case  8 :
+                    aux_comp_count=1; break;
+        case  2 :
+        case  3 :
+        case  6 :
+        case  9 :
+        case 11 :
+                    aux_comp_count=2; break;
+        case  4 :
+        case 10 :
+        case 12 :
+                    aux_comp_count=3; break;
+        default : ;
+    }
     Mark_1 ();
     Get_S2 (16, vop_time_increment_resolution,                  "vop_time_increment_resolution");
     int32u PowerOf2=1;
@@ -811,7 +828,7 @@ void File_Mpeg4v::video_object_layer_start()
                 Matrix_nonintra="Default";
             if(shape==3) //Shape=GrayScale
             {
-                for(size_t Pos=0; Pos<aux_comp_count; Pos++)
+                for(size_t aux_comp_Pos=0; aux_comp_Pos<aux_comp_count; aux_comp_Pos++)
                 {
                     Get_SB (load_intra_quant_mat_grayscale,     "load_intra_quant_mat_grayscale");
                     if(load_intra_quant_mat_grayscale)
@@ -820,7 +837,7 @@ void File_Mpeg4v::video_object_layer_start()
                             int8u intra_quant_mat_grayscale;
                             Get_S1 (8, intra_quant_mat_grayscale, "intra_quant_mat_grayscale");
                             if (!intra_quant_mat_grayscale)
-                                Pos=64;
+                                break;
                         }
                     Get_SB (load_nonintra_quant_mat_grayscale,  "load_nonintra_quant_mat_grayscale");
                     if(load_nonintra_quant_mat_grayscale)
@@ -829,7 +846,7 @@ void File_Mpeg4v::video_object_layer_start()
                             int8u nonintra_quant_mat_grayscale;
                             Get_S1 (8, nonintra_quant_mat_grayscale, "nonintra_quant_mat_grayscale");
                             if (!nonintra_quant_mat_grayscale)
-                                Pos=64;
+                                break;
                         }
                 }
             }

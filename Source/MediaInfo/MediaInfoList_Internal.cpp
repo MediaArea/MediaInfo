@@ -92,20 +92,20 @@ size_t MediaInfoList_Internal::Open(const String &File, const fileoptions_t Opti
     #ifdef MEDIAINFO_BDMV_YES
         //if there is a BDMV folder, this is blu-ray
         Ztring ToSearch=Ztring(1, PathSeparator)+_T("BDMV")+PathSeparator+_T("index.bdmv"); //"\BDMV\index.bdmv"
-        for (size_t Pos=0; Pos<List.size(); Pos++)
+        for (size_t File_Pos=0; File_Pos<List.size(); File_Pos++)
         {
-            size_t BDMV_Pos=List[Pos].find(ToSearch);
-            if (BDMV_Pos!=string::npos && BDMV_Pos!=0 && BDMV_Pos+16==List[Pos].size())
+            size_t BDMV_Pos=List[File_Pos].find(ToSearch);
+            if (BDMV_Pos!=string::npos && BDMV_Pos!=0 && BDMV_Pos+16==List[File_Pos].size())
             {
                 //This is a BDMV index, parsing the directory only if index and movie objects are BOTH present
-                Ztring ToSearch=List[Pos];
+                ToSearch=List[File_Pos];
                 ToSearch.resize(ToSearch.size()-10);
                 ToSearch+=_T("MovieObject.bdmv");  //"%CompletePath%\BDMV\MovieObject.bdmv"
                 if (List.Find(ToSearch)!=string::npos)
                 {
                     //We want the folder instead of the files
-                    List[Pos].resize(List[Pos].size()-11); //only %CompletePath%\BDMV
-                    Ztring ToSearch=List[Pos];
+                    List[File_Pos].resize(List[File_Pos].size()-11); //only %CompletePath%\BDMV
+                    ToSearch=List[File_Pos];
 
                     for (size_t Pos=0; Pos<List.size(); Pos++)
                     {
@@ -258,7 +258,7 @@ String MediaInfoList_Internal::Inform(size_t FilePos, size_t)
     if (FilePos==Error)
     {
         Ztring Retour;
-        unsigned int FilePos=0;
+        FilePos=0;
         ZtringListList MediaInfo_Custom_View; MediaInfo_Custom_View.Write(Option(_T("Inform_Get")));
         bool XML=false;
         if (MediaInfoLib::Config.Inform_Get()==_T("XML"))

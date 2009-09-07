@@ -87,7 +87,7 @@ void File__Analyze::Streams_Finish_StreamOnly(stream_t StreamKind, size_t Pos)
                 Duration=FrameCount*1000/FrameRate; //More precise (example: 1 frame at 29.97 fps)
         }
         if (Duration==0)
-            Duration=Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).To_int64u();
+            Duration=Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).To_float64();
         int64u StreamSize=Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_StreamSize)).To_int64u();
         if (Duration>0 && StreamSize>0)
             Fill(StreamKind, Pos, "BitRate", StreamSize*8*1000/Duration, 0);

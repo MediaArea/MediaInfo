@@ -107,10 +107,11 @@ void File_Theora::Identification()
         Fill(Stream_Video, StreamPos_Last, Video_Codec, "Theora");
         if ((Version&0x030200)!=0x030200) //Version 3.2.x
             return;
-        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, ((float)FRN)/FRD, 3);
+        if (FRN && FRD)
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, ((float)FRN)/FRD, 3);
         float PixelRatio=1;
-        if (PARN && PARN)
-            PixelRatio=((float)PARN)/(float)PARN;
+        if (PARN && PARD)
+            PixelRatio=((float)PARN)/(float)PARD;
         Fill(Stream_Video, StreamPos_Last, Video_Width, PICW);
         Fill(Stream_Video, StreamPos_Last, Video_Height, PICH);
         Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)PICW)/((float)PICH)*PixelRatio, 3, true);

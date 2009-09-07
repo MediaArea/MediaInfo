@@ -378,20 +378,20 @@ void File_Mxf::Streams_Finish()
     for (contentstorages::iterator ContentStorage=ContentStorages.begin(); ContentStorage!=ContentStorages.end(); ContentStorage++)
     {
         //Per Package
-        for (size_t Pos=0; Pos<ContentStorage->second.Packages.size(); Pos++)
+        for (size_t Packages_Pos=0; Packages_Pos<ContentStorage->second.Packages.size(); Packages_Pos++)
         {
             //Searching Package
-            packages::iterator Package=Packages.find(ContentStorage->second.Packages[Pos]);
+            packages::iterator Package=Packages.find(ContentStorage->second.Packages[Packages_Pos]);
             if (Package!=Packages.end())
             {
                 //Descriptor
                 Streams_Finish_Descriptor(Package->second.Descriptor);
 
                 //Tracks
-                for(size_t Pos=0; Pos<Package->second.Tracks.size(); Pos++)
+                for(size_t Track_Pos=0; Track_Pos<Package->second.Tracks.size(); Track_Pos++)
                 {
                     //Track
-                    Streams_Finish_Track(Package->second.Tracks[Pos]);
+                    Streams_Finish_Track(Package->second.Tracks[Track_Pos]);
                 }
             }
         }
@@ -672,58 +672,58 @@ void File_Mxf::Header_Parse()
         {
             case 1 :
                     {
-                    int8u Length;
-                    Get_B1(Length,      "Length");
-                    Header_Fill_Size(Element_Offset+Length);
+                    int8u  Length1;
+                    Get_B1(Length1,                             "Length");
+                    Header_Fill_Size(Element_Offset+Length1);
                     }
                     break;
             case 2 :
                     {
-                    int16u Length;
-                    Get_B2(Length,      "Length");
-                    Header_Fill_Size(Element_Offset+Length);
+                    int16u Length2;
+                    Get_B2(Length2,                             "Length");
+                    Header_Fill_Size(Element_Offset+Length2);
                     }
                     break;
             case 3 :
                     {
-                    int32u Length;
-                    Get_B3(Length,      "Length");
-                    Header_Fill_Size(Element_Offset+Length);
+                    int32u Length3;
+                    Get_B3(Length3,                             "Length");
+                    Header_Fill_Size(Element_Offset+Length3);
                     }
                     break;
             case 4 :
                     {
-                    int32u Length;
-                    Get_B4(Length,      "Length");
-                    Header_Fill_Size(Element_Offset+Length);
+                    int32u Length4;
+                    Get_B4(Length4,                             "Length");
+                    Header_Fill_Size(Element_Offset+Length4);
                     }
                     break;
             case 5 :
                     {
-                    int64u Length;
-                    Get_B5(Length,      "Length");
-                    Header_Fill_Size(Element_Offset+Length);
+                    int64u Length5;
+                    Get_B5(Length5,                             "Length");
+                    Header_Fill_Size(Element_Offset+Length5);
                     }
                     break;
             case 6 :
                     {
-                    int64u Length;
-                    Get_B6(Length,      "Length");
-                    Header_Fill_Size(Element_Offset+Length);
+                    int64u Length6;
+                    Get_B6(Length6,                             "Length");
+                    Header_Fill_Size(Element_Offset+Length6);
                     }
                     break;
             case 7 :
                     {
-                    int64u Length;
-                    Get_B7(Length,      "Length");
-                    Header_Fill_Size(Element_Offset+Length);
+                    int64u Length7;
+                    Get_B7(Length7,                             "Length");
+                    Header_Fill_Size(Element_Offset+Length7);
                     }
                     break;
             case 8 :
                     {
-                    int64u Length;
-                    Get_B8(Length,      "Length");
-                    Header_Fill_Size(Element_Offset+Length);
+                    int64u Length8;
+                    Get_B8(Length8,                             "Length");
+                    Header_Fill_Size(Element_Offset+Length8);
                     }
                     break;
             default: Header_Fill_Size(Element_Offset);

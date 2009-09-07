@@ -654,6 +654,11 @@ bool File_Dts::Synched_Test()
 //---------------------------------------------------------------------------
 void File_Dts::Read_Buffer_Continue()
 {
+    //Exception handling
+    int8u* Dest=NULL;
+    try
+    {
+
     //Mapping to an understable bitstream if needed
     if (MustSynchronize && !Synchro_Manage())
         return; //Wait for more data
@@ -664,7 +669,7 @@ void File_Dts::Read_Buffer_Continue()
 
         //Preparing new buffer
         size_t Dest_Size=Word?Buffer_Size:(Buffer_Size*14/16);
-        int8u* Dest=new int8u[Dest_Size];
+        Dest=new int8u[Dest_Size];
         if (Word)
         {
             for (size_t Pos=0; Pos+1<Buffer_Size; Pos+=2)
@@ -708,6 +713,13 @@ void File_Dts::Read_Buffer_Continue()
         Demux(Dest, Dest_Size, _T("extract"));
         delete[] Dest;
         Buffer_Offset+=Buffer_Size;
+    }
+
+    //Exception handling
+    }
+    catch(...)
+    {
+        delete[] Dest;
     }
 }
 
@@ -792,7 +804,7 @@ void File_Dts::Header_Parse()
             Asset_Sizes.push_back(Size);
         }
         Element_End();
-        for (int8u Pos=0; Pos<NumAssets; Pos++)
+        for (int8u Asset_Pos=0; Asset_Pos<NumAssets; Asset_Pos++)
         {
             Element_Begin("Asset");
             int16u AssetSize;

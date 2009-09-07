@@ -508,7 +508,6 @@ void File_DvDif::Errors_Stats_Update()
             {
                 Speed_TimeStampsZ.resize(1);
                 Speed_TimeStampsZ[0].First.FramePos=Speed_FrameCount;
-                float64 Time_Offset=(Speed_FrameCount-1)*1000/FrameRate;
                 Speed_TimeStampsZ[0].First.Time+=Ztring().Duration_From_Milliseconds((int64u)Time_Offset);
             }
             if (Speed_TimeStampsZ[0].First.FramePos==Speed_FrameCount)
@@ -581,7 +580,6 @@ void File_DvDif::Errors_Stats_Update()
             {
                 Speed_TimeStampsZ.resize(1);
                 Speed_TimeStampsZ[0].First.FramePos=Speed_FrameCount;
-                float64 Time_Offset=(Speed_FrameCount-1)*1000/FrameRate;
                 Speed_TimeStampsZ[0].First.Time+=Ztring().Duration_From_Milliseconds((int64u)Time_Offset);
             }
             if (Speed_TimeStampsZ[0].First.FramePos==Speed_FrameCount)
@@ -631,7 +629,6 @@ void File_DvDif::Errors_Stats_Update()
             {
                 Speed_TimeStampsZ.resize(1);
                 Speed_TimeStampsZ[0].First.FramePos=Speed_FrameCount;
-                float64 Time_Offset=(Speed_FrameCount-1)*1000/FrameRate;
                 Speed_TimeStampsZ[0].First.Time+=Ztring().Duration_From_Milliseconds((int64u)Time_Offset);
             }
             if (Speed_TimeStampsZ[0].First.FramePos==Speed_FrameCount) //Empty or the same frame as RecDate or the same frame as TimeCode
@@ -817,7 +814,7 @@ void File_DvDif::Errors_Stats_Update()
                         if (Audio_Errors_Total.empty())
                         {
                             Audio_Errors_Total.resize(8);
-                            for (size_t Pos=0; Pos<8; Pos++)
+                            for (size_t Audio_Errors_Pos=0; Audio_Errors_Pos<8; Audio_Errors_Pos++)
                                 Audio_Errors_Total[Pos].resize(16);
                         }
                         Audio_Errors_Total[Channel][Pos]+=Audio_Errors[Pos];

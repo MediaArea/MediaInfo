@@ -1250,7 +1250,7 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
                 Skip_Flags(Flags, 24,                               Time play or search);
                 */
             Element_Begin("Audio Stream Controls", 8*2);
-            for (int Pos=0; Pos<8; Pos++)
+            for (size_t Pos=0; Pos<8; Pos++)
             {
                 Element_Begin("Audio Stream Control", 2);
                 Element_Info(Ztring::ToZtring(Pos));
@@ -1284,7 +1284,7 @@ void File_Dvdv::PGC(int64u Offset, bool Title)
             }
             Element_End();
             Element_Begin("Subpicture Stream Controls", 32*4);
-            for (int Pos=0; Pos<32; Pos++)
+            for (size_t Pos=0; Pos<32; Pos++)
             {
                 Element_Begin("Subpicture Stream Control", 4);
                 Element_Info(Ztring::ToZtring(Pos));

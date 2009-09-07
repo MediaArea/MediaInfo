@@ -1068,26 +1068,26 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
         Trusted_IsNot();
         return;
     }
-    size_t Buffer_Pos=Buffer_Offset+(size_t)Element_Offset;
-    if ((Buffer[Buffer_Pos]&0xC0)!=0x80) //bit 6 and 7 are 01
+    size_t Buffer_Pos_Flags=Buffer_Offset+(size_t)Element_Offset;
+    if ((Buffer[Buffer_Pos_Flags]&0xC0)!=0x80) //bit 6 and 7 are 01
     {
         Element_DoNotTrust(); //Mark bits are wrong
         return;
     }
-    Buffer_Pos++;
-    PTS_DTS_flags               =Buffer[Buffer_Pos]>>6;
-    ESCR_flag                   =Buffer[Buffer_Pos]&0x20?true:false;
-    ES_rate_flag                =Buffer[Buffer_Pos]&0x10?true:false;
-    DSM_trick_mode_flag         =Buffer[Buffer_Pos]&0x08?true:false;
-    additional_copy_info_flag   =Buffer[Buffer_Pos]&0x04?true:false;
-    PES_CRC_flag                =Buffer[Buffer_Pos]&0x02?true:false;
-    PES_extension_flag          =Buffer[Buffer_Pos]&0x01?true:false;
-    Buffer_Pos++;
-    PES_header_data_length      =Buffer[Buffer_Pos];
+    Buffer_Pos_Flags++;
+    PTS_DTS_flags               =Buffer[Buffer_Pos_Flags]>>6;
+    ESCR_flag                   =Buffer[Buffer_Pos_Flags]&0x20?true:false;
+    ES_rate_flag                =Buffer[Buffer_Pos_Flags]&0x10?true:false;
+    DSM_trick_mode_flag         =Buffer[Buffer_Pos_Flags]&0x08?true:false;
+    additional_copy_info_flag   =Buffer[Buffer_Pos_Flags]&0x04?true:false;
+    PES_CRC_flag                =Buffer[Buffer_Pos_Flags]&0x02?true:false;
+    PES_extension_flag          =Buffer[Buffer_Pos_Flags]&0x01?true:false;
+    Buffer_Pos_Flags++;
+    PES_header_data_length      =Buffer[Buffer_Pos_Flags];
     Element_Offset+=3;
     #endif //MEDIAINFO_MINIMIZESIZE
     int64u Element_Pos_After_Data=Element_Offset+PES_header_data_length;
-
+    
     //Options
     if (PTS_DTS_flags==0x2)
     {
@@ -1289,9 +1289,9 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u start_code)
     {
         Element_Begin("DSM_trick_mode_flag");
         BS_Begin();
-        int8u DSM_trick_mode_flag;
-        Get_S1 (3, DSM_trick_mode_flag,                         "DSM_trick_mode_flag"); Param_Info(MpegPs_trick_mode_control_values[DSM_trick_mode_flag]);
-        switch (DSM_trick_mode_flag)
+        int8u trick_mode_control;
+        Get_S1 (3, trick_mode_control,                         "trick_mode_control"); Param_Info(MpegPs_trick_mode_control_values[trick_mode_control]);
+        switch (trick_mode_control)
         {
             case 0 :{ //fast_forward
                         Skip_S1(2,                              "field_id");

@@ -1045,7 +1045,7 @@ void File__Analyze::Skip_PA()
 {
     INTEGRITY_SIZE_ATLEAST(1);
     int8u Size=Buffer[Buffer_Offset+Element_Offset];
-    int8u Pad=Size%2?0:1;
+    int8u Pad=(Size%2)?0:1;
     INTEGRITY_SIZE_ATLEAST(1+Size+Pad);
     Element_Offset+=(size_t)(1+Size+Pad);
 }

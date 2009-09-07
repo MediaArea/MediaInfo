@@ -211,8 +211,10 @@ void File_Adif::FileHeader_Parse()
         Fill (Stream_Audio, 0, Audio_Format, "AAC");
         Fill (Stream_Audio, 0, Audio_Format_Version, "Version 2");
         if (object_type!=(int8u)-1)
+        {
             Fill (Stream_Audio, 0, Audio_Format_Profile, ADIF_Format_Profile[object_type]);
-        Fill (Stream_Audio, 0, Audio_Codec, ADIF_object_type[object_type]);
+            Fill (Stream_Audio, 0, Audio_Codec, ADIF_object_type[object_type]);
+        }
         Fill(Stream_Audio, 0, Audio_BitRate_Mode, bitstream_type?"VBR":"CBR");
         if (bitrate>0)
             Fill(Stream_Audio, 0, bitstream_type?Audio_BitRate_Maximum:Audio_BitRate, bitrate);

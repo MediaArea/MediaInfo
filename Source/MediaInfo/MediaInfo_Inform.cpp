@@ -236,10 +236,10 @@ String MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
                     Nom=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name); //Texte n'existe pas
                 if (!HTML && !XML)
                 {
-                     int8u Size=MediaInfoLib::Config.Language_Get(_T("  Config_Text_ColumnSize")).To_int8u();
-                     if (Size==0)
-                        Size=32; //Default
-                     Nom.resize(Size, ' ');
+                     int8u Nom_Size=MediaInfoLib::Config.Language_Get(_T("  Config_Text_ColumnSize")).To_int8u();
+                     if (Nom_Size==0)
+                        Nom_Size=32; //Default
+                     Nom.resize(Nom_Size, ' ');
                 }
                 Ztring Valeur=Get((stream_t)StreamKind, StreamPos, Champ_Pos, Info_Text);
                 Valeur.FindAndReplace(_T("\\"), _T("|SC1|"), 0, Ztring_Recursive);

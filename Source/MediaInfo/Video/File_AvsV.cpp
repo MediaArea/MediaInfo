@@ -318,7 +318,7 @@ void File_AvsV::Synched_Init()
     //Default stream values
     Streams.resize(0x100);
     Streams[0xB0].Searching_Payload=true; //video_sequence_start
-    for (int8u Pos=0xB9; Pos!=0x00; Pos++)
+    for (int8u Pos=0xFF; Pos>=0xB9; Pos--)
         Streams[Pos].Searching_Payload=true; //Testing MPEG-PS
 }
 

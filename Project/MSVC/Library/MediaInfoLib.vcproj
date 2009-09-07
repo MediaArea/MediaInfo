@@ -54,6 +54,7 @@
 				WarningLevel="4"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -120,6 +121,7 @@
 				WarningLevel="4"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -185,6 +187,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -249,6 +252,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -314,6 +318,7 @@
 				WarningLevel="4"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -373,6 +378,7 @@
 				RuntimeLibrary="1"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -438,6 +444,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -495,6 +502,7 @@
 				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
 				WarningLevel="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
+				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"

@@ -457,6 +457,8 @@ void File_DvDif::Data_Parse()
         }
 
         //DIF Block Numbers
+        if (Element_Code>=8)
+            return;    
         int8u Number=DBN_Olds[(size_t)Element_Code]+1;
         switch (SCT)
         {
@@ -488,7 +490,8 @@ void File_DvDif::Data_Parse()
             default: ;
         }
         SCT_Old=SCT;
-        DBN_Olds[SCT]=DBN;
+        if (SCT<8)
+            DBN_Olds[SCT]=DBN;
     }
 
     Element_Info(DBN);
@@ -1164,10 +1167,10 @@ void File_DvDif::consumer_camera_1()
 
     if (!consumer_camera_1_Parsed)
     {
-        if (ae_mode!=0x0F) Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("ae mode=")+Ztring(Dv_consumer_camera_1_ae_mode[ae_mode]));
-        if (wb_mode!=0x08) Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("wb mode=")+Ztring(Dv_consumer_camera_1_wb_mode[wb_mode]));
-        if (wb_mode!=0x1F) Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("white balance=")+Ztring(Dv_consumer_camera_1_white_balance(white_balance)));
-                           Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("fcm=")+Ztring(Dv_consumer_camera_1_fcm[fcm]));
+        if (ae_mode<0x0F) Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("ae mode=")+Ztring(Dv_consumer_camera_1_ae_mode[ae_mode]));
+        if (wb_mode<0x08) Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("wb mode=")+Ztring(Dv_consumer_camera_1_wb_mode[wb_mode]));
+        if (wb_mode<0x1F) Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("white balance=")+Ztring(Dv_consumer_camera_1_white_balance(white_balance)));
+                          Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("fcm=")+Ztring(Dv_consumer_camera_1_fcm[fcm]));
         consumer_camera_1_Parsed=true;
     }
 }

@@ -45,6 +45,7 @@ const Char*  MediaInfo_Version=_T("MediaInfoLib - v0.7.21");
 const Char*  MediaInfo_Url=_T("http://mediainfo.sourceforge.net");
       Ztring EmptyZtring;       //Use it when we can't return a reference to a true Ztring
 const Ztring EmptyZtring_Const; //Use it when we can't return a reference to a true Ztring, const version
+const ZtringListList EmptyZtringListList_Const; //Use it when we can't return a reference to a true ZtringListList, const version
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -1049,6 +1050,9 @@ const Ztring &MediaInfo_Config::Codec_Get (const Ztring &Value, infocodec_t Kind
 //---------------------------------------------------------------------------
 const Ztring &MediaInfo_Config::CodecID_Get (stream_t KindOfStream, infocodecid_format_t Format, const Ztring &Value, infocodecid_t KindOfCodecIDInfo)
 {
+    if (Format>=InfoCodecID_Format_Max || KindOfStream>=Stream_Max)
+        return EmptyString_Get();
+
     CS.Enter();
     if (CodecID[Format][KindOfStream].empty())
     {
@@ -1100,6 +1104,9 @@ const Ztring &MediaInfo_Config::CodecID_Get (stream_t KindOfStream, infocodecid_
 //---------------------------------------------------------------------------
 const Ztring &MediaInfo_Config::Library_Get (infolibrary_format_t Format, const Ztring &Value, infolibrary_t KindOfLibraryInfo)
 {
+    if (Format>=InfoLibrary_Format_Max)
+        return EmptyString_Get();
+
     CS.Enter();
     if (Library[Format].empty())
     {
@@ -1199,6 +1206,9 @@ const Ztring &MediaInfo_Config::Info_Get (stream_t KindOfStream, size_t Pos, inf
 
 const ZtringListList &MediaInfo_Config::Info_Get(stream_t KindOfStream)
 {
+    if (KindOfStream>=Stream_Max)
+        return EmptyStringListList_Get();
+
     //Loading codec table if not yet done
     CS.Enter();
     if (Info[KindOfStream].empty())
@@ -1291,6 +1301,11 @@ Ztring MediaInfo_Config::Info_Url_Get () const
 const Ztring &MediaInfo_Config::EmptyString_Get () const
 {
     return EmptyZtring_Const;
+}
+
+const ZtringListList &MediaInfo_Config::EmptyStringListList_Get () const
+{
+    return EmptyZtringListList_Const;
 }
 
 void MediaInfo_Config::FormatDetection_MaximumOffset_Set (int64u Value)

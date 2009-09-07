@@ -247,7 +247,7 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
     }
 
     Get_S1 (4, samplingFrequencyIndex,                          "samplingFrequencyIndex"); Param_Info(MP4_SamplingRate[samplingFrequencyIndex]);
-    if (samplingFrequencyIndex==0xF)
+    if (samplingFrequencyIndex>=0xF)
     {
         Get_S3 (24, samplingFrequency,                          "samplingFrequency");
     }
@@ -400,7 +400,7 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
         if (!sbrPresentFlag && !psPresentFlag)
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, MP4_Profile(audioObjectType));
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, samplingFrequency);
-        if (channelConfiguration)
+        if (channelConfiguration && channelConfiguration<8)
         {
             Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, MP4_Channels[channelConfiguration]);
             Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, MP4_ChannelConfiguration[channelConfiguration]);
@@ -637,7 +637,7 @@ void File_Mpeg4_AudioSpecificConfig::SBR ()
         if (sbrPresentFlag)
         {
             Get_S1 (4, samplingFrequencyIndex,                  "extensionSamplingFrequencyIndex"); Param_Info(MP4_SamplingRate[samplingFrequencyIndex]);
-            if (samplingFrequencyIndex==0xF)
+            if (samplingFrequencyIndex>=0xF)
             {
                 Get_S3 (24, samplingFrequency,                  "extensionSamplingFrequency");
             }

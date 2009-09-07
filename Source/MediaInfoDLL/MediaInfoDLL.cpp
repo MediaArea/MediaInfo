@@ -450,11 +450,20 @@ void*           __stdcall MediaInfo_New ()
     v07Mode=true; //Application is compatible with v0.7+ interface
 
     //New
-    MediaInfo* M=new MediaInfo;
-    MI_Handle[M]=new MI_List;
-    MI_Handle[M]->Ansi.clear();
-    MEDIAINFO_DEBUG(Debug+="New, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)M).To_Local().c_str();Debug+="\r\n";)
-    return M;
+    MediaInfo* M=NULL;
+    try
+    {
+        M=new MediaInfo;
+        MI_Handle[M]=new MI_List;
+        MI_Handle[M]->Ansi.clear();
+        MEDIAINFO_DEBUG(Debug+="New, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)M).To_Local().c_str();Debug+="\r\n";)
+        return M;
+    }
+    catch(...)
+    {
+        delete M;
+        return NULL;
+    }
 }
 
 void*           __stdcall MediaInfo_New_Quick (const wchar_t* File, const wchar_t* Options)
@@ -668,11 +677,20 @@ void*           __stdcall MediaInfoList_New ()
     v07Mode=true; //Application is compatible with v0.7+ interface
 
     //New
-    MediaInfoList* M=new MediaInfoList;
-    MI_Handle[M]=new MI_List;
-    MI_Handle[M]->Ansi.clear();
-    MEDIAINFO_DEBUG(Debug+="New(L), will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)M).To_Local().c_str();Debug+="\r\n";)
-    return M;
+    MediaInfoList* M=NULL;
+    try
+    {
+        M=new MediaInfoList;
+        MI_Handle[M]=new MI_List;
+        MI_Handle[M]->Ansi.clear();
+        MEDIAINFO_DEBUG(Debug+="New(L), will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)M).To_Local().c_str();Debug+="\r\n";)
+        return M;
+    }
+    catch(...)
+    {
+        delete M;
+        return NULL;
+    }
 }
 
 void*           __stdcall MediaInfoList_New_Quick (const wchar_t* File, const wchar_t* Options)

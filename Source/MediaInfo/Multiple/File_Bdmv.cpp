@@ -735,10 +735,10 @@ void File_Bdmv::Clpi_Streams()
     {
         Element_Begin("Stream");
         int16u PID;
-        int8u Length;
+        int8u  Stream_Length;
         Get_B2 (PID,                                            "PID");
-        Get_B1 (Length,                                         "Length");
-        int64u End=Element_Offset+Length;
+        Get_B1 (Stream_Length,                                  "Length");
+        int64u Stream_End=Element_Offset+Stream_Length;
         StreamKind_Last=Stream_Max;
         std::map<int16u, stream_t>::iterator PID_StreamKind=PIDs_StreamKind.find(PID);
         if (PID_StreamKind!=PIDs_StreamKind.end())
@@ -755,8 +755,8 @@ void File_Bdmv::Clpi_Streams()
             default           : ;
         }
 
-        if (End-Element_Offset)
-            Skip_XX(End-Element_Offset,                         "Unknown");
+        if (Stream_End-Element_Offset)
+            Skip_XX(Stream_End-Element_Offset,                  "Unknown");
         Element_End();
 
         FILLING_BEGIN();
@@ -859,28 +859,28 @@ void File_Bdmv::Indx_Indexes()
     int16u number_of_Titles;
     Element_Begin("FirstPlayback", 12);
         BS_Begin();
-        Info_S1( 2, object_type,                                "object_type"); Param_Info(Indx_object_type[object_type]);
+        Info_S1( 2, FirstPlayback_object_type,                  "object_type"); Param_Info(Indx_object_type[FirstPlayback_object_type]);
         Skip_S4(30,                                             "reserved");
         BS_End();
-        Indx_Indexes_Index(object_type);
+        Indx_Indexes_Index(FirstPlayback_object_type);
     Element_End();
     Element_Begin("TopMenu", 12); {
         BS_Begin();
-        Info_S1( 2, object_type,                                "object_type"); Param_Info(Indx_object_type[object_type]);
+        Info_S1( 2, TopMenu_object_type,                        "object_type"); Param_Info(Indx_object_type[TopMenu_object_type]);
         Skip_S4(30,                                             "reserved");
         BS_End();
-        Indx_Indexes_Index(object_type);
+        Indx_Indexes_Index(TopMenu_object_type);
     Element_End(); }
     Get_B2 (number_of_Titles,                                   "number_of_Titles");
     for (int16u Pos=0; Pos<number_of_Titles; Pos++)
     {
         Element_Begin("Title", 12);
         BS_Begin();
-        Info_S1( 2, object_type,                                "object_type"); Param_Info(Indx_object_type[object_type]);
-        Info_S1( 2, title_search,                               "title_search"); Param_Info(Indx_title_search[title_search]);
+        Info_S1( 2, Title_object_type,                          "object_type"); Param_Info(Indx_object_type[Title_object_type]);
+        Info_S1( 2, Title_title_search,                         "title_search"); Param_Info(Indx_title_search[Title_title_search]);
         Skip_S4(28,                                             "reserved");
         BS_End();
-        Indx_Indexes_Index(object_type);
+        Indx_Indexes_Index(Title_object_type);
         Element_End();
     }
 }
@@ -1071,7 +1071,7 @@ void File_Bdmv::Mobj_MovieObjects()
     int16u number_of_mobjs;
     Skip_B4(                                                    "reserved");
     Get_B2 (number_of_mobjs,                                    "number_of_mobj");
-    for (int16u Pos=0; Pos<number_of_mobjs; Pos++)
+    for (int16u mobjs_Pos=0; mobjs_Pos<number_of_mobjs; mobjs_Pos++)
     {
         Element_Begin("mobj");
         int16u number_of_navigation_commands;
@@ -1082,7 +1082,7 @@ void File_Bdmv::Mobj_MovieObjects()
         Skip_BS(13,                                             "reserved");
         BS_End();
         Get_B2 (number_of_navigation_commands,                  "number_of_navigation_commands");
-        for (int16u Pos=0; Pos<number_of_navigation_commands; Pos++)
+        for (int16u navigation_command_Pos=0; navigation_command_Pos<number_of_navigation_commands; navigation_command_Pos++)
         {
             Element_Begin("navigation_command");
             Skip_B4(                                            "opcode");
@@ -1132,9 +1132,9 @@ void File_Bdmv::Mpls_PlayList()
     {
         Element_Begin("PlayItem");
         Ztring file;
-        int16u length;
-        Get_B2 (length,                                         "length");
-        int64u End=Element_Offset+length;
+        int16u PlayItem_length;
+        Get_B2 (PlayItem_length,                                "length");
+        int64u PlayItem_End=Element_Offset+PlayItem_length;
         Get_Local (5, file,                                     "file"); Element_Info(file);
         Skip_Local(4,                                           "type");
         Skip_B1(                                                "unknown");
@@ -1151,9 +1151,9 @@ void File_Bdmv::Mpls_PlayList()
         Skip_B4(                                                "An?");
 
         Element_Begin("STN"); {
-        int16u length;
-        Get_B2 (length,                                         "length");
-        int64u End=Element_Offset+length;
+        int16u STN_length;
+        Get_B2 (STN_length,                                     "length");
+        int64u STN_End=Element_Offset+STN_length;
         Skip_B2(                                                "unknown");
         Skip_B1(                                                "Vi");
         Skip_B1(                                                "Au");
@@ -1168,20 +1168,20 @@ void File_Bdmv::Mpls_PlayList()
         Skip_B1(                                                "unknown");
         Skip_B1(                                                "unknown");
 
-        while (Element_Offset+16<=End)
+        while (Element_Offset+16<=STN_End)
         {
             Element_Begin();
             Ztring language;
             int16u mPID;
-            int8u length;
+            int8u IDs_length;
             Skip_B1(                                            "type");
             Skip_B1(                                            "unknown");
             Get_B2 (mPID,                                       "mPID"); Element_Name(Ztring::ToZtring(mPID, 16));
             Skip_B2(                                            "SPid");
             Skip_B2(                                            "sCid");
             Skip_B2(                                            "sPID");
-            Get_B1 (length,                                     "length");
-            int64u End=Element_Offset+length;
+            Get_B1 (IDs_length,                                 "length");
+            int64u IDs_End=Element_Offset+IDs_length;
             Get_B1 (stream_type,                                "stream_type"); Param_Info(Clpi_Format(stream_type)); Element_Info(Clpi_Format(stream_type));
             switch (Clpi_Type(stream_type))
             {
@@ -1192,8 +1192,8 @@ void File_Bdmv::Mpls_PlayList()
             }
             Get_Local(3, language,                              "language"); Element_Info(language);
 
-            if (End-Element_Offset)
-                Skip_XX(End-Element_Offset,                     "unknown");
+            if (IDs_End-Element_Offset)
+                Skip_XX(IDs_End-Element_Offset,                 "unknown");
             Element_End();
 
             FILLING_BEGIN();
@@ -1209,13 +1209,13 @@ void File_Bdmv::Mpls_PlayList()
             FILLING_END();
         }
 
-        if (End>Element_Offset)
-            Skip_XX(End-Element_Offset,                         "unknown");
-        Element_End(2+length); }
+        if (STN_End>Element_Offset)
+            Skip_XX(STN_End-Element_Offset,                     "unknown");
+        Element_End(2+STN_length); }
 
-        if (End>Element_Offset)
-            Skip_XX(End-Element_Offset,                         "unknown");
-        Element_End(2+length);
+        if (PlayItem_End>Element_Offset)
+            Skip_XX(PlayItem_End-Element_Offset,                "unknown");
+        Element_End(2+PlayItem_length);
 
         if (Time_Out>Time_In)
             PlayItems_Duration+=Time_Out-Time_In;
@@ -1257,24 +1257,23 @@ void File_Bdmv::Mpls_PlayList()
     if (PlayItems_Duration)
         Fill(Stream_General, 0, General_Duration, PlayItems_Duration/45);
 
-    for (int16u Pos=0; Pos<number_of_SubPaths; Pos++)
+    for (int16u SubPath_Pos=0; SubPath_Pos<number_of_SubPaths; SubPath_Pos++)
     {
         Element_Begin("SubPath");
-        Ztring file;
-        int32u length;
+        int32u SubPath_length;
         int16u number_of_items;
-        Get_B4 (length,                                         "length");
-        int64u End=Element_Offset+length;
+        Get_B4 (SubPath_length,                                 "length");
+        int64u SubPath_End=Element_Offset+SubPath_length;
         Skip_B2(                                                "type?");
         Skip_B2(                                                "repeat");
         Get_B2 (number_of_items,                                "number_of_items");
-        for (int16u Pos=0; Pos<number_of_SubPaths; Pos++)
+        for (int16u Item_Pos=0; Item_Pos<number_of_items; Item_Pos++)
         {
             Element_Begin("Item");
             Ztring file;
-            int16u length;
-            Get_B2 (length,                                     "length");
-            int64u End=Element_Offset+length;
+            int16u Item_length;
+            Get_B2 (Item_length,                               "length");
+            int64u Item_End=Element_Offset+Item_length;
             Get_Local (5, file,                                 "file"); Element_Info(file);
             Skip_Local(4,                                       "type");
             Skip_B1(                                            "unknown");
@@ -1286,14 +1285,14 @@ void File_Bdmv::Mpls_PlayList()
             Skip_B4(                                            "sync PTS");
             Skip_B1(                                            "An?");
 
-            if (End>Element_Offset)
-                Skip_XX(End-Element_Offset,                     "unknown");
-            Element_End(2+length);
+            if (Item_End>Element_Offset)
+                Skip_XX(Item_End-Element_Offset,             "unknown");
+            Element_End(2+Item_length);
         }
 
-        if (End>Element_Offset)
-            Skip_XX(End-Element_Offset,                         "unknown");
-        Element_End(2+length);
+        if (SubPath_End>Element_Offset)
+            Skip_XX(SubPath_End-Element_Offset,                 "unknown");
+        Element_End(2+SubPath_length);
     }
 }
 

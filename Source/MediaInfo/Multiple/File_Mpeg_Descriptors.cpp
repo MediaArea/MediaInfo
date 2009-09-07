@@ -2536,13 +2536,13 @@ void File_Mpeg_Descriptors::Descriptor_87()
     Skip_S1(2,                                                  "reserved");
     Get_S1 (6, rating_region_count,                             "rating_region_count");
     BS_End();
-    for (int8u Pos=0; Pos<rating_region_count; Pos++)
+    for (int8u rating_region_Pos=0; rating_region_Pos<rating_region_count; rating_region_Pos++)
     {
         Element_Begin("rating_region");
         int8u rated_dimensions;
         Skip_B1(                                                "rating_region");
         Get_B1 (rated_dimensions,                               "rated_dimensions");
-        for (int8u Pos=0; Pos<rated_dimensions; Pos++)
+        for (int8u rated_dimension_Pos=0; rated_dimension_Pos<rated_dimensions; rated_dimension_Pos++)
         {
             Element_Begin("rated_dimension");
             Skip_B1(                                            "rating_dimension_j");
@@ -2643,13 +2643,13 @@ void File_Mpeg_Descriptors::ATSC_multiple_string_structure(Ztring &Value, const 
     int8u number_strings, number_segments;
     Element_Begin(Info);
     Get_B1(number_strings,                                      "number_strings");
-    for (int8u Pos=0; Pos<number_strings; Pos++)
+    for (int8u string_Pos=0; string_Pos<number_strings; string_Pos++)
     {
         Element_Begin("String");
         int32u ISO_639_language_code;
         Get_C3(ISO_639_language_code,                           "ISO_639_language_code");
         Get_B1(number_segments,                                 "number_segments");
-        for (int8u Pos=0; Pos<number_segments; Pos++)
+        for (int8u segment_Pos=0; segment_Pos<number_segments; segment_Pos++)
         {
             Element_Begin("Segment");
             Ztring segment;

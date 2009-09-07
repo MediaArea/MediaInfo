@@ -668,7 +668,7 @@ void File_Flv::video()
 void File_Flv::video_H263()
 {
     //Parsing
-    int16u Width, Height;
+    int16u Width=0, Height=0;
     int8u  Version, PictureSize, PictureType;
     bool   ExtraInformationFlag;
     BS_Begin();
@@ -689,8 +689,11 @@ void File_Flv::video_H263()
             Get_S2 (16, Height,                                 "Height");
             break;
         default :
-            Width=Flv_H263_WidthHeight[PictureSize][0];
-            Height=Flv_H263_WidthHeight[PictureSize][1];
+            if (PictureSize<8)
+            {
+                Width=Flv_H263_WidthHeight[PictureSize][0];
+                Height=Flv_H263_WidthHeight[PictureSize][1];
+            }
     }
     Get_S1 ( 2, PictureType,                                    "PictureSize"); Param_Info(Flv_H263_PictureType[PictureType]);
     Skip_SB(                                                    "DeblockingFlag");
@@ -888,7 +891,8 @@ void File_Flv::audio()
                 Stream_Prepare(Stream_Audio);
             Fill(Stream_Audio, 0, Audio_Channel_s_, Flv_Channels[is_stereo], 10, true);
             Fill(Stream_Audio, 0, Audio_Resolution, Flv_Resolution[is_16bit], 10, true);
-            Fill(Stream_Audio, 0, Audio_SamplingRate, Flv_SamplingRate[sampling_rate], 10, true);
+            if (sampling_rate<4)
+                Fill(Stream_Audio, 0, Audio_SamplingRate, Flv_SamplingRate[sampling_rate], 10, true);
             Fill(Stream_Audio, 0, Audio_Format, Flv_Format_Audio[codec]);
             Fill(Stream_Audio, 0, Audio_Format_Profile, Flv_Format_Profile_Audio[codec]);
             Fill(Stream_Audio, 0, Audio_Codec, Flv_Codec_Audio[codec]);
