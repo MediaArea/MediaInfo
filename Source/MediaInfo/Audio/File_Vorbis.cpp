@@ -153,7 +153,7 @@ void File_Vorbis::Setup()
         {
             int32u sparse;
             Get_BS (1, sparse,                                  "sparse");
-            for (int32u Pos=0; Pos<codebook_entries; Pos++)
+            for (int32u Pos2=0; Pos2<codebook_entries; Pos2++)
             {
                 if (sparse)
                 {

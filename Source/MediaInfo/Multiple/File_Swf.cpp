@@ -435,11 +435,11 @@ void File_Swf::Header_Parse()
     }
     else
     {
-        int32u Length;
-        Get_L4(Length,                                          "Length"); Param_Info(Length, " bytes");
+        int32u Length2;
+        Get_L4(Length2,                                          "Length"); Param_Info(Length2, " bytes");
 
         //Filling
-        Header_Fill_Size(Element_Offset+Length);
+        Header_Fill_Size(Element_Offset+Length2);
     }
 }
 
