@@ -955,7 +955,7 @@ void File__Analyze::Fill_Flush()
 }
 
 //---------------------------------------------------------------------------
-size_t File__Analyze::Merge(MediaInfo_Internal &ToAdd, bool Erase)
+size_t File__Analyze::Merge(MediaInfo_Internal &ToAdd, bool)
 {
     size_t Count=0;
     for (size_t StreamKind=(size_t)Stream_General; StreamKind<(size_t)Stream_Max; StreamKind++)

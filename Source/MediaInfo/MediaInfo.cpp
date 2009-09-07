@@ -168,7 +168,7 @@ size_t MediaInfo::Open(const String &File_Name_)
 }
 
 //---------------------------------------------------------------------------
-size_t MediaInfo::Open (const int8u* Begin_, size_t Begin_Size_, const int8u*, size_t, int64u FileSize_)
+size_t MediaInfo::Open (const int8u* Begin_, size_t Begin_Size_, const int8u*, size_t, int64u)
 {
     return ((MediaInfo_Internal*)Internal)->Open(Begin_, Begin_Size_);
 }
@@ -243,7 +243,7 @@ String MediaInfo::Get(stream_t StreamKind, size_t StreamPos, const String &Param
 {
     MEDIAINFO_DEBUG(Debug+="Get, StreamKind=";Debug+=ToString((size_t)StreamKind);Debug+=", StreamKind=";Debug+=ToString(StreamPos);Debug+=", Parameter=";Debug+=Ztring(Parameter).To_Local();)
 
-    EXECUTE_STRING(Get(StreamKind, StreamPos, Parameter, KindOfInfo), Debug+="Get, will return ";Debug+=ToReturn.To_Local();)
+    EXECUTE_STRING(Get(StreamKind, StreamPos, Parameter, KindOfInfo, KindOfSearch), Debug+="Get, will return ";Debug+=ToReturn.To_Local();)
 }
 
 //***************************************************************************
@@ -251,13 +251,13 @@ String MediaInfo::Get(stream_t StreamKind, size_t StreamPos, const String &Param
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-size_t MediaInfo::Set(const String &ToSet, stream_t StreamKind, size_t StreamNumber, size_t Parameter, const String &OldValue)
+size_t MediaInfo::Set(const String &, stream_t, size_t, size_t, const String &)
 {
     return 0; //Not yet implemented
 }
 
 //---------------------------------------------------------------------------
-size_t MediaInfo::Set(const String &ToSet, stream_t StreamKind, size_t StreamNumber, const String &Parameter, const String &OldValue)
+size_t MediaInfo::Set(const String &, stream_t, size_t, const String &, const String &)
 {
     return 0; //Not yet implemented
 }

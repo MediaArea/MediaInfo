@@ -748,7 +748,7 @@ bool MediaInfo_Internal::LibraryIsModified ()
 }
 
 //---------------------------------------------------------------------------
-void MediaInfo_Internal::CreateDummy (const String& Value)
+void MediaInfo_Internal::CreateDummy (const String&)
 {
     #if defined(MEDIAINFO_DUMMY_YES)
         Info=new File_Dummy();
