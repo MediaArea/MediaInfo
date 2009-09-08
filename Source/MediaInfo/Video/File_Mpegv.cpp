@@ -1071,61 +1071,65 @@ void File_Mpegv::user_data_start()
 // Packet "B2", CC (From DVD)
 void File_Mpegv::user_data_start_CC()
 {
-    DVD_CC_IsPresent=true;
+    #if defined(MEDIAINFO_EIA608_YES)
+        DVD_CC_IsPresent=true;
 
-    Element_Info("DVD captioning");
+        Element_Info("DVD captioning");
 
-    if (Count_Get(Stream_Text))
-        return;
+        if (Count_Get(Stream_Text))
+            return;
 
-    //Parsing
-    int8u cc_count;
-    Skip_B4(                                                    "identifier");
-    BS_Begin();
-    Skip_SB(                                                    "field 1 then field 2");
-    Get_S1 (7, cc_count,                                        "count");
-    BS_End();
-    for (int8u Pos=0; Pos<cc_count; Pos++)
-    {
-        Element_Begin("cc");
-        int8u cc_type;
+        //Parsing
+        int8u cc_count;
+        Skip_B4(                                                    "identifier");
         BS_Begin();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        Get_S1 (1, cc_type,                                     "cc_type");
+        Skip_SB(                                                    "field 1 then field 2");
+        Get_S1 (7, cc_count,                                        "count");
         BS_End();
-
-        while (cc_type>=DVD_CC_Parsers.size())
-            DVD_CC_Parsers.push_back(NULL);
-        if (DVD_CC_Parsers[cc_type]==NULL)
-            DVD_CC_Parsers[cc_type]=new File_Eia608();
-        if (!DVD_CC_Parsers[cc_type]->Status[IsFinished])
+        for (int8u Pos=0; Pos<cc_count; Pos++)
         {
-            Open_Buffer_Init(DVD_CC_Parsers[cc_type]);
-            Open_Buffer_Continue(DVD_CC_Parsers[cc_type], Buffer+Buffer_Offset+(size_t)Element_Offset, 2);
+            Element_Begin("cc");
+            int8u cc_type;
+            BS_Begin();
+            Mark_1();
+            Mark_1();
+            Mark_1();
+            Mark_1();
+            Mark_1();
+            Mark_1();
+            Mark_1();
+            Get_S1 (1, cc_type,                                     "cc_type");
+            BS_End();
 
-            //Finish
-            if (DVD_CC_Parsers[cc_type]->Status[IsFinished])
+            while (cc_type>=DVD_CC_Parsers.size())
+                DVD_CC_Parsers.push_back(NULL);
+            if (DVD_CC_Parsers[cc_type]==NULL)
+                DVD_CC_Parsers[cc_type]=new File_Eia608();
+            if (!DVD_CC_Parsers[cc_type]->Status[IsFinished])
             {
-                if (Count_Get(Stream_General)==0)
-                    Stream_Prepare(Stream_General);
-                Merge(*DVD_CC_Parsers[cc_type]);
-                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("DVD-")+Ztring::ToZtring(cc_type));
-                Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("DVD-Video"));
+                Open_Buffer_Init(DVD_CC_Parsers[cc_type]);
+                Open_Buffer_Continue(DVD_CC_Parsers[cc_type], Buffer+Buffer_Offset+(size_t)Element_Offset, 2);
+
+                //Finish
+                if (DVD_CC_Parsers[cc_type]->Status[IsFinished])
+                {
+                    if (Count_Get(Stream_General)==0)
+                        Stream_Prepare(Stream_General);
+                    Merge(*DVD_CC_Parsers[cc_type]);
+                    Fill(Stream_Text, StreamPos_Last, Text_ID, _T("DVD-")+Ztring::ToZtring(cc_type));
+                    Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("DVD-Video"));
+                }
             }
+
+            //Demux
+            Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, 2, Ztring::ToZtring(cc_type)+_T(".eia608"));
+
+            Element_Offset+=2;
+            Element_End();
         }
-
-        //Demux
-        Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, 2, Ztring::ToZtring(cc_type)+_T(".eia608"));
-
-        Element_Offset+=2;
-        Element_End();
-    }
+    #else
+        Skip_XX(Element_Size-Element_Offset,                    "EIA-608 data");
+    #endif
 }
 
 //---------------------------------------------------------------------------
@@ -1177,128 +1181,132 @@ void File_Mpegv::user_data_start_GA94()
 // Packet "B2", GA94 0x03 (styled captioning)
 void File_Mpegv::user_data_start_GA94_03()
 {
-    GA94_03_CC_IsPresent=true;
+    #if defined(MEDIAINFO_EIA608_YES)
+        GA94_03_CC_IsPresent=true;
 
-    Element_Info("Styled captioning");
+        Element_Info("Styled captioning");
 
-    //Coherency
-    if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
-        return;
+        //Coherency
+        if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
+            return;
 
-    //Purging too old orphelins
-    if (TemporalReference_GA94_03_CC_Offset+8<TemporalReference_Offset+temporal_reference)
-    {
-        size_t Pos=TemporalReference_Offset+temporal_reference;
-        for(; Pos<TemporalReference.size(); Pos++)
-            if (!TemporalReference[Pos].IsValid)
-                break;
-        TemporalReference_GA94_03_CC_Offset=Pos+1;
-    }
-
-    //Parsing
-    int8u  cc_count;
-    bool   process_em_data_flag, process_cc_data_flag, additional_data_flag;
-    BS_Begin();
-    Get_SB (process_em_data_flag,                               "process_em_data_flag");
-    Get_SB (process_cc_data_flag,                               "process_cc_data_flag");
-    Get_SB (additional_data_flag,                               "additional_data_flag");
-    Get_S1 (5, cc_count,                                        "cc_count");
-    BS_End();
-    Skip_B1(                                                    process_em_data_flag?"em_data":"junk"); //Emergency message
-    if (TemporalReference[TemporalReference_Offset+temporal_reference].GA94_03_CC.size()<cc_count)
-        TemporalReference[TemporalReference_Offset+temporal_reference].GA94_03_CC.resize(cc_count);
-    if (process_cc_data_flag)
-    {
-        for (int8u Pos=0; Pos<cc_count; Pos++)
+        //Purging too old orphelins
+        if (TemporalReference_GA94_03_CC_Offset+8<TemporalReference_Offset+temporal_reference)
         {
-            Element_Begin("cc");
-            int8u cc_type, cc_data_1, cc_data_2;
-            bool  cc_valid;
-            BS_Begin();
-            Mark_1();
-            Mark_1();
-            Mark_1();
-            Mark_1();
-            Mark_1();
-            Get_SB (   cc_valid,                                    "cc_valid");
-            Get_S1 (2, cc_type,                                     "cc_type");
-            BS_End();
-            Get_B1 (cc_data_1,                                      "cc_data_1");
-            Get_B1 (cc_data_2,                                      "cc_data_2");
-            TemporalReference[TemporalReference_Offset+temporal_reference].GA94_03_CC[Pos].cc_valid=cc_valid;
-            TemporalReference[TemporalReference_Offset+temporal_reference].GA94_03_CC[Pos].cc_type=cc_type;
-            TemporalReference[TemporalReference_Offset+temporal_reference].GA94_03_CC[Pos].cc_data[0]=cc_data_1;
-            TemporalReference[TemporalReference_Offset+temporal_reference].GA94_03_CC[Pos].cc_data[1]=cc_data_2;
-            Element_End();
+            size_t Pos=TemporalReference_Offset+temporal_reference;
+            for(; Pos<TemporalReference.size(); Pos++)
+                if (!TemporalReference[Pos].IsValid)
+                    break;
+            TemporalReference_GA94_03_CC_Offset=Pos+1;
         }
-    }
-    else
-        Skip_XX(cc_count*2,                                         "Junk");
 
-    //Parsing Captions after reordering
-    bool CanBeParsed=true;
-    for (size_t GA94_03_CC_Pos=TemporalReference_GA94_03_CC_Offset; GA94_03_CC_Pos<TemporalReference.size(); GA94_03_CC_Pos++)
-        if (!TemporalReference[GA94_03_CC_Pos].IsValid)
-            CanBeParsed=false; //There is a missing field/frame
-    if (CanBeParsed)
-    {
-       for (size_t GA94_03_CC_Pos=TemporalReference_GA94_03_CC_Offset; GA94_03_CC_Pos<TemporalReference.size(); GA94_03_CC_Pos++)
+        //Parsing
+        int8u  cc_count;
+        bool   process_em_data_flag, process_cc_data_flag, additional_data_flag;
+        BS_Begin();
+        Get_SB (process_em_data_flag,                               "process_em_data_flag");
+        Get_SB (process_cc_data_flag,                               "process_cc_data_flag");
+        Get_SB (additional_data_flag,                               "additional_data_flag");
+        Get_S1 (5, cc_count,                                        "cc_count");
+        BS_End();
+        Skip_B1(                                                    process_em_data_flag?"em_data":"junk"); //Emergency message
+        if (TemporalReference[TemporalReference_Offset+temporal_reference].GA94_03_CC.size()<cc_count)
+            TemporalReference[TemporalReference_Offset+temporal_reference].GA94_03_CC.resize(cc_count);
+        if (process_cc_data_flag)
+        {
             for (int8u Pos=0; Pos<cc_count; Pos++)
             {
-                if (Pos<TemporalReference[GA94_03_CC_Pos].GA94_03_CC.size() && TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_valid)
-                {
-                    int8u cc_type=TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_type;
-                    size_t Parser_Pos=cc_type;
-                    if (Parser_Pos==3)
-                        Parser_Pos=2; //cc_type 2 and 3 are for the same text
-
-                    while (Parser_Pos>=GA94_03_CC_Parsers.size())
-                        GA94_03_CC_Parsers.push_back(NULL);
-                    if (GA94_03_CC_Parsers[Parser_Pos]==NULL)
-                        GA94_03_CC_Parsers[Parser_Pos]=cc_type<2?(File__Analyze*)new File_Eia608():(File__Analyze*)new File_Eia708();
-                    if (!GA94_03_CC_Parsers[Parser_Pos]->Status[IsFinished])
-                    {
-                        if (cc_type>=2)
-                            ((File_Eia708*)GA94_03_CC_Parsers[2])->cc_type=cc_type;
-                        Open_Buffer_Init(GA94_03_CC_Parsers[Parser_Pos]);
-                        Open_Buffer_Continue(GA94_03_CC_Parsers[Parser_Pos], TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2);
-
-                        //Finish
-                        if (GA94_03_CC_Parsers[Parser_Pos]->Status[IsFinished])
-                        {
-                            if (Count_Get(Stream_General)==0)
-                                Stream_Prepare(Stream_General);
-                            Merge(*GA94_03_CC_Parsers[Parser_Pos]);
-                            if (Parser_Pos<2)
-                                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Parser_Pos));
-                            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"));
-                        }
-                    }
-
-                    //Demux
-                    if (cc_type<2)
-                        Demux(TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2, Ztring::ToZtring(cc_type)+_T(".eia608"));
-                    else
-                        Demux(TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2, _T("eia708"));
-                }
+                Element_Begin("cc");
+                int8u cc_type, cc_data_1, cc_data_2;
+                bool  cc_valid;
+                BS_Begin();
+                Mark_1();
+                Mark_1();
+                Mark_1();
+                Mark_1();
+                Mark_1();
+                Get_SB (   cc_valid,                                    "cc_valid");
+                Get_S1 (2, cc_type,                                     "cc_type");
+                BS_End();
+                Get_B1 (cc_data_1,                                      "cc_data_1");
+                Get_B1 (cc_data_2,                                      "cc_data_2");
+                TemporalReference[TemporalReference_Offset+temporal_reference].GA94_03_CC[Pos].cc_valid=cc_valid;
+                TemporalReference[TemporalReference_Offset+temporal_reference].GA94_03_CC[Pos].cc_type=cc_type;
+                TemporalReference[TemporalReference_Offset+temporal_reference].GA94_03_CC[Pos].cc_data[0]=cc_data_1;
+                TemporalReference[TemporalReference_Offset+temporal_reference].GA94_03_CC[Pos].cc_data[1]=cc_data_2;
+                Element_End();
             }
+        }
+        else
+            Skip_XX(cc_count*2,                                         "Junk");
 
-        TemporalReference_GA94_03_CC_Offset=TemporalReference.size();
-    }
+        //Parsing Captions after reordering
+        bool CanBeParsed=true;
+        for (size_t GA94_03_CC_Pos=TemporalReference_GA94_03_CC_Offset; GA94_03_CC_Pos<TemporalReference.size(); GA94_03_CC_Pos++)
+            if (!TemporalReference[GA94_03_CC_Pos].IsValid)
+                CanBeParsed=false; //There is a missing field/frame
+        if (CanBeParsed)
+        {
+           for (size_t GA94_03_CC_Pos=TemporalReference_GA94_03_CC_Offset; GA94_03_CC_Pos<TemporalReference.size(); GA94_03_CC_Pos++)
+                for (int8u Pos=0; Pos<cc_count; Pos++)
+                {
+                    if (Pos<TemporalReference[GA94_03_CC_Pos].GA94_03_CC.size() && TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_valid)
+                    {
+                        int8u cc_type=TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_type;
+                        size_t Parser_Pos=cc_type;
+                        if (Parser_Pos==3)
+                            Parser_Pos=2; //cc_type 2 and 3 are for the same text
 
-    BS_Begin();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    BS_End();
+                        while (Parser_Pos>=GA94_03_CC_Parsers.size())
+                            GA94_03_CC_Parsers.push_back(NULL);
+                        if (GA94_03_CC_Parsers[Parser_Pos]==NULL)
+                            GA94_03_CC_Parsers[Parser_Pos]=cc_type<2?(File__Analyze*)new File_Eia608():(File__Analyze*)new File_Eia708();
+                        if (!GA94_03_CC_Parsers[Parser_Pos]->Status[IsFinished])
+                        {
+                            if (cc_type>=2)
+                                ((File_Eia708*)GA94_03_CC_Parsers[2])->cc_type=cc_type;
+                            Open_Buffer_Init(GA94_03_CC_Parsers[Parser_Pos]);
+                            Open_Buffer_Continue(GA94_03_CC_Parsers[Parser_Pos], TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2);
 
-    if (additional_data_flag)
-        Skip_XX(Element_Size-Element_Offset,                    "additional_user_data");
+                            //Finish
+                            if (GA94_03_CC_Parsers[Parser_Pos]->Status[IsFinished])
+                            {
+                                if (Count_Get(Stream_General)==0)
+                                    Stream_Prepare(Stream_General);
+                                Merge(*GA94_03_CC_Parsers[Parser_Pos]);
+                                if (Parser_Pos<2)
+                                    Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Parser_Pos));
+                                Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"));
+                            }
+                        }
+
+                        //Demux
+                        if (cc_type<2)
+                            Demux(TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2, Ztring::ToZtring(cc_type)+_T(".eia608"));
+                        else
+                            Demux(TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2, _T("eia708"));
+                    }
+                }
+
+            TemporalReference_GA94_03_CC_Offset=TemporalReference.size();
+        }
+
+        BS_Begin();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        BS_End();
+
+        if (additional_data_flag)
+            Skip_XX(Element_Size-Element_Offset,                    "additional_user_data");
+    #else
+        Skip_XX(Element_Size-Element_Offset,                    "EIA-608 data");
+    #endif
 }
 
 //---------------------------------------------------------------------------
