@@ -526,7 +526,6 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             Languages.Separator_Set(0, _T(" / "));
             Languages_Translated.Separator_Set(0, _T(" / "));
             size_t Languages_Count=1, Languages_Pos=0;
-            Ztring C=(*Stream)[StreamKind][StreamPos][Parameter];
             while ((Languages_Pos=(*Stream)[StreamKind][StreamPos][Parameter].find(_T(" / "), Languages_Pos))!=string::npos)
             {
                 Languages_Pos+=3;
@@ -534,6 +533,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             }
             Languages.Write((*Stream)[StreamKind][StreamPos][Parameter]);
             Languages.resize(Languages_Count);
+            ZtringList Languages_Orig=Languages;
             for (size_t Pos=0; Pos<Languages.size(); Pos++)
             {
                 Languages[Pos].MakeLowerCase();
@@ -569,7 +569,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                     {
                         Ztring Temp=_T("Language_"); Temp+=Languages[Pos].substr(0, 2);
                         const Ztring& Z3=MediaInfoLib::Config.Language_Get(Temp);
-                        Languages_Translated(Pos)=Z3.find(_T("Language_"))==0?Ztring(Languages[Pos].substr(0, 2)):Z3;
+                        Languages_Translated(Pos)=Z3.find(_T("Language_"))==0?Ztring(Languages_Orig[Pos]):Z3;
                     }
                     else
                         Languages_Translated(Pos)=Languages[Pos];
