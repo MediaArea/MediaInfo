@@ -1560,7 +1560,6 @@ void File_Riff::AVI__hdlr_strl_strh()
     }
     switch (fccType)
     {
-        case Elements::AVI__hdlr_strl_strh_iavs :
         case Elements::AVI__hdlr_strl_strh_vids :
             if (FrameRate>0)  Fill(Stream_Video, StreamPos_Last, "FrameRate", FrameRate, 3);
             if (fccHandler==0x64767364) //For "dvsd" but fccType is wrong
