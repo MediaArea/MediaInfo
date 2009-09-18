@@ -199,6 +199,7 @@ int MediaInfo_Internal::Format_Test()
     Info->Open_Buffer_Init(File_Size);
 
     //-Test the format with buffer
+    bool StopAfterFilled=Config.File_StopAfterFilled_Get();
     do
     {
         if (Format_Test_FillBuffer_Continue()<0)
@@ -206,7 +207,7 @@ int MediaInfo_Internal::Format_Test()
         else if (Info)
             Info->Open_Buffer_Continue(Buffer, Buffer_Size);
     }
-    while (Info && !Info->Status[File__Analyze::IsFinished]);
+    while (Info && !(Info->Status[File__Analyze::IsFinished] || (StopAfterFilled && Info->Status[File__Analyze::IsFilled])));
 
     //-Close
     Format_Test_FillBuffer_Close();
@@ -224,7 +225,7 @@ int MediaInfo_Internal::Format_Test()
     Info->Finish();
 
     //Cleanup
-    if (Config.Option(_T("File_IsSub_Get"))==_T("0")) //We need info for the calling parser
+    if (!Config.File_IsSub_Get() && !Config.File_KeepInfo_Get()) //We need info for the calling parser
     {
         delete Info; Info=NULL;
     }
