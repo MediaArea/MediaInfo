@@ -1703,10 +1703,7 @@ void File_Mpegv::group_start()
 
         //Autorisation of other streams
         if (Searching_TimeStamp_Start_DoneOneTime)
-        {
             Streams[0xB8].Searching_TimeStamp_Start=false; //group_start
-            SizeToAnalyse_Begin=0;
-        }
         else
             Searching_TimeStamp_Start_DoneOneTime=true;
         Streams[0x00].Searching_TimeStamp_End=true; //picture_start
