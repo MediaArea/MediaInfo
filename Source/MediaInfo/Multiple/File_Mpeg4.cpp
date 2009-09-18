@@ -243,7 +243,8 @@ void File_Mpeg4::Streams_Finish()
             AbsoluteName+=Temp->second.File_Name;
 
             MediaInfo_Internal MI;
-            MI.Option(_T("File_IsSub"), _T("1"));
+            MI.Option(_T("File_StopAfterFilled"), _T("1"));
+            MI.Option(_T("File_KeepInfo"), _T("1"));
             Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Source", Temp->second.File_Name);
 
             if (MI.Open(AbsoluteName))
