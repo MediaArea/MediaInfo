@@ -1867,8 +1867,6 @@ void File__Analyze::Element_WaitForMoreData ()
 {
     if (File_Offset+Buffer_Size<File_Size)
         Element[Element_Level].WaitForMoreData=true;
-    else
-        Element_DoNotTrust("Not enough bytes");
 }
 
 //---------------------------------------------------------------------------

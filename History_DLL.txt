@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.22, 2009-
 --------------
+x #2859504, 3GPP: some files were not detected
 x Some corrections about AVI Display Aspect Ratio
 x QuickTime: external files were completely parsed, too long
 
