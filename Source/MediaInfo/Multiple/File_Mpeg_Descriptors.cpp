@@ -54,6 +54,7 @@ namespace Elements
     const int32u DTS3=0x44545333; //DTS
     const int32u GA94=0x47413934; //ATSC - Terrestrial
     const int32u HDMV=0x48444D56; //BluRay
+    const int32u KLVA=0x4B4C5641; //KLV Packets
     const int32u S14A=0x53313441; //ATSC - Satellite
     const int32u SCTE=0x53435445; //SCTE
     const int32u TSHV=0x54534856; //TSHV
@@ -620,6 +621,7 @@ const char* Mpeg_Descriptors_registration_format_identifier_Format(int32u format
         case Elements::DTS3 : return "DTS"; //2048
         case Elements::GA94 : return "ATSC - Terrestrial";
         case Elements::HDMV : return "Blu-ray";
+        case Elements::KLVA : return "KLV";
         case Elements::S14A : return "ATSC - Satellite";
         case Elements::SCTE : return "SCTE 54 2003 - Digital Video Service Multiplex and Transport System for Cable Television";
         case Elements::TSHV : return "Digital Video";
@@ -669,6 +671,7 @@ const char* Mpeg_Descriptors_stream_Format(int8u descriptor_tag, int32u format_i
                 case Elements::DTS1 : return "DTS";
                 case Elements::DTS2 : return "DTS";
                 case Elements::DTS3 : return "DTS";
+                case Elements::KLVA : return "KLV";
                 case Elements::VC_1 : return "VC-1";
                 case Elements::drac : return "Dirac";
                 default                     :
@@ -714,6 +717,7 @@ const char* Mpeg_Descriptors_stream_Codec(int8u descriptor_tag, int32u format_id
                 case Elements::DTS1 : return "DTS";
                 case Elements::DTS2 : return "DTS";
                 case Elements::DTS3 : return "DTS";
+                case Elements::KLVA : return "KLV";
                 case Elements::VC_1 : return "VC-1";
                 case Elements::drac : return "Dirac";
                 default                     :
@@ -1492,6 +1496,8 @@ void File_Mpeg_Descriptors::Descriptor_05()
                                         break;
                             case true : //Per PES
                                         Complete_Stream->Streams[xxx_id].registration_format_identifier=format_identifier;
+                                        if (format_identifier==Elements::KLVA)
+                                            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Infos["KLVA_PID"].From_Number(xxx_id);
                                         break;
                         }
                         break;

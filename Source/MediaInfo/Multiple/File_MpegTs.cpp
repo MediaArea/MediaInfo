@@ -223,7 +223,7 @@ void File_MpegTs::Streams_Fill()
                     for (size_t Pos=0; Pos<Program->second.elementary_PIDs.size(); Pos++)
                     {
                         int16u elementary_PID=Program->second.elementary_PIDs[Pos];
-                        if (Complete_Stream->Streams[elementary_PID].IsRegistered)
+                        if (Complete_Stream->Streams[elementary_PID].IsRegistered && Retrieve(Stream_Menu, StreamPos_Last, "KLV_PID").To_int32u()!=elementary_PID)
                         {
                             Ztring Format=Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, Fill_Parameter(Complete_Stream->Streams[elementary_PID].StreamKind, Generic_Format));
                             Fill(Stream_Menu, StreamPos_Last, Menu_Format, Format);
