@@ -1865,7 +1865,7 @@ void File__Analyze::Element_ThisIsAList ()
 //---------------------------------------------------------------------------
 void File__Analyze::Element_WaitForMoreData ()
 {
-    if (File_Offset+Buffer_Size<File_Size)
+    //if (File_Offset+Buffer_Size<File_Size)
         Element[Element_Level].WaitForMoreData=true;
 }
 
