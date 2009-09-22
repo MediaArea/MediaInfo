@@ -445,6 +445,7 @@ int Preferences::ExplorerShell()
         ".dvr-ms;DVRMSFile\r\n"
         ".eac3;EAC3File\r\n"
         ".evo;EVOFile\r\n"
+        ".f4v;mpeg4File\r\n"
         ".flac;FLACFile\r\n"
         ".flv;FlashVideoFile\r\n"
         ".gvi;AVIFile\r\n"
