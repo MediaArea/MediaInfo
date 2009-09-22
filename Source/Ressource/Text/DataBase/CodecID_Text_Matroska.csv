@@ -8,3 +8,4 @@ S_TEXT/UTF8;UTF-8;;UTF-8 Plain Text
 S_USF;USF;;Universal Subtitle Format
 S_UTF8;UTF-8;;UTF-8 Plain Text
 S_VOBSUB;VobSub;;The same subtitle format used on DVDs
+S_HDMV/PGS;SUP;;The same subtitle format used on BDs/HD-DVDs

@@ -2292,6 +2292,7 @@ void MediaInfo_Config_CodecID_Text_Matroska (InfoMap &Info)
     "S_USF;USF;;Universal Subtitle Format\n"
     "S_UTF8;UTF-8;;UTF-8 Plain Text\n"
     "S_VOBSUB;VobSub;;The same subtitle format used on DVDs\n"
+    "S_HDMV/PGS;SUP;;The same subtitle format used on BDs/HD-DVDs\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
 }
