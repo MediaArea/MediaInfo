@@ -275,6 +275,7 @@ protected :
     //Stats
     std::vector<size_t> Stats;
     size_t              Stats_Total;
+    size_t              Stats_Total_WithoutArb;
     bool                Stats_Total_AlreadyDetected;
 
 public:

@@ -276,6 +276,7 @@ File_DvDif::File_DvDif()
     Mpeg4_stts_Pos=0;
     Stats.resize(10);
     Stats_Total=0;
+    Stats_Total_WithoutArb=0;
     Stats_Total_AlreadyDetected=false;
     #endif //MEDIAINFO_DVDIF_ANALYZE_YES
 }

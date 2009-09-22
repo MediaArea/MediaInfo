@@ -749,6 +749,7 @@ void File_DvDif::Errors_Stats_Update()
             {
                 Stats_Total_AlreadyDetected=true;
                 Stats_Total++;
+                Stats_Total_WithoutArb++;
             }
             Stats[1]++;
             Errors_Stats_Line+=_T('1');
@@ -834,6 +835,7 @@ void File_DvDif::Errors_Stats_Update()
                         {
                             Stats_Total_AlreadyDetected=true;
                             Stats_Total++;
+                            Stats_Total_WithoutArb++;
                         }
                         Stats[2]++;
                         Errors_Stats_Line+=_T('2');
@@ -873,6 +875,7 @@ void File_DvDif::Errors_Stats_Update()
             {
                 Stats_Total_AlreadyDetected=true;
                 Stats_Total++;
+                Stats_Total_WithoutArb++;
             }
             Stats[3]++;
             Errors_Stats_Line+=_T('3');
@@ -892,6 +895,7 @@ void File_DvDif::Errors_Stats_Update()
             {
                 Stats_Total_AlreadyDetected=true;
                 Stats_Total++;
+                Stats_Total_WithoutArb++;
             }
             Stats[4]++;
             Errors_Stats_Line+=_T('4');
@@ -930,6 +934,7 @@ void File_DvDif::Errors_Stats_Update()
             {
                 Stats_Total_AlreadyDetected=true;
                 Stats_Total++;
+                Stats_Total_WithoutArb++;
             }
             Stats[6]++;
             Errors_Stats_Line+=_T('6');
@@ -1177,9 +1182,9 @@ void File_DvDif::Errors_Stats_Update_Finnish()
     if (Speed_FrameCount_Contains_NULL)
         Errors_Stats_End_Lines+=_T("Frame count with DIF incoherency: ")+Ztring::ToZtring(Speed_FrameCount_Contains_NULL)+_T(" frames &");
 
-    //Error 5: Arbitrary bit incoherency
+    //Error 5: Arbitrary bit inconsistency
     if (Speed_FrameCount_Arb_Incoherency)
-        Errors_Stats_End_Lines+=_T("Frame count with arbitrary bit incoherency: ")+Ztring::ToZtring(Speed_FrameCount_Arb_Incoherency)+_T(" frames &");
+        Errors_Stats_End_Lines+=_T("Frame count with Arbitrary bit inconsistency: ")+Ztring::ToZtring(Speed_FrameCount_Arb_Incoherency)+_T(" frames &");
 
     //Error 6: Stts fluctuation
     if (Speed_FrameCount_Stts_Fluctuation)
@@ -1391,54 +1396,58 @@ void File_DvDif::Errors_Stats_Update_Finnish()
     if (Stats_Total)
     {
         Errors_Stats_End_Lines+=_T("Percent of File with Error: ");
-        Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats_Total*100)/Speed_FrameCount, 0);
+        Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats_Total_WithoutArb*100)/Speed_FrameCount, 2);
+        Errors_Stats_End_Lines+=_T("%");
+        Errors_Stats_End_Lines+=_T('&');
+        Errors_Stats_End_Lines+=_T("Percent of File with Error (including Arbitrary bit inconsistency): ");
+        Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats_Total*100)/Speed_FrameCount, 2);
         Errors_Stats_End_Lines+=_T("%");
         Errors_Stats_End_Lines+=_T('&');
 
         if (Stats[1])
         {
-            Errors_Stats_End_Lines+=_T("Percent of Files with Video Error Concealment: ");
-            Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[1]*100)/Speed_FrameCount, 0);
+            Errors_Stats_End_Lines+=_T("Percent of File with Video Error Concealment: ");
+            Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[1]*100)/Speed_FrameCount, 2);
             Errors_Stats_End_Lines+=_T("%");
             Errors_Stats_End_Lines+=_T('&');
         }
 
         if (Stats[2])
         {
-            Errors_Stats_End_Lines+=_T("Percent of Files with Audio Errors: ");
-            Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[2]*100)/Speed_FrameCount, 0);
+            Errors_Stats_End_Lines+=_T("Percent of File with Audio Errors: ");
+            Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[2]*100)/Speed_FrameCount, 2);
             Errors_Stats_End_Lines+=_T("%");
             Errors_Stats_End_Lines+=_T('&');
         }
 
         if (Stats[3])
         {
-            Errors_Stats_End_Lines+=_T("Percent of Files with Timecode Incoherency: ");
-            Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[3]*100)/Speed_FrameCount, 0);
+            Errors_Stats_End_Lines+=_T("Percent of File with Timecode Incoherency: ");
+            Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[3]*100)/Speed_FrameCount, 2);
             Errors_Stats_End_Lines+=_T("%");
             Errors_Stats_End_Lines+=_T('&');
         }
 
         if (Stats[4])
         {
-            Errors_Stats_End_Lines+=_T("Percent of Files with DIF Incoherency: ");
-            Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[4]*100)/Speed_FrameCount, 0);
+            Errors_Stats_End_Lines+=_T("Percent of File with DIF Incoherency: ");
+            Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[4]*100)/Speed_FrameCount, 2);
             Errors_Stats_End_Lines+=_T("%");
             Errors_Stats_End_Lines+=_T('&');
         }
 
         if (Stats[5])
         {
-            Errors_Stats_End_Lines+=_T("Percent of Files with Arbitrary bit Incoherency: ");
-            Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[5]*100)/Speed_FrameCount, 0);
+            Errors_Stats_End_Lines+=_T("Percent of File with Arbitrary bit inconsistency: ");
+            Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[5]*100)/Speed_FrameCount, 2);
             Errors_Stats_End_Lines+=_T("%");
             Errors_Stats_End_Lines+=_T('&');
         }
 
         if (Stats[6])
         {
-            Errors_Stats_End_Lines+=_T("Percent of Files with Stts Fluctuation: ");
-            Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[6]*100)/Speed_FrameCount, 0);
+            Errors_Stats_End_Lines+=_T("Percent of File with Stts Fluctuation: ");
+            Errors_Stats_End_Lines+=Ztring::ToZtring(((float)Stats[6]*100)/Speed_FrameCount, 2);
             Errors_Stats_End_Lines+=_T("%");
             Errors_Stats_End_Lines+=_T('&');
         }
