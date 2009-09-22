@@ -272,6 +272,11 @@ protected :
     };
     arb Arb;
 
+    //Stats
+    std::vector<size_t> Stats;
+    size_t              Stats_Total;
+    bool                Stats_Total_AlreadyDetected;
+
 public:
     //From MPEG-4 container
     struct stts_part
