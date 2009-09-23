@@ -119,7 +119,8 @@ protected :
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     bool Analyze_Activated;
-    
+    bool video_source_Detected;
+
     void Errors_Stats_Update();
     void Errors_Stats_Update_Finnish();
     Ztring Errors_Stats_03;
@@ -162,13 +163,26 @@ protected :
     };
     struct dvtime
     {
-        int8u  Frames;
-        int8u  Seconds;
-        int8u  Minutes;
-        int8u  Hours;
-        bool   DropFrame;
-        bool   MultipleValues;
-        bool   IsValid;
+        struct time
+        {
+            int8u  Frames;
+            int8u  Seconds;
+            int8u  Minutes;
+            int8u  Hours;
+            bool   DropFrame;
+
+            time()
+            {
+                Frames=(int8u)-1;
+                Seconds=(int8u)-1;
+                Minutes=(int8u)-1;
+                Hours=(int8u)-1;
+                DropFrame=false;
+            }
+        };
+        time    Time;
+        bool    MultipleValues;
+        bool    IsValid;
 
         dvtime() {Clear();}
 

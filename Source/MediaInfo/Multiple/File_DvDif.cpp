@@ -260,6 +260,7 @@ File_DvDif::File_DvDif()
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     Analyze_Activated=false;
+    video_source_Detected=false;
     Speed_FrameCount=0;
     Speed_FrameCount_Video_STA_Errors=0;
     Speed_FrameCount_Audio_Errors.resize(8);
