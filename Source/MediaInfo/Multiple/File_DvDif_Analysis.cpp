@@ -969,7 +969,7 @@ void File_DvDif::Errors_Stats_Update()
                 if (Speed_Arb_Current.Value_Counters[Pos])
                 {
                     Arb_Errors+=Ztring::ToZtring(Speed_Arb_Current.Value_Counters[Pos]);
-                    Arb_Errors+=_T(" Speed_Arb_Current bit=\"");
+                    Arb_Errors+=_T(" Arb bit=\"");
                     Arb_Errors+=Ztring::ToZtring(Pos, 16);
                     Arb_Errors+=_T("\", ");
                 }
