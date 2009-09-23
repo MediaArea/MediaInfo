@@ -52,4 +52,5 @@ iphE;MPEG-4;;;http://www.apple.com/iphone/;Apple iPhone (Cellular)
 M4VH;MPEG-4;;;http://www.apple.com/appletv/;Apple TV
 QTCA;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;Quicktime compressed archive
 CAQV;MPEG-4;;;;Casio Digital Camera
-QTI;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;QuickTime Image
+QTI ;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;QuickTime Image
+f4v ;MPEG-4;;;http://www.apple.com/quicktime/download/standalone.html;Adobe Flash
