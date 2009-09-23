@@ -397,17 +397,28 @@ void File_DvDif::Read_Buffer_Continue()
 
             case 0x80 : //SCT=4 (Video)
                 {
-                    //Arb
+                    //Speed_Arb_Current
                     int8u Value=Buffer[Buffer_Offset+0]&0x0F;
+                    Speed_Arb_Current.Value_Counters[Value]++;
                     if (Value==0xF)
-                        break;    
-                    if (Arb.IsValid
-                     && Arb.Value!=Value)
-                        Arb.MultipleValues=true; //There are 2+ different values
-                    else if (!Arb.MultipleValues)
                     {
-                        Arb.Value  =Value;
-                        Arb.IsValid=true;
+                        if (!Speed_Arb_Current.IsValid)
+                        {
+                            Speed_Arb_Current.Value  =0xF;
+                            Speed_Arb_Current.IsValid=true;
+                        }
+                    }
+                    else
+                    {
+                        if (Speed_Arb_Current.IsValid
+                         && Speed_Arb_Current.Value!=0xF
+                         && Speed_Arb_Current.Value!=Value)
+                            Speed_Arb_Current.MultipleValues=true; //There are 2+ different values
+                        else if (!Speed_Arb_Current.MultipleValues)
+                        {
+                            Speed_Arb_Current.Value  =Value;
+                            Speed_Arb_Current.IsValid=true;
+                        }
                     }
 
                     //STA
@@ -669,11 +680,42 @@ void File_DvDif::Errors_Stats_Update()
             Errors_Stats_Line+=_T(' ');
         Errors_Stats_Line+=_T('\t');
 
-        //Arb
-        if (Arb.IsValid)
-            Errors_Stats_Line+=Ztring::ToZtring(Arb.Value, 16);
+        //Speed_Arb_Current
+        if (Speed_Arb_Current.IsValid)
+        {
+            //Searching the bigest value count
+            size_t Biggest_Pos=0xF;
+            size_t Biggest_Count=0;
+            for (size_t Pos=0; Pos<=0xF; Pos++) //0xF is not considered as a valid value.
+                if (Speed_Arb_Current.Value_Counters[Pos]>Biggest_Count)
+                {
+                    Biggest_Pos=Pos;
+                    Biggest_Count=Speed_Arb_Current.Value_Counters[Pos];
+                }
+            Errors_Stats_Line+=Ztring::ToZtring(Biggest_Pos, 16);
+        }
         else
             Errors_Stats_Line+=_T('X');
+        Errors_Stats_Line+=_T('\t');
+
+        //Speed_Arb_Current coherency
+        if (Speed_Arb_Current.IsValid && Speed_Arb_Last.IsValid
+         && Speed_Arb_Current.Value ==Speed_Arb_Last.Value
+         && Speed_Arb_Current.Value!=0xF)
+        {
+            Errors_Stats_Line+=_T('R');
+            if (Speed_Arb_Current.Value!=0xF)
+                Errors_AreDetected=true;
+        }
+        else if (Speed_Arb_Current.IsValid && Speed_Arb_Current_Theory.IsValid
+              && Speed_Arb_Current.Value   != Speed_Arb_Current_Theory.Value)
+        {
+            Errors_Stats_Line+=_T('N');
+            Speed_Arb_Current_Theory=Speed_Arb_Current;
+            Errors_AreDetected=true;
+        }
+        else
+            Errors_Stats_Line+=_T(' ');
         Errors_Stats_Line+=_T('\t');
 
         //Start
@@ -908,8 +950,8 @@ void File_DvDif::Errors_Stats_Update()
         Errors_Stats_Line+=_T('\t');
         Errors_Stats_Line_Details+=_T('\t');
 
-        //Error 5: Arb incoherency
-        if (Arb.MultipleValues)
+        //Error 5: Speed_Arb_Current incoherency
+        if (Speed_Arb_Current.MultipleValues)
         {
             if (!Stats_Total_AlreadyDetected)
             {
@@ -918,7 +960,20 @@ void File_DvDif::Errors_Stats_Update()
             }
             Stats[5]++;
             Errors_Stats_Line+=_T('5');
-            Errors_Stats_Line_Details+=_T("(Arb incoherency, first detected value is used)");
+            Ztring Arb_Errors;
+            for (size_t Pos=0; Pos<16; Pos++)
+                if (Speed_Arb_Current.Value_Counters[Pos])
+                {
+                    Arb_Errors+=Ztring::ToZtring(Speed_Arb_Current.Value_Counters[Pos]);
+                    Arb_Errors+=_T(" Speed_Arb_Current bit=\"");
+                    Arb_Errors+=Ztring::ToZtring(Pos, 16);
+                    Arb_Errors+=_T("\", ");
+                }
+            if (Arb_Errors.size()>2)
+            {
+                Arb_Errors.resize(Arb_Errors.size()-2);
+                Errors_Stats_Line_Details+=Arb_Errors;
+            }
             Speed_FrameCount_Arb_Incoherency++;
             Errors_AreDetected=true;
         }
@@ -1053,14 +1108,26 @@ void File_DvDif::Errors_Stats_Update()
         }
     }
 
+    //Speed_Arb_Current_Theory
+    if (!Speed_Arb_Current_Theory.IsValid && Speed_Arb_Current.Value!=0xF)
+        Speed_Arb_Current_Theory=Speed_Arb_Current;
+    if (Speed_Arb_Current_Theory.IsValid && Speed_Arb_Current.Value!=0xF)
+    {
+        Speed_Arb_Current_Theory.Value++;
+        if (Speed_Arb_Current_Theory.Value>=12)
+        {
+            Speed_Arb_Current_Theory.Value=0;
+        }
+    }
+
     Speed_TimeCode_Last=Speed_TimeCode_Current;
     Speed_TimeCode_Current.Clear();
     Speed_RecDate_Current.IsValid=false;
     Speed_RecDate_Current.MultipleValues=false;
     Speed_RecTime_Current.IsValid=false;
     Speed_RecTime_Current.MultipleValues=false;
-    Arb.IsValid=false;
-    Arb.MultipleValues=false;
+    Speed_Arb_Last=Speed_Arb_Current;
+    Speed_Arb_Current.Clear();
     Speed_FrameCount++;
     REC_IsValid=false;
     Speed_Contains_NULL=0;
@@ -1470,7 +1537,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
     //Filling
     if (Count_Get(Stream_Video)==0)
         Stream_Prepare(Stream_Video);
-    Fill(Stream_Video, 0, "Errors_Stats_Begin", "Frame # \tTime        \tTimeCode   \tN\tRecorded date/time     \tN\tA\tS\tE\t1\t2\t3\t4\t5\t6\t7\t8\t9\t0\t1\t2\t3\t4\t5\t6\t7\t8\t9\t0");
+    Fill(Stream_Video, 0, "Errors_Stats_Begin", "Frame # \tTime        \tTimeCode   \tN\tRecorded date/time     \tN\tA\tN\tS\tE\t1\t2\t3\t4\t5\t6\t7\t8\t9\t0\t1\t2\t3\t4\t5\t6\t7\t8\t9\t0");
     (*Stream_More)[Stream_Video][0](Ztring().From_Local("Errors_Stats_Begin"), Info_Options)=_T("N NT");
     Fill(Stream_Video, 0, "Errors_Stats_03", Errors_Stats_03);
     (*Stream_More)[Stream_Video][0](Ztring().From_Local("Errors_Stats_03"), Info_Options)=_T("N NT");

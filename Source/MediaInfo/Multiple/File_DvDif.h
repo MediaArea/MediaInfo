@@ -258,6 +258,7 @@ protected :
 
     struct arb
     {
+        std::vector<size_t> Value_Counters;
         int8u  Value;
         bool   MultipleValues;
         bool   IsValid;
@@ -266,11 +267,16 @@ protected :
 
         void Clear()
         {
+            Value_Counters.clear();
+            Value_Counters.resize(16);
+            Value=0xF; //Used only when we are sure
             MultipleValues=false;
             IsValid=false;
         }
     };
-    arb Arb;
+    arb Speed_Arb_Last;
+    arb Speed_Arb_Current;
+    arb Speed_Arb_Current_Theory;
 
     //Stats
     std::vector<size_t> Stats;

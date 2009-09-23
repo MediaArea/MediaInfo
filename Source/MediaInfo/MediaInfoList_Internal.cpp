@@ -29,6 +29,7 @@
 #include "MediaInfoList_Internal.h"
 #include "MediaInfo/MediaInfo_Config.h"
 #include "ZenLib/ZtringListList.h"
+#include "ZenLib/File.h"
 #include "ZenLib/Dir.h"
 using namespace ZenLib;
 using namespace std;
@@ -87,7 +88,11 @@ size_t MediaInfoList_Internal::Open(const String &File, const fileoptions_t Opti
     //TODO
 
     //Get all filenames
-    ZtringList List=Dir::GetAllFileNames(File, (Options&FileOption_NoRecursive)?Dir::Nothing:Dir::Parse_SubDirs);
+    ZtringList List;
+    if (File::Exists(File))
+        List.push_back(File);
+    else
+        List=Dir::GetAllFileNames(File, (Options&FileOption_NoRecursive)?Dir::Nothing:Dir::Parse_SubDirs);
 
     #ifdef MEDIAINFO_BDMV_YES
         //if there is a BDMV folder, this is blu-ray
