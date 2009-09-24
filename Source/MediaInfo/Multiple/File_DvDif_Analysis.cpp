@@ -688,7 +688,7 @@ void File_DvDif::Errors_Stats_Update()
         if (Speed_Arb_Current.IsValid)
         {
             //Searching the bigest value count
-            size_t Biggest_Pos=0xF;
+            int8u Biggest_Pos=0xF;
             size_t Biggest_Count=0;
             for (size_t Pos=0; Pos<=0xF; Pos++) //0xF is not considered as a valid value.
                 if (Speed_Arb_Current.Value_Counters[Pos]>Biggest_Count)
@@ -697,6 +697,7 @@ void File_DvDif::Errors_Stats_Update()
                     Biggest_Count=Speed_Arb_Current.Value_Counters[Pos];
                 }
             Errors_Stats_Line+=Ztring::ToZtring(Biggest_Pos, 16);
+            Speed_Arb_Current.Value=Biggest_Pos;
         }
         else
             Errors_Stats_Line+=_T('X');
@@ -710,6 +711,8 @@ void File_DvDif::Errors_Stats_Update()
             Errors_Stats_Line+=_T('R');
             if (Speed_Arb_Current.Value!=0xF)
                 Errors_AreDetected=true;
+
+            Speed_Arb_Current_Theory.IsValid=false;
         }
         else if (Speed_Arb_Current.IsValid && Speed_Arb_Current_Theory.IsValid
               && Speed_Arb_Current.Value   != Speed_Arb_Current_Theory.Value)
