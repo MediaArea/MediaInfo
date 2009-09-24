@@ -45,6 +45,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WxWidgets", "WxWidgets", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", "{70DAF034-E8BA-4636-A42C-CC581B3ECC94}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Valgrind", "Valgrind\Valgrind.vcproj", "{81BC895D-10DF-4343-B599-2157A17F60BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -125,6 +127,12 @@ Global
 		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Release|Win32.Build.0 = Release|Win32
 		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Release|x64.ActiveCfg = Release|x64
 		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}.Release|x64.Build.0 = Release|x64
+		{81BC895D-10DF-4343-B599-2157A17F60BC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{81BC895D-10DF-4343-B599-2157A17F60BC}.Debug|Win32.Build.0 = Debug|Win32
+		{81BC895D-10DF-4343-B599-2157A17F60BC}.Debug|x64.ActiveCfg = Debug|Win32
+		{81BC895D-10DF-4343-B599-2157A17F60BC}.Release|Win32.ActiveCfg = Release|Win32
+		{81BC895D-10DF-4343-B599-2157A17F60BC}.Release|Win32.Build.0 = Release|Win32
+		{81BC895D-10DF-4343-B599-2157A17F60BC}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
