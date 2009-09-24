@@ -65,6 +65,7 @@ chmod u+x MediaInfo_GUI_GNU_FromSource/Release/*.sh
 #-----------------------------------------------------------------------
 # Copying : Information
 cp ../License.html MediaInfo_GUI_GNU_FromSource/
+cp ../License.NoModifications.html MediaInfo_GUI_GNU_FromSource/
 cp ../History_GUI.txt MediaInfo_GUI_GNU_FromSource/
 dos2unix MediaInfo_GUI_GNU_FromSource/History_GUI.txt
 cp ReadMe_GUI_Linux.txt MediaInfo_GUI_GNU_FromSource/Release/

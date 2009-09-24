@@ -35,6 +35,7 @@ xcopy Release_GUI_*.sh MediaInfo_GUI_GNU_Prepare\Release\
 rem --- Copying : Information files ---
 copy ..\History_GUI.txt MediaInfo_GUI_GNU_Prepare\
 copy ..\License.html MediaInfo_GUI_GNU_Prepare\
+copy ..\License.NoModifications.html MediaInfo_GUI_GNU_Prepare\
 copy ReadMe_GUI_Linux.txt MediaInfo_GUI_GNU_Prepare\Release\
 copy ReadMe_GUI_Mac.txt MediaInfo_GUI_GNU_Prepare\Release\
 
