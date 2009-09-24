@@ -874,9 +874,6 @@ void File_DvDif::audio_source()
     BS_End();
 
     FILLING_BEGIN();
-        if (stype==3)
-            int A=0;    
-            
         if (!IgnoreAudio && (FrameCount==1 || AuxToAnalyze)) //Only the first time
         {
             Stream_Prepare(Stream_Audio);

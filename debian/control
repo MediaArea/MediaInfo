@@ -1,7 +1,7 @@
 Source: libmediainfo
 Priority: optional
 Maintainer: Jerome Martinez <zen@mediaarea.net>
-Build-Depends: debhelper (>= 5), doxygen, tofrodos, libzen0-dev (>= 0.4.4), zlib1g-dev, pkg-config, automake, autoconf, libtool
+Build-Depends: debhelper (>= 5), doxygen, tofrodos, libzen0-dev (>= 0.4.6), zlib1g-dev, pkg-config, automake, autoconf, libtool
 Standards-Version: 3.7.3
 Section: libs
 Homepage: http://mediainfo.sourceforge.net
@@ -9,14 +9,14 @@ Homepage: http://mediainfo.sourceforge.net
 Package: libmediainfo0-dev
 Section: libdevel
 Architecture: any
-Depends: libmediainfo0 (>= 0.7.21), libzen0-dev (>= 0.4.4)
+Depends: libmediainfo0 (>= 0.7.22), libzen0-dev (>= 0.4.6)
 Description: MediaInfo supplies information about a video or audio file
  This package includes the development support files of the libmediainfo
 
 Package: libmediainfo0
 Section: libs
 Architecture: any
-Depends: libzen0 (>= 0.4.4), zlib1g
+Depends: libzen0 (>= 0.4.6), zlib1g
 Description: MediaInfo supplies information about a video or audio file
  MediaInfo supplies technical and tag information about a video or audio file
  .

@@ -690,7 +690,7 @@ void File_DvDif::Errors_Stats_Update()
             //Searching the bigest value count
             int8u Biggest_Pos=0xF;
             size_t Biggest_Count=0;
-            for (size_t Pos=0; Pos<=0xF; Pos++) //0xF is not considered as a valid value.
+            for (int8u Pos=0; Pos<=0xF; Pos++) //0xF is not considered as a valid value.
                 if (Speed_Arb_Current.Value_Counters[Pos]>Biggest_Count)
                 {
                     Biggest_Pos=Pos;

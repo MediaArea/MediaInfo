@@ -1,60 +1,8 @@
-// Microsoft Visual C++ generated resource script.
-//
-#include "resource.h"
-
-#define APSTUDIO_READONLY_SYMBOLS
-/////////////////////////////////////////////////////////////////////////////
-//
-// Generated from the TEXTINCLUDE 2 resource.
-//
-#include "winres.h"
-
-/////////////////////////////////////////////////////////////////////////////
-#undef APSTUDIO_READONLY_SYMBOLS
-
-/////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
-
-#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
-LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
-#pragma code_page(1252)
-#endif //_WIN32
-
-#ifdef APSTUDIO_INVOKED
-/////////////////////////////////////////////////////////////////////////////
-//
-// TEXTINCLUDE
-//
-
-1 TEXTINCLUDE 
-BEGIN
-    "resource.h\0"
-END
-
-2 TEXTINCLUDE 
-BEGIN
-    "#include ""winres.h""\r\n"
-    "\0"
-END
-
-3 TEXTINCLUDE 
-BEGIN
-    "1 TYPELIB ""MediaInfoShellExt.tlb""\r\n"
-    "\0"
-END
-
-#endif    // APSTUDIO_INVOKED
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Version
-//
+#include <winresrc.h>
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,7,21,0
- PRODUCTVERSION 0,7,21,0
+ FILEVERSION 0,7,22,0
+ PRODUCTVERSION 0,7,22,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -71,12 +19,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "http://mediainfo.sourceforge.net"
             VALUE "FileDescription", "MediaInfo Shell ToolTip"
-            VALUE "FileVersion", "0,7,21,0"
+            VALUE "FileVersion", "0,7,22,0"
             VALUE "InternalName", "MediaInfo_ToolTip.dll"
             VALUE "LegalCopyright", "GPL"
             VALUE "OriginalFilename", "MediaInfo_ToolTip.dll"
             VALUE "ProductName", "MediaInfo"
-            VALUE "ProductVersion", "0,7,21,0"
+            VALUE "ProductVersion", "0,7,22,0"
         END
     END
     BLOCK "VarFileInfo"
@@ -84,56 +32,3 @@ BEGIN
         VALUE "Translation", 0x409, 1252
     END
 END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// REGISTRY
-//
-
-IDR_MEDIAINFOSHELLEXT   REGISTRY                "MediaInfoShellExt.rgs"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// String Table
-//
-
-STRINGTABLE 
-BEGIN
-    IDS_PROJNAME            "MediaInfoShellExt"
-END
-
-#endif    // English (U.S.) resources
-/////////////////////////////////////////////////////////////////////////////
-
-
-/////////////////////////////////////////////////////////////////////////////
-// French (France) resources
-
-#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRA)
-#ifdef _WIN32
-LANGUAGE LANG_FRENCH, SUBLANG_FRENCH
-#pragma code_page(1252)
-#endif //_WIN32
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// REGISTRY
-//
-
-IDR_MEDIAINFOSHELLEXT_  REGISTRY                "MediaInfoShellExt_.rgs"
-#endif    // French (France) resources
-/////////////////////////////////////////////////////////////////////////////
-
-
-
-#ifndef APSTUDIO_INVOKED
-/////////////////////////////////////////////////////////////////////////////
-//
-// Generated from the TEXTINCLUDE 3 resource.
-//
-1 TYPELIB "MediaInfoShellExt.tlb"
-
-/////////////////////////////////////////////////////////////////////////////
-#endif    // not APSTUDIO_INVOKED
-

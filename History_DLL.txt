@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.22, 2009-
+Version 0.7.22, 2009-09-25
 --------------
 + MPEG-TS: KLV data detection
 x #2859504, 3GPP: some files were not detected
