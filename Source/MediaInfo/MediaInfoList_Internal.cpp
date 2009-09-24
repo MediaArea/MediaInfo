@@ -49,6 +49,7 @@ extern MediaInfo_Config Config;
 //---------------------------------------------------------------------------
 //Constructeurs
 MediaInfoList_Internal::MediaInfoList_Internal(size_t Count_Init)
+: Thread()
 {
     CriticalSectionLocker CSL(CS);
     //Initialisation
