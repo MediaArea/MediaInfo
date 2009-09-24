@@ -79,6 +79,12 @@ Delay/String;;;N NT;;;Delay in format : XXx YYy only, YYy omited if zero
 Delay/String1;;;N NT;;;Delay in format : HHh MMmn SSs MMMms, XX omited if zero
 Delay/String2;;;N NT;;;Delay in format : XXx YYy only, YYy omited if zero
 Delay/String3;;;N NT;;;Delay in format : HH:MM:SS.MMM
+Delay_Original;; ms;N NI;;;Delay fixed in the raw stream (relative) IN MS
+Delay_Original/String;;;N NT;;;Delay with measurement
+Delay_Original/String1;;;N NT;;;Delay with measurement
+Delay_Original/String2;;;N NT;;;Delay with measurement
+Delay_Original/String3;;;N NT;;;format : HH:MM:SS.MMM
+Delay_Original_Settings;;;N NT;;;Delay settings (in case of timecode for example)
 Video_Delay;; ms;N NI;;;Delay fixed in the stream (absolute / video)
 Video_Delay/String;;;Y NT;;;
 Video_Delay/String1;;;N NT;;;
@@ -104,12 +110,12 @@ Alignment;;;N YT;;;How this stream file is aligned in the container
 Alignment/String;;;Y NT;;;Where this stream file is aligned in the container
 Interleave_VideoFrames;;;N YF;;;Between how many video frames the stream is inserted
 Interleave_Duration;;;N YI;;;Between how much time (ms) the stream is inserted
-Interleave_Duration/String;;;Y NT;;;Between how much time and video frames the stream is inserted (with measurement)
-Interleave_Preload;;;N YI;;;How much time is buffered before the first video frame
-Interleave_Preload/String;;;Y NT;;;How much time is buffered before the first video frame (with measurement)
-Title;;;Y YI;;;Name of the track
-Encoded_Library;;;N YT;;;Software used to create the file
-Encoded_Library/String;;;Y NT;;;Software used to create the file
+Interleave_Duration/String;;;Y NT;;;Between how much time and video frames the stream is inserted (with measurement);;
+Interleave_Preload;;;N YI;;;How much time is buffered before the first video frame;;
+Interleave_Preload/String;;;Y NT;;;How much time is buffered before the first video frame (with measurement);;
+Title;;;Y YI;;;Name of the track;;
+Encoded_Library;;;N YT;;;Software used to create the file;;
+Encoded_Library/String;;;Y NT;;;Software used to create the file;;
 Encoded_Library/Name;;;N NT;;;Info from the software;;
 Encoded_Library/Version;;;N NT;;;Version of software;;
 Encoded_Library/Date;;;N NT;;;Release date of software;;

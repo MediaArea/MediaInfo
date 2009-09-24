@@ -169,11 +169,12 @@ void File_Mpeg4::Streams_Finish()
             else
             {
                 //Hacks - Before
-                Ztring FrameRate_Temp, FrameRate_Mode_Temp;
+                Ztring FrameRate_Temp, FrameRate_Mode_Temp, Delay_Temp;
                 if (StreamKind_Last==Stream_Video)
                 {
                     FrameRate_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate);
                     FrameRate_Mode_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Mode);
+                    Delay_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_Delay);
                 }
 
                 //Temp->second.Parser->Clear(StreamKind_Last, StreamPos_Last, "Delay"); //DV TimeCode is removed
@@ -186,6 +187,24 @@ void File_Mpeg4::Streams_Finish()
                         Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate_Temp, true);
                     if (!FrameRate_Mode_Temp.empty() && FrameRate_Mode_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Mode))
                         Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, FrameRate_Mode_Temp, true);
+
+                    //Special case for TimeCode and DV multiple audio
+                    if (!Delay_Temp.empty() && Delay_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_Delay))
+                    {
+                        Fill(Stream_Video, StreamPos_Last, Video_Delay_Original, Delay_Temp);
+                        for (size_t Pos=0; Pos<Count_Get(Stream_Audio); Pos++)
+                            if (Retrieve(Stream_Audio, Pos, "MuxingMode_MoreInfo")==_T("Muxed in Video #1"))
+                            {
+                                //Fill(Stream_Audio, Pos, Audio_Delay_Original, Retrieve(Stream_Audio, Pos, Audio_Delay));
+                                Fill(Stream_Audio, Pos, Audio_Delay, Retrieve(Stream_Video, StreamPos_Last, Video_Delay), true);
+                            }
+                        for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
+                            if (Retrieve(Stream_Text, Pos, "MuxingMode_MoreInfo")==_T("Muxed in Video #1"))
+                            {
+                                //Fill(Stream_Text, Pos, Text_Delay_Original, Retrieve(Stream_Text, Pos, Text_Delay));
+                                Fill(Stream_Text, Pos, Text_Delay, Retrieve(Stream_Video, StreamPos_Last, Video_Delay), true);
+                            }
+                    }
                 }
 
                 //TimeCode specific
@@ -205,12 +224,11 @@ void File_Mpeg4::Streams_Finish()
                         Fill_Flush();
                         Stream_Prepare(Stream_Audio);
                         size_t Pos=Count_Get(Stream_Audio)-1;
-                        //Temp->second.Parser->Clear(Stream_Audio, Audio_Pos, Audio_Delay); //DV TimeCode is removed
                         Merge(*Temp->second.Parser, Stream_Audio, Audio_Pos, StreamPos_Last);
-                        Fill(Stream_Audio, Pos, Audio_MuxingMode, "DV");
+                        Fill(Stream_Audio, Pos, Audio_MuxingMode, "Digital Video");
+                        Fill(Stream_Audio, Pos, Audio_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
                         Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
-                        Fill(Stream_Audio, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
-                        Fill(Stream_Audio, Pos, Audio_StreamSize, "0"); //Included in the DV stream size
+                        Fill(Stream_Audio, Pos, Audio_StreamSize, 0, 10, true); //Included in the DV stream size
                         Ztring ID=Retrieve(Stream_Audio, Pos, Audio_ID);
                         Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+_T("-")+ID, true);
                     }
@@ -223,9 +241,10 @@ void File_Mpeg4::Streams_Finish()
                         Stream_Prepare(Stream_Text);
                         size_t Pos=Count_Get(Stream_Text)-1;
                         Merge(*Temp->second.Parser, Stream_Text, Text_Pos, StreamPos_Last);
-                        Fill(Stream_Text, Pos, "MuxingMode", "MPEG Video");
-                        Fill(Stream_Text, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
-                        Fill(Stream_Text, Pos, Text_StreamSize, 0); //Included in the DV stream size
+                        Fill(Stream_Text, Pos, Text_MuxingMode, "Digital Video");
+                        Fill(Stream_Text, Pos, Text_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
+                        Fill(Stream_Text, Pos, Text_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
+                        Fill(Stream_Text, Pos, Text_StreamSize, 0, 10, true); //Included in the DV stream size
                         Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
                         Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+_T("-")+ID, true);
                     }
@@ -278,10 +297,10 @@ void File_Mpeg4::Streams_Finish()
                         Stream_Prepare(Stream_Audio);
                         size_t Pos=Count_Get(Stream_Audio)-1;
                         Merge(*MI.Info, Stream_Audio, Audio_Pos, StreamPos_Last);
-                        Fill(Stream_Audio, Pos, Audio_MuxingMode, "DV");
+                        Fill(Stream_Audio, Pos, Audio_MuxingMode, "Digital Video");
+                        Fill(Stream_Audio, Pos, Audio_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
                         Fill(Stream_Audio, Pos, Audio_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
-                        Fill(Stream_Audio, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
-                        Fill(Stream_Audio, Pos, Audio_StreamSize, "0"); //Included in the DV stream size
+                        Fill(Stream_Audio, Pos, Audio_StreamSize, 0, 10, true); //Included in the DV stream size
                         Ztring ID=Retrieve(Stream_Audio, Pos, Audio_ID);
                         Fill(Stream_Audio, Pos, Audio_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+_T("-")+ID, true);
                     }
@@ -294,9 +313,10 @@ void File_Mpeg4::Streams_Finish()
                         Stream_Prepare(Stream_Text);
                         size_t Pos=Count_Get(Stream_Text)-1;
                         Merge(*MI.Info, Stream_Text, Text_Pos, StreamPos_Last);
-                        Fill(Stream_Text, Pos, "MuxingMode", "MPEG Video");
-                        Fill(Stream_Text, Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
-                        Fill(Stream_Text, Pos, Text_StreamSize, 0); //Included in the DV stream size
+                        Fill(Stream_Text, Pos, Text_MuxingMode, "Digital Video");
+                        Fill(Stream_Text, Pos, Text_MuxingMode_MoreInfo, _T("Muxed in Video #")+Ztring().From_Number(Temp->second.StreamPos+1));
+                        Fill(Stream_Text, Pos, Text_Duration, Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration));
+                        Fill(Stream_Text, Pos, Text_StreamSize, 0, 10, true); //Included in the DV stream size
                         Ztring ID=Retrieve(Stream_Text, Pos, Text_ID);
                         Fill(Stream_Text, Pos, Text_ID, Retrieve(Stream_Video, Temp->second.StreamPos, Video_ID)+_T("-")+ID, true);
                     }

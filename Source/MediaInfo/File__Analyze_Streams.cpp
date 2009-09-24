@@ -1353,12 +1353,13 @@ void File__Analyze::Tags()
 //Duration
 void File__Analyze::Duration_Duration123(stream_t StreamKind, size_t StreamPos, size_t Parameter)
 {
+    if (Retrieve(StreamKind, StreamPos, Parameter).empty())
+        return;
+
     int32s HH, MM, SS, MS;
     Ztring DurationString1, DurationString2, DurationString3;
     bool Negative=false;
     MS=Retrieve(StreamKind, StreamPos, Parameter).To_int32s(); //en ms
-    if (MS==0)
-        return;
 
     if (MS<0)
     {
@@ -1476,9 +1477,10 @@ void File__Analyze::Duration_Duration123(stream_t StreamKind, size_t StreamPos, 
 //FileSize
 void File__Analyze::FileSize_FileSize123(stream_t StreamKind, size_t StreamPos, size_t Parameter)
 {
-    float F1=(float)Retrieve(StreamKind, StreamPos, Parameter).To_int64s(); //Video C++ 6 patch, should be int64u
-    if (F1==0)
+    if (Retrieve(StreamKind, StreamPos, Parameter).empty())
         return;
+
+    float F1=(float)Retrieve(StreamKind, StreamPos, Parameter).To_int64s(); //Video C++ 6 patch, should be int64u
 
     //--Bytes, KiB, MiB or GiB...
     int32u Pow3=0;
@@ -1535,9 +1537,10 @@ void File__Analyze::FileSize_FileSize123(stream_t StreamKind, size_t StreamPos, 
 //FileSize
 void File__Analyze::Kilo_Kilo123(stream_t StreamKind, size_t StreamPos, size_t Parameter)
 {
-    int32u BitRate=Retrieve(StreamKind, StreamPos, Parameter).To_int32u();
-    if (BitRate==0)
+    if (Retrieve(StreamKind, StreamPos, Parameter).empty())
         return;
+
+    int32u BitRate=Retrieve(StreamKind, StreamPos, Parameter).To_int32u();
 
     //Well known values
     Ztring BitRateS;

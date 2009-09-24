@@ -16,6 +16,8 @@ Format/Url;;;N NT;;;Link
 Format_Version;;;Y NT;;;Version of this format
 Format_Profile;;;Y NT;;;Profile of the Format
 Format_Settings;;;Y NT;;;Settings needed for decoder used
+MuxingMode;;;Y NT;;;How this stream is muxed in the container
+MuxingMode_MoreInfo;;;Y NT;;;More info (text) about the muxing mode
 CodecID;;;Y YT;;;Codec ID (found in some containers)
 CodecID/Info;;;Y NT;;;Info about codec ID
 CodecID/Hint;;;Y NT;;;A hint for this codec ID
@@ -53,6 +55,12 @@ Delay/String;;;N NT;;;
 Delay/String1;;;N NT;;;
 Delay/String2;;;N NT;;;
 Delay/String3;;;N NT;;;
+Delay_Original;; ms;N NI;;;Delay fixed in the raw stream (relative) IN MS
+Delay_Original/String;;;N NT;;;Delay with measurement
+Delay_Original/String1;;;N NT;;;Delay with measurement
+Delay_Original/String2;;;N NT;;;Delay with measurement
+Delay_Original/String3;;;N NT;;;format : HH:MM:SS.MMM
+Delay_Original_Settings;;;N NT;;;Delay settings (in case of timecode for example)
 Video_Delay;; ms;N NI;;;Delay fixed in the stream (absolute / video)
 Video_Delay/String;;;Y NT;;;
 Video_Delay/String1;;;N NT;;;
@@ -70,14 +78,14 @@ StreamSize/String2;;;N NT;;;
 StreamSize/String3;;;N NT;;;
 StreamSize/String4;;;N NT;;;
 StreamSize/String5;;;N NT;;;With proportion
-StreamSize_Proportion;;;N NT;;;Stream size divided by file size
-Title;;;Y YI;;;Name of the track
-Encoded_Library;;;N YT;;;Software used to create the file
-Encoded_Library/String;;;Y NT;;;Software used to create the file
-Encoded_Library/Name;;;N NT;;;Info from the software
-Encoded_Library/Version;;;N NT;;;Version of software
-Encoded_Library/Date;;;N NT;;;Release date of software
-Encoded_Library_Settings;;;Y YT;;;Parameters used by the software
+StreamSize_Proportion;;;N NT;;;Stream size divided by file size;;
+Title;;;Y YI;;;Name of the track;;
+Encoded_Library;;;N YT;;;Software used to create the file;;
+Encoded_Library/String;;;Y NT;;;Software used to create the file;;
+Encoded_Library/Name;;;N NT;;;Info from the software;;
+Encoded_Library/Version;;;N NT;;;Version of software;;
+Encoded_Library/Date;;;N NT;;;Release date of software;;
+Encoded_Library_Settings;;;Y YT;;;Parameters used by the software;;
 Language;;;N YT;;;Language (2-letter ISO 639-1 if exists, else 3-letter ISO 639-2, and with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn);;
 Language/String;;;Y NT;;;Language (full);;
 Language_More;;;Y YT;;;More info about Language (e.g. Director's Comment);;
