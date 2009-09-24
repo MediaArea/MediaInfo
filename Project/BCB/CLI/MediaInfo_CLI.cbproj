@@ -70,10 +70,6 @@
 			<DCC_AdditionalSwitches> -$O+</DCC_AdditionalSwitches>
 		</PropertyGroup>
 		<ItemGroup>
-			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\Thread.cpp">
-				<BuildOrder>9</BuildOrder>
-				<BuildOrder>2</BuildOrder>
-			</CppCompile>
 			<CppCompile Include="..\..\..\Source\Common\Core.cpp">
 				<BuildOrder>5</BuildOrder>
 				<DependentOn>..\..\..\Source\Common\Core.h</DependentOn>
@@ -107,88 +103,6 @@
 				<IgnorePath>true</IgnorePath>
 				<BuildOrder>8</BuildOrder>
 			</LibFiles>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze.cpp">
-				<BuildOrder>9</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Buffer.cpp">
-				<BuildOrder>10</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Buffer_MinimizeSize.cpp">
-				<BuildOrder>11</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Streams.cpp">
-				<BuildOrder>12</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Analyze_Streams_Finish.cpp">
-				<BuildOrder>13</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Base.cpp">
-				<BuildOrder>14</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.cpp">
-				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\File__Duplicate.h</DependentOn>
-				<BuildOrder>15</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File__MultipleParsing.cpp">
-				<BuildOrder>16</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Dummy.cpp">
-				<BuildOrder>17</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Other.cpp">
-				<BuildOrder>18</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\File_Unknown.cpp">
-				<BuildOrder>19</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo.cpp">
-				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo.h</DependentOn>
-				<BuildOrder>20</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.cpp">
-				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config.h</DependentOn>
-				<BuildOrder>21</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config_Automatic.cpp">
-				<BuildOrder>22</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config_MediaInfo.cpp">
-				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Config_MediaInfo.h</DependentOn>
-				<BuildOrder>23</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_File.cpp">
-				<BuildOrder>24</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Inform.cpp">
-				<BuildOrder>25</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Internal.cpp">
-				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Internal.h</DependentOn>
-				<BuildOrder>26</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList.cpp">
-				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList.h</DependentOn>
-				<BuildOrder>27</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList_Internal.cpp">
-				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfoList_Internal.h</DependentOn>
-				<BuildOrder>28</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_MpegPs.cpp">
-				<BuildOrder>29</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_MpegTs.cpp">
-				<BuildOrder>30</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_MpegTs_Duplicate.cpp">
-				<BuildOrder>31</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg_Descriptors.cpp">
-				<BuildOrder>32</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Mpeg_Psi.cpp">
-				<BuildOrder>33</BuildOrder>
-			</CppCompile>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
