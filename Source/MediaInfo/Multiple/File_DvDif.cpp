@@ -874,27 +874,51 @@ void File_DvDif::audio_source()
     BS_End();
 
     FILLING_BEGIN();
+        if (stype==3)
+            int A=0;    
+            
         if (!IgnoreAudio && (FrameCount==1 || AuxToAnalyze)) //Only the first time
         {
             Stream_Prepare(Stream_Audio);
             Fill(Stream_Audio, 0, Audio_ID, 0);
             Fill(Stream_Audio, 0, Audio_Format, "PCM");
             Fill(Stream_Audio, 0, Audio_Codec, "PCM");
-            Fill(Stream_Audio, 0, Audio_Channel_s_, 2);
+            Fill(Stream_Audio, 0, Audio_Channel_s_, stype==3?1:2);
             Fill(Stream_Audio, 0, Audio_SamplingRate, Dv_Audio_SamplingRate[SamplingRate]);
             Fill(Stream_Audio, 0, Audio_Resolution, Dv_Audio_Resolution[Resolution]);
-            Fill(Stream_Audio, 0, Audio_BitRate, 2*Dv_Audio_SamplingRate[SamplingRate]*Dv_Audio_Resolution[Resolution]);
+            Fill(Stream_Audio, 0, Audio_BitRate, (stype==3?1:2)*Dv_Audio_SamplingRate[SamplingRate]*Dv_Audio_Resolution[Resolution]);
 
-            if (stype==2 || (Resolution==1 && SamplingRate==2)) //stype=? or (Resolution=12 bits and SamplingRate=32 KHz)
+            if (stype==2 || stype==3 || (Resolution==1 && SamplingRate==2)) //stype=2 or 3 or (Resolution=12 bits and SamplingRate=32 KHz)
             {
                 Stream_Prepare(Stream_Audio);
                 Fill(Stream_Audio, 1, Audio_ID, 1);
                 Fill(Stream_Audio, 1, Audio_Format, "PCM");
                 Fill(Stream_Audio, 1, Audio_Codec, "PCM");
-                Fill(Stream_Audio, 1, Audio_Channel_s_, 2);
+                Fill(Stream_Audio, 1, Audio_Channel_s_, stype==3?1:2);
                 Fill(Stream_Audio, 1, Audio_SamplingRate, Dv_Audio_SamplingRate[SamplingRate]);
                 Fill(Stream_Audio, 1, Audio_Resolution, Dv_Audio_Resolution[Resolution]);
-                Fill(Stream_Audio, 1, Audio_BitRate, 2*Dv_Audio_SamplingRate[SamplingRate]*Dv_Audio_Resolution[Resolution]);
+                Fill(Stream_Audio, 1, Audio_BitRate, (stype==3?1:2)*Dv_Audio_SamplingRate[SamplingRate]*Dv_Audio_Resolution[Resolution]);
+
+                if (stype==3)
+                {
+                    Stream_Prepare(Stream_Audio);
+                    Fill(Stream_Audio, 2, Audio_ID, 1);
+                    Fill(Stream_Audio, 2, Audio_Format, "PCM");
+                    Fill(Stream_Audio, 2, Audio_Codec, "PCM");
+                    Fill(Stream_Audio, 2, Audio_Channel_s_, 1);
+                    Fill(Stream_Audio, 2, Audio_SamplingRate, Dv_Audio_SamplingRate[SamplingRate]);
+                    Fill(Stream_Audio, 2, Audio_Resolution, Dv_Audio_Resolution[Resolution]);
+                    Fill(Stream_Audio, 2, Audio_BitRate, Dv_Audio_SamplingRate[SamplingRate]*Dv_Audio_Resolution[Resolution]);
+
+                    Stream_Prepare(Stream_Audio);
+                    Fill(Stream_Audio, 3, Audio_ID, 1);
+                    Fill(Stream_Audio, 3, Audio_Format, "PCM");
+                    Fill(Stream_Audio, 3, Audio_Codec, "PCM");
+                    Fill(Stream_Audio, 3, Audio_Channel_s_, 1);
+                    Fill(Stream_Audio, 3, Audio_SamplingRate, Dv_Audio_SamplingRate[SamplingRate]);
+                    Fill(Stream_Audio, 3, Audio_Resolution, Dv_Audio_Resolution[Resolution]);
+                    Fill(Stream_Audio, 3, Audio_BitRate, Dv_Audio_SamplingRate[SamplingRate]*Dv_Audio_Resolution[Resolution]);
+                }
             }
         }
     FILLING_END();
