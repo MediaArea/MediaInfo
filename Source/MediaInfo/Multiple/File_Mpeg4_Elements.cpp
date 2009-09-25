@@ -53,6 +53,9 @@
 #if defined(MEDIAINFO_ADPCM_YES)
     #include "MediaInfo/Audio/File_Adpcm.h"
 #endif
+#if defined(MEDIAINFO_MPEGA_YES)
+    #include "MediaInfo/Audio/File_Mpega.h"
+#endif
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
@@ -2744,6 +2747,15 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             //Filling
             Finish(&MI);
             Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+        }
+        #endif
+        #if defined(MEDIAINFO_MPEGA_YES)
+        if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("MPEG Audio"))
+        {
+            //Creating the parser
+            Stream[moov_trak_tkhd_TrackID].Parser=new File_Mpega;
+            Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
+            mdat_MustParse=true; //Data is in MDAT
         }
         #endif
         if (Element_Code==0x6F776D61) //"owma"
