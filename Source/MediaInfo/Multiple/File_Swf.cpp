@@ -300,19 +300,6 @@ File_Swf::File_Swf()
 }
 
 //***************************************************************************
-// Format
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Swf::Read_Buffer_Finalize()
-{
-    if (Count_Get(Stream_General)==0)
-        return;
-    if (!Status[IsAccepted])
-        Accept("SWF");
-}
-
-//***************************************************************************
 // Buffer
 //***************************************************************************
 
@@ -696,8 +683,8 @@ bool File_Swf::Decompress()
     MI.FileLength=FileLength;
     MI.Version=Version;
     Open_Buffer_Init(&MI);
-    Open_Buffer_Continue(&MI, Dest, FileLength-8);
-    Open_Buffer_Finalize(&MI);
+    MI.Open_Buffer_Continue(Dest, FileLength-8);
+    MI.Open_Buffer_Finalize();
     Merge(MI, Stream_General, 0, 0);
     Merge(MI);
     delete[] Dest; //Dest=NULL;

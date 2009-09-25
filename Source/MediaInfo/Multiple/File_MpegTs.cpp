@@ -425,7 +425,7 @@ void File_MpegTs::Streams_Finish()
     for (int16u PID=0; PID<0x2000; PID++)
         Streams_Finish_PerStream(PID, Complete_Stream->Streams[PID]);
 
-    File__Duplicate_Read_Buffer_Finalize();
+    File__Duplicate_Streams_Finish();
 }
 
 //---------------------------------------------------------------------------

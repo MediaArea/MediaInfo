@@ -155,7 +155,7 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
     Read_Buffer_Init();
 
     //Integrity
-    if (!Status[IsAccepted] && File_Offset>=File_Size)
+    if (File_Offset>File_Size)
     {
         Reject();
         return; //There is a problem
@@ -243,7 +243,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
             std::memcpy(Buffer_Temp+Buffer_Size, ToAdd, ToAdd_Size);
             Buffer_Temp_Size+=ToAdd_Size;
         }
-        
+
         //Buffer
         Buffer=Buffer_Temp;
         Buffer_Size=Buffer_Temp_Size;
@@ -391,7 +391,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     #ifndef MEDIAINFO_MINIMIZESIZE
         Config_Details=MediaInfoLib::Config.Details_Get();
     #endif
-    
+
     //Header
     if (MustParseTheHeaderFile)
     {
@@ -450,7 +450,6 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
         Element_End();
 
     //Buffer - Global
-    Read_Buffer_Finalize();
     Fill();
     if (!NoBufferModification)
         Finish();
@@ -638,7 +637,7 @@ bool File__Analyze::Synchro_Manage()
             Trusted_IsNot("Synchronisation lost");
         }
     }
-    
+
     //Trying to synchronize
     if (!Synched)
     {
@@ -850,7 +849,7 @@ void File__Analyze::Header_Fill_Size(int64u Size)
     //Integrity
     if (Size<Element_Offset)
         Size=Element_Offset; //At least what we read before!!!
-        
+
     //Filling
     if (Element_Level==1)
         Element[0].Next=File_Offset+Buffer_Offset+Size;
@@ -906,7 +905,7 @@ bool File__Analyze::Data_Manage()
         Element_Offset=0;
         return false;
     }
-    
+
     //Next element
     if (!Element_WantNextLevel)
     {

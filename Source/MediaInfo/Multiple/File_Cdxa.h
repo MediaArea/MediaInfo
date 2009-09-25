@@ -49,6 +49,9 @@ public :
     ~File_Cdxa();
 
 private :
+    //Streams management
+    void Streams_Finish ();
+
     //Buffer - File header
     bool FileHeader_Begin();
     void FileHeader_Parse();
@@ -57,9 +60,6 @@ private :
     bool Synchronize();
     bool Synched_Test();
     
-    //Buffer - Global
-    void Read_Buffer_Finalize ();
-
     //Buffer - Per element
     void Header_Parse();
     void Data_Parse();

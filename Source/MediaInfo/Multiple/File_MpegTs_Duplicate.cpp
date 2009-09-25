@@ -50,7 +50,7 @@ namespace MediaInfoLib
 // Format
 //***************************************************************************
 
-void File_MpegTs::File__Duplicate_Read_Buffer_Finalize ()
+void File_MpegTs::File__Duplicate_Streams_Finish ()
 {
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Complete_Stream->Duplicates_Speed_FromPID.clear();

@@ -45,10 +45,6 @@ public :
     int32u FileLength;;
     int8u  Version;
 
-protected :
-    //Buffer - Global
-    void Read_Buffer_Finalize ();
-
 public :
     File_Swf();
     

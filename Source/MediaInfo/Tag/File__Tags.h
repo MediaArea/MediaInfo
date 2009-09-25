@@ -64,7 +64,6 @@ public :
 
     //Buffer - Global
     bool Read_Buffer_Continue ();
-    void Read_Buffer_Finalize ();
 
     //Per element
     bool Header_Begin() {return Synched_Test();}
