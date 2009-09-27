@@ -565,10 +565,11 @@ void File_DvDif::Header()
         }
 
         FrameCount++;
-        if (Count_Get(Stream_General)==0)
-            Stream_Prepare(Stream_General);
         if (!Status[IsAccepted] && (FrameCount>=10 || IsSub))
+        {
             Accept("DV DIF");
+            Stream_Prepare(Stream_General);
+        }
         if (!Status[IsFilled] && FrameCount>=Frame_Count_Valid)
             #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
                 if (Config->File_DvDif_Analysis_Get())
@@ -608,10 +609,11 @@ void File_DvDif::Header()
         }
 
         FrameCount++;
-        if (Count_Get(Stream_General)==0)
-            Stream_Prepare(Stream_General);
         if (!Status[IsAccepted] && (FrameCount>=10 || IsSub))
+        {
             Accept("DV DIF");
+            Stream_Prepare(Stream_General);
+        }
         if (!Status[IsFilled] && FrameCount>=Frame_Count_Valid)
             #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
                 if (Config->File_DvDif_Analysis_Get())
@@ -876,6 +878,11 @@ void File_DvDif::audio_source()
     FILLING_BEGIN();
         if (!IgnoreAudio && (FrameCount==1 || AuxToAnalyze)) //Only the first time
         {
+            if (!Status[IsAccepted])
+            {
+                Accept("DV DIF");
+                Stream_Prepare(Stream_General);
+            }
             Stream_Prepare(Stream_Audio);
             Fill(Stream_Audio, 0, Audio_ID, 0);
             Fill(Stream_Audio, 0, Audio_Format, "PCM");
@@ -1025,6 +1032,11 @@ void File_DvDif::video_source()
     FILLING_BEGIN();
         if ((FrameCount==1 || AuxToAnalyze) && Count_Get(Stream_Video)==0) //Only the first time
         {
+            if (!Status[IsAccepted])
+            {
+                Accept("DV DIF");
+                Stream_Prepare(Stream_General);
+            }
             Stream_Prepare(Stream_Video);
             Fill(Stream_Video, 0, Video_Format, "Digital Video");
             Fill(Stream_Video, 0, Video_Codec, "DV");
@@ -1108,6 +1120,7 @@ void File_DvDif::video_sourcecontrol()
         if (!Status[IsAccepted] && AuxToAnalyze)
         {
             Accept("DV DIF");
+            Stream_Prepare(Stream_General);
             Fill("DV DIF");
         }
     FILLING_END();
@@ -1193,6 +1206,11 @@ void File_DvDif::consumer_camera_1()
 
     if (!consumer_camera_1_Parsed)
     {
+        if (!Status[IsAccepted])
+        {
+            Accept("DV DIF");
+            Stream_Prepare(Stream_General);
+        }
         if (ae_mode<0x0F) Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("ae mode=")+Ztring(Dv_consumer_camera_1_ae_mode[ae_mode]));
         if (wb_mode<0x08) Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("wb mode=")+Ztring(Dv_consumer_camera_1_wb_mode[wb_mode]));
         if (wb_mode<0x1F) Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("white balance=")+Ztring(Dv_consumer_camera_1_white_balance(white_balance)));

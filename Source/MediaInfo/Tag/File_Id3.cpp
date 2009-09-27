@@ -80,6 +80,7 @@ void File_Id3::Read_Buffer_Continue()
         Year.TrimRight();
         Comment.TrimRight();
 
+        Accept("Id3");
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Album, Album);
         Fill(Stream_General, 0, General_Track, Title);
@@ -91,7 +92,6 @@ void File_Id3::Read_Buffer_Continue()
         if (Track)
             Fill(Stream_General, 0, General_Track_Position, Track);
 
-        Accept("Id3");
         Finish("Id3");
     FILLING_END();
 }

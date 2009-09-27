@@ -101,8 +101,12 @@ void File_Flic::FileHeader_Parse()
                             return;
         }
 
+        //Filling
+        Accept("FLIC");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "FLIC");
+
         Stream_Prepare(Stream_Video);
         if (Type==0xAF11)
         {
@@ -131,7 +135,7 @@ void File_Flic::FileHeader_Parse()
         Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
         Fill(Stream_Video, 0, Video_Resolution, BitsPerPixel);
 
-        Accept("FLIC");
+        //No more need data
         Finish("FLIC");
     FILLING_END();
 }

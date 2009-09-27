@@ -73,6 +73,7 @@ void File_Amr::FileHeader_Parse()
         Skip_C5(                                                "Signature");
 
     FILLING_BEGIN();
+        Accept("AMR");
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "AMR");
         Stream_Prepare(Stream_Audio);
@@ -90,8 +91,7 @@ void File_Amr::FileHeader_Parse()
         else
             Fill(Stream_Audio, 0, Audio_Codec, "AMR");
 
-        //No need of more
-        Accept("AMR");
+        //No more need data
         Finish("AMR");
     FILLING_END();
 }

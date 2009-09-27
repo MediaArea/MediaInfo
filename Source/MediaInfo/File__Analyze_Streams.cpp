@@ -53,7 +53,7 @@ extern MediaInfo_Config Config;
 size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
 {
     //Integrity
-    if (KindOfStream>Stream_Max)
+    if (!Status[IsAccepted] || KindOfStream>Stream_Max)
         return Error;
 
     //Clear
@@ -143,7 +143,7 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
 void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const Ztring &Value, bool Replace)
 {
     //Integrity
-    if (StreamKind>Stream_Max)
+    if (!Status[IsAccepted] || StreamKind>Stream_Max)
         return;
 
     //Handling values with \r\n inside
@@ -746,7 +746,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
 void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, const char* Parameter, const Ztring &Value, bool Replace)
 {
     //Integrity
-    if (StreamKind>Stream_Max || Parameter==NULL || Parameter[0]=='\0')
+    if (!Status[IsAccepted] || StreamKind>Stream_Max || Parameter==NULL || Parameter[0]=='\0')
         return;
 
     //Handling values with \r\n inside

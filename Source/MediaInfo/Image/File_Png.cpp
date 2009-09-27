@@ -112,14 +112,18 @@ void File_Png::FileHeader_Parse()
         switch (Signature)
         {
             case 0x89504E47 :
+                Accept("PNG");
+
                 Stream_Prepare(Stream_General);
                 Fill(Stream_General, 0, General_Format, "PNG");
 
                 Stream_Prepare(Stream_Image);
 
-                Accept("PNG");
                 break;
+
             case 0x8A4E4E47 :
+                Accept("PNG");
+
                 Stream_Prepare(Stream_General);
                 Fill(Stream_General, 0, General_Format, "MNG");
 
@@ -127,10 +131,12 @@ void File_Png::FileHeader_Parse()
                 Fill(Stream_Image, 0, Image_Codec, "MNG");
                 Fill(Stream_Image, 0, Image_Format, "MNG");
 
-                Accept("PNG");
                 Finish("PNG");
                 break;
+
             case 0x8B4A4E47 :
+                Accept("PNG");
+
                 Stream_Prepare(Stream_General);
                 Fill(Stream_General, 0, General_Format, "JNG");
 
@@ -138,9 +144,9 @@ void File_Png::FileHeader_Parse()
                 Fill(Stream_Image, 0, Image_Format, "JNG");
                 Fill(Stream_Image, 0, Image_Codec, "JNG");
 
-                Accept("PNG");
                 Finish("PNG");
                 break;
+
             default:
                 Reject("PNG");
         }

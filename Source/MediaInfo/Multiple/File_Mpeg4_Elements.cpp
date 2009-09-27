@@ -738,6 +738,7 @@ void File_Mpeg4::ftyp()
     }
 
     //Parsing
+    std::vector<int32u> CompatibleBrands;
     Get_C4 (MajorBrand,                                         "MajorBrand");
     Skip_B4(                                                    "MajorBrandVersion");
     while (Element_Offset<Element_Size)
@@ -745,20 +746,22 @@ void File_Mpeg4::ftyp()
         int32u CompatibleBrand;
         Get_C4 (CompatibleBrand,                                "CompatibleBrand");
 
-        //Filling
-        switch (CompatibleBrand)
-        {
-            case Elements::ftyp_caqv : Fill(StreamKind_Last, StreamPos_Last, "Encoded_Application", "Casio Digital Camera"); break;
-            default : ;
-        }
+        FILLING_BEGIN();
+            CompatibleBrands.push_back(CompatibleBrand);
+        FILLING_END();
     }
 
     FILLING_BEGIN();
+        Accept("MPEG-4");
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "MPEG-4");
+        for (size_t Pos=0; Pos<CompatibleBrands.size(); Pos++)
+            switch (CompatibleBrands[Pos])
+            {
+                case Elements::ftyp_caqv : Fill(StreamKind_Last, StreamPos_Last, "Encoded_Application", "Casio Digital Camera"); break;
+                default : ;
+            }
         CodecID_Fill(Ztring().From_CC4(MajorBrand), Stream_General, 0, InfoCodecID_Format_Mpeg4);
-        if (!Status[IsAccepted])
-            Accept("MPEG-4");
     FILLING_END();
 }
 

@@ -85,8 +85,11 @@ void File_Aac::Read_Buffer_Continue()
 void File_Aac::From_Codec()
 {
     //Filling
+    Accept("AAC");
+
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "AAC");
+
     Stream_Prepare(Stream_Audio);
     Fill(Stream_Audio, 0, Audio_Format, "AAC");
     Fill(Stream_Audio, 0, Audio_Codec, Codec);
@@ -122,7 +125,6 @@ void File_Aac::From_Codec()
         Fill(Stream_Audio, 0, Audio_Format_Settings_PS, PS?"Yes":"No");
     }
 
-    Accept("AAC");
     Finish("AAC");
 }
 
@@ -169,13 +171,15 @@ void File_Aac::libfaad()
         }
     #else
         //Filling
+        Accept("AAC");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "AAC");
+
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "AAC");
         Fill(Stream_Audio, 0, Audio_Codec, "AAC");
 
-        Accept("AAC");
         Finish("AAC");
     #endif
 }

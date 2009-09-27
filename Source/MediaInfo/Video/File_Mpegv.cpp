@@ -1114,7 +1114,10 @@ void File_Mpegv::user_data_start_CC()
                 if (DVD_CC_Parsers[cc_type]->Status[IsFinished])
                 {
                     if (Count_Get(Stream_General)==0)
+                    {
+                        Accept("MPEG Video");
                         Stream_Prepare(Stream_General);
+                    }
                     Merge(*DVD_CC_Parsers[cc_type]);
                     Fill(Stream_Text, StreamPos_Last, Text_ID, _T("DVD-")+Ztring::ToZtring(cc_type));
                     Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("DVD-Video"));
@@ -1272,7 +1275,10 @@ void File_Mpegv::user_data_start_GA94_03()
                             if (GA94_03_CC_Parsers[Parser_Pos]->Status[IsFinished])
                             {
                                 if (Count_Get(Stream_General)==0)
+                                {
+                                    Accept("MPEG Video");
                                     Stream_Prepare(Stream_General);
+                                }
                                 Merge(*GA94_03_CC_Parsers[Parser_Pos]);
                                 if (Parser_Pos<2)
                                     Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Parser_Pos));

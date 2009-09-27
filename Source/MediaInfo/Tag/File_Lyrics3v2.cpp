@@ -80,10 +80,9 @@ void File_Lyrics3v2::FileHeader_Parse()
     Skip_Local(11,                                              "Signature");
 
     FILLING_BEGIN();
+        Accept("Lyrics3v2");
         Stream_Prepare(Stream_General);
         TotalSize-=11;
-
-        Accept("Lyrics3v2");
     FILLING_END();
 }
 

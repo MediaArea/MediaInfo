@@ -72,6 +72,8 @@ void File_VorbisCom::FileHeader_Parse()
     Get_L4 (user_comment_list_length,                           "user_comment_list_length");
 
     FILLING_BEGIN();
+        Accept("VorbisCom");
+
         Stream_Prepare(Stream_General);
         if (StreamKind_Specific!=Stream_General)
             Stream_Prepare(StreamKind_Specific);
@@ -145,8 +147,6 @@ void File_VorbisCom::FileHeader_Parse()
         Fill(StreamKind_Specific, 0, "Encoded_Library/Name", Library_Name);
         Fill(StreamKind_Specific, 0, "Encoded_Library/Version", Library_Version);
         Fill(StreamKind_Specific, 0, "Encoded_Library/Date", Library_Date);
-
-        Accept("VorbisCom");
     FILLING_END();
 }
 

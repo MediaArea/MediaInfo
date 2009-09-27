@@ -549,8 +549,11 @@ void File_Ac3::Data_Parse()
     }
 
     //Filling
-    if (Count_Get(Stream_Audio)==0 && Frame_Count>=Frame_Count_Valid)
+    if (!Status[IsAccepted] && Frame_Count>=Frame_Count_Valid)
+    {
+        Accept("AC-3");
         Data_Parse_Fill();
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -640,7 +643,6 @@ void File_Ac3::Data_Parse_Fill()
     }
 
     //No more need data
-    Accept("AC-3");
     Finish("AC-3");
 }
 

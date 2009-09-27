@@ -78,13 +78,16 @@ void File_Tiff::Read_Buffer_Continue()
     Skip_XX(File_Size-4,                                        "Data");
 
     FILLING_BEGIN();
+        Accept("TIFF");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "TIFF");
+
         Stream_Prepare(Stream_Image);
         Fill(Stream_Image, 0, Image_Format, "TIFF");
         Fill(Stream_Image, 0, Image_Codec, "TIFF");
 
-        Accept("TIFF");
+        //No more need data
         Finish("TIFF");
     FILLING_END();
 }

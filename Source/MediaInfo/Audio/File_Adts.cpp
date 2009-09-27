@@ -249,6 +249,8 @@ void File_Adts::Data_Parse_Fill()
     bool psPresentFlag=channel_configuration<=1; //1 channel
 
     //Filling
+    File__Tags_Helper::Accept("ADTS");
+
     int32u BitRate=(ADTS_SamplingRate[sampling_frequency_index]/1024)*aac_frame_length*8;
     File__Tags_Helper::Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "ADTS");
@@ -287,7 +289,6 @@ void File_Adts::Data_Parse_Fill()
     }
 
     //No more need data
-    File__Tags_Helper::Accept("ADTS");
     File__Tags_Helper::Finish("ADTS");
 }
 

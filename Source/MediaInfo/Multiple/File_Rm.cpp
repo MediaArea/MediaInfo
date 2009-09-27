@@ -415,6 +415,9 @@ void File_Rm::MDPR_realvideo()
     Skip_C4(                                                    "Type2");
 
     //Filling
+    if (!Status[IsAccepted])
+        Accept("RealMedia"); //Is subs
+
     Stream_Prepare(Stream_Video);
     if (FromMKV_StreamType==Stream_Max) //Using the one from the container
         CodecID_Fill(Ztring().From_CC4(Codec), Stream_Video, StreamPos_Last, InfoCodecID_Format_Real);
@@ -528,6 +531,9 @@ void File_Rm::MDPR_realaudio()
     }
 
     //Filling
+    if (!Status[IsAccepted])
+        Accept("RealMedia"); //Is subs
+
     Stream_Prepare(Stream_Audio);
     if (Version==3)
     {

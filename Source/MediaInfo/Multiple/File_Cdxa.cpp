@@ -154,11 +154,11 @@ void File_Cdxa::FileHeader_Parse()
     Skip_L4(                                                    "data size");
 
     FILLING_BEGIN();
+        Accept("CDXA");
         MI=new MediaInfo_Internal;
         MI->Option(_T("FormatDetection_MaximumOffset"), _T("1048576"));
         MI->Option(_T("File_IsSub"), _T("1"));
         Stream_Prepare(Stream_General);
-        Accept("CDXA");
     FILLING_END();
 }
 

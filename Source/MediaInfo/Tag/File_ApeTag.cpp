@@ -53,10 +53,9 @@ void File_ApeTag::FileHeader_Parse()
         HeaderFooter(); //v2
 
     FILLING_BEGIN();
+        Accept("ApeTag");
         Stream_Prepare(Stream_General);
         Stream_Prepare(Stream_Audio);
-
-        Accept("ApeTag");
     FILLING_END();
 }
 

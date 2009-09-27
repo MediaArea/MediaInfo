@@ -88,6 +88,8 @@ void File_ExtendedModule::Read_Buffer_Continue()
     Skip_XX(256,                                                "Pattern order table");
 
     FILLING_BEGIN();
+        Accept("Extended Module");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "Extended Module");
         Fill(Stream_General, 0, General_Format_Version, Ztring(_T("Version"))+Ztring::ToZtring(VersionMajor)+_T(".")+Ztring::ToZtring(VersionMinor/10)+Ztring::ToZtring(VersionMinor%10));
@@ -101,7 +103,7 @@ void File_ExtendedModule::Read_Buffer_Continue()
             Stream_Prepare(Stream_Audio);
         }
 
-        Accept("Extended Module");
+        //No more need data
         Finish("Extended Module");
     FILLING_END();
 }

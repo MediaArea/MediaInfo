@@ -179,6 +179,7 @@ void File_Ogg_SubElement::Streams_Finish()
 //---------------------------------------------------------------------------
 void File_Ogg_SubElement::FileHeader_Parse()
 {
+    Accept("OGG (Sub element)");
     Stream_Prepare(Stream_General);
 }
 

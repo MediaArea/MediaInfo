@@ -178,8 +178,12 @@ void File_Flac::STREAMINFO()
     FILLING_BEGIN()
         if (SampleRate==0)
             return;
+        File__Tags_Helper::Accept("FLAC");
+        File__Tags_Helper::Streams_Fill();
+
         File__Tags_Helper::Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "FLAC");
+
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "FLAC");
         Fill(Stream_Audio, 0, Audio_Codec, "FLAC");
@@ -193,7 +197,6 @@ void File_Flac::STREAMINFO()
         if (!IsSub)
             Fill(Stream_Audio, 0, Audio_Duration, Samples*1000/SampleRate);
 
-        File__Tags_Helper::Accept("FLAC");
         Buffer_MaximumSize=4*1024*1024;
     FILLING_END();
 }

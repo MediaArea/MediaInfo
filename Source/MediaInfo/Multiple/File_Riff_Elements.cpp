@@ -2272,10 +2272,9 @@ void File_Riff::MThd()
     Skip_B2(                                                    "division");
 
     FILLING_BEGIN_PRECISE();
+        Accept("MIDI");
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "MIDI");
-
-        Accept("MIDI");
     FILLING_ELSE();
         Reject("MIDI");
     FILLING_END();

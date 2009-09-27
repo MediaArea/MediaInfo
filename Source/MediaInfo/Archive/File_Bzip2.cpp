@@ -69,9 +69,11 @@ void File_Bzip2::Read_Buffer_Continue()
     Skip_XX(File_Size-2,                                        "Data");
 
     FILLING_BEGIN();
+        Accept("Bzip2");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "BZip2");
-        Accept("Bzip2");
+
         Finish("Bzip2");
     FILLING_END();
 }

@@ -123,8 +123,11 @@ void File_La::FileHeader_Parse()
         if (UncompressedSize==0)
             return;
 
+        File__Tags_Helper::Accept("LA");
+
         File__Tags_Helper::Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "LA");
+
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "LA");
         Fill(Stream_Audio, 0, Audio_Codec, "LA");
@@ -132,11 +135,10 @@ void File_La::FileHeader_Parse()
         Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
         Fill(Stream_Audio, 0, Audio_SamplingRate, SampleRate);
         Fill(Stream_Audio, 0, Audio_Duration, Duration);
-    FILLING_END();
 
-    //No more need data
-    File__Tags_Helper::Accept("LA");
-    File__Tags_Helper::Finish("LA");
+        //No more need data
+        File__Tags_Helper::Finish("LA");
+    FILLING_END();
 }
 
 //***************************************************************************

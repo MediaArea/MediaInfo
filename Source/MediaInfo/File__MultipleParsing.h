@@ -49,10 +49,12 @@ public :
     ~File__MultipleParsing();
 
 private :
+    //Streams management
+    void Streams_Finish();
+
     //Buffer - Global
     void Read_Buffer_Init();
     void Read_Buffer_Continue();
-    void Read_Buffer_Finalize();
 
     //Temp
     std::vector<File__Analyze*> Parser;

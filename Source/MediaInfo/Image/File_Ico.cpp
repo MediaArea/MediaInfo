@@ -47,7 +47,28 @@ File_Ico::File_Ico()
 }
 
 //***************************************************************************
-// Static stuff
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Ico::Streams_Fill()
+{
+    Stream_Prepare(Stream_General);
+    Fill(Stream_General, 0, General_Format, Type==1?"ICO":"CUR");
+
+    for (size_t Pos=0; Pos<Streams.size(); Pos++)
+    {
+        Stream_Prepare(Stream_Image);
+        Fill(Stream_Image, StreamPos_Last, Image_Width, Streams[Pos].Width?Streams[Pos].Width:256);
+        Fill(Stream_Image, StreamPos_Last, Image_Height, Streams[Pos].Height?Streams[Pos].Height:256);
+        if (Type==1)
+            Fill(Stream_Image, StreamPos_Last, Image_Resolution,Streams[Pos].BitsPerPixel);
+        Fill(Stream_Image, StreamPos_Last, Image_StreamSize, Streams[Pos].Size);
+    }
+}
+
+//***************************************************************************
+// Buffer - File header
 //***************************************************************************
 
 //---------------------------------------------------------------------------
@@ -67,10 +88,6 @@ bool File_Ico::FileHeader_Begin()
     return true;
 }
 
-//***************************************************************************
-// Buffer - File header
-//***************************************************************************
-
 //---------------------------------------------------------------------------
 void File_Ico::FileHeader_Parse()
 {
@@ -78,17 +95,12 @@ void File_Ico::FileHeader_Parse()
     Skip_L2(                                                    "Reserved");
     Get_L2 (Type,                                               "Type");
     Get_L2 (Count,                                              "Count");
-
-    FILLING_BEGIN();
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, Type==1?"ICO":"CUR");
-    FILLING_END();
 }
 
 //***************************************************************************
+
 // Buffer - Per element
 //***************************************************************************
-
 //---------------------------------------------------------------------------
 void File_Ico::Header_Parse()
 {
@@ -113,12 +125,13 @@ void File_Ico::Data_Parse()
     Get_L4 (Offset,                                     "Offset of the bitmap data");
 
     FILLING_BEGIN_PRECISE();
-        Stream_Prepare(Stream_Image);
-        Fill(Stream_Image, StreamPos_Last, Image_Width, Width?Width:256);
-        Fill(Stream_Image, StreamPos_Last, Image_Height, Height?Height:256);
-        if (Type==1)
-            Fill(Stream_Image, StreamPos_Last, Image_Resolution, BitsPerPixel);
-        Fill(Stream_Image, StreamPos_Last, Image_StreamSize, Size);
+        stream Stream;
+        Stream.Width=Width;
+        Stream.Height=Height;
+        Stream.BitsPerPixel=BitsPerPixel;
+        Stream.Size=Size;
+        Stream.Offset=Offset;
+        Streams.push_back(Stream);
 
         IcoDataSize+=Size;
         if (Offset>File_Size || File_Offset+Buffer_Offset+Element_Size+IcoDataSize>File_Size)

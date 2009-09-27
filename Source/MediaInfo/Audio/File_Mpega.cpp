@@ -806,6 +806,7 @@ void File_Mpega::Data_Parse_Fill()
     }
 
     //Filling
+    File__Tags_Helper::Accept("MPEG Audio");
     File__Tags_Helper::Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "MPEG Audio");
     File__Tags_Helper::Stream_Prepare(Stream_Audio);
@@ -821,7 +822,6 @@ void File_Mpega::Data_Parse_Fill()
     Fill(Stream_Audio, 0, Audio_Resolution, 16);
 
     //Jumping
-    File__Tags_Helper::Accept("MPEG Audio");
     Fill("MPEG Audio");
     File__Tags_Helper::GoToFromEnd(16*1024, "MPEG-A");
     LastSync_Offset=(int64u)-1;

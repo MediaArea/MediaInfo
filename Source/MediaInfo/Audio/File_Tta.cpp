@@ -106,28 +106,32 @@ void File_Tta::FileHeader_Parse()
     Get_L4 (Samples,                                            "DataLength");
     Get_L4 (CRC32,                                              "CRC32");
 
-    //Filling data
-    if (SampleRate==0)
-        return;
-    Duration=((int64u)Samples)*1000/SampleRate;
-    if (Duration==0)
-        return;
-    UncompressedSize=Samples*Channels*(BitsPerSample/8);
-    if (UncompressedSize==0)
-        return;
+    FILLING_BEGIN();
+        if (SampleRate==0)
+            return;
+        Duration=((int64u)Samples)*1000/SampleRate;
+        if (Duration==0)
+            return;
+        UncompressedSize=Samples*Channels*(BitsPerSample/8);
+        if (UncompressedSize==0)
+            return;
 
-    File__Tags_Helper::Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "TTA");
-    File__Tags_Helper::Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, 0, Audio_Format, "TTA");
-    Fill(Stream_Audio, 0, Audio_Codec, "TTA ");
-    Fill(Stream_Audio, 0, Audio_Resolution, BitsPerSample);
-    Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
-    Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate);
-    Fill(Stream_Audio, 0, Audio_Duration, Duration);
+        //Filling data
+        File__Tags_Helper::Accept("TTA");
+
+        File__Tags_Helper::Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "TTA");
+
+        File__Tags_Helper::Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "TTA");
+        Fill(Stream_Audio, 0, Audio_Codec, "TTA ");
+        Fill(Stream_Audio, 0, Audio_Resolution, BitsPerSample);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
+        Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate);
+        Fill(Stream_Audio, 0, Audio_Duration, Duration);
+    FILLING_END();
 
     //No more need data
-    File__Tags_Helper::Accept("TTA");
     File__Tags_Helper::Finish("TTA");
 }
 

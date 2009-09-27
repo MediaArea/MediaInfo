@@ -54,6 +54,8 @@ void File_Mpeg4_TimeCode::FileHeader_Parse()
     Get_B4 (Position,                                           "Position");
 
     //Filling
+    Accept("TimeCode");
+
     Stream_Prepare(Stream_General);
     if (FrameRate)
     {
@@ -65,6 +67,7 @@ void File_Mpeg4_TimeCode::FileHeader_Parse()
             //No link with a track, we do all
             Stream_Prepare(Stream_Video);
             Fill(Stream_Video, 0, Video_Delay, Pos*1000/FrameRate, 0);
+
             Stream_Prepare(Stream_Audio);
             Fill(Stream_Audio, 0, Audio_Delay, Pos*1000/FrameRate, 0);
         }
@@ -74,7 +77,7 @@ void File_Mpeg4_TimeCode::FileHeader_Parse()
             Fill(StreamKind, 0, "Delay", Pos*1000/FrameRate, 0);
         }
     }
-    Accept("TimeCode");
+
     Finish("TimeCode");
 }
 

@@ -109,6 +109,7 @@ File_Riff::File_Riff()
     NeedOldIndex=true;
     IsBigEndian=false;
     IsWave64=false;
+    IsRIFF64=false;
     SecondPass=false;
     DV_FromHeader=NULL;
 
@@ -131,6 +132,10 @@ File_Riff::~File_Riff()
 //---------------------------------------------------------------------------
 void File_Riff::Streams_Finish ()
 {
+    //Global
+    if (IsRIFF64)
+        Fill(Stream_General, 0, General_Format_Profile, "RF64");
+
     //For each stream
     std::map<int32u, stream>::iterator Temp=Stream.begin();
     while (Temp!=Stream.end())
@@ -522,7 +527,7 @@ void File_Riff::Header_Parse()
      || Name==Elements::FORM)
     {
         if (Name==Elements::RF64)
-            Fill(Stream_General, 0, General_Format_Profile, "RF64");
+            IsRIFF64=true;
         Get_C4 (Name,                                           "Real Name");
     }
 

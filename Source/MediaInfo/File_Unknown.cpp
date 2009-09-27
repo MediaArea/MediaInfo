@@ -43,8 +43,8 @@ namespace MediaInfoLib
 //---------------------------------------------------------------------------
 void File_Unknown::Read_Buffer_Init()
 {
-    Stream_Prepare(Stream_General);
     Accept("Unknown");
+    Stream_Prepare(Stream_General);
     Finish("Unknown");
 }
 

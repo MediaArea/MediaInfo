@@ -52,6 +52,7 @@ namespace MediaInfoLib
 // Constructor/Destructor
 //***************************************************************************
 
+//---------------------------------------------------------------------------
 File__Tags_Helper::File__Tags_Helper()
 {
     //In
@@ -64,6 +65,7 @@ File__Tags_Helper::File__Tags_Helper()
 
     //Temp
     Parser=NULL;
+    Parser_Streams_Fill=NULL;
     Id3v1_Offset=(int64u)-1;
     Lyrics3_Offset=(int64u)-1;
     Lyrics3v2_Offset=(int64u)-1;
@@ -77,6 +79,13 @@ File__Tags_Helper::File__Tags_Helper()
     SearchingForEndTags=false;
 }
 
+//---------------------------------------------------------------------------
+File__Tags_Helper::~File__Tags_Helper()
+{
+    delete Parser; //Parser=NULL;
+    delete Parser_Streams_Fill; //Parser_Streams_Fill=NULL;
+}
+
 //***************************************************************************
 // Streams management
 //***************************************************************************
@@ -84,6 +93,13 @@ File__Tags_Helper::File__Tags_Helper()
 //---------------------------------------------------------------------------
 void File__Tags_Helper::Streams_Fill()
 {
+    if (Parser_Streams_Fill && Parser_Streams_Fill->Status[File__Analyze::IsAccepted])
+    {
+        Parser_Streams_Fill->Read_Buffer_Finalize();
+        Base->Merge(*Parser_Streams_Fill, Stream_General, 0, 0, false);
+        Base->Merge(*Parser_Streams_Fill, Stream_Audio  , 0, 0, false);
+    }
+    delete Parser_Streams_Fill; Parser_Streams_Fill=NULL;
 }
 
 //---------------------------------------------------------------------------
@@ -258,13 +274,17 @@ bool File__Tags_Helper::Synched_Test()
             Parser_Buffer_Size-=(size_t)Size_ToParse;
             if (Parser->Status[File__Analyze::IsFinished] || Parser_Buffer_Size==0)
             {
-                if (Parser->Count_Get(Stream_General)>0)
+                if (Base->Status[File__Analyze::IsAccepted] && Parser->Count_Get(Stream_General)>0)
                 {
                     Parser->Read_Buffer_Finalize();
                     Base->Merge(*Parser, Stream_General, 0, 0, false);
                     Base->Merge(*Parser, Stream_Audio  , 0, 0, false);
+                    delete Parser; Parser=NULL;
                 }
-                delete Parser; Parser=NULL;
+                else
+                {
+                    Parser_Streams_Fill=Parser; Parser=NULL;
+                }
                 if (Parser_Buffer_Size)
                     Base->Skip_XX(Parser_Buffer_Size,           "Data continued");
                 Base->Element_Show();

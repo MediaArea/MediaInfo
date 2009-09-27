@@ -50,6 +50,7 @@ public :
 
     //Constructor/Destructor
     File__Tags_Helper();
+    ~File__Tags_Helper();
 
     //Streams management
     void Streams_Fill();
@@ -81,6 +82,7 @@ public :
 private :
     //Temp
     File__Analyze* Parser;
+    File__Analyze* Parser_Streams_Fill; //Parser to merge when filling
     size_t         Parser_Buffer_Size;
     int64u Id3v1_Offset;
     int64u Lyrics3_Offset;

@@ -191,10 +191,15 @@ void File_Ape::FileHeader_Parse()
         }
 
         //Filling
+        File__Tags_Helper::Accept("APE");
+        File__Tags_Helper::Streams_Fill();
+
         Duration=((int64u)Samples)*1000/SampleRate;
         UncompressedSize=Samples*Channels*(Resolution/8);
+
         File__Tags_Helper::Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "Monkey's Audio");
+
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "Monkey's Audio");
         Fill(Stream_Audio, 0, Audio_Encoded_Library_Settings, Ape_Codec_Settings(CompressionLevel));
@@ -205,7 +210,6 @@ void File_Ape::FileHeader_Parse()
         Fill(Stream_Audio, 0, Audio_Duration, Duration);
 
         //No more need data
-        File__Tags_Helper::Accept("APE");
         File__Tags_Helper::Finish("APE");
     FILLING_END();
 }

@@ -526,6 +526,11 @@ bool File_MpegTs::Synchronize()
         return false;
 
     //Synched is OK
+    if (!Status[IsAccepted])
+    {
+        Accept("MPEG-TS");
+        Stream_Prepare(Stream_General);
+    }
     return true;
 }
 
@@ -723,9 +728,6 @@ void File_MpegTs::Synched_Init()
         MpegTs_JumpTo_Begin=File_Size;
         MpegTs_JumpTo_End=File_Size;
     }
-
-    //There is no start code, so Stream_General is filled here
-    Stream_Prepare(Stream_General);
 
     //Continue, again, for Duplicate and Filter
     Option_Manage();
@@ -1216,7 +1218,10 @@ void File_MpegTs::PSI()
     {
         //Accept
         if (!Status[IsAccepted] && pid==0x0000 && Complete_Stream->Streams[pid].Parser->Status[IsAccepted])
+        {
             Accept("MPEG-TS");
+            Stream_Prepare(Stream_General);
+        }
 
         //Disabling this PID
         delete Complete_Stream->Streams[pid].Parser; Complete_Stream->Streams[pid].Parser=NULL;

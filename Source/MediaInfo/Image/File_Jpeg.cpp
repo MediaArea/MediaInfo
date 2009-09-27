@@ -321,6 +321,7 @@ void File_Jpeg::SIZ()
     }
 
     FILLING_BEGIN_PRECISE();
+        Accept("JPEG 2000");
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "JPEG 2000");
         if (Count_Get(StreamKind)==0)
@@ -331,7 +332,6 @@ void File_Jpeg::SIZ()
             Fill(Stream_Image, 0, Image_Codec_String, "JPEG 2000", Unlimited, true, true); //To Avoid automatic filling
         Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Width:(size_t)Video_Width, Xsiz);
         Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Height:(size_t)Video_Height, Ysiz);
-        Accept("JPEG 2000");
     FILLING_END();
 }
 
@@ -402,21 +402,18 @@ void File_Jpeg::SOF_()
     }
 
     FILLING_BEGIN_PRECISE();
-        if (!Status[IsAccepted])
-        {
-            Stream_Prepare(Stream_General);
-            Fill(Stream_General, 0, General_Format, "JPEG");
-            if (Count_Get(StreamKind)==0)
-                Stream_Prepare(StreamKind);
-            Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Format:(size_t)Video_Format, StreamKind==Stream_Image?"JPEG":"M-JPEG");
-            Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Codec:(size_t)Video_Codec, StreamKind==Stream_Image?"JPEG":"M-JPEG");
-            if (StreamKind==Stream_Image)
-                Fill(Stream_Image, 0, Image_Codec_String, "JPEG", Unlimited, true, true); //To Avoid automatic filling
-            Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Resolution:(size_t)Video_Resolution, Resolution*3);
-            Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Height:(size_t)Video_Height, Height*Height_Multiplier);
-            Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Width:(size_t)Video_Width, Width);
-            Accept("JPEG");
-        }
+        Accept("JPEG");
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "JPEG");
+        if (Count_Get(StreamKind)==0)
+            Stream_Prepare(StreamKind);
+        Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Format:(size_t)Video_Format, StreamKind==Stream_Image?"JPEG":"M-JPEG");
+        Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Codec:(size_t)Video_Codec, StreamKind==Stream_Image?"JPEG":"M-JPEG");
+        if (StreamKind==Stream_Image)
+            Fill(Stream_Image, 0, Image_Codec_String, "JPEG", Unlimited, true, true); //To Avoid automatic filling
+        Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Resolution:(size_t)Video_Resolution, Resolution*3);
+        Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Height:(size_t)Video_Height, Height*Height_Multiplier);
+        Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Width:(size_t)Video_Width, Width);
     FILLING_END();
 }
 
@@ -478,6 +475,7 @@ void File_Jpeg::APP0_AVI1()
     FILLING_BEGIN();
         if (!Status[IsAccepted])
         {
+            Accept("JPEG");
             if (Count_Get(Stream_Video)==0)
                 Stream_Prepare(Stream_Video);
 

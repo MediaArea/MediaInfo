@@ -151,8 +151,11 @@ void File_Au::FileHeader_Parse()
         Get_Local(data_start-24, arbitrary,                     "arbitrary data");
 
     FILLING_BEGIN();
+        Accept("AU");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "AU");
+
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, Au_Format(sample_format));
         Fill(Stream_Audio, 0, Audio_CodecID, Au_sample_format(sample_format));
@@ -167,7 +170,7 @@ void File_Au::FileHeader_Parse()
         Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
         Fill(Stream_General, 0, General_Comment, arbitrary);
 
-        Accept("AU");
+        //No more need data
         Finish("AU");
     FILLING_END();
 }

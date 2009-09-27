@@ -45,7 +45,7 @@ void File_OtherText::Read_Buffer_Continue()
     if (Buffer_Size<0x200)
         return;
 
-    Ztring Format, FormatMore, Url, Extensions, Codec;
+    Ztring Format, FormatMore, Codec;
     Ztring File;
     ZtringList Lines;
 
@@ -102,8 +102,6 @@ void File_OtherText::Read_Buffer_Continue()
           )
     {
         Format=_T("SubRip");
-        Extensions=_T("srt");
-        Url=_T("http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow");
         Codec=_T("SubRip");
     }
     else if (Lines[0]==_T("[Script Info]")
@@ -113,8 +111,6 @@ void File_OtherText::Read_Buffer_Continue()
     {
        Format=_T("SSA");
        FormatMore=_T("SubStation Alpha");
-       Extensions=_T("ssa");
-       Url=_T("http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow");
        Codec=_T("SSA");
     }
     else if (Lines[0]==_T("[Script Info]")
@@ -124,8 +120,6 @@ void File_OtherText::Read_Buffer_Continue()
     {
        Format=_T("ASS");
        FormatMore=_T("Advanced SubStation Alpha");
-       Extensions=_T("ssa");
-       Url=_T("http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow");
        Codec=_T("ASS");
     }
     else if (Lines[0].size()>24
@@ -138,8 +132,6 @@ void File_OtherText::Read_Buffer_Continue()
           )
     {
        Format=_T("Adobe encore DVD");
-       Extensions=_T("txt");
-       Url=_T("http://www.adobe.fr/products/encore/");
        Codec=_T("Adobe");
     }
     else if (Lines[0].size()==11
@@ -149,8 +141,6 @@ void File_OtherText::Read_Buffer_Continue()
           )
     {
        Format=_T("AQTitle");
-       Extensions=_T("aqt");
-       Url=_T("http://www.volny.cz/aberka/czech/aqt.html");
        Codec=_T("AQTitle");
     }
     else if (Lines[0].size()>28
@@ -163,7 +153,6 @@ void File_OtherText::Read_Buffer_Continue()
           )
     {
        Format=_T("Captions 32");
-       Extensions=_T("txt");
        Codec=_T("Caption 32");
     }
     else if (Lines[0].size()==23
@@ -179,7 +168,6 @@ void File_OtherText::Read_Buffer_Continue()
           )
     {
        Format=_T("Captions Inc");
-       Extensions=_T("txt");
        Codec=_T("Captions inc");
     }
     else if (Lines[0].size()>1
@@ -188,7 +176,6 @@ void File_OtherText::Read_Buffer_Continue()
     )
     {
        Format=_T("Cheeta");
-       Extensions=_T("asc");
     }
     else if (Lines[0].size()>10
           && Lines[0][0]==_T('~') && Lines[0][1]==_T('C') && Lines[0][2]==_T('P') && Lines[0][3]==_T('C') && Lines[0][9]==_T('~')
@@ -197,17 +184,11 @@ void File_OtherText::Read_Buffer_Continue()
     )
     {
        Format=_T("CPC Captioning");
-       Extensions=_T("txt");
-       Url=_T("http://www.cpcweb.com/Captioning/cap_software.htm");
        Codec=_T("CPC Captioning");
     }
     else if (false
     )
     {
-       Format=_T("");
-       Extensions=_T("");
-       Url=_T("");
-       Codec=_T("");
     }
     else
         return;
@@ -215,19 +196,19 @@ void File_OtherText::Read_Buffer_Continue()
     if (Format.empty())
         return;
 
+    Accept("Other text");
+
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, Format);
     Fill(Stream_General, 0, General_Format_Info, FormatMore, true);
-    Fill(Stream_General, 0, General_Format_Url, Url, true);
-    Fill(Stream_General, 0, General_Format_Extensions, Extensions);
+
     Stream_Prepare(Stream_Text);
     Fill(Stream_Text, 0, Text_Format, Format);
     Fill(Stream_Text, 0, Text_Codec, Codec);
 
-    //No need of more
+    //No more need data
     Element_Begin(Format);
     Element_End();
-    Accept("Other text");
     Finish("Other text");
 }
 

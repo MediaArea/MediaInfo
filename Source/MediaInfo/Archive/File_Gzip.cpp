@@ -74,10 +74,12 @@ void File_Gzip::Read_Buffer_Continue()
 
     FILLING_BEGIN();
         //Filling
+        Accept("Gzip");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "GZip");
         Fill(Stream_General, 0, General_Format_Profile, "deflate");
-        Accept("Gzip");
+
         Finish("Gzip");
     FILLING_END();
 }

@@ -86,10 +86,10 @@ void File_Skm::FileHeader_Parse()
     Skip_C5(                                                    "Signature");
 
     FILLING_BEGIN();
+        Accept("SKM");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "SKM");
-
-        Accept("SKM");
     FILLING_END();
 }
 

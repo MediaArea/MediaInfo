@@ -130,6 +130,7 @@ private :
     bool   NeedOldIndex;
     bool   IsBigEndian;
     bool   IsWave64;
+    bool   IsRIFF64;
     bool   SecondPass;      //Second pass for streams
     File__Analyze*  DV_FromHeader;
 

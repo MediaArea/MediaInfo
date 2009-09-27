@@ -104,6 +104,7 @@ void File_Dpg::FileHeader_Parse()
     Get_L4 (Video_Size,                                         "Video Size");
 
     FILLING_BEGIN();
+        Accept("DPG");
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "DPG");
 
@@ -120,16 +121,13 @@ void File_Dpg::FileHeader_Parse()
         #if defined(MEDIAINFO_MPEGA_YES)
             Parser=new File_Mpega();
             Open_Buffer_Init(Parser);
-            Accept("DPG");
             GoTo(Audio_Offset, "DPG");
         #elif defined(MEDIAINFO_MPEGV_YES)
             Audio_Size=0;
             Parser=new File_Mpegv();
             Open_Buffer_Init(Parser);
-            Accept("DPG");
             GoTo(Video_Offset, "DPG");
         #else
-            Accept("DPG");
             Finish("DPG");
         #endif
     FILLING_END();

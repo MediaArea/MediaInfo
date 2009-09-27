@@ -372,8 +372,6 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
         SBR();
 
     BS_End();
-    Accept("AudioSpecificConfig");
-    Finish("AudioSpecificConfig");
 
     //Handling implicit SBR and PS
     if ((MajorBrand&0x33677000)!=0x33677000) //If this is not a 3GP file
@@ -388,8 +386,11 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
     }
 
     FILLING_BEGIN()
+        Accept("AudioSpecificConfig");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "AAC");
+
         if (Count_Get(Stream_Audio)==0) //May be done elsewhere
             Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, StreamPos_Last, Audio_Format, MP4_Format(audioObjectType));
@@ -426,6 +427,8 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
             Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, "Front: L R", Unlimited, true, true);
         }
     }
+
+    Finish("AudioSpecificConfig");
 }
 
 //---------------------------------------------------------------------------
@@ -583,6 +586,8 @@ void File_Mpeg4_AudioSpecificConfig::GASpecificConfig ()
                             (Channels_LFE? (_T('.')+Ztring::ToZtring(Channels_LFE )):Ztring());
 
         //Filling
+        Accept("AudioSpecificConfig");
+
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels_Front+Channels_Side+Channels_Back+Channels_LFE);
         Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, Channels_Positions);
@@ -693,8 +698,11 @@ void File_Mpeg4_AudioSpecificConfig::ALS ()
 
     FILLING_BEGIN();
         //Filling
+        Accept("AudioSpecificConfig");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "ALS");
+
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, StreamPos_Last, Audio_Format, "ALS");
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "ALS");
@@ -737,8 +745,7 @@ void File_Mpeg4_AudioSpecificConfig::ALS ()
     else
         Skip_XX(Element_Size-Element_Offset,                    "Unknown");
 
-    //NO need more
-    Accept("AudioSpecificConfig");
+    //No need more
     Finish("AudioSpecificConfig");
 }
 

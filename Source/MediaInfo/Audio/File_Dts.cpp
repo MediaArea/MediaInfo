@@ -644,6 +644,7 @@ bool File_Dts::Synched_Test()
     }
 
     //We continue
+    Accept("DTS");
     return true;
 }
 
@@ -705,10 +706,8 @@ void File_Dts::Read_Buffer_Continue()
             Open_Buffer_Init(Parser);
         }
         Open_Buffer_Continue(Parser, Dest, Dest_Size);
-        if (!Status[IsAccepted] && Parser->Status[IsAccepted])
-            Accept("DTS 14-bit");
         if (!Status[IsFinished] && Parser->Status[IsFinished])
-            Finish("DTS 14-bit");
+            Finish("DTS");
 
         Demux(Dest, Dest_Size, _T("extract"));
         delete[] Dest;

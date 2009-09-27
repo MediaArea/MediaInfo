@@ -49,7 +49,7 @@ void File_Other::Read_Buffer_Continue()
     if (Buffer_Size<16)
         return;
 
-    Ztring Format, Format_String, Url, Extensions;
+    Ztring Format;
          if (CC4(Buffer)==0xC5C6CBC3) {Format=_T("RISC OS Chunk data");}
     else if (CC4(Buffer)==0x110000EF) {Format=_T("RISC OS AIF executable");}
     else if (CC4(Buffer)==CC4("Draw")) {Format=_T("RISC OS Draw");}
@@ -69,7 +69,7 @@ void File_Other::Read_Buffer_Continue()
     else if (CC4(Buffer+10)==CC4("Vivo")) {Format=_T("Vivo");}
     else if (CC4(Buffer+1)==CC4("VRML")) {Format=_T("VRML");}
     else if (CC5(Buffer)==CC5("HVQM4")) {Format=_T("GameCube Movie");}
-    else if (CC8(Buffer)==CC8("KW-DIRAC")) {Format=_T("Dirac"); Url=_T("http://dirac.sourceforge.net/");}
+    else if (CC8(Buffer)==CC8("KW-DIRAC")) {Format=_T("Dirac");}
     else if (CC5(Buffer)==CC5("ustar")) {Format=_T("Tar archive");}
     //TODO: all archive magic numbers
     else if (CC4(Buffer+1)==CC4("MSCB")) {Format=_T("MS Cabinet");}
@@ -79,10 +79,9 @@ void File_Other::Read_Buffer_Continue()
     else if (CC4(Buffer)==CC4("CTMF")) {Format=_T("CMF");}
     else if (CC3(Buffer)==CC3("SBI")) {Format=_T("SoundBlaster");}
     else if (CC4(Buffer)==CC4("EMOD")) {Format=_T("Ext. MOD");}
-    else if (CC3(Buffer)==CC3("TTA")) {Format=_T("True Audio"); Url=_T("http://www.true-audio.com/site.download"); Extensions=_T("tta");}
     //TODO: Other Sound magic numbers
-    else if (CC7(Buffer)==CC7("BLENDER")) {Format=_T("Blender"); Url=_T("http://www.blender3d.com"); Extensions=_T("blenders");}
-    else if (CC4(Buffer)==CC4("AC10")) {Format=_T("AutoCAD"); Url=_T("http://www.autodesk.com"); Extensions=_T("dwg");}
+    else if (CC7(Buffer)==CC7("BLENDER")) {Format=_T("Blender");}
+    else if (CC4(Buffer)==CC4("AC10")) {Format=_T("AutoCAD"); ;}
     else if (CC2(Buffer)==0x1F9D) {Format=_T("Compress");}
     else if (CC2(Buffer)==0x1F8B) {Format=_T("GZip");}
     else if (CC2(Buffer)==0x1F1E) {Format=_T("Huffman");}
@@ -103,39 +102,72 @@ void File_Other::Read_Buffer_Continue()
     else if (CC4(Buffer)==CC4("XTF0")) {Format=_T("X-Box");}
     else if (CC2(Buffer)==0x8008) {Format=_T("Lynx");}
     else if (CC7(Buffer)==CC7("\x01ZZZZZ\x01")) {Format=_T("");}
-    else if (CC6(Buffer)==CC6("1\x0A\x0D""00:")) {Format=_T("SRT"); Extensions=_T("srt"); Url=_T("http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow");
-                                           Stream_Prepare(Stream_General);
-                                           Stream_Prepare(Stream_Text); Fill(Stream_Text, 0, Text_Format, "SRT");}
+    else if (CC6(Buffer)==CC6("1\x0A\x0D""00:"))
+    {
+        Accept("SRT");
+
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "SRT");
+
+        Stream_Prepare(Stream_Text);
+        Fill(Stream_Text, 0, Text_Format, "SRT");
+
+        Finish("SRT");
+        return;
+    }
     else if (CC1(Buffer+0)==CC1("[") && CC1(Buffer+2)==CC1("S") && CC1(Buffer+22)==CC1("o") && CC1(Buffer+24)==CC1("]") //Unicode Text is : "[Script Info]
           || CC1(Buffer+2)==CC1("[") && CC1(Buffer+4)==CC1("S") && CC1(Buffer+24)==CC1("o") && CC1(Buffer+26)==CC1("]"))
-                                          {Format=_T("SSA"); Extensions=_T("ssa"); Url=_T("http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow");
-                                           Stream_Prepare(Stream_General);
-                                           Stream_Prepare(Stream_Text); Fill(Stream_Text, 0, Text_Format, "SSA");}
+    {
+        Accept("SSA");
+
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "SSA");
+
+        Stream_Prepare(Stream_Text);
+        Fill(Stream_Text, 0, Text_Format, "SSA");
+
+        Finish("SSA");
+        return;
+    }
     else if (CC4(Buffer)==CC4("RIFF") && CC4(Buffer+8)==CC4("AMV ")) {Format=_T("AMV");}
     else if (CC4(Buffer)==0x414D5697) {Format=_T("MTV");}
     else if (CC6(Buffer)==CC6("Z\0W\0F\0"))
-                {Format=_T("ZWF");
-                Stream_Prepare(Stream_General);
-                Stream_Prepare(Stream_Audio); Fill(Stream_Audio, 0, Audio_Format, "ZWF");}
+    {
+        Accept("ZWF");
+
+        Stream_Prepare(Stream_General);
+        Fill(Stream_General, 0, General_Format, "ZWF");
+
+        Stream_Prepare(Stream_Audio);
+        Fill(Stream_Audio, 0, Audio_Format, "ZWF");
+
+        Finish("ZWF");
+        return;
+    }
     else if (CC4(Buffer)==0x616A6B67) //"ajkg"
     {
+        Accept("Shorten");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "Shorten");
         Fill(Stream_General, 0, General_Format_Version, CC1(Buffer+4));
+
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "Shorten");
-        Accept();
-        Finish();
+
+        Finish("Shorten");
         return;
     }
     else if (CC4(Buffer)==0x7442614B) //"tBaK"
     {
+        Accept("TAK");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "TAK");
+
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "TAK");
-        Accept();
-        Finish();
+        Finish("TAK");
         return;
     }
     else if (CC4(Buffer)==CC4("")) {Format=_T("");}
@@ -146,14 +178,12 @@ void File_Other::Read_Buffer_Continue()
         return;
     }
 
+    Accept();
+
     if (Count_Get(Stream_General)==0)
         Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, Format);
-    if (!Url.empty())
-        Fill(Stream_General, 0, General_Format_Url, Url, true);
-    if (!Extensions.empty())
-        Fill(Stream_General, 0, General_Format_Extensions, Extensions, true);
-    Accept();
+
     Finish();
 }
 

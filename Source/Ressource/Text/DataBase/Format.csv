@@ -29,7 +29,7 @@ SKM;;;M;Skm;Sky Korean Mobilephone;skm;http://www.isky.co.kr/html/cs/download.js
 Windows Media;;;M;Wm;;asf wmv wma;
 AVC;;;V;Avc;Advanced Video Codec;avc h264;http://developers.videolan.org/x264.html
 AVS Video;;;V;AvsV;Audio Video Standart, Video part;;http://www.avs.org.cn/
-Dirac;;;V;Dirac;;drc;
+Dirac;;;V;Dirac;;drc;http://diracvideo.org/
 FLC;;;V;Flic;;fli flc;http://www.chem.nott.ac.uk/flc.html
 FLI;;;V;Flic;;fli flc;http://www.chem.nott.ac.uk/flc.html
 FLIC;;;V;Flic;;fli flc;http://www.chem.nott.ac.uk/flc.html
@@ -75,7 +75,7 @@ GIF;;;I;Gif;Graphics Interchange Format;gif;
 ICO;;;I;Ico;;ico;
 JNG;;;I;Jng;JPEG Network Graphic;jng;
 JPEG;;;I;Jpeg;;jpeg jpg jpe;
-JPEG2000;;;I;Other;;jp2;http://www.morgan-multimedia.com/JPEG2000/
+JPEG2000;;;I;Jpeg;;jp2;http://www.morgan-multimedia.com/JPEG2000/
 LZ77;;;I;;;;
 MNG;;;I;Mng;Multiple-Image Network Graphic;mng;
 PNG;;;I;Png;Portable Network Graphic;png;
@@ -88,3 +88,14 @@ ELF;;;C;Elf;;so;
 MZ;;;C;Mz;;exe dll;
 RAR;;;C;Rar;From Rarlabs;rar;http://rarlabs.com
 ZIP;;;C;Zip;;zip;http://winzip.com
+Adobe encore DVD;;;T;Other;;txt;http://www.adobe.fr/products/encore/
+AQTitle;;;T;Other;;aqt;http://www.volny.cz/aberka/czech/aqt.html
+ASS;;;T;Other;;ssa;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+Captions 32;;;T;Other;;txt;
+Captions Inc;;;T;Other;;txt;
+CPC Captioning;;;T;Other;;txt;http://www.cpcweb.com/Captioning/cap_software.htm
+Cheeta;;;T;Other;;asc;
+SSA;;;T;Other;;ssa;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+SubRip;;;T;Other;;srt;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+Blender;;;O;Other;;blenders;http://www.blender3d.com
+AutoCAD;;;O;Other;;;http://www.autodesk.com

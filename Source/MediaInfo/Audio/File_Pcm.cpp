@@ -217,14 +217,16 @@ void File_Pcm::Read_Buffer_Continue()
      && Codec!=_T("M2TS")) //No need of data
     {
         //Filling
+        Accept("PCM");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "PCM");
+
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "PCM");
         Fill(Stream_Audio, 0, Audio_Codec, "PCM");
 
         //Finished
-        Accept("PCM");
         Finish("PCM");
     }
 }
@@ -279,8 +281,11 @@ void File_Pcm::VOB()
     Skip_XX(Element_Size-Element_Offset,                        "Data");
 
     FILLING_BEGIN();
+        Accept("PCM");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "PCM");
+
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "PCM");
         Fill(Stream_Audio, 0, Audio_Codec, "PCM");
@@ -290,6 +295,8 @@ void File_Pcm::VOB()
         Fill(Stream_Audio, 0, Audio_ChannelPositions, Pcm_VOB_ChannelsPositions(NumberOfChannelsMinusOne+1));
         Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Pcm_VOB_ChannelsPositions2(NumberOfChannelsMinusOne+1));
         Fill(Stream_Audio, 0, Audio_BitRate, Pcm_VOB_Frequency[Frequency]*(NumberOfChannelsMinusOne+1)*16);
+
+        Finish("PCM");
     FILLING_END();
 }
 
@@ -319,8 +326,11 @@ void File_Pcm::M2TS()
     Skip_XX(Element_Size-Element_Offset,                        "Data");
 
     FILLING_BEGIN();
+        Accept("PCM");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "PCM");
+
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "PCM");
         Fill(Stream_Audio, 0, Audio_Codec, "PCM");
@@ -333,6 +343,8 @@ void File_Pcm::M2TS()
         if (NumberOfChannels%2)
             NumberOfChannels++; //Always by pair
         Fill(Stream_Audio, 0, Audio_BitRate, Pcm_M2TS_Frequency[Frequency]*(NumberOfChannels)*Pcm_M2TS_Resolution[Resolution]);
+
+        Finish("PCM");
     FILLING_END();
 }
 

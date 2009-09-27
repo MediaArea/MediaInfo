@@ -1431,7 +1431,10 @@ void File_MpegPs::Data_Parse()
 
     //From TS
     if (FromTS && Count_Get(Stream_General)==0)
+    {
+        Accept("MPEG-PS");
         Stream_Prepare(Stream_General);
+    }
 
     //Parsing
     switch (start_code)
@@ -1657,11 +1660,12 @@ void File_MpegPs::pack_start()
     }
 
     //Filling
-    FILLING_BEGIN();
-        if (Element_Offset!=Element_Size)
-            return; //TODO: Should be done in FILLING_BEGIN later
-
-        Stream_Prepare(Stream_General);
+    FILLING_BEGIN_PRECISE();
+        if (!Status[IsAccepted])
+        {
+            Accept("MPEG-PS");
+            Stream_Prepare(Stream_General);
+        }
 
         SizeToAnalyze=program_mux_rate*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure
         if (SizeToAnalyze>16*1024*1024)
@@ -1686,8 +1690,6 @@ void File_MpegPs::pack_start()
             Streams[Pos].Searching_TimeStamp_Start=true; //audio_stream or video_stream
             Streams[Pos].Searching_TimeStamp_End=true;   //audio_stream or video_stream
         }
-        if (!Status[IsAccepted])
-            Accept("MPEG-PS");
     FILLING_END();
 }
 

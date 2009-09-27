@@ -133,13 +133,16 @@ void File_Kate::Identification()
     Get_UTF8(16, Category,                                      "Category");
 
     FILLING_BEGIN();
+        Accept("Kate");
+
         Stream_Prepare(Stream_General);
+
         Stream_Prepare(Stream_Text);
         Fill(Stream_Text, 0, Text_Format, "Kate");
         Fill(Stream_Text, 0, Text_Codec,  "Kate");
         Fill(Stream_Text, 0, Text_Language, Language);
         Fill(Stream_Text, 0, Text_Language_More, Kate_Category(Category));
-        Accept("Kate");
+
         Finish("Kate");
     FILLING_END();
 }

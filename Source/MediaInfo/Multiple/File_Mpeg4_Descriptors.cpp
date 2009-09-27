@@ -351,6 +351,7 @@ void File_Mpeg4_Descriptors::Header_Parse()
 void File_Mpeg4_Descriptors::Data_Parse()
 {
     //Preparing
+    Status[IsAccepted]=true;
     if (Count_Get(KindOfStream)==0)
         Stream_Prepare(KindOfStream);
 
@@ -411,8 +412,6 @@ void File_Mpeg4_Descriptors::Data_Parse()
                  Skip_XX(Element_Size,                          "Data");
                  break;
     }
-
-    Status[IsAccepted]=true;
 }
 
 //***************************************************************************

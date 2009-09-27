@@ -204,6 +204,7 @@ void File_Adif::FileHeader_Parse()
     BS_End();
 
     FILLING_BEGIN();
+        File__Tags_Helper::Accept("ADIF");
         File__Tags_Helper::Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "ADIF");
         Fill(Stream_General, 0, General_Comment, comment_field_data);
@@ -226,7 +227,6 @@ void File_Adif::FileHeader_Parse()
         Fill(Stream_Audio, 0, Audio_MuxingMode, "ADIF");
 
         //No more need data
-        File__Tags_Helper::Accept("ADIF");
         File__Tags_Helper::Finish("ADIF");
     FILLING_END();
 }

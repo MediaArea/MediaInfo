@@ -110,6 +110,8 @@ void File_ScreamTracker3::Read_Buffer_Continue()
     Skip_XX(PatNum*2,                                           "Patterns");
 
     FILLING_BEGIN();
+        Accept("Scream Tracker 3");
+
         Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "Scream Tracker 3");
         Fill(Stream_General, 0, General_Track, SongName);
@@ -119,7 +121,6 @@ void File_ScreamTracker3::Read_Buffer_Continue()
 
         Stream_Prepare(Stream_Audio);
 
-        Accept("Scream Tracker 3");
         Finish("Scream Tracker 3");
     FILLING_END();
 

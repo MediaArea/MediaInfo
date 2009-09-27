@@ -122,8 +122,11 @@ void File_Als::FileHeader_Parse()
         if (UncompressedSize==0)
             return;
 
+        File__Tags_Helper::Accept("ALS");
+
         File__Tags_Helper::Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "ALS");
+
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "ALS");
         Fill(Stream_Audio, 0, Audio_Codec, "ALS");
@@ -131,11 +134,10 @@ void File_Als::FileHeader_Parse()
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels+1);
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate);
         Fill(Stream_Audio, 0, Audio_Duration, Duration);
-    FILLING_END();
 
-    //No more need data
-    File__Tags_Helper::Accept("ALS");
-    File__Tags_Helper::Finish("ALS");
+        //No more need data
+        File__Tags_Helper::Finish("ALS");
+    FILLING_END();
 }
 
 //***************************************************************************

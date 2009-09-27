@@ -46,8 +46,11 @@ void File_Adpcm::Read_Buffer_Continue()
     //It is impossible to detect... Default is no detection, only filling
 
     //Filling
+    Accept("ADPCM");
+
     Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "ADPCM");
+
     Stream_Prepare(Stream_Audio);
     Fill(Stream_General, 0, Audio_Format, "ADPCM");
     Fill(Stream_General, 0, Audio_Codec, "ADPCM");
@@ -74,7 +77,7 @@ void File_Adpcm::Read_Buffer_Continue()
     }
     Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
 
-    Accept("ADPCM");
+    //No more need data
     Finish("ADPCM");
 }
 
