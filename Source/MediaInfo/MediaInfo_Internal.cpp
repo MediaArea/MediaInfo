@@ -85,7 +85,7 @@ MediaInfo_Internal::~MediaInfo_Internal()
 {
     Close();
 
-    CriticalSectionLocker CSL(CS);
+    CriticalSectionLocker CSL(CS);;
     delete Info; //Info=NULL;
     delete[] Buffer; //Buffer=NULL;
     delete (File*)File_Handle; //File_Handle=NULL;
@@ -117,6 +117,7 @@ size_t MediaInfo_Internal::Open(const String &File_Name_)
                 #endif //MEDIAINFO_MINIMIZESIZE
                 Info->File_Name=File_Name;
                 ((File_Bdmv*)Info)->BDMV();
+                Info->Open_Buffer_Finalize();
                 Info->Fill();
                 Info->Finish();
                 return 1;
@@ -186,7 +187,7 @@ int MediaInfo_Internal::Format_Test()
         Info->Init(&Config, &Stream, &Stream_More);
     #endif //MEDIAINFO_MINIMIZESIZE
     Info->File_Name=File_Name;
-    
+
     //Test the format with buffer
     //-Test is already test with failure
     if (File_AlreadyBuffered && File_Size==0)
@@ -219,6 +220,7 @@ int MediaInfo_Internal::Format_Test()
     }
 
     //Finalize
+    Info->Open_Buffer_Finalize();
     Info->Fill();
     Info->Finish();
 
@@ -325,6 +327,7 @@ int MediaInfo_Internal::Format_Test_FillBuffer_Continue()
         }
         else
         {
+            Info->Open_Buffer_Finalize();
             return -1;
         }
     }
@@ -467,6 +470,7 @@ size_t MediaInfo_Internal::Open_Buffer_Finalize ()
     CriticalSectionLocker CSL(CS);
     if (Info!=NULL)
     {
+        Info->Open_Buffer_Finalize();
         Info->Fill();
         Info->Finish();
     }
@@ -770,4 +774,5 @@ int MediaInfo_Internal::ApplyMethod()
 }
 
 } //NameSpace
+
 
