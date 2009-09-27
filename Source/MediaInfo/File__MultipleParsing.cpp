@@ -277,7 +277,7 @@ File__MultipleParsing::File__MultipleParsing()
     #if defined(MEDIAINFO_BDAV_YES)
         Temp=new File_MpegTs(); ((File_MpegTs*)Temp)->BDAV_Size=4; Parser.push_back(Temp);
     #endif
-    /*#if defined(MEDIAINFO_CDXA_YES)
+    #if defined(MEDIAINFO_CDXA_YES)
         Temp=new File_Cdxa(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_DPG_YES)
@@ -298,13 +298,13 @@ File__MultipleParsing::File__MultipleParsing()
     #if defined(MEDIAINFO_MPEG4_YES)
         Temp=new File_Mpeg4(); Parser.push_back(Temp);
     #endif
-    */#if defined(MEDIAINFO_MPEGPS_YES)
+    #if defined(MEDIAINFO_MPEGPS_YES)
         Temp=new File_MpegPs(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_MPEGTS_YES)
         Temp=new File_MpegTs(); Parser.push_back(Temp);
     #endif
-    /*#if defined(MEDIAINFO_MXF_YES)
+    #if defined(MEDIAINFO_MXF_YES)
         Temp=new File_Mxf(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_NUT_YES)
@@ -479,7 +479,7 @@ File__MultipleParsing::File__MultipleParsing()
 
     #if defined(MEDIAINFO_OTHER_YES)
         Temp=new File_Other(); Parser.push_back(Temp);
-    #endif */
+    #endif
 }
 
 //---------------------------------------------------------------------------
