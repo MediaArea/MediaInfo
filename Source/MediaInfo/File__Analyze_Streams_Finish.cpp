@@ -52,6 +52,8 @@ void File__Analyze::Streams_Finish_Global()
     Streams_Finish_StreamOnly();
     Streams_Finish_InterStreams();
     Streams_Finish_StreamOnly();
+    Streams_Finish_InterStreams();
+    Streams_Finish_StreamOnly();
 }
 
 //---------------------------------------------------------------------------
