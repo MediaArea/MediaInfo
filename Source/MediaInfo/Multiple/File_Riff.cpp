@@ -191,7 +191,7 @@ void File_Riff::Streams_Finish ()
             }
 
             //Delay
-            if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)==1 && Temp->second.Rate!=0 && Temp->second.Parser->Count_Get(Stream_General)>0)
+            if (StreamKind_Last==Stream_Audio && Count_Get(Stream_Video)==1 && Temp->second.Rate!=0 && Temp->second.Parser->Status[IsAccepted])
             {
                 float Delay=0;
                 bool Delay_IsValid=false;

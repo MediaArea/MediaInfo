@@ -376,8 +376,11 @@ File_Dts::~File_Dts()
 //---------------------------------------------------------------------------
 void File_Dts::Streams_Fill()
 {
-    Fill(Stream_General, 0, General_Format, "DTS");
-    Fill(Stream_General, 0, General_Format_Profile, Profile);
+    if (!IsSub)
+    {
+        Fill(Stream_General, 0, General_Format, "DTS");
+        Fill(Stream_General, 0, General_Format_Profile, Profile);
+    }
 
     Stream_Prepare(Stream_Audio);
     Fill(Stream_Audio, 0, Audio_Format, "DTS");

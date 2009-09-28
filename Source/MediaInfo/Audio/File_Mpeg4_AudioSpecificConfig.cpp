@@ -722,6 +722,8 @@ void File_Mpeg4_AudioSpecificConfig::ALS ()
 
             //The RIFF header is for PCM
             Clear(Stream_Audio, StreamPos_Last, Audio_ID);
+            Clear(Stream_Audio, StreamPos_Last, Audio_Codec_String);
+            Clear(Stream_Audio, StreamPos_Last, Audio_Codec_Family);
             Fill(Stream_Audio, StreamPos_Last, Audio_Format, "ALS", Unlimited, true, true);
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "ALS", Unlimited, true, true);
             Clear(Stream_Audio, StreamPos_Last, Audio_CodecID);
