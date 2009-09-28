@@ -500,6 +500,7 @@ void File__MultipleParsing::Streams_Finish()
         return;
 
     Parser[0]->Open_Buffer_Finalize();
+    Details=Parser[0]->Details;
 }
 
 //***************************************************************************
@@ -529,6 +530,7 @@ void File__MultipleParsing::Read_Buffer_Continue()
     for (size_t Pos=0; Pos<Parser.size(); Pos++)
     {
         //Parsing
+        //Open_Buffer_Continue(Parser[Pos], Buffer+Buffer_Offset, (size_t)Element_Size);
         Parser[Pos]->Open_Buffer_Continue(Buffer+Buffer_Offset, (size_t)Element_Size);
 
         //Testing if the parser failed
@@ -564,13 +566,16 @@ void File__MultipleParsing::Read_Buffer_Continue()
 
                 //Status
                 if (!Status[IsAccepted] && Parser[Pos]->Status[IsAccepted])
-                   Status[IsAccepted]=true;
+                {
+                    Status[IsAccepted]=true;
+                    Stream_Prepare_General_FileName();
+                }
                 if (!Status[IsFilled] && Parser[Pos]->Status[IsFilled])
-                   Status[IsFilled]=true;
+                    Status[IsFilled]=true;
                 if (!Status[IsUpdated] && Parser[Pos]->Status[IsUpdated])
-                   Status[IsUpdated]=true;
+                    Status[IsUpdated]=true;
                 if (!Status[IsFinished] && Parser[Pos]->Status[IsFinished])
-                   Status[IsFinished]=true;
+                    Status[IsFinished]=true;
             }
         }
     }
