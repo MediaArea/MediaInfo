@@ -1742,7 +1742,10 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
 
     if (GoTo==File_Size)
     {
-        Finish();
+        if (!BookMark_Code.empty())
+            BookMark_Get();
+        if (GoTo==File_Size)
+            Finish();
         return;
     }
 
@@ -1792,7 +1795,10 @@ void File__Analyze::GoTo (int64u GoTo)
 {
     if (GoTo==File_Size)
     {
-        Finish();
+        if (!BookMark_Code.empty())
+            BookMark_Get();
+        if (GoTo==File_Size)
+            Finish();
         return;
     }
 

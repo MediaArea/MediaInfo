@@ -500,7 +500,9 @@ void File__MultipleParsing::Streams_Finish()
         return;
 
     Parser[0]->Open_Buffer_Finalize();
-    Details=Parser[0]->Details;
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        Details=Parser[0]->Details;
+    #endif //MEDIAINFO_MINIMIZESIZE
 }
 
 //***************************************************************************
