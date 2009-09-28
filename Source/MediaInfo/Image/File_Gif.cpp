@@ -93,13 +93,11 @@ void File_Gif::Read_Buffer_Continue()
     FILLING_BEGIN();
         Accept("GIF");
 
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "GIF");
-
         Stream_Prepare(Stream_Image);
         Fill(Stream_Image, 0, Image_Width, Width);
         Fill(Stream_Image, 0, Image_Height, Height);
-        Fill(Stream_Image, 0, Image_Format, _T("GIF")+Version);
+        Fill(Stream_Image, 0, Image_Format, _T("GIF"));
+        Fill(Stream_Image, 0, Image_Format_Profile, Version);
         Fill(Stream_Image, 0, Image_Codec, _T("GIF")+Version);
 
         Finish("GIF");

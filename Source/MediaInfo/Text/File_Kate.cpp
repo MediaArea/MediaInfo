@@ -135,8 +135,6 @@ void File_Kate::Identification()
     FILLING_BEGIN();
         Accept("Kate");
 
-        Stream_Prepare(Stream_General);
-
         Stream_Prepare(Stream_Text);
         Fill(Stream_Text, 0, Text_Format, "Kate");
         Fill(Stream_Text, 0, Text_Codec,  "Kate");

@@ -111,8 +111,6 @@ void File_Speex::Identification()
         FILLING_BEGIN()
             Accept("Speex");
 
-            Stream_Prepare(Stream_General);
-
             Stream_Prepare(Stream_Audio);
             Fill(Stream_Audio, 0, Audio_Format, "Speex");
             Fill(Stream_Audio, 0, Audio_Codec, "Speex");

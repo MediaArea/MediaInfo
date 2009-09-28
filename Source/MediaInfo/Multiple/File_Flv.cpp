@@ -463,7 +463,7 @@ void File_Flv::FileHeader_Parse()
 
         //Filling
         Accept("FLV");
-        Stream_Prepare(Stream_General);
+
         Fill(Stream_General, 0, General_Format, "Flash Video");
         if (video_stream_Count)
         {

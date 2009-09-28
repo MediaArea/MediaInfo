@@ -104,21 +104,8 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
     }
 
     //File name and dates
-    if (!IsSub && KindOfStream==Stream_General && File_Name.size()>0)
-    {
-        //File name
-        Fill (Stream_General, 0, General_CompleteName, File_Name);
-        Fill (Stream_General, 0, General_FolderName, FileName::Path_Get(File_Name));
-        Fill (Stream_General, 0, General_FileName, FileName::Name_Get(File_Name));
-        Fill (Stream_General, 0, General_FileExtension, FileName::Extension_Get(File_Name).MakeLowerCase());
-
-        //File dates
-        File F(File_Name);
-        Fill (Stream_General, 0, General_File_Created_Date, F.Created_Get());
-        Fill (Stream_General, 0, General_File_Created_Date_Local, F.Created_Local_Get());
-        Fill (Stream_General, 0, General_File_Modified_Date, F.Modified_Get());
-        Fill (Stream_General, 0, General_File_Modified_Date_Local, F.Modified_Local_Get());
-    }
+    if (KindOfStream==Stream_General)
+        Stream_Prepare_General_FileName();
 
     //File size
     if ((!IsSub || !File_Name.empty()) && KindOfStream==Stream_General && File_Size!=(int64u)-1)
@@ -133,6 +120,26 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
     Fill_Temp.clear();
 
     return (*Stream)[KindOfStream].size()-1; //The position in the stream count
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Stream_Prepare_General_FileName ()
+{
+    if (!IsSub && File_Name.size()>0)
+    {
+        //File name
+        Fill (Stream_General, 0, General_CompleteName, File_Name);
+        Fill (Stream_General, 0, General_FolderName, FileName::Path_Get(File_Name));
+        Fill (Stream_General, 0, General_FileName, FileName::Name_Get(File_Name));
+        Fill (Stream_General, 0, General_FileExtension, FileName::Extension_Get(File_Name).MakeLowerCase());
+
+        //File dates
+        File F(File_Name);
+        Fill (Stream_General, 0, General_File_Created_Date, F.Created_Get());
+        Fill (Stream_General, 0, General_File_Created_Date_Local, F.Created_Local_Get());
+        Fill (Stream_General, 0, General_File_Modified_Date, F.Modified_Get());
+        Fill (Stream_General, 0, General_File_Modified_Date_Local, F.Modified_Local_Get());
+    }
 }
 
 //***************************************************************************
@@ -181,9 +188,9 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
     }
     Status[IsUpdated]=true;
 
-    //Human readable
     if (!IsSub)
     {
+        //Human readable
         if (MediaInfoLib::Config.ReadByHuman_Get())
         {
             //Strings
@@ -365,6 +372,10 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                 Fill(Stream_General, 0, Ztring(StreamKind_Text+_T("_Format_WithHint_List")).To_Local().c_str(), Temp2, true);
             }
         }
+
+        //General Format
+        if (Parameter==Fill_Parameter(StreamKind, Generic_Format) && Retrieve(Stream_General, 0, General_Format).empty())
+            Fill(Stream_General, 0, General_Format, Value); //If not already filled, we are filling with the stream format
 
         //ID
         if (Retrieve(StreamKind, StreamPos, Parameter, Info_Name)==_T("ID"))

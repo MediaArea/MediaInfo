@@ -111,8 +111,8 @@ void File_Bmp::Read_Buffer_Continue()
 
         Accept("BMP");
 
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "Bitmap");
+
         Stream_Prepare(Stream_Image);
     FILLING_END();
 

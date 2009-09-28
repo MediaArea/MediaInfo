@@ -77,11 +77,11 @@ void File_Lyrics3::Read_Buffer_Continue()
     Skip_Local(9,                                               "Signature");
 
     //Filling
-    Stream_Prepare(Stream_General);
+    Accept("Lyric3");
+
     Stream_Prepare(Stream_Text);
     Fill(Stream_Text, 0, Text_Codec, "Lyrics3");
 
-    Accept("Lyric3");
     Finish("Lyrics3");
 }
 

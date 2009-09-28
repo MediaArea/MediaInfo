@@ -364,9 +364,6 @@ void File_Avc::Streams_Fill()
     else
         PixelAspectRatio=1; //Unknown
 
-    if (Count_Get(Stream_General)==0)
-        Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "AVC");
     if (Count_Get(Stream_Video)==0)
         Stream_Prepare(Stream_Video);
     Fill(Stream_Video, 0, Video_Format, "AVC");

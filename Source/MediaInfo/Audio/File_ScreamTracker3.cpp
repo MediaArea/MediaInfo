@@ -112,7 +112,6 @@ void File_ScreamTracker3::Read_Buffer_Continue()
     FILLING_BEGIN();
         Accept("Scream Tracker 3");
 
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "Scream Tracker 3");
         Fill(Stream_General, 0, General_Track, SongName);
         if ((SoftwareVersionMajor&0xF0)==0x10)

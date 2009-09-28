@@ -53,7 +53,6 @@ File_Ico::File_Ico()
 //---------------------------------------------------------------------------
 void File_Ico::Streams_Fill()
 {
-    Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, Type==1?"ICO":"CUR");
 
     for (size_t Pos=0; Pos<Streams.size(); Pos++)

@@ -106,9 +106,6 @@ void File_Other::Read_Buffer_Continue()
     {
         Accept("SRT");
 
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "SRT");
-
         Stream_Prepare(Stream_Text);
         Fill(Stream_Text, 0, Text_Format, "SRT");
 
@@ -119,9 +116,6 @@ void File_Other::Read_Buffer_Continue()
           || CC1(Buffer+2)==CC1("[") && CC1(Buffer+4)==CC1("S") && CC1(Buffer+24)==CC1("o") && CC1(Buffer+26)==CC1("]"))
     {
         Accept("SSA");
-
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "SSA");
 
         Stream_Prepare(Stream_Text);
         Fill(Stream_Text, 0, Text_Format, "SSA");
@@ -135,7 +129,6 @@ void File_Other::Read_Buffer_Continue()
     {
         Accept("ZWF");
 
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "ZWF");
 
         Stream_Prepare(Stream_Audio);
@@ -148,8 +141,6 @@ void File_Other::Read_Buffer_Continue()
     {
         Accept("Shorten");
 
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "Shorten");
         Fill(Stream_General, 0, General_Format_Version, CC1(Buffer+4));
 
         Stream_Prepare(Stream_Audio);
@@ -161,9 +152,6 @@ void File_Other::Read_Buffer_Continue()
     else if (CC4(Buffer)==0x7442614B) //"tBaK"
     {
         Accept("TAK");
-
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "TAK");
 
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "TAK");
@@ -180,8 +168,6 @@ void File_Other::Read_Buffer_Continue()
 
     Accept();
 
-    if (Count_Get(Stream_General)==0)
-        Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, Format);
 
     Finish();

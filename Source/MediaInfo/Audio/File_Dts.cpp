@@ -376,10 +376,9 @@ File_Dts::~File_Dts()
 //---------------------------------------------------------------------------
 void File_Dts::Streams_Fill()
 {
-    if (Count_Get(Stream_General)==0)
-        Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "DTS");
     Fill(Stream_General, 0, General_Format_Profile, Profile);
+
     Stream_Prepare(Stream_Audio);
     Fill(Stream_Audio, 0, Audio_Format, "DTS");
 
@@ -665,9 +664,6 @@ void File_Dts::Read_Buffer_Continue()
         return; //Wait for more data
     if (Synched && (!Word || !BigEndian))
     {
-        if (Count_Get(Stream_General)==0)
-            Stream_Prepare(Stream_General);
-
         //Preparing new buffer
         size_t Dest_Size=Word?Buffer_Size:(Buffer_Size*14/16);
         Dest=new int8u[Dest_Size];

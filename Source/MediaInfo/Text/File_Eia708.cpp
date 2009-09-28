@@ -84,7 +84,6 @@ void File_Eia708::Read_Buffer_Continue()
         }
 
         Accept("EIA-708");
-        Stream_Prepare(Stream_General);
     }
 }
 

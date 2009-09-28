@@ -753,7 +753,7 @@ void File_Mpeg4::ftyp()
 
     FILLING_BEGIN();
         Accept("MPEG-4");
-        Stream_Prepare(Stream_General);
+
         Fill(Stream_General, 0, General_Format, "MPEG-4");
         for (size_t Pos=0; Pos<CompatibleBrands.size(); Pos++)
             switch (CompatibleBrands[Pos])
@@ -774,7 +774,8 @@ void File_Mpeg4::idat()
     Skip_XX(Element_Size,                                       "Data");
 
     FILLING_BEGIN();
-        Stream_Prepare(Stream_General);
+        Accept("QTI");
+
         Fill(Stream_General, 0, General_Format, "MPEG-4");
         CodecID_Fill(_T("QTI"), Stream_General, 0, InfoCodecID_Format_Mpeg4);
     FILLING_END();
@@ -789,7 +790,8 @@ void File_Mpeg4::idsc()
     Skip_XX(Element_Size,                                       "Data");
 
     FILLING_BEGIN();
-        Stream_Prepare(Stream_General);
+        Accept("QTI");
+
         Fill(Stream_General, 0, General_Format, "MPEG-4");
         CodecID_Fill(_T("QTI"), Stream_General, 0, InfoCodecID_Format_Mpeg4);
     FILLING_END();
@@ -810,9 +812,13 @@ void File_Mpeg4::jp2c()
 
         //Filling
         Finish(&MI);
-        Merge(MI);
+
+        Accept("JPEG 2000");
+
         Fill(Stream_General, 0, General_Format, "JPEG 2000", Unlimited, true, true);
         Fill(Stream_General, 0, General_Format_Profile, "MPEG-4");
+
+        Merge(MI);
     #endif
 
 }
@@ -845,7 +851,11 @@ void File_Mpeg4::jp2h_ihdr()
 void File_Mpeg4::mdat()
 {
     if (!Status[IsAccepted])
+    {
         Data_Accept("MPEG-4");
+
+        Fill(Stream_General, 0, General_Format, "QuickTime");
+    }
     Element_Name("Data");
 
     //In case of second pass
@@ -918,13 +928,6 @@ void File_Mpeg4::mdat()
 
     //Parsing
     Skip_XX(Element_TotalSize_Get(),                            "Data");
-
-    //Filling
-    if (Count_Get(Stream_General)==0)
-    {
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "QuickTime");
-    }
 }
 
 //---------------------------------------------------------------------------
@@ -1168,7 +1171,11 @@ void File_Mpeg4::moof_traf_trun()
 void File_Mpeg4::moov()
 {
     if (!Status[IsAccepted])
+    {
         Data_Accept("MPEG-4");
+
+        Fill(Stream_General, 0, General_Format, "QuickTime"); //If there is no ftyp atom, this is an old Quictime file
+    }
     Element_Name("File header");
 
     if (!Stream.empty())
@@ -1176,14 +1183,6 @@ void File_Mpeg4::moov()
         Skip_XX(Element_TotalSize_Get(),                        "Duplicated moov");
         return;
     }
-
-    FILLING_BEGIN();
-        if (Count_Get(Stream_General)==0)
-        {
-            Stream_Prepare(Stream_General);
-            Fill(Stream_General, 0, General_Format, "QuickTime"); //If there is no ftyp atom, this is an old Quictime file
-        }
-    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
@@ -4283,7 +4282,8 @@ void File_Mpeg4::pckg()
     Skip_XX(Element_Size,                                       "Data");
 
     FILLING_BEGIN();
-        Stream_Prepare(Stream_General);
+        Accept("QTCA");
+
         Fill(Stream_General, 0, General_Format, "MPEG-4");
         CodecID_Fill(_T("QTCA"), Stream_General, 0, InfoCodecID_Format_Mpeg4);
     FILLING_END();

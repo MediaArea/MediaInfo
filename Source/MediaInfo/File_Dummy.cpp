@@ -73,7 +73,6 @@ void File_Dummy::FileHeader_Parse()
     else
     {
         File_Name=_T("D:\\WhatIsIt.mkv");
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Domain, "Starwars saga");
         Fill(Stream_General, 0, General_Movie, "Starwars 4");
         Fill(Stream_General, 0, General_Movie_More, "A new hope");
@@ -120,7 +119,6 @@ void File_Dummy::FileHeader_Parse()
 //---------------------------------------------------------------------------
 void File_Dummy::Fill_Dummy_General()
 {
-    Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "Format");
     Fill(Stream_General, 0, General_Format_Url, "http://mediainfo.sourceforge.net");
     Fill(Stream_General, 0, General_Format_Extensions, "fmt fmt fmt");

@@ -103,8 +103,6 @@ void File_Theora::Identification()
     FILLING_BEGIN()
         Accept("Theora");
 
-        Stream_Prepare(Stream_General);
-
         Stream_Prepare(Stream_Video);
         Fill(Stream_Video, StreamPos_Last, Video_Format, "Theora");
         Fill(Stream_Video, StreamPos_Last, Video_Codec, "Theora");

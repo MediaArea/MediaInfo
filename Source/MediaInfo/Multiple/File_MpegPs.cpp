@@ -228,8 +228,6 @@ File_MpegPs::File_MpegPs()
 //---------------------------------------------------------------------------
 void File_MpegPs::Streams_Fill()
 {
-    Fill(Stream_General, 0, General_Format, "MPEG-PS");
-
     //For each Streams
     for (size_t StreamID=0; StreamID<0x100; StreamID++)
         Streams_Fill_PerStream(StreamID, Streams[StreamID]);
@@ -1430,10 +1428,11 @@ void File_MpegPs::Data_Parse()
     }
 
     //From TS
-    if (FromTS && Count_Get(Stream_General)==0)
+    if (FromTS && !Status[IsAccepted])
     {
         Accept("MPEG-PS");
-        Stream_Prepare(Stream_General);
+        if (!IsSub)
+            Fill(Stream_General, 0, General_Format, "MPEG-PS");
     }
 
     //Parsing
@@ -1498,7 +1497,11 @@ void File_MpegPs::Detect_EOF()
 
     //Jumping if needed
     if (!Status[IsAccepted])
+    {
         Accept("MPEG-PS");
+        if (!IsSub)
+            Fill(Stream_General, 0, General_Format, "MPEG-PS");
+    }
     Fill("MPEG-PS");
     if (File_Size>SizeToAnalyze && File_Offset+Buffer_Size<File_Size-SizeToAnalyze)
     {
@@ -1664,7 +1667,8 @@ void File_MpegPs::pack_start()
         if (!Status[IsAccepted])
         {
             Accept("MPEG-PS");
-            Stream_Prepare(Stream_General);
+            if (!IsSub)
+                Fill(Stream_General, 0, General_Format, "MPEG-PS");
         }
 
         SizeToAnalyze=program_mux_rate*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure
@@ -1852,7 +1856,11 @@ void File_MpegPs::private_stream_1()
 
         //Registering
         if (!Status[IsAccepted])
+        {
             Data_Accept("MPEG-PS");
+            if (!IsSub)
+                Fill(Stream_General, 0, General_Format, "MPEG-PS");
+        }
         Streams[start_code].StreamIsRegistred=true;
         Streams_Private1[private_stream_1_ID].StreamIsRegistred=true;
         Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start=true;
@@ -2353,7 +2361,11 @@ void File_MpegPs::audio_stream()
 
         //Registering
         if (!Status[IsAccepted])
+        {
             Data_Accept("MPEG-PS");
+            if (!IsSub)
+                Fill(Stream_General, 0, General_Format, "MPEG-PS");
+        }
         Streams[start_code].StreamIsRegistred=true;
 
         //New parsers
@@ -2411,7 +2423,11 @@ void File_MpegPs::video_stream()
 
         //Registering
         if (!Status[IsAccepted])
+        {
             Data_Accept("MPEG-PS");
+            if (!IsSub)
+                Fill(Stream_General, 0, General_Format, "MPEG-PS");
+        }
         Streams[start_code].StreamIsRegistred=true;
 
         //New parsers

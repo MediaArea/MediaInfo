@@ -114,7 +114,6 @@ void File_Png::FileHeader_Parse()
             case 0x89504E47 :
                 Accept("PNG");
 
-                Stream_Prepare(Stream_General);
                 Fill(Stream_General, 0, General_Format, "PNG");
 
                 Stream_Prepare(Stream_Image);
@@ -123,9 +122,6 @@ void File_Png::FileHeader_Parse()
 
             case 0x8A4E4E47 :
                 Accept("PNG");
-
-                Stream_Prepare(Stream_General);
-                Fill(Stream_General, 0, General_Format, "MNG");
 
                 Stream_Prepare(Stream_Image);
                 Fill(Stream_Image, 0, Image_Codec, "MNG");
@@ -136,9 +132,6 @@ void File_Png::FileHeader_Parse()
 
             case 0x8B4A4E47 :
                 Accept("PNG");
-
-                Stream_Prepare(Stream_General);
-                Fill(Stream_General, 0, General_Format, "JNG");
 
                 Stream_Prepare(Stream_Image);
                 Fill(Stream_Image, 0, Image_Format, "JNG");

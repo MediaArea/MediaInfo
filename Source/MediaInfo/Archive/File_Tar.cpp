@@ -82,7 +82,6 @@ void File_Tar::Read_Buffer_Continue()
         //Filling
         Accept("Tar");
 
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "Tar");
 
         Reject("Tar");

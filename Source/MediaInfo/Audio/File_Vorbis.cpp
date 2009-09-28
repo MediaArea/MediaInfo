@@ -108,8 +108,6 @@ void File_Vorbis::Identification()
     FILLING_BEGIN()
         Accept("Vorbis");
 
-        Stream_Prepare(Stream_General);
-
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, StreamPos_Last, Audio_Format, "Vorbis");
         Fill(Stream_Audio, StreamPos_Last, Audio_Codec, "Vorbis");

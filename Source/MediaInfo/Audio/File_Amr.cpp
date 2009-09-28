@@ -74,8 +74,7 @@ void File_Amr::FileHeader_Parse()
 
     FILLING_BEGIN();
         Accept("AMR");
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "AMR");
+
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "AMR");
         if (!Codec.empty())

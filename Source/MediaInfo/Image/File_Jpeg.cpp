@@ -322,8 +322,7 @@ void File_Jpeg::SIZ()
 
     FILLING_BEGIN_PRECISE();
         Accept("JPEG 2000");
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "JPEG 2000");
+
         if (Count_Get(StreamKind)==0)
             Stream_Prepare(StreamKind);
         Fill(StreamKind, 0, Fill_Parameter(StreamKind, Generic_Format), StreamKind==Stream_Image?"JPEG 2000":"M-JPEG 2000");
@@ -403,8 +402,7 @@ void File_Jpeg::SOF_()
 
     FILLING_BEGIN_PRECISE();
         Accept("JPEG");
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "JPEG");
+
         if (Count_Get(StreamKind)==0)
             Stream_Prepare(StreamKind);
         Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Format:(size_t)Video_Format, StreamKind==Stream_Image?"JPEG":"M-JPEG");

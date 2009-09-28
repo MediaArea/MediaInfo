@@ -154,7 +154,6 @@ void File_Mz::Read_Buffer_Continue()
     FILLING_BEGIN();
         Accept("MZ");
 
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "MZ");
         if (Characteristics&0x2000)
             Fill(Stream_General, 0, General_Format_Profile, "DLL");

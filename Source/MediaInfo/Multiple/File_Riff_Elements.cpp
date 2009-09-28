@@ -493,7 +493,6 @@ void File_Riff::AIFC()
     Element_Name("AIFF Compressed");
 
     //Filling
-    Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "AIFF");
     Stream_Prepare(Stream_Audio);
 }
@@ -538,7 +537,6 @@ void File_Riff::AIFF()
     Element_Name("AIFF");
 
     //Filling
-    Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "AIFF");
     Stream_Prepare(Stream_Audio);
 }
@@ -646,19 +644,19 @@ void File_Riff::AIFF_xxxx()
 //---------------------------------------------------------------------------
 void File_Riff::AVI_()
 {
-    Data_Accept("AVI");
     Element_Name("AVI");
 
     //Test if there is only one AVI chunk
-    if (Count_Get(Stream_General)>0)
+    if (Status[IsAccepted])
     {
         Element_Info("Problem: 2 AVI chunks, this is not normal");
         Skip_XX(Element_TotalSize_Get(),                        "Data");
         return;
     }
 
+    Data_Accept("AVI");
+
     //Filling
-    Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "AVI");
 
     //Configuring
@@ -2229,7 +2227,6 @@ void File_Riff::CMP4()
     Get_Local(Element_Size, Title,                              "Title");
 
     FILLING_BEGIN();
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "CMP4");
         Fill(Stream_General, 0, "Title", Title);
     FILLING_END();
@@ -2273,7 +2270,6 @@ void File_Riff::MThd()
 
     FILLING_BEGIN_PRECISE();
         Accept("MIDI");
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "MIDI");
     FILLING_ELSE();
         Reject("MIDI");
@@ -2304,7 +2300,6 @@ void File_Riff::PAL_()
     Element_Name("Format: RIFF Palette");
 
     //Filling
-    Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "RIFF Palette");
 }
 
@@ -2315,7 +2310,6 @@ void File_Riff::RDIB()
     Element_Name("Format: RIFF DIB");
 
     //Filling
-    Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "RIFF DIB");
 }
 
@@ -2326,7 +2320,6 @@ void File_Riff::RMID()
     Element_Name("Format: RIFF MIDI");
 
     //Filling
-    Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "RIFF MIDI");
 }
 
@@ -2337,7 +2330,6 @@ void File_Riff::RMMP()
     Element_Name("Format: RIFF MMP");
 
     //Filling
-    Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "RIFF MMP");
 }
 
@@ -2348,7 +2340,6 @@ void File_Riff::RMP3()
     Element_Name("Format: RMP3");
 
     //Filling
-    Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "RMP3");
 }
 
@@ -2486,7 +2477,6 @@ void File_Riff::WAVE()
     Element_Name("Format: Wave");
 
     //Filling
-    Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "Wave");
 }
 
@@ -2657,7 +2647,6 @@ void File_Riff::wave()
     Element_Name("Format: Wave64");
 
     //Filling
-    Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, "Wave64");
 }
 

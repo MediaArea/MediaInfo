@@ -125,9 +125,6 @@ void File_La::FileHeader_Parse()
 
         File__Tags_Helper::Accept("LA");
 
-        File__Tags_Helper::Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "LA");
-
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "LA");
         Fill(Stream_Audio, 0, Audio_Codec, "LA");

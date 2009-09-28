@@ -196,8 +196,7 @@ void File_Mpc::FileHeader_Parse()
 
     FILLING_BEGIN();
         File__Tags_Helper::Accept("Musepack SV7");
-        File__Tags_Helper::Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "MusePack SV7");
+
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_SamplingRate, Mpc_SampleFreq[SampleFreq]);
         Fill(Stream_Audio, 0, Audio_SamplingCount, FrameCount*1152);

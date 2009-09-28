@@ -246,9 +246,6 @@ void File_Aes3::Data_Parse()
         //Filling
         Accept("AES3");
 
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "AES3");
-
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "PCM");
         Fill(Stream_Audio, 0, Audio_Format_Profile, "AES3");

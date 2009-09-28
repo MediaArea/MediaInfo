@@ -105,7 +105,7 @@ void File_Dpg::FileHeader_Parse()
 
     FILLING_BEGIN();
         Accept("DPG");
-        Stream_Prepare(Stream_General);
+
         Fill(Stream_General, 0, General_Format, "DPG");
 
         Stream_Prepare(Stream_Video);

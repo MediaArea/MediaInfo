@@ -110,10 +110,10 @@ void File_Nut::FileHeader_Parse()
         }
 
         //Filling
-        Stream_Prepare(Stream_General);
+        Accept("Nut");
+
         Fill(Stream_General, 0, General_Format, "Nut");
 
-        Accept("Nut");
         Finish("Nut");
     FILLING_END();
 }

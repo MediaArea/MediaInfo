@@ -503,7 +503,7 @@ void File_Bdmv::Read_Buffer_Continue()
     Element_End();
 
     FILLING_BEGIN();
-        Stream_Prepare(Stream_General);
+        Accept("BDMV");
     FILLING_END();
 
     if (version_numberH==0x3031 || version_numberH==0x3032) //Version 1 or 2
@@ -647,8 +647,6 @@ void File_Bdmv::BDMV()
         Clear(Stream_Video,   0, Video_ScanType_String);
         Clear(Stream_Video,   0, Video_Bits__Pixel_Frame_);
     }
-    else
-        Stream_Prepare(Stream_General);
 
     for (size_t Pos=0; Pos<MIs.size(); Pos++)
         delete MIs[Pos]; //MIs[Pos]=NULL;

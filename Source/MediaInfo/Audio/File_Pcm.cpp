@@ -219,9 +219,6 @@ void File_Pcm::Read_Buffer_Continue()
         //Filling
         Accept("PCM");
 
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "PCM");
-
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "PCM");
         Fill(Stream_Audio, 0, Audio_Codec, "PCM");
@@ -283,9 +280,6 @@ void File_Pcm::VOB()
     FILLING_BEGIN();
         Accept("PCM");
 
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "PCM");
-
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "PCM");
         Fill(Stream_Audio, 0, Audio_Codec, "PCM");
@@ -327,9 +321,6 @@ void File_Pcm::M2TS()
 
     FILLING_BEGIN();
         Accept("PCM");
-
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "PCM");
 
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "PCM");

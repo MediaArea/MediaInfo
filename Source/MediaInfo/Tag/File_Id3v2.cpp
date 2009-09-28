@@ -437,7 +437,7 @@ void File_Id3v2::FileHeader_Parse()
         }
 
         Accept("Id3v2");
-        Stream_Prepare(Stream_General);
+
         Stream_Prepare(Stream_Audio);
     FILLING_END();
 }

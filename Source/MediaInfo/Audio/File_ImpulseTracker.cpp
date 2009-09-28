@@ -112,7 +112,7 @@ void File_ImpulseTracker::Read_Buffer_Continue()
 
     FILLING_BEGIN();
         Accept("Impulse Tracker");
-        Stream_Prepare(Stream_General);
+
         Fill(Stream_General, 0, General_Format, "Impulse Tracker");
         Fill(Stream_General, 0, General_Format_Version, Ztring(_T("Version "))+Ztring::ToZtring(VersionMajor)+_T(".")+Ztring::ToZtring(VersionMinor/16)+Ztring::ToZtring(VersionMinor%16));
         Fill(Stream_General, 0, General_Track, SongName);

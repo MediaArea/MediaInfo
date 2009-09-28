@@ -56,7 +56,6 @@ void File_Mpeg4_TimeCode::FileHeader_Parse()
     //Filling
     Accept("TimeCode");
 
-    Stream_Prepare(Stream_General);
     if (FrameRate)
     {
         int64s Pos=Position;

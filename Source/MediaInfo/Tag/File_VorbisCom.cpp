@@ -74,7 +74,8 @@ void File_VorbisCom::FileHeader_Parse()
     FILLING_BEGIN();
         Accept("VorbisCom");
 
-        Stream_Prepare(Stream_General);
+        if (Count_Get(Stream_General)==0)
+            Stream_Prepare(Stream_General);
         if (StreamKind_Specific!=Stream_General)
             Stream_Prepare(StreamKind_Specific);
         if (StreamKind_Multiple!=Stream_General && StreamKind_Multiple!=StreamKind_Specific)

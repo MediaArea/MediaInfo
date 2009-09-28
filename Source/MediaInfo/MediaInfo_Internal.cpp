@@ -157,8 +157,8 @@ size_t MediaInfo_Internal::Open(const String &File_Name_)
     if (Format_Test()>0)
          return 1;
 
-    //Extension is not the good one, parse with all formats
     /*
+    //Extension is not the good one, parse with all formats
     delete Info; Info=new File__MultipleParsing;
     if (Format_Test()>0)
          return 1;

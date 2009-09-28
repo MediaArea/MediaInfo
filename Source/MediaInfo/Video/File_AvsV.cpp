@@ -197,8 +197,6 @@ File_AvsV::File_AvsV()
 void File_AvsV::Streams_Fill()
 {
     //Filling
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "AVS Video");
     Stream_Prepare(Stream_Video);
     Fill(Stream_Video, 0, Video_Format, "AVS Video");
     Fill(Stream_Video, 0, Video_Codec, "AVS Video");

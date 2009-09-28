@@ -198,7 +198,6 @@ void File_OtherText::Read_Buffer_Continue()
 
     Accept("Other text");
 
-    Stream_Prepare(Stream_General);
     Fill(Stream_General, 0, General_Format, Format);
     Fill(Stream_General, 0, General_Format_Info, FormatMore, true);
 

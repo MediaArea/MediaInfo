@@ -500,9 +500,6 @@ void File__MultipleParsing::Streams_Finish()
         return;
 
     Parser[0]->Open_Buffer_Finalize();
-    size_t A=Count_Get(Stream_General);
-    size_t B=Parser[0]->Count_Get(Stream_General);
-    B=0;
 }
 
 //***************************************************************************

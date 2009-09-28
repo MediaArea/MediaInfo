@@ -84,8 +84,6 @@ void File_Cmml::Identification()
     FILLING_BEGIN();
         Accept("CMML");
 
-        Stream_Prepare(Stream_General);
-
         Stream_Prepare(Stream_Text);
         Fill(Stream_Text, 0, Text_Format, "CMML");
         Fill(Stream_Text, 0, Text_Codec,  "CMML");

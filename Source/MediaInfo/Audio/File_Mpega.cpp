@@ -807,8 +807,7 @@ void File_Mpega::Data_Parse_Fill()
 
     //Filling
     File__Tags_Helper::Accept("MPEG Audio");
-    File__Tags_Helper::Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "MPEG Audio");
+
     File__Tags_Helper::Stream_Prepare(Stream_Audio);
     Fill(Stream_Audio, 0, Audio_Format, "MPEG Audio");
     Fill(Stream_Audio, 0, Audio_Format_Version, Mpega_Format_Profile_Version[ID]);

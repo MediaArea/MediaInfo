@@ -104,7 +104,6 @@ void File_Flic::FileHeader_Parse()
         //Filling
         Accept("FLIC");
 
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "FLIC");
 
         Stream_Prepare(Stream_Video);

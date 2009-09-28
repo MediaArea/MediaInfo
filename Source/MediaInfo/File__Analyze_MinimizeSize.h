@@ -707,7 +707,7 @@ public :
 
     //Before filling the stream, the stream must be prepared
     size_t Stream_Prepare   (stream_t KindOfStream);
-    void   General_Fill     (); //Special : pre-fill General with some important information
+    void   Stream_Prepare_General_FileName (); //For a better access to FileName stuff
 
     //Fill with datas (with parameter as a size_t)
     void Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const Ztring  &Value, bool Replace=false);

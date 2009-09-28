@@ -90,7 +90,6 @@ void File_ExtendedModule::Read_Buffer_Continue()
     FILLING_BEGIN();
         Accept("Extended Module");
 
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "Extended Module");
         Fill(Stream_General, 0, General_Format_Version, Ztring(_T("Version"))+Ztring::ToZtring(VersionMajor)+_T(".")+Ztring::ToZtring(VersionMinor/10)+Ztring::ToZtring(VersionMinor%10));
         Fill(Stream_General, 0, General_Track, ModuleName.Trim(_T(' ')));

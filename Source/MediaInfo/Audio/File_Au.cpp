@@ -153,7 +153,6 @@ void File_Au::FileHeader_Parse()
     FILLING_BEGIN();
         Accept("AU");
 
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "AU");
 
         Stream_Prepare(Stream_Audio);

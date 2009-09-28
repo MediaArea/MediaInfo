@@ -81,7 +81,7 @@ void File_Lyrics3v2::FileHeader_Parse()
 
     FILLING_BEGIN();
         Accept("Lyrics3v2");
-        Stream_Prepare(Stream_General);
+
         TotalSize-=11;
     FILLING_END();
 }

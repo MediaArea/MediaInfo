@@ -200,9 +200,6 @@ void File_Tak::STREAMINFO()
         //Filling
         File__Tags_Helper::Accept("TAK");
 
-        File__Tags_Helper::Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "TAK");
-
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "TAK");
         Fill(Stream_Audio, 0, Audio_Codec, "TAK");

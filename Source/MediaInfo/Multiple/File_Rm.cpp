@@ -178,7 +178,6 @@ void File_Rm::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Rm::RMF()
 {
-    Accept("RealMedia");
     NAME_VERSION("Real Media Format");
     INTEGRITY_VERSION(1);
 
@@ -190,7 +189,7 @@ void File_Rm::RMF()
     Skip_B4(                                                    "num_headers"); //The number of headers in the header section that follow the RealMedia File Header.
 
     //Filling
-    Stream_Prepare(Stream_General);
+    Accept("RealMedia");
     Fill(Stream_General, 0, General_Format, "RealMedia");
 }
 

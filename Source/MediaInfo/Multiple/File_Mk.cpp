@@ -853,8 +853,9 @@ void File_Mk::Ebml_DocType()
     //Filling
     FILLING_BEGIN();
         Accept("Matroska");
-        Stream_Prepare(Stream_General);
+
         Fill(Stream_General, 0, General_Format, "Matroska");
+
         Buffer_MaximumSize=8*1024*1024;
     FILLING_END();
 }

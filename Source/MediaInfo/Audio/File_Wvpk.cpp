@@ -432,19 +432,13 @@ void File_Wvpk::Data_Parse()
 void File_Wvpk::Data_Parse_Fill()
 {
     //Filling
-    if (Count_Get(Stream_General)==0)
-    {
-        File__Tags_Helper::Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "WavPack");
-        File__Tags_Helper::Stream_Prepare(Stream_Audio);
-        Fill(Stream_Audio, 0, Audio_Format, "WavPack");
-        Ztring Version_Minor=Ztring::ToZtring(version%0x100);
-        if (Version_Minor.size()==1)
-            Version_Minor.insert(Version_Minor.begin(), _T('0'));
-        Fill(Stream_Audio, 0, Audio_Format_Profile, Ztring::ToZtring(version/0x100)+_T('.')+Version_Minor);
-        Fill(Stream_Audio, 0, Audio_Codec, "Wavpack");
-    }
-
+    File__Tags_Helper::Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, 0, Audio_Format, "WavPack");
+    Ztring Version_Minor=Ztring::ToZtring(version%0x100);
+    if (Version_Minor.size()==1)
+        Version_Minor.insert(Version_Minor.begin(), _T('0'));
+    Fill(Stream_Audio, 0, Audio_Format_Profile, Ztring::ToZtring(version/0x100)+_T('.')+Version_Minor);
+    Fill(Stream_Audio, 0, Audio_Codec, "Wavpack");
     Fill(Stream_Audio, 0, Audio_Resolution, Wvpk_Resolution[(resolution1?1:0)*2+(resolution0?1:0)]);
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, num_channels?num_channels:(mono?1:2));
     if (channel_mask)

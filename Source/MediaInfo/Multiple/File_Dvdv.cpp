@@ -317,7 +317,7 @@ void File_Dvdv::FileHeader_Parse()
         }
 
         Accept("DVD Video");
-        Stream_Prepare(Stream_General);
+
         Fill(Stream_General, 0, General_Format, "DVD Video");
 
         //Versions

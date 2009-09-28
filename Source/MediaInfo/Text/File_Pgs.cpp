@@ -46,9 +46,6 @@ void File_Pgs::Read_Buffer_Continue()
     //Filling
     Accept("PGS");
 
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "PGS");
-
     Stream_Prepare(Stream_Text); //TODO: This is currenlty only text
     Fill(Stream_Text, 0, Text_Format, "PGS");
     Fill(Stream_Text, 0, Text_Codec, "PGS");

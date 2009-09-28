@@ -71,7 +71,6 @@ void File_Ace::Read_Buffer_Continue()
     FILLING_BEGIN();
         Accept("Ace");
 
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "ACE");
 
         Finish("Ace");

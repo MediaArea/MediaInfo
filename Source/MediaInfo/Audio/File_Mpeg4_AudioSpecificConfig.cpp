@@ -388,9 +388,6 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
     FILLING_BEGIN()
         Accept("AudioSpecificConfig");
 
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "AAC");
-
         if (Count_Get(Stream_Audio)==0) //May be done elsewhere
             Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, StreamPos_Last, Audio_Format, MP4_Format(audioObjectType));
@@ -699,9 +696,6 @@ void File_Mpeg4_AudioSpecificConfig::ALS ()
     FILLING_BEGIN();
         //Filling
         Accept("AudioSpecificConfig");
-
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "ALS");
 
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, StreamPos_Last, Audio_Format, "ALS");

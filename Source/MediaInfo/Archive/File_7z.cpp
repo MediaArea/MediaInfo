@@ -70,7 +70,6 @@ void File_7z::Read_Buffer_Continue()
     FILLING_BEGIN();
         Accept("7-Zip");
 
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "7-Zip");
 
         Finish("7-Zip");

@@ -562,8 +562,7 @@ void File_Ac3::Data_Parse_Fill()
     if (bsid<=0x08)
     {
         bool IsTrueHD=Frame_Count>=2 && (HD_Count+1==Frame_Count);
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "AC-3");
+
         if (IsTrueHD)
             Fill(Stream_General, 0, General_Format_Profile, "TrueHD");
         Stream_Prepare(Stream_Audio);
@@ -608,8 +607,6 @@ void File_Ac3::Data_Parse_Fill()
 
     if (bsid==0x10)
     {
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "E-AC-3");
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "E-AC-3");
         Fill(Stream_Audio, 0, Audio_Codec, "AC3+");

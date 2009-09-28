@@ -157,8 +157,7 @@ void File_Cdxa::FileHeader_Parse()
         Accept("CDXA");
         MI=new MediaInfo_Internal;
         MI->Option(_T("FormatDetection_MaximumOffset"), _T("1048576"));
-        MI->Option(_T("File_IsSub"), _T("1"));
-        Stream_Prepare(Stream_General);
+        //MI->Option(_T("File_IsSub"), _T("1"));
     FILLING_END();
 }
 

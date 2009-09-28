@@ -179,10 +179,8 @@ void File_Flac::STREAMINFO()
         if (SampleRate==0)
             return;
         File__Tags_Helper::Accept("FLAC");
-        File__Tags_Helper::Streams_Fill();
 
-        File__Tags_Helper::Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "FLAC");
+        File__Tags_Helper::Streams_Fill();
 
         File__Tags_Helper::Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "FLAC");

@@ -81,7 +81,7 @@ void File_Id3::Read_Buffer_Continue()
         Comment.TrimRight();
 
         Accept("Id3");
-        Stream_Prepare(Stream_General);
+
         Fill(Stream_General, 0, General_Album, Album);
         Fill(Stream_General, 0, General_Track, Title);
         Fill(Stream_General, 0, General_Performer, Artist);

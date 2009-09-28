@@ -385,11 +385,13 @@ void File_Swf::FileHeader_Parse()
             Reject("SWF");
             return;
         }
-        Accept("SWF");
 
         //Filling
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "ShockWave");
+        Accept("SWF");
+
+        if (!IsSub)
+            Fill(Stream_General, 0, General_Format, "ShockWave");
+
         Stream_Prepare(Stream_Video);
         Fill(Stream_Video, 0, Video_Width, (Xmax-Xmin)/20);
         Fill(Stream_Video, 0, Video_Height, (Ymax-Ymin)/20);
@@ -654,9 +656,10 @@ bool File_Swf::Decompress()
     if (Buffer_Size!=File_Size)
     {
         //We must have the complete file in memory, but this is too big (not handled by FileHeader_Begin()), only saying this is SWF
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "ShockWave");
+
         Stream_Prepare(Stream_Video);
+
         Finish("SWF");
         return true;
     }
@@ -677,7 +680,7 @@ bool File_Swf::Decompress()
 
     Accept("SWF");
 
-    Stream_Prepare(Stream_General);
+    Fill(Stream_General, 0, General_Format, "ShockWave");
 
     File_Swf MI;
     MI.FileLength=FileLength;

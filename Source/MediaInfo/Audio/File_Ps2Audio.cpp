@@ -108,8 +108,6 @@ void File_Ps2Audio::SShd()
 
         BitRate=SamplingRate*Channels*16; //Always 16 bits
 
-        Stream_Prepare(Stream_General);
-
         Stream_Prepare(Stream_Audio);
         Ztring FormatS;
         switch(Format)

@@ -527,10 +527,7 @@ bool File_MpegTs::Synchronize()
 
     //Synched is OK
     if (!Status[IsAccepted])
-    {
         Accept("MPEG-TS");
-        Stream_Prepare(Stream_General);
-    }
     return true;
 }
 
@@ -1218,10 +1215,7 @@ void File_MpegTs::PSI()
     {
         //Accept
         if (!Status[IsAccepted] && pid==0x0000 && Complete_Stream->Streams[pid].Parser->Status[IsAccepted])
-        {
             Accept("MPEG-TS");
-            Stream_Prepare(Stream_General);
-        }
 
         //Disabling this PID
         delete Complete_Stream->Streams[pid].Parser; Complete_Stream->Streams[pid].Parser=NULL;

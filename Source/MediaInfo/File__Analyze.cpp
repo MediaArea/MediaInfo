@@ -1563,6 +1563,8 @@ void File__Analyze::Accept (const char* ParserName)
     }
 
     Status[IsAccepted]=true;
+    //if (!IsSub)
+        Stream_Prepare(Stream_General);
 }
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Accept ()
@@ -1571,6 +1573,8 @@ void File__Analyze::Accept ()
         return;
 
     Status[IsAccepted]=true;
+    //if (!IsSub)
+        Stream_Prepare(Stream_General);
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 

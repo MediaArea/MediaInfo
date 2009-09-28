@@ -364,8 +364,6 @@ void File_Mpeg4v::Synched_Init()
 void File_Mpeg4v::Streams_Fill()
 {
     //Filling
-    Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "MPEG-4 Visual");
     Stream_Prepare(Stream_Video);
     Fill(Stream_Video, 0, Video_Format, "MPEG-4 Visual");
     Fill(Stream_Video, 0, Video_Codec, "MPEG-4V");

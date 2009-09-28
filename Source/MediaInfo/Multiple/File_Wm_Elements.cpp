@@ -237,7 +237,6 @@ void File_Wm::Header()
     Skip_L1(                                                    "Architecture");
 
     FILLING_BEGIN();
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "Windows Media");
     FILLING_END();
 }

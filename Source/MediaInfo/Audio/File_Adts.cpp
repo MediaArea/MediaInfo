@@ -244,16 +244,17 @@ void File_Adts::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Adts::Data_Parse_Fill()
 {
-    //Handling implicit SBR and PS
+    //Calculating
     bool sbrPresentFlag=ADTS_SamplingRate[sampling_frequency_index]<=24000;
     bool psPresentFlag=channel_configuration<=1; //1 channel
+    int32u BitRate=(ADTS_SamplingRate[sampling_frequency_index]/1024)*aac_frame_length*8;
 
     //Filling
     File__Tags_Helper::Accept("ADTS");
 
-    int32u BitRate=(ADTS_SamplingRate[sampling_frequency_index]/1024)*aac_frame_length*8;
-    File__Tags_Helper::Stream_Prepare(Stream_General);
-    Fill(Stream_General, 0, General_Format, "ADTS");
+    if (!IsSub)
+        Fill(Stream_General, 0, General_Format, "ADTS");
+
     File__Tags_Helper::Stream_Prepare(Stream_Audio);
     Fill(Stream_Audio, 0, Audio_Format, "AAC");
     Fill(Stream_Audio, 0, Audio_Format_Version, id?"Version 2":"Version 4");

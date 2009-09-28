@@ -352,8 +352,6 @@ void File_Ogg::Data_Parse()
                 Accept("OGG");
             if (Parser->Status[IsFinished] || (Element_Offset==Element_Size && eos))
             {
-                if (Count_Get(Stream_General)==0)
-                    Stream_Prepare(Stream_General);
                 StreamsToDo--;
                 Stream[Element_Code].SearchingPayload=false;
                 break;

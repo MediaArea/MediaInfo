@@ -588,9 +588,11 @@ bool File_Mxf::FileHeader_Begin()
         Reject("MXF");
         return false;
     }
-        Accept("MXF");
-        Stream_Prepare(Stream_General);
-        Fill(Stream_General, 0, General_Format, "MXF");
+
+    Accept("MXF");
+
+    Fill(Stream_General, 0, General_Format, "MXF");
+
     return true;
 }
 

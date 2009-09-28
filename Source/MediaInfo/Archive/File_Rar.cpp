@@ -72,7 +72,6 @@ void File_Rar::Read_Buffer_Continue()
     FILLING_BEGIN();
         Accept("RAR");
 
-        Stream_Prepare(Stream_General);
         Fill(Stream_General, 0, General_Format, "RAR");
 
         Finish("RAR");
