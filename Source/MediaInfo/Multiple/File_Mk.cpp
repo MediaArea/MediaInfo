@@ -1410,7 +1410,7 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
         Element_End(); //Block
         Info("Cluster, no need of more");
         Element_End(); //BlockGroup
-        Finish("Matroska"); //File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get();
+        Finish("Matroska"); //GoTo(File_Offset+Buffer_Offset+Element_TotalSize_Get());
     }
 
     Element_Show(); //For debug

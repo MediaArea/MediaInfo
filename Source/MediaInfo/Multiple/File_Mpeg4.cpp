@@ -52,6 +52,7 @@ namespace MediaInfoLib
 
 namespace Elements
 {
+    const int64u free=0x66726565;
     const int64u mdat=0x6D646174;
     const int64u moov_meta______=0x2D2D2D2D;
     const int64u moov_meta___ART=0xA9415254;
@@ -413,6 +414,13 @@ void File_Mpeg4::Header_Parse()
         {
             Size=File_Size-(File_Offset+Buffer_Offset);
         }
+    }
+
+    //Specific case: file begin with "free" atom
+    if (Name==Elements::free && !Status[IsAccepted])
+    {
+        Accept("MPEG-4");
+        Fill(Stream_General, 0, General_Format, "QuickTime");
     }
 
     //Filling

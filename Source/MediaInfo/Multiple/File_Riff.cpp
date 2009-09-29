@@ -549,7 +549,7 @@ bool File_Riff::BookMark_Needed()
 
     Stream_Structure_Temp=Stream_Structure.begin();
     if (!Stream_Structure.empty())
-        File_GoTo=Stream_Structure_Temp->first;
+        GoTo(Stream_Structure_Temp->first);
     NeedOldIndex=false;
     SecondPass=true;
     Index_Pos.clear(); //We didn't succeed to find theses indexes :(

@@ -444,7 +444,7 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
         {
             if (Base->File_Offset>Base->File_Size-File_EndTagSize-9) //Must be at the end less 15 bytes
             {
-                Base->File_GoTo=Base->File_Size-File_EndTagSize-9;
+                Base->GoTo(Base->File_Size-File_EndTagSize-9, "Tags");
                 TagSizeIsFinal=false;
                 return false;
             }
@@ -452,7 +452,7 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
             if (Base->File_Offset+Base->Buffer_Size<Base->File_Size-File_EndTagSize) //Must be at the end less File_EndTagSize+9 bytes plus 9 bytes of tags
             {
                 if (Base->File_Offset!=Base->File_Size-File_EndTagSize)
-                    Base->File_GoTo=Base->File_Size-File_EndTagSize;
+                    Base->GoTo(Base->File_Size-File_EndTagSize, "Tags");
                 TagSizeIsFinal=false;
                 return false;
             }
@@ -462,7 +462,7 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
                 //Must find the beginning, 5100 bytes before
                 if (Base->File_Offset>Base->File_Size-File_EndTagSize-5100) //Must be at the end less 15 bytes
                 {
-                    Base->File_GoTo=Base->File_Size-File_EndTagSize-5100;
+                    Base->GoTo(Base->File_Size-File_EndTagSize-5100, "Tags");
                     TagSizeIsFinal=false;
                     return false;
                 }
@@ -470,7 +470,7 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
                 if (Base->File_Offset+Base->Buffer_Size<Base->File_Size-File_EndTagSize) //Must be at the end less File_EndTagSize
                 {
                     if (Base->File_Offset!=Base->File_Size-File_EndTagSize)
-                        Base->File_GoTo=Base->File_Size-File_EndTagSize;
+                        Base->GoTo(Base->File_Size-File_EndTagSize, "Tags");
                     TagSizeIsFinal=false;
                     return false;
                 }
@@ -493,7 +493,7 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
         {
             if (Base->File_Offset>Base->File_Size-File_EndTagSize-15) //Must be at the end less 15 bytes
             {
-                Base->File_GoTo=Base->File_Size-File_EndTagSize-15;
+                Base->GoTo(Base->File_Size-File_EndTagSize-15, "Tags");
                 TagSizeIsFinal=false;
                 return false;
             }
@@ -501,7 +501,7 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
             if (Base->File_Offset+Base->Buffer_Size<Base->File_Size-File_EndTagSize) //Must be at the end less File_EndTagSize
             {
                 if (Base->File_Offset!=Base->File_Size-File_EndTagSize)
-                    Base->File_GoTo=Base->File_Size-File_EndTagSize;
+                    Base->GoTo(Base->File_Size-File_EndTagSize, "Tags");
                 TagSizeIsFinal=false;
                 return false;
             }
@@ -520,7 +520,7 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
         {
             if (Base->File_Offset>Base->File_Size-File_EndTagSize-32) //Must be at the end less 32 bytes
             {
-                Base->File_GoTo=Base->File_Size-File_EndTagSize-32;
+                Base->GoTo(Base->File_Size-File_EndTagSize-32, "Tags");
                 TagSizeIsFinal=false;
                 return false;
             }
@@ -528,7 +528,7 @@ bool File__Tags_Helper::DetectBeginOfEndTags_Test()
             if (Base->File_Offset+Base->Buffer_Size<Base->File_Size-File_EndTagSize) //Must be at the end less File_EndTagSize+15 bytes plus 15 bytes of tags
             {
                 if (Base->File_Offset!=Base->File_Size-File_EndTagSize-32)
-                    Base->File_GoTo=Base->File_Size-File_EndTagSize-32;
+                    Base->GoTo(Base->File_Size-File_EndTagSize-32, "Tags");
                 TagSizeIsFinal=false;
                 return false;
             }
