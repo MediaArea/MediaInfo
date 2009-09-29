@@ -17,7 +17,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Main part          
+// Main part
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -425,8 +425,8 @@ bool File_Mpeg4::BookMark_Needed()
 {
     if (Stream.empty())
         return false;
-        
-    File_GoTo=0; //Reseting it
+
+    GoTo(0, "MPEG-4"); //Reseting it
     return true;
 }
 
@@ -548,7 +548,7 @@ void File_Mpeg4::Descriptors()
     //Position
     Element_Offset=Element_Size;
 
-    //Parser from Descriptor 
+    //Parser from Descriptor
     if (MI.Parser)
     {
         if (Stream[moov_trak_tkhd_TrackID].Parser)
@@ -565,3 +565,4 @@ void File_Mpeg4::Descriptors()
 } //NameSpace
 
 #endif //MEDIAINFO_MPEG4_YES
+

@@ -1131,7 +1131,6 @@ void File_DvDif::video_sourcecontrol()
 
             if (!IsSub)
                 Fill(Stream_General, 0, General_Format, "Digital Video");
-            Fill(Stream_General, 0, General_Format, "Digital Video");
 
             Fill("DV DIF");
         }

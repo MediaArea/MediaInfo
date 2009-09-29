@@ -270,19 +270,6 @@ void File_Riff::Streams_Finish ()
                 }
             #endif
         }
-        #if defined(MEDIAINFO_DVDIF_YES)
-        if (StreamKind_Last==Stream_Video && DV_FromHeader && Retrieve(Stream_Video, StreamPos_Last, Video_Format).empty() && Retrieve(Stream_Video, StreamPos_Last, Video_Codec).empty()) //Sometimes, there is a problem with the parser
-        {
-            Clear(Stream_Video);
-            Clear(Stream_Audio);
-            Finish(DV_FromHeader);
-            Merge(*DV_FromHeader);
-            Fill(Stream_Video, 0, Video_Format, "Digital Video");
-            Fill(Stream_Video, 0, Video_Codec_CC, "dvsd");
-            Fill(Stream_Audio, 0, Audio_Format, "PCM");
-            Fill(Stream_Audio, 0, Audio_Codec_CC, "PCM");
-        }
-        #endif
 
         //Duration
         if (Temp->second.PacketCount>0)
@@ -397,7 +384,7 @@ void File_Riff::Streams_Finish ()
     //Interleaved
     if (Interleaved0_1 && Interleaved0_10 && Interleaved1_1 && Interleaved1_10)
         Fill(Stream_General, 0, General_Interleaved, (Interleaved0_1<Interleaved1_1 && Interleaved0_10>Interleaved1_1
-                                              || Interleaved1_1<Interleaved0_1 && Interleaved1_10>Interleaved0_1)?"Yes":"No");
+                                                   || Interleaved1_1<Interleaved0_1 && Interleaved1_10>Interleaved0_1)?"Yes":"No");
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data

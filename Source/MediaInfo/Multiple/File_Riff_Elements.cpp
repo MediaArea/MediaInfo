@@ -609,7 +609,7 @@ void File_Riff::AIFF_SSND()
     Element_Name("Sound Data");
 
     Skip_XX(Element_TotalSize_Get(),                            "Data");
-    
+
     //Filling
     Fill(Stream_Audio, 0, Audio_StreamSize, Element_TotalSize_Get());
     Finish("AIFF");
@@ -1117,7 +1117,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     //Options
     if (Element_Offset+2>Element_Size)
         return; //No options
-        
+
     //Parsing
     int16u Option_Size;
     Get_L2 (Option_Size,                                        "cbSize");
@@ -1486,7 +1486,7 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     //Options
     if (Element_Offset>=Element_Size)
         return; //No options
-        
+
     //Filling
          if (0);
     else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("AVC"))==0)
@@ -1638,7 +1638,7 @@ void File_Riff::AVI__idx1()
     else if (!Element_IsComplete_Get())
     {
         Element_WaitForMoreData();
-        return;         
+        return;
     }
 
     //Testing malformed index (index is based on start of the file, wrong)
@@ -2072,9 +2072,9 @@ void File_Riff::AVI__movi_StreamJump()
         if (ToJump>File_Size)
             ToJump=File_Size;
         if (ToJump>=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-2)) //We want always Element movi
-            File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-2); //Not in this chunk
+            GoTo(File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-2), "AVI"); //Not in this chunk
         else if (ToJump!=File_Offset+Buffer_Offset+(Element_Code==Elements::AVI__movi?0:Element_Size))
-            File_GoTo=ToJump; //Not just after
+            GoTo(ToJump, "AVI"); //Not just after
     }
     else if (stream_Count==0)
     {
@@ -2097,9 +2097,9 @@ void File_Riff::AVI__movi_StreamJump()
         {
             int64u ToJump=Stream_Structure_Temp->first;
             if (ToJump>=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-2))
-                File_GoTo=File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-2); //Not in this chunk
+                GoTo(File_Offset+Buffer_Offset+Element_TotalSize_Get(Element_Level-2), "AVI"); //Not in this chunk
             else if (ToJump!=File_Offset+Buffer_Offset+Element_Size)
-                File_GoTo=ToJump; //Not just after
+                GoTo(ToJump, "AVI"); //Not just after
         }
         else
             Finish("AVI");
@@ -2714,4 +2714,5 @@ void File_Riff::W3DI()
 } //NameSpace
 
 #endif //MEDIAINFO_RIFF_YES
+
 

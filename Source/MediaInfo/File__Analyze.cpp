@@ -912,7 +912,7 @@ bool File__Analyze::Data_Manage()
         GoTo(File_Offset+Buffer_Offset+Element_Offset); //Preparing to go far
 
     //If no need of more
-    if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (Status[IsFinished] && !ShouldContinueParsing))
+    if (File_GoTo!=(int64u)-1 || (Status[IsFinished] && !ShouldContinueParsing))
     {
         if (!Element_WantNextLevel)
             Element_End(); //Element
@@ -1015,6 +1015,8 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
         Finish();
         return;
     }
+    if (File_GoTo!=(int64u)-1)
+        return; //Already done
 
     if (ShouldContinueParsing)
     {
@@ -1748,6 +1750,8 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
             Finish();
         return;
     }
+    if (File_GoTo!=(int64u)-1)
+        return; //Already done
 
     if (ShouldContinueParsing)
     {
@@ -1801,6 +1805,8 @@ void File__Analyze::GoTo (int64u GoTo)
             Finish();
         return;
     }
+    if (File_GoTo!=(int64u)-1)
+        return; //Already done
 
     if (ShouldContinueParsing)
     {
