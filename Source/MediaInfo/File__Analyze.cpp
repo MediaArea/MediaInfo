@@ -897,6 +897,20 @@ bool File__Analyze::Data_Manage()
         Element[Element_Level].IsComplete=true;
     }
 
+    //Next element
+    if (!Element_WantNextLevel)
+    {
+        if (Element[Element_Level].Next<=File_Offset+Buffer_Size)
+            Element_Offset=(size_t)(Element[Element_Level].Next-File_Offset-Buffer_Offset);
+        else
+        {
+            GoTo(Element[Element_Level].Next);
+            return false;
+        }
+    }
+    if (Buffer_Offset+Element_Offset>Buffer_Size && File_Offset!=File_Size)
+        GoTo(File_Offset+Buffer_Offset+Element_Offset); //Preparing to go far
+
     //If no need of more
     if ((File_GoTo!=(int64u)-1 && File_GoTo>File_Offset+Buffer_Offset) || (Status[IsFinished] && !ShouldContinueParsing))
     {
@@ -905,20 +919,6 @@ bool File__Analyze::Data_Manage()
         Element_Offset=0;
         return false;
     }
-
-    //Next element
-    if (!Element_WantNextLevel)
-    {
-        if (Element[Element_Level].Next<=File_Offset+Buffer_Size)
-            Element_Offset=(size_t)(Element[Element_Level].Next-File_Offset-Buffer_Offset);
-        else
-        {
-            File_GoTo=Element[Element_Level].Next;
-            return false;
-        }
-    }
-    if (Buffer_Offset+Element_Offset>Buffer_Size && File_Offset!=File_Size)
-        File_GoTo=File_Offset+Buffer_Offset+Element_Offset; //Preparing to go far
 
     Buffer_Offset+=(size_t)Element_Offset;
     Header_Size=0;
@@ -1744,7 +1744,7 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
     {
         if (!BookMark_Code.empty())
             BookMark_Get();
-        if (GoTo==File_Size)
+        if (File_GoTo==(int64u)-1)
             Finish();
         return;
     }
@@ -1797,7 +1797,7 @@ void File__Analyze::GoTo (int64u GoTo)
     {
         if (!BookMark_Code.empty())
             BookMark_Get();
-        if (GoTo==File_Size)
+        if (File_GoTo==(int64u)-1)
             Finish();
         return;
     }
@@ -1983,10 +1983,7 @@ void File__Analyze::BookMark_Get ()
 {
     File_GoTo=(int64u)-1;
     if (!BookMark_Needed())
-    {
-        Finish();
         return;
-    }
 
     Element_Show();
     while (Element_Level>0)
