@@ -101,6 +101,8 @@ namespace Elements
     const int64u moov_meta__trkn=0x74726B6E;
     const int64u moov_meta__tmpo=0x746D706F;
     const int64u moov_meta__year=0x79656172;
+    const int64u skip=0x736B6970;
+    const int64u wide=0x77696465;
 }
 
 //---------------------------------------------------------------------------
@@ -417,7 +419,10 @@ void File_Mpeg4::Header_Parse()
     }
 
     //Specific case: file begin with "free" atom
-    if (Name==Elements::free && !Status[IsAccepted])
+    if (!Status[IsAccepted]
+     && (Name==Elements::free
+      || Name==Elements::skip
+      || Name==Elements::wide))
     {
         Accept("MPEG-4");
         Fill(Stream_General, 0, General_Format, "QuickTime");

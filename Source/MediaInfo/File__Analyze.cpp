@@ -1742,6 +1742,12 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
 {
     Element_Show();
 
+    if (!Status[IsAccepted])
+    {
+        Reject();
+        return;
+    }
+
     if (GoTo==File_Size)
     {
         if (!BookMark_Code.empty())
@@ -1797,6 +1803,12 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::GoTo (int64u GoTo)
 {
+    if (!Status[IsAccepted])
+    {
+        Reject();
+        return;
+    }
+
     if (GoTo==File_Size)
     {
         if (!BookMark_Code.empty())
