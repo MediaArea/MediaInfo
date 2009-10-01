@@ -223,7 +223,7 @@ public :
     inline void Param_GUID (const char*, int128u) {}
     inline void Param_UUID (const char*, int128u) {}
     #ifdef NEED_SIZET
-    inline void Param      (const char*, size_t Value, intu Radix=16) {}
+    inline void Param      (const char*, size_t, intu =16) {}
     #endif //NEED_SIZET
     inline void Param      (const char*, float32, intu =3) {}
     inline void Param      (const char*, float64, intu =3) {}
