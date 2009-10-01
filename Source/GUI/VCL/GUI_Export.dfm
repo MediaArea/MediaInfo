@@ -54,10 +54,6 @@ object ExportF: TExportF
       OnChange = ExportChange
       object Export_CSV: TTabSheet
         Caption = 'CSV'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object CSV_Stream_Video_Caption: TLabel
           Left = 0
           Top = 9
@@ -322,10 +318,6 @@ object ExportF: TExportF
       end
       object Export_Sheet: TTabSheet
         Caption = 'Sheet'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Sheet_Quote_Caption: TLabel
           Left = 0
           Top = 9
@@ -389,14 +381,10 @@ object ExportF: TExportF
       object Export_Text: TTabSheet
         Caption = 'Text'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Text_Advanced: TCheckBox
           Left = 0
           Top = 9
-          Width = 208
+          Width = 585
           Height = 18
           Caption = 'Advanced : full information'
           TabOrder = 0
@@ -405,14 +393,10 @@ object ExportF: TExportF
       object Export_HTML: TTabSheet
         Caption = 'HTML'
         ImageIndex = 2
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object HTML_Advanced: TCheckBox
           Left = 0
           Top = 9
-          Width = 208
+          Width = 597
           Height = 18
           Caption = 'Advanced : full information'
           TabOrder = 0
@@ -421,14 +405,10 @@ object ExportF: TExportF
       object Export_Custom: TTabSheet
         Caption = 'Custom'
         ImageIndex = 3
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Custom_One: TCheckBox
           Left = 0
           Top = 9
-          Width = 208
+          Width = 597
           Height = 18
           Caption = 'One output file per input file'
           TabOrder = 0
