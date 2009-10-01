@@ -959,15 +959,15 @@ void File_Mpegv::user_data_start()
         bool OK=true;
         for (size_t Pos=0; Pos<4; Pos++)
         {
-            if (!(Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x20 && Pos
-               || Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x22
-               || Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x27
-               || Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x28
-               || Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x29 && Pos
-               || Buffer[Buffer_Offset+Library_Start_Offset+Pos]>=0x30
-               && Buffer[Buffer_Offset+Library_Start_Offset+Pos]<=0x3F
-               || Buffer[Buffer_Offset+Library_Start_Offset+Pos]>=0x41
-               && Buffer[Buffer_Offset+Library_Start_Offset+Pos]<=0x7D))
+            if (!((Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x20 && Pos)
+               ||  Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x22
+               ||  Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x27
+               ||  Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x28
+               || (Buffer[Buffer_Offset+Library_Start_Offset+Pos]==0x29 && Pos)
+               || (Buffer[Buffer_Offset+Library_Start_Offset+Pos]>=0x30
+               &&  Buffer[Buffer_Offset+Library_Start_Offset+Pos]<=0x3F)
+               || (Buffer[Buffer_Offset+Library_Start_Offset+Pos]>=0x41
+               && Buffer[Buffer_Offset+Library_Start_Offset+Pos]<=0x7D)))
             {
                 OK=false;
                 break;
