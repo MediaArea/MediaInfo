@@ -4563,8 +4563,8 @@ void MediaInfo_Config_Library_DivX (InfoMap &Info)
     "2510;6.8.0;UTC 2007-12-04\n"
     "2521;6.8.0 Converter 6.6\n"
     "2559;6.8.2;UTC 2008-05-17\n"
-    "2676;6.8.3;UTC 2008-06-07\n"
-    "2816;6.8.4\n"
+    "2676;6.8.3-6.8.4;UTC 2008-06-07\n"
+    "2816;6.8.5;UTC 2009-08-20\n"
     "2851;6.8.5;UTC 2009-08-20\n"
     ));
     Info.Separator_Set(0, ZenLib::EOL);
