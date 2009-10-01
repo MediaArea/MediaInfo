@@ -148,7 +148,8 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
 {
     //Preparing
     File_Size=File_Size_;
-    File_Offset=File_Offset_;
+    if (File_Offset_!=(int64u)-1)
+        File_Offset=File_Offset_;
     Element[0].Next=File_Size;
 
     //Buffer - Global
