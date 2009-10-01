@@ -2071,8 +2071,8 @@ void File_Avc::SPS_PPS()
         Element_Size=Element_Size_Save;
         Element_End();
     }
-    if (Element_Offset+1==Element_Size)
-        Skip_B1(                                                "Padding?");
+    if (Element_Offset<Element_Size)
+        Skip_XX(Element_Size-Element_Offset,                    "Padding?");
 
     //Filling
     FILLING_BEGIN_PRECISE();
