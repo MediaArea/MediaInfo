@@ -304,6 +304,9 @@ File__MultipleParsing::File__MultipleParsing()
     #if defined(MEDIAINFO_MPEGTS_YES)
         Temp=new File_MpegTs(); Parser.push_back(Temp);
     #endif
+    #if defined(MEDIAINFO_TSP_YES)
+        Temp=new File_MpegTs(); ((File_MpegTs*)Temp)->TSP_Size=16; Parser.push_back(Temp);
+    #endif
     #if defined(MEDIAINFO_MXF_YES)
         Temp=new File_Mxf(); Parser.push_back(Temp);
     #endif
@@ -522,6 +525,7 @@ void File__MultipleParsing::Read_Buffer_Init()
             Parser[Pos]->Init(Config, Stream, Stream_More);
         #endif //MEDIAINFO_MINIMIZESIZE
         Parser[Pos]->Open_Buffer_Init(File_Size, File_Offset);
+        Parser[Pos]->File_Name=File_Name;
     }
 }
 
@@ -567,10 +571,7 @@ void File__MultipleParsing::Read_Buffer_Continue()
 
                 //Status
                 if (!Status[IsAccepted] && Parser[Pos]->Status[IsAccepted])
-                {
                     Status[IsAccepted]=true;
-                    Stream_Prepare_General_FileName();
-                }
                 if (!Status[IsFilled] && Parser[Pos]->Status[IsFilled])
                     Status[IsFilled]=true;
                 if (!Status[IsUpdated] && Parser[Pos]->Status[IsUpdated])
