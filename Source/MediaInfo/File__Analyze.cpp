@@ -434,6 +434,18 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
 void File__Analyze::Open_Buffer_Unsynch ()
 {
     Read_Buffer_Unsynched();
+
+    //Clearing duration
+    if (Synched)
+    {
+        for (size_t StreamKind=(size_t)Stream_General; StreamKind<(size_t)Stream_Menu; StreamKind++)
+        {
+            size_t StreamPos_Count=Count_Get((stream_t)StreamKind);
+            for (size_t StreamPos=0; StreamPos<StreamPos_Count; StreamPos++)
+                Clear((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_Duration));
+        }
+        Synched=false;
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -574,9 +586,9 @@ bool File__Analyze::FileHeader_Begin_0x000001()
     //Detecting OldDirac/WAV/SWF/FLV/ELF/DPG/WM files
     int64u Magic8=CC8(Buffer);
     int32u Magic4=Magic8>>32;
-    int32u Magic3=Magic4>>40;
-    int16u Magic2=Magic4>>48;
-    if (Magic8==0x4B572D4449524143 || Magic4==0x52494646 || Magic3==0x465753 || Magic3==0x464C56 || Magic4==0x7F454C46 || Magic4==0x44504730 || Magic4==0x3026B275 || Magic2==0x4D5A)
+    int32u Magic3=Magic4>> 8;
+    int16u Magic2=Magic4>>16;
+    if (Magic8==0x4B572D4449524143LL || Magic4==0x52494646 || Magic3==0x465753 || Magic3==0x464C56 || Magic4==0x7F454C46 || Magic4==0x44504730 || Magic4==0x3026B275 || Magic2==0x4D5A)
     {
         Reject();
         return false;
