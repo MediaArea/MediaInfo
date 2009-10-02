@@ -2840,7 +2840,7 @@ bool File_MpegPs::Header_Parser_QuickSearch()
                     if (MPEG_Version==1)
                     {
                         size_t Buffer_Offset_Temp=Buffer_Offset+6;
-                        while(Buffer_Offset_Temp<=Buffer_Size && Buffer[Buffer_Offset_Temp]==0xFF)
+                        while(Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp]==0xFF)
                         {
                             Buffer_Offset_Temp++;
                             if (Buffer_Offset_Temp+1>=Buffer_Size)
