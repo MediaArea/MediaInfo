@@ -433,7 +433,7 @@ int MediaInfo_Internal::Format_Test_FillBuffer_Continue()
             if (((File*)File_Handle)->GoTo(Info->File_GoTo))
             {
                 File_Offset=Info->File_GoTo;
-                Info->Open_Buffer_Init(File_Size, File_Offset);
+                Info->Open_Buffer_Position_Set(Info->File_GoTo);
             }
             else
                 //File is not seekable
@@ -524,7 +524,8 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
     #else //MEDIAINFO_MINIMIZESIZE
         Info->Init(&Config, &Stream, &Stream_More);
     #endif //MEDIAINFO_MINIMIZESIZE
-    Info->Open_Buffer_Init(File_Size_, File_Offset_);
+    Info->Open_Buffer_Init(File_Size_);
+    Info->Open_Buffer_Position_Set(File_Offset_);
     Info->File_Name=File_Name;
 
     //Saving the real file size, in case the user provide the theoritical file size, to be used instead of the real file size

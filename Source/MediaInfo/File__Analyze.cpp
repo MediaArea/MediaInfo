@@ -352,7 +352,9 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
         return;
 
     //Sub
-    Sub->Open_Buffer_Init(File_Size, File_Offset+Buffer_Offset+Element_Offset);
+    if (Sub->File_GoTo!=(int64u)-1)
+        Sub->File_GoTo=(int64u)-1;
+    Sub->File_Offset=File_Offset+Buffer_Offset+Element_Offset;
     #ifndef MEDIAINFO_MINIMIZESIZE
         Sub->Element_Level_Base=Element_Level_Base+Element_Level;
     #endif
@@ -428,6 +430,21 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
             return;
         }
     }
+}
+
+//---------------------------------------------------------------------------
+void File__Analyze::Open_Buffer_Position_Set (int64u File_Offset_)
+{
+    if (File_Offset_==(int64u)-1)
+        return;
+
+    if (File_Offset_==File_GoTo)
+    {
+        File_Offset=File_Offset_;
+        File_GoTo=(int64u)-1;
+    }
+
+    Synched=false;
 }
 
 //---------------------------------------------------------------------------
@@ -1811,7 +1828,8 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
     }
 
     Open_Buffer_Unsynch();
-    File_GoTo=GoTo;
+    if (!IsSub)
+        File_GoTo=GoTo;
 }
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::GoTo (int64u GoTo)
@@ -1844,7 +1862,8 @@ void File__Analyze::GoTo (int64u GoTo)
     }
 
     Open_Buffer_Unsynch();
-    File_GoTo=GoTo;
+    if (!IsSub)
+        File_GoTo=GoTo;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 

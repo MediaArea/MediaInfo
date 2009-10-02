@@ -60,11 +60,12 @@ public :
     // Open
     //***************************************************************************
 
-    void    Open_Buffer_Init        (                    int64u File_Size, int64u File_Offset=0);
+    void    Open_Buffer_Init        (                    int64u File_Size, int64u File_Offset=(int64u)-1);
     void    Open_Buffer_Init        (File__Analyze* Sub);
-    void    Open_Buffer_Init        (File__Analyze* Sub, int64u File_Size, int64u File_Offset=0);
+    void    Open_Buffer_Init        (File__Analyze* Sub, int64u File_Size, int64u File_Offset=(int64u)-1);
     void    Open_Buffer_Continue    (                    const int8u* Buffer, size_t Buffer_Size);
     void    Open_Buffer_Continue    (File__Analyze* Sub, const int8u* Buffer, size_t Buffer_Size);
+    void    Open_Buffer_Position_Set(int64u File_Offset);
     void    Open_Buffer_Unsynch     ();
     void    Open_Buffer_Finalize    (bool NoBufferModification=false);
     void    Open_Buffer_Finalize    (File__Analyze* Sub);

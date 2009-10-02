@@ -524,7 +524,7 @@ void File__MultipleParsing::Read_Buffer_Init()
         #else //MEDIAINFO_MINIMIZESIZE
             Parser[Pos]->Init(Config, Stream, Stream_More);
         #endif //MEDIAINFO_MINIMIZESIZE
-        Parser[Pos]->Open_Buffer_Init(File_Size, File_Offset);
+        Parser[Pos]->Open_Buffer_Init(File_Size);
         Parser[Pos]->File_Name=File_Name;
     }
 }
