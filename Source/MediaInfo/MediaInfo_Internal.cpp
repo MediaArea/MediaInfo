@@ -349,20 +349,7 @@ int MediaInfo_Internal::Format_Test()
 //---------------------------------------------------------------------------
 int MediaInfo_Internal::Format_Test_Buffer()
 {
-    //Integrity
-    if (Info==NULL)
-        return 0;
-
-    if (Info->Count_Get(Stream_General)==0)
-        Info->Open_Buffer_Init(NULL, File_Size, File_Offset);
-
-    //-Test the format with buffer
-    Info->Open_Buffer_Continue(NULL, BufferConst?BufferConst:Buffer, Buffer_Size);
-    //We must wait fo more data
-    if (Info->Count_Get(Stream_General)>0)
-        return 1;
-    else
-        return 0;
+    return 0;
 }
 
 //---------------------------------------------------------------------------

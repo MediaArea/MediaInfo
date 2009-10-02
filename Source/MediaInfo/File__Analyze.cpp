@@ -144,12 +144,10 @@ File__Analyze::~File__Analyze ()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
+void File__Analyze::Open_Buffer_Init (int64u File_Size_)
 {
     //Preparing
     File_Size=File_Size_;
-    if (File_Offset_!=(int64u)-1)
-        File_Offset=File_Offset_;
     Element[0].Next=File_Size;
 
     //Buffer - Global
@@ -179,10 +177,10 @@ void File__Analyze::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
 
 void File__Analyze::Open_Buffer_Init (File__Analyze* Sub)
 {
-    Open_Buffer_Init(Sub, File_Size, File_Offset+Buffer_Offset+Element_Offset);
+    Open_Buffer_Init(Sub, File_Size);
 }
 
-void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_, int64u File_Offset_)
+void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_)
 {
     //Integrity
     if (Sub==NULL)
@@ -195,7 +193,7 @@ void File__Analyze::Open_Buffer_Init (File__Analyze* Sub, int64u File_Size_, int
         Sub->Init(Config);
     #endif //MEDIAINFO_MINIMIZESIZE
     Sub->IsSub=true;
-    Sub->Open_Buffer_Init(File_Size_, File_Offset_);
+    Sub->Open_Buffer_Init(File_Size_);
 }
 
 //---------------------------------------------------------------------------
