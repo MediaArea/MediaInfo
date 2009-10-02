@@ -1,4 +1,11 @@
-libtoolize --automake
+KERNEL_TYPE=`uname`
+#Added check for Darwin based Systems like Mac OS X where libtoolize is called glibtoolize.
+if [[ $KERNEL_TYPE="Darwin" ]]; then
+	glibtoolize --automake
+else
+	libtoolize --automake
+fi
+
 aclocal
 automake -a
 autoconf
