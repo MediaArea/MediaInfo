@@ -69,7 +69,16 @@ void File_Other::Read_Buffer_Continue()
     else if (CC4(Buffer+10)==CC4("Vivo")) {Format=_T("Vivo");}
     else if (CC4(Buffer+1)==CC4("VRML")) {Format=_T("VRML");}
     else if (CC5(Buffer)==CC5("HVQM4")) {Format=_T("GameCube Movie");}
-    else if (CC8(Buffer)==CC8("KW-DIRAC")) {Format=_T("Dirac");}
+    else if (CC8(Buffer)==CC8("KW-DIRAC"))
+    {
+        Accept("Dirac");
+
+        Stream_Prepare(Stream_Video);
+        Fill(Stream_Video, 0, Video_Format, "Dirac");
+
+        Finish("Dirac");
+        return;
+    }
     else if (CC5(Buffer)==CC5("ustar")) {Format=_T("Tar archive");}
     //TODO: all archive magic numbers
     else if (CC4(Buffer+1)==CC4("MSCB")) {Format=_T("MS Cabinet");}
@@ -129,8 +138,6 @@ void File_Other::Read_Buffer_Continue()
     {
         Accept("ZWF");
 
-        Fill(Stream_General, 0, General_Format, "ZWF");
-
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "ZWF");
 
@@ -155,6 +162,7 @@ void File_Other::Read_Buffer_Continue()
 
         Stream_Prepare(Stream_Audio);
         Fill(Stream_Audio, 0, Audio_Format, "TAK");
+
         Finish("TAK");
         return;
     }
