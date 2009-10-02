@@ -53,6 +53,9 @@ private :
     //Streams management
     void Streams_Finish();
 
+    //Buffer - File header
+    bool FileHeader_Begin();
+
     //Buffer - Synchro
     bool Synchronize();
     bool Synched_Test();

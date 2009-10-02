@@ -162,6 +162,27 @@ void File_Wvpk::Streams_Finish()
 }
 
 //***************************************************************************
+// Buffer - File header
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Wvpk::FileHeader_Begin()
+{
+    //Element_Size
+    if (Buffer_Size<2)
+        return false; //Must wait for more data
+
+    if (CC2(Buffer)==0x4D5A) //"MZ"
+    {
+        File__Tags_Helper::Reject("WavPack");
+        return false; //Executable with WavPack data are currently not well supported --> It is preferable to set them as executable
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
 // Buffer - Synchro
 //***************************************************************************
 

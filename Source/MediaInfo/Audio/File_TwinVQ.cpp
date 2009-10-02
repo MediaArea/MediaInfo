@@ -164,6 +164,8 @@ void File_TwinVQ::COMM()
     Fill(Stream_Audio, 0, Audio_Channel_s_, channel_mode+1);
     Fill(Stream_Audio, 0, Audio_BitRate, bitrate*1000);
     Fill(Stream_Audio, 0, Audio_SamplingRate, TwinVQ_samplerate(samplerate));
+    if (!IsSub && File_Size!=(int64u)-1)
+        Fill(Stream_Audio, 0, Audio_StreamSize, File_Size);
 }
 
 //---------------------------------------------------------------------------
