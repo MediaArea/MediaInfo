@@ -306,6 +306,8 @@ namespace Elements
     const int32u MThd=0x4D546864;
     const int32u MTrk=0x4D54726B;
     const int32u PAL_=0x50414C20;
+    const int32u QLCM=0x514C434D;
+    const int32u QLCM_fmt_=0x666D7420;
     const int32u RDIB=0x52444942;
     const int32u RMID=0x524D4944;
     const int32u RMMP=0x524D4D50;
@@ -332,6 +334,15 @@ namespace Elements
     const int32u wave_data=0x64617461;
     const int32u wave_fmt_=0x666D7420;
     const int32u W3DI=0x57334449;
+
+    #define UUID(NAME, PART1, PART2, PART3, PART4, PART5) \
+        const int64u NAME   =0x##PART3##PART2##PART1##ULL; \
+        const int64u NAME##2=0x##PART4##PART5##ULL; \
+
+    UUID(QLCM_QCELP1,                                           5E7F6D41, B115, 11D0, BA91, 00805FB4B97E)
+    UUID(QLCM_QCELP2,                                           5E7F6D42, B115, 11D0, BA91, 00805FB4B97E)
+    UUID(QLCM_EVRC,                                             E689D48D, 9076, 46B5, 91EF, 736A5100CEB4)
+    UUID(QLCM_SMV,                                              8D7C2B75, A797, ED49, 985E, D53C8CC75F84)
 }
 
 //***************************************************************************
@@ -432,6 +443,10 @@ void File_Riff::Data_Parse()
     ATOM(MThd)
     LIST_SKIP(MTrk)
     LIST_SKIP(PAL_)
+    LIST(QLCM)
+        ATOM_BEGIN
+        ATOM(QLCM_fmt_)
+        ATOM_END
     LIST_SKIP(RDIB)
     LIST_SKIP(RMID)
     LIST_SKIP(RMMP)
@@ -2297,17 +2312,77 @@ void File_Riff::MTrk()
 void File_Riff::PAL_()
 {
     Accept("RIFF Palette");
-    Element_Name("Format: RIFF Palette");
+    Element_Name("RIFF Palette");
 
     //Filling
     Fill(Stream_General, 0, General_Format, "RIFF Palette");
 }
 
 //---------------------------------------------------------------------------
+void File_Riff::QLCM()
+{
+    Data_Accept("QLCM");
+    Element_Name("QLCM");
+
+    //Filling
+    Fill(Stream_General, 0, General_Format, "QLCM");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::QLCM_fmt_()
+{
+    //Parsing
+    Ztring codec_name;
+    int128u codec_guid;
+    int32u num_rates;
+    int16u codec_version, average_bps, packet_size, block_size, sampling_rate, sample_size;
+    int8u major, minor;
+    Get_L1 (major,                                              "major");
+    Get_L1 (minor,                                              "minor");
+    Get_GUID(codec_guid,                                        "codec-guid");
+    Get_L2 (codec_version,                                      "codec-version");
+    Get_Local(80, codec_name,                                   "codec-name");
+    Get_L2 (average_bps,                                        "average-bps");
+    Get_L2 (packet_size,                                        "packet-size");
+    Get_L2 (block_size,                                         "block-size");
+    Get_L2 (sampling_rate,                                      "sampling-rate");
+    Get_L2 (sample_size,                                        "sample-size");
+    Element_Begin("rate-map-table");
+        Get_L4 (num_rates,                                      "num-rates");
+        for (int32u rate=0; rate<num_rates; rate++)
+        {
+            Skip_L2(                                            "rate-size");
+            Skip_L2(                                            "rate-octet");
+        }
+    Element_End();
+    Skip_L4(                                                    "Reserved");
+    Skip_L4(                                                    "Reserved");
+    Skip_L4(                                                    "Reserved");
+    Skip_L4(                                                    "Reserved");
+    if (Element_Offset<Element_Size)
+        Skip_L4(                                                "Reserved"); //Some files don't have the 5th reserved dword
+
+    FILLING_BEGIN_PRECISE();
+        Stream_Prepare (Stream_Audio);
+        switch (codec_guid.hi)
+        {
+            case Elements::QLCM_QCELP1 :
+            case Elements::QLCM_QCELP2 : Fill(Stream_Audio, 0, Audio_Format, "QCELP"); break;
+            case Elements::QLCM_EVRC   : Fill(Stream_Audio, 0, Audio_Format, "EVRC"); break;
+            case Elements::QLCM_SMV    : Fill(Stream_Audio, 0, Audio_Format, "SMV"); break;
+            default :                    ;
+        }
+        Fill(Stream_Audio, 0, Audio_BitRate, average_bps);
+        Fill(Stream_Audio, 0, Audio_SamplingRate, sampling_rate);
+        Fill(Stream_Audio, 0, Audio_Resolution, sample_size);
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
 void File_Riff::RDIB()
 {
     Accept("RIFF DIB");
-    Element_Name("Format: RIFF DIB");
+    Element_Name("RIFF DIB");
 
     //Filling
     Fill(Stream_General, 0, General_Format, "RIFF DIB");
@@ -2317,7 +2392,7 @@ void File_Riff::RDIB()
 void File_Riff::RMID()
 {
     Accept("RIFF MIDI");
-    Element_Name("Format: RIFF MIDI");
+    Element_Name("RIFF MIDI");
 
     //Filling
     Fill(Stream_General, 0, General_Format, "RIFF MIDI");
@@ -2327,7 +2402,7 @@ void File_Riff::RMID()
 void File_Riff::RMMP()
 {
     Accept("RIFF MMP");
-    Element_Name("Format: RIFF MMP");
+    Element_Name("RIFF MMP");
 
     //Filling
     Fill(Stream_General, 0, General_Format, "RIFF MMP");
@@ -2337,7 +2412,7 @@ void File_Riff::RMMP()
 void File_Riff::RMP3()
 {
     Accept("RMP3");
-    Element_Name("Format: RMP3");
+    Element_Name("RMP3");
 
     //Filling
     Fill(Stream_General, 0, General_Format, "RMP3");
@@ -2474,7 +2549,7 @@ void File_Riff::SMV0_xxxx()
 void File_Riff::WAVE()
 {
     Data_Accept("Wave");
-    Element_Name("Format: Wave");
+    Element_Name("Wave");
 
     //Filling
     Fill(Stream_General, 0, General_Format, "Wave");
@@ -2644,7 +2719,7 @@ void File_Riff::WAVE_iXML()
 void File_Riff::wave()
 {
     Data_Accept("Wave64");
-    Element_Name("Format: Wave64");
+    Element_Name("Wave64");
 
     //Filling
     Fill(Stream_General, 0, General_Format, "Wave64");

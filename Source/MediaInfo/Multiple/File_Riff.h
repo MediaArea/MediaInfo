@@ -214,6 +214,8 @@ private :
     void MThd ();
     void MTrk ();
     void PAL_ ();
+    void QLCM ();
+    void QLCM_fmt_ ();
     void RDIB ();
     void RMID ();
     void RMMP ();
