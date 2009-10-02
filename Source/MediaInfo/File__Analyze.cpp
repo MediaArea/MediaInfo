@@ -453,16 +453,15 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
     //Buffer - Global
     Fill();
     if (!NoBufferModification)
+    {
         Finish();
+        Buffer_Clear();
+    }
 
     #ifndef MEDIAINFO_MINIMIZESIZE
     if (Details && Details->empty())
         Details->assign(Element[0].ToShow.Details);
     #endif //MEDIAINFO_MINIMIZESIZE
-
-    //Buffer
-    if (!NoBufferModification)
-        Buffer_Clear();
 }
 
 void File__Analyze::Open_Buffer_Finalize (File__Analyze* Sub)
@@ -570,13 +569,14 @@ bool File__Analyze::FileHeader_Begin_0x000001()
 {
     //Element_Size
     if (Buffer_Size<192*4)
-        return true; //Not enough buffer fir a test
+        return true; //Not enough buffer for a test
 
-    //Detecting WAV/SWF/FLV/ELF/DPG/WM files
-    int32u Magic4=CC4(Buffer);
-    int32u Magic3=Magic4>>8;
-    int16u Magic2=Magic4>>16;
-    if (Magic4==0x52494646 || Magic3==0x465753 || Magic3==0x464C56 || Magic4==0x7F454C46 || Magic4==0x44504730 || Magic4==0x3026B275 || Magic2==0x4D5A)
+    //Detecting OldDirac/WAV/SWF/FLV/ELF/DPG/WM files
+    int64u Magic8=CC8(Buffer);
+    int32u Magic4=Magic8>>32;
+    int32u Magic3=Magic4>>40;
+    int16u Magic2=Magic4>>48;
+    if (Magic8==0x4B572D4449524143 || Magic4==0x52494646 || Magic3==0x465753 || Magic3==0x464C56 || Magic4==0x7F454C46 || Magic4==0x44504730 || Magic4==0x3026B275 || Magic2==0x4D5A)
     {
         Reject();
         return false;

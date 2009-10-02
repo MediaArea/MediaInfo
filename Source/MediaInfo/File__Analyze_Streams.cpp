@@ -104,28 +104,7 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
     }
 
     //File name and dates
-    if (KindOfStream==Stream_General)
-        Stream_Prepare_General_FileName();
-
-    //File size
-    if ((!IsSub || !File_Name.empty()) && KindOfStream==Stream_General && File_Size!=(int64u)-1)
-        Fill (Stream_General, 0, General_FileSize, File_Size);
-
-    //Fill with already ready data
-    for (size_t Pos=0; Pos<Fill_Temp.size(); Pos++)
-        if (Fill_Temp(Pos, 0).IsNumber())
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Temp(Pos, 0).To_int32u(), Fill_Temp(Pos, 1));
-        else
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Temp(Pos, 0).To_UTF8().c_str(), Fill_Temp(Pos, 1));
-    Fill_Temp.clear();
-
-    return (*Stream)[KindOfStream].size()-1; //The position in the stream count
-}
-
-//---------------------------------------------------------------------------
-void File__Analyze::Stream_Prepare_General_FileName ()
-{
-    if (!IsSub && File_Name.size()>0)
+    if (!IsSub && KindOfStream==Stream_General && File_Name.size()>0)
     {
         //File name
         Fill (Stream_General, 0, General_CompleteName, File_Name);
@@ -140,6 +119,20 @@ void File__Analyze::Stream_Prepare_General_FileName ()
         Fill (Stream_General, 0, General_File_Modified_Date, F.Modified_Get());
         Fill (Stream_General, 0, General_File_Modified_Date_Local, F.Modified_Local_Get());
     }
+
+    //File size
+    if ((!IsSub || !File_Name.empty()) && KindOfStream==Stream_General && File_Size!=(int64u)-1)
+        Fill (Stream_General, 0, General_FileSize, File_Size);
+
+    //Fill with already ready data
+    for (size_t Pos=0; Pos<Fill_Temp.size(); Pos++)
+        if (Fill_Temp(Pos, 0).IsNumber())
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Temp(Pos, 0).To_int32u(), Fill_Temp(Pos, 1));
+        else
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Temp(Pos, 0).To_UTF8().c_str(), Fill_Temp(Pos, 1));
+    Fill_Temp.clear();
+
+    return (*Stream)[KindOfStream].size()-1; //The position in the stream count
 }
 
 //***************************************************************************
