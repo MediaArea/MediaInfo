@@ -90,7 +90,20 @@ size_t MediaInfoList_Internal::Open(const String &File, const fileoptions_t Opti
 
     //Get all filenames
     ZtringList List;
-    if (File::Exists(File))
+    if (File.size()>7
+     && ((File[0]==_T('h')
+       && File[1]==_T('t')
+       && File[2]==_T('t')
+       && File[3]==_T('p')
+       && File[4]==_T(':')
+       && File[5]==_T('/')
+       && File[6]==_T('/'))
+      || (File[0]==_T('f')
+       && File[1]==_T('t')
+       && File[2]==_T('p')
+       && File.find(_T("://"))!=std::string::npos)))
+        List.push_back(File);
+    else if (File::Exists(File))
         List.push_back(File);
     else
         List=Dir::GetAllFileNames(File, (Options&FileOption_NoRecursive)?Dir::Nothing:Dir::Parse_SubDirs);
