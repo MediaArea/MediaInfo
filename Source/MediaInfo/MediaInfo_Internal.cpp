@@ -139,7 +139,7 @@ MediaInfo_Internal::MediaInfo_Internal()
     Buffer_Size_Max=0;
     BufferConst=NULL;
     File_Handle=NULL;
-    File_Size=0;
+    File_Size=(int64u)-1;
     File_Offset=0;
     File_AlreadyBuffered=false;
     MultipleParsing_IsDetected=false;
@@ -309,12 +309,7 @@ int MediaInfo_Internal::Format_Test()
     #endif //MEDIAINFO_MINIMIZESIZE
     Info->File_Name=File_Name;
 
-    //Test the format with buffer
-    //-Test is already test with failure
-    if (File_AlreadyBuffered && File_Size==0)
-        return 0; //Already tested, ad a big problem on it
-
-    //-Initating the format
+    //Initating the file
     if (Format_Test_FillBuffer_Init()<0)
         return 0;
     Info->Open_Buffer_Init(File_Size);
@@ -402,7 +397,7 @@ int MediaInfo_Internal::Format_Test_FillBuffer_Init()
 
 
     //FileSize
-    if (File_Size==0) //If not provided by Open_Buffer_Init()
+    if (File_Size==(int64u)-1) //If not provided by Open_Buffer_Init()
         File_Size=((File*)File_Handle)->Size_Get();
 
     //Buffer
@@ -884,7 +879,7 @@ void MediaInfo_Internal::Buffer_Clear()
     Buffer_Size_Max=0;
     delete[] Buffer; Buffer=NULL;
     Buffer_Size=0;
-    File_Size=0;
+    File_Size=(int64u)-1;
 }
 
 //---------------------------------------------------------------------------

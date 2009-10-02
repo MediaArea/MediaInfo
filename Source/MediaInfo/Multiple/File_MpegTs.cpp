@@ -728,6 +728,38 @@ void File_MpegTs::Synched_Init()
 }
 
 //***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_MpegTs::Read_Buffer_Unsynched()
+{
+    if (Complete_Stream->Streams.empty())
+        return;
+
+    for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+    {
+        //End timestamp is out of date
+        #if defined(MEDIAINFO_MPEGTS_PCR_YES) || defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
+        Complete_Stream->Streams[StreamID].Searching_TimeStamp_Start_Set(false); //No more searching start
+        Complete_Stream->Streams[StreamID].TimeStamp_End=(int64u)-1;
+        if (Complete_Stream->Streams[StreamID].TimeStamp_Start!=(int64u)-1)
+            Complete_Stream->Streams[StreamID].Searching_TimeStamp_End_Set(true); //Searching only for a start found
+        #endif //defined(MEDIAINFO_MPEGTS_PCR_YES) ||  defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
+        if (Complete_Stream->Streams[StreamID].Parser)
+        {
+            #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_Start_Set(false); //No more searching start
+                if (((File_MpegPs*)Complete_Stream->Streams[StreamID].Parser)->HasTimeStamps)
+                    Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_End_Set(true); //Searching only for a start found
+            #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+            Complete_Stream->Streams[StreamID].Parser->Open_Buffer_Unsynch();
+        }
+    }
+    Complete_Stream->Duration_End.clear();
+}
+
+//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
@@ -1415,40 +1447,12 @@ void File_MpegTs::Detect_EOF()
     //|| (program_Count==0 && elementary_PID_Count==0)
     ))
     {
-        #if defined(MEDIAINFO_MPEGTS_PCR_YES) ||  defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
-            if (File_Size!=(int64u)-1) //Only if not unlimited
-            {
-                //Reactivating interessant TS streams
-                if (!Complete_Stream->Streams.empty())
-                {
-                    //End timestamp is out of date
-                    for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
-                    {
-                        //End timestamp is out of date
-                        Complete_Stream->Streams[StreamID].Searching_TimeStamp_Start_Set(false); //No more searching start
-                        Complete_Stream->Streams[StreamID].TimeStamp_End=(int64u)-1;
-                        if (Complete_Stream->Streams[StreamID].TimeStamp_Start!=(int64u)-1)
-                            Complete_Stream->Streams[StreamID].Searching_TimeStamp_End_Set(true); //Searching only for a start found
-                        if (Complete_Stream->Streams[StreamID].Parser)
-                        {
-                            #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-                                Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_Start_Set(false); //No more searching start
-                                if (((File_MpegPs*)Complete_Stream->Streams[StreamID].Parser)->HasTimeStamps)
-                                    Complete_Stream->Streams[StreamID].Searching_ParserTimeStamp_End_Set(true); //Searching only for a start found
-                            #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-                            Complete_Stream->Streams[StreamID].Parser->Open_Buffer_Unsynch();
-                        }
-                    }
-                }
-                Complete_Stream->Duration_End.clear();
-            }
-        #endif //defined(MEDIAINFO_MPEGTS_PCR_YES) ||  defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
-
         if (!Status[IsAccepted])
             Accept("MPEG-TS");
         Fill("MPEG-TS");
+
         #if !defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
-            GoToFromEnd(47, "MPEG-TS"); //TODO: Should be changed later (when Finalize stuff will be split) 
+            GoToFromEnd(47, "MPEG-TS"); //TODO: Should be changed later (when Finalize stuff will be split)
         #else //!defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
             GoToFromEnd(MpegTs_JumpTo_End, "MPEG-TS");
             Searching_TimeStamp_Start=false;
