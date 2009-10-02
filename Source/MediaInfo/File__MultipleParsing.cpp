@@ -536,8 +536,7 @@ void File__MultipleParsing::Read_Buffer_Continue()
     for (size_t Pos=0; Pos<Parser.size(); Pos++)
     {
         //Parsing
-        //Open_Buffer_Continue(Parser[Pos], Buffer+Buffer_Offset, (size_t)Element_Size);
-        Parser[Pos]->Open_Buffer_Continue(Buffer+Buffer_Offset, (size_t)Element_Size);
+        Open_Buffer_Continue(Parser[Pos], Buffer+Buffer_Offset, (size_t)Element_Size);
 
         //Testing if the parser failed
         if (Parser[Pos]->Status[IsFinished] && !Parser[Pos]->Status[IsAccepted])
@@ -565,10 +564,6 @@ void File__MultipleParsing::Read_Buffer_Continue()
 
             if (Parser.size()==1)
             {
-                //Positionning if requested
-                if (Parser[0]->File_GoTo!=(int64u)-1)
-                   File_GoTo=Parser[0]->File_GoTo;
-
                 //Status
                 if (!Status[IsAccepted] && Parser[Pos]->Status[IsAccepted])
                     Status[IsAccepted]=true;
@@ -578,6 +573,10 @@ void File__MultipleParsing::Read_Buffer_Continue()
                     Status[IsUpdated]=true;
                 if (!Status[IsFinished] && Parser[Pos]->Status[IsFinished])
                     Status[IsFinished]=true;
+
+                //Positionning if requested
+                if (Parser[0]->File_GoTo!=(int64u)-1)
+                   File_GoTo=Parser[0]->File_GoTo;
             }
         }
     }

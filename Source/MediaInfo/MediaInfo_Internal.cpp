@@ -483,17 +483,7 @@ size_t MediaInfo_Internal::Open (const int8u* Begin_, size_t Begin_Size_, const 
 }
 
 //---------------------------------------------------------------------------
-size_t MediaInfo_Internal::Open_Buffer_Init (const String &File_Name_)
-{
-    CriticalSectionLocker CSL(CS);
-
-    File_Name=File_Name_;
-
-    return 1;
-}
-
-//---------------------------------------------------------------------------
-size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
+size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, const String &File_Name_)
 {
     CriticalSectionLocker CSL(CS);
     if (Info==NULL)
@@ -512,11 +502,32 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
         Info->Init(&Config, &Stream, &Stream_More);
     #endif //MEDIAINFO_MINIMIZESIZE
     Info->Open_Buffer_Init(File_Size_);
-    Info->Open_Buffer_Position_Set(File_Offset_);
-    Info->File_Name=File_Name;
+    Info->File_Name=File_Name_;
 
     //Saving the real file size, in case the user provide the theoritical file size, to be used instead of the real file size
     File_Size=File_Size_;
+
+    return 1;
+}
+
+//---------------------------------------------------------------------------
+size_t MediaInfo_Internal::Open_Buffer_Init (const String &File_Name_)
+{
+    CriticalSectionLocker CSL(CS);
+
+    File_Name=File_Name_;
+
+    return 1;
+}
+
+//---------------------------------------------------------------------------
+size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
+{
+    Open_Buffer_Init(File_Size_, File_Name);
+
+    CriticalSectionLocker CSL(CS);
+
+    Info->Open_Buffer_Position_Set(File_Offset_);
 
     return 1;
 }

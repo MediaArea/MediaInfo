@@ -461,6 +461,8 @@ void File__Analyze::Open_Buffer_Unsynch ()
         }
         Synched=false;
     }
+
+    File_GoTo=(int64u)-1;
 }
 
 //---------------------------------------------------------------------------
