@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.23, 2009-
 --------------
 + MPEG-4: more information for MPEG Audio streams
++ QCP (RFC 3625) format support
 
 Version 0.7.22, 2009-09-25
 --------------
