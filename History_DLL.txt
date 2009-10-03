@@ -11,6 +11,7 @@ Version 0.7.23, 2009-
 --------------
 + MPEG-4: more information for MPEG Audio streams
 + QCP (RFC 3625) format support
+x Blu-ray directory analyzing was broken
 
 Version 0.7.22, 2009-09-25
 --------------

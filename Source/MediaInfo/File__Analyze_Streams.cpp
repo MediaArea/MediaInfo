@@ -968,40 +968,36 @@ size_t File__Analyze::Merge(MediaInfo_Internal &ToAdd, bool)
         for (size_t StreamPos=0; StreamPos<StreamPos_Count; StreamPos++)
         {
             //Prepare a new stream
-            Stream_Prepare((stream_t)StreamKind);
+            if (StreamPos>=Count_Get((stream_t)StreamKind))
+                Stream_Prepare((stream_t)StreamKind);
 
             //Merge
             size_t Pos_Count=ToAdd.Count_Get((stream_t)StreamKind, StreamPos);
             for (size_t Pos=0; Pos<Pos_Count; Pos++)
             {
-                Fill((stream_t)StreamKind, StreamPos, Ztring(ToAdd.Get((stream_t)StreamKind, StreamPos, Pos, Info_Name)).To_UTF8().c_str(), ToAdd.Get((stream_t)StreamKind, StreamPos, Pos), true);
-            }
-
-            //Clearing duplicates
-            Clear((stream_t)StreamKind, StreamPos, (size_t)General_Count);
-            Clear((stream_t)StreamKind, StreamPos, (size_t)General_StreamCount);
-            Clear((stream_t)StreamKind, StreamPos, (size_t)General_StreamKind);
-            Clear((stream_t)StreamKind, StreamPos, (size_t)General_StreamKind_String);
-            Clear((stream_t)StreamKind, StreamPos, (size_t)General_StreamKindID);
-            Clear((stream_t)StreamKind, StreamPos, (size_t)General_StreamKindPos);
-
-            if ((stream_t)StreamKind==Stream_General)
-            {
-                Clear(Stream_General, StreamPos, (size_t)General_GeneralCount);
-                Clear(Stream_General, StreamPos, (size_t)General_VideoCount);
-                Clear(Stream_General, StreamPos, (size_t)General_AudioCount);
-                Clear(Stream_General, StreamPos, (size_t)General_TextCount);
-                Clear(Stream_General, StreamPos, (size_t)General_ChaptersCount);
-                Clear(Stream_General, StreamPos, (size_t)General_ImageCount);
-                Clear(Stream_General, StreamPos, (size_t)General_MenuCount);
-                Clear(Stream_General, StreamPos, (size_t)General_CompleteName);
-                Clear(Stream_General, StreamPos, (size_t)General_FolderName);
-                Clear(Stream_General, StreamPos, (size_t)General_FileName);
-                Clear(Stream_General, StreamPos, (size_t)General_FileExtension);
-                Clear(Stream_General, StreamPos, (size_t)General_File_Created_Date);
-                Clear(Stream_General, StreamPos, (size_t)General_File_Created_Date_Local);
-                Clear(Stream_General, StreamPos, (size_t)General_File_Modified_Date);
-                Clear(Stream_General, StreamPos, (size_t)General_File_Modified_Date_Local);
+                if (StreamKind!=Stream_General
+                 || !(Pos==General_CompleteName
+                   || Pos==General_FolderName
+                   || Pos==General_FileName
+                   || Pos==General_FileExtension
+                   || Pos==General_File_Created_Date
+                   || Pos==General_Format
+                   || Pos==General_Format_String
+                   || Pos==General_Format_Extensions
+                   || Pos==General_Format_Info
+                   || Pos==General_Codec
+                   || Pos==General_Codec_String
+                   || Pos==General_Codec_Extensions
+                   || Pos==General_FileSize
+                   || Pos==General_FileSize_String
+                   || Pos==General_FileSize_String1
+                   || Pos==General_FileSize_String2
+                   || Pos==General_FileSize_String3
+                   || Pos==General_FileSize_String4
+                   || Pos==General_File_Created_Date_Local
+                   || Pos==General_File_Modified_Date
+                   || Pos==General_File_Modified_Date_Local))
+                    Fill((stream_t)StreamKind, StreamPos, Ztring(ToAdd.Get((stream_t)StreamKind, StreamPos, Pos, Info_Name)).To_UTF8().c_str(), ToAdd.Get((stream_t)StreamKind, StreamPos, Pos), true);
             }
 
             Count++;

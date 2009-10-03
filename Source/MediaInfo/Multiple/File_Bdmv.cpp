@@ -504,6 +504,14 @@ void File_Bdmv::Read_Buffer_Continue()
 
     FILLING_BEGIN();
         Accept("BDMV");
+        switch (type_indicator)
+        {
+            case Elements::CLPI : Fill(Stream_General, 0, General_Format, "Blu-ray Clip info"); break;
+            case Elements::INDX : Fill(Stream_General, 0, General_Format, "Blu-ray Index"); break;
+            case Elements::MOBJ : Fill(Stream_General, 0, General_Format, "Blu-ray Movie object"); break;
+            case Elements::MPLS : Fill(Stream_General, 0, General_Format, "Blu-ray Playlist"); break;
+            default             : ;
+        }
     FILLING_END();
 
     if (version_numberH==0x3031 || version_numberH==0x3032) //Version 1 or 2
@@ -577,17 +585,6 @@ void File_Bdmv::Read_Buffer_Continue()
     }
     else
         Skip_XX(Element_Size-Element_Offset,                    "Unknown");
-
-    FILLING_BEGIN();
-        switch (type_indicator)
-        {
-            case Elements::CLPI : Fill(Stream_General, 0, General_Format, "Blu-ray Clip info"); break;
-            case Elements::INDX : Fill(Stream_General, 0, General_Format, "Blu-ray Index"); break;
-            case Elements::MOBJ : Fill(Stream_General, 0, General_Format, "Blu-ray Movie object"); break;
-            case Elements::MPLS : Fill(Stream_General, 0, General_Format, "Blu-ray Playlist"); break;
-            default             : ;
-        }
-    FILLING_END();
 }
 
 //***************************************************************************
@@ -695,21 +692,7 @@ void File_Bdmv::Clpi_Streams()
         MediaInfo_Internal MI;
         MI.Option(_T("File_Bdmv_ParseTargetedFile"), _T("0"));
         if (MI.Open(M2TS_File))
-        {
-            Clear();
             Merge(MI);
-
-            Clear(Stream_General, 0, General_Format);
-            Clear(Stream_General, 0, General_Format_String);
-            Clear(Stream_General, 0, General_Format_Extensions);
-            Clear(Stream_General, 0, General_Format_Info);
-            Clear(Stream_General, 0, General_Codec);
-            Clear(Stream_General, 0, General_Codec_String);
-            Clear(Stream_General, 0, General_Codec_Extensions);
-            Clear(Stream_General, 0, General_FileSize);
-            Clear(Stream_Video,   0, Video_ScanType_String);
-            Clear(Stream_Video,   0, Video_Bits__Pixel_Frame_);
-        }
         if (ReadByHuman)
             MediaInfo::Option_Static(_T("ReadByHuman"), _T("1"));
 
@@ -788,7 +771,7 @@ void File_Bdmv::Clpi_Streams_Video()
                 Fill(Stream_Video, StreamPos_Last, Video_Width, Clpi_Video_Width[Format]);
             if (Clpi_Video_Height[Format])
                 Fill(Stream_Video, StreamPos_Last, Video_Height, Clpi_Video_Height[Format]);
-            Fill(Stream_Video, StreamPos_Last, Video_Interlacement, Clpi_Video_Interlacement[stream_type]);
+            Fill(Stream_Video, StreamPos_Last, Video_Interlacement, Clpi_Video_Interlacement[Format]);
             Fill(Stream_Video, StreamPos_Last, Video_Standard, Clpi_Video_Standard[Format]);
             if (Clpi_Video_FrameRate[FrameRate])
                 Fill(Stream_Video, StreamPos_Last, Video_FrameRate, Clpi_Video_FrameRate[FrameRate]);
@@ -1231,22 +1214,7 @@ void File_Bdmv::Mpls_PlayList()
             MediaInfo::Option_Static(_T("ReadByHuman"), _T("0"));
             MediaInfo_Internal MI;
             if (MI.Open(CLPI_File))
-            {
-                Clear();
                 Merge(MI);
-
-                Clear(Stream_General, 0, General_Format);
-                Clear(Stream_General, 0, General_Format_String);
-                Clear(Stream_General, 0, General_Format_Extensions);
-                Clear(Stream_General, 0, General_Format_Info);
-                Clear(Stream_General, 0, General_Codec);
-                Clear(Stream_General, 0, General_Codec_String);
-                Clear(Stream_General, 0, General_Codec_Extensions);
-                Clear(Stream_General, 0, General_FileSize);
-                Clear(Stream_General, 0, General_Duration);
-                Clear(Stream_Video,   0, Video_ScanType_String);
-                Clear(Stream_Video,   0, Video_Bits__Pixel_Frame_);
-            }
             if (ReadByHuman)
                 MediaInfo::Option_Static(_T("ReadByHuman"), _T("1"));
         }
@@ -1311,7 +1279,7 @@ void File_Bdmv::Mpls_PlayList_PlayItem_STN_Video()
             Fill(Stream_Video, StreamPos_Last, Video_Width, Clpi_Video_Width[Format]);
         if (Clpi_Video_Height[Format])
             Fill(Stream_Video, StreamPos_Last, Video_Height, Clpi_Video_Height[Format]);
-        Fill(Stream_Video, StreamPos_Last, Video_Interlacement, Clpi_Video_Interlacement[stream_type]);
+        Fill(Stream_Video, StreamPos_Last, Video_Interlacement, Clpi_Video_Interlacement[Format]);
         Fill(Stream_Video, StreamPos_Last, Video_Standard, Clpi_Video_Standard[Format]);
         if (Clpi_Video_FrameRate[FrameRate])
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate, Clpi_Video_FrameRate[FrameRate]);
