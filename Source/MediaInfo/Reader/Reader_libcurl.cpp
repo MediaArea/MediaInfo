@@ -1,0 +1,155 @@
+// Reader_libcurl - All info about media files
+// Copyright (C) 2002-2009 Jerome Martinez, Zen@MediaArea.net
+//
+// This library is free software: you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this library. If not, see <http://www.gnu.org/licenses/>.
+//
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//---------------------------------------------------------------------------
+// Compilation conditions
+#include "MediaInfo/Setup.h"
+#ifdef __BORLANDC__
+    #pragma hdrstop
+#endif
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+#if defined(MEDIAINFO_LIBCURL_YES)
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+#include "MediaInfo/Reader/Reader_libcurl.h"
+#include "MediaInfo/File__Analyze.h"
+#if defined LIBCURL_DLL_RUNTIME
+#elif defined LIBCURL_DLL_STATIC
+#else
+    #undef __TEXT
+    #include "curl/curl.h"
+#endif
+using namespace ZenLib;
+using namespace std;
+//---------------------------------------------------------------------------
+
+namespace MediaInfoLib
+{
+
+//***************************************************************************
+// libcurl stuff
+//***************************************************************************
+
+struct curl_data
+{
+    MediaInfo_Internal* MI;
+    CURL*               Curl;
+    String              File_Name;
+    int64u              File_Size;
+    int64u              File_GoTo;
+    bool                Init_AlreadyDone;
+
+    curl_data()
+    {
+        MI=NULL;
+        Curl=NULL;
+        File_Size=(int64u)-1;
+        File_GoTo=(int64u)-1;
+        Init_AlreadyDone=false;
+    }
+};
+
+size_t libcurl_WriteData_CallBack(void *ptr, size_t size, size_t nmemb, void *data)
+{
+    //Init
+    if (!((curl_data*)data)->Init_AlreadyDone)
+    {
+        double File_SizeD;
+        CURLcode Result=curl_easy_getinfo(((curl_data*)data)->Curl, CURLINFO_CONTENT_LENGTH_DOWNLOAD, &File_SizeD);
+        if (Result==CURLE_OK && File_SizeD!=-1)
+            ((curl_data*)data)->MI->Open_Buffer_Init((int64u)File_SizeD, ((curl_data*)data)->File_Name);
+        else
+            ((curl_data*)data)->MI->Open_Buffer_Init((int64u)-1, ((curl_data*)data)->File_Name);
+        ((curl_data*)data)->Init_AlreadyDone=true;
+    }
+
+    //Continue
+    std::bitset<32> Result=((curl_data*)data)->MI->Open_Buffer_Continue((int8u*)ptr, size*nmemb);
+    
+    if (Result[File__Analyze::IsFinished])
+    {
+        ((curl_data*)data)->MI->Open_Buffer_Finalize();
+        return 0;
+    }
+
+    //GoTo
+    if (((curl_data*)data)->MI->Open_Buffer_Continue_GoTo_Get()!=(int64u)-1)
+    {
+        ((curl_data*)data)->File_GoTo=((curl_data*)data)->MI->Open_Buffer_Continue_GoTo_Get();
+        return 0;
+    }
+
+    //Continue parsing
+    return size*nmemb;
+}
+
+//---------------------------------------------------------------------------
+int Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
+{
+    //Configuring
+    curl_data Curl_Data;
+    Curl_Data.Curl=curl_easy_init();
+    Curl_Data.MI=MI;
+    Curl_Data.File_Name=File_Name;
+    string FileName_String=Ztring(Curl_Data.File_Name).To_Local();
+    curl_easy_setopt(Curl_Data.Curl, CURLOPT_URL, FileName_String.c_str());
+    curl_easy_setopt(Curl_Data.Curl, CURLOPT_FOLLOWLOCATION, 1);
+    curl_easy_setopt(Curl_Data.Curl, CURLOPT_MAXREDIRS, 3);
+    curl_easy_setopt(Curl_Data.Curl, CURLOPT_WRITEFUNCTION, &libcurl_WriteData_CallBack);
+    curl_easy_setopt(Curl_Data.Curl, CURLOPT_WRITEDATA, &Curl_Data);
+    
+    //Parsing
+    CURLcode Result;
+    do
+    {
+        //GoTo
+        if (Curl_Data.File_GoTo!=(int64u)-1)
+        {
+            if (Curl_Data.File_GoTo<0x80000000)
+            {
+                //We do NOT use large version if we can, because some version (tested: 7.15 linux) do NOT like large version (error code 18)
+                long File_GoTo_Long=(long)Curl_Data.File_GoTo;
+                curl_easy_setopt(Curl_Data.Curl, CURLOPT_RESUME_FROM, File_GoTo_Long);
+            }
+            else
+            {
+                curl_off_t File_GoTo_Off=(curl_off_t)Curl_Data.File_GoTo;
+                curl_easy_setopt(Curl_Data.Curl, CURLOPT_RESUME_FROM_LARGE, File_GoTo_Off);
+            }
+            MI->Open_Buffer_Position_Set(Curl_Data.File_GoTo);
+            Curl_Data.File_GoTo=(int64u)-1;
+        }
+
+        //Parsing
+        Result=curl_easy_perform(Curl_Data.Curl);
+    }
+    while (Result==CURLE_OK || (Result==CURLE_WRITE_ERROR && Curl_Data.File_GoTo!=(int64u)-1));
+
+    //Cleanup
+    curl_easy_cleanup(Curl_Data.Curl);
+    return 1;
+}
+
+} //NameSpace
+
+#endif //MEDIAINFO_LIBCURL_YES
+

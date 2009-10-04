@@ -202,7 +202,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     Frame_Count_InThisBlock=0; //Out
 
     //Integrity
-    if (ToAdd==NULL || Status[IsFinished])
+    if (Status[IsFinished])
         return;
     //{File F; F.Open(Ztring(_T("d:\\direct"))+Ztring::ToZtring((size_t)this, 16), File::Access_Write_Append); F.Write(ToAdd, ToAdd_Size);}
 

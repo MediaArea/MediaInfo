@@ -30,96 +30,26 @@
 #include "MediaInfo/MediaInfo_Config.h"
 #include "MediaInfo/File__Analyze.h"
 #include "MediaInfo/File__MultipleParsing.h"
-#include "MediaInfo/File_Unknown.h"
-#include "ZenLib/FileName.h"
+#include "ZenLib/Dir.h"
 #include "ZenLib/File.h"
-#include "ZenLib/InfoMap.h"
-#include <vector>
-#include <cstring>
-#if defined(MEDIAINFO_BDMV_YES)
-    #include "MediaInfo/Multiple/File_Bdmv.h"
+#if defined(MEDIAINFO_DIRECTORY_YES)
+    #include "MediaInfo/Reader/Reader_Directory.h"
 #endif
-#ifndef MEDIAINFO_LIBCURL_NO
-    #undef __TEXT
-    #include "curl/curl.h"
-#endif //MEDIAINFO_LIBCURL_NO
+#if defined(MEDIAINFO_FILE_YES)
+    #include "MediaInfo/Reader/Reader_File.h"
+#endif
+#if defined(MEDIAINFO_LIBCURL_YES)
+    #include "MediaInfo/Reader/Reader_libcurl.h"
+#endif
+#if defined(MEDIAINFO_LIBMMS_YES)
+    #include "MediaInfo/Reader/Reader_libmms.h"
+#endif
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
 {
-
-const size_t Buffer_NormalSize=/*188*7;//*/64*1024;
-
-//---------------------------------------------------------------------------
-extern MediaInfo_Config         Config;
-       ZtringListList           MediaInfo_Internal_Temp;
-//       vector<ZtringListList>   MediaInfo_Internal_Capacities;
-       String         MediaInfo_Internal_Capacities_Final;
-//---------------------------------------------------------------------------
-
-//***************************************************************************
-// libcurl stuff
-//***************************************************************************
-
-#ifndef MEDIAINFO_LIBCURL_NO
-struct curl_data
-{
-    MediaInfo_Internal* MI;
-    CURL*               Curl;
-    String              File_Name;
-    int64u              File_Size;
-    int64u              File_GoTo;
-    bool                Intit_AlreadyDone;
-
-    curl_data()
-    {
-        MI=NULL;
-        Curl=NULL;
-        File_Size=(int64u)-1;
-        File_GoTo=(int64u)-1;
-        Intit_AlreadyDone=false;
-    }
-};
-       
-size_t libcurl_WriteData_CallBack(void *ptr, size_t size, size_t nmemb, void *data)
-{
-    if (!((curl_data*)data)->Intit_AlreadyDone)
-    {
-        double File_SizeD;
-        CURLcode Result=curl_easy_getinfo(((curl_data*)data)->Curl, CURLINFO_CONTENT_LENGTH_DOWNLOAD, &File_SizeD);
-        if (Result==CURLE_OK && File_SizeD!=-1)
-            ((curl_data*)data)->File_Size=(int64u)File_SizeD;
-        else
-            ((curl_data*)data)->File_Size=(int64u)-1;
-        ((curl_data*)data)->MI->Open_Buffer_Init(((curl_data*)data)->File_Size, ((curl_data*)data)->File_Name);
-        ((curl_data*)data)->Intit_AlreadyDone=true;
-    }
-        
-    if (((curl_data*)data)->File_GoTo!=(int64u)-1)
-    {
-        ((curl_data*)data)->MI->Open_Buffer_Init(((curl_data*)data)->File_Size, ((curl_data*)data)->File_GoTo);
-        ((curl_data*)data)->File_GoTo=(int64u)-1;
-    }
-
-    int Result=((curl_data*)data)->MI->Open_Buffer_Continue((int8u*)ptr, size*nmemb);
-    ((curl_data*)data)->File_GoTo=((curl_data*)data)->MI->Open_Buffer_Continue_GoTo_Get();
-    
-    if ((Result&File__Analyze::IsFinished)==File__Analyze::IsFinished)
-    {
-        ((curl_data*)data)->MI->Open_Buffer_Finalize();
-        return 0;
-    }
-
-    if (((curl_data*)data)->File_GoTo==(int64u)-1)
-        return size*nmemb;
-    else
-        return 0;
-}
-
-#endif //MEDIAINFO_LIBCURL_NO
-
 
 //***************************************************************************
 // Constructor/destructor
@@ -128,13 +58,14 @@ size_t libcurl_WriteData_CallBack(void *ptr, size_t size, size_t nmemb, void *da
 //---------------------------------------------------------------------------
 MediaInfo_Internal::MediaInfo_Internal()
 {
+    MediaInfoLib::Config.Init(); //Initialize Configuration
+
     CriticalSectionLocker CSL(CS);
     Thread=NULL;
     BlockMethod=BlockMethod_Local;
     Info=NULL;
     Info_IsMultipleParsing=false;
 
-    MediaInfoLib::Config.Init(); //Initialize Configuration
     Stream.resize(Stream_Max);
     Stream_More.resize(Stream_Max);
 }
@@ -155,206 +86,87 @@ MediaInfo_Internal::~MediaInfo_Internal()
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Open(const String &File_Name)
 {
-    #ifndef MEDIAINFO_LIBCURL_NO
-        if (File_Name.size()>7
-         && ((File_Name[0]==_T('h')
-           && File_Name[1]==_T('t')
-           && File_Name[2]==_T('t')
-           && File_Name[3]==_T('p')
-           && File_Name[4]==_T(':')
-           && File_Name[5]==_T('/')
-           && File_Name[6]==_T('/'))
-          || (File_Name[0]==_T('f')
-           && File_Name[1]==_T('t')
-           && File_Name[2]==_T('p')
-           && File_Name.find(_T("://"))!=std::string::npos)))
+    #if defined(MEDIAINFO_LIBCURL_YES)
+        if ((File_Name.size()>=7
+          && File_Name[0]==_T('h')
+          && File_Name[1]==_T('t')
+          && File_Name[2]==_T('t')
+          && File_Name[3]==_T('p')
+          && File_Name[4]==_T(':')
+          && File_Name[5]==_T('/')
+          && File_Name[6]==_T('/'))
+         || (File_Name.size()>=6
+          && File_Name[0]==_T('f')
+          && File_Name[1]==_T('t')
+          && File_Name[2]==_T('p')
+          && File_Name.find(_T("://"))!=std::string::npos)))
         {
-            curl_data Curl_Data;
-            Curl_Data.Curl=curl_easy_init();
-            Curl_Data.MI=this;
-            Curl_Data.File_Name=File_Name;
-            string FileName_String=Ztring(Curl_Data.File_Name).To_Local();
-            curl_easy_setopt(Curl_Data.Curl, CURLOPT_URL, FileName_String.c_str());
-            curl_easy_setopt(Curl_Data.Curl, CURLOPT_FOLLOWLOCATION, 1);
-            curl_easy_setopt(Curl_Data.Curl, CURLOPT_MAXREDIRS, 3);
-            curl_easy_setopt(Curl_Data.Curl, CURLOPT_WRITEFUNCTION, &libcurl_WriteData_CallBack);
-            curl_easy_setopt(Curl_Data.Curl, CURLOPT_WRITEDATA, &Curl_Data);
-            do
-            {
-                if (Curl_Data.File_GoTo!=(int64u)-1)
-                {
-                    if (Curl_Data.File_GoTo<0x80000000)
-                    {
-                        //We do NOT use large version if we can, because some version (tested: 7.15 linux) do NOT like large version (error code 18)
-                        long File_GoTo_Long=(long)Curl_Data.File_GoTo;
-                        curl_easy_setopt(Curl_Data.Curl, CURLOPT_RESUME_FROM, File_GoTo_Long);
-                    }
-                    else
-                    {
-                        curl_off_t File_GoTo_Off=(curl_off_t)Curl_Data.File_GoTo;
-                        curl_easy_setopt(Curl_Data.Curl, CURLOPT_RESUME_FROM_LARGE, File_GoTo_Off);
-                    }
-                }
-                CURLcode Result=curl_easy_perform(Curl_Data.Curl);
-                if (Result!=CURLE_OK && Result!=CURLE_WRITE_ERROR)
-                    break;
-            }
-            while (Curl_Data.File_GoTo!=(int64u)-1);
-            curl_easy_cleanup(Curl_Data.Curl);
-            return 1;
+            //Load libcurl
+            if (Reader_libcurl::Format_Test(this, File_Name)>0)
+                 return 1;
+            return 0;
         }
-    #endif //MEDIAINFO_LIBCURL_NO
-    
-    //Test existence of the file
-    if (!File::Exists(File_Name))
-    {
-        #ifdef MEDIAINFO_BDMV_YES
-            if (File_Name.find(Ztring(1, PathSeparator)+_T("BDMV"))+5==File_Name.size())
-            {
-                //Blu-ray stuff
-                CS.Enter();
-                delete Info; Info=new File_Bdmv();
-                CS.Leave();
+    #endif //MEDIAINFO_LIBCURL_YES
 
-                Open_Buffer_Init(0, File_Name);
-
-                CS.Enter();
-                ((File_Bdmv*)Info)->BDMV();
-                CS.Leave();
-
-                Open_Buffer_Finalize();
-
-                return 1;
-            }
-        #endif //MEDIAINFO_BDMV_YES
-        return 0;
-    }
-
-    //Get the Extension
-    Ztring Extension=FileName::Extension_Get(File_Name);
-    Extension.MakeLowerCase();
-
-    //Search the theorical format from extension
-    InfoMap &FormatList=MediaInfoLib::Config.Format_Get();
-    InfoMap::iterator Format=FormatList.begin();
-    while (Format!=FormatList.end())
-    {
-        const Ztring &Extensions=FormatList.Get(Format->first, InfoFormat_Extensions);
-        if (Extensions.find(Extension)!=Error)
+    #if defined(MEDIAINFO_LIBCURL_YES)
+        if ((File_Name.size()>=7
+          && File_Name[0]==_T('m')
+          && File_Name[1]==_T('m')
+          && File_Name[2]==_T('s')
+          && File_Name[3]==_T('h')
+          && File_Name[4]==_T(':')
+          && File_Name[5]==_T('/')
+          && File_Name[6]==_T('/'))
+         || (File_Name.size()>=6
+          && File_Name[0]==_T('m')
+          && File_Name[1]==_T('m')
+          && File_Name[2]==_T('s')
+          && File_Name[4]==_T(':')
+          && File_Name[5]==_T('/')
+          && File_Name[6]==_T('/')))
         {
-            if(Extension.size()==Extensions.size())
-                break; //Only one extenion in the list
-            if(Extensions.find(Extension+_T(" "))!=Error
-            || Extensions.find(_T(" ")+Extension)!=Error)
-                break;
+            //Load libmms
+            if (Reader_libmms::Format_Test(this, File_Name)>0)
+                 return 1;
+            return 0;
         }
-        Format++;
-    }
-    if (Format!=FormatList.end())
-    {
-        const Ztring &Parser=Format->second(InfoFormat_Parser);
-        SelectFromExtension(Parser);
-    }
+    #endif //MEDIAINFO_LIBCURL_YES
 
-    //Test the theorical format
-    if (Info && Format_Test(File_Name)>0)
-         return 1;
-
-    //Extension is not the good one, parse with all formats
-    /*
-    CS.Enter();
-    delete Info; Info=new File__MultipleParsing;
-    CS.Leave();
-    if (Format_Test()>0)
-         return 1;
-
-    CS.Enter();
-    delete Info; Info=new File_Unknown;
-    CS.Leave();
-    if (Format_Test(File_Name)>0)
-         return 1;
-    return 0; //There is a problem
-    */
-
-    size_t ToReturn=ListFormats(File_Name);
-
-    return ToReturn;
-}
-
-//---------------------------------------------------------------------------
-int MediaInfo_Internal::Format_Test(const String &File_Name)
-{
-    //Opening the file
-    File F;
-    F.Open(File_Name);
-    if (!F.Opened_Get())
-        return 0;
-
-    //Buffer
-    size_t Buffer_Size_Max=Buffer_NormalSize;
-    int8u* Buffer=new int8u[Buffer_Size_Max];
-
-    //Parser
-    Open_Buffer_Init(F.Size_Get(), File_Name);
-
-    //Test the format with buffer
-    bool StopAfterFilled=Config.File_StopAfterFilled_Get();
-    std::bitset<32> Status;
-    do
-    {
-        //Seek (if needed)
-        if (Info->File_GoTo!=(int64u)-1)
+    #if defined(MEDIAINFO_DIRECTORY_YES)
+        if (Dir::Exists(File_Name))
         {
-            if (Info->File_GoTo>=F.Size_Get())
-                break; //Seek requested, but on a file bigger in theory than what is in the real file, we can't do this
-            if (!F.GoTo(Info->File_GoTo))
-                break; //File is not seekable
-
-            Info->Open_Buffer_Position_Set(F.Position_Get());
+            if (Reader_Directory::Format_Test(this, File_Name)>0)
+                 return 1;
+            return 0;
         }
+    #endif //MEDIAINFO_DIRECTORY_YES
 
-        //Buffering
-        size_t Buffer_Size=F.Read(Buffer, Buffer_Size_Max);
-        if (Buffer_Size==0)
-            break; //Problem while reading
+    #if defined(MEDIAINFO_FILE_YES)
+        if (File::Exists(File_Name))
+        {
+            if (Reader_Directory::Format_Test(this, File_Name)>0)
+                 return 1;
+            return 0;
+        }
+    #endif //MEDIAINFO_FILE_YES
 
-        //Parser
-        Status=Open_Buffer_Continue(Buffer, Buffer_Size);
-    }
-    while (!(Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled])));
-
-    //File
-    F.Close();
-
-    //Buffer
-    delete[] Buffer; //Buffer=NULL;
-
-    //Is this file detected?
-    if (!Info->Status[File__Analyze::IsAccepted])
+    if (SelectFromExtension(_T("Unknown")))
     {
-        delete Info; Info=NULL;
-        return 0;
+        Open_Buffer_Init((int64u)-1, File_Name);
+        Open_Buffer_Finalize();
+        return 1;
     }
-
-    Open_Buffer_Finalize();
-    return 1;
-}
-
-//---------------------------------------------------------------------------
-size_t MediaInfo_Internal::Open (const int8u* Begin_, size_t Begin_Size_, const int8u*, size_t, int64u FileSize_)
-{
     return 0;
+}
 
-    /*CriticalSectionLocker CSL(CS);
-    Buffer_Size_Max=Begin_Size_;
-    delete[] Buffer; Buffer=new int8u[Buffer_Size_Max];
-    std::memcpy(Buffer, Begin_, Begin_Size_);
-    Buffer_Size=Begin_Size_;
+//---------------------------------------------------------------------------
+size_t MediaInfo_Internal::Open (const int8u* Begin, size_t Begin_Size, const int8u*, size_t, int64u File_Size)
+{
+    Open_Buffer_Init(File_Size);
+    Open_Buffer_Continue(Begin, Begin_Size);
+    Open_Buffer_Finalize();
 
-    size_t ToReturn=ListFormats();
-
-    Buffer_Clear();
-    return ToReturn;*/
+    return 1;
 }
 
 //---------------------------------------------------------------------------
@@ -378,8 +190,7 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, const String &Fi
     #endif //MEDIAINFO_MINIMIZESIZE
     if (!File_Name.empty())
         Info->File_Name=File_Name;
-    if (File_Size_!=(int64u)-1)
-        Info->Open_Buffer_Init(File_Size_);
+    Info->Open_Buffer_Init(File_Size_);
 
     return 1;
 }
@@ -447,6 +258,16 @@ int64u MediaInfo_Internal::Open_Buffer_Continue_GoTo_Get ()
         return 0;
 
     return Info->File_GoTo;
+}
+
+bool MediaInfo_Internal::Open_Buffer_Position_Set(int64u File_Offset)
+{
+    CriticalSectionLocker CSL(CS);
+    if (Info==NULL)
+        return false;
+
+    Info->Open_Buffer_Position_Set(File_Offset);
+    return true;
 }
 
 //---------------------------------------------------------------------------

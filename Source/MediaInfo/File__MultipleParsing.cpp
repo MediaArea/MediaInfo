@@ -242,6 +242,7 @@
 #if !defined(MEDIAINFO_OTHER_NO)
     #include "MediaInfo/File_Other.h"
 #endif
+#include "MediaInfo/File_Unknown.h"
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -524,8 +525,8 @@ void File__MultipleParsing::Read_Buffer_Init()
         #else //MEDIAINFO_MINIMIZESIZE
             Parser[Pos]->Init(Config, Stream, Stream_More);
         #endif //MEDIAINFO_MINIMIZESIZE
-        Parser[Pos]->Open_Buffer_Init(File_Size);
         Parser[Pos]->File_Name=File_Name;
+        Parser[Pos]->Open_Buffer_Init(File_Size);
     }
 }
 
@@ -537,6 +538,8 @@ void File__MultipleParsing::Read_Buffer_Continue()
     {
         //Parsing
         Open_Buffer_Continue(Parser[Pos], Buffer+Buffer_Offset, (size_t)Element_Size);
+        if (File_Offset+Buffer_Size==File_Size)
+            Open_Buffer_Finalize(Parser[Pos]);
 
         //Testing if the parser failed
         if (Parser[Pos]->Status[IsFinished] && !Parser[Pos]->Status[IsAccepted])
@@ -546,7 +549,10 @@ void File__MultipleParsing::Read_Buffer_Continue()
             Pos--; //for the next position
 
             if (Parser.empty())
-                Reject();
+            {
+                File__Analyze* Temp=new File_Unknown(); Parser.push_back(Temp);
+                Read_Buffer_Init();
+            }
         }
         else
         {

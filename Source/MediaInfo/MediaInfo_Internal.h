@@ -60,6 +60,7 @@ public :
     size_t Open_Buffer_Init (ZenLib::int64u File_Size, ZenLib::int64u File_Offset);
     std::bitset<32> Open_Buffer_Continue (const ZenLib::int8u* Buffer, size_t Buffer_Size);
     ZenLib::int64u Open_Buffer_Continue_GoTo_Get ();
+    bool   Open_Buffer_Position_Set(int64u File_Offset);
     size_t Open_Buffer_Finalize ();
     void Close ();
 
@@ -92,9 +93,6 @@ private :
     friend class File_Cdxa;  //Theses classes need access to internal structure for optimization. There is recursivity with theses formats
     friend class File_Mpeg4; //Theses classes need access to internal structure for optimization. There is recursivity with theses formats
 
-    //Format testing
-    int Format_Test(const String &File_Name);
-
     //Parsing handles
     File__Analyze*  Info;
     Internet__Base* Internet;
@@ -104,8 +102,6 @@ private :
     blockmethod_t BlockMethod; //Open() returns when?
 
     //Helpers
-    int  ListFormats(const String &File_Name=String());
-    void SelectFromExtension (const String &Parser); //Select File_* from the parser name
     void CreateDummy (const String& Value); //Create dummy Information
 
     MediaInfo_Internal(const MediaInfo_Internal&); // Copy Constructor
@@ -114,13 +110,17 @@ private :
     bool Info_IsMultipleParsing;
 
     //Config
-    MediaInfo_Config_MediaInfo Config;
     std::vector<std::vector<ZtringList> > Stream;
     std::vector<std::vector<ZtringListList> > Stream_More;
     Ztring Details;
     void Traiter(Ztring &C); //enleve les $if...
 
     ZenLib::CriticalSection CS;
+
+public :
+    bool SelectFromExtension (const String &Parser); //Select File_* from the parser name
+    int  ListFormats(const String &File_Name=String());
+    MediaInfo_Config_MediaInfo Config;
 };
 
 } //NameSpace

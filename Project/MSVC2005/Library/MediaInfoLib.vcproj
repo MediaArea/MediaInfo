@@ -40,9 +40,9 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../zlib"
+				AdditionalIncludeDirectories="../../../Source;../../../../curl/include;../../../../ZenLib/Source;../../../../zlib"
 				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_MINIMIZESIZE"
+				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_MINIMIZESIZE;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -612,6 +612,22 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Reader"
+				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_Directory.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_File.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_libcurl.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -1103,6 +1119,22 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Reader"
+				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_Directory.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_File.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_libcurl.h"
 					>
 				</File>
 			</Filter>

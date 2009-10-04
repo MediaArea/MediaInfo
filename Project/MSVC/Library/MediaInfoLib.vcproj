@@ -44,9 +44,9 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
+				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include"
 				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32;_DEBUG"
+				PreprocessorDefinitions="WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -54,7 +54,6 @@
 				WarningLevel="4"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4060;4065;4100;4127;4390"
-				EnablePREfast="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -113,7 +112,7 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
 				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32;_DEBUG"
+				PreprocessorDefinitions="WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -180,7 +179,7 @@
 				Optimization="2"
 				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
 				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_MINIMIZESIZE"
+				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_MINIMIZESIZE;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -246,7 +245,7 @@
 				Optimization="2"
 				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
 				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32"
+				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_MINIMIZESIZE;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="4"
@@ -308,7 +307,7 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
 				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32;_DEBUG"
+				PreprocessorDefinitions="WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -435,7 +434,7 @@
 				Optimization="2"
 				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include"
 				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_MINIMIZESIZE"
+				PreprocessorDefinitions="WIN32;NDEBUG;MEDIAINFO_MINIMIZESIZE;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -1108,6 +1107,22 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Reader"
+				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_Directory.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_File.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_libcurl.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -1591,6 +1606,22 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Reader"
+				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_Directory.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_File.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_libcurl.h"
 					>
 				</File>
 			</Filter>

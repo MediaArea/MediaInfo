@@ -107,10 +107,22 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
     if (!IsSub && KindOfStream==Stream_General && File_Name.size()>0)
     {
         //File name
-        Fill (Stream_General, 0, General_CompleteName, File_Name);
-        Fill (Stream_General, 0, General_FolderName, FileName::Path_Get(File_Name));
-        Fill (Stream_General, 0, General_FileName, FileName::Name_Get(File_Name));
-        Fill (Stream_General, 0, General_FileExtension, FileName::Extension_Get(File_Name).MakeLowerCase());
+        if (File_Name.find(_T("://"))==string::npos)
+        {
+            Fill (Stream_General, 0, General_CompleteName, File_Name);
+            Fill (Stream_General, 0, General_FolderName, FileName::Path_Get(File_Name));
+            Fill (Stream_General, 0, General_FileName, FileName::Name_Get(File_Name));
+            Fill (Stream_General, 0, General_FileExtension, FileName::Extension_Get(File_Name).MakeLowerCase());
+        }
+        else
+        {
+            Ztring FileName_Modified=File_Name;
+            size_t Begin=FileName_Modified.find(_T(':'), 6);
+            size_t End=FileName_Modified.find(_T('@'));
+            if (Begin!=string::npos && End!=string::npos && Begin<End)
+                FileName_Modified.erase(Begin, End-Begin);
+            Fill (Stream_General, 0, General_CompleteName, FileName_Modified);
+        }
 
         //File dates
         File F(File_Name);

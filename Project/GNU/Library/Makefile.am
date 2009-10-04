@@ -101,6 +101,10 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Multiple/File_Swf.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Wm.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Wm_Elements.cpp \
+                       ../../../Source/MediaInfo/Reader/Reader_Directory.cpp \
+                       ../../../Source/MediaInfo/Reader/Reader_File.cpp \
+                       ../../../Source/MediaInfo/Reader/Reader_libcurl.cpp \
+                       ../../../Source/MediaInfo/Reader/Reader_libmms.cpp \
                        ../../../Source/MediaInfo/Tag/File__Tags.cpp \
                        ../../../Source/MediaInfo/Tag/File_ApeTag.cpp \
                        ../../../Source/MediaInfo/Tag/File_Id3.cpp \

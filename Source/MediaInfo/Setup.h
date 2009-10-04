@@ -72,6 +72,21 @@
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+// Readers
+#if !defined(MEDIAINFO_READER_NO) && !defined(MEDIAINFO_DIRECTORY_NO) && !defined(MEDIAINFO_DIRECTORY_YES)
+    #define MEDIAINFO_DIRECTORY_YES
+#endif
+#if !defined(MEDIAINFO_READER_NO) && !defined(MEDIAINFO_FILE_NO) && !defined(MEDIAINFO_FILE_YES)
+    #define MEDIAINFO_FILE_YES
+#endif
+#if !defined(MEDIAINFO_READER_NO) && !defined(MEDIAINFO_LIBCURL_NO) && !defined(MEDIAINFO_LIBCURL_YES)
+    #define MEDIAINFO_LIBCURL_YES
+#endif
+#if !defined(MEDIAINFO_READER_NO) && !defined(MEDIAINFO_LIBMMS_NO) && !defined(MEDIAINFO_LIBMMS_YES)
+    #define MEDIAINFO_LIBMMS_YES
+#endif
+
+//---------------------------------------------------------------------------
 // All in one for no parsers
 #if defined(MEDIAINFO_ALL_NO) && !defined(MEDIAINFO_MULTI_NO)
     #define MEDIAINFO_MULTI_NO

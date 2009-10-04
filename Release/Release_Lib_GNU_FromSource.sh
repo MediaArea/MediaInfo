@@ -51,6 +51,9 @@ cp -r ../Source/MediaInfo/Audio/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaI
 mkdir MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Image
 cp -r ../Source/MediaInfo/Image/*.h MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Image/
 cp -r ../Source/MediaInfo/Image/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Image/
+mkdir MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Reader
+cp -r ../Source/MediaInfo/Reader/*.h MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Reader/
+cp -r ../Source/MediaInfo/Reader/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Reader/
 mkdir MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Multiple
 cp -r ../Source/MediaInfo/Multiple/*.h MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Multiple/
 cp -r ../Source/MediaInfo/Multiple/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Multiple/

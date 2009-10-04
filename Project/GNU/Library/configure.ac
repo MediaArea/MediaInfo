@@ -44,11 +44,13 @@ dnl Enable
 dnl
 AC_ARG_ENABLE(debug,            AC_HELP_STRING([--enable-debug],            [Enable full debug]),                         , enable_debug=no)
 AC_ARG_ENABLE(gprof,            AC_HELP_STRING([--enable-gprof],            [Enable gprof log]),                          , enable_gprof=no)
-AC_ARG_ENABLE(universal_binary, AC_HELP_STRING([--enable-universal_binary], [Create Mac PPC/i386 Universal binary]),      , enable_universal_binary)
+AC_ARG_ENABLE(universal_binary, AC_HELP_STRING([--enable-universal_binary], [Create Mac PPC/i386 Universal binary]),      , enable_universal_binary=no)
 AC_ARG_ENABLE(arch-ppc,         AC_HELP_STRING([--with-arch-ppc],           [Create Mac PPC Universal binary]),           , enable_arch_ppc=no)
 AC_ARG_ENABLE(arch-i386,        AC_HELP_STRING([--with-arch-i386],          [Create Mac i386 Universal binary]),          , enable_arch_i386=no)
 AC_ARG_ENABLE(staticlibs,       AC_HELP_STRING([--enable-staticlibs],       [Use static libmediainfo and libzen]),        , enable_staticlibs=no)
 AC_ARG_ENABLE(minimize-size,    AC_HELP_STRING([--enable-minimize-size],    [Enable size optimisations]),                 MediaInfoMinimizeSize=$enableval, MediaInfoMinimizeSize=depend)
+AC_ARG_ENABLE(libcurl,          AC_HELP_STRING([--disable-libcurl],         [Disable libcurl]),                           , enable_libcurl=yes)
+AC_ARG_ENABLE(libmms,           AC_HELP_STRING([--disable-libmms],          [Disable libmms]),                            , enable_libmms=yes)
 AC_ARG_ENABLE(all,     AC_HELP_STRING([--disable-all],     [Disable all parsers]),                                        MediaInfoAll=$enableval,     MediaInfoAll=depend)
 AC_ARG_ENABLE(archive, AC_HELP_STRING([--disable-archive], [Disable all archive parsers]),                                MediaInfoArchive=$enableval, MediaInfoArchive=depend)
 AC_ARG_ENABLE(audio,   AC_HELP_STRING([--disable-audio],   [Disable all audio parsers]),                                  MediaInfoAudio=$enableval,   MediaInfoAudio=depend)
@@ -341,6 +343,76 @@ else
 	fi
 fi
 
+dnl -------------------------------------------------------------------------
+dnl libcurl
+dnl
+if test "$enable_libcurl" = "no"; then
+	CXXFLAGS="$CXXFLAGS -DMEDIAINFO_LIBCURL_NO"
+	with_libcurl="no"
+elif test -e ../../../../curl/libcurl.pc; then
+	CXXFLAGS="$CXXFLAGS $(pkg-config --cflags ../../../../curl/libcurl.pc)"
+	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags ../../../../curl/libcurl.pc)"
+	if test "$enable_staticlibs" = "yes"; then
+		with_libcurl="builtin (static)"
+		LIBS="$LIBS $(pkg-config --libs --static ../../../../curl/libcurl.pc)"
+	else
+		with_libcurl="builtin"
+		LIBS="$LIBS $(pkg-config --libs ../../../../curl/libcurl.pc)"
+		MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(pkg-config --libs ../../../../curl/libcurl.pc)"
+		MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static $(pkg-config --libs ../../../../curl/libcurl.pc)"
+	fi
+elif pkg-config --exists libcurl; then
+	CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libcurl)"
+	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags libcurl)"
+	if test "$enable_staticlibs" = "yes"; then
+		with_libcurl="system (static)"
+		LIBS="$LIBS $(pkg-config --libs --static libcurl)"
+	else
+		with_libcurl="system"
+		LIBS="$LIBS $(pkg-config --libs libcurl)"
+		MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(pkg-config --libs libcurl)"
+		MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static $(pkg-config --libs libcurl)"
+	fi
+else
+	CXXFLAGS="$CXXFLAGS -DMEDIAINFO_LIBCURL_NO"
+	with_libcurl="not found"
+fi
+
+dnl -------------------------------------------------------------------------
+dnl libmms
+dnl
+if test "$enable_libmms" = "no"; then
+	CXXFLAGS="$CXXFLAGS -DMEDIAINFO_LIBMMS_NO"
+	with_libmms="no"
+elif test -e ../../../../libmms/libmms.pc; then
+	CXXFLAGS="$CXXFLAGS $(pkg-config --cflags ../../../../libmms/libmms.pc)"
+	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags ../../../../libmms/libmms.pc)"
+	if test "$enable_staticlibs" = "yes"; then
+		with_libmms="builtin (static)"
+		LIBS="$LIBS $(pkg-config --libs --static ../../../../libmms/libmms.pc)"
+	else
+		with_libmms="builtin"
+		LIBS="$LIBS $(pkg-config --libs ../../../../libmms/libmms.pc)"
+		MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(pkg-config --libs ../../../../libmms/libmms.pc)"
+		MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static $(pkg-config --libs ../../../../libmms/libmms.pc)"
+	fi
+elif pkg-config --exists libmms; then
+	CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libmms)"
+	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags libmms)"
+	if test "$enable_staticlibs" = "yes"; then
+		with_libmms="system (static)"
+		LIBS="$LIBS $(pkg-config --libs --static libmms)"
+	else
+		with_libmms="system"
+		LIBS="$LIBS $(pkg-config --libs libmms)"
+		MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(pkg-config --libs libmms)"
+		MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static $(pkg-config --libs libmms)"
+	fi
+else
+	CXXFLAGS="$CXXFLAGS -DMEDIAINFO_LIBMMS_NO"
+	with_libmms="not found"
+fi
+
 dnl #########################################################################
 dnl ### Compiler specific
 dnl #########################################################################
@@ -457,11 +529,13 @@ fi
 }
 
 echo ""
-echo "Configured MediaInfoLib for '$target'"
+echo "Configured MediaInfoLib for '$build'"
 echo ""
 echo "  Unicode?                                                $enable_unicode"
 echo "  Using ZenLib?                                           $with_zenlib"
-echo "  Using ZLib?                                             $with_zlib"
+echo "  Using libcurl?                                          $with_libcurl"
+echo "  Using libmms?                                           $with_libmms"
+echo "  Using zlib?                                             $with_zlib"
 echo ""
 echo "  Create static lib?                                      $enable_static"
 echo "  Create shared lib?                                      $enable_shared"

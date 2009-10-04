@@ -110,6 +110,10 @@ set(mediainfo_SRCS
 	MediaInfo/Multiple/File_Swf.cpp
 	MediaInfo/Multiple/File_Wm.cpp
 	MediaInfo/Multiple/File_Wm_Elements.cpp
+	MediaInfo/Reader/Reader_Directory.cpp \
+	MediaInfo/Reader/Reader_File.cpp \
+	MediaInfo/Reader/Reader_libcurl.cpp \
+	MediaInfo/Reader/Reader_libmms.cpp \
 	MediaInfo/Tag/File__Tags.cpp
 	MediaInfo/Tag/File_ApeTag.cpp
 	MediaInfo/Tag/File_Id3.cpp

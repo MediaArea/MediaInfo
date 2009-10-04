@@ -1,6 +1,5 @@
-KERNEL_TYPE=`uname`
 #Added check for Darwin based Systems like Mac OS X where libtoolize is called glibtoolize.
-if [[ $KERNEL_TYPE="Darwin" ]]; then
+if test "$(uname)" = "Darwin" ; then
 	glibtoolize --automake
 else
 	libtoolize --automake
