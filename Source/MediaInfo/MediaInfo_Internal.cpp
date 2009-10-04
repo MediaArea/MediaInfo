@@ -93,8 +93,7 @@ size_t libcurl_WriteData_CallBack(void *ptr, size_t size, size_t nmemb, void *da
             ((curl_data*)data)->File_Size=(int64u)File_SizeD;
         else
             ((curl_data*)data)->File_Size=(int64u)-1;
-        ((curl_data*)data)->MI->Open_Buffer_Init(((curl_data*)data)->File_Name);
-        ((curl_data*)data)->MI->Open_Buffer_Init(((curl_data*)data)->File_Size);
+        ((curl_data*)data)->MI->Open_Buffer_Init(((curl_data*)data)->File_Size, ((curl_data*)data)->File_Name);
         ((curl_data*)data)->Intit_AlreadyDone=true;
     }
         
@@ -113,7 +112,6 @@ size_t libcurl_WriteData_CallBack(void *ptr, size_t size, size_t nmemb, void *da
         return 0;
     }
 
-        
     if (((curl_data*)data)->File_GoTo==(int64u)-1)
         return size*nmemb;
     else
@@ -134,15 +132,7 @@ MediaInfo_Internal::MediaInfo_Internal()
     Thread=NULL;
     BlockMethod=BlockMethod_Local;
     Info=NULL;
-    Buffer=NULL;
-    Buffer_Size=0;
-    Buffer_Size_Max=0;
-    BufferConst=NULL;
-    File_Handle=NULL;
-    File_Size=(int64u)-1;
-    File_Offset=0;
-    File_AlreadyBuffered=false;
-    MultipleParsing_IsDetected=false;
+    Info_IsMultipleParsing=false;
 
     MediaInfoLib::Config.Init(); //Initialize Configuration
     Stream.resize(Stream_Max);
@@ -156,8 +146,6 @@ MediaInfo_Internal::~MediaInfo_Internal()
 
     CriticalSectionLocker CSL(CS);;
     delete Info; //Info=NULL;
-    delete[] Buffer; //Buffer=NULL;
-    delete (File*)File_Handle; //File_Handle=NULL;
 }
 
 //***************************************************************************
@@ -165,26 +153,26 @@ MediaInfo_Internal::~MediaInfo_Internal()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-size_t MediaInfo_Internal::Open(const String &File_Name_)
+size_t MediaInfo_Internal::Open(const String &File_Name)
 {
     #ifndef MEDIAINFO_LIBCURL_NO
-        if (File_Name_.size()>7
-         && ((File_Name_[0]==_T('h')
-           && File_Name_[1]==_T('t')
-           && File_Name_[2]==_T('t')
-           && File_Name_[3]==_T('p')
-           && File_Name_[4]==_T(':')
-           && File_Name_[5]==_T('/')
-           && File_Name_[6]==_T('/'))
-          || (File_Name_[0]==_T('f')
-           && File_Name_[1]==_T('t')
-           && File_Name_[2]==_T('p')
-           && File_Name_.find(_T("://"))!=std::string::npos)))
+        if (File_Name.size()>7
+         && ((File_Name[0]==_T('h')
+           && File_Name[1]==_T('t')
+           && File_Name[2]==_T('t')
+           && File_Name[3]==_T('p')
+           && File_Name[4]==_T(':')
+           && File_Name[5]==_T('/')
+           && File_Name[6]==_T('/'))
+          || (File_Name[0]==_T('f')
+           && File_Name[1]==_T('t')
+           && File_Name[2]==_T('p')
+           && File_Name.find(_T("://"))!=std::string::npos)))
         {
             curl_data Curl_Data;
             Curl_Data.Curl=curl_easy_init();
             Curl_Data.MI=this;
-            Curl_Data.File_Name=File_Name_;
+            Curl_Data.File_Name=File_Name;
             string FileName_String=Ztring(Curl_Data.File_Name).To_Local();
             curl_easy_setopt(Curl_Data.Curl, CURLOPT_URL, FileName_String.c_str());
             curl_easy_setopt(Curl_Data.Curl, CURLOPT_FOLLOWLOCATION, 1);
@@ -218,28 +206,24 @@ size_t MediaInfo_Internal::Open(const String &File_Name_)
     #endif //MEDIAINFO_LIBCURL_NO
     
     //Test existence of the file
-    File_Name=File_Name_;
-
     if (!File::Exists(File_Name))
     {
         #ifdef MEDIAINFO_BDMV_YES
             if (File_Name.find(Ztring(1, PathSeparator)+_T("BDMV"))+5==File_Name.size())
             {
                 //Blu-ray stuff
+                CS.Enter();
                 delete Info; Info=new File_Bdmv();
+                CS.Leave();
 
-                CriticalSectionLocker CSL(CS);
-                //Test the theorical format
-                #ifndef MEDIAINFO_MINIMIZESIZE
-                    Info->Init(&Config, &Details, &Stream, &Stream_More);
-                #else //MEDIAINFO_MINIMIZESIZE
-                    Info->Init(&Config, &Stream, &Stream_More);
-                #endif //MEDIAINFO_MINIMIZESIZE
-                Info->File_Name=File_Name;
+                Open_Buffer_Init(0, File_Name);
+
+                CS.Enter();
                 ((File_Bdmv*)Info)->BDMV();
-                Info->Open_Buffer_Finalize();
-                Info->Fill();
-                Info->Finish();
+                CS.Leave();
+
+                Open_Buffer_Finalize();
+
                 return 1;
             }
         #endif //MEDIAINFO_BDMV_YES
@@ -272,61 +256,78 @@ size_t MediaInfo_Internal::Open(const String &File_Name_)
         SelectFromExtension(Parser);
     }
 
-    CriticalSectionLocker CSL(CS);
     //Test the theorical format
-    if (Format_Test()>0)
+    if (Info && Format_Test(File_Name)>0)
          return 1;
 
     //Extension is not the good one, parse with all formats
     /*
+    CS.Enter();
     delete Info; Info=new File__MultipleParsing;
+    CS.Leave();
     if (Format_Test()>0)
          return 1;
 
+    CS.Enter();
     delete Info; Info=new File_Unknown;
-    if (Format_Test()>0)
+    CS.Leave();
+    if (Format_Test(File_Name)>0)
          return 1;
-    return 0;
+    return 0; //There is a problem
     */
 
-    InternalMethod=1;
-    size_t ToReturn=ListFormats();
+    size_t ToReturn=ListFormats(File_Name);
 
-    Format_Test_FillBuffer_Close();
     return ToReturn;
 }
 
 //---------------------------------------------------------------------------
-int MediaInfo_Internal::Format_Test()
+int MediaInfo_Internal::Format_Test(const String &File_Name)
 {
-    //Integrity
-    if (Info==NULL)
+    //Opening the file
+    File F;
+    F.Open(File_Name);
+    if (!F.Opened_Get())
         return 0;
-    #ifndef MEDIAINFO_MINIMIZESIZE
-        Info->Init(&Config, &Details, &Stream, &Stream_More);
-    #else //MEDIAINFO_MINIMIZESIZE
-        Info->Init(&Config, &Stream, &Stream_More);
-    #endif //MEDIAINFO_MINIMIZESIZE
-    Info->File_Name=File_Name;
 
-    //Initating the file
-    if (Format_Test_FillBuffer_Init()<0)
-        return 0;
-    Info->Open_Buffer_Init(File_Size);
+    //Buffer
+    size_t Buffer_Size_Max=Buffer_NormalSize;
+    int8u* Buffer=new int8u[Buffer_Size_Max];
 
-    //-Test the format with buffer
+    //Parser
+    Open_Buffer_Init(F.Size_Get(), File_Name);
+
+    //Test the format with buffer
     bool StopAfterFilled=Config.File_StopAfterFilled_Get();
+    std::bitset<32> Status;
     do
     {
-        if (Format_Test_FillBuffer_Continue()<0)
-            break; //Error during reading
-        else if (Info)
-            Info->Open_Buffer_Continue(Buffer, Buffer_Size);
-    }
-    while (Info && !(Info->Status[File__Analyze::IsFinished] || (StopAfterFilled && Info->Status[File__Analyze::IsFilled])));
+        //Seek (if needed)
+        if (Info->File_GoTo!=(int64u)-1)
+        {
+            if (Info->File_GoTo>=F.Size_Get())
+                break; //Seek requested, but on a file bigger in theory than what is in the real file, we can't do this
+            if (!F.GoTo(Info->File_GoTo))
+                break; //File is not seekable
 
-    //-Close
-    Format_Test_FillBuffer_Close();
+            Info->Open_Buffer_Position_Set(F.Position_Get());
+        }
+
+        //Buffering
+        size_t Buffer_Size=F.Read(Buffer, Buffer_Size_Max);
+        if (Buffer_Size==0)
+            break; //Problem while reading
+
+        //Parser
+        Status=Open_Buffer_Continue(Buffer, Buffer_Size);
+    }
+    while (!(Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled])));
+
+    //File
+    F.Close();
+
+    //Buffer
+    delete[] Buffer; //Buffer=NULL;
 
     //Is this file detected?
     if (!Info->Status[File__Analyze::IsAccepted])
@@ -335,187 +336,50 @@ int MediaInfo_Internal::Format_Test()
         return 0;
     }
 
-    //Finalize
-    Info->Open_Buffer_Finalize();
-
-    //Cleanup
-    if (!Config.File_IsSub_Get() && !Config.File_KeepInfo_Get()) //We need info for the calling parser
-    {
-        delete Info; Info=NULL;
-    }
-    return 1;
-}
-
-//---------------------------------------------------------------------------
-int MediaInfo_Internal::Format_Test_Buffer()
-{
-    return 0;
-}
-
-//---------------------------------------------------------------------------
-int MediaInfo_Internal::Format_Test_FillBuffer_Init()
-{
-    //Integrity
-    if (Info==NULL)
-        return -1;
-
-    //Is there a file to open?
-    if (File_Name.empty())
-        return 1; //Buffer is handled elsewhere
-    if (File_Handle)
-    {
-        File_AlreadyBuffered=true;
-        return 1; //Already opened
-    }
-
-    //Init
-    Buffer_Size_Max=Buffer_NormalSize;
-    File_Offset=0;
-    Buffer=NULL;
-
-    //Opening the file
-    File_Handle=new File;
-    ((File*)File_Handle)->Open(File_Name);
-    if (!((File*)File_Handle)->Opened_Get())
-    {
-        File_AlreadyBuffered=true; //We don't succeed to open it, so File_Size is 0
-        return -1;
-    }
-
-
-    //FileSize
-    if (File_Size==(int64u)-1) //If not provided by Open_Buffer_Init()
-        File_Size=((File*)File_Handle)->Size_Get();
-
-    //Buffer
-    delete[] Buffer; Buffer=new int8u[Buffer_Size_Max];
-
-    return 1;
-}
-
-//---------------------------------------------------------------------------
-int MediaInfo_Internal::Format_Test_FillBuffer_Continue()
-{
-    //Integrity
-    if (Info==NULL)
-        return -1;
-
-    //Is there a file to open?
-    if (File_Name.empty())
-    {
-        if (File_Offset==0)
-            return 1; //Buffer is handled elsewhere
-        else
-            return -1; //Not possible to have more
-    }
-
-    //Seek (if needed)
-    if (Info->File_GoTo!=(int64u)-1)
-    {
-        if (Info->File_GoTo<File_Size)
-        {
-            if (Info->File_GoTo>=((File*)File_Handle)->Size_Get())
-                //Seek requested, but on a file bigger in theory than what is in the real file, we can't do this
-                return -1;
-            if (((File*)File_Handle)->GoTo(Info->File_GoTo))
-            {
-                File_Offset=Info->File_GoTo;
-                Info->Open_Buffer_Position_Set(Info->File_GoTo);
-            }
-            else
-                //File is not seekable
-                return -1;
-        }
-        else
-        {
-            Info->Open_Buffer_Finalize();
-            return -1;
-        }
-    }
-
-    //Buffering
-    if (!File_AlreadyBuffered)
-    {
-        Buffer_Size=((File*)File_Handle)->Read(Buffer, Buffer_Size_Max);
-        if (Buffer_Size!=0)
-        {
-            //Read is OK
-            if (Buffer_Size==0)
-                return -1;
-            File_Offset+=Buffer_Size;
-        }
-        else
-            //Problem while reading
-            return -1;
-    }
-    else
-        File_AlreadyBuffered=false;
-
-    return 1;
-}
-
-//---------------------------------------------------------------------------
-int MediaInfo_Internal::Format_Test_FillBuffer_Close()
-{
-    //Close
-    delete (File*)File_Handle; File_Handle=NULL;
-    Buffer_Clear();
-
+    Open_Buffer_Finalize();
     return 1;
 }
 
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Open (const int8u* Begin_, size_t Begin_Size_, const int8u*, size_t, int64u FileSize_)
 {
-    CriticalSectionLocker CSL(CS);
+    return 0;
+
+    /*CriticalSectionLocker CSL(CS);
     Buffer_Size_Max=Begin_Size_;
     delete[] Buffer; Buffer=new int8u[Buffer_Size_Max];
     std::memcpy(Buffer, Begin_, Begin_Size_);
     Buffer_Size=Begin_Size_;
-    File_Name.clear();
-    File_Size=FileSize_;
 
-    InternalMethod=1;
     size_t ToReturn=ListFormats();
 
     Buffer_Clear();
-    return ToReturn;
+    return ToReturn;*/
 }
 
 //---------------------------------------------------------------------------
-size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, const String &File_Name_)
+size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, const String &File_Name)
 {
     CriticalSectionLocker CSL(CS);
     if (Info==NULL)
     {
         if (!Config.File_ForceParser_Get().empty())
-        {
             SelectFromExtension(Config.File_ForceParser_Get());
-            MultipleParsing_IsDetected=true;
-        }
         else
+        {
             Info=new File__MultipleParsing;
+            Info_IsMultipleParsing=true;
+        }
     }
     #ifndef MEDIAINFO_MINIMIZESIZE
         Info->Init(&Config, &Details, &Stream, &Stream_More);
     #else //MEDIAINFO_MINIMIZESIZE
         Info->Init(&Config, &Stream, &Stream_More);
     #endif //MEDIAINFO_MINIMIZESIZE
-    Info->Open_Buffer_Init(File_Size_);
-    Info->File_Name=File_Name_;
-
-    //Saving the real file size, in case the user provide the theoritical file size, to be used instead of the real file size
-    File_Size=File_Size_;
-
-    return 1;
-}
-
-//---------------------------------------------------------------------------
-size_t MediaInfo_Internal::Open_Buffer_Init (const String &File_Name_)
-{
-    CriticalSectionLocker CSL(CS);
-
-    File_Name=File_Name_;
+    if (!File_Name.empty())
+        Info->File_Name=File_Name;
+    if (File_Size_!=(int64u)-1)
+        Info->Open_Buffer_Init(File_Size_);
 
     return 1;
 }
@@ -523,7 +387,7 @@ size_t MediaInfo_Internal::Open_Buffer_Init (const String &File_Name_)
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offset_)
 {
-    Open_Buffer_Init(File_Size_, File_Name);
+    Open_Buffer_Init(File_Size_);
 
     CriticalSectionLocker CSL(CS);
 
@@ -533,7 +397,7 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
 }
 
 //---------------------------------------------------------------------------
-size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
+std::bitset<32> MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
     CriticalSectionLocker CSL(CS);
     if (Info==NULL)
@@ -541,13 +405,13 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
 
     Info->Open_Buffer_Continue(ToAdd, ToAdd_Size);
 
-    if (!MultipleParsing_IsDetected && Info->Status[File__Analyze::IsAccepted])
+    if (Info_IsMultipleParsing && Info->Status[File__Analyze::IsAccepted])
     {
         //Found
         File__Analyze* Info_ToDelete=Info;
         Info=((File__MultipleParsing*)Info)->Parser_Get();
         delete Info_ToDelete; //Info_ToDelete=NULL;
-        MultipleParsing_IsDetected=true;
+        Info_IsMultipleParsing=false;
     }
 
     #if 0 //temp, for old users
@@ -568,13 +432,10 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
         Info->File_GoTo=(int64u)-1;
     }
 
-    if (Info)
-    {
-        if (!Info->Status[File__Analyze::IsFilled] && Info->Status[File__Analyze::IsUpdated])
-            Info->Status[File__Analyze::IsUpdated]=false; //No updated info until IsFilled is set
-        return Info->Status.to_ulong();
-    }
-    return 0;
+    if (!Info->Status[File__Analyze::IsFilled] && Info->Status[File__Analyze::IsUpdated])
+        Info->Status[File__Analyze::IsUpdated]=false; //No updated info until IsFilled is set
+
+    return Info->Status;
     #endif
 }
 
@@ -582,22 +443,27 @@ size_t MediaInfo_Internal::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAd
 int64u MediaInfo_Internal::Open_Buffer_Continue_GoTo_Get ()
 {
     CriticalSectionLocker CSL(CS);
-    if (Info!=NULL)
-        return Info->File_GoTo;
-    else
+    if (Info==NULL)
         return 0;
+
+    return Info->File_GoTo;
 }
 
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Open_Buffer_Finalize ()
 {
     CriticalSectionLocker CSL(CS);
-    if (Info!=NULL)
+    if (Info==NULL)
+        return 0;
+
+    Info->Open_Buffer_Finalize();
+
+    //Cleanup
+    if (!Config.File_IsSub_Get() && !Config.File_KeepInfo_Get()) //We need info for the calling parser
     {
-        Info->Open_Buffer_Finalize();
-        Info->Fill();
-        Info->Finish();
+        delete Info; Info=NULL;
     }
+
     return 1;
 }
 
@@ -610,7 +476,6 @@ void MediaInfo_Internal::Close()
     Stream_More.clear();
     Stream_More.resize(Stream_Max);
     delete Info; Info=NULL;
-    Buffer_Clear();
 }
 
 //***************************************************************************
@@ -870,31 +735,6 @@ size_t MediaInfo_Internal::State_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return 0; //Not yet implemented
-}
-
-//---------------------------------------------------------------------------
-void MediaInfo_Internal::Buffer_Clear()
-{
-    Buffer_Size_Max=0;
-    delete[] Buffer; Buffer=NULL;
-    Buffer_Size=0;
-    File_Size=(int64u)-1;
-}
-
-//---------------------------------------------------------------------------
-int MediaInfo_Internal::ApplyMethod()
-{
-    switch (InternalMethod)
-    {
-        case 1 : //Open file
-            return Format_Test();
-        case 2 : //Open buffer
-            return Format_Test_Buffer();
-        case 3 : //Supported formats
-            delete Info; Info=NULL;
-            return 0; //We want to continue the format listing
-    }
-    return 0;
 }
 
 } //NameSpace

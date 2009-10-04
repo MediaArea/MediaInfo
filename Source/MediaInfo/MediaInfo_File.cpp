@@ -271,6 +271,8 @@ extern MediaInfo_Config Config;
 //---------------------------------------------------------------------------
 void MediaInfo_Internal::SelectFromExtension (const String &Parser)
 {
+    CriticalSectionLocker CSL(CS);
+
     //Clear last value
     delete Info; Info=NULL;
 
@@ -494,238 +496,230 @@ void MediaInfo_Internal::SelectFromExtension (const String &Parser)
 }
 
 //---------------------------------------------------------------------------
-int MediaInfo_Internal::ListFormats()
+int MediaInfo_Internal::ListFormats(const String &File_Name)
 {
-    delete Info; Info=NULL;
-
     // Multiple
     #if defined(MEDIAINFO_BDAV_YES)
-        delete Info; Info=new File_MpegTs(); ((File_MpegTs*)Info)->BDAV_Size=4; if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_MpegTs(); ((File_MpegTs*)Info)->BDAV_Size=4; if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_BDMV_YES)
-        delete Info; Info=new File_Bdmv();               if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Bdmv();               if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_CDXA_YES)
-        delete Info; Info=new File_Cdxa();               if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Cdxa();               if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_DVDIF_YES)
-        delete Info; Info=new File_DvDif();              if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_DvDif();              if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_DVDV_YES)
-        delete Info; Info=new File_Dvdv();               if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Dvdv();               if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_FLV_YES)
-        delete Info; Info=new File_Flv();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Flv();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MK_YES)
-        delete Info; Info=new File_Mk();                 if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Mk();                 if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MPEG4_YES)
-        delete Info; Info=new File_Mpeg4();              if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Mpeg4();              if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MPEGPS_YES)
-        delete Info; Info=new File_MpegPs();             if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_MpegPs();             if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MPEGTS_YES)
-        delete Info; Info=new File_MpegTs();             if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_MpegTs();             if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MPLI_YES)
-        delete Info; Info=new File_Mpli();               if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Mpli();               if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MXF_YES)
-        delete Info; Info=new File_Mxf();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Mxf();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_NUT_YES)
-        delete Info; Info=new File_Nut();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Nut();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_OGG_YES)
-        delete Info; Info=new File_Ogg();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Ogg();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_RIFF_YES)
-        delete Info; Info=new File_Riff();               if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Riff();               if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_RM_YES)
-        delete Info; Info=new File_Rm();                 if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Rm();                 if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_SKM_YES)
-        delete Info; Info=new File_Skm();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Skm();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_SWF_YES)
-        delete Info; Info=new File_Swf();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Swf();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_TSP_YES)
-        delete Info; Info=new File_MpegTs(); ((File_MpegTs*)Info)->TSP_Size=16; if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_MpegTs(); ((File_MpegTs*)Info)->TSP_Size=16; if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_WM_YES)
-        delete Info; Info=new File_Wm();                 if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Wm();                 if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_DPG_YES)
-        delete Info; Info=new File_Dpg();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Dpg();                if (Format_Test(File_Name)>0) return 1;
     #endif
 
     // Video
     #if defined(MEDIAINFO_AVC_YES)
-        delete Info; Info=new File_Avc();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Avc();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_DIRAC_YES)
-        delete Info; Info=new File_Dirac();              if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Dirac();              if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_FLIC_YES)
-        delete Info; Info=new File_Flic();               if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Flic();               if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MPEG4V_YES)
-        delete Info; Info=new File_Mpeg4v();             if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Mpeg4v();             if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MPEGV_YES)
-        delete Info; Info=new File_Mpegv();              if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Mpegv();              if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_VC1_YES)
-        delete Info; Info=new File_Vc1();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Vc1();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_AVSV_YES)
-        delete Info; Info=new File_AvsV();               if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_AvsV();               if (Format_Test(File_Name)>0) return 1;
     #endif
 
     // Audio
     #if defined(MEDIAINFO_AC3_YES)
-        delete Info; Info=new File_Ac3();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Ac3();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_ADIF_YES)
-        delete Info; Info=new File_Adif();               if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Adif();               if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_ADTS_YES)
-        delete Info; Info=new File_Adts();               if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Adts();               if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_ALS_YES)
-        delete Info; Info=new File_Als();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Als();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_AMR_YES)
-        delete Info; Info=new File_Amr();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Amr();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_AMV_YES)
-        delete Info; Info=new File_Amv();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Amv();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_APE_YES)
-        delete Info; Info=new File_Ape();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Ape();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_AU_YES)
-        delete Info; Info=new File_Au();                 if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Au();                 if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_DTS_YES)
-        delete Info; Info=new File_Dts();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Dts();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_FLAC_YES)
-        delete Info; Info=new File_Flac();               if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Flac();               if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_IT_YES)
-        delete Info; Info=new File_ImpulseTracker();     if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_ImpulseTracker();     if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_LA_YES)
-        delete Info; Info=new File_La();                 if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_La();                 if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MIDI_YES)
-        delete Info; Info=new File_Midi();               if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Midi();               if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MOD_YES)
-        delete Info; Info=new File_Module();             if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Module();             if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MPC_YES)
-        delete Info; Info=new File_Mpc();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Mpc();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MPCSV8_YES)
-        delete Info; Info=new File_MpcSv8();             if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_MpcSv8();             if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MPEGA_YES)
-        delete Info; Info=new File_Mpega();              if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Mpega();              if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_PCM_YES)
-      //delete Info; Info=new File_Pcm();                if (ApplyMethod()>0) return 1;
+      //delete Info; Info=new File_Pcm();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_TAK_YES)
-        delete Info; Info=new File_Tak();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Tak();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_S3M_YES)
-        delete Info; Info=new File_ScreamTracker3();     if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_ScreamTracker3();     if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_TTA_YES)
-        delete Info; Info=new File_Tta();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Tta();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_TWINVQ_YES)
-        delete Info; Info=new File_TwinVQ();             if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_TwinVQ();             if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_WVPK_YES)
-        delete Info; Info=new File_Wvpk();               if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Wvpk();               if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_XM_YES)
-        delete Info; Info=new File_ExtendedModule();     if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_ExtendedModule();     if (Format_Test(File_Name)>0) return 1;
     #endif
 
     // Text
     #if defined(MEDIAINFO_OTHERTEXT_YES)
-        delete Info; Info=new File_OtherText();          if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_OtherText();          if (Format_Test(File_Name)>0) return 1;
     #endif
 
     // Image
     #if defined(MEDIAINFO_BMP_YES)
-        delete Info; Info=new File_Bmp();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Bmp();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_GIF_YES)
-        delete Info; Info=new File_Gif();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Gif();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_ICO_YES)
-        delete Info; Info=new File_Ico();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Ico();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_JPEG_YES)
-        delete Info; Info=new File_Jpeg();               if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Jpeg();               if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_PNG_YES)
-        delete Info; Info=new File_Png();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Png();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_TIFF_YES)
-        delete Info; Info=new File_Tiff();               if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Tiff();               if (Format_Test(File_Name)>0) return 1;
     #endif
 
     // Archive
     #if defined(MEDIAINFO_ACE_YES)
-        delete Info; Info=new File_Ace();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Ace();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_7Z_YES)
-        delete Info; Info=new File_7z();                 if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_7z();                 if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_BZIP2_YES)
-        delete Info; Info=new File_Bzip2();              if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Bzip2();              if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_ELF_YES)
-        delete Info; Info=new File_Elf();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Elf();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_GZIP_YES)
-        delete Info; Info=new File_Gzip();               if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Gzip();               if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_MZ_YES)
-        delete Info; Info=new File_Mz();                 if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Mz();                 if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_RAR_YES)
-        delete Info; Info=new File_Rar();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Rar();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_TAR_YES)
-        delete Info; Info=new File_Tar();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Tar();                if (Format_Test(File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_ZIP_YES)
-        delete Info; Info=new File_Zip();                if (ApplyMethod()>0) return 1;
+        delete Info; Info=new File_Zip();                if (Format_Test(File_Name)>0) return 1;
     #endif
 
     // Other
     #if !defined(MEDIAINFO_OTHER_NO)
-    if (InternalMethod==1 || InternalMethod==2)
-    {
-        delete Info; Info=new File_Other();              if (ApplyMethod()>0) return 1;
-    }
+        delete Info; Info=new File_Other();              if (Format_Test(File_Name)>0) return 1;
     #endif
     #if !defined(MEDIAINFO_UNKNOWN_NO)
-    if (InternalMethod==1)
-    {
-        delete Info; Info=new File_Unknown();            if (ApplyMethod()>0) return 1;
-    }
+        delete Info; Info=new File_Unknown();            if (Format_Test(File_Name)>0) return 1;
     #endif
     return 0;
 }

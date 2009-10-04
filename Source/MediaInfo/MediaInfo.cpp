@@ -185,7 +185,7 @@ size_t MediaInfo::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
     MEDIAINFO_DEBUG_BUFFER_SAVE(ToAdd, ToAdd_Size);
 
-    size_t ToReturn=((MediaInfo_Internal*)Internal)->Open_Buffer_Continue(ToAdd, ToAdd_Size);
+    size_t ToReturn=((MediaInfo_Internal*)Internal)->Open_Buffer_Continue(ToAdd, ToAdd_Size).to_ulong();
     if (ToReturn==0)
     {
         MEDIAINFO_DEBUG(Debug+="Open_Buffer_Continue, will return ";Debug+=ToString(ToReturn);Debug+=", forcing a Get() :";)

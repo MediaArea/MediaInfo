@@ -31,6 +31,8 @@
 #include "MediaInfo/MediaInfo_Internal_Const.h"
 #include "MediaInfo/MediaInfo_Config.h"
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+#include <bitset>
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -54,10 +56,9 @@ public :
     //File
     size_t Open (const String &File_Name);
     size_t Open (const ZenLib::int8u* Begin, size_t Begin_Size, const ZenLib::int8u* End=NULL, size_t End_Size=0, ZenLib::int64u File_Size=0);
-    size_t Open_Buffer_Init (const String &File_Name);
     size_t Open_Buffer_Init (ZenLib::int64u File_Size=(ZenLib::int64u)-1, const String &File_Name=String());
     size_t Open_Buffer_Init (ZenLib::int64u File_Size, ZenLib::int64u File_Offset);
-    size_t Open_Buffer_Continue (const ZenLib::int8u* Buffer, size_t Buffer_Size);
+    std::bitset<32> Open_Buffer_Continue (const ZenLib::int8u* Buffer, size_t Buffer_Size);
     ZenLib::int64u Open_Buffer_Continue_GoTo_Get ();
     size_t Open_Buffer_Finalize ();
     void Close ();
@@ -92,24 +93,7 @@ private :
     friend class File_Mpeg4; //Theses classes need access to internal structure for optimization. There is recursivity with theses formats
 
     //Format testing
-    int Format_Test();
-    int Format_Test_Buffer();
-    int Format_Test_FillBuffer_Init();
-    int Format_Test_FillBuffer_Continue();
-    int Format_Test_FillBuffer_Close();
-
-    //File
-    String File_Name;
-    void*            File_Handle;
-    ZenLib::int64u   File_Size;
-    ZenLib::int64u   File_Offset;
-    bool             File_AlreadyBuffered;
-
-    //Buffer
-    unsigned char*   Buffer;
-    size_t           Buffer_Size;
-    size_t           Buffer_Size_Max;
-    const unsigned char* BufferConst;
+    int Format_Test(const String &File_Name);
 
     //Parsing handles
     File__Analyze*  Info;
@@ -120,17 +104,14 @@ private :
     blockmethod_t BlockMethod; //Open() returns when?
 
     //Helpers
-    int  InternalMethod; //1=Open file, 3=Supported formats
-    int  ApplyMethod();
-    int  ListFormats();
-    void Buffer_Clear(); //Clear the buffer
+    int  ListFormats(const String &File_Name=String());
     void SelectFromExtension (const String &Parser); //Select File_* from the parser name
     void CreateDummy (const String& Value); //Create dummy Information
 
     MediaInfo_Internal(const MediaInfo_Internal&); // Copy Constructor
 
     //Open Buffer
-    bool MultipleParsing_IsDetected;
+    bool Info_IsMultipleParsing;
 
     //Config
     MediaInfo_Config_MediaInfo Config;
