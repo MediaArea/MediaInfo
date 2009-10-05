@@ -1,19 +1,19 @@
-0;;;;
-1;PCM;Microsoft;;http://www.microsoft.com/windows/
-2;ADPCM;;Microsoft ADPCM;http://www.microsoft.com/windows/
-3;PCM;;IEEE FLOAT;http://www.microsoft.com/windows/
-4;VSELP;;Compaq VSELP;
-5;CVSD;;IBM CVSD;
-6;ADPCM;;CCITT A-Law;http://www.microsoft.com/windows/
-7;ADPCM;;CCITT U-Law;http://www.microsoft.com/windows/
-8;DTS;;;
-9;DRM;;Microsoft;
-A;WMSpeech;;;
-C;MPEG Audio;;MPEG2 5.1;
-10;ADPCM;;OKI ADPCM;
-11;ADPCM;;Intel ADPCM;
-12;ADPCM;;Mediaspace (Videologic) ADPCM;
-13;ADPCM;;Sierra ADPCM;
+0;;;;;
+1;PCM;Microsoft;;http://www.microsoft.com/windows/;
+2;ADPCM;;Microsoft ADPCM;http://www.microsoft.com/windows/;
+3;PCM;;IEEE FLOAT;http://www.microsoft.com/windows/;
+4;VSELP;;Compaq VSELP;;
+5;CVSD;;IBM CVSD;;
+6;ADPCM;;CCITT A-Law;http://www.microsoft.com/windows/;
+7;ADPCM;;CCITT U-Law;http://www.microsoft.com/windows/;
+8;DTS;;;;
+9;DRM;;Microsoft;;
+A;WMA;;Windows Media Audio;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx;Voice
+C;MPEG Audio;;MPEG2 5.1;;
+10;ADPCM;;OKI ADPCM;;
+11;ADPCM;;Intel ADPCM;;
+12;ADPCM;;Mediaspace (Videologic) ADPCM;;
+13;ADPCM;;Sierra ADPCM;;
 14;ADPCM;;Antex G723 ADPCM;
 15;STD;;DSP solutions Digi-STD;
 16;FIX;;DSP solutions Digi-FIX;
@@ -126,23 +126,22 @@ FF;AAC;;
 150;PureVoice;;Qualcomm PUREVOICE;
 151;HalfRate;;Qualcomm HALFRATE;
 155;TUBGSM;;Ring Zero Systems TUBGSM;
-160;WMA1;;Windows Media Audio 1;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
-161;WMA2;;Windows Media Audio 2;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
-162;WMA3;;Windows Media Audio 3;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
-163;WMA Lossless;;Windows Media Audio 3;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx
-163;WMA Pro;;WMA Pro over S/PDIF;
-170;ADPCM;;Unisys Nap ADPCM;
-171;ADPCM;;Unisys Nap U-law;
-172;ADPCM;;Unisys Nap A-law;
-173;16K;;Unisys Nap 16K;
-174;G.700;;SyCom Technologies;
-175;ADPCM;;SyCom Technologies;
-176;CELP54;;SyCom Technologies;
-177;CELP68;;SyCom Technologies;
-178;ADPCM;;Knowledge Adventure, Inc.;
-180;AAC;;Fraunhofer IIS;
-190;DTS;;;
-200;ADPCM;;Creative Labs ADPCM
+160;WMA;;Windows Media Audio;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx;;Version 1
+161;WMA;;Windows Media Audio;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx;;Version 2
+162;WMA;;Windows Media Audio;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx;Pro;
+163;WMA;;Windows Media Audio;http://www.microsoft.com/windows/windowsmedia/format/codecdownload.aspx;Lossless;
+170;ADPCM;;Unisys Nap ADPCM;;;
+171;ADPCM;;Unisys Nap U-law;;;
+172;ADPCM;;Unisys Nap A-law;;;
+173;16K;;Unisys Nap 16K;;;
+174;G.700;;SyCom Technologies;;;
+175;ADPCM;;SyCom Technologies;;;
+176;CELP54;;SyCom Technologies;;;
+177;CELP68;;SyCom Technologies;;;
+178;ADPCM;;Knowledge Adventure, Inc.;;;
+180;AAC;;Fraunhofer IIS;;;
+190;DTS;;;;;
+200;ADPCM;;Creative Labs ADPCM;;;
 202;FastSpeech8;;Creative Labs Fast Speech 8
 203;FastSpeech10;;Creative Labs Fast Speech 10
 210;ADPCM;;UHER informatic GmbH ADPCM
@@ -158,7 +157,7 @@ FF;AAC;;
 270;SCX;;Sony
 271;SCY;;Sony
 272;Atrac3;;Sony
-273;SPC;;Sony;
+273;SPC;;Sony
 280;Telum;;;
 281;TelumIA;;;
 285;ADPCM;;Norcom Voice Systems;
@@ -190,7 +189,7 @@ AAC;AAC;;;
 1401;ISIAUDIO;;ISIAudio;
 1500;MUSICOMPRESS;;Soundspace Music Compression;
 181C;RT24;;VoxWare RT24 speech codec;
-181E;AX24000P;;Lucent elemedia AX24000P Music codec
+181E;AX24000P;;Lucent elemedia AX24000P Music codec;
 1971;SonicFoundry;;Lossless
 1C03;ADPCM;;Lucent SX5363S G.723 compliant codec
 1C07;SX8300P;;Lucent SX8300P speech codec
@@ -206,7 +205,7 @@ AAC;AAC;;;
 2006;AAC;;RealAudio 10 AAC (RAAC)
 2007;AAC;;RealAudio 10 AAC+ (RACP)
 3313;AviSynth;;makeAVIS (fake AVI sound from AviSynth scripts)
-4143;AAC;;Divio MPEG-4 AAC audio;
+4143;AAC;;Divio MPEG-4 AAC audio
 4201;Nokia;;;
 4243;ADPCM;;G726;
 43AC;Speex;;;

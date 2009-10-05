@@ -1789,6 +1789,9 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
     if (File_GoTo!=(int64u)-1)
         return; //Already done
 
+    if (GoTo>=File_Offset && GoTo<File_Offset+Buffer_Size)
+        return; //We already have it
+
     if (ShouldContinueParsing)
     {
         if (ParserName)

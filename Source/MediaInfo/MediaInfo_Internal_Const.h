@@ -57,7 +57,8 @@ enum infocodecid_t
     InfoCodecID_Hint,               ///<
     InfoCodecID_Description,        ///<
     InfoCodecID_Url,                ///<
-    InfoCodecID_Profile,            ///<Only for General Codec ID
+    InfoCodecID_Profile,            ///<
+    InfoCodecID_Version,            ///<
     InfoCodecID_Max
 };
 

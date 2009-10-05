@@ -38,6 +38,7 @@ namespace MediaInfoLib
 {
 
 const size_t Buffer_NormalSize=/*188*7;//*/64*1024;
+const size_t Buffer_NoJump=128*1024;
 
 //---------------------------------------------------------------------------
 int Reader_File::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
@@ -111,10 +112,13 @@ int Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &Fil
         {
             if (MI->Open_Buffer_Continue_GoTo_Get()>=F.Size_Get())
                 break; //Seek requested, but on a file bigger in theory than what is in the real file, we can't do this
-            if (!F.GoTo(MI->Open_Buffer_Continue_GoTo_Get()))
-                break; //File is not seekable
+            if (!(MI->Open_Buffer_Continue_GoTo_Get()>F.Position_Get() && MI->Open_Buffer_Continue_GoTo_Get()<F.Position_Get()+Buffer_NoJump)) //No smal jumps
+            {
+                 if (!F.GoTo(MI->Open_Buffer_Continue_GoTo_Get()))
+                    break; //File is not seekable
 
-            MI->Open_Buffer_Position_Set(F.Position_Get());
+                MI->Open_Buffer_Position_Set(F.Position_Get());
+            }
         }
 
         //Buffering

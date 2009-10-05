@@ -45,6 +45,9 @@
 #if defined(MEDIAINFO_MPEG4V_YES)
     #include "MediaInfo/Video/File_Mpeg4v.h"
 #endif
+#if defined(MEDIAINFO_MPEGV_YES)
+    #include "MediaInfo/Video/File_Mpegv.h"
+#endif
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
 #endif
@@ -1465,6 +1468,13 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
 
     //Creating the parser
          if (0);
+    #if defined(MEDIAINFO_MPEGV_YES)
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_Format)==_T("MPEG Video"))
+    {
+        Stream[Stream_ID].Parser=new File_Mpegv;
+        ((File_Mpegv*)Stream[Stream_ID].Parser)->FrameIsAlwaysComplete=true;
+    }
+    #endif
     #if defined(MEDIAINFO_MPEG4V_YES)
     else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("MPEG-4V"))==0)
     {
@@ -2202,7 +2212,7 @@ void File_Riff::CADP()
 //---------------------------------------------------------------------------
 void File_Riff::CMJP()
 {
-    Element_Name("CMP4 - MJPEG");
+    Element_Name("CMP4 - M-JPEG");
 
     //Parsing
     #ifdef MEDIAINFO_JPEG_YES
@@ -2225,7 +2235,7 @@ void File_Riff::CMJP()
 
         FILLING_BEGIN();
             Stream_Prepare(Stream_Video);
-            Fill(Stream_Video, StreamKind_Last, Video_Format, "MJPEG");
+            Fill(Stream_Video, StreamKind_Last, Video_Format, "M-JPEG");
             Fill(Stream_Video, StreamKind_Last, Video_StreamSize, Element_TotalSize_Get());
         FILLING_END();
     #endif
@@ -2501,8 +2511,8 @@ void File_Riff::SMV0()
         SMV_FrameCount++;
         Fill(Stream_General, 0, General_Format_Profile, "SMV v2");
         Stream_Prepare(Stream_Video);
-        Fill(Stream_Video, 0, Video_Format, "MJPEG");
-        Fill(Stream_Video, 0, Video_Codec,  "MJPEG");
+        Fill(Stream_Video, 0, Video_Format, "M-JPEG");
+        Fill(Stream_Video, 0, Video_Codec,  "M-JPEG");
         Fill(Stream_Video, 0, Video_MuxingMode, "SMV v2");
         Fill(Stream_Video, 0, Video_Width, Width);
         Fill(Stream_Video, 0, Video_Height, Height);

@@ -1,6 +1,6 @@
  BIT;RGB;;;
  JPG;M-JPEG;;;
- PNG;RGB;;;
+ PNG;M-PNG;;;
  RAW;RGB;;;http://www.fourcc.org/indexrgb.htm
  RGB;RGB;;;http://www.fourcc.org/indexrgb.htm
  RL4;RLE;;;http://www.fourcc.org/indexrgb.htm
@@ -339,17 +339,18 @@ MP4V;MPEG-4 Visual;;Apple QuickTime MPEG-4 native;http://ffdshow-tryout.sourcefo
 MPEG;MPEG Video;;Chromatic MPEG 1 Video I Frame;http://ffdshow-tryout.sourceforge.net/
 mpeg;MPEG Video;;MPEG-1 Video;http://ffdshow-tryout.sourceforge.net/
 MPG1;MPEG Video;Ffmpeg;(MPEG-1/2) FFmpeg;http://ffdshow-tryout.sourceforge.net/
+mpg1;MPEG Video;Ffmpeg;(MPEG-1/2) FFmpeg;http://ffdshow-tryout.sourceforge.net/
 MPG2;MPEG Video;Ffmpeg;(MPEG-1/2) FFmpeg;http://ffdshow-tryout.sourceforge.net/
 mpg2;MPEG Video;Ffmpeg;(MPEG-1/2) FFmpeg;http://ffdshow-tryout.sourceforge.net/
 MPG3;MPEG-4 Visual;FFmpeg DivX 3;(MPEG-4) MS MPEG-4 v3;
 MPG4;MPEG-4 Visual;MS MPEG-4 v1;Microsoft MPEG-4 v1;
 MPGI;MPEG Video;Sigma;Sigma Design MPEG-1 I-frame;
-MPNG;PNG;;Motion PNG;
+MPNG;M-PNG;;Motion PNG;
 MRCA;Mrcodec;;FAST Multimedia;
 MRLE;RLE;;Microsoft RLE;
 MSS1;Screen Video;Windows;Windows Screen Video;
 MSS2;Windows Media;;Windows Media 9;
-MSUC;MSU;;MSU LossLess;
+MSUC;MSU;;MSU LossLess
 MSUD;MSU;;MSU LossLess
 MSV1;Microsoft Video 1;;Microsoft Video 1
 MSVC;Microsoft Video 1;;Microsoft Video 1
@@ -397,7 +398,7 @@ NVS5;Nvidia Texture;;Nvidia Texture Compression Format
 NVS6;Nvidia Texture;;Nvidia Texture Compression Format
 NVS7;Nvidia Texture;;Nvidia Texture Compression Format
 NVS8;Nvidia Texture;;Nvidia Texture Compression Format
-NVS9;Nvidia Texture;;Nvidia Texture Compression Format
+NVS9;Nvidia Texture;;Nvidia Texture Compression Format;
 NVT0;Nvidia Texture;;Nvidia Texture Compression Format;
 NVT1;Nvidia Texture;;Nvidia Texture Compression Format;
 NVT2;Nvidia Texture;;Nvidia Texture Compression Format;
@@ -419,8 +420,8 @@ PIM1;M-JPEG;Pegasus;Pinnacle DC1000 hardware (MPEG compression);http://mirror01.
 PIM2;M-JPEG;Pegasus;Pegasus Imaging;http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.Lossless.JPEG.codec.v2.10.27.exe
 PIMJ;M-JPEG;Pegasus;Pegasus Imaging PICvideo Lossless JPEG;http://mirror01.iptelecom.net.ua/~video/codecs/PICVideo.Lossless.JPEG.codec.v2.10.27.exe
 PIXL;M-JPEG;Miro;MiroVideo XL (M-JPEG);
-PNG;PNG;;;
-PNG1;PNG;;Corecodec.org CorePNG;
+PNG;M-PNG;;;
+PNG1;M-PNG;;Corecodec.org CorePNG;
 PVEZ;PowerEZ;;Horizons Technology PowerEZ;
 PVMM;MPEG-4 Visual;Pegasus;PacketVideo Corporation MPEG-4;
 PVW2;Pegasus Wavelet;;Pegasus Imaging Wavelet 2000;
@@ -494,21 +495,21 @@ SMSC;Radius;;;
 SMSD;Radius;;;
 SMSV;Wavelet Video;;WorldConnect Wavelet Streaming Video;
 SNOW;Snow;;;http://ffdshow-tryout.sourceforge.net/
-SP40;YUV;SunPlus;SunPlus YUV
-SP44;MegaCam;;SunPlus Aiptek MegaCam
-SP53;MegaCam;;SunPlus Aiptek MegaCam
-SP54;MegaCam;;SunPlus Aiptek MegaCam
-SP55;MegaCam;;SunPlus Aiptek MegaCam
-SP56;MegaCam;;SunPlus Aiptek MegaCam
-SP57;MegaCam;;SunPlus Aiptek MegaCam
-SP58;MegaCam;;SunPlus Aiptek MegaCam
-SP61;MegaCam;;SunPlus Aiptek MegaCam
-SPIG;Spigot;;Radius Spigot
-SPLC;ACM audio;;Splash Studios ACM Audio
-SPRK;Spark;;
-SQZ2;VXTreme 2;;Microsoft VXTreme Video V2
-STVA;ST Imager;;ST Microelectronics CMOS Imager Data (Bayer)
-STVB;ST Imager;;ST Microelectronics CMOS Imager Data (Nudged Bayer)
+SP40;YUV;SunPlus;SunPlus YUV;
+SP44;MegaCam;;SunPlus Aiptek MegaCam;
+SP53;MegaCam;;SunPlus Aiptek MegaCam;
+SP54;MegaCam;;SunPlus Aiptek MegaCam;
+SP55;MegaCam;;SunPlus Aiptek MegaCam;
+SP56;MegaCam;;SunPlus Aiptek MegaCam;
+SP57;MegaCam;;SunPlus Aiptek MegaCam;
+SP58;MegaCam;;SunPlus Aiptek MegaCam;
+SP61;MegaCam;;SunPlus Aiptek MegaCam;
+SPIG;Spigot;;Radius Spigot;
+SPLC;ACM audio;;Splash Studios ACM Audio;
+SPRK;Spark;;;
+SQZ2;VXTreme 2;;Microsoft VXTreme Video V2;
+STVA;ST Imager;;ST Microelectronics CMOS Imager Data (Bayer);
+STVB;ST Imager;;ST Microelectronics CMOS Imager Data (Nudged Bayer);
 STVC;ST Imager;;ST Microelectronics CMOS Imager Data (Bunched)
 STVX;ST Imager;;ST Microelectronics CMOS Imager Data (Extended Data Format)
 STVY;ST Imager;;ST Microelectronics CMOS Imager Data (Extended Data Format with Correction Data)
@@ -541,7 +542,7 @@ TY0N;Trident;;Trident Decompression Driver
 TY2C;Trident;;Trident Decompression Driver
 TY2N;Trident;;Trident Decompression Driver
 U<Y ;YUV;Discreet;Discreet UC YUV 4:2:2:4 10 bit
-U<YA;YUV;Discreet;Discreet UC YUV 4:2:2:4 10 bit (with Alpha-channel)
+U<YA;YUV;Discreet;Discreet UC YUV 4:2:2:4 10 bit (with Alpha-channel);
 U263;H.263;UB;UB Video H.263/H.263+/H.263++ Decoder;http://eMajix.com
 UCOD;ClearVideo;;ClearVideo (fractal compression-based);
 ULTI;Ultimotion;;IBM Ultimotion;
@@ -589,7 +590,7 @@ VP60;VP6;On2;;
 VP61;VP6.1;On2;;
 VP62;VP6.2;On2;;http://ftp.pub.cri74.org/pub/win9x/video/codecs/VP6/vp6_vfw_codec.exe
 VP70;VP7;On2;;
-VP71;VP7;On2;;
+VP71;VP7;On2;
 VP72;VP7;On2;
 VQC1;Vector 1;;Vector-quantised 1 (high compression) http://eprints.ecs.soton.ac.uk/archive/00001310/01/VTC97-js.pdf
 VQC2;Vector 2;;Vector-quantised 2 (high robustness against channel errors) http://eprints.ecs.soton.ac.uk/archive/00001310/01/VTC97-js.pdf
@@ -605,7 +606,7 @@ VX2K;DVX 2 S;;Lucent VX2000S Video
 VXSP;DVX 1 SP;;Lucent VX1000SP Video
 VYU9;YUV;ATI;
 VYUY;YUV;ATI;
-WBVC;W9960;;Winbond Electronics W9960
+WBVC;W9960;;Winbond Electronics W9960;
 WHAM;Microsoft Video 1;;;
 WINX;Winnov;;;
 WJPG;M-JPEG;Winbond ;Winbond JPEG (AverMedia USB devices);

@@ -195,7 +195,7 @@ const char* Mxf_MPEG2_CodedContentType(int8u CodedContentType)
 {
     switch(CodedContentType)
     {
-        case 0x01 : return "PPF";
+        case 0x01 : return "Progressive";
         case 0x02 : return "Interlaced";
         case 0x03 : return ""; //Mixed
         default   : return "";

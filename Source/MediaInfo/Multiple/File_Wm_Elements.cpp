@@ -777,7 +777,7 @@ void File_Wm::Header_HeaderExtension_Metadata()
         }
         else if (Name==_T("DeviceConformanceTemplate"))
         {
-            if (Data!=_T("@"))
+            if (Data!=_T("@") && Data.find(_T('@'))!=std::string::npos)
                 Stream[StreamNumber].Info["Format_Profile"]=Data;
         }
         else if (Name==_T("WM/WMADRCPeakReference")) {}
