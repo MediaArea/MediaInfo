@@ -93,6 +93,8 @@ int Reader_libmms::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
         Status=MI->Open_Buffer_Continue(Buffer, Buffer_Size);
     }
     while (!(Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled])));
+    if (Length==0) //If Size==0, Status is never updated
+        Status=MI->Open_Buffer_Continue(NULL, 0);
 
     //File
     mmsx_close(Handle);
