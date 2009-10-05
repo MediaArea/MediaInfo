@@ -99,7 +99,9 @@ size_t MediaInfo_Internal::Open(const String &File_Name)
           && File_Name[0]==_T('f')
           && File_Name[1]==_T('t')
           && File_Name[2]==_T('p')
-          && File_Name.find(_T("://"))!=std::string::npos))
+          && File_Name[3]==_T(':')
+          && File_Name[4]==_T('/')
+          && File_Name[5]==_T('/')))
         {
             //Load libcurl
             if (Reader_libcurl::Format_Test(this, File_Name)>0)
@@ -108,19 +110,19 @@ size_t MediaInfo_Internal::Open(const String &File_Name)
         }
     #endif //MEDIAINFO_LIBCURL_YES
 
-    #if defined(MEDIAINFO_LIBCURL_YES)
-        if ((File_Name.size()>=7
+    #if defined(MEDIAINFO_LIBMMS_YES)
+        if ((File_Name.size()>=6
+          && File_Name[0]==_T('m')
+          && File_Name[1]==_T('m')
+          && File_Name[2]==_T('s')
+          && File_Name[3]==_T(':')
+          && File_Name[4]==_T('/')
+          && File_Name[5]==_T('/'))
+         || (File_Name.size()>=7
           && File_Name[0]==_T('m')
           && File_Name[1]==_T('m')
           && File_Name[2]==_T('s')
           && File_Name[3]==_T('h')
-          && File_Name[4]==_T(':')
-          && File_Name[5]==_T('/')
-          && File_Name[6]==_T('/'))
-         || (File_Name.size()>=6
-          && File_Name[0]==_T('m')
-          && File_Name[1]==_T('m')
-          && File_Name[2]==_T('s')
           && File_Name[4]==_T(':')
           && File_Name[5]==_T('/')
           && File_Name[6]==_T('/')))
@@ -130,7 +132,7 @@ size_t MediaInfo_Internal::Open(const String &File_Name)
                  return 1;
             return 0;
         }
-    #endif //MEDIAINFO_LIBCURL_YES
+    #endif //MEDIAINFO_LIBMMS_YES
 
     #if defined(MEDIAINFO_DIRECTORY_YES)
         if (Dir::Exists(File_Name))

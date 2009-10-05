@@ -80,7 +80,7 @@ MediaInfoList_Internal::~MediaInfoList_Internal()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-size_t MediaInfoList_Internal::Open(const String &File, const fileoptions_t Options)
+size_t MediaInfoList_Internal::Open(const String &File_Name, const fileoptions_t Options)
 {
     //Option FileOption_Close
     if (Options & FileOption_CloseAll)
@@ -91,23 +91,41 @@ size_t MediaInfoList_Internal::Open(const String &File, const fileoptions_t Opti
 
     //Get all filenames
     ZtringList List;
-    if (File.size()>7
-     && ((File[0]==_T('h')
-       && File[1]==_T('t')
-       && File[2]==_T('t')
-       && File[3]==_T('p')
-       && File[4]==_T(':')
-       && File[5]==_T('/')
-       && File[6]==_T('/'))
-      || (File[0]==_T('f')
-       && File[1]==_T('t')
-       && File[2]==_T('p')
-       && File.find(_T("://"))!=std::string::npos)))
-        List.push_back(File);
-    else if (File::Exists(File))
-        List.push_back(File);
+    if ((File_Name.size()>=7
+      && File_Name[0]==_T('h')
+      && File_Name[1]==_T('t')
+      && File_Name[2]==_T('t')
+      && File_Name[3]==_T('p')
+      && File_Name[4]==_T(':')
+      && File_Name[5]==_T('/')
+      && File_Name[6]==_T('/'))
+     || (File_Name.size()>=6
+      && File_Name[0]==_T('f')
+      && File_Name[1]==_T('t')
+      && File_Name[2]==_T('p')
+      && File_Name[3]==_T(':')
+      && File_Name[4]==_T('/')
+      && File_Name[5]==_T('/'))
+     || (File_Name.size()>=6
+      && File_Name[0]==_T('m')
+      && File_Name[1]==_T('m')
+      && File_Name[2]==_T('s')
+      && File_Name[3]==_T(':')
+      && File_Name[4]==_T('/')
+      && File_Name[5]==_T('/'))
+     || (File_Name.size()>=7
+      && File_Name[0]==_T('m')
+      && File_Name[1]==_T('m')
+      && File_Name[2]==_T('s')
+      && File_Name[3]==_T('h')
+      && File_Name[4]==_T(':')
+      && File_Name[5]==_T('/')
+      && File_Name[6]==_T('/')))
+        List.push_back(File_Name);
+    else if (File::Exists(File_Name))
+        List.push_back(File_Name);
     else
-        List=Dir::GetAllFileNames(File, (Options&FileOption_NoRecursive)?Dir::Nothing:Dir::Parse_SubDirs);
+        List=Dir::GetAllFileNames(File_Name, (Options&FileOption_NoRecursive)?Dir::Nothing:Dir::Parse_SubDirs);
 
     Reader_Directory::Directory_Cleanup(List);
 
