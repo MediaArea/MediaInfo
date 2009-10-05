@@ -35,7 +35,9 @@
 #if defined LIBMMS_DLL_RUNTIME
 #elif defined LIBMMS_DLL_STATIC
 #else
+    #include "libmms/mmsx.h"
 #endif
+#include <iostream>
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
@@ -43,10 +45,76 @@ using namespace std;
 namespace MediaInfoLib
 {
 
+const size_t Buffer_NormalSize=64*1024;
+
 //***************************************************************************
 // libmms stuff
 //***************************************************************************
 
+//---------------------------------------------------------------------------
+int Reader_libmms::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
+{
+    //Opening the file
+    cout<<"1"<<endl;
+    mmsx_t* Handle=mmsx_connect(0, 0, Ztring(File_Name).To_Local().c_str(), (int)-1);
+    if (Handle==NULL)
+        return 0;
+
+    cout<<"2"<<endl;
+    mms_off_t Offset=mmsx_seek(0, Handle, 0, SEEK_SET);
+    uint32_t Length=mmsx_get_length(Handle);
+
+    cout<<"Offset="<<Offset<<endl;
+    cout<<"2"<<endl;
+    cout<<"Size="<<mmsx_get_length(Handle)<<endl;
+
+    //Buffer
+    size_t Buffer_Size_Max=Buffer_NormalSize;
+    int8u* Buffer=new int8u[Buffer_Size_Max];
+
+    //Parser
+    MI->Open_Buffer_Init(Length, File_Name);
+
+    //Test the format with buffer
+    bool StopAfterFilled=MI->Config.File_StopAfterFilled_Get();
+    std::bitset<32> Status;
+    do
+    {
+        //Seek (if needed)
+        if (MI->Open_Buffer_Continue_GoTo_Get()!=(int64u)-1)
+        {
+            if (MI->Open_Buffer_Continue_GoTo_Get()>=Length)
+                break; //Seek requested, but on a file bigger in theory than what is in the real file, we can't do this
+            if (mmsx_seek(0, Handle, mms_off_t(MI->Open_Buffer_Continue_GoTo_Get()), SEEK_SET)!=MI->Open_Buffer_Continue_GoTo_Get())
+                break; //File is not seekable
+
+            MI->Open_Buffer_Position_Set(MI->Open_Buffer_Continue_GoTo_Get());
+        }
+
+        //Buffering
+        size_t Buffer_Size=mmsx_read(0, Handle, (char*)Buffer, (int)Buffer_Size_Max);
+        if (Buffer_Size==0)
+            break; //Problem while reading
+
+        //Parser
+        Status=MI->Open_Buffer_Continue(Buffer, Buffer_Size);
+    }
+    while (!(Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled])));
+
+    //File
+    mmsx_close(Handle);
+
+    //Buffer
+    delete[] Buffer; //Buffer=NULL;
+
+    //Is this file detected?
+    if (!Status[File__Analyze::IsAccepted])
+        return 0;
+
+    MI->Open_Buffer_Finalize();
+
+    return 1;
+}
 
 } //NameSpace
 
