@@ -37,7 +37,6 @@
 #else
     #include "libmms/mmsx.h"
 #endif
-#include <iostream>
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
@@ -55,18 +54,12 @@ const size_t Buffer_NormalSize=64*1024;
 int Reader_libmms::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
 {
     //Opening the file
-    cout<<"1"<<endl;
     mmsx_t* Handle=mmsx_connect(0, 0, Ztring(File_Name).To_Local().c_str(), (int)-1);
     if (Handle==NULL)
         return 0;
 
-    cout<<"2"<<endl;
     mms_off_t Offset=mmsx_seek(0, Handle, 0, SEEK_SET);
     uint32_t Length=mmsx_get_length(Handle);
-
-    cout<<"Offset="<<Offset<<endl;
-    cout<<"2"<<endl;
-    cout<<"Size="<<mmsx_get_length(Handle)<<endl;
 
     //Buffer
     size_t Buffer_Size_Max=Buffer_NormalSize;
