@@ -144,7 +144,7 @@ size_t MediaInfo_Internal::Open(const String &File_Name)
     #if defined(MEDIAINFO_FILE_YES)
         if (File::Exists(File_Name))
         {
-            if (Reader_Directory::Format_Test(this, File_Name)>0)
+            if (Reader_File::Format_Test(this, File_Name)>0)
                  return 1;
             return 0;
         }
