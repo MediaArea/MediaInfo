@@ -99,7 +99,7 @@ size_t MediaInfo_Internal::Open(const String &File_Name)
           && File_Name[0]==_T('f')
           && File_Name[1]==_T('t')
           && File_Name[2]==_T('p')
-          && File_Name.find(_T("://"))!=std::string::npos)))
+          && File_Name.find(_T("://"))!=std::string::npos))
         {
             //Load libcurl
             if (Reader_libcurl::Format_Test(this, File_Name)>0)
