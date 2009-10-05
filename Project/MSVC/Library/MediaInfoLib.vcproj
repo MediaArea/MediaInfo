@@ -1122,6 +1122,10 @@
 					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_libcurl.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_libmms.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -1622,6 +1626,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_libcurl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_libmms.h"
 					>
 				</File>
 			</Filter>
