@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.23, 2009-
 --------------
++ Refactoring of parsers, for more speed and less false-positives
 + MPEG-4: more information for MPEG Audio streams
 + QCP (RFC 3625) format support
 x Blu-ray directory analyzing was broken
