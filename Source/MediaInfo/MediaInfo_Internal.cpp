@@ -130,7 +130,6 @@ size_t MediaInfo_Internal::Open(const String &File_Name)
             //Load libmms
             if (Reader_libmms::Format_Test(this, File_Name)>0)
                  return 1;
-            return 0;
         }
     #endif //MEDIAINFO_LIBMMS_YES
 
@@ -139,7 +138,6 @@ size_t MediaInfo_Internal::Open(const String &File_Name)
         {
             if (Reader_Directory::Format_Test(this, File_Name)>0)
                  return 1;
-            return 0;
         }
     #endif //MEDIAINFO_DIRECTORY_YES
 
@@ -148,7 +146,6 @@ size_t MediaInfo_Internal::Open(const String &File_Name)
         {
             if (Reader_File::Format_Test(this, File_Name)>0)
                  return 1;
-            return 0;
         }
     #endif //MEDIAINFO_FILE_YES
 
