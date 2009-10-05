@@ -721,8 +721,6 @@ void File_Vc1::FrameHeader()
         Streams[0x0D].Searching_Payload=true;
         Streams[0x0F].Searching_Payload=true;
 
-        if (!Status[IsAccepted])
-            Accept("VC-1");
         //Filling only if not already done
         if (!Status[IsFilled] && Frame_Count>=Frame_Count_Valid)
             Finish("VC-1");
@@ -753,7 +751,7 @@ void File_Vc1::EntryPointHeader()
         for (int8u Pos=0; Pos<hrd_num_leaky_buckets; Pos++)
         {
             Element_Begin("leaky_bucket");
-            Skip_S2( 8,                                         "hrd_full");
+            Skip_S1( 8,                                         "hrd_full");
             Element_End();
         }
     TEST_SB_SKIP(                                               "coded_size_flag");
@@ -762,14 +760,15 @@ void File_Vc1::EntryPointHeader()
     TEST_SB_END();
     if (extended_mv)
         Skip_SB(                                                "extended_dmv");
-    TEST_SB_SKIP(                                               "luma_sampling");
-        Skip_S1( 3,                                             "y_range");
+    TEST_SB_SKIP(                                               "range_mapy_flag");
+        Skip_S1( 3,                                             "range_mapy");
     TEST_SB_END();
-    TEST_SB_SKIP(                                               "chroma_sampling");
-        Skip_S1( 3,                                             "uv_range");
+    TEST_SB_SKIP(                                               "range_mapuv_flag");
+        Skip_S1( 3,                                             "range_mapuv");
     TEST_SB_END();
+    Mark_1();
     BS_End();
-    
+
     FILLING_BEGIN();
         //NextCode
         NextCode_Test();
