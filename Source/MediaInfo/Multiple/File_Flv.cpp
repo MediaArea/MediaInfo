@@ -1209,11 +1209,13 @@ void File_Flv::meta_SCRIPTDATAVALUE(const std::string &StringData)
                     std::string ToFill;
                          if (0) ;
                     else if (StringData=="creator") {ToFill="Encoded_Application";}
+                    else if (StringData=="liveXML") {}
                     else if (StringData=="metadatacreator") {ToFill="Tagged_Application";}
                     else if (StringData=="creationdate") {ToFill="Encoded_Date"; Value.Date_From_String(Value.To_UTF8().c_str());}
                     else {ToFill=StringData;}
                     Element_Info(Value);
-                    Fill(Stream_General, 0, ToFill.c_str(), Value);
+                    if (!ToFill.empty())
+                        Fill(Stream_General, 0, ToFill.c_str(), Value);
                 }
             }
             break;
