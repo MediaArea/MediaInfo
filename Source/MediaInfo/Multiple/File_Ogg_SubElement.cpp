@@ -40,8 +40,17 @@
 #if defined(MEDIAINFO_DIRAC_YES)
     #include "MediaInfo/Video/File_Dirac.h"
 #endif
+#if defined(MEDIAINFO_MPEG4V_YES)
+    #include "MediaInfo/Video/File_Mpeg4v.h"
+#endif
+#if defined(MEDIAINFO_AC3_YES)
+    #include "MediaInfo/Audio/File_Ac3.h"
+#endif
 #if defined(MEDIAINFO_FLAC_YES)
     #include "MediaInfo/Audio/File_Flac.h"
+#endif
+#if defined(MEDIAINFO_MPEGA_YES)
+    #include "MediaInfo/Audio/File_Mpega.h"
 #endif
 #if defined(MEDIAINFO_SPEEX_YES)
     #include "MediaInfo/Audio/File_Speex.h"
@@ -153,8 +162,28 @@ void File_Ogg_SubElement::Streams_Fill()
         return;
 
     Fill(Parser);
-    Merge(*Parser, Stream_Video,    0, 0);
-    Merge(*Parser, Stream_Audio,    0, 0);
+    if (Parser->Count_Get(Stream_Video))
+    {
+        //Hack - Before
+        Ztring Codec_Temp=Retrieve(Stream_Video, 0, Video_Codec); //We want to keep the 4CC of AVI
+
+        Merge(*Parser, Stream_Video,    0, 0);
+
+        //Hacks - After
+        if (!Codec_Temp.empty())
+           Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec_Temp, true);
+    }
+    if (Parser->Count_Get(Stream_Audio))
+    {
+        //Hack - Before
+        Ztring Codec_Temp=Retrieve(Stream_Audio, 0, Audio_Codec); //We want to keep the 2CC of AVI
+
+        Merge(*Parser, Stream_Audio,    0, 0);
+
+        //Hacks - After
+        if (!Codec_Temp.empty())
+           Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec_Temp, true);
+    }
     Merge(*Parser, Stream_Text,     0, 0);
     Merge(*Parser, Stream_Image,    0, 0);
 }
@@ -166,8 +195,28 @@ void File_Ogg_SubElement::Streams_Finish()
         return;
 
     Finish(Parser);
-    Merge(*Parser, Stream_Video,    0, 0);
-    Merge(*Parser, Stream_Audio,    0, 0);
+    if (Parser->Count_Get(Stream_Video))
+    {
+        //Hack - Before
+        Ztring Codec_Temp=Retrieve(Stream_Video, 0, Video_Codec); //We want to keep the 4CC of AVI
+
+        Merge(*Parser, Stream_Video,    0, 0);
+
+        //Hacks - After
+        if (!Codec_Temp.empty())
+           Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec_Temp, true);
+    }
+    if (Parser->Count_Get(Stream_Audio))
+    {
+        //Hack - Before
+        Ztring Codec_Temp=Retrieve(Stream_Audio, 0, Audio_Codec); //We want to keep the 2CC of AVI
+
+        Merge(*Parser, Stream_Audio,    0, 0);
+
+        //Hacks - After
+        if (!Codec_Temp.empty())
+           Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec_Temp, true);
+    }
     Merge(*Parser, Stream_Text,     0, 0);
     Merge(*Parser, Stream_Image,    0, 0);
 }
@@ -226,7 +275,7 @@ void File_Ogg_SubElement::Header_Parse()
             Skip_Flags(Type, 5,                                     "unused");
             Get_Flags (Type, 6, lenbytes0,                          "Bit 0 of lenbytes");
             Get_Flags (Type, 7, lenbytes1,                          "Bit 1 of lenbytes");
-        if ((Type&0x01)==0 && Type!=0x80) //TODO : find a better algo
+        if ((Type&0x01)==0) //TODO : find a better algo
         {
             if (lenbytes2)
             {
@@ -298,12 +347,14 @@ void File_Ogg_SubElement::Data_Parse()
     else if (!WithType)
         Default();
     else
-        switch (Element_Code)
+        switch (Element_Code&0x7F)
         {
-            case 0x03 :
-            case 0x81 : Comment(); break;
+            case 0x01 :
+            case 0x03 : Comment(); break;
+            case 0x00 :
+            case 0x02 :
             case 0x05 :
-            case 0x82 : Default(); break;
+            case 0x08 : Default(); break;
             default   : Skip_XX(Element_Size,                       "Unknown");
                         Finish("OggSubElement");
         }
@@ -379,6 +430,7 @@ void File_Ogg_SubElement::Identification()
     else
         Identified=true;
     Accept("OggSubElement");
+    Element_Show();
 }
 
 //---------------------------------------------------------------------------
@@ -607,6 +659,16 @@ void File_Ogg_SubElement::Identification_video()
     Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)10000000/(float)TimeUnit, 3);
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
+
+    //Creating the parser
+         if (0);
+    #if defined(MEDIAINFO_MPEG4V_YES)
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(fccHandler))==_T("MPEG-4 Visual"))
+    {
+        Parser=new File_Mpeg4v;
+        ((File_Mpeg4v*)Parser)->FrameIsAlwaysComplete=true;
+    }
+    #endif
 }
 
 //---------------------------------------------------------------------------
@@ -646,6 +708,22 @@ void File_Ogg_SubElement::Identification_audio()
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels==5?6:Channels); //5 channels are 5.1
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplesPerUnit);
     absolute_granule_position_Resolution=SamplesPerUnit;
+
+    //Creating the parser
+         if (0);
+    #if defined(MEDIAINFO_MPEGA_YES)
+    else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("MPEG-"))==0)
+    {
+        Parser=new File_Mpega;
+    }
+    #endif
+    #if defined(MEDIAINFO_AC3_YES)
+    else if (fccHandler==0x32303030)
+    {
+        Parser=new File_Ac3;
+        ((File_Ac3*)Parser)->Frame_Count_Valid=2;
+    }
+    #endif
 }
 
 //---------------------------------------------------------------------------
@@ -794,8 +872,8 @@ void File_Ogg_SubElement::Default()
 
     if (Parser)
     {
-        Open_Buffer_Continue(Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
-        if (Identified && Parser->Status[IsFinished])
+        Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        if (Identified && Parser->Status[IsFilled])
             Finish("OggSubElement");
     }
     else if (Element_Offset<Element_Size)

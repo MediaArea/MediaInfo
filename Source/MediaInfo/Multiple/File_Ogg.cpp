@@ -375,11 +375,12 @@ void File_Ogg::Data_Parse()
         else
             GoToFromEnd(256*1024, "OGG");
         std::map<int64u, stream>::iterator Stream_Temp=Stream.begin();
-        while (Stream_Temp!=Stream.end())
-        {
-            Stream_Temp->second.absolute_granule_position=0;
-            Stream_Temp++;
-        }
+        if (File_GoTo!=(int64u)-1)
+            while (Stream_Temp!=Stream.end())
+            {
+                Stream_Temp->second.absolute_granule_position=0;
+                Stream_Temp++;
+            }
         Parsing_End=true;
     }
 
