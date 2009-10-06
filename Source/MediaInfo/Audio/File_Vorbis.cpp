@@ -123,6 +123,7 @@ void File_Vorbis::Identification()
             Fill(Stream_Audio, StreamPos_Last, Audio_BitRate_Mode, "VBR");
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels);
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplingRate);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, 16);
     FILLING_END();
 }
 
