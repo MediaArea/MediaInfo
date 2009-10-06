@@ -35,7 +35,11 @@
 #if defined LIBMMS_DLL_RUNTIME
 #elif defined LIBMMS_DLL_STATIC
 #else
-    #include "libmms/mmsx.h"
+    #ifdef MEDIAINFO_LIBMMS_FROMSOURCE
+        #include "mmsx.h"
+    #else //MEDIAINFO_LIBMMS_FROMSOURCE
+        #include "libmms/mmsx.h"
+    #endif //MEDIAINFO_LIBMMS_FROMSOURCE
 #endif
 using namespace ZenLib;
 using namespace std;
