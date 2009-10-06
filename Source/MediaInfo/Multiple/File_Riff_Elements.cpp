@@ -1059,14 +1059,14 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     //Creating the parser
          if (0);
     #if defined(MEDIAINFO_MPEGA_YES)
-    else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("MPEG-"))==0)
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Codec)==_T("MPEG Audio"))
     {
         Stream[Stream_ID].Parser=new File_Mpega;
         Stream[Stream_ID].Parser->ShouldContinueParsing=true;
     }
     #endif
     #if defined(MEDIAINFO_AC3_YES)
-    else if (FormatTag==0x2000)
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Codec)==_T("AC-3"))
     {
         Stream[Stream_ID].Parser=new File_Ac3;
         ((File_Ac3*)Stream[Stream_ID].Parser)->Frame_Count_Valid=2;
@@ -1074,7 +1074,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     }
     #endif
     #if defined(MEDIAINFO_DTS_YES)
-    else if (FormatTag==0x2001
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Codec)==_T("DTS")
           || (FormatTag==0x1 && Retrieve(Stream_General, 0, General_Format)==_T("Wave"))) //Some DTS streams are coded "1"
     {
         Stream[Stream_ID].Parser=new File_Dts;
@@ -1083,7 +1083,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     }
     #endif
     #if defined(MEDIAINFO_ADTS_YES)
-    else if (FormatTag==0xAAC || FormatTag==0xFF)
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Codec)==_T("AAC"))
     {
         Stream[Stream_ID].Parser=new File_Adts;
         ((File_Adts*)Stream[Stream_ID].Parser)->Frame_Count_Valid=1;
@@ -1091,7 +1091,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     }
     #endif
     #if defined(MEDIAINFO_PCM_YES)
-    else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("PCM"))==0)
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Codec)==_T("PCM"))
     {
         //Creating the parser
         File_Pcm MI;
@@ -1107,7 +1107,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     }
     #endif
     #if defined(MEDIAINFO_ADPCM_YES)
-    else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec).find(_T("ADPCM"))==0)
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Codec)==_T("ADPCM"))
     {
         //Creating the parser
         File_Adpcm MI;
@@ -1123,8 +1123,8 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     }
     #endif
     #if defined(MEDIAINFO_OGG_YES)
-    else if (MediaInfoLib::Config.Codec_Get(Codec, InfoCodec_KindofCodec)==_T("Vorbis")
-          && FormatTag!=0x566F) //0x6F56 has config in this chunk
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Codec)==_T("Vorbis")
+          && FormatTag!=0x566F) //0x566F has config in this chunk
     {
         Stream[Stream_ID].Parser=new File_Ogg;
         Stream[Stream_ID].Parser->ShouldContinueParsing=true;
@@ -1476,7 +1476,7 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     }
     #endif
     #if defined(MEDIAINFO_MPEG4V_YES)
-    else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("MPEG-4V"))==0)
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression))==_T("MPEG-4 Visual"))
     {
         Stream[Stream_ID].Parser=new File_Mpeg4v;
         Stream[Stream_ID].Specific_IsMpeg4v=true;
@@ -1485,21 +1485,21 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     }
     #endif
     #if defined(MEDIAINFO_AVC_YES)
-    else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("AVC"))==0)
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression))==_T("AVC"))
     {
         Stream[Stream_ID].Parser=new File_Avc;
         ((File_Avc*)Stream[Stream_ID].Parser)->FrameIsAlwaysComplete=true;
     }
     #endif
     #if defined(MEDIAINFO_JPEG_YES)
-    else if (Ztring().From_CC4(Compression)==_T("MJPG"))
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression))==_T("M-JPEG"))
     {
         Stream[Stream_ID].Parser=new File_Jpeg;
         ((File_Jpeg*)Stream[Stream_ID].Parser)->StreamKind=Stream_Video;
     }
     #endif
     #if defined(MEDIAINFO_DVDIF_YES)
-    else if (MediaInfoLib::Config.Codec_Get(Ztring().From_CC4(Compression), InfoCodec_KindofCodec).find(_T("DV"))==0)
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression))==_T("Digital Video"))
     {
         Stream[Stream_ID].Parser=new File_DvDif;
         ((File_DvDif*)Stream[Stream_ID].Parser)->Frame_Count_Valid=2;
@@ -2377,9 +2377,9 @@ void File_Riff::QLCM_fmt_()
         switch (codec_guid.hi)
         {
             case Elements::QLCM_QCELP1 :
-            case Elements::QLCM_QCELP2 : Fill(Stream_Audio, 0, Audio_Format, "QCELP"); break;
-            case Elements::QLCM_EVRC   : Fill(Stream_Audio, 0, Audio_Format, "EVRC"); break;
-            case Elements::QLCM_SMV    : Fill(Stream_Audio, 0, Audio_Format, "SMV"); break;
+            case Elements::QLCM_QCELP2 : Fill(Stream_Audio, 0, Audio_Format, "QCELP"); Fill(Stream_Audio, 0, Audio_Codec, "QCELP"); break;
+            case Elements::QLCM_EVRC   : Fill(Stream_Audio, 0, Audio_Format, "EVRC"); Fill(Stream_Audio, 0, Audio_Codec, "EVRC"); break;
+            case Elements::QLCM_SMV    : Fill(Stream_Audio, 0, Audio_Format, "SMV"); Fill(Stream_Audio, 0, Audio_Codec, "SMV"); break;
             default :                    ;
         }
         Fill(Stream_Audio, 0, Audio_BitRate, average_bps);
