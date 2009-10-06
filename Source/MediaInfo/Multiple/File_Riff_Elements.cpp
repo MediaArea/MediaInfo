@@ -495,7 +495,7 @@ void File_Riff::Data_Parse()
     if (Alignement_ExtraByte)
     {
         Element_Size+=Alignement_ExtraByte;
-        if (File_GoTo==(size_t)-1)
+        if (Element_Offset==Element_Size)
             Skip_XX(Alignement_ExtraByte,                       "Alignement");
     }
 }
