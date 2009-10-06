@@ -172,7 +172,11 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, const String &Fi
     if (Info==NULL)
     {
         if (!Config.File_ForceParser_Get().empty())
+        {
+            CS.Leave();
             SelectFromExtension(Config.File_ForceParser_Get());
+            CS.Enter();
+        }
         else
         {
             Info=new File__MultipleParsing;
