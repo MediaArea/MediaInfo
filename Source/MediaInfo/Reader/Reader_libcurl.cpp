@@ -18,6 +18,11 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
+// For user: you can disable or enable it
+//#define MEDIAINFO_DEBUG
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
 // Compilation conditions
 #include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
@@ -40,6 +45,15 @@
 #endif
 using namespace ZenLib;
 using namespace std;
+//---------------------------------------------------------------------------
+// Debug stuff
+#ifdef MEDIAINFO_DEBUG
+    int64u Reader_libcurl_Offset=0;
+    int64u Reader_libcurl_BytesRead_Total=0;
+    int64u Reader_libcurl_BytesRead=0;
+    int64u Reader_libcurl_Count=1;
+    #include <iostream>
+#endif // MEDIAINFO_DEBUG
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -70,6 +84,11 @@ struct curl_data
 
 size_t libcurl_WriteData_CallBack(void *ptr, size_t size, size_t nmemb, void *data)
 {
+    #ifdef MEDIAINFO_DEBUG
+        Reader_libcurl_BytesRead_Total+=size*nmemb;
+        Reader_libcurl_BytesRead+=size*nmemb;
+    #endif //MEDIAINFO_DEBUG
+
     //Init
     if (!((curl_data*)data)->Init_AlreadyDone)
     {
@@ -124,7 +143,14 @@ int Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
         //GoTo
         if (Curl_Data.File_GoTo!=(int64u)-1)
         {
-            if (Curl_Data.File_GoTo<0x80000000)
+            #ifdef MEDIAINFO_DEBUG
+                std::cout<<std::hex<<Reader_libcurl_Offset<<" - "<<Reader_libcurl_Offset+Reader_libcurl_BytesRead<<" : "<<std::dec<<Reader_libcurl_BytesRead<<" bytes"<<std::endl;
+                Reader_libcurl_Offset=Curl_Data.File_GoTo;
+                Reader_libcurl_BytesRead=0;
+                Reader_libcurl_Count++;
+            #endif //MEDIAINFO_DEBUG
+
+                if (Curl_Data.File_GoTo<0x80000000)
             {
                 //We do NOT use large version if we can, because some version (tested: 7.15 linux) do NOT like large version (error code 18)
                 long File_GoTo_Long=(long)Curl_Data.File_GoTo;
@@ -142,7 +168,14 @@ int Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
         //Parsing
         Result=curl_easy_perform(Curl_Data.Curl);
     }
-    while (Result==CURLE_OK || (Result==CURLE_WRITE_ERROR && Curl_Data.File_GoTo!=(int64u)-1));
+    while (Result==CURLE_WRITE_ERROR && Curl_Data.File_GoTo!=(int64u)-1);
+
+    #ifdef MEDIAINFO_DEBUG
+        std::cout<<std::hex<<Reader_libcurl_Offset<<" - "<<Reader_libcurl_Offset+Reader_libcurl_BytesRead<<" : "<<std::dec<<Reader_libcurl_BytesRead<<" bytes"<<std::endl;
+        std::cout<<"Total: "<<std::dec<<Reader_libcurl_BytesRead_Total<<" bytes in "<<Reader_libcurl_Count<<" blocks"<<std::endl;
+    #endif //MEDIAINFO_DEBUG
+
+    MI->Open_Buffer_Finalize();
 
     //Cleanup
     curl_easy_cleanup(Curl_Data.Curl);

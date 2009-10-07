@@ -18,6 +18,11 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
+// For user: you can disable or enable it
+//#define MEDIAINFO_DEBUG
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
 // Compilation conditions
 #include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
@@ -32,6 +37,15 @@
 #include "ZenLib/File.h"
 using namespace ZenLib;
 using namespace std;
+//---------------------------------------------------------------------------
+// Debug stuff
+#ifdef MEDIAINFO_DEBUG
+    int64u Reader_File_Offset=0;
+    int64u Reader_File_BytesRead_Total=0;
+    int64u Reader_File_BytesRead=0;
+    int64u Reader_File_Count=1;
+    #include <iostream>
+#endif // MEDIAINFO_DEBUG
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -110,6 +124,13 @@ int Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &Fil
         //Seek (if needed)
         if (MI->Open_Buffer_Continue_GoTo_Get()!=(int64u)-1)
         {
+            #ifdef MEDIAINFO_DEBUG
+                std::cout<<std::hex<<Reader_File_Offset<<" - "<<Reader_File_Offset+Reader_File_BytesRead<<" : "<<std::dec<<Reader_File_BytesRead<<" bytes"<<std::endl;
+                Reader_File_Offset=MI->Open_Buffer_Continue_GoTo_Get();
+                Reader_File_BytesRead=0;
+                Reader_File_Count++;
+            #endif //MEDIAINFO_DEBUG
+
             if (MI->Open_Buffer_Continue_GoTo_Get()>=F.Size_Get())
                 break; //Seek requested, but on a file bigger in theory than what is in the real file, we can't do this
             if (!(MI->Open_Buffer_Continue_GoTo_Get()>F.Position_Get() && MI->Open_Buffer_Continue_GoTo_Get()<F.Position_Get()+Buffer_NoJump)) //No smal jumps
@@ -126,12 +147,22 @@ int Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &Fil
         if (Buffer_Size==0)
             break; //Problem while reading
 
+        #ifdef MEDIAINFO_DEBUG
+            Reader_File_BytesRead_Total+=Buffer_Size;
+            Reader_File_BytesRead+=Buffer_Size;
+        #endif //MEDIAINFO_DEBUG
+
         //Parser
         Status=MI->Open_Buffer_Continue(Buffer, Buffer_Size);
     }
     while (!(Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled])));
     if (F.Size_Get()==0) //If Size==0, Status is never updated
         Status=MI->Open_Buffer_Continue(NULL, 0);
+
+    #ifdef MEDIAINFO_DEBUG
+        std::cout<<std::hex<<Reader_File_Offset<<" - "<<Reader_File_Offset+Reader_File_BytesRead<<" : "<<std::dec<<Reader_File_BytesRead<<" bytes"<<std::endl;
+        std::cout<<"Total: "<<std::dec<<Reader_File_BytesRead_Total<<" bytes in "<<Reader_File_Count<<" blocks"<<std::endl;
+    #endif //MEDIAINFO_DEBUG
 
     //File
     F.Close();
