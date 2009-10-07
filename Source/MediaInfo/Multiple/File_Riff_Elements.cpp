@@ -2385,6 +2385,7 @@ void File_Riff::QLCM_fmt_()
         Fill(Stream_Audio, 0, Audio_BitRate, average_bps);
         Fill(Stream_Audio, 0, Audio_SamplingRate, sampling_rate);
         Fill(Stream_Audio, 0, Audio_Resolution, sample_size);
+        Fill(Stream_Audio, 0, Audio_Channel_s_, 1);
     FILLING_END();
 }
 
