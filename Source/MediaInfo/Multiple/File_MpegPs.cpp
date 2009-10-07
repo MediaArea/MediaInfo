@@ -1808,7 +1808,7 @@ void File_MpegPs::program_stream_map()
     Parser.Complete_Stream=new complete_stream;
     Parser.Complete_Stream->Streams.resize(0x100);
     Open_Buffer_Init(&Parser);
-    Open_Buffer_Continue(&Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
+    Open_Buffer_Continue(&Parser);
 
     //Filling
     Finish(&Parser);
@@ -2745,7 +2745,7 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
                 if (Temp.Parsers.size()>1)
                     Element_Begin("Test");
             #endif //MEDIAINFO_MINIMIZESIZE
-            Open_Buffer_Continue(Temp.Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+            Open_Buffer_Continue(Temp.Parsers[Pos]);
             #ifndef MEDIAINFO_MINIMIZESIZE
                 if (Temp.Parsers.size()>1)
                     Element_End();

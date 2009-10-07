@@ -808,7 +808,7 @@ void File_Mpeg4::jp2c()
         Open_Buffer_Init(&MI);
 
         //Parsing
-        Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, (size_t)Element_Size);
+        Open_Buffer_Continue(&MI);
 
         //Filling
         Finish(&MI);
@@ -943,7 +943,7 @@ void File_Mpeg4::mdat_xxxx()
 
     if (Stream[(int32u)Element_Code].Parser)
     {
-        Open_Buffer_Continue(Stream[(int32u)Element_Code].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
+        Open_Buffer_Continue(Stream[(int32u)Element_Code].Parser);
         Element_Offset=Element_Size;
         Element_Show();
     }
@@ -2712,7 +2712,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             Open_Buffer_Init(&MI);
 
             //Parsing
-            Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, 0);
+            Open_Buffer_Continue(&MI, 0);
 
             //Filling
             Finish(&MI);
@@ -2728,7 +2728,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             Open_Buffer_Init(&MI);
 
             //Parsing
-            Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, 0);
+            Open_Buffer_Continue(&MI, 0);
 
             //Filling
             Finish(&MI);
@@ -2744,7 +2744,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
             Open_Buffer_Init(&MI);
 
             //Parsing
-            Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, 0);
+            Open_Buffer_Continue(&MI, 0);
 
             //Filling
             Finish(&MI);
@@ -2834,7 +2834,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 File_Vc1 MI;
                 MI.FrameIsAlwaysComplete=true;
                 Open_Buffer_Init(&MI);
-                Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+                Open_Buffer_Continue(&MI);
                 Element_Offset=Element_Size;
                 Finish(&MI);
                 Merge(MI, Stream_Video, 0, StreamPos_Last);
@@ -2896,7 +2896,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_avcC()
                 mdat_MustParse=true; //Data is in MDAT
 
                 //Parsing
-                Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+                Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser);
 
                 ((File_Avc*)Stream[moov_trak_tkhd_TrackID].Parser)->SizedBlocks=true;  //Now this is SizeBlocks
             }
@@ -2909,7 +2909,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_avcC()
                 MI->MustSynchronize=false;
 
                 //Parsing
-                Open_Buffer_Continue(MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+                Open_Buffer_Continue(MI);
 
                 //Cleanup
                 delete MI; //MI=NULL
@@ -3074,7 +3074,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dac3()
             mdat_MustParse=true; //Data is in MDAT
 
             //Parsing
-            Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+            Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser);
         }
     #else
         Skip_XX(Element_Size,                                   "AC-3 Data");
@@ -3099,7 +3099,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dec3()
             mdat_MustParse=true; //Data is in MDAT
 
             //Parsing
-            Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+            Open_Buffer_Continue(Stream[moov_trak_tkhd_TrackID].Parser);
         }
     #else
         Skip_XX(Element_Size,                                   "E-AC-3 Data");

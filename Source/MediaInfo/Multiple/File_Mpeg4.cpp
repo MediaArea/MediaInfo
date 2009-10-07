@@ -552,14 +552,11 @@ void File_Mpeg4::Descriptors()
     Open_Buffer_Init(&MI);
 
     //Parsing
-    Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+    Open_Buffer_Continue(&MI);
 
     //Filling
     Finish(&MI);
     Merge(MI, StreamKind_Last, 0, StreamPos_Last);
-
-    //Position
-    Element_Offset=Element_Size;
 
     //Parser from Descriptor
     if (MI.Parser)

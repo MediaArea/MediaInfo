@@ -239,7 +239,7 @@ void File_Tak::WAVEMETADATA()
         Open_Buffer_Init(&MI);
 
         //Parsing
-        Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, HeaderLength);
+        Open_Buffer_Continue(&MI, HeaderLength);
         Element_Offset+=HeaderLength;
 
         //Filling

@@ -455,7 +455,7 @@ void File_Wm::Header_StreamProperties_Video ()
         Open_Buffer_Init(Stream[Stream_Number].Parser);
         if (Data_Size>40)
         {
-            Open_Buffer_Continue(Stream[Stream_Number].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Data_Size-40));
+            Open_Buffer_Continue(Stream[Stream_Number].Parser, (size_t)(Data_Size-40));
             if (Stream[Stream_Number].Parser->Status[IsFinished])
             {
                 Finish(Stream[Stream_Number].Parser);
@@ -467,7 +467,6 @@ void File_Wm::Header_StreamProperties_Video ()
                 ((File_Vc1*)Stream[Stream_Number].Parser)->Only_0D=true;
                 ((File_Vc1*)Stream[Stream_Number].Parser)->MustSynchronize=false;
             }
-            Element_Offset+=Data_Size-40;
         }
     }
     #endif
@@ -1490,7 +1489,7 @@ void File_Wm::Data_Packet()
                 ((File_Vc1*)Stream[Stream_Number].Parser)->FrameIsAlwaysComplete=FrameIsAlwaysComplete;
             #endif
 
-            Open_Buffer_Continue(Stream[Stream_Number].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)PayloadLength);
+            Open_Buffer_Continue(Stream[Stream_Number].Parser, (size_t)PayloadLength);
             if (Stream[Stream_Number].Parser->Status[IsFinished]
              || Stream[Stream_Number].PresentationTime_Count>=300)
             {
@@ -1499,7 +1498,6 @@ void File_Wm::Data_Packet()
                 Streams_Count--;
             }
 
-            Element_Offset+=PayloadLength;
             Element_Show();
         }
         else

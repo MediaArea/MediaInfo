@@ -807,7 +807,7 @@ void File_Flv::video_AVC()
                     }
 
                     //Parsing
-                    Open_Buffer_Continue(Stream[Stream_Video].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+                    Open_Buffer_Continue(Stream[Stream_Video].Parser);
                 #else
                     Skip_XX(Element_Size-Element_Offset,        "AVC Data");
                     video_stream_Count=false; //Unable to parse it
@@ -823,7 +823,7 @@ void File_Flv::video_AVC()
                     }
 
                     //Parsing
-                    Open_Buffer_Continue(Stream[Stream_Video].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+                    Open_Buffer_Continue(Stream[Stream_Video].Parser);
 
                     //Disabling this stream
                     if (Stream[Stream_Video].Parser->File_GoTo!=(int64u)-1 || Stream[Stream_Video].Parser->Count_Get(Stream_Video)>0)
@@ -931,7 +931,7 @@ void File_Flv::audio_MPEG()
         }
 
         //Parsing
-        Open_Buffer_Continue(Stream[Stream_Audio].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        Open_Buffer_Continue(Stream[Stream_Audio].Parser);
 
         //Disabling this stream
         if (Stream[Stream_Audio].Parser->File_GoTo!=(int64u)-1 || Stream[Stream_Audio].Parser->Count_Get(Stream_Audio)>0)
@@ -956,7 +956,7 @@ void File_Flv::audio_AAC()
                     }
 
                     //Parsing
-                    Open_Buffer_Continue(Stream[Stream_Audio].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+                    Open_Buffer_Continue(Stream[Stream_Audio].Parser);
 
                     //Disabling this stream
                     audio_stream_Count=false;
@@ -1250,7 +1250,7 @@ void File_Flv::Rm()
     Open_Buffer_Init(&MI);
 
     //Parsing
-    Open_Buffer_Continue(&MI, Buffer+Buffer_Offset, (size_t)Element_Size);
+    Open_Buffer_Continue(&MI);
 
     //Filling
     Finish(&MI);

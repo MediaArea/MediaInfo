@@ -852,7 +852,7 @@ void File_Ogg_SubElement::Comment()
     Open_Buffer_Init(&Vorbis);
 
     //Parsing
-    Open_Buffer_Continue(&Vorbis, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+    Open_Buffer_Continue(&Vorbis);
 
     //Filling
     Finish(&Vorbis);
@@ -872,7 +872,7 @@ void File_Ogg_SubElement::Default()
 
     if (Parser)
     {
-        Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+        Open_Buffer_Continue(Parser);
         if (Identified && Parser->Status[IsFilled])
             Finish("OggSubElement");
     }

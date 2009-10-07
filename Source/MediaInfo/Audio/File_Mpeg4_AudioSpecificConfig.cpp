@@ -714,7 +714,7 @@ void File_Mpeg4_AudioSpecificConfig::ALS ()
             //Parsing
             size_t Riff_Pos=Riff.find("RIFF");
             Skip_XX(Riff_Pos,                                   "Unknown");
-            Open_Buffer_Continue(&MI, (const int8u*)Riff.c_str()+Riff_Pos, Riff.size()-Riff_Pos);
+            Open_Buffer_Continue(&MI);
 
             //Filling
             Finish(&MI);

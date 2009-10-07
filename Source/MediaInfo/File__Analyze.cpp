@@ -472,7 +472,7 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
     if (!NoBufferModification && File_Size==(int64u)-1)
     {
         File_Size=File_Offset+Buffer_Size;
-        Open_Buffer_Continue(NULL, 0);
+        Open_Buffer_Continue((const int8u*)NULL, 0);
     }
 
     //Element must be Finish

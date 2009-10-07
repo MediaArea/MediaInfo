@@ -1187,8 +1187,7 @@ void File_DvDif::closed_captions()
             for (size_t Pos=0; Pos<2; Pos++)
             {
                 Open_Buffer_Init(CC_Parsers[Pos]);
-                Open_Buffer_Continue(CC_Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, 2);
-                Element_Offset+=2;
+                Open_Buffer_Continue(CC_Parsers[Pos], 2);
             }
         }
 

@@ -1380,8 +1380,7 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
 
                     //Parsing
                     Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), Ztring::ToZtring(TrackNumber, 16)+_T(".")+_T("raw"));
-                    Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)Laces[Pos]);
-                    Element_Offset+=Laces[Pos];
+                    Open_Buffer_Continue(Stream[TrackNumber].Parser, (size_t)Laces[Pos]);
                     if (Stream[TrackNumber].Parser->Status[IsFilled]
                      || Stream[TrackNumber].Parser->Status[IsFinished]
                      || Stream[TrackNumber].PacketCount>=300)
@@ -2091,7 +2090,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate()
     }
 
     //Parsing
-    Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
+    Open_Buffer_Continue(Stream[TrackNumber].Parser);
 
     //Filling
     if (Stream[TrackNumber].Parser->Status[IsFinished]) //Can be finnished here...
@@ -2196,7 +2195,7 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
     {
         Element_Begin("Private data");
         if (Stream[TrackNumber].Parser)
-            Open_Buffer_Continue(Stream[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+            Open_Buffer_Continue(Stream[TrackNumber].Parser);
         else
             Skip_XX(Data_Remain(),                                  "Unknown");
         Element_End();

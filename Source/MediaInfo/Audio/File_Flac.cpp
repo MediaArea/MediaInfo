@@ -216,7 +216,7 @@ void File_Flac::VORBIS_COMMENT()
         File_VorbisCom VorbisCom;
         VorbisCom.StreamKind_Specific=Stream_Audio;
         Open_Buffer_Init(&VorbisCom);
-        Open_Buffer_Continue(&VorbisCom, Buffer+Buffer_Offset, (size_t)Element_Size);
+        Open_Buffer_Continue(&VorbisCom);
         File__Analyze::Finish(&VorbisCom);
         Merge(VorbisCom, Stream_General,  0, 0);
         Merge(VorbisCom, Stream_Audio,    0, 0);

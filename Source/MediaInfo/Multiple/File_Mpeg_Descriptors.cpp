@@ -1673,7 +1673,7 @@ void File_Mpeg_Descriptors::Descriptor_1D()
             MI.DecSpecificInfoTag_DoNotFreeIt=true;
             MI.SLConfig_DoNotFreeIt=true;
             Open_Buffer_Init(&MI);
-            Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+            Open_Buffer_Continue(&MI);
             Finish(&MI);
             Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs[MI.ES_ID].Parser=MI.Parser;
             Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].IOD_ESs[MI.ES_ID].DecSpecificInfoTag=MI.DecSpecificInfoTag;

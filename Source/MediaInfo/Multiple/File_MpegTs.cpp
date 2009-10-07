@@ -1189,7 +1189,7 @@ void File_MpegTs::PES()
     }
 
     //Parsing
-    Open_Buffer_Continue(Complete_Stream->Streams[pid].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
+    Open_Buffer_Continue(Complete_Stream->Streams[pid].Parser);
     #if defined(MEDIAINFO_MPEGPS_YES) && defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
         if (MpegTs_JumpTo_Begin+MpegTs_JumpTo_End>File_Size
          && !Complete_Stream->Streams[pid].Searching_ParserTimeStamp_End
@@ -1233,7 +1233,7 @@ void File_MpegTs::PSI()
     }
 
     //Parsing
-    Open_Buffer_Continue(Complete_Stream->Streams[pid].Parser, Buffer+Buffer_Offset, (size_t)Element_Size);
+    Open_Buffer_Continue(Complete_Stream->Streams[pid].Parser);
 
     //EPG
     if (Status[IsFilled])

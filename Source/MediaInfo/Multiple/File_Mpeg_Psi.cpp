@@ -1829,8 +1829,7 @@ void File_Mpeg_Psi::Descriptors()
     Descriptors.xxx_id=xxx_id;
     Descriptors.xxx_id_IsValid=xxx_id_IsValid;
     Open_Buffer_Init(&Descriptors);
-    Open_Buffer_Continue(&Descriptors, Buffer+Buffer_Offset+(size_t)Element_Offset, Descriptors_Size);
-    Element_Offset+=Descriptors_Size;
+    Open_Buffer_Continue(&Descriptors, Descriptors_Size);
     Element_End();
     xxx_id_IsValid=false;
 }
