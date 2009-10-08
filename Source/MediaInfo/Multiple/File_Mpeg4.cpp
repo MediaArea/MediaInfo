@@ -375,6 +375,22 @@ void File_Mpeg4::Header_Parse()
     //mdat
     if (IsParsing_mdat)
     {
+        //Positionning
+        if (File_Offset+Buffer_Offset<mdat_Pos.begin()->first)
+        {
+            if (File_Offset+Buffer_Size>mdat_Pos.begin()->first)
+            {
+                Buffer_Offset=File_Offset+Buffer_Size-mdat_Pos.begin()->first;
+            }
+            else
+            {
+                Buffer_Offset=Buffer_Size;
+                return;
+            }
+
+            int A=0;
+        }
+
         //Filling
         Header_Fill_Code(mdat_Pos.begin()->second.StreamID, Ztring::ToZtring(mdat_Pos.begin()->second.StreamID));
         Header_Fill_Size(mdat_Pos.begin()->second.Size);
