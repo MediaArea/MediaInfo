@@ -219,6 +219,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
             //The needed offset is in the new buffer
             ToAdd+=(size_t)(File_GoTo-File_Offset);
             ToAdd_Size-=(size_t)(File_GoTo-File_Offset);
+            File_GoTo=(int64u)-1;
         }
     }
 
