@@ -484,14 +484,6 @@ void File_Flv::FileHeader_Parse()
 }
 
 //---------------------------------------------------------------------------
-bool File_Flv::Header_Begin()
-{
-    if (Searching_Duration && File_Offset+Buffer_Offset==File_Size-4 && Buffer_Size!=4)
-        return false;
-    return true;
-}
-
-//---------------------------------------------------------------------------
 void File_Flv::Header_Parse()
 {
     if (Searching_Duration && File_Offset+Buffer_Offset==File_Size-4)

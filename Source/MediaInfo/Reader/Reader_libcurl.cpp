@@ -19,7 +19,7 @@
 
 //---------------------------------------------------------------------------
 // For user: you can disable or enable it
-//#define MEDIAINFO_DEBUG
+#define MEDIAINFO_DEBUG
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -45,13 +45,7 @@
 #endif
 using namespace ZenLib;
 using namespace std;
-//---------------------------------------------------------------------------
-// Debug stuff
 #ifdef MEDIAINFO_DEBUG
-    int64u Reader_libcurl_Offset=0;
-    int64u Reader_libcurl_BytesRead_Total=0;
-    int64u Reader_libcurl_BytesRead=0;
-    int64u Reader_libcurl_Count=1;
     #include <iostream>
 #endif // MEDIAINFO_DEBUG
 //---------------------------------------------------------------------------
@@ -68,25 +62,37 @@ struct curl_data
     MediaInfo_Internal* MI;
     CURL*               Curl;
     String              File_Name;
+    int64u              File_Offset;
     int64u              File_Size;
     int64u              File_GoTo;
     bool                Init_AlreadyDone;
+    #ifdef MEDIAINFO_DEBUG
+        int64u          Debug_BytesRead_Total;
+        int64u          Debug_BytesRead;
+        int64u          Debug_Count;
+    #endif // MEDIAINFO_DEBUG
 
     curl_data()
     {
         MI=NULL;
         Curl=NULL;
+        File_Offset=0;
         File_Size=(int64u)-1;
         File_GoTo=(int64u)-1;
         Init_AlreadyDone=false;
+        #ifdef MEDIAINFO_DEBUG
+            Debug_BytesRead_Total=0;
+            Debug_BytesRead=0;
+            Debug_Count=1;
+        #endif // MEDIAINFO_DEBUG
     }
 };
 
 size_t libcurl_WriteData_CallBack(void *ptr, size_t size, size_t nmemb, void *data)
 {
     #ifdef MEDIAINFO_DEBUG
-        Reader_libcurl_BytesRead_Total+=size*nmemb;
-        Reader_libcurl_BytesRead+=size*nmemb;
+        ((curl_data*)data)->Debug_BytesRead_Total+=size*nmemb;
+        ((curl_data*)data)->Debug_BytesRead+=size*nmemb;
     #endif //MEDIAINFO_DEBUG
 
     //Init
@@ -103,6 +109,7 @@ size_t libcurl_WriteData_CallBack(void *ptr, size_t size, size_t nmemb, void *da
 
     //Continue
     std::bitset<32> Result=((curl_data*)data)->MI->Open_Buffer_Continue((int8u*)ptr, size*nmemb);
+    ((curl_data*)data)->File_Offset+=size*nmemb;
     
     if (Result[File__Analyze::IsFinished])
     {
@@ -113,8 +120,11 @@ size_t libcurl_WriteData_CallBack(void *ptr, size_t size, size_t nmemb, void *da
     //GoTo
     if (((curl_data*)data)->MI->Open_Buffer_Continue_GoTo_Get()!=(int64u)-1)
     {
-        ((curl_data*)data)->File_GoTo=((curl_data*)data)->MI->Open_Buffer_Continue_GoTo_Get();
-        return 0;
+        if (!(((curl_data*)data)->MI->Open_Buffer_Continue_GoTo_Get()>=((curl_data*)data)->File_Offset && ((curl_data*)data)->MI->Open_Buffer_Continue_GoTo_Get()<=((curl_data*)data)->File_Offset+100000))
+        {
+            ((curl_data*)data)->File_GoTo=((curl_data*)data)->MI->Open_Buffer_Continue_GoTo_Get();
+            return 0;
+        }
     }
 
     //Continue parsing
@@ -144,10 +154,10 @@ int Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
         if (Curl_Data.File_GoTo!=(int64u)-1)
         {
             #ifdef MEDIAINFO_DEBUG
-                std::cout<<std::hex<<Reader_libcurl_Offset<<" - "<<Reader_libcurl_Offset+Reader_libcurl_BytesRead<<" : "<<std::dec<<Reader_libcurl_BytesRead<<" bytes"<<std::endl;
-                Reader_libcurl_Offset=Curl_Data.File_GoTo;
-                Reader_libcurl_BytesRead=0;
-                Reader_libcurl_Count++;
+                std::cout<<std::hex<<Curl_Data.File_Offset-Curl_Data.Debug_BytesRead<<" - "<<Curl_Data.File_Offset<<" : "<<std::dec<<Curl_Data.Debug_BytesRead<<" bytes"<<std::endl;
+                Curl_Data.File_Offset=Curl_Data.File_GoTo;
+                Curl_Data.Debug_BytesRead=0;
+                Curl_Data.Debug_Count++;
             #endif //MEDIAINFO_DEBUG
 
                 if (Curl_Data.File_GoTo<0x80000000)
@@ -171,8 +181,8 @@ int Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
     while (Result==CURLE_WRITE_ERROR && Curl_Data.File_GoTo!=(int64u)-1);
 
     #ifdef MEDIAINFO_DEBUG
-        std::cout<<std::hex<<Reader_libcurl_Offset<<" - "<<Reader_libcurl_Offset+Reader_libcurl_BytesRead<<" : "<<std::dec<<Reader_libcurl_BytesRead<<" bytes"<<std::endl;
-        std::cout<<"Total: "<<std::dec<<Reader_libcurl_BytesRead_Total<<" bytes in "<<Reader_libcurl_Count<<" blocks"<<std::endl;
+        std::cout<<std::hex<<Curl_Data.File_Offset-Curl_Data.Debug_BytesRead<<" - "<<Curl_Data.File_Offset<<" : "<<std::dec<<Curl_Data.Debug_BytesRead<<" bytes"<<std::endl;
+        std::cout<<"Total: "<<std::dec<<Curl_Data.Debug_BytesRead_Total<<" bytes in "<<Curl_Data.Debug_Count<<" blocks"<<std::endl;
     #endif //MEDIAINFO_DEBUG
 
     MI->Open_Buffer_Finalize();

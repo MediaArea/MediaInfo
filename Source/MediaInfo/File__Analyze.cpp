@@ -219,6 +219,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
             //The needed offset is in the new buffer
             ToAdd+=(size_t)(File_GoTo-File_Offset);
             ToAdd_Size-=(size_t)(File_GoTo-File_Offset);
+            File_Offset=File_GoTo;
             File_GoTo=(int64u)-1;
         }
     }
@@ -285,8 +286,12 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
         {
             if (File_GoTo>=File_Size)
                 File_GoTo=File_Size;
+            File_Offset+=Buffer_Size;
             Buffer_Clear();
         }
+        else
+            File_Offset+=Buffer_Offset;
+        
         return;
     }
     if (Buffer_Offset>=Buffer_Size)
@@ -416,6 +421,14 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
 
     //Parsing;
     while (Buffer_Parse());
+
+    //Handling of File_GoTo with already buffered data
+    if (File_GoTo!=(int64u)-1 && File_GoTo>=File_Offset && File_GoTo<=File_Offset+Buffer_Size)
+    {
+        Buffer_Offset=(size_t)(File_GoTo-File_Offset);
+        File_GoTo=(int64u)-1;
+        return Open_Buffer_Continue_Loop();
+    }
 
     //Jumping to the end of the file if needed
     if (!IsSub && !EOF_AlreadyDetected && Count_Get(Stream_General))
@@ -927,6 +940,9 @@ bool File__Analyze::Data_Manage()
         Element[Element_Level].IsComplete=true;
     }
 
+    if (File_GoTo!=(int64u)-1)
+        return false;
+
     //Next element
     if (!Element_WantNextLevel)
     {
@@ -938,7 +954,7 @@ bool File__Analyze::Data_Manage()
             return false;
         }
     }
-    if (Buffer_Offset+Element_Offset>Buffer_Size && File_Offset!=File_Size)
+    if (File_GoTo==(int64u)-1 && Buffer_Offset+Element_Offset>Buffer_Size && File_Offset!=File_Size)
         GoTo(File_Offset+Buffer_Offset+Element_Offset); //Preparing to go far
 
     //If no need of more
@@ -1063,7 +1079,8 @@ void File__Analyze::Data_GoTo (int64u GoTo, const char* ParserName)
     }
 
     Info(Ztring(ParserName)+_T(", jumping to offset ")+Ztring::ToZtring(GoTo, 16));
-    File_GoTo=GoTo;
+    if (!IsSub)
+        File_GoTo=GoTo;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
@@ -1789,9 +1806,6 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
     if (File_GoTo!=(int64u)-1)
         return; //Already done
 
-    if (GoTo>=File_Offset && GoTo<File_Offset+Buffer_Size)
-        return; //We already have it
-
     if (ShouldContinueParsing)
     {
         if (ParserName)
@@ -2034,15 +2048,12 @@ void File__Analyze::BookMark_Set (size_t Element_Level_ToSet)
 //---------------------------------------------------------------------------
 void File__Analyze::BookMark_Get ()
 {
-    File_GoTo=(int64u)-1;
     if (!BookMark_Needed())
         return;
 
     Element_Show();
     while (Element_Level>0)
         Element_End();
-    File_Offset=0;
-    Buffer_Offset=0;
     while (Element_Level<BookMark_Element_Level)
         Element_Begin("Restarting parsing...", File_Size);
 
@@ -2055,7 +2066,6 @@ void File__Analyze::BookMark_Get ()
     BookMark_Next.clear();
     if (File_GoTo==(int64u)-1)
         File_GoTo=BookMark_GoTo;
-    File_Offset=0; //In case of end of file
 }
 
 } //NameSpace

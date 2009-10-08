@@ -50,7 +50,6 @@ public :
 private :
     //Buffer
     void FileHeader_Parse ();
-    bool Header_Begin();
     void Header_Parse();
     void Data_Parse();
 
