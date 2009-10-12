@@ -1007,6 +1007,8 @@ void File_Mpeg_Psi::Table_00()
                     Complete_Stream->Transport_Streams[table_id_extension].Programs_NotParsedCount++;
                     Complete_Stream->Transport_Streams[table_id_extension].Programs[program_number].pid=xxx_id;
                     Complete_Stream->Streams[xxx_id].program_numbers.push_back(program_number);
+                    if (Complete_Stream->Streams[xxx_id].Table_IDs.empty())
+                        Complete_Stream->Streams[xxx_id].Table_IDs.resize(0x100); //TODO: find the reason this code is called
                     if (Complete_Stream->Streams[xxx_id].Table_IDs[0x02]->Table_ID_Extensions.find(program_number)==Complete_Stream->Streams[xxx_id].Table_IDs[0x02]->Table_ID_Extensions.end())
                     {
                         Complete_Stream->Streams[xxx_id].Table_IDs[0x02]->Table_ID_Extensions_CanAdd=false;

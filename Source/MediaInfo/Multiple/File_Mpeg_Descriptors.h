@@ -334,6 +334,11 @@ struct complete_stream
                 Ztring  duration;
                 Ztring  title;
                 std::map<int16u, Ztring> texts;
+
+                event()
+                {
+                    start_time=(int32u)-1;
+                }
             };
 
             typedef std::map<int16u, event> events; //Key is event_id

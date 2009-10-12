@@ -1347,14 +1347,15 @@ void File_MpegTs::PSI_EPG_Update()
                     {
                         for (complete_stream::source::atsc_epg_blocks::iterator ATSC_EPG_Block=Source->second.ATSC_EPG_Blocks.begin(); ATSC_EPG_Block!=Source->second.ATSC_EPG_Blocks.end(); ATSC_EPG_Block++)
                             for (complete_stream::source::atsc_epg_block::events::iterator Event=ATSC_EPG_Block->second.Events.begin(); Event!=ATSC_EPG_Block->second.Events.end(); Event++)
-                            {
-                                Ztring Texts;
-                                for (std::map<int16u, Ztring>::iterator text=Event->second.texts.begin(); text!=Event->second.texts.end(); text++)
-                                    Texts+=text->second+_T(" - ");
-                                if (!Texts.empty())
-                                    Texts.resize(Texts.size()-3);
-                                EPGs[Ztring().Date_From_Seconds_1970(Event->second.start_time+315964800-Complete_Stream->GPS_UTC_offset)]=Event->second.title+_T(" / ")+Texts+_T(" /  /  / ")+Event->second.duration+_T(" / ");
-                            }
+                                if (Event->second.start_time!=(int32u)-1) //TODO: find the reason when start_time is not set
+                                {
+                                    Ztring Texts;
+                                    for (std::map<int16u, Ztring>::iterator text=Event->second.texts.begin(); text!=Event->second.texts.end(); text++)
+                                        Texts+=text->second+_T(" - ");
+                                    if (!Texts.empty())
+                                        Texts.resize(Texts.size()-3);
+                                    EPGs[Ztring().Date_From_Seconds_1970(Event->second.start_time+315964800-Complete_Stream->GPS_UTC_offset)]=Event->second.title+_T(" / ")+Texts+_T(" /  /  / ")+Event->second.duration+_T(" / ");
+                                }
                         Source->second.ATSC_EPG_Blocks_IsUpdated=false;
                         EPGs_IsUpdated=true;
                     }
