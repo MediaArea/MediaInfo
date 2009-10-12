@@ -66,6 +66,9 @@
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
+#if defined(MEDIAINFO_ADTS_YES)
+    #include "MediaInfo/Audio/File_Adts.h"
+#endif
 #if defined(MEDIAINFO_DTS_YES)
     #include "MediaInfo/Audio/File_Dts.h"
 #endif
@@ -613,9 +616,8 @@ void File_Mpeg4_Descriptors::Descriptor_04()
                         #endif
                         break;
             case 0x40 :
-                        #if defined(MEDIAINFO_MPEG4_YES)
-                            Parser=new File_Mpeg4_AudioSpecificConfig;
-                            ((File_Mpeg4_AudioSpecificConfig*)Parser)->MajorBrand=MajorBrand;
+                        #if defined(MEDIAINFO_ADTS_YES)
+                            Parser=new File_Adts; //This is often File_Mpeg4_AudioSpecificConfig, but this will be changed in DecSpecific if needed
                         #endif
                         break;
             case 0x60 :
@@ -745,20 +747,28 @@ void File_Mpeg4_Descriptors::Descriptor_05()
         default: ;
     }
 
-    //Handling of IOD backup
+    //Specific cases
     if (ObjectTypeId==0x40) //Audio ISO/IEC 14496-3 (AAC)
     {
+        //IOD backup
         delete DecSpecificInfoTag; DecSpecificInfoTag=new decspecificinfotag;
         DecSpecificInfoTag->Buffer=new int8u[(size_t)Element_Size];
         DecSpecificInfoTag->Buffer_Size=(size_t)Element_Size;
         std::memcpy(DecSpecificInfoTag->Buffer, Buffer+Buffer_Offset, (size_t)Element_Size);
+
+        //There is an IOD, not ADTS
+        #ifdef MEDIAINFO_MPEG4_YES
+            delete Parser; Parser=new File_Mpeg4_AudioSpecificConfig;
+            ((File_Mpeg4_AudioSpecificConfig*)Parser)->MajorBrand=MajorBrand;
+            Open_Buffer_Init(Parser);
+        #endif MEDIAINFO_MPEG4_YES
     }
 
     //Parsing
     Open_Buffer_Continue(Parser);
     if (!Parser_DoNotFreeIt
-     || StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC")) //File_Mpeg4_AudioSpecificConfig is only for DecConfig
-    {
+     || StreamKind_Last==Stream_Audio && ObjectTypeId==0x40) //Audio ISO/IEC 14496-3 (AAC), File_Mpeg4_AudioSpecificConfig is only for DecConfig
+    {                                                        //StreamKind_Last==Stream_Audio because this may be in an IOD, and in this case the descriptor is not merged, so the Parser is kept until stream is detected
         //Filling
         Finish(Parser);
         Merge(*Parser, StreamKind_Last, 0, StreamPos_Last);
