@@ -2745,7 +2745,7 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
                 if (Temp.Parsers.size()>1)
                     Element_Begin("Test");
             #endif //MEDIAINFO_MINIMIZESIZE
-            Open_Buffer_Continue(Temp.Parsers[Pos]);
+            Open_Buffer_Continue(Temp.Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
             #ifndef MEDIAINFO_MINIMIZESIZE
                 if (Temp.Parsers.size()>1)
                     Element_End();
