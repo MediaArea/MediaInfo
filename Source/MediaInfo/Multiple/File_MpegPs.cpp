@@ -2052,6 +2052,7 @@ File__Analyze* File_MpegPs::private_stream_1_ChooseParser()
         }
         switch (FromTS_stream_type)
         {
+            case 0x0F : return ChooseParser_Adts(); //ADTS
             case 0x80 : return ChooseParser_PCM(); //PCM
             case 0x81 :
             case 0x83 :
@@ -2371,20 +2372,26 @@ void File_MpegPs::audio_stream()
         //New parsers
         switch (Streams[start_code].stream_type)
         {
-            case 0x0F : Streams[start_code].Parsers.push_back(ChooseParser_Adts()); break;
-            //case 0x03 :
-            //case 0x04 :
-            default   : Streams[start_code].Parsers.push_back(ChooseParser_Mpega());
+            case 0x0F : Streams[start_code].Parsers.push_back(ChooseParser_Adts()); Open_Buffer_Init(Streams[start_code].Parsers[0]); break;
+            case 0x03 :
+            case 0x04 : Streams[start_code].Parsers.push_back(ChooseParser_Mpega()); Open_Buffer_Init(Streams[start_code].Parsers[0]); break;
+            default   :
+                        #if defined(MEDIAINFO_MPEGA_YES)
+                        {
+                            File_Adts* Parser=new File_Adts;
+                            Open_Buffer_Init(Parser);
+                            Parser->Frame_Count_Valid=1;
+                            Streams[start_code].Parsers.push_back(Parser);
+                        }
+                        #endif
+                        #if defined(MEDIAINFO_ADTS_YES)
+                        {
+                            File_Adts* Parser=new File_Adts;
+                            Open_Buffer_Init(Parser);
+                            Streams[start_code].Parsers.push_back(Parser);
+                        }
+                        #endif
         }
-        Open_Buffer_Init(Streams[start_code].Parsers[0]);
-        #if defined(MEDIAINFO_ADTS_YES)
-        if (Streams[start_code].stream_type!=0x0F)
-        {
-            File_Adts* Parser=new File_Adts;
-            Open_Buffer_Init(Parser);
-            Streams[start_code].Parsers.push_back(Parser);
-        }
-        #endif
     }
 
     //Parsing
@@ -2412,15 +2419,6 @@ void File_MpegPs::video_stream()
             Streams[start_code].stream_type=FromTS_stream_type;
         }
 
-        //If we have no Streams map --> Registering the Streams as MPEG Video
-        if (Streams[start_code].stream_type==0)
-        {
-            if (MPEG_Version==2)
-                Streams[start_code].stream_type=0x02; //MPEG-2 Video
-            else
-                Streams[start_code].stream_type=0x01; //MPEG-1 Video
-        }
-
         //Registering
         if (!Status[IsAccepted])
         {
@@ -2433,41 +2431,47 @@ void File_MpegPs::video_stream()
         //New parsers
         switch (Streams[start_code].stream_type)
         {
-            case 0x10 : Streams[start_code].Parsers.push_back(ChooseParser_Mpeg4v()); break;
-            case 0x1B : Streams[start_code].Parsers.push_back(ChooseParser_Avc()   ); break;
-            //case 0x01 :
-            //case 0x02 :
-            //case 0x80 :
-            //case 0x00 :
-            default   : Streams[start_code].Parsers.push_back(ChooseParser_Mpegv() );
+            case 0x10 : Streams[start_code].Parsers.push_back(ChooseParser_Mpeg4v()); Open_Buffer_Init(Streams[start_code].Parsers[0]); break;
+            case 0x1B : Streams[start_code].Parsers.push_back(ChooseParser_Avc()   ); Open_Buffer_Init(Streams[start_code].Parsers[0]); break;
+            case 0x01 :
+            case 0x02 :
+            case 0x80 : Streams[start_code].Parsers.push_back(ChooseParser_Mpegv() ); Open_Buffer_Init(Streams[start_code].Parsers[0]); break;
+            default   :
+                        #if defined(MEDIAINFO_MPEGV_YES)
+                        {
+                            File_Mpegv* Parser=new File_Mpegv;
+                            Open_Buffer_Init(Parser);
+                            Parser->MPEG_Version=MPEG_Version;
+                            Parser->Frame_Count_Valid=1;
+                            Parser->ShouldContinueParsing=true;
+                            Streams[start_code].Parsers.push_back(Parser);
+                        }
+                        #endif
+                        #if defined(MEDIAINFO_AVC_YES)
+                        {
+                            File_Avc* Parser=new File_Avc;
+                            Open_Buffer_Init(Parser);
+                            Parser->ShouldContinueParsing=true;
+                            Streams[start_code].Parsers.push_back(Parser);
+                        }
+                        #endif
+                        #if defined(MEDIAINFO_MPEG4V_YES)
+                        {
+                            File_Mpeg4v* Parser=new File_Mpeg4v;
+                            Open_Buffer_Init(Parser);
+                            Parser->ShouldContinueParsing=true;
+                            Streams[start_code].Parsers.push_back(Parser);
+                        }
+                        #endif
+                        #if defined(MEDIAINFO_AVSV_YES)
+                        {
+                            File_AvsV* Parser=new File_AvsV;
+                            Open_Buffer_Init(Parser);
+                            Parser->ShouldContinueParsing=true;
+                            Streams[start_code].Parsers.push_back(Parser);
+                        }
+                        #endif
         }
-        Open_Buffer_Init(Streams[start_code].Parsers[0]);
-        #if defined(MEDIAINFO_AVC_YES)
-        if (Streams[start_code].stream_type!=0x10)
-        {
-            File_Avc* Parser=new File_Avc;
-            Open_Buffer_Init(Parser);
-            Parser->ShouldContinueParsing=true;
-            Streams[start_code].Parsers.push_back(Parser);
-        }
-        #endif
-        #if defined(MEDIAINFO_MPEG4V_YES)
-        if (Streams[start_code].stream_type!=0x1B)
-        {
-            File_Mpeg4v* Parser=new File_Mpeg4v;
-            Open_Buffer_Init(Parser);
-            Parser->ShouldContinueParsing=true;
-            Streams[start_code].Parsers.push_back(Parser);
-        }
-        #endif
-        #if defined(MEDIAINFO_AVSV_YES)
-        {
-            File_AvsV* Parser=new File_AvsV;
-            Open_Buffer_Init(Parser);
-            Parser->ShouldContinueParsing=true;
-            Streams[start_code].Parsers.push_back(Parser);
-        }
-        #endif
     }
 
     //Parsing
