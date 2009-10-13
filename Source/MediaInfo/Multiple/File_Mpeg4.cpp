@@ -380,15 +380,13 @@ void File_Mpeg4::Header_Parse()
         {
             if (File_Offset+Buffer_Size>mdat_Pos.begin()->first)
             {
-                Buffer_Offset=File_Offset+Buffer_Size-mdat_Pos.begin()->first;
+                Buffer_Offset=(size_t)(File_Offset+Buffer_Size-mdat_Pos.begin()->first);
             }
             else
             {
                 Buffer_Offset=Buffer_Size;
                 return;
             }
-
-            int A=0;
         }
 
         //Filling
