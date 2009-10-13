@@ -309,7 +309,7 @@ size_t File_MpegTs::Output_Buffer_Get (const String &Code)
 //---------------------------------------------------------------------------
 size_t File_MpegTs::Output_Buffer_Get (size_t Pos)
 {
-    if (Pos<Complete_Stream->Duplicates_Speed.size() && Complete_Stream->Duplicates_Speed[Pos]!=NULL)
+    if (Complete_Stream!=NULL && Pos<Complete_Stream->Duplicates_Speed.size() && Complete_Stream->Duplicates_Speed[Pos]!=NULL)
         if (size_t Size=Complete_Stream->Duplicates_Speed[Pos]->Output_Buffer_Get())
             return Size;
 
