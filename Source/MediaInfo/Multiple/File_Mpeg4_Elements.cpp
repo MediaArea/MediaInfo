@@ -2766,7 +2766,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         }
 
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels, 10, true);
-        if (SampleSize!=0)
+        if (SampleSize!=0 && Retrieve(Stream_Audio, StreamPos_Last, Audio_Resolution).empty())
             Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, SampleSize, 10, true);
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate);
 
@@ -3021,7 +3021,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_d263()
     }
     Fill(Stream_Video, StreamPos_Last, Video_Encoded_Library_Version, Version);
     Fill(Stream_Video, StreamPos_Last, Video_Encoded_Library, Retrieve(Stream_Video, StreamPos_Last, Video_Encoded_Library_Name)+_T(' ')+Ztring::ToZtring(Version));
-    Fill(Stream_Video, StreamPos_Last, Video_Encoded_Library_String, Retrieve(Stream_Video, StreamPos_Last, Video_Encoded_Library_Name)+(Version?(_T(" Revision ")+Ztring::ToZtring(Version)):Ztring()), true);
+    Ztring Encoded_Library_String=Retrieve(Stream_Video, StreamPos_Last, Video_Encoded_Library_Name)+(Version?(_T(" Revision ")+Ztring::ToZtring(Version)):Ztring());
+    Fill(Stream_Video, StreamPos_Last, Video_Encoded_Library_String, Encoded_Library_String, true);
 }
 
 //---------------------------------------------------------------------------
