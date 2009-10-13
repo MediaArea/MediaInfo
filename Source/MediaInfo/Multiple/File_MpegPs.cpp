@@ -2442,7 +2442,7 @@ void File_MpegPs::video_stream()
                             File_Mpegv* Parser=new File_Mpegv;
                             Open_Buffer_Init(Parser);
                             Parser->MPEG_Version=MPEG_Version;
-                            Parser->Frame_Count_Valid=1;
+                            Parser->Frame_Count_Valid=32;
                             Parser->ShouldContinueParsing=true;
                             Streams[start_code].Parsers.push_back(Parser);
                         }
