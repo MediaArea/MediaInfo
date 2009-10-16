@@ -46,7 +46,7 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include"
 				AdditionalUsingDirectories=""
-				PreprocessorDefinitions="WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO"
+				PreprocessorDefinitions="WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB;MEDIAINFO_MINIMIZESIZE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"

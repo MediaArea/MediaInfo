@@ -22,7 +22,7 @@ configure-stamp:
 	cp Source/Doc/*.html ./
 	cd Project/GNU/Library && chmod u+x autogen
 	cd Project/GNU/Library && ./autogen
-	cd Project/GNU/Library && ./configure --enable-shared --prefix=/usr
+	cd Project/GNU/Library && ./configure --enable-shared --prefix=/usr --disable-libcurl --disable-libmms
 
 	touch $@
 

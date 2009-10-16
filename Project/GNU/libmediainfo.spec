@@ -82,7 +82,7 @@ cp Source/Doc/*.html ./
 pushd Project/GNU/Library
 	%__chmod +x autogen
 	./autogen
-	%configure --enable-shared
+	%configure --enable-shared --disable-libcurl --disable-libmms
 
 	%__make clean
 	%__make %{?jobs:-j%{jobs}}
