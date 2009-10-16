@@ -51,10 +51,15 @@ public :
     //Temp
     int16u transport_stream_id;
     int16u table_id_extension;
-    int16u xxx_id;
     int8u  version_number;
-    bool   xxx_id_IsValid;
     bool   section_syntax_indicator;
+
+    int16u elementary_PID;
+    int16u program_number;
+    int16u event_id;
+    bool   elementary_PID_IsValid;
+    bool   program_number_IsValid;
+    bool   event_id_IsValid;
 
     //Details
     const char* Mpeg_Psi_Element_Name();
