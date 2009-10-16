@@ -7,6 +7,22 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.23, 2009-10-16
+--------------
++ OGG: more details for MPEG-4 Visual, MPEG Audio and AC-3
++ MPEG-4: more information for MPEG Audio streams
++ MPEG-4: more information for ADTS streams
++ MPEG-TS: more information for ADTS streams
++ QCP (RFC 3625) format support
++ Refactoring of parsers, for more speed and less false-positives
++ WAV: INFO chunk parsing
+x Blu-ray directory analyzing was broken
+x VC-1: some streams were not detected
+x AMR in MP4: Resolution set to 13 or 14 bits instead of default 16 bits
+x Help, Known parameters was hanging up
+x AVC: frame rate was wrong for progressive streams with frame doubling
+x MPEG-TS: crash while parsing some streams with specific ATSC event_id
+
 Version 0.7.22, 2009-09-25
 --------------
 + MPEG-TS: KLV data detection
