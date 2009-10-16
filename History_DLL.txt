@@ -18,6 +18,7 @@ Version 0.7.23, 2009-
 x Blu-ray directory analyzing was broken
 x VC-1: some streams were not detected
 x AMR in MP4: Resolution set to 13 or 14 bits instead of default 16 bits
+x Help, Known parameters was hanging up
 
 Version 0.7.22, 2009-09-25
 --------------
