@@ -56,8 +56,8 @@ MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface;;
 Module;;;A;Module;;mod;
 Monkey's Audio;;;A;Ape;;ape mac;http://www.monkeysaudio.com/
 MPEG Audio;;;A;Mpega;;m1a mpa1 mp1 m2a mpa2 mp2 mp3;
-MusePack SV7;;;A;Mpc;;mpc;http://www.musepack.net
-MusePack SV8;;;A;Mpc;;mp+;http://www.musepack.net
+Musepack SV7;;;A;Mpc;;mpc;http://www.musepack.net
+Musepack SV8;;;A;Mpc;;mp+;http://www.musepack.net
 RIFF-MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface;;
 Scream Tracker 3;;;A;S3m;;s3m;
 Shorten;;;A;;;shn;http://etree.org/shnutils/shorten/

@@ -35,7 +35,8 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Image/File_Gif.h"
-#include <math.h>
+#include <cmath>
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
