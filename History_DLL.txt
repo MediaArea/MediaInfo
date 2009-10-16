@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.23, 2009-
+Version 0.7.23, 2009-10-16
 --------------
 + OGG: more details for MPEG-4 Visual, MPEG Audio and AC-3
 + MPEG-4: more information for MPEG Audio streams
