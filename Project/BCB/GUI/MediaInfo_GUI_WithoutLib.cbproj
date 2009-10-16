@@ -38,7 +38,7 @@
 			<BCC_GenerateMultithreaded>true</BCC_GenerateMultithreaded>
 			<ILINK_ObjectSearchPath>..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate;..\..\..\..\Shared\Library\BCB;..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag;..\..\..\..\ZenLib\Source\ZenLib\HTTP_Client;..\..\..\..\ZenLib\Source\ZenLib;..\..\..\..\MediaInfoLib\Source\MediaInfo\Video;..\..\..\..\MediaInfoLib\Source\MediaInfo\Text;..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple;..\..\..\..\MediaInfoLib\Source\MediaInfo\Image;..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio;..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive;..\..\..\..\MediaInfoLib\Source\MediaInfo;..\..\..\Source\Common;..\..\..\Source\GUI\VCL;D:\Programmation\MediaInfo\Project\BCB\GUI;$(ILINK_ObjectSearchPath)</ILINK_ObjectSearchPath>
 			<AllPackageLibs>rtl.lib;vcl.lib;bcbie.lib;vclactnband.lib;vclx.lib;vcldb.lib;dbrtl.lib;dsnap.lib;xmlrtl.lib</AllPackageLibs>
-			<BCC_Defines>_RTLDLL;NO_STRICT;WIN32;_WIN32;UNICODE;_UNICODE;MEDIAINFO_MINIMIZESIZE;ZENLIB_STANDARDx;MEDIAINFO_LIBCURL_NO;$(BCC_Defines)</BCC_Defines>
+			<BCC_Defines>_RTLDLL;NO_STRICT;WIN32;_WIN32;UNICODE;_UNICODE;MEDIAINFO_MINIMIZESIZE;ZENLIB_STANDARDx;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;$(BCC_Defines)</BCC_Defines>
 			<DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
 			<DCC_ObjPath>..\..\..\..\MediaInfoLib\Source\MediaInfo\Duplicate;..\..\..\..\MediaInfoLib\Source\MediaInfo\Tag;..\..\..\..\ZenLib\Source\ZenLib\HTTP_Client;..\..\..\..\ZenLib\Source\ZenLib;..\..\..\..\MediaInfoLib\Source\MediaInfo\Video;..\..\..\..\MediaInfoLib\Source\MediaInfo\Text;..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple;..\..\..\..\MediaInfoLib\Source\MediaInfo\Image;..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio;..\..\..\..\MediaInfoLib\Source\MediaInfo\Archive;..\..\..\..\MediaInfoLib\Source\MediaInfo;..\..\..\Source\Common;..\..\..\Source\GUI\VCL;D:\Programmation\MediaInfo\Project\BCB\GUI;$(DCC_ObjPath)</DCC_ObjPath>
 			<Multithreaded>true</Multithreaded>
@@ -731,11 +731,25 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_DvDif_Analysis.cpp">
 				<BuildOrder>158</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader__Base.cpp">
-				<BuildOrder>159</BuildOrder>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_Directory.cpp">
+				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_Directory.h</DependentOn>
+				<BuildOrder>158</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_File.cpp">
+				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_File.h</DependentOn>
+				<BuildOrder>159</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_libcurl.cpp">
+				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_libcurl.h</DependentOn>
 				<BuildOrder>160</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_libmms.cpp">
+				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Reader\Reader_libmms.h</DependentOn>
+				<BuildOrder>161</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Internal.cpp">
+				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\MediaInfo_Internal.h</DependentOn>
+				<BuildOrder>162</BuildOrder>
 			</CppCompile>
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Main.dfm"/>
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Export.dfm"/>
