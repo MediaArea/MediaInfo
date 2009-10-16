@@ -15,6 +15,7 @@ Version 0.7.23, 2009-
 + MPEG-TS: more information for ADTS streams
 + QCP (RFC 3625) format support
 + Refactoring of parsers, for more speed and less false-positives
++ WAV: INFO chunk parsing
 x Blu-ray directory analyzing was broken
 x VC-1: some streams were not detected
 x AMR in MP4: Resolution set to 13 or 14 bits instead of default 16 bits
