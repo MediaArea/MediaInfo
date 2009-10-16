@@ -382,7 +382,7 @@ void File_Avc::Streams_Fill()
         if (!fixed_frame_rate_flag)
             Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Mode, "VFR");
         else if (time_scale && num_units_in_tick)
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)time_scale/num_units_in_tick/2/FrameRate_Divider);
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)time_scale/num_units_in_tick*FrameRate_Divider/2/FrameRate_Divider);
     }
     if (FrameRate_Divider==2)
         Fill(Stream_Video, StreamPos_Last, Video_Format_Settings, "Frame doubling");

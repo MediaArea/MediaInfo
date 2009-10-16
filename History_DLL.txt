@@ -19,6 +19,7 @@ x Blu-ray directory analyzing was broken
 x VC-1: some streams were not detected
 x AMR in MP4: Resolution set to 13 or 14 bits instead of default 16 bits
 x Help, Known parameters was hanging up
+x AVC: frame rate was wrong for progressive streams with frame doubling
 
 Version 0.7.22, 2009-09-25
 --------------
