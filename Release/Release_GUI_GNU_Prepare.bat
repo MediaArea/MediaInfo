@@ -19,8 +19,8 @@ xcopy ..\Source\*.png MediaInfo_GUI_GNU_Prepare\Source\ /S
 xcopy ..\Source\*.xpm MediaInfo_GUI_GNU_Prepare\Source\ /S
 
 rem --- Copying : Projects ---
-xcopy ..\debian\* AVPS_DV_Analyzer_GUI_GNU_Prepare\debian\
-xcopy ..\Project\GNU\mediainfo.* AVPS_DV_Analyzer_GUI_GNU_Prepare\Project\GNU\
+xcopy ..\debian\* MediaInfo_GUI_GNU_Prepare\debian\
+xcopy ..\Project\GNU\mediainfo.* MediaInfo_GUI_GNU_Prepare\Project\GNU\
 xcopy ..\Project\GNU\GUI\autogen MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S
 xcopy ..\Project\GNU\GUI\configure.ac MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S
 xcopy ..\Project\GNU\GUI\Makefile.am MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S
