@@ -5,6 +5,8 @@ Build-Depends: debhelper (>= 5), doxygen, tofrodos, libzen0-dev (>= 0.4.7), zlib
 Standards-Version: 3.7.3
 Section: libs
 Homepage: http://mediainfo.sourceforge.net
+Vcs-Svn: https://mediainfo.svn.sourceforge.net/svnroot/mediainfo/MediaInfoLib/
+Vcs-Browser: http://mediainfo.svn.sourceforge.net/viewvc/mediainfo/MediaInfoLib/
 
 Package: libmediainfo0-dev
 Section: libdevel
