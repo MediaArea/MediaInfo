@@ -78,7 +78,9 @@ install: build
 	install -m 644 Changes.txt $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev
 	install -m 644 Documentation.html $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev
 	install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev/Doc
-	install -m 644 Doc/* $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev/Doc
+	install -m 644 Doc/*.* $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev/Doc
+	if test -d Doc/search/ ; then install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev/Doc/search ; fi
+	if test -d Doc/search/ ; then install -m 644 Doc/search/*.* $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev/Doc/search ; fi
 	install -m 644 Source/Example/HowToUse* $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev
 
 
