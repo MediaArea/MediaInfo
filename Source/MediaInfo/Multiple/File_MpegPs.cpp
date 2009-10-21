@@ -327,7 +327,7 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp)
         }
 
         //LATM
-        if (StreamKind_Last==Stream_Audio && StreamID==0xFA)
+        if (StreamKind_Last==Stream_Audio && StreamID==0xFA && FromTS_stream_type==0x11)
             Fill(Stream_Audio, 0, Audio_MuxingMode, "LATM");
     }
 
@@ -1430,7 +1430,7 @@ void File_MpegPs::Data_Parse()
     //From TS
     if (FromTS && !Status[IsAccepted])
     {
-        Accept("MPEG-PS");
+        Data_Accept("MPEG-PS");
         if (!IsSub)
             Fill(Stream_General, 0, General_Format, "MPEG-PS");
     }
@@ -1666,7 +1666,7 @@ void File_MpegPs::pack_start()
     FILLING_BEGIN_PRECISE();
         if (!Status[IsAccepted])
         {
-            Accept("MPEG-PS");
+            Data_Accept("MPEG-PS");
             if (!IsSub)
                 Fill(Stream_General, 0, General_Format, "MPEG-PS");
         }
@@ -2282,7 +2282,7 @@ void File_MpegPs::private_stream_2_TSHV_A0()
     Skip_XX(Element_Size,                                       "Unknown");
 
     //Filling
-    Accept("MPEG-PS");
+    Data_Accept("MPEG-PS");
     Finish("MPEG-PS");
 }
 
@@ -2507,15 +2507,32 @@ void File_MpegPs::SL_packetized_stream()
         Streams[start_code].Searching_TimeStamp_Start=true;
 
         //New parsers
-        #if defined(MEDIAINFO_MPEG4_YES)
+        switch (FromTS_stream_type)
         {
-            File_Aac* Parser=new File_Aac;
-            Parser->DecSpecificInfoTag=DecSpecificInfoTag;
-            Parser->SLConfig=SLConfig;
-            Open_Buffer_Init(Parser);
-            Streams[start_code].Parsers.push_back(Parser);
+            case 0x0F :
+                        #if defined(MEDIAINFO_ADTS_YES)
+                        {
+                            File_Adts* Parser=new File_Adts;
+                            Parser->Frame_Count_Valid=1;
+                            Open_Buffer_Init(Parser);
+                            Streams[start_code].Parsers.push_back(Parser);
+                        }
+                        #endif
+                        break;
+
+            case 0x11 :
+                        #if defined(MEDIAINFO_MPEG4_YES)
+                        {
+                            File_Aac* Parser=new File_Aac;
+                            Parser->DecSpecificInfoTag=DecSpecificInfoTag;
+                            Parser->SLConfig=SLConfig;
+                            Open_Buffer_Init(Parser);
+                            Streams[start_code].Parsers.push_back(Parser);
+                        }
+                        #endif
+                        break;
+            default   : ;
         }
-        #endif
     }
 
     //Parsing
