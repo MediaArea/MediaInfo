@@ -3173,6 +3173,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_pasp()
         if (vSpacing)
         {
             float64 PixelAspectRatio=(float64)hSpacing/vSpacing;
+            Clear(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio);
             Fill(Stream_Video, StreamPos_Last, Video_PixelAspectRatio, PixelAspectRatio, 3, true);
         }
     FILLING_END();

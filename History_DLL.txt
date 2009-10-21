@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.23, 2009-10-16
 --------------
 + MPEG-TS: More information for ADTS in non-audio PES ID.
+x MPEG-4: some Pixel Aspect Ratio settings were not handled
 
 Version 0.7.23, 2009-10-16
 --------------
