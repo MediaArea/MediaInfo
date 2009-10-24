@@ -49,7 +49,7 @@ class MediaInfo
             if (os!=null && !os.toLowerCase().startsWith("windows") && !os.toLowerCase().startsWith("mac"))
                 NativeLibrary.getInstance("zen");
         }
-        catch (Exception e)
+        catch (LinkageError  e)
         {
             //Logger.getLogger(MediaInfo.class.getName()).warning("Failed to preload libzen");
         }
