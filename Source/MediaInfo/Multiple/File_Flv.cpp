@@ -424,6 +424,24 @@ void File_Flv::Streams_Finish()
             Fill(Stream_Video, 0, Video_Duration, Duration_Final, 10, true);
         if (Count_Get(Stream_Audio))
             Fill(Stream_Audio, 0, Audio_Duration, Duration_Final, 10, true);
+
+        //Integrity
+        if (Count_Get(Stream_Video) && File_Size!=(int64u)-1 && !Retrieve(Stream_Video, 0, Video_BitRate).empty() && !Retrieve(Stream_Video, 0, Video_Duration).empty())
+        {
+            int64u BitRate_Video_Meta=Retrieve(Stream_Video, 0, Video_BitRate).To_int64u();
+            int64u Duration=Retrieve(Stream_Video, 0, Video_Duration).To_int64u();
+            int64u BitRate_Video_Duration=File_Size*8*1000/Duration;
+            if (Count_Get(Stream_Audio) && !Retrieve(Stream_Audio, 0, Audio_BitRate).empty())
+            {
+                int64u BitRate_Audio=Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
+                if (BitRate_Audio<BitRate_Video_Duration)
+                    BitRate_Video_Duration-=BitRate_Audio;
+                else if (BitRate_Audio)
+                    BitRate_Video_Duration=0; //There is a problem
+            }
+            if (BitRate_Video_Meta<BitRate_Video_Duration/2 || BitRate_Video_Meta>BitRate_Video_Duration*2)
+                Clear(Stream_Video, 0, Video_BitRate);
+        }
     }
 
     //Purge what is not needed anymore
