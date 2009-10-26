@@ -13,6 +13,7 @@ Version 0.7.23, 2009-10-16
 + MPEG-TS: More information for ADTS in non-audio PES ID.
 + FLV: test of video bitrate info integrity
 x MPEG-4: some Pixel Aspect Ratio settings were not handled
+x Customized output: respect of carriage return from the platform
 
 Version 0.7.23, 2009-10-16
 --------------
