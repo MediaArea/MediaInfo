@@ -80,8 +80,8 @@ void File_DvDif::Read_Buffer_Continue()
                     for (size_t Pos=3*8; Pos<40; Pos+=2*8)
                     {
                         int8u PackType=Buffer[Buffer_Offset+3+Pos+3];
-                        //timecode
-                        if (PackType==0x13) //Pack type=0x13 (timecode)
+                        //dv_timecode
+                        if (PackType==0x13) //Pack type=0x13 (dv_timecode)
                         {
                             bool  DropFrame                 =( Buffer[Buffer_Offset+3+Pos+3+1]&0x40)?true:false;
                             int8u Frames                    =((Buffer[Buffer_Offset+3+Pos+3+1]&0x30)>>4)*10
@@ -824,10 +824,10 @@ void File_DvDif::Errors_Stats_Update()
             }
             if (Video_STA_Errors_Details.size()>2)
             {
-                Ztring Video_STA_Errors_Count_Padded=Ztring::ToZtring(Video_STA_Errors_Count);
-                if (Video_STA_Errors_Count_Padded.size()<8)
-                    Video_STA_Errors_Count_Padded.insert(0, 8-Video_STA_Errors_Count_Padded.size(), _T(' '));
-                Errors_Stats_Line_Details+=Video_STA_Errors_Count_Padded+_T(" STA errors");
+                Ztring Video_STA_Errors_Count_Padded=Ztring::ToZtring(((float)Video_STA_Errors_Count)*100/((DSF_IsValid && DSF)?1500:1350)*(QU_FSC?2:1), 2);
+                if (Video_STA_Errors_Count_Padded.size()<5)
+                    Video_STA_Errors_Count_Padded.insert(0, 5-Video_STA_Errors_Count_Padded.size(), _T(' '));
+                Errors_Stats_Line_Details+=Video_STA_Errors_Count_Padded+_T("%");
                 Video_STA_Errors_Details.resize(Video_STA_Errors_Details.size()-2);
                 Errors_Stats_Line_Details+=_T(" (")+Video_STA_Errors_Details+_T(")");
                 Speed_FrameCount_Video_STA_Errors++;
@@ -890,14 +890,14 @@ void File_DvDif::Errors_Stats_Update()
                         Errors_Stats_Line+=_T('2');
                     }
 
-                    Ztring Audio_Errors_Count_Padded=Ztring::ToZtring(Audio_Errors_Count);
+                    Ztring Audio_Errors_Count_Padded=Ztring::ToZtring(((float)Audio_Errors_Count)*100/((DSF_IsValid && DSF)?54:45)*(QU_FSC?2:1), 2);
                     if (Audio_Errors_Count_Padded.size()<2)
                         Audio_Errors_Count_Padded.insert(0, 2-Audio_Errors_Count_Padded.size(), _T(' '));
                     if (ErrorsAreAlreadyDetected)
                         Errors_Stats_Line_Details+=_T(", ");
                     if (Audio_Errors_Count<(size_t)((QU_System?6:5)*9))
                     {
-                        Errors_Stats_Line_Details+=_T("CH")+Ztring::ToZtring(Channel+1)+_T(": ")+Audio_Errors_Count_Padded+_T(" audio errors");
+                        Errors_Stats_Line_Details+=_T("CH")+Ztring::ToZtring(Channel+1)+_T(": ")+Audio_Errors_Count_Padded+_T("%");
                         Audio_Errors_Details.resize(Audio_Errors_Details.size()-2);
                         Errors_Stats_Line_Details+=_T(" (")+Audio_Errors_Details+_T(")");
                     }
@@ -1250,7 +1250,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
 
     //Error 3: Timecode incoherency
     if (Speed_FrameCount_Timecode_Incoherency)
-        Errors_Stats_End_Lines+=_T("Frame count with timecode incoherency: ")+Ztring::ToZtring(Speed_FrameCount_Timecode_Incoherency)+_T(" frames &");
+        Errors_Stats_End_Lines+=_T("Frame count with DV timecode incoherency: ")+Ztring::ToZtring(Speed_FrameCount_Timecode_Incoherency)+_T(" frames &");
 
     //Error 4: DIF incohereny
     if (Speed_FrameCount_Contains_NULL)
@@ -1408,7 +1408,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
             if (FrameRate==29.970 && Speed_TimeCode_Current.IsValid && !Speed_TimeCode_Current.Time.DropFrame)
                 FrameRate=30.000;
 
-            Errors_Stats_End_Lines+=_T("Abs. Time    \tTimeCode_range           \tRecorded date/time_range                         \tFrame range&");
+            Errors_Stats_End_Lines+=_T("Absolute time\tDV timecode range        \tRecorded date/time range                         \tFrame range&");
             for (size_t Pos=0; Pos<Speed_TimeStampsZ.size(); Pos++)
             {
                 //Time
@@ -1544,7 +1544,7 @@ void File_DvDif::Errors_Stats_Update_Finnish()
     //Filling
     if (Count_Get(Stream_Video)==0)
         Stream_Prepare(Stream_Video);
-    Fill(Stream_Video, 0, "Errors_Stats_Begin", "Frame # \tTime        \tTimeCode   \tN\tRecorded date/time     \tN\tA\tN\tS\tE\t1\t2\t3\t4\t5\t6\t7\t8\t9\t0\t1\t2\t3\t4\t5\t6\t7\t8\t9\t0");
+    Fill(Stream_Video, 0, "Errors_Stats_Begin", "Frame # \tAbsolute time\tDV timecode\tN\tRecorded date/time     \tN\tA\tN\tS\tE\t1\t2\t3\t4\t5\t6\t7\t8\t9\t0\t1\t2\t3\t4\t5\t6\t7\t8\t9\t0");
     (*Stream_More)[Stream_Video][0](Ztring().From_Local("Errors_Stats_Begin"), Info_Options)=_T("N NT");
     Fill(Stream_Video, 0, "Errors_Stats_03", Errors_Stats_03);
     (*Stream_More)[Stream_Video][0](Ztring().From_Local("Errors_Stats_03"), Info_Options)=_T("N NT");
