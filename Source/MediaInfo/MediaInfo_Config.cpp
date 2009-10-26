@@ -33,6 +33,7 @@
 #include "ZenLib/ZtringListListF.h"
 #include "ZenLib/File.h"
 #include <algorithm>
+#include <iostream>
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
@@ -153,10 +154,13 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
         File F(FileName.c_str());
 
         //Read
-        int8u* Buffer=new int8u[(size_t)F.Size_Get()+1];
-        Buffer[(size_t)F.Size_Get()]='\0';
-        F.Read(Buffer, (size_t)F.Size_Get());
+        int64u Size=F.Size_Get();
+        if (Size>=0xFFFFFFFF)
+            Size=1024*1024;
+        int8u* Buffer=new int8u[(size_t)Size+1];
+        int64u Pos=F.Read(Buffer, Size);
         F.Close();
+        Buffer[Pos]='\0';
         Ztring FromFile; FromFile.From_UTF8((char*)Buffer);
         if (FromFile.empty())
              FromFile.From_Local((char*)Buffer);
@@ -955,10 +959,13 @@ void MediaInfo_Config::Inform_Set (const ZtringListList &NewValue)
             File F(FileName.c_str());
 
             //Read
-            int8u* Buffer=new int8u[(size_t)F.Size_Get()+1];
-            Buffer[(size_t)F.Size_Get()+1]='\0';
-            F.Read(Buffer, (size_t)F.Size_Get());
+            int64u Size=F.Size_Get();
+            if (Size>=0xFFFFFFFF)
+                Size=1024*1024;
+            int8u* Buffer=new int8u[(size_t)Size+1];
+            int64u Pos=F.Read(Buffer, Size);
             F.Close();
+            Buffer[Pos]='\0';
             Ztring FromFile; FromFile.From_Local((char*)Buffer);
             delete[] Buffer; //Buffer=NULL;
 
