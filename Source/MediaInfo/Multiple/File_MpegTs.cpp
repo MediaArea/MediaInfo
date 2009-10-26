@@ -564,7 +564,11 @@ bool File_MpegTs::Synched_Test()
                         size_t Version_Pos=BDAV_Size
                                           +4 //standart header
                                           +((Buffer[Buffer_Offset+BDAV_Size+3]&0x20)?(1+Buffer[Buffer_Offset+BDAV_Size+4]):0); //adaptation_field_control (adaptation) --> adaptation_field_length
+                        if (Version_Pos>=BDAV_Size+188)
+                            return true; //There is a problem with this block, accelerated parsing disabled
                         Version_Pos+=1+Buffer[Buffer_Offset+Version_Pos]; //pointer_field
+                        if (Version_Pos>=BDAV_Size+188)
+                            return true; //There is a problem with this block, accelerated parsing disabled
                         int8u table_id=Buffer[Buffer_Offset+Version_Pos]; //table_id
                         if (table_id==0xCD) //specifc case for ATSC STT
                             return true; //Version has no meaning
@@ -876,7 +880,12 @@ void File_MpegTs::Header_Parse_AdaptationField()
     Element_Begin("adaptation_field");
     int8u Adaptation_Size;
     Get_B1 (Adaptation_Size,                                    "adaptation_field_length");
-    if (Adaptation_Size>0)
+    if (Adaptation_Size>188-4-1) //TS size - header - adaptation_field_length
+    {
+        Adaptation_Size=188-4-1;
+        Skip_XX(188-4-1,                                        "stuffing_bytes");
+    }
+    else if (Adaptation_Size>0)
     {
         bool PCR_flag, OPCR_flag, splicing_point_flag, transport_private_data_flag, adaptation_field_extension_flag;
         BS_Begin();
@@ -957,13 +966,19 @@ void File_MpegTs::Header_Parse_AdaptationField()
         {
             int8u transport_private_data_length;
             Get_B1 (transport_private_data_length,              "transport_private_data_length");
-            Skip_XX(transport_private_data_length,              "transport_private_data");
+            if (Element_Offset+transport_private_data_length<=Element_Pos_Save+1+Adaptation_Size)
+                Skip_XX(transport_private_data_length,          "transport_private_data");
+            else
+                Skip_XX(Element_Pos_Save+1+Adaptation_Size-Element_Offset, "problem");
         }
         if (adaptation_field_extension_flag)
         {
             int8u adaptation_field_extension_length;
             Get_B1 (adaptation_field_extension_length,          "adaptation_field_extension_length");
-            Skip_XX(adaptation_field_extension_length,          "adaptation_field_extension");
+            if (Element_Offset+adaptation_field_extension_length<=Element_Pos_Save+1+Adaptation_Size)
+                Skip_XX(adaptation_field_extension_length,      "adaptation_field_extension");
+            else
+                Skip_XX(Element_Pos_Save+1+Adaptation_Size-Element_Offset, "problem");
         }
     }
     if (Element_Offset<Element_Pos_Save+1+Adaptation_Size)
@@ -974,7 +989,9 @@ void File_MpegTs::Header_Parse_AdaptationField()
 {
     int8u Adaptation_Size=Buffer[Buffer_Offset+BDAV_Size+4];
     #ifdef MEDIAINFO_MPEGTS_PCR_YES
-        if (Adaptation_Size)
+        if (Adaptation_Size>188-4-1) //TS size - header - adaptation_field_length
+            Adaptation_Size=188-4-1;
+        else if (Adaptation_Size)
         {
             bool PCR_flag=(Buffer[Buffer_Offset+BDAV_Size+5]&0x10)!=0;
             if (PCR_flag)

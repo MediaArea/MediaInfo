@@ -219,6 +219,15 @@ bool File__Duplicate_MpegTs::Manage_PAT (const int8u* ToAdd, size_t ToAdd_Size)
     }
 
     Parsing_End(PAT);
+
+    //Reseting
+    std::vector<int16u> StreamID_List;
+    for (std::map<int16u, buffer>::iterator PAT_=PAT.begin(); PAT_!=PAT.end(); PAT_++)
+        if (PAT_->first!=StreamID)
+            StreamID_List.push_back(PAT_->first);
+    for (size_t Pos=0; Pos<StreamID_List.size(); Pos++)
+        PAT[StreamID_List[Pos]].FromTS_version_number_Last=0xFF;
+
     return true;
 }
 
@@ -303,6 +312,8 @@ bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Siz
 
     //section_length
     FromTS.Offset+=1+pointer_field+1;
+    if (FromTS.Offset+2>FromTS.Size)
+        return false;
     FromTS.Begin=FromTS.Offset-1;
     int16u section_length=CC2(FromTS.Buffer+FromTS.Offset)&0x0FFF;
     FromTS.End=4+adaptation_field_length+section_length;

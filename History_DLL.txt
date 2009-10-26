@@ -14,6 +14,7 @@ Version 0.7.23, 2009-10-16
 + FLV: test of video bitrate info integrity
 x MPEG-4: some Pixel Aspect Ratio settings were not handled
 x Customized output: respect of carriage return from the platform
+x MPEG-TS demuxer: more tolerance of bad blocks
 
 Version 0.7.23, 2009-10-16
 --------------

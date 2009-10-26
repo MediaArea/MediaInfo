@@ -128,6 +128,10 @@ public :
             Buffer_Size=0;
             Buffer_Size_Max=0;
         }
+        ~buffer_big()
+        {
+            delete[] Buffer; //Buffer=NULL;
+        }
     };
 
     //Data

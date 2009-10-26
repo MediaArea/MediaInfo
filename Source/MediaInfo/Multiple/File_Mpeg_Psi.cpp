@@ -979,6 +979,14 @@ void File_Mpeg_Psi::Table_00()
     Complete_Stream->Transport_Streams[table_id_extension].Programs_NotParsedCount=0;
     Complete_Stream->Transport_Streams[table_id_extension].Programs.clear();
 
+    //Reseting
+    std::vector<int16u> Table_ID_Extension_List;
+    for (complete_stream::stream::table_id::table_id_extensions::iterator Table_ID_Extension=Complete_Stream->Streams[0x0000].Table_IDs[0x00]->Table_ID_Extensions.begin(); Table_ID_Extension!=Complete_Stream->Streams[0x0000].Table_IDs[0x00]->Table_ID_Extensions.end(); Table_ID_Extension++)
+        if (Table_ID_Extension->first!=table_id_extension)
+            Table_ID_Extension_List.push_back(Table_ID_Extension->first);
+    for (size_t Pos=0; Pos<Table_ID_Extension_List.size(); Pos++)
+        Complete_Stream->Streams[0x0000].Table_IDs[0x00]->Table_ID_Extensions.erase(Table_ID_Extension_List[Pos]);
+
     //Parsing
     while (Element_Offset<Element_Size)
     {
