@@ -454,6 +454,7 @@ void File_DvDif::Read_Buffer_Continue()
 
     if (!Status[IsAccepted])
         File__Analyze::Buffer_Offset=0;
+    Config->State_Set(((float)File_Offset)/File_Size);
 }
 
 void File_DvDif::Errors_Stats_Update()
