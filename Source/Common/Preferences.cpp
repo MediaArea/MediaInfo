@@ -428,6 +428,7 @@ int Preferences::ExplorerShell()
 
     ZtringListList Liste;
     Liste=_T(
+        ".264;H264File\r\n"
         ".3gp;mpeg4File\r\n"
         ".3gpp;mpeg4File\r\n"
         ".aac;AACFile\r\n"
