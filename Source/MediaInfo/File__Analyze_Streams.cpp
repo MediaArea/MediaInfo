@@ -664,6 +664,10 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
 
             Clear                (Stream_Video, StreamPos, Video_PixelAspectRatio  );
             float DAR   =Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio).To_float32();
+            if (Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio)==_T("1.778"))
+                DAR=((float)16)/9; //More exact value
+            if (Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio)==_T("1.333"))
+                DAR=((float)4)/3; //More exact value
             float Width =Retrieve(Stream_Video, StreamPos, Video_Width             ).To_float32();
             float Height=Retrieve(Stream_Video, StreamPos, Video_Height            ).To_float32();
             if (DAR && Height && Width)
@@ -673,6 +677,8 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         {
             Clear                (Stream_Video, StreamPos, Video_DisplayAspectRatio);
             float PAR   =Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio  ).To_float32();
+            if (Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio)==_T("1.333"))
+                PAR=((float)4)/3; //More exact value
             float Width =Retrieve(Stream_Video, StreamPos, Video_Width             ).To_float32();
             float Height=Retrieve(Stream_Video, StreamPos, Video_Height            ).To_float32();
             if (PAR && Height && Width)
@@ -681,6 +687,10 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         if (StreamKind==Stream_Video && (Parameter==Video_Width || Parameter==Video_Height) && Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio).empty() && !Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio).empty())
         {
             float DAR   =Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio).To_float32();
+            if (Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio)==_T("1.778"))
+                DAR=((float)16)/9; //More exact value
+            if (Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio)==_T("1.333"))
+                DAR=((float)4)/3; //More exact value
             float Width =Retrieve(Stream_Video, StreamPos, Video_Width             ).To_float32();
             float Height=Retrieve(Stream_Video, StreamPos, Video_Height            ).To_float32();
             if (DAR && Height && Width)
@@ -708,6 +718,10 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
 
             Clear                (Stream_Video, StreamPos, Video_PixelAspectRatio_Original  );
             float DAR   =Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original).To_float32();
+            if (Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original)==_T("1.778"))
+                DAR=((float)16)/9; //More exact value
+            if (Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original)==_T("1.333"))
+                DAR=((float)4)/3; //More exact value
             float Width =Retrieve(Stream_Video, StreamPos, Video_Width             ).To_float32();
             float Height=Retrieve(Stream_Video, StreamPos, Video_Height            ).To_float32();
             if (DAR && Height && Width)
@@ -717,6 +731,8 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         {
             Clear                (Stream_Video, StreamPos, Video_DisplayAspectRatio_Original);
             float PAR   =Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio_Original  ).To_float32();
+            if (Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio_Original)==_T("1.333"))
+                PAR=((float)4)/3; //More exact value
             float Width =Retrieve(Stream_Video, StreamPos, Video_Width             ).To_float32();
             float Height=Retrieve(Stream_Video, StreamPos, Video_Height            ).To_float32();
             if (PAR && Height && Width)
@@ -725,6 +741,10 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         if (StreamKind==Stream_Video && (Parameter==Video_Width || Parameter==Video_Height) && Retrieve(Stream_Video, StreamPos, Video_PixelAspectRatio_Original).empty() && !Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original).empty())
         {
             float DAR   =Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original).To_float32();
+            if (Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original)==_T("1.778"))
+                DAR=((float)16)/9; //More exact value
+            if (Retrieve(Stream_Video, StreamPos, Video_DisplayAspectRatio_Original)==_T("1.333"))
+                DAR=((float)4)/3; //More exact value
             float Width =Retrieve(Stream_Video, StreamPos, Video_Width             ).To_float32();
             float Height=Retrieve(Stream_Video, StreamPos, Video_Height            ).To_float32();
             if (DAR && Height && Width)
