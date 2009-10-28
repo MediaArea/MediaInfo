@@ -7,8 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.23, 2009-10-16
+Version 0.7.24, 2009-10-16
 --------------
++ MPEG-4: detection fo DV100
++ WAV: better handling of Wave Extension codec IDs
 + MPEG Audio: profile and extension display
 + MPEG-TS: More information for ADTS in non-audio PES ID.
 + FLV: test of video bitrate info integrity

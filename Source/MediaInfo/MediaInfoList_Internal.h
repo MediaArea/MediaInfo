@@ -82,13 +82,14 @@ private :
     size_t  ToParse_AlreadyDone;
     size_t  ToParse_Total;
     size_t  CountValid;
+    MediaInfo_Config_MediaInfo Config;
+
+    //Threading
     size_t  BlockMethod; //Open() return: 0=immedialtly, 1=after local info, 2=when user interaction is needed
     size_t  State;
-    void    State_Set(size_t);
     bool    IsInThread;
     void    Entry();
     ZenLib::CriticalSection CS;
-    MediaInfo_Config_MediaInfo Config;
 };
 
 } //NameSpace

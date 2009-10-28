@@ -1,44 +1,81 @@
-2vuy;YUV;;;
-apch;Digital Video;;ProRes 422 HQ;http://www.apple.com/quicktime/download/standalone.html
-apcn;Digital Video;;ProRes 422;http://www.apple.com/quicktime/download/standalone.html
-avc1;AVC;;Advanced Video Coding;http://www.apple.com/quicktime/download/standalone.html
-avcp;AVC;;Advanced Video Coding Parameters;http://www.apple.com/quicktime/download/standalone.html
-AVdv;Digital Video;;Avid;http://www.apple.com/quicktime/download/standalone.html
-drac;Dirac;;Dirac Video Coder;http://www.bbc.co.uk/rd/projects/dirac/index.shtml
-CFHD;Cineform;;CineForm High-Definition (HD) wavelet codec;http://www.cineform.com/
-cvid;Cinepack;;;http://www.apple.com/quicktime/download/standalone.html
-dslv;Cross Fade;;;http://www.apple.com/quicktime/download/standalone.html
-DV10;Digital Voodoo;;Digital Voodoo 10 bit Uncompressed 4:2:2 codec;http://www.digitalvoodoo.net/
-dvc ;Digital Video;;;http://www.apple.com/quicktime/download/standalone.html
-dvcp;Digital Video;;;http://www.apple.com/quicktime/download/standalone.html
-dvhp;Digital Video;;;http://www.apple.com/quicktime/download/standalone.html
-DVOO;Digital Voodoo;;Digital Voodoo 8 bit Uncompressed 4:2:2 codec;http://www.digitalvoodoo.net/
-DVOR;Digital Voodoo;;Digital Voodoo intermediate raw;http://www.digitalvoodoo.net/
-DVTV;Digital Voodoo;;Digital Voodoo intermediate 2vuy;http://www.digitalvoodoo.net/
-DVVT;Digital Voodoo;;Digital Voodoo intermediate v210;http://www.digitalvoodoo.net/
-encv;(Encrypted);;;http://www.apple.com/quicktime/download/standalone.html
-h263;H.263;;;http://www.apple.com/quicktime/download/standalone.html
-HD10;Digital Voodoo;;Digital Voodoo 10 bit Uncompressed 4:2:2 HD codec;http://www.digitalvoodoo.net/
-jpeg;M-JPEG;;;http://www.apple.com/quicktime/download/standalone.html
-M105;Matrox;;;http://www.matrox.com/
-mjp2;M-JPEG 2000;;;
-mjpa;M-JPEG;;;
-mjpb;M-JPEG;;;
-mp4v;MPEG-4 Visual;;;
-ovc1;VC-1;;Smooth Streaming Media Video;http://alexzambelli.com/blog/2009/02/10/smooth-streaming-architecture/
-png ;M-PNG;;;
-PNTG;MacPaint;;Apple MacPaint image format;http://www.apple.com/quicktime/download/standalone.html
-rle ;RLE;;;http://www.apple.com/quicktime/download/standalone.html
-rpza;Road Pizza;;;http://www.apple.com/quicktime/download/standalone.html
-s263;H.263;;;http://www.apple.com/quicktime/download/standalone.html
-Shr0;SheerVideo;;Generic SheerVideo codec;http://www.bitjazz.com/
-Shr1;SheerVideo;;SheerVideo RGB;http://www.bitjazz.com/
-Shr2;SheerVideo;;SheerVideo Y'CbCr[A] 4:4:4;http://www.bitjazz.com/
-Shr3;SheerVideo;;SheerVideo Y'CbCr 4:2:2;http://www.bitjazz.com/
-Shr4;SheerVideo;;SheerVideo Y'CbCr 4:2:2;http://www.bitjazz.com/
-SV10;Sorenson;;Sorenson Media Video R1;http://www.apple.com/quicktime/download/standalone.html
-SVQ1;Sorenson 1;;Sorenson Media Video 1 (Apple QuickTime 3);http://www.apple.com/quicktime/download/standalone.html
-SVQ2;Sorenson 2;;Sorenson Media Video 2 (Apple QuickTime 4);http://www.apple.com/quicktime/download/standalone.html
-SVQ3;Sorenson 3;;Sorenson Media Video 3 (Apple QuickTime 5);http://www.apple.com/quicktime/download/standalone.html
-vc-1;VC-1;;SMPTE VC-1;http://www.smpte.org/
-WRLE;Bitmap;;Windows BMP image format;http://www.apple.com/quicktime/download/standalone.html
+2vuy;YUV;;;;;;YUV 4:2:2
+8BPS;RGB;;;;;;RGB 8:8:8
+ac16;YUV;;;;;;YUV 4:2:2
+ac32;YUV;;;;;;YUV 4:2:2
+acBG;YUV;;;;;;YUV 4:2:2
+apch;Digital Video;;ProRes 422 HQ;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:2:2
+apcn;Digital Video;;ProRes 422;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:2:2
+avc1;AVC;;Advanced Video Coding;http://www.apple.com/quicktime/download/standalone.html;;;
+avcp;AVC;;Advanced Video Coding Parameters;http://www.apple.com/quicktime/download/standalone.html;;;
+AVdv;Digital Video;;Avid;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+avr ;M-JPEG;;;;;;
+b16g;Gray;;;;;;G 16
+b32a;Gray/Alpha;;;;;;GA 16:16
+b48r;RGB;;;;;;RGB 16:16:16
+b64a;RGBA;;;;;;RGBA 16:16:16:16
+base;RGBA;;;;;;RGBA 16:16:16:16
+blit;RGBA;;;;;;RGBA 16:16:16:16
+blnd;Alpha Compositor;;;;;;
+blur;Blur;;;;;;CMYK
+CFHD;Cineform;;CineForm High-Definition (HD) wavelet codec;http://www.cineform.com/;;;
+cmyk;CMYK;;;;;;
+cvid;Cinepack;;;http://www.apple.com/quicktime/download/standalone.html;;;
+drac;Dirac;;Dirac Video Coder;http://www.bbc.co.uk/rd/projects/dirac/index.shtml;;;
+dslv;Cross Fade;;;http://www.apple.com/quicktime/download/standalone.html;;;
+DV10;Digital Voodoo;;Digital Voodoo 10 bit Uncompressed 4:2:2 codec;http://www.digitalvoodoo.net/;;;
+dv5n;Digital Video;DVCPRO50;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dv5p;Digital Video;DVCPRO50;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvc ;Digital Video;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvcp;Digital Video;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh1;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh2;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh3;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh4;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh5;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh6;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvhp;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvhq;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+DVOO;Digital Voodoo;;Digital Voodoo 8 bit Uncompressed 4:2:2 codec;http://www.digitalvoodoo.net/;;;
+DVOR;Digital Voodoo;;Digital Voodoo intermediate raw;http://www.digitalvoodoo.net/;;;
+dvpp;Digital Video;DVCPRO;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+DVTV;Digital Voodoo;;Digital Voodoo intermediate 2vuy;http://www.digitalvoodoo.net/;;;
+DVVT;Digital Voodoo;;Digital Voodoo intermediate v210;http://www.digitalvoodoo.net/;;;
+encv;(Encrypted);;;http://www.apple.com/quicktime/download/standalone.html;;;
+gif ;M-GIF;;;;;;
+h261;H.261;;;http://www.apple.com/quicktime/download/standalone.html;;;
+h263;H.263;;;http://www.apple.com/quicktime/download/standalone.html;;;
+h264;H.264;;;http://www.apple.com/quicktime/download/standalone.html;;;
+HD10;Digital Voodoo;;Digital Voodoo 10 bit Uncompressed 4:2:2 HD codec;http://www.digitalvoodoo.net/;;;
+hdv3;Digital Video;HDV;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+j420;YUV;;;;;;YUV 4:2:0
+jpeg;M-JPEG;;;http://www.apple.com/quicktime/download/standalone.html;;;
+kpcd;Photo CD;;;;;;
+M105;Matrox;;;http://www.matrox.com/;;;
+mjp2;M-JPEG 2000;;;;;;
+mjpa;M-JPEG;;;;;;
+mjpb;M-JPEG;;;;;;
+mp4v;MPEG-4 Visual;;;;;;
+mx3n;MPEG Video;;;;;;
+mx3p;MPEG Video;;;;;;
+myuv;YUV;;;;;;YUV 4:2:0
+ovc1;VC-1;;Smooth Streaming Media Video;http://alexzambelli.com/blog/2009/02/10/smooth-streaming-architecture/;;;
+png ;M-PNG;;;;;;
+PNTG;MacPaint;;Apple MacPaint image format;http://www.apple.com/quicktime/download/standalone.html;;;
+rle ;RLE;;;http://www.apple.com/quicktime/download/standalone.html;;;
+rpza;Road Pizza;;;http://www.apple.com/quicktime/download/standalone.html;;;
+s263;H.263;;;http://www.apple.com/quicktime/download/standalone.html;;;
+Shr0;SheerVideo;;Generic SheerVideo codec;http://www.bitjazz.com/;;;
+Shr1;SheerVideo;;SheerVideo RGB;http://www.bitjazz.com/;;;
+Shr2;SheerVideo;;SheerVideo Y'CbCr[A] 4:4:4;http://www.bitjazz.com/;;;
+Shr3;SheerVideo;;SheerVideo Y'CbCr 4:2:2;http://www.bitjazz.com/;;;
+Shr4;SheerVideo;;SheerVideo Y'CbCr 4:2:2;http://www.bitjazz.com/;;;
+SV10;Sorenson;;Sorenson Media Video R1;http://www.apple.com/quicktime/download/standalone.html;;;
+SVQ1;Sorenson 1;;Sorenson Media Video 1 (Apple QuickTime 3);http://www.apple.com/quicktime/download/standalone.html;;;
+SVQ2;Sorenson 2;;Sorenson Media Video 2 (Apple QuickTime 4);http://www.apple.com/quicktime/download/standalone.html;;;
+SVQ3;Sorenson 3;;Sorenson Media Video 3 (Apple QuickTime 5);http://www.apple.com/quicktime/download/standalone.html;;;
+vc-1;VC-1;;SMPTE VC-1;http://www.smpte.org/;;;
+WRLE;Bitmap;;Windows BMP image format;http://www.apple.com/quicktime/download/standalone.html;;;
+yuv2;YUV;;;;;;YUV 4:2:2
+yuvs;YUV;;;;;;YUV 4:2:2
+yuvu;YUV;;;;;;YUV 4:2:2
+yuvx;YUV;;;;;;YUV 4:2:2

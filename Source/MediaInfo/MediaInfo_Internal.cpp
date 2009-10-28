@@ -57,17 +57,22 @@ namespace MediaInfoLib
 
 //---------------------------------------------------------------------------
 MediaInfo_Internal::MediaInfo_Internal()
+: Thread()
 {
+    CriticalSectionLocker CSL(CS);
+
     MediaInfoLib::Config.Init(); //Initialize Configuration
 
-    CriticalSectionLocker CSL(CS);
-    Thread=NULL;
     BlockMethod=BlockMethod_Local;
     Info=NULL;
     Info_IsMultipleParsing=false;
 
     Stream.resize(Stream_Max);
     Stream_More.resize(Stream_Max);
+    
+    //Threading
+    BlockMethod=0;
+    IsInThread=false;
 }
 
 //---------------------------------------------------------------------------
@@ -84,10 +89,41 @@ MediaInfo_Internal::~MediaInfo_Internal()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-size_t MediaInfo_Internal::Open(const String &File_Name)
+size_t MediaInfo_Internal::Open(const String &File_Name_)
 {
+    Close();
+    
+    CS.Enter();
+    File_Name=File_Name_;
+    CS.Leave();
+
+    //Parsing
+    if (BlockMethod==1)
+    {
+        if (!IsInThread) //If already created, the routine will read the new files
+        {
+            Run();
+            IsInThread=true;
+        }
+        return 0;
+    }
+    else
+    {
+        Entry(); //Normal parsing
+        return Count_Get(Stream_General);
+    }
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Internal::Entry()
+{
+    CS.Enter();
+    Config.State_Set(0);
+    CS.Leave();
+
+        if (0);
     #if defined(MEDIAINFO_LIBCURL_YES)
-        if ((File_Name.size()>=7
+        else if ((File_Name.size()>=7
           && File_Name[0]==_T('h')
           && File_Name[1]==_T('t')
           && File_Name[2]==_T('t')
@@ -102,16 +138,11 @@ size_t MediaInfo_Internal::Open(const String &File_Name)
           && File_Name[3]==_T(':')
           && File_Name[4]==_T('/')
           && File_Name[5]==_T('/')))
-        {
-            //Load libcurl
-            if (Reader_libcurl::Format_Test(this, File_Name)>0)
-                 return 1;
-            return 0;
-        }
+            Reader_libcurl::Format_Test(this, File_Name);
     #endif //MEDIAINFO_LIBCURL_YES
 
     #if defined(MEDIAINFO_LIBMMS_YES)
-        if ((File_Name.size()>=6
+        else if ((File_Name.size()>=6
           && File_Name[0]==_T('m')
           && File_Name[1]==_T('m')
           && File_Name[2]==_T('s')
@@ -126,33 +157,22 @@ size_t MediaInfo_Internal::Open(const String &File_Name)
           && File_Name[4]==_T(':')
           && File_Name[5]==_T('/')
           && File_Name[6]==_T('/')))
-        {
-            //Load libmms
-            if (Reader_libmms::Format_Test(this, File_Name)>0)
-                 return 1;
-            return 0;
-        }
+            Reader_libmms::Format_Test(this, File_Name);
     #endif //MEDIAINFO_LIBMMS_YES
 
     #if defined(MEDIAINFO_DIRECTORY_YES)
-        if (Dir::Exists(File_Name))
-        {
-            if (Reader_Directory::Format_Test(this, File_Name)>0)
-                 return 1;
-            return 0;
-        }
+        else if (Dir::Exists(File_Name))
+            Reader_Directory::Format_Test(this, File_Name);
     #endif //MEDIAINFO_DIRECTORY_YES
 
     #if defined(MEDIAINFO_FILE_YES)
-        if (File::Exists(File_Name))
-        {
-            if (Reader_File::Format_Test(this, File_Name)>0)
-                 return 1;
-            return 0;
-        }
+        else if (File::Exists(File_Name))
+            Reader_File::Format_Test(this, File_Name);
     #endif //MEDIAINFO_FILE_YES
 
-    return 0;
+    CS.Enter();
+    Config.State_Set(1);
+    CS.Leave();
 }
 
 //---------------------------------------------------------------------------
@@ -291,6 +311,13 @@ size_t MediaInfo_Internal::Open_Buffer_Finalize ()
 //---------------------------------------------------------------------------
 void MediaInfo_Internal::Close()
 {
+    if (IsRunning())
+    {
+        RequestTerminate();
+        while(IsExited())
+            Yield();
+    }
+
     CriticalSectionLocker CSL(CS);
     Stream.clear();
     Stream.resize(Stream_Max);
@@ -516,6 +543,11 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
         delete Info; Info=NULL;
         return _T("");
     }
+    else if (OptionLower==_T("thread"))
+    {
+        BlockMethod=1;
+        return _T("");
+    }
     else if (Option==_T("info_capacities"))
     {
         return _T("Option removed");
@@ -555,7 +587,7 @@ size_t MediaInfo_Internal::Count_Get (stream_t StreamKind, size_t StreamPos)
 size_t MediaInfo_Internal::State_Get ()
 {
     CriticalSectionLocker CSL(CS);
-    return 0; //Not yet implemented
+    return (size_t)(Config.State_Get()*10000);
 }
 
 } //NameSpace

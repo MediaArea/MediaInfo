@@ -53,14 +53,17 @@ MediaInfoList_Internal::MediaInfoList_Internal(size_t Count_Init)
 : Thread()
 {
     CriticalSectionLocker CSL(CS);
+    
     //Initialisation
     Info.reserve(Count_Init);
     for (size_t Pos=0; Pos<Info.size(); Pos++)
         Info[Pos]=NULL;
-    BlockMethod=0;
-    State=0;
     ToParse_AlreadyDone=0;
     ToParse_Total=0;
+    
+    //Threading
+    BlockMethod=0;
+    State=0;
     IsInThread=false;
 }
 
@@ -69,10 +72,6 @@ MediaInfoList_Internal::MediaInfoList_Internal(size_t Count_Init)
 MediaInfoList_Internal::~MediaInfoList_Internal()
 {
     Close();
-
-    CriticalSectionLocker CSL(CS);
-    for (size_t Pos=0; Pos<Info.size(); Pos++)
-        delete Info[Pos]; //Info[Pos]=NULL;
 }
 
 //***************************************************************************
@@ -145,11 +144,13 @@ size_t MediaInfoList_Internal::Open(const String &File_Name, const fileoptions_t
     //Parsing
     if (BlockMethod==1)
     {
-        if (!IsInThread) //If already created, the routine will read the new files
+        CS.Enter();
+        if (!IsRunning()) //If already created, the routine will read the new files
         {
-            Run();
+            RunAgain();
             IsInThread=true;
         }
+        CS.Leave();
         return 0;
     }
     else
@@ -172,15 +173,37 @@ void MediaInfoList_Internal::Entry()
             MediaInfo* MI=new MediaInfo();
             for (std::map<String, String>::iterator Config_MediaInfo_Item=Config_MediaInfo_Items.begin(); Config_MediaInfo_Item!=Config_MediaInfo_Items.end(); Config_MediaInfo_Item++)
                 MI->Option(Config_MediaInfo_Item->first, Config_MediaInfo_Item->second);
+            if (BlockMethod==1)
+                MI->Option(_T("Thread"), _T("1"));
             MI->Open(ToParse.front());
+            if (BlockMethod==1)
+            {
+                CS.Leave();
+                while (MI->State_Get()<10000)
+                {
+                    int A=MI->State_Get();
+                    CS.Enter();
+                    State=(ToParse_AlreadyDone*10000+A)/ToParse_Total;
+                    CS.Leave();
+                    if (IsTerminating())
+                    {
+                        break;
+                    }
+                    Yield();
+                }
+                CS.Enter();
+            }
             Info.push_back(MI);
             ToParse.pop();
             ToParse_AlreadyDone++;
             State=ToParse_AlreadyDone*10000/ToParse_Total;
         }
+        if (IsTerminating() || State==10000)
+        {
+            CS.Leave();
+            break;
+        }
         CS.Leave();
-        if (!IsInThread && State==10000)
-            break; //This is not in a thread, we must stop alone
         Yield();
     }
 }
@@ -237,6 +260,13 @@ size_t MediaInfoList_Internal::Save(size_t)
 //---------------------------------------------------------------------------
 void MediaInfoList_Internal::Close(size_t FilePos)
 {
+    if (IsRunning())
+    {
+        RequestTerminate();
+        while(IsExited())
+            Yield();
+    }
+
     CriticalSectionLocker CSL(CS);
     if (FilePos==Unlimited)
     {
@@ -438,17 +468,6 @@ size_t MediaInfoList_Internal::Count_Get()
 {
     CriticalSectionLocker CSL(CS);
     return Info.size();
-}
-
-//***************************************************************************
-// Internal
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void MediaInfoList_Internal::State_Set(size_t State_)
-{
-    CriticalSectionLocker CSL(CS);
-    State=State_;
 }
 
 } //NameSpace

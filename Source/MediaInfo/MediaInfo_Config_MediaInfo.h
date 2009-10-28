@@ -88,6 +88,10 @@ public :
     void          File_DvDif_Analysis_Set (bool NewValue);
     bool          File_DvDif_Analysis_Get ();
 
+    //Analysis internal
+    void          State_Set (float State);
+    float         State_Get ();
+
 private :
     bool                    FileIsSeekable;
     bool                    FileIsSub;
@@ -106,6 +110,9 @@ private :
     bool                    File_MpegTs_ForceMenu;
     bool                    File_Bdmv_ParseTargetedFile;
     bool                    File_DvDif_Analysis;
+
+    //Analysis internal
+    float                   State;
 
     ZenLib::CriticalSection CS;
 };

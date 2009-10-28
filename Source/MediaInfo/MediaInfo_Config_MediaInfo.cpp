@@ -51,6 +51,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     File_MpegTs_ForceMenu=false;
     File_Bdmv_ParseTargetedFile=true;
     File_DvDif_Analysis=false;
+    State=0;
 }
 
 //***************************************************************************
@@ -419,6 +420,24 @@ bool MediaInfo_Config_MediaInfo::File_DvDif_Analysis_Get ()
 {
     CriticalSectionLocker CSL(CS);
     bool Temp=File_DvDif_Analysis;
+    return Temp;
+}
+
+//***************************************************************************
+// Analysis internal
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::State_Set (float NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    State=NewValue;
+}
+
+float MediaInfo_Config_MediaInfo::State_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    float Temp=State;
     return Temp;
 }
 

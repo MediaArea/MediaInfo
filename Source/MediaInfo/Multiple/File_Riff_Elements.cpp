@@ -1037,13 +1037,14 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
 
     //Parsing
     int32u SamplesPerSec, AvgBytesPerSec;
-    int16u FormatTag, Channels, BitsPerSample;
+    int16u FormatTag, Channels, BitsPerSample=0;
     Get_L2 (FormatTag,                                          "FormatTag");
     Get_L2 (Channels,                                           "Channels");
     Get_L4 (SamplesPerSec,                                      "SamplesPerSec");
     Get_L4 (AvgBytesPerSec,                                     "AvgBytesPerSec");
     Skip_L2(                                                    "BlockAlign");
-    Get_L2 (BitsPerSample,                                      "BitsPerSample");
+    if (Element_Offset+2<=Element_Size)
+        Get_L2 (BitsPerSample,                                  "BitsPerSample");
 
     //Filling
     Stream_Prepare(Stream_Audio);
@@ -1056,7 +1057,8 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
     Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, (Channels!=5 || FormatTag==0xFFFE)?Channels:6);
     Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplesPerSec);
     Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, AvgBytesPerSec*8);
-    if (BitsPerSample) Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, BitsPerSample);
+    if (BitsPerSample)
+        if (BitsPerSample) Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, BitsPerSample);
     Stream[Stream_ID].AvgBytesPerSec=AvgBytesPerSec; //Saving bitrate for each stream
     if (SamplesPerSec && TimeReference!=(int64u)-1)
         Fill(Stream_Audio, 0, Audio_Delay, TimeReference/SamplesPerSec);
@@ -1266,15 +1268,46 @@ void File_Riff::AVI__hdlr_strl_strf_auds_Vorbis2()
 void File_Riff::AVI__hdlr_strl_strf_auds_ExtensibleWave()
 {
     //Parsing
+    int128u SubFormat;
     int32u ChannelMask;
     Skip_L2(                                                    "ValidBitsPerSample / SamplesPerBlock");
     Get_L4 (ChannelMask,                                        "ChannelMask");
-    Skip_GUID(                                                  "SubFormat");
+    Get_GUID(SubFormat,                                         "SubFormat");
 
     FILLING_BEGIN();
+        if ((SubFormat.hi&0xFFFFFFFFFFFF0000LL)==0x0010000000000000LL && SubFormat.lo==0x800000AA00389B71LL)
+        {
+            CodecID_Fill(Ztring().From_Number((int16u)SubFormat.hi, 16), Stream_Audio, StreamPos_Last, InfoCodecID_Format_Riff);
+            Fill(Stream_Audio, StreamPos_Last, Audio_CodecID, Ztring().From_GUID(SubFormat), true);
+            Fill(Stream_Audio, StreamPos_Last, Audio_Codec, MediaInfoLib::Config.Codec_Get(Ztring().From_Number((int16u)SubFormat.hi, 16)), true);
+
+            //Creating the parser
+                 if (0);
+            #if defined(MEDIAINFO_PCM_YES)
+            else if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Riff, Ztring().From_Number((int16u)SubFormat.hi, 16))==_T("PCM"))
+            {
+                //Creating the parser
+                File_Pcm MI;
+                MI.Codec=Ztring().From_Number((int16u)SubFormat.hi, 16);
+
+                //Parsing
+                Open_Buffer_Init(&MI);
+                Open_Buffer_Continue(&MI, 0);
+
+                //Filling
+                Finish(&MI);
+                Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+            }
+            #endif
+        }
+        else
+        {
+            CodecID_Fill(Ztring().From_GUID(SubFormat), Stream_Audio, StreamPos_Last, InfoCodecID_Format_Riff);
+        }
         Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, ExtensibleWave_ChannelMask(ChannelMask));
         Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions_String2, ExtensibleWave_ChannelMask2(ChannelMask));
     FILLING_END();
+
 }
 
 //---------------------------------------------------------------------------

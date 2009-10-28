@@ -31,6 +31,8 @@
 #include "MediaInfo/MediaInfo_Internal_Const.h"
 #include "MediaInfo/MediaInfo_Config.h"
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+#include "ZenLib/Thread.h"
+#include "ZenLib/CriticalSection.h"
 #include <bitset>
 using namespace std;
 //---------------------------------------------------------------------------
@@ -46,7 +48,7 @@ class Internet__Base;
 /// @version 0.7
 //***************************************************************************
 
-class MediaInfo_Internal
+class MediaInfo_Internal : public ZenLib::Thread
 {
 public :
     //Constructor/Destructor
@@ -96,14 +98,10 @@ private :
     //Parsing handles
     File__Analyze*  Info;
     Internet__Base* Internet;
-
-    //Thread
-    void* Thread;
-    blockmethod_t BlockMethod; //Open() returns when?
+    Ztring          File_Name;
 
     //Helpers
     void CreateDummy (const String& Value); //Create dummy Information
-
     MediaInfo_Internal(const MediaInfo_Internal&); // Copy Constructor
 
     //Open Buffer
@@ -115,12 +113,17 @@ private :
     Ztring Details;
     void Traiter(Ztring &C); //enleve les $if...
 
-    ZenLib::CriticalSection CS;
-
 public :
     bool SelectFromExtension (const String &Parser); //Select File_* from the parser name
     int  ListFormats(const String &File_Name=String());
     MediaInfo_Config_MediaInfo Config;
+
+private :
+    //Threading
+    size_t  BlockMethod; //Open() return: 0=immedialtly, 1=after local info, 2=when user interaction is needed
+    bool    IsInThread;
+    void    Entry();
+    ZenLib::CriticalSection CS;
 };
 
 } //NameSpace

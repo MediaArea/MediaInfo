@@ -154,6 +154,10 @@ int Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &Fil
 
         //Parser
         Status=MI->Open_Buffer_Continue(Buffer, Buffer_Size);
+
+        //Threading
+        if (MI->IsTerminating())
+            break; //Termination is requested
     }
     while (!(Status[File__Analyze::IsFinished] || (StopAfterFilled && Status[File__Analyze::IsFilled])));
     if (F.Size_Get()==0) //If Size==0, Status is never updated

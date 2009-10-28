@@ -318,7 +318,7 @@ size_t MediaInfo::Count_Get (stream_t StreamKind, size_t StreamPos)
 //---------------------------------------------------------------------------
 size_t MediaInfo::State_Get ()
 {
-    return 0; //Not yet implemented
+    return ((MediaInfo_Internal*)Internal)->State_Get();
 }
 
 } //NameSpace
