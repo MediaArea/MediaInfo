@@ -761,7 +761,7 @@ void File_Mpeg4_Descriptors::Descriptor_05()
             delete Parser; Parser=new File_Mpeg4_AudioSpecificConfig;
             ((File_Mpeg4_AudioSpecificConfig*)Parser)->MajorBrand=MajorBrand;
             Open_Buffer_Init(Parser);
-        #endif MEDIAINFO_MPEG4_YES
+        #endif //MEDIAINFO_MPEG4_YES
     }
 
     //Parsing
