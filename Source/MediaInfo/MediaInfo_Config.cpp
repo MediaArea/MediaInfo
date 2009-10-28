@@ -158,7 +158,7 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
         if (Size>=0xFFFFFFFF)
             Size=1024*1024;
         int8u* Buffer=new int8u[(size_t)Size+1];
-        int64u Pos=F.Read(Buffer, Size);
+        size_t Pos=F.Read(Buffer, (size_t)Size);
         F.Close();
         Buffer[Pos]='\0';
         Ztring FromFile; FromFile.From_UTF8((char*)Buffer);
@@ -963,7 +963,7 @@ void MediaInfo_Config::Inform_Set (const ZtringListList &NewValue)
             if (Size>=0xFFFFFFFF)
                 Size=1024*1024;
             int8u* Buffer=new int8u[(size_t)Size+1];
-            int64u Pos=F.Read(Buffer, Size);
+            size_t Pos=F.Read(Buffer, (size_t)Size);
             F.Close();
             Buffer[Pos]='\0';
             Ztring FromFile; FromFile.From_Local((char*)Buffer);
