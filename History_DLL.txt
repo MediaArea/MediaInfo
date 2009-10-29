@@ -14,8 +14,8 @@ Version 0.7.24, 2009-10-
 + MPEG Audio: profile and extension display
 + MPEG-TS: More information for ADTS in non-audio PES ID.
 + FLV: test of video bitrate info integrity
-+ MPEG-4: Support of "sbtl" subtitles
-+ MPEG-4: support of old-style Apple language codes
++ MPEG-4: "sbtl" subtitles support
++ MPEG-4: old-style Apple language codes support
 + MPEG-4: XDCAM support
 x #2882376, AVCHD: reports some incorrect AVCHD framerate
 x MPEG-4: some Pixel Aspect Ratio settings were not handled
