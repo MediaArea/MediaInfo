@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.24, 2009-10-
+Version 0.7.24, 2009-10-30
 --------------
 + MPEG-4: detection fo DV100
 + WAV: better handling of Wave Extension codec IDs
