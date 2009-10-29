@@ -4,8 +4,8 @@ RequestExecutionLevel admin
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_PUBLISHER "MediaArea.net"
-!define PRODUCT_VERSION "0.7.23"
-!define PRODUCT_VERSION4 "0.7.23.0"
+!define PRODUCT_VERSION "0.7.24"
+!define PRODUCT_VERSION4 "0.7.24.0"
 !define PRODUCT_WEB_SITE "http://mediainfo.sourceforge.net"
 !define COMPANY_REGISTRY "Software\MediaArea.net"
 !define PRODUCT_REGISTRY "Software\MediaArea.net\MediaInfo.dll"
