@@ -338,7 +338,7 @@ void File_Jpeg::SIZ()
 void File_Jpeg::COD()
 {
     //Parsing
-    int8u Style, Levels, Style2;
+    int8u Style, Levels, Style2, MultipleComponentTransform;
     bool PrecinctUsed;
     Get_B1 (Style,                                              "Scod - Style");
         Get_Flags (Style, 0, PrecinctUsed,                      "Precinct used");
@@ -357,7 +357,7 @@ void File_Jpeg::COD()
         Skip_Flags(Style, 3,                                    "Vertically stripe-causal context formation");
         Skip_Flags(Style, 4,                                    "Error resilience info is embedded on MQ termination");
         Skip_Flags(Style, 5,                                    "Segmentation marker is to be inserted at the end of each normalization coding pass");
-    Skip_B1(                                                    "Filter ID");
+    Get_B1(MultipleComponentTransform,                          "Multiple component transform");
     if (PrecinctUsed)
         for (int8u Pos=0; Pos<Levels; Pos++)
         {
@@ -365,6 +365,15 @@ void File_Jpeg::COD()
             Skip_B1(                                            "?");
             Element_End();
         }
+
+    FILLING_BEGIN();
+        switch (MultipleComponentTransform)
+        {
+            case 0x01 : Fill(Stream_Image, 0, Image_Format_Profile, "Reversible"); break;
+            case 0x02 : Fill(Stream_Image, 0, Image_Format_Profile, "Irreversible"); break;
+            default   : ;
+        }
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
