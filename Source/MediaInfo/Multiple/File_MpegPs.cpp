@@ -85,7 +85,9 @@
 #endif
 #include "MediaInfo/File_Unknown.h"
 #include <ZenLib/Utils.h>
+#include <algorithm>
 using namespace ZenLib;
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -214,6 +216,8 @@ File_MpegPs::File_MpegPs()
     video_stream_Unlimited=false;
     Buffer_DataSizeToParse=0;
     Parsing_End_ForDTS=false;
+    video_stream_PTS_FrameCount=0;
+    video_stream_PTS_MustAddOffset=false;
 
     //From packets
     program_mux_rate=(int32u)-1;
@@ -243,6 +247,42 @@ void File_MpegPs::Streams_Fill()
     //Tags in MPEG Video
     if (Count_Get(Stream_Video)>0)
         Fill(Stream_General, 0, General_Encoded_Library, Retrieve(Stream_Video, 0, Video_Encoded_Library));
+
+    //Special case: Video PTS
+    if (video_stream_PTS.size()>=2+4*2+1*2 && Retrieve(Stream_Video, 0, Video_FrameRate).To_float64()>30.000) //TODO: Handle all kind of files
+    {
+        sort(video_stream_PTS.begin(), video_stream_PTS.end());
+        video_stream_PTS.erase(video_stream_PTS.begin(), video_stream_PTS.begin()+4); //Removing first frames, they may lack of B/P frames
+        video_stream_PTS.resize(video_stream_PTS.size()-4); //Removing last frames, they may lack of B/P frames
+
+        //Trying to detect container FPS
+        std::vector<int64u> video_stream_PTS_Between;
+        for (size_t Pos=1; Pos<video_stream_PTS.size(); Pos++)
+            video_stream_PTS_Between.push_back(video_stream_PTS[Pos]-video_stream_PTS[Pos-1]);
+        std::sort(video_stream_PTS_Between.begin(), video_stream_PTS_Between.end());
+        video_stream_PTS_Between.erase(video_stream_PTS_Between.begin(), video_stream_PTS_Between.begin()+1); //Removing first timec, they may be wrong value due to missing frame
+        video_stream_PTS_Between.resize(video_stream_PTS_Between.size()-1); //Removing last frames, they may be wrong value due to missing frame
+        if (video_stream_PTS_Between[0]*0.9<video_stream_PTS_Between[video_stream_PTS_Between.size()-1]
+         && video_stream_PTS_Between[0]*1.1>video_stream_PTS_Between[video_stream_PTS_Between.size()-1])
+        {
+            float64 Time=(float)(video_stream_PTS[video_stream_PTS.size()-1]-video_stream_PTS[0])/(video_stream_PTS.size()-1)/90;
+            if (Time)
+            {
+                float64 FrameRate_Container=1000/Time;
+                if (Retrieve(Stream_Video, 0, Video_ScanType)==_T("Interlaced"))
+                    FrameRate_Container/=2; //PTS is per field
+                float64 FrameRate_Original=Retrieve(Stream_Video, 0, Video_FrameRate).To_float64();
+                if (!(FrameRate_Original>=FrameRate_Container*0.9 && FrameRate_Original<=FrameRate_Container*1.1)
+                 && !(FrameRate_Container>=FrameRate_Original*0.9 && FrameRate_Container<=FrameRate_Original*1.1))
+                {
+                    Clear(Stream_Video, 0, Video_FrameRate); //Or automatic filling thinks current FrameRate is the container FrameRate (usaly Conatainer FrameRate is filled first, not here)
+                    Fill(Stream_Video, 0, Video_FrameRate, FrameRate_Container, 3, true);
+                    if (FrameRate_Original)
+                        Fill(Stream_Video, 0, Video_FrameRate_Original, FrameRate_Original);
+                }
+            }
+        }
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -2476,6 +2516,39 @@ void File_MpegPs::video_stream()
 
     //Parsing
     xxx_stream_Parse(Streams[start_code], video_stream_Count);
+
+    //Saving PTS
+    bool video_stream_IsFilled=false; //If parser is filled, frame count is more update, we stop testing PTS.
+    bool video_stream_IsInterlaced=false; //If interlaced, we must count the number of fields, not frames
+    for (size_t Pos=0; Pos<Streams[start_code].Parsers.size(); Pos++)
+    {
+        if (Streams[start_code].Parsers[Pos]->Status[IsFilled])
+            video_stream_IsFilled=true;
+        if (!video_stream_IsFilled && Streams[start_code].Parsers[Pos]->Frame_Count_InThisBlock)
+        {
+            video_stream_PTS_FrameCount+=Streams[start_code].Parsers[Pos]->Frame_Count_InThisBlock; //TODO: check if there are more than 1 parser with Frame_Count_InThisBlock>0
+            video_stream_IsInterlaced=Streams[start_code].Parsers[Pos]->Retrieve(Stream_Video, 0, Video_ScanType)==_T("Intelaced"); //TODO: SanType is written too late, not available on time, wrong data
+        }
+    }
+    if (!video_stream_IsFilled && !video_stream_Unlimited && PTS!=(int64u)-1)
+    {
+        if (PTS>=0x100000000LL)
+            video_stream_PTS_MustAddOffset=true;
+        if (video_stream_IsInterlaced)
+            video_stream_PTS_FrameCount*=2; //Count fields, not frames
+        int64u PTS_Calculated=((video_stream_PTS_MustAddOffset && PTS<0x100000000LL)?0x200000000LL:0)+PTS; //With Offset if needed
+        if (video_stream_PTS_FrameCount<=1)
+            video_stream_PTS.push_back(PTS_Calculated);
+        else if (!video_stream_PTS.empty())
+        {
+            //Calculating the average PTS per frame if there is more than 1 frame between PTS
+            int64u PTS_Calculated_Base=video_stream_PTS[video_stream_PTS.size()-1];
+            int64u PTS_Calculated_PerFrame=(PTS_Calculated-PTS_Calculated_Base)/video_stream_PTS_FrameCount;
+            for (size_t Pos=0; Pos<video_stream_PTS_FrameCount; Pos++)
+                video_stream_PTS.push_back(PTS_Calculated_Base+(1+Pos)*PTS_Calculated_PerFrame);
+        }
+        video_stream_PTS_FrameCount=0;
+    }
 
     //Demux
     Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(Element_Code, 16)+_T(".mpv"));

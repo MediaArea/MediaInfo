@@ -192,6 +192,9 @@ private :
     int64u PTS;
     int64u DTS;
     bool   Parsing_End_ForDTS;
+    std::vector<int64u> video_stream_PTS;
+    size_t video_stream_PTS_FrameCount;
+    bool video_stream_PTS_MustAddOffset;
 
     //Helpers
     bool Header_Parser_QuickSearch();
