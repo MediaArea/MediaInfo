@@ -202,6 +202,7 @@ namespace Elements
     const int64u moov_trak_mdia=0x6D646961;
     const int64u moov_trak_mdia_hdlr=0x68646C72;
     const int64u moov_trak_mdia_hdlr_MPEG=0x4D504547;
+    const int64u moov_trak_mdia_hdlr_sbtl=0x7362746C;
     const int64u moov_trak_mdia_hdlr_soun=0x736F756E;
     const int64u moov_trak_mdia_hdlr_subp=0x73756270;
     const int64u moov_trak_mdia_hdlr_text=0x74657874;
@@ -1843,9 +1844,12 @@ void File_Mpeg4::moov_trak_mdia_hdlr()
                 }
                 break;
             case Elements::moov_trak_mdia_hdlr_text :
+            case Elements::moov_trak_mdia_hdlr_sbtl :
                 if (StreamKind_Last!=Stream_Text)
                 {
                     Stream_Prepare(Stream_Text);
+                    if (SubType!=Elements::moov_trak_mdia_hdlr_text)
+                        Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, Ztring().From_CC4(SubType));
                 }
                 break;
             case Elements::moov_trak_mdia_hdlr_subp :

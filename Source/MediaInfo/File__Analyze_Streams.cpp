@@ -1127,7 +1127,7 @@ size_t File__Analyze::Merge(File__Analyze &ToAdd, stream_t StreamKind, size_t St
             }
             Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, DisplayAspectRatio_Temp, true);
         }
-        if (!FrameRate_Temp.empty())
+        if (!FrameRate_Temp.empty()) //Only if Original data is not already present
         {
             if (FrameRate_Temp!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate))
             {

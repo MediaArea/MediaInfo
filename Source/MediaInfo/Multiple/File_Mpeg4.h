@@ -233,7 +233,7 @@ private :
     bool Element_Level_Get();
     bool Element_Name_Get();
     bool Element_Size_Get();
-    char* Language_Get(int Language);
+    Ztring Language_Get(int16u Language);
     enum method
     {
         Method_None,
@@ -263,7 +263,6 @@ private :
     float32                                 moov_trak_tkhd_Rotation;
     std::vector<std::string>                moov_udta_meta_keys_List;
     size_t                                  moov_udta_meta_keys_ilst_Pos;
-    char                                    Language_Result[4];
     int32u                                  MajorBrand;
     int32u                                  TimeScale;
     int32u                                  Vendor;

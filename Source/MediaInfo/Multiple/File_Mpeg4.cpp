@@ -119,6 +119,19 @@ Ztring Mpeg4_Encoded_Library(int32u Vendor)
     }
 }
 
+//---------------------------------------------------------------------------
+Ztring Mpeg4_Language_Apple(int16u Language)
+{
+    switch (Language)
+    {
+        case  0 : return _T("en");
+        case  1 : return _T("fr");
+        case  2 : return _T("de");
+        case  6 : return _T("es");
+        default: return Ztring::ToZtring(Language);
+    }
+}
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -459,23 +472,19 @@ bool File_Mpeg4::BookMark_Needed()
 
 //---------------------------------------------------------------------------
 //Get language string from 2CC
-char* File_Mpeg4::Language_Get(int x)
+Ztring File_Mpeg4::Language_Get(int16u Language)
 {
-    if (x<0x100 || x==0x7FFF || x==0xFFFF)
-    {
-        //Old Quicktime method, I never saw it, skip it
-        Language_Result[0] = '\0';
-        Language_Result[1] = '\0';
-        Language_Result[2] = '\0';
-    }
-    else
-    {
-        Language_Result[3] = '\0';
-        Language_Result[2] = (x>> 0&0x1F)+0x60;
-        Language_Result[1] = (x>> 5&0x1F)+0x60;
-        Language_Result[0] = (x>>10&0x1F)+0x60;
-    }
-    return Language_Result;
+    if (Language==0x7FFF || Language==0xFFFF)
+        return Ztring();
+
+    if (Language<0x100)
+        return Mpeg4_Language_Apple(Language);
+
+    Ztring ToReturn;
+    ToReturn.append(1, (Char)((Language>>10&0x1F)+0x60));
+    ToReturn.append(1, (Char)((Language>> 5&0x1F)+0x60));
+    ToReturn.append(1, (Char)((Language>> 0&0x1F)+0x60));
+    return ToReturn;
 }
 
 //---------------------------------------------------------------------------
