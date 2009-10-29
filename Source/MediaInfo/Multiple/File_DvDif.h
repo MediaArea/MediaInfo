@@ -198,6 +198,7 @@ protected :
     Ztring Speed_TimeCodeZ_First;
     Ztring Speed_TimeCodeZ_Last;
     Ztring Speed_TimeCodeZ_Current;
+    bool   Speed_TimeCode_IsValid;
     dvtime Speed_RecTime_Current;
     dvtime Speed_RecTime_Current_Theory;
     dvtime Speed_RecTime_Current_Theory2;
@@ -291,6 +292,7 @@ protected :
     arb Speed_Arb_Last;
     arb Speed_Arb_Current;
     arb Speed_Arb_Current_Theory;
+    bool   Speed_Arb_IsValid;
 
     //Stats
     std::vector<size_t> Stats;

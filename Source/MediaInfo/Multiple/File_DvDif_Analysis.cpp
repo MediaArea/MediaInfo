@@ -495,7 +495,7 @@ void File_DvDif::Errors_Stats_Update()
         Errors_Stats_Line+=Ztring().Duration_From_Milliseconds((int64u)Time_Offset);
         Errors_Stats_Line+=_T('\t');
 
-        //TimeCode
+        //Timecode
         if (Speed_TimeCode_Current.IsValid)
         {
             Speed_TimeCodeZ_Last=Speed_TimeCodeZ_Current;
@@ -533,9 +533,15 @@ void File_DvDif::Errors_Stats_Update()
             Errors_Stats_Line+=_T("XX:XX:XX:XX");
         Errors_Stats_Line+=_T('\t');
 
-        //Order coherency
+        //Timecode order coherency
+        if (!Speed_TimeCode_IsValid && Speed_TimeCode_Current.IsValid
+         && (Speed_TimeCode_Current.Time.Hours!=0
+          || Speed_TimeCode_Current.Time.Minutes!=0
+          || Speed_TimeCode_Current.Time.Seconds!=0
+          || Speed_TimeCode_Current.Time.Frames!=0))
+            Speed_TimeCode_IsValid=true;
         bool TimeCode_Disrupted=false;
-        if (Speed_TimeCode_Current.IsValid && Speed_TimeCode_Last.IsValid
+        if (Speed_TimeCode_IsValid && Speed_TimeCode_Current.IsValid && Speed_TimeCode_Last.IsValid
          && Speed_TimeCode_Current.Time.Frames ==Speed_TimeCode_Last.Time.Frames
          && Speed_TimeCode_Current.Time.Seconds==Speed_TimeCode_Last.Time.Seconds
          && Speed_TimeCode_Current.Time.Minutes==Speed_TimeCode_Last.Time.Minutes
@@ -548,7 +554,7 @@ void File_DvDif::Errors_Stats_Update()
              || Speed_TimeCode_Current.Time.Hours)
                 Errors_AreDetected=true;
         }
-        else if (Speed_TimeCode_Current.IsValid && Speed_TimeCode_Current_Theory.IsValid
+        else if (Speed_TimeCode_IsValid && Speed_TimeCode_Current.IsValid && Speed_TimeCode_Current_Theory.IsValid
               && (   Speed_TimeCode_Current.Time.Frames !=Speed_TimeCode_Current_Theory.Time.Frames
                   || Speed_TimeCode_Current.Time.Seconds!=Speed_TimeCode_Current_Theory.Time.Seconds
                   || Speed_TimeCode_Current.Time.Minutes!=Speed_TimeCode_Current_Theory.Time.Minutes
@@ -705,7 +711,9 @@ void File_DvDif::Errors_Stats_Update()
         Errors_Stats_Line+=_T('\t');
 
         //Speed_Arb_Current coherency
-        if (Speed_Arb_Current.IsValid && Speed_Arb_Last.IsValid
+        if (!Speed_Arb_IsValid && Speed_Arb_Current.IsValid && Speed_Arb_Current.Value!=0)
+            Speed_Arb_IsValid=true;
+        if (Speed_Arb_IsValid && Speed_Arb_Current.IsValid && Speed_Arb_Last.IsValid
          && Speed_Arb_Current.Value ==Speed_Arb_Last.Value
          && Speed_Arb_Current.Value!=0xF)
         {
@@ -715,7 +723,7 @@ void File_DvDif::Errors_Stats_Update()
 
             Speed_Arb_Current_Theory.IsValid=false;
         }
-        else if (Speed_Arb_Current.IsValid && Speed_Arb_Current_Theory.IsValid
+        else if (Speed_Arb_IsValid && Speed_Arb_Current.IsValid && Speed_Arb_Current_Theory.IsValid
               && Speed_Arb_Current.Value   != Speed_Arb_Current_Theory.Value)
         {
             Errors_Stats_Line+=_T('N');
