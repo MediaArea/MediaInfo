@@ -41,7 +41,7 @@ using namespace ZenLib;
 namespace MediaInfoLib
 {
 
-int Reader_Directory::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
+size_t Reader_Directory::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
 {
     #ifdef MEDIAINFO_BDMV_YES
         if (Dir::Exists(File_Name) && File_Name.find(Ztring(1, PathSeparator)+_T("BDMV"))+5==File_Name.size())

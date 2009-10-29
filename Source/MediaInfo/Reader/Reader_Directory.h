@@ -42,7 +42,7 @@ class Reader_Directory
 {
 public :
     //Format testing
-    static int  Format_Test(MediaInfo_Internal* MI, const String &File_Name);
+    static size_t Format_Test(MediaInfo_Internal* MI, const String &File_Name);
 
     //For the list
     static void Directory_Cleanup(ZtringList &List);

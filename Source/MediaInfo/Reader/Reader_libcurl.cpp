@@ -132,7 +132,7 @@ size_t libcurl_WriteData_CallBack(void *ptr, size_t size, size_t nmemb, void *da
 }
 
 //---------------------------------------------------------------------------
-int Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
+size_t Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
 {
     //Configuring
     curl_data Curl_Data;

@@ -873,7 +873,7 @@ void File_Vc1::SequenceHeader()
                 int16u hrd_buffer;
                 Skip_S2(16,                                     "hrd_rate");
                 Get_S2(16, hrd_buffer,                         "hrd_buffer");
-                int32u hrd_buffer_value=(hrd_buffer+1)*pow(2.0, 1+buffer_size_exponent); Param_Info(hrd_buffer_value, " bytes");
+                int32u hrd_buffer_value=(int32u)((hrd_buffer+1)*pow(2.0, 1+buffer_size_exponent)); Param_Info(hrd_buffer_value, " bytes");
                 Element_End();
 
                 //Filling

@@ -55,7 +55,7 @@ const size_t Buffer_NormalSize=/*188*7;//*/64*1024;
 const size_t Buffer_NoJump=128*1024;
 
 //---------------------------------------------------------------------------
-int Reader_File::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
+size_t Reader_File::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
 {
     //With Parser MultipleParsing
     /*
@@ -101,7 +101,7 @@ int Reader_File::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
 }
 
 //---------------------------------------------------------------------------
-int Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &File_Name)
+size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &File_Name)
 {
     //Opening the file
     File F;

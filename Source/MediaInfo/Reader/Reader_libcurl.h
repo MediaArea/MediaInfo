@@ -42,7 +42,7 @@ class Reader_libcurl
 {
 public :
     //Format testing
-    static int Format_Test(MediaInfo_Internal* MI, const String &File_Name);
+    static size_t Format_Test(MediaInfo_Internal* MI, const String &File_Name);
 };
 
 } //NameSpace

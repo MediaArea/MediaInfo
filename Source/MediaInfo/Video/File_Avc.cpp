@@ -2007,7 +2007,7 @@ void File_Avc::hrd_parameters(bool vcl)
         int32u cpb_size_value_minus1;
         Skip_UE(                                                "bit_rate_value_minus1");
         Get_UE(cpb_size_value_minus1,                           "cpb_size_value_minus1");
-        int32u cpb_size_value=(cpb_size_value_minus1+1)*pow(2.0, 1+cpb_size_scale); Param_Info(cpb_size_value, " bytes");
+        int32u cpb_size_value=(int32u)((cpb_size_value_minus1+1)*pow(2.0, 1+cpb_size_scale)); Param_Info(cpb_size_value, " bytes");
         Skip_SB(                                                "cbr_flag");
         Element_End();
 

@@ -181,7 +181,7 @@ void MediaInfoList_Internal::Entry()
                 CS.Leave();
                 while (MI->State_Get()<10000)
                 {
-                    int A=MI->State_Get();
+                    size_t A=MI->State_Get();
                     CS.Enter();
                     State=(ToParse_AlreadyDone*10000+A)/ToParse_Total;
                     CS.Leave();

@@ -42,8 +42,8 @@ class Reader_File
 {
 public :
     //Format testing
-    static int Format_Test(MediaInfo_Internal* MI, const String &File_Name);
-    static int Format_Test_PerParser(MediaInfo_Internal* MI, const String &File_Name);
+    static size_t Format_Test(MediaInfo_Internal* MI, const String &File_Name);
+    static size_t Format_Test_PerParser(MediaInfo_Internal* MI, const String &File_Name);
 };
 
 } //NameSpace
