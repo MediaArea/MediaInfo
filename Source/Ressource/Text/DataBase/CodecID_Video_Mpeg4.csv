@@ -27,14 +27,14 @@ dv5n;Digital Video;DVCPRO50;;http://www.apple.com/quicktime/download/standalone.
 dv5p;Digital Video;DVCPRO50;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
 dvc ;Digital Video;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
 dvcp;Digital Video;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvh1;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvh2;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvh3;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvh4;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvh5;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvh6;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvhp;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvhq;Digital Video;DV100;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh1;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh2;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh3;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh4;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh5;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh6;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvhp;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvhq;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
 DVOO;Digital Voodoo;;Digital Voodoo 8 bit Uncompressed 4:2:2 codec;http://www.digitalvoodoo.net/;;;
 DVOR;Digital Voodoo;;Digital Voodoo intermediate raw;http://www.digitalvoodoo.net/;;;
 dvpp;Digital Video;DVCPRO;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
@@ -46,7 +46,7 @@ h261;H.261;;;http://www.apple.com/quicktime/download/standalone.html;;;
 h263;H.263;;;http://www.apple.com/quicktime/download/standalone.html;;;
 h264;H.264;;;http://www.apple.com/quicktime/download/standalone.html;;;
 HD10;Digital Voodoo;;Digital Voodoo 10 bit Uncompressed 4:2:2 HD codec;http://www.digitalvoodoo.net/;;;
-hdv3;Digital Video;HDV;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+hdv3;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
 j420;YUV;;;;;;YUV 4:2:0
 jpeg;M-JPEG;;;http://www.apple.com/quicktime/download/standalone.html;;;
 kpcd;Photo CD;;;;;;

@@ -9,7 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.24, 2009-10-30
 --------------
-+ MPEG-4: detection fo DV100
++ MPEG-4: DVCPRO HD detection
 + WAV: better handling of Wave Extension codec IDs
 + MPEG Audio: profile and extension display
 + MPEG-TS: More information for ADTS in non-audio PES ID.
