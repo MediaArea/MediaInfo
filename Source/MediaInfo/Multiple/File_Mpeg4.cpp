@@ -188,6 +188,15 @@ void File_Mpeg4::Streams_Finish()
                 Ztring FrameRate_Temp, FrameRate_Mode_Temp, Delay_Temp;
                 if (StreamKind_Last==Stream_Video)
                 {
+                    if (Temp->second.Parser && Retrieve(Stream_Video, 0, Video_CodecID_Hint)==_T("DVCPRO HD"))
+                    {
+                        Temp->second.Parser->Clear(Stream_Video, 0, Video_FrameRate);
+                        Temp->second.Parser->Clear(Stream_Video, 0, Video_Width);
+                        Temp->second.Parser->Clear(Stream_Video, 0, Video_Height);
+                        Temp->second.Parser->Clear(Stream_Video, 0, Video_DisplayAspectRatio);
+                        Temp->second.Parser->Clear(Stream_Video, 0, Video_PixelAspectRatio);
+                    }
+
                     FrameRate_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate);
                     FrameRate_Mode_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate_Mode);
                     Delay_Temp=Retrieve(Stream_Video, StreamPos_Last, Video_Delay);
