@@ -145,3 +145,4 @@ Language_More;;;Y YT;;;More info about Language (e.g. Director's Comment);;
 Encoded_Date;;;Y YT;;;UTC time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;UTC time that the tags were done for this item.;;Temporal
 Encryption;;;Y YT;;;;;
+BufferSize;;;N YT;;;Defines the size of the buffer needed to decode the sequence.;;

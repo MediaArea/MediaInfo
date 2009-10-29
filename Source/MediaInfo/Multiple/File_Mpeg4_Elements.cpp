@@ -41,6 +41,9 @@
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
 #endif
+#if defined(MEDIAINFO_MPEGV_YES)
+    #include "MediaInfo/Video/File_Mpegv.h"
+#endif
 #if defined(MEDIAINFO_VC1_YES)
     #include "MediaInfo/Video/File_Vc1.h"
 #endif
@@ -2832,18 +2835,38 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
             Fill(Stream_Video, StreamPos_Last, Video_Rotation_String, Ztring::ToZtring(moov_trak_tkhd_Rotation, 0)+_T("\xB0")); //degree sign
 
         //Specific cases
-        #if defined(MEDIAINFO_VC1_YES)
-            if (Element_Code==0x6F766331) //"ovc1"
-            {
-                File_Vc1 MI;
-                MI.FrameIsAlwaysComplete=true;
-                Open_Buffer_Init(&MI);
-                Open_Buffer_Continue(&MI);
-                Element_Offset=Element_Size;
-                Finish(&MI);
-                Merge(MI, Stream_Video, 0, StreamPos_Last);
-            }
-        #endif
+        if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
+        {
+            #if defined(MEDIAINFO_DVDIF_YES)
+                if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("Digital Video"))
+                {
+                    Stream[moov_trak_tkhd_TrackID].Parser=new File_DvDif;
+                    Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
+                    mdat_MustParse=true; //Data is in MDAT
+                }
+            #endif
+            #if defined(MEDIAINFO_MPEGV_YES)
+                if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==_T("MPEG Video"))
+                {
+                    Stream[moov_trak_tkhd_TrackID].Parser=new File_Mpegv;
+                    ((File_Mpegv*)Stream[moov_trak_tkhd_TrackID].Parser)->FrameIsAlwaysComplete=true;
+                    Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
+                    mdat_MustParse=true; //Data is in MDAT
+                }
+            #endif
+            #if defined(MEDIAINFO_VC1_YES)
+                if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==_T("VC-1"))
+                {
+                    File_Vc1 MI;
+                    MI.FrameIsAlwaysComplete=true;
+                    Open_Buffer_Init(&MI);
+                    Open_Buffer_Continue(&MI);
+                    Element_Offset=Element_Size;
+                    Finish(&MI);
+                    Merge(MI, Stream_Video, 0, StreamPos_Last);
+                }
+            #endif
+        }
 
         //Descriptors or a list (we can see both!)
         if (Element_Offset+8<=Element_Size
@@ -2854,18 +2877,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                 Element_ThisIsAList();
         else if (Element_Offset<Element_Size)
             Descriptors();
-
-        #if defined(MEDIAINFO_DVDIF_YES)
-            if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring(Codec.c_str()), InfoCodecID_Format)==_T("Digital Video"))
-            {
-                if (Stream[moov_trak_tkhd_TrackID].Parser==NULL)
-                {
-                    Stream[moov_trak_tkhd_TrackID].Parser=new File_DvDif;
-                    Open_Buffer_Init(Stream[moov_trak_tkhd_TrackID].Parser);
-                    mdat_MustParse=true; //Data is in MDAT
-                }
-            }
-        #endif
     FILLING_END();
 }
 

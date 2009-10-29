@@ -62,19 +62,51 @@ ovc1;VC-1;;Smooth Streaming Media Video;http://alexzambelli.com/blog/2009/02/10/
 png ;M-PNG;;;;;;
 PNTG;MacPaint;;Apple MacPaint image format;http://www.apple.com/quicktime/download/standalone.html;;;
 rle ;RLE;;;http://www.apple.com/quicktime/download/standalone.html;;;
-rpza;Road Pizza;;;http://www.apple.com/quicktime/download/standalone.html;;;
-s263;H.263;;;http://www.apple.com/quicktime/download/standalone.html;;;
-Shr0;SheerVideo;;Generic SheerVideo codec;http://www.bitjazz.com/;;;
-Shr1;SheerVideo;;SheerVideo RGB;http://www.bitjazz.com/;;;
-Shr2;SheerVideo;;SheerVideo Y'CbCr[A] 4:4:4;http://www.bitjazz.com/;;;
-Shr3;SheerVideo;;SheerVideo Y'CbCr 4:2:2;http://www.bitjazz.com/;;;
-Shr4;SheerVideo;;SheerVideo Y'CbCr 4:2:2;http://www.bitjazz.com/;;;
-SV10;Sorenson;;Sorenson Media Video R1;http://www.apple.com/quicktime/download/standalone.html;;;
-SVQ1;Sorenson 1;;Sorenson Media Video 1 (Apple QuickTime 3);http://www.apple.com/quicktime/download/standalone.html;;;
-SVQ2;Sorenson 2;;Sorenson Media Video 2 (Apple QuickTime 4);http://www.apple.com/quicktime/download/standalone.html;;;
-SVQ3;Sorenson 3;;Sorenson Media Video 3 (Apple QuickTime 5);http://www.apple.com/quicktime/download/standalone.html;;;
-vc-1;VC-1;;SMPTE VC-1;http://www.smpte.org/;;;
-WRLE;Bitmap;;Windows BMP image format;http://www.apple.com/quicktime/download/standalone.html;;;
+rpza;Road Pizza;;;http://www.apple.com/quicktime/download/standalone.html
+s263;H.263;;;http://www.apple.com/quicktime/download/standalone.html
+Shr0;SheerVideo;;Generic SheerVideo codec;http://www.bitjazz.com/
+Shr1;SheerVideo;;SheerVideo RGB;http://www.bitjazz.com/
+Shr2;SheerVideo;;SheerVideo Y'CbCr[A] 4:4:4;http://www.bitjazz.com/
+Shr3;SheerVideo;;SheerVideo Y'CbCr 4:2:2;http://www.bitjazz.com/
+Shr4;SheerVideo;;SheerVideo Y'CbCr 4:2:2;http://www.bitjazz.com/
+SV10;Sorenson;;Sorenson Media Video R1;http://www.apple.com/quicktime/download/standalone.html
+SVQ1;Sorenson 1;;Sorenson Media Video 1 (Apple QuickTime 3);http://www.apple.com/quicktime/download/standalone.html
+SVQ2;Sorenson 2;;Sorenson Media Video 2 (Apple QuickTime 4);http://www.apple.com/quicktime/download/standalone.html
+SVQ3;Sorenson 3;;Sorenson Media Video 3 (Apple QuickTime 5);http://www.apple.com/quicktime/download/standalone.html
+vc-1;VC-1;;SMPTE VC-1;http://www.smpte.org/
+WRLE;Bitmap;;Windows BMP image format;http://www.apple.com/quicktime/download/standalone.html
+xd50;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xd51;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xd52;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xd53;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xd54;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xd55;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xd56;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xd57;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xd58;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xd59;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xd5a;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xd5b;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xd5c;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xd5d;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xd5e;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xd5f;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdv0;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdv1;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdv2;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdv3;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
+xdv4;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
+xdv5;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
+xdv6;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
+xdv7;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
+xdv8;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
+xdv9;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
+xdva;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
+xdvb;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
+xdvc;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
+xdvd;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
+xdve;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
+xdvf;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
 yuv2;YUV;;;;;;YUV 4:2:2
 yuvs;YUV;;;;;;YUV 4:2:2
 yuvu;YUV;;;;;;YUV 4:2:2
