@@ -40,6 +40,8 @@
         Trusted_IsNot("Size error"); \
     else if (Element_IsOK()) \
     {
+#include <cmath>
+using namespace std;
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -337,6 +339,10 @@ void File_Vc1::Streams_Fill()
             Fill(Stream_Video, 0, Video_Interlacement, "PPF", Unlimited, true, true);
         }
     }
+
+    //Buffer
+    for (size_t Pos=0; Pos<hrd_buffers.size(); Pos++)
+        Fill(Stream_Video, 0, Video_BufferSize, hrd_buffers[Pos]);
 }
 
 //---------------------------------------------------------------------------
@@ -856,15 +862,22 @@ void File_Vc1::SequenceHeader()
             TEST_SB_END();
         TEST_SB_END();
         TEST_SB_GET (hrd_param_flag,                            "hrd_param_flag");
+            int8u buffer_size_exponent;
             Get_S1 ( 5, hrd_num_leaky_buckets,                  "hrd_num_leaky_buckets");
             Skip_S1( 4,                                         "bitrate_exponent");
-            Skip_S1( 4,                                         "buffer_size_exponent");
+            Get_S1 ( 4, buffer_size_exponent,                   "buffer_size_exponent");
+            hrd_buffers.clear();
             for (int8u Pos=0; Pos<hrd_num_leaky_buckets; Pos++)
             {
                 Element_Begin("leaky_bucket");
+                int16u hrd_buffer;
                 Skip_S2(16,                                     "hrd_rate");
-                Skip_S2(16,                                     "hrd_buffer");
+                Get_S2(16, hrd_buffer,                         "hrd_buffer");
+                int32u hrd_buffer_value=(hrd_buffer+1)*pow(2.0, 1+buffer_size_exponent); Param_Info(hrd_buffer_value, " bytes");
                 Element_End();
+
+                //Filling
+                hrd_buffers.push_back(hrd_buffer_value);
             }
         TEST_SB_END();
     }

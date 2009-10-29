@@ -100,7 +100,7 @@ private :
     //Packets - SubElements
     void scaling_list(int32u ScalingList_Size);
     void vui_parameters();
-    void hrd_parameters();
+    void hrd_parameters(bool vcl);
 
     //Packets - Specific
     void SPS_PPS();
@@ -171,6 +171,8 @@ private :
     int8u  FrameRate_Divider;
 
     //From seq_parameter_set
+    std::vector<int32u> cpb_size_values_NAL;
+    std::vector<int32u> cpb_size_values_VCL;
     Ztring Encoded_Library;
     Ztring Encoded_Library_Name;
     Ztring Encoded_Library_Version;

@@ -88,6 +88,7 @@ private :
     std::vector<size_t> PictureFormat_Count;
 
     //From SequenceHeader
+    std::vector<int32u> hrd_buffers;
     int16u coded_width;
     int16u coded_height;
     int16u framerateexp;

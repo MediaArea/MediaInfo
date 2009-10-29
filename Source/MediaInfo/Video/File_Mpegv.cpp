@@ -475,6 +475,9 @@ void File_Mpegv::Streams_Fill()
         Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("broken_link="))+(group_start_broken_link?_T("1"):_T("0")));
     }
 
+    //Buffer
+    Fill(Stream_Video, 0, Video_BufferSize, 2*1024*((((int32u)vbv_buffer_size_extension)<<10)+vbv_buffer_size_value));
+
     //Autorisation of other streams
     NextCode_Clear();
     NextCode_Add(0x00);
@@ -577,6 +580,7 @@ void File_Mpegv::Synched_Init()
     display_horizontal_size=0;
     display_vertical_size=0;
     vbv_delay=0;
+    vbv_buffer_size_value=0;
     Time_Begin_Seconds=Error;
     Time_Begin_Frames=(int8u)-1;
     Time_End_Seconds=Error;
@@ -599,6 +603,7 @@ void File_Mpegv::Synched_Init()
     frame_rate_extension_n=0;
     frame_rate_extension_d=0;
     video_format=5; //Unspecified video format
+    vbv_buffer_size_extension=0;
     DVD_CC_IsPresent=false;
     GA94_03_CC_IsPresent=false;
     Time_End_NeedComplete=false;
@@ -1377,7 +1382,7 @@ void File_Mpegv::sequence_header()
     Get_S1 ( 4, frame_rate_code,                                "frame_rate_code"); Param_Info(Mpegv_frame_rate[frame_rate_code]);
     Get_S3 (18, bit_rate_value_temp,                            "bit_rate_value"); Param_Info(bit_rate_value*400);
     Mark_1 ();
-    Info_S2(10, vbv_buffer_size_value,                          "vbv_buffer_size_value"); Param_Info(16*1024*vbv_buffer_size_value);
+    Get_S2 (10, vbv_buffer_size_value,                          "vbv_buffer_size_value"); Param_Info(2*1024*((int32u)vbv_buffer_size_value), " bytes");
     Skip_SB(                                                    "constrained_parameters_flag");
     TEST_SB_GET(load_intra_quantiser_matrix,                    "load_intra_quantiser_matrix");
         for (size_t Pos=0; Pos<64; Pos++)
@@ -1499,7 +1504,7 @@ void File_Mpegv::extension_start()
                     Get_S1 ( 2, vertical_size_extension,        "vertical_size_extension");
                     Get_S2 (12, bit_rate_extension,             "bit_rate_extension");
                     Mark_1 ();
-                    Skip_S1( 8,                                 "vbv_buffer_size_extension");
+                    Get_S1 ( 8, vbv_buffer_size_extension,      "vbv_buffer_size_extension"); Param_Info(2*1024*((((int32u)vbv_buffer_size_extension)<<10)+vbv_buffer_size_value), " bytes");
                     Skip_SB(                                    "low_delay");
                     Get_S1 ( 2, frame_rate_extension_n,         "frame_rate_extension_n");
                     Get_S1 ( 5, frame_rate_extension_d,         "frame_rate_extension_d");

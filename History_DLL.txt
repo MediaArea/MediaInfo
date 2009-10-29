@@ -17,6 +17,9 @@ Version 0.7.24, 2009-10-
 + MPEG-4: "sbtl" subtitles support
 + MPEG-4: old-style Apple language codes support
 + MPEG-4: XDCAM support
++ MPEG Video: vbv_buffer_size info
++ AVC: cpb_size_value info
++ VC-1: hrd_buffer info
 x #2882376, AVCHD: reports some incorrect AVCHD framerate
 x MPEG-4: some Pixel Aspect Ratio settings were not handled
 x Customized output: respect of carriage return from the platform

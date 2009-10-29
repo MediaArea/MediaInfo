@@ -490,6 +490,7 @@ enum video
     Video_Encoded_Date,
     Video_Tagged_Date,
     Video_Encryption,
+    Video_BufferSize,
 };
 
 //---------------------------------------------------------------------------

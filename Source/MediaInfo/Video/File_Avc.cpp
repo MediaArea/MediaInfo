@@ -84,6 +84,7 @@ const char* Avc_profile_idc(int8u profile_idc)
 #if defined(MEDIAINFO_EIA708_YES)
     #include "MediaInfo/Text/File_Eia708.h"
 #endif
+using namespace std;
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -487,6 +488,12 @@ void File_Avc::Streams_Fill()
         for (int8u Pos=0x00; Pos<0x20; Pos++)
             Streams[Pos].Searching_Payload=false; //Coded slice...
     }
+
+    //Buffer
+    for (size_t Pos=0; Pos<cpb_size_values_NAL.size(); Pos++)
+        Fill(Stream_Video, 0, Video_BufferSize, cpb_size_values_NAL[Pos]);
+    for (size_t Pos=0; Pos<cpb_size_values_VCL.size(); Pos++)
+        Fill(Stream_Video, 0, Video_BufferSize, cpb_size_values_VCL[Pos]);
 }
 
 //---------------------------------------------------------------------------
@@ -1952,10 +1959,10 @@ void File_Avc::vui_parameters()
         Get_SB (fixed_frame_rate_flag,                          "fixed_frame_rate_flag");
     TEST_SB_END();
     TEST_SB_GET (nal_hrd_parameters_present_flag,               "nal_hrd_parameters_present_flag");
-        hrd_parameters();
+        hrd_parameters(false);
     TEST_SB_END();
     TEST_SB_GET (vcl_hrd_parameters_present_flag,               "vcl_hrd_parameters_present_flag");
-        hrd_parameters();
+        hrd_parameters(true);
     TEST_SB_END();
     if(nal_hrd_parameters_present_flag || vcl_hrd_parameters_present_flag)
     {
@@ -1975,12 +1982,20 @@ void File_Avc::vui_parameters()
 }
 
 //---------------------------------------------------------------------------
-void File_Avc::hrd_parameters()
+void File_Avc::hrd_parameters(bool vcl)
 {
+    //Filling
+    if (vcl)
+        cpb_size_values_VCL.clear();
+    else
+        cpb_size_values_NAL.clear();
+
+    //Parsing
     int32u cpb_cnt_minus1;
-    Get_UE (cpb_cnt_minus1,                                     "cpb_cnt_minus1");
+    int8u  cpb_size_scale;
+    Get_UE (   cpb_cnt_minus1,                                  "cpb_cnt_minus1");
     Skip_S1(4,                                                  "bit_rate_scale");
-    Skip_S1(4,                                                  "cpb_size_scale");
+    Get_S1 (4, cpb_size_scale,                                  "cpb_size_scale");
     if (cpb_cnt_minus1>31)
     {
         Trusted_IsNot("cpb_cnt_minus1 too high");
@@ -1989,10 +2004,18 @@ void File_Avc::hrd_parameters()
     for (int32u SchedSelIdx=0; SchedSelIdx<=cpb_cnt_minus1; SchedSelIdx++)
     {
         Element_Begin("ShedSel");
+        int32u cpb_size_value_minus1;
         Skip_UE(                                                "bit_rate_value_minus1");
-        Skip_UE(                                                "cpb_size_value_minus1");
+        Get_UE(cpb_size_value_minus1,                           "cpb_size_value_minus1");
+        int32u cpb_size_value=(cpb_size_value_minus1+1)*pow(2.0, 1+cpb_size_scale); Param_Info(cpb_size_value, " bytes");
         Skip_SB(                                                "cbr_flag");
         Element_End();
+
+        //Filling
+        if (vcl)
+            cpb_size_values_VCL.push_back(cpb_size_value);
+        else
+            cpb_size_values_NAL.push_back(cpb_size_value);
     }
     Skip_S1(5,                                                  "initial_cpb_removal_delay_length_minus1");
     Get_S1 (5, cpb_removal_delay_length_minus1,                 "cpb_removal_delay_length_minus1");

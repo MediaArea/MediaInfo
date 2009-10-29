@@ -162,6 +162,7 @@ private :
     int16u display_horizontal_size;
     int16u display_vertical_size;
     int16u vbv_delay;
+    int16u vbv_buffer_size_value;
     int8u  Time_Begin_Frames;
     int8u  Time_End_Frames;
     int8u  picture_coding_type;
@@ -176,6 +177,7 @@ private :
     int8u  frame_rate_extension_d;
     int8u  video_format;
     int8u  picture_structure;
+    int8u  vbv_buffer_size_extension;
     bool   Time_End_NeedComplete;
     bool   DVD_CC_IsPresent;
     bool   GA94_03_CC_IsPresent;
