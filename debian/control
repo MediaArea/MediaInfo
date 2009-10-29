@@ -5,6 +5,8 @@ Build-Depends: debhelper (>= 5), tofrodos, libmediainfo0-dev (>= 0.7.23), libzen
 Standards-Version: 3.7.3
 Section: libs
 Homepage: http://mediainfo.sourceforge.net
+Vcs-Svn: https://mediainfo.svn.sourceforge.net/svnroot/mediainfo/MediaInfo/
+Vcs-Browser: http://mediainfo.svn.sourceforge.net/viewvc/mediainfo/MediaInfo/
 
 Package: mediainfo
 Section: utils
