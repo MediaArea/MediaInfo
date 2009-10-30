@@ -12,6 +12,24 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
+Version 0.7.24, 2009-10-30
+--------------
++ MPEG-4: DVCPRO HD detection
++ WAV: better handling of Wave Extension codec IDs
++ MPEG Audio: profile and extension display
++ MPEG-TS: More information for ADTS in non-audio PES ID.
++ FLV: test of video bitrate info integrity
++ MPEG-4: "sbtl" subtitles support
++ MPEG-4: old-style Apple language codes support
++ MPEG-4: XDCAM support
++ MPEG Video: vbv_buffer_size info
++ AVC: cpb_size_value info
++ VC-1: hrd_buffer info
+x #2882376, AVCHD: reports some incorrect AVCHD framerate
+x MPEG-4: some Pixel Aspect Ratio settings were not handled
+x Customized output: respect of carriage return from the platform
+x MPEG-TS demuxer: more tolerance of bad blocks
+
 Version 0.7.23, 2009-10-16
 --------------
 + OGG: more details for MPEG-4 Visual, MPEG Audio and AC-3
