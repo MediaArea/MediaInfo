@@ -125,6 +125,7 @@ protected :
     void Errors_Stats_Update_Finnish();
     Ztring Errors_Stats_03;
     Ztring Errors_Stats_05;
+    Ztring Errors_Stats_09;
     Ztring Errors_Stats_10;
     Ztring Date;
     Ztring Time;

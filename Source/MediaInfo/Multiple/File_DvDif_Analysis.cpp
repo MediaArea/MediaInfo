@@ -469,6 +469,7 @@ void File_DvDif::Errors_Stats_Update()
 
     bool Errors_AreDetected=false;
     bool Infos_AreDetected=false;
+    bool Arb_AreDetected=false;
     Ztring Errors_Stats_Line;
     if (Speed_FrameCount) //We must have at least one complete frame
     {
@@ -719,7 +720,7 @@ void File_DvDif::Errors_Stats_Update()
         {
             Errors_Stats_Line+=_T('R');
             if (Speed_Arb_Current.Value!=0xF)
-                Errors_AreDetected=true;
+                Arb_AreDetected=true;
 
             Speed_Arb_Current_Theory.IsValid=false;
         }
@@ -728,7 +729,7 @@ void File_DvDif::Errors_Stats_Update()
         {
             Errors_Stats_Line+=_T('N');
             Speed_Arb_Current_Theory=Speed_Arb_Current;
-            Errors_AreDetected=true;
+            Arb_AreDetected=true;
         }
         else
             Errors_Stats_Line+=_T(' ');
@@ -991,7 +992,7 @@ void File_DvDif::Errors_Stats_Update()
                 Errors_Stats_Line_Details+=Arb_Errors;
             }
             Speed_FrameCount_Arb_Incoherency++;
-            Errors_AreDetected=true;
+            Arb_AreDetected=true;
         }
         else
             Errors_Stats_Line+=_T(' ');
@@ -1039,27 +1040,39 @@ void File_DvDif::Errors_Stats_Update()
         Errors_Stats_Line_Details+=_T('\t');
 
         //Filling the main text if needed
-        if (Speed_FrameCount==1
-         || Status[IsFinished]
-         || Errors_AreDetected)
-        {
-            Errors_Stats_03+=Errors_Stats_Line;
-            Errors_Stats_03+=Errors_Stats_Line_Details;
-            Errors_Stats_03+=_T("&");
-        }
-        if (Speed_FrameCount==1
-         || Status[IsFinished]
-         || Errors_AreDetected
-         || Infos_AreDetected)
-        {
-            Errors_Stats_05+=Errors_Stats_Line;
-            Errors_Stats_05+=Errors_Stats_Line_Details;
-            Errors_Stats_05+=_T("&");
-        }
         {
             Errors_Stats_10+=Errors_Stats_Line;
             Errors_Stats_10+=Errors_Stats_Line_Details;
             Errors_Stats_10+=_T("&");
+        }
+        if (Speed_FrameCount==1
+         || Status[IsFinished]
+         || Errors_AreDetected
+         || Infos_AreDetected
+         || Arb_AreDetected)
+        {
+            Errors_Stats_09+=Errors_Stats_Line;
+            Errors_Stats_09+=Errors_Stats_Line_Details;
+            Errors_Stats_09+=_T("&");
+
+            if (Speed_FrameCount==1
+             || Status[IsFinished]
+             || Errors_AreDetected
+             || Infos_AreDetected)
+            {
+                Errors_Stats_05+=Errors_Stats_Line;
+                Errors_Stats_05+=Errors_Stats_Line_Details;
+                Errors_Stats_05+=_T("&");
+
+                if (Speed_FrameCount==1
+                 || Status[IsFinished]
+                 || Errors_AreDetected)
+                {
+                    Errors_Stats_03+=Errors_Stats_Line;
+                    Errors_Stats_03+=Errors_Stats_Line_Details;
+                    Errors_Stats_03+=_T("&");
+                }
+             }
         }
     }
 
@@ -1559,11 +1572,15 @@ void File_DvDif::Errors_Stats_Update_Finnish()
     (*Stream_More)[Stream_Video][0](Ztring().From_Local("Errors_Stats_03"), Info_Options)=_T("N NT");
     Fill(Stream_Video, 0, "Errors_Stats_05", Errors_Stats_05);
     (*Stream_More)[Stream_Video][0](Ztring().From_Local("Errors_Stats_05"), Info_Options)=_T("N NT");
+    Fill(Stream_Video, 0, "Errors_Stats_09", Errors_Stats_09);
+    (*Stream_More)[Stream_Video][0](Ztring().From_Local("Errors_Stats_09"), Info_Options)=_T("N NT");
     Fill(Stream_Video, 0, "Errors_Stats_10", Errors_Stats_10);
     (*Stream_More)[Stream_Video][0](Ztring().From_Local("Errors_Stats_10"), Info_Options)=_T("N NT");
     if (MediaInfoLib::Config.Verbosity_Get()>=(float32)1.0)
         Fill(Stream_Video, 0, "Errors_Stats", Errors_Stats_10);
     else if (MediaInfoLib::Config.Verbosity_Get()>=(float32)0.5)
+        Fill(Stream_Video, 0, "Errors_Stats", Errors_Stats_09);
+    else if (MediaInfoLib::Config.Verbosity_Get()>=(float32)0.9)
         Fill(Stream_Video, 0, "Errors_Stats", Errors_Stats_05);
     else
         Fill(Stream_Video, 0, "Errors_Stats", Errors_Stats_03);
