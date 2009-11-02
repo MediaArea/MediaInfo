@@ -299,6 +299,8 @@ void File_MpegTs::File__Duplicate_Write (int16u PID)
 //---------------------------------------------------------------------------
 size_t File_MpegTs::Output_Buffer_Get (const String &Code)
 {
+    if (Complete_Stream==NULL)
+        return 0;
     std::map<const String, File__Duplicate_MpegTs*>::iterator Stream=Complete_Stream->Duplicates.find(Code);
     if (Stream==Complete_Stream->Duplicates.end())
         return 0;

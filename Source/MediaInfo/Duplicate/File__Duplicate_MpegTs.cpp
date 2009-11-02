@@ -408,10 +408,6 @@ bool File__Duplicate_MpegTs::Parsing_Begin (const int8u* ToAdd, size_t ToAdd_Siz
     ToModify.Offset+=5;
     FromTS.Offset+=5;
 
-    //Managing big chunks
-    if (BigBuffers.find(PID)!=BigBuffers.end())
-        BigBuffers.erase(BigBuffers.find(PID));
-
     return true;
 }
 
@@ -463,6 +459,11 @@ void File__Duplicate_MpegTs::Parsing_End (std::map<int16u, buffer> &ToModify_)
         ToModify.Buffer[Buffer_CRC_Pos]=0xFF;
 
     Writer.Write(ToModify.Buffer, ToModify.Size);
+
+    //Managing big chunks
+    int16u PID=((ToModify.Buffer[1]&0x1F)<<8)|ToModify.Buffer[2]; //BigEndian2int16u(ToAdd+1)&0x1FFF;
+    if (BigBuffers.find(PID)!=BigBuffers.end())
+        BigBuffers.erase(BigBuffers.find(PID));
 }
 
 //***************************************************************************
