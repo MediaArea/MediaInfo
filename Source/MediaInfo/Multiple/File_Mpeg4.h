@@ -263,7 +263,7 @@ private :
     float32                                 moov_trak_tkhd_Rotation;
     std::vector<std::string>                moov_udta_meta_keys_List;
     size_t                                  moov_udta_meta_keys_ilst_Pos;
-    int32u                                  MajorBrand;
+    std::vector<int32u>                     ftyps;
     int32u                                  TimeScale;
     int32u                                  Vendor;
     Ztring                                  Vendor_Version;

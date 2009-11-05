@@ -37,7 +37,7 @@ class File_Mpeg4_AudioSpecificConfig : public File__Analyze
 {
 public :
     //In
-    int32u   MajorBrand;
+    std::vector<int32u> ftyps;
 
 public :
     //Constructor/Destructor

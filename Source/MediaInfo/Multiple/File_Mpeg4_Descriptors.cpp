@@ -292,7 +292,6 @@ File_Mpeg4_Descriptors::File_Mpeg4_Descriptors()
 {
     //In
     KindOfStream=Stream_Max;
-    MajorBrand=0x00000000;
     Parser_DoNotFreeIt=false;
     DecSpecificInfoTag_DoNotFreeIt=false;
     SLConfig_DoNotFreeIt=false;
@@ -716,7 +715,7 @@ void File_Mpeg4_Descriptors::Descriptor_05()
             case Stream_Audio :
                                 #if defined(MEDIAINFO_MPEG4_YES)
                                     delete Parser; Parser=new File_Mpeg4_AudioSpecificConfig;
-                                    ((File_Mpeg4_AudioSpecificConfig*)Parser)->MajorBrand=MajorBrand;
+                                    ((File_Mpeg4_AudioSpecificConfig*)Parser)->ftyps=ftyps;
                                 #endif
                                 break;
             default: ;
@@ -759,7 +758,7 @@ void File_Mpeg4_Descriptors::Descriptor_05()
         //There is an IOD, not ADTS
         #ifdef MEDIAINFO_MPEG4_YES
             delete Parser; Parser=new File_Mpeg4_AudioSpecificConfig;
-            ((File_Mpeg4_AudioSpecificConfig*)Parser)->MajorBrand=MajorBrand;
+            ((File_Mpeg4_AudioSpecificConfig*)Parser)->ftyps=ftyps;
             Open_Buffer_Init(Parser);
         #endif //MEDIAINFO_MPEG4_YES
     }

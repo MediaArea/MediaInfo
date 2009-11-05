@@ -216,8 +216,6 @@ const char* MP4_ChannelConfiguration2[]=
 File_Mpeg4_AudioSpecificConfig::File_Mpeg4_AudioSpecificConfig()
 :File__Analyze()
 {
-    //In
-    MajorBrand=0x00000000;
 }
 
 //***************************************************************************
@@ -374,7 +372,11 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
     BS_End();
 
     //Handling implicit SBR and PS
-    if ((MajorBrand&0x33677000)!=0x33677000) //If this is not a 3GP file
+    bool Is3GP=false;
+    for (size_t Pos=0; Pos<ftyps.size(); Pos++)
+        if ((ftyps[Pos]&0xFFFFFF00)==0x33677000)
+            Is3GP=true;
+    if (!Is3GP) //If this is not a 3GP file
     {
         if (!sbrPresentFlag && samplingFrequency<=24000)
         {
