@@ -6,16 +6,18 @@
 
 # norootforbuild
 
-%define _prefix	/usr
-%define libzen_version	0.4.8
+%define mediainfo_version		0.7.24
+%define libmediainfo_version	0.7.24
+%define libzen_version			0.4.8
 
 Name:			mediainfo
-Version:		0.7.24
+Version:		%mediainfo_version
 Release:		1
-Summary:		Supplies technical and tag information about a video or audio file
+Summary:		Supplies technical and tag information about a video or audio file (CLI)
 Group:			Productivity/Multimedia/Other
 License:		GPL
 URL:			http://mediainfo.sourceforge.net/
+Packager:		Jerome Martinez <zen@mediaarea.net>
 Source0:		mediainfo_%{version}-1.tar.gz
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	dos2unix
@@ -32,12 +34,11 @@ BuildRequires: 	zlib-devel
 %if 0%{?suse_version}
 BuildRequires:	update-desktop-files
 %endif
-Requires:	libzen0 >= %{libzen_version}
-Requires:	libmediainfo0 >= %{version}
+Requires:	libmediainfo0 >= %libmediainfo_version
+Requires:	libzen0 >= %libzen_version
 
 %description
-MediaInfo supplies technical and tag information about a video or
-audio file.
+MediaInfo CLI (Command Line Interface).
 
 What information can I get from MediaInfo?
 * General: title, author, director, album, track number, date, duration...
@@ -59,14 +60,13 @@ What format (container) does MediaInfo support?
 * Subtitles: SRT, SSA, ASS, SAMI
 
 %package gui
-Summary:	GUI for mediainfo
+Summary:	Supplies technical and tag information about a video or audio file (GUI)
 Group:		Productivity/Multimedia/Other
-Requires:	libzen0 >= %{libzen_version}
+Requires:	libzen0 >= %libzen_version
 Requires:	libmediainfo0 >= %{version}
 
 %description gui
-MediaInfo supplies technical and tag information about a video or
-audio file.
+MediaInfo (Graphical User Interface).
 
 What information can I get from MediaInfo?
 * General: title, author, director, album, track number, date, duration...
@@ -86,8 +86,6 @@ What format (container) does MediaInfo support?
   H.264, AVC...)
 * Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
 * Subtitles: SRT, SSA, ASS, SAMI
-
-This package contains the graphical user interface
 
 %prep
 %setup -q -n MediaInfo
@@ -143,9 +141,15 @@ popd
 %__install -dm 755 %{buildroot}/%{_datadir}/apps/konqueror/servicemenus
 %__install -m 644 Project/GNU/GUI/mediainfo-gui.kde3.desktop \
 	%{buildroot}/%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop
+%if 0%{?suse_version}
+  %suse_update_desktop_file -n %{buildroot}/%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
+%endif
 %__install -dm 755 %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/
 %__install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
 	%{buildroot}/%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop
+%if 0%{?suse_version}
+  %suse_update_desktop_file -n %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
+%endif
 
 %clean
 [ -d "%{buildroot}" -a "%{buildroot}" != "" ] && %__rm -rf "%{buildroot}"
@@ -163,6 +167,9 @@ popd
 %{_bindir}/mediainfo-gui
 %{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/*.png
+%dir %{_datadir}/icons/hicolor
+%dir %{_datadir}/icons/hicolor/128x128
+%dir %{_datadir}/icons/hicolor/128x128/apps
 %{_datadir}/icons/hicolor/128x128/apps/*.png
 %dir %{_datadir}/apps
 %dir %{_datadir}/apps/konqueror
@@ -174,6 +181,6 @@ popd
 %{_datadir}/kde4/services/ServiceMenus/*.desktop
 
 %changelog
-* Tue Jan 01 2009 Jerome Martinez <zen@mediaarea.net> - 0.7.19-0
+* Tue Jan 01 2009 Jerome Martinez <zen@mediaarea.net> - 0.7.24-0
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>
