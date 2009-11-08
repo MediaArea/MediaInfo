@@ -6,27 +6,26 @@
 
 # norootforbuild
 
-%define _prefix	/usr
-%define _SO_nr	0
-%define libzen_version	0.4.8
-%define libzen_SO_nr	0
+%define libmediainfo_version	0.7.24
+%define libzen_version			0.4.8
 
-Name:			libmediainfo%{_SO_nr}
-Version:		0.7.24
+Name:			libmediainfo0
+Version:		%libmediainfo_version
 Release:		1
 Summary:		Supplies technical and tag information about a video or audio file
 Group:			System/Libraries
 License:		GPL
 URL:			http://mediainfo.sourceforge.net/
+Packager:		Jerome Martinez <zen@mediaarea.net>
 Source0:		libmediainfo_%{version}-1.tar.gz
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	dos2unix
 BuildRequires: 	gcc-c++
-BuildRequires:	libzen0-devel >= %{libzen_version}
+BuildRequires:	libzen0-devel >= %libzen_version
 BuildRequires:	pkgconfig
 BuildRequires: 	zlib-devel
 BuildRequires:	doxygen
-Requires:		libzen%{libzen_SO_nr} >= %{libzen_version}
+Requires:		libzen0 >= %libzen_version
 
 %description
 MediaInfo supplies technical and tag information about a video or
@@ -51,16 +50,16 @@ What format (container) does MediaInfo support?
 * Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
 * Subtitles: SRT, SSA, ASS, SAMI
 
-This package contains the shared library for MediaInfo(-gui).
+This package contains the shared library for MediaInfo.
 
-%package -n libmediainfo%{_SO_nr}-devel
-Summary:	Include files and mandatory librariesfor development
+%package -n libmediainfo0-devel
+Summary:	Include files and mandatory libraries for development
 Group:		Development/Libraries/C and C++
-Requires:	libmediainfo%{_SO_nr} >= %{version}
-Requires:	libzen%{libzen_SO_nr}-devel >= %{libzen_version}
+Requires:	libmediainfo0 = %{version}
+Requires:	libzen0-devel >= %libzen_version
 
-%description -n libmediainfo%{_SO_nr}-devel
-Include files and mandatory librariesfor development.
+%description -n libmediainfo0-devel
+Include files and mandatory libraries for development.
 
 %prep
 %setup -q -n MediaInfoLib
@@ -109,16 +108,16 @@ done
 %clean
 [ -d "%{buildroot}" -a "%{buildroot}" != "" ] && %__rm -rf "%{buildroot}"
 
-%post -n libmediainfo%{_SO_nr} -p /sbin/ldconfig
+%post -n libmediainfo0 -p /sbin/ldconfig
 
-%postun -n libmediainfo%{_SO_nr} -p /sbin/ldconfig
+%postun -n libmediainfo0 -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
 %doc History.txt License.html ReadMe.txt
 %{_libdir}/libmediainfo.so.*
 
-%files -n libmediainfo%{_SO_nr}-devel
+%files -n libmediainfo0-devel
 %defattr(-,root,root,-)
 %doc Changes.txt Documentation.html Doc/* Source/Example/HowToUse*
 %dir %{_includedir}/MediaInfo
