@@ -23,6 +23,13 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
+// For developper: you can disable or enable traces
+//#define MEDIAINFO_DEBUG_CONFIG
+//#define MEDIAINFO_DEBUG_BUFFER
+//#define MEDIAINFO_DEBUG_OUTPUT
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
 #ifndef MediaInfo_InternalH
 #define MediaInfo_InternalH
 //---------------------------------------------------------------------------
@@ -34,7 +41,12 @@
 #include "ZenLib/Thread.h"
 #include "ZenLib/CriticalSection.h"
 #include <bitset>
+#if defined (MEDIAINFO_DEBUG_CONFIG) || defined (MEDIAINFO_DEBUG_BUFFER) || defined (MEDIAINFO_DEBUG_OUTPUT)
+    #include <ZenLib/File.h>
+    #include <map>
+#endif //MEDIAINFO_DEBUG
 using namespace std;
+using namespace ZenLib;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -124,6 +136,21 @@ private :
     bool    IsInThread;
     void    Entry();
     ZenLib::CriticalSection CS;
+
+    #ifdef MEDIAINFO_DEBUG_CONFIG
+        File Debug_Config;
+    #endif //MEDIAINFO_DEBUG_CONFIG
+    #ifdef MEDIAINFO_DEBUG_BUFFER
+        File Debug_Buffer_Stream;
+        File Debug_Buffer_Sizes;
+    #endif //MEDIAINFO_DEBUG_BUFFER
+    #ifdef MEDIAINFO_DEBUG_OUTPUT
+        map<void*, File> Debug_Output_Value_Stream; //Key is the memory address
+        map<void*, File> Debug_Output_Value_Sizes; //Key is the memory address
+        vector<File*> Debug_Output_Pos_Stream; //Key is the pos
+        vector<File*> Debug_Output_Pos_Sizes; //Key is the pos
+        vector<void*> Debug_Output_Pos_Pointer; //Key is the pos
+    #endif //MEDIAINFO_DEBUG_OUTPUT
 };
 
 } //NameSpace

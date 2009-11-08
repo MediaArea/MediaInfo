@@ -18,12 +18,6 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-// For user: you can disable or enable it
-//#define MEDIAINFO_DEBUG
-//#define MEDIAINFO_DEBUG_BUFFER_SAVE
-//---------------------------------------------------------------------------
-
-//---------------------------------------------------------------------------
 // Compilation conditions
 #include "MediaInfo/Setup.h"
 #ifdef __BORLANDC__
@@ -34,9 +28,6 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/MediaInfo.h"
 #include "MediaInfo/MediaInfo_Internal.h"
-#ifdef MEDIAINFO_DEBUG
-    #include <ZenLib/File.h>
-#endif //MEDIAINFO_DEBUG
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -48,88 +39,27 @@ namespace MediaInfoLib
 namespace MediaInfo_Debug_MediaInfo
 {
 
-#ifdef MEDIAINFO_DEBUG
-    #define MEDIAINFO_DEBUG_WANTED
-    File F;
-    Ztring Debug;
+#if defined (MEDIAINFO_DEBUG_CONFIG) || defined (MEDIAINFO_DEBUG_BUFFER) || defined (MEDIAINFO_DEBUG_OUTPUT)
     #ifdef WINDOWS
         const Char* MediaInfo_Debug_Name=_T("MediaInfo_Debug");
     #else
         const Char* MediaInfo_Debug_Name=_T("/tmp/MediaInfo_Debug");
     #endif
+#endif
 
-    #undef MEDIAINFO_DEBUG
-    #define MEDIAINFO_DEBUG(_TOAPPEND) \
-        F.Open(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".txt"), File::Access_Write_Append); \
-        Debug.clear(); \
-        Debug+=Ztring::ToZtring((size_t)this, 16); \
-        Debug.resize(17, ' '); \
-        _TOAPPEND; \
-        Debug+=_T("\r\n"); \
-        F.Write(Debug); \
-        F.Close();
-#else // MEDIAINFO_DEBUG
-    #define MEDIAINFO_DEBUG(_TOAPPEND)
-#endif // MEDIAINFO_DEBUG
-
-#ifdef MEDIAINFO_DEBUG_WANTED
+#ifdef MEDIAINFO_DEBUG_CONFIG
     #define MEDIAINFO_DEBUG_STATIC(_TOAPPEND) \
-        F.Open(Ztring(MediaInfo_Debug_Name)+_T(".static.txt"), File::Access_Write_Append); \
-        Debug.clear(); \
-        _TOAPPEND; \
-        Debug+=_T("\r\n"); \
-        F.Write(Debug); \
-        F.Close();
-#else // MEDIAINFO_DEBUG_WANTED
+        { \
+            File F(Ztring(MediaInfo_Debug_Name)+_T(".Config.static.txt"), File::Access_Write_Append); \
+            Ztring Debug; \
+            _TOAPPEND; \
+            Debug+=_T("\r\n"); \
+            F.Write(Debug); \
+            F.Close(); \
+        }
+#else // MEDIAINFO_DEBUG_CONFIG
     #define MEDIAINFO_DEBUG_STATIC(_TOAPPEND)
-#endif // MEDIAINFO_DEBUG_WANTED
-
-#ifdef MEDIAINFO_DEBUG_WANTED
-#define EXECUTE_VOID(_METHOD,_DEBUGB) \
-        ((MediaInfo_Internal*)Internal)->_METHOD; \
-        MEDIAINFO_DEBUG(_DEBUGB)
-#else //MEDIAINFO_DEBUG_WANTED
-#define EXECUTE_VOID(_METHOD,_DEBUGB) \
-        ((MediaInfo_Internal*)Internal)->_METHOD;
-#endif //MEDIAINFO_DEBUG_WANTED
-
-#ifdef MEDIAINFO_DEBUG_WANTED
-#define EXECUTE_INT(_METHOD,_DEBUGB) \
-        int64u ToReturn=((MediaInfo_Internal*)Internal)->_METHOD; \
-        MEDIAINFO_DEBUG(_DEBUGB) \
-        return ToReturn;
-#else //MEDIAINFO_DEBUG_WANTED
-#define EXECUTE_INT(_METHOD, _DEBUGB) \
-        return ((MediaInfo_Internal*)Internal)->_METHOD;
-#endif //MEDIAINFO_DEBUG_WANTED
-
-#ifdef MEDIAINFO_DEBUG_WANTED
-#define EXECUTE_STRING(_METHOD,_DEBUGB) \
-        Ztring ToReturn=((MediaInfo_Internal*)Internal)->_METHOD; \
-        MEDIAINFO_DEBUG(_DEBUGB) \
-        return ToReturn;
-#else //MEDIAINFO_DEBUG_WANTED
-#define EXECUTE_STRING(_METHOD,_DEBUGB) \
-        return ((MediaInfo_Internal*)Internal)->_METHOD;
-#endif //MEDIAINFO_DEBUG_WANTED
-
-#ifdef MEDIAINFO_DEBUG_BUFFER_SAVE
-    #include <stdio.h>
-    #ifdef WINDOWS
-        FILE* Buffer_Stream=fopen("MediaInfo_Debug_Stream.raw", "a+b");
-        FILE* Buffer_Sizes=fopen("MediaInfo_Debug_Stream.sizes", "a+b");
-    #else
-        FILE* Buffer_Stream=fopen("/tmp/MediaInfo_Debug_Stream.raw", "a+b");
-        FILE* Buffer_Sizes=fopen("/tmp/MediaInfo_Debug_Stream.sizes", "a+b");
-    #endif
-
-    #undef MEDIAINFO_DEBUG_BUFFER_SAVE
-    #define MEDIAINFO_DEBUG_BUFFER_SAVE(_BUFFER, _SIZE) \
-        fwrite(_BUFFER, _SIZE, 1, Buffer_Stream); \
-        fwrite((char*)&_SIZE, sizeof(size_t), 1, Buffer_Sizes);
-#else // MEDIAINFO_DEBUG_BUFFER_SAVE
-    #define MEDIAINFO_DEBUG_BUFFER_SAVE(_BUFFER, _SIZE)
-#endif // MEDIAINFO_DEBUG_BUFFER_SAVE
+#endif // MEDIAINFO_DEBUG_CONFIG
 
 }
 using namespace MediaInfo_Debug_MediaInfo;
@@ -141,14 +71,12 @@ using namespace MediaInfo_Debug_MediaInfo;
 //---------------------------------------------------------------------------
 MediaInfo::MediaInfo()
 {
-    MEDIAINFO_DEBUG(Debug+=_T("Construction");)
     Internal=new MediaInfo_Internal();
 }
 
 //---------------------------------------------------------------------------
 MediaInfo::~MediaInfo()
 {
-    MEDIAINFO_DEBUG(Debug+=_T("Destruction");)
     delete (MediaInfo_Internal*)Internal; //Internal=NULL;
 }
 
@@ -159,7 +87,6 @@ MediaInfo::~MediaInfo()
 //---------------------------------------------------------------------------
 size_t MediaInfo::Open(const String &File_Name_)
 {
-    MEDIAINFO_DEBUG(Debug+=_T("Open, File=");Debug+=Ztring(File_Name_).c_str();)
     return ((MediaInfo_Internal*)Internal)->Open(File_Name_);
 }
 
@@ -172,22 +99,13 @@ size_t MediaInfo::Open (const int8u* Begin_, size_t Begin_Size_, const int8u*, s
 //---------------------------------------------------------------------------
 size_t MediaInfo::Open_Buffer_Init (int64u File_Size, int64u File_Offset)
 {
-    MEDIAINFO_DEBUG(Debug+=_T("Open_Buffer_Init, File_Size=");Debug+=Ztring::ToZtring(File_Size);Debug+=_T(", File_Offset=");Debug+=Ztring::ToZtring(File_Offset);)
-    EXECUTE_INT(Open_Buffer_Init(File_Size, File_Offset), Debug+=_T("Open_Buffer, will return ");Debug+=Ztring::ToZtring(ToReturn);)
+    return ((MediaInfo_Internal*)Internal)->Open_Buffer_Init(File_Size, File_Offset);
 }
 
 //---------------------------------------------------------------------------
 size_t MediaInfo::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 {
-    MEDIAINFO_DEBUG_BUFFER_SAVE(ToAdd, ToAdd_Size);
-
-    size_t ToReturn=((MediaInfo_Internal*)Internal)->Open_Buffer_Continue(ToAdd, ToAdd_Size).to_ulong();
-    if (ToReturn==0)
-    {
-        MEDIAINFO_DEBUG(Debug+=_T("Open_Buffer_Continue, will return ");Debug+=Ztring::ToZtring(ToReturn);Debug+=_T(", forcing a Get() :");)
-        Get(Stream_General, 0, _T("Format"));        
-    }
-    return ToReturn;
+    return ((MediaInfo_Internal*)Internal)->Open_Buffer_Continue(ToAdd, ToAdd_Size).to_ulong();
 }
 
 //---------------------------------------------------------------------------
@@ -199,8 +117,7 @@ int64u MediaInfo::Open_Buffer_Continue_GoTo_Get ()
 //---------------------------------------------------------------------------
 size_t MediaInfo::Open_Buffer_Finalize ()
 {
-    MEDIAINFO_DEBUG(Debug+=_T("Open_Buffer_Finalize");)
-    EXECUTE_INT(Open_Buffer_Finalize(), Debug+=_T("Open_Buffer_Finalize, will return ");Debug+=Ztring::ToZtring(ToReturn);)
+    return ((MediaInfo_Internal*)Internal)->Open_Buffer_Finalize();
 }
 
 //---------------------------------------------------------------------------
@@ -212,7 +129,6 @@ size_t MediaInfo::Save()
 //---------------------------------------------------------------------------
 void MediaInfo::Close()
 {
-    MEDIAINFO_DEBUG(Debug+=_T("Close");)
     return ((MediaInfo_Internal*)Internal)->Close();
 }
 
@@ -223,23 +139,19 @@ void MediaInfo::Close()
 //---------------------------------------------------------------------------
 String MediaInfo::Inform(size_t)
 {
-    MEDIAINFO_DEBUG(Debug+=_T("Inform");)
-    EXECUTE_STRING(Inform(), Debug+=_T("Inform, will return ");Debug+=ToReturn;)
+    return ((MediaInfo_Internal*)Internal)->Inform();
 }
 
 //---------------------------------------------------------------------------
 String MediaInfo::Get(stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo)
 {
-    MEDIAINFO_DEBUG(Debug+=_T("Get, StreamKind=");Debug+=Ztring::ToZtring((size_t)StreamKind);Debug+=_T(", StreamKind=");Debug+=Ztring::ToZtring(StreamPos);Debug+=_T(", Parameter=");Debug+=Ztring::ToZtring(Parameter);)
-    EXECUTE_STRING(Get(StreamKind, StreamPos, Parameter, KindOfInfo), Debug+=_T("Get, will return ");Debug+=ToReturn;)
+    return ((MediaInfo_Internal*)Internal)->Get(StreamKind, StreamPos, Parameter, KindOfInfo);
 }
 
 //---------------------------------------------------------------------------
 String MediaInfo::Get(stream_t StreamKind, size_t StreamPos, const String &Parameter, info_t KindOfInfo, info_t KindOfSearch)
 {
-    MEDIAINFO_DEBUG(Debug+=_T("Get, StreamKind=");Debug+=Ztring::ToZtring((size_t)StreamKind);Debug+=_T(", StreamKind=");Debug+=Ztring::ToZtring(StreamPos);Debug+=_T(", Parameter=");Debug+=Ztring(Parameter);)
-
-    EXECUTE_STRING(Get(StreamKind, StreamPos, Parameter, KindOfInfo, KindOfSearch), Debug+=_T("Get, will return ");Debug+=ToReturn;)
+    return ((MediaInfo_Internal*)Internal)->Get(StreamKind, StreamPos, Parameter, KindOfInfo, KindOfSearch);
 }
 
 //***************************************************************************
@@ -281,8 +193,7 @@ size_t MediaInfo::Output_Buffer_Get (size_t Pos)
 //---------------------------------------------------------------------------
 String MediaInfo::Option (const String &Option, const String &Value)
 {
-    MEDIAINFO_DEBUG(Debug+=_T("Option, Option=");Debug+=Ztring(Option);Debug+=_T(", Value=");Debug+=Ztring(Value);)
-    EXECUTE_STRING(Option(Option, Value), Debug+=_T("Option, will return ");Debug+=ToReturn;)
+    return ((MediaInfo_Internal*)Internal)->Option(Option, Value);
 }
 
 //---------------------------------------------------------------------------
