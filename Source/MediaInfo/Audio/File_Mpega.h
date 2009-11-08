@@ -78,6 +78,7 @@ private :
     std::map<int16u, size_t> BitRate_Count;
     std::map<int8u, size_t> sampling_frequency_Count;
     std::map<int8u, size_t> mode_Count;
+    size_t Surround_Frames;
     size_t Block_Count[3]; //long, short, mixed
     size_t Channels_Count[4]; //Stereo, Join Stereo, Dual mono, mono
     size_t Extension_Count[4]; //No, IS, MS, IS+MS
