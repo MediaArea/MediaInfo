@@ -221,8 +221,8 @@ void File_Cdxa::Streams_Finish ()
         Merge(*(MI->Info), Stream_General, 0, 0);
         const Ztring &Format=Retrieve(Stream_General, 0, General_Format);
         Fill(Stream_General, 0, General_Format, (Ztring(_T("CDXA/"))+Format).c_str(), Unlimited, true);
-        Fill(Stream_General, 0, General_Duration, "", Unlimited, true);
-        Fill(Stream_Video, 0, Video_Duration, "", Unlimited, true);
+        Clear(Stream_General, 0, General_Duration);
+        Clear(Stream_Video, 0, Video_Duration);
     }
 
     //Purge what is not needed anymore

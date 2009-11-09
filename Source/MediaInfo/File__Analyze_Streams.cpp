@@ -184,8 +184,6 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
     Ztring &Target=(*Stream)[StreamKind][StreamPos](Parameter);
     if (Target.empty() || Replace)
         Target=Value; //First value
-    else if (Value.empty())
-        Target.clear(); //Empty value --> clear other values
     else
     {
         Target+=MediaInfoLib::Config.TagSeparator_Get();

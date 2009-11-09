@@ -898,8 +898,10 @@ void File_Mpega::Data_Parse_Fill()
     Fill(Stream_Audio, 0, Audio_Format_Profile, Mpega_Format_Profile_Layer[layer]);
     Fill(Stream_Audio, 0, Audio_Format_Settings_Mode, Mpega_Codec_Profile[mode]);
     Fill(Stream_Audio, 0, Audio_Format_Settings, Mpega_Codec_Profile[mode]);
-    Fill(Stream_Audio, 0, Audio_Format_Settings_Mode, Mpega_Codec_Profile_Extension[mode_extension]);
-    Fill(Stream_Audio, 0, Audio_Format_Settings, Mpega_Codec_Profile_Extension[mode_extension]);
+    if (mode_extension)
+        Fill(Stream_Audio, 0, Audio_Format_Settings_Mode, Mpega_Codec_Profile_Extension[mode_extension]);
+    if (mode_extension)
+        Fill(Stream_Audio, 0, Audio_Format_Settings, Mpega_Codec_Profile_Extension[mode_extension]);
     Fill(Stream_Audio, 0, Audio_Codec, Ztring(Mpega_Version[ID])+Ztring(Mpega_Layer[layer]));
     Fill(Stream_Audio, 0, Audio_Codec_String, Ztring(Mpega_Version_String[ID])+Ztring(Mpega_Layer_String[layer]), true);
     Fill(Stream_Audio, 0, Audio_SamplingRate, Mpega_SamplingRate[ID][sampling_frequency]);
@@ -936,6 +938,7 @@ bool File_Mpega::Header_Xing()
             Element_Info("Tag (Xing)");
 
             //Parsing
+            Element_Begin("Xing");
             Element_Begin("Xing header");
             Skip_XX(Xing_Header_Offset,                         "Junk");
             int32u Flags;
@@ -973,6 +976,7 @@ bool File_Mpega::Header_Xing()
             if (Scale)
                 Get_B4 (Xing_Scale,                             "Scale");
             Ztring Lib;
+            Element_End();
             Peek_Local(4, Lib);
             if (Lame || Lib==_T("LAME") || Lib==_T("GOGO"))
                 Header_Encoders_Lame();
@@ -1001,16 +1005,36 @@ bool File_Mpega::Header_VBRI()
         {
             //This is a "tag"
 
-            Element_Name("Tag (VBRI)");
+            Element_Info("Tag (VBRI)");
 
             //Parsing
             int32u VBR_FileSize_Temp;
+            int16u TableSize, TableScale, EntryBytes;
             Skip_XX(Fraunhofer_Header_Offset,                   "Junk");
-            Skip_C4(                                            "VBRI");
+            Element_Begin("VBRI");
+            Skip_C4(                                            "Sync");
             Skip_B2(                                            "Version");
-            Skip_B4(                                            "Unknown");
-            Get_B4 (VBR_FileSize_Temp,                          "FileSize");
-            Get_B4 (VBR_Frames,                                 "Frames");
+            Skip_B2(                                            "Delay");
+            Skip_B2(                                            "Quality");
+            Get_B4 (VBR_FileSize_Temp,                          "StreamBytes");
+            Get_B4 (VBR_Frames,                                 "StreamFrames"); //Multiplied by SamplesPerFrame (1152 for >=32KHz, else 576) --> Duration in samples
+            Get_B2 (TableSize,                                  "TableSize");
+            Get_B2 (TableScale,                                 "TableScale");
+            Get_B2 (EntryBytes,                                 "EntryBytes");
+            Skip_B2(                                            "EntryFrames"); //Count of frames per entry
+            Element_Begin("Table");
+                for (int16u Pos=0; Pos<TableSize; Pos++)
+                {
+                    switch (EntryBytes)
+                    {
+                        case 1 : {Info_B1(Entry,                "Entry"); Param_Info (Entry*TableScale, " bytes");} break;
+                        case 2 : {Info_B2(Entry,                "Entry"); Param_Info (Entry*TableScale, " bytes");} break;
+                        case 4 : {Info_B4(Entry,                "Entry"); Param_Info (Entry*TableScale, " bytes");} break;
+                        default: Skip_XX(EntryBytes,            "Entry");
+                    }
+                }
+            Element_End();
+            Element_End();
             VBR_FileSize=VBR_FileSize_Temp;
 
             //Clearing Error detection

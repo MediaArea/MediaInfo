@@ -10,6 +10,9 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.25, 2009-
 --------------
 x #2844911, AAC in 3GP: false detection of SBR and PS (again)
+x #2894411, MPEG Audio: UserDefined Covers replace other covers types
+x MPEG Audio: Some profiles were not displayed
+x RealMedia: Some Titles were not displayed
 
 Version 0.7.24, 2009-10-30
 --------------

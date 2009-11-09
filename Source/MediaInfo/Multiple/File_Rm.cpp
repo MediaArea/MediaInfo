@@ -212,7 +212,7 @@ void File_Rm::CONT()
     Get_Local(comment_len, comment,                             "comment"); //An array of ASCII characters that represents the comment information for the RealMedia file.
 
     //Filling
-    Fill(Stream_General, 0, General_Duration, title);
+    Fill(Stream_General, 0, General_Title, title);
     Fill(Stream_General, 0, General_Performer, author);
     Fill(Stream_General, 0, General_Copyright, copyright);
     Fill(Stream_General, 0, General_Comment, comment);
