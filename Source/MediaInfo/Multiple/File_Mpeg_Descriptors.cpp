@@ -63,6 +63,8 @@ namespace Elements
     const int32u VC_1=0x56432D31; //Exactly VC-1
     const int32u drac=0x64726163; //Dirac
 
+    const int32u MANZ=0x4D414E5A; //Manzanita Systems
+
     const int32u DVB =0x00000001; //Forced value, does not exist is stream
 }
 
@@ -628,6 +630,7 @@ const char* Mpeg_Descriptors_registration_format_identifier_Format(int32u format
         case Elements::SCTE : return "SCTE 54 2003 - Digital Video Service Multiplex and Transport System for Cable Television";
         case Elements::TSHV : return "Digital Video";
         case Elements::VC_1 : return "VC-1";
+        case Elements::MANZ : return "Manzanita Systems"; //Manzanita Systems
         default :                     return "";
     }
 }
@@ -1491,6 +1494,8 @@ void File_Mpeg_Descriptors::Descriptor_05()
     //Parsing
     int32u format_identifier;
     Get_B4 (format_identifier,                                  "format_identifier"); Element_Info(Mpeg_Descriptors_registration_format_identifier_Format(format_identifier)); Param_Info(Mpeg_Descriptors_registration_format_identifier_Format(format_identifier));
+    if (Element_Size-Element_Offset>0)
+        Skip_XX(Element_Size-Element_Offset,                    "additional_identification_info");
 
     FILLING_BEGIN();
         switch (table_id)
@@ -1626,6 +1631,31 @@ void File_Mpeg_Descriptors::Descriptor_0B()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::Descriptor_0D()
+{
+    //Parsing
+    int32u copyright_identifier;
+    Get_B4 (copyright_identifier,                             "copyright_identifier");
+    if ((copyright_identifier&0xFF000000)>=0x61000000 && (copyright_identifier&0xFF000000)<=0x7A000000
+     && (copyright_identifier&0x00FF0000)>=0x00610000 && (copyright_identifier&0x00FF0000)<=0x007A0000
+     && (copyright_identifier&0x0000FF00)>=0x00006100 && (copyright_identifier&0x0000FF00)<=0x00007A00
+     && (copyright_identifier&0x000000FF)>=0x00000061 && (copyright_identifier&0x000000FF)<=0x0000007A)
+    {
+        Param_Info(Ztring().From_CC4(copyright_identifier));
+        Element_Info(Ztring().From_CC4(copyright_identifier));
+    }
+    if (copyright_identifier==Elements::MANZ)
+    {
+        if (Element_Offset<Element_Size)
+            Skip_Local(Element_Size-Element_Offset,             "Info");
+        Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Infos["Encoded_Library"]=_T("Manzanita Systems");
+    }
+
+    if (Element_Offset<Element_Size)
+        Skip_Local(Element_Size-Element_Offset,                 "Info");
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg_Descriptors::Descriptor_0E()
 {
     //Parsing
@@ -1653,7 +1683,16 @@ void File_Mpeg_Descriptors::Descriptor_0E()
 void File_Mpeg_Descriptors::Descriptor_0F()
 {
     //Parsing
-    Skip_B4(                                                    "private_data_indicator");
+    int32u private_data_indicator;
+    Get_B4 (private_data_indicator,                             "private_data_indicator");
+    if ((private_data_indicator&0xFF000000)>=0x41000000 && (private_data_indicator&0xFF000000)<=0x7A000000
+     && (private_data_indicator&0x00FF0000)>=0x00410000 && (private_data_indicator&0x00FF0000)<=0x007A0000
+     && (private_data_indicator&0x0000FF00)>=0x00004100 && (private_data_indicator&0x0000FF00)<=0x00007A00
+     && (private_data_indicator&0x000000FF)>=0x00000041 && (private_data_indicator&0x000000FF)<=0x0000007A)
+    {
+        Param_Info(Ztring().From_CC4(private_data_indicator));
+        Element_Info(Ztring().From_CC4(private_data_indicator));
+    }
 }
 
 //---------------------------------------------------------------------------

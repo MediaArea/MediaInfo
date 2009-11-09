@@ -441,7 +441,7 @@ private :
     void Descriptor_0A();
     void Descriptor_0B();
     void Descriptor_0C() {Skip_XX(Element_Size, "Data");};
-    void Descriptor_0D() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_0D();
     void Descriptor_0E();
     void Descriptor_0F();
     void Descriptor_10();
