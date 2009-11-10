@@ -2183,7 +2183,8 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
             }
             Fill(Stream_Video, StreamPos_Last, Video_Width, Width, 10, true);
             Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 10, true);
-            Fill(Stream_Video, StreamPos_Last, Video_Resolution, Resolution, 10, true);
+            if (Resolution)
+                Fill(Stream_Video, StreamPos_Last, Video_Resolution, Resolution, 10, true);
         }
 
         //Creating the parser
