@@ -226,6 +226,7 @@ CodecID;Kodeko ID
 CodecID_Description
 Collection;Kolekcija
 Colorimetry;Kolorimetrija
+colour_primaries
 Comment;Komentaras
 CommissionedBy;Įgaliotas
 CompleteName;Pilnas pavadinimas
@@ -723,6 +724,7 @@ Lyrics
 Lyricist;Lyrikas
 Mastered_Date;Sukūrimo data
 MasteredBy;Sukūrė
+matrix_coefficients
 MediaInfo_About;Teikiama detali informacija\r\napie daugialypes bylas:\r\nMatroska, OGG (įskaitant OGM)\r\nMPEG1 (įskaitant VCD)\r\nMPEG2 (įskaitant DVD ir SVCD)\r\nMPEG4 (įskaitant Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (įskaitant WMV, WMA)\r\nMicrosoft RIFF (įskaitant AVI, WAV)\r\nTik-Garso formatai (AC3, DTS, AAC, AU, AIFF...)
 Menu;Meniu
 Menu stream(s);Meniu srautai
@@ -903,6 +905,7 @@ TimeZone
 Total;Iš viso
 Track;Takelio pavadinimas
 Track_Count;Takelio kiekis
+transfer_characteristics
 Translator;Vertėjas
 Tree;Medis
 Tree & Text;Medis ir tekstas
@@ -938,4 +941,4 @@ WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
 ZZ_Automatic_Percent;87
-ZZ_AutomaticLanguage_Percent;92
+ZZ_AutomaticLanguage_Percent;91

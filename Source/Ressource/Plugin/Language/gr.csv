@@ -226,6 +226,7 @@ CodecID
 CodecID_Description
 Collection;Συλλογή
 Colorimetry
+colour_primaries
 Comment;Σχόλιο
 CommissionedBy;Commissioned by
 CompleteName;Πλήρες όνομα
@@ -723,6 +724,7 @@ Lyrics
 Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
+matrix_coefficients
 MediaInfo_About;Παρέχει λεπτομερείς πληροφορίες\r\nγια αρχεία πολυμέσων:\r\nMatroska, OGG (συμπεριλαμβάνεται OGM)\r\nMPEG1 (συμπεριλαμβάνεται VCD)\r\nMPEG2 (συμπεριλαμβάνεται DVD και SVCD)\r\nMPEG4 (συμπεριλαμβάνεται Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (συμπεριλαμβάνεται WMV, WMA)\r\nMicrosoft RIFF (συμπεριλαμβάνεται AVI, WAV)\r\nΜορφοποιήσεις ήχου (AC3, DTS, AAC, AU, AIFF...)
 Menu;Μενού
 Menu stream(s);Ροές μενού
@@ -903,6 +905,7 @@ TimeZone
 Total;Total
 Track;Track name
 Track_Count;Track count
+transfer_characteristics
 Translator;Μεταφραστής
 Tree;Δένδρο
 Tree & Text;Δένδρο & Κείμενο

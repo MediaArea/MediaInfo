@@ -226,6 +226,7 @@ CodecID
 CodecID_Description
 Collection;Collection
 Colorimetry
+colour_primaries
 Comment;Komentář
 CommissionedBy;Commissioned by
 CompleteName;Celý název a cesta
@@ -723,6 +724,7 @@ Lyrics
 Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
+matrix_coefficients
 MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menu
 Menu stream(s);Menu streams
@@ -903,6 +905,7 @@ TimeZone
 Total;Celkem
 Track;Název stopy
 Track_Count;Track count
+transfer_characteristics
 Translator;Přeložil
 Tree;Strom
 Tree & Text;Tree & Text

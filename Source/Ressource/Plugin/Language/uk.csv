@@ -226,6 +226,7 @@ CodecID;ідентифікатор кодеку
 CodecID_Description;опис кодеку
 Collection;колекція
 Colorimetry;колоріметрія
+colour_primaries
 Comment;примітка
 CommissionedBy;поручитель
 CompleteName;повна назва
@@ -723,6 +724,7 @@ Lyrics;лірика
 Lyricist;лірика
 Mastered_Date;дата мастерингу
 MasteredBy;мастеринг
+matrix_coefficients
 MediaInfo_About;Містить дуже докладну інформацію про звукові формати
 Menu;меню
 Menu stream(s);меню потоків
@@ -903,6 +905,7 @@ TimeZone;часовий пояс
 Total;всього
 Track;ім'я доріжки
 Track_Count;кількість доріжок
+transfer_characteristics
 Translator;перекладач
 Tree;дерево
 Tree & Text;дерево і текст

@@ -226,6 +226,7 @@ CodecID
 CodecID_Description
 Collection;Colectie
 Colorimetry
+colour_primaries
 Comment;Comentariu
 CommissionedBy
 CompleteName;Nume complet
@@ -723,6 +724,7 @@ Lyrics
 Lyricist;Textier
 Mastered_Date;Data realizarii
 MasteredBy;Realizat de
+matrix_coefficients
 MediaInfo_About;Furnizeaza informatii foarte detaliate\r\n despre un fisier multimedia
 Menu;Meniu
 Menu stream(s)
@@ -903,6 +905,7 @@ TimeZone
 Total;Total
 Track;Nume pista
 Track_Count;Numar piste
+transfer_characteristics
 Translator;Traducator
 Tree;Arbore
 Tree & Text;Arbore si text
@@ -937,5 +940,5 @@ Written_Location;Locul mesajului
 WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
-ZZ_Automatic_Percent;36
+ZZ_Automatic_Percent;35
 ZZ_AutomaticLanguage_Percent;75

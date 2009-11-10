@@ -226,6 +226,7 @@ CodecID;Codec-ID
 CodecID_Description;Beskrivelse af codec
 Collection;Samling
 Colorimetry;Kolorimetri
+colour_primaries
 Comment;Kommentar
 CommissionedBy;Bestilt af
 CompleteName;Fulde navn
@@ -723,6 +724,7 @@ Lyrics;Sangtekster
 Lyricist;Tekstforfatter
 Mastered_Date;Masteret den
 MasteredBy;Masteret af
+matrix_coefficients
 MediaInfo_About;Leverer meget detaljeret information\r\nom en multimediefil:\r\nMatroska, Ogg (inklusive OGM)\r\nMPEG1 (inklusive VCD)\r\nMPEG2 (inklusive DVD og SVCD)\r\nMPEG4 (inklusive Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inklusive WMV, WMA)\r\Microsoft RIFF (inklusive AVI, WAV)\r\nRene lydformater (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menu
 Menu stream(s);Menustrømme
@@ -903,6 +905,7 @@ TimeZone;Tidszone
 Total;Totalt
 Track;Spornavn
 Track_Count;Spornummer
+transfer_characteristics
 Translator;Oversætter
 Tree;Træstruktur
 Tree & Text;Træstruktur & tekst
@@ -938,4 +941,4 @@ WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
 ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;100
+ZZ_AutomaticLanguage_Percent;99

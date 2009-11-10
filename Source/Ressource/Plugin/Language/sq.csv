@@ -226,6 +226,7 @@ CodecID;ID i kodekut
 CodecID_Description;Përshkrimi i kodekut
 Collection;Koleksioni
 Colorimetry;Kolorimetri
+colour_primaries
 Comment;Komenti
 CommissionedBy;Autorizuar nga
 CompleteName;Emri i plotë
@@ -723,6 +724,7 @@ Lyrics;Fjalë
 Lyricist;Shkrimtari
 Mastered_Date;Data e masterizimit
 MasteredBy;Masterizuar nga
+matrix_coefficients
 MediaInfo_About;Jep informacione shumë të detajuara për\r\nskedat multimediatike:\r\nMatroska, OGG (përfshirë OGM)\r\nMPEG1 (përfshirë VCD)\r\nMPEG2 (përfshirë DVD dhe SVCD)\r\nMPEG4 (përfshirë Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (përfshirë WMV, WMA)\r\nMicrosoft RIFF (përfshirë AVI, WAV)\r\nFormate zanore (AC3, DTS, AAC, AU, AIFF...)
 Menu;Meny
 Menu stream(s);Rrymat e menysë
@@ -903,6 +905,7 @@ TimeZone;Ora lokale
 Total;Totali
 Track;Emri i kolonës
 Track_Count;Numri i kolonës
+transfer_characteristics
 Translator;Përktheu
 Tree;Pemë
 Tree & Text;Pemë & Tekst
@@ -937,5 +940,5 @@ Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

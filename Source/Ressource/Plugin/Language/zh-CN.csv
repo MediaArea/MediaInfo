@@ -226,6 +226,7 @@ CodecID;编码设置ID
 CodecID_Description;编码描述
 Collection;收集
 Colorimetry;比色法
+colour_primaries
 Comment;评论
 CommissionedBy;评论人
 CompleteName;完整名称
@@ -723,6 +724,7 @@ Lyrics;歌词
 Lyricist;作词
 Mastered_Date;母带完成日期
 MasteredBy;母带制做
+matrix_coefficients
 MediaInfo_About;支持多种格式的多媒体文件:\r\nMatroska, OGG (包括 OGM)\r\nMPEG-1 (包括 VCD)\r\nMPEG-2 (包括 DVD, SVCD)\r\nMPEG-4 (包括 iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (包括 WMV, WMA)\r\nMicrosoft RIFF (包括 AVI, WAV)\r\n纯声音格式 (AC3, DTS, AAC, AU, AIFF...)
 Menu;菜单
 Menu stream(s);菜单
@@ -903,6 +905,7 @@ TimeZone;时区
 Total;总计
 Track;音轨
 Track_Count;音轨数
+transfer_characteristics
 Translator;翻译
 Tree;树状图
 Tree & Text;树状图和文本
@@ -937,5 +940,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

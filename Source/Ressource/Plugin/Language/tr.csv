@@ -226,6 +226,7 @@ CodecID;Kodek ID
 CodecID_Description;Kodek açıklaması
 Collection;Koleksiyon
 Colorimetry;Renkölçüm 
+colour_primaries
 Comment;Yorum
 CommissionedBy;Görevlendiren
 CompleteName;Tam isim
@@ -723,6 +724,7 @@ Lyrics;Şarkı Sözleri
 Lyricist;Söz yazarı
 Mastered_Date;Sahip olma tarihi
 MasteredBy;Sahibi
+matrix_coefficients
 MediaInfo_About;Çok ayrıntılı bilgi sağlanan çokluortam\r\ndosyaları:\r\nMatroska, OGG (OGM dahil)\r\nMPEG1 (VCD dahil)\r\nMPEG2 (DVD ve SVCD dahil)\r\nMPEG4 (Itunes M4A dahil)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV, WMA dahil)\r\nMicrosoft RIFF (AVI, WAV dahil)\r\nSadece-ses biçimleri (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menü
 Menu stream(s);Menü akışları
@@ -903,6 +905,7 @@ TimeZone;Saat dilimi
 Total;Toplam
 Track;Parça adı
 Track_Count;Parça sayısı
+transfer_characteristics
 Translator;Çevirmen
 Tree;Ağaç
 Tree & Text;Ağaç ve Metin
@@ -937,5 +940,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

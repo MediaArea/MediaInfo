@@ -226,6 +226,7 @@ CodecID
 CodecID_Description
 Collection;Col·lecció
 Colorimetry
+colour_primaries
 Comment;Comentari
 CommissionedBy;Commissionat per
 CompleteName;Nom complet
@@ -723,6 +724,7 @@ Lyrics; Lletres
 Lyricist;transcriptor del text
 Mastered_Date;Data de masterització
 MasteredBy;Masteritzat per
+matrix_coefficients
 MediaInfo_About;Proporciona informació detallada\r\nquant a un arxiu multimèdia:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (fins i tot VCD)\r\nMPEG2 (fins i tot DVD i SVCD)\r\nMPEG4 (també l'Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (també WMV, WMA)\r\nMicrosoft RIFF (inclouent AVI, WAV)\r\nArxius només sonors (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menú
 Menu stream(s);Menú de pistes
@@ -903,6 +905,7 @@ TimeZone
 Total;Total
 Track;Nom de la pista
 Track_Count;Total de pistes
+transfer_characteristics
 Translator;Traductor
 Tree;Arbre
 Tree & Text;Arbre i text

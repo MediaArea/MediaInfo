@@ -226,6 +226,7 @@ CodecID;Идентификатор кодека
 CodecID_Description;Описание кодека
 Collection;Коллекция
 Colorimetry;Колориметрия
+colour_primaries
 Comment;Примечание
 CommissionedBy;Поручитель
 CompleteName;Полное имя
@@ -723,6 +724,7 @@ Lyrics;Текст песен
 Lyricist;Либретто
 Mastered_Date;Дата мастеринга
 MasteredBy;Мастеринг от
+matrix_coefficients
 MediaInfo_About;Отображает детальную информацию\r\nо мультимедиа-файлах Matroska, OGG (включая OGM)\r\nMPEG1 (включая VCD), MPEG2 (включая DVD и SVCD), MPEG4 (включая iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (включая WMV, WMA)\r\nMicrosoft RIFF (включая AVI, WAV, DivX)\r\nзвуковых форматах (AC3, DTS, SSC, AU, AIFF)
 Menu;Меню
 Menu stream(s);Меню потоков
@@ -903,6 +905,7 @@ TimeZone;Часовой пояс
 Total;Всего
 Track;Дорожка
 Track_Count;Кол-во дорожек
+transfer_characteristics
 Translator;Переводчик
 Tree;Дерево
 Tree & Text;Дерево и текст

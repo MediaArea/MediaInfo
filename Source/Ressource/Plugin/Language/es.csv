@@ -226,6 +226,7 @@ CodecID;ID Códec
 CodecID_Description;Descripción del códec
 Collection;Colección
 Colorimetry;Espacio de color
+colour_primaries
 Comment;Comentarios
 CommissionedBy;Encargado por
 CompleteName;Nombre completo
@@ -723,6 +724,7 @@ Lyrics;Letras
 Lyricist;Autor de letra
 Mastered_Date;Fecha de edición
 MasteredBy;Editado por
+matrix_coefficients
 MediaInfo_About;Muestra información detallada\r\nde un archivo multimedia:\r\nMastroska, OGG, (incluyendo OGM)\r\n\MPEG1 (incluyendo VCD)\r\nMPEG2 (incluyendo DVD y SVCD)\r\nMPEG4 (incluyendo Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (incluyendo WMV, WMA)\r\nMicrosoft RIFF (incluyendo AVI, WAV)\r\nSólo formatos de sonido (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menú
 Menu stream(s);Menú de pista(s)
@@ -903,6 +905,7 @@ TimeZone
 Total;Total
 Track;Nombre de Pista
 Track_Count;Número de pista
+transfer_characteristics
 Translator;Traductor
 Tree;Árbol
 Tree & Text;Árbol y Texto

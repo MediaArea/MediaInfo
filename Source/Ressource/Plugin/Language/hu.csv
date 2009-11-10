@@ -226,6 +226,7 @@ CodecID;Kódek azonosító
 CodecID_Description;Kódek leírás
 Collection;Gyűjtemény
 Colorimetry;Színkódolás
+colour_primaries
 Comment;Megjegyzés
 CommissionedBy;Megbízó
 CompleteName;Teljes név
@@ -723,6 +724,7 @@ Lyrics;Dalszöveg
 Lyricist;Szövegíró
 Mastered_Date;Mesterpéldány kelte
 MasteredBy;Mesterpéldány
+matrix_coefficients
 MediaInfo_About;Igen részletes adatok az alábbi\r\nmultimédia fájlokról:\r\nMatroska, OGG (OGM is)\r\nMPEG1 (VCD is)\r\nMPEG2 (DVD és SVCD is)\r\nMPEG4 (Itunes M4A is)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV, WMA is)\r\nMicrosoft RIFF (AVI, WAV is)\r\nCsak hangot tartalmazó fájlok (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menü
 Menu stream(s);Menüsáv
@@ -903,6 +905,7 @@ TimeZone
 Total;Összesen
 Track;Sáv
 Track_Count;Sávok száma
+transfer_characteristics
 Translator;Fordító
 Tree;Fa
 Tree & Text;Fa és szöveg
@@ -938,4 +941,4 @@ WrittenBy;Írta
 Yes;igen
 Your system;Rendszer
 ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;98
+ZZ_AutomaticLanguage_Percent;97

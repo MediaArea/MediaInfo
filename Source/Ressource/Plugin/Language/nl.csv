@@ -226,6 +226,7 @@ CodecID;Codec-ID
 CodecID_Description; Beschrijving van de codec
 Collection;Collectie
 Colorimetry; Colorimetrie
+colour_primaries
 Comment;Commentaar
 CommissionedBy;In opdracht van
 CompleteName;Volledige naam
@@ -723,6 +724,7 @@ Lyrics;Tekst
 Lyricist;Tekstschrijver
 Mastered_Date;Datum van master
 MasteredBy;Gemastered door
+matrix_coefficients
 MediaInfo_About;Levert zeer gedetailleerde informatie\r\nover multimediabestanden:\r\nMatroska, OGG (inclusief OGM)\r\nMPEG1 (inclusief VCD)\r\nMPEG2 (inclusief DVD en SVCD)\r\nMPEG4 (inclusief Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inclusief WMV, WMA)\r\nMicrosoft RIFF (inclusief AVI, WAV)\r\nGeluidsformaten (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menu
 Menu stream(s);Menustromen
@@ -903,6 +905,7 @@ TimeZone
 Total;Totaal
 Track;Tracknaam
 Track_Count;Tracktelling
+transfer_characteristics
 Translator;Vertaler
 Tree;Boomstructuur
 Tree & Text;Boomstructuur & Tekst

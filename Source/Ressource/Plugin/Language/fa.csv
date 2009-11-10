@@ -226,6 +226,7 @@ CodecID;هویت کدک
 CodecID_Description;شرح کدک
 Collection;جمع اورى
 Colorimetry;سنجش رنگ
+colour_primaries
 Comment;توضيح 
 CommissionedBy;مجاز توسط
 CompleteName;نام کامل
@@ -723,6 +724,7 @@ Lyrics;متن آهنگ
 Lyricist;لایرسکسیست
 Mastered_Date;تاریخ مستر
 MasteredBy;مستر شده توسط
+matrix_coefficients
 MediaInfo_About;اطلاعات جزیی\r\nدرباره فایل مولتی مدیا:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
 Menu;منو
 Menu stream(s);استریم منو
@@ -903,6 +905,7 @@ TimeZone;منطقه ساعتى جهانى
 Total;کلی
 Track;نام ترک
 Track_Count;تعداد ترک
+transfer_characteristics
 Translator;مترجم
 Tree;درختی
 Tree & Text;درختی ومتنی
@@ -937,5 +940,5 @@ Written_Location;مکان نوشته
 WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

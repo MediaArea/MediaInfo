@@ -226,6 +226,7 @@ CodecID;Codec ID
 CodecID_Description;Description of the codec
 Collection;Collection
 Colorimetry;Colorimetry
+colour_primaries;Color primaries
 Comment;Comment
 CommissionedBy;Commissioned by
 CompleteName;Complete name
@@ -324,8 +325,6 @@ Format_Settings_ITU;Format settings, ITU
 Format_Settings_SBR;Format settings, SBR
 Format_Settings_PS;Format settings, PS
 Format_Settings_Pulldown;Format settings, Pulldown
-Format_Settings_Mode;Format settings, Mode
-Format_Settings_FrameMode;Format settings, Frame mode
 Format_Version;Format version
 Format_Url;Weblink for format
 FrameCount;Frame count
@@ -725,6 +724,7 @@ Lyrics;Lyrics
 Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
+matrix_coefficients;Matrix coefficients
 MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menu
 Menu stream(s);Menu streams
@@ -905,6 +905,7 @@ TimeZone;Timezone
 Total;Total
 Track;Track name
 Track_Count;Track count
+transfer_characteristics;Transfer characteristics
 Translator;Translator
 Tree;Tree
 Tree & Text;Tree & Text

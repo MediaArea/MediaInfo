@@ -226,6 +226,7 @@ CodecID;編解碼器識別字
 CodecID_Description;編解碼器描述
 Collection;收藏
 Colorimetry;比色法
+colour_primaries
 Comment;註釋
 CommissionedBy;委託
 CompleteName;完整檔名
@@ -723,6 +724,7 @@ Lyrics;歌詞
 Lyricist;作詞者
 Mastered_Date;後製日期
 MasteredBy;後製者
+matrix_coefficients
 MediaInfo_About;支援非常詳盡的多媒體檔案資訊:\r\nMatroska, OGG (包含 OGM)\r\nMPEG-1 (包含 VCD)\r\nMPEG-2 (包含 DVD, SVCD)\r\nMPEG-4 (包含 iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (包含 WMV, WMA)\r\nMicrosoft RIFF (包含 AVI, WAV)\r\n純聲音格式 (AC3, DTS, AAC, AU, AIFF...)
 Menu;選單
 Menu stream(s);選單串流
@@ -903,6 +905,7 @@ TimeZone;時區
 Total;總和
 Track;音軌
 Track_Count;音軌數
+transfer_characteristics
 Translator;翻譯
 Tree;樹狀圖
 Tree & Text;樹狀圖與文字
@@ -937,5 +940,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

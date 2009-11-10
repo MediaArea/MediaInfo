@@ -226,6 +226,7 @@ CodecID;ID kodeka
 CodecID_Description;Opis kodeka
 Collection;Kolekcja
 Colorimetry;Kolorymetria
+colour_primaries
 Comment;Komentarz
 CommissionedBy;Powierzony przez
 CompleteName;Pełna ścieżka
@@ -723,6 +724,7 @@ Lyrics;Słowa
 Lyricist;Autor słów
 Mastered_Date;Data nagrania
 MasteredBy;Nagrane przez
+matrix_coefficients
 MediaInfo_About;Dostarcza bardzo szczegółowe informacje\r\no pliku multimedialnym:\r\nMatroska, OGG (wraz z OGM)\r\nMPEG1 (wraz z VCD)\r\nMPEG2 (wraz z DVD i SVCD)\r\nMPEG4 (wraz z iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (wraz z  WMV, WMA)\r\nMicrosoft RIFF (wraz z AVI, WAV)\r\nFormaty dźwiekowe (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menu
 Menu stream(s);Strumienie menu
@@ -903,6 +905,7 @@ TimeZone;Strefa czasowa
 Total;Łącznie
 Track;Tytuł nagrania
 Track_Count;Liczba nagrań
+transfer_characteristics
 Translator;Tłumacz
 Tree;Drzewo
 Tree & Text;Drzewo i tekst
@@ -937,5 +940,5 @@ Written_Location;Lokalizacja
 WrittenBy;Napisał
 Yes;Tak
 Your system;System
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;88
+ZZ_AutomaticLanguage_Percent;99

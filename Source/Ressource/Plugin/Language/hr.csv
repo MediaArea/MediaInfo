@@ -226,6 +226,7 @@ CodecID;ID kôdeka
 CodecID_Description;Opis kôdeka
 Collection;Zbirka
 Colorimetry;Kolorimetrija
+colour_primaries
 Comment;Komentar
 CommissionedBy;Prema nalogu
 CompleteName;Potpuni naziv
@@ -723,6 +724,7 @@ Lyrics;Tekst pjesme
 Lyricist;Tekstopisac
 Mastered_Date;Nadnevak glavne snimke
 MasteredBy;Glavnu snimku napravio
+matrix_coefficients
 MediaInfo_About;Pruža vrlo podrobne informacije\r\no multimedijalnim datotekama:\r\nMatroska, OGG (uključujući OGM)\r\nMPEG1 (uključujući VCD)\r\nMPEG2 (uključujući DVD i SVCD)\r\nMPEG4 (uključujući Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (uključujući WMV, WMA)\r\nMicrosoft RIFF (uključujući AVI, WAV)\r\nSamo zvukovnim oblicima (AC3, DTS, AAC, AU, AIFF...)
 Menu;Izbornik
 Menu stream(s);Izbornik - tokovi
@@ -903,6 +905,7 @@ TimeZone
 Total;Ukupno
 Track;Naziv snimke
 Track_Count;Broj snimke
+transfer_characteristics
 Translator;Prevoditelj
 Tree;Stablo
 Tree & Text;Stablo i tekst
