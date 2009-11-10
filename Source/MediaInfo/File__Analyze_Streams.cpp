@@ -830,6 +830,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, const char* Par
         if (Target.empty() || Replace)
         {
             Target=Value; //First value
+            (*Stream_More)[StreamKind][StreamPos](Ztring().From_Local(Parameter), Info_Name_Text)=MediaInfoLib::Config.Language_Get(Ztring().From_Local(Parameter));
             (*Stream_More)[StreamKind][StreamPos](Ztring().From_Local(Parameter), Info_Options)=_T("Y NT");
         }
         else

@@ -1495,7 +1495,8 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
         }
         Fill(StreamKind_Last, StreamPos_Last, "Width", Width, 10, true);
         Fill(StreamKind_Last, StreamPos_Last, "Height", Height, 10, true);
-        Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution);
+        if (Resolution)
+            Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution);
     }
     else
     {
