@@ -1612,7 +1612,7 @@ void File_Avc::sei_message_mainconcept(int32u payloadSize)
     {
         Encoded_Library=Text.SubString(_T("produced by "), _T(" MainConcept AG"));
         Encoded_Library_Name=_T("MainConcept H.264/AVC Codec");
-        Encoded_Library_Version=Text.SubString(_T("produced by MainConcept H.264/AVC Codec v"), _T(" (c) "));;
+        Encoded_Library_Version=Text.SubString(_T("produced by MainConcept H.264/AVC Codec v"), _T(" (c) "));
         Encoded_Library_Date=MediaInfoLib::Config.Library_Get(InfoLibrary_Format_MainConcept_Avc, Encoded_Library_Version, InfoLibrary_Date);
     }
 }

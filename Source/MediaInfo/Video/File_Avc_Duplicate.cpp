@@ -180,8 +180,8 @@ void File_Avc::File__Duplicate_Write (int64u Element_Code, int32u frame_num)
 
             //NALU
             int8u NALU[2];
-            NALU[0]=((Duplicate_Buffer_Size)>> 8)&0xFF;;
-            NALU[1]=((Duplicate_Buffer_Size)>> 0)&0xFF;;
+            NALU[0]=((Duplicate_Buffer_Size)>> 8)&0xFF;
+            NALU[1]=((Duplicate_Buffer_Size)>> 0)&0xFF;
             Writer.Write(NALU, 2);
 
             //SPS
@@ -194,8 +194,8 @@ void File_Avc::File__Duplicate_Write (int64u Element_Code, int32u frame_num)
             delete[] SPS_SQS;
 
             //NALU
-            NALU[0]=((ToAdd_Size)>> 8)&0xFF;;
-            NALU[1]=((ToAdd_Size)>> 0)&0xFF;;
+            NALU[0]=((ToAdd_Size)>> 8)&0xFF;
+            NALU[1]=((ToAdd_Size)>> 0)&0xFF;
             Writer.Write(NALU, 2);
 
             //PPS

@@ -1752,7 +1752,7 @@ void File_MpegPs::system_header_start()
     int8u  audio_bound, video_bound;
     BS_Begin();
     Mark_1();
-    Get_S3 (22, rate_bound,                                     "rate_bound"); Param_Info(rate_bound*400, " bps");;
+    Get_S3 (22, rate_bound,                                     "rate_bound"); Param_Info(rate_bound*400, " bps");
     Mark_1();
     Get_S1 ( 6, audio_bound,                                    "audio_bound");
     Info_SB(    fixed_flag,                                     "fixed_flag"); Param_Info(MpegPs_System_Fixed[fixed_flag]);

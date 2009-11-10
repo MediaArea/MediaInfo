@@ -463,7 +463,7 @@ void File_Jpeg::APP0()
 void File_Jpeg::APP0_AVI1()
 {
     //Parsing
-    int8u  FieldOrder=(int8u)-1;;
+    int8u  FieldOrder=(int8u)-1;
     Element_Begin("AVI1");
         if (Element_Size==16-4)
         {
