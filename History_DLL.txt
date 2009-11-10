@@ -13,6 +13,7 @@ x #2844911, AAC in 3GP: false detection of SBR and PS (again)
 x #2894411, MPEG Audio: UserDefined Covers replace other covers types
 x MPEG Audio: Some profiles were not displayed
 x RealMedia: Some Titles were not displayed
+x Matroska: Wrong detection of 6-channel Wavpack (detected as 2-channel)
 
 Version 0.7.24, 2009-10-30
 --------------

@@ -337,107 +337,121 @@ void File_Wvpk::Data_Parse()
         Get_L2 (version,                                        "version");
     if (version/0x100==0x4)
     {
-        int32u total_samples=(int32u)-1, block_index=(int32u)-1, block_samples, flags;
-        if (!FromMKV)
-        {
-            Skip_L1(                                            "track_no");
-            Skip_L1(                                            "index_no");
-            Get_L4 (total_samples,                              "total_samples");
-            Get_L4 (block_index,                                "block_index");
-        }
-        Get_L4 (block_samples,                                  "block_samples");
-        if (block_samples!=0) //empty frames have other values empty
-        {
-            if (!FromMKV)
-            {
-                if (block_index==0) //Only the frame with block_index==0
-                    total_samples_FirstFrame=total_samples; //Note: total_samples is not trustable for a cutted file
-                if (Frame_Count==1)
-                    block_index_FirstFrame=block_index; //Save the block_index of the first block
-                block_index_LastFrame=block_index;
-                block_samples_LastFrame=block_samples;
-            }
-            Get_L4 (flags,                                      "flags");
-                Get_Flags (flags,  0, resolution0,              "resolution0");
-                Get_Flags (flags,  1, resolution1,              "resolution1");
-                Get_Flags (flags,  2, mono,                     "mono");
-                Get_Flags (flags,  3, hybrid,                   "hybrid");
-                Get_Flags (flags,  4, joint_stereo,             "joint stereo");
-                Get_Flags (flags,  5, cross_channel_decorrelation, "cross-channel decorrelation");
-                Skip_Flags(flags,  6,                           "hybrid noise shaping");
-                Skip_Flags(flags,  7,                           "floating point data");
-                Skip_Flags(flags,  8,                           "extended size integers");
-                Skip_Flags(flags,  9,                           "hybrid mode parameters control bitrate");
-                Skip_Flags(flags, 10,                           "hybrid noise balanced between channels");
-                Skip_Flags(flags, 11,                           "initial block in sequence");
-                Skip_Flags(flags, 12,                           "final block in sequence");
-                Skip_Flags(flags, 13,                           "amount of data left-shift after decode");
-                Skip_Flags(flags, 14,                           "amount of data left-shift after decode");
-                Skip_Flags(flags, 15,                           "amount of data left-shift after decode");
-                Skip_Flags(flags, 16,                           "amount of data left-shift after decode");
-                Skip_Flags(flags, 17,                           "amount of data left-shift after decode");
-                Skip_Flags(flags, 18,                           "maximum magnitude of decoded data");
-                Skip_Flags(flags, 19,                           "maximum magnitude of decoded data");
-                Skip_Flags(flags, 20,                           "maximum magnitude of decoded data");
-                Skip_Flags(flags, 21,                           "maximum magnitude of decoded data");
-                Skip_Flags(flags, 22,                           "maximum magnitude of decoded data");
-                Skip_Flags(flags, 23,                           "sampling rate");
-                Skip_Flags(flags, 24,                           "sampling rate");
-                Skip_Flags(flags, 25,                           "sampling rate");
-                Skip_Flags(flags, 26,                           "sampling rate"); SamplingRate=(int8u)(((flags>>23)&0xF)); Param_Info(Wvpk_SamplingRate[SamplingRate]);
-                Skip_Flags(flags, 27,                           "reserved");
-                Skip_Flags(flags, 28,                           "reserved");
-                Skip_Flags(flags, 29,                           "use IIR for negative hybrid noise shaping");
-                Skip_Flags(flags, 30,                           "false stereo");
-                Skip_Flags(flags, 31,                           "reserved");
-        }
-        else
-        {
-            Skip_L4(                                            "flags (empty)");
-
-            //Counting
-            Frame_Count--; //This is not a real frame
-        }
-        Skip_L4(                                                "crc");
-        Element_End();
-
-        //Sub-block
-        int8u id;
         while (Element_Offset<Element_Size)
         {
-            Element_Begin();
-            int32u word_size;
-            bool large, odd_size;
-            BS_Begin();
-            Get_SB (large,                                      "large");
-            Get_SB (odd_size,                                   "odd_size");
-            Get_S1 (6, id,                                      "id"); Element_Info(Wvpk_id(id));
-            BS_End();
-            if (large)
+            int32u total_samples=(int32u)-1, block_index=(int32u)-1, block_samples, flags, blocksize=(int32u)-1;
+            bool initial_block, final_block;
+            if (!FromMKV)
             {
-                Get_L3 (word_size,                              "word_size");
+                Skip_L1(                                            "track_no");
+                Skip_L1(                                            "index_no");
+                Get_L4 (total_samples,                              "total_samples");
+                Get_L4 (block_index,                                "block_index");
+            }
+            if (!FromMKV || (FromMKV && Element_Offset==0))
+                Get_L4 (block_samples,                              "block_samples");
+            if (block_samples!=0) //empty frames have other values empty
+            {
+                if (!FromMKV)
+                {
+                    if (block_index==0) //Only the frame with block_index==0
+                        total_samples_FirstFrame=total_samples; //Note: total_samples is not trustable for a cutted file
+                    if (Frame_Count==1)
+                        block_index_FirstFrame=block_index; //Save the block_index of the first block
+                    block_index_LastFrame=block_index;
+                    block_samples_LastFrame=block_samples;
+                }
+                Get_L4 (flags,                                      "flags");
+                    Get_Flags (flags,  0, resolution0,              "resolution0");
+                    Get_Flags (flags,  1, resolution1,              "resolution1");
+                    Get_Flags (flags,  2, mono,                     "mono");
+                    Get_Flags (flags,  3, hybrid,                   "hybrid");
+                    Get_Flags (flags,  4, joint_stereo,             "joint stereo");
+                    Get_Flags (flags,  5, cross_channel_decorrelation, "cross-channel decorrelation");
+                    Skip_Flags(flags,  6,                           "hybrid noise shaping");
+                    Skip_Flags(flags,  7,                           "floating point data");
+                    Skip_Flags(flags,  8,                           "extended size integers");
+                    Skip_Flags(flags,  9,                           "hybrid mode parameters control bitrate");
+                    Skip_Flags(flags, 10,                           "hybrid noise balanced between channels");
+                    Get_Flags (flags, 11, initial_block,            "initial block in sequence");
+                    Get_Flags (flags, 12, final_block,              "final block in sequence");
+                    Skip_Flags(flags, 13,                           "amount of data left-shift after decode");
+                    Skip_Flags(flags, 14,                           "amount of data left-shift after decode");
+                    Skip_Flags(flags, 15,                           "amount of data left-shift after decode");
+                    Skip_Flags(flags, 16,                           "amount of data left-shift after decode");
+                    Skip_Flags(flags, 17,                           "amount of data left-shift after decode");
+                    Skip_Flags(flags, 18,                           "maximum magnitude of decoded data");
+                    Skip_Flags(flags, 19,                           "maximum magnitude of decoded data");
+                    Skip_Flags(flags, 20,                           "maximum magnitude of decoded data");
+                    Skip_Flags(flags, 21,                           "maximum magnitude of decoded data");
+                    Skip_Flags(flags, 22,                           "maximum magnitude of decoded data");
+                    Skip_Flags(flags, 23,                           "sampling rate");
+                    Skip_Flags(flags, 24,                           "sampling rate");
+                    Skip_Flags(flags, 25,                           "sampling rate");
+                    Skip_Flags(flags, 26,                           "sampling rate"); SamplingRate=(int8u)(((flags>>23)&0xF)); Param_Info(Wvpk_SamplingRate[SamplingRate]);
+                    Skip_Flags(flags, 27,                           "reserved");
+                    Skip_Flags(flags, 28,                           "reserved");
+                    Skip_Flags(flags, 29,                           "use IIR for negative hybrid noise shaping");
+                    Skip_Flags(flags, 30,                           "false stereo");
+                    Skip_Flags(flags, 31,                           "reserved");
             }
             else
             {
-                int8u word_size1;
-                Get_L1 (word_size1,                             "word_size");
-                word_size=word_size1;
+                Skip_L4(                                            "flags (empty)");
+
+                //Counting
+                Frame_Count--; //This is not a real frame
             }
-            if (word_size==0 && odd_size)
-                Size=0; //Problem!
-            else
-                Size=word_size*2-(odd_size?1:0);
-            Element_Name(Wvpk_id(id));
-            switch (id)
-            {
-                case 0x0D : id_0D(); break;
-                case 0x25 : id_25(); break;
-                default   : if (word_size)
-                                Skip_XX(Size,                   "data");
-            }
-            if (odd_size)
-                Skip_XX(1,                                      "padding");
+            Skip_L4(                                                "crc");
             Element_End();
+
+            int64u End=Element_Size;
+            if (FromMKV && !(initial_block && final_block))
+            {
+                Get_L4 (blocksize,                                  "blocksize");
+                End=Element_Offset+blocksize;
+                if (End>=Element_Size)
+                    End=Element_Size;
+            }
+
+            //Sub-block
+            int8u id;
+            while (Element_Offset<End)
+            {
+                Element_Begin();
+                int32u word_size;
+                bool large, odd_size;
+                BS_Begin();
+                Get_SB (large,                                      "large");
+                Get_SB (odd_size,                                   "odd_size");
+                Get_S1 (6, id,                                      "id"); Element_Info(Wvpk_id(id));
+                BS_End();
+                if (large)
+                {
+                    Get_L3 (word_size,                              "word_size");
+                }
+                else
+                {
+                    int8u word_size1;
+                    Get_L1 (word_size1,                             "word_size");
+                    word_size=word_size1;
+                }
+                if (word_size==0 && odd_size)
+                    Size=0; //Problem!
+                else
+                    Size=word_size*2-(odd_size?1:0);
+                Element_Name(Ztring().From_CC1(id));
+                switch (id)
+                {
+                    case 0x0D : id_0D(); break;
+                    case 0x25 : id_25(); break;
+                    default   : if (word_size)
+                                    Skip_XX(Size,                   "data");
+                }
+                if (odd_size)
+                    Skip_XX(1,                                      "padding");
+                Element_End();
+            }
         }
     }
 
