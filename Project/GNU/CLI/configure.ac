@@ -190,7 +190,7 @@ dnl ### Compiler specific
 dnl #########################################################################
 
 dnl -------------------------------------------------------------------------
-case "${host}" in
+case "${build}" in
   powerpc-montavista* )
     CFLAGS="$CFLAGS -D__MONTAVISTA__"
     CXXFLAGS="$CXXFLAGS -D__MONTAVISTA__"
