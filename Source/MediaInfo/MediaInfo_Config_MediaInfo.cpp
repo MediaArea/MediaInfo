@@ -158,6 +158,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     {
         return File_DvDif_Analysis_Get()?"1":"0";
     }
+    else if (Option_Lower==_T("file_curl"))
+    {
+        File_Curl_Set(Value);
+        return _T("");
+    }
+    else if (Option_Lower==_T("file_curl_get"))
+    {
+        return File_Curl_Get(Value);
+    }
     else
         return _T("Option not known");
 }
@@ -421,6 +430,28 @@ bool MediaInfo_Config_MediaInfo::File_DvDif_Analysis_Get ()
     CriticalSectionLocker CSL(CS);
     bool Temp=File_DvDif_Analysis;
     return Temp;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_Curl_Set (const Ztring &NewValue)
+{
+    size_t Pos=NewValue.find(_T(','));
+    if (Pos==string::npos)
+        Pos=NewValue.find(_T(';'));
+    if (Pos!=string::npos)
+    {
+        Ztring Field=NewValue.substr(0, Pos); Field.MakeLowerCase();
+        Ztring Value=NewValue.substr(Pos+1, string::npos);
+        CriticalSectionLocker CSL(CS);
+        Curl[Field]=Value;
+    }
+}
+
+Ztring MediaInfo_Config_MediaInfo::File_Curl_Get (const Ztring &Field_)
+{
+    Ztring Field=Field_; Field.MakeLowerCase();
+    CriticalSectionLocker CSL(CS);
+    return Curl[Field];
 }
 
 //***************************************************************************

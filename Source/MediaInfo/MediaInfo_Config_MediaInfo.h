@@ -87,6 +87,8 @@ public :
     bool          File_Bdmv_ParseTargetedFile_Get ();
     void          File_DvDif_Analysis_Set (bool NewValue);
     bool          File_DvDif_Analysis_Get ();
+    void          File_Curl_Set (const Ztring &NewValue);
+    Ztring        File_Curl_Get (const Ztring &Field);
 
     //Analysis internal
     void          State_Set (float State);
@@ -113,6 +115,9 @@ private :
 
     //Analysis internal
     float                   State;
+
+    //Generic
+    std::map<Ztring, Ztring> Curl;
 
     ZenLib::CriticalSection CS;
 };
