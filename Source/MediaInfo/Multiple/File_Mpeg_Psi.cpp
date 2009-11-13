@@ -1000,7 +1000,7 @@ void File_Mpeg_Psi::Table_00()
         Element_End(Ztring::ToZtring_From_CC2(program_number));
 
         FILLING_BEGIN();
-            if (Config->File_Filter_Get(program_number))
+            if (elementary_PID && Config->File_Filter_Get(program_number))
             {
                 //Setting the PID as program_map_section
                 if (Complete_Stream->Streams[elementary_PID].Kind!=complete_stream::stream::psi)
@@ -1096,33 +1096,36 @@ void File_Mpeg_Psi::Table_02()
         BS_End();
 
         FILLING_BEGIN();
-            bool IsAlreadyPresent=false;
-            for (size_t Pos=0; Pos<Complete_Stream->Streams[elementary_PID].program_numbers.size(); Pos++)
-                if (Complete_Stream->Streams[elementary_PID].program_numbers[Pos]==table_id_extension)
-                    IsAlreadyPresent=true;
-            if (!IsAlreadyPresent)
+            if (elementary_PID)
             {
-                Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].elementary_PIDs.push_back(elementary_PID);
-                Complete_Stream->Streams[elementary_PID].program_numbers.push_back(table_id_extension);
-                Complete_Stream->Streams[elementary_PID].registration_format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].registration_format_identifier;
-            }
-            if (Complete_Stream->Streams[elementary_PID].Kind!=complete_stream::stream::pes)
-            {
-                Complete_Stream->Streams_NotParsedCount++;
-                Complete_Stream->Streams[elementary_PID].Kind=complete_stream::stream::pes;
-                Complete_Stream->Streams[elementary_PID].stream_type=stream_type;
-                Complete_Stream->Streams[elementary_PID].Searching_Payload_Start_Set(true);
-                #ifdef MEDIAINFO_MPEGTS_PCR_YES
-                    Complete_Stream->Streams[elementary_PID].Searching_TimeStamp_Start_Set(true);
-                #endif //MEDIAINFO_MPEGTS_PCR_YES
-                #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-                    //Complete_Stream->Streams[elementary_PID].Searching_ParserTimeStamp_Start_Set(true);
-                #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-                #ifndef MEDIAINFO_MINIMIZESIZE
-                    Complete_Stream->Streams[elementary_PID].Element_Info="PES";
-                #endif //MEDIAINFO_MINIMIZESIZE
-                if (Complete_Stream->File__Duplicate_Get_From_PID(elementary_PID))
-                        Complete_Stream->Streams[elementary_PID].ShouldDuplicate=true;
+                bool IsAlreadyPresent=false;
+                for (size_t Pos=0; Pos<Complete_Stream->Streams[elementary_PID].program_numbers.size(); Pos++)
+                    if (Complete_Stream->Streams[elementary_PID].program_numbers[Pos]==table_id_extension)
+                        IsAlreadyPresent=true;
+                if (!IsAlreadyPresent)
+                {
+                    Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].elementary_PIDs.push_back(elementary_PID);
+                    Complete_Stream->Streams[elementary_PID].program_numbers.push_back(table_id_extension);
+                    Complete_Stream->Streams[elementary_PID].registration_format_identifier=Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].registration_format_identifier;
+                }
+                if (Complete_Stream->Streams[elementary_PID].Kind!=complete_stream::stream::pes)
+                {
+                    Complete_Stream->Streams_NotParsedCount++;
+                    Complete_Stream->Streams[elementary_PID].Kind=complete_stream::stream::pes;
+                    Complete_Stream->Streams[elementary_PID].stream_type=stream_type;
+                    Complete_Stream->Streams[elementary_PID].Searching_Payload_Start_Set(true);
+                    #ifdef MEDIAINFO_MPEGTS_PCR_YES
+                        Complete_Stream->Streams[elementary_PID].Searching_TimeStamp_Start_Set(true);
+                    #endif //MEDIAINFO_MPEGTS_PCR_YES
+                    #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                        //Complete_Stream->Streams[elementary_PID].Searching_ParserTimeStamp_Start_Set(true);
+                    #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                    #ifndef MEDIAINFO_MINIMIZESIZE
+                        Complete_Stream->Streams[elementary_PID].Element_Info="PES";
+                    #endif //MEDIAINFO_MINIMIZESIZE
+                    if (Complete_Stream->File__Duplicate_Get_From_PID(elementary_PID))
+                            Complete_Stream->Streams[elementary_PID].ShouldDuplicate=true;
+                }
             }
         FILLING_END();
 
