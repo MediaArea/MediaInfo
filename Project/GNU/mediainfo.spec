@@ -6,9 +6,9 @@
 
 # norootforbuild
 
-%define mediainfo_version		0.7.24
-%define libmediainfo_version	0.7.24
-%define libzen_version			0.4.8
+%define mediainfo_version		0.7.25
+%define libmediainfo_version	0.7.25
+%define libzen_version			0.4.9
 
 Name:			mediainfo
 Version:		%mediainfo_version
@@ -181,6 +181,6 @@ popd
 %{_datadir}/kde4/services/ServiceMenus/*.desktop
 
 %changelog
-* Tue Jan 01 2009 Jerome Martinez <zen@mediaarea.net> - 0.7.24-0
+* Tue Jan 01 2009 Jerome Martinez <zen@mediaarea.net> - 0.7.25-0
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>

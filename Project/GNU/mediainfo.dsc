@@ -2,10 +2,10 @@ Format: 1.0
 Source: mediainfo
 Binary: mediainfo, mediainfo-gui
 Architecture: any
-Version: 0.7.24-1
+Version: 0.7.25-1
 Maintainer: Jerome Martinez <zen@mediaarea.net>
 Homepage: http://mediainfo.sourceforge.net
 Standards-Version: 3.7.3
-Build-Depends: debhelper (>= 5), tofrodos, libmediainfo0-dev (>=0.7.24), libzen0-dev (>= 0.4.8), libwxgtk2.6-dev, zlib1g-dev, pkg-config, automake, autoconf, libtool
+Build-Depends: debhelper (>= 5), tofrodos, libmediainfo0-dev (>=0.7.25), libzen0-dev (>= 0.4.9), libwxgtk2.6-dev, zlib1g-dev, pkg-config, automake, autoconf, libtool
 Files: 
- 00000000000000000000000000000000 000000 mediainfo_0.7.24-1.tar.gz
+ 00000000000000000000000000000000 000000 mediainfo_0.7.25-1.tar.gz
