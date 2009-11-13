@@ -46,7 +46,8 @@ public :
 protected :
     //Streams management
     void Streams_Finish ();
-    void Streams_Finish_Descriptor (int128u DescriptorUID);
+    void Streams_Finish_Descriptor (int128u DescriptorUID, int64u &File_Size_Total);
+    void Streams_Finish_Locator (int128u LocatorUID, int64u &File_Size_Total);
     void Streams_Finish_Track (int128u TrackUID);
     void Streams_Finish_Component (int128u ComponentUID, float32 EditRate);
 
@@ -89,6 +90,7 @@ protected :
     void MultipleDescriptor();
     void NetworkLocator();
     void PartitionMetadata();
+    void OpenCompleteBodyPartition();
     void OpenHeader();
     void Padding();
     void Preface();
@@ -321,6 +323,14 @@ protected :
     typedef std::map<int128u, identification> identifications; //Key is InstanceUID of identification
     identifications Identifications;
 
+    //Locator
+    struct locator
+    {
+        Ztring EssenceLocator;
+    };
+    typedef std::map<int128u, locator> locators; //Key is InstanceUID of the locator
+    locators Locators;
+
     //Track
     struct track
     {
@@ -380,6 +390,7 @@ protected :
     struct descriptor
     {
         std::vector<int128u> SubDescriptors;
+        std::vector<int128u> Locators;
 
         stream_t StreamKind;
         float32 SampleRate;

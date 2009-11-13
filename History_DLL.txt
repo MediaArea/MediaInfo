@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.26, 2009-
+--------------
++ MXF: support of external files parsing
+
 Version 0.7.25, 2009-11-13
 --------------
 + MediaInfo (customized) with HTTP input: User Agent setting

@@ -305,7 +305,8 @@ void File_Mpeg4::Streams_Finish()
                 //Hacks - After
                 if (CodecID!=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID)))
                 {
-                    CodecID+=_T(" / ");
+                    if (!CodecID.empty())
+                        CodecID+=_T(" / ");
                     CodecID+=Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID));
                     Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_CodecID), CodecID, true);
                 }
