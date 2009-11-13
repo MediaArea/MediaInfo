@@ -559,7 +559,10 @@ void File_Flv::Data_Parse()
         case 0xFA : Rm(); break;
         case (int64u)-1 : GoTo(File_Size-PreviousTagSize-8, "FLV"); return; //When searching the last frame
         default : if (Searching_Duration)
-                    Reject("FLV"); //This is surely a bad en of file, don't try anymore
+                  {
+                    Finish("FLV"); //This is surely a bad en of file, don't try anymore
+                    return;
+                  }
 
     }
 
