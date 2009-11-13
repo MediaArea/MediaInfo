@@ -339,8 +339,8 @@ void File_Wvpk::Data_Parse()
     {
         while (Element_Offset<Element_Size)
         {
-            int32u total_samples=(int32u)-1, block_index=(int32u)-1, block_samples, flags, blocksize=(int32u)-1;
-            bool initial_block, final_block;
+            int32u total_samples=(int32u)-1, block_index=(int32u)-1, block_samples=0, flags, blocksize=(int32u)-1;
+            bool initial_block=true, final_block=true;
             if (!FromMKV)
             {
                 Skip_L1(                                            "track_no");
