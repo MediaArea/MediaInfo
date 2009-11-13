@@ -15,32 +15,32 @@ Download_Packages()
 wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/mediainfo/mediainfo$dash$mediainfov-$1$9.$type \
  --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
 mv mediainfo$dash$mediainfov-$1$9.$type \
- download/mediainfo/$mediainfov/mediainfo/mediainfo$dash$mediainfov-$destversion$9.$7.$type
+ download/binary/mediainfo/$mediainfov/mediainfo$dash$mediainfov-$destversion$9.$7.$type
 
 wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/mediainfo/mediainfo-gui$dash$mediainfov-$1$9.$type \
  --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
 mv mediainfo-gui$dash$mediainfov-$1$9.$type \
- download/mediainfo/$mediainfov/mediainfo-gui/mediainfo-gui$dash$mediainfov-$destversion$9.$7.$type
+ download/binary/mediainfo-gui/$mediainfov/mediainfo-gui$dash$mediainfov-$destversion$9.$7.$type
 
 wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/libmediainfo/libmediainfo0$dash$libmediainfov-$2$9.$type \
  --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
 mv libmediainfo0$dash$libmediainfov-$2$9.$type \
- download/mediainfo/$mediainfov/libmediainfo/libmediainfo0$dash$libmediainfov-$destversion$9.$7.$type
+ download/binary/libmediainfo0/$libmediainfov/libmediainfo0$dash$libmediainfov-$destversion$9.$7.$type
 
 wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/libmediainfo/libmediainfo0-$devext$dash$libmediainfov-$2$9.$type \
  --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
 mv libmediainfo0-$devext$dash$libmediainfov-$2$9.$type \
- download/mediainfo/$mediainfov/libmediainfo/libmediainfo0-$devext$dash$libmediainfov-$destversion$9.$7.$type
+ download/binary/libmediainfo0/$libmediainfov/libmediainfo0-$devext$dash$libmediainfov-$destversion$9.$7.$type
 
 wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/libzen/libzen0$dash$libzenv-$3$9.$type \
  --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
 mv libzen0$dash$libzenv-$3$9.$type \
- download/mediainfo/$mediainfov/libzen/libzen0$dash$libzenv-$destversion$9.$7.$type
+ download/binary/libzen0/$libzenv/libzen0$dash$libzenv-$destversion$9.$7.$type
 
 wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/libzen/libzen0-$devext$dash$libzenv-$3$9.$type \
  --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
 mv libzen0-$devext$dash$libzenv-$3$9.$type \
- download/mediainfo/$mediainfov/libzen/libzen0-$devext$dash$libzenv-$destversion$9.$7.$type
+ download/binary/libzen0/$libzenv/libzen0-$devext$dash$libzenv-$destversion$9.$7.$type
 }
 
 #-----------------------------------------------------------------------
@@ -49,13 +49,18 @@ Download_Global()
 {
 #-----------------------------------------------------------------------
 # Clean up
-rm download/mediainfo/$mediainfov/*.rpm -rf
-rm download/mediainfo/$mediainfov/*.deb -rf
-mkdir download/mediainfo/$mediainfov
-mkdir download/mediainfo/$mediainfov/mediainfo
-mkdir download/mediainfo/$mediainfov/mediainfo-gui
-mkdir download/mediainfo/$mediainfov/libmediainfo
-mkdir download/mediainfo/$mediainfov/libzen
+rm download/binary/mediainfo/$mediainfov/*.rpm -f
+rm download/binary/mediainfo/$mediainfov/*.deb -f
+rm download/binary/mediainfo-gui/$mediainfov/*.rpm -f
+rm download/binary/mediainfo-gui/$mediainfov/*.deb -f
+rm download/binary/libmediainfo0/$libmediainfov/*.rpm -f
+rm download/binary/libmediainfo0/$libmediainfov/*.deb -f
+rm download/binary/libzen0/$libzen/*.rpm -f
+rm download/binary/libzen0/$libzen/*.deb -f
+mkdir download/binary/mediainfo/$mediainfov
+mkdir download/binary/mediainfo-gui/$mediainfov
+mkdir download/binary/libmediainfo0/$libmediainfov
+mkdir download/binary/libzen0/$libzenv/
 
 #-----------------------------------------------------------------------
 # Downloading
