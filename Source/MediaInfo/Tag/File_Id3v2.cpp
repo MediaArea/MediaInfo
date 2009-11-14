@@ -873,7 +873,8 @@ void File_Id3v2::W__X()
         Element_Offset+=Element_Values(0).size()*2+2; //UTF-16 NULL
     else
         Element_Offset+=Element_Values(0).size()+1;   //UTF-8 NULL
-    Get_Local(Element_Size-Element_Offset, Element_Values(1),      "URL");
+    if (Element_Offset<Element_Size)
+        Get_Local(Element_Size-Element_Offset, Element_Values(1),  "URL");
 }
 
 //---------------------------------------------------------------------------

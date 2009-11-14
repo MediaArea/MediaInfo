@@ -10,6 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.26, 2009-
 --------------
 + MXF: support of external files parsing
+x #2897584, ID3v2: Crash with some malformed UTF-16 strings
 x FLV: some files were not detected
 
 Version 0.7.25, 2009-11-13
