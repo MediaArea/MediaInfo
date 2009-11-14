@@ -7,6 +7,16 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.25, 2009-11-13
+--------------
++ MediaInfo (customized) with HTTP input: User Agent setting
++ #2896693, MPEG-TS: skipping some malformed PMT (with elementary_PID=0)
+x #2844911, AAC in 3GP: false detection of SBR and PS (again)
+x #2894411, MPEG Audio: UserDefined Covers replace other covers types
+x MPEG Audio: Some profiles were not displayed
+x RealMedia: Some Titles were not displayed
+x Matroska: Wrong detection of 6-channel Wavpack (detected as 2-channel)
+
 Version 0.7.24, 2009-10-30
 --------------
 + MPEG-4: DVCPRO HD detection
