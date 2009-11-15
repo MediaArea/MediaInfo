@@ -1903,7 +1903,9 @@ void File_MpegPs::private_stream_1()
         }
         Streams[start_code].StreamIsRegistred=true;
         Streams_Private1[private_stream_1_ID].StreamIsRegistred=true;
+        Streams_Private1[private_stream_1_ID].Searching_Payload=true;
         Streams_Private1[private_stream_1_ID].Searching_TimeStamp_Start=true;
+        Streams_Private1[private_stream_1_ID].Searching_TimeStamp_End=true;
 
         //New parsers
         Streams_Private1[private_stream_1_ID].Parsers.push_back(private_stream_1_ChooseParser());
@@ -1946,7 +1948,8 @@ void File_MpegPs::private_stream_1()
     xxx_stream_Parse(Streams_Private1[private_stream_1_ID], private_stream_1_Count);
 
     //Demux
-    Demux(Buffer+Buffer_Offset+private_stream_1_Offset, (size_t)(Element_Size-private_stream_1_Offset), Ztring::ToZtring(Element_Code, 16)+_T(".")+Ztring::ToZtring(private_stream_1_ID, 16)+private_stream_1_ChooseExtension());
+    if (Streams_Private1[private_stream_1_ID].Searching_Payload)
+        Demux(Buffer+Buffer_Offset+private_stream_1_Offset, (size_t)(Element_Size-private_stream_1_Offset), Ztring::ToZtring(start_code, 16)+_T(".")+Ztring::ToZtring(private_stream_1_ID, 16)+private_stream_1_ChooseExtension());
 }
 
 //---------------------------------------------------------------------------
@@ -2438,7 +2441,7 @@ void File_MpegPs::audio_stream()
     xxx_stream_Parse(Streams[start_code], audio_stream_Count);
 
     //Demux
-    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(Element_Code, 16)+_T(".mpa"));
+    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(start_code, 16)+_T(".mpa"));
 }
 
 //---------------------------------------------------------------------------
@@ -2551,7 +2554,7 @@ void File_MpegPs::video_stream()
     }
 
     //Demux
-    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(Element_Code, 16)+_T(".mpv"));
+    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(start_code, 16)+_T(".mpv"));
 }
 
 //---------------------------------------------------------------------------
@@ -2689,8 +2692,8 @@ void File_MpegPs::SL_packetized_stream()
         A[5]=A[5]|((int8u)(Size>>8));
 
         //Demux
-        Demux(A, 7, Ztring::ToZtring(Element_Code, 16)+_T(".aac"));
-        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(Element_Code, 16)+_T(".aac"));
+        Demux(A, 7, Ztring::ToZtring(start_code, 16)+_T(".aac"));
+        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(start_code, 16)+_T(".aac"));
     }
 }
 
@@ -2726,7 +2729,9 @@ void File_MpegPs::extension_stream()
             Data_Accept("MPEG-PS");
         Streams[start_code].StreamIsRegistred=true;
         Streams_Extension[stream_id_extension].StreamIsRegistred=true;
+        Streams_Extension[stream_id_extension].Searching_Payload=true;
         Streams_Extension[stream_id_extension].Searching_TimeStamp_Start=true;
+        Streams_Extension[stream_id_extension].Searching_TimeStamp_End=true;
 
         //New parsers
             if ((stream_id_extension>=0x55 && stream_id_extension<=0x5F)
@@ -2744,7 +2749,8 @@ void File_MpegPs::extension_stream()
     xxx_stream_Parse(Streams_Extension[stream_id_extension], extension_stream_Count);
 
     //Demux
-    Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(Element_Code, 16)+_T('.')+Ztring::ToZtring(stream_id_extension, 16)+extension_stream_ChooseExtension());
+    if (Streams_Extension[stream_id_extension].Searching_Payload)
+        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, Ztring::ToZtring(start_code, 16)+_T('.')+Ztring::ToZtring(stream_id_extension, 16)+extension_stream_ChooseExtension());
 }
 
 //---------------------------------------------------------------------------

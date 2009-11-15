@@ -46,7 +46,7 @@ public :
 
 private :
     //Streams management
-    void Streams_Finish();
+    void Streams_Fill();
 
     //Buffer - File header
     bool FileHeader_Begin();
@@ -61,7 +61,6 @@ private :
     //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
-    void Data_Parse_Fill();
 
     //Elements
     void dac3();
@@ -80,8 +79,18 @@ private :
     int8u  acmod;
     int8u  dsurmod;
     int8u  numblks;
+    int8u  dialnorm;
+    int8u  dialnorm2;
+    int8u  compr;
+    int8u  compr2;
+    int8u  dynrng;  //This is only the first occurence of aufblk
+    int8u  dynrng2; //This is only the first occurence of aufblk
     bool   lfeon;
     bool   dxc3_Parsed;
+    bool   compre;
+    bool   compr2e;
+    bool   dynrnge;  //This is only the first occurence of aufblk
+    bool   dynrng2e; //This is only the first occurence of aufblk
 };
 
 } //NameSpace

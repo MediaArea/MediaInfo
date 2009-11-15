@@ -111,6 +111,7 @@ extern const int8u AC3_Channels[]=
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Audio/File_Ac3.h"
+#include <cmath>
 using namespace ZenLib;
 //---------------------------------------------------------------------------
 
@@ -206,38 +207,72 @@ int16u AC3_FrameSize_Get(int8u frmsizecod, int8u fscod)
 //     CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(data_byte)];
 int16u CRC_16_Table[256] =
 {
-    0x0000, 0x8005, 0x800f, 0x000a, 0x801b, 0x001e, 0x0014, 0x8011, 
-    0x8033, 0x0036, 0x003c, 0x8039, 0x0028, 0x802d, 0x8027, 0x0022, 
-    0x8063, 0x0066, 0x006c, 0x8069, 0x0078, 0x807d, 0x8077, 0x0072, 
-    0x0050, 0x8055, 0x805f, 0x005a, 0x804b, 0x004e, 0x0044, 0x8041, 
-    0x80c3, 0x00c6, 0x00cc, 0x80c9, 0x00d8, 0x80dd, 0x80d7, 0x00d2, 
-    0x00f0, 0x80f5, 0x80ff, 0x00fa, 0x80eb, 0x00ee, 0x00e4, 0x80e1, 
-    0x00a0, 0x80a5, 0x80af, 0x00aa, 0x80bb, 0x00be, 0x00b4, 0x80b1, 
-    0x8093, 0x0096, 0x009c, 0x8099, 0x0088, 0x808d, 0x8087, 0x0082, 
-    0x8183, 0x0186, 0x018c, 0x8189, 0x0198, 0x819d, 0x8197, 0x0192, 
-    0x01b0, 0x81b5, 0x81bf, 0x01ba, 0x81ab, 0x01ae, 0x01a4, 0x81a1, 
-    0x01e0, 0x81e5, 0x81ef, 0x01ea, 0x81fb, 0x01fe, 0x01f4, 0x81f1, 
-    0x81d3, 0x01d6, 0x01dc, 0x81d9, 0x01c8, 0x81cd, 0x81c7, 0x01c2, 
-    0x0140, 0x8145, 0x814f, 0x014a, 0x815b, 0x015e, 0x0154, 0x8151, 
-    0x8173, 0x0176, 0x017c, 0x8179, 0x0168, 0x816d, 0x8167, 0x0162, 
-    0x8123, 0x0126, 0x012c, 0x8129, 0x0138, 0x813d, 0x8137, 0x0132, 
-    0x0110, 0x8115, 0x811f, 0x011a, 0x810b, 0x010e, 0x0104, 0x8101, 
-    0x8303, 0x0306, 0x030c, 0x8309, 0x0318, 0x831d, 0x8317, 0x0312, 
-    0x0330, 0x8335, 0x833f, 0x033a, 0x832b, 0x032e, 0x0324, 0x8321, 
-    0x0360, 0x8365, 0x836f, 0x036a, 0x837b, 0x037e, 0x0374, 0x8371, 
-    0x8353, 0x0356, 0x035c, 0x8359, 0x0348, 0x834d, 0x8347, 0x0342, 
-    0x03c0, 0x83c5, 0x83cf, 0x03ca, 0x83db, 0x03de, 0x03d4, 0x83d1, 
-    0x83f3, 0x03f6, 0x03fc, 0x83f9, 0x03e8, 0x83ed, 0x83e7, 0x03e2, 
-    0x83a3, 0x03a6, 0x03ac, 0x83a9, 0x03b8, 0x83bd, 0x83b7, 0x03b2, 
-    0x0390, 0x8395, 0x839f, 0x039a, 0x838b, 0x038e, 0x0384, 0x8381, 
-    0x0280, 0x8285, 0x828f, 0x028a, 0x829b, 0x029e, 0x0294, 0x8291, 
-    0x82b3, 0x02b6, 0x02bc, 0x82b9, 0x02a8, 0x82ad, 0x82a7, 0x02a2, 
-    0x82e3, 0x02e6, 0x02ec, 0x82e9, 0x02f8, 0x82fd, 0x82f7, 0x02f2, 
-    0x02d0, 0x82d5, 0x82df, 0x02da, 0x82cb, 0x02ce, 0x02c4, 0x82c1, 
-    0x8243, 0x0246, 0x024c, 0x8249, 0x0258, 0x825d, 0x8257, 0x0252, 
-    0x0270, 0x8275, 0x827f, 0x027a, 0x826b, 0x026e, 0x0264, 0x8261, 
-    0x0220, 0x8225, 0x822f, 0x022a, 0x823b, 0x023e, 0x0234, 0x8231, 
+    0x0000, 0x8005, 0x800f, 0x000a, 0x801b, 0x001e, 0x0014, 0x8011,
+    0x8033, 0x0036, 0x003c, 0x8039, 0x0028, 0x802d, 0x8027, 0x0022,
+    0x8063, 0x0066, 0x006c, 0x8069, 0x0078, 0x807d, 0x8077, 0x0072,
+    0x0050, 0x8055, 0x805f, 0x005a, 0x804b, 0x004e, 0x0044, 0x8041,
+    0x80c3, 0x00c6, 0x00cc, 0x80c9, 0x00d8, 0x80dd, 0x80d7, 0x00d2,
+    0x00f0, 0x80f5, 0x80ff, 0x00fa, 0x80eb, 0x00ee, 0x00e4, 0x80e1,
+    0x00a0, 0x80a5, 0x80af, 0x00aa, 0x80bb, 0x00be, 0x00b4, 0x80b1,
+    0x8093, 0x0096, 0x009c, 0x8099, 0x0088, 0x808d, 0x8087, 0x0082,
+    0x8183, 0x0186, 0x018c, 0x8189, 0x0198, 0x819d, 0x8197, 0x0192,
+    0x01b0, 0x81b5, 0x81bf, 0x01ba, 0x81ab, 0x01ae, 0x01a4, 0x81a1,
+    0x01e0, 0x81e5, 0x81ef, 0x01ea, 0x81fb, 0x01fe, 0x01f4, 0x81f1,
+    0x81d3, 0x01d6, 0x01dc, 0x81d9, 0x01c8, 0x81cd, 0x81c7, 0x01c2,
+    0x0140, 0x8145, 0x814f, 0x014a, 0x815b, 0x015e, 0x0154, 0x8151,
+    0x8173, 0x0176, 0x017c, 0x8179, 0x0168, 0x816d, 0x8167, 0x0162,
+    0x8123, 0x0126, 0x012c, 0x8129, 0x0138, 0x813d, 0x8137, 0x0132,
+    0x0110, 0x8115, 0x811f, 0x011a, 0x810b, 0x010e, 0x0104, 0x8101,
+    0x8303, 0x0306, 0x030c, 0x8309, 0x0318, 0x831d, 0x8317, 0x0312,
+    0x0330, 0x8335, 0x833f, 0x033a, 0x832b, 0x032e, 0x0324, 0x8321,
+    0x0360, 0x8365, 0x836f, 0x036a, 0x837b, 0x037e, 0x0374, 0x8371,
+    0x8353, 0x0356, 0x035c, 0x8359, 0x0348, 0x834d, 0x8347, 0x0342,
+    0x03c0, 0x83c5, 0x83cf, 0x03ca, 0x83db, 0x03de, 0x03d4, 0x83d1,
+    0x83f3, 0x03f6, 0x03fc, 0x83f9, 0x03e8, 0x83ed, 0x83e7, 0x03e2,
+    0x83a3, 0x03a6, 0x03ac, 0x83a9, 0x03b8, 0x83bd, 0x83b7, 0x03b2,
+    0x0390, 0x8395, 0x839f, 0x039a, 0x838b, 0x038e, 0x0384, 0x8381,
+    0x0280, 0x8285, 0x828f, 0x028a, 0x829b, 0x029e, 0x0294, 0x8291,
+    0x82b3, 0x02b6, 0x02bc, 0x82b9, 0x02a8, 0x82ad, 0x82a7, 0x02a2,
+    0x82e3, 0x02e6, 0x02ec, 0x82e9, 0x02f8, 0x82fd, 0x82f7, 0x02f2,
+    0x02d0, 0x82d5, 0x82df, 0x02da, 0x82cb, 0x02ce, 0x02c4, 0x82c1,
+    0x8243, 0x0246, 0x024c, 0x8249, 0x0258, 0x825d, 0x8257, 0x0252,
+    0x0270, 0x8275, 0x827f, 0x027a, 0x826b, 0x026e, 0x0264, 0x8261,
+    0x0220, 0x8225, 0x822f, 0x022a, 0x823b, 0x023e, 0x0234, 0x8231,
     0x8213, 0x0216, 0x021c, 0x8219, 0x0208, 0x820d, 0x8207, 0x0202
+};
+
+//---------------------------------------------------------------------------
+const float32 AC3_dynrng[]=
+{
+      6.02,
+     12.04,
+     18.06,
+     24.08,
+    -18.06,
+    -12.04,
+    - 6.02,
+      0.00,
+};
+
+//---------------------------------------------------------------------------
+const float32 AC3_compr[]=
+{
+      6.02,
+     12.04,
+     18.06,
+     24.08,
+     30.10,
+     36.12,
+     42.14,
+     48.16,
+    -42.14,
+    -36.12,
+    -30.10,
+    -24.08,
+    -18.06,
+    -12.04,
+    - 6.02,
+      0.00,
 };
 
 //***************************************************************************
@@ -270,8 +305,11 @@ File_Ac3::File_Ac3()
     acmod=0;
     dsurmod=0;
     numblks=0;
+    dialnorm=0;
     lfeon=false;
     dxc3_Parsed=false;
+    compr2e=false;
+    dynrng2e=false;
 }
 
 //***************************************************************************
@@ -279,285 +317,7 @@ File_Ac3::File_Ac3()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Ac3::Streams_Finish()
-{
-    //In case of partial data, and finalizing is forced
-    if (!Status[IsAccepted] && dxc3_Parsed)
-        Data_Parse_Fill();
-}
-
-//***************************************************************************
-// Buffer - Synchro
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Ac3::FileHeader_Begin()
-{
-    //Specific cases
-    if (MustParse_dac3 || MustParse_dec3)
-        return true;
-
-    //Must have enough buffer for having header
-    if (Buffer_Size<4)
-        return false; //Must wait for more data
-
-    //False positives detection: detect Matroska files, AC-3 parser is not smart enough
-    if (CC4(Buffer)==0x1A45DFA3) //EBML
-    {
-        Finish("AC-3");
-        return false;
-    }
-
-    //All should be OK...
-    return true;
-}
-
-//***************************************************************************
-// Buffer - Synchro
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-bool File_Ac3::Synchronize()
-{
-    //Specific cases
-    if (MustParse_dac3 || MustParse_dec3)
-        return true;
-
-    //Synchronizing
-    while (Buffer_Offset+2<=Buffer_Size)
-    {
-        while (Buffer_Offset+2<=Buffer_Size)
-        {
-            if (CC2(Buffer+Buffer_Offset)==0x0B77)
-                break; //while()
-            Buffer_Offset++;
-        }
-
-        if (Buffer_Offset+2<=Buffer_Size) //Testing if CRC is coherant
-        {
-            //Retrieving some info
-            if (Buffer_Offset+6>Buffer_Size)
-                return false; //Need more data
-
-            int8u bsid =CC1(Buffer+Buffer_Offset+5)>>3;
-            int16u Size=0;
-            if (bsid<=0x08)
-            {
-                int8u fscod     =(CC1(Buffer+Buffer_Offset+4)>>6)&0x03;
-                int8u frmsizecod=(CC1(Buffer+Buffer_Offset+4)   )&0x3F;
-                Size=AC3_FrameSize_Get(frmsizecod, fscod);
-            }
-            else if (bsid>0x0A && bsid<=0x10)
-            {
-                int16u frmsiz=CC2(Buffer+Buffer_Offset+2)&0x07FF;
-                Size=2+frmsiz*2;
-            }
-            if (Size!=0)
-            {
-                if (Buffer_Offset+Size>Buffer_Size)
-                    return false; //Need more data
-
-                //Testing
-                int16u CRC_16=0x0000;
-                const int8u* CRC_16_Buffer=Buffer+Buffer_Offset+2; //After syncword
-                while(CRC_16_Buffer<Buffer+Buffer_Offset+Size)
-                {
-                    CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(*CRC_16_Buffer)];
-                    CRC_16_Buffer++;
-                }
-                if (CRC_16!=0x0000)
-                    Buffer_Offset++;
-                else
-                    break;
-            }
-            else
-                Buffer_Offset++;
-        }
-    }
-
-    //Parsing last bytes if needed
-    if (Buffer_Offset+2>Buffer_Size)
-    {
-        if (Buffer_Offset+1==Buffer_Size && CC1(Buffer+Buffer_Offset)!=0x0B)
-            Buffer_Offset++;
-        return false;
-    }
-
-    //Synched
-    return true;
-}
-
-//---------------------------------------------------------------------------
-bool File_Ac3::Synched_Test()
-{
-    //Specific cases
-    if (MustParse_dac3 || MustParse_dec3)
-        return true;
-
-    //Must have enough buffer for having header
-    if (Buffer_Offset+2>Buffer_Size)
-        return false;
-
-    //Quick test of synchro
-    if (CC2(Buffer+Buffer_Offset)!=0x0B77)
-    {
-        Synched=false;
-
-        //TrueHD detection
-        if (Frame_Count>=1 && HD_Count+1==Frame_Count && bsid<=0x08)
-        {
-            HD_Count++; //I didn't find a better solution
-            Info("HD");
-            if (!Synchronize())
-                return false;
-            Synched=true;
-            return true;
-        }
-    }
-
-    //We continue
-    return true;
-}
-
-//***************************************************************************
-// Buffer - Global
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Ac3::Read_Buffer_Continue()
-{
-    if (MustParse_dac3)
-        dac3();
-    if (MustParse_dec3)
-        dec3();
-}
-
-//***************************************************************************
-// Buffer - Per element
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void File_Ac3::Header_Parse()
-{
-    //Parsing
-    Skip_B2(                                                        "syncword");
-
-    //Testing bsid before parsing
-    int32u Temp;
-    int16u Size;
-    Peek_B4(Temp);
-    bsid=(int8u)((Temp&0x000000F8)>>3);
-    if (bsid<=0x08)
-    {
-        Skip_B2(                                                    "crc1");
-        BS_Begin();
-        Get_S1 ( 2, fscod,                                          "fscod - Sample Rate Code"); Param_Info(AC3_SamplingRate[fscod], " Hz");
-        Get_S1 ( 6, frmsizecod,                                     "frmsizecod - Frame Size Code"); if (frmsizecod/2<19) {Param_Info(AC3_BitRate[frmsizecod/2]*1000, " bps");}
-        Get_S1 ( 5, bsid,                                           "bsid - Bit Stream Identification");
-        Get_S1 (3, bsmod,                                           "bsmod - Bit Stream Mode"); Param_Info(AC3_Mode[bsmod]);
-        Get_S1 (3, acmod,                                           "acmod - Audio Coding Mode"); Param_Info(AC3_ChannelPositions[acmod]);
-        if ((acmod&1) && acmod!=1) //central present
-            Skip_S1(2,                                              "cmixlev - Center Mix Level");
-        if (acmod&4) //back present
-            Skip_S1(2,                                              "surmixlev - Surround Mix Level");
-        if (acmod==2)
-        {
-            Get_S1 (2, dsurmod,                                     "dsurmod - Dolby Surround Mode"); Param_Info(AC3_Surround[dsurmod]);
-        }
-        Get_SB (   lfeon,                                           "lfeon - Low Frequency Effects");
-        BS_End();
-
-        //Filling
-        Size=AC3_FrameSize_Get(frmsizecod, fscod);
-    }
-    else if (bsid>0x0A && bsid<=0x10)
-    {
-        int8u  strmtyp, numblkscod;
-        BS_Begin();
-        Get_S1 ( 2, strmtyp,                                        "strmtyp");
-        Skip_S1( 3,                                                 "substreamid");
-        Get_S2 (11, frmsiz,                                         "frmsiz");
-        Get_S1 ( 2, fscod,                                          "fscod");
-        if (fscod==3)
-        {
-            Get_S1 ( 2, fscod2,                                     "fscod2");
-            numblkscod=3;
-        }
-        else
-            Get_S1 ( 2, numblkscod,                                 "numblkscod");
-        Get_S1 (3, acmod,                                           "acmod - Audio Coding Mode"); Param_Info(AC3_ChannelPositions[acmod]);
-        Get_SB (   lfeon,                                           "lfeon - Low Frequency Effects");
-        Get_S1 ( 5, bsid,                                           "bsid - Bit Stream Identification");
-        TEST_SB_SKIP(                                               "compre");
-            Skip_S1(8,                                              "compr");
-        TEST_SB_END();
-        if (acmod==0) //1+1 mode
-        {
-            Skip_SB(                                                "dialnorm2");
-            TEST_SB_SKIP(                                           "compre");
-                Skip_S1(1,                                          "compr");
-            TEST_SB_END();
-        }
-        if (strmtyp==1) //dependent stream
-        {
-            TEST_SB_SKIP(                                           "chanmape");
-                Get_S2(16, chanmap,                                 "chanmap");
-            TEST_SB_END();
-        }
-
-        //Filling
-        Size=2+frmsiz*2;
-        numblks=numblkscod==3?6:numblkscod+1;
-    }
-    else
-        //Filling
-        Size=(int16u)Element_Offset;
-
-    //CRC
-    if (Buffer_Offset+Size>Buffer_Size)
-        Element_WaitForMoreData();
-    int16u CRC_16=0x0000;
-    if (Buffer_Offset+Size<=Buffer_Size) //Only if we have a complete frame, Element_WaitForMoreData() is NOK if the file truncated
-    {
-        for (int16u CRC_16_Pos=2; CRC_16_Pos<Size; CRC_16_Pos++) //After syncword
-            CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(Buffer[Buffer_Offset+CRC_16_Pos])];
-    }
-
-    //Filling
-    Header_Fill_Size(CRC_16==0x0000?Size:Element_Offset); //If CRC_16!=0x0000, CRC error
-    Header_Fill_Code(0, "Frame");
-}
-
-//---------------------------------------------------------------------------
-void File_Ac3::Data_Parse()
-{
-    //Counting
-    if (File_Offset+Buffer_Offset+Element_Size==File_Size)
-        Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
-    Frame_Count++;
-
-    //Name
-    Element_Info(Ztring::ToZtring(Frame_Count));
-
-    //Parsing
-    if (Element_IsComplete_Get())
-        Skip_XX(Element_Size,                                   "Data");
-    else
-    {
-        Element_Info("(Uncomplete)");
-        Skip_XX(Element_Size,                                   "Data (Uncomplete)");
-    }
-
-    //Filling
-    if (!Status[IsAccepted] && Frame_Count>=Frame_Count_Valid)
-    {
-        Accept("AC-3");
-        Data_Parse_Fill();
-    }
-}
-
-//---------------------------------------------------------------------------
-void File_Ac3::Data_Parse_Fill()
+void File_Ac3::Streams_Fill()
 {
     if (bsid<=0x08)
     {
@@ -639,8 +399,387 @@ void File_Ac3::Data_Parse_Fill()
         }
     }
 
-    //No more need data
-    Finish("AC-3");
+    //Dolby Metadata
+    /*
+    Fill(Stream_Audio, 0, "dialnorm", dialnorm==0?-31:-dialnorm);
+    Fill(Stream_Audio, 0, "dialnorm/String", Ztring::ToZtring(dialnorm==0?-31:-dialnorm)+_T(" dB"));
+    if (compre)
+    {
+        float32 Value=AC3_compr[compr>>4]+20*std::log(((float)(0x10+(compr&0x0F)))/32)/std::log((double)10); //std::log is natural logarithm;
+        Fill(Stream_Audio, 0, "compr", Value, 2);
+        Fill(Stream_Audio, 0, "compr/String", Ztring::ToZtring(Value, 2)+_T(" dB"));
+    }
+    if (dynrnge)
+    {
+        float32 Value=AC3_dynrng[dynrng>>5]+20*std::log(((float)(0x20+(dynrng&0x1F)))/64)/std::log((double)10); //std::log is natural logarithm;
+        if (dynrng==0)
+            Value=0; //Special case in the formula
+        Fill(Stream_Audio, 0, "dynrng", Value, 2);
+        Fill(Stream_Audio, 0, "dynrng/String", Ztring::ToZtring(Value, 2)+_T(" dB"));
+    }
+    */
+}
+
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Ac3::FileHeader_Begin()
+{
+    //Specific cases
+    if (MustParse_dac3 || MustParse_dec3)
+        return true;
+
+    //Must have enough buffer for having header
+    if (Buffer_Size<4)
+        return false; //Must wait for more data
+
+    //False positives detection: detect Matroska files, AC-3 parser is not smart enough
+    if (CC4(Buffer)==0x1A45DFA3) //EBML
+    {
+        Finish("AC-3");
+        return false;
+    }
+
+    //All should be OK...
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+bool File_Ac3::Synchronize()
+{
+    //Specific cases
+    if (MustParse_dac3 || MustParse_dec3)
+        return true;
+
+    //Synchronizing
+    while (Buffer_Offset+2<=Buffer_Size)
+    {
+        while (Buffer_Offset+2<=Buffer_Size)
+        {
+            if (CC2(Buffer+Buffer_Offset)==0x0B77)
+                break; //while()
+            Buffer_Offset++;
+        }
+
+        if (Buffer_Offset+2<=Buffer_Size) //Testing if CRC is coherant
+        {
+            //Retrieving some info
+            if (Buffer_Offset+6>Buffer_Size)
+                return false; //Need more data
+
+            int8u bsid =CC1(Buffer+Buffer_Offset+5)>>3;
+            int16u Size=0;
+            if (bsid<=0x08)
+            {
+                int8u fscod     =(CC1(Buffer+Buffer_Offset+4)>>6)&0x03;
+                int8u frmsizecod=(CC1(Buffer+Buffer_Offset+4)   )&0x3F;
+                Size=AC3_FrameSize_Get(frmsizecod, fscod);
+            }
+            else if (bsid>0x0A && bsid<=0x10)
+            {
+                int16u frmsiz=CC2(Buffer+Buffer_Offset+2)&0x07FF;
+                Size=2+frmsiz*2;
+            }
+            if (Size>=6)
+            {
+                if (Buffer_Offset+Size>Buffer_Size)
+                    return false; //Need more data
+
+                //Testing
+                int16u CRC_16=0x0000;
+                const int8u* CRC_16_Buffer=Buffer+Buffer_Offset+2; //After syncword
+                while(CRC_16_Buffer<Buffer+Buffer_Offset+Size)
+                {
+                    CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(*CRC_16_Buffer)];
+                    CRC_16_Buffer++;
+                }
+                if (CRC_16!=0x0000)
+                    Buffer_Offset++;
+                else
+                    break;
+            }
+            else
+                Buffer_Offset++;
+        }
+    }
+
+    //Parsing last bytes if needed
+    if (Buffer_Offset+2>Buffer_Size)
+    {
+        if (Buffer_Offset+1==Buffer_Size && CC1(Buffer+Buffer_Offset)!=0x0B)
+            Buffer_Offset++;
+        return false;
+    }
+
+    //Synched
+    Data_Accept("AC-3");
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool File_Ac3::Synched_Test()
+{
+    //Specific cases
+    if (MustParse_dac3 || MustParse_dec3)
+        return true;
+
+    //Must have enough buffer for having header
+    if (Buffer_Offset+6>Buffer_Size)
+        return false;
+
+    //Quick test of synchro
+    if (CC2(Buffer+Buffer_Offset)!=0x0B77)
+    {
+        Synched=false;
+
+        //TrueHD detection
+        if (Frame_Count>=1 && HD_Count+1==Frame_Count && bsid<=0x08)
+        {
+            HD_Count++; //I didn't find a better solution
+            Info("HD");
+            if (!Synchronize())
+                return false;
+            Synched=true;
+            return true;
+        }
+    }
+
+    //CRC
+    bsid=(Buffer[(size_t)(Buffer_Offset+5)]&0xF8)>>3;
+    int16u Size=0;
+    if (bsid<=0x08)
+    {
+        int8u fscod     =(CC1(Buffer+Buffer_Offset+4)>>6)&0x03;
+        int8u frmsizecod=(CC1(Buffer+Buffer_Offset+4)   )&0x3F;
+        Size=AC3_FrameSize_Get(frmsizecod, fscod);
+    }
+    else if (bsid>0x0A && bsid<=0x10)
+    {
+        int16u frmsiz=CC2(Buffer+Buffer_Offset+2)&0x07FF;
+        Size=2+frmsiz*2;
+    }
+    if (Size!=0)
+    {
+        if (Buffer_Offset+Size>Buffer_Size)
+            return false; //Need more data
+
+        //Testing
+        int16u CRC_16=0x0000;
+        const int8u* CRC_16_Buffer=Buffer+Buffer_Offset+2; //After syncword
+        while(CRC_16_Buffer<Buffer+Buffer_Offset+Size)
+        {
+            CRC_16=(CRC_16<<8) ^ CRC_16_Table[(CRC_16>>8)^(*CRC_16_Buffer)];
+            CRC_16_Buffer++;
+        }
+        if (CRC_16!=0x0000)
+            return false;
+    }
+    else
+        return false;
+
+    //We continue
+    return true;
+}
+
+//***************************************************************************
+// Buffer - Global
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Ac3::Read_Buffer_Continue()
+{
+    if (MustParse_dac3)
+        dac3();
+    if (MustParse_dec3)
+        dec3();
+}
+
+//***************************************************************************
+// Buffer - Per element
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Ac3::Header_Parse()
+{
+    //Testing bsid before parsing
+    int16u Size;
+    bsid=(Buffer[(size_t)(Buffer_Offset+5)]&0xF8)>>3;
+    if (bsid<=0x08)
+    {
+        fscod     =(Buffer[(size_t)(Buffer_Offset+4)]&0xC0)>>6;
+        frmsizecod= Buffer[(size_t)(Buffer_Offset+4)]&0x3F;
+
+        //Filling
+        Size=AC3_FrameSize_Get(frmsizecod, fscod);
+    }
+    else if (bsid>0x0A && bsid<=0x10)
+    {
+        frmsiz    =((int16u)(Buffer[(size_t)(Buffer_Offset+2)]&0x07)<<8)
+                 | (         Buffer[(size_t)(Buffer_Offset+3)]         );
+        fscod     =         (Buffer[(size_t)(Buffer_Offset+4)]&0xC0)>>6;
+        int8u numblkscod;
+        if (fscod==0x03)
+            numblkscod=0x03;
+        else
+            numblkscod=     (Buffer[(size_t)(Buffer_Offset+4)]&0x30)>>4;
+
+        //Filling
+        Size=2+frmsiz*2;
+        numblks=numblkscod==3?6:numblkscod+1;
+    }
+
+    //Filling
+    Header_Fill_Size(Size);
+    Header_Fill_Code(0, "Frame");
+}
+
+//---------------------------------------------------------------------------
+void File_Ac3::Data_Parse()
+{
+    //Parsing
+    Element_Begin("synchinfo");
+    Skip_B2(                                                        "syncword");
+    if (bsid<=0x08)
+    {
+            Skip_B2(                                                "crc1");
+            BS_Begin();
+            Get_S1 (2, fscod,                                       "fscod - Sample Rate Code"); Param_Info(AC3_SamplingRate[fscod], " Hz");
+            Get_S1 (6, frmsizecod,                                  "frmsizecod - Frame Size Code"); if (frmsizecod/2<19) {Param_Info(AC3_BitRate[frmsizecod/2]*1000, " bps");}
+        Element_End();
+        Element_Begin("bsi");
+            Get_S1 (5, bsid,                                        "bsid - Bit Stream Identification");
+            Get_S1 (3, bsmod,                                       "bsmod - Bit Stream Mode"); Param_Info(AC3_Mode[bsmod]);
+            Get_S1 (3, acmod,                                       "acmod - Audio Coding Mode"); Param_Info(AC3_ChannelPositions[acmod]);
+            if ((acmod&1) && acmod!=1) //central present
+                Skip_S1(2,                                          "cmixlev - Center Mix Level");
+            if (acmod&4) //back present
+                Skip_S1(2,                                          "surmixlev - Surround Mix Level");
+            if (acmod==2)
+                Get_S1 (2, dsurmod,                                 "dsurmod - Dolby Surround Mode"); Param_Info(AC3_Surround[dsurmod]);
+            Get_SB (   lfeon,                                       "lfeon - Low Frequency Effects");
+            Get_S1 (5, dialnorm,                                    "dialnorm - Dialogue Normalization");
+            Get_SB (   compre,                                      "compre - Compression Gain Word Exists");
+            if (compre)
+                Get_S1 (8, compr,                                   "compr - Compression Gain Word");
+            TEST_SB_SKIP(                                           "langcode - Language Code Exists");
+                Skip_S1(8,                                          "langcod - Language Code");
+            TEST_SB_END();
+            TEST_SB_SKIP(                                           "audprodie - Audio Production Information Exists");
+                Skip_S1(8,                                          "mixlevel - Mixing Level");
+                Skip_S1(2,                                          "roomtyp - Room Type");
+            TEST_SB_END();
+            if (acmod==0) //1+1 mode
+            {
+                Get_S1 (5, dialnorm2,                               "dialnorm2");
+                Get_SB (   compr2e,                                 "compr2e");
+                if (compr2e)
+                    Get_S1 (8, compr2,                              "compr2");
+                TEST_SB_SKIP(                                       "langcod2e");
+                    Skip_S1(8,                                      "langcod2");
+                TEST_SB_END();
+                TEST_SB_SKIP(                                       "audprodi2e");
+                    Skip_S1(8,                                      "mixlevel2");
+                    Skip_S1(2,                                      "roomtyp2");
+                TEST_SB_END();
+            }
+            Skip_SB(                                                "copyrightb - Copyright Bit");
+            Skip_SB(                                                "origbs - Original Bit Stream");
+            TEST_SB_SKIP(                                           "timecod1e");
+                Skip_S1(14,                                         "timecod1");
+            TEST_SB_END();
+            TEST_SB_SKIP(                                           "timecod2e");
+                Skip_S1(14,                                         "timecod2");
+            TEST_SB_END();
+            TEST_SB_SKIP(                                           "addbsie");
+                int8u addbsil;
+                Get_S1 (6, addbsil,                                 "addbsil");
+                for (int8u Pos=0; Pos<=addbsil; Pos++) //addbsil+1 bytes
+                    Skip_S1(8,                                      "addbsi");
+            TEST_SB_END();
+        Element_End();
+        Element_Begin("audblk");
+            for (int8u Pos=0; Pos<AC3_Channels[acmod]; Pos++)
+                Skip_SB(                                            "blksw - Block Switch Flag");
+            for (int8u Pos=0; Pos<AC3_Channels[acmod]; Pos++)
+                Skip_SB(                                            "dithflag - Dither Flag");
+            Get_SB (   dynrnge,                                     "dynrnge - Dynamic Range Gain Word Exists");
+            if (dynrnge)
+                Get_S1 (8, dynrng,                                  "dynrng - Dynamic Range Gain Word");
+            if (acmod==0) //1+1 mode
+            {
+                Get_SB (   dynrnge,                                 "dynrng2e - Dynamic Range Gain Word Exists");
+                if (dynrnge)
+                    Get_S1 (8, dynrng,                              "dynrng2 - Dynamic Range Gain Word");
+            }
+            BS_End();
+        Element_End();
+        Skip_XX(Element_Size-Element_Offset,                        "audblk(continue)+5*audblk+auxdata+errorcheck");
+    }
+    else if (bsid>0x0A && bsid<=0x10)
+    {
+        Element_End();
+        Element_Begin("bsi");
+            int8u  strmtyp, numblkscod;
+            BS_Begin();
+            Get_S1 ( 2, strmtyp,                                    "strmtyp");
+            Skip_S1( 3,                                             "substreamid");
+            Get_S2 (11, frmsiz,                                     "frmsiz");
+            Get_S1 ( 2, fscod,                                      "fscod");
+            if (fscod==3)
+            {
+                Get_S1 ( 2, fscod2,                                 "fscod2");
+                numblkscod=3;
+            }
+            else
+                Get_S1 ( 2, numblkscod,                             "numblkscod");
+            Get_S1 (3, acmod,                                       "acmod - Audio Coding Mode"); Param_Info(AC3_ChannelPositions[acmod]);
+            Get_SB (   lfeon,                                       "lfeon - Low Frequency Effects");
+            Get_S1 ( 5, bsid,                                       "bsid - Bit Stream Identification");
+            TEST_SB_SKIP(                                           "compre");
+                Skip_S1(8,                                          "compr");
+            TEST_SB_END();
+            if (acmod==0) //1+1 mode
+            {
+                Skip_SB(                                            "dialnorm2");
+                TEST_SB_SKIP(                                       "compre");
+                    Skip_S1(1,                                      "compr");
+                TEST_SB_END();
+            }
+            if (strmtyp==1) //dependent stream
+            {
+                TEST_SB_SKIP(                                       "chanmape");
+                    Get_S2(16, chanmap,                             "chanmap");
+                TEST_SB_END();
+            }
+            BS_End();
+        Element_End();
+        Skip_XX(Element_Size-Element_Offset,                        "bsi(continue)+audfrm+x*audblk+auxdata+errorcheck");
+    }
+
+    FILLING_BEGIN();
+        //Counting
+        if (File_Offset+Buffer_Offset+Element_Size==File_Size)
+            Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
+        Frame_Count++;
+
+        //Name
+        Element_Info(Ztring::ToZtring(Frame_Count));
+
+        //Filling
+        if (!Status[IsFilled] && Frame_Count>=Frame_Count_Valid)
+        {
+            Fill("AC-3");
+
+            //No more need data
+            Finish("AC-3");
+        }
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
