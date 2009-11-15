@@ -1798,9 +1798,9 @@ void File_Avc::pic_parameter_set()
                 pic_size_in_map_units_minus1=0;
             }
             #if defined (__mips__)       || defined (__mipsel__)
-                int32u slice_group_id_Size=(int32u)(std::ceil(std::log((double)(num_slice_groups_minus1+1))/std::log((double)2))); //this is log2
+                int32u slice_group_id_Size=(int32u)(std::ceil(std::log((double)(num_slice_groups_minus1+1))/std::log((double)10))); //std::log is natural logarithm
             #else
-                int32u slice_group_id_Size=(int32u)(std::ceil(std::log((float32)(num_slice_groups_minus1+1))/std::log((float32)2))); //this is log2
+                int32u slice_group_id_Size=(int32u)(std::ceil(std::log((float32)(num_slice_groups_minus1+1))/std::log((float32)10))); //std::log is natural logarithm
             #endif
             for (int32u Pos=0; Pos<=pic_size_in_map_units_minus1; Pos++)
                 Skip_S4(slice_group_id_Size,                    "slice_group_id");

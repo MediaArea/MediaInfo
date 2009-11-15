@@ -1012,6 +1012,9 @@ void File__Analyze::Data_Info (const Ztring &Parameter)
 #ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Data_Accept (const char* ParserName)
 {
+    if (Status[IsAccepted] || Status[IsFinished])
+        return;
+
     if (ParserName)
         Info(Ztring(ParserName)+_T(", accepted"));
 
