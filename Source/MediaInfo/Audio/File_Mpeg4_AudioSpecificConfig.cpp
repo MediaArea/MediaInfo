@@ -406,7 +406,6 @@ void File_Mpeg4_AudioSpecificConfig::Read_Buffer_Continue()
             Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, MP4_ChannelConfiguration[channelConfiguration]);
             Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions_String2, MP4_ChannelConfiguration2[channelConfiguration]);
         }
-        Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, 16);
 
         if (sbrPresentFlag)
         {

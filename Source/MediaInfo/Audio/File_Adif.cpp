@@ -224,7 +224,6 @@ void File_Adif::FileHeader_Parse()
             Fill(Stream_Audio, 0, Audio_SamplingRate, ADIF_sampling_frequency[sampling_frequency_index]);
         if (num_front_channel_elements!=(int8u)-1)
             Fill(Stream_Audio, 0, Audio_Channel_s_, num_front_channel_elements+num_side_channel_elements+num_back_channel_elements+num_lfe_channel_elements);
-        Fill(Stream_Audio, 0, Audio_Resolution, 16);
         Fill(Stream_Audio, 0, Audio_MuxingMode, "ADIF");
 
         //No more need data

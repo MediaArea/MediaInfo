@@ -12,6 +12,7 @@ Version 0.7.26, 2009-
 + MXF: support of external files parsing
 x #2897584, ID3v2: Crash with some malformed UTF-16 strings
 x FLV: some files were not detected
+x MPEG Audio, AAC, Vorbis: removal of irrelevant Resolution field
 
 Version 0.7.25, 2009-11-13
 --------------

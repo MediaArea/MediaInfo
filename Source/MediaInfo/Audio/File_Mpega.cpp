@@ -907,7 +907,6 @@ void File_Mpega::Data_Parse_Fill()
     Fill(Stream_Audio, 0, Audio_SamplingRate, Mpega_SamplingRate[ID][sampling_frequency]);
     Fill(Stream_Audio, 0, Audio_Channel_s_, Mpega_Channels[mode]);
     Fill(Stream_Audio, 0, Audio_Codec_Profile, Mpega_Codec_Profile[mode]);
-    Fill(Stream_Audio, 0, Audio_Resolution, 16);
 
     //Jumping
     Fill("MPEG Audio");

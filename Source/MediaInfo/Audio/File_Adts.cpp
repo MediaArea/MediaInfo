@@ -271,7 +271,6 @@ void File_Adts::Data_Parse_Fill()
         Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
         Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
     }
-    Fill(Stream_Audio, 0, Audio_Resolution, 16);
     if (sbrPresentFlag)
     {
         Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "SBR");
