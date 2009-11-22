@@ -133,9 +133,9 @@
  warppoint1; 跳躍點
  warppoint2; 跳躍點
  warppoint3; 跳躍點
- week1; 周
- week2; 周
- week3; 周
+ week1; 週
+ week2; 週
+ week3; 週
  year1; 年
  year2; 年
  year3; 年
@@ -226,7 +226,7 @@ CodecID;編解碼器識別字
 CodecID_Description;編解碼器描述
 Collection;收藏
 Colorimetry;比色法
-colour_primaries
+colour_primaries;色彩原色
 Comment;註釋
 CommissionedBy;委託
 CompleteName;完整檔名
@@ -307,7 +307,7 @@ Format_Description;格式敘述
 Format_Info;格式詳細資訊
 Format_Profile;格式類型
 Format_Settings;格式設定
-Format_Settings_PacketBitStream;格式設定, Packer Bitstream
+Format_Settings_PacketBitStream;格式設定, Packet Bitstream
 Format_Settings_BVOP;格式設定, BVOP
 Format_Settings_QPel;格式設定, QPel
 Format_Settings_GMC;格式設定, GMC
@@ -724,7 +724,7 @@ Lyrics;歌詞
 Lyricist;作詞者
 Mastered_Date;後製日期
 MasteredBy;後製者
-matrix_coefficients
+matrix_coefficients;矩陣係數
 MediaInfo_About;支援非常詳盡的多媒體檔案資訊:\r\nMatroska, OGG (包含 OGM)\r\nMPEG-1 (包含 VCD)\r\nMPEG-2 (包含 DVD, SVCD)\r\nMPEG-4 (包含 iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (包含 WMV, WMA)\r\nMicrosoft RIFF (包含 AVI, WAV)\r\n純聲音格式 (AC3, DTS, AAC, AU, AIFF...)
 Menu;選單
 Menu stream(s);選單串流
@@ -905,7 +905,7 @@ TimeZone;時區
 Total;總和
 Track;音軌
 Track_Count;音軌數
-transfer_characteristics
+transfer_characteristics;傳輸特性
 Translator;翻譯
 Tree;樹狀圖
 Tree & Text;樹狀圖與文字
@@ -940,5 +940,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
