@@ -43,7 +43,7 @@ extern MediaInfo_Config Config;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-String MediaInfo_Internal::Inform()
+Ztring MediaInfo_Internal::Inform()
 {
     CS.Enter();
     if (Info)
@@ -208,7 +208,7 @@ String MediaInfo_Internal::Inform()
 }
 
 //---------------------------------------------------------------------------
-String MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
+Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
 {
     //Integrity
     if (StreamKind>=Stream_Max || StreamPos>=Stream[StreamKind].size())

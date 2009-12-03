@@ -826,7 +826,20 @@ Ztring MediaInfo_Config::Language_Get ()
 Ztring MediaInfo_Config::Language_Get (const Ztring &Value)
 {
     CriticalSectionLocker CSL(CS);
-    return Language.Get(Value);
+    ZtringList List;
+    List.Separator_Set(0, _T(" / "));
+    List.Write(Value);
+
+    //Per value
+    for (size_t Pos=0; Pos<List.size(); Pos++)
+    {
+        if (List[Pos]==_T("VBR"))
+            int A=0;
+        ;
+        List[Pos]=Language.Get(List[Pos]);
+    }
+
+    return List.Read();
 }
 
 //---------------------------------------------------------------------------

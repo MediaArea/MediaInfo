@@ -79,12 +79,12 @@ public :
     void Close ();
 
     //General information
-    String  Inform ();
-    String  Inform (stream_t StreamKind, size_t StreamNumber=0); //All about only a specific stream
+    Ztring  Inform ();
+    Ztring  Inform (stream_t StreamKind, size_t StreamNumber=0); //All about only a specific stream
 
     //Get
-    String Get (stream_t StreamKind, size_t StreamNumber, size_t Parameter, info_t InfoKind=Info_Text);
-    String Get (stream_t StreamKind, size_t StreamNumber, const String &Parameter, info_t InfoKind=Info_Text, info_t SearchKind=Info_Name);
+    Ztring Get (stream_t StreamKind, size_t StreamNumber, size_t Parameter, info_t InfoKind=Info_Text);
+    Ztring Get (stream_t StreamKind, size_t StreamNumber, const String &Parameter, info_t InfoKind=Info_Text, info_t SearchKind=Info_Name);
 
     //Set
     size_t Set (const String &ToSet, stream_t StreamKind, size_t StreamNumber, size_t Parameter, const String &OldValue=_T(""));

@@ -154,6 +154,9 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
 //---------------------------------------------------------------------------
 void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const Ztring &Value, bool Replace)
 {
+    if (Value==_T("24165"))
+        int A=0;
+
     //Integrity
     if (!Status[IsAccepted] || StreamKind>Stream_Max)
         return;
@@ -259,8 +262,18 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
             //BitRate_Mode / OverallBitRate_Mode
             if (Retrieve(StreamKind, StreamPos, Parameter, Info_Name)==(StreamKind==Stream_General?_T("OverallBitRate_Mode"):_T("BitRate_Mode")) && MediaInfoLib::Config.ReadByHuman_Get())
             {
-                Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(_T("BitRate_Mode_"))+Value);
-                Fill(StreamKind, StreamPos, StreamKind==Stream_General?"OverallBitRate_Mode/String":"BitRate_Mode/String", Translated.find(_T("BitRate_Mode_"))?Translated:Value, true);
+                Clear(StreamKind, StreamPos, StreamKind==Stream_General?"OverallBitRate_Mode/String":"BitRate_Mode/String");
+
+                ZtringList List;
+                List.Separator_Set(0, _T(" / "));
+                List.Write(Retrieve(StreamKind, StreamPos, Parameter));
+
+                //Per value
+                for (size_t Pos=0; Pos<List.size(); Pos++)
+                    List[Pos]=MediaInfoLib::Config.Language_Get(Ztring(_T("BitRate_Mode_"))+List[Pos]);
+
+                Ztring Translated=List.Read();
+                Fill(StreamKind, StreamPos, StreamKind==Stream_General?"OverallBitRate_Mode/String":"BitRate_Mode/String", Translated.find(_T("BitRate_Mode_"))?Translated:Value);
             }
 
             //Encoded_Library
@@ -1571,46 +1584,67 @@ void File__Analyze::Kilo_Kilo123(stream_t StreamKind, size_t StreamPos, size_t P
     if (Retrieve(StreamKind, StreamPos, Parameter).empty())
         return;
 
-    int32u BitRate=Retrieve(StreamKind, StreamPos, Parameter).To_int32u();
+    //Clearing old data
+    Clear(StreamKind, StreamPos, Parameter+1);
 
-    //Well known values
-    Ztring BitRateS;
-    if (BitRate==  11024) BitRateS=  "11.024";
-    if (BitRate==  11025) BitRateS=  "11.025";
-    if (BitRate==  22050) BitRateS=  "22.05";
-    if (BitRate==  44100) BitRateS=  "44.1";
-    if (BitRate==  66150) BitRateS=  "66.15";
-    if (BitRate==  88200) BitRateS=  "88.2";
-    if (BitRate== 132300) BitRateS= "132.3";
-    if (BitRate== 176400) BitRateS= "176.4";
-    if (BitRate== 264600) BitRateS= "264.6";
-    if (BitRate== 352800) BitRateS= "352.8";
-    if (BitRate== 529200) BitRateS= "529.2";
-    if (BitRate== 705600) BitRateS= "705.6";
-    if (BitRate==1411200) BitRateS="1411.2";
-    if (!BitRateS.empty())
-    {
-        Ztring Measure=MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure);
-        Measure.insert(1, _T("K"));
-        Fill(StreamKind, StreamPos, Parameter+1, MediaInfoLib::Config.Language_Get(BitRateS, Measure, true), true);
-        return;
-    }
+    //Retrieving multiple values
+    ZtringList List;
+    List.Separator_Set(0, _T(" / "));
+    List.Write(Retrieve(StreamKind, StreamPos, Parameter));
 
-    //Standard
-    if (BitRate>10000000)
+    //Per value
+    for (size_t Pos=0; Pos<List.size(); Pos++)
     {
-        Ztring Measure=MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure);
-        Measure.insert(1, _T("M"));
-        Fill(StreamKind, StreamPos, Parameter+1, MediaInfoLib::Config.Language_Get(Ztring::ToZtring(((float)BitRate)/1000000, BitRate>100000000?0:1), Measure, true), true);
+        int32u BitRate=List[Pos].To_int32u();
+
+        //Text
+        if (BitRate==      0)
+        {
+            Fill(StreamKind, StreamPos, Parameter+1, MediaInfoLib::Config.Language_Get(List[Pos]));
+        }
+        else
+        {
+            //Well known values
+            Ztring BitRateS;
+            if (BitRate==  11024) BitRateS=  "11.024";
+            if (BitRate==  11025) BitRateS=  "11.025";
+            if (BitRate==  22050) BitRateS=  "22.05";
+            if (BitRate==  44100) BitRateS=  "44.1";
+            if (BitRate==  66150) BitRateS=  "66.15";
+            if (BitRate==  88200) BitRateS=  "88.2";
+            if (BitRate== 132300) BitRateS= "132.3";
+            if (BitRate== 176400) BitRateS= "176.4";
+            if (BitRate== 264600) BitRateS= "264.6";
+            if (BitRate== 352800) BitRateS= "352.8";
+            if (BitRate== 529200) BitRateS= "529.2";
+            if (BitRate== 705600) BitRateS= "705.6";
+            if (BitRate==1411200) BitRateS="1411.2";
+            if (!BitRateS.empty())
+            {
+                Ztring Measure=MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure);
+                Measure.insert(1, _T("K"));
+                Fill(StreamKind, StreamPos, Parameter+1, MediaInfoLib::Config.Language_Get(BitRateS, Measure, true));
+            }
+            else
+            {
+                //Standard
+                if (BitRate>10000000)
+                {
+                    Ztring Measure=MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure);
+                    Measure.insert(1, _T("M"));
+                    Fill(StreamKind, StreamPos, Parameter+1, MediaInfoLib::Config.Language_Get(Ztring::ToZtring(((float)BitRate)/1000000, BitRate>100000000?0:1), Measure, true));
+                }
+                else if (BitRate>10000)
+                {
+                    Ztring Measure=MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure);
+                    Measure.insert(1, _T("K"));
+                    Fill(StreamKind, StreamPos, Parameter+1, MediaInfoLib::Config.Language_Get(Ztring::ToZtring(((float)BitRate)/1000, BitRate>100000?0:1), Measure, true));
+                }
+                else if (BitRate>0)
+                    Fill(StreamKind, StreamPos, Parameter+1, MediaInfoLib::Config.Language_Get(Ztring::ToZtring(BitRate), MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure), true));
+            }
+        }
     }
-    else if (BitRate>10000)
-    {
-        Ztring Measure=MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure);
-        Measure.insert(1, _T("K"));
-        Fill(StreamKind, StreamPos, Parameter+1, MediaInfoLib::Config.Language_Get(Ztring::ToZtring(((float)BitRate)/1000, BitRate>100000?0:1), Measure, true), true);
-    }
-    else if (BitRate>0)
-        Fill(StreamKind, StreamPos, Parameter+1, MediaInfoLib::Config.Language_Get(Ztring::ToZtring(BitRate), MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure), true), true);
 }
 
 //---------------------------------------------------------------------------
@@ -1620,8 +1654,21 @@ void File__Analyze::Value_Value123(stream_t StreamKind, size_t StreamPos, size_t
     if (Retrieve(StreamKind, StreamPos, Parameter, Info_Measure).empty())
         return;
 
-    //Filling
-    Fill(StreamKind, StreamPos, Parameter+1, MediaInfoLib::Config.Language_Get(Retrieve(StreamKind, StreamPos, Parameter), MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure)), true);
+    //Clearing old data
+    Clear(StreamKind, StreamPos, Parameter+1);
+
+    //Retrieving multiple values
+    ZtringList List;
+    List.Separator_Set(0, _T(" / "));
+    List.Write(Retrieve(StreamKind, StreamPos, Parameter));
+
+    //Per value
+    for (size_t Pos=0; Pos<List.size(); Pos++)
+    {
+        //Filling
+        Fill(StreamKind, StreamPos, Parameter+1, MediaInfoLib::Config.Language_Get(List[Pos], MediaInfoLib::Config.Info_Get(StreamKind).Read(Parameter, Info_Measure)));
+    }
+
 }
 
 //---------------------------------------------------------------------------

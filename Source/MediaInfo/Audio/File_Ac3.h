@@ -63,14 +63,35 @@ private :
     void Data_Parse();
 
     //Elements
+    void Core();
+    void HD();
     void dac3();
     void dec3();
 
     //Temp
+    struct dolby
+    {
+        int8u  dialnorm;
+        int8u  compr;
+        int8u  dynrng;  //This is only the first occurence of aufblk
+        bool   compre;
+        bool   dynrnge;  //This is only the first occurence of aufblk
+
+        dolby()
+        {
+            dialnorm=0;
+            compre=false;
+            dynrnge=false;
+        }
+    };
+    dolby  FirstFrame_Dolby;
+    dolby  FirstFrame_Dolby2;
     size_t Frame_Count;
     size_t HD_Count;
     int16u chanmap;
     int16u frmsiz;
+    int16u HD_BitRate_Max;
+    int16u HD_Channels2;
     int8u  fscod;
     int8u  fscod2;
     int8u  frmsizecod;
@@ -79,18 +100,22 @@ private :
     int8u  acmod;
     int8u  dsurmod;
     int8u  numblks;
-    int8u  dialnorm;
-    int8u  dialnorm2;
-    int8u  compr;
-    int8u  compr2;
-    int8u  dynrng;  //This is only the first occurence of aufblk
-    int8u  dynrng2; //This is only the first occurence of aufblk
+    int8u  HD_StreamType;
+    int8u  HD_SubStreams_Count;
+    int8u  HD_SamplingRate1;
+    int8u  HD_SamplingRate2;
+    int8u  HD_Channels1;
+    int8u  HD_Resolution1;
+    int8u  HD_Resolution2;
     bool   lfeon;
     bool   dxc3_Parsed;
-    bool   compre;
-    bool   compr2e;
-    bool   dynrnge;  //This is only the first occurence of aufblk
-    bool   dynrng2e; //This is only the first occurence of aufblk
+    bool   HD_MajorSync_Parsed;
+    bool   HD_NoRestart;
+    bool   HD_ExtraParity;
+    bool   HD_AlreadyCounted;
+    bool   HD_IsVBR;
+    bool   Core_IsPresent;
+
 };
 
 } //NameSpace

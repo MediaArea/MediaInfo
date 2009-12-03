@@ -107,7 +107,7 @@ void File__Analyze::Streams_Finish_StreamOnly(stream_t StreamKind, size_t Pos)
     }
 
     //StreamSize from BitRate and Duration
-    if (StreamKind!=Stream_Chapters && Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_StreamSize)).empty() && !Retrieve(StreamKind, Pos, "BitRate").empty() && !Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).empty()) //If not done the first time or by other routine
+    if (StreamKind!=Stream_Chapters && Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_StreamSize)).empty() && !Retrieve(StreamKind, Pos, "BitRate").empty() && !Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).empty() && Retrieve(StreamKind, Pos, "BitRate").find(_T(" / "))==std::string::npos) //If not done the first time or by other routine
     {
         int64u BitRate=Retrieve(StreamKind, Pos, "BitRate").To_int64u();
         int64u Duration=Retrieve(StreamKind, Pos, Fill_Parameter(StreamKind, Generic_Duration)).To_int64u();
@@ -275,7 +275,7 @@ void File__Analyze::Streams_Finish_InterStreams()
         Fill(Stream_General, 0, General_OverallBitRate, Retrieve(Stream_General, 0, General_FileSize).To_int64u()*8*1000/Retrieve(Stream_General, 0, General_Duration).To_int64u());
 
     //Duration if OverallBitRate
-    if (Retrieve(Stream_General, 0, General_Duration).empty() && Retrieve(Stream_General, 0, General_OverallBitRate).To_int64u()!=0)
+    if (Retrieve(Stream_General, 0, General_Duration).empty() && Retrieve(Stream_General, 0, General_OverallBitRate).To_int64u()!=0 && Retrieve(Stream_General, 0, General_OverallBitRate).find(_T(" / "))==std::string::npos)
         Fill(Stream_General, 0, General_Duration, Retrieve(Stream_General, 0, General_FileSize).To_int64u()*8*1000/Retrieve(Stream_General, 0, General_OverallBitRate).To_int64u());
 
     //Video bitrate can be the nominal one if <4s (bitrate estimation is not enough precise

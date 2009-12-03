@@ -242,7 +242,17 @@ void File_MpegPs::Streams_Fill()
 
     //For each extension Streams
     for (size_t StreamID=0; StreamID<0x100; StreamID++)
+    {
         Streams_Fill_PerStream(StreamID, Streams_Extension[StreamID]);
+
+        //Special cases
+        if ((StreamID==0x71 || StreamID==0x76) && !Streams_Extension[StreamID].Parsers.empty() && Streams_Extension[0x72].StreamIsRegistred) //DTS-HD and TrueHD
+        {
+            Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode, "Stream extension");
+            if (!IsSub)
+                Fill(Stream_Audio, StreamPos_Last, Audio_MuxingMode_MoreInfo, "HD part is in stream extension 114 (0x72)");
+        }
+    }
 
     //Tags in MPEG Video
     if (Count_Get(Stream_Video)>0)
@@ -2704,14 +2714,6 @@ void File_MpegPs::extension_stream()
     Element_Name("With Extension");
     Element_Info(MpegPs_stream_id_extension(stream_id_extension));
 
-    //One stream in multiple extensions
-    switch (stream_id_extension)
-    {
-        case 0x72 : stream_id_extension=0x71; break; //0x72 is extension of 0x71 (example : DTS-HD)
-        case 0x76 : stream_id_extension=0x71; break; //0x76 is extension of 0x71 (example : TrueHD)
-        default   : ;
-    }
-
     if (!Streams_Extension[stream_id_extension].StreamIsRegistred)
     {
         //For TS streams, which does not have Start chunk
@@ -2740,13 +2742,50 @@ void File_MpegPs::extension_stream()
         else if (stream_id_extension>=0x60 && stream_id_extension<=0x6F)
              Streams_Extension[stream_id_extension].Parsers.push_back(ChooseParser_Dirac());
         else if (stream_id_extension==0x71)
-            Streams_Extension[stream_id_extension].Parsers.push_back(private_stream_1_ChooseParser());
-        if (!Streams_Extension[stream_id_extension].Parsers.empty())
-            Open_Buffer_Init(Streams_Extension[stream_id_extension].Parsers[0]);
+        {
+            Streams_Extension[0x72].Parsers.clear(); //In case of HD part before Core part
+            Streams_Extension[0x71].Parsers.push_back(ChooseParser_DTS());
+            Streams_Extension[0x71].Parsers.push_back(ChooseParser_AC3());
+        }
+        else if (stream_id_extension==0x76)
+        {
+            Streams_Extension[0x72].Parsers.clear(); //In case of HD part before Core part
+            Streams_Extension[0x76].Parsers.push_back(ChooseParser_AC3());
+        }
+        else if (stream_id_extension==0x72)
+        {
+            if (Streams_Extension[0x71].Parsers.empty() && Streams_Extension[0x76].Parsers.empty())
+            {
+                Streams_Extension[0x72].Parsers.push_back(ChooseParser_DTS());
+                Streams_Extension[0x72].Parsers.push_back(ChooseParser_AC3());
+            }
+            /*
+                 if (!Streams_Extension[0x71].Parsers.empty())
+                ; //Streams_Extension[0x72].Parsers.push_back(Streams_Extension[0x71].Parsers[0]); //Binding 0x72 to 0x71 (DTS-HD)
+            else if (!Streams_Extension[0x76].Parsers.empty())
+                ; //Streams_Extension[0x72].Parsers.push_back(Streams_Extension[0x76].Parsers[0]); //Binding 0x72 to 0x76 (TrueHD)
+            else
+            {
+                //Audio core is not yet ready, waiting
+                Skip_XX(Element_Size,                           "Waiting for core data...");
+                return;
+            }
+            */
+        }
+        for (size_t Pos=0; Pos<Streams_Extension[stream_id_extension].Parsers.size(); Pos++)
+            Open_Buffer_Init(Streams_Extension[stream_id_extension].Parsers[Pos]);
     }
 
     //Parsing
-    xxx_stream_Parse(Streams_Extension[stream_id_extension], extension_stream_Count);
+    if (stream_id_extension==0x72 && !(Streams_Extension[0x71].Parsers.empty() && Streams_Extension[0x76].Parsers.empty()))
+    {
+        if (!Streams_Extension[0x71].Parsers.empty())
+            xxx_stream_Parse(Streams_Extension[0x71], extension_stream_Count);
+        if (!Streams_Extension[0x76].Parsers.empty())
+            xxx_stream_Parse(Streams_Extension[0x76], extension_stream_Count);
+    }
+    else
+        xxx_stream_Parse(Streams_Extension[stream_id_extension], extension_stream_Count);
 
     //Demux
     if (Streams_Extension[stream_id_extension].Searching_Payload)

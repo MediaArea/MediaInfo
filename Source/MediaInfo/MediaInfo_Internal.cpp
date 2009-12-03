@@ -500,7 +500,7 @@ void MediaInfo_Internal::Close()
 //***************************************************************************
 
 /*//---------------------------------------------------------------------------
-String MediaInfo_Internal::Inform(size_t)
+Ztring MediaInfo_Internal::Inform(size_t)
 {
     //Info case
     if (Info)
@@ -513,7 +513,7 @@ String MediaInfo_Internal::Inform(size_t)
 } */
 
 //---------------------------------------------------------------------------
-String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo)
+Ztring MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, size_t Parameter, info_t KindOfInfo)
 {
     CriticalSectionLocker CSL(CS);
     MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=_T("Get, StreamKind=");Debug+=Ztring::ToZtring((size_t)StreamKind);Debug+=_T(", StreamPos=");Debug+=Ztring::ToZtring(StreamPos);Debug+=_T(", Parameter=");Debug+=Ztring::ToZtring(Parameter);)
@@ -544,7 +544,7 @@ String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, size_t Par
 }
 
 //---------------------------------------------------------------------------
-String MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, const String &Parameter, info_t KindOfInfo, info_t KindOfSearch)
+Ztring MediaInfo_Internal::Get(stream_t StreamKind, size_t StreamPos, const String &Parameter, info_t KindOfInfo, info_t KindOfSearch)
 {
     //Legacy
     if (Parameter.find(_T("_String"))!=Error)
