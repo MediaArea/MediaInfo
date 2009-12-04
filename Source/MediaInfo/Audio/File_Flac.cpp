@@ -246,6 +246,7 @@ void File_Flac::PICTURE()
         return; //There is a problem
     std::string Data_Raw((const char*)(Buffer+(size_t)(Buffer_Offset+Element_Offset)), Data_Size);
     std::string Data_Base64(Base64::encode(Data_Raw));
+    Skip_XX(Element_Size-Element_Offset, "Data");
 
     //Filling
     Fill(Stream_General, 0, General_Cover, "Yes");
