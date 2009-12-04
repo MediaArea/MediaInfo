@@ -66,6 +66,7 @@
     #include "MediaInfo/Image/File_Jpeg.h"
 #endif
 #include "MediaInfo/Multiple/File_Mpeg4_TimeCode.h"
+#include "ZenLib/Base64/base64.h"
 #include <cmath>
 #include <zlib.h>
 //---------------------------------------------------------------------------
@@ -1464,9 +1465,12 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                             return;
                         case Elements::moov_meta__covr :
                             {
-                            Skip_XX(Element_Size-Element_Offset,"Data");
+                            std::string Data_Raw((const char*)(Buffer+(size_t)(Buffer_Offset+Element_Offset)), Element_Size-Element_Offset);
+                            std::string Data_Base64(Base64::encode(Data_Raw));
+                            Skip_XX(Element_Size-Element_Offset, "Data");
 
                             //Filling
+                            Fill(Stream_General, 0, General_Cover_Data, Data_Base64);
                             Fill(Stream_General, 0, General_Cover, "Yes");
                             }
                             return;
@@ -1478,7 +1482,8 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                                 Get_B2(Genre,                   "Genre");
 
                                 //Filling
-                                //Fill(Stream_General, 0, General_Genre, Genre); //This is not Id3 genres, what is it?
+                                if (Genre)
+                                    Fill(Stream_General, 0, General_Genre, Genre-1);
                             }
                             else
                                 Skip_XX(Element_Size-Element_Offset,"Data");
@@ -1518,9 +1523,12 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                     {
                         case Elements::moov_meta__covr :
                             {
-                            Skip_XX(Element_Size-Element_Offset,"Data");
+                            std::string Data_Raw((const char*)(Buffer+(size_t)(Buffer_Offset+Element_Offset)), Element_Size-Element_Offset);
+                            std::string Data_Base64(Base64::encode(Data_Raw));
+                            Skip_XX(Element_Size-Element_Offset, "Data");
 
                             //Filling
+                            Fill(Stream_General, 0, General_Cover_Data, Data_Base64);
                             Fill(Stream_General, 0, General_Cover, "Yes");
                             }
                             return;
