@@ -1579,10 +1579,10 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                 }
                 break;
             case Elements::moov_meta_hdlr_mdta :
-                if(moov_udta_meta_keys_ilst_Pos<moov_udta_meta_keys_List.size())
+                if(!moov_udta_meta_keys_List.empty())
                 {
                     std::string Parameter;
-                    Metadata_Get(Parameter, moov_udta_meta_keys_List[moov_udta_meta_keys_ilst_Pos]);
+                    Metadata_Get(Parameter, moov_udta_meta_keys_List[moov_udta_meta_keys_ilst_Pos<moov_udta_meta_keys_List.size()?moov_udta_meta_keys_ilst_Pos:moov_udta_meta_keys_List.size()-1]);
                     if (Parameter=="com.apple.quicktime.version")
                         Vendor_Version=Value.SubString(_T(""), _T(" "));
                     else if (Parameter=="com.apple.quicktime.player.version")
@@ -1591,12 +1591,16 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                         Fill(Stream_General, 0, General_Comment, Value, true);
                     else if (Parameter=="com.apple.quicktime.description")
                         Fill(Stream_General, 0, General_Description, Value, true);
+                    else if (Parameter=="com.apple.finalcutstudio.media.uuid")
+                        Fill(Stream_General, 0, "Media/UUID", Value);
+                    else if (Parameter=="com.apple.finalcutstudio.media.history.uuid")
+                        Fill(Stream_General, 0, "Media/History/UUID", Value);
                     else if (!Parameter.empty())
                         Fill(Stream_General, 0, Parameter.c_str(), Value, true);
                     moov_udta_meta_keys_ilst_Pos++;
                 }
                 else
-                    Param("Keys atom is not enough large!", 0);
+                    Param("Keys atom is missing!", 0);
 
             case Elements::moov_udta_meta :
                 {
@@ -2055,20 +2059,47 @@ void File_Mpeg4::moov_trak_mdia_minf_dinf_dref_alis()
     Skip_B2(                                                    "drive type");
     Skip_B4(                                                    "parent directory ID");
     Get_B1 (file_name_string_length,                            "file name string length");
-    if (file_name_string_length>63)
-        file_name_string_length=63;
+    if (file_name_string_length>99)
+        file_name_string_length=99;
     Get_Local(file_name_string_length, file_name_string,        "file name string");
     if (file_name_string_length<63)
         Skip_XX(63-file_name_string_length,                     "file name string padding");
-    Skip_B4(                                                    "file number");
-    Skip_B4(                                                    "file created mac local date");
-    Skip_B4(                                                    "file type name");
-    Skip_B4(                                                    "file creator name");
-    Skip_B2(                                                    "next level up from alias");
-    Skip_B2(                                                    "next level down to target");
-    Skip_B4(                                                    "volume attributes ");
-    Skip_B2(                                                    "volume file system ID");
-    Skip_XX(10,                                                 "Reserved");
+    if (file_name_string_length<=63)
+        Skip_B4(                                                "file number");
+    else if (file_name_string_length<67)
+        Skip_XX(67-file_name_string_length,                     "file name string padding (hack)");
+    if (file_name_string_length<=67)
+        Skip_B4(                                                "file created mac local date");
+    else if (file_name_string_length<71)
+        Skip_XX(71-file_name_string_length,                     "file name string padding (hack)");
+    if (file_name_string_length<=71)
+        Skip_B4(                                                "file type name");
+    else if (file_name_string_length<75)
+        Skip_XX(75-file_name_string_length,                     "file name string padding (hack)");
+    if (file_name_string_length<=75)
+        Skip_B4(                                                "file creator name");
+    else if (file_name_string_length<79)
+        Skip_XX(79-file_name_string_length,                     "file name string padding (hack)");
+    if (file_name_string_length<=79)
+        Skip_B2(                                                "next level up from alias");
+    else if (file_name_string_length<81)
+        Skip_XX(81-file_name_string_length,                     "file name string padding (hack)");
+    if (file_name_string_length<=81)
+        Skip_B2(                                                "next level down to target");
+    else if (file_name_string_length<83)
+        Skip_XX(83-file_name_string_length,                     "file name string padding (hack)");
+    if (file_name_string_length<=83)
+        Skip_B4(                                                "volume attributes");
+    else if (file_name_string_length<87)
+        Skip_XX(87-file_name_string_length,                     "file name string padding (hack)");
+    if (file_name_string_length<=87)
+        Skip_B2(                                                "volume file system ID");
+    else if (file_name_string_length<89)
+        Skip_XX(89-file_name_string_length,                     "file name string padding (hack)");
+    if (file_name_string_length<=89)
+        Skip_XX(10,                                             "Reserved");
+    else if (file_name_string_length<99)
+        Skip_XX(99-file_name_string_length,                     "file name string padding (hack)");
     while(Element_Offset<End)
     {
         Trusted++;

@@ -51,6 +51,7 @@ public :
 
 protected :
     //Streams management
+    void Streams_Fill();
     void Streams_Finish();
 
     //Buffer - Global
@@ -95,19 +96,19 @@ protected :
     #endif
     Ztring Recorded_Date_Date;
     Ztring Recorded_Date_Time;
+    Ztring Encoded_Library_Settings;
     size_t FrameCount;
-    size_t FrameSize_Theory; //The size of a frame
     int64u Duration;
     int64u TimeCode_First;
+    int64u FrameSize_Theory; //The size of a frame
     int8u  SCT;
     int8u  SCT_Old;
     int8u  Dseq;
     int8u  Dseq_Old;
     int8u  DBN;
     int8u  DBN_Olds[8];
-    int8u  FSC;
-    bool   consumer_camera_1_Parsed;
-    bool   consumer_camera_2_Parsed;
+    int8u  stype;
+    bool   FSC;
     bool   DSF;
     bool   DSF_IsValid;
     int8u  APT;
@@ -116,6 +117,8 @@ protected :
     bool   TF3;
     int8u  aspect;
     bool   Interlaced;
+    bool   system;
+    bool   FSC_WasSet;
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     bool Analyze_Activated;

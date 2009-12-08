@@ -250,13 +250,14 @@ File_DvDif::File_DvDif()
     DBN_Olds[5]=0;
     DBN_Olds[6]=0;
     DBN_Olds[7]=0;
-    consumer_camera_1_Parsed=false;
-    consumer_camera_2_Parsed=false;
     DSF_IsValid=false;
     APT=0xFF; //Impossible
+    stype=0xFF;
     TF1=false; //Valid by default, for direct analyze
     TF2=false; //Valid by default, for direct analyze
     TF3=false; //Valid by default, for direct analyze
+    system=false;
+    FSC_WasSet=false;
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     Analyze_Activated=false;
@@ -299,6 +300,89 @@ File_DvDif::~File_DvDif()
 //***************************************************************************
 // Streams management
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_DvDif::Streams_Fill()
+{
+    Fill(Stream_General, 0, General_Format, "Digital Video", Unlimited, true, true);
+
+    Stream_Prepare(Stream_Video);
+    Fill(Stream_Video, 0, Video_Format, "Digital Video");
+    Fill(Stream_Video, 0, Video_Codec, "DV");
+    Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
+    Fill(Stream_Video, 0, Video_Standard, system?"PAL":"NTSC");
+    Fill(Stream_Video, 0, Video_Width, 720);
+    Fill(Stream_Video, 0, Video_Height, system?576:480);
+    Fill(Stream_Video, 0, Video_FrameRate, system?25.000:29.970);
+    Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
+    Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive");
+    Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"PFF");
+    switch (aspect)
+    {
+        case 0 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 4.0/3.0, 3, true); break;
+        case 2 :
+        case 7 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 16.0/9.0, 3, true); break;
+        default: ;
+    }
+    Fill(Stream_Video, 0, Video_Encoded_Library_Settings, Encoded_Library_Settings);
+
+    if (!FSC_WasSet) //Original DV 25 Mbps
+    {
+        if (system==false) //NTSC
+        {
+            switch (stype)
+            {
+                case  0 : Fill(Stream_Video, 0, Video_Colorimetry, "4:1:1"); break; //NTSC 25 Mbps
+                case  4 : Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2"); break; //NTSC 50 Mbps
+                default : ;
+            }
+        }
+        else //PAL
+        {
+            switch (stype)
+            {
+                case 0 : if (APT==0)
+                            Fill(Stream_Video, 0, Video_Colorimetry, "4:2:0");      //PAL 25 Mbps
+                         else
+                            Fill(Stream_Video, 0, Video_Colorimetry, "4:1:1");      //PAL 25 Mbps
+                         break;
+                case  4 : Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2"); break; //PAL 50 Mbps
+                default : ;
+            }
+        }
+    }
+    else //DV 50 Mbps (and 100 Mbps?)
+    {
+        if (system==false) //NTSC
+        {
+            switch (stype)
+            {
+                case 10 : Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2"); break; //100 Mbps 1080
+                case 12 : Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2"); break; //NTSC 50 Mbps
+                default: ;
+            }
+        }
+        else //PAL
+        {
+            switch (stype)
+            {
+                case 10 : Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2"); break; //PAL 100 Mbps 1080
+                case 12 : Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2"); break; //PAL 50 Mbps or 100 Mbps 720
+                default: ;
+            }
+        }
+    }
+
+    if (FrameSize_Theory)
+    {
+        float64 OverallBitRate=FrameSize_Theory*(DSF?25.000:29.970)*(FSC_WasSet?2:1)*8;
+             if (OverallBitRate> 27360000 && OverallBitRate<= 30240000) OverallBitRate= 28800000;
+        else if (OverallBitRate> 54720000 && OverallBitRate<= 60480000) OverallBitRate= 57600000;
+        else if (OverallBitRate>109440000 && OverallBitRate<=120960000) OverallBitRate=115200000;
+        Fill(Stream_General, 0, General_OverallBitRate, OverallBitRate, 0);
+        Fill(Stream_Video, 0, Video_BitRate, OverallBitRate*134/150*76/80, 0); //134 Video DIF from 150 DIF, 76 bytes from 80 byte DIF
+    }
+}
 
 //---------------------------------------------------------------------------
 void File_DvDif::Streams_Finish()
@@ -385,7 +469,7 @@ void File_DvDif::Header_Parse()
     Skip_S1(4,                                                  "Arb - Arbitrary bits");
     //1
     Get_S1 (4, Dseq,                                            "Dseq - DIF sequence number"); //0-9 for 525/60; 0-11 for 625/50
-    Get_S1 (1, FSC,                                             "FSC - Channel number");
+    Get_SB (   FSC,                                             "FSC - Channel number");
     Skip_S1(3,                                                  "Res - Reserved");
     BS_End();
     //2
@@ -421,7 +505,7 @@ void File_DvDif::Header_Parse()
     //Parsing
     SCT =(Buffer[Buffer_Offset  ]&0xE0)>>5;
     Dseq=(Buffer[Buffer_Offset+1]&0xF0)>>4;
-    FSC =(Buffer[Buffer_Offset+1]&0x08)>>3;
+    FSC =(bool)((Buffer[Buffer_Offset+1]&0x08)>>3);
     DBN = Buffer[Buffer_Offset+2];
     Element_Offset+=3;
 
@@ -433,6 +517,10 @@ void File_DvDif::Header_Parse()
 //---------------------------------------------------------------------------
 void File_DvDif::Data_Parse()
 {
+    //Config
+    if (!FSC_WasSet && FSC)
+        FSC_WasSet=true;
+
     if (AuxToAnalyze!=0x00)
     {
         Element();
@@ -883,12 +971,7 @@ void File_DvDif::audio_source()
         if (!IgnoreAudio && (FrameCount==1 || AuxToAnalyze)) //Only the first time
         {
             if (!Status[IsAccepted])
-            {
                 Accept("DV DIF");
-
-                if (!IsSub)
-                    Fill(Stream_General, 0, General_Format, "Digital Video");
-            }
 
             Stream_Prepare(Stream_Audio);
             Fill(Stream_Audio, 0, Audio_ID, 0);
@@ -1018,8 +1101,6 @@ void File_DvDif::video_source()
 
     Element_Name("video_source");
 
-    int8u stype;
-    bool system;
     BS_Begin();
     //PC1
     Skip_S1(4,                                                  "TVCH (tens of units, 0–9)");
@@ -1041,39 +1122,12 @@ void File_DvDif::video_source()
     Skip_B1(                                                    "TUN/VISC");
 
     FILLING_BEGIN();
-        if ((FrameCount==1 || AuxToAnalyze) && Count_Get(Stream_Video)==0) //Only the first time
+        if (!Status[IsAccepted] && (FrameCount==1 || AuxToAnalyze) && Count_Get(Stream_Video)==0) //Only the first time
+            Accept("DV DIF");
+        if ((FrameCount==13 || AuxToAnalyze) && Count_Get(Stream_Video)==0) //Only the first time
         {
-            if (!Status[IsAccepted])
-            {
-                Accept("DV DIF");
-
-                if (!IsSub)
-                    Fill(Stream_General, 0, General_Format, "Digital Video");
-            }
-
-            Stream_Prepare(Stream_Video);
-            Fill(Stream_Video, 0, Video_Format, "Digital Video");
-            Fill(Stream_Video, 0, Video_Codec, "DV");
-            Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
-            Fill(Stream_Video, 0, Video_Standard, system?"PAL":"NTSC");
-            Fill(Stream_Video, 0, Video_Width, 720);
-            Fill(Stream_Video, 0, Video_Height, system?576:480);
-            Fill(Stream_Video, 0, Video_FrameRate, system?25.000:29.970);
-            Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
-
-            if (system==false && stype==4) //NTSC and 4:2:2
-                Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2");       //NTSC 50 Mbps
-            else if (system==false) //NTSC and not 4:2:2 (--> 4:1:1)
-                Fill(Stream_Video, 0, Video_Colorimetry, "4:1:1");       //NTSC 25 Mbps
-            else if (stype==4) //PAL and 4:2:2
-                Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2");       //PAL  50 Mbps
-            else if (APT==0) //PAL and 4:2:0
-                Fill(Stream_Video, 0, Video_Colorimetry, "4:2:0");       //PAL  25 Mbps 4:2:0
-            else if (APT==1) //PAL and not 4:2:0 (--> 4:1:1)
-                Fill(Stream_Video, 0, Video_Colorimetry, "4:1:1");       //PAL  25 Mbps 4:1:1
-
-            if (FrameSize_Theory)
-                Duration=(int64u)(File_Size*1000/(FrameSize_Theory*(DSF?25.000:29.970)));
+            if (!Status[IsFilled])
+                Fill("DV DIF");
         }
     FILLING_END();
 }
@@ -1119,25 +1173,9 @@ void File_DvDif::video_sourcecontrol()
     BS_End();
 
     FILLING_BEGIN();
-        if ((FrameCount==1 || AuxToAnalyze) && Retrieve(Stream_Video, 0, Video_ScanType).empty()) //Only the first time
-        {
-            Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive");
-            Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"PFF");
-            switch (aspect)
-            {
-                case 0 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 4.0/3.0, 3, true); break;
-                case 2 :
-                case 7 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 16.0/9.0, 3, true); break;
-                default: ;
-            }
-        }
-
         if (!Status[IsAccepted] && AuxToAnalyze)
         {
             Accept("DV DIF");
-
-            if (!IsSub)
-                Fill(Stream_General, 0, General_Format, "Digital Video");
 
             Fill("DV DIF");
         }
@@ -1221,21 +1259,18 @@ void File_DvDif::consumer_camera_1()
     Skip_S1(7,                                                  "focus (focal point)");
     BS_End();
 
-    if (!consumer_camera_1_Parsed)
+    if (Encoded_Library_Settings.empty())
     {
         if (!Status[IsAccepted])
-        {
             Accept("DV DIF");
 
-            if (!IsSub)
-                Fill(Stream_General, 0, General_Format, "Digital Video");
-        }
+        if (ae_mode<0x0F) Encoded_Library_Settings+=_T("ae mode=")+Ztring(Dv_consumer_camera_1_ae_mode[ae_mode])+_T(" / ");
+        if (wb_mode<0x08) Encoded_Library_Settings+=_T("wb mode=")+Ztring(Dv_consumer_camera_1_wb_mode[wb_mode])+_T(" / ");
+        if (wb_mode<0x1F) Encoded_Library_Settings+=_T("white balance=")+Ztring(Dv_consumer_camera_1_white_balance(white_balance))+_T(" / ");
+                          Encoded_Library_Settings+=_T("fcm=")+Ztring(Dv_consumer_camera_1_fcm[fcm]);
 
-        if (ae_mode<0x0F) Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("ae mode=")+Ztring(Dv_consumer_camera_1_ae_mode[ae_mode]));
-        if (wb_mode<0x08) Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("wb mode=")+Ztring(Dv_consumer_camera_1_wb_mode[wb_mode]));
-        if (wb_mode<0x1F) Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("white balance=")+Ztring(Dv_consumer_camera_1_white_balance(white_balance)));
-                          Fill(Stream_Video, 0, Video_Encoded_Library_Settings, _T("fcm=")+Ztring(Dv_consumer_camera_1_fcm[fcm]));
-        consumer_camera_1_Parsed=true;
+        if (Count_Get(Stream_Video))
+            Fill(Stream_Video, 0, Video_Encoded_Library_Settings, Encoded_Library_Settings);
     }
 }
 

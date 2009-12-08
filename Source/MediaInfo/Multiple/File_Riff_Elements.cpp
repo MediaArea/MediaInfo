@@ -1360,7 +1360,6 @@ void File_Riff::AVI__hdlr_strl_strf_iavs()
         Stream_Prepare(Stream_Video);
         Stream[Stream_ID].Parser=new File_DvDif;
         Open_Buffer_Init(Stream[Stream_ID].Parser);
-        ((File_DvDif*)Stream[Stream_ID].Parser)->Frame_Count_Valid=2;
 
     #else //MEDIAINFO_DVDIF_YES
         //Parsing
@@ -1541,7 +1540,6 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression))==_T("Digital Video"))
     {
         Stream[Stream_ID].Parser=new File_DvDif;
-        ((File_DvDif*)Stream[Stream_ID].Parser)->Frame_Count_Valid=2;
         ((File_DvDif*)Stream[Stream_ID].Parser)->IgnoreAudio=true;
     }
     #endif

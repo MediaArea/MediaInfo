@@ -28,6 +28,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#include <vector>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -48,8 +49,11 @@ protected :
     void Streams_Finish ();
     void Streams_Finish_Descriptor (int128u DescriptorUID, int64u &File_Size_Total);
     void Streams_Finish_Locator (int128u LocatorUID, int64u &File_Size_Total);
-    void Streams_Finish_Track (int128u TrackUID);
+    void Streams_Finish_Track (int128u TrackUID, std::vector<size_t> &Base_Positions);
     void Streams_Finish_Component (int128u ComponentUID, float32 EditRate);
+
+    //Buffer - Global
+    void Read_Buffer_Continue ();
 
     //Buffer - File header
     bool FileHeader_Begin();
@@ -274,15 +278,16 @@ protected :
     void Info_Timestamp();
     void Skip_UMID      ();
 
-    void Get_UL (int128u &Value, const char* Name);
+    void Get_UL (int128u &Value, const char* Name, const char* (*Param) (int128u));
     void Skip_UL(const char* Name);
-    #define Info_UL(_INFO, _NAME) int128u _INFO; Get_UL(_INFO, _NAME)
+    #define Info_UL(_INFO, _NAME, _PARAM) int128u _INFO; Get_UL(_INFO, _NAME, _PARAM)
 
     size_t Streams_Count;
     int128u Code;
     int128u InstanceUID;
     int128u Preface_PrimaryPackage_Data;
     int128u Preface_ContentStorage_Data;
+    int64u Buffer_DataSizeToParse;
     int16u Code2;
     int16u Length2;
 
@@ -302,10 +307,12 @@ protected :
     {
         int128u Descriptor;
         std::vector<int128u> Tracks;
+        bool IsSourcePackage;
 
         package()
         {
             Descriptor=0;
+            IsSourcePackage=false;
         }
     };
     typedef std::map<int128u, package> packages; //Key is InstanceUID of package
@@ -338,6 +345,7 @@ protected :
         int32u TrackID;
         int32u TrackNumber;
         float32 EditRate;
+        bool   Stream_Finish_Done;
 
         track()
         {
@@ -345,6 +353,7 @@ protected :
             TrackID=(int32u)-1;
             TrackNumber=(int32u)-1;
             EditRate=0.000;
+            Stream_Finish_Done=false;
         }
     };
     typedef std::map<int128u, track> tracks; //Key is InstanceUID of the track
