@@ -232,7 +232,7 @@ File_DvDif::File_DvDif()
 :File__Analyze()
 {
     //In
-    Frame_Count_Valid=14;
+    Frame_Count_Valid=48; //(DV100 is up to 48 DIF sequences)
     AuxToAnalyze=0x00; //No Aux to analyze
     IgnoreAudio=false;
 
@@ -258,6 +258,7 @@ File_DvDif::File_DvDif()
     TF3=false; //Valid by default, for direct analyze
     system=false;
     FSC_WasSet=false;
+    FSP_WasNotSet=false;
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     Analyze_Activated=false;
@@ -328,8 +329,15 @@ void File_DvDif::Streams_Fill()
     }
     Fill(Stream_Video, 0, Video_FrameRate, system?25.000:29.970);
     Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
-    Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive");
-    Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"PFF");
+    if (FSC_WasSet && FSP_WasNotSet)
+    {
+        //TODO: How to handle this in DV100?
+    }
+    else
+    {
+        Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive");
+        Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"PFF");
+    }
     switch (aspect)
     {
         case 0 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 4.0/3.0, 3, true); break;
@@ -373,7 +381,7 @@ void File_DvDif::Streams_Fill()
         if (OverallBitRate> 27360000 && OverallBitRate<= 30240000) OverallBitRate= 28800000;
         if (FSC_WasSet)
         {
-            if (stype>=0xA && stype<=0xC)
+            if (FSP_WasNotSet)
                 OverallBitRate*=4; //DV100
             else
                 OverallBitRate*=2; //DV50
@@ -469,7 +477,8 @@ void File_DvDif::Header_Parse()
     //1
     Get_S1 (4, Dseq,                                            "Dseq - DIF sequence number"); //0-9 for 525/60; 0-11 for 625/50
     Get_SB (   FSC,                                             "FSC - Channel number");
-    Skip_S1(3,                                                  "Res - Reserved");
+    Get_SB (   FSP,                                             "FSP - Channel number"); //SMPTE 370M only
+    Skip_S1(2,                                                  "Res - Reserved");
     BS_End();
     //2
     Get_B1 (DBN,                                                "DBN - DIF block number"); //Video: 0-134, Audio: 0-8
@@ -505,6 +514,7 @@ void File_DvDif::Header_Parse()
     SCT =(Buffer[Buffer_Offset  ]&0xE0)>>5;
     Dseq=(Buffer[Buffer_Offset+1]&0xF0)>>4;
     FSC =(bool)((Buffer[Buffer_Offset+1]&0x08)>>3);
+    FSP =(bool)((Buffer[Buffer_Offset+1]&0x0F)>>4);
     DBN = Buffer[Buffer_Offset+2];
     Element_Offset+=3;
 
@@ -519,6 +529,9 @@ void File_DvDif::Data_Parse()
     //Config
     if (!FSC_WasSet && FSC)
         FSC_WasSet=true;
+
+    if (!FSP_WasNotSet && !FSP)
+        FSP_WasNotSet=true;
 
     if (AuxToAnalyze!=0x00)
     {
@@ -1122,11 +1135,10 @@ void File_DvDif::video_source()
 
     FILLING_BEGIN();
         if (!Status[IsAccepted] && (FrameCount==1 || AuxToAnalyze) && Count_Get(Stream_Video)==0) //Only the first time
-            Accept("DV DIF");
-        if ((FrameCount==13 || AuxToAnalyze) && Count_Get(Stream_Video)==0) //Only the first time
         {
-            if (!Status[IsFilled])
-                Fill("DV DIF");
+            Accept("DV DIF");
+            if (!system)
+                Frame_Count_Valid=Frame_Count_Valid*10/12; //NTSC is only 10 DIF sequence per frame
         }
     FILLING_END();
 }
@@ -1173,11 +1185,7 @@ void File_DvDif::video_sourcecontrol()
 
     FILLING_BEGIN();
         if (!Status[IsAccepted] && AuxToAnalyze)
-        {
             Accept("DV DIF");
-
-            Fill("DV DIF");
-        }
     FILLING_END();
 }
 

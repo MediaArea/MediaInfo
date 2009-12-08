@@ -109,6 +109,7 @@ protected :
     int8u  DBN_Olds[8];
     int8u  stype;
     bool   FSC;
+    bool   FSP;
     bool   DSF;
     bool   DSF_IsValid;
     int8u  APT;
@@ -119,6 +120,7 @@ protected :
     bool   Interlaced;
     bool   system;
     bool   FSC_WasSet;
+    bool   FSP_WasNotSet;
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     bool Analyze_Activated;

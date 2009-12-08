@@ -19,6 +19,7 @@ x #2897584, ID3v2: Crash with some malformed UTF-16 strings
 x MXF: better management of complex files (with references)
 x MOV: better management of complex files (with references)
 x Digital Video: better management of DV50, more bitrate accuracy
+x Digital Video: better management of DV100 (Width, Height, BitRate)
 x Digital Video: Some Colorimetry (4:x:x) were wrong
 x FLV: some files were not detected
 x MPEG Audio, AAC, Vorbis: removal of irrelevant Resolution field
