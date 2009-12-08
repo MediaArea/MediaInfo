@@ -3193,7 +3193,6 @@ File__Analyze* File_MpegPs::ChooseParser_Adts()
     //Filling
     #if defined(MEDIAINFO_ADTS_YES)
         File__Analyze* Handle=new File_Adts;
-        ((File_Adts*)Handle)->Frame_Count_Valid=1;
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
