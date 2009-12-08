@@ -311,8 +311,21 @@ void File_DvDif::Streams_Fill()
     Fill(Stream_Video, 0, Video_Codec, "DV");
     Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
     Fill(Stream_Video, 0, Video_Standard, system?"PAL":"NTSC");
-    Fill(Stream_Video, 0, Video_Width, 720);
-    Fill(Stream_Video, 0, Video_Height, system?576:480);
+    if (stype==0xC)
+    {
+        Fill(Stream_Video, 0, Video_Width, 960);
+        Fill(Stream_Video, 0, Video_Height, 720);
+    }
+    else if (stype==0xA || stype==0xB)
+    {
+        Fill(Stream_Video, 0, Video_Width, system?1280:1440);
+        Fill(Stream_Video, 0, Video_Height, stype==0xA?1080:1035);
+    }
+    else
+    {
+        Fill(Stream_Video, 0, Video_Width, 720);
+        Fill(Stream_Video, 0, Video_Height, system?576:480);
+    }
     Fill(Stream_Video, 0, Video_FrameRate, system?25.000:29.970);
     Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
     Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive");
@@ -351,34 +364,20 @@ void File_DvDif::Streams_Fill()
             }
         }
     }
-    else //DV 50 Mbps (and 100 Mbps?)
-    {
-        if (system==false) //NTSC
-        {
-            switch (stype)
-            {
-                case 10 : Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2"); break; //100 Mbps 1080
-                case 12 : Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2"); break; //NTSC 50 Mbps
-                default: ;
-            }
-        }
-        else //PAL
-        {
-            switch (stype)
-            {
-                case 10 : Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2"); break; //PAL 100 Mbps 1080
-                case 12 : Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2"); break; //PAL 50 Mbps or 100 Mbps 720
-                default: ;
-            }
-        }
-    }
+    else //DV 50 Mbps and 100 Mbps
+        Fill(Stream_Video, 0, Video_Colorimetry, "4:2:2");
 
     if (FrameSize_Theory)
     {
-        float64 OverallBitRate=FrameSize_Theory*(DSF?25.000:29.970)*(FSC_WasSet?2:1)*8;
-             if (OverallBitRate> 27360000 && OverallBitRate<= 30240000) OverallBitRate= 28800000;
-        else if (OverallBitRate> 54720000 && OverallBitRate<= 60480000) OverallBitRate= 57600000;
-        else if (OverallBitRate>109440000 && OverallBitRate<=120960000) OverallBitRate=115200000;
+        float64 OverallBitRate=FrameSize_Theory*(DSF?25.000:29.970)*8;
+        if (OverallBitRate> 27360000 && OverallBitRate<= 30240000) OverallBitRate= 28800000;
+        if (FSC_WasSet)
+        {
+            if (stype>=0xA && stype<=0xC)
+                OverallBitRate*=4; //DV100
+            else
+                OverallBitRate*=2; //DV50
+        }
         Fill(Stream_General, 0, General_OverallBitRate, OverallBitRate, 0);
         Fill(Stream_Video, 0, Video_BitRate, OverallBitRate*134/150*76/80, 0); //134 Video DIF from 150 DIF, 76 bytes from 80 byte DIF
     }
