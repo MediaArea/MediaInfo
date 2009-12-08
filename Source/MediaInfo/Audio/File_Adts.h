@@ -25,6 +25,7 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
 #include "MediaInfo/Tag/File__Tags.h"
+#include <vector>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -57,6 +58,7 @@ private :
     void Data_Parse_Fill();
 
     //Temp
+    std::vector<int16u> aac_frame_lengths;
     size_t Frame_Count;
     int16u adts_buffer_fullness;
     int16u aac_frame_length;

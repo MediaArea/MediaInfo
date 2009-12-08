@@ -14,6 +14,7 @@ Version 0.7.26, 2009-
 + TrueHD: more details (channels, sampling rate...)
 + TrueHD: display of both core and TrueHD details
 + #2905950, MPEG-4: Cover extraction
++ ADTS: better bitrate estimation
 x #2897584, ID3v2: Crash with some malformed UTF-16 strings
 x FLV: some files were not detected
 x MPEG Audio, AAC, Vorbis: removal of irrelevant Resolution field

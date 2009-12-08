@@ -86,7 +86,7 @@ File_Adts::File_Adts()
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
 
     //In
-    Frame_Count_Valid=32;
+    Frame_Count_Valid=128;
 
     //Temp
     Frame_Count=0;
@@ -237,6 +237,7 @@ void File_Adts::Data_Parse()
     Skip_XX(Element_Size,                                       "Data");
 
     //Filling
+    aac_frame_lengths.push_back(aac_frame_length);
     if (!Status[IsAccepted] && Frame_Count>=Frame_Count_Valid)
         Data_Parse_Fill();
 }
@@ -247,7 +248,17 @@ void File_Adts::Data_Parse_Fill()
     //Calculating
     bool sbrPresentFlag=ADTS_SamplingRate[sampling_frequency_index]<=24000;
     bool psPresentFlag=channel_configuration<=1; //1 channel
-    int32u BitRate=(ADTS_SamplingRate[sampling_frequency_index]/1024)*aac_frame_length*8;
+    int64u BitRate=0;
+    if (!aac_frame_lengths.empty())
+    {
+        int64u aac_frame_length_Total=0;
+        for (size_t Pos=0; Pos<aac_frame_lengths.size(); Pos++)
+            aac_frame_length_Total+=aac_frame_lengths[Pos];
+
+        BitRate=(ADTS_SamplingRate[sampling_frequency_index]/1024);
+        BitRate*=aac_frame_length_Total*8;
+        BitRate/=aac_frame_lengths.size();
+    }
 
     //Filling
     File__Tags_Helper::Accept("ADTS");
@@ -269,7 +280,8 @@ void File_Adts::Data_Parse_Fill()
     else
     {
         Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
-        Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
+        if (BitRate)
+            Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
     }
     if (sbrPresentFlag)
     {
