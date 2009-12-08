@@ -894,6 +894,7 @@ void File_DvDif::audio_source()
             Fill(Stream_Audio, 0, Audio_ID, 0);
             Fill(Stream_Audio, 0, Audio_Format, "PCM");
             Fill(Stream_Audio, 0, Audio_Codec, "PCM");
+            Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
             Fill(Stream_Audio, 0, Audio_Channel_s_, stype==3?1:2);
             Fill(Stream_Audio, 0, Audio_SamplingRate, Dv_Audio_SamplingRate[SamplingRate]);
             Fill(Stream_Audio, 0, Audio_Resolution, Dv_Audio_Resolution[Resolution]);
@@ -905,6 +906,7 @@ void File_DvDif::audio_source()
                 Fill(Stream_Audio, 1, Audio_ID, 1);
                 Fill(Stream_Audio, 1, Audio_Format, "PCM");
                 Fill(Stream_Audio, 1, Audio_Codec, "PCM");
+                Fill(Stream_Audio, 1, Audio_BitRate_Mode, "CBR");
                 Fill(Stream_Audio, 1, Audio_Channel_s_, stype==3?1:2);
                 Fill(Stream_Audio, 1, Audio_SamplingRate, Dv_Audio_SamplingRate[SamplingRate]);
                 Fill(Stream_Audio, 1, Audio_Resolution, Dv_Audio_Resolution[Resolution]);
@@ -916,6 +918,7 @@ void File_DvDif::audio_source()
                     Fill(Stream_Audio, 2, Audio_ID, 1);
                     Fill(Stream_Audio, 2, Audio_Format, "PCM");
                     Fill(Stream_Audio, 2, Audio_Codec, "PCM");
+                    Fill(Stream_Audio, 2, Audio_BitRate_Mode, "CBR");
                     Fill(Stream_Audio, 2, Audio_Channel_s_, 1);
                     Fill(Stream_Audio, 2, Audio_SamplingRate, Dv_Audio_SamplingRate[SamplingRate]);
                     Fill(Stream_Audio, 2, Audio_Resolution, Dv_Audio_Resolution[Resolution]);
@@ -925,6 +928,7 @@ void File_DvDif::audio_source()
                     Fill(Stream_Audio, 3, Audio_ID, 1);
                     Fill(Stream_Audio, 3, Audio_Format, "PCM");
                     Fill(Stream_Audio, 3, Audio_Codec, "PCM");
+                    Fill(Stream_Audio, 3, Audio_BitRate_Mode, "CBR");
                     Fill(Stream_Audio, 3, Audio_Channel_s_, 1);
                     Fill(Stream_Audio, 3, Audio_SamplingRate, Dv_Audio_SamplingRate[SamplingRate]);
                     Fill(Stream_Audio, 3, Audio_Resolution, Dv_Audio_Resolution[Resolution]);
@@ -1050,6 +1054,7 @@ void File_DvDif::video_source()
             Stream_Prepare(Stream_Video);
             Fill(Stream_Video, 0, Video_Format, "Digital Video");
             Fill(Stream_Video, 0, Video_Codec, "DV");
+            Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
             Fill(Stream_Video, 0, Video_Standard, system?"PAL":"NTSC");
             Fill(Stream_Video, 0, Video_Width, 720);
             Fill(Stream_Video, 0, Video_Height, system?576:480);
