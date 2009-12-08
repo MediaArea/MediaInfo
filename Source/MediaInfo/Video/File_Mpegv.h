@@ -195,6 +195,7 @@ private :
     bool   Searching_TimeStamp_Start_DoneOneTime;
     bool   Parsing_End_ForDTS;
     bool   bit_rate_value_IsValid;
+    bool   profile_and_level_indication_escape;
 };
 
 } //NameSpace

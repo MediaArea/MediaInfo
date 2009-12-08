@@ -72,35 +72,35 @@ const char* Mpegv_Colorimetry_format[]=
 //---------------------------------------------------------------------------
 const char* Mpegv_profile_and_level_indication_profile[]=
 {
-    "",
+    "0",
     "High",
-    "Spatial",
-    "SNR",
+    "Spatial Sclable",
+    "SNR Scalable",
     "Main",
     "Simple",
-    "",
-    "",
-};
+    "6",
+    "7",
+}; //4:2:2 Profile?
 
 //---------------------------------------------------------------------------
 const char* Mpegv_profile_and_level_indication_level[]=
 {
-    "",
-    "",
-    "",
-    "",
+    "0",
+    "1",
+    "2",
+    "3",
     "High",
-    "",
-    "High-1440",
-    "",
+    "4",
+    "High 1440",
+    "5",
     "Main",
-    "",
+    "6",
     "Low",
-    "",
-    "",
-    "",
-    "",
-    "",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
 };
 
 } //NameSpace
@@ -427,7 +427,7 @@ void File_Mpegv::Streams_Fill()
     }
 
     //Profile
-    if (profile_and_level_indication_profile && profile_and_level_indication_level)
+    if (!profile_and_level_indication_escape && profile_and_level_indication_profile && profile_and_level_indication_level)
     {
         Fill(Stream_Video, 0, Video_Format_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));
         Fill(Stream_Video, 0, Video_Codec_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));
@@ -615,6 +615,7 @@ void File_Mpegv::Synched_Init()
     FirstFieldFound=false;
     group_start_IsParsed=false;
     bit_rate_value_IsValid=false;
+    profile_and_level_indication_escape=false;
 
     //Default stream values
     Streams.resize(0x100);
@@ -1495,9 +1496,14 @@ void File_Mpegv::extension_start()
     {
         case 1 :{ //Sequence
                     //Parsing
-                    Skip_SB(                                    "profile_and_level_indication_escape");
-                    Get_S1 ( 3, profile_and_level_indication_profile, "profile_and_level_indication_profile"); Param_Info(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile]);
-                    Get_S1 ( 4, profile_and_level_indication_level, "profile_and_level_indication_level"); Param_Info(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]);
+                    Get_SB (    profile_and_level_indication_escape, "profile_and_level_indication_escape");
+                    if (profile_and_level_indication_escape)
+                        Skip_S1( 7,                            "profile_and_level_indication_reserved");
+                    else
+                    {
+                        Get_S1 ( 3, profile_and_level_indication_profile, "profile_and_level_indication_profile"); Param_Info(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile]);
+                        Get_S1 ( 4, profile_and_level_indication_level, "profile_and_level_indication_level"); Param_Info(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]);
+                    }
                     Get_SB (    progressive_sequence,           "progressive_sequence");
                     Get_S1 ( 2, chroma_format,                  "chroma_format"); Param_Info(Mpegv_Colorimetry_format[chroma_format]);
                     Get_S1 ( 2, horizontal_size_extension,      "horizontal_size_extension");
