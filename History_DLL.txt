@@ -15,6 +15,7 @@ Version 0.7.26, 2009-
 + TrueHD: display of both core and TrueHD details
 + #2905950, MPEG-4: Cover extraction
 + ADTS: better bitrate estimation
++ MPEG-4 Visual: data_partitioned and reversible_vlc display
 x #2897584, ID3v2: Crash with some malformed UTF-16 strings
 x MXF: better management of complex files (with references)
 x MOV: better management of complex files (with references)

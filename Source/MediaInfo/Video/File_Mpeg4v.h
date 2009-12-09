@@ -170,6 +170,8 @@ private :
     bool   quarterpel;
     bool   video_object_layer_start_IsParsed;
     bool   quant_type;
+    bool   data_partitioned;
+    bool   reversible_vlc;
 
     //From user_data
     Ztring Library;
