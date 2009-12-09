@@ -142,6 +142,8 @@ size_t Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Na
     string FileName_String=Ztring(Curl_Data.File_Name).To_Local();
     if (!MI->Config.File_Curl_Get(_T("UserAgent")).empty())
         curl_easy_setopt(Curl_Data.Curl, CURLOPT_USERAGENT, MI->Config.File_Curl_Get(_T("UserAgent")).To_Local().c_str());
+    if (!MI->Config.File_Curl_Get(_T("Proxy")).empty())
+        curl_easy_setopt(Curl_Data.Curl, CURLOPT_PROXY, MI->Config.File_Curl_Get(_T("Proxy")).To_Local().c_str());
     curl_easy_setopt(Curl_Data.Curl, CURLOPT_URL, FileName_String.c_str());
     curl_easy_setopt(Curl_Data.Curl, CURLOPT_FOLLOWLOCATION, 1);
     curl_easy_setopt(Curl_Data.Curl, CURLOPT_MAXREDIRS, 3);
