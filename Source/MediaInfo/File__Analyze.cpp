@@ -948,7 +948,7 @@ bool File__Analyze::Data_Manage()
     {
         if (Element[Element_Level].Next<=File_Offset+Buffer_Size)
             Element_Offset=(size_t)(Element[Element_Level].Next-File_Offset-Buffer_Offset);
-        else
+        else if (!Status[IsFinished])
         {
             GoTo(Element[Element_Level].Next);
             return false;
