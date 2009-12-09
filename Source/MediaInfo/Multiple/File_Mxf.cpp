@@ -769,7 +769,7 @@ void File_Mxf::Read_Buffer_Continue()
         if (Buffer_Size<=Buffer_DataSizeToParse)
         {
             Element_Size=Buffer_Size; //All the buffer is used
-            Buffer_DataSizeToParse-=(int16u)Buffer_Size;
+            Buffer_DataSizeToParse-=Buffer_Size;
         }
         else
         {
@@ -951,8 +951,7 @@ void File_Mxf::Header_Parse()
         int32u Code_Compare4=(int32u)Code.lo;
              if (Code_Compare1==0x060E2B34
               && Code_Compare2==0x01020101
-              && Code_Compare3==0x0D010301
-              && (Code_Compare4&0xFF00FF00)==0x18000200)
+              && Code_Compare3==0x0D010301)
         {
             Buffer_DataSizeToParse=Element_TotalSize_Get(1)-(Buffer_Size-Buffer_Offset);
             Header_Fill_Size(Element_Size);
