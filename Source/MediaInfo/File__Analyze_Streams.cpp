@@ -154,9 +154,6 @@ size_t File__Analyze::Stream_Prepare (stream_t KindOfStream)
 //---------------------------------------------------------------------------
 void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Parameter, const Ztring &Value, bool Replace)
 {
-    if (Value==_T("24165"))
-        int A=0;
-
     //Integrity
     if (!Status[IsAccepted] || StreamKind>Stream_Max)
         return;
