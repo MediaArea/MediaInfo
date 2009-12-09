@@ -475,6 +475,15 @@ void File_Mpegv::Streams_Fill()
         Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(_T("broken_link="))+(group_start_broken_link?_T("1"):_T("0")));
     }
 
+    //BVOP
+    if (BVOP_Count>0)
+    {
+        Fill(Stream_Video, 0, Video_Format_Settings, "BVOP");
+        Fill(Stream_Video, 0, Video_Format_Settings_BVOP, "Yes");
+    }
+    else
+        Fill(Stream_Video, 0, Video_Format_Settings_BVOP, "No");
+
     //Buffer
     Fill(Stream_Video, 0, Video_BufferSize, 2*1024*((((int32u)vbv_buffer_size_extension)<<10)+vbv_buffer_size_value));
 
@@ -574,6 +583,7 @@ void File_Mpegv::Synched_Init()
 {
     //Temp
     Frame_Count=0;
+    BVOP_Count=0;
     progressive_frame_Count=0;
     Interlaced_Top=0;
     Interlaced_Bottom=0;
@@ -894,6 +904,10 @@ void File_Mpegv::picture_start()
         if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
             TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
         TemporalReference[TemporalReference_Offset+temporal_reference].IsValid=true;
+
+        //Count
+        if (picture_coding_type==3)
+            BVOP_Count++;
 
         //NextCode
         NextCode_Clear();
