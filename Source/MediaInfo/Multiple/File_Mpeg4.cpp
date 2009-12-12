@@ -389,6 +389,8 @@ void File_Mpeg4::Streams_Finish()
 
     if (File_Size_Total!=File_Size)
         Fill(Stream_General, 0, General_FileSize, File_Size_Total, 10, true);
+    if (Count_Get(Stream_Video)==0 && Count_Get(Stream_Image)==0)
+        Fill(Stream_General, 0, General_InternetMediaType, "audio/mp4", Unlimited, true, true);
 
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data

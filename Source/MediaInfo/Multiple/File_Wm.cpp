@@ -193,6 +193,9 @@ void File_Wm::Streams_Finish()
         Temp++;
     }
 
+    if (Count_Get(Stream_Video)==0 && Count_Get(Stream_Image)==0)
+        Fill(Stream_General, 0, General_InternetMediaType, "audio/x-ms-wma", Unlimited, true, true);
+
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Stream.clear();

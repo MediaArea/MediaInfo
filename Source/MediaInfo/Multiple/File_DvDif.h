@@ -121,6 +121,7 @@ protected :
     bool   system;
     bool   FSC_WasSet;
     bool   FSP_WasNotSet;
+    bool   video_sourcecontrol_IsParsed;
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     bool Analyze_Activated;

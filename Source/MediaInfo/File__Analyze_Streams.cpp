@@ -399,6 +399,8 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         {
             Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format_Info), MediaInfoLib::Config.Format_Get(Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format)), InfoFormat_Info), true);
             Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format_Url) , MediaInfoLib::Config.Format_Get(Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format)), InfoFormat_Url ), true);
+            if (StreamKind!=Stream_Menu)
+                Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_InternetMediaType), MediaInfoLib::Config.Format_Get(Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format)), InfoFormat_InternetMediaType), true);
             if (StreamKind==Stream_General)
             {
                 Fill(Stream_General, 0, General_Format_Extensions, MediaInfoLib::Config.Format_Get(Value, InfoFormat_Extensions), true);
@@ -1702,6 +1704,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Format_Version : return General_Format_Version;
                                     case Generic_Format_Profile : return General_Format_Profile;
                                     case Generic_Format_Settings : return General_Format_Settings;
+                                    case Generic_InternetMediaType : return General_InternetMediaType;
                                     case Generic_CodecID : return General_CodecID;
                                     case Generic_CodecID_Info : return General_CodecID_Info;
                                     case Generic_CodecID_Hint : return General_CodecID_Hint;
@@ -1735,6 +1738,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Format_Version : return Video_Format_Version;
                                     case Generic_Format_Profile : return Video_Format_Profile;
                                     case Generic_Format_Settings : return Video_Format_Settings;
+                                    case Generic_InternetMediaType : return Video_InternetMediaType;
                                     case Generic_CodecID : return Video_CodecID;
                                     case Generic_CodecID_Info : return Video_CodecID_Info;
                                     case Generic_CodecID_Hint : return Video_CodecID_Hint;
@@ -1779,6 +1783,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Format_Version : return Audio_Format_Version;
                                     case Generic_Format_Profile : return Audio_Format_Profile;
                                     case Generic_Format_Settings : return Audio_Format_Settings;
+                                    case Generic_InternetMediaType : return Audio_InternetMediaType;
                                     case Generic_CodecID : return Audio_CodecID;
                                     case Generic_CodecID_Info : return Audio_CodecID_Info;
                                     case Generic_CodecID_Hint : return Audio_CodecID_Hint;
@@ -1823,6 +1828,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Format_Version : return Text_Format_Version;
                                     case Generic_Format_Profile : return Text_Format_Profile;
                                     case Generic_Format_Settings : return Text_Format_Settings;
+                                    case Generic_InternetMediaType : return Text_InternetMediaType;
                                     case Generic_CodecID : return Text_CodecID;
                                     case Generic_CodecID_Info : return Text_CodecID_Info;
                                     case Generic_CodecID_Hint : return Text_CodecID_Hint;
@@ -1866,6 +1872,7 @@ size_t File__Analyze::Fill_Parameter(stream_t StreamKind, generic StreamPos)
                                     case Generic_Format_Url : return Image_Format_Url;
                                     case Generic_Format_Version : return Image_Format_Version;
                                     case Generic_Format_Profile : return Image_Format_Profile;
+                                    case Generic_InternetMediaType : return Image_InternetMediaType;
                                     case Generic_CodecID : return Image_CodecID;
                                     case Generic_CodecID_Info : return Image_CodecID_Info;
                                     case Generic_CodecID_Hint : return Image_CodecID_Hint;

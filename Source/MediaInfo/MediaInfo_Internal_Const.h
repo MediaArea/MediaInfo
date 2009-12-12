@@ -45,6 +45,7 @@ enum infoformat_t
     InfoFormat_Parser,              ///<
     InfoFormat_Info,                ///<
     InfoFormat_Extensions,          ///<
+    InfoFormat_InternetMediaType,   ///<
     InfoFormat_Url,                 ///<
     InfoFormat_Max
 };
@@ -59,6 +60,7 @@ enum infocodecid_t
     InfoCodecID_Url,                ///<
     InfoCodecID_Profile,            ///<
     InfoCodecID_Version,            ///<
+    InfoCodecID_ColorSpace,         ///<
     InfoCodecID_Max
 };
 

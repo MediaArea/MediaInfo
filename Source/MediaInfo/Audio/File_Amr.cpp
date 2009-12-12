@@ -82,7 +82,10 @@ void File_Amr::FileHeader_Parse()
         if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Mpeg4, Codec, InfoCodecID_Profile)==_T("Narrow band"))
             Fill(Stream_Audio, 0, Audio_Resolution, 13);
         if (MediaInfoLib::Config.CodecID_Get(Stream_Audio, InfoCodecID_Format_Mpeg4, Codec, InfoCodecID_Profile)==_T("Wide band"))
+        {
             Fill(Stream_Audio, 0, Audio_Resolution, 14);
+            Fill(Stream_Audio, 0, Audio_InternetMediaType, "audio/AMR-WB", Unlimited, true, true);
+        }
 
         //No more need data
         Finish("AMR");

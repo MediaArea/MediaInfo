@@ -53,6 +53,7 @@ Format/Extensions;;;N NT;;;Known extensions of this format
 Format_Version;;;Y NT;;;Version of this format
 Format_Profile;;;Y NT;;;Profile of the Format
 Format_Settings;;;Y NT;;;Settings needed for decoder used
+InternetMediaType;;;Y YT;;;Internet Media Type (aka MIME Type, Content-Type)
 CodecID;;;Y YT;;;Codec ID (found in some containers)
 CodecID/Info;;;Y NT;;;Info about this codec
 CodecID/Hint;;;Y NT;;;A hint/popular name for this codec
@@ -93,7 +94,7 @@ StreamSize;; byte;N YI;;;Stream size in bytes
 StreamSize/String;;;N NT;;;
 StreamSize/String1;;;N NT;;;
 StreamSize/String2;;;N NT;;;
-StreamSize/String3;;;N NT;;;
+StreamSize/String3;;;N NT;;;;;
 StreamSize/String4;;;N NT;;;;;
 StreamSize/String5;;;N NT;;;With proportion;;
 StreamSize_Proportion;;;N NT;;;Stream size divided by file size;;

@@ -1,101 +1,113 @@
-AIFF;;;M;Riff;Apple/SGI;aiff aifc;
-AMV;;;M;Riff;Chinese hack of AVI;amv;http://en.wikipedia.org/wiki/AMV_video_format
-AVI;;;M;Riff;Audio Video Interleave;avi;
-BDAV;;;M;Bdav;Blu-ray Video;m2ts;
-Blu-ray Clip info;;;M;Bdmv;;clpi;
-Blu-ray Index;;;M;Bdmv;;bdmv;
-Blu-ray Movie object;;;M;Bdmv;;bdmv;
-Blu-ray Playlist;;;M;Bdmv;;mpls;
-CDXA;;;M;Cdxa;;dat;
-Digital Video;;;M;DvdDif;;dv;
-DivX;;;M;Riff;Hack of AVI;divx;http://www.divx.com
-DPG;;;M;Dpg;Nintendo DS;dpg;
-DVD Video;;;M;Dvdv;;ifo;
-Flash Video;;;M;Flv;;flv;http://www.macromedia.com/go/getflashplayer
-Google Video;;;M;Riff;Hack of AVI;gvi;http://video.google.com/playerdownload.html
-Matroska;;;M;Mk;;mkv mka mks;http://packs.matroska.org/
-MPEG Program;;;M;MpegPs;;mpeg mpg m2p vob pss;
-MPEG Transport;;;M;MpegTs;;ts m2t m2s m4t m4s ts tp trp;
-MPEG-4;;;M;Mpeg4;;mp4 m4v m4a m4p 3gpp 3gp 3gpp2 3g2 k3g jpm jpx mqv ismv isma f4v;
-MTV;;;M;Other;Chinese hack of MPEG-1 layer 3;mtv;http://en.wikipedia.org/wiki/Chinese_MP4/MTV_Player
-MXF;;;M;Mxf;;mxf;
-NSV;;;M;Nsv;Nullsoft Streaming Video;nsv;http://winamp.com
-Ogg;;;M;Ogg;;ogg ogm;http://www.free-codecs.com/Ogg_DirectShow_Filters_download.htm
-QuickTime;;;M;Mpeg4;Original Apple specifications;mov qt;http://www.apple.com/quicktime/download/standalone.html
-RealMedia;;;M;Rm;;rm rmvb ra;
-RIFF-MMP;;;M;Riff;RIFF Multimedia Movie;;
-ShockWave;;;M;Swf;;swf;http://www.macromedia.com/go/getflashplayer
-SKM;;;M;Skm;Sky Korean Mobilephone;skm;http://www.isky.co.kr/html/cs/download.jsp
-Windows Media;;;M;Wm;;asf wmv wma;
-AVC;;;V;Avc;Advanced Video Codec;avc h264;http://developers.videolan.org/x264.html
-AVS Video;;;V;AvsV;Audio Video Standart, Video part;;http://www.avs.org.cn/
-Dirac;;;V;Dirac;;drc;http://diracvideo.org/
-FLC;;;V;Flic;;fli flc;http://www.chem.nott.ac.uk/flc.html
-FLI;;;V;Flic;;fli flc;http://www.chem.nott.ac.uk/flc.html
-FLIC;;;V;Flic;;fli flc;http://www.chem.nott.ac.uk/flc.html
-M-JPEG;;;V;;;;
-MPEG Video;;;V;Mpegv;;mpgv mpv mp1v m1v mp2v m2v;
-MPEG-4 Visual;;;V;Mpeg4;;mp4v;
-Theora;;;V;;;;
-VC-1;;;V;Vc1;;vc1;
-AAC;;;A;;Advanced Audio Codec;aac;
-AC-3;;;A;Ac3;Audio Coding 3;ac3;
-ADIF;;;A;Adif;Audio Data Interchange Format;aac;
-ADTS;;;A;Adts;Audio Data Transport Stream;aac;
-ALS;;;A;Als;MPEG-4 Audio Lossless Coding;als;http://www.nue.tu-berlin.de/forschung/projekte/lossless/mp4als.html#downloads
-AMR;;;A;Amr;Adaptive Multi-Rate;amr;http://www.apple.com/quicktime/download/standalone.html
-AU;;;A;Au;uLaw/AU Audio File;au;
-DTS;;;A;Dts;Digital Theater Systems;dts;
-DTS-HD;;;A;Dts;Digital Theater Systems;dts;
-E-AC-3;;;A;Ac3;Audio Coding 3;dd+;
-Extended Module;;;A;ExtendedModule;;xm;
-FLAC;;;A;Flac;Free Lossless Audio Codec;flac;http://flac.sourceforge.net/
-Impulse Tracker;;;A;ImpulseTracker;;it;
-LA;;;A;La;Lossless Audio Codec;la;http://www.lossless-audio.com/
-MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface;;
-Module;;;A;Module;;mod;
-Monkey's Audio;;;A;Ape;;ape mac;http://www.monkeysaudio.com/
-MPEG Audio;;;A;Mpega;;m1a mpa1 mp1 m2a mpa2 mp2 mp3;
-Musepack SV7;;;A;Mpc;;mpc;http://www.musepack.net
-Musepack SV8;;;A;Mpc;;mp+;http://www.musepack.net
-RIFF-MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface;;
-Scream Tracker 3;;;A;S3m;;s3m;
-Shorten;;;A;;;shn;http://etree.org/shnutils/shorten/
-SLS;;;A;;MPEG-4 Scalable Lossless Coding;sls;http://www.chiariglione.org/mpeg/technologies/mp04-sls/index.htm
-TAK;;;A;;;tak;http://thbeck.de/Tak/Tak.html
-TrueHD;;;A;Ac3;;dts;
-TwinVQ;;;A;TwinVQ;Transform domain Weighted INterleave Vector Quantization;vqf;http://www.twinvq.org/english/index_en.html
-Vorbis;;;A;;;;
-Wave;;;A;Riff;;wav;
-Wave64;;;A;Riff;;w64;
-WavPack;;;A;Wvpk;;wv wvc;http://www.wavpack.com
-Bitmap;;;I;Bmp;;bmp;
-DIB;;;I;Riff;RIFF Device Independent Bitmap;;
-GIF;;;I;Gif;Graphics Interchange Format;gif;
-ICO;;;I;Ico;;ico;
-JNG;;;I;Jng;JPEG Network Graphic;jng;
-JPEG;;;I;Jpeg;;jpeg jpg jpe;
-JPEG2000;;;I;Jpeg;;jp2;http://www.morgan-multimedia.com/JPEG2000/
-LZ77;;;I;;;;
-MNG;;;I;Mng;Multiple-Image Network Graphic;mng;
-PNG;;;I;Png;Portable Network Graphic;png;
-RIFF Palette;;;I;Riff;RIFF Palette;;
-RLE;;;I;;Run-length encoding;rle;
-TIFF;;;I;Tiff;;tiff tif;
-7-Zip;;;C;7z;;7z;http://7-zip.org
-ACE;;;C;Ace;;ace;http://winace.com
-ELF;;;C;Elf;;so;
-MZ;;;C;Mz;;exe dll;
-RAR;;;C;Rar;From Rarlabs;rar;http://rarlabs.com
-ZIP;;;C;Zip;;zip;http://winzip.com
-Adobe encore DVD;;;T;Other;;txt;http://www.adobe.fr/products/encore/
-AQTitle;;;T;Other;;aqt;http://www.volny.cz/aberka/czech/aqt.html
-ASS;;;T;Other;;ssa;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-Captions 32;;;T;Other;;txt;
-Captions Inc;;;T;Other;;txt;
-CPC Captioning;;;T;Other;;txt;http://www.cpcweb.com/Captioning/cap_software.htm
-Cheeta;;;T;Other;;asc;
-SSA;;;T;Other;;ssa;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-SubRip;;;T;Other;;srt;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
-Blender;;;O;Other;;blenders;http://www.blender3d.com
-AutoCAD;;;O;Other;;;http://www.autodesk.com
+AIFF;;;M;Riff;Apple/SGI;aiff aifc aif;audio/x-aiff;
+AMV;;;M;Riff;Chinese hack of AVI;amv;;http://en.wikipedia.org/wiki/AMV_video_format
+AVI;;;M;Riff;Audio Video Interleave;avi;video/vnd.avi;
+BDAV;;;M;Bdav;Blu-ray Video;m2ts;;
+Blu-ray Clip info;;;M;Bdmv;;clpi;;
+Blu-ray Index;;;M;Bdmv;;bdmv;;
+Blu-ray Movie object;;;M;Bdmv;;bdmv;;
+Blu-ray Playlist;;;M;Bdmv;;mpls;;
+CDXA;;;M;Cdxa;;dat;;
+Digital Video;;;M;DvdDif;;dv dif;video/DV;
+DivX;;;M;Riff;Hack of AVI;divx;video/vnd.avi;http://www.divx.com
+DPG;;;M;Dpg;Nintendo DS;dpg;;
+DVD Video;;;M;Dvdv;;ifo;;
+Flash Video;;;M;Flv;;flv;application/x-shockwave-flash;http://www.macromedia.com/go/getflashplayer
+Google Video;;;M;Riff;Hack of AVI;gvi;;http://video.google.com/playerdownload.html
+Matroska;;;M;Mk;;mkv mka mks;;http://packs.matroska.org/
+MPEG Program;;;M;MpegPs;;mpeg mpg m2p vob pss;video/MP2P;
+MPEG Transport;;;M;MpegTs;;ts m2t m2s m4t m4s ts tp trp;video/MP2T;
+MPEG-4;;;M;Mpeg4;;mp4 m4v m4a m4p 3gpp 3gp 3gpp2 3g2 k3g jpm jpx mqv ismv isma f4v;video/mp4;
+MTV;;;M;Other;Chinese hack of MPEG-1 layer 3;mtv;;http://en.wikipedia.org/wiki/Chinese_MP4/MTV_Player
+MXF;;;M;Mxf;;mxf;;
+NSV;;;M;Nsv;Nullsoft Streaming Video;nsv;;http://winamp.com
+Ogg;;;M;Ogg;;ogg ogm;video/ogg;http://www.free-codecs.com/Ogg_DirectShow_Filters_download.htm
+QuickTime;;;M;Mpeg4;Original Apple specifications;mov qt;video/quicktime;http://www.apple.com/quicktime/download/standalone.html
+RealMedia;;;M;Rm;;rm rmvb ra;application/vnd.rn-realmedia;
+RIFF-MMP;;;M;Riff;RIFF Multimedia Movie;;;
+ShockWave;;;M;Swf;;swf;application/x-shockwave;http://www.macromedia.com/go/getflashplayer
+SKM;;;M;Skm;Sky Korean Mobilephone;skm;;http://www.isky.co.kr/html/cs/download.jsp
+Windows Media;;;M;Wm;;asf wmv wma;video/x-ms-wmv;
+AVC;;;V;Avc;Advanced Video Codec;avc h264;video/H264;http://developers.videolan.org/x264.html
+AVS Video;;;V;AvsV;Audio Video Standart, Video part;;;http://www.avs.org.cn/
+Dirac;;;V;Dirac;;drc;;http://diracvideo.org/
+FLC;;;V;Flic;;fli flc;;http://www.chem.nott.ac.uk/flc.html
+FLI;;;V;Flic;;fli flc;;http://www.chem.nott.ac.uk/flc.html
+FLIC;;;V;Flic;;fli flc;;http://www.chem.nott.ac.uk/flc.html
+H.261;;;V;;;h261;video/H261;
+H.263;;;V;;;h263;video/H263;
+M-JPEG;;;V;;;;;
+MPEG Video;;;V;Mpegv;;mpgv mpv mp1v m1v mp2v m2v;video/MPV;
+MPEG-4 Visual;;;V;Mpeg4;;m4v mp4v;video/MP4V-ES;
+Theora;;;V;;;;;
+VC-1;;;V;Vc1;;vc1;video/vc1;
+AAC;;;A;;Advanced Audio Codec;aac;;
+AC-3;;;A;Ac3;Audio Coding 3;ac3;;
+ADIF;;;A;Adif;Audio Data Interchange Format;aac;;
+ADTS;;;A;Adts;Audio Data Transport Stream;aac;;
+ALS;;;A;Als;MPEG-4 Audio Lossless Coding;als;;http://www.nue.tu-berlin.de/forschung/projekte/lossless/mp4als.html#downloads
+AMR;;;A;Amr;Adaptive Multi-Rate;amr;audio/AMR;http://www.apple.com/quicktime/download/standalone.html
+Atrac;;;A;;;;audio/ATRAC;
+Atrac3;;;A;;;;audio/ATRAC3;
+AU;;;A;Au;uLaw/AU Audio File;au;audio/basic;
+DTS;;;A;Dts;Digital Theater Systems;dts;;
+DTS-HD;;;A;Dts;Digital Theater Systems;dts;;
+E-AC-3;;;A;Ac3;Audio Coding 3;dd+;audio/eac3;
+Extended Module;;;A;ExtendedModule;;xm;;
+FLAC;;;A;Flac;Free Lossless Audio Codec;flac;;http://flac.sourceforge.net/
+G.719;;;A;;;;audio/G719;
+G.722;;;A;;;;audio/G722;
+G.722.1;;;A;;;;audio/G7221;
+G.723;;;A;;;;audio/G723;
+G.729;;;A;;;;audio/G729;
+G.729.1;;;A;;;;audio/G7291;
+Impulse Tracker;;;A;ImpulseTracker;;it;;
+LA;;;A;La;Lossless Audio Codec;la;;http://www.lossless-audio.com/
+MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface;midi mid kar;audio/midi;
+Module;;;A;Module;;mod;;
+Monkey's Audio;;;A;Ape;;ape mac;;http://www.monkeysaudio.com/
+MPEG Audio;;;A;Mpega;;m1a mpa1 mp1 m2a mpa2 mp2 mp3;audio/mpeg;
+Musepack SV7;;;A;Mpc;;mpc;;http://www.musepack.net
+Musepack SV8;;;A;Mpc;;mp+;;http://www.musepack.net
+QCELP;;;A;;;;audio/QCELP;
+RIFF-MIDI;;;A;Riff;RIFF Musical Instrument Digital Interface;;;
+Scream Tracker 3;;;A;S3m;;s3m;;
+Shorten;;;A;;;shn;;http://etree.org/shnutils/shorten/
+SLS;;;A;;MPEG-4 Scalable Lossless Coding;sls;;http://www.chiariglione.org/mpeg/technologies/mp04-sls/index.htm
+Speex;;;A;;;;audio/speex;
+TAK;;;A;;;tak;;http://thbeck.de/Tak/Tak.html
+TrueHD;;;A;Ac3;;dts;;
+TwinVQ;;;A;TwinVQ;Transform domain Weighted INterleave Vector Quantization;vqf;;http://www.twinvq.org/english/index_en.html
+Vorbis;;;A;;;;audio/vorbis;
+Wave;;;A;Riff;;wav;audio/vnd.wave;
+Wave64;;;A;Riff;;w64;;
+WavPack;;;A;Wvpk;;wv wvc;;http://www.wavpack.com
+Bitmap;;;I;Bmp;;bmp;image/bmp;
+DIB;;;I;Riff;RIFF Device Independent Bitmap;;;
+GIF;;;I;Gif;Graphics Interchange Format;gif;image/gif;
+ICO;;;I;Ico;;ico;image/vnd.microsoft.icon;
+JNG;;;I;Jng;JPEG Network Graphic;jng;;
+JPEG;;;I;Jpeg;;jpeg jpg jpe;image/jpeg;
+JPEG2000;;;I;Jpeg;;jp2;image/jp2;http://www.morgan-multimedia.com/JPEG2000/
+LZ77;;;I;;;;;
+MNG;;;I;Mng;Multiple-Image Network Graphic;mng;;
+PNG;;;I;Png;Portable Network Graphic;png;image/png;
+RIFF Palette;;;I;Riff;RIFF Palette;;;
+RLE;;;I;;Run-length encoding;rle;;
+TIFF;;;I;Tiff;;tiff tif;image/tiff;
+7-Zip;;;C;7z;;7z;;http://7-zip.org
+ACE;;;C;Ace;;ace;;http://winace.com
+ELF;;;C;Elf;;so;;
+MZ;;;C;Mz;;exe dll;;
+RAR;;;C;Rar;From Rarlabs;rar;application/x-rar-compressed;http://rarlabs.com
+ZIP;;;C;Zip;;zip;application/zip;http://winzip.com
+Adobe encore DVD;;;T;Other;;txt;;http://www.adobe.fr/products/encore/
+AQTitle;;;T;Other;;aqt;;http://www.volny.cz/aberka/czech/aqt.html
+ASS;;;T;Other;;ssa;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+Captions 32;;;T;Other;;txt;;
+Captions Inc;;;T;Other;;txt;;
+CPC Captioning;;;T;Other;;txt;;http://www.cpcweb.com/Captioning/cap_software.htm
+Cheeta;;;T;Other;;asc;;
+SSA;;;T;Other;;ssa;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+SubRip;;;T;Other;;srt;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow
+Blender;;;O;Other;;blenders;;http://www.blender3d.com
+AutoCAD;;;O;Other;;;;http://www.autodesk.com

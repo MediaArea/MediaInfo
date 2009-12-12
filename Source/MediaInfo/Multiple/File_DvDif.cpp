@@ -259,6 +259,7 @@ File_DvDif::File_DvDif()
     system=false;
     FSC_WasSet=false;
     FSP_WasNotSet=false;
+    video_sourcecontrol_IsParsed=false;
 
     #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
     Analyze_Activated=false;
@@ -330,21 +331,24 @@ void File_DvDif::Streams_Fill()
     }
     Fill(Stream_Video, 0, Video_FrameRate, system?25.000:29.970);
     Fill(Stream_Video, 0, Video_FrameRate_Mode, "CFR");
-    if (FSC_WasSet && FSP_WasNotSet)
+    if (video_sourcecontrol_IsParsed)
     {
-        //TODO: How to handle this in DV100?
-    }
-    else
-    {
-        Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive");
-        Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"PFF");
-    }
-    switch (aspect)
-    {
-        case 0 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 4.0/3.0, 3, true); break;
-        case 2 :
-        case 7 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 16.0/9.0, 3, true); break;
-        default: ;
+        if (FSC_WasSet && FSP_WasNotSet)
+        {
+            //TODO: How to handle this in DV100?
+        }
+        else
+        {
+            Fill(Stream_Video, 0, Video_ScanType, Interlaced?"Interlaced":"Progressive");
+            Fill(Stream_Video, 0, Video_Interlacement, Interlaced?"Interlaced":"PFF");
+        }
+        switch (aspect)
+        {
+            case 0 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 4.0/3.0, 3, true); break;
+            case 2 :
+            case 7 : Fill(Stream_Video, 0, Video_DisplayAspectRatio, 16.0/9.0, 3, true); break;
+            default: ;
+        }
     }
     Fill(Stream_Video, 0, Video_Encoded_Library_Settings, Encoded_Library_Settings);
 
@@ -1187,6 +1191,8 @@ void File_DvDif::video_sourcecontrol()
     FILLING_BEGIN();
         if (!Status[IsAccepted] && AuxToAnalyze)
             Accept("DV DIF");
+
+        video_sourcecontrol_IsParsed=true;
     FILLING_END();
 }
 

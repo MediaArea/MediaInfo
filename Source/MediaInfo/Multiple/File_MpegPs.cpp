@@ -293,6 +293,9 @@ void File_MpegPs::Streams_Fill()
             }
         }
     }
+
+    if (Count_Get(Stream_Video)==1 && Retrieve(Stream_Video, 0, Video_Format_Version)==_T("Version 1"))
+        Fill(Stream_General, 0, General_InternetMediaType, "video/mpeg", Unlimited, true, true);
 }
 
 //---------------------------------------------------------------------------
