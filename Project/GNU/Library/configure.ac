@@ -350,7 +350,6 @@ dnl libcurl
 dnl
 if test -d $with_libcurl; then
 	CXXFLAGS="$CXXFLAGS -I$with_libcurl $(pkg-config --cflags $with_libcurl/libcurl.pc)"
-	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS -I$with_libcurl $(pkg-config --cflags $with_libcurl/libcurl.pc)"
 	if test "$enable_staticlibs" = "yes"; then
 		using_libcurl="custom (static)"
 		LIBS="$LIBS -static $with_libcurl/lib -L$(pkg-config --libs --static $with_libcurl/libcurl.pc)"
@@ -364,8 +363,7 @@ elif test "$with_libcurl" = "no"; then
 	CXXFLAGS="$CXXFLAGS -DMEDIAINFO_LIBCURL_NO"
 	using_libcurl="no"
 elif test -e ../../../../curl/libcurl.pc; then
-	CXXFLAGS="$CXXFLAGS $(pkg-config --cflags ../../../../curl/libcurl.pc)"
-	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags ../../../../curl/libcurl.pc)"
+	CXXFLAGS="$CXXFLAGS -I../../../../curl/include"
 	if test "$enable_staticlibs" = "yes"; then
 		using_libcurl="builtin (static)"
 		LIBS="$LIBS $(pkg-config --libs --static ../../../../curl/libcurl.pc)"
@@ -377,7 +375,6 @@ elif test -e ../../../../curl/libcurl.pc; then
 	fi
 elif pkg-config --exists libcurl; then
 	CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libcurl)"
-	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags libcurl)"
 	if test "$enable_staticlibs" = "yes"; then
 		using_libcurl="system (static)"
 		LIBS="$LIBS $(pkg-config --libs --static libcurl)"
@@ -386,6 +383,38 @@ elif pkg-config --exists libcurl; then
 		LIBS="$LIBS $(pkg-config --libs libcurl)"
 		MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(pkg-config --libs libcurl)"
 		MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static $(pkg-config --libs libcurl)"
+	fi
+elif test -e /usr/bin/curl-config; then
+	CXXFLAGS="$CXXFLAGS $(/usr/bin/curl-config --cflags)"
+	if test "$enable_staticlibs" = "yes"; then
+		using_libcurl="system (static)"
+		LIBS="$LIBS $(/usr/bin/curl-config --libs)"
+	else
+		using_libcurl="system"
+		LIBS="$LIBS $(pkg-config --libs libcurl)"
+		MediaInfoLib_LIBS="$MediaInfoLib_LIBS $(/usr/bin/curl-config --libs)"
+		MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static $(/usr/bin/curl-config --libs)"
+	fi
+elif test -e ../../../../Shared/Project/curl/Compile.sh; then
+	cd ../../../../Shared/Project/curl
+	chmod u+x Compile.sh
+	./Compile.sh --build=$build_alias
+	cd $Home
+	if test -e ../../../../Shared/Source/curl/lib/libcurl.a || test -e ../../../../Shared/Source/curl/lib/libcurl.la; then
+		CXXFLAGS="$CXXFLAGS -I../../../../Shared/Source/curl/include"
+		if test "$enable_staticlibs" = "yes"; then
+			using_libcurl="builtin (static)"
+			LIBS="$LIBS -L../../../../Shared/Source/curl/lib $(pkg-config --libs --static ../../../../Shared/Source/curl/libcurl.pc)"
+			MediaInfoLib_LIBS="$MediaInfoLib_LIBS -L../../../../Shared/Source/curl/lib $(pkg-config --libs --static ../../../../Shared/Source/curl/libcurl.pc)"
+			MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static -L../../../../Shared/Source/curl/lib $(pkg-config --libs --static ../../../../Shared/Source/curl/libcurl.pc)"
+		else
+			using_libcurl="builtin"
+			LIBS="$LIBS -L../../../../Shared/Source/curl/lib $(pkg-config --libs ../../../../Shared/Source/curl/libcurl.pc)"
+			MediaInfoLib_LIBS="$MediaInfoLib_LIBS -L../../../../Shared/Source/curl/lib $(pkg-config --libs ../../../../Shared/Source/curl/libcurl.pc)"
+			MediaInfoLib_LIBS_Static="$MediaInfoLib_LIBS_Static -L../../../../Shared/Source/curl/lib $(pkg-config --libs ../../../../Shared/Source/curl/libcurl.pc)"
+		fi
+	else
+		AC_MSG_ERROR([Problem while compiling builtin curl])
 	fi
 else
 	CXXFLAGS="$CXXFLAGS -DMEDIAINFO_LIBCURL_NO"
