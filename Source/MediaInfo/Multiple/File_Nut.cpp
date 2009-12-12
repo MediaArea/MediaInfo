@@ -130,7 +130,6 @@ void File_Nut::Data_Parse()
     #define ELEMENT_CASE(_NAME) \
         case Elements::_NAME : _NAME(); break;
 
-    int64u A=Elements::main;
     //Parsing
     #ifndef __BORLANDC__
         switch (Element_Code)
