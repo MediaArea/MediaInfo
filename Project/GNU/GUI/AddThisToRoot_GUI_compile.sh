@@ -63,7 +63,7 @@ if test -e MediaInfo/Project/GNU/GUI/configure; then
  cd MediaInfo/Project/GNU/GUI/
  test -e Makefile && rm Makefile
  chmod u+x configure
- ./configure --enable-staticlibs $*
+ ./configure $*
  if test -e Makefile; then
   make clean
   make
