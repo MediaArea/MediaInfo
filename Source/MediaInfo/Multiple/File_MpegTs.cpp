@@ -387,7 +387,7 @@ void File_MpegTs::Streams_Fill_PerStream(int16u PID, complete_stream::stream &Te
         Temp.StreamPos=StreamPos_Last;
 
         //Encryption
-        if (Temp.IsScrambled)
+        if (Temp.IsScrambled>16)
             Fill(StreamKind_Last, StreamPos_Last, "Encryption", "Encrypted");
 
         //TS info
@@ -836,7 +836,7 @@ void File_MpegTs::Header_Parse()
     {
         //Encryption
         if (transport_scrambling_control>0)
-            Complete_Stream->Streams[pid].IsScrambled=true;
+            Complete_Stream->Streams[pid].IsScrambled++;
     }
     else if (Element_Offset<TS_Size)
         Skip_XX(TS_Size-Element_Offset,                         "Junk");
@@ -863,7 +863,7 @@ void File_MpegTs::Header_Parse()
     {
         //Encryption
         if (transport_scrambling_control>0)
-            Complete_Stream->Streams[pid].IsScrambled=true;
+            Complete_Stream->Streams[pid].IsScrambled++;
     }
 
     //Filling
@@ -1133,9 +1133,12 @@ void File_MpegTs::PES()
         Complete_Stream->Streams[pid].IsRegistered=true;
         for (size_t Pos=0; Pos<Complete_Stream->Streams[pid].program_numbers.size(); Pos++)
             Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[Complete_Stream->Streams[pid].program_numbers[Pos]].IsRegistered=true;
+    }
 
-        //Case of encrypted streams
-        if (Complete_Stream->Streams[pid].IsScrambled)
+    //Case of encrypted streams
+    if (Complete_Stream->Streams[pid].IsScrambled)
+    {
+        if (Complete_Stream->Streams[pid].IsScrambled>16)
         {
             //Don't need anymore
             Complete_Stream->Streams[pid].Searching_Payload_Start_Set(false);
@@ -1143,10 +1146,10 @@ void File_MpegTs::PES()
             #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                 Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(false);
             #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-            Skip_XX(Element_Size-Element_Offset,                    "Scrambled data");
-
-            return;
         }
+        Skip_XX(Element_Size-Element_Offset,                    "Scrambled data");
+
+        return;
     }
 
     //Parser creation

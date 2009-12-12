@@ -222,7 +222,7 @@ struct complete_stream
         bool                                        EndTimeStampMoreThanxSeconds;
         bool                                        ShouldDuplicate;
         bool                                        IsRegistered;
-        bool                                        IsScrambled;
+        size_t                                      IsScrambled;
 
         //Constructor/Destructor
         stream()
@@ -255,7 +255,7 @@ struct complete_stream
             EndTimeStampMoreThanxSeconds=false;
             ShouldDuplicate=false;
             IsRegistered=false;
-            IsScrambled=false;
+            IsScrambled=0;
         }
 
         ~stream()
