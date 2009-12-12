@@ -312,6 +312,7 @@ void File_DvDif::Streams_Fill()
     Fill(Stream_Video, 0, Video_Codec, "DV");
     Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
     Fill(Stream_Video, 0, Video_Standard, system?"PAL":"NTSC");
+    Fill(Stream_Video, 0, Video_Resolution, 8);
     if (stype==0xC)
     {
         Fill(Stream_Video, 0, Video_Width, 960);

@@ -279,6 +279,7 @@ void File_Vc1::Streams_Fill()
     Stream_Prepare(Stream_Video);
     Fill(Stream_Video, 0, Video_Format, "VC-1");
     Fill(Stream_Video, 0, Video_Codec, From_WMV3?"WMV3":"VC-1"); //For compatibility with the old reaction
+    Fill(Stream_Video, 0, Video_Resolution, 8);
 
     Ztring Profile=Vc1_Profile[profile];
     if (profile==3)

@@ -390,7 +390,7 @@ void File_Mpeg4v::Streams_Fill()
         Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio_Value, 3, true);
         Fill(Stream_Video, StreamPos_Last, Video_DisplayAspectRatio, ((float)object_layer_width)/object_layer_height*PixelAspectRatio_Value, 3, true);
     }
-    Fill(Stream_Video, 0, Video_Resolution, bits_per_pixel*3);
+    Fill(Stream_Video, 0, Video_Resolution, bits_per_pixel);
     if (chroma_format<4)
         Fill(Stream_Video, 0, Video_Colorimetry, Mpeg4v_Colorimetry[chroma_format]);
     if (low_delay)
@@ -486,7 +486,6 @@ void File_Mpeg4v::Streams_Fill()
             Fill(Stream_Video, 0, Video_FrameRate, user_data_start_SNC_Data[Pos][1].To_float32(), 3);
         if (user_data_start_SNC_Data[Pos][0]==_T("TimStamp"))
             Fill(Stream_Video, 0, Video_Delay, user_data_start_SNC_Data[Pos][1].To_int64u());
-        Ztring A=user_data_start_SNC_Data[Pos][0];
         if (user_data_start_SNC_Data[Pos][0]==_T("CamPos") && user_data_start_SNC_Data[Pos][1].size()==16)
         {
             Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(user_data_start_SNC_Data[Pos][1].substr( 3, 4)).To_int8u(16));

@@ -418,7 +418,7 @@ void File_Jpeg::SOF_()
         Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Codec:(size_t)Video_Codec, StreamKind==Stream_Image?"JPEG":"M-JPEG");
         if (StreamKind==Stream_Image)
             Fill(Stream_Image, 0, Image_Codec_String, "JPEG", Unlimited, true, true); //To Avoid automatic filling
-        Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Resolution:(size_t)Video_Resolution, Resolution*3);
+        Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Resolution:(size_t)Video_Resolution, Resolution);
         Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Height:(size_t)Video_Height, Height*Height_Multiplier);
         Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Width:(size_t)Video_Width, Width);
     FILLING_END();

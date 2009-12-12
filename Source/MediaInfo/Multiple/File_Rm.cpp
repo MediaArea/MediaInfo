@@ -400,13 +400,13 @@ void File_Rm::MDPR_realvideo()
 {
     //Parsing
     int32u Codec;
-    int16u Width, Height, Resolution, FrameRate;
+    int16u Width, Height, FrameRate;
     Skip_B4(                                                    "Size");
     Skip_C4(                                                    "FCC");
     Get_C4 (Codec,                                              "Compression");
     Get_B2 (Width,                                              "Width");
     Get_B2 (Height,                                             "Height");
-    Get_B2 (Resolution,                                         "bpp");
+    Skip_B2(                                                    "bpp"); //Do not use it
     Skip_B4(                                                    "Unknown");
     Get_B2 (FrameRate,                                          "fps");
     Skip_B2(                                                    "Unknown");
@@ -423,7 +423,6 @@ void File_Rm::MDPR_realvideo()
     Fill(Stream_Video, StreamPos_Last, Video_Codec, Ztring().From_CC4(Codec));
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width); //Width
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height); //Height
-    Fill(Stream_Video, StreamPos_Last, Video_Resolution, Resolution); //Resolution
     Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)FrameRate); //FrameRate
 }
 

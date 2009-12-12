@@ -2183,8 +2183,29 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
             }
             Fill(Stream_Video, StreamPos_Last, Video_Width, Width, 10, true);
             Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 10, true);
-            if (Resolution)
-                Fill(Stream_Video, StreamPos_Last, Video_Resolution, Resolution, 10, true);
+            if (Resolution==32 && Compression==0x74736363) //tscc
+                Fill(StreamKind_Last, StreamPos_Last, "Resolution", 8);
+            else if (Compression==0x44495633) //DIV3
+                Fill(StreamKind_Last, StreamPos_Last, "Resolution", 8);
+            else if (Compression==0x44585342) //DXSB
+                Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution);
+            else if (Resolution>16 && MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_ColorSpace).find(_T("RGBA"))!=std::string::npos) //RGB codecs
+                Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution/4);
+            else if (Compression==0x00000000 //RGB
+                  || MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_ColorSpace).find(_T("RGB"))!=std::string::npos) //RGB codecs
+            {
+                if (Resolution==32)
+                {
+                    Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), "RGBA", Unlimited, true, true);
+                    Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution/4); //With Alpha
+                }
+                else
+                    Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution<=16?8:(Resolution/3)); //indexed or normal
+            }
+            else if (Compression==0x56503632 //VP62
+                  || MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_Format)==_T("H.263") //H.263
+                  || MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_Format)==_T("VC-1")) //VC-1
+                Fill(StreamKind_Last, StreamPos_Last, "Resolution", Resolution/3);
         }
 
         //Creating the parser

@@ -436,7 +436,7 @@ void File_Wm::Header_StreamProperties_Video ()
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
     if (Resolution>0)
-        Fill(Stream_Video, StreamPos_Last, Video_Resolution, Resolution);
+        Fill(Stream_Video, StreamPos_Last, Video_Resolution, Resolution%3?Resolution:(Resolution/3)); //If not a multiple of 3, the total resolution is filled
     if (Compression==CC4("DVR "))
         IsDvrMs=true;
 

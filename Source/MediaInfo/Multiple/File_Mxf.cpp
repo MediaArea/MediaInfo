@@ -1911,7 +1911,7 @@ void File_Mxf::CDCIEssenceDescriptor_ComponentDepth()
     Get_B4 (Data,                                                "Data"); Element_Info(Data);
 
     FILLING_BEGIN();
-        Descriptors[InstanceUID].Infos["Resolution"].From_Number(Data*3);
+        Descriptors[InstanceUID].Infos["Resolution"].From_Number(Data);
     FILLING_END();
 }
 
