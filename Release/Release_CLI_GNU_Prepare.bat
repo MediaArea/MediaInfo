@@ -54,6 +54,7 @@ move ..\..\ZenLib\Release\ZenLib_GNU_Prepare MediaInfo_CLI_GNU_Prepare\ZenLib
 rem --- Shared ---
 mkdir MediaInfo_CLI_GNU_Prepare\Shared
 xcopy ..\..\Shared\Project\_Common\* MediaInfo_CLI_GNU_Prepare\Shared\Project\_Common\ /S
+xcopy ..\..\Shared\Project\curl\*.sh MediaInfo_CLI_GNU_Prepare\Shared\Project\curl\ /S
 xcopy ..\..\Shared\Project\ZLib\*.sh MediaInfo_CLI_GNU_Prepare\Shared\Project\ZLib\ /S
 xcopy ..\..\Shared\Project\ZLib\Template\projects\GNU\* MediaInfo_CLI_GNU_Prepare\Shared\Project\ZLib\Template\projects\GNU\ /S
 xcopy ..\..\Shared\Project\WxWidgets\*.sh MediaInfo_CLI_GNU_Prepare\Shared\Project\WxWidgets\ /S

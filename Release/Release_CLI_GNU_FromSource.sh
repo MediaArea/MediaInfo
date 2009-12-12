@@ -91,6 +91,8 @@ mv ../../ZenLib/Release/ZenLib_GNU_FromSource MediaInfo_CLI_GNU_FromSource/ZenLi
 # Preparing Archive : From Shared
 mkdir -p MediaInfo_CLI_GNU_FromSource/Shared/Project/_Common
 cp -r ../../Shared/Project/_Common/*.sh MediaInfo_CLI_GNU_FromSource/Shared/Project/_Common
+mkdir -p MediaInfo_CLI_GNU_FromSource/Shared/Project/curl
+cp -r ../../Shared/Project/curl/*.sh MediaInfo_CLI_GNU_FromSource/Shared/Project/curl
 mkdir -p MediaInfo_CLI_GNU_FromSource/Shared/Project/ZLib
 cp -r ../../Shared/Project/ZLib/*.sh MediaInfo_CLI_GNU_FromSource/Shared/Project/ZLib
 mkdir -p MediaInfo_CLI_GNU_FromSource/Shared/Project/ZLib/Template/projects/GNU
