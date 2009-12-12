@@ -390,6 +390,15 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     {
         return Inform_Get();
     }
+    else if (Option_Lower==_T("details"))
+    {
+        Details_Set(Value.To_float32());
+        return _T("");
+    }
+    else if (Option_Lower==_T("details_get"))
+    {
+        return Ztring::ToZtring(Details_Get());
+    }
     else if (Option_Lower==_T("info_parameters"))
     {
         ZtringListList ToReturn=Info_Parameters_Get();
@@ -832,12 +841,7 @@ Ztring MediaInfo_Config::Language_Get (const Ztring &Value)
 
     //Per value
     for (size_t Pos=0; Pos<List.size(); Pos++)
-    {
-        if (List[Pos]==_T("VBR"))
-            int A=0;
-        ;
         List[Pos]=Language.Get(List[Pos]);
-    }
 
     return List.Read();
 }
