@@ -15,6 +15,7 @@ Known bugs
 Version 0.7.26, 2009-
 --------------
 + Chinese (Traditional) updated
+x Chinese (Traditional): some words were no more translated (regression)
 + MXF: support of external files parsing
 + MLP support
 + TrueHD: more details (channels, sampling rate...)
