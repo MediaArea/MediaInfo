@@ -1605,7 +1605,7 @@ void File_Mpeg_Descriptors::Descriptor_0A()
                         if (elementary_PID_IsValid)
                         {
                             Ztring ISO_639_2; ISO_639_2.From_CC3(ISO_639_language_code);
-                            const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_Get(ISO_639_2);
+                            const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_1_Get(ISO_639_2);
                             Complete_Stream->Streams[elementary_PID].Infos["Language"]=ISO_639_1.empty()?ISO_639_2:ISO_639_1;
                             if (audio_type)
                                 Complete_Stream->Streams[elementary_PID].Infos["Language_More"]=Mpeg_Descriptors_audio_type(audio_type);
@@ -1935,7 +1935,7 @@ void File_Mpeg_Descriptors::Descriptor_4D()
             if (event_id_IsValid)
             {
                 Ztring ISO_639_2; ISO_639_2.From_CC3(ISO_639_language_code);
-                const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_Get(ISO_639_2);
+                const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_1_Get(ISO_639_2);
                 Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[event_id].short_event.event_name=(ISO_639_1.empty()?ISO_639_2:ISO_639_1)+_T(':')+event_name;
                 Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks[table_id].Events[event_id].short_event.text=(ISO_639_1.empty()?ISO_639_2:ISO_639_1)+_T(':')+text;
                 Complete_Stream->Transport_Streams[transport_stream_id].Programs[table_id_extension].DVB_EPG_Blocks_IsUpdated=true;
@@ -1966,7 +1966,7 @@ void File_Mpeg_Descriptors::Descriptor_50()
                         if (elementary_PID_IsValid)
                         {
                             Ztring ISO_639_2; ISO_639_2.From_CC3(ISO_639_language_code);
-                            const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_Get(ISO_639_2);
+                            const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_1_Get(ISO_639_2);
                             Complete_Stream->Streams[elementary_PID].Infos["Language"]=ISO_639_1.empty()?ISO_639_2:ISO_639_1;
                         }
                         break;
@@ -2053,7 +2053,7 @@ void File_Mpeg_Descriptors::Descriptor_56()
                             if (elementary_PID_IsValid)
                             {
                                 Ztring ISO_639_2; ISO_639_2.From_CC3(ISO_639_language_code);
-                                const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_Get(ISO_639_2);
+                                const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_1_Get(ISO_639_2);
                                 Languages+=(ISO_639_1.empty()?ISO_639_2:ISO_639_1)+_T(" / ");
                                 //TODO: this stream is teletext. Be careful, multiple stream in a PID
                             }
@@ -2133,7 +2133,7 @@ void File_Mpeg_Descriptors::Descriptor_59()
                             if (elementary_PID_IsValid)
                             {
                                 Ztring ISO_639_2; ISO_639_2.From_CC3(ISO_639_language_code);
-                                const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_Get(ISO_639_2);
+                                const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_1_Get(ISO_639_2);
                                 Languages+=(ISO_639_1.empty()?ISO_639_2:ISO_639_1)+_T(" / ");
                                 //TODO: this stream is teletext. Be careful, multiple stream in a PID
                             }
@@ -2205,7 +2205,7 @@ void File_Mpeg_Descriptors::Descriptor_5D()
         //Filling
         FILLING_BEGIN();
             Ztring ISO_639_2=Ztring().From_CC3(ISO_639_language_code);
-            const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_Get(ISO_639_2);
+            const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_1_Get(ISO_639_2);
             ServiceProvider+=(ISO_639_1.empty()?ISO_639_2:ISO_639_1)+_T(':')+service_provider_name+_T( " - ");
             ServiceName+=(ISO_639_1.empty()?ISO_639_2:ISO_639_1)+_T(':')+service_name+_T( " - ");
         FILLING_END();
@@ -2754,7 +2754,7 @@ void File_Mpeg_Descriptors::ATSC_multiple_string_structure(Ztring &Value, const 
             if (!string.empty())
                 string.resize(string.size()-3);
             Ztring ISO_639_2=Ztring().From_CC3(ISO_639_language_code);
-            const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_Get(ISO_639_2);
+            const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_1_Get(ISO_639_2);
             Value+=(ISO_639_1.empty()?ISO_639_2:ISO_639_1)+_T(':')+string+_T(" - ");
         FILLING_END();
 

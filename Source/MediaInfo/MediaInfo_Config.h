@@ -134,7 +134,8 @@ public :
 
     const Ztring   &Library_Get (infolibrary_format_t Format, const Ztring &Value, infolibrary_t KindOfLibraryInfo=InfoLibrary_Version);
 
-    const Ztring   &Iso639_Get (const Ztring &Value);
+    const Ztring   &Iso639_1_Get (const Ztring &Value);
+    const Ztring   &Iso639_2_Get (const Ztring &Value);
     const Ztring    Iso639_Find (const Ztring &Value);
 
     const Ztring   &Info_Get (stream_t KindOfStream, const Ztring &Value, info_t KindOfInfo=Info_Text);
@@ -191,7 +192,8 @@ private :
     InfoMap         Format;
     InfoMap         Codec;
     InfoMap         Library[InfoLibrary_Format_Max];
-    InfoMap         Iso639;
+    InfoMap         Iso639_1;
+    InfoMap         Iso639_2;
     ZtringListList  Info[Stream_Max]; //General info
 
     ZenLib::CriticalSection CS;

@@ -224,7 +224,12 @@ ZenLib::Ztring Ressources_Create()
         return Result;
     Out+=Contents;
 
-    Result=Ressources_Create_Item(L"DataBase", L"Iso639", L"InfoMap", Contents);
+    Result=Ressources_Create_Item(L"DataBase", L"Iso639_1", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
+    Result=Ressources_Create_Item(L"DataBase", L"Iso639_2", L"InfoMap", Contents);
     if (!Result.empty())
         return Result;
     Out+=Contents;

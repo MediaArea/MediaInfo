@@ -66,7 +66,8 @@ void MediaInfo_Config_CodecID_Text_Mpeg4      (InfoMap &Info);
 void MediaInfo_Config_CodecID_Text_Riff       (InfoMap &Info);
 void MediaInfo_Config_Codec                   (InfoMap &Info);
 void MediaInfo_Config_DefaultLanguage         (Translation &Info);
-void MediaInfo_Config_Iso639                  (InfoMap &Info);
+void MediaInfo_Config_Iso639_1                (InfoMap &Info);
+void MediaInfo_Config_Iso639_2                (InfoMap &Info);
 void MediaInfo_Config_General                 (ZtringListList &Info);
 void MediaInfo_Config_Video                   (ZtringListList &Info);
 void MediaInfo_Config_Audio                   (ZtringListList &Info);
@@ -1148,15 +1149,27 @@ const Ztring &MediaInfo_Config::Library_Get (infolibrary_format_t Format, const 
 }
 
 //---------------------------------------------------------------------------
-const Ztring &MediaInfo_Config::Iso639_Get (const Ztring &Value)
+const Ztring &MediaInfo_Config::Iso639_1_Get (const Ztring &Value)
 {
     //Loading codec table if not yet done
     CS.Enter();
-    if (Iso639.empty())
-        MediaInfo_Config_Iso639(Iso639);
+    if (Iso639_1.empty())
+        MediaInfo_Config_Iso639_1(Iso639_1);
     CS.Leave();
 
-    return Iso639.Get(Ztring(Value).MakeLowerCase(), 1);
+    return Iso639_1.Get(Ztring(Value).MakeLowerCase(), 1);
+}
+
+//---------------------------------------------------------------------------
+const Ztring &MediaInfo_Config::Iso639_2_Get (const Ztring &Value)
+{
+    //Loading codec table if not yet done
+    CS.Enter();
+    if (Iso639_2.empty())
+        MediaInfo_Config_Iso639_2(Iso639_2);
+    CS.Leave();
+
+    return Iso639_2.Get(Ztring(Value).MakeLowerCase(), 1);
 }
 
 //---------------------------------------------------------------------------

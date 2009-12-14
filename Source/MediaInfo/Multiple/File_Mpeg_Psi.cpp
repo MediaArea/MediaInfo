@@ -1910,7 +1910,7 @@ void File_Mpeg_Psi::ATSC_multiple_string_structure(Ztring &Value, const char* In
             if (!string.empty())
                 string.resize(string.size()-3);
             Ztring ISO_639_2=Ztring().From_CC3(ISO_639_language_code);
-            const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_Get(ISO_639_2);
+            const Ztring& ISO_639_1=MediaInfoLib::Config.Iso639_1_Get(ISO_639_2);
             Value+=(ISO_639_1.empty()?ISO_639_2:ISO_639_1)+_T(':')+string+_T(" - ");
         FILLING_END();
 
