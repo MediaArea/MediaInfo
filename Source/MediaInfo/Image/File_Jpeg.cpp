@@ -57,15 +57,15 @@ namespace MediaInfoLib
 namespace Elements
 {
     const int16u TEM =0xFF01;
-    const int16u SOC =0xFF4F; //JPEG-2000
-    const int16u SIZ =0xFF51; //JPEG-2000
-    const int16u COD =0xFF52; //JPEG-2000
-    const int16u COC =0xFF53; //JPEG-2000
-    const int16u QCD =0xFF5C; //JPEG-2000
-    const int16u QCC =0xFF5D; //JPEG-2000
-    const int16u RGN =0xFF5E; //JPEG-2000
-    const int16u SOT =0xFF90; //JPEG-2000
-    const int16u SOD =0xFF93; //JPEG-2000
+    const int16u SOC =0xFF4F; //JPEG 2000
+    const int16u SIZ =0xFF51; //JPEG 2000
+    const int16u COD =0xFF52; //JPEG 2000
+    const int16u COC =0xFF53; //JPEG 2000
+    const int16u QCD =0xFF5C; //JPEG 2000
+    const int16u QCC =0xFF5D; //JPEG 2000
+    const int16u RGN =0xFF5E; //JPEG 2000
+    const int16u SOT =0xFF90; //JPEG 2000
+    const int16u SOD =0xFF93; //JPEG 2000
     const int16u S0F0=0xFFC0;
     const int16u S0F1=0xFFC1;
     const int16u S0F2=0xFFC2;
@@ -91,7 +91,7 @@ namespace Elements
     const int16u RST6=0xFFD6;
     const int16u RST7=0xFFD7;
     const int16u SOI =0xFFD8;
-    const int16u EOI =0xFFD9; //EOC in JPEG-2000
+    const int16u EOI =0xFFD9; //EOC in JPEG 2000
     const int16u SOS =0xFFDA;
     const int16u DQT =0xFFDB;
     const int16u DNL =0xFFDC;
@@ -211,15 +211,15 @@ void File_Jpeg::Data_Parse()
     switch (Element_Code)
     {
         CASE_INFO(TEM ,                                         "TEM");
-        CASE_INFO(SOC ,                                         "Start of codestream"); //JPEG-2000
-        CASE_INFO(SIZ ,                                         "Image and tile size"); //JPEG-2000
-        CASE_INFO(COD ,                                         "Coding style default"); //JPEG-2000
-        CASE_INFO(COC ,                                         "Coding style component"); //JPEG-2000
-        CASE_INFO(QCD ,                                         "Quantization default"); //JPEG-2000
-        CASE_INFO(QCC ,                                         "Quantization component "); //JPEG-2000
-        CASE_INFO(RGN ,                                         "Region-of-interest"); //JPEG-2000
-        CASE_INFO(SOT ,                                         "Start of tile-part"); //JPEG-2000
-        CASE_INFO(SOD ,                                         "Start of data"); //JPEG-2000
+        CASE_INFO(SOC ,                                         "Start of codestream"); //JPEG 2000
+        CASE_INFO(SIZ ,                                         "Image and tile size"); //JPEG 2000
+        CASE_INFO(COD ,                                         "Coding style default"); //JPEG 2000
+        CASE_INFO(COC ,                                         "Coding style component"); //JPEG 2000
+        CASE_INFO(QCD ,                                         "Quantization default"); //JPEG 2000
+        CASE_INFO(QCC ,                                         "Quantization component "); //JPEG 2000
+        CASE_INFO(RGN ,                                         "Region-of-interest"); //JPEG 2000
+        CASE_INFO(SOT ,                                         "Start of tile-part"); //JPEG 2000
+        CASE_INFO(SOD ,                                         "Start of data"); //JPEG 2000
         CASE_INFO(S0F0,                                         "Baseline DCT (Huffman)");
         CASE_INFO(S0F1,                                         "Extended sequential DCT (Huffman)");
         CASE_INFO(S0F2,                                         "Progressive DCT (Huffman)");
@@ -245,7 +245,7 @@ void File_Jpeg::Data_Parse()
         CASE_INFO(RST6,                                         "Restart Interval Termination 6");
         CASE_INFO(RST7,                                         "Restart Interval Termination 7");
         CASE_INFO(SOI ,                                         "Start Of Image");
-        CASE_INFO(EOI ,                                         "End Of Image"); //Is EOC (End of codestream) in JPEG-2000
+        CASE_INFO(EOI ,                                         "End Of Image"); //Is EOC (End of codestream) in JPEG 2000
         CASE_INFO(SOS ,                                         "Start Of Scan");
         CASE_INFO(DQT ,                                         "Define Quantization Tables");
         CASE_INFO(DNL ,                                         "Define Number of Lines");
@@ -329,8 +329,6 @@ void File_Jpeg::SIZ()
         Fill(StreamKind, 0, Fill_Parameter(StreamKind, Generic_Codec), StreamKind==Stream_Image?"JPEG 2000":"M-JPEG 2000");
         if (StreamKind==Stream_Image)
             Fill(Stream_Image, 0, Image_Codec_String, "JPEG 2000", Unlimited, true, true); //To Avoid automatic filling
-        if (StreamKind==Stream_Video)
-            Fill(Stream_Video, 0, Video_InternetMediaType, "video/MJP2", Unlimited, true, true);
         Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Width:(size_t)Video_Width, Xsiz);
         Fill(StreamKind, 0, StreamKind==Stream_Image?(size_t)Image_Height:(size_t)Video_Height, Ysiz);
     FILLING_END();
@@ -390,7 +388,7 @@ void File_Jpeg::QCD()
 void File_Jpeg::SOD()
 {
     FILLING_BEGIN_PRECISE();
-        Finish("JPEG-2000"); //No need of more
+        Finish("JPEG 2000"); //No need of more
     FILLING_END();
 }
 

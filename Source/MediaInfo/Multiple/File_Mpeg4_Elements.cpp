@@ -808,7 +808,7 @@ void File_Mpeg4::idsc()
 //---------------------------------------------------------------------------
 void File_Mpeg4::jp2c()
 {
-    Element_Name("JPEG-2000 content");
+    Element_Name("JPEG 2000 content");
 
     #if defined(MEDIAINFO_JPEG_YES)
         //Creating the parser
@@ -821,7 +821,7 @@ void File_Mpeg4::jp2c()
         //Filling
         Finish(&MI);
 
-        Accept("JPEG 2000");
+        Accept("MPEG-4");
 
         Fill(Stream_General, 0, General_Format, "JPEG 2000", Unlimited, true, true);
         Fill(Stream_General, 0, General_Format_Profile, "MPEG-4");
