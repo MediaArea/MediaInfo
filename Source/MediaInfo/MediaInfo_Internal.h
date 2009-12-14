@@ -23,15 +23,19 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
+#ifndef MediaInfo_InternalH
+#define MediaInfo_InternalH
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
 // For developper: you can disable or enable traces
 //#define MEDIAINFO_DEBUG_CONFIG
 //#define MEDIAINFO_DEBUG_BUFFER
 //#define MEDIAINFO_DEBUG_OUTPUT
-//---------------------------------------------------------------------------
-
-//---------------------------------------------------------------------------
-#ifndef MediaInfo_InternalH
-#define MediaInfo_InternalH
+// For developper: customization of traces
+#ifdef MEDIAINFO_DEBUG_BUFFER
+    const size_t MEDIAINFO_DEBUG_BUFFER_SAVE_FileSize=128*1024*1024;
+#endif //MEDIAINFO_DEBUG_BUFFER
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -142,8 +146,10 @@ private :
         File Debug_Config;
     #endif //MEDIAINFO_DEBUG_CONFIG
     #ifdef MEDIAINFO_DEBUG_BUFFER
-        File Debug_Buffer_Stream;
-        File Debug_Buffer_Sizes;
+        File    Debug_Buffer_Stream;
+        int64u  Debug_Buffer_Stream_Order;
+        File    Debug_Buffer_Sizes;
+        int64u  Debug_Buffer_Sizes_Count;
     #endif //MEDIAINFO_DEBUG_BUFFER
     #ifdef MEDIAINFO_DEBUG_OUTPUT
         map<void*, File> Debug_Output_Value_Stream; //Key is the memory address

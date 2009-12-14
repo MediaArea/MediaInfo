@@ -119,11 +119,31 @@ namespace MediaInfo_Debug_MediaInfo_Internal
         { \
             if (!Debug_Buffer_Stream.Opened_Get()) \
             { \
-                Debug_Buffer_Stream.Create(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".Buffer.Stream")); \
-                Debug_Buffer_Sizes.Create(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".Buffer.Sizes")); \
+                Debug_Buffer_Stream.Create(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".Buffer.Stream.0000000000000000")); \
+                Debug_Buffer_Stream_Order=0; \
+                Debug_Buffer_Sizes.Create(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".Buffer.Sizes.0000000000000000")); \
+                Debug_Buffer_Sizes_Count=0; \
             } \
             Debug_Buffer_Stream.Write(_BUFFER, _SIZE); \
             Debug_Buffer_Sizes.Write((int8u*)&_SIZE, sizeof(size_t)); \
+            Debug_Buffer_Sizes_Count+=_SIZE; \
+            if (Debug_Buffer_Sizes_Count>=MEDIAINFO_DEBUG_BUFFER_SAVE_FileSize) \
+            { \
+                Debug_Buffer_Stream.Close(); \
+                Debug_Buffer_Sizes.Close(); \
+                Ztring Before=Ztring::ToZtring(Debug_Buffer_Stream_Order-1); \
+                while (Before.size()<16) \
+                    Before.insert(0, 1, _T('0')); \
+                Ztring Next=Ztring::ToZtring(Debug_Buffer_Stream_Order+1); \
+                while (Next.size()<16) \
+                    Next.insert(0, 1, _T('0')); \
+                Debug_Buffer_Stream.Create(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".Buffer.Stream.")+Next); \
+                Debug_Buffer_Sizes.Create(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".Buffer.Sizes.")+Next); \
+                File::Delete(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".Buffer.Stream.")+Before); \
+                File::Delete(Ztring(MediaInfo_Debug_Name)+_T(".")+Ztring::ToZtring((size_t)this, 16)+_T(".Buffer.Sizes.")+Before); \
+                Debug_Buffer_Stream_Order++; \
+                Debug_Buffer_Sizes_Count=0; \
+            } \
         }
 #else // MEDIAINFO_DEBUG_BUFFER
     #define MEDIAINFO_DEBUG_BUFFER_SAVE(_BUFFER, _SIZE)
