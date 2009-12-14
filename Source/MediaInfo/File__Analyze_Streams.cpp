@@ -569,8 +569,8 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                 }
                 if (!Languages[Pos].empty() && !IsSub && MediaInfoLib::Config.ReadByHuman_Get())
                 {
-                    if (Languages[Pos].size()==3 && !MediaInfoLib::Config.Iso639_Get(Languages[Pos]).empty())
-                        Languages[Pos]=MediaInfoLib::Config.Iso639_Get(Languages[Pos]);
+                    if (Languages[Pos].size()==3 && !MediaInfoLib::Config.Iso639_1_Get(Languages[Pos]).empty())
+                        Languages[Pos]=MediaInfoLib::Config.Iso639_1_Get(Languages[Pos]);
                     if (Languages[Pos].size()>3 && !MediaInfoLib::Config.Iso639_Find(Languages[Pos]).empty())
                         Languages[Pos]=MediaInfoLib::Config.Iso639_Find(Languages[Pos]);
 
