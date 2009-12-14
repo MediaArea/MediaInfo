@@ -684,6 +684,22 @@ void File_Mxf::Streams_Finish_Track(int128u TrackUID, std::vector<size_t> &Base_
             Fill(Stream_Video, StreamPos_Last, Video_BitRate, Retrieve(Stream_Video, StreamPos_Last, Video_BitRate_Nominal));
         }
 
+        //Interlacement management
+        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_ScanType)==_T("Interlaced") && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("M-JPEG 2000"))
+        {
+            //M-JPEG 2000 has no complete frame height, but field height
+            int64u Height=Retrieve(Stream_Video, StreamPos_Last, Video_Height).To_int64u();
+            Height*=2; //This is per field
+            if (Height)
+                Fill(Stream_Video, StreamPos_Last, Video_Height, Height, 10, true);
+
+            //M-JPEG 2000 has no complete frame framerate, but field framerate
+            float64 FrameRate=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate).To_float64();
+            FrameRate/=2; //This is per field
+            if (FrameRate)
+                Fill(Stream_Video, StreamPos_Last, Video_FrameRate, FrameRate, 3, true);
+        }
+
         //Special case - Digital Video
         #if defined(MEDIAINFO_DVDIF_YES)
             if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format)==_T("Digital Video"))
@@ -2079,9 +2095,6 @@ void File_Mxf::FileDescriptor_SampleRate()
     Get_Rational(Descriptors[InstanceUID].SampleRate); Element_Info(Descriptors[InstanceUID].SampleRate);
 
     FILLING_BEGIN();
-        if (Descriptors[InstanceUID].Infos["ScanType"]==_T("Interlaced"))
-            Descriptors[InstanceUID].SampleRate/=2; //This is per field
-
         switch (Descriptors[InstanceUID].StreamKind)
         {
             case Stream_Video   : Descriptors[InstanceUID].Infos["FrameRate"]=Ztring().From_Number(Descriptors[InstanceUID].SampleRate, 3); break;
