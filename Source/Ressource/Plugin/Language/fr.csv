@@ -325,6 +325,9 @@ Format_Settings_ITU;Paramètres du format, ITU
 Format_Settings_SBR;Paramètres du format, SBR
 Format_Settings_PS;Paramètres du format, PS
 Format_Settings_Pulldown;Paramètres du format, Pulldown
+Format_Settings_Mode
+Format_Settings_FrameMode;Type de répétition
+Format_Settings_Emphasis;Intensité
 Format_Version;Version du format
 Format_Url;Lien Internet sur le format
 FrameCount;Nombre d'images
@@ -940,5 +943,5 @@ Written_Location;Lieu d'écriture
 WrittenBy;Ecrit par
 Yes;Oui
 Your system;Votre système
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

@@ -325,6 +325,9 @@ Format_Settings_ITU;Formaatinstellingen, ITU
 Format_Settings_SBR;Formaatinstellingen, SBR
 Format_Settings_PS;Formaatinstellingen, PS
 Format_Settings_Pulldown;Formaatinstellingen, Pulldown
+Format_Settings_Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version;Formaatversie
 Format_Url;Weblink voor formaat
 FrameCount;Framecount
@@ -940,5 +943,5 @@ Written_Location;Locatie van schrijven
 WrittenBy;Geschreven door
 Yes;Ja
 Your system;Uw systeem
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97

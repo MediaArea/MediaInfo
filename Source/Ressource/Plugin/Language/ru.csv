@@ -48,10 +48,10 @@
  Gbps; Гбит/сек
  GBps; ГБайт/сек
  GHz; ГГц
- GiB; Гигабайт
- GibiByte1; Гигабайт
- GibiByte2; Гигабайт
- GibiByte3; Гигабайт
+ GiB; Гибибайт
+ GibiByte1;Гибибайт
+ GibiByte2;Гибибайт
+ GibiByte3;Гибибайт
  GiBps; Гб/сек
  GigaBit1; Гигабит
  GigaBit2; Гигабит
@@ -88,7 +88,7 @@
  MB; МБайт
  Mb; Мбит
  Mbps; Мбит/сек
- MBps; Мегабайт/сек
+ MBps; Мебибайт/сек
  MebiBit1; Мебибит
  MebiBit2; Мебибит
  MebiBit3; Мебибит
@@ -159,7 +159,7 @@ Alignment_Split;Разделение по промежуткам
 All;Все
 Archival_Location;Место хранения
 Arranger;Аранжировщик
-ArtDirector;Режиссёр
+ArtDirector;Арт-директор
 AspectRatio;Соотношение
 AssistantDirector;Помощник режиссёра
 at;в
@@ -167,7 +167,7 @@ At least one file;Необходим как минимум один файл
 Audio;Аудио
 Audio stream(s);Аудиопотоки
 Audio_Codec_List;Аудиокодеки
-Audio_No;Аудиопоток №
+Audio_No;Нет аудио
 Audio1;Первый аудиопоток
 Audio2;Второй аудиопоток
 AudioCount;Кол-во аудиопотоков
@@ -226,7 +226,7 @@ CodecID;Идентификатор кодека
 CodecID_Description;Описание кодека
 Collection;Коллекция
 Colorimetry;Колориметрия
-colour_primaries
+colour_primaries;Основные цвета
 Comment;Примечание
 CommissionedBy;Поручитель
 CompleteName;Полное имя
@@ -241,13 +241,13 @@ CostumeDesigner;Дизайн костюмов
 Count;Кол-во
 Country;Страна
 Cover;Обложка
-Cover_Datas;Обложка (данные)
+Cover_Datas;Данные обложки
 Cover_Description;Описание обложки
 Cover_Mime;MIME-тип обложки
 Cover_Type;Тип обложки
 Cropped;Размеры подрезки
 Custom;Выборочно
-Customize;Формат вывода
+Customize;Настройка
 Date;Дата
 Debug;Отладка
 Decimal point;Десятичная точка
@@ -269,12 +269,12 @@ Duration_Start;Время начала
 Edit;Изменение
 EditedBy;Изменено
 EMail;Почта
-Encoded_Application;Программа-кодировщик
+Encoded_Application;Программа кодирования
 Encoded_Date;Дата кодирования
 Encoded_Library;Библиотека кодирования
 Encoded_Library_Settings;Настройки программы
-Encoded_Original;Изначально кодировано
-EncodedBy;Кодировал
+Encoded_Original;Источник оригинала
+EncodedBy;Кодирование произвёл
 EPG_Positions;Позиции EPG (внутренние)
 Error_File;Ошибка в файле
 ExecutiveProducer;Исполнительный продюсер
@@ -325,6 +325,9 @@ Format_Settings_ITU;Параметры ITU формата
 Format_Settings_SBR;Параметры SBR формата
 Format_Settings_PS;Параметры PS формата
 Format_Settings_Pulldown;Выбрать настройки формата
+Format_Settings_Mode;Режим
+Format_Settings_FrameMode;Режим кадров
+Format_Settings_Emphasis
 Format_Version;Версия формата
 Format_Url;Ссылка на формат
 FrameCount;Счётчик кадров
@@ -717,19 +720,19 @@ Language_zh-tw;Chinese (Taiwan)
 Language_zu;Zulu
 LawRating;Ограничения прав
 LCCN;LCCN
-Library;Библиотека
+Library;Библиотека смешивания
 Lightness;Якрость
 List;Список
 Lyrics;Текст песен
-Lyricist;Либретто
+Lyricist;Поэт-песенник
 Mastered_Date;Дата мастеринга
 MasteredBy;Мастеринг от
-matrix_coefficients
+matrix_coefficients;Коэффициенты матрицы
 MediaInfo_About;Отображает детальную информацию\r\nо мультимедиа-файлах Matroska, OGG (включая OGM)\r\nMPEG1 (включая VCD), MPEG2 (включая DVD и SVCD), MPEG4 (включая iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (включая WMV, WMA)\r\nMicrosoft RIFF (включая AVI, WAV, DivX)\r\nзвуковых форматах (AC3, DTS, SSC, AU, AIFF)
 Menu;Меню
 Menu stream(s);Меню потоков
 Menu_Codec_List;Меню кодеков
-Menu_No;Меню №
+Menu_No;Нет меню
 MenuCount;Кол-во потоков меню
 Menu_Hint;Дополнительные возможности
 MenuID;Идентификатор меню
@@ -813,7 +816,7 @@ Performer;Исполнитель
 Period;Период
 Phone;Телефон
 PixelAspectRatio;Соотношение пикселей
-PixelAspectRatio_Original;Соотношение пикселей
+PixelAspectRatio_Original;Оригинальное соотношение пикселей
 PlayCounter;Счётчик воспроизведения
 Played_Count;Воспроизведено раз
 Played_First_Date;Первое воспроизведение
@@ -821,11 +824,11 @@ Played_Last_Date;Последнее воспроизведение
 PlayTime;Длительность
 Position;Положение
 Position_Total;Всего
-Preferences;Предпочтения
+Preferences;Настройки
 Producer;Продюсер
 ProductionDesigner;Разработчик оформления
 ProductionStudio;Студия оформления
-Publisher;Опубликовано
+Publisher;Издатель
 Purchased_Date;Дата покупки
 Quote character;Символ кавычек
 RadioStation;Радиостанция
@@ -833,7 +836,7 @@ Rating;Рейтинг
 Recorded_Date;Дата записи
 Recorded_Location;Место записи
 Released_Date;Дата выпуска
-RemixedBy;Ремикс от
+RemixedBy;Ремикс выполнил
 ReplayGain_Gain;Нормализатор звука
 ReplayGain_Peak;Пик нормализатор звука
 Resolution;Разрешение
@@ -842,7 +845,7 @@ SamplingRate;Частота
 Save;Сохранить
 ScanType;Тип развёртки
 ScanOrder;Порядок развёртки
-ScreenplayBy;Сценарий
+ScreenplayBy;Сценарист
 Season;Сезон
 see below;см. ниже
 Send HeaderFile;Отправить заголовок этого файла на http://sourceforge.net/projects/mediainfo/ (Раздел ошибок)
@@ -850,17 +853,17 @@ Separator_Columns;Разделитель столбцов
 Separator_Lines;Разделитель строк
 ServiceChannel;Номер канала сервиса
 ServiceName;Название сервиса
-ServiceProvider;Постовщик сервиса
+ServiceProvider;Поставщик сервиса
 ServiceType;Тип сервиса
 Set;Установка
-Set_Count;Кол-во
+Set_Count;Кол-воустановок
 Setup;Настройка
 Sharpness;Резкость
 Sheet;Таблица
 Sheet (Complete);Таблица (полная)
 Shell extension;Расширение Проводника (пункт в меню по правой кнопке)
 Shell extension, folder;Расширение Проводника для папок
-Shell InfoTip;Показывать меню
+Shell InfoTip;Всплывающая подсказка в Проводнике
 Show menu;Показывать меню
 Show toolbar;Показывать панель
 Sort;Сортировать по
@@ -868,11 +871,11 @@ SoundEngineer;Звукорежиссёр
 Standard;Стандарт вещания
 Stream;Поток
 Stream_MoreInfo;Дополнительная информация о потоке
-StreamCount;Кол-во потоков
+StreamCount;Кол-во потоков такого типа
 StreamID;Идентификатор потока
 StreamKind;Тип потока
-StreamKindID;Идентификатор потока
-StreamKindPos;Идентификатор потока
+StreamKindID;Идентификатор типа потока
+StreamKindPos;Позиция идентификатора типа потока
 StreamSize;Размер потока
 StreamSize_Proportion;Пропорции потока
 Subject;Тема
@@ -891,8 +894,8 @@ Text - Custom;Текст - Выборочно
 Text (HTML);Текст (HTML)
 Text stream(s);Текствый(е) поток(и)
 Text streams;Текстовые потоки
-Text_Codec_List;Текстовый кодек
-Text_No;Текстовый поток №
+Text_Codec_List;Текстовый кодеки
+Text_No;Нет текста
 Text1;Первый текстовый поток
 Text2;Второй текстовый поток
 Text3;Третий текстовый поток
@@ -905,7 +908,7 @@ TimeZone;Часовой пояс
 Total;Всего
 Track;Дорожка
 Track_Count;Кол-во дорожек
-transfer_characteristics
+transfer_characteristics;Характеристики трансфера
 Translator;Переводчик
 Tree;Дерево
 Tree & Text;Дерево и текст
@@ -915,12 +918,12 @@ Video;Видео
 Video stream(s);Видеопоток(и)
 Video_Codec_List;Видеокодеки
 Video_Delay;Задержка видео
-Video_No;Видеопоток №
+Video_No;Нет видео
 Video0_Delay;Задержка видео
 Video1;Первый видеопоток
 VideoCount;Кол-во видеопотоков
 View;Просмотр
-View_Hint;Просмотр
+View_Hint;Измените отношение к просмотру информации
 Warning : more streams in the files;Внимание: в файлах есть ещё потоки
 Web;Сайт
 WebSite_Audio;Сайт аудиокодека
@@ -933,11 +936,11 @@ WebSite_Url;http://mediainfo.sourceforge.net
 WebSite_Video;Сайт видеокодека
 WebSite_Video_More;Перейти на сайт (%Url%) просмоторщика для этого видеокодека
 Width;Ширина
-WriteMe;Написать мне
+WriteMe;Написать автору
 WriteToTranslator;Написать переводчику
-Written_Date;Дата написания
-Written_Location;Место написания
-WrittenBy;Написано
+Written_Date;Дата записи
+Written_Location;Место записи
+WrittenBy;Запись произвёл
 Yes;Да
 Your system;Ваша система
 ZZ_Automatic_Percent;99

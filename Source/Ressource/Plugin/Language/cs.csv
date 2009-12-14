@@ -325,6 +325,9 @@ Format_Settings_ITU
 Format_Settings_SBR
 Format_Settings_PS
 Format_Settings_Pulldown
+Format_Settings_Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version
 Format_Url
 FrameCount
@@ -941,4 +944,4 @@ WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
 ZZ_Automatic_Percent;80
-ZZ_AutomaticLanguage_Percent;85
+ZZ_AutomaticLanguage_Percent;84

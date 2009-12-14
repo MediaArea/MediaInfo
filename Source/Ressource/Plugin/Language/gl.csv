@@ -325,6 +325,9 @@ Format_Settings_ITU
 Format_Settings_SBR
 Format_Settings_PS
 Format_Settings_Pulldown
+Format_Settings_Mode;Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version;Versión do formato
 Format_Url;Web do formato
 FrameCount
@@ -940,5 +943,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;83
+ZZ_Automatic_Percent;82
 ZZ_AutomaticLanguage_Percent;87

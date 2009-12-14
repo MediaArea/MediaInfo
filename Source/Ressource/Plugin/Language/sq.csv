@@ -325,6 +325,9 @@ Format_Settings_ITU;Vendosjet e formatit, ITU
 Format_Settings_SBR;Vendosjet e formatit, SBR
 Format_Settings_PS;Vendosjet e formatit, PS
 Format_Settings_Pulldown;Vendosjet e formatit, Pulldown
+Format_Settings_Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version;Versioni i formatit
 Format_Url;Linku në rrjet i formatit
 FrameCount;Numri i kuadrove

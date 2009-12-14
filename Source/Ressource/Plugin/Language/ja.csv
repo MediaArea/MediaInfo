@@ -325,6 +325,9 @@ Format_Settings_ITU;ITU
 Format_Settings_SBR;SBR
 Format_Settings_PS;PS
 Format_Settings_Pulldown;プルダウン
+Format_Settings_Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version;バージョン
 Format_Url;Url フォーマット
 FrameCount;フレーム数

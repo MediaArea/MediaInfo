@@ -325,6 +325,9 @@ Format_Settings_ITU;تنظیمات فرمت, ITU
 Format_Settings_SBR;تنظیمات فرمت, SBR
 Format_Settings_PS;تنظیمات فرمت, PS
 Format_Settings_Pulldown;تنظیمات فرمت, Pulldown
+Format_Settings_Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version;نسخه فرمت
 Format_Url;لینک فرمت
 FrameCount;تعداد فرمت

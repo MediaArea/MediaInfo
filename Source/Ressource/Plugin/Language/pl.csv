@@ -325,6 +325,9 @@ Format_Settings_ITU;Ustawienia formatu, ITU
 Format_Settings_SBR;Ustawienia formatu, SBR
 Format_Settings_PS;Ustawienia formatu, PS
 Format_Settings_Pulldown;Ustawienia formatu, rozwijany
+Format_Settings_Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version;Wersja formatu
 Format_Url;Adres sieciowy formatu
 FrameCount;Liczba klatek

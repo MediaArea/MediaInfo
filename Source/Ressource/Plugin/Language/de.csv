@@ -325,6 +325,9 @@ Format_Settings_ITU;Format-Einstellungen für ITU
 Format_Settings_SBR;Format-Einstellungen für SBR
 Format_Settings_PS;Format-Einstellungen für PS
 Format_Settings_Pulldown;Format-Einstellungen für Pulldown
+Format_Settings_Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version;Format-Version
 Format_Url;Web-Link zum Format
 FrameCount;Anzahl der Frames

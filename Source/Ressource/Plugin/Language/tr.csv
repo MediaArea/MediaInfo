@@ -325,6 +325,9 @@ Format_Settings_ITU;Biçim ayarları, ITU
 Format_Settings_SBR;Biçim ayarları, SBR
 Format_Settings_PS;Biçim ayarları, PS
 Format_Settings_Pulldown;Biçim ayarları, Pulldown
+Format_Settings_Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version;Biçim sürümü
 Format_Url;Biçim için web bağlantısı
 FrameCount;Kare sayısı

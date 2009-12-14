@@ -325,6 +325,9 @@ Format_Settings_ITU;Ajustes del formato, ITU
 Format_Settings_SBR;Ajustes del formato, SBR
 Format_Settings_PS;Ajustes del formato, PS
 Format_Settings_Pulldown;Ajustes del formato, Pulldown
+Format_Settings_Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version;Formato de la versión
 Format_Url;Vínculo web  del formato
 FrameCount;Contador de cuadro
@@ -941,4 +944,4 @@ WrittenBy;Escrito por
 Yes;Si
 Your system;Tu sistema
 ZZ_Automatic_Percent;82
-ZZ_AutomaticLanguage_Percent;98
+ZZ_AutomaticLanguage_Percent;97

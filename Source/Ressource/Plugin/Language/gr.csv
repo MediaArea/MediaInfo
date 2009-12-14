@@ -325,6 +325,9 @@ Format_Settings_ITU
 Format_Settings_SBR
 Format_Settings_PS
 Format_Settings_Pulldown
+Format_Settings_Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version
 Format_Url
 FrameCount
@@ -940,5 +943,5 @@ Written_Location;Τοποθεσία καταγραφής
 WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
-ZZ_Automatic_Percent;81
+ZZ_Automatic_Percent;80
 ZZ_AutomaticLanguage_Percent;85

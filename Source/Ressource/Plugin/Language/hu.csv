@@ -325,6 +325,9 @@ Format_Settings_ITU;Formátum beállítások, ITU
 Format_Settings_SBR;Formátum beállítások, SBR
 Format_Settings_PS;Formátum beállítások, PS
 Format_Settings_Pulldown;Formátum beállítások, Pulldown
+Format_Settings_Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version;Formátum változat
 Format_Url;Formátum weblapja
 FrameCount;Képkockaszám

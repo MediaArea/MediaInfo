@@ -325,6 +325,9 @@ Format_Settings_ITU;Formatindstillinger, ITU
 Format_Settings_SBR;Formatindstillinger, SBR
 Format_Settings_PS;Formatindstillinger, PS
 Format_Settings_Pulldown;Formatindstillinger, Pulldown
+Format_Settings_Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version;Formatversion
 Format_Url;Weblink til format
 FrameCount;Antal billeder

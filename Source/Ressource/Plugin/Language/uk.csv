@@ -325,6 +325,9 @@ Format_Settings_ITU;ITU
 Format_Settings_SBR;SBR
 Format_Settings_PS;PS
 Format_Settings_Pulldown;Pulldown
+Format_Settings_Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version;версія формату
 Format_Url;інтренет адреса
 FrameCount;кількість кадрів
@@ -941,4 +944,4 @@ WrittenBy;написано
 Yes;Так
 Your system;Ваша система
 ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;94
+ZZ_AutomaticLanguage_Percent;93

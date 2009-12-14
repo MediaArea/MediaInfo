@@ -325,6 +325,9 @@ Format_Settings_ITU;格式设置, ITU
 Format_Settings_SBR;格式设置, SBR
 Format_Settings_PS;格式设置, PS
 Format_Settings_Pulldown;格式设置, Pulldown
+Format_Settings_Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version;格式版本
 Format_Url;编解码器网址
 FrameCount;总帧数

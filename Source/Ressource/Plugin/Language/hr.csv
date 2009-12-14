@@ -325,6 +325,9 @@ Format_Settings_ITU;Postavke oblika datoteke za ITU
 Format_Settings_SBR;Postavke oblika datoteke za SBR
 Format_Settings_PS;Postavke oblika datoteke za PS
 Format_Settings_Pulldown;Postavke oblika datoteke za Pulldown
+Format_Settings_Mode
+Format_Settings_FrameMode
+Format_Settings_Emphasis
 Format_Version;Inačica oblika datoteke
 Format_Url;Spletna poveznica oblika datoteke
 FrameCount;Broj sličica
