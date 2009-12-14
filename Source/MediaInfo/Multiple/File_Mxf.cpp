@@ -40,6 +40,9 @@
 #if defined(MEDIAINFO_MPEGA_YES)
     #include "MediaInfo/Audio/File_Mpega.h"
 #endif
+#if defined(MEDIAINFO_JPEG_YES)
+    #include "MediaInfo/Image/File_Jpeg.h"
+#endif
 #include "MediaInfo/File_Unknown.h"
 #include "ZenLib/FileName.h"
 #include "MediaInfo/MediaInfo_Internal.h"
@@ -251,7 +254,7 @@ const char* Mxf_EssenceContainer(int128u EssenceContainer)
     ELEMENT   (EssenceContainer_DV,                             "Digital Video")
     ELEMENT   (EssenceContainer_DV2,                            "Digital Video")
     ELEMENT   (EssenceContainer_DV3,                            "Digital Video")
-    ELEMENT   (EssenceContainer_JPEG2000,                       "JPEG-2000 Picture")
+    ELEMENT   (EssenceContainer_JPEG2000,                       "JPEG 2000 Picture")
     ELEMENT   (EssenceContainer_MPEG2,                          "MPEG-2 Video")
     ELEMENT   (EssenceContainer_RV24,                           "RV24 (RGBA?)")
     ELEMENT   (EssenceContainer_PCM,                            "PCM")
@@ -279,7 +282,7 @@ const char* Mxf_EssenceCoding(int128u EssenceContainer)
     if (0) {}
     ELEMENT(EssenceCoding_D10Video,                             "D-10 Video")
     ELEMENT(EssenceCoding_DV,                                   "DV")
-    ELEMENT(EssenceCoding_JPEG2000,                             "JPEG-2000")
+    ELEMENT(EssenceCoding_JPEG2000,                             "JPEG 2000")
     ELEMENT(EssenceCoding_PCM,                                  "PCM")
     ELEMENT(EssenceCoding_RV24,                                 "RV24")
     ELEMENT(EssenceCoding_MPEG2Video,                           "MPEG-2 Video")
@@ -305,7 +308,7 @@ const char* Mxf_EssenceCoding_Format(int128u EssenceContainer)
     if (0) {}
     ELEMENT(EssenceCoding_D10Video,                             "MPEG Video")
     ELEMENT(EssenceCoding_DV,                                   "Digital Video")
-    ELEMENT(EssenceCoding_JPEG2000,                             "JPEG-2000")
+    ELEMENT(EssenceCoding_JPEG2000,                             "M-JPEG 2000")
     ELEMENT(EssenceCoding_MPEG2Video,                           "MPEG Video")
     ELEMENT(EssenceCoding_PCM,                                  "PCM")
     ELEMENT(EssenceCoding_RV24,                                 "RV24")
@@ -1035,7 +1038,7 @@ void File_Mxf::Data_Parse()
     ELEMENT(GenericSoundEssenceDescriptor,                      "Generic Sound Essence Descriptor")
     ELEMENT(Identification,                                     "Identification")
     ELEMENT(IndexTableSegment,                                  "Index Table (Segment)")
-    ELEMENT(JPEG2000PictureSubDescriptor,                       "JPEG-2000 Picture Sub Descriptor")
+    ELEMENT(JPEG2000PictureSubDescriptor,                       "JPEG 2000 Picture Sub Descriptor")
     ELEMENT(MaterialPackage,                                    "Material Package")
     ELEMENT(MultipleDescriptor,                                 "Multiple Descriptor")
     ELEMENT(MPEG2VideoDescriptor,                               "MPEG-2 Video Descriptor")
@@ -1064,7 +1067,7 @@ void File_Mxf::Data_Parse()
             case 0x14000100 : Element_Name("Generic"        ); break;
             case 0x05000100 : Element_Name("D-10 Video"     ); break;
             case 0x15000500 : Element_Name("MPEG Video"     ); break;
-            case 0x15000800 : Element_Name("JPEG-2000"      ); break;
+            case 0x15000800 : Element_Name("JPEG 2000"      ); break;
             case 0x06001000 : Element_Name("D-10 Audio"     ); break;
             case 0x16000100 : Element_Name("BWF (PCM)"      ); break;
             case 0x16000200 : Element_Name("BWF (PCM)"      ); break;
@@ -1094,16 +1097,17 @@ void File_Mxf::Data_Parse()
                                             Streams_Count--;
                                     #endif
                                     break;
-                case 0x15000800 : //JPEG-2000
+                case 0x15000800 : //M-JPEG 2000
                                     Essences[Code_Compare4].StreamKind=Stream_Video;
                                     Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
-                                    #if defined(MEDIAINFO_JPEG2000_YES) //Not yet
-                                        Essences[Code_Compare4].Parser=new File_Jpeg20000(); //Not yet
+                                    #if defined(MEDIAINFO_JPEG_YES)
+                                        Essences[Code_Compare4].Parser=new File_Jpeg();
+                                        ((File_Jpeg*)Essences[Code_Compare4].Parser)->StreamKind=Stream_Video;
                                     #else
                                         Essences[Code_Compare4].Parser=new File_Unknown();
                                         Open_Buffer_Init(Essences[Code_Compare4].Parser);
                                         Essences[Code_Compare4].Parser->Stream_Prepare(Stream_Video);
-                                        Essences[Code_Compare4].Parser->Fill(Stream_Video, 0, Video_Format, "JPEG-2000");
+                                        Essences[Code_Compare4].Parser->Fill(Stream_Video, 0, Video_Format, "M-JPEG 2000");
                                         if (Streams_Count>0)
                                             Streams_Count--;
                                     #endif
@@ -2075,6 +2079,9 @@ void File_Mxf::FileDescriptor_SampleRate()
     Get_Rational(Descriptors[InstanceUID].SampleRate); Element_Info(Descriptors[InstanceUID].SampleRate);
 
     FILLING_BEGIN();
+        if (Descriptors[InstanceUID].Infos["ScanType"]==_T("Interlaced"))
+            Descriptors[InstanceUID].SampleRate/=2; //This is per field
+
         switch (Descriptors[InstanceUID].StreamKind)
         {
             case Stream_Video   : Descriptors[InstanceUID].Infos["FrameRate"]=Ztring().From_Number(Descriptors[InstanceUID].SampleRate, 3); break;
@@ -2093,7 +2100,7 @@ void File_Mxf::FileDescriptor_ContainerDuration()
 
     FILLING_BEGIN();
         float32 SampleRate=Descriptors[InstanceUID].SampleRate;
-        if (SampleRate)
+        if (SampleRate && Data!=0xFFFFFFFFFFFFFFFFLL)
             Descriptors[InstanceUID].Infos["Duration"].From_Number(Data/SampleRate*1000);
     FILLING_END();
 }
@@ -3277,7 +3284,8 @@ void File_Mxf::StructuralComponent_Duration()
     Get_B8 (Data,                                               "Data"); Element_Info(Data); //units of edit rate
 
     FILLING_BEGIN();
-        Components[InstanceUID].Duration=Data;
+        if (Data!=0xFFFFFFFFFFFFFFFFLL)
+            Components[InstanceUID].Duration=Data;
     FILLING_END();
 }
 

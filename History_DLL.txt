@@ -19,6 +19,7 @@ Version 0.7.26, 2009-
 + #2910572, MPEG Video: BVOP presence display
 + Internet Media Type (aka MIME-Type) display
 x #2897584, ID3v2: Crash with some malformed UTF-16 strings
+x MXF: Better handling of interlaced content (height and frame rate)
 x Homogenization of Video resolution (ie no more 24-bit resolution, but 8-bit)
 x MPEG-TS: less false-positive detection of encrypted streams
 x MXF: better management of complex files (with references)
