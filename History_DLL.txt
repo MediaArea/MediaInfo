@@ -18,6 +18,7 @@ Version 0.7.26, 2009-
 + #2910579, MPEG-4 Visual: data_partitioned and reversible_vlc display
 + #2910572, MPEG Video: BVOP presence display
 + Internet Media Type (aka MIME-Type) display
++ ADTS: Id3v2 support
 x #2897584, ID3v2: Crash with some malformed UTF-16 strings
 x MXF: Better handling of interlaced content (height and frame rate)
 x Homogenization of Video resolution (ie no more 24-bit resolution, but 8-bit)

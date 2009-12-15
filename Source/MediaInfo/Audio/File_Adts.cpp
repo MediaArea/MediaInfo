@@ -93,6 +93,68 @@ File_Adts::File_Adts()
 }
 
 //***************************************************************************
+// Streams management
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Adts::Streams_Fill()
+{
+    //Calculating
+    bool sbrPresentFlag=ADTS_SamplingRate[sampling_frequency_index]<=24000;
+    bool psPresentFlag=channel_configuration<=1; //1 channel
+    int64u BitRate=0;
+    if (!aac_frame_lengths.empty())
+    {
+        int64u aac_frame_length_Total=0;
+        for (size_t Pos=0; Pos<aac_frame_lengths.size(); Pos++)
+            aac_frame_length_Total+=aac_frame_lengths[Pos];
+
+        BitRate=(ADTS_SamplingRate[sampling_frequency_index]/1024);
+        BitRate*=aac_frame_length_Total*8;
+        BitRate/=aac_frame_lengths.size();
+    }
+
+    if (!IsSub)
+        Fill(Stream_General, 0, General_Format, "ADTS");
+
+    File__Tags_Helper::Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, 0, Audio_Format, "AAC");
+    Fill(Stream_Audio, 0, Audio_Format_Version, id?"Version 2":"Version 4");
+    Fill(Stream_Audio, 0, Audio_Format_Profile, ADTS_Format_Profile[profile_ObjectType]);
+    if (!sbrPresentFlag && !psPresentFlag)
+        Fill(Stream_Audio, 0, Audio_Codec, ADTS_Profile[profile_ObjectType]);
+    Fill(Stream_Audio, 0, Audio_SamplingRate, ADTS_SamplingRate[sampling_frequency_index]*(sbrPresentFlag?2:1));
+    Fill(Stream_Audio, 0, Audio_Channel_s_, psPresentFlag?2:channel_configuration);
+    Fill(Stream_Audio, 0, Audio_MuxingMode, "ADTS");
+    if (adts_buffer_fullness==0x7FF)
+        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
+    else
+    {
+        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
+        if (BitRate)
+            Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
+    }
+    if (sbrPresentFlag)
+    {
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "SBR");
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_SBR, "Yes", Unlimited, true, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, "No");
+        Ztring Codec=Ztring().From_Local(ADTS_Profile[profile_ObjectType])+_T("/SBR");
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true);
+    }
+    if (psPresentFlag)
+    {
+        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 2, 10, true);
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "PS");
+        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, "Yes", Unlimited, true, true);
+        Ztring Codec=Ztring().From_Local(ADTS_Profile[profile_ObjectType])+(sbrPresentFlag?_T("/SBR"):_T(""))+_T("/PS");
+        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true);
+    }
+
+    File__Tags_Helper::Streams_Fill();
+}
+
+//***************************************************************************
 // Buffer - Synchro
 //***************************************************************************
 
@@ -239,69 +301,15 @@ void File_Adts::Data_Parse()
     //Filling
     aac_frame_lengths.push_back(aac_frame_length);
     if (!Status[IsAccepted] && Frame_Count>=Frame_Count_Valid)
-        Data_Parse_Fill();
-}
-
-//---------------------------------------------------------------------------
-void File_Adts::Data_Parse_Fill()
-{
-    //Calculating
-    bool sbrPresentFlag=ADTS_SamplingRate[sampling_frequency_index]<=24000;
-    bool psPresentFlag=channel_configuration<=1; //1 channel
-    int64u BitRate=0;
-    if (!aac_frame_lengths.empty())
     {
-        int64u aac_frame_length_Total=0;
-        for (size_t Pos=0; Pos<aac_frame_lengths.size(); Pos++)
-            aac_frame_length_Total+=aac_frame_lengths[Pos];
+        //Filling
+        File__Tags_Helper::Accept("ADTS");
 
-        BitRate=(ADTS_SamplingRate[sampling_frequency_index]/1024);
-        BitRate*=aac_frame_length_Total*8;
-        BitRate/=aac_frame_lengths.size();
+        Fill("ADTS");
+
+        //No more need data
+        File__Tags_Helper::Finish("ADTS");
     }
-
-    //Filling
-    File__Tags_Helper::Accept("ADTS");
-
-    if (!IsSub)
-        Fill(Stream_General, 0, General_Format, "ADTS");
-
-    File__Tags_Helper::Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, 0, Audio_Format, "AAC");
-    Fill(Stream_Audio, 0, Audio_Format_Version, id?"Version 2":"Version 4");
-    Fill(Stream_Audio, 0, Audio_Format_Profile, ADTS_Format_Profile[profile_ObjectType]);
-    if (!sbrPresentFlag && !psPresentFlag)
-        Fill(Stream_Audio, 0, Audio_Codec, ADTS_Profile[profile_ObjectType]);
-    Fill(Stream_Audio, 0, Audio_SamplingRate, ADTS_SamplingRate[sampling_frequency_index]*(sbrPresentFlag?2:1));
-    Fill(Stream_Audio, 0, Audio_Channel_s_, psPresentFlag?2:channel_configuration);
-    Fill(Stream_Audio, 0, Audio_MuxingMode, "ADTS");
-    if (adts_buffer_fullness==0x7FF)
-        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "VBR");
-    else
-    {
-        Fill(Stream_Audio, 0, Audio_BitRate_Mode, "CBR");
-        if (BitRate)
-            Fill(Stream_Audio, 0, Audio_BitRate, BitRate);
-    }
-    if (sbrPresentFlag)
-    {
-        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "SBR");
-        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_SBR, "Yes", Unlimited, true, true);
-        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, "No");
-        Ztring Codec=Ztring().From_Local(ADTS_Profile[profile_ObjectType])+_T("/SBR");
-        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true);
-    }
-    if (psPresentFlag)
-    {
-        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 2, 10, true);
-        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings, "PS");
-        Fill(Stream_Audio, StreamPos_Last, Audio_Format_Settings_PS, "Yes", Unlimited, true, true);
-        Ztring Codec=Ztring().From_Local(ADTS_Profile[profile_ObjectType])+(sbrPresentFlag?_T("/SBR"):_T(""))+_T("/PS");
-        Fill(Stream_Audio, StreamPos_Last, Audio_Codec, Codec, true);
-    }
-
-    //No more need data
-    File__Tags_Helper::Finish("ADTS");
 }
 
 } //NameSpace

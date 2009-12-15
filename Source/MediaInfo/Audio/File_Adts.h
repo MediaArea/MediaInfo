@@ -46,6 +46,7 @@ public :
 
 private :
     //Streams management
+    void Streams_Fill();
     void Streams_Finish()                                                       {File__Tags_Helper::Streams_Finish();}
 
     //Buffer - Synchro
@@ -55,7 +56,6 @@ private :
     //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
-    void Data_Parse_Fill();
 
     //Temp
     std::vector<int16u> aac_frame_lengths;
