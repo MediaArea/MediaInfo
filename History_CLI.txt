@@ -7,6 +7,31 @@ x Correction
 bug reports and feature request are here :
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.26, 2009-12-18
+--------------
++ MXF: support of external files parsing
++ MLP support
++ TrueHD: more details (channels, sampling rate...)
++ TrueHD: display of both core and TrueHD details
++ #2905950, MPEG-4: Cover extraction
++ ADTS: better bitrate estimation
++ #2910579, MPEG-4 Visual: data_partitioned and reversible_vlc display
++ #2910572, MPEG Video: BVOP presence display
++ Internet Media Type (aka MIME-Type) display (but hidden by default)
++ ADTS: Id3v2 support
+x #2897584, ID3v2: Crash with some malformed UTF-16 strings
+x MXF: Better handling of interlaced content (height and frame rate)
+x Homogenization of Video resolution (ie no more 24-bit resolution, but 8-bit)
+x MPEG-TS: less false-positive detection of encrypted streams
+x MXF: better management of complex files (with references)
+x MOV: better management of complex files (with references)
+x Digital Video: better management of DV50, more bitrate accuracy
+x Digital Video: better management of DV100 (Width, Height, BitRate)
+x Digital Video: Some Colorimetry (4:x:x) were wrong
+x FLV: some files were not detected
+x MPEG Audio, AAC, Vorbis: removal of irrelevant Resolution field
+x MPEG formats: some Profile renaming, for more coherency
+
 Version 0.7.25, 2009-11-13
 --------------
 + MediaInfo (customized) with HTTP input: User Agent setting

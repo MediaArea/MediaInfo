@@ -24,7 +24,12 @@ x Chinese (Traditional): some words were no more translated (regression)
 + ADTS: better bitrate estimation
 + #2910579, MPEG-4 Visual: data_partitioned and reversible_vlc display
 + #2910572, MPEG Video: BVOP presence display
++ Internet Media Type (aka MIME-Type) display (but hidden by default)
++ ADTS: Id3v2 support
 x #2897584, ID3v2: Crash with some malformed UTF-16 strings
+x MXF: Better handling of interlaced content (height and frame rate)
+x Homogenization of Video resolution (ie no more 24-bit resolution, but 8-bit)
+x MPEG-TS: less false-positive detection of encrypted streams
 x MXF: better management of complex files (with references)
 x MOV: better management of complex files (with references)
 x Digital Video: better management of DV50, more bitrate accuracy
