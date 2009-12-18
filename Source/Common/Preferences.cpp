@@ -532,6 +532,7 @@ int Preferences::ExplorerShell()
                 Reg->CloseKey();
 
                 //Test if old Media Info shell extension is known
+                /*
                 if (Player!="" && Reg->OpenKey(Player+_T("\\Shell\\Media Info\\Command"), false))
                 {
                     //Should not be here, deleting
@@ -540,6 +541,7 @@ int Preferences::ExplorerShell()
                     IsChanged=true;
                     Reg->CloseKey();
                 }
+                */
 
                 //Test if MediaInfo shell extension is known
                 if (Player!="" && Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), false))
@@ -611,6 +613,7 @@ int Preferences::ExplorerShell()
                     Player="Folder";
 
                 //Test if old Media Info shell extension is known
+                /*
                 if (Reg->OpenKey(Player+_T("\\Shell\\Media Info\\Command"), false))
                 {
                     //Should not be here, deleting
@@ -619,6 +622,7 @@ int Preferences::ExplorerShell()
                     IsChanged=true;
                     Reg->CloseKey();
                 }
+                */
 
                 //Test if MediaInfo shell extension is known
                 if (Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), false))
@@ -651,7 +655,7 @@ int Preferences::ExplorerShell()
                     if (ShellExtension)
                     {
                         //Create it
-                        Reg->DeleteKey(Player+"\\Shell\\Media Info"); //Delete the lod version if it exists
+                        //Reg->DeleteKey(Player+"\\Shell\\Media Info"); //Delete the lod version if it exists
                         Reg->OpenKey(Player+_T("\\Shell\\MediaInfo\\Command"), true);
                         AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
                         try {Reg->WriteString(_T(""), ShellExtensionToWtrite);} catch (...){}
