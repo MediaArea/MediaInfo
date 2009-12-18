@@ -43,7 +43,7 @@ xcopy ..\Project\*.vc MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.vcproj MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.ico MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.workspace MediaInfo_Source\Project\ /S
-xcopy ..\Project\*.cbp MediaInfo_Source\Project\ /S
+xcopy ..\Project\*.cbp MediaInfo_Source\Project\ /S /Y
 xcopy ..\Project\*.def MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.idl MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.rgs MediaInfo_Source\Project\ /S
