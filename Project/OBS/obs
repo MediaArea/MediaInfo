@@ -35,12 +35,12 @@ mv libmediainfo0-$devext$dash$libmediainfov-$2$9.$type \
 wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/libzen/libzen0$dash$libzenv-$3$9.$type \
  --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
 mv libzen0$dash$libzenv-$3$9.$type \
- download/binary/libzen0/$libzenv/libzen0$dash$libzenv-$destversion$9.$7.$type
+ download/binary/libzen0/$libzen/libzen0$dash$libzenv-$destversion$9.$7.$type
 
 wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/libzen/libzen0-$devext$dash$libzenv-$3$9.$type \
  --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
 mv libzen0-$devext$dash$libzenv-$3$9.$type \
- download/binary/libzen0/$libzenv/libzen0-$devext$dash$libzenv-$destversion$9.$7.$type
+ download/binary/libzen0/$libzen/libzen0-$devext$dash$libzenv-$destversion$9.$7.$type
 }
 
 #-----------------------------------------------------------------------
@@ -71,14 +71,14 @@ Download_Packages 1  1  1  x x x   Debian_4      i586   _i386
 Download_Packages 1  1  1  x x x   Debian_4      x86_64 _amd64
 Download_Packages 1  1  1  x x x   Debian_5      i586   _i386
 Download_Packages 1  1  1  x x x   Debian_5      x86_64 _amd64
-Download_Packages 1  1  1  x x x   Ubuntu_7.10   i586   _i386
-Download_Packages 1  1  1  x x x   Ubuntu_7.10   x86_64 _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_8.04   i586   _i386
 Download_Packages 1  1  1  x x x   Ubuntu_8.04   x86_64 _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_8.10   i586   _i386
 Download_Packages 1  1  1  x x x   Ubuntu_8.10   x86_64 _amd64
 Download_Packages 1  1  1  x x x   Ubuntu_9.04   i586   _i386
 Download_Packages 1  1  1  x x x   Ubuntu_9.04   x86_64 _amd64
+Download_Packages 1  1  1  x x x   Ubuntu_9.10   i586   _i386
+Download_Packages 1  1  1  x x x   Ubuntu_9.10   x86_64 _amd64
 
 type="rpm"
 devext="devel"
@@ -87,16 +87,22 @@ Download_Packages $1 $2 $3 x x x   CentOS_4        i586   .i386
 Download_Packages $1 $2 $3 x x x   CentOS_4        x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   CentOS_5        i586   .i386
 Download_Packages $1 $2 $3 x x x   CentOS_5        x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   Fedora_9        i586   .i386
+Download_Packages $1 $2 $3 x x x   Fedora_9        x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   Fedora_10       i586   .i386
 Download_Packages $1 $2 $3 x x x   Fedora_10       x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   Fedora_11       i586   .i386
 Download_Packages $1 $2 $3 x x x   Fedora_11       x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   Fedora_12       i586   .i386
+Download_Packages $1 $2 $3 x x x   Fedora_12       x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   Mandriva_2008   i586   .i586
 Download_Packages $1 $2 $3 x x x   Mandriva_2008   x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   Mandriva_2009   i586   .i586
 Download_Packages $1 $2 $3 x x x   Mandriva_2009   x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   Mandriva_2009.1 i586   .i586
 Download_Packages $1 $2 $3 x x x   Mandriva_2009.1 x86_64 .x86_64
+Download_Packages $1 $2 $3 x x x   Mandriva_2010   i586   .i586
+Download_Packages $1 $2 $3 x x x   Mandriva_2010   x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   RHEL_4          i586   .i386
 Download_Packages $1 $2 $3 x x x   RHEL_4          x86_64 .x86_64
 Download_Packages $1 $2 $3 x x x   RHEL_5          i586   .i386
@@ -110,9 +116,9 @@ Download_Packages $1 $2 $3 x x x   openSUSE_11.2   x86_64 .x86_64
 }
 
 
-mediainfov="0.7.25"
-libmediainfov="0.7.25"
+mediainfov="0.7.26"
+libmediainfov="0.7.26"
 libzenv="0.4.9"
 destversion="1"
 
-Download_Global 4.1 6.1 4.1
+Download_Global 2.1 14.1 4.1
