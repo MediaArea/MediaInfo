@@ -12,7 +12,7 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
-Version 0.7.26, 2009-
+Version 0.7.26, 2009-12-18
 --------------
 + Chinese (Traditional), English, French, Russian translations updated
 x Chinese (Traditional): some words were no more translated (regression)
