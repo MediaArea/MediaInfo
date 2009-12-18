@@ -42,6 +42,8 @@ xcopy ..\Project\*.dfm MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.cpp MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.bdsgroup MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.bdsproj MediaInfo_Lib_Source\Project\ /S
+xcopy ..\Project\*.groupproj MediaInfo_Source\Project\ /S /Y
+xcopy ..\Project\*.cbproj MediaInfo_Source\Project\ /S /Y
 xcopy ..\Project\*.dpr MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.pas MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.dof MediaInfo_Lib_Source\Project\ /S
@@ -57,7 +59,7 @@ xcopy ..\Project\*.vc MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.vcproj MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.ico MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.workspace MediaInfo_Lib_Source\Project\ /S
-xcopy ..\Project\*.cbp MediaInfo_Lib_Source\Project\ /S
+xcopy ..\Project\*.cbp MediaInfo_Lib_Source\Project\ /S /Y
 xcopy ..\Project\*.resx MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.rc MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\BCB\*.h MediaInfo_Lib_Source\Project\BCB\ /S
