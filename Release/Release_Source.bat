@@ -35,6 +35,8 @@ xcopy ..\Project\*.c MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.h MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.bdsgroup MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.bdsproj MediaInfo_Source\Project\ /S
+xcopy ..\Project\*.groupproj MediaInfo_Source\Project\ /S
+xcopy ..\Project\*.cbproj MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.dev MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.sln MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.vc MediaInfo_Source\Project\ /S
