@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.26, 2009-
+Version 0.7.26, 2009-12-18
 --------------
 + MXF: support of external files parsing
 + MLP support
@@ -17,7 +17,7 @@ Version 0.7.26, 2009-
 + ADTS: better bitrate estimation
 + #2910579, MPEG-4 Visual: data_partitioned and reversible_vlc display
 + #2910572, MPEG Video: BVOP presence display
-+ Internet Media Type (aka MIME-Type) display
++ Internet Media Type (aka MIME-Type) display (but hidden by default)
 + ADTS: Id3v2 support
 x #2897584, ID3v2: Crash with some malformed UTF-16 strings
 x MXF: Better handling of interlaced content (height and frame rate)

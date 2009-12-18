@@ -16,7 +16,7 @@ Format/Url;;;N NT;;;Link
 Format_Version;;;Y NT;;;Version of this format
 Format_Profile;;;Y NT;;;Profile of the Format
 Format_Settings;;;Y NT;;;Settings needed for decoder used
-InternetMediaType;;;Y YT;;;Internet Media Type (aka MIME Type, Content-Type)
+InternetMediaType;;;N YT;;;Internet Media Type (aka MIME Type, Content-Type)
 MuxingMode;;;Y NT;;;How this stream is muxed in the container
 MuxingMode_MoreInfo;;;Y NT;;;More info (text) about the muxing mode
 CodecID;;;Y YT;;;Codec ID (found in some containers)
