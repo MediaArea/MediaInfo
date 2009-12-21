@@ -31,6 +31,8 @@ Format_Settings_RefFrames;; frame;N YI;;;Settings needed for decoder used, detai
 Format_Settings_RefFrames/String;;;Y NT;;;Settings needed for decoder used, detailled
 Format_Settings_Pulldown;;;Y YT;;;Settings needed for decoder used, detailled
 Format_Settings_FrameMode;;;Y YT;;;Settings needed for decoder used, detailled
+Format_Settings_GOP;;;Y YT;;;Settings needed for decoder used, detailled (M=x N=y)
+Format_Settings_FrameStructures;;;Y YT;;;Settings needed for decoder used, detailled (Type of frame, and field/frame info)
 InternetMediaType;;;N YT;;;Internet Media Type (aka MIME Type, Content-Type)
 MuxingMode;;;Y NT;;;How this file is muxed in the container
 CodecID;;;Y YT;;;Codec ID (found in some containers)
@@ -124,8 +126,8 @@ Delay_Original_Settings;;;N NT;;;Delay settings (in case of timecode for example
 StreamSize;; byte;N YI;;;Stream size in bytes
 StreamSize/String;;;Y NT;;;Streamsize in with percentage value
 StreamSize/String1;;;N NT;;;Streamsize with measurement
-StreamSize/String2;;;N NT;;;Streamsize with measurement
-StreamSize/String3;;;N NT;;;Streamsize with measurement
+StreamSize/String2;;;N NT;;;Streamsize with measurement;;
+StreamSize/String3;;;N NT;;;Streamsize with measurement;;
 StreamSize/String4;;;N NT;;;Streamsize with measurement;;
 StreamSize/String5;;;N NT;;;Streamsize in with percentage value;;
 StreamSize_Proportion;;;N NT;;;Stream size divided by file size;;

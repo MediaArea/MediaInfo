@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.2, 20
+--------------
++ MPEG Audio: Emphasis
+
 Version 0.7.26, 2009-12-18
 --------------
 + MXF: support of external files parsing

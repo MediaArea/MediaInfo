@@ -21,6 +21,8 @@ Format_Settings_SBR/String;;;Y NT;;;
 Format_Settings_PS;;Yes;N YT;;;
 Format_Settings_PS/String;;;Y NT;;;
 Format_Settings_Mode;;;Y YT;;;
+Format_Settings_ModeExtension;;;Y YT;;;
+Format_Settings_Emphasis;;;Y YT;;;
 Format_Settings_Floor;;;Y YT;;;
 Format_Settings_Firm;;;Y YT;;;
 Format_Settings_Endianness;;;Y YT;;;
@@ -110,20 +112,20 @@ StreamSize/String5;;;N NT;;;Streamsize in with percentage value
 StreamSize_Proportion;;;N NT;;;Stream size divided by file size
 Alignment;;;N YT;;;How this stream file is aligned in the container
 Alignment/String;;;Y NT;;;Where this stream file is aligned in the container
-Interleave_VideoFrames;;;N YF;;;Between how many video frames the stream is inserted;;
-Interleave_Duration;;;N YI;;;Between how much time (ms) the stream is inserted;;
-Interleave_Duration/String;;;Y NT;;;Between how much time and video frames the stream is inserted (with measurement);;
-Interleave_Preload;;;N YI;;;How much time is buffered before the first video frame;;
-Interleave_Preload/String;;;Y NT;;;How much time is buffered before the first video frame (with measurement);;
-Title;;;Y YI;;;Name of the track;;
-Encoded_Library;;;N YT;;;Software used to create the file;;
-Encoded_Library/String;;;Y NT;;;Software used to create the file;;
-Encoded_Library/Name;;;N NT;;;Info from the software;;
-Encoded_Library/Version;;;N NT;;;Version of software;;
-Encoded_Library/Date;;;N NT;;;Release date of software;;
-Encoded_Library_Settings;;;Y YT;;;Parameters used by the software;;
-Language;;;N YT;;;Language (2-letter ISO 639-1 if exists, else 3-letter ISO 639-2, and with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn);;
-Language/String;;;Y NT;;;Language (full);;
+Interleave_VideoFrames;;;N YF;;;Between how many video frames the stream is inserted
+Interleave_Duration;;;N YI;;;Between how much time (ms) the stream is inserted
+Interleave_Duration/String;;;Y NT;;;Between how much time and video frames the stream is inserted (with measurement)
+Interleave_Preload;;;N YI;;;How much time is buffered before the first video frame
+Interleave_Preload/String;;;Y NT;;;How much time is buffered before the first video frame (with measurement)
+Title;;;Y YI;;;Name of the track
+Encoded_Library;;;N YT;;;Software used to create the file
+Encoded_Library/String;;;Y NT;;;Software used to create the file
+Encoded_Library/Name;;;N NT;;;Info from the software
+Encoded_Library/Version;;;N NT;;;Version of software
+Encoded_Library/Date;;;N NT;;;Release date of software
+Encoded_Library_Settings;;;Y YT;;;Parameters used by the software
+Language;;;N YT;;;Language (2-letter ISO 639-1 if exists, else 3-letter ISO 639-2, and with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn)
+Language/String;;;Y NT;;;Language (full)
 Language_More;;;Y YT;;;More info about Language (e.g. Director's Comment);;
 Encoded_Date;;;Y YT;;;UTC time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;UTC time that the tags were done for this item.;;Temporal
