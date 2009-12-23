@@ -224,7 +224,55 @@ void File_MpegTs::Streams_Fill()
                         Fill(Stream_Menu, StreamPos_Last, Info->first.c_str(), Info->second);
 
                     //Per PID
-                    Ztring Languages;
+                    Ztring Languages, Codecs, Formats, StreamKinds, StreamPoss;
+                    for (size_t Pos=0; Pos<Program->second.elementary_PIDs.size(); Pos++)
+                    {
+                        int16u elementary_PID=Program->second.elementary_PIDs[Pos];
+                        if (Complete_Stream->Streams[elementary_PID].IsRegistered && Retrieve(Stream_Menu, StreamPos_Last, "KLV_PID").To_int32u()!=elementary_PID)
+                        {
+                            Ztring Format=Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, Fill_Parameter(Complete_Stream->Streams[elementary_PID].StreamKind, Generic_Format));
+                            Formats+=Format+_T(" / ");
+                            Codecs+=Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, Fill_Parameter(Complete_Stream->Streams[elementary_PID].StreamKind, Generic_Codec))+_T(" / ");
+                            if (Complete_Stream->Streams[elementary_PID].StreamKind!=Stream_Max)
+                            {
+                                StreamKinds+=Ztring::ToZtring(Complete_Stream->Streams[elementary_PID].StreamKind);
+                                StreamPoss+=Ztring::ToZtring(Complete_Stream->Streams[elementary_PID].StreamPos);
+                            }
+                            StreamKinds+=_T(" / ");
+                            StreamPoss+=_T(" / ");
+                            Fill(Stream_Menu, StreamPos_Last, Menu_List, elementary_PID);
+                            Ztring Language=Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, "Language/String");
+                            Languages+=Language+_T(" / ");
+                            Ztring List_String=Decimal_Hexa(elementary_PID);
+                            List_String+=_T(" (");
+                            List_String+=Format;
+                            if (!Language.empty())
+                            {
+                                List_String+=_T(", ");
+                                List_String+=Language;
+                            }
+                            List_String+=_T(")");
+                            Fill(Stream_Menu, StreamPos_Last, Menu_List_String, List_String);
+                        }
+                    }
+                    if (!Formats.empty())
+                        Formats.resize(Formats.size()-3);
+                    Fill(Stream_Menu, StreamPos_Last, Menu_Format, Formats);
+                    if (!Codecs.empty())
+                        Codecs.resize(Codecs.size()-3);
+                    Fill(Stream_Menu, StreamPos_Last, Menu_Codec, Codecs);
+                    if (!StreamKinds.empty())
+                        StreamKinds.resize(StreamKinds.size()-3);
+                    Fill(Stream_Menu, StreamPos_Last, Menu_List_StreamKind, StreamKinds);
+                    if (!StreamPoss.empty())
+                        StreamPoss.resize(StreamPoss.size()-3);
+                    Fill(Stream_Menu, StreamPos_Last, Menu_List_StreamPos, StreamPoss);
+                    if (!Languages.empty())
+                        Languages.resize(Languages.size()-3);
+                    Fill(Stream_Menu, StreamPos_Last, Menu_Language, Languages);
+
+                    /*
+                    Ztring Languages, StreamKinds, StreamPoss;
                     for (size_t Pos=0; Pos<Program->second.elementary_PIDs.size(); Pos++)
                     {
                         int16u elementary_PID=Program->second.elementary_PIDs[Pos];
@@ -233,8 +281,13 @@ void File_MpegTs::Streams_Fill()
                             Ztring Format=Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, Fill_Parameter(Complete_Stream->Streams[elementary_PID].StreamKind, Generic_Format));
                             Fill(Stream_Menu, StreamPos_Last, Menu_Format, Format);
                             Fill(Stream_Menu, StreamPos_Last, Menu_Codec, Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, Fill_Parameter(Complete_Stream->Streams[elementary_PID].StreamKind, Generic_Codec)));
-                            Fill(Stream_Menu, StreamPos_Last, Menu_List_StreamKind, Complete_Stream->Streams[elementary_PID].StreamKind);
-                            Fill(Stream_Menu, StreamPos_Last, Menu_List_StreamPos, Complete_Stream->Streams[elementary_PID].StreamPos);
+                            if (Complete_Stream->Streams[elementary_PID].StreamKind!=Stream_Max)
+                            {
+                                StreamKinds+=Ztring::ToZtring(Complete_Stream->Streams[elementary_PID].StreamKind);
+                                StreamPoss+=Ztring::ToZtring(Complete_Stream->Streams[elementary_PID].StreamPos);
+                            }
+                            StreamKinds+=_T(" / ");
+                            StreamPoss+=_T(" / ");
                             Fill(Stream_Menu, StreamPos_Last, Menu_List, elementary_PID);
                             Ztring Language=Retrieve(Complete_Stream->Streams[elementary_PID].StreamKind, Complete_Stream->Streams[elementary_PID].StreamPos, "Language/String");
                             Languages+=Language+_T(" / ");
@@ -253,6 +306,13 @@ void File_MpegTs::Streams_Fill()
                     if (!Languages.empty())
                         Languages.resize(Languages.size()-3);
                     Fill(Stream_Menu, StreamPos_Last, Menu_Language, Languages);
+                    if (!StreamKinds.empty())
+                        StreamKinds.resize(StreamKinds.size()-3);
+                    Fill(Stream_Menu, StreamPos_Last, Menu_List_StreamKind, StreamKinds);
+                    if (!StreamPoss.empty())
+                        StreamPoss.resize(StreamPoss.size()-3);
+                    Fill(Stream_Menu, StreamPos_Last, Menu_List_StreamPos, StreamPoss);
+                    */
                 }
             }
     }

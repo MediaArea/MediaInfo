@@ -33,6 +33,8 @@
 #include "MediaInfo/MediaInfo_Internal.h"
 #include "MediaInfo/MediaInfo_Config.h"
 #include "MediaInfo/File__Analyze.h"
+#include "MediaInfo/Export/Export_Mpeg7.h"
+#include "MediaInfo/Export/Export_PBCore.h"
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -55,9 +57,16 @@ Ztring MediaInfo_Internal::Inform()
     CS.Leave();
 
     #ifndef MEDIAINFO_MINIMIZESIZE
-        if (MediaInfoLib::Config.Details_Get())
+        if (MediaInfoLib::Config.Details_Get() || MediaInfoLib::Config.Inform_Get()==_T("Details"))
             return Details;
     #endif //MEDIAINFO_MINIMIZESIZE
+
+    //if (MediaInfoLib::Config.Inform_Get()==_T("MPEG-7"))
+    if (MediaInfoLib::Config.Inform_Get()!=_T("HTML"))
+        return Export_Mpeg7().Transform(*this);
+    //if (MediaInfoLib::Config.Inform_Get()==_T("PBCore") || MediaInfoLib::Config.Inform_Get()==_T("PBCore_1.2"))
+    //if (MediaInfoLib::Config.Inform_Get()!=_T("HTML"))
+    //    return Export_PBCore().Transform(*this);
 
     if (!(
         MediaInfoLib::Config.Inform_Get(_T("General")).empty()

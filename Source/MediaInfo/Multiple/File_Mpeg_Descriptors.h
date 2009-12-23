@@ -229,7 +229,7 @@ struct complete_stream
         {
             Parser=NULL;
             StreamKind=Stream_Max;
-            StreamPos=0;
+            StreamPos=(size_t)-1;
             Kind=unknown;
             IsPCR=false;
             #ifdef MEDIAINFO_MPEGTS_PCR_YES

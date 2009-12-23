@@ -988,7 +988,6 @@ void File_Mpeg_Psi::Table_00()
         Complete_Stream->Streams[0x0000].Table_IDs[0x00]->Table_ID_Extensions.erase(Table_ID_Extension_List[Pos]);
 
     //Parsing
-    bool HasMultiplePrograms=Element_Offset+4==Element_Size;
     while (Element_Offset<Element_Size)
     {
         Element_Begin(4);
@@ -1032,13 +1031,6 @@ void File_Mpeg_Psi::Table_00()
                         Complete_Stream->Streams[elementary_PID].Table_IDs[0x02]->Table_ID_Extensions[program_number].version_number=0xFF;
                         Complete_Stream->Streams[elementary_PID].Table_IDs[0x02]->Table_ID_Extensions[program_number].Section_Numbers.clear();
                         Complete_Stream->Streams[elementary_PID].Table_IDs[0x02]->Table_ID_Extensions[program_number].Section_Numbers.resize(0x100);
-                    }
-
-                    //Menus
-                    if (HasMultiplePrograms || Config->File_MpegTs_ForceMenu_Get())
-                    {
-                        Stream_Prepare(Stream_Menu);
-                        Complete_Stream->Transport_Streams[table_id_extension].Programs[program_number].StreamPos=StreamPos_Last;
                     }
                 }
 
