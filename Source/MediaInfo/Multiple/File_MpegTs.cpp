@@ -1125,14 +1125,14 @@ void File_MpegTs::Header_Parse_AdaptationField_Duration_Update()
         if (Complete_Stream->Streams[pid].Kind==complete_stream::stream::pes)
         {
             if (Duration!=0 && Duration!=(int64u)-1)
-                Fill(Complete_Stream->Streams[pid].StreamKind, Complete_Stream->Streams[pid].StreamPos, Fill_Parameter(Complete_Stream->Streams[pid].StreamKind, Generic_Duration), Duration/90, 10, true);
+                Fill(Complete_Stream->Streams[pid].StreamKind, Complete_Stream->Streams[pid].StreamPos, Fill_Parameter(Complete_Stream->Streams[pid].StreamKind, Generic_Duration), ((float64)Duration)/90, 3, true);
             else
                 Clear(Complete_Stream->Streams[pid].StreamKind, Complete_Stream->Streams[pid].StreamPos, Fill_Parameter(Complete_Stream->Streams[pid].StreamKind, Generic_Duration));
         }
         if (Complete_Stream->Streams[pid].IsPCR)
         {
             if (Duration!=0 && Duration!=(int64u)-1)
-                Fill(Stream_General, 0, General_Duration, Duration/90, 10, true);
+                Fill(Stream_General, 0, General_Duration, ((float64)Duration)/90, 3, true);
             else
                 Clear(Stream_General, 0, General_Duration);
         }
