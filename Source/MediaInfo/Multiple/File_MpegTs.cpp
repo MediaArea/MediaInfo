@@ -209,8 +209,13 @@ void File_MpegTs::Streams_Fill()
             {
                 if (Program->second.IsParsed)
                 {
-                    Stream_Prepare(Stream_Menu);
-                    Program->second.StreamPos=StreamPos_Last;
+                    if (Program->second.StreamPos==(size_t)-1)
+                    {
+                        Stream_Prepare(Stream_Menu);
+                        Program->second.StreamPos=StreamPos_Last;
+                    }
+                    else
+                        StreamPos_Last=Program->second.StreamPos;
                     Fill(Stream_Menu, StreamPos_Last, Menu_ID, Program->second.pid);
                     Fill(Stream_Menu, StreamPos_Last, Menu_ID_String, Decimal_Hexa(Program->second.pid), true);
                     Fill(Stream_Menu, StreamPos_Last, Menu_MenuID, Program->first);
