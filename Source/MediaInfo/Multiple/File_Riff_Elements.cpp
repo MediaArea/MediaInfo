@@ -1238,6 +1238,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds_Vorbis()
         //Finalizing
         Finish(&MI);
         Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+        Clear(Stream_Audio, StreamPos_Last, Audio_Resolution); //Resolution is not valid for Vorbis
         Element_Show();
     #else //MEDIAINFO_MPEG4_YES
         Skip_XX(Element_Size-Element_Offset,                    "(Vorbis headers)");

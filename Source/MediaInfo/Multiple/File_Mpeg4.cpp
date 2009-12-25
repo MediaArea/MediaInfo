@@ -238,6 +238,13 @@ void File_Mpeg4::Streams_Finish()
                     Clear(Stream_Menu, StreamPos_Last, "StreamSize");
                 }
 
+                //Special case: AAC
+                if (StreamKind_Last==Stream_Audio
+                 && (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC")
+                  || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("MPEG Audio")
+                  || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("Vorbis")))
+                    Clear(Stream_Audio, StreamPos_Last, Audio_Resolution); //Resolution is not valid for AAC / MPEG Audio / Vorbis
+
                 //Special case: DV with Audio or/and Text in the video stream
                 if (StreamKind_Last==Stream_Video && Temp->second.Parser && (Temp->second.Parser->Count_Get(Stream_Audio) || Temp->second.Parser->Count_Get(Stream_Text)))
                 {
@@ -611,6 +618,13 @@ void File_Mpeg4::Descriptors()
     //Filling
     Finish(&MI);
     Merge(MI, StreamKind_Last, 0, StreamPos_Last);
+
+    //Special case: AAC
+    if (StreamKind_Last==Stream_Audio
+     && (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC")
+      || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("MPEG Audio")
+      || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("Vorbis")))
+        Clear(Stream_Audio, StreamPos_Last, Audio_Resolution); //Resolution is not valid for AAC / MPEG Audio / Vorbis
 
     //Parser from Descriptor
     if (MI.Parser)

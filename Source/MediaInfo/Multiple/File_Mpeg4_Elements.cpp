@@ -2815,7 +2815,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
         }
 
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels, 10, true);
-        if (SampleSize!=0 && Retrieve(Stream_Audio, StreamPos_Last, Audio_Resolution).empty())
+        if (SampleSize!=0 && Element_Code!=0x6D703461 && (Element_Code&0xFFFF0000)!=0x6D730000 && Retrieve(Stream_Audio, StreamPos_Last, Audio_Resolution).empty()) //if not mp4a, and not ms*
             Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, SampleSize, 10, true);
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SampleRate);
 
@@ -3360,6 +3360,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_xxxx()
              if (0);
         else Skip_XX(Option_Size,                               "Unknown");
     }
+
+    //Creating the parser
+         if (0);
 }
 
 //---------------------------------------------------------------------------

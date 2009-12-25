@@ -404,6 +404,12 @@ void File_Flv::Streams_Finish()
     {
         Finish(Stream[Stream_Audio].Parser);
         Merge(*Stream[Stream_Audio].Parser, Stream_Audio, 0, 0);
+
+        //Special case: AAC
+        if (Retrieve(Stream_Audio, 0, Audio_Format)==_T("AAC")
+         || Retrieve(Stream_Audio, 0, Audio_Format)==_T("MPEG Audio")
+         || Retrieve(Stream_Audio, 0, Audio_Format)==_T("Vorbis"))
+            Clear(Stream_Audio, 0, Audio_Resolution); //Resolution is not valid for AAC / MPEG Audio / Vorbis
     }
 
     //Delay

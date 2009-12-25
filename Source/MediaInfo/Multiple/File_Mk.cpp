@@ -52,6 +52,9 @@
 #if defined(MEDIAINFO_MPEGV_YES)
     #include "MediaInfo/Video/File_Mpegv.h"
 #endif
+#if defined(MEDIAINFO_ADTS_YES)
+    #include "MediaInfo/Audio/File_Adts.h"
+#endif
 #if defined(MEDIAINFO_AC3_YES)
     #include "MediaInfo/Audio/File_Ac3.h"
 #endif
@@ -154,17 +157,21 @@ void File_Mk::Streams_Finish()
             Ztring Duration_Temp, Codec_Temp;
             StreamKind_Last=Temp->second.StreamKind;
             StreamPos_Last=Temp->second.StreamPos;
+            Duration_Temp=Retrieve(StreamKind_Last, Temp->second.StreamPos, Fill_Parameter(StreamKind_Last, Generic_Duration)); //Duration from stream is sometimes false
+            Codec_Temp=Retrieve(StreamKind_Last, Temp->second.StreamPos, Fill_Parameter(StreamKind_Last, Generic_Codec)); //We want to keep the 4CC
 
-            if (Temp->second.StreamKind==Stream_Video)
-            {
-                Duration_Temp=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Duration); //Duration from stream is sometimes false
-                Codec_Temp=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Codec); //We want to keep the 4CC
-            }
             Finish(Temp->second.Parser);
             Merge(*Temp->second.Parser, Temp->second.StreamKind, 0, Temp->second.StreamPos);
-            Fill(Stream_Video, StreamPos_Last, Video_Duration, Duration_Temp, true);
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), Duration_Temp, true);
             if (Temp->second.StreamKind==Stream_Video && !Codec_Temp.empty())
-                Fill(Stream_Video, StreamPos_Last, Video_Codec, Codec_Temp, true);
+                Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), Codec_Temp, true);
+
+            //Special case: AAC
+            if (StreamKind_Last==Stream_Audio
+             && (Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("AAC")
+              || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("MPEG Audio")
+              || Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==_T("Vorbis")))
+                Clear(Stream_Audio, StreamPos_Last, Audio_Resolution); //Resolution is not valid for AAC / MPEG Audio / Vorbis
 
             //Video specific
             if (StreamKind_Last==Stream_Video)
@@ -473,6 +480,9 @@ namespace Elements
 //---------------------------------------------------------------------------
 void File_Mk::Data_Parse()
 {
+    if (File_Offset+Buffer_Offset>=0x3FDD8)
+        int A=0;
+
     #define LIS2(_ATOM, _NAME) \
         case Elements::_ATOM : \
                 if (Level==Element_Level) \
@@ -1367,6 +1377,10 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
                 if (Stream[TrackNumber].ContentCompAlgo!=(int32u)-1 && Stream[TrackNumber].ContentCompAlgo!=3)
                     Stream[TrackNumber].Searching_Payload=false; //Unsupported
 
+                //Integrity test
+                if (Element_Offset+Laces[Pos]>Element_Size)
+                    Stream[TrackNumber].Searching_Payload=false; //There is a problem
+
                 if (Stream[TrackNumber].Searching_Payload)
                 {
                     //Content compression
@@ -2130,7 +2144,8 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_auds()
         Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels!=5?Channels:6, 10, true);
         Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, SamplesPerSec, 10, true);
         Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, AvgBytesPerSec*8, 10, true);
-        if (BitsPerSample) Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, BitsPerSample);
+        if (BitsPerSample)
+            Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, BitsPerSample);
 
         CodecID_Manage();
         if (TrackNumber!=(int64u)-1)
@@ -2897,6 +2912,12 @@ void File_Mk::CodecID_Manage()
     {
         Stream[TrackNumber].Parser=new File_Aac;
         ((File_Aac*)Stream[TrackNumber].Parser)->Codec=CodecID;
+    }
+    #endif
+    #if defined(MEDIAINFO_ADTS_YES)
+    else if (Format==(_T("AAC")))
+    {
+        Stream[TrackNumber].Parser=new File_Adts;
     }
     #endif
     #if defined(MEDIAINFO_MPEGA_YES)

@@ -10,6 +10,8 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.2, 20
 --------------
 + MPEG Audio: Emphasis
+x MPEG Audio, AAC, Vorbis: removal of irrelevant Resolution field even from containers
+x MPEG Video: error in calculation of frame rate if sequence extension is used
 
 Version 0.7.26, 2009-12-18
 --------------

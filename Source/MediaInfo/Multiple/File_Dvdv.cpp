@@ -671,7 +671,7 @@ void File_Dvdv::Audio()
             Fill(Stream_Audio, StreamPos_Last, Audio_Codec, IFO_CodecA[Codec]);
             Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, IFO_SamplingRate[SamplingRate]);
             Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, Channels+1);
-            if (Codec==2 || Codec==3)
+            if (Codec==3)
                 Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, IFO_ResolutionA[Resolution]);
             else if (Codec==4 && Mode)
                 Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, "DRC");
