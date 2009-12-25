@@ -356,18 +356,15 @@ void File_Mpegv::Streams_Fill()
     }
 
     //FrameRate
-    if (frame_rate_extension_d!=0)
-        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)frame_rate_extension_n/frame_rate_extension_d);
-    else
-        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, Mpegv_frame_rate[frame_rate_code]);
+    Fill(Stream_Video, StreamPos_Last, Video_FrameRate, (float)(Mpegv_frame_rate[frame_rate_code] * (frame_rate_extension_n + 1)) / (float)(frame_rate_extension_d + 1));
 
     //BitRate
     if (vbv_delay==0xFFFF || (MPEG_Version==1 && bit_rate_value==0x3FFFF))
         Fill(Stream_Video, 0, Video_BitRate_Mode, "VBR");
     else if ((MPEG_Version==1 && bit_rate_value!=0x3FFFF) || MPEG_Version==2)
         Fill(Stream_Video, 0, Video_BitRate_Mode, "CBR");
-    if (bit_rate_value_IsValid && bit_rate_value!=0x3FFFF)
-        Fill(Stream_Video, 0, Video_BitRate_Nominal, bit_rate_value*400);
+    if (bit_rate_value_IsValid && (bit_rate_extension>0 || bit_rate_value!=0x3FFFF))
+        Fill(Stream_Video, 0, Video_BitRate_Nominal, ((((int32u)bit_rate_extension<<12))+bit_rate_value)*400);
 
     //Interlacement
     if (MPEG_Version==1)
