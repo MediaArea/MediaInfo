@@ -35,8 +35,8 @@ $Info_Get=DllCall($DLL, "wstr", "MediaInfo_Get", "ptr", $Handle[0], "int", 0, "i
 MsgBox(0, "Get with Stream=General and Parameter=FileSize", $Info_Get[0])
 
 ;GetI with Stream=General and Parameter=46
-$Info_GetI=DllCall($DLL, "wstr", "MediaInfo_GetI", "ptr", $Handle[0], "int", 0, "int", 0, "int", 46, "int", 1, "int", 0)
-MsgBox(0, "Get with Stream=General and Parameter=46", $Info_GetI[0])
+;$Info_GetI=DllCall($DLL, "wstr", "MediaInfo_GetI", "ptr", $Handle[0], "int", 0, "int", 0, "int", 46, "int", 1, "int", 0)
+;MsgBox(0, "Get with Stream=General and Parameter=46", $Info_GetI[0])
 
 ;Count_Get with StreamKind=Stream_Audio
 $Count_Get=DllCall($DLL, "int", "MediaInfo_Count_Get", "ptr", $Handle[0], "int", 2, "int", 0)
