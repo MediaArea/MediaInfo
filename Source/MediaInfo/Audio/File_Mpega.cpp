@@ -305,7 +305,7 @@ File_Mpega::File_Mpega()
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
 
     //In
-    Frame_Count_Valid=32;
+    Frame_Count_Valid=128;
     FrameIsAlwaysComplete=false;
 
     //Temp - BitStream info
@@ -353,6 +353,25 @@ void File_Mpega::Streams_Fill()
             BitRate_Mode=_T("VBR");
     }
 
+    File__Tags_Helper::Stream_Prepare(Stream_Audio);
+    Fill(Stream_Audio, 0, Audio_Format, "MPEG Audio");
+    Fill(Stream_Audio, 0, Audio_Format_Version, Mpega_Format_Profile_Version[ID]);
+    Fill(Stream_Audio, 0, Audio_Format_Profile, Mpega_Format_Profile_Layer[layer]);
+    if (mode)
+        Fill(Stream_Audio, 0, Audio_Format_Settings, Mpega_Codec_Profile[mode]);
+    Fill(Stream_Audio, 0, Audio_Format_Settings_Mode, Mpega_Codec_Profile[mode]);
+    if (mode_extension)
+        Fill(Stream_Audio, 0, Audio_Format_Settings, Mpega_Codec_Profile_Extension[mode_extension]);
+    Fill(Stream_Audio, 0, Audio_Format_Settings_ModeExtension, Mpega_Codec_Profile_Extension[mode_extension]);
+    if (emphasis)
+        Fill(Stream_Audio, 0, Audio_Format_Settings, Mpega_Emphasis[emphasis]);
+    Fill(Stream_Audio, 0, Audio_Format_Settings_Emphasis, Mpega_Emphasis[emphasis]);
+    Fill(Stream_Audio, 0, Audio_Codec, Ztring(Mpega_Version[ID])+Ztring(Mpega_Layer[layer]));
+    Fill(Stream_Audio, 0, Audio_Codec_String, Ztring(Mpega_Version_String[ID])+Ztring(Mpega_Layer_String[layer]), true);
+    Fill(Stream_Audio, 0, Audio_SamplingRate, Mpega_SamplingRate[ID][sampling_frequency]);
+    Fill(Stream_Audio, 0, Audio_Channel_s_, Mpega_Channels[mode]);
+    Fill(Stream_Audio, 0, Audio_Codec_Profile, Mpega_Codec_Profile[mode]);
+
     //Bitrate, if CBR
     if (VBR_Frames==0 && BitRate_Mode!=_T("VBR"))
     {
@@ -369,6 +388,7 @@ void File_Mpega::Streams_Fill()
     Fill(Stream_Audio, 0, Audio_BitRate_Minimum, BitRate_Minimum);
     Fill(Stream_Audio, 0, Audio_BitRate_Nominal, BitRate_Nominal);
 
+    //Tags
     File__Tags_Helper::Streams_Fill();
 }
 
@@ -870,8 +890,16 @@ void File_Mpega::Data_Parse()
         LastSync_Offset=File_Offset+Buffer_Offset+Element_Size;
         if (IsSub && BitRate_Count.size()>1 && !Encoded_Library.empty())
             Frame_Count_Valid=Frame_Count_Consecutive;
+        if (!Status[IsAccepted] && Frame_Count_Consecutive>=Frame_Count_Valid/4)
+            File__Tags_Helper::Accept("MPEG Audio");
         if (!Status[IsFilled] && Frame_Count_Consecutive>=Frame_Count_Valid)
-            Data_Parse_Fill();
+        {
+            Fill("MPEG Audio");
+
+            //Jumping
+            File__Tags_Helper::GoToFromEnd(16*1024, "MPEG-A");
+            LastSync_Offset=(int64u)-1;
+        }
 
         //Detect Id3v1 tags inside a frame
         if (!IsSub && File_Offset+Buffer_Offset+(size_t)Element_Size>File_Size-File_EndTagSize)
@@ -882,39 +910,6 @@ void File_Mpega::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Mpega::Data_Parse_Fill()
 {
-    //Testing errors
-    if (sampling_frequency_Count.size()>1 || mode_Count.size()>1)
-    {
-        //Finished();
-        //return; //More than one sampling_frequency of mode, not normal
-    }
-
-    //Filling
-    File__Tags_Helper::Accept("MPEG Audio");
-
-    File__Tags_Helper::Stream_Prepare(Stream_Audio);
-    Fill(Stream_Audio, 0, Audio_Format, "MPEG Audio");
-    Fill(Stream_Audio, 0, Audio_Format_Version, Mpega_Format_Profile_Version[ID]);
-    Fill(Stream_Audio, 0, Audio_Format_Profile, Mpega_Format_Profile_Layer[layer]);
-    if (mode)
-        Fill(Stream_Audio, 0, Audio_Format_Settings, Mpega_Codec_Profile[mode]);
-    Fill(Stream_Audio, 0, Audio_Format_Settings_Mode, Mpega_Codec_Profile[mode]);
-    if (mode_extension)
-        Fill(Stream_Audio, 0, Audio_Format_Settings, Mpega_Codec_Profile_Extension[mode_extension]);
-    Fill(Stream_Audio, 0, Audio_Format_Settings_ModeExtension, Mpega_Codec_Profile_Extension[mode_extension]);
-    if (emphasis)
-        Fill(Stream_Audio, 0, Audio_Format_Settings, Mpega_Emphasis[emphasis]);
-    Fill(Stream_Audio, 0, Audio_Format_Settings_Emphasis, Mpega_Emphasis[emphasis]);
-    Fill(Stream_Audio, 0, Audio_Codec, Ztring(Mpega_Version[ID])+Ztring(Mpega_Layer[layer]));
-    Fill(Stream_Audio, 0, Audio_Codec_String, Ztring(Mpega_Version_String[ID])+Ztring(Mpega_Layer_String[layer]), true);
-    Fill(Stream_Audio, 0, Audio_SamplingRate, Mpega_SamplingRate[ID][sampling_frequency]);
-    Fill(Stream_Audio, 0, Audio_Channel_s_, Mpega_Channels[mode]);
-    Fill(Stream_Audio, 0, Audio_Codec_Profile, Mpega_Codec_Profile[mode]);
-
-    //Jumping
-    Fill("MPEG Audio");
-    File__Tags_Helper::GoToFromEnd(16*1024, "MPEG-A");
-    LastSync_Offset=(int64u)-1;
 }
 
 //---------------------------------------------------------------------------
