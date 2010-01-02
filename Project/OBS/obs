@@ -13,32 +13,32 @@ Download_Packages()
 #-----------------------------------------------------------------------
 # Downloading
 wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/mediainfo/mediainfo$dash$mediainfov-$1$9.$type \
- --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
+ --no-check-certificate --http-user=Zenitram7573 --http-passwd=xxx
 mv mediainfo$dash$mediainfov-$1$9.$type \
  download/binary/mediainfo/$mediainfov/mediainfo$dash$mediainfov-$destversion$9.$7.$type
 
 wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/mediainfo/mediainfo-gui$dash$mediainfov-$1$9.$type \
- --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
+ --no-check-certificate --http-user=Zenitram7573 --http-passwd=xxx
 mv mediainfo-gui$dash$mediainfov-$1$9.$type \
  download/binary/mediainfo-gui/$mediainfov/mediainfo-gui$dash$mediainfov-$destversion$9.$7.$type
 
 wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/libmediainfo/libmediainfo0$dash$libmediainfov-$2$9.$type \
- --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
+ --no-check-certificate --http-user=Zenitram7573 --http-passwd=xxx
 mv libmediainfo0$dash$libmediainfov-$2$9.$type \
  download/binary/libmediainfo0/$libmediainfov/libmediainfo0$dash$libmediainfov-$destversion$9.$7.$type
 
 wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/libmediainfo/libmediainfo0-$devext$dash$libmediainfov-$2$9.$type \
- --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
+ --no-check-certificate --http-user=Zenitram7573 --http-passwd=xxx
 mv libmediainfo0-$devext$dash$libmediainfov-$2$9.$type \
  download/binary/libmediainfo0/$libmediainfov/libmediainfo0-$devext$dash$libmediainfov-$destversion$9.$7.$type
 
 wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/libzen/libzen0$dash$libzenv-$3$9.$type \
- --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
+ --no-check-certificate --http-user=Zenitram7573 --http-passwd=xxx
 mv libzen0$dash$libzenv-$3$9.$type \
  download/binary/libzen0/$libzen/libzen0$dash$libzenv-$destversion$9.$7.$type
 
 wget https://api.opensuse.org/build/home:Zenitram7573/$7/$8/libzen/libzen0-$devext$dash$libzenv-$3$9.$type \
- --no-check-certificate --http-user=Zenitram7573 --http-passwd=Zen@1tram
+ --no-check-certificate --http-user=Zenitram7573 --http-passwd=xxx
 mv libzen0-$devext$dash$libzenv-$3$9.$type \
  download/binary/libzen0/$libzen/libzen0-$devext$dash$libzenv-$destversion$9.$7.$type
 }
