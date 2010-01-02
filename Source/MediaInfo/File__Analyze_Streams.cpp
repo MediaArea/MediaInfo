@@ -1408,8 +1408,6 @@ void File__Analyze::Duration_Duration123(stream_t StreamKind, size_t StreamPos, 
         Negative=true;
         MS=-MS;
     }
-    if (MS==0)
-        return;
 
     //Hours
     HH=MS/1000/60/60; //h
