@@ -81,7 +81,11 @@ cp Source/Doc/*.html ./
 pushd Project/GNU/Library
 	%__chmod +x autogen
 	./autogen
-	%configure --enable-shared --disable-libcurl --disable-libmms
+	%configure --enable-shared --disable-libcurl --disable-libmms \
+%if ( 0%{?centos_version} && 0%{?centos_version} < 500 ) || ( 0%{?rhel_version} && 0%{?rhel_version} < 500 )  
+%else
+        --enable-visibility
+%endif
 
 	%__make clean
 	%__make %{?jobs:-j%{jobs}}
@@ -93,11 +97,18 @@ pushd Project/GNU/Library/
 popd
 
 # MediaInfoDLL headers and MediaInfo-config
-for i in MediaInfo MediaInfoDLL; do
-	%__install -dm 755 %{buildroot}%{_includedir}/$i
-	%__install -m 644 Source/$i/*.h \
-		%{buildroot}%{_includedir}/$i
-done
+%__install -dm 755 %{buildroot}%{_includedir}/MediaInfo
+%__install -m 644 Source/MediaInfo/MediaInfo.h %{buildroot}%{_includedir}/MediaInfo
+%__install -m 644 Source/MediaInfo/MediaInfoList.h %{buildroot}%{_includedir}/MediaInfo
+%__install -m 644 Source/MediaInfo/MediaInfo_Const.h %{buildroot}%{_includedir}/MediaInfo
+%__install -dm 755 %{buildroot}%{_includedir}/MediaInfoDLL
+%__install -m 644 Source/MediaInfoDLL/MediaInfoDLL.cs %{buildroot}%{_includedir}/MediaInfoDLL
+%__install -m 644 Source/MediaInfoDLL/MediaInfoDLL.h %{buildroot}%{_includedir}/MediaInfoDLL
+%__install -m 644 Source/MediaInfoDLL/MediaInfoDLL_Static.h %{buildroot}%{_includedir}/MediaInfoDLL
+%__install -m 644 Source/MediaInfoDLL/MediaInfoDLL.JNA.java %{buildroot}%{_includedir}/MediaInfoDLL
+%__install -m 644 Source/MediaInfoDLL/MediaInfoDLL.JNative.java %{buildroot}%{_includedir}/MediaInfoDLL
+%__install -m 644 Source/MediaInfoDLL/MediaInfoDLL.py %{buildroot}%{_includedir}/MediaInfoDLL
+%__install -m 644 Source/MediaInfoDLL/MediaInfoDLL3.py %{buildroot}%{_includedir}/MediaInfoDLL
 
 %__sed -i -e 's|Version: |Version: %{version}|g' \
 	Project/GNU/Library/libmediainfo.pc
@@ -119,7 +130,7 @@ done
 
 %files -n libmediainfo0-devel
 %defattr(-,root,root,-)
-%doc Changes.txt Documentation.html Doc/* Source/Example/HowToUse*
+%doc Changes.txt Documentation.html Doc Source/Example
 %dir %{_includedir}/MediaInfo
 %{_includedir}/MediaInfo/*
 %dir %{_includedir}/MediaInfoDLL

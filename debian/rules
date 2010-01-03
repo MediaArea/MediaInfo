@@ -22,7 +22,7 @@ configure-stamp:
 	cp Source/Doc/*.html ./
 	cd Project/GNU/Library && chmod u+x autogen
 	cd Project/GNU/Library && ./autogen
-	cd Project/GNU/Library && ./configure --enable-shared --prefix=/usr --disable-libcurl --disable-libmms
+	cd Project/GNU/Library && ./configure --enable-shared --prefix=/usr --enable-visibility --disable-libcurl --disable-libmms
 
 	touch $@
 
@@ -61,6 +61,7 @@ install: build
 	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.cs $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
 	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.def $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
 	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.h $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
+	install -m 644 Source/MediaInfoDLL/MediaInfoDLL_Static.h $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
 	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.JNA.java $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
 	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.JNative.java $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
 	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.py $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
@@ -81,7 +82,8 @@ install: build
 	install -m 644 Doc/*.* $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev/Doc
 	if test -d Doc/search/ ; then install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev/Doc/search ; fi
 	if test -d Doc/search/ ; then install -m 644 Doc/search/*.* $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev/Doc/search ; fi
-	install -m 644 Source/Example/HowToUse* $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev
+	install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev/Examples
+	install -m 644 Source/Example/HowToUse* $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0-dev/Examples
 
 
 # Build architecture-independent files here.

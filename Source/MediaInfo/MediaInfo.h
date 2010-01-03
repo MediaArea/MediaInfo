@@ -31,6 +31,27 @@
 #include "MediaInfo/MediaInfo_Const.h"
 //---------------------------------------------------------------------------
 
+//---------------------------------------------------------------------------
+#undef MEDIAINFO_EXP
+#if defined(_WIN32) && !defined(__MINGW32__) //MinGW32 does not support _declspec
+    #ifdef MEDIAINFO_DLL_EXPORT
+        #define MEDIAINFO_EXP
+    #else
+        #define MEDIAINFO_EXP
+    #endif
+#else //defined(_WIN32) && !defined(__MINGW32__)
+    #if __GNUC__ >= 4
+        #define MEDIAINFO_EXP __attribute__ ((visibility("default")))
+    #else
+        #define MEDIAINFO_EXP
+    #endif
+#endif //defined(_WIN32) && !defined(__MINGW32__)
+
+#if !defined(__WINDOWS__)
+    #define __stdcall //Supported only on windows
+#endif //!defined(_WIN32)
+//---------------------------------------------------------------------------
+
 namespace MediaInfoLib
 {
 
@@ -42,7 +63,7 @@ class Internet__Base;
 /// @version 0.7
 //***************************************************************************
 
-class MediaInfo
+class MEDIAINFO_EXP MediaInfo
 {
 public :
     //Constructor/Destructor

@@ -128,19 +128,26 @@
 #endif
 
 /*-------------------------------------------------------------------------*/
-#if defined(_WIN32) && !defined(__MINGW32__) //MinGW32 does not support _declspec
+#undef MEDIAINFO_EXP
+#if defined(__WINDOWS__) && !defined(__MINGW32__) //MinGW32 does not support _declspec
     #ifdef MEDIAINFO_DLL_EXPORT
         #define MEDIAINFO_EXP extern _declspec(dllexport)
     #else
         #define MEDIAINFO_EXP extern _declspec(dllimport)
     #endif
-#else //defined(_WIN32) && !defined(__MINGW32__)
-    #define MEDIAINFO_EXP
-#endif //defined(_WIN32) && !defined(__MINGW32__)
+#else //defined(__WINDOWS__) && !defined(__MINGW32__)
+    #if __GNUC__ >= 4
+        #define MEDIAINFO_EXP __attribute__ ((visibility("default")))
+    #else
+        #define MEDIAINFO_EXP
+    #endif
+#endif //defined(__WINDOWS__) && !defined(__MINGW32__)
 
-#if !defined(_WIN32) && !defined(__WIN32__)
-    #define __stdcall
-#endif //!defined(_WIN32)
+#if !defined(__WINDOWS__)
+    #define __stdcall //Supported only on windows
+#endif //!defined(__WINDOWS__)
+
+/*-------------------------------------------------------------------------*/
 #include <limits.h>
 
 /*-------------------------------------------------------------------------*/

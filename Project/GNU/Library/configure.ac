@@ -44,6 +44,7 @@ dnl Enable
 dnl
 AC_ARG_ENABLE(debug,            AC_HELP_STRING([--enable-debug],            [Enable full debug]),                         , enable_debug=no)
 AC_ARG_ENABLE(gprof,            AC_HELP_STRING([--enable-gprof],            [Enable gprof log]),                          , enable_gprof=no)
+AC_ARG_ENABLE(visibility,       AC_HELP_STRING([--enable-visibility],       [Enable hidden visibility]),                  , enable_visibility=no)
 AC_ARG_ENABLE(universal_binary, AC_HELP_STRING([--enable-universal_binary], [Create Mac PPC/i386 Universal binary]),      , enable_universal_binary=no)
 AC_ARG_ENABLE(arch-ppc,         AC_HELP_STRING([--enable-arch-ppc],         [Create Mac PPC architecture]),               , enable_arch_ppc=no)
 AC_ARG_ENABLE(arch-ppc64,       AC_HELP_STRING([--enable-arch-ppc64],       [Create Mac PPC64 architecture]),             , enable_arch_ppc64=no)
@@ -549,6 +550,7 @@ dnl
 if test "$GXX" = yes ; then
 	CFLAGS="$CFLAGS -fPIC"
 	CXXFLAGS="$CXXFLAGS -fPIC"
+	LDFLAGS="$LDFLAGS -fPIC"
 	if test "$enable_debug" = "yes"; then
 		CFLAGS="$CFLAGS -O0 -g -Wall -Wundef"
 		CXXFLAGS="$CXXFLAGS -O0 -g -Wall -W -Wundef -Wcast-qual -Wno-ctor-dtor-privacy"
@@ -560,6 +562,21 @@ if test "$GXX" = yes ; then
 		CFLAGS="$CFLAGS -pg -g"
 		CXXFLAGS="$CXXFLAGS -pg -g"
 	fi
+fi
+
+if test "$enable_visibility" = yes ; then
+	if test -e "/etc/debian_version" ; then
+		Debian_Version="$(more /etc/debian_version)"
+		case $Debian_Version in
+		*4.*)
+			enable_visibility="no" ;;
+		esac
+	fi
+fi
+if test "$enable_visibility" = yes ; then
+	CFLAGS="$CFLAGS -fvisibility=hidden -fvisibility-inlines-hidden"
+	CXXFLAGS="$CXXFLAGS -fvisibility=hidden -fvisibility-inlines-hidden"
+	LDFLAGS="$LDFLAGS -fvisibility=hidden -fvisibility-inlines-hidden"
 fi
 
 dnl #########################################################################
@@ -699,4 +716,5 @@ Mcho "Mpegv  " "$MediaInfoTheora"
 Mcho "Mpegv  " "$MediaInfoVc1"
 echo ""
 echo "  CXXFLAGS: $CXXFLAGS"
+echo "  LDFLAGS: $LDFLAGS"
 echo "  LIBS: $LIBS"

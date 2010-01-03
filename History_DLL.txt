@@ -11,6 +11,7 @@ Version 0.7.27, 2010-01-
 --------------
 + MPEG Audio: Emphasis
 + MPEG-TS: PCR timestamp can be extracted in real time
++ Linux library: visibility is now limited to the official API
 x MPEG Audio, AAC, Vorbis: removal of irrelevant Resolution field even from containers
 x MPEG Video: error in calculation of frame rate if sequence extension is used
 x MPEG Audio: some VBR files without VBR header were wrongly detected as CBR
