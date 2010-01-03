@@ -1,5 +1,5 @@
 // GUI_Main_Tree - VCL GUI for MediaInfo
-// Copyright (C) 2007-2009 Jerome Martinez, Zen@MediaArea.net
+// Copyright (C) 2007-2010 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -8,7 +8,7 @@
 //
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public
