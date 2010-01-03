@@ -1362,7 +1362,7 @@ void File_Bdmv::Mpls_PlayListMarks()
                             time_Pos0=time;
                         if (stream_file_index==0 && type==1) //We currently handle only the first file
                         {
-                            Fill(Stream_Menu, 0, Ztring().Duration_From_Milliseconds((time-time_Pos0)/45).To_UTF8().c_str(), _T("Chapter ")+Ztring::ToZtring(time_Pos));
+                            Fill(Stream_Menu, 0, Ztring().Duration_From_Milliseconds((int64u)((time-time_Pos0)/45)).To_UTF8().c_str(), _T("Chapter ")+Ztring::ToZtring(time_Pos));
                             time_Pos++;
                         }
                     FILLING_END();
