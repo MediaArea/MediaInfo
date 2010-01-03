@@ -41,7 +41,6 @@ chmod u+x MediaInfo_DLL_GNU_FromSource/Release/*.sh
 #-----------------------------------------------------------------------
 # Copying : Information
 cp ../License.html MediaInfo_DLL_GNU_FromSource/
-cp ../License.NoModifications.html MediaInfo_DLL_GNU_FromSource/
 cp ReadMe_DLL_Linux.txt MediaInfo_DLL_GNU_FromSource/Release/
 dos2unix MediaInfo_DLL_GNU_FromSource/Release/ReadMe_DLL_Linux.txt
 cp ReadMe_DLL_Mac.txt MediaInfo_DLL_GNU_FromSource/Release/

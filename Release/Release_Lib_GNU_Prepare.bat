@@ -25,7 +25,6 @@ xcopy ..\Source\MediaInfoDLL\MediaInfoDLL_Static.h MediaInfo_Lib_GNU_Prepare\Sou
 rem --- Copying : Information files ---
 copy ..\History_DLL.txt MediaInfo_Lib_GNU_Prepare\
 copy ..\License.html MediaInfo_Lib_GNU_Prepare\
-copy ..\License.NoModifications.html MediaInfo_Lib_GNU_Prepare\
 copy ..\Changes.txt MediaInfo_Lib_GNU_Prepare\
 copy ReadMe_DLL_Linux.txt MediaInfo_Lib_GNU_Prepare\Release\
 copy ReadMe_DLL_Mac.txt MediaInfo_Lib_GNU_Prepare\Release\

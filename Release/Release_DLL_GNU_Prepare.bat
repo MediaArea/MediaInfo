@@ -18,7 +18,6 @@ xcopy Release_DLL_*.sh MediaInfo_DLL_GNU_Prepare\Release\
 rem --- Copying : Information files ---
 copy ..\History.txt MediaInfo_DLL_GNU_Prepare\
 copy ..\License.html MediaInfo_DLL_GNU_Prepare\
-copy ..\License.NoModifications.html MediaInfo_DLL_GNU_Prepare\
 copy ReadMe_GUI_Linux.txt MediaInfo_DLL_GNU_Prepare\Release\
 copy ReadMe_GUI_Mac.txt MediaInfo_DLL_GNU_Prepare\Release\
 
