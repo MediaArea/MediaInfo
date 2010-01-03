@@ -21,7 +21,6 @@ cd ..
 #-----------------------------------------------------------------------
 # Copying : Information file
 cp ../License.html MediaInfo_GUI_$1_$2/
-cp ../License.NoModifications.html MediaInfo_GUI_$1_$2/
 cp ../History_GUI.txt MediaInfo_GUI_$1_$2/History.txt
 cp ReadMe_GUI_$1.txt MediaInfo_GUI_$1_$2/ReadMe.txt
 
