@@ -1,15 +1,8 @@
 libmediainfo.so - http://mediainfo.sourceforge.net
-Copyright (c) 2002-2009, Jerome Martinez, zen@mediaarea.net
+Copyright (c) 2002-2010 MediaArea.net SARL, Info@MediaArea.net
 
-This program is freeware (LGLPv3).
-See License.html for more information
-
-Anyone may use, copy and distribute this program free of charge.
-Anyone may modify this program and distribute modifications
-under the terms of the LGPLv3 License.
-
-Exception for binary distribution:
-libmediainfo.* are the only one important files, which you must put in your library directory
+This program is freeware (LGLPv3+).
+See License.html for more information.
 
 
 For software developers

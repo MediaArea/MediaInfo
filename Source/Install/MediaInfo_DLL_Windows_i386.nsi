@@ -1,6 +1,15 @@
 ; Request application privileges for Windows Vista
 RequestExecutionLevel admin
 
+; OpenCandy Start
+; Variables
+!include nsDialogs.nsh
+Var ProductName
+Var Key
+Var Secret
+Var RegistryLocation
+; OpenCandy End
+
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_PUBLISHER "MediaArea.net"
@@ -30,7 +39,18 @@ SetCompressor /FINAL /SOLID lzma
 !define MUI_LANGDLL_REGISTRY_VALUENAME "NSIS:Language"
 
 ; Installer pages
+!insertmacro MUI_PAGE_LICENSE "..\..\..\MediaInfoLib\Source\Install\OC\License.DLL.en.txt"
 !insertmacro MUI_PAGE_DIRECTORY
+
+; OpenCandy Start
+!include "OCSetupHlp.nsh"
+; Declare the OpenCandy Offer page
+PageEx custom
+ PageCallbacks OpenCandyPageStartFn OpenCandyPageLeaveFn
+PageExEnd
+; OpenCandy End
+
+; Installer pages
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 ; Uninstaller pages
@@ -96,13 +116,35 @@ Function .onInit
     Quit
   ${Else}
   ${EndIf}
+
+; OpenCandy Start
+  Strcpy $ProductName "MediaInfo"
+  Strcpy $Key "e6a82db2cb6c37c6c3d7c094ea601b78"
+  Strcpy $Secret "3470285a721b274d1a36f8c6f67b9161"
+  Strcpy $RegistryLocation "${PRODUCT_REGISTRY}"
+
+  !insertmacro OpenCandyInit $ProductName $Key $Secret $RegistryLocation
+; OpenCandy End
 FunctionEnd
 
 !include Library.nsh
 
+; OpenCandy Start
+Function .onInstSuccess
+  !insertmacro OpenCandyOnInstSuccess
+FunctionEnd
+
+Function .onGUIEnd
+  !insertmacro OpenCandyOnGuiEnd
+FunctionEnd
+; OpenCandy End
+
 Section "SectionPrincipale" SEC01
   SetOverwrite ifnewer
   SetOutPath "$INSTDIR"
+; OpenCandy Start
+  !insertmacro OpenCandyInstallDLL
+; OpenCandy End
   !insertmacro InstallLib REGDLL NOTSHARED NOREBOOT_NOTPROTECTED "..\..\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll" $SYSDIR\MediaInfo.dll $SYSDIR
   !insertmacro InstallLib REGDLL NOTSHARED NOREBOOT_NOTPROTECTED "..\..\Project\MSVC\ShellExtension\Win32\Release\MediaInfo_InfoTip.dll" $INSTDIR\MediaInfo_InfoTip.dll $INSTDIR
 SectionEnd
@@ -125,6 +167,10 @@ SectionEnd
 
 
 Section Uninstall
+; OpenCandy Start
+;  !insertmacro OpenCandyProductUninstall "e6a82db2cb6c37c6c3d7c094ea601b78" ; Product Key
+; OpenCandy End
+
   UnRegDLL "$INSTDIR\MediaInfo_InfoTip.dll"
   Delete "$INSTDIR\MediaInfo_uninst.exe"
   !insertmacro UnInstallLib REGDLL NOTSHARED NOREBOOT_NOTPROTECTED $SYSDIR\MediaInfo.dll
