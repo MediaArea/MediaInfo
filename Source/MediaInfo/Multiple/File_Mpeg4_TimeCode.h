@@ -1,5 +1,5 @@
 // File_Mpeg4_TimeCode - Info for MPEG-4 TimeCode files
-// Copyright (C) 2009-2009 Jerome Martinez, Zen@MediaArea.net
+// Copyright (C) 2009-2010 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by

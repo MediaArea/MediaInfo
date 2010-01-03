@@ -1,5 +1,5 @@
 // File_Module - Info for Module files
-// Copyright (C) 2008-2009 Jerome Martinez, Zen@MediaArea.net
+// Copyright (C) 2008-2010 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
