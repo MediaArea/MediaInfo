@@ -2846,9 +2846,17 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
     Skip_B4(                                                    "Vertical resolution");
     Skip_B4(                                                    "Data size");
     Skip_B2(                                                    "Frame count");
-    Get_B1 (CompressorName_Size,                                "Compressor name size");
-    Skip_Local(CompressorName_Size,                             "Compressor name");
-    Element_Offset+=32-1-CompressorName_Size;
+    Peek_B1(CompressorName_Size);
+    if (CompressorName_Size<32)
+    {
+        //This is pascal string
+        Skip_B1(                                                "Compressor name size");
+        Skip_Local(CompressorName_Size,                         "Compressor name");
+        Skip_XX(32-1-CompressorName_Size,                       "Padding");
+    }
+    else
+        //this is hard-coded 32-byte string
+        Skip_Local(32,                                          "Compressor name");
     Skip_B2(                                                    "Depth");
     Get_B2 (ColorTableID,                                       "Color table ID");
     if (ColorTableID==0)
