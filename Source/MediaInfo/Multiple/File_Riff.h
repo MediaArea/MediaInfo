@@ -144,6 +144,7 @@ private :
     void AIFF ();
     void AIFF_COMM ();
     void AIFF_COMT ();
+    void AIFF_ID3_ () {WAVE_ID3_();}
     void AIFF_SSND ();
     void AIFF_xxxx ();
     void AVI_ ();

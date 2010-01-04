@@ -199,6 +199,7 @@ namespace Elements
     const int32u AIFF_ANNO=0x414E4E4F;
     const int32u AIFF_AUTH=0x41555448;
     const int32u AIFF_NAME=0x4E414D45;
+    const int32u AIFF_ID3_=0x49443320;
     const int32u AVI_=0x41564920;
     const int32u AVI__cset=0x63736574;
     const int32u AVI__exif=0x65786966;
@@ -372,6 +373,7 @@ void File_Riff::Data_Parse()
         ATOM_BEGIN
         ATOM(AIFF_COMM)
         ATOM(AIFF_COMT)
+        ATOM(AIFF_ID3_)
         LIST_SKIP(AIFF_SSND)
         ATOM_DEFAULT(AIFF_xxxx)
         ATOM_END_DEFAULT
@@ -556,7 +558,7 @@ void File_Riff::AIFC_xxxx()
 //---------------------------------------------------------------------------
 void File_Riff::AIFF()
 {
-    Accept("AIFF");
+    Data_Accept("AIFF");
     Element_Name("AIFF");
 
     //Filling
@@ -635,7 +637,6 @@ void File_Riff::AIFF_SSND()
 
     //Filling
     Fill(Stream_Audio, 0, Audio_StreamSize, Element_TotalSize_Get());
-    Finish("AIFF");
 }
 
 //---------------------------------------------------------------------------
