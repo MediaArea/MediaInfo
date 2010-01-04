@@ -4,8 +4,8 @@ RequestExecutionLevel admin
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_PUBLISHER "MediaArea.net"
-!define PRODUCT_VERSION "0.7.26"
-!define PRODUCT_VERSION4 "0.7.26.0"
+!define PRODUCT_VERSION "0.7.27"
+!define PRODUCT_VERSION4 "0.7.27.0"
 !define PRODUCT_WEB_SITE "http://mediainfo.sourceforge.net"
 !define COMPANY_REGISTRY "Software\MediaArea.net"
 !define PRODUCT_REGISTRY "Software\MediaArea.net\MediaInfo"
@@ -114,7 +114,6 @@ Section "SectionPrincipale" SEC01
   File  "/oname=MediaInfo_i386.dll""..\..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll"
   File "/oname=History.txt" "..\..\History_GUI.txt"
   File "..\..\License.html"
-  File "..\..\License.NoModifications.html"
   File  "/oname=ReadMe.txt""..\..\Release\ReadMe_GUI_Windows.txt"
   SetOverwrite try
   SetOutPath "$INSTDIR\Plugin\Custom"
