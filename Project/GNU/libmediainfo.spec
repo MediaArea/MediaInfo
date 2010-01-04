@@ -56,6 +56,7 @@ This package contains the shared library for MediaInfo.
 Summary:	Include files and mandatory libraries for development
 Group:		Development/Libraries/C and C++
 Requires:	libmediainfo0 = %{version}
+Requires:	libzen0-devel >= %libzen_version
 
 %description -n libmediainfo0-devel
 Include files and mandatory libraries for development.
