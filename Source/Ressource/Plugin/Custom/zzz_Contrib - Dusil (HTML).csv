@@ -1,0 +1,33 @@
+;
+;
+;Bug: "Page_Begin""Page_Middle" and "Page_End" sections are picked on lines 1011 and 12 regardless what is there. So it is better to leave them there.
+;Bug: \r\n is not turned into a newline on "Page" entries.
+;Bug: "Image" sections are not activebut should.
+;
+;
+;
+Page;(unused)\r\n
+Page_Begin;<html><head><title>Media Info</title><style type="text/css">html,body,table{font-size:x-small} html,body{margin:0} html,body{padding:0} table{empty-cells:show} td.Name{white-space:pre-wrap} </style></head><body><table class="body" width="100%" border="1" cellpadding="1" cellspacing="0" style="border:0px"><caption></caption><thead><tr><th>Directory</th><th>File Name</th><th>Size (Bytes)</th><th>Container</th><th>Video Codec</th><th>Video Rate (bps)</th><th>Video Duration</th><th>Video Size (Bytes)</th><th>Width (pixels)</th><th>Height (pixels)</th><th>fps</th><th>Qf</th><th>Total Frames</th><th>Video Coding</th><th>Chroma</th><th>Audio Codec</th><th>Rate (bps)</th><th>Audio Format</th><th>Audio Size (Bytes)</th><th>Ch</th></tr></thead><tbody>
+Page_Middle;
+Page_End;</tbody></table></body></html>
+;
+File;(unused)\r\n
+File_Begin;<tr>
+File_Middle;(unused)\r\n
+File_End;</tr>
+;
+General;<td class="Name">%FolderName%\</td><td class="Name">%FileName%.%FileExtension%</td><td>[%FileSize%]</td><td bgcolor="#DFDFDF">%Format%[(%Format/Family%)]</td>
+General_Begin;
+General_Middle;(unused)\r\n
+General_End;
+;
+Video;%Format%[(%Format/Family%)]<td>[%BitRate%]</td><td>[%Duration/String1%]</td><td>[%StreamSize%]</td><td>[%Width%]</td><td>[%Height%]</td><td>[%FrameRate/String%]</td><td>[%Bits-(Pixel*Frame)%]</td><td>[%FrameCount%]</td><td>[%Format_Settings%]</td><td>[%Colorimetry%]</td>
+Video_Begin;<td bgcolor="#FFBFBF">
+Video_Middle;<br>
+Video_End;</td>
+;
+Audio;%Format%[(%Format/Family%)]<td>[%BitRate%]</td><td>[%BitRate_Mode%]</td><td>[%StreamSize%]</td><td>[%Channel(s)%]</td>
+Audio_Begin;<td bgcolor="#BFFFBF">
+Audio_Middle;<br>
+Audio_End;</td>
+;
