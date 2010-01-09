@@ -11,6 +11,7 @@ Version 0.7.28, 2010
 --------------
 + AIFF: ID3v2 tags support
 + AutoIt3: MediaInfoList interface
++ RIFF: Handling of INFO chunk in hdlr chunk
 x MPEG-4: managing different kinds of compressor name format
 
 Version 0.7.27, 2010-01-03

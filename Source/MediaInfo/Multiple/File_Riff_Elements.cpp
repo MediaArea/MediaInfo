@@ -406,6 +406,14 @@ void File_Riff::Data_Parse()
                 ATOM(AVI__hdlr_odml_dmlh)
                 ATOM_END
             ATOM(AVI__hdlr_ON2h)
+            LIST(AVI__INFO)
+                ATOM_BEGIN
+                ATOM(AVI__INFO_IID3)
+                ATOM(AVI__INFO_ILYC)
+                ATOM(AVI__INFO_IMP3)
+                ATOM(AVI__INFO_JUNK)
+                ATOM_DEFAULT(AVI__INFO_xxxx)
+                ATOM_END_DEFAULT
             ATOM_DEFAULT(AVI__hdlr_xxxx)
             ATOM_END_DEFAULT
         LIST_SKIP(AVI__idx1)
