@@ -226,7 +226,7 @@ CodecID;Ідэнтыфікатар кодэка
 CodecID_Description;Апісанне кодэка
 Collection;Калекцыя
 Colorimetry;Каларыметрыя
-colour_primaries
+colour_primaries;Асноўныя колеры
 Comment;Каментар
 CommissionedBy;Даручальнік
 CompleteName;Поўнае імя
@@ -325,9 +325,9 @@ Format_Settings_ITU;Налада ITU фармату
 Format_Settings_SBR;Налада SBR фармату
 Format_Settings_PS;Налада PS фармату
 Format_Settings_Pulldown;Абраць налады фармату
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
+Format_Settings_Mode;Рэжым
+Format_Settings_FrameMode;Рэжым кадраў
+Format_Settings_Emphasis;Выразнасць
 Format_Version;Версія фармату
 Format_Url;Спасылка на фармат
 FrameCount;Лічыльнік кадраў
@@ -727,7 +727,7 @@ Lyrics;Тэкст песен
 Lyricist;Лібрэтта
 Mastered_Date;Дата майстарынгу
 MasteredBy;Майстарынг ад
-matrix_coefficients
+matrix_coefficients;Каэфіцыенты матрыцы
 MediaInfo_About;Адлюстроўвае дэталёвую інфармацыю\r\nаб мультымедыя-файлах Matroska, OGG (уключаючы OGM)\r\nMPEG1 (уключаючы VCD), MPEG2 (уключаючы DVD і SVCD), MPEG4 (уключаючы iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (уключаючы WMV, WMA)\r\nMicrosoft RIFF (уключаючы AVI, WAV, DivX)\r\nгукавых фарматах (AC3, DTS, SSC, AU, AIFF)
 Menu;Меню
 Menu stream(s);Меню струменяў
@@ -908,7 +908,7 @@ TimeZone;Гадзінная зона
 Total;Усяго
 Track;Сцежка
 Track_Count;Коль-ць дарожак
-transfer_characteristics
+transfer_characteristics;Характарыстыкі трансферу
 Translator;Перакладчык
 Tree;Дрэва
 Tree & Text;Дрэва і тэкст
@@ -943,5 +943,5 @@ Written_Location;Месца напісання
 WrittenBy;Напісана
 Yes;Так
 Your system;Ваша сістэма
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100

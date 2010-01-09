@@ -12,13 +12,13 @@
  audio stream2; rrymë audio
  audio stream3; rrymë audio
  bit1; bit
- bit2; bite
- bit3; bite
+ bit2; bit
+ bit3; bit
  bps; bps
  Bps; Bps
- Byte1; Bajte
- Byte2; Bajte
- Byte3; Bajte
+ Byte1; Bajt
+ Byte2; Bajt
+ Byte3; Bajt
  channel1; kanal
  channel2; kanale
  channel3; kanale
@@ -38,8 +38,8 @@
  file2; skeda
  file3; skeda
  frame1; kuadër
- frame2; kuadre
- frame3; kuadre
+ frame2; kuadro
+ frame3; kuadro
  fps1; fps
  fps2; fps
  fps3; fps
@@ -49,16 +49,16 @@
  GBps; GBps
  GHz; GHz
  GiB; GiB
- GibiByte1; GibiBajte
- GibiByte2; Gibibajte
- GibiByte3; Gibibajte
+ GibiByte1; GibiBajt
+ GibiByte2; Gibibajt
+ GibiByte3; Gibibajt
  GiBps; GiBps
  GigaBit1; GigaBit
- GigaBit2; GigaBite
- GigaBit3; GigaBite
+ GigaBit2; GigaBit
+ GigaBit3; GigaBit
  GigaByte1; GigaBajt
- GigaByte2; GigaBajte
- GigaByte3; GigaBajte
+ GigaByte2; GigaBajt
+ GigaByte3; GigaBajt
  hour1; orë
  hour2; orë
  hour3; orë
@@ -73,34 +73,34 @@
  KHz; KHz
  KiB; KiB
  KibiBit1; KibiBit
- KibiBit2; KibiBite
- KibiBit3; KibiBite
+ KibiBit2; KibiBit
+ KibiBit3; KibiBit
  KibiByte1; KibiBajt
- KibiByte2; KibiBajte
- KibiByte3; KibiBajte
+ KibiByte2; KibiBajt
+ KibiByte3; KibiBajt
  KiBps; KiBps
  KiloBit1; KiloBit
- KiloBit2; KiloBite
- KiloBit3; KiloBite
+ KiloBit2; KiloBit
+ KiloBit3; KiloBit
  KiloByte1; KiloBajt
- KiloByte2; KiloBajte
- KiloByte3; KiloBajte
+ KiloByte2; KiloBajt
+ KiloByte3; KiloBajt
  MB; MB
  Mb; Mb
  Mbps; Mbps
- MBps; MebiBajte
+ MBps; MebiBajt
  MebiBit1; MebiBit
- MebiBit2; MebiBite
- MebiBit3; MebiBite
+ MebiBit2; MebiBit
+ MebiBit3; MebiBit
  MebiByte1; MebiBajt
- MebiByte2; MebiBajte
- MebiByte3; MebiBajte
+ MebiByte2; MebiBajt
+ MebiByte3; MebiBajt
  MegaBit1; MegaBit
- MegaBit2; MegaBite
- MegaBit3; MegaBite
+ MegaBit2; MegaBit
+ MegaBit3; MegaBit
  MegaByte1; MegaBajt
- MegaByte2; MegaBajte
- MegaByte3; MegaBajte
+ MegaByte2; MegaBajt
+ MegaByte3; MegaBajt
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -124,8 +124,8 @@
  text stream2; rrymë teksti
  text stream3; rrymë teksti
  video frames1; kuadër video
- video frames2; kuadre video
- video frames3; kuadre video
+ video frames2; kuadro video
+ video frames3; kuadro video
  video stream1; rrymë video
  video stream2; rrymë video
  video stream3; rrymë video
@@ -142,7 +142,7 @@
 , ;, 
 : ;: 
 About;Për
-About_Hint;Si të më kontaktosh dhe të gjesh versionin e fundit
+About_Hint;Si të kontaktohem dhe të gjendet versioni i fundit
 Accompaniment;Shoqëruesi
 Actor;Aktori
 Actor_Character;Personazhi i luajtur
@@ -153,7 +153,7 @@ Advanced mode;Mënyrë e avancuar
 Album;Albumi
 Album_ReplayGain_Gain;Replay gain i albumit
 Album_ReplayGain_Peak;Piku i replay gain i albumit
-Alignment;Radhitje
+Alignment;Radhitja
 Alignment_Aligned;Radhitur te gërshetimet
 Alignment_Split;Ndarë te gërshetimet
 All;Gjithçka
@@ -173,16 +173,16 @@ Audio2;Rryma e dytë audio
 AudioCount;Numri i rrymave të audios
 Author;Autori
 BarCode;BarCode
-Basic;Kryesore
-Basic_Note;Shënim : për më shumë info rreth skedës, mund të zgjedhësh një pamje tjetër (Fletë, Pemë...) 
+Basic;Kryesor
+Basic_Note;Shënim : për më shumë info rreth skedës, mund të zgjidhet një pamje tjetër (Fletë, Pemë...) 
 BitRate;Raporti i bitit
 BitRate_Maximum;Raporti maksimal i bitit
 BitRate_Minimum;Raporti minimal i bitit
 BitRate_Mode;Mënyra e raportit të bitit
-BitRate_Mode_CBR;Konstante
+BitRate_Mode_CBR;Konstant
 BitRate_Mode_VBR;Variabël
 BitRate_Nominal;Raporti nominal i bitit
-Bits-(Pixel*Frame);Bite/(Piksel*Kuadër)
+Bits-(Pixel*Frame);Bit/(Piksel*Kuadër)
 Cancel;Anulo
 Channel(s);Kanale
 ChannelPositions;Pozicionet e kanalit
@@ -193,16 +193,16 @@ Chapters_Codec_List;Kodekët e Kapitujve
 Chapters_No;Pa kapituj
 ChaptersCount;Numri i rrymave të kapitujve
 CheckNewVersion;Verifiko versionin e ri
-Choose custom;Zgjidhe me porosi
-Choose custom sheet;Zgjidhe me porosi fletën e dëshiruar
-Choose custom text;Zgjidhe me porosi tekstin e dëshiruar
-Choose export format;Zgjidhe formatin e eksportimit të dëshiruar
-Choose file(s);Zgjidhi skedat që do të hapësh
-Choose filename;Zgjidhe emrin e skedës së dëshiruar
-Choose language;Zgjidhe gjuhën e dëshiruar
+Choose custom;Zgjedh me porosi
+Choose custom sheet;Zgjedh me porosi fletën e dëshiruar
+Choose custom text;Zgjedh me porosi tekstin e dëshiruar
+Choose export format;Zgjedh formatin e eksportimit të dëshiruar
+Choose file(s);Zgjedh skedat që të hapen
+Choose filename;Zgjedh emrin e skedës së dëshiruar
+Choose language;Zgjedh gjuhën e dëshiruar
 Choregrapher;Koreografi
 Chroma;Kroma
-Close;Mbylle
+Close;Mbyll
 Close all before open;Mbyll infot para hapjes
 Codec;Kodeku
 Codec_Description;Përshkrimi i kodekut
@@ -221,12 +221,12 @@ Codec_Settings_Sign;Vendosjet e kodekut, Sign
 Codec_Settings_Law;Vendosjet e kodekut, Law
 Codec_Settings_ITU;Vendosjet e kodekut, ITU
 Codec_Profile;Profili i kodekut
-Codec_Url;Linku në rrjet i kodekut
+Codec_Url;Lidhësi në rrjetë i kodekut
 CodecID;ID i kodekut
 CodecID_Description;Përshkrimi i kodekut
 Collection;Koleksioni
-Colorimetry;Kolorimetri
-colour_primaries
+Colorimetry;Kolorimetria
+colour_primaries;Primarët e ngjyrës
 Comment;Komenti
 CommissionedBy;Autorizuar nga
 CompleteName;Emri i plotë
@@ -247,12 +247,12 @@ Cover_Mime;MIME i cover-it
 Cover_Type;Lloji i cover-it
 Cropped;Dimensionet e prerjes
 Custom;Me porosi
-Customize;Porosite
+Customize;Porosit
 Date;Data
 Debug;Debug
 Decimal point;Pika dhjetore
 Delay;Vonesa
-Delete;Fshije
+Delete;Fshij
 Description;Përshkrimi
 Digitized_Date;Data e shifruar
 Dimensions;Dimensione
@@ -263,7 +263,7 @@ DisplayAspectRatio_Original;Raporti origjinal i aspektit në ekran
 DistributedBy;Shpërndarë nga
 Donate;Jep kontribut
 DotsPerInch;Pika për inç
-Duration;Kohëzgjatje
+Duration;Kohëzgjatja
 Duration_End;Koha e përfundimit
 Duration_Start;Koha e nisjes
 Edit;Edito
@@ -271,7 +271,7 @@ EditedBy;Edituar nga
 EMail;Posta-e
 Encoded_Application;Aplikimi i shkrimit
 Encoded_Date;Data e kodimit
-Encoded_Library;Librari e shkrimit
+Encoded_Library;Libraria e shkrimit
 Encoded_Library_Settings;Vendosjet e kodimit
 Encoded_Original;Origjinal
 EncodedBy;Koduar nga
@@ -279,21 +279,21 @@ EPG_Positions;Pozicionet EPG (të brendshme)
 Error_File;Gabim gjatë leximit të skedës
 ExecutiveProducer;Producenti ekzekutiv
 Exit;Dalje
-Exit_Hint;Mbylle Programin
+Exit_Hint;Mbyll Programin
 Export;Eksporto
 Export_Hint;Eksporto në format të porositur
-Extensions;Shtojcat e zakonshme
-Family;Familje
+Extensions;Siglat e zakonshme
+Family;Familja
 Fax;Faks
 File;Skedë
 File size;Masa e skedës
-File_Append;Bashkangjite te skeda ekzistuese (Kujdes : duhen pasur të njëjtët parametra)
+File_Append;Bashkangjit te skeda ekzistuese (Kujdes : duhen pasur të njëjtët parametra)
 File_Created_Date;Data e krijimit të skedës
 File_Created_Date_Local;Data e krijimit të skedës (lokale)
 File_Hint;Studio një skedë multimediatike
 File_Modified_Date;Modifikimi i fundit i skedës
 File_Modified_Date_Local;Modifikimi i fundit i skedës
-FileExtension;Shtojca e skedës
+FileExtension;Sigla e skedës
 FileName;Emri i skedës
 FileSize;Masa e skedës
 Folder;Dosje
@@ -325,11 +325,11 @@ Format_Settings_ITU;Vendosjet e formatit, ITU
 Format_Settings_SBR;Vendosjet e formatit, SBR
 Format_Settings_PS;Vendosjet e formatit, PS
 Format_Settings_Pulldown;Vendosjet e formatit, Pulldown
-Format_Settings_Mode
-Format_Settings_FrameMode
-Format_Settings_Emphasis
+Format_Settings_Mode;Mënyra
+Format_Settings_FrameMode;Mënyra e Kuadrit
+Format_Settings_Emphasis;Emfaza
 Format_Version;Versioni i formatit
-Format_Url;Linku në rrjet i formatit
+Format_Url;Lidhësi në rrjetë i formatit
 FrameCount;Numri i kuadrove
 FrameRate;Raporti i kuadrit
 FrameRate_Mode;Mënyra e raportit të kuadrit
@@ -489,10 +489,10 @@ Genre_144;Trash Metal
 Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
-Go to WebSite;Shko në truallin në rrjet
+Go to WebSite;Shko te trualli në rrjetë
 h;h
 Header file;Krijo një kokë skede
-Height;Lartësi
+Height;Lartësia
 Help;Ndihmë
 Hint;Këshillë
 How many audio streams?;Sa rryma të audios?
@@ -513,9 +513,9 @@ Interlaced_TFF;Më Parë Fusha Sipër
 Interlaced_BFF;Më Parë Fusha Poshtë
 Interlaced_PPF;Progresiv
 Interlaced_Progressive;Progresiv
-Interleave_Duration;Gërshetimi, kohëzgjatje
-Interleave_Preload;Gërshetimi, kohëzgjatje para hapjes
-Interleave_VideoFrames;Gërshetimi, kohëzgjatje
+Interleave_Duration;Gërshetimi, kohëzgjatja
+Interleave_Preload;Gërshetimi, kohëzgjatja para hapjes
+Interleave_VideoFrames;Gërshetimi, kohëzgjatja
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
@@ -648,7 +648,7 @@ Language_ne;Nepali
 Language_ng;Ndonga
 Language_nl;Holandisht
 Language_nn;Norwegian Nynorsk
-Language_no;Norwegian
+Language_no;Norvegjisht
 Language_nr;Ndebele
 Language_nv;Navaho
 Language_ny;Nyanja
@@ -679,12 +679,12 @@ Language_sk;Sllovakisht
 Language_sl;Sllovenisht
 Language_sm;Samoan
 Language_sn;Shona
-Language_so;Somali
+Language_so;Somalisht
 Language_sq;Shqip
 Language_sr;Serbisht
 Language_ss;Swati
 Language_st;Sotho
-Language_su;Sundanese
+Language_su;Sundanisht
 Language_sv;Suedisht
 Language_sw;Swahili
 Language_ta;Tamil
@@ -720,14 +720,14 @@ Language_zh-tw;Kinezisht (Tajvan)
 Language_zu;Zulu
 LawRating;Vlerësimi ligjor
 LCCN;LCCN
-Library;Librari e muksimit
-Lightness;Dritësi
+Library;Libraria e muksimit
+Lightness;Dritësia
 List;Lista
-Lyrics;Fjalë
+Lyrics;Fjalët
 Lyricist;Shkrimtari
 Mastered_Date;Data e masterizimit
 MasteredBy;Masterizuar nga
-matrix_coefficients
+matrix_coefficients;Koeficientët e matricës
 MediaInfo_About;Jep informacione shumë të detajuara për\r\nskedat multimediatike:\r\nMatroska, OGG (përfshirë OGM)\r\nMPEG1 (përfshirë VCD)\r\nMPEG2 (përfshirë DVD dhe SVCD)\r\nMPEG4 (përfshirë Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (përfshirë WMV, WMA)\r\nMicrosoft RIFF (përfshirë AVI, WAV)\r\nFormate zanore (AC3, DTS, AAC, AU, AIFF...)
 Menu;Meny
 Menu stream(s);Rrymat e menysë
@@ -737,7 +737,7 @@ MenuCount;Numri i rrymave të menysë
 Menu_Hint;Mundësi të tjera
 MenuID;ID i menysë
 mn;mn
-Mood;Gjendje shpirtërore
+Mood;Gjendja shpirtërore
 More;Akoma
 Movie;Emri i filmit
 ms;ms
@@ -747,13 +747,13 @@ MuxingMode;Mënyra e muksimit
 MuxingMode_MoreInfo;Mënyra e muksimit, më shumë info
 MuxingMode_PackedBitstream;Rryma e bitit e paketuar
 Name;Emri
-Nationality;Kombësi
+Nationality;Kombësia
 NetworkName;Emri i rrjetit
 New;E re
 Newest version;Verifiko versionin më të ri (nevojitet lidhje me internet)
 NewVersion_Menu;Ka dalë një version i ri
 NewVersion_Question_Title;Është lëshuar një version i ri!
-NewVersion_Question_Content;Ka dalë një version i ri (v%Version%), do e shkarkosh?
+NewVersion_Question_Content;Ka dalë një version i ri (v%Version%), do e shkarkoni?
 No;Jo
 Not yet;Ende jo
 NumColors;Numri i ngjyrave
@@ -762,40 +762,40 @@ One output file per input file;Një skedë output për skedë input
 Open;Hap
 OpenCandy_01;Shkarkimi i ________
 OpenCandy_02;__ % Përfunduar
-OpenCandy_03;Ndërpritet lidhja me internetin
+OpenCandy_03;Ndërpret lidhjen me internetin
 OpenCandy_04;Përfundon shkarkimi i ________
-OpenCandy_05;Kliko për të instaluar ________
-OpenCandy_06;Je i sigurt se do të anulosh instalimin?\r\nNëse do e shtysh instalimin për më vonë, zgjidhe 'Jo'.\r\nShënim: Mund të zgjedhësh Dalje nga menyja për të ndryshuar instalimin herën tjetër që kompjuteri do të rinisë.
-OpenCandy_07;Pushon shkarkimi i ________.\r\nKliko mbi ikonën në brez për të rimarrë shkarkimin.
+OpenCandy_05;Klikoni për të instaluar ________
+OpenCandy_06;Jeni i sigurt se doni të anuloni instalimin?\r\nNëse do e shtyni instalimin për më vonë, zgjidheni 'Jo'.\r\nShënim: Mund të zgjidhni Dalje nga menyja për të ndryshuar instalimin herën tjetër që kompjuteri do të rinisë.
+OpenCandy_07;Pushon shkarkimi i ________.\r\nKlikoni mbi ikonën në brez për të rimarrë shkarkimin.
 OpenCandy_08;Ka ndodhur një gabim kritik. Do ndërpritet instalimi i _________.
 OpenCandy_09;Pusho shkarkimin
 OpenCandy_10;Anulo shkarkimin
-OpenCandy_11;Rimerre shkarkimin
+OpenCandy_11;Rimerr shkarkimin
 OpenCandy_12;Dalje nga Instaluesi
 OpenCandy_13;___________ - Rekomanduar nga ____________
 OpenCandy_14;Shkarkimi i _________
-OpenCandy_15;___________, softueri që të është rekomanduar nga ___________, po shkarkohet me kërkesën tënde.\r\nNe do të tregojmë kur të jetë gati të instalohet.
+OpenCandy_15;___________, softueri që është rekomanduar nga ___________, po shkarkohet me kërkesën tuaj.\r\nNe do ju tregojmë kur të jetë gati të instalohet.
 OpenCandy_16;___________ është gati të instalohet
-OpenCandy_17;___________ është shkarkuar plotësisht. Të lutem kliko 'Instalo' për të vijuar.
+OpenCandy_17;___________ është shkarkuar plotësisht. Ju lutem klikoni 'Instalo' për të vijuar.
 OpenCandy_18;___________ nga ___________ e shkarkuar
 OpenCandy_19;Sponsorizuar nga OpenCandy
 OpenCandy_20;Mëso më shumë në OpenCandy.com
 OpenCandy_21;Instalo
 OpenCandy_22;Instalimi i ___________
-OpenCandy_23;Kjo do anulojë instalimin e ___________\r\nJe i sigurt se do të dalësh?
+OpenCandy_23;Kjo do anulojë instalimin e ___________\r\nJeni i sigurt se doni të dilni?
 OpenCandy_24;Pusho
-OpenCandy_25;Shkarkimi yt është pushuar. Kliko 'Rimerre' kur të jesh gati për të vijuar.
-OpenCandy_26;Rimerre
+OpenCandy_25;Shkarkimi juaj pushon. Klikoni 'Rimerr' kur të jeni gati për të vijuar.
+OpenCandy_26;Rimerr
 OpenCandy_27;Instalo Tani
 OpenCandy_28;Pusho Shkarkimin
-OpenCandy_29;Rimerre Shkarkimin
+OpenCandy_29;Rimerr Shkarkimin
 OpenCandy_30;Anulo Instalimin
-OpenCandy_31;Të lutem zgjidhe mundësinë e instalimit
+OpenCandy_31;Ju lutem zgjidhni mundësinë e instalimit
 OpenCandy_32;Instalo ___________
 OpenCandy_33;Mos Instalo
-OpenCandy_34;Të lutem zgjidhe një mundësi instalimi
+OpenCandy_34;Ju lutem zgjidhni një mundësi instalimi
 OpenCandy_35;______ rekomandon këtë softuer
-OpenCandy_36;Instalimi yt aktual nuk do të ndërpritet
+OpenCandy_36;Instalimi juaj aktual nuk do ndërpritet
 Options;Mundësi
 Options_Hint;Pëlqime
 Original;Origjinal
@@ -834,7 +834,7 @@ Quote character;Citimi i personazhit
 RadioStation;Stacioni i radios
 Rating;Vlerësimi
 Recorded_Date;Data e regjistrimit
-Recorded_Location;Vendndodhje e regjistrimit
+Recorded_Location;Vendndodhja e regjistrimit
 Released_Date;Data e lëshimit
 RemixedBy;Miksuar nga
 ReplayGain_Gain;Replay gain
@@ -842,13 +842,13 @@ ReplayGain_Peak;Piku i replay gain
 Resolution;Rezolucioni
 s;s
 SamplingRate;Raporti i shëmbëllimit
-Save;Ruaje
+Save;Ruaj
 ScanType;Lloji i skanimit
 ScanOrder;Rendi i skanimit
 ScreenplayBy;Vënë në ekran nga
 Season;Sezoni
 see below;shih poshtë
-Send HeaderFile;Të lutem dërgoje këtu Kokën e skedës : http://sourceforge.net/projects/mediainfo/ (Seksioni i problemeve)
+Send HeaderFile;Ju lutem dërgojeni këtu Kokën e skedës : http://sourceforge.net/projects/mediainfo/ (Seksioni i problemeve)
 Separator_Columns;ndarësi i kolonave
 Separator_Lines;ndarësi i rreshtave
 ServiceChannel;Numri i kanalit të shërbimit
@@ -857,13 +857,13 @@ ServiceProvider;Siguruesi i shërbimit
 ServiceType;Lloji i shërbimit
 Set;Vendos
 Set_Count;Vendos numërimin
-Setup;Ndërtimi
-Sharpness;Mprehtësi
+Setup;Sistemimi
+Sharpness;Mprehtësia
 Sheet;Fletë
 Sheet (Complete);Fletë (Plot)
-Shell extension;Shto në bazë (kur klikon në Explorer me të djathtën do të jepet mundësia Media Info)
+Shell extension;Shto në bazë (kur klikon në Explorer me të djathtën do jepet mundësia Media Info)
 Shell extension, folder;Edhe për dosjet
-Shell InfoTip;Këshilla Informuese në bazë (në Explorer, kur çon mausin mbi skedë do të shfaqen info)
+Shell InfoTip;Këshilla Informuese në bazë (në Explorer, kur çon mausin mbi skedë do shfaqen info)
 Show menu;Trego menynë
 Show toolbar;Trego brezin e mjeteve
 Sort;Radhitur nga
@@ -880,7 +880,7 @@ StreamSize;Masa e rrymës
 StreamSize_Proportion;Proporcioni i rrymës
 Subject;Subjekti
 SubTrack;NënKolona
-Summary;Përmbledhje
+Summary;Përmbledhja
 Supported formats;Format e përkrahura
 Supported?;Përkrahet?
 Synopsis;Konspekti
@@ -908,7 +908,7 @@ TimeZone;Ora lokale
 Total;Totali
 Track;Emri i kolonës
 Track_Count;Numri i kolonës
-transfer_characteristics
+transfer_characteristics;Karakteristikat e transferimit
 Translator;Përktheu
 Tree;Pemë
 Tree & Text;Pemë & Tekst
@@ -925,17 +925,17 @@ VideoCount;Numri i rrymave të videos
 View;Pamje
 View_Hint;Ndrysho mënyrën si paraqitet informacioni
 Warning : more streams in the files;Kujdes : në skeda ka më shumë rryma
-Web;Rrjet
-WebSite_Audio;Shko në truallin në rrjet të kodekut për audio
-WebSite_Audio_More;Shko në truallin në rrjet (%Url%) për të gjetur kodekun për audio
-WebSite_General;Shko në truallin në rrjet të luajtësit për këtë skedë
-WebSite_General_More;Shko në truallin në rrjet të luajtësit për këtë skedë
-WebSite_Text;Shko në truallin në rrjet të kodekut për tekst
-WebSite_Text_More;Shko në truallin në rrjet (%Url%) për të gjetur kodekun për tekst
+Web;Rrjeta
+WebSite_Audio;Shko te trualli në rrjetë i kodekut për audio
+WebSite_Audio_More;Shko te trualli në rrjetë (%Url%) për të gjetur kodekun për audio
+WebSite_General;Shko te trualli në rrjetë i luajtësit për këtë skedë
+WebSite_General_More;Shko te trualli në rrjetë i luajtësit për këtë skedë
+WebSite_Text;Shko te trualli në rrjetë i kodekut për tekst
+WebSite_Text_More;Shko te trualli në rrjetë (%Url%) për të gjetur kodekun për tekst
 WebSite_Url;http://mediainfo.sourceforge.net
-WebSite_Video;Shko në truallin në rrjet të kodekut për video
-WebSite_Video_More;Shko në truallin në rrjet (%Url%) për të gjetur kodekun për video
-Width;Gjerësi
+WebSite_Video;Shko te trualli në rrjetë i kodekut për video
+WebSite_Video_More;Shko te trualli në rrjetë (%Url%) për të gjetur kodekun për video
+Width;Gjerësia
 WriteMe;Shkruaji autorit
 WriteToTranslator;Shkruaji përkthyesit
 Written_Date;Data e shkrimit
@@ -943,5 +943,5 @@ Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
