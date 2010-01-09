@@ -388,8 +388,8 @@ void File__Analyze::Get_L16(int128u &Info)
 {
     INTEGRITY_SIZE_ATLEAST_INT(16);
     //Info=LittleEndian2int128u(Buffer+Buffer_Offset+(size_t)Element_Offset);
-    Info.hi=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
-    Info.lo=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset+8);
+    Info.lo=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset);
+    Info.hi=LittleEndian2int64u(Buffer+Buffer_Offset+(size_t)Element_Offset+8);
     Element_Offset+=16;
 }
 
