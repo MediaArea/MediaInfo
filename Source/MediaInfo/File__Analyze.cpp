@@ -107,6 +107,7 @@ File__Analyze::File__Analyze ()
     Element[0].UnTrusted=false;
     Element[0].IsComplete=false;
     #ifndef MEDIAINFO_MINIMIZESIZE
+    Config_DetailsLevel=MediaInfoLib::Config.DetailsLevel_Get();
     if (Config_DetailsLevel!=0)
     {
         //ToShow part
@@ -394,11 +395,6 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Continue_Loop ()
 {
-    //Save for speed improvement
-    #ifndef MEDIAINFO_MINIMIZESIZE
-        Config_DetailsLevel=MediaInfoLib::Config.DetailsLevel_Get();
-    #endif
-
     //Header
     if (MustParseTheHeaderFile)
     {
