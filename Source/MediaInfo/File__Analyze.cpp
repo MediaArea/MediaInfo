@@ -106,7 +106,7 @@ File__Analyze::File__Analyze ()
     Element[0].UnTrusted=false;
     Element[0].IsComplete=false;
     #ifndef MEDIAINFO_MINIMIZESIZE
-    if (MediaInfoLib::Config.Details_Get()!=0)
+    if (MediaInfoLib::Config.DetailsLevel_Get()!=0)
     {
         //ToShow part
         Element[0].ToShow.Name.clear();
@@ -395,7 +395,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
 {
     //Save for speed improvement
     #ifndef MEDIAINFO_MINIMIZESIZE
-        Config_Details=MediaInfoLib::Config.Details_Get();
+        Config_Details=MediaInfoLib::Config.DetailsLevel_Get();
     #endif
 
     //Header
@@ -817,7 +817,7 @@ bool File__Analyze::Header_Manage()
 
     //ToShow
     #ifndef MEDIAINFO_MINIMIZESIZE
-    if (MediaInfoLib::Config.Details_Get()!=0)
+    if (MediaInfoLib::Config.DetailsLevel_Get()!=0)
     {
         if (Element[Element_Level-1].ToShow.Name.empty())
             Element[Element_Level-1].ToShow.Name=_T("Unknown");
@@ -865,7 +865,7 @@ void File__Analyze::Header_Fill_Code(int64u Code, const Ztring &Name)
     Element[Element_Level-1].Code=Code;
 
     //ToShow
-    if (MediaInfoLib::Config.Details_Get()!=0)
+    if (MediaInfoLib::Config.DetailsLevel_Get()!=0)
     {
         Element_Level--;
         Element_Name(Name);
@@ -904,7 +904,7 @@ void File__Analyze::Header_Fill_Size(int64u Size)
 
     //ToShow
     #ifndef MEDIAINFO_MINIMIZESIZE
-    if (MediaInfoLib::Config.Details_Get()!=0)
+    if (MediaInfoLib::Config.DetailsLevel_Get()!=0)
     {
         Element[Element_Level-1].ToShow.Pos=File_Offset+Buffer_Offset;
         Element[Element_Level-1].ToShow.Size=Element[Element_Level-1].Next-(File_Offset+Buffer_Offset);
@@ -1139,7 +1139,7 @@ void File__Analyze::Element_Begin()
     //ToShow
     #ifndef MEDIAINFO_MINIMIZESIZE
     Element[Element_Level].ToShow.Pos=File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get(); //TODO: change this, used in Element_End()
-    if (MediaInfoLib::Config.Details_Get()!=0)
+    if (MediaInfoLib::Config.DetailsLevel_Get()!=0)
     {
         Element[Element_Level].ToShow.Size=Element[Element_Level].Next-(File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get());
         Element[Element_Level].ToShow.Header_Size=0;
@@ -1174,7 +1174,7 @@ void File__Analyze::Element_Begin(const Ztring &Name, int64u Size)
 
     //ToShow
     Element[Element_Level].ToShow.Pos=File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get(); //TODO: change this, used in Element_End()
-    if (MediaInfoLib::Config.Details_Get()!=0)
+    if (MediaInfoLib::Config.DetailsLevel_Get()!=0)
     {
         Element[Element_Level].ToShow.Size=Element[Element_Level].Next-(File_Offset+Buffer_Offset+Element_Offset+BS->OffsetBeforeLastCall_Get());
         Element[Element_Level].ToShow.Header_Size=0;
@@ -1211,7 +1211,7 @@ void File__Analyze::Element_Begin(int64u Size)
 void File__Analyze::Element_Name(const Ztring &Name)
 {
     //ToShow
-    if (MediaInfoLib::Config.Details_Get()!=0)
+    if (MediaInfoLib::Config.DetailsLevel_Get()!=0)
     {
         if (!Name.empty())
         {
@@ -1234,15 +1234,15 @@ void File__Analyze::Element_Name(const Ztring &Name)
 void File__Analyze::Element_Info(const Ztring &Parameter)
 {
     //Coherancy
-    if (MediaInfoLib::Config.Details_Get()==0 || Element[Element_Level].ToShow.Details.size()>64*1024*1024)
+    if (MediaInfoLib::Config.DetailsLevel_Get()==0 || Element[Element_Level].ToShow.Details.size()>64*1024*1024)
         return;
 
     //Needed?
-    if (MediaInfoLib::Config.Details_Get()<=0.7)
+    if (MediaInfoLib::Config.DetailsLevel_Get()<=0.7)
         return;
 
     //ToShow
-    if (MediaInfoLib::Config.Details_Get()!=0)
+    if (MediaInfoLib::Config.DetailsLevel_Get()!=0)
     {
         Ztring Parameter2(Parameter);
         Parameter2.FindAndReplace(_T("\r\n"), _T(" / "));
@@ -1266,7 +1266,7 @@ void File__Analyze::Element_End(const Ztring &Name, int64u Size)
     }
 
     //ToShow
-    if (MediaInfoLib::Config.Details_Get()!=0)
+    if (MediaInfoLib::Config.DetailsLevel_Get()!=0)
     {
         Element[Element_Level].ToShow.Size=Element[Element_Level].Next-Element[Element_Level].ToShow.Pos;
         if (!Name.empty())
@@ -1330,9 +1330,9 @@ void File__Analyze::Element_End_Common_Flush()
 void File__Analyze::Element_End_Common_Flush_Details()
 {
     Element[Element_Level].ToShow.NoShow=Element[Element_Level+1].ToShow.NoShow;
-    if (MediaInfoLib::Config.Details_Get()!=0)
+    if (MediaInfoLib::Config.DetailsLevel_Get()!=0)
     {
-        if (!Element[Element_Level+1].WaitForMoreData && (Element[Element_Level+1].IsComplete || !Element[Element_Level+1].UnTrusted) && !Element[Element_Level+1].ToShow.NoShow)// && MediaInfoLib::Config.Details_Get()!=0 && Element[Element_Level].ToShow.Details.size()<=64*1024*1024)
+        if (!Element[Element_Level+1].WaitForMoreData && (Element[Element_Level+1].IsComplete || !Element[Element_Level+1].UnTrusted) && !Element[Element_Level+1].ToShow.NoShow)// && MediaInfoLib::Config.DetailsLevel_Get()!=0 && Element[Element_Level].ToShow.Details.size()<=64*1024*1024)
         {
             //Element
             if (!Element[Element_Level+1].ToShow.Name.empty())
@@ -1363,7 +1363,7 @@ Ztring File__Analyze::Element_End_Common_Flush_Build()
     Ztring ToReturn;
 
     //Show Offset
-    if (MediaInfoLib::Config.Details_Get()>0.7)
+    if (MediaInfoLib::Config.DetailsLevel_Get()>0.7)
     {
         ToReturn+=Log_Offset(Element[Element_Level+1].ToShow.Pos);
     }
@@ -1377,7 +1377,7 @@ Ztring File__Analyze::Element_End_Common_Flush_Build()
     Element[Element_Level+1].ToShow.Info.clear();
 
     //Size
-    if (MediaInfoLib::Config.Details_Get()>0.3)
+    if (MediaInfoLib::Config.DetailsLevel_Get()>0.3)
     {
         ToReturn+=_T(" (");
         ToReturn+=Ztring::ToZtring(Element[Element_Level+1].ToShow.Size);
@@ -1410,7 +1410,7 @@ void File__Analyze::Element_Prepare (int64u Size)
 #ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Param(const Ztring& Parameter, const Ztring& Value)
 {
-    if (MediaInfoLib::Config.Details_Get()==0)
+    if (MediaInfoLib::Config.DetailsLevel_Get()==0)
         return;
 
     //Position
@@ -1427,7 +1427,7 @@ void File__Analyze::Param(const Ztring& Parameter, const Ztring& Value)
         Element[Element_Level].ToShow.Details+=MediaInfoLib::Config.LineSeparator_Get();
 
     //Show Offset
-    if (MediaInfoLib::Config.Details_Get()>0.7)
+    if (MediaInfoLib::Config.DetailsLevel_Get()>0.7)
     {
         Element[Element_Level].ToShow.Details+=Log_Offset(Pos==(int64u)-1?Pos:(File_Offset+Buffer_Offset+Pos));
     }
@@ -1473,7 +1473,7 @@ void File__Analyze::Info(const Ztring& Value, size_t Element_Level_Minus)
         Element_Level_Final-=Element_Level_Minus;
     }
 
-    if (MediaInfoLib::Config.Details_Get()==0)
+    if (MediaInfoLib::Config.DetailsLevel_Get()==0)
         return;
 
     //Coherancy
@@ -1494,7 +1494,7 @@ void File__Analyze::Info(const Ztring& Value, size_t Element_Level_Minus)
 
     //Show Offset
     Ztring Offset;
-    if (MediaInfoLib::Config.Details_Get()>0.7)
+    if (MediaInfoLib::Config.DetailsLevel_Get()>0.7)
         Offset=Log_Offset(File_Offset+Buffer_Offset+Element_Offset+BS->Offset_Get());
     Offset.resize(Offset.size()+Element_Level_Base, _T(' '));
 
@@ -1517,11 +1517,11 @@ void File__Analyze::Param_Info (const Ztring &Text)
     //Coherancy
     if (Element[Element_Level].UnTrusted)
         return;
-    if (MediaInfoLib::Config.Details_Get()==0 || Element[Element_Level].ToShow.Details.size()>64*1024*1024)
+    if (MediaInfoLib::Config.DetailsLevel_Get()==0 || Element[Element_Level].ToShow.Details.size()>64*1024*1024)
         return;
 
     //Needed?
-    if (MediaInfoLib::Config.Details_Get()<=0.7)
+    if (MediaInfoLib::Config.DetailsLevel_Get()<=0.7)
         return;
 
     //Filling

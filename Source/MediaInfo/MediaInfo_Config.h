@@ -85,8 +85,19 @@ public :
           void      Verbosity_Set (float32 NewValue);
           float32   Verbosity_Get ();
 
-          void      Details_Set (float32 NewValue);
-          float32   Details_Get ();
+          void      DetailsLevel_Set (float32 NewValue);
+          float32   DetailsLevel_Get ();
+
+          enum detailsFormat
+          {
+              DetailsFormat_Tree,
+              DetailsFormat_CSV,
+          };
+          void      DetailsFormat_Set (detailsFormat NewValue);
+          detailsFormat DetailsFormat_Get ();
+
+          void      DetailsModificator_Set (const ZtringList &NewModifcator);
+          Ztring    DetailsModificator_Get (const Ztring &Modificator);
 
           void      Demux_Set (int8u NewValue);
           int8u     Demux_Get ();
@@ -173,7 +184,7 @@ private :
     size_t          ShowFiles_TextOnly;
     float32         ParseSpeed;
     float32         Verbosity;
-    float32         Details;
+    float32         DetailsLevel;
     bool            Language_Raw;
     bool            ReadByHuman;
     int8u           Demux;
@@ -186,6 +197,8 @@ private :
     Ztring          ThousandsPoint;
     Translation     Language; //ex. : "KB;Ko"
     ZtringListList  Custom_View; //Definition of "General", "Video", "Audio", "Text", "Chapters", "Image"
+    detailsFormat   DetailsFormat;
+    std::map<Ztring, bool> DetailsModificators; //If we want to add/remove some details
 
     InfoMap         Container;
     InfoMap         CodecID[InfoCodecID_Format_Max][Stream_Max];

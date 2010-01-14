@@ -118,7 +118,8 @@ void MediaInfo_Config::Init()
     ShowFiles_TextOnly=1;
     ParseSpeed=(float32)0.01;
     Verbosity=(float32)0.5;
-    Details=(float32)0.0;
+    DetailsLevel=(float32)0.0;
+    DetailsFormat=DetailsFormat_Tree;
     Language_Raw=false;
     ReadByHuman=true;
     Demux=0;
@@ -391,14 +392,52 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     {
         return Inform_Get();
     }
-    else if (Option_Lower==_T("details"))
+    else if (Option_Lower==_T("details")) //Legacy for detailslevel
     {
-        Details_Set(Value.To_float32());
+        DetailsLevel_Set(Value.To_float32());
         return _T("");
     }
-    else if (Option_Lower==_T("details_get"))
+    else if (Option_Lower==_T("details_get")) //Legacy for detailslevel
     {
-        return Ztring::ToZtring(Details_Get());
+        return Ztring::ToZtring(DetailsLevel_Get());
+    }
+    else if (Option_Lower==_T("detailslevel"))
+    {
+        DetailsLevel_Set(Value.To_float32());
+        return _T("");
+    }
+    else if (Option_Lower==_T("detailslevel_get"))
+    {
+        return Ztring::ToZtring(DetailsLevel_Get());
+    }
+    else if (Option_Lower==_T("detailsformat"))
+    {
+        String NewValue_Lower(Value);
+        transform(NewValue_Lower.begin(), NewValue_Lower.end(), NewValue_Lower.begin(), (int(*)(int))tolower); //(int(*)(int)) is a patch for unix
+
+        CriticalSectionLocker CSL(CS);
+        if (NewValue_Lower==_T("csv"))
+            DetailsFormat_Set(DetailsFormat_CSV);
+        else
+            DetailsFormat_Set(DetailsFormat_Tree);
+        return _T("");
+    }
+    else if (Option_Lower==_T("detailsformat_get"))
+    {
+        switch (DetailsFormat_Get())
+        {
+            case DetailsFormat_CSV : return _T("CSV");
+            default : return _T("Tree");
+        }
+    }
+    else if (Option_Lower==_T("detailsmodificator"))
+    {
+        DetailsModificator_Set(Value);
+        return _T("");
+    }
+    else if (Option_Lower==_T("detailsmodificator_get"))
+    {
+        return DetailsModificator_Get(Value);
     }
     else if (Option_Lower==_T("info_parameters"))
     {
@@ -617,16 +656,51 @@ bool MediaInfo_Config::ReadByHuman_Get ()
 }
 
 //---------------------------------------------------------------------------
-void MediaInfo_Config::Details_Set (float NewValue)
+void MediaInfo_Config::DetailsLevel_Set (float NewValue)
 {
     CriticalSectionLocker CSL(CS);
-    Details=NewValue;
+    DetailsLevel=NewValue;
 }
 
-float32 MediaInfo_Config::Details_Get ()
+float32 MediaInfo_Config::DetailsLevel_Get ()
 {
     CriticalSectionLocker CSL(CS);
-    return Details;
+    return DetailsLevel;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config::DetailsFormat_Set (detailsFormat NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    DetailsFormat=NewValue;
+}
+
+MediaInfo_Config::detailsFormat MediaInfo_Config::DetailsFormat_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return DetailsFormat;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config::DetailsModificator_Set (const ZtringList &NewValue)
+{
+    ZtringList List(NewValue);
+    if (List.size()!=2)
+        return;
+    transform(List[0].begin(), List[0].end(), List[0].begin(), (int(*)(int))tolower); //(int(*)(int)) is a patch for unix
+
+    CriticalSectionLocker CSL(CS);
+    DetailsModificators[List[0]]=List[1]==_T("1");
+}
+
+Ztring MediaInfo_Config::DetailsModificator_Get (const Ztring &Value)
+{
+    CriticalSectionLocker CSL(CS);
+    std::map<Ztring, bool>::iterator ToReturn=DetailsModificators.find(Value);
+    if (ToReturn!=DetailsModificators.end())
+        return ToReturn->second?_T("1"):_T("0");
+    else
+        return Ztring();
 }
 
 //---------------------------------------------------------------------------
@@ -951,10 +1025,10 @@ Ztring MediaInfo_Config::Language_Get (const Ztring &Count, const Ztring &Value,
 void MediaInfo_Config::Inform_Set (const ZtringListList &NewValue)
 {
     if (NewValue.Read(0, 0)==_T("Details"))
-        Details_Set(NewValue.Read(0, 1).To_float32());
+        DetailsLevel_Set(NewValue.Read(0, 1).To_float32());
     else
     {
-        Details_Set(0);
+        DetailsLevel_Set(0);
 
         CriticalSectionLocker CSL(CS);
 
