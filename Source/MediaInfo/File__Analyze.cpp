@@ -1114,7 +1114,11 @@ Ztring Log_Offset (int64u OffsetToShow)
     Pos2.resize(8-Pos1.size(), _T('0'));
     Pos2+=Pos1;
     Pos2.MakeUpperCase();
-    Pos2+=_T(' ');
+    switch (MediaInfoLib::Config.DetailsFormat_Get())
+    {
+        case MediaInfoLib::Config.DetailsFormat_Tree    : Pos2+=_T(' '); break;
+        default                                         : ;
+    }
     return Pos2;
 }
 
@@ -1238,14 +1242,17 @@ void File__Analyze::Element_Info(const Ztring &Parameter)
         return;
 
     //ToShow
-    if (Config_DetailsLevel!=0)
+    Ztring Parameter2(Parameter);
+    Parameter2.FindAndReplace(_T("\r\n"), _T(" / "));
+    Parameter2.FindAndReplace(_T("\r"), _T(" / "));
+    Parameter2.FindAndReplace(_T("\n"), _T(" / "));
+    switch (MediaInfoLib::Config.DetailsFormat_Get())
     {
-        Ztring Parameter2(Parameter);
-        Parameter2.FindAndReplace(_T("\r\n"), _T(" / "));
-        Parameter2.FindAndReplace(_T("\r"), _T(" / "));
-        Parameter2.FindAndReplace(_T("\n"), _T(" / "));
-        Element[Element_Level].ToShow.Info+=Ztring(_T(" - "))+Parameter2;
+        case MediaInfoLib::Config.DetailsFormat_Tree    : Element[Element_Level].ToShow.Info+=_T(" - "); break;
+        case MediaInfoLib::Config.DetailsFormat_CSV     : Element[Element_Level].ToShow.Info+=_T(','); break;
+        default                                         : ;
     }
+    Element[Element_Level].ToShow.Info+=Parameter2;
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
@@ -1365,7 +1372,16 @@ Ztring File__Analyze::Element_End_Common_Flush_Build()
     }
 
     //Name
-    ToReturn.resize(ToReturn.size()+Element_Level_Base+Element_Level, _T(' '));
+    switch (MediaInfoLib::Config.DetailsFormat_Get())
+    {
+        case MediaInfoLib::Config.DetailsFormat_Tree    : ToReturn.resize(ToReturn.size()+Element_Level_Base+Element_Level, _T(' ')); break;
+        case MediaInfoLib::Config.DetailsFormat_CSV     :
+                    ToReturn+=_T(",G,");
+                    ToReturn+=Ztring::ToZtring(Element_Level_Base+Element_Level);
+                    ToReturn+=_T(',');
+                    break;
+        default                                         : ;
+    }
     ToReturn+=Element[Element_Level+1].ToShow.Name;
 
     //Info
@@ -1375,14 +1391,20 @@ Ztring File__Analyze::Element_End_Common_Flush_Build()
     //Size
     if (Config_DetailsLevel>0.3)
     {
-        ToReturn+=_T(" (");
-        ToReturn+=Ztring::ToZtring(Element[Element_Level+1].ToShow.Size);
-        if (Element[Element_Level+1].ToShow.Header_Size>0)
+        switch (MediaInfoLib::Config.DetailsFormat_Get())
         {
-            ToReturn+=_T("/");
-            ToReturn+=Ztring::ToZtring(Element[Element_Level+1].ToShow.Size-Element[Element_Level+1].ToShow.Header_Size);
+            case MediaInfoLib::Config.DetailsFormat_Tree    :
+                    ToReturn+=_T(" (");
+                    ToReturn+=Ztring::ToZtring(Element[Element_Level+1].ToShow.Size);
+                    if (Element[Element_Level+1].ToShow.Header_Size>0)
+                    {
+                        ToReturn+=_T("/");
+                        ToReturn+=Ztring::ToZtring(Element[Element_Level+1].ToShow.Size-Element[Element_Level+1].ToShow.Header_Size);
+                    }
+                    ToReturn+=_T(" bytes)");
+                    break;
+            default                                         : ;
         }
-        ToReturn+=_T(" bytes)");
     }
 
     return ToReturn;
@@ -1428,22 +1450,39 @@ void File__Analyze::Param(const Ztring& Parameter, const Ztring& Value)
         Element[Element_Level].ToShow.Details+=Log_Offset(Pos==(int64u)-1?Pos:(File_Offset+Buffer_Offset+Pos));
     }
 
-    //Show Parameter
-    Ztring Param; Param=Parameter;
-    if (Param.size()>Padding_Value) Param.resize(Padding_Value);
-    Element[Element_Level].ToShow.Details.resize(Element[Element_Level].ToShow.Details.size()+Element_Level_Base+Element_Level, _T(' '));
-    Element[Element_Level].ToShow.Details+=Param;
-
-    //Show Value
-    if (!Value.empty())
+    //Show Parameter+Value
+    switch (MediaInfoLib::Config.DetailsFormat_Get())
     {
-        Element[Element_Level].ToShow.Details+=_T(": ");
-        Element[Element_Level].ToShow.Details.resize(Element[Element_Level].ToShow.Details.size()+Padding_Value-Param.size()-Element_Level+1, _T(' '));
-        Ztring Value2(Value);
-        Value2.FindAndReplace(_T("\r\n"), _T(" / "), 0, Ztring_Recursive);
-        Value2.FindAndReplace(_T("\r"), _T(" / "), 0, Ztring_Recursive);
-        Value2.FindAndReplace(_T("\n"), _T(" / "), 0, Ztring_Recursive);
-        Element[Element_Level].ToShow.Details+=Value2;
+        case MediaInfoLib::Config.DetailsFormat_Tree    :
+                    {
+                    //Show Parameter
+                    Ztring Param; Param=Parameter;
+                    if (Param.size()>Padding_Value) Param.resize(Padding_Value);
+                    Element[Element_Level].ToShow.Details.resize(Element[Element_Level].ToShow.Details.size()+Element_Level_Base+Element_Level, _T(' '));
+                    Element[Element_Level].ToShow.Details+=Param;
+
+                    //Show Value
+                    if (!Value.empty())
+                    {
+                        Element[Element_Level].ToShow.Details+=_T(": ");
+                        Element[Element_Level].ToShow.Details.resize(Element[Element_Level].ToShow.Details.size()+Padding_Value-Param.size()-Element_Level+1, _T(' '));
+                        Ztring Value2(Value);
+                        Value2.FindAndReplace(_T("\r\n"), _T(" / "), 0, Ztring_Recursive);
+                        Value2.FindAndReplace(_T("\r"), _T(" / "), 0, Ztring_Recursive);
+                        Value2.FindAndReplace(_T("\n"), _T(" / "), 0, Ztring_Recursive);
+                        Element[Element_Level].ToShow.Details+=Value2;
+                    }
+                    }
+                    break;
+        case MediaInfoLib::Config.DetailsFormat_CSV     :
+                    Element[Element_Level].ToShow.Details+=_T(",T,");
+                    Element[Element_Level].ToShow.Details+=Ztring::ToZtring(Element_Level_Base+Element_Level);
+                    Element[Element_Level].ToShow.Details+=_T(',');
+                    Element[Element_Level].ToShow.Details+=Parameter;
+                    Element[Element_Level].ToShow.Details+=_T(',');
+                    Element[Element_Level].ToShow.Details+=Value;
+                    break;
+        default                                         : ;
     }
 }
 #endif //MEDIAINFO_MINIMIZESIZE
@@ -1456,6 +1495,9 @@ void File__Analyze::Param(const Ztring& Parameter, const Ztring& Value)
 #ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Info(const Ztring& Value, size_t Element_Level_Minus)
 {
+    if (MediaInfoLib::Config.DetailsFormat_Get()==MediaInfo_Config::DetailsFormat_CSV)
+        return; //Do not display info
+
     //Handling a different level (only Element_Level_Minus to 1 is currently well supported)
     size_t Element_Level_Final=Element_Level;
     if (Element_Level_Minus<=Element_Level)
