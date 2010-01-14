@@ -513,6 +513,7 @@ File_Ac3::File_Ac3()
     //Configuration
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=32*1024;
+    PTS_DTS_Needed=true;
 
     //In
     Frame_Count_Valid=64;
@@ -988,7 +989,7 @@ void File_Ac3::Header_Parse()
 
     //Filling
     Header_Fill_Size(Size);
-    Header_Fill_Code(0, "Frame");
+    Header_Fill_Code(0, "syncframe");
 }
 
 //---------------------------------------------------------------------------
@@ -1006,6 +1007,10 @@ void File_Ac3::Data_Parse()
 //---------------------------------------------------------------------------
 void File_Ac3::Core()
 {
+    //PTS
+    if (PTS!=(int64u)-1)
+        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)PTS+PTS_DTS_Offset_InThisBlock)/1000000)));
+
     //Parsing
     int8u  dialnorm, dialnorm2, compr, compr2, dynrng, dynrng2;
     bool   compre, compr2e, dynrnge, dynrng2e;
@@ -1129,6 +1134,9 @@ void File_Ac3::Core()
     }
 
     FILLING_BEGIN();
+        //Name
+        Element_Info(_T("Frame ")+Ztring::ToZtring(Frame_Count));
+
         //Counting
         if (!Core_IsPresent)
         {
@@ -1140,8 +1148,14 @@ void File_Ac3::Core()
         Frame_Count++;
         HD_AlreadyCounted=false;
 
-        //Name
-        Element_Info(Ztring::ToZtring(Frame_Count));
+        //PTS
+        if (PTS!=(int64u)-1 && frmsizecod/2<19)
+        {
+            int64u BitRate=AC3_BitRate[frmsizecod/2]*1000;
+            int64u Bits=Element_Size*8;
+            float64 Frame_Duration=((float64)Bits)/BitRate;
+            PTS_DTS_Offset_InThisBlock+=float64_int64s(Frame_Duration*1000000000);
+        }
 
         //Specific to first frame
         if (Frame_Count==1 && bsid<=0x08)

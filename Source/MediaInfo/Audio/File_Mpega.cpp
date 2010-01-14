@@ -303,6 +303,7 @@ File_Mpega::File_Mpega()
     //Configuration
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
+    PTS_DTS_Needed=true;
 
     //In
     Frame_Count_Valid=128;
@@ -690,7 +691,7 @@ void File_Mpega::Header_Parse()
     //Filling
     int64u Size=(Mpega_Coefficient[ID][layer]*Mpega_BitRate[ID][layer][bitrate_index]*1000/Mpega_SamplingRate[ID][sampling_frequency]+(padding_bit?1:0))*Mpega_SlotSize[layer];
     Header_Fill_Size(Size);
-    Header_Fill_Code(0, "Frame");
+    Header_Fill_Code(0, "audio_data");
 
     //Filling error detection
     sampling_frequency_Count[sampling_frequency]++;
@@ -711,6 +712,19 @@ void File_Mpega::Data_Parse()
         return;
     }
 
+    //PTS
+    if (PTS!=(int64u)-1)
+    {
+        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)PTS+PTS_DTS_Offset_InThisBlock)/1000000)));
+        int64u BitRate=Mpega_BitRate[ID][layer][bitrate_index]*1000;
+        int64u Bits=Element_Size*8;
+        float64 Frame_Duration=((float64)Bits)/BitRate;
+        PTS_DTS_Offset_InThisBlock+=float64_int64s(Frame_Duration*1000000000);
+    }
+
+    //Name
+    Element_Info(_T("Frame ")+Ztring::ToZtring(Frame_Count));
+
     //VBR and library headers
     if (Frame_Count<3) //No need to do it too much
     {
@@ -724,9 +738,6 @@ void File_Mpega::Data_Parse()
     Frame_Count++;
     Frame_Count_Consecutive++;
     
-    //Name
-    Element_Info(Ztring::ToZtring(Frame_Count));
-
     //LAME
     if (Encoded_Library.empty() && (Frame_Count_Consecutive<Frame_Count_Valid || File_Offset+Buffer_Offset+Element_Size==File_Size-File_EndTagSize)) //Can be elsewhere... At the start, or end frame
         Header_Encoders();

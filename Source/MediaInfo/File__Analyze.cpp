@@ -54,6 +54,7 @@ File__Analyze::File__Analyze ()
 
     //In
     PTS_DTS_Needed=false;
+    PTS_DTS_Offset_InThisBlock=0;
     PTS=(int64u)-1;
     DTS=(int64u)-1;
 
