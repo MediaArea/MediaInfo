@@ -899,6 +899,8 @@ private :
     BitStream* BS;                  //For conversion from bytes to bitstream
 public : //TO CHANGE
     int64u Header_Size;             //Size of the header of the current element
+    const Ztring &Details_Get() {return Element[0].ToShow.Details;} //Direct access to details
+    void   Details_Clear();
 private :
 
     //Elements

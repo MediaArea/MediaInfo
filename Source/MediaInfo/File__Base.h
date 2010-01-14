@@ -109,7 +109,6 @@ protected :
 
 public :
     #ifndef MEDIAINFO_MINIMIZESIZE
-        void   Details_Clear();
         void   Details_Add(const char* Parameter);
     #endif //MEDIAINFO_MINIMIZESIZE
     virtual void Option_Manage() {};

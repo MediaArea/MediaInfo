@@ -2109,5 +2109,12 @@ void File__Analyze::BookMark_Get ()
         File_GoTo=BookMark_GoTo;
 }
 
+//---------------------------------------------------------------------------
+void File__Analyze::Details_Clear()
+{
+    Details->clear();
+    Element[0].ToShow.Details.clear();
+}
+
 } //NameSpace
 

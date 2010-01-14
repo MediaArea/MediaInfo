@@ -56,7 +56,12 @@ Ztring MediaInfo_Internal::Inform()
 
     #ifndef MEDIAINFO_MINIMIZESIZE
         if (MediaInfoLib::Config.DetailsLevel_Get() || MediaInfoLib::Config.Inform_Get()==_T("Details"))
-            return Details;
+        {
+            if (!Details.empty())
+                return Details;
+            else if (Info)
+                return Info->Details_Get();
+        }
     #endif //MEDIAINFO_MINIMIZESIZE
 
     if (!(

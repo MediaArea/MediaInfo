@@ -744,6 +744,15 @@ String MediaInfo_Internal::Option (const String &Option, const String &Value)
     {
         return _T("Option removed");
     }
+    #ifndef MEDIAINFO_MINIMIZESIZE
+    else if (OptionLower.find(_T("file_details_clear"))==0)
+    {
+        if (Info)
+            Info->Details_Clear();
+
+        return _T("");
+    }
+    #endif //MEDIAINFO_MINIMIZESIZE
     else if (OptionLower.find(_T("file_"))==0)
     {
         Ztring ToReturn2=Config.Option(Option, Value);
