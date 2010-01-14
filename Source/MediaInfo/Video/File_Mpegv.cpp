@@ -263,6 +263,18 @@ const char* Mpegv_user_data_DTG1_active_format[]=
     "16:9 letterbox image, alternative 4:3 center / 16:9 full frame image, alternative 4:3 center",
 };
 
+//---------------------------------------------------------------------------
+const char* Mpegv_user_data_GA94_cc_type(int8u cc_type)
+{
+    switch (cc_type)
+    {
+        case  0 : return "CEA-608 line 21 field 1 closed captions"; //closed caption 3 if this is second field
+        case  1 : return "CEA-608 line 21 field 2 closed captions"; //closed caption 4 if this is second field
+        case  2 : return "DTVCC Channel Packet Data";
+        case  3 : return "DTVCC Channel Packet Start";
+    }
+}
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -275,6 +287,7 @@ File_Mpegv::File_Mpegv()
     Trusted_Multiplier=2;
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
+    PTS_DTS_Needed=true;
 
     //In
     MPEG_Version=1;
@@ -816,9 +829,9 @@ void File_Mpegv::picture_start()
     #ifndef MEDIAINFO_MINIMIZESIZE
         if (Time_End_Seconds!=Error)
         {
-            size_t Time_End  =Time_End_Seconds  *1000;
+            int32u Time_End  =Time_End_Seconds  *1000;
             if (FrameRate)
-                Time_End  +=(size_t)(Time_End_Frames  *1000/FrameRate);
+                Time_End  +=(int32u)float32_int32s(Time_End_Frames  *1000/FrameRate);
             size_t Hours  = Time_End/60/60/1000;
             size_t Minutes=(Time_End-(Hours*60*60*1000))/60/1000;
             size_t Seconds=(Time_End-(Hours*60*60*1000)-(Minutes*60*1000))/1000;
@@ -835,7 +848,7 @@ void File_Mpegv::picture_start()
                 Time+=_T('.');
                 Time+=Ztring::ToZtring(Milli);
             }
-            Element_Info(Time);
+            Element_Info(_T("time_code ")+Time);
         }
     #endif //MEDIAINFO_MINIMIZESIZE
 
@@ -851,15 +864,19 @@ void File_Mpegv::picture_start()
         }
     }
 
+    //Name
+    Element_Name("picture_start");
+    if (PTS!=(int64u)-1)
+        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)PTS)/1000000)));
+    if (DTS!=(int64u)-1)
+        Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)DTS)/1000000)));
+    Element_Info((progressive_sequence?_T("Frame "):_T("Field "))+Ztring::ToZtring(Frame_Count));
+
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
         Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
     Frame_Count++;
     Frame_Count_InThisBlock++;
-
-    //Name
-    Element_Name("picture_start");
-    Element_Info(Ztring(_T("Field ")+Ztring::ToZtring(Frame_Count)));
 
     //Need to parse?
     if (!Streams[0x00].Searching_Payload)
@@ -870,9 +887,9 @@ void File_Mpegv::picture_start()
 
     //Parsing
     BS_Begin();
-    Get_S2 (10, temporal_reference,                             "temporal_reference"); Element_Info(temporal_reference);
+    Get_S2 (10, temporal_reference,                             "temporal_reference"); Element_Info(_T("temporal_reference ")+Ztring::ToZtring(temporal_reference));
     Get_S1 ( 3, picture_coding_type,                            "picture_coding_type"); Param_Info(Mpegv_picture_coding_type[picture_coding_type]);
-    Element_Info(Mpegv_picture_coding_type[picture_coding_type]);
+    Element_Info(_T("picture_coding_type ")+Ztring().From_Local(Mpegv_picture_coding_type[picture_coding_type]));
     Get_S2 (16, vbv_delay,                                      "vbv_delay");
     if (picture_coding_type==2 || picture_coding_type==3) //P or B
     {
@@ -1223,7 +1240,7 @@ void File_Mpegv::user_data_start_GA94_03()
         Get_SB (additional_data_flag,                               "additional_data_flag");
         Get_S1 (5, cc_count,                                        "cc_count");
         BS_End();
-        Skip_B1(                                                    process_em_data_flag?"em_data":"junk"); //Emergency message
+        Skip_B1(                                                    process_em_data_flag?"em_data":"reserved"); //Emergency message
         if (TemporalReference[TemporalReference_Offset+temporal_reference].GA94_03_CC.size()<cc_count)
             TemporalReference[TemporalReference_Offset+temporal_reference].GA94_03_CC.resize(cc_count);
         if (process_cc_data_flag)
@@ -1240,7 +1257,7 @@ void File_Mpegv::user_data_start_GA94_03()
                 Mark_1();
                 Mark_1();
                 Get_SB (   cc_valid,                                    "cc_valid");
-                Get_S1 (2, cc_type,                                     "cc_type");
+                Get_S1 (2, cc_type,                                     "cc_type"); Param_Info(Mpegv_user_data_GA94_cc_type(cc_type));
                 BS_End();
                 Get_B1 (cc_data_1,                                      "cc_data_1");
                 Get_B1 (cc_data_2,                                      "cc_data_2");
