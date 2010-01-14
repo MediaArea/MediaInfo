@@ -832,7 +832,7 @@ protected :
 
 protected :
     //Save for speed improvement
-    float Config_Details;
+    float Config_DetailsLevel;
     bool  IsSub;
 
     //Configuration
