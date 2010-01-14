@@ -48,7 +48,7 @@ File__Analyze::File__Analyze ()
 {
     //Details
     #ifndef MEDIAINFO_MINIMIZESIZE
-        Config_DetailsLevel=0;
+        Config_DetailsLevel=MediaInfoLib::Config.DetailsLevel_Get();
     #endif //MEDIAINFO_MINIMIZESIZE
     IsSub=false;
 
@@ -107,7 +107,6 @@ File__Analyze::File__Analyze ()
     Element[0].UnTrusted=false;
     Element[0].IsComplete=false;
     #ifndef MEDIAINFO_MINIMIZESIZE
-    Config_DetailsLevel=MediaInfoLib::Config.DetailsLevel_Get();
     if (Config_DetailsLevel!=0)
     {
         //ToShow part
