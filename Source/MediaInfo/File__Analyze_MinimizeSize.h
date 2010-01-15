@@ -38,6 +38,7 @@ public :
     int64u DTS; //In nanoseconds
 
     //Out
+    int64u PTS_DTS_Offset_InThisBlock; //In nanoseconds
     size_t Frame_Count_InThisBlock;
 
 protected :

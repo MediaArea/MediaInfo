@@ -273,6 +273,10 @@ File__Analyze* File__MultipleParsing::Parser_Get()
 File__MultipleParsing::File__MultipleParsing()
 :File__Analyze()
 {
+    #ifndef MEDIAINFO_MINIMIZESIZE
+        Details_DoNotSave=true;
+    #endif //MEDIAINFO_MINIMIZESIZE
+
     File__Analyze* Temp;
     // Multiple
     #if defined(MEDIAINFO_BDAV_YES)

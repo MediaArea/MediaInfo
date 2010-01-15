@@ -49,6 +49,7 @@ File__Analyze::File__Analyze ()
     //Details
     #ifndef MEDIAINFO_MINIMIZESIZE
         Config_DetailsLevel=MediaInfoLib::Config.DetailsLevel_Get();
+        Details_DoNotSave=false;
     #endif //MEDIAINFO_MINIMIZESIZE
     IsSub=false;
 
@@ -374,7 +375,7 @@ void File__Analyze::Open_Buffer_Continue (File__Analyze* Sub, const int8u* ToAdd
 
     #ifndef MEDIAINFO_MINIMIZESIZE
         //Details handling
-        if (!Sub->Element[0].ToShow.Details.empty())
+        if (!Sub->Element[0].ToShow.Details.empty() && !Details_DoNotSave)
         {
             //Line separator
             if (!Element[Element_Level].ToShow.Details.empty())
@@ -427,7 +428,7 @@ void File__Analyze::Open_Buffer_Continue_Loop ()
     }
 
     //Jumping to the end of the file if needed
-    if (!IsSub && !EOF_AlreadyDetected && Count_Get(Stream_General))
+    if (!IsSub && !EOF_AlreadyDetected && MediaInfoLib::Config.ParseSpeed_Get()<1 && Count_Get(Stream_General))
     {
         Element[Element_Level].WaitForMoreData=false;
         Detect_EOF();
@@ -759,7 +760,7 @@ bool File__Analyze::Header_Manage()
     if (!Header_Begin())
     {
         //Jumping to the end of the file if needed
-        if (!EOF_AlreadyDetected && File_GoTo==(int64u)-1)
+        if (!EOF_AlreadyDetected && MediaInfoLib::Config.ParseSpeed_Get()<1 && File_GoTo==(int64u)-1)
         {
             Element[Element_Level].WaitForMoreData=false;
             Detect_EOF();
@@ -979,7 +980,7 @@ bool File__Analyze::Data_Manage()
     Element[Element_Level].UnTrusted=false;
 
     //Jumping to the end of the file if needed
-    if (!EOF_AlreadyDetected && File_GoTo==(int64u)-1)
+    if (!EOF_AlreadyDetected && MediaInfoLib::Config.ParseSpeed_Get()<1 && File_GoTo==(int64u)-1)
     {
         Element[Element_Level].WaitForMoreData=false;
         Detect_EOF();
@@ -1117,6 +1118,7 @@ Ztring Log_Offset (int64u OffsetToShow)
     switch (MediaInfoLib::Config.DetailsFormat_Get())
     {
         case MediaInfoLib::Config.DetailsFormat_Tree    : Pos2+=_T(' '); break;
+        case MediaInfoLib::Config.DetailsFormat_CSV     : Pos2+=_T(','); break;
         default                                         : ;
     }
     return Pos2;
@@ -1376,7 +1378,7 @@ Ztring File__Analyze::Element_End_Common_Flush_Build()
     {
         case MediaInfoLib::Config.DetailsFormat_Tree    : ToReturn.resize(ToReturn.size()+Element_Level_Base+Element_Level, _T(' ')); break;
         case MediaInfoLib::Config.DetailsFormat_CSV     :
-                    ToReturn+=_T(",G,");
+                    ToReturn+=_T("G,");
                     ToReturn+=Ztring::ToZtring(Element_Level_Base+Element_Level);
                     ToReturn+=_T(',');
                     break;
@@ -1475,7 +1477,7 @@ void File__Analyze::Param(const Ztring& Parameter, const Ztring& Value)
                     }
                     break;
         case MediaInfoLib::Config.DetailsFormat_CSV     :
-                    Element[Element_Level].ToShow.Details+=_T(",T,");
+                    Element[Element_Level].ToShow.Details+=_T("T,");
                     Element[Element_Level].ToShow.Details+=Ztring::ToZtring(Element_Level_Base+Element_Level);
                     Element[Element_Level].ToShow.Details+=_T(',');
                     Element[Element_Level].ToShow.Details+=Parameter;
@@ -2110,11 +2112,13 @@ void File__Analyze::BookMark_Get ()
 }
 
 //---------------------------------------------------------------------------
+#ifndef MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Details_Clear()
 {
     Details->clear();
     Element[0].ToShow.Details.clear();
 }
+#endif //MEDIAINFO_MINIMIZESIZE
 
 } //NameSpace
 
