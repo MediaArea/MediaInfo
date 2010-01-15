@@ -63,7 +63,6 @@ void File_Eia708::Streams_Fill()
             Fill(Stream_Text, StreamPos_Last, Text_Format, "EIA-708");
             Fill(Stream_Text, StreamPos_Last, Text_ID, Pos);
             Fill(Stream_Text, StreamPos_Last, Text_StreamSize, 0);
-            //Fill(Stream_Text, StreamPos_Last, "xxx", Ztring::Ztring().From_Unicode(Captions[Pos]));
         }
     }
 }
@@ -126,9 +125,12 @@ void File_Eia708::Data_Parse()
 
     if (block_size)
     {
+        size_t Captions_Size=Captions[service_number].size();
+
         Element_Begin("Service Block Packet", block_size);
         for (int8u Pos=0; Pos<block_size; Pos++)
         {
+
             int8u cc_data_1;
             Get_B1(cc_data_1,                                   "cc_data");
             switch (cc_data_1)
@@ -270,109 +272,109 @@ void File_Eia708::Data_Parse()
                 case 0x7F : Captions[service_number]+=L'\x266A'; break;
                 case 0x88 : //CLW
                             {
-                                Skip_B1(                        "CLW");
+                                Skip_B1(                        "CLW parameters");
                                 Pos+=1;
                             }
                             break;
                 case 0x89 : //DSW
                             {
-                                Skip_B1(                        "DSW");
+                                Skip_B1(                        "DSW parameters");
                                 Pos+=1;
                             }
                             break;
                 case 0x8A : //HDW
                             {
-                                Skip_B1(                        "HDW");
+                                Skip_B1(                        "HDW parameters");
                                 Pos+=1;
                             }
                             break;
                 case 0x8B : //TGW
                             {
-                                Skip_B1(                        "TGW");
+                                Skip_B1(                        "TGW parameters");
                                 Pos+=1;
                             }
                             break;
                 case 0x8C : //DLW
                             {
-                                Skip_B1(                        "DLW");
+                                Skip_B1(                        "DLW parameters");
                                 Pos+=1;
                             }
                             break;
                 case 0x8D : //DLY
                             {
-                                Skip_B1(                        "DLY");
+                                Skip_B1(                        "DLY parameters");
                                 Pos+=1;
                             }
                             break;
                 case 0x90 : //SPA
                             {
-                                Skip_B2(                        "SPA");
+                                Skip_B2(                        "SPA parameters");
                                 Pos+=2;
                             }
                             break;
                 case 0x91 : //SPC
                             {
-                                Skip_B3(                        "SPC");
+                                Skip_B3(                        "SPC parameters");
                                 Pos+=3;
                             }
                             break;
                 case 0x92 : //SPL
                             {
-                                Skip_B2(                        "SPL");
+                                Skip_B2(                        "SPL parameters");
                                 Pos+=2;
                             }
                             break;
                 case 0x97 : //SWA
                             {
-                                Skip_B4(                        "SWA");
+                                Skip_B4(                        "SWA parameters");
                                 Pos+=4;
                             }
                             break;
                 case 0x98 : //
                             {
-                                Skip_B6(                        "DF0");
+                                Skip_B6(                        "DF0 parameters");
                                 Pos+=6;
                             }
                             break;
                 case 0x99 : //
                             {
-                                Skip_B6(                        "DF1");
+                                Skip_B6(                        "DF1 parameters");
                                 Pos+=6;
                             }
                             break;
                 case 0x9A : //
                             {
-                                Skip_B6(                        "DF2");
+                                Skip_B6(                        "DF2 parameters");
                                 Pos+=6;
                             }
                             break;
                 case 0x9B : //
                             {
-                                Skip_B6(                        "DF3");
+                                Skip_B6(                        "DF3 parameters");
                                 Pos+=6;
                             }
                             break;
                 case 0x9C : //
                             {
-                                Skip_B6(                        "DF4");
+                                Skip_B6(                        "DF4 parameters");
                                 Pos+=6;
                             }
                             break;
                 case 0x9D : //
                             {
-                                Skip_B6(                        "DF5");
+                                Skip_B6(                        "DF5 parameters");
                                 Pos+=6;
                             }
                             break;
                 case 0x9E : //
                             {
-                                Skip_B6(                        "DF6");
+                                Skip_B6(                        "DF6 parameters");
                                 Pos+=6;
                             }
                             break;
                 case 0x9F : //
                             {
-                                Skip_B6(                        "DF7");
+                                Skip_B6(                        "DF7 parameters");
                                 Pos+=6;
                             }
                             break;
@@ -380,12 +382,19 @@ void File_Eia708::Data_Parse()
             }
         }
 
+        if (Captions_Size<Captions[service_number].size())
+            Param_Info(Captions[service_number].substr(Captions_Size, std::string::npos));
+
         Element_End();
     }
 
+    if (!Captions[service_number].empty()) //TODO: multiple captions
+        Fill(Stream_Text, 0, "Content", Ztring::Ztring().From_Unicode(Captions[service_number]), true); //TODO: multiple captions
     if (!Status[IsFilled] && !Captions[service_number].empty())
     {
-        Finish("EIA-608"); //TODO: multiple captions
+        Fill("EIA-708");
+        if (MediaInfoLib::Config.ParseSpeed_Get()<1)
+            Finish("EIA-708"); //TODO: multiple captions
     }
 }
 
@@ -395,4 +404,4 @@ void File_Eia708::Data_Parse()
 
 } //NameSpace
 
-#endif //MEDIAINFO_PGS_YES
+#endif //MEDIAINFO_EIA708_YES

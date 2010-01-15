@@ -46,7 +46,6 @@ void File_Eia608::Streams_Fill()
     Stream_Prepare(Stream_Text);
     Fill(Stream_Text, 0, Text_Format, "EIA-608");
     Fill(Stream_Text, 0, Text_StreamSize, 0);
-    //Fill(Stream_Text, 0, "xxx", Ztring::Ztring().From_Unicode(Captions));
 }
 
 //***************************************************************************
@@ -58,6 +57,8 @@ void File_Eia608::Read_Buffer_Continue()
 {
     while (Element_Offset<Element_Size)
     {
+        size_t Captions_Size=Captions.size();
+
         int8u cc_data_1;
         Get_B1 (cc_data_1,                                      "cc_data");
 
@@ -265,12 +266,18 @@ void File_Eia608::Read_Buffer_Continue()
             case 0x7F : Captions+=L'\x25A0'; break; //Solid block
             default   : ;
         }
+
+        if (Captions_Size<Captions.size())
+            Param_Info(Captions.substr(Captions_Size, std::string::npos));
     }
 
+    //Fill(Stream_Text, 0, "Content", Ztring::Ztring().From_Unicode(Captions), true);
     if (!Status[IsAccepted] && !Captions.empty())
     {
         Accept("EIA-608");
-        Finish("EIA-608");
+        Fill("EIA-608");
+        if (MediaInfoLib::Config.ParseSpeed_Get()<1)
+            Finish("EIA-608");
     }
 }
 
@@ -280,4 +287,4 @@ void File_Eia608::Read_Buffer_Continue()
 
 } //NameSpace
 
-#endif //MEDIAINFO_PGS_YES
+#endif //MEDIAINFO_EIA608_YES
