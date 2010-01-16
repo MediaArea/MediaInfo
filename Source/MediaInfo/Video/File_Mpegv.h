@@ -140,6 +140,7 @@ private :
     //Temp
     std::vector<File__Analyze*> DVD_CC_Parsers;
     std::vector<File__Analyze*> GA94_03_CC_Parsers;
+    std::vector<size_t> GA94_03_CC_Parsers_StreamPos;
     Ztring Library;
     Ztring Library_Name;
     Ztring Library_Version;

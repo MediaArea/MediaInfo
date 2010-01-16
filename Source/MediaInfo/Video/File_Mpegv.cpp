@@ -272,6 +272,7 @@ const char* Mpegv_user_data_GA94_cc_type(int8u cc_type)
         case  1 : return "CEA-608 line 21 field 2 closed captions"; //closed caption 4 if this is second field
         case  2 : return "DTVCC Channel Packet Data";
         case  3 : return "DTVCC Channel Packet Start";
+        default : return "";
     }
 }
 
@@ -507,6 +508,15 @@ void File_Mpegv::Streams_Fill()
     Streams[0xB8].Searching_TimeStamp_End=true;
     if (IsSub)
         Streams[0x00].Searching_TimeStamp_End=true;
+
+    //Caption may be in user_data, must be activated if full parsing is requested
+    if (MediaInfoLib::Config.ParseSpeed_Get()>=1)
+    {
+        Streams[0x00].Searching_Payload=true;
+        Streams[0xB2].Searching_Payload=true;
+        Streams[0xB3].Searching_Payload=true;
+        Streams[0xB5].Searching_Payload=true;
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -536,17 +546,6 @@ void File_Mpegv::Streams_Finish()
             Merge(*DVD_CC_Parsers[Pos]);
             Fill(Stream_Text, StreamPos_Last, Text_ID, _T("DVD-")+Ztring::ToZtring(Pos));
             Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("DVD-Video"));
-        }
-
-    //GA94 captions
-    for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
-        if (GA94_03_CC_Parsers[Pos] && !GA94_03_CC_Parsers[Pos]->Status[IsFinished] && GA94_03_CC_Parsers[Pos]->Status[IsFilled])
-        {
-            Finish(GA94_03_CC_Parsers[Pos]);
-            Merge(*GA94_03_CC_Parsers[Pos]);
-            if (Pos<2)
-                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
-            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"));
         }
 
     //Purge what is not needed anymore
@@ -1296,18 +1295,28 @@ void File_Mpegv::user_data_start_GA94_03()
                         {
                             if (cc_type>=2)
                                 ((File_Eia708*)GA94_03_CC_Parsers[2])->cc_type=cc_type;
+                            Element_Begin(Ztring(_T("ReorderedCaptions,"))+Ztring().From_Local(Mpegv_user_data_GA94_cc_type(cc_type)));
                             Open_Buffer_Init(GA94_03_CC_Parsers[Parser_Pos]);
                             Open_Buffer_Continue(GA94_03_CC_Parsers[Parser_Pos], TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2);
+                            Element_End();
 
                             //Finish
-                            if (GA94_03_CC_Parsers[Parser_Pos]->Status[IsFinished])
+                            if (GA94_03_CC_Parsers[Parser_Pos]->Status[IsFilled])
                             {
                                 if (Count_Get(Stream_General)==0)
                                     Accept("MPEG Video");
-                                Merge(*GA94_03_CC_Parsers[Parser_Pos]);
-                                if (Parser_Pos<2)
-                                    Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Parser_Pos));
-                                Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"));
+                                if (GA94_03_CC_Parsers_StreamPos.empty())
+                                    GA94_03_CC_Parsers_StreamPos.resize(3, (size_t)-1);
+                                if (GA94_03_CC_Parsers_StreamPos[Parser_Pos]!=(size_t)-1)
+                                    Fill(Stream_Text, GA94_03_CC_Parsers_StreamPos[Parser_Pos], "Content", GA94_03_CC_Parsers[Parser_Pos]->Retrieve(Stream_Text, 0, "Content"), true);
+                                else
+                                {
+                                    Merge(*GA94_03_CC_Parsers[Parser_Pos]);
+                                    if (Parser_Pos<2)
+                                        Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Parser_Pos));
+                                    Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"), Unlimited);
+                                    GA94_03_CC_Parsers_StreamPos[Parser_Pos]=StreamPos_Last;
+                                }
                             }
                         }
 
