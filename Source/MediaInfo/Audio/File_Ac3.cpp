@@ -1185,7 +1185,8 @@ void File_Ac3::Core()
             Fill("AC-3");
 
             //No more need data
-            Finish("AC-3");
+            if (MediaInfoLib::Config.ParseSpeed_Get()<1)
+                Finish("AC-3");
         }
     FILLING_END();
 }
@@ -1363,7 +1364,8 @@ void File_Ac3::HD()
             Fill("AC-3");
 
             //No more need data
-            Finish("AC-3");
+            if (MediaInfoLib::Config.ParseSpeed_Get()<1)
+                Finish("AC-3");
         }
     FILLING_END();
 }
