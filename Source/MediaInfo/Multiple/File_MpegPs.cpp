@@ -2896,7 +2896,7 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
             if ((Temp.Parsers[Pos]->Status[IsAccepted] && Temp.Parsers[Pos]->Status[IsFinished])
              || (!Parsing_End_ForDTS && Temp.Parsers[Pos]->Status[IsFilled]))
             {
-                if (Temp.Parsers[Pos]->Count_Get(Stream_Video)==0) //TODO: speed improvement, we do this only for CC
+                if (MediaInfoLib::Config.ParseSpeed_Get()<1 && Temp.Parsers[Pos]->Count_Get(Stream_Video)==0) //TODO: speed improvement, we do this only for CC
                     Temp.Searching_Payload=false;
                 if (xxx_Count>0)
                     xxx_Count--;
