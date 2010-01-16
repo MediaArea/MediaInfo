@@ -388,8 +388,8 @@ void File_Eia708::Data_Parse()
         Element_End();
     }
 
-    if (!Captions[service_number].empty()) //TODO: multiple captions
-        Fill(Stream_Text, 0, "Content", Ztring::Ztring().From_Unicode(Captions[service_number]), true); //TODO: multiple captions
+    //if (!Captions[service_number].empty()) //TODO: multiple captions
+    //    Fill(Stream_Text, 0, "Content", Ztring::Ztring().From_Unicode(Captions[service_number]), true); //TODO: multiple captions
     if (!Status[IsFilled] && !Captions[service_number].empty())
     {
         Fill("EIA-708");
