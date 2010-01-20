@@ -1,5 +1,5 @@
 // Helpers - Automaticly generated methods for MediaInfo
-// Copyright (C) 2005-2010 MediaArea.net SARL, Info@MediaArea.net
+// Copyright (C) 2005-2007 Jerome Martinez, Zen@MediaArea.net
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -8,7 +8,7 @@
 //
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 // Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public
@@ -1214,8 +1214,8 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     "ac16;YUV;;;;;;YUV 4:2:2\n"
     "ac32;YUV;;;;;;YUV 4:2:2\n"
     "acBG;YUV;;;;;;YUV 4:2:2\n"
-    "apch;Digital Video;;ProRes 422 HQ;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:2:2\n"
-    "apcn;Digital Video;;ProRes 422;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:2:2\n"
+    "apch;ProRes;HQ;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:2:2\n"
+    "apcn;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:2:2\n"
     "avc1;AVC;;Advanced Video Coding;http://www.apple.com/quicktime/download/standalone.html\n"
     "avcp;AVC;;Advanced Video Coding Parameters;http://www.apple.com/quicktime/download/standalone.html\n"
     "AVdv;Digital Video;;Avid;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1\n"
@@ -1258,6 +1258,7 @@ void MediaInfo_Config_CodecID_Video_Mpeg4 (InfoMap &Info)
     "h264;H.264;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "HD10;Digital Voodoo;;Digital Voodoo 10 bit Uncompressed 4:2:2 HD codec;http://www.digitalvoodoo.net/\n"
     "hdv3;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1\n"
+    "icod;Intermediate Codec;Apple;;http://www.apple.com/quicktime/download/standalone.html\n"
     "j420;YUV;;;;;;YUV 4:2:0\n"
     "jpeg;M-JPEG;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "kpcd;Photo CD\n"
