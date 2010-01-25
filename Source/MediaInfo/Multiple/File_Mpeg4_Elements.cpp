@@ -1465,7 +1465,7 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                             return;
                         case Elements::moov_meta__covr :
                             {
-                            std::string Data_Raw((const char*)(Buffer+(size_t)(Buffer_Offset+Element_Offset)), Element_Size-Element_Offset);
+                            std::string Data_Raw((const char*)(Buffer+(size_t)(Buffer_Offset+Element_Offset)), (size_t)(Element_Size-Element_Offset));
                             std::string Data_Base64(Base64::encode(Data_Raw));
                             Skip_XX(Element_Size-Element_Offset, "Data");
 
@@ -1523,7 +1523,7 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                     {
                         case Elements::moov_meta__covr :
                             {
-                            std::string Data_Raw((const char*)(Buffer+(size_t)(Buffer_Offset+Element_Offset)), Element_Size-Element_Offset);
+                            std::string Data_Raw((const char*)(Buffer+(size_t)(Buffer_Offset+Element_Offset)), (size_t)(Element_Size-Element_Offset));
                             std::string Data_Base64(Base64::encode(Data_Raw));
                             Skip_XX(Element_Size-Element_Offset, "Data");
 
