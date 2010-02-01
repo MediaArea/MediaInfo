@@ -14,6 +14,7 @@ Version 0.7.28, 2010
 + RIFF: Handling of INFO chunk in hdlr chunk
 + VorbisCom-based comments (FLAC, OGG...): support of new fields
 + MPEG-4 Visual: Duration for raw streams
++ Display Aspect Ratio 3:2 instead of 1.500
 x MPEG-4: some bitrates to zero with a null btrt atom
 x MPEG-4: managing different kinds of compressor name format
 

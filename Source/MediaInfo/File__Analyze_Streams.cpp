@@ -660,6 +660,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                  if (0);
             else if (F1>1.23 && F1<1.27) C1=_T("5:4");
             else if (F1>1.30 && F1<1.37) C1=_T("4:3");
+            else if (F1>1.45 && F1<1.55) C1=_T("3:2");
             else if (F1>1.70 && F1<1.85) C1=_T("16:9");
             else if (F1>2.10 && F1<2.22) C1=_T("2.2:1");
             else if (F1>2.23 && F1<2.30) C1=_T("2.25:1");
@@ -714,6 +715,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                  if (0);
             else if (F1>1.23 && F1<1.27) C1=_T("5:4");
             else if (F1>1.30 && F1<1.37) C1=_T("4:3");
+            else if (F1>1.45 && F1<1.55) C1=_T("3:2");
             else if (F1>1.70 && F1<1.85) C1=_T("16:9");
             else if (F1>2.10 && F1<2.22) C1=_T("2.2:1");
             else if (F1>2.23 && F1<2.30) C1=_T("2.25:1");
