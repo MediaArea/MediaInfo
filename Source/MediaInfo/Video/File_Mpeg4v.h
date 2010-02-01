@@ -57,6 +57,9 @@ private :
     //Buffer - File header
     bool FileHeader_Begin() {return FileHeader_Begin_0x000001();}
 
+    //Buffer - Global
+    void Read_Buffer_Unsynched();
+
     //Buffer - Synchro
     bool Synchronize() {return Synchronize_0x000001();}
     bool Synched_Test();
@@ -120,6 +123,10 @@ private :
     //From video_object_layer
     size_t time_size;
     int32u fixed_vop_time_increment;
+    int32u Time_Begin_Seconds;
+    int32u Time_End_Seconds;
+    int16u Time_Begin_MilliSeconds;
+    int16u Time_End_MilliSeconds;
     int16u object_layer_width;
     int16u object_layer_height;
     int16u vop_time_increment_resolution;
