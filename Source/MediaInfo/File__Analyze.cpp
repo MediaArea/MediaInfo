@@ -1117,8 +1117,8 @@ Ztring Log_Offset (int64u OffsetToShow)
     Pos2.MakeUpperCase();
     switch (MediaInfoLib::Config.DetailsFormat_Get())
     {
-        case MediaInfoLib::Config.DetailsFormat_Tree    : Pos2+=_T(' '); break;
-        case MediaInfoLib::Config.DetailsFormat_CSV     : Pos2+=_T(','); break;
+        case MediaInfo_Config::DetailsFormat_Tree       : Pos2+=_T(' '); break;
+        case MediaInfo_Config::DetailsFormat_CSV        : Pos2+=_T(','); break;
         default                                         : ;
     }
     return Pos2;
@@ -1250,8 +1250,8 @@ void File__Analyze::Element_Info(const Ztring &Parameter)
     Parameter2.FindAndReplace(_T("\n"), _T(" / "));
     switch (MediaInfoLib::Config.DetailsFormat_Get())
     {
-        case MediaInfoLib::Config.DetailsFormat_Tree    : Element[Element_Level].ToShow.Info+=_T(" - "); break;
-        case MediaInfoLib::Config.DetailsFormat_CSV     : Element[Element_Level].ToShow.Info+=_T(','); break;
+        case MediaInfo_Config::DetailsFormat_Tree    : Element[Element_Level].ToShow.Info+=_T(" - "); break;
+        case MediaInfo_Config::DetailsFormat_CSV     : Element[Element_Level].ToShow.Info+=_T(','); break;
         default                                         : ;
     }
     Element[Element_Level].ToShow.Info+=Parameter2;
@@ -1376,8 +1376,8 @@ Ztring File__Analyze::Element_End_Common_Flush_Build()
     //Name
     switch (MediaInfoLib::Config.DetailsFormat_Get())
     {
-        case MediaInfoLib::Config.DetailsFormat_Tree    : ToReturn.resize(ToReturn.size()+Element_Level_Base+Element_Level, _T(' ')); break;
-        case MediaInfoLib::Config.DetailsFormat_CSV     :
+        case MediaInfo_Config::DetailsFormat_Tree       : ToReturn.resize(ToReturn.size()+Element_Level_Base+Element_Level, _T(' ')); break;
+        case MediaInfo_Config::DetailsFormat_CSV        :
                     ToReturn+=_T("G,");
                     ToReturn+=Ztring::ToZtring(Element_Level_Base+Element_Level);
                     ToReturn+=_T(',');
@@ -1395,7 +1395,7 @@ Ztring File__Analyze::Element_End_Common_Flush_Build()
     {
         switch (MediaInfoLib::Config.DetailsFormat_Get())
         {
-            case MediaInfoLib::Config.DetailsFormat_Tree    :
+            case MediaInfo_Config::DetailsFormat_Tree       :
                     ToReturn+=_T(" (");
                     ToReturn+=Ztring::ToZtring(Element[Element_Level+1].ToShow.Size);
                     if (Element[Element_Level+1].ToShow.Header_Size>0)
@@ -1455,7 +1455,7 @@ void File__Analyze::Param(const Ztring& Parameter, const Ztring& Value)
     //Show Parameter+Value
     switch (MediaInfoLib::Config.DetailsFormat_Get())
     {
-        case MediaInfoLib::Config.DetailsFormat_Tree    :
+        case MediaInfo_Config::DetailsFormat_Tree       :
                     {
                     //Show Parameter
                     Ztring Param; Param=Parameter;
@@ -1476,7 +1476,7 @@ void File__Analyze::Param(const Ztring& Parameter, const Ztring& Value)
                     }
                     }
                     break;
-        case MediaInfoLib::Config.DetailsFormat_CSV     :
+        case MediaInfo_Config::DetailsFormat_CSV        :
                     Element[Element_Level].ToShow.Details+=_T("T,");
                     Element[Element_Level].ToShow.Details+=Ztring::ToZtring(Element_Level_Base+Element_Level);
                     Element[Element_Level].ToShow.Details+=_T(',');
