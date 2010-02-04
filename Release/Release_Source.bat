@@ -62,6 +62,8 @@ xcopy ..\Project\*.workspace MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.cbp MediaInfo_Lib_Source\Project\ /S /Y
 xcopy ..\Project\*.resx MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.rc MediaInfo_Lib_Source\Project\ /S
+xcopy ..\Project\*.def MediaInfo_Lib_Source\Project\ /S
+xcopy ..\Project\*.idl MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\BCB\*.h MediaInfo_Lib_Source\Project\BCB\ /S
 xcopy ..\Project\CMake\*.txt MediaInfo_Lib_Source\Project\CMake\ /S
 xcopy ..\Project\MSVC\*.h MediaInfo_Lib_Source\Project\MSVC\ /S
