@@ -480,9 +480,6 @@ namespace Elements
 //---------------------------------------------------------------------------
 void File_Mk::Data_Parse()
 {
-    if (File_Offset+Buffer_Offset>=0x3FDD8)
-        int A=0;
-
     #define LIS2(_ATOM, _NAME) \
         case Elements::_ATOM : \
                 if (Level==Element_Level) \
