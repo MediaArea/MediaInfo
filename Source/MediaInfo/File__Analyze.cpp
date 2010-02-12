@@ -1012,7 +1012,7 @@ void File__Analyze::Data_Accept (const char* ParserName)
     if (ParserName)
         Info(Ztring(ParserName)+_T(", accepted"));
 
-    Accept();
+    Accept(ParserName);
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
@@ -1659,7 +1659,8 @@ void File__Analyze::Accept (const char* ParserName)
         struct MediaInfo_Event_General_Parser_Selected_0 Event;
         Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Parser_Selected, 0);
         memset(Event.Name, 0, 16);
-        strcpy(Event.Name, ParserName);
+        if (ParserName)
+            strcpy(Event.Name, ParserName);
         Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
     #endif //MEDIAINFO_EVENTS
 }
