@@ -1116,6 +1116,7 @@ void File_Mpeg_Psi::Table_02()
                     Complete_Stream->Streams[elementary_PID].Searching_Payload_Start_Set(true);
                     #ifdef MEDIAINFO_MPEGTS_PCR_YES
                         Complete_Stream->Streams[elementary_PID].Searching_TimeStamp_Start_Set(true);
+                        Complete_Stream->Streams[elementary_PID].PCR_PID=PCR_PID;
                     #endif //MEDIAINFO_MPEGTS_PCR_YES
                     #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                         //Complete_Stream->Streams[elementary_PID].Searching_ParserTimeStamp_Start_Set(true);
@@ -1124,7 +1125,7 @@ void File_Mpeg_Psi::Table_02()
                         Complete_Stream->Streams[elementary_PID].Element_Info="PES";
                     #endif //MEDIAINFO_MINIMIZESIZE
                     if (Complete_Stream->File__Duplicate_Get_From_PID(elementary_PID))
-                            Complete_Stream->Streams[elementary_PID].ShouldDuplicate=true;
+                        Complete_Stream->Streams[elementary_PID].ShouldDuplicate=true;
                 }
             }
         FILLING_END();

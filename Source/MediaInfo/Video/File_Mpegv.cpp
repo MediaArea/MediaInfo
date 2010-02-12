@@ -1290,13 +1290,26 @@ void File_Mpegv::user_data_start_GA94_03()
                         while (Parser_Pos>=GA94_03_CC_Parsers.size())
                             GA94_03_CC_Parsers.push_back(NULL);
                         if (GA94_03_CC_Parsers[Parser_Pos]==NULL)
-                            GA94_03_CC_Parsers[Parser_Pos]=cc_type<2?(File__Analyze*)new File_Eia608():(File__Analyze*)new File_Eia708();
+                        {
+                            if (cc_type<2)
+                            {
+                                GA94_03_CC_Parsers[Parser_Pos]=new File_Eia608();
+                            }
+                            else
+                                GA94_03_CC_Parsers[Parser_Pos]=new File_Eia708();
+                        }
                         if (!GA94_03_CC_Parsers[Parser_Pos]->Status[IsFinished])
                         {
                             if (cc_type>=2)
                                 ((File_Eia708*)GA94_03_CC_Parsers[2])->cc_type=cc_type;
                             Element_Begin(Ztring(_T("ReorderedCaptions,"))+Ztring().From_Local(Mpegv_user_data_GA94_cc_type(cc_type)));
                             Open_Buffer_Init(GA94_03_CC_Parsers[Parser_Pos]);
+                            if (PTS_DTS_Needed)
+                            {
+                                if (cc_type<2)
+                                    ((File_Eia608*)GA94_03_CC_Parsers[Parser_Pos])->PCR=PCR;
+                                GA94_03_CC_Parsers[Parser_Pos]->PTS=PTS;
+                            }
                             Open_Buffer_Continue(GA94_03_CC_Parsers[Parser_Pos], TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2);
                             Element_End();
 
@@ -1343,7 +1356,9 @@ void File_Mpegv::user_data_start_GA94_03()
         BS_End();
 
         if (additional_data_flag)
-            Skip_XX(Element_Size-Element_Offset,                    "additional_user_data");
+        {
+            Skip_XX(Element_Size-Element_Offset,                "additional_user_data");
+        }
     #else
         Skip_XX(Element_Size-Element_Offset,                    "EIA-608 data");
     #endif

@@ -1568,7 +1568,7 @@ void File_MpegPs::Detect_EOF()
 //Jumping to the last DTS if needed
 bool File_MpegPs::BookMark_Needed()
 {
-    if (IsSub || Streams.empty())
+    if (IsSub || Streams.empty() || MediaInfoLib::Config.ParseSpeed_Get()>=1.0)
         return false;
 
     int64u ToJump=(int64u)-1;
@@ -2877,6 +2877,8 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &xxx_Count)
             //PTS/DTS
             if (Temp.Parsers[Pos]->PTS_DTS_Needed)
             {
+                if (PCR!=(int64u)-1)
+                    Temp.Parsers[Pos]->PCR=PCR;
                 if (PTS!=(int64u)-1)
                     Temp.Parsers[Pos]->PTS=PTS*1000000/90;
                 if (DTS!=(int64u)-1)

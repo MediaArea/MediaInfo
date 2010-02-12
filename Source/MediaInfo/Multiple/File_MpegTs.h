@@ -108,6 +108,14 @@ private :
     int64u MpegTs_JumpTo_End;
     bool   Searching_TimeStamp_Start;
 
+    #ifdef MEDIAINFO_EVENTS
+        void Header_Parse_Events();
+        void Header_Parse_Events_Duration(int64u program_clock_reference);
+    #else //MEDIAINFO_EVENTS
+        inline void Header_Parse_Events() {}
+        inline void Header_Parse_Events_Duration(int64u) {}
+    #endif //MEDIAINFO_EVENTS
+
     //Helpers
     void Streams_Fill_PerStream(int16u PID, complete_stream::stream &Temp);
     void Streams_Finish_PerStream(int16u PID, complete_stream::stream &Temp);

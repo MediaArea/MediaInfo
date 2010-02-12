@@ -271,7 +271,7 @@ void File_Eia608::Read_Buffer_Continue()
             Param_Info(Captions.substr(Captions_Size, std::string::npos));
     }
 
-    //Fill(Stream_Text, 0, "Content", Ztring::Ztring().From_Unicode(Captions), true);
+    Fill(Stream_Text, 0, "Content", Ztring::Ztring().From_Unicode(Captions), true);
     if (!Status[IsAccepted] && !Captions.empty())
     {
         Accept("EIA-608");
