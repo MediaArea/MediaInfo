@@ -28,6 +28,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/MediaInfo_Internal_Const.h"
+#ifdef MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Events.h"
+#endif //MEDIAINFO_EVENTS
 #include "ZenLib/CriticalSection.h"
 #include "ZenLib/ZtringListList.h"
 #include "ZenLib/Translation.h"
@@ -80,6 +83,11 @@ public :
     size_t        File__Duplicate_Memory_Indexes_Get (const Ztring &ToFind);
     void          File__Duplicate_Memory_Indexes_Erase (const Ztring &ToFind);
 
+    #ifdef MEDIAINFO_EVENTS
+    Ztring        Event_CallBackFunction_Set (const Ztring &Value);
+    void          Event_Send(const int8u* Data_Content, size_t Data_Size);
+    #endif //MEDIAINFO_EVENTS
+
     //Specific
     void          File_MpegTs_ForceMenu_Set (bool NewValue);
     bool          File_MpegTs_ForceMenu_Get ();
@@ -107,6 +115,12 @@ private :
 
     std::vector<Ztring>     File__Duplicate_List;
     ZtringList              File__Duplicate_Memory_Indexes;
+
+    //Event
+    #ifdef MEDIAINFO_EVENTS
+    MediaInfo_Event_CallBackFunction* Event_CallBackFunction; //void Event_Handler(unsigned char* Data_Content, size_t Data_Size, void* UserHandler)
+    void*                   Event_UserHandler;
+    #endif //MEDIAINFO_EVENTS
 
     //Specific
     bool                    File_MpegTs_ForceMenu;

@@ -413,6 +413,14 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
         //Info->Open_Buffer_Unsynch();
     }
 
+    #ifdef MEDIAINFO_EVENTS
+        struct MediaInfo_Event_General_Start_0 Event;
+        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Start, 0);
+        Event.Stream_Size=File_Size_;
+        Event.Stream_Offset=File_Offset_;
+        Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Start_0));
+    #endif //MEDIAINFO_EVENTS
+
     EXECUTE_SIZE_T(1, Debug+=_T("Open_Buffer_Init, will return 1");)
 }
 

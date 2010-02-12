@@ -46,6 +46,10 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     FileKeepInfo=false;
     FileStopAfterFilled=false;
     File_Filter_HasChanged_=false;
+    #ifdef MEDIAINFO_EVENTS
+        Event_CallBackFunction=NULL;
+        Event_UserHandler=NULL;
+    #endif //MEDIAINFO_EVENTS
 
     //Specific
     File_MpegTs_ForceMenu=false;
@@ -166,6 +170,14 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==_T("file_curl_get"))
     {
         return File_Curl_Get(Value);
+    }
+    else if (Option_Lower==_T("file_event_callbackfunction"))
+    {
+        #ifdef MEDIAINFO_EVENTS
+            return Event_CallBackFunction_Set(Value);
+        #else //MEDIAINFO_EVENTS
+            return _T("Event manager is disabled due to compilation options");
+        #endif //MEDIAINFO_EVENTS
     }
     else
         return _T("Option not known");
@@ -385,6 +397,39 @@ void MediaInfo_Config_MediaInfo::File__Duplicate_Memory_Indexes_Erase (const Ztr
     if (Pos!=Error)
         File__Duplicate_Memory_Indexes[Pos].clear();
 }
+
+//***************************************************************************
+// Event
+//***************************************************************************
+
+#ifdef MEDIAINFO_EVENTS
+Ztring MediaInfo_Config_MediaInfo::Event_CallBackFunction_Set (const Ztring &Value)
+{
+    ZtringList List=Value;
+
+    CriticalSectionLocker CSL(CS);
+
+    for (size_t Pos=0; Pos<List.size(); Pos++)
+    {
+        if (List[Pos].find(_T("CallBack=memory://"))==0)
+            Event_CallBackFunction=(MediaInfo_Event_CallBackFunction*)Ztring(List[Pos].substr(18, std::string::npos)).To_int64u();
+        else if (List[Pos].find(_T("UserHandler=memory://"))==0)
+            Event_UserHandler=(void*)Ztring(List[Pos].substr(21, std::string::npos)).To_int64u();
+        else
+            return("Problem during Event_CallBackFunction value parsing");
+    }
+
+    return Ztring();
+}
+
+void MediaInfo_Config_MediaInfo::Event_Send (const int8u* Data_Content, size_t Data_Size)
+{
+    CriticalSectionLocker CSL(CS);
+
+    if (Event_CallBackFunction)
+        Event_CallBackFunction ((unsigned char*)Data_Content, Data_Size, Event_UserHandler);
+}
+#endif //MEDIAINFO_EVENTS
 
 //***************************************************************************
 // Force Parser
