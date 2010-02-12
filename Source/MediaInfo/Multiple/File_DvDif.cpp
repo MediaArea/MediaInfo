@@ -518,8 +518,8 @@ void File_DvDif::Header_Parse()
     //Parsing
     SCT =(Buffer[Buffer_Offset  ]&0xE0)>>5;
     Dseq=(Buffer[Buffer_Offset+1]&0xF0)>>4;
-    FSC =(bool)((Buffer[Buffer_Offset+1]&0x08)>>3);
-    FSP =(bool)((Buffer[Buffer_Offset+1]&0x0F)>>4);
+    FSC =(Buffer[Buffer_Offset+1]&0x08)==0x08;
+    FSP =(Buffer[Buffer_Offset+1]&0x0F)==0x0F;
     DBN = Buffer[Buffer_Offset+2];
     Element_Offset+=3;
 

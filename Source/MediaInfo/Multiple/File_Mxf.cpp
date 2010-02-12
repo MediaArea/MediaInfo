@@ -648,7 +648,7 @@ void File_Mxf::Streams_Finish_Track(int128u TrackUID, std::vector<size_t> &Base_
     {
         for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
         {
-            if (!(StreamKind==StreamKind_Last && StreamPos==StreamPos_Last) && !Retrieve(StreamKind_Last, StreamPos_Last, "Source").empty() && Retrieve(StreamKind_Last, StreamPos_Last, "Source")==Retrieve((stream_t)StreamKind, StreamPos, "Source"))
+            if (!(StreamKind==(size_t)StreamKind_Last && StreamPos==StreamPos_Last) && !Retrieve(StreamKind_Last, StreamPos_Last, "Source").empty() && Retrieve(StreamKind_Last, StreamPos_Last, "Source")==Retrieve((stream_t)StreamKind, StreamPos, "Source"))
             {
                 if (Retrieve((stream_t)StreamKind, StreamPos, General_ID).empty())
                     Fill((stream_t)StreamKind, StreamPos, General_ID, Track->second.TrackID);
@@ -967,7 +967,7 @@ void File_Mxf::Header_Parse()
         int32u Code_Compare1=Code.hi>>32;
         int32u Code_Compare2=(int32u)Code.hi;
         int32u Code_Compare3=Code.lo>>32;
-        int32u Code_Compare4=(int32u)Code.lo;
+        //int32u Code_Compare4=(int32u)Code.lo;
              if (Code_Compare1==0x060E2B34
               && Code_Compare2==0x01020101
               && Code_Compare3==0x0D010301)
