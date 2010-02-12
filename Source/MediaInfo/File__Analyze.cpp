@@ -1654,6 +1654,14 @@ void File__Analyze::Accept (const char* ParserName)
     Status[IsAccepted]=true;
     //if (!IsSub)
         Stream_Prepare(Stream_General);
+
+    #ifdef MEDIAINFO_EVENTS
+        struct MediaInfo_Event_General_Parser_Selected_0 Event;
+        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Parser_Selected, 0);
+        memset(Event.Name, 0, 16);
+        strcpy(Event.Name, ParserName);
+        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
+    #endif //MEDIAINFO_EVENTS
 }
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::Accept ()
@@ -1664,6 +1672,13 @@ void File__Analyze::Accept ()
     Status[IsAccepted]=true;
     //if (!IsSub)
         Stream_Prepare(Stream_General);
+
+    #ifdef MEDIAINFO_EVENTS
+        struct MediaInfo_Event_General_Parser_Selected_0 Event;
+        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Parser_Selected, 0);
+        memset(Event.Name, 0, 16);
+        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
+    #endif //MEDIAINFO_EVENTS
 }
 #endif //MEDIAINFO_MINIMIZESIZE
 
