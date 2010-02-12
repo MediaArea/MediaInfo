@@ -175,7 +175,7 @@ size_t Reader_libcurl::Format_Test(MediaInfo_Internal* MI, const String &File_Na
                 curl_off_t File_GoTo_Off=(curl_off_t)Curl_Data.File_GoTo;
                 curl_easy_setopt(Curl_Data.Curl, CURLOPT_RESUME_FROM_LARGE, File_GoTo_Off);
             }
-            MI->Open_Buffer_Position_Set(Curl_Data.File_GoTo);
+            MI->Open_Buffer_Init((int64u)-1, Curl_Data.File_GoTo);
             Curl_Data.File_GoTo=(int64u)-1;
         }
 

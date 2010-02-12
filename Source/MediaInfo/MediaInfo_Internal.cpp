@@ -403,11 +403,15 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
 {
     MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=_T("Open_Buffer_Init, File_Size=");Debug+=Ztring::ToZtring(File_Size_);Debug+=_T(", File_Offset=");Debug+=Ztring::ToZtring(File_Offset_);)
 
-    Open_Buffer_Init(File_Size_);
+    if (File_Size_!=(int64u)-1)
+        Open_Buffer_Init(File_Size_);
 
-    CriticalSectionLocker CSL(CS);
-
-    Info->Open_Buffer_Position_Set(File_Offset_);
+    if (File_Offset_!=(int64u)-1)
+    {
+        CriticalSectionLocker CSL(CS);
+        Info->Open_Buffer_Position_Set(File_Offset_);
+        //Info->Open_Buffer_Unsynch();
+    }
 
     EXECUTE_SIZE_T(1, Debug+=_T("Open_Buffer_Init, will return 1");)
 }
@@ -474,6 +478,7 @@ bool MediaInfo_Internal::Open_Buffer_Position_Set(int64u File_Offset)
         return false;
 
     Info->Open_Buffer_Position_Set(File_Offset);
+
     return true;
 }
 

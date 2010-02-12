@@ -535,6 +535,14 @@ void File__MultipleParsing::Read_Buffer_Init()
 }
 
 //---------------------------------------------------------------------------
+void File__MultipleParsing::Read_Buffer_Unsynched()
+{
+    //Parsing
+    for (size_t Pos=0; Pos<Parser.size(); Pos++)
+        Parser[Pos]->Open_Buffer_Unsynch();
+}
+
+//---------------------------------------------------------------------------
 void File__MultipleParsing::Read_Buffer_Continue()
 {
     //Parsing

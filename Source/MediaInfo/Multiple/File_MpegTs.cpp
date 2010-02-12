@@ -800,7 +800,7 @@ void File_MpegTs::Synched_Init()
 //---------------------------------------------------------------------------
 void File_MpegTs::Read_Buffer_Unsynched()
 {
-    if (Complete_Stream->Streams.empty())
+    if (Complete_Stream==NULL || Complete_Stream->Streams.empty())
         return;
 
     for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)

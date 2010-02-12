@@ -138,7 +138,7 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
                  if (!F.GoTo(MI->Open_Buffer_Continue_GoTo_Get()))
                     break; //File is not seekable
 
-                MI->Open_Buffer_Position_Set(F.Position_Get());
+                MI->Open_Buffer_Init((int64u)-1, F.Position_Get());
             }
         }
 

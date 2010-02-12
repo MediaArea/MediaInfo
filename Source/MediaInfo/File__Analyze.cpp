@@ -56,6 +56,7 @@ File__Analyze::File__Analyze ()
     //In
     PTS_DTS_Needed=false;
     PTS_DTS_Offset_InThisBlock=0;
+    PCR=(int64u)-1;
     PTS=(int64u)-1;
     DTS=(int64u)-1;
 
@@ -211,19 +212,19 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     //Demand to go elsewhere
     if (File_GoTo!=(int64u)-1)
     {
+        if (File_GoTo<File_Offset)
+            return; //Seek must be done before
         if (File_GoTo>=File_Offset+ToAdd_Size)
         {
             File_Offset+=ToAdd_Size;
             return; //No need of this piece of data
         }
-        if (File_GoTo!=File_Offset)
-        {
-            //The needed offset is in the new buffer
-            ToAdd+=(size_t)(File_GoTo-File_Offset);
-            ToAdd_Size-=(size_t)(File_GoTo-File_Offset);
-            File_Offset=File_GoTo;
-            File_GoTo=(int64u)-1;
-        }
+
+        //The needed offset is in the new buffer
+        ToAdd+=(size_t)(File_GoTo-File_Offset);
+        ToAdd_Size-=(size_t)(File_GoTo-File_Offset);
+        File_Offset=File_GoTo;
+        File_GoTo=(int64u)-1;
     }
 
     if (Buffer_Temp_Size) //There is buffered data from before
@@ -446,18 +447,14 @@ void File__Analyze::Open_Buffer_Position_Set (int64u File_Offset_)
     if (File_Offset_==(int64u)-1)
         return;
 
-    if (File_Offset_==File_GoTo)
-    {
-        File_Offset=File_Offset_;
-        File_GoTo=(int64u)-1;
-    }
-
-    Synched=false;
+    File_Offset=File_Offset_;
+    File_GoTo=(int64u)-1;
 }
 
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Unsynch ()
 {
+    Buffer_Clear();
     Read_Buffer_Unsynched();
 
     //Clearing duration

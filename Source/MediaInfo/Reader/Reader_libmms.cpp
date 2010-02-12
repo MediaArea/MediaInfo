@@ -85,7 +85,7 @@ int Reader_libmms::Format_Test(MediaInfo_Internal* MI, const String &File_Name)
             if (mmsx_seek(0, Handle, mms_off_t(MI->Open_Buffer_Continue_GoTo_Get()), SEEK_SET)!=MI->Open_Buffer_Continue_GoTo_Get())
                 break; //File is not seekable
 
-            MI->Open_Buffer_Position_Set(MI->Open_Buffer_Continue_GoTo_Get());
+            MI->Open_Buffer_Init((int64u)-1, MI->Open_Buffer_Continue_GoTo_Get());
         }
 
         //Buffering

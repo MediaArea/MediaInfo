@@ -158,6 +158,7 @@ void File_Cdxa::FileHeader_Parse()
         MI=new MediaInfo_Internal;
         MI->Option(_T("FormatDetection_MaximumOffset"), _T("1048576"));
         //MI->Option(_T("File_IsSub"), _T("1"));
+        MI->Open_Buffer_Init(File_Size, File_Offset+Buffer_Offset);
     FILLING_END();
 }
 
@@ -272,7 +273,7 @@ void File_Cdxa::Data_Parse()
         Skip_B4(                                                "CRC");
 
     //Preparing to fill MediaInfo with a buffer
-    MI->Open_Buffer_Init(File_Size, File_Offset+Buffer_Offset);
+    MI->Open_Buffer_Position_Set(File_Offset+Buffer_Offset);
 
     //Sending the buffer to MediaInfo
     MI->Open_Buffer_Continue(Buffer+Buffer_Offset, (size_t)(Element_Size-CRC_Size));
