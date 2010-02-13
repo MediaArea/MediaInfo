@@ -1658,7 +1658,7 @@ void File__Analyze::Accept (const char* ParserName)
     #ifdef MEDIAINFO_EVENTS
         struct MediaInfo_Event_General_Parser_Selected_0 Event;
         Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Parser_Selected, 0);
-        memset(Event.Name, 0, 16);
+        std::memset(Event.Name, 0, 16);
         if (ParserName)
             strcpy(Event.Name, ParserName);
         Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
