@@ -525,7 +525,10 @@ void File_Mpeg4v::Streams_Finish()
     //Duration
     if (!IsSub && Time_End_Seconds!=(int32u)-1 && Time_Begin_Seconds!=(int32u)-1)
     {
-        Fill(Stream_Video, 0, Video_Duration, (Time_End_Seconds-Time_Begin_Seconds)*1000+Time_End_MilliSeconds-Time_Begin_MilliSeconds);
+        int32u Duration=(Time_End_Seconds-Time_Begin_Seconds)*1000+Time_End_MilliSeconds-Time_Begin_MilliSeconds;
+        if (fixed_vop_time_increment && vop_time_increment_resolution)
+            Duration+=((float)1000)/(((float)vop_time_increment_resolution)/fixed_vop_time_increment);
+        Fill(Stream_Video, 0, Video_Duration, Duration);
     }
 
     //Purge what is not needed anymore
@@ -1522,7 +1525,7 @@ void File_Mpeg4v::vop_start()
                 Time+=1000;
             Time_End_MilliSeconds=Time;
             if (Time_Begin_MilliSeconds==(int16u)-1)
-                Time_Begin_MilliSeconds=Time_Begin_MilliSeconds;
+                Time_Begin_MilliSeconds=Time_End_MilliSeconds;
 
             if (Time_End_Seconds!=(int32u)-1)
                 Element_Info(Ztring().Duration_From_Milliseconds((int64u)(Time_End_Seconds*1000+Time_End_MilliSeconds)));
