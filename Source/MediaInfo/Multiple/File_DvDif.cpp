@@ -424,7 +424,7 @@ void File_DvDif::Streams_Finish()
 
     #if defined(MEDIAINFO_EIA608_YES)
         for (size_t Pos=0; Pos<CC_Parsers.size(); Pos++)
-            if (CC_Parsers[Pos] && CC_Parsers[Pos]->Status[IsAccepted])
+            if (CC_Parsers[Pos] && CC_Parsers[Pos]->Status[IsFilled])
             {
                 CC_Parsers[Pos]->Finish();
                 Merge(*CC_Parsers[Pos]);
