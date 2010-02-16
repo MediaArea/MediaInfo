@@ -414,11 +414,20 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
     }
 
     #ifdef MEDIAINFO_EVENTS
-        struct MediaInfo_Event_General_Start_0 Event;
-        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Start, 0);
-        Event.Stream_Size=File_Size_;
-        Event.Stream_Offset=File_Offset_;
-        Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Start_0));
+        if (Info->Status[File__Analyze::IsAccepted])
+        {
+            struct MediaInfo_Event_General_Move_Done_0 Event;
+            Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Move_Done, 0);
+            Event.Stream_Offset=File_Offset_;
+            Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Move_Done_0));
+        }
+        else
+        {
+            struct MediaInfo_Event_General_Start_0 Event;
+            Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Start, 0);
+            Event.Stream_Size=File_Size_;
+            Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Start_0));
+        }
     #endif //MEDIAINFO_EVENTS
 
     EXECUTE_SIZE_T(1, Debug+=_T("Open_Buffer_Init, will return 1");)
@@ -499,13 +508,6 @@ size_t MediaInfo_Internal::Open_Buffer_Finalize ()
         return 0;
 
     Info->Open_Buffer_Finalize();
-
-    #ifdef MEDIAINFO_EVENTS
-        struct MediaInfo_Event_General_End_0 Event;
-        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_End, 0);
-        Event.Stream_Size=Info->File_Offset;
-        Config.Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_End_0));
-    #endif //MEDIAINFO_EVENTS
 
     //Cleanup
     if (!Config.File_IsSub_Get() && !Config.File_KeepInfo_Get()) //We need info for the calling parser
