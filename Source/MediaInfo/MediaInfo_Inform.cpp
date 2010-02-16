@@ -273,6 +273,9 @@ Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
                     Nom.FindAndReplace(_T("*"), _T("_"), 0, Ztring_Recursive);
                     Nom.FindAndReplace(_T(","), _T("_"), 0, Ztring_Recursive);
                     Nom.FindAndReplace(_T(":"), _T("_"), 0, Ztring_Recursive);
+                    Nom.FindAndReplace(_T("@"), _T("_"), 0, Ztring_Recursive);
+                    if (Nom.empty())
+                        Nom="Unknown";
                     Valeur.FindAndReplace(_T("\""), _T("&quot;"), 0, Ztring_Recursive);
                     Valeur.FindAndReplace(_T("&"), _T("&amp;"), 0, Ztring_Recursive);
                     Valeur.FindAndReplace(_T("<"), _T("&lt;"), 0, Ztring_Recursive);
