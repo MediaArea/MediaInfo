@@ -801,14 +801,16 @@ void File_Id3v2::T__X()
                     return; //Problem
                 switch (Encoding)
                 {
-                    case 0 : Get_Local (Value0_Size, Element_Values(0), "Short_content_descrip"); break;
+                    // case 0 : Get_Local (Value0_Size, Element_Values(0), "Short_content_descrip"); break;
+                    case 0 : Get_ISO_8859_1 (Value0_Size, Element_Values(0), "Short_content_descrip"); break;
                     case 3 : Get_UTF8  (Value0_Size, Element_Values(0), "Short_content_descrip"); break;
                     default : ;
                 }
                 Skip_B1(                                        "Null");
                 switch (Encoding)
                 {
-                    case 0 : Get_Local (Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
+                    // case 0 : Get_Local (Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
+                    case 0 : Get_ISO_8859_1 (Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
                     case 3 : Get_UTF8  (Element_Size-Element_Offset, Element_Values(1), "The_actual_text"); break;
                     default : ;
                 }
@@ -882,6 +884,7 @@ void File_Id3v2::APIC()
 {
     int8u Encoding, PictureType;
     Ztring Mime, Description;
+    int16u MimeLength;
     Get_B1 (Encoding,                                           "Text_encoding");
     if (Id3v2_Version==2)
     {
@@ -893,13 +896,17 @@ void File_Id3v2::APIC()
             case 0x4A5047 : Mime="image/jpeg";
             default       : ;
         }
+        MimeLength=3;
     }
     else
+    {
         Get_Local(Element_Size-1, Mime,                         "MIME_type");
-    Element_Offset=1+Mime.size()+1;
+        MimeLength=Mime.size()+1;
+    }
+    Element_Offset=1+MimeLength;
     Get_B1 (PictureType,                                        "Picture_type"); Element_Info(Id3v2_PictureType(PictureType));
     Get_Local(Element_Size-Element_Offset, Description,         "Description");
-    Element_Offset=1+Mime.size()+1+1+Description.size()+1;
+    Element_Offset=1+MimeLength+1+Description.size()+1;
     if (Element_Offset>Element_Size)
         return; //There is a problem
     std::string Data_Raw((const char*)(Buffer+(size_t)(Buffer_Offset+Element_Offset)), (size_t)(Element_Size-Element_Offset));

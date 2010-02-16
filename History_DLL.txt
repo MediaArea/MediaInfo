@@ -18,6 +18,8 @@ Version 0.7.28, 2010
 x MPEG-PS and MPEG-TS: crash with some files
 x MPEG-4: some bitrates to zero with a null bitr or btrt atoms
 x MPEG-4: managing different kinds of compressor name format
+x #2952623, Id3v2: USLT with ISO-8859-1 charset was not well read
+x #2952637, Id3v2.2: PIC tag was not well read
 
 Version 0.7.27, 2010-01-03
 --------------

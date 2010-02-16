@@ -1309,6 +1309,15 @@ void File__Analyze::Get_Local(int64u Bytes, Ztring &Info, const char* Name)
 }
 
 //---------------------------------------------------------------------------
+void File__Analyze::Get_ISO_8859_1(int64u Bytes, Ztring &Info, const char* Name)
+{
+    INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
+    Info.From_ISO_8859_1((const char*)(Buffer+Buffer_Offset+(size_t)Element_Offset), (size_t)Bytes);
+    if (Config_DetailsLevel>0 && Bytes) Param(Name, Info);
+    Element_Offset+=Bytes;
+}
+
+//---------------------------------------------------------------------------
 void File__Analyze::Get_String(int64u Bytes, std::string &Info, const char* Name)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
