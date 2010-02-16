@@ -498,6 +498,13 @@ void File__Analyze::Open_Buffer_Finalize (bool NoBufferModification)
     if (Details && Details->empty())
         Details->assign(Element[0].ToShow.Details);
     #endif //MEDIAINFO_MINIMIZESIZE
+
+    #ifdef MEDIAINFO_EVENTS
+        struct MediaInfo_Event_General_End_0 Event;
+        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_End, 0);
+        Event.Stream_Bytes_Analyzed=Buffer_TotalBytes;
+        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_End_0));
+    #endif //MEDIAINFO_EVENTS
 }
 
 void File__Analyze::Open_Buffer_Finalize (File__Analyze* Sub)
@@ -1903,6 +1910,13 @@ void File__Analyze::GoTo (int64u GoTo, const char* ParserName)
     Open_Buffer_Unsynch();
     if (!IsSub)
         File_GoTo=GoTo;
+
+    #ifdef MEDIAINFO_EVENTS
+        struct MediaInfo_Event_General_Move_Request_0 Event;
+        Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Move_Request, 0);
+        Event.Stream_Offset=File_GoTo;
+        Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Move_Request_0));
+    #endif //MEDIAINFO_EVENTS
 }
 #else //MEDIAINFO_MINIMIZESIZE
 void File__Analyze::GoTo (int64u GoTo)
