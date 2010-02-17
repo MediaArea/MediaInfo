@@ -70,11 +70,26 @@ const char* Mpegv_Colorimetry_format[]=
 };
 
 //---------------------------------------------------------------------------
+const char* Mpegv_profile_and_level_indication (int8u profile_and_level_indication)
+{
+    switch (profile_and_level_indication)
+    {
+        case 0x82 : return "4:2:2@High";
+        case 0x85 : return "4:2:2@Main";
+        case 0x8A : return "Multi-view@High";
+        case 0x8B : return "Multi-view@High-1440";
+        case 0x8D : return "Multi-view@Main";
+        case 0x8E : return "Multi-view@Low";
+        default : return "";
+    }
+};
+
+//---------------------------------------------------------------------------
 const char* Mpegv_profile_and_level_indication_profile[]=
 {
     "0",
     "High",
-    "Spatial Sclable",
+    "Spatial Scalable",
     "SNR Scalable",
     "Main",
     "Simple",
@@ -234,8 +249,8 @@ const char* Mpegv_extension_start_code_identifier[]=
     "Picture Coding",
     "Picture Spatial Scalable",
     "Picture Temporal Scalable",
-    "",
-    "",
+    "Camera Parameters",
+    "ITU-T",
     "",
     "",
     "",
@@ -410,12 +425,13 @@ void File_Mpegv::Streams_Fill()
                 Fill(Stream_Video, 0, Video_Interlacement, Interlaced_Top?"TFF":"BFF");
             }
         }
-        std::string TempRef;
+        std::string TempRef, CodingType;
         for (size_t Pos=0; Pos<TemporalReference.size(); Pos++)
             if (TemporalReference[Pos].HasPictureCoding)
             {
                 TempRef+=TemporalReference[Pos].top_field_first?"T":"B";
                 TempRef+=TemporalReference[Pos].repeat_first_field?"3":"2";
+                CodingType+=Mpegv_picture_coding_type[TemporalReference[Pos].picture_coding_type];
             }
         if (TempRef.find('3')!=std::string::npos)
         {
@@ -436,13 +452,56 @@ void File_Mpegv::Streams_Fill()
                 Fill(Stream_Video, 0, Video_Interlacement, "PPF", Unlimited, true, true);
             }
         }
+
+        //GOP
+        std::vector<Ztring> GOPs;
+        size_t I_Pos1=CodingType.find(_T('I'));
+        while (I_Pos1!=std::string::npos)
+        {
+            size_t I_Pos2=CodingType.find(_T('I'), I_Pos1+1);
+            if (I_Pos2!=std::string::npos)
+            {
+                std::vector<size_t> P_Positions;
+                size_t P_Position=I_Pos1;
+                do
+                {
+                    P_Position=CodingType.find(_T('P'), P_Position+1);
+                    if (P_Position<I_Pos2)
+                        P_Positions.push_back(P_Position);
+                }
+                while (P_Position<I_Pos2);
+                Ztring GOP;
+                if (!P_Positions.empty())
+                    GOP+=_T("M=")+Ztring::ToZtring(P_Positions[0]-I_Pos1)+_T(", ");
+                GOP+=_T("N=")+Ztring::ToZtring(I_Pos2-I_Pos1);
+                GOPs.push_back(GOP);
+            }
+            I_Pos1=I_Pos2;
+        }
+
+        if (!GOPs.empty())
+        {
+            bool Unique=true;
+            for (size_t Pos=1; Pos<GOPs.size(); Pos++)
+                if (GOPs[Pos]!=GOPs[0])
+                    Unique=false;
+            if (!Unique)
+                GOPs.clear(); //Not a fixed GOP
+        }
+        if (!GOPs.empty())
+            Fill(Stream_Video, 0, Video_Format_Settings_GOP, GOPs[0]);
     }
 
     //Profile
-    if (!profile_and_level_indication_escape && profile_and_level_indication_profile && profile_and_level_indication_level)
+    if (!profile_and_level_indication_escape && profile_and_level_indication_profile!=(int8u)-1 && profile_and_level_indication_level!=(int8u)-1)
     {
         Fill(Stream_Video, 0, Video_Format_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));
         Fill(Stream_Video, 0, Video_Codec_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile])+_T("@")+Ztring().From_Local(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]));
+    }
+    else if (profile_and_level_indication_escape)
+    {
+        Fill(Stream_Video, 0, Video_Format_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication(profile_and_level_indication)));
+        Fill(Stream_Video, 0, Video_Codec_Profile, Ztring().From_Local(Mpegv_profile_and_level_indication(profile_and_level_indication)));
     }
 
     //Standard
@@ -548,6 +607,14 @@ void File_Mpegv::Streams_Finish()
             Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("DVD-Video"));
         }
 
+    //EIA-708 captions
+    for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
+        if (GA94_03_CC_Parsers[Pos] && !GA94_03_CC_Parsers[Pos]->Status[IsFinished] && GA94_03_CC_Parsers[Pos]->Status[IsFilled])
+        {
+            Finish(GA94_03_CC_Parsers[Pos]);
+            Merge(*GA94_03_CC_Parsers[Pos], Stream_Text, 0, GA94_03_CC_Parsers_StreamPos[Pos]);
+        }
+        
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Streams.clear();
@@ -615,8 +682,8 @@ void File_Mpegv::Synched_Init()
     bit_rate_extension=0;
     aspect_ratio_information=0;
     frame_rate_code=0;
-    profile_and_level_indication_profile=0;
-    profile_and_level_indication_level=0;
+    profile_and_level_indication_profile=(int8u)-1;
+    profile_and_level_indication_level=(int8u)-1;
     chroma_format=0;
     horizontal_size_extension=0;
     vertical_size_extension=0;
@@ -764,10 +831,13 @@ void File_Mpegv::Data_Parse()
     switch (Element_Code)
     {
         case 0x00: picture_start(); break;
+        case 0xB0: Skip_XX(Element_Size,                        "Unknown"); break;
+        case 0xB1: Skip_XX(Element_Size,                        "Unknown"); break;
         case 0xB2: user_data_start(); break;
         case 0xB3: sequence_header(); break;
         case 0xB4: sequence_error(); break;
         case 0xB5: extension_start(); break;
+        case 0xB6: Skip_XX(Element_Size,                        "Unknown"); break;
         case 0xB7: sequence_end(); break;
         case 0xB8: group_start(); break;
         default:
@@ -1304,12 +1374,6 @@ void File_Mpegv::user_data_start_GA94_03()
                                 ((File_Eia708*)GA94_03_CC_Parsers[2])->cc_type=cc_type;
                             Element_Begin(Ztring(_T("ReorderedCaptions,"))+Ztring().From_Local(Mpegv_user_data_GA94_cc_type(cc_type)));
                             Open_Buffer_Init(GA94_03_CC_Parsers[Parser_Pos]);
-                            if (PTS_DTS_Needed)
-                            {
-                                if (cc_type<2)
-                                    ((File_Eia608*)GA94_03_CC_Parsers[Parser_Pos])->PCR=PCR;
-                                GA94_03_CC_Parsers[Parser_Pos]->PTS=PTS;
-                            }
                             Open_Buffer_Continue(GA94_03_CC_Parsers[Parser_Pos], TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2);
                             Element_End();
 
@@ -1549,11 +1613,14 @@ void File_Mpegv::extension_start()
     {
         case 1 :{ //Sequence
                     //Parsing
-                    Get_SB (    profile_and_level_indication_escape, "profile_and_level_indication_escape");
+                    Peek_SB(profile_and_level_indication_escape);
                     if (profile_and_level_indication_escape)
-                        Skip_S1( 7,                            "profile_and_level_indication_reserved");
+                    {
+                        Get_S1 ( 8, profile_and_level_indication, "profile_and_level_indication"); Param_Info(Mpegv_profile_and_level_indication(profile_and_level_indication));
+                    }
                     else
                     {
+                        Skip_SB(                               "profile_and_level_indication_escape");
                         Get_S1 ( 3, profile_and_level_indication_profile, "profile_and_level_indication_profile"); Param_Info(Mpegv_profile_and_level_indication_profile[profile_and_level_indication_profile]);
                         Get_S1 ( 4, profile_and_level_indication_level, "profile_and_level_indication_level"); Param_Info(Mpegv_profile_and_level_indication_level[profile_and_level_indication_level]);
                     }
@@ -1628,6 +1695,7 @@ void File_Mpegv::extension_start()
                                 FirstFieldFound=false;
                                 if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
                                     TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
+                                TemporalReference[TemporalReference_Offset+temporal_reference].picture_coding_type=picture_coding_type;
                                 TemporalReference[TemporalReference_Offset+temporal_reference].progressive_frame=progressive_frame;
                                 TemporalReference[TemporalReference_Offset+temporal_reference].top_field_first=top_field_first;
                                 TemporalReference[TemporalReference_Offset+temporal_reference].repeat_first_field=repeat_first_field;
@@ -1656,6 +1724,7 @@ void File_Mpegv::extension_start()
                             {
                                 if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
                                     TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
+                                TemporalReference[TemporalReference_Offset+temporal_reference].picture_coding_type=picture_coding_type;
                                 TemporalReference[TemporalReference_Offset+temporal_reference].progressive_frame=progressive_frame;
                                 TemporalReference[TemporalReference_Offset+temporal_reference].top_field_first=top_field_first;
                                 TemporalReference[TemporalReference_Offset+temporal_reference].repeat_first_field=repeat_first_field;

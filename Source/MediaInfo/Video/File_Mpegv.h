@@ -120,6 +120,8 @@ private :
         };
         std::vector<cc_data_> GA94_03_CC; //Per cc offset
 
+        int8u  picture_coding_type;
+
         bool   IsValid;
         bool   HasPictureCoding;
 
@@ -129,6 +131,7 @@ private :
 
         temporalreference()
         {
+            picture_coding_type=(int8u)-1;
             IsValid=false;
             HasPictureCoding=false;
         }
@@ -170,6 +173,7 @@ private :
     int8u  picture_coding_type;
     int8u  aspect_ratio_information;
     int8u  frame_rate_code;
+    int8u  profile_and_level_indication;
     int8u  profile_and_level_indication_profile;
     int8u  profile_and_level_indication_level;
     int8u  chroma_format;

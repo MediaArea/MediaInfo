@@ -16,6 +16,8 @@ Version 0.7.28, 2010
 + MPEG-4 Visual: Duration for raw streams
 + Display Aspect Ratio 3:2 instead of 1.500
 + Detection of N19 (EBU Tech 3264)
++ MPEG-2 Video: new profiles (4:2:2, Multi-view)
++ MPEG-2 Video: GOP structure
 x MPEG-PS and MPEG-TS: crash with some files
 x MPEG-4: some bitrates to zero with a null bitr or btrt atoms
 x MPEG-4: managing different kinds of compressor name format
