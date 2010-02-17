@@ -527,7 +527,7 @@ void File_Mpeg4v::Streams_Finish()
     {
         int32u Duration=(Time_End_Seconds-Time_Begin_Seconds)*1000+Time_End_MilliSeconds-Time_Begin_MilliSeconds;
         if (fixed_vop_time_increment && vop_time_increment_resolution)
-            Duration+=((float)1000)/(((float)vop_time_increment_resolution)/fixed_vop_time_increment);
+            Duration+=(float32_int32s)(((float)1000)/(((float)vop_time_increment_resolution)/fixed_vop_time_increment));
         Fill(Stream_Video, 0, Video_Duration, Duration);
     }
 
@@ -1520,7 +1520,7 @@ void File_Mpeg4v::vop_start()
         //Duration
         if (vop_time_increment_resolution)
         {
-            int16u Time=modulo_time_base*1000+vop_time_increment*1000/vop_time_increment_resolution;
+            int16u Time=modulo_time_base*1000+(int16u)vop_time_increment*1000/vop_time_increment_resolution;
             while (Time_End_MilliSeconds!=(int16u)-1 && Time+500<Time_End_MilliSeconds)
                 Time+=1000;
             Time_End_MilliSeconds=Time;
