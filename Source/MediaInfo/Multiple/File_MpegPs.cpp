@@ -1722,6 +1722,23 @@ void File_MpegPs::pack_start()
             Data_Accept("MPEG-PS");
             if (!IsSub)
                 Fill(Stream_General, 0, General_Format, "MPEG-PS");
+
+            //Autorisation of other streams
+            Streams[0xB9].Searching_Payload=true;            //MPEG_program_end
+            Streams[0xBB].Searching_Payload=true;            //system_header_start
+            Streams[0xBD].Searching_Payload=true;            //private_stream_1
+            Streams[0xBD].Searching_TimeStamp_Start=true;    //private_stream_1
+            Streams[0xBD].Searching_TimeStamp_End=true;      //private_stream_1
+            Streams[0xBF].Searching_Payload=true;            //private_stream_2
+            Streams[0xFD].Searching_Payload=true;            //private_stream_1 or video_stream
+            Streams[0xFD].Searching_TimeStamp_Start=true;    //private_stream_1 or video_stream
+            Streams[0xFD].Searching_TimeStamp_End=true;      //private_stream_1 or video_stream
+            for (int8u Pos=0xC0; Pos<=0xEF; Pos++)
+            {
+                Streams[Pos].Searching_Payload=true;         //audio_stream or video_stream
+                Streams[Pos].Searching_TimeStamp_Start=true; //audio_stream or video_stream
+                Streams[Pos].Searching_TimeStamp_End=true;   //audio_stream or video_stream
+            }
         }
 
         SizeToAnalyze=program_mux_rate*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure
@@ -1729,24 +1746,6 @@ void File_MpegPs::pack_start()
             SizeToAnalyze=16*1024*1024; //Not too much
         if (SizeToAnalyze<2*1024*1024)
             SizeToAnalyze=2*1024*1024; //Not too less
-
-        //Autorisation of other streams
-        Streams[0xB9].Searching_Payload=true;            //MPEG_program_end
-        Streams[0xBA].Searching_Payload=false;           //We need not parse pack_start
-        Streams[0xBB].Searching_Payload=true;            //system_header_start
-        Streams[0xBD].Searching_Payload=true;            //private_stream_1
-        Streams[0xBD].Searching_TimeStamp_Start=true;    //private_stream_1
-        Streams[0xBD].Searching_TimeStamp_End=true;      //private_stream_1
-        Streams[0xBF].Searching_Payload=true;            //private_stream_2
-        Streams[0xFD].Searching_Payload=true;            //private_stream_1 or video_stream
-        Streams[0xFD].Searching_TimeStamp_Start=true;    //private_stream_1 or video_stream
-        Streams[0xFD].Searching_TimeStamp_End=true;      //private_stream_1 or video_stream
-        for (int8u Pos=0xC0; Pos<=0xEF; Pos++)
-        {
-            Streams[Pos].Searching_Payload=true;         //audio_stream or video_stream
-            Streams[Pos].Searching_TimeStamp_Start=true; //audio_stream or video_stream
-            Streams[Pos].Searching_TimeStamp_End=true;   //audio_stream or video_stream
-        }
     FILLING_END();
 }
 
@@ -1862,12 +1861,25 @@ void File_MpegPs::program_stream_map()
     Parser.Complete_Stream->Streams.resize(0x100);
     Open_Buffer_Init(&Parser);
     Open_Buffer_Continue(&Parser);
-
-    //Filling
     Finish(&Parser);
-    for (int8u Pos=0; Pos<0xFF; Pos++)
-        if (Parser.Complete_Stream->Streams[Pos].stream_type)
-            Streams[Pos].stream_type=Parser.Complete_Stream->Streams[Pos].stream_type;
+
+    FILLING_BEGIN();
+        //Time stamps
+        Streams[0xBC].TimeStamp_End=Streams[0xBA].TimeStamp_End;
+        if (Streams[0xBC].TimeStamp_Start.PTS.TimeStamp==(int64u)-1)
+            Streams[0xBC].TimeStamp_Start=Streams[0xBC].TimeStamp_End;
+
+        //Registering the streams
+        for (int8u Pos=0; Pos<0xFF; Pos++)
+            if (Parser.Complete_Stream->Streams[Pos].stream_type)
+            {
+                Streams[Pos].stream_type=Parser.Complete_Stream->Streams[Pos].stream_type;
+            }
+            else
+            {
+            }
+    FILLING_END();
+
     delete Parser.Complete_Stream; //Parser.Complete_Stream=NULL;
 }
 
@@ -2434,7 +2446,7 @@ void File_MpegPs::audio_stream()
             default   :
                         #if defined(MEDIAINFO_MPEGA_YES)
                         {
-                            File_Adts* Parser=new File_Adts;
+                            File_Mpega* Parser=new File_Mpega;
                             Open_Buffer_Init(Parser);
                             Parser->Frame_Count_Valid=1;
                             Streams[start_code].Parsers.push_back(Parser);
@@ -3075,10 +3087,10 @@ File__Analyze* File_MpegPs::ChooseParser_Mpegv()
 {
     //Filling
     #if defined(MEDIAINFO_MPEGV_YES)
-        File__Analyze* Handle=new File_Mpegv;
-        ((File_Mpegv*)Handle)->MPEG_Version=MPEG_Version;
-        ((File_Mpegv*)Handle)->Frame_Count_Valid=32;
-        ((File_Mpegv*)Handle)->ShouldContinueParsing=true;
+        File_Mpegv* Handle=new File_Mpegv;
+        Handle->MPEG_Version=MPEG_Version;
+        Handle->Frame_Count_Valid=32;
+        Handle->ShouldContinueParsing=true;
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
@@ -3173,8 +3185,8 @@ File__Analyze* File_MpegPs::ChooseParser_Mpega()
 {
     //Filling
     #if defined(MEDIAINFO_MPEGA_YES)
-        File__Analyze* Handle=new File_Mpega;
-        ((File_Mpega*)Handle)->Frame_Count_Valid=1;
+        File_Mpega* Handle=new File_Mpega;
+        Handle->Frame_Count_Valid=1;
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
@@ -3215,8 +3227,8 @@ File__Analyze* File_MpegPs::ChooseParser_AC3()
 {
     //Filling
     #if defined(MEDIAINFO_AC3_YES)
-        File__Analyze* Handle=new File_Ac3();
-        ((File_Ac3*)Handle)->Frame_Count_Valid=2; //2 frames to be sure
+        File_Ac3* Handle=new File_Ac3();
+        Handle->Frame_Count_Valid=2; //2 frames to be sure
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
