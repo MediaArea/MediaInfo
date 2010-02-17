@@ -983,6 +983,14 @@ void File__Analyze::Get_Local(int64u Bytes, Ztring &Info)
 }
 
 //---------------------------------------------------------------------------
+void File__Analyze::Get_ISO_8859_1(int64u Bytes, Ztring &Info)
+{
+    INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
+    Info.From_ISO_8859_1((const char*)(Buffer+Buffer_Offset+(size_t)Element_Offset), (size_t)Bytes);
+    Element_Offset+=Bytes;
+}
+
+//---------------------------------------------------------------------------
 void File__Analyze::Get_String(int64u Bytes, std::string &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
