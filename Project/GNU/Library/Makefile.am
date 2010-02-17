@@ -118,7 +118,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Text/File_Kate.cpp \
                        ../../../Source/MediaInfo/Text/File_Eia608.cpp \
                        ../../../Source/MediaInfo/Text/File_Eia708.cpp \
-                       ../../../Source/MediaInfo/Text/File_M19.cpp \
+                       ../../../Source/MediaInfo/Text/File_N19.cpp \
                        ../../../Source/MediaInfo/Text/File_OtherText.cpp \
                        ../../../Source/MediaInfo/Text/File_Pgs.cpp \
                        ../../../Source/MediaInfo/Video/File_Avc.cpp \
