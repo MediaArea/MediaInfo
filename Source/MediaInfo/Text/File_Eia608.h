@@ -44,9 +44,6 @@ class File_Eia608 : public File__Analyze
 {
 public :
     //In
-    int8u   cc_type;
-
-    //Out
 
     //Constructor/Destructor
     File_Eia608();
@@ -54,6 +51,7 @@ public :
 private :
     //Streams management
     void Streams_Fill();
+    void Streams_Finish();
 
     //Buffer - Global
     void Read_Buffer_Continue();
@@ -62,13 +60,12 @@ private :
     std::wstring Captions;
 
     //Function
-    void Characters_Eia608   (int8u Character);
+    void Standard (int8u Character);
 
     std::vector<int8u> XDS_Data;
-    bool TextMode;
-    bool DataChannelMode;
+    bool TextMode; //CC or T
+    bool DataChannelMode; //if true, CC2/CC4/T2/T4
     bool InBack; //The back buffer is written
-    bool HasChanged;
 
     void XDS();
     void XDS_Current();
@@ -77,10 +74,13 @@ private :
     void XDS_PublicService();
     void XDS_PublicService_NationalWeatherService();
     void Special(int8u cc_data_1, int8u cc_data_2);
+    void Special_10(int8u cc_data_2);
     void Special_11(int8u cc_data_2);
+    void Special_12(int8u cc_data_2);
+    void Special_13(int8u cc_data_2);
     void Special_14(int8u cc_data_2);
     void Special_17(int8u cc_data_2);
-    void PAC(int8u cc_data_1, int8u cc_data_2);
+    void PreambleAddressCode(int8u cc_data_1, int8u cc_data_2);
 
     //An attribute consists of Attribute_Color_*, optionally OR'd with Attribute_Underline and/or Attribute_Italic
     enum attributes
@@ -106,13 +106,19 @@ private :
             Value=L' ';
         }
     };
-    vector<vector<character> > Characters_Front;
-    vector<vector<character> > Characters_Back;
+    void Character_Fill(wchar_t Character);
+    void HasChanged();
+    void Illegal();
+    vector<vector<character> > CC_Displayed;
+    vector<vector<character> > CC_NonDisplayed;
+    vector<vector<character> > Text_Displayed;
     int8u Attribute_Current;
 
     size_t x;
     size_t y;
     size_t RollUpLines;
+    int8u cc_data_1_Old;
+    int8u cc_data_2_Old;
 };
 
 } //NameSpace

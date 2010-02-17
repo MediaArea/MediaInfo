@@ -76,23 +76,26 @@ File_Eia608::File_Eia608()
     PTS_DTS_Needed=true;
 
     //In
-    cc_type=(int8u)-1;
 
     //Temp
     TextMode=false;
     DataChannelMode=false;
     InBack=false;
-    HasChanged=false;
-    Characters_Front.resize(Eia608_Rows);
-    for (size_t Pos=0; Pos<Characters_Front.size(); Pos++)
-        Characters_Front[Pos].resize(Eia608_Columns);
-    Characters_Back.resize(Eia608_Rows);
-    for (size_t Pos=0; Pos<Characters_Back.size(); Pos++)
-        Characters_Back[Pos].resize(Eia608_Columns);
+    CC_Displayed.resize(Eia608_Rows);
+    for (size_t Pos=0; Pos<CC_Displayed.size(); Pos++)
+        CC_Displayed[Pos].resize(Eia608_Columns);
+    CC_NonDisplayed.resize(Eia608_Rows);
+    for (size_t Pos=0; Pos<CC_NonDisplayed.size(); Pos++)
+        CC_NonDisplayed[Pos].resize(Eia608_Columns);
+    Text_Displayed.resize(Eia608_Rows);
+    for (size_t Pos=0; Pos<Text_Displayed.size(); Pos++)
+        Text_Displayed[Pos].resize(Eia608_Columns);
     x=0;
-    y=0;
+    y=Eia608_Rows-1;
     Attribute_Current=0;
-    RollUpLines=1;
+    RollUpLines=0;
+    cc_data_1_Old=0x00;
+    cc_data_2_Old=0x00;
 }
 
 //***************************************************************************
@@ -105,6 +108,11 @@ void File_Eia608::Streams_Fill()
     Stream_Prepare(Stream_Text);
     Fill(Stream_Text, 0, Text_Format, "EIA-608");
     Fill(Stream_Text, 0, Text_StreamSize, 0);
+}
+
+//---------------------------------------------------------------------------
+void File_Eia608::Streams_Finish()
+{
 }
 
 //***************************************************************************
@@ -127,8 +135,27 @@ void File_Eia608::Read_Buffer_Continue()
     cc_data_1&=0x7F;
     cc_data_2&=0x7F;
 
+    //Test if non-printing chars (0x10-0x1F) are repeated (CEA-608-E section D.2)
+    if (cc_data_1_Old)
+    {
+        if (cc_data_1_Old==cc_data_1 || cc_data_2_Old==cc_data_2)
+        {
+            //This is duplicate
+            cc_data_1_Old=0x00;
+            cc_data_2_Old=0x00;
+            return; //Nothing to do
+        }
+        else
+        {
+            //They should be duplicated, there is a problem
+        }
+        cc_data_1_Old=0x00;
+        cc_data_2_Old=0x00;
+    }
+    
     if ((cc_data_1 && cc_data_1<0x10) || !XDS_Data.empty()) //XDS
     {
+        TextMode=false; //This is CC
         XDS_Data.push_back(cc_data_1);
         XDS_Data.push_back(cc_data_2);
         if (cc_data_1==0x0F)
@@ -138,9 +165,9 @@ void File_Eia608::Read_Buffer_Continue()
     }
     else if (cc_data_1>=0x20) //Basic characters
     {
-        Characters_Eia608(cc_data_1);
+        Standard(cc_data_1);
         if ((cc_data_2&0x7F)>=0x20)
-            Characters_Eia608(cc_data_2);
+            Standard(cc_data_2);
     }
     else //Special
         Special(cc_data_1, cc_data_2);
@@ -229,54 +256,40 @@ void File_Eia608::Special(int8u cc_data_1, int8u cc_data_2)
 
     if (cc_data_1>=0x10 && cc_data_1<=0x17 && cc_data_2>=0x40)
     {
-        PAC(cc_data_1, cc_data_2);
-    }
-    else if (cc_data_1==0x12 && cc_data_2>=0x20 && cc_data_2<=0x3F)
-    {
-        //Optional replacement chars
-        //if (x)
-        //    x--;
-        //Add here 6.4.2, table 5-6-7
-    }
-    else if (cc_data_1==0x13 && cc_data_2>=0x20 && cc_data_2<=0x3F)
-    {
-        //Optional replacement chars
-        //if (x)
-        //    x--;
-        //Add here 6.4.2, table 8-9-10
-    }
-    else if (cc_data_1==0x11 && cc_data_2>=0x20 && cc_data_2<=0x3F)
-    {
-        //
-        if ((cc_data_2&0xFE)==0x2E) //Italic
-            Attribute_Current|=Attribute_Italic;
-        else //Other attributes
-            Attribute_Current=(cc_data_2&0x0F)>>1;
-
-        //Underline
-        if (cc_data_2&0x01)
-            Attribute_Current|=Attribute_Underline;
+        PreambleAddressCode(cc_data_1, cc_data_2);
     }
     else
     {
         switch (cc_data_1)
         {
+            case 0x10 : Special_10(cc_data_2); break;
             case 0x11 : Special_11(cc_data_2); break;
+            case 0x12 : Special_12(cc_data_2); break;
+            case 0x13 : Special_13(cc_data_2); break;
             case 0x14 : Special_14(cc_data_2); break;
             case 0x17 : Special_17(cc_data_2); break;
             default   : ;
         }
     }
+
+    //Saving data, for repetition of the code
+    cc_data_1_Old=cc_data_1;
+    cc_data_2_Old=cc_data_2;
 }
 
 //---------------------------------------------------------------------------
-void File_Eia608::PAC(int8u cc_data_1, int8u cc_data_2)
+void File_Eia608::PreambleAddressCode(int8u cc_data_1, int8u cc_data_2)
 {
+    //CEA-608-E, Section F.1.1.5
+
     //Horizontal position
-    y=Eia608_PAC_Row[cc_data_1&0x0F]+((cc_data_2&0x20)?0:1);
-    if (y>=Eia608_Rows)
+    if (!TextMode)
     {
-        y=Eia608_Rows-1;
+        y=Eia608_PAC_Row[cc_data_1&0x0F]+((cc_data_2&0x20)?1:0);
+        if (y>=Eia608_Rows)
+        {
+            y=Eia608_Rows-1;
+        }
     }
 
     //Attributes (except Underline)
@@ -298,10 +311,65 @@ void File_Eia608::PAC(int8u cc_data_1, int8u cc_data_2)
 }
 
 //---------------------------------------------------------------------------
+void File_Eia608::Special_10(int8u cc_data_2)
+{
+    switch (cc_data_2)
+    {
+        //CEA-608-E, Section 6.2
+        case 0x20 : break;  //Background White, Opaque
+        case 0x21 : break;  //Background White, Semi-transparent
+        case 0x22 : break;  //
+        case 0x23 : break;  //
+        case 0x24 : break;  //
+        case 0x25 : break;  //
+        case 0x26 : break;  //
+        case 0x27 : break;  //
+        case 0x28 : break;  //
+        case 0x29 : break;  //
+        case 0x2A : break;  //
+        case 0x2B : break;  //
+        case 0x2C : break;  //
+        case 0x2D : break;  //
+        case 0x2E : break;  //
+        case 0x2F : break;  //
+        default   : Illegal();
+    }
+}
+
+//---------------------------------------------------------------------------
 void File_Eia608::Special_11(int8u cc_data_2)
 {
     switch (cc_data_2)
     {
+        //CEA-608-E, Section F.1.1.3
+        case 0x20 : //White
+        case 0x21 : //White Underline
+        case 0x22 : //
+        case 0x23 : //
+        case 0x24 : //
+        case 0x25 : //
+        case 0x26 : //
+        case 0x27 : //
+        case 0x28 : //
+        case 0x29 : //
+        case 0x2A : //
+        case 0x2B : //
+        case 0x2C : //
+        case 0x2D : //
+        case 0x2E : //
+        case 0x2F : //
+                    //Color or Italic
+                    if ((cc_data_2&0xFE)==0x2E) //Italic
+                        Attribute_Current|=Attribute_Italic;
+                    else //Other attributes
+                        Attribute_Current=(cc_data_2&0x0F)>>1;
+
+                    //Underline
+                    if (cc_data_2&0x01)
+                        Attribute_Current|=Attribute_Underline;
+
+                    break;
+        //CEA-608-E, Section F.1.1.1
         case 0x30 : Captions+=L'\x2122'; break;  //Registered mark symbol
         case 0x31 : Captions+=L'\xB0'  ; break;  //Degree sign
         case 0x32 : Captions+=L'\xBD'  ; break;  //1/2
@@ -318,7 +386,91 @@ void File_Eia608::Special_11(int8u cc_data_2)
         case 0x3D : Captions+=L'\xEE'  ; break;  //i circumflex
         case 0x3E : Captions+=L'\xF4'  ; break;  //o circumflex
         case 0x3F : Captions+=L'\xFB'  ; break;  //u circumflex
-        default   : ;
+        default   : Illegal();
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Eia608::Special_12(int8u cc_data_2)
+{
+    switch (cc_data_2)
+    {
+        //CEA-608-E, Section 6.4.2
+        case 0x20 : Captions+=L'A'; break;  //A with acute
+        case 0x21 : Captions+=L'E'; break;  //E with acute
+        case 0x22 : Captions+=L'O'; break;  //O with acute
+        case 0x23 : Captions+=L'U'; break;  //U with acute
+        case 0x24 : Captions+=L'U'; break;  //U withdiaeresis or umlaut
+        case 0x25 : Captions+=L'u'; break;  //u with diaeresis or umlaut
+        case 0x26 : Captions+=L'\''; break;  //opening single quote
+        case 0x27 : Captions+=L'!'; break;  //inverted exclamation mark
+        case 0x28 : Captions+=L'*'; break;  //Asterisk
+        case 0x29 : Captions+=L'\''; break;  //plain single quote
+        case 0x2A : Captions+=L'_'; break;  //em dash
+        case 0x2B : Captions+=L'C'; break;  //Copyright
+        case 0x2C : Captions+=L'S'; break;  //Servicemark
+        case 0x2D : Captions+=L'x'; break;  //round bullet
+        case 0x2E : Captions+=L'\"'; break;  //opening double quotes
+        case 0x2F : Captions+=L'\"'; break;  //closing double quotes
+        case 0x30 : Captions+=L'A'; break;  //A with grave accent
+        case 0x31 : Captions+=L'A'; break;  //A with circumflex accent
+        case 0x32 : Captions+=L'C'; break;  //C with cedilla
+        case 0x33 : Captions+=L'E'; break;  //E with grave accent
+        case 0x34 : Captions+=L'E'; break;  //E with circumflex accent
+        case 0x35 : Captions+=L'E'; break;  //E with diaeresis or umlaut mark
+        case 0x36 : Captions+=L'e'; break;  //e with diaeresis or umlaut mark
+        case 0x37 : Captions+=L'I'; break;  //I with circumflex accent
+        case 0x38 : Captions+=L'I'; break;  //I with diaeresis or umlaut mark
+        case 0x39 : Captions+=L'i'; break;  //i with diaeresis or umlaut mark
+        case 0x3A : Captions+=L'O'; break;  //O with circumflex
+        case 0x3B : Captions+=L'U'; break;  //U with grave accent
+        case 0x3C : Captions+=L'u'; break;  //u with grave accent
+        case 0x3D : Captions+=L'U'; break;  //U with circumflex accent
+        case 0x3E : Captions+=L'\"'; break;  //opening guillemets
+        case 0x3F : Captions+=L'\"'; break;  //closing guillemets
+        default   : Illegal();
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Eia608::Special_13(int8u cc_data_2)
+{
+    switch (cc_data_2)
+    {
+        //CEA-608-E, Section 6.4.2
+        case 0x20 : Captions+=L'A'; break;  //A with tilde
+        case 0x21 : Captions+=L'a'; break;  //a with tilde
+        case 0x22 : Captions+=L'I'; break;  //I with acute accent
+        case 0x23 : Captions+=L'I'; break;  //I with grave accent
+        case 0x24 : Captions+=L'i'; break;  //i with grave accent
+        case 0x25 : Captions+=L'O'; break;  //O with grave accent
+        case 0x26 : Captions+=L'o'; break;  //o with grave accent
+        case 0x27 : Captions+=L'O'; break;  //O with tilde
+        case 0x28 : Captions+=L'o'; break;  //o with tilde
+        case 0x29 : Captions+=L'{'; break;  //opening brace
+        case 0x2A : Captions+=L'}'; break;  //closing brace
+        case 0x2B : Captions+=L'\\'; break;  //backslash
+        case 0x2C : Captions+=L'^'; break;  //caret
+        case 0x2D : Captions+=L'_'; break;  //Underbar
+        case 0x2E : Captions+=L'|'; break;  //pipe
+        case 0x2F : Captions+=L'~'; break;  //tilde
+        case 0x30 : Captions+=L'A'; break;  //A with diaeresis or umlaut mark
+        case 0x31 : Captions+=L'a'; break;  //a with diaeresis or umlaut mark
+        case 0x32 : Captions+=L'O'; break;  //o with diaeresis or umlaut mark
+        case 0x33 : Captions+=L'o'; break;  //o with diaeresis or umlaut mark
+        case 0x34 : Captions+=L's'; break;  //eszett (mall sharp s)
+        case 0x35 : Captions+=L'Y'; break;  //yen
+        case 0x36 : Captions+=L' '; break;  //non-specific currency sign
+        case 0x37 : Captions+=L'|'; break;  //Vertical bar
+        case 0x38 : Captions+=L'A'; break;  //I with diaeresis or umlaut mark
+        case 0x39 : Captions+=L'a'; break;  //i with diaeresis or umlaut mark
+        case 0x3A : Captions+=L'O'; break;  //O with ring
+        case 0x3B : Captions+=L'o'; break;  //a with ring
+        case 0x3C : Captions+=L' '; break;  //upper left corner
+        case 0x3D : Captions+=L' '; break;  //upper right corner
+        case 0x3E : Captions+=L' '; break;  //lower left corner
+        case 0x3F : Captions+=L' '; break;  //lower right corner
+        default   : Illegal();
     }
 }
 
@@ -332,85 +484,83 @@ void File_Eia608::Special_14(int8u cc_data_2)
         case 0x26 : //RU3 - Roll-Up Captions–3 Rows
         case 0x27 : //RU4 - Roll-Up Captions–4 Rows
         case 0x29 : //RDC - Resume Direct Captioning
+        case 0x2F : //EOC - End of Caption
                     TextMode=false; break; //This is CC
         case 0x2A : //TR  - Text Restart
         case 0x2B : //RTD - Resume Text Display
-                    TextMode=false; break; //This is Text
+                    TextMode=true; break; //This is Text
         default: ;
     }
 
     switch (cc_data_2)
     {
-        case 0x20 : InBack=true;
-                    break; //RCL - Resume Caption Loading
+        case 0x20 : TextMode=false;
+                    InBack=true;
+                    break; //RCL - Resume Caption Loading (Select pop-on style)
         case 0x21 : if (x)
                         x--;
-                    (InBack?Characters_Back:Characters_Front)[y][x].Value=L' '; //Clear the character
-                    (InBack?Characters_Back:Characters_Front)[y][x].Attribute=L' '; //Clear the character
+                    (InBack?CC_NonDisplayed:CC_Displayed)[y][x].Value=L' '; //Clear the character
                     if (!InBack)
-                        HasChanged=true; //TODO: set the right data mode
+                        HasChanged();
                     break; //BS  - Backspace
-        case 0x22 : break; //AOF - Alarm Off
+        case 0x22 : Special_14(0x2D); //Found 1 file with AOF and non CR
+                    break; //AOF - Alarm Off
         case 0x23 : break; //AON - Alarm On
         case 0x24 : for (size_t Pos=x; Pos<Eia608_Columns; Pos++)
-                    {
-                        (InBack?Characters_Back:Characters_Front)[y][Pos].Value=L' '; //Clear up to the end of line
-                        (InBack?Characters_Back:Characters_Front)[y][Pos].Attribute=0; //Clear up to the end of line
-                    }
+                        (InBack?CC_NonDisplayed:CC_Displayed)[y][Pos].Value=L' '; //Clear up to the end of line
                     if (!InBack)
-                        HasChanged=true; //TODO: set the right data mode
+                        HasChanged();
                     break; //DER - Delete to End of Row
         case 0x25 : //RU2 - Roll-Up Captions–2 Rows
         case 0x26 : //RU3 - Roll-Up Captions–3 Rows
         case 0x27 : //RU4 - Roll-Up Captions–4 Rows
                     RollUpLines=cc_data_2-0x25+2;
                     InBack=false;
-                    if (RollUpLines>y)
-                        y=Eia608_Rows-1; //TODO: Why?
-                    break;
+                    break; //RUx - Roll-Up Captions–x Rows
         case 0x28 : break; //FON - Flash On
         case 0x29 : InBack=false;
-                    break; //RDC - Resume Direct Captioning
-        case 0x2A : InBack=false;
-                    RollUpLines=Eia608_Rows; //TODO: Why?
-                    y=Eia608_Rows-1; //TODO: Why?
-                    Attribute_Current=0; //TODO: Why?
-                    break; //TR  - Text Restart
-        case 0x2B : break; //RTD - Resume Text Display
+                    break; //RDC - Resume Direct Captioning (paint-on style)
+        case 0x2A : TextMode=true;
+                    RollUpLines=Eia608_Rows; //Roll up all the lines
+                    y=Eia608_Rows-1; //Base is the bottom line
+                    Attribute_Current=0; //Reset all attributes
+                    Special(0x14, 0x60); //Reset cursor, to verify
+                    break; //TR  - Text Restart (clear Text, but not boxes)
+        case 0x2B : TextMode=true;
+                    break; //RTD - Resume Text Display
         case 0x2C :
                     for (size_t Pos_Y=0; Pos_Y<Eia608_Rows; Pos_Y++)
                         for (size_t Pos_X=0; Pos_X<Eia608_Columns; Pos_X++)
                         {
-                            (InBack?Characters_Back:Characters_Front)[Pos_Y][Pos_X].Value=L' ';
-                            (InBack?Characters_Back:Characters_Front)[Pos_Y][Pos_X].Attribute=0;
+                            CC_Displayed[Pos_Y][Pos_X].Value=L' ';
+                            CC_Displayed[Pos_Y][Pos_X].Attribute=0;
                         }
-                    if (!InBack)
-                        HasChanged=true; //TODO: set the right data mode
+                    HasChanged();
                     break; //EDM - Erase Displayed Memory
-        case 0x2D : for (size_t Pos=0; Pos<(RollUpLines-1); Pos++)
+        case 0x2D : for (size_t Pos=1; Pos<RollUpLines; Pos++)
                     {
-                        if (y>4-Pos)
-                            Characters_Front[y-4+Pos]=Characters_Front[y-4+Pos];
+                        if (y>RollUpLines+Pos && y-RollUpLines+Pos+1<Eia608_Rows)
+                            CC_Displayed[y-RollUpLines+Pos]=CC_Displayed[y-RollUpLines+Pos+1];
                     }
                     for (size_t Pos_X=0; Pos_X<Eia608_Columns; Pos_X++)
                     {
-                        Characters_Front[y][Pos_X].Value=L' ';
-                        Characters_Front[y][Pos_X].Attribute=0;
+                        CC_Displayed[y][Pos_X].Value=L' ';
+                        CC_Displayed[y][Pos_X].Attribute=0;
                     }
                     if (!InBack)
-                        HasChanged=true; //TODO: set the right data mode
+                        HasChanged();
                     break; //CR  - Carriage Return
         case 0x2E : for (size_t Pos_Y=0; Pos_Y<Eia608_Rows; Pos_Y++)
                         for (size_t Pos_X=0; Pos_X<Eia608_Columns; Pos_X++)
                         {
-                            Characters_Back[Pos_Y][Pos_X].Value=L' ';
-                            Characters_Back[Pos_Y][Pos_X].Attribute=0;
+                            CC_NonDisplayed[Pos_Y][Pos_X].Value=L' ';
+                            CC_NonDisplayed[Pos_Y][Pos_X].Attribute=0;
                         }
                     break; //ENM - Erase Non-Displayed Memory
-        case 0x2F : Characters_Front.swap(Characters_Back);
-                    HasChanged=true; //TODO: set the right data mode
+        case 0x2F : CC_Displayed.swap(CC_NonDisplayed);
+                        HasChanged();
                     break; //EOC - End of Caption
-        default   : ;
+        default   : Illegal();
     }
 }
 
@@ -419,21 +569,137 @@ void File_Eia608::Special_17(int8u cc_data_2)
 {
     switch (cc_data_2)
     {
+        //CEA-608-E, section B.4
         case 0x20 : //TO1 - Tab Offset 1 Column
         case 0x21 : //TO2 - Tab Offset 2 Columns
         case 0x22 : //TO3 - Tab Offset 3 Columns
-                    y+=cc_data_2&0x03;
-                    if (y>=Eia608_Rows)
-                    {
-                        y=Eia608_Rows-1;
-                    }
+                    x+=cc_data_2&0x03;
+                    if (x>=Eia608_Columns)
+                        x=Eia608_Columns-1;
                     break;
-        default   : ;
+        //CEA-608-E, section 6.3
+        case 0x24 : break;  //Select the standard line 21 character set in normal size
+        case 0x25 : break;  //Select the standard line 21 character set in double size
+        case 0x26 : break;  //Select the first private character set
+        case 0x27 : break;  //Select the second private character set
+        case 0x28 : break;  //Select the People's Republic of China character set: GB 2312-80
+        case 0x29 : break;  //Select the Korean Standard character set: KSC 5601-1987
+        case 0x2A : break;  //Select the first registered character set
+        //CEA-608-E, section 6.2
+        case 0x2D : break;  //Background Transparent
+        case 0x2E : break;  //Foreground Black
+        case 0x2F : break;  //Foreground Black Underline
+        default   : Illegal();
     }
 }
 
 //---------------------------------------------------------------------------
-void File_Eia608::Characters_Eia608(int8u Character)
+void File_Eia608::Standard(int8u Character)
+{
+    switch (Character)
+    {
+        //CEA-608-E, Section F.1.1.2
+        case 0x20 : Character_Fill(L' '     ); break;
+        case 0x21 : Character_Fill(L'!'     ); break;
+        case 0x22 : Character_Fill(L'"'     ); break;
+        case 0x23 : Character_Fill(L'#'     ); break;
+        case 0x24 : Character_Fill(L'$'     ); break;
+        case 0x25 : Character_Fill(L'%'     ); break;
+        case 0x26 : Character_Fill(L'&'     ); break;
+        case 0x27 : Character_Fill(L'\''    ); break;
+        case 0x28 : Character_Fill(L'('     ); break;
+        case 0x29 : Character_Fill(L')'     ); break;
+        case 0x2A : Character_Fill(L'\xE1'  ); break; //a acute
+        case 0x2B : Character_Fill(L'+'     ); break;
+        case 0x2C : Character_Fill(L','     ); break;
+        case 0x2D : Character_Fill(L'-'     ); break;
+        case 0x2E : Character_Fill(L'.'     ); break;
+        case 0x2F : Character_Fill(L'/'     ); break;
+        case 0x30 : Character_Fill(L'0'     ); break;
+        case 0x31 : Character_Fill(L'1'     ); break;
+        case 0x32 : Character_Fill(L'2'     ); break;
+        case 0x33 : Character_Fill(L'3'     ); break;
+        case 0x34 : Character_Fill(L'4'     ); break;
+        case 0x35 : Character_Fill(L'5'     ); break;
+        case 0x36 : Character_Fill(L'6'     ); break;
+        case 0x37 : Character_Fill(L'7'     ); break;
+        case 0x38 : Character_Fill(L'8'     ); break;
+        case 0x39 : Character_Fill(L'9'     ); break;
+        case 0x3A : Character_Fill(L':'     ); break;
+        case 0x3B : Character_Fill(L';'     ); break;
+        case 0x3C : Character_Fill(L'<'     ); break;
+        case 0x3E : Character_Fill(L'>'     ); break;
+        case 0x3F : Character_Fill(L'?'     ); break;
+        case 0x40 : Character_Fill(L'@'     ); break;
+        case 0x41 : Character_Fill(L'A'     ); break;
+        case 0x42 : Character_Fill(L'B'     ); break;
+        case 0x43 : Character_Fill(L'C'     ); break;
+        case 0x44 : Character_Fill(L'D'     ); break;
+        case 0x45 : Character_Fill(L'E'     ); break;
+        case 0x46 : Character_Fill(L'F'     ); break;
+        case 0x47 : Character_Fill(L'G'     ); break;
+        case 0x48 : Character_Fill(L'H'     ); break;
+        case 0x49 : Character_Fill(L'I'     ); break;
+        case 0x4A : Character_Fill(L'J'     ); break;
+        case 0x4B : Character_Fill(L'K'     ); break;
+        case 0x4C : Character_Fill(L'L'     ); break;
+        case 0x4D : Character_Fill(L'M'     ); break;
+        case 0x4E : Character_Fill(L'N'     ); break;
+        case 0x4F : Character_Fill(L'O'     ); break;
+        case 0x50 : Character_Fill(L'P'     ); break;
+        case 0x51 : Character_Fill(L'Q'     ); break;
+        case 0x52 : Character_Fill(L'R'     ); break;
+        case 0x53 : Character_Fill(L'S'     ); break;
+        case 0x54 : Character_Fill(L'T'     ); break;
+        case 0x55 : Character_Fill(L'U'     ); break;
+        case 0x56 : Character_Fill(L'V'     ); break;
+        case 0x57 : Character_Fill(L'W'     ); break;
+        case 0x58 : Character_Fill(L'X'     ); break;
+        case 0x59 : Character_Fill(L'Y'     ); break;
+        case 0x5A : Character_Fill(L'Z'     ); break;
+        case 0x5B : Character_Fill(L'['     ); break;
+        case 0x5C : Character_Fill(L'\xE9'  ); break; //e acute
+        case 0x5D : Character_Fill(L']'     ); break;
+        case 0x5E : Character_Fill(L'\xED'  ); break; //i acute
+        case 0x5F : Character_Fill(L'\xF3'  ); break; //o acute
+        case 0x60 : Character_Fill(L'\xFA'  ); break; //u acute
+        case 0x61 : Character_Fill(L'a'     ); break;
+        case 0x62 : Character_Fill(L'b'     ); break;
+        case 0x63 : Character_Fill(L'c'     ); break;
+        case 0x64 : Character_Fill(L'd'     ); break;
+        case 0x65 : Character_Fill(L'e'     ); break;
+        case 0x66 : Character_Fill(L'f'     ); break;
+        case 0x67 : Character_Fill(L'g'     ); break;
+        case 0x68 : Character_Fill(L'h'     ); break;
+        case 0x69 : Character_Fill(L'i'     ); break;
+        case 0x6A : Character_Fill(L'j'     ); break;
+        case 0x6B : Character_Fill(L'k'     ); break;
+        case 0x6C : Character_Fill(L'l'     ); break;
+        case 0x6D : Character_Fill(L'm'     ); break;
+        case 0x6E : Character_Fill(L'n'     ); break;
+        case 0x6F : Character_Fill(L'o'     ); break;
+        case 0x70 : Character_Fill(L'p'     ); break;
+        case 0x71 : Character_Fill(L'q'     ); break;
+        case 0x72 : Character_Fill(L'r'     ); break;
+        case 0x73 : Character_Fill(L's'     ); break;
+        case 0x74 : Character_Fill(L't'     ); break;
+        case 0x75 : Character_Fill(L'u'     ); break;
+        case 0x76 : Character_Fill(L'v'     ); break;
+        case 0x77 : Character_Fill(L'w'     ); break;
+        case 0x78 : Character_Fill(L'x'     ); break;
+        case 0x79 : Character_Fill(L'y'     ); break;
+        case 0x7A : Character_Fill(L'z'     ); break;
+        case 0x7B : Character_Fill(L'\xE7'  ); break; //c with cedilla
+        case 0x7C : Character_Fill(L'\xF7'  ); break; //division symbol
+        case 0x7D : Character_Fill(L'\xD1'  ); break; //N tilde
+        case 0x7E : Character_Fill(L'\xF1'  ); break; //n tilde
+        case 0x7F : Character_Fill(L'\x25A0'); break; //Solid block
+        default   : Illegal();
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Eia608::Character_Fill(wchar_t Character)
 {
     if (x+1==Eia608_Columns)
     {
@@ -443,108 +709,23 @@ void File_Eia608::Characters_Eia608(int8u Character)
         //TODO: Handle special chars
     }
 
-    switch (Character)
+    if (TextMode)
     {
-        case 0x20 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L' '     ; break;
-        case 0x21 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'!'     ; break;
-        case 0x22 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'"'     ; break;
-        case 0x23 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'#'     ; break;
-        case 0x24 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'$'     ; break;
-        case 0x25 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'%'     ; break;
-        case 0x26 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'&'     ; break;
-        case 0x27 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'\''    ; break;
-        case 0x28 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'('     ; break;
-        case 0x29 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L')'     ; break;
-        case 0x2A : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'\xE1'  ; break; //a acute
-        case 0x2B : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'+'     ; break;
-        case 0x2C : (InBack?Characters_Back:Characters_Front)[y][x].Value=L','     ; break;
-        case 0x2D : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'-'     ; break;
-        case 0x2E : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'.'     ; break;
-        case 0x2F : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'/'     ; break;
-        case 0x30 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'0'     ; break;
-        case 0x31 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'1'     ; break;
-        case 0x32 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'2'     ; break;
-        case 0x33 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'3'     ; break;
-        case 0x34 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'4'     ; break;
-        case 0x35 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'5'     ; break;
-        case 0x36 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'6'     ; break;
-        case 0x37 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'7'     ; break;
-        case 0x38 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'8'     ; break;
-        case 0x39 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'9'     ; break;
-        case 0x3A : (InBack?Characters_Back:Characters_Front)[y][x].Value=L':'     ; break;
-        case 0x3B : (InBack?Characters_Back:Characters_Front)[y][x].Value=L';'     ; break;
-        case 0x3C : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'<'     ; break;
-        case 0x3E : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'>'     ; break;
-        case 0x3F : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'?'     ; break;
-        case 0x40 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'@'     ; break;
-        case 0x41 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'A'     ; break;
-        case 0x42 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'B'     ; break;
-        case 0x43 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'C'     ; break;
-        case 0x44 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'D'     ; break;
-        case 0x45 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'E'     ; break;
-        case 0x46 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'F'     ; break;
-        case 0x47 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'G'     ; break;
-        case 0x48 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'H'     ; break;
-        case 0x49 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'I'     ; break;
-        case 0x4A : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'J'     ; break;
-        case 0x4B : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'K'     ; break;
-        case 0x4C : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'L'     ; break;
-        case 0x4D : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'M'     ; break;
-        case 0x4E : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'N'     ; break;
-        case 0x4F : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'O'     ; break;
-        case 0x50 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'P'     ; break;
-        case 0x51 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'Q'     ; break;
-        case 0x52 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'R'     ; break;
-        case 0x53 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'S'     ; break;
-        case 0x54 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'T'     ; break;
-        case 0x55 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'U'     ; break;
-        case 0x56 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'V'     ; break;
-        case 0x57 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'W'     ; break;
-        case 0x58 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'X'     ; break;
-        case 0x59 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'Y'     ; break;
-        case 0x5A : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'Z'     ; break;
-        case 0x5B : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'['     ; break;
-        case 0x5C : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'\xE9'  ; break; //e acute
-        case 0x5D : (InBack?Characters_Back:Characters_Front)[y][x].Value=L']'     ; break;
-        case 0x5E : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'\xED'  ; break; //i acute
-        case 0x5F : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'\xF3'  ; break; //o acute
-        case 0x60 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'\xFA'  ; break; //u acute
-        case 0x61 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'a'     ; break;
-        case 0x62 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'b'     ; break;
-        case 0x63 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'c'     ; break;
-        case 0x64 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'd'     ; break;
-        case 0x65 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'e'     ; break;
-        case 0x66 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'f'     ; break;
-        case 0x67 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'g'     ; break;
-        case 0x68 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'h'     ; break;
-        case 0x69 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'i'     ; break;
-        case 0x6A : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'j'     ; break;
-        case 0x6B : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'k'     ; break;
-        case 0x6C : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'l'     ; break;
-        case 0x6D : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'm'     ; break;
-        case 0x6E : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'n'     ; break;
-        case 0x6F : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'o'     ; break;
-        case 0x70 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'p'     ; break;
-        case 0x71 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'q'     ; break;
-        case 0x72 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'r'     ; break;
-        case 0x73 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L's'     ; break;
-        case 0x74 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L't'     ; break;
-        case 0x75 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'u'     ; break;
-        case 0x76 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'v'     ; break;
-        case 0x77 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'w'     ; break;
-        case 0x78 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'x'     ; break;
-        case 0x79 : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'y'     ; break;
-        case 0x7A : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'z'     ; break;
-        case 0x7B : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'\xE7'  ; break; //c with cedilla
-        case 0x7C : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'\xF7'  ; break; //division symbol
-        case 0x7D : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'\xD1'  ; break; //N tilde
-        case 0x7E : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'\xF1'  ; break; //n tilde
-        case 0x7F : (InBack?Characters_Back:Characters_Front)[y][x].Value=L'\x25A0'; break; //Solid block
-        default   : ;
+        Text_Displayed[y][x].Value=Character;
+    }
+    else if (InBack)
+    {
+        CC_NonDisplayed[y][x].Value=Character;
+    }
+    else
+    {
+        CC_Displayed[y][x].Value=Character;
     }
 
     x++;
-    HasChanged=true;
+    
+    if (!InBack)
+        HasChanged();
     
     if (!Status[IsFilled])
     {
@@ -552,6 +733,16 @@ void File_Eia608::Characters_Eia608(int8u Character)
         if (MediaInfoLib::Config.ParseSpeed_Get()<1)
             Finish("EIA-608");
     }
+}
+
+//---------------------------------------------------------------------------
+void File_Eia608::HasChanged()
+{
+}
+
+//---------------------------------------------------------------------------
+void File_Eia608::Illegal()
+{
 }
 
 //***************************************************************************
