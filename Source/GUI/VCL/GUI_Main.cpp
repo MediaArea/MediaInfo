@@ -1039,6 +1039,24 @@ void __fastcall TMainF::M_View_HTMLClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TMainF::M_View_MPEG7Click(TObject *Sender)
+{
+    Prefs->Details[Prefs_Custom].Write(_T("MPEG-7"));
+    M_View_Custom->Checked=true;
+    ToolBar_View_Custom->Checked=true;
+    ChangePage(Page_Custom);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_View_PBCoreClick(TObject *Sender)
+{
+    Prefs->Details[Prefs_Custom].Write(_T("PBCore_1.2"));
+    M_View_Custom->Checked=true;
+    ToolBar_View_Custom->Checked=true;
+    ChangePage(Page_Custom);
+}
+
+//---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_CustomClick(TObject *Sender)
 {
     M_View_Custom->Checked=true;
@@ -1566,5 +1584,4 @@ void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
 {
     ShellExecute(NULL, NULL, (Ztring(_T("http://mediainfo.sourceforge.net/"))+Prefs->Translate(_T("  Language_ISO639"))+_T("?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
-//---------------------------------------------------------------------------
 

@@ -138,7 +138,7 @@ object MainF: TMainF
     Top = 0
     Width = 690
     Height = 385
-    ActivePage = Page_Easy
+    ActivePage = Page_Text
     BiDiMode = bdLeftToRight
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -154,10 +154,6 @@ object MainF: TMainF
     TabStop = False
     object Page_Easy: TTabSheet
       Caption = 'Easy'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Easy_Note: TLabel
         Left = 0
         Top = 318
@@ -206,7 +202,7 @@ object MainF: TMainF
         Font.Height = -12
         Font.Name = 'Arial'
         Font.Style = []
-        ItemHeight = 0
+        ItemHeight = 15
         ParentFont = False
         TabOrder = 1
         OnChange = Page_Easy_FileChange
@@ -465,10 +461,6 @@ object MainF: TMainF
       ImageIndex = 2
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Sheet_A_Web: TButton
         Left = 566
         Top = 173
@@ -508,7 +500,7 @@ object MainF: TMainF
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 3
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
@@ -530,7 +522,7 @@ object MainF: TMainF
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 5
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
@@ -567,7 +559,7 @@ object MainF: TMainF
         Top = 127
         Width = 561
         Height = 23
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 8
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
@@ -578,7 +570,7 @@ object MainF: TMainF
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 9
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
@@ -589,7 +581,7 @@ object MainF: TMainF
         Width = 561
         Height = 23
         Enabled = False
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 10
         OnChange = Page_Sheet_Change
         OnEnter = Page_Sheet_Change
@@ -613,10 +605,6 @@ object MainF: TMainF
       ImageIndex = 1
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Tree_Tree: TTreeView
         Left = 0
         Top = 2
@@ -641,10 +629,6 @@ object MainF: TMainF
       Caption = 'Text'
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Text_Text: TMemo
         Left = 3
         Top = 0
@@ -670,10 +654,6 @@ object MainF: TMainF
     object Page_HTML: TTabSheet
       Caption = 'HTML'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_HTML_HTML: TCppWebBrowser
         Left = 4
         Top = 0
@@ -693,10 +673,6 @@ object MainF: TMainF
       ImageIndex = 4
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Custom_Text: TMemo
         Left = 2
         Top = 2
@@ -733,10 +709,6 @@ object MainF: TMainF
     object Page_System: TTabSheet
       Caption = 'Your system'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_System_Buttons: TGroupBox
         Left = 9
         Top = 0
@@ -828,7 +800,6 @@ object MainF: TMainF
     ShowHint = True
     TabOrder = 1
     Transparent = True
-    ExplicitHeight = 595
     object Tool_File: TToolButton
       Left = 0
       Top = 0
@@ -2181,6 +2152,14 @@ object MainF: TMainF
         Caption = 'HTML'
         RadioItem = True
         OnClick = M_View_HTMLClick
+      end
+      object M_View_MPEG7: TMenuItem
+        Caption = 'MPEG-7'
+        OnClick = M_View_MPEG7Click
+      end
+      object M_View_PBCore: TMenuItem
+        Caption = 'PBCore 1.2'
+        OnClick = M_View_PBCoreClick
       end
       object M_View_Custom: TMenuItem
         AutoCheck = True
