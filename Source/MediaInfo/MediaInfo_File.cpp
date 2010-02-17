@@ -194,6 +194,9 @@
 
 //---------------------------------------------------------------------------
 // Text
+#if defined(MEDIAINFO_N19_YES)
+    #include "MediaInfo/Text/File_N19.h"
+#endif
 #if defined(MEDIAINFO_OTHERTEXT_YES)
     #include "MediaInfo/Text/File_OtherText.h"
 #endif
@@ -438,6 +441,9 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
 
     // Text
     #if defined(MEDIAINFO_OTHERTEXT_YES)
+        else if (Parser==_T("N19"))         Info=new File_N19();
+    #endif
+    #if defined(MEDIAINFO_OTHERTEXT_YES)
         else if (Parser==_T("OtherText"))   Info=new File_OtherText();
     #endif
 
@@ -671,6 +677,9 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #endif
 
     // Text
+    #if defined(MEDIAINFO_N19_YES)
+        delete Info; Info=new File_N19();                if (Reader_File::Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
     #if defined(MEDIAINFO_OTHERTEXT_YES)
         delete Info; Info=new File_OtherText();          if (Reader_File::Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif

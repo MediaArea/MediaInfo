@@ -547,6 +547,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_N19.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_OtherText.cpp"
 					>
 				</File>
@@ -625,6 +629,18 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_libcurl.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Export"
+				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Export\Export_Mpeg7.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Export\Export_PBCore.cpp"
 					>
 				</File>
 			</Filter>
@@ -1066,6 +1082,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_N19.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_OtherText.h"
 					>
 				</File>
@@ -1135,6 +1155,18 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Reader\Reader_libcurl.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Export"
+				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Export\Export_Mpeg7.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Export\Export_PBCore.h"
 					>
 				</File>
 			</Filter>

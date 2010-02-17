@@ -884,7 +884,7 @@ void File_Id3v2::APIC()
 {
     int8u Encoding, PictureType;
     Ztring Mime, Description;
-    int16u MimeLength;
+    size_t MimeLength;
     Get_B1 (Encoding,                                           "Text_encoding");
     if (Id3v2_Version==2)
     {

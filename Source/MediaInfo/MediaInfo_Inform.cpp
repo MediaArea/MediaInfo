@@ -32,6 +32,8 @@
 #include "ZenLib/Utils.h"
 #include "MediaInfo/MediaInfo_Internal.h"
 #include "MediaInfo/MediaInfo_Config.h"
+#include "MediaInfo/Export/Export_Mpeg7.h"
+#include "MediaInfo/Export/Export_PBCore.h"
 #include "MediaInfo/File__Analyze.h"
 //---------------------------------------------------------------------------
 
@@ -63,6 +65,11 @@ Ztring MediaInfo_Internal::Inform()
                 return Info->Details_Get();
         }
     #endif //MEDIAINFO_MINIMIZESIZE
+
+    if (MediaInfoLib::Config.Inform_Get()==_T("MPEG-7"))
+        return Export_Mpeg7().Transform(*this);
+    if (MediaInfoLib::Config.Inform_Get()==_T("PBCore") || MediaInfoLib::Config.Inform_Get()==_T("PBCore_1.2"))
+        return Export_PBCore().Transform(*this);
 
     if (!(
         MediaInfoLib::Config.Inform_Get(_T("General")).empty()

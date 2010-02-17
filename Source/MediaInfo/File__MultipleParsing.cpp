@@ -182,6 +182,9 @@
 
 //---------------------------------------------------------------------------
 // Text
+#if defined(MEDIAINFO_N19_YES)
+    #include "MediaInfo/Text/File_N19.h"
+#endif
 #if defined(MEDIAINFO_OTHERTEXT_YES)
     #include "MediaInfo/Text/File_OtherText.h"
 #endif
@@ -432,6 +435,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
 
     // Text
+    #if defined(MEDIAINFO_N19_YES)
+        Temp=new File_N19(); Parser.push_back(Temp);
+    #endif
     #if defined(MEDIAINFO_OTHERTEXT_YES)
         Temp=new File_OtherText(); Parser.push_back(Temp);
     #endif
