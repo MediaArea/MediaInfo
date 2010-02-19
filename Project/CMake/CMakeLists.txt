@@ -76,6 +76,8 @@ set(mediainfo_SRCS
 	MediaInfo/Duplicate/File__Duplicate__Base.cpp
 	MediaInfo/Duplicate/File__Duplicate__Writer.cpp
 	MediaInfo/Duplicate/File__Duplicate_MpegTs.cpp
+	MediaInfo/Export/Export_Mpeg7.cpp
+	MediaInfo/Export/Export_PBCore.cpp
 	MediaInfo/Image/File_Bmp.cpp
 	MediaInfo/Image/File_Gif.cpp
 	MediaInfo/Image/File_Ico.cpp
@@ -125,6 +127,7 @@ set(mediainfo_SRCS
 	MediaInfo/Text/File_Eia608.cpp
 	MediaInfo/Text/File_Eia708.cpp
 	MediaInfo/Text/File_Kate.cpp
+	MediaInfo/Text/File_N19.cpp
 	MediaInfo/Text/File_OtherText.cpp
 	MediaInfo/Text/File_Pgs.cpp
 	MediaInfo/Video/File_Avc.cpp
