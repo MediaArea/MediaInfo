@@ -20,9 +20,11 @@ Version 0.7.28, 2010-02-19
 + MPEG-2 Video: GOP structure
 + MPEG-4: handling of video streams with a different last frame duration
 + RIFF: Skipping OpenDML frame count (not always valid), when index is available
++ AMR: more atributes (Sampling rate, duration...)
 x MPEG-PS and MPEG-TS: crash with some files
 x MPEG-4: some bitrates to zero with a null bitr or btrt atoms
 x MPEG-4: managing different kinds of compressor name format
+x AMR in MPEG-4: crash with some specific files
 x #2952623, Id3v2: USLT with ISO-8859-1 charset was not well read
 x #2952637, Id3v2.2: PIC tag was not well read
 x #2952638, XML output: sometimes empty tags
