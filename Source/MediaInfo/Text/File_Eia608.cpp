@@ -165,11 +165,14 @@ void File_Eia608::Read_Buffer_Continue()
     }
     else if (cc_data_1>=0x20) //Basic characters
     {
-        Standard(cc_data_1);
-        if ((cc_data_2&0x7F)>=0x20)
-            Standard(cc_data_2);
+        if (Synched)
+        {
+            Standard(cc_data_1);
+            if ((cc_data_2&0x7F)>=0x20)
+                Standard(cc_data_2);
+        }
     }
-    else //Special
+    else if (cc_data_1) //Special
         Special(cc_data_1, cc_data_2);
 
     if (Captions_Size<Captions.size())
@@ -192,11 +195,16 @@ void File_Eia608::XDS()
     switch (XDS_Data[0])
     {
         case 0x01 : XDS_Current(); break;
+        case 0x05 : XDS_Channel(); break;
         case 0x09 : XDS_PublicService(); break;
         default   : ;
     }
 
     XDS_Data.clear();
+
+    //With have a point of synchro
+    if (!Synched)
+        Synched=true;
 }
 
 //---------------------------------------------------------------------------
@@ -204,6 +212,7 @@ void File_Eia608::XDS_Current()
 {
     switch (XDS_Data[1])
     {
+        case 0x03 : XDS_Current_ProgramName(); break;
         case 0x05 : XDS_Current_ContentAdvisory(); break;
         case 0x08 : XDS_Current_CopyAndRedistributionControlPacket(); break;
         default   : ;
@@ -220,12 +229,44 @@ void File_Eia608::XDS_Current_ContentAdvisory()
 }
 
 //---------------------------------------------------------------------------
+void File_Eia608::XDS_Current_ProgramName()
+{
+    string ValueS;
+    for (size_t Pos=2; Pos<XDS_Data.size()-2; Pos++)
+        ValueS.append(1, (const char)(XDS_Data[Pos]));
+    Ztring Value;
+    Value.From_UTF8(ValueS.c_str());
+    Element_Info(_T("Program Name=")+Value);
+}
+
+//---------------------------------------------------------------------------
 void File_Eia608::XDS_Current_CopyAndRedistributionControlPacket()
 {
     if (XDS_Data.size()!=6)
     {
         return; //There is a problem
     }
+}
+
+//---------------------------------------------------------------------------
+void File_Eia608::XDS_Channel()
+{
+    switch (XDS_Data[1])
+    {
+        case 0x01 : XDS_Channel_NetworkName(); break;
+        default   : ;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Eia608::XDS_Channel_NetworkName()
+{
+    string ValueS;
+    for (size_t Pos=2; Pos<XDS_Data.size()-2; Pos++)
+        ValueS.append(1, (const char)(XDS_Data[Pos]));
+    Ztring Value;
+    Value.From_UTF8(ValueS.c_str());
+    Element_Info(_T("Network Name=")+Value);
 }
 
 //---------------------------------------------------------------------------
@@ -254,6 +295,9 @@ void File_Eia608::Special(int8u cc_data_1, int8u cc_data_2)
     DataChannelMode=(cc_data_1&0x08)!=0; //bit3 is the Data Channel number
     cc_data_1&=~0x08;
 
+    //Field check
+    cc_data_1&=~0x01;
+
     if (cc_data_1>=0x10 && cc_data_1<=0x17 && cc_data_2>=0x40)
     {
         PreambleAddressCode(cc_data_1, cc_data_2);
@@ -268,13 +312,17 @@ void File_Eia608::Special(int8u cc_data_1, int8u cc_data_2)
             case 0x13 : Special_13(cc_data_2); break;
             case 0x14 : Special_14(cc_data_2); break;
             case 0x17 : Special_17(cc_data_2); break;
-            default   : ;
+            default   : Illegal(cc_data_1, cc_data_2);
         }
     }
 
     //Saving data, for repetition of the code
     cc_data_1_Old=cc_data_1;
     cc_data_2_Old=cc_data_2;
+
+    //With have a point of synchro
+    if (!Synched)
+        Synched=true;
 }
 
 //---------------------------------------------------------------------------
@@ -332,7 +380,7 @@ void File_Eia608::Special_10(int8u cc_data_2)
         case 0x2D : break;  //
         case 0x2E : break;  //
         case 0x2F : break;  //
-        default   : Illegal();
+        default   : Illegal(0x10, cc_data_2);
     }
 }
 
@@ -386,7 +434,7 @@ void File_Eia608::Special_11(int8u cc_data_2)
         case 0x3D : Captions+=L'\xEE'  ; break;  //i circumflex
         case 0x3E : Captions+=L'\xF4'  ; break;  //o circumflex
         case 0x3F : Captions+=L'\xFB'  ; break;  //u circumflex
-        default   : Illegal();
+        default   : Illegal(0x11, cc_data_2);
     }
 }
 
@@ -428,7 +476,7 @@ void File_Eia608::Special_12(int8u cc_data_2)
         case 0x3D : Captions+=L'U'; break;  //U with circumflex accent
         case 0x3E : Captions+=L'\"'; break;  //opening guillemets
         case 0x3F : Captions+=L'\"'; break;  //closing guillemets
-        default   : Illegal();
+        default   : Illegal(0x12, cc_data_2);
     }
 }
 
@@ -470,7 +518,7 @@ void File_Eia608::Special_13(int8u cc_data_2)
         case 0x3D : Captions+=L' '; break;  //upper right corner
         case 0x3E : Captions+=L' '; break;  //lower left corner
         case 0x3F : Captions+=L' '; break;  //lower right corner
-        default   : Illegal();
+        default   : Illegal(0x13, cc_data_2);
     }
 }
 
@@ -524,7 +572,7 @@ void File_Eia608::Special_14(int8u cc_data_2)
                     RollUpLines=Eia608_Rows; //Roll up all the lines
                     y=Eia608_Rows-1; //Base is the bottom line
                     Attribute_Current=0; //Reset all attributes
-                    Special(0x14, 0x60); //Reset cursor, to verify
+                    Special_14(0x2D); //Next line
                     break; //TR  - Text Restart (clear Text, but not boxes)
         case 0x2B : TextMode=true;
                     break; //RTD - Resume Text Display
@@ -539,16 +587,30 @@ void File_Eia608::Special_14(int8u cc_data_2)
                     break; //EDM - Erase Displayed Memory
         case 0x2D : for (size_t Pos=1; Pos<RollUpLines; Pos++)
                     {
-                        if (y>RollUpLines+Pos && y-RollUpLines+Pos+1<Eia608_Rows)
-                            CC_Displayed[y-RollUpLines+Pos]=CC_Displayed[y-RollUpLines+Pos+1];
+                        if (y>=RollUpLines-Pos && y-RollUpLines+Pos+1<Eia608_Rows)
+                        {
+                            if (TextMode)
+                                Text_Displayed[y-RollUpLines+Pos]=Text_Displayed[y-RollUpLines+Pos+1];
+                            else
+                                CC_Displayed[y-RollUpLines+Pos]=CC_Displayed[y-RollUpLines+Pos+1];
+                        }
                     }
                     for (size_t Pos_X=0; Pos_X<Eia608_Columns; Pos_X++)
                     {
-                        CC_Displayed[y][Pos_X].Value=L' ';
-                        CC_Displayed[y][Pos_X].Attribute=0;
+                        if (TextMode)
+                        {
+                            Text_Displayed[y][Pos_X].Value=L' ';
+                            Text_Displayed[y][Pos_X].Attribute=0;
+                        }
+                        else
+                        {
+                            CC_Displayed[y][Pos_X].Value=L' ';
+                            CC_Displayed[y][Pos_X].Attribute=0;
+                        }
                     }
                     if (!InBack)
                         HasChanged();
+                    x=0;
                     break; //CR  - Carriage Return
         case 0x2E : for (size_t Pos_Y=0; Pos_Y<Eia608_Rows; Pos_Y++)
                         for (size_t Pos_X=0; Pos_X<Eia608_Columns; Pos_X++)
@@ -560,7 +622,7 @@ void File_Eia608::Special_14(int8u cc_data_2)
         case 0x2F : CC_Displayed.swap(CC_NonDisplayed);
                         HasChanged();
                     break; //EOC - End of Caption
-        default   : Illegal();
+        default   : Illegal(0x14, cc_data_2);
     }
 }
 
@@ -589,7 +651,7 @@ void File_Eia608::Special_17(int8u cc_data_2)
         case 0x2D : break;  //Background Transparent
         case 0x2E : break;  //Foreground Black
         case 0x2F : break;  //Foreground Black Underline
-        default   : Illegal();
+        default   : Illegal(0x17, cc_data_2);
     }
 }
 
@@ -694,14 +756,14 @@ void File_Eia608::Standard(int8u Character)
         case 0x7D : Character_Fill(L'\xD1'  ); break; //N tilde
         case 0x7E : Character_Fill(L'\xF1'  ); break; //n tilde
         case 0x7F : Character_Fill(L'\x25A0'); break; //Solid block
-        default   : Illegal();
+        default   : Illegal(0x00, Character);
     }
 }
 
 //---------------------------------------------------------------------------
 void File_Eia608::Character_Fill(wchar_t Character)
 {
-    if (x+1==Eia608_Columns)
+    if (x==Eia608_Columns)
     {
         x--; //There is a problem
 
@@ -724,10 +786,10 @@ void File_Eia608::Character_Fill(wchar_t Character)
 
     x++;
     
-    if (!InBack)
+    if (TextMode || !InBack)
         HasChanged();
-    
-    if (!Status[IsFilled])
+
+    if (!Status[IsFilled]) //TODO: separate CC1/CC2/T1/T2
     {
         Fill("EIA-608");
         if (MediaInfoLib::Config.ParseSpeed_Get()<1)
@@ -741,7 +803,7 @@ void File_Eia608::HasChanged()
 }
 
 //---------------------------------------------------------------------------
-void File_Eia608::Illegal()
+void File_Eia608::Illegal(int8u cc_data_1, int8u cc_data_2)
 {
 }
 

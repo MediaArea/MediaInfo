@@ -211,7 +211,6 @@ struct MediaInfo_Event_Generic
 struct MediaInfo_Event_General_Start_0
 {
     MediaInfo_int32u    EventCode;
-    MediaInfo_int64u    Stream_Offset;
     MediaInfo_int64u    Stream_Size;
 };
 
@@ -221,7 +220,7 @@ struct MediaInfo_Event_General_Start_0
 struct MediaInfo_Event_General_End_0
 {
     MediaInfo_int32u    EventCode;
-    MediaInfo_int64u    Stream_Size;
+    MediaInfo_int64u    Stream_Bytes_Analyzed;
 };
 
 /*-------------------------------------------------------------------------*/
@@ -233,22 +232,23 @@ struct MediaInfo_Event_General_Parser_Selected_0
     char                Name[16];
 };
 
-/***************************************************************************/
-/* MPEG-TS / BDAV / TSP                                                    */
-/***************************************************************************/
+/*-------------------------------------------------------------------------*/
+/* Move request                                                            */
+#define MediaInfo_Event_General_Move_Request 0x7004 
+struct MediaInfo_Event_General_Move_Request_0
+{
+    MediaInfo_int32u    EventCode;
+    MediaInfo_int64u    Stream_Offset;
+};
 
-#define MediaInfo_Parser_MpegTs         0x01 
-
-/***************************************************************************/
-/* CEA-608 (formely IEA-608)                                               */
-/***************************************************************************/
-
-#define MediaInfo_Parser_Eia608         0xF0
-
-/***************************************************************************/
-/* CEA-708 (formely IEA-708)                                               */
-/***************************************************************************/
-
-#define MediaInfo_Parser_Eia708         0xF1
+/*-------------------------------------------------------------------------*/
+/* Move done                                                               */
+#define MediaInfo_Event_General_Move_Done 0x7005 
+struct MediaInfo_Event_General_Move_Done_0
+{
+    MediaInfo_int32u    EventCode;
+    MediaInfo_int64u    Stream_Offset;
+};
 
 #endif //MediaInfo_EventsH
+

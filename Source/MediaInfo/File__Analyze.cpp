@@ -310,6 +310,11 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     //Buffer handling
     if (Buffer_Offset!=Buffer_Size) //all is not used
     {
+        if (File_Offset+Buffer_Size>=File_Size) //No more data will come
+        {
+                Finish();
+                return;
+        }
         if (Buffer_Temp_Size==0) //If there was no copy
         {
             if (Buffer_Temp!=NULL && Buffer_Temp_Size_Max<ToAdd_Size-Buffer_Offset)
@@ -1667,7 +1672,7 @@ void File__Analyze::Accept (const char* ParserName)
         Event.EventCode=MediaInfo_EventCode_Create(MediaInfo_Parser_None, MediaInfo_Event_General_Parser_Selected, 0);
         std::memset(Event.Name, 0, 16);
         if (ParserName)
-            strcpy(Event.Name, ParserName);
+            strncpy(Event.Name, ParserName, 15);
         Config->Event_Send((const int8u*)&Event, sizeof(MediaInfo_Event_General_Parser_Selected_0));
     #endif //MEDIAINFO_EVENTS
 }

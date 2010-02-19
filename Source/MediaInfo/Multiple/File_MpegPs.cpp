@@ -3114,8 +3114,8 @@ File__Analyze* File_MpegPs::ChooseParser_Mpeg4v()
 {
     //Filling
     #if defined(MEDIAINFO_MPEG4V_YES)
-        File__Analyze* Handle=new File_Mpeg4v;
-        ((File_Mpeg4v*)Handle)->Frame_Count_Valid=1;
+        File_Mpeg4v* Handle=new File_Mpeg4v;
+        Handle->Frame_Count_Valid=1;
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();
@@ -3132,7 +3132,7 @@ File__Analyze* File_MpegPs::ChooseParser_Avc()
 {
     //Filling
     #if defined(MEDIAINFO_AVC_YES)
-        File__Analyze* Handle=new File_Avc;
+        File_Avc* Handle=new File_Avc;
     #else
         //Filling
         File__Analyze* Handle=new File_Unknown();

@@ -581,7 +581,9 @@ bool File_MpegTs::Synchronize()
 
     //Synched is OK
     if (!Status[IsAccepted])
+    {
         Accept("MPEG-TS");
+    }
     return true;
 }
 

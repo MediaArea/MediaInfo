@@ -1688,6 +1688,10 @@ void File__Analyze::CodecID_Fill(const Ztring &Value, stream_t StreamKind, size_
     Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_CodecID_Url), MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Url), true);
     Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format_Version), MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Version), true);
     Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format_Profile), MediaInfoLib::Config.CodecID_Get(StreamKind, Format, Value, InfoCodecID_Profile), true);
+
+    //Specific cases
+    if (Value==_T("v210") || Value==_T("V210"))
+        Fill(Stream_Video, StreamPos, Video_Resolution, 10);
 }
 
 //---------------------------------------------------------------------------

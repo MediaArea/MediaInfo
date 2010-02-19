@@ -69,10 +69,13 @@ private :
 
     void XDS();
     void XDS_Current();
+    void XDS_Current_ProgramName();
     void XDS_Current_ContentAdvisory();
     void XDS_Current_CopyAndRedistributionControlPacket();
     void XDS_PublicService();
     void XDS_PublicService_NationalWeatherService();
+    void XDS_Channel();
+    void XDS_Channel_NetworkName();
     void Special(int8u cc_data_1, int8u cc_data_2);
     void Special_10(int8u cc_data_2);
     void Special_11(int8u cc_data_2);
@@ -108,7 +111,7 @@ private :
     };
     void Character_Fill(wchar_t Character);
     void HasChanged();
-    void Illegal();
+    void Illegal(int8u cc_data_1, int8u cc_data_2);
     vector<vector<character> > CC_Displayed;
     vector<vector<character> > CC_NonDisplayed;
     vector<vector<character> > Text_Displayed;

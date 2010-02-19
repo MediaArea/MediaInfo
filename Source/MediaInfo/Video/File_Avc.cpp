@@ -299,6 +299,19 @@ const char* Avc_matrix_coefficients(int8u matrix_coefficients)
     }
 }
 
+//---------------------------------------------------------------------------
+const char* Avc_user_data_GA94_cc_type(int8u cc_type)
+{
+    switch (cc_type)
+    {
+        case  0 : return "CEA-608 line 21 field 1 closed captions"; //closed caption 3 if this is second field
+        case  1 : return "CEA-608 line 21 field 2 closed captions"; //closed caption 4 if this is second field
+        case  2 : return "DTVCC Channel Packet Data";
+        case  3 : return "DTVCC Channel Packet Start";
+        default : return "";
+    }
+}
+
 //***************************************************************************
 // Constructor/Destructor
 //***************************************************************************
@@ -308,9 +321,9 @@ File_Avc::File_Avc()
 :File__Duplicate()
 {
     //Config
-    //PTS_DTS_Needed=true;
     MustSynchronize=true;
     Buffer_TotalBytes_FirstSynched_Max=64*1024;
+    PTS_DTS_Needed=true;
 
     //In
     Frame_Count_Valid=32; //Currently no 3:2 pulldown detection
@@ -1361,11 +1374,24 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03()
                     while (Parser_Pos>=GA94_03_CC_Parsers.size())
                         GA94_03_CC_Parsers.push_back(NULL);
                     if (GA94_03_CC_Parsers[Parser_Pos]==NULL)
-                        GA94_03_CC_Parsers[Parser_Pos]=cc_type<2?(File__Analyze*)new File_Eia608():(File__Analyze*)new File_Eia708();
-                    if (cc_type>=2)
-                        ((File_Eia708*)GA94_03_CC_Parsers[2])->cc_type=cc_type;
-                    Open_Buffer_Init(GA94_03_CC_Parsers[Parser_Pos]);
-                    Open_Buffer_Continue(GA94_03_CC_Parsers[Parser_Pos], TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2);
+                    {
+                        if (cc_type<2)
+                        {
+                            GA94_03_CC_Parsers[Parser_Pos]=new File_Eia608();
+                        }
+                        else
+                            GA94_03_CC_Parsers[Parser_Pos]=new File_Eia708();
+                    }
+                    if (!GA94_03_CC_Parsers[Parser_Pos]->Status[IsFinished])
+                    {
+                        if (cc_type>=2)
+                            ((File_Eia708*)GA94_03_CC_Parsers[2])->cc_type=cc_type;
+                        Element_Begin(Ztring(_T("ReorderedCaptions,"))+Ztring().From_Local(Avc_user_data_GA94_cc_type(cc_type)));
+                        Open_Buffer_Init(GA94_03_CC_Parsers[Parser_Pos]);
+                        if (cc_type==1)
+                        Open_Buffer_Continue(GA94_03_CC_Parsers[Parser_Pos], TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2);
+                        Element_End();
+                    }
 
                     //Demux
                     if (cc_type<2)

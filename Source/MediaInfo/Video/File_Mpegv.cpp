@@ -599,20 +599,22 @@ void File_Mpegv::Streams_Finish()
 
     //DVD captions
     for (size_t Pos=0; Pos<DVD_CC_Parsers.size(); Pos++)
-        if (DVD_CC_Parsers[Pos] && !DVD_CC_Parsers[Pos]->Status[IsFinished] && DVD_CC_Parsers[Pos]->Status[IsFilled])
+        if (DVD_CC_Parsers[Pos] && !DVD_CC_Parsers[Pos]->Status[IsFinished] && DVD_CC_Parsers[Pos]->Status[IsAccepted])
         {
+            if (DVD_CC_Parsers[Pos]->Status[IsFinished])
+            {
+                Merge(*DVD_CC_Parsers[Pos]);
+                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("DVD-")+Ztring::ToZtring(Pos));
+                Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("DVD-Video"));
+            }
             Finish(DVD_CC_Parsers[Pos]);
-            Merge(*DVD_CC_Parsers[Pos]);
-            Fill(Stream_Text, StreamPos_Last, Text_ID, _T("DVD-")+Ztring::ToZtring(Pos));
-            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("DVD-Video"));
         }
 
     //EIA-708 captions
     for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
-        if (GA94_03_CC_Parsers[Pos] && !GA94_03_CC_Parsers[Pos]->Status[IsFinished] && GA94_03_CC_Parsers[Pos]->Status[IsFilled])
+        if (GA94_03_CC_Parsers[Pos] && !GA94_03_CC_Parsers[Pos]->Status[IsFinished] && GA94_03_CC_Parsers[Pos]->Status[IsAccepted])
         {
             Finish(GA94_03_CC_Parsers[Pos]);
-            Merge(*GA94_03_CC_Parsers[Pos], Stream_Text, 0, GA94_03_CC_Parsers_StreamPos[Pos]);
         }
         
     //Purge what is not needed anymore
@@ -1204,7 +1206,9 @@ void File_Mpegv::user_data_start_CC()
             while (cc_type>=DVD_CC_Parsers.size())
                 DVD_CC_Parsers.push_back(NULL);
             if (DVD_CC_Parsers[cc_type]==NULL)
+            {
                 DVD_CC_Parsers[cc_type]=new File_Eia608();
+            }
             if (!DVD_CC_Parsers[cc_type]->Status[IsFinished])
             {
                 Open_Buffer_Init(DVD_CC_Parsers[cc_type]);
