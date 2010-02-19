@@ -56,9 +56,6 @@ private :
     //Buffer - Global
     void Read_Buffer_Continue();
 
-    //Temp
-    std::wstring Captions;
-
     //Function
     void Standard (int8u Character);
 

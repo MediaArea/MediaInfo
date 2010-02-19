@@ -125,8 +125,6 @@ void File_Eia608::Read_Buffer_Continue()
     if (!Status[IsAccepted])
         Accept("EIA-608");
 
-    size_t Captions_Size=Captions.size();
-
     int8u cc_data_1, cc_data_2;
     Get_B1 (cc_data_1,                                          "cc_data");
     Get_B1 (cc_data_2,                                          "cc_data");
@@ -174,9 +172,6 @@ void File_Eia608::Read_Buffer_Continue()
     }
     else if (cc_data_1) //Special
         Special(cc_data_1, cc_data_2);
-
-    if (Captions_Size<Captions.size())
-        Param_Info(Captions.substr(Captions_Size, std::string::npos));
 }
 
 //***************************************************************************
@@ -418,22 +413,22 @@ void File_Eia608::Special_11(int8u cc_data_2)
 
                     break;
         //CEA-608-E, Section F.1.1.1
-        case 0x30 : Captions+=L'\x2122'; break;  //Registered mark symbol
-        case 0x31 : Captions+=L'\xB0'  ; break;  //Degree sign
-        case 0x32 : Captions+=L'\xBD'  ; break;  //1/2
-        case 0x33 : Captions+=L'\xBF'  ; break;  //interogation mark inverted
-        case 0x34 : Captions+=L'\xA9'  ; break;  //Trademark symbol
-        case 0x35 : Captions+=L'\xA2'  ; break;  //Cents sign
-        case 0x36 : Captions+=L'\xA3'  ; break;  //Pounds Sterling sign
-        case 0x37 : Captions+=L'\x266A'; break;  //Music note
-        case 0x38 : Captions+=L'\xE0'  ; break;  //a grave
-        case 0x39 : Captions+=L' '     ; break;  //Transparent space
-        case 0x3A : Captions+=L'\xE8'  ; break;  //e grave
-        case 0x3B : Captions+=L'\xE2'  ; break;  //a circumflex
-        case 0x3C : Captions+=L'\xEA'  ; break;  //e circumflex
-        case 0x3D : Captions+=L'\xEE'  ; break;  //i circumflex
-        case 0x3E : Captions+=L'\xF4'  ; break;  //o circumflex
-        case 0x3F : Captions+=L'\xFB'  ; break;  //u circumflex
+        case 0x30 : Character_Fill(L'\x2122'); break;  //Registered mark symbol
+        case 0x31 : Character_Fill(L'\xB0'  ); break;  //Degree sign
+        case 0x32 : Character_Fill(L'\xBD'  ); break;  //1/2
+        case 0x33 : Character_Fill(L'\xBF'  ); break;  //interogation mark inverted
+        case 0x34 : Character_Fill(L'\xA9'  ); break;  //Trademark symbol
+        case 0x35 : Character_Fill(L'\xA2'  ); break;  //Cents sign
+        case 0x36 : Character_Fill(L'\xA3'  ); break;  //Pounds Sterling sign
+        case 0x37 : Character_Fill(L'\x266A'); break;  //Music note
+        case 0x38 : Character_Fill(L'\xE0'  ); break;  //a grave
+        case 0x39 : Character_Fill(L' '     ); break;  //Transparent space
+        case 0x3A : Character_Fill(L'\xE8'  ); break;  //e grave
+        case 0x3B : Character_Fill(L'\xE2'  ); break;  //a circumflex
+        case 0x3C : Character_Fill(L'\xEA'  ); break;  //e circumflex
+        case 0x3D : Character_Fill(L'\xEE'  ); break;  //i circumflex
+        case 0x3E : Character_Fill(L'\xF4'  ); break;  //o circumflex
+        case 0x3F : Character_Fill(L'\xFB'  ); break;  //u circumflex
         default   : Illegal(0x11, cc_data_2);
     }
 }
@@ -444,38 +439,38 @@ void File_Eia608::Special_12(int8u cc_data_2)
     switch (cc_data_2)
     {
         //CEA-608-E, Section 6.4.2
-        case 0x20 : Captions+=L'A'; break;  //A with acute
-        case 0x21 : Captions+=L'E'; break;  //E with acute
-        case 0x22 : Captions+=L'O'; break;  //O with acute
-        case 0x23 : Captions+=L'U'; break;  //U with acute
-        case 0x24 : Captions+=L'U'; break;  //U withdiaeresis or umlaut
-        case 0x25 : Captions+=L'u'; break;  //u with diaeresis or umlaut
-        case 0x26 : Captions+=L'\''; break;  //opening single quote
-        case 0x27 : Captions+=L'!'; break;  //inverted exclamation mark
-        case 0x28 : Captions+=L'*'; break;  //Asterisk
-        case 0x29 : Captions+=L'\''; break;  //plain single quote
-        case 0x2A : Captions+=L'_'; break;  //em dash
-        case 0x2B : Captions+=L'C'; break;  //Copyright
-        case 0x2C : Captions+=L'S'; break;  //Servicemark
-        case 0x2D : Captions+=L'x'; break;  //round bullet
-        case 0x2E : Captions+=L'\"'; break;  //opening double quotes
-        case 0x2F : Captions+=L'\"'; break;  //closing double quotes
-        case 0x30 : Captions+=L'A'; break;  //A with grave accent
-        case 0x31 : Captions+=L'A'; break;  //A with circumflex accent
-        case 0x32 : Captions+=L'C'; break;  //C with cedilla
-        case 0x33 : Captions+=L'E'; break;  //E with grave accent
-        case 0x34 : Captions+=L'E'; break;  //E with circumflex accent
-        case 0x35 : Captions+=L'E'; break;  //E with diaeresis or umlaut mark
-        case 0x36 : Captions+=L'e'; break;  //e with diaeresis or umlaut mark
-        case 0x37 : Captions+=L'I'; break;  //I with circumflex accent
-        case 0x38 : Captions+=L'I'; break;  //I with diaeresis or umlaut mark
-        case 0x39 : Captions+=L'i'; break;  //i with diaeresis or umlaut mark
-        case 0x3A : Captions+=L'O'; break;  //O with circumflex
-        case 0x3B : Captions+=L'U'; break;  //U with grave accent
-        case 0x3C : Captions+=L'u'; break;  //u with grave accent
-        case 0x3D : Captions+=L'U'; break;  //U with circumflex accent
-        case 0x3E : Captions+=L'\"'; break;  //opening guillemets
-        case 0x3F : Captions+=L'\"'; break;  //closing guillemets
+        case 0x20 : Character_Fill(L'A'     ); break;  //A with acute
+        case 0x21 : Character_Fill(L'E'     ); break;  //E with acute
+        case 0x22 : Character_Fill(L'O'     ); break;  //O with acute
+        case 0x23 : Character_Fill(L'U'     ); break;  //U with acute
+        case 0x24 : Character_Fill(L'U'     ); break;  //U withdiaeresis or umlaut
+        case 0x25 : Character_Fill(L'u'     ); break;  //u with diaeresis or umlaut
+        case 0x26 : Character_Fill(L'\''    ); break;  //opening single quote
+        case 0x27 : Character_Fill(L'!'     ); break;  //inverted exclamation mark
+        case 0x28 : Character_Fill(L'*'     ); break;  //Asterisk
+        case 0x29 : Character_Fill(L'\''    ); break;  //plain single quote
+        case 0x2A : Character_Fill(L'_'     ); break;  //em dash
+        case 0x2B : Character_Fill(L'C'     ); break;  //Copyright
+        case 0x2C : Character_Fill(L'S'     ); break;  //Servicemark
+        case 0x2D : Character_Fill(L'x'     ); break;  //round bullet
+        case 0x2E : Character_Fill(L'\"'    ); break;  //opening double quotes
+        case 0x2F : Character_Fill(L'\"'    ); break;  //closing double quotes
+        case 0x30 : Character_Fill(L'A'     ); break;  //A with grave accent
+        case 0x31 : Character_Fill(L'A'     ); break;  //A with circumflex accent
+        case 0x32 : Character_Fill(L'C'     ); break;  //C with cedilla
+        case 0x33 : Character_Fill(L'E'     ); break;  //E with grave accent
+        case 0x34 : Character_Fill(L'E'     ); break;  //E with circumflex accent
+        case 0x35 : Character_Fill(L'E'     ); break;  //E with diaeresis or umlaut mark
+        case 0x36 : Character_Fill(L'e'     ); break;  //e with diaeresis or umlaut mark
+        case 0x37 : Character_Fill(L'I'     ); break;  //I with circumflex accent
+        case 0x38 : Character_Fill(L'I'     ); break;  //I with diaeresis or umlaut mark
+        case 0x39 : Character_Fill(L'i'     ); break;  //i with diaeresis or umlaut mark
+        case 0x3A : Character_Fill(L'O'     ); break;  //O with circumflex
+        case 0x3B : Character_Fill(L'U'     ); break;  //U with grave accent
+        case 0x3C : Character_Fill(L'u'     ); break;  //u with grave accent
+        case 0x3D : Character_Fill(L'U'     ); break;  //U with circumflex accent
+        case 0x3E : Character_Fill(L'\"'    ); break;  //opening guillemets
+        case 0x3F : Character_Fill(L'\"'    ); break;  //closing guillemets
         default   : Illegal(0x12, cc_data_2);
     }
 }
@@ -486,38 +481,38 @@ void File_Eia608::Special_13(int8u cc_data_2)
     switch (cc_data_2)
     {
         //CEA-608-E, Section 6.4.2
-        case 0x20 : Captions+=L'A'; break;  //A with tilde
-        case 0x21 : Captions+=L'a'; break;  //a with tilde
-        case 0x22 : Captions+=L'I'; break;  //I with acute accent
-        case 0x23 : Captions+=L'I'; break;  //I with grave accent
-        case 0x24 : Captions+=L'i'; break;  //i with grave accent
-        case 0x25 : Captions+=L'O'; break;  //O with grave accent
-        case 0x26 : Captions+=L'o'; break;  //o with grave accent
-        case 0x27 : Captions+=L'O'; break;  //O with tilde
-        case 0x28 : Captions+=L'o'; break;  //o with tilde
-        case 0x29 : Captions+=L'{'; break;  //opening brace
-        case 0x2A : Captions+=L'}'; break;  //closing brace
-        case 0x2B : Captions+=L'\\'; break;  //backslash
-        case 0x2C : Captions+=L'^'; break;  //caret
-        case 0x2D : Captions+=L'_'; break;  //Underbar
-        case 0x2E : Captions+=L'|'; break;  //pipe
-        case 0x2F : Captions+=L'~'; break;  //tilde
-        case 0x30 : Captions+=L'A'; break;  //A with diaeresis or umlaut mark
-        case 0x31 : Captions+=L'a'; break;  //a with diaeresis or umlaut mark
-        case 0x32 : Captions+=L'O'; break;  //o with diaeresis or umlaut mark
-        case 0x33 : Captions+=L'o'; break;  //o with diaeresis or umlaut mark
-        case 0x34 : Captions+=L's'; break;  //eszett (mall sharp s)
-        case 0x35 : Captions+=L'Y'; break;  //yen
-        case 0x36 : Captions+=L' '; break;  //non-specific currency sign
-        case 0x37 : Captions+=L'|'; break;  //Vertical bar
-        case 0x38 : Captions+=L'A'; break;  //I with diaeresis or umlaut mark
-        case 0x39 : Captions+=L'a'; break;  //i with diaeresis or umlaut mark
-        case 0x3A : Captions+=L'O'; break;  //O with ring
-        case 0x3B : Captions+=L'o'; break;  //a with ring
-        case 0x3C : Captions+=L' '; break;  //upper left corner
-        case 0x3D : Captions+=L' '; break;  //upper right corner
-        case 0x3E : Captions+=L' '; break;  //lower left corner
-        case 0x3F : Captions+=L' '; break;  //lower right corner
+        case 0x20 : Character_Fill(L'A'     ); break;  //A with tilde
+        case 0x21 : Character_Fill(L'a'     ); break;  //a with tilde
+        case 0x22 : Character_Fill(L'I'     ); break;  //I with acute accent
+        case 0x23 : Character_Fill(L'I'     ); break;  //I with grave accent
+        case 0x24 : Character_Fill(L'i'     ); break;  //i with grave accent
+        case 0x25 : Character_Fill(L'O'     ); break;  //O with grave accent
+        case 0x26 : Character_Fill(L'o'     ); break;  //o with grave accent
+        case 0x27 : Character_Fill(L'O'     ); break;  //O with tilde
+        case 0x28 : Character_Fill(L'o'     ); break;  //o with tilde
+        case 0x29 : Character_Fill(L'{'     ); break;  //opening brace
+        case 0x2A : Character_Fill(L'}'     ); break;  //closing brace
+        case 0x2B : Character_Fill(L'\\'    ); break;  //backslash
+        case 0x2C : Character_Fill(L'^'     ); break;  //caret
+        case 0x2D : Character_Fill(L'_'     ); break;  //Underbar
+        case 0x2E : Character_Fill(L'|'     ); break;  //pipe
+        case 0x2F : Character_Fill(L'~'     ); break;  //tilde
+        case 0x30 : Character_Fill(L'A'     ); break;  //A with diaeresis or umlaut mark
+        case 0x31 : Character_Fill(L'a'     ); break;  //a with diaeresis or umlaut mark
+        case 0x32 : Character_Fill(L'O'     ); break;  //o with diaeresis or umlaut mark
+        case 0x33 : Character_Fill(L'o'     ); break;  //o with diaeresis or umlaut mark
+        case 0x34 : Character_Fill(L's'     ); break;  //eszett (mall sharp s)
+        case 0x35 : Character_Fill(L'Y'     ); break;  //yen
+        case 0x36 : Character_Fill(L' '     ); break;  //non-specific currency sign
+        case 0x37 : Character_Fill(L'|'     ); break;  //Vertical bar
+        case 0x38 : Character_Fill(L'A'     ); break;  //I with diaeresis or umlaut mark
+        case 0x39 : Character_Fill(L'a'     ); break;  //i with diaeresis or umlaut mark
+        case 0x3A : Character_Fill(L'O'     ); break;  //O with ring
+        case 0x3B : Character_Fill(L'o'     ); break;  //a with ring
+        case 0x3C : Character_Fill(L' '     ); break;  //upper left corner
+        case 0x3D : Character_Fill(L' '     ); break;  //upper right corner
+        case 0x3E : Character_Fill(L' '     ); break;  //lower left corner
+        case 0x3F : Character_Fill(L' '     ); break;  //lower right corner
         default   : Illegal(0x13, cc_data_2);
     }
 }

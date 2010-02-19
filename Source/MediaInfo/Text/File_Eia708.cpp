@@ -382,9 +382,6 @@ void File_Eia708::Data_Parse()
             }
         }
 
-        if (Captions_Size<Captions[service_number].size())
-            Param_Info(Captions[service_number].substr(Captions_Size, std::string::npos));
-
         Element_End();
     }
 
