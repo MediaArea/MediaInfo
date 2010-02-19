@@ -375,13 +375,8 @@ void File_Riff::Streams_Finish ()
     if (Count_Get(Stream_Video))
     {
         //ODML
-        if (dmlh_TotalFrame!=0)
-        {
+        if (dmlh_TotalFrame!=0 && Retrieve(Stream_Video, 0, Video_Duration).empty())
             Fill(Stream_Video, 0, Video_FrameCount, dmlh_TotalFrame, 10, true);
-            float32 FrameRate=Retrieve(Stream_Video, 0, Video_FrameRate).To_float32();
-            if (FrameRate!=0)
-                Fill(Stream_Video, 0, Video_Duration, (int64u)(dmlh_TotalFrame*1000/FrameRate), 10, true);
-        }
     }
 
     //Rec
