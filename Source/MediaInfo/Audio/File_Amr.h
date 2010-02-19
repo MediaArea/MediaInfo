@@ -28,6 +28,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#include <map>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -43,10 +44,29 @@ public :
     //In
     ZenLib::Ztring Codec;
 
+public :
+    File_Amr();
+
 protected :
+    //Streams management
+    void Streams_Fill();
+    void Streams_Finish();
+
     //Buffer - File header
     bool FileHeader_Begin();
     void FileHeader_Parse ();
+
+    //Buffer - Per element
+    void Header_Parse();
+    void Data_Parse();
+
+    //Temp
+    size_t Frame_Number;
+    std::map<int8u, size_t> FrameTypes;
+    int8u  FrameType;
+    int8u  Channels;
+    int8u  Header_Size;
+    bool   IsWB;
 };
 
 } //NameSpace

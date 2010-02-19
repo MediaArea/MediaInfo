@@ -139,6 +139,21 @@ const char* Mpeg4_sample_has_redundancy[]=
     "reserved",
 };
 
+//---------------------------------------------------------------------------
+Ztring Mpeg4_Vendor(int32u Vendor)
+{
+    switch (Vendor)
+    {
+        case 0x46464D50 : return _T("FFMpeg");
+        case 0x4D4F544F : return _T("Motorola");
+        case 0x50484C50 : return _T("Philips");
+        case 0x6170706C : return _T("Apple");
+        case 0x6E6F6B69 : return _T("Nokia");
+        case 0x6D6F746F : return _T("Motorola");
+        default         : return Ztring().From_CC4(Vendor);
+    }
+}
+
 //***************************************************************************
 // Constants
 //***************************************************************************
@@ -3083,10 +3098,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_d263()
     ProfileLevel+=_T('@');
     ProfileLevel+=Ztring::ToZtring(((float32)H263_Level)/10, 1);
     Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, ProfileLevel);
-    switch (Vendor)
-    {
-        default         : Fill(Stream_Video, StreamPos_Last, Video_Encoded_Library_Name, Ztring().From_CC4(Vendor));
-    }
+    Fill(Stream_Video, StreamPos_Last, Video_Encoded_Library_Name, Mpeg4_Vendor(Vendor));
     Fill(Stream_Video, StreamPos_Last, Video_Encoded_Library_Version, Version);
     Fill(Stream_Video, StreamPos_Last, Video_Encoded_Library, Retrieve(Stream_Video, StreamPos_Last, Video_Encoded_Library_Name)+_T(' ')+Ztring::ToZtring(Version));
     Ztring Encoded_Library_String=Retrieve(Stream_Video, StreamPos_Last, Video_Encoded_Library_Name)+(Version?(_T(" Revision ")+Ztring::ToZtring(Version)):Ztring());
@@ -3192,16 +3204,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_damr()
     Skip_B1(                                                    "Number of packet mode changes");
     Skip_B1(                                                    "Samples per packet");
 
-    switch (Vendor)
-    {
-        case 0x46464D50 : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, "FFMpeg"); break;
-        case 0x4D4F544F : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, "Motorola"); break;
-        case 0x50484C50 : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, "Philips"); break;
-        case 0x6170706C : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, "Apple"); break;
-        case 0x6E6F6B69 : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, "Nokia"); break;
-        case 0x6D6F746F : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, "Motorola"); break;
-        default         : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, Ztring().From_CC4(Vendor));
-    }
+    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, Mpeg4_Vendor(Vendor));
     Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Version, Version);
     Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library, Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+_T(' ')+Ztring::ToZtring(Version));
     Ztring Encoded_Library_String=Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+(Version?(_T(" Revision ")+Ztring::ToZtring(Version)):Ztring());
@@ -3313,11 +3316,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_wave_samr()
     Get_B1 (Version,                                            "Encoder version");
     Skip_XX(Element_Size-Element_Offset,                        "Unknown");
 
-    switch (Vendor)
-    {
-        case 0x6170706C : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, "Apple"); break;
-        default         : Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, Ztring().From_CC4(Vendor));
-    }
+    Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name, Mpeg4_Vendor(Vendor));
     Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Version, Version);
     Fill(Stream_Audio, StreamPos_Last, Audio_Encoded_Library, Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+_T(' ')+Ztring::ToZtring(Version));
     Ztring Encoded_Library_String=Retrieve(Stream_Audio, StreamPos_Last, Audio_Encoded_Library_Name)+(Version?(_T("Revision")+Ztring::ToZtring(Version)):Ztring());
