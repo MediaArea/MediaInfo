@@ -39,15 +39,18 @@ cp ../Project/GNU/Library/libmediainfo-config.in MediaInfo_Lib_GNU_FromSource/Pr
 mkdir -p MediaInfo_Lib_GNU_FromSource/Source/MediaInfo
 cp -r ../Source/MediaInfo/*.h MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/
 cp -r ../Source/MediaInfo/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/
-mkdir -p MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Duplicate
-cp -r ../Source/MediaInfo/Duplicate/*.h MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Duplicate/
-cp -r ../Source/MediaInfo/Duplicate/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Duplicate/
 mkdir MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Archive
 cp -r ../Source/MediaInfo/Archive/*.h MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Archive/
 cp -r ../Source/MediaInfo/Archive/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Archive/
 mkdir MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Audio
 cp -r ../Source/MediaInfo/Audio/*.h MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Audio/
 cp -r ../Source/MediaInfo/Audio/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Audio/
+mkdir -p MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Duplicate
+cp -r ../Source/MediaInfo/Duplicate/*.h MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Duplicate/
+cp -r ../Source/MediaInfo/Duplicate/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Duplicate/
+mkdir -p MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Export
+cp -r ../Source/MediaInfo/Export/*.h MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Export/
+cp -r ../Source/MediaInfo/Export/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Export/
 mkdir MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Image
 cp -r ../Source/MediaInfo/Image/*.h MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Image/
 cp -r ../Source/MediaInfo/Image/*.cpp MediaInfo_Lib_GNU_FromSource/Source/MediaInfo/Image/
