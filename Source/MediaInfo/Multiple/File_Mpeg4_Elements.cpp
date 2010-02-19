@@ -3517,8 +3517,18 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stts()
 
         FILLING_BEGIN();
             FrameCount+=SampleCount;
-            if (SampleDuration<Min) Min=SampleDuration;
-            if (SampleDuration>Max) Max=SampleDuration;
+            if (NumberOfEntries==2 && Pos+1==NumberOfEntries && FrameCount && SampleCount==1 && Min==Max && SampleDuration!=Max)
+            {
+                if ((float32)SampleDuration-Min>0)
+                    Clear(Stream_Video, StreamPos_Last, Video_Duration);
+                if (moov_trak_mdia_mdhd_TimeScale)
+                    Fill(Stream_Video, StreamPos_Last, Video_Duration_LastFrame, ((float32)SampleDuration-Min)*1000/moov_trak_mdia_mdhd_TimeScale, 0); //The duration of the frame minus 1 normal frame duration
+            }
+            else
+            {
+                if (SampleDuration<Min) Min=SampleDuration;
+                if (SampleDuration>Max) Max=SampleDuration;
+            }
             #ifdef MEDIAINFO_DVDIF_ANALYZE_YES
                 if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, "Format")==_T("Digital Video"))
                 {
