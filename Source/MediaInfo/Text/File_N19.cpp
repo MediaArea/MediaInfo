@@ -49,8 +49,8 @@ bool File_N19::FileHeader_Begin()
         return false; //Must wait for more data
 
     int64u DiskFormatCode=CC8(Buffer+3);
-    if (DiskFormatCode!=0x53544C32352E3031
-     && DiskFormatCode!=0x53544C33302E3031)
+    if (DiskFormatCode!=0x53544C32352E3031LL
+     && DiskFormatCode!=0x53544C33302E3031LL)
     {
         Reject("N19");
         return false;
