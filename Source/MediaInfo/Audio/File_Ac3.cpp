@@ -1091,6 +1091,9 @@ void File_Ac3::Core()
             BS_End();
         Element_End();
         Skip_XX(Element_Size-Element_Offset,                        "audblk(continue)+5*audblk+auxdata+errorcheck");
+
+        FILLING_BEGIN();
+        FILLING_END();
     }
     else if (bsid>0x0A && bsid<=0x10)
     {

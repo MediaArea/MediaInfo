@@ -115,7 +115,6 @@ private :
     bool   HD_AlreadyCounted;
     bool   HD_IsVBR;
     bool   Core_IsPresent;
-
 };
 
 } //NameSpace

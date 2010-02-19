@@ -696,6 +696,9 @@ void File_Mpega::Header_Parse()
     //Filling error detection
     sampling_frequency_Count[sampling_frequency]++;
     mode_Count[mode]++;
+
+    FILLING_BEGIN();
+    FILLING_END();
 }
 
 //***************************************************************************
