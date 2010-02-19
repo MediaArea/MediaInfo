@@ -12,9 +12,30 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
-Version 0.7.28, 2010-
+Version 0.7.28, 2010-02-19
 --------------
 + Albanian, Belarusian translations updated
++ AIFF: ID3v2 tags support
++ AutoIt3: MediaInfoList interface
++ RIFF: Handling of INFO chunk in hdlr chunk
++ VorbisCom-based comments (FLAC, OGG...): support of new fields
++ MPEG-4 Visual: Duration for raw streams
++ Display Aspect Ratio 3:2 instead of 1.500
++ Detection of N19 (EBU Tech 3264)
++ MPEG-2 Video: new profiles (4:2:2, Multi-view)
++ MPEG-2 Video: GOP structure
++ MPEG-4: handling of video streams with a different last frame duration
++ RIFF: Skipping OpenDML frame count (not always valid), when index is available
++ AMR: more atributes (Sampling rate, duration...)
+x MPEG-PS and MPEG-TS: crash with some files
+x MPEG-4: some bitrates to zero with a null bitr or btrt atoms
+x MPEG-4: managing different kinds of compressor name format
+x AMR in MPEG-4: crash with some specific files
+x #2952623, Id3v2: USLT with ISO-8859-1 charset was not well read
+x #2952637, Id3v2.2: PIC tag was not well read
+x #2952638, XML output: sometimes empty tags
+x #2920138, XML output: invalid char in XML tags
+
 
 Version 0.7.27, 2010-01-03
 --------------
