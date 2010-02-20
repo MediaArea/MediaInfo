@@ -36,7 +36,6 @@ x #2952637, Id3v2.2: PIC tag was not well read
 x #2952638, XML output: sometimes empty tags
 x #2920138, XML output: invalid char in XML tags
 
-
 Version 0.7.27, 2010-01-03
 --------------
 + MPEG Audio: Emphasis
