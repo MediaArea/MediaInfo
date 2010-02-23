@@ -73,7 +73,7 @@ File_Amr::File_Amr()
     //Temp
     Frame_Number=0;
     FrameType=(int8u)-1;
-    Header_Size=(int64u)-1;
+    Header_Size=(int8u)-1;
 }
 
 //***************************************************************************
@@ -122,6 +122,7 @@ void File_Amr::Streams_Fill()
 
     if (Header_Size!=(int64u)-1)
         Fill(Stream_General, 0, General_StreamSize, Header_Size);
+    Fill(Stream_Audio, 0, Audio_Channel_s_, Channels);
     if (IsWB)
     {
         Fill(Stream_Audio, 0, Audio_Format_Profile, "Wide band");
@@ -129,7 +130,7 @@ void File_Amr::Streams_Fill()
         if (Codec.empty()) //If there is a container, trusting the container sampling rate
             Fill(Stream_Audio, 0, Audio_SamplingRate, 16000);
         Fill(Stream_Audio, 0, Audio_Resolution, 14);
-        Fill(Stream_Audio, 0, Audio_InternetMediaType, "audio/AMR-WB", Unlimited, true, true);
+        //Fill(Stream_Audio, 0, Audio_InternetMediaType, "audio/AMR-WB", Unlimited, true, true);
     }
     else
     {

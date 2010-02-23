@@ -338,18 +338,18 @@ void File_Jpeg::SIZ()
 void File_Jpeg::COD()
 {
     //Parsing
-    int8u Style, Levels, Style2, MultipleComponentTransform;
+    int16u Levels;
+    int8u Style, Style2, MultipleComponentTransform;
     bool PrecinctUsed;
     Get_B1 (Style,                                              "Scod - Style");
         Get_Flags (Style, 0, PrecinctUsed,                      "Precinct used");
         Skip_Flags(Style, 1,                                    "Use SOP (start of packet)");
         Skip_Flags(Style, 2,                                    "Use EPH (end of packet header)");
-    Skip_B1(                                                    "Progressive order");
-    Skip_B2(                                                    "Number of layers");
-    Skip_B1(                                                    "Multiple component transform");
-    Get_B1 (Levels,                                             "Decomposition levels");
+    Skip_B1(                                                    "Number of decomposition levels");
+    Skip_B1(                                                    "Progression order");
+    Get_B2 (Levels,                                             "Number of layers");
     Info_B1(DimX,                                               "Code-blocks dimensions X (2^(n+2))"); Param_Info(1<<(DimX+2), " pixels");
-    Info_B1(DimY,                                               "Code-blocks dimensions Y (2^(n+2))"); Param_Info(1<<(DimX+2), " pixels");
+    Info_B1(DimY,                                               "Code-blocks dimensions Y (2^(n+2))"); Param_Info(1<<(DimY+2), " pixels");
     Get_B1 (Style2,                                             "Style of the code-block coding passes");
         Skip_Flags(Style, 0,                                    "Selective arithmetic coding bypass");
         Skip_Flags(Style, 1,                                    "MQ states for all contexts");
@@ -357,14 +357,24 @@ void File_Jpeg::COD()
         Skip_Flags(Style, 3,                                    "Vertically stripe-causal context formation");
         Skip_Flags(Style, 4,                                    "Error resilience info is embedded on MQ termination");
         Skip_Flags(Style, 5,                                    "Segmentation marker is to be inserted at the end of each normalization coding pass");
+    Skip_B1(                                                    "Transform");
     Get_B1(MultipleComponentTransform,                          "Multiple component transform");
     if (PrecinctUsed)
-        for (int8u Pos=0; Pos<Levels; Pos++)
+    {
+        BS_Begin();
+        Skip_S1(4,                                              "LL sub-band width");
+        Skip_S1(4,                                              "LL sub-band height");
+        BS_End();
+        for (int16u Pos=0; Pos<Levels; Pos++)
         {
             Element_Begin("Decomposition level");
-            Skip_B1(                                            "?");
+            BS_Begin();
+            Skip_S1(4,                                          "decomposition level width");
+            Skip_S1(4,                                          "decomposition level height");
+            BS_End();
             Element_End();
         }
+    }
 
     FILLING_BEGIN();
         switch (MultipleComponentTransform)
