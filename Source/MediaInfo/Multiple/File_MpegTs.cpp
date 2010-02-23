@@ -660,7 +660,7 @@ bool File_MpegTs::Synched_Test()
                                 Table_ID_Extension->second.Section_Numbers.clear();
                                 Table_ID_Extension->second.Section_Numbers.resize(0x100);
                                 Table_ID_Extension->second.Section_Numbers[section_number]=true;
-                                return true; //tversion is different
+                                return true; //version is different
                             }
                             else if (!Table_ID_Extension->second.Section_Numbers[section_number])
                             {
