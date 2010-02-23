@@ -1846,8 +1846,6 @@ void File_Mpeg_Psi::Descriptors()
         return;
     }
 
-    Element_Begin("Descriptors", Descriptors_Size);
-
     //Configuring
     File_Mpeg_Descriptors Descriptors;
     Descriptors.Complete_Stream=Complete_Stream;
@@ -1865,6 +1863,7 @@ void File_Mpeg_Psi::Descriptors()
     Descriptors.event_id_IsValid=event_id_IsValid;
 
     //Parsing
+    Element_Begin("Descriptors", Descriptors_Size);
     Open_Buffer_Init(&Descriptors);
     Open_Buffer_Continue(&Descriptors, Descriptors_Size);
     Element_End();
