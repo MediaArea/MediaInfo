@@ -1146,15 +1146,15 @@ void File_Mpeg_Psi::Table_02()
 
     FILLING_BEGIN();
         #ifdef MEDIAINFO_MPEGTS_PCR_YES
-        Complete_Stream->Streams[PCR_PID].IsPCR=true;
-        Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].PCR_PID=PCR_PID;
-        if (Complete_Stream->Streams[PCR_PID].Kind==complete_stream::stream::unknown)
-        {
-            Complete_Stream->Streams[PCR_PID].Searching_TimeStamp_Start_Set(true);
-            #ifndef MEDIAINFO_MINIMIZESIZE
-                Complete_Stream->Streams[PCR_PID].Element_Info="PCR";
-            #endif //MEDIAINFO_MINIMIZESIZE
-        }
+            Complete_Stream->Streams[PCR_PID].IsPCR=true;
+            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[program_number].PCR_PID=PCR_PID;
+            if (Complete_Stream->Streams[PCR_PID].Kind==complete_stream::stream::unknown)
+            {
+                Complete_Stream->Streams[PCR_PID].Searching_TimeStamp_Start_Set(true);
+                #ifndef MEDIAINFO_MINIMIZESIZE
+                    Complete_Stream->Streams[PCR_PID].Element_Info="PCR";
+                #endif //MEDIAINFO_MINIMIZESIZE
+            }
         #endif //MEDIAINFO_MPEGTS_PCR_YES
 
         //Sorting
