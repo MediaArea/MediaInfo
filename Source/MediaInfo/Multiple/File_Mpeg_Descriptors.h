@@ -169,6 +169,7 @@ struct complete_stream
             unknown,
             pes,
             psi,
+            ts_kind_Max,
         };
         std::vector<int16u>                         program_numbers;
         struct table_id
@@ -414,11 +415,17 @@ public :
     int16u table_id_extension;
     int16u elementary_PID;
     int16u program_number;
+    int32u registration_format_identifier;
+    int8u  stream_type;
     int16u event_id;
     bool   elementary_PID_IsValid;
     bool   program_number_IsValid;
+    bool   registration_format_identifier_IsValid;
+    bool   stream_type_IsValid;
     bool   event_id_IsValid;
 
+    //Out
+    
     //Constructor/Destructor
     File_Mpeg_Descriptors();
 

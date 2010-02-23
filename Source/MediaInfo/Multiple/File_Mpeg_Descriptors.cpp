@@ -1115,10 +1115,14 @@ File_Mpeg_Descriptors::File_Mpeg_Descriptors()
     table_id_extension=0x0000;
     elementary_PID=0x0000;
     program_number=0x0000;
+    stream_type=0x00;
     event_id=0x0000;
     elementary_PID_IsValid=false;
     program_number_IsValid=false;
+    stream_type_IsValid=false;
     event_id_IsValid=false;
+
+    //Out
 }
 
 //***************************************************************************
