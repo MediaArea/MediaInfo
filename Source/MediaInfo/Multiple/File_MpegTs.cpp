@@ -1271,6 +1271,9 @@ void File_MpegTs::PES()
     //Case of encrypted streams
     if (Complete_Stream->Streams[pid].IsScrambled)
     {
+        if (!Complete_Stream->Streams[pid].Searching_Payload_Continue)
+            Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(true); //In order to count the packets
+
         if (Complete_Stream->Streams[pid].IsScrambled>16)
         {
             //Don't need anymore
