@@ -2510,7 +2510,6 @@ void File_MpegPs::video_stream()
                             File_Mpegv* Parser=new File_Mpegv;
                             Open_Buffer_Init(Parser);
                             Parser->MPEG_Version=MPEG_Version;
-                            Parser->Frame_Count_Valid=32;
                             Parser->ShouldContinueParsing=true;
                             Streams[start_code].Parsers.push_back(Parser);
                         }
@@ -3089,7 +3088,6 @@ File__Analyze* File_MpegPs::ChooseParser_Mpegv()
     #if defined(MEDIAINFO_MPEGV_YES)
         File_Mpegv* Handle=new File_Mpegv;
         Handle->MPEG_Version=MPEG_Version;
-        Handle->Frame_Count_Valid=32;
         Handle->ShouldContinueParsing=true;
     #else
         //Filling

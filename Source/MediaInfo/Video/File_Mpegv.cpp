@@ -307,7 +307,7 @@ File_Mpegv::File_Mpegv()
 
     //In
     MPEG_Version=1;
-    Frame_Count_Valid=32;
+    Frame_Count_Valid=40;
     FrameIsAlwaysComplete=false;
     TimeCodeIsNotTrustable=false;
 
@@ -455,6 +455,8 @@ void File_Mpegv::Streams_Fill()
 
         //GOP
         std::vector<Ztring> GOPs;
+        size_t GOP_Frame_Count=0;
+        size_t GOP_BFrames_Max=0;
         size_t I_Pos1=CodingType.find(_T('I'));
         while (I_Pos1!=std::string::npos)
         {
@@ -472,12 +474,20 @@ void File_Mpegv::Streams_Fill()
                 while (P_Position<I_Pos2);
                 Ztring GOP;
                 if (!P_Positions.empty())
+                {
                     GOP+=_T("M=")+Ztring::ToZtring(P_Positions[0]-I_Pos1)+_T(", ");
+                    if (P_Positions[0]-I_Pos1>GOP_BFrames_Max)
+                        GOP_BFrames_Max=P_Positions[0]-I_Pos1;
+                }
                 GOP+=_T("N=")+Ztring::ToZtring(I_Pos2-I_Pos1);
                 GOPs.push_back(GOP);
+                GOP_Frame_Count+=I_Pos2-I_Pos1;
             }
             I_Pos1=I_Pos2;
         }
+
+        if (GOP_Frame_Count+GOP_BFrames_Max>Frame_Count && !GOPs.empty())
+            GOPs.resize(GOPs.size()-1); //Removing the last one, there may have uncomplete B-frame filling
 
         if (!GOPs.empty())
         {
@@ -1502,7 +1512,7 @@ void File_Mpegv::sequence_header()
     Get_S2 (12, vertical_size_value,                            "vertical_size_value");
     Get_S1 ( 4, aspect_ratio_information,                       "aspect_ratio_information"); if (vertical_size_value && Mpegv_aspect_ratio1[aspect_ratio_information]) Param_Info((float)horizontal_size_value/vertical_size_value/Mpegv_aspect_ratio1[aspect_ratio_information]); Param_Info(Mpegv_aspect_ratio2[aspect_ratio_information]);
     Get_S1 ( 4, frame_rate_code,                                "frame_rate_code"); Param_Info(Mpegv_frame_rate[frame_rate_code]);
-    Get_S3 (18, bit_rate_value_temp,                            "bit_rate_value"); Param_Info(bit_rate_value*400);
+    Get_S3 (18, bit_rate_value_temp,                            "bit_rate_value"); Param_Info(bit_rate_value_temp*400);
     Mark_1 ();
     Get_S2 (10, vbv_buffer_size_value,                          "vbv_buffer_size_value"); Param_Info(2*1024*((int32u)vbv_buffer_size_value), " bytes");
     Skip_SB(                                                    "constrained_parameters_flag");
