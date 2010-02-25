@@ -133,6 +133,9 @@
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_FLV_NO) && !defined(MEDIAINFO_FLV_YES)
     #define MEDIAINFO_FLV_YES
 #endif
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_GXF_NO) && !defined(MEDIAINFO_GXF_YES)
+    #define MEDIAINFO_GXF_YES
+#endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_MK_NO) && !defined(MEDIAINFO_MK_YES)
     #define MEDIAINFO_MK_YES
 #endif

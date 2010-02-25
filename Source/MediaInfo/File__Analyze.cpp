@@ -630,6 +630,13 @@ bool File__Analyze::FileHeader_Begin_0x000001()
         return false;
     }
 
+    //GXF
+    if (CC5(Buffer)==0x0000000001 && CC2(Buffer+14)==0xE1E2)
+    {
+        Reject();
+        return false;
+    }
+
     //Detecting MPEG-4 files (ftyp/mdat/skip/free)
     Magic4=CC4(Buffer+4);
     switch (Magic4)

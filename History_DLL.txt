@@ -7,6 +7,10 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
+Version 0.7.29, 2010-
+--------------
++ GXF (SMPTE 360M) support
+
 Version 0.7.28, 2010-02-19
 --------------
 + AIFF: ID3v2 tags support

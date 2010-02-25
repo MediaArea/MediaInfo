@@ -44,6 +44,9 @@
 #if defined(MEDIAINFO_FLV_YES)
     #include "MediaInfo/Multiple/File_Flv.h"
 #endif
+#if defined(MEDIAINFO_GXF_YES)
+    #include "MediaInfo/Multiple/File_Gxf.h"
+#endif
 #if defined(MEDIAINFO_MK_YES)
     #include "MediaInfo/Multiple/File_Mk.h"
 #endif
@@ -299,6 +302,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_FLV_YES)
         Temp=new File_Flv(); Parser.push_back(Temp);
+    #endif
+    #if defined(MEDIAINFO_GXF_YES)
+        Temp=new File_Gxf(); Parser.push_back(Temp);
     #endif
     #if defined(MEDIAINFO_MK_YES)
         Temp=new File_Mk(); Parser.push_back(Temp);
