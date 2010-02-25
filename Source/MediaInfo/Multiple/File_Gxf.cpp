@@ -157,7 +157,7 @@ const char* Gxf_MediaTypes_Format(int8u Type)
 }
 
 //---------------------------------------------------------------------------
-float32 Gxf_FrameRate(int32u Content)
+double Gxf_FrameRate(int32u Content)
 {
     switch (Content)
     {
@@ -200,7 +200,7 @@ int32u Gxf_LinesPerFrame_Width(int32u Content)
 }
 
 //---------------------------------------------------------------------------
-const char* Gxf_FieldsPerFrame(int8u Tag)
+const char* Gxf_FieldsPerFrame(int32u Tag)
 {
     switch (Tag)
     {
@@ -439,7 +439,7 @@ void File_Gxf::map()
         int16u SectionLength;
         Get_B2 (SectionLength,                                  "Section Length");
         if (Element_Offset+SectionLength>=Element_Size)
-            SectionLength=Element_Size-Element_Offset;
+            SectionLength=(int16u)(Element_Size-Element_Offset);
         int64u Material_Data_End=Element_Offset+SectionLength;
         while (Element_Offset<Material_Data_End)
         {
@@ -525,7 +525,7 @@ void File_Gxf::map()
     Element_Begin("Track Description");
         Get_B2 (SectionLength,                                  "Section Length");
         if (Element_Offset+SectionLength>=Element_Size)
-            SectionLength=Element_Size-Element_Offset;
+            SectionLength=(int16u)(Element_Size-Element_Offset);
         int64u Track_Data_End=Element_Offset+SectionLength;
         while (Element_Offset<Track_Data_End)
         {
@@ -536,7 +536,7 @@ void File_Gxf::map()
             Get_B1 (TrackID,                                    "Track ID");
             Get_B2 (TrackLength,                                "Track Length");
             if (Element_Offset+TrackLength>=Track_Data_End)
-                TrackLength=Track_Data_End-Element_Offset;
+                TrackLength=(int16u)(Track_Data_End-Element_Offset);
             int64u Track_End=Element_Offset+TrackLength;
             Element_Info(TrackID&0x3F);
             Element_Info(Gxf_MediaTypes(MediaType&0x7F));

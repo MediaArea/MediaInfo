@@ -68,7 +68,7 @@ private :
     int32u Material_Fields_First;
     int32u Material_Fields_Last;
     int32u Material_File_Size;
-    int8u  Material_Fields_FieldsPerFrame;
+    int32u Material_Fields_FieldsPerFrame;
     int8u  Parsers_Count;
     bool   Material_Fields_First_IsValid;
     bool   Material_Fields_Last_IsValid;
