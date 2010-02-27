@@ -133,6 +133,11 @@ private :
     bool   IsRIFF64;
     bool   SecondPass;      //Second pass for streams
     File__Analyze*  DV_FromHeader;
+    #if defined(MEDIAINFO_GXF_YES)
+        std::vector<std::vector<File__Analyze*> > rcrd_Parsers;
+        size_t rcrd_Parsers_Count;
+        std::vector<std::vector<size_t> > rcrd_Parsers_StreamPos;
+    #endif //MEDIAINFO_GXF_YES
 
     //Chunks
     void AIFC ();
@@ -217,6 +222,15 @@ private :
     void PAL_ ();
     void QLCM ();
     void QLCM_fmt_ ();
+    #if defined(MEDIAINFO_GXF_YES)
+    void rcrd ();
+    void rcrd_desc ();
+    void rcrd_fld_ ();
+    void rcrd_fld__anc_ ();
+    void rcrd_fld__anc__pos_ ();
+    void rcrd_fld__anc__pyld ();
+    void rcrd_fld__finf ();
+    #endif //defined(MEDIAINFO_GXF_YES)
     void RDIB ();
     void RMID ();
     void RMMP ();

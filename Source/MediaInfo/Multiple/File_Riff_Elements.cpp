@@ -84,6 +84,11 @@
 #if defined(MEDIAINFO_ID3V2_YES)
     #include "MediaInfo/Tag/File_Id3v2.h"
 #endif
+#if defined(MEDIAINFO_GXF_YES)
+    #if defined(MEDIAINFO_CDP_YES)
+        #include "MediaInfo/Text/File_Cdp.h"
+    #endif
+#endif //MEDIAINFO_GXF_YES
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
 //---------------------------------------------------------------------------
 
@@ -173,6 +178,85 @@ std::string ExtensibleWave_ChannelMask2 (int32u ChannelMask)
 
     return Text;
 }
+
+//---------------------------------------------------------------------------
+#if defined(MEDIAINFO_GXF_YES)
+const char* Riff_Rcrd_DataServices(int8u DataID, int8u SecondaryDataID)
+{
+         if (DataID==0x00)
+        return "Undefined format";
+    else if (DataID<=0x03)
+        return "Reserved";
+    else if (DataID<=0x0F)
+        return "Reserved for 8-bit applications";
+    else if (DataID<=0x3F)
+        return "Reserved";
+    else if (DataID==0x45)
+    {
+        //SMPTE 2020-1-2008
+        switch (SecondaryDataID)
+        {
+            case 0x01 : return "Audio Metadata - No association";
+            case 0x02 : return "Audio Metadata - Channels 1/2";
+            case 0x03 : return "Audio Metadata - Channels 3/4";
+            case 0x04 : return "Audio Metadata - Channels 5/6";
+            case 0x05 : return "Audio Metadata - Channels 7/8";
+            case 0x06 : return "Audio Metadata - Channels 9/10";
+            case 0x07 : return "Audio Metadata - Channels 11/12";
+            case 0x08 : return "Audio Metadata - Channels 13/14";
+            case 0x09 : return "Audio Metadata - Channels 15/16";
+            default   : return "SMPTE 2020-1-2008?";
+        }
+    }
+    else if (DataID<=0x4F)
+        return "Internationally registered";
+    else if (DataID<=0x5F)
+        return "Reserved";
+    else if (DataID==0x60)
+        return "Ancillary time code (Internationally registered)";
+    else if (DataID==0x61)
+    {
+        switch (SecondaryDataID)
+        {
+            case 0x01 : return "CEA-708 (CDP)";
+            case 0x02 : return "CEA-608";
+            default   : return "S334-1-2007 Defined data services?";
+        }
+    }
+    else if (DataID==0x62)
+    {
+        switch (SecondaryDataID)
+        {
+            case 0x01 : return "Program description";
+            case 0x02 : return "Data broadcast";
+            case 0x03 : return "VBI data";
+            default   : return "S334-1-2007 Variable-format data services?";
+        }
+    }
+    else if (DataID<=0x7F)
+        return "Internationally registered";
+    else if (DataID==0x80)
+        return "Ancillary packet marked for deletion";
+    else if (DataID<=0x83)
+        return "Reserved";
+    else if (DataID==0x84)
+        return "Optional ancillary packet data end marker";
+    else if (DataID<=0x87)
+        return "Reserved";
+    else if (DataID==0x88)
+        return "Optional ancillary packet data start marker";
+    else if (DataID<=0x9F)
+        return "Reserved";
+    else if (DataID<=0xBF)
+        return "Internationally registered";
+    else if (DataID<=0xCF)
+        return "User application";
+    else if (DataID<=0xDF)
+        return "Internationally registered";
+    else
+        return "Internationally registered";
+}
+#endif //MEDIAINFO_GXF_YES
 
 //***************************************************************************
 // Const
@@ -312,6 +396,13 @@ namespace Elements
     const int32u PAL_=0x50414C20;
     const int32u QLCM=0x514C434D;
     const int32u QLCM_fmt_=0x666D7420;
+    const int32u rcrd=0x72637264;
+    const int32u rcrd_desc=0x64657363;
+    const int32u rcrd_fld_=0x666C6420;
+    const int32u rcrd_fld__anc_=0x616E6320;
+    const int32u rcrd_fld__anc__pos_=0x706F7320;
+    const int32u rcrd_fld__anc__pyld=0x70796C64;
+    const int32u rcrd_fld__finf=0x66696E66;
     const int32u RDIB=0x52444942;
     const int32u RMID=0x524D4944;
     const int32u RMMP=0x524D4D50;
@@ -460,6 +551,19 @@ void File_Riff::Data_Parse()
     LIST(QLCM)
         ATOM_BEGIN
         ATOM(QLCM_fmt_)
+        ATOM_END
+    LIST(rcrd)
+        ATOM_BEGIN
+        ATOM(rcrd_desc)
+        LIST(rcrd_fld_)
+            ATOM_BEGIN
+            LIST(rcrd_fld__anc_)
+                ATOM_BEGIN
+                ATOM(rcrd_fld__anc__pos_)
+                ATOM(rcrd_fld__anc__pyld)
+                ATOM_END
+            ATOM(rcrd_fld__finf)
+            ATOM_END
         ATOM_END
     LIST_SKIP(RDIB)
     LIST_SKIP(RMID)
@@ -2456,6 +2560,156 @@ void File_Riff::QLCM_fmt_()
         Fill(Stream_Audio, 0, Audio_Channel_s_, 1);
     FILLING_END();
 }
+
+#if defined(MEDIAINFO_GXF_YES)
+//---------------------------------------------------------------------------
+void File_Riff::rcrd()
+{
+    Data_Accept("Ancillary media packets");
+    Element_Name("Ancillary media packets");
+
+    //Filling
+    Fill(Stream_General, 0, General_Format, "Ancillary media packets"); //GXF, RDD14-2007
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::rcrd_desc()
+{
+    Element_Name("Ancillary media packet description");
+
+    //Parsing
+    int32u Version;
+    Get_L4 (Version,                                            "Version");
+    if (Version==2)
+    {
+        Skip_L4(                                                "Number of fields");
+        Skip_L4(                                                "Length of the ancillary data field descriptions");
+        Skip_L4(                                                "Byte size of the complete ancillary media packet");
+        Skip_L4(                                                "Format of the video");
+    }
+    else
+        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::rcrd_fld_()
+{
+    Element_Name("Ancillary data field description");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::rcrd_fld__anc_()
+{
+    Element_Name("Ancillary data sample description");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::rcrd_fld__anc__pos_()
+{
+    Element_Name("Ancillary data sample description");
+
+    //Parsing
+    Skip_L4(                                                    "Video line number");
+    Skip_L4(                                                    "Ancillary video color difference or luma space");
+    Skip_L4(                                                    "Ancillary video space");
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::rcrd_fld__anc__pyld()
+{
+    Element_Name("Ancillary data sample payload");
+
+    Element_Begin("Decoding");
+    //Parsing
+    int8u DataID, SecondaryDataID, DataCount;
+    Get_L1 (DataID,                                             "Data ID");
+    Skip_L1(                                                    "Parity+Unused"); //even:1, odd:2
+    Get_L1 (SecondaryDataID,                                    "Secondary Data ID"); Param_Info(Riff_Rcrd_DataServices(DataID, SecondaryDataID));
+    Skip_L1(                                                    "Parity+Unused"); //even:1, odd:2
+    Get_L1 (DataCount,                                          "Data count");
+    Skip_L1(                                                    "Parity+Unused"); //even:1, odd:2
+
+    //Buffer
+    int8u* Payload=new int8u[DataCount];
+    for(int8u Pos=0; Pos<DataCount; Pos++)
+    {
+        Get_L1 (Payload[Pos],                                   "Data");
+        Skip_L1(                                                "CRC+Unused"); //even:1, odd:2
+    }
+
+    //Parsing
+    Skip_L1(                                                    "Checksum");
+    Skip_L1(                                                    "Parity+Unused"); //even:1, odd:2
+    Element_End();
+
+    FILLING_BEGIN();
+        if (DataID>=rcrd_Parsers.size())
+            rcrd_Parsers.resize(DataID+1);
+        if (SecondaryDataID>=rcrd_Parsers[DataID].size())
+            rcrd_Parsers[DataID].resize(SecondaryDataID+1);
+        if (rcrd_Parsers[DataID][SecondaryDataID]==NULL)
+        {
+            switch (DataID)
+            {
+                case 0x61 :
+                            switch (SecondaryDataID)
+                            {
+                                case 0x01 : rcrd_Parsers[DataID][SecondaryDataID]=new File_Cdp(); rcrd_Parsers_Count++; break;
+                                default   : ;
+                                ;
+                            }
+                            break;
+                default   : ;
+            }
+        }
+
+        if (rcrd_Parsers[DataID][SecondaryDataID])
+        {
+            Open_Buffer_Init(rcrd_Parsers[DataID][SecondaryDataID]);
+            Open_Buffer_Continue(rcrd_Parsers[DataID][SecondaryDataID], Payload, DataCount);
+
+            if (MediaInfoLib::Config.ParseSpeed_Get()<1 && rcrd_Parsers[DataID][SecondaryDataID]->Status[IsFilled])
+            {
+                if (Count_Get(Stream_General)==0)
+                    Accept("rcrd");
+                if (rcrd_Parsers_StreamPos.empty())
+                    rcrd_Parsers_StreamPos.resize(DataID+1);
+                if (rcrd_Parsers_StreamPos[DataID].empty())
+                    rcrd_Parsers_StreamPos[DataID].resize(SecondaryDataID+1, (size_t)-1);
+                if (rcrd_Parsers_StreamPos[DataID][SecondaryDataID]!=(size_t)-1)
+                    Fill(Stream_Text, rcrd_Parsers_StreamPos[DataID][SecondaryDataID], "Content", rcrd_Parsers[DataID][SecondaryDataID]->Retrieve(Stream_Text, 0, "Content"), true);
+                else
+                {
+                    size_t Count_Before=Count_Get(Stream_Text);
+                    Merge(*rcrd_Parsers[DataID][SecondaryDataID]);
+                    for (size_t Pos=Count_Before; Pos<=StreamPos_Last; Pos++)
+                        Fill(Stream_Text, Pos, Text_MuxingMode, _T("Ancillary+")+Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode), true);
+                    rcrd_Parsers_StreamPos[DataID][SecondaryDataID]=StreamPos_Last;
+                }
+
+                if (rcrd_Parsers_Count>0)
+                    rcrd_Parsers_Count--;
+                if (rcrd_Parsers_Count==0)
+                    Finish();
+            }
+        }
+    FILLING_END();
+    delete[] Payload; //Payload=NULL
+
+    //Testing if it is enough
+    if (MediaInfoLib::Config.ParseSpeed_Get()<1 && Buffer_TotalBytes>=5*65536)
+        Finish();
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::rcrd_fld__finf()
+{
+    Element_Name("Data field description");
+
+    //Parsing
+    Skip_L4(                                                    "Video field identifier");
+}
+#endif //MEDIAINFO_GXF_YES
 
 //---------------------------------------------------------------------------
 void File_Riff::RDIB()

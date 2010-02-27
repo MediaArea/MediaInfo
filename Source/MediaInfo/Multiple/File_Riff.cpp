@@ -112,6 +112,9 @@ File_Riff::File_Riff()
     IsRIFF64=false;
     SecondPass=false;
     DV_FromHeader=NULL;
+    #if defined(MEDIAINFO_GXF_YES)
+        rcrd_Parsers_Count=0;
+    #endif //MEDIAINFO_GXF_YES
 
     //Pointers
     Stream_Structure_Temp=Stream_Structure.end();
@@ -123,6 +126,12 @@ File_Riff::~File_Riff()
     #ifdef MEDIAINFO_DVDIF_YES
         delete (File_DvDif*)DV_FromHeader; //DV_FromHeader=NULL
     #endif //MEDIAINFO_DVDIF_YES
+
+    #if defined(MEDIAINFO_GXF_YES)
+        for (size_t DataID=0; DataID<rcrd_Parsers.size(); DataID++)
+            for (size_t SecondaryDataID=0; SecondaryDataID<rcrd_Parsers[SecondaryDataID].size(); SecondaryDataID++)
+                delete rcrd_Parsers[DataID][SecondaryDataID]; //rcrd_Parsers[DataID][SecondaryDataID]=NULL;
+    #endif //MEDIAINFO_GXF_YES
 }
 
 //***************************************************************************
