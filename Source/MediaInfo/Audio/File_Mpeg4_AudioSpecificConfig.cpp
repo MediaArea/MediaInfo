@@ -92,6 +92,10 @@ const char* MP4_Format(int8u ID)
         case   35 : return "DST";
         case   36 : return "ALS";
         case   37 : return "SLS";
+        case   38 : return "SLS non-core";
+        case   39 : return "ER AAC ELD";
+        case   40 : return "SMR Simple";
+        case   41 : return "SMR Main";
         default   : return "";
     }
 }
@@ -149,6 +153,10 @@ const char* MP4_Profile(int8u ID)
         case   35 : return "DST";
         case   36 : return "ALS";
         case   37 : return "SLS";
+        case   38 : return "SLS non-core";
+        case   39 : return "ER AAC ELD";
+        case   40 : return "SMR Simple";
+        case   41 : return "SMR Main";
         default   : return "";
     }
 }
