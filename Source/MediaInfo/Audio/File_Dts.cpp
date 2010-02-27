@@ -449,12 +449,12 @@ void File_Dts::Streams_Fill()
         {
             case 1 :
                     Fill(Stream_Audio, 0, Audio_Channel_s_, 7);
-                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Rear: L C R")+(lfe_effects?_T(", LFE"):_T("")));
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Surround: L C R")+(lfe_effects?_T(", LFE"):_T("")));
                     Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Ztring("3/3")+(lfe_effects?_T(".1"):_T("")));
                     break;
             case 2 :
                     Fill(Stream_Audio, 0, Audio_Channel_s_, 8);
-                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Rear: L C C R")+(lfe_effects?_T(", LFE"):_T("")));
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Surround: L C C R")+(lfe_effects?_T(", LFE"):_T("")));
                     Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Ztring("3/4")+(lfe_effects?_T(".1"):_T("")));
                     break;
             default:;
