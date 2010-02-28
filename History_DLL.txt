@@ -10,7 +10,7 @@ http://sourceforge.net/tracker/?group_id=86862
 Version 0.7.29, 2010-
 --------------
 + GXF (SMPTE 360M / RDD 14) support
-+ GXF: support of CDP (SMPTE 334-2) in Ancillary data (SMPTE 334-1)
++ GXF: support of CDP (SMPTE 334-2) in Ancillary data (SMPTE 334-1) (not complete)
 + AAC in MPEG-TS: Profile/Level
 x Channel positions: more coherency in the naming
 
