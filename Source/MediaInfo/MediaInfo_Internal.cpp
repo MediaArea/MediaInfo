@@ -44,6 +44,7 @@
 #if defined(MEDIAINFO_LIBMMS_YES)
     #include "MediaInfo/Reader/Reader_libmms.h"
 #endif
+#include <iostream>
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
@@ -272,6 +273,7 @@ MediaInfo_Internal::~MediaInfo_Internal()
 //---------------------------------------------------------------------------
 size_t MediaInfo_Internal::Open(const String &File_Name_)
 {
+    std::cout<<Ztring(File_Name_).To_Local().c_str()<<std::endl;
     Close();
 
     CS.Enter();

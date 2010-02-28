@@ -978,6 +978,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Umf.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Wm.cpp"
 					>
 				</File>
@@ -989,6 +993,10 @@
 			<Filter
 				Name="Text"
 				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Cdp.cpp"
+					>
+				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Cmml.cpp"
 					>
@@ -1526,6 +1534,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Umf.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Wm.h"
 					>
 				</File>
@@ -1569,6 +1581,10 @@
 			<Filter
 				Name="Text"
 				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Cdp.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Cmml.h"
 					>

@@ -178,6 +178,9 @@
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_TSP_NO) && !defined(MEDIAINFO_TSP_YES)
     #define MEDIAINFO_TSP_YES
 #endif
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_UMF_NO) && !defined(MEDIAINFO_UMF_YES)
+    #define MEDIAINFO_UMF_YES
+#endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_WM_NO) && !defined(MEDIAINFO_WM_YES)
     #define MEDIAINFO_WM_YES
 #endif
@@ -313,6 +316,9 @@
 
 //---------------------------------------------------------------------------
 // Text
+#if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_CDP_NO) && !defined(MEDIAINFO_CDP_YES)
+    #define MEDIAINFO_CDP_YES
+#endif
 #if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_CMML_NO) && !defined(MEDIAINFO_CMML_YES)
     #define MEDIAINFO_CMML_YES
 #endif

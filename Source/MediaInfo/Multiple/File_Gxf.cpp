@@ -1,4 +1,4 @@
-// File_Flv - Info for GXF (SMPTE 360M) files
+// File_Gxf - Info for GXF (SMPTE 360M) files
 // Copyright (C) 2010-2010 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -26,11 +26,17 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#if defined(MEDIAINFO_OGG_YES)
+#if defined(MEDIAINFO_GXF_YES)
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Multiple/File_Gxf.h"
+#if defined(MEDIAINFO_RIFF_YES)
+    #include "MediaInfo/Multiple/File_Riff.h"
+#endif
+#if defined(MEDIAINFO_GXF_YES)
+    #include "MediaInfo/Multiple/File_Umf.h"
+#endif
 #if defined(MEDIAINFO_MPEGV_YES)
     #include "MediaInfo/Video/File_Mpegv.h"
 #endif
@@ -79,8 +85,8 @@ const char* Gxf_MediaTypes(int8u Type)
 {
     switch (Type)
     {
-        case  3 : return "JPEG"; //525 lines
-        case  4 : return "JPEG"; //625 lines
+        case  3 : return "M-JPEG"; //525 lines
+        case  4 : return "M-JPEG"; //625 lines
         case  7 : return "SMPTE 12M"; //525 lines
         case  8 : return "SMPTE 12M"; //625 lines
         case  9 : return "PCM"; //24-bit
@@ -95,7 +101,7 @@ const char* Gxf_MediaTypes(int8u Type)
         case 18 : return "AES"; //non-PCM
         case 19 : return "Reserved";
         case 20 : return "MPEG-2 Video"; //HD, Main Profile at High Level
-        case 21 : return "Reserved";
+        case 21 : return "Ancillary data"; //SMPTE 291M 10-bit type 2 component ancillary data
         case 22 : return "MPEG-1 Video"; //525 lines
         case 23 : return "MPEG-1 Video"; //625 lines
         case 24 : return "SMPTE 12M"; //HD
@@ -228,6 +234,15 @@ File_Gxf::File_Gxf()
     Material_Fields_First_IsValid=false;
     Material_Fields_Last_IsValid=false;
     Material_File_Size_IsValid=false;
+    UMF_File=NULL;
+    SizeToAnalyze=16*1024*1024;
+}
+
+//---------------------------------------------------------------------------
+File_Gxf::~File_Gxf()
+{
+    //Temp
+    delete UMF_File; //UMF_File=NULL;
 }
 
 //***************************************************************************
@@ -235,25 +250,8 @@ File_Gxf::File_Gxf()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-void File_Gxf::Streams_Fill()
-{
-    //For each Streams
-    for (size_t StreamID=0; StreamID<0x40; StreamID++)
-        Streams_Fill_PerStream(StreamID, Streams[StreamID]);
-}
-
-//---------------------------------------------------------------------------
-void File_Gxf::Streams_Fill_PerStream(size_t StreamID, stream &Temp)
-{
-}
-
-//---------------------------------------------------------------------------
 void File_Gxf::Streams_Finish()
 {
-    //For each Streams
-    for (size_t StreamID=0; StreamID<0x40; StreamID++)
-        Streams_Finish_PerStream(StreamID, Streams[StreamID]);
-
     //Global
     if (Material_Fields_First_IsValid && Material_Fields_Last_IsValid && Material_Fields_FieldsPerFrame!=(int8u)-1)
     {
@@ -273,17 +271,27 @@ void File_Gxf::Streams_Finish()
 //---------------------------------------------------------------------------
 void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
 {
-    //By the parser
-    if (Temp.StreamKind==Stream_Max && Temp.Parser)
-        Streams_Fill_PerStream(StreamID, Temp);
-
     //Init
-    if (Temp.StreamKind==Stream_Max)
+    if (Temp.StreamKind==Stream_Max && Temp.MediaType!=21) //and not Ancillary data
         return;
     StreamKind_Last=Temp.StreamKind;
     StreamPos_Last=Temp.StreamPos;
 
     //By the parser
+    if (Temp.MediaType==21) //Ancillary data
+    {
+        Finish(Temp.Parser);
+        size_t Count_Before=Count_Get(Stream_Text);
+        Merge(*Temp.Parser);
+        if (StreamPos_Last!=(size_t)-1)
+        {
+            for (size_t Pos=Count_Before; Pos<=StreamPos_Last; Pos++)
+            {
+                Fill(Stream_Text, Pos, Text_ID, Ztring::ToZtring(StreamID)+_T("-")+Retrieve(Stream_Text, StreamPos_Last, Text_ID), true);
+                Fill(Stream_Text, Pos, Text_Title, Streams[StreamID].MediaFileName);
+            }
+        }
+    }
     if (Temp.Parser && Temp.Parser->Status[IsAccepted])
     {
         Finish(Temp.Parser);
@@ -451,7 +459,11 @@ void File_Gxf::map()
             switch (Tag)
             {
                 case 0x40 : //Media file name of material
-                            Skip_String(DataLength,             "Content");
+                            {
+                            Ztring MediaFileName;
+                            Get_Local(DataLength, MediaFileName, "Content");
+                            Fill(Stream_General, 0, General_Title, MediaFileName, true);
+                            }
                             break;
                 case 0x41 : //First field of material in stream
                             if (DataLength==4)
@@ -545,6 +557,7 @@ void File_Gxf::map()
             FILLING_BEGIN();
                 MediaType&=0x7F; //Remove the last bit
                 TrackID&=0x3F; //Remove the 2 last bits
+                Streams[TrackID].MediaType=MediaType;
                 if (Streams[TrackID].StreamKind==Stream_Max)
                 {
                     if (Gxf_MediaTypes_StreamKind(MediaType)!=Stream_Max)
@@ -562,10 +575,12 @@ void File_Gxf::map()
                             {
                                 case  9 :
                                 case 18 :   //24-bit
-                                            Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, 24); break;
+                                            Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, 24);
+                                            break;
                                 case 10 :
                                 case 17 :   //16-bit
-                                            Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, 16); break;
+                                            Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, 16);
+                                            break;
                                 default : ;
                             }
 
@@ -620,12 +635,22 @@ void File_Gxf::map()
                             case 13 :
                             case 14 :
                             case 15 :
-                            case 16 : /*Streams[TrackID].Parser=new File_DvDif(); Parsers_Count++;*/ break;
-                            case 17 : /*Streams[TrackID].Parser=new File_Ac3(); Parsers_Count++;*/ break;
+                            case 16 :   /*Streams[TrackID].Parser=new File_DvDif(); Parsers_Count++;*/ break;
+                            case 17 :   /*Streams[TrackID].Parser=new File_Ac3(); Parsers_Count++;*/ break;
                             default : ;
                         }
 
                         ShouldFill=true;
+                    }
+                    else if (MediaType==21)
+                    {
+                        //Ancillary Metadata
+                        Streams[TrackID].Parser=new File_Riff();
+                        Open_Buffer_Init(Streams[TrackID].Parser);
+                        Parsers_Count++;
+                        Streams[TrackID].Searching_Payload=true;
+                        if (SizeToAnalyze<4*16*1024*1024)
+                            SizeToAnalyze*=4; //4x more, to be sure to find captions
                     }
                 }
             FILLING_END();
@@ -640,16 +665,43 @@ void File_Gxf::map()
                 switch (Tag)
                 {
                     case 0x4C : //Media file name
-                                {
-                                Ztring Content;
-                                Get_Local(DataLength, Content, "Content");
+                                Get_Local(DataLength, Streams[TrackID].MediaFileName, "Content");
                                 if (ShouldFill)
-                                    Fill(StreamKind_Last, StreamPos_Last, "Title", Content);
-                                }
+                                    Fill(StreamKind_Last, StreamPos_Last, "Title", Streams[TrackID].MediaFileName);
                                 break;
                     case 0x4D : //Auxiliary Information
                                 if (DataLength==8)
-                                    Skip_B8(                    "Content");
+                                {
+                                    if (MediaType==21)
+                                    {
+                                        //Ancillary
+                                        Skip_B1(                "Reserved");
+                                        Skip_B1(                "Reserved");
+                                        Skip_B1(                "Ancillary data presentation format");
+                                        Skip_B1(                "Number of ancillary data fields per ancillary data media packet");
+                                        Skip_B2(                "Byte size of each ancillary data field");
+                                        Skip_B2(                "Byte size of the ancillary data media packet in 256 byte units");
+                                    }
+                                    if (MediaType==7 || MediaType==8 || MediaType==24)
+                                    {
+                                        //TimeCode
+                                        Skip_B1(                "Frame");
+                                        Skip_B1(                "Second");
+                                        Skip_B1(                "Minute");
+                                        BS_Begin();
+                                        Skip_SB(                "Invalid");
+                                        Skip_SB(                "Color frame");
+                                        Skip_SB(                "Drop frame");
+                                        Skip_S1(5,              "Hour");
+                                        BS_End();
+                                        Skip_B1(                "User bits");
+                                        Skip_B1(                "User bits");
+                                        Skip_B1(                "User bits");
+                                        Skip_B1(                "User bits");
+                                    }
+                                    else
+                                        Skip_B8(                "Content");
+                                }
                                 else
                                     Skip_XX(DataLength,         "Unknown");
                                 break;
@@ -749,19 +801,16 @@ void File_Gxf::media()
     if (Streams[TrackNumber].Parser)
     {
         Open_Buffer_Continue(Streams[TrackNumber].Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
-        if (Streams[TrackNumber].Parser->Status[IsFilled])
+        if (MediaInfoLib::Config.ParseSpeed_Get()<1 && Streams[TrackNumber].Parser->Status[IsFilled])
         {
-            //Streams[TrackNumber].Searching_Payload=false;
+            Streams[TrackNumber].Searching_Payload=false;
 
             if (Parsers_Count>0)
                 Parsers_Count--;
-            Finish();
-            //if (Parsers_Count==0 && File_Size>16*1024*1024 && File_Offset+Buffer_Size<File_Size-16*1024*1024)
-            //{
-            //    //Jumping
-            //    GoToFromEnd(16*1024*1024, "GXF");
-            //    Read_Buffer_Unsynched();
-            //}
+            if (Parsers_Count==0)
+            {
+                Finish();
+            }
         }
     }
 }
@@ -776,14 +825,52 @@ void File_Gxf::end_of_stream()
 void File_Gxf::field_locator_table()
 {
     Element_Name("field locator table");
+
+    //Parsing
+    int32u Entries;
+    Skip_L4(                                                    "Number of fields per FLT entry");
+    Get_L4 (Entries,                                            "Number of FLT entries");
+    for (size_t Pos=0; Pos<Entries; Pos++)
+    {
+        Skip_L4(                                                "Offset to fields");
+        if (Element_Offset==Element_Size)
+            break;
+    }
 }
 
 //---------------------------------------------------------------------------
 void File_Gxf::UMF_file()
 {
     Element_Name("UMF file");
+
+    //Parsing
+    int32u PayloadDataLength, Tracks, Segments;
+    Element_Begin("Preamble");
+        Skip_B1(                                                "First/last packet flag");
+        Get_B4 (PayloadDataLength,                              "Payload data length");
+    Element_End();
+
+    if (UMF_File==NULL)
+    {
+        UMF_File=new File_Umf();
+        Open_Buffer_Init(UMF_File);
+    }
+    Open_Buffer_Continue(UMF_File, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+}
+
+//***************************************************************************
+// Helpers
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Gxf::Detect_EOF()
+{
+    if (File_Offset+Buffer_Size>=SizeToAnalyze)
+    {
+        Finish();
+    }
 }
 
 } //NameSpace
 
-#endif //MEDIAINFO_OGG_YES
+#endif //MEDIAINFO_GXF_YES

@@ -91,7 +91,7 @@ set(mediainfo_SRCS
 	MediaInfo/Multiple/File_DvDif_Analysis.cpp
 	MediaInfo/Multiple/File_Dvdv.cpp
 	MediaInfo/Multiple/File_Flv.cpp
-	MediaInfo/Multiple/File_Gfx.cpp
+	MediaInfo/Multiple/File_Gxf.cpp
 	MediaInfo/Multiple/File_Mk.cpp
 	MediaInfo/Multiple/File_Mpeg4.cpp
 	MediaInfo/Multiple/File_Mpeg4_Descriptors.cpp
@@ -111,6 +111,7 @@ set(mediainfo_SRCS
 	MediaInfo/Multiple/File_Rm.cpp
 	MediaInfo/Multiple/File_Skm.cpp
 	MediaInfo/Multiple/File_Swf.cpp
+	MediaInfo/Multiple/File_Umf.cpp
 	MediaInfo/Multiple/File_Wm.cpp
 	MediaInfo/Multiple/File_Wm_Elements.cpp
 	MediaInfo/Reader/Reader_Directory.cpp \
@@ -124,6 +125,7 @@ set(mediainfo_SRCS
 	MediaInfo/Tag/File_Lyrics3.cpp
 	MediaInfo/Tag/File_Lyrics3v2.cpp
 	MediaInfo/Tag/File_VorbisCom.cpp
+	MediaInfo/Text/File_Cdp.cpp
 	MediaInfo/Text/File_Cmml.cpp
 	MediaInfo/Text/File_Eia608.cpp
 	MediaInfo/Text/File_Eia708.cpp

@@ -82,7 +82,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Multiple/File_DvDif_Analysis.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Dvdv.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Flv.cpp \
-                       ../../../Source/MediaInfo/Multiple/File_Gfx.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_Gxf.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Mk.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Mpeg4.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Mpeg4_Descriptors.cpp \
@@ -102,6 +102,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Multiple/File_Rm.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Skm.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Swf.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_Umf.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Wm.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Wm_Elements.cpp \
                        ../../../Source/MediaInfo/Reader/Reader_Directory.cpp \
@@ -115,6 +116,7 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Tag/File_Lyrics3.cpp \
                        ../../../Source/MediaInfo/Tag/File_Lyrics3v2.cpp \
                        ../../../Source/MediaInfo/Tag/File_VorbisCom.cpp \
+                       ../../../Source/MediaInfo/Text/File_Cdp.cpp \
                        ../../../Source/MediaInfo/Text/File_Cmml.cpp \
                        ../../../Source/MediaInfo/Text/File_Kate.cpp \
                        ../../../Source/MediaInfo/Text/File_Eia608.cpp \

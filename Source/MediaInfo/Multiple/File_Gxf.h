@@ -1,4 +1,4 @@
-// File_Flv - Info for GXF (SMPTE 360) files
+// File_Gxf - Info for GXF (SMPTE 360M) files
 // Copyright (C) 2010-2010 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
@@ -18,6 +18,8 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
 // Information about GXF files
+// SMPTE 360M - General Exchange Format
+// SMPTE RDD 14-2007 - General Exchange Format-2
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -43,10 +45,10 @@ class File_Gxf : public File__Analyze
 public :
     //Constructor/Destructor
     File_Gxf();
+    ~File_Gxf();
 
 private :
     //Streams management
-    void Streams_Fill();
     void Streams_Finish();
 
     //Buffer - Synchro
@@ -80,17 +82,20 @@ private :
         File__Analyze* Parser;
         stream_t StreamKind;
         size_t StreamPos;
+        int32u MediaType;
         int32u TimeStamp_Start;
         int32u TimeStamp_End;
         bool   Searching_Payload;
         bool   Searching_TimeStamp_Start;
         bool   Searching_TimeStamp_End;
+        Ztring MediaFileName;
 
         stream()
         {
             Parser=NULL;
             StreamKind=Stream_Max;
             StreamPos=(size_t)-1;
+            MediaType=0;
             Searching_Payload=false;
             Searching_TimeStamp_Start=false;
             Searching_TimeStamp_End=false;
@@ -101,10 +106,12 @@ private :
         }
     };
     std::vector<stream> Streams;
+    File__Analyze*      UMF_File;
+    int64u              SizeToAnalyze; //Total size of a chunk to analyse, it may be changed by the parser
 
     //File__Analyze helpers
-    void Streams_Fill_PerStream(size_t StreamID, stream &Temp);
     void Streams_Finish_PerStream(size_t StreamID, stream &Temp);
+    void Detect_EOF();
 };
 
 } //NameSpace
