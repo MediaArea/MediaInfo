@@ -130,10 +130,10 @@ const int32u AC3_SamplingRate2[]=
 //---------------------------------------------------------------------------
 const char*  AC3_ChannelPositions[]=
 {
-    "L R",
-    "C",
-    "L R",
-    "L C R",
+    "Front: L R",
+    "Front: C",
+    "Front: L R",
+    "Front: L C R",
     "Front: L R,   Surround: C",
     "Front: L C R, Surround: C",
     "Front: L R,   Surround: L R",
@@ -143,14 +143,14 @@ const char*  AC3_ChannelPositions[]=
 //---------------------------------------------------------------------------
 const char*  AC3_ChannelPositions2[]=
 {
-    "2/0",
-    "1/0",
-    "2/0",
-    "3/0",
-    "2/1",
-    "3/1",
-    "2/2",
-    "3/2",
+    "2/0/0",
+    "1/0/0",
+    "2/0/0",
+    "3/0/0",
+    "2/1/0",
+    "3/1/0",
+    "2/2/0",
+    "3/2/0",
 };
 
 //---------------------------------------------------------------------------
@@ -356,15 +356,11 @@ std::string AC3_TrueHD_Channels_Positions(int16u ChannelsMap)
             Text+="Front: L, R";
     }
 
-    if ((ChannelsMap&0x0088)==0x0088)
-        Text+=", Surround: L C R";
-    else
-    {
-        if (ChannelsMap&0x08)
-            Text+=", Surround: L R";
-        if (ChannelsMap&0x80)
-            Text+=", Surround: C";
-    }
+    if (ChannelsMap&0x08)
+        Text+=", Surround: L R";
+
+    if (ChannelsMap&0x80)
+        Text+=", Back: C";
 
     if ((ChannelsMap&0x0810)==0x0810)
         Text+=", vh: L C R";
@@ -433,14 +429,10 @@ Ztring AC3_TrueHD_Channels_Positions2(int16u ChannelsMap)
         LFE++;
 
     Ztring Text;
-    if (Front || Surround || Rear)
-        Text+=Ztring::ToZtring(Front);
-    if (Surround || Rear)
-        Text+=_T('/')+Ztring::ToZtring(Surround);
-    if (Rear)
-        Text+=_T('/')+Ztring::ToZtring(Rear);
-    if (LFE)
-        Text+=_T('.')+Ztring::ToZtring(LFE);
+    Text+=Ztring::ToZtring(Front);
+    Text+=_T('/')+Ztring::ToZtring(Surround);
+    Text+=_T('/')+Ztring::ToZtring(Rear);
+    Text+=_T('.')+Ztring::ToZtring(LFE);
     return Text;
 }
 

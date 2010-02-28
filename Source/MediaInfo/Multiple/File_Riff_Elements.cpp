@@ -108,25 +108,25 @@ std::string ExtensibleWave_ChannelMask (int32u ChannelMask)
     if (ChannelMask&0x0001)
         Text+=" L";
     if (ChannelMask&0x0004)
-        Text+=(ChannelMask&0x0001)?", C":" C";
+        Text+=" C";
     if (ChannelMask&0x0002)
-        Text+=(ChannelMask&0x0003)?", R":" R";
+        Text+=" R";
 
     if ((ChannelMask&0x0600)!=0x0000)
         Text+=", Surround:";
     if (ChannelMask&0x0200)
         Text+=" L";
     if (ChannelMask&0x0400)
-        Text+=(ChannelMask&0x0200)?", R":" R";
+        Text+=" R";
 
     if ((ChannelMask&0x0130)!=0x0000)
         Text+=", Back:";
     if (ChannelMask&0x0010)
         Text+=" L";
     if (ChannelMask&0x0100)
-        Text+=(ChannelMask&0x0010)?", C":" C";
+        Text+=" C";
     if (ChannelMask&0x0020)
-        Text+=(ChannelMask&0x0110)?", R":" R";
+        Text+=" R";
 
     if ((ChannelMask&0x0008)!=0x0000)
         Text+=", LFE";
@@ -145,21 +145,15 @@ std::string ExtensibleWave_ChannelMask2 (int32u ChannelMask)
         Count++;
     if (ChannelMask&0x0002)
         Count++;
-    if (Count)
-    {
-        Text+=Ztring::ToZtring(Count).To_UTF8();
-        Count=0;
-    }
+    Text+=Ztring::ToZtring(Count).To_UTF8();
+    Count=0;
 
     if (ChannelMask&0x0200)
         Count++;
     if (ChannelMask&0x0400)
         Count++;
-    if (Count)
-    {
-        Text+="/"+Ztring::ToZtring(Count).To_UTF8();
-        Count=0;
-    }
+    Text+="/"+Ztring::ToZtring(Count).To_UTF8();
+    Count=0;
 
     if (ChannelMask&0x0010)
         Count++;
@@ -167,11 +161,8 @@ std::string ExtensibleWave_ChannelMask2 (int32u ChannelMask)
         Count++;
     if (ChannelMask&0x0020)
         Count++;
-    if (Count)
-    {
-        Text+="/"+Ztring::ToZtring(Count).To_UTF8();
-        Count=0;
-    }
+    Text+="/"+Ztring::ToZtring(Count).To_UTF8();
+    Count=0;
 
     if (ChannelMask&0x0008)
         Text+=".1";

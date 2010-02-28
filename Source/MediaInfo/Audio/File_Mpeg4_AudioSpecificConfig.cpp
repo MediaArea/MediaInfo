@@ -178,13 +178,13 @@ const int8u MP4_Channels[]=
 const char* MP4_ChannelConfiguration[]=
 {
     "",
-    "C",
-    "L R",
-    "L C R",
-    "Front: L C R, Rear: C",
-    "Front: L C R, Rear: L R",
-    "Front: L C R, Rear: L R, LFE",
-    "Front: L C R, Middle: L C R, Surround: L R, LFE",
+    "Front: C",
+    "Front: L R",
+    "Front: L C R",
+    "Front: L C R, Surround: C",
+    "Front: L C R, Surround: L R",
+    "Front: L C R, Surround: L R, LFE",
+    "Front: L C R, Surround: L R, Back: L R, LFE",
     "",
     "",
     "",
@@ -199,13 +199,13 @@ const char* MP4_ChannelConfiguration[]=
 const char* MP4_ChannelConfiguration2[]=
 {
     "",
-    "1/0",
-    "2/0",
-    "3/0",
-    "3/1",
-    "3/2",
-    "3/2.1",
-    "3.3/2.1",
+    "1/0/0",
+    "2/0/0",
+    "3/0/0",
+    "3/1/0",
+    "3/2/0",
+    "3/2/0.1",
+    "3/2/2.1",
     "",
     "",
     "",
@@ -567,18 +567,18 @@ void File_Mpeg4_AudioSpecificConfig::GASpecificConfig ()
         switch (Channels_Side)
         {
             case  0 : break;
-            case  1 : Channels_Positions+=_T(", Side: C"); break;
-            case  2 : Channels_Positions+=_T(", Side: L R"); break;
-            case  3 : Channels_Positions+=_T(", Side: L C R"); break;
-            default : Channels_Positions+=_T(", Side: "); Channels_Positions+=Ztring::ToZtring(Channels_Side); //Which config?
+            case  1 : Channels_Positions+=_T(", Surround: C"); break;
+            case  2 : Channels_Positions+=_T(", Surround: L R"); break;
+            case  3 : Channels_Positions+=_T(", Surround: L C R"); break;
+            default : Channels_Positions+=_T(", Surround: "); Channels_Positions+=Ztring::ToZtring(Channels_Side); //Which config?
         }
         switch (Channels_Back)
         {
             case  0 : break;
-            case  1 : Channels_Positions+=_T(", Rear: C"); break;
-            case  2 : Channels_Positions+=_T(", Rear: L R"); break;
-            case  3 : Channels_Positions+=_T(", Rear: L C R"); break;
-            default : Channels_Positions+=_T(", Rear: "); Channels_Positions+=Ztring::ToZtring(Channels_Back); //Which config?
+            case  1 : Channels_Positions+=_T(", Back: C"); break;
+            case  2 : Channels_Positions+=_T(", Back: L R"); break;
+            case  3 : Channels_Positions+=_T(", Back: L C R"); break;
+            default : Channels_Positions+=_T(", Back: "); Channels_Positions+=Ztring::ToZtring(Channels_Back); //Which config?
         }
         switch (Channels_LFE)
         {
@@ -586,10 +586,10 @@ void File_Mpeg4_AudioSpecificConfig::GASpecificConfig ()
             case  1 : Channels_Positions+=_T(", LFE"); break;
             default : Channels_Positions+=_T(", LFE= "); Channels_Positions+=Ztring::ToZtring(Channels_LFE); //Which config?
         }
-        Channels_Positions2=Ztring::ToZtring(Channels_Front)+_T('/')+
-                            Ztring::ToZtring(Channels_Side)+
-                            (Channels_Back?(_T('/')+Ztring::ToZtring(Channels_Back)):Ztring())+
-                            (Channels_LFE? (_T('.')+Ztring::ToZtring(Channels_LFE )):Ztring());
+        Channels_Positions2=Ztring::ToZtring(Channels_Front)+_T('/')
+                           +Ztring::ToZtring(Channels_Side)+_T('/')
+                           +Ztring::ToZtring(Channels_Back)
+                           +(Channels_LFE?_T(".1"):_T(""));
 
         //Filling
         Accept("AudioSpecificConfig");

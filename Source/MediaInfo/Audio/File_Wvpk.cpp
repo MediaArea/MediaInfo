@@ -515,7 +515,7 @@ void File_Wvpk::Data_Parse_Fill()
             int8u Count=0;
             if (!Channels_Positions.empty())
                 Channels_Positions+=_T(", ");
-            Channels_Positions+=_T("Middle:");
+            Channels_Positions+=_T("Surround:");
             if (channel_mask&0x0200)
             {
                 Channels_Positions+=_T(" L");
@@ -528,12 +528,14 @@ void File_Wvpk::Data_Parse_Fill()
             }
             Channels_Positions2+=_T('.')+Ztring::ToZtring(Count);
         }
+        else
+            Channels_Positions2+=_T("/0");
         if (channel_mask&0x0130)
         {
             int8u Count=0;
             if (!Channels_Positions.empty())
                 Channels_Positions+=_T(", ");
-            Channels_Positions+=_T("Rear:");
+            Channels_Positions+=_T("Back:");
             if (channel_mask&0x0010)
             {
                 Channels_Positions+=_T(" L");
@@ -551,6 +553,8 @@ void File_Wvpk::Data_Parse_Fill()
             }
             Channels_Positions2+=_T('/')+Ztring::ToZtring(Count);
         }
+        else
+            Channels_Positions2+=_T("/0");
         if (channel_mask&0x0008)
         {
             if (!Channels_Positions.empty())

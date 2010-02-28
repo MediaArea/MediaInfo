@@ -46,9 +46,9 @@ const char* Aes3_ChannelsPositions(int8u number_channels)
     switch (number_channels)
     {
         case  0 : return "Front: L R";                                  //2 channels
-        case  1 : return "Front: L R C, LFE";                           //4 channels
-        case  2 : return "Front: L R C, Surround: L R, LFE";            //6 channels
-        case  3 : return "Front: L R C, Surround: L C C R, LFE";        //8 channels
+        case  1 : return "Front: L C R, LFE";                           //4 channels
+        case  2 : return "Front: L C R, Surround: L R, LFE";            //6 channels
+        case  3 : return "Front: L C R, Surround: L R, Back: L R, LFE"; //8 channels
         default : return "";
     }
 }
@@ -58,10 +58,10 @@ const char* Aes3_ChannelsPositions2(int8u number_channels)
 {
     switch (number_channels)
     {
-        case  0 : return "2/0";                                         //2 channels
-        case  1 : return "3/0.1";                                       //4 channels
-        case  2 : return "3/2.1";                                       //6 channels
-        case  3 : return "3/4.1";                                       //8 channels
+        case  0 : return "2/0/0.0";                                     //2 channels
+        case  1 : return "3/0/0.1";                                     //4 channels
+        case  2 : return "3/2/0.1";                                     //6 channels
+        case  3 : return "3/2/2.1";                                     //8 channels
         default : return "";
     }
 }

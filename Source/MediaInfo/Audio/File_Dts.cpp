@@ -82,41 +82,41 @@ const char*  DTS_ChannelPositions[]=
 {
     "Mono",
     "Dual mono",
-    "L R",
-    "L R",
-    "L R",
-    "L C R",
+    "Front: L R",
+    "Front: L R",
+    "Front: L R",
+    "Front: L C R",
     "Front: L R, Surround: C",
     "Front: L C R, Surround: C",
     "Front: L R, Surround: L R",
     "Front: L C R, Surround: L R",
-    "Front: L R, Middle: L R, Surround: L R",
-    "Front: L C R, Rear: L R",
-    "Front: L R, Middle: L R, Rear: L R",
-    "Front: L C R, Middle: L R, Surround: L R",
-    "Front: L R, Middle: L R, Surround: L C C R",
-    "Front: L C R, Middle: L R, Surround: L C R",
+    "Front: L R, Surround: L R, Back: L R",
+    "Front: L C R, Surround: L R",
+    "Front: L R, Surround: L R, Back: L R",
+    "Front: L C R, Surround: L R, Back: L R",
+    "Front: L R, Surround: L R, Back: L C C R",
+    "Front: L C R, Surround: L R, Back: L C R",
 };
 
 //---------------------------------------------------------------------------
 const char*  DTS_ChannelPositions2[]=
 {
-    "1/0",
-    "2/0",
-    "2/0",
-    "2/0",
-    "2/0",
-    "3/0",
-    "2/1",
-    "3/1",
-    "2/2",
-    "3/2",
-    "2.2/2",
-    "3/2",
-    "2.2/2",
-    "3.2/2",
-    "2.2/4",
-    "3.2/3",
+    "1/0/0",
+    "2/0/0",
+    "2/0/0",
+    "2/0/0",
+    "2/0/0",
+    "3/0/0",
+    "2/1/0",
+    "3/1/0",
+    "2/2/0",
+    "3/2/0",
+    "2/2/2",
+    "3/2/0",
+    "2/2/2",
+    "3/2/2",
+    "2/2/4",
+    "3/2/3",
 };
 
 //---------------------------------------------------------------------------
@@ -152,19 +152,15 @@ std::string DTS_HD_SpeakerActivityMask (int16u SpeakerActivityMask)
         if (SpeakerActivityMask&0x0001)
             Text+="Front: C";
         if (SpeakerActivityMask&0x0002)
-            Text+="Front: L, R";
+            Text+="Front: L R";
     }
-        
-    if ((SpeakerActivityMask&0x0014)==0x0014)
-        Text+=", Surround: L C R";
-    else
-    {
-        if (SpeakerActivityMask&0x0004)
-            Text+=", Surround: L R";
-        if (SpeakerActivityMask&0x0010)
-            Text+=", Surround: C";
-    }
-       
+
+    if (SpeakerActivityMask&0x0004)
+        Text+=", Surround: L R";
+
+    if (SpeakerActivityMask&0x0010)
+        Text+=", Back: C";
+
     if ((SpeakerActivityMask&0x00A0)==0x00A0)
         Text+=", High: L C R";
     else
@@ -175,16 +171,12 @@ std::string DTS_HD_SpeakerActivityMask (int16u SpeakerActivityMask)
             Text+=", High: C";
     }
 
-    if ((SpeakerActivityMask&0x0840)==0x0840)
-        Text+=", Surround: L C C R";
-    else
-    {
-        if (SpeakerActivityMask&0x0800)
-            Text+=", Surround: L R"; //In theory: Surround Side: L R
-        if (SpeakerActivityMask&0x0040)
-            Text+=", Surround: C C"; //In theory: Surround Rear: L R
-    }
-        
+    if (SpeakerActivityMask&0x0800)
+        Text+=", Surround: L R";
+
+    if (SpeakerActivityMask&0x0040)
+        Text+=", Back: L R";
+
     if (SpeakerActivityMask&0x0100)
         Text+=", TopCtrSrrd";
     if (SpeakerActivityMask&0x0200)
@@ -222,20 +214,22 @@ std::string DTS_HD_SpeakerActivityMask2 (int16u SpeakerActivityMask)
     {
         if (SpeakerActivityMask&0x0001)
             Text+="1";
-        if (SpeakerActivityMask&0x0002)
+        else if (SpeakerActivityMask&0x0002)
             Text+="2";
+        else
+            Text+="0";
     }
-        
-    if ((SpeakerActivityMask&0x0014)==0x0014)
-        Text+="/3";
-    else
-    {
-        if (SpeakerActivityMask&0x0004)
-            Text+="/2";
-        if (SpeakerActivityMask&0x0010)
-            Text+="/1";
-    }
-       
+
+    if (SpeakerActivityMask&0x0004)
+        Text+="/2";
+    else if ((SpeakerActivityMask&0x0840)==0x0000)
+        Text+="/0";
+
+    if (SpeakerActivityMask&0x0010)
+        Text+="/1";
+    else if ((SpeakerActivityMask&0x0840)==0x0000)
+        Text+="/0";
+
     if ((SpeakerActivityMask&0x00A0)==0x00A0)
         Text+=".3";
     else
@@ -246,16 +240,11 @@ std::string DTS_HD_SpeakerActivityMask2 (int16u SpeakerActivityMask)
             Text+=".2";
     }
 
-    if ((SpeakerActivityMask&0x0840)==0x0840)
-        Text+="/4";
-    else
-    {
-        if (SpeakerActivityMask&0x0800)
-            Text+="/2";
-        if (SpeakerActivityMask&0x0040)
-            Text+="/2";
-    }
-        
+    if (SpeakerActivityMask&0x0800)
+        Text+="/2";
+    if (SpeakerActivityMask&0x0040)
+        Text+="/2";
+
     if (SpeakerActivityMask&0x0100)
         Text+=".1";
     if (SpeakerActivityMask&0x0200)
@@ -449,13 +438,13 @@ void File_Dts::Streams_Fill()
         {
             case 1 :
                     Fill(Stream_Audio, 0, Audio_Channel_s_, 7);
-                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Surround: L C R")+(lfe_effects?_T(", LFE"):_T("")));
-                    Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Ztring("3/3")+(lfe_effects?_T(".1"):_T("")));
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Surround: L R, Back: C")+(lfe_effects?_T(", LFE"):_T("")));
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Ztring("3/2/1")+(lfe_effects?_T(".1"):_T(".0")));
                     break;
             case 2 :
                     Fill(Stream_Audio, 0, Audio_Channel_s_, 8);
-                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Surround: L C C R")+(lfe_effects?_T(", LFE"):_T("")));
-                    Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Ztring("3/4")+(lfe_effects?_T(".1"):_T("")));
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Surround: L R, Back: L R")+(lfe_effects?_T(", LFE"):_T("")));
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Ztring("3/2/2")+(lfe_effects?_T(".1"):_T(".0")));
                     break;
             default:;
         }

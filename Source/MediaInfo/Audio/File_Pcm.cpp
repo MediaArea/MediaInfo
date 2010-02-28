@@ -57,11 +57,11 @@ const char* Pcm_VOB_ChannelsPositions(int8u NumberOfChannels)
         case  1 : return "Front: C";                                    //1 channel
         case  2 : return "Front: L R";                                  //2 channels
         case  3 : return "Front: L R, LFE";                             //3 channels (not sure)
-        case  4 : return "Front: L R, Rear: L R";                       //4 channels
-        case  5 : return "Front: L R, Rear: L R, LFE";                  //5 channels (not sure)
-        case  6 : return "Front: L R C, Rear: L R, LFE";                //6 channels
-        case  7 : return "Front: L R C, Middle: L R, Rear: L R";        //7 channels
-        case  8 : return "Front: L R C, Middle: L R, Rear: L R, LFE";   //8 channels
+        case  4 : return "Front: L R, Surround: L R";                   //4 channels
+        case  5 : return "Front: L R, Surround: L R, LFE";              //5 channels (not sure)
+        case  6 : return "Front: L C R, Surround: L R, LFE";            //6 channels
+        case  7 : return "Front: L C R, Surround: L R, Back: L R";      //7 channels
+        case  8 : return "Front: L C R, Surround: L R, Back: L R, LFE"; //8 channels
         default : return "";
     }
 }
@@ -71,14 +71,14 @@ const char* Pcm_VOB_ChannelsPositions2(int8u NumberOfChannels)
 {
     switch (NumberOfChannels)
     {
-        case  1 : return "1/0";                                         //1 channel
-        case  2 : return "2/0";                                         //2 channels
-        case  3 : return "3/0.1";                                       //3 channels (not sure)
-        case  4 : return "3/0.1";                                       //4 channels
-        case  5 : return "3/2.1";                                       //5 channels (not sure)
-        case  6 : return "3/2.1";                                       //6 channels
-        case  7 : return "3.2/2.1";                                     //7 channels
-        case  8 : return "3.2/2.1";                                     //8 channels
+        case  1 : return "1/0/0.0";                                     //1 channel
+        case  2 : return "2/0/0.0";                                     //2 channels
+        case  3 : return "3/0/0.1";                                     //3 channels (not sure)
+        case  4 : return "3/0/0.1";                                     //4 channels
+        case  5 : return "3/1/0.1";                                     //5 channels (not sure)
+        case  6 : return "3/2/0.1";                                     //6 channels
+        case  7 : return "3/2/1.1";                                     //7 channels
+        case  8 : return "3/2/2.1";                                     //8 channels
         default : return "";
     }
 }
