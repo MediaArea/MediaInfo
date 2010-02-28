@@ -2,6 +2,10 @@ I changed some elements in the interface.
 No break in binary compatibily (no crash), but some details.
 
 
+0.7.28 --> 0.7.29
+-----------------
+- Channel position: more coherency between the different formats (Front, Surround, back)
+
 0.7.18 --> 0.7.19
 -----------------
 - XML output: track names are changed, for a better usability by XML parsers (<track type="x" streamid="x">)
