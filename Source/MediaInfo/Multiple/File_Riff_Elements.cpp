@@ -113,14 +113,14 @@ std::string ExtensibleWave_ChannelMask (int32u ChannelMask)
         Text+=(ChannelMask&0x0003)?", R":" R";
 
     if ((ChannelMask&0x0600)!=0x0000)
-        Text+=", Middle:";
+        Text+=", Surround:";
     if (ChannelMask&0x0200)
         Text+=" L";
     if (ChannelMask&0x0400)
         Text+=(ChannelMask&0x0200)?", R":" R";
 
     if ((ChannelMask&0x0130)!=0x0000)
-        Text+=", Surround:";
+        Text+=", Back:";
     if (ChannelMask&0x0010)
         Text+=" L";
     if (ChannelMask&0x0100)
@@ -2672,9 +2672,9 @@ void File_Riff::rcrd_fld__anc__pyld()
             {
                 if (Count_Get(Stream_General)==0)
                     Accept("rcrd");
-                if (rcrd_Parsers_StreamPos.empty())
+                if (DataID>=rcrd_Parsers_StreamPos.size())
                     rcrd_Parsers_StreamPos.resize(DataID+1);
-                if (rcrd_Parsers_StreamPos[DataID].empty())
+                if (SecondaryDataID>=rcrd_Parsers_StreamPos[DataID].size())
                     rcrd_Parsers_StreamPos[DataID].resize(SecondaryDataID+1, (size_t)-1);
                 if (rcrd_Parsers_StreamPos[DataID][SecondaryDataID]!=(size_t)-1)
                     Fill(Stream_Text, rcrd_Parsers_StreamPos[DataID][SecondaryDataID], "Content", rcrd_Parsers[DataID][SecondaryDataID]->Retrieve(Stream_Text, 0, "Content"), true);

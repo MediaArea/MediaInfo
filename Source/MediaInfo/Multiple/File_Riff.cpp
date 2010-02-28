@@ -110,6 +110,7 @@ File_Riff::File_Riff()
     IsBigEndian=false;
     IsWave64=false;
     IsRIFF64=false;
+    IsWaveBroken=false;
     SecondPass=false;
     DV_FromHeader=NULL;
     #if defined(MEDIAINFO_GXF_YES)
@@ -545,8 +546,9 @@ void File_Riff::Header_Parse()
 
     //Filling
     Header_Fill_Code(Name, Ztring().From_CC4(Name));
-    if ((Name==Elements::WAVE || Name==Elements::WAVE_data)
-     && File_Offset+Buffer_Offset+8+Size==(File_Size%0x100000000LL))
+    if (Element_Level==2 && Name==Elements::WAVE && !IsRIFF64 && File_Size>0xFFFFFFFF)
+        IsWaveBroken=true; //Non standard big files detection
+    if (IsWaveBroken && (Name==Elements::WAVE || Name==Elements::WAVE_data))
         Size_Complete=File_Size-(File_Offset+Buffer_Offset+8); //Non standard big files detection
     Header_Fill_Size(Size_Complete+8);
 }

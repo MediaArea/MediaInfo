@@ -131,6 +131,7 @@ private :
     bool   IsBigEndian;
     bool   IsWave64;
     bool   IsRIFF64;
+    bool   IsWaveBroken;
     bool   SecondPass;      //Second pass for streams
     File__Analyze*  DV_FromHeader;
     #if defined(MEDIAINFO_GXF_YES)
