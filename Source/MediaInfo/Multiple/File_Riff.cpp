@@ -129,7 +129,7 @@ File_Riff::~File_Riff()
 
     #if defined(MEDIAINFO_GXF_YES)
         for (size_t DataID=0; DataID<rcrd_Parsers.size(); DataID++)
-            for (size_t SecondaryDataID=0; SecondaryDataID<rcrd_Parsers[SecondaryDataID].size(); SecondaryDataID++)
+            for (size_t SecondaryDataID=0; SecondaryDataID<rcrd_Parsers[DataID].size(); SecondaryDataID++)
                 delete rcrd_Parsers[DataID][SecondaryDataID]; //rcrd_Parsers[DataID][SecondaryDataID]=NULL;
     #endif //MEDIAINFO_GXF_YES
 }
