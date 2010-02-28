@@ -238,11 +238,11 @@ void File_Cdp::ccdata_section()
             {
                 if (cc_type>=2)
                     ((File_Eia708*)CC_Parsers[2])->cc_type=cc_type;
-                Element_Begin(Ztring(_T("ReorderedCaptions,"))+Ztring().From_Local(Cdp_cc_type(cc_type)));
-                Open_Buffer_Init(CC_Parsers[Parser_Pos]);
-                Open_Buffer_Continue(CC_Parsers[Parser_Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, 2);
+                //Element_Begin(Ztring(_T("ReorderedCaptions,"))+Ztring().From_Local(Cdp_cc_type(cc_type)));
+                //Open_Buffer_Init(CC_Parsers[Parser_Pos]);
+                //Open_Buffer_Continue(CC_Parsers[Parser_Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, 2);
                 Element_Offset+=2;
-                Element_End();
+                //Element_End();
 
                 //Finish
                 if (MediaInfoLib::Config.ParseSpeed_Get()<1 && CC_Parsers[Parser_Pos]->Status[IsFilled])

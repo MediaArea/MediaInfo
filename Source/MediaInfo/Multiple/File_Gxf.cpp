@@ -252,6 +252,10 @@ File_Gxf::~File_Gxf()
 //---------------------------------------------------------------------------
 void File_Gxf::Streams_Finish()
 {
+    //For each Streams
+    for (size_t StreamID=0; StreamID<Streams.size(); StreamID++)
+        Streams_Finish_PerStream(StreamID, Streams[StreamID]);
+
     //Global
     if (Material_Fields_First_IsValid && Material_Fields_Last_IsValid && Material_Fields_FieldsPerFrame!=(int8u)-1)
     {
