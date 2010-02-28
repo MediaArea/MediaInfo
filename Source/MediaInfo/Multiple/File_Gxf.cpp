@@ -844,7 +844,7 @@ void File_Gxf::UMF_file()
     Element_Name("UMF file");
 
     //Parsing
-    int32u PayloadDataLength, Tracks, Segments;
+    int32u PayloadDataLength;
     Element_Begin("Preamble");
         Skip_B1(                                                "First/last packet flag");
         Get_B4 (PayloadDataLength,                              "Payload data length");
