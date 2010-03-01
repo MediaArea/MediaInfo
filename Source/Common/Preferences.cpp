@@ -452,6 +452,7 @@ int Preferences::ExplorerShell()
         ".flv;FlashVideoFile\r\n"
         ".gvi;AVIFile\r\n"
         ".h264;H264File\r\n"
+        ".hdmov;MOVFile\r\n"
         ".ifo;IfoFile\r\n"
         ".isma;ISMAFile\r\n"
         ".ismv;ISMVFile\r\n"
