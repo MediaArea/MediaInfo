@@ -193,6 +193,7 @@ private :
     void Segment_Tracks_TrackEntry_CodecName();
     void Segment_Tracks_TrackEntry_CodecPrivate();
     void Segment_Tracks_TrackEntry_CodecPrivate_auds();
+    void Segment_Tracks_TrackEntry_CodecPrivate_auds_ExtensibleWave();
     void Segment_Tracks_TrackEntry_CodecPrivate_vids();
     void Segment_Tracks_TrackEntry_DefaultDuration();
     void Segment_Tracks_TrackEntry_FlagDefault();
