@@ -1412,7 +1412,6 @@ void File_Riff::AVI__hdlr_strl_strf_auds_ExtensibleWave()
         Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions, ExtensibleWave_ChannelMask(ChannelMask));
         Fill(Stream_Audio, StreamPos_Last, Audio_ChannelPositions_String2, ExtensibleWave_ChannelMask2(ChannelMask));
     FILLING_END();
-
 }
 
 //---------------------------------------------------------------------------
