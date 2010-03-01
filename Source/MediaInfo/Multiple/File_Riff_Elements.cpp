@@ -410,6 +410,7 @@ namespace Elements
     const int32u WAVE__pmx=0x20786D70;
     const int32u WAVE_aXML=0x61584D4C;
     const int32u WAVE_bext=0x62657874;
+    const int32u WAVE_cue_=0x63756520;
     const int32u WAVE_data=0x64617461;
     const int32u WAVE_ds64=0x64733634;
     const int32u WAVE_fact=0x66616374;
@@ -584,6 +585,7 @@ void File_Riff::Data_Parse()
             ATOM_END
         LIST(WAVE_data)
             break;
+        ATOM(WAVE_cue_)
         ATOM(WAVE_ds64)
         ATOM(WAVE_fact)
         ATOM(WAVE_fmt_)
@@ -2924,6 +2926,27 @@ void File_Riff::WAVE_bext()
         Fill(Stream_General, 0, General_Encoded_Date, _T("UTC ")+OriginationDate+_T(' ')+OriginationTime);
         Fill(Stream_General, 0, General_Encoded_Library_Settings, History);
     FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+void File_Riff::WAVE_cue_()
+{
+    Element_Name("Cue points");
+
+    //Parsing
+    int32u numCuePoints;
+    Get_L4(numCuePoints,                                        "numCuePoints");
+    for (int32u Pos=0; Pos<numCuePoints; Pos++)
+    {
+        Element_Begin("Cue point");
+        Skip_L4(                                                "ID");
+        Skip_L4(                                                "Position");
+        Skip_C4(                                                "DataChunkID");
+        Skip_L4(                                                "ChunkStart");
+        Skip_L4(                                                "BlockStart");
+        Skip_L4(                                                "SampleOffset");
+        Element_End();
+    }
 }
 
 //---------------------------------------------------------------------------

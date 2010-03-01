@@ -249,6 +249,7 @@ private :
     void WAVE__pmx ();
     void WAVE_aXML ();
     void WAVE_bext ();
+    void WAVE_cue_ ();
     void WAVE_data ();
     void WAVE_ds64 ();
     void WAVE_fact ();
