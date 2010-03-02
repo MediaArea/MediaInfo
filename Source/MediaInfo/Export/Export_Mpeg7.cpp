@@ -175,7 +175,7 @@ Ztring Mpeg7_FileFormatCS_Name(int32u termID, MediaInfo_Internal &MI) //xxyyzz: 
     {
         case  1 : return _T("jpeg");
         case  2 : return _T("JPEG 2000");
-        case  3 : return _T("mpeg");
+        case  3 : return MI.Get(Stream_General, 0, General_Format)==_T("MPEG-TS")?_T("mpeg-ts"):_T("mpeg-ps"); //Should be "mpeg", but hack to fill PS or TS info
         case  4 : return _T("mp3");
         case  5 : return _T("mp4");
         case  6 : return _T("dv");
@@ -341,6 +341,8 @@ int32u Mpeg7_SystemCS_termID(MediaInfo_Internal &MI, size_t StreamPos)
 {
     if (MI.Get(Stream_Video, StreamPos, Video_Standard)==_T("PAL"))
         return 10000;
+    if (MI.Get(Stream_Video, StreamPos, Video_Standard)==_T("SECAM"))
+        return 20000;
     if (MI.Get(Stream_Video, StreamPos, Video_Standard)==_T("NTSC"))
         return 30000;
     return 0;
@@ -351,6 +353,7 @@ Ztring Mpeg7_SystemCS_Name(int32u termID) //xxyyzz: xx=main number, yy=sub-numbe
     switch (termID/10000)
     {
         case  1 : return _T("PAL");
+        case  2 : return _T("SECAM");
         case  3 : return _T("NTSC");
         default : return Ztring();
     }
@@ -802,6 +805,20 @@ Ztring Export_Mpeg7::Transform(MediaInfo_Internal &MI)
     ToReturn+=_T("<Mpeg7 xmlns=\"urn:mpeg:mpeg7:schema:2004\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:mpeg7=\"urn:mpeg:mpeg7:schema:2004\" xsi:schemaLocation=\"urn:mpeg:mpeg7:schema:2004 http://standards.iso.org/ittf/PubliclyAvailableStandards/MPEG-7_schema_files/mpeg7-v2.xsd\">\n");
     ToReturn+=_T("\t<!-- Generated at ")+TimeS+_T(" by ")+MediaInfoLib::Config.Info_Version_Get()+_T(" -->\n");
 
+    //Description - DescriptionMetadata
+    {
+        ToReturn+=_T("\t<DescriptionMetadata>\n");
+        ToReturn+=_T("\t\t<LastUpdate>")+TimeS+_T("</LastUpdate>\n");
+        if (!MI.Get(Stream_General, 0, General_CompleteName).empty())
+            ToReturn+=_T("\t\t<PrivateIdentifier type=\"FileName\">")+MI.Get(Stream_General, 0, General_CompleteName)+_T("</PrivateIdentifier>\n");
+        ToReturn+=_T("\t\t<Instrument>\n");
+        ToReturn+=_T("\t\t\t<Tool>\n");
+        ToReturn+=_T("\t\t\t\t<Name>")+MediaInfoLib::Config.Info_Version_Get()+_T("</Name>\n");
+        ToReturn+=_T("\t\t\t</Tool>\n");
+        ToReturn+=_T("\t\t</Instrument>\n");
+        ToReturn+=_T("\t</DescriptionMetadata>\n");
+    }
+
     //Description - CreationDescription
     if (!MI.Get(Stream_General, 0, General_Movie).empty()
      || !MI.Get(Stream_General, 0, General_Track).empty()
@@ -818,12 +835,93 @@ Ztring Export_Mpeg7::Transform(MediaInfo_Internal &MI)
             ToReturn+=_T("\t\t\t\t<Title type=\"songTitle\">")+MI.Get(Stream_General, 0, General_Title)+_T("</Title>\n");
         if (!MI.Get(Stream_General, 0, General_Album).empty())
             ToReturn+=_T("\t\t\t\t<Title type=\"albumTitle\">")+MI.Get(Stream_General, 0, General_Album)+_T("</Title>\n");
+        if (!MI.Get(Stream_General, 0, General_WrittenBy).empty())
+        {
+            ToReturn+=_T("\t\t\t\t<Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:AUTHOR\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_WrittenBy)+_T("</Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
+            ToReturn+=_T("\t\t\t\t</Creator>\n");
+        }
         if (!MI.Get(Stream_General, 0, General_Performer).empty())
         {
             ToReturn+=_T("\t\t\t\t<Creator>\n");
             ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:PERFORMER\"/>\n");
             ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
             ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_Performer)+_T("</Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
+            ToReturn+=_T("\t\t\t\t</Creator>\n");
+        }
+        if (!MI.Get(Stream_General, 0, General_ExecutiveProducer).empty())
+        {
+            ToReturn+=_T("\t\t\t\t<Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:EXECUTIVE-PRODUCER\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_ExecutiveProducer)+_T("</Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
+            ToReturn+=_T("\t\t\t\t</Creator>\n");
+        }
+        if (!MI.Get(Stream_General, 0, General_Producer).empty())
+        {
+            ToReturn+=_T("\t\t\t\t<Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:PRODUCER\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_Producer)+_T("</Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
+            ToReturn+=_T("\t\t\t\t</Creator>\n");
+        }
+        if (!MI.Get(Stream_General, 0, General_Director).empty())
+        {
+            ToReturn+=_T("\t\t\t\t<Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:PRODUCER\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_Director)+_T("</Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
+            ToReturn+=_T("\t\t\t\t</Creator>\n");
+        }
+        if (!MI.Get(Stream_General, 0, General_Composer).empty())
+        {
+            ToReturn+=_T("\t\t\t\t<Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:COMPOSER\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_Composer)+_T("</Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
+            ToReturn+=_T("\t\t\t\t</Creator>\n");
+        }
+        if (!MI.Get(Stream_General, 0, General_CostumeDesigner).empty())
+        {
+            ToReturn+=_T("\t\t\t\t<Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:COSTUME-SUPERVISOR\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_CostumeDesigner)+_T("</Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
+            ToReturn+=_T("\t\t\t\t</Creator>\n");
+        }
+        if (!MI.Get(Stream_General, 0, General_ProductionDesigner).empty())
+        {
+            ToReturn+=_T("\t\t\t\t<Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:PRODUCTION-DESIGNER\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_ProductionDesigner)+_T("</Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
+            ToReturn+=_T("\t\t\t\t</Creator>\n");
+        }
+        if (!MI.Get(Stream_General, 0, General_Publisher).empty())
+        {
+            ToReturn+=_T("\t\t\t\t<Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:PUBLISHER\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_Publisher)+_T("</Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
+            ToReturn+=_T("\t\t\t\t</Creator>\n");
+        }
+        if (!MI.Get(Stream_General, 0, General_DistributedBy).empty())
+        {
+            ToReturn+=_T("\t\t\t\t<Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:DISTRIBUTOR\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_DistributedBy)+_T("</Name>\n");
             ToReturn+=_T("\t\t\t\t\t</Agent>\n");
             ToReturn+=_T("\t\t\t\t</Creator>\n");
         }
