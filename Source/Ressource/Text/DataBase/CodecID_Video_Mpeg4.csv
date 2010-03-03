@@ -8,6 +8,7 @@ apcn;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:2:
 avc1;AVC;;Advanced Video Coding;http://www.apple.com/quicktime/download/standalone.html;;;
 avcp;AVC;;Advanced Video Coding Parameters;http://www.apple.com/quicktime/download/standalone.html;;;
 AVdv;Digital Video;;Avid;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+AVdn;VC-3;DNxHD;Avid;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
 avr ;M-JPEG;;;;;;
 b16g;Gray;;;;;;G 16
 b32a;Gray/Alpha;;;;;;GA 16:16
@@ -27,14 +28,14 @@ dv5n;Digital Video;DVCPRO50;;http://www.apple.com/quicktime/download/standalone.
 dv5p;Digital Video;DVCPRO50;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
 dvc ;Digital Video;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
 dvcp;Digital Video;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvh1;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvh2;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvh3;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvh4;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvh5;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvh6;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvhp;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
-dvhq;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh1;Digital Video;DVCPROHD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh2;Digital Video;DVCPROHD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh3;Digital Video;DVCPROHD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh4;Digital Video;DVCPROHD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh5;Digital Video;DVCPROHD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvh6;Digital Video;DVCPROHD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvhp;Digital Video;DVCPROHD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+dvhq;Digital Video;DVCPROHD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
 DVOO;Digital Voodoo;;Digital Voodoo 8 bit Uncompressed 4:2:2 codec;http://www.digitalvoodoo.net/;;;
 DVOR;Digital Voodoo;;Digital Voodoo intermediate raw;http://www.digitalvoodoo.net/;;;
 dvpp;Digital Video;DVCPRO;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
@@ -46,7 +47,7 @@ h261;H.261;;;http://www.apple.com/quicktime/download/standalone.html;;;
 h263;H.263;;;http://www.apple.com/quicktime/download/standalone.html;;;
 h264;H.264;;;http://www.apple.com/quicktime/download/standalone.html;;;
 HD10;Digital Voodoo;;Digital Voodoo 10 bit Uncompressed 4:2:2 HD codec;http://www.digitalvoodoo.net/;;;
-hdv3;Digital Video;DVCPRO HD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
+hdv3;Digital Video;DVCPROHD;;http://www.apple.com/quicktime/download/standalone.html;;;YUV 4:1:1
 icod;Intermediate Codec;Apple;;http://www.apple.com/quicktime/download/standalone.html;;;
 j420;YUV;;;;;;YUV 4:2:0
 jpeg;M-JPEG;;;http://www.apple.com/quicktime/download/standalone.html;;;
@@ -77,7 +78,7 @@ SVQ3;Sorenson 3;;Sorenson Media Video 3 (Apple QuickTime 5);http://www.apple.com
 v210;YUV;AJA Video Systems Xena;;;;;YUV 4:2:2
 vc-1;VC-1;;SMPTE VC-1;http://www.smpte.org/;;;
 WRLE;Bitmap;;Windows BMP image format;http://www.apple.com/quicktime/download/standalone.html;;;
-xd50;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
+xd50;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
 xd51;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
 xd52;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
 xd53;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
@@ -94,21 +95,21 @@ xd5d;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
 xd5e;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
 xd5f;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
 xdv0;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
-xdv1;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
-xdv2;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
-xdv3;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
-xdv4;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
-xdv5;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
-xdv6;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
-xdv7;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
-xdv8;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
-xdv9;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
-xdva;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
-xdvb;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
-xdvc;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
-xdvd;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
-xdve;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
-xdvf;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html;;;
+xdv1;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdv2;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdv3;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdv4;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdv5;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdv6;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdv7;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdv8;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdv9;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdva;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdvb;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdvc;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdvd;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdve;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
+xdvf;MPEG Video;XDCAM;;http://www.apple.com/quicktime/download/standalone.html
 yuv2;YUV;;;;;;YUV 4:2:2
 yuvs;YUV;;;;;;YUV 4:2:2
 yuvu;YUV;;;;;;YUV 4:2:2
