@@ -28,6 +28,9 @@
 #include "MediaInfo/Export/Export_Mpeg7.h"
 #include "MediaInfo/File__Analyse_Automatic.h"
 #include <ctime>
+#ifdef SS
+   #undef SS //Solaris defines this somewhere
+#endif
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib

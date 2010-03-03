@@ -1,0 +1,76 @@
+#!/bin/sh
+
+#Config
+pkg=libmediainfo0
+pkgfile=$pkg-0.4.11-Solaris_10.i386.pkg.tgz
+pkgfiledevel=$pkg-devel-0.4.11-Solaris_10.i386.pkg.tgz
+
+#Must be root
+if [ "$(id -u)" != "0" ]; then
+    echo "$0 must be run as root"
+    exit 1
+fi
+
+#Compile and install
+Home=`pwd`
+cd ../GNU/Library
+./autogen
+./configure --prefix=/usr --enable-shared --disable-static
+make
+make install
+cd $Home
+#include
+install -d -m 755 /usr/include/MediaInfo
+cp ../../Source/MediaInfo/MediaInfo.h /usr/include/MediaInfo/
+cp ../../Source/MediaInfo/MediaInfoList.h /usr/include/MediaInfo/
+cp ../../Source/MediaInfo/MediaInfo_Const.h /usr/include/MediaInfo/
+chown -R root /usr/include/MediaInfo
+chgrp -R bin /usr/include/MediaInfo
+install -d -m 755 /usr/include/MediaInfoDLL
+cp ../../Source/MediaInfoDLL/MediaInfoDLL.cs /usr/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL.h /usr/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL_Static.h /usr/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL.JNA.java /usr/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL.JNative.java /usr/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL.py /usr/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL3.py /usr/include/MediaInfoDLL/
+chown -R root /usr/include/MediaInfoDLL
+chgrp -R bin /usr/include/MediaInfoDLL
+#doc
+install -d -m 755 /usr/share/doc/libmediainfo0
+cp ../../*.txt /usr/share/doc/libmediainfo0
+mv /usr/share/doc/libmediainfo0/History_DLL.txt /usr/share/doc/libmediainfo0/History.txt
+cp ../../License.html /usr/share/doc/libmediainfo0
+chown -R root /usr/share/doc/libmediainfo0
+chgrp -R bin /usr/share/doc/libmediainfo0
+install -d -m 755 /usr/share/doc/libmediainfo0-devel/Example
+cp ../../Source/Example/HowToUse_Dll* /usr/share/doc/libmediainfo0-devel/Example
+chown -R root /usr/share/doc/libmediainfo0-devel
+chgrp -R bin /usr/share/doc/libmediainfo0-devel
+#bin
+cp ../GNU/Library/libmediainfo-config /usr/bin
+chown -R root /usr/bin/libmediainfo*
+chgrp -R bin /usr/bin/libmediainfo*
+
+#Packaging
+rm -r packages
+mkdir packages
+pkgmk -o -r / -d ./packages -f libmediainfo0/prototype
+pkgmk -o -r / -d ./packages -f libmediainfo0-devel/prototype
+#pkgtrans -s ./ ./ libmediainfo0
+cd packages
+tar -cf - $pkg | gzip -9 -c >$pkgfile
+tar -cf - $pkg-devel | gzip -9 -c >$pkgfiledevel
+cd ..
+mv packages/*.tgz ./
+
+#removing files
+rm -r /usr/include/MediaInfoLib
+rm /usr/bin/libmediainfo*
+rm /usr/lib/libmediainfo*
+rm -r /usr/share/doc/libmediainfo0
+rm -r packages
+
+#hints
+#install: pkgadd -d./ libmediainfo0
+#remove: pkgrm libmediainfo0, remove /var/spool/pkg/libmediainfo0

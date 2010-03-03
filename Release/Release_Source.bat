@@ -91,6 +91,7 @@ xcopy ..\Project\NetBeans\Example.JNative\*.properties MediaInfo_Lib_Source\Proj
 xcopy ..\Project\NetBeans\Example.JNative\*.mf MediaInfo_Lib_Source\Project\NetBeans\Example.JNative\
 xcopy ..\Project\NetBeans\Example.JNative\*.txt MediaInfo_Lib_Source\Project\NetBeans\Example.JNative\
 xcopy ..\Project\NetBeans\Example.JNative\src\*.java MediaInfo_Lib_Source\Project\NetBeans\Example.JNative\src\
+xcopy ..\Project\Solaris\* MediaInfo_Lib_Source\Project\Solaris\ /S
 
 @rem --- Copying : Release ---
 xcopy *.txt MediaInfo_Lib_Source\Release\

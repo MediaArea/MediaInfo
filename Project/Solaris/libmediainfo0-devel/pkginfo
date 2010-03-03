@@ -1,0 +1,10 @@
+PKG=libmediainfo0-devel
+VERSION=0.4.11
+ARCH=i386
+NAME=libmediainfo-devel 0.4.11 i386 Solaris 10
+DESC=Supplies technical and tag information about a video or audio file (Library), devel
+CLASSES=none
+CATEGORY=utility
+VENDOR=MediaArea.net
+EMAIL=Info@MediaArea.net
+BASEDIR=/

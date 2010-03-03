@@ -1,0 +1,34 @@
+i pkginfo
+i depend
+i checkinstall
+d none /usr ? ? ?
+d none /usr/bin ? ? ?
+f none /usr/bin/libmediainfo-config 0744 root bin
+d none /usr ? ? ?
+d none /usr/include ? ? ?
+d none /usr/include/MediaInfo 0755 root bin
+f none /usr/include/MediaInfo/MediaInfo_Const.h 0755 root bin
+f none /usr/include/MediaInfo/MediaInfoList.h 0755 root bin
+f none /usr/include/MediaInfo/MediaInfo.h 0755 root bin
+d none /usr/include/MediaInfoDLL 0755 root bin
+f none /usr/include/MediaInfoDLL/MediaInfoDLL.h 0755 root bin
+f none /usr/include/MediaInfoDLL/MediaInfoDLL.py 0755 root bin
+f none /usr/include/MediaInfoDLL/MediaInfoDLL_Static.h 0755 root bin
+f none /usr/include/MediaInfoDLL/MediaInfoDLL.JNative.java 0755 root bin
+f none /usr/include/MediaInfoDLL/MediaInfoDLL.cs 0755 root bin
+f none /usr/include/MediaInfoDLL/MediaInfoDLL.JNA.java 0755 root bin
+f none /usr/include/MediaInfoDLL/MediaInfoDLL3.py 0755 root bin
+d none /usr ? ? ?
+d none /usr/share ? ? ?
+d none /usr/share/doc ? ? ?
+d none /usr/share/doc/libmediainfo0-devel 0755 root bin
+d none /usr/share/doc/libmediainfo0-devel/Example 0755 root bin
+f none /usr/share/doc/libmediainfo0-devel/Example/HowToUse_Dll_CLI.cs 0755 root bin
+f none /usr/share/doc/libmediainfo0-devel/Example/HowToUse_Dll.cs 0755 root bin
+f none /usr/share/doc/libmediainfo0-devel/Example/HowToUse_Dll.cpp 0755 root bin
+f none /usr/share/doc/libmediainfo0-devel/Example/HowToUse_Dll3.py 0755 root bin
+f none /usr/share/doc/libmediainfo0-devel/Example/HowToUse_Dll.JNA.java 0755 root bin
+f none /usr/share/doc/libmediainfo0-devel/Example/HowToUse_Dll.JNative.java 0755 root bin
+f none /usr/share/doc/libmediainfo0-devel/Example/HowToUse_Dll.py 0755 root bin
+f none /usr/share/doc/libmediainfo0-devel/Example/HowToUse_Dll.au3 0755 root bin
+

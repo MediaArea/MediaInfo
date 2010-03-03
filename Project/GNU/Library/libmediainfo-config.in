@@ -10,3 +10,6 @@ fi
 if test "$1" = "Unicode"; then
 echo @MediaInfoLib_Unicode@
 fi
+if test "$1" = "Exists"; then
+echo yes
+fi
