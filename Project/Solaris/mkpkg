@@ -1,0 +1,47 @@
+#!/bin/sh
+
+#Config
+pkg=mediainfo
+pkgfile=$pkg-0.4.11-Solaris_10.i386.pkg.tgz
+
+#Must be root
+if [ "$(id -u)" != "0" ]; then
+    echo "$0 must be run as root"
+    exit 1
+fi
+
+#Compile and install
+Home=`pwd`
+cd ../GNU/CLI
+./autogen
+./configure --prefix=/usr
+make
+make install
+cd $Home
+#doc
+install -d -m 755 /usr/share/doc/mediainfo
+cp ../../*.txt /usr/share/doc/mediainfo
+cp ../../Release/MediaInfo_CLI_Linux.txt /usr/share/doc/mediainfo/ReadMe.txt
+mv /usr/share/doc/mediainfo/History_CLI.txt /usr/share/doc/mediainfo/History.txt
+cp ../../License.html /usr/share/doc/mediainfo
+chown -R root /usr/share/doc/mediainfo
+chgrp -R bin /usr/share/doc/mediainfo
+
+#Packaging
+rm -r packages
+mkdir packages
+pkgmk -o -r / -d ./packages -f mediainfo/prototype
+#pkgtrans -s ./ ./ mediainfo
+cd packages
+tar -cf - $pkg | gzip -9 -c >$pkgfile
+cd ..
+mv packages/*.tgz ./
+
+#removing files
+rm /usr/bin/mediainfo
+rm -r /usr/share/doc/mediainfo
+rm -r packages
+
+#hints
+#install: pkgadd -d./ mediainfo
+#remove: pkgrm mediainfo, remove /var/spool/pkg/mediainfo

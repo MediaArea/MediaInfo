@@ -51,6 +51,7 @@ xcopy ..\Project\*.bat MediaInfo_Source\Project\ /S
 xcopy ..\Project\BCB\MediaInfo*.res MediaInfo_Source\Project\BCB /S
 xcopy ..\Project\MSVC\*.rc MediaInfo_Source\Project\MSVC\ /S
 xcopy ..\Project\GNU\* MediaInfo_Source\Project\GNU\ /S
+xcopy ..\Project\Solaris\* MediaInfo_Source\Project\Solaris\ /S
 
 @rem --- Copying : Release ---
 xcopy *.txt MediaInfo_Source\Release\

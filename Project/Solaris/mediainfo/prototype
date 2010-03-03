@@ -1,0 +1,11 @@
+i pkginfo
+i depend
+i checkinstall
+d none /usr 0755 root bin
+d none /usr/bin 0755 root bin
+f none /usr/bin/mediainfo 0755 root bin
+d none /usr/share/doc/mediainfo 0755 root bin
+f none /usr/share/doc/mediainfo/ReadMe.txt 0644 root bin
+f none /usr/share/doc/mediainfo/History.txt 0644 root bin
+f none /usr/share/doc/mediainfo/License.html 0644 root bin
+
