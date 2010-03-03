@@ -15,6 +15,7 @@ Version 0.7.29, 2010-
 + PCM in MKV: format name, channel positions
 + MPEG-7 and PBCore 1.2 output (pre-release)
 + MPEG-7: more metadata
++ Solaris package creation files
 x Channel positions: more coherency in the naming
 
 Version 0.7.28, 2010-02-19
