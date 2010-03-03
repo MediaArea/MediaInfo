@@ -181,10 +181,10 @@ const char* MP4_ChannelConfiguration[]=
     "Front: C",
     "Front: L R",
     "Front: L C R",
-    "Front: L C R, Surround: C",
-    "Front: L C R, Surround: L R",
-    "Front: L C R, Surround: L R, LFE",
-    "Front: L C R, Surround: L R, Back: L R, LFE",
+    "Front: L C R, Side: C",
+    "Front: L C R, Side: L R",
+    "Front: L C R, Side: L R, LFE",
+    "Front: L C R, Side: L R, Back: L R, LFE",
     "",
     "",
     "",
@@ -567,10 +567,10 @@ void File_Mpeg4_AudioSpecificConfig::GASpecificConfig ()
         switch (Channels_Side)
         {
             case  0 : break;
-            case  1 : Channels_Positions+=_T(", Surround: C"); break;
-            case  2 : Channels_Positions+=_T(", Surround: L R"); break;
-            case  3 : Channels_Positions+=_T(", Surround: L C R"); break;
-            default : Channels_Positions+=_T(", Surround: "); Channels_Positions+=Ztring::ToZtring(Channels_Side); //Which config?
+            case  1 : Channels_Positions+=_T(", Side: C"); break;
+            case  2 : Channels_Positions+=_T(", Side: L R"); break;
+            case  3 : Channels_Positions+=_T(", Side: L C R"); break;
+            default : Channels_Positions+=_T(", Side: "); Channels_Positions+=Ztring::ToZtring(Channels_Side); //Which config?
         }
         switch (Channels_Back)
         {

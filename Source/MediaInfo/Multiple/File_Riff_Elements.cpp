@@ -113,7 +113,7 @@ std::string ExtensibleWave_ChannelMask (int32u ChannelMask)
         Text+=" R";
 
     if ((ChannelMask&0x0600)!=0x0000)
-        Text+=", Surround:";
+        Text+=", Side:";
     if (ChannelMask&0x0200)
         Text+=" L";
     if (ChannelMask&0x0400)

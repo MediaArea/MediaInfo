@@ -3419,7 +3419,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsz()
 
     if (Sample_Size>0)
     {
-        Stream_Size=Sample_Size*Sample_Count;
+        Stream_Size=Sample_Size; Stream_Size*=Sample_Count;
 
         Stream[moov_trak_tkhd_TrackID].stsz.resize((Sample_Count<=300 || MediaInfoLib::Config.ParseSpeed_Get()==1.00)?Sample_Count:300, Sample_Size);
 

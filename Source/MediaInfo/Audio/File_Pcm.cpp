@@ -57,11 +57,11 @@ const char* Pcm_VOB_ChannelsPositions(int8u NumberOfChannels)
         case  1 : return "Front: C";                                    //1 channel
         case  2 : return "Front: L R";                                  //2 channels
         case  3 : return "Front: L R, LFE";                             //3 channels (not sure)
-        case  4 : return "Front: L R, Surround: L R";                   //4 channels
-        case  5 : return "Front: L R, Surround: L R, LFE";              //5 channels (not sure)
-        case  6 : return "Front: L C R, Surround: L R, LFE";            //6 channels
-        case  7 : return "Front: L C R, Surround: L R, Back: L R";      //7 channels
-        case  8 : return "Front: L C R, Surround: L R, Back: L R, LFE"; //8 channels
+        case  4 : return "Front: L R, Side: L R";                       //4 channels
+        case  5 : return "Front: L R, Side: L R, LFE";                  //5 channels (not sure)
+        case  6 : return "Front: L C R, Side: L R, LFE";                //6 channels
+        case  7 : return "Front: L C R, Side: L R, Back: L R";          //7 channels
+        case  8 : return "Front: L C R, Side: L R, Back: L R, LFE";     //8 channels
         default : return "";
     }
 }

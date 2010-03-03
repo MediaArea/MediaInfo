@@ -134,10 +134,10 @@ const char*  AC3_ChannelPositions[]=
     "Front: C",
     "Front: L R",
     "Front: L C R",
-    "Front: L R,   Surround: C",
-    "Front: L C R, Surround: C",
-    "Front: L R,   Surround: L R",
-    "Front: L C R, Surround: L R",
+    "Front: L R,   Side: C",
+    "Front: L C R, Side: C",
+    "Front: L R,   Side: L R",
+    "Front: L C R, Side: L R",
 };
 
 //---------------------------------------------------------------------------
@@ -357,7 +357,7 @@ std::string AC3_TrueHD_Channels_Positions(int16u ChannelsMap)
     }
 
     if (ChannelsMap&0x08)
-        Text+=", Surround: L R";
+        Text+=", Side: L R";
 
     if (ChannelsMap&0x80)
         Text+=", Back: C";

@@ -86,16 +86,16 @@ const char*  DTS_ChannelPositions[]=
     "Front: L R",
     "Front: L R",
     "Front: L C R",
-    "Front: L R, Surround: C",
-    "Front: L C R, Surround: C",
-    "Front: L R, Surround: L R",
-    "Front: L C R, Surround: L R",
-    "Front: L R, Surround: L R, Back: L R",
-    "Front: L C R, Surround: L R",
-    "Front: L R, Surround: L R, Back: L R",
-    "Front: L C R, Surround: L R, Back: L R",
-    "Front: L R, Surround: L R, Back: L C C R",
-    "Front: L C R, Surround: L R, Back: L C R",
+    "Front: L R, Side: C",
+    "Front: L C R, Side: C",
+    "Front: L R, Side: L R",
+    "Front: L C R, Side: L R",
+    "Front: L R, Side: L R, Back: L R",
+    "Front: L C R, Side: L R",
+    "Front: L R, Side: L R, Back: L R",
+    "Front: L C R, Side: L R, Back: L R",
+    "Front: L R, Side: L R, Back: L C C R",
+    "Front: L C R, Side: L R, Back: L C R",
 };
 
 //---------------------------------------------------------------------------
@@ -156,7 +156,7 @@ std::string DTS_HD_SpeakerActivityMask (int16u SpeakerActivityMask)
     }
 
     if (SpeakerActivityMask&0x0004)
-        Text+=", Surround: L R";
+        Text+=", Side: L R";
 
     if (SpeakerActivityMask&0x0010)
         Text+=", Back: C";
@@ -172,7 +172,7 @@ std::string DTS_HD_SpeakerActivityMask (int16u SpeakerActivityMask)
     }
 
     if (SpeakerActivityMask&0x0800)
-        Text+=", Surround: L R";
+        Text+=", Side: L R";
 
     if (SpeakerActivityMask&0x0040)
         Text+=", Back: L R";
@@ -438,12 +438,12 @@ void File_Dts::Streams_Fill()
         {
             case 1 :
                     Fill(Stream_Audio, 0, Audio_Channel_s_, 7);
-                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Surround: L R, Back: C")+(lfe_effects?_T(", LFE"):_T("")));
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Side: L R, Back: C")+(lfe_effects?_T(", LFE"):_T("")));
                     Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Ztring("3/2/1")+(lfe_effects?_T(".1"):_T(".0")));
                     break;
             case 2 :
                     Fill(Stream_Audio, 0, Audio_Channel_s_, 8);
-                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Surround: L R, Back: L R")+(lfe_effects?_T(", LFE"):_T("")));
+                    Fill(Stream_Audio, 0, Audio_ChannelPositions, Ztring("Front: L C R, Side: L R, Back: L R")+(lfe_effects?_T(", LFE"):_T("")));
                     Fill(Stream_Audio, 0, Audio_ChannelPositions_String2, Ztring("3/2/2")+(lfe_effects?_T(".1"):_T(".0")));
                     break;
             default:;

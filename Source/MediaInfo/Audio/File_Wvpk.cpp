@@ -515,7 +515,7 @@ void File_Wvpk::Data_Parse_Fill()
             int8u Count=0;
             if (!Channels_Positions.empty())
                 Channels_Positions+=_T(", ");
-            Channels_Positions+=_T("Surround:");
+            Channels_Positions+=_T("Side:");
             if (channel_mask&0x0200)
             {
                 Channels_Positions+=_T(" L");
