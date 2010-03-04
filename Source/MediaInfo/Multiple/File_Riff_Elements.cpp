@@ -182,6 +182,15 @@ const char* Riff_Rcrd_DataServices(int8u DataID, int8u SecondaryDataID)
         return "Reserved for 8-bit applications";
     else if (DataID<=0x3F)
         return "Reserved";
+    else if (DataID==0x41)
+    {
+        //SMPTE 2016-3-2007
+        switch (SecondaryDataID)
+        {
+            case 0x05 : return "Bar Data";
+            default   : return "Internationally registered";
+        }
+    }
     else if (DataID==0x45)
     {
         //SMPTE 2020-1-2008
@@ -2647,6 +2656,56 @@ void File_Riff::rcrd_fld__anc__pyld()
                             switch (SecondaryDataID)
                             {
                                 case 0x01 : rcrd_Parsers[DataID][SecondaryDataID]=new File_Cdp(); rcrd_Parsers_Count++; break;
+                                default   : ;
+                                ;
+                            }
+                            break;
+                case 0x41 :
+                            switch (SecondaryDataID)
+                            {
+                                case 0x05 : //Bar data
+                                            {
+                                            //Saving real buffer
+                                            const int8u* Save_Buffer=Buffer;
+                                            size_t Save_Buffer_Offset=Buffer_Offset;
+                                            int64u Save_Element_Size=Element_Size;
+
+                                            //Replacing with the payload
+                                            Buffer=Payload;
+                                            Buffer_Offset=0;
+                                            Element_Offset=0;
+                                            Element_Size=DataCount;
+
+                                            //Parsing
+                                            int8u AFD;
+                                            bool AR, Top, Bottom, Left, Right;
+                                            BS_Begin();
+                                            Skip_SB(            "Reserved");
+                                            Get_S1 (4, AFD,     "AFD");
+                                            Get_SB (   AR,      "Aspect Ratio");
+                                            Skip_S1(2,          "Reserved");
+                                            BS_End();
+                                            Skip_B1(            "Reserved");
+                                            Skip_B1(            "Reserved");
+                                            BS_Begin();
+                                            Get_SB (Top,        "Top");
+                                            Get_SB (Bottom,     "Bottom");
+                                            Get_SB (Left,       "Left");
+                                            Get_SB (Right,      "Right");
+                                            Skip_S1(4,          "reserved");
+                                            BS_End();
+                                            Skip_B1(            "Value1");
+                                            Skip_B1(            "Value1");
+                                            Skip_B1(            "Value2");
+                                            Skip_B1(            "Value2");
+
+                                            //Replacing with the real buffer
+                                            Buffer=Save_Buffer;
+                                            Buffer_Offset=Save_Buffer_Offset;
+                                            Element_Offset=Save_Element_Size;
+                                            Element_Size=Save_Element_Size;
+                                            }
+                                            break;
                                 default   : ;
                                 ;
                             }

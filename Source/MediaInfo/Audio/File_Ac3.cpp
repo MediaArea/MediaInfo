@@ -375,7 +375,7 @@ std::string AC3_TrueHD_Channels_Positions(int16u ChannelsMap)
     if (ChannelsMap&0x0020)
         Text+=", c: L R";
     if (ChannelsMap&0x0040)
-        Text+=", rs: L R";
+        Text+=", Back: L R";
     if (ChannelsMap&0x0100)
         Text+=", s: T";
     if (ChannelsMap&0x0200)
