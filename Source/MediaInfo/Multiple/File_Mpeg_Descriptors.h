@@ -202,7 +202,9 @@ struct complete_stream
         bool                                        IsPCR;
         #ifdef MEDIAINFO_MPEGTS_PCR_YES
             int64u                                  TimeStamp_Start;
+            int64u                                  TimeStamp_Start_Offset;
             int64u                                  TimeStamp_End;
+            int64u                                  TimeStamp_End_Offset;
             int16u                                  PCR_PID; //If this PID has no PCR, decide which PCR should be used
         #endif //MEDIAINFO_MPEGTS_PCR_YES
         int32u                                      registration_format_identifier;
@@ -236,7 +238,9 @@ struct complete_stream
             IsPCR=false;
             #ifdef MEDIAINFO_MPEGTS_PCR_YES
                 TimeStamp_Start=(int64u)-1;
+                TimeStamp_Start_Offset=(int64u)-1;
                 TimeStamp_End=(int64u)-1;
+                TimeStamp_End_Offset=(int64u)-1;
                 PCR_PID=0x0000;
             #endif //MEDIAINFO_MPEGTS_PCR_YES
             registration_format_identifier=0x00000000;

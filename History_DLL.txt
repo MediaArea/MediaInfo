@@ -16,6 +16,7 @@ Version 0.7.29, 2010-
 + MPEG-7 and PBCore 1.2 output (pre-release)
 + MPEG-7: more metadata
 + Solaris package creation files
++ MPEG-TS overall bit rate is more precise
 x Channel positions: more coherency in the naming
 
 Version 0.7.28, 2010-02-19

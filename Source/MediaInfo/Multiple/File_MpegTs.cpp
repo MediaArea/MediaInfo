@@ -716,6 +716,7 @@ bool File_MpegTs::Synched_Test()
                                 {
                                     Header_Parse_Events_Duration(program_clock_reference);
                                     Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference;
+                                    Complete_Stream->Streams[pid].TimeStamp_End_Offset=File_Offset+Buffer_Offset;
                                     if (Status[IsFilled])
                                         Header_Parse_AdaptationField_Duration_Update();
                                 }
@@ -723,6 +724,7 @@ bool File_MpegTs::Synched_Test()
                                 {
                                     //This is the first PCR
                                     Complete_Stream->Streams[pid].TimeStamp_Start=program_clock_reference;
+                                    Complete_Stream->Streams[pid].TimeStamp_Start_Offset=File_Offset+Buffer_Offset;
                                     Complete_Stream->Streams[pid].Searching_TimeStamp_Start_Set(false);
                                     Complete_Stream->Streams[pid].Searching_TimeStamp_End_Set(true);
                                     Complete_Stream->Streams_With_StartTimeStampCount++;
@@ -814,6 +816,7 @@ void File_MpegTs::Read_Buffer_Unsynched()
         #if defined(MEDIAINFO_MPEGTS_PCR_YES) || defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
         Complete_Stream->Streams[StreamID].Searching_TimeStamp_Start_Set(false); //No more searching start
         Complete_Stream->Streams[StreamID].TimeStamp_End=(int64u)-1;
+        Complete_Stream->Streams[StreamID].TimeStamp_End_Offset=(int64u)-1;
         if (Complete_Stream->Streams[StreamID].TimeStamp_Start!=(int64u)-1)
             Complete_Stream->Streams[StreamID].Searching_TimeStamp_End_Set(true); //Searching only for a start found
         #endif //defined(MEDIAINFO_MPEGTS_PCR_YES) ||  defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
@@ -997,6 +1000,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                 {
                     Header_Parse_Events_Duration(program_clock_reference);
                     Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference;
+                    Complete_Stream->Streams[pid].TimeStamp_End_Offset=File_Offset+Buffer_Offset;
                     if (Status[IsFilled])
                         Header_Parse_AdaptationField_Duration_Update();
                 }
@@ -1004,6 +1008,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                 {
                     //This is the first PCR
                     Complete_Stream->Streams[pid].TimeStamp_Start=program_clock_reference;
+                    Complete_Stream->Streams[pid].TimeStamp_Start_Offset=File_Offset+Buffer_Offset;
                     Complete_Stream->Streams[pid].Searching_TimeStamp_Start_Set(false);
                     Complete_Stream->Streams[pid].Searching_TimeStamp_End_Set(true);
                     Complete_Stream->Streams_With_StartTimeStampCount++;
@@ -1140,6 +1145,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                 {
                     Header_Parse_Events_Duration(program_clock_reference);
                     Complete_Stream->Streams[pid].TimeStamp_End=program_clock_reference;
+                    Complete_Stream->Streams[pid].TimeStamp_End_Offset=File_Offset+Buffer_Offset;
                     if (Status[IsFilled])
                         Header_Parse_AdaptationField_Duration_Update();
                 }
@@ -1147,6 +1153,7 @@ void File_MpegTs::Header_Parse_AdaptationField()
                 {
                     //This is the first PCR
                     Complete_Stream->Streams[pid].TimeStamp_Start=program_clock_reference;
+                    Complete_Stream->Streams[pid].TimeStamp_Start_Offset=File_Offset+Buffer_Offset;
                     Complete_Stream->Streams[pid].Searching_TimeStamp_Start_Set(false);
                     Complete_Stream->Streams[pid].Searching_TimeStamp_End_Set(true);
                     Complete_Stream->Streams_With_StartTimeStampCount++;
@@ -1189,6 +1196,8 @@ void File_MpegTs::Header_Parse_AdaptationField_Duration_Update()
     float64 Duration_Current=Retrieve(Stream_General, 0, General_Duration).To_float64();
     if (Retrieve(Stream_General, 0, General_Duration).empty() || Duration>Duration_Current || Duration+700<Duration_Current) //If superior or too different
         Fill(Stream_General, 0, General_Duration, Duration, 6, true); //Only if greater than the current duration
+
+    Fill(Stream_General, 0, General_OverallBitRate, (Complete_Stream->Streams[pid].TimeStamp_End_Offset-Complete_Stream->Streams[pid].TimeStamp_Start_Offset)*8*1000/Duration, 0, true);
 
     //Filling menu duration
     if (Count_Get(Stream_Menu))
