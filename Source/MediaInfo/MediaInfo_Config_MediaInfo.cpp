@@ -409,15 +409,21 @@ Ztring MediaInfo_Config_MediaInfo::Event_CallBackFunction_Set (const Ztring &Val
 
     CriticalSectionLocker CSL(CS);
 
-    for (size_t Pos=0; Pos<List.size(); Pos++)
+    if (List.empty())
     {
-        if (List[Pos].find(_T("CallBack=memory://"))==0)
-            Event_CallBackFunction=(MediaInfo_Event_CallBackFunction*)Ztring(List[Pos].substr(18, std::string::npos)).To_int64u();
-        else if (List[Pos].find(_T("UserHandler=memory://"))==0)
-            Event_UserHandler=(void*)Ztring(List[Pos].substr(21, std::string::npos)).To_int64u();
-        else
-            return("Problem during Event_CallBackFunction value parsing");
+        Event_CallBackFunction=(MediaInfo_Event_CallBackFunction*)NULL;
+        Event_UserHandler=NULL;
     }
+    else
+        for (size_t Pos=0; Pos<List.size(); Pos++)
+        {
+            if (List[Pos].find(_T("CallBack=memory://"))==0)
+                Event_CallBackFunction=(MediaInfo_Event_CallBackFunction*)Ztring(List[Pos].substr(18, std::string::npos)).To_int64u();
+            else if (List[Pos].find(_T("UserHandler=memory://"))==0)
+                Event_UserHandler=(void*)Ztring(List[Pos].substr(21, std::string::npos)).To_int64u();
+            else
+                return("Problem during Event_CallBackFunction value parsing");
+        }
 
     return Ztring();
 }
