@@ -1,0 +1,583 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugA|Win32">
+      <Configuration>DebugA</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugA|x64">
+      <Configuration>DebugA</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseA|Win32">
+      <Configuration>ReleaseA</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseA|x64">
+      <Configuration>ReleaseA</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{20E0F8D6-213C-460B-B361-9C725CB375C7}</ProjectGuid>
+    <RootNamespace>MediaInfoLib</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugA|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugA|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30128.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\Intermediate\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\Intermediate\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\Intermediate\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\Intermediate\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'">$(Platform)\$(Configuration)\Intermediate\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugA|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugA|x64'">$(Platform)\$(Configuration)\Intermediate\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'">$(Platform)\$(Configuration)\Intermediate\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'">$(Platform)\$(Configuration)\Intermediate\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='DebugA|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='DebugA|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='DebugA|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MediaInfo</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MediaInfo</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'">MediaInfo</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'">MediaInfo</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='DebugA|x64'">MediaInfo</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MediaInfo</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'">MediaInfo</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MediaInfo</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB;MEDIAINFO_MINIMIZESIZE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4060;4065;4100;4127;4390;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4060;4065;4100;4127;4390;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <EnablePREfast>true</EnablePREfast>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_MINIMIZESIZE;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DisableSpecificWarnings>4060;4065;4100;4127;4390;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_MINIMIZESIZE;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DisableSpecificWarnings>4060;4065;4100;4127;4390;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4060;4065;4100;4127;4390;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <EnablePREfast>true</EnablePREfast>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugA|x64'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DisableSpecificWarnings>4060;4065;4100;4127;4390;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <EnablePREfast>true</EnablePREfast>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;MEDIAINFO_MINIMIZESIZE;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DisableSpecificWarnings>4060;4065;4100;4127;4390;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../Shared/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WarningLevel>Level4</WarningLevel>
+      <DisableSpecificWarnings>4060;4065;4100;4127;4390;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze_Buffer.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze_Buffer_MinimizeSize.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze_Streams.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze_Streams_Finish.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\File__Base.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\File__Duplicate.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\File__MultipleParsing.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\File_Dummy.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\File_Other.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\File_Unknown.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_Config.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_Config_Automatic.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_Config_MediaInfo.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_File.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_Inform.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_Internal.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfoList.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfoList_Internal.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Archive\File_7z.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Archive\File_Ace.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Archive\File_Bzip2.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Archive\File_Elf.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Archive\File_Gzip.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Archive\File_Mz.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Archive\File_Rar.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Archive\File_Tar.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Archive\File_Zip.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aac.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Ac3.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Adif.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Adpcm.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Adts.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Aes3.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Als.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Amr.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Amv.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Ape.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Au.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Dts.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_ExtendedModule.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Flac.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_ImpulseTracker.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_La.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Latm.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Midi.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Module.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Mpc.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_MpcSv8.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Mpega.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Pcm.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Ps2Audio.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_ScreamTracker3.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Speex.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Tak.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Tta.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_TwinVQ.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Vorbis.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Wvpk.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Avc.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Avc_Duplicate.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_AvsV.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Dirac.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Flic.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Mpeg4v.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Mpegv.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Theora.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Vc1.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Bmp.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Gif.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Ico.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Jpeg.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Png.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Rle.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Tiff.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Bdmv.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Cdxa.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Dpg.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_DvDif.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_DvDif_Analysis.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Dvdv.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Flv.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Gxf.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Mk.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Mpeg4.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Mpeg4_Descriptors.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Mpeg4_Elements.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Mpeg4_TimeCode.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Mpeg_Descriptors.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Mpeg_Psi.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_MpegPs.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_MpegTs.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_MpegTs_Duplicate.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Mxf.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Nut.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ogg.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ogg_SubElement.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Riff.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Riff_Elements.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Rm.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Skm.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Swf.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Umf.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Wm.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Wm_Elements.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Cdp.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Cmml.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Eia608.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Eia708.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Kate.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_N19.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_OtherText.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Pgs.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File__Tags.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_ApeTag.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_Id3.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='DebugA|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='ReleaseA|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_Id3v2.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_Lyrics3.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_Lyrics3v2.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_VorbisCom.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Base.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Writer.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Reader\Reader_Directory.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Reader\Reader_File.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Reader\Reader_libcurl.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Reader\Reader_libmms.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_Mpeg7.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_PBCore.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyze.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\File__Base.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\File__Duplicate.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\File__MultipleParsing.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\File_Dummy.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\File_Other.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\File_Unknown.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Config.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Config_MediaInfo.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Internal.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Internal_Const.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfoList.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfoList_Internal.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\PreComp.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Setup.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_7z.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_Ace.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_Bzip2.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_Elf.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_Gzip.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_Mz.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_Rar.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_Tar.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Archive\File_Zip.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aac.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Ac3.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Adif.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Adpcm.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Adts.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Aes3.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Als.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Amr.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Amv.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Ape.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Au.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Dirac.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Dts.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_ExtendedModule.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Flac.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_ImpulseTracker.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_La.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Latm.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Midi.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Module.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Mpc.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_MpcSv8.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Mpeg4_AudioSpecificConfig.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Mpega.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Pcm.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Ps2Audio.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_ScreamTracker3.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Speex.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Tak.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Tta.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_TwinVQ.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Vorbis.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Wvpk.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Bmp.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Gif.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Ico.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Jpeg.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Png.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Rle.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Tiff.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Bdmv.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Cdxa.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Dpg.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_DvDif.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Dvdv.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Flv.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Gxf.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Mk.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Mpeg4.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Mpeg4_TimeCode.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Mpeg_Descriptors.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Mpeg_Psi.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_MpegPs.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_MpegTs.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Mxf.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Nut.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ogg.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ogg_SubElement.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Riff.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Rm.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Skm.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Swf.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Umf.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Wm.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Avc.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_AvsV.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Dirac.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Flic.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Mpeg4v.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Mpegv.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Theora.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Vc1.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Cdp.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Cmml.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Eia608.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Eia708.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Kate.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_N19.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_OtherText.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Pgs.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Tag\File__Tags.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Tag\File_ApeTag.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Tag\File_Id3.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Tag\File_Id3v2.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Tag\File_Lyrics3.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Tag\File_Lyrics3v2.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Tag\File_VorbisCom.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Base.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate__Writer.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Duplicate\File__Duplicate_MpegTs.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Reader\Reader_Directory.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Reader\Reader_File.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Reader\Reader_libcurl.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Reader\Reader_libmms.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_Mpeg7.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_PBCore.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\ZenLib\Project\MSVC\Library\ZenLib.vcxproj">
+      <Project>{0da1da7d-f393-4e7c-a7ce-cb5c6a67bc94}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\zlib\projects\MSVC\zlib.vcxproj">
+      <Project>{fd328ae2-5136-460f-a622-12cfd4d4c131}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

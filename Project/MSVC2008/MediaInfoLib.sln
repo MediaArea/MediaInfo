@@ -1,19 +1,32 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoDll", "Dll\MediaInfoDll.vcproj", "{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{20E0F8D6-213C-460B-B361-9C725CB375C7} = {20E0F8D6-213C-460B-B361-9C725CB375C7}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoLib", "Library\MediaInfoLib.vcproj", "{20E0F8D6-213C-460B-B361-9C725CB375C7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94} = {0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94}
+		{FD328AE2-5136-460F-A622-12CFD4D4C131} = {FD328AE2-5136-460F-A622-12CFD4D4C131}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoShellExt", "ShellExtension\MediaInfoShellExt.vcproj", "{E987FD96-6BE1-45AF-9293-46B8A6695E6A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5} = {BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HowToUse_Dll", "Example\HowToUse_Dll.vcproj", "{51E7EE1D-D4DD-4374-976C-66519B3B94DF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5} = {BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZenLib", "..\..\..\ZenLib\Project\MSVC2008\Library\ZenLib.vcproj", "{0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\..\..\zlib\projects\MSVC2008\zlib.vcproj", "{FD328AE2-5136-460F-A622-12CFD4D4C131}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", "{F696A30D-66C6-46A8-B1BC-04B13BF14290}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoDll", "Dll\MediaInfoDll.vcxproj", "{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoLib", "Library\MediaInfoLib.vcxproj", "{20E0F8D6-213C-460B-B361-9C725CB375C7}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoShellExt", "ShellExtension\MediaInfoShellExt.vcxproj", "{E987FD96-6BE1-45AF-9293-46B8A6695E6A}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HowToUse_Dll", "Example\HowToUse_Dll.vcxproj", "{51E7EE1D-D4DD-4374-976C-66519B3B94DF}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZenLib", "..\..\..\ZenLib\Project\MSVC\Library\ZenLib.vcxproj", "{0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\..\..\zlib\projects\MSVC\zlib.vcxproj", "{FD328AE2-5136-460F-A622-12CFD4D4C131}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -128,7 +141,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94} = {F696A30D-66C6-46A8-B1BC-04B13BF14290}
 		{FD328AE2-5136-460F-A622-12CFD4D4C131} = {F696A30D-66C6-46A8-B1BC-04B13BF14290}
+		{0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94} = {F696A30D-66C6-46A8-B1BC-04B13BF14290}
 	EndGlobalSection
 EndGlobal

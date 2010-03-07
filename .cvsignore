@@ -25,6 +25,9 @@ Release
 Release_Ansi
 Debug_Build
 Release_Build
+*.filters
+*.opensdf
+*.sdf
 *.user
 __history
 *.local
