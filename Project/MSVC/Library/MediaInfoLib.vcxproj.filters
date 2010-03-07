@@ -836,5 +836,8 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_PBCore.h">
       <Filter>Header Files\Export</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Events.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
