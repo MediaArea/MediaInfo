@@ -63,9 +63,9 @@ protected :
     //Temp
     size_t Frame_Number;
     std::map<int8u, size_t> FrameTypes;
+    int64u Header_Size;
     int8u  FrameType;
     int8u  Channels;
-    int8u  Header_Size;
     bool   IsWB;
 };
 

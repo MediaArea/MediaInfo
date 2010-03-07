@@ -71,9 +71,9 @@ File_Amr::File_Amr()
 :File__Analyze()
 {
     //Temp
+    Header_Size=(int64u)-1;
     Frame_Number=0;
     FrameType=(int8u)-1;
-    Header_Size=(int8u)-1;
 }
 
 //***************************************************************************
@@ -212,7 +212,7 @@ void File_Amr::FileHeader_Parse()
         Get_S1 ( 4, Channels,                                   "Channels");
     }
     */
-    Header_Size=Element_Offset;
+    Header_Size=(int8u)Element_Offset;
 
 
     FILLING_BEGIN();
