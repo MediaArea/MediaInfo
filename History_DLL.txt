@@ -18,6 +18,7 @@ Version 0.7.29, 2010-
 + Solaris package creation files
 + MPEG-TS overall bit rate is more precise
 x Channel positions: more coherency in the naming
+x DVD-Video (IFO): ID name was in hexadecimal only, now in Decimal+Hexa
 
 Version 0.7.28, 2010-02-19
 --------------
