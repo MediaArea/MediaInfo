@@ -12,6 +12,19 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
+Version 0.7.29, 2010-03-08
+--------------
++ GXF (SMPTE 360M / RDD 14) support
++ GXF: support of CDP (SMPTE 334-2) in Ancillary data (SMPTE 334-1) (not complete)
++ AAC in MPEG-TS: Profile/Level
++ PCM in MKV: format name, channel positions
++ MPEG-7 and PBCore 1.2 output (pre-release)
++ MPEG-7: more metadata
++ Solaris package creation files
++ MPEG-TS overall bit rate is more precise
+x Channel positions: more coherency in the naming
+x DVD-Video (IFO): ID name was in hexadecimal only, now in Decimal+Hexa
+
 Version 0.7.28, 2010-02-19
 --------------
 + Albanian, Belarusian translations updated
