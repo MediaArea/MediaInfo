@@ -3,18 +3,18 @@
 /* this ALWAYS GENERATED file contains the proxy stub code */
 
 
- /* File created by MIDL compiler version 7.00.0500 */
-/* at Fri Feb 19 19:17:18 2010
+ /* File created by MIDL compiler version 7.00.0555 */
+/* at Mon Mar 08 19:13:58 2010
  */
-/* Compiler settings for .\MediaInfoShellExt.idl:
-    Oicf, W1, Zp8, env=Win64 (32b run)
+/* Compiler settings for MediaInfoShellExt.idl:
+    Oicf, W1, Zp8, env=Win64 (32b run), target_arch=AMD64 7.00.0555 
     protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 
     VC __declspec() decoration level: 
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
          DECLSPEC_UUID(), MIDL_INTERFACE()
 */
-//@@MIDL_FILE_HEADING(  )
+/* @@MIDL_FILE_HEADING(  ) */
 
 #if defined(_M_AMD64)
 
@@ -41,7 +41,7 @@
 #include "rpcproxy.h"
 #ifndef __RPCPROXY_H_VERSION__
 #error this stub requires an updated version of <rpcproxy.h>
-#endif // __RPCPROXY_H_VERSION__
+#endif /* __RPCPROXY_H_VERSION__ */
 
 
 #include "MediaInfoShellExt.h"
@@ -71,7 +71,7 @@ typedef struct _MediaInfoShellExt_MIDL_EXPR_FORMAT_STRING
     } MediaInfoShellExt_MIDL_EXPR_FORMAT_STRING;
 
 
-static RPC_SYNTAX_IDENTIFIER  _RpcTransferSyntax = 
+static const RPC_SYNTAX_IDENTIFIER  _RpcTransferSyntax = 
 {{0x8A885D04,0x1CEB,0x11C9,{0x9F,0xE8,0x08,0x00,0x2B,0x10,0x48,0x60}},{2,0}};
 
 
@@ -178,7 +178,7 @@ static const MIDL_STUB_DESC Object_StubDesc =
     1, /* -error bounds_check flag */
     0x50002, /* Ndr library version */
     0,
-    0x70001f4, /* MIDL Version 7.0.500 */
+    0x700022b, /* MIDL Version 7.0.555 */
     0,
     0,
     0,  /* notify & notify_flag routine table */
@@ -188,13 +188,13 @@ static const MIDL_STUB_DESC Object_StubDesc =
     0
     };
 
-const CInterfaceProxyVtbl * _MediaInfoShellExt_ProxyVtblList[] = 
+const CInterfaceProxyVtbl * const _MediaInfoShellExt_ProxyVtblList[] = 
 {
     ( CInterfaceProxyVtbl *) &_IMediaInfoShellExt_ProxyVtbl,
     0
 };
 
-const CInterfaceStubVtbl * _MediaInfoShellExt_StubVtblList[] = 
+const CInterfaceStubVtbl * const _MediaInfoShellExt_StubVtblList[] = 
 {
     ( CInterfaceStubVtbl *) &_IMediaInfoShellExt_StubVtbl,
     0
@@ -226,7 +226,7 @@ const ExtendedProxyFileInfo MediaInfoShellExt_ProxyFileInfo =
     (PCInterfaceProxyVtblList *) & _MediaInfoShellExt_ProxyVtblList,
     (PCInterfaceStubVtblList *) & _MediaInfoShellExt_StubVtblList,
     (const PCInterfaceName * ) & _MediaInfoShellExt_InterfaceNamesList,
-    0, // no delegation
+    0, /* no delegation */
     & _MediaInfoShellExt_IID_Lookup, 
     1,
     2,
