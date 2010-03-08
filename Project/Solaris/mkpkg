@@ -2,8 +2,8 @@
 
 #Config
 pkg=libmediainfo0
-pkgfile=$pkg-0.4.11-Solaris_10.i386.pkg.tgz
-pkgfiledevel=$pkg-devel-0.4.11-Solaris_10.i386.pkg.tgz
+pkgfile=$pkg-0.7.29-Solaris_10.i386.pkg.tgz
+pkgfiledevel=$pkg-devel-0.7.29-Solaris_10.i386.pkg.tgz
 
 #Must be root
 if [ "$(id -u)" != "0" ]; then
