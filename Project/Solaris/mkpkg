@@ -21,7 +21,7 @@ cd $Home
 #doc
 install -d -m 755 /usr/share/doc/mediainfo
 cp ../../*.txt /usr/share/doc/mediainfo
-cp ../../Release/MediaInfo_CLI_Linux.txt /usr/share/doc/mediainfo/ReadMe.txt
+cp ../../Release/ReadMe_CLI_Linux.txt /usr/share/doc/mediainfo/ReadMe.txt
 mv /usr/share/doc/mediainfo/History_CLI.txt /usr/share/doc/mediainfo/History.txt
 cp ../../License.html /usr/share/doc/mediainfo
 chown -R root /usr/share/doc/mediainfo
