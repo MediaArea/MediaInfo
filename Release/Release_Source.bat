@@ -57,6 +57,8 @@ xcopy ..\Project\*.vbproj MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.vb MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.vc MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.vcproj MediaInfo_Lib_Source\Project\ /S
+xcopy ..\Project\*.vcxproj MediaInfo_Lib_Source\Project\ /S
+xcopy ..\Project\*.vcxproj.filters MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.ico MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.workspace MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.cbp MediaInfo_Lib_Source\Project\ /S /Y
