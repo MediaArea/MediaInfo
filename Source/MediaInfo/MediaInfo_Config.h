@@ -135,6 +135,10 @@ public :
           Ztring    Inform_Get ();
           Ztring    Inform_Get (const Ztring &Value);
 
+          void      Inform_Replace_Set (const ZtringListList &NewInform_Replace);
+          Ztring    Inform_Replace_Get ();
+          ZtringListList Inform_Replace_Get_All ();
+
     const Ztring   &Format_Get (const Ztring &Value, infoformat_t KindOfFormatInfo=InfoFormat_Name);
           InfoMap  &Format_Get(); //Should not be, but too difficult to hide it
 
@@ -197,6 +201,7 @@ private :
     Ztring          ThousandsPoint;
     Translation     Language; //ex. : "KB;Ko"
     ZtringListList  Custom_View; //Definition of "General", "Video", "Audio", "Text", "Chapters", "Image"
+    ZtringListList  Custom_View_Replace; //ToReplace;ReplaceBy
     detailsFormat   DetailsFormat;
     std::map<Ztring, bool> DetailsModificators; //If we want to add/remove some details
 

@@ -190,8 +190,17 @@
 
 //---------------------------------------------------------------------------
 // Video
+#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_AFD_NO) && !defined(MEDIAINFO_AFD_YES)
+    #define MEDIAINFO_AFD_YES
+#endif
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_AVC_NO) && !defined(MEDIAINFO_AVC_YES)
     #define MEDIAINFO_AVC_YES
+#endif
+#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_AVSV_NO) && !defined(MEDIAINFO_AVSV_YES)
+    #define MEDIAINFO_AVSV_YES
+#endif
+#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_BARDATA_NO) && !defined(MEDIAINFO_BARDATA_YES)
+    #define MEDIAINFO_BARDATA_YES
 #endif
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_DIRAC_NO) && !defined(MEDIAINFO_DIRAC_YES)
     #define MEDIAINFO_DIRAC_YES
@@ -207,9 +216,6 @@
 #endif
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_VC1_NO) && !defined(MEDIAINFO_VC1_YES)
     #define MEDIAINFO_VC1_YES
-#endif
-#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_AVSV_NO) && !defined(MEDIAINFO_AVSV_YES)
-    #define MEDIAINFO_AVSV_YES
 #endif
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_THORA_NO) && !defined(MEDIAINFO_THEORA_YES)
     #define MEDIAINFO_THEORA_YES
@@ -321,6 +327,9 @@
 #endif
 #if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_CMML_NO) && !defined(MEDIAINFO_CMML_YES)
     #define MEDIAINFO_CMML_YES
+#endif
+#if !defined(MEDIAINFO_DTVCCTRANSPORT_NO) && !defined(MEDIAINFO_DTVCCTRANSPORT_NO) && !defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+    #define MEDIAINFO_DTVCCTRANSPORT_YES
 #endif
 #if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_EIA608_NO) && !defined(MEDIAINFO_EIA608_YES)
     #define MEDIAINFO_EIA608_YES

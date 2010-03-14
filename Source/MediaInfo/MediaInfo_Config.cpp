@@ -42,7 +42,7 @@ namespace MediaInfoLib
 {
 
 //---------------------------------------------------------------------------
-const Char*  MediaInfo_Version=_T("MediaInfoLib - v0.7.29");
+const Char*  MediaInfo_Version=_T("MediaInfoLib - v0.7.30BETA");
 const Char*  MediaInfo_Url=_T("http://mediainfo.sourceforge.net");
       Ztring EmptyZtring;       //Use it when we can't return a reference to a true Ztring
 const Ztring EmptyZtring_Const; //Use it when we can't return a reference to a true Ztring, const version
@@ -391,6 +391,15 @@ Ztring MediaInfo_Config::Option (const String &Option, const String &Value_Raw)
     else if (Option_Lower==_T("inform_get"))
     {
         return Inform_Get();
+    }
+    else if (Option_Lower==_T("inform_replace"))
+    {
+        Inform_Replace_Set(Value.c_str());
+        return _T("");
+    }
+    else if (Option_Lower==_T("inform_replace_get"))
+    {
+        return Inform_Replace_Get();
     }
     else if (Option_Lower==_T("details")) //Legacy for detailslevel
     {
@@ -1055,9 +1064,9 @@ void MediaInfo_Config::Inform_Set (const ZtringListList &NewValue)
             if (Size>=0xFFFFFFFF)
                 Size=1024*1024;
             int8u* Buffer=new int8u[(size_t)Size+1];
-            size_t Pos=F.Read(Buffer, (size_t)Size);
+            size_t F_Offset=F.Read(Buffer, (size_t)Size);
             F.Close();
-            Buffer[Pos]='\0';
+            Buffer[F_Offset]='\0';
             Ztring FromFile; FromFile.From_Local((char*)Buffer);
             delete[] Buffer; //Buffer=NULL;
 
@@ -1082,6 +1091,31 @@ Ztring MediaInfo_Config::Inform_Get (const Ztring &Value)
     if (Pos==Error || 1>=Custom_View[Pos].size())
         return EmptyString_Get();
     return Custom_View[Pos][1];
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config::Inform_Replace_Set (const ZtringListList &NewValue_Replace)
+{
+    CriticalSectionLocker CSL(CS);
+
+    //Parsing
+    for (size_t Pos=0; Pos<NewValue_Replace.size(); Pos++)
+    {
+        if (NewValue_Replace[Pos].size()==2)
+            Custom_View_Replace(NewValue_Replace[Pos][0])=NewValue_Replace[Pos][1];
+    }
+}
+
+Ztring MediaInfo_Config::Inform_Replace_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Custom_View.Read();
+}
+
+ZtringListList MediaInfo_Config::Inform_Replace_Get_All ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Custom_View_Replace;
 }
 
 //---------------------------------------------------------------------------
