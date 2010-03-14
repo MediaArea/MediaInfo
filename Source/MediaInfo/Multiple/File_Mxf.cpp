@@ -566,6 +566,7 @@ void File_Mxf::Streams_Finish_Locator(int128u LocatorUID, int64u &File_Size_Tota
                     Fill(Stream_Audio, Pos, "Source", Retrieve(Stream_Video, StreamPos_Last_Essence, "Source"));
                     Fill(Stream_Audio, Pos, "Source_Info", Retrieve(Stream_Video, StreamPos_Last_Essence, "Source_Info"));
                 }
+                size_t Text_Count=MI.Info->Count_Get(Stream_Text);
                 for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
                 {
                     Fill_Flush();

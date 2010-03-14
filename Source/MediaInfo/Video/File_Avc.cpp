@@ -767,7 +767,7 @@ bool File_Avc::Header_Parser_QuickSearch()
         //Getting start_code
         int8u start_code=CC1(Buffer+Buffer_Offset+3)&0x1F;
 
-        //Searching start
+        //Searching start33
         if (Streams[start_code].Searching_Payload
          || Streams[start_code].ShouldDuplicate)
             return true;

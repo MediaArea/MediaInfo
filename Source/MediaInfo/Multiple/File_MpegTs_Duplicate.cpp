@@ -271,8 +271,8 @@ void File_MpegTs::File__Duplicate_Write (int16u PID)
                 if (Dup->program_map_PIDs[program_map_PIDs_Pos])
                 {
                     bool AlreadyPresent=false;
-                    for (size_t Pos=0; Pos<Complete_Stream->Duplicates_Speed_FromPID[program_map_PIDs_Pos].size(); Pos++)
-                        if (Complete_Stream->Duplicates_Speed_FromPID[program_map_PIDs_Pos][Pos]==Dup)
+                    for (size_t Duplicates_Speed_FromPID_Pos=0; Duplicates_Speed_FromPID_Pos<Complete_Stream->Duplicates_Speed_FromPID[program_map_PIDs_Pos].size(); Duplicates_Speed_FromPID_Pos++)
+                        if (Complete_Stream->Duplicates_Speed_FromPID[program_map_PIDs_Pos][Duplicates_Speed_FromPID_Pos]==Dup)
                             AlreadyPresent=true;
                     if (!AlreadyPresent)
                         Complete_Stream->Duplicates_Speed_FromPID[program_map_PIDs_Pos].push_back(Dup);
@@ -282,8 +282,8 @@ void File_MpegTs::File__Duplicate_Write (int16u PID)
                 if (Dup->elementary_PIDs[elementary_PIDs_Pos])
                 {
                     bool AlreadyPresent=false;
-                    for (size_t Pos=0; Pos<Complete_Stream->Duplicates_Speed_FromPID[elementary_PIDs_Pos].size(); Pos++)
-                        if (Complete_Stream->Duplicates_Speed_FromPID[elementary_PIDs_Pos][Pos]==Dup)
+                    for (size_t Duplicates_Speed_FromPID_Pos=0; Duplicates_Speed_FromPID_Pos<Complete_Stream->Duplicates_Speed_FromPID[elementary_PIDs_Pos].size(); Duplicates_Speed_FromPID_Pos++)
+                        if (Complete_Stream->Duplicates_Speed_FromPID[elementary_PIDs_Pos][Duplicates_Speed_FromPID_Pos]==Dup)
                             AlreadyPresent=true;
                     if (!AlreadyPresent)
                         Complete_Stream->Duplicates_Speed_FromPID[elementary_PIDs_Pos].push_back(Dup);
