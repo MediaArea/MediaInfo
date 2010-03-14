@@ -130,7 +130,7 @@ void File_Flac::Data_Parse()
         case Flac::_NAME : Element_Info(#_NAME); _NAME(); break;
 
     //Parsing
-    switch (Element_Code)
+    switch ((int16u)Element_Code)
     {
         CASE_INFO(STREAMINFO);
         CASE_INFO(PADDING);
