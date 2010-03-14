@@ -66,7 +66,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MediaInfo.lib ZenLib.lib zlib.lib libcurl.lib ws2_32.lib wldap32.lib wxbase28ud.lib wxmsw28ud_core.lib wxmsw28ud_html.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib comctl32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib rpcrt4.lib"
+				AdditionalDependencies="MediaInfo.lib ZenLib.lib zlib.lib ws2_32.lib wldap32.lib wxbase28ud.lib wxmsw28ud_core.lib wxmsw28ud_html.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib comctl32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib rpcrt4.lib"
 				OutputFile="$(OutDir)\MediaInfo.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;..\..\..\..\curl\Project\MSVC2008\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\MediaInfoLib\Project\MSVC2008\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\ZenLib\Project\MSVC2008\Library\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\..\..\wxMSW\lib\vc_lib\$(PlatformName)&quot;;&quot;..\..\..\..\zlib\projects\MSVC2008\$(PlatformName)\$(ConfigurationName)&quot;"
