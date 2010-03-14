@@ -1004,12 +1004,12 @@ void File_Ac3::Core()
         Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)PTS+PTS_DTS_Offset_InThisBlock)/1000000)));
 
     //Parsing
-    int8u  dialnorm, dialnorm2, compr, compr2, dynrng, dynrng2;
-    bool   compre, compr2e, dynrnge, dynrng2e;
-    Element_Begin("synchinfo");
-    Skip_B2(                                                        "syncword");
     if (bsid<=0x08)
     {
+        int8u  dialnorm, dialnorm2=(int8u)-1, compr=(int8u)-1, compr2=(int8u)-1, dynrng=(int8u)-1, dynrng2=(int8u)-1;
+        bool   compre, compr2e=false, dynrnge, dynrng2e=false;
+        Element_Begin("synchinfo");
+            Skip_B2(                                               "syncword");
             Skip_B2(                                                "crc1");
             BS_Begin();
             Get_S1 (2, fscod,                                       "fscod - Sample Rate Code"); Param_Info(AC3_SamplingRate[fscod], " Hz");
@@ -1085,10 +1085,33 @@ void File_Ac3::Core()
         Skip_XX(Element_Size-Element_Offset,                        "audblk(continue)+5*audblk+auxdata+errorcheck");
 
         FILLING_BEGIN();
+            //Specific to first frame
+            if (Frame_Count==0)
+            {
+                FirstFrame_Dolby.dialnorm=dialnorm;
+                if (compre)
+                    FirstFrame_Dolby.compr=compr;
+                if (dynrnge)
+                    FirstFrame_Dolby.dynrng=dynrng;
+                FirstFrame_Dolby.compre=compre;
+                FirstFrame_Dolby.dynrnge=dynrnge;
+                if (acmod==0) //1+1 mode
+                {
+                    FirstFrame_Dolby2.dialnorm=dialnorm2;
+                    if (compr2e)
+                        FirstFrame_Dolby2.compr=compr2;
+                    if (dynrng2e)
+                        FirstFrame_Dolby2.dynrng=dynrng2;
+                    FirstFrame_Dolby2.compre=compr2e;
+                    FirstFrame_Dolby2.dynrnge=dynrng2e;
+                }
+            }
         FILLING_END();
     }
     else if (bsid>0x0A && bsid<=0x10)
     {
+        Element_Begin("synchinfo");
+            Skip_B2(                                               "syncword");
         Element_End();
         Element_Begin("bsi");
             int8u  strmtyp, numblkscod;
@@ -1150,28 +1173,6 @@ void File_Ac3::Core()
             int64u Bits=Element_Size*8;
             float64 Frame_Duration=((float64)Bits)/BitRate;
             PTS_DTS_Offset_InThisBlock+=float64_int64s(Frame_Duration*1000000000);
-        }
-
-        //Specific to first frame
-        if (Frame_Count==1 && bsid<=0x08)
-        {
-            FirstFrame_Dolby.dialnorm=dialnorm;
-            if (compre)
-                FirstFrame_Dolby.compr=compr;
-            if (dynrnge)
-                FirstFrame_Dolby.dynrng=dynrng;
-            FirstFrame_Dolby.compre=compre;
-            FirstFrame_Dolby.dynrnge=dynrnge;
-            if (acmod==0) //1+1 mode
-            {
-                FirstFrame_Dolby2.dialnorm=dialnorm2;
-                if (compr2e)
-                    FirstFrame_Dolby2.compr=compr2;
-                if (dynrng2e)
-                    FirstFrame_Dolby2.dynrng=dynrng2;
-                FirstFrame_Dolby2.compre=compr2e;
-                FirstFrame_Dolby2.dynrnge=dynrng2e;
-            }
         }
 
         //Filling
