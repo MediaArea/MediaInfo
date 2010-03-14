@@ -41,6 +41,8 @@ xcopy ..\Project\*.dev MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.sln MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.vc MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.vcproj MediaInfo_Source\Project\ /S
+xcopy ..\Project\*.vcxproj MediaInfo_Source\Project\ /S
+xcopy ..\Project\*.vcxproj.filters MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.ico MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.workspace MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.cbp MediaInfo_Source\Project\ /S /Y
@@ -50,6 +52,7 @@ xcopy ..\Project\*.rgs MediaInfo_Source\Project\ /S
 xcopy ..\Project\*.bat MediaInfo_Source\Project\ /S
 xcopy ..\Project\BCB\MediaInfo*.res MediaInfo_Source\Project\BCB /S
 xcopy ..\Project\MSVC\*.rc MediaInfo_Source\Project\MSVC\ /S
+xcopy ..\Project\MSVC2008\*.rc MediaInfo_Source\Project\MSVC2008\ /S
 xcopy ..\Project\GNU\* MediaInfo_Source\Project\GNU\ /S
 xcopy ..\Project\Solaris\* MediaInfo_Source\Project\Solaris\ /S
 
