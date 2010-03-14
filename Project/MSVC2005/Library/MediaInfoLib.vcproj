@@ -343,6 +343,10 @@
 				Name="Video"
 				>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_Afd.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Avc.cpp"
 					>
 				</File>
@@ -352,6 +356,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_AvsV.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_BarData.cpp"
 					>
 				</File>
 				<File
@@ -544,6 +552,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Cmml.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.cpp"
 					>
 				</File>
 				<File
@@ -1050,11 +1062,19 @@
 				Name="Video"
 				>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_Afd.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Avc.h"
 					>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_AvsV.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_BarData.h"
 					>
 				</File>
 				<File
@@ -1091,6 +1111,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Cmml.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.h"
 					>
 				</File>
 				<File

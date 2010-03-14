@@ -50,6 +50,10 @@ Encoded_Library/Date;;;N NT;;;Release date of software;;
 Encoded_Library_Settings;;;Y YT;;;Parameters used by the software;;
 Language;;;N YT;;;Language (2-letter ISO 639-1 if exists, else 3-letter ISO 639-2, and with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn);;
 Language/String;;;Y NT;;;Language (full);;
+Language/String1;;;Y NT;;;Language (full);;
+Language/String2;;;Y NT;;;Language (2-letter ISO 639-1 if exists, else empty);;
+Language/String3;;;Y NT;;;Language (3-letter ISO 639-2 if exists, else empty);;
+Language/String4;;;Y NT;;;Language (2-letter ISO 639-1 if exists with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn, else empty);;
 Summary;;;N NT;;;;;
 Encoded_Date;;;Y YT;;;The time that the encoding of this item was completed began.;;Temporal
 Tagged_Date;;;Y YT;;;The time that the tags were done for this item.;;Temporal

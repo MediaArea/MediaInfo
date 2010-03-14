@@ -43,7 +43,11 @@ List;;;N YT;;;List of programs available;;
 List/String;;;Y NT;;;List of programs available;;
 Title;;;Y YI;;;Name of this menu;;
 Language;;;N YT;;;Language (2-letter ISO 639-1 if exists, else 3-letter ISO 639-2, and with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn);;
-Language/String;;;N NT;;;Language (full);;
+Language/String;;;Y NT;;;Language (full);;
+Language/String1;;;Y NT;;;Language (full);;
+Language/String2;;;Y NT;;;Language (2-letter ISO 639-1 if exists, else empty);;
+Language/String3;;;Y NT;;;Language (3-letter ISO 639-2 if exists, else empty);;
+Language/String4;;;Y NT;;;Language (2-letter ISO 639-1 if exists with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn, else empty);;
 Language_More;;;Y YT;;;More info about Language (e.g. Director's Comment);;
 ServiceName;;;Y YT;;;;;Legal
 ServiceChannel;;;Y YT;;;;;Legal

@@ -153,6 +153,7 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MediaInfo</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'">MediaInfo</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MediaInfo</TargetName>
+    <RunCodeAnalysis Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -160,7 +161,7 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../Source;../../../../ZenLib/Source;../../../../ZLib;../../../../curl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB;MEDIAINFO_MINIMIZESIZE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;MEDIAINFO_LIBCURL_NO;MEDIAINFO_LIBMMS_NO;CURL_STATICLIB;MEDIAINFO_MINIMIZESIZEx;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>
@@ -168,6 +169,7 @@
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <DisableSpecificWarnings>4060;4065;4100;4127;4390;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <EnablePREfast>true</EnablePREfast>
     </ClCompile>
     <Lib>
       <OutputFile>$(OutDir)MediaInfo.lib</OutputFile>
@@ -361,9 +363,12 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_TwinVQ.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Vorbis.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Wvpk.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Afd.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Avc.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Avc_Duplicate.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_AvsV.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_BarData.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Dirac.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Flic.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Mpeg4v.cpp" />
@@ -537,8 +542,11 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Swf.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Umf.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Wm.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Afd.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Avc.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_AvsV.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_BarData.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Dirac.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Flic.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Mpeg4v.h" />
