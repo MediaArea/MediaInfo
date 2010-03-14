@@ -38,6 +38,159 @@ namespace MediaInfoLib
 {
 
 //***************************************************************************
+// Constants
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+const char* N19_CodePageNumber(int32u CPN)
+{
+    switch (CPN)
+    {
+        case 0x343337 : return "United States";
+        case 0x383530 : return "Multilingual";
+        case 0x383630 : return "Portugal";
+        case 0x383633 : return "Canada-French";
+        case 0x383635 : return "Nordic";
+        default       : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+float32 N19_DiskFormatCode_FrameRate(int64u DFC)
+{
+    switch (DFC)
+    {
+        case 0x53544C32352E3031LL : return 25.000;
+        case 0x53544C33302E3031LL : return 30.000;
+        default                   : return  0.000;
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* N19_DisplayStandardCode(int8u DSC)
+{
+    switch (DSC)
+    {
+        case 0x30 : return "Open subtitling";
+        case 0x31 : return "Level-1 teletext";
+        case 0x32 : return "Level-2 teletext";
+        default   : return "";
+    }
+}
+
+//---------------------------------------------------------------------------
+const char* N19_DisplayStandardCode(int16u LC)
+{
+    switch (LC)
+    {
+        case 0x3030 : return "";
+        case 0x3031 : return "sq";
+        case 0x3032 : return "br";
+        case 0x3033 : return "ca";
+        case 0x3034 : return "hr";
+        case 0x3035 : return "cy";
+        case 0x3036 : return "cs";
+        case 0x3037 : return "da";
+        case 0x3038 : return "de";
+        case 0x3039 : return "en";
+        case 0x3041 : return "es";
+        case 0x3042 : return "eo";
+        case 0x3043 : return "et";
+        case 0x3044 : return "eu";
+        case 0x3045 : return "fo";
+        case 0x3046 : return "fr";
+        case 0x3130 : return "fy";
+        case 0x3131 : return "ga";
+        case 0x3132 : return "gd";
+        case 0x3133 : return "gl";
+        case 0x3134 : return "is";
+        case 0x3135 : return "it";
+        case 0x3136 : return "Lappish";
+        case 0x3137 : return "la";
+        case 0x3138 : return "lv";
+        case 0x3139 : return "lb";
+        case 0x3141 : return "lt";
+        case 0x3142 : return "hu";
+        case 0x3143 : return "mt";
+        case 0x3144 : return "nl";
+        case 0x3145 : return "no";
+        case 0x3146 : return "oc";
+        case 0x3230 : return "pl";
+        case 0x3231 : return "pt";
+        case 0x3232 : return "ro";
+        case 0x3233 : return "Romansh";
+        case 0x3234 : return "sr";
+        case 0x3235 : return "sk";
+        case 0x3236 : return "sl";
+        case 0x3237 : return "fi";
+        case 0x3238 : return "sv";
+        case 0x3239 : return "tr";
+        case 0x3241 : return "Flemish";
+        case 0x3242 : return "wa";
+        case 0x3435 : return "zu";
+        case 0x3436 : return "vi";
+        case 0x3437 : return "uz";
+        case 0x3438 : return "ur";
+        case 0x3439 : return "uk";
+        case 0x3441 : return "th";
+        case 0x3442 : return "te";
+        case 0x3443 : return "tt";
+        case 0x3444 : return "ta";
+        case 0x3445 : return "Tadzhik";
+        case 0x3446 : return "sw";
+        case 0x3530 : return "Sranan Tongo";
+        case 0x3531 : return "so";
+        case 0x3532 : return "si";
+        case 0x3533 : return "sn";
+        case 0x3534 : return "sr";
+        case 0x3535 : return "Ruthenian";
+        case 0x3536 : return "ru";
+        case 0x3537 : return "qu";
+        case 0x3538 : return "ps";
+        case 0x3539 : return "Punjabi";
+        case 0x3541 : return "fa";
+        case 0x3542 : return "Papamiento";
+        case 0x3543 : return "or";
+        case 0x3544 : return "ne";
+        case 0x3545 : return "nr";
+        case 0x3546 : return "mr";
+        case 0x3630 : return "mo";
+        case 0x3631 : return "ms";
+        case 0x3632 : return "mg";
+        case 0x3633 : return "mk";
+        case 0x3634 : return "Laotian";
+        case 0x3635 : return "kr";
+        case 0x3636 : return "km";
+        case 0x3637 : return "kk";
+        case 0x3638 : return "kn";
+        case 0x3639 : return "jp";
+        case 0x3641 : return "id";
+        case 0x3642 : return "hi";
+        case 0x3643 : return "he";
+        case 0x3644 : return "ha";
+        case 0x3645 : return "Gurani";
+        case 0x3646 : return "Gujurati";
+        case 0x3730 : return "hr";
+        case 0x3731 : return "ka";
+        case 0x3732 : return "ff";
+        case 0x3733 : return "Dari";
+        case 0x3734 : return "Churash";
+        case 0x3735 : return "zh";
+        case 0x3736 : return "my";
+        case 0x3737 : return "bg";
+        case 0x3738 : return "bn";
+        case 0x3739 : return "be";
+        case 0x3741 : return "bm";
+        case 0x3742 : return "az";
+        case 0x3743 : return "as";
+        case 0x3744 : return "hy";
+        case 0x3745 : return "ar";
+        case 0x3746 : return "am";
+        default     : return "";
+    }
+}
+
+//***************************************************************************
 // Buffer - File header
 //***************************************************************************
 
@@ -56,6 +209,10 @@ bool File_N19::FileHeader_Begin()
         return false;
     }
 
+    //Element_Size
+    if (Buffer_Size<1024)
+        return false; //Must wait for more data about GSI
+
     //All should be OK...
     return true;
 }
@@ -63,9 +220,45 @@ bool File_N19::FileHeader_Begin()
 //---------------------------------------------------------------------------
 void File_N19::FileHeader_Parse()
 {
+    Element_Name("General Subtitle Information");
+
     //Parsing
-    Skip_B3(                                                    "Code Page Number");
-    Skip_B8(                                                    "Disk Format Code");
+    Ztring RD;
+    string TCP;
+    int64u DFC;
+    int16u LC;
+    int8u TCS;
+    Info_C3   (    CPN,                                         "CPN - Code Page Number"); Param_Info(N19_CodePageNumber(CPN));
+    Get_C8    (    DFC,                                         "DFC - Disk Format Code"); Param_Info(N19_DiskFormatCode_FrameRate(DFC));
+    Info_C1   (    DSC,                                         "DSC - Display Standard Code"); Param_Info(N19_DisplayStandardCode(DSC));
+    Skip_C2   (                                                 "CCT - Character Code Table number");
+    Get_C2    (    LC,                                          "LC - Language Code");
+    Skip_Local(32,                                              "OPT - Original Programme Title");
+    Skip_Local(32,                                              "OET - Original Episode Title");
+    Skip_Local(32,                                              "TPT - Translated Programme");
+    Skip_Local(32,                                              "TET - Translated Episode");
+    Skip_Local(32,                                              "TN - Translator's Name");
+    Skip_Local(32,                                              "TCD - Translator's Contact Details");
+    Skip_Local(16,                                              "SLR - Subtitle List Reference Code");
+    Skip_Local( 6,                                              "CD - Creation Date");
+    Get_Local ( 6, RD,                                          "RD - Revision Date");
+    Skip_C2   (                                                 "RN - Revision number");
+    Skip_C5   (                                                 "TNB - Total Number of Text and Timing Information (TTI) blocks");
+    Skip_C5   (                                                 "TNS - Total Number of Subtitles");
+    Skip_C3   (                                                 "TNG - Total Number of Subtitle Groups");
+    Skip_C2   (                                                 "MNC - Maximum Number of Displayable Characters in any text row");
+    Skip_C2   (                                                 "MNR - Maximum Number of Displayable Rows");
+    Get_C1    (    TCS,                                         "TCS - Time Code: Status");
+    Get_String( 8, TCP,                                         "TCP - Time Code: Start-of-Programme");
+    Skip_Local( 8,                                              "TCF - Time Code: First In-Cue");
+    Skip_C1   (                                                 "TND - Total Number of Disks");
+    Skip_C1   (                                                 "DSN - Disk Sequence Number");
+    Skip_C3   (                                                 "CO - Country of Origin");
+    Skip_Local(32,                                              "PUB - Publisher");
+    Skip_Local(32,                                              "EN - Editor's Name");
+    Skip_Local(32,                                              "ECD - Editor's Contact Details");
+    Skip_XX(75,                                                 "Spare Bytes");
+    Skip_XX(576,                                                "UDA - User-Defined Area");
 
     FILLING_BEGIN();
         Accept("N19");
@@ -74,6 +267,39 @@ void File_N19::FileHeader_Parse()
 
         Stream_Prepare(Stream_Text);
         Fill(Stream_Text, 0, Text_Format, "N19");
+        if (N19_DiskFormatCode_FrameRate(DFC))
+        {
+            Fill(Stream_Text, 0, "FrameRate", N19_DiskFormatCode_FrameRate(DFC));
+            if (TCS==0x31 && TCP.size()==8
+             && TCP[0]>='0' && TCP[0]<='9'
+             && TCP[1]>='0' && TCP[1]<='9'
+             && TCP[2]>='0' && TCP[2]<='6'
+             && TCP[3]>='0' && TCP[3]<='9'
+             && TCP[4]>='0' && TCP[4]<='6'
+             && TCP[5]>='0' && TCP[5]<='9'
+             && TCP[6]>='0' && TCP[6]<='2'
+             && TCP[7]>='0' && TCP[7]<='9')
+            {
+                int32u Delay=0;
+                Delay+=(((int32u)TCP[0])-'0')*10*60*60*1000;
+                Delay+=(((int32u)TCP[1])-'0')*   60*60*1000;
+                Delay+=(((int32u)TCP[2])-'0')*   10*60*1000;
+                Delay+=(((int32u)TCP[3])-'0')*      60*1000;
+                Delay+=(((int32u)TCP[4])-'0')*      10*1000;
+                Delay+=(((int32u)TCP[5])-'0')*         1000;
+                int8u Frames=0;
+                Frames+=(((int8u)TCP[6])-'0')*10;
+                Frames+=(((int8u)TCP[7])-'0');
+                Delay+=float32_int32s(Frames*1000/N19_DiskFormatCode_FrameRate(DFC));
+                Fill(Stream_Text, 0, Text_Delay, Delay);
+                /*TCP.insert(':', 2);
+                TCP.insert(':', 5);
+                TCP.insert(':', 8);
+                Fill(Stream_Text, 0, "Delay/String4", TCP);*/
+            }
+        }
+
+        Finish("N19");
     FILLING_END();
 }
 
@@ -83,4 +309,4 @@ void File_N19::FileHeader_Parse()
 
 } //NameSpace
 
-#endif //MEDIAINFO_EIA608_YES
+#endif //MEDIAINFO_N19_YES

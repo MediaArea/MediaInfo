@@ -125,8 +125,6 @@ void File_Eia708::Data_Parse()
 
     if (block_size)
     {
-        size_t Captions_Size=Captions[service_number].size();
-
         Element_Begin("Service Block Packet", block_size);
         for (int8u Pos=0; Pos<block_size; Pos++)
         {
