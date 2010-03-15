@@ -181,8 +181,16 @@ void File_Wm::Streams_Finish()
         //Delay (in case of MPEG-PS)
         if (Temp->second.StreamKind==Stream_Video)
         {
-            Fill(Stream_Video, Temp->second.StreamPos, Video_Delay_Original, Retrieve(Temp->second.StreamKind, Temp->second.StreamPos, "Delay"));
-            Fill(Stream_Video, Temp->second.StreamPos, Video_Delay_Original_Settings, Retrieve(Temp->second.StreamKind, Temp->second.StreamPos, "Delay_Settings"));
+            if (!Retrieve(Stream_Video, Temp->second.StreamPos, Video_Delay).empty())
+            {
+                Ztring Delay=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Delay);
+                Fill(Stream_Video, Temp->second.StreamPos, Video_Delay_Original, Delay);
+            }
+            if (!Retrieve(Stream_Video, Temp->second.StreamPos, Video_Delay_Settings).empty())
+            {
+                Ztring Delay_Settings=Retrieve(Stream_Video, Temp->second.StreamPos, Video_Delay_Settings);
+                Fill(Stream_Video, Temp->second.StreamPos, Video_Delay_Original_Settings, Delay_Settings);
+            }
         }
         if (Temp->second.TimeCode_First!=(int64u)-1)
             Fill(Temp->second.StreamKind, Temp->second.StreamPos, "Delay", Temp->second.TimeCode_First, 10, true);

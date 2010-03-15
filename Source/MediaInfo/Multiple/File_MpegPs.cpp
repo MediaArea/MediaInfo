@@ -367,8 +367,16 @@ void File_MpegPs::Streams_Fill_PerStream(size_t StreamID, ps_stream &Temp)
         {
             if (StreamKind_Last==Stream_Video)
             {
-                Fill(StreamKind_Last, StreamPos_Last, "Delay_Original", Retrieve(StreamKind_Last, StreamPos_Last, "Delay"));
-                Fill(StreamKind_Last, StreamPos_Last, "Delay_Original_Settings", Retrieve(StreamKind_Last, StreamPos_Last, "Delay_Settings"));
+                if (!Retrieve(Stream_Video, Temp.StreamPos, Video_Delay).empty())
+                {
+                    Ztring Delay=Retrieve(Stream_Video, Temp.StreamPos, Video_Delay);
+                    Fill(Stream_Video, Temp.StreamPos, Video_Delay_Original, Delay);
+                }
+                if (!Retrieve(Stream_Video, Temp.StreamPos, Video_Delay_Settings).empty())
+                {
+                    Ztring Delay_Settings=Retrieve(Stream_Video, Temp.StreamPos, Video_Delay_Settings);
+                    Fill(Stream_Video, Temp.StreamPos, Video_Delay_Original_Settings, Delay_Settings);
+                }
             }
             Fill(StreamKind_Last, StreamPos_Last, "Delay", ((float64)Temp.TimeStamp_Start.PTS.TimeStamp)/90, 3, true);
             Fill(StreamKind_Last, StreamPos_Last, "Delay_Settings", "", Unlimited, true, true);
