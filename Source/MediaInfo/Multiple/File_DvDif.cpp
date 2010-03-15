@@ -453,6 +453,11 @@ void File_DvDif::Header_Parse()
 {
     if (AuxToAnalyze!=0x00)
     {
+        SCT=0;
+        Dseq=0;
+        FSC=false;
+        FSP=false;
+        DBN=0;
         Header_Fill_Code(AuxToAnalyze, Ztring::ToZtring(AuxToAnalyze, 16));
         Header_Fill_Size(4);
         return;
@@ -495,6 +500,11 @@ void File_DvDif::Header_Parse()
 {
     if (AuxToAnalyze!=0x00)
     {
+        SCT=0;
+        Dseq=0;
+        FSC=false;
+        FSP=false;
+        DBN=0;
         Header_Fill_Code(AuxToAnalyze);
         Header_Fill_Size(4);
         return;
