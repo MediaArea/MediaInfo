@@ -313,7 +313,7 @@ M101;YUV;Matrox;;;;;YUV
 M261;H.261;Microsoft;;;;;
 M263;H.263;Microsoft;;;;;
 M4CC;MPEG-4 Visual;ESS Divo;;;;;YUV 4:2:0
-M4S2;MPEG-4 Visual;FFMpeg;Hacked MS MPEG-4;;;;YUV 4:2:0
+M4S2;MPEG-4 Visual;Microsoft;;;;;YUV 4:2:0
 MC12;ATI Motion;;ATI Motion Compensation Format;;;;
 MC24;M-JPEG;MainConcept;;;;;YUV 4:2:0
 MCAM;ATI Motion;;ATI Motion Compensation Format;;;;
@@ -333,9 +333,9 @@ MMIF;MPEG Video;Matrox;I-frame;;;;YUV 4:2:0
 MNVD;MindVid;;MindBend MindVid LossLess;;;;
 MP2V;MPEG Video;;Media Excel MPEG-2 Video;http://ffdshow-tryout.sourceforge.net/;;;YUV 4:2:0
 MP2v;MPEG Video;;MPEG-2 Video;http://ffdshow-tryout.sourceforge.net/;;;YUV 4:2:0
-MP41;S-Mpeg 4 v1;;Microsoft MPEG-4 V1 (enhansed H263);http://ffdshow-tryout.sourceforge.net/;;;
-MP42;S-Mpeg 4 v2;;Microsoft MPEG-4 V2;http://www.apple.com/quicktime/download/standalone.html;;;
-MP43;S-Mpeg 4 v3;;Microsoft MPEG-4 V3;;;;
+MP41;MPEG-4 Visual;Microsoft;Microsoft MPEG-4 v1 (pre-standard);http://ffdshow-tryout.sourceforge.net/;;;
+MP42;MPEG-4 Visual;Microsoft;Microsoft MPEG-4 v2 (pre-standard);http://www.apple.com/quicktime/download/standalone.html;;;
+MP43;MPEG-4 Visual;Microsoft;Microsoft MPEG-4 v3 (pre-standard);;;;
 MP4S;MPEG-4 Visual;MS MPEG-4 v3;Microsoft MPEG-4 (Windows Media 7.0);;;;YUV 4:2:0
 MP4V;MPEG-4 Visual;;Apple QuickTime MPEG-4 native;http://ffdshow-tryout.sourceforge.net/;;;YUV 4:2:0
 MPEG;MPEG Video;;Chromatic MPEG 1 Video I Frame;http://ffdshow-tryout.sourceforge.net/;;;YUV 4:2:0
