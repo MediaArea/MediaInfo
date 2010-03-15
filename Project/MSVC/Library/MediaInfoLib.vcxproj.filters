@@ -857,5 +857,8 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.h">
       <Filter>Header Files\Text</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyze_MinimizeSize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

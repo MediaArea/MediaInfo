@@ -453,6 +453,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyze.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyze_MinimizeSize.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Base.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Duplicate.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__MultipleParsing.h" />
