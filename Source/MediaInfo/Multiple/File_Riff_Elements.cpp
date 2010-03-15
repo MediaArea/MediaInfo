@@ -1584,6 +1584,9 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
       && (Compression&0x00FF0000)>=0x00200000 && (Compression&0x00FF0000)<=0x007E0000
       && (Compression&0xFF000000)>=0x20000000 && (Compression&0xFF000000)<=0x7E000000)
      ||   Compression==0x00000000
+     ||   Compression==0x01000000
+     ||   Compression==0x02000000
+     ||   Compression==0x03000000
        ) //Sometimes this value is wrong, we have to test this
     {
         if (Compression==CC4("DXSB"))
@@ -1596,10 +1599,12 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
             Stream_Prepare(Stream_Video);
 
         //Filling
-        if (Compression==0x00000000)
+        if (Compression==0x00000000 || Compression==0x01000000 || Compression==0x02000000 || Compression==0x03000000)
         {
-            CodecID_Fill(_T("RGB "), StreamKind_Last, StreamPos_Last, InfoCodecID_Format_Riff);
-            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), "RGB"); //Raw RGB, not handled by automatic codec mapping
+            Ztring CodecID=_T("0x0000000")+Ztring::ToZtring(Compression>>24);
+            CodecID_Fill(CodecID, StreamKind_Last, StreamPos_Last, InfoCodecID_Format_Riff);
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), CodecID); //FormatTag, may be replaced by codec parser
+            Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec_CC), CodecID); //FormatTag
         }
         else
         {

@@ -1,3 +1,7 @@
+0x00000000;RGB;;Basic Windows bitmap format. 1, 4 and 8 bpp versions are palettised. 16, 24 and 32bpp contain raw RGB samples;http://www.fourcc.org/indexrgb.htm;;;
+0x00000001;RLE;;Run length encoded 8bpp RGB image;http://www.fourcc.org/indexrgb.htm;;;
+0x00000002;RLE;;Run length encoded 4bpp RGB image;http://www.fourcc.org/indexrgb.htm;;;
+0x00000003;RGB;;Raw RGB with arbitrary sample packing within a pixel. Packing and precision of R, G and B components is determined by bit masks for each;http://www.fourcc.org/indexrgb.htm;;;
 1978;RGB;A.M.Paredes predictor;;http://www.pegasusimaging.com/cgi-bin/download2.cgi?LVIDB;;;RGB
  BIT;RGB;;;;;;RGB
  JPG;M-JPEG;;;;;;YUV 4:2:0
@@ -170,26 +174,26 @@ DVX2;DVX 2 S;;Lucent DVX2000S Video Decoder;;;;
 DVX3;DVX 3 S;;Lucent DVX3000S Video Decoder;;;;
 DX50;MPEG-4 Visual;DivX 5;;http://mediaarea.net/DX50;;;YUV 4:2:0
 DXGM;EA GameVideo;;;;;;
-DXT1;DirectX TC;;DirectX Compressed Texture (1bit alpha channel);;;;
-DXT2;DirectX TC;;DirectX Compressed Texture;;;;
-DXT3;DirectX TC;;DirectX Compressed Texture (4bit alpha channel);;;;
-DXT4;DirectX TC;;DirectX Compressed Texture;;;;
-DXT5;DirectX TC;;DirectX Compressed Texture (3bit alpha channel with interpolation);
-DXTC;DirectX TC;;DirectX Texture Compression;
-DXTn;DirectX TC;;Microsoft Compressed Texture;
-DXTN;DirectX TC;;Microsoft DirectX Compressed Texture (DXTn);
-EKQ0;Elsa KQ;;Elsa graphics card quick;
-ELK0;Elsa LK;;Elsa graphics card;
-EM2V;Elymonyx MPEG-2;;Etymonix MPEG-2 I-frame;
-EQK0;Elsa;;Elsa graphics card quick;
-ESCP;Escape;;Eidos Escape;
-ETV1;eTreppid 1;;eTreppid Video 1;
-ETV2;eTreppid 2;;eTreppid Video 2;
-ETVC;eTreppid C;;eTreppid Video C;
-FFDS;FFDS;;;http://ffdshow-tryout.sourceforge.net/
-FFV1;FFV1;;;http://ffdshow-tryout.sourceforge.net/
-FFVH;FFVH;;;http://ffdshow-tryout.sourceforge.net/
-FLIC;FLI/FLC;Autodesk;;
+DXT1;DirectX TC;;DirectX Compressed Texture (1bit alpha channel)
+DXT2;DirectX TC;;DirectX Compressed Texture
+DXT3;DirectX TC;;DirectX Compressed Texture (4bit alpha channel)
+DXT4;DirectX TC;;DirectX Compressed Texture
+DXT5;DirectX TC;;DirectX Compressed Texture (3bit alpha channel with interpolation)
+DXTC;DirectX TC;;DirectX Texture Compression
+DXTn;DirectX TC;;Microsoft Compressed Texture
+DXTN;DirectX TC;;Microsoft DirectX Compressed Texture (DXTn)
+EKQ0;Elsa KQ;;Elsa graphics card quick
+ELK0;Elsa LK;;Elsa graphics card
+EM2V;Elymonyx MPEG-2;;Etymonix MPEG-2 I-frame
+EQK0;Elsa;;Elsa graphics card quick
+ESCP;Escape;;Eidos Escape
+ETV1;eTreppid 1;;eTreppid Video 1
+ETV2;eTreppid 2;;eTreppid Video 2
+ETVC;eTreppid C;;eTreppid Video C
+FFDS;FFDS;;;http://ffdshow-tryout.sourceforge.net/;;;
+FFV1;FFV1;;;http://ffdshow-tryout.sourceforge.net/;;;
+FFVH;FFVH;;;http://ffdshow-tryout.sourceforge.net/;;;
+FLIC;FLI/FLC;Autodesk;;;;;
 FLJP;DField M-JPEG;;D-Vision Field Encoded M-JPEG with LSI (or Targa emulation);;;;
 FLV1;FFDS;;FFDShow supported;http://ffdshow-tryout.sourceforge.net/;;;
 FLV4;VP6;On2;;http://www.on2.com;;;
@@ -394,22 +398,22 @@ NVHU;Nvidia Texture;;Nvidia Texture Format;;;;
 NVS0;Nvidia Texture;;Nvidia Texture Compression Format;;;;
 NVS1;Nvidia Texture;;Nvidia Texture Compression Format;;;;
 NVS2;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVS3;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVS4;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVS5;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVS6;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVS7;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVS8;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVS9;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVT0;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVT1;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVT2;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVT3;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVT4;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVT5;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVT6;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVT7;Nvidia Texture;;Nvidia Texture Compression Format;;;;
-NVT8;Nvidia Texture;;Nvidia Texture Compression Format;;;;
+NVS3;Nvidia Texture;;Nvidia Texture Compression Format
+NVS4;Nvidia Texture;;Nvidia Texture Compression Format
+NVS5;Nvidia Texture;;Nvidia Texture Compression Format
+NVS6;Nvidia Texture;;Nvidia Texture Compression Format
+NVS7;Nvidia Texture;;Nvidia Texture Compression Format
+NVS8;Nvidia Texture;;Nvidia Texture Compression Format
+NVS9;Nvidia Texture;;Nvidia Texture Compression Format
+NVT0;Nvidia Texture;;Nvidia Texture Compression Format
+NVT1;Nvidia Texture;;Nvidia Texture Compression Format
+NVT2;Nvidia Texture;;Nvidia Texture Compression Format
+NVT3;Nvidia Texture;;Nvidia Texture Compression Format
+NVT4;Nvidia Texture;;Nvidia Texture Compression Format
+NVT5;Nvidia Texture;;Nvidia Texture Compression Format
+NVT6;Nvidia Texture;;Nvidia Texture Compression Format
+NVT7;Nvidia Texture;;Nvidia Texture Compression Format
+NVT8;Nvidia Texture;;Nvidia Texture Compression Format
 NVT9;Nvidia Texture;;Nvidia Texture Compression Format;;;;
 NY12;YUV;Nogatech;;;;;YUV
 NYUV;YUV;Nogatech;;;;;YUV
@@ -522,10 +526,10 @@ SVQ2;Sorenson 2;;Sorenson Media Video 2 (Apple QuickTime 4);;;;
 SVQ3;Sorenson 3;;Sorenson Media Video 3 (Apple QuickTime 5);;;;
 SWC1;M-JPEG;MainConcept;MainConcept M-JPEG;;;;YUV 4:2:0
 T420;YUV;Toshiba;Toshiba YUV 4:2:0;;;;YUV
-TGA ;TGA;Apple;Apple TGA (with Alpha-channel);;;;
-THEO;Theora;;FFVFW Supported;;;;
-TIFF;Apple TIFF;;Apple TIFF (with Alpha-channel);;;;
-TIM2;Pinnacle DVI;;Pinnacle RAL DVI;;;;
+TGA ;TGA;Apple;Apple TGA (with Alpha-channel)
+THEO;Theora;;FFVFW Supported
+TIFF;Apple TIFF;;Apple TIFF (with Alpha-channel)
+TIM2;Pinnacle DVI;;Pinnacle RAL DVI
 TLMS;TeraLogic;;TeraLogic Motion Intraframe
 TLST;TeraLogic;;TeraLogic Motion Intraframe
 TM10;Duck;;Duck TrueMotion
@@ -538,10 +542,10 @@ TR20;Duck TM RT2;;Duck TrueMotion RT 2.0
 TRLE;Akula;;Akula Alpha Pro Custom AVI (LossLess)
 TSCC;TechSmith;;TechSmith Screen Capture
 tscc;TechSmith;;TechSmith Screen Capture
-TV10;Tecomac;;Tecomac Low-Bit Rate
-TVJP;Pinnacle/Truevision;;TrueVision Field Encoded M-JPEG (Targa emulation)
-TVMJ;Pinnacle/Truevision;;Truevision TARGA M-JPEG Hardware (or Targa emulation)
-TY0N;Trident;;Trident Decompression Driver
+TV10;Tecomac;;Tecomac Low-Bit Rate;;;;
+TVJP;Pinnacle/Truevision;;TrueVision Field Encoded M-JPEG (Targa emulation);;;;
+TVMJ;Pinnacle/Truevision;;Truevision TARGA M-JPEG Hardware (or Targa emulation);;;;
+TY0N;Trident;;Trident Decompression Driver;;;;
 TY2C;Trident;;Trident Decompression Driver;;;;
 TY2N;Trident;;Trident Decompression Driver;;;;
 U<Y ;YUV;Discreet;Discreet UC YUV 4:2:2:4 10 bit;;;;YUV

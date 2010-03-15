@@ -9,6 +9,7 @@ http://sourceforge.net/tracker/?group_id=86862
 
 Version 0.7.30, 2010-
 --------------
++ AVI: better handling of some RGB or RLE codecIDs
 x #2970227, WAV: a file was wrongly detected as DTS
 x WMV and MPEG-TS/PS: some crashes are fixed
 x MSVC2010 and MSVC2008 project files were missing some files
