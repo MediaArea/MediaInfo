@@ -14,6 +14,7 @@ mkdir MediaInfo_Lib_Source
 xcopy ..\debian\* MediaInfo_Lib_Source\debian\ /S
 
 @rem --- Copying : Sources ---
+xcopy ..\Source\*.c MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.cpp MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.h MediaInfo_Lib_Source\Source\ /S
 xcopy ..\Source\*.rc MediaInfo_Lib_Source\Source\ /S
