@@ -1906,7 +1906,7 @@ void File_Avc::subset_seq_parameter_set()
     seq_parameter_set_data();
     if (profile_idc==83 || profile_idc==86)
     {
-        bool svc_vui_parameters_present_flag;
+        //bool svc_vui_parameters_present_flag;
         seq_parameter_set_svc_extension();
         /* The rest is not yet implemented
         Get_SB (svc_vui_parameters_present_flag,                "svc_vui_parameters_present_flag");
@@ -1916,7 +1916,7 @@ void File_Avc::subset_seq_parameter_set()
     }
     else if (profile_idc==118 || profile_idc==128)
     {
-        bool mvc_vui_parameters_present_flag, additional_extension2_flag;
+        //bool mvc_vui_parameters_present_flag, additional_extension2_flag;
         Mark_1();
         seq_parameter_set_mvc_extension();
         /* The rest is not yet implemented
