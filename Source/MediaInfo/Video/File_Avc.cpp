@@ -389,8 +389,8 @@ void File_Avc::Streams_Fill()
         Fill(Stream_Video, 0, Video_Format_Profile, ProfileS+_T("@L")+LevelS);
     else
     {
-        std::map<int8u, seq_parameter_set_>::iterator seq_parameter_set_id=seq_parameter_set_ids.begin(); //Currently, only 1 SPS is supported
-        std::map<int8u, seq_parameter_set_>::iterator subset_seq_parameter_set_id=subset_seq_parameter_set_ids.begin(); //Currently, only 1 SPS is supported
+        std::map<int32u, seq_parameter_set_>::iterator seq_parameter_set_id=seq_parameter_set_ids.begin(); //Currently, only 1 SPS is supported
+        std::map<int32u, seq_parameter_set_>::iterator subset_seq_parameter_set_id=subset_seq_parameter_set_ids.begin(); //Currently, only 1 SPS is supported
         Ztring Profile=Ztring().From_Local(Avc_profile_idc(subset_seq_parameter_set_id->second.profile_idc))+_T("@L")+Ztring().From_Number(((float)subset_seq_parameter_set_id->second.level_idc)/10, 1);
         Fill(Stream_Video, 0, Video_Format_Profile, Profile);
         Ztring BaseProfile=Ztring().From_Local(Avc_profile_idc(seq_parameter_set_id->second.profile_idc))+_T("@L")+Ztring().From_Number(((float)seq_parameter_set_id->second.level_idc)/10, 1);
@@ -826,7 +826,7 @@ void File_Avc::Data_Parse()
     size_t Save_Buffer_Offset=Buffer_Offset;
     int64u Save_Element_Offset=Element_Offset;
     int64u Save_Element_Size=Element_Size;
-    size_t Element_Offset_3Bytes=Element_Offset;
+    size_t Element_Offset_3Bytes=(size_t)Element_Offset;
     std::vector<size_t> ThreeByte_List;
     while (Element_Offset_3Bytes+3<=Element_Size)
     {

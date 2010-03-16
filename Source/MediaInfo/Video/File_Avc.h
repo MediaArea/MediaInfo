@@ -175,8 +175,8 @@ private :
             level_idc=0;
         }
     };
-    std::map<int8u, seq_parameter_set_> seq_parameter_set_ids;
-    std::map<int8u, seq_parameter_set_> subset_seq_parameter_set_ids;
+    std::map<int32u, seq_parameter_set_> seq_parameter_set_ids;
+    std::map<int32u, seq_parameter_set_> subset_seq_parameter_set_ids;
 
     //Temp
     std::vector<File__Analyze*> GA94_03_CC_Parsers;
