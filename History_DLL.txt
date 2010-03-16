@@ -12,6 +12,7 @@ Version 0.7.30, 2010-
 + AVC: Multiview Video Coding (MVC) basic support
 + AVI: better handling of some RGB or RLE codecIDs
 x #2970227, WAV: a file was wrongly detected as DTS
+x FLV: Duration for video not starting at Time 0
 x WMV and MPEG-TS/PS: some crashes are fixed
 x MSVC2010 and MSVC2008 project files were missing some files
 

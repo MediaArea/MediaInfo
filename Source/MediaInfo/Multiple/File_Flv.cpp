@@ -384,6 +384,8 @@ File_Flv::File_Flv()
     PreviousTagSize=(int32u)-1;
     meta_filesize=(int64u)-1;
     meta_duration=0;
+    FirstFrame_Time=(int32u)-1;
+    FirstFrame_Type=(int8u)-1;
     LastFrame_Time=(int32u)-1;
     LastFrame_Type=(int8u)-1;
 }
@@ -421,8 +423,8 @@ void File_Flv::Streams_Finish()
     //Duration
     int64u Duration_Final=(int64u)meta_duration;
     float64 FrameRate=Retrieve(Stream_Video, 0, Video_FrameRate).To_float64();
-    if (LastFrame_Time!=(int32u)-1)
-        Duration_Final=LastFrame_Time+((LastFrame_Type==9 && FrameRate)?((int64u)(1000/FrameRate)):0);
+    if (LastFrame_Time!=(int32u)-1 && FirstFrame_Time!=(int32u)-1)
+        Duration_Final=LastFrame_Time-FirstFrame_Time+((LastFrame_Type==9 && FrameRate)?((int64u)(1000/FrameRate)):0);
     if (Duration_Final)
     {
         Fill(Stream_General, 0, General_Duration, Duration_Final, 10, true);
@@ -536,6 +538,11 @@ void File_Flv::Header_Parse()
 
         //Filling
         Time=(((int32u)Timestamp_Extended)<<24)|Timestamp_Base;
+        if (FirstFrame_Time==(int32u)-1 && (Type==0x08 || Type==0x09))
+        {
+            FirstFrame_Time=Time;
+            FirstFrame_Type=Type;
+        }
         if (File_Offset+Buffer_Offset+Element_Offset+BodyLength+4==File_Size && Time!=0)
         {
             LastFrame_Time=Time;

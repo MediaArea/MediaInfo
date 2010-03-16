@@ -104,6 +104,8 @@ private :
     int32u PreviousTagSize;
     int64u meta_filesize;
     float64 meta_duration;
+    int32u FirstFrame_Time;
+    int8u  FirstFrame_Type;
     int32u LastFrame_Time;
     int8u  LastFrame_Type;
 };
