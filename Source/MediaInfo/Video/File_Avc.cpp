@@ -52,7 +52,9 @@ const char* Avc_profile_idc(int8u profile_idc)
         case  88 : return "Extended";
         case 100 : return "High";
         case 110 : return "High 10";
+        case 118 : return "Multiview High";
         case 122 : return "High 4:2:2";
+        case 128 : return "Stereo High";
         case 144 : return "High 4:4:4";
         case 244 : return "High 4:4:4 Predictive";
         default  : return "Unknown";
@@ -383,7 +385,18 @@ void File_Avc::Streams_Fill()
     Fill(Stream_Video, 0, Video_Format, "AVC");
     Fill(Stream_Video, 0, Video_Codec, "AVC");
 
-    Fill(Stream_Video, 0, Video_Format_Profile, ProfileS+_T("@L")+LevelS);
+    if (subset_seq_parameter_set_ids.empty())
+        Fill(Stream_Video, 0, Video_Format_Profile, ProfileS+_T("@L")+LevelS);
+    else
+    {
+        std::map<int8u, seq_parameter_set_>::iterator seq_parameter_set_id=seq_parameter_set_ids.begin(); //Currently, only 1 SPS is supported
+        std::map<int8u, seq_parameter_set_>::iterator subset_seq_parameter_set_id=subset_seq_parameter_set_ids.begin(); //Currently, only 1 SPS is supported
+        Ztring Profile=Ztring().From_Local(Avc_profile_idc(subset_seq_parameter_set_id->second.profile_idc))+_T("@L")+Ztring().From_Number(((float)subset_seq_parameter_set_id->second.level_idc)/10, 1);
+        Fill(Stream_Video, 0, Video_Format_Profile, Profile);
+        Ztring BaseProfile=Ztring().From_Local(Avc_profile_idc(seq_parameter_set_id->second.profile_idc))+_T("@L")+Ztring().From_Number(((float)seq_parameter_set_id->second.level_idc)/10, 1);
+        Fill(Stream_Video, 0, Video_MultiView_BaseProfile, BaseProfile);
+        Fill(Stream_Video, 0, Video_MultiView_Count, num_views_minus1+1);
+    }
     Fill(Stream_Video, 0, Video_Codec_Profile, ProfileS+_T("@L")+LevelS);
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
     Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
@@ -795,12 +808,25 @@ void File_Avc::Data_Parse()
         return;
     }
 
+    //svc_extension
+    if (Element_Code==0x0E || Element_Code==0x14)
+    {
+        BS_Begin();
+        Get_SB (svc_extension_flag,                             "svc_extension_flag");
+        if (svc_extension_flag)
+            nal_unit_header_svc_extension();
+        else
+            nal_unit_header_mvc_extension();
+        BS_End();
+    }
+
     //Searching emulation_prevention_three_byte
     int8u* Buffer_3Bytes=NULL;
     const int8u* Save_Buffer=Buffer;
     size_t Save_Buffer_Offset=Buffer_Offset;
+    int64u Save_Element_Offset=Element_Offset;
     int64u Save_Element_Size=Element_Size;
-    size_t Element_Offset_3Bytes=0;
+    size_t Element_Offset_3Bytes=Element_Offset;
     std::vector<size_t> ThreeByte_List;
     while (Element_Offset_3Bytes+3<=Element_Size)
     {
@@ -815,7 +841,7 @@ void File_Avc::Data_Parse()
     if (!ThreeByte_List.empty())
     {
         //We must change the buffer for keeping out
-        Element_Size=Save_Element_Size-ThreeByte_List.size();
+        Element_Size=Save_Element_Size-ThreeByte_List.size()-Save_Element_Offset;
         Buffer_Offset=0;
         Buffer_3Bytes=new int8u[(size_t)Element_Size];
         for (size_t Pos=0; Pos<=ThreeByte_List.size(); Pos++)
@@ -825,7 +851,7 @@ void File_Avc::Data_Parse()
             size_t Buffer_3bytes_Begin=Pos1-Pos;
             size_t Save_Buffer_Begin  =Pos1;
             size_t Size=               Pos0-Pos1;
-            std::memcpy(Buffer_3Bytes+Buffer_3bytes_Begin, Save_Buffer+Save_Buffer_Offset+Save_Buffer_Begin, Size);
+            std::memcpy(Buffer_3Bytes+Buffer_3bytes_Begin, Save_Buffer+Save_Element_Offset+Save_Buffer_Offset+Save_Buffer_Begin, Size);
         }
         Buffer=Buffer_3Bytes;
     }
@@ -847,7 +873,10 @@ void File_Avc::Data_Parse()
         case 0x0B : Element_Name("end_of_stream"); Skip_XX(Element_Size-Element_Offset, "Data"); break;
         case 0x0C : filler_data(); break;
         case 0x0D : Element_Name("seq_parameter_set_extension"); Skip_XX(Element_Size-Element_Offset, "Data"); break;
+        case 0x0E : prefix_nal_unit(); break;
+        case 0x0F : subset_seq_parameter_set(); break;
         case 0x13 : Element_Name("slice_layer_without_partitioning"); Skip_XX(Element_Size-Element_Offset, "Data"); break;
+        case 0x14 : slice_layer_extension(); break;
         default :
             if (Element_Code<=0x17)
                 Element_Name("reserved");
@@ -1649,87 +1678,8 @@ void File_Avc::seq_parameter_set()
 {
     Element_Name("seq_parameter_set");
 
-    Get_B1 (profile_idc,                                        "profile_idc");
-    BS_Begin();
-    Element_Begin("constraints");
-        Skip_SB(                                                "constraint_set0_flag");
-        Skip_SB(                                                "constraint_set1_flag");
-        Skip_SB(                                                "constraint_set2_flag");
-        Skip_SB(                                                "constraint_set3_flag");
-        Skip_SB(                                                "reserved_zero_4bits");
-        Skip_SB(                                                "reserved_zero_4bits");
-        Skip_SB(                                                "reserved_zero_4bits");
-        Skip_SB(                                                "reserved_zero_4bits");
-    Element_End();
-    Get_S1 ( 8, level_idc,                                      "level_idc");
-    Skip_UE(                                                    "seq_parameter_set_id");
-    if (profile_idc==100
-     || profile_idc==110
-     || profile_idc==122
-     || profile_idc==244
-     || profile_idc== 44
-     || profile_idc== 83
-     || profile_idc== 86) //High profiles
-    {
-        Element_Begin("high profile specific");
-        Get_UE (chroma_format_idc,                              "chroma_format_idc");
-        if (chroma_format_idc>3)
-        {
-            Trusted_IsNot("chroma_format_idc is too high");
-            chroma_format_idc=1;
-        }
-        Param_Info(Avc_Colorimetry_format_idc[chroma_format_idc]);
-        if (chroma_format_idc==3)
-            Skip_SB(                                            "residual_colour_transform_flag");
-        Skip_UE(                                                "bit_depth_luma_minus8");
-        Skip_UE(                                                "bit_depth_Colorimetry_minus8");
-        Skip_SB(                                                "qpprime_y_zero_transform_bypass_flag");
-        TEST_SB_SKIP(                                           "seq_scaling_matrix_present_flag");
-            for (int32u Pos=0; Pos<8; Pos++)
-            {
-                TEST_SB_SKIP(                                   "seq_scaling_list_present_flag");
-                    scaling_list(Pos<6?16:64);
-                TEST_SB_END();
-            }
-        TEST_SB_END();
-        Element_End();
-    }
-    Get_UE (log2_max_frame_num_minus4,                          "log2_max_frame_num_minus4");
-    Get_UE (pic_order_cnt_type,                                 "pic_order_cnt_type");
-    if (pic_order_cnt_type==0)
-        Get_UE (log2_max_pic_order_cnt_lsb_minus4,              "log2_max_pic_order_cnt_lsb_minus4");
-    else if (pic_order_cnt_type==1)
-    {
-        int32u num_ref_frames_in_pic_order_cnt_cycle;
-        Skip_SB(                                                "delta_pic_order_always_zero_flag");
-        Skip_SE(                                                "offset_for_non_ref_pic");
-        Skip_SE(                                                "offset_for_top_to_bottom_field");
-        Get_UE (num_ref_frames_in_pic_order_cnt_cycle,          "num_ref_frames_in_pic_order_cnt_cycle");
-        if (num_ref_frames_in_pic_order_cnt_cycle>=256)
-        {
-            Trusted_IsNot("num_ref_frames_in_pic_order_cnt_cycle too high");
-            num_ref_frames_in_pic_order_cnt_cycle=0;
-        }
-        for(int32u Pos=0; Pos<num_ref_frames_in_pic_order_cnt_cycle; Pos++)
-            Skip_SE(                                            "offset_for_ref_frame");
-    }
-    Get_UE (num_ref_frames,                                     "num_ref_frames");
-    Skip_SB(                                                    "gaps_in_frame_num_value_allowed_flag");
-    Get_UE (pic_width_in_mbs_minus1,                            "pic_width_in_mbs_minus1");
-    Get_UE (pic_height_in_map_units_minus1,                     "pic_height_in_map_units_minus1");
-    Get_SB (frame_mbs_only_flag,                                "frame_mbs_only_flag");
-    if (!frame_mbs_only_flag)
-        Get_SB (mb_adaptive_frame_field_flag,                   "mb_adaptive_frame_field_flag");
-    Skip_SB(                                                    "direct_8x8_inference_flag");
-    TEST_SB_SKIP(                                               "frame_cropping_flag");
-        Get_UE (frame_crop_left_offset,                         "frame_crop_left_offset");
-        Get_UE (frame_crop_right_offset,                        "frame_crop_right_offset");
-        Get_UE (frame_crop_top_offset,                          "frame_crop_top_offset");
-        Get_UE (frame_crop_bottom_offset,                       "frame_crop_bottom_offset");
-    TEST_SB_END();
-    TEST_SB_SKIP(                                               "vui_parameters_present_flag");
-        vui_parameters();
-    TEST_SB_END();
+    //parsing
+    seq_parameter_set_data();
     Mark_1(                                                     );
     BS_End();
 
@@ -1753,6 +1703,10 @@ void File_Avc::seq_parameter_set()
     }
 
     FILLING_BEGIN_PRECISE();
+        //Filling
+        seq_parameter_set_ids[seq_parameter_set_id].profile_idc=profile_idc;
+        seq_parameter_set_ids[seq_parameter_set_id].level_idc=level_idc;
+
         //NextCode
         NextCode_Clear();
         NextCode_Add(0x08);
@@ -1929,9 +1883,176 @@ void File_Avc::filler_data()
     BS_End();
 }
 
+//---------------------------------------------------------------------------
+// Packet "0F"
+void File_Avc::prefix_nal_unit()
+{
+    Element_Name("prefix_nal_unit_rbsp");
+
+    //Parsing
+    if (svc_extension_flag)
+    {
+        Skip_XX(Element_Size-Element_Offset,                    "prefix_nal_unit_svc");
+    }
+}
+
+//---------------------------------------------------------------------------
+// Packet "0F"
+void File_Avc::subset_seq_parameter_set()
+{
+    Element_Name("subset_seq_parameter_set");
+
+    //Parsing
+    seq_parameter_set_data();
+    if (profile_idc==83 || profile_idc==86)
+    {
+        bool svc_vui_parameters_present_flag;
+        seq_parameter_set_svc_extension();
+        /* The rest is not yet implemented
+        Get_SB (svc_vui_parameters_present_flag,                "svc_vui_parameters_present_flag");
+        if (svc_vui_parameters_present_flag)
+            svc_vui_parameters_extension();
+        */
+    }
+    else if (profile_idc==118 || profile_idc==128)
+    {
+        bool mvc_vui_parameters_present_flag, additional_extension2_flag;
+        Mark_1();
+        seq_parameter_set_mvc_extension();
+        /* The rest is not yet implemented
+        Get_SB (mvc_vui_parameters_present_flag,                "mvc_vui_parameters_present_flag");
+        if (mvc_vui_parameters_present_flag)
+            mvc_vui_parameters_extension();
+        Get_SB (additional_extension2_flag,                     "additional_extension2_flag");
+        if (additional_extension2_flag)
+        {
+            //Not handled, should skip all bits except 1
+            BS_End();
+            return;
+        }
+        */
+    }
+    /* The rest is not yet implemented
+    Mark_1(                                                     );
+    */
+    BS_End();
+
+    FILLING_BEGIN();
+        //Filling
+        subset_seq_parameter_set_ids[seq_parameter_set_id].profile_idc=profile_idc;
+        subset_seq_parameter_set_ids[seq_parameter_set_id].level_idc=level_idc;
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+// Packet "14"
+void File_Avc::slice_layer_extension()
+{
+    Element_Name("slice_layer_extension");
+
+    //Parsing
+    if (svc_extension_flag)
+    {
+        Skip_XX(Element_Size-Element_Offset,                    "slice_header_in_scalable_extension + slice_data_in_scalable_extension");
+    }
+    else
+    {
+        slice_header();
+        //slice_data();
+    }
+}
+
 //***************************************************************************
 // SubElements
 //***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_Avc::seq_parameter_set_data()
+{
+    Get_B1 (profile_idc,                                        "profile_idc");
+    BS_Begin();
+    Element_Begin("constraints");
+        Skip_SB(                                                "constraint_set0_flag");
+        Skip_SB(                                                "constraint_set1_flag");
+        Skip_SB(                                                "constraint_set2_flag");
+        Skip_SB(                                                "constraint_set3_flag");
+        Skip_SB(                                                "reserved_zero_4bits");
+        Skip_SB(                                                "reserved_zero_4bits");
+        Skip_SB(                                                "reserved_zero_4bits");
+        Skip_SB(                                                "reserved_zero_4bits");
+    Element_End();
+    Get_S1 ( 8, level_idc,                                      "level_idc");
+    Get_UE (    seq_parameter_set_id,                           "seq_parameter_set_id");
+    if (profile_idc==100
+     || profile_idc==110
+     || profile_idc==122
+     || profile_idc==244
+     || profile_idc== 44
+     || profile_idc== 83
+     || profile_idc== 86
+     || profile_idc==118
+     || profile_idc==128) //High profiles
+    {
+        Element_Begin("high profile specific");
+        Get_UE (chroma_format_idc,                              "chroma_format_idc");
+        if (chroma_format_idc>3)
+        {
+            Trusted_IsNot("chroma_format_idc is too high");
+            chroma_format_idc=1;
+        }
+        Param_Info(Avc_Colorimetry_format_idc[chroma_format_idc]);
+        if (chroma_format_idc==3)
+            Skip_SB(                                            "residual_colour_transform_flag");
+        Skip_UE(                                                "bit_depth_luma_minus8");
+        Skip_UE(                                                "bit_depth_Colorimetry_minus8");
+        Skip_SB(                                                "qpprime_y_zero_transform_bypass_flag");
+        TEST_SB_SKIP(                                           "seq_scaling_matrix_present_flag");
+            for (int32u Pos=0; Pos<8; Pos++)
+            {
+                TEST_SB_SKIP(                                   "seq_scaling_list_present_flag");
+                    scaling_list(Pos<6?16:64);
+                TEST_SB_END();
+            }
+        TEST_SB_END();
+        Element_End();
+    }
+    Get_UE (log2_max_frame_num_minus4,                          "log2_max_frame_num_minus4");
+    Get_UE (pic_order_cnt_type,                                 "pic_order_cnt_type");
+    if (pic_order_cnt_type==0)
+        Get_UE (log2_max_pic_order_cnt_lsb_minus4,              "log2_max_pic_order_cnt_lsb_minus4");
+    else if (pic_order_cnt_type==1)
+    {
+        int32u num_ref_frames_in_pic_order_cnt_cycle;
+        Skip_SB(                                                "delta_pic_order_always_zero_flag");
+        Skip_SE(                                                "offset_for_non_ref_pic");
+        Skip_SE(                                                "offset_for_top_to_bottom_field");
+        Get_UE (num_ref_frames_in_pic_order_cnt_cycle,          "num_ref_frames_in_pic_order_cnt_cycle");
+        if (num_ref_frames_in_pic_order_cnt_cycle>=256)
+        {
+            Trusted_IsNot("num_ref_frames_in_pic_order_cnt_cycle too high");
+            num_ref_frames_in_pic_order_cnt_cycle=0;
+        }
+        for(int32u Pos=0; Pos<num_ref_frames_in_pic_order_cnt_cycle; Pos++)
+            Skip_SE(                                            "offset_for_ref_frame");
+    }
+    Get_UE (num_ref_frames,                                     "num_ref_frames");
+    Skip_SB(                                                    "gaps_in_frame_num_value_allowed_flag");
+    Get_UE (pic_width_in_mbs_minus1,                            "pic_width_in_mbs_minus1");
+    Get_UE (pic_height_in_map_units_minus1,                     "pic_height_in_map_units_minus1");
+    Get_SB (frame_mbs_only_flag,                                "frame_mbs_only_flag");
+    if (!frame_mbs_only_flag)
+        Get_SB (mb_adaptive_frame_field_flag,                   "mb_adaptive_frame_field_flag");
+    Skip_SB(                                                    "direct_8x8_inference_flag");
+    TEST_SB_SKIP(                                               "frame_cropping_flag");
+        Get_UE (frame_crop_left_offset,                         "frame_crop_left_offset");
+        Get_UE (frame_crop_right_offset,                        "frame_crop_right_offset");
+        Get_UE (frame_crop_top_offset,                          "frame_crop_top_offset");
+        Get_UE (frame_crop_bottom_offset,                       "frame_crop_bottom_offset");
+    TEST_SB_END();
+    TEST_SB_SKIP(                                               "vui_parameters_present_flag");
+        vui_parameters();
+    TEST_SB_END();
+}
 
 //---------------------------------------------------------------------------
 void File_Avc::scaling_list(int32u ScalingList_Size)
@@ -2047,6 +2168,76 @@ void File_Avc::hrd_parameters(bool vcl)
     Get_S1 (5, cpb_removal_delay_length_minus1,                 "cpb_removal_delay_length_minus1");
     Get_S1 (5, dpb_output_delay_length_minus1,                  "dpb_output_delay_length_minus1");
     Get_S1 (5, time_offset_length,                              "time_offset_length");    
+}
+
+//---------------------------------------------------------------------------
+void File_Avc::nal_unit_header_svc_extension()
+{
+    //Parsing
+    Element_Begin("nal_unit_header_svc_extension");
+    Skip_SB(                                                    "idr_flag");
+    Skip_S1( 6,                                                 "priority_id");
+    Skip_SB(                                                    "no_inter_layer_pred_flag");
+    Skip_S1( 3,                                                 "dependency_id");
+    Skip_S1( 4,                                                 "quality_id");
+    Skip_S1( 3,                                                 "temporal_id");
+    Skip_SB(                                                    "use_ref_base_pic_flag");
+    Skip_SB(                                                    "discardable_flag");
+    Skip_SB(                                                    "output_flag");
+    Skip_S1( 2,                                                 "reserved_three_2bits");
+    Element_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Avc::nal_unit_header_mvc_extension()
+{
+    //Parsing
+    Element_Begin("nal_unit_header_mvc_extension");
+    Skip_SB(                                                    "non_idr_flag");
+    Skip_S1( 6,                                                 "priority_id");
+    Skip_S1(10,                                                 "view_id");
+    Skip_S1( 3,                                                 "temporal_id");
+    Skip_SB(                                                    "anchor_pic_flag");
+    Skip_SB(                                                    "inter_view_flag");
+    Skip_SB(                                                    "reserved_one_bit");
+    Element_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Avc::seq_parameter_set_svc_extension()
+{
+    //Parsing
+    Element_Begin("seq_parameter_set_svc_extension");
+    //Skip_SB(                                                    "");
+    Element_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Avc::svc_vui_parameters_extension()
+{
+    //Parsing
+    Element_Begin("svc_vui_parameters_extension");
+    //Skip_SB(                                                    "");
+    Element_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Avc::seq_parameter_set_mvc_extension()
+{
+    //Parsing
+    Element_Begin("seq_parameter_set_mvc_extension");
+    Get_UE (num_views_minus1,                                   "num_views_minus1");
+    //Skip_SB(                                                    "");
+    Element_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Avc::mvc_vui_parameters_extension()
+{
+    //Parsing
+    Element_Begin("mvc_vui_parameters_extension");
+    Skip_SB(                                                    "");
+    Element_End();
 }
 
 //***************************************************************************

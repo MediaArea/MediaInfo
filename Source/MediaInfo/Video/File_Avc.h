@@ -96,11 +96,21 @@ private :
     void sei_message_mainconcept(int32u payloadSize);
     void access_unit_delimiter();
     void filler_data();
+    void prefix_nal_unit();
+    void subset_seq_parameter_set();
+    void slice_layer_extension();
 
     //Packets - SubElements
+    void seq_parameter_set_data();
     void scaling_list(int32u ScalingList_Size);
     void vui_parameters();
     void hrd_parameters(bool vcl);
+    void nal_unit_header_svc_extension();
+    void nal_unit_header_mvc_extension();
+    void seq_parameter_set_svc_extension();
+    void svc_vui_parameters_extension();
+    void seq_parameter_set_mvc_extension();
+    void mvc_vui_parameters_extension();
 
     //Packets - Specific
     void SPS_PPS();
@@ -153,6 +163,21 @@ private :
     size_t                         TemporalReference_GA94_03_CC_Offset;
     size_t                         TemporalReference_Offset_pic_order_cnt_lsb_Last;
 
+    //seq_parameter_set
+    struct seq_parameter_set_
+    {
+        int8u profile_idc;
+        int8u level_idc;
+
+        seq_parameter_set_()
+        {
+            profile_idc=0;
+            level_idc=0;
+        }
+    };
+    std::map<int8u, seq_parameter_set_> seq_parameter_set_ids;
+    std::map<int8u, seq_parameter_set_> subset_seq_parameter_set_ids;
+
     //Temp
     std::vector<File__Analyze*> GA94_03_CC_Parsers;
 
@@ -196,6 +221,8 @@ private :
     int32u bit_depth_luma_minus8;
     int32u bit_depth_Colorimetry_minus8;
     int32u pic_order_cnt_lsb;
+    int32u seq_parameter_set_id;
+    int32u num_views_minus1;
     int16u sar_width;
     int16u sar_height;
     int8u  profile_idc;
@@ -221,6 +248,7 @@ private :
     bool   CpbDpbDelaysPresentFlag;
     bool   mb_adaptive_frame_field_flag;
     bool   pic_order_present_flag;
+    bool    svc_extension_flag;
 
     //Temp
     bool SPS_IsParsed;

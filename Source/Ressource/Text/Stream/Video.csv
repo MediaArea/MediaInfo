@@ -15,6 +15,8 @@ Format/Info;;;Y NT;;;Info about Format
 Format/Url;;;N NT;;;Link
 Format_Version;;;Y NT;;;Version of this format
 Format_Profile;;;Y NT;;;Profile of the Format
+MultiView_BaseProfile;;;Y NT;;;Multiview, profile of the base stream
+MultiView_Count;;;Y NT;;;Multiview, count of views
 Format_Settings;;;N NT;;;Settings needed for decoder used, summary
 Format_Settings_BVOP;;Yes;N YT;;;Settings needed for decoder used, detailled
 Format_Settings_BVOP/String;;;Y NT;;;Settings needed for decoder used, detailled
@@ -60,22 +62,22 @@ Codec_Settings_CABAC;;;N NT;;;Deprecated, do not use in new projects
 Codec_Settings_RefFrames;;;N NT;;;Deprecated, do not use in new projects
 Duration;; ms;N YI;;;Play time of the stream in ms
 Duration/String;;;Y NT;;;Play time in format : XXx YYy only, YYy omited if zero
-Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
-Duration/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero
-Duration/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM
+Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero;
+Duration/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero;
+Duration/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM;
 Duration/String4;;;N NT;;;Play time in format : HH:MM:SS:FF (HH:MM:SS;FF for drop frame, if available)
-Duration_LastFrame;; ms;N YI;;;Duration of the last frame if it is longer than others, in ms
-Duration_LastFrame/String;;;Y NT;;;Duration of the last frame if it is longer than others, in format : XXx YYy only, YYy omited if zero
-Duration_LastFrame/String1;;;N NT;;;Duration of the last frame if it is longer than others, in format : HHh MMmn SSs MMMms, XX omited if zero
-Duration_LastFrame/String2;;;N NT;;;Duration of the last frame if it is longer than others, in format : XXx YYy only, YYy omited if zero
-Duration_LastFrame/String3;;;N NT;;;Duration of the last frame if it is longer than others, in format : HH:MM:SS.MMM
-BitRate_Mode;;;N YT;;;Bit rate mode (VBR, CBR)
-BitRate_Mode/String;;;Y NT;;;Bit rate mode (Variable, Cconstant)
-BitRate;; bps;N YF;;;Bit rate in bps
-BitRate/String;;;Y NT;;;Bit rate (with measurement)
-BitRate_Minimum;; bps;N YF;;;Minimum Bit rate in bps
-BitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement)
-BitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps
+Duration_LastFrame;; ms;N YI;;;Duration of the last frame if it is longer than others, in ms;
+Duration_LastFrame/String;;;Y NT;;;Duration of the last frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
+Duration_LastFrame/String1;;;N NT;;;Duration of the last frame if it is longer than others, in format : HHh MMmn SSs MMMms, XX omited if zero;
+Duration_LastFrame/String2;;;N NT;;;Duration of the last frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
+Duration_LastFrame/String3;;;N NT;;;Duration of the last frame if it is longer than others, in format : HH:MM:SS.MMM;
+BitRate_Mode;;;N YT;;;Bit rate mode (VBR, CBR);
+BitRate_Mode/String;;;Y NT;;;Bit rate mode (Variable, Cconstant);
+BitRate;; bps;N YF;;;Bit rate in bps;
+BitRate/String;;;Y NT;;;Bit rate (with measurement);
+BitRate_Minimum;; bps;N YF;;;Minimum Bit rate in bps;
+BitRate_Minimum/String;;;Y NT;;;Minimum Bit rate (with measurement);
+BitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps;
 BitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement)
 BitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps
 BitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement)
@@ -108,38 +110,38 @@ FrameRate_Original/String;;;Y NT;;;Original (in the raw stream) Frames per secon
 FrameCount;;;N NI;;;Number of frames
 Standard;;;Y NT;;;NTSC or PAL
 Resolution;; bit;N YI;;;16/24/32 
-Resolution/String;;;Y NT;;;16/24/32 bits
-Colorimetry;;;Y YT;;;
-ScanType;;;N YT;;;
-ScanType/String;;;Y NT;;;
-ScanOrder;;;N YT;;;
-ScanOrder/String;;;Y NT;;;
-Interlacement;;;N NT;;;Deprecated, do not use in new projects
-Interlacement/String;;;N NT;;;Deprecated, do not use in new projects
-Bits-(Pixel*Frame);;;Y YF;;;bits/(Pixel*Frame) (like Gordian Knot)
-Delay;; ms;N NI;;;Delay fixed in the stream (relative) IN MS
-Delay/String;;;N NT;;;Delay with measurement
-Delay/String1;;;N NT;;;Delay with measurement
-Delay/String2;;;N NT;;;Delay with measurement
-Delay/String3;;;N NT;;;format : HH:MM:SS.MMM
+Resolution/String;;;Y NT;;;16/24/32 bits;
+Colorimetry;;;Y YT;;;;
+ScanType;;;N YT;;;;
+ScanType/String;;;Y NT;;;;
+ScanOrder;;;N YT;;;;
+ScanOrder/String;;;Y NT;;;;
+Interlacement;;;N NT;;;Deprecated, do not use in new projects;
+Interlacement/String;;;N NT;;;Deprecated, do not use in new projects;
+Bits-(Pixel*Frame);;;Y YF;;;bits/(Pixel*Frame) (like Gordian Knot);
+Delay;; ms;N NI;;;Delay fixed in the stream (relative) IN MS;
+Delay/String;;;N NT;;;Delay with measurement;
+Delay/String1;;;N NT;;;Delay with measurement;
+Delay/String2;;;N NT;;;Delay with measurement;
+Delay/String3;;;N NT;;;format : HH:MM:SS.MMM;
 Delay/String4;;;N NT;;;Delay in format : HH:MM:SS:FF (HH:MM:SS;FF for drop frame, if available)
-Delay_Settings;;;N NT;;;Delay settings (in case of timecode for example)
-Delay_Original;; ms;N NI;;;Delay fixed in the raw stream (relative) IN MS
-Delay_Original/String;;;N NT;;;Delay with measurement
-Delay_Original/String1;;;N NT;;;Delay with measurement
-Delay_Original/String2;;;N NT;;;Delay with measurement
-Delay_Original/String3;;;N NT;;;format : HH:MM:SS.MMM;;
+Delay_Settings;;;N NT;;;Delay settings (in case of timecode for example);
+Delay_Original;; ms;N NI;;;Delay fixed in the raw stream (relative) IN MS;
+Delay_Original/String;;;N NT;;;Delay with measurement;
+Delay_Original/String1;;;N NT;;;Delay with measurement;
+Delay_Original/String2;;;N NT;;;Delay with measurement;
+Delay_Original/String3;;;N NT;;;format : HH:MM:SS.MMM;
 Delay-Original/String4;;;N NT;;;Delay in format : HH:MM:SS:FF (HH:MM:SS;FF for drop frame, if available)
-Delay_Original_Settings;;;N NT;;;Delay settings (in case of timecode for example);;
-StreamSize;; byte;N YI;;;Stream size in bytes;;
-StreamSize/String;;;Y NT;;;Streamsize in with percentage value;;
-StreamSize/String1;;;N NT;;;Streamsize with measurement;;
-StreamSize/String2;;;N NT;;;Streamsize with measurement;;
-StreamSize/String3;;;N NT;;;Streamsize with measurement;;
-StreamSize/String4;;;N NT;;;Streamsize with measurement;;
-StreamSize/String5;;;N NT;;;Streamsize in with percentage value;;
-StreamSize_Proportion;;;N NT;;;Stream size divided by file size;;
-Alignment;;;Y NT;;;How this stream file is aligned in the container;;
+Delay_Original_Settings;;;N NT;;;Delay settings (in case of timecode for example);
+StreamSize;; byte;N YI;;;Stream size in bytes;
+StreamSize/String;;;Y NT;;;Streamsize in with percentage value;
+StreamSize/String1;;;N NT;;;Streamsize with measurement;
+StreamSize/String2;;;N NT;;;Streamsize with measurement;
+StreamSize/String3;;;N NT;;;Streamsize with measurement;
+StreamSize/String4;;;N NT;;;Streamsize with measurement;
+StreamSize/String5;;;N NT;;;Streamsize in with percentage value;
+StreamSize_Proportion;;;N NT;;;Stream size divided by file size;
+Alignment;;;Y NT;;;How this stream file is aligned in the container;
 Alignment/String;;;N YT;;;;;
 Title;;;Y YI;;;Name of the track;;
 Encoded_Application;;;Y YT;;;Software. Identifies the name of the software package used to create the file, such as Microsoft WaveEdit.;;Technical

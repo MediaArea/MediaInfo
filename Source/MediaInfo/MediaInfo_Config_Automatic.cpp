@@ -3867,6 +3867,8 @@ void MediaInfo_Config_Video (ZtringListList &Info)
     "Format/Url;;;N NT;;;Link\n"
     "Format_Version;;;Y NT;;;Version of this format\n"
     "Format_Profile;;;Y NT;;;Profile of the Format\n"
+    "MultiView_BaseProfile;;;Y NT;;;Multiview, profile of the base stream\n"
+    "MultiView_Count;;;Y NT;;;Multiview, count of views\n"
     "Format_Settings;;;N NT;;;Settings needed for decoder used, summary\n"
     "Format_Settings_BVOP;;Yes;N YT;;;Settings needed for decoder used, detailled\n"
     "Format_Settings_BVOP/String;;;Y NT;;;Settings needed for decoder used, detailled\n"
