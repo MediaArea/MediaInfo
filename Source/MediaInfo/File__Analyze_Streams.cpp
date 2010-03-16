@@ -924,8 +924,13 @@ void File__Analyze::Clear (stream_t StreamKind, size_t StreamPos, size_t Paramet
         return;
 
     //Normal
-    if (Parameter<(*Stream)[StreamKind][StreamPos].size())
+    if (Parameter<MediaInfoLib::Config.Info_Get(StreamKind).size())
     {
+        //Is something available?
+        if (Parameter>=(*Stream)[StreamKind][StreamPos].size())
+            return; //Was never filled, no nead to clear it
+
+        //Clearing
         (*Stream)[StreamKind][StreamPos][Parameter].clear();
 
         //Human readable
