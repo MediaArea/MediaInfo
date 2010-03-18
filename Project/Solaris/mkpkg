@@ -1,46 +1,58 @@
 #!/bin/sh
 
 #Config
-pkg=mediainfo
-pkgfile=$pkg-0.7.29-Solaris_10.i386.pkg.tgz
+user=`id -un`
+group=`id -gn`
+processor=`uname -p`
+kernel=`uname -s`
+release=`uname -r`
 
-#Must be root
-if [ "$(id -u)" != "0" ]; then
-    echo "$0 must be run as root"
-    exit 1
-fi
+#Creation of known directories and filenames
+name="mediainfo"
+version="0.7.30"
+Home=`pwd`
+install_prefix=${Home}/mk_package
+packagecreation_prefix=${Home}/create_package
+
+#Common code
+. ./mkpkg.sub
 
 #Compile and install
-Home=`pwd`
 cd ../GNU/CLI
-./autogen
-./configure --prefix=/usr
+#./autogen
+./configure --prefix=${install_prefix} --enable-shared --disable-static "CXXFLAGS=-I/opt/libzen0/include -I/opt/libmediainfo0/usr/include" "LDFLAGS=-L/opt/libzen0/lib -L/opt/libmediainfo0/lib"
 make
-make install
-cd $Home
-#doc
-install -d -m 755 /usr/share/doc/mediainfo
-cp ../../*.txt /usr/share/doc/mediainfo
-cp ../../Release/ReadMe_CLI_Linux.txt /usr/share/doc/mediainfo/ReadMe.txt
-mv /usr/share/doc/mediainfo/History_CLI.txt /usr/share/doc/mediainfo/History.txt
-cp ../../License.html /usr/share/doc/mediainfo
-chown -R root /usr/share/doc/mediainfo
-chgrp -R bin /usr/share/doc/mediainfo
+if test -e .libs/mediainfo; then
+  echo "Compilation OK"
+else
+  echo "Compilation problem"
+  exit 1
+fi
 
-#Packaging
-rm -r packages
-mkdir packages
-pkgmk -o -r / -d ./packages -f mediainfo/prototype
-#pkgtrans -s ./ ./ mediainfo
-cd packages
-tar -cf - $pkg | gzip -9 -c >$pkgfile
-cd ..
-mv packages/*.tgz ./
+#****************************************************************************
+# Release 
+#****************************************************************************
 
-#removing files
-rm /usr/bin/mediainfo
-rm -r /usr/share/doc/mediainfo
-rm -r packages
+cd ${Home}
+mkdir -p ${install_prefix}
+
+#Copying useful files
+#bin
+install -d -m 755 ${install_prefix}/bin
+cp -rP ../GNU/Library/.libs/mediainfo ${install_prefix}/bin
+install -d -m 755 ${install_prefix}/share/doc/${name}
+cp ../../*.txt ${install_prefix}/share/doc/${name}
+cp ../../Release/ReadMe_CLI_Linux.txt ${install_prefix}/share/doc/${name}/ReadMe.txt
+mv ${install_prefix}/share/doc/${name}History_CLI.txt ${install_prefix}/share/doc/${name}History.txt
+cp ../../License.html ${install_prefix}/share/doc/${name}/
+chmod 644 ${install_prefix}/share/doc/${name}/*
+
+#Creation of package
+pkgname="${name}"
+PackageCreate
+
+
+exit 0
 
 #hints
 #install: pkgadd -d./ mediainfo
