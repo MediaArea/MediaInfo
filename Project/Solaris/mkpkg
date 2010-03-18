@@ -4,7 +4,7 @@
 user=`id -un`
 group=`id -gn`
 processor=`uname -p`
-operatingsystem=`uname -o`
+kernel=`uname -s`
 release=`uname -r`
 
 #Creation of known directories and filenames
@@ -19,9 +19,9 @@ packagecreation_prefix=${Home}/create_package
 
 #Compile and install
 cd ../GNU/Library
-#./autogen
-#./configure --prefix=${install_prefix} --enable-shared --disable-static $*
-#make
+./autogen
+./configure --prefix=${install_prefix} --enable-shared --disable-static $*
+make
 if test -e .libs/libmediainfo.so; then
   echo "Compilation OK"
 else

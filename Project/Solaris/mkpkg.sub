@@ -33,7 +33,7 @@ cat  ${packagecreation_prefix}/files | pkgproto | sed "s/ ${user} / root /g" | s
 echo "PKG=${pkgname}" > ${packagecreation_prefix}/pkginfo
 echo "VERSION=${version}" >> ${packagecreation_prefix}/pkginfo
 echo "ARCH=${processor}" >> ${packagecreation_prefix}/pkginfo
-echo "NAME=${pkgname} ${version} ${operatingsystem} ${release} ${processor}" >> ${packagecreation_prefix}/pkginfo
+echo "NAME=${pkgname} ${version} ${kernel} ${release} ${processor}" >> ${packagecreation_prefix}/pkginfo
 echo "DESC=Base library for some other projects" >> ${packagecreation_prefix}/pkginfo
 echo "CLASSES=none" >> ${packagecreation_prefix}/pkginfo
 echo "CATEGORY=utility" >> ${packagecreation_prefix}/pkginfo
@@ -43,7 +43,7 @@ echo "BASEDIR=/" >> ${packagecreation_prefix}/pkginfo
 
 cd ${packagecreation_prefix}
 pkgmk -o -b ${install_prefix} -d . -f prototype
-tar -cf - $pkgname | gzip -9 -c >${Home}/${pkgname}-${version}-${operatingsystem}_${release}.${processor}.pkg.tgz
+tar -cf - $pkgname | gzip -9 -c >${Home}/${pkgname}-${version}-${kernel}_${release}.${processor}.pkg.tgz
 
 #Removing files
 cd ${home}
