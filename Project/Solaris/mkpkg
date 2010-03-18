@@ -41,12 +41,12 @@ mkdir -p ${install_prefix}
 install -d -m 755 ${install_prefix}/lib
 cp -rP ../GNU/Library/.libs/*.so* ${install_prefix}/lib
 #doc
-install -d -m 755 ${install_prefix}/usr/share/doc/${name}
-cp ../../*.txt ${install_prefix}/usr/share/doc/${name}
-chmod 644 ${install_prefix}/usr/share/doc/${name}/*.txt
-mv ${install_prefix}/usr/share/doc/${name}/History_DLL.txt ${install_prefix}/usr/share/doc/${name}/History.txt
-cp ../../License.html ${install_prefix}/usr/share/doc/libmediainfo0
-chmod 644 ${install_prefix}/usr/share/doc/${name}/*.html
+install -d -m 755 ${install_prefix}/share/doc/${name}
+cp ../../*.txt ${install_prefix}/share/doc/${name}
+chmod 644 ${install_prefix}/share/doc/${name}/*.txt
+mv ${install_prefix}/share/doc/${name}/History_DLL.txt ${install_prefix}/share/doc/${name}/History.txt
+cp ../../License.html ${install_prefix}/share/doc/libmediainfo0
+chmod 644 ${install_prefix}/share/doc/${name}/*.html
 
 #depend file
 mkdir -p ${packagecreation_prefix}
@@ -66,27 +66,27 @@ mkdir -p ${install_prefix}
 
 #include
 #include
-install -d -m 755 ${install_prefix}/usr/include/MediaInfo
-cp ../../Source/MediaInfo/MediaInfo.h ${install_prefix}/usr/include/MediaInfo/
-cp ../../Source/MediaInfo/MediaInfoList.h ${install_prefix}/usr/include/MediaInfo/
-cp ../../Source/MediaInfo/MediaInfo_Const.h ${install_prefix}/usr/include/MediaInfo/
-chmod 644 ${install_prefix}/usr/include/MediaInfo/*
-install -d -m 755 ${install_prefix}/usr/include/MediaInfoDLL
-cp ../../Source/MediaInfoDLL/MediaInfoDLL.cs ${install_prefix}/usr/include/MediaInfoDLL/
-cp ../../Source/MediaInfoDLL/MediaInfoDLL.h ${install_prefix}/usr/include/MediaInfoDLL/
-cp ../../Source/MediaInfoDLL/MediaInfoDLL_Static.h ${install_prefix}/usr/include/MediaInfoDLL/
-cp ../../Source/MediaInfoDLL/MediaInfoDLL.JNA.java ${install_prefix}/usr/include/MediaInfoDLL/
-cp ../../Source/MediaInfoDLL/MediaInfoDLL.JNative.java ${install_prefix}/usr/include/MediaInfoDLL/
-cp ../../Source/MediaInfoDLL/MediaInfoDLL.py ${install_prefix}/usr/include/MediaInfoDLL/
-cp ../../Source/MediaInfoDLL/MediaInfoDLL3.py ${install_prefix}/usr/include/MediaInfoDLL/
-chmod 644 ${install_prefix}/usr/include/MediaInfoDLL/*
+install -d -m 755 ${install_prefix}/include/MediaInfo
+cp ../../Source/MediaInfo/MediaInfo.h ${install_prefix}/include/MediaInfo/
+cp ../../Source/MediaInfo/MediaInfoList.h ${install_prefix}/include/MediaInfo/
+cp ../../Source/MediaInfo/MediaInfo_Const.h ${install_prefix}/include/MediaInfo/
+chmod 644 ${install_prefix}/include/MediaInfo/*
+install -d -m 755 ${install_prefix}/include/MediaInfoDLL
+cp ../../Source/MediaInfoDLL/MediaInfoDLL.cs ${install_prefix}/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL.h ${install_prefix}/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL_Static.h ${install_prefix}/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL.JNA.java ${install_prefix}/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL.JNative.java ${install_prefix}/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL.py ${install_prefix}/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL3.py ${install_prefix}/include/MediaInfoDLL/
+chmod 644 ${install_prefix}/include/MediaInfoDLL/*
 #bin
 install -d -m 755 ${install_prefix}/bin
 cp ../GNU/Library/libmediainfo-config ${install_prefix}/bin
 #doc
-install -d -m 755 ${install_prefix}/usr/share/doc/libmediainfo0-devel/Example
-cp ../../Source/Example/HowToUse_Dll* ${install_prefix}/usr/share/doc/libmediainfo0-devel/Example
-chmod 644 ${install_prefix}/usr/share/doc/libmediainfo0-devel/Example/*
+install -d -m 755 ${install_prefix}/share/doc/libmediainfo0-devel/Example
+cp ../../Source/Example/HowToUse_Dll* ${install_prefix}/share/doc/libmediainfo0-devel/Example
+chmod 644 ${install_prefix}/share/doc/libmediainfo0-devel/Example/*
 
 #depend file
 mkdir -p ${packagecreation_prefix}
