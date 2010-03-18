@@ -1,76 +1,103 @@
 #!/bin/sh
 
 #Config
-pkg=libmediainfo0
-pkgfile=$pkg-0.7.29-Solaris_10.i386.pkg.tgz
-pkgfiledevel=$pkg-devel-0.7.29-Solaris_10.i386.pkg.tgz
+user=`id -un`
+group=`id -gn`
+processor=`uname -p`
+operatingsystem=`uname -o`
+release=`uname -r`
 
-#Must be root
-if [ "$(id -u)" != "0" ]; then
-    echo "$0 must be run as root"
-    exit 1
-fi
+#Creation of known directories and filenames
+name="libmediainfo0"
+version="0.7.30"
+Home=`pwd`
+install_prefix=${Home}/mk_package
+packagecreation_prefix=${Home}/create_package
+
+#Common code
+. ./mkpkg.sub
 
 #Compile and install
-Home=`pwd`
 cd ../GNU/Library
-./autogen
-./configure --prefix=/usr --enable-shared --disable-static
-make
-make install
-cd $Home
-#include
-install -d -m 755 /usr/include/MediaInfo
-cp ../../Source/MediaInfo/MediaInfo.h /usr/include/MediaInfo/
-cp ../../Source/MediaInfo/MediaInfoList.h /usr/include/MediaInfo/
-cp ../../Source/MediaInfo/MediaInfo_Const.h /usr/include/MediaInfo/
-chown -R root /usr/include/MediaInfo
-chgrp -R bin /usr/include/MediaInfo
-install -d -m 755 /usr/include/MediaInfoDLL
-cp ../../Source/MediaInfoDLL/MediaInfoDLL.cs /usr/include/MediaInfoDLL/
-cp ../../Source/MediaInfoDLL/MediaInfoDLL.h /usr/include/MediaInfoDLL/
-cp ../../Source/MediaInfoDLL/MediaInfoDLL_Static.h /usr/include/MediaInfoDLL/
-cp ../../Source/MediaInfoDLL/MediaInfoDLL.JNA.java /usr/include/MediaInfoDLL/
-cp ../../Source/MediaInfoDLL/MediaInfoDLL.JNative.java /usr/include/MediaInfoDLL/
-cp ../../Source/MediaInfoDLL/MediaInfoDLL.py /usr/include/MediaInfoDLL/
-cp ../../Source/MediaInfoDLL/MediaInfoDLL3.py /usr/include/MediaInfoDLL/
-chown -R root /usr/include/MediaInfoDLL
-chgrp -R bin /usr/include/MediaInfoDLL
-#doc
-install -d -m 755 /usr/share/doc/libmediainfo0
-cp ../../*.txt /usr/share/doc/libmediainfo0
-mv /usr/share/doc/libmediainfo0/History_DLL.txt /usr/share/doc/libmediainfo0/History.txt
-cp ../../License.html /usr/share/doc/libmediainfo0
-chown -R root /usr/share/doc/libmediainfo0
-chgrp -R bin /usr/share/doc/libmediainfo0
-install -d -m 755 /usr/share/doc/libmediainfo0-devel/Example
-cp ../../Source/Example/HowToUse_Dll* /usr/share/doc/libmediainfo0-devel/Example
-chown -R root /usr/share/doc/libmediainfo0-devel
-chgrp -R bin /usr/share/doc/libmediainfo0-devel
+#./autogen
+#./configure --prefix=${install_prefix} --enable-shared --disable-static $*
+#make
+if test -e .libs/libmediainfo.so; then
+  echo "Compilation OK"
+else
+  echo "Compilation problem"
+  exit 1
+fi
+
+#****************************************************************************
+# Release 
+#****************************************************************************
+
+cd ${Home}
+mkdir -p ${install_prefix}
+
+#Copying useful files
 #bin
-cp ../GNU/Library/libmediainfo-config /usr/bin
-chown -R root /usr/bin/libmediainfo*
-chgrp -R bin /usr/bin/libmediainfo*
+install -d -m 755 ${install_prefix}/lib
+cp -rP ../GNU/Library/.libs/*.so* ${install_prefix}/lib
+#doc
+install -d -m 755 ${install_prefix}/usr/share/doc/${name}
+cp ../../*.txt ${install_prefix}/usr/share/doc/${name}
+chmod 644 ${install_prefix}/usr/share/doc/${name}/*.txt
+mv ${install_prefix}/usr/share/doc/${name}/History_DLL.txt ${install_prefix}/usr/share/doc/${name}/History.txt
+cp ../../License.html ${install_prefix}/usr/share/doc/libmediainfo0
+chmod 644 ${install_prefix}/usr/share/doc/${name}/*.html
 
-#Packaging
-rm -r packages
-mkdir packages
-pkgmk -o -r / -d ./packages -f libmediainfo0/prototype
-pkgmk -o -r / -d ./packages -f libmediainfo0-devel/prototype
-#pkgtrans -s ./ ./ libmediainfo0
-cd packages
-tar -cf - $pkg | gzip -9 -c >$pkgfile
-tar -cf - $pkg-devel | gzip -9 -c >$pkgfiledevel
-cd ..
-mv packages/*.tgz ./
+#depend file
+mkdir -p ${packagecreation_prefix}
+echo "P libzen0" > ${packagecreation_prefix}/depend
 
-#removing files
-rm -r /usr/include/MediaInfoLib
-rm /usr/bin/libmediainfo*
-rm /usr/lib/libmediainfo*
-rm -r /usr/share/doc/libmediainfo0
-rm -r packages
+#Creation of package
+pkgname="${name}"
+PackageCreate
+
+
+#****************************************************************************
+# Devel 
+#****************************************************************************
+
+cd ${Home}
+mkdir -p ${install_prefix}
+
+#include
+#include
+install -d -m 755 ${install_prefix}/usr/include/MediaInfo
+cp ../../Source/MediaInfo/MediaInfo.h ${install_prefix}/usr/include/MediaInfo/
+cp ../../Source/MediaInfo/MediaInfoList.h ${install_prefix}/usr/include/MediaInfo/
+cp ../../Source/MediaInfo/MediaInfo_Const.h ${install_prefix}/usr/include/MediaInfo/
+chmod 644 ${install_prefix}/usr/include/MediaInfo/*
+install -d -m 755 ${install_prefix}/usr/include/MediaInfoDLL
+cp ../../Source/MediaInfoDLL/MediaInfoDLL.cs ${install_prefix}/usr/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL.h ${install_prefix}/usr/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL_Static.h ${install_prefix}/usr/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL.JNA.java ${install_prefix}/usr/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL.JNative.java ${install_prefix}/usr/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL.py ${install_prefix}/usr/include/MediaInfoDLL/
+cp ../../Source/MediaInfoDLL/MediaInfoDLL3.py ${install_prefix}/usr/include/MediaInfoDLL/
+chmod 644 ${install_prefix}/usr/include/MediaInfoDLL/*
+#bin
+install -d -m 755 ${install_prefix}/bin
+cp ../GNU/Library/libmediainfo-config ${install_prefix}/bin
+#doc
+install -d -m 755 ${install_prefix}/usr/share/doc/libmediainfo0-devel/Example
+cp ../../Source/Example/HowToUse_Dll* ${install_prefix}/usr/share/doc/libmediainfo0-devel/Example
+chmod 644 ${install_prefix}/usr/share/doc/libmediainfo0-devel/Example/*
+
+#depend file
+mkdir -p ${packagecreation_prefix}
+echo "P ${name}" > ${packagecreation_prefix}/depend
+
+pkgname="${name}-devel"
+PackageCreate
+
+
+exit 0
 
 #hints
 #install: pkgadd -d./ libmediainfo0
-#remove: pkgrm libmediainfo0, remove /var/spool/pkg/libmediainfo0
+#remove: pkgrm libmediainfo0, remove /var/spool/pkg/libzen0
