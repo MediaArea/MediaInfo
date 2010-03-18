@@ -79,38 +79,33 @@ Public Class MediaInfo
     Protected Overrides Sub Finalize()
         MediaInfo_Delete(Handle)
     End Sub
-    Function Open(ByVal FileName As String) As Integer
+    Function Open(ByVal FileName As String) As System.UIntPtr
         Return MediaInfo_Open(Handle, FileName)
     End Function
     Sub Close()
         MediaInfo_Close(Handle)
     End Sub
     Function Inform() As String
-        Return Marshal.PtrToStringUni(MediaInfo_Inform(Handle, 0))
+        Return Marshal.PtrToStringUni(MediaInfo_Inform(Handle, CType(0, UIntPtr)))
     End Function
     Function Get_(ByVal StreamKind As StreamKind, ByVal StreamNumber As Integer, ByVal Parameter As Integer, Optional ByVal KindOfInfo As InfoKind = InfoKind.Text) As String
-        Return Marshal.PtrToStringUni(MediaInfo_GetI(Handle, StreamKind, StreamNumber, Parameter, KindOfInfo))
+        Return Marshal.PtrToStringUni(MediaInfo_GetI(Handle, CType(StreamKind, UIntPtr), CType(StreamNumber, UIntPtr), CType(Parameter, UIntPtr), CType(KindOfInfo, UIntPtr)))
     End Function
     Function Get_(ByVal StreamKind As StreamKind, ByVal StreamNumber As Integer, ByVal Parameter As String, Optional ByVal KindOfInfo As InfoKind = InfoKind.Text, Optional ByVal KindOfSearch As InfoKind = InfoKind.Name) As String
-        Return Marshal.PtrToStringUni(MediaInfo_Get(Handle, StreamKind, StreamNumber, Parameter, KindOfInfo, KindOfSearch))
+        Return Marshal.PtrToStringUni(MediaInfo_Get(Handle, CType(StreamKind, UIntPtr), CType(StreamNumber, UIntPtr), Parameter, CType(KindOfInfo, UIntPtr), CType(KindOfSearch, UIntPtr)))
     End Function
     Function Option_(ByVal Option__ As String, Optional ByVal Value As String = "") As String
         Return Marshal.PtrToStringUni(MediaInfo_Option(Handle, Option__, Value))
     End Function
     Function State_Get() As Integer
-        Return MediaInfo_State_Get(Handle)
+        Return CInt(MediaInfo_State_Get(Handle))
     End Function
     Function Count_Get(ByVal StreamKind As StreamKind, Optional ByVal StreamNumber As UInteger = UInteger.MaxValue) As Integer
         If StreamNumber = UInteger.MaxValue Then
-            Dim A As Long
-            A = 0
-            A = A - 1 'If you know how to have (IntPtr)(-1) easier, I am interested ;-)
-            Return MediaInfo_Count_Get(Handle, StreamKind, A)
+            Return CInt(MediaInfo_Count_Get(Handle, CType(StreamKind, UIntPtr), CType(-1, IntPtr)))
         Else
-            Return MediaInfo_Count_Get(Handle, StreamKind, StreamNumber)
+            Return CInt(MediaInfo_Count_Get(Handle, CType(StreamKind, UIntPtr), CType(StreamNumber, IntPtr)))
         End If
     End Function
 End Class
-
-
 
