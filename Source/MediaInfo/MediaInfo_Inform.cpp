@@ -272,7 +272,7 @@ Ztring MediaInfo_Internal::Inform (stream_t StreamKind, size_t StreamPos)
                 else if (XML)
                 {
                     if (Nom.operator()(0)>='0' && Nom.operator()(0)<='9')
-                        Nom.insert(0, 1, _T('_'));
+                        Nom.insert(Nom.begin(), _T('_'));
                     Nom.FindAndReplace(_T(" "), _T("_"), 0, Ztring_Recursive);
                     Nom.FindAndReplace(_T("/"), _T("_"), 0, Ztring_Recursive);
                     Nom.FindAndReplace(_T("("), _T("_"), 0, Ztring_Recursive);
