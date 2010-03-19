@@ -620,6 +620,7 @@ void File_Avc::Synched_Init()
     frame_crop_bottom_offset=0;
     num_ref_frames=0;
     pic_order_cnt_type=0;
+    pic_order_cnt_lsb_Last=(int32u)-1;
     bit_depth_luma_minus8=0;
     bit_depth_Colorimetry_minus8=0;
     pic_order_cnt_lsb=(int32u)-1;
@@ -646,6 +647,7 @@ void File_Avc::Synched_Init()
     CpbDpbDelaysPresentFlag=false;
     mb_adaptive_frame_field_flag=false;
     pic_order_present_flag=false;
+    field_pic_flag_AlreadyDetected=false;
 
     //Default values
     Streams.resize(0x100);
@@ -676,7 +678,6 @@ void File_Avc::Header_Parse()
     }
 
     //Parsing
-    int8u nal_unit_type;
     if (!SizedBlocks)
     {
         Skip_B3(                                                "sync");
@@ -747,6 +748,17 @@ bool File_Avc::Header_Parser_Fill_Size()
             Buffer_Offset_Temp+=2;
         if (Buffer_Offset_Temp<Buffer_Size && Buffer[Buffer_Offset_Temp-1]==0x00 || Buffer_Offset_Temp>=Buffer_Size)
             Buffer_Offset_Temp--;
+
+        if (nal_unit_type==0x01 || nal_unit_type==0x05) //slice, we need only few bytes
+        {
+            if (Buffer_Offset_Temp-Buffer_Offset>20)
+            {
+                //OK, we continue, we have enough for a slice
+                Header_Fill_Size(16);
+                Buffer_Offset_Temp=0;
+                return true;
+            }
+        }
     }
 
     //Must wait more data?
@@ -1045,8 +1057,31 @@ void File_Avc::slice_header()
          //Counting
         if (File_Offset+Buffer_Offset+Element_Size==File_Size)
             Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
-        Frame_Count++;
-        Frame_Count_InThisBlock++;
+        bool AddOneFrame=true;
+        if (!frame_mbs_only_flag && field_pic_flag)
+        {
+            if (field_pic_flag_AlreadyDetected)
+            {
+                AddOneFrame=false;
+                field_pic_flag_AlreadyDetected=false;
+            }
+            else
+                field_pic_flag_AlreadyDetected=true;
+        }
+        if (pic_order_cnt_lsb_Last!=(int32u)-1)
+        {
+            if (pic_order_cnt_lsb==pic_order_cnt_lsb_Last)
+                AddOneFrame=false;
+            else
+                pic_order_cnt_lsb_Last=pic_order_cnt_lsb;
+        }
+        else
+            pic_order_cnt_lsb_Last=pic_order_cnt_lsb;
+        if (AddOneFrame)
+        {
+            Frame_Count++;
+            Frame_Count_InThisBlock++;
+        }
 
         //Name
         Element_Info(Ztring::ToZtring(Frame_Count));
@@ -1066,6 +1101,8 @@ void File_Avc::slice_header()
                 Finish("AVC");
         }
     FILLING_END();
+
+    Synched=false; //We do not have the complete slice
 }
 
 //---------------------------------------------------------------------------
@@ -1681,6 +1718,12 @@ void File_Avc::seq_parameter_set()
     //parsing
     seq_parameter_set_data();
     Mark_1(                                                     );
+    size_t BS_bits=Data_BS_Remain()%8;
+    while (BS_bits)
+    {
+        Mark_0(                                                 );
+        BS_bits--;
+    }
     BS_End();
 
     //Hack for 00003.m2ts: There is a trailing 0x89, why?
@@ -1700,6 +1743,15 @@ void File_Avc::seq_parameter_set()
         Peek_B4(ToTest);
         if (ToTest==0xE30633C0)
             Skip_B4(                                            "Unknown");
+    }
+
+    //NULL bytes
+    while (Element_Offset<Element_Size)
+    {
+        int8u Null;
+        Get_B1 (Null,                                           "NULL byte");
+        if (Null)
+            Trusted_IsNot("Should be NULL byte");
     }
 
     FILLING_BEGIN_PRECISE();

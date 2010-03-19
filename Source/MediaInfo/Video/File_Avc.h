@@ -221,6 +221,7 @@ private :
     int32u bit_depth_luma_minus8;
     int32u bit_depth_Colorimetry_minus8;
     int32u pic_order_cnt_lsb;
+    int32u pic_order_cnt_lsb_Last;
     int32u seq_parameter_set_id;
     int32u num_views_minus1;
     int16u sar_width;
@@ -238,6 +239,7 @@ private :
     int8u  colour_primaries;
     int8u  transfer_characteristics;
     int8u  matrix_coefficients;
+    int8u  nal_unit_type;
     bool   GA94_03_CC_IsPresent;
     bool   frame_mbs_only_flag;
     bool   timing_info_present_flag;
@@ -248,7 +250,8 @@ private :
     bool   CpbDpbDelaysPresentFlag;
     bool   mb_adaptive_frame_field_flag;
     bool   pic_order_present_flag;
-    bool    svc_extension_flag;
+    bool   svc_extension_flag;
+    bool   field_pic_flag_AlreadyDetected;
 
     //Temp
     bool SPS_IsParsed;
