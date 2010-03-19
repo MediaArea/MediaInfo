@@ -14,6 +14,7 @@ Known bugs
 
 Version 0.7.30, 2010-
 --------------
++ Russian language updated
 + Image extensions are handled by the context menu
 
 Version 0.7.29, 2010-03-08
