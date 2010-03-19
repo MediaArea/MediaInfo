@@ -595,10 +595,10 @@ bool File_MpegTs::Synched_Test()
         //Synchro testing
         if (Buffer[Buffer_Offset+BDAV_Size]!=0x47)
         {
-             Synched=false;
-             if (File__Duplicate_Get())
-                 Trusted++; //We don't want to stop parsing if duplication is requested, TS is not a lot stable, normal...
-             return false;
+            Synched=false;
+            if (File__Duplicate_Get())
+                Trusted++; //We don't want to stop parsing if duplication is requested, TS is not a lot stable, normal...
+            return false;
         }
 
         //Getting PID
