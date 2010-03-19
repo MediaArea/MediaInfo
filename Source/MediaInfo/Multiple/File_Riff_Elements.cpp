@@ -3086,7 +3086,24 @@ void File_Riff::WAVE_fact()
     FILLING_BEGIN();
         int32u SamplingRate=Retrieve(Stream_Audio, 0, Audio_SamplingRate).To_int32u();
         if (SamplingRate)
-            Fill(Stream_Audio, 0, Audio_Duration, (SamplesCount64*1000)/SamplingRate);
+        {
+            //Calculating
+            int64u Duration=(SamplesCount64*1000)/SamplingRate;
+
+            //Coherency test
+            bool IsOK=true;
+            if (File_Size!=(int64u)-1)
+            {
+                int64u BitRate=Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
+                int64u Duration_FromBitRate=File_Size*8*1000/BitRate;
+                if (Duration_FromBitRate>Duration*1.10 || Duration_FromBitRate<Duration*0.9)
+                    IsOK=false;
+            }
+
+            //Filling
+            if (IsOK)
+                Fill(Stream_Audio, 0, Audio_Duration, Duration);
+        }
     FILLING_END();
 }
 

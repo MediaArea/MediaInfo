@@ -13,6 +13,7 @@ Version 0.7.30, 2010-
 + AVI: better handling of some RGB or RLE codecIDs
 + Solaris package creation files update (with relocation)
 + MSVB: better handling of C pointers
++ WAV: Skipping wrong sample count values
 x #2970227, WAV: a file was wrongly detected as DTS
 x FLV: Duration for video not starting at Time 0
 x WMV and MPEG-TS/PS: some crashes are fixed
