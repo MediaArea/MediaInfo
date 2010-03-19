@@ -22,7 +22,7 @@ cd ../GNU/CLI
 ./autogen
 ./configure --prefix=${install_prefix} --enable-shared --disable-static $*
 make
-if test -e .libs/mediainfo; then
+if test -e mediainfo; then
   echo "Compilation OK"
 else
   echo "Compilation problem"
