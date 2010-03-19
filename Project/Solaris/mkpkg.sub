@@ -43,7 +43,7 @@ echo "BASEDIR=/" >> ${packagecreation_prefix}/pkginfo
 
 cd ${packagecreation_prefix}
 pkgmk -o -b ${install_prefix} -d . -f prototype
-tar -cf - $pkgname | gzip -9 -c >${Home}/${pkgname}-${version}-${kernel}_${release}.${processor}.pkg.tgz
+tar -cf - $pkgname | gzip -9 -c >${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg.tgz
 
 #Removing files
 cd ${home}
