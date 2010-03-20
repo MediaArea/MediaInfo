@@ -853,7 +853,7 @@ void File_Avc::Data_Parse()
     if (!ThreeByte_List.empty())
     {
         //We must change the buffer for keeping out
-        Element_Size=Save_Element_Size-ThreeByte_List.size()-Save_Element_Offset;
+        Element_Size=Save_Element_Size-ThreeByte_List.size();
         Buffer_Offset=0;
         Buffer_3Bytes=new int8u[(size_t)Element_Size];
         for (size_t Pos=0; Pos<=ThreeByte_List.size(); Pos++)
@@ -1936,10 +1936,10 @@ void File_Avc::filler_data()
 }
 
 //---------------------------------------------------------------------------
-// Packet "0F"
+// Packet "0E"
 void File_Avc::prefix_nal_unit()
 {
-    Element_Name("prefix_nal_unit_rbsp");
+    Element_Name("prefix_nal_unit");
 
     //Parsing
     if (svc_extension_flag)
