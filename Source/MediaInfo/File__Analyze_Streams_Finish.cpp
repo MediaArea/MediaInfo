@@ -130,18 +130,18 @@ void File__Analyze::Streams_Finish_StreamOnly_Video(size_t Pos)
         int64s Duration=Retrieve(Stream_Video, Pos, Video_Duration).To_int64s();
         if (Duration==0)
             Duration=Retrieve(Stream_General, 0, General_Duration).To_int64s();
-        float FrameRate=Retrieve(Stream_Video, Pos, Video_FrameRate).To_float32();
+        float64 FrameRate=Retrieve(Stream_Video, Pos, Video_FrameRate).To_float64();
         if (Duration && FrameRate)
-           Fill(Stream_Video, Pos, Video_FrameCount, ((float64)Duration)/1000*FrameRate, 0);
+           Fill(Stream_Video, Pos, Video_FrameCount, Duration*FrameRate/1000, 0);
     }
 
     //Duration from FrameCount and FrameRate
     if (Retrieve(Stream_Video, Pos, Video_Duration).empty())
     {
         int64u FrameCount=Retrieve(Stream_Video, Pos, Video_FrameCount).To_int64u();
-        int64u FrameRate=Retrieve(Stream_Video, Pos, "FrameRate").To_int64u();
+        float64 FrameRate=Retrieve(Stream_Video, Pos, "FrameRate").To_float64();
         if (FrameCount && FrameRate)
-           Fill(Stream_Video, Pos, Video_Duration, ((float64)FrameCount)*1000/FrameRate, 0);
+           Fill(Stream_Video, Pos, Video_Duration, FrameCount/FrameRate*1000, 0);
     }
 
     //Pixel Aspect Ratio forced to 1.000 if none

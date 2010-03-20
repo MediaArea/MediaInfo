@@ -505,7 +505,7 @@ void File_Mpeg4v::Streams_Fill()
         if (user_data_start_SNC_Data[Pos][0]==_T("AlmEvent") && user_data_start_SNC_Data[Pos][1].size()==16)
             Fill(Stream_Video, 0, "Alarm event", user_data_start_SNC_Data[Pos][1]);
     }
-    if (shape!=2 && !complexity_estimation_disable)
+    if (video_object_layer_start_IsParsed && shape!=2 && !complexity_estimation_disable)
     {
         Fill(Stream_Video, 0, "data_partitioned", data_partitioned?"Yes":"No");
         (*Stream_More)[Stream_Video][0](Ztring().From_Local("data_partitioned"), Info_Options)=_T("N NT");
@@ -515,8 +515,6 @@ void File_Mpeg4v::Streams_Fill()
             (*Stream_More)[Stream_Video][0](Ztring().From_Local("reversible_vlc"), Info_Options)=_T("N NT");
         }
     }
-
-
 }
 
 //---------------------------------------------------------------------------
