@@ -2425,6 +2425,7 @@ void MediaInfo_Config_CodecID_Text_Mpeg4 (InfoMap &Info)
     Info.Write(Ztring().From_UTF8(
     "subp;VobSub;;The same subtitle format used on DVDs\n"
     "text;Apple text;;;http://www.apple.com/quicktime/download/standalone.html\n"
+    "sbtl;Apple text;(iPhone);;http://www.apple.com/quicktime/download/standalone.html\n"
     "tx3g;Timed text;;;http://www.apple.com/quicktime/download/standalone.html\n"
     "enct;(Encrypted)\n"
     ));
