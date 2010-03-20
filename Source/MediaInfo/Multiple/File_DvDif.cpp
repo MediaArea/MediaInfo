@@ -241,6 +241,7 @@ File_DvDif::File_DvDif()
     FrameSize_Theory=0;
     Duration=0;
     TimeCode_First=(int64u)-1;
+    SCT=(int8u)-1;
     SCT_Old=4; //Video
     DBN_Olds[0]=0;
     DBN_Olds[1]=1; //SubCode
@@ -383,7 +384,7 @@ void File_DvDif::Streams_Fill()
     if (FrameSize_Theory)
     {
         float64 OverallBitRate=FrameSize_Theory*(DSF?25.000:29.970)*8;
-        if (OverallBitRate> 27360000 && OverallBitRate<= 30240000) OverallBitRate= 28800000;
+        if (OverallBitRate> 27360000 && OverallBitRate<= 30240000) OverallBitRate=DSF?28800000:28771229;
         if (FSC_WasSet)
         {
             if (FSP_WasNotSet)
@@ -453,11 +454,7 @@ void File_DvDif::Header_Parse()
 {
     if (AuxToAnalyze!=0x00)
     {
-        SCT=0;
-        Dseq=0;
-        FSC=false;
-        FSP=false;
-        DBN=0;
+        SCT=(int8u)-1;
         Header_Fill_Code(AuxToAnalyze, Ztring::ToZtring(AuxToAnalyze, 16));
         Header_Fill_Size(4);
         return;
@@ -473,6 +470,7 @@ void File_DvDif::Header_Parse()
      && Buffer[Buffer_Offset+1]==0x00
      && Buffer[Buffer_Offset+2]==0x00)
     {
+        SCT=(int8u)-1;
         Header_Fill_Code((int64u)-1);
         Header_Fill_Size(80);
         return;
@@ -500,11 +498,7 @@ void File_DvDif::Header_Parse()
 {
     if (AuxToAnalyze!=0x00)
     {
-        SCT=0;
-        Dseq=0;
-        FSC=false;
-        FSP=false;
-        DBN=0;
+        SCT=(int8u)-1;
         Header_Fill_Code(AuxToAnalyze);
         Header_Fill_Size(4);
         return;
@@ -520,6 +514,7 @@ void File_DvDif::Header_Parse()
      && Buffer[Buffer_Offset+1]==0x00
      && Buffer[Buffer_Offset+2]==0x00)
     {
+        SCT=(int8u)-1;
         Header_Fill_Code((int64u)-1);
         Header_Fill_Size(80);
         return;
@@ -542,11 +537,14 @@ void File_DvDif::Header_Parse()
 void File_DvDif::Data_Parse()
 {
     //Config
-    if (!FSC_WasSet && FSC)
-        FSC_WasSet=true;
+    if (SCT!=(int8u)-1)
+    {
+        if (!FSC_WasSet && FSC)
+            FSC_WasSet=true;
 
-    if (!FSP_WasNotSet && !FSP)
-        FSP_WasNotSet=true;
+        if (!FSP_WasNotSet && !FSP)
+            FSP_WasNotSet=true;
+    }
 
     if (AuxToAnalyze!=0x00)
     {
