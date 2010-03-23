@@ -15,6 +15,8 @@ EXPORTS
     MediaInfo_Get                  @20
     MediaInfo_SetI                 @21
     MediaInfo_Set                  @22
+    MediaInfo_Output_Buffer_Get    @72
+    MediaInfo_Output_Buffer_GetI   @74
     MediaInfo_Option               @23
     MediaInfo_State_Get            @24
     MediaInfo_Count_Get            @25
@@ -34,6 +36,8 @@ EXPORTS
     MediaInfoA_Get                 @05
     MediaInfoA_SetI                @08
     MediaInfoA_Set                 @09
+    MediaInfoA_Output_Buffer_Get   @73
+    MediaInfoA_Output_Buffer_GetI  @75
     MediaInfoA_Option              @11
     MediaInfoA_State_Get           @12
     MediaInfoA_Count_Get           @07
@@ -70,4 +74,4 @@ EXPORTS
     MediaInfoListA_State_Get       @60
     MediaInfoListA_Count_Get       @61
     MediaInfoListA_Count_Get_Files @63
-;Last item = 71
+;Last item = 75

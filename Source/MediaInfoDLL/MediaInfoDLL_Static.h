@@ -270,6 +270,10 @@ MEDIAINFO_EXP const wchar_t*    __stdcall MediaInfo_Get (void* Handle, MediaInfo
 MEDIAINFO_EXP size_t            __stdcall MediaInfo_SetI (void* Handle, const wchar_t* ToSet, MediaInfo_stream_C StreamKind, size_t StreamNumber, size_t Parameter, const wchar_t* OldParameter);
 /** @brief Wrapper for MediaInfoLib::MediaInfo::Set */
 MEDIAINFO_EXP size_t            __stdcall MediaInfo_Set (void* Handle, const wchar_t* ToSet, MediaInfo_stream_C StreamKind, size_t StreamNumber, const wchar_t* Parameter, const wchar_t* OldParameter);
+/** @brief Wrapper for MediaInfoLib::MediaInfo::Output_Buffer_Get */
+MEDIAINFO_EXP size_t            __stdcall MediaInfo_Output_Buffer_Get (void* Handle, const wchar_t* Value);
+/** @brief Wrapper for MediaInfoLib::MediaInfo::Output_Buffer_Get */
+MEDIAINFO_EXP size_t            __stdcall MediaInfo_Output_Buffer_GetI (void* Handle, size_t Pos);
 /** @brief Wrapper for MediaInfoLib::MediaInfo::Option */
 MEDIAINFO_EXP const wchar_t*    __stdcall MediaInfo_Option (void* Handle, const wchar_t* Option, const wchar_t* Value);
 /** @brief Wrapper for MediaInfoLib::MediaInfo::State_Get */
@@ -289,6 +293,8 @@ MEDIAINFO_EXP size_t            __stdcall MediaInfo_Count_Get (void* Handle, Med
     #define MediaInfo_Get               MediaInfoA_Get
     #define MediaInfo_SetI              MediaInfoA_SetI
     #define MediaInfo_Set               MediaInfoA_Set
+    #define MediaInfo_Output_Buffer_Get MediaInfoA_Output_Buffer_Get
+    #define MediaInfo_Output_Buffer_GetI MediaInfoA_Output_Buffer_GetI
     #define MediaInfo_Option            MediaInfoA_Option
     #define MediaInfo_State_Get         MediaInfoA_State_Get
     #define MediaInfo_Count_Get         MediaInfoA_Count_Get
@@ -326,6 +332,10 @@ MEDIAINFO_EXP const char*       __stdcall MediaInfoA_Get (void* Handle, MediaInf
 MEDIAINFO_EXP size_t            __stdcall MediaInfoA_SetI (void* Handle, const char* ToSet, MediaInfo_stream_C StreamKind, size_t StreamNumber, size_t Parameter, const char* OldParameter);
 /** @brief Wrapper for MediaInfoLib::MediaInfo::Set */
 MEDIAINFO_EXP size_t            __stdcall MediaInfoA_Set (void* Handle, const char* ToSet, MediaInfo_stream_C StreamKind, size_t StreamNumber, const char* Parameter, const char* OldParameter);
+/** @brief Wrapper for MediaInfoLib::MediaInfo::Output_Buffer_Get */
+MEDIAINFO_EXP size_t            __stdcall MediaInfoA_Output_Buffer_Get (void* Handle, const char* Value);
+/** @brief Wrapper for MediaInfoLib::MediaInfo::Output_Buffer_Get */
+MEDIAINFO_EXP size_t            __stdcall MediaInfoA_Output_Buffer_GetI (void* Handle, size_t Pos);
 /** @brief Wrapper for MediaInfoLib::MediaInfo::Option */
 MEDIAINFO_EXP const char*       __stdcall MediaInfoA_Option (void* Handle, const char* Option, const char* Value);
 /** @brief Wrapper for MediaInfoLib::MediaInfo::State_Get */

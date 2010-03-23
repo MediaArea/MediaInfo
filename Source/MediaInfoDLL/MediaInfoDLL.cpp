@@ -336,6 +336,16 @@ size_t          __stdcall MediaInfoA_Set (void* Handle, const char* ToSet, Media
     return MediaInfo_Set(Handle, MB2WC(Handle, ToSet), StreamKind, StreamNumber, MB2WC(Handle, Parameter), MB2WC(Handle, OldParameter));
 }
 
+size_t          __stdcall MediaInfoA_Output_Buffer_Get (void* Handle, const char* Value)
+{
+    return MediaInfo_Output_Buffer_Get(Handle, MB2WC(Handle, Value));
+}
+
+size_t          __stdcall MediaInfoA_Output_Buffer_GetI (void* Handle, size_t Pos)
+{
+    return MediaInfo_Output_Buffer_GetI(Handle, Pos);
+}
+
 const char*     __stdcall MediaInfoA_Option (void* Handle, const char* Option, const char* Value)
 {
     return WC2MB(Handle, MediaInfo_Option(Handle, MB2WC(Handle, Option), MB2WC(Handle, Value)));
@@ -600,6 +610,16 @@ size_t          __stdcall MediaInfo_Set (void* Handle, const wchar_t* ToSet, Med
 {
     StreamKind=(MediaInfo_stream_t)(((size_t)StreamKind)&0xFF);
     MANAGE_INT(MediaInfo, Set(ToSet, (stream_t)StreamKind, StreamNumber, Parameter, OldParameter), Debug+="Set, Handle=";Debug+=ZenLib::Ztring::ToZtring((size_t)Handle).To_Local().c_str();Debug+="\r\n";, Debug+="Set, will return ";Debug+=ZenLib::Ztring::ToZtring((size_t)ToReturn).To_Local().c_str();Debug+="\r\n";)
+}
+
+size_t          __stdcall MediaInfo_Output_Buffer_Get (void* Handle, const wchar_t* Value)
+{
+    MANAGE_INT(MediaInfo, Output_Buffer_Get(Value), ;, ;)
+}
+
+size_t          __stdcall MediaInfo_Output_Buffer_GetI (void* Handle, size_t Pos)
+{
+    MANAGE_INT(MediaInfo, Output_Buffer_Get(Pos), ;, ;)
 }
 
 const wchar_t*     __stdcall MediaInfo_Option (void* Handle, const wchar_t* Option, const wchar_t* Value)
