@@ -1344,7 +1344,9 @@ void File_MpegTs::PES()
                     ((File_MpegPs*)Complete_Stream->Streams[pid].Parser)->SLConfig=IOD_ES->second.SLConfig;
                 #endif
             }
-            Complete_Stream->Streams[pid].Parser->ShouldContinueParsing=true;
+            #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+                Complete_Stream->Streams[pid].Parser->ShouldContinueParsing=true;
+            #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
             Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(true);
         #else
             //Filling
@@ -1366,15 +1368,22 @@ void File_MpegTs::PES()
     #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
 
     //Need anymore?
-    if (Complete_Stream->Streams[pid].Searching_Payload_Start
-     && (Complete_Stream->Streams[pid].Parser->Status[IsFilled]
-      || Complete_Stream->Streams[pid].Parser->Status[IsFinished]))
+    if (Complete_Stream->Streams[pid].Parser->Status[IsFilled]
+     || Complete_Stream->Streams[pid].Parser->Status[IsFinished])
     {
-        Complete_Stream->Streams[pid].Searching_Payload_Start_Set(false);
-        Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(false);
+        if (Complete_Stream->Streams[pid].Searching_Payload_Start && MediaInfoLib::Config.ParseSpeed_Get()>=1)
+        {
+            Complete_Stream->Streams[pid].Searching_Payload_Start_Set(false);
+            Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(false);
+        }
         #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
-            Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(false);
+            if (Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start)
+                Complete_Stream->Streams[pid].Searching_ParserTimeStamp_Start_Set(false);
+        #else //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+            if (MediaInfoLib::Config.ParseSpeed_Get()<1.0)
+                Finish(Complete_Stream->Streams[pid].Parser);
         #endif //MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
+
         if (Complete_Stream->Streams_NotParsedCount)
             Complete_Stream->Streams_NotParsedCount--;
     }
