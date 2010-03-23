@@ -560,6 +560,7 @@ void File__Analyze::Buffer_Clear()
 {
     //Buffer
     BS->Attach(NULL, 0);
+    delete[] Buffer_Temp; Buffer_Temp=NULL;
     Buffer_Size=0;
     Buffer_Temp_Size=0;
     Buffer_Offset=0;
