@@ -919,6 +919,10 @@ Ztring MediaInfo_Config::Language_Get ()
 Ztring MediaInfo_Config::Language_Get (const Ztring &Value)
 {
     CriticalSectionLocker CSL(CS);
+
+    if (Value.find(_T(" / "))==string::npos)
+        return Language.Get(Value);
+
     ZtringList List;
     List.Separator_Set(0, _T(" / "));
     List.Write(Value);
