@@ -328,7 +328,7 @@ File_Avc::File_Avc()
     PTS_DTS_Needed=true;
 
     //In
-    Frame_Count_Valid=32; //Currently no 3:2 pulldown detection
+    Frame_Count_Valid=500; //Currently no 3:2 pulldown detection
     FrameIsAlwaysComplete=false;
     MustParse_SPS_PPS=false;
     MustParse_SPS_PPS_Only=false;
@@ -835,25 +835,30 @@ void File_Avc::Data_Parse()
     //Searching emulation_prevention_three_byte
     int8u* Buffer_3Bytes=NULL;
     const int8u* Save_Buffer=Buffer;
+    int64u Save_File_Offset=File_Offset;
     size_t Save_Buffer_Offset=Buffer_Offset;
-    int64u Save_Element_Offset=Element_Offset;
     int64u Save_Element_Size=Element_Size;
     size_t Element_Offset_3Bytes=(size_t)Element_Offset;
     std::vector<size_t> ThreeByte_List;
-    while (Element_Offset_3Bytes+3<=Element_Size)
+    if (!SizedBlocks || MustParse_SPS_PPS)
     {
-        if (CC3(Buffer+Buffer_Offset+(size_t)Element_Offset_3Bytes)==0x000003)
-            ThreeByte_List.push_back(Element_Offset_3Bytes+2);
-        Element_Offset_3Bytes+=2;
-        while(Element_Offset_3Bytes<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset_3Bytes]!=0x00)
+        while (Element_Offset_3Bytes+3<=Element_Size)
+        {
+            if (CC3(Buffer+Buffer_Offset+(size_t)Element_Offset_3Bytes)==0x000003)
+                ThreeByte_List.push_back(Element_Offset_3Bytes+2);
             Element_Offset_3Bytes+=2;
-        if (Element_Offset_3Bytes<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset_3Bytes-1]==0x00 || Element_Offset_3Bytes>=Element_Size)
-            Element_Offset_3Bytes--;
+            while(Element_Offset_3Bytes<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset_3Bytes]!=0x00)
+                Element_Offset_3Bytes+=2;
+            if (Element_Offset_3Bytes<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset_3Bytes-1]==0x00 || Element_Offset_3Bytes>=Element_Size)
+                Element_Offset_3Bytes--;
+        }
     }
+
     if (!ThreeByte_List.empty())
     {
         //We must change the buffer for keeping out
         Element_Size=Save_Element_Size-ThreeByte_List.size();
+        File_Offset+=Buffer_Offset;
         Buffer_Offset=0;
         Buffer_3Bytes=new int8u[(size_t)Element_Size];
         for (size_t Pos=0; Pos<=ThreeByte_List.size(); Pos++)
@@ -863,7 +868,7 @@ void File_Avc::Data_Parse()
             size_t Buffer_3bytes_Begin=Pos1-Pos;
             size_t Save_Buffer_Begin  =Pos1;
             size_t Size=               Pos0-Pos1;
-            std::memcpy(Buffer_3Bytes+Buffer_3bytes_Begin, Save_Buffer+Save_Element_Offset+Save_Buffer_Offset+Save_Buffer_Begin, Size);
+            std::memcpy(Buffer_3Bytes+Buffer_3bytes_Begin, Save_Buffer+Save_Buffer_Offset+Save_Buffer_Begin, Size);
         }
         Buffer=Buffer_3Bytes;
     }
@@ -901,6 +906,7 @@ void File_Avc::Data_Parse()
     {
         //We must change the buffer for keeping out
         Element_Size=Save_Element_Size;
+        File_Offset=Save_File_Offset;
         Buffer_Offset=Save_Buffer_Offset;
         delete[] Buffer; Buffer=Save_Buffer;
         Buffer_3Bytes=NULL; //Same as Buffer...
@@ -1588,6 +1594,7 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
             Element_Begin("options");
             size_t Options_Pos;
             size_t Options_Pos_Before=Data_Pos_Before;
+            Encoded_Library_Settings.clear();
             do
             {
                 Options_Pos=Data.find(_T(" "), Options_Pos_Before);
