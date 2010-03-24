@@ -1572,7 +1572,11 @@ void File_Mpeg_Descriptors::Descriptor_05()
                             case true : //Per PES
                                         Complete_Stream->Streams[elementary_PID].registration_format_identifier=format_identifier;
                                         if (format_identifier==Elements::KLVA)
-                                            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Infos["KLVA_PID"].From_Number(elementary_PID);
+                                        {
+                                            if (!Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Infos["KLVA_PID"].empty())
+                                                Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Infos["KLVA_PID"]+=_T(" / ");
+                                            Complete_Stream->Transport_Streams[Complete_Stream->transport_stream_id].Programs[table_id_extension].Infos["KLVA_PID"]+=Ztring::ToZtring(elementary_PID);
+                                        }
                                         break;
                         }
                         break;
