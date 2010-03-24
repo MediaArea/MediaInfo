@@ -500,7 +500,7 @@ void File_Mpeg4v::Streams_Fill()
             else if (user_data_start_SNC_Data[Pos][1][15]==_T('S'))
                 Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", _T("Stop"));
             else
-                Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", Ztring(1, user_data_start_SNC_Data[Pos][1][15]));
+                Fill(Stream_Video, 0, "Pan / Tilt / Zoom / Status", user_data_start_SNC_Data[Pos][1][15]);
         }
         if (user_data_start_SNC_Data[Pos][0]==_T("AlmEvent") && user_data_start_SNC_Data[Pos][1].size()==16)
             Fill(Stream_Video, 0, "Alarm event", user_data_start_SNC_Data[Pos][1]);
