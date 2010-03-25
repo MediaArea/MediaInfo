@@ -82,13 +82,11 @@ void File_DtvccTransport::Streams_Fill()
 {
     //Filling
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
-        if (Streams[Pos].IsFilled)
+        if (Streams[Pos].Parser && Streams[Pos].Parser->Status[IsFilled])
         {
             Merge(*Streams[Pos].Parser);
             if (Pos<2)
                 Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
-            else
-                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("708-"));
             Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"), Unlimited);
         }
 }
@@ -127,44 +125,63 @@ void File_DtvccTransport::Read_Buffer_Continue()
             Get_SB (   cc_valid,                                    "cc_valid");
             Get_S1 (2, cc_type,                                     "cc_type"); Param_Info(DtvccTransport_cc_type(cc_type));
             BS_End();
-            Element_Begin("cc_data");
-                //Calculating the parser position
-                int8u Parser_Pos=cc_type==3?2:cc_type; //cc_type 2 and 3 are for the same text
+            if (cc_valid)
+            {
+                Element_Begin("cc_data");
+                    //Calculating the parser position
+                    int8u Parser_Pos=cc_type==3?2:cc_type; //cc_type 2 and 3 are for the same text
 
-                //Parsing
-                if (Streams[Parser_Pos].Parser==NULL)
-                {
-                    if (cc_type<2)
+                    //Parsing
+                    if (Streams[Parser_Pos].Parser==NULL)
                     {
-                        Streams[Parser_Pos].Parser=new File_Eia608();
+                        if (cc_type<2)
+                        {
+                            Streams[Parser_Pos].Parser=new File_Eia608();
+                        }
+                        else
+                        {
+                            Streams[Parser_Pos].Parser=new File_Eia708();
+                        }
                     }
-                    else
+                    if (!Streams[Parser_Pos].Parser->Status[IsFinished])
                     {
-                        Streams[Parser_Pos].Parser=new File_Eia708();
-                    }
-                }
-                if (!Streams[Parser_Pos].Parser->Status[IsFinished])
-                {
-                    if (Parser_Pos==2)
-                        ((File_Eia708*)Streams[2].Parser)->cc_type=cc_type;
-                    Open_Buffer_Init(Streams[Parser_Pos].Parser);
-                    Open_Buffer_Continue(Streams[Parser_Pos].Parser, Buffer+(size_t)(Buffer_Offset+Element_Offset), 2);
+                        if (Parser_Pos==2)
+                            ((File_Eia708*)Streams[2].Parser)->cc_type=cc_type;
+                        Open_Buffer_Init(Streams[Parser_Pos].Parser);
+                        Open_Buffer_Continue(Streams[Parser_Pos].Parser, Buffer+(size_t)(Buffer_Offset+Element_Offset), 2);
+                        Element_Offset+=2;
 
-                    //Filled
-                    if (!Streams[Parser_Pos].IsFilled && Streams[Parser_Pos].Parser->Status[IsFilled])
-                    {
-                        if (Count_Get(Stream_General)==0)
-                            Accept("DTVCC Transport");
-                        Streams_Count++;
-                        if (Streams_Count==3)
-                            Fill("DTVCC Transport");
+                        //Filled
+                        if (!Streams[Parser_Pos].IsFilled && Streams[Parser_Pos].Parser->Status[IsFilled])
+                        {
+                            if (Count_Get(Stream_General)==0)
+                                Accept("DTVCC Transport");
+                            Streams_Count++;
+                            if (Streams_Count==3)
+                                Fill("DTVCC Transport");
+                        }
                     }
-                }
+                Element_End();
+            }
+            else
+                Skip_XX(2,                                          "Junk");
             Element_End();
         }
     }
     else
         Skip_XX(cc_count*2,                                         "Junk");
+
+    BS_Begin();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    Mark_1();
+    BS_End();
+
     Element_End();
 }
 
