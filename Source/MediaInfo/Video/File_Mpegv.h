@@ -136,7 +136,7 @@ private :
             HasPictureCoding=false;
         }
     };
-    std::vector<temporalreference> TemporalReference; //per temporal_reference
+    std::vector<temporalreference*> TemporalReference; //per temporal_reference
     size_t                         TemporalReference_Offset;
     size_t                         TemporalReference_GA94_03_CC_Offset;
 
