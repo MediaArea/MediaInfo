@@ -632,10 +632,10 @@ Export_Mpeg7::~Export_Mpeg7 ()
 //---------------------------------------------------------------------------
 Ztring Mpeg7_Transform_Visual(Ztring &ToReturn, MediaInfo_Internal &MI, size_t StreamPos)
 {
-    ToReturn+=_T("\t\t\t\t\t\t\t<VisualCoding>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t<mpeg7:VisualCoding>\n");
 
     //Format
-    ToReturn+=_T("\t\t\t\t\t\t\t\t<Format");
+    ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:Format");
     int32u VisualCodingFormatCS_termID=Mpeg7_VisualCodingFormatCS_termID(MI, StreamPos);
     if (VisualCodingFormatCS_termID)
     {
@@ -655,14 +655,14 @@ Ztring Mpeg7_Transform_Visual(Ztring &ToReturn, MediaInfo_Internal &MI, size_t S
     }
     ToReturn+=Mpeg7_Visual_colorDomain(MI, StreamPos); //Algo puts empty string if not known
     ToReturn+=_T(">\n");
-    ToReturn+=_T("\t\t\t\t\t\t\t\t\t<Name xml:lang=\"en\">"); ToReturn+=Mpeg7_VisualCodingFormatCS_Name(VisualCodingFormatCS_termID, MI, StreamPos); ToReturn+=_T("</Name>\n");
-    ToReturn+=_T("\t\t\t\t\t\t\t\t</Format>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t\t\t<mpeg7:Name xml:lang=\"en\">"); ToReturn+=Mpeg7_VisualCodingFormatCS_Name(VisualCodingFormatCS_termID, MI, StreamPos); ToReturn+=_T("</mpeg7:Name>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t\t</mpeg7:Format>\n");
 
     //Pixel
     if (!MI.Get(Stream_Video, 0, Video_PixelAspectRatio).empty()
      || !MI.Get(Stream_Video, 0, Video_Resolution).empty())
     {
-        ToReturn+=_T("\t\t\t\t\t\t\t\t<Pixel");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:Pixel");
         if (!MI.Get(Stream_Video, 0, Video_PixelAspectRatio).empty())
         {
             ToReturn+=_T(" aspectRatio=\"");
@@ -679,51 +679,51 @@ Ztring Mpeg7_Transform_Visual(Ztring &ToReturn, MediaInfo_Internal &MI, size_t S
     }
 
     //Frame
-    ToReturn+=_T("\t\t\t\t\t\t\t\t<Frame aspectRatio=\"")+MI.Get(Stream_Video, 0, Video_DisplayAspectRatio); ToReturn+=_T("\" height=\""); ToReturn+=MI.Get(Stream_Video, 0, Video_Height); ToReturn+=_T("\" width=\""); ToReturn+=MI.Get(Stream_Video, 0, Video_Width); ToReturn+=_T("\" rate=\""); ToReturn+=MI.Get(Stream_Video, 0, Video_FrameRate); ToReturn+=_T("\" structure=\""); ToReturn+=MI.Get(Stream_Video, 0, Video_ScanType).MakeLowerCase(); ToReturn+=_T("\"/>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:Frame aspectRatio=\"")+MI.Get(Stream_Video, 0, Video_DisplayAspectRatio); ToReturn+=_T("\" height=\""); ToReturn+=MI.Get(Stream_Video, 0, Video_Height); ToReturn+=_T("\" width=\""); ToReturn+=MI.Get(Stream_Video, 0, Video_Width); ToReturn+=_T("\" rate=\""); ToReturn+=MI.Get(Stream_Video, 0, Video_FrameRate); ToReturn+=_T("\" structure=\""); ToReturn+=MI.Get(Stream_Video, 0, Video_ScanType).MakeLowerCase(); ToReturn+=_T("\"/>\n");
 
     //Colorimetry
     if (MI.Get(Stream_Video, StreamPos, Video_Colorimetry).find(_T("4:2:0"))!=string::npos)
     {
-        ToReturn+=_T("\t\t\t\t\t\t\t\t<ColorSampling> <!-- YUV 4:2:0 Interlaced -->\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t<Lattice height=\"720\" width=\"486\"/>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t<Field temporalOrder=\"0\" positionalOrder=\"0\">\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<Component>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Name>Luminance</Name>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Offset horizontal=\"0.0\" vertical=\"0.0\"/>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Period horizontal=\"1.0\" vertical=\"2.0\"/>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t</Component>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<Component>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Name>ChrominanceBlueDifference</Name>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Offset horizontal=\"0.0\" vertical=\"0.5\"/>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Period horizontal=\"2.0\" vertical=\"4.0\"/>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t</Component>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<Component>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Name>ChrominanceRedDifference</Name>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Offset horizontal=\"0.0\" vertical=\"0.5\"/>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Period horizontal=\"2.0\" vertical=\"4.0\"/>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t</Component>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t</Field>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t<Field temporalOrder=\"1\" positionalOrder=\"1\">\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<Component>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Name>Luminance</Name>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Offset horizontal=\"0.0\" vertical=\"1.0\"/>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Period horizontal=\"1.0\" vertical=\"2.0\"/>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t</Component>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<Component>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Name>ChrominanceBlueDifference</Name>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Offset horizontal=\"0.0\" vertical=\"2.5\"/>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Period horizontal=\"2.0\" vertical=\"4.0\"/>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t</Component>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<Component>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Name>ChrominanceRedDifference</Name>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Offset horizontal=\"0.0\" vertical=\"2.5\"/>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<Period horizontal=\"4.0\" vertical=\"2.0\"/>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t</Component>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t</Field>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t</ColorSampling>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:ColorSampling> <!-- YUV 4:2:0 Interlaced -->\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t<mpeg7:Lattice height=\"720\" width=\"486\"/>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t<mpeg7:Field temporalOrder=\"0\" positionalOrder=\"0\">\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<mpeg7:Component>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Name>Luminance</Name>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Offset horizontal=\"0.0\" vertical=\"0.0\"/>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Period horizontal=\"1.0\" vertical=\"2.0\"/>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t</mpeg7:Component>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<mpeg7:Component>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Name>ChrominanceBlueDifference</Name>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Offset horizontal=\"0.0\" vertical=\"0.5\"/>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Period horizontal=\"2.0\" vertical=\"4.0\"/>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t</mpeg7:Component>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<mpeg7:Component>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Name>ChrominanceRedDifference</Name>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Offset horizontal=\"0.0\" vertical=\"0.5\"/>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Period horizontal=\"2.0\" vertical=\"4.0\"/>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t</mpeg7:Component>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t</mpeg7:Field>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t<mpeg7:Field temporalOrder=\"1\" positionalOrder=\"1\">\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<mpeg7:Component>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Name>Luminance</Name>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Offset horizontal=\"0.0\" vertical=\"1.0\"/>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Period horizontal=\"1.0\" vertical=\"2.0\"/>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t</mpeg7:Component>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<mpeg7:Component>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Name>ChrominanceBlueDifference</Name>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Offset horizontal=\"0.0\" vertical=\"2.5\"/>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Period horizontal=\"2.0\" vertical=\"4.0\"/>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t</mpeg7:Component>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t<mpeg7:Component>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Name>ChrominanceRedDifference</Name>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Offset horizontal=\"0.0\" vertical=\"2.5\"/>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t\t<mpeg7:Period horizontal=\"4.0\" vertical=\"2.0\"/>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t\t</mpeg7:Component>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t</mpeg7:Field>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t</mpeg7:ColorSampling>\n");
     }
 
-    ToReturn+=_T("\t\t\t\t\t\t\t</VisualCoding>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t</mpeg7:VisualCoding>\n");
 
     return ToReturn;
 }
@@ -731,10 +731,10 @@ Ztring Mpeg7_Transform_Visual(Ztring &ToReturn, MediaInfo_Internal &MI, size_t S
 //---------------------------------------------------------------------------
 Ztring Mpeg7_Transform_Audio(Ztring &ToReturn, MediaInfo_Internal &MI, size_t StreamPos)
 {
-    ToReturn+=_T("\t\t\t\t\t\t\t<AudioCoding>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t<mpeg7:AudioCoding>\n");
 
     //Format
-    ToReturn+=_T("\t\t\t\t\t\t\t\t<Format");
+    ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:Format");
     int32u AudioCodingFormatCS_termID=Mpeg7_AudioCodingFormatCS_termID(MI, StreamPos);
     if (AudioCodingFormatCS_termID)
     {
@@ -753,24 +753,24 @@ Ztring Mpeg7_Transform_Audio(Ztring &ToReturn, MediaInfo_Internal &MI, size_t St
         ToReturn+=_T("\"");
     }
     ToReturn+=_T(">\n");
-    ToReturn+=_T("\t\t\t\t\t\t\t\t\t<Name xml:lang=\"en\">"); ToReturn+=Mpeg7_AudioCodingFormatCS_Name(AudioCodingFormatCS_termID, MI, StreamPos); ToReturn+=_T("</Name>\n");
-    ToReturn+=_T("\t\t\t\t\t\t\t\t</Format>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t\t\t<mpeg7:Name xml:lang=\"en\">"); ToReturn+=Mpeg7_AudioCodingFormatCS_Name(AudioCodingFormatCS_termID, MI, StreamPos); ToReturn+=_T("</mpeg7:Name>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t\t</mpeg7:Format>\n");
 
     //AudioChannels
-    ToReturn+=_T("\t\t\t\t\t\t\t\t<AudioChannels>"); ToReturn+=MI.Get(Stream_Audio, StreamPos, Audio_Channel_s_); ToReturn+=_T("</AudioChannels>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:AudioChannels>"); ToReturn+=MI.Get(Stream_Audio, StreamPos, Audio_Channel_s_); ToReturn+=_T("</mpeg7:AudioChannels>\n");
 
     //Sample
-    ToReturn+=_T("\t\t\t\t\t\t\t\t<Sample rate=\""); ToReturn+=MI.Get(Stream_Audio, StreamPos, Audio_SamplingRate); ToReturn+=_T("\""); if (!MI.Get(Stream_Audio, StreamPos, Audio_Resolution).empty()) {ToReturn+=_T(" bitsPer=\""); ToReturn+=MI.Get(Stream_Audio, StreamPos, Audio_Resolution); ToReturn+=_T("\"");} ToReturn+=_T("/>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:Sample rate=\""); ToReturn+=MI.Get(Stream_Audio, StreamPos, Audio_SamplingRate); ToReturn+=_T("\""); if (!MI.Get(Stream_Audio, StreamPos, Audio_Resolution).empty()) {ToReturn+=_T(" bitsPer=\""); ToReturn+=MI.Get(Stream_Audio, StreamPos, Audio_Resolution); ToReturn+=_T("\"");} ToReturn+=_T("/>\n");
 
     //Emphasis
     if (MI.Get(Stream_Audio, StreamPos, Audio_Format)==_T("MPEG Audio"))
-        ToReturn+=_T("\t\t\t\t\t\t\t\t<Emphasis>")+Mpeg7_AudioEmphasis(MI, StreamPos)+_T("</Emphasis>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:Emphasis>")+Mpeg7_AudioEmphasis(MI, StreamPos)+_T("</mpeg7:Emphasis>\n");
 
     //Presentation
     int32u AudioPresentationCS_termID=Mpeg7_AudioPresentationCS_termID(MI, StreamPos);
     if (AudioPresentationCS_termID)
     {
-        ToReturn+=_T("\t\t\t\t\t\t\t\t<Presentation href=\"urn:mpeg:mpeg7:cs:AudioPresentationCS:2001:");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:Presentation href=\"urn:mpeg:mpeg7:cs:AudioPresentationCS:2001:");
         ToReturn+=Ztring::ToZtring(AudioPresentationCS_termID/10000);
         if (AudioPresentationCS_termID%10000)
         {
@@ -783,11 +783,11 @@ Ztring Mpeg7_Transform_Audio(Ztring &ToReturn, MediaInfo_Internal &MI, size_t St
             }
         }
         ToReturn+=_T("\">\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t\t<Name>")+Mpeg7_AudioPresentationCS_Name(AudioPresentationCS_termID, MI, StreamPos)+_T("</Name>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t</Presentation>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t\t<mpeg7:Name>")+Mpeg7_AudioPresentationCS_Name(AudioPresentationCS_termID, MI, StreamPos)+_T("</mpeg7:Name>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t</mpeg7:Presentation>\n");
     }
 
-    ToReturn+=_T("\t\t\t\t\t\t\t</AudioCoding>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t</mpeg7:AudioCoding>\n");
     return ToReturn;
 }
 
@@ -799,27 +799,31 @@ Ztring Export_Mpeg7::Transform(MediaInfo_Internal &MI)
     Ztring TimeS; TimeS.Date_From_Seconds_1970((int32u)Time);
     TimeS.FindAndReplace(_T("UTC "), _T(""));
     TimeS.FindAndReplace(_T(" "), _T("T"));
-    TimeS+=_T('Z');
+    TimeS+=_T("+00:00");
 
     Ztring ToReturn;
 
     //Mpeg7
     ToReturn+=_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-    ToReturn+=_T("<Mpeg7 xmlns=\"urn:mpeg:mpeg7:schema:2004\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:mpeg7=\"urn:mpeg:mpeg7:schema:2004\" xsi:schemaLocation=\"urn:mpeg:mpeg7:schema:2004 http://standards.iso.org/ittf/PubliclyAvailableStandards/MPEG-7_schema_files/mpeg7-v2.xsd\">\n");
-    ToReturn+=_T("\t<!-- Generated at ")+TimeS+_T(" by ")+MediaInfoLib::Config.Info_Version_Get()+_T(" -->\n");
+    ToReturn+=_T("<!-- Generated at ")+TimeS+_T(" by ")+MediaInfoLib::Config.Info_Version_Get()+_T(" -->\n");
+    ToReturn+=_T("<mpeg7:Mpeg7 xmlns=\"urn:mpeg:mpeg7:schema:2004\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:mpeg7=\"urn:mpeg:mpeg7:schema:2004\" xsi:schemaLocation=\"urn:mpeg:mpeg7:schema:2004 http://standards.iso.org/ittf/PubliclyAvailableStandards/MPEG-7_schema_files/mpeg7-v2.xsd\">\n");
 
     //Description - DescriptionMetadata
     {
-        ToReturn+=_T("\t<DescriptionMetadata>\n");
-        ToReturn+=_T("\t\t<LastUpdate>")+TimeS+_T("</LastUpdate>\n");
-        if (!MI.Get(Stream_General, 0, General_CompleteName).empty())
-            ToReturn+=_T("\t\t<PrivateIdentifier type=\"FileName\">")+MI.Get(Stream_General, 0, General_CompleteName)+_T("</PrivateIdentifier>\n");
-        ToReturn+=_T("\t\t<Instrument>\n");
-        ToReturn+=_T("\t\t\t<Tool>\n");
-        ToReturn+=_T("\t\t\t\t<Name>")+MediaInfoLib::Config.Info_Version_Get()+_T("</Name>\n");
-        ToReturn+=_T("\t\t\t</Tool>\n");
-        ToReturn+=_T("\t\t</Instrument>\n");
-        ToReturn+=_T("\t</DescriptionMetadata>\n");
+        ToReturn+=_T("\t<mpeg7:DescriptionMetadata>\n");
+        Ztring FileName=MI.Get(Stream_General, 0, General_FileName);
+        Ztring Extension=MI.Get(Stream_General, 0, General_FileExtension);
+        if (!Extension.empty())
+            FileName+=_T('.')+Extension;
+        if (!FileName.empty())
+            ToReturn+=_T("\t\t<mpeg7:PrivateIdentifier>")+FileName+_T("</mpeg7:PrivateIdentifier>\n");
+        ToReturn+=_T("\t\t<mpeg7:CreationTime>")+TimeS+_T("</mpeg7:CreationTime>\n");
+        ToReturn+=_T("\t\t<mpeg7:Instrument>\n");
+        ToReturn+=_T("\t\t\t<mpeg7:Tool>\n");
+        ToReturn+=_T("\t\t\t\t<mpeg7:Name>")+MediaInfoLib::Config.Info_Version_Get()+_T("</mpeg7:Name>\n");
+        ToReturn+=_T("\t\t\t</mpeg7:Tool>\n");
+        ToReturn+=_T("\t\t</mpeg7:Instrument>\n");
+        ToReturn+=_T("\t</mpeg7:DescriptionMetadata>\n");
     }
 
     //Description - CreationDescription
@@ -829,134 +833,134 @@ Ztring Export_Mpeg7::Transform(MediaInfo_Internal &MI)
      || !MI.Get(Stream_General, 0, General_Encoded_Library).empty()
      || !MI.Get(Stream_General, 0, General_Performer).empty())
     {
-        ToReturn+=_T("\t<Description xsi:type=\"CreationDescriptionType\">\n");
-        ToReturn+=_T("\t\t<CreationInformation>\n");
-        ToReturn+=_T("\t\t\t<Creation>\n");
+        ToReturn+=_T("\t<mpeg7:Description xsi:type=\"CreationDescriptionType\">\n");
+        ToReturn+=_T("\t\t<mpeg7:CreationInformation>\n");
+        ToReturn+=_T("\t\t\t<mpeg7:Creation>\n");
         if (!MI.Get(Stream_General, 0, General_Movie).empty())
-            ToReturn+=_T("\t\t\t\t<Title type=\"songTitle\">")+MI.Get(Stream_General, 0, General_Movie)+_T("</Title>\n");
+            ToReturn+=_T("\t\t\t\t<mpeg7:Title type=\"songTitle\">")+MI.Get(Stream_General, 0, General_Movie)+_T("</mpeg7:Title>\n");
         if (!MI.Get(Stream_General, 0, General_Track).empty())
-            ToReturn+=_T("\t\t\t\t<Title type=\"songTitle\">")+MI.Get(Stream_General, 0, General_Title)+_T("</Title>\n");
+            ToReturn+=_T("\t\t\t\t<mpeg7:Title type=\"songTitle\">")+MI.Get(Stream_General, 0, General_Title)+_T("</mpeg7:Title>\n");
         if (!MI.Get(Stream_General, 0, General_Album).empty())
-            ToReturn+=_T("\t\t\t\t<Title type=\"albumTitle\">")+MI.Get(Stream_General, 0, General_Album)+_T("</Title>\n");
+            ToReturn+=_T("\t\t\t\t<mpeg7:Title type=\"albumTitle\">")+MI.Get(Stream_General, 0, General_Album)+_T("</mpeg7:Title>\n");
         if (!MI.Get(Stream_General, 0, General_WrittenBy).empty())
         {
-            ToReturn+=_T("\t\t\t\t<Creator>\n");
-            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:AUTHOR\"/>\n");
-            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
-            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_WrittenBy)+_T("</Name>\n");
-            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
-            ToReturn+=_T("\t\t\t\t</Creator>\n");
+            ToReturn+=_T("\t\t\t\t<mpeg7:Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:AUTHOR\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<mpeg7:Name>")+MI.Get(Stream_General, 0, General_WrittenBy)+_T("</mpeg7:Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</mpeg7:Agent>\n");
+            ToReturn+=_T("\t\t\t\t</mpeg7:Creator>\n");
         }
         if (!MI.Get(Stream_General, 0, General_Performer).empty())
         {
-            ToReturn+=_T("\t\t\t\t<Creator>\n");
-            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:PERFORMER\"/>\n");
-            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
-            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_Performer)+_T("</Name>\n");
-            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
-            ToReturn+=_T("\t\t\t\t</Creator>\n");
+            ToReturn+=_T("\t\t\t\t<mpeg7:Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:PERFORMER\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<mpeg7:Name>")+MI.Get(Stream_General, 0, General_Performer)+_T("</mpeg7:Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</mpeg7:Agent>\n");
+            ToReturn+=_T("\t\t\t\t</mpeg7:Creator>\n");
         }
         if (!MI.Get(Stream_General, 0, General_ExecutiveProducer).empty())
         {
-            ToReturn+=_T("\t\t\t\t<Creator>\n");
-            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:EXECUTIVE-PRODUCER\"/>\n");
-            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
-            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_ExecutiveProducer)+_T("</Name>\n");
-            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
-            ToReturn+=_T("\t\t\t\t</Creator>\n");
+            ToReturn+=_T("\t\t\t\t<mpeg7:Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:EXECUTIVE-PRODUCER\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<mpeg7:Name>")+MI.Get(Stream_General, 0, General_ExecutiveProducer)+_T("</mpeg7:Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</mpeg7:Agent>\n");
+            ToReturn+=_T("\t\t\t\t</mpeg7:Creator>\n");
         }
         if (!MI.Get(Stream_General, 0, General_Producer).empty())
         {
-            ToReturn+=_T("\t\t\t\t<Creator>\n");
-            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:PRODUCER\"/>\n");
-            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
-            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_Producer)+_T("</Name>\n");
-            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
-            ToReturn+=_T("\t\t\t\t</Creator>\n");
+            ToReturn+=_T("\t\t\t\t<mpeg7:Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:PRODUCER\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<mpeg7:Name>")+MI.Get(Stream_General, 0, General_Producer)+_T("</mpeg7:Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</mpeg7:Agent>\n");
+            ToReturn+=_T("\t\t\t\t</mpeg7:Creator>\n");
         }
         if (!MI.Get(Stream_General, 0, General_Director).empty())
         {
-            ToReturn+=_T("\t\t\t\t<Creator>\n");
-            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:PRODUCER\"/>\n");
-            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
-            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_Director)+_T("</Name>\n");
-            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
-            ToReturn+=_T("\t\t\t\t</Creator>\n");
+            ToReturn+=_T("\t\t\t\t<mpeg7:Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:PRODUCER\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<mpeg7:Name>")+MI.Get(Stream_General, 0, General_Director)+_T("</mpeg7:Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</mpeg7:Agent>\n");
+            ToReturn+=_T("\t\t\t\t</mpeg7:Creator>\n");
         }
         if (!MI.Get(Stream_General, 0, General_Composer).empty())
         {
-            ToReturn+=_T("\t\t\t\t<Creator>\n");
-            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:COMPOSER\"/>\n");
-            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
-            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_Composer)+_T("</Name>\n");
-            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
-            ToReturn+=_T("\t\t\t\t</Creator>\n");
+            ToReturn+=_T("\t\t\t\t<mpeg7:Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:COMPOSER\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<mpeg7:Name>")+MI.Get(Stream_General, 0, General_Composer)+_T("</mpeg7:Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</mpeg7:Agent>\n");
+            ToReturn+=_T("\t\t\t\t</mpeg7:Creator>\n");
         }
         if (!MI.Get(Stream_General, 0, General_CostumeDesigner).empty())
         {
-            ToReturn+=_T("\t\t\t\t<Creator>\n");
-            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:COSTUME-SUPERVISOR\"/>\n");
-            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
-            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_CostumeDesigner)+_T("</Name>\n");
-            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
-            ToReturn+=_T("\t\t\t\t</Creator>\n");
+            ToReturn+=_T("\t\t\t\t<mpeg7:Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:COSTUME-SUPERVISOR\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<mpeg7:Name>")+MI.Get(Stream_General, 0, General_CostumeDesigner)+_T("</mpeg7:Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</mpeg7:Agent>\n");
+            ToReturn+=_T("\t\t\t\t</mpeg7:Creator>\n");
         }
         if (!MI.Get(Stream_General, 0, General_ProductionDesigner).empty())
         {
-            ToReturn+=_T("\t\t\t\t<Creator>\n");
-            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:PRODUCTION-DESIGNER\"/>\n");
-            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
-            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_ProductionDesigner)+_T("</Name>\n");
-            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
-            ToReturn+=_T("\t\t\t\t</Creator>\n");
+            ToReturn+=_T("\t\t\t\t<mpeg7:Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:PRODUCTION-DESIGNER\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<mpeg7:Name>")+MI.Get(Stream_General, 0, General_ProductionDesigner)+_T("</mpeg7:Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</mpeg7:Agent>\n");
+            ToReturn+=_T("\t\t\t\t</mpeg7:Creator>\n");
         }
         if (!MI.Get(Stream_General, 0, General_Publisher).empty())
         {
-            ToReturn+=_T("\t\t\t\t<Creator>\n");
-            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:PUBLISHER\"/>\n");
-            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
-            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_Publisher)+_T("</Name>\n");
-            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
-            ToReturn+=_T("\t\t\t\t</Creator>\n");
+            ToReturn+=_T("\t\t\t\t<mpeg7:Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:PUBLISHER\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<mpeg7:Name>")+MI.Get(Stream_General, 0, General_Publisher)+_T("</mpeg7:Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</mpeg7:Agent>\n");
+            ToReturn+=_T("\t\t\t\t</mpeg7:Creator>\n");
         }
         if (!MI.Get(Stream_General, 0, General_DistributedBy).empty())
         {
-            ToReturn+=_T("\t\t\t\t<Creator>\n");
-            ToReturn+=_T("\t\t\t\t\t<Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:DISTRIBUTOR\"/>\n");
-            ToReturn+=_T("\t\t\t\t\t<Agent xsi:type=\"PersonGroupType\">\n");
-            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_DistributedBy)+_T("</Name>\n");
-            ToReturn+=_T("\t\t\t\t\t</Agent>\n");
-            ToReturn+=_T("\t\t\t\t</Creator>\n");
+            ToReturn+=_T("\t\t\t\t<mpeg7:Creator>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Role href=\"urn:mpeg:mpeg7:cs:RoleCS:2001:DISTRIBUTOR\"/>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Agent xsi:type=\"PersonGroupType\">\n");
+            ToReturn+=_T("\t\t\t\t\t\t<mpeg7:Name>")+MI.Get(Stream_General, 0, General_DistributedBy)+_T("</mpeg7:Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</mpeg7:Agent>\n");
+            ToReturn+=_T("\t\t\t\t</mpeg7:Creator>\n");
         }
         if (!MI.Get(Stream_General, 0, General_Encoded_Library).empty())
         {
-            ToReturn+=_T("\t\t\t\t<CreationTool>\n");
-            ToReturn+=_T("\t\t\t\t\t<Tool>\n");
-            ToReturn+=_T("\t\t\t\t\t\t<Name>")+MI.Get(Stream_General, 0, General_Encoded_Library)+_T("</Name>\n");
-            ToReturn+=_T("\t\t\t\t\t</Tool>\n");
-            ToReturn+=_T("\t\t\t\t</CreationTool>\n");
+            ToReturn+=_T("\t\t\t\t<mpeg7:CreationTool>\n");
+            ToReturn+=_T("\t\t\t\t\t<mpeg7:Tool>\n");
+            ToReturn+=_T("\t\t\t\t\t\t<mpeg7:Name>")+MI.Get(Stream_General, 0, General_Encoded_Library)+_T("</mpeg7:Name>\n");
+            ToReturn+=_T("\t\t\t\t\t</mpeg7:Tool>\n");
+            ToReturn+=_T("\t\t\t\t</mpeg7:CreationTool>\n");
         }
-        ToReturn+=_T("\t\t\t</Creation>\n");
-        ToReturn+=_T("\t\t</CreationInformation>\n");
-        ToReturn+=_T("\t</Description>\n");
+        ToReturn+=_T("\t\t\t</mpeg7:Creation>\n");
+        ToReturn+=_T("\t\t</mpeg7:CreationInformation>\n");
+        ToReturn+=_T("\t</mpeg7:Description>\n");
     }
 
     //Description - ContentEntity
-    ToReturn+=_T("\t<Description xsi:type=\"ContentEntityType\">\n");
+    ToReturn+=_T("\t<mpeg7:Description xsi:type=\"ContentEntityType\">\n");
 
     //MultimediaContent
-    ToReturn+=_T("\t\t<MultimediaContent xsi:type=\""); ToReturn+=Mpeg7_Type(MI); ToReturn+=_T("Type\">\n");
+    ToReturn+=_T("\t\t<mpeg7:MultimediaContent xsi:type=\""); ToReturn+=Mpeg7_Type(MI); ToReturn+=_T("Type\">\n");
 
     //(Type)
-    ToReturn+=_T("\t\t\t<"); ToReturn+=Mpeg7_Type(MI); ToReturn+=_T(">\n");
+    ToReturn+=_T("\t\t\t<mpeg7:"); ToReturn+=Mpeg7_Type(MI); ToReturn+=_T(">\n");
 
     //MediaFormat header
-    ToReturn+=_T("\t\t\t\t<MediaInformation>\n");
-    ToReturn+=_T("\t\t\t\t\t<MediaProfile>\n");
-    ToReturn+=_T("\t\t\t\t\t\t<MediaFormat>\n");
+    ToReturn+=_T("\t\t\t\t<mpeg7:MediaInformation>\n");
+    ToReturn+=_T("\t\t\t\t\t<mpeg7:MediaProfile>\n");
+    ToReturn+=_T("\t\t\t\t\t\t<mpeg7:MediaFormat>\n");
 
     //Content
-    ToReturn+=_T("\t\t\t\t\t\t\t<Content");
+    ToReturn+=_T("\t\t\t\t\t\t\t<mpeg7:Content");
     int32u ContentCS_termID=Mpeg7_ContentCS_termID(MI);
     if (ContentCS_termID)
     {
@@ -975,11 +979,11 @@ Ztring Export_Mpeg7::Transform(MediaInfo_Internal &MI)
         ToReturn+=_T("\"");
     }
     ToReturn+=_T(">\n");
-    ToReturn+=_T("\t\t\t\t\t\t\t\t<Name xml:lang=\"en\">"); ToReturn+=Mpeg7_ContentCS_Name(ContentCS_termID, MI); ToReturn+=_T("</Name>\n");
-    ToReturn+=_T("\t\t\t\t\t\t\t</Content>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:Name xml:lang=\"en\">"); ToReturn+=Mpeg7_ContentCS_Name(ContentCS_termID, MI); ToReturn+=_T("</mpeg7:Name>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t</mpeg7:Content>\n");
 
     //FileFormat
-    ToReturn+=_T("\t\t\t\t\t\t\t<FileFormat href=\"");
+    ToReturn+=_T("\t\t\t\t\t\t\t<mpeg7:FileFormat href=\"");
     int32u FileFormatCS_termID=Mpeg7_FileFormatCS_termID(MI);
     if (FileFormatCS_termID)
         ToReturn+=_T("urn:mpeg:mpeg7:cs:FileFormatCS:2001:");
@@ -1000,16 +1004,16 @@ Ztring Export_Mpeg7::Transform(MediaInfo_Internal &MI)
         }
     }
     ToReturn+=_T("\">\n");
-    ToReturn+=_T("\t\t\t\t\t\t\t\t<Name xml:lang=\"en\">"); ToReturn+=Mpeg7_FileFormatCS_Name(FileFormatCS_termID, MI); ToReturn+=_T("</Name>\n");
-    ToReturn+=_T("\t\t\t\t\t\t\t</FileFormat>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:Name xml:lang=\"en\">"); ToReturn+=Mpeg7_FileFormatCS_Name(FileFormatCS_termID, MI); ToReturn+=_T("</mpeg7:Name>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t</mpeg7:FileFormat>\n");
 
     //FileSize
-    ToReturn+=_T("\t\t\t\t\t\t\t<FileSize>"); ToReturn+=MI.Get(Stream_General, 0, General_FileSize); ToReturn+=_T("</FileSize>\n");
+    ToReturn+=_T("\t\t\t\t\t\t\t<mpeg7:FileSize>"); ToReturn+=MI.Get(Stream_General, 0, General_FileSize); ToReturn+=_T("</mpeg7:FileSize>\n");
 
     //System
     if (!MI.Get(Stream_Video, 0, Video_Standard).empty())
     {
-        ToReturn+=_T("\t\t\t\t\t\t\t<System");
+        ToReturn+=_T("\t\t\t\t\t\t\t<mpeg7:System");
         int32u SystemCS_termID=Mpeg7_SystemCS_termID(MI, 0); //2 video streams are not supported
         if (SystemCS_termID)
         {
@@ -1028,12 +1032,12 @@ Ztring Export_Mpeg7::Transform(MediaInfo_Internal &MI)
             ToReturn+=_T("\"");
         }
         ToReturn+=_T(">\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t\t<Name xml:lang=\"en\">"); ToReturn+=Mpeg7_SystemCS_Name(SystemCS_termID); ToReturn+=_T("</Name>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t</System>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t\t<mpeg7:Name xml:lang=\"en\">"); ToReturn+=Mpeg7_SystemCS_Name(SystemCS_termID); ToReturn+=_T("</mpeg7:Name>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t</mpeg7:System>\n");
     }
 
     //BitRate
-    ToReturn+=_T("\t\t\t\t\t\t\t<BitRate");
+    ToReturn+=_T("\t\t\t\t\t\t\t<mpeg7:BitRate");
     bool IsCBR=true;
     bool IsVBR=true;
     for (size_t StreamKind=Stream_Video; StreamKind<=Stream_Audio; StreamKind++)
@@ -1053,7 +1057,7 @@ Ztring Export_Mpeg7::Transform(MediaInfo_Internal &MI)
         ToReturn+=_T(" variable=\"false\"");
     if (IsVBR)
         ToReturn+=_T(" variable=\"true\"");
-    ToReturn+=_T(">"); ToReturn+=MI.Get(Stream_General, 0, General_OverallBitRate); ToReturn+=_T("</BitRate>\n");
+    ToReturn+=_T(">"); ToReturn+=MI.Get(Stream_General, 0, General_OverallBitRate); ToReturn+=_T("</mpeg7:BitRate>\n");
 
     //xxxCoding
     for (size_t Pos=0; Pos<MI.Count_Get(Stream_Video); Pos++)
@@ -1062,39 +1066,39 @@ Ztring Export_Mpeg7::Transform(MediaInfo_Internal &MI)
         Mpeg7_Transform_Audio(ToReturn, MI, Pos);
 
     //MediaFormat header
-    ToReturn+=_T("\t\t\t\t\t\t</MediaFormat>\n");
+    ToReturn+=_T("\t\t\t\t\t\t</mpeg7:MediaFormat>\n");
 
     //MediaTranscodingHints, intraFrameDistance and anchorFrameDistance
     if (!MI.Get(Stream_Video, 0, Video_Format_Settings_GOP).empty())
     {
         Ztring M=MI.Get(Stream_Video, 0, Video_Format_Settings_GOP).SubString(_T("M="), _T(","));
         Ztring N=MI.Get(Stream_Video, 0, Video_Format_Settings_GOP).SubString(_T("N="), _T(""));
-        ToReturn+=_T("\t\t\t\t\t\t<MediaTranscodingHints>\n");
-        ToReturn+=_T("\t\t\t\t\t\t\t<CodingHints");
+        ToReturn+=_T("\t\t\t\t\t\t<mpeg7:MediaTranscodingHints>\n");
+        ToReturn+=_T("\t\t\t\t\t\t\t<mpeg7:CodingHints");
         if (!N.empty())
             ToReturn+=_T(" intraFrameDistance=\"")+N;
         if (!M.empty())
             ToReturn+=_T("\" anchorFrameDistance=\"")+M;
         ToReturn+=_T("\"/>\n");
-        ToReturn+=_T("\t\t\t\t\t\t</MediaTranscodingHints>\n");
+        ToReturn+=_T("\t\t\t\t\t\t</mpeg7:MediaTranscodingHints>\n");
     }
 
-    ToReturn+=_T("\t\t\t\t\t</MediaProfile>\n");
-    ToReturn+=_T("\t\t\t\t</MediaInformation>\n");
+    ToReturn+=_T("\t\t\t\t\t</mpeg7:MediaProfile>\n");
+    ToReturn+=_T("\t\t\t\t</mpeg7:MediaInformation>\n");
 
     //MediaTimePoint
-    ToReturn+=_T("\t\t\t\t<MediaTime>\n");
-    ToReturn+=_T("\t\t\t\t\t<MediaTimePoint>")+Mpeg7_MediaTimePoint(MI)+_T("</MediaTimePoint>\n");
+    ToReturn+=_T("\t\t\t\t<mpeg7:MediaTime>\n");
+    ToReturn+=_T("\t\t\t\t\t<mpeg7:MediaTimePoint>")+Mpeg7_MediaTimePoint(MI)+_T("</mpeg7:MediaTimePoint>\n");
 
     //MediaDuration
-    ToReturn+=_T("\t\t\t\t\t<MediaDuration>"); ToReturn+=Mpeg7_MediaDuration(MI); ToReturn+=_T("</MediaDuration>\n");
-    ToReturn+=_T("\t\t\t\t</MediaTime>\n");
+    ToReturn+=_T("\t\t\t\t\t<mpeg7:MediaDuration>"); ToReturn+=Mpeg7_MediaDuration(MI); ToReturn+=_T("</mpeg7:MediaDuration>\n");
+    ToReturn+=_T("\t\t\t\t</mpeg7:MediaTime>\n");
 
     //Mpeg7 footer
-    ToReturn+=_T("\t\t\t</"); ToReturn+=Mpeg7_Type(MI); ToReturn+=_T(">\n");
-    ToReturn+=_T("\t\t</MultimediaContent>\n");
-    ToReturn+=_T("\t</Description>\n");
-    ToReturn+=_T("</Mpeg7>\n");
+    ToReturn+=_T("\t\t\t</mpeg7:"); ToReturn+=Mpeg7_Type(MI); ToReturn+=_T(">\n");
+    ToReturn+=_T("\t\t</mpeg7:MultimediaContent>\n");
+    ToReturn+=_T("\t</mpeg7:Description>\n");
+    ToReturn+=_T("</mpeg7:Mpeg7>\n");
 
     //Carriage return
     ToReturn.FindAndReplace(_T("\n"), EOL, 0, Ztring_Recursive);
