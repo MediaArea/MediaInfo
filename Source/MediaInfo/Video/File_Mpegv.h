@@ -28,6 +28,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#if defined(MEDIAINFO_CDP_YES)
+    #include "MediaInfo/Multiple/File_Riff.h"
+#endif //MEDIAINFO_CDP_YES
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -45,6 +48,9 @@ public :
     size_t Frame_Count_Valid;
     bool   FrameIsAlwaysComplete;
     bool   TimeCodeIsNotTrustable;
+    #if defined(MEDIAINFO_CDP_YES)
+        std::vector<File_Riff::cdp_data*>* Cdp_Data;
+    #endif //MEDIAINFO_CDP_YES
 
     //Constructor/Destructor
     File_Mpegv();
@@ -124,6 +130,7 @@ private :
             }
         };
         cc_data_ GA94_03_CC; //Per cc offset
+        cc_data_ Cdp; //Per cc offset
 
         int8u  picture_coding_type;
 
