@@ -12,10 +12,22 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? http://sourceforge.net/tracker/?group_id=86862&atid=581181
 
-Version 0.7.30, 2010-
+Version 0.7.30, 2010-03-26
 --------------
 + Russian language updated
 + Image extensions are handled by the context menu
++ AVC: Multiview Video Coding (MVC) basic support
++ AVI: better handling of some RGB or RLE codecIDs
++ Solaris package creation files update (with relocation)
++ MSVB: better handling of C pointers
++ WAV: Skipping wrong sample count values
++ GXF: Caption in ancillary data detection
+x #2970227, WAV: a file was wrongly detected as DTS
+x CEA-608: some captions were wrongly detected as active
+x MPEG-7: some corrections in order to be valid
+x FLV: Duration for video not starting at Time 0
+x WMV and MPEG-TS/PS: some crashes are fixed
+x MSVC2010 and MSVC2008 project files were missing some files
 
 Version 0.7.29, 2010-03-08
 --------------
