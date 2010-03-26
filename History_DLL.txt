@@ -7,7 +7,7 @@ x Correction
 bug reports and feature request are here:
 http://sourceforge.net/tracker/?group_id=86862
 
-Version 0.7.30, 2010-03-25
+Version 0.7.30, 2010-03-26
 --------------
 + AVC: Multiview Video Coding (MVC) basic support
 + AVI: better handling of some RGB or RLE codecIDs
