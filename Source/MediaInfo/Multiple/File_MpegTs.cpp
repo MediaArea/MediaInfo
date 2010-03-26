@@ -1371,7 +1371,7 @@ void File_MpegTs::PES()
     if (Complete_Stream->Streams[pid].Parser->Status[IsFilled]
      || Complete_Stream->Streams[pid].Parser->Status[IsFinished])
     {
-        if (Complete_Stream->Streams[pid].Searching_Payload_Start && MediaInfoLib::Config.ParseSpeed_Get()>=1)
+        if ((Complete_Stream->Streams[pid].Searching_Payload_Start || Complete_Stream->Streams[pid].Searching_Payload_Continue) && MediaInfoLib::Config.ParseSpeed_Get()<1)
         {
             Complete_Stream->Streams[pid].Searching_Payload_Start_Set(false);
             Complete_Stream->Streams[pid].Searching_Payload_Continue_Set(false);
