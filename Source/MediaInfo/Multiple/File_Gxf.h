@@ -30,6 +30,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#if defined(MEDIAINFO_CDP_YES)
+    #include "MediaInfo/Multiple/File_Riff.h"
+#endif //MEDIAINFO_CDP_YES
 #include <map>
 //---------------------------------------------------------------------------
 
@@ -46,6 +49,11 @@ public :
     //Constructor/Destructor
     File_Gxf();
     ~File_Gxf();
+
+    //In
+    #if defined(MEDIAINFO_CDP_YES)
+        std::vector<File_Riff::cdp_data*> Cdp_Data;
+    #endif //MEDIAINFO_CDP_YES
 
 private :
     //Streams management

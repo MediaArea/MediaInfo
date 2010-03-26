@@ -2660,7 +2660,18 @@ void File_Riff::rcrd_fld__anc__pyld()
                 case 0x61 :
                             switch (SecondaryDataID)
                             {
-                                case 0x01 : rcrd_Parsers[DataID][SecondaryDataID]=new File_Cdp(); rcrd_Parsers_Count++; break;
+                                case 0x01 : //CDP, saving data for future use
+                                            #if defined(MEDIAINFO_CDP_YES)
+                                            if (Cdp_Data)
+                                            {
+                                                cdp_data* Cdp=new cdp_data;
+                                                Cdp->Data=new int8u[(size_t)DataCount];
+                                                std::memcpy(Cdp->Data, Payload, (size_t)DataCount);
+                                                Cdp->Size=(size_t)DataCount;
+                                                Cdp_Data->push_back(Cdp);
+                                            }
+                                            #endif //MEDIAINFO_CDP_YES
+                                            break;
                                 default   : ;
                                 ;
                             }

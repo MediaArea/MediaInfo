@@ -49,7 +49,7 @@ public :
 private :
     //Streams management
     void Streams_Fill();
-    
+
     //Synchro
     void Read_Buffer_Unsynched();
 

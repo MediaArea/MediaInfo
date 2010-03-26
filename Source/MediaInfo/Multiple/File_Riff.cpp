@@ -115,6 +115,9 @@ File_Riff::File_Riff()
     DV_FromHeader=NULL;
     #if defined(MEDIAINFO_GXF_YES)
         rcrd_Parsers_Count=0;
+        #if defined(MEDIAINFO_CDP_YES)
+            Cdp_Data=NULL;
+        #endif //MEDIAINFO_CDP_YES
     #endif //MEDIAINFO_GXF_YES
 
     //Pointers

@@ -78,18 +78,9 @@ namespace MediaInfoLib
 File_Cdp::File_Cdp()
 :File__Analyze()
 {
-    //Configuration
-    PTS_DTS_Needed=true;
-
     //Temp
-    CC_Parsers_Count=0;
-}
-
-//---------------------------------------------------------------------------
-File_Cdp::~File_Cdp()
-{
-    for (size_t Pos=0; Pos<CC_Parsers.size(); Pos++)
-        delete CC_Parsers[Pos]; //CC_Parsers[Pos]=NULL;
+    Streams.resize(3); //CEA-608 Field 1, CEA-608 Field 2, CEA-708 Channel
+    Streams_Count=0;
 }
 
 //***************************************************************************
@@ -99,11 +90,28 @@ File_Cdp::~File_Cdp()
 //---------------------------------------------------------------------------
 void File_Cdp::Streams_Fill()
 {
+    //Filling
+    for (size_t Pos=0; Pos<Streams.size(); Pos++)
+        if (Streams[Pos].Parser && Streams[Pos].Parser->Status[IsFilled])
+        {
+            Merge(*Streams[Pos].Parser);
+            if (Pos<2)
+                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
+            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("CDP"), Unlimited);
+        }
 }
 
+//***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
 //---------------------------------------------------------------------------
-void File_Cdp::Streams_Finish()
+void File_Cdp::Read_Buffer_Unsynched()
 {
+    //Parsing
+    for (size_t Pos=0; Pos<Streams.size(); Pos++)
+        if (Streams[Pos].Parser)
+            Streams[Pos].Parser->Open_Buffer_Unsynch();
 }
 
 //***************************************************************************
@@ -215,65 +223,47 @@ void File_Cdp::ccdata_section()
         BS_End();
         if (cc_valid)
         {
-            size_t Parser_Pos=cc_type;
-            if (Parser_Pos==3)
-                Parser_Pos=2; //cc_type 2 and 3 are for the same text
+            Element_Begin("cc_data");
+                //Calculating the parser position
+                int8u Parser_Pos=cc_type==3?2:cc_type; //cc_type 2 and 3 are for the same text
 
-            if (Parser_Pos>=CC_Parsers.size())
-                CC_Parsers.resize(Parser_Pos+1);
-            if (CC_Parsers[Parser_Pos]==NULL)
-            {
-                if (cc_type<2)
+                //Parsing
+                if (Streams[Parser_Pos].Parser==NULL)
                 {
-                    CC_Parsers[Parser_Pos]=new File_Eia608();
-                    CC_Parsers_Count++;
-                }
-                else
-                {
-                    CC_Parsers[Parser_Pos]=new File_Eia708();
-                    CC_Parsers_Count++;
-                }
-            }
-            if (!CC_Parsers[Parser_Pos]->Status[IsFinished])
-            {
-                if (cc_type>=2)
-                    ((File_Eia708*)CC_Parsers[2])->cc_type=cc_type;
-                //Element_Begin(Ztring(_T("ReorderedCaptions,"))+Ztring().From_Local(Cdp_cc_type(cc_type)));
-                //Open_Buffer_Init(CC_Parsers[Parser_Pos]);
-                //Open_Buffer_Continue(CC_Parsers[Parser_Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, 2);
-                Element_Offset+=2;
-                //Element_End();
-
-                //Finish
-                if (MediaInfoLib::Config.ParseSpeed_Get()<1 && CC_Parsers[Parser_Pos]->Status[IsFilled])
-                {
-                    if (Count_Get(Stream_General)==0)
-                        Accept("CDP");
-                    if (Parser_Pos>=CC_Parsers_StreamPos.size())
-                        CC_Parsers_StreamPos.resize(Parser_Pos+1, (size_t)-1);
-                    if (CC_Parsers_StreamPos[Parser_Pos]!=(size_t)-1)
-                        Fill(Stream_Text, CC_Parsers_StreamPos[Parser_Pos], "Content", CC_Parsers[Parser_Pos]->Retrieve(Stream_Text, 0, "Content"), true);
+                    if (cc_type<2)
+                    {
+                        Streams[Parser_Pos].Parser=new File_Eia608();
+                    }
                     else
                     {
-                        Merge(*CC_Parsers[Parser_Pos]);
-                        if (Parser_Pos<2)
-                            Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Parser_Pos));
-                        Fill(Stream_Text, StreamPos_Last, Text_MuxingMode, _T("CDP"));
-                        CC_Parsers_StreamPos[Parser_Pos]=StreamPos_Last;
+                        Streams[Parser_Pos].Parser=new File_Eia708();
                     }
-
-                    if (CC_Parsers_Count)
-                        CC_Parsers_Count--;
-                    if (CC_Parsers_Count==0)
-                        Finish();
                 }
-            }
+                if (!Streams[Parser_Pos].Parser->Status[IsFinished])
+                {
+                    if (Parser_Pos==2)
+                        ((File_Eia708*)Streams[2].Parser)->cc_type=cc_type;
+                    Open_Buffer_Init(Streams[Parser_Pos].Parser);
+                    Open_Buffer_Continue(Streams[Parser_Pos].Parser, Buffer+(size_t)(Buffer_Offset+Element_Offset), 2);
+                    Element_Offset+=2;
+
+                    //Filled
+                    if (!Streams[Parser_Pos].IsFilled && Streams[Parser_Pos].Parser->Status[IsFilled])
+                    {
+                        if (Count_Get(Stream_General)==0)
+                            Accept("CDP");
+                        Streams_Count++;
+                        if (Streams_Count==3)
+                            Fill("CDP");
+                        Streams[Parser_Pos].IsFilled=true;
+                    }
+                }
+                else
+                    Skip_XX(2,                                  "Data");
+            Element_End();
         }
         else
-        {
-            Get_B1 (cc_data_1,                                  "cc_data_1");
-            Get_B1 (cc_data_2,                                  "cc_data_2");
-        }
+            Skip_XX(2,                                          "Junk");
         Element_End();
     }
     Element_End();

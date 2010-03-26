@@ -151,10 +151,12 @@ private :
     std::vector<temporalreference*> TemporalReference; //per temporal_reference
     size_t                         TemporalReference_Offset;
     size_t                         TemporalReference_GA94_03_CC_Offset;
+    size_t                         TemporalReference_Cdp_Offset;
 
     //Temp
     std::vector<File__Analyze*> DVD_CC_Parsers;
     File__Analyze* GA94_03_CC_Parser;
+    File__Analyze* Cdp_Parser;
     Ztring Library;
     Ztring Library_Name;
     Ztring Library_Version;
@@ -198,6 +200,7 @@ private :
     bool   Time_End_NeedComplete;
     bool   DVD_CC_IsPresent;
     bool   GA94_03_CC_IsPresent;
+    bool   CDP_IsPresent;
     bool   load_intra_quantiser_matrix;
     bool   load_non_intra_quantiser_matrix;
     bool   progressive_sequence;

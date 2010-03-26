@@ -135,6 +135,9 @@ const char* Mpegv_profile_and_level_indication_level[]=
 #if defined(MEDIAINFO_EIA608_YES)
     #include "MediaInfo/Text/File_Eia608.h"
 #endif
+#if defined(MEDIAINFO_CDP_YES)
+    #include "MediaInfo/Text/File_Cdp.h"
+#endif
 #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
     #include "MediaInfo/Text/File_DtvccTransport.h"
 #endif
@@ -316,6 +319,7 @@ File_Mpegv::File_Mpegv()
 
     //Temp
     GA94_03_CC_Parser=NULL;
+    Cdp_Parser=NULL;
     SizeToAnalyse_Begin=1*1024*1024;
     SizeToAnalyse_End=1*1024*1024;
     Searching_TimeStamp_Start_DoneOneTime=false;
@@ -327,8 +331,9 @@ File_Mpegv::File_Mpegv()
 File_Mpegv::~File_Mpegv()
 {
     for (size_t Pos=0; Pos<DVD_CC_Parsers.size(); Pos++)
-        delete DVD_CC_Parsers[Pos]; //GA94_03_CC_Parsers[Pos]=NULL;
+        delete DVD_CC_Parsers[Pos]; //DVD_CC_Parsers[Pos]=NULL;
     delete GA94_03_CC_Parser; //GA94_03_CC_Parser=NULL;
+    delete Cdp_Parser; //Cdp_Parser=NULL;
 }
 
 
@@ -494,11 +499,11 @@ void File_Mpegv::Streams_Fill()
 
         if (!GOPs.empty())
         {
-            bool Unique=true;
+            size_t Unique=0;
             for (size_t Pos=1; Pos<GOPs.size(); Pos++)
                 if (GOPs[Pos]!=GOPs[0])
-                    Unique=false;
-            if (!Unique)
+                    Unique++;
+            if ((Frame_Count<Frame_Count_Valid*10 && Unique) || Unique>2) //In order to accept some unsynch //TODO: change the method, synching with next I-Frame
                 GOPs.clear(); //Not a fixed GOP
         }
         if (!GOPs.empty())
@@ -628,8 +633,13 @@ void File_Mpegv::Streams_Finish()
     {
         Finish(GA94_03_CC_Parser);
         Merge(*GA94_03_CC_Parser);
-        for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
-            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"), Unlimited);
+    }
+
+    //CDP captions
+    if (Cdp_Parser && !Cdp_Parser->Status[IsFinished] && Cdp_Parser->Status[IsAccepted])
+    {
+        Finish(Cdp_Parser);
+        Merge(*Cdp_Parser);
     }
 
     //Purge what is not needed anymore
@@ -691,6 +701,7 @@ void File_Mpegv::Synched_Init()
     Time_End_Frames=(int8u)-1;
     TemporalReference_Offset=0;
     TemporalReference_GA94_03_CC_Offset=0;
+    TemporalReference_Cdp_Offset=0;
     picture_coding_type=(int8u)-1;
     bit_rate_value=0;
     FrameRate=0;
@@ -710,6 +721,7 @@ void File_Mpegv::Synched_Init()
     vbv_buffer_size_extension=0;
     DVD_CC_IsPresent=false;
     GA94_03_CC_IsPresent=false;
+    CDP_IsPresent=false;
     Time_End_NeedComplete=false;
     load_intra_quantiser_matrix=false;
     load_non_intra_quantiser_matrix=false;
@@ -741,9 +753,12 @@ void File_Mpegv::Read_Buffer_Unsynched()
     TemporalReference.clear();
     TemporalReference_Offset=0;
     TemporalReference_GA94_03_CC_Offset=0;
+    TemporalReference_Cdp_Offset=0;
 
     if (GA94_03_CC_Parser)
         GA94_03_CC_Parser->Open_Buffer_Unsynch();
+    if (Cdp_Parser)
+        Cdp_Parser->Open_Buffer_Unsynch();
 
     //NextCode
     NextCode_Clear();
@@ -878,12 +893,12 @@ void File_Mpegv::Detect_EOF()
     if (IsSub && Status[IsFilled]
      || (!IsSub && File_Size>SizeToAnalyse_Begin+SizeToAnalyse_End && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End && MediaInfoLib::Config.ParseSpeed_Get()<=0.01))
     {
-        if ((GA94_03_CC_IsPresent || DVD_CC_IsPresent) && Frame_Count<Frame_Count_Valid*10 //10 times the normal test
+        if ((GA94_03_CC_IsPresent || DVD_CC_IsPresent || CDP_IsPresent) && Frame_Count<Frame_Count_Valid*10 //10 times the normal test
          && !(!IsSub && File_Size>SizeToAnalyse_Begin*10+SizeToAnalyse_End*10 && File_Offset+Buffer_Offset+Element_Offset>SizeToAnalyse_Begin*10 && File_Offset+Buffer_Offset+Element_Offset<File_Size-SizeToAnalyse_End*10))
         {
-            Streams[0x00].Searching_Payload=GA94_03_CC_IsPresent;
-            Streams[0xB2].Searching_Payload=true;
-            Streams[0xB3].Searching_Payload=GA94_03_CC_IsPresent;
+            Streams[0x00].Searching_Payload=GA94_03_CC_IsPresent || CDP_IsPresent;
+            Streams[0xB2].Searching_Payload=GA94_03_CC_IsPresent || DVD_CC_IsPresent;
+            Streams[0xB3].Searching_Payload=GA94_03_CC_IsPresent || CDP_IsPresent;
             return;
         }
 
@@ -1015,6 +1030,58 @@ void File_Mpegv::picture_start()
         if (picture_coding_type==3)
             BVOP_Count++;
 
+        #if defined(MEDIAINFO_CDP_YES)
+            if (Cdp_Data && !Cdp_Data->empty())
+            {
+                CDP_IsPresent=true;
+
+                //Purging too old orphelins
+                if (TemporalReference_Cdp_Offset+8<TemporalReference_Offset+temporal_reference)
+                {
+                    size_t Pos=TemporalReference_Offset+temporal_reference;
+                    do
+                    {
+                        if (TemporalReference[Pos]==NULL || !TemporalReference[Pos]->IsValid)
+                            break;
+                        Pos--;
+                    }
+                    while (Pos>0);
+                    TemporalReference_Cdp_Offset=Pos+1;
+                }
+
+                TemporalReference[TemporalReference_Offset+temporal_reference]->Cdp.Size=(*Cdp_Data)[0]->Size;
+                delete[] TemporalReference[TemporalReference_Offset+temporal_reference]->Cdp.Data;
+                TemporalReference[TemporalReference_Offset+temporal_reference]->Cdp.Data=new int8u[(*Cdp_Data)[0]->Size];
+                std::memcpy(TemporalReference[TemporalReference_Offset+temporal_reference]->Cdp.Data, (*Cdp_Data)[0]->Data, (*Cdp_Data)[0]->Size);
+                delete[] (*Cdp_Data)[0]->Data; //(*Cdp_Data)[0]->Data=NULL;
+                Cdp_Data->erase(Cdp_Data->begin());
+
+                //Parsing Captions after reordering
+                bool CanBeParsed=true;
+                for (size_t Cdp_Pos=TemporalReference_Cdp_Offset; Cdp_Pos<TemporalReference.size(); Cdp_Pos++)
+                    if (TemporalReference[Cdp_Pos]==NULL || !TemporalReference[Cdp_Pos]->IsValid)
+                        CanBeParsed=false; //There is a missing field/frame
+                if (CanBeParsed)
+                {
+                    Element_Info("Styled captioning");
+                    for (size_t Cdp_Pos=TemporalReference_Cdp_Offset; Cdp_Pos<TemporalReference.size(); Cdp_Pos++)
+                    {
+                        Element_Begin("ReorderedCaptions");
+                        if (Cdp_Parser==NULL)
+                            Cdp_Parser=new File_Cdp;
+                        Open_Buffer_Init(Cdp_Parser);
+                        Open_Buffer_Continue(Cdp_Parser, TemporalReference[Cdp_Pos]->Cdp.Data, TemporalReference[Cdp_Pos]->Cdp.Size);
+                        Element_End();
+
+                        //Accept
+                        if (Cdp_Parser->Status[IsFilled] && Count_Get(Stream_General)==0)
+                            Accept("MPEG Video");
+                    }
+                    TemporalReference_Cdp_Offset=TemporalReference.size();
+                }
+            }
+        #endif //MEDIAINFO_CDP_YES
+
         //NextCode
         NextCode_Clear();
         for (int64u Element_Name_Next=0x01; Element_Name_Next<=0x1F; Element_Name_Next++)
@@ -1054,7 +1121,7 @@ void File_Mpegv::slice_start()
         //Filling only if not already done
         if (Frame_Count==2 && !Status[IsAccepted])
             Accept("MPEG Video");
-        if (!Status[IsFilled] && (!DVD_CC_IsPresent && !GA94_03_CC_IsPresent && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
+        if (!Status[IsFilled] && (!DVD_CC_IsPresent && !GA94_03_CC_IsPresent && !CDP_IsPresent && Frame_Count>=Frame_Count_Valid || Frame_Count>=Frame_Count_Valid*10))
             Fill("MPEG Video");
     FILLING_END();
 }
@@ -1352,16 +1419,9 @@ void File_Mpegv::user_data_start_GA94_03()
                 Open_Buffer_Continue(GA94_03_CC_Parser, TemporalReference[GA94_03_CC_Pos]->GA94_03_CC.Data, TemporalReference[GA94_03_CC_Pos]->GA94_03_CC.Size);
                 Element_End();
 
-                //Finish
-                if (GA94_03_CC_Parser->Status[IsFilled] && !GA94_03_CC_Parser->Status[IsFinished])
-                {
-                    if (Count_Get(Stream_General)==0)
-                        Accept("MPEG Video");
-                    Finish(GA94_03_CC_Parser);
-                    Merge(*GA94_03_CC_Parser);
-                    for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
-                        Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"), Unlimited);
-                }
+                //Accept
+                if (GA94_03_CC_Parser->Status[IsFilled] && Count_Get(Stream_General)==0)
+                    Accept("MPEG Video");
 
                 //Demux
                 /*
@@ -1501,6 +1561,10 @@ void File_Mpegv::sequence_header()
                 TemporalReference_GA94_03_CC_Offset-=0x400;
             else
                 TemporalReference_GA94_03_CC_Offset=0;
+            if (0x400<TemporalReference_Cdp_Offset)
+                TemporalReference_Cdp_Offset-=0x400;
+            else
+                TemporalReference_Cdp_Offset=0;
         }
 
         //Bit_rate

@@ -43,17 +43,18 @@ class File_Cdp : public File__Analyze
 public :
     //Constructor/Destructor
     File_Cdp();
-    ~File_Cdp();
 
 private :
     //Streams management
     void Streams_Fill();
-    void Streams_Finish();
+
+    //Synchro
+    void Read_Buffer_Unsynched();
 
     //Buffer - Global
     void Read_Buffer_Continue();
 
-    //Functions
+    //Elements
     void cdp_header();
     void time_code_section();
     void ccdata_section();
@@ -62,20 +63,19 @@ private :
     void future_section();
 
     //Stream
-    struct cc_data_
+    struct stream
     {
-        int8u cc_type;
-        int8u cc_data[2];
-        bool  cc_valid;
+        File__Analyze*  Parser;
+        bool            IsFilled;
 
-        cc_data_()
+        stream()
         {
-            cc_valid=false;
+            Parser=NULL;
+            IsFilled=false;
         }
     };
-    std::vector<File__Analyze*> CC_Parsers;
-    size_t CC_Parsers_Count;
-    std::vector<size_t> CC_Parsers_StreamPos;
+    std::vector<stream> Streams;
+    size_t              Streams_Count;
 };
 
 } //NameSpace

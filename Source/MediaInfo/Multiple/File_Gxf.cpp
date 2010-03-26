@@ -243,6 +243,8 @@ File_Gxf::~File_Gxf()
 {
     //Temp
     delete UMF_File; //UMF_File=NULL;
+    for (size_t Pos=0; Pos<Cdp_Data.size(); Pos++)
+        delete Cdp_Data[Pos]; //Cdp_Data[Pos]=NULL;
 }
 
 //***************************************************************************
@@ -312,7 +314,7 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                 Merge(*Temp.Parser, Stream_Text, Text_Pos, StreamPos_Last);
 
                 Ztring MuxingMode=Retrieve(Stream_Text, StreamPos_Last, "MuxingMode");
-                Fill(Stream_Text, StreamPos_Last, "MuxingMode", Ztring(_T("MPEG Video / "))+MuxingMode, true);
+                Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("Ancillary data / ")+MuxingMode, true);
                 if (!IsSub)
                     Fill(Stream_Text, StreamPos_Last, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp.StreamPos+1));
                 Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
@@ -389,6 +391,25 @@ bool File_Gxf::Synched_Test()
     if (CC5(Buffer+Buffer_Offset   )!=0x0000000001
      || CC2(Buffer+Buffer_Offset+14)!=0xE1E2)
         Synched=false;
+
+    //Test if the next synchro is available
+    int32u PacketLength=BigEndian2int32u(Buffer+Buffer_Offset+6);
+    if (File_Offset+Buffer_Offset+PacketLength+16<=File_Size)
+    {
+        if (Buffer_Offset+PacketLength+16>Buffer_Size)
+            return false;
+        if (CC5(Buffer+Buffer_Offset+PacketLength   )!=0x0000000001
+         || CC2(Buffer+Buffer_Offset+PacketLength+14)!=0xE1E2)
+            Synched=false;
+    }
+
+    //Clearing Cdp_Data
+    if (!Synched)
+    {
+        for (size_t Pos=0; Pos<Cdp_Data.size(); Pos++)
+            delete Cdp_Data[Pos]; //Cdp_Data[Pos]=NULL;
+        Cdp_Data.clear();
+    }
 
     //We continue
     return true;
@@ -632,6 +653,7 @@ void File_Gxf::map()
                             case 22 :
                             case 23 :   //MPEG Video
                                         Streams[TrackID].Parser=new File_Mpegv();
+                                        ((File_Mpegv*)Streams[TrackID].Parser)->Cdp_Data=&Cdp_Data;
                                         Open_Buffer_Init(Streams[TrackID].Parser);
                                         Parsers_Count++;
                                         Streams[TrackID].Searching_Payload=true;
@@ -650,6 +672,7 @@ void File_Gxf::map()
                     {
                         //Ancillary Metadata
                         Streams[TrackID].Parser=new File_Riff();
+                        ((File_Riff*)Streams[TrackID].Parser)->Cdp_Data=&Cdp_Data;
                         Open_Buffer_Init(Streams[TrackID].Parser);
                         Parsers_Count++;
                         Streams[TrackID].Searching_Payload=true;

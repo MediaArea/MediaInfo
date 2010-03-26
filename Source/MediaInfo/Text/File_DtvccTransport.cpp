@@ -86,7 +86,7 @@ void File_DtvccTransport::Streams_Fill()
             Merge(*Streams[Pos].Parser);
             if (Pos<2)
                 Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
-            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"), Unlimited);
+            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"));
         }
 }
 
@@ -171,6 +171,7 @@ void File_DtvccTransport::Read_Buffer_Continue()
                             Streams_Count++;
                             if (Streams_Count==3)
                                 Fill("DTVCC Transport");
+                            Streams[Parser_Pos].IsFilled=true;
                         }
                     }
                     else

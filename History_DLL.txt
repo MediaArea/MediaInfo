@@ -14,6 +14,7 @@ Version 0.7.30, 2010-03-25
 + Solaris package creation files update (with relocation)
 + MSVB: better handling of C pointers
 + WAV: Skipping wrong sample count values
++ GXF: Caption in ancillary data detection
 x #2970227, WAV: a file was wrongly detected as DTS
 x CEA-608: some captions were wrongly detected as active
 x MPEG-7: some corrections in order to be valid
