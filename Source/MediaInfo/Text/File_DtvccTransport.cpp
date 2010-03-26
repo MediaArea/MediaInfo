@@ -92,6 +92,19 @@ void File_DtvccTransport::Streams_Fill()
 }
 
 //***************************************************************************
+// Buffer - Synchro
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void File_DtvccTransport::Read_Buffer_Unsynched()
+{
+    //Parsing
+    for (size_t Pos=0; Pos<Streams.size(); Pos++)
+        if (Streams[Pos].Parser)
+            Streams[Pos].Parser->Open_Buffer_Unsynch();
+}
+
+//***************************************************************************
 // Buffer - Global
 //***************************************************************************
 
@@ -161,6 +174,8 @@ void File_DtvccTransport::Read_Buffer_Continue()
                                 Fill("DTVCC Transport");
                         }
                     }
+                    else
+                        Skip_XX(2,                                  "Data");
                 Element_End();
             }
             else
@@ -181,6 +196,11 @@ void File_DtvccTransport::Read_Buffer_Continue()
     Mark_1();
     Mark_1();
     BS_End();
+
+    while (Element_Offset<Element_Size)
+    {
+        Skip_B1(                                                    "Zero"); //TODO: test Zero
+    }
 
     Element_End();
 }

@@ -50,6 +50,9 @@ private :
     //Streams management
     void Streams_Fill();
     
+    //Synchro
+    void Read_Buffer_Unsynched();
+
     //Buffer - Global
     void Read_Buffer_Continue();
 

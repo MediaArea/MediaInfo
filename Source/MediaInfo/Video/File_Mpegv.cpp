@@ -135,8 +135,8 @@ const char* Mpegv_profile_and_level_indication_level[]=
 #if defined(MEDIAINFO_EIA608_YES)
     #include "MediaInfo/Text/File_Eia608.h"
 #endif
-#if defined(MEDIAINFO_EIA708_YES)
-    #include "MediaInfo/Text/File_Eia708.h"
+#if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+    #include "MediaInfo/Text/File_DtvccTransport.h"
 #endif
 using namespace ZenLib;
 
@@ -312,6 +312,7 @@ File_Mpegv::File_Mpegv()
     TimeCodeIsNotTrustable=false;
 
     //Temp
+    GA94_03_CC_Parser=NULL;
     SizeToAnalyse_Begin=1*1024*1024;
     SizeToAnalyse_End=1*1024*1024;
     Searching_TimeStamp_Start_DoneOneTime=false;
@@ -324,8 +325,7 @@ File_Mpegv::~File_Mpegv()
 {
     for (size_t Pos=0; Pos<DVD_CC_Parsers.size(); Pos++)
         delete DVD_CC_Parsers[Pos]; //GA94_03_CC_Parsers[Pos]=NULL;
-    for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
-        delete GA94_03_CC_Parsers[Pos]; //GA94_03_CC_Parsers[Pos]=NULL;
+    delete GA94_03_CC_Parser; //GA94_03_CC_Parser=NULL;
 }
 
 
@@ -621,12 +621,14 @@ void File_Mpegv::Streams_Finish()
         }
 
     //EIA-708 captions
-    for (size_t Pos=0; Pos<GA94_03_CC_Parsers.size(); Pos++)
-        if (GA94_03_CC_Parsers[Pos] && !GA94_03_CC_Parsers[Pos]->Status[IsFinished] && GA94_03_CC_Parsers[Pos]->Status[IsAccepted])
-        {
-            Finish(GA94_03_CC_Parsers[Pos]);
-        }
-        
+    if (GA94_03_CC_Parser && !GA94_03_CC_Parser->Status[IsFinished] && GA94_03_CC_Parser->Status[IsAccepted])
+    {
+        Finish(GA94_03_CC_Parser);
+        Merge(*GA94_03_CC_Parser);
+        for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
+            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"), Unlimited);
+    }
+
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Streams.clear();
@@ -736,6 +738,9 @@ void File_Mpegv::Read_Buffer_Unsynched()
     TemporalReference.clear();
     TemporalReference_Offset=0;
     TemporalReference_GA94_03_CC_Offset=0;
+
+    if (GA94_03_CC_Parser)
+        GA94_03_CC_Parser->Open_Buffer_Unsynch();
 
     //NextCode
     NextCode_Clear();
@@ -994,7 +999,7 @@ void File_Mpegv::picture_start()
     }
     while (extra_bit_picture);
     BS_End();
-    
+
     FILLING_BEGIN();
         //Temporal reference
         if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
@@ -1219,7 +1224,7 @@ void File_Mpegv::user_data_start_CC()
                 DVD_CC_Parsers.push_back(NULL);
             if (DVD_CC_Parsers[cc_type]==NULL)
             {
-                DVD_CC_Parsers[cc_type]=new File_Eia608();
+                DVD_CC_Parsers[cc_type]=new File_Eia608;
             }
             if (!DVD_CC_Parsers[cc_type]->Status[IsFinished])
             {
@@ -1297,6 +1302,11 @@ void File_Mpegv::user_data_start_GA94()
 // Packet "B2", GA94 0x03 (styled captioning)
 void File_Mpegv::user_data_start_GA94_03()
 {
+    if (File_Offset+Buffer_Offset>=76710000)
+        int A=0;
+    if (File_Offset+Buffer_Offset>=76515500)
+        int A=0;
+
     #if defined(MEDIAINFO_EIA608_YES)
         GA94_03_CC_IsPresent=true;
 
@@ -1310,51 +1320,23 @@ void File_Mpegv::user_data_start_GA94_03()
         if (TemporalReference_GA94_03_CC_Offset+8<TemporalReference_Offset+temporal_reference)
         {
             size_t Pos=TemporalReference_Offset+temporal_reference;
-            for(; Pos<TemporalReference.size(); Pos++)
-                if (!TemporalReference[Pos]->IsValid)
+            do
+            {
+                if (TemporalReference[Pos]==NULL || !TemporalReference[Pos]->IsValid)
                     break;
+                Pos--;
+            }
+            while (Pos>0);
             TemporalReference_GA94_03_CC_Offset=Pos+1;
         }
 
+        TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03_CC.Size=(size_t)(Element_Size-Element_Offset);
+        delete[] TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03_CC.Data;
+        TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03_CC.Data=new int8u[(size_t)(Element_Size-Element_Offset)];
+        std::memcpy(TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03_CC.Data, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
+
         //Parsing
-        int8u  cc_count;
-        bool   process_em_data_flag, process_cc_data_flag, additional_data_flag;
-        BS_Begin();
-        Get_SB (process_em_data_flag,                               "process_em_data_flag");
-        Get_SB (process_cc_data_flag,                               "process_cc_data_flag");
-        Get_SB (additional_data_flag,                               "additional_data_flag");
-        Get_S1 (5, cc_count,                                        "cc_count");
-        BS_End();
-        Skip_B1(                                                    process_em_data_flag?"em_data":"reserved"); //Emergency message
-        if (TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03_CC.size()<cc_count)
-            TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03_CC.resize(cc_count);
-        if (process_cc_data_flag)
-        {
-            for (int8u Pos=0; Pos<cc_count; Pos++)
-            {
-                Element_Begin("cc");
-                int8u cc_type, cc_data_1, cc_data_2;
-                bool  cc_valid;
-                BS_Begin();
-                Mark_1();
-                Mark_1();
-                Mark_1();
-                Mark_1();
-                Mark_1();
-                Get_SB (   cc_valid,                                    "cc_valid");
-                Get_S1 (2, cc_type,                                     "cc_type"); Param_Info(Mpegv_user_data_GA94_cc_type(cc_type));
-                BS_End();
-                Get_B1 (cc_data_1,                                      "cc_data_1");
-                Get_B1 (cc_data_2,                                      "cc_data_2");
-                TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03_CC[Pos].cc_valid=cc_valid;
-                TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03_CC[Pos].cc_type=cc_type;
-                TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03_CC[Pos].cc_data[0]=cc_data_1;
-                TemporalReference[TemporalReference_Offset+temporal_reference]->GA94_03_CC[Pos].cc_data[1]=cc_data_2;
-                Element_End();
-            }
-        }
-        else
-            Skip_XX(cc_count*2,                                         "Junk");
+        Skip_XX(Element_Size-Element_Offset,                    "CC data");
 
         //Parsing Captions after reordering
         bool CanBeParsed=true;
@@ -1363,84 +1345,38 @@ void File_Mpegv::user_data_start_GA94_03()
                 CanBeParsed=false; //There is a missing field/frame
         if (CanBeParsed)
         {
-           for (size_t GA94_03_CC_Pos=TemporalReference_GA94_03_CC_Offset; GA94_03_CC_Pos<TemporalReference.size(); GA94_03_CC_Pos++)
-                for (int8u Pos=0; Pos<cc_count; Pos++)
+            for (size_t GA94_03_CC_Pos=TemporalReference_GA94_03_CC_Offset; GA94_03_CC_Pos<TemporalReference.size(); GA94_03_CC_Pos++)
+            {
+                Element_Begin("ReorderedCaptions");
+                if (GA94_03_CC_Parser==NULL)
+                    GA94_03_CC_Parser=new File_DtvccTransport;
+                Open_Buffer_Init(GA94_03_CC_Parser);
+                Open_Buffer_Continue(GA94_03_CC_Parser, TemporalReference[GA94_03_CC_Pos]->GA94_03_CC.Data, TemporalReference[GA94_03_CC_Pos]->GA94_03_CC.Size);
+                Element_End();
+
+                //Finish
+                if (GA94_03_CC_Parser->Status[IsFilled] && !GA94_03_CC_Parser->Status[IsFinished])
                 {
-                    if (Pos<TemporalReference[GA94_03_CC_Pos]->GA94_03_CC.size() && TemporalReference[GA94_03_CC_Pos]->GA94_03_CC[Pos].cc_valid)
-                    {
-                        int8u cc_type=TemporalReference[GA94_03_CC_Pos]->GA94_03_CC[Pos].cc_type;
-                        size_t Parser_Pos=cc_type;
-                        if (Parser_Pos==3)
-                            Parser_Pos=2; //cc_type 2 and 3 are for the same text
-
-                        while (Parser_Pos>=GA94_03_CC_Parsers.size())
-                            GA94_03_CC_Parsers.push_back(NULL);
-                        if (GA94_03_CC_Parsers[Parser_Pos]==NULL)
-                        {
-                            if (cc_type<2)
-                            {
-                                GA94_03_CC_Parsers[Parser_Pos]=new File_Eia608();
-                            }
-                            else
-                                GA94_03_CC_Parsers[Parser_Pos]=new File_Eia708();
-                        }
-                        if (!GA94_03_CC_Parsers[Parser_Pos]->Status[IsFinished])
-                        {
-                            if (cc_type>=2)
-                                ((File_Eia708*)GA94_03_CC_Parsers[2])->cc_type=cc_type;
-                            Element_Begin(Ztring(_T("ReorderedCaptions,"))+Ztring().From_Local(Mpegv_user_data_GA94_cc_type(cc_type)));
-                            Open_Buffer_Init(GA94_03_CC_Parsers[Parser_Pos]);
-                            Open_Buffer_Continue(GA94_03_CC_Parsers[Parser_Pos], TemporalReference[GA94_03_CC_Pos]->GA94_03_CC[Pos].cc_data, 2);
-                            Element_End();
-
-                            //Finish
-                            if (GA94_03_CC_Parsers[Parser_Pos]->Status[IsFilled])
-                            {
-                                if (Count_Get(Stream_General)==0)
-                                    Accept("MPEG Video");
-                                if (GA94_03_CC_Parsers_StreamPos.empty())
-                                    GA94_03_CC_Parsers_StreamPos.resize(3, (size_t)-1);
-                                if (GA94_03_CC_Parsers_StreamPos[Parser_Pos]!=(size_t)-1)
-                                    Fill(Stream_Text, GA94_03_CC_Parsers_StreamPos[Parser_Pos], "Content", GA94_03_CC_Parsers[Parser_Pos]->Retrieve(Stream_Text, 0, "Content"), true);
-                                else
-                                {
-                                    Merge(*GA94_03_CC_Parsers[Parser_Pos]);
-                                    if (Parser_Pos<2)
-                                        Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Parser_Pos));
-                                    Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"), Unlimited);
-                                    GA94_03_CC_Parsers_StreamPos[Parser_Pos]=StreamPos_Last;
-                                }
-                            }
-                        }
-
-                        //Demux
-                        if (cc_type<2)
-                            Demux(TemporalReference[GA94_03_CC_Pos]->GA94_03_CC[Pos].cc_data, 2, Ztring::ToZtring(cc_type)+_T(".eia608"));
-                        else
-                            Demux(TemporalReference[GA94_03_CC_Pos]->GA94_03_CC[Pos].cc_data, 2, _T("eia708"));
-                    }
+                    if (Count_Get(Stream_General)==0)
+                        Accept("MPEG Video");
+                    Finish(GA94_03_CC_Parser);
+                    Merge(*GA94_03_CC_Parser);
+                    for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
+                        Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"), Unlimited);
                 }
 
+                //Demux
+                /*
+                if (cc_type<2)
+                    Demux(TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2, Ztring::ToZtring(cc_type)+_T(".eia608"));
+                else
+                    Demux(TemporalReference[GA94_03_CC_Pos].GA94_03_CC[Pos].cc_data, 2, _T("eia708"));
+                */
+            }
             TemporalReference_GA94_03_CC_Offset=TemporalReference.size();
         }
-
-        BS_Begin();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        Mark_1();
-        BS_End();
-
-        if (additional_data_flag)
-        {
-            Skip_XX(Element_Size-Element_Offset,                "additional_user_data");
-        }
     #else
-        Skip_XX(Element_Size-Element_Offset,                    "EIA-608 data");
+        Skip_XX(Element_Size-Element_Offset,                    "EIA-708 data");
     #endif
 }
 

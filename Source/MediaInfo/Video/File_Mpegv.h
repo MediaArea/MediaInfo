@@ -109,16 +109,21 @@ private :
     {
         struct cc_data_
         {
-            int8u cc_type;
-            int8u cc_data[2];
-            bool  cc_valid;
+            size_t Size;
+            int8u* Data;
 
             cc_data_()
             {
-                cc_valid=false;
+                Size=0;
+                Data=NULL;
+            }
+
+            ~cc_data_()
+            {
+                delete[] Data; //Data=NULL;
             }
         };
-        std::vector<cc_data_> GA94_03_CC; //Per cc offset
+        cc_data_ GA94_03_CC; //Per cc offset
 
         int8u  picture_coding_type;
 
@@ -142,8 +147,7 @@ private :
 
     //Temp
     std::vector<File__Analyze*> DVD_CC_Parsers;
-    std::vector<File__Analyze*> GA94_03_CC_Parsers;
-    std::vector<size_t> GA94_03_CC_Parsers_StreamPos;
+    File__Analyze* GA94_03_CC_Parser;
     Ztring Library;
     Ztring Library_Name;
     Ztring Library_Version;

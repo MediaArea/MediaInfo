@@ -53,6 +53,9 @@ private :
     void Streams_Fill();
     void Streams_Finish();
 
+    //Synchro
+    void Read_Buffer_Unsynched();
+
     //Buffer - Global
     void Read_Buffer_Continue();
 
