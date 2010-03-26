@@ -310,6 +310,9 @@ File_Mpegv::File_Mpegv()
     Frame_Count_Valid=40;
     FrameIsAlwaysComplete=false;
     TimeCodeIsNotTrustable=false;
+    #if defined(MEDIAINFO_CDP_YES)
+        Cdp_Data=NULL;
+    #endif //MEDIAINFO_CDP_YES
 
     //Temp
     GA94_03_CC_Parser=NULL;
@@ -1302,11 +1305,6 @@ void File_Mpegv::user_data_start_GA94()
 // Packet "B2", GA94 0x03 (styled captioning)
 void File_Mpegv::user_data_start_GA94_03()
 {
-    if (File_Offset+Buffer_Offset>=76710000)
-        int A=0;
-    if (File_Offset+Buffer_Offset>=76515500)
-        int A=0;
-
     #if defined(MEDIAINFO_EIA608_YES)
         GA94_03_CC_IsPresent=true;
 
