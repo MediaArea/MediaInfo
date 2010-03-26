@@ -27,17 +27,16 @@
 
 //---------------------------------------------------------------------------
 #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+#include "MediaInfo/Text/File_DtvccTransport.h"
 #if defined(MEDIAINFO_EIA608_YES)
     #include "MediaInfo/Text/File_Eia608.h"
 #endif
 #if defined(MEDIAINFO_EIA708_YES)
     #include "MediaInfo/Text/File_Eia708.h"
 #endif
-//---------------------------------------------------------------------------
-
-//---------------------------------------------------------------------------
-#include "MediaInfo/Text/File_DtvccTransport.h"
-
 //---------------------------------------------------------------------------
 namespace MediaInfoLib
 {
