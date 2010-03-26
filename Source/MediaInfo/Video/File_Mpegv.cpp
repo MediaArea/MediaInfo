@@ -1305,7 +1305,7 @@ void File_Mpegv::user_data_start_GA94()
 // Packet "B2", GA94 0x03 (styled captioning)
 void File_Mpegv::user_data_start_GA94_03()
 {
-    #if defined(MEDIAINFO_EIA608_YES)
+    #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
         GA94_03_CC_IsPresent=true;
 
         Element_Info("Styled captioning");
@@ -1373,9 +1373,9 @@ void File_Mpegv::user_data_start_GA94_03()
             }
             TemporalReference_GA94_03_CC_Offset=TemporalReference.size();
         }
-    #else
+    #else //MEDIAINFO_DTVCCTRANSPORT_YES
         Skip_XX(Element_Size-Element_Offset,                    "EIA-708 data");
-    #endif
+    #endif //MEDIAINFO_DTVCCTRANSPORT_YES
 }
 
 //---------------------------------------------------------------------------
