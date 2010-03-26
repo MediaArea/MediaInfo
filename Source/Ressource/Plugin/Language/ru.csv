@@ -43,16 +43,16 @@
  fps1; кадр/сек
  fps2; кадр/сек
  fps3; кадр/сек
- GB; ГБайт
- Gb; Гбит
+ GB; ГБ
+ Gb; Гб
  Gbps; Гбит/сек
- GBps; ГБайт/сек
+ GBps; Гбайт/сек
  GHz; ГГц
- GiB; Гибибайт
+ GiB; ГиБ
  GibiByte1;Гибибайт
  GibiByte2;Гибибайт
  GibiByte3;Гибибайт
- GiBps; Гб/сек
+ GiBps; ГиБ/сек
  GigaBit1; Гигабит
  GigaBit2; Гигабит
  GigaBit3; Гигабит
@@ -66,29 +66,29 @@
  image stream1; поток изображений
  image stream2; потоки изображений
  image stream3; потоки изображений
- KB; КБайт
- Kb; Кбит
- KBps; КБайт/сек
+ KB; КБ
+ Kb; Кб
+ KBps; Кбайт/сек
  Kbps; Кбит/сек
  KHz; КГц
- KiB; Килобайт
+ KiB; КиБ
  KibiBit1; Кибибит
  KibiBit2; Кибибит
  KibiBit3; Кибибит
  KibiByte1; Кибибайт
  KibiByte2; Кибибайт
  KibiByte3; Кибибайт
- KiBps; Кибибайт/сек
+ KiBps; КиБ/сек
  KiloBit1; Килобит
  KiloBit2; Килобит
  KiloBit3; Килобит
  KiloByte1; Килобайт
  KiloByte2; Килобайт
  KiloByte3; Килобайт
- MB; МБайт
- Mb; Мбит
+ MB; МБ
+ Mb; Мб
  Mbps; Мбит/сек
- MBps; Мебибайт/сек
+ MBps; Мбайт/сек
  MebiBit1; Мебибит
  MebiBit2; Мебибит
  MebiBit3; Мебибит
@@ -102,9 +102,9 @@
  MegaByte2; Мегабайт
  MegaByte3; Мегабайт
  MHz; МГц
- MiB; Мегабайт
- Mib; Мегабит
- MiBps; МБайт/сек
+ MiB; МиБ
+ Mib; Миб
+ MiBps; МиБ/сек
  milisecond1; миллисекунда
  milisecond2; миллисекунд
  milisecond3; миллисекунд
