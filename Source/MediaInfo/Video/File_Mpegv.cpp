@@ -137,9 +137,11 @@ const char* Mpegv_profile_and_level_indication_level[]=
 #endif
 #if defined(MEDIAINFO_CDP_YES)
     #include "MediaInfo/Text/File_Cdp.h"
+    #include <cstring>
 #endif
 #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
     #include "MediaInfo/Text/File_DtvccTransport.h"
+    #include <cstring>
 #endif
 using namespace ZenLib;
 

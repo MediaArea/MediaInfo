@@ -87,6 +87,7 @@
 #if defined(MEDIAINFO_GXF_YES)
     #if defined(MEDIAINFO_CDP_YES)
         #include "MediaInfo/Text/File_Cdp.h"
+        #include <cstring>
     #endif
 #endif //MEDIAINFO_GXF_YES
 #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
