@@ -468,14 +468,11 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_PBCore.cpp">
       <Filter>Source Files\Export</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_BarData.cpp">
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_AfdBarData.cpp">
       <Filter>Source Files\Video</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.cpp">
       <Filter>Source Files\Text</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Afd.cpp">
-      <Filter>Source Files\Video</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -848,10 +845,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Events.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_BarData.h">
-      <Filter>Header Files\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Afd.h">
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_AfdBarData.h">
       <Filter>Header Files\Video</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.h">

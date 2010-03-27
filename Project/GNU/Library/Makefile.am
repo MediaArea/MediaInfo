@@ -125,11 +125,10 @@ libmediainfo_la_SOURCES = \
                        ../../../Source/MediaInfo/Text/File_N19.cpp \
                        ../../../Source/MediaInfo/Text/File_OtherText.cpp \
                        ../../../Source/MediaInfo/Text/File_Pgs.cpp \
-                       ../../../Source/MediaInfo/Video/File_Afd.cpp \
                        ../../../Source/MediaInfo/Video/File_Avc.cpp \
                        ../../../Source/MediaInfo/Video/File_Avc_Duplicate.cpp \
                        ../../../Source/MediaInfo/Video/File_AvsV.cpp \
-                       ../../../Source/MediaInfo/Video/File_BarData.cpp \
+                       ../../../Source/MediaInfo/Video/File_AfdBarData.cpp \
                        ../../../Source/MediaInfo/Video/File_Dirac.cpp \
                        ../../../Source/MediaInfo/Video/File_Flic.cpp \
                        ../../../Source/MediaInfo/Video/File_Mpeg4v.cpp \

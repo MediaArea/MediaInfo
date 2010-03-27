@@ -210,7 +210,7 @@ void File_Cdp::ccdata_section()
     for (int8u Pos=0; Pos<cc_count; Pos++)
     {
         Element_Begin("cc");
-        int8u cc_type, cc_data_1, cc_data_2;
+        int8u cc_type;
         bool  cc_valid;
         BS_Begin();
         Mark_1();

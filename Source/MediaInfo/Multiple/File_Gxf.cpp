@@ -241,10 +241,14 @@ File_Gxf::File_Gxf()
 //---------------------------------------------------------------------------
 File_Gxf::~File_Gxf()
 {
-    //Temp
-    delete UMF_File; //UMF_File=NULL;
+    //In
     for (size_t Pos=0; Pos<Cdp_Data.size(); Pos++)
         delete Cdp_Data[Pos]; //Cdp_Data[Pos]=NULL;
+    for (size_t Pos=0; Pos<AfdBarData_Data.size(); Pos++)
+        delete AfdBarData_Data[Pos]; //AfdBarData_Data[Pos]=NULL;
+
+    //Temp
+    delete UMF_File; //UMF_File=NULL;
 }
 
 //***************************************************************************
@@ -406,9 +410,16 @@ bool File_Gxf::Synched_Test()
     //Clearing Cdp_Data
     if (!Synched)
     {
-        for (size_t Pos=0; Pos<Cdp_Data.size(); Pos++)
-            delete Cdp_Data[Pos]; //Cdp_Data[Pos]=NULL;
-        Cdp_Data.clear();
+        #if defined(MEDIAINFO_CDP_YES)
+            for (size_t Pos=0; Pos<Cdp_Data.size(); Pos++)
+                delete Cdp_Data[Pos]; //Cdp_Data[Pos]=NULL;
+            Cdp_Data.clear();
+        #endif //MEDIAINFO_CDP_YES
+        #if defined(MEDIAINFO_AFDBARDATA_YES)
+            for (size_t Pos=0; Pos<AfdBarData_Data.size(); Pos++)
+                delete AfdBarData_Data[Pos]; //AfdBarData_Data[Pos]=NULL;
+            AfdBarData_Data.clear();
+        #endif //MEDIAINFO_AFDBARDATA_YES
     }
 
     //We continue
@@ -654,6 +665,7 @@ void File_Gxf::map()
                             case 23 :   //MPEG Video
                                         Streams[TrackID].Parser=new File_Mpegv();
                                         ((File_Mpegv*)Streams[TrackID].Parser)->Cdp_Data=&Cdp_Data;
+                                        ((File_Mpegv*)Streams[TrackID].Parser)->AfdBarData_Data=&AfdBarData_Data;
                                         Open_Buffer_Init(Streams[TrackID].Parser);
                                         Parsers_Count++;
                                         Streams[TrackID].Searching_Payload=true;
@@ -673,6 +685,7 @@ void File_Gxf::map()
                         //Ancillary Metadata
                         Streams[TrackID].Parser=new File_Riff();
                         ((File_Riff*)Streams[TrackID].Parser)->Cdp_Data=&Cdp_Data;
+                        ((File_Riff*)Streams[TrackID].Parser)->AfdBarData_Data=&AfdBarData_Data;
                         Open_Buffer_Init(Streams[TrackID].Parser);
                         Parsers_Count++;
                         Streams[TrackID].Searching_Payload=true;

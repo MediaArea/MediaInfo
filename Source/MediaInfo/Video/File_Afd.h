@@ -52,7 +52,7 @@ private :
     //Buffer - Global
     void Read_Buffer_Continue();
 
-    //Temp
+    //Sream
     struct stream
     {
         int8u active_format;

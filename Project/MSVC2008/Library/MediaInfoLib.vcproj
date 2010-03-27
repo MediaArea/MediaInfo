@@ -798,10 +798,6 @@
 				Name="Video"
 				>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Video\File_Afd.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Avc.cpp"
 					>
 				</File>
@@ -814,7 +810,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Video\File_BarData.cpp"
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_AfdBarData.cpp"
 					>
 				</File>
 				<File
@@ -1558,10 +1554,6 @@
 				Name="Video"
 				>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Video\File_Afd.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\Source\MediaInfo\Video\File_Avc.h"
 					>
 				</File>
@@ -1570,7 +1562,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\MediaInfo\Video\File_BarData.h"
+					RelativePath="..\..\..\Source\MediaInfo\Video\File_AfdBarData.h"
 					>
 				</File>
 				<File

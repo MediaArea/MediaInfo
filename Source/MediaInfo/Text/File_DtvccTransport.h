@@ -42,6 +42,13 @@ class File_DtvccTransport : public File__Analyze
 {
 public :
     //In
+    enum format
+    {
+        Format_Unknown,
+        Fromat_A53_4_GA94_03,   //MPEG_cc_data
+        Format_DVD,             //Unknown standard
+    };
+    format Format;
 
     //Constructor/Destructor
     File_DtvccTransport();

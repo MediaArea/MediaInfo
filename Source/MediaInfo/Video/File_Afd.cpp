@@ -119,14 +119,6 @@ void File_Afd::Read_Buffer_Continue()
         active_format=0;
     BS_End();
     Element_End();
-
-    FILLING_BEGIN();
-        Stream.active_format=active_format;
-        if (!Status[IsFilled])
-            Fill("AFD");
-        if (MediaInfoLib::Config.ParseSpeed_Get()<1)
-            Finish("AFD");
-    FILLING_END();
 }
 
 //***************************************************************************

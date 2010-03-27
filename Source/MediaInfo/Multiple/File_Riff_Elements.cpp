@@ -2658,14 +2658,33 @@ void File_Riff::rcrd_fld__anc__pyld()
         {
             switch (DataID)
             {
-                case 0x61 :
+                case 0x41 :
                             switch (SecondaryDataID)
                             {
-                                case 0x01 : //CDP, saving data for future use
+                                case 0x05 : //AFD & Bar data
+                                            #if defined(MEDIAINFO_AFDBARDATA_YES)
+                                            if (AfdBarData_Data)
+                                            {
+                                                buffered_data* AfdBarData=new buffered_data;
+                                                AfdBarData->Data=new int8u[(size_t)DataCount];
+                                                std::memcpy(AfdBarData->Data, Payload, (size_t)DataCount);
+                                                AfdBarData->Size=(size_t)DataCount;
+                                                AfdBarData_Data->push_back(AfdBarData);
+                                            }
+                                            #endif //MEDIAINFO_AFDBARDATA_YES
+                                            break;
+                                default   : ;
+                                ;
+                            }
+                            break;
+                case 0x61 : //Defined data services
+                            switch (SecondaryDataID)
+                            {
+                                case 0x01 : //CDP (S334-1), saving data for future use
                                             #if defined(MEDIAINFO_CDP_YES)
                                             if (Cdp_Data)
                                             {
-                                                cdp_data* Cdp=new cdp_data;
+                                                buffered_data* Cdp=new buffered_data;
                                                 Cdp->Data=new int8u[(size_t)DataCount];
                                                 std::memcpy(Cdp->Data, Payload, (size_t)DataCount);
                                                 Cdp->Size=(size_t)DataCount;
@@ -2673,92 +2692,32 @@ void File_Riff::rcrd_fld__anc__pyld()
                                             }
                                             #endif //MEDIAINFO_CDP_YES
                                             break;
+                                case 0x02 : //CEA-608 (S334-1)
+                                            #if defined(MEDIAINFO_EIA608_YES)
+                                            if (DataCount==3) //This must be 3-byte data
+                                            {
+                                                //CEA-608 in video presentation order
+                                            }
+                                            #endif //MEDIAINFO_EIA608_YES
+                                            break;
                                 default   : ;
                                 ;
                             }
                             break;
-                case 0x41 :
+                case 0x62 : //Variable-format data services
                             switch (SecondaryDataID)
                             {
-                                case 0x05 : //Bar data
-                                            {
-                                            //Saving real buffer
-                                            const int8u* Save_Buffer=Buffer;
-                                            size_t Save_Buffer_Offset=Buffer_Offset;
-                                            int64u Save_Element_Size=Element_Size;
-
-                                            //Replacing with the payload
-                                            Buffer=Payload;
-                                            Buffer_Offset=0;
-                                            Element_Offset=0;
-                                            Element_Size=DataCount;
-
-                                            //Parsing
-                                            int8u AFD;
-                                            bool AR, Top, Bottom, Left, Right;
-                                            BS_Begin();
-                                            Skip_SB(            "Reserved");
-                                            Get_S1 (4, AFD,     "AFD");
-                                            Get_SB (   AR,      "Aspect Ratio");
-                                            Skip_S1(2,          "Reserved");
-                                            BS_End();
-                                            Skip_B1(            "Reserved");
-                                            Skip_B1(            "Reserved");
-                                            BS_Begin();
-                                            Get_SB (Top,        "Top");
-                                            Get_SB (Bottom,     "Bottom");
-                                            Get_SB (Left,       "Left");
-                                            Get_SB (Right,      "Right");
-                                            Skip_S1(4,          "reserved");
-                                            BS_End();
-                                            Skip_B1(            "Value1");
-                                            Skip_B1(            "Value1");
-                                            Skip_B1(            "Value2");
-                                            Skip_B1(            "Value2");
-
-                                            //Replacing with the real buffer
-                                            Buffer=Save_Buffer;
-                                            Buffer_Offset=Save_Buffer_Offset;
-                                            Element_Offset=Save_Element_Size;
-                                            Element_Size=Save_Element_Size;
-                                            }
+                                case 0x01 : //Program description (S334-1),
+                                            break;
+                                case 0x02 : //Data broadcast (S334-1)
+                                            break;
+                                case 0x03 : //VBI data (S334-1)
                                             break;
                                 default   : ;
                                 ;
                             }
                             break;
                 default   : ;
-            }
-        }
-
-        if (rcrd_Parsers[DataID][SecondaryDataID])
-        {
-            Open_Buffer_Init(rcrd_Parsers[DataID][SecondaryDataID]);
-            Open_Buffer_Continue(rcrd_Parsers[DataID][SecondaryDataID], Payload, DataCount);
-
-            if (MediaInfoLib::Config.ParseSpeed_Get()<1 && rcrd_Parsers[DataID][SecondaryDataID]->Status[IsFilled])
-            {
-                if (Count_Get(Stream_General)==0)
-                    Accept("rcrd");
-                if (DataID>=rcrd_Parsers_StreamPos.size())
-                    rcrd_Parsers_StreamPos.resize(DataID+1);
-                if (SecondaryDataID>=rcrd_Parsers_StreamPos[DataID].size())
-                    rcrd_Parsers_StreamPos[DataID].resize(SecondaryDataID+1, (size_t)-1);
-                if (rcrd_Parsers_StreamPos[DataID][SecondaryDataID]!=(size_t)-1)
-                    Fill(Stream_Text, rcrd_Parsers_StreamPos[DataID][SecondaryDataID], "Content", rcrd_Parsers[DataID][SecondaryDataID]->Retrieve(Stream_Text, 0, "Content"), true);
-                else
-                {
-                    size_t Count_Before=Count_Get(Stream_Text);
-                    Merge(*rcrd_Parsers[DataID][SecondaryDataID]);
-                    for (size_t Pos=Count_Before; Pos<=StreamPos_Last; Pos++)
-                        Fill(Stream_Text, Pos, Text_MuxingMode, _T("Ancillary+")+Retrieve(Stream_Text, StreamPos_Last, Text_MuxingMode), true);
-                    rcrd_Parsers_StreamPos[DataID][SecondaryDataID]=StreamPos_Last;
-                }
-
-                if (rcrd_Parsers_Count>0)
-                    rcrd_Parsers_Count--;
-                if (rcrd_Parsers_Count==0)
-                    Finish();
             }
         }
     FILLING_END();

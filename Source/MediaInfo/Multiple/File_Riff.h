@@ -42,25 +42,30 @@ class File_Riff : public File__Analyze
 {
 public :
     //Out
-    #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
-        struct cdp_data
+    #if defined(MEDIAINFO_GXF_YES) && (defined(MEDIAINFO_CDP_YES) || defined(MEDIAINFO_AFDBARDATA_YES))
+        struct buffered_data
         {
             size_t Size;
             int8u* Data;
 
-            cdp_data()
+            buffered_data()
             {
                 Size=0;
                 Data=NULL;
             }
 
-            ~cdp_data()
+            ~buffered_data()
             {
                 delete[] Data; //Data=NULL;
             }
         };
-        std::vector<cdp_data*>* Cdp_Data;
-    #endif //MEDIAINFO_GXF_YES && MEDIAINFO_CDP_YES
+        #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
+            std::vector<buffered_data*>* Cdp_Data;
+        #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
+        #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
+            std::vector<buffered_data*>* AfdBarData_Data;
+        #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
+    #endif //defined(MEDIAINFO_GXF_YES) && (defined(MEDIAINFO_CDP_YES) || defined(MEDIAINFO_AFDBARDATA_YES))
 
 protected :
     //Streams management

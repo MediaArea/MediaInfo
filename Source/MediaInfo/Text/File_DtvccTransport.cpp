@@ -67,6 +67,9 @@ const char* DtvccTransport_cc_type (int8u cc_type)
 File_DtvccTransport::File_DtvccTransport()
 :File__Analyze()
 {
+    //In
+    Format=Format_Unknown;
+
     //Temp
     Streams.resize(3); //CEA-608 Field 1, CEA-608 Field 2, CEA-708 Channel
     Streams_Count=0;
@@ -85,8 +88,8 @@ void File_DtvccTransport::Streams_Fill()
         {
             Merge(*Streams[Pos].Parser);
             if (Pos<2)
-                Fill(Stream_Text, StreamPos_Last, Text_ID, _T("608-")+Ztring::ToZtring(Pos));
-            Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("EIA-708"));
+                Fill(Stream_Text, StreamPos_Last, Text_ID, (Format==Format_DVD?_T("DVD-"):_T("608-"))+Ztring::ToZtring(Pos));
+            Fill(Stream_Text, StreamPos_Last, "MuxingMode", Format==Format_DVD?_T("DVD-Video"):_T("EIA-708"));
         }
 }
 
@@ -111,16 +114,29 @@ void File_DtvccTransport::Read_Buffer_Unsynched()
 void File_DtvccTransport::Read_Buffer_Continue()
 {
     //Parsing
-    Element_Begin("DTVCC Transport");
+    Element_Begin(Format==Format_DVD?"DVD Captions":"DTVCC Transport");
     int8u  cc_count;
-    bool   process_em_data_flag, process_cc_data_flag, additional_data_flag;
+    bool   process_cc_data_flag, additional_data_flag;
     BS_Begin();
-    Get_SB (process_em_data_flag,                               "process_em_data_flag");
-    Get_SB (process_cc_data_flag,                               "process_cc_data_flag");
-    Get_SB (additional_data_flag,                               "additional_data_flag");
-    Get_S1 (5, cc_count,                                        "cc_count");
+    if (Format==Format_DVD)
+    {
+        //Modified DTVCC Transport from DVD
+        Skip_SB(                                                "field 1 then field 2");
+        Get_S1 (7, cc_count,                                    "cc_count");
+        process_cc_data_flag=true;
+        additional_data_flag=false;
+    }
+    else
+    {
+        //Normal DTVCC Transport
+        bool process_em_data_flag;
+        Get_SB (process_em_data_flag,                           "process_em_data_flag");
+        Get_SB (process_cc_data_flag,                           "process_cc_data_flag");
+        Get_SB (additional_data_flag,                           "additional_data_flag");
+        Get_S1 (5, cc_count,                                    "cc_count");
+        Skip_S1(8,                                              process_em_data_flag?"em_data":"reserved"); //Emergency message
+    }
     BS_End();
-    Skip_B1(                                                    process_em_data_flag?"em_data":"reserved"); //Emergency message
     if (process_cc_data_flag)
     {
         for (int8u Pos=0; Pos<cc_count; Pos++)
@@ -134,8 +150,20 @@ void File_DtvccTransport::Read_Buffer_Continue()
             Mark_1();
             Mark_1();
             Mark_1();
-            Get_SB (   cc_valid,                                    "cc_valid");
-            Get_S1 (2, cc_type,                                     "cc_type"); Param_Info(DtvccTransport_cc_type(cc_type));
+            if (Format==Format_DVD)
+            {
+                //Modified DTVCC Transport from DVD
+                Mark_1();
+                Mark_1();
+                Get_S1 (1, cc_type,                             "cc_type"); Param_Info(DtvccTransport_cc_type(cc_type));
+                cc_valid=true;
+            }
+            else
+            {
+                //Normal DTVCC Transport
+                Get_SB (   cc_valid,                            "cc_valid");
+                Get_S1 (2, cc_type,                             "cc_type"); Param_Info(DtvccTransport_cc_type(cc_type));
+            }
             BS_End();
             if (cc_valid)
             {
@@ -186,20 +214,24 @@ void File_DtvccTransport::Read_Buffer_Continue()
     else
         Skip_XX(cc_count*2,                                         "Junk");
 
-    BS_Begin();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    Mark_1();
-    BS_End();
-
-    while (Element_Offset<Element_Size)
+    if (Format==Fromat_A53_4_GA94_03)
     {
-        Skip_B1(                                                    "Zero"); //TODO: test Zero
+        //Normal DTVCC Transport
+        BS_Begin();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        Mark_1();
+        BS_End();
+
+        while (Element_Offset<Element_Size)
+        {
+            Skip_B1(                                                "Zero"); //TODO: test Zero
+        }
     }
 
     Element_End();

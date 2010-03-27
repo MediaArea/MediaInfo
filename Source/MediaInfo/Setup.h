@@ -190,17 +190,14 @@
 
 //---------------------------------------------------------------------------
 // Video
-#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_AFD_NO) && !defined(MEDIAINFO_AFD_YES)
-    #define MEDIAINFO_AFD_YES
+#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_AFDBARDATA_NO) && !defined(MEDIAINFO_AFDBARDATA_YES)
+    #define MEDIAINFO_AFDBARDATA_YES
 #endif
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_AVC_NO) && !defined(MEDIAINFO_AVC_YES)
     #define MEDIAINFO_AVC_YES
 #endif
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_AVSV_NO) && !defined(MEDIAINFO_AVSV_YES)
     #define MEDIAINFO_AVSV_YES
-#endif
-#if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_BARDATA_NO) && !defined(MEDIAINFO_BARDATA_YES)
-    #define MEDIAINFO_BARDATA_YES
 #endif
 #if !defined(MEDIAINFO_VIDEO_NO) && !defined(MEDIAINFO_DIRAC_NO) && !defined(MEDIAINFO_DIRAC_YES)
     #define MEDIAINFO_DIRAC_YES

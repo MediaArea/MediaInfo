@@ -118,6 +118,9 @@ File_Riff::File_Riff()
         #if defined(MEDIAINFO_CDP_YES)
             Cdp_Data=NULL;
         #endif //MEDIAINFO_CDP_YES
+        #if defined(MEDIAINFO_AFDBARDATA_YES)
+            Cdp_Data=NULL;
+        #endif //MEDIAINFO_AFDBARDATA_YES
     #endif //MEDIAINFO_GXF_YES
 
     //Pointers

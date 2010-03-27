@@ -52,8 +52,11 @@ public :
 
     //In
     #if defined(MEDIAINFO_CDP_YES)
-        std::vector<File_Riff::cdp_data*> Cdp_Data;
+        std::vector<File_Riff::buffered_data*> Cdp_Data;
     #endif //MEDIAINFO_CDP_YES
+    #if defined(MEDIAINFO_AFDBARDATA_YES)
+        std::vector<File_Riff::buffered_data*> AfdBarData_Data;
+    #endif //MEDIAINFO_AFDBARDATA_YES
 
 private :
     //Streams management

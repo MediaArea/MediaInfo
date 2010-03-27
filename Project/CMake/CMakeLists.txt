@@ -134,11 +134,10 @@ set(mediainfo_SRCS
 	MediaInfo/Text/File_N19.cpp
 	MediaInfo/Text/File_OtherText.cpp
 	MediaInfo/Text/File_Pgs.cpp
-	MediaInfo/Video/File_Afd.cpp
 	MediaInfo/Video/File_Avc.cpp
 	MediaInfo/Video/File_Avc_Duplicate.cpp
 	MediaInfo/Video/File_AvsV.cpp
-	MediaInfo/Video/File_BarData.cpp
+	MediaInfo/Video/File_AfdBarData.cpp
 	MediaInfo/Video/File_Dirac.cpp
 	MediaInfo/Video/File_Flic.cpp
 	MediaInfo/Video/File_Mpeg4v.cpp

@@ -28,7 +28,7 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
-#if defined(MEDIAINFO_CDP_YES)
+#if defined(MEDIAINFO_GXF_YES) && (defined(MEDIAINFO_CDP_YES) || defined(MEDIAINFO_AFDBARDATA_YES))
     #include "MediaInfo/Multiple/File_Riff.h"
 #endif //MEDIAINFO_CDP_YES
 //---------------------------------------------------------------------------
@@ -48,9 +48,12 @@ public :
     size_t Frame_Count_Valid;
     bool   FrameIsAlwaysComplete;
     bool   TimeCodeIsNotTrustable;
-    #if defined(MEDIAINFO_CDP_YES)
-        std::vector<File_Riff::cdp_data*>* Cdp_Data;
-    #endif //MEDIAINFO_CDP_YES
+    #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
+        std::vector<File_Riff::buffered_data*>* Cdp_Data;
+    #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
+    #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
+        std::vector<File_Riff::buffered_data*>* AfdBarData_Data;
+    #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
 
     //Constructor/Destructor
     File_Mpegv();
@@ -113,24 +116,32 @@ private :
     //Temporal reference
     struct temporalreference
     {
-        struct cc_data_
+        struct buffer_data
         {
             size_t Size;
             int8u* Data;
 
-            cc_data_()
+            buffer_data()
             {
                 Size=0;
                 Data=NULL;
             }
 
-            ~cc_data_()
+            ~buffer_data()
             {
                 delete[] Data; //Data=NULL;
             }
         };
-        cc_data_ GA94_03_CC; //Per cc offset
-        cc_data_ Cdp; //Per cc offset
+        #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+            buffer_data GA94_03;
+        #endif //MEDIAINFO_DTVCCTRANSPORT_YES
+        #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
+            buffer_data Cdp;
+        #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
+        #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
+            buffer_data AfdBarData;
+        #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
+
 
         int8u  picture_coding_type;
 
@@ -149,14 +160,30 @@ private :
         }
     };
     std::vector<temporalreference*> TemporalReference; //per temporal_reference
-    size_t                         TemporalReference_Offset;
-    size_t                         TemporalReference_GA94_03_CC_Offset;
-    size_t                         TemporalReference_Cdp_Offset;
+    size_t                          TemporalReference_Offset;
+    #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
+        File__Analyze*              GA94_03_Parser;
+        size_t                      GA94_03_TemporalReference_Offset;
+        bool                        GA94_03_IsPresent;
+        File__Analyze*              CC___Parser;
+        bool                        CC___IsPresent;
+    #endif //defined(MEDIAINFO_EIA608_YES)
+    #if defined(MEDIAINFO_AFDBARDATA_YES)
+        File__Analyze*              DTG1_Parser;
+        File__Analyze*              GA94_06_Parser;
+    #endif //defined(MEDIAINFO_AFDBARDATA_YES)
+    #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
+        File__Analyze*              Cdp_Parser;
+        size_t                      Cdp_TemporalReference_Offset;
+        bool                        Cdp_IsPresent;
+    #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
+    #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
+        File__Analyze*              AfdBarData_Parser;
+        size_t                      AfdBarData_TemporalReference_Offset;
+        bool                        AfdBarData_IsPresent;
+    #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
 
     //Temp
-    std::vector<File__Analyze*> DVD_CC_Parsers;
-    File__Analyze* GA94_03_CC_Parser;
-    File__Analyze* Cdp_Parser;
     Ztring Library;
     Ztring Library_Name;
     Ztring Library_Version;
@@ -198,9 +225,6 @@ private :
     int8u  picture_structure;
     int8u  vbv_buffer_size_extension;
     bool   Time_End_NeedComplete;
-    bool   DVD_CC_IsPresent;
-    bool   GA94_03_CC_IsPresent;
-    bool   CDP_IsPresent;
     bool   load_intra_quantiser_matrix;
     bool   load_non_intra_quantiser_matrix;
     bool   progressive_sequence;
