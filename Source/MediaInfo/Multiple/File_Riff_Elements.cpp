@@ -2680,7 +2680,7 @@ void File_Riff::rcrd_fld__anc__pyld()
                 case 0x61 : //Defined data services
                             switch (SecondaryDataID)
                             {
-                                case 0x01 : //CDP (S334-1), saving data for future use
+                                case 0x01 : //CDP (from SMPTE 331-1), saving data for future use
                                             #if defined(MEDIAINFO_CDP_YES)
                                             if (Cdp_Data)
                                             {
@@ -2692,7 +2692,7 @@ void File_Riff::rcrd_fld__anc__pyld()
                                             }
                                             #endif //MEDIAINFO_CDP_YES
                                             break;
-                                case 0x02 : //CEA-608 (S334-1)
+                                case 0x02 : //CEA-608 (from SMPTE 331-1)
                                             #if defined(MEDIAINFO_EIA608_YES)
                                             if (DataCount==3) //This must be 3-byte data
                                             {
@@ -2707,11 +2707,11 @@ void File_Riff::rcrd_fld__anc__pyld()
                 case 0x62 : //Variable-format data services
                             switch (SecondaryDataID)
                             {
-                                case 0x01 : //Program description (S334-1),
+                                case 0x01 : //Program description (from SMPTE 331-1),
                                             break;
-                                case 0x02 : //Data broadcast (S334-1)
+                                case 0x02 : //Data broadcast (from SMPTE 331-1)
                                             break;
-                                case 0x03 : //VBI data (S334-1)
+                                case 0x03 : //VBI data (from SMPTE 331-1)
                                             break;
                                 default   : ;
                                 ;
