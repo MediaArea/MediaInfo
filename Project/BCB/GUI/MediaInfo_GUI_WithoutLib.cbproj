@@ -295,9 +295,6 @@
 				<BuildOrder>57</BuildOrder>
 				<BuildOrder>148</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Afd.cpp">
-				<BuildOrder>167</BuildOrder>
-			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Audio\File_Flac.cpp">
 				<BuildOrder>69</BuildOrder>
 				<BuildOrder>132</BuildOrder>
@@ -765,7 +762,7 @@
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple\File_Gxf.cpp">
 				<BuildOrder>169</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_BarData.cpp">
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_AfdBarData.cpp">
 				<BuildOrder>169</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Text\File_N19.cpp">
