@@ -1045,14 +1045,6 @@ void File_Mpegv::picture_start()
             }
         }
 
-        //Counting
-        if (File_Offset+Buffer_Offset+Element_Size==File_Size)
-            Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
-        Frame_Count++;
-        Frame_Count_InThisBlock++;
-        if (picture_coding_type==3)
-            BVOP_Count++;
-
         //CDP
         #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
             if (Cdp_Data && !Cdp_Data->empty())
@@ -1101,6 +1093,14 @@ void File_Mpegv::picture_start()
                 Element_End();
             }
         #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
+
+        //Counting
+        if (File_Offset+Buffer_Offset+Element_Size==File_Size)
+            Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
+        Frame_Count++;
+        Frame_Count_InThisBlock++;
+        if (picture_coding_type==3)
+            BVOP_Count++;
 
         //Need to parse?
         if (!Streams[0x00].Searching_Payload)
