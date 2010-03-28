@@ -2658,6 +2658,33 @@ void File_Riff::rcrd_fld__anc__pyld()
         {
             switch (DataID)
             {
+                case 0x41 : // (from SMPTE 2016-3)
+                            switch (SecondaryDataID)
+                            {
+                                case 0x05 : //Bar Data (from SMPTE 2016-3), saving data for future use
+                                            #if defined(MEDIAINFO_AFDBARDATA_YES)
+                                            if (AfdBarData_Data)
+                                            {
+                                                buffered_data* AfdBarData=new buffered_data;
+                                                AfdBarData->Data=new int8u[(size_t)DataCount];
+                                                std::memcpy(AfdBarData->Data, Payload, (size_t)DataCount);
+                                                AfdBarData->Size=(size_t)DataCount;
+                                                AfdBarData_Data->push_back(AfdBarData);
+                                            }
+                                            #endif //MEDIAINFO_AFDBARDATA_YES
+                                            break;
+                                case 0x02 : //CEA-608 (from SMPTE 331-1)
+                                            #if defined(MEDIAINFO_EIA608_YES)
+                                            if (DataCount==3) //This must be 3-byte data
+                                            {
+                                                //CEA-608 in video presentation order
+                                            }
+                                            #endif //MEDIAINFO_EIA608_YES
+                                            break;
+                                default   : ;
+                                ;
+                            }
+                            break;
                 case 0x45 : // (from SMPTE 2020-1)
                             switch (SecondaryDataID)
                             {
