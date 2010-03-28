@@ -440,21 +440,6 @@ bool File_Gxf::Synched_Test()
             Synched=false;
     }
 
-    //Clearing Cdp_Data
-    if (!Synched)
-    {
-        #if defined(MEDIAINFO_CDP_YES)
-            for (size_t Pos=0; Pos<Cdp_Data.size(); Pos++)
-                delete Cdp_Data[Pos]; //Cdp_Data[Pos]=NULL;
-            Cdp_Data.clear();
-        #endif //MEDIAINFO_CDP_YES
-        #if defined(MEDIAINFO_AFDBARDATA_YES)
-            for (size_t Pos=0; Pos<AfdBarData_Data.size(); Pos++)
-                delete AfdBarData_Data[Pos]; //AfdBarData_Data[Pos]=NULL;
-            AfdBarData_Data.clear();
-        #endif //MEDIAINFO_AFDBARDATA_YES
-    }
-
     //We continue
     return true;
 }

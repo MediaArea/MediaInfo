@@ -2577,6 +2577,14 @@ void File_Riff::rcrd()
 
     //Filling
     Fill(Stream_General, 0, General_Format, "Ancillary media packets"); //GXF, RDD14-2007
+
+    //Clearing old data
+    for (size_t Pos=0; Pos<Cdp_Data->size(); Pos++)
+        delete (*Cdp_Data)[Pos]; //(*Cdp_Data)[0]=NULL;
+    Cdp_Data->clear();
+    for (size_t Pos=0; Pos<AfdBarData_Data->size(); Pos++)
+        delete (*AfdBarData_Data)[Pos]; //(*AfdBarData_Data)[0]=NULL;
+    AfdBarData_Data->clear();
 }
 
 //---------------------------------------------------------------------------
