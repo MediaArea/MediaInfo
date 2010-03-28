@@ -1089,6 +1089,7 @@ void File_Mpegv::picture_start()
                 {
                     AfdBarData_Parser=new File_AfdBarData;
                     Open_Buffer_Init(AfdBarData_Parser);
+                    ((File_AfdBarData*)AfdBarData_Parser)->Format=File_AfdBarData::Format_S2016_3;
                 }
                 if (AfdBarData_Parser->PTS_DTS_Needed)
                     AfdBarData_Parser->DTS=DTS;

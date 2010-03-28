@@ -198,11 +198,20 @@ void File_AfdBarData::bar_data()
     Get_SB (bottom_bar_flag,                                    "bottom_bar_flag");
     Get_SB (left_bar_flag,                                      "left_bar_flag");
     Get_SB (right_bar_flag,                                     "right_bar_flag");
-    Mark_1_NoTrustError();
-    Mark_1_NoTrustError();
-    Mark_1_NoTrustError();
-    Mark_1_NoTrustError();
-    BS_End();
+    if (Format==Format_S2016_3)
+    {
+        Mark_0_NoTrustError();
+        Mark_0_NoTrustError();
+        Mark_0_NoTrustError();
+        Mark_0_NoTrustError();
+    }
+    else
+    {
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+        Mark_1_NoTrustError();
+    }
     if (top_bar_flag)
     {
         Mark_1();
@@ -227,7 +236,6 @@ void File_AfdBarData::bar_data()
         Mark_1();
         Get_S2 (14, pixel_number_start_of_right_bar,            "pixel_number_start_of_right_bar");
     }
-    BS_End();
     if (!top_bar_flag && !bottom_bar_flag && !left_bar_flag && !right_bar_flag)
     {
         Mark_1();
@@ -237,6 +245,7 @@ void File_AfdBarData::bar_data()
         Mark_1();
         Skip_S2(14,                                             "reserved");
     }
+    BS_End();
     Element_End();
 
     if (Format==Format_A53_4_DTG1)
