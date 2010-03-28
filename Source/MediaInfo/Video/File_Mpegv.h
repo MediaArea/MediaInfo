@@ -174,13 +174,10 @@ private :
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
     #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
         File__Analyze*              Cdp_Parser;
-        size_t                      Cdp_TemporalReference_Offset;
         bool                        Cdp_IsPresent;
     #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
     #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
         File__Analyze*              AfdBarData_Parser;
-        size_t                      AfdBarData_TemporalReference_Offset;
-        bool                        AfdBarData_IsPresent;
     #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
 
     //Temp

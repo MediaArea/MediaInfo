@@ -302,12 +302,10 @@ File_Mpegv::File_Mpegv()
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
     #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
         Cdp_Parser=NULL;
-        Cdp_TemporalReference_Offset=0;
         Cdp_IsPresent=false;
     #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
     #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
         AfdBarData_Parser=NULL;
-        AfdBarData_TemporalReference_Offset=0;
     #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
 
     //Temp
@@ -331,14 +329,7 @@ File_Mpegv::~File_Mpegv()
         delete DTG1_Parser; //DTG1_Parser=NULL;
         delete GA94_06_Parser; //GA94_06_Parser=NULL;
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
-    #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
-        delete Cdp_Parser; //Cdp_Parser=NULL;
-    #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
-    #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
-        delete AfdBarData_Data; //AfdBarData_Data=NULL;
-    #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
 }
-
 
 //***************************************************************************
 // Streams management
@@ -781,12 +772,10 @@ void File_Mpegv::Read_Buffer_Unsynched()
             GA94_06_Parser->Open_Buffer_Unsynch();
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
     #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
-        Cdp_TemporalReference_Offset=0;
         if (Cdp_Parser)
             Cdp_Parser->Open_Buffer_Unsynch();
     #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
     #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
-        AfdBarData_TemporalReference_Offset=0;
         if (AfdBarData_Parser)
             AfdBarData_Parser->Open_Buffer_Unsynch();
     #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
@@ -999,14 +988,6 @@ void File_Mpegv::picture_start()
         }
     }
 
-    //Name
-    Element_Name("picture_start");
-    if (PTS!=(int64u)-1)
-        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)PTS)/1000000)));
-    if (DTS!=(int64u)-1)
-        Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)DTS)/1000000)));
-    Element_Info((progressive_sequence?_T("Frame "):_T("Field "))+Ztring::ToZtring(Frame_Count));
-
     //Counting
     if (File_Offset+Buffer_Offset+Element_Size==File_Size)
         Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
@@ -1019,6 +1000,14 @@ void File_Mpegv::picture_start()
         Skip_XX(Element_Size,                                   "Data");
         return;
     }
+
+    //Name
+    Element_Name("picture_start");
+    if (PTS!=(int64u)-1)
+        Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)PTS)/1000000)));
+    if (DTS!=(int64u)-1)
+        Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)DTS)/1000000)));
+    Element_Info((progressive_sequence?_T("Frame "):_T("Field "))+Ztring::ToZtring(Frame_Count));
 
     //Parsing
     BS_Begin();
@@ -1066,97 +1055,44 @@ void File_Mpegv::picture_start()
             {
                 Cdp_IsPresent=true;
 
-                //Purging too old orphelins
-                if (Cdp_TemporalReference_Offset+8<TemporalReference_Offset+temporal_reference)
-                {
-                    size_t Pos=TemporalReference_Offset+temporal_reference;
-                    do
-                    {
-                        if (TemporalReference[Pos]==NULL || !TemporalReference[Pos]->IsValid)
-                            break;
-                        Pos--;
-                    }
-                    while (Pos>0);
-                    Cdp_TemporalReference_Offset=Pos+1;
-                }
+                Element_Begin("Active Format Description & Bar Data");
 
-                TemporalReference[TemporalReference_Offset+temporal_reference]->Cdp.Size=(*Cdp_Data)[0]->Size;
-                delete[] TemporalReference[TemporalReference_Offset+temporal_reference]->Cdp.Data;
-                TemporalReference[TemporalReference_Offset+temporal_reference]->Cdp.Data=new int8u[(*Cdp_Data)[0]->Size];
-                std::memcpy(TemporalReference[TemporalReference_Offset+temporal_reference]->Cdp.Data, (*Cdp_Data)[0]->Data, (*Cdp_Data)[0]->Size);
-                delete[] (*Cdp_Data)[0]->Data; //(*Cdp_Data)[0]->Data=NULL;
+                //Parsing
+                if (Cdp_Parser==NULL)
+                {
+                    Cdp_Parser=new File_Cdp;
+                    Open_Buffer_Init(Cdp_Parser);
+                }
+                if (Cdp_Parser->PTS_DTS_Needed)
+                    Cdp_Parser->DTS=DTS;
+                Open_Buffer_Continue(Cdp_Parser, (*Cdp_Data)[0]->Data, (*Cdp_Data)[0]->Size);
+
+                //Removing data from stack
                 Cdp_Data->erase(Cdp_Data->begin());
 
-                //Parsing Captions after reordering
-                bool CanBeParsed=true;
-                for (size_t Cdp_Pos=Cdp_TemporalReference_Offset; Cdp_Pos<TemporalReference.size(); Cdp_Pos++)
-                    if (TemporalReference[Cdp_Pos]==NULL || !TemporalReference[Cdp_Pos]->IsValid)
-                        CanBeParsed=false; //There is a missing field/frame
-                if (CanBeParsed)
-                {
-                    Element_Info("Styled captioning");
-                    for (size_t Cdp_Pos=Cdp_TemporalReference_Offset; Cdp_Pos<TemporalReference.size(); Cdp_Pos++)
-                    {
-                        Element_Begin("Reordered Captions");
-                        if (Cdp_Parser==NULL)
-                            Cdp_Parser=new File_Cdp;
-                        Open_Buffer_Init(Cdp_Parser);
-                        Open_Buffer_Continue(Cdp_Parser, TemporalReference[Cdp_Pos]->Cdp.Data, TemporalReference[Cdp_Pos]->Cdp.Size);
-                        Element_End();
-                    }
-                    Cdp_TemporalReference_Offset=TemporalReference.size();
-                }
+                Element_End();
             }
         #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
 
         #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
             if (AfdBarData_Data && !AfdBarData_Data->empty())
             {
-                AfdBarData_IsPresent=true;
+                Element_Begin("Active Format Description & Bar Data");
 
-                //Purging too old orphelins
-                if (AfdBarData_TemporalReference_Offset+8<TemporalReference_Offset+temporal_reference)
+                //Parsing
+                if (AfdBarData_Parser==NULL)
                 {
-                    size_t Pos=TemporalReference_Offset+temporal_reference;
-                    do
-                    {
-                        if (TemporalReference[Pos]==NULL || !TemporalReference[Pos]->IsValid)
-                            break;
-                        Pos--;
-                    }
-                    while (Pos>0);
-                    AfdBarData_TemporalReference_Offset=Pos+1;
+                    AfdBarData_Parser=new File_AfdBarData;
+                    Open_Buffer_Init(AfdBarData_Parser);
                 }
+                if (AfdBarData_Parser->PTS_DTS_Needed)
+                    AfdBarData_Parser->DTS=DTS;
+                Open_Buffer_Continue(AfdBarData_Parser, (*AfdBarData_Data)[0]->Data, (*AfdBarData_Data)[0]->Size);
 
-                TemporalReference[TemporalReference_Offset+temporal_reference]->AfdBarData.Size=(*AfdBarData_Data)[0]->Size;
-                delete[] TemporalReference[TemporalReference_Offset+temporal_reference]->AfdBarData.Data;
-                TemporalReference[TemporalReference_Offset+temporal_reference]->AfdBarData.Data=new int8u[(*AfdBarData_Data)[0]->Size];
-                std::memcpy(TemporalReference[TemporalReference_Offset+temporal_reference]->AfdBarData.Data, (*AfdBarData_Data)[0]->Data, (*AfdBarData_Data)[0]->Size);
-                delete[] (*AfdBarData_Data)[0]->Data; //(*AfdBarData_Data)[0]->Data=NULL;
+                //Removing data from stack
                 AfdBarData_Data->erase(AfdBarData_Data->begin());
-
-                //Parsing Captions after reordering
-                bool CanBeParsed=true;
-                for (size_t AfdBarData_Pos=AfdBarData_TemporalReference_Offset; AfdBarData_Pos<TemporalReference.size(); AfdBarData_Pos++)
-                    if (TemporalReference[AfdBarData_Pos]==NULL || !TemporalReference[AfdBarData_Pos]->IsValid)
-                        CanBeParsed=false; //There is a missing field/frame
-                if (CanBeParsed)
-                {
-                    Element_Info("Active Format Description & Bar Data");
-                    for (size_t AfdBarData_Pos=AfdBarData_TemporalReference_Offset; AfdBarData_Pos<TemporalReference.size(); AfdBarData_Pos++)
-                    {
-                        Element_Begin("Reordered Active Format Description & Bar Data");
-                        if (AfdBarData_Parser==NULL)
-                        {
-                            AfdBarData_Parser=new File_AfdBarData;
-                            ((File_AfdBarData*)AfdBarData_Parser)->Format=File_AfdBarData::Format_S2016_3;
-                        }
-                        Open_Buffer_Init(AfdBarData_Parser);
-                        Open_Buffer_Continue(AfdBarData_Parser, TemporalReference[AfdBarData_Pos]->AfdBarData.Data, TemporalReference[AfdBarData_Pos]->AfdBarData.Size);
-                        Element_End();
-                    }
-                    AfdBarData_TemporalReference_Offset=TemporalReference.size();
-                }
+                
+                Element_End();
             }
         #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
 
@@ -1343,13 +1279,20 @@ void File_Mpegv::user_data_start_CC()
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
         Element_Info("DVD Captions");
 
+        //Parsing
         if (CC___Parser==NULL)
         {
             CC___IsPresent=true;
             CC___Parser=new File_DtvccTransport;
+            Open_Buffer_Init(CC___Parser);
             ((File_DtvccTransport*)CC___Parser)->Format=File_DtvccTransport::Format_DVD;
         }
-        Open_Buffer_Init(CC___Parser);
+        if (CC___Parser->PTS_DTS_Needed)
+        {
+            CC___Parser->PCR=PCR;
+            CC___Parser->PTS=PTS;
+            CC___Parser->DTS=DTS;
+        }
         Open_Buffer_Continue(CC___Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         Element_Offset=Element_Size;
     #else //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
@@ -1366,12 +1309,19 @@ void File_Mpegv::user_data_start_DTG1()
     #if defined(MEDIAINFO_AFDBARDATA_YES)
         Element_Info("Active Format Description");
 
+        //Parsing
         if (DTG1_Parser==NULL)
         {
             DTG1_Parser=new File_AfdBarData;
+            Open_Buffer_Init(DTG1_Parser);
             ((File_AfdBarData*)DTG1_Parser)->Format=File_AfdBarData::Format_A53_4_DTG1;
         }
-        Open_Buffer_Init(DTG1_Parser);
+        if (DTG1_Parser->PTS_DTS_Needed)
+        {
+            DTG1_Parser->PCR=PCR;
+            DTG1_Parser->PTS=PTS;
+            DTG1_Parser->DTS=DTS;
+        }
         Open_Buffer_Continue(DTG1_Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
         Element_Offset=Element_Size;
     #else //defined(MEDIAINFO_AFDBARDATA_YES)
@@ -1440,13 +1390,22 @@ void File_Mpegv::user_data_start_GA94_03()
             for (size_t GA94_03_Pos=GA94_03_TemporalReference_Offset; GA94_03_Pos<TemporalReference.size(); GA94_03_Pos++)
             {
                 Element_Begin("Reordered DTVCC Transport");
+
+                //Parsing
                 if (GA94_03_Parser==NULL)
                 {
                     GA94_03_Parser=new File_DtvccTransport;
+                    Open_Buffer_Init(GA94_03_Parser);
                     ((File_DtvccTransport*)GA94_03_Parser)->Format=File_DtvccTransport::Fromat_A53_4_GA94_03;
                 }
-                Open_Buffer_Init(GA94_03_Parser);
+                if (GA94_03_Parser->PTS_DTS_Needed)
+                {
+                    GA94_03_Parser->PCR=PCR;
+                    GA94_03_Parser->PTS=PTS;
+                    GA94_03_Parser->DTS=DTS;
+                }
                 Open_Buffer_Continue(GA94_03_Parser, TemporalReference[GA94_03_Pos]->GA94_03.Data, TemporalReference[GA94_03_Pos]->GA94_03.Size);
+                
                 Element_End();
             }
             GA94_03_TemporalReference_Offset=TemporalReference.size();
@@ -1463,10 +1422,18 @@ void File_Mpegv::user_data_start_GA94_06()
     #if defined(MEDIAINFO_AFDBARDATA_YES)
         Element_Info("Bar Data");
 
+        //Parsing
         if (GA94_06_Parser==NULL)
         {
             GA94_06_Parser=new File_AfdBarData;
+            Open_Buffer_Init(GA94_06_Parser);
             ((File_AfdBarData*)GA94_06_Parser)->Format=File_AfdBarData::Format_A53_4_GA94_06;
+        }
+        if (GA94_06_Parser->PTS_DTS_Needed)
+        {
+            GA94_06_Parser->PCR=PCR;
+            GA94_06_Parser->PTS=PTS;
+            GA94_06_Parser->DTS=DTS;
         }
         Open_Buffer_Init(GA94_06_Parser);
         Open_Buffer_Continue(GA94_06_Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
@@ -1545,18 +1512,6 @@ void File_Mpegv::sequence_header()
                 else
                     GA94_03_TemporalReference_Offset=0;
             #endif //defined(MEDIAINFO_EIA608_YES)
-            #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
-                if (0x400<Cdp_TemporalReference_Offset)
-                    Cdp_TemporalReference_Offset-=0x400;
-                else
-                    Cdp_TemporalReference_Offset=0;
-            #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
-            #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
-                if (0x400<AfdBarData_TemporalReference_Offset)
-                    AfdBarData_TemporalReference_Offset-=0x400;
-                else
-                    AfdBarData_TemporalReference_Offset=0;
-            #endif //defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_AFDBARDATA_YES)
         }
 
         //Bit_rate

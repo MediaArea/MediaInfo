@@ -81,6 +81,8 @@ File_Cdp::File_Cdp()
     //Temp
     Streams.resize(3); //CEA-608 Field 1, CEA-608 Field 2, CEA-708 Channel
     Streams_Count=0;
+
+    //In
 }
 
 //***************************************************************************
@@ -238,12 +240,23 @@ void File_Cdp::ccdata_section()
                     {
                         Streams[Parser_Pos].Parser=new File_Eia708();
                     }
+                    Open_Buffer_Init(Streams[Parser_Pos].Parser);
                 }
                 if (!Streams[Parser_Pos].Parser->Status[IsFinished])
                 {
+                    if (Streams[Parser_Pos].Parser->PTS_DTS_Needed)
+                    {
+                        Streams[Parser_Pos].Parser->PCR=PCR;
+                        Streams[Parser_Pos].Parser->PTS=PTS;
+                        Streams[Parser_Pos].Parser->DTS=DTS;
+                    }
                     if (Parser_Pos==2)
+                    {
                         ((File_Eia708*)Streams[2].Parser)->cc_type=cc_type;
-                    Open_Buffer_Init(Streams[Parser_Pos].Parser);
+                    }
+                    else
+                    {
+                    }
                     Open_Buffer_Continue(Streams[Parser_Pos].Parser, Buffer+(size_t)(Buffer_Offset+Element_Offset), 2);
                     Element_Offset+=2;
 

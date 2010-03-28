@@ -37,6 +37,10 @@
 #if defined(MEDIAINFO_EIA708_YES)
     #include "MediaInfo/Text/File_Eia708.h"
 #endif
+#ifdef MEDIAINFO_EVENTS
+    #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
+    #include "MediaInfo/MediaInfo_Events_Internal.h"
+#endif //MEDIAINFO_EVENTS
 //---------------------------------------------------------------------------
 namespace MediaInfoLib
 {
@@ -67,8 +71,16 @@ const char* DtvccTransport_cc_type (int8u cc_type)
 File_DtvccTransport::File_DtvccTransport()
 :File__Analyze()
 {
+    //Configuration
+    PTS_DTS_Needed=true;
+
     //In
     Format=Format_Unknown;
+    #ifdef MEDIAINFO_EVENTS
+        PID=(int16u)-1;
+        stream_id=(int8u)-1;
+        Frame_Number=(int64u)-1;
+    #endif MEDIAINFO_EVENTS
 
     //Temp
     Streams.resize(3); //CEA-608 Field 1, CEA-608 Field 2, CEA-708 Channel
@@ -182,12 +194,24 @@ void File_DtvccTransport::Read_Buffer_Continue()
                         {
                             Streams[Parser_Pos].Parser=new File_Eia708();
                         }
+                        Open_Buffer_Init(Streams[Parser_Pos].Parser);
                     }
                     if (!Streams[Parser_Pos].Parser->Status[IsFinished])
                     {
+                        //Parsing
+                        if (Streams[Parser_Pos].Parser->PTS_DTS_Needed)
+                        {
+                            Streams[Parser_Pos].Parser->PCR=PCR;
+                            Streams[Parser_Pos].Parser->PTS=PTS;
+                            Streams[Parser_Pos].Parser->DTS=DTS;
+                        }
                         if (Parser_Pos==2)
+                        {
                             ((File_Eia708*)Streams[2].Parser)->cc_type=cc_type;
-                        Open_Buffer_Init(Streams[Parser_Pos].Parser);
+                        }
+                        else
+                        {
+                        }
                         Open_Buffer_Continue(Streams[Parser_Pos].Parser, Buffer+(size_t)(Buffer_Offset+Element_Offset), 2);
                         Element_Offset+=2;
 
@@ -227,6 +251,11 @@ void File_DtvccTransport::Read_Buffer_Continue()
         Mark_1();
         Mark_1();
         BS_End();
+
+        if (additional_data_flag)
+        {
+            Skip_XX(Element_Size-Element_Offset,                "additional_user_data");
+        }
 
         while (Element_Offset<Element_Size)
         {

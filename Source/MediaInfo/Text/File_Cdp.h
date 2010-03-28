@@ -41,6 +41,8 @@ namespace MediaInfoLib
 class File_Cdp : public File__Analyze
 {
 public :
+    //In
+
     //Constructor/Destructor
     File_Cdp();
 
