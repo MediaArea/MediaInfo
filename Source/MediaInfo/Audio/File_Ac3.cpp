@@ -46,14 +46,14 @@ extern const int32u AC3_SamplingRate[]=
 //---------------------------------------------------------------------------
 extern const char*  AC3_Mode[]=
 {
-    "complete main (CM)",
-    "music and effects (ME)",
-    "visually impaired (VI)",
-    "hearing impaired (HI)",
-    "dialogue (D)",
-    "commentary (C)",
-    "emergency (E)",
-    "voice over (VO)",
+    "CM (complete main)",
+    "ME (music and effects)",
+    "VI (visually impaired)",
+    "HI (hearing impaired)",
+    "D (dialogue)",
+    "C (commentary)",
+    "E (emergency)",
+    "VO (voice over)",
 };
 
 //---------------------------------------------------------------------------
@@ -606,10 +606,8 @@ void File_Ac3::Streams_Fill()
         }
 
         if (acmod==0)
-        {
-            Fill(Stream_Audio, 0, Audio_Format_Profile, "Dual Mono");
-            Fill(Stream_Audio, 0, Audio_Codec_Profile, "Dual Mono");
-        }
+            Fill(Stream_Audio, 0, Audio_Format_Settings_Mode, "Dual Mono");
+        Fill(Stream_Audio, 0, Audio_Format_Settings_ModeExtension, AC3_Mode[bsmod]);
         int8u Channels=AC3_Channels[acmod];
         Ztring ChannelPositions; ChannelPositions.From_Local(AC3_ChannelPositions[acmod]);
         Ztring ChannelPositions2; ChannelPositions2.From_Local(AC3_ChannelPositions2[acmod]);
