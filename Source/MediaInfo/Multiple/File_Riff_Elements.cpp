@@ -2747,10 +2747,6 @@ void File_Riff::rcrd_fld__anc__pyld()
         }
     FILLING_END();
     delete[] Payload; //Payload=NULL
-
-    //Testing if it is enough
-    if (MediaInfoLib::Config.ParseSpeed_Get()<1 && Buffer_TotalBytes>=5*65536)
-        Finish();
 }
 
 //---------------------------------------------------------------------------

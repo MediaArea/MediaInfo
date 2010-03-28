@@ -83,6 +83,7 @@ private :
     int32u Material_File_Size;
     int32u Material_Fields_FieldsPerFrame;
     int8u  Parsers_Count;
+    int8u  AncillaryData_StreamID;
     bool   Material_Fields_First_IsValid;
     bool   Material_Fields_Last_IsValid;
     bool   Material_File_Size_IsValid;
@@ -96,20 +97,28 @@ private :
         int32u MediaType;
         int32u TimeStamp_Start;
         int32u TimeStamp_End;
+        int32u FrameRate_Code;
+        int32u LinesPerFrame_Code;
+        int32u FieldsPerFrame_Code;
+        int8u  TrackID;
         bool   Searching_Payload;
         bool   Searching_TimeStamp_Start;
         bool   Searching_TimeStamp_End;
-        Ztring MediaFileName;
+        Ztring MediaName;
 
         stream()
         {
             Parser=NULL;
             StreamKind=Stream_Max;
             StreamPos=(size_t)-1;
-            MediaType=0;
+            MediaType=(int8u)-1;
             Searching_Payload=false;
             Searching_TimeStamp_Start=false;
             Searching_TimeStamp_End=false;
+            FrameRate_Code=(int32u)-1;
+            LinesPerFrame_Code=(int32u)-1;
+            FieldsPerFrame_Code=(int32u)-1;
+            TrackID=(int8u)-1;
         }
         ~stream()
         {

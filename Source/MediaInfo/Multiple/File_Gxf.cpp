@@ -231,6 +231,7 @@ File_Gxf::File_Gxf()
     //Temp
     Material_Fields_FieldsPerFrame=(int8u)-1;
     Parsers_Count=0;
+    AncillaryData_StreamID=(int8u)-1;
     Material_Fields_First_IsValid=false;
     Material_Fields_Last_IsValid=false;
     Material_File_Size_IsValid=false;
@@ -258,6 +259,47 @@ File_Gxf::~File_Gxf()
 //---------------------------------------------------------------------------
 void File_Gxf::Streams_Finish()
 {
+    //Merging audio if Title are same
+    for (size_t StreamID=0; StreamID<Streams.size(); StreamID++)
+    {
+        if (Gxf_MediaTypes_StreamKind(Streams[StreamID].MediaType)==Stream_Video)
+        {
+            Ztring Title=Streams[StreamID].MediaName;
+            size_t Title_Extension_Offset=Title.find(_T(".M0"));
+            if (Title_Extension_Offset==std::string::npos || Title_Extension_Offset!=Title.size()-3)
+                Title_Extension_Offset=Title.find(_T(".H0"));
+            if (Title_Extension_Offset!=std::string::npos && Title_Extension_Offset==Title.size()-3)
+            {
+                Title.resize(Title.size()-3);
+                Streams[StreamID].MediaName=Title;
+            }
+        }
+        if (Gxf_MediaTypes_StreamKind(Streams[StreamID].MediaType)==Stream_Audio)
+        {
+            Ztring Title=Streams[StreamID].MediaName;
+            size_t Title_Extension_Offset=Title.find(_T(".A0"));
+            if (Title_Extension_Offset!=std::string::npos && Title_Extension_Offset==Title.size()-3)
+            {
+                Title.resize(Title.size()-3);
+                for (size_t StreamID2=StreamID+1; StreamID2<Streams.size(); StreamID2++)
+                {
+                    if (Streams[StreamID2].MediaName==Title+_T(".A")+Ztring::ToZtring(StreamID2-StreamID))
+                    {
+                        Streams[StreamID].MediaName=Title;
+                        if (Streams[StreamID].Parser && Streams[StreamID2].Parser)
+                        {
+                            int32u Channels=Streams[StreamID].Parser->Retrieve(Stream_Audio, 0, Audio_Channel_s_).To_int32u()+Streams[StreamID2].Parser->Retrieve(Stream_Audio, 0, Audio_Channel_s_).To_int32u();
+                            Streams[StreamID].Parser->Fill(Stream_Audio, 0, Audio_Channel_s_, Channels, 10, true);
+                            int32u BitRate=Streams[StreamID].Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int32u()+Streams[StreamID2].Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int32u();
+                            Streams[StreamID].Parser->Fill(Stream_Audio, 0, Audio_BitRate, BitRate, 10, true);
+                        }
+                        Streams[StreamID2].MediaType=(int8u)-1;
+                    }
+                }
+            }
+        }
+    }
+
     //For each Streams
     for (size_t StreamID=0; StreamID<Streams.size(); StreamID++)
         Streams_Finish_PerStream(StreamID, Streams[StreamID]);
@@ -281,54 +323,45 @@ void File_Gxf::Streams_Finish()
 //---------------------------------------------------------------------------
 void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
 {
-    //Init
-    if (Temp.StreamKind==Stream_Max && Temp.MediaType!=21) //and not Ancillary data
+    if (Temp.MediaType==(int8u)-1)
         return;
-    StreamKind_Last=Temp.StreamKind;
-    StreamPos_Last=Temp.StreamPos;
 
     //By the parser
-    if (Temp.MediaType==21) //Ancillary data
+    if (Temp.Parser && Temp.Parser->Status[IsFilled])
     {
+        StreamKind_Last=Stream_Max;
+        StreamPos_Last=(size_t)-1;
         Finish(Temp.Parser);
-        size_t Count_Before=Count_Get(Stream_Text);
         Merge(*Temp.Parser);
-        if (StreamPos_Last!=(size_t)-1)
-        {
-            for (size_t Pos=Count_Before; Pos<=StreamPos_Last; Pos++)
-            {
-                Fill(Stream_Text, Pos, Text_ID, Ztring::ToZtring(StreamID)+_T("-")+Retrieve(Stream_Text, StreamPos_Last, Text_ID), true);
-                Fill(Stream_Text, Pos, Text_Title, Streams[StreamID].MediaFileName);
-            }
-        }
-    }
-    if (Temp.Parser && Temp.Parser->Status[IsAccepted])
-    {
-        Finish(Temp.Parser);
-        Merge(*Temp.Parser, StreamKind_Last, 0, StreamPos_Last);
 
         //Special cases
         if (Temp.Parser->Count_Get(Stream_Video) && Temp.Parser->Count_Get(Stream_Text))
         {
             //Video and Text are together
-            size_t Text_Count=Temp.Parser->Count_Get(Stream_Text);
-            for (size_t Text_Pos=0; Text_Pos<Text_Count; Text_Pos++)
+            size_t Parser_Text_Count=Temp.Parser->Count_Get(Stream_Text);
+            for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
             {
-                Stream_Prepare(Stream_Text);
-                Merge(*Temp.Parser, Stream_Text, Text_Pos, StreamPos_Last);
-
-                Ztring MuxingMode=Retrieve(Stream_Text, StreamPos_Last, "MuxingMode");
-                Fill(Stream_Text, StreamPos_Last, "MuxingMode", _T("Ancillary data / ")+MuxingMode, true);
+                size_t Text_Pos=Count_Get(Stream_Text)-Parser_Text_Count+Parser_Text_Pos;
+                Ztring MuxingMode=Retrieve(Stream_Text, Text_Pos, "MuxingMode");
+                Fill(Stream_Text, Text_Pos, "MuxingMode", _T("Ancillary data / ")+MuxingMode, true);
                 if (!IsSub)
-                    Fill(Stream_Text, StreamPos_Last, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp.StreamPos+1));
-                Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
-                Fill(Stream_Text, StreamPos_Last, Text_ID, Retrieve(Stream_Video, Temp.StreamPos, Video_ID)+_T("-")+ID, true);
-                Fill(Stream_Text, StreamPos_Last, Text_ID_String, Retrieve(Stream_Video, Temp.StreamPos, Video_ID_String)+_T("-")+ID, true);
-                Fill(Stream_Text, StreamPos_Last, Text_Delay, Retrieve(Stream_Video, Temp.StreamPos, Video_Delay), true);
+                    Fill(Stream_Text, Text_Pos, "MuxingMode_MoreInfo", _T("Muxed in Video #")+Ztring().From_Number(Temp.StreamPos+1));
+                Fill(Stream_Video, Count_Get(Stream_Video)-1, General_ID, StreamID);
+                Ztring ID=Retrieve(Stream_Text, Text_Pos, Text_ID);
+                Fill(Stream_Text, Text_Pos, Text_ID, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
+                Fill(Stream_Text, Text_Pos, Text_ID_String, Ztring::ToZtring(AncillaryData_StreamID)+_T("-")+ID, true);
+                Fill(Stream_Text, Text_Pos, Text_Delay, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Delay), true);
             }
 
-            StreamKind_Last=Temp.StreamKind;
-            StreamPos_Last=Temp.StreamPos;
+            StreamKind_Last=Stream_Video;
+            StreamPos_Last=Count_Get(Stream_Video)-1;
+        }
+
+        //Metadata
+        if (StreamKind_Last!=Stream_Max)
+        {
+            Fill(StreamKind_Last, StreamPos_Last, General_ID, StreamID, 10, true);
+            Fill(StreamKind_Last, StreamPos_Last, "Title", Temp.MediaName);
         }
     }
 }
@@ -589,108 +622,114 @@ void File_Gxf::map()
             Element_Info(TrackID&0x3F);
             Element_Info(Gxf_MediaTypes(MediaType&0x7F));
 
-            bool ShouldFill=false;
             FILLING_BEGIN();
                 MediaType&=0x7F; //Remove the last bit
                 TrackID&=0x3F; //Remove the 2 last bits
-                Streams[TrackID].MediaType=MediaType;
-                if (Streams[TrackID].StreamKind==Stream_Max)
+                if (Streams[TrackID].Parser==NULL)
                 {
-                    if (Gxf_MediaTypes_StreamKind(MediaType)!=Stream_Max)
+                    Streams[TrackID].MediaType=MediaType;
+                    Streams[TrackID].TrackID=TrackID;
+
+                    //Parsers
+                    switch (MediaType)
                     {
-                        Stream_Prepare(Gxf_MediaTypes_StreamKind(MediaType));
-                        Streams[TrackID].StreamKind=StreamKind_Last;
-                        Streams[TrackID].StreamPos=StreamPos_Last;
-                        Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Format), Gxf_MediaTypes_Format(MediaType));
-                        Fill(StreamKind_Last, StreamPos_Last, General_ID, TrackID);
+                        case  9 :
+                        case 10 :
+                        case 18 :  //PCM
+                                    Streams[TrackID].Parser=new File__Analyze; //Filling with following data
+                                    Open_Buffer_Init(Streams[TrackID].Parser);
+                                    Streams[TrackID].Parser->Accept();
+                                    Streams[TrackID].Parser->Fill();
+                                    Streams[TrackID].Parser->Stream_Prepare(Stream_Audio);
+                                    Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_Format, "PCM");
+                                    break;
+                        case 11 :
+                        case 12 :
+                        case 20 :
+                        case 22 :
+                        case 23 :   //MPEG Video
+                                    Streams[TrackID].Parser=new File_Mpegv();
+                                    ((File_Mpegv*)Streams[TrackID].Parser)->Cdp_Data=&Cdp_Data;
+                                    ((File_Mpegv*)Streams[TrackID].Parser)->AfdBarData_Data=&AfdBarData_Data;
+                                    Open_Buffer_Init(Streams[TrackID].Parser);
+                                    Parsers_Count++;
+                                    Streams[TrackID].Searching_Payload=true;
+                                    break;
+                        case 13 :
+                        case 14 :
+                        case 15 :
+                        case 16 :   /*Streams[TrackID].Parser=new File_DvDif(); Parsers_Count++; break;*/
+                        case 17 :   //AC-3
+                                    Streams[TrackID].Parser=new File__Analyze; //Filling with following data
+                                    Open_Buffer_Init(Streams[TrackID].Parser);
+                                    Streams[TrackID].Parser->Accept();
+                                    Streams[TrackID].Parser->Fill();
+                                    Streams[TrackID].Parser->Stream_Prepare(Stream_Audio);
+                                    Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_Format, "AC-3");
+                                    break;
+                        case 21 :   //Ancillary Metadata
+                                    Streams[TrackID].Parser=new File_Riff();
+                                    ((File_Riff*)Streams[TrackID].Parser)->Cdp_Data=&Cdp_Data;
+                                    ((File_Riff*)Streams[TrackID].Parser)->AfdBarData_Data=&AfdBarData_Data;
+                                    Open_Buffer_Init(Streams[TrackID].Parser);
+                                    Parsers_Count++;
+                                    Streams[TrackID].Searching_Payload=true;
+                                    if (SizeToAnalyze<4*16*1024*1024)
+                                        SizeToAnalyze*=4; //4x more, to be sure to find captions
+                                    AncillaryData_StreamID=TrackID;
+                                    break;
+                        default :   ;
+                    }
 
-                        if (StreamKind_Last==Stream_Audio)
-                        {
-                            //Resolution
-                            switch (MediaType)
-                            {
-                                case  9 :
-                                case 18 :   //24-bit
-                                            Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, 24);
-                                            break;
-                                case 10 :
-                                case 17 :   //16-bit
-                                            Fill(Stream_Audio, StreamPos_Last, Audio_Resolution, 16);
-                                            break;
-                                default : ;
-                            }
-
-                            //Channels
-                            switch (MediaType)
-                            {
-                                case  9 :
-                                case 10 :   //Mono
-                                            Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 1);
-                                            break;
-                                default : ;
-                            }
-
-                            //Sampling rate
-                            switch (MediaType)
-                            {
-                                case  9 :
-                                case 10 :
-                                case 17 :   //48000
-                                            Fill(Stream_Audio, StreamPos_Last, Audio_SamplingRate, 48000);
-                                            break;
-                                default : ;
-                            }
-
-                            //Bit rate
-                            switch (MediaType)
-                            {
-                                case  9 :
-                                case 17 :   //Mono, 48 KHz, 24-bit (or padded up to 24-bit)
-                                            Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, 1*48000*24);
-                                            break;
-                                case 10 :   //Mono, 48 KHz, 16-bit
-                                            Fill(Stream_Audio, StreamPos_Last, Audio_BitRate, 1*48000*16);
-                                            break;
-                                default : ;
-                            }
-                        }
-
-                        //Parsers
+                    if (Gxf_MediaTypes_StreamKind(MediaType)==Stream_Audio)
+                    {
+                        //Resolution
                         switch (MediaType)
                         {
-                            case 11 :
-                            case 12 :
-                            case 20 :
-                            case 22 :
-                            case 23 :   //MPEG Video
-                                        Streams[TrackID].Parser=new File_Mpegv();
-                                        ((File_Mpegv*)Streams[TrackID].Parser)->Cdp_Data=&Cdp_Data;
-                                        ((File_Mpegv*)Streams[TrackID].Parser)->AfdBarData_Data=&AfdBarData_Data;
-                                        Open_Buffer_Init(Streams[TrackID].Parser);
-                                        Parsers_Count++;
-                                        Streams[TrackID].Searching_Payload=true;
+                            case  9 :
+                            case 18 :   //24-bit
+                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_Resolution, 24);
                                         break;
-                            case 13 :
-                            case 14 :
-                            case 15 :
-                            case 16 :   /*Streams[TrackID].Parser=new File_DvDif(); Parsers_Count++;*/ break;
-                            case 17 :   /*Streams[TrackID].Parser=new File_Ac3(); Parsers_Count++;*/ break;
+                            case 10 :
+                            case 17 :   //16-bit
+                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_Resolution, 16);
+                                        break;
                             default : ;
                         }
 
-                        ShouldFill=true;
-                    }
-                    else if (MediaType==21)
-                    {
-                        //Ancillary Metadata
-                        Streams[TrackID].Parser=new File_Riff();
-                        ((File_Riff*)Streams[TrackID].Parser)->Cdp_Data=&Cdp_Data;
-                        ((File_Riff*)Streams[TrackID].Parser)->AfdBarData_Data=&AfdBarData_Data;
-                        Open_Buffer_Init(Streams[TrackID].Parser);
-                        Parsers_Count++;
-                        Streams[TrackID].Searching_Payload=true;
-                        if (SizeToAnalyze<4*16*1024*1024)
-                            SizeToAnalyze*=4; //4x more, to be sure to find captions
+                        //Channels
+                        switch (MediaType)
+                        {
+                            case  9 :
+                            case 10 :   //Mono
+                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_Channel_s_, 1);
+                                        break;
+                            default : ;
+                        }
+
+                        //Sampling rate
+                        switch (MediaType)
+                        {
+                            case  9 :
+                            case 10 :
+                            case 17 :   //48000
+                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_SamplingRate, 48000);
+                                        break;
+                            default : ;
+                        }
+
+                        //Bit rate
+                        switch (MediaType)
+                        {
+                            case  9 :
+                            case 17 :   //Mono, 48 KHz, 24-bit (or padded up to 24-bit)
+                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_BitRate, 1*48000*24);
+                                        break;
+                            case 10 :   //Mono, 48 KHz, 16-bit
+                                        Streams[TrackID].Parser->Fill(Stream_Audio, 0, Audio_BitRate, 1*48000*16);
+                                        break;
+                            default : ;
+                        }
                     }
                 }
             FILLING_END();
@@ -704,10 +743,10 @@ void File_Gxf::map()
                 Element_Name(Gxf_Tag_Name(Tag));
                 switch (Tag)
                 {
-                    case 0x4C : //Media file name
-                                Get_Local(DataLength, Streams[TrackID].MediaFileName, "Content");
-                                if (ShouldFill)
-                                    Fill(StreamKind_Last, StreamPos_Last, "Title", Streams[TrackID].MediaFileName);
+                    case 0x4C : //Media name
+                                {
+                                    Get_Local(DataLength, Streams[TrackID].MediaName, "Content");
+                                }
                                 break;
                     case 0x4D : //Auxiliary Information
                                 if (DataLength==8)
@@ -757,10 +796,7 @@ void File_Gxf::map()
                     case 0x50 : //Frame rate
                                 if (DataLength==4)
                                 {
-                                    int32u Content;
-                                    Get_B4 (Content,            "Content"); Param_Info(Gxf_FrameRate(Content)); Element_Info(Gxf_FrameRate(Content));
-                                    if (ShouldFill && StreamKind_Last==Stream_Video)
-                                        Fill(Stream_Video, StreamPos_Last, Video_FrameRate, Gxf_FrameRate(Content));
+                                    Get_B4 (Streams[TrackID].FrameRate_Code, "Content"); Param_Info(Gxf_FrameRate(Streams[TrackID].FrameRate_Code)); Element_Info(Gxf_FrameRate(Streams[TrackID].FrameRate_Code));
                                 }
                                 else
                                     Skip_XX(DataLength,         "Unknown");
@@ -768,16 +804,7 @@ void File_Gxf::map()
                     case 0x51 : //Lines per frame
                                 if (DataLength==4)
                                 {
-                                    int32u Content;
-                                    Get_B4 (Content,            "Content"); Param_Info(Gxf_LinesPerFrame_Height(Content)); Element_Info(Gxf_LinesPerFrame_Height(Content));
-                                    if (ShouldFill && StreamKind_Last==Stream_Video)
-                                    {
-                                        if (Gxf_LinesPerFrame_Height(Content))
-                                        {
-                                            Fill(Stream_Video, StreamPos_Last, Video_Width, Gxf_LinesPerFrame_Width(Content));
-                                            Fill(Stream_Video, StreamPos_Last, Video_Height, Gxf_LinesPerFrame_Height(Content));
-                                        }
-                                    }
+                                    Get_B4 (Streams[TrackID].LinesPerFrame_Code, "Content"); Param_Info(Gxf_LinesPerFrame_Height(Streams[TrackID].LinesPerFrame_Code)); Element_Info(Gxf_LinesPerFrame_Height(Streams[TrackID].LinesPerFrame_Code));
                                 }
                                 else
                                     Skip_XX(DataLength,         "Unknown");
@@ -785,14 +812,9 @@ void File_Gxf::map()
                     case 0x52 : //Fields per frame
                                 if (DataLength==4)
                                 {
-                                    int32u Content;
-                                    Get_B4 (Content,            "Content"); Param_Info(Gxf_FieldsPerFrame(Content)); Element_Info(Gxf_FieldsPerFrame(Content));
-                                    if (ShouldFill && StreamKind_Last==Stream_Video)
-                                    {
-                                        Fill(Stream_Video, StreamPos_Last, Video_ScanType, Gxf_FieldsPerFrame(Content));
-                                        if (StreamPos_Last==0)
-                                            Material_Fields_FieldsPerFrame=Content;
-                                    }
+                                    Get_B4 (Streams[TrackID].FieldsPerFrame_Code, "Content"); Param_Info(Gxf_FieldsPerFrame(Streams[TrackID].FieldsPerFrame_Code)); Element_Info(Gxf_FieldsPerFrame(Streams[TrackID].FieldsPerFrame_Code));
+                                    if (Gxf_MediaTypes_StreamKind(MediaType)==Stream_Video)
+                                        Material_Fields_FieldsPerFrame=Streams[TrackID].FieldsPerFrame_Code;
                                 }
                                 else
                                     Skip_XX(DataLength,         "Unknown");

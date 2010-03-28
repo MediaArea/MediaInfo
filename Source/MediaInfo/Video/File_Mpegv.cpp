@@ -1061,7 +1061,8 @@ void File_Mpegv::picture_start()
                 }
                 if (Cdp_Parser->PTS_DTS_Needed)
                     Cdp_Parser->DTS=DTS;
-                Open_Buffer_Continue(Cdp_Parser, (*Cdp_Data)[0]->Data, (*Cdp_Data)[0]->Size);
+                if (!Cdp_Parser->Status[IsFinished])
+                    Open_Buffer_Continue(Cdp_Parser, (*Cdp_Data)[0]->Data, (*Cdp_Data)[0]->Size);
 
                 //Removing data from stack
                 Cdp_Data->erase(Cdp_Data->begin());
@@ -1085,7 +1086,8 @@ void File_Mpegv::picture_start()
                 }
                 if (AfdBarData_Parser->PTS_DTS_Needed)
                     AfdBarData_Parser->DTS=DTS;
-                Open_Buffer_Continue(AfdBarData_Parser, (*AfdBarData_Data)[0]->Data, (*AfdBarData_Data)[0]->Size);
+                if (!AfdBarData_Parser->Status[IsFinished])
+                    Open_Buffer_Continue(AfdBarData_Parser, (*AfdBarData_Data)[0]->Data, (*AfdBarData_Data)[0]->Size);
 
                 //Removing data from stack
                 AfdBarData_Data->erase(AfdBarData_Data->begin());
