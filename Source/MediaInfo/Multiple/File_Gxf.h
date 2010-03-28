@@ -94,12 +94,12 @@ private :
         File__Analyze* Parser;
         stream_t StreamKind;
         size_t StreamPos;
-        int32u MediaType;
         int32u TimeStamp_Start;
         int32u TimeStamp_End;
         int32u FrameRate_Code;
         int32u LinesPerFrame_Code;
         int32u FieldsPerFrame_Code;
+        int8u  MediaType;
         int8u  TrackID;
         bool   Searching_Payload;
         bool   Searching_TimeStamp_Start;
@@ -111,13 +111,13 @@ private :
             Parser=NULL;
             StreamKind=Stream_Max;
             StreamPos=(size_t)-1;
-            MediaType=(int8u)-1;
             Searching_Payload=false;
             Searching_TimeStamp_Start=false;
             Searching_TimeStamp_End=false;
             FrameRate_Code=(int32u)-1;
             LinesPerFrame_Code=(int32u)-1;
             FieldsPerFrame_Code=(int32u)-1;
+            MediaType=(int8u)-1;
             TrackID=(int8u)-1;
         }
         ~stream()

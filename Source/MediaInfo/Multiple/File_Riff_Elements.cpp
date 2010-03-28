@@ -2673,14 +2673,6 @@ void File_Riff::rcrd_fld__anc__pyld()
                                             }
                                             #endif //MEDIAINFO_AFDBARDATA_YES
                                             break;
-                                case 0x02 : //CEA-608 (from SMPTE 331-1)
-                                            #if defined(MEDIAINFO_EIA608_YES)
-                                            if (DataCount==3) //This must be 3-byte data
-                                            {
-                                                //CEA-608 in video presentation order
-                                            }
-                                            #endif //MEDIAINFO_EIA608_YES
-                                            break;
                                 default   : ;
                                 ;
                             }
