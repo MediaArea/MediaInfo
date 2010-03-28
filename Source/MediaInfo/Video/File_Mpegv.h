@@ -201,6 +201,7 @@ private :
     int16u vertical_size_value;
     int16u bit_rate_extension;
     int16u temporal_reference;
+    int16u temporal_reference_Old;
     int16u display_horizontal_size;
     int16u display_vertical_size;
     int16u vbv_delay;

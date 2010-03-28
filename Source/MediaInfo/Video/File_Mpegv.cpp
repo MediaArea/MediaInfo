@@ -717,6 +717,7 @@ void File_Mpegv::Synched_Init()
     horizontal_size_value=0;
     vertical_size_value=0;
     bit_rate_extension=0;
+    temporal_reference_Old=(int16u)-1;
     aspect_ratio_information=0;
     frame_rate_code=0;
     profile_and_level_indication_profile=(int8u)-1;
@@ -756,6 +757,7 @@ void File_Mpegv::Read_Buffer_Unsynched()
     Time_End_Seconds=Error;
     Time_End_Frames=(int8u)-1;
 
+    temporal_reference_Old=(int16u)-1;
     TemporalReference.clear();
     TemporalReference_Offset=0;
     #if defined(MEDIAINFO_DTVCCTRANSPORT_YES)
@@ -982,6 +984,14 @@ void File_Mpegv::picture_start()
     BS_End();
 
     FILLING_BEGIN();
+        if (temporal_reference==temporal_reference_Old)
+        {
+            Frame_Count--;
+            Frame_Count_InThisBlock--;
+        }
+        else
+            temporal_reference_Old=temporal_reference;
+
         //Temporal reference
         if (TemporalReference_Offset+temporal_reference>=TemporalReference.size())
             TemporalReference.resize(TemporalReference_Offset+temporal_reference+1);
@@ -989,35 +999,15 @@ void File_Mpegv::picture_start()
             TemporalReference[TemporalReference_Offset+temporal_reference]=new temporalreference;
         TemporalReference[TemporalReference_Offset+temporal_reference]->IsValid=true;
 
-        //Time
-        if (Time_End_Seconds!=Error)
-        {
-            Time_End_Frames++; //One frame
-            if (progressive_sequence && repeat_first_field)
-            {
-                Time_End_Frames++; //Frame repeated a second time
-                if (top_field_first)
-                    Time_End_Frames++; //Frame repeated a third time
-            }
-        }
-
-        //Counting
-        if (File_Offset+Buffer_Offset+Element_Size==File_Size)
-            Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
-        Frame_Count++;
-        Frame_Count_InThisBlock++;
-        if (picture_coding_type==3)
-            BVOP_Count++;
-
         //Info
         #ifndef MEDIAINFO_MINIMIZESIZE
-            Element_Info(_T("temporal_reference ")+Ztring::ToZtring(temporal_reference));
+            Element_Info(_T("Frame ")+Ztring::ToZtring(Frame_Count));
             Element_Info(_T("picture_coding_type ")+Ztring().From_Local(Mpegv_picture_coding_type[picture_coding_type]));
+            Element_Info(_T("temporal_reference ")+Ztring::ToZtring(temporal_reference));
             if (PTS!=(int64u)-1)
                 Element_Info(_T("PTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)PTS)/1000000)));
             if (DTS!=(int64u)-1)
                 Element_Info(_T("DTS ")+Ztring().Duration_From_Milliseconds(float64_int64s(((float64)DTS)/1000000)));
-            Element_Info((progressive_sequence?_T("Frame "):_T("Field "))+Ztring::ToZtring(Frame_Count));
             if (Time_End_Seconds!=Error)
             {
                 int32u Time_End  =Time_End_Seconds  *1000;
@@ -1042,6 +1032,26 @@ void File_Mpegv::picture_start()
                 Element_Info(_T("time_code ")+Time);
             }
         #endif //MEDIAINFO_MINIMIZESIZE
+
+        //Time
+        if (Time_End_Seconds!=Error)
+        {
+            Time_End_Frames++; //One frame
+            if (progressive_sequence && repeat_first_field)
+            {
+                Time_End_Frames++; //Frame repeated a second time
+                if (top_field_first)
+                    Time_End_Frames++; //Frame repeated a third time
+            }
+        }
+
+        //Counting
+        if (File_Offset+Buffer_Offset+Element_Size==File_Size)
+            Frame_Count_Valid=Frame_Count; //Finish frames in case of there are less than Frame_Count_Valid frames
+        Frame_Count++;
+        Frame_Count_InThisBlock++;
+        if (picture_coding_type==3)
+            BVOP_Count++;
 
         //CDP
         #if defined(MEDIAINFO_GXF_YES) && defined(MEDIAINFO_CDP_YES)
@@ -1497,6 +1507,7 @@ void File_Mpegv::sequence_header()
 
     FILLING_BEGIN_PRECISE();
         //Temporal reference
+        temporal_reference_Old=(int16u)-1;
         TemporalReference_Offset=TemporalReference.size();
         if (TemporalReference_Offset>=0x800)
         {

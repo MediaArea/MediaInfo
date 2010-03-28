@@ -2658,26 +2658,24 @@ void File_Riff::rcrd_fld__anc__pyld()
         {
             switch (DataID)
             {
-                case 0x41 :
+                case 0x45 : // (from SMPTE 2020-1)
                             switch (SecondaryDataID)
                             {
-                                case 0x05 : //AFD & Bar data
-                                            #if defined(MEDIAINFO_AFDBARDATA_YES)
-                                            if (AfdBarData_Data)
-                                            {
-                                                buffered_data* AfdBarData=new buffered_data;
-                                                AfdBarData->Data=new int8u[(size_t)DataCount];
-                                                std::memcpy(AfdBarData->Data, Payload, (size_t)DataCount);
-                                                AfdBarData->Size=(size_t)DataCount;
-                                                AfdBarData_Data->push_back(AfdBarData);
-                                            }
-                                            #endif //MEDIAINFO_AFDBARDATA_YES
+                                case 0x01 : //No association
+                                case 0x02 : //Channel pair 1/2
+                                case 0x03 : //Channel pair 3/4
+                                case 0x04 : //Channel pair 5/6
+                                case 0x05 : //Channel pair 7/8
+                                case 0x06 : //Channel pair 9/10
+                                case 0x07 : //Channel pair 11/12
+                                case 0x08 : //Channel pair 13/14
+                                case 0x09 : //Channel pair 15/16
                                             break;
                                 default   : ;
                                 ;
                             }
                             break;
-                case 0x61 : //Defined data services
+                case 0x61 : //Defined data services (from SMPTE 331-1)
                             switch (SecondaryDataID)
                             {
                                 case 0x01 : //CDP (from SMPTE 331-1), saving data for future use
@@ -2704,7 +2702,7 @@ void File_Riff::rcrd_fld__anc__pyld()
                                 ;
                             }
                             break;
-                case 0x62 : //Variable-format data services
+                case 0x62 : //Variable-format data services (from SMPTE 331-1)
                             switch (SecondaryDataID)
                             {
                                 case 0x01 : //Program description (from SMPTE 331-1),
