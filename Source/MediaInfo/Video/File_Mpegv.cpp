@@ -1059,10 +1059,13 @@ void File_Mpegv::picture_start()
                     Cdp_Parser=new File_Cdp;
                     Open_Buffer_Init(Cdp_Parser);
                 }
-                if (Cdp_Parser->PTS_DTS_Needed)
-                    Cdp_Parser->DTS=DTS;
                 if (!Cdp_Parser->Status[IsFinished])
+                {
+                    if (Cdp_Parser->PTS_DTS_Needed)
+                        Cdp_Parser->DTS=DTS;
+                    ((File_Cdp*)Cdp_Parser)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
                     Open_Buffer_Continue(Cdp_Parser, (*Cdp_Data)[0]->Data, (*Cdp_Data)[0]->Size);
+                }
 
                 //Removing data from stack
                 Cdp_Data->erase(Cdp_Data->begin());
@@ -1408,7 +1411,7 @@ void File_Mpegv::user_data_start_GA94_03()
                 {
                     GA94_03_Parser=new File_DtvccTransport;
                     Open_Buffer_Init(GA94_03_Parser);
-                    ((File_DtvccTransport*)GA94_03_Parser)->Format=File_DtvccTransport::Fromat_A53_4_GA94_03;
+                    ((File_DtvccTransport*)GA94_03_Parser)->Format=File_DtvccTransport::Format_A53_4_GA94_03;
                 }
                 if (GA94_03_Parser->PTS_DTS_Needed)
                 {
