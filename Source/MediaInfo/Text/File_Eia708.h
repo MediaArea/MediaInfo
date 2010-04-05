@@ -176,7 +176,7 @@ private :
     void Character_Fill(wchar_t Character);
     void HasChanged();
     void Window_HasChanged();
-    void Illegal(int8u cc_data_1, int8u cc_data_2);
+    void Illegal(int8u Size, int8u cc_data_1, int8u cc_data_2=(int8u)-1, int8u cc_data_3=(int8u)-1, int8u cc_data_4=(int8u)-1, int8u cc_data_5=(int8u)-1, int8u cc_data_6=(int8u)-1);
 };
 
 } //NameSpace

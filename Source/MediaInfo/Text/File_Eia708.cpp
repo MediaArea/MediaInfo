@@ -514,7 +514,7 @@ void File_Eia708::Service()
             case 0xFD : Character_Fill(L'\xFD'  ); break;
             case 0xFE : Character_Fill(L'\xFE'  ); break;
             case 0xFF : Character_Fill(L'\xFF'  ); break;
-            default   : ;
+            default   : Illegal(1, cc_data_1);
         }
     }
 }
@@ -829,10 +829,13 @@ void File_Eia708::HDW()
             {
                 Window->visible=false;
 
-                //Filling global area
                 for (size_t Pos_Y=0; Pos_Y<Window->row_count; Pos_Y++)
                     for (size_t Pos_X=0; Pos_X<Window->column_count; Pos_X++)
                     {
+                        //Clearing window
+                        Window->Minimal.CC[Pos_Y][Pos_X]=character();
+
+                        //Filling global area
                         if (Window->Minimal.Window_y+Pos_Y<Streams[service_number]->Minimal.CC.size() && Window->Minimal.Window_x+Pos_Y<Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Window->Minimal.y].size())
                             Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Pos_Y][Window->Minimal.Window_x+Pos_X]=character();
                     }
@@ -943,6 +946,10 @@ void File_Eia708::DLW()
                 for (size_t Pos_Y=0; Pos_Y<Window->row_count; Pos_Y++)
                     for (size_t Pos_X=0; Pos_X<Window->column_count; Pos_X++)
                     {
+                        //Clearing window
+                        Window->Minimal.CC[Pos_Y][Pos_X]=character();
+
+                        //Filling global area
                         if (Window->Minimal.Window_y+Pos_Y<Streams[service_number]->Minimal.CC.size() && Window->Minimal.Window_x+Pos_Y<Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Window->Minimal.y].size())
                             Streams[service_number]->Minimal.CC[Window->Minimal.Window_y+Pos_Y][Window->Minimal.Window_x+Pos_X]=character();
                     }
@@ -1209,7 +1216,7 @@ void File_Eia708::HasChanged()
 }
 
 //---------------------------------------------------------------------------
-void File_Eia708::Illegal(int8u cc_data_1, int8u cc_data_2)
+void File_Eia708::Illegal(int8u Size, int8u cc_data_1, int8u cc_data_2, int8u cc_data_3, int8u cc_data_4, int8u cc_data_5, int8u cc_data_6)
 {
 }
 
