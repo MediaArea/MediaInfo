@@ -1685,7 +1685,7 @@ void File_Mpegv::extension_start()
                                 }
 
                                 //Removing data from stack
-                                delete Cdp_Data[0]; //Cdp_Data[0]=NULL;
+                                delete (*Cdp_Data)[0]; //Cdp_Data[0]=NULL;
                                 Cdp_Data->erase(Cdp_Data->begin());
 
                                 Element_End();
@@ -1711,7 +1711,7 @@ void File_Mpegv::extension_start()
                                     Open_Buffer_Continue(AfdBarData_Parser, (*AfdBarData_Data)[0]->Data, (*AfdBarData_Data)[0]->Size);
 
                                 //Removing data from stack
-                                delete AfdBarData_Data[0]; //AfdBarData_Data[0]=NULL;
+                                delete (*AfdBarData_Data)[0]; //AfdBarData_Data[0]=NULL;
                                 AfdBarData_Data->erase(AfdBarData_Data->begin());
 
                                 Element_End();
